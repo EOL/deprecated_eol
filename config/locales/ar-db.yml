@@ -1,1060 +1,365 @@
-﻿ar:
-  translated_content_tables-label-content_table_id-1: "التفاصيل"
-  translated_contact_roles-label-contact_role_id-2: "المسئول الإداري"
-  translated_contact_roles-label-contact_role_id-1: "جهة الاتصال الرئيسية"
-  translated_contact_roles-label-contact_role_id-3: "المسئول التقني"
-  translated_resource_statuses-label-resource_status_id-1: "جاري الرفع"
-  translated_resource_statuses-label-resource_status_id-2: "تم الرفع"
-  translated_resource_statuses-label-resource_status_id-3: "لم يتم الرفع"
-  translated_resource_statuses-label-resource_status_id-4: "تم النقل إلى خادم المحتوى"
-  translated_resource_statuses-label-resource_status_id-5: "تم التحقق من صحتها"
-  translated_resource_statuses-label-resource_status_id-6: "لم يتم التحقق من صحتها"
+# Messages for Arabic (العربية)
+# Exported from translatewiki.net
+# Export driver: syck-pecl
+# Author: OsamaK
+# Author: ترجمان05
+ar: 
+  translated_activities-name-activity_id-19: المعلومات الشخصية
+  translated_activities-name-activity_id-50: غير موثوق فيه
+  translated_activities-name-activity_id-51: عرض
+  translated_activities-name-activity_id-52: اصنع
+  translated_activities-name-activity_id-53: إخفاء
+  translated_activities-name-activity_id-54: تحديث
+  translated_activities-name-activity_id-55: غير لائق
+  translated_activities-name-activity_id-56: مسح
+  translated_activities-name-activity_id-57: المعدل
+  translated_activities-name-activity_id-58: موثوق فيه
+  translated_activities-name-activity_id-59: غير مُراجَع
+  translated_activities-name-activity_id-63: جمع
+  translated_activities-name-activity_id-64: حذف
+  translated_agent_roles-label-agent_role_id-1: رسام رسوم متحركة
+  translated_agent_roles-label-agent_role_id-10: مشروع
+  translated_agent_roles-label-agent_role_id-11: ناشر
+  translated_agent_roles-label-agent_role_id-12: مسجل
+  translated_agent_roles-label-agent_role_id-13: مصدر
+  translated_agent_roles-label-agent_role_id-14: قاعدة بيانات المصادر
+  translated_agent_roles-label-agent_role_id-15: المسئول
+  translated_agent_roles-label-agent_role_id-16: المساهِم
+  translated_agent_roles-label-agent_role_id-2: كاتب
+  translated_agent_roles-label-agent_role_id-21: مقدم المحتوى
+  translated_agent_roles-label-agent_role_id-22: المترجم
+  translated_agent_roles-label-agent_role_id-23: المراجع علمي
+  translated_agent_roles-label-agent_role_id-24: المراجع اللغوي
+  translated_agent_roles-label-agent_role_id-3: المترجم أو المُصَّرف
+  translated_agent_roles-label-agent_role_id-4: مؤلف
+  translated_agent_roles-label-agent_role_id-5: الصانع
+  translated_agent_roles-label-agent_role_id-6: مدير
+  translated_agent_roles-label-agent_role_id-7: محرر
+  translated_agent_roles-label-agent_role_id-8: المصور
+  translated_agent_roles-label-agent_role_id-9: المصور الفوتوغرافي
+  translated_audiences-label-audience_id-1: مستخدمون متمرسون
+  translated_audiences-label-audience_id-2: الجمهور العام
+  translated_audiences-label-audience_id-3: أطفال
+  translated_collection_types-label-collection_type_id-1: التصنيف
+  translated_collection_types-label-collection_type_id-10: الأصوات
+  translated_collection_types-label-collection_type_id-11: الروابط
+  translated_collection_types-label-collection_type_id-12: المطبوعات
+  translated_collection_types-label-collection_type_id-13: التصنيف
+  translated_collection_types-label-collection_type_id-14: الشفرات العمودية الجزيئية
+  translated_collection_types-label-collection_type_id-15: الشرح
+  translated_collection_types-label-collection_type_id-16: الصور
+  translated_collection_types-label-collection_type_id-17: التوزيع
+  translated_collection_types-label-collection_type_id-18: حالة الحفظ
+  translated_collection_types-label-collection_type_id-19: معلومات الأسم
+  translated_collection_types-label-collection_type_id-2: الشفرات العمودية الجزيئية
+  translated_collection_types-label-collection_type_id-20: البيانات الجزيئية
+  translated_collection_types-label-collection_type_id-21: الأسماء التعريفية
+  translated_collection_types-label-collection_type_id-22: الأصوات
+  translated_collection_types-label-collection_type_id-23: الروابط
+  translated_collection_types-label-collection_type_id-24: المواد
+  translated_collection_types-label-collection_type_id-3: الشرح
+  translated_collection_types-label-collection_type_id-4: الصور
+  translated_collection_types-label-collection_type_id-5: التوزيع
+  translated_collection_types-label-collection_type_id-6: حالة الحفظ
+  translated_collection_types-label-collection_type_id-7: معلومات الأسم
+  translated_collection_types-label-collection_type_id-8: البيانات الجزيئية
+  translated_collection_types-label-collection_type_id-9: الأسماء التعريفية
+  translated_contact_roles-label-contact_role_id-1: جهة الاتصال الرئيسية
+  translated_contact_roles-label-contact_role_id-2: المسئول الإداري
+  translated_contact_roles-label-contact_role_id-3: المسئول التقني
+  translated_contact_subjects-title-contact_subject_id-1: محتوى إعلامي(مقابلات، طلبات صور)
+  translated_contact_subjects-title-contact_subject_id-10: محتوى
+  translated_contact_subjects-title-contact_subject_id-11: مشكلات تقنية (مشكلات متعلقة بالموقع وأدوات البحث وحسابات المستخدمين)
+  translated_contact_subjects-title-contact_subject_id-12: أخرى
+  translated_contact_subjects-title-contact_subject_id-13: دعم القيم على الصفحة
+  translated_contact_subjects-title-contact_subject_id-14: طلب تحميل صور
+  translated_contact_subjects-title-contact_subject_id-15: تصحيح (صور، هجاء ونحو، معلومات)
+  translated_contact_subjects-title-contact_subject_id-16: تعليق عام على المشروع
+  translated_contact_subjects-title-contact_subject_id-17: إسهام مالي
+  translated_contact_subjects-title-contact_subject_id-18: اصبح شريك بالمحتوى
+  translated_contact_subjects-title-contact_subject_id-19: إرسال تعليق لمجموعة صفحات الأنواع
+  translated_contact_subjects-title-contact_subject_id-2: إسهامات
+  translated_contact_subjects-title-contact_subject_id-20: دعم شركاء المحتوى
+  translated_contact_subjects-title-contact_subject_id-21: ارسل رسالة إلى سينثيا بار على مجموعة صفحات الأنواع
+  translated_contact_subjects-title-contact_subject_id-22: موارد خليج المكسيك
+  translated_contact_subjects-title-contact_subject_id-3: تَعلم وتعليم
+  translated_contact_subjects-title-contact_subject_id-4: تحديث الصفحات
+  translated_contact_subjects-title-contact_subject_id-5: تصنيف
+  translated_contact_subjects-title-contact_subject_id-6: بحث في المعلوماتية الحيوية
+  translated_contact_subjects-title-contact_subject_id-7: بحث حيوي
+  translated_contact_subjects-title-contact_subject_id-8: البيولوجيا النباتية
+  translated_contact_subjects-title-contact_subject_id-9: مكتبة النصوص وتراث التنوع الحيوي
+  translated_content_partner_statuses-label-content_partner_status_id-1: مُعلَّق
+  translated_content_partner_statuses-label-content_partner_status_id-2: نشِط
+  translated_content_partner_statuses-label-content_partner_status_id-3: في الأرشيف
+  translated_content_partner_statuses-label-content_partner_status_id-4: غير نشط
+  translated_content_tables-label-content_table_id-1: التفاصيل
+  translated_data_types-label-data_type_id-1: صورة
+  translated_data_types-label-data_type_id-10: خريطة
+  translated_data_types-label-data_type_id-2: صوت
+  translated_data_types-label-data_type_id-3: نص
+  translated_data_types-label-data_type_id-4: فيديو
+  translated_data_types-label-data_type_id-5: صورة GBIF
+  translated_data_types-label-data_type_id-6: الاتحاد الدولي لحماية الطبيعة (IUCN)
+  translated_data_types-label-data_type_id-7: فلاش
+  translated_data_types-label-data_type_id-8: يوتيوب
+  translated_licenses-description-license_id-1: لا حقوق محفوظة
+  translated_licenses-description-license_id-2: جميع الحقوق محفوظة
+  translated_licenses-description-license_id-29: بعض الحقوق محفوظة
+  translated_licenses-description-license_id-3: بعض الحقوق محفوظة
+  translated_licenses-description-license_id-30: بعض الحقوق محفوظة
+  translated_licenses-description-license_id-31: بعض الحقوق محفوظة
+  translated_licenses-description-license_id-32: بعض الحقوق محفوظة
+  translated_licenses-description-license_id-33: بعض الحقوق محفوظة
+  translated_licenses-description-license_id-34: ملك عام
+  translated_licenses-description-license_id-35: ملك عام
+  translated_licenses-description-license_id-36: بعض الحقوق محفوظة
+  translated_licenses-description-license_id-37: بعض الحقوق محفوظة
+  translated_licenses-description-license_id-38: بعض الحقوق محفوظة
+  translated_licenses-description-license_id-39: ملك عام
+  translated_licenses-description-license_id-4: بعض الحقوق محفوظة
+  translated_licenses-description-license_id-42: بعض الحقوق محفوظة
+  translated_licenses-description-license_id-43: رخصة أخرى
+  translated_licenses-description-license_id-5: بعض الحقوق محفوظة
+  translated_licenses-description-license_id-6: بعض الحقوق محفوظة
+  translated_licenses-description-license_id-7: بعض الحقوق محفوظة
+  translated_licenses-description-license_id-8: بعض الحقوق محفوظة
+  translated_licenses-description-license_id-9: بعض الحقوق محفوظة
+  translated_ranks-label-rank_id-106: شكل
+  translated_ranks-label-rank_id-107: شكل
+  translated_ranks-label-rank_id-112: الجنس
+  translated_ranks-label-rank_id-113: جنس
+  translated_ranks-label-rank_id-118: جنس
+  translated_ranks-label-rank_id-169: تحت رتبة
+  translated_ranks-label-rank_id-175: تحت نوع
+  translated_ranks-label-rank_id-183: مملكة
+  translated_ranks-label-rank_id-266: رتبة
+  translated_ranks-label-rank_id-280: شعبة
+  translated_ranks-label-rank_id-313: جزء
+  translated_ranks-label-rank_id-314: قسم
+  translated_ranks-label-rank_id-317: القسم
+  translated_ranks-label-rank_id-324: التسلسل
+  translated_ranks-label-rank_id-332: الأسبانية
+  translated_ranks-label-rank_id-333: هجاء
+  translated_ranks-label-rank_id-335: الأنواع
+  translated_ranks-label-rank_id-352: تحت عائلة
+  translated_ranks-label-rank_id-370: تحت صف
+  translated_ranks-label-rank_id-375: شعيبة
+  translated_ranks-label-rank_id-383: أسرة
+  translated_ranks-label-rank_id-390: تحت جنس
+  translated_ranks-label-rank_id-391: سبط
+  translated_ranks-label-rank_id-394: تحت جنس
+  translated_ranks-label-rank_id-396: تحت مملكة
+  translated_ranks-label-rank_id-399: تحت رتبة
+  translated_ranks-label-rank_id-401: تحت شعبة
+  translated_ranks-label-rank_id-408: تحت قسم
+  translated_ranks-label-rank_id-411: تحت سلسلة
+  translated_ranks-label-rank_id-413: تحت نوع
+  translated_ranks-label-rank_id-414: سلالة
+  translated_ranks-label-rank_id-415: سلالة
+  translated_ranks-label-rank_id-422: عمارة
+  translated_ranks-label-rank_id-463: فوق فصيلة
+  translated_ranks-label-rank_id-472: قسم
+  translated_ranks-label-rank_id-494: قبيلة
+  translated_ranks-label-rank_id-503: غير مصنف
+  translated_ranks-label-rank_id-51: الفئة
+  translated_ranks-label-rank_id-512: صنف
+  translated_ranks-label-rank_id-513: صنف
+  translated_ranks-label-rank_id-517: التنويعات
+  translated_ranks-label-rank_id-518: صنف
+  translated_ranks-label-rank_id-562: جنس هجين
+  translated_ranks-label-rank_id-563: نوع هجين
+  translated_ranks-label-rank_id-564: نوع فرعي هجين
+  translated_ranks-label-rank_id-565: تنوع هجين
+  translated_ranks-label-rank_id-74: تقسيم
+  translated_ranks-label-rank_id-85: ع
+  translated_ranks-label-rank_id-86: ع.
+  translated_ranks-label-rank_id-91: العائلة
+  translated_ranks-label-rank_id-92: فصيلة
+  translated_ranks-label-rank_id-99: فصيلة
+  translated_resource_statuses-label-resource_status_id-1: يرفع
+  translated_resource_statuses-label-resource_status_id-10: تم النشر
+  translated_resource_statuses-label-resource_status_id-11: النشر معلق
+  translated_resource_statuses-label-resource_status_id-12: إلغاء النشر معلق
+  translated_resource_statuses-label-resource_status_id-13: تنفيذ الجمع
+  translated_resource_statuses-label-resource_status_id-2: تم الرفع
+  translated_resource_statuses-label-resource_status_id-3: لم يتم الرفع
+  translated_resource_statuses-label-resource_status_id-4: تم النقل إلى خادم المحتوى
+  translated_resource_statuses-label-resource_status_id-5: تم التحقق من صحتها
+  translated_resource_statuses-label-resource_status_id-6: لم يتم التحقق من صحتها
   translated_resource_statuses-label-resource_status_id-7: " جاري المعالجة"
-  translated_resource_statuses-label-resource_status_id-8: "تمت المعالجة"
-  translated_resource_statuses-label-resource_status_id-9: "لم يتم المعالجة"
-  translated_resource_statuses-label-resource_status_id-10: "تم النشر"
-  translated_resource_statuses-label-resource_status_id-11: "النشر معلق"
-  translated_resource_statuses-label-resource_status_id-12: "إلغاء النشر معلق"
-  translated_resource_statuses-label-resource_status_id-13: "تنفيذ الجمع"
-  translated_vetted-label-vetted_id-0: "غير معروف"
-  translated_vetted-label-vetted_id-4: "غير موثوق به"
-  translated_vetted-label-vetted_id-5: "موثوق به"
-  translated_vetted-label-vetted_id-6: "غير لائق"
-  translated_collection_types-label-collection_type_id-1: "التصنيف"
-  translated_collection_types-label-collection_type_id-2: "الشفرات العمودية الجزيئية"
-  translated_collection_types-label-collection_type_id-3: "الشرح"
-  translated_collection_types-label-collection_type_id-4: "الصور"
-  translated_collection_types-label-collection_type_id-5: "التوزيع"
-  translated_collection_types-label-collection_type_id-6: "حالة الحفظ"
-  translated_collection_types-label-collection_type_id-7: "معلومات الأسم"
-  translated_collection_types-label-collection_type_id-8: "البيانات الجزيئية"
-  translated_collection_types-label-collection_type_id-9: "الأسماء التعريفية"
-  translated_collection_types-label-collection_type_id-10: "الأصوات"
-  translated_collection_types-label-collection_type_id-11: "الروابط"
-  translated_collection_types-label-collection_type_id-12: "المطبوعات"
-  translated_collection_types-label-collection_type_id-13: "التصنيف"
-  translated_collection_types-label-collection_type_id-14: "الشفرات العمودية الجزيئية"
-  translated_collection_types-label-collection_type_id-15: "الشرح"
-  translated_collection_types-label-collection_type_id-16: "الصور"
-  translated_collection_types-label-collection_type_id-17: "التوزيع"
-  translated_collection_types-label-collection_type_id-18: "حالة الحفظ"
-  translated_collection_types-label-collection_type_id-19: "معلومات الأسم"
-  translated_collection_types-label-collection_type_id-20: "البيانات الجزيئية"
-  translated_collection_types-label-collection_type_id-21: "الأسماء التعريفية"
-  translated_collection_types-label-collection_type_id-22: "الأصوات"
-  translated_collection_types-label-collection_type_id-23: "الروابط"
-  translated_collection_types-label-collection_type_id-24: "المواد"
-  translated_ranks-label-rank_id-51: "الفئة"
-  translated_ranks-label-rank_id-74: "تقسيم"
-  translated_ranks-label-rank_id-85: "ع"
-  translated_ranks-label-rank_id-86: "ع."
-  translated_ranks-label-rank_id-91: "العائلة"
-  translated_ranks-label-rank_id-92: "فصيلة"
-  translated_ranks-label-rank_id-99: "فصيلة"
-  translated_ranks-label-rank_id-106: "شكل"
-  translated_ranks-label-rank_id-107: "شكل"
-  translated_ranks-label-rank_id-112: "الجنس"
-  translated_ranks-label-rank_id-113: "جنس"
-  translated_ranks-label-rank_id-118: "جنس"
-  translated_ranks-label-rank_id-169: "تحت رتبة"
-  translated_ranks-label-rank_id-175: "تحت نوع"
-  translated_ranks-label-rank_id-183: "مملكة"
-  translated_ranks-label-rank_id-266: "رتبة"
-  translated_ranks-label-rank_id-280: "شعبة"
-  translated_ranks-label-rank_id-313: "جزء"
-  translated_ranks-label-rank_id-314: "قسم"
-  translated_ranks-label-rank_id-317: "القسم"
-  translated_ranks-label-rank_id-324: "التسلسل"
-  translated_ranks-label-rank_id-332: "الأسبانية"
-  translated_ranks-label-rank_id-333: "هجاء"
-  translated_ranks-label-rank_id-335: "الأنواع"
-  translated_ranks-label-rank_id-352: "تحت عائلة "
-  translated_ranks-label-rank_id-370: "تحت صف"
-  translated_ranks-label-rank_id-375: "شعيبة"
-  translated_ranks-label-rank_id-383: "أسرة"
-  translated_ranks-label-rank_id-390: "تحت جنس"
-  translated_ranks-label-rank_id-391: "سبط"
-  translated_ranks-label-rank_id-394: "تحت جنس"
-  translated_ranks-label-rank_id-396: "تحت مملكة"
-  translated_ranks-label-rank_id-399: "تحت رتبة"
-  translated_ranks-label-rank_id-401: "تحت شعبة"
-  translated_ranks-label-rank_id-408: "تحت قسم "
-  translated_ranks-label-rank_id-411: "تحت سلسلة "
-  translated_ranks-label-rank_id-413: "تحت نوع"
-  translated_ranks-label-rank_id-414: "سلالة"
-  translated_ranks-label-rank_id-415: "سلالة"
-  translated_ranks-label-rank_id-422: "عمارة"
-  translated_ranks-label-rank_id-463: "فوق فصيلة"
-  translated_ranks-label-rank_id-472: "قسم"
-  translated_ranks-label-rank_id-494: "قبيلة"
-  translated_ranks-label-rank_id-503: "غير مصنف"
-  translated_ranks-label-rank_id-512: "صنف"
-  translated_ranks-label-rank_id-513: "صنف"
-  translated_ranks-label-rank_id-517: "التنويعات"
-  translated_ranks-label-rank_id-518: "صنف"
-  translated_ranks-label-rank_id-562: "جنس هجين"
-  translated_ranks-label-rank_id-563: "نوع هجين"
-  translated_ranks-label-rank_id-564: "نوع فرعي هجين"
-  translated_ranks-label-rank_id-565: "تنوع هجين"
-  translated_info_items-label-info_item_id-1: "ترابطات/ جمعيات"
-  translated_info_items-label-info_item_id-2: "سلوك"
-  translated_info_items-label-info_item_id-3: "حالة الحفظ"
-  translated_info_items-label-info_item_id-4: "تفاوت"
-  translated_info_items-label-info_item_id-5: "علم الخلايا"
-  translated_info_items-label-info_item_id-6: "وصف تشخيصي"
-  translated_info_items-label-info_item_id-7: "أمراض"
-  translated_info_items-label-info_item_id-8: "تبعثر"
-  translated_info_items-label-info_item_id-9: "التوزيع"
-  translated_info_items-label-info_item_id-10: "تطور"
-  translated_info_items-label-info_item_id-11: "وصف عام"
-  translated_info_items-label-info_item_id-12: "علم الجينات"
-  translated_info_items-label-info_item_id-13: "النمو"
-  translated_info_items-label-info_item_id-14: "البيئة"
-  translated_info_items-label-info_item_id-15: "وضع قوانين"
-  translated_info_items-label-info_item_id-16: "دورة الحياة"
-  translated_info_items-label-info_item_id-17: "متوسط العمر المتوقع"
-  translated_info_items-label-info_item_id-18: "متشابهات"
-  translated_info_items-label-info_item_id-19: "إدارة"
-  translated_info_items-label-info_item_id-20: "الهجرة"
-  translated_info_items-label-info_item_id-21: "أحياء جزيئية"
-  translated_info_items-label-info_item_id-22: "مورفولوجيا/ علم دراسة الشكل"
-  translated_info_items-label-info_item_id-23: "فيزيولوجيا"
-  translated_info_items-label-info_item_id-24: "أحياء السكان"
-  translated_info_items-label-info_item_id-25: "إجراءات"
-  translated_info_items-label-info_item_id-26: "التكاثر"
-  translated_info_items-label-info_item_id-27: "إقرار المخاطر"
-  translated_info_items-label-info_item_id-28: "حجم"
-  translated_info_items-label-info_item_id-29: "بيولوجيا التصنيف"
-  translated_info_items-label-info_item_id-30: "تهديدات"
-  translated_info_items-label-info_item_id-31: "اتجاهات"
-  translated_info_items-label-info_item_id-32: "إستراتيجية غذائية"
-  translated_info_items-label-info_item_id-33: "استخدامات"
-  translated_info_items-label-info_item_id-34: "توصيف"
-  translated_info_items-label-info_item_id-35: "الحفظ"
-  translated_info_items-label-info_item_id-36: "مفتاح"
-  translated_info_items-label-info_item_id-37: "أحياء"
-  translated_info_items-label-info_item_id-38: "علم البيئة"
-  translated_info_items-label-info_item_id-39: "مقدمة"
-  translated_info_items-label-info_item_id-40: "تعليم"
-  translated_info_items-label-info_item_id-41: "بار كود"
-  translated_info_items-label-info_item_id-42: "ويكيبيديا"
-  translated_info_items-label-info_item_id-43: "مشروع سيتيزن ساينس"
-  translated_info_items-label-info_item_id-45: "موارد تعليمية"
-  translated_info_items-label-info_item_id-46: "الجينوم"
-  translated_info_items-label-info_item_id-47: "تسلسلات النوكليوتيدات"
-  translated_info_items-label-info_item_id-48: "تاريخ الحفرية"
-  translated_info_items-label-info_item_id-49: "النظاميات أو علم دراسة الروابط الجينية"
-  translated_info_items-label-info_item_id-50: "التكيفات الوظيفية"
-  translated_info_items-label-info_item_id-51: "التنمية"
-  translated_info_items-label-info_item_id-52: "موارد تعريفية"
-  translated_activities-name-activity_id-1: "مفهوم الأصنوفة المعروض"
-  translated_activities-name-activity_id-2: "معرف التعليقات على النص المعروضة"
-  translated_activities-name-activity_id-3: "إنشاء موضوع جديد"
-  translated_activities-name-activity_id-4: "الموضوع المراجع"
-  translated_activities-name-activity_id-5: "معرف عرض شجرة التصنيف لمدخل بالتسلسل الهرمي "
-  translated_activities-name-activity_id-6: "معرف المحتوى المعروض للفئة"
-  translated_activities-name-activity_id-7: "تعديل الموضوع"
-  translated_activities-name-activity_id-8: "الصفحة الرئيسية المعروضة"
-  translated_activities-name-activity_id-9: "معرف صفحة المحتوى المعروضة"
-  translated_activities-name-activity_id-10: "إسناد التصنيف المعروض إلى مفهوم الأصنوفة"
-  translated_activities-name-activity_id-11: "معرف عرض العلامات على الموضوع"
-  translated_activities-name-activity_id-12: "معرف التعليقات المعروضة على  الصورة"
-  translated_activities-name-activity_id-13: "معرف العلامة المنشأة على الموضوع"
-  translated_activities-name-activity_id-14: "معرف الإسنادات المعروضة للموضوع"
-  translated_activities-name-activity_id-15: "بحث في النص على"
-  translated_activities-name-activity_id-16: "صفحة الصور المعروضة "
-  translated_activities-name-activity_id-17: "المعلومات الشخصية المحدثة"
-  translated_activities-name-activity_id-18: "تم النقر على نتيجة البحث"
-  translated_activities-name-activity_id-19: "المعلومات الشخصية"
-  translated_activities-name-activity_id-20: "معرف التعليقات المعروضة على مفهوم الأصنوفة"
-  translated_activities-name-activity_id-21: "لعب تعرف على الصورة"
-  translated_activities-name-activity_id-22: "بحث جوجل على"
-  translated_activities-name-activity_id-23: "معرف الموضوع المقيم"
-  translated_activities-name-activity_id-24: "معرف الموضوع الذي تم الإشراف عليه"
-  translated_activities-name-activity_id-25: "فهرس الأخبار المعروضة"
-  translated_activities-name-activity_id-26: "الأسماء الشائعة المضافة"
-  translated_activities-name-activity_id-27: "الأسماء الشائعة المحدثة"
-  translated_activities-name-activity_id-28: "معرف الاتصال بنا المرسل"
-  translated_activities-name-activity_id-29: "معرف التعليق المضاف"
-  translated_activities-name-activity_id-30: "معرف عرض المستخدم"
-  translated_activities-name-activity_id-31: "مقطع الفيديو المعروض"
-  translated_activities-name-activity_id-32: "معرف عرض الأنواع التي أشرف عليها المستخدم"
-  translated_activities-name-activity_id-33: "معرف الموضوع المعروض"
-  translated_activities-name-activity_id-34: "معرف الموضوع الذي تم إنشائه"
-  translated_activities-name-activity_id-35: "معرف الموضوع المحدث"
-  translated_activities-name-activity_id-36: "علامة البحث على"
-  translated_activities-name-activity_id-37: "النماذج المعروضة"
-  translated_activities-name-activity_id-38: "معرف الخبر المعروض"
-  translated_activities-name-activity_id-39: "معرف عرض الموضوعات التي أشرف عليها المستخدم"
-  translated_activities-name-activity_id-40: "معرف عرض تعليقات الأنواع المعدلة من قبل المستخدم"
-  translated_activities-name-activity_id-41: "معرف التعليق المحذوف"
-  translated_activities-name-activity_id-42: "معرف علامة الموضوع المحذوفة"
-  translated_activities-name-activity_id-43: "تسجيل الدخول باستخدام حساب يوزر فويس"
-  translated_activities-name-activity_id-44: "معرف التصفح بحثًا عن مدخل بالتسلسل الهرمي"
-  translated_activities-name-activity_id-45: "التبرع المعروض"
-  translated_activities-name-activity_id-46: "التبرع المقدم"
-  translated_activities-name-activity_id-47: "الأسم الشائع المقيم"
-  translated_activities-name-activity_id-48: "أضف ارتباط"
-  translated_activities-name-activity_id-49: "حذف العنصر المقيم"
-  translated_activities-name-activity_id-50: "غير موثوق فيه"
-  translated_activities-name-activity_id-51: "عرض"
-  translated_activities-name-activity_id-52: "اصنع"
-  translated_activities-name-activity_id-53: "إخفاء"
-  translated_activities-name-activity_id-54: "تحديث"
-  translated_activities-name-activity_id-55: "غير لائق"
-  translated_activities-name-activity_id-56: "مسح"
-  translated_activities-name-activity_id-57: "المعدل"
-  translated_activities-name-activity_id-58: "موثوق فيه"
-  translated_activities-name-activity_id-59: "غير مُراجَع"
-  translated_activities-name-activity_id-60: "أختر نموذج"
-  translated_activities-name-activity_id-61: "أضف أسم شائع"
-  translated_activities-name-activity_id-62: "حذف أسم شائع"
-  translated_activities-name-activity_id-63: "جمع"
-  translated_activities-name-activity_id-64: "حذف"
-  translated_activities-name-activity_id-65: "أضف عضو"
-  translated_activities-name-activity_id-66: "تغيير الشرح"
-  translated_activities-name-activity_id-67: "تغيير الأسم"
-  translated_activities-name-activity_id-68: "تغيير الأيقونة"
-  translated_activities-name-activity_id-69: "أضف مشرف"
-  translated_activities-name-activity_id-70: "أضف مشرف"
-  translated_activities-name-activity_id-71: "أضف امتياز عضو"
-  translated_activities-name-activity_id-72: "أضف إجازة مجموعة"
-  translated_activities-name-activity_id-73: "حذف إجازة مجموعة"
-  translated_agent_roles-label-agent_role_id-1: "رسام رسوم متحركة"
-  translated_agent_roles-label-agent_role_id-2: "كاتب"
-  translated_agent_roles-label-agent_role_id-3: "المترجم أو المُصَّرف"
-  translated_agent_roles-label-agent_role_id-4: "مؤلف"
-  translated_agent_roles-label-agent_role_id-15: "المسئول"
-  translated_agent_roles-label-agent_role_id-16: "المساهِم"
-  translated_agent_roles-label-agent_role_id-5: "الصانع"
-  translated_agent_roles-label-agent_role_id-6: "مدير"
-  translated_agent_roles-label-agent_role_id-7: "محرر"
-  translated_agent_roles-label-agent_role_id-8: "المصور"
-  translated_agent_roles-label-agent_role_id-9: "المصور الفوتوغرافي"
-  translated_agent_roles-label-agent_role_id-10: "مشروع"
-  translated_agent_roles-label-agent_role_id-11: "ناشر"
-  translated_agent_roles-label-agent_role_id-12: "مسجل"
-  translated_agent_roles-label-agent_role_id-13: "مصدر"
-  translated_agent_roles-label-agent_role_id-14: "قاعدة بيانات المصادر"
-  translated_privileges-name-privilege_id-1: "تعديل المجموعات"
-  translated_privileges-name-privilege_id-2: "حذف مجموعة"
-  translated_privileges-name-privilege_id-3: "إجازة المجموعات"
-  translated_privileges-name-privilege_id-4: "إبطال امتيازات المستوى رقم 20"
-  translated_privileges-name-privilege_id-5: "إبطال امتيازات المستوى رقم 10"
-  translated_privileges-name-privilege_id-6: "أضف أعضاء"
-  translated_privileges-name-privilege_id-7: "منح امتيازات المستوى رقم 10"
-  translated_privileges-name-privilege_id-8: "منح امتيازات المستوى رقم 20"
-  translated_privileges-name-privilege_id-9: "حذف الأعضاء"
-  translated_privileges-name-privilege_id-10: "تعديل المجموعة"
-  translated_privileges-name-privilege_id-11: "المعدل"
-  translated_privileges-name-privilege_id-12: "إخفاء التعليقات"
-  translated_privileges-name-privilege_id-13: "تقارير الاستخدام"
-  translated_privileges-name-privilege_id-14: "شركاء محتوى"
-  translated_privileges-name-privilege_id-15: "نظام إدارة محتوى الموقع"
-  translated_privileges-name-privilege_id-16: "تقني"
-  translated_privileges-name-privilege_id-17: "مؤلف موثوق به"
-  translated_privileges-name-privilege_id-18: "خبير"
-  translated_privileges-name-privilege_id-19: "عرض صفحة المشرف"
-  translated_privileges-name-privilege_id-20: "التعليقات والعلامات"
-  translated_privileges-name-privilege_id-21: "مشرف"
-  translated_privileges-name-privilege_id-22: "طلبات الاتصال بنا"
-  translated_privileges-name-privilege_id-23: "مستخدمي الويب"
-  translated_privileges-name-privilege_id-24: "الأخبار"
-  translated_visibilities-label-visibility_id-0: "غير مرئي"
-  translated_visibilities-label-visibility_id-1: "مرئي"
-  translated_visibilities-label-visibility_id-2: "نظرة عامة"
-  translated_contact_subjects-title-contact_subject_id-1: "محتوى إعلامي(مقابلات، طلبات صور)"
-  translated_contact_subjects-title-contact_subject_id-2: "إسهامات"
-  translated_contact_subjects-title-contact_subject_id-3: "تَعلم وتعليم"
-  translated_contact_subjects-title-contact_subject_id-4: "تحديث الصفحات"
-  translated_contact_subjects-title-contact_subject_id-5: "تصنيف"
-  translated_contact_subjects-title-contact_subject_id-6: "بحث في المعلوماتية الحيوية"
-  translated_contact_subjects-title-contact_subject_id-7: "بحث حيوي"
-  translated_contact_subjects-title-contact_subject_id-8: "البيولوجيا النباتية"
-  translated_contact_subjects-title-contact_subject_id-9: "مكتبة النصوص وتراث التنوع الحيوي"
-  translated_contact_subjects-title-contact_subject_id-10: "محتوى"
-  translated_contact_subjects-title-contact_subject_id-11: "مشكلات تقنية (مشكلات متعلقة بالموقع وأدوات البحث وحسابات المستخدمين)"
-  translated_contact_subjects-title-contact_subject_id-12: "أخرى"
-  translated_contact_subjects-title-contact_subject_id-13: "دعم القيم على الصفحة"
-  translated_contact_subjects-title-contact_subject_id-14: "طلب تحميل صور"
-  translated_contact_subjects-title-contact_subject_id-15: "تصحيح (صور، هجاء ونحو، معلومات)"
-  translated_contact_subjects-title-contact_subject_id-16: "تعليق عام على المشروع"
-  translated_contact_subjects-title-contact_subject_id-17: "إسهام مالي"
-  translated_contact_subjects-title-contact_subject_id-18: "اصبح شريك بالمحتوى"
-  translated_contact_subjects-title-contact_subject_id-19: "إرسال تعليق لمجموعة صفحات الأنواع"
-  translated_contact_subjects-title-contact_subject_id-20: "دعم شركاء المحتوى"
-  translated_contact_subjects-title-contact_subject_id-21: "ارسل رسالة إلى سينثيا بار على مجموعة صفحات الأنواع"
-  translated_contact_subjects-title-contact_subject_id-22: "موارد خليج المكسيك"
-  translated_content_partner_statuses-label-content_partner_status_id-2: "نشِط"
-  translated_content_partner_statuses-label-content_partner_status_id-3: "في الأرشيف"
-  translated_content_partner_statuses-label-content_partner_status_id-4: "غير نشط"
-  translated_content_partner_statuses-label-content_partner_status_id-1: "مُعلَّق"
-  translated_data_types-label-data_type_id-1: "صورة"
-  translated_data_types-label-data_type_id-2: "صوت"
-  translated_data_types-label-data_type_id-3: "نص"
-  translated_data_types-label-data_type_id-4: "فيديو"
-  translated_data_types-label-data_type_id-5: "صورة GBIF"
-  translated_data_types-label-data_type_id-6: "الاتحاد الدولي لحماية الطبيعة (IUCN)"
-  translated_data_types-label-data_type_id-7: "فلاش"
-  translated_data_types-label-data_type_id-8: "يوتيوب"
-  translated_licenses-description-license_id-1: "لا حقوق محفوظة"
-  translated_licenses-description-license_id-2: "جميع الحقوق محفوظة"
-  translated_licenses-description-license_id-3: "بعض الحقوق محفوظة"
-  translated_licenses-description-license_id-4: "بعض الحقوق محفوظة"
-  translated_licenses-description-license_id-5: "بعض الحقوق محفوظة"
-  translated_licenses-description-license_id-6: "بعض الحقوق محفوظة"
-  translated_licenses-description-license_id-7: "بعض الحقوق محفوظة"
-  translated_licenses-description-license_id-8: "بعض الحقوق محفوظة"
-  translated_licenses-description-license_id-9: "بعض الحقوق محفوظة"
-  translated_licenses-description-license_id-29: "بعض الحقوق محفوظة"
-  translated_licenses-description-license_id-30: "بعض الحقوق محفوظة"
-  translated_licenses-description-license_id-31: "بعض الحقوق محفوظة"
-  translated_licenses-description-license_id-32: "بعض الحقوق محفوظة"
-  translated_licenses-description-license_id-33: "بعض الحقوق محفوظة"
-  translated_licenses-description-license_id-34: "ملك عام"
-  translated_licenses-description-license_id-35: "ملك عام"
-  translated_licenses-description-license_id-36: "بعض الحقوق محفوظة"
-  translated_licenses-description-license_id-37: "بعض الحقوق محفوظة"
-  translated_licenses-description-license_id-38: "بعض الحقوق محفوظة"
-  translated_licenses-description-license_id-39: "ملك عام"
-  translated_licenses-description-license_id-42: "بعض الحقوق محفوظة"
-  translated_licenses-description-license_id-43: "رخصة أخرى"
-  translated_languages-label-original_language_id-2: "الأتشينية"
-  translated_languages-label-original_language_id-3: "أكولي"
-  translated_languages-label-original_language_id-4: "الأدانجمية"
-  translated_languages-label-original_language_id-7: "الأفريكانية"
-  translated_languages-label-original_language_id-9: "أجوتايا"
-  translated_languages-label-original_language_id-10: "الأينو"
-  translated_languages-label-original_language_id-11: "الأكانيّة"
-  translated_languages-label-original_language_id-13: "آلاديان"
-  translated_languages-label-original_language_id-14: "آلاديان"
-  translated_languages-label-original_language_id-15: "الألبانية"
-  translated_languages-label-original_language_id-16: "الأليوت"
-  translated_languages-label-original_language_id-18: "الألطية (أخرى)"
-  translated_languages-label-original_language_id-19: "الالوتيك"
-  translated_languages-label-original_language_id-20: "الأمهرية"
-  translated_languages-label-original_language_id-22: "العربية"
-  translated_languages-label-original_language_id-23: "العربية، الحسانية"
-  translated_languages-label-original_language_id-27: "الأرمنية"
-  translated_languages-label-original_language_id-29: "الأسامية"
-  translated_languages-label-original_language_id-31: "اللغات الأسترالية"
-  translated_languages-label-original_language_id-32: "الأسترونيزية (أخرى)"
-  translated_languages-label-original_language_id-33: "الأفارية"
-  translated_languages-label-original_language_id-35: "الأفيكام"
-  translated_languages-label-original_language_id-37: "الأيمارية"
-  translated_languages-label-original_language_id-38: "الأذربيجانية"
-  translated_languages-label-original_language_id-39: "لغة الأزتك"
-  translated_languages-label-original_language_id-42: "البلوشية"
-  translated_languages-label-original_language_id-43: "بامبارا"
-  translated_languages-label-original_language_id-45: "الباندا"
-  translated_languages-label-original_language_id-46: "البانتون"
-  translated_languages-label-original_language_id-47: "البانتون"
-  translated_languages-label-original_language_id-49: "باني"
-  translated_languages-label-original_language_id-51: "بشكير"
-  translated_languages-label-original_language_id-52: "الباسك"
-  translated_languages-label-original_language_id-53: "باتا"
-  translated_languages-label-original_language_id-54: "الباتاك"
-  translated_languages-label-original_language_id-55: "البتا"
-  translated_languages-label-original_language_id-57: "البلاروسية"
-  translated_languages-label-original_language_id-58: "البيمبا"
-  translated_languages-label-original_language_id-59: "البنغالية"
-  translated_languages-label-original_language_id-62: "البيهاري"
-  translated_languages-label-original_language_id-63: "البيكول"
-  translated_languages-label-original_language_id-65: "البيسلاما"
-  translated_languages-label-original_language_id-66: "البوليناو"
-  translated_languages-label-original_language_id-67: "البونتوك"
-  translated_languages-label-original_language_id-68: "البوسنية"
-  translated_languages-label-original_language_id-70: "البريتونية"
-  translated_languages-label-original_language_id-71: "البوجيس"
-  translated_languages-label-original_language_id-72: "البلغارية"
-  translated_languages-label-original_language_id-74: "البورمية"
-  translated_languages-label-original_language_id-76: "الكانتونية"
-  translated_languages-label-original_language_id-78: "الكاريب"
-  translated_languages-label-original_language_id-79: "الكارولينية"
-  translated_languages-label-original_language_id-80: "الكتالانية"
-  translated_languages-label-original_language_id-82: "السيبوانو"
-  translated_languages-label-original_language_id-87: "التشامورو"
-  translated_languages-label-original_language_id-88: "تشاباكانو"
-  translated_languages-label-original_language_id-89: "الشيشانية"
-  translated_languages-label-original_language_id-93: "تشيجا"
-  translated_languages-label-original_language_id-94: "الصينية"
-  translated_languages-label-original_language_id-95: "الصينية، يو"
-  translated_languages-label-original_language_id-96: "التشينوك"
-  translated_languages-label-original_language_id-99: "شيتونج"
-  translated_languages-label-original_language_id-100: "تومبوكا"
-  translated_languages-label-original_language_id-101: "التشياو"
-  translated_languages-label-original_language_id-103: "التشوكوي"
-  translated_languages-label-original_language_id-104: "الكنيسة السلافية"
-  translated_languages-label-original_language_id-105: "التشوك"
-  translated_languages-label-original_language_id-106: "التشوفاش"
-  translated_languages-label-original_language_id-108: "الكورنية"
-  translated_languages-label-original_language_id-109: "الكوسيكانية"
-  translated_languages-label-original_language_id-110: "الكوتاباتو تشافاكانو"
-  translated_languages-label-original_language_id-111: "الكري"
-  translated_languages-label-original_language_id-113: "كريول، الهولندية"
-  translated_languages-label-original_language_id-114: "كريول، الإنجليزية"
-  translated_languages-label-original_language_id-115: "كريول، الفرنسية"
-  translated_languages-label-original_language_id-116: "كريول، الألمانية"
-  translated_languages-label-original_language_id-117: "كريول، البرتغالية"
-  translated_languages-label-original_language_id-118: "كريول ولغات رطنة (أخرى)"
-  translated_languages-label-original_language_id-119: "كريول ولغات رطنة، الإنجليزية"
-  translated_languages-label-original_language_id-120: "كريول ولغات رطنة، الفرنسية"
-  translated_languages-label-original_language_id-121: "كريول ولغات رطنة، البرتغالية"
-  translated_languages-label-original_language_id-122: "الكرواتية"
-  translated_languages-label-original_language_id-124: "التشيكية"
-  translated_languages-label-original_language_id-126: "الداما"
-  translated_languages-label-original_language_id-127: "دنمركي"
-  translated_languages-label-original_language_id-128: "الدفاونيو"
-  translated_languages-label-original_language_id-129: "الداي"
-  translated_languages-label-original_language_id-130: "الداياك"
-  translated_languages-label-original_language_id-132: "ديجو"
-  translated_languages-label-original_language_id-133: "الدينكا"
-  translated_languages-label-original_language_id-134: "الدينكا، الشمالية الشرقية"
-  translated_languages-label-original_language_id-135: "ديفيهي"
-  translated_languages-label-original_language_id-136: "دجيرما"
-  translated_languages-label-original_language_id-137: "جوكا"
-  translated_languages-label-original_language_id-142: "الهولندية"
-  translated_languages-label-original_language_id-146: "إفيك"
-  translated_languages-label-original_language_id-149: "إلمولو"
-  translated_languages-label-original_language_id-152: "الإنجليزية"
-  translated_languages-label-original_language_id-155: "إسبرانتو"
-  translated_languages-label-original_language_id-156: "الإستونية"
-  translated_languages-label-original_language_id-158: "إيوي"
-  translated_languages-label-original_language_id-160: "الفانج"
-  translated_languages-label-original_language_id-162: "الفاروية"
-  translated_languages-label-original_language_id-163: "الفارسية"
-  translated_languages-label-original_language_id-164: "فيجي"
-  translated_languages-label-original_language_id-165: "فيجية"
-  translated_languages-label-original_language_id-166: "الفنلندية"
-  translated_languages-label-original_language_id-168: "الفلمنكية"
-  translated_languages-label-original_language_id-169: "الفون"
-  translated_languages-label-original_language_id-170: "الفون، إنجليزية بريطانية"
-  translated_languages-label-original_language_id-171: "الفرنسية"
-  translated_languages-label-original_language_id-174: "الفريزيان"
-  translated_languages-label-original_language_id-177: "الفولانية"
-  translated_languages-label-original_language_id-178: "الفلفلدي، بولار"
-  translated_languages-label-original_language_id-179: "فوتونا"
-  translated_languages-label-original_language_id-180: "الفواي"
-  translated_languages-label-original_language_id-182: "الجيلية، الآيرلندية"
-  translated_languages-label-original_language_id-183: "الجاليبية"
-  translated_languages-label-original_language_id-184: "جاليكية"
-  translated_languages-label-original_language_id-185: "الجالوا"
-  translated_languages-label-original_language_id-186: "الجامباي"
-  translated_languages-label-original_language_id-187: "الغاندا"
-  translated_languages-label-original_language_id-189: "البايا"
-  translated_languages-label-original_language_id-190: "الجيلا"
-  translated_languages-label-original_language_id-191: "جين-جبي"
-  translated_languages-label-original_language_id-192: "الجيورجية"
-  translated_languages-label-original_language_id-193: "الألمانية"
-  translated_languages-label-original_language_id-197: "الجيكويو"
-  translated_languages-label-original_language_id-198: "الجلبرتية"
-  translated_languages-label-original_language_id-199: "الجيرياما"
-  translated_languages-label-original_language_id-203: "جورمانشيما"
-  translated_languages-label-original_language_id-205: "يوناني"
-  translated_languages-label-original_language_id-206: "يوناني، قديم (حتى 1453)"
-  translated_languages-label-original_language_id-207: "يوناني، حديث (1453)"
-  translated_languages-label-original_language_id-208: "جرينلاند"
-  translated_languages-label-original_language_id-209: "الجواراني"
-  translated_languages-label-original_language_id-210: "الجوجاراتي"
-  translated_languages-label-original_language_id-211: "الجوجراتي"
-  translated_languages-label-original_language_id-212: "جوجو يميدهير"
-  translated_languages-label-original_language_id-214: "الهايدا"
-  translated_languages-label-original_language_id-215: "الهوساوية"
-  translated_languages-label-original_language_id-216: "الهاوسا"
-  translated_languages-label-original_language_id-217: "هاواي"
-  translated_languages-label-original_language_id-218: "العبرية"
-  translated_languages-label-original_language_id-219: "هيلتسوك"
-  translated_languages-label-original_language_id-221: "هيليجاينون"
-  translated_languages-label-original_language_id-222: "الهيما"
-  translated_languages-label-original_language_id-224: "هندي"
-  translated_languages-label-original_language_id-225: "هيريموتي"
-  translated_languages-label-original_language_id-229: "هوكين"
-  translated_languages-label-original_language_id-230: "المجرية"
-  translated_languages-label-original_language_id-231: "المجرية (ماجيار)"
-  translated_languages-label-original_language_id-233: "إيبان"
-  translated_languages-label-original_language_id-234: "إيباناج"
-  translated_languages-label-original_language_id-235: "آيسلندي"
-  translated_languages-label-original_language_id-236: "الإيجبو"
-  translated_languages-label-original_language_id-237: "Ijo"
-  translated_languages-label-original_language_id-238: "الإلوكانو"
-  translated_languages-label-original_language_id-242: "الإندونيسية"
-  translated_languages-label-original_language_id-243: "اسم عامي بحروف لاتينية (مفهوم عامي فقط)"
-  translated_languages-label-original_language_id-244: "إنترلينجوا (جمعية لغات المساعدة الدولية)"
-  translated_languages-label-original_language_id-246: "إينثا"
-  translated_languages-label-original_language_id-247: "إينوكيتوت"
-  translated_languages-label-original_language_id-248: "إينوبياك"
-  translated_languages-label-original_language_id-250: "الآيرلندية"
-  translated_languages-label-original_language_id-254: "الإيطالية"
-  translated_languages-label-original_language_id-255: "إيتزو"
-  translated_languages-label-original_language_id-256: "ايزون"
-  translated_languages-label-original_language_id-257: "اليابانية"
-  translated_languages-label-original_language_id-258: "اليابانية مكتوبة بحروف هجاء"
-  translated_languages-label-original_language_id-259: "اليابانية مكتوبة بحروف هجاء"
-  translated_languages-label-original_language_id-260: "اليابانية مكتوبة بحروف هجاء"
-  translated_languages-label-original_language_id-262: "الجاوية"
-  translated_languages-label-original_language_id-263: "الجاوي"
-  translated_languages-label-original_language_id-265: "الجولا"
-  translated_languages-label-original_language_id-266: "القبائلية"
-  translated_languages-label-original_language_id-269: "كاجايانن"
-  translated_languages-label-original_language_id-271: "الكامبا"
-  translated_languages-label-original_language_id-272: "الكناريا"
-  translated_languages-label-original_language_id-273: "الكانيمبو"
-  translated_languages-label-original_language_id-274: "الكانادا"
-  translated_languages-label-original_language_id-275: "الكانوري"
-  translated_languages-label-original_language_id-276: "الكانوري"
-  translated_languages-label-original_language_id-277: "الكابامبانجا"
-  translated_languages-label-original_language_id-280: "الكشميري"
-  translated_languages-label-original_language_id-282: "الكازاخي"
-  translated_languages-label-original_language_id-283: "الخازي"
-  translated_languages-label-original_language_id-284: "الخمير"
-  translated_languages-label-original_language_id-285: "الخويزانية (أخرى)"
-  translated_languages-label-original_language_id-287: "الكيكويو"
-  translated_languages-label-original_language_id-288: "الكيم"
-  translated_languages-label-original_language_id-290: "الكينجوجا"
-  translated_languages-label-original_language_id-291: "الكينيارواندا"
-  translated_languages-label-original_language_id-292: "الكيريباتي"
-  translated_languages-label-original_language_id-293: "الكيسامبا"
-  translated_languages-label-original_language_id-294: "الكيسواحيلي"
-  translated_languages-label-original_language_id-295: "كوفان"
-  translated_languages-label-original_language_id-296: "الكومي"
-  translated_languages-label-original_language_id-297: "الكومورو"
-  translated_languages-label-original_language_id-298: "الكونغو"
-  translated_languages-label-original_language_id-299: "الكونكاري"
-  translated_languages-label-original_language_id-300: "الكورية"
-  translated_languages-label-original_language_id-301: "الكورسيني"
-  translated_languages-label-original_language_id-302: "الكوتوكو"
-  translated_languages-label-original_language_id-304: "الكريو"
-  translated_languages-label-original_language_id-305: "الكرو"
-  translated_languages-label-original_language_id-307: "الكوماك"
-  translated_languages-label-original_language_id-309: "الكردية"
-  translated_languages-label-original_language_id-313: "الكويونون"
-  translated_languages-label-original_language_id-318: "اللانجو"
-  translated_languages-label-original_language_id-319: "اللاو"
-  translated_languages-label-original_language_id-320: "اللاوتية"
-  translated_languages-label-original_language_id-321: "اللاتينية"
-  translated_languages-label-original_language_id-322: "اللاتفية"
-  translated_languages-label-original_language_id-325: "الليلويت"
-  translated_languages-label-original_language_id-326: "اللينجالا"
-  translated_languages-label-original_language_id-327: "الليثوانية"
-  translated_languages-label-original_language_id-328: "الليتوانية"
-  translated_languages-label-original_language_id-329: "اللوزية"
-  translated_languages-label-original_language_id-333: "اللو"
-  translated_languages-label-original_language_id-334: "اللو (كينيا وتنزانيا)"
-  translated_languages-label-original_language_id-336: "اللوفالي"
-  translated_languages-label-original_language_id-337: "اللوينا"
-  translated_languages-label-original_language_id-338: "المقدونية"
-  translated_languages-label-original_language_id-341: "الماجينداناو"
-  translated_languages-label-original_language_id-342: "الماهل"
-  translated_languages-label-original_language_id-345: "الماكاسارية"
-  translated_languages-label-original_language_id-346: "المالاجاسي"
-  translated_languages-label-original_language_id-347: "المالاي"
-  translated_languages-label-original_language_id-348: "المالايا"
-  translated_languages-label-original_language_id-349: "المالايام"
-  translated_languages-label-original_language_id-350: "المالديفي"
-  translated_languages-label-original_language_id-351: "المالطي"
-  translated_languages-label-original_language_id-352: "المامباي"
-  translated_languages-label-original_language_id-353: "الماموجو"
-  translated_languages-label-original_language_id-356: "الصينية الماندارين"
-  translated_languages-label-original_language_id-358: "المانجايا"
-  translated_languages-label-original_language_id-359: "المانيبوري"
-  translated_languages-label-original_language_id-361: "المانكس"
-  translated_languages-label-original_language_id-362: "الماوري"
-  translated_languages-label-original_language_id-364: "المابون"
-  translated_languages-label-original_language_id-365: "الماوراناو/ سامال/ تاو سوج"
-  translated_languages-label-original_language_id-366: "الماراثي"
-  translated_languages-label-original_language_id-367: "الماراتهي"
-  translated_languages-label-original_language_id-369: "الماركيزان"
-  translated_languages-label-original_language_id-370: "المارشال"
-  translated_languages-label-original_language_id-371: "المارشالية"
-  translated_languages-label-original_language_id-373: "الماساي"
-  translated_languages-label-original_language_id-374: "كريوا موريشيس"
-  translated_languages-label-original_language_id-375: "مايا"
-  translated_languages-label-original_language_id-376: "لغات المايان"
-  translated_languages-label-original_language_id-377: "مبوندو"
-  translated_languages-label-original_language_id-378: "ميثي"
-  translated_languages-label-original_language_id-380: "ميرو"
-  translated_languages-label-original_language_id-383: "بربر الأطلس الأوسط"
-  translated_languages-label-original_language_id-384: "الميلتو"
-  translated_languages-label-original_language_id-386: "لغات متنوعة"
-  translated_languages-label-original_language_id-387: "الميسيما بانياتي"
-  translated_languages-label-original_language_id-388: "ميسكيتو"
-  translated_languages-label-original_language_id-390: "المولدافي"
-  translated_languages-label-original_language_id-392: "المونا"
-  translated_languages-label-original_language_id-394: "المنغولية"
-  translated_languages-label-original_language_id-395: "مور"
-  translated_languages-label-original_language_id-396: "الموتو"
-  translated_languages-label-original_language_id-399: "الناهوا"
-  translated_languages-label-original_language_id-400: "الناهواتل"
-  translated_languages-label-original_language_id-401: "الناي"
-  translated_languages-label-original_language_id-402: "الناس جيتكسان"
-  translated_languages-label-original_language_id-404: "النافاجو"
-  translated_languages-label-original_language_id-405: "النديبيل (جنوب لإفريقيا)"
-  translated_languages-label-original_language_id-408: "النيمي"
-  translated_languages-label-original_language_id-409: "النيبالي"
-  translated_languages-label-original_language_id-414: "النيوية"
-  translated_languages-label-original_language_id-415: "النكومي"
-  translated_languages-label-original_language_id-416: "هندية أمريكا الشمالية (أخرى)"
-  translated_languages-label-original_language_id-417: "السامي الشمالية"
-  translated_languages-label-original_language_id-419: "النرويجية"
-  translated_languages-label-original_language_id-421: "النوير"
-  translated_languages-label-original_language_id-422: "النومي"
-  translated_languages-label-original_language_id-423: "النيوب"
-  translated_languages-label-original_language_id-424: "النوتشانولت"
-  translated_languages-label-original_language_id-426: "النيانجا"
-  translated_languages-label-original_language_id-429: "النزيما"
-  translated_languages-label-original_language_id-433: "الأوكاناجان"
-  translated_languages-label-original_language_id-436: "الأونا"
-  translated_languages-label-original_language_id-437: "وحدة تصنيف تشغيلية"
-  translated_languages-label-original_language_id-438: "الأوريا"
-  translated_languages-label-original_language_id-439: "الأورومو"
-  translated_languages-label-original_language_id-442: "أخرى"
-  translated_languages-label-original_language_id-443: "الأوتومي"
-  translated_languages-label-original_language_id-445: "الأويامبي"
-  translated_languages-label-original_language_id-447: "البهلوانية"
-  translated_languages-label-original_language_id-449: "باليكور"
-  translated_languages-label-original_language_id-451: "البانجاسينا"
-  translated_languages-label-original_language_id-452: "البانجابي"
-  translated_languages-label-original_language_id-453: "البابيامنتو"
-  translated_languages-label-original_language_id-455: "الباشتو"
-  translated_languages-label-original_language_id-456: "الفارسية"
-  translated_languages-label-original_language_id-459: "البيجي"
-  translated_languages-label-original_language_id-460: "البيلا"
-  translated_languages-label-original_language_id-461: "البيتكارنية"
-  translated_languages-label-original_language_id-462: "البوكومو"
-  translated_languages-label-original_language_id-463: "البولندية"
-  translated_languages-label-original_language_id-465: "البرتغالية"
-  translated_languages-label-original_language_id-467: "بروفينسا"
-  translated_languages-label-original_language_id-469: "البولار"
-  translated_languages-label-original_language_id-470: "البولووات"
-  translated_languages-label-original_language_id-471: "البونجابي"
-  translated_languages-label-original_language_id-473: "الكيشوا"
-  translated_languages-label-original_language_id-475: "الراجاسثاني"
-  translated_languages-label-original_language_id-476: "الرابا"
-  translated_languages-label-original_language_id-477: "الرابانوي"
-  translated_languages-label-original_language_id-480: "رومانيا"
-  translated_languages-label-original_language_id-482: "الروماني"
-  translated_languages-label-original_language_id-483: "الروندي"
-  translated_languages-label-original_language_id-485: "روسيا"
-  translated_languages-label-original_language_id-486: "رواندا"
-  translated_languages-label-original_language_id-487: "ساهابتين"
-  translated_languages-label-original_language_id-488: "الساليش"
-  translated_languages-label-original_language_id-491: "السامبورو"
-  translated_languages-label-original_language_id-493: "الساموان"
-  translated_languages-label-original_language_id-495: "السانجو"
-  translated_languages-label-original_language_id-496: "السانسكريت"
-  translated_languages-label-original_language_id-498: "الساراماكان"
-  translated_languages-label-original_language_id-499: "السرديني"
-  translated_languages-label-original_language_id-503: "الجيلية الإسكتلندية"
-  translated_languages-label-original_language_id-505: "السامية (أخرى)"
-  translated_languages-label-original_language_id-506: "السينا"
-  translated_languages-label-original_language_id-507: "الصربية"
-  translated_languages-label-original_language_id-508: "السيرير"
-  translated_languages-label-original_language_id-511: "شيربا"
-  translated_languages-label-original_language_id-512: "شيلوك"
-  translated_languages-label-original_language_id-513: "شونا"
-  translated_languages-label-original_language_id-514: "شوسواب"
-  translated_languages-label-original_language_id-518: "السندية"
-  translated_languages-label-original_language_id-519: "السنهالية"
-  translated_languages-label-original_language_id-524: "السلوفاكية"
-  translated_languages-label-original_language_id-525: "السلوفينية"
-  translated_languages-label-original_language_id-526: "السلوفينية"
-  translated_languages-label-original_language_id-528: "الصومالية"
-  translated_languages-label-original_language_id-530: "السونينكي"
-  translated_languages-label-original_language_id-532: "السوثو"
-  translated_languages-label-original_language_id-533: "هندية أمريكا الجنوبية (أخرى)"
-  translated_languages-label-original_language_id-535: "الأسبانية"
-  translated_languages-label-original_language_id-536: "السرانان"
-  translated_languages-label-original_language_id-539: "السودانية"
-  translated_languages-label-original_language_id-540: "السوريجاونية"
-  translated_languages-label-original_language_id-541: "السوسو"
-  translated_languages-label-original_language_id-542: "السواحيلي"
-  translated_languages-label-original_language_id-544: "السويدية"
-  translated_languages-label-original_language_id-546: "التاجالوج"
-  translated_languages-label-original_language_id-547: "كالامية تاجبانوا"
-  translated_languages-label-original_language_id-548: "التاهيتية"
-  translated_languages-label-original_language_id-550: "الطاجيك"
-  translated_languages-label-original_language_id-551: "التماشيك"
-  translated_languages-label-original_language_id-552: "التماشيك"
-  translated_languages-label-original_language_id-553: "التاميل"
-  translated_languages-label-original_language_id-554: "التاراسكو"
-  translated_languages-label-original_language_id-555: "التاتار"
-  translated_languages-label-original_language_id-556: "التيلوجو"
-  translated_languages-label-original_language_id-558: "التيوتشو"
-  translated_languages-label-original_language_id-561: "التاي"
-  translated_languages-label-original_language_id-562: "التبتي"
-  translated_languages-label-original_language_id-564: "التيجرينية"
-  translated_languages-label-original_language_id-565: "التيف"
-  translated_languages-label-original_language_id-567: "التوبية"
-  translated_languages-label-original_language_id-569: "التوكيلاوان"
-  translated_languages-label-original_language_id-570: "التونجا"
-  translated_languages-label-original_language_id-572: "التونجية"
-  translated_languages-label-original_language_id-573: "تورو"
-  translated_languages-label-original_language_id-574: "التوتوناك"
-  translated_languages-label-original_language_id-575: "التوتوناكو"
-  translated_languages-label-original_language_id-577: "التسيمشيان"
-  translated_languages-label-original_language_id-579: "التسوانا"
-  translated_languages-label-original_language_id-580: "التواموتوان"
-  translated_languages-label-original_language_id-581: "التومبوكا"
-  translated_languages-label-original_language_id-582: "التونيا"
-  translated_languages-label-original_language_id-583: "التوبية"
-  translated_languages-label-original_language_id-584: "التوركانا"
-  translated_languages-label-original_language_id-585: "التركية"
-  translated_languages-label-original_language_id-587: "التركمان"
-  translated_languages-label-original_language_id-588: "التوفالوان"
-  translated_languages-label-original_language_id-590: "التوي"
-  translated_languages-label-original_language_id-592: "الويغور"
-  translated_languages-label-original_language_id-593: "الأوكرانية"
-  translated_languages-label-original_language_id-594: "الأوليثي"
-  translated_languages-label-original_language_id-595: "الأومبوندو"
-  translated_languages-label-original_language_id-597: "غير معروف"
-  translated_languages-label-original_language_id-598: "غير محدد"
-  translated_languages-label-original_language_id-599: "الأوردو"
-  translated_languages-label-original_language_id-600: "الأوزبك"
-  translated_languages-label-original_language_id-602: "الفيندا"
-  translated_languages-label-original_language_id-603: "الفيتنامية"
-  translated_languages-label-original_language_id-604: "الفيسايان"
-  translated_languages-label-original_language_id-605: "فولابوك"
-  translated_languages-label-original_language_id-610: "الواراي واراي"
-  translated_languages-label-original_language_id-612: "الوايانا"
-  translated_languages-label-original_language_id-613: "ويلز"
-  translated_languages-label-original_language_id-614: "الولوف"
-  translated_languages-label-original_language_id-615: "الزوسا"
-  translated_languages-label-original_language_id-617: "الياو"
-  translated_languages-label-original_language_id-618: "اليابيز"
-  translated_languages-label-original_language_id-619: "اليديشية"
-  translated_languages-label-original_language_id-620: "اليوروبا"
-  translated_languages-label-original_language_id-621: "لغات اليوبيك"
-  translated_languages-label-original_language_id-622: "زاندي"
-  translated_languages-label-original_language_id-623: "زابوتيك"
-  translated_languages-label-original_language_id-625: "زوانج"
-  translated_languages-label-original_language_id-626: "الزولو"
-  translated_languages-label-original_language_id-628: "اسم عام"
-  translated_languages-label-original_language_id-629: "إجلوليك إينويت"
-  translated_languages-label-original_language_id-630: "أديوكرو"
-  translated_languages-label-original_language_id-631: "آيزي"
-  translated_languages-label-original_language_id-632: "المجرية"
-  translated_languages-label-original_language_id-633: "الكيرا"
-  translated_languages-label-original_language_id-634: "لوجون"
-  translated_languages-label-original_language_id-635: "الماندينكا"
-  translated_languages-label-original_language_id-636: "المانجاريفا"
-  translated_languages-label-original_language_id-637: "النيليم"
-  translated_languages-label-original_language_id-638: "الفيلي"
-  translated_languages-label-original_language_id-639: "الأبخازية"
-  translated_languages-label-original_language_id-640: "الآراجونيزية"
-  translated_languages-label-original_language_id-641: "الفولائية"
-  translated_languages-label-original_language_id-642: "الفريزيان الغربية"
-  translated_languages-label-original_language_id-643: "الهاييتية"
-  translated_languages-label-original_language_id-645: "الإيدو"
-  translated_languages-label-original_language_id-646: "الكالاليسوت"
-  translated_languages-label-original_language_id-647: "القيرغيز"
-  translated_languages-label-original_language_id-648: "اللوكسمبورجية"
-  translated_languages-label-original_language_id-649: "الليمبورجيش"
-  translated_languages-label-original_language_id-651: "بوكمول النرويجية"
-  translated_languages-label-original_language_id-653: "نينورسك النرويجية"
-  translated_languages-label-original_language_id-655: "تشيشيوا"
-  translated_languages-label-original_language_id-656: "الأوكيتانية"
-  translated_languages-label-original_language_id-657: "الأوسيتيانية"
-  translated_languages-label-original_language_id-658: "الرايتو رومانس"
-  translated_languages-label-original_language_id-659: "الكيروندية"
-  translated_languages-label-original_language_id-660: "الصربو كرواتية"
-  translated_languages-label-original_language_id-661: "السواتي"
-  translated_languages-label-original_language_id-662: "الوالون"
-  translated_languages-label-original_language_id-663: "الألمانية السفلى"
-  translated_languages-label-original_language_id-664: "الكونجو"
-  translated_languages-label-original_language_id-665: "الوايو"
-  translated_languages-label-original_language_id-666: "الباهاسا إندونيسيا"
-  translated_languages-label-original_language_id-667: "السيرايكي"
-  translated_languages-label-original_language_id-668: "التوبا، باتاك"
-  translated_languages-label-original_language_id-704: "البروسية، قديمة"
-  translated_languages-label-original_language_id-705: "السيسيلية"
-  translated_languages-label-original_language_id-706: "الأدمانية"
-  translated_languages-label-original_language_id-707: "الكارولينية السايبانية"
-  translated_languages-label-original_language_id-708: "السلافية"
-  translated_languages-label-original_language_id-709: "الجاوا"
-  translated_languages-label-original_language_id-710: "بالي"
-  translated_languages-label-original_language_id-711: "شوار"
-  translated_languages-label-original_language_id-712: "الكويشا"
-  translated_languages-label-original_language_id-713: "كولورادو"
-  translated_languages-label-original_language_id-714: "الكاستيلانية"
-  translated_languages-label-original_language_id-715: "أكوال جيفارو"
-  translated_languages-label-original_language_id-717: "نومبري تساتشيلا"
-  translated_languages-label-original_language_id-718: "مالجاش"
-  translated_languages-label-original_language_id-719: "كيماساي"
-  translated_languages-label-original_language_id-720: "الكاني"
-  translated_languages-label-original_language_id-721: "هواوراني"
-  translated_languages-label-original_language_id-722: "باراسانا"
-  translated_languages-label-original_language_id-723: "أشوال جيفارو"
-  translated_languages-label-original_language_id-724: "إنجليزي؛ إنجليزي"
-  translated_languages-label-original_language_id-725: "الأسم: كوفان "
-  translated_languages-label-original_language_id-726: "باتامونا"
-  translated_languages-label-original_language_id-727: "كايابا"
-  translated_languages-label-original_language_id-728: "أ. كوفان"
-  translated_languages-label-original_language_id-729: "اسم تايلندي"
-  translated_languages-label-original_language_id-730: "بيشاري"
-  translated_languages-label-original_language_id-731: "بربر"
-  translated_languages-label-original_language_id-732: "تزوتزيل"
-  translated_languages-label-original_language_id-733: "لهجة لبنان؟"
-  translated_languages-label-original_language_id-734: "تزيلتال"
-  translated_languages-label-original_language_id-735: "لهجة إيفوجاو"
-  translated_languages-label-original_language_id-736: "إيفوجاو"
-  translated_languages-label-original_language_id-737: "M"
-  translated_languages-label-original_language_id-738: "التوبيلو"
-  translated_languages-label-original_language_id-739: "أليريا بياجواجي -"
-  translated_languages-label-original_language_id-740: "الأسبانية، تاكانا"
-  translated_languages-label-original_language_id-741: "اسم جواناميا"
-  translated_languages-label-original_language_id-742: "نيجريتيس"
-  translated_languages-label-original_language_id-743: "ماكريتاري"
-  translated_languages-label-original_language_id-744: "(T)"
-  translated_languages-label-original_language_id-746: "(M)"
-  translated_languages-label-original_language_id-747: "؟"
-  translated_languages-label-original_language_id-748: "الماكوا"
-  translated_languages-label-original_language_id-749: "الماينا جيفارو"
-  translated_languages-label-original_language_id-750: "أسباني"
-  translated_languages-label-original_language_id-751: "مستيزو كيتشوا/أسباني"
-  translated_languages-label-original_language_id-752: "مايا جيفارو"
-  translated_languages-label-original_language_id-753: "لغات الإنجا"
-  translated_languages-label-original_language_id-754: "الهويتوتو"
-  translated_languages-label-original_language_id-755: "هاجن: وانكل"
-  translated_languages-label-original_language_id-756: "شيماور"
-  translated_languages-label-original_language_id-757: "شيبوشي"
-  translated_languages-label-original_language_id-758: "البارباديان"
-  translated_languages-label-original_language_id-759: "هوامبيزا جيفارو"
-  translated_languages-label-original_language_id-760: "إيبو، يوروبا"
-  translated_languages-label-original_language_id-761: "و. ناكاناي"
-  translated_languages-label-original_language_id-762: "آينجيفيمبورونا"
-  translated_languages-label-original_language_id-763: "الميو"
-  translated_languages-label-original_language_id-764: "ليسونجو"
-  translated_languages-label-original_language_id-765: "ليسونو"
-  translated_languages-label-original_language_id-766: "هواستيك"
-  translated_languages-label-original_language_id-767: "مانوبو"
-  translated_languages-label-original_language_id-768: "إنجا"
-  translated_languages-label-original_language_id-769: "النيبالية"
-  translated_languages-label-original_language_id-770: "الباكستانية"
-  translated_languages-label-original_language_id-771: "الأسبانية المكسيكية"
-  translated_languages-label-original_language_id-772: "الكشميرية"
-  translated_languages-label-original_language_id-773: "الهيمالايا"
-  translated_languages-label-original_language_id-774: "الكورية"
-  translated_languages-label-original_language_id-797: "توبينامبا"
-  translated_languages-label-original_language_id-798: "كيتشوا 2-ب"
-  translated_languages-label-original_language_id-806: "كارو"
-  translated_languages-label-original_language_id-807: "مالاوي"
-  translated_languages-label-original_language_id-808: "مالايتا"
-  translated_languages-label-original_language_id-809: "بينتولو"
-  translated_languages-label-original_language_id-810: "البابوان"
-  translated_languages-label-original_language_id-811: "الكيرانجي"
-  translated_languages-label-original_language_id-812: "فرنسية"
-  translated_languages-label-original_language_id-813: "كوماون"
-  translated_languages-label-original_language_id-814: "هيماتشال"
-  translated_languages-label-original_language_id-815: "البرتغالية"
-  translated_languages-label-original_language_id-816: "العربية"
-  translated_languages-label-original_language_id-817: "التواريج"
-  translated_languages-label-original_language_id-818: "كينيا"
-  translated_languages-label-original_language_id-819: "الموروت"
-  translated_languages-label-original_language_id-820: "المالوكو"
-  translated_untrust_reasons-label-untrust_reason_id-1: "تعريف غير صحيح"
-  translated_untrust_reasons-label-untrust_reason_id-2: "غير صحيح /مضلل"
-  translated_untrust_reasons-label-untrust_reason_id-3: "منخفض الجودة"
-  translated_untrust_reasons-label-untrust_reason_id-4: "مكرر"
-  translated_untrust_reasons-label-untrust_reason_id-5: "أخرى"
-  translated_content_pages-title-content_page_id-13: "شروط الاستخدام"
-  translated_content_pages-main_content-content_page_id-13: ""
-  translated_content_pages-meta_keywords-content_page_id-13: ""
-  translated_content_pages-meta_description-content_page_id-13: ""
-  translated_content_pages-created_at-content_page_id-13: "40756.5415740741"
-  translated_content_pages-updated_at-content_page_id-13: "40756.5415740741"
-  translated_content_pages-active_translation-content_page_id-13: "1"
-  translated_content_pages-title-content_page_id-300: "سياسة الخصوصية"
-  translated_content_pages-main_content-content_page_id-300: ""
-  translated_content_pages-meta_keywords-content_page_id-300: ""
-  translated_content_pages-meta_description-content_page_id-300: ""
-  translated_content_pages-created_at-content_page_id-300: "40756.5485416667"
-  translated_content_pages-updated_at-content_page_id-300: "40756.5485416667"
-  translated_content_pages-active_translation-content_page_id-300: "1"
-  translated_content_pages-title-content_page_id-301: "حقوق الطبع والنشر وسياسة الربط"
-  translated_content_pages-main_content-content_page_id-301: ""
-  translated_content_pages-meta_keywords-content_page_id-301: ""
-  translated_content_pages-meta_description-content_page_id-301: ""
-  translated_content_pages-created_at-content_page_id-301: "40756.5489236111"
-  translated_content_pages-updated_at-content_page_id-301: "40756.5489236111"
-  translated_content_pages-active_translation-content_page_id-301: "1"
-  translated_content_pages-title-content_page_id-302: "شروط المجموعات"
-  translated_content_pages-main_content-content_page_id-302: ""
-  translated_content_pages-meta_keywords-content_page_id-302: ""
-  translated_content_pages-meta_description-content_page_id-302: ""
-  translated_content_pages-created_at-content_page_id-302: "40756.5490277778"
-  translated_content_pages-updated_at-content_page_id-302: "40756.5490277778"
-  translated_content_pages-active_translation-content_page_id-302: "1"
-  translated_audiences-label-audience_id-3: "أطفال"
-  translated_audiences-label-audience_id-1: "مستخدمون متمرسون"
-  translated_audiences-label-audience_id-2: "الجمهور العام"
-  translated_table_of_contents-label-table_of_contents_id-1: "نظرة عامة"
-  translated_table_of_contents-label-table_of_contents_id-2: "ملخص مقتضب"
-  translated_table_of_contents-label-table_of_contents_id-3: "وصف"
-  translated_table_of_contents-label-table_of_contents_id-4: "علم البيئة"
-  translated_table_of_contents-label-table_of_contents_id-5: "التطور والنظاميات"
-  translated_table_of_contents-label-table_of_contents_id-6: "علاقة بالبشر والأنظمة البيئية"
-  translated_table_of_contents-label-table_of_contents_id-7: "مراجع ومزيد من المعلومات"
-  translated_table_of_contents-label-table_of_contents_id-8: "الحفظ"
-  translated_table_of_contents-label-table_of_contents_id-13: "أسماء عامة"
-  translated_table_of_contents-label-table_of_contents_id-14: "الاتحاد الدولي لحماية الطبيعة (IUCN)"
-  translated_table_of_contents-label-table_of_contents_id-17: "مراجع نصية"
-  translated_table_of_contents-label-table_of_contents_id-24: "تعليق"
-  translated_table_of_contents-label-table_of_contents_id-33: "اتجاهات"
-  translated_table_of_contents-label-table_of_contents_id-34: "تعليقات"
-  translated_table_of_contents-label-table_of_contents_id-41: "البيئة"
-  translated_table_of_contents-label-table_of_contents_id-194: "حجم"
-  translated_table_of_contents-label-table_of_contents_id-204: "موارد تعليمية"
-  translated_table_of_contents-label-table_of_contents_id-218: "تبعثر"
-  translated_table_of_contents-label-table_of_contents_id-221: "مخاطر"
-  translated_table_of_contents-label-table_of_contents_id-225: "على الإنترنت"
-  translated_table_of_contents-label-table_of_contents_id-226: "شركاء محتوى"
-  translated_table_of_contents-label-table_of_contents_id-227: "ابحث في الإنترنت"
-  translated_table_of_contents-label-table_of_contents_id-242: "علم البيئة"
-  translated_table_of_contents-label-table_of_contents_id-244: "ببليوجرافيا"
-  translated_table_of_contents-label-table_of_contents_id-251: "فوائد"
-  translated_table_of_contents-label-table_of_contents_id-267: "مورفولوجيا/ علم دراسة الشكل"
-  translated_table_of_contents-label-table_of_contents_id-278: "ببليوجرافيا"
-  translated_table_of_contents-label-table_of_contents_id-285: "ترابطات/ جمعيات"
-  translated_table_of_contents-label-table_of_contents_id-286: "حالة الحفظ"
-  translated_table_of_contents-label-table_of_contents_id-289: "تطور"
-  translated_table_of_contents-label-table_of_contents_id-292: "متشابهات"
-  translated_table_of_contents-label-table_of_contents_id-293: "وصف تشخيصي"
-  translated_table_of_contents-label-table_of_contents_id-296: "إدارة"
-  translated_table_of_contents-label-table_of_contents_id-297: "إستراتيجية غذائية"
-  translated_table_of_contents-label-table_of_contents_id-299: "تعليم"
-  translated_table_of_contents-label-table_of_contents_id-300: "ويكيبيديا"
-  translated_table_of_contents-label-table_of_contents_id-303: "الأسماء والتصنيف"
-  translated_table_of_contents-label-table_of_contents_id-304: "أسماء ذات صلة"
-  translated_table_of_contents-label-table_of_contents_id-305: "مرادفات"
-  translated_table_of_contents-label-table_of_contents_id-306: "إحصاءات الصفحة"
-  translated_table_of_contents-label-table_of_contents_id-307: "ملخص المحتوى"
-  translated_table_of_contents-label-table_of_contents_id-308: "وصف شامل"
-  translated_table_of_contents-label-table_of_contents_id-309: "التوزيع"
-  translated_table_of_contents-label-table_of_contents_id-310: "التنمية"
-  translated_table_of_contents-label-table_of_contents_id-311: "موارد تعريفية"
-  translated_table_of_contents-label-table_of_contents_id-312: "الهجرة"
-  translated_table_of_contents-label-table_of_contents_id-313: "الأمراض والطفيليات"
-  translated_table_of_contents-label-table_of_contents_id-314: "علم أحياء السكان"
-  translated_table_of_contents-label-table_of_contents_id-315: "تاريخ الحياة والسلوك"
-  translated_table_of_contents-label-table_of_contents_id-316: "السلوك"
-  translated_table_of_contents-label-table_of_contents_id-317: "تفاوت"
-  translated_table_of_contents-label-table_of_contents_id-318: "دورة الحياة"
-  translated_table_of_contents-label-table_of_contents_id-319: "متوسط العمر المتوقع"
-  translated_table_of_contents-label-table_of_contents_id-320: "التكاثر"
-  translated_table_of_contents-label-table_of_contents_id-321: "النمو"
-  translated_table_of_contents-label-table_of_contents_id-322: "تاريخ الحفائر"
-  translated_table_of_contents-label-table_of_contents_id-323: "النظاميات أو علم دراسة الروابط الجينية"
-  translated_table_of_contents-label-table_of_contents_id-324: "تلاؤم وظيفي"
-  translated_table_of_contents-label-table_of_contents_id-325: "الفزيولوجيا والأحياء الخلية"
-  translated_table_of_contents-label-table_of_contents_id-326: "علم الوراثة والأحياء الجزيئية"
-  translated_table_of_contents-label-table_of_contents_id-327: "فيزيولوجيا"
-  translated_table_of_contents-label-table_of_contents_id-328: "البيولوجيا الخلوية"
-  translated_table_of_contents-label-table_of_contents_id-329: "علم الجينات"
-  translated_table_of_contents-label-table_of_contents_id-330: "متسلسل النيوكليوتيدات"
-  translated_table_of_contents-label-table_of_contents_id-331: "بار كود"
-  translated_table_of_contents-label-table_of_contents_id-332: "الجينوم"
-  translated_table_of_contents-label-table_of_contents_id-333: "الأحياء الجزيئية"
-  translated_table_of_contents-label-table_of_contents_id-334: "تهديدات"
-  translated_table_of_contents-label-table_of_contents_id-335: "وضع قوانين"
-  translated_table_of_contents-label-table_of_contents_id-336: "ملاحظات"
-  translated_table_of_contents-label-table_of_contents_id-337: "تعليم"
-  translated_table_of_contents-label-table_of_contents_id-338: "روابط تعليمية"
-  translated_table_of_contents-label-table_of_contents_id-339: "موارد تعليمية"
-  translated_table_of_contents-label-table_of_contents_id-340: "مسلسل معمل المدرسة الثانوية"
-  translated_table_of_contents-label-table_of_contents_id-341: "مشروع سيتزن ساينس"
-  translated_table_of_contents-label-table_of_contents_id-342: "روابط سيتزن ساينس"
-  translated_table_of_contents-label-table_of_contents_id-343: "مكتبة تراث التنوع الحيوي"
-  translated_table_of_contents-label-table_of_contents_id-344: "بيانات"
-  translated_table_of_contents-label-table_of_contents_id-345: "مصادر البيانات"
-  translated_table_of_contents-label-table_of_contents_id-346: "مصطلحات طبية-حيوية"
-  translated_sort_styles-name-sort_style_id-1: "تم إضافته مؤخرًا"
-  translated_sort_styles-name-sort_style_id-2: "الأقدم"
-  translated_sort_styles-name-sort_style_id-3: "أبجديًا"
-  translated_sort_styles-name-sort_style_id-4: "أبجديًا معكوس"
-  translated_sort_styles-name-sort_style_id-5: "ثراء المحتوى"
-  translated_sort_styles-name-sort_style_id-6: "التقييم"
-  translated_statuses-label-status_id-1: "مُدخل"
-  translated_statuses-label-status_id-4: "مُعاد استخدامه"
-  translated_statuses-label-status_id-3: "غير متغير"
-  translated_statuses-label-status_id-2: "مُحدَّث"
-  translated_service_types-label-service_type_id-1: "مخطط نقل موسوعة الحياة"
-  translated_service_types-label-service_type_id-2: "أخرى"
-  translated_synonym_relations-label-synonym_relation_id-51: "مقبول"
-  translated_synonym_relations-label-synonym_relation_id-19: "اسم مقبول"
-  translated_synonym_relations-label-synonym_relation_id-3: "المختصر"
-  translated_synonym_relations-label-synonym_relation_id-16: "مرادف مبهم"
-  translated_synonym_relations-label-synonym_relation_id-4: "لاجنسية"
-  translated_synonym_relations-label-synonym_relation_id-52: "المسئول"
-  translated_synonym_relations-label-synonym_relation_id-45: "اسم تحتي"
-  translated_synonym_relations-label-synonym_relation_id-5: "اسم عام"
-  translated_synonym_relations-label-synonym_relation_id-2: "اسم عام"
-  translated_synonym_relations-label-synonym_relation_id-20: "قطعة من قاعدة البيانات"
-  translated_synonym_relations-label-synonym_relation_id-6: "اسم مساوي"
-  translated_synonym_relations-label-synonym_relation_id-7: "مختصر بنك الجينات"
-  translated_synonym_relations-label-synonym_relation_id-8: "لاجنسي ببنك الجينات"
-  translated_synonym_relations-label-synonym_relation_id-9: "الاسم العام ببنك الجينات"
-  translated_synonym_relations-label-synonym_relation_id-10: "المرادف ببنك الجينات"
-  translated_synonym_relations-label-synonym_relation_id-46: "مرادف لغيري النمط"
-  translated_synonym_relations-label-synonym_relation_id-37: "الألفاظ المتجانسة والمرادفات المكررة"
-  translated_synonym_relations-label-synonym_relation_id-25: "الألفاظ المتجانسة (غير معترف بها)"
-  translated_synonym_relations-label-synonym_relation_id-47: "مرادف الألفاظ المتجانسة"
-  translated_synonym_relations-label-synonym_relation_id-11: "جزئي"
-  translated_synonym_relations-label-synonym_relation_id-12: "يشمل"
-  translated_synonym_relations-label-synonym_relation_id-55: "بيانات المسئول غير صحيحة"
-  translated_synonym_relations-label-synonym_relation_id-56: "هجاء غير صحيح"
-  translated_synonym_relations-label-synonym_relation_id-44: "لم يتم النشر"
-  translated_synonym_relations-label-synonym_relation_id-43: "لم يتم النشر، أخرى"
-  translated_synonym_relations-label-synonym_relation_id-36: "لفظ متجانس مكرر"
-  translated_synonym_relations-label-synonym_relation_id-29: "مرادف مكرر"
-  translated_synonym_relations-label-synonym_relation_id-58: "متغير معجمي"
-  translated_synonym_relations-label-synonym_relation_id-23: "خطأ في التطبيق"
-  translated_synonym_relations-label-synonym_relation_id-17: "اسم أخطئ تطبيقه"
-  translated_synonym_relations-label-synonym_relation_id-13: "اسم مغلوط/ خطأ في التسمية"
-  translated_synonym_relations-label-synonym_relation_id-14: "خطأ في الهجاء"
-  translated_synonym_relations-label-synonym_relation_id-42: "اسم مشكوك"
-  translated_synonym_relations-label-synonym_relation_id-28: "اسم منسي"
-  translated_synonym_relations-label-synonym_relation_id-63: "غير مقبول"
-  translated_synonym_relations-label-synonym_relation_id-61: "مرادف مؤكد"
-  translated_synonym_relations-label-synonym_relation_id-34: "الاسم الأصلي/تركيب"
-  translated_synonym_relations-label-synonym_relation_id-22: "هجاء مختلف (خطأ هجائي)"
-  translated_synonym_relations-label-synonym_relation_id-21: "أخرى/انظر التعليقات"
-  translated_synonym_relations-label-synonym_relation_id-26: "مجاز"
-  translated_synonym_relations-label-synonym_relation_id-18: "اسم مقبول مؤقتًا"
-  translated_synonym_relations-label-synonym_relation_id-24: "اسم مرفوض"
-  translated_synonym_relations-label-synonym_relation_id-62: "مرادف رئيسي"
-  translated_synonym_relations-label-synonym_relation_id-57: "هجاء بديل"
-  translated_synonym_relations-label-synonym_relation_id-54: "مرادفات غير مؤكدة"
-  translated_synonym_relations-label-synonym_relation_id-32: "اسم/ تركيب لاحق"
-  translated_synonym_relations-label-synonym_relation_id-27: "تسمية زائدة (غير معترف بها)"
-  translated_synonym_relations-label-synonym_relation_id-1: "مرادف"
-  translated_synonym_relations-label-synonym_relation_id-59: "مرادف"
-  translated_synonym_relations-label-synonym_relation_id-60: "مرادف"
-  translated_synonym_relations-label-synonym_relation_id-15: "الطور الجنسي"
-  translated_synonym_relations-label-synonym_relation_id-48: "اسم غير متوفر"
-  translated_synonym_relations-label-synonym_relation_id-30: "غير متوقر،"
-  translated_synonym_relations-label-synonym_relation_id-35: "غير متوفر، الهجاء الأصلي غير صحيح"
-  translated_synonym_relations-label-synonym_relation_id-33: "غير متوفر، خطأ هجائي في المادة"
-  translated_synonym_relations-label-synonym_relation_id-41: "غير متوفر، اسم مغلوط"
-  translated_synonym_relations-label-synonym_relation_id-40: "غير متوفر، أخرى"
-  translated_synonym_relations-label-synonym_relation_id-38: "غير متوفر، قُرر عدم توفره"
-  translated_synonym_relations-label-synonym_relation_id-39: "تغيير هجاء الاسم غير مبرر"
-  translated_synonym_relations-label-synonym_relation_id-31: "إحلال غير ضروري"
-  translated_synonym_relations-label-synonym_relation_id-53: "اسم غير منشور"
-  translated_synonym_relations-label-synonym_relation_id-50: "صحيح"
-  translated_synonym_relations-label-synonym_relation_id-49: "اسم صحيح"
-  translated_contact_subjects-title-contact_subject_id-23: ""
-  translated_agent_roles-label-agent_role_id-21: "مقدم المحتوى"
-  translated_agent_roles-label-agent_role_id-22: "المترجم"
-  translated_user_identities-label-user_identity_id-1: "مهتم"
-  translated_agent_roles-label-agent_role_id-23: "المراجع علمي"
-  translated_user_identities-label-user_identity_id-2: "طالب"
-  translated_table_of_contents-label-table_of_contents_id-347: "علم التصنيف"
-  translated_data_types-label-data_type_id-10: "خريطة"
-  translated_agent_roles-label-agent_role_id-24: "المراجع اللغوي"
-  translated_user_identities-label-user_identity_id-3: "معلم"
-  translated_table_of_contents-label-table_of_contents_id-348: "معلومات عن النوع"
-  translated_user_identities-label-user_identity_id-4: "عالم هاوي"
-  translated_user_identities-label-user_identity_id-5: "عالم محترف"
-
-
-
+  translated_resource_statuses-label-resource_status_id-8: تمت المعالجة
+  translated_resource_statuses-label-resource_status_id-9: لم يتم المعالجة
+  translated_service_types-label-service_type_id-1: مخطط نقل موسوعة الحياة
+  translated_service_types-label-service_type_id-2: أخرى
+  translated_sort_styles-name-sort_style_id-1: تم إضافته مؤخرًا
+  translated_sort_styles-name-sort_style_id-2: الأقدم
+  translated_sort_styles-name-sort_style_id-3: أبجديًا
+  translated_sort_styles-name-sort_style_id-4: أبجديًا معكوس
+  translated_sort_styles-name-sort_style_id-5: ثراء المحتوى
+  translated_sort_styles-name-sort_style_id-6: التقييم
+  translated_statuses-label-status_id-1: مُدخل
+  translated_statuses-label-status_id-2: مُحدَّث
+  translated_statuses-label-status_id-3: غير متغير
+  translated_statuses-label-status_id-4: مُعاد استخدامه
+  translated_synonym_relations-label-synonym_relation_id-1: مرادف
+  translated_synonym_relations-label-synonym_relation_id-10: المرادف ببنك الجينات
+  translated_synonym_relations-label-synonym_relation_id-11: جزئي
+  translated_synonym_relations-label-synonym_relation_id-12: يشمل
+  translated_synonym_relations-label-synonym_relation_id-13: اسم مغلوط/ خطأ في التسمية
+  translated_synonym_relations-label-synonym_relation_id-14: خطأ في الهجاء
+  translated_synonym_relations-label-synonym_relation_id-15: الطور الجنسي
+  translated_synonym_relations-label-synonym_relation_id-16: مرادف مبهم
+  translated_synonym_relations-label-synonym_relation_id-17: اسم أخطئ تطبيقه
+  translated_synonym_relations-label-synonym_relation_id-18: اسم مقبول مؤقتًا
+  translated_synonym_relations-label-synonym_relation_id-19: اسم مقبول
+  translated_synonym_relations-label-synonym_relation_id-2: اسم عام
+  translated_synonym_relations-label-synonym_relation_id-20: قطعة من قاعدة البيانات
+  translated_synonym_relations-label-synonym_relation_id-21: أخرى/انظر التعليقات
+  translated_synonym_relations-label-synonym_relation_id-22: هجاء مختلف (خطأ هجائي)
+  translated_synonym_relations-label-synonym_relation_id-23: خطأ في التطبيق
+  translated_synonym_relations-label-synonym_relation_id-24: اسم مرفوض
+  translated_synonym_relations-label-synonym_relation_id-25: الألفاظ المتجانسة (غير معترف بها)
+  translated_synonym_relations-label-synonym_relation_id-26: مجاز
+  translated_synonym_relations-label-synonym_relation_id-27: تسمية زائدة (غير معترف بها)
+  translated_synonym_relations-label-synonym_relation_id-28: اسم منسي
+  translated_synonym_relations-label-synonym_relation_id-29: مرادف مكرر
+  translated_synonym_relations-label-synonym_relation_id-3: المختصر
+  translated_synonym_relations-label-synonym_relation_id-30: غير متوقر،
+  translated_synonym_relations-label-synonym_relation_id-31: إحلال غير ضروري
+  translated_synonym_relations-label-synonym_relation_id-32: اسم/ تركيب لاحق
+  translated_synonym_relations-label-synonym_relation_id-33: غير متوفر، خطأ هجائي في المادة
+  translated_synonym_relations-label-synonym_relation_id-34: الاسم الأصلي/تركيب
+  translated_synonym_relations-label-synonym_relation_id-35: غير متوفر، الهجاء الأصلي غير صحيح
+  translated_synonym_relations-label-synonym_relation_id-36: لفظ متجانس مكرر
+  translated_synonym_relations-label-synonym_relation_id-37: الألفاظ المتجانسة والمرادفات المكررة
+  translated_synonym_relations-label-synonym_relation_id-38: غير متوفر، قُرر عدم توفره
+  translated_synonym_relations-label-synonym_relation_id-39: تغيير هجاء الاسم غير مبرر
+  translated_synonym_relations-label-synonym_relation_id-4: لاجنسية
+  translated_synonym_relations-label-synonym_relation_id-40: غير متوفر، أخرى
+  translated_synonym_relations-label-synonym_relation_id-41: غير متوفر، اسم مغلوط
+  translated_synonym_relations-label-synonym_relation_id-42: اسم مشكوك
+  translated_synonym_relations-label-synonym_relation_id-43: لم يتم النشر، أخرى
+  translated_synonym_relations-label-synonym_relation_id-44: لم يتم النشر
+  translated_synonym_relations-label-synonym_relation_id-45: اسم تحتي
+  translated_synonym_relations-label-synonym_relation_id-46: مرادف لغيري النمط
+  translated_synonym_relations-label-synonym_relation_id-47: مرادف الألفاظ المتجانسة
+  translated_synonym_relations-label-synonym_relation_id-48: اسم غير متوفر
+  translated_synonym_relations-label-synonym_relation_id-49: اسم صحيح
+  translated_synonym_relations-label-synonym_relation_id-5: اسم عام
+  translated_synonym_relations-label-synonym_relation_id-50: صحيح
+  translated_synonym_relations-label-synonym_relation_id-51: مقبول
+  translated_synonym_relations-label-synonym_relation_id-52: المسئول
+  translated_synonym_relations-label-synonym_relation_id-53: اسم غير منشور
+  translated_synonym_relations-label-synonym_relation_id-54: مرادفات غير مؤكدة
+  translated_synonym_relations-label-synonym_relation_id-55: بيانات المسئول غير صحيحة
+  translated_synonym_relations-label-synonym_relation_id-56: هجاء غير صحيح
+  translated_synonym_relations-label-synonym_relation_id-57: هجاء بديل
+  translated_synonym_relations-label-synonym_relation_id-58: متغير معجمي
+  translated_synonym_relations-label-synonym_relation_id-59: مرادف
+  translated_synonym_relations-label-synonym_relation_id-6: اسم مساوي
+  translated_synonym_relations-label-synonym_relation_id-60: مرادف
+  translated_synonym_relations-label-synonym_relation_id-61: مرادف مؤكد
+  translated_synonym_relations-label-synonym_relation_id-62: مرادف رئيسي
+  translated_synonym_relations-label-synonym_relation_id-63: غير مقبول
+  translated_synonym_relations-label-synonym_relation_id-7: مختصر بنك الجينات
+  translated_synonym_relations-label-synonym_relation_id-8: لاجنسي ببنك الجينات
+  translated_synonym_relations-label-synonym_relation_id-9: الاسم العام ببنك الجينات
+  translated_table_of_contents-label-table_of_contents_id-1: نظرة عامة
+  translated_table_of_contents-label-table_of_contents_id-13: أسماء عامة
+  translated_table_of_contents-label-table_of_contents_id-14: الاتحاد الدولي لحماية الطبيعة (IUCN)
+  translated_table_of_contents-label-table_of_contents_id-17: مراجع نصية
+  translated_table_of_contents-label-table_of_contents_id-194: حجم
+  translated_table_of_contents-label-table_of_contents_id-2: ملخص مقتضب
+  translated_table_of_contents-label-table_of_contents_id-218: تبعثر
+  translated_table_of_contents-label-table_of_contents_id-221: مخاطر
+  translated_table_of_contents-label-table_of_contents_id-225: على الإنترنت
+  translated_table_of_contents-label-table_of_contents_id-226: شركاء محتوى
+  translated_table_of_contents-label-table_of_contents_id-227: ابحث في الإنترنت
+  translated_table_of_contents-label-table_of_contents_id-24: تعليق
+  translated_table_of_contents-label-table_of_contents_id-242: علم البيئة
+  translated_table_of_contents-label-table_of_contents_id-244: ببليوجرافيا
+  translated_table_of_contents-label-table_of_contents_id-251: فوائد
+  translated_table_of_contents-label-table_of_contents_id-267: مورفولوجيا/ علم دراسة الشكل
+  translated_table_of_contents-label-table_of_contents_id-278: ببليوجرافيا
+  translated_table_of_contents-label-table_of_contents_id-285: ترابطات/ جمعيات
+  translated_table_of_contents-label-table_of_contents_id-286: حالة الحفظ
+  translated_table_of_contents-label-table_of_contents_id-289: تطور
+  translated_table_of_contents-label-table_of_contents_id-292: متشابهات
+  translated_table_of_contents-label-table_of_contents_id-293: وصف تشخيصي
+  translated_table_of_contents-label-table_of_contents_id-296: إدارة
+  translated_table_of_contents-label-table_of_contents_id-297: إستراتيجية غذائية
+  translated_table_of_contents-label-table_of_contents_id-299: تعليم
+  translated_table_of_contents-label-table_of_contents_id-3: وصف
+  translated_table_of_contents-label-table_of_contents_id-300: ويكيبيديا
+  translated_table_of_contents-label-table_of_contents_id-303: الأسماء والتصنيف
+  translated_table_of_contents-label-table_of_contents_id-304: أسماء ذات صلة
+  translated_table_of_contents-label-table_of_contents_id-305: مرادفات
+  translated_table_of_contents-label-table_of_contents_id-306: إحصاءات الصفحة
+  translated_table_of_contents-label-table_of_contents_id-307: ملخص المحتوى
+  translated_table_of_contents-label-table_of_contents_id-308: وصف شامل
+  translated_table_of_contents-label-table_of_contents_id-309: التوزيع
+  translated_table_of_contents-label-table_of_contents_id-310: التنمية
+  translated_table_of_contents-label-table_of_contents_id-311: موارد تعريفية
+  translated_table_of_contents-label-table_of_contents_id-312: الهجرة
+  translated_table_of_contents-label-table_of_contents_id-313: الأمراض والطفيليات
+  translated_table_of_contents-label-table_of_contents_id-314: علم أحياء السكان
+  translated_table_of_contents-label-table_of_contents_id-315: تاريخ الحياة والسلوك
+  translated_table_of_contents-label-table_of_contents_id-316: السلوك
+  translated_table_of_contents-label-table_of_contents_id-317: تفاوت
+  translated_table_of_contents-label-table_of_contents_id-318: دورة الحياة
+  translated_table_of_contents-label-table_of_contents_id-319: متوسط العمر المتوقع
+  translated_table_of_contents-label-table_of_contents_id-320: التكاثر
+  translated_table_of_contents-label-table_of_contents_id-321: النمو
+  translated_table_of_contents-label-table_of_contents_id-322: تاريخ الحفائر
+  translated_table_of_contents-label-table_of_contents_id-323: النظاميات أو علم دراسة الروابط الجينية
+  translated_table_of_contents-label-table_of_contents_id-324: تلاؤم وظيفي
+  translated_table_of_contents-label-table_of_contents_id-325: الفزيولوجيا والأحياء الخلية
+  translated_table_of_contents-label-table_of_contents_id-326: علم الوراثة والأحياء الجزيئية
+  translated_table_of_contents-label-table_of_contents_id-327: فيزيولوجيا
+  translated_table_of_contents-label-table_of_contents_id-328: البيولوجيا الخلوية
+  translated_table_of_contents-label-table_of_contents_id-329: علم الجينات
+  translated_table_of_contents-label-table_of_contents_id-33: اتجاهات
+  translated_table_of_contents-label-table_of_contents_id-330: متسلسل النيوكليوتيدات
+  translated_table_of_contents-label-table_of_contents_id-331: بار كود
+  translated_table_of_contents-label-table_of_contents_id-332: الجينوم
+  translated_table_of_contents-label-table_of_contents_id-333: الأحياء الجزيئية
+  translated_table_of_contents-label-table_of_contents_id-334: تهديدات
+  translated_table_of_contents-label-table_of_contents_id-335: وضع قوانين
+  translated_table_of_contents-label-table_of_contents_id-336: ملاحظات
+  translated_table_of_contents-label-table_of_contents_id-337: تعليم
+  translated_table_of_contents-label-table_of_contents_id-338: روابط تعليمية
+  translated_table_of_contents-label-table_of_contents_id-339: موارد تعليمية
+  translated_table_of_contents-label-table_of_contents_id-34: تعليقات
+  translated_table_of_contents-label-table_of_contents_id-340: مسلسل معمل المدرسة الثانوية
+  translated_table_of_contents-label-table_of_contents_id-341: مشروع سيتزن ساينس
+  translated_table_of_contents-label-table_of_contents_id-342: روابط سيتزن ساينس
+  translated_table_of_contents-label-table_of_contents_id-343: مكتبة تراث التنوع الحيوي
+  translated_table_of_contents-label-table_of_contents_id-344: بيانات
+  translated_table_of_contents-label-table_of_contents_id-345: مصادر البيانات
+  translated_table_of_contents-label-table_of_contents_id-346: مصطلحات طبية-حيوية
+  translated_table_of_contents-label-table_of_contents_id-347: علم التصنيف
+  translated_table_of_contents-label-table_of_contents_id-348: معلومات عن النوع
+  translated_table_of_contents-label-table_of_contents_id-4: علم البيئة
+  translated_table_of_contents-label-table_of_contents_id-41: البيئة
+  translated_table_of_contents-label-table_of_contents_id-5: التطور والنظاميات
+  translated_table_of_contents-label-table_of_contents_id-6: علاقة بالبشر والأنظمة البيئية
+  translated_table_of_contents-label-table_of_contents_id-7: مراجع ومزيد من المعلومات
+  translated_table_of_contents-label-table_of_contents_id-8: الحفظ
+  translated_untrust_reasons-label-untrust_reason_id-1: تعريف غير صحيح
+  translated_untrust_reasons-label-untrust_reason_id-2: غير صحيح /مضلل
+  translated_untrust_reasons-label-untrust_reason_id-3: منخفض الجودة
+  translated_untrust_reasons-label-untrust_reason_id-4: مكرر
+  translated_untrust_reasons-label-untrust_reason_id-5: أخرى
+  translated_user_identities-label-user_identity_id-1: مهتم
+  translated_user_identities-label-user_identity_id-2: طالب
+  translated_user_identities-label-user_identity_id-3: معلم
+  translated_user_identities-label-user_identity_id-4: عالم هاوي
+  translated_user_identities-label-user_identity_id-5: عالم محترف
+  translated_vetted-label-vetted_id-0: غير معروف
+  translated_vetted-label-vetted_id-4: غير موثوق به
+  translated_vetted-label-vetted_id-5: موثوق به
+  translated_vetted-label-vetted_id-6: غير لائق
+  translated_visibilities-label-visibility_id-0: غير مرئي
+  translated_visibilities-label-visibility_id-1: مرئي
+  translated_visibilities-label-visibility_id-2: نظرة عامة

@@ -163,7 +163,6 @@ ja:
   add_new_association_link: 新しいアソシエーションを追加
   add_page: ページを追加
   add_to_my_collection_button: コレクションに追加
-  added_to_the_comment: "%{comment} に追加"
   admin: 管理者
   admin_content_page_active: 公開済み
   admin_content_page_child_new_link: 子ページを作成
@@ -171,7 +170,6 @@ ja:
   admin_content_page_new_link: 新しいページを作成
   admin_content_page_root: ルート
   admin_content_pages_link: コンテンツ管理
-  admin_content_partners_hierarchies_link: コンテンツ・パートナーの階層
   admin_content_partners_link: コンテンツ・パートナー
   admin_content_partners_page_title: 管理：コンテンツパートナーの管理
   admin_home: 管理者ホーム
@@ -216,7 +214,6 @@ ja:
   change_rating_to_3_of_5: 3 / 5 に評価を変更
   change_rating_to_4_of_5: 4 / 5 に評価を変更
   change_rating_to_5_of_5: 5 / 5 に評価を変更
-  changed_to_act: "\"%{act}\" に変更"
   choose_collection_header: コレクションを選択
   citation: 引用
   classification_tree_header: 分類
@@ -230,7 +227,6 @@ ja:
   collections_lowercase: コレクション
   comment: コメント
   comment_added_notice: コメントが正常に追加されました。
-  comment_colon: "コメント :"
   comment_created_at: "作成 :"
   comments_and_tags: コメントとタグ
   communities: コミュニティ
@@ -243,7 +239,6 @@ ja:
   content_partner: コンテンツパートナー
   content_partner_about_header: "%{partner_name} について"
   content_partner_column_header_partner: パートナー
-  content_partner_column_header_registered: 登録
   content_partner_contact_delete_successful_notice: 連絡先は既に削除されています。
   content_partner_contact_edit_link: 連絡先を編集
   content_partner_contact_edit_page_subheader: 連絡先を編集
@@ -252,8 +247,6 @@ ja:
   content_partner_contact_update_unsuccessful_error: 申し訳ありませんが、エラーが発生したため、連絡先は更新されませんでした。
   content_partner_contacts_header: 連絡先
   content_partner_data_description_header: データの説明
-  content_partner_detail: コンテンツ・パートナーの詳細
-  content_partner_details: コンテンツ・パートナーの詳細
   content_partner_edit_link: コンテンツパートナーを編集
   content_partner_filter_option_vetted_no: いいえ
   content_partner_filter_option_vetted_yes: はい
@@ -280,15 +273,6 @@ ja:
   content_summary_table_type_unreviewed_images_row: 未審査の画像の数
   content_summary_table_type_unreviewed_text_row: 未審査のテキスト項目の数
   copy: コピー
-  copy_all_articles_button: すべての記事をコピー
-  copy_all_collections_button: すべてのコレクションをコピー
-  copy_all_communities_button: すべてのコミュニティをコピー
-  copy_all_images_button: すべての画像をコピー
-  copy_all_items_button: コレクション全体をコピー
-  copy_all_people_button: すべての人々をコピー
-  copy_all_sounds_button: すべての音声をコピー
-  copy_all_taxa_button: すべての分類群をコピー
-  copy_all_videos_button: 全ての動画をコピー
   copy_of_name: "%{name} をコピー"
   create_a_collection: コレクションを作成
   create_a_community: コミュニティを作成
@@ -305,7 +289,6 @@ ja:
   curator_profile: キュレーターのプロファイル
   curator_question: キュレーター？
   curator_scope_colon: "キュレーターの範囲:"
-  curator_title: キュレーター
   curators: キュレーター
   daily: 日次
   darwin_core: ダーウィンコア
@@ -317,14 +300,11 @@ ja:
   data_usage_reports: データの使用状況レポート
   dato_create_cancel: キャンセル
   dato_create_update_user_text_missing_taxon_id_exception: taxon_concept_idが欠落している場合、テキスト DataObject または UsersDataObject を構築することができません。
-  dato_create_user_text_error: 申し訳ありませんが、エラーが発生したため、記事を追加できませんでした。
   dato_edit_cancel: キャンセル
   dato_edit_text_link_button: この記事を編集
   dato_edit_text_title: 記事を編集
   dato_new_edit_user_text_fieldset_content_header: 記事の内容
   dato_new_edit_user_text_fieldset_information_header: 記事の情報
-  dear_contact_full_name: "%{contact_full_name} 殿、"
-  dear_user_with_comma: "%{user} 殿、"
   default: デフォルト
   delete: 削除
   delete_community: このコミュニティを削除
@@ -337,14 +317,11 @@ ja:
   did_you_mean: "もしかして: %{suggestions} ？"
   donate: 寄付
   donation_confirmation: 寄付の確認
-  download_audio_mpeg: MPEG をダウンロード
   edit: 編集
   edit_collection_details: コレクションの詳細を編集
   edit_collection_details_header: コレクションの詳細を編集
   edit_collection_head_title: "編集 : %{collection_name}"
   edit_community: コミュニティを編集
-  edit_content_partner_agreement: コンテンツパートナー契約を編集
-  edit_downcase: 編集
   edit_eol_glossary: EOL用語集を編集する
   edit_hierarchy: 階層を編集する
   edit_my_profile: プロフィールを編集
@@ -356,8 +333,6 @@ ja:
   edit_web_users: Web ユーザを編集
   email: 電子メール
   email_colon: "電子メール :"
-  email_subject_a_message_from_the_eol: Encyclopedia of Life からのメッセージ
-  email_subject_account_activated: Encyclopedia of Life ライフ アカウントは有効になっています。
   eol_api: EOL API
   eol_api_collections: "EOL API: コレクション"
   eol_api_data_objects: "EOL API: データオブジェクト"
@@ -401,7 +376,6 @@ ja:
         active: 公開済み
         page_name: 一意の名前<small> ( 小文字の英数字およびアンダースコアのみ ) </small>
       content_partner: 
-        admin_notes: 管理ノート<small> ( EOL管理者にのみ表示されます ) </small>
         description_of_data: データの説明<small> ( 非公開 ) </small>
         display_name: 表示名<small> ( 任意 ) </small>
         logo_current: "現在のロゴ :"
@@ -461,8 +435,6 @@ ja:
       content_partner: 
         create: コンテンツパートナーを作成
         update: コンテンツパートナーの情報を保存
-      content_partner_agreements: 
-        create: コンテンツパートナーの条件に同意
       content_partner_contact: 
         create: 連絡先を追加
         destroy: 連絡先を削除
@@ -545,15 +517,6 @@ ja:
   method: メソッド
   methods: メソッド
   move: 移動
-  move_all_articles_button: すべての記事を移動
-  move_all_collections_button: すべてのコレクションを移動
-  move_all_communities_button: すべてのコミュニティを移動
-  move_all_images_button: すべての画像を移動
-  move_all_items_button: コレクション全体を移動
-  move_all_people_button: すべての人々を移動
-  move_all_sounds_button: すべての音声を移動
-  move_all_taxa_button: すべての分類群を移動
-  move_all_videos_button: すべての動画を移動
   move_down: 下に移動
   move_up: 上に移動
   names: 名前
@@ -570,9 +533,13 @@ ja:
   object_status_all_option: すべて
   object_type: オブジェクト・タイプ
   object_type_all_option: すべて
+  object_type_collection_option: コレクション
+  object_type_community_option: コミュニティ
   object_type_image_option: 画像
   object_type_sound_option: 音声
+  object_type_taxon_concept_option: 分類群のコンセプト
   object_type_text_option: テキスト
+  object_type_user_option: 利用者
   object_type_video_option: 動画
   object_visibility: オブジェクトの可視性
   object_visibility_all_option: すべて
@@ -594,22 +561,12 @@ ja:
   please_confirm_your_donation_details: ご寄付の詳細をご確認ください
   please_wait: お待ちください...
   post_comment: コメントを投稿
-  preferences: 設定
   press_room: プレスルーム
   profile: プロフィール
   profile_colon: "プロフィール:"
   public_domain: パブリック・ドメイン
   rating_added_notice: 評価が正常に追加されました。
   remove: 削除
-  remove_all_articles_button: すべての記事を削除
-  remove_all_collections_button: すべてのコレクションを削除
-  remove_all_communities_button: すべてのコミュニティを削除
-  remove_all_images_button: すべての画像を削除
-  remove_all_items_button: コレクション全体を削除
-  remove_all_people_button: すべての人々を削除
-  remove_all_sounds_button: すべての音声を削除
-  remove_all_taxa_button: すべての分類群を削除
-  remove_all_videos_button: すべての動画を削除
   remove_data_object_association: 関連付けを除去
   request: 要求
   request_mailing_list_colon: メーリング リストを要求：
@@ -634,7 +591,6 @@ ja:
   selected_items: 選択されたアイテム
   selected_language_advisory_information: これは、現在選択されている言語です。
   send_email_colon: 電子メールを送信：
-  send_emails_now: 今すぐ電子メールを送信
   sent_invitations_to_users: 招待状は、%{users} に送られました。
   set_as_exemplar: 標本として設定
   show: 表示
@@ -680,9 +636,7 @@ ja:
   this_cannot_be_undone_are_you_sure: これを元に戻すことはできません；本当によろしいですか？
   this_community_has_no_focus_list: このコミュニティにはフォーカスリストがありません。
   this_community_was_deleted: このコミュニティは、所有者によって削除されました。
-  this_is_an_automated_e_mail_notification: これは、自動通知電子メールです。
   this_is_the_label_that_will_be_used_for_attribution: これは、属性に使用されるラベルです。
-  this_is_the_link_to_your_web_stats: これは、Web 統計へのリンクです：
   title: タイトル
   toc: 目次
   translation_deleted: 翻訳は削除されています
@@ -724,7 +678,6 @@ ja:
   view_in_classification: 分類を表示
   view_translation_source_link: 翻訳ソースの表示
   view_user_comments: ユーザーのコメントを表示
-  viewing_partner_colon: "パートナーを表示:"
   watch_list: ウォッチリスト
   web_users: ウェブユーザー
   what_is_eol: EOLとは？
@@ -732,7 +685,6 @@ ja:
   worklist: ワークリスト
   xml_response: XMLレスポンス
   year: 年
-  year_equals: 年 =
   yes_answer: はい
   you_have_been_logged_out: ログアウトしました。
   your_current_rating_0_of_5: "あなたの現在の評価: 0 / 5"
@@ -742,6 +694,4 @@ ja:
   your_current_rating_4_of_5: "あなたの現在の評価: 4 / 5"
   your_current_rating_5_of_5: "あなたの現在の評価: 5 / 5"
   your_preferences: 個人設定
-  your_preferences_have_been_updated: 個人設定が更新されました
   your_rating: あなたの評価
-  your_rating_colon: "あなたの評価:"

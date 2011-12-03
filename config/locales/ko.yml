@@ -3,6 +3,7 @@
 # Export driver: syck-pecl
 # Author: Cwt96
 ko: 
+  license_gnu_gpl: GNU 일반 공중 사용 허가서 (GNU GPL)
   media: 미디어
   twitter: 트위터
   you_are_not_authorized_to_perform_this_action: 작업을 수행할 권한이 없습니다.

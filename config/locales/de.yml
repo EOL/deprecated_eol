@@ -12,6 +12,12 @@ de:
   a_total_of_comment_were_found_matching_your_criteria: 
     one: Insgesamt wurde ein Kommentar gefunden, der zu Ihren Kriterien passt.
     other: Insgesamt wurden %{count} Kommenare gefunden, die zu Ihren Kriterien passen.
+  a_total_of_items_were_found_matching_your_criteria: 
+    one: Insgesamt wurde ein Objekt gefunden, das zu Ihren Kriterien passt.
+    other: Insgesamt wurden %{count} Objekte gefunden, die zu Ihren Kriterien passen.
+  a_total_of_terms_were_found_matching_your: 
+    one: Insgesamt wurde ein Objekt gefunden, das zu Ihren Kriterien passt.
+    other: Insgesamt wurden %{count} Objekte gefunden, die zu Ihren Kriterien passen.
   about_eol: Über EOL
   account_information: Nutzerkontoinformationen
   account_information_menu: Nutzerkontoinformationen
@@ -175,6 +181,7 @@ de:
     models: 
       user: Konto
   activity: Aktivität
+  activity_added_an_editor_of_collection: <strong>%{user}</strong> hat der Sammlung „%{collection}“ einen Verwalter zugeordnet.
   activity_log_empty: Bislang hat noch niemand Aktualisierungen vorgenommen.
   activity_log_empty_learn_more_link: Informieren Sie sich, wie sie hier beitragen können
   activity_user_added_as_an_editor_of_collection: <strong>%{user}</strong> wurde zum Verwalter der Sammlung „%{collection}“ gemacht.
@@ -292,6 +299,7 @@ de:
   admin_home: Administrationsseite
   admin_information: Dies ist die neue Administrationskonsole von EOL V2. Wir sind gerade dabei die Administrationsfunktionen von EOL V1 hierher zu übertragen. Sofern der Administrationsbereich, den Sie suchen, hier nicht aufgeführt ist, bitten wir Sie, die <a href="/administrator">Administrationskonsole von EOL V1</a> aufzurufen.
   admin_link: Administrationsseite
+  admin_login_confirmation: Sind Sie sicher, dass Sie sich zur Registrierung von Inhaltspartnern als %{name} anmelden möchten? Sofern Sie dies tun, werden Sie als Administrator von der Website abgemeldet.
   admin_notes_not_visible_to_user: "Anmerkungen für Administratoren (für Benutzer nicht sichtbar):"
   admin_page_title: Administrationsseite
   admin_spam_delete: Spam löschen
@@ -357,6 +365,9 @@ de:
   articles_with_count: 
     one: Ein Artikel
     other: "%{count} Artikel"
+  as_of_time_there_were_unique_visitors: 
+    one: Bis zum %{time} gab es einen eindeutigen Besucher
+    other: Bis zum %{time} gab es %{count} eindeutige Besucher
   assistive_details_header: Einzelheiten
   assistive_literature_header: Literatur
   assistive_maps_header: Karten
@@ -404,13 +415,17 @@ de:
   biomedical_terms_clouds_provided_by: Der Webspeicherplatz wird vom MBL des <a href="%{supplier_url}">Biology of Aging-Projekt</a> zur Verfügung gestellt.
   biomedical_terms_introduction: Diese Begriffe sind Ergebnis der Suche nach dem Namen <em>%{scientific_name}</em> in der biomedizinischen Literaturdatenbank <a href="%{pubmed_url}">PubMed</a>. Die Suchergebnisse werden mit den Hilfsprogramm <a href="%{ligercat_url}">LigerCat</a> analysiert, das daraufhin eine Begriffswolke der wichtigsten <a href="%{mesh_url}">Begriffe medizinischer Rubriken (MESH)</a> erstellt. Die relative Größe der Begriffe zueinander beschreibt, wie häufig er in der PubMed-Literaturdatenbank als Suchergebnis ausgeben wurde. Klicken Sie auf einen Begriff, um auf die vollständige LigerCat-Begriffswolke zuzugreifen, die zudem eine Echtzeitsuche in PubMed-Literaturdatenbank ermöglicht.
   biomedical_terms_provided_by: Die Bedingungen werden von <a href="%{supplier_url}">PubMed</a> zur Verfügung gestellt.
+  body: "Inhalt:"
   browsable: Durchsuchbar
+  browsable_hierarchies: Durchsuchbare Hierarchien
   browse_hierarchy: Hierarchie durchsuchen
   browsing_branch_colon: "Zweig durchsuchen:"
   build_communities: Gemeinschaften aufbauen
   by: nach
   by_caps: Nach
   by_scientific_name_table_header: nach wissenschaftlichem Namen
+  cache_store: Cachespeicher
+  calculate_averages_slow: Mittelwerte berechnen (langsam)
   cancel: Abbrechen
   cannot_be_associated_with_both_a_user_and_a_community: Konnte weder einem Nutzer noch einer Gemeinschaft zugeordnet werden.
   cannot_be_empty: darf nicht leer sein.
@@ -435,13 +450,20 @@ de:
   classifications_summary_header_with_count: 
     one: In einer Klassifikation gefunden
     other: In %{count} Klassifikationen gefunden
+  clear_all_non_species_pages: Alle Seiten entfernen, die sich nicht auf Arten beziehen
+  clear_entire_cache_store: Den gesamten Cachespeicher leeren
+  clear_species_page: Alle Seiten entfernen, die sich auf Arten beziehen
+  click: Anklicken
   click_on_a_user_to_view_the_users_detailed_profile: Klicken Sie auf den Nutzer, um dessen detailliertes Profil einzusehen oder klicken Sie auf die Art, um die Seite anzusehen, auf der entsprechende Texte vorhanden sind (Nutzen Sie die Zurück-Schaltfläche des Browsers, um hierher zurück zu gelangen.).
   click_on_a_username_to_view_the_users_detailed_profile: Klicken Sie auf den Nutzernamen, um dessen detailliertes Profil einzusehen oder klicken Sie auf die Art, um die Seite anzusehen, auf der entsprechende Texte vorhanden sind (Nutzen Sie die Zurück-Schaltfläche des Browsers, um hierher zurück zu gelangen.). Auf „Bearbeiten“ klicken, um den Kommentar zu bearbeiten oder auf „Löschen“, um den Kommentar zu löschen.
+  click_on_an_activity_to_see_th: Klicken Sie eine Aktivität an, um eine Liste der entsprechenden Aktivitäten zu erhalten, die innerhalb von 5 Minuten {3-4 Minuten} durchgeführt werden können.
+  clicked_time: Anklickzeitpunkt
   close_this_window_to_return_to_edit_window: DIESES FENSTER SCHLIESSEN, UM ZUM BEARBEITUNGSFENSTER ZURÜCKZUKEHREN
   cms_available_in_languages: "Diese Seite ist verfügbar in:"
   cms_missing_content_message: Diese Seite ist leider nicht in der ausgewählten Sprache (%{selected_language}) vorhanden.
   cms_missing_content_title: Fehlende Übersetzung
   collect_item: Objekt sammeln
+  collect_items: Objekte sammeln
   collection_created_notice: Die Sammlung <em>%{collection_name}</em> wurde erfolgreich erstellt.
   collection_created_with_count_notice: 
     one: Die Sammlung <em>%{collection_name}</em> wurde erfolgreich mit einem Sammlungsobjekt erstellt.
@@ -457,8 +479,10 @@ de:
   collection_not_created_error: Es ist leider ein Fehler aufgetreten, so dass die Sammlung <em>%{collection_name}</em> nicht erstellt werden konnte.
   collection_not_destroyed_error: Die Sammlung wurde leider nicht gelöscht.
   collection_not_found_error: Diese Sammlung konnte leider nicht gefunden werden.
+  collection_not_updated_error: Es ist leider ein Fehler aufgetreten, so dass die Sammlung nicht aktualisiert werden konnte.
   collection_rating: Sammlungsbewertung
   collection_updated_notice: Die Sammlung <em>%{collection_name}</em> wurde erfolgreich aktualisiert.
+  collection_was_added_to_community: Die Sammlung „%{collection}“ wurde dieser Gemeinschaft hinzugefügt.
   collection_was_removed_by_owner: Diese Sammlung wurde von ihrem Besitzer entfernt.
   collections: Sammlungen
   collections_lowercase: Sammlungen
@@ -478,12 +502,17 @@ de:
   comment_not_added_error: Es ist leider ein Fehler aufgetreten, so dass der Kommentar nicht hinzugefügt werden konnte.
   comment_or_rate_on_this_article: Diesen Artikel kommentierten oder bewerten
   comment_show_posters_image_alt: Das Profilbild von %{posters_name}, der diesen Kommentar hinterlassen hat.
+  commented_on_your_image: " kommentierte Ihr Bild auf der <a href='%{data_object_link}'>Seite in der Enzyklopädie des Lebens (EOL)</a>:\n%{comment_body}"
   comments: Kommentare
   comments_and_tags: Kommentare und Stichwörter
   comments_moderated: Moderierte Kommentare
+  comments_on: Kommentare anzeigen
   comments_with_count: 
     one: Ein Kommentar
     other: "%{count} Kommentare"
+  common_activities_by_logged_in: Allgemeine Aktivitäten angemeldeter Nutzer.
+  common_name: Gebräuchlicher Name
+  common_name_avg: Durchschnittlich vorhandene gebräuchliche Namen
   common_names_with_count: 
     one: Ein gebräuchlicher Name
     other: "%{count} gebräuchliche Namen"
@@ -495,11 +524,13 @@ de:
   communities_summary_header_with_count: 
     one: Gehört zu %{count} Gemeinschaft
     other: Gehört zu %{count} Gemeinschaften
+  communities_that_can_edit_this_collection: Gemeinschaften, die diese Sammlung verwalten können
   communities_with_count: 
     one: Eine Gemeinschaft
     other: "%{count} Gemeinschaften"
   community: Gemeinschaft
   community_activity: Aktivität der Gemeinschaft
+  community_can_now_manage_this_collection: Die Gemeinschaft „%{community}“ ist jetzt berechtigt, diese Sammlung zu verwalten.
   community_contributions_with_count: 
     one: Ein Mitwirkender
     other: "%{count} Mitwirkende"
@@ -517,19 +548,32 @@ de:
   community_members_with_count: 
     one: Ein Gemeinschaftsmitglied
     other: "%{count} Gemeinschaftsmitglieder"
+  community_name_label: Name der Gemeinschaft
   community_newsfeed: Neuigkeitenfeed der Gemeinschaft
+  community_no_longer_has_manager_access_to_collection: Die Gemeinschaft „%{community}“ kann die Sammlung „%{collection}“ nicht länger verwalten.
   community_not_destroyed_error: Es ist leider ein Problem aufgetreten, so dass die Gemeinschaft nicht gelöscht wurde.
   community_rating: Gemeinschaftbewertung
   community_removed_by_owner: Diese Gemeinschaft wurde von ihrem Besitzer entfernt.
   community_tab_collections_description: Sammlungen werden von EOL-Nutzern erstellt, die Arten, Multimediadateien, Artikel oder gar andere Nutzer zusammenführen und etwas gemeinsam haben, wie bspw. geografische und ökologische Aspekte oder persönliche Vorlieben. Gemeinschaften können Sammlungen vorstellen, die in deren besonderem Interesse liegen und für sie bedeutsam sind.
   community_tab_communities_description: Gemeinschaften Sie Gruppen von EOL-Nutzern, die zusammenkommen, um ihre gemeinsamen Interessen und Kompetenzen zusammenzuführen. EOL-Gemeinschaften bilden sich um eine oder mehrere EOL-Sammlung und ermöglichen es so den Nutzern, einen Schwerpunkt auf gemeinsame Interessen zu setzen. Weitere Informationen zu EOL-Gemeinschaften, einschließlich der Anleitung, wie eine gegründet werden kann, sind auf der <a href='/info/communities'>Hilfeseite</a> verfügbar.
   community_tab_curators_description: Kuratoren sind EOL-Nutzer, die über Kompetenzen in Biologie verfügen und ihre Zeit dazu nutzen die Inhalte bei EOL zu prüfen, um so sicherzustellen, dass die einsehbaren Informationen richtig und von hoher Qualität sind.
+  completed: Abgeschlossen
   confirm_delete_community: Sind Sie sicher, dass Sie diese Gemeinschaft löschen möchten? Den verbliebenen Mitgliedern wird es weiterhin möglich sein, sie zu sehen, und auch der Neuigkeitenfeed wird aufrecht erhalten. Die Gemeinschaft wird allerdings nicht mehr bei den Suchergebnissen oder auf den Seiten zu Taxa angezeigt. Auch wird sie nicht länger bearbeitbar sein.
   confirm_leave: Sind Sie sich sicher, dass Sie diese Gemeinschaft verlassen möchten?
   confirm_password_colon: "Passwort bestätigen:"
+  contact: Kontakt
+  contact_information: Kontaktinformationen
+  contact_updated: Kontakt wurde aktualisiert
+  contact_us: Kontaktieren Sie uns
   contact_us_functions: Kontaktfunktionen
   contact_us_link: Kontaktieren Sie uns
+  contact_us_submissions: Kontaktaufnahmen
+  contact_us_topics: Themen der Kontaktaufnahmen
+  contacts: Kontaktieren Sie uns
+  containing_value: enthalten %{value}.
+  content: Inhalt
   content_has_been_updated: Der Inhalt wurde aktualisiert.
+  content_notes_not_shown_to_us: "Anmerkungen zum Inhalt (wird Nutzern nicht angezeigt):"
   content_partner: Inhaltspartner
   content_partner_about_header: Über %{partner_name}
   content_partner_admin_index_link_back_to: zurück zur Inhaltspartnerverwaltung
@@ -573,8 +617,15 @@ de:
   content_partner_data_description_empty: Niemand hat zu den bereitgestellten Daten eine Beschreibung hinzugefügt.
   content_partner_data_description_header: Beschreibung der Daten
   content_partner_edit_link: Inhaltspartner bearbeiten
+  content_partner_filter_option_published_latest_harvest_not_published: Neuester unveröffentlichter
+  content_partner_filter_option_published_latest_harvest_pending_publish: Neuester zur Veröffentlichung ausstehender
+  content_partner_filter_option_published_latest_harvest_published: Neuester veröffentlichter
+  content_partner_filter_option_published_never_harvested: Nie Daten abgerufen
+  content_partner_filter_option_published_never_published: Nie veröffentlicht
+  content_partner_filter_option_published_no_resources: Keine Quellen
   content_partner_filter_option_vetted_no: Nein
   content_partner_filter_option_vetted_yes: Ja
+  content_partner_filter_published: Veröffentlicht
   content_partner_has_unpublished_content_false: Keine unveröffentlichten Inhalte
   content_partner_has_unpublished_content_true: Unveröffentlichte Inhalte
   content_partner_homepage_link: Die Website des Inhaltspartners besuchen
@@ -592,9 +643,11 @@ de:
   content_partner_overview_agreement_link: Aktuelle Vereinbarung ansehen
   content_partner_overview_link: Übersicht der Partner
   content_partner_overview_link_back_to: zurück zur Übersicht der Partner
+  content_partner_profile_menu: Profil des Inhaltspartners
   content_partner_public_false: Privat
   content_partner_public_true: Öffentlich
   content_partner_registered_time_ago: Vor %{time_passed} registriert;
+  content_partner_reports: Berichte für Inhaltspartner
   content_partner_resource_about_header: Über die Quelle
   content_partner_resource_auto_publish_false: Nein
   content_partner_resource_auto_publish_true: Ja
@@ -613,6 +666,7 @@ de:
   content_partner_resource_harvest_event_current_published: Derzeit veröffentlicht
   content_partner_resource_harvest_event_not_published: Nicht veröffentlicht
   content_partner_resource_harvest_event_previously_published: Zuvor veröffentlicht
+  content_partner_resource_harvest_event_publish_pending: Ausstehenden veröffentlichen
   content_partner_resource_harvest_events_empty: Es wurden keine Datenabrufe ermittelt.
   content_partner_resource_harvest_events_for_resource_subheader: Datenabrufe für Quelle %{resource_title}
   content_partner_resource_harvest_events_see_all_link: Alle <span class="assistive">Datenabrufe</span> ansehen
@@ -633,6 +687,7 @@ de:
   content_partner_resource_new_subheader: Eine neue Quelle hinzufügen
   content_partner_resource_preview_collection_header: Vorschau der Sammlung
   content_partner_resource_preview_collection_show_link: Die Sammlungsvorschau ansehen
+  content_partner_resource_processing_header: Bearbeitungsstatus und -einstellungen
   content_partner_resource_resource_status_new: Erstellt
   content_partner_resource_show_link_back_to: zurück zur Quelle
   content_partner_resource_show_subheader: Informationen zur Quelle <em>%{resource_title}</em>
@@ -667,6 +722,8 @@ de:
   content_partner_status_empty: Unbekannter Status
   content_partner_update_successful_notice: Die Partnerinformationen wurden erfolgreich aktualisiert.
   content_partner_update_unsuccessful_error: Es ist leider ein Fehler aufgetreten, so dass die Partnerinformationen nicht aktualisiert wurden.
+  content_partner_vetted_false: Nicht geprüft
+  content_partner_vetted_true: Geprüft
   content_partners: Inhaltspartner
   content_partners_empty: Es wurden keine Inhaltspartner gefunden.
   content_partners_page_description: Inhaltspartner der Enzyklopädie des Lebens (EOL) verfügen, auf deren eigenen Websites oder in deren eigenen Datenbanken, über umfangreiche Informationen zur biologischen Vielfalt, die sie zudem über die Seiten von EOL verfügbar machen. Wir schätzen Ihre kritischen Beiträge zur Mission von EOL und ermutigen Sie mehr zu ihr in Erfahrung zu bringen. Informieren Sie sich darüber, wie Sie <a href="%{more_url}">ein Inhaltspartner werden können</a>.
@@ -685,11 +742,16 @@ de:
   content_summary_table_type_trusted_text_row: Anzahl vertrauenswürdiger Texte
   content_summary_table_type_unreviewed_images_row: Anzahl ungeprüfter Bilder
   content_summary_table_type_unreviewed_text_row: Anzahl ungeprüfter Texte
+  contribute: Mitmachen
   copied_items_from_collection_with_count_notice: 
     one: Ein Objekt von %{name} kopiert.
     other: "%{count} Objekte von %{name} kopiert."
   copy: Kopieren
+  copy_items_to_a_new_collection_with_count: 
+    one: Ein Objekt zu einer neuen Sammlung verschieben
+    other: "%{count} Objekte zu einer neuen Sammlung verschieben"
   copy_of_name: Kopie von %{name}
+  copyright: "Rechtlich geschützt für:"
   correct_donation_message: Sofern diese Informationen nicht richtig sind, gehe Sie bitte zu %{go_back_link} zurück, um Änderungen vorzunehmen
   could_not_find_collection_error: Diese Sammlung konnte leider nicht gefunden werden.
   could_not_find_user: Zu diesem Nutzer konnte keine Mitgliedschaft in einer Gemeinschaft gefunden werden.
@@ -931,6 +993,8 @@ de:
   help: Hilfe
   helpers: 
     label: 
+      collection: 
+        view_style_id: "Standardansicht:"
       content_page: 
         active: Veröffentlicht
         active_more: Veröffentlichte Seiten sind öffentlich sichtbar. Deaktivieren Sie <em>veröffentlicht</em>, sofern Sie verhindern möchten, dass Nutzer diese Seite in jeglicher Sprache ansehen können.
@@ -1323,7 +1387,7 @@ de:
   news_items: Neuigkeiten
   newsfeed: Neuigkeitenfeed
   newsfeed_help_for_collection: Der Nachrichtenfeed dieser Sammlung auf EOL sammelt die Aktualisierungen bezüglich der in ihr enthaltenen Objekte, einschließlich der Aktivitäten ihres Besitzers und der Kommentare anderer Nutzer von EOL.
-  newsfeed_help_for_community: Der Nachrichtenfeed dieser Gemeinschaft auf EOL sammelt die Aktualisierungen bezüglich der in ihrer Schwerpunktsammlung enthaltenen Objekte, einschließlich der Aktivitäten ihrer Mitglieder und der Kommentare anderer Nutzer von EOL.
+  newsfeed_help_for_community: Der Nachrichtenfeed dieser Gemeinschaft auf EOL sammelt die Aktualisierungen bezüglich der, in den von ihnen verwalteten Sammlungen enthaltenen Objekte, einschließlich der Aktivitäten ihrer Mitglieder und der Kommentare anderer Nutzer von EOL.
   newsfeed_help_for_focus_list: Der Nachrichtenfeed dieser Schwerpunktliste auf EOL sammelt die Aktualisierungen bezüglich der Objekte, die zu einer Schwerpunktliste einer Gemeinschaft gehören, einschließlich der Aktivitäten ihrer Verwalter und der Kommentare anderer Nutzer von EOL.
   newsfeed_help_for_profile: Der Nachrichtenfeed dieses EOL-Profils sammelt Nachrichten, die seinem Besitzer von andern Mitgliedern hinterlassen wurden, Einladungen zu EOL-Gemeinschaften sowie Aktualisierungen bezüglich der Objekte, die sich auf dessen Beobachtungsliste befinden.
   newsfeed_help_for_taxon: Der Nachrichtenfeed dieser Seite zu einem Taxon sammelt die Aktualisierungen bezüglich der auf ihr dargestellten Objekte, einschließlich der Aktivitäten der Kuratoren sowie der Kommentare anderer Nutzer von EOL.
@@ -1412,7 +1476,7 @@ de:
   object_status: Objektstatus
   object_status_all_option: Alle
   object_status_trusted_option: Vertrauenswürdige
-  object_status_unreviewed_option: Nicht geprüfte
+  object_status_unreviewed_option: Nicht geprüft
   object_status_untrusted_option: Nicht vertrauenswürdige
   object_type: Objekttyp
   object_type_all_option: Alle

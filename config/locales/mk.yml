@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Bjankuloski06
+# Author: Rancher
 mk: 
   0_1_or_2: 0, 1 или 2
   0_or_1: 0 или 1
@@ -181,13 +182,14 @@ mk:
     models: 
       user: сметка
   activity: Активности
+  activity_added_an_editor_of_collection: <strong>%{user}</strong> назначи раководител на збирката „%{collection}“.
   activity_log_empty: Сè уште никој нема поднови од никого.
   activity_log_empty_learn_more_link: Дознајте како да придонесувате
   activity_user_added_as_an_editor_of_collection: <strong>%{user}</strong> е додаден како раководител на збирката „%{collection}“.
   activity_user_added_association: <strong>%{user}</strong> му додаде поврзаност на објектот „%{object_name}“.
   activity_user_added_collection_to_community: <strong>%{user}</strong> ја додаде збирката „%{collection}“ во заедницата „%{community}“.
-  activity_user_added_common_name: <strong>%{user}</strong> му додаде тривијално име „%{name}“ на непознат објект.
-  activity_user_added_common_name_to_taxon: <strong>%{user}</strong> му го додаде тривијалното име „%{name}“ на таксонот „%{taxon}“.
+  activity_user_added_common_name: <strong>%{user}</strong> му додаде тривијално име „%{name}“ на %{language} на непознат објект.
+  activity_user_added_common_name_to_taxon: <strong>%{user}</strong> му го додаде тривијалното име на %{language} „%{name}“ на таксонот „%{taxon}“.
   activity_user_added_community_manager: <strong>%{user}</strong> го назначи корисникот %{manager} за раководител на заедницата „%{community}“.
   activity_user_added_item_to_collection: <strong>%{user}</strong> го додаде експонатот „%{item}“ во збирката „%{collection}“.
   activity_user_added_named_association: <strong>%{user}</strong> додаде поврзаност помеѓу „%{object_name}“ и „%{name}“.
@@ -253,7 +255,7 @@ mk:
   add_new_tag_suggestion: Додај предлог за Нова ознака
   add_page: Додај страница
   add_sub_chapter: Додај подглава
-  add_to_a_community: Додја во заедница
+  add_to_a_community: Додај во заедница
   add_to_my_collection_button: Додај во мојата збирка
   admin: админ
   admin_content_page_active: Објавено
@@ -535,7 +537,7 @@ mk:
     other: "%{count} придонеси"
   community_destroyed: Ја имате избришано оваа заедница. Повеќе нема да се прикажува во страниците на таксоните и пребарувањата.
   community_empty_notice: Оваа заедница нема членови.
-  community_focus: Тематика на заедницата
+  community_focus: Раководени збирки
   community_focus_items_with_count: 
     one: "%{count} експонат"
     other: "%{count} експонати"
@@ -1102,6 +1104,8 @@ mk:
   help: Помош
   helpers: 
     label: 
+      collection: 
+        view_style_id: Основен изглед
       content_page: 
         active: Објавено
         active_more: Објавените страници ќе бидат јавно истакнати. Отштиклирајте го <em>објавено</em> ако сакате верзиите на страницава да не бидат видливи за општото корисништво на било кој јазик.
@@ -1349,15 +1353,25 @@ mk:
   item_not_added_to_collection_error: Нажалост, се појави грешка. Не можев да го додадам избраниот експонат во збирката.
   item_not_added_to_itself_notice: Нажалост, не можете да ја додадете збирката <em>%{collection_name}</em> сама во себе.
   item_not_updated_in_collection_error: Нажалост, се појави грешка. Не можев да го подновам експонатот.
+  item_type_article: Статија
   item_type_article_assistive: Овој експонат е статија
+  item_type_collection: Збирка
   item_type_collection_assistive: Овој експонат е збирка
+  item_type_community: Заедница
   item_type_community_assistive: Овој експонат е заедница
+  item_type_image: Слика
   item_type_image_assistive: Овој експонат е слика
+  item_type_image_map: Карта
   item_type_image_map_assistive: Овој експонат е слика на карта
+  item_type_map: Карта
   item_type_map_assistive: Овој експонат е слика
+  item_type_person: Лице
   item_type_person_assistive: Овој експонат е личност
+  item_type_sound: Звук
   item_type_sound_assistive: Овој експонат е звук
+  item_type_taxon: Таксон
   item_type_taxon_assistive: Овој експонат е таксон
+  item_type_video: Видео
   item_type_video_assistive: Овој експонат е видеоснимка
   item_updated_in_collection_notice: Експонатот е успешно подновен во збирката <em>%{collection_name}</em>.
   items_no_copy_none_selected_warning: Копирањето не е спроведено бидејќи не одбравте ниеден експонат. За да копирате експонати во друга збирка, најпрвин штиклирајте го кутивчето до саканиот експонат во списокот.
@@ -1450,9 +1464,12 @@ mk:
   maintained_by: "одржува:"
   major_heading: Главно заглавие
   make_an_editor: назначи за раководител
-  make_user_an_editor_title: Назначете го корисникот %{user} за раководител на една од вашите збирки
+  make_user_an_editor_title: Дозволи му на корисникот %{user} да раководи со една од вашите збирки
   manage_your_profile: Раководење со вашиот профил
   managed_by: "Раководител:"
+  managed_collections_with_count: 
+    one: "%{count} збирка под раководство"
+    other: "%{count} збирки под раководство"
   manager_endorse_collections_suggestion: За да истакнете збирка на страницата на оваа заедница, додајте ја во списокот на теми на коишто се посветува заедницата.
   manager_parens: (раководител)
   map_alt_text: Оваа %{vetted_status} карта го претставува таксонот %{taxon_name}
@@ -1582,7 +1599,7 @@ mk:
   news_items: Новости
   newsfeed: Актуелности
   newsfeed_help_for_collection: Каналот за оваа збирка собира актуелности поврзани со експонатите во неа, вклучувајќи ги и активностите на нејзиниот сопственик и коментарите од други корисници на EOL.
-  newsfeed_help_for_community: Каналот за оваа заедница собира актуелности поврзани со објектите од нејзината тематска збирка, вклучувајќи ги и активностите на нејзините членови и коментарите од други корисници на EOL.
+  newsfeed_help_for_community: Каналот за оваа заедница собира актуелности поврзани со објектите во збирките се кои раководи, вклучувајќи ги и активностите на нејзините членови и коментарите од други корисници на EOL.
   newsfeed_help_for_focus_list: Каналот за тематскиот список собира актуелности поврзани со објектите во главната тематска збирка на една заедница, вклучувајќи ги и активностите на нејзините раководители и коментарите од други корисници на EOL.
   newsfeed_help_for_profile: Каналот на профилот содржи пораки за неговиот сопственик од други членови на EOL, покани од заедници и собира актуелности поврзани со објектите во списокот на набљудувања на сопственикот.
   newsfeed_help_for_taxon: Каналот за оваа таксонска страница собира актуелности поврзани експонатите во неа, вклучувајќи ги постапките на кустосите и коментарите од корисниците на EOL.
@@ -2304,6 +2321,8 @@ mk:
   view: Преглед
   view_added_text: погл. додаден текст
   view_article_source: Погл. извор на статијата
+  view_as_button: Промени изглед
+  view_as_label: Види како
   view_common_activities: погл. вообичаени активности
   view_common_activities_link: Погл. список на највообичаени активности.
   view_contact_us_submissions: погл. контактирања

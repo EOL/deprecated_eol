@@ -4,9 +4,12 @@
 # Author: Htt
 # Author: Vitthalkudal
 mr: 
+  cancel: रद्द करा
   collections: संग्रह
+  donate: दान
   edit_my_profile: तुमची पसंती संपादा
-  google_translate: गूगल भाषांतर
+  filter_by_type_all_option: सर्व प्रकार
   help: मदत
   images: चित्रे
+  license_gnu_gpl: ग्नू सामान्य सार्वजनिक परवाना
   twitter: ट्विटर

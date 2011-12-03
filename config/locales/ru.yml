@@ -1,33 +1,259 @@
 # Messages for Russian (Русский)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
+# Author: Adata80
+# Author: Eleferen
+# Author: Lvova
 # Author: Александр Сигачёв
 ru: 
+  0_1_or_2: 0, 1 или 2
+  0_or_1: 0 или 1
+  about_eol: О EOL
   account_information: Информация профиля
+  action_not_available_error: К сожалению, это действие недоступно.
+  activerecord: 
+    attributes: 
+      collection: 
+        sort_style_id: Направление сортировки по умолчанию
+      community: 
+        description: Описание сообщества
+        logo: Загрузить логотип
+      content_page: 
+        active: Опубликовано
+        page_name: Уникальное имя
+        sort_order: Порядок сортировки
+      content_partner: 
+        content_partner_status: Статус проекта
+        created_at: Создано
+        description: Описание проекта
+        display_name: Отображаемое имя
+        full_name: Название проекта
+        homepage: URL-адрес проекта
+        id: ID
+        notes: Примечания проекта
+        public: Общее
+        resources: Ресурсы
+        user_id: Управляется
+        vetted: Проверены
+      content_partner_agreement: 
+        signed_by: Подписано
+      data_object: 
+        description: Описание
+        object_title: Заголовок
+        rights_holder: Правообладатель
+      name: 
+        string: Имя
+      resource: 
+        language_id: Язык по умолчанию
+        license_id: Лицензия по умолчанию
+        resource_status_id: Состояние ресурса
+        rights_holder: Правообладатель по умолчанию
+        title: Название ресурса
+      translated_content_page: 
+        active_translation: Опубликовано
+        left_content: Навигация
+        meta_description: Описание метаданных
+        title: Заголовок
+      user: 
+        api_key: Ключ API
+        bio: Биография
+        email: Адрес электронной почты
+        entered_password: Пароль
+        entered_password_confirmation: Наберите пароль ещё раз <small>(для подтверждения)</small>
+        family_name: Фамилия
+        full_name: Полное имя
+        given_name: Имя
+        language_abbr: Предпочитаемый язык
+        username: Имя пользователя
+    errors: 
+      template: 
+        body: "Следующие поля не прошли проверку:"
+    models: 
+      user: аккаунт
+  add_a_comment_colon: "Добавить комментарий:"
+  add_a_new_user: Добавить нового пользователя
+  add_language: Добавить язык
+  add_page: Добавить страницу
+  admin: администратор
+  admin_content_page_create_successful_notice: Страница <a href="#%{anchor}"><em>%{page_name}</em></a> успешно создана.
+  admin_content_page_create_unsuccessful_error: Извините, произошла ошибка, страница не была создана.
+  admin_content_page_delete_confirmation: Вы уверены, что хотите удалить «%{page_name}» и все переводы. Удаление не может быть отменено.
+  admin_content_page_delete_successful_notice: Страница %{page_name} и связанные с ней переводы были удалены.
+  admin_content_page_new_link: Создать новую страницу
+  admin_content_pages_empty: Содержимое страницы не найдено.
+  admin_notes_not_visible_to_user: "Примечания администратора (не видны пользователю):"
+  admin_translated_content_page_new_link: Добавить перевод
+  all_articles: Все статьи
+  all_changes: Все изменения
+  all_collections: Все коллекции
   all_pages: Все страницы
+  are_you_sure: Вы уверены?
+  are_you_sure_this_action_cannot_be_undone: Вы уверены? Это действие невозможно отменить.
+  assistive_literature_header: Литература
+  audio_mute: выключить звук
+  audio_pause: пауза
+  audio_play: играть
+  cancel: Отмена
+  cannot_find_member: Не удаётся найти пользователя с этим идентификатором.
+  cms_missing_content_title: Отсутствует содержимое
+  communities_with_count: 
+    few: "%{count} сообщества"
+    one: "%{count} сообщество"
+    other: "%{count} сообществ"
   community: Сообщество
+  community_members: Члены сообщества
+  contact_us_link: Свяжитесь с нами
+  content_partner_column_header_partner: Партнер
+  content_partner_contact_new_page_subheader: Добавить контакт
+  content_partner_filter_option_vetted_no: Нет
+  content_partner_filter_option_vetted_yes: Да
   content_partners: Content Partners
-  curators_of_taxon_page_title: Кураторы %{taxon}
+  current_language: "Язык: %{iso_code}"
+  dato_create_cancel: Отмена
+  delete: удалить
+  donate: Внести пожертвование
+  edit: Редактировать
   encyclopedia_of_life: Энциклопедия жизни
   eol_news: Новости EOL
   explore: Ознакомление
   global_navigation: Общая навигация
   help: Помощь
-  image_thumbnail_alt_text: Это %{vetted_status} изображение относится к %{scientific_name}
+  helpers: 
+    label: 
+      content_page: 
+        active: Опубликовано
+      data_object: 
+        license_id: Лицензия
+        object_title: Заголовок
+        rights_holder: Правообладатель
+      resource: 
+        resource_status_id: Статус
+        resource_url_or_file_upload: Загрузить файл ресурсов
+        title: Название ресурса
+      session: 
+        password: Пароль
+      translated_content_page: 
+        active_translation: Опубликовано
+        language_id: Язык
+      user: 
+        bio: Обо мне
+        logo: Загрузить новую фотографию
+        mailing_list_yes: Да
+        new_password: Новый пароль <small>(4-16 символов)</small>
+        new_password_confirmation: Новый пароль <small>(для подтверждения)</small>
+        user_identities: Я
+        username: Имя пользователя <small>(4-32 символов)</small>
+        username_or_email: Имя пользователя или адрес электронной почты
+    select: 
+      prompt: Пожалуйста, выберите
+    submit: 
+      content_page: 
+        create: Создать страницу
+        edit: Править
+        preview: Предпросмотр
+        update: Обновить страницу
+      content_partner_contact: 
+        create: Добавить контакт
+        destroy: Удалить контакт
+        update: Обновить контакт
+      create: Создать %{model}
+      data_object: 
+        create: Добавить статью
+        create_text: Добавить статью
+        update: Сохранить статью
+      name: 
+        create: Добавить имя
+        update: Обновить имя
+      resource: 
+        create: Добавить ресурс
+        update: Обновить ресурс
+      session: 
+        create: Вход
+      submit: Сохранить %{model}
+      translated_content_page: 
+        create: Добавить перевод
+        update: Сохранить изменения в переводе
+      update: Обновить %{model}
+      user: 
+        create: Регистрация
+        curation_application: Применить сейчас
+        curation_privileges: Отправить запрос
+        forgot_password: Отправить письмо
+        generate_api_key: Создать ключ
+      wikipedia_queue: 
+        create: Отправить запрос
   images: Иллюстрации
   just_pages_with_pictures_and_text: Только страницы с иллюстрациями и текстом
+  language: "Язык:"
+  languages: Языки
   license: Лицензия
+  license_all_rights_reserved: Все права защищены
+  license_cc_by: Creative Commons Attribution (CC BY)
+  license_cc_by_2_0: Creative Commons Attribution 2.0 (CC BY 2.0)
+  license_cc_by_2_5: Creative Commons Attribution 2.5 (CC BY 2.5)
+  license_cc_by_3_0: Creative Commons Attribution 3.0 (CC BY 3.0)
+  license_cc_by_nc: Creative Commons Attribution Non Commercial (CC BY-NC)
+  license_cc_by_nc_2_0: Creative Commons Attribution Non Commercial 2.0 (CC BY-NC 2.0)
+  license_cc_by_nc_2_5: Creative Commons Attribution Non Commercial 2.5 (CC BY-NC 2.5)
+  license_cc_by_nc_3_0: Creative Commons Attribution Non Commercial 3.0 (CC BY-NC 3.0)
+  license_cc_by_nc_sa: Creative Commons Attribution Non Commercial Share Alike (CC BY-NC-SA)
+  license_cc_by_nc_sa_1_0: Creative Commons Attribution Non Commercial Share Alike 1.0 (CC BY-NC-SA 1.0)
+  license_cc_by_nc_sa_2_0: Creative Commons Attribution Non Commercial Share Alike 2.0 (CC BY-NC-SA 2.0)
+  license_cc_by_nc_sa_2_5: Creative Commons Attribution Non Commercial Share Alike 2.5 (CC BY-NC-SA 2.5)
+  license_cc_by_nc_sa_3_0: Creative Commons Attribution Non Commercial Share Alike 3.0 (CC BY-NC-SA 3.0)
+  license_cc_by_sa: Creative Commons Attribution Share Alike (CC BY-SA)
+  license_cc_by_sa_1_0: Creative Commons Attribution Share Alike 1.0 (CC BY-SA 1.0)
+  license_cc_by_sa_2_0: Creative Commons Attribution Share Alike 2.0 (CC BY-SA 2.0)
+  license_cc_by_sa_2_5: Creative Commons Attribution Share Alike 2.5 (CC BY-SA 2.5)
+  license_cc_by_sa_3_0: Creative Commons Attribution Share Alike 3.0 (CC BY-SA 3.0)
+  license_gnu_fdl: GNU Free Documentation License (GNU FDL)
+  license_gnu_gpl: GNU General Public License (GNU GPL)
+  license_public_domain: Общественное достояние
   members_with_count: 
     few: "%{count} участника"
     one: "%{count} участник"
     other: "%{count} участников"
   minimal_page: Минимальная страница
+  monthly: Ежемесячно
+  names_children_column_header: Дети
+  never: Никогда
+  object_type_text_option: Текст
+  pages_admin_section_link: Администраторы
   pages_with_pictures_and_text: Страницы с иллюстрациями и текстом
+  password_colon: "Пароль:"
   rights: Права
+  save: Сохранить
   select_topic: Пожалуйста, выберите тему сообщения
+  show: Показать
   sign_out: Выйти
   skip_to_content: Перейти к данным
   source_url: URL источника
+  taxon_education_header: Образование
+  taxon_education_link: Образование
+  taxon_page_content_disclaimer_header: Отказ от ответственности
+  terms_agreement_form_submit: Я согласен
+  text_capital: Текст
+  thank_you: Спасибо
+  twitter: Twitter
+  us_dolars_75: 75 долларов США
+  us_dollars_100: 100 долларов США
+  us_dollars_35: 35 долларов США
+  us_dollars_50: 50 долларов США
+  user: Участник
   user_system_down: Извините, но система регистрации недоступна в данный момент, пожалуйста попробуйте позже.
+  users_about_me_header: Обо мне
+  view_error_log: просмотр журнала ошибок
+  watch_list: Список наблюдения
+  weekly: Еженедельно
+  what_is_this_question: Что это?
+  year: Год
+  yes_answer: Да
+  you_joined_community: Вы успешно присоединились к этому сообществу.
+  you_left_community: Вы успешно покинули это сообщество.
+  your_current_rating_0_of_5: "Ваш текущий рейтинг: 0 из 5"
+  your_current_rating_1_of_5: "Ваш текущий рейтинг: 1 из 5"
+  your_current_rating_3_of_5: "Ваш текущий рейтинг: 3 из 5"
+  your_current_rating_4_of_5: "Ваш текущий рейтинг: 4 из 5"
+  your_current_rating_5_of_5: "Ваш текущий рейтинг: 5 из 5"
   your_preferences: Ваши установки
-  your_preferences_have_been_updated: Ваш профиль был обновлён.
+  your_watch_collection: ваш список наблюдения

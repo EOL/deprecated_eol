@@ -48,7 +48,7 @@ class Community < ActiveRecord::Base
   # annotation along with it.
   def featured_collections
     return [] unless self.collections && !self.collections.blank?
-    collected_items.collections
+    collected_items.select{ |ci| ci.object_type == 'Collection' }
   end
 
   # TODO - test

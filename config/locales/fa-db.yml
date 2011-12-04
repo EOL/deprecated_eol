@@ -1,0 +1,124 @@
+# Messages for Persian (فارسی)
+# Exported from translatewiki.net
+# Export driver: syck-pecl
+# Author: Omnia
+fa: 
+  translated_activities-name-activity_id-19: نمایه
+  translated_activities-name-activity_id-50: نامطمئن
+  translated_activities-name-activity_id-51: نمایش
+  translated_activities-name-activity_id-52: ایجاد
+  translated_activities-name-activity_id-53: نهفتن
+  translated_activities-name-activity_id-54: به‌روز رسانی
+  translated_activities-name-activity_id-55: نامناسب
+  translated_activities-name-activity_id-56: حذف
+  translated_activities-name-activity_id-58: مطمئن
+  translated_activities-name-activity_id-63: جمع آوری
+  translated_activities-name-activity_id-64: برداشتن
+  translated_agent_roles-label-agent_role_id-1: پويانما
+  translated_agent_roles-label-agent_role_id-10: پروژه
+  translated_agent_roles-label-agent_role_id-11: ناشر
+  translated_agent_roles-label-agent_role_id-12: ضبط کننده
+  translated_agent_roles-label-agent_role_id-13: منبع
+  translated_agent_roles-label-agent_role_id-16: مشارکت‌کنندگان
+  translated_agent_roles-label-agent_role_id-2: مولف
+  translated_agent_roles-label-agent_role_id-4: آهنگساز
+  translated_agent_roles-label-agent_role_id-5: خالق
+  translated_agent_roles-label-agent_role_id-7: ویرایشگر
+  translated_agent_roles-label-agent_role_id-8: تصویرگر
+  translated_agent_roles-label-agent_role_id-9: عکاس
+  translated_audiences-label-audience_id-1: کاربران متخصص
+  translated_audiences-label-audience_id-3: کودکان
+  translated_collection_types-label-collection_type_id-1: طبقه بندی
+  translated_collection_types-label-collection_type_id-10: صداها
+  translated_collection_types-label-collection_type_id-11: پیوندها
+  translated_collection_types-label-collection_type_id-12: ادبیات
+  translated_collection_types-label-collection_type_id-13: طبقه بندی
+  translated_collection_types-label-collection_type_id-15: توضیحات
+  translated_collection_types-label-collection_type_id-16: تصویرها
+  translated_collection_types-label-collection_type_id-17: توزیع
+  translated_collection_types-label-collection_type_id-18: وضعيت حفاظت
+  translated_collection_types-label-collection_type_id-19: اطلاعات نام
+  translated_collection_types-label-collection_type_id-20: داده های مولکولی
+  translated_collection_types-label-collection_type_id-22: صداها
+  translated_collection_types-label-collection_type_id-23: پیوندها
+  translated_collection_types-label-collection_type_id-24: ادبیات
+  translated_collection_types-label-collection_type_id-3: توضیحات
+  translated_collection_types-label-collection_type_id-4: تصویر
+  translated_collection_types-label-collection_type_id-5: توزیع
+  translated_collection_types-label-collection_type_id-6: وضعيت حفاظت
+  translated_collection_types-label-collection_type_id-7: اطلاعات نام
+  translated_collection_types-label-collection_type_id-8: داده های مولکولی
+  translated_contact_subjects-title-contact_subject_id-10: محتوا
+  translated_contact_subjects-title-contact_subject_id-12: دیگر
+  translated_contact_subjects-title-contact_subject_id-14: درخواست برای آپلود عکس
+  translated_contact_subjects-title-contact_subject_id-8: زیست شناسی گیاهی
+  translated_content_partner_statuses-label-content_partner_status_id-2: فعال
+  translated_content_partner_statuses-label-content_partner_status_id-3: بایگانی‌شده
+  translated_content_partner_statuses-label-content_partner_status_id-4: غیر فعال
+  translated_content_tables-label-content_table_id-1: جزئیات
+  translated_data_types-label-data_type_id-1: تصویر
+  translated_data_types-label-data_type_id-2: صدا
+  translated_data_types-label-data_type_id-3: متن
+  translated_data_types-label-data_type_id-4: ویدیو
+  translated_data_types-label-data_type_id-8: یوتیوب
+  translated_licenses-description-license_id-1: هیچ حقوقی محفوظ نیست
+  translated_licenses-description-license_id-2: © کلیه حقوق محفوظ است
+  translated_licenses-description-license_id-29: بعضی از حقوق محفوظ است
+  translated_licenses-description-license_id-3: بعضی از حقوق محفوظ است
+  translated_licenses-description-license_id-30: بعضی از حقوق محفوظ است
+  translated_licenses-description-license_id-31: بعضی از حقوق محفوظ است
+  translated_licenses-description-license_id-32: بعضی از حقوق محفوظ است
+  translated_licenses-description-license_id-33: بعضی از حقوق محفوظ است
+  translated_licenses-description-license_id-34: مالکیت عمومی
+  translated_licenses-description-license_id-35: مالکیت عمومی
+  translated_licenses-description-license_id-36: بعضی از حقوق محفوظ است
+  translated_licenses-description-license_id-37: بعضی از حقوق محفوظ است
+  translated_licenses-description-license_id-38: بعضی از حقوق محفوظ است
+  translated_licenses-description-license_id-39: مالکیت عمومی
+  translated_licenses-description-license_id-4: بعضی از حقوق محفوظ است
+  translated_licenses-description-license_id-42: بعضی از حقوق محفوظ است
+  translated_licenses-description-license_id-43: مجوز قابل استفاده نیست
+  translated_licenses-description-license_id-5: بعضی از حقوق محفوظ است
+  translated_licenses-description-license_id-6: بعضی از حقوق محفوظ است
+  translated_licenses-description-license_id-7: بعضی از حقوق محفوظ است
+  translated_licenses-description-license_id-8: بعضی از حقوق محفوظ است
+  translated_licenses-description-license_id-9: بعضی از حقوق محفوظ است
+  translated_resource_statuses-label-resource_status_id-1: در حال بارگذاری
+  translated_resource_statuses-label-resource_status_id-10: منتشر شد
+  translated_resource_statuses-label-resource_status_id-12: عدم انتشار معلق
+  translated_resource_statuses-label-resource_status_id-2: بارگذاری شد
+  translated_resource_statuses-label-resource_status_id-3: بارگذاری انجام نشد
+  translated_resource_statuses-label-resource_status_id-4: منتقل شده به سرور محتوا
+  translated_resource_statuses-label-resource_status_id-5: تاییدشده
+  translated_resource_statuses-label-resource_status_id-6: اعتبار سنجی انجام نشد
+  translated_resource_statuses-label-resource_status_id-7: در حال پردازش
+  translated_resource_statuses-label-resource_status_id-8: پردازش
+  translated_resource_statuses-label-resource_status_id-9: پردازش ناموفق بود
+  translated_table_of_contents-label-table_of_contents_id-194: اندازه
+  translated_table_of_contents-label-table_of_contents_id-2: خلاصه
+  translated_table_of_contents-label-table_of_contents_id-221: خطرات
+  translated_table_of_contents-label-table_of_contents_id-225: در وب
+  translated_table_of_contents-label-table_of_contents_id-227: جستجو در وب
+  translated_table_of_contents-label-table_of_contents_id-251: مزایا
+  translated_table_of_contents-label-table_of_contents_id-278: کتاب شناسی
+  translated_table_of_contents-label-table_of_contents_id-286: وضعيت حفاظت
+  translated_table_of_contents-label-table_of_contents_id-289: تکامل
+  translated_table_of_contents-label-table_of_contents_id-296: مدیریت
+  translated_table_of_contents-label-table_of_contents_id-299: آموزش
+  translated_table_of_contents-label-table_of_contents_id-300: ویکی‌پدیا
+  translated_table_of_contents-label-table_of_contents_id-303: نام و طبقه بندی
+  translated_table_of_contents-label-table_of_contents_id-304: نام های مرتبط
+  translated_table_of_contents-label-table_of_contents_id-305: مترادف‌ها
+  translated_table_of_contents-label-table_of_contents_id-306: آمار صفحه
+  translated_table_of_contents-label-table_of_contents_id-307: خلاصه محتوا
+  translated_table_of_contents-label-table_of_contents_id-309: توزیع
+  translated_table_of_contents-label-table_of_contents_id-34: نظرات
+  translated_table_of_contents-label-table_of_contents_id-41: زیستگاه
+  translated_untrust_reasons-label-untrust_reason_id-2: نادرست/گمراه کننده
+  translated_untrust_reasons-label-untrust_reason_id-3: کیفیت پایین
+  translated_untrust_reasons-label-untrust_reason_id-4: تکراری
+  translated_untrust_reasons-label-untrust_reason_id-5: دیگر
+  translated_vetted-label-vetted_id-0: ناشناس
+  translated_vetted-label-vetted_id-4: نامطمئن
+  translated_vetted-label-vetted_id-5: مطمئن
+  translated_vetted-label-vetted_id-6: نامناسب

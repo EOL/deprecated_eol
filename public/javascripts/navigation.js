@@ -76,6 +76,13 @@ function update_browser_stats(hierarchy_entry_id, expand) {
 }
 
 $(document).ready(function() {
+  // Expand the mini-tree on the taxon overview:
+  $('#classifications_summary a.show_tree').unbind('click').click(function() {
+    var $update = $(this).closest('#classifications_summary > ul > li');
+    EOL.ajax_submit($(this), {update: $update, type: 'GET'});
+    return(false);
+  });
+  
   $('#browser_hide a').click(function() {
     $($(this).attr('href')).slideUp();
     $('#browser_show').show();

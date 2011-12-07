@@ -2400,6 +2400,7 @@ en:
   user_activity_stats_header: "Activity"
   user_activity_stats_objects_curated: "Objects curated"
   user_activity_stats_set_exemplar: "Images set as exemplar"
+  user_activity_stats_taxa_commented: "Taxa commented"
   user_activity_stats_taxa_curated: "Taxa curated"
   user_agent: "User agent"
   user_already_active_notice: "Your account is already active, please login."

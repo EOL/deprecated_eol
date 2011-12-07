@@ -17,6 +17,11 @@
         - unless @user.user_identities.blank?
           %dt= I18n.t('helpers.label.user.user_identities')
           %dd= @user.user_identities.collect{|ui| ui.label}.join(', ')
+        
+        - if @user.curator_level  
+          %dt= I18n.t('activerecord.attributes.user.curator_level')
+          %dd= @user.curator_level.label
+
   - if @user.is_curator?
     .section.half
       .article
@@ -30,10 +35,25 @@
       .article
         .header
           %h3= I18n.t(:user_activity_stats_header)
+        
+        = I18n.t(:user_activity_click_on_the_numbers)
+        = '<br><br>'
+        
         %dl.activity
-          %dt= I18n.t(:user_activity_stats_objects_curated)
-          %dd= link_to User.total_objects_curated_by_action_and_user(nil, @user.id), user_activity_path(@user, :filter => "data_object_curation")
+          - if !@user.assistant_curator?
+            %dt= I18n.t(:user_activity_stats_objects_curated)
+            %dd= link_to User.total_objects_curated_by_action_and_user(nil, @user.id), user_activity_path(@user, :filter => "data_object_curation")
+
           %dt= I18n.t(:user_activity_stats_taxa_curated)
           %dd= @user.total_species_curated
           %dt= I18n.t(:user_activity_stats_articles_added)
           %dd= link_to @user_submitted_text_count, user_activity_path(@user, :filter => "added_data_objects")
+          %dt= I18n.t(:user_activity_stats_set_exemplar)
+          %dd= link_to User.total_objects_curated_by_action_and_user(Activity.choose_exemplar.id, @user.id), user_activity_path(@user, :filter => "data_object_curation")
+          <br>
+          %dt= I18n.t(:user_activity_stats_common_names_added)
+          %dd= link_to @common_names_added, user_activity_path(@user, :filter => "names")
+          %dt= I18n.t(:user_activity_stats_common_names_removed)
+          %dd= link_to @common_names_removed, user_activity_path(@user, :filter => "names")
+          %dt= I18n.t(:user_activity_stats_common_names_curated)
+          %dd= link_to @common_names_curated, user_activity_path(@user, :filter => "names")

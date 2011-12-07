@@ -57,6 +57,8 @@ module EOL
           query = "activity_log_type:Comment AND user_id:#{source.id}"
         elsif options[:filter] == 'data_object_curation'
           query = "activity_log_type:CuratorActivityLog AND feed_type_affected:DataObject AND user_id:#{source.id}"
+        elsif options[:filter] == 'names'
+          query = "activity_log_type:CuratorActivityLog AND feed_type_affected:Synonym AND user_id:#{source.id}"
         elsif options[:filter] == 'added_data_objects'
           query = "activity_log_type:UsersDataObject AND user_id:#{source.id}"
         elsif options[:filter] == 'collections'

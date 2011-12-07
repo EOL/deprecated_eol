@@ -73,6 +73,21 @@ class Taxa::NamesController < TaxaController
     @taxon_concept.current_user = current_user
     @taxon_concept.vet_common_name(:language_id => language_id, :name_id => name_id, :vetted => vetted)
     current_user.log_activity(:vetted_common_name, :taxon_concept_id => @taxon_concept.id, :value => name_id)
+
+    synonym = Synonym.find_by_name_id(name_id);
+    if synonym
+      case vetted.label
+      when "Trusted"
+        log_action(@taxon_concept, synonym, :trust_common_name)
+      when "Inappropriate"
+        log_action(@taxon_concept, synonym, :inappropriate_common_name)
+      when "Unknown"
+        log_action(@taxon_concept, synonym, :unreview_common_name)
+      when "Untrusted"
+        log_action(@taxon_concept, synonym, :untrust_common_name)
+      end
+    end
+
     respond_to do |format|
       format.html do
         if !params[:hierarchy_entry_id].blank?

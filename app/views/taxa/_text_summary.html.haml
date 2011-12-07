@@ -27,8 +27,9 @@
             %p= link_to I18n.t(:article_more_about), data_object_path(item)
             = render :partial => 'data_objects/view_translation', :locals => { :data_object => item, :taxon => @taxon_concept}
           .copy
+            - item.description = item.description_linked unless item.description_linked.blank? rescue nil
             - if item.added_by_user?
-              = Sanitize.clean(item.description.balance_tags, Sanitize::Config::RELAXED)
+              = Sanitize.clean(item.description.balance_tags, Sanitize::Config::RELAXED).allow_some_html
             - else
               = item.description.balance_tags
           %p.flag{:class => vetted_id_class(item_vetted_id)}= item_vetted_label == Vetted.unknown.label ? I18n.t(:unreviewed) : item_vetted_label

@@ -335,6 +335,7 @@ $EOL_TWITTER_ACCOUNT = "http://twitter.com/#!/EOL"
 $EOL_FACEBOOK_ACCOUNT = "http://www.facebook.com/pages/Encyclopedia-of-Life/62911075968?sk=wall"
 $EOL_TUMBLR_ACCOUNT = "http://blog.eol.org"
 $EOL_FLICKR_ACCOUNT = "http://www.flickr.com/groups/encyclopedia_of_life/"
+$EOL_YOUTUBE_ACCOUNT = "http://www.youtube.com/user/EncyclopediaOfLife/"
 
 $EDUCATION_EMAIL = 'education@eol.org'
 

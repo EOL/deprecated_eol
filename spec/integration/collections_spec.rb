@@ -203,6 +203,15 @@ end
 
 describe "Preview Collections" do
   before(:all) do
+    module Paperclip
+      class Attachment
+        def save
+          # don't do anything. Paperclip was throwing an error
+          true
+        end
+      end
+    end
+    
     unless User.find_by_username('collections_scenario')
       truncate_all_tables
       load_scenario_with_caching(:collections)
@@ -238,13 +247,13 @@ describe "Preview Collections" do
   end
 
   it 'should not show preview collections on the user profile page to normal users' do
-    visit user_collections_path(@collection.user)
+    visit user_collections_path(@collection.users.first)
     body.should have_tag('li.active') do
       with_tag('a', :text => "3 collections")
     end
     body.should have_tag('h3', :text => "2 collections")
     @collection.update_attribute(:published, false)
-    visit user_collections_path(@collection.user)
+    visit user_collections_path(@collection.users.first)
     body.should have_tag('li.active') do
       with_tag('a', :text => "2 collections")
     end
@@ -256,11 +265,12 @@ describe "Preview Collections" do
 
   it 'should show resource preview collections on the user profile page to the owner' do
     @collection.update_attribute(:published, false)
+    @collection.update_attribute(:view_style_id, nil)
     @resource = Resource.gen
     @resource.preview_collection = @collection
     @resource.save
-    login_as @collection.user
-    visit user_collections_path(@collection.user)
+    login_as @collection.users.first
+    visit user_collections_path(@collection.users.first)
     body.should have_tag('li.active') do
       with_tag('a', :text => "3 collections")
     end
@@ -271,8 +281,9 @@ describe "Preview Collections" do
     @collection.update_attribute(:published, true)
   end
 
-  it 'should allow EOL administrators to view unpublished collections' do
+  it 'should allow EOL administrators and owners to view unpublished collections' do
     @collection.update_attribute(:published, false)
+    @collection.update_attribute(:view_style_id, ViewStyle.annotations.id)
     if @collection.resource_preview.blank?
       @resource = Resource.gen
       @resource.preview_collection = @collection
@@ -290,8 +301,16 @@ describe "Preview Collections" do
     current_path.should == referrer
     body.should include('You are not authorized')
     visit logout_path
+    
     admin = User.gen(:admin => true)
     login_as admin
+    visit collection_path(@collection)
+    # debugger
+    body.should have_tag('h1', /#{@collection.name}/)
+    body.should have_tag('ul.object_list li', /#{@collection.collection_items.first.object.best_title}/)
+    visit logout_path
+    
+    login_as @collection.users.first
     visit collection_path(@collection)
     body.should have_tag('h1', /#{@collection.name}/)
     body.should have_tag('ul.object_list li', /#{@collection.collection_items.first.object.best_title}/)

@@ -9,6 +9,7 @@ describe UsersController do
     CuratorLevel.create_defaults
     UserIdentity.create_defaults
     @user = User.gen
+    cot = ChangeableObjectType.gen(:ch_object_type => 'synonym')
   end
 
   describe 'GET new' do

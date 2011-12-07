@@ -396,9 +396,8 @@ private
 
   def build_language_list
     current_user_copy = current_user.dup || nil
-    @languages = Language.with_iso_639_1.map  do |lang|
-      {
-        :label    => lang.label,
+    @languages = Language.with_iso_639_1.map do |lang|
+      { :label    => lang.label,
         :id       => lang.id,
         :selected => lang.id == (current_user_copy && current_user_copy.language_id) ? "selected" : nil
       }
@@ -413,6 +412,7 @@ private
   end
 
   def log_action(tc, object, method)
+    auto_collect(tc) # SPG asks for all curation (including names) to add the item to their watchlist.
     CuratorActivityLog.create(
       :user => current_user,
       :changeable_object_type => ChangeableObjectType.send(object.class.name.underscore.to_sym),

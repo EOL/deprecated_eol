@@ -471,6 +471,7 @@ private
       changeable_object_type = ChangeableObjectType.send(object.class.name.underscore.to_sym)
     end
 
+    auto_collect(@data_object) # SPG asks for all curation to add the item to their watchlist.
     CuratorActivityLog.create(
       :user => current_user,
       :changeable_object_type => changeable_object_type,

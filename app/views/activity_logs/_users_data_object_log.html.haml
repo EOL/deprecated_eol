@@ -1,3 +1,4 @@
+- supress_reply ||= false
 = link_to image_tag(item.user.logo_url(:small), :alt => I18n.t(:comment_show_posters_image_alt,
   :posters_name => h(item.user.full_name))), user_path(item.user), :class => 'avatar'
 .details
@@ -12,4 +13,7 @@
   %blockquote{:cite => h(item.user.full_name)}
     -# TODO - Yeesh.  This is ending up blank, and I cannot figure out why.
     %p= item.data_object.description_teaser
-  %p.meta= I18n.t(:time_ago, :time_passed => time_ago)
+  %p.meta
+    = I18n.t(:time_ago, :time_passed => time_ago)
+    - unless supress_reply || ! item.user
+      %span.reply= link_to(I18n.t(:reply), '#new_comment', :'data-reply-to' => item.user.full_name, :'data-reply-to-type' => item.class.name, :'data-reply-to-id' => item.id)

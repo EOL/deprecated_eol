@@ -11,8 +11,11 @@ $.ajaxSetup({accepts: {
 }});
 
 EOL.highlight_comment = function(el) {
+  var dest = $(el).offset().top;
   $('li').removeClass('highlight');
   el.closest('li').toggleClass('highlight');
+  $("html,body").animate({ scrollTop: dest}, 650);
+  return(false);
 };
 
 EOL.reply_to = function(el) {
@@ -25,12 +28,19 @@ EOL.reply_to = function(el) {
   $tarea.val('@'+string+': '+$tarea.val().replace(/^@[^:]+: */, ''));
   $('#new_comment input#comment_reply_to_type').val($(el.target).data('reply-to-type'));
   $('#new_comment input#comment_reply_to_id').val($(el.target).data('reply-to-id'));
+  $("html,body").animate({ scrollTop: $tarea.offset().top}, 650);
   $tarea.focus();
+  return(false);
 };
 
 $(function() {
 
-  $('p.reply a').click(EOL.reply_to);
+  $('span.reply a').click(EOL.reply_to);
+  $('span.reply').hide().parent().parent().mouseover(function() {
+    $(this).find('span.reply').show();
+  }).mouseleave(function() {
+    $(this).find('span.reply').hide();
+  });
 
   $('ul.feed blockquote p a[href^=#]').click(function() {
     var href = $(this).attr('href');

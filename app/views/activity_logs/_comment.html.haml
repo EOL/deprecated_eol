@@ -1,3 +1,4 @@
+- supress_reply ||= false
 - truncate_comments ||= false
 = link_to image_tag(item.user.logo_url(:small), :alt => I18n.t(:comment_show_posters_image_alt,
   :posters_name => h(item.user.full_name))), user_path(item.user), :class => 'avatar'
@@ -52,5 +53,7 @@
           = sanitize item.body.balance_tags.sub(at_re, '@' + link_to("\\1", "##{item.reply_to_type}-#{item.reply_to_id}") + ':')
         - else
           = sanitize item.body.balance_tags
-  %p.meta= I18n.t(:time_ago, :time_passed => time_ago_in_words(item.updated_at))
-
+  %p.meta
+    = I18n.t(:time_ago, :time_passed => time_ago_in_words(item.updated_at))
+    - unless supress_reply || ! item.user
+      %span.reply= link_to(I18n.t(:reply), '#new_comment', :'data-reply-to' => item.user.full_name, :'data-reply-to-type' => item.class.name, :'data-reply-to-id' => item.id)

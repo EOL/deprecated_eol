@@ -15,19 +15,17 @@
         %a{:name => "#{item.class.name}-#{item.id}"}
         - case item.class.name
         - when "CuratorActivityLog"
-          = render :partial => 'activity_logs/curator_activity_log', :locals => {:item => item}
+          = render :partial => 'activity_logs/curator_activity_log', :locals => {:item => item, :supress_reply => supress_reply}
         - when "Comment"
-          = render :partial => 'activity_logs/comment', :locals => {:item => item, :truncate_comments => truncate_comments}
+          = render :partial => 'activity_logs/comment', :locals => {:item => item, :truncate_comments => truncate_comments, :supress_reply => supress_reply}
         - when "UsersDataObject"
-          = render :partial => 'activity_logs/users_data_object_log', :locals => {:item => item}
+          = render :partial => 'activity_logs/users_data_object_log', :locals => {:item => item, :supress_reply => supress_reply}
         - when "CollectionActivityLog"
-          = render :partial => 'activity_logs/collection_activity_log', :locals => {:item => item}
+          = render :partial => 'activity_logs/collection_activity_log', :locals => {:item => item, :supress_reply => supress_reply}
         - when "CommunityActivityLog"
-          = render :partial => 'activity_logs/community_activity_log', :locals => {:item => item}
+          = render :partial => 'activity_logs/community_activity_log', :locals => {:item => item, :supress_reply => supress_reply}
         - else
           - raise "Unknown activity log type: #{item.class.name}"
-        - unless supress_reply || ! item.user
-          %p.reply= link_to(I18n.t(:reply), '#new_comment', :'data-reply-to' => item.user.full_name, :'data-reply-to-type' => item.class.name, :'data-reply-to-id' => item.id)
   - unless hide_pagination
     = will_paginate log, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next),
       :inner_window => 2, :outer_window => 2

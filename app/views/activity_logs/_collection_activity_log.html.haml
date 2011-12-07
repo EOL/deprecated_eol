@@ -1,7 +1,8 @@
-= link_to image_tag(item.user.logo_url(:small), :alt => I18n.t(:comment_show_posters_image_alt,
-  :posters_name => h(item.user.full_name))), user_path(item.user), :class => 'avatar'
+- if item.user
+  = link_to image_tag(item.user.logo_url(:small), :alt => I18n.t(:comment_show_posters_image_alt,
+    :posters_name => h(item.user.full_name))), user_path(item.user), :class => 'avatar'
 .details
-  - name_with_link =  link_to h(item.user.full_name), user_path(item.user)
+  - name_with_link = item.user ? link_to(h(item.user.full_name), user_path(item.user)) : I18n.t(:an_unknown_user)
   %p
     - if item.collection.nil?
       = I18n.t(:activity_user_added_unknown_item_to_collection, :user => name_with_link, :collection => '[UNKNOWN]')

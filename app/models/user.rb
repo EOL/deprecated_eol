@@ -550,7 +550,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def can_view_collection?(collection)
-    return true if collection.published? || collection.user == self || self.is_admin?
+    return true if collection.published? || collection.users.include?(self) || self.is_admin?
     false
   end
 

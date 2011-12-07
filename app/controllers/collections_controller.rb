@@ -98,7 +98,7 @@ class CollectionsController < ApplicationController
       flash[:error] = I18n.t(:special_collections_cannot_be_destroyed)
       return redirect_to collection_url(@collection)
     else
-      back = @collection.user ? user_collections_url(current_user) : collection_url(@collection.community)
+      back = @collection.users.include?(current_user) ? user_collections_url(current_user) : collection_url(@collection.community)
       if @collection.update_attributes(:published => false)
         EOL::GlobalStatistics.decrement('collections')
         flash[:notice] = I18n.t(:collection_destroyed)

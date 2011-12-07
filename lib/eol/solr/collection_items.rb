@@ -68,7 +68,8 @@ module EOL
         includes = [
           { :published_hierarchy_entries => [ { :name => :canonical_form } , :hierarchy, :vetted, { :flattened_ancestors => { :ancestor => [ :name, :rank ] } } ] },
           { :preferred_common_names => [ :name, :language ] },
-          { :taxon_concept_content => :image_object } ]
+          { :taxon_concept_content => :image_object },
+          { :taxon_concept_exemplar_image => :data_object }]
         selects = {
           :taxon_concepts => '*',
           :hierarchy_entries => [ :id, :rank_id, :identifier, :hierarchy_id, :parent_id, :published, :visibility_id, :lft, :rgt, :taxon_concept_id, :source_url ],
@@ -91,9 +92,12 @@ module EOL
 
       def self.add_data_object!(docs)
         return if docs.empty?
-        includes = [ { :hierarchy_entries => { :name => :canonical_form } }, :curated_data_objects_hierarchy_entries, { :toc_items => :translations } ]
+        includes = [ { :data_objects_hierarchy_entries => { :hierarchy_entry => [ { :name => :canonical_form }, :hierarchy ] } }, :curated_data_objects_hierarchy_entries, { :toc_items => :translations } ]
         selects = {
           :data_objects => '*',
+          :data_objects_hierarchy_entries => '*',
+          :hierarchies => '*',
+          :curated_data_objects_hierarchy_entries => '*',
           :translated_table_of_contents => '*',
           :hierarchy_entries => [ :published, :visibility_id, :taxon_concept_id ],
           :names => :string,

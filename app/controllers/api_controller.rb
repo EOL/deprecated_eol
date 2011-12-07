@@ -308,7 +308,7 @@ class ApiController < ApplicationController
     end
 
     begin
-      @collection = Collection.find_by_id(id, :include => [ :community, :user, :sort_style ])
+      @collection = Collection.find_by_id(id, :include => [ :sort_style ])
       @sort_by = @collection.default_sort_style
       if !params[:sort_by].blank? && params[:sort_by].class == String && ss = SortStyle.find_by_translated(:name, params[:sort_by].titleize)
         @sort_by = ss

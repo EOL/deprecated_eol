@@ -1374,6 +1374,7 @@ class TaxonConcept < SpeciesSchemaModel
           :vetted_types => ['trusted', 'unreviewed'],
           :visibility_types => 'visible',
           :ignore_maps => true,
+          :skip_preload => true,
           :filter_hierarchy_entry => selected_hierarchy_entry
         })
         (best_images.empty?) ? 'none' : best_images.first

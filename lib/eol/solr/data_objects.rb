@@ -10,7 +10,7 @@ module EOL
         response = solr_search(taxon_concept_id, options)
         total_results = response['response']['numFound']
         results = response['response']['docs']
-        add_resource_instances!(results)
+        add_resource_instances!(results, options)
 
         results = WillPaginate::Collection.create(options[:page], options[:per_page], total_results) do |pager|
           pager.replace(results.collect{ |r| r['instance'] }.compact)
@@ -18,10 +18,16 @@ module EOL
         results
       end
 
-      def self.add_resource_instances!(docs)
+      def self.add_resource_instances!(docs, options)
+        includes = []
+        selects = { :data_objects => '*' }
+        unless options[:skip_preload]
+          includes = [ :hierarchy_entries, :toc_items ]
+          selects[:hierarchy_entries] = '*'
+        end
         EOL::Solr.add_standard_instance_to_docs!(DataObject, docs, 'data_object_id',
-          :includes => [ :hierarchy_entries, :toc_items ],
-          :selects => { :data_objects => '*', :hierarchy_entries => '*' })
+          :includes => includes,
+          :selects => selects)
       end
       
       def self.prepare_search_url(taxon_concept_id, options = {})

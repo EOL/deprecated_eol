@@ -57,9 +57,8 @@ describe 'Users' do
       body.should have_tag("h3", :text => "My info")
       #TODO - add more tests for 'My info' section
     end
-    it "should not see Activity section if user is not curator" do
+    it "should not see Curator qualifications section if user is not curator" do
       if !@user.is_curator?
-        body.should_not have_tag("h3", :text => "Activity")
         body.should_not have_tag("h3", :text => "Curator qualifications")
       end
     end

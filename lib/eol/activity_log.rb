@@ -55,6 +55,8 @@ module EOL
       if options[:filter]
         if options[:filter] == 'comments'
           query = "activity_log_type:Comment AND user_id:#{source.id}"
+        elsif options[:filter] == 'taxa_comments'
+          query = "activity_log_type:Comment AND user_id:#{source.id} AND feed_type_affected:TaxonConcept"
         elsif options[:filter] == 'data_object_curation'
           query = "activity_log_type:CuratorActivityLog AND feed_type_affected:DataObject AND user_id:#{source.id}"
         elsif options[:filter] == 'names'

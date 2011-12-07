@@ -4,79 +4,100 @@
 # Author: McDutchie
 # Author: Patio
 # Author: SPQRobin
+# Author: Saruman
 # Author: Siebrand
-nl:
+nl: 
   0_1_or_2: 0, 1 of 2
   0_or_1: 0 of 1
+  1st_view: Eerste weergave
   a_taxon: een taxon
   about_eol: Over EOL
   account_information: Gebruikersgegevens
-  account_registered_but_not_ready_try_later: Uw account is aangemaakt, maar kan nog niet gebruikt worden. Probeer het over vijf minuten nog een keer.
+  account_information_menu: Gebruikersgegevens
+  account_registered_but_not_ready_try_later: Uw gebruiker is aangemaakt, maar kan nog niet gebruikt worden. Probeer het over vijf minuten nog een keer.
   action: Handeling
   action_not_available_error: Die handeling is niet beschikbaar.
   actions: Handelingen
-  activate_email_footer: "- Het team van Encyclopedia of Life"
-  activate_email_intro: Beste %{full_name} (%{username}),
+  active: Actief
   active_colon: "Actief:"
-  activerecord:
-    attributes:
-      collection:
+  activerecord: 
+    attributes: 
+      collection: 
         description: Beschrijving van de verzameling
         logo: Primaire verzamelingsafbeelding
         name: Naam van de verzameling
         sort_style_id: Standaard sorteerrichting
-      community:
+      community: 
         description: Beschrijving van de gemeenschap
         logo: Upload een logo
         name: Communitynaam
-      content_page:
+      content_page: 
         active: Gepubliceerd
         page_name: Unieke naam
         sort_order: Sorteervolgorde
-      content_partner:
+      content_partner: 
         acronym: Projectafkorting
         admin_notes: Administratieve notities
+        auto_publish: Automatisch publiceren
         content_partner_status: Projectstatus
         created_at: Aangemaakt
         description: Projectbeschrijving
         display_name: Weergegeven naam
         full_name: Projectnaam
         homepage: Project-URL
+        id: ID
         notes: Projectnotities
+        public: Openbaar
+        resources: Bronnen
         user_id: Beheerd door
         vetted: Doorgelicht
-      content_partner_agreement:
+      content_partner_agreement: 
+        created_at: Aangemaakt op
         signed_by: Ondertekend door
         signed_on_date: Ondertekend op datum
-      data_object:
+      data_object: 
         bibliographic_citation: Bibliografische bronvermelding
         description: Beschrijving
         object_title: Naam
         rights_holder: Rechtenhouder
         rights_statement: Verklaring van de rechten
         source_url: Bron-URL
-      name:
+      harvest_event: 
+        resource: Bron
+      hierarchy: 
+        browsable: Doorzoekbaar
+        complete: Afgerond
+        description: Beschrijving
+        descriptive_label: Beschrijvend label
+        label: Label
+        request_publish: Verzoek publicatie
+      name: 
         string: Naam
-      resource:
+      resource: 
         accesspoint_url: URL dataset
+        auto_publish: Automatisch publiceren
         bibliographic_citation: Bibliografische bronvermelding
         dataset: Datasetbestand
         description: Bronbeschrijving
         dwc_archive_url: URL Darwin Core Archive
+        harvest_events: Gebeurtenissen ophalen
+        hierarchy: Hiërarchie
         language_id: Standaard taal
         license_id: Standaard licentie
+        notes: Bezig met het verwerken van notities
         resource_status_id: Bronstatus
         rights_holder: Standaard rechthebbende
         rights_statement: Standaard verklaring van de rechten
         title: Bronnaam
-      translated_content_page:
+        vetted: Doorgelicht
+      translated_content_page: 
         active_translation: Gepubliceerd
         left_content: Navigatie
         main_content: Bericht
         meta_description: Metadatabeschrijving
         meta_keywords: Metagegevenstrefwoorden
         title: Naam
-      user:
+      user: 
         agreed_with_terms: Gebruiksovereenkomst
         api_key: API-sleutel
         bio: Bio
@@ -92,10 +113,11 @@ nl:
         requested_curator_level_id: Gewenst curatieniveau
         tag_line: Motto
         username: Gebruikersnaam
-    errors:
-      full_messages:
+    errors: 
+      format: "%{attribute} %{message}"
+      full_messages: 
         format: "%{attribute} %{message}"
-      messages:
+      messages: 
         accepted: moet aanvaard worden
         blank: mag niet leeg blijven
         confirmation: komt niet overeen met de bevestiging
@@ -103,55 +125,76 @@ nl:
         equal_to: moet gelijk zijn aan %{count}
         even: moet even getal zijn
         exclusion: is gereserveerd
-        greater_than: moet groter zijn dan %{count}
+        greater_than: 
+          one: moet groter zijn dan %{count}
+          other: moeten groter zijn dan %{count}
         greater_than_or_equal_to: moet groter dan of gelijk zijn aan %{count}
         inaccessible: is niet toegankelijk
         inclusion: wordt niet opgenomen in de lijst
         invalid: is ongeldig
-        less_than: moet kleiner zijn dan %{count}
+        less_than: 
+          one: moet kleiner zijn dan %{count}
+          other: moet kleiner zijn dan %{count}
         less_than_or_equal_to: moet kleiner of gelijk zijn aan %{count}
         not_a_number: is geen getal
         not_an_integer: moet een geheel getal zijn
         odd: moet oneven getal zijn
         record_invalid: "Validatie is mislukt: %{errors}"
         taken: bestaat al
-        too_long: is te lang (maximum is %{count} tekens)
-        too_short: is te kort (minimum is %{count} tekens)
+        too_long: 
+          one: is te lang (maximaal %{count} teken)
+          other: is te lang (maximaal %{count} tekens)
+        too_short: 
+          one: is te kort (minimaal %{count} teken)
+          other: is te kort (minimaal %{count} tekens)
         wrong_length: heeft de verkeerde lengte (moet %{count} tekens zijn)
         wrong_type: is van het verkeerde type
-      models:
-        resource:
-          attributes:
-            accesspoint_url:
+      models: 
+        harvest_event: 
+          attributes: 
+            publish: 
+              inclusion: is alleen toegestaan voor de laatste oogst en alleen als die gebeurtenis niet al is gepubliceerd.
+        resource: 
+          attributes: 
+            accesspoint_url: 
               blank: mag niet leeg blijven, tenzij u in plaats daarvan een bronbestand uploadt
               inaccessible: ontoegankelijk is; de URL voor het publiek toegankelijk zijn
               invalid: ongeldig is; dit veld moet wijzen naar een XML-, XML.GZIP- of XML.GZ-bestand.
-            dataset:
+            dataset: 
               blank: mag niet leeg blijven, tenzij u een URL naar een dataset opgeeft
               wrong_type: is van het verkeerde type; dit moet een GZIP-, TAR- of XML-bestand zijn
-            dwc_archive_url:
+            dwc_archive_url: 
               inaccessible: is ontoegankelijk; de URL moet publiek toegankelijk zijn
               invalid: is ongeldig; dit moet naar een TAR.GZIP-, tar.gz- of tgz-bestand wijzen.
-      template:
+      template: 
         body: "Voor de volgende velden is de validatie mislukt:"
-        header:
+        header: 
           one: Eén validatiefout gevonden
           other: "%{count} validatiefouten gevonden"
-    models:
+    models: 
       user: gebruiker
   activity: Activiteit
   activity_log_empty: Niemand heeft de gegevens nog bijgewerkt.
   activity_log_empty_learn_more_link: Hoe u kunt bijdragen
+  activity_user_added_as_an_editor_of_collection: <strong>%{user}</strong> is manager gemaakt van de verzameling "%{collection}".
+  activity_user_added_association: <strong>%{user}</strong> heeft een associatie toegevoegd aan "%{object_name}".
+  activity_user_added_collection_to_community: <strong>%{user}</strong> heeft de verzameling"%{collection}" toegevoegd aan de gemeenschap "%{community}".
+  activity_user_added_common_name: <strong>%{user}</strong> heeft de gewone naam "%{name}" toegevoegd aan een onbekend object.
+  activity_user_added_common_name_to_taxon: <strong>%{user}</strong> heeft de gewone naam "%{name}" toegevoegd aan "%{taxon}".
   activity_user_added_community_manager: <strong>%{user}</strong> heeft %{manager} manager gemaakt van de gemeenschap "%{community}".
   activity_user_added_item_to_collection: <strong>%{user}</strong> heeft "%{item}" toegevoegd aan de verzameling "%{collection}".
+  activity_user_added_named_association: <strong>%{user}</strong> heeft "%{object_name}" en "%{name}" gekoppeld.
+  activity_user_added_unknown_association: <strong>%{user}</strong> heeft een associatie toegevoegd aan een onbekend object.
   activity_user_added_unknown_item_to_collection: <strong>%{user}</strong> heeft een onbekend object toegevoegd aan de verzameling "%{collection}".
+  activity_user_added_unknown_name: <strong>%{user}</strong> heeft een onbekende gewone naam toegevoegd aan een onbekend object.
+  activity_user_added_unknown_name_to_taxon: <strong>%{user}</strong> heeft een gewone naam toegevoegd aan "%{taxon}".
   activity_user_changed_community_description: <strong>%{user}</strong> heeft de beschijving van de gemeenschap "%{community}" bijgewerkt.
   activity_user_changed_community_icon: <strong>%{user}</strong> heeft het logo van de gemeenschap "%{community}" bijgewerkt.
   activity_user_changed_community_name: <strong>%{user}</strong> heeft de naam van de gemeenschap "%{community}" bijgewerkt.
   activity_user_created_collection: <strong>%{user}</strong> heeft de verzameling "%{collection}" aangemaakt.
   activity_user_created_community: <strong>%{user}</strong> heeft de gemeenschap "%{collection}" aangemaakt.
   activity_user_created_text: <strong>%{user}</strong> heeft tekst toegevoegd aan "%{object_name}" in "%{taxon_concept}".
-  activity_user_curated_an_unknown_object: <strong>%{user}</strong> heeft een onbekend object gecureerd.
+  activity_user_curated_an_unknown_object: <strong>%{user}</strong> heeft een onbekend object geconserveerd.
   activity_user_deleted_community: <strong>%{user}</strong> heeft de gemeenschap "%{collection}" verwijderd.
   activity_user_hid_data_object: <strong>%{user}</strong> heeft "%{object_name}" gemarkeerd als verborgen.
   activity_user_hid_unknown_object: <strong>%{user}</strong> heeft een onbekend object gemarkeerd als verborgen.
@@ -162,7 +205,12 @@ nl:
   activity_user_rated_data_object: <strong>%{user}</strong> heeft "%{object_name}" beoordeeld.
   activity_user_rated_unknown_object: <strong>%{user}</strong> heeft een onbekend object beoordeeld.
   activity_user_removed_all_items_from_collection: <strong>%{user}</strong> heeft alle items uit de verzameling "%{collection}" verwijderd.
+  activity_user_removed_association: <strong>%{user}</strong> heeft een associatie met "%{object_name}" verwijderd.
   activity_user_removed_item_from_collection: <strong>%{user}</strong> heeft "%{item}" uit de verzameling "%{collection}" verwijderd.
+  activity_user_removed_named_association: <strong>%{user}</strong> heeft een koppeling "%{object_name}" en "%{name}" verwijderd.
+  activity_user_removed_unknown_association: <strong>%{user}</strong> heeft een associatie met een onbekend object verwijderd.
+  activity_user_removed_unknown_name: <strong>%{user}</strong> heeft een onbekende gewone naam van een onbekend object verwijderd.
+  activity_user_removed_unknown_name_to_taxon: <strong>%{user}</strong> heeft een onbekende gewone naam van "%{taxon}" verwijderd.
   activity_user_showed_data_object: <strong>%{user}</strong> heeft "%{object_name}" gemarkeerd als zichtbaar.
   activity_user_showed_unknown_object: <strong>%{user}</strong> heeft een onbekend object gemarkeerd als zichtbaar.
   activity_user_trusted_data_object: <strong>%{user}</strong> heeft "%{object_name}" gemarkeerd als vertrouwd.
@@ -172,29 +220,46 @@ nl:
   activity_user_untrusted_data_object: <strong>%{user}</strong> heeft "%{object_name}" gemarkeerd als niet-vertrouwd.
   activity_user_untrusted_unknown_object: <strong>%{user}</strong> heeft een onbekend object gemarkeerd als niet-vertrouwd.
   activity_user_updated_text: <strong>%{user}</strong> heeft tekst gewijzigd van "%{object_name}" in "%{taxon_concept}".
+  add: Toevoegen
+  add_a_collection_to_a_community: "\"%{collection}\" toevoegen aan een gemeenschap"
+  add_a_comment: Een opmerking toevoegen.
   add_a_comment_colon: "Opmerking toevoegen:"
   add_a_new_common_name: Nieuwe gemeenschappelijke naam toevoegen
+  add_a_new_file_brackets: "[nieuw bestand toevoegen]"
+  add_a_new_news_item: Nieuw nieuwsitem toevoegen
+  add_a_new_role: Nieuwe rol toevoegen
+  add_a_new_search_suggestion: Nieuwe zoeksuggestie toevoegen
+  add_a_new_term: Nieuwe term toevoegen
+  add_a_new_topic_area: Nieuw onderwerpengebied toevoegen
   add_a_new_user: Nieuwe gebruiker toevoegen
   add_a_taxon_association_label: Taxonassociatie toevoegen
   add_article_to_page_link_button: Artikel aan deze pagina toevoegen
   add_association_submit_button: koppeling toevoegen
   add_brief_summary_to_page_link_button: Korte samenvatting aan deze pagina toevoegen
+  add_collection_to_a_new_community: "\"%{collection}\" toevoegen aan een nieuwe gemeenschap"
+  add_collection_to_community: Verzameling aan gemeenschap toevoegen
   add_education_resources_to_page_link_button: Educatieve bronnen toevoegen aan deze pagina
   add_identification_resources_to_page_link_button: Identificatiebronnen toevoegen aan deze pagina
   add_item_to_new_collection: "\"%{item}\" toevoegen aan een nieuwe verzameling"
   add_language: Taal toevoegen
   add_new_association_link: Nieuwe associatie toevoegen
+  add_new_tag_suggestion: Nieuwe labelsuggestie toevoegen
   add_page: Pagina toevoegen
-  add_to_my_collection_button: Aan mijn verzameling toevoegen
-  added_to_the_comment: heeft %{comment} aangevuld
+  add_sub_chapter: Onderdeel toevoegen
+  add_to_a_community: Aan gemeenschap toevoegen
+  add_to_my_collection_button: Aan een verzameling toevoegen
   admin: beheer
   admin_content_page_active: Gepubliceerd
   admin_content_page_child_new_link: Onderliggende pagina aanmaken
   admin_content_page_create_successful_notice: De pagina <a href="#%{anchor}"><em>%{page_name}</em></a> is aangemaakt.
   admin_content_page_create_unsuccessful_error: Er is een fout opgetreden. De pagina is niet aangemaakt.
   admin_content_page_delete_confirmation: Weet u zeker dat u "%{page_name}" en alle vertalingen wilt verwijderen. Het verwijderen van pagina's kan niet ongedaan worden gemaakt.
+  admin_content_page_delete_successful_notice: Pagina %{page_name} en bijbehorende vertalingen zijn verwijderd.
+  admin_content_page_edit_header: Basispaginagegevens voor <em>%{page_name}</em> bijwerken
+  admin_content_page_edit_tip: We raden u aan de unieke naam van deze pagina niet te wijzigen, tenzij u zich volledig bewust bent van de gevolgen, inclusief de invloed op verwijzingen naar deze pagina of naar benoemde routes. De unieke naam is %{required_icon} verplicht.
   admin_content_page_new_header: Nieuwe inhoudspagina aanmaken
   admin_content_page_new_link: Nieuwe pagina aanmaken
+  admin_content_page_new_tip: Voer basisgegevens in over deze pagina. De unieke naam is %{required_icon} verplicht.
   admin_content_page_not_active: Ongepubliceerd
   admin_content_page_parent_option_root: Geen bovenliggende pagina
   admin_content_page_root: Bovenste niveau
@@ -202,25 +267,44 @@ nl:
   admin_content_page_update_successful_notice: De pagina <a href="#%{anchor}"><em>%{page_name}</em></a> is bijgewerkt.
   admin_content_page_update_unsuccessful_error: Er is een fout opgetreden. De pagina kon niet worden bijgewerkt.
   admin_content_pages_empty: Geen inhoudspagina's gevonden.
+  admin_content_pages_index_information: De volgende lijst bevat alle statische pagina's in de EOL-website. Iedere pagina heeft één of meer vertalingen. Als u een nieuwe pagina maakt, vraagt de website u een vertaling toe te voegen. Gepubliceerde vertalingen zijn voor iedereen toegankelijk.
   admin_content_pages_link: Content management
   admin_content_pages_page_title: "Beheer: contentbeheer"
-  admin_content_partner_notification_link: Maandelijkse kennisgeving
-  admin_content_partners_hierarchies_link: Contentpartnerhiërarchieën
+  admin_content_partners_index_header: Contentpartners
   admin_content_partners_link: Contentpartners
-  admin_content_partners_published_link: Maandelijks gepubliceerde partners
+  admin_content_partners_notifications_link: Kennisgevingen
+  admin_content_partners_notifications_page_title: "Beheer: meldingen voor contentpartners"
+  admin_content_partners_notifications_sent_to_recipients_header: "Meldingen zijn verzonden naar:"
+  admin_content_partners_notifications_statistics_reminder_description: "Stuurt een e-mail naar alle contactpersonen van contentpartners met de melding dat ze nu de webgebruiksstatistieken van hun gegevens in EOL van de afgelopen maand kunnen bekijken. Let op: het handmatig uitvoeren van deze taak is een tijdelijke oplossing en deze moet verwijderd worden als er een automatische oplossing beschikbaar is."
+  admin_content_partners_notifications_statistics_reminder_header: Herinnering webgebruiksstatistieken
+  admin_content_partners_notifications_statistics_reminder_send_confirmation: Weet u zeker dat u de e-mail over de webgebruiksstatistieken aan alle contentpartners wilt verzenden?
+  admin_content_partners_notifications_statistics_reminder_send_submit: Herinnering verzenden
+  admin_content_partners_page_title: "Beheer: contentpartners beheren"
+  admin_content_partners_statistics_date_from_label: Van
+  admin_content_partners_statistics_date_to_label: Aan
+  admin_content_partners_statistics_first_published_download_csv_submit: Downloaden als CSV
+  admin_content_partners_statistics_first_published_empty: Er zijn geen bronnen van contentpartners gepubliceerd tussen %{date_from} en %{date_to}.
+  admin_content_partners_statistics_first_published_header: Eerste publicatie van bronnen
+  admin_content_partners_statistics_link: Statistieken
   admin_home: startpagina beheer
   admin_information: Dit is het beheermenu voor EOL V2. Op dit moment zijn we bezig met het omzetten van de functionaliteit uit V1. Als de beheerfunctie die u zoekt niet in dit menu staat, ga dan naar het <a href="/administrator">beheermenu van V1</a>.
   admin_link: Beheerconsole
   admin_notes_not_visible_to_user: "Opmerkingen voor beheerders (niet zichtbaar voor gebruikers):"
   admin_page_title: "Beheer: Overzicht"
-  admin_translated_content_page_create_successful_notice: Vertaling is toegevoegd aan <a href="#%{anchor}"><em>%{page_name}</em></a>
+  admin_spam_delete: Spam verwijderen
+  admin_translated_content_page_create_successful_notice: De vertaling is toegevoegd aan <a href="#%{anchor}"><em>%{page_name}</em></a>
   admin_translated_content_page_create_unsuccessful_error: Er is een fout opgetreden. De vertaling kon niet worden toegevoegd.
-  admin_translated_content_page_edit_tip: Titel en inhoud zijn %{required_icon} verplicht.
+  admin_translated_content_page_delete_confirmation: Weet u zeker dat u de versie in %{language} van "%{page_name}" wilt verwijderen? Deze handeling kan niet ongedaan gemaakt worden.
+  admin_translated_content_page_delete_successful_notice: De vertaling in %{language} van de pagina <em>%{page_name}</em> is verwijderd.
+  admin_translated_content_page_edit_subheader: Vertaling in %{language} voor <em>%{page_name}</em> bewerken
+  admin_translated_content_page_edit_tip: Paginanam en inhoud zijn %{required_icon} verplicht.
   admin_translated_content_page_new_header: Kies en taal en voeg inhoud toe
   admin_translated_content_page_new_link: Vertaling toevoegen
   admin_translated_content_page_new_subheader: Vertaling toevoegen voor <em>%{page_name}</em>
-  admin_translated_content_page_new_tip: Taal, titel en inhoud zijn %{required_icon} vereist.
+  admin_translated_content_page_new_tip: Taal, paginanaam en inhoud zijn %{required_icon} verplicht.
+  admin_translated_content_page_update_successful_notice: De vertaling in %{language} voor <a href="#%{anchor}"><em>%{page_name}</em></a> is bijgewerkt.
   admin_translated_content_page_update_unsuccessful_error: Er is een fout opgetreden. De vertaling kon niet worden bijgewerkt.
+  admin_user_delete_successful_notice: De gebruiker is verwijderd.
   agent: Agent
   all_articles: Alle artikelen
   all_changes: Alle wijzigingen
@@ -235,7 +319,7 @@ nl:
   all_taxa: Alle taxa
   all_title: Alle
   all_videos: Alle video's
-  already_a_member_question: Al lid?
+  already_a_member_question: Bent u al lid?
   already_member_of_community: U bent al lid van deze gemeenschap.
   alternate_classification: Alternatieve classificatie
   and: en
@@ -243,8 +327,20 @@ nl:
   any_integer: een geheel getal
   application_version_advisory_information: Programmaversie
   are_you_sure: Weet u het zeker?
-  article_from: artikel uit
+  are_you_sure_this_action_cannot_be_undone: Weet u het zeker?  Deze handeling kan niet ongedaan worden gemaakt.
+  article_from: pagina uit
   article_more_about: Meer informatie over deze pagina
+  article_of: Artikel van
+  article_rating: Artikelwaardering
+  articles_in_languages_with_count: 
+    one: "Artikelen op deze pagina zijn beschikbaar in één taal:"
+    other: "Artikelen op deze pagina zijn beschikbaar in %{count} talen:"
+  articles_in_other_languages_with_count: 
+    one: "Artikelen op deze pagina zijn beschikbaar in één andere taal: "
+    other: "Artikelen op deze pagina zijn beschikbaar in %{count} andere talen:"
+  articles_with_count: 
+    one: één artikel
+    other: "%{count} artikelen"
   assistive_details_header: Gegevens
   assistive_literature_header: Literatuur
   assistive_maps_header: Kaarten
@@ -256,35 +352,43 @@ nl:
   assistive_taxon_community_header: Gemeenschap
   assistive_updates_header: Updates
   associated_submit_button: gekoppeld
-  associated_with_article_header: Gekoppeld met
+  associated_with_article_header: In dit artikel
   associated_with_header: Gekoppeld met
   associated_with_image_header: In deze afbeelding
-  associated_with_sound_header: Gekoppeld met
+  associated_with_sound_header: In dit geluidsbestand
   associated_with_video_header: In deze video
   attribute: Eigenschap
+  audio_current_time_assistive: Met Javascript ingeschakeld wordt de huidige weergavepositie van het audio-bestand in minuten en seconden aangeven.
+  audio_duration_assistive: Met JavaScript ingeschakeld wordt de lengte van het audiobestand in minuten en seconden aangeven. Afhankelijk van de grootte van het bestand kan het even duren voor de lengte van het bestand is berekend en hier wordt weergegeven.
   audio_mute: geluid uit
   audio_pause: pauzeren
   audio_play: afspelen
   audio_stop: stoppen
   audio_unmute: geluid aan
   authoritative_information: gezaghebbende gegevens
-  auto_email_notifications_were_sent_to_colon: "Er zijn automatische e-mails verzonden naar:"
+  available: beschikbaar
   average_rating_value_of_total: "Gemiddelde waardering: %{rating} van %{total}"
+  back: Terug
   back_to_profile: Terug naar het profiel
-  belongs_in_count_communities:
+  began: Begon
+  belongs_in_count_communities: 
     one: Hoort bij één gemeenschap
     other: Hoort bij %{count} gemeenschappen
+  bhl_publication: BHL-publicatie
   bi_monthly: Tweemaandelijks
   biodiversity_heritage_library: Biodiversity Heritage Library
   biomedical_terms: Biomedische termen
   browsable: Doorzoekbaar
   browse_hierarchy: bladerhiërarchie
+  browsing_branch_colon: "Tak:"
   build_communities: Bouw gemeenschappen
+  by: door
+  by_caps: Door
   cancel: Annuleren
   cannot_be_associated_with_both_a_user_and_a_community: Kan niet gekoppeld zijn aan een gebruiker en een gemeenschap
   cannot_be_empty: mag niet leeg zijn.
   cannot_create_collection_item_from_class_error: Het is niet mogelijk een verzamelingsitem aan te maken van klasse %{klass}
-  cannot_find_member: Kan geen lid vinden met dit nummer.
+  cannot_find_member: Er is geen lid met dit nummer aangetroffen.
   cannot_index_collection_item_type_error: Het is niet mogelijk een verzamelingsitem van het type %{type} te indexeren
   change: Wijzigen
   change_rating_to_1_of_5: Waardering naar 1 van 5 wijzigen
@@ -292,95 +396,114 @@ nl:
   change_rating_to_3_of_5: Waardering naar 3 van 5 wijzigen
   change_rating_to_4_of_5: Waardering naar 4 van 5 wijzigen
   change_rating_to_5_of_5: Waardering naar 5 van 5 wijzigen
-  changed_to_act: gewijzigd naar "%{act}"
   choose_collection_header: Kies een verzameling
   citation: Referentie
   citing_link: Citeren
   classification_tree_header: Classificatie
-  classifications_summary_header_with_count:
+  classifications_summary_header_with_count: 
     one: Gevonden in één goedgekeurde classificatie
     other: Gevonden in %{count} classificaties
+  close_this_window_to_return_to_edit_window: Sluit dit venster om terug te keren naar het bewerkingsvenster
   cms_available_in_languages: "Deze pagina is beschikbaar in:"
-  cms_missing_content_title: Ontbrekende inhoud
+  cms_missing_content_message: Deze pagina is niet beschikbaar in de geselecteerde taal %{selected_language}.
+  cms_missing_content_title: Ontbrekende vertaling
   collect_item: Item in verzameling opnemen
-  collection_created_notice: Verzameling <em>%{collection_name}</em> is aangemaakt.
-  collection_delete_link: Deze verzameling permanent verwijderen
+  collection_created_notice: De verzameling <em>%{collection_name}</em> is aangemaakt.
+  collection_delete_link: Verzameling permanent verwijderen
   collection_destroyed: De verzameling is verwijderd.
   collection_image: Verzamelingsafbeelding
-  collection_is_empty: Deze verzameling is momenteel leeg.
+  collection_is_empty: Deze verzameling is leeg.
+  collection_item_annotation_label: Annotatie van verzamelingsitem
+  collection_item_not_found_error: Dat verzamelingsitem is niet aangetroffen.
   collection_name_label: Naam van de verzameling
+  collection_newsfeed: Newsfeed voor verzameling
   collection_not_created_error: Er is een fout opgetreden. De verzameling <em>%{collection_name}</em> kon niet aangemaakt worden.
   collection_not_destroyed_error: De verzameling is niet verwijderd.
-  collection_not_found_error: Die verzameling kon niet gevonden worden.
+  collection_not_found_error: Die verzameling is niet aangetroffen.
+  collection_rating: Verzamelingwaardering
   collection_updated_notice: De verzameling <em>%{collection_name}</em> is bijgewerkt.
   collection_was_removed_by_owner: Deze verzameling is verwijderd door de eigenaar.
   collections: Verzamelingen
   collections_lowercase: verzamelingen
   collections_summary_empty: Deze pagina is nog geen onderdeel van een verzameling.
-  collections_summary_header_with_count:
+  collections_summary_header_with_count: 
     one: Aanwezig in één verzameling
     other: Aanwezig in %{count} verzamelingen
-  collections_with_count:
-    one: Eén verzameling
+  collections_with_count: 
+    one: één verzameling
     other: "%{count} verzamelingen"
   comment: Opmerking
   comment_added_notice: De opmerking is toegevoegd.
   comment_body_label: Uw opmerking
-  comment_colon: "Opmerking:"
   comment_created_at: Aangemaakt op
   comment_new_posters_image_advisory_info: Uw profielafbeelding en uw naam verschijnen naast uw opmerkingen in overzichten.
   comment_new_posters_image_alt: Uw profielafbeelding, als u die hebt opgegeven.
   comment_not_added_error: Er is een fout opgetreden. De opmerking kon niet worden toegevoegd.
+  comment_or_rate_on_this_article: Opmerking plaatsen bij deze pagina of een waardering geven
   comment_show_posters_image_alt: Profielafbeelding van %{posters_name} die deze opmerking heeft toegevoegd.
+  comments: Opmerkingen
   comments_and_tags: Opmerkingen en labels
   comments_moderated: Opmerkingen gemodereerd
-  comments_with_count:
+  comments_with_count: 
     one: Eén opmerking
     other: "%{count} opmerkingen"
-  common_names_with_count:
-    one: Eén triviale naam
+  common_names_with_count: 
+    one: één triviale naam
     other: "%{count} triviale namen"
+  common_user_activity_page_title: Acitiviteit van gewone gebruikers
   communities: Gemeenschappen
   communities_index_empty: Er zijn geen actieve gemeenschappen.
   communities_index_header: Actieve gemeenschappen
-  communities_summary_header_with_count:
+  communities_summary_empty: Dit taxon is nog in geen enkele gemeenschap uitgelicht geweest.
+  communities_summary_header_with_count: 
     one: Hoort bij één gemeenschap
     other: Hoort bij %{count} gemeenschappen
-  communities_with_count:
-    one: Eén gemeenschap
+  communities_with_count: 
+    one: één gemeenschap
     other: "%{count} gemeenschappen"
   community: Gemeenschap
   community_activity: Activiteit in de gemeenschap
-  community_contributions_with_count:
+  community_contributions_with_count: 
     one: Eén bijdrage
     other: "%{count} bijdragen"
+  community_destroyed: U hebt deze gemeenschap verwijderd. Deze wordt niet langer weergegeven op de taxonpagina's of in zoekopdrachten.
   community_empty_notice: Deze gemeenschap heeft geen leden.
   community_focus: Gemeenschapsfocus
-  community_focus_items_with_count:
+  community_focus_items_with_count: 
     one: "%{count} item"
     other: "%{count} items"
-  community_managers_with_count:
+  community_invitation_comment: Ik wil u graag uitnodigen lid te worden van de gemeenschap "%{community}".
+  community_managers_with_count: 
     one: Eén gemeenschapsmanager
     other: "%{count} gemeenschapsmanagers"
-  community_members_with_count:
+  community_members: Leden van de gemeenschap
+  community_members_with_count: 
     one: Eén gemeenschapslid
     other: "%{count} gemeenschapsleden"
+  community_newsfeed: Newsfeed voor gemeenschap
   community_not_destroyed_error: Er is een probleem opgetreden en de gemeenschap is niet verwijderd.
+  community_rating: Gemeenschapswaardering
   community_removed_by_owner: Deze gemeenschap is verwijderd door de eigenaar.
   confirm_leave: Weet u zeker dat u deze gemeenschap wilt verlaten?
   confirm_password_colon: "Wachtwoord bevestigen:"
+  contact: Contact
+  contact_information: Contactgegevens
+  contact_updated: Contactpersoon bijgewerkt
+  contact_us: contact opnemen
   contact_us_functions: "\"Neem contact met ons op\"-functies"
   contact_us_link: Contact opnemen
+  contacts: Contactpersonen
+  containing_value: met %{value}.
   content_has_been_updated: De inhoud is bijgewerkt
   content_partner: Contentpartner
   content_partner_about_header: Over %{partner_name}
   content_partner_administration_notes_header: Administratieve notities
+  content_partner_administration_settings_header: Beheerinstellingen.
+  content_partner_agreement_cancel_edit_agreement_link: Annuleren
+  content_partner_agreement_cancel_new_agreement_link: Annuleren
+  content_partner_agreement_cancel_sign_agreement_link: Annuleren
   content_partner_agreement_subheader: Contentpartnerovereenkomst
-  content_partner_agreement_was_updated: De contentpartnerovereenkomst is bijgewerkt.
   content_partner_column_header_partner: Partner
-  content_partner_column_header_registered: Geregistreerd
-  content_partner_column_header_status: Status
-  content_partner_comment_log_activity: toegevoegd aan de %{type} op %{link} door %{user} %{date} geleden
   content_partner_contact_create_successful_notice: De contactpersoon is toegevoegd.
   content_partner_contact_create_unsuccessful_error: Er is een fout opgetreden. De contactpersoon is niet toegevoegd.
   content_partner_contact_delete_successful_notice: De contactpersoon is verwijderd.
@@ -389,30 +512,28 @@ nl:
   content_partner_contact_edit_page_subheader: Contactpersoon bewerken
   content_partner_contact_new_edit_form_header: Contactgegevens contentpartner
   content_partner_contact_new_edit_form_tip: Voornaam, achternaam en e-mailadres zijn %{required_icon} verplicht.
-  content_partner_contact_new_link: Een nieuw contactpersoon toevoegen
-  content_partner_contact_new_page_subheader: Een contactpersoon toevoegen
-  content_partner_contact_update_successful_notice: De contactpersoon is aangepast.
+  content_partner_contact_new_link: Nieuw contactpersoon toevoegen
+  content_partner_contact_new_page_subheader: Contactpersoon toevoegen
+  content_partner_contact_update_successful_notice: De contactpersoon is bijgewerkt.
   content_partner_contact_update_unsuccessful_error: Er is een fout opgetreden. De contactpersoon is niet bijgewerkt.
   content_partner_contacts_header: Contactpersonen
-  content_partner_contacts_page_title: Contactpersonen contentpartner - %{name}
-  content_partner_contacts_with_count:
-    one: Eén contactpersoon
-    other: "%{count} contactpersonen"
   content_partner_create_successful_notice: De contentpartner is aangemaakt.
   content_partner_create_unsuccessful_error: Er is een fout opgetreden. De contentpartner is niet aangemaakt.
-  content_partner_curated_data: door de contentpartner gecureerde gegeven
+  content_partner_current_agreement_create_link: Nieuwe aanmaken
+  content_partner_current_agreement_edit_link: Bewerken
+  content_partner_current_agreement_empty: Geen overeenkomst
+  content_partner_current_agreement_not_accepted: Nog niet geaccepteerd
+  content_partner_current_agreement_signed_on_with_date: Ondertekend op %{date}
+  content_partner_current_agreement_view_link: Bekijken
   content_partner_data_description_empty: Niemand heeft een beschrijving van de verstrekte gegevens toegevoegd.
   content_partner_data_description_header: Gegevensbeschrijving
-  content_partner_detail: Contentpartnerdetails
-  content_partner_details: contentpartnerdetails
   content_partner_edit_link: Contentpartner bewerken
   content_partner_filter_option_vetted_no: Nee
   content_partner_filter_option_vetted_yes: Ja
   content_partner_has_unpublished_content_false: Geen ongepubliceerde inhoud
   content_partner_has_unpublished_content_true: Ongepubliceerde inhoud
-  content_partner_hierarchies: contentpartnerhiërarchieën
   content_partner_homepage_link: Bezoek de partnerwebsite
-  content_partner_latest_published_harvest_event_time_ago: "Laatste oogst: %{time_passed} geleden"
+  content_partner_latest_published_harvest_event_time_ago: "Laatst bijgewerkt: %{time_passed} geleden"
   content_partner_logo_alt_text: Logo voor contentpartner %{partner_name}
   content_partner_managed_by_header: Beheerd door
   content_partner_new_edit_form_profile_header: Profielgegevens contentpartner
@@ -421,43 +542,65 @@ nl:
   content_partner_new_page_subheader: Nieuwe contentpartner toevoegen
   content_partner_notes_empty: Er zijn geen extra notities voor dit project.
   content_partner_notes_header: Projectnotities
-  content_partner_objects_stats: objectstatistieken voor de contentpartner
+  content_partner_oldest_published_harvest_event_time_ago: "Voor het eerst op EOL gepubliceerd: %{time_passed} geleden"
   content_partner_overview_agreement_header: Partnerovereenkomst
   content_partner_overview_agreement_link: Huidige overeenkomst weergeven
   content_partner_overview_link: Partneroverzicht
   content_partner_overview_link_back_to: terug naar het partneroverzicht
-  content_partner_registered_time_ago: "Geregistreerd: %{time_passed} geleden"
+  content_partner_public_false: Beperkt zichtbaar
+  content_partner_public_true: Openbaar
+  content_partner_registered_time_ago: "Geregistreerd: %{time_passed} geleden;"
   content_partner_resource_about_header: Over de bron
+  content_partner_resource_auto_publish_false: Nee
+  content_partner_resource_auto_publish_true: Ja
   content_partner_resource_collection_empty: Er is nog geen verzameling aangemaakt voor deze bron.
   content_partner_resource_collection_header: Gepubliceerde verzameling
+  content_partner_resource_collection_show_link: Gepubliceerde verzameling bekijken
   content_partner_resource_collections_header: Verzamelingen
+  content_partner_resource_confirm_force_harvest: Weet u zeker dat u het bijwerken van de bron %{resource_title} wilt forceren?
   content_partner_resource_create_successful_notice: "De brongegevens voor de contentpartner zijn toegevoegd. De huidige status van de brongegevens: %{resource_status}."
   content_partner_resource_create_unsuccessful_error: Er is een fout opgetreden. De bron is niet toegevoegd.
   content_partner_resource_dataset_details_header: Dataset
   content_partner_resource_description_empty: Er is geen beschrijving verstrekt voor deze bron.
-  content_partner_resource_edit_link: Bron bewerken
+  content_partner_resource_edit_link: Bewerken
   content_partner_resource_edit_subheader: Bron bewerken
-  content_partner_resource_force_harvest_link: Oogst forceren
+  content_partner_resource_edit_with_type_link: Bron bewerken
+  content_partner_resource_harvest_event_current_published: Op dit moment gepubliceerd
+  content_partner_resource_harvest_event_not_published: Niet gepubliceerd
+  content_partner_resource_harvest_event_previously_published: Eerder gepubliceerd
+  content_partner_resource_harvest_events_empty: Er zijn geen imports gevonden.
+  content_partner_resource_harvest_events_for_resource_subheader: Importgegevens voor bron %{resource_title}
+  content_partner_resource_harvest_events_see_all_link: All <span class="assistive">imports</span> bekijken
+  content_partner_resource_hierarchy_browsable: Doorzoekbaar
+  content_partner_resource_hierarchy_complete_false: Deze hiërarchie wordt niet geconserveerd. Van toepassing zijnde regels kunnen worden behandeld als een enkel concept.
+  content_partner_resource_hierarchy_complete_true: Deze hiërarchie is ingesteld als <strong>geconserveerd</strong>. Bij een geconserveerde hiërarchie wordt ervan uitgegaan dat elke regel uniek is, dat wil zeggen overeenkomende tekenreeksen worden behandeld als homoniemen.
+  content_partner_resource_hierarchy_confirm_request_publish: Weet u zeker dat u een verzoek wilt plaatsen om uw hiërarchie doorzoekbaar te laten zijn in EOL?
+  content_partner_resource_hierarchy_edit_link: Bewerken
+  content_partner_resource_hierarchy_edit_subheader: Hiërarchie voor de bron <em>%{resource_title}</em> bewerken
+  content_partner_resource_hierarchy_not_browsable: Niet doorzoekbaar
+  content_partner_resource_hierarchy_request_publish: Aanvraag in behandeling
+  content_partner_resource_hierarchy_unknown: Onbekend
+  content_partner_resource_hierarchy_update_successful_notice: De hiërarchie is bijgewerkt.
+  content_partner_resource_hierarchy_update_unsuccessful_error: Er is een fout opgetreden. De hiërarchie is niet bijgewerkt.
   content_partner_resource_licensing_details_header: Rechten en naamsvermelding
   content_partner_resource_new_link: Nieuwe bron toevoegen
   content_partner_resource_new_subheader: Nieuwe bron toevoegen
   content_partner_resource_preview_collection_header: Voorvertoning verzameling
   content_partner_resource_resource_status_new: Aangemaakt
+  content_partner_resource_show_link_back_to: terug naar de bron
   content_partner_resource_show_subheader: Details voor de bron <em>%{resource_title}</em>
+  content_partner_resource_status_update_illegal_transition_error: De huidige status van bron %{resource_title} is %{current_resource_status}. Deze kan niet gewijzigd worden naar %{requested_resource_status}.
   content_partner_resource_update_successful_notice: "De brongegevens voor de contentpartner zijn bijgewerkt. De huidige status van de brongegevens: %{resource_status}."
   content_partner_resource_update_unsuccessful_error: Er is een fout opgetreden. De bron is niet bijgewerkt.
   content_partner_resource_url_or_dataset_not_both_error: Geef een dataset-URL of een bestand per bron op, niet beiden. Beslis alstublieft of u een URL wilt opgeven of een bestand wilt uploaden voor deze beschreven bron. U kunt later meer bronnen toevoegen.
+  content_partner_resource_vetted_false: Nee
+  content_partner_resource_vetted_true: Ja
+  content_partner_resource_view_link: Bekijken
   content_partner_resources_header: Bronnen
   content_partner_resources_information: Bronnen zijn datasets die beschikbaar zijn om te oosten door EOL. Geooste gegevens worden geïntegreerd in de database van EOL en beschikbaar gesteld aan de bezoekers van de EOL-website en gebruikers van de API. Bronbestanden kunnen direct geüpload worden of u kunt een bronbestand beschikbaar maken op een publiek toegankelijke webserver, zodat EOL de gegevens automatisch en met door u ingestelde regelmaat kan ophalen. Ieder bronbestand moet opgemaakt zijn volgens het <a href="%{eol_transfer_schema_url}">EOL Transfer Schema</a>.
   content_partner_resources_link: Bronnen en contactpersonen
   content_partner_resources_link_back_to: terug naar bronnen en contactpersonen
   content_partner_resources_policy_information: Voordat u gegevensbronnen toevoegt moet u de volgende gebruiksvoorwaarden voor contentpartners bekijken en aanvaarden.
-  content_partner_resources_unpublished_with_count:
-    one: Eén ongepubliceerd
-    other: "%{count} ongepubliceerd"
-  content_partner_resources_with_count:
-    one: Eén bron
-    other: "%{count} bronnen"
   content_partner_statistics_column_header_provider_proportion: Providerpercentage
   content_partner_statistics_column_header_taxa_page_page_views: Bekeken pagina's
   content_partner_statistics_column_header_taxa_page_time_on_page_seconds: Tijd op pagina (seconden)
@@ -467,16 +610,15 @@ nl:
   content_partner_statistics_link: Statistieken
   content_partner_statistics_summary_caption: Samenvatting van gebruiksstatistieken voor taxonpagina's met inhoud die is geleverd door %{partner_name} relatief ten opzichte van het totale gebruik van de EOL-website.
   content_partner_statistics_taxa_page_caption: Gedetailleerde gebruiksstatistieken voor taxonpagina's met inhoud die is geleverd door %{partner_name}.
-  content_partner_terms_agreed_to_false: Overeenkomst in behandeling
-  content_partner_terms_agreed_to_true: Aanvaard
-  content_partner_unvetted: Niet-beoordeeld
+  content_partner_statistics_year_label: Jaar
+  content_partner_status_empty: Onbekende status
   content_partner_update_successful_notice: De partnergegevens zijn bijgewerkt.
   content_partner_update_unsuccessful_error: Er is een fout opgetreden. De partnergegevens zijn niet bijgewerkt.
-  content_partner_vetted: Doorgelicht
   content_partners: Contentpartners
   content_partners_empty: Geen contentpartners gevonden.
+  content_partners_page_description: Contentpartners van Encyclopedia of Life hebben grote hoeveelheden gegevens over biodiversiteit op hun eigen websites of in hun databases, die zij ook delen via EOL-paginas. Wij zijn hen zeer dankbaar voor hun belangrijke bijdragen aan de missie van EOL en moedigen u aan hen beter te leren kennen. Lees meer over <a href="%{more_url}">een contentpartner worden</a>.
   content_partners_page_title: Contentpartners
-  content_partners_with_count:
+  content_partners_with_count: 
     one: Eén contentpartner
     other: "%{count} contentpartners"
   content_setting_colon: "Inhoudsinstelling:"
@@ -490,27 +632,18 @@ nl:
   content_summary_table_type_trusted_text_row: Aantal vertrouwde tekstitems
   content_summary_table_type_unreviewed_images_row: Aantal niet-beoordeelde afbeeldingen
   content_summary_table_type_unreviewed_text_row: Aantal niet-beoordeelde tekstitems
-  copied_items_from_collection_with_count_notice:
+  copied_items_from_collection_with_count_notice: 
     one: Eén item van %{name} gekopieerd.
     other: "%{count} items van %{name} gekopieerd."
   copy: Kopiëren
-  copy_all_articles_button: alle artikelen kopiëren
-  copy_all_collections_button: alle verzamelingen kopiëren
-  copy_all_communities_button: alle gemeenschappen kopiëren
-  copy_all_images_button: alle afbeeldingen kopiëren
-  copy_all_items_button: hele verzameling kopiëren
-  copy_all_people_button: alle mensen kopiëren
-  copy_all_sounds_button: alle geluiden kopiëren
-  copy_all_taxa_button: alle taxa kopiëren
-  copy_all_videos_button: alle video's kopiëren
   copy_of_name: Kopie van %{name}
   correct_donation_message: Als deze gegevens niet correct zijn, ga dan %{go_back_link} om wijzigingen te maken
   could_not_find_collection_error: Die verzameling kon niet gevonden worden.
   could_not_find_user: Er is geen lidmaatschap voor deze gebruiker gevonden
-  count_results_for_search_term:
+  count_results_for_search_term: 
     one: Eén resultaat voor <em>%{search_term}</em>
     other: "%{count} resultaten voor <em>%{search_term}</em>"
-  create_a_collection: Een verzameling aanmaken
+  create_a_collection: Verzameling aanmaken
   create_a_community: Gemeenschap aanmaken
   create_a_community_login_advisory: U moet aanmelden voordat u een gemeenschap kunt starten
   create_account: gebruiker aanmaken
@@ -529,13 +662,14 @@ nl:
   credentials: Gebruikersgegevens
   curated: Gecureerd
   curated_association_update_button: Wijzigingen opslaan
-  curation_activity_colon: Curatoractiviteit
   curation_comment: Opmerking van curator
   curation_privileges_page_title: Curator worden
   curation_reason_placeholder: extra gegevens (optioneel)
   curator_colon: "Curator:"
   curator_level: Curatorniveau
   curator_level_application_pending_notice: Bedankt voor uw aanmelding als curator. We sturen u een e-mail als wij uw aanmelding hebben beoordeeld.
+  curator_level_assistant_approved_notice: Gefeliciteerd! U bent nu een <em>assistentcurator</em>. <a href="%{more_url}">Lees meer over de rol van assistentcurator</a>.
+  curator_level_assistant_curator: Assistentcurator
   curator_level_full_curator: Volledig curator
   curator_level_full_pending_notice: Dank uw wel voor uw aanmelding als <em>volledig curator</em>. We stellen u op de hoogte als we uw aanmelding hebben beoordeeld.
   curator_level_master_curator: Meestercurator
@@ -547,17 +681,18 @@ nl:
   curator_question: Curator?
   curator_scope_colon: "Curatorscope:"
   curator_status_changed_by: Curatorstatus is gewijzigd door %{user} op %{date}
-  curator_title: Curator
   curators: Curatoren
-  curators_summary_header_with_count:
+  curators_empty: Onze curatororen hebben nog geen enkele handeling uitgevoerd op deze pagina.
+  curators_summary_header_with_count: 
     one: Gecontroleerd door één curator
     other: Gecontroleerd door %{count} curatoren
+  curators_summary_learn_more_link: Leren hoe te conserveren
   current_language: "Taal: %{iso_code}"
-  currently_in_eol: Momenteel in de Encyclopedia of Life
+  currently_in_eol: Nu in Encyclopedia of Life
   daily: Dagelijks
   darwin_core: Darwin Core
-  dash_encyclopedia_of_life: "- Encyclopedia of Life"
   dashboard: Dashboard
+  data: Gegevens
   data_object_ignore: dit item negeren
   data_object_not_associated_with_any_hierarchies: Dit gegevensobject is niet gekoppeld aan een hiërarchie.
   data_object_undo_ignore: uit de negeerlijst verwijderen
@@ -565,46 +700,70 @@ nl:
   data_usage_reports: Gegevensgebruikrapportages
   dato_create_cancel: Annuleren
   dato_create_update_user_text_missing_taxon_id_exception: Het was niet mogelijk een tekst-DataObject of -DataObject op te bouwen als taxon_concept_id niet aanwezig is.
-  dato_create_user_text_error: Er is een fout opgetreden. De pagina is niet toegevoegd.
   dato_create_user_text_missing_taxon_id_exception: Het was niet mogelijk een tekst-DataObject of -DataObject op te bouwen als taxon_id "nil" is.
   dato_create_user_text_missing_user_exception: Het was niet mogelijk een tekst-DataObject of -DataObject op te bouwen als taxon_id "nil" is.
   dato_edit_cancel: Annuleren
-  dato_edit_text_link_button: Dit artikel bewerken
+  dato_edit_text_link_button: Pagina bewerken
   dato_edit_text_page_description: Dank u wel dat u uw expertise beschikbaar wilt stellen aan EOL. De aangepaste pagina wordt toegevoegd aan uw volglijst zodat u overleg over deze pagina kunt volgen en de curatiestatus kunt bijhouden.
   dato_edit_text_title: Artikel bewerken
   dato_new_edit_user_text_fieldset_content_header: Artikelinhoud
   dato_new_edit_user_text_fieldset_information_header: Artikelgegevens
-  dato_new_edit_user_text_form_tip: Uw pagina wordt gemarkeerd als "niet-beoordeeld" totdat een curator ernaar kijkt. Het tekstveld is verplicht %{required_icon}.
-  dato_new_text_for_taxon_page_title: Een artikel toevoegen aan <i>%{taxon}</i>
-  dear_contact_full_name: Beste %{contact_full_name},
-  dear_user_with_comma: Beste %{user},
+  dato_new_edit_user_text_form_tip: Uw pagina wordt gemarkeerd als "niet-beoordeeld" totdat een curator ernaar kijkt. Als u conservator bent, wordt uw pagina direct zichtbaar op de taxonpagina. Het tekstveld is verplicht %{required_icon}.
+  dato_new_text_for_taxon_page_title: Een pagina toevoegen aan <i>%{taxon}</i>
   default: Standaard
+  definition: Definitie
   delete: verwijderen
   delete_community: Deze gemeenschap verwijderen
+  delete_firstcap: Verwijderen
   description: Beschrijving
   description_of: Beschrijving van
+  descriptive_label: Beschrijvend label
   destination_inappropriate_for_logged_in_users: U bent aangemeld.
+  destroy: Vernietigen
   detail: Detail
   details_title: Details
   development_version_name: EOL V2 Beta
+  disabled_for_now: Op dit moment niet beschikbaar
   displaying_numerical_range: Items van %{start_number} tot %{end_number}
   donate: Doneren
+  donation_amount_legend: Kies het bedrag dat u wilt schenken
   donation_amount_other_label: Anders
+  donation_confirmation: Donatiebevestiging
   donation_error_no_amount: Selecteer alstublieft een te doneren bedrag.
   donation_error_only_numbers: Voer alstublieft een bedrag in dat alleen uit cijfers bestaat.
+  donation_introduction_paragraph_one: EOL groeit iedere dag. We raden u aan EOL te verkennen en te profiteren van alles wat het te bieden heeft. Help alstublieft om het initiatief te laten groeien door inhoud, expertise en financieel bij te dragen.
+  donation_introduction_paragraph_two: Uw genereuze gift aan de Encyclopedia of Life ondersteunt ons werk om wereldwijd toegang te verschaffen tot kennis over het leven op aarde.
+  donation_privacy_notice: <em>Bericht over privacy en veiligheid:</em> Via deze pagina en de volgende bevestigingspagina worden geen persoonlijke gegevens of creditcardgegevens verzameld; daarom is deze pagina niet beveiligd. Nadat u het te doneren bedrag hebt bevestigd, wordt u doorgeleid naar een beveiligde pagina waar u de overschrijvingsgegevens kunt invoeren. Uw creditcard wordt niet belast totdat u bevestigt op de pagina die uw persoonlijke gegevens bevat.
+  donation_sponsorship_fellowships_title: Beurzen
   donation_sponsorship_infrastructure_title: Kerninfrastructuur
+  dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Onbekende registratiedatums niet weergeven (V1-gebruikers, allemaal voor 5 januari 2009)
+  dublin_core: Dublin Core
   edit: Bewerken
+  edit_annotation: annotatie bewerken
+  edit_collection_details: Collectiegegevens bewerken
+  edit_collection_details_header: Collectiegegevens bewerken
+  edit_collection_head_title: "Bewerken: %{collection_name}"
+  edit_comment: Opmerking bewerken
   edit_community: Gemeenschap bewerken
-  edit_downcase: bewerken
+  edit_contact_us_topics: onderwerpen voor "contact met ons opnemen" bewerken
+  edit_eol_glossary: EOL-woordenlijst bewerken
   edit_my_profile: Mijn profiel bewerken
+  edit_news_items: nieuwsberichten bewerken
+  edit_page_contents: pagina-inhoud bewerken
+  edit_search_suggestions: zoeksuggesties bewerken
+  edit_table_of_contents: inhoudsopgave bewerken
+  edit_tag_suggestions: labelsuggesties bewerken
+  edit_username: "%{username} bewerken"
+  edit_web_users: webgebruikers bewerken
   email: E-mailadres
   email_colon: "E-mailadres:"
   encyclopedia_of_life: Encyclopedia of Life
-  end_quote: "\""
+  endorsed_by: Aanbevolen door
   endorsed_collections: Uitgelichte verzamelingen
-  endorsed_collections_with_count:
-    one: Eén uitgelichte verzameling
+  endorsed_collections_with_count: 
+    one: één uitgelichte verzameling
     other: "%{count} uitgelichte verzamelingen"
+  enter: invoeren
   eol_api: EOL API
   eol_api_collections: "EOL API: verzamelingen"
   eol_api_data_objects: "EOL API: gegevensobjecten"
@@ -621,13 +780,19 @@ nl:
   eol_pages: Pagina's
   error_404_page_title: Niet gevonden
   error_500_page_title: Interne serverfout
-  error_page_title: Oeps.
   esc_key_hides_this_message: (typ ESC om dit bericht te verbergen)
   example_colon: "Voorbeeld:"
+  expand_all_children: alle kinderen uitvouwen
   explore: Verkennen
+  explore_what_we_know_about_taxon: Ontdek wat EOL weet over %{taxon}.
+  export_this_list_as_csv: Deze lijst exporteren als CSV
   external_link_header: Externe verwijzing
+  external_link_icon_alt_text: Externe verwijzing.
   facebook: Facebook
+  failed_login_attempts: mislukte aanmeldpogingen). Moet gecontroleerd worden voordat gebruiker aan kan melden
+  family_name_colon: "Familienaam:"
   feedback: Terugkoppeling
+  fill_in_a_message_below_to_send_email_to_user: "Geef hieronder een bericht in dat aan deze gebruiker van de site gemaild kan worden. Het bericht wordt verzonden als u op de knop klikt:"
   filter_button: Filteren
   filter_by_status: Filteren op status
   filter_by_status_all_option: alle statussen
@@ -649,46 +814,73 @@ nl:
   filter_media: media filteren
   filtered_information: Gefilterde gegevens
   find_taxa_submit_button: taxa zoeken
+  flash_notice_redirected_from_search_html: U bent hier aangekomen door te zoeken naar <em>%{search_string}</em>. <a href="%{more_results_url}">Klik hier om terug te keren naar de zoekpagina.</a>
+  flash_notice_redirected_from_search_html_more_results: U bent hier aangekomen door te zoeken naar <em>%{search_string}</em>. <a href="%{more_results_url}">Klik hier om andere zoekresultaten te bekijken.</a>
   flickr: Flickr
-  for_the_month_of_colon: "Voor de maand:"
+  focus_list_newsfeed: Newsfeed voor focuslijsten
+  for_example_for_the_taxon_element_for_a_node: Voor bijvoorbeeld het taxonelement van een node in de hiërarchie ITIS, is de dc:indentifier dat van ITIS TSN. Het element dwct:taxonID bevat de <i>EOL identifier</i> die wordt gebruikt in de %{link}-API.
   forgot_password: Wachtwoord vergeten
+  forgot_password_cannot_find_user_from_username_or_email_error: Er zijn geen gebruikers met de opgegeven gebruikersnaam of e-mailadres <em>%{username_or_email}</em>.
   forgot_password_form_cancel: Annuleren
+  forgot_password_form_choose_username_blank_error: Selecteer de gebruiker waarvoor u het wachtwoord opnieuw wilt instellen.
+  forgot_password_form_choose_username_instructions: Er zijn meerdere gebruikers geregistreerd met het e-mailadres <em>%{email}</em>. Selecteer de gebruiker waarvoor u het wachtwoord opnieuw wilt instellen.
+  forgot_password_form_choose_username_legend: Kies een gebruiker
   forgot_password_form_header: Uw wachtwoord opnieuw instellen
+  forgot_password_form_username_or_email_blank_error: Voer uw gebruikersnaam of e-mailadres in om uw wachtwoord opnieuw in te stellen.
+  form_validation_errors_for_attribute_assistive: Er is een onjuiste waarde ingevoerd in dit element
   frequency_daily: Dagelijks
   frequency_monthly: Maandelijks
   frequency_never: Nooit
   frequency_weekly: Wekelijks
+  from_community: van gemeenschap %{community}
+  gbif_occurrence_disclaimer: Deze kaart is gebaseerd op het voorkomen van records die beschikbaar zijn via GBIF en deze kaart vertegenwoordigt mogelijk niet de volledige taxondistributie
+  gbif_occurrence_learn_more_link: Meer lezen over de GBIF-kaarten.
+  general_site_admin: algemene sitebeheerder
+  get_help_choosing_a_subchapter: Hulp bij het kiezen van een subhoofdstuk
+  get_more_tasks: meer taken vinden
   given_name_colon: "Voornaam:"
+  given_the_vast_number: Gezien het grote aantal wetenschappelijke en gemeenschappelijke namen (in totaal bijna 20 miljoen) is het een moeilijke taak om een gebruiker te voorzien van precies de soorten die ze zoeken. Er zijn bijvoorbeeld verschillende vogelsoorten met de naam Robin in het Engels ("lijster" in het Nederland) (roodborstlijster, zanglijster, beflijster, ...), en de vissoort "ponen" (ook Robin in het Engels), en een taxonoom met de naam Robin die tientallen soorten benoemd heeft. We hebben een "exacte" parameter nodig om alleen zoekresultaten te geven die geheel overeenkomen met de zoekterm, maar we kunnen niet garanderen dat de gevonden taxa de taxa zijn die u hoopt te vinden. Wij proberen de relevantie van onze zoekresultaten voortdurend te verbeteren, dus in de nabije toekomst kunt betere zoekresultaten verwachten.
+  gives_access_to_a_single_hierarchy_indexed_by_eol: geeft toegang tot een enkele hiërarchie en de interne relaties als geïndexeerd door EOL
   global_access_tagline: Wereldwijde toegang tot kennis over het leven op aarde.
   global_navigation: Globale navigatie
   go: OK
   go_back: Teruggaan
+  google_analytics_google_account_and_access_required: Google Analytics (Google-gebruiker en toegang vereist)
+  grant_full_curator_link: Toekennen
+  grant_manager_link: Managerrol toekennen
   has_already_been_taken: bestaat al.
   has_colon: "Heeft:"
   head_title_collection: "Verzameling: %{name}"
   head_title_community: "Gemeenschap: %{name}"
   hello_user: Hallo %{user}
   help: Hulp
-  helpers:
-    label:
-      content_page:
+  helpers: 
+    label: 
+      content_page: 
         active: Gepubliceerd
         active_more: Gepubliceerde pagina's zijn publiekelijk zichtbaar. Haal het vinkje <em>gepubliceerd</em> weg als u wilt dat gewone gebruikers de pagina in een taal zien.
         page_name: Unieke naam <small>(alleen kleine letters ISO fundamentele Latijnse alfanumerieke tekens en onderstrepingstekens)</small>
         page_name_more: Voer een unieke, zelfbeschrijvende, zinvolle en blijvende identificatie voor deze pagina toe. De naam die u hier invult wordt gebruikt om de URL voor deze pagina te maken. De unieke naam <em>gebruikersvoorwaarden_eol</em> wordt omgezet in de URL <em>http://www.eol.org/info/gebruikersvoorwaarden_eol</em>.
         parent_content_page_id: Bovenliggende
         parent_content_page_id_more: Selecteer desgewenst een bovenliggende waaronder deze pagina moet worden geplaatst.
-      content_partner:
-        admin_notes: Opmerkingen voor beheerders <small>(alleen zichtbaar voor beheerders van EOL)</small>
+      content_partner: 
+        created_at: "Geregistreerd:"
+        current_agreement: Huidige overeenkomst
         description_of_data: Beschrijving van gegevens <small>(beperkt zichtbaar)</small>
         description_of_data_more: Geef een beschrijving van het soort gegevens dat u hebt, hoeveel items beschikbaar zijn, welke organismen het zijn en of ze zijn verzameld en gecontroleerd door door gekwalificeerde deskundigen of door een deskundige gemeenschap.
         display_name: Weergegeven naam <small>(optioneel)</small>
         display_name_more: Geef een alternatieve publiekelijk zichtbare naam op die moet worden gebruikt in plaats van uw <em>Projectnaam</em>.
+        last_action: Laatste handeling
+        latest_published_harvest_event: Laatst gepubliceerd
         logo_current: "Huidige logo:"
         logo_new: "Een nieuwe logo uploaden:"
         notes: Projectnotities <small>(beperkt zichtbaar)</small>
+        oldest_published_harvest_event: Voor het eerst gepubliceerd
+        public_more: De profielen van publieke contentpartners zijn zichtbaar voor iedereen en partnergegevens bijgesloten in contentpartnerlijsten. Deselecteer om de partnergegevens uit te sluiten van lijsten en toegang tot profielen te beperken tot de gebruiker die de content heeft aangemaakt en EOL-beheerders.
         user_id: Gegevens contentpartner worden beheerd door
-      data_object:
+      content_partner_agreement: 
+        mou_url: URL van het overeenkomstbestand <small>(optioneel alternatief)</small>
+      data_object: 
         bibliographic_citation: Bibliografische bronvermelding
         description: Tekst <small>(sommige HTML-opmaak is toegestaan)</small>
         license_id: Licentie
@@ -699,37 +891,62 @@ nl:
         rights_statement: Rechtenverklaring
         source_url: URL naar het oorspronkelijke gegevensobject
         toc_item: Subhoofdstuk
-      google_analytics_partner_summaries:
+      google_analytics_partner_summaries: 
         page_views: Bekeken pagina's <small>(aantal bezoeken aan pagina's)</small>
         taxa_pages: Pagina's <small>(aantal pagina's)</small>
         taxa_pages_viewed: Bekeken pagina's <small>(aantal pagina's dat bekeken is door bezoekers)</small>
         time_on_page: Totale tijd doorgebracht op pagina's <small>(uur)</small>
         unique_page_views: Unieke pageviews <small>(aantal bezoekers dat pagina's heeft bekeken)</small>
-      resource:
+      harvest_event: 
+        began_at: Begonnen
+        completed_at: Voltooid
+        published_at: Gepubliceerd
+        published_status: Status
+      hierarchy: 
+        browsable_status_with_colon: "Bladerbare status:"
+        complete: Geconserveerd
+        complete_more: "Een geconserveerde hiërarchie neemt aan dat elke invoer uniek is, ofwel overeenkomende namen worden beschouwd als homoniem. <strong>Waarschuwing: wijzig deze eigenschap niet, tenzij u zekerheid hebt over de status van homoniemen in de hiërarchie; een verandering kan de integriteit van de gegevens in gevaar brengen.</strong>"
+        request_publish: Publicatie aangevraagd.
+        request_publish_more: Geeft aan of er een aanvraag opstaat om deze hiërarchie te bevorderen tot één van de primaire bladerbare hiërarchieën op EOL.
+      resource: 
         accesspoint_url: Dataset-URL <small>(alleen XML, XML.GZIP of XML.GZ)</small>
         accesspoint_url_existing_remove: Deze bron wordt geladen vanuit de URL die eindigt op <em>%{accesspoint_url}</em>. Upload een bestand als u de bestaande URL wilt verwijderen en de bron uit een bestand wilt laden (niet aanbevolen).
+        administration_settings: Beheerinstellingen <small>(alleen zichtbaar voor EOL-beheerders)</small>.
         dataset: Dataset
         dataset_existing_remove: Het bestand <em>%{file_name}</em> is momenteel gekoppeld aan deze bron. Geef een URL op als u het bestaande bestand <em>%{file_name}</em> wilt vervangen en in plaats daarvan de bron vanuit een URL wilt laden (aanbevolen).
         dataset_existing_replace: Het bestand <em>%{file_name}</em> is momenteel gekoppeld aan deze bron. Upload een nieuw bestand om het bestaande bestand <em>%{file_name}</em> te vervangen.
         dwc_archive_url: "Als er dat een Darwin Core-archief deze bron is gekoppeld, voer de URL dan hier in <small>(alleen TAR.GZIP, TAR.GZ of TGZ)</small>:"
+        hierarchy: Hiërarchie
+        latest_harvest_event: Laatste oogst
+        latest_published_harvest_event: Laatst gepubliceerd
+        oldest_published_harvest_event: Voor het eerst gepubliceerd
         refresh_period_hours: Frequentie
+        resource_status: Status
         resource_status_id: Status
         resource_url_or_file: Brongegevens <small>(geef een URL op of upload een bestand)</small>
         resource_url_or_file_upload: Bronnenbestand uploaden
         resource_url_or_file_url: Bron van URL laden
         title: Bronnaam
-      session:
+      session: 
         password: Wachtwoord
         remember_me: Houd mij aangemeld gedurende 2 weken
         username_or_email: Gebruikersnaam of e-mailadres
-      translated_content_page:
+      translated_content_page: 
         active_translation: Gepubliceerd
         active_translation_more: Gepubliceerde vertalingen zijn openbaar te zien tenzij de pagina zelf niet openbaar is. Vink <em>gepubliceerd</em> uit als u wilt voorkomen dat iedereen deze versie van de pagina te zien krijgt.
         language_id: Taal
         left_content_more: Voeg optioneel een ongesorteerde lijst met verwijzingen toe om een navigatiekolom als bijlage in de pagina op te nemen. Voeg ankerkoppelingen handmatig toe door <em>Bron</em>  te selecteren en het HTML-attribuut <em>href</em> te bewerken. Om bijvoorbeeld een ankerkoppeling met de naam <em>licentie_beleid</em> te maken in het inhoudsgebied <em>Body</em>, moet moet het attribuut <em>href</em>  van uw lijstverwijzing de waarde "#licentie_beleid" hebben.
-      user:
+        main_content_more: Voer de hoofdinhoud voor de pagina in in het tekstvak. Gebruik de dropdown <em>Vormgeving</em> om de toepasselijke semantische tekstelementen te selecteren; kies bijvoorbeeld <em>Koptekst 2</em> voor een tweede niveau koptekst. De paginanaam is een koptekst op het eerste niveau, dus begin uw koppen in het tekstvak met <em>Koptekst 2</em>.
+        meta_description_more: Geef een korte beschrijving, waarin de belangrijkste concepten van depagina verkort worden weergegeven. Deze beschrijving wordt soms gebruikt door zoekmachines, zowel voor het controleren van relevantie als voor opname in zoekmachineresultaten.
+        meta_keywords_more: Voer een kommagescheiden lijst van woorden en korte zinnen in die het best de inhoud van de pagina weergeven. Deze trefwoorden en -lzinnen worden soms gebruikt door zoekmachines om de relevantie van de pagina te beoordelen ten opzichte van zoektermen.
+        title_more: De paginanaam wordt opgenomen in de kopregel van de pagina. De paginanaam hoort trefwoorden te bevatten die het meest relevant zijn voor de inhoud.
+      user: 
+        agreed_with_terms: Ik ga akkoord met de <a href="%{terms_url}">gebruiksvoorwaarden</a>
+        api_key_more: Lees meer over <a href="%{api_docs_url}">een sleutel toevoegen aan uw API-verzoeken</a>.
         bio: Over mij
         credentials: Gebruikersgegevens
+        credentials_more_author: Auteur van een collegiaal getoetste publicatie (verschaf referentie).
+        credentials_more_professional: Lid van een beroepsvereniging.
         credentials_more_referral: Verwijzing van huidige curator.
         credentials_more_successful_assistant_curator: Succesvol verleden als assistent curator
         curation_application: Curator worden
@@ -752,53 +969,64 @@ nl:
         user_identities: Ik ben
         username: Gebruikersnaam <small>(4-32 tekens)</small>
         username_or_email: Gebruikersnaam of e-mailadres
-      wikipedia_queue:
+      wikipedia_queue: 
         revision_url: Versie-URL <small>(bijvoorbeeld http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)</small>
-    select:
+    select: 
       prompt: Maak een keuze
-    submit:
-      content_page:
+    submit: 
+      content_page: 
         create: Pagina aanmaken
         edit: Bewerken
         preview: Voorvertoning
         update: Pagina bijwerken
-      content_partner:
+      content_partner: 
         create: Contentpartner aanmaken
         update: Contentpartnergegevens opslaan
-      content_partner_agreements:
-        create: Akkoord gaan met de contentpartnervoorwaarden
-      content_partner_contact:
+      content_partner_agreement: 
+        agree: Akkoord gaan met de contentpartnervoorwaarden
+        create: Nieuwe overeenkomst aanmaken
+        update: Overeenkomst bijwerken
+      content_partner_contact: 
         create: Contactpersoon toevoegen
         destroy: Contactpersoon verwijderen
         update: Contactpersoon bijwerken
       create: "%{model} aanmaken"
-      data_object:
+      data_object: 
         create: Artikel toevoegen
         create_text: Artikel toevoegen
         update: Artikel opslaan
-      name:
+      harvest_event: 
+        publish: Publiceren
+      hierarchy: 
+        request_publish: Verzoek tot promoveren hiërarchie indienen
+        update: Hiërarchie bijwerken
+      name: 
         create: Naam toevoegen
         update: Naam bijwerken
-      resource:
+      resource: 
         create: Bron toevoegen
+        force_harvest: Verzoek geforceerd ophalen
         update: Bron bijwerken
-      session:
+        update_settings: Instellingen bijwerken
+      session: 
         create: Aanmelden
       submit: "%{model} opslaan"
-      translated_content_page:
+      translated_content_page: 
         create: Vertaling toevoegen
         update: Vertaling bijwerken
       update: "%{model} bijwerken"
-      user:
+      user: 
         create: Gebruiker aanmaken
         curation_application: Meld u nu aan
         curation_privileges: Aanvraag verzenden
         forgot_password: E-mail verzenden
         generate_api_key: Sleutel aanmaken
         update: Profielgegevens opslaan
-      wikipedia_queue:
+      wikipedia_queue: 
         create: Aanvraag verzenden
   hidden: Verborgen
+  hidden_comment: verborgen opmerking
+  hide: verbergen
   hierarchies: hiërarchieën
   hierarchies_title: Hiërarchieën
   hierarchy: Hiërarchie
@@ -807,8 +1035,15 @@ nl:
   home_page_link_advisory_information: Via deze verwijzing komt u op de hoofdpagina van de website Encyclopedia of Life
   id: ID
   image_is_no_longer_available: Afbeelding is niet meer beschikbaar
+  image_map_of: Kaart van
+  image_map_rating: Kaartwaardering
   image_not_found: Afbeelding niet gevonden
+  image_of: Afbeelding van
+  image_rating: Afbeeldingswaardering
   images: Afbeeldingen
+  images_with_count: 
+    one: "%{count} afbeelding"
+    other: "%{count} afbeeldingen"
   in_collection: in verzameling
   inappropriate: Ongepast
   indexed: Geïndexeerd
@@ -837,7 +1072,9 @@ nl:
   learn_about_contributing: Hoe kan ik bijdragen?
   learn_about_eol: Hoe kan ik EOL gebruiken?
   learn_about_joining: Hoe kan ik deelnemen?
+  learn_more_about_names_for_this_taxon: meer informatie over namen voor dit taxon
   learn_more_link: (%{learn_more})
+  learn_more_lowercase: meer lezen
   leave_a_comment: Opmerking achterlaten
   leave_community_button: Deze gemeenschap verlaten
   license: Licentie
@@ -864,6 +1101,10 @@ nl:
   license_gnu_gpl: GNU General Public License (GNU GPL)
   license_not_applicable: Licentie niet van toepassing
   license_public_domain: Publiek domein
+  limits_the_number_of_returned_image_objects: beperkt het aantal afbeeldingsobjecten
+  limits_the_number_of_returned_text_objects: beperkt het aantal tekstobjecten
+  limits_the_number_of_returned_video_objects: beperkt het aantal videoobjecten
+  listing_collections: Verzamelingen weergeven
   literature: Literatuur
   literature_empty: Geen referenties gevonden.
   literature_header: Referenties
@@ -875,37 +1116,56 @@ nl:
   logout: Afmelden
   maintained_by: onderhouden door
   managed_by: Beheerd door
-  maps_with_count:
+  map_of: Kaart van
+  map_rating: Kaartwaardering
+  maps_with_count: 
     one: "%{count} kaart"
     other: "%{count} kaarten"
   media: Media
-  media_with_count:
+  media_with_count: 
     one: "%{count} mediabestand"
     other: "%{count} mediabestanden"
   member_of: lid van
   members_like_you: Leden als u
-  members_with_count:
+  members_with_count: 
     one: Eén lid
     other: "%{count} leden"
+  members_with_count_semi_colon: 
+    one: "%{count} lid;"
+    other: "%{count} leden;"
   method: Methode
   methods: Methoden
   minimal_page: Minimale pagina
+  mobile: 
+    contents: 
+      explore_eol: EOL verkennen
+      full_site: Volledige site
+      home: Hoofdmenu
+      species: Soort
+      taxa: Taxa
+    search: 
+      no_results_found: Geen resultaten gevonden
+      results: Resultaten
+      suggestions: Suggesties
+    taxa: 
+      community: Gemeenschap
+      details: Details
+      images: Afbeeldingen
+      literature: Literatuur
+      maps: Kaarten
+      media: Media
+      nomenclature: Nomenclatuur
+      overview: Overzicht
+      resources: Bronnen
+      sounds: Geluidsbestanden
+      taxon_details: Taxongegevens
+      taxon_media: Taxonmedia
+      taxon_overview: Taxonoverzicht
+      videos: Video's
   moderator_colon: "Moderator:"
-  month_equals: Maand =
   monthly: Maandelijks
-  monthly_notification: maandelijkse kennisgeving
-  monthly_published_partners: maandelijks gepubliceerde partners
   most_active_members: Meest actieve leden
   move: Verplaatsen
-  move_all_articles_button: alle artikelen verplaatsen
-  move_all_collections_button: alle verzamelingen verplaatsen
-  move_all_communities_button: alle gemeenschappen verplaatsen
-  move_all_images_button: alle afbeeldingen verplaatsen
-  move_all_items_button: hele verzameling verplaatsen
-  move_all_people_button: alle mensen verplaatsen
-  move_all_sounds_button: alle geluiden verplaatsen
-  move_all_taxa_button: alle taxa verplaatsen
-  move_all_videos_button: alle video's verplaatsen
   move_down: Naar onderen verplaatsen
   move_up: Naar boven verplaatsen
   must_be_associated_with_either_a_user_or_a_community: Moet gekoppeld zijn met een gebruiker of een gemeenschap
@@ -914,68 +1174,113 @@ nl:
   my_activity: Mijn activiteit
   my_info: Mijn gegevens
   name: Naam
+  name_preferred_for_language_yes: Voorkeur
+  name_preferred_taxonomically_for_source_yes: Voorkeur
   names: Namen
+  names_children_column_header: Kinderen
   names_name_column_header: Naam
-  names_relationship_column_header: Relaties
+  names_parents_column_header: Bovenliggende
+  names_relationship_column_header: Relatie
+  names_sources_column_header: Bronnen
   never: Nooit
   new_collection: Nieuwe verzameling
+  new_upload: Nieuwe upload
+  new_user: Nieuwe gebruiker
   newsfeed: Nieuwsfeed
+  next: Volgende
+  no_active_members: Er is nog niet genoeg activiteit geweest.
   none: geen
   not_evaluated: Niet beoordeeld
+  notifier: 
+    activity_log_empty: Geen recente handelingen door curatoren.
+    activity_on_content_partner_content: 
+      message: "Dit is een automatische e-mail van Encyclopedia of Life (EOL) waarin een samenvatting staat van recente opmerkingen en curatorenactiviteit voor inhoud die aan EOL geleverd is door contentpartner %{partner_full_name} (%{partner_profile_url}). You are receiving this summary because you are listed as a contact for %{partner_full_name}.\n\nCuratorenactiviteit:\n%{curator_activity_log}\n\nOpmerkingen bij gegevensobjecten:\n%{data_object_comments}\n\nOpmerkingen bij pagina's waarmee uw gegevens zijn gekoppeld:\n%{page_comments}"
+      subject: Samenvatting van recente activiteiten met betrekking tot inhoud van Encyclopedia of Life van contentpartner %{partner_full_name}.
+    activity_on_user_content: 
+      message: "Dit is een automatische e-mail van Encyclopedia of Life (EOL) waarin een samenvatting staat van recente opmerkingen en curatorenactiviteit voor inhoud die u hebt toegevoegd aan EOL via uw gebruiker %{members_username}.\n\nCuratorenactiviteit:\n%{curator_activity_log}\n\nOpmerkingen bij gegevensobjecten:\n%{data_object_comments}\n\nOpmerkingen bij pagina's waarmee uw gegevens zijn gekoppeld:\n%{page_comments}"
+      subject: Samenvatting van recente activiteit op inhoud die u hebt toegevoegd aan Encyclopedia of Life
+    activity_user_marked_data_object_as_inappropriate_on_date: "%{users_name} (%{users_url}) heeft als ongepast gemarkeerd:\n%{object_name} (%{object_url})\n%{action_date}."
+    activity_user_marked_data_object_as_trusted_for_taxon_on_date: "%{users_name} (%{users_url}) heeft als vertrouwd gemarkeerd:\n%{object_name} (%{object_url}) for %{taxon_name} (%{taxon_url})\n%{action_date}."
+    activity_user_marked_data_object_as_trusted_on_date: "%{users_name} (%{users_url}) heeft als vertrouwd gemarkeerd:\n%{object_name} (%{object_url})\n%{action_date}."
+    activity_user_marked_data_object_as_untrusted_for_taxon_on_date: "%{users_name} (%{users_url}) heeft als niet-vertrouwd gemarkeerd:\n%{object_name} (%{object_url}) for %{taxon_name} (%{taxon_url})\n%{action_date}."
+    activity_user_marked_data_object_as_untrusted_on_date: "%{users_name} (%{users_url}) heeft als niet-vertrouwd gemarkeerd:\n%{object_name} (%{object_url})\n%{action_date}."
+    comments_empty: Geen recente opmerkingen.
+    contact_us_auto_response: 
+      message: "Dank u wel voor uw bericht aan het Encyclopedia of Life-project. Uw opmerkingen worden doorgezonden aan de juiste groep.\n\nWe stellen uw terugkoppeling op prijs."
+      subject: Dank u wel voor uw bericht aan Encyclopedia of Life
+    contact_us_message: 
+      message: "Het volgende bericht is aan EOL verzonden via het formulier \"Neem contact met ons op\":\nVan: %{from_name}\nE-mailadres: %{from_email}\nOnderwerp: %{subject}\nTaxongroep: %{taxon_group}\n\n%{message}"
+      subject: "Een bericht naar EOL: %{title}"
+    content_partner_created: 
+      message: "Dit is een geautomatiseerd aangemaakt EOL systeembericht voor de Groep Soorttenpagina's. Gebruiker %{user_full_name} heeft de contentpartner %{partner_full_name} aangemaakt met de volgende gegevens:\n\nGebruiker: %{user_full_name}\nE-mailadres: %{user_email}\nProfiel-URL: %{user_profile_url}\n\nPartner: %{partner_full_name}\nPartnerprofiel-URL: %{partner_profile_url}\nAangemaakt: %{partner_created_at_date}"
+      subject: De EOL-gebruiker %{user_full_name} heeft de contentpartner %{partner_full_name} aangemaakt
+    content_partner_resource_created: 
+      message: "Dit is een geautomatiseerd bericht van EOL voor de groep Soortenpagina's. %{user_full_name} heeft een nieuwe bron %{resource_title} toegevoegd aan contentpartner %{partner_full_name}. Details:\n\nGebruiker: %{user_full_name}\nE-mailadres: %{user_email}\nProfiel-URL: %{user_profile_url}\n\nPartner: %{partner_full_name}\nBron-URL van partner: %{partner_resources_url}\n\nBron: %{resource_title}\nBron-URL: %{resource_url}\nAangemaakt op: %{resource_created_at_date}\nStatus: %{resource_status}"
+      subject: EOL-gebruiker %{user_full_name} heeft een nieuwe bron %{resource_title} toegevoegd aan contentpartner %{partner_full_name}
+    content_partner_resource_force_harvest_request: 
+      message: "Dit is een geautomatiseerd bericht van EOL voor de groep Soortenpagina's. %{user_full_name} heeft import geforceerd voor de bron %{resource_title} van contentpartner %{partner_full_name}. Details:\n\nGebruiker: %{user_full_name}\nE-mailadres: %{user_email}\nProfiel-URL: %{user_profile_url}\n\nPartner: %{partner_full_name}\nBron-URL van partner: %{partner_resources_url}\n\nBron: %{resource_title}\nBron-URL: %{resource_url}\nBijgewerkt op: %{resource_updated_at_date}\nStatus: %{resource_status}"
+    content_partner_resource_hierarchy_publish_request: 
+      message: "Dit is een geautomatiseerd bericht van EOL voor de groep Soortenpagina's. %{user_full_name} heeft verzocht om de hiërarchie die is gekoppeld met de bron %{resource_title} van contentpartner %{partner_full_name}, gepubliceerd moet worden als doorbladerbare hiërarchie op EOL. Details:\n\nGebruiker: %{user_full_name}\nE-mailadres: %{user_email}\nProfiel-URL: %{user_profile_url}\n\nPartner: %{partner_full_name}\nBron-URL van partner: %{partner_resources_url}\n\nBron: %{resource_title}\nBron-URL: %{resource_url}\nURL om hiërarchie te bewerken: %{hierarchy_edit_url}"
+    greeting_dear_name_with_comma: Beste %{name},
+    signature_basic: Het team van Encyclopedia of Life
+    signature_with_species_pages_group_contact: "Als u vragen hebt, neem dan contact met ons op via %{species_pages_group_email}.\n\nHet team van Encyclopedia of Life"
+    signature_with_support_contact: "Als u een probleem tegenkoment, neem dan contact met ons op via %{support_email}.\n\nHet team van Encyclopedia of Life"
+    user_activated: 
+      subject: Uw gebruiker bij Encyclopedia of Life is geactiveerd
+    user_commented_on_something_date_body: "%{users_name} (%{users_url}) heeft een opmerking geplaatst bij:\n%{commented_on_name} (%{commented_on_url})\n%{comment_date}:\n%{comment_body}"
+  nucleotide_sequences: Nucleotidesequenties
+  object_type_collection_option: Verzameling
+  object_type_community_option: Gemeenschap
   object_type_image_option: Afbeelding
   object_type_sound_option: Geluid
   object_type_text_option: Tekst
+  object_type_user_option: Gebruiker
   object_type_video_option: Video
   object_visibility_invisible_option: Verborgen
   object_visibility_visible_option: Zichtbaar
-  other_collection_items_with_count:
+  other_collection_items_with_count: 
     one: "%{count} ander item"
     other: "%{count} andere items"
-  other_community_items_with_count:
+  other_community_items_with_count: 
     one: "%{count} ander item"
     other: "%{count} andere items"
   overview: Overzicht
   page_statistics: Paginastatistieken
   pages_lowercase: pagina's
-  pages_title: Pagina's
+  pages_title: Referenties
   pages_with_pictures_and_text: Pagina's met afbeeldingen en tekst
   pages_with_pictures_or_text: Pagina's met afbeeldingen of tekst
   pagination_next: Volgende
   pagination_previous: Vorige
   parameters: Parameters
   password_colon: "Wachtwoord:"
+  people_with_count: 
+    one: "%{count} persoon"
+    other: "%{count} personen"
+  person_rating: Persoonswaardering
   personal_space: Persoonlijke ruimte
   post_comment: Bericht plaatsen
-  preferences: Voorkeuren
   preferred_common_name_advisory_information: Dit is de triviale naam voor dit taxon.
   press_room: Pers
   profile: Profiel
   profile_colon: "Profiel:"
-  profile_image_alt_text_curator: Profielfoto voor de curator %{user_full_name}
-  profile_image_alt_text_member: Profielfoto voor het lid %{user_full_name}
+  profile_image_alt_text_curator: Profielfoto voor de curator %{user_given_name} %{user_family_name}
+  profile_image_alt_text_member: Profielfoto voor het lid %{user_given_name} %{user_family_name}
   punctuation_comma: ","
   punctuation_semi_colon: ;
-  rated_by_count_people:
+  rated_by_count_people: 
     one: van één person
     other: van %{count} personen
   recent_updates: Recente updates
-  remove_all_articles_button: alle artikelen verwijderen
-  remove_all_collections_button: alle verzamelingen verwijderen
-  remove_all_communities_button: alle gemeenschappen verwijderen
-  remove_all_images_button: alle afbeeldingen verwijderen
-  remove_all_items_button: hele verzameling verwijderen
-  remove_all_people_button: alle mensen verwijderen
-  remove_all_sounds_button: alle geluiden verwijderen
-  remove_all_taxa_button: alle taxa verwijderen
-  remove_all_videos_button: alle video's verwijderen
+  remove: Verwijderen
   remove_curatorship_colon: "Curatorschap verwijderen:"
   remove_data_object_association: Koppeling verwijderen
   remove_membership: Lidmaatschap verwijderen
+  required_form_element: Verplicht
   resources: Middelen
   revisions: Versies
   rights: Rechten
   rights_holder: Rechthebbende
-  roles: Rollen
   save: Opslaan
   search: Zoeken
   search_by_term_page_title: "Zoeken: %{term}"
@@ -984,29 +1289,29 @@ nl:
   search_lowercase: zoeken
   search_placeholder: EOL doorzoeken ...
   search_the_site: Site doorzoeken
-  see_all_classifications_with_count_html:
+  see_all_classifications_with_count_html: 
     one: De <span class="assistive">goedgekeurde classificatie waarin dit taxon voorkomt</span> bekijken.
     other: Alle <span class="assistive">%{count} goedgekeurde classificaties waarin dit taxon voorkomt</span> bekijken.
-  see_all_collections_with_count_html:
+  see_all_collections_with_count_html: 
     one: De <span class="assistive">verzameling waarin dit taxon voorkomt</span> bekijken.
     other: Alle <span class="assistive">%{count} verzamelingen waarin dit taxon voorkomt</span> bekijken.
-  see_all_comments_with_count_for_text:
-    one: de opmerking bij dit artikel bekijken
-    other: alle %{count} opmerkingenb ij dit artikel bekijken
-  see_all_communities_with_count_html:
+  see_all_communities_with_count_html: 
     one: De <span class="assistive">gemeenschap met focus op dit taxon</span> bekijken.
     other: Alle <span class="assistive">%{count} gemeenschappen met focus op dit taxon</span> bekijken.
   see_all_media_link: Alle media bekijken
   select_topic: Selecteer een onderwerp
+  selected_items: Geselecteerde items
   selected_language_advisory_information: Dit is de huidige geselecteerde taal.
-  send_email_colon: "E-mail versturen:"
+  send_email_colon: E-mail verzenden
+  sent_invitations_to_users: Er zijn uitnodigingen verzonden naar %{users}.
   set_as_exemplar: Als voorbeeld instellen
   show_status_message: Statusbericht weergeven
   show_warning_message: Waarschuwing weergeven
   sign_in: Aanmelden
-  sign_in_successful_notice: Aanmelden geslaagd.
+  sign_in_successful_notice: U bent aangemeld.
   sign_out: Afmelden
-  site_information: Siteinformatie
+  site_information: Sitegegevens
+  site_language: Taal van de website
   skip_to_content: Doorgaan naar inhoud
   skip_to_navigation: Naar navigatie gaan
   skip_to_table_of_contents: Naar inhoudsopgave gaan
@@ -1016,56 +1321,123 @@ nl:
   sort_by_newest_option: Nieuwste
   sort_by_oldest_option: Oudste
   sort_by_rating_option: Waardering
+  sort_by_title_ascending: Titel oplopend
+  sort_by_title_descending: Titel aflopend
+  sort_by_year_ascending: Jaar oplopend
+  sort_by_year_descending: Jaar aflopend
   sort_collection_by_label: Verzameling sorteren op
+  sound_of: Geluidsbestand van
+  sound_rating: Geluidsbestandswaardering
+  sounds_with_count: 
+    one: Eén geluid
+    other: "%{count} geluiden"
+  source_and_additional_information: Bron en aanvullende gegevens
+  source_information_header: Brongegevens
   source_url: Bron-URL
   species: Soorten
-  start_quote: "\""
   statistics: Statistieken
+  subject: onderwerp
   supplier: Leverancier
   switch_language_advisory_information: De taal van de site veranderen naar %{language_label}
   synonym: Synoniem
   table_of_contents: Inhoudsopgave
   task_status_active_option: Actief
-  task_status_curated_option: Gecureerd
+  task_status_curated_option: Geconserveerd
   task_status_ignored_option: Genegeerd
+  taxa: Taxa
+  taxa_with_count: 
+    one: Eén taxon
+    other: "%{count} taxa"
   taxon: taxon
+  taxon_biomedical_terms_link: Biomedische termen
+  taxon_rating: Taxonwaardering
+  technical_functions: Technische functies
   terms_agreement_form_submit: Ik ga akkoord
   test: Test.
   text: tekst
   text_capital: Tekst
   text_summary_empty_header: Korte samenvatting
   text_summary_more_link: Volledige vermelding lezen
+  text_with_count: 
+    one: één artikel
+    other: "%{count} artikelen"
   thank_you: Bedankt
-  thank_you_sentence: Bedankt.
   there_are_currently_no_members_in_this_community: Er zijn momenteel geen leden in deze gemeenschap.
+  this_article_cannot_be_curated_because_unpublished: Dit artikel kan niet geconserveerd worden omdat het nog niet gepubliceerd is.
   this_cannot_be_undone_are_you_sure: Dit kan niet ongedaan gemaakt worden; weet u het zeker?
   this_community_has_no_focus_list: Deze gemeenschap heeft geen focuslijst.
-  threat_status_header_colon: "IUCN bedreigingsstatus:"
+  this_image_cannot_be_curated_because_unpublished: Deze afbeelding kan niet geconserveerd worden omdat het nog niet gepubliceerd is.
+  this_image_map_cannot_be_curated_because_unpublished: Deze kaart kan niet geconserveerd worden omdat hij nog niet gepubliceerd is.
+  this_map_cannot_be_curated_because_unpublished: Deze kaart kan niet geconserveerd worden omdat hij nog niet gepubliceerd is.
+  this_sound_cannot_be_curated_because_unpublished: Dit geluidsbestand kan niet geconserveerd worden omdat het nog niet gepubliceerd is.
+  this_video_cannot_be_curated_because_unpublished: Deze video kan niet geconserveerd worden omdat hij nog niet gepubliceerd is.
+  threat_status_header_colon: "<abbr title=\"International Union for Conservation of Nature\">UCN</abbr> bedreigingsstatus:"
   time_ago: "%{time_passed} geleden"
   title: Titel
-  total_items_with_count:
+  to: tot
+  to_process_your_donation_please_proceed: Om uw donatie te verwerken ga u door
+  toc: Inhoudsopgave
+  total_items_with_count: 
     one: "%{count} item"
     other: "%{count} items totaal"
+  translation_deleted: De vertaling is verwijderd
+  translation_saved: De vertaling is opgeslagen
   translations_submit: Vertaling bekijken
+  truncated_comment_omission: ... <a href='%{link}'>meer</a>
+  truncated_comment_omission_linkless: ...
   trusted: Vertrouwd
+  tumblr: Tumblr
   twitter: Twitter
   type: Type
   unknown: Onbekend
+  unpublished: Ongepubliceerd
   unreviewed: Niet-beoordeeld
+  unreviewed_images: Ongecontroleerde afbeeldingen
+  unreviewed_text_objects: Ongecontroleerde artikelen
+  untrusted: Niet-vertrouwd
+  update_collection_submit_button: Collectiegegevens bijwerken
+  update_language: Taal bijwerken
+  update_page: Pagina bijwerken
+  update_user_successful_notice: De gebruiker is bijgewerkt.
+  update_user_unsuccessful_error: Er is een fout opgetreden. Uw gebruiker is niet bijgewerkt. Controleer of alle velden correct zijn ingevuld.
+  updated_colon: "Bijgewerkt:"
   updated_community: De gemeenschap is bijgewerkt
   updated_member: Het lid is bijgewerkt.
+  updates: Updates
+  upload_content: inhoud uploaden
+  upload_logo_help_text: Dit wordt de primaire afbeelding voor uw gemeenschap. Het kan een willekeurige afbeelding zijn.
+  us_dolars_75: USD 75
+  us_dollars_100: USD 100
+  us_dollars_35: USD 35
+  us_dollars_50: USD 50
   user: Gebruiker
-  user_activity_stats_articles_added: Artikels toegevoegd
+  user_activity_stats_articles_added: Pagina's toegevoegd
   user_activity_stats_header: Activiteit
-  user_says_colon: "%{users_name} zegt:"
+  user_comment: Opmerking van gebruiker
+  user_says_colon: "%{users_name} schrijft:"
   user_system_down: Onze excuses, maar het gebruikersregistratiesysteem is momenteel niet beschikbaar. Probeer het later opnieuw.
   username: Gebruikersnaam
   username_colon: "Gebruikersnaam:"
+  username_taken: "%{name} wordt al gebruikt"
   users_about_me_header: Over mij
-  users_form_account_header: Uw account
-  users_my_info_header: Mijn info
+  users_form_account_header: Uw gebruiker
+  users_member_of_count_communities: 
+    one: Lid van %{count} gemeenschap
+    other: Lid van %{count} gemeenschappen
+  users_my_info_header: Mijn gegevens
   using_the_site: De site gebruiken
-  view_article_source: Artikelbron weergeven
+  value: Waarde
+  value_default: (standaard)
+  value_empty: (leeg)
+  values: Waarden
+  video_of: Video van
+  video_rating: Videowaardering
+  videos_with_count: 
+    one: "%{count} video"
+    other: "%{count} video's"
+  view_added_text: toegevoegde tekst bekijken
+  view_article_source: Paginabron weergeven
+  view_full_size_image: Afbeelding weergeven op volledige grootte
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Alleen pagina's bekijken met tenminste een afbeelding of tekst
   view_user_activity: Gebruikersactiviteit bekijken
   visible_title: Zichtbaar
@@ -1073,12 +1445,11 @@ nl:
   weekly: Wekelijks
   what_is_eol: Wat is EOL?
   what_is_this_question: Wat is dit?
-  will_paginate:
+  will_paginate: 
     next_label: Volgende &#8594;
     page_gap: "&hellip;"
     previous_label: "&#8592; Vorige"
   year: Jaar
-  year_equals: Jaar =
   yes_answer: Ja
   you_are_an_admin_so_i_will_show_you_that_the_error_was: "U bent beheerder en daarom wordt hieronder de foutmelding weergegeven:"
   you_are_not_authorized_to_perform_this_action: U mag deze handeling niet uitvoeren.
@@ -1091,5 +1462,4 @@ nl:
   your_current_rating_4_of_5: "Uw huidige waardering: 4 van 5"
   your_current_rating_5_of_5: "Uw huidige waardering: 5 van 5"
   your_preferences: Uw voorkeuren
-  your_preferences_have_been_updated: Uw voorkeuren zijn bijgewerkt.
   your_rating: Uw waardering

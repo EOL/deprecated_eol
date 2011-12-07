@@ -4,47 +4,91 @@
 # Author: Naudefj
 af: 
   account_information: Gebruikersgegewens
+  actions: Aksies
+  activity: Aktiwiteit
+  admin: admin
   all_pages: Alle bladsye
   already_a_member_question: Reeds 'n lid?
+  and: en
+  and_between_form_items: en
   application_version_advisory_information: Programweergawe
   are_you_sure: Is u seker?
+  article_from: artikel van
+  article_more_about: Leer meer oor hierdie artikel
+  assistive_details_header: Details
+  assistive_literature_header: Letterkunde
+  assistive_maps_header: Kaarte
+  assistive_media_header: Media
+  assistive_names_common_header: Algemene name
+  assistive_names_related_header: Verwante name
+  assistive_names_synonyms_header: Sinonieme
+  assistive_overview_header: Oorsig
+  assistive_updates_header: Bywerkings
+  back_to_profile: Terug na profiel
+  build_communities: Bou gemeenskappe
+  cancel: Kanselleer
   cannot_be_empty: kan nie leeg wees nie.
   citation: Verwysing
+  classification_tree_header: Klassifikasie
+  collection_image: Kolleksie-beeld
+  collection_name_label: Kolleksienaam
   collections: Versamelings
+  comment: Opmerking
+  comment_body_label: U opmerking
   communities: Gemeenskappe
+  communities_index_header: Aktiewe gemeenskappe
   community: Gemeenskap
   community_focus: Gemeenskapsfokus
+  community_members: Lede van die gemeenskap
   contact_us_link: Kontak ons
+  content_partner_resource_resource_status_new: Geskep
+  content_summary_table_count_column_header: Aantal
   create_a_collection: Skep 'n versameling
   create_a_community: Skep 'n gemeenskap
-  curators_of_taxon_page_title: Kurators van %{taxon}
+  created: Geskep
+  curated_association_update_button: Stoor wysigings
+  curator_colon: "Kurator:"
   curators_summary_header_with_count: 
     one: "%{count} kurator"
     other: "%{count} kuratore"
+  dato_create_cancel: Kanselleer
+  dato_edit_text_title: Wysig artikel
+  delete: skrap
+  description: Beskrywing
   detail: Detail
-  edit_collection: Wysig versameling
+  details_title: Details
+  donate: Skenk
+  edit: Wysig
   edit_my_profile: Verander my profiel
+  eol_glossary: EOL-woordelys
   eol_news: EOL-nuus
   explore: Verken
   global_navigation: Globale navigasie
   go: OK
-  google_translate: Google Vertaal
+  has_colon: "Het:"
   help: Hulp
+  home: Tuisblad
   images: Beelde
   indexed: Geïndekseer
   join_community_button: Sluit aan by hierdie gemeenskap
-  learn_how_to_join: Leer hoe u kan deelneem
   license: Lisensie
+  literature_header: Verwysings
   location: Ligging
   login_or_create_account: Meld aan of registreer
-  manage_community: Bestuur gemeenskap
   media: Media
   minimal_page: Minimale bladsy
+  moderator_colon: "Moderator:"
+  move: Skuif
+  my_activity: My aktiwiteit
   my_info: My inligting
   newsfeed: Nuusvoer
+  none: geen
   not_evaluated: Nie geëvalueer nie
   overview: Oorsig
+  pages_curator_section_link: Kuratore
+  pages_title: Bladsye
   profile: Profiel
+  punctuation_comma: ","
   recent_updates: Onlangse bywerkings
   rights: Regte
   rights_holder: Houer van regte
@@ -64,5 +108,11 @@ af:
     other: "%{count} items totaal"
   twitter: Twitter
   unknown: Onbekend
+  updated: Opgedateer
+  updates: Bywerkings
+  user: Gebruiker
+  users_about_me_header: Oor my
+  users_my_info_header: My info
   what_is_eol: Wat is EOL?
+  year: Jaar
   your_preferences: U voorkeure

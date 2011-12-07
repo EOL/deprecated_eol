@@ -3,15 +3,66 @@
 # Export driver: syck-pecl
 # Author: Borichèt
 pms: 
+  translated_activities-name-activity_id-19: profil
+  translated_activities-name-activity_id-50: nen fidà
+  translated_activities-name-activity_id-51: smon-e
+  translated_activities-name-activity_id-52: creé
+  translated_activities-name-activity_id-53: stërmé
+  translated_activities-name-activity_id-54: agiorné
+  translated_activities-name-activity_id-55: inapropià
+  translated_activities-name-activity_id-56: scancelé
+  translated_activities-name-activity_id-57: tass
+  translated_activities-name-activity_id-58: fidà
+  translated_activities-name-activity_id-59: nen revisionà
+  translated_activities-name-activity_id-63: cheuje
+  translated_activities-name-activity_id-64: gavé
+  translated_agent_roles-label-agent_role_id-1: Animator
+  translated_agent_roles-label-agent_role_id-10: Proget
+  translated_agent_roles-label-agent_role_id-11: Editor
+  translated_agent_roles-label-agent_role_id-12: Argistrator
+  translated_agent_roles-label-agent_role_id-13: Sorgiss
+  translated_agent_roles-label-agent_role_id-14: Base ëd dàit sorgiss
+  translated_agent_roles-label-agent_role_id-15: Përson-a ëd contat
+  translated_agent_roles-label-agent_role_id-16: Contributor
+  translated_agent_roles-label-agent_role_id-2: Autor
+  translated_agent_roles-label-agent_role_id-21: fornidor
+  translated_agent_roles-label-agent_role_id-22: Tradutor
+  translated_agent_roles-label-agent_role_id-23: Revisor sientìfich
+  translated_agent_roles-label-agent_role_id-24: Revisor lenghìstich
+  translated_agent_roles-label-agent_role_id-3: Compilador
+  translated_agent_roles-label-agent_role_id-4: Compositor
+  translated_agent_roles-label-agent_role_id-5: Creator
+  translated_agent_roles-label-agent_role_id-6: Diretor
+  translated_agent_roles-label-agent_role_id-7: Editor
+  translated_agent_roles-label-agent_role_id-8: Ilustrador
+  translated_agent_roles-label-agent_role_id-9: Fotògraf
   translated_audiences-label-audience_id-1: Utent espert
   translated_audiences-label-audience_id-2: Grand pùblich
   translated_audiences-label-audience_id-3: Masnà
   translated_collection_types-label-collection_type_id-1: Tassonomìa
+  translated_collection_types-label-collection_type_id-10: Son
+  translated_collection_types-label-collection_type_id-11: Liure
+  translated_collection_types-label-collection_type_id-12: Bibliografìa
+  translated_collection_types-label-collection_type_id-13: Tassonomìa
+  translated_collection_types-label-collection_type_id-14: Còdes a bare molecolar
+  translated_collection_types-label-collection_type_id-15: Descrission
+  translated_collection_types-label-collection_type_id-16: Plance
+  translated_collection_types-label-collection_type_id-17: Distribussion
+  translated_collection_types-label-collection_type_id-18: Stat ëd conservassion
+  translated_collection_types-label-collection_type_id-19: Anformassion an sël nòm
   translated_collection_types-label-collection_type_id-2: Còdes a bare molecolar
+  translated_collection_types-label-collection_type_id-20: Dàit molecolar
+  translated_collection_types-label-collection_type_id-21: Nomencladura
+  translated_collection_types-label-collection_type_id-22: Son
+  translated_collection_types-label-collection_type_id-23: Liure
+  translated_collection_types-label-collection_type_id-24: Literatura
   translated_collection_types-label-collection_type_id-3: Descrission
   translated_collection_types-label-collection_type_id-4: Plance
   translated_collection_types-label-collection_type_id-5: Distribussion
   translated_collection_types-label-collection_type_id-6: Stat ëd conservassion
+  translated_collection_types-label-collection_type_id-7: Anformassion an sël nòm
+  translated_collection_types-label-collection_type_id-8: Dàit molecolar
+  translated_collection_types-label-collection_type_id-9: Nomencladura
   translated_contact_roles-label-contact_role_id-1: Contat prinsipal
   translated_contact_roles-label-contact_role_id-2: Contat aministrativ
   translated_contact_roles-label-contact_role_id-3: Contat técnich
@@ -43,6 +94,15 @@ pms:
   translated_content_partner_statuses-label-content_partner_status_id-3: Archivià
   translated_content_partner_statuses-label-content_partner_status_id-4: Inativ
   translated_content_tables-label-content_table_id-1: Detaj
+  translated_data_types-label-data_type_id-1: Plancia
+  translated_data_types-label-data_type_id-10: Cartin-a
+  translated_data_types-label-data_type_id-2: Son
+  translated_data_types-label-data_type_id-3: Test
+  translated_data_types-label-data_type_id-4: Filmà
+  translated_data_types-label-data_type_id-5: Plancia GBIF
+  translated_data_types-label-data_type_id-6: IUCN
+  translated_data_types-label-data_type_id-7: Lòsna
+  translated_data_types-label-data_type_id-8: YouTube
   translated_licenses-description-license_id-1: Gnun drit arservà
   translated_licenses-description-license_id-2: "&#169; Tuti ij drit arservà"
   translated_licenses-description-license_id-29: Chèich drit arservà
@@ -130,6 +190,18 @@ pms:
   translated_resource_statuses-label-resource_status_id-7: An camin ch'as trata
   translated_resource_statuses-label-resource_status_id-8: Tratà
   translated_resource_statuses-label-resource_status_id-9: Tratament falì
+  translated_service_types-label-service_type_id-1: Schema ëd traferiment EOL
+  translated_service_types-label-service_type_id-2: Àutri
+  translated_sort_styles-name-sort_style_id-1: Giontà ëd recent
+  translated_sort_styles-name-sort_style_id-2: Ij pì vej
+  translated_sort_styles-name-sort_style_id-3: Alfabétich
+  translated_sort_styles-name-sort_style_id-4: Alfabétich anvertì
+  translated_sort_styles-name-sort_style_id-5: Richisia
+  translated_sort_styles-name-sort_style_id-6: Valutassion
+  translated_statuses-label-status_id-1: Anserì
+  translated_statuses-label-status_id-2: Agiornà
+  translated_statuses-label-status_id-3: Nen cangià
+  translated_statuses-label-status_id-4: Riutilisà
   translated_synonym_relations-label-synonym_relation_id-1: sinònim
   translated_synonym_relations-label-synonym_relation_id-10: sinònim ëd genbank
   translated_synonym_relations-label-synonym_relation_id-11: an part
@@ -274,6 +346,11 @@ pms:
   translated_table_of_contents-label-table_of_contents_id-6: Amportansa për j'Òm e j'Ecosistema
   translated_table_of_contents-label-table_of_contents_id-7: Arferiment e d'Àutre Anformassion
   translated_table_of_contents-label-table_of_contents_id-8: Conservassion
+  translated_untrust_reasons-label-untrust_reason_id-1: mal identificà
+  translated_untrust_reasons-label-untrust_reason_id-2: nen giust/sugeriment gram
+  translated_untrust_reasons-label-untrust_reason_id-3: qualità bassa
+  translated_untrust_reasons-label-untrust_reason_id-4: duplicà
+  translated_untrust_reasons-label-untrust_reason_id-5: Àutri
   translated_user_identities-label-user_identity_id-1: n'antusiasta
   translated_user_identities-label-user_identity_id-2: në student
   translated_user_identities-label-user_identity_id-3: n'educator

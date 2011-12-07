@@ -114,9 +114,10 @@ class CuratorActivityLog < LoggingModel
 
   def log_activity_in_solr
     loggable_activities = {
-      ChangeableObjectType.data_object.id => [ Activity.show.id, Activity.trusted.id, Activity.unreviewed.id, Activity.untrusted.id ],
+      ChangeableObjectType.data_object.id => [ Activity.show.id, Activity.trusted.id, Activity.unreviewed.id, Activity.untrusted.id, Activity.choose_exemplar.id ],
       ChangeableObjectType.data_objects_hierarchy_entry.id => [ Activity.show.id, Activity.trusted.id, Activity.unreviewed.id, Activity.untrusted.id ],
-      ChangeableObjectType.synonym.id => [ Activity.add_common_name.id ],
+      ChangeableObjectType.synonym.id => [ Activity.add_common_name.id, Activity.remove_common_name.id,
+                                           Activity.trust_common_name.id, Activity.unreview_common_name.id, Activity.untrust_common_name.id, Activity.inappropriate_common_name.id],
       ChangeableObjectType.users_data_object.id => [ Activity.show.id, Activity.trusted.id, Activity.unreviewed.id, Activity.untrusted.id ]
     }
     return unless self.activity
@@ -144,6 +145,7 @@ class CuratorActivityLog < LoggingModel
     if self.changeable_object_type_id == ChangeableObjectType.synonym.id
       logs_affected['TaxonConcept'] = [ self.taxon_concept_id ]
       logs_affected['AncestorTaxonConcept'] = self.taxon_concept.flattened_ancestor_ids
+      logs_affected['Synonym'] = [ self.object_id ]
       Collection.which_contain(self.taxon_concept).each do |c|
         logs_affected['Collection'] ||= []
         logs_affected['Collection'] << c.id

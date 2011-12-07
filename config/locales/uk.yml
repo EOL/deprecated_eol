@@ -1,10 +1,13 @@
 # Messages for Ukrainian (Українська)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
+# Author: Тест
 uk: 
   account_information: інформація користувача
   all_pages: всі сторінки
+  cancel: Скасувати
   content_partners: Content Partners
+  donate: зробити внесок
   encyclopedia_of_life: Енциклопедія життя
   explore: індекс
   global_navigation: загальне меню
@@ -17,4 +20,3 @@ uk:
   select_topic: оберіть розділ
   skip_to_content: перейти до розділу
   your_preferences: ваші уподобання
-  your_preferences_have_been_updated: Ваші дані було поновлено

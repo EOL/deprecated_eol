@@ -183,9 +183,10 @@ class TaxaController < ApplicationController
     synonym_ids = params[:synonym_ids].map {|s| s.to_i}.uniq
     category_id = params[:category_id].to_i
     synonym_ids.each do |synonym_id|
+      synonym = Synonym.find(synonym_id)
+      log_action(tc, synonym, :remove_common_name) if tc && synonym
       tcn = TaxonConceptName.find_by_synonym_id_and_taxon_concept_id(synonym_id, tc.id)
       tc.delete_common_name(tcn)
-      log_action(tc, tcn, :remove_common_name) if tc && tcn
     end
     if !params[:hierarchy_entry_id].blank?
       redirect_to common_names_taxon_hierarchy_entry_names_path(tc, params[:hierarchy_entry_id])

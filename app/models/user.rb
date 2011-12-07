@@ -336,8 +336,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
       query += "cal.user_id IN (#{user_id.join(',')}) AND "
     end
     query += " cal.changeable_object_type_id IN (#{ChangeableObjectType.data_object_scope.join(",")})
-      AND acts.id != #{Activity.rate.id}
-      ORDER BY cal.updated_at DESC"
+      AND acts.id != #{Activity.rate.id} "
     results = User.connection.execute(query).all_hashes
     return_hash = {}
     results.each do |r|
@@ -345,13 +344,45 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
       return_hash[r['user_id'].to_i] << r['taxon_concept_id'].to_i
     end
     if user_id.class == Fixnum
-      return return_hash[user_id] || []
+      taxon_concept_ids = []
+      if return_hash[user_id]
+        taxon_concept_ids += return_hash[user_id]
+      end
+      taxon_concept_ids += User.taxa_synonyms_curated(user_id)
+      return taxon_concept_ids.uniq
     end
     return_hash
   end
 
   def total_species_curated
     User.taxon_concept_ids_curated(self.id).length
+  end
+
+  def taxa_commented
+    # list of taxa where user entered a comment
+    taxa = []
+    comments = Comment.find_all_by_user_id(self.id)
+    comments.each do |comment|
+      taxa << comment.parent_id.to_i if comment.parent_type == 'TaxonConcept'
+      if comment.parent_type == 'DataObject'
+        object = DataObject.find_by_id(comment.parent_id)
+        if !object.blank?
+          if object.association_with_best_vetted_status.class.name == 'DataObjectsHierarchyEntry' || object.association_with_best_vetted_status.class.name == 'CuratedDataObjectsHierarchyEntry'
+            taxa << object.association_with_best_vetted_status.hierarchy_entry.taxon_concept.id
+          elsif object.association_with_best_vetted_status.class.name == 'UsersDataObject'
+            taxa << object.association_with_best_vetted_status.taxon_concept.id
+          end
+        end
+      end
+    end
+    taxa.uniq
+  end
+
+  def self.taxa_synonyms_curated(user_id = nil)
+    # list of taxa where user added, removed, curated (trust, untrust, inappropriate, unreview) a common name
+    query = "activity_log_type:CuratorActivityLog AND feed_type_affected:Synonym AND user_id:#{user_id}"
+    results = EOL::Solr::ActivityLog.search_with_pagination(query, {:filter=>"names", :per_page=>999999, :page=>1})
+    taxa = results.collect{|r| r['instance']['taxon_concept_id']}.uniq
   end
 
   # Not sure yet its status in V2, commented temporarily

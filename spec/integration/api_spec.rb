@@ -681,5 +681,22 @@ describe 'EOL APIs' do
   it 'hierarchies should take api key and save it to the log' do
     check_api_key("/api/hierarchies/#{@test_hierarchy.id}?key=#{@user.api_key}", @user)
   end
+
+  it 'collections should return XML' do
+    c = Collection.gen(:name => "TESTING COLLECTIONS API", :description => "SOME DESCRIPTION")
+    visit("/api/collections/#{c.id}")
+    xml_response = Nokogiri.XML(body)
+    xml_response.xpath("//name").inner_text.should == c.name
+    xml_response.xpath("//description").inner_text.should == c.description
+  end
+  
+  it 'collections should return JSON' do
+    c = Collection.gen(:name => "TESTING COLLECTIONS API", :description => "SOME DESCRIPTION")
+    visit("/api/collections/#{c.id}.json")
+    response_object = JSON.parse(body)
+    response_object.class.should == Hash
+    response_object['name'].should == c.name
+    response_object['description'].should == c.description
+  end
 end
 

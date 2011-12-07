@@ -348,7 +348,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
       if return_hash[user_id]
         taxon_concept_ids += return_hash[user_id]
       end
-      taxon_concept_ids += User.taxa_commented(user_id)
       taxon_concept_ids += User.taxa_synonyms_curated(user_id)
       return taxon_concept_ids.uniq
     end
@@ -359,10 +358,10 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     User.taxon_concept_ids_curated(self.id).length
   end
 
-  def self.taxa_commented(user_id = nil)
+  def taxa_commented
     # list of taxa where user entered a comment
     taxa = []
-    comments = Comment.find_all_by_user_id(user_id)
+    comments = Comment.find_all_by_user_id(self.id)
     comments.each do |comment|
       taxa << comment.parent_id.to_i if comment.parent_type == 'TaxonConcept'
       if comment.parent_type == 'DataObject'
@@ -376,7 +375,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
         end
       end
     end
-    taxa
+    taxa.uniq
   end
 
   def self.taxa_synonyms_curated(user_id = nil)

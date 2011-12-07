@@ -37,3 +37,4 @@
       = contact_form.label :email_reports_frequency_hours
     %dd
       = contact_form.select :email_reports_frequency_hours, @mail_intervals
+      %p= I18n.t('helpers.label.content_partner_contact.email_reports_frequency_hours_more')

@@ -184,6 +184,8 @@ en:
         created_at: "Created at"
         signed_by: "Signed by"
         signed_on_date: "Signed on date"
+      content_partner_contact:
+        email_reports_frequency_hours: "Frequency of email reports"
       data_object:
         bibliographic_citation: "Bibliographic citation"
         description: "Description"
@@ -390,6 +392,8 @@ en:
       content_partner_agreement:
         mou_url: "Agreement file URL <small>(optional alternative)</small>"
         mou_url_more: "Optionally enter a URL to the file containing this partner's agreement. This file will override any other agreement text. If you would like to store the file (e.g. a PDF file) on EOL content servers then first <a href=\"%{upload_content_url}\">upload the file</a>, to get the URL."
+      content_partner_contact:
+        email_reports_frequency_hours_more: "Email reports are sent only if there were comments or curator actions on your data or on taxon pages relevant to your data set."
       collection:
         view_style_id: "Default view"
       data_object:

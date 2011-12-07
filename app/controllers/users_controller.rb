@@ -13,8 +13,8 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @user_submitted_text_count = User.count_submitted_datos(@user.id)
-    @common_names_added = User.total_objects_curated_by_action_and_user(Activity.add_common_name.id, @user.id, [ChangeableObjectType.synonym.id])
-    @common_names_removed = User.total_objects_curated_by_action_and_user(Activity.remove_common_name.id, @user.id, [ChangeableObjectType.synonym.id])
+    @common_names_added = User.total_objects_curated_by_action_and_user(Activity.add_common_name.id, @user.id, [ChangeableObjectType.synonym.id]) -
+                          User.total_objects_curated_by_action_and_user(Activity.remove_common_name.id, @user.id, [ChangeableObjectType.synonym.id])
     @common_names_curated =
       User.total_objects_curated_by_action_and_user(Activity.trust_common_name.id, @user.id, [ChangeableObjectType.synonym.id]) +
       User.total_objects_curated_by_action_and_user(Activity.untrust_common_name.id, @user.id, [ChangeableObjectType.synonym.id]) +

@@ -385,6 +385,14 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     taxa = results.collect{|r| r['instance']['taxon_concept_id']}.uniq
   end
 
+  def total_comment_submitted
+    return Comment.find_all_by_user_id(self.id).count
+  end
+
+  def total_wikipedia_nominated
+    return WikipediaQueue.find_all_by_user_id(self.id).count
+  end
+
   # Not sure yet its status in V2, commented temporarily
   # TODO - test
   def self.comment_curation_actions(user_id = nil)

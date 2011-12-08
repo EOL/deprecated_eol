@@ -65,6 +65,10 @@ class Taxa::MediaController < TaxaController
   end
 
   def set_as_exemplar
+    unless current_user && current_user.min_curator_level?(:assistant)
+      raise EOL::Exceptions::SecurityViolation, "User does not have set_as_exemplar privileges"
+      return
+    end
     taxon_concept_id = params[:taxon_id] || params[:taxon_concept_exemplar_image][:taxon_concept_id]
     taxon_concept = TaxonConcept.find(taxon_concept_id.to_i) rescue nil
 

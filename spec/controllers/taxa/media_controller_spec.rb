@@ -228,7 +228,14 @@ describe Taxa::MediaController do
   end
 
   describe 'PUT set_as_exemplar' do
+    it 'should not allow non-curators to set exemplar images' do
+      @taxon_concept.taxon_concept_exemplar_image.should be_nil
+      exemplar_image = @taxon_concept.images.first
+      expect{ put :set_as_exemplar, :taxon_id => @taxon_concept.id, :taxon_concept_exemplar_image => { :data_object_id => exemplar_image.id } }.should raise_error(EOL::Exceptions::SecurityViolation)
+    end
+    
     it 'should set an image as exemplar' do
+      session[:user] = build_curator(@taxon_concept)
       @taxon_concept.taxon_concept_exemplar_image.should be_nil
       exemplar_image = @taxon_concept.images.first
       TopConceptImage.find_by_taxon_concept_id_and_data_object_id(@taxon_concept, exemplar_image.id).update_attribute(:view_order, 5)

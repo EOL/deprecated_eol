@@ -1667,7 +1667,7 @@ ar:
   thank_you_for_your_generous_support: شكرًا لدعمكم الكريم
   thanks_for_donation: شكرًا لدعم موسوعة الحياة. تم إرسال بياناتك وسوف يتم معالجتها.
   the_amount_entered_was: "القيمة المدخلة: %{number} دولار أمريكي"
-  the_comment_was_successfully_u: The comment was successfully updated.
+  the_comment_was_successfully_updated: The comment was successfully updated.
   the_darwin_core_taxon_elements: "تضم عناصر الأصناف بأرشيف داروين كور (أرشيف داروين كور: أصنوفة) تحت بند معلومات إضافية معرفات لنقاط في التسلسلات الهرمية المفهرسة بواسطة موسوعة الحياة، حيث تضم معرف يمثل الهوية المميزة للأصنوفة <i>في قاعدة بيانات مقدم المحتوى</i>."
   the_following_bibliography: تم تكوين قائمة المراجع التالية عن طريق جمع كل المراجع المقدمة من شركاء المحتوى، ويمكن أن يكون هنالك تكرار بالقائمة.
   the_id_of_provider_hierarchy_you_are_searching: معرف التسلسل الهرمي الخاص بمقدم المحتوى والذي تبحث فيه. تحقق من %{link} لإيجاد معرفات صالحة.

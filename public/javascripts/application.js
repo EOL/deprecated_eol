@@ -10,51 +10,7 @@ $.ajaxSetup({accepts: {
   xml: "application/xml, text/xml"
 }});
 
-EOL.highlight_comment = function(el) {
-  var dest = $(el).offset().top;
-  $('li').removeClass('highlight');
-  el.closest('li').toggleClass('highlight');
-  $("html,body").animate({ scrollTop: dest}, 650);
-  return(false);
-};
-
-EOL.reply_to = function(el) {
-  string = $(el.target).data('reply-to');
-  var $submit = $('#new_comment :submit');
-  $submit.data('post', $submit.val()).val($submit.data('reply'));
-  $('#new_comment p.reply-to').remove();
-  $submit.before('<p class="reply-to">'+$submit.data('replying-to-x').replace('X', string)+'</p>');
-  var $tarea = $('#new_comment textarea');
-  $tarea.val('@'+string+': '+$tarea.val().replace(/^@[^:]+: */, ''));
-  $('#new_comment input#comment_reply_to_type').val($(el.target).data('reply-to-type'));
-  $('#new_comment input#comment_reply_to_id').val($(el.target).data('reply-to-id'));
-  $("html,body").animate({ scrollTop: $tarea.offset().top}, 650);
-  $tarea.focus();
-  return(false);
-};
-
 $(function() {
-
-  $('span.reply a').click(EOL.reply_to);
-  $('span.reply').hide().parent().parent().mouseover(function() {
-    $(this).find('span.reply').show();
-  }).mouseleave(function() {
-    $(this).find('span.reply').hide();
-  });
-
-  $('ul.feed blockquote p a[href^=#]').click(function() {
-    var href = $(this).attr('href');
-    var target = $('a[name='+href.replace('#', '')+']');
-    if (target.size() == 0) {
-      window.location = '/activity_logs/find/'+href.replace(/[^0-9]/g, '')+'?type='+href.replace(/^#(.*)-.*$/, '\$1');
-    } else {
-      EOL.highlight_comment(target);
-    }
-  });
-
-  if(location.hash != "") {
-    EOL.highlight_comment($('a[name='+location.hash.replace(/#/, '').replace(/\?.*$/, '')+']'));
-  }
 
   $(".heading form.filter, form.select_submit").find(".actions").hide().find(":submit").end().end().find("select")
     .change(function() {

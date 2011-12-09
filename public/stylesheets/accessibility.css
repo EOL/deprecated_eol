@@ -1229,10 +1229,30 @@ body#prelaunch p.status {
 body#prelaunch #footer ul.social_media {
   margin-top: 20px; }
 
+.feed .edit_comment_form {
+  display: none; }
+
+.feed .deleted_comment {
+  font-style: italic;
+  color: #62707d; }
+
+.feed .delete {
+  float: right;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-left: 5px; }
+
+.feed .edit {
+  float: right;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-left: 5px; }
+
 .feed .reply {
   float: right;
   font-weight: bold;
-  text-transform: uppercase; }
+  text-transform: uppercase;
+  margin-left: 5px; }
 
 #new_comment p.reply-to {
   float: right;

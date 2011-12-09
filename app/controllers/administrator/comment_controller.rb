@@ -29,7 +29,7 @@ class Administrator::CommentController  < AdminController
     @comment = Comment.find(params[:id])
 
     if @comment.update_attributes(params[:comment])
-      flash[:notice] = I18n.t("the_comment_was_successfully_u")
+      flash[:notice] = I18n.t("the_comment_was_successfully_updated")
       redirect_back_or_default(url_for(:action=>'index'))
     else
       render :action => 'edit'
@@ -43,7 +43,7 @@ class Administrator::CommentController  < AdminController
     (redirect_to referred_url;return) unless request.method == :delete
 
     @comment = Comment.find(params[:id])
-    @comment.destroy
+    @comment.update_attributes(:deleted => 1)
 
     redirect_to referred_url
 

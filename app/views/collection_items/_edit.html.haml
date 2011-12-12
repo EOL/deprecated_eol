@@ -7,10 +7,11 @@
   = render :partial => "shared/item_summary_#{item_type}.html.haml", :locals => {:item => collection_item.object}
 -# When JS is disabled, you are taken to a page specific to the collection item, which has its own form:
 - if defined?(item_form)
-  - form_for(@collection_item) do |f|
+  - form_for @collection_item, :builder => ApplicationHelper::EolFormBuilder, :html => { :multipart => true } do |f|
     %fieldset
       = label_tag :collection_item_annotation, I18n.t(:collection_item_annotation_label), {:class => 'assistive'}
       = f.text_area :annotation, :rows => 2, :cols => 60
+      = f.load_minimal_tags_allowed
       = submit_tag I18n.t(:save_annotation_submit_button)
 - else
   %p
@@ -34,6 +35,7 @@
       %fieldset
         = item_form.label :annotation, I18n.t(:collection_item_annotation_label), {:class => 'assistive'}
         = item_form.text_area :annotation, :rows => 2, :cols => 60
+        = item_form.load_minimal_tags_allowed
       %fieldset.actions
         = submit_tag I18n.t(:save_annotation_submit_button)
         %a(href="#") cancel

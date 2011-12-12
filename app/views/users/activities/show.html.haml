@@ -21,4 +21,4 @@
     - if @filter == "curated_taxa"
       = render :partial => 'users/activities/taxa_curated', :locals => {:taxon_concept_ids => User.taxon_concept_ids_curated(@user.id).paginate(:page => @page, :per_page => 20)}
     - else
-      = render :partial => 'activity_logs/index', :locals => {:log => @user.activity_log(:page => @page, :filter => @filter), :supress_reply => true}
+      = render :partial => 'activity_logs/index', :locals => {:log => @user.activity_log(:page => @page, :filter => @filter)}

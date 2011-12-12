@@ -21,6 +21,6 @@
     = f.text_area :body, :rows => rows, :cols => cols
     = f.load_minimal_tags_allowed
   %fieldset.actions
-    = submit_tag(I18n.t(:post_comment), :'data-reply' => I18n.t(:leave_reply), :'data-replying-to-x' => I18n.t(:replying_to_x))
+    = submit_tag(I18n.t(:post_comment), :'data-reply' => I18n.t(:leave_reply), :'data-cancel' => I18n.t(:cancel))
     - if defined?(cancel) && cancel
       = link_to I18n.t(:cancel), current_url, :class => 'cancel'

@@ -1218,11 +1218,6 @@ a.other_actions
   margin: 0 0 15px
   textarea
     width: 580px
-form#reply fieldset
-  margin-top: 10px
-  #comment_body
-    width: 478px
-    float: right
 
 // New style for HE view:
 #page_heading p#citation
@@ -1311,7 +1306,11 @@ body#prelaunch #footer ul.social_media
 .feed .reply
   float: right
   font-weight: bold
+<<<<<<< HEAD
+  text-transform: uppercase
   margin-left: 5px
+=======
+>>>>>>> Fixing various smaller problems with reply-to functionality.
 
 #new_comment p.reply-to
   float: right

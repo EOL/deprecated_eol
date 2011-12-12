@@ -1,6 +1,8 @@
 - truncate_comments ||= false
+<<<<<<< HEAD
 - rows ||= 3
 - cols ||= 60
+=======
 - parent_newsfeed = case item.parent_type
   - when 'TaxonConcept'
     - parent_newsfeed = taxon_updates_path(item.parent)
@@ -14,6 +16,7 @@
     - parent_newsfeed = user_newsfeed_path(item.parent)
   - else
     - nil
+>>>>>>> Reply-to is now über-fancy.
 = link_to image_tag(item.user.logo_url(:small), :alt => I18n.t(:comment_show_posters_image_alt,
   :posters_name => h(item.user.full_name))), user_path(item.user), :class => 'avatar'
 .details
@@ -41,6 +44,7 @@
       - else
         = I18n.t(:user_commented_on_something_colon, :user => name_with_link, :what => I18n.t(:record_not_found))
 
+<<<<<<< HEAD
   - if item.deleted == 0
     %blockquote{:cite => h(item.user.full_name)}
       - show_body = ''
@@ -90,6 +94,7 @@
     %fieldset.actions
       = submit_tag (I18n.t(:save_comment_lowercase), :'data-url' => edit_comment_path(item.id))
       %a{:href=>"#"}= I18n.t(:cancel)
+=======
   %blockquote{:cite => h(item.user.full_name)}
     - show_body = ''
     - if truncate_comments && item.body.length > 140
@@ -106,3 +111,4 @@
     = I18n.t(:time_ago, :time_passed => time_ago_in_words(item.updated_at))
     - if item.user && parent_newsfeed
       %span.reply= link_to(I18n.t(:reply), parent_newsfeed + "#reply-to-Comment-#{item.id}", :'data-reply-to' => item.user.full_name, :'data-reply-to-type' => item.class.name, :'data-reply-to-id' => item.id)
+>>>>>>> Reply-to is now über-fancy.

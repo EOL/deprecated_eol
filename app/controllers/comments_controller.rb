@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
 
+  layout :comments_layout
   before_filter :allow_login_then_submit, :only => [:create]
 
   # POST /comments
@@ -29,4 +30,53 @@ class CommentsController < ApplicationController
     redirect_back_or_default
   end
 
+  def edit
+    @page_title = I18n.t("edit_comment")
+    store_location(referred_url) if request.get?
+    @comment = Comment.find(params[:id])
+  end
+
+  def update
+    @comment = Comment.find(params[:id])
+    if @comment.update_attributes(params[:comment])
+      respond_to do |format|
+        format.html do
+          flash[:notice] = I18n.t("the_comment_was_successfully_updated")
+          redirect_back_or_default(url_for(:action=>'index'))
+        end
+        format.js do
+          render :partial => 'activity_logs/comment', :locals => { :item => @comment, :truncate_comments => false }
+        end
+      end
+    else
+      render :action => 'edit'
+    end
+  end
+
+  def destroy
+    (redirect_to referred_url;return) unless params[:action] == "destroy"
+    @comment = Comment.find(params[:id])
+    if @comment.update_attributes(:deleted => 1)
+      respond_to do |format|
+        format.html do
+          flash[:notice] = I18n.t("the_comment_was_successfully_deleted")
+          redirect_to referred_url
+        end
+        format.js do
+          render :partial => 'activity_logs/comment', :locals => { :item => @comment, :truncate_comments => false }
+        end
+      end
+    end
+  end
+
+private
+
+  def comments_layout
+    # No layout for Ajax calls.
+    return false if request.xhr?
+    case action_name
+    when 'update', 'edit'
+      'v2/basic'
+    end
+  end
 end

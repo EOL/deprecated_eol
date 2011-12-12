@@ -1,0 +1,10 @@
+#content.cms_page
+  .site_column
+    .article.copy
+      - unless @comment.blank?
+        - form_for @comment do |f|
+          %fieldset
+            = f.text_area :body,{:cols=>100, :rows=>5}
+            %fieldset.actions
+              = submit_tag I18n.t(:save_comment_lowercase)
+              = link_to I18n.t(:cancel), :back

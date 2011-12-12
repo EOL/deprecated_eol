@@ -152,7 +152,7 @@ module EOL
           # DataObject comments
           comments = Comment.find_all_by_id((i...(i+limit)).to_a, :conditions => "parent_type='DataObject'")
           Comment.preload_associations(comments,
-            [ { :user => :existing_watch_collection }, { :parent => [ :containing_collections,
+            [ { :parent => [ :containing_collections,
               { :data_objects_hierarchy_entries => { :hierarchy_entry => { :taxon_concept => :flattened_ancestors } } },
               { :curated_data_objects_hierarchy_entries => :hierarchy_entry } ] } ],
             :select => { :comments => '*', :users => [:id], :data_objects => [:id], :data_objects_hierarchy_entries => '*',

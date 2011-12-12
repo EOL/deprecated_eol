@@ -50,8 +50,6 @@
 
           %dt= I18n.t(:user_activity_stats_taxa_curated)
           %dd= @user.total_species_curated
-          %dt= I18n.t(:user_activity_stats_articles_added)
-          %dd= link_to @user_submitted_text_count, user_activity_path(@user, :filter => "added_data_objects")
           %dt= I18n.t(:user_activity_stats_set_exemplar)
           %dd= link_to User.total_objects_curated_by_action_and_user(Activity.choose_exemplar.id, @user.id), user_activity_path(@user, :filter => "data_object_curation")
           <br>
@@ -69,4 +67,6 @@
         %dd= link_to @user.taxa_commented.length, user_activity_path(@user, :filter => "taxa_comments")
         %dt= I18n.t(:user_activity_stats_comment_submitted)
         %dd= link_to @user.total_comment_submitted, user_activity_path(@user, :filter => "comments")
+        %dt= I18n.t(:user_activity_stats_articles_added)
+        %dd= link_to @user_submitted_text_count, user_activity_path(@user, :filter => "added_data_objects")
 

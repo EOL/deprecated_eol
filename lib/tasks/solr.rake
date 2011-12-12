@@ -113,7 +113,7 @@ namespace :solr do
   end
   
   desc 'Rebuild the ENTIRE activity_logs index with only comments'
-  task :rebuild_comments_activty_log => :environment do
+  task :rebuild_comments_activity_log => :environment do
     solr = SolrAPI.new($SOLR_SERVER, $SOLR_ACTIVITY_LOGS_CORE)
     solr.obliterate
     EOL::Solr::ActivityLog.rebuild_comments_logs

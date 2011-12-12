@@ -1,5 +1,7 @@
 - supress_reply ||= false
 - truncate_comments ||= false
+- rows ||= 3
+- cols ||= 60
 = link_to image_tag(item.user.logo_url(:small), :alt => I18n.t(:comment_show_posters_image_alt,
   :posters_name => h(item.user.full_name))), user_path(item.user), :class => 'avatar'
 .details
@@ -28,32 +30,52 @@
       - else
         = I18n.t(:user_commented_on_something_colon, :user => name_with_link, :what => I18n.t(:record_not_found))
 
-  %blockquote{:cite => h(item.user.full_name)}
-    - show_body = ''
-    - if truncate_comments && item.body.length > 140
-      - parent_newsfeed = nil
-      - case item.parent_type
-      - when 'TaxonConcept'
-        - parent_newsfeed = taxon_updates_path(item.parent)
-      - when 'DataObject'
-        - parent_newsfeed = data_object_path(item.parent)
-      - when 'Community'
-        - parent_newsfeed = community_newsfeed_path(item.parent)
-      - when 'Collection'
-        - parent_newsfeed = filtered_collection_path(item.parent, 'newsfeed')
-      - when 'User'
-        - parent_newsfeed = user_newsfeed_path(item.parent)
-      - if parent_newsfeed
-        - show_body = truncate(item.body, :length => 140, :omission => I18n.t(:truncated_comment_omission, :link => parent_newsfeed))
+  - if item.deleted == 0
+    %blockquote{:cite => h(item.user.full_name)}
+      - show_body = ''
+      - if truncate_comments && item.body.length > 140
+        - parent_newsfeed = nil
+        - case item.parent_type
+        - when 'TaxonConcept'
+          - parent_newsfeed = taxon_updates_path(item.parent)
+        - when 'DataObject'
+          - parent_newsfeed = data_object_path(item.parent)
+        - when 'Community'
+          - parent_newsfeed = community_newsfeed_path(item.parent)
+        - when 'Collection'
+          - parent_newsfeed = filtered_collection_path(item.parent, 'newsfeed')
+        - when 'User'
+          - parent_newsfeed = user_newsfeed_path(item.parent)
+        - if parent_newsfeed
+          - show_body = truncate(item.body, :length => 140, :omission => I18n.t(:truncated_comment_omission, :link => parent_newsfeed))
+        - else
+          - show_body = truncate(item.body, :length => 140, :omission => I18n.t(:truncated_comment_omission_linkless))
       - else
-        - show_body = truncate(item.body, :length => 140, :omission => I18n.t(:truncated_comment_omission_linkless))
-    - else
-      - show_body = item.body
-    - if item.reply?
-      - at_re = /@([^:]+):/
-      - show_body = show_body.sub(at_re, '@' + link_to("\\1", "##{item.reply_to_type}-#{item.reply_to_id}") + ':')
-    %p= sanitize show_body.balance_tags
-  %p.meta
-    = I18n.t(:time_ago, :time_passed => time_ago_in_words(item.updated_at))
-    - unless supress_reply || ! item.user
-      %span.reply= link_to(I18n.t(:reply), '#new_comment', :'data-reply-to' => item.user.full_name, :'data-reply-to-type' => item.class.name, :'data-reply-to-id' => item.id)
+        - show_body = item.body
+      - if item.reply?
+        - at_re = /@([^:]+):/
+        - show_body = show_body.sub(at_re, '@' + link_to("\\1", "##{item.reply_to_type}-#{item.reply_to_id}") + ':')
+      %p= sanitize show_body.balance_tags
+    %p.meta
+      = I18n.t(:time_ago, :time_passed => time_ago_in_words(item.created_at))
+      = I18n.t(:edited_colon) + "#{" "}" + I18n.t(:time_ago, :time_passed => time_ago_in_words(item.updated_at)) unless item.created_at == item.updated_at
+      - if item.user_id == current_user.id && item.deleted == 0
+        %span.delete= link_to(I18n.t(:delete), comment_path(item.id), :'data-to-delete' => item.id)
+        %span.edit= link_to(I18n.t(:edit), edit_comment_path(item.id), :'data-to-edit' => item.body)
+      - unless supress_reply || ! item.user
+        %span.reply= link_to(I18n.t(:reply), '#new_comment', :'data-reply-to' => item.user.full_name, :'data-reply-to-type' => item.class.name, :'data-reply-to-id' => item.id)
+  - else
+    %p.deleted_comment= I18n.t(:this_comment_was_deleted)
+    %p.meta
+      = I18n.t(:time_ago, :time_passed => time_ago_in_words(item.created_at))
+      = I18n.t(:deleted_colon) + "#{" "}" + I18n.t(:time_ago, :time_passed => time_ago_in_words(item.updated_at)) unless item.created_at == item.updated_at
+.edit_comment_form
+  - form_for item, :html => { :class => 'comment' } do |f|
+    %fieldset
+      = link_to image_tag(item.user.logo_url(:small), :alt => I18n.t(:comment_show_posters_image_alt,
+        :posters_name => h(item.user.full_name))), user_path(item.user), :class => 'avatar'
+      = f.label :body, I18n.t(:edit_comment_lowercase), :class => 'assistive'
+      = f.text_area :body, :rows => rows, :cols => cols
+    %fieldset.actions
+      = submit_tag (I18n.t(:save_comment_lowercase), :'data-url' => edit_comment_path(item.id))
+      %a(href="#") cancel

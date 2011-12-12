@@ -350,9 +350,11 @@ describe 'Data Object Page' do
     visit("/data_objects/#{@image.id}")
     body.should_not have_tag(".updates .feed .details blockquote p", :text => comment)
     body.should have_tag(".comment #comment_body")
-    fill_in 'comment_body', :with => comment
-    body.should have_tag(".comment .actions input", :val => "Post Comment")
-    click_button "Post Comment"
+    body.should have_tag("#new_comment .actions input", :val => "Post Comment")
+    within(:xpath, '//form[@id="new_comment"]') do
+      fill_in 'comment_body', :with => comment
+      click_button "Post Comment"
+    end
     visit("/data_objects/#{@image.id}")
     body.should have_tag(".updates .feed .details blockquote p", :text => comment)
     visit('/logout')

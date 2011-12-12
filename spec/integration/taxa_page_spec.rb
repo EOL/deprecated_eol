@@ -330,9 +330,11 @@ describe 'Taxa page' do
       visit taxon_overview_path(@taxon_concept)
       comment = "Test comment by a logged in user."
       body.should have_tag(".updates .comment #comment_body")
-      fill_in 'comment_body', :with => comment
       should have_tag(".updates .comment .actions input", :val => "Post Comment")
-      click_button "Post Comment"
+      within(:xpath, '//form[@id="new_comment"]') do
+        fill_in 'comment_body', :with => comment
+        click_button "Post Comment"
+      end
       current_url.should match /#{taxon_overview_path(@taxon_concept)}/
       body.should include('Comment successfully added')
     end

@@ -211,7 +211,7 @@ describe "Preview Collections" do
         end
       end
     end
-    
+
     unless User.find_by_username('collections_scenario')
       truncate_all_tables
       load_scenario_with_caching(:collections)
@@ -283,7 +283,7 @@ describe "Preview Collections" do
 
   it 'should allow EOL administrators and owners to view unpublished collections' do
     @collection.update_attribute(:published, false)
-    @collection.update_attribute(:view_style_id, ViewStyle.annotations.id)
+    @collection.update_attribute(:view_style_id, ViewStyle.annotated.id)
     if @collection.resource_preview.blank?
       @resource = Resource.gen
       @resource.preview_collection = @collection
@@ -301,7 +301,7 @@ describe "Preview Collections" do
     current_path.should == referrer
     body.should include('You are not authorized')
     visit logout_path
-    
+
     admin = User.gen(:admin => true)
     login_as admin
     visit collection_path(@collection)
@@ -309,7 +309,7 @@ describe "Preview Collections" do
     body.should have_tag('h1', /#{@collection.name}/)
     body.should have_tag('ul.object_list li', /#{@collection.collection_items.first.object.best_title}/)
     visit logout_path
-    
+
     login_as @collection.users.first
     visit collection_path(@collection)
     body.should have_tag('h1', /#{@collection.name}/)

@@ -159,7 +159,7 @@ class Collection < ActiveRecord::Base
   end
 
   def default_view_style
-    view_style ? view_style : ViewStyle.annotations
+    view_style ? view_style : ViewStyle.annotated
   end
 
   def default_sort_style

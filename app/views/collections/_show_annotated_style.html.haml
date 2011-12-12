@@ -5,4 +5,4 @@
       - if editable && !@collection.is_resource_collection?
         = render :partial => 'collection_items/edit', :locals => { :collection_item => item, :item_type => item_type, :parent_form => parent_form}
       - else
-        = render :partial => 'collection_items/show', :locals => { :collection_item => item, :item_type => item_type, :view_style => 'annotations' }
+        = render :partial => 'collection_items/show', :locals => { :collection_item => item, :item_type => item_type, :view_style => 'annotated' }

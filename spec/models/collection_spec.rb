@@ -192,7 +192,7 @@ describe Collection do
 
   it 'should know what its default view style is' do
     collection = Collection.gen
-    collection.default_view_style.should == ViewStyle.annotations
+    collection.default_view_style.should == ViewStyle.annotated
     collection.update_attributes(:view_style => ViewStyle.image_gallery)
     collection.reload
     collection.default_view_style.should == ViewStyle.image_gallery

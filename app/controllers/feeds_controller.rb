@@ -78,6 +78,31 @@ class FeedsController < ApplicationController
     lookup_content(:type => :comments, :title => 'Latest Comments')
   end
 
+  def partner_curation()
+    content_partner_id = params[:content_partner_id] || nil
+    year = params[:year] || nil
+    month = params[:month] || nil
+
+    content_partner = ContentPartner.find(content_partner_id)
+    latest_harvest_event = content_partner.resources.first.latest_harvest_event rescue nil
+
+    curator_activity_logs = latest_harvest_event.curated_data_objects(:year => year, :month => month)
+
+    @feed_url = url_for(:controller => 'feeds', :action => 'partner_curation', :content_partner_id => content_partner_id, :month => month, :year => year)
+    @feed_link = "http://www.eol.org"
+    @feed_title = content_partner.full_name + " curation activity"
+
+    @feed_entries = []
+    curator_activity_logs.each do |ah|
+      @feed_entries << partner_feed_entry(ah)
+    end
+
+    respond_to do |format|
+      format.atom { render :template => '/feeds/feed_template', :layout => false }
+    end
+  end
+
+
 private
 
   def lookup_content(options = {})
@@ -97,7 +122,7 @@ private
       feed_items += Comment.for_feeds(:comments, taxon_concept_id, @@maximum_feed_entries)
     end
 
-    self.create_feed(feed_items, :type => options[:type], :id => taxon_concept_id, :title => options[:title], :link => feed_link)
+    create_feed(feed_items, :type => options[:type], :id => taxon_concept_id, :title => options[:title], :link => feed_link)
   end
 
 
@@ -150,30 +175,6 @@ private
       entry[:updated] = comment_hash['created_at']
       entry[:content] = comment_hash['description']
       return entry
-    end
-  end
-
-  def partner_curation()
-    content_partner_id = params[:content_partner_id] || nil
-    year = params[:year] || nil
-    month = params[:month] || nil
-
-    content_partner = ContentPartner.find(content_partner_id)
-    latest_harvest_event = content_partner.resources.first.latest_harvest_event rescue nil
-
-    curator_activity_logs = latest_harvest_event.curated_data_objects(:year => year, :month => month)
-
-    @feed_url = url_for(:controller => 'feeds', :action => 'partner_curation', :content_partner_id => content_partner_id, :month => month, :year => year)
-    @feed_link = "http://www.eol.org"
-    @feed_title = content_partner.full_name + " curation activity"
-
-    @feed_entries = []
-    curator_activity_logs.each do |ah|
-      @feed_entries << partner_feed_entry(ah)
-    end
-
-    respond_to do |format|
-      format.atom { render :template => '/feeds/feed_template', :layout => false }
     end
   end
 

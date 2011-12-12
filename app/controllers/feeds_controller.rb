@@ -97,7 +97,7 @@ private
       feed_items += Comment.for_feeds(:comments, taxon_concept_id, @@maximum_feed_entries)
     end
 
-    self.create_feed(feed_items, :type => options[:type], :id => taxon_concept_id, :title => options[:title], :link => feed_link)
+    create_feed(feed_items, :type => options[:type], :id => taxon_concept_id, :title => options[:title], :link => feed_link)
   end
 
 

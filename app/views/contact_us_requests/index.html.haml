@@ -1,6 +1,6 @@
 - form_for @request, :url=>{:action=>'create'}, :builder => ApplicationHelper::EolFormBuilder do |f|
   %fieldset
-    %h1= "Please leave your feedback"
+    %h1= I18n.t(:please_leave_your_feedback)
     = validation_errors_for(@request)
     %dl
       %dt
@@ -34,4 +34,4 @@
         %dd
           = recaptcha_tags
   %fieldset.actions
-    = f.submit "Send feedback"
+    = f.submit I18n.t(:send_feedback)

@@ -23,7 +23,7 @@ module ActiveRecord
                 if m = where_clause.match(/\(#{quoted_table_name}\.`#{primary_key}` = '?([0-9]+)'?\)/)
                   lookup_ids = [m[1].to_i]
                 elsif m = where_clause.match(/\(#{quoted_table_name}\.`#{primary_key}` IN \(('?[0-9]+'?(,'?[0-9]+'?)*)\)\)/)
-                  lookup_ids = m[1].split(',').collect{ |i| i.to_i }
+                  lookup_ids = m[1].gsub("'", '').split(',').collect{ |i| i.to_i }
                 elsif m = where_clause.scan(/\(#{quoted_table_name}.`#{primary_key}` = '?([0-9]+)'?\)( OR|$)/)
                   lookup_ids = m.collect{ |i| i[0].to_i } unless m.empty?
                 end

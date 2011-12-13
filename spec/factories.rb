@@ -350,6 +350,13 @@ Factory.define :agents_hierarchy_entry do |ahe|
   ahe.view_order  2
 end
 
+Factory.define :agents_synonym do |asyn|
+  asyn.association :agent
+  asyn.association :agent_role
+  asyn.association :synonym
+  asyn.view_order  2
+end
+
 Factory.define :audience do |a|
 end
 

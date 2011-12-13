@@ -1282,7 +1282,7 @@ class TaxonConcept < SpeciesSchemaModel
     return_keywords = []
     preferred_names = preferred_names.compact.uniq
     unless preferred_names.empty?
-      return_keywords << { :keyword_type => 'PreferredName', :keywords => preferred_names, :ancestor_taxon_concept_id => flattened_ancestor_ids }
+      return_keywords << { :keyword_type => 'PreferredScientific', :keywords => preferred_names, :ancestor_taxon_concept_id => flattened_ancestor_ids }
     end
 
     synonyms = synonyms.compact.uniq
@@ -1313,7 +1313,7 @@ class TaxonConcept < SpeciesSchemaModel
     common_names_by_language.each do |language, names|
       names = names.compact.uniq
       unless names.empty?
-        keywords <<  { :keyword_type => 'Common Name', :keywords => names, :language => language, :ancestor_taxon_concept_id => flattened_ancestor_ids }
+        keywords <<  { :keyword_type => 'CommonName', :keywords => names, :language => language, :ancestor_taxon_concept_id => flattened_ancestor_ids }
       end
     end
     return keywords

@@ -1,10 +1,11 @@
 class TaxonConceptName < SpeciesSchemaModel
 
-  set_primary_keys :taxon_concept_id, :name_id, :source_hierarchy_entry_id, :language_id
+  set_primary_keys :taxon_concept_id, :name_id, :source_hierarchy_entry_id, :language_id, :synonym_id
 
   belongs_to :language
   belongs_to :name
   belongs_to :synonym
+  belongs_to :sorce_hierarcy_entry, :class_name => HierarchyEntry.to_s
   belongs_to :taxon_concept
   belongs_to :vetted
 
@@ -33,5 +34,26 @@ class TaxonConceptName < SpeciesSchemaModel
         AND source_hierarchy_entry_id = ?
     }, val, self[:name_id], self[:taxon_concept_id], self[:source_hierarchy_entry_id]]))
   end
-
+  
+  def sources
+    all_sources = []
+    if synonym
+      all_sources += synonym.agents
+      all_sources << synonym.hierarchy.agent
+    elsif sorce_hierarcy_entry
+      all_sources += sorce_hierarcy_entry.agents
+      all_sources << sorce_hierarcy_entry.hierarchy.agent
+    end
+    all_sources.delete(Hierarchy.eol_contributors.agent)
+    all_sources.uniq!
+    all_sources.compact!
+    
+    # This is *kind of* a hack.  Long, long ago, we kinda mangled our data by not having synonym IDs
+    # for uBio names, so uBio became the 'default' common name provider
+    if all_sources.blank?
+      all_sources << Agent.find($AGENT_ID_OF_DEFAULT_COMMON_NAME_SOURCE) rescue nil
+    end
+    all_sources
+  end
+  
 end

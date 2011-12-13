@@ -4,20 +4,18 @@
 - if defined?(common_names) && defined?(language) && defined?(name_id)
   - common_names_by_language(common_names, current_user.language_id).each do |language_names_pair|
     - next unless language_names_pair[0] == language
-    - name = language_names_pair[1].select {|n| n.id == name_id }.first
+    - name = language_names_pair[1].select {|n| n.name.id == name_id }.first
 %td{:class => 'preferred_name_selector'}
-  = radio_button_tag 'preferred_name_id', name.id, name.preferred.to_i == 1 ? TRUE : FALSE
-  = hidden_field_tag "synonym_ids_#{name.id}", name.synonym_ids
-  = hidden_field_tag "agent_#{name.id}", name.agent_names
+  = radio_button_tag 'preferred_name_id', name.name.id, name.preferred ? TRUE : FALSE
 %td
-  = name.string
+  = name.name_string
 %td
   = name.agent_names
 %td{:class => 'vet_common_name'}
-  - if name.added_by_user?(current_user)
-    = link_to( I18n.t(:delete), url_for(:controller => '/taxa', :action => 'delete_common_name',
-      :taxon_concept_id => @taxon_concept.id, :synonym_ids => name.synonym_ids, :hierarchy_entry_id => @selected_hierarchy_entry_id),
+  - if synonym_id = name.synonym_id_for_user(current_user)
+    = link_to( I18n.t(:delete), url_for(:controller => '/taxa/names', :action => 'delete',
+      :taxon_concept_id => @taxon_concept.id, :synonym_id => synonym_id, :hierarchy_entry_id => @selected_hierarchy_entry_id),
       :confirm => I18n.t(:are_you_sure))
   - else
-    = select_tag("#{name.unique_id}", options_for_select(@common_name_vet_options, name.vetted_id.to_s),
-      {:data_url => vet_common_name_taxon_name_path(:taxon_id => @taxon_concept.id, :id => name.name_id, :language_id => name.language_id, :unique_id => name.unique_id, :vetted_id => 'REPLACE_ME')})
+    = select_tag("#{name.unique_id}", options_for_select(@common_name_vet_options, name.vetted.id.to_s),
+      {:data_url => vet_common_name_taxon_name_path(:taxon_id => @taxon_concept.id, :id => name.name.id, :language_id => name.language.id, :unique_id => name.unique_id, :vetted_id => 'REPLACE_ME')})

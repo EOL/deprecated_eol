@@ -961,6 +961,7 @@ en:
   common_activities_by_logged_in: "Common activities by logged in users."
   common_name_avg: "Common Name avg"
   common_name: "Common name"
+  common_name_exists: "The common name <em>%{name_string}</em> already exists"
   common_names_with_count:
     one: "%{count} common name"
     other: "%{count} common names"

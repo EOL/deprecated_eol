@@ -95,6 +95,11 @@ module ActiveRecord
           # English as default language might make sense
           keywords_to_send_to_solr.each do |k|
             k[:language] ||= 'en'
+            # if k[:resource_type] == 'TaxonConcept'
+            #   if k[:keyword_type] == 'PreferredName'
+            #   elsif k[:keyword_type] == 'PreferredName'
+            #   end
+            # end
           end
           return keywords_to_send_to_solr
         end

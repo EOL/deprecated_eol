@@ -2,72 +2,61 @@ module EOL
 
   class CommonNameDisplay
 
-    attr_accessor :name_id
+    attr_accessor :taxon_concept_name
+    attr_accessor :name
     attr_accessor :name_string
-    attr_accessor :iso_639_1
+    attr_accessor :language
     attr_accessor :language_label
-    attr_accessor :language_name
-    attr_accessor :language_id
     attr_accessor :sources
-    attr_accessor :synonym_ids
+    attr_accessor :agent_synonyms
     attr_accessor :preferred
-    attr_accessor :trusted
     attr_accessor :duplicate
     attr_accessor :duplicate_with_curator
-    attr_accessor :vetted_id
+    attr_accessor :vetted
 
-    # NOTE - this uses TaxonConceptNames, not Synonyms.  For now, that's because TCN is a denormlized version of Synonyms.
-    def self.find_by_taxon_concept_id(tc_id)
-      inc = [ :name, :language ]
-      sel = { :taxon_concept_names => [ :synonym_id, :preferred, :vetted_id ],
+    # NOTE - this uses TaxonConceptNames, and Synonyms.  TCN is a denormlized version of Synonyms.
+    def self.find_by_taxon_concept_id(tc_id, hierarchy_entry_id = nil)
+      inc = [ :name, :language, :vetted, { :synonym => [ :agents, { :hierarchy => :agent } ] } ]
+      sel = { :taxon_concept_names => [ :preferred, :vetted_id ],
+              :agents => '*',
               :names => :string,
+              :vetted => :view_order,
               :languages => [ :source_form, :iso_639_1 ]}
-      taxon_concept_names = TaxonConceptName.find_all_by_taxon_concept_id_and_vern(tc_id, 1, :select => sel, :include => inc)
+      if hierarchy_entry_id
+        taxon_concept_names = TaxonConceptName.find_all_by_source_hierarchy_entry_id_and_vern(hierarchy_entry_id, 1,
+          :select => sel, :include => inc)
+      else
+        taxon_concept_names = TaxonConceptName.find_all_by_taxon_concept_id_and_vern(tc_id, 1,
+          :select => sel, :include => inc)
+      end
       display_names = taxon_concept_names.map do |tcn|
-        params = {}
-        params[:name_id] = tcn.name.id
-        params[:name_string] = tcn.name.string
-        tcn.language = Language.unknown if tcn.language == Language.common_name
-        params[:iso_639_1] = tcn.language.iso_639_1 rescue nil
-
-        # We can bring this back when we have language label translations for all approved languages:
-        #params[:language_label] = tcn.language.label rescue nil
-        # For the meantime we can use this:
-        params[:language_label] = TranslatedLanguage.find(tcn.language.id).label rescue nil
-
-        params[:language_name] = tcn.language.source_form rescue nil
-        params[:language_id] = tcn.language.id rescue nil
-        params[:synonym_id] = tcn.synonym_id
-        params[:preferred] = tcn.preferred
-        params[:vetted_id] = tcn.vetted_id
-        EOL::CommonNameDisplay.new(params)
+        EOL::CommonNameDisplay.new(tcn)
       end
       EOL::CommonNameDisplay.group_by_name(display_names)
     end
 
     def self.find_by_hierarchy_entry_id(hierarchy_entry_id)
-      inc = [ :name, :language ]
-      sel = { :taxon_concept_names => [ :synonym_id, :preferred, :vetted_id ],
-              :names => :string,
-              :languages => [ :source_form, :iso_639_1 ]}
-      taxon_concept_names = TaxonConceptName.find_all_by_source_hierarchy_entry_id_and_vern(hierarchy_entry_id, 1, :select => sel, :include => inc)
-      display_names = taxon_concept_names.map do |tcn|
-        params = {}
-        params[:name_id] = tcn.name.id
-        params[:name_string] = tcn.name.string
-        params[:iso_639_1] = tcn.language.iso_639_1 rescue nil
-        params[:language_label] = tcn.language.label rescue nil
-        params[:language_name] = tcn.language.source_form rescue nil
-        params[:language_id] = tcn.language.id rescue nil
-        params[:synonym_id] = tcn.synonym_id
-        params[:preferred] = tcn.preferred
-        params[:vetted_id] = tcn.vetted_id
-        EOL::CommonNameDisplay.new(params)
-      end
-      EOL::CommonNameDisplay.group_by_name(display_names)
+      find_by_taxon_concept_id(nil, hierarchy_entry_id)
     end
 
-
+    def initialize(tcn)
+      @taxon_concept_name = tcn
+      @name               = tcn.name
+      @name_string        = tcn.name.string
+      @language           = tcn.language
+      @language           = Language.unknown if @language == Language.common_name || @language.blank?
+      @language_label     = tcn.language.label rescue 'Unknown'
+      @synonyms           = [ tcn.synonym ]
+      @preferred          = tcn.preferred?
+      @vetted             = tcn.vetted
+      @sources            = tcn.sources
+      @agent_synonyms     = {}
+      tcn.sources.each{ |a| @agent_synonyms[a.id] = tcn.synonym_id }
+      # TODO - the methods that set these are in taxa_helper.  Move the methods here.  (Or, better, to an Enumerable for CNDs.)
+      @duplicate              = false
+      @duplicate_with_curator = false
+    end
+    
     def self.group_by_name(names)
       new_names = []
       previous = nil
@@ -86,59 +75,17 @@ module EOL
       new_names
     end
 
-    def initialize(name)
-      @name_id        = name[:name_id]
-      @name_string    = name[:name_string]
-      @iso_639_1      = name[:iso_639_1]
-      @language_label = name[:language_label] || Language.unknown.label
-      @language_name  = name[:language_name]
-      @language_id    = name[:language_id]
-      @synonym_ids    = [name[:synonym_id]]
-      @preferred      = name[:preferred].class == String ? name[:preferred].to_i > 0 : name[:preferred]
-      @vetted_id      = name[:vetted_id]
-      @sources        = get_sources
-      @trusted        = trusted_by_agent?
-      # TODO - the methods that set these are in taxa_helper.  Move the methods here.  (Or, better, to an Enumerable for CNDs.)
-      @duplicate      = false
-      @duplicate_with_curator = false
-    end
-
-    alias :id :name_id
-    alias :string :name_string
-
-    # In other words, "the only source is the agent/user in question":
     def added_by_user?(user)
-      @sources.length == 1 && @sources[0].id == user.agent.id
+      @sources.select{ |s| s.id == user.agent.id }.size > 0
     end
 
-    def trusted_by_agent?
-      @sources.each do |a|
-        if a.user && a.full_name != 'uBio'
-          return true
-        end
-      end
-      false
-    end
-
-    def trusted?
-      @vetted_id == Vetted.trusted.id
-    end
-
-    def untrusted?
-      @vetted_id == Vetted.untrusted.id
-    end
-
-    def unreviewed?
-      @vetted_id == Vetted.unknown.id
-    end
-
-    def inappropriate?
-      @vetted_id == Vetted.inappropriate.id
+    def synonym_id_for_user(user)
+      @agent_synonyms[user.agent.id] rescue nil
     end
 
     # This is only used in the scope of a single TaxonConcept... otherwise I would add that (at the cost of some obfuscation).
     def unique_id
-      "name-#{@language_id}-#{@name_id}"
+      "name-#{@taxon_concept_name.language_id}-#{@taxon_concept_name.name.id}"
     end
 
     def agent_names
@@ -148,51 +95,30 @@ module EOL
     end
 
     def merge!(other)
+      @preferred = (@preferred || other.preferred)
+      @vetted = other.vetted if other.vetted && other.vetted.view_order < @vetted.view_order
       @sources += other.sources
-      @synonym_ids += other.synonym_ids
+      other.agent_synonyms.each do |agent_id, synonym_id|
+        @agent_synonyms[agent_id] = synonym_id
+      end
     end
 
     # Sort by language label first, then by name, then by source.
     def <=>(other)
       if self.language_label == other.language_label
-        self.name_string.downcase <=> other.name_string.downcase
+        if self.name_string.downcase == other.name_string.downcase
+          (self.vetted.view_order rescue 500) <=> (other.vetted.view_order rescue 500)
+        else
+         self.name_string.downcase <=> other.name_string.downcase
+        end
       else
         self.language_label.to_s <=> other.language_label.to_s
       end
     end
 
     def ===(other)
-      self.name_string.downcase == other.name_string.downcase && self.language_label == other.language_label && self.vetted_id == other.vetted_id
+      self.name_string.downcase == other.name_string.downcase &&
+        self.language_label == other.language_label
     end
-
-private
-
-    def get_sources
-      @@sources_sql ||= %q{
-        SELECT a1.*
-        FROM synonyms syn1
-          JOIN hierarchies h ON (syn1.hierarchy_id = h.id)
-          JOIN agents a1 ON (h.agent_id = a1.id)
-        WHERE syn1.id IN (?)
-          AND syn1.hierarchy_id != ?
-        UNION
-        SELECT a2.*
-        FROM synonyms syn2
-          JOIN agents_synonyms agsyn ON (syn2.id = agsyn.synonym_id)
-          JOIN agents a2 ON (agsyn.agent_id = a2.id)
-        WHERE syn2.id IN (?)
-      }
-      sources = Agent.find_by_sql([@@sources_sql, @synonym_ids, Hierarchy.eol_contributors.id, @synonym_ids])
-      # This is *kind of* a hack.  Long, long ago, we kinda mangled our data by converting a bunch of uBio names without
-      # giving the TCNs source he ids (or synonyms).  I'm actually kinda-sorta okay with this; if someone else develops a
-      # system to add TCNs in a similar manner, this allows them to specify a default common name source, which could just be
-      # an "empty" agent with a display name like "Source unknown".  :)
-      if sources.blank?
-        sources << Agent.find($AGENT_ID_OF_DEFAULT_COMMON_NAME_SOURCE) rescue nil
-      end
-      sources
-    end
-
   end
-
 end

@@ -45,16 +45,16 @@ module ActiveRecord
           return [] if self.class == Community && !self.published?
 
           params = {
-            'resource_type'       => self.class.to_s,
-            'resource_id'         => self.id,
-            'resource_unique_key' => "#{self.class}_#{self.id}"
+            :resource_type        => self.class.to_s,
+            :resource_id          => self.id,
+            :resource_unique_key  => "#{self.class}_#{self.id}"
           }
-          params['date_created'] = self.created_at.solr_timestamp if self.respond_to?('created_at') && self.created_at
-          params['date_modified'] = self.updated_at.solr_timestamp if self.respond_to?('updated_at') && self.updated_at
+          params[:date_created] = self.created_at.solr_timestamp if self.respond_to?('created_at') && self.created_at
+          params[:date_modified] = self.updated_at.solr_timestamp if self.respond_to?('updated_at') && self.updated_at
 
           if self.class == DataObject && !self.data_type_id.blank?
             data_type_label = self.is_video? ? 'Video' : self.data_type.label('en')
-            params['resource_type'] = [self.class.to_s, data_type_label]
+            params[:resource_type] = [self.class.to_s, data_type_label]
           end
 
           options[:keywords] ||= []
@@ -95,11 +95,7 @@ module ActiveRecord
           # English as default language might make sense
           keywords_to_send_to_solr.each do |k|
             k[:language] ||= 'en'
-            # if k[:resource_type] == 'TaxonConcept'
-            #   if k[:keyword_type] == 'PreferredName'
-            #   elsif k[:keyword_type] == 'PreferredName'
-            #   end
-            # end
+            self.class.assign_weight!(k)
           end
           return keywords_to_send_to_solr
         end
@@ -111,6 +107,50 @@ module ActiveRecord
         remove_method :remove_from_index rescue nil
         self.after_save.delete_if{ |callback| callback.method == :add_to_index}
         self.before_destroy.delete_if{ |callback| callback.method == :remove_from_index}
+      end
+      
+      def assign_weight!(keyword)
+        resource_weight = nil
+        if keyword[:resource_type] == 'TaxonConcept'
+          if keyword[:keyword_type] == 'PreferredScientific'
+            resource_weight = 1
+          elsif keyword[:keyword_type] == 'PreferredCommonName'
+            resource_weight = 2
+          elsif keyword[:keyword_type] == 'Synonym'
+            resource_weight = 3
+          elsif keyword[:keyword_type] == 'CommonName'
+            resource_weight = 4
+          elsif keyword[:keyword_type] == 'Surrogate'
+            resource_weight = 500
+          else
+            resource_weight = 9
+          end
+          
+        elsif keyword[:resource_type].include? 'DataObject'
+          if keyword[:resource_type].include? 'Text'
+            resource_weight = 40
+          elsif keyword[:resource_type].include? 'Video'
+            resource_weight = 50
+          elsif keyword[:resource_type].include? 'Image'
+            resource_weight = 60
+          elsif keyword[:resource_type].include? 'Sound'
+            resource_weight = 70
+          else
+            resource_weight = 80
+          end
+          # we want matches in descriptions to be shown BELOW titles
+          resource_weight += 1 if keyword[:keyword_type].to_s == 'description'
+          
+        elsif keyword[:resource_type].include? 'Community'
+          resource_weight = 10
+        elsif keyword[:resource_type].include? 'Collection'
+          resource_weight = 20
+        elsif keyword[:resource_type].include? 'User'
+          resource_weight = 30
+        end
+        
+        resource_weight = 499 if resource_weight.blank?
+        keyword[:resource_weight] = resource_weight
       end
     end
   end

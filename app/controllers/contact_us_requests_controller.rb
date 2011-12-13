@@ -13,7 +13,7 @@ class ContactUsRequestsController < ApplicationController
     if @request.save
       send_verification_email
       @list = load_areas
-      flash.now[:notice] = "Request Sent"
+      flash.now[:notice] = I18n.t(:contact_us_request_sent)
       render :action => :index, :layout => 'v2/sessions'
     else
       failed_to_create_request and return
@@ -28,14 +28,13 @@ class ContactUsRequestsController < ApplicationController
   end
 
   def failed_to_create_request
-    flash.now[:error] = "Your contact us request cannot be sent"
+    flash.now[:error] = I18n.t(:contact_us_request_failed)
     @list = load_areas
     render :action => :index, :layout => 'v2/sessions'
   end
 
   def send_verification_email
-    #Notifier.deliver_user_message(@request, @request, @request.comment)
-
+    Notifier.deliver_contact_us_request_message(@request)
   end
 
 end

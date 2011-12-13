@@ -10,13 +10,13 @@ class Notifier < ActionMailer::Base
     body        :user => user
   end
 
-#  # TODO: Not being called from anywhere - applicable if we reinstate contact us form - should be tested then
-#  def contact_us_auto_response(contact)
-#    subject     I18n.t(:subject, :title => contact_subject.title, :scope => [:notifier, :contact_us_auto_response])
-#    recipients  contact.email
-#    from        $SUPPORT_EMAIL_ADDRESS
-#    body        :contact => contact
-#  end
+ # # TODO: Not being called from anywhere - applicable if we reinstate contact us form - should be tested then
+ # def contact_us_auto_response(contact)
+ #   subject     I18n.t(:subject, :title => contact_subject.title, :scope => [:notifier, :contact_us_auto_response])
+ #   recipients  contact.email
+ #   from        $SUPPORT_EMAIL_ADDRESS
+ #   body        :contact => contact
+ # end
 
   def contact_us_message(contact)
     contact_subject = ContactSubject.find(contact.contact_subject_id)
@@ -27,6 +27,18 @@ class Notifier < ActionMailer::Base
     recipients  contact_recipients
     from        $SUPPORT_EMAIL_ADDRESS
     body        :contact => contact
+  end
+
+  def contact_us_request_message(request)
+    contact_subject = I18n.t(:contact_us_request_received)
+    contact_recipients = TopicArea.find_by_id(request.topic_area_id).email
+    contact_recipients = contact_recipients.split(',').map { |c| c.strip }
+    puts contact_recipients
+
+    subject	contact_subject
+    recipients 	contact_recipients
+    from	$SUPPORT_EMAIL_ADDRESS
+    body	request.comment
   end
 
   def content_partner_statistics_reminder(content_partner, content_partner_contact, month, year)

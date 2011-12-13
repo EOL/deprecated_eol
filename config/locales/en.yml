@@ -3737,3 +3737,8 @@ en:
   comment_or_rate_on_this_article: "Comment on or rate this article"
   admin_user_delete_successful_notice: "User has been deleted"
   admin_spam_delete: "Delete Spam"
+  contact_us_request_sent: "Request Sent Successfully"
+  contact_us_request_failed: "Error(s) occured!"
+  please_leave_your_feedback: "Please leave your feedback"
+  send_feedback: "Send feedback"
+  contact_us_request_received: "Contact us request received"

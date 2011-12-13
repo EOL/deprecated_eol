@@ -245,8 +245,9 @@ load_old_foundation_data
 # TODO - I am neglecting to set up agent content partners, curators, contacts, provided data types, or agreements.  For now.
 agent_col = Agent.catalogue_of_life
 agent_col.user ||= User.gen
-if agent_col.user.content_partner.blank?
-  agent_col.user.content_partners << ContentPartner.gen :full_name => "Catalogue of Life"
+if agent_col.user.content_partners.blank?
+  cof_cp = ContentPartner.gen :full_name => "Catalogue of Life"	  
+  agent_col.user.content_partners << cof_cp
 end
 resource = Resource.gen(:title => 'Bootstrapper', :resource_status => ResourceStatus.published,
   :hierarchy => Hierarchy.find_by_label('Species 2000 & ITIS Catalogue of Life: Annual Checklist 2010'),
@@ -256,7 +257,7 @@ event    = HarvestEvent.gen(:resource => resource)
 gbif_agent = Agent.gen(:full_name => "Global Biodiversity Information Facility (GBIF)")
 #gbif_agent = Agent.find_by_full_name('Global Biodiversity Information Facility (GBIF)');
 gbif_agent.user ||= User.gen
-gbif_cp    = ContentPartner.gen :vetted => true, :user => gbif_agent.user, :full_name => "Global Biodiversity Information Facility (GBIF)"
+gbif_cp    = ContentPartner.gen :user => gbif_agent.user, :full_name => "Global Biodiversity Information Facility (GBIF)"
 ContentPartnerContact.gen(:content_partner => gbif_cp, :contact_role => ContactRole.primary)
 gbif_hierarchy = Hierarchy.gen(:agent => gbif_agent, :label => "GBIF Nub Taxonomy")
 
@@ -412,9 +413,7 @@ cp_user = User.gen(:username => 'testcp', :password => 'testcp', :given_name => 
 cp_user.build_watch_collection
 cp = ContentPartner.gen(:user => cp_user,
                         :full_name => 'Partner name',
-                        :description => 'description of the partner',
-                        :auto_publish => false,
-                        :vetted => true)
+                        :description => 'description of the partner')
 ac = ContentPartnerContact.gen(:content_partner => cp, :contact_role => ContactRole.primary)
 
 
@@ -425,7 +424,7 @@ name   = Name.gen(:canonical_form => tc.canonical_form_object)#, :string => n = 
                   # :italicized     => "<i>#{n}</i> #{Factory.next(:attribution)}")
 agent2 = Agent.gen
 agent2.user ||= User.gen(:agent => agent2, :username => 'test_cp')
-cp     = ContentPartner.gen :vetted => true, :user => agent2.user, :full_name => 'Test ContenPartner'
+cp     = ContentPartner.gen :user => agent2.user, :full_name => 'Test ContenPartner'
 cont   = ContentPartnerContact.gen :content_partner => cp, :contact_role => ContactRole.primary
 r2     = Resource.gen(:title => 'Test ContentPartner import', :resource_status => ResourceStatus.processed, :content_partner => cp)
 ev2    = HarvestEvent.gen(:resource => r2)
@@ -623,3 +622,26 @@ end
 end
 
 $INDEX_RECORDS_IN_SOLR_ON_SAVE = original_index_records_on_save_value
+
+
+puts "Adding topic areas for the contact us form"
+TopicArea.create(:email => "byrnesb@si.edu")
+TopicArea.create(:email => "byrnesb@si.edu")
+TopicArea.create(:email => "Education@eol.org")
+TopicArea.create(:email => "affiliate@eol.org")
+TopicArea.create(:email => "affiliate@eol.org")
+TopicArea.create(:email => "affiliate@eol.org")
+TopicArea.create(:email => "affiliate@eol.org")
+TopicArea.create(:email => "affiliate@eol.org")
+TopicArea.create(:email => "byrnesb@si.edu")
+TopicArea.create(:email => "byrnesb@si.edu")
+TranslatedTopicArea.create(:label => "Membership and registration", :language_id => 1, :topic_area_id => 1)
+TranslatedTopicArea.create(:label => "Terms of use and licensing", :language_id => 1, :topic_area_id => 2)
+TranslatedTopicArea.create(:label => "Learning and education tools", :language_id => 1, :topic_area_id => 3)
+TranslatedTopicArea.create(:label => "Become content partner", :language_id => 1, :topic_area_id => 4)
+TranslatedTopicArea.create(:label => "Content partner support", :language_id => 1, :topic_area_id => 5)
+TranslatedTopicArea.create(:label => "Curator support", :language_id => 1, :topic_area_id => 6)
+TranslatedTopicArea.create(:label => "Make a correction (spelling and grammar, images, information)", :language_id => 1, :topic_area_id => 7)
+TranslatedTopicArea.create(:label => "Images, videos, sounds", :language_id => 1, :topic_area_id => 8)
+TranslatedTopicArea.create(:label => "Media requests (interviews, press inquiries, logo requests)", :language_id => 1, :topic_area_id => 9)
+TranslatedTopicArea.create(:label => "Make a financial donation", :language_id => 1, :topic_area_id => 10)

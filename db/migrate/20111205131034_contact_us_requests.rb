@@ -5,6 +5,7 @@ class ContactUsRequests < ActiveRecord::Migration
       t.string :last_name
       t.string :email
       t.string :comment
+      t.integer :topic_area_id
     end
   end
 

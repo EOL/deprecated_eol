@@ -7,12 +7,13 @@
   = render :partial => "shared/item_summary_#{item_type}.html.haml", :locals => {:item => collection_item.object}
 -# When JS is disabled, you are taken to a page specific to the collection item, which has its own form:
 - if defined?(item_form)
-  - form_for(@collection_item) do |f|
+  - form_for @collection_item, :builder => ApplicationHelper::EolFormBuilder, :html => { :multipart => true } do |f|
     %fieldset
       = f.label :annotation
       = f.text_area :annotation
       = f.label :sort_field
       = f.text_field :sort_field
+      = f.load_minimal_tags_allowed
       = submit_tag I18n.t(:save_annotation_submit_button)
 - else
   .annotation
@@ -32,6 +33,7 @@
         - # TODO: figure out why I18n is not getting the label value automatically: label value should override attribute value.
         = item_form.label :sort_field, I18n.t('helpers.label.collection_item.sort_field')
         = item_form.text_field :sort_field
+        = item_form.load_minimal_tags_allowed
       %fieldset.actions
         = submit_tag I18n.t(:save_annotation_submit_button), :name => :commit_annotation
         = link_to I18n.t(:cancel), '#'

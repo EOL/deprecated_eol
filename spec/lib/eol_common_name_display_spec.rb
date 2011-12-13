@@ -4,6 +4,7 @@ describe EOL::CommonNameDisplay do
 
   before(:all) do
     truncate_all_tables
+    load_foundation_cache
     Language.gen_if_not_exists(:iso_639_1 => 'en')
     Language.gen_if_not_exists(:label => 'Unknown')
     Hierarchy.gen_if_not_exists(:label => "Encyclopedia of Life Contributors")
@@ -45,78 +46,26 @@ end
 def fake_name(options = {})
   options[:name_string] ||= 'animals'
   options[:language_id] ||= 152
-  options[:language_label] ||= 'English'
-  YAML.load(%Q{
-!ruby/object:Name 
-  attributes: 
-    iso_639_1: en
-    preferred: "1"
-    synonym_id: 
-    language_label: #{options[:language_label]}
-    vetted_id: "0"
-    language_id: "#{options[:language_id]}"
-    name_string: #{options[:name_string]}
-    name_id: "841736"
-    language_name: #{options[:language_label]}
-  attributes_cache: {}
-  })
-end
-
-def fake_data
-  YAML.load(%q{
---- 
-- !ruby/object:Name 
-  attributes: 
-    iso_639_1: fr
-    preferred: "1"
-    synonym_id: 
-    language_label: French
-    vetted_id: "0"
-    language_id: "171"
-    name_string: Goodeinae
-    name_id: "114507"
-    language_name: "fran\xC3\xA7ais"
-  attributes_cache: {}
-
-- !ruby/object:Name 
-  attributes: 
-    iso_639_1: en
-    preferred: "1"
-    synonym_id: 
-    language_label: English
-    vetted_id: "0"
-    language_id: "152"
-    name_string: animals
-    name_id: "841736"
-    language_name: English
-  attributes_cache: {}
-
-# Duplicate, should be (essentially) ignored:
-- !ruby/object:Name 
-  attributes: 
-    iso_639_1: en
-    preferred: "1"
-    synonym_id: 
-    language_label: English
-    vetted_id: "0"
-    language_id: "152"
-    name_string: animals
-    name_id: "841736"
-    language_name: English
-  attributes_cache: {}
-
-- !ruby/object:Name 
-  attributes: 
-    iso_639_1: en
-    preferred: "0"
-    synonym_id: 
-    language_label: English
-    vetted_id: "0"
-    language_id: "152"
-    name_string: Animal
-    name_id: "841737"
-    language_name: English
-  attributes_cache: {}
-
-  })
+  name = Name.find_or_create_by_string(options[:name_string])
+  syn = Synonym.gen(:name => name,
+    :language_id => options[:language_id], :preferred => 1, :hierarchy => Hierarchy.eol_contributors)
+  TaxonConceptName.gen(:synonym => syn, :name => name, :language_id => options[:language_id], :preferred => 1, 
+    :vern => 1)
+#   options[:name_string] ||= 'animals'
+#   options[:language_id] ||= 152
+#   options[:language_label] ||= 'English'
+#   YAML.load(%Q{
+# !ruby/object:Name 
+#   attributes: 
+#     iso_639_1: en
+#     preferred: "1"
+#     synonym_id: 
+#     language_label: #{options[:language_label]}
+#     vetted_id: "0"
+#     language_id: "#{options[:language_id]}"
+#     name_string: #{options[:name_string]}
+#     name_id: "841736"
+#     language_name: #{options[:language_label]}
+#   attributes_cache: {}
+#   })
 end

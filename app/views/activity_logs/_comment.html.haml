@@ -78,4 +78,4 @@
       = f.text_area :body, :rows => rows, :cols => cols
     %fieldset.actions
       = submit_tag (I18n.t(:save_comment_lowercase), :'data-url' => edit_comment_path(item.id))
-      %a(href="#") cancel
+      %a{:href=>"#"}= I18n.t(:cancel)

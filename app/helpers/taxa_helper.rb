@@ -233,19 +233,15 @@ module TaxaHelper
     unknown = Language.unknown
     # Build a hash with language label as key and an array of CommonNameDisplay objects as values
     names.each do |name|
-      k = name.language_label
+      k = name.language_label.dup
       k = unknown.label if k.blank?
       names_by_language.key?(k) ? names_by_language[k] << name : names_by_language[k] = [name]
     end
-    remove_duplicate_names(names_by_language)
     results = []
     # Put preferred first
     results << [pref.label, names_by_language.delete(pref.label)] if names_by_language.key?(pref.label)
     # Sort the rest by language label
-    names_by_language.to_a.sort_by {|a| a[0].to_s}.each {|a| results << a}
-    # Move unknown to the end
-    unknown_data = names_by_language.key?(unknown.label) ? [unknown.label, names_by_language.delete(unknown.label)] : nil
-    results << unknown_data if unknown_data
+    names_by_language.to_a.sort_by {|a| a[0].to_s.downcase }.each {|a| results << a}
     results
   end
 
@@ -266,11 +262,11 @@ private
       names_in_language.each_with_index do |name_a, index_a|
         names_in_language.each_with_index do |name_b, index_b|
           next if index_a == index_b
-          if name_a.id == name_b.id
+          if name_a.name.id == name_b.name.id
             name_a.duplicate = true
             name_b.duplicate = true
-            name_a.duplicate_with_curator = true if name_b.trusted_by_agent?
-            name_b.duplicate_with_curator = true if name_a.trusted_by_agent?
+            # name_a.duplicate_with_curator = true if name_b.trusted_by_agent?
+            # name_b.duplicate_with_curator = true if name_a.trusted_by_agent?
           end
         end
       end

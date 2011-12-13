@@ -128,9 +128,6 @@ ActionController::Routing::Routes.draw do |map|
     taxa.resource :worklist, :only => [:show], :controller => "taxa/worklist"
     taxa.resources :data_objects, :only => [:create, :new], :controller => 'data_objects'
   end
-  # used in names tab:
-  # when user updates a common name - preferred radio button
-  map.connect 'pages/:id/names/common_names/update', :controller => 'taxa', :action => 'update_common_names'
   map.bhl_title 'pages/:id/literature/bhl_title/:title_item_id', :controller => 'taxa/literature', :action => 'bhl_title'
   map.entry_bhl_title 'pages/:id/entries/:hierarchy_entry_id/literature/bhl_title/:title_item_id', :controller => 'taxa/literature', :action => 'bhl_title'
   map.taxon_worklist_data_object 'pages/:id/worklist/data_objects/:data_object_id', :controller => 'taxa/worklist', :action => 'data_objects'

@@ -45,7 +45,15 @@ module ApplicationHelper
         "#{super(method, content_or_options_with_block, options)} #{errors}"
       end
     end
-
+    
+    def load_minimal_tags_allowed()
+      return "<img src='/images/stop.png' border='0'> #{I18n.t("allowed_html_tags")} &lt;p&gt;,&lt;i&gt;,&lt;b&gt;,&lt;a&gt;,&lt;ul&gt;,&lt;ol&gt;,&lt;li&gt;"
+    end
+    
+    def load_all_tags_allowed()
+      return "<img src='/images/stop.png' border='0'> #{I18n.t("allowed_html_tags")} &lt;p&gt;,&lt;i&gt;,&lt;b&gt;,&lt;a&gt;,&lt;ul&gt;,&lt;ol&gt;,&lt;li&gt;,&lt;table&gt;,&lt;tr&gt;,&lt;td&gt;"
+    end
+    
     private
 
     def errors_on?(method)

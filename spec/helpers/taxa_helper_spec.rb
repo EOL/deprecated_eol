@@ -27,16 +27,17 @@ def add_agent_to_name(name, agent)
 end
 
 def build_name(string, agent, language, options = {})
-  options[:preferred] ||= '1'
+  options[:preferred] ||= 1
   name = Name.find_by_string(string)
   name = Name.gen(:string => string) unless name
-  add_language_to_name(name, language)
-  add_agent_to_name(name, @agent)
-  add_name_string_to_name(name)
-  add_preferred_to_name(name, options[:preferred])
-  add_synonym_to_name(name, Synonym.gen(:name => name))
-  name[:hierarchy_id] = Hierarchy.eol_contributors.id if options[:curator]
-  return EOL::CommonNameDisplay.new(name)
+  hierarchy_id = Hierarchy.eol_contributors.id if options[:curator]
+  hierarchy_id ||= Hierarchy.first.id
+  
+  synonym = Synonym.gen(:name => name, :preferred => options[:preferred],
+    :hierarchy_id => hierarchy_id, :language => language)
+  AgentsSynonym.gen(:synonym => synonym, :agent => agent)
+  tcn = TaxonConceptName.gen(:name => name, :synonym => synonym, :preferred => synonym.preferred, :language => synonym.language, :vern => 1)
+  return EOL::CommonNameDisplay.new(tcn)
 end
 
 def expected_hash_from_name(name)
@@ -45,17 +46,6 @@ def expected_hash_from_name(name)
    :preferred  => name.preferred == '1',
    :id         => name.id,
    :sources    => name.sources}
-end
-
-# Mimicing what comes out of the helper.  Ick!
-def expected_array_from_names_in_language(names, language)
-  names_array = []
-  names.each do |name|
-    names_array << expected_hash_from_name(name)
-  end
-  [language.label,
-   {:names => names_array, :language => {:name => language.source_form, :label => language.label, :id => language.id}}
-  ]
 end
 
 describe TaxaHelper do
@@ -80,10 +70,6 @@ describe TaxaHelper do
       @names << @name_a_a = build_name(@name_a_a_string, @agent, @language_a)
       @names << @name_b_a = build_name(@name_b_a_string,  @agent, @language_b)
       @names << @name_c_a = build_name(@name_c_a_string, @agent, @language_c)
-      @expected_array = []
-      @expected_array << expected_array_from_names_in_language([@name_a_a], @language_a)
-      @expected_array << expected_array_from_names_in_language([@name_b_a], @language_b)
-      @expected_array << expected_array_from_names_in_language([@name_c_a], @language_c)
     end
 
     it "should sort names by language" do

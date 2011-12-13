@@ -21,10 +21,10 @@
       %tbody
         - names.each do |name|
           %tr
-            %td{:class => name.preferred.to_i == 1 ? 'preferred' : nil,
-              :title => name.preferred.to_i == 1 ? I18n.t(:name_preferred_for_language_yes) : nil}
-              = name.string
+            %td{:class => name.preferred ? 'preferred' : nil,
+              :title => name.preferred ? I18n.t(:name_preferred_for_language_yes) : nil}
+              = name.name_string
             %td
               = name.agent_names
             %td
-              = Vetted.find_by_id(name.vetted_id).label
+              = name.vetted.label

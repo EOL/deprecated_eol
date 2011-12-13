@@ -1173,11 +1173,20 @@ a.other_actions {
   #taxon_updates form.comment textarea {
     width: 580px; }
 
-form#reply fieldset {
+#collections_tab form#reply fieldset {
   margin-top: 10px; }
-  form#reply fieldset #comment_body {
-    width: 478px;
+  #collections_tab form#reply fieldset #comment_body {
     float: right; }
+
+.article form#reply fieldset {
+  margin-top: 10px; }
+  .article form#reply fieldset #comment_body {
+    float: right;
+    margin-right: 16px; }
+
+#permalink #main form#reply {
+  border: 0;
+  margin-top: 0; }
 
 #page_heading p#citation {
   background-color: white;

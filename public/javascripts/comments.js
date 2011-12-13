@@ -30,6 +30,7 @@ EOL.reply_to = function(el) {
   $('a#reply-cancel').click(function() {$('form#reply').remove(); return(false); });
   $form.find('p.reply-to').remove();
   var $tarea = $form.find('textarea');
+  $tarea.css('width', $tarea.css('width').replace('px', '') - 80 + 'px');
   $form.find('input#comment_reply_to_type').val($(el.target).data('reply-to-type'));
   $form.find('input#comment_reply_to_id').val($(el.target).data('reply-to-id'));
   $tarea.focus();
@@ -58,7 +59,6 @@ EOL.jump_to_comment = function(target, href, reply) {
 };
 
 EOL.init_comment_behaviours = function($items) {
-
 
   if(location.hash != "") {
     var name  = location.hash.replace(/#/, '').replace(/\?.*$/, '');

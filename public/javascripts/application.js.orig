@@ -11,8 +11,6 @@ $.ajaxSetup({accepts: {
 }});
 
 <<<<<<< HEAD
-$(function() {
-
 =======
 EOL.highlight_comment = function(el) {
   if($(el).size() == 0) {
@@ -46,6 +44,7 @@ EOL.reply_to = function(el) {
   $('a#reply-cancel').click(function() {$('form#reply').remove(); return(false); });
   $form.find('p.reply-to').remove();
   var $tarea = $form.find('textarea');
+  $tarea.css('width', $tarea.css('width').replace('px', '') - 80 + 'px');
   $form.find('input#comment_reply_to_type').val($(el.target).data('reply-to-type'));
   $form.find('input#comment_reply_to_id').val($(el.target).data('reply-to-id'));
   $tarea.focus();
@@ -74,28 +73,9 @@ EOL.jump_to_comment = function(target, href, reply) {
 };
 
 
+>>>>>>> Still trying to get the reply-to stuff formatted properly... but now I want to merge before continuing.
 $(function() {
 
-  $('span.reply a').click(EOL.reply_to);
-  $('span.reply').hide().parent().parent().mouseover(function() {
-    $(this).find('span.reply').show();
-  }).mouseleave(function() {
-    $(this).find('span.reply').hide();
-  });
-
-  $('ul.feed blockquote p a[href^=#]').click(function() { EOL.follow_reply($(this)); });
-
-  if(location.hash != "") {
-    var name  = location.hash.replace(/#/, '').replace(/\?.*$/, '');
-    var reply = name.replace('reply-to-', '');
-    if (name == reply) {
-      EOL.highlight_comment($('a[name='+name+']'));
-    } else {
-      $('a[name='+reply+']').parent().find('span.reply a').click();
-    }
-  }
-
->>>>>>> Reply-to is now über-fancy.
   $(".heading form.filter, form.select_submit").find(".actions").hide().find(":submit").end().end().find("select")
     .change(function() {
       $(this).closest("form").submit();

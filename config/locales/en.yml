@@ -2616,3 +2616,4 @@ en:
   comment_or_rate_on_this_article: "Comment on or rate this article"
   admin_user_delete_successful_notice: "User has been deleted"
   admin_spam_delete: "Delete Spam"
+  allowed_html_tags: "Only these tags are allowed:"

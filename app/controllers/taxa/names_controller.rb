@@ -150,7 +150,7 @@ private
     else
       names = EOL::CommonNameDisplay.find_by_taxon_concept_id(@taxon_concept.id)
     end
-    common_names = names.select {|n| !n.language.iso_639_1.blank? || !n.language.iso_639_2.blank? }
+    common_names = names.select {|n| !n.language.iso_639_1.blank? || !n.language.iso_639_2.blank? || n.language == Language.unknown }
   end
 
   def common_names_count

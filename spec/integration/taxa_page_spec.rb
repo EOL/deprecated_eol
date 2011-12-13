@@ -210,7 +210,7 @@ describe 'Taxa page' do
         with_tag('tbody tr:first-of-type td:first-of-type', :attribute => {:class => 'preferred'})
         with_tag('tbody tr:first-of-type td:first-of-type', /#{@common_names.first.name_string}/i)
         with_tag('tbody tr:first-of-type td:nth-of-type(2)', /#{@common_names.first.sources.first.full_name}/i)
-        with_tag('tbody tr:first-of-type td:nth-of-type(3)', /#{Vetted.find_by_id(@common_names.first.vetted_id).label}/i)
+        with_tag('tbody tr:first-of-type td:nth-of-type(3)', /#{Vetted.find_by_id(@common_names.first.vetted.id).label}/i)
       end
     end
 

@@ -146,7 +146,7 @@ describe 'Curation' do
 
   it 'should show delete link for common names added by this curator' do
     @cname_page.should have_tag(".main_container .update_common_names") do
-      with_tag("a[href^=/taxa/delete_common_name?]", :text => /del/i)
+      with_tag("a[href^=/taxa/names/delete?]", :text => /del/i)
     end
   end
 

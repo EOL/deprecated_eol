@@ -27,9 +27,13 @@ class Taxa::NamesController < TaxaController
       agent = current_user.agent
       language = Language.find(params[:name][:synonym][:language_id])
       synonym = @taxon_concept.add_common_name_synonym(params[:name][:string],
-                  :agent => agent, :language => language, :vetted => Vetted.trusted)
-      log_action(@taxon_concept, synonym, :add_common_name)
-      expire_taxa([@taxon_concept.id])
+                :agent => agent, :language => language, :vetted => Vetted.trusted)
+      unless synonym.errors.blank?
+        flash[:error] = I18n.t(:common_name_exists, :name_string => params[:name][:string])
+      else
+        log_action(@taxon_concept, synonym, :add_common_name)
+        expire_taxa([@taxon_concept.id])
+      end
     end
     store_location params[:return_to] unless params[:return_to].blank?
     redirect_back_or_default common_names_taxon_names_path(@taxon_concept)
@@ -37,9 +41,41 @@ class Taxa::NamesController < TaxaController
 
   # PUT /pages/:taxon_id/names currently only used to update common_names
   def update
-    # TODO:
+    if current_user.is_curator?
+      if !params[:preferred_name_id].nil?
+        name = Name.find(params[:preferred_name_id])
+        language = Language.find(params[:language_id])
+        @taxon_concept.add_common_name_synonym(name.string, :agent => current_user.agent, :language => language, :preferred => 1,
+                                   :vetted => Vetted.trusted)
+        expire_taxa([@taxon_concept.id])
+      end
+
+      current_user.log_activity(:updated_common_names, :taxon_concept_id => @taxon_concept.id)
+    end
+    if !params[:hierarchy_entry_id].blank?
+      redirect_to common_names_taxon_hierarchy_entry_names_path(@taxon_concept, params[:hierarchy_entry_id])
+    else
+      redirect_to common_names_taxon_names_path(@taxon_concept)
+    end
   end
 
+  # TODO - This needs to add a CuratorActivityLog.
+  def delete
+    synonym_id = params[:synonym_id].to_i
+    category_id = params[:category_id].to_i
+    synonym = Synonym.find(synonym_id)
+    if synonym && @taxon_concept
+      log_action(@taxon_concept, synonym, :remove_common_name)
+      tcn = TaxonConceptName.find_by_synonym_id_and_taxon_concept_id(synonym_id, @taxon_concept.id)
+      @taxon_concept.delete_common_name(tcn)
+    end
+
+    if !params[:hierarchy_entry_id].blank?
+      redirect_to common_names_taxon_hierarchy_entry_names_path(@taxon_concept, params[:hierarchy_entry_id])
+    else
+      redirect_to common_names_taxon_names_path(@taxon_concept)
+    end
+  end
 
   # GET for collection synonyms /pages/:taxon_id/synonyms
   def synonyms
@@ -60,7 +96,7 @@ class Taxa::NamesController < TaxaController
     @languages = Language.with_iso_639_1.sort_by{ |l| l.label }
     @languages.collect! {|lang|  [lang.label.to_s.truncate(20), lang.id] }
     @common_names = get_common_names
-    @common_names_count = @common_names.collect{|cn| [cn.name_id,cn.language_id]}.uniq.count
+    @common_names_count = @common_names.collect{|cn| [cn.name.id,cn.language.id]}.uniq.count
     @assistive_section_header = I18n.t(:assistive_names_common_header)
     current_user.log_activity(:viewed_taxon_concept_names_common_names, :taxon_concept_id => @taxon_concept.id)
   end
@@ -114,11 +150,11 @@ private
     else
       names = EOL::CommonNameDisplay.find_by_taxon_concept_id(@taxon_concept.id)
     end
-    common_names = names.select {|n| n.language_id != unknown_id}
+    common_names = names.select {|n| !n.language.iso_639_1.blank? || !n.language.iso_639_2.blank? }
   end
 
   def common_names_count
-    @common_names_count = get_common_names.collect{|cn| [cn.name_id,cn.language_id]}.uniq.count if @common_names_count.nil?
+    @common_names_count = get_common_names.collect{|cn| [cn.name.id,cn.language.id]}.uniq.count if @common_names_count.nil?
     @common_names_count
   end
 

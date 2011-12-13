@@ -155,7 +155,7 @@ module EOL
           if options[:exact]
             lucene_query << "keyword_exact:\"#{query}\"^5"
           else
-            lucene_query << "(keyword_exact:\"#{query}\"^5 OR keyword:\"#{query}\"^2)"
+            lucene_query << "(keyword_exact:\"#{query}\"^5 OR keyword:\"#{query}\"~10^2)"
           end
         
           # add search suggestions and weight them way higher. Suggested searches are currently always TaxonConcepts
@@ -192,7 +192,7 @@ module EOL
         elsif options[:sort_by] == 'oldest'
           url << '&sort=date_modified+asc'
         elsif options[:sort_by] == 'score'
-          url << '&sort=score+desc'
+          url << '&sort=resource_weight+asc,score+desc'
         end
         
         # add paging

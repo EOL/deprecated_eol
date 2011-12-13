@@ -72,7 +72,11 @@ class CuratorActivityLog < LoggingModel
           end
         end
       when ChangeableObjectType.synonym.id:
-        synonym.hierarchy_entry.taxon_concept_id
+        begin
+          synonym.hierarchy_entry.taxon_concept_id
+        rescue
+          raise "Synonym #{synonym.id} does not have a HierarchyEntry"
+        end
       when ChangeableObjectType.users_data_object.id:
         udo_taxon_concept.id
       else

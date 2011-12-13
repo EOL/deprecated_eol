@@ -18,6 +18,8 @@ class Synonym < SpeciesSchemaModel
   after_create :create_taxon_concept_name
   before_destroy :set_preferred_true_for_last_synonym
 
+  validates_uniqueness_of :name_id, :scope => [:synonym_relation_id, :language_id, :hierarchy_entry_id, :hierarchy_id]
+
   def self.sort_by_language_and_name(synonyms)
     synonyms.sort_by do |syn|
       language_code = syn.language.blank? ? '' : syn.language.iso_639_1
@@ -56,10 +58,12 @@ class Synonym < SpeciesSchemaModel
                                :synonym_relation_id => relation.id,
                                :vetted              => vetted,
                                :preferred           => preferred)
-      AgentsSynonym.create(:agent_id         => agent.id,
+      if synonym && synonym.errors.blank?
+        AgentsSynonym.create(:agent_id         => agent.id,
                            :agent_role_id    => AgentRole.contributor.id,
                            :synonym_id       => synonym.id,
                            :view_order       => 1)
+      end
     end
     synonym
   end

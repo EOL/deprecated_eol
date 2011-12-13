@@ -14,8 +14,11 @@ if (!EOL.init_common_name_behaviors) {
       var $update = $(this).closest('tr');
       var url = $(this).attr('data_url');
       url = url.replace(/REPLACE_ME/, $(this).val());
-      EOL.ajax_submit($(this), {url: url, update: $update, data: {}, type: 'GET'}); // data is in the url.
-    })
+      EOL.ajax_submit($(this), {url: url, update: $update, data: {}, type: 'GET',
+        complete: function(response) {
+          EOL.init_common_name_behaviors();
+        }}); // data is in the url.
+    });
     $('td.nevervet_common_name select').unbind('change');
     $('td.nevervet_common_name select').change(function() {  // TODO - this isn't working?  Is change the wrong method?
       url = $(this).val();
@@ -68,10 +71,10 @@ function vet_common_name(tc_id, lang_id, name_id, select_tag_id, he_id)
   var x = document.getElementById(select_tag_id).selectedIndex;
   var y = document.getElementById(select_tag_id).options;
   //alert("Index: " + y[x].index + " is " + y[x].text + " value: " + y[x].value);
-  document.getElementById('form_taxon_concept_id').value = tc_id
-  document.getElementById('form_language_id').value = lang_id
-  document.getElementById('form_name_id').value = name_id
-  document.getElementById('form_vetted_id').value = y[x].value
-  document.getElementById('form_hierarchy_entry_id').value = he_id
-  document.forms['vet_common_name_form'].submit()
+  document.getElementById('form_taxon_concept_id').value = tc_id;
+  document.getElementById('form_language_id').value = lang_id;
+  document.getElementById('form_name_id').value = name_id;
+  document.getElementById('form_vetted_id').value = y[x].value;
+  document.getElementById('form_hierarchy_entry_id').value = he_id;
+  document.forms['vet_common_name_form'].submit();
 }

@@ -20,6 +20,7 @@
         = f.label :description
       %dd
         = f.text_area :description
+        = f.load_all_tags_allowed
       %dt
         = f.label :refs
       %dd
@@ -48,6 +49,7 @@
         = f.label :bibliographic_citation
       %dd
         = f.text_area :bibliographic_citation
+        = f.load_minimal_tags_allowed
       %dt
         = f.label :source_url
       %dd

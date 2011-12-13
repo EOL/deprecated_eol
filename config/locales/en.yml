@@ -2621,3 +2621,4 @@ en:
   login_hidden_user_message: "The account %{given_name} is no longer active"
   user_hidden_message: "This user is no longer active"
   no_answer: "No"
+  allowed_html_tags: "Only these tags are allowed:"

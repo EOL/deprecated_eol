@@ -115,8 +115,8 @@ $(function() {
         $(this).parent().hide().next().show();
         return false;
       });
-      $li.find("form a").click(function() {
-        $(this).closest("form").hide().prev().show();
+      $li.find(".collection_item_form a").click(function() {
+        $(this).closest(".collection_item_form").hide().prev().show();
         return false;
       });
     });

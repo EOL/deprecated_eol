@@ -918,19 +918,22 @@ body
         padding: 0 3px
       .annotation
         clear: both
+        margin: 0
       .references
         clear: both
         font-size: .9em
+        margin: 0
         p + p
           margin-top: 10px
+      .references + p.sort_value
+        padding-top: 10px
       p.sort_value
         clear: both
-        padding-top: 10px
         font-size: .9em
       p.edit
         font-size: .9em
         display: none
-      form
+      .collection_item_form
         margin: 10px 0 0 0
         textarea
           display: block
@@ -947,8 +950,9 @@ body
             display: inline
         input[type="text"]
           +input
-        input[type="submit"]
-          margin: 0 5px 0 0
+        fieldset.actions
+          a
+            display: none
   ul.collection_gallery
     li
       float: left

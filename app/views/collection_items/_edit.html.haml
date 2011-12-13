@@ -9,31 +9,29 @@
 - if defined?(item_form)
   - form_for(@collection_item) do |f|
     %fieldset
-      = label_tag :collection_item_annotation, I18n.t(:collection_item_annotation_label), {:class => 'assistive'}
-      = f.text_area :annotation, :rows => 2, :cols => 60
+      = f.label :annotation
+      = f.text_area :annotation
+      = f.label :sort_field
+      = f.text_field :sort_field
       = submit_tag I18n.t(:save_annotation_submit_button)
 - else
-  %p
-  -# TODO - We don't want these two paragraphs to show up for users with accessibility issues... but we can't avoid
-  -# it until we can handle I18n in JS.
-  %p
-    = collection_item.annotation
-  %p
-    .collection_item_sort_field_form
-      - parent_form.fields_for :collection_items, collection_item do |item_form|
-        %fieldset
-          = item_form.label :sort_field, I18n.t(:sort_field)
-          = item_form.text_field :sort_field
-          = submit_tag I18n.t(:update)
+  .annotation
+    %p= collection_item.annotation
+  -#TODO: .references goes here
+  %p.sort_value
+    %strong= I18n.t('helpers.label.collection_item.sort_field_show')
+    = collection_item.sort_field
   %p.edit
-    = link_to(I18n.t(:edit_annotation), '#') # Really, we don't want this to go anywhere, since the form is right
-    -# ...below, for non-JS users. This is sub-optimal for non-JS users, but see note above.
-  -# Doing this because HR had a full form tag here, but we don't want/need one:
+    = link_to I18n.t(:edit_annotation), '#' # Really, we don't want this to go anywhere as the form is displayed below
+    - # when JS is off and CSS hides the link. TODO: When JS and CSS is off the link shows which is bad for accessibility.
   .collection_item_form
     - parent_form.fields_for :collection_items, collection_item do |item_form|
       %fieldset
-        = item_form.label :annotation, I18n.t(:collection_item_annotation_label), {:class => 'assistive'}
-        = item_form.text_area :annotation, :rows => 2, :cols => 60
+        = item_form.label :annotation
+        = item_form.text_area :annotation
+        - # TODO: figure out why I18n is not getting the label value automatically: label value should override attribute value.
+        = item_form.label :sort_field, I18n.t('helpers.label.collection_item.sort_field')
+        = item_form.text_field :sort_field
       %fieldset.actions
-        = submit_tag I18n.t(:save_annotation_submit_button)
-        %a(href="#") cancel
+        = submit_tag I18n.t(:save_annotation_submit_button), :name => :commit_annotation
+        = link_to I18n.t(:cancel), '#'

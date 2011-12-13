@@ -160,6 +160,9 @@ en:
     models:
       user: "account"
     attributes:
+      collection_item:
+        annotation: "Annotation"
+        sort_field: "Sort by"
       content_page:
         page_name: "Unique name"
         sort_order: "Sort order"
@@ -367,6 +370,10 @@ en:
       wikipedia_queue:
         create: "Submit request"
     label:
+      collection_item:
+        annotation: "Annotation"
+        sort_field: "Sort by <small>(date, number, or text; optional)</small>"
+        sort_field_show: "Sort value:"
       content_page:
         active: "Published"
         active_more: "Published pages will be publicly visible. Uncheck <em>published</em> if you want to prevent general users from viewing versions of this page in any language."

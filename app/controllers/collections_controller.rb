@@ -80,9 +80,8 @@ class CollectionsController < ApplicationController
     return if user_able_to_edit_collection
     return redirect_to_choose(:move) if params[:commit_move]
     return remove_and_redirect if params[:commit_remove]
-    return chosen if params[:scope] # Note that updating the collection params doesn't specify a scope.
     return annotate if params[:commit_annotation]
-    return annotate if params[:commit_sort_field]
+    return chosen if params[:scope] # Note that updating the collection params doesn't specify a scope.
     if @collection.update_attributes(params[:collection])
       upload_logo(@collection) unless params[:collection][:logo].blank?
       flash[:notice] = I18n.t(:collection_updated_notice, :collection_name => @collection.name) if
@@ -364,13 +363,17 @@ private
             params[:collection][:collection_items_attributes][i][:id] }.first)
           render :partial => 'edit_collection_item', :locals => { :collection_item => @collection_item }
         end
+        format.html do
+          # TODO: Ideally this should be render :show but quick fixing to enable annotation editing when JS off:
+          redirect_to @collection
+        end
       end
     else
       respond_to do |format|
         format.js { render :text => I18n.t(:item_not_updated_in_collection_error) }
         format.html do
           flash[:error] = I18n.t(:item_not_updated_in_collection_error)
-          redirect_to(@collection_item.collection)
+          redirect_to @collection
         end
       end
     end

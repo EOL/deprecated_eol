@@ -13,7 +13,10 @@
 - unless ['image_gallery','names_only'].include?(view_style)
   - if collection_item
     - if collection_item.annotation
-      -# TODO: .annotation  ...don't want to muck things up yet, though.
-      %p= collection_item.annotation
+      .annotation
+        %p= collection_item.annotation
+    - # TODO: .references go here
     - unless collection_item.sort_field.blank?
-      %p= I18n.t(:sort_field) + collection_item.sort_field
+      %p.sort_value
+        %strong= I18n.t('helpers.label.collection_item.sort_field_show')
+        = collection_item.sort_field

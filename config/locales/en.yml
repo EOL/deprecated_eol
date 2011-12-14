@@ -160,6 +160,8 @@ en:
     models:
       user: "account"
     attributes:
+      comment:
+        body: "Comment"
       content_page:
         page_name: "Unique name"
         sort_order: "Sort order"

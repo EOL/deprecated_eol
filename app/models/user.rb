@@ -478,7 +478,10 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     end
     self.update_attributes(:curator_verdict_by => nil,
                            :curator_verdict_at => nil,
-                           :requested_curator_level_id => nil)
+                           :requested_curator_level_id => nil,
+                           :credentials => nil,
+                           :curator_scope => nil,
+                           :curator_approved => nil)
   end
   alias revoke_curatorship revoke_curator
 

@@ -69,12 +69,16 @@ describe 'Users' do
       # User added an article
       udo = UsersDataObject.gen(:user_id => user.id, :taxon_concept => tc, :vetted_id => Visibility.visible.id)
       user_submitted_text_count = UsersDataObject.count(:conditions => ['user_id = ?', user.id])
+      # Curator activity log
+      object = DataObject.gen
+      cal = CuratorActivityLog.gen(:user_id => user.id, :taxon_concept => tc, :object_id => object.id, :activity_id => Activity.trusted.id, :changeable_object_type_id => ChangeableObjectType.find_by_ch_object_type('data_object').id)
+      dotc = DataObjectsTaxonConcept.gen(:data_object => object, :taxon_concept => tc)
       visit(user_path(user))
       body.should have_tag("h3", :text => "Activity")
       body.should have_tag("h3", :text => "Curator qualifications")
-      body.should have_tag("a[href=" + user_activity_path(user, :filter => "data_object_curation") + "]", :text => User.total_objects_curated_by_action_and_user(nil, user.id))
-      body.should have_tag("a[href=" + user_activity_path(user, :filter => "added_data_objects") + "]", :text => user_submitted_text_count)
-      #TODO - maybe generate activity logs to have real values for data_object_curation and curated_taxa
+      body.should have_tag("a[href=" + user_activity_path(user, :filter => "data_object_curation") + "]", :text => I18n.t(:user_activity_stats_objects_curated, :count => User.total_objects_curated_by_action_and_user(nil, user.id)))
+      body.should have_tag("a[href=" + user_activity_path(user, :filter => "added_data_objects") + "]", :text => I18n.t(:user_activity_stats_articles_added, :count => user_submitted_text_count))
+      body.should include I18n.t(:user_activity_stats_taxa_curated, :count => user.total_species_curated)
     end
   end
 

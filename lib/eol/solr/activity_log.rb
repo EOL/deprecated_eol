@@ -144,7 +144,7 @@ module EOL
           comments = Comment.find_all_by_id((i...(i+limit)).to_a, :conditions => "parent_type='TaxonConcept'")
           Comment.preload_associations(comments,
             [ { :parent => [ :flattened_ancestors, :containing_collections ] } ],
-            :select => { :comments => '*', :users => [:id], :taxon_concepts => [:id], :collections => [ :id, :user_id ] })
+            :select => { :comments => '*', :users => [:id], :taxon_concepts => [:id], :collections => [:id] })
           comments.each do |c|
             c.log_activity_in_solr
           end
@@ -157,7 +157,7 @@ module EOL
               { :curated_data_objects_hierarchy_entries => :hierarchy_entry } ] } ],
             :select => { :comments => '*', :users => [:id], :data_objects => [:id], :data_objects_hierarchy_entries => '*',
               :curated_data_objects_hierarchy_entries => '*', :hierarchy_entries => [:id, :taxon_concept_id],
-              :taxon_concepts => [:id], :collections => [ :id, :user_id ] })
+              :taxon_concepts => [:id], :collections => [:id] })
           comments.each do |c|
             c.log_activity_in_solr
           end

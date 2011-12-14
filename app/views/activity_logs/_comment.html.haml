@@ -73,7 +73,7 @@
       - if item.user_id == current_user.id && item.deleted == 0
         %span.delete= link_to(I18n.t(:delete), comment_path(item.id), :'data-to-delete' => item.id)
         %span.edit= link_to(I18n.t(:edit), edit_comment_path(item.id), :'data-to-edit' => item.body)
-      - unless supress_reply || ! item.user
+      - if item.user
         %span.reply= link_to(I18n.t(:reply), '#new_comment', :'data-reply-to' => item.user.full_name, :'data-reply-to-type' => item.class.name, :'data-reply-to-id' => item.id)
   - else
     %p.deleted_comment= I18n.t(:this_comment_was_deleted)

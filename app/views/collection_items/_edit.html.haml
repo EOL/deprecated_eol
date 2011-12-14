@@ -1,39 +1,12 @@
-- item_type ||= en_type(collection_item)
-.checkbox
-  = check_box_tag "collection_items[]", collection_item.id, @selected_collection_items.include?(collection_item.id.to_s) || @select_all, :id => "collection_item_#{collection_item.id}"
-- if ['image_map', 'image', 'video', 'sound'].include?(item_type)
-  = render :partial => "shared/item_summary_media.html.haml", :locals => {:item => collection_item.object, :en_type => item_type}
-- elsif ! item_type.blank?
-  = render :partial => "shared/item_summary_#{item_type}.html.haml", :locals => {:item => collection_item.object}
--# When JS is disabled, you are taken to a page specific to the collection item, which has its own form:
-- if defined?(item_form)
-  - form_for @collection_item, :builder => ApplicationHelper::EolFormBuilder, :html => { :multipart => true } do |f|
-    %fieldset
-      = f.label :annotation
-      = f.text_area :annotation
-      = f.label :sort_field
-      = f.text_field :sort_field
-      = f.load_minimal_tags_allowed
-      = submit_tag I18n.t(:save_annotation_submit_button)
-- else
-  .annotation
-    %p= collection_item.annotation
-  -#TODO: .references goes here
-  %p.sort_value
-    %strong= I18n.t('helpers.label.collection_item.sort_field_show')
-    = collection_item.sort_field
-  %p.edit
-    = link_to I18n.t(:edit_annotation), '#' # Really, we don't want this to go anywhere as the form is displayed below
-    - # when JS is off and CSS hides the link. TODO: When JS and CSS is off the link shows which is bad for accessibility.
-  .collection_item_form
-    - parent_form.fields_for :collection_items, collection_item do |item_form|
-      %fieldset
-        = item_form.label :annotation
-        = item_form.text_area :annotation
-        - # TODO: figure out why I18n is not getting the label value automatically: label value should override attribute value.
-        = item_form.label :sort_field, I18n.t('helpers.label.collection_item.sort_field')
-        = item_form.text_field :sort_field
-        = item_form.load_minimal_tags_allowed
-      %fieldset.actions
-        = submit_tag I18n.t(:save_annotation_submit_button), :name => :commit_annotation
-        = link_to I18n.t(:cancel), '#'
+- # Partial rendered within collections page by 'collections/edit_collection_item partial' when JS enabled.
+- parent_form.fields_for :collection_items, collection_item do |item_form|
+  %fieldset
+    = item_form.label :annotation
+    = item_form.text_area :annotation
+    = item_form.load_minimal_tags_allowed
+    - # TODO: figure out why I18n is not getting the label value automatically for sort_field: label value should override attribute value.
+    = item_form.label :sort_field, I18n.t('helpers.label.collection_item.sort_field')
+    = item_form.text_field :sort_field
+  %fieldset.actions
+    = submit_tag I18n.t(:save_annotation_submit_button), :name => :commit_annotation
+    = link_to I18n.t(:cancel), '#'

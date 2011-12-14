@@ -1,5 +1,6 @@
 - view_style ||= 'default'
 - item_type ||= en_type(collection_item)
+- item_editable ||= false
 - if logged_in?
   - if collection_item
     .checkbox
@@ -12,11 +13,6 @@
   = I18n.t(:item_details_missing)
 - unless ['image_gallery','names_only'].include?(view_style)
   - if collection_item
-    - if collection_item.annotation
-      .annotation
-        %p= collection_item.annotation
-    - # TODO: .references go here
-    - unless collection_item.sort_field.blank?
-      %p.sort_value
-        %strong= I18n.t('helpers.label.collection_item.sort_field_show')
-        = collection_item.sort_field
+    .editable
+      = render :partial => 'collection_items/show_editable_attributes', :locals => { :collection_item => collection_item,
+        :item_editable => item_editable }

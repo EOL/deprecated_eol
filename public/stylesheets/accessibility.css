@@ -18,7 +18,7 @@ body.home > #header {
   background: transparent url("/images/v2/bg_home_earth.jpg") 50% 100% no-repeat; }
 
 /*Busy indicator for JS submitted forms e.g. exemplar image */
-.busy {
+html.busy, html.busy *, .busy {
   cursor: wait; }
 
 /*Override for layout on users edit - we have extra nested div so we need to remove padding,

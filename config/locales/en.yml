@@ -322,6 +322,8 @@ en:
       create: "Create %{model}"
       update: "Update %{model}"
       submit: 'Save %{model}'
+      collection_item:
+        update: "Save"
       content_page:
         create: "Create page"
         edit: "Edit"
@@ -927,7 +929,7 @@ en:
   collection_destroyed: "The collection was deleted."
   collection_image: "Collection image"
   collection_is_empty: "This collection is currently empty."
-  collection_item_annotation_label: "Collection item annotation"
+  collection_item_edit_page_title: "Edit item in collection <em>%{collection_name}</em>"
   collection_item_not_found_error: "That collection item could not be found."
   collection_name_label: "Collection name"
   collection_newsfeed: "Collection Newsfeed"
@@ -1209,8 +1211,8 @@ en:
   copy: "Copy"
   copy_of_name: "Copy of %{name}"
   copy_items_to_a_new_collection_with_count:
-    one: "Move %{count} item to a new collection"
-    other: "Move %{count} items to a new collection"
+    one: "Copy %{count} item to a new collection"
+    other: "Copy %{count} items to a new collection"
   copyright: "COPYRIGHT:"
   correct_donation_message: "If this information is not correct, please %{go_back_link} to make changes"
   could_not_find_collection_error: "Sorry, that collection could not be found."
@@ -1780,6 +1782,9 @@ en:
   most_active_members: "Most active members"
   move: "Move"
   move_down: "Move down"
+  move_items_to_a_new_collection_with_count:
+    one: "Move %{count} item to a new collection"
+    other: "Move %{count} items to a new collection"
   move_to_bottom: "move to bottom"
   move_to_top: "move to top"
   move_up: "Move up"

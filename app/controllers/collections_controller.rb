@@ -77,7 +77,7 @@ class CollectionsController < ApplicationController
     return redirect_to_choose(:copy) if params[:commit_copy]
     return chosen if params[:scope] && params[:for] == 'copy'
     # copy is the only update action allowed for non-owners
-    return if user_able_to_edit_collection
+    return if user_able_to_edit_collection # reads weird but will raise exception and exit if user cannot edit collection
     return redirect_to_choose(:move) if params[:commit_move]
     return remove_and_redirect if params[:commit_remove]
     return annotate if params[:commit_annotation]
@@ -234,7 +234,8 @@ private
     if params[:scope] == 'selected_items'
       return no_items_selected_error(:copy) if params[:collection_items].nil? or params[:collection_items].empty?
     end
-    return redirect_to params.merge(:action => 'choose', :for => for_what).except(*unnecessary_keys_for_redirect)
+    return_to = request.referrer || collection_path(@collection)
+    return redirect_to params.merge(:action => 'choose', :for => for_what, :return_to => return_to).except(*unnecessary_keys_for_redirect)
   end
 
   def chosen
@@ -316,12 +317,14 @@ private
         @duplicates = true
       else
         old_collection_items << collection_item
-        # Annotations may only be copied when the user has a right to edit them. This avoids some IP problems.
-        annotate = options[:from].editable_by?(current_user) ? collection_item.annotation : nil
+        # Some data may only be copied when the user has a right to edit them. This avoids some IP problems.
+        # TODO: Add references to copiable items
+        copiable = options[:from].editable_by?(current_user) ?
+                     { :annotation => collection_item.annotation,
+                       :sort_field => collection_item.sort_field } : {}
         new_collection_items << { :object_id => collection_item.object.id,
                                   :object_type => collection_item.object_type,
-                                  :annotation => annotate,
-                                  :added_by_user_id => current_user.id }
+                                  :added_by_user_id => current_user.id }.merge!(copiable)
         count += 1
         # TODO - gak.  This points to the wrong collection item and needs to be moved to AFTER the save:
         CollectionActivityLog.create(:collection => options[:to], :user => current_user,
@@ -361,11 +364,8 @@ private
           # Sorry this is confusing, but we don't know which attribute number will have the id:
           @collection_item = CollectionItem.find(params[:collection][:collection_items_attributes].keys.map {|i|
             params[:collection][:collection_items_attributes][i][:id] }.first)
-          render :partial => 'edit_collection_item', :locals => { :collection_item => @collection_item }
-        end
-        format.html do
-          # TODO: Ideally this should be render :show but quick fixing to enable annotation editing when JS off:
-          redirect_to @collection
+          render :partial => 'collection_items/show_editable_attributes',
+            :locals => { :collection_item => @collection_item, :item_editable => true }
         end
       end
     else

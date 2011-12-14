@@ -48,14 +48,13 @@ class CollectionItemsController < ApplicationController
     end
   end
 
-  # PUT /collection_items/1
+  # PUT /collection_items/:id
   def update
+    # Update method is called when JS off by submit of /collection_items/:id/edit. When JS is on collection item
+    # updates are handled by the Collections update method and specifically the annotate method in Collections controller.
+    access_denied unless current_user.can_update?(@collection_item)
     if @collection_item.update_attributes(params[:collection_item])
       respond_to do |format|
-        format.js do
-          # TODO - this won't work 'cause I'm using @collection_item to test whether to use a full form.  Fix:
-          render :partial => 'edit', :locals => { :collection_item => @collection_item }
-        end
         format.html do
           flash[:notice] = I18n.t(:item_updated_in_collection_notice, :collection_name => @collection_item.collection.name)
           redirect_to(@collection_item.collection)
@@ -63,7 +62,6 @@ class CollectionItemsController < ApplicationController
       end
     else
       respond_to do |format|
-        format.js { render :text => I18n.t(:item_not_updated_in_collection_error) }
         format.html do
           flash[:error] = I18n.t(:item_not_updated_in_collection_error)
           redirect_to(@collection_item.collection)
@@ -72,14 +70,18 @@ class CollectionItemsController < ApplicationController
     end
   end
 
-  # TODO - html
-  # TODO - permissions checking
+  # GET /collection_items/:id/edit
   def edit
-    # TODO - Abstract the find into a before filter and handle not found errors..
     respond_to do |format|
-      format.html
+      format.html do
+        access_denied unless current_user.can_update?(@collection_item)
+        @collection = @collection_item.collection
+        @page_title = I18n.t(:collection_item_edit_page_title, :collection_name => @collection.name)
+        render :edit, :layout => 'v2/basic'
+      end
       format.js do
-        render :partial => 'edit', :locals => { :collection_item => @collection_item }
+        @collection = @collection_item.collection
+        render :partial => 'collections/edit_collection_item', :locals => { :collection_item => @collection_item }
       end
     end
   end
@@ -87,7 +89,7 @@ class CollectionItemsController < ApplicationController
 private
 
   def find_collection_item
-    @collection_item = CollectionItem.find(params[:id])
+    @collection_item = CollectionItem.find(params[:id], :include => [:collection])
     @selected_collection_items = [] # To avoid errors.  If you edit something, it becomes unchecked.  That's okay.
   end
 

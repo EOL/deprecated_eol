@@ -916,6 +916,9 @@ body
         height: 68px
         line-height: 68px
         padding: 0 3px
+      .editable
+        clear: both
+        margin: 0
       .annotation
         clear: both
         margin: 0
@@ -931,8 +934,8 @@ body
         clear: both
         font-size: .9em
       p.edit
+        clear: both
         font-size: .9em
-        display: none
       .collection_item_form
         margin: 10px 0 0 0
         textarea
@@ -950,9 +953,6 @@ body
             display: inline
         input[type="text"]
           +input
-        fieldset.actions
-          a
-            display: none
   ul.collection_gallery
     li
       float: left
@@ -1008,7 +1008,7 @@ body
           font-weight: bold
           color: #5F6C76
 
-#collections_edit
+#collections_edit, #collection_items_edit
   width: 500px
   margin: 0 auto
   h2

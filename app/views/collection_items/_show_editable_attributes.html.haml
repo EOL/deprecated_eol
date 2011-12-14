@@ -1,0 +1,12 @@
+- if collection_item.annotation
+  .annotation
+    %p= collection_item.annotation
+- # TODO: .references go here
+- unless collection_item.sort_field.blank?
+  %p.sort_value
+    %strong= I18n.t('helpers.label.collection_item.sort_field_show')
+    = collection_item.sort_field
+- if item_editable
+  %p.edit
+    = link_to I18n.t(:edit_annotation), edit_collection_item_path(collection_item, :return_to => current_url)
+  .collection_item_form

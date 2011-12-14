@@ -1,6 +1,0 @@
-- item = CollectionItem.find(@field_id) rescue nil
-- item_type = en_type(item)
-- if item
-  = render :partial => 'collection_items/show', :locals => { :collection_item => item, :editable => editable, :item_type => en_type(item) }
-- else
-  %p= I18n.t(:collection_item_not_found_error)

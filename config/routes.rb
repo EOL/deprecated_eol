@@ -26,7 +26,8 @@ ActionController::Routing::Routes.draw do |map|
                               :collection => { :choose_collect_target => :get,
                                                :choose_editor_target => :get,
                                                :collect_item => :post }
-  map.resources :collection_items, :except => [:index, :show, :new, :destroy]
+  # Not nesting collection_items under collections: creation is complex, plus edit only used for non-JS users
+  map.resources :collection_items, :only => [:create, :edit, :update]
   #used in collections show page, when user clicks on left tabs
   map.filtered_collection 'collections/:id/:filter', :controller => 'collections', :action => 'show'
 

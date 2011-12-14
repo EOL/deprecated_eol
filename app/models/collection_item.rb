@@ -38,6 +38,9 @@ class CollectionItem < ActiveRecord::Base
                 :collections => {:facet => 'Collection',   :i18n_key => "collections"}}
   end
 
+  def can_be_updated_by?(user_wanting_access)
+    user_wanting_access.can_edit_collection?(collection)
+  end
   # Using has_one :through didn't work:
   def community
     return nil unless collection

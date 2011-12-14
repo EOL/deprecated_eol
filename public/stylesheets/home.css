@@ -258,8 +258,6 @@ body > #footer {
           background-position: 0 -75px; }
         body > #footer ul.social_media li a.flickr {
           background-position: 0 -100px; }
-        body > #footer ul.social_media li a.youtube {
-          background-position: 0 -125px; }
 
 .thumbnails {
   padding: 10px 0 0 0;
@@ -429,7 +427,8 @@ body {
       right: 30px;
       top: 30px;
       z-index: 2;
-      background: #080f13;
+      background-color: #080f13;
+      background-color: rgba(8, 15, 19, 0.6);
       padding: 10px; }
       body > #header .session.signed_in img {
         float: right;

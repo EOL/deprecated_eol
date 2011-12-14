@@ -10,6 +10,13 @@ $.ajaxSetup({accepts: {
   xml: "application/xml, text/xml"
 }});
 
+// Globally change cursor to busy when we're waiting on AJAX event to finish.
+$("html").bind("ajaxStart", function(){
+  $(this).addClass('busy');
+}).bind("ajaxStop", function(){
+  $(this).removeClass('busy');
+});
+
 $(function() {
 
   $(".heading form.filter, form.select_submit").find(".actions").hide().find(":submit").end().end().find("select")
@@ -111,15 +118,32 @@ $(function() {
   (function($collection) {
     $collection.find("ul.object_list li").each(function() {
       var $li = $(this);
-      $li.find("p.edit").show().next().hide().end().find("a").click(function() {
-        $(this).parent().hide().next().show();
-        return false;
+      $li.find("p.edit").show().delegate("a", "click keydown", function( event ) {
+        event.preventDefault();
+        $(this).parent().hide();
+        var $update = $(this).parent().next('.collection_item_form');
+        EOL.ajax_get($(this), {update: $update, type: 'GET'});
       });
-      $li.find(".collection_item_form a").click(function() {
-        $(this).closest(".collection_item_form").hide().prev().show();
-        return false;
+      $li.find(".collection_item_form").delegate("a", "click keydown", function( event ) {
+        event.preventDefault();
+        $(this).closest(".collection_item_form").hide().prev().show().end().html('');
+      });
+      $li.find(".collection_item_form").delegate("input[type='submit']", "click keydown", function( event ) {
+        event.preventDefault();
+        EOL.ajax_submit($(this), {
+          data: "_method=put&commit_annotation=true&" +
+            $(this).closest(".collection_item_form").find("input, textarea").serialize()
+        });
       });
     });
+    $collection.find('#sort_by').change(function() {
+      $(this).closest('form').find('input[name="commit_sort"]').click();
+    });
+    $collection.find('input[name="commit_sort"]').hide();
+    $collection.find('#view_as').change(function() {
+      $(this).closest('form').find('input[name="commit_view_as"]').click();
+    });
+    $collection.find('input[name="commit_view_as"]').hide();
   })($("#collections"));
 
   $("input[placeholder]").each(function() {
@@ -281,7 +305,7 @@ $(function() {
 // trying to generalize Ajax calls for EOL. Parameters:
 //   el: The element firing the event.  It helps us find stuff, please pass it.
 //   update: where you want the (html) response to go.  Defaults to the closest .editable item.
-//   url: where you want the form to subit to.  Defaults to the data_url of the el you pass in, then to the nearest
+//   url: where you want the form to sumbit to.  Defaults to the data_url of the el you pass in, then to the nearest
 //        form's action.
 //   data: The data to send.  Defaults to the nearest form, serialized.
 //   complete: Function to call when complete.  Optional.
@@ -342,4 +366,3 @@ EOL.ajax_get = function(el, args) {
   });
   return(false); // stop event... there's a better way to do this?
 };
-

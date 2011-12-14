@@ -25,8 +25,6 @@ javascripts:
   - jquery
   - jquery_ui
   - concept_manager
-- collections:
-  - collections
 - communities:
   - communities
 - mobile:

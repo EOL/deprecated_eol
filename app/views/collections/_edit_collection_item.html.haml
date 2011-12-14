@@ -1,4 +1,4 @@
--# This is absolutely ridiculous, but I'm strapped for time.  We render the FORM, which we will then have to remove
--# in JS, *JUST* so we can get the damn nested attrribute names right.
-- form_for(@collection, { :html => {:method => :put } }) do |f|
+- # Partial to render parent collection form needed for nested collection item form within collection page.
+- # Only used when JS is enabled. Its loaded via AJAX when user chooses to edit item, and is removed on submit or cancel.
+- form_for(@collection, :builder => ApplicationHelper::EolFormBuilder, :html => {:method => :put }) do |f|
   = render :partial => 'collection_items/edit', :locals => { :collection_item => @collection_item, :item_type =>  en_type(@collection_item), :parent_form => f}

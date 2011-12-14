@@ -1469,6 +1469,9 @@ body > #header {
   height: 68px;
   line-height: 68px;
   padding: 0 3px; }
+#collections ul.object_list li .editable {
+  clear: both;
+  margin: 0; }
 #collections ul.object_list li .annotation {
   clear: both;
   margin: 0; }
@@ -1484,8 +1487,8 @@ body > #header {
   clear: both;
   font-size: 0.9em; }
 #collections ul.object_list li p.edit {
-  font-size: 0.9em;
-  display: none; }
+  clear: both;
+  font-size: 0.9em; }
 #collections ul.object_list li .collection_item_form {
   margin: 10px 0 0 0; }
   #collections ul.object_list li .collection_item_form textarea {
@@ -1518,8 +1521,6 @@ body > #header {
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
     background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
     background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white)); }
-  #collections ul.object_list li .collection_item_form fieldset.actions a {
-    display: none; }
 #collections ul.collection_gallery li {
   float: left;
   width: 88px;
@@ -1576,12 +1577,12 @@ body > #header {
       font-weight: bold;
       color: #5f6c76; }
 
-#collections_edit {
+#collections_edit, #collection_items_edit {
   width: 500px;
   margin: 0 auto; }
-  #collections_edit h2 {
+  #collections_edit h2, #collection_items_edit h2 {
     margin: 0 0 20px 0; }
-  #collections_edit input[type="text"] {
+  #collections_edit input[type="text"], #collection_items_edit input[type="text"] {
     width: 488px;
     height: 22px;
     padding: 2px 5px;
@@ -1591,12 +1592,12 @@ body > #header {
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
     background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
     background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white)); }
-  #collections_edit textarea {
+  #collections_edit textarea, #collection_items_edit textarea {
     width: 482px;
     height: 60px; }
-  #collections_edit fieldset.actions {
+  #collections_edit fieldset.actions, #collection_items_edit fieldset.actions {
     padding: 20px 0; }
-    #collections_edit fieldset.actions input[type="submit"] {
+    #collections_edit fieldset.actions input[type="submit"], #collection_items_edit fieldset.actions input[type="submit"] {
       padding: 7px 10px;
       font-size: 1em; }
 

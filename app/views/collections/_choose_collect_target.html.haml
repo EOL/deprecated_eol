@@ -47,5 +47,5 @@
       %fieldset.actions
         = link_to(I18n.t(:see_all_of_your_collections), user_collections_path(current_user), :class => 'other_actions close_and_go')
         = submit_tag(params[:for] ? I18n.t(params[:for]) : I18n.t(:collect_item))
-        - if @item
-          = link_to(I18n.t(:go_back), link_to_item(@item), :class => 'close')
+        - if @item || params[:return_to]
+          = link_to(I18n.t(:go_back), params[:return_to] || link_to_item(@item), :class => 'close')

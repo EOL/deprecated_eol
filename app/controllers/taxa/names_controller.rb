@@ -159,7 +159,7 @@ private
   end
 
   def set_vet_options
-    @common_name_vet_options = {I18n.t(:trusted) => Vetted.trusted.id.to_s, I18n.t(:unreviewed) => Vetted.unknown.id.to_s, I18n.t(:untrusted) => Vetted.untrusted.id.to_s, I18n.t(:inappropriate) => Vetted.inappropriate.id.to_}
+    @common_name_vet_options = {I18n.t(:trusted) => Vetted.trusted.id.to_s, I18n.t(:unreviewed) => Vetted.unknown.id.to_s, I18n.t(:untrusted) => Vetted.untrusted.id.to_s, I18n.t(:inappropriate) => Vetted.inappropriate.id.to_i}
   end
 
   def preload_core_relationships_for_names

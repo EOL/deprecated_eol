@@ -146,16 +146,16 @@ class ContentPartner < SpeciesSchemaModel
   def last_action
     dates_to_compare = [updated_at]
     unless resources.blank?
-      dates_to_compare + resources.collect{|r| r.updated_at}
-      dates_to_compare + resources.collect{|r| r.created_at}
+      dates_to_compare += resources.collect{|r| r.updated_at}
+      dates_to_compare += resources.collect{|r| r.created_at}
     end
     unless content_partner_contacts.blank?
-      dates_to_compare + content_partner_contacts.collect{|c| c.updated_at}
-      dates_to_compare + content_partner_contacts.collect{|c| c.created_at}
+      dates_to_compare += content_partner_contacts.collect{|c| c.updated_at}
+      dates_to_compare += content_partner_contacts.collect{|c| c.created_at}
     end
     unless content_partner_agreements.blank?
-      dates_to_compare + content_partner_agreements.collect{|a| a.updated_at}
-      dates_to_compare + content_partner_agreements.collect{|a| a.created_at}
+      dates_to_compare += content_partner_agreements.collect{|a| a.updated_at}
+      dates_to_compare += content_partner_agreements.collect{|a| a.created_at}
     end
     dates_to_compare.compact!
     dates_to_compare.blank? ? nil : dates_to_compare.sort.last

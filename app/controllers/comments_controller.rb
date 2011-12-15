@@ -89,7 +89,6 @@ private
         access_denied 
       end
     when 'destroy'
-      debugger
       if (@comment.user.id != current_user.id && !current_user.is_admin?) || @comment.deleted == 1
         access_denied 
       end

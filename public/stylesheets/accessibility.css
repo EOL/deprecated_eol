@@ -1239,19 +1239,19 @@ body#prelaunch #footer ul.social_media {
 .feed .delete {
   float: right;
   font-weight: bold;
-  text-transform: uppercase;
+  text-transform: lowercase;
   margin-left: 5px; }
 
 .feed .edit {
   float: right;
   font-weight: bold;
-  text-transform: uppercase;
+  text-transform: lowercase;
   margin-left: 5px; }
 
 .feed .reply {
   float: right;
   font-weight: bold;
-  text-transform: uppercase;
+  text-transform: lowercase;
   margin-left: 5px; }
 
 #new_comment p.reply-to {

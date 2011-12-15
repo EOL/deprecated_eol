@@ -79,6 +79,19 @@ class Language < SpeciesSchemaModel
     @@unknown_language ||= cached_find_translated(:label, "Unknown")
   end
   
+  def self.all_unknowns
+    cached("unknown_languages") do
+      unknown_languages = []
+      ['unknown', 'unspecified', 'undetermined', 'common name', 'miscellaneous languages', 'multiple languages'].each do |l|
+        if lang = cached_find_translated(:label, l)
+          unknown_languages << lang
+        end
+      end
+      unknown_languages
+    end
+  end
+  
+  
   def self.common_name
     cached_find_translated(:label, "Common name")
   end

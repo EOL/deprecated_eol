@@ -44,8 +44,8 @@ module EOL
       @name               = tcn.name
       @name_string        = tcn.name.string
       @language           = tcn.language
-      @language           = Language.unknown if @language == Language.common_name || @language.blank?
-      @language_label     = tcn.language.label rescue 'Unknown'
+      @language           = Language.unknown if @language.blank? || Language.all_unknowns.include?(@language)
+      @language_label     = @language.label rescue 'Unknown'
       @synonyms           = [ tcn.synonym ]
       @preferred          = tcn.preferred?
       @vetted             = tcn.vetted
@@ -85,7 +85,7 @@ module EOL
 
     # This is only used in the scope of a single TaxonConcept... otherwise I would add that (at the cost of some obfuscation).
     def unique_id
-      "name-#{@taxon_concept_name.language_id}-#{@taxon_concept_name.name.id}"
+      "name-#{@language.id}-#{@taxon_concept_name.name.id}"
     end
 
     def agent_names

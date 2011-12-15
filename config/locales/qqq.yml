@@ -59,3 +59,15 @@ qqq:
     lorem:
       words: No need to translate this set of words, obviously.
   replying_to_x: "This is for use by JavaScript, and thus the 'X' is replaced AT RUNTIME, and so the character 'X' (literally--do not use your language's version of 'X', but exactly that character: 'X') must appear in your translation. The result will be something like 'Replying to Jeremy' after replacement."
+  results_avg: "these are table column headings, and the \'avg\' is meant to represent \'average\', because we're counting the number of results that occurred, on average, for a search term within a given date range."
+  suggested_results_avg: "these are table column headings, and the \'avg\' is meant to represent \'average\', because we're counting the number of suggested results that occurred, on average, for a search term within a given date range."
+  common_name_avg: "these are table column headings, and the \'avg\' is meant to represent \'average\', because we're counting the number of common name results that occurred, on average, for a search term within a given date range."
+  scientific_name_avg: "these are table column headings, and the \'avg\' is meant to represent \'average\', because we're counting the number of scientific name results that occurred, on average, for a search term within a given date range."
+  activerecord:
+    attributes:
+      resource:
+        harvest_events: "A 'Harvest Event' is the record of when data was imported for a resource (which is a collection of species information), so the term is meant to capture the sense of data being 'harvested' in a single 'event' in time."
+  user_response: "This is a table column heading where the cells in the column represent the response provided by a user when answering a survey question."
+  who_registered_before: "The value of this key is simply 'to' because it is used in the context of a date range, where the user inputs a start date before this string and an end date after it.  ie: '...a user who registered from ____ to ____'"
+  add_a_taxon_association_label: "A 'taxon association' is the association between a data object (for example, an image) and a single species (or other single taxonomic entity, such as class, order, or kingdom) ... more simply, a taxon association is saying something like 'This is a picture of a blackbird.'"
+  comments_on: "This is meant to be the header for a page where we're listing all of the comments on a particular subject, such as 'Comments on An Image of A Blackbird' or 'Comments on Procyon Lotor' or 'Comments on Jeremy Rice'.  Thus, this string is prepended to the title of the page where the comments were originally left, and these titles are supplied by content partners, so we CANNOT know the number, gender, or other information about the string."

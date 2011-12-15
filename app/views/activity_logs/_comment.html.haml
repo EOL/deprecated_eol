@@ -57,18 +57,26 @@
         - show_body = show_body.sub(at_re, '@' + link_to("\\1", "##{item.reply_to_type}-#{item.reply_to_id}") + ':')
       %p= sanitize show_body.balance_tags
     %p.meta
+      = I18n.t(:created_colon)
       = I18n.t(:time_ago, :time_passed => time_ago_in_words(item.created_at))
-      = I18n.t(:edited_colon) + "#{" "}" + I18n.t(:time_ago, :time_passed => time_ago_in_words(item.updated_at)) unless item.created_at == item.updated_at
-      - if item.user_id == current_user.id && item.deleted == 0
+      - unless item.created_at == item.updated_at
+        &bull;
+        = I18n.t(:edited_colon)
+        = I18n.t(:time_ago, :time_passed => time_ago_in_words(item.updated_at))
+      - if (item.user_id == current_user.id || current_user.is_admin?) && item.deleted == 0
         %span.delete= link_to(I18n.t(:delete), comment_path(item.id), :'data-to-delete' => item.id)
-        %span.edit= link_to(I18n.t(:edit), edit_comment_path(item.id), :'data-to-edit' => item.body)
+        %span.edit= link_to(I18n.t(:edit), edit_comment_path(item.id), :'data-to-edit' => item.body) if item.user_id == current_user.id
       - unless supress_reply || ! item.user
         %span.reply= link_to(I18n.t(:reply), '#new_comment', :'data-reply-to' => item.user.full_name, :'data-reply-to-type' => item.class.name, :'data-reply-to-id' => item.id)
   - else
     %p.deleted_comment= I18n.t(:this_comment_was_deleted)
     %p.meta
+      = I18n.t(:created_colon)
       = I18n.t(:time_ago, :time_passed => time_ago_in_words(item.created_at))
-      = I18n.t(:deleted_colon) + "#{" "}" + I18n.t(:time_ago, :time_passed => time_ago_in_words(item.updated_at)) unless item.created_at == item.updated_at
+      - unless item.created_at == item.updated_at
+        &bull;
+        = I18n.t(:deleted_colon)
+        = I18n.t(:time_ago, :time_passed => time_ago_in_words(item.updated_at))
 .edit_comment_form
   - form_for item, :html => { :class => 'comment' } do |f|
     %fieldset

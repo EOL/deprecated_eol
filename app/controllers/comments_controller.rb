@@ -2,7 +2,7 @@ class CommentsController < ApplicationController
 
   layout :comments_layout
   before_filter :allow_login_then_submit, :only => [:create]
-  before_filter :authentication_modify_own_comments_only, :only => [:edit, :update, :destroy]
+  before_filter :allow_modify_comments, :only => [:edit, :update, :destroy]
 
   # POST /comments
   def create
@@ -81,10 +81,17 @@ private
     end
   end
 
-  def authentication_modify_own_comments_only
+  def allow_modify_comments
     @comment = Comment.find(params[:id])
-    if @comment.user.id != current_user.id || @comment.deleted == 1
-      access_denied
+    case action_name
+    when 'update', 'edit'
+      if @comment.user.id != current_user.id || @comment.deleted == 1
+        access_denied 
+      end
+    when 'destroy'
+      if (@comment.user.id != current_user.id && !current_user.is_admin?) || @comment.deleted == 1
+        access_denied 
+      end
     end
   end
 

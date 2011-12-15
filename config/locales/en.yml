@@ -163,6 +163,8 @@ en:
       collection_item:
         annotation: "Annotation"
         sort_field: "Sort by"
+      comment:
+        body: "Comment"
       content_page:
         page_name: "Unique name"
         sort_order: "Sort order"
@@ -1238,8 +1240,8 @@ en:
   create_user_unsuccessful_error: "Sorry, an error occurred, your new account was not created. Please ensure all fields are completed correctly."
   created_at: "Created at"
   created_by: "Created by"
-  created_community: "Community was successfully created."
   created_colon: "Created:"
+  created_community: "Community was successfully created."
   created: "Created"
   creative_commons: "Creative Commons"
   credentials: "Credentials"
@@ -1322,7 +1324,6 @@ en:
   default_focus_collection_name_from_community: "%{name}'s Focus"
   default_watch_collection_name: "%{username}'s Watch List"
   definition: "Definition"
-  delete_comment_lowercase: "delete comment"
   delete_community: "Delete this community"
   delete: "delete"
   deleted_colon: "deleted:"
@@ -2426,18 +2427,40 @@ en:
   user_activity_click_on_the_numbers: "Click on the numbers to see respective activity feeds."
   user_activity_report_intro: "User-activity report.  Select a specific user to see his activities sorted inversely by time created. Select 'All' to see all user activities. Then click 'Search' to proceed (use your browser back button to return here)."
   user_activity_page_title: "User Activity"
-  user_activity_stats_articles_added: "Articles added"
-  user_activity_stats_comment_submitted: "Comments submitted"
-  user_activity_stats_common_names_added: "Common names added"
-  user_activity_stats_common_names_curated: "Common names curated"
-  user_activity_stats_common_names_removed: "Common names removed"
+  user_activity_stats_articles_added:
+    one: "%{count} article added"
+    other: "%{count} articles added"
+  user_activity_stats_articles_added_dropdown: "Articles added"
+  user_activity_stats_comment_submitted: 
+    one: "%{count} comment submitted"
+    other: "%{count} comments submitted"
+  user_activity_stats_common_names_added:
+    one: "%{count} common name added"
+    other: "%{count} common names added"
+  user_activity_stats_common_names_curated:
+    one: "%{count} common name curated"
+    other: "%{count} common names curated"
   user_activity_stats_header: "Activity"
-  user_activity_stats_objects_curated: "Objects curated"
-  user_activity_stats_set_exemplar: "Images set as exemplar"
-  user_activity_stats_taxa_commented: "Taxa commented"
-  user_activity_stats_taxa_comments: "Taxa comments"
-  user_activity_stats_taxa_curated: "Taxa curated"
-  user_activity_stats_wikipedia_nominated: "Wikipedia nominated for ingestion"
+  user_activity_stats_objects_curated:
+    one: "%{count} object curated"
+    other: "%{count} objects curated"
+  user_activity_stats_objects_curated_dropdown: "Objects curated"
+  user_activity_stats_set_exemplar:
+    one: "%{count} image set as exemplar"
+    other: "%{count} images set as exemplar"
+  user_activity_stats_taxa_commented:
+    one: "%{count} taxon commented"
+    other: "%{count} taxa commented"
+  user_activity_stats_taxa_comments:
+    one: "%{count} taxa comment"
+    other: "%{count} taxa comments"
+  user_activity_stats_taxa_comments_dropdown: "Taxa comments"
+  user_activity_stats_taxa_curated:
+    one: "%{count} taxon curated"
+    other: "%{count} taxa curated"
+  user_activity_stats_wikipedia_nominated:
+    one: "%{count} Wikipedia article nominated"
+    other: "%{count} Wikipedia articles nominated"
   user_agent: "User agent"
   user_already_active_notice: "Your account is already active, please login."
   user_comments: "User Comments"

@@ -10,12 +10,12 @@
             %dd
               = select_tag :filter, options_for_select([ [I18n.t(:all_title), ''], 
                 [I18n.t(:comments), 'comments'], 
-                [I18n.t(:user_activity_stats_objects_curated), 'data_object_curation'], 
-                [I18n.t(:user_activity_stats_articles_added), 'added_data_objects'], 
+                [I18n.t(:user_activity_stats_objects_curated_dropdown), 'data_object_curation'], 
+                [I18n.t(:user_activity_stats_articles_added_dropdown), 'added_data_objects'], 
                 [I18n.t(:collections), 'collections'], 
                 [I18n.t(:communities), 'communities'],
                 [I18n.t(:names), 'names'],
-                [I18n.t(:user_activity_stats_taxa_comments), 'taxa_comments'], 
+                [I18n.t(:user_activity_stats_taxa_comments_dropdown), 'taxa_comments'], 
                 ], @filter)
           %input(type="submit" value="#{I18n.t(:filter_button)}")
     - if @filter == "curated_taxa"

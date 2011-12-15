@@ -21,11 +21,11 @@ class FeedsController < ApplicationController
       when 'DataObject'
         redirect_to add_hash_to_path(data_object_path(parent, :page => page), 'Comment', params[:id])
       when 'Community'
-        redirect_to add_hash_to_path(community_path(parent, :page => page), 'Comment', params[:id])
+        redirect_to add_hash_to_path(community_newsfeed_path(parent, :page => page), 'Comment', params[:id])
       when 'Collection'
-        redirect_to add_hash_to_path(collection_path(parent, :page => page), 'Comment', params[:id])
+        redirect_to add_hash_to_path(filtered_collection_path(parent, 'newsfeed', :page => page), 'Comment', params[:id])
       when 'User'
-        redirect_to add_hash_to_path(user_path(parent, :page => page), 'Comment', params[:id])
+        redirect_to add_hash_to_path(user_newsfeed_path(parent, :page => page), 'Comment', params[:id])
       else
         raise "Unknown comment parent type: #{comment.parent_type}"
       end
@@ -49,7 +49,7 @@ class FeedsController < ApplicationController
       cal = CollectionActivityLog.find(params[:id])
       source = cal.collection
       page = find_index(source, 'CollectionActivityLog', params[:id], 20)
-      redirect_to add_hash_to_path(collection_path(source, :page => page), 'CollectionActivityLog', params[:id])
+      redirect_to add_hash_to_path(collection_path(source, :page => page, :filter => 'newsfeed'), 'CollectionActivityLog', params[:id])
     when "UsersDataObject"
       # This one is somewhat questionable: do we want to go to the user's page or to the taxon concpet page where it
       # was added?  Or to the data object itself?  I suppose that last one makes the most sense, soooo:
@@ -225,6 +225,6 @@ private
   end
 
   def add_hash_to_path(path, type, id)
-    path += "##{type}-#{id}"
+    path += "##{params[:reply] ? 'reply-to-' : ''}#{type}-#{id}"
   end
 end

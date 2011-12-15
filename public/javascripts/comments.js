@@ -1,4 +1,7 @@
 EOL.highlight_comment = function(el) {
+  if($(el).size() == 0) {
+    return false;
+  }
   var dest = $(el).offset().top;
   $('li').removeClass('highlight');
   el.closest('li').toggleClass('highlight');
@@ -7,25 +10,68 @@ EOL.highlight_comment = function(el) {
 };
 
 EOL.reply_to = function(el) {
-  string = $(el.target).data('reply-to');
-  var $submit = $('#new_comment :submit');
+  var $href = $(el.target).attr('href');
+  var $target = $('a[name='+$href.replace(/^.*#reply-to-/, '')+']');
+  var redirected = EOL.jump_to_comment($target, $href, true);
+  if(redirected) {
+    return(false);
+  }
+  var replying_to = $(el.target).data('reply-to');
+  $('form#reply').remove();
+  var $form = $('form#new_comment').clone().attr("id","reply");
+  if ($form.size() == 0) { // No form on this page.
+    EOL.redirect_to_comment_source($href);
+    return(false);
+  }
+  $(el.target).parent().parent().after($form);
+  var $submit = $form.find(':submit');
   $submit.data('post', $submit.val()).val($submit.data('reply'));
-  $('#new_comment p.reply-to').remove();
-  $submit.before('<p class="reply-to">'+$submit.data('replying-to-x').replace('X', string)+'</p>');
-  var $tarea = $('#new_comment textarea');
-  $tarea.val('@'+string+': '+$tarea.val().replace(/^@[^:]+: */, ''));
-  $('#new_comment input#comment_reply_to_type').val($(el.target).data('reply-to-type'));
-  $('#new_comment input#comment_reply_to_id').val($(el.target).data('reply-to-id'));
-  $("html,body").animate({ scrollTop: $tarea.offset().top}, 650);
+  $submit.after('<a id="reply-cancel" href="#">'+$submit.data('cancel')+'</a>');
+  $('a#reply-cancel').click(function() {$('form#reply').remove(); return(false); });
+  $form.find('p.reply-to').remove();
+  var $tarea = $form.find('textarea');
+  $tarea.css('width', $tarea.css('width').replace('px', '') - 80 + 'px');
+  $form.find('input#comment_reply_to_type').val($(el.target).data('reply-to-type'));
+  $form.find('input#comment_reply_to_id').val($(el.target).data('reply-to-id'));
   $tarea.focus();
   return(false);
 };
 
+EOL.follow_reply = function(el) {
+  var $href = $(el).attr('href');
+  var $target = $('a[name='+$href.replace(/^.*#/, '')+']');
+  EOL.jump_to_comment($target, $href, false);
+};
+
+EOL.redirect_to_comment_source = function(href, reply) {
+  window.location = '/activity_logs/find/'+href.replace(/^.*-(\d+)$/, '\$1')+'?'+
+    $.param({type: href.replace(/^.*[#-]([^-]+)-\d+$/, '\$1'), reply: reply});
+};
+
+EOL.jump_to_comment = function(target, href, reply) {
+  if (target.size() == 0) {
+    EOL.redirect_to_comment_source(href, reply);
+    return(true);
+  } else {
+    EOL.highlight_comment(target);
+    return(false);
+  }
+};
+
 EOL.init_comment_behaviours = function($items) {
+
+  if(location.hash != "") {
+    var name  = location.hash.replace(/#/, '').replace(/\?.*$/, '');
+    var reply = name.replace('reply-to-', '');
+    if (name == reply) {
+      EOL.highlight_comment($('a[name='+name+']'));
+    } else {
+      $('a[name='+reply+']').parent().find('span.reply a').click();
+    }
+  }
+
   $items.each(function() {
     var $li = $(this);
-
-
     $li.find('p span.reply a').click(EOL.reply_to);
     $li.find('p span').hide().parent().parent().mouseover(function() {
       $(this).find('span').show();
@@ -33,20 +79,11 @@ EOL.init_comment_behaviours = function($items) {
       $(this).find('span').hide();
     });
 
-    $li.find('blockquote p a[href^=#]').click(function() {
-      var href = $(this).attr('href');
-      var target = $('a[name='+href.replace('#', '')+']');
-      if (target.size() == 0) {
-        window.location = '/activity_logs/find/'+href.replace(/[^0-9]/g, '')+'?type='+href.replace(/^#(.*)-.*$/, '\$1');
-      } else {
-        EOL.highlight_comment(target);
-      }
-    });
+    $li.find('blockquote p a[href^=#]').click(function() { EOL.follow_reply($(this)); });
 
     if(location.hash != "") {
       EOL.highlight_comment($('a[name='+location.hash.replace(/#/, '').replace(/\?.*$/, '')+']'));
     }
-
 
     // TODO try changing the input to :submit, which is a jQuery shortcut
     $li.find(".edit_comment_form input[type='submit']").click(function() {
@@ -92,7 +129,7 @@ EOL.init_comment_behaviours = function($items) {
         }
       });
       return(false);
-      
+
     });
   });
 }

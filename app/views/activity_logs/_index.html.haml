@@ -1,6 +1,5 @@
 - truncate_comments ||= false
 - hide_pagination ||= false
-- supress_reply ||= false
 - if log.blank?
   .empty
     -if @filter.blank?
@@ -15,15 +14,15 @@
         %a{:name => "#{item.class.name}-#{item.id}"}
         - case item.class.name
         - when "CuratorActivityLog"
-          = render :partial => 'activity_logs/curator_activity_log', :locals => {:item => item, :supress_reply => supress_reply}
+          = render :partial => 'activity_logs/curator_activity_log', :locals => {:item => item}
         - when "Comment"
-          = render :partial => 'activity_logs/comment', :locals => {:item => item, :truncate_comments => truncate_comments, :supress_reply => supress_reply}
+          = render :partial => 'activity_logs/comment', :locals => {:item => item, :truncate_comments => truncate_comments}
         - when "UsersDataObject"
-          = render :partial => 'activity_logs/users_data_object_log', :locals => {:item => item, :supress_reply => supress_reply}
+          = render :partial => 'activity_logs/users_data_object_log', :locals => {:item => item}
         - when "CollectionActivityLog"
-          = render :partial => 'activity_logs/collection_activity_log', :locals => {:item => item, :supress_reply => supress_reply}
+          = render :partial => 'activity_logs/collection_activity_log', :locals => {:item => item}
         - when "CommunityActivityLog"
-          = render :partial => 'activity_logs/community_activity_log', :locals => {:item => item, :supress_reply => supress_reply}
+          = render :partial => 'activity_logs/community_activity_log', :locals => {:item => item}
         - else
           - raise "Unknown activity log type: #{item.class.name}"
   - unless hide_pagination

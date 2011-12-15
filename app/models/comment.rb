@@ -252,8 +252,7 @@ class Comment < ActiveRecord::Base
 
   # A reply is only counted as a reply if it has an "@username:" somewhere in it.
   def reply?
-    at_re = /@([^:]+):/ # Recall that in-line REs can cause memory leaks.
-    reply_to_id && body =~ at_re
+    reply_to_id
   end
 
 private

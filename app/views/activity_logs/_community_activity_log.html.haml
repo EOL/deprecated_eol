@@ -1,4 +1,3 @@
-- supress_reply ||= false
 = link_to image_tag(item.user.logo_url(:small), :alt => I18n.t(:comment_show_posters_image_alt,
   :posters_name => h(item.user.full_name))), user_path(item.user), :class => 'avatar'
 .details
@@ -28,5 +27,5 @@
       = I18n.t(:activity_user_modified_community, :user => name_with_link, :community => link_to(item.community.summary_name, community_path(item.community)))
   %p.meta
     = I18n.t(:time_ago, :time_passed => time_ago_in_words(item.created_at))
-    - unless supress_reply || ! item.user
-      %span.reply= link_to(I18n.t(:reply), '#new_comment', :'data-reply-to' => item.user.full_name, :'data-reply-to-type' => item.class.name, :'data-reply-to-id' => item.id)
+    - if item.user
+      %span.reply= link_to(I18n.t(:reply), community_newsfeed_path(item.community) + "#reply-to-CommunityActivityLog-#{item.id}", :'data-reply-to' => item.user.full_name, :'data-reply-to-type' => item.class.name, :'data-reply-to-id' => item.id)

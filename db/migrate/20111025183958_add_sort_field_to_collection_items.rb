@@ -2,7 +2,7 @@ class AddSortFieldToCollectionItems < ActiveRecord::Migration
   def self.up
     add_column :collection_items, :sort_field, :string
     sort_field_style = SortStyle.create
-    TranslatedSortStyle.create(:language => Language.english_for_migrations, :name => 'Sort Field', :sort_style => sort_field_style)
+    TranslatedSortStyle.create(:language => Language.english_for_migrations, :name => 'Sort Value', :sort_style => sort_field_style)
   end
 
   def self.down

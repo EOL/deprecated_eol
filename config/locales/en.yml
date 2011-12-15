@@ -376,6 +376,7 @@ en:
         annotation: "Annotation"
         sort_field: "Sort by <small>(date, number, or text; optional)</small>"
         sort_field_show: "Sort value:"
+        sort_field_more: "Sort is alphanumeric so for dates ensure you reverse the date and use leading zeros, e.g. for August 23, 2011 you can use 2011.08.23. Items with empty sort values will appear last."
       content_page:
         active: "Published"
         active_more: "Published pages will be publicly visible. Uncheck <em>published</em> if you want to prevent general users from viewing versions of this page in any language."
@@ -931,6 +932,7 @@ en:
   collection_is_empty: "This collection is currently empty."
   collection_item_edit_page_title: "Edit item in collection <em>%{collection_name}</em>"
   collection_item_not_found_error: "That collection item could not be found."
+  collection_item_edit_by_javascript_not_authorized_error: "Sorry, you do not have permission to edit this collection item. If you are the collection owner or editor please reload the page and check that you are logged in."
   collection_name_label: "Collection name"
   collection_newsfeed: "Collection Newsfeed"
   collection_not_created_error: "Sorry, an error occurred, the collection <em>%{collection_name}</em> could not be created."

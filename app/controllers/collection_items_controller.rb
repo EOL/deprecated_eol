@@ -52,7 +52,7 @@ class CollectionItemsController < ApplicationController
   def update
     # Update method is called when JS off by submit of /collection_items/:id/edit. When JS is on collection item
     # updates are handled by the Collections update method and specifically the annotate method in Collections controller.
-    access_denied unless current_user.can_update?(@collection_item)
+    return access_denied unless current_user.can_update?(@collection_item)
     if @collection_item.update_attributes(params[:collection_item])
       respond_to do |format|
         format.html do
@@ -74,14 +74,18 @@ class CollectionItemsController < ApplicationController
   def edit
     respond_to do |format|
       format.html do
-        access_denied unless current_user.can_update?(@collection_item)
+        return access_denied unless current_user.can_update?(@collection_item)
         @collection = @collection_item.collection
         @page_title = I18n.t(:collection_item_edit_page_title, :collection_name => @collection.name)
         render :edit, :layout => 'v2/basic'
       end
       format.js do
-        @collection = @collection_item.collection
-        render :partial => 'collections/edit_collection_item', :locals => { :collection_item => @collection_item }
+        if current_user.can_update?(@collection_item)
+          @collection = @collection_item.collection
+          render :partial => 'collections/edit_collection_item', :locals => { :collection_item => @collection_item }
+        else
+          render :text => I18n.t(:collection_item_edit_by_javascript_not_authorized_error)
+        end
       end
     end
   end

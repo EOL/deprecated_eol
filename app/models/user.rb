@@ -417,7 +417,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     end
     return_hash
   end
-  
+
   # TODO - test
   def total_comments_curated
     User.comment_curation_actions(self.id).length
@@ -584,6 +584,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def can_edit_collection?(collection)
+    return false if collection.blank?
     return true if collection.users.include?(self) # Her collection
     collection.communities.each do |community|
       return true if can_manage_community?(community)
@@ -620,11 +621,11 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   def all_submitted_datos
     UsersDataObject.find(:all, :conditions => "user_id = #{self[:id]}").map {|udo| DataObject.find(udo.data_object_id) }
   end
-  
+
   def self.count_submitted_datos(user_id = nil)
     count_user_rows(UsersDataObject, user_id)
   end
-  
+
   def self.count_user_rows(klass, user_id = nil)
     query = "SELECT user_id, COUNT(*) as count FROM #{klass.full_table_name} "
     if user_id.class == Fixnum
@@ -643,8 +644,8 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     end
     return_hash
   end
-  
-  
+
+
 
   # Returns an array of descriptions from all of the data objects submitted by this user.  NOT USED ANYWHERE.  This
   # is a convenience method for developers to use.
@@ -805,19 +806,19 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     return false unless data_object
     return WorklistIgnoredDataObject.find_by_user_id_and_data_object_id(self.id, data_object.id)
   end
-  
+
   def is_hidden?
     hidden == 1
   end
-  
+
   def hide_comments(current_user)
     # remove comments from database
     comments = Comment.find_all_by_user_id(self.id)
     comments.each do |comment|
-      comment.hide(current_user)      
-    end    
+      comment.hide(current_user)
+    end
   end
-  
+
   def unhide_comments(current_user)
     comments = Comment.find_all_by_user_id(self.id)
     comments.each do |comment|
@@ -833,7 +834,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
       data_object.update_solr_index
     end
   end
-  
+
   def unhide_data_objects
     data_objects = UsersDataObject.find_all_by_user_id(self.id, :include => :data_object).collect{|udo| udo.data_object}.uniq
     data_objects.each do |data_object|

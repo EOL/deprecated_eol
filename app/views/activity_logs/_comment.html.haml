@@ -97,7 +97,7 @@
       = f.label :body, I18n.t(:edit_comment_lowercase), :class => 'assistive'
       = f.text_area :body, :rows => rows, :cols => cols
     %fieldset.actions
-      = submit_tag (I18n.t(:save_comment_lowercase), :'data-url' => edit_comment_path(item.id))
+      = submit_tag(I18n.t(:save_comment_lowercase), :'data-url' => edit_comment_path(item.id))
       %a{:href=>"#"}= I18n.t(:cancel)
   %blockquote{:cite => h(item.user.full_name)}
     - show_body = ''

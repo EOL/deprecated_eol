@@ -111,9 +111,9 @@ describe 'Feeds' do
   end
 
   it 'should allow replies to comments' do
+    truncate_all_tables
+    load_foundation_cache
     community = Community.gen
-    CuratorLevel.create_defaults # need to gen users.
-    Activity.create_defaults # needed for log items.
     user = User.gen
     login_as user
     log = CommunityActivityLog.gen(:community => community, :user => user, :activity => Activity.create)

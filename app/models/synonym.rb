@@ -57,7 +57,8 @@ class Synonym < SpeciesSchemaModel
                                :language_id         => language.id,
                                :synonym_relation_id => relation.id,
                                :vetted              => vetted,
-                               :preferred           => preferred)
+                               :preferred           => preferred,
+                               :published           => 1)
       if synonym && synonym.errors.blank?
         AgentsSynonym.create(:agent_id         => agent.id,
                            :agent_role_id    => AgentRole.contributor.id,
@@ -92,7 +93,8 @@ private
     count = TaxonConceptName.find_all_by_taxon_concept_id_and_language_id(tc_id, language_id).length
     if count == 0  # this is the first name in this language for the concept
       self.preferred = 1
-    elsif self.preferred?  # only reset other names to preferred=0 when this name is to be preferred
+    # only reset other names to preferred=0 when this name is preferred and from the EOL curators hierarchy
+    elsif self.preferred? && self.hierarchy_id == Hierarchy.eol_contributors.id
       Synonym.connection.execute("UPDATE synonyms SET preferred = 0 where hierarchy_entry_id = #{hierarchy_entry_id} and  language_id = #{language_id}")
       TaxonConceptName.connection.execute("UPDATE taxon_concept_names set preferred = 0 where taxon_concept_id = #{tc_id} and  language_id = #{language_id}")
     end

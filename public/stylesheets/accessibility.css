@@ -1252,7 +1252,7 @@ body#prelaunch #footer ul.social_media {
   color: #62707d; }
 
 .feed p.actions {
-  line-height: 100%; }
+  line-height: 80%; }
   .feed p.actions span {
     text-transform: lowercase;
     margin-right: 5px;

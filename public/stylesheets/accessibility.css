@@ -1173,16 +1173,20 @@ a.other_actions {
   #taxon_updates form.comment textarea {
     width: 580px; }
 
-#collections_tab form#reply fieldset {
-  margin-top: 10px; }
-  #collections_tab form#reply fieldset #comment_body {
-    float: right; }
+#collections_tab form#reply {
+  padding: 0; }
+  #collections_tab form#reply fieldset {
+    margin-top: 10px; }
+    #collections_tab form#reply fieldset #comment_body {
+      float: right; }
 
-.article form#reply fieldset {
-  margin-top: 10px; }
-  .article form#reply fieldset #comment_body {
-    float: right;
-    margin-right: 16px; }
+.article form#reply {
+  padding: 0; }
+  .article form#reply fieldset {
+    margin-top: 10px; }
+    .article form#reply fieldset #comment_body {
+      float: right;
+      margin-right: 16px; }
 
 #permalink #main form#reply {
   border: 0;

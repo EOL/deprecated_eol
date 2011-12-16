@@ -32,8 +32,8 @@ class FeedsController < ApplicationController
     when "CuratorActivityLog"
       cal = CuratorActivityLog.find(params[:id])
       # There are only two kinds: taxon and dato...
-      if cal.taxon_concept
-        page = find_index(parent, 'CuratorActivityLog', params[:id], 10)
+      if source = cal.taxon_concept
+        page = find_index(source, 'CuratorActivityLog', params[:id], 10)
         redirect_to add_hash_to_path(taxon_updates_path(cal.taxon_concept, :page => page), 'CuratorActivityLog', params[:id])
       else # Dato:
         source = cal.data_object

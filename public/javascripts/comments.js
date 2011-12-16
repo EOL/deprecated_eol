@@ -60,19 +60,9 @@ EOL.jump_to_comment = function(target, href, reply) {
   }
 };
 
-EOL.init_comment_behaviours = function($items) {
+EOL.init_comment_behaviours = function(items) {
 
-  if(location.hash != "") {
-    var name  = location.hash.replace(/#/, '').replace(/\?.*$/, '');
-    var reply = name.replace('reply-to-', '');
-    if (name == reply) {
-      EOL.highlight_comment($('a[name='+name+']'));
-    } else {
-      $('a[name='+reply+']').parent().find('span.reply a').click();
-    }
-  }
-
-  $items.each(function() {
+  items.each(function() {
     var $li = $(this);
     $li.find('p span.reply a').click(EOL.reply_to);
     // TEMP - we want to try this without show/hide: $(this).find('span').show();
@@ -139,4 +129,13 @@ EOL.init_comment_behaviours = function($items) {
 
 $(function() {
   EOL.init_comment_behaviours($('ul.feed li'));
+  if(location.hash != "") {
+    var name  = location.hash.replace(/#/, '').replace(/\?.*$/, '');
+    var reply = name.replace('reply-to-', '');
+    if (name == reply) {
+      EOL.highlight_comment($('a[name='+name+']'));
+    } else {
+      $('a[name='+reply+']').parent().find('span.reply a').click();
+    }
+  }
 });

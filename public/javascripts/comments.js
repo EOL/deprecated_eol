@@ -74,10 +74,6 @@ EOL.init_comment_behaviours = function(items) {
 
     $li.find('blockquote p a[href^=#]').click(function() { EOL.follow_reply($(this)); });
 
-    if(location.hash != "") {
-      EOL.highlight_comment($('a[name='+location.hash.replace(/#/, '').replace(/\?.*$/, '')+']'));
-    }
-
     // TODO try changing the input to :submit, which is a jQuery shortcut
     $li.find(".edit_comment_form input[type='submit']").click(function() {
       var $node = $(this).closest("li");

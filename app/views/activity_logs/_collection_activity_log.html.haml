@@ -43,4 +43,5 @@
     %p.meta
       = I18n.t(:time_ago, :time_passed => time_ago_in_words(item.created_at))
       - if item.user
-        %span.reply= link_to(I18n.t(:reply), collection_path(item.collection) + "#reply-to-CollectionActivityLog-#{item.id}", :'data-reply-to' => item.user.full_name, :'data-reply-to-type' => item.class.name, :'data-reply-to-id' => item.id)
+        %p.actions
+          %span.reply= link_to(I18n.t(:reply), collection_path(item.collection) + "#reply-to-CollectionActivityLog-#{item.id}", :'data-reply-to' => item.user.full_name, :'data-reply-to-type' => item.class.name, :'data-reply-to-id' => item.id)

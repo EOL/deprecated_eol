@@ -1251,28 +1251,17 @@ body#prelaunch #footer ul.social_media {
   font-style: italic;
   color: #62707d; }
 
-.feed .delete {
-  float: right;
-  font-weight: bold;
-  text-transform: lowercase;
-  margin-left: 5px; }
-
-.feed .edit {
-  float: right;
-  font-weight: bold;
-  text-transform: lowercase;
-  margin-left: 5px; }
-
-.feed .reply {
-  float: right;
-  font-weight: bold;
-  text-transform: lowercase;
-  margin-left: 5px; }
+.feed p.actions {
+  line-height: 100%; }
+  .feed p.actions span {
+    text-transform: lowercase;
+    margin-right: 5px;
+    font-size: 0.9em; }
 
 #new_comment p.reply-to {
-  float: right;
+  float: left;
   color: #195184;
   font-weight: bold; }
 
 .highlight {
-  background-color: #f1f4dc; }
+  background-color: #f3f7fa; }

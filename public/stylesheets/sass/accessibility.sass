@@ -1302,31 +1302,19 @@ body#prelaunch #footer ul.social_media
   font-style: italic
   color: #62707D
 
-// "Button" (link) for deleting the comments in newsfeeds:
-.feed .delete
-  float: right
-  font-weight: bold
-  text-transform: lowercase
-  margin-left: 5px
-
-// "Button" (link) for editing the comments in newsfeeds:
-.feed .edit
-  float: right
-  font-weight: bold
-  text-transform: lowercase
-  margin-left: 5px
-
-// "Button" (link) for replying to comments and the like in newsfeeds:
-.feed .reply
-  float: right
-  font-weight: bold
-  text-transform: lowercase
-  margin-left: 5px
+// "Button" (link) for deleting the comments in newsfeeds.  Note the line-height is a little awkward, but I liked it
+// better than removing the padding-bottom on the previous div... which, FWIW, wasn't enough anyway.
+.feed p.actions
+  line-height: 80%
+  span
+    text-transform: lowercase
+    margin-right: 5px
+    font-size: 0.9em
 
 #new_comment p.reply-to
-  float: right
+  float: left
   color: #195184
   font-weight: bold
 
 .highlight
-  background-color: #F1F4DC
+  background-color: #F3F7FA

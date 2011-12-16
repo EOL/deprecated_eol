@@ -10,29 +10,31 @@ EOL.highlight_comment = function(el) {
 };
 
 EOL.reply_to = function(el) {
-  var $href = $(el.target).attr('href');
+  var $el = $(el.target);
+  var $href = $el.attr('href');
   var $target = $('a[name='+$href.replace(/^.*#reply-to-/, '')+']');
   var redirected = EOL.jump_to_comment($target, $href, true);
   if(redirected) {
     return(false);
   }
-  var replying_to = $(el.target).data('reply-to');
-  $('form#reply').remove();
+  var replying_to = $el.data('reply-to');
+  $('span.reply').show(); // Show any that may be hidden...
+  $('form#reply').remove(); // ...but remove the forms.
   var $form = $('form#new_comment').clone().attr("id","reply");
   if ($form.size() == 0) { // No form on this page.
     EOL.redirect_to_comment_source($href);
     return(false);
   }
-  $(el.target).parent().parent().after($form);
+  $el.parent().hide().parent().after($form);
   var $submit = $form.find(':submit');
   $submit.data('post', $submit.val()).val($submit.data('reply'));
   $submit.after('<a id="reply-cancel" href="#">'+$submit.data('cancel')+'</a>');
-  $('a#reply-cancel').click(function() {$('form#reply').remove(); return(false); });
+  $('a#reply-cancel').click(function() {$('form#reply').remove(); $('span.reply').show(); return(false); });
   $form.find('p.reply-to').remove();
   var $tarea = $form.find('textarea');
   $tarea.css('width', $tarea.css('width').replace('px', '') - 80 + 'px');
-  $form.find('input#comment_reply_to_type').val($(el.target).data('reply-to-type'));
-  $form.find('input#comment_reply_to_id').val($(el.target).data('reply-to-id'));
+  $form.find('input#comment_reply_to_type').val($el.data('reply-to-type'));
+  $form.find('input#comment_reply_to_id').val($el.data('reply-to-id'));
   $tarea.focus();
   return(false);
 };
@@ -73,11 +75,12 @@ EOL.init_comment_behaviours = function($items) {
   $items.each(function() {
     var $li = $(this);
     $li.find('p span.reply a').click(EOL.reply_to);
-    $li.find('p span').hide().parent().parent().mouseover(function() {
-      $(this).find('span').show();
-    }).mouseleave(function() {
-      $(this).find('span').hide();
-    });
+    // TEMP - we want to try this without show/hide: $(this).find('span').show();
+    // $li.find('p span').hide().parent().parent().mouseover(function() {
+      // $(this).find('span').show();
+    // }).mouseleave(function() {
+      // $(this).find('span').hide();
+    // });
 
     $li.find('blockquote p a[href^=#]').click(function() { EOL.follow_reply($(this)); });
 

@@ -74,12 +74,11 @@
         &bull;
         = I18n.t(:edited_colon)
         = I18n.t(:time_ago, :time_passed => time_ago_in_words(item.updated_at))
-      %p
+      %p.actions
         - if (item.user_id == current_user.id || current_user.is_admin?) && item.deleted == 0
           %span.delete= link_to(I18n.t(:delete), comment_path(item.id), :'data-to-delete' => item.id)
-          %span.edit= link_to(I18n.t(:edit), edit_comment_path(item.id), :'data-to-edit' => item.body) if item.user_id == current_user.id
           %span.edit= link_to(I18n.t(:edit), edit_comment_path(item.id), :'data-to-edit' => item.body)
-          %span.reply= link_to(I18n.t(:reply), '#new_comment', :'data-reply-to' => item.user.full_name, :'data-reply-to-type' => item.class.name, :'data-reply-to-id' => item.id)
+        %span.reply= link_to(I18n.t(:reply), parent_newsfeed + "#reply-to-Comment-#{item.id}", :'data-reply-to' => item.user.full_name, :'data-reply-to-type' => item.class.name, :'data-reply-to-id' => item.id)
   - else
     %p.deleted_comment= I18n.t(:this_comment_was_deleted)
     %p.meta
@@ -113,5 +112,3 @@
     %p= sanitize show_body.balance_tags
   %p.meta
     = I18n.t(:time_ago, :time_passed => time_ago_in_words(item.updated_at))
-    - if item.user && parent_newsfeed
-      %span.reply= link_to(I18n.t(:reply), parent_newsfeed + "#reply-to-Comment-#{item.id}", :'data-reply-to' => item.user.full_name, :'data-reply-to-type' => item.class.name, :'data-reply-to-id' => item.id)

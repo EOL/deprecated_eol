@@ -252,8 +252,9 @@ module EOL
         end
         # add curated users
         curation = CuratorActivityLog.find_all_by_object_id_and_changeable_object_type_id_and_activity_id(data_object.id,
-          [ ChangeableObjectType.data_object.id, ChangeableObjectType.data_objects_hierarchy_entry.id ],
-          [ Activity.untrusted.id, Activity.trusted.id, Activity.untrusted.id, Activity.hide.id, Activity.show.id,
+          [ ChangeableObjectType.data_object.id, ChangeableObjectType.data_objects_hierarchy_entry.id,
+            ChangeableObjectType.curated_data_objects_hierarchy_entry.id, ChangeableObjectType.users_data_object.id],
+          [ Activity.untrusted.id, Activity.trusted.id, Activity.hide.id, Activity.show.id,
             Activity.inappropriate.id, Activity.unreviewed.id,  Activity.add_association.id,  Activity.add_common_name.id])
         curation.each do |cal|
           hash['curated_by_user_id'] ||= []

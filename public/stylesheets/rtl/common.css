@@ -268,6 +268,8 @@ body > #footer {
           background-position: right -75px; }
         body > #footer ul.social_media li a.flickr {
           background-position: right -100px; }
+        body > #footer ul.social_media li a.youtube {
+          background-position: right -125px; }
 
 .thumbnails {
   padding: 10px 0 0 0;

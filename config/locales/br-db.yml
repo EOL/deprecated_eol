@@ -122,6 +122,7 @@ br:
   translated_licenses-description-license_id-7: Tammoù gwirioù miret
   translated_licenses-description-license_id-8: Tammoù gwirioù miret
   translated_licenses-description-license_id-9: Tammoù gwirioù miret
+  translated_ranks-label-rank_id-106: furmskrid
   translated_ranks-label-rank_id-112: gen.
   translated_ranks-label-rank_id-113: gen.
   translated_ranks-label-rank_id-118: genad
@@ -178,6 +179,8 @@ br:
   translated_sort_styles-name-sort_style_id-3: Lizherennek
   translated_sort_styles-name-sort_style_id-4: Eilpennañ al lizherenneg
   translated_sort_styles-name-sort_style_id-5: Pinvidigezh
+  translated_sort_styles-name-sort_style_id-6: Priziañ
+  translated_statuses-label-status_id-1: Ensoc'het
   translated_statuses-label-status_id-2: Hizivaet
   translated_statuses-label-status_id-3: Digemm
   translated_statuses-label-status_id-4: Adimplijet
@@ -188,6 +191,7 @@ br:
   translated_synonym_relations-label-synonym_relation_id-2: anv-boutin
   translated_synonym_relations-label-synonym_relation_id-24: anv distaolet
   translated_synonym_relations-label-synonym_relation_id-3: gwreskanv
+  translated_synonym_relations-label-synonym_relation_id-48: anv dizimplijadus
   translated_synonym_relations-label-synonym_relation_id-49: anv reizh
   translated_synonym_relations-label-synonym_relation_id-50: reizh
   translated_synonym_relations-label-synonym_relation_id-51: Degemeret
@@ -195,12 +199,14 @@ br:
   translated_synonym_relations-label-synonym_relation_id-53: anv diembann
   translated_synonym_relations-label-synonym_relation_id-56: Fazi reizhskrivañ
   translated_synonym_relations-label-synonym_relation_id-6: anv all
+  translated_synonym_relations-label-synonym_relation_id-63: n'eo ket degemeret
   translated_table_of_contents-label-table_of_contents_id-1: Brassell
   translated_table_of_contents-label-table_of_contents_id-13: Anvioù-boutin
   translated_table_of_contents-label-table_of_contents_id-14: IUCN
   translated_table_of_contents-label-table_of_contents_id-17: Daveennoù el lennegezh
   translated_table_of_contents-label-table_of_contents_id-194: Ment
   translated_table_of_contents-label-table_of_contents_id-2: Diverrañ krak-ha-berr
+  translated_table_of_contents-label-table_of_contents_id-218: Dasparzh
   translated_table_of_contents-label-table_of_contents_id-221: Riskloù
   translated_table_of_contents-label-table_of_contents_id-225: War ar Genrouedad
   translated_table_of_contents-label-table_of_contents_id-227: Klask er Genrouedad
@@ -209,6 +215,7 @@ br:
   translated_table_of_contents-label-table_of_contents_id-244: Levrlennadurioù
   translated_table_of_contents-label-table_of_contents_id-267: Morfologiezh
   translated_table_of_contents-label-table_of_contents_id-278: Levrlennadur
+  translated_table_of_contents-label-table_of_contents_id-285: Kevredigezhioù
   translated_table_of_contents-label-table_of_contents_id-286: Stad mirout
   translated_table_of_contents-label-table_of_contents_id-289: Emdroadur
   translated_table_of_contents-label-table_of_contents_id-293: Deskrivadur an diagnostik
@@ -225,12 +232,14 @@ br:
   translated_table_of_contents-label-table_of_contents_id-308: Deskrivadur klok
   translated_table_of_contents-label-table_of_contents_id-309: Dasparzh
   translated_table_of_contents-label-table_of_contents_id-310: Diorroadur
+  translated_table_of_contents-label-table_of_contents_id-313: Kleñvedoù hag arvevaded
   translated_table_of_contents-label-table_of_contents_id-316: Emzalc'h
   translated_table_of_contents-label-table_of_contents_id-317: Kelc'hiegezh
   translated_table_of_contents-label-table_of_contents_id-318: Kelc'hiad ar vuhez
   translated_table_of_contents-label-table_of_contents_id-319: Hoali
   translated_table_of_contents-label-table_of_contents_id-320: Gouennañ
   translated_table_of_contents-label-table_of_contents_id-321: Kresk
+  translated_table_of_contents-label-table_of_contents_id-322: Istor ar fosiloù
   translated_table_of_contents-label-table_of_contents_id-324: Azasadurioù arc'hwelel
   translated_table_of_contents-label-table_of_contents_id-325: Fiziologiezh ha bevoniezh kelligel
   translated_table_of_contents-label-table_of_contents_id-326: Bevoniezh volekulel ha Genetik
@@ -257,10 +266,12 @@ br:
   translated_table_of_contents-label-table_of_contents_id-4: Ekologiezh
   translated_table_of_contents-label-table_of_contents_id-41: Annez
   translated_table_of_contents-label-table_of_contents_id-5: Emdroadur ha sistemategezh
+  translated_table_of_contents-label-table_of_contents_id-6: Talvoudegezh evit Mab-den hag an ekoreizhiadoù
   translated_table_of_contents-label-table_of_contents_id-7: Daveennoù ha titouroù ouzhpenn
   translated_table_of_contents-label-table_of_contents_id-8: Mirerezh
   translated_untrust_reasons-label-untrust_reason_id-2: direizh/faziek
   translated_untrust_reasons-label-untrust_reason_id-3: kalite izel
+  translated_untrust_reasons-label-untrust_reason_id-4: eilet
   translated_untrust_reasons-label-untrust_reason_id-5: All
   translated_user_identities-label-user_identity_id-2: ur studier
   translated_user_identities-label-user_identity_id-3: un desaver

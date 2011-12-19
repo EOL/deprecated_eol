@@ -1,6 +1,7 @@
 # Messages for Dutch (Nederlands)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
+# Author: GerardM
 # Author: McDutchie
 # Author: Patio
 # Author: SPQRobin
@@ -125,9 +126,6 @@ nl:
         equal_to: moet gelijk zijn aan %{count}
         even: moet even getal zijn
         exclusion: is gereserveerd
-        greater_than: 
-          one: moet groter zijn dan %{count}
-          other: moeten groter zijn dan %{count}
         greater_than_or_equal_to: moet groter dan of gelijk zijn aan %{count}
         inaccessible: is niet toegankelijk
         inclusion: wordt niet opgenomen in de lijst
@@ -316,12 +314,14 @@ nl:
   all_pages: Alle pagina's
   all_people: Alle mensen
   all_sounds: Alle geluiden
+  all_sources: Alle bronnen
   all_taxa: Alle taxa
   all_title: Alle
   all_videos: Alle video's
   already_a_member_question: Bent u al lid?
   already_member_of_community: U bent al lid van deze gemeenschap.
   alternate_classification: Alternatieve classificatie
+  amount: Bedrag
   and: en
   and_between_form_items: en
   any_integer: een geheel getal
@@ -329,6 +329,7 @@ nl:
   are_you_sure: Weet u het zeker?
   are_you_sure_this_action_cannot_be_undone: Weet u het zeker?  Deze handeling kan niet ongedaan worden gemaakt.
   article_from: pagina uit
+  article_from_supplier: Artikel van %{whom}
   article_more_about: Meer informatie over deze pagina
   article_of: Artikel van
   article_rating: Artikelwaardering
@@ -355,6 +356,8 @@ nl:
   associated_with_article_header: In dit artikel
   associated_with_header: Gekoppeld met
   associated_with_image_header: In deze afbeelding
+  associated_with_image_map_header: Op deze kaart
+  associated_with_map_header: Op deze kaart
   associated_with_sound_header: In dit geluidsbestand
   associated_with_video_header: In deze video
   attribute: Eigenschap
@@ -408,12 +411,12 @@ nl:
   cms_missing_content_message: Deze pagina is niet beschikbaar in de geselecteerde taal %{selected_language}.
   cms_missing_content_title: Ontbrekende vertaling
   collect_item: Item in verzameling opnemen
+  collect_items: Items in verzameling opnemen
   collection_created_notice: De verzameling <em>%{collection_name}</em> is aangemaakt.
   collection_delete_link: Verzameling permanent verwijderen
   collection_destroyed: De verzameling is verwijderd.
   collection_image: Verzamelingsafbeelding
   collection_is_empty: Deze verzameling is leeg.
-  collection_item_annotation_label: Annotatie van verzamelingsitem
   collection_item_not_found_error: Dat verzamelingsitem is niet aangetroffen.
   collection_name_label: Naam van de verzameling
   collection_newsfeed: Newsfeed voor verzameling
@@ -422,6 +425,7 @@ nl:
   collection_not_found_error: Die verzameling is niet aangetroffen.
   collection_rating: Verzamelingwaardering
   collection_updated_notice: De verzameling <em>%{collection_name}</em> is bijgewerkt.
+  collection_was_added_to_community: "\"%{collection}\" is toegevoegd aan deze gemeenschap."
   collection_was_removed_by_owner: Deze verzameling is verwijderd door de eigenaar.
   collections: Verzamelingen
   collections_lowercase: verzamelingen
@@ -480,6 +484,7 @@ nl:
   community_members_with_count: 
     one: Eén gemeenschapslid
     other: "%{count} gemeenschapsleden"
+  community_name_label: Gemeenschapsnaam
   community_newsfeed: Newsfeed voor gemeenschap
   community_not_destroyed_error: Er is een probleem opgetreden en de gemeenschap is niet verwijderd.
   community_rating: Gemeenschapswaardering
@@ -494,6 +499,7 @@ nl:
   contact_us_link: Contact opnemen
   contacts: Contactpersonen
   containing_value: met %{value}.
+  content: Inhoud
   content_has_been_updated: De inhoud is bijgewerkt
   content_partner: Contentpartner
   content_partner_about_header: Over %{partner_name}
@@ -608,6 +614,7 @@ nl:
   content_partner_statistics_column_header_total_count: Alle pagina's
   content_partner_statistics_empty: Geen statistieken gevonden voor %{month_name} %{year}.
   content_partner_statistics_link: Statistieken
+  content_partner_statistics_month_label: Maand
   content_partner_statistics_summary_caption: Samenvatting van gebruiksstatistieken voor taxonpagina's met inhoud die is geleverd door %{partner_name} relatief ten opzichte van het totale gebruik van de EOL-website.
   content_partner_statistics_taxa_page_caption: Gedetailleerde gebruiksstatistieken voor taxonpagina's met inhoud die is geleverd door %{partner_name}.
   content_partner_statistics_year_label: Jaar
@@ -651,6 +658,7 @@ nl:
   create_community: Gemeenschap aanmaken
   create_community_about_heading: Over het aanmaken van een gemeenschap
   create_community_around_this_collection_header: Maakt een gemeenschap rondom deze verzameling
+  create_community_button: Gemeenschap aanmaken
   create_community_unsuccessful_error: Er is een fout opgetreden. Uw gemeenschap is niet gemaakt. Controleer of alle velden correct zijn ingevuld.
   create_user_form_header: Nieuwe <abbr title="Encyclopedia of Life">EOL</abbr>-gebruiker aanmaken
   create_user_unsuccessful_error: Er is een fout opgetreden. Uw gebruiker is niet gemaakt. Controleer of alle velden correct zijn ingevuld.
@@ -698,6 +706,7 @@ nl:
   data_object_undo_ignore: uit de negeerlijst verwijderen
   data_objects: data_objects
   data_usage_reports: Gegevensgebruikrapportages
+  date_caps: Datum
   dato_create_cancel: Annuleren
   dato_create_update_user_text_missing_taxon_id_exception: Het was niet mogelijk een tekst-DataObject of -DataObject op te bouwen als taxon_concept_id niet aanwezig is.
   dato_create_user_text_missing_taxon_id_exception: Het was niet mogelijk een tekst-DataObject of -DataObject op te bouwen als taxon_id "nil" is.
@@ -721,8 +730,10 @@ nl:
   destination_inappropriate_for_logged_in_users: U bent aangemeld.
   destroy: Vernietigen
   detail: Detail
+  details: Details
   details_title: Details
   development_version_name: EOL V2 Beta
+  did_you_mean: "Bedoelde u: %{suggestions} ?"
   disabled_for_now: Op dit moment niet beschikbaar
   displaying_numerical_range: Items van %{start_number} tot %{end_number}
   donate: Doneren
@@ -763,7 +774,6 @@ nl:
   endorsed_collections_with_count: 
     one: één uitgelichte verzameling
     other: "%{count} uitgelichte verzamelingen"
-  enter: invoeren
   eol_api: EOL API
   eol_api_collections: "EOL API: verzamelingen"
   eol_api_data_objects: "EOL API: gegevensobjecten"
@@ -778,6 +788,7 @@ nl:
   eol_glossary: EOL-woordenlijst
   eol_news: EOL-nieuws
   eol_pages: Pagina's
+  error_403_page_title: Niet toegestaan
   error_404_page_title: Niet gevonden
   error_500_page_title: Interne serverfout
   esc_key_hides_this_message: (typ ESC om dit bericht te verbergen)
@@ -792,8 +803,12 @@ nl:
   failed_login_attempts: mislukte aanmeldpogingen). Moet gecontroleerd worden voordat gebruiker aan kan melden
   family_name_colon: "Familienaam:"
   feedback: Terugkoppeling
+  file: Bestand
+  file_id: Bestandsnummer
+  file_size: Bestandsgrootte
   fill_in_a_message_below_to_send_email_to_user: "Geef hieronder een bericht in dat aan deze gebruiker van de site gemaild kan worden. Het bericht wordt verzonden als u op de knop klikt:"
   filter_button: Filteren
+  filter_by_day: Filteren op dag
   filter_by_status: Filteren op status
   filter_by_status_all_option: alle statussen
   filter_by_status_inappropriate_option: ongepast
@@ -845,7 +860,9 @@ nl:
   global_navigation: Globale navigatie
   go: OK
   go_back: Teruggaan
+  google: Google
   google_analytics_google_account_and_access_required: Google Analytics (Google-gebruiker en toegang vereist)
+  google_images: Google Afbeeldingen
   grant_full_curator_link: Toekennen
   grant_manager_link: Managerrol toekennen
   has_already_been_taken: bestaat al.
@@ -1034,7 +1051,10 @@ nl:
   home: Hoofdmenu
   home_page_link_advisory_information: Via deze verwijzing komt u op de hoofdpagina van de website Encyclopedia of Life
   id: ID
+  image: Afbeelding
+  image_from_supplier: Afbeelding van %{whom}
   image_is_no_longer_available: Afbeelding is niet meer beschikbaar
+  image_map_from_supplier: Kaart van %{whom}
   image_map_of: Kaart van
   image_map_rating: Kaartwaardering
   image_not_found: Afbeelding niet gevonden
@@ -1048,13 +1068,23 @@ nl:
   inappropriate: Ongepast
   indexed: Geïndexeerd
   invite_members_label: Leden uitnodigen
+  ip: IP
+  ip_address: IP-adres
+  item_type_article: Artikel
   item_type_article_assistive: Dit item is een artikel
+  item_type_collection: Verzameling
   item_type_collection_assistive: Dit item is een verzameling
+  item_type_community: Gemeenschap
   item_type_community_assistive: Dit item is een gemeenschap
+  item_type_image: Afbeelding
   item_type_image_assistive: Dit item is een afbeelding
+  item_type_image_map: Kaart
+  item_type_map: Kaart
+  item_type_person: Persoon
   item_type_person_assistive: Dit item is een persoon
   item_type_sound_assistive: Dit item is een geluid
   item_type_taxon_assistive: Dit item is een taxon
+  item_type_video: Video
   item_type_video_assistive: Dit item is een video
   iucn_red_list_status_advisory_information: Deze verwijzing brengt u naar de website van de Internationale Unie voor het Behoud van de Natuur (IUCN) waar u meer informatie kunt vinden over de Rode Lijst van Bedreigde Soorten van de IUCN.
   join_community_button: Lid worden van deze gemeenschap
@@ -1116,6 +1146,7 @@ nl:
   logout: Afmelden
   maintained_by: onderhouden door
   managed_by: Beheerd door
+  map_from_supplier: Kaart van %{whom}
   map_of: Kaart van
   map_rating: Kaartwaardering
   maps_with_count: 
@@ -1133,6 +1164,7 @@ nl:
   members_with_count_semi_colon: 
     one: "%{count} lid;"
     other: "%{count} leden;"
+  message_colon: "Bericht:"
   method: Methode
   methods: Methoden
   minimal_page: Minimale pagina
@@ -1174,6 +1206,7 @@ nl:
   my_activity: Mijn activiteit
   my_info: Mijn gegevens
   name: Naam
+  name_colon: "Naam:"
   name_preferred_for_language_yes: Voorkeur
   name_preferred_taxonomically_for_source_yes: Voorkeur
   names: Namen
@@ -1245,6 +1278,9 @@ nl:
     one: "%{count} ander item"
     other: "%{count} andere items"
   overview: Overzicht
+  page: Pagina
+  page_name: Paginanaam
+  page_not_found: Pagina niet gevonden
   page_statistics: Paginastatistieken
   pages_lowercase: pagina's
   pages_title: Referenties
@@ -1266,12 +1302,14 @@ nl:
   profile_colon: "Profiel:"
   profile_image_alt_text_curator: Profielfoto voor de curator %{user_given_name} %{user_family_name}
   profile_image_alt_text_member: Profielfoto voor het lid %{user_given_name} %{user_family_name}
+  public_domain: publiek domein
   punctuation_comma: ","
   punctuation_semi_colon: ;
   rated_by_count_people: 
     one: van één person
     other: van %{count} personen
   recent_updates: Recente updates
+  recipients: Ontvangers
   remove: Verwijderen
   remove_curatorship_colon: "Curatorschap verwijderen:"
   remove_data_object_association: Koppeling verwijderen
@@ -1287,7 +1325,9 @@ nl:
   search_field_label: EOL doorzoeken
   search_input_advisory_information: Voer de triviale of of wetenschappelijke namen van levende organismen in waar u meer over wilt weten. U kunt ook zoeken naar EOL-leden, verzamelingen en gemeenschappen.
   search_lowercase: zoeken
+  search_next_label: Volgende
   search_placeholder: EOL doorzoeken ...
+  search_previous_label: Vorige
   search_the_site: Site doorzoeken
   see_all_classifications_with_count_html: 
     one: De <span class="assistive">goedgekeurde classificatie waarin dit taxon voorkomt</span> bekijken.
@@ -1326,6 +1366,7 @@ nl:
   sort_by_year_ascending: Jaar oplopend
   sort_by_year_descending: Jaar aflopend
   sort_collection_by_label: Verzameling sorteren op
+  sound_from_supplier: Geluid van %{whom}
   sound_of: Geluidsbestand van
   sound_rating: Geluidsbestandswaardering
   sounds_with_count: 
@@ -1350,6 +1391,7 @@ nl:
     other: "%{count} taxa"
   taxon: taxon
   taxon_biomedical_terms_link: Biomedische termen
+  taxon_not_found_error: "\"%{taxon}\" niet gevonden"
   taxon_rating: Taxonwaardering
   technical_functions: Technische functies
   terms_agreement_form_submit: Ik ga akkoord
@@ -1374,7 +1416,6 @@ nl:
   threat_status_header_colon: "<abbr title=\"International Union for Conservation of Nature\">UCN</abbr> bedreigingsstatus:"
   time_ago: "%{time_passed} geleden"
   title: Titel
-  to: tot
   to_process_your_donation_please_proceed: Om uw donatie te verwerken ga u door
   toc: Inhoudsopgave
   total_items_with_count: 
@@ -1430,6 +1471,7 @@ nl:
   value_default: (standaard)
   value_empty: (leeg)
   values: Waarden
+  video_from_supplier: Video van %{whom}
   video_of: Video van
   video_rating: Videowaardering
   videos_with_count: 

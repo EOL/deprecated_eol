@@ -275,7 +275,6 @@ cs:
   cms_missing_content_message: Omlouváme se, tato stránka není v tomto jazyce dostupná.
   cms_missing_content_title: Chybí obsah
   collection_image: Obrázek sbírky
-  collection_item_annotation_label: Anotace položky sbírky
   collection_name_label: Název sbírky
   collection_newsfeed: Kanál novinek sbírky
   collection_not_created_error: Omlouváme se, došlo k chybě, sbírka <em>%{collection_name}</em> nebyla vytvořena.
@@ -450,7 +449,6 @@ cs:
   encyclopedia_of_life: Encyklopedie života
   endorsed_by: Použito na
   endorsed_collections: Vybrané sbírky
-  enter: vstup
   eol_api: EOL API
   eol_api_collections: "EOL API: Sbírky"
   eol_api_data_objects: "EOL API: Datové objekty"
@@ -871,7 +869,6 @@ cs:
   threat_status_header_colon: "IUCN stav ohrožení:"
   time_ago: před %{time_passed}
   title: Nadpis
-  to: pro
   to_process_your_donation_please_proceed: Pro vyřízení Vašeho příspěvku prosím pokračujte
   toc: Obsah
   total_items_with_count: 

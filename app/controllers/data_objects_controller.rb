@@ -306,6 +306,7 @@ private
     if comment.blank?
       return nil
     else
+      auto_collect(@data_object) # SPG asks for all curation comments to add the item to their watchlist.
       # TODO - we really don't need this from_curator flag now:
       return Comment.create(:parent => @data_object, :body => comment, :user => current_user, :from_curator => true)
     end

@@ -26,6 +26,9 @@
         = I18n.t(:activity_user_untrusted_data_object, :user => name_with_link, :object_name => object_link)
       - else
         = I18n.t(:activity_user_untrusted_unknown_object, :user => name_with_link)
+      - reasons = item.untrust_reasons.collect{ |d| d.label }
+      - unless reasons.empty?
+        %p= I18n.t(:activity_with_reasons_to_untrust_colon, :reasons => reasons.to_sentence)
     - when Activity.show.id
       - if object_link
         = I18n.t(:activity_user_showed_data_object, :user => name_with_link, :object_name => object_link)

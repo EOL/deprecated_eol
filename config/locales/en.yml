@@ -669,6 +669,7 @@ en:
   activity_user_removed_unknown_name_to_taxon: "<strong>%{user}</strong> removed a common name from \"%{taxon}\" which was added previously."
   activity_user_removed_unknown_name: "<strong>%{user}</strong> removed an unknown common name from an unknown object."
   activity_with_reasons_to_untrust_colon: "reason(s) to untrust: %{reasons}"
+  activity_with_reasons_to_hide_colon: "reason(s) to hide: %{reasons}"
 
   add_a_collection_to_a_community: "Add \"%{collection}\" to a community"
   add_a_comment: "Add a comment."

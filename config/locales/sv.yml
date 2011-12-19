@@ -1095,7 +1095,6 @@ sv:
   threat_status_header_colon: "IUCN-hotstatus:"
   time_ago: "%{time_passed} sedan"
   title: Titel
-  to: till
   to_process_your_donation_please_proceed: För att behandla din donation går du vidare
   total_items_with_count: 
     one: "%{count} objekt"

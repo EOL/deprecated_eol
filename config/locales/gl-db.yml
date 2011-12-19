@@ -78,7 +78,7 @@ gl:
   translated_contact_subjects-title-contact_subject_id-18: Converterse nun provedor de contidos asociados
   translated_contact_subjects-title-contact_subject_id-19: Comentarios sobre o grupo de páxinas de especies
   translated_contact_subjects-title-contact_subject_id-2: Contribucións
-  translated_contact_subjects-title-contact_subject_id-20: Soporte dos contidos asociados
+  translated_contact_subjects-title-contact_subject_id-20: Soporte do provedor de contidos
   translated_contact_subjects-title-contact_subject_id-21: Enviar unha mensaxe a Cynthia Parr do grupo de páxinas de especies
   translated_contact_subjects-title-contact_subject_id-22: Recursos do golfo de México
   translated_contact_subjects-title-contact_subject_id-23: Enviar unha mensaxe a Eli Agbayani
@@ -194,8 +194,8 @@ gl:
   translated_service_types-label-service_type_id-2: Outro
   translated_sort_styles-name-sort_style_id-1: Engadido recentemente
   translated_sort_styles-name-sort_style_id-2: Máis vello
-  translated_sort_styles-name-sort_style_id-3: Alfabético
-  translated_sort_styles-name-sort_style_id-4: Alfabético inverso
+  translated_sort_styles-name-sort_style_id-3: Alfabética
+  translated_sort_styles-name-sort_style_id-4: Alfabética inversa
   translated_sort_styles-name-sort_style_id-5: Riqueza
   translated_sort_styles-name-sort_style_id-6: Valoración
   translated_statuses-label-status_id-1: Inserido

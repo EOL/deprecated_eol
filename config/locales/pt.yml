@@ -4,6 +4,7 @@
 # Author: Giro720
 # Author: GoEThe
 # Author: Hamilton Abreu
+# Author: McDutchie
 pt: 
   0_1_or_2: 0, 1 ou 2
   0_or_1: 0 ou 1
@@ -127,7 +128,7 @@ pt:
         exclusion: está reservado
         greater_than: 
           one: deve ser maior que %{count}
-          other: devem ser maiores que %{count}
+          other: deve ser maior que %{count}
         greater_than_or_equal_to: deve ser maior que ou igual a %{count}
         inaccessible: está inacessível
         inclusion: não está incluído na lista
@@ -401,7 +402,6 @@ pt:
   collection_destroyed: Esta colecção foi eliminada.
   collection_image: Imagem de colecção
   collection_is_empty: Esta colecção está vazia de momento.
-  collection_item_annotation_label: Anotação de item de colecção
   collection_item_not_found_error: Não foi possível encontrar esse item de colecção.
   collection_name_label: Nome da colecção
   collection_newsfeed: "!!!FUZZY Notícias sobre a colecção"
@@ -726,7 +726,6 @@ pt:
   endorsed_collections_with_count: 
     one: "%{count} Colecção destacada"
     other: "%{count} Colecções destacadas"
-  enter: enter
   eol_api: EOL API
   eol_api_collections: "EOL API: Colecções"
   eol_api_data_objects: "EOL API: Objectos de dados"
@@ -1292,7 +1291,6 @@ pt:
   threat_status_header_colon: "Estado de conservação IUCN:"
   time_ago: há %{time_passed}
   title: Título
-  to: para
   to_process_your_donation_please_proceed: Para processar a sua doação, prossiga
   toc: ÍNDICE
   total_items_with_count: 

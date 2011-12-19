@@ -323,9 +323,9 @@ describe 'Data Object Page' do
     login_as @full_curator
     visit("/data_objects/#{@image.id}")
     page.body.should have_tag('form.review_status a', :text => 'Remove association')
-    page.body.should have_tag('a', :text => @another_name)
+    page.body.should have_tag('form.review_status a', :text => @another_name)
     click_link "remove_association_#{@extra_he.id}"
-    page.body.should_not have_tag('a', :text => @another_name)
+    page.body.should_not have_tag('form.review_status a', :text => @another_name)
   end
 
   it 'should allow logged in users to rate' do

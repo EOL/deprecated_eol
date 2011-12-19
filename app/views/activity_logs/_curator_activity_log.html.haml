@@ -17,43 +17,19 @@
 
     - case item.activity_id
     - when Activity.trusted.id
-      - if object_link
-        = I18n.t(:activity_user_trusted_data_object, :user => name_with_link, :object_name => object_link)
-      - else
-        = I18n.t(:activity_user_trusted_unknown_object, :user => name_with_link)
+      = render :partial => 'activity_logs/data_object_curation_activities', :locals => { :item => item, :object_link => object_link, :name_with_link => name_with_link, :activity => "trusted" }
     - when Activity.untrusted.id
-      - if object_link
-        = I18n.t(:activity_user_untrusted_data_object, :user => name_with_link, :object_name => object_link)
-      - else
-        = I18n.t(:activity_user_untrusted_unknown_object, :user => name_with_link)
-      - reasons = item.untrust_reasons.collect{ |d| d.label }
-      - unless reasons.empty?
-        %p= I18n.t(:activity_with_reasons_to_untrust_colon, :reasons => reasons.to_sentence)
+      = render :partial => 'activity_logs/data_object_curation_activities', :locals => { :item => item, :object_link => object_link, :name_with_link => name_with_link, :activity => "untrusted" }
     - when Activity.show.id
-      - if object_link
-        = I18n.t(:activity_user_showed_data_object, :user => name_with_link, :object_name => object_link)
-      - else
-        = I18n.t(:activity_user_showed_unknown_object, :user => name_with_link)
+      = render :partial => 'activity_logs/data_object_curation_activities', :locals => { :item => item, :object_link => object_link, :name_with_link => name_with_link, :activity => "showed" }
     - when Activity.hide.id
-      - if object_link
-        = I18n.t(:activity_user_hid_data_object, :user => name_with_link, :object_name => object_link)
-      - else
-        = I18n.t(:activity_user_hid_unknown_object, :user => name_with_link)
-      - reasons = item.untrust_reasons.collect{ |d| d.label }
-      - unless reasons.empty?
-        %p= I18n.t(:activity_with_reasons_to_hide_colon, :reasons => reasons.to_sentence)
+      = render :partial => 'activity_logs/data_object_curation_activities', :locals => { :item => item, :object_link => object_link, :name_with_link => name_with_link, :activity => "hid" }
+    - when Activity.unreviewed.id
+      = render :partial => 'activity_logs/data_object_curation_activities', :locals => { :item => item, :object_link => object_link, :name_with_link => name_with_link, :activity => "unreviewed" }
+    - when Activity.rate.id
+      = render :partial => 'activity_logs/data_object_curation_activities', :locals => { :item => item, :object_link => object_link, :name_with_link => name_with_link, :activity => "rated" }
     - when Activity.inappropriate.id
       = I18n.t(:activity_user_marked_content_as_inappropriate, :user => name_with_link)
-    - when Activity.rate.id
-      - if object_link
-        = I18n.t(:activity_user_rated_data_object, :user => name_with_link, :object_name => object_link)
-      - else
-        = I18n.t(:activity_user_rated_unknown_object, :user => name_with_link)
-    - when Activity.unreviewed.id
-      - if object_link
-        = I18n.t(:activity_user_unreviewed_data_object, :user => name_with_link, :object_name => object_link)
-      - else
-        = I18n.t(:activity_user_unreviewed_unknown_object, :user => name_with_link)
     - when Activity.add_association.id
       -# TODO: this is not working, undefined method 'object'
       -#- he = item.object ? item.object.italicized_name : nil

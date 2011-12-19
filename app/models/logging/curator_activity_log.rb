@@ -117,19 +117,16 @@ class CuratorActivityLog < LoggingModel
   end
 
   def log_activity_in_solr
+    curation_activities = [ Activity.trusted.id, Activity.untrusted.id, Activity.unreviewed.id, Activity.show.id, Activity.hide.id ]
     loggable_activities = {
-      ChangeableObjectType.data_object.id => [ Activity.show.id, Activity.trusted.id, Activity.unreviewed.id, Activity.untrusted.id, 
+      ChangeableObjectType.data_object.id => [ Activity.show.id, Activity.trusted.id, Activity.unreviewed.id, Activity.untrusted.id,
                                                Activity.choose_exemplar.id ],
-      ChangeableObjectType.data_objects_hierarchy_entry.id => [ Activity.untrusted.id, Activity.trusted.id, Activity.hide.id, 
-                                                                Activity.show.id, Activity.inappropriate.id, Activity.unreviewed.id ],
-      ChangeableObjectType.curated_data_objects_hierarchy_entry.id => [ Activity.untrusted.id, Activity.trusted.id, 
-                                                                        Activity.hide.id, Activity.show.id, 
-                                                                        Activity.inappropriate.id, Activity.unreviewed.id ],
       ChangeableObjectType.synonym.id => [ Activity.add_common_name.id, Activity.remove_common_name.id,
-                                           Activity.trust_common_name.id, Activity.unreview_common_name.id, 
+                                           Activity.trust_common_name.id, Activity.unreview_common_name.id,
                                            Activity.untrust_common_name.id, Activity.inappropriate_common_name.id],
-      ChangeableObjectType.users_data_object.id => [ Activity.show.id, Activity.trusted.id, Activity.unreviewed.id,
-                                                     Activity.untrusted.id ]
+      ChangeableObjectType.data_objects_hierarchy_entry.id => curation_activities,
+      ChangeableObjectType.curated_data_objects_hierarchy_entry.id => curation_activities,
+      ChangeableObjectType.users_data_object.id => curation_activities
     }
     return unless self.activity
     return unless loggable_activities[self.changeable_object_type_id]

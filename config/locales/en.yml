@@ -680,6 +680,7 @@ en:
   activity_user_inappropriate_unknown_name: "<strong>%{user}</strong> set an unknown common name as inappropriate from an unknown taxon."
   activity_user_removed_unknown_name_to_taxon: "<strong>%{user}</strong> removed a common name from \"%{taxon}\" which was added previously."
   activity_user_removed_unknown_name: "<strong>%{user}</strong> removed an unknown common name from an unknown object."
+  activity_with_reasons_to_untrust_colon: "reason(s) to untrust: %{reasons}"
 
   add_a_collection_to_a_community: "Add \"%{collection}\" to a community"
   add_a_comment: "Add a comment."

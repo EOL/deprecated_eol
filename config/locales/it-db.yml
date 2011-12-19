@@ -6,6 +6,7 @@
 # Author: Rippitippi
 it: 
   translated_activities-name-activity_id-19: profilo
+  translated_activities-name-activity_id-50: non attendibile
   translated_activities-name-activity_id-51: mostra
   translated_activities-name-activity_id-52: crea
   translated_activities-name-activity_id-53: nascondi
@@ -15,9 +16,12 @@ it:
   translated_activities-name-activity_id-57: valuta
   translated_activities-name-activity_id-58: attendibile
   translated_activities-name-activity_id-64: rimuovi
+  translated_agent_roles-label-agent_role_id-1: Animatore
   translated_agent_roles-label-agent_role_id-10: Progetto
   translated_agent_roles-label-agent_role_id-11: Editore
   translated_agent_roles-label-agent_role_id-13: Fonte
+  translated_agent_roles-label-agent_role_id-14: Database sorgente
+  translated_agent_roles-label-agent_role_id-15: Persona di contatto
   translated_agent_roles-label-agent_role_id-16: Collaboratore
   translated_agent_roles-label-agent_role_id-2: Autore
   translated_agent_roles-label-agent_role_id-22: Traduttore
@@ -41,6 +45,7 @@ it:
   translated_collection_types-label-collection_type_id-16: Immagini
   translated_collection_types-label-collection_type_id-17: Distribuzione
   translated_collection_types-label-collection_type_id-18: Stato di conservazione
+  translated_collection_types-label-collection_type_id-19: Informazioni sul nome
   translated_collection_types-label-collection_type_id-20: Dati molecolari
   translated_collection_types-label-collection_type_id-21: Nomenclatura
   translated_collection_types-label-collection_type_id-22: Suoni
@@ -50,18 +55,24 @@ it:
   translated_collection_types-label-collection_type_id-4: Immagini
   translated_collection_types-label-collection_type_id-5: Distribuzione
   translated_collection_types-label-collection_type_id-6: Stato di conservazione
+  translated_collection_types-label-collection_type_id-7: Informazioni sul nome
   translated_collection_types-label-collection_type_id-8: Dati molecolari
   translated_collection_types-label-collection_type_id-9: Nomenclatura
   translated_contact_roles-label-contact_role_id-1: Contatto Principale
+  translated_contact_roles-label-contact_role_id-2: Contatto amministrativo
   translated_contact_roles-label-contact_role_id-3: Contatto Tecnico
   translated_contact_subjects-title-contact_subject_id-10: Contenuto
+  translated_contact_subjects-title-contact_subject_id-11: Problemi tecnici (difficoltà con il sito Web, gli strumenti di ricerca o gli account utente)
+  translated_contact_subjects-title-contact_subject_id-12: Altro
   translated_contact_subjects-title-contact_subject_id-14: Richiesta di caricamento immagini
+  translated_contact_subjects-title-contact_subject_id-15: Fare una correzione (immagini, ortografia e grammatica, informazioni)
   translated_contact_subjects-title-contact_subject_id-17: Dare un contributo finanziario
   translated_contact_subjects-title-contact_subject_id-2: Contributi
   translated_contact_subjects-title-contact_subject_id-21: Invia un messaggio a Cynthia Parr presso il Gruppo delle Pagine delle Specie
   translated_contact_subjects-title-contact_subject_id-23: Invia un messaggio a Eli Agbayani
   translated_contact_subjects-title-contact_subject_id-3: Formazione ed Educazione
   translated_contact_subjects-title-contact_subject_id-5: Classificazione
+  translated_contact_subjects-title-contact_subject_id-6: Ricerca bioinformatica
   translated_contact_subjects-title-contact_subject_id-7: Ricerca biologica
   translated_contact_subjects-title-contact_subject_id-8: Biologia vegetale
   translated_content_partner_statuses-label-content_partner_status_id-1: In attesa
@@ -79,6 +90,7 @@ it:
   translated_data_types-label-data_type_id-7: Flash
   translated_data_types-label-data_type_id-8: YouTube
   translated_licenses-description-license_id-1: Nessun diritto riservato
+  translated_licenses-description-license_id-2: © Tutti i diritti riservati
   translated_licenses-description-license_id-29: Alcuni diritti riservati
   translated_licenses-description-license_id-3: Alcuni diritti riservati
   translated_licenses-description-license_id-30: Alcuni diritti riservati
@@ -165,7 +177,9 @@ it:
   translated_statuses-label-status_id-3: Non modificato
   translated_statuses-label-status_id-4: Riutilizzato
   translated_synonym_relations-label-synonym_relation_id-1: sinonimo
+  translated_synonym_relations-label-synonym_relation_id-11: in parte
   translated_synonym_relations-label-synonym_relation_id-12: include
+  translated_synonym_relations-label-synonym_relation_id-14: errore ortografico
   translated_synonym_relations-label-synonym_relation_id-15: teleomorfo
   translated_synonym_relations-label-synonym_relation_id-16: sinonimo ambiguo
   translated_synonym_relations-label-synonym_relation_id-18: nome accettato provvisoriamente
@@ -173,15 +187,26 @@ it:
   translated_synonym_relations-label-synonym_relation_id-2: nome comune
   translated_synonym_relations-label-synonym_relation_id-21: altro, vedi commenti
   translated_synonym_relations-label-synonym_relation_id-22: variante ortografica (errore ortografico)
+  translated_synonym_relations-label-synonym_relation_id-25: omonimo (illegittimo)
+  translated_synonym_relations-label-synonym_relation_id-26: pro parte
+  translated_synonym_relations-label-synonym_relation_id-27: ridenominazione superflua (illegittima)
   translated_synonym_relations-label-synonym_relation_id-3: acronimo
+  translated_synonym_relations-label-synonym_relation_id-31: sostituzione innecessaria
+  translated_synonym_relations-label-synonym_relation_id-33: non disponibile, errore ortografico in letteratura
   translated_synonym_relations-label-synonym_relation_id-4: anamorfo
+  translated_synonym_relations-label-synonym_relation_id-40: non disponibile, altro
   translated_synonym_relations-label-synonym_relation_id-45: basionimo
+  translated_synonym_relations-label-synonym_relation_id-46: sinonimo eterotipico
+  translated_synonym_relations-label-synonym_relation_id-47: sinonimo omotipico
+  translated_synonym_relations-label-synonym_relation_id-48: nome non disponibile
   translated_synonym_relations-label-synonym_relation_id-49: nome valido
   translated_synonym_relations-label-synonym_relation_id-50: valido
   translated_synonym_relations-label-synonym_relation_id-51: accettato
   translated_synonym_relations-label-synonym_relation_id-52: autorità
   translated_synonym_relations-label-synonym_relation_id-56: ortografia errata
+  translated_synonym_relations-label-synonym_relation_id-57: ortografía alternativa
   translated_synonym_relations-label-synonym_relation_id-58: variante lessicale
+  translated_synonym_relations-label-synonym_relation_id-6: nome equivalente
   translated_synonym_relations-label-synonym_relation_id-63: non accettato
   translated_table_of_contents-label-table_of_contents_id-1: Panoramica
   translated_table_of_contents-label-table_of_contents_id-13: Nomi comuni

@@ -473,7 +473,6 @@ mk:
   collection_destroyed: Збирката е избришена.
   collection_image: Слика за збирката
   collection_is_empty: Оваа збирка е моментално празна.
-  collection_item_annotation_label: Прибелешка на експонат од збирката
   collection_item_not_found_error: Експонатот не е пронајден.
   collection_name_label: Име на збирката
   collection_newsfeed: Канал на збирката
@@ -942,7 +941,6 @@ mk:
   endorsed_collections_with_count: 
     one: "%{count} истакната збирка"
     other: "%{count} истакнати збирки"
-  enter: внесете
   enter_in_a_search_term_users_a: Внесете поим за пребарување, а потоа саканата назнака на таксон/страница до која ќе води како предлог во пребарувањето. Назнаката ќе ја најдете во URL-адресата на целната страница (на пр. www.eol.org/pages/5 ја има назнаката „5“). Името на страницата и првата слика (ако е на располагање) ќе бидат зачувани во резултатот.
   eol_administration_console: Административна конзола на EOL
   eol_api: API на EOL
@@ -2129,7 +2127,6 @@ mk:
   thanks_for_donation: Ви благодариме за вашата поддршка на Енциклопедијата на живиот свет. Вашите информации се поднесени и ќе бидат обработени.
   thanks_for_your_time: Ви благодариме за посветеното време,
   the_amount_entered_was: "Внесениот износ е : US %{number}"
-  the_comment_was_successfully_u: Коментарот е успешно изменет.
   the_content_could_not_be_displ: Содржината не може да се прикаже.
   the_content_was_updated: Содржината е подновена.
   the_count_represents_the_total: Ова е вкупниот број на објавени податочни објекти под соодветна предметна категорија на SPM.
@@ -2184,7 +2181,6 @@ mk:
   time_ago: пред %{time_passed}
   tinyurl: TinyURL
   title: Наслов
-  to: до
   to_process_your_donation_please_proceed: За да се заведе вашиот прилог, продолжете
   to_remedy_this: Со цел да го поправиме проблемот, ќе ги затвориме овие неактивни сметки и ќе побараме да ја посетите eol.org за да направите нова сметка. Кога ќе ја добиете потврдата по е-пошта, стиснете на наведената врска за да ја заверите сметката.
   to_see_all_activity_combinatio: за да ги видите сите комбинации на активности во времетраење од 5 минути {3-4 мин.}.

@@ -623,25 +623,3 @@ end
 
 $INDEX_RECORDS_IN_SOLR_ON_SAVE = original_index_records_on_save_value
 
-
-puts "Adding topic areas for the contact us form"
-TopicArea.create(:email => "byrnesb@si.edu")
-TopicArea.create(:email => "byrnesb@si.edu")
-TopicArea.create(:email => "Education@eol.org")
-TopicArea.create(:email => "affiliate@eol.org")
-TopicArea.create(:email => "affiliate@eol.org")
-TopicArea.create(:email => "affiliate@eol.org")
-TopicArea.create(:email => "affiliate@eol.org")
-TopicArea.create(:email => "affiliate@eol.org")
-TopicArea.create(:email => "byrnesb@si.edu")
-TopicArea.create(:email => "byrnesb@si.edu")
-TranslatedTopicArea.create(:label => "Membership and registration", :language_id => 1, :topic_area_id => 1)
-TranslatedTopicArea.create(:label => "Terms of use and licensing", :language_id => 1, :topic_area_id => 2)
-TranslatedTopicArea.create(:label => "Learning and education tools", :language_id => 1, :topic_area_id => 3)
-TranslatedTopicArea.create(:label => "Become content partner", :language_id => 1, :topic_area_id => 4)
-TranslatedTopicArea.create(:label => "Content partner support", :language_id => 1, :topic_area_id => 5)
-TranslatedTopicArea.create(:label => "Curator support", :language_id => 1, :topic_area_id => 6)
-TranslatedTopicArea.create(:label => "Make a correction (spelling and grammar, images, information)", :language_id => 1, :topic_area_id => 7)
-TranslatedTopicArea.create(:label => "Images, videos, sounds", :language_id => 1, :topic_area_id => 8)
-TranslatedTopicArea.create(:label => "Media requests (interviews, press inquiries, logo requests)", :language_id => 1, :topic_area_id => 9)
-TranslatedTopicArea.create(:label => "Make a financial donation", :language_id => 1, :topic_area_id => 10)

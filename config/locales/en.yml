@@ -2671,3 +2671,8 @@ en:
   user_hidden_message: "This user is no longer active"
   no_answer: "No"
   allowed_html_tags: "Only these tags are allowed:"
+  contact_us_request_sent: "Request Sent Successfully"
+  contact_us_request_failed: "Error(s) occured!"
+  please_leave_your_feedback: "Please leave your feedback"
+  send_feedback: "Send feedback"
+  contact_us_request_received: "Contact us request received"

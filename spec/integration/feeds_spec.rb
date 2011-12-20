@@ -119,8 +119,6 @@ describe 'Feeds' do
     log = CommunityActivityLog.gen(:community => community, :user => user, :activity => Activity.find_or_create('create'))
     xpect 'including a "reply" button with each post'
     visit user_activity_path(user)
-    puts page.body
-    debugger
     page.body.should have_tag('ul.feed') do
       with_tag('a', :text => I18n.t(:reply))
     end

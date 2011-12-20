@@ -17,6 +17,7 @@ class ContactsController < ApplicationController
     if @contact.save
       send_verification_email
       @list = load_areas
+      @contact = Contact.new
       flash.now[:notice] = I18n.t(:contact_us_request_sent)
       render :action => :index, :layout => 'v2/sessions'
     else
@@ -39,7 +40,7 @@ class ContactsController < ApplicationController
 
   def send_verification_email
     if logged_in?
-      @contact.comments = @contact.comments + '<br/>' + RAILS_ROOT + '/' + user_path(current_user)
+      @contact.comments = @contact.comments + '\n' + request.env["HTTP_HOST"] + user_path(current_user)
     end
     Notifier.deliver_contact_us_message(@contact)
   end

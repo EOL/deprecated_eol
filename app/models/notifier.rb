@@ -29,18 +29,6 @@ class Notifier < ActionMailer::Base
     body        :contact => contact
   end
 
-  def contact_us_request_message(request)
-    contact_subject = I18n.t(:contact_us_request_received)
-    contact_recipients = TopicArea.find_by_id(request.topic_area_id).email
-    contact_recipients = contact_recipients.split(',').map { |c| c.strip }
-    puts contact_recipients
-
-    subject	contact_subject
-    recipients 	contact_recipients
-    from	$SUPPORT_EMAIL_ADDRESS
-    body	request.comment
-  end
-
   def content_partner_statistics_reminder(content_partner, content_partner_contact, month, year)
     subject     I18n.t(:subject, :partner_full_name => content_partner.full_name, :month => month,
                                  :year => year, :scope => [:notifier, :content_partner_statistics_reminder])

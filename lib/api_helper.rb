@@ -95,11 +95,13 @@ module ApiHelper
     
     return_hash['agents'] = []
     for ado in data_object.agents_data_objects
-      return_hash['agents'] << {
-        'full_name' => ado.agent.full_name,
-        'homepage'  => ado.agent.homepage,
-        'role'      => ado.agent_role.label.downcase
-      }
+      if ado.agent
+        return_hash['agents'] << {
+          'full_name' => ado.agent.full_name,
+          'homepage'  => ado.agent.homepage,
+          'role'      => ado.agent_role.label.downcase
+        }
+      end
     end
     
     return_hash['references'] = []

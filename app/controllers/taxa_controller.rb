@@ -198,7 +198,7 @@ private
 
   def redirect_if_superceded
     if @taxon_concept.superceded_the_requested_id?
-      redirect_to taxon_overview_path(@taxon_concept), :status => :moved_permanently
+      redirect_to url_for(:controller => params[:controller], :action => params[:action], :taxon_id => @taxon_concept.id), :status => :moved_permanently
       return false 
     end
   end

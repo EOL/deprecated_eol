@@ -1,6 +1,7 @@
 = I18n.t(:greeting_dear_name_with_comma, :name => @user.full_name, :species_pages_group_email => $SPECIES_PAGES_GROUP_EMAIL_ADDRESS, :scope => :notifier)
 :plain
 = t('.message', :members_username => @user.username,
+  :species_pages_group_email => $SPECIES_PAGES_GROUP_EMAIL_ADDRESS,
   :curator_activity_log => render(:partial => 'curator_activity_log', :locals => {:actions => @activity[:actions]}),
   :data_object_comments =>  render(:partial => 'comments', :locals => {:comments => @activity[:object_comments]}),
   :page_comments =>  render(:partial => 'comments', :locals => {:comments => @activity[:page_comments]}))

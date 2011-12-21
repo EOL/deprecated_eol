@@ -525,7 +525,7 @@ protected
   # Used in V2 for Facebook Like button @see /views/shared/_social_sharing
   def set_social_plugin_meta_defaults
     if request.format.html?
-      if $ENABLED_SOCIAL_PLUGINS.include?(:facebook)
+      if $ENABLED_SOCIAL_PLUGINS && $ENABLED_SOCIAL_PLUGINS.include?(:facebook)
         @meta_facebook_data = {
           'fb:app_id' => $FACEBOOK_APP_ID
         }

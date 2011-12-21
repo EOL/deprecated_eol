@@ -4,6 +4,7 @@
   - actions.each do |action|
     - users_name = h strip_tags(action.user.full_name)
     - users_url = user_url(action.user, :host => $SITE_DOMAIN_OR_IP)
+    - users_curator_level = action.user.curator_level.label rescue 'User'
     - action_date = format_date_time(action.created_at)
     - # We check to make sure the action.data_object association is 'real' i.e. curator_activity_logs.object_id == data_objects.id
     - # Consequently this partial does not handle activity on e.g. ChangeableObjectType.taxon_concept_name (please remove these comments if that changes)
@@ -41,9 +42,9 @@
         - if taxon_name.nil?
           = I18n.t("activity_user_marked_data_object_as_#{en_activity_name}_on_date", :users_name => users_name, :users_url => users_url,
             :object_name => object_name, :object_url => object_url, :action_date => action_date,
-            :scope => :notifier)
+            :scope => :notifier, :curator_level => users_curator_level)
         - else
           = I18n.t("activity_user_marked_data_object_as_#{en_activity_name}_for_taxon_on_date", :users_name => users_name, :users_url => users_url,
             :object_name => object_name, :object_url => object_url, :taxon_name => strip_tags(taxon_name), :taxon_url => taxon_url,
-            :action_date => action_date, :scope => :notifier)
+            :action_date => action_date, :scope => :notifier, :curator_level => users_curator_level)
 

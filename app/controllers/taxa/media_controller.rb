@@ -86,11 +86,4 @@ class Taxa::MediaController < TaxaController
     store_location(params[:return_to] || request.referer)
     redirect_back_or_default taxon_media_path params[:taxon_concept_id]
   end
-
-private
-
-  def redirect_if_superceded
-    redirect_to taxon_media_path(@taxon_concept, params.merge(:status => :moved_permanently).
-        except(:controller, :action, :id, :taxon_id)) and return false if @taxon_concept.superceded_the_requested_id?
-  end
 end

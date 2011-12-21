@@ -116,12 +116,9 @@ describe 'Feeds' do
     community = Community.gen
     user = User.gen
     login_as user
-    log = CommunityActivityLog.gen(:community => community, :user => user, :activity => Activity.create)
-    xpect 'NOT on the homepage'
-    visit root_url
-    page.body.should_not have_tag('a', :text => I18n.t(:reply))
+    log = CommunityActivityLog.gen(:community => community, :user => user, :activity => Activity.find_or_create('create'))
     xpect 'including a "reply" button with each post'
-    visit community_path(community)
+    visit user_activity_path(user)
     page.body.should have_tag('ul.feed') do
       with_tag('a', :text => I18n.t(:reply))
     end

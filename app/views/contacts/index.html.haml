@@ -1,0 +1,33 @@
+- form_for @contact, :url=>{:action=>'create'}, :builder => ApplicationHelper::EolFormBuilder do |f|
+  %fieldset
+    %h1= I18n.t(:please_leave_your_feedback)
+    = validation_errors_for(@contact)
+    %dl
+      %dt
+        = f.label :name
+      %dd
+        = f.text_field :name, { :maxlength => 32 }
+      %dt
+        = f.label :email
+      %dd
+        = f.text_field :email, { :maxlength => 100 }
+      %dt
+        = f.label :contact_subject
+      %dd
+        = f.select :contact_subject_id, @list
+      %dt
+        = f.label :comment
+      %dd
+        = f.text_area :comments, { :maxlength => 400 }
+  - if $ENABLE_RECAPTCHA
+    %fieldset
+      :javascript
+        var RecaptchaOptions = { theme : 'clean'};
+      %dl
+        %dt
+          %label{ :for => "recaptcha" }
+            = I18n.t(:recaptcha)
+        %dd
+          = recaptcha_tags
+  %fieldset.actions
+    = f.submit I18n.t(:send_feedback)

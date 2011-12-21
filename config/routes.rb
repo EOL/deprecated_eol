@@ -115,7 +115,7 @@ ActionController::Routing::Routes.draw do |map|
                            :collection => { :set_as_exemplar => [:get, :post] }
     taxa.resources :details, :except => [:show], :controller => "taxa/details"
     taxa.resources :names, :only => [:index, :create, :update], :controller => "taxa/names",
-                          :collection => { :common_names => :get, :synonyms => :get },
+                          :collection => { :common_names => :get, :synonyms => :get, :delete => :get },
                           :member => { :vet_common_name => :get }
     taxa.resource :literature, :only => [:show], :controller => "taxa/literature",
       :member => { :bhl => :get }

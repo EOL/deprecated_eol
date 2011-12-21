@@ -27,6 +27,7 @@ javascripts:
 - collections:
   - collections
 - communities:
+  - jquery.spotlite
   - communities
 - mobile:
   - jquery-1.6.1.min

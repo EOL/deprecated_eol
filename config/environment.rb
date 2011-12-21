@@ -155,9 +155,9 @@ Rails::Initializer.run do |config|
   $SUPPORT_EMAIL_ADDRESS = "from@example.com"
   $ERROR_EMAIL_ADDRESS = "from@example.com"
   $STATISTICS_EMAIL_FROM_ADDRESS = "from@example.com"
+  $EDUCATION_EMAIL = 'from@example.com'
   $MEDIA_INQUIRY_CONTACT_SUBJECT_ID = 1 # this should match the ContactSubject table with the ID of the media inquiry row (used on the special Media Contact page)
   $CONTRIBUTE_INQUIRY_CONTACT_SUBJECT_IDS = "13,14" # this should match the ContactSubject table with the IDs of the request to curate or contribute rows as a string in comma delimuted format  (used on the Contact us page to show an extra field)
-  $CONTENT_PARTNER_REGISTRY_EMAIL_ADDRESS = "content@example.com" # the contact us form on the data partner registry goes into this address
 
   # SESSION MANAGEMENT
   $SESSION_EXPIRY_IN_SECONDS = (60*60) # the number of seconds of non-use before sessions are automatically expired in SQL
@@ -187,7 +187,6 @@ Rails::Initializer.run do |config|
   $WEB_SERVICE_TIMEOUT_SECONDS = 60 # how many seconds to wait when calling a webservice before timing out and returning nil
   $LOG_WEB_SERVICE_EXECUTION_TIME = false # if set to false, then execution times for web service calls will not be recorded
   $WEB_SERVICE_BASE_URL = '' # web service is used for importing content partners' data
-
 
   $SOLR_SERVER = 'http://localhost:8983/solr/'
   $SOLR_TAXON_CONCEPTS_CORE = 'taxon_concepts'
@@ -331,13 +330,11 @@ if defined?(PhusionPassenger)
 end
 
 # Default values for some footer elements:
-$EOL_TWITTER_ACCOUNT = "http://twitter.com/#!/EOL"
-$EOL_FACEBOOK_ACCOUNT = "http://www.facebook.com/pages/Encyclopedia-of-Life/62911075968?sk=wall"
-$EOL_TUMBLR_ACCOUNT = "http://blog.eol.org"
-$EOL_FLICKR_ACCOUNT = "http://www.flickr.com/groups/encyclopedia_of_life/"
-$EOL_YOUTUBE_ACCOUNT = "http://www.youtube.com/user/EncyclopediaOfLife/"
-
-$EDUCATION_EMAIL = 'education@eol.org'
+$EOL_TWITTER_ACCOUNT  = "http://twitter.com/#!/EOL"
+$EOL_FACEBOOK_ACCOUNT = "http://www.facebook.com/encyclopediaoflife"
+$EOL_TUMBLR_ACCOUNT   = "http://blog.eol.org"
+$EOL_FLICKR_ACCOUNT   = "http://www.flickr.com/groups/encyclopedia_of_life/"
+$EOL_YOUTUBE_ACCOUNT  = "http://www.youtube.com/user/EncyclopediaOfLife/"
 
 # load the system configuration
 require File.dirname(__FILE__) + '/system' if File.file?(File.dirname(__FILE__) + '/system.rb')

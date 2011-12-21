@@ -1775,6 +1775,12 @@ en:
     other: "%{count} members;"
   merge_concepts: "merge concepts"
   message_colon: "Message:"
+  meta_description_collection: "%{collection_name} %{collection_description}. An Encyclopedia of Life collection."
+  meta_description_community: "%{community_name} %{community_description}. An Encyclopedia of Life community."
+  meta_description_default: "The Encyclopedia of Life is an unprecedented effort to gather and share scientific knowledge about all living things in a single online resource, giving each of us a breathtaking view of our amazing world."
+  meta_description_taxon: "Descriptions, images, videos and more about %{preferred_common_name_or_blank} %{scientific_name} in the Encyclopedia of Life."
+  meta_title_default: "Encyclopedia of Life"
+  meta_title_template: "%{page_title} - Encyclopedia of Life"
   method: "Method"
   methods: "Methods"
   minimal_page: "Minimal Page"
@@ -2180,6 +2186,8 @@ en:
   skip_to_content: "Skip to content"
   skip_to_navigation: "Skip to navigation"
   skip_to_table_of_contents: "Skip to table of contents"
+  social_sharing_twitter_tweet_button: "Tweet"
+  social_sharing_twitter_follow_eol_button: "Follow @eol"
   some_required_fields_were_not_entered: "Some required fields were not entered (you must enter a title, and content OR a URL)."
   sort_by_button: "Sort"
   sort_by_label: "Sort by"
@@ -2431,7 +2439,7 @@ en:
     one: "%{count} article added"
     other: "%{count} articles added"
   user_activity_stats_articles_added_dropdown: "Articles added"
-  user_activity_stats_comment_submitted: 
+  user_activity_stats_comment_submitted:
     one: "%{count} comment submitted"
     other: "%{count} comments submitted"
   user_activity_stats_common_names_added:

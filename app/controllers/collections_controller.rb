@@ -449,7 +449,8 @@ private
     @site_column_id = 'collections_edit'
     @site_column_class = 'copy' # TODO - why?! (This was a HR thing.)
     @editing = true # TODO - there's a more elegant way to handle the difference in the layout...
-    @head_title = I18n.t(:edit_collection_head_title, :collection_name => @collection.name) unless @collection.blank?
+    @meta_title = I18n.t(:meta_title_template, :page_title => I18n.t(:edit_collection_head_title,
+      :collection_name => @collection.name)) unless @collection.blank?
   end
 
   def set_sort_options

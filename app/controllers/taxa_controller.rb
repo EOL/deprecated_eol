@@ -3,14 +3,13 @@ class TaxaController < ApplicationController
   layout 'v2/taxa'
 
   prepend_before_filter :redirect_back_to_http if $USE_SSL_FOR_LOGIN   # if we happen to be on an SSL page, go back to http
-  after_filter :set_meta_description_and_keys
 
   def show
     if this_request_is_really_a_search
       do_the_search
       return
     end
-    return redirect_to taxon_overview_path(params[:id])
+    return redirect_to taxon_overview_path(params[:id]), :status => :moved_permanently
   end
 
   # If you want this to redirect to search, call (do_the_search && return if this_request_is_really_a_search) before this.
@@ -326,13 +325,6 @@ private
         :id       => lang.id,
         :selected => lang.id == (current_user_copy && current_user_copy.language_id) ? "selected" : nil
       }
-    end
-  end
-
-  def set_meta_description_and_keys
-    if @taxon_concept
-      @meta_description = "#{@taxon_concept.title} (#{@taxon_concept.subtitle}) in Encyclopedia of Life"
-      @meta_keywords = @taxon_concept.title + " " + @taxon_concept.subtitle
     end
   end
 

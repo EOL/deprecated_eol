@@ -3076,3 +3076,10 @@ ul.spotlite-matches {
   left: 0;
   width: 100%;
   height: 100%; }
+
+#social_sharing {
+  margin: 0 0 10px 0;
+  width: 100%; }
+  #social_sharing > div {
+    display: inline-block;
+    vertical-align: top; }

@@ -69,14 +69,14 @@ class ContentPartnersController < ApplicationController
     @partner = ContentPartner.find(params[:id], :include => [{ :resources => :collection }, :content_partner_contacts ])
     access_denied unless current_user.can_read?(@partner)
     @partner_collections = @partner.resources.collect{|r| r.collection}.compact
-    @head_title = @partner.name
+    @meta_title = I18n.t(:meta_title_template, :page_title => @partner.name)
   end
 
   # GET /content_partners/:id/edit
   def edit
     @partner = ContentPartner.find(params[:id])
     access_denied unless current_user.can_update?(@partner)
-    @head_title = @partner.name
+    @meta_title = I18n.t(:meta_title_template, :page_title => @partner.name)
   end
 
   # PUT /content_partners/:id

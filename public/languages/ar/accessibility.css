@@ -18,7 +18,7 @@ body.home > #header {
   background: transparent url("/images/v2/bg_home_earth.jpg") 50% 100% no-repeat; }
 
 /*Busy indicator for JS submitted forms e.g. exemplar image */
-.busy {
+html.busy, html.busy *, .busy {
   cursor: wait; }
 
 /*Override for layout on users edit - we have extra nested div so we need to remove padding,
@@ -1185,6 +1185,25 @@ a.other_actions {
   #taxon_updates form.comment textarea {
     width: 580px; }
 
+#collections_tab form#reply {
+  padding: 0; }
+  #collections_tab form#reply fieldset {
+    margin-top: 10px; }
+    #collections_tab form#reply fieldset #comment_body {
+      float: left; }
+
+.article form#reply {
+  padding: 0; }
+  .article form#reply fieldset {
+    margin-top: 10px; }
+    .article form#reply fieldset #comment_body {
+      float: left;
+      margin-left: 16px; }
+
+#permalink #main form#reply {
+  border: 0;
+  margin-top: 0; }
+
 #page_heading p#citation {
   background-color: white;
   border: 1px solid #d4dce2;
@@ -1241,6 +1260,20 @@ body#prelaunch p.status {
 body#prelaunch #footer ul.social_media {
   margin-top: 20px; }
 
+.feed .edit_comment_form {
+  display: none; }
+
+.feed .deleted_comment {
+  font-style: italic;
+  color: #62707d; }
+
+.feed p.actions {
+  line-height: 80%; }
+  .feed p.actions span {
+    text-transform: lowercase;
+    margin-left: 5px;
+    font-size: 0.9em; }
+
 .scientific_name {
   direction: ltr;
   text-align: right; }
@@ -1272,3 +1305,11 @@ input[type="password"] {
 
 #taxon_literature table, #taxon_literature ul.ref_list {
   direction: ltr; }
+
+#new_comment p.reply-to {
+  float: right;
+  color: #195184;
+  font-weight: bold; }
+
+.highlight {
+  background-color: #f3f7fa; }

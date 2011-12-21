@@ -239,6 +239,10 @@ module ApplicationHelper
     return "/taxon_concepts/#{taxon_concept.id}/comments/"
   end
 
+  def contact_us_requests_path
+    return "/contact_us_request_path/create"
+  end
+
   # format numbers with commas for digit separators
   def format_number_with_commas(st)
     st.to_s.gsub(/(\d)(?=(\d\d\d)+(?!\d))/, "\\1,")

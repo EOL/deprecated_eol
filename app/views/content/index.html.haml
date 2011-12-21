@@ -37,6 +37,6 @@
     .article.community
       %h3= I18n.t(:community_activity)
       - cache(:action => 'index', :action_suffix => "activity_#{current_user.language_abbr}") do
-        = render :partial => 'activity_logs/index', :locals => { :log => EOL::ActivityLog.global($ACTIVITIES_ON_HOME_PAGE), :hide_pagination => true, :truncate_comments => true, :supress_reply => true }
+        = render :partial => 'activity_logs/index', :locals => { :log => EOL::ActivityLog.global($ACTIVITIES_ON_HOME_PAGE), :hide_pagination => true, :truncate_comments => true}
     - unless logged_in?
       = render :partial => 'shared/join_eol', :locals => {:join_style => 'button'}

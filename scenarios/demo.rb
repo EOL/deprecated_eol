@@ -266,7 +266,7 @@ community_name = 'Columbia Intro Biology'
 community = Community.find_by_name(community_name)
 community ||= Community.gen(:name => community_name, :description => 'This is a community intended to showcase the newest features of Version 2 for the EOL website.', :logo_cache_url => 201107131232031)
 community.initialize_as_created_by(community_owner)
-com_col = community.focus
+com_col = community.collections[0]
 com_col.logo_cache_url = 201107131234217
 com_col.save!
 
@@ -279,7 +279,7 @@ endorsed_collection = Collection.find_by_name(collection_name)
 endorsed_collection ||= Collection.gen(:user => collection_owner, :name => collection_name, :logo_cache_url => 201107131204367)
 
 # Empty the two collections:
-community.focus.collection_items.each do |ci|
+community.collections[0].collection_items.each do |ci|
   ci.destroy
 end
 endorsed_collection.collection_items.each do |ci|
@@ -299,7 +299,7 @@ concerned.save
 summart_text_toc_items = [TocItem.brief_summary, TocItem.comprehensive_description, TocItem.distribution]
 # Now build them up again:
 taxa.each do |tc|
-  community.focus.add tc
+  community.collections[0].add tc
   endorsed_collection.add tc
   endorsed_collection.add tc.best_image
 

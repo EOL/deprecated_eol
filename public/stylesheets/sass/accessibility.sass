@@ -1218,6 +1218,24 @@ a.other_actions
   margin: 0 0 15px
   textarea
     width: 580px
+#collections_tab
+  form#reply
+    padding: 0
+    fieldset
+      margin-top: 10px
+      #comment_body
+        float: right
+.article
+  form#reply
+    padding: 0
+    fieldset
+      margin-top: 10px
+      #comment_body
+        float: right
+        margin-right: 16px
+#permalink #main form#reply
+  border: 0
+  margin-top: 0
 
 // New style for HE view:
 #page_heading p#citation
@@ -1288,32 +1306,19 @@ body#prelaunch #footer ul.social_media
   font-style: italic
   color: #62707D
 
-// "Button" (link) for deleting the comments in newsfeeds:
-.feed .delete
-  float: right
-  font-weight: bold
-  text-transform: uppercase
-  margin-left: 5px
-
-// "Button" (link) for editing the comments in newsfeeds:
-.feed .edit
-  float: right
-  font-weight: bold
-  text-transform: uppercase
-  margin-left: 5px
-
-// "Button" (link) for replying to comments and the like in newsfeeds:
-.feed .reply
-  float: right
-  font-weight: bold
-  text-transform: uppercase
-  margin-left: 5px
+// "Button" (link) for deleting the comments in newsfeeds.  Note the line-height is a little awkward, but I liked it
+// better than removing the padding-bottom on the previous div... which, FWIW, wasn't enough anyway.
+.feed p.actions
+  line-height: 80%
+  span
+    text-transform: lowercase
+    margin-right: 5px
+    font-size: 0.9em
 
 #new_comment p.reply-to
-  float: right
+  float: left
   color: #195184
   font-weight: bold
-  text-transform: uppercase
 
 .highlight
-  background-color: #F1F4DC
+  background-color: #F3F7FA

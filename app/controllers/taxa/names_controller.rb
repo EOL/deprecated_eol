@@ -150,7 +150,7 @@ private
     else
       names = EOL::CommonNameDisplay.find_by_taxon_concept_id(@taxon_concept.id)
     end
-    common_names = names.select {|n| !n.language.iso_639_1.blank? || !n.language.iso_639_2.blank? || n.language == Language.unknown }
+    common_names = names.select {|n| !n.language.iso_639_1.blank? || !n.language.iso_639_2.blank? }
   end
 
   def common_names_count
@@ -159,7 +159,7 @@ private
   end
 
   def set_vet_options
-    @common_name_vet_options = {I18n.t(:trusted) => Vetted.trusted.id.to_s, I18n.t(:unreviewed) => Vetted.unknown.id.to_s, I18n.t(:untrusted) => Vetted.untrusted.id.to_s, I18n.t(:inappropriate) => Vetted.inappropriate.id.to_s}
+    @common_name_vet_options = {I18n.t(:trusted) => Vetted.trusted.id.to_s, I18n.t(:unreviewed) => Vetted.unknown.id.to_s, I18n.t(:untrusted) => Vetted.untrusted.id.to_s, I18n.t(:inappropriate) => Vetted.inappropriate.id.to_i}
   end
 
   def preload_core_relationships_for_names

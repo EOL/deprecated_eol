@@ -60,6 +60,7 @@ stylesheets:
 - admin:
   - application
   - accessibility
+  - admin
 - home:
   - home
   - accessibility

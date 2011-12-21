@@ -407,7 +407,6 @@ sr-el:
   collection_destroyed: Zbirka je obrisana.
   collection_image: Slika zbirke
   collection_is_empty: Ova zbirka je trenutno prazna.
-  collection_item_annotation_label: Zabeleška stavke zbirke
   collection_item_not_found_error: Ne mogu da pronađem stavku u zbirci.
   collection_name_label: Naziv zbirke
   collection_newsfeed: Dovod zbirke
@@ -790,7 +789,6 @@ sr-el:
   endorsed_collections_with_count: 
     one: "%{count} istaknuta zbirka"
     other: "%{count} istaknute zbirke"
-  enter: pristupi
   eol_api: EOL API
   eol_api_collections: "EOL API: zbirke"
   eol_api_data_objects: "EOL API: objekti podataka"
@@ -1649,7 +1647,6 @@ sr-el:
   thank_you_for_your_generous_support: Hvala vam na podršci
   thanks_for_donation: Hvala vam na podršci Enciklopedije života. Vaši podaci su poslati i ubrzo će biti obrađeni.
   the_amount_entered_was: "Uneti iznos: US %{number}"
-  the_comment_was_successfully_u: Komentar je ažuriran.
   the_darwin_core_taxon_elements: Taksonski elementi Darvinovog jezgra (dwct:Taxon) koji se nalaze pod „additionalInformation“ sadrže naznake za čvorove u hijerarhijama koje popisuje EOL. Oni sadrže dc:identifier koji je jedinstvena naznaka taksona <i>u bazi dobavljača.</i>
   the_following_bibliography: Sledeća bibliografija je stvorena sabiranjem svih navoda dobijenih od partnera za sadržaj. Može se javiti duplikat.
   the_id_of_provider_hierarchy_you_are_searching: naznaka dobavljačke hijerarhije koju tražite. Proverite %{link} za ispravne naznake
@@ -1671,7 +1668,6 @@ sr-el:
   threat_status_header_colon: "Status ugroženosti <abbr title=\"Međunarodna unija za zaštitu prirode\">MUZP</abbr>:"
   time_ago: pre %{time_passed}
   title: Naslov
-  to: za
   to_process_your_donation_please_proceed: Ako želite da date novčani prilog, nastavite
   toc: Sadržaj
   total_items_with_count: 

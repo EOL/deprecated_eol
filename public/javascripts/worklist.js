@@ -1,5 +1,6 @@
-$(function() {
+if(!EOL) { var EOL = {}; }
 
+EOL.init_worklist_behaviors = function() {
   $("#tasks li").unbind('click');
   $('#worklist #tasks li').click(function() {
     if($('#worklist #tasks li.active span.indicator').html() != '') {
@@ -22,7 +23,7 @@ $(function() {
         name: 'ajax',
         value: 1
     }).appendTo($f);
-    EOL.ajax_submit($f, {update: $(this).closest('#worklist'), type: 'GET'});
+    EOL.ajax_submit($f, {update: $(this).closest('#worklist'), type: 'GET', complete: function () { EOL.init_worklist_behaviors(); } });
     return(false);
   });
 
@@ -31,7 +32,7 @@ $(function() {
     var $update = $(this).closest('#worklist');
     var current_link = $(this).attr('href');
     $(this).attr('href', current_link + (current_link.indexOf('?') != -1 ? "&ajax=1" : "?ajax=1"));
-    EOL.ajax_get($(this), {update: $update, type: 'GET'});
+    EOL.ajax_get($(this), {update: $update, type: 'GET', complete: function () { EOL.init_worklist_behaviors(); }});
     return(false);
   });
 
@@ -69,11 +70,13 @@ $(function() {
 
   $('#worklist #task').ajaxSuccess(function() {
     resize_task_panel();
+    EOL.init_worklist_behaviors();
   });
-});
+};
 
 $(window).load(function() {
   resize_task_panel();
+  EOL.init_worklist_behaviors();
 });
 
 function resize_task_panel() {

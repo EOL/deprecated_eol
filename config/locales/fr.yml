@@ -24,10 +24,12 @@ fr:
     other: Un total de %{count} commentaires trouvées correspondant à vos critères.
   about_eol: À propos de l’EOL
   account_information: Informations sur le compte
+  account_information_menu: Informations sur le compte
   account_registered_but_not_ready_try_later: Votre compte est enregistré mais vous ne pouvez pas encore y accéder. Veuillez réessayer dans cinq minutes.
   action: Action
   action_not_available_error: Désolé, cette action n’est pas disponible.
   actions: Actions
+  active: Actif
   active_colon: "Actif :"
   activerecord: 
     attributes: 
@@ -136,7 +138,7 @@ fr:
         exclusion: est protégé
         greater_than: 
           one: doit être supérieur à %{count}
-          other: doivent être supérieurs à %{count}
+          other: doit être supérieur à %{count}
         greater_than_or_equal_to: doit être supérieur ou égal à %{count}
         inaccessible: est inaccessible
         inclusion: ne fait pas partie de la liste
@@ -186,8 +188,9 @@ fr:
   activity_log_empty: Personne n'a encore fourni les mises à jour.
   activity_log_empty_learn_more_link: Apprenez comment contribuer
   activity_user_added_association: <strong>%{user}</strong> ajouté en lien avec "%{object_name}".
-  activity_user_added_common_name: <strong>%{user}</strong> a ajouté le nom courant "%{name}" à un objet inconnu.
-  activity_user_added_common_name_to_taxon: <strong>%{user}</strong> a ajouté le nom courant "%{name}" à "%{taxon}".
+  activity_user_added_collection_to_community: <strong>%{user}</strong> a ajouté la collection "%{collection}" à la communauté "%{community}".
+  activity_user_added_common_name: <strong>%{user}</strong> a ajouté le nom courant en %{language} « %{name} » à un objet inconnu.
+  activity_user_added_common_name_to_taxon: <strong>%{user}</strong> a ajouté le nom courant en %{language} « %{name} » à « %{taxon} ».
   activity_user_added_community_manager: <strong>%{user}</strong> a fait %{manager} un gestionnaire de la communauté "%{community}".
   activity_user_added_item_to_collection: <strong>%{user}</strong> a ajouté "%{item}" à la collection "%{collection}".
   activity_user_added_named_association: <strong>%{user}</strong> a ajouté une association entre "%{object_name}" et "%{name}".
@@ -227,19 +230,32 @@ fr:
   activity_user_untrusted_data_object: <strong>%{user}</strong> a signalé "%{object_name}" comme douteux.
   activity_user_untrusted_unknown_object: <strong>%{user}</strong> a signalé un élément inconnu comme douteux.
   activity_user_updated_text: <strong>%{user}</strong> a mis à jour le texte "%{object_name}" sur "%{taxon_concept}".
+  add: Ajouter
+  add_a_collection_to_a_community: Ajouter « %{collection} » à une communauté
+  add_a_comment: Ajouter un commentaire.
   add_a_comment_colon: "Ajouter un commentaire :"
   add_a_new_common_name: Ajouter un nouveau nom commun
+  add_a_new_file_brackets: "[ajouter un nouveau fichier]"
+  add_a_new_news_item: Ajouter une actualité
+  add_a_new_role: Ajouter un nouveau rôle
+  add_a_new_search_suggestion: Ajouter une nouvelle suggestion de recherche
+  add_a_new_term: Ajouter un nouveau terme
+  add_a_new_topic_area: Ajouter un nouveau thème
   add_a_new_user: Ajouter un nouvel utilisateur
   add_a_taxon_association_label: Ajouter une association de taxon
   add_article_to_page_link_button: Ajouter un article à cette page
   add_association_submit_button: ajouter l’association
   add_brief_summary_to_page_link_button: Ajouter un résumé à cette page
+  add_collection_to_a_new_community: Ajouter « %{collection} » à une nouvelle communauté
+  add_collection_to_community: Ajouter la collection à la communauté
   add_education_resources_to_page_link_button: Ajouter des ressources éducatives à cette page
   add_identification_resources_to_page_link_button: Ajouter des ressources d’identification à cette page
   add_item_to_new_collection: Ajouter "%{item}" à une nouvelle collection
   add_language: Ajouter une langue
   add_new_association_link: Ajouter une nouvelle association
   add_page: Ajouter une page
+  add_sub_chapter: Ajouter le sous-chapitre
+  add_to_a_community: Ajouter à une communauté.
   add_to_my_collection_button: Ajouter à ma collection
   admin: administrateur
   admin_content_page_active: Publié
@@ -251,6 +267,7 @@ fr:
   admin_content_page_edit_header: Mettre à jour des informations de base pour <em>%{page_name}</em>
   admin_content_page_new_header: Créer une nouvelle page de contenu.
   admin_content_page_new_link: Créer une nouvelle page.
+  admin_content_page_not_active: Non publié
   admin_content_page_root: Racine
   admin_content_page_sort_order_updated: L'ordre des pages a été modifié.
   admin_content_page_update_successful_notice: La page <a href="#%{anchor}"><em>%{page_name}</em></a> a été mise à jour.
@@ -282,6 +299,7 @@ fr:
   all_information: Toutes les informations
   all_items: Tous les éléments
   all_pages: Toutes les pages
+  all_sources: Toutes les sources
   all_taxa: Tous les taxons
   all_title: Tout
   all_videos: Toutes les vidéos
@@ -293,7 +311,10 @@ fr:
   application_version_advisory_information: Version de l’application
   are_you_sure: Êtes-vous certain ?
   article_from: Article issu de
+  article_from_supplier: Article de %{whom}
   article_more_about: À propos de cet article
+  article_of: Article de
+  article_rating: Note de l'article
   assistive_details_header: Détails
   assistive_literature_header: Littérature
   assistive_maps_header: Cartes
@@ -350,6 +371,7 @@ fr:
   collection_not_created_error: Une erreur s'est produite. La collection <em>%{collection_name}</em> n'a pas pu être créée.
   collection_not_destroyed_error: La collection n'a pas pu être supprimée.
   collection_not_found_error: Impossible de trouver cette collection.
+  collection_rating: Évaluation de la collection
   collection_updated_notice: La collection <em>%{collection_name}</em> a été mise à jour avec succès.
   collection_was_removed_by_owner: Cette collection a été retirée par son propriétaire.
   collections: Collections
@@ -398,6 +420,7 @@ fr:
     one: "%{count} membre de la communauté"
     other: "%{count} membres de la communauté"
   community_not_destroyed_error: La communauté n'a pas pu être supprimée.
+  community_rating: Évaluation par la communauté
   community_removed_by_owner: Cette communauté a été retirée par son propriétaire.
   community_tab_collections_description: Les collections sont créées par les utilisateurs d'EOL pour mettre en évidence les relations entres espèces, qu'il s'agisse de relations géographiques, écologiques ou personnelles. Les communautés peuvent « mettre en lumière » des collections particulièrement intéressantes et enrichissantes.
   community_tab_communities_description: Les communautés sont des groupes d'utilisateurs d'EOL qui se réunissent autour d'un objectif commun, qu'il s'agisse de protéger les oiseaux limicoles ou de partager leur passion pour les primates. Les collections permettent aussi aux personnes qui ont les mêmes centres d'intérêt d'entrer en contact et de communiquer à travers le site EOL ou en dehors de celui-ci.
@@ -508,6 +531,8 @@ fr:
   help: Assistance
   helpers: 
     label: 
+      collection: 
+        view_style_id: Vue par défaut
       content_page: 
         active: Publié
         active_more: Les pages publiées seront visibles publiquement. Décochez <em>published</em> si vous voulez éviter que n'importe quel utilisateur puisse voir les versions de cette page dans n'importe quelle langue.
@@ -553,6 +578,7 @@ fr:
       harvest_event: 
         began_at: Démarré
         completed_at: Terminé
+        publish_more: Drapeaux d'événement de collecte pour la publication, le contenu ne sera pas rendu public immédiatement.
         published_at: Publié
         published_status: État
       hierarchy: 
@@ -571,6 +597,7 @@ fr:
         dataset_existing_replace: Le fichier <em>%{file_name}</em> est actuellement associé avec cette ressource. Charger un nouveau fichier pour remplacer le fichier <em>%{file_name}</em> existant.
         dwc_archive_url: "S'il y a une archive principale Darwin associée avec cette ressource, entrez son URL ici <small>(TAR.GZIP, TAR.GZ ou TGZ uniquement)</small>:"
         hierarchy: Hiérarchie
+        latest_harvest_event: Dernière récolte
         latest_published_harvest_event: Dernière publication
         oldest_published_harvest_event: Première publication
         refresh_period_hours: Fréquence
@@ -685,8 +712,14 @@ fr:
   hierarchy: Hiérarchie
   home: Accueil
   home_page_link_advisory_information: Ce lien vous mènera à la page d'accueil du site de l'Encyclopédie de la vie
+  image_from_supplier: Image par %{whom}
   image_is_no_longer_available: L’image n’est plus disponible
+  image_map_from_supplier: Carte par %{whom}
+  image_map_of: Carte de
+  image_map_rating: Évaluation de la carte
   image_not_found: Image introuvable
+  image_of: Image de
+  image_rating: Évaluation de l'image
   images: Images
   images_with_count: 
     one: "%{count} image"
@@ -721,6 +754,8 @@ fr:
   logout: Déconnexion
   maintained_by: maintenu par
   managed_by: Géré par
+  map_from_supplier: Carte par %{whom}
+  map_of: Carte de
   media: Médias
   member_of: membre de
   members_with_count: 
@@ -755,6 +790,11 @@ fr:
     activity_on_user_content: 
       message: "Ceci est un courrier automatique de l'Encyclopedia of Life (EOL). Il résume les commentaires récents et les actions de conservation sur le contenu que vous avez ajouté à l'EOL depuis votre compte utilisateur %{members_username}.\n\nActions de conservation :\n%{curator_activity_log}\n\nCommentaires sur les données :\n%{data_object_comments}\n\nCommentaires sur les pages avec lesquelles vos données sont associées :\n%{page_comments}"
       subject: Résumé des activités récentes sur le contenu que vous avez ajouté à l'Encyclopedia of Life
+    activity_user_marked_data_object_as_inappropriate_on_date: "%{users_name} (%{users_url}) marqué comme inapproprié:\n%{object_name} (%{object_url})\n%{action_date}."
+    activity_user_marked_data_object_as_trusted_for_taxon_on_date: "%{users_name} (%{users_url}) marqué comme digne de confiance:\n%{object_name} (%{object_url}) pour %{taxon_name} (%{taxon_url})\n%{action_date}."
+    activity_user_marked_data_object_as_trusted_on_date: "%{users_name} (%{users_url}) marqué comme digne de confiance:\n%{object_name} (%{object_url})\n%{action_date}."
+    activity_user_marked_data_object_as_untrusted_for_taxon_on_date: "%{users_name} (%{users_url}) marqué comme non fiable:\n%{object_name} (%{object_url}) pour %{taxon_name} (%{taxon_url})\n%{action_date}."
+    activity_user_marked_data_object_as_untrusted_on_date: "%{users_name} (%{users_url}) marqué comme non fiable:\n%{object_name} (%{object_url})\n%{action_date}."
     comments_empty: Aucun commentaire récent.
     contact_us_auto_response: 
       message: "Merci d'avoir contacté le projet Encyclopedia of Life. Vos commentaires ont été envoyés au groupe concerné.\n\nNous vous remercions de vos commentaires."
@@ -763,16 +803,22 @@ fr:
       message: "Le message suivant a été soumis à EOL par le formulaire de contact :\nDe : %{from_name}\nCourrier : %{from_email}\nSujet : %{subject}\nGroupe de taxons : %{taxon_group}\n\n%{message}"
       subject: "Un message à EOL : %{title}"
     content_partner_created: 
+      message: "Il s'agit d'une notification automatique du système EOL pour le groupe de pages des espèces. L'utilisateur %{user_full_name} a créé un partenaire contenu %{partner_full_name}, dont les détails sont :\n \nUtilisateur : %{user_full_name}\nCourriel : %{user_email}\nURL de profile : %{user_profile_url}\n\nPartenaire : %{partner_full_name}\nURL du profile du partenaire : %{partner_profile_url}\nCréé le : %{partner_created_at_date}"
       subject: L'utilisateur %{user_full_name} a inscrit le partenaire %{partner_full_name}
     content_partner_resource_created: 
       message: "Ceci est une notification automatique adressée au groupe de pages des espèces. L'utilisateur %{user_full_name} a ajouté la ressource %{resource_title} au partenaire %{partner_full_name}.\n\nDétails :\n\nUtilisateur : %{user_full_name}\nCourriel : %{user_email}\nSite web : %{user_profile_url}\n\nPartenaire : %{partner_full_name}\nSite web : %{partner_resources_url}\n\nRessource : %{resource_title}\nURL de la ressource : %{resource_url}\nDate de création : %{resource_created_at_date}\nStatut : %{resource_status}"
       subject: L'utilisateur %{user_full_name} a ajouté la ressource %{resource_title} au partenaire %{partner_full_name}
+    content_partner_resource_force_harvest_request: 
+      message: "Il s'agit d'une notification automatique du système EOL pour le groupe de pages des espèces. L'utilisateur %{user_full_name} a demandé une récolte de force pour la ressource %{resource_title} appartenant à des partenaires de contenu %{partner_full_name}, dont les détails sont :\n\nUtilisateur : %{user_full_name}\nCourriel : %{user_email}\nURL du profile : %{user_profile_url}\n\nPartenaire : %{partner_full_name}\nURL des ressources partenaires : %{partner_resources_url}\n\nRessource : %{resource_title}\nURL de la ressource : %{resource_url}\nMise à jour : %{resource_updated_at_date}\nÉtat : %{resource_status}"
+      subject: L'utilisateur EOL %{user_full_name} a demandé une collecte forcée pour la ressource %{resource_title} appartenant au partenaire de contenu %{partner_full_name}
     content_partner_resource_hierarchy_publish_request: 
       message: "Ceci est une notification automatique adressée au groupe de pages des espèces. L'utilisateur %{user_full_name} a demandé à ce que la ressource %{resource_title} appartenant au partenaire %{partner_full_name} soit promue et publiée comme hiérarchie navigable sur EOL.\n\nDétails :\n\nUtilisateur : %{user_full_name}\nCourriel : %{user_email}\nSite web : %{user_profile_url}\n\nPartenaire : %{partner_full_name}\nSite web : %{partner_resources_url}\n\nRessource : %{resource_title}\nURL de la ressource : %{resource_url}\nModifier la hiérarchie : %{hierarchy_edit_url}"
       subject: L'utilisateur %{user_full_name} a demandé une promotion hiérarchique de la ressource %{resource_title} appartenant au partenaire %{partner_full_name}
     content_partner_statistics_reminder: 
       message: Ceci est un rappel automatique envoyé par l'Encyclopedia of Life. Les statistiques d'utilisation pour les données fournies à l'EOL par %{partner_full_name} en %{month} %{year} sont maintenant disponibles à l'adresse %{partner_statistics_url}.
       subject: Rappel des statistiques d'utilisation de l'Encyclopedia of Life par le partenaire %{partner_full_name} en %{month} %{year}
+    curator_approved: 
+      subject: Votre demande pour un privilège de superviseur % {curator_level} sur l'Encyclopédie de la vie a été approuvée.
     greeting_dear_name_with_comma: Cher/chère %{name},
     signature_basic: L'équipe de l'Encyclopedia of Life
     signature_with_species_pages_group_contact: "Si vous avez des questions, vous pouvez nous contacter à l'adresse %{species_pages_group_email}.\n\nL'équipe de l'Encyclopedia of Life"
@@ -780,6 +826,7 @@ fr:
     user_activated: 
       message: "Bienvenue sur l'Encyclopedia of Life (EOL) et merci de vous être inscrit(e) ! Votre nom d'utilisateur est %{username} et l'adresse de votre profil est %{profile_url}. Vous pouvez vous connecter à votre compte à l'adresse http://www.eol.org/login.\n\nPour en savoir plus sur l'utilisation de l'EOL, notamment comment créer des collections, participer aux communautés et contribuer au contenu, vous pouvez lire les pages d'aides à l'adresse http://www.eol.org/help."
       subject: Votre compte sur l'Encyclopedia of Life a été activé.
+    user_commented_on_something_date_body: "%{users_name} (%{users_url}) a mis un commentaire sur:\n%{commented_on_name} (%{commented_on_url})\n%{comment_date}:\n%{comment_body}"
     user_message: 
       subject: Un message de l'Encyclopedia of Life
     user_reset_password: 
@@ -864,6 +911,9 @@ fr:
   sort_by_title_descending: Titre décroissant
   sort_by_year_descending: Année décroissante
   sound_alt_text: Cet enregistrement audio %{vetted_status} concerne %{taxon_name}.
+  sound_from_supplier: Son de %{whom}
+  sound_of: Bruit de
+  sound_rating: Évaluation du son
   sounds_with_count: 
     one: "%{count} son"
     other: "%{count} sons"
@@ -922,6 +972,8 @@ fr:
   value_default: (par défaut)
   value_empty: (vide)
   values: Valeurs
+  video_from_supplier: Vidéo par %{whom}
+  video_of: Vidéo de
   videos_with_count: 
     one: "%{count} vidéo"
     other: "%{count} vidéos"

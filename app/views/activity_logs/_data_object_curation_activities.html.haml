@@ -1,4 +1,4 @@
-- scientific_name_link = link_to(h(item.hierarchy_entry.taxon_concept.scientific_name), taxon_path(item.hierarchy_entry.taxon_concept)) unless item.hierarchy_entry.nil?
+- scientific_name_link = link_to(h(item.hierarchy_entry.taxon_concept.quick_scientific_name), taxon_path(item.hierarchy_entry.taxon_concept)) unless item.hierarchy_entry.nil?
 - if scientific_name_link && object_link
   = I18n.t("activity_user_#{activity}_named_association", :user => name_with_link, :object_name => object_link, :name => scientific_name_link)
 - elsif scientific_name_link

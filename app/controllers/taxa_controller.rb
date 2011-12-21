@@ -196,8 +196,10 @@ private
   end
 
   def redirect_if_superceded
-    redirect_to taxon_overview_path(@taxon_concept, params.merge(:status => :moved_permanently).
-        except(:controller, :action, :id, :taxon_id)) and return false if @taxon_concept.superceded_the_requested_id?
+    if @taxon_concept.superceded_the_requested_id?
+      redirect_to url_for(:controller => params[:controller], :action => params[:action], :taxon_id => @taxon_concept.id), :status => :moved_permanently
+      return false 
+    end
   end
 
   def get_content_variables(options = {})

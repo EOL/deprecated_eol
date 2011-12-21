@@ -65,12 +65,4 @@ class Taxa::DetailsController < TaxaController
     @assistive_section_header = I18n.t(:assistive_details_header)
     current_user.log_activity(:viewed_taxon_concept_details, :taxon_concept_id => @taxon_concept.id)
   end
-
-private
-
-  def redirect_if_superceded
-    redirect_to taxon_details_path(@taxon_concept, params.merge(:status => :moved_permanently).
-        except(:controller, :action, :id, :taxon_id)) and return false if @taxon_concept.superceded_the_requested_id?
-  end
-
 end

@@ -1,5 +1,5 @@
 class Taxa::MapsController < TaxaController
-  before_filter :instantiate_taxon_concept
+  before_filter :instantiate_taxon_concept, :redirect_if_superceded
   before_filter :add_page_view_log_entry, :update_user_content_level
 
   def show

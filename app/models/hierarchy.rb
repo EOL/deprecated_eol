@@ -77,6 +77,12 @@ class Hierarchy < SpeciesSchemaModel
       Hierarchy.find_by_label("NCBI Taxonomy", :order => "hierarchy_group_version desc")
     end
   end
+  
+  def self.itis
+    cached('itis') do
+      Hierarchy.find_by_label('Integrated Taxonomic Information System (ITIS)', :order => 'id desc')
+    end
+  end
 
   def self.browsable_for_concept(taxon_concept)
     Hierarchy.find_all_by_browsable(1, :select => { :hierarchies => [ :id, :label, :descriptive_label ] },

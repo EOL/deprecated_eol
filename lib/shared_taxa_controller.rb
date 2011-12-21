@@ -38,11 +38,4 @@ module SharedTaxaController
   def update_user_content_level
     current_user.content_level = params[:content_level] if ['1','2','3','4'].include?(params[:content_level])
   end
-
-  # from taxa/overviews_controller
-  def redirect_if_superceded
-    redirect_to taxon_overview_path(@taxon_concept, params.merge(:status => :moved_permanently).
-        except(:controller, :action, :id, :taxon_id)) and return false if @taxon_concept.superceded_the_requested_id?
-  end
-
 end

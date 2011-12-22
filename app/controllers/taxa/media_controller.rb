@@ -12,7 +12,13 @@ class Taxa::MediaController < TaxaController
     @type = ['all'] if @type.include?('all')
     @status = params[:status] ||= ['all']
     @status = ['all'] if @status.include?('all')
+
     @exemplar_image = @taxon_concept.exemplar_or_best_image_from_solr(@selected_hierarchy_entry)
+    unless @exemplar_image.nil?
+      # Get the latest published version of the exemplar image
+      latest_published_exemplar_image = DataObject.latest_published_version_of(@exemplar_image.id)
+      @exemplar_image = latest_published_exemplar_image unless latest_published_exemplar_image.nil?
+    end
 
     data_type_ids = []
     ['image', 'video', 'sound'].each do |t|

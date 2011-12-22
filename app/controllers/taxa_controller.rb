@@ -190,6 +190,11 @@ private
     exemplar = @taxon_concept.taxon_concept_exemplar_image
     if exemplar && exemplar_image = exemplar.data_object
       data_objects.delete_if{ |d| d.id == exemplar_image.id }
+
+      # Get the latest version of the exemplar image
+      latest_published_exemplar_image = DataObject.latest_published_version_of(exemplar_image.id)
+      exemplar_image = latest_published_exemplar_image unless latest_published_exemplar_image.nil?
+
       data_objects.unshift(exemplar_image)
     end
     data_objects

@@ -186,10 +186,14 @@ private
   end
 
   def promote_exemplar(data_objects)
-    return data_objects if @taxon_concept.blank? || data_objects.blank? || @taxon_concept.taxon_concept_exemplar_image.blank?
-    exemplar = @taxon_concept.taxon_concept_exemplar_image
-    if exemplar && exemplar_image = exemplar.data_object
-      data_objects.delete_if{ |d| d.id == exemplar_image.id }
+    if @taxon_concept.blank? || @taxon_concept.taxon_concept_exemplar_image.blank?
+      exemplar_image = data_objects[0] unless data_objects.blank?
+    else
+      exemplar = @taxon_concept.taxon_concept_exemplar_image
+      exemplar_image = exemplar.data_object unless exemplar.nil?
+    end
+    unless exemplar_image.nil?
+      data_objects.delete_if{ |d| d.guid == exemplar_image.guid }
 
       # Get the latest version of the exemplar image
       latest_published_exemplar_image = DataObject.latest_published_version_of(exemplar_image.id)

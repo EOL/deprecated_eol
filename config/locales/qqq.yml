@@ -67,7 +67,21 @@ qqq:
     attributes:
       resource:
         harvest_events: "A 'Harvest Event' is the record of when data was imported for a resource (which is a collection of species information), so the term is meant to capture the sense of data being 'harvested' in a single 'event' in time."
+    errors:
+      models:
+        harvest_event:
+          attributes:
+            publish:
+              inclusion: "This error message will be displayed (after the name of the checkbox on the form) if an admin attempts to flag a harvest event for publishisng in one of the cases where it cannot be published (ie: it musn't already be published and there must not be a more recent model to be published)."
   user_response: "This is a table column heading where the cells in the column represent the response provided by a user when answering a survey question."
   who_registered_before: "The value of this key is simply 'to' because it is used in the context of a date range, where the user inputs a start date before this string and an end date after it.  ie: '...a user who registered from ____ to ____'"
   add_a_taxon_association_label: "A 'taxon association' is the association between a data object (for example, an image) and a single species (or other single taxonomic entity, such as class, order, or kingdom) ... more simply, a taxon association is saying something like 'This is a picture of a blackbird.'"
   comments_on: "This is meant to be the header for a page where we're listing all of the comments on a particular subject, such as 'Comments on An Image of A Blackbird' or 'Comments on Procyon Lotor' or 'Comments on Jeremy Rice'.  Thus, this string is prepended to the title of the page where the comments were originally left, and these titles are supplied by content partners, so we CANNOT know the number, gender, or other information about the string."
+  eol_api_provider_hierarchies: "This is the title for a documentation page describing the API for retrieving provider hierarchy information: the names and ids of the taxonomy ('tree of life') that each of our providers (content partners) must build in order to give us information specific to species within that tree."
+  request: "This is a low-level heading used on multiple documentation pages for the EOL API.  The request, in this context, is the URL that a user would use to call the method being documented.  It's the first H3 used on this page, for example: http://eol.org/api/docs/provider_hierarchies"
+  uploaded_content: "This is a page title used on an administrative page where the admin can see and edit content (images, PDFs, and the like) which have been uploaded to EOL's content servers."
+  vivisimo: "This is the name of vivisimo.com and is used on EOL's 'Search the Web' interface, to link to the site."
+  update: "This is used for the submit button on several admin pages, including content uploads, hierarchies, and search logs as an imperative verb to indicate the admin is about to update information in the database."
+  upload: "This is used as a submit button on the admin interface for uploading images and PDFs to EOL's content servers."
+  donation_sponsorship_content_title: "This is used as a title for the paragraph described by donation_sponsorship_content_description, which you may wish to read before translating this key. Basically, donors are allowed to sponsor efforts specific to particular organisms (say, fish)."
+  default_focus_collection_name_from_community: "'name' in this context is the name of a community.  This translated string will become the name of a collection, so a collection that's a focus for \"My Favourite Animals\" will be named something like \"My Favourite Animals' Focus\"."

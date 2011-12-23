@@ -176,25 +176,17 @@ class TaxonConcept < SpeciesSchemaModel
   alias :top_acting_curators :top_curators # deprecated.  TODO - remove entirely.
 
   def data_object_curators
-    guids = self.data_objects.collect{|d|d.guid}
-    data_objects = guids.collect{|guid|DataObject.find_all_by_guid(guid)}
-    object_ids = []
-    data_objects.each do |data_object|
-      data_object.each do |d|
-        object_ids << d.id
-      end
-    end
-    curators = []
-    unless object_ids.blank?
-      curators = connection.select_values("
-        SELECT cal.user_id
-        FROM #{CuratorActivityLog.database_name}.curator_activity_logs cal
-        JOIN #{LoggingModel.database_name}.activities acts ON (cal.activity_id = acts.id)
-        WHERE cal.object_id IN(#{object_ids.join(",")})
-        AND cal.changeable_object_type_id IN(#{ChangeableObjectType.data_object_scope.join(",")})
-        AND acts.id IN (#{Activity.raw_curator_action_ids.join(",")})
-        ORDER BY cal.updated_at DESC").uniq
-    end
+    curators = connection.select_values("
+      SELECT cal.user_id
+      FROM #{CuratorActivityLog.database_name}.curator_activity_logs cal
+      JOIN #{LoggingModel.database_name}.activities acts ON (cal.activity_id = acts.id)
+      JOIN #{DataObject.full_table_name} do ON (cal.object_id = do.id)
+      JOIN #{DataObject.full_table_name} do_all_versions ON (do.guid = do_all_versions.guid)
+      JOIN #{DataObjectsTaxonConcept.full_table_name} dotc ON (do_all_versions.id = dotc.data_object_id)
+      WHERE dotc.taxon_concept_id=#{self.id}
+      AND cal.changeable_object_type_id IN(#{ChangeableObjectType.data_object_scope.join(",")})
+      AND acts.id IN (#{Activity.raw_curator_action_ids.join(",")})
+      ORDER BY cal.updated_at DESC").uniq
     User.find(curators)
   end
 

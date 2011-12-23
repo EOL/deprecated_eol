@@ -297,12 +297,15 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   # TODO
   # NOTE - this is currently ONLY used in an exported (CSV) report for admins... so... LOW priority.
   # get the total objects curated for a particular curator activity type
-  def self.total_objects_curated_by_action_and_user(action_id = nil, user_id = nil, changeable_object_type_ids = nil)
+  def self.total_objects_curated_by_action_and_user(action_id = nil, user_id = nil, changeable_object_type_ids = nil, return_type = 'count', created_at = false)
     action_id ||= Activity.raw_curator_action_ids
     changeable_object_type_ids ||= ChangeableObjectType.data_object_scope
-    query = "SELECT cal.user_id, COUNT(DISTINCT cal.object_id) as count
-      FROM #{CuratorActivityLog.full_table_name} cal
-      JOIN #{Activity.full_table_name} acts ON (cal.activity_id = acts.id) WHERE "
+    if return_type == 'count'
+      query = "SELECT cal.user_id, COUNT(DISTINCT cal.object_id) as count "
+    elsif return_type == 'hash'
+      query = "SELECT cal.* "
+    end
+    query += "FROM #{CuratorActivityLog.full_table_name} cal JOIN #{Activity.full_table_name} acts ON (cal.activity_id = acts.id) WHERE "
     if user_id.class == Fixnum
       query += "cal.user_id = #{user_id} AND "
     elsif user_id.class == Array
@@ -313,8 +316,17 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     elsif action_id.class == Array
       query += "acts.id IN (#{action_id.join(',')}) AND "
     end
-    query += " cal.changeable_object_type_id IN (#{changeable_object_type_ids.join(",")}) GROUP BY cal.user_id"
+    if created_at
+      query += "cal.created_at >= '#{created_at}' AND "
+    end
+    query += " cal.changeable_object_type_id IN (#{changeable_object_type_ids.join(",")}) "
+    if return_type == 'count'
+      query += " GROUP BY cal.user_id"
+    end
     results = User.connection.execute(query).all_hashes
+    if return_type == 'hash'
+      return results
+    end
     return_hash = {}
     results.each do |r|
       return_hash[r['user_id'].to_i] = r['count'].to_i

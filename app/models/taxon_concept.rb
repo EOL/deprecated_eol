@@ -179,8 +179,10 @@ class TaxonConcept < SpeciesSchemaModel
     curators = connection.select_values("
       SELECT cal.user_id
       FROM #{CuratorActivityLog.database_name}.curator_activity_logs cal
-        JOIN #{LoggingModel.database_name}.activities acts ON (cal.activity_id = acts.id)
-        JOIN #{DataObjectsTaxonConcept.full_table_name} dotc ON (cal.object_id = dotc.data_object_id)
+      JOIN #{LoggingModel.database_name}.activities acts ON (cal.activity_id = acts.id)
+      JOIN #{DataObject.full_table_name} do ON (cal.object_id = do.id)
+      JOIN #{DataObject.full_table_name} do_all_versions ON (do.guid = do_all_versions.guid)
+      JOIN #{DataObjectsTaxonConcept.full_table_name} dotc ON (do_all_versions.id = dotc.data_object_id)
       WHERE dotc.taxon_concept_id=#{self.id}
       AND cal.changeable_object_type_id IN(#{ChangeableObjectType.data_object_scope.join(",")})
       AND acts.id IN (#{Activity.raw_curator_action_ids.join(",")})

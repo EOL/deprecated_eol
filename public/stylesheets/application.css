@@ -588,8 +588,10 @@ form.comment {
     float: left;
     margin: 0 10px 0 0;
     border: 1px solid #394651; }
-  form.comment textarea {
+  form.comment img + div {
     float: left;
+    margin: 0; }
+  form.comment textarea {
     width: 370px;
     padding: 8px;
     font: normal 1em Helvetica, Arial, sans-serif;
@@ -598,8 +600,7 @@ form.comment {
     background-color: white;
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
     background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
-    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white));
-    margin: 0; }
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white)); }
   form.comment fieldset.actions {
     clear: both;
     padding: 0 0 0 62px; }
@@ -718,6 +719,8 @@ p.status {
     margin: 0 0 10px 20px; }
 .copy form dl {
   margin-left: 0; }
+  .copy form dl dd {
+    margin: 0 0 10px 0; }
 .copy ul, .copy ol {
   margin: 0 40px 15px 40px;
   line-height: 170%; }
@@ -795,16 +798,24 @@ table.standard {
       padding: 5px 0 0 0;
       overflow: hidden; }
   .article.updates blockquote, .article.updates p {
-    line-height: 140%; }
-  .article.updates p {
-    padding: 0 0 4px 0; }
-    .article.updates p.meta {
+    line-height: 140%;
+    padding: 0 0 8px 0; }
+    .article.updates blockquote.meta, .article.updates p.meta {
       font-size: 0.75em;
       font-weight: bold;
       text-transform: uppercase;
-      color: #62707d; }
+      color: #62707d;
+      padding: 0; }
+    .article.updates blockquote.actions, .article.updates p.actions {
+      font-size: 0.9em;
+      font-weight: bold;
+      text-transform: lowercase; }
+      .article.updates blockquote.actions a, .article.updates p.actions a {
+        margin: 0 5px 0 0; }
   .article.updates .details img {
     float: none; }
+  .article.updates ul.feed + .pagination {
+    margin-top: 12px; }
 
 .empty, .copy .empty {
   padding: 15px 15px 10px 15px;
@@ -1620,7 +1631,7 @@ body > #header {
   #collections_tab .updates form.comment {
     padding-right: 0; }
     #collections_tab .updates form.comment textarea {
-      width: 598px; }
+      width: 580px; }
   #collections_tab .updates ul.feed {
     margin: 0 0 20px 0; }
     #collections_tab .updates ul.feed li {
@@ -2859,11 +2870,16 @@ body > #header {
   background: #f3f7fa;
   border: 1px solid #cad3db;
   padding: 20px 20px 0 20px; }
+#taxon_updates .update_feed form.comment textarea {
+  width: 580px; }
 #taxon_updates .update_feed .article.updates {
   padding: 0; }
   #taxon_updates .update_feed .article.updates ul li {
     padding: 20px;
     border-bottom: 1px solid #d4dce2; }
+    #taxon_updates .update_feed .article.updates ul li form.comment {
+      padding: 0;
+      margin-bottom: 10px; }
 
 #content.session {
   background: #e2e9ef; }

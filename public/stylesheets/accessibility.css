@@ -1168,30 +1168,6 @@ a.other_actions {
   #media_list #sidebar #filters {
     margin: 0px 20px; }
 
-#taxon_updates form.comment {
-  margin: 0 0 15px; }
-  #taxon_updates form.comment textarea {
-    width: 580px; }
-
-#collections_tab form#reply {
-  padding: 0; }
-  #collections_tab form#reply fieldset {
-    margin-top: 10px; }
-    #collections_tab form#reply fieldset #comment_body {
-      float: right; }
-
-.article form#reply {
-  padding: 0; }
-  .article form#reply fieldset {
-    margin-top: 10px; }
-    .article form#reply fieldset #comment_body {
-      float: right;
-      margin-right: 16px; }
-
-#permalink #main form#reply {
-  border: 0;
-  margin-top: 0; }
-
 #page_heading p#citation {
   background-color: white;
   border: 1px solid #d4dce2;
@@ -1254,13 +1230,6 @@ body#prelaunch #footer ul.social_media {
 .feed .deleted_comment {
   font-style: italic;
   color: #62707d; }
-
-.feed p.actions {
-  line-height: 80%; }
-  .feed p.actions span {
-    text-transform: lowercase;
-    margin-right: 5px;
-    font-size: 0.9em; }
 
 #new_comment p.reply-to {
   float: left;

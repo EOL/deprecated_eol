@@ -9,5 +9,3 @@
         %blockquote{:cite => h(comment.user.full_name)}
           %p= h comment.body
         %p.meta= I18n.t(:time_ago, :time_passed => time_ago_in_words(comment.updated_at))
-
-

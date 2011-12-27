@@ -3,7 +3,7 @@
   %fieldset
     = item_form.label :annotation
     = item_form.text_area :annotation
-    = item_form.load_minimal_tags_allowed
+    %p= item_form.allowed_html_help_tip
     - # TODO: figure out why I18n is not getting the label value automatically for sort_field: label value should override attribute value.
     = item_form.label :sort_field, I18n.t('helpers.label.collection_item.sort_field')
     = item_form.text_field :sort_field

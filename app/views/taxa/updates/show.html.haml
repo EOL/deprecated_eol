@@ -11,4 +11,3 @@
         - log = @taxon_concept.activity_log(:per_page => 10, :page => @page)
         .article.list.updates
           = render(:partial => 'activity_logs/index', :locals => {:log => log })
-

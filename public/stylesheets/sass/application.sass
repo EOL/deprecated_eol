@@ -123,11 +123,12 @@ form.comment
     float: left
     margin: 0 10px 0 0
     border: 1px solid #394651
-  textarea
+  img + div
     float: left
+    margin: 0
+  textarea
     width: 370px
     +textarea
-    margin: 0
   fieldset.actions
     clear: both
     padding: 0 0 0 62px
@@ -251,6 +252,8 @@ p.status
   form
     dl
       margin-left: 0
+      dd
+        margin: 0 0 10px 0
   ul, ol
     margin: 0 40px 15px 40px
     line-height: 170%
@@ -336,16 +339,24 @@ table.standard
   &.updates
     blockquote, p
       line-height: 140%
-    p
-      padding: 0 0 4px 0
+      padding: 0 0 8px 0
       &.meta
         font-size: .75em
         font-weight: bold
         text-transform: uppercase
         color: #62707d
+        padding: 0
+      &.actions
+        font-size: .9em
+        font-weight: bold
+        text-transform: lowercase
+        a
+          margin: 0 5px 0 0
     .details
       img
         float: none
+    ul.feed + .pagination
+      margin-top: 12px
 
 .empty, .copy .empty
   padding: 15px 15px 10px 15px
@@ -1044,7 +1055,7 @@ body
     form.comment
       padding-right: 0
       textarea
-        width: 598px
+        width: 580px
     ul.feed
       margin: 0 0 20px 0
       li
@@ -2260,12 +2271,18 @@ body
       border: 1px solid #cad3db
       padding: 20px 20px 0 20px
   .update_feed
+    form.comment
+      textarea
+        width: 580px
     .article.updates
       padding: 0
       ul
         li
           padding: 20px
           border-bottom: 1px solid #d4dce2
+          form.comment
+            padding: 0
+            margin-bottom: 10px
 
 #content.session
   background: #e2e9ef

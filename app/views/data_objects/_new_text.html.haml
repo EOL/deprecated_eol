@@ -11,7 +11,7 @@
         = label_tag 'data_object[toc_items][id]', I18n.t('helpers.label.data_object.toc_item')
       %dd
         = select_tag 'data_object[toc_items][id]', options_from_collection_for_select(@toc_items, :id, :label, @selected_toc_item.id)
-        = link_to I18n.t(:get_help_choosing_a_subchapter), '/info/writing_eol_chapters'
+        %p= link_to I18n.t(:get_help_choosing_a_subchapter), cms_page_path('writing_eol_chapters')
       %dt
         = f.label :object_title
       %dd
@@ -20,7 +20,7 @@
         = f.label :description
       %dd
         = f.text_area :description
-        = f.load_all_tags_allowed
+        %p= f.allowed_html_help_tip(:all)
       %dt
         = f.label :refs
       %dd
@@ -36,7 +36,7 @@
         = f.label :license_id
       %dd
         = f.select :license_id, options_from_collection_for_select(@licenses, :id, :title, @data_object.license_id)
-        = I18n.t('helpers.label.data_object.license_id_more', :policy_url => "/info/eol_licensing_policy")
+        %p= I18n.t('helpers.label.data_object.license_id_more', :policy_url => cms_page_path('eol_licensing_policy'))
       %dt
         = f.label :rights_holder
       %dd
@@ -49,7 +49,7 @@
         = f.label :bibliographic_citation
       %dd
         = f.text_area :bibliographic_citation
-        = f.load_minimal_tags_allowed
+        %p= f.allowed_html_help_tip
       %dt
         = f.label :source_url
       %dd

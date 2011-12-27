@@ -18,7 +18,7 @@
         = f.label :description
       %dd
         = f.text_area :description, :value => @collection.description, :rows => 3, :cols => 60
-        = f.load_minimal_tags_allowed
+        %p= f.allowed_html_help_tip
       %dt
         = f.label :sort_style_id
       %dd

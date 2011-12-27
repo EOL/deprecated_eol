@@ -2684,7 +2684,7 @@ en:
   login_hidden_user_message: "The account %{given_name} is no longer active"
   user_hidden_message: "This user is no longer active"
   no_answer: "No"
-  allowed_html_tags: "Only these tags are allowed:"
+  allowed_html_tags: "Allowed HTML: %{comma_separated_tags}"
   contact_us_request_sent: "Request Sent Successfully"
   contact_us_request_failed: "Error(s) occured!"
   please_leave_your_feedback: "Please leave your feedback"

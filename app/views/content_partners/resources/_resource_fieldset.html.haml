@@ -62,7 +62,7 @@
       = resource_form.label :bibliographic_citation
     %dd
       = resource_form.text_area :bibliographic_citation
-      = resource_form.load_minimal_tags_allowed
+      %p= resource_form.allowed_html_help_tip
     %dt.required
       = resource_form.label :language_id
     %dd
@@ -71,7 +71,7 @@
       = resource_form.label :description
     %dd
       = resource_form.text_area :description
-      = resource_form.load_minimal_tags_allowed
+      %p= resource_form.allowed_html_help_tip
     - if current_user.is_admin?
       %dt
         %strong

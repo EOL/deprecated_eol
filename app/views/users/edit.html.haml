@@ -11,7 +11,7 @@
           %small.assistive= I18n.t(:required_form_element)
         %dd
           = user_form.text_area :bio
-          = user_form.load_minimal_tags_allowed
+          %p= user_form.allowed_html_help_tip
         %dt.required
           = user_form.label :given_name
           %small.assistive= I18n.t(:required_form_element)
@@ -114,12 +114,12 @@
             = user_form.label :credentials
           %dd
             = user_form.text_area :credentials
-            = user_form.load_minimal_tags_allowed
+            %p= user_form.allowed_html_help_tip
           %dt
             = user_form.label :curator_scope
           %dd
             = user_form.text_area :curator_scope
-            = user_form.load_minimal_tags_allowed
+            %p= user_form.allowed_html_help_tip
 
     %fieldset.actions
       = user_form.submit I18n.t('helpers.submit.user.update')

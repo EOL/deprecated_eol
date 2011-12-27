@@ -1516,11 +1516,10 @@ body > #header {
     background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
     background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white));
     width: 460px;
-    height: 50px;
-    margin: 0 0 10px 0; }
+    height: 50px; }
   #collections ul.object_list li .collection_item_form label {
     font-weight: bold;
-    margin: 0;
+    margin: 10px 0 0 0;
     display: block; }
     #collections ul.object_list li .collection_item_form label small {
       display: inline; }

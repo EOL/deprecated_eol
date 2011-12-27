@@ -25,7 +25,7 @@ class RestoreAddRemoveAssociationCuratorActivityLogs < ActiveRecord::Migration
 
     # check if there are duplicate cdohe entries in the cdohe_entries
     if cdohe_entries.count != cdohe_entries.uniq.count
-      cdohe_entries.each { |each| duplicate_entries << each if cdohe_entries.count(each) > 1 }
+      cdohe_entries.each { |cdohe_entry| duplicate_entries << cdohe_entry if cdohe_entries.count(cdohe_entry) > 1 }
     end
     # get the unique cdohe duplicate entries
     duplicate_entries.uniq! unless duplicate_entries.blank?
@@ -58,6 +58,6 @@ class RestoreAddRemoveAssociationCuratorActivityLogs < ActiveRecord::Migration
   end
 
   def self.down
-    # Nothing worth doing.
+    raise ActiveRecord::IrreversibleMigration.new("Curator activity logs were modified and cannot be restored.")
   end
 end

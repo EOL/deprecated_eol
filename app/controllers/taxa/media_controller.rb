@@ -53,6 +53,13 @@ class Taxa::MediaController < TaxaController
       :filter => filter_by,
       :filter_hierarchy_entry => @selected_hierarchy_entry
     })
+
+    unless @media.blank?
+      # Get the latest published version of the exemplar image
+      latest_published_exemplar_image = DataObject.latest_published_version_of(@exemplar_image.id)
+      @media.map!{ |m| m.guid == @exemplar_image.guid ? latest_published_exemplar_image : m } unless latest_published_exemplar_image.nil?
+    end
+
     DataObject.preload_associations(@media, [:users_data_object, { :data_objects_hierarchy_entries => :hierarchy_entry },
       :curated_data_objects_hierarchy_entries])
 

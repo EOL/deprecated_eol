@@ -838,7 +838,12 @@ class DataObject < SpeciesSchemaModel
 
     exemplar = taxon_concept.taxon_concept_exemplar_image
     if exemplar && exemplar_image = exemplar.data_object
-      unique_image_objects.delete_if{ |d| d.id == exemplar_image.id }
+      unique_image_objects.delete_if{ |d| d.guid == exemplar_image.guid }
+
+      # Get the latest version of the exemplar image
+      latest_published_exemplar_image = DataObject.latest_published_version_of(exemplar_image.id)
+      exemplar_image = latest_published_exemplar_image unless latest_published_exemplar_image.nil?
+
       unique_image_objects.unshift(exemplar_image)
     end
     # removing maps

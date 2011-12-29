@@ -54,7 +54,14 @@ class RestoreAddRemoveAssociationCuratorActivityLogs < ActiveRecord::Migration
       cal_entries[key].changeable_object_type_id = ChangeableObjectType.curated_data_objects_hierarchy_entry.id
       cal_entries[key].save
     end
-    
+
+    # get list of the curator activity logs where activity is 'remove assocition' and the hierarchy entry is nil
+    cal_entries = CuratorActivityLog.find_all_by_activity_id_and_hierarchy_entry_id(Activity.remove_association.id, nil)
+    cal_entries.each_index do |key|
+      cal_entries[key].changeable_object_type_id = ChangeableObjectType.curated_data_objects_hierarchy_entry.id
+      cal_entries[key].save
+    end
+
   end
 
   def self.down

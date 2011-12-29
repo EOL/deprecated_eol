@@ -41,6 +41,7 @@ class Taxa::OverviewsController < TaxaController
     end
 
     @media = promote_exemplar(@taxon_concept.images_from_solr(4, @selected_hierarchy_entry, true))
+    DataObject.preload_associations(@media, :translations , :conditions => "data_object_translations.language_id=#{current_user.language_id}")
     @watch_collection = logged_in? ? current_user.watch_collection : nil
     @assistive_section_header = I18n.t(:assistive_overview_header)
 

@@ -378,7 +378,7 @@ en:
         annotation: "Annotation"
         sort_field: "Sort by <small>(date, number, or text; optional)</small>"
         sort_field_show: "Sort value:"
-        sort_field_more: "Sort is alphanumeric so for dates ensure you reverse the date and use leading zeros, e.g. for August 23, 2011 you can use 2011.08.23. Items with empty sort values will appear last."
+        sort_field_more: "Optional value to sort the collection by (date using YYYY.MM.DD, number, or text)."
       content_page:
         active: "Published"
         active_more: "Published pages will be publicly visible. Uncheck <em>published</em> if you want to prevent general users from viewing versions of this page in any language."

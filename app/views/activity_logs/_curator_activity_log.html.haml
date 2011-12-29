@@ -31,25 +31,23 @@
     - when Activity.inappropriate.id
       = I18n.t(:activity_user_marked_content_as_inappropriate, :user => name_with_link)
     - when Activity.add_association.id
-      -# TODO: this is not working, undefined method 'object'
-      -#- he = item.object ? item.object.italicized_name : nil
-      -#- if object_link
-      -#  - if he
-      -#    = I18n.t(:activity_user_added_named_association, :user => name_with_link, :object_name => object_link, :name => he)
-      -#  - else
-      -#    = I18n.t(:activity_user_added_association, :user => name_with_link, :object_name => object_link)
-      -#- else
-      -#  = I18n.t(:activity_user_added_unknown_association, :user => name_with_link)
+      - scientific_name_link = link_to(h(item.hierarchy_entry.name.string), taxon_path(item.hierarchy_entry.taxon_concept)) unless item.hierarchy_entry.nil?
+      - if object_link
+        - if scientific_name_link
+          = I18n.t(:activity_user_added_named_association, :user => name_with_link, :object_name => object_link, :name => scientific_name_link)
+        - else
+          = I18n.t(:activity_user_added_association, :user => name_with_link, :object_name => object_link)
+      - else
+        = I18n.t(:activity_user_added_unknown_association, :user => name_with_link)
     - when Activity.remove_association.id
-      -# TODO: this is not working, undefined method 'object'
-      -#- he = item.object ? item.object.italicized_name : nil
-      -#- if object_link
-      -#  - if he
-      -#    = I18n.t(:activity_user_removed_named_association, :user => name_with_link, :object_name => object_link, :name => he)
-      -#  - else
-      -#    = I18n.t(:activity_user_removed_association, :user => name_with_link, :object_name => object_link)
-      -#- else
-      -#  = I18n.t(:activity_user_removed_unknown_association, :user => name_with_link)
+      - scientific_name_link = link_to(h(item.hierarchy_entry.name.string), taxon_path(item.hierarchy_entry.taxon_concept)) unless item.hierarchy_entry.nil?
+      - if object_link
+        - if scientific_name_link
+          = I18n.t(:activity_user_removed_named_association, :user => name_with_link, :object_name => object_link, :name => scientific_name_link)
+        - else
+          = I18n.t(:activity_user_removed_association, :user => name_with_link, :object_name => object_link)
+      - else
+        = I18n.t(:activity_user_removed_unknown_association, :user => name_with_link)
     - when Activity.choose_exemplar.id
       = I18n.t(:activity_choose_exemplar, :user => name_with_link, :object_name => object_link)
     - when Activity.add_common_name.id

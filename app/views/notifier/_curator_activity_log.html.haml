@@ -18,6 +18,10 @@
         - en_activity_name = 'untrusted'
       - when Activity.inappropriate.id
         - en_activity_name = 'inappropriate'
+      - when Activity.add_association.id
+        - en_activity_name = 'added_association'
+      - when Activity.remove_association.id
+        - en_activity_name = 'removed_association'
       - unless en_activity_name.nil?
         - object_name = h strip_tags(action.data_object.summary_name)
         - object_url = data_object_url(action.data_object, :host => $SITE_DOMAIN_OR_IP)
@@ -40,11 +44,13 @@
             - taxon_name = action.hierarchy_entry.name.string rescue nil
             - taxon_url = taxon_hierarchy_entry_url(action.hierarchy_entry.taxon_concept, action.hierarchy_entry, :host => $SITE_DOMAIN_OR_IP) rescue ''
         - if taxon_name.nil?
-          = I18n.t("activity_user_marked_data_object_as_#{en_activity_name}_on_date", :users_name => users_name, :users_url => users_url,
-            :object_name => object_name, :object_url => object_url, :action_date => action_date,
-            :scope => :notifier, :curator_level => users_curator_level)
+          - if en_activity_name == 'added_association' || en_activity_name == 'removed_association'
+            = I18n.t("activity_user_#{en_activity_name}_on_date", :users_name => users_name, :users_url => users_url, :object_name => object_name, :object_url => object_url, :action_date => action_date, :scope => :notifier, :curator_level => users_curator_level)
+          - else
+            = I18n.t("activity_user_marked_data_object_as_#{en_activity_name}_on_date", :users_name => users_name, :users_url => users_url, :object_name => object_name, :object_url => object_url, :action_date => action_date, :scope => :notifier, :curator_level => users_curator_level)
         - else
-          = I18n.t("activity_user_marked_data_object_as_#{en_activity_name}_for_taxon_on_date", :users_name => users_name, :users_url => users_url,
-            :object_name => object_name, :object_url => object_url, :taxon_name => strip_tags(taxon_name), :taxon_url => taxon_url,
-            :action_date => action_date, :scope => :notifier, :curator_level => users_curator_level)
+          - if en_activity_name == 'added_association' || en_activity_name == 'removed_association'
+            = I18n.t("activity_user_#{en_activity_name}_for_taxon_on_date", :users_name => users_name, :users_url => users_url, :object_name => object_name, :object_url => object_url, :taxon_name => strip_tags(taxon_name), :taxon_url => taxon_url, :action_date => action_date, :scope => :notifier, :curator_level => users_curator_level)
+          - else
+            = I18n.t("activity_user_marked_data_object_as_#{en_activity_name}_for_taxon_on_date", :users_name => users_name, :users_url => users_url, :object_name => object_name, :object_url => object_url, :taxon_name => strip_tags(taxon_name), :taxon_url => taxon_url, :action_date => action_date, :scope => :notifier, :curator_level => users_curator_level)
 

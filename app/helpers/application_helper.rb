@@ -48,6 +48,7 @@ module ApplicationHelper
 
     # tags can include :all, :minimal (default) or a comma separated string of tags
     def allowed_html_help_tip(tags = :minimal)
+      return nil
       tags = "p, em, strong, a, ul, ol, li" if tags.to_sym == :minimal
       tags = "p, em, strong, a, ul, ol, li, table, tr, td" if tags.to_sym == :all
       return I18n.t(:allowed_html_tags, :comma_separated_tags => tags)

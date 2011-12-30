@@ -3,13 +3,13 @@ class DataObjectsController < ApplicationController
   layout :data_objects_layout
   @@results_per_page = 20
   before_filter :check_authentication, :only => [:new, :create, :edit, :update, :ignore] # checks login only
-  before_filter :load_data_object, :except => [:index, :new, :create, :preview]
+  before_filter :load_data_object, :except => [:index, :new, :create ]
   before_filter :authentication_own_user_added_text_objects_only, :only => [:edit, :update]
   before_filter :allow_login_then_submit, :only => [:rate]
   before_filter :full_or_master_curators_only, :only => [:curate_associations, :add_association, :remove_association]
 
   # GET /pages/:taxon_id/data_objects/new
-  # We're only creating new data objects in the context of a taxon concept so we for taxon_id to be provided in route
+  # We're only creating new user data objects in the context of a taxon concept so we need taxon_id to be provided in route
   def new
     @taxon_concept = TaxonConcept.find(params[:taxon_id])
     set_text_data_object_options
@@ -28,6 +28,7 @@ class DataObjectsController < ApplicationController
   end
 
   # POST /pages/:taxon_id/data_objects
+  # We're only creating new user data objects in the context of a taxon concept so we need taxon_id to be provided in route
   def create
     @taxon_concept = TaxonConcept.find(params[:taxon_id])
     unless params[:data_object]
@@ -79,8 +80,9 @@ class DataObjectsController < ApplicationController
   end
 
   # GET /data_objects/:id/edit
+  # We only edit user data objects and they only have one taxon concept association so no need for taxon_id in route on edit - unlike new.
   def edit
-    # @data_object is loaded in before_filter
+    # @data_object is loaded in before_filter :load_data_object
     set_text_data_object_options
     @selected_toc_item = @data_object.toc_items[0]
     @references = @data_object.visible_references.map {|r| r.full_reference}.join("\n\n")
@@ -89,8 +91,10 @@ class DataObjectsController < ApplicationController
   end
 
   # PUT /data_objects/:id
+  # We only update user data objects and they only have one taxon concept association so no need for taxon_id in route on update - unlike create.
   def update
-    # old @data_object is loaded in before_filter
+    # Note: We don't actually edit the data object we create a new one and unpublish the old one.
+    # old @data_object is loaded in before_filter :load_data_object
     return failed_to_update_data_object unless params[:data_object]
     @references = params[:references]
     params[:references] = params[:references].split("\n")
@@ -341,12 +345,17 @@ private
 
   def failed_to_update_data_object
     if params[:data_object]
+      # We have new data object values so we re-render edit form with an error message.
+      # We'll get here if there was an error trying to create the new dato. @data_object will be the new dato with id = nil
       flash.now[:error] = I18n.t(:dato_update_user_text_error)
       set_text_data_object_options
       @page_title = I18n.t(:dato_edit_text_title)
       @page_description = I18n.t(:dato_edit_text_page_description)
       render :action => 'edit', :layout => 'v2/basic'
     else
+      # We don't have new data object values so we redirect to the edit page of whatever @data_object we were trying to update.
+      # TODO: Not sure how we would ever get here... i.e. why params[:data_object] would ever be nil.
+      # Also, what if dato id was nil as would be the case for a new dato error?
       flash[:error] = I18n.t(:dato_update_user_text_error)
       redirect_to edit_data_object_path(@data_object)
     end

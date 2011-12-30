@@ -1,3 +1,5 @@
+// OBSOLETE - NOT USED IN V2?
+
 // Note that this relies on many methods from EOL.Text, which should be described in text-content.js
 if (!EOL) { EOL = {}; }
 if (!EOL.Text) { EOL.Text = {}; }
@@ -123,7 +125,7 @@ if (!EOL.Text.already_loaded) {
         data: EOL.Text.form().serialize().replace("_method=put&","id="+EOL.Text.data_object_id()+"&")
       });
     },
-    
+
     // In several places, we need to make sure the preview text is removed:
     remove_preview: function() {
       $('div#text_wrapper_').slideUp(function() {$(this).remove();});

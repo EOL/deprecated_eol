@@ -2203,14 +2203,16 @@ body > #header {
   #taxon_resources .main_container table.standard img {
     display: block; }
 
-#object_text_new fieldset {
+#text_object_new_edit fieldset {
   width: 640px;
   float: left; }
-  #object_text_new fieldset + fieldset {
+  #text_object_new_edit fieldset.content + fieldset {
     width: 300px; }
-    #object_text_new fieldset + fieldset input[type="text"] {
+    #text_object_new_edit fieldset.content + fieldset input[type="text"] {
       width: 288px; }
-  #object_text_new fieldset input[type="text"] {
+    #text_object_new_edit fieldset.content + fieldset textarea {
+      width: 282px; }
+  #text_object_new_edit fieldset input[type="text"] {
     width: 308px;
     height: 22px;
     padding: 2px 5px;
@@ -2220,13 +2222,13 @@ body > #header {
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
     background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
     background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white)); }
-  #object_text_new fieldset textarea {
+  #text_object_new_edit fieldset textarea {
     width: 580px;
     height: 200px; }
-  #object_text_new fieldset.actions {
+  #text_object_new_edit fieldset.actions {
     clear: both;
     width: 100%; }
-    #object_text_new fieldset.actions input[type="submit"] {
+    #text_object_new_edit fieldset.actions input[type="submit"] {
       font-size: 1em;
       padding: 7px 20px;
       margin: 10px 20px 10px 0; }
@@ -2295,6 +2297,10 @@ body > #header {
   padding: 40px;
   margin: 0 0 40px 0;
   border: 1px solid #cad3db; }
+  #permalink.text #main .article.copy .references {
+    margin: 20px 0 0 0;
+    padding: 20px 0 0 0;
+    border-top: 1px solid #cad3db; }
 #permalink #main {
   clear: both;
   float: left;

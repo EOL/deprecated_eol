@@ -288,7 +288,7 @@ class DataObject < SpeciesSchemaModel
       :rights_statement => ERB::Util.h(all_params[:data_object][:rights_statement]), # No HTML allowed
       :bibliographic_citation => ERB::Util.h(all_params[:data_object][:bibliographic_citation]), # No HTML allowed
       :source_url => ERB::Util.h(all_params[:data_object][:source_url]), # No HTML allowed
-      :published => 1, #not sure if this is right
+      :published => 1,
     }
 
     # this is to support problems with things on version2 and prelaunch and will NOT be needed later:
@@ -309,8 +309,8 @@ class DataObject < SpeciesSchemaModel
     new_dato.save
     return new_dato if new_dato.nil? || new_dato.errors.any?
 
-    old_dato.published = false
-    old_dato.save!
+    # We need to set all previous revisions of this data object to unpublished
+    DataObject.update_all("published = 0", "id != #{new_dato.id} AND guid = '#{new_dato.guid}'")
 
     no_current_but_new_visibility = Visibility.visible
     current_or_new_vetted = old_dato.users_data_object.vetted
@@ -758,7 +758,7 @@ class DataObject < SpeciesSchemaModel
       # hidden, so delete it from solr
       solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE)
       solr_connection.delete_by_id(self.id)
-    end    
+    end
   end
 
   def in_wikipedia?

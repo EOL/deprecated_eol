@@ -1,3 +1,5 @@
+// OBSOLETE - NOT USED IN V2?
+
 if (!EOL) { EOL = {}; }
 // TODO - move this to eol.js and possibly use it elsewhere (user.js, for example).
 EOL.pulsate_error = function(el) {

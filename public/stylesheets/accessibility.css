@@ -448,24 +448,6 @@ form p.tip {
   form p.tip img {
     margin: -2px 5px 0 5px; }
 
-/*Add article interface we have error fieldset and a textarea box in information fieldset that HR didn't expect */
-form#new_data_object fieldset dt, form.edit_data_object fieldset dt {
-  font-size: 1.08em; }
-form#new_data_object fieldset.content, form.edit_data_object fieldset.content {
-  width: 640px; }
-  form#new_data_object fieldset.content input[type="text"], form.edit_data_object fieldset.content input[type="text"] {
-    width: 308px; }
-  form#new_data_object fieldset.content textarea, form.edit_data_object fieldset.content textarea {
-    width: 580px;
-    height: 200px; }
-form#new_data_object fieldset.information, form.edit_data_object fieldset.information {
-  width: 300px; }
-  form#new_data_object fieldset.information input[type="text"], form.edit_data_object fieldset.information input[type="text"] {
-    width: 288px; }
-  form#new_data_object fieldset.information textarea, form.edit_data_object fieldset.information textarea {
-    width: 282px;
-    height: 80px; }
-
 /*Adjustments for when missing exemplar image */
 #media_list #sidebar img, #taxon_detail #sidebar img {
   margin: auto; }

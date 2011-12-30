@@ -15,9 +15,6 @@ javascripts:
   - application
 - data-object-curation:
   - curation
-- new-text:
-  - curation
-  - new-text
 - data-object-show:
   - jplayer/js/jquery.jplayer.min
   - permalink

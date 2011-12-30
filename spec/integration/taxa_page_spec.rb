@@ -41,6 +41,9 @@ describe 'Taxa page' do
   end
 
   shared_examples_for 'taxon details tab' do
+    it 'should not show unpublished user data objects'
+    it 'should only show the most recent revision of a user data object'
+
     it 'should show text references' do
       should have_tag('.references', /A published visible reference for testing./)
     end

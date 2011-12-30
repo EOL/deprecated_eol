@@ -1609,14 +1609,16 @@ body
       img
         display: block
 
-#object_text_new
+#text_object_new_edit
   fieldset
     width: 640px
     float: left
-    & + fieldset
+    &.content + fieldset
       width: 300px
       input[type="text"]
         width: 288px
+      textarea
+        width: 282px
     input[type="text"]
       +input
     textarea
@@ -1689,6 +1691,10 @@ body
         padding: 40px
         margin: 0 0 40px 0
         border: 1px solid #cad3db
+        .references
+          margin: 20px 0 0 0
+          padding: 20px 0 0 0
+          border-top: 1px solid #CAD3DB
   #main
     clear: both
     float: left

@@ -360,6 +360,27 @@ describe 'Data Object Page' do
     visit('/logout')
   end
 
+  it 'should allow authors of user added articles to edit the latest published version of the data object' do
+    udo_dato = @tc.add_user_submitted_text(:user => @user)
+    visit logout_path
+    visit data_object_path(udo_dato)
+    body.should_not have_tag("#page_heading .page_actions a.button[href=?]", /#{edit_data_object_path(udo_dato)}/ )
+    body.should_not include("Edit this article")
+    login_as @user
+    visit data_object_path(udo_dato)
+    click_link("Edit this article")
+    current_path.should == edit_data_object_path(udo_dato)
+    click_button("Save article")
+    new_udo_revision = DataObject.last
+    current_path.should == data_object_path(new_udo_revision)
+    DataObject.find(udo_dato).published.should be_false
+    visit data_object_path(udo_dato)
+    current_path.should == data_object_path(udo_dato)
+    click_link("Edit this article")
+    # When we try to edit the old udo we should actually end up at the new udo edit path
+    current_path.should == edit_data_object_path(new_udo_revision)
+  end
+
   # TODO - Move this test to the taxa_page_spec.
   it 'should allow logged in users and assistant curators to add text to EOL pages as Unreviewed' do
     users = [@user, @assistant_curator]

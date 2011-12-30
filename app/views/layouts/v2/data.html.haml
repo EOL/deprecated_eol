@@ -10,8 +10,10 @@
           %li
             = render :partial => 'shared/add_to_my_collection', :locals => { :item => @data_object, :my_collection => @watch_collection }
           - if @data_object.users_data_object && @data_object.users_data_object.user.id == current_user.id
-            %li
-              = link_to I18n.t(:dato_edit_text_link_button), edit_data_object_path(@data_object), :class => 'button'
+            - latest_published_revision = @revisions.select{|r| r.published?}.first
+            - unless latest_published_revision.nil?
+              %li
+                = link_to I18n.t(:dato_edit_text_link_button), edit_data_object_path(latest_published_revision), :class => 'button'
 
       = render :partial => 'shared/flash_messages'
 

@@ -35,7 +35,7 @@
       = render :partial => '/comments/new', :locals => {:parent => @data_object}
   - unless @revisions.blank?
     = render :partial => '/data_objects/revisions', :locals => { :data_object => @data_object, :revisions => @revisions }
-  - unless @translations.blank?
+  - if !@translations.blank? && @translations.length>1
     .article.list
       .header
         %h3= I18n.t(:languages)

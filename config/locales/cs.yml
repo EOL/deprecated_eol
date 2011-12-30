@@ -1,6 +1,7 @@
 # Messages for Czech (Česky)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
+# Author: Chmee2
 # Author: Jachym
 # Author: Paxt
 # Author: Utar
@@ -585,6 +586,8 @@ cs:
         create: Přidat článek
         create_text: Přidat článek
         update: Uložit článek
+      harvest_event: 
+        publish: Publikovat
       name: 
         create: Přidat název
         update: Aktualizovat název

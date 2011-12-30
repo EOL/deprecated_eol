@@ -1,14 +1,16 @@
 # Messages for German (Deutsch)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
+# Author: George Animal
 # Author: Kghbln
 # Author: McDutchie
+# Author: Purodha
 de: 
   0_1_or_2: 0, 1 oder 2
   0_or_1: 0 oder 1
   1st_view: Erste Ansicht
-  a_pipe_delimited_list_of_licenses: eine mit senkrechten Strichen „|“ voneinander getrennte Liste der Lizenzen oder „alle“, um die Objekt zu allen Lizenzen zuzuordnen. Mit cc- abgekürzte Listen sind allesamt
-  a_pipe_delimited_list_of_spm_info_item_subject_names: eine mit senkrechten Strichen „|“ voneinander getrennte Liste der SMP-Informationsobjekte zu Themen oder „alle“, um Texte zu jedem Thema zu erhalten
+  a_pipe_delimited_list_of_licenses: eine mit senkrechten Strichen „|“ voneinander getrennte Liste der Lizenzen oder „all“, um die Objekt zu allen Lizenzen zuzuordnen. Mit cc- abgekürzte Listen sind allesamt
+  a_pipe_delimited_list_of_spm_info_item_subject_names: eine mit senkrechten Strichen „|“ voneinander getrennte Liste der SPM-Informationsobjekte zu Themen oder „all“, um Texte zu jedem Thema zu erhalten
   a_taxon: ein Taxon
   a_total_of_comment_were_found_matching_your_criteria: 
     one: Insgesamt wurde ein Kommentar gefunden, der zu Ihren Kriterien passt.
@@ -35,6 +37,11 @@ de:
         logo: Hauptbild der Sammlung
         name: Name der Sammlung
         sort_style_id: Standardsortierrichtung
+      collection_item: 
+        annotation: Annotation
+        sort_field: Sortieren nach
+      comment: 
+        body: Kommentar
       community: 
         description: Beschreibung der Gemeinschaft
         logo: Laden Sie ein Logo hoch
@@ -63,6 +70,8 @@ de:
         created_at: Erstellt am
         signed_by: Signiert von
         signed_on_date: Signierdatum
+      content_partner_contact: 
+        email_reports_frequency_hours: Häufigkeit der E-Mail-Berichte
       data_object: 
         bibliographic_citation: Bibliographische Zitierung
         description: Beschreibung
@@ -88,7 +97,7 @@ de:
         dataset: Dataset-Datei
         description: Quellenbeschreibung
         dwc_archive_url: URL des Darwin Core Archive
-        harvest_events: Ereignisse abrufen
+        harvest_events: Datenabrufe
         hierarchy: Hierarchie
         language_id: Standardsprache
         license_id: Standardlizenz
@@ -110,6 +119,7 @@ de:
         api_key: API-Schlüssel
         bio: Biografie
         credentials: Anmeldeinformationen
+        curator_level: Kuratorstufe
         curator_scope: Kuratierungsbereich
         email: E-Mail-Adresse
         entered_password: Passwort
@@ -183,8 +193,11 @@ de:
       user: Konto
   activity: Aktivität
   activity_added_an_editor_of_collection: <strong>%{user}</strong> hat der Sammlung „%{collection}“ einen Verwalter zugeordnet.
+  activity_choose_exemplar: <strong>%{user}</strong> legte ein Bild zu „%{object_name}“ als exemplarisch fest.
+  activity_hid_with_reasons_colon: "Grund/Gründe zum Ausblenden: %{reasons}"
   activity_log_empty: Bislang hat noch niemand Aktualisierungen vorgenommen.
   activity_log_empty_learn_more_link: Informieren Sie sich, wie sie hier beitragen können
+  activity_untrusted_with_reasons_colon: "Grund/Gründe zum als nicht vertrauenswürdig Einstufen: %{reasons}"
   activity_user_added_as_an_editor_of_collection: <strong>%{user}</strong> wurde zum Verwalter der Sammlung „%{collection}“ gemacht.
   activity_user_added_association: <strong>%{user}</strong> hat eine Zuordnung zu „%{object_name}“ vorgenommen.
   activity_user_added_collection_to_community: <strong>%{user}</strong> fügte die Sammlung „%{collection}“ der Gemeinschaft „%{community}“  hinzu.
@@ -206,9 +219,15 @@ de:
   activity_user_curated_an_unknown_object: <strong>%{user}</strong> kuratierte ein unbekanntes Objekt.
   activity_user_deleted_community: <strong>%{user}</strong> löschte die Gemeinschaft „%{community}“.
   activity_user_hid_data_object: <strong>%{user}</strong> markierte „%{object_name}“ als versteckt.
+  activity_user_hid_named_association: <strong>%{user}</strong> hat eine Zuordnung zwischen „%{object_name}“ und „%{name}“ zum Ausblenden markiert.
   activity_user_hid_unknown_object: <strong>%{user}</strong> markierte ein unbekanntes Objekt als versteckt.
+  activity_user_hid_unknown_object_association: <strong>%{user}</strong> hat eine Zuordnung zwischen einem unbekannten Objekt und „%{name}“ zu Ausblenden markiert.
+  activity_user_inappropriate_common_name: <strong>%{user}</strong> markierte den gebräuchlichen Namen „%{name}“ eines unbekannten Objekts in der Sprache %{language} als ungeeignet.
+  activity_user_inappropriate_common_name_from_taxon: <strong>%{user}</strong> markierte den gebräuchlichen Namen „%{name}“ zu „%{taxon}“ in der Spache %{language} als ungeeignet.
+  activity_user_inappropriate_unknown_name: <strong>%{user}</strong> legte den gebräuchlichen Namen eines unbekannten Taxons als ungeeignet fest.
+  activity_user_inappropriate_unknown_name_to_taxon: <strong>%{user}</strong> legte den gebräuchlichen Namen für das Taxon „%{taxon}“ als ungeeignet fest.
   activity_user_joined_community: <strong>%{user}</strong> trat der Gemeinschaft „%{community}“ bei.
-  activity_user_marked_content_as_inappropriate: <strong>%{user}</strong> markierte einen Inhalt als unangemessen.
+  activity_user_marked_content_as_inappropriate: <strong>%{user}</strong> markierte einen Inhalt als ungeeignet.
   activity_user_modified_collection: <strong>%{user}</strong> änderte die Sammlung „%{collection}“.
   activity_user_modified_community: <strong>%{user}</strong> änderte die Gemeinschaft „%{community}“.
   activity_user_rated_data_object: <strong>%{user}</strong> bewertete „%{object_name}“.
@@ -221,13 +240,33 @@ de:
   activity_user_removed_unknown_name: <strong>%{user}</strong> hat bei einem unbekannten Objekt einen unbekannten gebräuchlichen Namen entfernt.
   activity_user_removed_unknown_name_to_taxon: <strong>%{user}</strong> hat beim Taxon „%{taxon}“ einen gebräuchlichen Namen entfernt.
   activity_user_showed_data_object: <strong>%{user}</strong> markierte „%{object_name}“ als sichtbar.
+  activity_user_showed_named_association: <strong>%{user}</strong> hat eine Zuordnung zwischen „%{object_name}“ und „%{name}“ als einsehbar markiert.
   activity_user_showed_unknown_object: <strong>%{user}</strong> markierte ein unbekanntes Objekt als sichtbar.
+  activity_user_showed_unknown_object_association: <strong>%{user}</strong> hat eine Zuordnung zwischen einem unbekannten Objekt und „%{name}“ als einsehbar markiert.
+  activity_user_trust_common_name: <strong>%{user}</strong> markierte den gebräuchlichen Namen „%{name}“ eines unbekannten Objekts in der Sprache %{language} als vertrauenswürdig.
+  activity_user_trust_common_name_from_taxon: <strong>%{user}</strong> markierte den gebräuchlichen Namen „%{name}“ zu „%{taxon}“ in der Spache %{language} als vertrauenswürdig.
+  activity_user_trust_unknown_name: <strong>%{user}</strong> hält den gebräuchlichen Namen eines unbekannten Taxons für vertrauenswürdig.
+  activity_user_trust_unknown_name_to_taxon: <strong>%{user}</strong> hält den gebräuchlichen Namen des Taxons „%{taxon}“ für vertrauenswürdig.
   activity_user_trusted_data_object: <strong>%{user}</strong> markierte „%{object_name}“ als vertrauenswürdig.
+  activity_user_trusted_named_association: <strong>%{user}</strong> hat eine Zuordnung zwischen „%{object_name}“ und „%{name}“ als vertrauenswürdig markiert.
   activity_user_trusted_unknown_object: <strong>%{user}</strong> markierte ein unbekanntes Objekt als vertrauenswürdig.
+  activity_user_trusted_unknown_object_association: <strong>%{user}</strong> hat eine Zuordnung zwischen einem unbekannten Objekt und „%{name}“ als vertrauenswürdig markiert.
+  activity_user_unreview_common_name: <strong>%{user}</strong> markierte den gebräuchlichen Namen „%{name}“ eines unbekannten Objekts in der Sprache %{language} als ungeprüft.
+  activity_user_unreview_common_name_from_taxon: <strong>%{user}</strong> markierte den gebräuchlichen Namen „%{name}“ zu „%{taxon}“ in der Spache %{language} als ungeprüft.
+  activity_user_unreview_unknown_name: <strong>%{user}</strong> hat die Prüfung des gebräuchlichen Namens zu einem unbekannten Taxon zurückgenommen.
+  activity_user_unreview_unknown_name_to_taxon: <strong>%{user}</strong> hat die Prüfung des gebräuchlichen Namens zu Taxon „%{taxon}“ zurückgenommen.
   activity_user_unreviewed_data_object: <strong>%{user}</strong> markierte „%{object_name}“ als ungeprüft.
+  activity_user_unreviewed_named_association: <strong>%{user}</strong> hat eine Zuordnung zwischen „%{object_name}“ und „%{name}“ als ungeprüft markiert.
   activity_user_unreviewed_unknown_object: <strong>%{user}</strong> markierte ein unbekanntes Objekt als ungeprüft.
+  activity_user_unreviewed_unknown_object_association: <strong>%{user}</strong> hat eine Zuordnung zwischen einem unbekannten Objekt und „%{name}“ als ungeprüft markiert.
+  activity_user_untrust_common_name: <strong>%{user}</strong> markierte den gebräuchlichen Namen „%{name}“ eines unbekannten Objekts in der Sprache %{language} als nicht vertrauenswürdig.
+  activity_user_untrust_common_name_from_taxon: <strong>%{user}</strong> markierte den gebräuchlichen Namen „%{name}“ zu „%{taxon}“ in der Spache %{language} als nicht vertrauenswürdig.
+  activity_user_untrust_unknown_name: <strong>%{user}</strong> hält den gebräuchlichen Namen eines unbekannten Taxons für nicht vertrauenswürdig.
+  activity_user_untrust_unknown_name_to_taxon: <strong>%{user}</strong> hält den gebräuchlichen Namen des Taxons „%{taxon}“ für nicht vertrauenswürdig.
   activity_user_untrusted_data_object: <strong>%{user}</strong> markierte „%{object_name}“ als nicht vertrauenswürdig.
+  activity_user_untrusted_named_association: <strong>%{user}</strong> hat eine Zuordnung zwischen „%{object_name}“ und „%{name}“ als nicht vertrauenswürdig markiert.
   activity_user_untrusted_unknown_object: <strong>%{user}</strong> markierte ein unbekanntes Objekt als nicht vertrauenswürdig.
+  activity_user_untrusted_unknown_object_association: <strong>%{user}</strong> hat eine Zuordnung zwischen einem unbekannten Objekt und „%{name}“ als nicht vertrauenswürdig markiert.
   activity_user_updated_text: <strong>%{user}</strong> änderte am Objekt „%{object_name}“ bei „%{taxon_concept}“ den Text.
   add: Hinzufügen
   add_a_collection_to_a_community: Die Sammlung „%{collection}“ einer Gemeinschaft hinzufügen
@@ -317,6 +356,8 @@ de:
   admin_translated_content_page_update_successful_notice: Die Übersetzung auf %{language} für die Seite <a href="#<span class=" notranslate"="">%{anchor}"><em>%{page_name}</em></a> wurde aktualisiert.
   admin_translated_content_page_update_unsuccessful_error: Es ist leider ein Fehler aufgetreten, so dass die Übersetzung nicht aktualisiert werden konnte.
   admin_user_delete_successful_notice: Der Nutzer wurde gelöscht.
+  admin_user_hide_successful_notice: Nutzer wurde verborgen
+  admin_user_unhide_successful_notice: Nutzer wurde sichtbar gemacht
   agent: Agent
   all: alle
   all_apis_return_by_default_an_xml_response: "Alle API-Aufrufe liefern standardmäßig eine XML-Antwort zurück. Die API-Methoden können auch ohne eine Formatangabe abgerufen werden, um eine XML-Antwort zu erhalten. Das Hinzufügen der Formatangabe XML führt also zu einer identischen Antwort:"
@@ -341,10 +382,12 @@ de:
   all_user_submitted_texts_on_the_website: Alle auf der Website von Benutzer erstellten Texte werden, in umgekehrter Reihenfolge ihrer Erstellung, unten angezeigt.
   all_videos: Alle Videos
   allow_user_logins: Nutzeranmeldungen zulassen
+  allowed_html_tags: "Nur diese Stichwörter sind zulässig:"
   already_a_member_question: Sind Sie bereits Mitglied?
   already_member_of_community: Sie sind bereits Mitglied dieser Gemeinschaft.
   alternate_classification: Alternative Klassifizierung
   amount: Betrag
+  an_unknown_user: Ein unbekannter Nutzer
   and: und
   and_between_form_items: und
   any_integer: eine beliebige ganze Zahl
@@ -457,7 +500,7 @@ de:
   click: Anklicken
   click_on_a_user_to_view_the_users_detailed_profile: Klicken Sie auf den Nutzer, um dessen detailliertes Profil einzusehen oder klicken Sie auf die Art, um die Seite anzusehen, auf der entsprechende Texte vorhanden sind (Nutzen Sie die Zurück-Schaltfläche des Browsers, um hierher zurück zu gelangen.).
   click_on_a_username_to_view_the_users_detailed_profile: Klicken Sie auf den Nutzernamen, um dessen detailliertes Profil einzusehen oder klicken Sie auf die Art, um die Seite anzusehen, auf der entsprechende Texte vorhanden sind (Nutzen Sie die Zurück-Schaltfläche des Browsers, um hierher zurück zu gelangen.). Auf „Bearbeiten“ klicken, um den Kommentar zu bearbeiten oder auf „Löschen“, um den Kommentar zu löschen.
-  click_on_an_activity_to_see_th: Klicken Sie eine Aktivität an, um eine Liste der entsprechenden Aktivitäten zu erhalten, die innerhalb von 5 Minuten {3-4 Minuten} durchgeführt werden können.
+  click_on_an_activity_to_see_th: Klicken Sie eine Aktivität an, um eine Liste jeglicher Aktivitäten zu erhalten, die innerhalb von 5 Minuten ausgeführt wurden.
   clicked_time: Anklickzeitpunkt
   close_this_window_to_return_to_edit_window: DIESES FENSTER SCHLIESSEN, UM ZUM BEARBEITUNGSFENSTER ZURÜCKZUKEHREN
   cms_available_in_languages: "Diese Seite ist verfügbar in:"
@@ -473,6 +516,8 @@ de:
   collection_destroyed: Die Sammlung wurde gelöscht.
   collection_image: Bild der Sammlung
   collection_is_empty: Diese Sammlung enthält derzeit nichts.
+  collection_item_edit_by_javascript_not_authorized_error: Sie verfügen leider nicht über die Berechtigung dieses Objekt in dieser Sammlung zu bearbeiten. Sofern Sie der Besitzer oder Bearbeiter dieser Sammlung sind, laden Sie bitte diese Seite erneut oder prüfen Sie, ob Sie angemeldet sind.
+  collection_item_edit_page_title: Ein Objekt in der Sammlung <em>%{collection_name}</em> bearbeiten.
   collection_item_not_found_error: Dieses Sammlungsobjekt konnte nicht gefunden werden.
   collection_name_label: Name der Sammlung
   collection_newsfeed: Neuigkeitenfeed der Sammlung
@@ -506,13 +551,14 @@ de:
   comments: Kommentare
   comments_and_tags: Kommentare und Stichwörter
   comments_moderated: Moderierte Kommentare
-  comments_on: Kommentare anzeigen
+  comments_on: Kommentare zu
   comments_with_count: 
     one: Ein Kommentar
     other: "%{count} Kommentare"
   common_activities_by_logged_in: Allgemeine Aktivitäten angemeldeter Nutzer.
   common_name: Gebräuchlicher Name
   common_name_avg: Durchschnittlich vorhandene gebräuchliche Namen
+  common_name_exists: Der gebräuchliche Name <em>%{name_string}</em> ist bereits vorhanden.
   common_names_with_count: 
     one: Ein gebräuchlicher Name
     other: "%{count} gebräuchliche Namen"
@@ -567,6 +613,9 @@ de:
   contact_us: Kontaktieren Sie uns
   contact_us_functions: Kontaktfunktionen
   contact_us_link: Kontaktieren Sie uns
+  contact_us_request_failed: Ein Fehler ist / Mehrere Fehler sind aufgetreten.
+  contact_us_request_received: Ihre Kontaktanfrage wurde empfangen
+  contact_us_request_sent: Die Anfrage wurde erfolgreich gesendet
   contact_us_submissions: Kontaktaufnahmen
   contact_us_topics: Themen der Kontaktaufnahmen
   contacts: Kontaktieren Sie uns
@@ -756,8 +805,8 @@ de:
     other: "%{count} Objekte von %{name} kopiert."
   copy: Kopieren
   copy_items_to_a_new_collection_with_count: 
-    one: Ein Objekt zu einer neuen Sammlung verschieben
-    other: "%{count} Objekte zu einer neuen Sammlung verschieben"
+    one: Ein Objekt in eine neue Sammlung kopieren
+    other: "%{count} Objekte in eine neue Sammlung kopieren"
   copy_of_name: Kopie von %{name}
   copyright: "Rechtlich geschützt für:"
   correct_donation_message: Sofern diese Informationen nicht richtig sind, gehe Sie bitte zu %{go_back_link} zurück, um Änderungen vorzunehmen
@@ -798,6 +847,7 @@ de:
   curation_reason_placeholder: zusätzliche Informationen (optional)
   curation_scope: Kuratierungsbereich
   curator: Kurator
+  curator_admin_index_help: Klicken Sie auf einen Nutzernamen, um das ausführliche Profil des entsprechenden Nutzers einzusehen. Sie können die Kuratierungsberechtigungen auf der Profilseite des Nutzers ändern. Die vollständige Ansicht der Informationen kann durch Klicken erreicht werden, sofern die Informationen zunächst nur teilweise angezeigt werden.
   curator_colon: "Kurator:"
   curator_level: Kuratorstufe
   curator_level_application_pending_notice: Vielen Dank für Ihre Bewerbung zum Prokurator. Wir werden Sie per E-Mail benachrichtigen, sobald wir Ihre Bewerbung geprüft haben.
@@ -868,6 +918,7 @@ de:
   delete: löschen
   delete_community: Diese Gemeinschaft löschen
   delete_firstcap: Löschen
+  deleted_colon: "löschte:"
   description: Beschreibung
   description_of: Beschreibung von
   descriptive_label: Aussagekräftige Bezeichnung
@@ -897,7 +948,7 @@ de:
   donation_sponsorship_fellowships_title: Gönner
   donation_sponsorship_infrastructure_description: Um die Stärken von EOL den Menschen auf der ganzen Welt zur Verfügung stellen zu können, sind Spenden jeglichen Umfangs sehr willkommen, um die Infrastruktur- sowie Betriebskosten dieser Initiative zu fördern.
   donation_sponsorship_infrastructure_title: Hauptinfrastruktur
-  donation_sponsorship_preamble: Sofern Sie mehr über verfügbare spezifischen Förderprogramme erfahren oder regelmäßig Spenden möchten, bitten wir Sie das Sekretariat der Enzyklopädie des Lebens (EOL) unter der E-Mail-Adresse <a href="mailto:%{email_address}">email</a> zu kontaktieren.
+  donation_sponsorship_preamble: Sofern Sie mehr über verfügbare spezifischen Förderprogramme erfahren oder regelmäßig Spenden möchten, bitten wir Sie das Sekretariat der Enzyklopädie des Lebens (EOL) per <a href="mailto:%{email_address}">E-Mail</a> zu kontaktieren.
   done_already: Bereits erledigt
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Unbekannte Registrierungsdaten nicht anzeigen (v1.0-Benutzer, alle vor dem 5. Januar 2009)
   dublin_core: Dublin Core
@@ -910,6 +961,7 @@ de:
   edit_collection_details_header: Informationen zur Sammlung bearbeiten
   edit_collection_head_title: "Bearbeiten: %{collection_name}"
   edit_comment: Kommentar bearbeiten
+  edit_comment_lowercase: Kommentar bearbeiten
   edit_community: Gemeinschaft bearbeiten
   edit_contact_us_topic: Thema für die Kontaktaufnahme bearbeiten
   edit_contact_us_topics: Themen zur Kontaktaufnahme bearbeiten
@@ -928,6 +980,7 @@ de:
   edit_upload: Hochgeladenes bearbeiten
   edit_username: "%{username} bearbeiten"
   edit_web_users: Internetnutzer bearbeiten
+  edited_colon: "bearbeitet:"
   editors_tab_label: Verwalter
   email: E-Mail-Adresse
   email_colon: "E-Mail-Adresse:"
@@ -1101,6 +1154,11 @@ de:
     label: 
       collection: 
         view_style_id: "Standardansicht:"
+      collection_item: 
+        annotation: Annotation
+        sort_field: Sortieren nach <small>(Datum, Zahl oder Text; optional)</small>
+        sort_field_more: Die Sortierung erfolgt alphanumerisch. Im Fall von Datumsangaben muss daher sichergestellt werden, dass diese umgekehrt und mit führenden Nullen angegeben werden. Anstatt 3. November 2011 sollte daher 2011.11.03 genutzt werden. Elemente mit leeren Sortierwerten werden als letztes angegeben.
+        sort_field_show: "Wert sortieren:"
       content_page: 
         active: Veröffentlicht
         active_more: Veröffentlichte Seiten sind öffentlich sichtbar. Deaktivieren Sie <em>veröffentlicht</em>, sofern Sie verhindern möchten, dass Nutzer diese Seite in jeglicher Sprache ansehen können.
@@ -1126,6 +1184,8 @@ de:
       content_partner_agreement: 
         mou_url: URL der Datei zur Vereinbarung <small>(optionale Alternative)</small>
         mou_url_more: Optional können Sie die URL zu der Datei eingeben, die die Vereinbarung mit dem Inhaltspartner einhält. Diese Datei wird jegliche anderen Vereinbarungstexte überschreiben. Sofern Sie die Datei (z. B. eine PDF-Datei) auf den Servern von EOL speichern möchten, müssen Sie zunächst <a href="%{upload_content_url}">die Datei hochladen</a>, um die URL zu erhalten.
+      content_partner_contact: 
+        email_reports_frequency_hours_more: E-Mail-Berichte werden nur dann versandt, sofern es Kommentare oder Aktionen von Kuratoren zu Ihren Daten oder den Seiten zu Taxa gab, die für Ihre Daten relevant waren.
       data_object: 
         bibliographic_citation: Bibliographische Zitierung
         description: Text <small>(HTML-Code ist zulässig)</small>
@@ -1225,6 +1285,8 @@ de:
     select: 
       prompt: Bitte wählen Sie
     submit: 
+      collection_item: 
+        update: Speichern
       content_page: 
         create: Seite erstellen
         edit: Bearbeiten
@@ -1396,9 +1458,10 @@ de:
   learn_more_about_communities_link: Erfahren Sie mehr über Gemeinschaften
   learn_more_about_names_for_this_taxon: Erfahren Sie mehr über Namen für dieses Taxon
   learn_more_link: (%{learn_more})
-  learn_more_lowercase: mehr erfahren
+  learn_more_lowercase: weitere Informationen
   leave_a_comment: Einen Kommentar hinterlassen
   leave_community_button: Diese Gemeinschaft verlassen
+  leave_reply: Eine Antwort hinterlassen
   left_content_area: Linker Inhaltsbereich
   license: Lizenz
   license_all_rights_reserved: Alle Rechte vorbehalten
@@ -1443,6 +1506,7 @@ de:
   logging: Protokollierung
   login: Anmelden
   login_header: Melden Sie mit Ihrem Konto bei <abbr title="Enzyklopädie des Lebens">EOL</abbr> an.
+  login_hidden_user_message: Das Konto %{given_name} ist nicht mehr aktiv
   login_or_create_account: Anmelden oder Nutzerkonto erstellen
   login_required_button: Anmeldung erforderlich
   login_to_the_website_as: Anmeldung auf der Website als %{username}
@@ -1498,8 +1562,12 @@ de:
     other: "%{count} Mitglieder;"
   merge_concepts: Konzepte zusammenführen
   message_colon: "Nachricht:"
+  meta_description_collection: "%{collection_name} %{collection_description}. Eine Sammlung der Enzyklopädie des Lebens (EOL)."
   meta_description_colon: "Meta-Beschreibung:"
+  meta_description_community: "%{community_name} %{community_description}. Eine Gemeinschaft der Enzyklopädie des Lebens (EOL)."
   meta_keywords_colon: "Meta-Keywords:"
+  meta_title_default: Enzyklopädie des Lebens
+  meta_title_template: "%{page_title} - Enzyklopädie des Lebens"
   method: Methode
   method_to_get_metadata_about_the_hierarchy: nach Angabe einer Hierarchiekennung wird diese Methode die Metadaten der Hierarchie und Ihre Basistaxa ausgeben
   methods: Methoden
@@ -1539,6 +1607,9 @@ de:
   most_active_members: Aktivste Mitglieder
   move: Verschieben
   move_down: Nach unten verschieben
+  move_items_to_a_new_collection_with_count: 
+    one: Ein Objekt zu einer neuen Sammlung verschieben
+    other: "%{count} Objekte zu einer neuen Sammlung verschieben"
   move_to_bottom: an das Ende verschieben
   move_to_top: an den Anfang verschieben
   move_up: Nach oben verschieben
@@ -1597,6 +1668,7 @@ de:
   newsfeed_help_for_watchlist: Der Nachrichtenfeed dieser Beobachtungsliste sammelt die Aktualisierungen bezüglich der Objekte, die sich auf der Beobachtungsliste ihres Besitzers befinden, einschließlich der Aktivitäten ihres Besitzers.
   next: Nächste
   no_active_members: Bislang gab es noch keine ausreichenden Aktivitäten.
+  no_answer: Nein
   no_collections_apply: Zu keiner Sammlung, zu der Sie Zugang haben, können Verwalter hinzugefügt werden.
   no_comments_are_available_for_subject: Zu %{subject} gibt es keine Kommentare
   no_comments_have_been_left_yet: Bislang wurden noch keine Kommentare hinterlassen.
@@ -1623,22 +1695,23 @@ de:
   note: "Anmerkung:"
   note_about_homonym_problems: "HINWEIS: Ändern sie dieses Attribut nur, sofern Sie sich sicher sind. Es zu deaktivieren könnte schwerwiegenden Probleme bei Homonymen verursachen."
   note_all_times_utc: Bitte beachten Sie, dass alle Zeitangaben in UTC (Koordinierte Weltzeit)
+  note_that_it_may_take_a_few_mi: Beachten Sie, dass es nach dem Hochladen ein paar Minuten dauern kann, bis die URLs aufrufbar sind. Dies deshalb, da die Datei zunächst auf den Server mit den Inhalten übertragen werden muss.
   notes: Anmerkungen
   notes_not_shown_to_user: "Anmerkungen (werden Nutzern nicht angezeigt):"
   notice_colon: "HINWEIS:"
   notifier: 
     activity_log_empty: Keine aktuellen Aktionen durch Kuratoren.
     activity_on_content_partner_content: 
-      message: "Dies ist eine automatische E-Mail-Nachricht von der Enzyklopädie des Lebens (EOL). Sie fasst aktuelle Kommentare sowie Aktionen von Kuratoren zu Inhalten auf EOL zusammen, die von Inhaltspartner %{partner_full_name} (%{partner_profile_url}) zur Verfügung gestellt wurden. Sie erhalten diese Zusammenfassung, da Sie als Kontakt für Inhaltspartner %{partner_full_name} verzeichnet sind.\n\nAktionen von Kuratoren:\n%{curator_activity_log}\n\nKommentare bezüglich Datenobjekten:\n%{data_object_comments}\n\nKommentare bezüglich Seiten, die Ihren Daten zugeordnet sind:\n%{page_comments}"
+      message: "Dies ist eine automatische E-Mail-Nachricht von der Enzyklopädie des Lebens (EOL). Sie fasst aktuelle Kommentare sowie Aktionen von Kuratoren zu Inhalten auf EOL zusammen, die von Inhaltspartner %{partner_full_name} (%{partner_profile_url}) zur Verfügung gestellt wurden. Sie erhalten diese Zusammenfassung, da Sie als Kontakt für Inhaltspartner %{partner_full_name} verzeichnet sind.\n\nSofern Sie Fragen haben oder Hilfe beim Anmelden in Ihr EOL-Nutzerkonto benötigen, kontaktieren Sie bitte %{species_pages_group_email}.\n\n\nAktionen von Kuratoren:\n%{curator_activity_log}\n\nKommentare bezüglich Datenobjekten:\n%{data_object_comments}\n\nKommentare bezüglich Seiten, die Ihren Daten zugeordnet sind:\n%{page_comments}"
       subject: Zusammenfassung der aktuellen Aktivitäten in der Enzyklopädie des Lebens (EOL) an Inhalten, die vom Inhaltspartner %{partner_full_name} zur Verfügung gestellt wurden
     activity_on_user_content: 
-      message: "Dies ist eine automatische E-Mail-Nachricht von der Enzyklopädie des Lebens (EOL). Sie fasst aktuelle Kommentare sowie Aktionen von Kuratoren zu Inhalten auf EOL zusammen, die über Ihr Nutzerkonto mit dem Namen %{members_username} hinzugefügt wurden.\n\nAktionen von Kuratoren:\n%{curator_activity_log}\n\nKommentare bezüglich Datenobjekten:\n%{data_object_comments}\n\nKommentare bezüglich Seiten, die Ihren Daten zugeordnet sind:\n%{page_comments}"
+      message: "Dies ist eine automatische E-Mail-Nachricht von der Enzyklopädie des Lebens (EOL). Sie fasst aktuelle Kommentare sowie Aktionen von Kuratoren zu Inhalten auf EOL zusammen, die über Ihr Nutzerkonto mit dem Namen %{members_username} hinzugefügt wurden.\n\nSofern Sie Fragen haben oder Hilfe beim Anmelden in Ihr EOL-Nutzerkonto benötigen, kontaktieren Sie bitte %{species_pages_group_email}.\n\n\nAktionen von Kuratoren:\n%{curator_activity_log}\n\nKommentare bezüglich Datenobjekten:\n%{data_object_comments}\n\nKommentare bezüglich Seiten, die Ihren Daten zugeordnet sind:\n%{page_comments}"
       subject: Zusammenfassung der aktuellen Aktivitäten an Inhalten, die Sie der Enzyklopädie des Lebens (EOL) zur Verfügung gestellt haben
-    activity_user_marked_data_object_as_inappropriate_on_date: "%{users_name} (%{users_url}) als unangemessen gekennzeichnet:\n%{object_name} (%{object_url})\n%{action_date}."
-    activity_user_marked_data_object_as_trusted_for_taxon_on_date: "%{users_name} (%{users_url}) als vertrauenswürdig gekennzeichnet:\n%{object_name} (%{object_url}) für %{taxon_name} (%{taxon_url})\n%{action_date}."
-    activity_user_marked_data_object_as_trusted_on_date: "%{users_name} (%{users_url}) als vertrauenswürdig gekennzeichnet:\n%{object_name} (%{object_url})\n%{action_date}."
-    activity_user_marked_data_object_as_untrusted_for_taxon_on_date: "%{users_name} (%{users_url}) als nicht vertrauenswürdig gekennzeichnet:\n%{object_name} (%{object_url}) für %{taxon_name} (%{taxon_url})\n%{action_date}."
-    activity_user_marked_data_object_as_untrusted_on_date: "%{users_name} (%{users_url}) als nicht vertrauenswürdig gekennzeichnet:\n%{object_name} (%{object_url})\n%{action_date}."
+    activity_user_marked_data_object_as_inappropriate_on_date: "%{curator_level} %{users_name} (%{users_url}) kennzeichnete Folgendes als ungeeignet:\n%{object_name} (%{object_url})\n%{action_date}."
+    activity_user_marked_data_object_as_trusted_for_taxon_on_date: "%{curator_level} %{users_name} (%{users_url}) kennzeichnete Folgendes als vertrauenswürdig:\n%{object_name} (%{object_url}) für %{taxon_name} (%{taxon_url})\n%{action_date}."
+    activity_user_marked_data_object_as_trusted_on_date: "%{curator_level} %{users_name} (%{users_url}) kennzeichnete Folgendes als vertrauenswürdig:\n%{object_name} (%{object_url})\n%{action_date}."
+    activity_user_marked_data_object_as_untrusted_for_taxon_on_date: "%{curator_level} %{users_name} (%{users_url}) kennzeichnete Folgendes als nicht vertrauenswürdig:\n%{object_name} (%{object_url}) für %{taxon_name} (%{taxon_url})\n%{action_date}."
+    activity_user_marked_data_object_as_untrusted_on_date: "%{curator_level} %{users_name} (%{users_url}) kennzeichnete Folgendes als nicht vertrauenswürdig:\n%{object_name} (%{object_url})\n%{action_date}."
     comments_empty: Keine aktuellen Kommentare.
     contact_us_auto_response: 
       message: "Vielen Dank, dass Sie das Projekt Enzyklopädie des Lebens (EOL) kontaktiert haben. Ihre Anmerkungen wurden der zuständigen Gruppe weitergeleitet.\n\nWir schätzen Ihre Rückmeldung."
@@ -1671,7 +1744,7 @@ de:
     user_activated: 
       message: "Willkommen bei der Enzyklopädie des Lebens (EOL) und viele Dank für Ihre Anmeldung. Bitte merken Sie sich Ihren Nutzernamen %{username}. Die URL Ihres Profils bei der EOL lautet %{profile_url}. Mit Ihrem Konto können Sie sich unter der URL http://www.eol.org/login anmelden.\n\nWeitere Informationen zur Nutzung der EOL, einschließlich der Anleitung, wie sie eine Sammlung erstellen, wie Sie in Nutzergemeinschaften mitwirken oder zu den Inhalten beitragen können, finden Sie auf unseren Hilfeseiten unter der URL http://www.eol.org/help."
       subject: Ihr Konto bei der Enzyklopädie des Lebens (EOL) wurde aktiviert
-    user_commented_on_something_date_body: "%{users_name} (%{users_url}) kommentierte:\n%{commented_on_name} (%{commented_on_url})\n%{comment_date}:\n%{comment_body}"
+    user_commented_on_something_date_body: "%{curator_level} %{users_name} (%{users_url}) kommentierte Folgendes:\n%{commented_on_name} (%{commented_on_url})\n%{comment_date}:\n%{comment_body}"
     user_message: 
       subject: Eine Nachricht von der Enzyklopädie des Lebens (EOL)
     user_reset_password: 
@@ -1796,7 +1869,9 @@ de:
   please: Bitte
   please_confirm_your_donation_details: Bitte bestätigen Sie die Angaben zu Ihrer Spende
   please_indicate_curation_reason: "Wählen Sie bitte einen Grund und/oder geben Sie alternativ einen Kommentar an:"
+  please_leave_your_feedback: Bitte hinterlassen Sie Ihre Rückmeldung
   please_note_that_some_of_these: Bitte beachten Sie, dass einige dieser Hilfsmittel vorläufig sind und entweder Fehler haben, bzw. sich über die Zeit noch ändern könnten.
+  please_note_wiki_etc_are_not_spm: "* Beachten Sie, dass Wikipedia, Bildung und Barcodes EOL-interne Bestandteile sind. Sie sind nicht Teil des SPM."
   please_refresh: Bitte aktualisieren Sie die Anzeige in Ihrem Browser, um die neueste Version der Website von EOL sehen zu können.
   please_return_to_eol_homepage: Bitte kehren Sie zur Startseite von EOL zurück
   please_state_one_credential: "Bitte geben Sie mindestens eine der Anmeldeinformationen aus dieser Liste an:"
@@ -1861,6 +1936,7 @@ de:
   removed_count_items_from_collection_notice: 
     one: Ein Objekt wurde aus dieser Sammlung entfernt.
     other: "%{count} Objekte wurden aus dieser Sammlung entfernt."
+  reply: Antworten
   request: Anfrage
   request_mailing_list_colon: "Mailingliste anfordern:"
   required_form_element: Erforderlich
@@ -1893,6 +1969,7 @@ de:
   rss_feed: RSS-Feed
   save: Speichern
   save_annotation_submit_button: Annotation speichern
+  save_comment_lowercase: Kommentar speichern
   save_curated_association_submit_button: Zuordnung speichern
   sci_name_avg_table_head: Durchschnittlich vorhandene wissenschaftliche Namen
   scientific_name: Wissenschaftlicher Name
@@ -1957,7 +2034,10 @@ de:
   send: Senden
   send_contact_email: Kontakt-E-Mail senden
   send_email_colon: "E-Mail senden:"
-  sent_invitations_to_users: Einladungen wurden an %{users} gesendet.
+  send_feedback: Rückmeldung senden
+  sent_invitations_to_users: 
+    one: Eine Einladung wurde an %{users} gesandt.
+    other: Einladungen wurden an %{users} gesandt.
   sep_emails_with_commas_note: (mehrere E-Mail-Adressen durch Kommata voneinander trennen)
   server_ip_address: IP-Adresse des Servers
   set_as_exemplar: Als Beispiel festlegen
@@ -1986,6 +2066,8 @@ de:
   skip_to_content: Zum Inhalt
   skip_to_navigation: Direkt zur Navigation
   skip_to_table_of_contents: Direkt zum Inhaltsverzeichnis
+  social_sharing_twitter_follow_eol_button: Folgen Sie @eol
+  social_sharing_twitter_tweet_button: Tweet
   some_required_fields_were_not_entered: Einige der erforderlichen Felder wurden nicht ausgefüllt (Sie müssen entweder einen Titel sowie Inhalt oder eine URL eingeben).
   sort_by: Sortieren nach
   sort_by_alphabetical_option: Alphabetisch
@@ -2003,8 +2085,10 @@ de:
   sort_by_year_ascending: Jahr aufsteigend
   sort_by_year_descending: Jahr absteigend
   sort_collection_by_label: Sammlung sortieren nach
+  sort_field: "Sortierfeld:"
   sort_order: Sortierreihenfolge
   sound_alt_text: Diese Tonaufnahme mit Status %{vetted_status} ist von %{taxon_name}
+  sound_file: Tondatei
   sound_from: Geräusch von
   sound_from_supplier: Geräusch von %{whom}
   sound_object: Geräuschobjekt
@@ -2114,6 +2198,8 @@ de:
   thanks_for_donation: Vielen Dank, dass Sie die Enzyklopädie des Lebens (EOL) unterstützen. Ihre Informationen wurde übermittelt und werden nun bearbeitet.
   thanks_for_your_time: Vielen Dank für Ihre Zeit,
   the_amount_entered_was: "Der eingegebene Betrag war: US$ %{number}"
+  the_comment_was_successfully_deleted: Der Kommentar wurde erfolgreich aktualisiert.
+  the_comment_was_successfully_updated: Der Kommentar wurde erfolgreich aktualisiert.
   the_content_could_not_be_displ: Der Inhalt konnte nicht angezeigt werden.
   the_content_was_updated: Der Inhalt wurde aktualisiert.
   the_darwin_core_taxon_elements: Das Darwin-Core-Taxonelement (dwct:Taxon) bei „additionalInformation“ enthält Kennungen für die Knotenpunkte innerhalb von Hierarchien, die EOL indexiert. Sie enthalten einen „dc:identifier“, welcher der eindeutigen Kennung des Taxons <i>in der Datenbank des Bereitstellers der Daten</i> entspricht.
@@ -2139,22 +2225,29 @@ de:
   there_is_no_singular_eol: Bei der Enzyklopädie des Lebens (EOL) gibt es keine einzelne taxonomische Hierarchie. Tatsächlich indexiert EOL viele Hierarchien und vergleicht sie miteinander, um zu ermitteln welche Knotenpunkte auf die selben Taxa verweisen. Diese Taxonelemente sind die Hierarchieknotenpunkte. Das ist der Grund warum möglicherweise mehrere von ihnen für eine bestimmte EOL-Seite vorhanden sind. Bitte lesen Sie die Dokumentation zur %{link}-API um mehr hierzu zu erfahren.
   there_was_an_error_posting_your_text: Beim Speichern Ihres Beitrags ist ein Fehler aufgetreten.
   this_article_cannot_be_curated_because_unpublished: Dieser Artikel kann nicht kuratiert werden, da er unveröffentlicht ist.
+  this_article_is_unpublished: Dieser Artikel ist unveröffentlicht.
   this_cannot_be_undone_are_you_sure: Dies kann nicht rückgängig gemacht werden. Sind Sie sicher?
   this_collection_has_no_managers: Diese Sammlung hat keine Verwalter.
+  this_comment_was_deleted: Dieser Kommentar wurde gelöscht.
   this_community_has_no_endorsed_collections: Diese Gemeinschaft hat bislang noch keine Sammlungen präsentiert.
   this_community_has_no_focus_list: Diese Gemeinschaft verfügt über keine Liste an Schwerpunkten.
   this_community_was_deleted: Diese Gemeinschaft wurde von ihrem Besitzer gelöscht.
   this_image_cannot_be_curated_because_unpublished: Dieses Bild kann nicht kuratiert werden, da er unveröffentlicht ist.
+  this_image_is_unpublished: Dieses Bild ist unveröffentlicht.
   this_image_map_cannot_be_curated_because_unpublished: Diese Karte kann nicht kuratiert werden, da er unveröffentlicht ist.
+  this_image_map_is_unpublished: Diese Karte ist unveröffentlicht.
   this_is_a_flat_list_of_10_million_strings: Dies ist eine Liste von über 10 Millionen Zeichenketten, die Sie leider nicht durchsuchen können.
   this_is_a_focus_collection_for_community: Dies ist der Schwerpunkt von %{community}.
   this_is_the_label_that_will_be_used_for_attribution: Dies ist die Bezeichnung, die für die Herkunftsnachweise verwendet werden wird
   this_map_cannot_be_curated_because_unpublished: Diese Karte kann nicht kuratiert werden, da er unveröffentlicht ist.
+  this_map_is_unpublished: Diese Karte ist unveröffentlicht.
   this_method_takes_an_integer_or_string: Diese Methode gibt zu einer Ganzzahl oder einer Zeichenkette, die der eindeutigen Bezeichner eines Taxons in der Datenbank eines Anbieters ist, in Verbindung mit der Hierarchiekennung des Datenanbieters, die Seitenkennung von EOL zum entsprechenden Taxons aus. Sofern man bspw. die %{link_provider}-API nutzt, kann man die Hierarchiekennung bei EOL zur Kennung %{itis_id} des „Integrated Taxonomic Information System“ (ITIS) ermitteln. Danach kann man in der EOL nach der „ITIS Taxonomic Serial Number“ (TSN) 180542,<i>Ursus maritimus</i> suchen, indem man %{link_url} aufruft.
   this_resource_here_stars: diese Quelle hier ***
   this_resource_unpublished_notice: Diese Quelle wurde bis zum jetzigen Zeitpunkt noch nicht als veröffentlicht festgelegt.
   this_sound_cannot_be_curated_because_unpublished: Diese Geräusche können nicht kuratiert werden, da er unveröffentlicht ist.
+  this_sound_is_unpublished: Dieses Geräusch ist unveröffentlicht.
   this_video_cannot_be_curated_because_unpublished: Dieses Video kann nicht kuratiert werden, da er unveröffentlicht ist.
+  this_video_is_unpublished: Dieses Video ist unveröffentlicht.
   threat_status_header_colon: "<abbr title=\"International Union for Conservation of Nature\">IUCN</abbr>-Gefährdungsstatus:"
   thumbnail_page_colon: "Seite des Miniaturbildes:"
   time_ago: Vor %{time_passed}
@@ -2180,6 +2273,7 @@ de:
   translation_saved: Die Übersetzung wurde gespeichert
   translations_submit: Übersetzung anzeigen
   trigger_search_term_entered_by: den vom Nutzer eingegebenen Suchbegriff ansteuern
+  true_label: Wahr
   truncated_comment_omission: … <a href='%{link}'>mehr</a>
   truncated_comment_omission_linkless: …
   trusted: Vertrauenswürdig
@@ -2225,15 +2319,46 @@ de:
   user_activation_failed_user_not_found_error: Es ist leider ein Fehler aufgetreten. Das Nutzerkonto, dass Sie zu bestätigen versuchen, konnte nicht gefunden werden. Bitte stellen Sie sicher, das der von Ihnen genutzte Bestätigungslink dem Link entspricht, den Sie während des Registrierungsvorgangs erhalten haben.
   user_activation_successful_notice: Willkommen und vielen Dank, dass Sie dem Team der Enzyklopädie des Lebens (EOL) beitreten. Ihr Konto mit den Nutzernamen <em>%{username}</em> ist nun aktiv. Bitte melden Sie sich an.
   user_activity_page_title: Nutzeraktivität
-  user_activity_stats_articles_added: Artikel hinzugefügt
+  user_activity_stats_articles_added: 
+    one: Ein hinzugefügter Artikel
+    other: "%{count} hinzugefügte Artikel"
+  user_activity_stats_articles_added_dropdown: Hinzugefügte Artikel
+  user_activity_stats_comment_submitted: 
+    one: Ein hinterlassener Kommentar
+    other: "%{count} hinterlassende Kommentare"
+  user_activity_stats_common_names_added: 
+    one: Einen gebräuchlichen Namen hinzugefügt
+    other: "%{count} gebräuchliche Namen hinzugefügt"
+  user_activity_stats_common_names_curated: 
+    one: Einen gebräuchlichen Namen kuratiert
+    other: "%{count} gebräuchliche Namen kuratiert"
   user_activity_stats_header: Aktivität
-  user_activity_stats_objects_curated: Kuratierte Objekte
-  user_activity_stats_taxa_curated: Kuratierte Taxa
+  user_activity_stats_objects_curated: 
+    one: Ein Objekt kuratiert
+    other: "%{count} Objekt kuratiert"
+  user_activity_stats_objects_curated_dropdown: Kuratierte Objekte
+  user_activity_stats_set_exemplar: 
+    one: Ein Bild als exemplarisch festgelegt
+    other: "%{count} Bilder als exemplarisch festgelegt"
+  user_activity_stats_taxa_commented: 
+    one: Ein Taxon kommentiert
+    other: "%{count} Taxa kommentiert"
+  user_activity_stats_taxa_comments: 
+    one: Einen Kommentar zu Taxa
+    other: "%{count} Kommentare zu Taxa"
+  user_activity_stats_taxa_comments_dropdown: Kommentare zu Taxa
+  user_activity_stats_taxa_curated: 
+    one: Ein Taxon kuratiert
+    other: "%{count} Taxa kuratiert"
+  user_activity_stats_wikipedia_nominated: 
+    one: Einen Wikipedia-Artikel nominiert
+    other: "%{count} Wikipedia-Artikel nominiert"
   user_agent: Browser
   user_already_active_notice: Ihr Konto ist bereits aktiv. Bitte melden Sie sich an.
   user_comment: Nutzerkommentar
   user_commented_on_something_colon: "<strong>%{user}</strong> kommentierte %{what}:"
   user_comments: Nutzerkommentare
+  user_hidden_message: Dieser Nutzer ist nicht mehr aktiv
   user_id: Benutzerkennung
   user_index_intro: Alle registrierten Nutzer werden unten, in umgekehrter Reihenfolge des Registrierungszeitpunkts, angezeigt. Bitte beachten Sie, das die Registrierungsdaten von Nutzern, die sich von Einführung von EOL V2 am 5. Januar 2009 registriert haben, nicht verfügbar sind. Klicken Sie auf einen Nutzernamen, um diesen Nutzer zu bearbeiten.
   user_joined_community_on_date: "%{username} trat dieser Gemeinschaft am %{date} bei."
@@ -2325,6 +2450,7 @@ de:
   what_do_these_numbers_mean: Was bedeuten diese Zahlen?
   what_is_eol: Was ist EOL?
   what_is_this_question: Was bedeutet dies?
+  who_registered_before: bis
   who_registered_from: wer ist registriert seit dem
   wikipedia_queue_create_successful_notice: Der Wikipedia-Artikel %{article} in der Version %{rev} wurde der Auftragsliste der Importe hinzugefügt.
   wikipedia_queue_create_unsuccessful_error: "Es ist leider ein Fehler aufgetreten, so dass der Wikipedia-Artikel nicht der Auftragsliste der Importe hinzugefügt wurde.<br />Versions-URLs müssen folgendem Schema entsprechen: http://de.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*"
@@ -2367,4 +2493,5 @@ de:
   your_preferences: Ihre Einstellungen
   your_rating: Ihre Bewertung
   your_watch_collection: Ihre Beobachtungsliste
+  youtube: YouTube
   youtube_video: YouTube Video

@@ -45,15 +45,15 @@ module ApplicationHelper
         "#{super(method, content_or_options_with_block, options)} #{errors}"
       end
     end
-    
-    def load_minimal_tags_allowed()
-      return "<img src='/images/stop.png' border='0'> #{I18n.t("allowed_html_tags")} &lt;p&gt;,&lt;i&gt;,&lt;b&gt;,&lt;a&gt;,&lt;ul&gt;,&lt;ol&gt;,&lt;li&gt;"
+
+    # tags can include :all, :minimal (default) or a comma separated string of tags
+    def allowed_html_help_tip(tags = :minimal)
+      return nil
+      tags = "p, em, strong, a, ul, ol, li" if tags.to_sym == :minimal
+      tags = "p, em, strong, a, ul, ol, li, table, tr, td" if tags.to_sym == :all
+      return I18n.t(:allowed_html_tags, :comma_separated_tags => tags)
     end
-    
-    def load_all_tags_allowed()
-      return "<img src='/images/stop.png' border='0'> #{I18n.t("allowed_html_tags")} &lt;p&gt;,&lt;i&gt;,&lt;b&gt;,&lt;a&gt;,&lt;ul&gt;,&lt;ol&gt;,&lt;li&gt;,&lt;table&gt;,&lt;tr&gt;,&lt;td&gt;"
-    end
-    
+
     private
 
     def errors_on?(method)
@@ -89,6 +89,43 @@ module ApplicationHelper
         end
       end
     end
+  end
+
+  # Used in V2
+  def set_meta_data
+    case params[:controller]
+      when /^taxa/
+        if @taxon_concept
+          if @selected_hierarchy_entry
+            preferred_common_name = @selected_hierarchy_entry.taxon_concept.preferred_common_name_in_language(current_user.language)
+            scientific_name = @taxon_concept.quick_scientific_name(:normal, @selected_hierarchy_entry.hierarchy)
+          else
+            preferred_common_name = @taxon_concept.preferred_common_name_in_language(current_user.language)
+            scientific_name = @taxon_concept.title_canonical()
+          end
+          @meta_title = I18n.t(:meta_title_template,
+            :page_title => [preferred_common_name, scientific_name, @assistive_section_header].compact.join(" - ")) if @meta_title.blank?
+          @meta_description = I18n.t(:meta_description_taxon,
+            :scientific_name => scientific_name, :preferred_common_name_or_blank => preferred_common_name) if @meta_description.blank?
+          @meta_keywords = [preferred_common_name, scientific_name].join(" ") if @meta_keywords.blank?
+        end
+      when /^communities/
+        if @community && !@community.name.blank?
+          @meta_title = I18n.t(:meta_title_template,
+            :page_title => I18n.t(:head_title_community, :name => @community.name)) if @meta_title.blank?
+          @meta_description = I18n.t(:meta_description_community, :community_name => @community.name,
+            :community_description => @community.description) if @meta_description.blank?
+        end
+      when /^collections/
+        if @collection && !@collection.name.blank?
+          @meta_title = I18n.t(:meta_title_template,
+            :page_title => I18n.t(:head_title_collection, :name => @collection.name)) if @meta_title.blank?
+          @meta_description = I18n.t(:meta_description_collection, :collection_name => @collection.name,
+            :collection_description => @collection.description) if @meta_description.blank?
+        end
+    end
+    @meta_title = @page_title.blank? ? I18n.t(:meta_title_default) : I18n.t(:meta_title_template, :page_title => @page_title) if @meta_title.blank?
+    @meta_description = I18n.t(:meta_description_default) if @meta_description.blank?
   end
 
   # Used in V2 to return class for active navigation tabs.
@@ -200,6 +237,10 @@ module ApplicationHelper
 
   def taxon_concept_comments_path(taxon_concept)
     return "/taxon_concepts/#{taxon_concept.id}/comments/"
+  end
+
+  def contact_us_requests_path
+    return "/contact_us_request_path/create"
   end
 
   # format numbers with commas for digit separators

@@ -1,36 +1,22 @@
 !!! XML
 !!! 5
-%html{ "xml:lang" => I18n.locale, :lang => I18n.locale, :xmlns => "http://www.w3.org/1999/xhtml" }
+%html{ "xml:lang" => I18n.locale, :lang => I18n.locale, :xmlns => "http://www.w3.org/1999/xhtml",
+  'xmlns:fb' => $ENABLED_SOCIAL_PLUGINS && $ENABLED_SOCIAL_PLUGINS.include?(:facebook) ? "http://ogp.me/ns/fb#" : nil,
+  'xmlns:og' => $ENABLED_SOCIAL_PLUGINS && $ENABLED_SOCIAL_PLUGINS.include?(:facebook) ? "http://ogp.me/ns#" : nil }
   %head
+    - set_meta_data
     %title
-      - # Accessibility tip: Page titles should be unique and meaningful to the page and include the site name.
-      - # Home page title can just be the site name.
-      - head_title =  I18n.t(:encyclopedia_of_life)
-      - if @head_title ||= @page_title
-        - head_title = "EOL: #{@head_title} - #{head_title}"
-      - if @taxon_concept
-        - if @selected_hierarchy_entry && tc_title = @taxon_concept.quick_scientific_name(:italicized, @selected_hierarchy_entry.hierarchy)
-          - unless tc_title.blank?
-            - head_title = "EOL: #{tc_title} - #{head_title}"
-        - elsif tc_title = @taxon_concept.title_canonical()
-          - unless tc_title.blank?
-            - head_title = "EOL: #{tc_title} - #{head_title}"
-      - elsif (@community && !@community.name.blank?)
-        - head_title = I18n.t(:head_title_community, :name => @community.name)
-      - elsif (@collection && !@collection.name.blank?)
-        - head_title = I18n.t(:head_title_collection, :name => @collection.name)
-      &= strip_tags(head_title)
-
+      &= strip_tags @meta_title
     %meta{ :charset => "utf-8" }
     - # HTML4 charset declaration, might go when browsers catch up with html5
     %meta{ :content => "text/html; charset=utf-8", "http-equiv" => "Content-type" }
     %meta{ :name => "verify-v1", :content => "mJIytYT6a+K1y+bCmD1wr1ge+4Q63O0YfTHCYWwkzaY=" }
     - # Prevents generation of links to "smart tags"
     %meta{ :name => "MSSmartTagsPreventParsing", :content => "true" }
-    - @meta_description ||= "The Encyclopedia of Life is an unprecedented effort to gather and share scientific knowledge about all living things in a single online resource, giving each of us a breathtaking view of our amazing world."
-    %meta{ :name => "description", :content => h(strip_tags(@meta_description)) }
 
-    - if @meta_keywords
+    - unless @meta_description.blank?
+      %meta{ :name => "description", :content => h(strip_tags(@meta_description)) }
+    - unless @meta_keywords.blank?
       %meta{ :name => "keywords", :content => meta_keywords(h(@meta_keywords)) }
 
     - if @no_cache
@@ -62,7 +48,7 @@
         ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
         })();
-
+      = javascript_include_tag 'ga_social_tracking'
   %body{:class => @home_page ? 'home' : nil}
     %ul#controls.assistive
       %li= link_to I18n.t(:skip_to_content), '#main'
@@ -130,3 +116,18 @@
           %li= link_to I18n.t(:youtube), $EOL_YOUTUBE_ACCOUNT, :class => "youtube"
 
       = yield :footer
+
+    - # TODO: Load third party scripts asynchronously after page has already loaded
+    - unless $ENABLED_SOCIAL_PLUGINS.blank?
+      :javascript
+        $(document).ready( function( ) {
+          var facebook = "#{$ENABLED_SOCIAL_PLUGINS.include?(:facebook) ? true : nil}"
+          var twitter = "#{$ENABLED_SOCIAL_PLUGINS.include?(:twitter) ? true : nil}"
+          if (facebook) { EOL.loadFacebook("#{$FACEBOOK_APP_ID}","#{channel_facebook_url}"); }
+          if (twitter) { EOL.loadTwitter(); }
+        });
+
+
+
+
+

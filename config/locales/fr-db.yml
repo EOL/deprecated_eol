@@ -6,6 +6,7 @@
 # Author: Hashar
 # Author: McDutchie
 # Author: Od1n
+# Author: Verdy p
 fr: 
   translated_activities-name-activity_id-19: profil
   translated_activities-name-activity_id-50: non fiable
@@ -17,7 +18,7 @@ fr:
   translated_activities-name-activity_id-56: supprimer
   translated_activities-name-activity_id-57: taux
   translated_activities-name-activity_id-58: fiable
-  translated_activities-name-activity_id-59: Non revu
+  translated_activities-name-activity_id-59: non supervisé
   translated_activities-name-activity_id-63: recueillir
   translated_activities-name-activity_id-64: supprimer
   translated_agent_roles-label-agent_role_id-1: Animateur
@@ -44,7 +45,7 @@ fr:
   translated_audiences-label-audience_id-2: Grand public
   translated_audiences-label-audience_id-3: Enfants
   translated_collection_types-label-collection_type_id-1: Taxonomie
-  translated_collection_types-label-collection_type_id-10: Sons
+  translated_collection_types-label-collection_type_id-10: Enregistrements sonores
   translated_collection_types-label-collection_type_id-11: Liens
   translated_collection_types-label-collection_type_id-12: Bibliographie
   translated_collection_types-label-collection_type_id-13: Taxonomie
@@ -57,7 +58,7 @@ fr:
   translated_collection_types-label-collection_type_id-2: Codes-barres moléculaires
   translated_collection_types-label-collection_type_id-20: Données moléculaires
   translated_collection_types-label-collection_type_id-21: Nomenclature
-  translated_collection_types-label-collection_type_id-22: Sons
+  translated_collection_types-label-collection_type_id-22: Enregistrements sonores
   translated_collection_types-label-collection_type_id-23: Liens
   translated_collection_types-label-collection_type_id-24: Littérature
   translated_collection_types-label-collection_type_id-3: Description
@@ -100,7 +101,7 @@ fr:
   translated_content_tables-label-content_table_id-1: Détails
   translated_data_types-label-data_type_id-1: Image
   translated_data_types-label-data_type_id-10: Carte
-  translated_data_types-label-data_type_id-2: Son
+  translated_data_types-label-data_type_id-2: Enregistrement sonore
   translated_data_types-label-data_type_id-3: Texte
   translated_data_types-label-data_type_id-4: Vidéo
   translated_data_types-label-data_type_id-5: Image GBIF
@@ -269,7 +270,7 @@ fr:
   translated_synonym_relations-label-synonym_relation_id-7: acronyme de GenBank
   translated_synonym_relations-label-synonym_relation_id-8: anamorphose de GenBank
   translated_synonym_relations-label-synonym_relation_id-9: nom commun de GenBank
-  translated_table_of_contents-label-table_of_contents_id-1: Aperçu
+  translated_table_of_contents-label-table_of_contents_id-1: Vue d’ensemble
   translated_table_of_contents-label-table_of_contents_id-13: Noms communs
   translated_table_of_contents-label-table_of_contents_id-14: IUCN
   translated_table_of_contents-label-table_of_contents_id-17: Références bibliographiques
@@ -278,7 +279,7 @@ fr:
   translated_table_of_contents-label-table_of_contents_id-218: Dispersion
   translated_table_of_contents-label-table_of_contents_id-221: Risques
   translated_table_of_contents-label-table_of_contents_id-225: Sur le Web
-  translated_table_of_contents-label-table_of_contents_id-226: Associés au contenu
+  translated_table_of_contents-label-table_of_contents_id-226: Partenaires de contenu
   translated_table_of_contents-label-table_of_contents_id-227: Rechercher sur le Web
   translated_table_of_contents-label-table_of_contents_id-24: Commentaire
   translated_table_of_contents-label-table_of_contents_id-242: Écologie générale
@@ -338,7 +339,7 @@ fr:
   translated_table_of_contents-label-table_of_contents_id-340: Séries de laboratoire de lycée
   translated_table_of_contents-label-table_of_contents_id-341: Science citoyenne
   translated_table_of_contents-label-table_of_contents_id-342: Liens de la Science citoyenne
-  translated_table_of_contents-label-table_of_contents_id-343: Bibliothèque de l'héritage de la biodiversité
+  translated_table_of_contents-label-table_of_contents_id-343: "''Biodiversity Heritage Library''"
   translated_table_of_contents-label-table_of_contents_id-344: Données
   translated_table_of_contents-label-table_of_contents_id-345: Sources de données
   translated_table_of_contents-label-table_of_contents_id-346: Termes biomédicaux
@@ -363,7 +364,7 @@ fr:
   translated_vetted-label-vetted_id-0: Inconnu
   translated_vetted-label-vetted_id-4: Non fiable
   translated_vetted-label-vetted_id-5: Fiable
-  translated_vetted-label-vetted_id-6: inapproprié
+  translated_vetted-label-vetted_id-6: Inapproprié
   translated_visibilities-label-visibility_id-0: Invisible
   translated_visibilities-label-visibility_id-1: Visible
   translated_visibilities-label-visibility_id-2: Aperçu

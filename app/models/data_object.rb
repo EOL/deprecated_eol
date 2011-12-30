@@ -758,7 +758,7 @@ class DataObject < SpeciesSchemaModel
       # hidden, so delete it from solr
       solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE)
       solr_connection.delete_by_id(self.id)
-    end    
+    end
   end
 
   def in_wikipedia?
@@ -838,7 +838,12 @@ class DataObject < SpeciesSchemaModel
 
     exemplar = taxon_concept.taxon_concept_exemplar_image
     if exemplar && exemplar_image = exemplar.data_object
-      unique_image_objects.delete_if{ |d| d.id == exemplar_image.id }
+      unique_image_objects.delete_if{ |d| d.guid == exemplar_image.guid }
+
+      # Get the latest version of the exemplar image
+      latest_published_exemplar_image = DataObject.latest_published_version_of(exemplar_image.id)
+      exemplar_image = latest_published_exemplar_image unless latest_published_exemplar_image.nil?
+
       unique_image_objects.unshift(exemplar_image)
     end
     # removing maps
@@ -1165,7 +1170,7 @@ class DataObject < SpeciesSchemaModel
     end
     dobj_ids = dobj_ids.uniq
     if !dobj_ids.empty? && dobj_ids.length>1
-      dobjs = DataObject.find_by_sql("SELECT do.* FROM data_objects do INNER JOIN languages l on (do.language_id = l.id) WHERE do.id in (#{dobj_ids.join(',')}) AND l.activated_on <= NOW() ORDER BY l.sort_order")
+      dobjs = DataObject.find_by_sql("SELECT do.* FROM data_objects do INNER JOIN languages l on (do.language_id = l.id) WHERE do.id in (#{dobj_ids.join(',')}) AND do.published=1 AND l.activated_on <= NOW() ORDER BY l.sort_order")
       if !taxon.nil?
         dobjs = DataObject.filter_list_for_user(dobjs, {:user => current_user, :taxon_concept => taxon})
       end
@@ -1186,7 +1191,9 @@ class DataObject < SpeciesSchemaModel
       lang_ids = lang_ids.uniq
       if !lang_ids.empty? && lang_ids.length>1
         languages = Language.find_by_sql("SELECT * FROM languages WHERE id in (#{lang_ids.join(',')}) AND activated_on <= NOW() ORDER BY sort_order")
-        return languages
+        if !languages.blank? && languages.length>1
+          return languages
+        end
       end
     end
     return nil

@@ -14,6 +14,7 @@ class ApplicationController < ActionController::Base
   filter_parameter_logging :password
   include ContentPartnerAuthenticationModule # TODO -seriously?!?  You want all that cruft available to ALL controllers?!
   include ImageManipulation
+  include ActionView::Helpers::AssetTagHelper
 
   # If recaptcha is not enabled, then override the method to always return true
   unless $ENABLE_RECAPTCHA
@@ -36,6 +37,7 @@ class ApplicationController < ActionController::Base
     :allow_page_to_be_cached?, :link_to_item
 
   before_filter :set_locale
+  before_filter :set_social_plugin_meta_defaults
 
   # Continuously display a warning message.  This is used for things like "System Shutting down at 15 past" and the
   # like.  And, yes, if there's a "real" error, they won't see the message because flash[:error] will be
@@ -514,6 +516,31 @@ class ApplicationController < ActionController::Base
 
 protected
 
+  # Used in V2 to get absolute URLs for images, i.e. starting with http... use like image_path
+  # requires ActionView::Helpers::AssetTagHelper
+  def image_url(image)
+    request.protocol + request.host_with_port + image_path(image)
+  end
+
+  # Used in V2 for Facebook Like button @see /views/shared/_social_sharing
+  def set_social_plugin_meta_defaults
+    if request.format.html?
+      if $ENABLED_SOCIAL_PLUGINS && $ENABLED_SOCIAL_PLUGINS.include?(:facebook)
+        @meta_facebook_data = {
+          'fb:app_id' => $FACEBOOK_APP_ID
+        }
+        # @see http://developers.facebook.com/docs/opengraph/
+        # TODO: Define custom object types for biodiversity namespaces e.g. species?
+        # TODO: Define og:locale, and og:locale:alternate. Note format expected includes region e.g. "en_US"
+        @meta_open_graph_data = {
+          'og:site_name' => I18n.t(:encyclopedia_of_life),
+          'og:image' => image_url('logo_open_graph_default.png'),
+          'og:type' => 'non_profit'
+        }
+      end
+    end
+  end
+
   # Overrides ActionController::Rescue local_request? to allow custom configuration of which IP addresses
   # are considered to be local requests (versus public) and therefore get full error messages. Modify
   # $LOCAL_REQUEST_ADDRESSES values to toggle between public and local error views when using a local IP.
@@ -567,7 +594,7 @@ protected
       status_code = status[0,3]
       respond_to do |format|
         format.html do
-          @page_title = I18n.t("error_#{status_code}_page_title", :default => [:error_default_page_title, "Error."])
+          @error_page_title = I18n.t("error_#{status_code}_page_title", :default => [:error_default_page_title, "Error."])
           @status_code = status_code
           render :layout => 'v2/errors', :template => 'content/error', :status => status_code
         end

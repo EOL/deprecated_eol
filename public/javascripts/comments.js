@@ -25,14 +25,13 @@ EOL.reply_to = function(el) {
     EOL.redirect_to_comment_source($href);
     return(false);
   }
-  $el.parent().hide().parent().after($form);
+  $el.parent().hide().parent().parent().after($form);
   var $submit = $form.find(':submit');
   $submit.data('post', $submit.val()).val($submit.data('reply'));
   $submit.after('<a id="reply-cancel" href="#">'+$submit.data('cancel')+'</a>');
   $('a#reply-cancel').click(function() {$('form#reply').remove(); $('span.reply').show(); return(false); });
   $form.find('p.reply-to').remove();
   var $tarea = $form.find('textarea');
-  $tarea.css('width', $tarea.css('width').replace('px', '') - 80 + 'px');
   $form.find('input#comment_reply_to_type').val($el.data('reply-to-type'));
   $form.find('input#comment_reply_to_id').val($el.data('reply-to-id'));
   $tarea.focus();
@@ -97,6 +96,8 @@ EOL.init_comment_behaviours = function(items) {
     });
 
     $li.find('span.edit a').click(function() {
+      $('form#reply').remove();
+      $('span.reply').show();
       var comment_body = $(this).attr('data-to-edit');
       $(this).closest('.details').prev().hide().next().hide().next().show().find('textarea').val(comment_body);
       return(false);

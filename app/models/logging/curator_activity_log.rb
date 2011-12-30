@@ -125,7 +125,8 @@ class CuratorActivityLog < LoggingModel
                                            Activity.trust_common_name.id, Activity.unreview_common_name.id,
                                            Activity.untrust_common_name.id, Activity.inappropriate_common_name.id],
       ChangeableObjectType.data_objects_hierarchy_entry.id => curation_activities,
-      ChangeableObjectType.curated_data_objects_hierarchy_entry.id => curation_activities,
+      ChangeableObjectType.curated_data_objects_hierarchy_entry.id => curation_activities + [ Activity.add_association.id, 
+                                                                                              Activity.remove_association.id ],
       ChangeableObjectType.users_data_object.id => curation_activities
     }
     return unless self.activity

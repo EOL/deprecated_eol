@@ -1,6 +1,7 @@
 # Messages for Arabic (العربية)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
+# Author: Ghada.nabeel
 # Author: OsamaK
 # Author: ترجمان05
 ar: 
@@ -82,6 +83,7 @@ ar:
   translated_contact_subjects-title-contact_subject_id-20: دعم شركاء المحتوى
   translated_contact_subjects-title-contact_subject_id-21: ارسل رسالة إلى سينثيا بار على مجموعة صفحات الأنواع
   translated_contact_subjects-title-contact_subject_id-22: موارد خليج المكسيك
+  translated_contact_subjects-title-contact_subject_id-23: ارسل رسالة إلى إيلي أجبياني
   translated_contact_subjects-title-contact_subject_id-3: تَعلم وتعليم
   translated_contact_subjects-title-contact_subject_id-4: تحديث الصفحات
   translated_contact_subjects-title-contact_subject_id-5: تصنيف

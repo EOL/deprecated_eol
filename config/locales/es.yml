@@ -400,7 +400,6 @@ es:
   collection_destroyed: La colección fue eliminada.
   collection_image: Imagen de colección
   collection_is_empty: Esta colección está vacía.
-  collection_item_annotation_label: Colección anotación tema
   collection_item_not_found_error: No se encontró ese elemento de la colección.
   collection_name_label: Nombre de la colección
   collection_newsfeed: Newsfeed de Colección
@@ -725,7 +724,6 @@ es:
   endorsed_collections_with_count: 
     one: "%{count} Colección destacada"
     other: "%{count} Colecciones destacadas"
-  enter: enter
   eol_api: EOL API
   eol_api_collections: "EOL API: Colecciones"
   eol_api_data_objects: "EOL API: Objetos de datos"
@@ -1495,7 +1493,6 @@ es:
   threat_status_header_colon: "Estado de amenaza de la UICN:"
   time_ago: "%{time_passed} hace"
   title: Título
-  to: para
   to_process_your_donation_please_proceed: Para procesar su donación, por favor siga
   toc: TDC
   total_items_with_count: 

@@ -34,6 +34,11 @@ sr-EC:
         logo: Слика главне збирке
         name: Назив збирке
         sort_style_id: Подразумевани смер сврставања
+      collection_item: 
+        annotation: Забелешка
+        sort_field: Поређај по
+      comment: 
+        body: Коментар
       community: 
         description: Опис заједнице
         logo: Отпреми логотип
@@ -62,6 +67,8 @@ sr-EC:
         created_at: Направљено на
         signed_by: Потписник
         signed_on_date: Датум
+      content_partner_contact: 
+        email_reports_frequency_hours: Учесталост извештаја преко е-поште
       data_object: 
         bibliographic_citation: Библиографско навођење
         description: Опис
@@ -109,6 +116,7 @@ sr-EC:
         api_key: АПИ кључ
         bio: Био
         credentials: Уверења
+        curator_level: Ниво кустосирања
         curator_scope: Опсег кустосирања
         email: Е-адреса
         entered_password: Лозинка
@@ -195,7 +203,7 @@ sr-EC:
   activity_user_added_unknown_association: <strong>%{user}</strong> додаде везу за непознати објекат.
   activity_user_added_unknown_item_to_collection: <strong>%{user}</strong> додаде непознату ставку у збирку „%{collection}“.
   activity_user_added_unknown_name: <strong>%{user}</strong> додате непознати тривијалан назив за непознати објекат.
-  activity_user_added_unknown_name_to_taxon: <strong>%{user}</strong> додаде тривијалан назив за таксон „%{taxon}“.
+  activity_user_added_unknown_name_to_taxon: <strong>%{user}</strong> додаде тривијално име за таксон „%{taxon}“, али је оно касније уклоњено.
   activity_user_changed_community_description: <strong>%{user}</strong> измени опис заједнице „%{community}“.
   activity_user_changed_community_icon: <strong>%{user}</strong> промени логотип заједнице „%{community}“.
   activity_user_changed_community_name: <strong>%{user}</strong> промени назив заједнице „%{community}“.
@@ -218,7 +226,7 @@ sr-EC:
   activity_user_removed_named_association: <strong>%{user}</strong> уклони везу између „%{object_name}“ и „%{name}“.
   activity_user_removed_unknown_association: <strong>%{user}</strong> уклони везу с непознатим објектом.
   activity_user_removed_unknown_name: <strong>%{user}</strong> уклони непознати тривијалан назив из непознатог објекта.
-  activity_user_removed_unknown_name_to_taxon: <strong>%{user}</strong> уклони непознати тривијалан назив из таксона „%{taxon}“.
+  activity_user_removed_unknown_name_to_taxon: <strong>%{user}</strong> уклони претходно додато тривијално име из таксона „%{taxon}“.
   activity_user_showed_data_object: <strong>%{user}</strong> означи објекат „%{object_name}“ као видљив.
   activity_user_showed_unknown_object: <strong>%{user}</strong> означи непознати објекат као видљив.
   activity_user_trusted_data_object: <strong>%{user}</strong> означи објекат „%{object_name}“ као поверљив.
@@ -316,6 +324,8 @@ sr-EC:
   admin_translated_content_page_update_successful_notice: Превод %{language} странице <a href="#%{anchor}"><em>%{page_name}</em></a> је ажуриран.
   admin_translated_content_page_update_unsuccessful_error: Нажалост, дошло је до грешке. Не могу да ажурирам превод.
   admin_user_delete_successful_notice: Корисник је обрисан
+  admin_user_hide_successful_notice: Корисник је сакривен
+  admin_user_unhide_successful_notice: Корисник је откривен
   agent: Агент
   all: све
   all_apis_return_by_default_an_xml_response: "Сви АПИ-ји по подразумеваном дају XML одговор. Методе АПИ-ја могу се позвати без наставка за формат да би се добио XML одговор, а ако наставак ипак додате, добићете исти одговор:"
@@ -340,10 +350,12 @@ sr-EC:
   all_user_submitted_texts_on_the_website: Сви текстови које су послали корисници се налазе испод (поређани по обрнутом хронолошком реду).
   all_videos: Сви видео-снимци
   allow_user_logins: Дозволи пријављивање корисника
+  allowed_html_tags: "Дозвољене су само следеће ознаке:"
   already_a_member_question: Имате налог?
   already_member_of_community: Већ сте члан ове заједнице.
   alternate_classification: Резервна класификација
   amount: Износ
+  an_unknown_user: Непознат корисник
   and: и
   and_between_form_items: и
   any_integer: сваки цео број
@@ -868,6 +880,7 @@ sr-EC:
   delete: обриши
   delete_community: Обриши ову заједницу
   delete_firstcap: Обриши
+  deleted_colon: "обрисано:"
   description: Опис
   description_of: Опис
   descriptive_label: Описни текст
@@ -910,6 +923,7 @@ sr-EC:
   edit_collection_details_header: Уређивање детаља о збирци
   edit_collection_head_title: "Уређивање: %{collection_name}"
   edit_comment: Уреди коментар
+  edit_comment_lowercase: уреди коментар
   edit_community: Уреди заједницу
   edit_contact_us_topic: Уреди тему „Контактирајте с нама“
   edit_contact_us_topics: уреди теме о контактирању
@@ -931,6 +945,7 @@ sr-EC:
   edit_user_details_instructions: Испод уредите корисничке податке. Кориснику можете да пошаљете поруку од система тако што ћете кликнути на „прикажи поље за е-пошту“ и написати садржај поруке. Унесите нову лозинку само ако желите да промените постојећу, иначе оставите поље празно.
   edit_username: Уреди %{username}
   edit_web_users: уреди кориснике
+  edited_colon: "уређено:"
   editors_tab_label: Руководиоци
   email: Е-адреса
   email_colon: "Е-адреса:"
@@ -971,7 +986,7 @@ sr-EC:
   error_couldnt_find_collection_by_id: Не могу да пронађем збирку с којом можете да руководите с назнаком %{id}.
   error_couldnt_find_community_by_id: Не могу да пронађем заједницу с којом можете да руководите с назнаком %{id}.
   error_default_description: Нажалост, дошло је до проблема. Ако он настави да се појављује, пошаљите поруку на <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>
-  error_default_page_title: Упс.
+  error_default_page_title: Упс!
   error_homepage_or_search_option: "Можете се вратити на <a href=\"/\">почетну страницу</a> или се послужити алатком за претраживање:"
   error_log: Дневник грешке
   error_log_detail: Детаљи о дневнику грешке
@@ -995,7 +1010,7 @@ sr-EC:
   faculty_staff_or_grad_student_credential_option: статус на факултету, наставни кадар или дипломирани на универзитету или одсеку на колеџу
   failed_login_attempts: неуспешни покушаји пријаве) – мора бити означено да би се корисник могао пријавити
   family_name_colon: "Презиме:"
-  feedback: Мишљења
+  feedback: Повратне информације
   file: Датотека
   file_id: Назнака датотеке
   file_size: Величина датотеке
@@ -1104,6 +1119,10 @@ sr-EC:
     label: 
       collection: 
         view_style_id: Подразумевани приказ
+      collection_item: 
+        annotation: Забелешка
+        sort_field: Поређај по <small>(датум, број или текст; необавезно)</small>
+        sort_field_show: "Вредност сврставања:"
       content_page: 
         active: Објављено
         active_more: Објављене странице ће бити јавно истакнуте. Дештриклирајте <em>објављено</em> ако желите да сакријете издања странице од обичних корисника на било ком језику.
@@ -1228,6 +1247,8 @@ sr-EC:
     select: 
       prompt: Изаберите
     submit: 
+      collection_item: 
+        update: Сачувај
       content_page: 
         create: Направи страницу
         edit: Уреди
@@ -1298,7 +1319,7 @@ sr-EC:
   html_format: (формат HTML)
   html_format_with_left_col: (ФОРМАТ HTML – унесите само ако желите да имате колону у левом делу странице; у супротном, оставите празно)
   icon_near_the_table_of_content: икона близу прегледа садржаја у левом делу странице. Можете да пошаљете и <a href=''>коментаре</a> о овим врстама непосредно на EOL користећи језичак „Коментари“ близу слике.
-  id: Назнака (ИБ)
+  id: Назнака
   if_checked_and_user_is_saved: Ако је означено и корисник је сачуван, онда се сва уверења, опсег, одобрења и изабране кладе уклањају и корисник престаје да буде кустос. Доле можете написати белешку у којој дајете образложење за то. Подаци се не шаљу кориснику.
   if_the_details_parameter_is_not_set: Ако параметар за детаље није постављен, онда ће само објекат података, врста података, а у случају чланака, натпис бити приказан. Врста података ће бити вредност из речника ресурса (%{linka}), а текст натписа вредност из онтологије ставки (%{linkb}).
   image: Слика
@@ -1450,6 +1471,7 @@ sr-EC:
   logging: Записивање
   login: пријава
   login_header: Пријавите се на свој налог на <abbr title="Енциклопедија живота">EOL-у</abbr>
+  login_hidden_user_message: Налог %{given_name} више није активан
   login_or_create_account: Пријава/упис
   login_required_button: Потребна је пријава
   login_to_the_website_as: Пријавите се као %{username}
@@ -1604,6 +1626,7 @@ sr-EC:
   newsfeed_help_for_watchlist: Довод новости за списак надгледања скупља актуелности које су повезане са ставкама у том списку, укључујући и активности његовог власника.
   next: Следеће
   no_active_members: Још нема довољно активности.
+  no_answer: Не
   no_collections_apply: Нема збирки до којих имате приступ којима може да се додели руководилац.
   no_comments_are_available_for_subject: Нема коментара за %{subject}
   no_comments_have_been_left_yet: Досад нема коментара.
@@ -1869,6 +1892,7 @@ sr-EC:
   removed_count_items_from_collection_notice: 
     one: Из збирке је уклоњена %{count} ставка.
     other: Из збирке су уклоњене %{count} ставке.
+  reply: Одговори
   request: Захтевање
   request_mailing_list_colon: "Дописна листа:"
   required_form_element: Неопходно
@@ -1901,6 +1925,7 @@ sr-EC:
   rss_feed: Довод
   save: Сачувај
   save_annotation_submit_button: Сачувај забелешку
+  save_comment_lowercase: сачувај коментар
   save_curated_association_submit_button: Сачувај везу
   sci_name_avg_table_head: Научни назив (просечно)
   scientific_name: Научни назив
@@ -2011,8 +2036,10 @@ sr-EC:
   sort_by_year_ascending: Растућа година
   sort_by_year_descending: Опадајућа година
   sort_collection_by_label: Поређај збирку по
+  sort_field: "Поље за сврставање:"
   sort_order: Редослед сврставања
   sound_alt_text: Овај %{vetted_status} звучни снимак представља таксон %{taxon_name}
+  sound_file: Звучни снимак
   sound_from: звук из
   sound_from_supplier: Звук из %{whom}
   sound_object: Звучни објекат
@@ -2191,6 +2218,7 @@ sr-EC:
   translation_saved: Превод је сачуван
   translations_submit: Погледај превод
   trigger_search_term_entered_by: позивни појам који је унео корисник
+  true_label: Тачно
   truncated_comment_omission: … <a href='%{link}'>више</a>
   truncated_comment_omission_linkless: …
   trusted: Поверљиво
@@ -2237,13 +2265,20 @@ sr-EC:
   user_activity_page_title: Корисничке активности
   user_activity_stats_articles_added: Додати чланци
   user_activity_stats_header: Активности
-  user_activity_stats_objects_curated: Кустосирани објекти
-  user_activity_stats_taxa_curated: Кустосирани таксони
+  user_activity_stats_objects_curated: 
+    one: "%{count} кустосирани објекат"
+    other: "%{count} кустосирана објекта"
+  user_activity_stats_objects_curated_dropdown: Кустосирани објекти
+  user_activity_stats_taxa_comments_dropdown: Коментари о таксонима
+  user_activity_stats_taxa_curated: 
+    one: "%{count} кустосиран таксон"
+    other: "%{count} кустосирана таксона"
   user_agent: Кориснички агент
   user_already_active_notice: Ваш налог је већ активан. Пријавите се.
   user_comment: Кориснички коментар
   user_commented_on_something_colon: "<strong>%{user}</strong> прокоментариса %{what}:"
   user_comments: Кориснички коментари
+  user_hidden_message: Корисник више није активан
   user_id: Корисничка назнака
   user_index_intro: Сви интернет корисници уписани у систем су приказани испод, поређани по обрнутом редоследу од времена уписа. Имајте на уму да датуми уписа створени пре другог издања EOL-а (5. јануар 2009.) нису доступни. Кликните на корисничко име да измените тог корисника.
   user_joined_community_on_date: "%{username} се придружи овој заједници датума %{date}."
@@ -2378,4 +2413,5 @@ sr-EC:
   your_preferences: Поставке
   your_rating: Ваша оцена
   your_watch_collection: ваш списак надгледања
+  youtube: Јутјуб
   youtube_video: Снимак на Јутјубу

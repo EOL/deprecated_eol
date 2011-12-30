@@ -72,11 +72,4 @@ class Taxa::WorklistController < TaxaController
     params[:force_return_to] = taxon_worklist_data_object_path(@taxon_concept, @current_data_object)
     render(:partial => 'curation_content')
   end
-
-private
-
-  def redirect_if_superceded
-    redirect_to taxon_worklist_path(@taxon_concept, params.merge(:status => :moved_permanently).
-        except(:controller, :action, :id, :taxon_id)) and return false if @taxon_concept.superceded_the_requested_id?
-  end
 end

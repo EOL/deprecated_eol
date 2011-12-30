@@ -32,18 +32,18 @@
       %small.assistive= I18n.t(:required_form_element)
     %dd
       = partner_form.text_area :description, { :title => I18n.t(:required_form_element) }
-      = partner_form.load_minimal_tags_allowed
+      %p= partner_form.allowed_html_help_tip
     %dt
       = partner_form.label :description_of_data
       %p= I18n.t('helpers.label.content_partner.description_of_data_more')
     %dd
       = partner_form.text_area :description_of_data
-      = partner_form.load_minimal_tags_allowed
+      %p= partner_form.allowed_html_help_tip
     %dt
       = partner_form.label :notes
     %dd
       = partner_form.text_area :notes
-      = partner_form.load_minimal_tags_allowed
+      %p= partner_form.allowed_html_help_tip
     %dt
       = partner_form.label :logo
     %dd.logo

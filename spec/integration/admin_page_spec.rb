@@ -63,7 +63,7 @@ describe 'Admin Pages' do
   it 'should be able to load cms pages' do
     login_as(@user)
     visit('/administrator/content_page')
-    body.should include('Add page')
+    body.downcase.should include('add page')
     body.should include('Create child page')
     body.should include('Add language')
     body.should include('Delete')

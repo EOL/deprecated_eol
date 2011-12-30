@@ -12,7 +12,7 @@
         = f.label :description
       %dd
         = f.text_area :description
-        = f.load_minimal_tags_allowed
+        %p= f.allowed_html_help_tip
       %dt
         = f.label :logo
         %p= I18n.t(:upload_logo_help_text)

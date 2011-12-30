@@ -115,7 +115,7 @@ ActionController::Routing::Routes.draw do |map|
                            :collection => { :set_as_exemplar => [:get, :post] }
     taxa.resources :details, :except => [:show], :controller => "taxa/details"
     taxa.resources :names, :only => [:index, :create, :update], :controller => "taxa/names",
-                          :collection => { :common_names => :get, :synonyms => :get },
+                          :collection => { :common_names => :get, :synonyms => :get, :delete => :get },
                           :member => { :vet_common_name => :get }
     taxa.resource :literature, :only => [:show], :controller => "taxa/literature",
       :member => { :bhl => :get }
@@ -243,6 +243,9 @@ ActionController::Routing::Routes.draw do |map|
 
   ## Curator tool to request import of wikipedia pages
   map.resources :wikipedia_queues, :as => :wikipedia_imports, :only => [:new, :create]
+
+  # Facebook integration
+  map.resources :facebook, :only => [:index], :collection => { :channel => :get }
 
   ##### ALL ROUTES BELOW SHOULD PROBABLY ALWAYS BE AT THE BOTTOM SO THEY ARE RUN LAST ####
   # this represents a URL with just a random namestring -- send to search page (e.g. www.eol.org/animalia)

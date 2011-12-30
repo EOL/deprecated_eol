@@ -621,3 +621,4 @@ end
 end
 
 $INDEX_RECORDS_IN_SOLR_ON_SAVE = original_index_records_on_save_value
+

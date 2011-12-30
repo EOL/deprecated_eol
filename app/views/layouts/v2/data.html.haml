@@ -2,7 +2,7 @@
   #page_heading
     .site_column
       .hgroup
-        %h1= h @page_title
+        %h1= @page_title
         %h2<
           = render :partial => 'data_objects/owner', :locals => { :data_object => @data_object }
       .page_actions
@@ -17,6 +17,7 @@
 
   #content
     .site_column
+      = render :partial => 'shared/social_sharing'
       = yield
 
 = render :file => 'layouts/v2/application'

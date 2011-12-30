@@ -449,6 +449,15 @@ Factory.define :translated_content_page do |tcp|
   tcp.meta_description  {|c| "description for #{c.title}"}
 end
 
+Factory.define :topic_area do |ta|
+  ta.email   'user@domain.com'
+end
+
+Factory.define :translated_topic_area do |tta|
+  tta.association       :topic_area
+  tta.language          { Language.english }
+  tta.label             'Topic Label'
+end
 
 Factory.define :content_partner do |cp|
   cp.full_name                           { Factory.next(:string) }

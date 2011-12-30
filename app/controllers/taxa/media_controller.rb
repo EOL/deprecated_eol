@@ -53,9 +53,17 @@ class Taxa::MediaController < TaxaController
       :filter => filter_by,
       :filter_hierarchy_entry => @selected_hierarchy_entry
     })
+
+    unless @media.blank?
+      # Get the latest published version of the exemplar image
+      latest_published_exemplar_image = DataObject.latest_published_version_of(@exemplar_image.id)
+      @media.map!{ |m| m.guid == @exemplar_image.guid ? latest_published_exemplar_image : m } unless latest_published_exemplar_image.nil?
+    end
+
     DataObject.preload_associations(@media, [:users_data_object, { :data_objects_hierarchy_entries => :hierarchy_entry },
       :curated_data_objects_hierarchy_entries])
 
+    DataObject.preload_associations(@media, :translations , :conditions => "data_object_translations.language_id=#{current_user.language_id}")
     @facets = EOL::Solr::DataObjects.get_aggregated_media_facet_counts(@taxon_concept.id,
       :filter_hierarchy_entry => @selected_hierarchy_entry, :user => current_user)
     @current_user_ratings = logged_in? ? current_user.rating_for_object_guids(@media.collect{ |m| m.guid }) : {}
@@ -85,12 +93,5 @@ class Taxa::MediaController < TaxaController
 
     store_location(params[:return_to] || request.referer)
     redirect_back_or_default taxon_media_path params[:taxon_concept_id]
-  end
-
-private
-
-  def redirect_if_superceded
-    redirect_to taxon_media_path(@taxon_concept, params.merge(:status => :moved_permanently).
-        except(:controller, :action, :id, :taxon_id)) and return false if @taxon_concept.superceded_the_requested_id?
   end
 end

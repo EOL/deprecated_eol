@@ -3,14 +3,13 @@ class TaxaController < ApplicationController
   layout 'v2/taxa'
 
   prepend_before_filter :redirect_back_to_http if $USE_SSL_FOR_LOGIN   # if we happen to be on an SSL page, go back to http
-  after_filter :set_meta_description_and_keys
 
   def show
     if this_request_is_really_a_search
       do_the_search
       return
     end
-    return redirect_to taxon_overview_path(params[:id])
+    return redirect_to taxon_overview_path(params[:id]), :status => :moved_permanently
   end
 
   # If you want this to redirect to search, call (do_the_search && return if this_request_is_really_a_search) before this.
@@ -187,18 +186,29 @@ private
   end
 
   def promote_exemplar(data_objects)
-    return data_objects if @taxon_concept.blank? || data_objects.blank? || @taxon_concept.taxon_concept_exemplar_image.blank?
-    exemplar = @taxon_concept.taxon_concept_exemplar_image
-    if exemplar && exemplar_image = exemplar.data_object
-      data_objects.delete_if{ |d| d.id == exemplar_image.id }
+    if @taxon_concept.blank? || @taxon_concept.taxon_concept_exemplar_image.blank?
+      exemplar_image = data_objects[0] unless data_objects.blank?
+    else
+      exemplar = @taxon_concept.taxon_concept_exemplar_image
+      exemplar_image = exemplar.data_object unless exemplar.nil?
+    end
+    unless exemplar_image.nil?
+      data_objects.delete_if{ |d| d.guid == exemplar_image.guid }
+
+      # Get the latest version of the exemplar image
+      latest_published_exemplar_image = DataObject.latest_published_version_of(exemplar_image.id)
+      exemplar_image = latest_published_exemplar_image unless latest_published_exemplar_image.nil?
+
       data_objects.unshift(exemplar_image)
     end
     data_objects
   end
 
   def redirect_if_superceded
-    redirect_to taxon_overview_path(@taxon_concept, params.merge(:status => :moved_permanently).
-        except(:controller, :action, :id, :taxon_id)) and return false if @taxon_concept.superceded_the_requested_id?
+    if @taxon_concept.superceded_the_requested_id?
+      redirect_to url_for(:controller => params[:controller], :action => params[:action], :taxon_id => @taxon_concept.id), :status => :moved_permanently
+      return false 
+    end
   end
 
   def get_content_variables(options = {})
@@ -326,13 +336,6 @@ private
         :id       => lang.id,
         :selected => lang.id == (current_user_copy && current_user_copy.language_id) ? "selected" : nil
       }
-    end
-  end
-
-  def set_meta_description_and_keys
-    if @taxon_concept
-      @meta_description = "#{@taxon_concept.title} (#{@taxon_concept.subtitle}) in Encyclopedia of Life"
-      @meta_keywords = @taxon_concept.title + " " + @taxon_concept.subtitle
     end
   end
 

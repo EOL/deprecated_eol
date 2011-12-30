@@ -1,0 +1,22 @@
+- # Social sharing buttons e.g. Facebook Like, assumes only one button per page
+- unless $ENABLED_SOCIAL_PLUGINS.blank?
+  = content_for :head do
+    - # We only define OpenGraph meta tags if we have social sharing buttons on the page
+    - if $ENABLED_SOCIAL_PLUGINS.include?(:facebook)
+      #fb-root
+      - unless @meta_facebook_data.blank?
+        - @meta_facebook_data.each do |property, content|
+          %meta{ :property => property, :content => content }
+      - unless @meta_open_graph_data.blank?
+        - @meta_open_graph_data.each do |property, content|
+          %meta{ :property => property, :content => content }
+
+  #social_sharing
+    .facebook
+      - if $ENABLED_SOCIAL_PLUGINS.include?(:facebook)
+        %fb:like{:layout => "button_count", :send => "false", :show_faces => "false"}
+    .twitter
+      - if $ENABLED_SOCIAL_PLUGINS.include?(:twitter)
+        %a{:href => "https://twitter.com/share", :class => "twitter-share-button",
+          :data => {:lang => I18n.locale.to_s, :hashtags => "eol", :via => "eol"}}
+          = I18n.t(:social_sharing_twitter_tweet_button)

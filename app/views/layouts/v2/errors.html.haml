@@ -18,7 +18,7 @@
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
         })();
   %body
-    - @page_title ||= controller.instance_variable_get("@page_title")
+    - @error_page_title ||= controller.instance_variable_get("@error_page_title")
     #content
-      %h1= @page_title
+      %h1= @error_page_title
       = yield

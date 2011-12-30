@@ -1170,7 +1170,7 @@ class DataObject < SpeciesSchemaModel
     end
     dobj_ids = dobj_ids.uniq
     if !dobj_ids.empty? && dobj_ids.length>1
-      dobjs = DataObject.find_by_sql("SELECT do.* FROM data_objects do INNER JOIN languages l on (do.language_id = l.id) WHERE do.id in (#{dobj_ids.join(',')}) AND l.activated_on <= NOW() ORDER BY l.sort_order")
+      dobjs = DataObject.find_by_sql("SELECT do.* FROM data_objects do INNER JOIN languages l on (do.language_id = l.id) WHERE do.id in (#{dobj_ids.join(',')}) AND do.published=1 AND l.activated_on <= NOW() ORDER BY l.sort_order")
       if !taxon.nil?
         dobjs = DataObject.filter_list_for_user(dobjs, {:user => current_user, :taxon_concept => taxon})
       end
@@ -1191,7 +1191,9 @@ class DataObject < SpeciesSchemaModel
       lang_ids = lang_ids.uniq
       if !lang_ids.empty? && lang_ids.length>1
         languages = Language.find_by_sql("SELECT * FROM languages WHERE id in (#{lang_ids.join(',')}) AND activated_on <= NOW() ORDER BY sort_order")
-        return languages
+        if !languages.blank? && languages.length>1
+          return languages
+        end
       end
     end
     return nil

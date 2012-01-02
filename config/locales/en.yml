@@ -2469,6 +2469,9 @@ en:
   user_activity_stats_common_names_curated:
     one: "%{count} common name curated"
     other: "%{count} common names curated"
+  user_activity_stats_common_names_removed:
+    one: "%{count} common name removed"
+    other: "%{count} common names removed"
   user_activity_stats_header: "Activity"
   user_activity_stats_objects_curated:
     one: "%{count} object curated"

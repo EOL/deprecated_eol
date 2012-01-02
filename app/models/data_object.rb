@@ -678,11 +678,20 @@ class DataObject < SpeciesSchemaModel
     return true
   end
 
+  def access_image_from_remote_server(size)
+    return true if self.object_title[0, 28] == "Discover Life: Point Map of " and size == '580_360' #DiscoverLife maps images will be accessed remotely
+    false
+  end
+
   def thumb_or_object(size = :large)
     if self.is_video? || self.is_sound?
       return DataObject.image_cache_path(thumbnail_cache_url, size)
     elsif has_object_cache_url?
-      return DataObject.image_cache_path(object_cache_url, size)
+      if access_image_from_remote_server(size)
+        return self.object_url
+      else
+        return DataObject.image_cache_path(object_cache_url, size)
+      end
     else
       return '#' # Really, this is an error, but we want to handle it pseudo-gracefully.
     end

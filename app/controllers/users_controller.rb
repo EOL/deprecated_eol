@@ -16,18 +16,9 @@ class UsersController < ApplicationController
       flash[:notice] = I18n.t(:user_hidden_message)
     end
     @user_submitted_text_count = User.count_submitted_datos(@user.id)
-
-    adding_name_activities = User.total_objects_curated_by_action_and_user(Activity.add_common_name.id, @user.id, [ChangeableObjectType.synonym.id], 'hash')
-    date_of_first_added_common_name = adding_name_activities.first['created_at']
-    common_names_added = User.total_objects_curated_by_action_and_user(Activity.add_common_name.id, @user.id, [ChangeableObjectType.synonym.id])
-    common_names_removed = User.total_objects_curated_by_action_and_user(Activity.remove_common_name.id, @user.id, [ChangeableObjectType.synonym.id], 'count' , date_of_first_added_common_name)
-    @common_names_added = common_names_added - common_names_removed
-
-    @common_names_curated =
-      User.total_objects_curated_by_action_and_user(Activity.trust_common_name.id, @user.id, [ChangeableObjectType.synonym.id]) +
-      User.total_objects_curated_by_action_and_user(Activity.untrust_common_name.id, @user.id, [ChangeableObjectType.synonym.id]) +
-      User.total_objects_curated_by_action_and_user(Activity.unreview_common_name.id, @user.id, [ChangeableObjectType.synonym.id]) +
-      User.total_objects_curated_by_action_and_user(Activity.inappropriate_common_name.id, @user.id, [ChangeableObjectType.synonym.id])
+    @common_names_added = User.total_objects_curated_by_action_and_user(Activity.add_common_name.id, @user.id, [ChangeableObjectType.synonym.id])
+    @common_names_removed = User.total_objects_curated_by_action_and_user(Activity.remove_common_name.id, @user.id, [ChangeableObjectType.synonym.id])
+    @common_names_curated = User.total_objects_curated_by_action_and_user([Activity.trust_common_name.id, Activity.untrust_common_name.id, Activity.unreview_common_name.id, Activity.inappropriate_common_name.id], @user.id, [ChangeableObjectType.synonym.id])
   end
 
   # GET /users/:id/edit

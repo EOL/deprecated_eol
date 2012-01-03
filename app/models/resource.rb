@@ -169,6 +169,11 @@ class Resource < SpeciesSchemaModel
     return resource_status
   end
 
+  def from_DiscoverLife?
+    return true if self.content_partner.full_name == "Discover Life"
+    false
+  end
+    
 private
 
   def url_or_dataset_not_both

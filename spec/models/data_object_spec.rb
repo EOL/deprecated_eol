@@ -411,11 +411,15 @@ describe DataObject do
   end
 
   it 'should get remote image if object is pre-defined to be hosted remotely' do
-    dato = DataObject.gen(:object_title => 'Discover Life: Point Map of Gadus morhua', 
+    cp = ContentPartner.gen(:full_name => "Discover Life")
+    resource = Resource.gen(:content_partner_id => cp.id)
+    harvest = HarvestEvent.gen(:resource_id => resource.id)
+    dato = DataObject.gen(:object_title => 'xxx Discover Life: Point Map of Gadus morhua yyy', 
                           :data_type_id => DataType.image.id,
                           :object_cache_url => '200810061224383',
-                          :object_url => 'http://my.object.url'
-                          )
+                          :object_url => 'http://my.object.url',
+                          :data_subtype_id => DataType.map.id)
+    dohe = DataObjectsHarvestEvent.gen(:data_object_id => dato.id, :harvest_event_id => harvest.id)
     dato.thumb_or_object(size = '580_360').should == dato.object_url
     dato.thumb_or_object(size = '260_190').should == DataObject.image_cache_path(dato.object_cache_url, size)
     dato.access_image_from_remote_server('580_360').should == true

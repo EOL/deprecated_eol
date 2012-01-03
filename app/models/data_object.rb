@@ -678,8 +678,20 @@ class DataObject < SpeciesSchemaModel
     return true
   end
 
+  def is_subtype_map?
+    return true if self.data_subtype.id == DataType.map.id
+    false
+  end  
+
+  def map_from_DiscoverLife?
+    resource_id = self.harvest_events.last.resource_id
+    return true if Resource.find_by_id(resource_id).from_DiscoverLife? and self.is_subtype_map?
+    false
+  end
+    
   def access_image_from_remote_server(size)
-    return true if self.object_title[0, 28] == "Discover Life: Point Map of " and size == '580_360' #DiscoverLife maps images will be accessed remotely
+    return true if self.map_from_DiscoverLife? and size == '580_360'
+    # we can add here other criterias for image to be hosted remotely
     false
   end
 

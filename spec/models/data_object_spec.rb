@@ -410,4 +410,18 @@ describe DataObject do
     dato.safe_rating.should == DataObject.maximum_rating
   end
 
+  it 'should get remote image if object is pre-defined to be hosted remotely' do
+    dato = DataObject.gen(:object_title => 'Discover Life: Point Map of Gadus morhua', 
+                          :data_type_id => DataType.image.id,
+                          :object_cache_url => '200810061224383',
+                          :object_url => 'http://my.object.url'
+                          )
+    dato.thumb_or_object(size = '580_360').should == dato.object_url
+    dato.thumb_or_object(size = '260_190').should == DataObject.image_cache_path(dato.object_cache_url, size)
+    dato.access_image_from_remote_server('580_360').should == true
+    dato.access_image_from_remote_server(size = '580_360').should == true
+    dato.access_image_from_remote_server('260_190').should == false
+    dato.access_image_from_remote_server(size = '260_190').should == false
+  end
+
 end

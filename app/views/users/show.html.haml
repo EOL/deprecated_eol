@@ -45,6 +45,7 @@
           %dt= link_to I18n.t(:user_activity_stats_set_exemplar, :count => User.total_objects_curated_by_action_and_user(Activity.choose_exemplar.id, @user.id)), user_activity_path(@user, :filter => "data_object_curation")
           %br
           %dt= link_to I18n.t(:user_activity_stats_common_names_added, :count => @common_names_added), user_activity_path(@user, :filter => "names")
+          %dt= link_to I18n.t(:user_activity_stats_common_names_removed, :count => @common_names_removed), user_activity_path(@user, :filter => "names")
           %dt= link_to I18n.t(:user_activity_stats_common_names_curated, :count => @common_names_curated), user_activity_path(@user, :filter => "names")
           - if @user.total_wikipedia_nominated > 0
             %dt= I18n.t(:user_activity_stats_wikipedia_nominated, :count => @user.total_wikipedia_nominated)

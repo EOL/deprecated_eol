@@ -128,6 +128,27 @@ module ApplicationHelper
     @meta_description = I18n.t(:meta_description_default) if @meta_description.blank?
   end
 
+  # Used in V2 to get absolute URLs for images, i.e. starting with http... use like image_path
+  # requires ActionView::Helpers::AssetTagHelper
+  def image_url(image)
+    request.protocol + request.host_with_port + image_path(image)
+  end
+
+  # Used in V2 for Facebook Like button @see /views/shared/_social_sharing
+  def set_social_plugin_meta_defaults
+    @meta_facebook_data = {
+      'fb:app_id' => $FACEBOOK_APP_ID
+    }
+    # @see http://developers.facebook.com/docs/opengraph/
+    # TODO: Define custom object types for biodiversity namespaces e.g. species?
+    # TODO: Define og:locale, and og:locale:alternate. Note format expected includes region e.g. "en_US"
+    @meta_open_graph_data = {
+      'og:site_name' => I18n.t(:encyclopedia_of_life),
+      'og:image' => image_url('logo_open_graph_default.png'),
+      'og:type' => 'non_profit'
+    }
+  end
+
   # Used in V2 to return class for active navigation tabs.
   def resource_is_active(resource, action = nil)
     if action

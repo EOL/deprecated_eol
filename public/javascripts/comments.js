@@ -18,22 +18,28 @@ EOL.reply_to = function(el) {
     return(false);
   }
   var replying_to = $el.data('reply-to');
-  $('span.reply').show(); // Show any that may be hidden...
-  $('form#reply').remove(); // ...but remove the forms.
-  var $form = $('form#new_comment').clone().attr("id","reply");
+  var $form = $('form#new_comment');
   if ($form.size() == 0) { // No form on this page.
     EOL.redirect_to_comment_source($href);
     return(false);
   }
-  $el.parent().hide().parent().parent().after($form);
+  $("html,body").animate({ scrollTop: $form.offset().top }, 650);
   var $submit = $form.find(':submit');
   $submit.data('post', $submit.val()).val($submit.data('reply'));
   $submit.after('<a id="reply-cancel" href="#">'+$submit.data('cancel')+'</a>');
-  $('a#reply-cancel').click(function() {$('form#reply').remove(); $('span.reply').show(); return(false); });
-  $form.find('p.reply-to').remove();
-  var $tarea = $form.find('textarea');
+  $submit.after('<span id="reply-to">@'+$el.data('reply-to')+' &nbsp; </span>');
+  $('a#reply-cancel').click(function() {
+    $(this).prev().remove();
+    $(this).remove();
+    $submit.val($submit.data('post'));
+    $form.find('input#comment_reply_to_type').val('');
+    $form.find('input#comment_reply_to_id').val('');
+    $('li').removeClass('highlight');
+    return(false);
+  });
   $form.find('input#comment_reply_to_type').val($el.data('reply-to-type'));
   $form.find('input#comment_reply_to_id').val($el.data('reply-to-id'));
+  var $tarea = $form.find('textarea');
   $tarea.focus();
   return(false);
 };
@@ -64,12 +70,6 @@ EOL.init_comment_behaviours = function(items) {
   items.each(function() {
     var $li = $(this);
     $li.find('p span.reply a').click(EOL.reply_to);
-    // TEMP - we want to try this without show/hide: $(this).find('span').show();
-    // $li.find('p span').hide().parent().parent().mouseover(function() {
-      // $(this).find('span').show();
-    // }).mouseleave(function() {
-      // $(this).find('span').hide();
-    // });
 
     $li.find('blockquote p a[href^=#]').click(function() { EOL.follow_reply($(this)); });
 

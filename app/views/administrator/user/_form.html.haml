@@ -84,10 +84,8 @@
         =I18n.t("active_colon")
     %td
       = f.check_box :active
-      =I18n.t("true_label")
-      (
-      = @user.failed_login_attempts
-      =I18n.t("failed_login_attempts")
+      = I18n.t("true_label")
+      = I18n.t(:failed_login_attempts_with_count, :count => @user.failed_login_attempts)
   %tr
     %td
       %strong

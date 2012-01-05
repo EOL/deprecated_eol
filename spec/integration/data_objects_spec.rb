@@ -139,7 +139,7 @@ describe 'Data Object Page' do
     end
     visit("/data_objects/#{@dato_untrusted.id}")
     page.body.should_not have_tag("ul.review_status")
-    page.body.should include("This data object is not associated with any hierarchies.")
+    page.body.should include("not associated with any published taxa")
   end
 
   it 'should be able curate a DOHE association as Unreviewed, Untrusted and Trusted' do

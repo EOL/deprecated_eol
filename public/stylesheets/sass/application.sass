@@ -326,16 +326,17 @@ table.standard
         margin: 0 0 0 25px
         list-style: disc
   &.list
-    li
-      overflow: hidden
-      padding: 0 0 10px 0
-      img
-        float: left
-        margin: 0 10px 0 0
-        border: 1px solid #394651
-      .details
-        padding: 5px 0 0 0
+    > ul
+      > li
         overflow: hidden
+        padding: 0 0 10px 0
+        img
+          float: left
+          margin: 0 10px 0 0
+          border: 1px solid #394651
+        .details
+          padding: 5px 0 0 0
+          overflow: hidden
   &.updates
     blockquote, p
       line-height: 140%
@@ -346,15 +347,38 @@ table.standard
         text-transform: uppercase
         color: #62707d
         padding: 0
-      &.actions
+    ul.actions
+      li
+        display: inline-block
         font-size: .9em
         font-weight: bold
         text-transform: lowercase
         a
+          padding: 3px 5px 3px 0
           margin: 0 5px 0 0
-    .details
-      img
-        float: none
+        input[type="submit"]
+          background: none
+          border: none
+          font-weight: bold
+          color: #195184
+          text-decoration: underline
+          cursor: pointer
+          padding: 3px 5px 3px 0
+          margin: 0 5px 0 0
+    li
+      > a > img, .editable > a > img
+        +max_dimensions($logo_size_secondary, $logo_size_secondary)
+      form
+        &.edit_comment
+          margin-top: 10px
+          label
+            display: block
+            font-weight: bold
+          textarea
+            margin: 3px 0
+            width: 430px
+            height: 60px
+            +textarea
     ul.feed + .pagination
       margin-top: 12px
 
@@ -899,7 +923,7 @@ body
   .article.list.updates
     padding-top: 15px
     margin: 0 -10px
-    form
+    > form
       padding: 5px 15px 20px 15px
       margin: 0
       border-bottom: 1px solid #d4dce2
@@ -911,8 +935,8 @@ body
         input[type="submit"]
           padding: 7px 10px
           font-size: 1em
-    ul
-      li
+    > ul
+      > li
         padding: 15px 15px
         img
           margin-bottom: 5px
@@ -1034,7 +1058,6 @@ body
       padding: 7px 10px
       font-size: 1em
 
-
 #collections_tab
   ul.object_list
     img
@@ -1057,13 +1080,52 @@ body
         width: 580px
     ul.feed
       margin: 0 0 20px 0
-      li
+      > li
         padding: 20px
         border-bottom: 1px solid #d4dce2
     p.more
       font-size: 1.16em
       font-weight: bold
       text-align: center
+
+#profile_collections, #profile_communities, #profile_newsfeed, #profile_activity
+  .heading
+    overflow: hidden
+    h3, a
+      line-height: 170%
+    h3
+      float: left
+    h3 + a
+      float: right
+#profile_collections, #profile_communities
+  ul.object_list
+    img
+      float: left
+      margin: 0 20px 0 0
+    & + .heading
+      margin-top: 40px
+#profile_newsfeed
+  form.comment
+    padding: 5px 0 20px 15px
+    margin: 0
+    border-bottom: 1px solid #D4DCE2
+    fieldset
+      margin: 0
+    textarea
+      width: 580px
+      height: 100px
+    input[type="submit"]
+      font-size: 1em
+      padding: 7px 10px
+#profile_newsfeed, #profile_activity
+  ul.feed
+    > li
+      padding: 15px 15px
+      border-bottom: 1px solid #d4dce2
+      form.edit_comment
+        textarea
+          width: 580px
+
 
 #profile_info
   padding: 40px
@@ -1259,20 +1321,22 @@ body
     padding: 0 0 40px 0
     .heading
       border-bottom-width: 1px
-    li
-      padding: 10px 20px
-      border-bottom: 1px solid #d4dce2
-      .meta
-        padding: 0
+    > ul
+      > li
+        padding: 10px 20px
+        border-bottom: 1px solid #d4dce2
+        .meta
+          padding: 0
   .article.updates
     padding: 0 0 25px 0
-    li
-      overflow: hidden
-      padding: 20px
-      .details
-        img
-          margin: 0 8px 0 0
-          border: 1px solid #394651
+    > ul
+      > li
+        overflow: hidden
+        padding: 20px
+        .details
+          img
+            margin: 0 8px 0 0
+            border: 1px solid #394651
 
 #community_new
   .copy
@@ -1478,20 +1542,23 @@ body
           ul
             margin-left: 10px
     .updates
-      ul
+      > ul
         border-bottom: 1px solid #d7dadc
-      form.comment
-        padding: 20px 10px 0 10px
-        margin: 0 -10px
-        img
-          border: 1px solid #394651
-        textarea
-          width: 240px
-        fieldset.actions
-          padding: 0 0 0 60px
-          input[type="submit"]
-            padding: 6px 15px
-
+      form
+        &.comment
+          padding: 20px 10px 0 10px
+          margin: 0 -10px
+          img
+            border: 1px solid #394651
+          textarea
+            width: 240px
+          fieldset.actions
+            padding: 0 0 0 60px
+            input[type="submit"]
+              padding: 6px 15px
+        &.edit_comment
+          textarea
+            width: 300px
 #taxon_detail
   #sidebar
     float: left
@@ -1699,10 +1766,17 @@ body
     clear: both
     float: left
     width: 580px
-    form.comment
-      padding: 20px 10px 0 10px
-      margin: 10px -10px 0 -10px
-      border-top: 1px solid #d7dadc
+    form
+      &.comment
+        padding: 20px 10px 0 10px
+        margin: 10px -10px 0 -10px
+        border-top: 1px solid #d7dadc
+        textarea
+          width: 480px
+          height: 100px
+      &.edit_comment
+        textarea
+          width: 540px
   #sidebar
     width: 340px
     padding: 0
@@ -2281,14 +2355,21 @@ body
         width: 580px
     .article.updates
       padding: 0
-      ul
-        li
+      > ul
+        > li
           padding: 20px
           border-bottom: 1px solid #d4dce2
-          form.comment
-            padding: 0
-            margin-bottom: 10px
-
+          form
+            &.comment
+              padding: 0
+              margin-bottom: 10px
+            &.edit_comment
+              textarea
+                width: 650px
+#comment_edit
+  textarea
+    width: 600px
+    +textarea
 #content.session
   background: #e2e9ef
   form

@@ -1,14 +1,14 @@
-#collections_tab.main_container
+#profile_activity.main_container
   .article.list.updates
     .heading
       %h3= I18n.t(:my_activity)
-      %form.filter(action= "" method= "get")
+      - form_tag({}, :class => 'filter', :method => :get) do
         %fieldset
           %dl
             %dt
-              %label= label_tag :filter_by, I18n.t(:show)
+              = label_tag :filter_by, I18n.t(:show)
             %dd
-              = select_tag :filter, options_for_select([ [I18n.t(:all_title), ''],
+              = select_tag :filter, options_for_select([ [I18n.t(:all_title), 'all'],
                 [I18n.t(:comments), 'comments'],
                 [I18n.t(:user_activity_stats_objects_curated_dropdown), 'data_object_curation'],
                 [I18n.t(:user_activity_stats_articles_added_dropdown), 'added_data_objects'],
@@ -17,7 +17,8 @@
                 [I18n.t(:names), 'names'],
                 [I18n.t(:user_activity_stats_taxa_comments_dropdown), 'taxa_comments'],
                 ], @filter)
-          %input(type="submit" value="#{I18n.t(:filter_button)}")
+        %fieldset.actions
+          = submit_tag I18n.t(:filter_button)
     - if @filter == "curated_taxa"
       = render :partial => 'users/activities/taxa_curated', :locals => {:taxon_concept_ids => User.taxon_concept_ids_curated(@user.id).paginate(:page => @page, :per_page => 20)}
     - else

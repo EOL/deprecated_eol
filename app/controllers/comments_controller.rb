@@ -31,40 +31,69 @@ class CommentsController < ApplicationController
     redirect_back_or_default
   end
 
+  # GET /comments/:id/edit
   def edit
-    @page_title = I18n.t("edit_comment")
-    store_location(referred_url) if request.get?
-    @comment = Comment.find(params[:id])
+    # @comment set in before_filter :allow_modify_comments
+    respond_to do |format|
+      format.html do
+        return access_denied unless current_user.can_update?(@comment)
+        store_location(referred_url) if request.get?
+        @page_title = I18n.t("edit_comment")
+        render :edit
+      end
+      format.js do
+        if current_user.can_update?(@comment)
+          render :partial => 'comments/edit', :locals => { :comment => @comment }
+        else
+          render :text => I18n.t(:comment_edit_by_javascript_not_authorized_error)
+        end
+      end
+    end
   end
 
+  # PUT /comments/:id
   def update
-    @comment = Comment.find(params[:id])
+    # @comment set in before_filter :allow_modify_comments
     if @comment.update_attributes(params[:comment])
       respond_to do |format|
         format.html do
-          flash[:notice] = I18n.t("the_comment_was_successfully_updated")
-          redirect_back_or_default(url_for(:action=>'index'))
+          flash[:notice] = I18n.t(:the_comment_was_successfully_updated)
+          redirect_to params[:return_to] || url_for(:action=>'index')
+        end
+        format.js do
+          render :partial => 'activity_logs/comment', :locals => { :item => @comment }
+        end
+      end
+    else
+      respond_to do |format|
+        format.js { render :text => I18n.t(:comment_not_updated_error) }
+        format.html do
+          flash[:error] = I18n.t(:comment_not_updated_error)
+          render :action => 'edit'
+        end
+      end
+    end
+  end
+
+  # DELETE /comments/:id
+  def destroy
+    # @comment set in before_filter :allow_modify_comments
+    if @comment.update_attributes(:deleted => 1)
+      respond_to do |format|
+        format.html do
+          flash[:notice] = I18n.t(:the_comment_was_successfully_deleted)
+          redirect_to params[:return_to] || referred_url
         end
         format.js do
           render :partial => 'activity_logs/comment', :locals => { :item => @comment, :truncate_comments => false }
         end
       end
     else
-      render :action => 'edit'
-    end
-  end
-
-  def destroy
-    (redirect_to referred_url;return) unless params[:action] == "destroy"
-    @comment = Comment.find(params[:id])
-    if @comment.update_attributes(:deleted => 1)
       respond_to do |format|
+        format.js { render :text => I18n.t(:comment_not_deleted_error) }
         format.html do
-          flash[:notice] = I18n.t("the_comment_was_successfully_deleted")
-          redirect_to referred_url
-        end
-        format.js do
-          render :partial => 'activity_logs/comment', :locals => { :item => @comment, :truncate_comments => false }
+          flash[:error] = I18n.t(:comment_not_deleted_error)
+          redirect_to params[:return_to] || referred_url
         end
       end
     end
@@ -83,15 +112,12 @@ private
 
   def allow_modify_comments
     @comment = Comment.find(params[:id])
+    return access_denied if @comment.deleted?
     case action_name
     when 'update', 'edit'
-      if @comment.user.id != current_user.id || @comment.deleted == 1
-        access_denied 
-      end
+      return access_denied unless current_user.can_update?(@comment)
     when 'destroy'
-      if (@comment.user.id != current_user.id && !current_user.is_admin?) || @comment.deleted == 1
-        access_denied 
-      end
+      return access_denied unless current_user.can_delete?(@comment)
     end
   end
 

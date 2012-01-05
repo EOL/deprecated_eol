@@ -28,6 +28,13 @@ class Comment < ActiveRecord::Base
 
   attr_accessor :vetted_by
 
+  def can_be_updated_by?(user_wanting_access)
+    user_wanting_access.id == user_id
+  end
+  def can_be_deleted_by?(user_wanting_access)
+    user_wanting_access.id == user_id || user_wanting_access.is_admin?
+  end
+
   def self.for_feeds(type = :all, taxon_concept_id = nil, max_results = 50)
     return [] if taxon_concept_id.nil?
     min_date = 30.days.ago.strftime('%Y-%m-%d')

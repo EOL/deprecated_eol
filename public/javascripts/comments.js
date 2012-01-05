@@ -73,54 +73,6 @@ EOL.init_comment_behaviours = function(items) {
 
     $li.find('blockquote p a[href^=#]').click(function() { EOL.follow_reply($(this)); });
 
-    // TODO try changing the input to :submit, which is a jQuery shortcut
-    $li.find(".edit_comment_form input[type='submit']").click(function() {
-      var $node = $(this).closest("li");
-      EOL.ajax_submit($(this), {
-        update: $node,
-        data: $(this).closest(".edit_comment_form").find("input, textarea").serialize(),
-        complete: function() {
-          $node.addClass('highlight');
-          setTimeout(function(){
-            $node.removeClass('highlight');
-          }, 2000);
-          EOL.init_comment_behaviours($node);
-        }
-      });
-      return(false);
-    });
-
-    $li.find('.edit_comment_form a').click(function() {
-      $(this).closest('.edit_comment_form').hide().prev().show().prev().show();
-      return(false);
-    });
-
-    $li.find('span.edit a').click(function() {
-      $('form#reply').remove();
-      $('span.reply').show();
-      var comment_body = $(this).attr('data-to-edit');
-      $(this).closest('.details').prev().hide().next().hide().next().show().find('textarea').val(comment_body);
-      return(false);
-    });
-
-    $li.find('span.delete a').click(function() {
-      var comment_id = $(this).attr('data-to-delete');
-      var $node = $(this).closest("li");
-      EOL.ajax_submit($(this), {
-        update: $node,
-        data: "_method=delete",
-        url: "/comments/" + comment_id,
-        complete: function() {
-          $node.addClass('highlight');
-          setTimeout(function(){
-            $node.removeClass('highlight');
-          }, 2000);
-          EOL.init_comment_behaviours($node);
-        }
-      });
-      return(false);
-
-    });
   });
 }
 

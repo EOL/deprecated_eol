@@ -1,0 +1,9 @@
+- unless comment.nil?
+  - form_for comment, :builder => ApplicationHelper::EolFormBuilder do |f|
+    %fieldset
+      = f.label :body, I18n.t('helpers.label.comment.body_edit')
+      = f.text_area :body
+      %p= f.allowed_html_help_tip
+    %fieldset.actions
+      = f.submit I18n.t(:save_comment_lowercase)
+      = link_to I18n.t(:cancel), '#'

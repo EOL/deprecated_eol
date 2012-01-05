@@ -10,13 +10,13 @@
 - else
   %ul.feed
     - log.map {|l| l['instance'] }.compact.each do |item|
-      %li
-        %a{:name => "#{item.class.name}-#{item.id}"}
+      %li{:id => "#{item.class.name}-#{item.id}"}
         - case item.class.name
         - when "CuratorActivityLog"
           = render :partial => 'activity_logs/curator_activity_log', :locals => {:item => item}
         - when "Comment"
-          = render :partial => 'activity_logs/comment', :locals => {:item => item, :truncate_comments => truncate_comments}
+          .editable
+            = render :partial => 'activity_logs/comment', :locals => {:item => item, :truncate_comments => truncate_comments}
         - when "UsersDataObject"
           = render :partial => 'activity_logs/users_data_object_log', :locals => {:item => item}
         - when "CollectionActivityLog"

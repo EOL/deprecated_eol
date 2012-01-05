@@ -115,6 +115,33 @@ $(function() {
 
   })($(".language"));
 
+  (function($feed){
+    $feed.children().each(function() {
+      var $li = $(this);
+      $li.delegate("ul.actions a.edit_comment", "click keydown", function( event ) {
+        event.preventDefault();
+        $(this).closest("ul.actions").hide();
+        $(this).closest(".details").after('<div class="comment_edit_form"></div>');
+        var $update = $(this).closest(".details").next(".comment_edit_form");
+        EOL.ajax_get($(this), {update: $update, type: 'GET'});
+      });
+      $li.delegate(".comment_edit_form a", "click keydown", function( event ) {
+        event.preventDefault();
+        $(this).closest(".comment_edit_form").hide().prev('.details').find("ul.actions").show().end().end().remove();
+      });
+      $li.delegate(".comment_edit_form input[type='submit']", "click keydown", function( event ) {
+        event.preventDefault();
+        EOL.ajax_submit($(this));
+      });
+      $li.delegate("form.delete_comment input[type='submit']", "click keydown", function( event ) {
+        event.preventDefault();
+        if (confirm($(this).data('confirmation'))) {
+          EOL.ajax_submit($(this));
+        }
+      });
+    });
+  })($("ul.feed"));
+
   (function($collection) {
     var zi = 1000;
     $collection.find("ul.collection_gallery").children().each(function() {
@@ -155,10 +182,7 @@ $(function() {
       });
       $li.delegate(".collection_item_form input[type='submit']", "click", function( event ) {
         event.preventDefault();
-        EOL.ajax_submit($(this), {
-          data: "_method=put&commit_annotation=true&" +
-            $(this).closest(".collection_item_form").find("input, textarea").serialize()
-        });
+        EOL.ajax_submit($(this));
       });
     });
     $collection.find('#sort_by').change(function() {

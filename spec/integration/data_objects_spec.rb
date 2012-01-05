@@ -56,12 +56,6 @@ describe 'Data Object Page' do
     body.should have_tag('.source', /Author:/)
   end
 
-  it "should show the permalink (obsolete?)"
-  #  visit("/data_objects/#{@image.id}")
-  #  page.should have_content("Permalink")
-  #  body.should have_tag('dd', :text => "http://#{$SITE_DOMAIN_OR_IP}/data_objects/#{@image.id}")
-  #end
-
   it "should show image description for image objects" do
     visit("/data_objects/#{@image.id}")
     body.should have_tag('.article', /Description(\n|.)*?#{@image.description}/)
@@ -76,6 +70,17 @@ describe 'Data Object Page' do
   it "should not show pagination if there are less than 10 comments (waiting on feed items adjustments)"
 
   it "should show pagination if there are more than 10 comments (waiting on feed items adjustments)"
+
+  it "should not list unpublished taxon concepts in associations" do
+    tc = @dato_no_comments.all_associations.first.taxon_concept
+    visit data_object_path(@dato_no_comments)
+    page.body.should include(tc.quick_scientific_name)
+    tc.update_attributes(:published => false)
+    visit data_object_path(@dato_no_comments)
+    page.body.should_not include(tc.quick_scientific_name)
+    page.body.should include('not associated with any published taxa')
+    tc.update_attributes(:published => true)
+  end
 
   # TODO - change this to open the data object page, NOT the overview page!
   it "should have a taxon_concept link for untrusted image, but following the link should show a warning" # do
@@ -107,7 +112,7 @@ describe 'Data Object Page' do
   # NOTE - I wanted to see how it "felt" to write longer individual tests.  These run faster, but how does it
   # actually work in practice?  This is an experiment.
   # The first thing I have to say about it is that the name is obnoxiously long.
-  it 'should allow a curator to add an association... (should it? design shows just a link)' # do
+  it 'should allow a curator to add an association' # do
 #    login_as @full_curator
 #    visit("/data_objects/#{@image.id}")
 #    xpect 'the page does not yet have our association'

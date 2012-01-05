@@ -1,12 +1,14 @@
+- en_type ||= 'unknown_type'
 - data_object ||= @data_object
 - unless data_object.blank?
   - # How many, if any of these options do we need?
   - visible ||= true
   - invisible ||= current_user.is_admin? || current_user.is_curator? ? true : false
   - preview ||= true
-  - entries = data_object.all_associations(:with_unpublished => true).collect{|e| e if (visible && Visibility.visible == e.visibility) || (invisible && Visibility.invisible == e.visibility) || (preview && Visibility.preview == e.visibility)}
+  - entries = data_object.all_associations.select{|e| e.taxon_concept.published? && ((visible && Visibility.visible == e.visibility) || (invisible && Visibility.invisible == e.visibility) || (preview && Visibility.preview == e.visibility))}
   - if entries.compact.blank?
-    %p= I18n.t(:data_object_not_associated_with_any_hierarchies)
+    .copy
+      %p= I18n.t("#{en_type}_not_associated_with_any_published_entries")
   - else
     %ul.review_status
       - entries.each do |entry|

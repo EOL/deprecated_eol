@@ -14,6 +14,6 @@
     %p= item.data_object.description_teaser
   %p.meta
     = I18n.t(:time_ago, :time_passed => time_ago)
-    - if item.user
-      %p.actions
-        %span.reply= link_to(I18n.t(:reply), data_object_path(item.data_object) + "#reply-to-UsersDataObject-#{item.id}", :'data-reply-to' => item.user.full_name, :'data-reply-to-type' => item.class.name, :'data-reply-to-id' => item.id)
+  - if item.user
+    %ul.actions
+      %li.reply= link_to(I18n.t(:reply), data_object_path(item.data_object) + "#reply-to-UsersDataObject-#{item.id}", :'data-reply-to' => item.user.full_name, :'data-reply-to-type' => item.class.name, :'data-reply-to-id' => item.id)

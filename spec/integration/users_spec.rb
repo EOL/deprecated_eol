@@ -45,7 +45,7 @@ describe 'Users' do
       visit(user_collections_path(@user))
     end
     it 'should show their watch collection' do
-      page.body.should have_tag('#collections_tab', /#{@watch_collection.name}/)
+      page.body.should have_tag('#profile_collections', /#{@watch_collection.name}/)
     end
   end
 
@@ -86,7 +86,7 @@ describe 'Users' do
     it "should have a form with dropdown filter element" do
       visit(user_activity_path(@user))
       body.should include "My activity"
-      body.should have_tag "form[action=]" do
+      body.should have_tag "form.filter" do
         with_tag "select[name=filter]"
       end
       body.should have_tag("option:nth-child(1)", :text => "All")

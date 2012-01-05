@@ -39,16 +39,7 @@ html.busy, html.busy *, .busy
       textarea
         width: 282px
         height: 120px
-#collections_tab
-  .collections
-    padding: 20px 0 0 0
-#user_communities
-  .communities
-    padding: 20px 0 0 0
-    ul.object_list
-      img
-        float: left
-        margin: 0 20px 0 0
+
 /** Content partner various **/
 #profile_content_connections
   li
@@ -902,11 +893,7 @@ body
   .image
     > a img
       +max_dimensions(430, 310)
-ul.feed
-  li
-    >a
-      >img
-        +max_dimensions($logo_size_secondary, $logo_size_secondary)
+
 #header
   .session
     img
@@ -1029,17 +1016,6 @@ form
 table.standard
   td.nowrap
     white-space: nowrap
-// Collections newsfeed was never mocked up:
-#collections
-  .article.updates
-    padding: 0 0 25px 0
-    li
-      overflow: hidden
-      padding: 20px
-      .details
-        img
-          margin: 0 8px 0 0
-          border: 1px solid #394651
 // Choose collection hasn't been completed by HR yet:
 #collections_choose
   h2
@@ -1245,23 +1221,9 @@ body#prelaunch
     border: 2px solid #c7d471
     background: #edf6b2
 
-// Need a floatable "what's this" on the communities tab, too (probably okay to merge this with a comma, later):
-#user_communities
-  .heading
-    position: relative
-    text-align: left
-    form, a
-      position: absolute
-      right: 10px
-      top: 4px
-
 // Preview page fix:
 body#prelaunch #footer ul.social_media
   margin-top: 20px
-
-// Comment form overrides
-.feed .edit_comment_form
-  display: none
 
 .feed .deleted_comment
   font-style: italic

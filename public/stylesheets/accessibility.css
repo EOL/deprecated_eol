@@ -31,15 +31,6 @@ html.busy, html.busy *, .busy {
     width: 282px;
     height: 120px; }
 
-#collections_tab .collections {
-  padding: 20px 0 0 0; }
-
-#user_communities .communities {
-  padding: 20px 0 0 0; }
-  #user_communities .communities ul.object_list img {
-    float: left;
-    margin: 0 20px 0 0; }
-
 /*Content partner various */
 #profile_content_connections li img {
   max-width: 68px;
@@ -836,12 +827,6 @@ body > #header .section .session.join {
   width: expression(this.width > 430 ? "430px" : true);
   height: expression(this.height > 310 ? "310px" : true); }
 
-ul.feed li > a > img {
-  max-width: 48px;
-  max-height: 48px;
-  width: expression(this.width > 48 ? "48px" : true);
-  height: expression(this.height > 48 ? "48px" : true); }
-
 #header .session img {
   max-width: 48px;
   max-height: 48px;
@@ -968,15 +953,6 @@ form.comment img {
 
 table.standard td.nowrap {
   white-space: nowrap; }
-
-#collections .article.updates {
-  padding: 0 0 25px 0; }
-  #collections .article.updates li {
-    overflow: hidden;
-    padding: 20px; }
-    #collections .article.updates li .details img {
-      margin: 0 8px 0 0;
-      border: 1px solid #394651; }
 
 #collections_choose h2 {
   font-size: 1.3em;
@@ -1195,19 +1171,8 @@ body#prelaunch p.status {
   border: 2px solid #c7d471;
   background: #edf6b2; }
 
-#user_communities .heading {
-  position: relative;
-  text-align: left; }
-  #user_communities .heading form, #user_communities .heading a {
-    position: absolute;
-    right: 10px;
-    top: 4px; }
-
 body#prelaunch #footer ul.social_media {
   margin-top: 20px; }
-
-.feed .edit_comment_form {
-  display: none; }
 
 .feed .deleted_comment {
   font-style: italic;

@@ -512,25 +512,90 @@ body {
       margin: 0 0 20px 0; }
       #content .section .community h3 {
         border-bottom: 1px solid #e5e8eb; }
-      #content .section .community ul {
+      #content .section .community > ul {
         padding: 20px 0 10px 40px;
         border-bottom: 1px solid #e5e8eb; }
-      #content .section .community li {
-        overflow: hidden;
-        padding: 0 0 10px 0; }
-        #content .section .community li img {
-          float: left;
-          margin: 0 10px 0 0; }
-        #content .section .community li .details {
+        #content .section .community > ul > li {
           overflow: hidden;
-          padding: 3px 0 0 0; }
-        #content .section .community li p {
-          line-height: 140%; }
-          #content .section .community li p.meta {
-            font-size: 0.83em;
+          padding: 0 0 10px 0; }
+          #content .section .community > ul > li img {
+            float: left;
+            margin: 0 10px 0 0;
+            max-width: 48px;
+            max-height: 48px;
+            width: expression(this.width > 48 ? "48px" : true);
+            height: expression(this.height > 48 ? "48px" : true); }
+          #content .section .community > ul > li .details {
+            overflow: hidden;
+            padding: 3px 0 0 0; }
+          #content .section .community > ul > li p {
+            line-height: 140%; }
+            #content .section .community > ul > li p.meta {
+              font-size: 0.83em;
+              font-weight: bold;
+              text-transform: uppercase;
+              color: #82919e; }
+          #content .section .community > ul > li ul.actions li {
+            display: inline-block;
+            font-size: 0.9em;
             font-weight: bold;
-            text-transform: uppercase;
-            color: #82919e; }
+            text-transform: lowercase; }
+            #content .section .community > ul > li ul.actions li a {
+              padding: 3px 5px 3px 0;
+              margin: 0 5px 0 0; }
+            #content .section .community > ul > li ul.actions li input[type="submit"] {
+              background: none;
+              border: none;
+              font-weight: bold;
+              color: #195184;
+              text-decoration: underline;
+              cursor: pointer;
+              padding: 3px 5px 3px 0;
+              margin: 0 5px 0 0; }
+          #content .section .community > ul > li form.edit_comment {
+            margin: 10px 0; }
+            #content .section .community > ul > li form.edit_comment label {
+              display: block;
+              font-weight: bold; }
+            #content .section .community > ul > li form.edit_comment textarea {
+              width: 300px;
+              height: 60px;
+              padding: 8px;
+              font: normal 1em Helvetica, Arial, sans-serif;
+              color: #394651;
+              border: 1px solid #cad3db;
+              background-color: white;
+              filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
+              background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
+              background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white));
+              margin: 3px 0 5px 0; }
+            #content .section .community > ul > li form.edit_comment input[type="submit"] {
+              padding: 5px 10px 6px 10px;
+              overflow: visible;
+              font: bold 1.08em Helvetica, Arial, sans-serif;
+              color: #394651;
+              text-transform: lowercase;
+              text-decoration: none;
+              border: 1px solid #c6ccd0;
+              -moz-border-radius: 3px;
+              border-radius: 3px;
+              background-color: #d7dde1;
+              filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=white, endColorstr=#d7dde1);
+              background-image: -moz-linear-gradient(100% 100% 90deg, #d7dde1, white);
+              background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#d7dde1));
+              cursor: pointer;
+              font-size: 0.9em;
+              margin-right: 10px; }
+              #content .section .community > ul > li form.edit_comment input[type="submit"]:hover {
+                background-color: #e6eef4;
+                filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=white, endColorstr=#e6eef4);
+                background-image: -moz-linear-gradient(100% 100% 90deg, #e6eef4, white);
+                background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#e6eef4)); }
+              #content .section .community > ul > li form.edit_comment input[type="submit"]:active {
+                background-color: #d7dde1;
+                filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=white, endColorstr=#d7dde1);
+                background-image: -moz-linear-gradient(100% 100% 90deg, #d7dde1, white);
+                background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#d7dde1)); }
     #content .section .session {
       float: right;
       clear: right;

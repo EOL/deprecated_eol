@@ -2,7 +2,7 @@
 - parent ||= @parent
 - rows ||= 3
 - cols ||= 60
-%a{:name => 'new_comment'}
+%h4.assistive= I18n.t(:comment_new_title)
 - form_for Comment.new, :builder => ApplicationHelper::EolFormBuilder, :html => { :class => 'comment' } do |f|
   = f.hidden_field :parent_type, :value => parent.class.name
   = f.hidden_field :parent_id, :value => parent.id

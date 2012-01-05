@@ -24,6 +24,11 @@ describe RedirectsController do
       response.redirected_to.should == user_path(1)
       response.status.should == '301 Moved Permanently'
     end
+    it 'should permanently redirect to collection when collection id parameter is provided' do
+      get :show, :collection_id => '1'
+      response.redirected_to.should == collection_path(1)
+      response.status.should == '301 Moved Permanently'
+    end
   end
 
 end

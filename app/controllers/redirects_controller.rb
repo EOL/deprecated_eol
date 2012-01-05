@@ -19,6 +19,8 @@ class RedirectsController < ApplicationController
         :es => 6496
       }
       redirect_to collection_path(collection_ids[I18n.locale] || collection_ids[:en]), :status => :moved_permanently and return
+    elsif params[:collection_id]
+      redirect_to collection_path(params[:collection_id]), :status => :moved_permanently and return
     else
       redirect_to :root, :status => :moved_permanently
     end

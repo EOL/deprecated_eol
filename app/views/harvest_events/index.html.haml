@@ -9,15 +9,7 @@
   %br
   %div
     - if current_user.is_admin?
-      ***
-      %strong
-        =I18n.t(:notice_colon)
-      =I18n.t("please")
-      %strong
-        = link_to I18n.t("publish"), edit_resource_path(@resource, :content_partner_id => content_partner_id)
-      =I18n.t(:this_resource_here_stars)
-    - else
-      =I18n.t(:this_resource_unpublished_notice)
+      = I18n.t(:please_publish_this_resource_notice, :publish_link => link_to(I18n.t("publish"), edit_resource_path(@resource, :content_partner_id => content_partner_id)))
 
 - unless @harvest_events.blank?
   = will_paginate(@harvest_events)

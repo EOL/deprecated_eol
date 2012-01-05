@@ -49,7 +49,6 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.resources :comments, :only => [ :create, :edit, :update, :destroy ]
-  map.connect '/comments/:id', :controller => 'comments', :action => 'destroy', :id => /\d+/
 
   map.resources :random_images
   # TODO - the curate member method is not working when you use the url_for method and its derivatives.  Instead, the default

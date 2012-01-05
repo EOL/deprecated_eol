@@ -126,6 +126,6 @@
       = I18n.t(:activity_user_curated_an_unknown_object, :user => name_with_link)
   %p.meta
     = I18n.t(:time_ago, :time_passed => time_ago_in_words(item.updated_at))
-    - if item.user && object_link
-      %p.actions
-        %span.reply= link_to(I18n.t(:reply), object_link + "#reply-to-CuratorActivityLog-#{item.id}", :'data-reply-to' => item.user.full_name, :'data-reply-to-type' => item.class.name, :'data-reply-to-id' => item.id)
+  - if item.user && object_link
+    %ul.actions
+      %li.reply= link_to(I18n.t(:reply), object_link + "#reply-to-CuratorActivityLog-#{item.id}", :'data-reply-to' => item.user.full_name, :'data-reply-to-type' => item.class.name, :'data-reply-to-id' => item.id)

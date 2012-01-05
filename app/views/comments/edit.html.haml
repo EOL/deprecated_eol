@@ -1,12 +1,13 @@
 #content
-  .site_column
+  #comment_edit.site_column
     .article.copy
       - unless @comment.blank?
         - form_for @comment do |f|
+          = hidden_field_tag :return_to, params[:return_to]
           %fieldset
             %dl
               %dt= f.label :body
-              %dd= f.text_area :body,{:cols=>100, :rows=>5}
+              %dd= f.text_area :body
           %fieldset.actions
             = submit_tag I18n.t(:save_comment_lowercase)
-            = link_to I18n.t(:cancel), :back
+            = link_to I18n.t(:cancel), params[:return_to] || :back

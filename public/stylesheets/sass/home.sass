@@ -173,25 +173,59 @@ body
       margin: 0 0 20px 0
       h3
         border-bottom: 1px solid #e5e8eb
-      ul
+      > ul
         padding: 20px 0 10px 40px
         border-bottom: 1px solid #e5e8eb
-      li
-        overflow: hidden
-        padding: 0 0 10px 0
-        img
-          float: left
-          margin: 0 10px 0 0
-        .details
+        > li
           overflow: hidden
-          padding: 3px 0 0 0
-        p
-          line-height: 140%
-          &.meta
-            font-size: .83em
-            font-weight: bold
-            text-transform: uppercase
-            color: #82919e
+          padding: 0 0 10px 0
+          img
+            float: left
+            margin: 0 10px 0 0
+            +max_dimensions($logo_size_secondary, $logo_size_secondary)
+          .details
+            overflow: hidden
+            padding: 3px 0 0 0
+          p
+            line-height: 140%
+            &.meta
+              font-size: .83em
+              font-weight: bold
+              text-transform: uppercase
+              color: #82919e
+          ul.actions
+            li
+              display: inline-block
+              font-size: .9em
+              font-weight: bold
+              text-transform: lowercase
+              a
+                padding: 3px 5px 3px 0
+                margin: 0 5px 0 0
+              input[type="submit"]
+                background: none
+                border: none
+                font-weight: bold
+                color: #195184
+                text-decoration: underline
+                cursor: pointer
+                padding: 3px 5px 3px 0
+                margin: 0 5px 0 0
+          form
+            &.edit_comment
+              margin: 10px 0
+              label
+                display: block
+                font-weight: bold
+              textarea
+                width: 300px
+                height: 60px
+                +textarea
+                margin: 3px 0 5px 0
+              input[type="submit"]
+                +button
+                font-size: .9em
+                margin-right: 10px
     .session
       float: right
       clear: right

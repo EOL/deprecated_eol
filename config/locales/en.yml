@@ -379,6 +379,8 @@ en:
         sort_field: "Sort by <small>(date, number, or text; optional)</small>"
         sort_field_show: "Sort value:"
         sort_field_more: "Optional value to sort the collection by (date using YYYY.MM.DD, number, or text)."
+      comment:
+        body_edit: "Edit comment"
       content_page:
         active: "Published"
         active_more: "Published pages will be publicly visible. Uncheck <em>published</em> if you want to prevent general users from viewing versions of this page in any language."
@@ -957,7 +959,7 @@ en:
   collection_item_not_found_error: "That collection item could not be found."
   collection_item_edit_by_javascript_not_authorized_error: "Sorry, you do not have permission to edit this collection item. If you are the collection owner or editor please reload the page and check that you are logged in."
   collection_name_label: "Collection name"
-  collection_newsfeed: "Collection Newsfeed"
+  collection_newsfeed: "Collection newsfeed"
   collection_not_created_error: "Sorry, an error occurred, the collection <em>%{collection_name}</em> could not be created."
   collection_not_destroyed_error: "Sorry, the collection was not deleted."
   collection_not_found_error: Sorry, that collection could not be found.
@@ -980,8 +982,13 @@ en:
   comment_added_notice: "Comment successfully added."
   comment_body_label: "Your comment"
   comment_created_at: "Created at"
+  comment_delete_confirm: "Are you sure you want to delete the comment?"
+  comment_edit_by_javascript_not_authorized_error: "Sorry, you do not have permission to edit this comment. If you are the comment author please reload the page and check that you are logged in."
   comment_not_added_error: "Sorry, an error occurred, comment could not be added."
+  comment_not_deleted_error: "Sorry, an error occurred, comment could not be deleted."
+  comment_not_updated_error: "Sorry, an error occurred, comment could not be updated."
   commented_on_your_image: " commented on your image on the <a href='%{data_object_link}'>Encyclopedia of Life site</a>:\n%{comment_body}"
+  comment_new_title: "Add a new comment"
   comment_new_posters_image_alt: "Your profile picture, if you have provided one."
   comment_new_posters_image_advisory_info: "Your profile picture and name will appear next to your comment in listings."
   comment_show_posters_image_alt: "Profile picture of %{posters_name} who added this comment."
@@ -1027,7 +1034,7 @@ en:
     one: "%{count} Community Member"
     other: "%{count} Community Members"
   community_name_label: "Community name"
-  community_newsfeed: "Community Newsfeed"
+  community_newsfeed: "Community newsfeed"
   community_no_longer_has_manager_access_to_collection: "\"%{community}\" no longer has manager access to \"%{collection}\"."
   community_not_destroyed_error: "Sorry, there was a problem and the community was not deleted."
   community_tab_collections_description: 'Collections are created by EOL users to bring together species, multimedia, articles, or even members that have something in common, such as geography, ecology, or a personal meaning.  Communities can "feature" collections that are of particular interest and value to them.'
@@ -1385,7 +1392,7 @@ en:
   duplicate_items_were_ignored: "Duplicate items were ignored."
   each_method_documentation_page_has_formatted_responses: "Each method's documentation page has an example of both the XML and JSON formatted responses."
   edit_annotation: edit annotation
-  edit_comment: "Edit Comment"
+  edit_comment: "Edit comment"
   edit_comment_lowercase: "edit comment"
   edit_community: "Edit community"
   edit_contact_us_topic: "Edit Contact Us Topic"
@@ -2034,7 +2041,7 @@ en:
   profile: "Profile"
   profile_image_alt_text_curator: "Profile picture for curator %{user_full_name}"
   profile_image_alt_text_member: "Profile picture for member %{user_full_name}"
-  profile_newsfeed: "My Newsfeed"
+  profile_newsfeed: "My newsfeed"
   profile_picture: "Profile Picture"
   project: "Project"
   provider_hierarchies: "provider_hierarchies"

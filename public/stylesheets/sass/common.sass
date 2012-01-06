@@ -162,6 +162,7 @@ body
     .copyright
       float: left
       padding: 20px 0 0 0
+      text-align: center
       h6
         padding: 0 0 5px 0
         a
@@ -183,26 +184,31 @@ body
       color: #f0f4f7
       line-height: 140%
       text-align: center
-    ul.nav
-      float: right
-      padding: 20px 0 20px 0
-      li
-        display: inline
-        padding: 0 0 0 7px
-        text-transform: uppercase
-        &:before
-          padding: 0 7px 0 0
-          font-size: 1.33em
-          vertical-align: -2px
-          content: "•"
-          list-style: disc
-          color: #6f7e8b
-        &:first-of-type
+    .global_navigation
+      margin-left: 50px
+      clear: none
+      padding: 20px 0
+      ul.nav
+        line-height: 160%
+        float: right
+        li
+          display: inline
+          padding: 0 0 0 7px
+          text-transform: uppercase
           &:before
-            display: none
-        a
-          color: #ffffff
-          text-decoration: none
+            padding: 0 7px 0 0
+            font-size: 1.33em
+            vertical-align: -2px
+            content: "•"
+            list-style: disc
+            color: #6f7e8b
+          &:first-of-type
+            padding-left: 0
+            &:before
+              display: none
+          a
+            color: #ffffff
+            text-decoration: none
     ul.social_media
       clear: both
       float: right

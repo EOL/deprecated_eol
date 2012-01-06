@@ -195,7 +195,8 @@ body > #footer {
     padding: 0; }
   body > #footer .copyright {
     float: left;
-    padding: 20px 0 0 0; }
+    padding: 20px 0 0 0;
+    text-align: center; }
     body > #footer .copyright h6 {
       padding: 0 0 5px 0; }
       body > #footer .copyright h6 a {
@@ -217,25 +218,31 @@ body > #footer {
     color: #f0f4f7;
     line-height: 140%;
     text-align: center; }
-  body > #footer ul.nav {
-    float: right;
-    padding: 20px 0 20px 0; }
-    body > #footer ul.nav li {
-      display: inline;
-      padding: 0 0 0 7px;
-      text-transform: uppercase; }
-      body > #footer ul.nav li:before {
-        padding: 0 7px 0 0;
-        font-size: 1.33em;
-        vertical-align: -2px;
-        content: "•";
-        list-style: disc;
-        color: #6f7e8b; }
-      body > #footer ul.nav li:first-of-type:before {
-        display: none; }
-      body > #footer ul.nav li a {
-        color: white;
-        text-decoration: none; }
+  body > #footer .global_navigation {
+    margin-left: 50px;
+    clear: none;
+    padding: 20px 0; }
+    body > #footer .global_navigation ul.nav {
+      line-height: 160%;
+      float: right; }
+      body > #footer .global_navigation ul.nav li {
+        display: inline;
+        padding: 0 0 0 7px;
+        text-transform: uppercase; }
+        body > #footer .global_navigation ul.nav li:before {
+          padding: 0 7px 0 0;
+          font-size: 1.33em;
+          vertical-align: -2px;
+          content: "•";
+          list-style: disc;
+          color: #6f7e8b; }
+        body > #footer .global_navigation ul.nav li:first-of-type {
+          padding-left: 0; }
+          body > #footer .global_navigation ul.nav li:first-of-type:before {
+            display: none; }
+        body > #footer .global_navigation ul.nav li a {
+          color: white;
+          text-decoration: none; }
   body > #footer ul.social_media {
     clear: both;
     float: right; }

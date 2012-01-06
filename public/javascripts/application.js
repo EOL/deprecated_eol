@@ -115,41 +115,6 @@ $(function() {
 
   })($(".language"));
 
-  (function($feed){
-    $feed.children().each(function() {
-      var $li = $(this);
-      $li.delegate(".feed blockquote a[href^=#]", "click", function( event ) {
-        event.preventDefault();
-        EOL.follow_reply($(this));
-      });
-      $li.delegate("ul.actions li.reply a", "click", function( event ) {
-        event.preventDefault();
-        EOL.reply_to($(this));
-      });
-      $li.delegate("ul.actions a.edit_comment", "click", function( event ) {
-        event.preventDefault();
-        $(this).closest("ul.actions").hide();
-        $(this).closest(".details").after('<div class="comment_edit_form"></div>');
-        var $update = $(this).closest(".details").next(".comment_edit_form");
-        EOL.ajax_get($(this), {update: $update, type: 'GET'});
-      });
-      $li.delegate(".comment_edit_form a", "click", function( event ) {
-        event.preventDefault();
-        $(this).closest(".comment_edit_form").hide().prev('.details').find("ul.actions").show().end().end().remove();
-      });
-      $li.delegate(".comment_edit_form input[type='submit']", "click", function( event ) {
-        event.preventDefault();
-        EOL.ajax_submit($(this));
-      });
-      $li.delegate("form.delete_comment input[type='submit']", "click", function( event ) {
-        event.preventDefault();
-        if (confirm($(this).data('confirmation'))) {
-          EOL.ajax_submit($(this));
-        }
-      });
-    });
-  })($("ul.feed"));
-
   (function($collection) {
     var zi = 1000;
     $collection.find("ul.collection_gallery").children().each(function() {
@@ -338,8 +303,6 @@ $(function() {
     }).not(":checked").closest("dt").next("dd").hide();
   })($("#content_partner_resources"));
 
-  EOL.handle_special_anchors_in_location_hash();
-
 });
 
 (function($) {
@@ -470,78 +433,5 @@ EOL.initFacebook = function(app_id, channel_url) {
   });
   if (typeof(_ga) !== 'undefined') {
     _ga.trackFacebook();
-  }
-};
-EOL.handle_special_anchors_in_location_hash = function() {
-  if(location.hash != "") {
-    var name  = location.hash.replace(/#/, '').replace(/\?.*$/, '');
-    var reply = name.replace('reply-to-', '');
-    if (name == reply) {
-      EOL.highlight_comment($('#'+name));
-    } else {
-      $('#'+reply).find('li.reply a').click();
-    }
-  }
-};
-EOL.highlight_comment = function(el) {
-  if($(el).size() == 0) {
-    return false;
-  }
-  var dest = $(el).offset().top;
-  $('li').removeClass('highlight');
-  el.closest('li').toggleClass('highlight');
-  $("html,body").animate({ scrollTop: dest}, 650);
-  return(false);
-};
-EOL.reply_to = function($el) {
-  var href = $el.attr('href');
-  var redirected = EOL.jump_to_comment($('#'+href.replace(/^.*#reply-to-/, '')), href, true);
-  if(!redirected) {
-    var $form = $('form#new_comment');
-    if ($form.size() == 0) { // No form on this page.
-      EOL.redirect_to_comment_source(href);
-    } else {
-      $("html,body").animate({ scrollTop: $form.offset().top }, 650);
-      EOL.add_reply_details($form, $el);
-      $('a#reply-cancel').click(function( event ) {
-        event.preventDefault();
-        EOL.reset_reply_details($form);
-      });
-      $form.find('textarea').focus();
-    }
-  }
-};
-EOL.reset_reply_details = function($form) {
-  var $submit = $form.find(':submit');
-  $submit.val($submit.data('post'));
-  $submit.parent().find('span').remove();
-  EOL.set_reply_fields($form, '');
-  $('li').removeClass('highlight');
-};
-EOL.add_reply_details = function($form, $reply_link) {
-  var $submit = $form.find(':submit');
-  $submit.data('post', $submit.val()).val($submit.data('reply'));
-  $submit.after('<span id="reply-to">@'+$reply_link.data('reply-to')+' &nbsp; <a id="reply-cancel" href="#">'+$submit.data('cancel')+'</a></span>');
-  EOL.set_reply_fields($form, $reply_link);
-};
-EOL.set_reply_fields = function($form, $el) {
-  $form.find('input#comment_reply_to_type').val($el ? $el.data('reply-to-type') : '');
-  $form.find('input#comment_reply_to_id').val($el ? $el.data('reply-to-id') : '');
-};
-EOL.follow_reply = function(el) {
-  var href = $(el).attr('href');
-  EOL.jump_to_comment($(href), href, false);
-};
-EOL.redirect_to_comment_source = function(href, reply) {
-  window.location = '/activity_logs/find/'+href.replace(/^.*-(\d+)$/, '\$1')+'?'+
-    $.param({type: href.replace(/^.*[#-]([^-]+)-\d+$/, '\$1'), reply: reply});
-};
-EOL.jump_to_comment = function(target, href, reply) {
-  if (target.size() == 0) {
-    EOL.redirect_to_comment_source(href, reply);
-    return(true);
-  } else {
-    EOL.highlight_comment(target);
-    return(false);
   }
 };

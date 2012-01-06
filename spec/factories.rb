@@ -912,6 +912,11 @@ Factory.define :taxon_concept_content do |tcc|
   tcc.image_object_id          0 # the preferred image for that hierarchy_entry, but probably not used (still, accurate in production)
 end
 
+Factory.define :taxon_concept_exemplar_image do |tcei|
+  tcei.association :taxon_concept
+  tcei.association :data_object
+end
+
 Factory.define :taxon_concept_name do |tcn|
   tcn.preferred              true
   tcn.vern                   false

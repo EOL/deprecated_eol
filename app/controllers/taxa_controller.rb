@@ -64,50 +64,6 @@ class TaxaController < ApplicationController
     end
   end
 
-  def images
-    taxon_concept = find_taxon_concept
-    includes = { :top_concept_images => :data_object }
-    selects = { :taxon_concepts => :supercedure_id,
-      :data_objects => [ :id, :data_type_id, :data_subtype_id, :published, :guid, :data_rating ] }
-    @taxon_concept = TaxonConcept.core_relationships(:include => includes, :select => selects).find_by_id(taxon_concept.id)
-    @taxon_concept.current_user = current_user
-    @image_page  = (params[:image_page] ||= 1).to_i
-    start        = $MAX_IMAGES_PER_PAGE * (@image_page - 1)
-    last         = start + $MAX_IMAGES_PER_PAGE - 1
-    @images      = @taxon_concept.images(:image_page => @image_page)[start..last]
-    @image_count = @taxon_concept.image_count
-    set_selected_image
-    current_user.log_activity(:viewed_page_of_images, :value => @image_page, :taxon_concept_id => @taxon_concept.id)
-    render :partial => "images"
-  end
-
-  def maps
-    @taxon_concept = find_taxon_concept
-    render :partial => "maps"
-  end
-
-  def videos
-    @taxon_concept = find_taxon_concept
-    @taxon_concept.current_user = current_user
-    @video_collection = videos_to_show
-    render :layout => false
-  end
-
-  # AJAX: show the requested video
-  def show_video
-
-   if !request.xhr?
-     render :nothing => true
-     return
-   end
-
-    @data_object = DataObject.find(params[:data_object_id].to_i)
-    current_user.log_activity(:viewed_video, :value => @data_object.object_cache_url)
-    render :update do |page|
-      page.replace_html 'video-player', :partial => 'data_objects/data_object_video'
-    end
-  end
-
   # AJAX: used to show a pop-up in a floating div, all views are in the "popups" subfolder
   def show_popup
     if !params[:name].blank? && request.xhr?
@@ -186,19 +142,15 @@ private
   end
 
   def promote_exemplar(data_objects)
-    if @taxon_concept.blank? || @taxon_concept.taxon_concept_exemplar_image.blank?
+    # TODO: a comment may be needed. If the concept is blank, why would there be images to promote?
+    # we should just return
+    if @taxon_concept.blank? || @taxon_concept.published_exemplar_image.blank?
       exemplar_image = data_objects[0] unless data_objects.blank?
     else
-      exemplar = @taxon_concept.taxon_concept_exemplar_image
-      exemplar_image = exemplar.data_object unless exemplar.nil?
+      exemplar_image = @taxon_concept.published_exemplar_image
     end
     unless exemplar_image.nil?
       data_objects.delete_if{ |d| d.guid == exemplar_image.guid }
-
-      # Get the latest version of the exemplar image
-      latest_published_exemplar_image = DataObject.latest_published_version_of(exemplar_image.id)
-      exemplar_image = latest_published_exemplar_image unless latest_published_exemplar_image.nil?
-
       data_objects.unshift(exemplar_image)
     end
     data_objects
@@ -233,23 +185,6 @@ private
     return 'none'
   end
 
-  def videos_to_show
-    @default_videos = @taxon_concept.video_data_objects
-    @videos = show_unvetted_videos
-
-    if params[:vet_flag] == "false"
-      @video_collection = @videos
-    else
-      @video_collection = @default_videos unless @default_videos.blank?
-    end
-  end
-
-  # collect all videos (unvetted as well)
-  def show_unvetted_videos
-    videos = @taxon_concept.video_data_objects(:unvetted => true) unless @default_videos.blank?
-    return videos
-  end
-
   def this_request_is_really_a_search
     tc_id = params[:id].to_i
     tc_id = params[:taxon_id].to_i if tc_id == 0
@@ -272,47 +207,6 @@ private
     return(allow_page_to_be_cached? and
            params[:category_id].blank? and
            params[:image_id].blank?)
-  end
-
-  def find_selected_image_index(images, image_id)
-    image_to_find = DataObject.find_by_id(image_id)
-    return nil if image_to_find.blank?
-    images.each_with_index do |image, index|
-      if image.guid == image_to_find.guid
-        return index
-      end
-    end
-    return nil
-  end
-
-  # Image ID could have been superceded (by, say, a newer version of the same image), so we need to normalize it.
-  def set_selected_image
-    if(params[:image_id])
-      latest_published_image = DataObject.latest_published_version_of(params[:image_id].to_i)
-      unless latest_published_image
-        flash[:warning] = I18n.t("image_not_found")
-        return
-      end
-      image_id = latest_published_image.id
-
-      selected_image_index = find_selected_image_index(@images,image_id)
-      if selected_image_index.nil?
-        @taxon_concept.current_user = current_user
-        selected_image_index = find_selected_image_index(@images,image_id)
-      end
-      unless selected_image_index
-        flash[:warning] = I18n.t("image_is_no_longer_available")
-        return
-      end
-      params[:image_page] = @image_page = ((selected_image_index+1) / $MAX_IMAGES_PER_PAGE.to_f).ceil
-      start        = $MAX_IMAGES_PER_PAGE * (@image_page - 1)
-      last         = start + $MAX_IMAGES_PER_PAGE - 1
-      @images      = @taxon_concept.images(:image_page=>@image_page)[start..last]
-      adjusted_selected_image_index = selected_image_index % $MAX_IMAGES_PER_PAGE
-      @selected_image_id = @images[adjusted_selected_image_index].id
-    else
-      @selected_image_id = @images[0].id unless @images.blank?
-    end
   end
 
   # For regular users, a page is accessible only if the taxon_concept is published.

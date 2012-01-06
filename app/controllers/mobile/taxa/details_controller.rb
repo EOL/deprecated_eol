@@ -51,8 +51,7 @@ class Mobile::Taxa::DetailsController < Mobile::TaxaController
 
     @toc = TocBuilder.new.toc_for_toc_items(toc_items_to_show)
 
-    @exemplar_image = @taxon_concept.taxon_concept_exemplar_image.data_object unless @taxon_concept.taxon_concept_exemplar_image.blank?
-    @exemplar_image ||= @taxon_concept.best_image
+    @exemplar_image = @taxon_concept.exemplar_or_best_image_from_solr
 
     @watch_collection = logged_in? ? current_user.watch_collection : nil
 

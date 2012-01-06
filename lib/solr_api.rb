@@ -243,7 +243,7 @@ class SolrAPI
     taxon_concepts ||= TaxonConcept.all(:include => [ { :taxon_concept_names => :name }, :flattened_ancestors ] )
     data = {}
     taxon_concepts.each do |taxon_concept|
-      images = taxon_concept.images
+      best_image = taxon_concept.exemplar_or_best_image_from_solr
       data[taxon_concept.id] = {:common_name => taxon_concept.all_common_names.map {|n| n.string },
                :preferred_scientific_name => [taxon_concept.scientific_name],
                :scientific_name => taxon_concept.all_scientific_names.map {|n| n.string },
@@ -251,7 +251,7 @@ class SolrAPI
                :vetted_id => taxon_concept.vetted_id,
                :published => taxon_concept.published,
                :supercedure_id => taxon_concept.supercedure_id,
-               :top_image_id => images.blank? ? [] : [taxon_concept.images.first.id] }
+               :top_image_id => best_image.blank? ? [] : [best_image.id] }
     end
     send_attributes(data)
   end

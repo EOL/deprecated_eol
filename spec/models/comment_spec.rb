@@ -8,9 +8,13 @@ describe Comment do
     @tc = build_taxon_concept()
     @tc_comment = @tc.comments[0]
     @text_comment = @tc.data_objects.select { |d| d.data_type.label == 'Text'  }.select { |t| !t.comments.blank? }.first.comments.first
-    @image_comment = @tc.images.select { |i| !i.comments.blank? }.first.comments.first
+    @image_comment = @tc.images_from_solr(100).select { |i| !i.comments.blank? }.first.comments.first
     @curator = User.find(@tc.curators[0])
     @non_curator = User.gen
+
+    # rebuild the Solr DataObject index
+    SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE).delete_all_documents
+    DataObject.all.each{ |d| d.update_solr_index }
   end
 
   # for_feeds
@@ -52,11 +56,11 @@ describe Comment do
   end
 
   it "should return dato description for DataObject comment" do
-    @tc.images[0].comments[0].parent_name.should == @tc.images[0].description
+    @tc.images_from_solr[0].comments[0].parent_name.should == @tc.images_from_solr[0].description
   end
 
   it "should return parent type if comment is for object that is not TaxonConcept or DataObject" do
-    comment = @tc.images[0].comments[0]
+    comment = @tc.images_from_solr[0].comments[0]
     comment.parent_type = 'UnkownType'
     comment.save
     comment.reload.parent_name.should == 'UnkownType'

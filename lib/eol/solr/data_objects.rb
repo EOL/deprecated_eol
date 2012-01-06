@@ -286,31 +286,34 @@ module EOL
             hash[prefix + '_ancestor_id'] ||= []
             hash[prefix + '_ancestor_id'] << he.taxon_concept_id
           end
+          
           # TC ancestors
-          he.taxon_concept.flattened_ancestors.each do |a|
-            hash['ancestor_id'] ||= []
-            hash['ancestor_id'] << a.ancestor_id
-            field_prefixes.each do |prefix|
-              hash[prefix + '_ancestor_id'] ||= []
-              hash[prefix + '_ancestor_id'] << a.ancestor_id
+          if he.taxon_concept # sometimes in specs there isn't a concept for an entry...
+            he.taxon_concept.flattened_ancestors.each do |a|
+              hash['ancestor_id'] ||= []
+              hash['ancestor_id'] << a.ancestor_id
+              field_prefixes.each do |prefix|
+                hash[prefix + '_ancestor_id'] ||= []
+                hash[prefix + '_ancestor_id'] << a.ancestor_id
+              end
             end
-          end
-          # HE ancestors
-          TaxonConcept.preload_associations(he.taxon_concept, { :published_hierarchy_entries => :flattened_ancestors })
-          he.taxon_concept.published_hierarchy_entries.each do |tche|
-            hash['ancestor_he_id'] ||= []
-            hash['ancestor_he_id'] << tche.id
-            field_prefixes.each do |prefix|
-              hash[prefix + '_ancestor_he_id'] ||= []
-              hash[prefix + '_ancestor_he_id'] << tche.id
-            end
-
-            tche.flattened_ancestors.each do |a|
+            # HE ancestors
+            TaxonConcept.preload_associations(he.taxon_concept, { :published_hierarchy_entries => :flattened_ancestors })
+            he.taxon_concept.published_hierarchy_entries.each do |tche|
               hash['ancestor_he_id'] ||= []
-              hash['ancestor_he_id'] << a.ancestor_id
+              hash['ancestor_he_id'] << tche.id
               field_prefixes.each do |prefix|
                 hash[prefix + '_ancestor_he_id'] ||= []
-                hash[prefix + '_ancestor_he_id'] << a.ancestor_id
+                hash[prefix + '_ancestor_he_id'] << tche.id
+              end
+
+              tche.flattened_ancestors.each do |a|
+                hash['ancestor_he_id'] ||= []
+                hash['ancestor_he_id'] << a.ancestor_id
+                field_prefixes.each do |prefix|
+                  hash[prefix + '_ancestor_he_id'] ||= []
+                  hash[prefix + '_ancestor_he_id'] << a.ancestor_id
+                end
               end
             end
           end

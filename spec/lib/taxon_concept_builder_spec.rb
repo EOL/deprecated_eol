@@ -17,6 +17,10 @@ describe 'build_taxon_concept (spec helper method)' do
       :images => [], :toc => [], :flash => [], :youtube => [], :comments => [], :bhl => []
     )
     @taxon_concept_naked.current_user = User.gen(:vetted => true) # Otherwise things aren't empty
+
+    # rebuild the Solr DataObject index
+    SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE).delete_all_documents
+    DataObject.all.each{ |d| d.update_solr_index }
   end
 
   # WEB-2542
@@ -45,13 +49,13 @@ describe 'build_taxon_concept (spec helper method)' do
   end
 
   it 'should use default HarvestEvent if no alternative provided' do
-    @taxon_concept.images.each do |img|
+    @taxon_concept.images_from_solr(100).each do |img|
       img.harvest_events.should only_include(default_harvest_event)
     end
   end
 
   it 'should use the supplied HarvestEvent to create all data objects' do
-    @taxon_concept_with_args.images.each do |img|
+    @taxon_concept_with_args.images_from_solr(100).each do |img|
       img.harvest_events.should only_include(@event)
     end
   end

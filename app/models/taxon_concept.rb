@@ -817,36 +817,33 @@ class TaxonConcept < SpeciesSchemaModel
   end
 
   def media(opts = {}, hierarchy_entry = nil)
-    DataObject.sort_by_rating(images({}, hierarchy_entry) + videos + sounds, self, opts).compact
-  end
-
-  def images(options = {}, hierarchy_entry = nil)
-    # set hierarchy to filter images by
-    if self.current_user.filter_content_by_hierarchy && self.current_user.default_hierarchy_valid?
-      filter_hierarchy = Hierarchy.find(self.current_user.default_hierarchy_id)
+    opts[:page] ||= 1
+    opts[:per_page] ||= 100
+    opts[:per_page] = 100 if opts[:per_page] > 100
+    opts[:sort_by] ||= 'status'
+    opts[:data_type_ids] ||= DataType.image_type_ids + DataType.video_type_ids + DataType.sound_type_ids
+    if current_user.is_curator?
+      opts[:search_statuses] ||= ['trusted', 'unreviewed', 'untrusted']
+      opts[:visibility_statuses] ||= ['visible', 'invisible']
+      opts[:filter_by] ||= ''
     else
-      filter_hierarchy = nil
+      opts[:search_statuses] ||= ['trusted', 'unreviewed']
+      opts[:visibility_statuses] ||= ['visible']
+      opts[:filter_by] ||= 'visible'
     end
-    perform_filter = !filter_hierarchy.nil?
-
-    if hierarchy_entry
-     perform_filter = true
-     filter_hierarchy = hierarchy_entry.hierarchy
-    end
-
-    image_page = (options[:image_page] ||= 1).to_i
-    images = DataObject.images_for_taxon_concept(self, :user => self.current_user,
-      :filter_by_hierarchy => perform_filter,
-      :hierarchy => filter_hierarchy,
-      :image_page => image_page, :skip_metadata => options[:skip_metadata])
-    @length_of_images = images.length # Caching this because the call to #images is expensive and we don't want to do it twice.
-    return images
-  end
-
-  def image_count
-    count = @length_of_images || images.length # Note, no options... we want to count ALL images that this user can see.
-    count = "#{$IMAGE_LIMIT}+" if count >= $IMAGE_LIMIT
-    return count
+    
+    @media = EOL::Solr::DataObjects.search_with_pagination(self.id, {
+      :page => opts[:page],
+      :per_page => opts[:per_page],
+      :sort_by => opts[:sort_by],
+      :data_type_ids => opts[:data_type_ids],
+      :vetted_types => opts[:search_statuses],
+      :visibility_types => opts[:visibility_statuses],
+      :ignore_maps => true,
+      :ignore_translations => true,
+      :filter => opts[:filter_by],
+      :filter_hierarchy_entry => hierarchy_entry
+    })
   end
 
   # title and sub-title depend on expertise level of the user that is passed in (default to novice if none specified)
@@ -870,22 +867,6 @@ class TaxonConcept < SpeciesSchemaModel
     subtitle = quick_common_name(nil, hierarchy)
     subtitle = '' if subtitle.upcase == "[DATA MISSING]"
     @subtitle = subtitle
-  end
-
-  def best_image
-    return images(:skip_metadata => true).blank? ? nil : images(:skip_metadata => true)[0]
-  end
-
-  def smart_thumb
-    return images(:skip_metadata => true).blank? ? nil : images(:skip_metadata => true)[0].smart_thumb
-  end
-
-  def smart_medium_thumb
-    return images(:skip_metadata => true).blank? ? nil : images(:skip_metadata => true)[0].smart_medium_thumb
-  end
-
-  def smart_image
-    return images(:skip_metadata => true).blank? ? nil : images(:skip_metadata => true)[0].smart_image
   end
 
   # comment on this
@@ -1359,15 +1340,28 @@ class TaxonConcept < SpeciesSchemaModel
       }).total_entries
     end
   end
-
+  
+  # returns a DataObject, not a TaxonConceptExemplarImage
+  def published_exemplar_image
+    if concept_exemplar_image = taxon_concept_exemplar_image
+      if the_best_image = concept_exemplar_image.data_object
+        unless the_best_image.published?
+          # best_image may end up being NIL, which is OK
+          the_best_image = DataObject.latest_published_version_of(the_best_image.id)
+        end
+        return the_best_image
+      end
+    end
+  end
+  
   def exemplar_or_best_image_from_solr(selected_hierarchy_entry = nil)
     cache_key = "best_image_#{self.id}"
     cache_key += "_#{selected_hierarchy_entry.id}" if selected_hierarchy_entry && selected_hierarchy_entry.class == HierarchyEntry
     TaxonConceptExemplarImage
     TocItem
     @best_image ||= $CACHE.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 1.days) do
-      if self.taxon_concept_exemplar_image
-        self.taxon_concept_exemplar_image.data_object
+      if self.published_exemplar_image
+        self.published_exemplar_image
       else
         best_images = EOL::Solr::DataObjects.search_with_pagination(self.id, {
           :per_page => 1,
@@ -1375,6 +1369,7 @@ class TaxonConcept < SpeciesSchemaModel
           :data_type_ids => DataType.image_type_ids,
           :vetted_types => ['trusted', 'unreviewed'],
           :visibility_types => 'visible',
+          :published => true,
           :ignore_maps => true,
           :skip_preload => true,
           :filter_hierarchy_entry => selected_hierarchy_entry
@@ -1382,7 +1377,7 @@ class TaxonConcept < SpeciesSchemaModel
         (best_images.empty?) ? 'none' : best_images.first
       end
     end
-    @best_image = nil if @best_image == 'none'
+    @best_image = nil if @best_image && (@best_image == 'none' || @best_image.published == 0)
     @best_image
   end
 
@@ -1407,12 +1402,6 @@ class TaxonConcept < SpeciesSchemaModel
     @media_facet_counts ||= EOL::Solr::DataObjects.get_facet_counts(self.id)
   end
 
-  def number_of_descendants
-    connection.select_values("SELECT count(*) as count FROM taxon_concepts_flattened WHERE ancestor_id=#{self.id}")[0].to_i rescue 0
-  end
-
-private
-
   # You must pass in the :data_type_ids option for this to work.  Use DataObject.FOO_type_ids for the value.  eg:
   #   videos = filter_data_objects_by_type(:data_type_ids => DataObject.video_type_ids)
   def filter_data_objects_by_type(options = {})
@@ -1435,6 +1424,12 @@ private
     objects = DataObject.sort_by_rating(objects, self)
     return objects
   end
+
+  def number_of_descendants
+    connection.select_values("SELECT count(*) as count FROM taxon_concepts_flattened WHERE ancestor_id=#{self.id}")[0].to_i rescue 0
+  end
+
+private
 
   def vet_taxon_concept_names(options = {})
     raise "Missing :language_id" unless options[:language_id]

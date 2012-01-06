@@ -286,19 +286,20 @@ last_user = User.last
 u = User.gen(:email => last_user.email)
 u.vetted = false
 tc.current_user = u
-tc.images.first.comments[0].body = 'First comment'
-tc.images.first.comments[0].save!
-tc.images.first.comment(u, 'Second comment')
-tc.images.first.comment(u, 'Third comment')
-tc.images.first.comment(u, 'Forth comment')
-tc.images.first.comment(u, 'Fifth comment')
-tc.images.first.comment(u, 'Sixth comment')
-tc.images.first.comment(u, 'Seventh comment')
-tc.images.first.comment(u, 'Eighth comment')
-tc.images.first.comment(u, 'Nineth comment')
-tc.images.first.comment(u, 'Tenth comment')
-tc.images.first.comment(u, 'Eleventh comment')
-tc.images.first.comment(u, 'Twelveth comment')
+taxon_concept_image = tc.filter_data_objects_by_type(:data_type_ids => DataType.image_type_ids).first
+taxon_concept_image.comments[0].body = 'First comment'
+taxon_concept_image.comments[0].save!
+taxon_concept_image.comment(u, 'Second comment')
+taxon_concept_image.comment(u, 'Third comment')
+taxon_concept_image.comment(u, 'Forth comment')
+taxon_concept_image.comment(u, 'Fifth comment')
+taxon_concept_image.comment(u, 'Sixth comment')
+taxon_concept_image.comment(u, 'Seventh comment')
+taxon_concept_image.comment(u, 'Eighth comment')
+taxon_concept_image.comment(u, 'Nineth comment')
+taxon_concept_image.comment(u, 'Tenth comment')
+taxon_concept_image.comment(u, 'Eleventh comment')
+taxon_concept_image.comment(u, 'Twelveth comment')
 
 # Seventh Taxon (sign of the apocolypse?) should be a child of fifth and be "empty", other than common names:
 tc = build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id,
@@ -374,7 +375,7 @@ tc31 = build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common
 
 curator_for_tc31 = build_curator(tc31, :username => 'curator_for_tc', :password => 'password')
 text_dato = tc31.overview.first # TODO - this doesn't seem to ACTAULLY be the overview.  Fix it?
-image_dato = tc31.images.first
+image_dato = tc31.filter_data_objects_by_type(:data_type_ids => DataType.image_type_ids).first
 
 # rating of old version of dato was 1
 text_dato.rate(curator_for_tc31, 1)
@@ -585,7 +586,8 @@ end
 RandomHierarchyImage.delete_all
 
 HierarchyEntry.all.each do |he|
-  RandomHierarchyImage.gen(:hierarchy => he.hierarchy, :taxon_concept => he.taxon_concept, :hierarchy_entry => he, :data_object => he.taxon_concept.images[0]) if !he.taxon_concept.images[0].nil?
+  entry_best_images = he.taxon_concept.filter_data_objects_by_type(:data_type_ids => DataType.image_type_ids).compact
+  RandomHierarchyImage.gen(:hierarchy => he.hierarchy, :taxon_concept => he.taxon_concept, :hierarchy_entry => he, :data_object => entry_best_images.first) if !entry_best_images.blank?
 end
 
 # NOTE: the join table between this and toc items will end up with a lot of orphans in it, but I don't really care for now.

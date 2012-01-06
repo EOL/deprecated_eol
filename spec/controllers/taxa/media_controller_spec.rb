@@ -11,6 +11,10 @@ describe Taxa::MediaController do
     load_scenario_with_caching :media_heavy
     @data = EOL::TestInfo.load('media_heavy')
     @taxon_concept = @data[:taxon_concept]
+    
+    # rebuild the Solr DataObject index
+    SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE).delete_all_documents
+    DataObject.all.each{ |d| d.update_solr_index }
   end
 
   describe 'GET index' do
@@ -32,9 +36,9 @@ describe Taxa::MediaController do
       @newest_media = @media.last(10).reverse
       @oldest_media = @media.first(3)
 
-      @newest_image_poorly_rated_trusted = @taxon_concept.images.last
-      @oldest_image_highly_rated_unreviewed = @taxon_concept.images.first
-      @highly_ranked_image = @taxon_concept.images.second
+      @newest_image_poorly_rated_trusted = @taxon_concept.images_from_solr(100).last
+      @oldest_image_highly_rated_unreviewed = @taxon_concept.images_from_solr.first
+      @highly_ranked_image = @taxon_concept.images_from_solr.second
       @newest_image_poorly_rated_trusted.data_rating = 0
       newest_image_poorly_rated_trusted_association = @newest_image_poorly_rated_trusted.association_for_taxon_concept(@taxon_concept)
       newest_image_poorly_rated_trusted_association.vetted_id = Vetted.trusted.id
@@ -230,14 +234,14 @@ describe Taxa::MediaController do
   describe 'PUT set_as_exemplar' do
     it 'should not allow non-curators to set exemplar images' do
       @taxon_concept.taxon_concept_exemplar_image.should be_nil
-      exemplar_image = @taxon_concept.images.first
+      exemplar_image = @taxon_concept.images_from_solr.first
       expect{ put :set_as_exemplar, :taxon_id => @taxon_concept.id, :taxon_concept_exemplar_image => { :data_object_id => exemplar_image.id } }.should raise_error(EOL::Exceptions::SecurityViolation)
     end
     
     it 'should set an image as exemplar' do
       session[:user] = build_curator(@taxon_concept)
       @taxon_concept.taxon_concept_exemplar_image.should be_nil
-      exemplar_image = @taxon_concept.images.first
+      exemplar_image = @taxon_concept.images_from_solr.first
       TopConceptImage.find_by_taxon_concept_id_and_data_object_id(@taxon_concept, exemplar_image.id).update_attribute(:view_order, 5)
       put :set_as_exemplar, :taxon_id => @taxon_concept.id, :taxon_concept_exemplar_image => { :data_object_id => exemplar_image.id }
       @taxon_concept.reload

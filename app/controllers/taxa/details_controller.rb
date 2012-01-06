@@ -61,11 +61,6 @@ class Taxa::DetailsController < TaxaController
     @toc = TocBuilder.new.toc_for_toc_items(toc_items_to_show)
 
     @exemplar_image = @taxon_concept.exemplar_or_best_image_from_solr(@selected_hierarchy_entry)
-    unless @exemplar_image.nil?
-      # Get the latest published version of the exemplar image
-      latest_published_exemplar_image = DataObject.latest_published_version_of(@exemplar_image.id)
-      @exemplar_image = latest_published_exemplar_image unless latest_published_exemplar_image.nil?
-    end
 
     @assistive_section_header = I18n.t(:assistive_details_header)
     current_user.log_activity(:viewed_taxon_concept_details, :taxon_concept_id => @taxon_concept.id)

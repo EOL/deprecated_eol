@@ -1,6 +1,6 @@
 class TaxonConceptExemplarImage < SpeciesSchemaModel
   belongs_to :data_object
-  has_many :taxon_concepts
+  belongs_to :taxon_concept
   set_primary_key :taxon_concept_id
 
   def self.set_exemplar(taxon_concept, data_object_id)

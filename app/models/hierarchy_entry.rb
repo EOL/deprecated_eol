@@ -190,18 +190,6 @@ class HierarchyEntry < SpeciesSchemaModel
     HierarchyEntry.find_by_id_and_parent_id(entry_ancestor_ids, 0)
   end
 
-  def smart_thumb
-    return images.blank? ? nil : images.first.smart_thumb
-  end
-
-  def smart_medium_thumb
-    return images.blank? ? nil : images.first.smart_medium_thumb
-  end
-
-  def smart_image
-    return images.blank? ? nil : images.first.smart_image
-  end
-
   # Some HEs have a "source database" agent, which needs to be considered in addition to normal sources.
   def source_database_agents
     @source_db_agents ||=

@@ -37,8 +37,12 @@ describe DataObject do
       DataObjectTags.gen(:data_object_tag => @tag, :data_object => @dato, :user => User.gen)
     end
 
+    # rebuild the Solr DataObject index
+    SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE).delete_all_documents
+    DataObject.all.each{ |d| d.update_solr_index }
+
     @hierarchy_entry = HierarchyEntry.gen
-    @image_dato      = @taxon_concept.images.last
+    @image_dato      = @taxon_concept.images_from_solr(100).last
     @image_dato.add_curated_association(@curator, @hierarchy_entry)
 
     @big_int = 20081014234567
@@ -129,7 +133,7 @@ describe DataObject do
 
  it 'ratings should show rating for old and new version of re-harvested dato' do
    text_dato  = @taxon_concept.overview.last
-   image_dato = @taxon_concept.images.last
+   image_dato = @taxon_concept.images_from_solr(100).last
 
    text_dato.rate(@another_curator, 4)
    image_dato.rate(@another_curator, 4)
@@ -174,7 +178,7 @@ describe DataObject do
 
   it 'should know if it is an image map and not a map map' do
     map_dato = DataObject.gen(:data_type => DataType.map)
-    image_dato = @taxon_concept.images.last
+    image_dato = @taxon_concept.images_from_solr(100).last
     image_map_dato = DataObject.gen(:data_type => DataType.image, :data_subtype => DataType.map)
     map_dato.map?.should be_true
     map_dato.image_map?.should be_false

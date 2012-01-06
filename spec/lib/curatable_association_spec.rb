@@ -7,12 +7,17 @@ describe 'Curating Associations' do
     truncate_all_tables
 
     load_scenario_with_caching(:testy)
+
+    # rebuild the Solr DataObject index
+    SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE).delete_all_documents
+    DataObject.all.each{ |d| d.update_solr_index }
+
     @testy = EOL::TestInfo.load('testy')
     @taxon_concept = @testy[:taxon_concept]
 
     @curator         = @testy[:curator]
     @another_curator = create_curator
-    @image_dato      = @taxon_concept.images.last
+    @image_dato      = @taxon_concept.images_from_solr.last
     @hierarchy_entry = HierarchyEntry.gen
 
     @image_dato.add_curated_association(@curator, @hierarchy_entry)

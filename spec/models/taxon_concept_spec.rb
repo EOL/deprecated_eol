@@ -69,6 +69,10 @@ describe TaxonConcept do
     @child1              = @testy[:child1]
     @child2              = @testy[:child2]
     @sub_child           = @testy[:sub_child]
+    
+    # rebuild the Solr DataObject index
+    SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE).delete_all_documents
+    DataObject.all.each{ |d| d.update_solr_index }
   end
 
   it 'should capitalize the title (even if the name starts with a quote)' do
@@ -185,18 +189,7 @@ describe TaxonConcept do
 
   it 'should show its untrusted images, by default' do
     @taxon_concept.current_user = User.create_new # It's okay if this one "sticks", so no cleanup code
-    @taxon_concept.images.map(&:object_cache_url).should include(@image_unknown_trust)
-  end
-
-  it 'should show only trusted images if the user prefers' do
-    old_user = @taxon_concept.current_user
-    @taxon_concept.current_user = User.gen(:vetted => true)
-    @taxon_concept.images.map{ |item|
-      item_vetted = item.vetted_by_taxon_concept(@taxon_concept, :find_best => true)
-      item_vetted_id = item_vetted.id unless item_vetted.nil?
-      item_vetted_id
-    }.uniq.should only_include(Vetted.trusted.id)
-    @taxon_concept.current_user = old_user  # Cleaning up so as not to affect other tests
+    @taxon_concept.images_from_solr(100).map(&:object_cache_url).should include(@image_unknown_trust)
   end
 
   it 'should be able to get an overview' do
@@ -230,57 +223,6 @@ describe TaxonConcept do
     results = @taxon_concept.text_objects_for_toc_items(given_toc_items, :limit => 1)
     results.count.should == 2
   end
-
-  # TODO - creating the CP -> Dato relationship is tricky. This should be made available elsewhere:
-  it 'should show content partners THEIR preview items, but not OTHER content partner\'s preview items' # do
-   #    @taxon_concept.reload
-   #    @taxon_concept.current_user = nil
-   #    primary_user = User.gen
-   #    ContentPartner.gen(:user => primary_user)
-   #    different_user = User.gen
-   #    ContentPartner.gen(:user => different_user)
-   #
-   #    cp_hierarchy   = Hierarchy.gen(:agent => primary_user.agent)
-   #    resource       = Resource.gen(:hierarchy => cp_hierarchy, :content_partner => primary_user.content_partner)
-   #    event          = HarvestEvent.gen(:resource => resource)
-   #    # Note this *totally* doesn't work if you don't add it to top_unpublished_images!
-   #    TopUnpublishedImage.gen(:hierarchy_entry => @taxon_concept.entry,
-   #                            :data_object     => @taxon_concept.images.last)
-   #    TopUnpublishedConceptImage.gen(:taxon_concept => @taxon_concept,
-   #                            :data_object     => @taxon_concept.images.last)
-   #    how_many = @taxon_concept.images.length
-   #    how_many.should > 2
-   #    dato = @taxon_concept.images.last  # Let's grab the last one...
-   #    # ... And remove it from top images:
-   #    TopImage.delete_all(:hierarchy_entry_id => @taxon_concept.entry.id,
-   #                        :data_object_id => @taxon_concept.images.last.id)
-   #    TopConceptImage.delete_all(:taxon_concept_id => @taxon_concept.id,
-   #                        :data_object_id => @taxon_concept.images.last.id)
-   #
-   #    @taxon_concept.reload
-   #    @taxon_concept.images.length.should == how_many - 1 # Ensuring that we removed it...
-   #
-   #    # object must be in preview mode for the Content Partner to have exclusive access
-   #    dato.visibility = Visibility.preview
-   #    dato.save!
-   #
-   #    DataObjectsHarvestEvent.delete_all(:data_object_id => dato.id)
-   #    DataObjectsHierarchyEntry.delete_all(:data_object_id => dato.id)
-   #    he = HierarchyEntry.gen(:hierarchy => cp_hierarchy, :taxon_concept => @taxon_concept)
-   #    DataObjectsHierarchyEntry.gen(:hierarchy_entry => he, :data_object => dato)
-   #    DataObjectsHarvestEvent.gen(:harvest_event => event, :data_object => dato)
-   #    HierarchyEntry.connection.execute("COMMIT")
-   #
-   #    # Original should see it:
-   #    @taxon_concept.reload
-   #    @taxon_concept.current_user = primary_user
-   #    @taxon_concept.images(:user => primary_user).map {|i| i.id }.should include(dato.id)
-   #
-   #    # Another CP should not:
-   #    tc = TaxonConcept.find(@taxon_concept.id) # hack to reload the object and delete instance variables
-   #    tc.current_user = different_user
-   #    tc.images(:user => primary_user).map {|i| i.id }.should_not include(dato.id)
-   #  end
 
   it "should have common names" do
     @taxon_concept.has_common_names?.should be_true
@@ -324,22 +266,36 @@ describe TaxonConcept do
     end
   end
 
-  it 'should return images sorted by trusted, unknown, untrusted but preview mode first' do
+  it 'should not return untrusted images to non-curators' do
     # TODO - add inappropriate if needed
     @taxon_concept.reload
     trusted   = Vetted.trusted.id
     unknown   = Vetted.unknown.id
+    @taxon_concept.media(:data_type_ids => DataType.image_type_ids).map { |item|
+      item_vetted = item.vetted_by_taxon_concept(@taxon_concept, :find_best => true)
+      item_vetted_id = item_vetted.id unless item_vetted.nil?
+      item_vetted_id
+    }.uniq.should == [trusted, unknown]
+  end
+  
+  it 'should return media sorted by trusted, unknown, untrusted for logged in curators' do
+    # TODO - add inappropriate if needed
+    @taxon_concept.reload
+    @taxon_concept.current_user = @curator
+    trusted   = Vetted.trusted.id
+    unknown   = Vetted.unknown.id
     untrusted = Vetted.untrusted.id
-    @taxon_concept.images.map { |item|
+    @taxon_concept.media(:data_type_ids => DataType.image_type_ids).map { |item|
       item_vetted = item.vetted_by_taxon_concept(@taxon_concept, :find_best => true)
       item_vetted_id = item_vetted.id unless item_vetted.nil?
       item_vetted_id
     }.uniq.should == [trusted, unknown, untrusted]
   end
+  
 
   it 'should sort the vetted images by data rating' do
     @taxon_concept.current_user = @user
-    ratings = @taxon_concept.images.select { |item|
+    ratings = @taxon_concept.images_from_solr(100).select { |item|
       item_vetted = item.vetted_by_taxon_concept(@taxon_concept, :find_best => true)
       item_vetted_id = item_vetted.id unless item_vetted.nil?
       item_vetted_id == Vetted.trusted.id
@@ -601,6 +557,28 @@ describe TaxonConcept do
     tc.collection_items[1].collection.communities.include?(community2).should be_true
     tc.top_communities[0].name.should == community2.name
     tc.top_communities[1].name.should == community1.name
+  end
+
+  it 'should return an exemplar' do
+    if exemplar_exists = @taxon_concept.taxon_concept_exemplar_image
+      exemplar_exists.destroy
+    end
+    image = DataObject.gen(:data_type_id => DataType.image.id, :data_rating => 0.1, :published => 1)
+    dohe = DataObjectsHierarchyEntry.gen(:data_object => image, :hierarchy_entry => @taxon_concept.published_hierarchy_entries.first)
+    TaxonConceptExemplarImage.gen(:taxon_concept => @taxon_concept, :data_object => image)
+    @taxon_concept.reload
+    @taxon_concept.exemplar_or_best_image_from_solr.id.should == image.id
+  end
+  
+  it 'should not return unpublished exemplar image' do
+    if exemplar_exists = @taxon_concept.taxon_concept_exemplar_image
+      exemplar_exists.destroy
+    end
+    image = DataObject.gen(:data_type_id => DataType.image.id, :data_rating => 0.1, :published => 0)
+    dohe = DataObjectsHierarchyEntry.gen(:data_object => image, :hierarchy_entry => @taxon_concept.published_hierarchy_entries.first)
+    TaxonConceptExemplarImage.gen(:taxon_concept => @taxon_concept, :data_object => image)
+    @taxon_concept.reload
+    @taxon_concept.exemplar_or_best_image_from_solr.id.should_not == image.id
   end
 
   #

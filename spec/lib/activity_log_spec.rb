@@ -18,6 +18,10 @@ describe EOL::ActivityLog do
     CuratorActivityLog.gen(:user_id => @curator.id, :activity => Activity.trusted, :created_at => 4.seconds.ago)
     CollectionActivityLog.gen(:user_id => @curator.id, :activity => Activity.create, :created_at => 3.seconds.ago)
     CommunityActivityLog.gen(:user_id => @curator.id, :activity => Activity.create, :created_at => 2.seconds.ago)
+    
+    # rebuild the Solr DataObject index
+    SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE).delete_all_documents
+    DataObject.all.each{ |d| d.update_solr_index }
   end
 
   it 'should be empty by default' do
@@ -64,12 +68,12 @@ describe EOL::ActivityLog do
     @testy[:taxon_concept].activity_log.first['instance'].class.should == Comment
     @testy[:taxon_concept].activity_log.first['instance'].parent_id.should == @testy[:id]
     xpect 'Image comments show up'
-    Comment.gen(:parent => @testy[:taxon_concept].images.first)
+    Comment.gen(:parent => @testy[:taxon_concept].images_from_solr.first)
     @testy[:taxon_concept].reload
     # TODO ... this isn't working, yet:
     if false
       @testy[:taxon_concept].activity_log.first['instance'].class.should == Comment
-      @testy[:taxon_concept].activity_log.first['instance'].parent_id.should == @testy[:taxon_concept].images.first.id
+      @testy[:taxon_concept].activity_log.first['instance'].parent_id.should == @testy[:taxon_concept].images_from_solr.first.id
       xpect 'Comments on the children of this TC show up'
       Comment.gen(:parent => @testy[:child1])
       @testy[:taxon_concept].reload
@@ -82,7 +86,7 @@ describe EOL::ActivityLog do
       @testy[:taxon_concept].activity_log.first['instance'].class.should == UsersDataObject
       expect 'Curation of data objects on the page show up'
       dohe = DataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(
-        @testy[:taxon_concept].images.first.id,
+        @testy[:taxon_concept].images_from_solr.first.id,
         @testy[:taxon_concept].entry.id
       )
       CuratorActivityLog.gen(:changeable_object_type_id => ChangeableObjectType.data_objects_hierarchy_entry.id,

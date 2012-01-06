@@ -301,7 +301,7 @@ summart_text_toc_items = [TocItem.brief_summary, TocItem.comprehensive_descripti
 taxa.each do |tc|
   community.collections[0].add tc
   endorsed_collection.add tc
-  endorsed_collection.add tc.best_image
+  endorsed_collection.add tc.exemplar_or_best_image_from_solr
 
   summary_text = tc.text_objects_for_toc_items(summart_text_toc_items, { :limit => 1 })
   endorsed_collection.add summary_text.first unless summary_text.blank?

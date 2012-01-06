@@ -54,10 +54,10 @@ class Taxa::MediaController < TaxaController
       :filter_hierarchy_entry => @selected_hierarchy_entry
     })
 
+    # There should not be an older revision of exemplar image on the media tab. But recently there were few cases found.
+    # Replace older revision of the exemplar image from media with the latest published revision.
     unless @media.blank?
-      # Get the latest published version of the exemplar image
-      latest_published_exemplar_image = DataObject.latest_published_version_of(@exemplar_image.id)
-      @media.map!{ |m| m.guid == @exemplar_image.guid ? latest_published_exemplar_image : m } unless latest_published_exemplar_image.nil?
+      @media.map!{ |m| (m.guid == @exemplar_image.guid && m.id != @exemplar_image.id) ? @exemplar_image : m } unless @exemplar_image.nil?
     end
 
     DataObject.preload_associations(@media, [:users_data_object, { :data_objects_hierarchy_entries => :hierarchy_entry },

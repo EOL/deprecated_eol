@@ -1007,7 +1007,9 @@ class DataObject < SpeciesSchemaModel
   # This method adds users data object entry in the list of entries to retrieve all associations
   def all_associations(options = {:with_unpublished => false})
     unless options[:with_unpublished]
-      (published_entries + [users_data_object]).compact
+      entries_with_published_taxon_concepts = published_entries ? published_entries.map{ |pe| pe.taxon_concept.published? ? pe : nil } : nil
+      udo_with_published_taxon_concept = users_data_object && users_data_object.taxon_concept.published? ? users_data_object : nil
+      (entries_with_published_taxon_concepts + [udo_with_published_taxon_concept]).compact
     else
       (published_entries + unpublished_entries + [users_data_object]).compact
     end

@@ -5,7 +5,7 @@
   - visible ||= true
   - invisible ||= current_user.is_admin? || current_user.is_curator? ? true : false
   - preview ||= true
-  - entries = data_object.all_associations.select{|e| e.taxon_concept.published? && ((visible && Visibility.visible == e.visibility) || (invisible && Visibility.invisible == e.visibility) || (preview && Visibility.preview == e.visibility))}
+  - entries = data_object.all_associations.collect{|e| e if (visible && Visibility.visible == e.visibility) || (invisible && Visibility.invisible == e.visibility) || (preview && Visibility.preview == e.visibility)}
   - if entries.compact.blank?
     .copy
       %p= I18n.t("#{en_type}_not_associated_with_any_published_entries")

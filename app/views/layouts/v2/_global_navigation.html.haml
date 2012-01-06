@@ -1,9 +1,12 @@
 - position ||= :header
 - cache(:controller => "/content", :part => "global_navigation_#{position}_#{current_user.language_abbr}") do
-  %div{ :role => "navigation" }
+  .global_navigation{ :role => "navigation" }
     - if position == :header
       %h2.assistive= I18n.t(:global_navigation)
     %ul.nav
+      - if position == :footer && I18n.locale == :en
+        %li
+          = link_to I18n.t(:survey_link), "http://www.surveymonkey.com/s/88LW5QC"
       %li
         = link_to I18n.t(:discover_link), discover_path
       %li
@@ -21,7 +24,3 @@
           = link_to I18n.t(:terms_of_use_link), terms_of_use_path
         %li
           = link_to I18n.t(:citing_link), cms_page_path('citing')
-      - if mobile_agent_request?
-        %li
-          = link_to "Mobile site", enable_mobile_contents_path
-

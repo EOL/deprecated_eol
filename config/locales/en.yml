@@ -2275,6 +2275,7 @@ en:
   suggested_results_avg: "Suggested Results avg"
   supplier_allcaps: "SUPPLIER:"
   supplier_colon: "Supplier:"
+  survey_link: "Take our survey"
   switch_language_advisory_information: "Switch the site language to %{language_label}"
   synonym: "Synonym"
   synonyms_with_count:

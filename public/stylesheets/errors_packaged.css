@@ -20,13 +20,10 @@ body #content form input[type="submit"]:hover {background-color: #dae3eb; filter
 body #content form input[type="submit"]:active {background-color: #ccd2d7; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#fefeff, endColorstr=#ccd2d7); background-image: -moz-linear-gradient(100% 100% 90deg, #ccd2d7, #fefeff); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fefeff), to(#ccd2d7))}
 .assistive, #header .assistive {position: absolute; left: -999em}
 body.home > #header {background: transparent url("/images/v2/bg_home_earth.jpg") 50% 100% no-repeat}
-.busy {cursor: wait}
+html.busy, html.busy *, .busy {cursor: wait}
 #profile_edit.article {padding: 0 0 25px 0}
 #profile_edit fieldset.curation {width: 320px}
 #profile_edit fieldset.curation textarea {width: 282px; height: 120px}
-#collections_tab .collections {padding: 20px 0 0 0}
-#user_communities .communities {padding: 20px 0 0 0}
-#user_communities .communities ul.object_list img {float: left; margin: 0 20px 0 0}
 #profile_content_connections li img {max-width: 68px; max-height: 68px; width: expression(this.width > 68 ? "68px" : true); height: expression(this.height > 68 ? "68px" : true)}
 #sidebar .content_partner_managers {margin: 0 0 20px 0}
 #sidebar .content_partner_managers li {overflow: hidden; padding: 0 0 20px 0; line-height: 140%}
@@ -62,19 +59,7 @@ form#switch_hierarchy_entry fieldset {display: inline}
 #content.session form.terms_agreement {padding: 75px 69px; width: 500px}
 #content.session .pending {width: 320px; min-height: 225px; padding: 75px 159px; margin: 0 auto; border: 1px solid #cad3db; background: #f0f4f7 url("/images/v2/bg_sign-in.gif") 0 0 no-repeat}
 #new_user iframe {width: 320px; overflow: auto}
-.pagination {text-align: right}
-.pagination a {text-decoration: none; font-weight: bold}
-.pagination a, .pagination span.current {display: inline-block; padding: 0 3px}
-.pagination .prev_page {float: left}
-.pagination .next_page {margin-left: 10px}
-.pagination .disabled {color: #616e7a}
-#taxon_literature .pagination {margin-bottom: 15px}
-#main .footer {clear: both; border-top: 1px solid black; padding: 10px 0; margin: 20px 0 0 0}
-#main .header, .cms_page .header {text-align: center}
-#main .header .pagination, .cms_page .header .pagination {position: relative; top: 5px; left: 0; width: 100%}
-#main .header .pagination a, .cms_page .header .pagination a {position: relative !important; top: 0 !important; left: 0 !important}
-#content.cms_page .header {border-bottom: 1px solid #cad3db; padding-bottom: 1em; margin-bottom: 30px}
-#content.cms_page .footer {border-top: 1px solid #cad3db; padding-top: 1em}
+#content.cms_page .header {border-bottom: 1px solid #394651; text-align: center}
 #content.cms_page table {border-collapse: collapse; width: 100%; margin: 0 0 15px 0; line-height: 170%}
 #content.cms_page table thead tr {border: 1px solid #cad3db}
 #content.cms_page table thead tr th {background: #eff2f4; padding: 5px 20px; font-weight: bold; text-align: left}
@@ -146,13 +131,6 @@ p.status.error {border: 1px solid #f2d2cc; background: #ffeae6}
 #permalink .media img {max-width: 540px; width: expression(this.width > 540 ? "540px" : true)}
 form p.tip {background: #f3f7fa; border: 1px solid #cad3db; padding: 10px; margin: 0 40px 20px 0; line-height: 140%}
 form p.tip img {margin: -2px 5px 0 5px}
-form#new_data_object fieldset dt, form.edit_data_object fieldset dt {font-size: 1.08em}
-form#new_data_object fieldset.content, form.edit_data_object fieldset.content {width: 640px}
-form#new_data_object fieldset.content input[type="text"], form.edit_data_object fieldset.content input[type="text"] {width: 308px}
-form#new_data_object fieldset.content textarea, form.edit_data_object fieldset.content textarea {width: 580px; height: 200px}
-form#new_data_object fieldset.information, form.edit_data_object fieldset.information {width: 300px}
-form#new_data_object fieldset.information input[type="text"], form.edit_data_object fieldset.information input[type="text"] {width: 288px}
-form#new_data_object fieldset.information textarea, form.edit_data_object fieldset.information textarea {width: 282px; height: 80px}
 #media_list #sidebar img, #taxon_detail #sidebar img {margin: auto}
 #media_list #sidebar h3, #taxon_detail #sidebar h3 {margin-top: 20px}
 #media_list #sidebar h4 a, #taxon_detail #sidebar h4 a {color: #667309; text-decoration: none}
@@ -259,7 +237,6 @@ body > #header .section .session.join a {color: #90bce4}
 #collections .heading fieldset {display: inline; margin: 0}
 #map_image {height: 350px}
 #media_summary .image > a img {max-width: 430px; max-height: 310px; width: expression(this.width > 430 ? "430px" : true); height: expression(this.height > 310 ? "310px" : true)}
-ul.feed li > a > img {max-width: 48px; max-height: 48px; width: expression(this.width > 48 ? "48px" : true); height: expression(this.height > 48 ? "48px" : true)}
 #header .session img {max-width: 48px; max-height: 48px; width: expression(this.width > 48 ? "48px" : true); height: expression(this.height > 48 ? "48px" : true)}
 #collections_summary ul li > a > img, #communities_summary ul li > a > img, #curators_summary ul li > a > img {max-width: 48px; max-height: 48px; width: expression(this.width > 48 ? "48px" : true); height: expression(this.height > 48 ? "48px" : true)}
 #collections .collections .article > .header > a > img {max-width: 48px; max-height: 48px; width: expression(this.width > 48 ? "48px" : true); height: expression(this.height > 48 ? "48px" : true)}
@@ -289,14 +266,10 @@ form.comment img {max-width: 48px; max-height: 48px; width: expression(this.widt
 .edit_collection #sidebar select {max-width: 135px}
 .edit_collection #sidebar fieldset.actions {padding: 0}
 table.standard td.nowrap {white-space: nowrap}
-#collections .article.updates {padding: 0 0 25px 0}
-#collections .article.updates li {overflow: hidden; padding: 20px}
-#collections .article.updates li .details img {margin: 0 8px 0 0; border: 1px solid #394651}
 #collections_choose h2 {font-size: 1.3em; margin: 2em 0 0.5em}
 #collections_choose input[type="text"] {background-color: white; background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7); border: 1px solid #cad3db; font: 1em Helvetica, Arial, sans-serif; height: 22px; padding: 2px 5px; width: 248px}
 #collections_choose ul {border-top: 1px solid #394651}
 #collections_choose li img {float: left; margin-right: 2em !important}
-.article .pagination {margin-top: 1em}
 #page_heading .page_actions li + li {margin: 10px 0}
 h1.notice {font-size: 2em; text-align: center; padding: 4em}
 .column.curators img, .column.collections img, .column.communities img {max-width: 48px; max-height: 48px; width: expression(this.width > 48 ? "48px" : true); height: expression(this.height > 48 ? "48px" : true)}
@@ -319,6 +292,7 @@ h1.notice {font-size: 2em; text-align: center; padding: 4em}
 #taxon_updates .page_statistics .copy {float: left; width: 380px; margin-top: 30px; background: #f3f7fa; border: 1px solid #cad3db; padding: 20px 20px 0 20px}
 a.other_actions {float: right; margin-top: 1em}
 .site_column > #choose_collections h2, .site_column > #choose_communities h2 {font-size: 1.33em; margin: 15px 0 10px 0}
+.site_column > #choose_collections fieldset.new_community input[type="text"], .site_column > #choose_communities fieldset.new_community input[type="text"] {width: 210px; height: 22px; padding: 2px 5px; font: normal 1em Helvetica, Arial, sans-serif; border: 1px solid #cad3db; background-color: white; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white); background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white))}
 .site_column > #choose_collections fieldset.new_collection, .site_column > #choose_communities fieldset.new_collection {overflow: hidden; margin: 0 0 20px 0}
 .site_column > #choose_collections fieldset.new_collection input[type="text"], .site_column > #choose_communities fieldset.new_collection input[type="text"] {float: left; width: 210px; height: 22px; padding: 2px 5px; font: normal 1em Helvetica, Arial, sans-serif; border: 1px solid #cad3db; background-color: white; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white); background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white)); margin: 0 10px 0 0}
 .site_column > #choose_collections input[type="submit"], .site_column > #choose_communities input[type="submit"] {padding-left: 20px; padding-right: 20px; font-size: 1.08em; padding: 5px 10px 6px 10px}
@@ -335,8 +309,6 @@ a.other_actions {float: right; margin-top: 1em}
 #taxon_detail #sidebar #toc {margin: 0px 20px}
 #media_list #sidebar {padding: 0; padding-bottom: 20px; width: 220px}
 #media_list #sidebar #filters {margin: 0px 20px}
-#taxon_updates form.comment {margin: 0 0 15px}
-#taxon_updates form.comment textarea {width: 580px}
 #page_heading p#citation {background-color: white; border: 1px solid #d4dce2; color: #5f6c76; font-size: 0.95em; line-height: 100%; font-weight: normal}
 ul li.newsfeed a {padding: 7px 10px 6px !important; font-size: 12px !important}
 ul li.total {margin-top: 20px}
@@ -345,7 +317,7 @@ div.newsfeed_heading {padding: 6px 10px 5px; text-align: left; font-weight: bold
 div.newsfeed_heading h3 {color: #828d33; font-weight: bold; text-transform: uppercase; font-size: 1em}
 ul.media li .overlay {height: auto !important}
 body#prelaunch p.status {clear: both; padding: 7px 10px; font-size: 1.16em; font-weight: bold; text-align: center; color: #394651; border: 2px solid #c7d471; background: #edf6b2}
-#user_communities .heading {position: relative; text-align: left}
-#user_communities .heading form, #user_communities .heading a {position: absolute; right: 10px; top: 4px}
 body#prelaunch #footer ul.social_media {margin-top: 20px}
-.feed .reply {float: right; font-size: 0.75em; font-weight: bold; text-transform: uppercase}
+.feed .deleted_comment {font-style: italic; color: #62707d}
+#new_comment p.reply-to {float: left; color: #195184; font-weight: bold}
+.highlight {background-color: #f3f7fa}

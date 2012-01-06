@@ -8,7 +8,6 @@ javascripts:
   - application
   - jquery.cycle.all.min
   - jquery.modal
-  - comments
 - errors:
   - jquery-1.6.1.min
   - rails

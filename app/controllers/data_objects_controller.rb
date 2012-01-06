@@ -184,6 +184,7 @@ class DataObjectsController < ApplicationController
   def remove_association
     he = HierarchyEntry.find(params[:hierarchy_entry_id])
     @data_object.remove_curated_association(current_user, he)
+    clear_cached_media_count_and_exemplar(he)
     @data_object.update_solr_index
     log_action(he, :remove_association, nil)
     redirect_to data_object_path(@data_object)
@@ -192,6 +193,7 @@ class DataObjectsController < ApplicationController
   def save_association
     he = HierarchyEntry.find(params[:hierarchy_entry_id])
     @data_object.add_curated_association(current_user, he)
+    clear_cached_media_count_and_exemplar(he)
     @data_object.update_solr_index
     log_action(he, :add_association, nil)
     redirect_to data_object_path(@data_object)
@@ -387,8 +389,8 @@ private
         unless opts[:hide_reason_ids].blank?
           save_hide_reasons(log, action, opts[:hide_reason_ids])
         end
+        clear_cached_media_count_and_exemplar(hierarchy_entry) if action == :hide
       end
-      # TODO - Update Solr Index
     end
   end
 
@@ -455,7 +457,6 @@ private
         if vetted_id != Vetted.untrusted.id && opts[:hide_reason_ids].blank? && opts[:curation_comment].nil?
           raise "Curator should supply at least reason(s) to hide and/or curation comment"
         end
-        # TODO - when I tried this, it actually removed the association entirely.
         object.hide(current_user)
         return :hide
       else
@@ -521,5 +522,26 @@ private
 
   def empty_paginated_set
     [].paginate(:page => 1, :per_page => @@results_per_page, :total_entries => 0)
+  end
+
+  def clear_cached_media_count_and_exemplar(he)
+    if $CACHE
+      if @data_object.data_type.label == 'Image'
+        txei_exists = TaxonConceptExemplarImage.find_by_taxon_concept_id_and_data_object_id(he.taxon_concept.id, @data_object.id)
+        txei_exists.destroy unless txei_exists.nil?
+        cached_taxon_exemplar = $CACHE.fetch(TaxonConcept.cached_name_for("best_image_#{he.taxon_concept.id}"))
+        unless cached_taxon_exemplar.nil? || cached_taxon_exemplar == "none"
+          $CACHE.delete(TaxonConcept.cached_name_for("best_image_#{he.taxon_concept.id}")) if cached_taxon_exemplar.guid == @data_object.guid
+        end
+        cached_taxon_he_exemplar = $CACHE.fetch(TaxonConcept.cached_name_for("best_image_#{he.taxon_concept.id}_#{he.id}"))
+        unless cached_taxon_he_exemplar.nil? || cached_taxon_he_exemplar == "none"
+          $CACHE.delete(TaxonConcept.cached_name_for("best_image_#{he.taxon_concept.id}_#{he.id}")) if cached_taxon_he_exemplar.guid == @data_object.guid
+        end
+        $CACHE.delete(TaxonConcept.cached_name_for("media_count_#{he.taxon_concept.id}_#{he.id}_curator"))
+        $CACHE.delete(TaxonConcept.cached_name_for("media_count_#{he.taxon_concept.id}_#{he.id}"))
+        $CACHE.delete(TaxonConcept.cached_name_for("media_count_#{he.taxon_concept.id}_curator"))
+        $CACHE.delete(TaxonConcept.cached_name_for("media_count_#{he.taxon_concept.id}"))
+      end
+    end
   end
 end

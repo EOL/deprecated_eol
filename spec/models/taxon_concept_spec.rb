@@ -581,6 +581,17 @@ describe TaxonConcept do
     @taxon_concept.exemplar_or_best_image_from_solr.id.should_not == image.id
   end
 
+  it 'should not return hidden exemplar image' do
+    if exemplar_exists = @taxon_concept.taxon_concept_exemplar_image
+      exemplar_exists.destroy
+    end
+    image = DataObject.gen(:data_type_id => DataType.image.id, :data_rating => 0.1, :published => 0)
+    dohe = DataObjectsHierarchyEntry.gen(:data_object => image, :hierarchy_entry => @taxon_concept.published_hierarchy_entries.first, :visibility => Visibility.invisible)
+    TaxonConceptExemplarImage.gen(:taxon_concept => @taxon_concept, :data_object => image)
+    @taxon_concept.reload
+    @taxon_concept.exemplar_or_best_image_from_solr.id.should_not == image.id
+  end
+
   #
   # I'm all for pending tests, but in this case, they run SLOWLY, so it's best to comment them out:
   #

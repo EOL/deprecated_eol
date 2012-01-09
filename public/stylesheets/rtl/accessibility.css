@@ -31,15 +31,6 @@ html.busy, html.busy *, .busy {
     width: 282px;
     height: 120px; }
 
-#collections_tab .collections {
-  padding: 20px 0 0 0; }
-
-#user_communities .communities {
-  padding: 20px 0 0 0; }
-  #user_communities .communities ul.object_list img {
-    float: right;
-    margin: 0 0 0 20px; }
-
 /*Content partner various */
 #profile_content_connections li img {
   max-width: 68px;
@@ -451,24 +442,6 @@ form p.tip {
   form p.tip img {
     margin: -2px 5px 0 5px; }
 
-/*Add article interface we have error fieldset and a textarea box in information fieldset that HR didn't expect */
-form#new_data_object fieldset dt, form.edit_data_object fieldset dt {
-  font-size: 1.08em; }
-form#new_data_object fieldset.content, form.edit_data_object fieldset.content {
-  width: 640px; }
-  form#new_data_object fieldset.content input[type="text"], form.edit_data_object fieldset.content input[type="text"] {
-    width: 308px; }
-  form#new_data_object fieldset.content textarea, form.edit_data_object fieldset.content textarea {
-    width: 580px;
-    height: 200px; }
-form#new_data_object fieldset.information, form.edit_data_object fieldset.information {
-  width: 300px; }
-  form#new_data_object fieldset.information input[type="text"], form.edit_data_object fieldset.information input[type="text"] {
-    width: 288px; }
-  form#new_data_object fieldset.information textarea, form.edit_data_object fieldset.information textarea {
-    width: 282px;
-    height: 80px; }
-
 /*Adjustments for when missing exemplar image */
 #media_list #sidebar img, #taxon_detail #sidebar img {
   margin: auto; }
@@ -866,12 +839,6 @@ body > #header .section .session.join {
   width: expression(this.width > 430 ? "430px" : true);
   height: expression(this.height > 310 ? "310px" : true); }
 
-ul.feed li > a > img {
-  max-width: 48px;
-  max-height: 48px;
-  width: expression(this.width > 48 ? "48px" : true);
-  height: expression(this.height > 48 ? "48px" : true); }
-
 #header .session img {
   max-width: 48px;
   max-height: 48px;
@@ -998,15 +965,6 @@ form.comment img {
 
 table.standard td.nowrap {
   white-space: nowrap; }
-
-#collections .article.updates {
-  padding: 0 0 25px 0; }
-  #collections .article.updates li {
-    overflow: hidden;
-    padding: 20px; }
-    #collections .article.updates li .details img {
-      margin: 0 0 0 8px;
-      border: 1px solid #394651; }
 
 #collections_choose h2 {
   font-size: 1.3em;
@@ -1180,30 +1138,6 @@ a.other_actions {
   #media_list #sidebar #filters {
     margin: 0px 20px; }
 
-#taxon_updates form.comment {
-  margin: 0 0 15px; }
-  #taxon_updates form.comment textarea {
-    width: 580px; }
-
-#collections_tab form#reply {
-  padding: 0; }
-  #collections_tab form#reply fieldset {
-    margin-top: 10px; }
-    #collections_tab form#reply fieldset #comment_body {
-      float: left; }
-
-.article form#reply {
-  padding: 0; }
-  .article form#reply fieldset {
-    margin-top: 10px; }
-    .article form#reply fieldset #comment_body {
-      float: left;
-      margin-left: 16px; }
-
-#permalink #main form#reply {
-  border: 0;
-  margin-top: 0; }
-
 #page_heading p#citation {
   background-color: white;
   border: 1px solid #d4dce2;
@@ -1249,30 +1183,12 @@ body#prelaunch p.status {
   border: 2px solid #c7d471;
   background: #edf6b2; }
 
-#user_communities .heading {
-  position: relative;
-  text-align: right; }
-  #user_communities .heading form, #user_communities .heading a {
-    position: absolute;
-    left: 10px;
-    top: 4px; }
-
 body#prelaunch #footer ul.social_media {
   margin-top: 20px; }
-
-.feed .edit_comment_form {
-  display: none; }
 
 .feed .deleted_comment {
   font-style: italic;
   color: #62707d; }
-
-.feed p.actions {
-  line-height: 80%; }
-  .feed p.actions span {
-    text-transform: lowercase;
-    margin-left: 5px;
-    font-size: 0.9em; }
 
 .scientific_name {
   direction: ltr;

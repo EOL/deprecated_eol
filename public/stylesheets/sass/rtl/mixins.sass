@@ -50,6 +50,21 @@ $logo_size_tertiary: 35
     +gradient_bg(saturate($from + #111111, 10%), saturate($to + #111111, 10%))
   &:active
     +gradient-bg($from, $to)
+= button_styled_as_hyperlink
+  display: inline-block
+  overflow: visible
+  background: none
+  border: 0
+  font-size: 1em
+  line-height: 100%
+  color: #195184
+  text-decoration: underline
+  cursor: pointer
+  padding: 0
+  margin: 0
+  &::-moz-focus-inner
+    padding: 0
+    margin: 0
 = input($width: 308px)
   width: $width
   height: 22px

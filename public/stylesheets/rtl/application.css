@@ -605,8 +605,10 @@ form.comment {
     float: right;
     margin: 0 0 0 10px;
     border: 1px solid #394651; }
-  form.comment textarea {
+  form.comment img + div {
     float: right;
+    margin: 0; }
+  form.comment textarea {
     width: 370px;
     padding: 8px;
     font: normal 1em Helvetica, Arial, sans-serif;
@@ -615,8 +617,7 @@ form.comment {
     background-color: white;
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
     background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
-    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white));
-    margin: 10px; }
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white)); }
   form.comment fieldset.actions {
     clear: both;
     padding: 0 62px 0 0; }
@@ -735,6 +736,8 @@ p.status {
     margin: 0 0 10px 20px; }
 .copy form dl {
   margin-left: 0; }
+  .copy form dl dd {
+    margin: 0 0 10px 0; }
 .copy ul, .copy ol {
   margin: 0 40px 15px 40px;
   line-height: 170%; }
@@ -800,14 +803,14 @@ table.standard {
         display: list-item;
         margin: 0 25px 0 0;
         list-style: disc; }
-  .article.list li {
+  .article.list > ul > li {
     overflow: hidden;
     padding: 0 0 10px 0; }
-    .article.list li img {
+    .article.list > ul > li img {
       float: right;
       margin: 0 0 0 10px;
       border: 1px solid #394651; }
-    .article.list li .details {
+    .article.list > ul > li .details {
       padding: 5px 0 0 0;
       overflow: hidden; }
   .article.updates blockquote, .article.updates p {
@@ -818,9 +821,63 @@ table.standard {
       font-size: 0.75em;
       font-weight: bold;
       text-transform: uppercase;
-      color: #62707d; }
-  .article.updates .details img {
-    float: none; }
+      color: #62707d;
+      padding: 0; }
+  .article.updates ul.actions li {
+    display: inline;
+    font-size: 0.9em;
+    font-weight: bold;
+    text-transform: lowercase; }
+    .article.updates ul.actions li a {
+      display: inline-block;
+      padding: 5px 0;
+      margin: 0 0 0 5px; }
+    .article.updates ul.actions li form {
+      margin: 0;
+      padding: 0;
+      display: inline; }
+      .article.updates ul.actions li form input[type="submit"] {
+        display: inline-block;
+        overflow: visible;
+        background: none;
+        border: 0;
+        font-size: 1em;
+        line-height: 100%;
+        color: #195184;
+        text-decoration: underline;
+        cursor: pointer;
+        padding: 0;
+        margin: 0;
+        font-weight: bold;
+        padding: 5px 0;
+        margin: 0 0 0 5px; }
+        .article.updates ul.actions li form input[type="submit"]::-moz-focus-inner {
+          padding: 0;
+          margin: 0; }
+  .article.updates li > a > img, .article.updates li .editable > a > img {
+    max-width: 48px;
+    max-height: 48px;
+    width: expression(this.width > 48 ? "48px" : true);
+    height: expression(this.height > 48 ? "48px" : true); }
+  .article.updates li form.edit_comment {
+    margin-top: 10px; }
+    .article.updates li form.edit_comment label {
+      display: block;
+      font-weight: bold; }
+    .article.updates li form.edit_comment textarea {
+      margin: 3px 0;
+      width: 430px;
+      height: 60px;
+      padding: 8px;
+      font: normal 1em Helvetica, Arial, sans-serif;
+      color: #394651;
+      border: 1px solid #cad3db;
+      background-color: white;
+      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
+      background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
+      background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white)); }
+  .article.updates ul.feed + .pagination {
+    margin-top: 12px; }
 
 .empty, .copy .empty {
   padding: 15px 15px 10px 15px;
@@ -1462,47 +1519,65 @@ body > #header {
       #sidebar .filters.small fieldset.actions input {
         margin: 0 0 5px 5px; }
 
-#collections {
-  padding-bottom: 30px; }
-  #collections .heading {
-    font-size: 0.92em;
-    text-align: center; }
-    #collections .heading a {
-      font-weight: bold; }
-  #collections .article.list.updates {
-    padding-top: 15px;
-    margin: 0 0 0 -10px; }
-    #collections .article.list.updates form {
-      padding: 5px 15px 20px 15px;
-      margin: 0;
-      border-bottom: 1px solid #d4dce2; }
-      #collections .article.list.updates form textarea {
-        width: 390px; }
-      #collections .article.list.updates form fieldset {
-        margin: 0; }
-      #collections .article.list.updates form fieldset.actions input[type="submit"] {
-        padding: 7px 10px;
-        font-size: 1em; }
-    #collections .article.list.updates ul li {
-      padding: 15px 0 0 15px;
-      border-bottom: 1px solid #d4dce2; }
-      #collections .article.list.updates ul li img {
-        margin-bottom: 5px; }
-  #collections ul.object_list li {
-    padding-top: 20px;
-    padding-bottom: 20px; }
-    #collections ul.object_list li img {
-      margin-left: -1px; }
-    #collections ul.object_list li .checkbox {
-      float: left;
-      border: 1px solid #cad3db;
-      height: 68px;
-      line-height: 68px;
-      padding: 0 0 0 3px; }
-    #collections ul.object_list li .editable {
-      clear: both;
+#collections .heading {
+  font-size: 0.92em;
+  text-align: center; }
+  #collections .heading a {
+    font-weight: bold; }
+#collections .article.list.updates {
+  padding-top: 15px;
+  margin: 0 0 0 -10px; }
+  #collections .article.list.updates > form {
+    padding: 5px 0 20px 15px;
+    margin: 0;
+    border-bottom: 1px solid #d4dce2; }
+    #collections .article.list.updates > form textarea {
+      width: 390px; }
+    #collections .article.list.updates > form fieldset {
       margin: 0; }
-    #collections ul.object_list li .annotation {
+    #collections .article.list.updates > form fieldset.actions input[type="submit"] {
+      padding: 7px 10px;
+      font-size: 1em; }
+  #collections .article.list.updates > ul > li {
+    padding: 15px 0 0 15px;
+    border-bottom: 1px solid #d4dce2; }
+    #collections .article.list.updates > ul > li img {
+      margin-bottom: 5px; }
+#collections ul.object_list li {
+  padding-top: 20px;
+  padding-bottom: 20px; }
+  #collections ul.object_list li img {
+    margin-left: -1px; }
+  #collections ul.object_list li .checkbox {
+    float: left;
+    border: 1px solid #cad3db;
+    height: 68px;
+    line-height: 68px;
+    padding: 0 0 0 3px; }
+  #collections ul.object_list li .editable {
+    clear: both;
+    margin: 0; }
+  #collections ul.object_list li .annotation {
+    clear: both;
+    margin: 0; }
+  #collections ul.object_list li .references {
+    clear: both;
+    font-size: 0.9em;
+    margin: 0; }
+    #collections ul.object_list li .references p + p {
+      margin-top: 10px; }
+  #collections ul.object_list li .references + p.sort_value {
+    padding-top: 10px; }
+  #collections ul.object_list li p.sort_value {
+    clear: both;
+    font-size: 0.9em; }
+  #collections ul.object_list li p.edit {
+    clear: both;
+    font-size: 0.9em; }
+  #collections ul.object_list li .collection_item_form {
+    margin: 10px 0 0 0; }
+    #collections ul.object_list li .collection_item_form textarea {
+      display: block;
       clear: both;
       margin: 0; }
     #collections ul.object_list li .references {
@@ -1597,14 +1672,23 @@ body > #header {
       width: 86px;
       height: 86px;
       border: 1px solid #cad3db;
-      margin: 0;
-      display: block;
-      z-index: 1; }
-    #collections ul.collection_gallery li.first {
-      margin-right: 0;
-      clear: both; }
-    #collections ul.collection_gallery li .checkbox {
-      position: absolute;
+      background-color: white;
+      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
+      background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
+      background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white));
+      width: 460px;
+      height: 50px; }
+    #collections ul.object_list li .collection_item_form label {
+      font-weight: bold;
+      margin: 10px 0 0 0;
+      display: block; }
+      #collections ul.object_list li .collection_item_form label small {
+        display: inline; }
+    #collections ul.object_list li .collection_item_form input[type="text"] {
+      width: 308px;
+      height: 22px;
+      padding: 2px 5px;
+      font: normal 1em Helvetica, Arial, sans-serif;
       border: 1px solid #cad3db;
       top: 0;
       right: 0;
@@ -1666,16 +1750,50 @@ body > #header {
   #collections_tab .updates form.comment {
     padding-left: 0; }
     #collections_tab .updates form.comment textarea {
-      width: 598px; }
+      width: 580px; }
   #collections_tab .updates ul.feed {
     margin: 0 0 20px 0; }
-    #collections_tab .updates ul.feed li {
+    #collections_tab .updates ul.feed > li {
       padding: 20px;
       border-bottom: 1px solid #d4dce2; }
   #collections_tab .updates p.more {
     font-size: 1.16em;
     font-weight: bold;
     text-align: center; }
+
+#profile_collections .heading, #profile_communities .heading, #profile_newsfeed .heading, #profile_activity .heading {
+  overflow: hidden; }
+  #profile_collections .heading h3, #profile_collections .heading a, #profile_communities .heading h3, #profile_communities .heading a, #profile_newsfeed .heading h3, #profile_newsfeed .heading a, #profile_activity .heading h3, #profile_activity .heading a {
+    line-height: 170%; }
+  #profile_collections .heading h3, #profile_communities .heading h3, #profile_newsfeed .heading h3, #profile_activity .heading h3 {
+    float: right; }
+  #profile_collections .heading h3 + a, #profile_communities .heading h3 + a, #profile_newsfeed .heading h3 + a, #profile_activity .heading h3 + a {
+    float: left; }
+
+#profile_collections ul.object_list img, #profile_communities ul.object_list img {
+  float: right;
+  margin: 0 0 0 20px; }
+#profile_collections ul.object_list + .heading, #profile_communities ul.object_list + .heading {
+  margin-top: 40px; }
+
+#profile_newsfeed form.comment {
+  padding: 5px 15px 20px 0;
+  margin: 0;
+  border-bottom: 1px solid #d4dce2; }
+  #profile_newsfeed form.comment fieldset {
+    margin: 0; }
+  #profile_newsfeed form.comment textarea {
+    width: 580px;
+    height: 100px; }
+  #profile_newsfeed form.comment input[type="submit"] {
+    font-size: 1em;
+    padding: 7px 10px; }
+
+#profile_newsfeed ul.feed > li, #profile_activity ul.feed > li {
+  padding: 15px 0 0 15px;
+  border-bottom: 1px solid #d4dce2; }
+  #profile_newsfeed ul.feed > li form.edit_comment textarea, #profile_activity ul.feed > li form.edit_comment textarea {
+    width: 580px; }
 
 #profile_info {
   padding: 40px; }
@@ -1893,17 +2011,17 @@ body > #header {
     padding: 0 0 40px 0; }
     #community .article.list .heading {
       border-bottom-width: 1px; }
-    #community .article.list li {
+    #community .article.list > ul > li {
       padding: 10px 0 0 20px;
       border-bottom: 1px solid #d4dce2; }
-      #community .article.list li .meta {
+      #community .article.list > ul > li .meta {
         padding: 0; }
   #community .article.updates {
     padding: 0 0 25px 0; }
-    #community .article.updates li {
+    #community .article.updates > ul > li {
       overflow: hidden;
       padding: 20px; }
-      #community .article.updates li .details img {
+      #community .article.updates > ul > li .details img {
         margin: 0 0 0 8px;
         border: 1px solid #394651; }
 
@@ -2113,19 +2231,21 @@ body > #header {
             font-weight: bold; }
         #taxon + #sidebar .classifications > ul > li ul {
           margin-left: 10px; }
-    #taxon + #sidebar .updates ul {
+    #taxon + #sidebar .updates > ul {
       border-bottom: 1px solid #d7dadc; }
     #taxon + #sidebar .updates form.comment {
       padding: 20px 10px 0 10px;
-      margin: 0 -10px 0 0; }
+      margin: 0 0 0 -10px; }
       #taxon + #sidebar .updates form.comment img {
         border: 1px solid #394651; }
       #taxon + #sidebar .updates form.comment textarea {
         width: 240px; }
       #taxon + #sidebar .updates form.comment fieldset.actions {
-        padding: 0 60px 0 0; }
+        padding: 0 0 0 60px; }
         #taxon + #sidebar .updates form.comment fieldset.actions input[type="submit"] {
-          padding: 6px 15px; }
+          padding: 6px 0 0 15px; }
+    #taxon + #sidebar .updates form.edit_comment textarea {
+      width: 300px; }
 
 #taxon_detail #sidebar {
   float: right;
@@ -2248,6 +2368,8 @@ body > #header {
     width: 300px; }
     #object_text_new fieldset + fieldset input[type="text"] {
       width: 288px; }
+    #object_text_new fieldset + fieldset textarea {
+      width: 282px; }
   #object_text_new fieldset input[type="text"] {
     width: 308px;
     height: 22px;
@@ -2333,6 +2455,10 @@ body > #header {
   padding: 40px;
   margin: 0 0 40px 0;
   border: 1px solid #cad3db; }
+  #permalink.text #main .article.copy .references {
+    margin: 20px 0 0 0;
+    padding: 20px 0 0 0;
+    border-top: 1px solid #cad3db; }
 #permalink #main {
   clear: both;
   float: right;
@@ -2341,6 +2467,11 @@ body > #header {
     padding: 20px 10px 0 10px;
     margin: 10px -10px 0 -10px;
     border-top: 1px solid #d7dadc; }
+    #permalink #main form.comment textarea {
+      width: 480px;
+      height: 100px; }
+  #permalink #main form.edit_comment textarea {
+    width: 540px; }
 #permalink #sidebar {
   width: 340px;
   padding: 0; }
@@ -2509,6 +2640,15 @@ body > #header {
       font-weight: bold;
       line-height: 170%;
       color: #667309; }
+#worklist form.comment {
+  padding: 20px 10px 0 10px;
+  margin: 10px -10px 0 -10px;
+  border-top: 1px solid #d7dadc; }
+  #worklist form.comment textarea {
+    width: 420px;
+    height: 100px; }
+#worklist form.edit_comment textarea {
+  width: 450px; }
 #worklist #tasks {
   float: right;
   width: 380px; }
@@ -2914,11 +3054,29 @@ body > #header {
   background: #f3f7fa;
   border: 1px solid #cad3db;
   padding: 20px 20px 0 20px; }
+#taxon_updates .update_feed form.comment textarea {
+  width: 580px; }
 #taxon_updates .update_feed .article.updates {
   padding: 0; }
-  #taxon_updates .update_feed .article.updates ul li {
+  #taxon_updates .update_feed .article.updates > ul > li {
     padding: 20px;
     border-bottom: 1px solid #d4dce2; }
+    #taxon_updates .update_feed .article.updates > ul > li form.comment {
+      padding: 0;
+      margin-bottom: 10px; }
+    #taxon_updates .update_feed .article.updates > ul > li form.edit_comment textarea {
+      width: 650px; }
+
+#comment_edit textarea {
+  width: 600px;
+  padding: 8px;
+  font: normal 1em Helvetica, Arial, sans-serif;
+  color: #394651;
+  border: 1px solid #cad3db;
+  background-color: white;
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
+  background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white)); }
 
 #content.session {
   background: #e2e9ef; }
@@ -3073,10 +3231,10 @@ ul.spotlite-matches {
   padding: 20px;
   background: white;
   z-index: 999; }
-  #modal #choose_collections h2 {
+  #modal #choose_collections h2, #modal #choose_communities h2 {
     font-size: 1.33em;
     margin: 0 0 10px 0; }
-  #modal #choose_collections fieldset.new_community {
+  #modal #choose_collections fieldset.new_community, #modal #choose_communities fieldset.new_community {
     width: 210px;
     height: 22px;
     padding: 2px 5px;
@@ -3086,10 +3244,10 @@ ul.spotlite-matches {
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
     background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
     background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white)); }
-  #modal #choose_collections fieldset.new_collection {
+  #modal #choose_collections fieldset.new_collection, #modal #choose_communities fieldset.new_collection {
     overflow: hidden;
     margin: 0 0 20px 0; }
-    #modal #choose_collections fieldset.new_collection input[type="text"] {
+    #modal #choose_collections fieldset.new_collection input[type="text"], #modal #choose_communities fieldset.new_collection input[type="text"] {
       float: right;
       width: 210px;
       height: 22px;
@@ -3101,26 +3259,26 @@ ul.spotlite-matches {
       background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
       background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white));
       margin: 0 0 0 10px; }
-  #modal #choose_collections input[type="submit"] {
+  #modal #choose_collections input[type="submit"], #modal #choose_communities input[type="submit"] {
     padding-right: 20px;
     padding-left: 20px;
     font-size: 1.08em;
     padding: 5px 10px 6px 10px; }
-  #modal #choose_collections ul {
+  #modal #choose_collections ul, #modal #choose_communities ul {
     border: 1px solid #cad3db;
     height: 230px;
     overflow-y: scroll;
     margin: 0 0 20px 0; }
-    #modal #choose_collections ul li {
+    #modal #choose_collections ul li, #modal #choose_communities ul li {
       font-weight: bold;
       padding: 5px 10px; }
-      #modal #choose_collections ul li.collected {
+      #modal #choose_collections ul li.collected, #modal #choose_communities ul li.collected {
         background: #f4f4f4; }
-      #modal #choose_collections ul li input[type="checkbox"] {
+      #modal #choose_collections ul li input[type="checkbox"], #modal #choose_communities ul li input[type="checkbox"] {
         margin: 0 0 0 5px; }
-      #modal #choose_collections ul li a, #modal #choose_collections ul li span {
+      #modal #choose_collections ul li a, #modal #choose_collections ul li span, #modal #choose_communities ul li a, #modal #choose_communities ul li span {
         font-size: 0.95em; }
-      #modal #choose_collections ul li + li {
+      #modal #choose_collections ul li + li, #modal #choose_communities ul li + li {
         border-top: 1px solid #cad3db; }
 
 #modal_layer {
@@ -3134,3 +3292,10 @@ ul.spotlite-matches {
   right: 0;
   width: 100%;
   height: 100%; }
+
+#social_sharing {
+  margin: 0 0 10px 0;
+  width: 100%; }
+  #social_sharing > div {
+    display: inline-block;
+    vertical-align: top; }

@@ -1,9 +1,9 @@
 /*
 ----------------------------------------
 Tantek Celik's Whitepsace Reset
-     Author:    Tantek Celik, Shane Riley
-    Version:    (CC) 2010 Some Rights Reserved - http://creativecommons.org/licenses/by/2.0
-Description:  Resets default styling of common browsers to a common base
+     Author:  	Tantek Celik, Shane Riley
+    Version:  	(CC) 2010 Some Rights Reserved - http://creativecommons.org/licenses/by/2.0
+Description:	Resets default styling of common browsers to a common base
 ----------------------------------------
 */
 ul, ol {
@@ -1519,6 +1519,49 @@ body > #header {
       #sidebar .filters.small fieldset.actions input {
         margin: 0 0 5px 5px; }
 
+<<<<<<< HEAD
+#collections {
+  padding-bottom: 30px; }
+  #collections .heading {
+    font-size: 0.92em;
+    text-align: center; }
+    #collections .heading a {
+      font-weight: bold; }
+  #collections .article.list.updates {
+    padding-top: 15px;
+    margin: 0 0 0 -10px; }
+    #collections .article.list.updates form {
+      padding: 5px 15px 20px 15px;
+      margin: 0;
+      border-bottom: 1px solid #d4dce2; }
+      #collections .article.list.updates form textarea {
+        width: 390px; }
+      #collections .article.list.updates form fieldset {
+        margin: 0; }
+      #collections .article.list.updates form fieldset.actions input[type="submit"] {
+        padding: 7px 10px;
+        font-size: 1em; }
+    #collections .article.list.updates ul li {
+      padding: 15px 0 0 15px;
+      border-bottom: 1px solid #d4dce2; }
+      #collections .article.list.updates ul li img {
+        margin-bottom: 5px; }
+  #collections ul.object_list li {
+    padding-top: 20px;
+    padding-bottom: 20px; }
+    #collections ul.object_list li img {
+      margin-left: -1px; }
+    #collections ul.object_list li .checkbox {
+      float: left;
+      border: 1px solid #cad3db;
+      height: 68px;
+      line-height: 68px;
+      padding: 0 0 0 3px; }
+    #collections ul.object_list li .editable {
+      clear: both;
+      margin: 0; }
+    #collections ul.object_list li .annotation {
+=======
 #collections .heading {
   font-size: 0.92em;
   text-align: center; }
@@ -1578,6 +1621,7 @@ body > #header {
     margin: 10px 0 0 0; }
     #collections ul.object_list li .collection_item_form textarea {
       display: block;
+>>>>>>> 5a03e2f... Fix WEB-3278: Apply R > L SASS changes for comment editing
       clear: both;
       margin: 0; }
     #collections ul.object_list li .references {
@@ -1672,6 +1716,16 @@ body > #header {
       width: 86px;
       height: 86px;
       border: 1px solid #cad3db;
+<<<<<<< HEAD
+      margin: 0;
+      display: block;
+      z-index: 1; }
+    #collections ul.collection_gallery li.first {
+      margin-right: 0;
+      clear: both; }
+    #collections ul.collection_gallery li .checkbox {
+      position: absolute;
+=======
       background-color: white;
       filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
       background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
@@ -1689,6 +1743,7 @@ body > #header {
       height: 22px;
       padding: 2px 5px;
       font: normal 1em Helvetica, Arial, sans-serif;
+>>>>>>> 5a03e2f... Fix WEB-3278: Apply R > L SASS changes for comment editing
       border: 1px solid #cad3db;
       top: 0;
       right: 0;

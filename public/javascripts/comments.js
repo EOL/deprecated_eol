@@ -75,6 +75,8 @@ EOL.jump_to_comment = function(target, href, reply) {
   }
 };
 // We can't use delegate() here because some pieces are missing on the initial page-load (for the worklist):
+// I'm also trying to generalize this *slightly* simply because I think (but have not verified) that CSS selectors
+// work faster within a smaller scope (as opposed to the entire document).
 EOL.init_comment_behaviours = function() {
   var $feed = $("ul.feed");
   var $goto_source_links = $feed.find("blockquote a[href^=#]");
@@ -89,7 +91,7 @@ EOL.init_comment_behaviours = function() {
     event.preventDefault();
     EOL.reply_to($(this));
   });
-  var $edit_comment_links = $feed.find("ul.feed ul.actions a.edit_comment");
+  var $edit_comment_links = $feed.find("ul.actions a.edit_comment");
   $edit_comment_links.unbind("click");
   $edit_comment_links.click(function( event ) {
     event.preventDefault();
@@ -98,13 +100,13 @@ EOL.init_comment_behaviours = function() {
     var $update = $(this).closest(".details").next(".comment_edit_form");
     EOL.ajax_get($(this), {update: $update, type: 'GET'});
   });
-  var $cancel_edit_links = $feed.find("ul.feed .comment_edit_form a");
+  var $cancel_edit_links = $feed.find(".comment_edit_form a");
   $cancel_edit_links.unbind("click");
   $cancel_edit_links.click(function( event ) {
     event.preventDefault();
     $(this).closest(".comment_edit_form").hide().prev('.details').find("ul.actions").show().end().end().remove();
   });
-  var $submit_edit_buttons = $feed.find("ul.feed .comment_edit_form input[type='submit']");
+  var $submit_edit_buttons = $feed.find(".comment_edit_form input[type='submit']");
   $submit_edit_buttons.unbind("click");
   $submit_edit_buttons.click(function( event ) {
     event.preventDefault();

@@ -684,8 +684,12 @@ class DataObject < SpeciesSchemaModel
   end  
 
   def map_from_DiscoverLife?
-    resource_id = self.harvest_events.last.resource_id
-    return true if Resource.find_by_id(resource_id).from_DiscoverLife? and self.is_subtype_map?
+    if harvest_events = self.harvest_events
+      resource_id = harvest_events.last.resource_id
+      if resource = Resource.find_by_id(resource_id)
+        return true if resource.from_DiscoverLife? and self.is_subtype_map?
+      end
+    end
     false
   end
     

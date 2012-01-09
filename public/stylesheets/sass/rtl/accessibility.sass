@@ -39,16 +39,7 @@ html.busy, html.busy *, .busy
       textarea
         width: 282px
         height: 120px
-#collections_tab
-  .collections
-    padding: 20px 0 0 0
-#user_communities
-  .communities
-    padding: 20px 0 0 0
-    ul.object_list
-      img
-        float: right
-        margin: 0 0 0 20px
+
 /** Content partner various **/
 #profile_content_connections
   li
@@ -477,25 +468,6 @@ form
     line-height: 140%
     img
       margin: -2px 5px 0 5px
-/** Add article interface we have error fieldset and a textarea box in information fieldset that HR didn't expect **/
-form#new_data_object, form.edit_data_object
-  fieldset
-    dt
-      font-size: 1.08em
-    &.content
-      width: 640px
-      input[type="text"]
-        width: 308px
-      textarea
-        width: 580px
-        height: 200px
-    &.information
-      width: 300px
-      input[type="text"]
-        width: 288px
-      textarea
-        width: 282px
-        height: 80px
 
 /** Adjustments for when missing exemplar image **/
 #media_list, #taxon_detail
@@ -929,11 +901,7 @@ body
   .image
     > a img
       +max_dimensions(430, 310)
-ul.feed
-  li
-    >a
-      >img
-        +max_dimensions($logo_size_secondary, $logo_size_secondary)
+
 #header
   .session
     img
@@ -1056,17 +1024,6 @@ form
 table.standard
   td.nowrap
     white-space: nowrap
-// Collections newsfeed was never mocked up:
-#collections
-  .article.updates
-    padding: 0 0 25px 0
-    li
-      overflow: hidden
-      padding: 20px
-      .details
-        img
-          margin: 0 0 0 8px
-          border: 1px solid #394651
 // Choose collection hasn't been completed by HR yet:
 #collections_choose
   h2
@@ -1222,28 +1179,7 @@ a.other_actions
   width: 220px
   #filters
     margin: 0px 20px
-#taxon_updates form.comment
-  margin: 0 0 15px
-  textarea
-    width: 580px
-#collections_tab
-  form#reply
-    padding: 0
-    fieldset
-      margin-top: 10px
-      #comment_body
-        float: left
-.article
-  form#reply
-    padding: 0
-    fieldset
-      margin-top: 10px
-      #comment_body
-        float: left
-        margin-left: 16px
-#permalink #main form#reply
-  border: 0
-  margin-top: 0
+
 
 // New style for HE view:
 #page_heading p#citation
@@ -1293,35 +1229,13 @@ body#prelaunch
     border: 2px solid #c7d471
     background: #edf6b2
 
-// Need a floatable "what's this" on the communities tab, too (probably okay to merge this with a comma, later):
-#user_communities
-  .heading
-    position: relative
-    text-align: right
-    form, a
-      position: absolute
-      left: 10px
-      top: 4px
-
 // Preview page fix:
 body#prelaunch #footer ul.social_media
   margin-top: 20px
 
-.feed .edit_comment_form
-  display: none
-
 .feed .deleted_comment
   font-style: italic
   color: #62707D
-
-// "Button" (link) for deleting the comments in newsfeeds.  Note the line-height is a little awkward, but I liked it
-// better than removing the padding-bottom on the previous div... which, FWIW, wasn't enough anyway.
-.feed p.actions
-  line-height: 80%
-  span
-    text-transform: lowercase
-    margin-left: 5px
-    font-size: 0.9em
 
 //solve ltr direction alignments issues
 .scientific_name

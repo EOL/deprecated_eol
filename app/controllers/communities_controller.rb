@@ -44,7 +44,7 @@ class CommunitiesController < ApplicationController
       @community.initialize_as_created_by(current_user)
       sent_to = send_invitations(find_invitees)
       notice = I18n.t(:created_community)
-      notice += " #{I18n.t(:sent_invitations_to_users, :users => sent_to.to_sentence, :count => sent_to.count)}" unless sent_to.empty?
+      notice += " #{I18n.t(:sent_invitations_to_users, :count => sent_to.length, :users => sent_to.to_sentence)}" unless sent_to.empty?
       upload_logo(@community) unless params[:community][:logo].blank?
       EOL::GlobalStatistics.increment('communities') if @community.published?
       log_action(:create)

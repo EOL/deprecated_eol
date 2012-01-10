@@ -178,12 +178,13 @@ describe "Collections and collecting:" do
     it_should_behave_like 'collecting all users'
     it 'should be able to move collection items'
     it 'should be able to remove collection items'
-    it 'should be able to edit ordinary collection and nested collection item attributes' do
+    it 'should be able to edit ordinary collection' do
       visit edit_collection_path(@collection)
       page.fill_in 'collection_name', :with => 'Edited collection name'
       click_button 'Update collection details'
       body.should have_tag('h1', 'Edited collection name')
     end
+    it 'should be able to edit ordinary collection item attributes (with JS off, need Cucumber tests for JS on)'
     it 'should be able to delete ordinary collections'
     it 'should not be able to delete special collections'
     it 'should not be able to edit watch collection name' do

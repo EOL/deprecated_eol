@@ -289,6 +289,7 @@ class DataObject < SpeciesSchemaModel
       :bibliographic_citation => ERB::Util.h(all_params[:data_object][:bibliographic_citation]), # No HTML allowed
       :source_url => ERB::Util.h(all_params[:data_object][:source_url]), # No HTML allowed
       :published => 1,
+      :data_rating => old_dato.data_rating
     }
 
     # this is to support problems with things on version2 and prelaunch and will NOT be needed later:

@@ -225,6 +225,6 @@ private
   end
 
   def add_hash_to_path(path, type, id)
-    path += "##{params[:reply] ? 'reply-to-' : ''}#{type}-#{id}"
+    path += "##{(params[:reply] && params[:reply] != 'false') ? 'reply-to-' : ''}#{type}-#{id}"
   end
 end

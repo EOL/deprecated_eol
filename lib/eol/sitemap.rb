@@ -5,7 +5,7 @@ module EOL
     @@default_url_options = { :host => 'eol.org' } # need to explicitly set the host for the above
     
     def initialize
-      # Dir.glob(File.join(RAILS_ROOT, 'public', 'sitemap', 'tmp_*')).each { |f| File.delete(f) }
+      Dir.glob(File.join(RAILS_ROOT, 'public', 'sitemap', 'tmp_*')).each { |f| File.delete(f) }
       @all_links_tmp_path = File.join(RAILS_ROOT, 'public', 'sitemap', 'tmp_all_links.txt')
       @index_path = File.join(RAILS_ROOT, 'public', 'sitemap', "index.xml")
       @batch_file_prefix = File.join(RAILS_ROOT, 'public', 'sitemap', "tmp_sitemap_")
@@ -54,7 +54,6 @@ module EOL
         end
       end
       
-      
       # overwrite the published sitemap index
       tmp_index_file = File.open(@index_path, 'w')
       tmp_index_file.puts sitemap_index_xml(number_of_sitemaps, options)
@@ -95,34 +94,74 @@ module EOL
       end
     end
     
+    # ## This is a different version of the method below. This version of the method uses XMLBuilder to generate
+    # ## the XML for the file which consumes a bit of memory and is also significantly slower then the method
+    # ## below. The version below writes the XML to the file directly as a string.
+    # def write_batch_as_xml(lines, suffix, options={})
+    #   lines.map!{ |l| JSON.parse(l) }
+    #   batch_xml = Builder::XmlMarkup.new( :indent => 2 )
+    #   batch_xml.instruct! :xml, :encoding => "UTF-8"
+    #   xml = batch_xml.urlset(:xmlns => "http://www.sitemaps.org/schemas/sitemap/0.9",
+    #                          "xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance",
+    #                          "xsi:schemaLocation" => "http://www.sitemaps.org/schemas/sitemap/sitemap.xsd") do |urlset|
+    #     lines.each do |line_metadata|
+    #       urlset.url do |url|
+    #         # the properties need to appear in a certain order in order to be valid according
+    #         # to the sitemap XSD
+    #         ["loc", "lastmod", "changefreq", "priority"].each do |property|
+    #           if value = line_metadata[property]
+    #             url.tag! property, value
+    #           end
+    #         end
+    #       end
+    #     end
+    #   end
+    #   
+    #   batch_file_path = @batch_file_prefix + "#{suffix}.xml"
+    #   final_file = File.open(batch_file_path, 'w')
+    #   final_file.puts xml
+    #   final_file.close
+    #   batch_file_path
+    # end
+    
+    ## This is a different version of the method commented out above. The above method uses XMLBuilder and this
+    ## one writes XML as strings. The SiteMap XML is very simple so we gain little from using XMLBuilder,
+    ## so I've decided to use this method which is generally about 5 times faster than the above,
+    ## saving more than an hour of processing time
     def write_batch_as_xml(lines, suffix, options={})
       lines.map!{ |l| JSON.parse(l) }
-      batch_xml = Builder::XmlMarkup.new( :indent => 2 )
-      batch_xml.instruct! :xml, :encoding => "UTF-8"
-      xml = batch_xml.urlset(:xmlns => "http://www.sitemaps.org/schemas/sitemap/0.9") do |urlset|
-        lines.each do |line_metadata|
-          urlset.url do |url|
-            line_metadata.each do |property, value|
-              url.tag! property, value
-            end
+      batch_file_path = @batch_file_prefix + "#{suffix}.xml"
+      batch_file = File.open(batch_file_path, 'w')
+      batch_file.puts '<?xml version="1.0" encoding="UTF-8"?>'
+      batch_file.puts '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"'
+      batch_file.puts '  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'
+      batch_file.puts '  xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/sitemap.xsd">'
+    
+      lines.each do |line_metadata|
+        url = "<url>"
+        # the properties need to appear in a certain order in order to be valid according
+        # to the sitemap XSD
+        ["loc", "lastmod", "changefreq", "priority"].each do |property|
+          if value = line_metadata[property]
+            url += "<#{property}>#{value}</#{property}>"
           end
         end
+        url += "</url>\n"
+        batch_file.puts url
       end
-
-      batch_file_path = @batch_file_prefix + "#{suffix}.xml"
-      final_file = File.open(batch_file_path, 'w')
-      final_file.puts xml
-      final_file.close
+      batch_file.puts '</urlset>'
+      batch_file.close
       batch_file_path
     end
     
+    
     def write_batch_as_text(lines, suffix, options={})
+      lines.map!{ |l| JSON.parse(l) }
       batch_file_path = @batch_file_prefix + "#{suffix}.txt"
       batch_file = File.open(batch_file_path, 'w')
       
-      lines.each do |line|
-        metadata = JSON.parse(line)
-        batch_file.puts metadata['loc']
+      lines.each do |line_metadata|
+        batch_file.puts line_metadata['loc']
       end
       batch_file.close
       batch_file_path
@@ -131,7 +170,9 @@ module EOL
     def sitemap_index_xml(number_of_sitemaps, options={})
       xml = Builder::XmlMarkup.new( :indent => 2 )
       xml.instruct! :xml, :encoding => "UTF-8"
-      xml.sitemapindex(:xmlns => "http://www.sitemaps.org/schemas/sitemap/0.9") do |smi|
+      xml.sitemapindex(:xmlns => "http://www.sitemaps.org/schemas/sitemap/0.9",
+                       "xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance",
+                       "xsi:schemaLocation" => "http://www.sitemaps.org/schemas/sitemap/siteindex.xsd") do |smi|
         (1..number_of_sitemaps).each do |suffix|
           smi.sitemap do |sm|
             url = @final_file_prefix + "#{suffix}."
@@ -148,7 +189,7 @@ module EOL
       min_id = min_id.to_i
       max_id = max_id.to_i
       
-      iteration_size = 200000
+      iteration_size = 10000
       start_time = Time.now
       start = min_id
       until start > max_id
@@ -158,8 +199,20 @@ module EOL
           ## this is the proper way to get the metadata, but just using a string like below is more than 10 times faster
           # metadata = { :loc => taxon_overview_url(tc_id), :changefreq => 'weekly' }
           # @all_link_tmp_file.puts metadata.to_json
-          @all_link_tmp_file.puts '{"changefreq":"weekly","loc":"http://' + @@default_url_options[:host] +
-            '/pages/' + tc_id + '/overview"}'
+          
+          url_prefix = '{"changefreq":"weekly","loc":"http://' + @@default_url_options[:host] + '/pages/' + tc_id + '/'
+          { 'overview' => 1,
+            'details' => 0.5,
+            'media' => 0.5,
+            'maps' => 0.1,
+            'names' => 0.1,
+            'community' => 0.1,
+            'resources' => 0.1,
+            'literature' => 0.1,
+            'updates' => 0.1
+          }.each do |path, priority|
+            @all_link_tmp_file.puts url_prefix + path + '","priority":' + priority.to_s + '}'
+          end
         end
         start += iteration_size
       end
@@ -168,8 +221,14 @@ module EOL
     def write_user_urls
       users = User.find(:all, :conditions => 'active = 1 AND (hidden = 0 OR hidden IS NULL)', :select => 'id, updated_at')
       users.each do |user|
-        metadata = { :loc => user_url(user.id) }
-        metadata[:lastmod] = user.updated_at
+        metadata = { :loc => user_url(user.id), :priority => 1 }
+        metadata[:lastmod] = user.updated_at if user.updated_at
+        @all_link_tmp_file.puts metadata.to_json
+        metadata[:loc] = user_newsfeed_url(user.id)
+        metadata[:priority] = 0.5
+        @all_link_tmp_file.puts metadata.to_json
+        metadata[:loc] = user_activity_url(user.id)
+        metadata[:priority] = 0.5
         @all_link_tmp_file.puts metadata.to_json
       end
     end
@@ -177,8 +236,11 @@ module EOL
     def write_collection_urls
       collections = Collection.find(:all, :conditions => 'published = 1', :select => 'id, updated_at')
       collections.each do |collection|
-        metadata = { :loc => collection_url(collection.id) }
-        metadata[:lastmod] = collection.updated_at
+        metadata = { :loc => collection_url(collection.id), :priority => 1 }
+        metadata[:lastmod] = collection.updated_at if collection.updated_at
+        @all_link_tmp_file.puts metadata.to_json
+        metadata[:loc] = collection_newsfeed_url(collection.id)
+        metadata[:priority] = 0.5
         @all_link_tmp_file.puts metadata.to_json
       end
     end
@@ -186,8 +248,11 @@ module EOL
     def write_community_urls
       communities = Community.find(:all, :conditions => 'published = 1', :select => 'id, updated_at')
       communities.each do |community|
-        metadata = { :loc => community_url(community.id) }
-        metadata[:lastmod] = community.updated_at
+        metadata = { :loc => community_url(community.id), :priority => 1 }
+        metadata[:lastmod] = community.updated_at if community.updated_at
+        @all_link_tmp_file.puts metadata.to_json
+        metadata[:loc] = community_newsfeed_url(community.id)
+        metadata[:priority] = 0.5
         @all_link_tmp_file.puts metadata.to_json
       end
     end
@@ -195,7 +260,7 @@ module EOL
     def write_content_partner_urls
       content_partners = ContentPartner.find(:all, :conditions => 'public = 1', :select => 'id, updated_at')
       content_partners.each do |content_partner|
-        metadata = { :loc => content_partner_url(content_partner.id), :changefreq => 'weekly' }
+        metadata = { :loc => content_partner_url(content_partner.id), :changefreq => 'weekly', :priority => 1 }
         @all_link_tmp_file.puts metadata.to_json
       end
     end
@@ -206,13 +271,13 @@ module EOL
       content_pages = ContentPage.find(:all, :select => { :content_pages => [ :id, :page_name ] },
         :conditions => "active = 1 AND page_name NOT IN ('#{names_which_have_routes.join("', '")}')")
       content_pages.each do |content_page|
-        metadata = { :loc => cms_page_url(content_page.page_name), :changefreq => 'weekly' }
+        metadata = { :loc => cms_page_url(content_page.page_name), :changefreq => 'weekly', :priority => 1 }
         @all_link_tmp_file.puts metadata.to_json
       end
     end
     
-    def write_url(url)
-      metadata = { :loc => url }
+    def write_url(url, priority = 1)
+      metadata = { :loc => url, :priority => priority }
       @all_link_tmp_file.puts metadata.to_json
     end
     

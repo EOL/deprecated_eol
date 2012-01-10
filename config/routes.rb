@@ -25,7 +25,10 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :collections, :member => { :choose => :get },
                               :collection => { :choose_collect_target => :get,
                                                :choose_editor_target => :get,
-                                               :collect_item => :post }
+                                               :collect_item => :post } do |collection|
+      collection.resource :newsfeed, :only => [:show], :namespace => "collections/"
+      collection.resource :editors, :only => [:show], :namespace => "collections/"
+    end
   # Not nesting collection_items under collections: creation is complex, plus edit only used for non-JS users
   map.resources :collection_items, :only => [:create, :edit, :update]
   #used in collections show page, when user clicks on left tabs

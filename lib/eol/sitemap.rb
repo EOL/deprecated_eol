@@ -189,7 +189,7 @@ module EOL
       min_id = min_id.to_i
       max_id = max_id.to_i
       
-      iteration_size = 10000
+      iteration_size = 200000
       start_time = Time.now
       start = min_id
       until start > max_id

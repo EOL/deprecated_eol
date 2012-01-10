@@ -1,6 +1,7 @@
 if(!EOL) { var EOL = {}; }
 
 EOL.init_worklist_behaviors = function() {
+  init_comments();
   $("#tasks li").unbind('click');
   $('#worklist #tasks li').click(function() {
     if($('#worklist #tasks li.active span.indicator').html() != '') {
@@ -23,7 +24,7 @@ EOL.init_worklist_behaviors = function() {
         name: 'ajax',
         value: 1
     }).appendTo($f);
-    EOL.ajax_submit($f, {update: $(this).closest('#worklist'), type: 'GET', complete: function () { EOL.init_worklist_behaviors(); } });
+    EOL.ajax_submit($f, {update: $(this).closest('#worklist'), type: 'GET' });
     return(false);
   });
 
@@ -32,11 +33,10 @@ EOL.init_worklist_behaviors = function() {
     var $update = $(this).closest('#worklist');
     var current_link = $(this).attr('href');
     $(this).attr('href', current_link + (current_link.indexOf('?') != -1 ? "&ajax=1" : "?ajax=1"));
-    EOL.ajax_get($(this), {update: $update, type: 'GET', complete: function () { EOL.init_worklist_behaviors(); }});
+    EOL.ajax_get($(this), {update: $update, type: 'GET', });
     return(false);
   });
 
-  // Wouldn't it be nice if ratings were Ajaxified?
   $('#worklist #task .ratings .rating a').unbind('click');
   $('#worklist #task .ratings .rating a').click(function() {
     var $update = $(this).closest('div.ratings');
@@ -48,7 +48,7 @@ EOL.init_worklist_behaviors = function() {
   $('#worklist #task form.comment input[type=submit]').click(function() {
     var $f = $(this).closest('form');
     $f.find("#return_to").val($f.find("#worklist_return_to").val());
-    EOL.ajax_submit($(this).closest('form'), {update: $(this).closest('#task'), complete: update_active_indicator('Commented')});
+    EOL.ajax_submit($(this).closest('form'), { update: $(this).closest('#task'), complete:                              …update_active_indicator('Commented') });
     return(false);
   });
 
@@ -56,7 +56,7 @@ EOL.init_worklist_behaviors = function() {
   $('#worklist #task form.review_status input[type=submit]').click(function() {
     var $f = $(this).closest('form');
     $f.find("#return_to").val($f.find("#worklist_return_to").val());
-    EOL.ajax_submit($(this).closest('form'), {update: $(this).closest('#task'), complete: update_active_indicator('Saved')});
+    EOL.ajax_submit($(this).closest('form'), {update: $(this).closest('#task'), complete:                               …update_active_indicator('Saved')});
     return(false);
   });
 
@@ -64,19 +64,19 @@ EOL.init_worklist_behaviors = function() {
   $('#worklist #task form.ignore_data_object input[type=submit]').click(function() {
     var $f = $(this).closest('form');
     $f.find("#return_to").val($f.find("#worklist_return_to").val());
-    EOL.ajax_submit($(this).closest('form'), {update: $(this).closest('#task'), complete: update_active_indicator('Ignored')});
+    EOL.ajax_submit($(this).closest('form'), {update: $(this).closest('#task'), complete:                               …update_active_indicator('Ignored')});
     return(false);
   });
 
-  $('#worklist #task').ajaxSuccess(function() {
-    resize_task_panel();
-    EOL.init_worklist_behaviors();
-  });
 };
 
 $(window).load(function() {
   resize_task_panel();
   EOL.init_worklist_behaviors();
+  $('#worklist #task').ajaxSuccess(function() {
+    resize_task_panel();
+    EOL.init_worklist_behaviors();
+  });
 });
 
 function resize_task_panel() {
@@ -101,5 +101,10 @@ function update_active_indicator(message) {
   {
     $('#worklist #tasks li.active span.indicator').html(message);
   }
+  init_comments();
 }
-
+function init_comments() {
+  if (EOL.init_comment_behaviours != undefined) {
+    EOL.init_comment_behaviours();
+  }
+}

@@ -4,8 +4,8 @@
   %p
     -# TODO - these ChangeableObjectType checks are all failing because they are NOT on datos, they are on dohe and cdohe's.  Fix.
     - name_with_link = link_to(h(item.user.full_name), user_path(item.user))
-    - object_path = data_object_path(item.data_object)
-    - object_link = item.data_object ? link_to(item.data_object.summary_name, object_path) : nil
+    - object_path = item.data_object ? data_object_path(item.data_object) : nil
+    - object_link = object_path ? link_to(item.data_object.summary_name, object_path) : nil
     - synonym_activity_ids = [Activity.add_common_name.id, Activity.remove_common_name.id,
                               Activity.trust_common_name.id, Activity.unreview_common_name.id, Activity.untrust_common_name.id, Activity.inappropriate_common_name.id]
     - if synonym_activity_ids.include? item.activity_id

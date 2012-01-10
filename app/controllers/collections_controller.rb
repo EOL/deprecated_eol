@@ -1,15 +1,9 @@
-# A bit tricky.
-#
-# You could come here looking at a Community's Collection.
-# You could come here looking at a (specified) User's Collection. (show only)
-#     UPDATE: user collections index is now in users/collections
-# And you could come here without either of those (implying the current_user's Collection).
-#
 # NOTE - we use these commit_* button names because we don't want to parse the I18n of the button name (hard).
 class CollectionsController < ApplicationController
 
   before_filter :modal, :only => [:choose_editor_target, :choose_collect_target]
   before_filter :find_collection, :except => [:new, :create, :choose_editor_target, :choose_collect_target]
+  before_filter :prepare_show, :only => [:show]
   before_filter :user_able_to_edit_collection, :only => [:edit, :destroy] # authentication of update in the method
   before_filter :user_able_to_view_collection, :only => [:show]
   before_filter :find_parent, :only => [:show]
@@ -21,14 +15,7 @@ class CollectionsController < ApplicationController
   layout 'v2/collections'
 
   def show
-    @page = params[:page] || 1
-    render :action => 'newsfeed' if @filter == 'newsfeed'
     return copy_items_and_redirect(@collection, [current_user.watch_collection]) if params[:commit_collect]
-    types = CollectionItem.types
-    @collection_item_scopes = [[I18n.t(:selected_items), :selected_items], [I18n.t(:all_items), :all_items]]
-    @collection_item_scopes << [I18n.t("all_#{types[@filter.to_sym][:i18n_key]}"), @filter] if @filter
-    collection_ids = recently_visited_collections(@collection.id)
-    get_collection_objects(collection_ids) unless collection_ids.nil?
   end
 
   def get_collection_objects(collection_ids)
@@ -545,6 +532,16 @@ private
   def modal
     @modal = true # When this is JS, we need a "go back" link at the bottom if there's an error, and this needs
                   # to be set super-early!
+  end
+
+  # These are things that ALL three collections controllers will need, so:
+  def prepare_show
+    @page = params[:page] || 1
+    types = CollectionItem.types
+    @collection_item_scopes = [[I18n.t(:selected_items), :selected_items], [I18n.t(:all_items), :all_items]]
+    @collection_item_scopes << [I18n.t("all_#{types[@filter.to_sym][:i18n_key]}"), @filter] if @filter
+    collection_ids = recently_visited_collections(@collection.id)
+    get_collection_objects(collection_ids) unless collection_ids.nil?
   end
 
 end

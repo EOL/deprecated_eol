@@ -18,7 +18,7 @@ class ContactsController < ApplicationController
       @contact.comments = @contact.comments + "\n" + request.env["HTTP_HOST"] + user_path(current_user)
     end
     if @contact.save
-      #send_verification_email - this will send the email twice bec model already has -> after_create :send_contact_email
+      Notifier.deliver_contact_us_auto_response(@contact)
       @list = load_areas
       @contact = Contact.new
       flash.now[:notice] = I18n.t(:contact_us_request_sent)

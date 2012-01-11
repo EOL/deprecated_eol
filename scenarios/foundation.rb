@@ -33,16 +33,18 @@ ContentPage.gen_if_not_exists(:page_name => 'Press Releases', :title => 'Press R
 ContentPage.gen_if_not_exists(:page_name => 'terms_of_use', :title => 'Terms Of Use', :sort_order => 6)
 
 #ContactSubject.gen_if_not_exists(:title => 'Media Contact', :recipients=>'test@test.com', :active=>true)
-ContactSubject.gen_if_not_exists(:title => 'Membership and registration', :recipients => "byrnesb@si.edu", :active => 1)
-ContactSubject.gen_if_not_exists(:title => 'Terms of use and licensing', :recipients => "byrnesb@si.edu", :active => 1)
-ContactSubject.gen_if_not_exists(:title => 'Learning and education tools', :recipients => "Education@eol.org", :active => 1)
-ContactSubject.gen_if_not_exists(:title => 'Become content partner', :recipients => "affiliate@eol.org", :active => 1)
-ContactSubject.gen_if_not_exists(:title => 'Content partner support', :recipients => "affiliate@eol.org", :active => 1)
-ContactSubject.gen_if_not_exists(:title => 'Curator support', :recipients => "affiliate@eol.org", :active => 1)
-ContactSubject.gen_if_not_exists(:title => 'Make a correction (spelling and grammar, images, information)', :recipients => "affiliate@eol.org", :active => 1)
-ContactSubject.gen_if_not_exists(:title => 'Images, videos, sounds', :recipients => "affiliate@eol.org", :active => 1)
-ContactSubject.gen_if_not_exists(:title => 'Media requests (interviews, press inquiries, logo requests)', :recipients => "byrnesb@si.edu", :active => 1)
-ContactSubject.gen_if_not_exists(:title => 'Make a financial donation', :recipients => "byrnesb@si.edu", :active => 1)
+ContactSubject.gen_if_not_exists(:title => 'Membership and registration', :recipients => "membership@eol.org", :active => 1)
+ContactSubject.gen_if_not_exists(:title => 'Terms of use and licensing', :recipients => "legal@eol.org", :active => 1)
+ContactSubject.gen_if_not_exists(:title => 'Learning and education', :recipients => "education@eol.org", :active => 1)
+ContactSubject.gen_if_not_exists(:title => 'Become a content partner', :recipients => "eolpages@eol.org", :active => 1)
+ContactSubject.gen_if_not_exists(:title => 'Content partner support', :recipients => "eolpages@eol.org", :active => 1)
+ContactSubject.gen_if_not_exists(:title => 'Curator support', :recipients => "eolpages@eol.org", :active => 1)
+ContactSubject.gen_if_not_exists(:title => 'Make a correction (spelling and grammar, images, information)', :recipients => "eolpages@eol.org", :active => 1)
+ContactSubject.gen_if_not_exists(:title => 'Contribute images, videos or sounds', :recipients => "eolpages@eol.org", :active => 1)
+ContactSubject.gen_if_not_exists(:title => 'Media requests (interviews, press inquiries, logo requests)', :recipients => "press@eol.org", :active => 1)
+ContactSubject.gen_if_not_exists(:title => 'Make a financial donation', :recipients => "support@eol.org", :active => 1)
+ContactSubject.gen_if_not_exists(:title => 'Technical questions (problems with search, website functionality)', :recipients => "tech@eol.org", :active => 1)
+ContactSubject.gen_if_not_exists(:title => 'General feedback', :recipients => "support@eol.org", :active => 1)
 
 
 

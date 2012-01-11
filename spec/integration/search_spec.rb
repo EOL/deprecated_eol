@@ -105,9 +105,13 @@ describe 'Search' do
   it 'should sort by score by default' do
     visit("/search?q=#{@name_for_all_types}")
     default_body = body.gsub(/content[0-9]{1,2}\./, 'content1.')  # normalizing content server host names
+    default_body.gsub!(/return_to.*?\"/, '')
+    default_body.gsub!(/referred_page.*?\"/, '')
     visit("/search?q=#{@name_for_all_types}&sort_by=score")
     newest_body = body.gsub(/content[0-9]{1,2}\./, 'content1.')  # normalizing content server host names
-    default_body.gsub(/return_to.*?\"/, '').should == newest_body.gsub(/return_to.*?\"/, '')
+    newest_body.gsub!(/return_to.*?\"/, '')
+    newest_body.gsub!(/referred_page.*?\"/, '')
+    default_body.should == newest_body
   end
 
   it 'should sort by newest and oldest' do

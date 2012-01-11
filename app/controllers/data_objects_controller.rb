@@ -526,21 +526,27 @@ private
 
   def clear_cached_media_count_and_exemplar(he)
     if $CACHE
+      tc = he.taxon_concept
       if @data_object.data_type.label == 'Image'
-        txei_exists = TaxonConceptExemplarImage.find_by_taxon_concept_id_and_data_object_id(he.taxon_concept.id, @data_object.id)
+        
+        txei_exists = TaxonConceptExemplarImage.find_by_taxon_concept_id_and_data_object_id(tc.id, @data_object.id)
         txei_exists.destroy unless txei_exists.nil?
-        cached_taxon_exemplar = $CACHE.fetch(TaxonConcept.cached_name_for("best_image_#{he.taxon_concept.id}"))
+        
+        cached_taxon_exemplar = $CACHE.fetch(TaxonConcept.cached_name_for("best_image_#{tc.id}"))
         unless cached_taxon_exemplar.nil? || cached_taxon_exemplar == "none"
-          $CACHE.delete(TaxonConcept.cached_name_for("best_image_#{he.taxon_concept.id}")) if cached_taxon_exemplar.guid == @data_object.guid
+          $CACHE.delete(TaxonConcept.cached_name_for("best_image_#{tc.id}")) if cached_taxon_exemplar.guid == @data_object.guid
         end
-        cached_taxon_he_exemplar = $CACHE.fetch(TaxonConcept.cached_name_for("best_image_#{he.taxon_concept.id}_#{he.id}"))
-        unless cached_taxon_he_exemplar.nil? || cached_taxon_he_exemplar == "none"
-          $CACHE.delete(TaxonConcept.cached_name_for("best_image_#{he.taxon_concept.id}_#{he.id}")) if cached_taxon_he_exemplar.guid == @data_object.guid
+        $CACHE.delete(TaxonConcept.cached_name_for("media_count_#{tc.id}_curator"))
+        $CACHE.delete(TaxonConcept.cached_name_for("media_count_#{tc.id}"))
+        
+        tc.published_browsable_hierarchy_entries.each do |pbhe|
+          cached_taxon_he_exemplar = $CACHE.fetch(TaxonConcept.cached_name_for("best_image_#{tc.id}_#{pbhe.id}"))
+          unless cached_taxon_he_exemplar.nil? || cached_taxon_he_exemplar == "none"
+            $CACHE.delete(TaxonConcept.cached_name_for("best_image_#{tc.id}_#{pbhe.id}")) if cached_taxon_he_exemplar.guid == @data_object.guid
+          end
+          $CACHE.delete(TaxonConcept.cached_name_for("media_count_#{tc.id}_#{pbhe.id}_curator"))
+          $CACHE.delete(TaxonConcept.cached_name_for("media_count_#{tc.id}_#{pbhe.id}"))
         end
-        $CACHE.delete(TaxonConcept.cached_name_for("media_count_#{he.taxon_concept.id}_#{he.id}_curator"))
-        $CACHE.delete(TaxonConcept.cached_name_for("media_count_#{he.taxon_concept.id}_#{he.id}"))
-        $CACHE.delete(TaxonConcept.cached_name_for("media_count_#{he.taxon_concept.id}_curator"))
-        $CACHE.delete(TaxonConcept.cached_name_for("media_count_#{he.taxon_concept.id}"))
       end
     end
   end

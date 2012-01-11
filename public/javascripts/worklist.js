@@ -48,7 +48,7 @@ EOL.init_worklist_behaviors = function() {
   $('#worklist #task form.comment input[type=submit]').click(function() {
     var $f = $(this).closest('form');
     $f.find("#return_to").val($f.find("#worklist_return_to").val());
-    EOL.ajax_submit($(this).closest('form'), { update: $(this).closest('#task'), complete:                              …update_active_indicator('Commented') });
+    EOL.ajax_submit($(this).closest('form'), { update: $(this).closest('#task'), complete:                              update_active_indicator('Commented') });
     return(false);
   });
 
@@ -56,7 +56,7 @@ EOL.init_worklist_behaviors = function() {
   $('#worklist #task form.review_status input[type=submit]').click(function() {
     var $f = $(this).closest('form');
     $f.find("#return_to").val($f.find("#worklist_return_to").val());
-    EOL.ajax_submit($(this).closest('form'), {update: $(this).closest('#task'), complete:                               …update_active_indicator('Saved')});
+    EOL.ajax_submit($(this).closest('form'), {update: $(this).closest('#task'), complete:                               update_active_indicator('Saved')});
     return(false);
   });
 
@@ -64,7 +64,7 @@ EOL.init_worklist_behaviors = function() {
   $('#worklist #task form.ignore_data_object input[type=submit]').click(function() {
     var $f = $(this).closest('form');
     $f.find("#return_to").val($f.find("#worklist_return_to").val());
-    EOL.ajax_submit($(this).closest('form'), {update: $(this).closest('#task'), complete:                               …update_active_indicator('Ignored')});
+    EOL.ajax_submit($(this).closest('form'), {update: $(this).closest('#task'), complete:                               update_active_indicator('Ignored')});
     return(false);
   });
 
@@ -105,6 +105,7 @@ function update_active_indicator(message) {
 }
 function init_comments() {
   if (EOL.init_comment_behaviours != undefined) {
+    // This ends up getting called twice on page-load, but we really do need it here for when a new task is loaded.
     EOL.init_comment_behaviours();
   }
 }

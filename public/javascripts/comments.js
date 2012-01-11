@@ -125,5 +125,8 @@ EOL.init_comment_behaviours = function() {
 $(function() {
   EOL.init_comment_behaviours();
   EOL.handle_special_anchors_in_location_hash();
+  $('ul.feed').ajaxSuccess(function() {
+    EOL.init_comment_behaviours();
+  });
 });
 

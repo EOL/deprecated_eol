@@ -31,6 +31,13 @@ xml.response do
           xml.updated ci.updated_at
           xml.annotation ci.annotation
           xml.sort_field ci.sort_field
+          if @collection.show_references?
+            xml.references do 
+          	  ci.refs.each do |ref|
+          	    xml.reference ref.full_reference
+          	  end
+            end
+          end         
           
           case ci.object_type
           when 'TaxonConcept'

@@ -20,6 +20,11 @@
         = f.text_area :description, :value => @collection.description, :rows => 3, :cols => 60
         %p= f.allowed_html_help_tip
       %dt
+        = f.label :additional_annotation_fields
+      %dd
+        = f.check_box :show_references
+        = f.label :show_references    
+      %dt
         = f.label :sort_style_id
       %dd
         = f.select :sort_style_id, @sort_options.map {|so| [so.name, so.id]}

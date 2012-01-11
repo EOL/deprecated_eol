@@ -245,8 +245,13 @@ private
     when 'copy'
       return copy_items_and_redirect(@collection, @collections)
     else
-      flash[:error] = I18n.t(:action_not_available_error)
-      return redirect_to collection_path(@collection)
+      if params[:action] == "update"
+        # call for annotate
+        return annotate
+      else
+        flash[:error] = I18n.t(:action_not_available_error)
+        return redirect_to collection_path(@collection)  
+      end      
     end
   end
 
@@ -359,6 +364,27 @@ private
 
   def annotate
     if @collection.update_attributes(params[:collection])
+      if @collection.show_references
+        @collection_item = CollectionItem.find(params[:collection][:collection_items_attributes].keys.map {|i|
+              params[:collection][:collection_items_attributes][i][:id] }.first)
+        @collection_item.refs.clear
+        @references = params[:references]
+        params[:references] = params[:references].split("\n") unless params[:references].blank?
+              
+        unless params[:references].blank?        
+          params[:references].each do |reference|
+            if reference.strip != ''
+              reference = reference.downcase
+              ref = Ref.find_by_full_reference_and_user_submitted_and_published_and_visibility_id(reference, 1, 1, Visibility.visible.id)
+              if (ref)
+                @collection_item.refs << ref
+              else
+                @collection_item.refs << Ref.new(:full_reference => reference, :user_submitted => true, :published => 1, :visibility => Visibility.visible)  
+              end            
+            end
+          end
+        end
+      end
       respond_to do |format|
         format.js do
           # Sorry this is confusing, but we don't know which attribute number will have the id:

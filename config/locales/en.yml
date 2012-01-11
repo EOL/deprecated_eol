@@ -163,6 +163,7 @@ en:
       collection_item:
         annotation: "Annotation"
         sort_field: "Sort by"
+        refs: "References <small>(put each reference on a new line)</small>"
       comment:
         body: "Comment"
       content_page:
@@ -255,6 +256,8 @@ en:
         description: Collection description
         sort_style_id: Default sorting direction
         logo: Primary collection image
+        additional_annotation_fields: Additional annotation fields
+        show_references: References (Text or URL)
       community:
         name: Community name
         description: Community description
@@ -2714,3 +2717,4 @@ en:
   please_leave_your_feedback: "Please leave your feedback"
   send_feedback: "Send feedback"
   contact_us_request_received: "Contact us request received"
+  references_cabs_colon: "References:"

@@ -25,7 +25,7 @@ class Notifier < ActionMailer::Base
 
     subject     I18n.t(:subject, :title => contact_subject.title, :scope => [:notifier, :contact_us_message])
     recipients  contact_recipients
-    from        $SUPPORT_EMAIL_ADDRESS
+    from        contact.email
     body        :contact => contact
   end
 

@@ -38,7 +38,7 @@ class FillContactSubjects < ActiveRecord::Migration
     cs = ContactSubject.create(:recipients => "tech@eol.org", :active => 1)
     TranslatedContactSubject.create(:contact_subject => cs, :language => english, :title => 'Technical questions (problems with search, website functionality)')
     
-    cs = ContactSubject.create(:recipients => "support@eol.org", :active => 1)
+    cs = ContactSubject.create(:recipients => "bcorrigan@eol.org", :active => 1)
     TranslatedContactSubject.create(:contact_subject => cs, :language => english, :title => 'General feedback')
   end
 

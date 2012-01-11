@@ -540,7 +540,7 @@ en:
       message: "This is an automated e-mail from the Encyclopedia of Life (EOL) summarising recent comments and curatorial actions on content you have added to EOL through your member account with username %{members_username}.\n\nIf you have any questions or need help accessing your EOL member account, please contact %{species_pages_group_email}.\n\n\nCuratorial actions:\n%{curator_activity_log}\n\nComments on data objects:\n%{data_object_comments}\n\nComments on pages with which your data is associated:\n%{page_comments}\n\n"
     contact_us_message:
       subject: "A message to EOL: %{title}"
-      message: "The following message was submitted to EOL via the Contact Us form:\nFrom: %{from_name}\nE-mail: %{from_email}\nSubject: %{subject}\nTaxon group: %{taxon_group}\n\n%{message}"
+      message: "The following message was submitted to EOL via the Contact Us form:\nFrom: %{from_name}\nE-mail: %{from_email}\nSubject: %{subject}\n\n%{message}"
     contact_us_auto_response:
       subject: "Thanks for contacting the Encyclopedia of Life"
       message: "Thank you for contacting the Encyclopedia of Life project. Your comments have been sent to the appropriate group.\n\nWe appreciate your feedback."

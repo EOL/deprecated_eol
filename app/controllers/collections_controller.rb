@@ -237,8 +237,8 @@ private
         return annotate
       else
         flash[:error] = I18n.t(:action_not_available_error)
-        return redirect_to collection_path(@collection)  
-      end      
+        return redirect_to collection_path(@collection)
+      end
     end
   end
 
@@ -357,8 +357,8 @@ private
         @collection_item.refs.clear
         @references = params[:references]
         params[:references] = params[:references].split("\n") unless params[:references].blank?
-              
-        unless params[:references].blank?        
+
+        unless params[:references].blank?
           params[:references].each do |reference|
             if reference.strip != ''
               reference = reference.downcase
@@ -366,8 +366,8 @@ private
               if (ref)
                 @collection_item.refs << ref
               else
-                @collection_item.refs << Ref.new(:full_reference => reference, :user_submitted => true, :published => 1, :visibility => Visibility.visible)  
-              end            
+                @collection_item.refs << Ref.new(:full_reference => reference, :user_submitted => true, :published => 1, :visibility => Visibility.visible)
+              end
             end
           end
         end
@@ -472,7 +472,7 @@ private
   end
 
   def set_view_as_options
-    @view_as_options = [ViewStyle.list, ViewStyle.gallery, ViewStyle.annotated]
+    @view_as_options = [ViewStyle.names_only, ViewStyle.gallery, ViewStyle.annotated]
   end
 
   def user_able_to_view_collection

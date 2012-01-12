@@ -12,7 +12,7 @@
     = link_to h(truncate(item.best_title, :length => 64)), data_object_path(item)
     - if view_style == 'list' && @filter.nil?
       %small= I18n.t(:item_type_article)
-  - unless ['gallery','list'].include?(view_style)
+  - unless ['gallery','names_only'].include?(view_style)
     - if he = item.first_hierarchy_entry(:include_preview_entries => true)
       - secondary_title = I18n.t(:description_of) + ' ' + he.name.canonical_form.string
     - if item.published_entries.length > 1

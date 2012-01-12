@@ -19,7 +19,7 @@
         = link_to I18n.t(:donate), donate_path
       - if position == :footer
         %li
-          = link_to I18n.t(:contact_us_link), contacts_path
+          = link_to I18n.t(:contact_us_link), contacts_path(:referred_page => request.url)
         %li
           = link_to I18n.t(:terms_of_use_link), terms_of_use_path
         %li

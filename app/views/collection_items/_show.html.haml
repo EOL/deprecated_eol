@@ -11,7 +11,7 @@
   = render :partial => "shared/item_summary_#{item_type}.html.haml", :locals => {:item => collection_item.object, :view_style => view_style}
 - else
   = I18n.t(:item_details_missing)
-- unless ['gallery','names_only'].include?(view_style)
+- unless ['gallery','list'].include?(view_style)
   - if collection_item
     .editable
       = render :partial => 'collection_items/show_editable_attributes', :locals => { :collection_item => collection_item,

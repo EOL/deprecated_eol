@@ -882,6 +882,7 @@ body
           margin: 0 0 5px 5px
 
 #collections
+  padding-bottom: 30px
   .heading
     font-size: .92em
     text-align: center
@@ -960,10 +961,10 @@ body
   ul.collection_gallery
     li
       float: right
+      position: relative
       width: 88px
       min-height: 88px
       margin: 0 14px 20px 0
-      position: relative
       padding: 0
       img
         position: absolute
@@ -972,12 +973,27 @@ body
         +max_dimensions($logo_size_standout, $logo_size_standout)
         z-index: 2
       h4
-        width: 88px
+        font-weight: normal
+        width: 86px
+        margin: 90px 1px 0
         overflow: hidden
         margin-top: 90px
         a
           text-decoration: none
           color: #394651
+        &.balloon
+          position: absolute
+          top: 0
+          right: -10px
+          z-index: 3
+          margin: 68px 0 0
+          width: 102px
+          padding: 3px
+          background-color: #394651
+          background: rgba(57, 70, 81, 0.9)
+          color: #fff
+          a
+            color: #fff
       span.icon
         position: absolute
         right: 0

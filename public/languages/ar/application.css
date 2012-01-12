@@ -1,9 +1,9 @@
 /*
 ----------------------------------------
 Tantek Celik's Whitepsace Reset
-     Author:  	Tantek Celik, Shane Riley
-    Version:  	(CC) 2010 Some Rights Reserved - http://creativecommons.org/licenses/by/2.0
-Description:	Resets default styling of common browsers to a common base
+     Author:    Tantek Celik, Shane Riley
+    Version:    (CC) 2010 Some Rights Reserved - http://creativecommons.org/licenses/by/2.0
+Description:  Resets default styling of common browsers to a common base
 ----------------------------------------
 */
 ul, ol {
@@ -1462,148 +1462,168 @@ body > #header {
       #sidebar .filters.small fieldset.actions input {
         margin: 0 0 5px 5px; }
 
-#collections .heading {
-  font-size: 0.92em;
-  text-align: center; }
-  #collections .heading a {
-    font-weight: bold; }
-#collections .article.list.updates {
-  padding-top: 15px;
-  margin: 0 0 0 -10px; }
-  #collections .article.list.updates form {
-    padding: 5px 15px 20px 15px;
-    margin: 0;
-    border-bottom: 1px solid #d4dce2; }
-    #collections .article.list.updates form textarea {
-      width: 390px; }
-    #collections .article.list.updates form fieldset {
-      margin: 0; }
-    #collections .article.list.updates form fieldset.actions input[type="submit"] {
-      padding: 7px 10px;
-      font-size: 1em; }
-  #collections .article.list.updates ul li {
-    padding: 15px 0 0 15px;
-    border-bottom: 1px solid #d4dce2; }
-    #collections .article.list.updates ul li img {
-      margin-bottom: 5px; }
-#collections ul.object_list li {
-  padding-top: 20px;
-  padding-bottom: 20px; }
-  #collections ul.object_list li img {
-    margin-left: -1px; }
-  #collections ul.object_list li .checkbox {
-    float: left;
-    border: 1px solid #cad3db;
-    height: 68px;
-    line-height: 68px;
-    padding: 0 0 0 3px; }
-  #collections ul.object_list li .editable {
-    clear: both;
-    margin: 0; }
-  #collections ul.object_list li .annotation {
-    clear: both;
-    margin: 0; }
-  #collections ul.object_list li .references {
-    clear: both;
-    font-size: 0.9em;
-    margin: 0; }
-    #collections ul.object_list li .references p + p {
-      margin-top: 10px; }
-  #collections ul.object_list li .references + p.sort_value {
-    padding-top: 10px; }
-  #collections ul.object_list li p.sort_value {
-    clear: both;
-    font-size: 0.9em; }
-  #collections ul.object_list li p.edit {
-    clear: both;
-    font-size: 0.9em; }
-  #collections ul.object_list li .collection_item_form {
-    margin: 10px 0 0 0; }
-    #collections ul.object_list li .collection_item_form textarea {
-      display: block;
-      clear: both;
-      padding: 8px;
-      font: normal 1em Helvetica, Arial, sans-serif;
-      color: #394651;
-      border: 1px solid #cad3db;
-      background-color: white;
-      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
-      background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
-      background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white));
-      width: 460px;
-      height: 50px;
-      margin: 0 0 10px 0; }
-    #collections ul.object_list li .collection_item_form label {
-      font-weight: bold;
+#collections {
+  padding-bottom: 30px; }
+  #collections .heading {
+    font-size: 0.92em;
+    text-align: center; }
+    #collections .heading a {
+      font-weight: bold; }
+  #collections .article.list.updates {
+    padding-top: 15px;
+    margin: 0 0 0 -10px; }
+    #collections .article.list.updates form {
+      padding: 5px 15px 20px 15px;
       margin: 0;
-      display: block; }
-      #collections ul.object_list li .collection_item_form label small {
-        display: inline; }
-    #collections ul.object_list li .collection_item_form input[type="text"] {
-      width: 308px;
-      height: 22px;
-      padding: 2px 5px;
-      font: normal 1em Helvetica, Arial, sans-serif;
-      border: 1px solid #cad3db;
-      background-color: white;
-      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
-      background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
-      background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white)); }
-#collections ul.collection_gallery li {
-  float: right;
-  width: 88px;
-  margin: 0 14px 20px 0;
-  position: relative;
-  padding: 0; }
-  #collections ul.collection_gallery li img {
-    position: absolute;
-    right: 0;
-    top: 0;
-    max-width: 88px;
-    max-height: 88px;
-    width: expression(this.width > 88 ? "88px" : true);
-    height: expression(this.height > 88 ? "88px" : true);
-    z-index: 2; }
-  #collections ul.collection_gallery li h4 {
-    margin-top: 90px; }
-    #collections ul.collection_gallery li h4 a {
-      text-decoration: none;
-      color: #394651; }
-  #collections ul.collection_gallery li span.icon {
-    position: absolute;
-    right: 0;
-    top: 0;
-    padding: 0;
-    width: 86px;
-    height: 86px;
-    border: 1px solid #cad3db;
-    margin: 0;
-    display: block;
-    z-index: 1; }
-  #collections ul.collection_gallery li.first {
-    margin-right: 0;
-    clear: both; }
-  #collections ul.collection_gallery li .checkbox {
-    position: absolute;
-    border: 1px solid #cad3db;
-    top: 0;
-    right: 0;
-    padding: 8px;
-    margin: 0;
-    background: white;
-    z-index: 3; }
-#collections ul.collection_names {
-  padding-bottom: 12px; }
-  #collections ul.collection_names li {
-    border-bottom: 1px solid #cad3db;
-    overflow: hidden;
-    padding: 5px 10px; }
-    #collections ul.collection_names li .checkbox {
+      border-bottom: 1px solid #d4dce2; }
+      #collections .article.list.updates form textarea {
+        width: 390px; }
+      #collections .article.list.updates form fieldset {
+        margin: 0; }
+      #collections .article.list.updates form fieldset.actions input[type="submit"] {
+        padding: 7px 10px;
+        font-size: 1em; }
+    #collections .article.list.updates ul li {
+      padding: 15px 0 0 15px;
+      border-bottom: 1px solid #d4dce2; }
+      #collections .article.list.updates ul li img {
+        margin-bottom: 5px; }
+  #collections ul.object_list li {
+    padding-top: 20px;
+    padding-bottom: 20px; }
+    #collections ul.object_list li img {
+      margin-left: -1px; }
+    #collections ul.object_list li .checkbox {
       float: left;
+      border: 1px solid #cad3db;
+      height: 68px;
+      line-height: 68px;
+      padding: 0 0 0 3px; }
+    #collections ul.object_list li .editable {
+      clear: both;
       margin: 0; }
-    #collections ul.collection_names li h4 small {
-      font-weight: bold;
-      color: #5f6c76; }
+    #collections ul.object_list li .annotation {
+      clear: both;
+      margin: 0; }
+    #collections ul.object_list li .references {
+      clear: both;
+      font-size: 0.9em;
+      margin: 0; }
+      #collections ul.object_list li .references p + p {
+        margin-top: 10px; }
+    #collections ul.object_list li .references + p.sort_value {
+      padding-top: 10px; }
+    #collections ul.object_list li p.sort_value {
+      clear: both;
+      font-size: 0.9em; }
+    #collections ul.object_list li p.edit {
+      clear: both;
+      font-size: 0.9em; }
+    #collections ul.object_list li .collection_item_form {
+      margin: 10px 0 0 0; }
+      #collections ul.object_list li .collection_item_form textarea {
+        display: block;
+        clear: both;
+        padding: 8px;
+        font: normal 1em Helvetica, Arial, sans-serif;
+        color: #394651;
+        border: 1px solid #cad3db;
+        background-color: white;
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
+        background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
+        background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white));
+        width: 460px;
+        height: 50px;
+        margin: 0 0 10px 0; }
+      #collections ul.object_list li .collection_item_form label {
+        font-weight: bold;
+        margin: 0;
+        display: block; }
+        #collections ul.object_list li .collection_item_form label small {
+          display: inline; }
+      #collections ul.object_list li .collection_item_form input[type="text"] {
+        width: 308px;
+        height: 22px;
+        padding: 2px 5px;
+        font: normal 1em Helvetica, Arial, sans-serif;
+        border: 1px solid #cad3db;
+        background-color: white;
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
+        background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
+        background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white)); }
+  #collections ul.collection_gallery li {
+    float: right;
+    position: relative;
+    width: 88px;
+    min-height: 88px;
+    margin: 0 14px 20px 0;
+    padding: 0; }
+    #collections ul.collection_gallery li img {
+      position: absolute;
+      right: 0;
+      top: 0;
+      max-width: 88px;
+      max-height: 88px;
+      width: expression(this.width > 88 ? "88px" : true);
+      height: expression(this.height > 88 ? "88px" : true);
+      z-index: 2; }
+    #collections ul.collection_gallery li h4 {
+      font-weight: normal;
+      width: 86px;
+      margin: 90px 1px 0;
+      overflow: hidden;
+      margin-top: 90px; }
+      #collections ul.collection_gallery li h4 a {
+        text-decoration: none;
+        color: #394651; }
+      #collections ul.collection_gallery li h4.balloon {
+        position: absolute;
+        top: 0;
+        right: -10px;
+        z-index: 3;
+        margin: 68px 0 0;
+        width: 102px;
+        padding: 3px;
+        background-color: #394651;
+        background: rgba(57, 70, 81, 0.9);
+        color: white; }
+        #collections ul.collection_gallery li h4.balloon a {
+          color: white; }
+    #collections ul.collection_gallery li span.icon {
+      position: absolute;
+      right: 0;
+      top: 0;
+      padding: 0;
+      width: 86px;
+      height: 86px;
+      border: 1px solid #cad3db;
+      margin: 0;
+      display: block;
+      z-index: 1; }
+    #collections ul.collection_gallery li.first {
+      margin-right: 0;
+      clear: both; }
+    #collections ul.collection_gallery li .checkbox {
+      position: absolute;
+      border: 1px solid #cad3db;
+      top: 0;
+      right: 0;
+      padding: 8px;
+      margin: 0;
+      background: white;
+      z-index: 3; }
+  #collections ul.collection_names {
+    padding-bottom: 12px; }
+    #collections ul.collection_names li {
+      border-bottom: 1px solid #cad3db;
+      overflow: hidden;
+      padding: 5px 10px; }
+      #collections ul.collection_names li .checkbox {
+        float: left;
+        margin: 0; }
+      #collections ul.collection_names li h4 small {
+        font-weight: bold;
+        color: #5f6c76; }
 
 #collections_edit, #collection_items_edit {
   width: 500px;

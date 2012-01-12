@@ -1,9 +1,9 @@
 - form_for @contact, :url=>{:action=>'create'}, :builder => ApplicationHelper::EolFormBuilder do |f|
 
   - if @contact.errors.any?
-    = f.text_field :ip_address
-    = f.text_field :referred_page
-    = f.text_field :user_id
+    = f.hidden_field :ip_address
+    = f.hidden_field :referred_page
+    = f.hidden_field :user_id
   - else
     = f.hidden_field :ip_address, :value => request.remote_ip
     - unless params[:referred_page].blank?

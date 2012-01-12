@@ -116,6 +116,25 @@ $(function() {
   })($(".language"));
 
   (function($collection) {
+    $collection.find("ul.collection_gallery").children().each(function() {
+      var $li = $(this);
+      if (!$li.find(".checkbox input[type=checkbox]").is(':checked')) {
+        $li.find(".checkbox").hide();
+      }
+      $li.find("h4").hide();
+      $li.accessibleHover(
+        function() {
+          $(this).find(".checkbox").show();
+          $(this).find("h4").addClass('balloon').show();
+        },
+        function() {
+          if (!$(this).find(".checkbox input[type=checkbox]").is(':checked')) {
+            $(this).find(".checkbox").hide();
+          }
+          $(this).find("h4").hide().removeClass('balloon');
+      });
+    });
+
     $collection.find("ul.object_list").children().each(function() {
       var $li = $(this);
       $li.delegate("p.edit a", "click", function( event ) {
@@ -296,6 +315,10 @@ $(function() {
         }
       });
     });
+  };
+
+  $.fn.accessibleHover = function(over, out) {
+    return this.bind('mouseenter mouseover focusin focus', over).bind('mouseleave mouseout focusout blur', out);
   };
 
   $.fn.hasAttr = function(attr) {

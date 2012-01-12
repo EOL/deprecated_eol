@@ -446,7 +446,7 @@ private
   end
 
   def set_view_as_options
-    @view_as_options = [ViewStyle.names_only, ViewStyle.image_gallery, ViewStyle.annotated]
+    @view_as_options = [ViewStyle.names_only, ViewStyle.gallery, ViewStyle.annotated]
   end
 
   def user_able_to_view_collection

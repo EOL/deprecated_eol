@@ -1,12 +1,12 @@
 - view_style ||= 'default'
 - unless view_style == 'names_only'
-  = link_to image_tag(item.logo_url(:small)), community_path(item)
-- unless ['image_gallery','names_only'].include?(view_style)
+  = link_to image_tag(item.logo_url(:small), :alt => I18n.t(:community_logo_alt_text, :community_name => item.name)), community_path(item)
+- unless ['gallery','names_only'].include?(view_style)
   = link_to content_tag(:span, '', {:class => 'icon', :title => I18n.t(:item_type_community_assistive)}), community_path(item)
 %h4
   = link_to h(truncate(item.name, :length => 64)), community_path(item)
   - if view_style == 'names_only'
     %small= I18n.t(:item_type_community)
-- unless ['image_gallery','names_only'].include?(view_style)
+- unless ['gallery','names_only'].include?(view_style)
   = I18n.t(:members_with_count_semi_colon, :count => item.members.count)
   = I18n.t(:collections_with_count, :count => item.collections.count)

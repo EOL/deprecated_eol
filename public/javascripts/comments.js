@@ -65,8 +65,16 @@ EOL.redirect_to_comment_source = function(href, reply) {
   window.location = '/activity_logs/find/'+href.replace(/^.*-(\d+)$/, '\$1')+'?'+
     $.param({type: href.replace(/^.*[#-]([^-]+)-\d+$/, '\$1'), reply: reply});
 };
+// I'm trying to keep this one minimal: it just checks that the first two parts of each of the paths match, not
+// caring about sub-paths (like 'newsfeed').  Note that [0] is ignored, since it's blank:
+EOL.close_enough = function(href) {
+  var sh = href.replace(/#.*$/, '');
+  var hspl = href.split('/');
+  var lspl = location.pathname.split('/');
+  return(hspl[1] == lspl[1] && hspl[2] == hspl[2]);
+};
 EOL.jump_to_comment = function(target, href, reply) {
-  if (target.size() == 0 || reply && href.replace(/#.*$/, '') != location.pathname) {
+  if (target.size() == 0 || reply && ! EOL.close_enough(href)) {
     EOL.redirect_to_comment_source(href, reply);
     return(true);
   } else {

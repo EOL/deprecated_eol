@@ -1025,6 +1025,7 @@ en:
     one: "%{count} item"
     other: "%{count} items"
   community_invitation_comment: "I would like to invite you to join \"%{community}\"."
+  community_logo_alt_text: "Logo for community %{community_name}"
   community_managers_with_count:
     one: "%{count} Community Manager"
     other: "%{count} Community Managers"

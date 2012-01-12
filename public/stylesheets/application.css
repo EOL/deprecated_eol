@@ -1588,6 +1588,7 @@ body > #header {
 #collections ul.collection_gallery li {
   float: left;
   width: 88px;
+  min-height: 88px;
   margin: 0 0 20px 14px;
   position: relative;
   padding: 0; }
@@ -1601,10 +1602,27 @@ body > #header {
     height: expression(this.height > 88 ? "88px" : true);
     z-index: 2; }
   #collections ul.collection_gallery li h4 {
+    font-weight: normal;
+    width: 86px;
+    margin: 90px 1px 0;
+    overflow: hidden;
     margin-top: 90px; }
     #collections ul.collection_gallery li h4 a {
       text-decoration: none;
       color: #394651; }
+    #collections ul.collection_gallery li h4.balloon {
+      position: absolute;
+      top: 0;
+      left: -10px;
+      z-index: 3;
+      margin: 68px 0 0;
+      width: 102px;
+      padding: 3px;
+      background-color: #394651;
+      background-color: rgba(57, 70, 81, 0.9);
+      color: white; }
+      #collections ul.collection_gallery li h4.balloon a {
+        color: white; }
   #collections ul.collection_gallery li span.icon {
     position: absolute;
     left: 0;

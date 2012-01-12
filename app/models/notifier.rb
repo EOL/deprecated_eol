@@ -10,13 +10,16 @@ class Notifier < ActionMailer::Base
     body        :user => user
   end
 
- # # TODO: Not being called from anywhere - applicable if we reinstate contact us form - should be tested then
- # def contact_us_auto_response(contact)
- #   subject     I18n.t(:subject, :title => contact_subject.title, :scope => [:notifier, :contact_us_auto_response])
- #   recipients  contact.email
- #   from        $SUPPORT_EMAIL_ADDRESS
- #   body        :contact => contact
- # end
+  def contact_us_auto_response(contact)
+    contact_subject = ContactSubject.find(contact.contact_subject_id)
+    contact_from = contact_subject.recipients
+    contact_from = contact_from.split(',').map { |c| c.strip }
+    
+    subject     I18n.t(:subject, :title => contact_subject.title, :scope => [:notifier, :contact_us_auto_response])
+    recipients  contact.email
+    from        contact_from
+    body        :contact => contact
+  end
 
   def contact_us_message(contact)
     contact_subject = ContactSubject.find(contact.contact_subject_id)

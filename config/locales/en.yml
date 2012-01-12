@@ -2501,6 +2501,7 @@ en:
   user_comments: "User Comments"
   user_comment: "User Comment"
   user_commented_on_something_colon: "<strong>%{user}</strong> commented on %{what}:"
+  user_commented_on_themself: "<strong>%{user_with_link}</strong> commented on <a href='%{link}'>%{username}'s newsfeed</a>:"
   user_id: "User ID"
   user_index_intro: "All web users registered in the system are shown below,  sorted inversely by time registered.  Note that the registration dates for users prior to EOL V2 (Jan 5, 2009) are not available.  Click on a username to edit that user."
   user_joined_community_on_date: "%{username} joined this community on %{date}."

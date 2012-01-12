@@ -32,10 +32,13 @@
   - when 'User'
     -# We placed a filter here to trap the error if user is deleted.
     - unless item.parent.nil?
-      - parent_link = user_path(item.parent)
+      - parent_link = user_newsfeed_path(item.parent)
   %p
     - if parent_link
-      = I18n.t(:user_commented_on_something_colon, :user => name_with_link, :what => link_to(item.parent.summary_name, parent_link))
+      - if item.parent == item.user
+        = I18n.t(:user_commented_on_themself, :user_with_link => name_with_link, :username => item.parent.summary_name, :link => parent_link)
+      - else
+        = I18n.t(:user_commented_on_something_colon, :user => name_with_link, :what => link_to(item.parent.summary_name, parent_link))
     - else
       - unless item.parent.nil?
         = I18n.t(:user_commented_on_something_colon, :user => name_with_link, :what => item.parent.summary_name)

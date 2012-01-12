@@ -18,7 +18,7 @@ describe CollectionsController do
     it 'should set view as options and currently selected view' do
       get :show, :id => @collection.id
       assigns[:view_as].should == @collection.default_view_style
-      assigns[:view_as_options].should == [ViewStyle.list, ViewStyle.gallery, ViewStyle.annotated]
+      assigns[:view_as_options].should == [ViewStyle.names_only, ViewStyle.gallery, ViewStyle.annotated]
       get :show, :id => @collection.id, :view_as => ViewStyle.gallery.id
       assigns[:view_as].should == ViewStyle.gallery
     end
@@ -27,7 +27,7 @@ describe CollectionsController do
   describe 'GET edit' do
     it 'should set view as options' do
       get :edit, { :id => @collection.id }, { :user_id => @collection.users.first.id, :user => @collection.users.first }
-      assigns[:view_as_options].should == [ViewStyle.list, ViewStyle.gallery, ViewStyle.annotated]
+      assigns[:view_as_options].should == [ViewStyle.names_only, ViewStyle.gallery, ViewStyle.annotated]
     end
   end
 

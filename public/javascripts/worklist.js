@@ -24,7 +24,7 @@ EOL.init_worklist_behaviors = function() {
         name: 'ajax',
         value: 1
     }).appendTo($f);
-    EOL.ajax_submit($f, {update: $(this).closest('#worklist'), type: 'GET' });
+    EOL.ajax_submit($f, {update: $(this).closest('#worklist'), type: 'GET', complete: function() { EOL.init_worklist_behaviors(); } });
     return(false);
   });
 
@@ -33,14 +33,14 @@ EOL.init_worklist_behaviors = function() {
     var $update = $(this).closest('#worklist');
     var current_link = $(this).attr('href');
     $(this).attr('href', current_link + (current_link.indexOf('?') != -1 ? "&ajax=1" : "?ajax=1"));
-    EOL.ajax_get($(this), {update: $update, type: 'GET', });
+    EOL.ajax_get($(this), {update: $update, type: 'GET', complete: function() { EOL.init_worklist_behaviors(); } });
     return(false);
   });
 
   $('#worklist #task .ratings .rating a').unbind('click');
   $('#worklist #task .ratings .rating a').click(function() {
     var $update = $(this).closest('div.ratings');
-    EOL.ajax_submit($(this), {url: $(this).attr('href'), update: $update, type: 'GET'});
+    EOL.ajax_submit($(this), {url: $(this).attr('href'), update: $update, type: 'GET', complete: function() { EOL.init_worklist_behaviors(); } });
     return(false);
   });
 

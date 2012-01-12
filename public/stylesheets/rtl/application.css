@@ -1608,6 +1608,7 @@ body > #header {
 #collections ul.collection_gallery li {
   float: right;
   width: 88px;
+  min-height: 88px;
   margin: 0 14px 20px 0;
   position: relative;
   padding: 0; }
@@ -1621,6 +1622,8 @@ body > #header {
     height: expression(this.height > 88 ? "88px" : true);
     z-index: 2; }
   #collections ul.collection_gallery li h4 {
+    width: 88px;
+    overflow: hidden;
     margin-top: 90px; }
     #collections ul.collection_gallery li h4 a {
       text-decoration: none;

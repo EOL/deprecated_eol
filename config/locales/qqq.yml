@@ -92,3 +92,5 @@ qqq:
   page_views_th: "Table heading, used on a row in a two-column table of data about taxon concepts."
   unique_page_views_th: "Table heading, used on a row in a two-column table of data about taxon concepts."
   please_publish_this_resource_notice: "Yes, the stars and the strong here are a bit much, but the admins (who are the only people who will see this) have specifically asked for them, so please preserve them."
+  user_commented_on_themself: "The 'user' and 'user_again' will have two different links, but the same user's string.
+  The second one needs to be possessive, modifying 'newsfeed'."

@@ -1529,21 +1529,21 @@ body > #header {
   #collections .article.list.updates {
     padding-top: 15px;
     margin: 0 0 0 -10px; }
-    #collections .article.list.updates > form {
-      padding: 5px 0 20px 15px;
+    #collections .article.list.updates form {
+      padding: 5px 15px 20px 15px;
       margin: 0;
       border-bottom: 1px solid #d4dce2; }
-      #collections .article.list.updates > form textarea {
+      #collections .article.list.updates form textarea {
         width: 390px; }
-      #collections .article.list.updates > form fieldset {
+      #collections .article.list.updates form fieldset {
         margin: 0; }
-      #collections .article.list.updates > form fieldset.actions input[type="submit"] {
+      #collections .article.list.updates form fieldset.actions input[type="submit"] {
         padding: 7px 10px;
         font-size: 1em; }
-    #collections .article.list.updates > ul > li {
+    #collections .article.list.updates ul li {
       padding: 15px 0 0 15px;
       border-bottom: 1px solid #d4dce2; }
-      #collections .article.list.updates > ul > li img {
+      #collections .article.list.updates ul li img {
         margin-bottom: 5px; }
   #collections ul.object_list li {
     padding-top: 20px;
@@ -1590,10 +1590,11 @@ body > #header {
         background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
         background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white));
         width: 460px;
-        height: 50px; }
+        height: 50px;
+        margin: 0 0 10px 0; }
       #collections ul.object_list li .collection_item_form label {
         font-weight: bold;
-        margin: 10px 0 0 0;
+        margin: 0;
         display: block; }
         #collections ul.object_list li .collection_item_form label small {
           display: inline; }
@@ -1624,14 +1625,15 @@ body > #header {
       height: expression(this.height > 88 ? "88px" : true);
       z-index: 2; }
     #collections ul.collection_gallery li h4 {
-      position: absolute;
-      right: -999em; }
+      font-weight: normal;
+      width: 86px;
+      margin: 90px 1px 0;
+      overflow: hidden;
+      margin-top: 90px; }
       #collections ul.collection_gallery li h4 a {
         text-decoration: none;
         color: #394651; }
       #collections ul.collection_gallery li h4.balloon {
-        font-weight: normal;
-        overflow: hidden;
         position: absolute;
         top: 0;
         right: -10px;

@@ -1,14 +1,14 @@
 - view_style ||= 'default'
 - unless view_style == 'list'
   = link_to image_tag(item.logo_url(:small)), collection_path(item)
-- unless ['gallery','names_only'].include?(view_style)
+- unless ['gallery','list'].include?(view_style)
   = link_to content_tag(:span, '', {:class => 'icon', :title => I18n.t(:item_type_collection_assistive)}), collection_path(item)
 - truncated_name = h(truncate(item.name, :length => 64))
 %h4
   = link_to(truncated_name, collection_path(item), :alt => item.name == truncated_name ? nil : item.name)
   - if view_style == 'list' && @filter.nil?
     %small= I18n.t(:item_type_collection)
-- unless ['gallery','names_only'].include?(view_style)
+- unless ['gallery','list'].include?(view_style)
   = I18n.t(:items_with_count_semi_colon, :count => item.collection_items.count)
   = I18n.t(:maintained_by)
   = item.maintained_by.map {|by| link_to truncate(by.summary_name, :length => 64), link_to_item(by) }.to_sentence

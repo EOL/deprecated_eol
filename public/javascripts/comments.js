@@ -66,7 +66,7 @@ EOL.redirect_to_comment_source = function(href, reply) {
     $.param({type: href.replace(/^.*[#-]([^-]+)-\d+$/, '\$1'), reply: reply});
 };
 EOL.jump_to_comment = function(target, href, reply) {
-  if (target.size() == 0) {
+  if (target.size() == 0 || reply && href.replace(/#.*$/, '') != location.pathname) {
     EOL.redirect_to_comment_source(href, reply);
     return(true);
   } else {

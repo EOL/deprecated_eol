@@ -66,7 +66,7 @@ EOL.redirect_to_comment_source = function(href, reply) {
     $.param({type: href.replace(/^.*[#-]([^-]+)-\d+$/, '\$1'), reply: reply});
 };
 EOL.jump_to_comment = function(target, href, reply) {
-  if (target.size() == 0) {
+  if (target.size() == 0 || reply && href.replace(/#.*$/, '') != location.pathname) {
     EOL.redirect_to_comment_source(href, reply);
     return(true);
   } else {
@@ -125,5 +125,8 @@ EOL.init_comment_behaviours = function() {
 $(function() {
   EOL.init_comment_behaviours();
   EOL.handle_special_anchors_in_location_hash();
+  $('ul.feed').ajaxSuccess(function() {
+    EOL.init_comment_behaviours();
+  });
 });
 

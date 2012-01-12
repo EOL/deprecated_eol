@@ -193,9 +193,9 @@ describe Collection do
   it 'should know what its default view style is' do
     collection = Collection.gen
     collection.default_view_style.should == ViewStyle.annotated
-    collection.update_attributes(:view_style => ViewStyle.image_gallery)
+    collection.update_attributes(:view_style => ViewStyle.gallery)
     collection.reload
-    collection.default_view_style.should == ViewStyle.image_gallery
+    collection.default_view_style.should == ViewStyle.gallery
   end
 
   it 'has other unimplemented tests but I will not make them all pending, see the spec file'

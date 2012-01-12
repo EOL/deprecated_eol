@@ -379,9 +379,8 @@ en:
     label:
       collection_item:
         annotation: "Annotation"
-        sort_field: "Sort by <small>(date, number, or text; optional)</small>"
+        sort_field: "Sort by <small>(date YYYY.MM.DD, number, or text)</small>"
         sort_field_show: "Sort value:"
-        sort_field_more: "Optional value to sort the collection by (date using YYYY.MM.DD, number, or text)."
       comment:
         body_edit: "Edit comment"
       content_page:

@@ -1,14 +1,14 @@
 - en_type ||= en_type(item)
 - view_style ||= 'default'
-- unless view_style == 'names_only'
+- unless view_style == 'list'
   - if thumb = item.thumb_or_object('88_88')
     = link_to image_tag(thumb), data_object_path(item)
   = link_to content_tag(:span, '', {:class => 'icon', :title => en_type.blank? ? nil : I18n.t("item_type_#{en_type}_assistive")}), data_object_path(item)
 %h4
   = link_to truncate(item.best_title, :length => 64).balance_tags, data_object_path(item)
-  - if view_style == 'names_only' && !en_type.blank?
+  - if view_style == 'list' && !en_type.blank? && @filter.nil?
     %small= I18n.t("item_type_#{en_type}")
-- unless ['gallery','names_only'].include?(view_style)
+- unless ['gallery','list'].include?(view_style)
   - if he = item.first_hierarchy_entry(:include_preview_entries => true)
     - secondary_title = I18n.t("#{en_type}_of") + ' ' + he.name.canonical_form.string
   - if item.published_entries.length > 1

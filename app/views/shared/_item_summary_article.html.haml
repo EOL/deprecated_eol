@@ -6,13 +6,13 @@
 -# if the dato gets more associations, it will not show them.  TODO - attempt to set up an observer to handle those.
 - view_style ||= 'default'
 - cache "article/summary/#{view_style}/#{I18n.locale}/#{item.id}" do
-  - unless view_style == 'names_only'
+  - unless view_style == 'list'
     = link_to content_tag(:span, '', {:class => 'icon', :title => I18n.t(:item_type_article_assistive)}), data_object_path(item)
   %h4
     = link_to h(truncate(item.best_title, :length => 64)), data_object_path(item)
-    - if view_style == 'names_only'
+    - if view_style == 'list' && @filter.nil?
       %small= I18n.t(:item_type_article)
-  - unless ['gallery','names_only'].include?(view_style)
+  - unless ['gallery','list'].include?(view_style)
     - if he = item.first_hierarchy_entry(:include_preview_entries => true)
       - secondary_title = I18n.t(:description_of) + ' ' + he.name.canonical_form.string
     - if item.published_entries.length > 1

@@ -116,8 +116,13 @@ $(function() {
   })($(".language"));
 
   (function($collection) {
+    var zi = 1000;
     $collection.find("ul.collection_gallery").children().each(function() {
       var $li = $(this);
+      if ($.browser.msie) {
+        $li.css('z-index', zi);
+        zi -= 1;
+      }
       if (!$li.find(".checkbox input[type=checkbox]").is(':checked')) {
         $li.find(".checkbox").hide();
       }

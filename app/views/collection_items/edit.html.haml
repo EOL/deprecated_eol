@@ -15,7 +15,6 @@
             = item_form.label :sort_field, I18n.t('helpers.label.collection_item.sort_field')
           %dd
             = item_form.text_field :sort_field
-            %p= I18n.t('helpers.label.collection_item.sort_field_more')
       %fieldset.actions
         = item_form.submit I18n.t('helpers.submit.collection_item.update')
         = link_to I18n.t(:cancel), params[:return_to] || @collection

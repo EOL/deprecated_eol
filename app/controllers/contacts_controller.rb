@@ -14,8 +14,11 @@ class ContactsController < ApplicationController
   def create
     @contact = Contact.new(params[:contact])
     failed_to_create_request and return unless @contact.valid? && verify_recaptcha    
+    if logged_in?
+      @contact.comments = @contact.comments + "\n" + request.env["HTTP_HOST"] + user_path(current_user)
+    end
     if @contact.save
-      send_verification_email
+      Notifier.deliver_contact_us_auto_response(@contact)
       @list = load_areas
       @contact = Contact.new
       flash.now[:notice] = I18n.t(:contact_us_request_sent)
@@ -40,7 +43,7 @@ class ContactsController < ApplicationController
 
   def send_verification_email
     if logged_in?
-      @contact.comments = @contact.comments + '\n' + request.env["HTTP_HOST"] + user_path(current_user)
+      @contact.comments = @contact.comments + "\n" + request.env["HTTP_HOST"] + user_path(current_user)
     end
     Notifier.deliver_contact_us_message(@contact)
   end

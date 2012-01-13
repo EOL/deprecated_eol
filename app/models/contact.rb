@@ -1,10 +1,10 @@
 # An item that is submitted via the "Contact Us" or "Media Contact" portion of the website.
 class Contact < ActiveRecord::Base
 
-  validates_presence_of :name, :comments
+  validates_presence_of :name, :comments, :email
   validates_presence_of :contact_subject, :message=>'^' +  I18n.t(:select_topic)
 
- # validates_format_of :email, :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
+  validates_format_of :email, :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
   after_create :send_contact_email
   belongs_to :contact_subject
 

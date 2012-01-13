@@ -8,7 +8,7 @@ class ViewStyle < ActiveRecord::Base
   def self.create_defaults
     TranslatedViewStyle.reset_cached_instances
     ViewStyle.reset_cached_instances
-    ['Names Only', 'Image Gallery', 'Annotated'].each do |name|
+    ['Names Only', 'Gallery', 'Annotated'].each do |name|
       vstyle = ViewStyle.create
       begin
         TranslatedViewStyle.create(:name => name, :view_style_id => vstyle.id, :language_id => Language.english.id)
@@ -23,8 +23,8 @@ class ViewStyle < ActiveRecord::Base
     cached_find_translated(:name, 'Names Only')
   end
 
-  def self.image_gallery
-    cached_find_translated(:name, 'Image Gallery')
+  def self.gallery
+    cached_find_translated(:name, 'Gallery')
   end
 
   def self.annotated

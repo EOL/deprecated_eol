@@ -8,7 +8,7 @@
   = link_to truncate(item.best_title, :length => 64).balance_tags, data_object_path(item)
   - if view_style == 'names_only' && !en_type.blank?
     %small= I18n.t("item_type_#{en_type}")
-- unless ['image_gallery','names_only'].include?(view_style)
+- unless ['gallery','names_only'].include?(view_style)
   - if he = item.first_hierarchy_entry(:include_preview_entries => true)
     - secondary_title = I18n.t("#{en_type}_of") + ' ' + he.name.canonical_form.string
   - if item.published_entries.length > 1

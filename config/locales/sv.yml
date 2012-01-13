@@ -154,15 +154,12 @@ sv:
   activity_log_empty: Ingen har lämnat uppdateringar ännu.
   activity_log_empty_learn_more_link: Lär dig hur du bidrar
   activity_user_added_association: <strong>%{user}</strong> lade till en association till "%{object_name}".
-  activity_user_added_common_name: <strong>%{user}</strong> lade till vanliga namnet "%{name}" till ett okänt objekt.
-  activity_user_added_common_name_to_taxon: <strong>%{user}</strong> lade till vanliga namnet "%{name}" till "%{taxon}".
   activity_user_added_community_manager: <strong>%{user}</strong> gjorde %{manager} en ledare av gemenskapen "%{community}".
   activity_user_added_item_to_collection: <strong>%{user}</strong> lade till "%{item}" till samlingen "%{collection}".
   activity_user_added_named_association: <strong>%{user}</strong> lade till en association mellan "%{object_name}" och "%{name}".
   activity_user_added_unknown_association: <strong>%{user}</strong> lade till en association till ett okänt objekt.
   activity_user_added_unknown_item_to_collection: <strong>%{user}</strong> lade till ett okänt objekt till samlingen "%{collection}".
   activity_user_added_unknown_name: <strong>%{user}</strong> lade till ett okänt vanligt namn till ett okänt objekt.
-  activity_user_added_unknown_name_to_taxon: <strong>%{user}</strong> lade till ett vanligt namn till "%{taxon}".
   activity_user_changed_community_description: <strong>%{user}</strong> uppdaterade beskrivningen för gemenskapen "%{community}".
   activity_user_changed_community_icon: <strong>%{user}</strong> ändrade logotypen för gemenskapen "%{community}".
   activity_user_changed_community_name: <strong>%{user}</strong> ändrade namnet för gemenskapen "%{community}".
@@ -185,7 +182,6 @@ sv:
   activity_user_removed_named_association: <strong>%{user}</strong> tog bort en association mellan "%{object_name}" och "%{name}".
   activity_user_removed_unknown_association: <strong>%{user}</strong> tog bort en association till ett okänt objekt.
   activity_user_removed_unknown_name: <strong>%{user}</strong> tog bort ett okänt vanligt namn från ett okänt objekt.
-  activity_user_removed_unknown_name_to_taxon: <strong>%{user}</strong> tog bort ett okänt vanligt namn från "%{taxon}".
   activity_user_showed_data_object: <strong>%{user}</strong> markerade "%{object_name}" som synlig.
   activity_user_showed_unknown_object: <strong>%{user}</strong> markerade ett okänt objekt som synlig.
   activity_user_trusted_data_object: <strong>%{user}</strong> markerade "%{object_name}" som pålitlig.
@@ -314,8 +310,6 @@ sv:
     one: Hittades i %{count} klassificering
     other: Hittades i %{count} klassificeringar
   cms_available_in_languages: "Denna sida finns tillgänglig på:"
-  cms_missing_content_message: Tyvärr, denna sida är inte är tillgänglig för detta språk.
-  cms_missing_content_title: Saknar innehåll
   collection_created_notice: Samlingen <em>%{collection_name}</em> skapdes.
   collection_destroyed: Samlingen har tagits bort.
   collection_image: Samlingsbild
@@ -365,7 +359,6 @@ sv:
     other: "%{count} bidrag"
   community_destroyed: Du har tagit bort denna gemenskap. Den kommer inte längre visas på taxon-sidor eller i sökningar.
   community_empty_notice: Denna gemenskap har inga medlemmar.
-  community_focus: Gemenskapsfokus
   community_focus_items_with_count: 
     one: "%{count} objekt"
     other: "%{count} objekt"
@@ -900,7 +893,6 @@ sv:
     signature_with_species_pages_group_contact: "Om du har några frågor, kontakta oss på %{species_pages_group_email}.\n\nEncyclopedia of Life-teamet"
     user_activated: 
       subject: Ditt Encyclopedia of Life-konto har aktiverats
-    user_commented_on_something_date_body: "%{users_name} (%{users_url}) kommenterade på:\n%{commented_on_name} (%{commented_on_url})\n%{comment_date}:\n%{comment_body}"
     user_message: 
       subject: Ett meddelande från Encyclopedia of Life
     user_reset_password: 
@@ -1037,7 +1029,6 @@ sv:
   selected_items: Markerade objekt
   selected_language_advisory_information: Detta är det valda språket.
   send_email_colon: "Skicka e-post:"
-  sent_invitations_to_users: Inbjudningar skickades till %{users}.
   set_as_exemplar: Ange som förebild
   show: Visa
   show_data_from_all_content_partners: Ta bort klassificeringsfilter
@@ -1112,7 +1103,6 @@ sv:
   there_are_currently_no_members_in_this_community: Det finns för närvarande inga medlemmar i denna gemenskap.
   this_community_has_no_focus_list: Denna gemenskap har ingen fokuseringslista.
   this_is_a_focus_collection_for_community: Denna samling är i fokus för "%{community}".
-  threat_status_header_colon: "IUCN-hotstatus:"
   time_ago: "%{time_passed} sedan"
   title: Titel
   to_process_your_donation_please_proceed: För att behandla din donation går du vidare
@@ -1151,7 +1141,6 @@ sv:
   user: Användare
   user_activation_successful_notice: Välkommen och tack för att du gick med i Encyclopedia Of Life-gruppen. Ditt konto med användarnamnet <em>%{username}</em> är nu aktivt. Var god logga in.
   user_activity_page_title: Användaraktivitet
-  user_activity_stats_articles_added: Tillagda artiklar
   user_activity_stats_header: Aktivitet
   user_already_active_notice: Ditt konto är redan aktivt, var god logga in.
   user_comment: Användarkommentar

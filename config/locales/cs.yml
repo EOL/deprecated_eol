@@ -109,7 +109,6 @@ cs:
         less_than: 
           one: musí být méně než %{count}
           other: musí být méně než %{count}
-        less_than_or_equal_to: musí být menší než nebo rovno % {počet}
         not_a_number: není číslo
         not_an_integer: musí být celé číslo
         odd: musí být liché číslo
@@ -142,8 +141,6 @@ cs:
   activity_log_empty: Nikdo ještě neposkytl aktualizace.
   activity_log_empty_learn_more_link: Informace jak přispět
   activity_user_added_association: <strong>%{user}</strong> přidal(a) asociaci k "%{object_name}".
-  activity_user_added_common_name: <strong>%{user}</strong> přidal(a) běžný název k "%{name}".k neznámému objektu.
-  activity_user_added_common_name_to_taxon: <strong>%{user}</strong> přidal(a) běžný název "%{name}" k "%{taxon}".
   activity_user_added_item_to_collection: <strong>%{user}</strong> přidal/a "%{item}" do sbírky "%{collection}".
   activity_user_deleted_community: <strong>%{user}</strong> smazal/a komunitu "%{community}".
   activity_user_hid_data_object: <strong>%{user}</strong> označil/a "%{object_name}" jako skrytý
@@ -160,7 +157,6 @@ cs:
   activity_user_removed_named_association: <strong>%{user}</strong> odstranil/a asociaci mezi "%{object_name}" a "%{name}".
   activity_user_removed_unknown_association: <strong>%{user}</strong> odstranil/a asociaci k neznámému objektu.
   activity_user_removed_unknown_name: <strong>%{user}</strong> odstranil/a neznámý běžný název z neznámého objektu.
-  activity_user_removed_unknown_name_to_taxon: <strong>%{user}</strong> odstranil/a neznámý běžný název z "%{taxon}".
   activity_user_showed_data_object: <strong>%{user}</strong> označil/a "%{object_name}" jako viditelný.
   activity_user_showed_unknown_object: <strong>%{user}</strong> označil/a neznámý objekt jako viditelný.
   activity_user_trusted_data_object: <strong>%{user}</strong> označil/a "%{object_name}" jako důveryhodný.
@@ -239,10 +235,8 @@ cs:
   assistive_taxon_community_header: Kominita
   assistive_updates_header: Aktualizace
   associated_submit_button: připojené
-  associated_with_article_header: Asociace s
   associated_with_header: Asociace s
   associated_with_image_header: Na tomto obrázku
-  associated_with_sound_header: Asociace s
   associated_with_video_header: V tomto videu
   associations_more_link: více <span class="assistive">asociací taxonu</span>
   attribute: Vlastnost
@@ -273,8 +267,6 @@ cs:
   citing_link: Citování
   classification_tree_header: Klasifikace
   cms_available_in_languages: "Tato stránka je k dispozici na:"
-  cms_missing_content_message: Omlouváme se, tato stránka není v tomto jazyce dostupná.
-  cms_missing_content_title: Chybí obsah
   collection_image: Obrázek sbírky
   collection_name_label: Název sbírky
   collection_newsfeed: Kanál novinek sbírky
@@ -346,7 +338,6 @@ cs:
   content_partner_resource_collection_header: Publikovaná sbírka
   content_partner_resource_collections_header: Sbírky
   content_partner_resource_dataset_details_header: Dataset
-  content_partner_resource_edit_link: Upravit zdroj
   content_partner_resource_edit_subheader: Upravit zdroj
   content_partner_resource_new_link: Přidat nový zdroj
   content_partner_resource_new_subheader: Přidat nový zdroj
@@ -803,7 +794,6 @@ cs:
   selected_items: Vybrané objekty
   selected_language_advisory_information: Toto je aktuálně zvolený jazyk.
   send_email_colon: "Odeslat email:"
-  sent_invitations_to_users: Pozvánky byly odeslány uživatelům %{users}.
   set_as_exemplar: Nastavit jako šablonu
   show: Zobrazit
   show_data_from_all_content_partners: Odebrat filtr klasifikace
@@ -869,7 +859,6 @@ cs:
   text_summary_more_link: Číst celou položku
   thank_you: Děkujeme
   thank_you_for_your_generous_support: Děkujeme za Vaši podporu
-  threat_status_header_colon: "IUCN stav ohrožení:"
   time_ago: před %{time_passed}
   title: Nadpis
   to_process_your_donation_please_proceed: Pro vyřízení Vašeho příspěvku prosím pokračujte
@@ -910,7 +899,6 @@ cs:
   us_dollars_35: US $35
   us_dollars_50: US $50
   user: Uživatel
-  user_activity_stats_articles_added: Přidané články
   user_activity_stats_header: Činnost
   user_says_colon: "%{users_name} říká:"
   user_submitted_text_titlecase: Text vložený uživateli

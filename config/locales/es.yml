@@ -178,15 +178,12 @@ es:
   activity_log_empty: Nadie ha proporcionado actualizaciones todavía.
   activity_log_empty_learn_more_link: Aprende cómo contribuir
   activity_user_added_association: <strong>%{user}</strong> agregó una asociación "%{object_name}".
-  activity_user_added_common_name: <strong>%{user}</strong> agregó el nombre común "%{name}" a un objeto desconocido.
-  activity_user_added_common_name_to_taxon: <strong>%{user}</strong> agregó el nombre común "%{name}" a "%{taxon}".
   activity_user_added_community_manager: <strong>%{user}</strong> hizo %{manager} un administrador de la comunidad "%{community}".
   activity_user_added_item_to_collection: <strong>%{user}</strong> añadio "%{item}" a la colección  "%{collection}".
   activity_user_added_named_association: <strong>%{user}</strong> agregó una asociación "%{object_name}" y "%{name}".
   activity_user_added_unknown_association: <strong>%{user}</strong> agregó una asociación a un objeto desconocido.
   activity_user_added_unknown_item_to_collection: <strong>%{user}</strong> añadio un elemento desconocido a la colección  "%{collection}".
   activity_user_added_unknown_name: <strong>%{user}</strong> agregó el nombre común a un objeto desconocido.
-  activity_user_added_unknown_name_to_taxon: <strong>%{user}</strong> agregó el nombre común a "%{taxon}".
   activity_user_changed_community_description: <strong>%{user}</strong> ha actualizado la descriptción de la comunidad "%{community}".
   activity_user_changed_community_icon: <strong>%{user}</strong> cabio el logotipo de la comunidad "%{community}".
   activity_user_changed_community_name: <strong>%{user}</strong> cambío el nobre de la comunidad "%{community}".
@@ -209,7 +206,6 @@ es:
   activity_user_removed_named_association: <strong>%{user}</strong> eliminar una asociación entre "%{object_name}" y "%{name}".
   activity_user_removed_unknown_association: <strong>%{user}</strong> elimino una asociación a un objeto desconocido.
   activity_user_removed_unknown_name: <strong>%{user}</strong> elimino un nombre común desconocido de un objeto desconocido.
-  activity_user_removed_unknown_name_to_taxon: <strong>%{user}</strong> elimino un nombre común desconocido de "%{taxon}".
   activity_user_showed_data_object: <strong>%{user}</strong> marcó "%{object_name}" como visible.
   activity_user_showed_unknown_object: <strong>%{user}</strong> marcó un objecto desconocido como visible.
   activity_user_trusted_data_object: <strong>%{user}</strong> marcó "%{object_name}" con confieanza.
@@ -279,7 +275,6 @@ es:
   admin_translated_content_page_new_link: Añade traducción
   admin_translated_content_page_new_subheader: Añade traducción de <em>%{page_name}</em>
   admin_translated_content_page_new_tip: Idioma, el título y el cuerpo son %{required_icon} requeridos.
-  admin_translated_content_page_update_successful_notice: La traducción en %{Language} para <a href="#%{anchor}"><em>%{page_name}</em></a> se ha actualizado.
   admin_translated_content_page_update_unsuccessful_error: Lo sentimos, ha ocurrido un error, la traducción no se pudo actualizar.
   agent: Agente
   all: todos
@@ -330,10 +325,8 @@ es:
   assistive_taxon_community_header: Comunidad
   assistive_updates_header: Actualizaciones
   associated_submit_button: asociado
-  associated_with_article_header: Asociado con
   associated_with_header: Asociado con
   associated_with_image_header: En esta imagen
-  associated_with_sound_header: Asociado con
   associated_with_video_header: En este vídeo
   associations_more_link: más <span class="assistive">asociaciones de taxón</span>
   attribute: Atributo
@@ -381,7 +374,6 @@ es:
   citation_example: Fisher, Brian. "Pogonomyrmex anergismus Cole, 1954." Encyclopedia of Life, disponible en <a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>. Consultado 15 Jan 2009.
   citing_link: Citando
   classification_tree_header: Clasificación
-  classifications_empty: Esta página inclida no está en ninguna de las clasificaciones que se puede examinar en EOL.
   classifications_summary_header_with_count: 
     one: "Encontrado en %{count} clasificación "
     other: Encontrado en %{count} classifications
@@ -389,8 +381,6 @@ es:
   click_on_a_username_to_view_the_users_detailed_profile: Haga clic en un nombre de usuario para ver el perfil detallado de ese usuario, haga clic en el tipo de datos para ver el objeto comentado (use el botón de "back" en su navegador para volver aquí), haga clic en "editar" para editar el comentario o haz clic en "borrar" para eliminar permanentemente el comentario.
   close_this_window_to_return_to_edit_window: CIERRE ESTA VENTANA PARA VOLVER A LA VENTANA EDITAR
   cms_available_in_languages: "Esta página está disponible en:"
-  cms_missing_content_message: Lo sentimos, esta página no está disponible para ese idioma.
-  cms_missing_content_title: Contenido faltante
   collect_item: Recoger el artículo
   collection_created_notice: Colección <em>%{collection_name}</em> creado correctamente.
   collection_created_with_count_notice: 
@@ -405,12 +395,10 @@ es:
   collection_newsfeed: Newsfeed de Colección
   collection_not_created_error: Lo sentimos, ha ocurrido un error, la colección <em>%{collection_name}</em> no se pudo crear.
   collection_not_destroyed_error: Lo sentimos, la colección no se ha eliminado.
-  collection_not_found_error: Lo sentimos, que no se encuentra esa colección.
   collection_updated_notice: Colección <em>%{collection_name}</em> actualizado correctamente.
   collection_was_removed_by_owner: Esta colección fue retirada por su propietario.
   collections: Colecciones
   collections_lowercase: colecciones
-  collections_summary_empty: Este taxón no está en ninguna colección todavía.
   collections_summary_header_with_count: 
     one: "Presente en %{count} colección "
     other: Presente en %{count} colecciónes
@@ -437,7 +425,6 @@ es:
   communities: Comunidades
   communities_index_empty: No hay comunidades activas.
   communities_index_header: Comunidades activas
-  communities_summary_empty: Este taxón no ha sido respaldado por una comunidad todavía.
   communities_summary_header_with_count: 
     one: "Pertenece a %{count} comunidad "
     other: Pertenece a %{count} comunidades
@@ -449,9 +436,7 @@ es:
   community_contributions_with_count: 
     one: "%{count} Contribución"
     other: "%{count} Contribuciones"
-  community_destroyed: Se eliminó la comunidad.
   community_empty_notice: Esta comunidad no tiene miembros.
-  community_focus: Enfoque comunitario
   community_focus_items_with_count: 
     one: "%{count} elemento"
     other: "%{count} elementos"
@@ -460,15 +445,8 @@ es:
     one: "%{count} administrador de la Comunidad"
     other: "%{count} administradores de la Comunidad"
   community_members: Miembros de la comunidad
-  community_members_with_count: 
-    one: "%{count} Miembros de la Comunidad"
-    other: "%{count} Miembros de la Comunidad"
   community_newsfeed: Newsfeed de Comunidad
-  community_not_destroyed_error: Lo sentimos, la colección no se ha eliminado.
   community_removed_by_owner: Esta comunidad fue retirado por su dueño.
-  community_tab_collections_description: Las colecciones son creadas por los usuarios de EOL para prestar atención las relaciones entre las especies, si esa relación es de carácter geográfico, ecológico o personal. Las comunidades pueden "highlight" de colecciones que son de particular interés y valor.
-  community_tab_communities_description: Comunidades son grupos de miembros de EOL que se reúnen para compartir sus intereses y experiencia. EOL comunidades se organizan alrededor de una o más Colecciones, y ofrecen a sus miembros una forma de centrarse en temas de interés común.
-  community_tab_curators_description: Curadores son usuarios EOL con pericia taxonómica que han dado su tiempo para examinar el contenido que aparece en EOL, asegurando que lo que ves es precisa y de calidad.
   confirm_delete_community: ¿Está saguaro de que desae borer esta comunidad? Los miembros restantes todavía podrán verla y los newsfeed se mantendrán, pero no se mostrará en las búsquedas o en páginas de taxones, y no se podrán editor más.
   confirm_leave: ¿Está seguro de que deseas salir de esta comunidad?
   confirm_password_colon: "Confirmar contraseña:"
@@ -507,7 +485,6 @@ es:
   content_partner_has_unpublished_content_false: No hay contenido inédito
   content_partner_has_unpublished_content_true: Contenido no publicado
   content_partner_homepage_link: Visite el sitio web de socio
-  content_partner_latest_published_harvest_event_time_ago: Cosechado por última vez hace %{time_passed}
   content_partner_logo_alt_text: Logotipo de socio de contenido %{partner_name}
   content_partner_managed_by_header: Administrado por
   content_partner_new_edit_form_profile_header: Información de perfil del socio de contenido
@@ -520,7 +497,6 @@ es:
   content_partner_overview_agreement_link: Ver acuerdo actual
   content_partner_overview_link: Visión general de socio
   content_partner_overview_link_back_to: volver a visión general de socio
-  content_partner_registered_time_ago: Registrado hace %{time_passed}
   content_partner_resource_about_header: Acerca de recurso
   content_partner_resource_collection_empty: No se ha generado una colección para este recurso.
   content_partner_resource_collection_header: Colección publicada
@@ -529,10 +505,8 @@ es:
   content_partner_resource_create_unsuccessful_error: Lo sentimos, ha ocurrido un error, el recurso no se ha agregado.
   content_partner_resource_dataset_details_header: Conjunto de datos
   content_partner_resource_description_empty: No ha proporcionado una descripción para este recurso.
-  content_partner_resource_edit_link: Editar recurso
   content_partner_resource_edit_subheader: Editar recurso
   content_partner_resource_licensing_details_header: Derechos &amp; atribución
-  content_partner_resource_new_edit_form_tip: Introducre información sobre su fuente de datos. Asegúrese de proporcionar un nombre de recurso y escriba la dirección URL pública del archivo de datos o cargar el archivo en formato GZIP, TAR o XML. Si usted proporciona una dirección URL, también se puede especificar con qué frecuencia le gustaría que sus datos sean cosechados por EOL. Por favor, asegúrese de que su archivo de datos en un formato que puede ser importado por EOL.<a href=\"%{more_url}\">Más información sobre los formatos de datos</a>."
   content_partner_resource_new_link: Agregar un nuevo recurso
   content_partner_resource_new_subheader: Agregar un nuevo recurso
   content_partner_resource_preview_collection_header: Vista previa de colección
@@ -569,7 +543,6 @@ es:
     other: "%{count} Socios de contenido"
   content_setting_colon: "Configuración de contenido:"
   content_summary_introduction_html: Los siguientes valores representan la suma de diferentes tipos de contenido para este taxón y todos sus descendientes taxonómicas. contenido de %{glossary_term_trusted} ya ha sido aprobado por un curador EOL o proviene de un proveedor de confianza. %{glossary_term_unreviewed} contenido aún no ha sido evaluada por un curador EOL. Cada jerarquía taxonómica es único, por lo que cada jerarquía navegable está lista para la comparación.
-  content_summary_table_caption: Un resumen del contenido asociado a %{taxon_name} y es descendientes de %{hierarchy_label}
   content_summary_table_count_column_header: Cantidad
   content_summary_table_summary: Esta tabla contiene recuentos de diferentes tipos de contenido separados por estado contenido.
   content_summary_table_type_descendants_row: Número de descendientes
@@ -596,7 +569,6 @@ es:
   create_collection_button: Crear colección
   create_community: Crear una comunidad
   create_community_about_heading: Sobre la creación de una comunidad
-  create_community_about_text: Va a crear una comunidad alrededor del contenido de "%{collections_name}".  Todos los usuarios podrán unirse a su comunidad, pero sólo los miembros a quien concede estatus de "administrador" podrán modificar la propia comunidad o la colección asociada con su comunidad.
   create_community_around_this_collection_header: Crear una comunidad alrededor de esta colección
   create_community_unsuccessful_error: Lo sentimos, ha ocurrido un error, su comunidad no fue creada. Asegúrese de que todos los campos se completen correctamente.
   create_user_form_header: Crear una nueva cuenta <abbr title="Encyclopedia of Life">EOL</abbr>
@@ -604,7 +576,6 @@ es:
   created: Creado
   created_at: Creado
   created_colon: "Creado:"
-  created_community: La comunidad se ha creado correctamente
   creative_commons: Creative Commons
   credentials: Credenciales
   curated: Curada
@@ -616,7 +587,6 @@ es:
   curator_colon: "Curador:"
   curator_level: Nivel de curador
   curator_level_application_pending_notice: Gracias por solicitar convertirse en un curador. Le notificaremos por correo electrónico cuando hayamos revisado la aplicación.
-  curator_level_assistant_approved_notice: ¡Felicitaciones! Usted es ahora un <em>Curador Asistente de EOL.</em> <a href="%{more_url}">Aprenda más sobre el papel de curador asistente</a> .
   curator_level_assistant_curator: Curador Asistente
   curator_level_full_curator: Curador Pleno
   curator_level_full_pending_notice: Gracias por solicitor ser un <em>curador pleno</em>. Le notificaremos por correo electrónico cuando hayamos revisado su solicitud.
@@ -652,18 +622,15 @@ es:
   dato_create_update_user_text_missing_taxon_id_exception: No se puede construir un texto DataObject o UsersDataObject si falta taxon_concept_id.
   dato_create_user_text_error: Lo sentimos, ha ocurrido un error, el artículo no se pudo agregar.
   dato_create_user_text_missing_taxon_id_exception: No se puede construir un texto DataObject o UsersDataObject si un identificador de taxón es nulo.
-  dato_create_user_text_missing_user_exception: No se puede construir un texto DataObject o UsersDataObject si el usuario es nulo.
   dato_edit_cancel: Cancelar
   dato_edit_text_link_button: Editar este artículo
   dato_edit_text_page_description: ¡Gracias por contribuir con su experiencia de EOL. El artículo revisado será añadido a su Lista de Vigilancia para que pueda seguir las conversaciones relacionadas con él y comprobar su estado de curación.
   dato_edit_text_title: Editar artículo
   dato_new_edit_user_text_fieldset_content_header: Contenido del artículo
   dato_new_edit_user_text_fieldset_information_header: Información de artículo
-  dato_new_edit_user_text_form_tip: Su artículo será marcado como "sin revisar" hasta que un curador lo revise. El texto marcado con un punto verde ( %{required_icon} ) es requerido.
   dato_new_text_for_taxon_page_title: Agregar un artículo a <i>%{taxon}</i>
   dato_new_text_page_description: ¡Gracias por contribuir a la EOL! Su artículo será añadido a su lista de vigilancia para que pueda seguir las conversaciones relacionadas con él y comprobar su estado de preservación.
   dato_update_user_text_error: Lo sentimos, ha ocurrido un error, el artículo no se pudo actualizar.
-  dato_update_users_text_not_owner_exception: No se puede actualizar el texto DataObject, usario no es el dueño
   default: "%Y-%m-%d"
   default_focus_collection_name_from_community: "%{name}'s enfoque"
   default_watch_collection_name: "%{username}'s lista de vigilancia"
@@ -695,7 +662,6 @@ es:
   donation_sponsorship_fellowships_title: Becas
   donation_sponsorship_infrastructure_description: Con el fin de poner el poder de EOL en la manos de la gente alrededor de todo el mundo, se aceptan donaciones de toda escala para apoyar la infraestructura fundamental y la de EOL.
   donation_sponsorship_infrastructure_title: Infrastructura fundamental
-  donation_sponsorship_preamble: "Si usted quiere aprender más sobre programas específicos a los que puede apoyar, o quisiera hacer una donación recurrente, por favor contáctenos, por medio de la Secretaría de EOL por <a href=\"mailto:%{email_address}\">email</a>  o por teléfono al (202) 633-8730. Entre las oportunidades para donaciones específicas tenemos:"
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: No mostrar fechas registradas desconocidas (usuario de v1, todo anterior al 5 de enero, 2009)
   dublin_core: Dublin Core
   duplicate_items_were_ignored: Elementos duplicados fueron ignoradas.
@@ -795,9 +761,6 @@ es:
   frequency_monthly: Menuale
   frequency_never: Nunca
   frequency_weekly: Seminal
-  from_community: de %{community}.
-  gbif_occurrence_disclaimer: Este mapa se basa en registros de ocurrencias disponibles a través de GBIF y puede no representar la distribución total de un taxón
-  gbif_occurrence_learn_more_link: Obtenga más información sobre mapas de ocurrencias de GBIF.
   general_site_admin: administrador general del sitio
   get_help_choosing_a_subchapter: obtenga ayuda escogiendo un subcapítulo
   get_more_tasks: obtener más tareas
@@ -1103,9 +1066,7 @@ es:
   logout: Cerrar sesión
   maintained_by: mantenido por
   managed_by: Administrado por
-  manager_endorse_collections_suggestion: Para presentar una colección en la página de esta comunidad, agréguela al foco de la comunidad.
   manager_parens: (administrador)
-  maps_empty: Nadie ha contribuido con algún mapa para este taxón.
   maps_empty_contribute_instructions: Aprenda cómo contribuir con mapas a EOL.
   maps_image_maps_header: Medio fue etiquetado como "mapa"
   maps_with_count: 
@@ -1113,10 +1074,8 @@ es:
     other: "%{count} Mapas"
   max_collection_items_error: Lo sentimos, su solicitud supera el límite de %{max} elementos en una colección.
   media: Medios
-  media_list_empty: Nadie ha contribuido con algún medio para este taxón.
   media_list_empty_contribute_instructions: Aprenda cómo contribuir con medios a EOL.
   media_list_empty_search: Ningún medio disponible coincide con su criterio de búsqueda.
-  media_summary_empty: Nadie ha contribuido con imágenes para este taxón.
   media_summary_empty_contribute_instructions: Aprenda cómo contribuir con imágenes a EOL.
   media_with_count: 
     one: "%{count} Medio"
@@ -1172,7 +1131,6 @@ es:
   news_items: Noticias
   newsfeed: Suministro de noticias
   newsfeed_help_for_collection: El suministro de noticias para esta colección reúne EOL cambios asociados con los elementos que pertenecen a la misma, incluidas las actividades de su propietario y los comentarios de otros usuarios de EOL.
-  newsfeed_help_for_community: El suministro de noticias para esta Comunidad EOL reúne actualizaciones asociadas con los elementos que pertenecen a la Colección Focus, incluyendo las actividades de sus miembros y los comentarios de otros usuarios de EOL.
   newsfeed_help_for_focus_list: El suministro de noticias recopia la Lista de Enfoque a las actualizaciones relacionadas con los elementos que pertenecen a la lista de una Comunidad EOL es objetivo principal, incluidas las actividades de sus directivos y los comentarios de otros usuarios de EOL.
   newsfeed_help_for_profile: El perfil EOL suministro de noticias contiene los mensajes dejados por su propietario por otros miembros, invitaciones EOL Comunidad, y recoge las actualizaciones relacionadas con los elementos de la Watch EOL lista.
   newsfeed_help_for_taxon: El suministro de noticias de esta página Taxón EOL recoge cambios asociados con elementos que aparecen en ella, incluyendo las acciones de comisario y los comentarios de los usuarios de EOL.
@@ -1180,7 +1138,6 @@ es:
   no_active_members: No ha habido suficiente actividad todavía.
   no_items_were_copied_to_collections_error: Nimgún elemento fue copiado a las colecciones:%{names}.
   no_record_found_matching_your_criteria: Ningún registro encontrado coincide con sus criterios.
-  no_related_names: Ninguno de los nombres se han relacionado con este taxón todavía.
   no_tasks_found: No encontró tareas
   no_user_submitted_data_objects: No hay objetos de datos enviados por el usuario que coincidan con sus criterios de búsqueda.
   none: ninguno
@@ -1272,7 +1229,6 @@ es:
   please_indicate_curation_reason: "Por favor, seleccione un motivo y, opcionalmente, deje un comentario de curación:"
   please_return_to_eol_homepage: Por favor volver a la página principal (home) de EOL
   post_comment: Publicar comentario
-  preferred_common_name_advisory_information: Este es el nombre común preferido para este taxón.
   press_room: Sala de prensa
   proceed_to_checkout_page: Proceda a la página de pago
   profile: Perfil
@@ -1290,7 +1246,6 @@ es:
   punctuation_semi_colon: ;
   quarterly: Trimestral
   rank_recognized_by_agent: "%{rank} reconocido por %{agent}"
-  rank_recognized_by_agent_colon: "<b>%{rank}</b> reconocido por %{agent}:"
   rank_recognized_by_from_source: "%{rank} reconocido por %{agent} in %{source}"
   rated_by_count_people: 
     one: de %{count} persona
@@ -1333,7 +1288,6 @@ es:
   revoke_manager_link: Revocar el papel de administrador
   richness_score: Puntuación de riqueza
   rights: Derechos
-  rights_holder: Titular de los derechos
   rights_statement: Declaración de los derechos
   save: Guardar
   save_annotation_submit_button: Guardar anotación
@@ -1376,7 +1330,6 @@ es:
   selected_items: Elementos seleccionados
   selected_language_advisory_information: Este es el idioma seleccionado actualmente.
   send_email_colon: "Enviar correo electrónico:"
-  sent_invitations_to_users: Se enviaron invitaciones a %{users}.
   set_as_exemplar: Establecer como ejemplar
   show: Mostrar
   show_data_from_all_content_partners: Eliminar filtro de clasificación
@@ -1442,8 +1395,6 @@ es:
   taxon_biomedical_terms_link: Términos biomédicos
   taxon_details_empty: Nadie ha contribuido aún con algún detalle sobre este taxón.
   taxon_education_empty: Nadie ha contribuido aún con un recurso educativo para esta página.
-  taxon_education_header: Educación
-  taxon_education_link: Educación
   taxon_id: Taxon ID
   taxon_identification_resources_empty: Nadie ha contribuido aún con recursos de identificación para esta página.
   taxon_identification_resources_header: Recursos de identificación
@@ -1481,7 +1432,6 @@ es:
   the_json_response_for_this_method: La respuesta JSON para este método retorna más información que la respuesta XML. Incluye varias estadísticas sobre este nodo y sus descendientes taxonómicos. Por ejemplo, hay un campo retornado denominado"total_descendants" el cual lista el número de nodos que son descendientes de un nodo dado, según esta jerarquía; "total_trusted_text" incluye el número total de objetos de datos de texto únicos vinculados con esta página o con cualquiera de sus descendientes.
   the_xml_search_response_implements: La respuesta a una búsqueda implementa el formato de respuesta OpenSearch usando Atom 1.0. Ver la especificación OpenSearch completa en %{link}
   there_are_currently_no_members_in_this_community: Actualmente no hay miembros en esta comunidad.
-  there_is_no_singular_eol: No existe una jerarquía taxonómica única de EOL, más bien, EOL indexa muchas jerarquías y las compara para establecer cuáles nodos se refieren a los mismos taxones. Estos elementos de taxón representan nodos de la jerarquía, por lo cual podría haber varios para una página dada de EOL. Para más información, revise la documentación sobre el API en %{lino}.
   this_cannot_be_undone_are_you_sure: Está acción no puede deshacer; ¿está seguro?
   this_community_has_no_endorsed_collections: Esta comunidad no ha promovido ninguna colección.
   this_community_has_no_focus_list: Esta comunidad no tiene ninguna lista de foco.
@@ -1490,7 +1440,6 @@ es:
   this_is_a_focus_collection_for_community: Esta colección es el enfoque de "%{community}".
   this_is_the_label_that_will_be_used_for_attribution: Esta es la etiqueta que se utilizará para la atribución
   this_method_takes_an_integer_or_string: Este método toma un entero o hilera que es el identificador único para un taxón de una base de datos de un proveedor y y un identificador hierarchy_id que corresponde al proveedor y retorna el ID de página de EOL para ese taxón. Por ejemplo, si usa el API %{link_provider}, puede encontrar que el identificador de EOL, hierarchy_id, para el Integrated Taxonomic Information System (ITIS) es %{itis_id}. Entonces, después puede buscar en EOL el ITIS Taxonomic Serial Number (TSN) de 180542,<i>Ursus maritimus</i>, llamando a %{link_url}
-  threat_status_header_colon: "Estado de amenaza de la UICN:"
   time_ago: "%{time_passed} hace"
   title: Título
   to_process_your_donation_please_proceed: Para procesar su donación, por favor siga
@@ -1536,10 +1485,7 @@ es:
   user_activation_failed_resent_validation_email_error: Lo sentimos, ha ocurrido un error, su cuenta no pudo ser verificada. Esto generalmente ocurre cuando el enlace de verficiación que ha introducido o seleccionado no es reconocido. Las instrucciones de activación han sido reenviadas a la dirección de correo electrónico que se registró con, asegúrese de que el enlace de verficiación que utiliza coincide con el proporcionado en el email de activación.
   user_activation_failed_user_not_found_error: Lo sentimos, ha ocurrido un error, la cuenta que están tratando de verificar que no se pudo encontrar. Asegúrese de que el enlace de verficiación que utiliza coincida con el proporcionado en el correo electrónico de activación que recibió después de registrarse.
   user_activation_successful_notice: Bienvenido y gracias por unirse al equipo de la Enciclopedia de la Vida. Su cuenta, con nombre de usuario <em>%{username}</em> ya está activa, por favor inicie una sesión.
-  user_activity_stats_articles_added: Articulos agregados
   user_activity_stats_header: Actividad
-  user_activity_stats_objects_curated: Objetos curados
-  user_activity_stats_taxa_curated: Taxones curados
   user_already_active_notice: Su cuenta ya está activa, por favor, inicie sesión.
   user_commented_on_something_colon: "<strong>%{user}</strong> comentó sobre %{what}:"
   user_index_intro: Abajo se muestran todos los usuarios del web registrados en el sistema, ordenados inversamente por el tiempo de registro. Note que la fecha de registro para usuarios anteriores a 5 de enero, 2009, no están disponibles. Haga clic en un nombre de usuario para editar ese usuario.

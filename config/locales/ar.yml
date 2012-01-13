@@ -1309,7 +1309,6 @@ ar:
       collection_item: 
         annotation: تعليق توضيحي
         sort_field: افرز حسب <small>(تاريخ، رقم، نص؛ اختياري)</small>
-        sort_field_more: يتم الفرز حسب الأرقام والحروف، ولذلك، بالنسبة للتواريخ، تأكد من قلب التاريخ واستخدم الأصفار مكان الخانات الخالية، فمثلاً، 23 أغسطس 2011، يمكن أن يكون 2011.08.23. والعناصر ذات قيمة التصنيف الخالية ستظهر في الآخر.
         sort_field_show: قيمة التصنيف
       content_page: 
         active: نشر
@@ -1679,7 +1678,6 @@ ar:
   managed_collections_with_count: 
     one: "%{count} مجموعات مدارة  مجموعات مدارة"
     other: "%{count} Managed Collections مجموعات مدارة"
-  manager_endorse_collections_suggestion: لعرض مجموعة في الصفحة الخاصة بذلك المجتمع، أضف المجموعة إلى اهتمامات المجتمع.
   manager_parens: (مدير)
   map_alt_text: هذه الخريطة %{vetted_status} هي للأصنوفة %{taxon_name}.
   map_from: خريطة من

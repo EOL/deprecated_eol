@@ -469,8 +469,6 @@ fr:
   clicked_time: Heure de clic
   close_this_window_to_return_to_edit_window: FERMEZ CETTE FENÊTRE POUR RETOURNER À LA FENÊTRE DE MODIFICATION
   cms_available_in_languages: "Cette page est disponible en :"
-  cms_missing_content_message: Désolé, cette page n'est pas disponible pour cette langue.
-  cms_missing_content_title: Contenu manquant
   collect_item: élément de collecte
   collect_items: éléments de collecte
   collection_created_notice: La collection <em>%{collection_name}</em> a été créée avec succès.
@@ -834,7 +832,6 @@ fr:
   dato_new_edit_user_text_fieldset_information_header: Informations sur l’article
   dato_new_text_for_taxon_page_title: Ajouter un article à <i>%{taxon}</i>
   dato_update_user_text_error: Désolé, une erreur est survenue ; l’article n’a pas pu être mis à jour.
-  dato_update_users_text_not_owner_exception: Impossible de mettre à jour l’objet de données textuelles ; l’utilisateur actuel n’en est pas propriétaire
   default: Par défaut
   default_focus_collection_name_from_community: Domaine d’intérêt de %{name}
   default_watch_collection_name: Liste de suivi de %{username}
@@ -1048,7 +1045,6 @@ fr:
       collection_item: 
         annotation: Annotation
         sort_field: Trier par <small>(date, nombre ou texte ; facultatif)</small>
-        sort_field_more: "Le tri est alphanumérique : pour toute date, assurez-vous de l’inverser et d’utiliser des zéros devant ; par exemple pour le 23 août 2011, vous pouvez utiliser 2011-08-23. Les éléments avec des valeurs de tri vides apparaîtront en dernier."
         sort_field_show: "Valeur de tri :"
       comment: 
         body_edit: Modifier le commentaire

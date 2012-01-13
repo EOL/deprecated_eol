@@ -582,7 +582,6 @@ nl:
   contact_us_request_failed: Er is een fout opgetreden!
   contact_us_request_received: Contactverzoek ontvangen
   contact_us_request_sent: Aanvraag verzonden
-  contact_us_topics: Neem contact op met ons onderwerpen
   contacts: Contactpersonen
   containing_value: met %{value}.
   content: Inhoud
@@ -1496,7 +1495,6 @@ nl:
   names_status_column_header: Status
   never: Nooit
   new_collection: Nieuwe verzameling
-  new_contact_us_topic: Nieuw contacteer ons onderwerp
   new_news_item: Nieuw nieuwsbericht
   new_search_suggestion: Nieuwe zoeksuggestie
   new_upload: Nieuwe upload
@@ -1627,7 +1625,6 @@ nl:
   page_not_found: Pagina niet gevonden
   page_statistics: Paginastatistieken
   page_urls: "Pagina-URL's:"
-  page_view: Paginaweergave
   pages: pagina's.
   pages_admin_section_link: Beheerders
   pages_curator_section_link: Conservatoren
@@ -1652,7 +1649,6 @@ nl:
   personal_profile_menu: Persoonlijk profiel
   personal_space: Persoonlijke ruimte
   ping: ping
-  please: Gelieve
   please_confirm_your_donation_details: Bevestig uw donatiegegevens
   please_indicate_curation_reason: "Selecteer een reden en laat eventueel een opmerking achter:"
   please_leave_your_feedback: Geef uw terugkoppeling
@@ -1841,7 +1837,6 @@ nl:
   spm_category_objects_count: SPM-categorie - aantal objecten
   spm_category_partner_count: SPM-categorie - aantal partners
   started: Gestart
-  statistic: Statistieken
   statistics: Statistieken
   sub_heading: Onderkop
   subject: onderwerp
@@ -1898,7 +1893,6 @@ nl:
   taxon_recognized_by_header: Herkend door
   taxon_suggested: Taxonsuggestie
   technical_functions: Technische functies
-  term: Termijn
   term_is_already_def_error: "\"%{term}\" is al gedefinieerd"
   terms_agreement_form_header: Gebruiksvoorwaarden
   terms_agreement_form_submit: Ik ga akkoord
@@ -2051,7 +2045,6 @@ nl:
   videos_with_count: 
     one: "%{count} video"
     other: "%{count} video's"
-  view: Weergave
   view_added_text: toegevoegde tekst bekijken
   view_article_source: Paginabron weergeven
   view_as_button: Weergave wijzigen
@@ -2062,7 +2055,6 @@ nl:
   view_harvesting_log: logboek bekijken
   view_image_map_source: Kaartbron weergeven
   view_image_source: Afbeeldingsbron weergeven
-  view_in_classification: in classificatie bekijken
   view_map_source: Kaartbron weergeven
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Alleen pagina's bekijken met tenminste een afbeelding of tekst
   view_sound_source: Audiobron weergeven
@@ -2087,7 +2079,6 @@ nl:
   what_is_eol: Wat is EOL?
   what_is_this_question: Wat is dit?
   who_registered_before: aan
-  who_registered_from: wie geregistreerd is uit
   wikipedia_queue_create_successful_notice: Wikipedia-artikel %{article} verzie %{rev} wordt binnenkort geïmporteerd.
   wikipedia_queue_new_page_title: Import van Wikipedia-artikel aanvragen
   will_paginate: 

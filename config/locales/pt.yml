@@ -5,13 +5,13 @@
 # Author: GoEThe
 # Author: Hamilton Abreu
 # Author: McDutchie
-pt:
+pt: 
   0_1_or_2: 0, 1 ou 2
   0_or_1: 0 ou 1
   a_pipe_delimited_list_of_licenses: uma lista de licenças delimitadas com barra vertical |  ou 'all' para obter objectos sob qualquer licença. Licenças com abreviatura cc- são todas
   a_pipe_delimited_list_of_spm_info_item_subject_names: uma lista de nomes de temas de elementos de informação SPM delimitada por uma barra vertical | ou 'all' para obter texto sobre qualquer assunto
   a_taxon: um taxon
-  a_total_of_comment_were_found_matching_your_criteria:
+  a_total_of_comment_were_found_matching_your_criteria: 
     one: Foi encontrado um %{count} comentário coincidentes com os seus critérios.
     other: Foi encontrado um total de %{count} comentários coincidentes com os seus critérios.
   about_eol: Sobre a EOL
@@ -21,22 +21,22 @@ pt:
   action_not_available_error: Lamentamos, mas esta acção não está disponível.
   actions: Acções
   active_colon: "Activo:"
-  activerecord:
-    attributes:
-      collection:
+  activerecord: 
+    attributes: 
+      collection: 
         description: Descrição da colecção
         logo: Imagem principal da colecção
         name: Nome da colecção
         sort_style_id: Direcção de ordenação por defeito
-      community:
+      community: 
         description: Descrição da comunidade
         logo: Carregar um logótipo
         name: Nome da comunidade
-      content_page:
+      content_page: 
         active: Publicado
         page_name: Nome único
         sort_order: Ordem de classificação
-      content_partner:
+      content_partner: 
         acronym: Abreviatura do projeto
         admin_notes: Notas de administração
         auto_publish: Auto-publicar
@@ -52,29 +52,29 @@ pt:
         resources: Recursos
         user_id: Administrado por
         vetted: Aprovados
-      content_partner_agreement:
+      content_partner_agreement: 
         created_at: Criado em
         signed_by: Assinado por
         signed_on_date: Assinado na data
-      data_object:
+      data_object: 
         bibliographic_citation: Citação bibliográfica
         description: Descrição
         object_title: Título
         rights_holder: Detentor dos direitos
         rights_statement: Declaração dos direitos
         source_url: URL de origem
-      harvest_event:
+      harvest_event: 
         resource: Recurso
-      hierarchy:
+      hierarchy: 
         browsable: Navegável
         complete: Completo
         description: Descrição
         descriptive_label: Etiqueta descritiva
         label: Etiqueta
         request_publish: Solicitar publicação
-      name:
+      name: 
         string: Nome
-      resource:
+      resource: 
         accesspoint_url: URL do conjunto de dados
         auto_publish: Auto-publicar
         bibliographic_citation: Citação bibliográfica
@@ -91,14 +91,14 @@ pt:
         rights_statement: Declaração de direitos padrão
         title: Nome do recurso
         vetted: Aprovados
-      translated_content_page:
+      translated_content_page: 
         active_translation: Publicado
         left_content: Navegação
         main_content: Corpo
         meta_description: Descrição de metadados
         meta_keywords: Palavras-chave de metadados
         title: Título
-      user:
+      user: 
         agreed_with_terms: Termos de uso
         api_key: Chave API
         bio: Biografia
@@ -114,11 +114,11 @@ pt:
         requested_curator_level_id: Nível desejado de curadoria
         tag_line: Lema
         username: Nome de utilizador
-    errors:
+    errors: 
       format: "%{attribute} %{message}"
-      full_messages:
+      full_messages: 
         format: "%{attribute} %{message}"
-      messages:
+      messages: 
         accepted: deve ser aceite
         blank: não pode estar em branco
         confirmation: não coincide com a confirmação
@@ -126,14 +126,14 @@ pt:
         equal_to: deve ser igual a %{count}
         even: deve ser par
         exclusion: está reservado
-        greater_than:
+        greater_than: 
           one: deve ser maior que %{count}
           other: deve ser maior que %{count}
         greater_than_or_equal_to: deve ser maior que ou igual a %{count}
         inaccessible: está inacessível
         inclusion: não está incluído na lista
         invalid: é inválido
-        less_than:
+        less_than: 
           one: "deve ser menor que %{count} "
           other: deve ser menor que %{count}
         less_than_or_equal_to: deve ser menor ou igual a %{count}
@@ -142,33 +142,33 @@ pt:
         odd: deve ser ímpar
         record_invalid: "Falha na validação: %{errors}"
         taken: já não está disponível.
-        too_long:
+        too_long: 
           one: "é muito longo (máximo é %{count} caracter) "
           other: é muito longo (máximo são %{count} caracteres)
-        too_short:
+        too_short: 
           one: "é muito curto (mínimo é %{count} caracter) "
           other: é muito curto (mínimo são %{count} caracteres)
         wrong_length: tem o tamanho errado (deve ter %{count} caracteres)
         wrong_type: é do tipo errado
-      models:
-        resource:
-          attributes:
-            accesspoint_url:
+      models: 
+        resource: 
+          attributes: 
+            accesspoint_url: 
               blank: não pode ficar em branco, a menos que carregue um arquivo de recurso em vez
               inaccessible: é inacessível, o URL deve ser acessível ao público
               invalid: é inválido, ele deve apontar para um arquivo XML, XML.GZIP ou XML.GZ.
-            dataset:
+            dataset: 
               blank: não pode estar em branco a não ser que em vez forneça um URL do conjunto de dados
               wrong_type: é do tipo errado, deve ser um ficheiro GZIP, TAR ou XML
-            dwc_archive_url:
+            dwc_archive_url: 
               inaccessible: é inacessível, o URL deve ser acessível ao público
               invalid: é inválido, deve apontar para um ficheiro TAR.GZIP, TAR.GZ ou TGZ.
-      template:
+      template: 
         body: Os campos seguintes não foram validados correctamente
-        header:
+        header: 
           one: "%{count} erro de validação encontrado"
           other: "%{count} erros de validação encontrados"
-    models:
+    models: 
       user: conta
   activity: Actividade
   activity_log_empty: Ninguém forneceu actualizações ainda.
@@ -310,13 +310,13 @@ pt:
   are_you_sure: Tem a certeza?
   article_from: artigo de
   article_more_about: Saiba mais sobre este artigo
-  articles_in_languages_with_count:
+  articles_in_languages_with_count: 
     one: "Artigos nesta página estão disponíveis em %{count} língua:"
     other: "Artigos nesta página estão disponíveis em %{count} línguas:"
-  articles_in_other_languages_with_count:
+  articles_in_other_languages_with_count: 
     one: "Artigos nesta página estão disponíveis em %{count} outra língua:"
     other: "Artigos nesta página estão disponíveis em %{count} outras línguas:"
-  articles_with_count:
+  articles_with_count: 
     one: "%{count} artigo"
     other: "%{count} artigos"
   assistive_details_header: Detalhes
@@ -350,7 +350,7 @@ pt:
   authoritative_information: informação fidedigna
   average_rating_value_of_total: "Classificação média: %{rating} de %{total}"
   back_to_profile: Voltar ao perfil
-  belongs_in_count_communities:
+  belongs_in_count_communities: 
     one: Pertence a %{count} Comunidade
     other: Pertence a %{count} Comunidades
   bi_monthly: Bimensal
@@ -384,7 +384,7 @@ pt:
   citing_link: Citando
   classification_tree_header: Classificação
   classifications_empty: Esta página não está incluída em nenhuma das classificações que são pesquisáveis em EOL.
-  classifications_summary_header_with_count:
+  classifications_summary_header_with_count: 
     one: "Encontrado em %{count} classificação "
     other: Encontrado em %{count} classificações
   click_on_a_user_to_view_the_users_detailed_profile: Clique em um utilizador para ver o perfil detalhado de um utilizador, clique numa espécie para ver a página onde o texto existe (use o botão Voltar do seu navegador para voltar aqui).
@@ -395,7 +395,7 @@ pt:
   cms_missing_content_title: Conteúdo em falta
   collect_item: Colectar item
   collection_created_notice: Collecção <em>%{collection_name}</em> criada com sucesso.
-  collection_created_with_count_notice:
+  collection_created_with_count_notice: 
     one: Colecção <em>%{collection_name}</em> criada com sucesso com %{count} item.
     other: Colecção <em>%{collection_name}</em> criada com sucesso com %{count} itens.
   collection_delete_link: Excluir permanentemente esta colecção
@@ -413,10 +413,10 @@ pt:
   collections: Colecções
   collections_lowercase: colecções
   collections_summary_empty: Esta página ainda não está em nenhuma colecção,
-  collections_summary_header_with_count:
+  collections_summary_header_with_count: 
     one: Presente em %{count} colecção
     other: Presente em %{count} colecções
-  collections_with_count:
+  collections_with_count: 
     one: "%{count} Colecção"
     other: "%{count} Colecções"
   comment: Comentar
@@ -430,39 +430,39 @@ pt:
   comments: Comentários
   comments_and_tags: Comentários e etiquetas
   comments_moderated: Comentários moderados
-  comments_with_count:
+  comments_with_count: 
     one: "%{count} Comentário"
     other: "%{count} Comentários"
-  common_names_with_count:
+  common_names_with_count: 
     one: "%{count} nome comum"
     other: "%{count} nomes comuns"
   communities: Comunidades
   communities_index_empty: Não há nenhuma comunidade activa.
   communities_index_header: Comunidades activas
   communities_summary_empty: Este taxon ainda não foi destacado em nenhuma comunidade.
-  communities_summary_header_with_count:
+  communities_summary_header_with_count: 
     one: Pertence a %{count} comunidade
     other: Pertence a %{count} comunidades
-  communities_with_count:
+  communities_with_count: 
     one: "%{count} Comunidade"
     other: "%{count} Comunidades"
   community: Comunidade
   community_activity: Actividade comunitária
-  community_contributions_with_count:
+  community_contributions_with_count: 
     one: "%{count} Contribuição"
     other: "%{count} Contribuições"
   community_destroyed: Eliminou esta comunidade. Ela não aparecerá mais em páginas taxonómicas ou em pesquisas.
   community_empty_notice: Esta comunidade não tem membros.
   community_focus: Foco de comunidade
-  community_focus_items_with_count:
+  community_focus_items_with_count: 
     one: "%{count} item"
     other: "%{count} itens"
   community_invitation_comment: Gostaria de o convidar para se juntar a "%{community}".
-  community_managers_with_count:
+  community_managers_with_count: 
     one: "%{count} Gestor da Comunidade"
     other: "%{count} Gestores da Comunidade"
   community_members: Membros da comunidade
-  community_members_with_count:
+  community_members_with_count: 
     one: "%{count} Membro da Comunidader"
     other: "%{count} Membros da Comunidade"
   community_newsfeed: "\"Feed\" de notícias da Comunidade"
@@ -571,7 +571,7 @@ pt:
   content_partners_empty: Não foram encontradas parceiros de conteúdo.
   content_partners_page_description: Os parceiros de conteúdo da Encyclopedia of Life têm grandes quantidades de informação sobre biodiversidade nos seus próprios sites ou bases de dados que também partilham via as páginas da EOL. Muito apreciamos as suas contribuições críticas para a missão da EOL e encorajamos que aprenda mais sobre eles. Saiba mais sobre <a href="%{more_url}">como se tornar um parceiro de conteúdor.</a>
   content_partners_page_title: Parceiros de Conteúdo
-  content_partners_with_count:
+  content_partners_with_count: 
     one: "%{count} Parceiro de conteúdo"
     other: "%{count} Parceiros de conteúdo"
   content_setting_colon: "Configuração de conteúdo:"
@@ -585,7 +585,7 @@ pt:
   content_summary_table_type_trusted_text_row: Número de itens de texto de confiança
   content_summary_table_type_unreviewed_images_row: Número de imagens não revistas
   content_summary_table_type_unreviewed_text_row: Número de itens de texto não revistos
-  copied_items_from_collection_with_count_notice:
+  copied_items_from_collection_with_count_notice: 
     one: Copiou %{count} item de %{name}.
     other: Copiou %{count} itens de %{name}.
   copy: Copiar
@@ -593,7 +593,7 @@ pt:
   correct_donation_message: Se esta informação não é correta, por favor %{go_back_link} para fazer alterações
   could_not_find_collection_error: Pedimos desculpa, mas essa colecção não foi encontrada.
   could_not_find_user: Não foi possível encontrar um membro para este utilizador
-  count_results_for_search_term:
+  count_results_for_search_term: 
     one: "%{count} resultado para <em>%{search_term}</em>"
     other: "%{count} resultados para <em>%{search_term}</em>"
   create_a_collection: Criar uma colecção
@@ -638,11 +638,11 @@ pt:
   curator_status_changed_by: Status do curador mudado por %{user} em %{date}
   curators: Curadores
   curators_empty: Os nossos curadores ainda não tomaram qualquer acção nesta página.
-  curators_summary_header_with_count:
+  curators_summary_header_with_count: 
     one: Revisto por %{count} curador
     other: Revisto por %{count} curadores
   curators_summary_learn_more_link: Aprenda a ser um curador
-  curators_with_count:
+  curators_with_count: 
     one: "%{count} Curador"
     other: "%{count} Curadores"
   current_language: "Língua: %{iso_code}"
@@ -657,6 +657,7 @@ pt:
   data_usage_reports: Relatórios de uso de dados
   dato_create_cancel: Cancelar
   dato_create_update_user_text_missing_taxon_id_exception: Não é possível contruir um texto DataObject ou UsersDataObject se faltar taxon_concept_id.
+  dato_create_user_text_error: Desculpe, ocorreu um erro, o artigo não pôde ser adicionado.
   dato_create_user_text_missing_taxon_id_exception: Não é possível contruir um texto DataObject ou UsersDataObject se o identificador do taxon for nulo.
   dato_create_user_text_missing_user_exception: Não é possível contruir um texto DataObject ou UsersDataObject se o identificador do taxon for nulo.
   dato_edit_cancel: Cancelar
@@ -723,7 +724,7 @@ pt:
   encyclopedia_of_life: Encyclopedia of Life
   endorsed_by: Destacado por
   endorsed_collections: Colecções destacadas
-  endorsed_collections_with_count:
+  endorsed_collections_with_count: 
     one: "%{count} Colecção destacada"
     other: "%{count} Colecções destacadas"
   eol_api: EOL API
@@ -815,16 +816,16 @@ pt:
   head_title_community: "Comunidade: %{name}"
   hello_user: Olá %{user}
   help: Ajuda
-  helpers:
-    label:
-      content_page:
+  helpers: 
+    label: 
+      content_page: 
         active: Publicado
         active_more: Páginas publicadas serão visíveis ao público. Desmarque <em>publicado</em> se quiser impedir utilizadores em geral de ver versões desta página em qualquer língua.
         page_name: Nome único <small>(caracteres em minúscula ISO alfanuméricos em Latim básico e traços inferiores apenas)</small>
         page_name_more: Introduza um identificador único, auto descritivo, significativo e persistente para esta página. O nome que você digitar aqui será usado para gerar a URL para esta página, por exemplo, o nome único <em>terms_of_use</em> é convertido no URL <em>http://www.eol.org/info/terms_of_use</em>.
         parent_content_page_id: Tópico de raiz
         parent_content_page_id_more: Opcionalmente, seleccione um tópico de raíz onde esta página deve estar incluída.
-      content_partner:
+      content_partner: 
         created_at: Registado
         current_agreement: Acordo actual
         description_of_data: Descrição de dados <small>(privado)</small>
@@ -838,9 +839,9 @@ pt:
         notes: Notas de projecto <small>(privado)</small>
         oldest_published_harvest_event: Publicado pela primeira vez
         user_id: Detalhes do parceiro de conteúdo gerido por
-      content_partner_agreement:
+      content_partner_agreement: 
         mou_url: URL do ficheiro do acordo <small>(alternativa opcional)</small>
-      data_object:
+      data_object: 
         bibliographic_citation: Citação bibliográfica
         description: Texto <small>(algumas marcações HTML são permitidas)</small>
         license_id: Licença
@@ -851,23 +852,23 @@ pt:
         rights_statement: Declaração de direitos
         source_url: URL para o objecto de dados original
         toc_item: Sub-capítulo
-      google_analytics_partner_summaries:
+      google_analytics_partner_summaries: 
         page_views: Visitas à página <small>(número de visitas a páginas)</small>
         taxa_pages: Páginas <small>(número de páginas)</small>
         taxa_pages_viewed: Páginas vistas <small>(número de páginas vistas por visitantes)</small>
         time_on_page: Tempo total gasto em páginas <small>(horas)</small>
         unique_page_views: Vistas únicas de páginas <small>(número de visitantes a verem páginas)</small>
-      harvest_event:
+      harvest_event: 
         began_at: Iniciado
         completed_at: Concluído
         published_at: Publicado
         published_status: Estado
-      hierarchy:
+      hierarchy: 
         browsable_status_with_colon: "Estado navegável:"
         complete: Curado
         request_publish: Foi pedida a publicação
         request_publish_more: Indica se há uma solicitação pendente para promover esta hierarquia para se tornar uma das hierarquias navegáveis primárias na EOL.
-      resource:
+      resource: 
         accesspoint_url: URL do conjunto de dados <small>(apenas XML, XML.GZIP ou XML.GZ)</small>
         accesspoint_url_existing_remove: Este recurso está actualmente a ser carregado da URL terminada em <em>%{accesspoint_url}</em>. Carregar um ficheiro se gostaria de remover a URL existente e carregar o recurso de um ficheiro em vez disso (não recomendado).
         administration_settings: Configurações de administração <small>(visível apenas para administradores EOL)</small>
@@ -886,11 +887,11 @@ pt:
         resource_url_or_file_upload: Carregar ficheiro de recurso
         resource_url_or_file_url: Carregar o recurso a partir da URL
         title: Nome do recurso
-      session:
+      session: 
         password: Senha
         remember_me: Permanecer conectado por 2 semanas
         username_or_email: Nome de utilizador ou endereço de correio electrónico
-      translated_content_page:
+      translated_content_page: 
         active_translation: Publicado
         active_translation_more: Traduções publicadas serão publicamente visíveis, a menos que a própria página seja inédita. Desmarque <em>publicado</em> se você quiser impedir que usuários em geral vejam esta versão da página.
         language_id: Língua
@@ -899,7 +900,7 @@ pt:
         meta_description_more: Forneça uma breve descrição, resumindo os conceitos-chave do conteúdo da página. Esta descrição é por vezes utilizada pelos motores de busca da Web quer para verificar a relevância como para listar nos resultados de pesquisas.
         meta_keywords_more: Escreva uma lista separada por vírgulas de palavras e frases curtas que melhor reflictam o conteúdo da página. Essas palavras-chave e conceitos-chave são por vezes usados por motores de busca da Web para avaliar a relevância da página em relação aos termos de pesquisa.
         title_more: O título deste conteúdo aparecerá na área de cabeçalho da página. O título deve incluir palavras-chave mais relevante para o conteúdo.
-      user:
+      user: 
         agreed_with_terms: Concordo com os <a href="%{terms_url}">termos de uso</a>
         api_key_more: Leia mais sobre como <a href="%{api_docs_url}">adicionar uma chave para as suas chamadas de API</a>.
         bio: Sobre mim
@@ -930,59 +931,59 @@ pt:
         user_identities: Eu sou
         username: Nome de utilizador <small>(4 - 32 caracteres)</small>
         username_or_email: Nome de utilizador ou endereço de correio electrónico
-      wikipedia_queue:
+      wikipedia_queue: 
         revision_url: Revisão URL <small>(por exemplo, http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)</small>
         revision_url_more: Ao inserir um URL de revisão da Wikipédia você está a pedir que a EOL ingira essa revisão em especial como controlada. Ela irá substituir a versão actual do mesmo artigo na EOL se já o tivermos.
-    select:
+    select: 
       prompt: Por favor seleccione
-    submit:
-      content_page:
+    submit: 
+      content_page: 
         create: Criar página
         edit: Editar
         preview: Antevisão
         update: Actualizar página
-      content_partner:
+      content_partner: 
         create: Criar parceiro de conteúdo
         update: Salvar informações do parceiro de conteúdo
-      content_partner_agreement:
+      content_partner_agreement: 
         agree: Concordar com os termos de parceiros de conteúdo
         create: Criar novo acordo
         update: Actualizar acordo
-      content_partner_contact:
+      content_partner_contact: 
         create: Adicionar contacto
         destroy: Eliminar contacto
         update: Actualizar contacto
       create: Crie %{model}
-      data_object:
+      data_object: 
         create: Adicionar artigo
         create_text: Adicionar artigo
         update: Guardar artigo
-      hierarchy:
+      hierarchy: 
         request_publish: Solicitar promoção de hierarquia
         update: Actualizar hierarquia
-      name:
+      name: 
         create: Adicionar nome
         update: Actualizar nome
-      resource:
+      resource: 
         create: Adicionar recurso
         force_harvest: Pedir colheita forçada
         update: Actualizar o recurso
         update_settings: Actualizar configurações
-      session:
+      session: 
         create: Iniciar sessão
       submit: Guarde %{model}
-      translated_content_page:
+      translated_content_page: 
         create: Adicionar tradução
         update: Guardar alterações à tradução
       update: Actualizar %{model}
-      user:
+      user: 
         create: Criar conta
         curation_application: Concorra agora
         curation_privileges: Submeter pedido
         forgot_password: Enviar correio electrónico
         generate_api_key: Gerar uma chave
         update: Guardar informação do perfil
-      wikipedia_queue:
+      wikipedia_queue: 
         create: Submeter pedido
   hidden: Oculto
   hierarchies: hierarquias
@@ -1029,7 +1030,7 @@ pt:
   item_type_taxon_assistive: Este item é um taxon
   item_type_video_assistive: Este item é um vídeo
   item_updated_in_collection_notice: Item actualizado com sucesso na colecção <em>%{collection_name}</em>.
-  items_with_count_semi_colon:
+  items_with_count_semi_colon: 
     one: "%{count} item;"
     other: "%{count} itens;"
   join_community_button: Junte-se a esta comunidade
@@ -1104,7 +1105,7 @@ pt:
   maps_empty: Ninguém contribui com mapas para esta página.
   maps_empty_contribute_instructions: Aprenda a contribuir mapas para a EOL.
   maps_image_maps_header: Multimédia marcado como 'mapa'
-  maps_with_count:
+  maps_with_count: 
     one: "%{count} Mapa"
     other: "%{count} Mapas"
   max_collection_items_error: Desculpe, o seu pedido excedeu o limite de %{max} itens de colecção.
@@ -1114,15 +1115,15 @@ pt:
   media_list_empty_search: Nenhum média disponível coincidente com os critérios de pesquisa.
   media_summary_empty: Ninguém contribui com imagens para esta página.
   media_summary_empty_contribute_instructions: Aprenda a contribuir imagens para a EOL.
-  media_with_count:
+  media_with_count: 
     one: "%{count} Média"
     other: "%{count} Média"
   member_of: membro de
   members_like_you: Membros como você
-  members_with_count:
+  members_with_count: 
     one: "%{count} membro"
     other: "%{count} membros"
-  members_with_count_semi_colon:
+  members_with_count_semi_colon: 
     one: "%{count} membro;"
     other: "%{count} membros;"
   method: Método
@@ -1130,7 +1131,7 @@ pt:
   minimal_page: Página mínima
   moderator_colon: "Moderador:"
   monthly: Mensalmente
-  more_children_with_count:
+  more_children_with_count: 
     one: mais %{count} ...
     other: mais %{count} ...
   most_active_members: Membros mais activos
@@ -1167,33 +1168,32 @@ pt:
   not_recognized_by_available_hierarchies: Não reconhecido por qualquer uma das classificações disponíveis
   not_yet_implemented_error: Desculpe, esse recurso ainda não foi implementado.
   notes: Notas
-  notifier:
+  notifier: 
     activity_log_empty: Nenhuma acção recente pelos curadores.
-    activity_on_content_partner_content:
+    activity_on_content_partner_content: 
       subject: Resumo da actividade recente no conteúdo fornecido para a Enciclopédia da Vida pelo parceiro de conteúdo %{partner_full_name}
-    activity_on_user_content:
+    activity_on_user_content: 
       subject: Resumo da actividade recente sobre o conteúdo que adicionou à Enciclopédia da Vida
     activity_user_marked_data_object_as_inappropriate_on_date: "%{users_name} (%{users_url}) marcou como inapropiado:\n%{object_name} (%{object_url})\n%{action_date}."
     activity_user_marked_data_object_as_trusted_for_taxon_on_date: "%{users_name} (%{users_url}) marcou como de confiança:\n%{object_name} (%{object_url}) para %{taxon_name} (%{taxon_url})\n%{action_date}."
-    activity_user_marked_data_object_as_trusted_on_date: "%{users_name} (%{users_url}) marcou como de confiança:\n%{object_name} (%{object_url})\n%{action_date}."
     activity_user_marked_data_object_as_untrusted_for_taxon_on_date: "%{users_name} (%{users_url}) marcou como não confiável:\n%{object_name} (%{object_url}) para %{taxon_name} (%{taxon_url})\n%{action_date}."
     activity_user_marked_data_object_as_untrusted_on_date: "%{users_name} (%{users_url}) marcou como não confiável:\n%{object_name} (%{object_url})\n%{action_date}."
     comments_empty: Nenhum comentário recente.
-    contact_us_auto_response:
+    contact_us_auto_response: 
       message: "Obrigado por ter contactado o projecto Enciclopédia da Vida. Seus comentários foram enviados para o grupo apropriado.\nAgradecemos o seu feedback."
       subject: Obrigado por contactar a Encyclopedia of Life.
-    contact_us_message:
+    contact_us_message: 
       subject: "Uma mensagem para EOL: %{title}"
-    content_partner_created:
+    content_partner_created: 
       subject: Utilizador EOL %{user_full_name} criou parceiro de conteúdo %{partner_full_name}
     greeting_dear_name_with_comma: Caro %{name},
     signature_basic: A Equipa da Enciclopédia da Vida
     signature_with_species_pages_group_contact: "Se você tiver alguma questão, entre em contacto conosco em %{species_pages_group_email}.\n\nA Equipa da Enciclopédia da Vida"
     signature_with_support_contact: "Se tiver algum problema, entre em contato conosco em %{support_email}.\n\nA Equipa da Enciclopédia da Vida"
-    user_activated:
+    user_activated: 
       subject: A sua conta na Encyclopedia of Life foi activada
     user_commented_on_something_date_body: "%{users_name} (%{users_url}) comentou sobre:\n%{commented_on_name} (%{commented_on_url})\n%{comment_date}:\n%{comment_body}"
-    user_message:
+    user_message: 
       subject: Uma mensagem da Encyclopedia of Life
   nucleotide_sequences: Sequências de Nucleótidos
   nucleotide_sequences_proteins_link: Ver sequências de proteínas e nucleótidos no NCBI
@@ -1220,13 +1220,13 @@ pt:
   or_copy_them_to_existing_collection: ou copie-os para uma colecção existente
   or_email_education: Ou, envie sua sugestão para %{link}.
   or_move_them_to_existing_collection: ou mova-os para uma colecção existente
-  other_collection_items_with_count:
+  other_collection_items_with_count: 
     one: "%{count} outro item"
     other: "%{count} outros itens"
-  other_community_items_with_count:
+  other_community_items_with_count: 
     one: "%{count} outro item"
     other: "%{count} outros itens"
-  other_taxa_with_count:
+  other_taxa_with_count: 
     one: "%{count} outro taxon"
     other: "%{count} outros taxa"
   other_us_dollars_amount: "Outros: US$"
@@ -1235,17 +1235,17 @@ pt:
   pages_curator_section_link: Curadores
   pages_lowercase: páginas
   pages_title: Referências
-  pages_with_count:
+  pages_with_count: 
     one: "%{count}"
     other: "%{count}"
   pages_with_pictures_and_text: Páginas com imagens e texto
   pages_with_pictures_or_text: Páginas com imagens ou texto
   pagination_next: Seguinte
-  pagination_next_with_count:
+  pagination_next_with_count: 
     one: ver próximo %{count}}
     other: ver próximos %{count}
   pagination_previous: Anterior
-  pagination_previous_with_count:
+  pagination_previous_with_count: 
     one: ver %{count}} anterior
     other: ver %{count} anteriores
   parameters: Parâmetros
@@ -1292,7 +1292,7 @@ pt:
   title: Título
   to_process_your_donation_please_proceed: Para processar a sua doação, prossiga
   toc: ÍNDICE
-  total_items_with_count:
+  total_items_with_count: 
     one: "%{count} item"
     other: "%{count} itens totais"
   translation_deleted: Tradução foi eliminada
@@ -1331,7 +1331,7 @@ pt:
   user_activity_stats_header: Actividade
   user_activity_stats_objects_curated: Objectos curados
   user_activity_stats_taxa_curated: Taxa curados
-  will_paginate:
+  will_paginate: 
     next_label: Próximo &#8594;
     page_gap: "&hellip;"
     previous_label: "&#8592; Anterior"

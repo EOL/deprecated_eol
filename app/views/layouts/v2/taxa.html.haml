@@ -12,7 +12,7 @@
             %i= hh(@taxon_concept.title_canonical())
           - unless @assistive_section_header.blank?
             %span.assistive= " &mdash; #{@assistive_section_header}"
-
+        = yield :social_sharing
         - preferred_common_name = @selected_hierarchy_entry ? @selected_hierarchy_entry.taxon_concept.preferred_common_name_in_language(current_user.language) : @taxon_concept.preferred_common_name_in_language(current_user.language)
         - unless preferred_common_name.blank?
           %h2{:title => I18n.t(:preferred_common_name_advisory_information)}

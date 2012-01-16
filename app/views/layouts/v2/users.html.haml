@@ -6,6 +6,7 @@
         = image_tag @user.logo_url, :alt => ""
         .hgroup
           %h1= h @user.full_name
+          = yield :social_sharing
           - unless @user.tag_line.blank?
             %h2= h @user.tag_line
         - unless action_name == 'edit'

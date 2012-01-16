@@ -1,3 +1,5 @@
+- content_for :social_sharing do
+  = render :partial => 'shared/social_sharing'
 #profile_newsfeed.main_container
   .copy
     - watch_lists = link_to I18n.t(:profile_newsfeed), '/info/watch_list'

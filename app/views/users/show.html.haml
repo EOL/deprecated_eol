@@ -1,3 +1,5 @@
+- content_for :social_sharing do
+  = render :partial => 'shared/social_sharing'
 #profile_info.main_container
   - unless @user.bio.blank?
     .article
@@ -17,8 +19,8 @@
         - unless @user.user_identities.blank?
           %dt= I18n.t('helpers.label.user.user_identities')
           %dd= @user.user_identities.collect{|ui| ui.label}.join(', ')
-        
-        - if @user.curator_level  
+
+        - if @user.curator_level
           %dt= I18n.t('activerecord.attributes.user.curator_level')
           %dd= @user.curator_level.label
 
@@ -33,7 +35,7 @@
           %dd= @user.credentials
           %dt= I18n.t('activerecord.attributes.user.curator_scope')
           %dd= h @user.curator_scope
-    
+
     .article
       .header
         %h3= I18n.t(:user_activity_stats_header)

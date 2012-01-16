@@ -1004,15 +1004,13 @@ body
         +max_dimensions($logo_size_standout, $logo_size_standout)
         z-index: 2
       h4
-        font-weight: normal
-        width: 86px
-        margin: 90px 1px 0
-        overflow: hidden
-        margin-top: 90px
+        +screenreader_accessible
         a
           text-decoration: none
           color: #394651
         &.balloon
+          font-weight: normal
+          overflow: hidden
           position: absolute
           top: 0
           left: -10px

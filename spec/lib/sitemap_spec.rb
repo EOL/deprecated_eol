@@ -56,9 +56,10 @@ describe 'Sitemaps' do
   it 'should be able to destroy sitemaps' do
     @rake['sitemap:destroy'].execute
     @rake['sitemap:build'].execute
-    Dir.glob(File.join(RAILS_ROOT, 'public', 'sitemap', '*')).should_not be_empty
+    # we only care about files with extensions - so ignore all directories
+    Dir.glob(File.join(RAILS_ROOT, 'public', 'sitemap', '*.*')).should_not be_empty
     @rake['sitemap:destroy'].execute
-    Dir.glob(File.join(RAILS_ROOT, 'public', 'sitemap', '*')).should be_empty
+    Dir.glob(File.join(RAILS_ROOT, 'public', 'sitemap', '*.*')).should be_empty
   end
   
   it 'should be able to create xml sitemaps' do

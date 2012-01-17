@@ -14,7 +14,8 @@ module EOL
     end
     
     def self.destroy_all_sitemap_files
-      Dir.glob(File.join(RAILS_ROOT, 'public', 'sitemap', '*')).each { |f| File.delete(f) }
+      # we only care about files with extensions - so ignore all directories
+      Dir.glob(File.join(RAILS_ROOT, 'public', 'sitemap', '*.*')).each { |f| File.delete(f) }
     end
     
     def build(options={})

@@ -1,0 +1,2 @@
+%span#notifications
+  = I18n.t(:user_notifications_with_count, :count => 6, :link => user_newsfeed_path(current_user), :messages => link_to(I18n.t(:user_notifications_messages_with_count, :count => 2), user_newsfeed_path(current_user, :filter => 'messages')))

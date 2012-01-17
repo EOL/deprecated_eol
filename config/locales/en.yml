@@ -3044,6 +3044,12 @@ en:
   user_joined_when: "\"%{user}\" joined %{when}"
   user_left_comment_on_date: "%{username} left a comment on %{date}."
   user_no_longer_has_manager_access_to_collection: "%{user} no longer has manager access to \"%{collection}\"."
+  user_notifications_with_count:
+    one: "You have <a href='%{link}'>%{count} notification</a> (%{messages})"
+    other: "You have <a href='%{link}'>%{count} notifications</a> (%{messages})"
+  user_notifications_messages_with_count:
+    one: "%{count} message"
+    other: "%{count} messages"
   user_was_added_as_editor_of_collection: "This user was added as a manager of \"%{collection}\"."
   username_taken: "%{name} is already taken"
   username_colon: "Username:"

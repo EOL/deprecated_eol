@@ -681,7 +681,7 @@ class DataObject < SpeciesSchemaModel
   def is_subtype_map?
     return true if self.data_subtype.id == DataType.map.id
     false
-  end  
+  end
 
   def map_from_DiscoverLife?
     if harvest_events = self.harvest_events
@@ -692,7 +692,7 @@ class DataObject < SpeciesSchemaModel
     end
     false
   end
-    
+
   def access_image_from_remote_server(size)
     return true if self.map_from_DiscoverLife? and size == '580_360'
     # we can add here other criterias for image to be hosted remotely
@@ -1115,7 +1115,7 @@ class DataObject < SpeciesSchemaModel
     end
     dobj_ids = dobj_ids.uniq
     if !dobj_ids.empty? && dobj_ids.length>1
-      dobjs = DataObject.find_by_sql("SELECT do.* FROM data_objects do INNER JOIN languages l on (do.language_id = l.id) WHERE do.id in (#{dobj_ids.join(',')}) AND do.published=1 AND l.activated_on <= NOW() ORDER BY l.sort_order")
+      dobjs = DataObject.find_by_sql("SELECT do.* FROM data_objects do INNER JOIN languages l on (do.language_id = l.id) WHERE do.id in (#{dobj_ids.join(',')}) AND l.activated_on <= NOW() ORDER BY l.sort_order")
       if !taxon.nil?
         dobjs = DataObject.filter_list_for_user(dobjs, {:user => current_user, :taxon_concept => taxon})
       end

@@ -7,6 +7,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :tasks
   map.resources :task_states
   map.resources :task_names
+  map.resources :contacts
 
   map.placeholder 'placeholder', :action => 'not_yet_implemented', :controller => 'application'
 
@@ -76,7 +77,8 @@ ActionController::Routing::Routes.draw do |map|
   # users
   map.resources :users, :path_names => { :new => :register },
                 :member => { :terms_agreement => [ :get, :post ], :pending => :get, :activated => :get,
-                             :curation_privileges => [ :get ], :make_editor => :put, :revoke_editor => :get },
+                             :curation_privileges => [ :get ], :make_editor => :put, :revoke_editor => :get,
+                             :notifications => [ :get ] },
                 :collection => { :forgot_password => :get, :usernames => :get } do |user|
     user.resource :newsfeed, :only => [:show], :controller => "users/newsfeeds"
     user.resource :activity, :only => [:show], :controller => "users/activities"

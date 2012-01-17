@@ -56,6 +56,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def notifications
+    render :layout => false
+  end
+
   def make_editor
     @user = User.find(params[:id])
     @notices = []

@@ -79,7 +79,7 @@ module EOL
           :vetted => :view_order,
           :hierarchy_entries_flattened => '*',
           :taxon_concept_content => [ :taxon_concept_id, :image_object_id ],
-          :data_objects => [ :id, :object_cache_url, :data_type_id ]
+          :data_objects => [ :id, :object_cache_url, :data_type_id, :guid ]
         }
         ids = docs.map{ |d| d['object_id'] }
         instances = TaxonConcept.core_relationships(:include => includes, :select => selects).find_all_by_id(ids)

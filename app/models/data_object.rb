@@ -685,17 +685,17 @@ class DataObject < SpeciesSchemaModel
   end  
 
   def map_from_DiscoverLife?
-    if harvest_events = self.harvest_events
-      resource_id = harvest_events.last.resource_id
-      if resource = Resource.find_by_id(resource_id)
-        return true if resource.from_DiscoverLife? and self.is_subtype_map?
+    last_harvest_event = self.harvest_event.last rescue nil
+    if last_harvest_event
+      if r = last_harvest_event.resource
+        return true if r.from_DiscoverLife? and self.is_subtype_map?
       end
     end
     false
   end
     
   def access_image_from_remote_server(size)
-    return true if self.map_from_DiscoverLife? and size == '580_360'
+    return true if size == '580_360' && self.map_from_DiscoverLife?
     # we can add here other criterias for image to be hosted remotely
     false
   end

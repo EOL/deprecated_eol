@@ -43,7 +43,6 @@ class Taxa::DetailsController < TaxaController
             d.language ||= current_user.language
             @details_count_by_language[d.language] ||= 0
             @details_count_by_language[d.language] += 1
-            det[:data_objects].delete(d) unless d.language_id == current_user.language_id
           end
           # remove anything not in the current users language
           det[:data_objects].delete_if{ |d| d.language_id != current_user.language_id }

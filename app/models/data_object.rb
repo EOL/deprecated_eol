@@ -685,7 +685,7 @@ class DataObject < SpeciesSchemaModel
   end
 
   def map_from_DiscoverLife?
-    last_harvest_event = self.harvest_event.last rescue nil
+    last_harvest_event = self.harvest_events.last rescue nil
     if last_harvest_event
       if r = last_harvest_event.resource
         return true if r.from_DiscoverLife? and self.is_subtype_map?

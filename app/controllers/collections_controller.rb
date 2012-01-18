@@ -69,6 +69,8 @@ class CollectionsController < ApplicationController
     return remove_and_redirect if params[:commit_remove]
     return annotate if params[:commit_annotation]
     return chosen if params[:scope] # Note that updating the collection params doesn't specify a scope.
+    # TODO - show_references doesn't work; this is a problem that needs to be fixed on the model.  BA?
+    params[:collection].delete('show_references')
     if @collection.update_attributes(params[:collection])
       upload_logo(@collection) unless params[:collection][:logo].blank?
       flash[:notice] = I18n.t(:collection_updated_notice, :collection_name => @collection.name) if

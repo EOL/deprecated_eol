@@ -43,7 +43,7 @@ describe "Collections and collecting:" do
     @taxon = @test_data[:taxon_concept_1]
     builder = EOL::Solr::CollectionItemsCoreRebuilder.new()
     builder.begin_rebuild
-    
+
     SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE).delete_all_documents
     DataObject.all.each{ |d| d.update_solr_index }
   end

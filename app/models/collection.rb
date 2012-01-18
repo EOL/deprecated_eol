@@ -90,6 +90,12 @@ class Collection < ActiveRecord::Base
     end
   end
 
+  # TODO - This method seems to be missing in action.  BA?
+  # ...also: this appears to be used as a boolean and should thus be #show_references?
+  def show_references
+    false
+  end
+
   def special?
     special_collection_id
   end

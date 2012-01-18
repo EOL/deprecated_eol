@@ -39,17 +39,17 @@ class MembersController < ApplicationController
   def destroy
     @community.remove_member(@member)
     flash[:notice] = I18n.t(:you_removed_the_member_from_the_community)
-    redirect_to :action => 'index'
+    redirect_to :action => 'index',:status => :moved_permanently
   end
 
   def grant_manager
     @member.grant_manager
-    redirect_to :action => 'index'
+    redirect_to :action => 'index', :status => :moved_permanently
   end
 
   def revoke_manager
     @member.revoke_manager
-    redirect_to :action => 'index'
+    redirect_to :action => 'index', :status => :moved_permanently
   end
 
 private

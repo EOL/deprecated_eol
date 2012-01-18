@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
     if success && user.is_a?(User) # authentication successful
       if user.is_hidden?
         flash[:error] = I18n.t(:login_hidden_user_message, :given_name => user.given_name)
-        redirect_to root_url(:protocol => "http")
+        redirect_to root_url(:protocol => "http"), :status => :moved_permanently
       else
         log_in user
         unless params[:session][:return_to].blank? || params[:session][:return_to] == root_url

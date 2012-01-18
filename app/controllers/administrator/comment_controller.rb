@@ -40,12 +40,12 @@ class Administrator::CommentController  < AdminController
 
   def destroy
 
-    (redirect_to referred_url;return) unless request.method == :delete
+    (redirect_to referred_url, :status => :moved_permanently;return) unless request.method == :delete
 
     @comment = Comment.find(params[:id])
     @comment.update_attributes(:deleted => 1)
 
-    redirect_to referred_url
+    redirect_to referred_url, :status => :moved_permanently
 
   end
 
@@ -53,14 +53,14 @@ class Administrator::CommentController  < AdminController
     @comment = Comment.find(params[:id])
     @comment.hide(current_user)
     clear_cached_homepage_activity_logs
-    redirect_to referred_url
+    redirect_to referred_url, :status => :moved_permanently
   end
 
   def show
     @comment = Comment.find(params[:id])
     @comment.show(current_user)
     clear_cached_homepage_activity_logs
-    redirect_to referred_url
+    redirect_to referred_url, :status => :moved_permanently
   end
 
 private

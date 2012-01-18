@@ -69,18 +69,18 @@ class Administrator::NewsItemController < AdminController
     translation_news_item = TranslatedNewsItem.find_by_news_item_id_and_language_id(params[:id], params[:language_id])
     translation_news_item.destroy
     flash[:notice] = I18n.t("translation_deleted")
-    redirect_to :action => 'index'
+    redirect_to :action => 'index', :status => :moved_permanently
   end
 
   def destroy
-    (redirect_to referred_url;return) unless request.method == :delete
+    (redirect_to referred_url, :status => :moved_permanently;return) unless request.method == :delete
     for translated_news_item in TranslatedNewsItem.find_all_by_news_item_id(params[:id])
       translated_news_item.destroy
     end
     @news_item = NewsItem.find(params[:id])
     @news_item.destroy
     expire_cache('Home')
-    redirect_to referred_url
+    redirect_to referred_url, :status => :moved_permanently
   end
 
   def add_language
@@ -117,7 +117,7 @@ class Administrator::NewsItemController < AdminController
    translated_news_item.save
 
    flash[:notice] = I18n.t("translation_saved")
-   redirect_to :action => 'index'
+   redirect_to :action => 'index', :status => :moved_permanently
 
  end
 

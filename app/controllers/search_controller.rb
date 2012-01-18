@@ -39,7 +39,7 @@ class SearchController < ApplicationController
       current_user.log_activity(:text_search_on, :value => params[:q])
       if params[:mobile_search] && !mobile_disabled_by_session?
         if @all_results.length == 1 && @all_results.total_entries == 1
-          redirect_to mobile_taxon_path(@all_results.first["resource_id"])
+          redirect_to mobile_taxon_path(@all_results.first["resource_id"]), :status => :moved_permanently
         else
           render :template => 'mobile/search/index', :layout => "v2/mobile/application"
         end
@@ -68,15 +68,15 @@ class SearchController < ApplicationController
     end
     result_instance = result['instance']
     if result_instance.class == Collection
-      redirect_to collection_path(result_instance.id)
+      redirect_to collection_path(result_instance.id), :status => :moved_permanently
     elsif result_instance.class == Community
-      redirect_to community_path(result_instance.id)
+      redirect_to community_path(result_instance.id), :status => :moved_permanently
     elsif result_instance.class == DataObject
-      redirect_to data_object_path(result_instance.id)
+      redirect_to data_object_path(result_instance.id), :status => :moved_permanently
     elsif result_instance.class == User
-      redirect_to user_path(result_instance.id)
+      redirect_to user_path(result_instance.id), :status => :moved_permanently
     elsif result_instance.class == TaxonConcept
-      redirect_to taxon_overview_path(result_instance.id)
+      redirect_to taxon_overview_path(result_instance.id), :status => :moved_permanently
     end
   end
 

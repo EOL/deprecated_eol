@@ -33,7 +33,7 @@ class Administrator::ContactSubjectController < AdminController
    @contact_subject = ContactSubject.new(params[:contact_subject])
    if @contact_subject.save
      flash[:notice] = I18n.t("the_new_topic_was_created")
-     redirect_to :action => 'index'
+     redirect_to :action => 'index', :status => :moved_permanently
    else
      render :action => 'new'
    end
@@ -45,7 +45,7 @@ class Administrator::ContactSubjectController < AdminController
    @contact_subject = ContactSubject.find(params[:id])
    if @contact_subject.update_attributes(params[:contact_subject])
       flash[:notice] = I18n.t("the_topic_was_updated")
-      redirect_to :action => 'index'
+      redirect_to :action => 'index', :status => :moved_permanently
    else
       render :action => 'edit'
   end

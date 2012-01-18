@@ -86,7 +86,7 @@ class CollectionsController < ApplicationController
       upload_logo(@collection) unless params[:collection][:logo].blank?
       flash[:notice] = I18n.t(:collection_updated_notice, :collection_name => @collection.name) if
         params[:collection] # NOTE - when we sort, we don't *actually* update params...
-      redirect_to params.merge!(:action => 'show').except(*unnecessary_keys_for_redirect)
+      redirect_to params.merge!(:action => 'show').except(*unnecessary_keys_for_redirect), :status => :moved_permanently
     else
       set_edit_vars
       render :action => :edit
@@ -106,7 +106,7 @@ class CollectionsController < ApplicationController
         flash[:error] = I18n.t(:collection_not_destroyed_error)
       end
       respond_to do |format|
-        format.html { redirect_to(back) }
+        format.html { redirect_to(back, :status => :moved_permanently) }
         format.xml  { head :ok }
       end
     end
@@ -126,7 +126,7 @@ class CollectionsController < ApplicationController
         @items.length == 1
     rescue EOL::Exceptions::MaxCollectionItemsExceeded
       flash[:error] = I18n.t(:max_collection_items_error, :max => $MAX_COLLECTION_ITEMS_TO_MANIPULATE)
-      redirect_to collection_path(@collection)
+      redirect_to collection_path(@collection), :status => :moved_permanently
     end
     @collections = current_user.all_collections.delete_if{ |c| c.is_resource_collection? }
     @page_title = I18n.t(:choose_collection_header)
@@ -250,7 +250,7 @@ private
         return annotate
       else
         flash[:error] = I18n.t(:action_not_available_error)
-        return redirect_to collection_path(@collection)  
+        return redirect_to collection_path(@collection)
       end      
     end
   end
@@ -282,7 +282,7 @@ private
           flash[:notice] = I18n.t(:moved_items_from_collection_with_count_notice, :count => all_items.count,
                                   :name => link_to_name(source))
           flash[:notice] += " #{I18n.t(:duplicate_items_were_ignored)}" if @duplicates
-          return redirect_to collection_path(destinations.first)
+          return redirect_to collection_path(destinations.first), :status => :moved_permanently
         else
           flash_i18n_name = :moved_items_to_collections_with_count_notice
         end
@@ -291,21 +291,21 @@ private
           flash[:notice] = I18n.t(:copied_items_from_collection_with_count_notice, :count => all_items.count,
                                   :name => link_to_name(source))
           flash[:notice] += " #{I18n.t(:duplicate_items_were_ignored)}" if @duplicates
-          return redirect_to collection_path(destinations.first)
+          return redirect_to collection_path(destinations.first), :status => :moved_permanently
         end
       end
       flash[:notice] = I18n.t(flash_i18n_name,
                               :count => all_items.count,
                               :names => copied.keys.map {|c| "#{c} (#{copied[c]})"}.to_sentence)
       flash[:notice] += " #{I18n.t(:duplicate_items_were_ignored)}" if @duplicates
-      return redirect_to collection_path(source)
+      return redirect_to collection_path(source), :status => :moved_permanently
     elsif all_items.count == 0
       flash[:error] = I18n.t(:no_items_were_copied_to_collections_error, :names => @no_items_to_collections.to_sentence)
       flash[:error] += " #{I18n.t(:duplicate_items_were_ignored)}" if @duplicates
-      return redirect_to collection_path(source)
+      return redirect_to collection_path(source), :status => :moved_permanently
     else
       # Assume the flash message was set by #copy_items
-      return redirect_to collection_path(source)
+      return redirect_to collection_path(source), :status => :moved_permanently
     end
   end
 
@@ -356,10 +356,10 @@ private
       count = remove_items(:from => @collection, :items => params[:collection_items], :scope => params[:scope])
     rescue EOL::Exceptions::MaxCollectionItemsExceeded
       flash[:error] = I18n.t(:max_collection_items_error, :max => $MAX_COLLECTION_ITEMS_TO_MANIPULATE)
-      return redirect_to collection_path(@collection)
+      return redirect_to collection_path(@collection), :status => :moved_permanently
     end
     flash[:notice] = I18n.t(:removed_count_items_from_collection_notice, :count => count)
-    return redirect_to collection_path(@collection)
+    return redirect_to collection_path(@collection), :status => :moved_permanently
   end
 
   def annotate
@@ -541,7 +541,7 @@ private
     EOL::GlobalStatistics.increment('collections')
     flash[:notice] = I18n.t(:collection_created_notice, :collection_name => link_to_name(@collection))
     respond_to do |format|
-      format.html { redirect_to link_to_item(@item) }
+      format.html { redirect_to link_to_item(@item), :status => :moved_permanently }
       format.js do
         convert_flash_messages_for_ajax
         render :partial => 'shared/flash_messages', :layout => false

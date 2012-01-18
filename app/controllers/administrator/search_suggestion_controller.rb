@@ -53,10 +53,10 @@ class Administrator::SearchSuggestionController < AdminController
   end
 
   def destroy
-    (redirect_to referred_url;return) unless request.method == :delete
+    (redirect_to referred_url, :status => :moved_permanently;return) unless request.method == :delete
     @search_suggestion = SearchSuggestion.find(params[:id])
     @search_suggestion.destroy
-    redirect_to referred_url
+    redirect_to referred_url, :status => :moved_permanently
   end
 
   def set_layout_variables

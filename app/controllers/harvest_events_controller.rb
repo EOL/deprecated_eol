@@ -16,7 +16,7 @@ class HarvestEventsController < ApplicationController
   def update
     @harvest_event = HarvestEvent.find(params[:id])
     @resource.publish @harvest_event
-    redirect_to :back
+    redirect_to :back, :status => :moved_permanently
   end
 
 protected

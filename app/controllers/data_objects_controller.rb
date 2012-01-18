@@ -63,19 +63,19 @@ class DataObjectsController < ApplicationController
       temp = ["education", "education_resources", "identification_resources", "nucleotide_sequences", "biomedical_terms"] # to Resources tab
       if temp.include?(subchapter)
         return redirect_to education_taxon_resources_path(@taxon_concept,
-                             :anchor => "data_object_#{@data_object.id}") if ['education', 'education_resources'].include?(subchapter)
+                             :anchor => "data_object_#{@data_object.id}"), :status => :moved_permanently if ['education', 'education_resources'].include?(subchapter)
         return redirect_to identification_resources_taxon_resources_path(@taxon_concept,
-                             :anchor => "data_object_#{@data_object.id}") if subchapter == 'identification_resources'
+                             :anchor => "data_object_#{@data_object.id}"), :status => :moved_permanently if subchapter == 'identification_resources'
         return redirect_to nucleotide_sequences_taxon_resources_path(@taxon_concept,
-                             :anchor => "data_object_#{@data_object.id}") if subchapter == 'nucleotide_sequences'
+                             :anchor => "data_object_#{@data_object.id}"), :status => :moved_permanently if subchapter == 'nucleotide_sequences'
         return redirect_to biomedical_terms_taxon_resources_path(@taxon_concept,
-                             :anchor => "data_object_#{@data_object.id}") if subchapter == 'biomedical_terms'
+                             :anchor => "data_object_#{@data_object.id}"), :status => :moved_permanently if subchapter == 'biomedical_terms'
       elsif ["literature"].include?(subchapter)
         return redirect_to literature_taxon_literature_path(@taxon_concept,
-                             :anchor => "data_object_#{@data_object.id}") if subchapter == 'literature'
+                             :anchor => "data_object_#{@data_object.id}"), :status => :moved_permanently if subchapter == 'literature'
       end
 
-      redirect_to taxon_details_path(@taxon_concept, :anchor => "data_object_#{@data_object.id}")
+      redirect_to taxon_details_path(@taxon_concept, :anchor => "data_object_#{@data_object.id}"), :status => :moved_permanently
     end
   end
 
@@ -109,7 +109,7 @@ class DataObjectsController < ApplicationController
     else
       current_user.log_activity(:updated_data_object_id, :value => @data_object.id,
                                 :taxon_concept_id => @data_object.taxon_concept_for_users_text.id)
-      redirect_to data_object_path(@data_object)
+      redirect_to data_object_path(@data_object), :status => :moved_permanently
     end
   end
 
@@ -187,7 +187,7 @@ class DataObjectsController < ApplicationController
     clear_cached_media_count_and_exemplar(he)
     @data_object.update_solr_index
     log_action(he, :remove_association, nil)
-    redirect_to data_object_path(@data_object)
+    redirect_to data_object_path(@data_object), :status => :moved_permanently
   end
 
   def save_association
@@ -196,7 +196,7 @@ class DataObjectsController < ApplicationController
     clear_cached_media_count_and_exemplar(he)
     @data_object.update_solr_index
     log_action(he, :add_association, nil)
-    redirect_to data_object_path(@data_object)
+    redirect_to data_object_path(@data_object), :status => :moved_permanently
   end
 
   def add_association

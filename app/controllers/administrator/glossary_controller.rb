@@ -26,13 +26,13 @@ class Administrator::GlossaryController < AdminController
   def create
     if params[:glossary_term][:term].blank?
       flash[:error] = I18n.t("term_cannot_be_left_blank")
-      redirect_to :action => 'index'
+      redirect_to :action => 'index', :status => :moved_permanently
     elsif GlossaryTerm.find_by_term(params[:glossary_term][:term])
       flash[:error] = I18n.t(:term_is_already_def_error, :term => params[:glossary_term][:term] )
-      redirect_to :action => 'index'
+      redirect_to :action => 'index', :status => :moved_permanently
     else
       GlossaryTerm.create(params[:glossary_term])
-      redirect_to :action => 'index'
+      redirect_to :action => 'index', :status => :moved_permanently
     end
   end
 
@@ -45,17 +45,17 @@ class Administrator::GlossaryController < AdminController
     @glossary_term = GlossaryTerm.find(params[:id])
     if @glossary_term.update_attributes(params[:glossary_term])
       flash[:notice] = I18n.t("the_glossary_term_was_successf")
-      redirect_to :action => 'index'
+      redirect_to :action => 'index', :status => :moved_permanently
     else
       render :action => 'edit'
     end
   end
 
   def destroy
-    (redirect_to referred_url;return) unless request.method == :delete
+    (redirect_to referred_url, :status => :moved_permanently;return) unless request.method == :delete
     term = GlossaryTerm.find(params[:id])
     term.destroy
-    redirect_to referred_url
+    redirect_to referred_url, :status => :moved_permanently
   end
 
 private

@@ -154,7 +154,7 @@ class ContentController < ApplicationController
     raise "content upload not found" if content_upload.blank?
 
     # send them to the file on the content server
-    redirect_to(content_upload.content_server_url)
+    redirect_to(content_upload.content_server_url, :status => :moved_permanently)
 
   end
 
@@ -229,7 +229,7 @@ class ContentController < ApplicationController
         render :text => 'Clearing all caches not supported for this cache store.', :layout => false
       end
     else
-      redirect_to root_url
+      redirect_to root_url, :status => :moved_permanently
     end
   end
 
@@ -239,7 +239,7 @@ class ContentController < ApplicationController
       expire_non_species_caches
       render :text => "Non-species page caches expired.", :layout => false
     else
-      redirect_to root_url
+      redirect_to root_url, :status => :moved_permanently
     end
   end
 
@@ -249,7 +249,7 @@ class ContentController < ApplicationController
       expire_cache(params[:id])
       render :text => "Non-species page '#{params[:id]}' cache expired.", :layout => false
     else
-      redirect_to root_url
+      redirect_to root_url, :status => :moved_permanently
     end
   end
 
@@ -257,9 +257,9 @@ class ContentController < ApplicationController
   def feedback
     # FIXME: account/uservoice_login doesn't seem to exist ?
     if logged_in?
-      redirect_to :controller => 'account', :action => 'uservoice_login'
+      redirect_to :controller => 'account', :action => 'uservoice_login', :status => :moved_permanently
     else
-      redirect_to $USERVOICE_URL
+      redirect_to $USERVOICE_URL, :status => :moved_permanently
     end
   end
 
@@ -273,7 +273,7 @@ class ContentController < ApplicationController
         render :text => "Could not expire Taxon Concept: #{e.message}", :layout => false
       end
     else
-      redirect_to root_url
+      redirect_to root_url, :status => :moved_permanently
     end
   end
 
@@ -285,7 +285,7 @@ class ContentController < ApplicationController
       expire_taxa(taxa_ids.split(','))
       render :text => "Taxa IDs #{taxa_ids} and their ancestors expired.", :layout => false
     else
-      redirect_to root_url
+      redirect_to root_url, :status => :moved_permanently
     end
   end
 

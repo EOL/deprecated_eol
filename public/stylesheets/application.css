@@ -3235,7 +3235,7 @@ ul.spotlite-matches {
   height: 100%; }
 
 #social_sharing {
-  margin: 0 0 10px 0;
+  margin: 5px 0;
   width: 100%; }
   #social_sharing > div {
     display: inline-block;

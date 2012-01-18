@@ -29,7 +29,7 @@ class CollectionItemsController < ApplicationController
     flash[:notice] = @notices.to_sentence unless @notices.empty?
 
     respond_to do |format|
-      format.html { redirect_to @collection_item.object }
+      format.html { redirect_to @collection_item.object, :status => :moved_permanently }
       format.js do
         # this means we came from the collections summary on the overview page,
         # so render that entire summary box again

@@ -147,9 +147,9 @@ class ApplicationController < ActionController::Base
     url_to_return = params[:return_to] ? CGI.unescape(params[:return_to]).strip : nil
     unless request.ssl? || local_request?
       if url_to_return && url_to_return[0...1] == '/'  #return to local url
-        redirect_to :protocol => "https://", :return_to => url_to_return, :method => request.method
+        redirect_to :protocol => "https://", :return_to => url_to_return, :method => request.method, :status => :moved_permanently
       else
-        redirect_to :protocol => "https://", :method => request.method
+        redirect_to :protocol => "https://", :method => request.method, :status => :moved_permanently
       end
     end
   end
@@ -177,7 +177,7 @@ class ApplicationController < ActionController::Base
 
   def redirect_to_http_if_https
     if request.ssl?
-      redirect_to "http://" + request.host + request.request_uri
+      redirect_to "http://" + request.host + request.request_uri, :status => :moved_permanently
     end
   end
 
@@ -252,7 +252,7 @@ class ApplicationController < ActionController::Base
 
   # send user back to the non-SSL version of the page
   def redirect_back_to_http
-    redirect_to :protocol => "http://" if request.ssl?
+    redirect_to :protocol => "http://", :status => :moved_permanently  if request.ssl?
   end
 
   # default new user when we don't have a logged in user
@@ -377,13 +377,13 @@ class ApplicationController < ActionController::Base
   def redirect_if_already_logged_in
     if logged_in?
       flash[:notice] = I18n.t(:destination_inappropriate_for_logged_in_users)
-      redirect_to(current_user)
+      redirect_to(current_user, :status => :moved_permanently)
     end
   end
 
   def must_log_in
     respond_to do |format|
-      format.html { store_location; redirect_to login_url }
+      format.html { store_location; redirect_to login_url, :status => :moved_permanently }
       format.js   { render :partial => 'content/must_login', :layout => false }
     end
     return false
@@ -406,7 +406,7 @@ class ApplicationController < ActionController::Base
   # A user is not authorized for the particular controller/action:
   def access_denied
     unless logged_in?
-      return redirect_to root_url, :status => 401
+      return redirect_to root_url
     end
     store_location(request.referer) unless session[:return_to] || request.referer.blank?
     flash_and_redirect_back(I18n.t(:you_are_not_authorized_to_perform_this_action), 403)
@@ -436,7 +436,7 @@ class ApplicationController < ActionController::Base
       end
     end
     return_to = (params[:return_to].blank? ? root_url : params[:return_to])
-    redirect_to return_to
+    redirect_to return_to, :status => :moved_permanently
   end
 
   # pulled over from Rails core helper file so it can be used in controllers as well
@@ -683,13 +683,13 @@ private
     # To-do if elsif elsif elsif.. This works but it's not really elegant!
     if mobile_agent_request? && !mobile_url_request? && !mobile_disabled_by_session?
       if params[:controller] == "taxa/overviews" && params[:taxon_id]
-        redirect_to mobile_taxon_path(params[:taxon_id])
+        redirect_to mobile_taxon_path(params[:taxon_id]), :status => :moved_permanently
       elsif params[:controller] == "taxa/details" && params[:taxon_id]
-        redirect_to mobile_taxon_details_path(params[:taxon_id])
+        redirect_to mobile_taxon_details_path(params[:taxon_id]), :status => :moved_permanently
       elsif params[:controller] == "taxa/media" && params[:taxon_id]
-        redirect_to mobile_taxon_media_path(params[:taxon_id])
+        redirect_to mobile_taxon_media_path(params[:taxon_id]), :status => :moved_permanently
       else
-        redirect_to mobile_contents_path
+        redirect_to mobile_contents_path, :status => :moved_permanently
       end
     end
   end

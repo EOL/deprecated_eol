@@ -58,7 +58,7 @@ class CommentsController < ApplicationController
       respond_to do |format|
         format.html do
           flash[:notice] = I18n.t(:the_comment_was_successfully_updated)
-          redirect_to params[:return_to] || url_for(:action=>'index')
+          redirect_to params[:return_to] || url_for(:action=>'index'), :status => :moved_permanently
         end
         format.js do
           render :partial => 'activity_logs/comment', :locals => { :item => @comment }

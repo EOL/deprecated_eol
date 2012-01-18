@@ -53,7 +53,7 @@ class Admins::TranslatedContentPagesController < AdminsController
 
   # DELETE /admin/content_pages/:content_page_id/translations/:id
   def destroy
-    return redirect_to :action => 'index' unless request.method == :delete
+    return redirect_to :action => 'index', :status => :moved_permanently unless request.method == :delete
     content_page = ContentPage.find(params[:content_page_id])
     page_name = content_page.page_name
     translated_content_page = TranslatedContentPage.find(params[:id], :include => :language)
@@ -61,7 +61,7 @@ class Admins::TranslatedContentPagesController < AdminsController
     translated_content_page.destroy
     flash[:notice] = I18n.t(:admin_translated_content_page_delete_successful_notice,
                             :page_name => page_name, :language => language.label)
-    redirect_to admin_content_pages_path
+    redirect_to admin_content_pages_path, :status => :moved_permanently
   end
 
 private

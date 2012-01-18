@@ -28,7 +28,7 @@ class ContentPartners::ContentPartnerAgreementsController < ContentPartnersContr
       else
         flash[:notice] = I18n.t(:content_partner_agreement_create_successful_notice)
       end
-      redirect_to content_partner_resources_path(@partner)
+      redirect_to content_partner_resources_path(@partner), :status => :moved_permanently
     else
       if params[:commit_agree_to_terms]
         flash.now[:error] = I18n.t(:content_partner_agreement_signed_unsuccessful_error)
@@ -59,7 +59,7 @@ class ContentPartners::ContentPartnerAgreementsController < ContentPartnersContr
       else
         flash[:notice] = I18n.t(:content_partner_agreement_update_successful_notice)
       end
-      redirect_to content_partner_resources_path(@partner)
+      redirect_to content_partner_resources_path(@partner), :status => :moved_permanently
     else
       if params[:commit_agree_to_terms]
         flash.now[:error] = I18n.t(:content_partner_agreement_signed_unsuccessful_error)

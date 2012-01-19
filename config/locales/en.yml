@@ -2371,6 +2371,7 @@ en:
   the_suggested_page_to_direct_users_to_link: "the suggested page to direct users to"
   the_topic_was_updated: "The topic was updated."
   the_user_was_updated: "The user was updated."
+  the_user_who_performed_this_action_was_removed: "The user who performed this action has been removed."
   the_xml_search_response_implements: "The XML search response implements the OpenSearch response format using Atom 1.0. See %{link} for the full OpenSearch specification"
   this_area_shows_all_submission: "This area shows all submissions entered via the contact us or media contact pages.  To view entries, select the topic below or %{link}"
   this_cannot_be_undone_are_you_sure: "This cannot be undone; are you sure?"

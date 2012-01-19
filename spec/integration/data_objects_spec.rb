@@ -353,7 +353,7 @@ describe 'Data Object Page' do
     comment = "Test comment by a logged in user."
     login_as @user
     visit("/data_objects/#{@image.id}")
-    body.should_not have_tag(".updates .feed .details blockquote", :text => comment)
+    body.should_not have_tag("blockquote", :text => comment)
     body.should have_tag(".comment #comment_body")
     body.should have_tag("#new_comment .actions input", :val => "Post Comment")
     within(:xpath, '//form[@id="new_comment"]') do
@@ -361,7 +361,7 @@ describe 'Data Object Page' do
       click_button "Post Comment"
     end
     visit("/data_objects/#{@image.id}")
-    body.should have_tag(".updates .feed .details blockquote", :text => comment)
+    body.should have_tag("blockquote", :text => comment)
     visit('/logout')
   end
 

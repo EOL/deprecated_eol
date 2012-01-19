@@ -1,6 +1,6 @@
 class Taxa::DetailsController < TaxaController
 
-  before_filter :instantiate_taxon_concept, :redirect_if_superceded
+  before_filter :instantiate_taxon_concept, :redirect_if_superceded, :instantiate_preferred_names
   before_filter :add_page_view_log_entry, :update_user_content_level
 
   # GET /pages/:taxon_id/details
@@ -64,5 +64,45 @@ class Taxa::DetailsController < TaxaController
 
     @assistive_section_header = I18n.t(:assistive_details_header)
     current_user.log_activity(:viewed_taxon_concept_details, :taxon_concept_id => @taxon_concept.id)
+  end
+
+protected
+  def set_meta_description
+    chapter_list = @toc.collect{|i| i.label}.uniq.compact.join("; ") unless @toc.blank?
+    if @selected_hierarchy_entry
+      if @preferred_common_name
+        chapter_list ?
+          I18n.t(:meta_description_hierarchy_entry_details_with_common_name_and_chapter_list,
+            :scientific_name => @scientific_name,
+            :hierarchy_provider => @selected_hierarchy_entry.hierarchy_label,
+            :preferred_common_name => @preferred_common_name, :chapter_list => chapter_list) :
+          I18n.t(:meta_description_hierarchy_entry_details_with_common_name, :scientific_name => @scientific_name,
+            :hierarchy_provider => @selected_hierarchy_entry.hierarchy_label,
+            :preferred_common_name => @preferred_common_name)
+      else
+        chapter_list ?
+          I18n.t(:meta_description_hierarchy_entry_details_with_chapter_list, :scientific_name => @scientific_name,
+            :hierarchy_provider => @selected_hierarchy_entry.hierarchy_label,
+            :chapter_list => chapter_list) :
+          I18n.t(:meta_description_hierarchy_entry_details, :scientific_name => @scientific_name,
+            :hierarchy_provider => @selected_hierarchy_entry.hierarchy_label)
+      end
+    else
+      if @preferred_common_name
+        chapter_list ?
+          I18n.t(:meta_description_taxon_details_with_common_name_and_chapter_list, :scientific_name => @scientific_name,
+            :preferred_common_name => @preferred_common_name, :chapter_list => chapter_list) :
+          I18n.t(:meta_description_taxon_details_with_common_name, :scientific_name => @scientific_name,
+            :preferred_common_name => @preferred_common_name)
+      else
+        chapter_list ?
+          I18n.t(:meta_description_taxon_details_with_chapter_list, :scientific_name => @scientific_name,
+            :chapter_list => chapter_list) :
+          I18n.t(:meta_description_taxon_details, :scientific_name => @scientific_name)
+      end
+    end
+  end
+  def additional_meta_keywords
+    @toc.collect{|i| i.label}
   end
 end

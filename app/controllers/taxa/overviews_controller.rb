@@ -1,5 +1,5 @@
 class Taxa::OverviewsController < TaxaController
-  before_filter :instantiate_taxon_concept, :redirect_if_superceded
+  before_filter :instantiate_taxon_concept, :redirect_if_superceded, :instantiate_preferred_names
   before_filter :add_page_view_log_entry, :update_user_content_level
 
   def show
@@ -36,10 +36,6 @@ class Taxa::OverviewsController < TaxaController
       @summary_text.sort!{|x,y| x.toc_items[0].view_order <=> y.toc_items[0].view_order}
     end
 
-    if @selected_hierarchy_entry
-      @recognized_by = recognized_by
-    end
-
     @media = promote_exemplar(@taxon_concept.images_from_solr(4, @selected_hierarchy_entry, true))
     DataObject.preload_associations(@media, :translations , :conditions => "data_object_translations.language_id=#{current_user.language_id}")
     @watch_collection = logged_in? ? current_user.watch_collection : nil
@@ -48,15 +44,20 @@ class Taxa::OverviewsController < TaxaController
     current_user.log_activity(:viewed_taxon_concept_overview, :taxon_concept_id => @taxon_concept.id)
   end
 
-private
-
-  def recognized_by
-    @recognized_by = I18n.t(:recognized_by)
-    if !@selected_hierarchy_entry.hierarchy.url.blank?
-      @recognized_by << ' ' <<
-        self.class.helpers.link_to(@selected_hierarchy_entry.hierarchy.label, @selected_hierarchy_entry.hierarchy.url)
+protected
+  def set_meta_description
+    if @selected_hierarchy_entry
+      @preferred_common_name ?
+        I18n.t(:meta_description_hierarchy_entry_overview_with_common_name, :scientific_name => @scientific_name,
+          :hierarchy_provider => @selected_hierarchy_entry.hierarchy_label,
+          :preferred_common_name => @preferred_common_name) :
+        I18n.t(:meta_description_hierarchy_entry_overview, :scientific_name => @scientific_name,
+          :hierarchy_provider => @selected_hierarchy_entry.hierarchy_label)
     else
-      @recognized_by << ' ' << @selected_hierarchy_entry.hierarchy.label
+      @preferred_common_name ?
+        I18n.t(:meta_description_taxon_overview_with_common_name, :scientific_name => @scientific_name,
+          :preferred_common_name => @preferred_common_name) :
+        I18n.t(:meta_description_taxon_overview, :scientific_name => @scientific_name)
     end
   end
 

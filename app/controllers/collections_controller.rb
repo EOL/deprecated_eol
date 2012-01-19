@@ -178,6 +178,20 @@ class CollectionsController < ApplicationController
     end
   end
 
+protected
+  def set_meta_title
+    if @collection && !@collection.name.blank?
+      I18n.t(:meta_title_template,
+        :page_title => I18n.t(:head_title_collection, :name => @collection.name))
+    end
+  end
+  def set_meta_description
+    if @collection && !@collection.name.blank?
+      I18n.t(:meta_description_collection, :collection_name => @collection.name,
+        :collection_description => @collection.description)
+    end
+  end
+
 private
 
   def find_collection
@@ -250,8 +264,8 @@ private
         return annotate
       else
         flash[:error] = I18n.t(:action_not_available_error)
-        return redirect_to collection_path(@collection)  
-      end      
+        return redirect_to collection_path(@collection)
+      end
     end
   end
 
@@ -370,8 +384,8 @@ private
         @collection_item.refs.clear
         @references = params[:references]
         params[:references] = params[:references].split("\n") unless params[:references].blank?
-              
-        unless params[:references].blank?        
+
+        unless params[:references].blank?
           params[:references].each do |reference|
             if reference.strip != ''
               reference = reference.downcase
@@ -379,8 +393,8 @@ private
               if (ref)
                 @collection_item.refs << ref
               else
-                @collection_item.refs << Ref.new(:full_reference => reference, :user_submitted => true, :published => 1, :visibility => Visibility.visible)  
-              end            
+                @collection_item.refs << Ref.new(:full_reference => reference, :user_submitted => true, :published => 1, :visibility => Visibility.visible)
+              end
             end
           end
         end

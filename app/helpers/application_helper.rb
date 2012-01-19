@@ -91,43 +91,6 @@ module ApplicationHelper
     end
   end
 
-  # Used in V2
-  def set_meta_data
-    case params[:controller]
-      when /^taxa/
-        if @taxon_concept
-          if @selected_hierarchy_entry
-            preferred_common_name = @selected_hierarchy_entry.taxon_concept.preferred_common_name_in_language(current_user.language)
-            scientific_name = @taxon_concept.quick_scientific_name(:normal, @selected_hierarchy_entry.hierarchy)
-          else
-            preferred_common_name = @taxon_concept.preferred_common_name_in_language(current_user.language)
-            scientific_name = @taxon_concept.title_canonical()
-          end
-          @meta_title = I18n.t(:meta_title_template,
-            :page_title => [preferred_common_name, scientific_name, @assistive_section_header].compact.join(" - ")) if @meta_title.blank?
-          @meta_description = I18n.t(:meta_description_taxon,
-            :scientific_name => scientific_name, :preferred_common_name_or_blank => preferred_common_name) if @meta_description.blank?
-          @meta_keywords = [preferred_common_name, scientific_name].join(" ") if @meta_keywords.blank?
-        end
-      when /^communities/
-        if @community && !@community.name.blank?
-          @meta_title = I18n.t(:meta_title_template,
-            :page_title => I18n.t(:head_title_community, :name => @community.name)) if @meta_title.blank?
-          @meta_description = I18n.t(:meta_description_community, :community_name => @community.name,
-            :community_description => @community.description) if @meta_description.blank?
-        end
-      when /^collections/
-        if @collection && !@collection.name.blank?
-          @meta_title = I18n.t(:meta_title_template,
-            :page_title => I18n.t(:head_title_collection, :name => @collection.name)) if @meta_title.blank?
-          @meta_description = I18n.t(:meta_description_collection, :collection_name => @collection.name,
-            :collection_description => @collection.description) if @meta_description.blank?
-        end
-    end
-    @meta_title = @page_title.blank? ? I18n.t(:meta_title_default) : I18n.t(:meta_title_template, :page_title => @page_title) if @meta_title.blank?
-    @meta_description = I18n.t(:meta_description_default) if @meta_description.blank?
-  end
-
   # Used in V2 to get absolute URLs for images, i.e. starting with http... use like image_path
   # requires ActionView::Helpers::AssetTagHelper
   def image_url(image)
@@ -269,6 +232,7 @@ module ApplicationHelper
     st.to_s.gsub(/(\d)(?=(\d\d\d)+(?!\d))/, "\\1,")
   end
 
+  # Obsolete for V2 - we don't want global replace of spaces with commas we want key phrases not just key words
   # take an input string, split it up by spaces and return a comma delimited list of the words
   def meta_keywords(input_string,strip_html=true)
     keyword_list=''

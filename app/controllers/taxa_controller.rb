@@ -118,7 +118,29 @@ class TaxaController < ApplicationController
     render :text => Net::HTTP.get(URI.parse(url))
   end
 
+protected
+  def set_meta_title
+    I18n.t(:meta_title_template,
+      :page_title => [@preferred_common_name, @scientific_name,
+                      @selected_hierarchy_entry ? @selected_hierarchy_entry.hierarchy_label : nil,
+                      @assistive_section_header].compact.join(" - "))
+  end
+  def set_meta_keywords
+    keywords = [ @preferred_common_name,
+      @scientific_name,
+      @preferred_common_name && @assistive_section_header ? "#{@preferred_common_name} #{@assistive_section_header}" : nil,
+      @scientific_name && @assistive_section_header ? "#{@scientific_name} #{@assistive_section_header}" : nil,
+      @selected_hierarchy_entry ? @selected_hierarchy_entry.hierarchy_label : nil,
+     ]
+     keywords = keywords.concat(additional_meta_keywords)
+     keywords.uniq.compact.join(", ").strip
+  end
+  def additional_meta_keywords
+    []
+  end
+
 private
+
   def instantiate_taxon_concept
     @taxon_concept = find_taxon_concept
     unless accessible_page?(@taxon_concept)
@@ -128,7 +150,7 @@ private
         raise EOL::Exceptions::MustBeLoggedIn, "Non-authenticated user does not have access to TaxonConcept with ID=#{@taxon_concept.id}"
       end
     end
-    @taxon_concept.current_user = current_user if @taxon_concept
+    @taxon_concept.current_user = current_user
     @selected_hierarchy_entry_id = params[:hierarchy_entry_id]
     if @selected_hierarchy_entry_id
       @selected_hierarchy_entry = HierarchyEntry.find_by_id(@selected_hierarchy_entry_id) rescue nil
@@ -139,6 +161,11 @@ private
         @selected_hierarchy_entry = nil
       end
     end
+  end
+
+  def instantiate_preferred_names
+    @preferred_common_name = @selected_hierarchy_entry ? @selected_hierarchy_entry.taxon_concept.preferred_common_name_in_language(current_user.language) : @taxon_concept.preferred_common_name_in_language(current_user.language)
+    @scientific_name = @selected_hierarchy_entry ? @taxon_concept.quick_scientific_name(:italicized, @selected_hierarchy_entry.hierarchy) : @taxon_concept.title_canonical
   end
 
   def promote_exemplar(data_objects)
@@ -159,7 +186,7 @@ private
   def redirect_if_superceded
     if @taxon_concept.superceded_the_requested_id?
       redirect_to url_for(:controller => params[:controller], :action => params[:action], :taxon_id => @taxon_concept.id), :status => :moved_permanently
-      return false 
+      return false
     end
   end
 

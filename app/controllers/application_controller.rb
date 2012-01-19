@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
   helper :all
 
   helper_method :logged_in?, :current_url, :current_user, :return_to_url, :current_agent, :agent_logged_in?,
-    :allow_page_to_be_cached?, :link_to_item
+    :allow_page_to_be_cached?, :link_to_item, :get_meta_data
 
   before_filter :set_locale
 
@@ -578,6 +578,29 @@ protected
       end
     end
   end
+
+  # Used in V2
+  def get_meta_data
+    @meta_data = {} if @meta_data.blank?
+    @meta_data[:title] ||= set_meta_title # get more specific values from controllers
+    @meta_data[:title] ||= set_meta_title_fallback
+    @meta_data[:description] ||= set_meta_description
+    @meta_data[:description] ||= set_meta_description_fallback
+    @meta_data[:keywords] = set_meta_keywords
+    @meta_data
+  end
+  def set_meta_title_fallback
+    @page_title.blank? ? I18n.t(:meta_title_default) : I18n.t(:meta_title_template, :page_title => @page_title)
+  end
+  alias set_meta_title set_meta_title_fallback
+  def set_meta_description_fallback
+    I18n.t(:meta_description_default)
+  end
+  alias set_meta_description set_meta_description_fallback
+  def set_meta_keywords_fallback
+    nil
+  end
+  alias set_meta_keywords set_meta_keywords_fallback
 
 private
 

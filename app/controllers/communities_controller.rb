@@ -218,6 +218,20 @@ class CommunitiesController < ApplicationController
     end
   end
 
+protected
+  def set_meta_title
+    if @community && !@community.name.blank?
+      I18n.t(:meta_title_template,
+        :page_title => I18n.t(:head_title_community, :name => @community.name))
+    end
+  end
+  def set_meta_description
+    if @community && !@community.name.blank?
+      I18n.t(:meta_description_community, :community_name => @community.name,
+        :community_description => @community.description)
+    end
+  end
+
 private
 
   def load_community_and_dependent_vars

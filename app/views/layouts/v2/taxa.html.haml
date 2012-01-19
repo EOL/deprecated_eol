@@ -7,16 +7,15 @@
       .hgroup
         %h1.scientific_name
           - if @selected_hierarchy_entry
-            = hh(@taxon_concept.quick_scientific_name(:italicized, @selected_hierarchy_entry.hierarchy))
+            = hh(@scientific_name)
           - else
-            %i= hh(@taxon_concept.title_canonical())
+            %i= hh(@scientific_name)
           - unless @assistive_section_header.blank?
             %span.assistive= " &mdash; #{@assistive_section_header}"
         = yield :social_sharing
-        - preferred_common_name = @selected_hierarchy_entry ? @selected_hierarchy_entry.taxon_concept.preferred_common_name_in_language(current_user.language) : @taxon_concept.preferred_common_name_in_language(current_user.language)
-        - unless preferred_common_name.blank?
+        - unless @preferred_common_name.blank?
           %h2{:title => I18n.t(:preferred_common_name_advisory_information)}
-            = hh(preferred_common_name)
+            = hh(@preferred_common_name)
             %small= link_to I18n.t(:learn_more_about_names_for_this_taxon),
               @selected_hierarchy_entry ? taxon_hierarchy_entry_names_path(@taxon_concept, @selected_hierarchy_entry.id) : taxon_names_path(@taxon_concept)
         - else

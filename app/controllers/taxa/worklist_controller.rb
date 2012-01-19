@@ -2,7 +2,7 @@ class Taxa::WorklistController < TaxaController
 
   before_filter :check_authentication
   before_filter :restrict_to_curators
-  before_filter :instantiate_taxon_concept, :redirect_if_superceded
+  before_filter :instantiate_taxon_concept, :redirect_if_superceded, :instantiate_preferred_names
   before_filter :add_page_view_log_entry, :update_user_content_level
 
   def show
@@ -45,7 +45,7 @@ class Taxa::WorklistController < TaxaController
     }
     @data_objects = EOL::Solr::DataObjects.search_with_pagination(@taxon_concept.id, search_options)
     @resource_counts = EOL::Solr::DataObjects.load_resource_facets(@taxon_concept.id, search_options).sort_by{ |c| c[:resource].title.downcase }
-    
+
     @current_data_object = @data_objects.detect{ |ct| ct.id == params[:current].to_i } unless params[:current].blank?
     @current_data_object = @data_objects.first if @current_data_object.blank?
     params[:current] = @current_data_object.id if @current_data_object

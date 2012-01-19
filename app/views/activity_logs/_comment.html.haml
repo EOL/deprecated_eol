@@ -42,7 +42,7 @@
         - if item.parent == item.user
           = I18n.t(:user_commented_on_themself, :user_with_link => name_with_link, :username => item.parent.summary_name, :link => parent_link)
         - elsif item.parent.nil?
-          = I18n.t(:user_commented_on_deleted_user, :user => name_with_link)
+          = I18n.t(:user_commented_on_deleted_user, :user_with_link => name_with_link)
         - else
           = I18n.t(:user_commented_on_something_colon, :user => name_with_link, :what => link_to(item.parent.summary_name, parent_link))
       - else

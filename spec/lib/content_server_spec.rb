@@ -40,14 +40,14 @@ describe ContentServer do
 
   describe '#cache_path' do
 
-    it 'should concat a server, the subdir, and a cached url path' do
-      ContentServer.should_receive(:cache_url_to_path).with('url').and_return('nice_path')
-      ContentServer.cache_path('url', 'subdir').should =~ /http.*c\d.*subdir.*nice_path/
-    end
-
     it 'should use CONTENT_SERVER_CONTENT_PATH by default' do
       ContentServer.should_receive(:cache_url_to_path).with('url').and_return('nice_path')
       ContentServer.cache_path('url').should =~ /http.*c\d.*#{$CONTENT_SERVER_CONTENT_PATH}.*nice_path/
+    end
+    
+    it 'should allow a content host to be specified' do
+      ContentServer.should_receive(:cache_url_to_path).with('url').and_return('nice_path')
+      ContentServer.cache_path('url', 'http://someotherhost.com/').should =~ /http:\/\/someotherhost\.com\/#{$CONTENT_SERVER_CONTENT_PATH}nice_path/
     end
 
   end

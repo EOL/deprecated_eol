@@ -657,16 +657,10 @@ class DataObject < SpeciesSchemaModel
   end
   alias is_iucn? iucn?
 
-
-  # Convenience.  TODO - Stop calling this.  Use ContentServer directly.
-  def self.cache_path(cache_url, subdir)
-    ContentServer.cache_path(cache_url, subdir)
-  end
-
-  def self.image_cache_path(cache_url, size = :large, subdir = $CONTENT_SERVER_CONTENT_PATH)
+  def self.image_cache_path(cache_url, size = :large, specified_content_host = nil)
     return if cache_url.blank? || cache_url == 0
     size = size ? "_" + size.to_s : ''
-    cache_path(cache_url, subdir) + "#{size}.#{$SPECIES_IMAGE_FORMAT}"
+    ContentServer.cache_path(cache_url, specified_content_host) + "#{size}.#{$SPECIES_IMAGE_FORMAT}"
   end
 
   def has_thumbnail_cache?

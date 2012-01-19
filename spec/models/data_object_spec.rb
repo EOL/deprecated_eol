@@ -305,9 +305,9 @@ describe DataObject do
     data_types.should == ["Image", "Text"]
   end
 
-  it 'should delegate #cache_path to ContentServer' do
-    ContentServer.should_receive(:cache_path).with(:foo, :bar).and_return(:worked)
-    DataObject.cache_path(:foo, :bar).should == :worked
+  it 'should delegate #image_cache_path to ContentServer' do
+    ContentServer.should_receive(:cache_path).with(:foo, nil).and_return("worked")
+    DataObject.image_cache_path(:foo, :large).should == "worked_large.#{$SPECIES_IMAGE_FORMAT}"
   end
 
   it 'should default to the object_title' do

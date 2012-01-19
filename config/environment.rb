@@ -101,6 +101,7 @@ Rails::Initializer.run do |config|
   $CONTENT_SERVER_CONTENT_PATH = "content" # if you put leading and trailing slashes here you get double slashes in the URLs, which work fine but aren't right
   $CONTENT_SERVER_RESOURCES_PATH = "/resources/"
   $CONTENT_SERVER_AGENT_LOGOS_PATH = "/content_partners/"
+  $SINGLE_DOMAIN_CONTENT_SERVER = 'http://localhost/'
   $SPECIES_IMAGE_FORMAT = "jpg" # the extension of all species images on the content server
 
   # MEDIA CENTER CONFIGURATION

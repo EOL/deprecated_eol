@@ -68,15 +68,15 @@ class SearchController < ApplicationController
     end
     result_instance = result['instance']
     if result_instance.class == Collection
-      redirect_to collection_path(result_instance.id), :status => :moved_permanently
+      redirect_to collection_path(result_instance.id)
     elsif result_instance.class == Community
-      redirect_to community_path(result_instance.id), :status => :moved_permanently
+      redirect_to community_path(result_instance.id)
     elsif result_instance.class == DataObject
-      redirect_to data_object_path(result_instance.id), :status => :moved_permanently
+      redirect_to data_object_path(result_instance.id)
     elsif result_instance.class == User
-      redirect_to user_path(result_instance.id), :status => :moved_permanently
+      redirect_to user_path(result_instance.id)
     elsif result_instance.class == TaxonConcept
-      redirect_to taxon_overview_path(result_instance.id), :status => :moved_permanently
+      redirect_to taxon_overview_path(result_instance.id)
     end
   end
 

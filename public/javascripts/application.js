@@ -169,18 +169,18 @@ $(function() {
 
     $collection.find("ul.object_list").children().each(function() {
       var $li = $(this);
-      $li.delegate("p.edit a", "click keydown", function( event ) {
+      $li.delegate("p.edit a", "click", function( event ) {
         event.preventDefault();
         $(this).parent().hide();
         $(this).parent().after('<div class="collection_item_form"></div>');
         var $update = $(this).parent().next('.collection_item_form');
         EOL.ajax_get($(this), {update: $update, type: 'GET'});
       });
-      $li.delegate(".collection_item_form a", "click keydown", function( event ) {
+      $li.delegate(".collection_item_form a", "click", function( event ) {
         event.preventDefault();
         $(this).closest(".collection_item_form").hide().prev().show().end().html('');
       });
-      $li.delegate(".collection_item_form input[type='submit']", "click keydown", function( event ) {
+      $li.delegate(".collection_item_form input[type='submit']", "click", function( event ) {
         event.preventDefault();
         EOL.ajax_submit($(this), {
           data: "_method=put&commit_annotation=true&" +

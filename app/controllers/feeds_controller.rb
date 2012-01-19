@@ -49,7 +49,7 @@ class FeedsController < ApplicationController
       cal = CollectionActivityLog.find(params[:id])
       source = cal.collection
       page = find_index(source, 'CollectionActivityLog', params[:id], 20)
-      redirect_to add_hash_to_path(collection_path(source, :page => page, :filter => 'newsfeed'), 'CollectionActivityLog', params[:id])
+      redirect_to add_hash_to_path(collection_newsfeed_path(source, :page => page), 'CollectionActivityLog', params[:id])
     when "UsersDataObject"
       # This one is somewhat questionable: do we want to go to the user's page or to the taxon concpet page where it
       # was added?  Or to the data object itself?  I suppose that last one makes the most sense, soooo:
@@ -225,6 +225,6 @@ private
   end
 
   def add_hash_to_path(path, type, id)
-    path += "##{params[:reply] ? 'reply-to-' : ''}#{type}-#{id}"
+    path += "##{(params[:reply] && params[:reply] != 'false') ? 'reply-to-' : ''}#{type}-#{id}"
   end
 end

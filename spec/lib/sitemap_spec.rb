@@ -6,12 +6,14 @@ describe 'Sitemaps' do
     truncate_all_tables
     load_foundation_cache
     
+    License.destroy_all
     ContentPage.destroy_all
     Community.destroy_all
     Collection.destroy_all
     ContentPartner.destroy_all
     User.destroy_all
     TaxonConcept.destroy_all
+    DataObject.destroy_all
     
     @objects_to_include = []
     @objects_to_exclude = []
@@ -30,6 +32,12 @@ describe 'Sitemaps' do
     @objects_to_include << taxon_concept
     @objects_to_exclude << TaxonConcept.gen(:published => false, :vetted_id => Vetted.trusted.id)
     @objects_to_exclude << TaxonConcept.gen(:supercedure_id => taxon_concept.id, :vetted_id => Vetted.trusted.id)
+    
+    @cc_license = License.gen(:title => 'cc-by-sa 1.0', :source_url => 'http://creativecommons.org/licenses/by-sa/1.0/')
+    @non_cc_license = License.gen(:title => 'not applicable', :source_url => 'http://who.cares')
+    @published_image_cc_license = DataObject.gen(:data_type => DataType.image, :license => @cc_license, :published => 1, :object_cache_url => '201201190911111')
+    @published_image_non_cc_license = DataObject.gen(:data_type => DataType.image, :license => @non_cc_license, :published => 1, :object_cache_url => '201201190922222')
+    @unpublished_image = DataObject.gen(:data_type => DataType.image, :license => @cc_license, :published => 0, :object_cache_url => '201201190933333')
     
     @rake = Rake::Application.new
     Rake.application = @rake
@@ -77,6 +85,30 @@ describe 'Sitemaps' do
       end
     end
   end
+  
+  # Following tests are for image sitemaps
+  it 'should be able to create xml image sitemaps' do
+    @rake['sitemap:destroy_images'].execute
+    @rake['sitemap:build_images_xml'].execute
+    sitemap_contents = File.open(File.join(RAILS_ROOT, 'public', 'sitemap', 'images', 'sitemap_1.xml')).read
+    
+    sitemap_contents.should include(DataObject.image_cache_path(@published_image_cc_license.object_cache_url, '580_360', $SINGLE_DOMAIN_CONTENT_SERVER))
+    sitemap_contents.should include(@published_image_cc_license.license.source_url)
+    sitemap_contents.should include(DataObject.image_cache_path(@published_image_non_cc_license.object_cache_url, '580_360', $SINGLE_DOMAIN_CONTENT_SERVER))
+    
+    sitemap_contents.should_not include(@published_image_non_cc_license.license.source_url)
+    sitemap_contents.should_not include(DataObject.image_cache_path(@unpublished_image.object_cache_url, '580_360', $SINGLE_DOMAIN_CONTENT_SERVER))
+  end
+  
+  it 'should be able to destroy image sitemaps' do
+    @rake['sitemap:destroy_images'].execute
+    @rake['sitemap:build_images_xml'].execute
+    # we only care about files with extensions - so ignore all directories
+    Dir.glob(File.join(RAILS_ROOT, 'public', 'sitemap', 'images', '*.*')).should_not be_empty
+    @rake['sitemap:destroy_images'].execute
+    Dir.glob(File.join(RAILS_ROOT, 'public', 'sitemap', 'images', '*.*')).should be_empty
+  end
+  
   
 end
 

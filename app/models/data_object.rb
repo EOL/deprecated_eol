@@ -657,16 +657,10 @@ class DataObject < SpeciesSchemaModel
   end
   alias is_iucn? iucn?
 
-
-  # Convenience.  TODO - Stop calling this.  Use ContentServer directly.
-  def self.cache_path(cache_url, subdir)
-    ContentServer.cache_path(cache_url, subdir)
-  end
-
-  def self.image_cache_path(cache_url, size = :large, subdir = $CONTENT_SERVER_CONTENT_PATH)
+  def self.image_cache_path(cache_url, size = :large, specified_content_host = nil)
     return if cache_url.blank? || cache_url == 0
     size = size ? "_" + size.to_s : ''
-    cache_path(cache_url, subdir) + "#{size}.#{$SPECIES_IMAGE_FORMAT}"
+    ContentServer.cache_path(cache_url, specified_content_host) + "#{size}.#{$SPECIES_IMAGE_FORMAT}"
   end
 
   def has_thumbnail_cache?
@@ -682,20 +676,20 @@ class DataObject < SpeciesSchemaModel
   def is_subtype_map?
     return true if self.data_subtype.id == DataType.map.id
     false
-  end  
+  end
 
   def map_from_DiscoverLife?
-    if harvest_events = self.harvest_events
-      resource_id = harvest_events.last.resource_id
-      if resource = Resource.find_by_id(resource_id)
-        return true if resource.from_DiscoverLife? and self.is_subtype_map?
+    last_harvest_event = self.harvest_events.last rescue nil
+    if last_harvest_event
+      if r = last_harvest_event.resource
+        return true if r.from_DiscoverLife? and self.is_subtype_map?
       end
     end
     false
   end
-    
+
   def access_image_from_remote_server(size)
-    return true if self.map_from_DiscoverLife? and size == '580_360'
+    return true if size == '580_360' && self.map_from_DiscoverLife?
     # we can add here other criterias for image to be hosted remotely
     false
   end
@@ -1116,7 +1110,7 @@ class DataObject < SpeciesSchemaModel
     end
     dobj_ids = dobj_ids.uniq
     if !dobj_ids.empty? && dobj_ids.length>1
-      dobjs = DataObject.find_by_sql("SELECT do.* FROM data_objects do INNER JOIN languages l on (do.language_id = l.id) WHERE do.id in (#{dobj_ids.join(',')}) AND do.published=1 AND l.activated_on <= NOW() ORDER BY l.sort_order")
+      dobjs = DataObject.find_by_sql("SELECT do.* FROM data_objects do INNER JOIN languages l on (do.language_id = l.id) WHERE do.id in (#{dobj_ids.join(',')}) AND l.activated_on <= NOW() ORDER BY l.sort_order")
       if !taxon.nil?
         dobjs = DataObject.filter_list_for_user(dobjs, {:user => current_user, :taxon_concept => taxon})
       end

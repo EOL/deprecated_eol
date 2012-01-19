@@ -4,8 +4,8 @@
   %p
     -# TODO - these ChangeableObjectType checks are all failing because they are NOT on datos, they are on dohe and cdohe's.  Fix.
     - name_with_link = link_to(h(item.user.full_name), user_path(item.user))
-    - object_link = item.data_object ? link_to(item.data_object.summary_name, data_object_path(item.data_object)) : nil
-
+    - object_path = item.data_object ? data_object_path(item.data_object) : nil
+    - object_link = object_path ? link_to(item.data_object.summary_name, object_path) : nil
     - synonym_activity_ids = [Activity.add_common_name.id, Activity.remove_common_name.id,
                               Activity.trust_common_name.id, Activity.unreview_common_name.id, Activity.untrust_common_name.id, Activity.inappropriate_common_name.id]
     - if synonym_activity_ids.include? item.activity_id
@@ -53,79 +53,79 @@
     - when Activity.add_common_name.id
       - if item.synonym && item.synonym.respond_to?(:name) && item.synonym.name.respond_to?(:string)
         - if item.taxon_concept && item.taxon_concept.is_a?(TaxonConcept)
-          - object_link = taxon_path(item.taxon_concept)
-          = I18n.t(:activity_user_added_common_name_to_taxon, :user => name_with_link, :name => item.synonym.name.string, :taxon => link_to(item.taxon_concept.quick_scientific_name, object_link), :language => lang)
+          - object_path = taxon_path(item.taxon_concept)
+          = I18n.t(:activity_user_added_common_name_to_taxon, :user => name_with_link, :name => item.synonym.name.string, :taxon => link_to(item.taxon_concept.quick_scientific_name, object_path), :language => lang)
         - else
           = I18n.t(:activity_user_added_common_name, :user => name_with_link, :name => item.synonym.name.string, :language => lang)
       - else
         - if item.taxon_concept && item.taxon_concept.is_a?(TaxonConcept)
-          - object_link = taxon_path(item.taxon_concept)
-          = I18n.t(:activity_user_added_unknown_name_to_taxon, :user => name_with_link, :taxon => link_to(item.taxon_concept.quick_scientific_name, object_link))
+          - object_path = taxon_path(item.taxon_concept)
+          = I18n.t(:activity_user_added_unknown_name_to_taxon, :user => name_with_link, :taxon => link_to(item.taxon_concept.quick_scientific_name, object_path))
         - else
           = I18n.t(:activity_user_added_unknown_name, :user => name_with_link)
     - when Activity.remove_common_name.id
       - if item.taxon_concept && item.taxon_concept.is_a?(TaxonConcept)
-        - object_link = taxon_path(item.taxon_concept)
-        = I18n.t(:activity_user_removed_unknown_name_to_taxon, :user => name_with_link, :taxon => link_to(item.taxon_concept.quick_scientific_name, object_link))
+        - object_path = taxon_path(item.taxon_concept)
+        = I18n.t(:activity_user_removed_unknown_name_to_taxon, :user => name_with_link, :taxon => link_to(item.taxon_concept.quick_scientific_name, object_path))
       - else
         = I18n.t(:activity_user_removed_unknown_name, :user => name_with_link)
 
     - when Activity.trust_common_name.id
       - if item.synonym && item.synonym.respond_to?(:name) && item.synonym.name.respond_to?(:string)
         - if item.taxon_concept && item.taxon_concept.is_a?(TaxonConcept)
-          - object_link = taxon_path(item.taxon_concept)
-          = I18n.t(:activity_user_trust_common_name_from_taxon, :user => name_with_link, :name => item.synonym.name.string, :taxon => link_to(item.taxon_concept.quick_scientific_name, object_link), :language => lang)
+          - object_path = taxon_path(item.taxon_concept)
+          = I18n.t(:activity_user_trust_common_name_from_taxon, :user => name_with_link, :name => item.synonym.name.string, :taxon => link_to(item.taxon_concept.quick_scientific_name, object_path), :language => lang)
         - else
           = I18n.t(:activity_user_trust_common_name, :user => name_with_link, :name => item.synonym.name.string, :language => lang)
       - else
         - if item.taxon_concept && item.taxon_concept.is_a?(TaxonConcept)
-          - object_link = taxon_path(item.taxon_concept)
-          = I18n.t(:activity_user_trust_unknown_name_to_taxon, :user => name_with_link, :taxon => link_to(item.taxon_concept.quick_scientific_name, object_link))
+          - object_path = taxon_path(item.taxon_concept)
+          = I18n.t(:activity_user_trust_unknown_name_to_taxon, :user => name_with_link, :taxon => link_to(item.taxon_concept.quick_scientific_name, object_path))
         - else
           = I18n.t(:activity_user_trust_unknown_name, :user => name_with_link)
     - when Activity.untrust_common_name.id
       - if item.synonym && item.synonym.respond_to?(:name) && item.synonym.name.respond_to?(:string)
         - if item.taxon_concept && item.taxon_concept.is_a?(TaxonConcept)
-          - object_link = taxon_path(item.taxon_concept)
-          = I18n.t(:activity_user_untrust_common_name_from_taxon, :user => name_with_link, :name => item.synonym.name.string, :taxon => link_to(item.taxon_concept.quick_scientific_name, object_link), :language => lang)
+          - object_path = taxon_path(item.taxon_concept)
+          = I18n.t(:activity_user_untrust_common_name_from_taxon, :user => name_with_link, :name => item.synonym.name.string, :taxon => link_to(item.taxon_concept.quick_scientific_name, object_path), :language => lang)
         - else
           = I18n.t(:activity_user_untrust_common_name, :user => name_with_link, :name => item.synonym.name.string, :language => lang)
       - else
         - if item.taxon_concept && item.taxon_concept.is_a?(TaxonConcept)
-          - object_link = taxon_path(item.taxon_concept)
-          = I18n.t(:activity_user_untrust_unknown_name_to_taxon, :user => name_with_link, :taxon => link_to(item.taxon_concept.quick_scientific_name, object_link))
+          - object_path = taxon_path(item.taxon_concept)
+          = I18n.t(:activity_user_untrust_unknown_name_to_taxon, :user => name_with_link, :taxon => link_to(item.taxon_concept.quick_scientific_name, object_path))
         - else
           = I18n.t(:activity_user_untrust_unknown_name, :user => name_with_link)
     - when Activity.unreview_common_name.id
       - if item.synonym && item.synonym.respond_to?(:name) && item.synonym.name.respond_to?(:string)
         - if item.taxon_concept && item.taxon_concept.is_a?(TaxonConcept)
-          - object_link = taxon_path(item.taxon_concept)
-          = I18n.t(:activity_user_unreview_common_name_from_taxon, :user => name_with_link, :name => item.synonym.name.string, :taxon => link_to(item.taxon_concept.quick_scientific_name, object_link), :language => lang)
+          - object_path = taxon_path(item.taxon_concept)
+          = I18n.t(:activity_user_unreview_common_name_from_taxon, :user => name_with_link, :name => item.synonym.name.string, :taxon => link_to(item.taxon_concept.quick_scientific_name, object_path), :language => lang)
         - else
           = I18n.t(:activity_user_unreview_common_name, :user => name_with_link, :name => item.synonym.name.string, :language => lang)
       - else
         - if item.taxon_concept && item.taxon_concept.is_a?(TaxonConcept)
-          - object_link = taxon_path(item.taxon_concept)
-          = I18n.t(:activity_user_unreview_unknown_name_to_taxon, :user => name_with_link, :taxon => link_to(item.taxon_concept.quick_scientific_name, object_link))
+          - object_path = taxon_path(item.taxon_concept)
+          = I18n.t(:activity_user_unreview_unknown_name_to_taxon, :user => name_with_link, :taxon => link_to(item.taxon_concept.quick_scientific_name, object_path))
         - else
           = I18n.t(:activity_user_unreview_unknown_name, :user => name_with_link)
     - when Activity.inappropriate_common_name.id
       - if item.synonym && item.synonym.respond_to?(:name) && item.synonym.name.respond_to?(:string)
         - if item.taxon_concept && item.taxon_concept.is_a?(TaxonConcept)
-          - object_link = taxon_path(item.taxon_concept)
-          = I18n.t(:activity_user_inappropriate_common_name_from_taxon, :user => name_with_link, :name => item.synonym.name.string, :taxon => link_to(item.taxon_concept.quick_scientific_name, object_link), :language => lang)
+          - object_path = taxon_path(item.taxon_concept)
+          = I18n.t(:activity_user_inappropriate_common_name_from_taxon, :user => name_with_link, :name => item.synonym.name.string, :taxon => link_to(item.taxon_concept.quick_scientific_name, object_path), :language => lang)
         - else
           = I18n.t(:activity_user_inappropriate_common_name, :user => name_with_link, :name => item.synonym.name.string, :language => lang)
       - else
         - if item.taxon_concept && item.taxon_concept.is_a?(TaxonConcept)
-          - object_link = taxon_path(item.taxon_concept)
-          = I18n.t(:activity_user_inappropriate_unknown_name_to_taxon, :user => name_with_link, :taxon => link_to(item.taxon_concept.quick_scientific_name, object_link))
+          - object_path = taxon_path(item.taxon_concept)
+          = I18n.t(:activity_user_inappropriate_unknown_name_to_taxon, :user => name_with_link, :taxon => link_to(item.taxon_concept.quick_scientific_name, object_path))
         - else
           = I18n.t(:activity_user_inappropriate_unknown_name, :user => name_with_link)
     - else
       = I18n.t(:activity_user_curated_an_unknown_object, :user => name_with_link)
   %p.meta
     = I18n.t(:time_ago, :time_passed => time_ago_in_words(item.updated_at))
-  - if item.user && object_link
+  - if item.user && object_path
     %ul.actions
-      %li.reply= link_to(I18n.t(:reply), object_link + "#reply-to-CuratorActivityLog-#{item.id}", :'data-reply-to' => item.user.full_name, :'data-reply-to-type' => item.class.name, :'data-reply-to-id' => item.id)
+      %li.reply= link_to(I18n.t(:reply), object_path + "#reply-to-CuratorActivityLog-#{item.id}", :'data-reply-to' => item.user.full_name, :'data-reply-to-type' => item.class.name, :'data-reply-to-id' => item.id)

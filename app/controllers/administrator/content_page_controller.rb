@@ -21,7 +21,7 @@ class Administrator::ContentPageController < AdminController
    end
    current_page.update_attribute(:sort_order, new_sort_order)
    flash[:notice] = I18n.t("content_has_been_updated")
-   redirect_to :action => 'index'
+   redirect_to :action => 'index', :status => :moved_permanently
  end
 
  def move_down
@@ -35,7 +35,7 @@ class Administrator::ContentPageController < AdminController
    end
    current_page.update_attribute(:sort_order, new_sort_order)
    flash[:notice] = I18n.t("content_has_been_updated")
-   redirect_to :action => 'index'
+   redirect_to :action => 'index', :status => :moved_permanently
  end
 
  def update
@@ -49,7 +49,7 @@ class Administrator::ContentPageController < AdminController
    else
      flash[:error] = I18n.t("some_required_fields_were_not_entered")
    end
-   redirect_to :action => 'index', :content_page_id => new_page.id
+   redirect_to :action => 'index', :content_page_id => new_page.id, :status => :moved_permanently
  end
 
  # pull the updated content from the querystring to build the preview version of the page
@@ -89,11 +89,11 @@ class Administrator::ContentPageController < AdminController
    else
      flash[:error] = I18n.t("some_required_fields_were_not_entered")
    end
-   redirect_to :action => 'index'
+   redirect_to :action => 'index', :status => :moved_permanently
  end
 
  def destroy
-   (redirect_to :action => 'index';return) unless request.method == :delete
+   (redirect_to :action => 'index', :status => :moved_permanently;return) unless request.method == :delete
    current_page = ContentPage.find(params[:id])
    current_page.last_update_user_id = current_user.id
    ContentPageArchive.backup(current_page) # backup page
@@ -101,7 +101,7 @@ class Administrator::ContentPageController < AdminController
    sort_order = current_page.sort_order
    current_page.destroy
    ContentPage.update_sort_order_based_on_deleting_page(parent_content_page_id, sort_order)
-   redirect_to :action => 'index'
+   redirect_to :action => 'index', :status => :moved_permanently
  end
 
  def update_language
@@ -146,7 +146,7 @@ class Administrator::ContentPageController < AdminController
    translated_page.save
 
    flash[:notice] = I18n.t("translation_saved")
-   redirect_to :action => 'index'
+   redirect_to :action => 'index', :status => :moved_permanently
 
  end
 
@@ -154,7 +154,7 @@ class Administrator::ContentPageController < AdminController
    translation_content_page = TranslatedContentPage.find_by_content_page_id_and_language_id(params[:id], params[:language_id])
    TranslatedContentPage.delete(translation_content_page.id) if translation_content_page
    flash[:notice] = I18n.t("translation_deleted")
-   redirect_to :action => 'index'
+   redirect_to :action => 'index', :status => :moved_permanently
  end
 
   # AJAX CALLs
@@ -229,7 +229,7 @@ class Administrator::ContentPageController < AdminController
 
       expire_menu_caches(page)
       flash[:notice] = I18n.t("content_has_been_updated")
-      redirect_to :action => 'index'
+      redirect_to :action => 'index', :status => :moved_permanently
     else
       flash[:error] = I18n.t("some_required_fields_were_not_entered")
     end

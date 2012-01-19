@@ -83,8 +83,8 @@ module ApiHelper
     return_hash['subject']                = data_object.info_items[0].schema_value unless data_object.info_items.blank?
     return_hash['description']            = data_object.description unless data_object.description.blank?
     return_hash['mediaURL']               = data_object.object_url unless data_object.object_url.blank?
-    return_hash['eolMediaURL']            = DataObject.image_cache_path(data_object.object_cache_url, :orig) unless data_object.object_cache_url.blank?
-    return_hash['eolThumbnailURL']        = DataObject.image_cache_path(data_object.object_cache_url, '98_68') unless data_object.object_cache_url.blank?
+    return_hash['eolMediaURL']            = DataObject.image_cache_path(data_object.object_cache_url, :orig, $SINGLE_DOMAIN_CONTENT_SERVER) unless data_object.object_cache_url.blank?
+    return_hash['eolThumbnailURL']        = DataObject.image_cache_path(data_object.object_cache_url, '98_68', $SINGLE_DOMAIN_CONTENT_SERVER) unless data_object.object_cache_url.blank?
     return_hash['location']               = data_object.location unless data_object.location.blank?
     
     unless data_object.latitude == 0 && data_object.longitude == 0 && data_object.altitude == 0

@@ -56,7 +56,7 @@ class ContentPartnersController < ApplicationController
       upload_logo(@partner) unless params[:content_partner][:logo].blank?
       Notifier.deliver_content_partner_created(@partner, current_user)
       flash[:notice] = I18n.t(:content_partner_create_successful_notice)
-      redirect_to content_partner_resources_path(@partner)
+      redirect_to content_partner_resources_path(@partner), :status => :moved_permanently
     else
       set_new_partner_options
       flash.now[:error] = I18n.t(:content_partner_create_unsuccessful_error)
@@ -87,7 +87,7 @@ class ContentPartnersController < ApplicationController
       EOL::GlobalStatistics.clear('content_partners') # Needs to be re-calculated.
       upload_logo(@partner) unless params[:content_partner][:logo].blank?
       flash[:notice] = I18n.t(:content_partner_update_successful_notice)
-      redirect_to @partner
+      redirect_to @partner, :status => :moved_permanently
     else
       flash.now[:error] = I18n.t(:content_partner_update_unsuccessful_error)
       render :edit

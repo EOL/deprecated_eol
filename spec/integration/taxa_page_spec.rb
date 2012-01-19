@@ -115,7 +115,7 @@ describe 'Taxa page' do
     it 'should have taxon links for the images in the gallery' do
       (0..3).each do |i|
         taxon = @taxon_concept.images_from_solr[i].association_with_best_vetted_status.hierarchy_entry.taxon_concept.canonical_form_object.string
-        should have_tag('a', :attributes => { :href => taxon_concept_path(@taxon_concept) }, :text => taxon)
+        should have_tag('a', :attributes => { :href => taxon_overview_path(@taxon_concept) }, :text => taxon)
       end
     end
     it 'should have sanitized descriptive text alternatives for images in gallery'
@@ -305,11 +305,11 @@ describe 'Taxa page' do
   end
 
   shared_examples_for 'taxon updates tab' do
-    it 'should include Taxon Newsfeed' do
-      body.should include('Taxon Newsfeed')
+    it 'should include Taxon newsfeed' do
+      body.should include('Taxon newsfeed')
     end
-    it 'should include Page Statistics' do
-      body.should include('Page Statistics')
+    it 'should include Page statistics' do
+      body.should include('Page statistics')
     end
   end
 

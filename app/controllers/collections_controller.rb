@@ -1,15 +1,9 @@
-# A bit tricky.
-#
-# You could come here looking at a Community's Collection.
-# You could come here looking at a (specified) User's Collection. (show only)
-#     UPDATE: user collections index is now in users/collections
-# And you could come here without either of those (implying the current_user's Collection).
-#
 # NOTE - we use these commit_* button names because we don't want to parse the I18n of the button name (hard).
 class CollectionsController < ApplicationController
 
   before_filter :modal, :only => [:choose_editor_target, :choose_collect_target]
   before_filter :find_collection, :except => [:new, :create, :choose_editor_target, :choose_collect_target]
+  before_filter :prepare_show, :only => [:show]
   before_filter :user_able_to_edit_collection, :only => [:edit, :destroy] # authentication of update in the method
   before_filter :user_able_to_view_collection, :only => [:show]
   before_filter :find_parent, :only => [:show]
@@ -21,14 +15,7 @@ class CollectionsController < ApplicationController
   layout 'v2/collections'
 
   def show
-    @page = params[:page] || 1
-    render :action => 'newsfeed' if @filter == 'newsfeed'
     return copy_items_and_redirect(@collection, [current_user.watch_collection]) if params[:commit_collect]
-    types = CollectionItem.types
-    @collection_item_scopes = [[I18n.t(:selected_items), :selected_items], [I18n.t(:all_items), :all_items]]
-    @collection_item_scopes << [I18n.t("all_#{types[@filter.to_sym][:i18n_key]}"), @filter] if @filter
-    collection_ids = recently_visited_collections(@collection.id)
-    get_collection_objects(collection_ids) unless collection_ids.nil?
   end
 
   def get_collection_objects(collection_ids)
@@ -82,11 +69,13 @@ class CollectionsController < ApplicationController
     return remove_and_redirect if params[:commit_remove]
     return annotate if params[:commit_annotation]
     return chosen if params[:scope] # Note that updating the collection params doesn't specify a scope.
+    # TODO - show_references doesn't work; this is a problem that needs to be fixed on the model.  BA?
+    params[:collection].delete('show_references')
     if @collection.update_attributes(params[:collection])
       upload_logo(@collection) unless params[:collection][:logo].blank?
       flash[:notice] = I18n.t(:collection_updated_notice, :collection_name => @collection.name) if
         params[:collection] # NOTE - when we sort, we don't *actually* update params...
-      redirect_to params.merge!(:action => 'show').except(*unnecessary_keys_for_redirect)
+      redirect_to params.merge!(:action => 'show').except(*unnecessary_keys_for_redirect), :status => :moved_permanently
     else
       set_edit_vars
       render :action => :edit
@@ -106,7 +95,7 @@ class CollectionsController < ApplicationController
         flash[:error] = I18n.t(:collection_not_destroyed_error)
       end
       respond_to do |format|
-        format.html { redirect_to(back) }
+        format.html { redirect_to(back, :status => :moved_permanently) }
         format.xml  { head :ok }
       end
     end
@@ -126,7 +115,7 @@ class CollectionsController < ApplicationController
         @items.length == 1
     rescue EOL::Exceptions::MaxCollectionItemsExceeded
       flash[:error] = I18n.t(:max_collection_items_error, :max => $MAX_COLLECTION_ITEMS_TO_MANIPULATE)
-      redirect_to collection_path(@collection)
+      redirect_to collection_path(@collection), :status => :moved_permanently
     end
     @collections = current_user.all_collections.delete_if{ |c| c.is_resource_collection? }
     @page_title = I18n.t(:choose_collection_header)
@@ -296,7 +285,7 @@ private
           flash[:notice] = I18n.t(:moved_items_from_collection_with_count_notice, :count => all_items.count,
                                   :name => link_to_name(source))
           flash[:notice] += " #{I18n.t(:duplicate_items_were_ignored)}" if @duplicates
-          return redirect_to collection_path(destinations.first)
+          return redirect_to collection_path(destinations.first), :status => :moved_permanently
         else
           flash_i18n_name = :moved_items_to_collections_with_count_notice
         end
@@ -305,21 +294,21 @@ private
           flash[:notice] = I18n.t(:copied_items_from_collection_with_count_notice, :count => all_items.count,
                                   :name => link_to_name(source))
           flash[:notice] += " #{I18n.t(:duplicate_items_were_ignored)}" if @duplicates
-          return redirect_to collection_path(destinations.first)
+          return redirect_to collection_path(destinations.first), :status => :moved_permanently
         end
       end
       flash[:notice] = I18n.t(flash_i18n_name,
                               :count => all_items.count,
                               :names => copied.keys.map {|c| "#{c} (#{copied[c]})"}.to_sentence)
       flash[:notice] += " #{I18n.t(:duplicate_items_were_ignored)}" if @duplicates
-      return redirect_to collection_path(source)
+      return redirect_to collection_path(source), :status => :moved_permanently
     elsif all_items.count == 0
       flash[:error] = I18n.t(:no_items_were_copied_to_collections_error, :names => @no_items_to_collections.to_sentence)
       flash[:error] += " #{I18n.t(:duplicate_items_were_ignored)}" if @duplicates
-      return redirect_to collection_path(source)
+      return redirect_to collection_path(source), :status => :moved_permanently
     else
       # Assume the flash message was set by #copy_items
-      return redirect_to collection_path(source)
+      return redirect_to collection_path(source), :status => :moved_permanently
     end
   end
 
@@ -370,10 +359,10 @@ private
       count = remove_items(:from => @collection, :items => params[:collection_items], :scope => params[:scope])
     rescue EOL::Exceptions::MaxCollectionItemsExceeded
       flash[:error] = I18n.t(:max_collection_items_error, :max => $MAX_COLLECTION_ITEMS_TO_MANIPULATE)
-      return redirect_to collection_path(@collection)
+      return redirect_to collection_path(@collection), :status => :moved_permanently
     end
     flash[:notice] = I18n.t(:removed_count_items_from_collection_notice, :count => count)
-    return redirect_to collection_path(@collection)
+    return redirect_to collection_path(@collection), :status => :moved_permanently
   end
 
   def annotate
@@ -555,7 +544,7 @@ private
     EOL::GlobalStatistics.increment('collections')
     flash[:notice] = I18n.t(:collection_created_notice, :collection_name => link_to_name(@collection))
     respond_to do |format|
-      format.html { redirect_to link_to_item(@item) }
+      format.html { redirect_to link_to_item(@item), :status => :moved_permanently }
       format.js do
         convert_flash_messages_for_ajax
         render :partial => 'shared/flash_messages', :layout => false
@@ -585,6 +574,16 @@ private
   def modal
     @modal = true # When this is JS, we need a "go back" link at the bottom if there's an error, and this needs
                   # to be set super-early!
+  end
+
+  # These are things that ALL three collections controllers will need, so:
+  def prepare_show
+    @page = params[:page] || 1
+    types = CollectionItem.types
+    @collection_item_scopes = [[I18n.t(:selected_items), :selected_items], [I18n.t(:all_items), :all_items]]
+    @collection_item_scopes << [I18n.t("all_#{types[@filter.to_sym][:i18n_key]}"), @filter] if @filter
+    collection_ids = recently_visited_collections(@collection.id)
+    get_collection_objects(collection_ids) unless collection_ids.nil?
   end
 
 end

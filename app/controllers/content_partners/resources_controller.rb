@@ -38,7 +38,7 @@ class ContentPartners::ResourcesController < ContentPartnersController
       Notifier.deliver_content_partner_resource_created(@partner, @resource, current_user)
       flash[:notice] = I18n.t(:content_partner_resource_create_successful_notice,
                               :resource_status => @resource.status_label)
-      redirect_to content_partner_resources_path(@partner)
+      redirect_to content_partner_resources_path(@partner), :status => :moved_permanently
     else
       set_new_resource_options
       flash.now[:error] = I18n.t(:content_partner_resource_create_unsuccessful_error)
@@ -129,9 +129,9 @@ private
   def redirect_if_terms_not_accepted
     @current_agreement = @partner.agreement
     if @current_agreement.blank?
-      redirect_to new_content_partner_content_partner_agreement_path(@partner)
+      redirect_to new_content_partner_content_partner_agreement_path(@partner), :status => :moved_permanently
     elsif !@current_agreement.is_accepted?
-      redirect_to edit_content_partner_content_partner_agreement_path(@partner, @current_agreement)
+      redirect_to edit_content_partner_content_partner_agreement_path(@partner, @current_agreement), :status => :moved_permanently
     end
   end
 

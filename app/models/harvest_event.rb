@@ -37,18 +37,6 @@ class HarvestEvent < SpeciesSchemaModel
     resource.content_partner
   end
 
-  def taxa_contributed(he_id)
-    SpeciesSchemaModel.connection.execute(
-      "SELECT n.string scientific_name, he.taxon_concept_id, (dohe.data_object_id IS NOT null) has_data_object
-         FROM harvest_events_hierarchy_entries hehe
-           JOIN hierarchy_entries he ON (hehe.hierarchy_entry_id = he.id)
-           JOIN names n ON (he.name_id = n.id)
-           LEFT JOIN data_objects_hierarchy_entries dohe ON (hehe.hierarchy_entry_id = dohe.hierarchy_entry_id)
-         WHERE hehe.harvest_event_id=#{he_id.to_i}
-         GROUP BY he.taxon_concept_id
-         ORDER BY (dohe.data_object_id IS NULL), n.string")
-  end
-
   def curated_data_objects(params = {})
     year = params[:year] || nil
     month = params[:month] || nil

@@ -3,6 +3,7 @@ ActionController::Routing::Routes.draw do |map|
   map.find_feed '/activity_logs/find/:id', :controller => 'feeds', :action => 'find'
   map.preview '/preview', :controller => 'content', :action => 'preview'
 
+  map.resources :contacts
   map.resources :tasks
   map.resources :task_states
   map.resources :task_names

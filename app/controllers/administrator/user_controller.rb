@@ -158,11 +158,11 @@ class Administrator::UserController  < AdminController
   end
 
   def destroy
-    (redirect_to referred_url ;return) unless request.method == :delete
+    (redirect_to referred_url, :status => :moved_permanently ;return) unless request.method == :delete
     user = User.find(params[:id])
     user.destroy
     flash[:notice] = I18n.t("admin_user_delete_successful_notice")
-    redirect_to referred_url
+    redirect_to referred_url, :status => :moved_permanently
   end
   
   def hide
@@ -174,7 +174,7 @@ class Administrator::UserController  < AdminController
     # clear home page cached comments
     clear_cached_homepage_activity_logs
     flash[:notice] = I18n.t("admin_user_hide_successful_notice")
-    redirect_to referred_url
+    redirect_to referred_url, :status => :moved_permanently
   end
   
   def unhide
@@ -186,7 +186,7 @@ class Administrator::UserController  < AdminController
     # clear home page cached comments
     clear_cached_homepage_activity_logs
     flash[:notice] = I18n.t("admin_user_unhide_successful_notice")
-    redirect_to referred_url
+    redirect_to referred_url, :status => :moved_permanently
   end
 
   # TODO - why are these here and not in curator?
@@ -195,7 +195,7 @@ class Administrator::UserController  < AdminController
     @user.grant_curator(:full, :by => current_user)
     respond_to do |format|
       format.html {
-        redirect_to '/administrator/curator'
+        redirect_to '/administrator/curator', :status => :moved_permanently
       }
       format.js {
         render :partial => 'administrator/curator/user_row', :locals => {:column_class => params[:class] || 'odd', :user => @user}
@@ -207,7 +207,7 @@ class Administrator::UserController  < AdminController
     @user.revoke_curator
     respond_to do |format|
       format.html {
-        redirect_to '/administrator/curator'
+        redirect_to '/administrator/curator', :status => :moved_permanently
       }
       format.js {
         render :partial => 'administrator/curator/user_row', :locals => {:column_class => params[:class] || 'even', :user => @user}
@@ -227,7 +227,7 @@ class Administrator::UserController  < AdminController
         reset_session
         set_current_user(user)
         flash[:notice] = I18n.t("you_have_been_logged_in_as_username", :username => user.username)
-        redirect_to root_url
+        redirect_to root_url, :status => :moved_permanently
       end
       return
   end

@@ -53,9 +53,9 @@ class Taxa::NamesController < TaxaController
       current_user.log_activity(:updated_common_names, :taxon_concept_id => @taxon_concept.id)
     end
     if !params[:hierarchy_entry_id].blank?
-      redirect_to common_names_taxon_hierarchy_entry_names_path(@taxon_concept, params[:hierarchy_entry_id])
+      redirect_to common_names_taxon_hierarchy_entry_names_path(@taxon_concept, params[:hierarchy_entry_id]), :status => :moved_permanently
     else
-      redirect_to common_names_taxon_names_path(@taxon_concept)
+      redirect_to common_names_taxon_names_path(@taxon_concept), :status => :moved_permanently
     end
   end
 
@@ -71,9 +71,9 @@ class Taxa::NamesController < TaxaController
     end
 
     if !params[:hierarchy_entry_id].blank?
-      redirect_to common_names_taxon_hierarchy_entry_names_path(@taxon_concept, params[:hierarchy_entry_id])
+      redirect_to common_names_taxon_hierarchy_entry_names_path(@taxon_concept, params[:hierarchy_entry_id]), :status => :moved_permanently
     else
-      redirect_to common_names_taxon_names_path(@taxon_concept)
+      redirect_to common_names_taxon_names_path(@taxon_concept), :status => :moved_permanently
     end
   end
 
@@ -127,9 +127,9 @@ class Taxa::NamesController < TaxaController
     respond_to do |format|
       format.html do
         if !params[:hierarchy_entry_id].blank?
-          redirect_to common_names_taxon_hierarchy_entry_names_path(@taxon_concept, params[:hierarchy_entry_id])
+          redirect_to common_names_taxon_hierarchy_entry_names_path(@taxon_concept, params[:hierarchy_entry_id]), :status => :moved_permanently
         else
-          redirect_to common_names_taxon_names_path(@taxon_concept)
+          redirect_to common_names_taxon_names_path(@taxon_concept), :status => :moved_permanently
         end
       end
       format.js do

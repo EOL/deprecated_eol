@@ -8,11 +8,11 @@ class Mobile::ContentsController < Mobile::MobileController
     session[:mobile_disabled] = false
     respond_to do |format|
       format.html {
-        redirect_to mobile_contents_path
+        redirect_to mobile_contents_path, :status => :moved_permanently
       }
       format.js {
         render :update do |page|
-          page.redirect_to mobile_contents_path
+          page.redirect_to mobile_contents_path, :status => :moved_permanently
         end
       }
     end
@@ -22,11 +22,11 @@ class Mobile::ContentsController < Mobile::MobileController
     session[:mobile_disabled] = true
     respond_to do |format|
       format.html {
-        redirect_to root_path
+        redirect_to root_path, :status => :moved_permanently
       }
       format.js {
         render :update do |page|
-          page.redirect_to root_path
+          page.redirect_to root_path, :status => :moved_permanently
         end
       }
     end

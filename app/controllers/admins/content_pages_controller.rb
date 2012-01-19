@@ -55,7 +55,7 @@ class Admins::ContentPagesController < AdminsController
 
   # DELETE /admin/content_pages/:id
   def destroy
-    return redirect_to :action => 'index' unless request.method == :delete
+    return redirect_to :action => 'index', :status => :moved_permanently unless request.method == :delete
     content_page = ContentPage.find(params[:id], :include => [:translations, :children])
     page_name = content_page.page_name
     content_page.last_update_user_id = current_user.id
@@ -64,7 +64,7 @@ class Admins::ContentPagesController < AdminsController
     content_page.destroy
     ContentPage.update_sort_order_based_on_deleting_page(parent_content_page_id, sort_order)
     flash[:notice] = I18n.t(:admin_content_page_delete_successful_notice, :page_name => page_name)
-    redirect_to :action => 'index'
+    redirect_to :action => 'index', :status => :moved_permanently
   end
 
   # POST /admin/content_pages/:id/move_up
@@ -78,7 +78,7 @@ class Admins::ContentPagesController < AdminsController
     end
     content_page.update_attribute(:sort_order, new_sort_order)
     flash[:notice] = I18n.t(:admin_content_page_sort_order_updated)
-    redirect_to :action => :index
+    redirect_to :action => :index, :status => :moved_permanently
   end
 
   # POST /admin/content_pages/:id/move_down
@@ -92,7 +92,7 @@ class Admins::ContentPagesController < AdminsController
     end
     content_page.update_attribute(:sort_order, new_sort_order)
     flash[:notice] = I18n.t(:admin_content_page_sort_order_updated)
-    redirect_to :action => :index
+    redirect_to :action => :index, :status => :moved_permanently
   end
 
 private

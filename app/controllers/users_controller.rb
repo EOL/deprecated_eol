@@ -36,7 +36,7 @@ class UsersController < ApplicationController
   # PUT /users/:id
   def update
     # @user instantiated by authentication before filter and matched to current user
-    redirect_to curation_privileges_user_path(@user) and return if params[:commit_curation_privileges_get]
+    redirect_to curation_privileges_user_path(@user), :status => :moved_permanently and return if params[:commit_curation_privileges_get]
     generate_api_key and return if params[:commit_generate_api_key]
     unset_auto_managed_password if params[:user][:entered_password]
     user_before_update = @user
@@ -80,7 +80,7 @@ class UsersController < ApplicationController
     flash.now[:errors] = @errors.to_sentence unless @errors.empty?
     flash[:notice] = @notices.to_sentence unless @notices.empty?
     respond_to do |format|
-      format.html { redirect_to @user }
+      format.html { redirect_to @user, :status => :moved_permanently }
       format.js do
         convert_flash_messages_for_ajax
         render :partial => 'shared/flash_messages', :layout => false # JS will handle rendering these.
@@ -97,7 +97,7 @@ class UsersController < ApplicationController
     flash[:notice] = I18n.t(:user_no_longer_has_manager_access_to_collection, :user => @user.username,
                             :collection => collection.name)
     respond_to do |format|
-      format.html { redirect_to @user }
+      format.html { redirect_to @user, :status => :moved_permanently }
       format.js do
         convert_flash_messages_for_ajax
         render :partial => 'shared/flash_messages', :layout => false # JS will handle rendering these.
@@ -131,7 +131,7 @@ class UsersController < ApplicationController
       end
       send_verification_email
       EOL::GlobalStatistics.increment('users')
-      redirect_to pending_user_path(@user)
+      redirect_to pending_user_path(@user), :status => :moved_permanently
     else
       failed_to_create_user and return
     end
@@ -152,16 +152,16 @@ class UsersController < ApplicationController
     end
     if @user && @user.active
       flash[:notice] = I18n.t(:user_already_active_notice)
-      redirect_to login_path
+      redirect_to login_path, :status => :moved_permanently
     elsif @user && @user.validation_code == params[:validation_code] && !params[:validation_code].blank?
       @user.activate
       Notifier.deliver_user_activated(@user)
-      redirect_to activated_user_path(@user)
+      redirect_to activated_user_path(@user), :status => :moved_permanently
     elsif @user
       @user.validation_code = User.generate_key if @user.validation_code.blank?
       send_verification_email
       flash[:error] = I18n.t(:user_activation_failed_resent_validation_email_error)
-      redirect_to pending_user_path(@user)
+      redirect_to pending_user_path(@user), :status => :moved_permanently
     else
       flash[:error] = I18n.t(:user_activation_failed_user_not_found_error)
       redirect_to new_user_path
@@ -223,7 +223,7 @@ class UsersController < ApplicationController
           generate_password_reset_token(user)
           Notifier.deliver_user_reset_password(user, reset_password_user_url(user, user.password_reset_token))
           flash[:notice] =  I18n.t(:reset_password_instructions_sent_to_user_notice, :username => user.username)
-          redirect_to login_path
+          redirect_to login_path, :status => :moved_permanently
         elsif @users.size > 1
           render :action => 'forgot_password_choose_account'
         else
@@ -246,7 +246,7 @@ class UsersController < ApplicationController
       set_current_user(user)
       delete_password_reset_token(user)
       flash[:notice] = I18n.t(:reset_password_enter_new_password_notice)
-      redirect_to edit_user_path(user)
+      redirect_to edit_user_path(user), :status => :moved_permanently
     end
   end
 

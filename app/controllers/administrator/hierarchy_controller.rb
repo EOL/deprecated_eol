@@ -30,7 +30,7 @@ class Administrator::HierarchyController < AdminController
   def browse
     @hierarchy = Hierarchy.find_by_id(params[:id])
     if @hierarchy.blank?
-      redirect_to :action=>'index'
+      redirect_to :action=>'index', :status => :moved_permanently
       return
     end
   end
@@ -38,7 +38,7 @@ class Administrator::HierarchyController < AdminController
   def edit
     @hierarchy = Hierarchy.find_by_id(params[:id])
     if @hierarchy.blank?
-      redirect_to :action=>'index'
+      redirect_to :action=>'index', :status => :moved_permanently
       return
     end
     if request.post?
@@ -49,7 +49,7 @@ class Administrator::HierarchyController < AdminController
         # if there were changes to what was browsable we want those changes immediately visible
         $CACHE.delete('hierarchies/browsable_by_label')
         flash[:notice] = I18n.t("hierarchy_updated")
-        redirect_to :action => 'index', :id => @hierarchy.id
+        redirect_to :action => 'index', :id => @hierarchy.id, :status => :moved_permanently
       end
     end
   end

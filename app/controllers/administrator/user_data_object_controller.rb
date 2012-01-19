@@ -7,7 +7,7 @@ class Administrator::UserDataObjectController < AdminController
   before_filter :restrict_to_admins
 
   def index
-    @page_title = I18n.t("user_submitted_text_titlecase")
+    @page_title = I18n.t(:user_submitted_text)
     @user_id = params[:user_id] || 'All'
     @user_list = User.users_with_submitted_text
 

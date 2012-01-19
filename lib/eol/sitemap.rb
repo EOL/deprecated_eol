@@ -3,22 +3,26 @@ module EOL
     require 'builder' # for creating XML
     include ActionController::UrlWriter # for using user_url(id) type methods
     @@default_url_options = { :host => 'eol.org' } # need to explicitly set the host for the above
+    @@working_directory = File.join(RAILS_ROOT, 'public', 'sitemap')
+    @@lines_per_sitemap_file = 50000.0
+    @@default_compression = false
     
     def initialize
-      Dir.glob(File.join(RAILS_ROOT, 'public', 'sitemap', 'tmp_*')).each { |f| File.delete(f) }
-      @all_links_tmp_path = File.join(RAILS_ROOT, 'public', 'sitemap', 'tmp_all_links.txt')
-      @index_path = File.join(RAILS_ROOT, 'public', 'sitemap', "index.xml")
-      @batch_file_prefix = File.join(RAILS_ROOT, 'public', 'sitemap', "tmp_sitemap_")
+      Dir.glob(File.join(@@working_directory, 'tmp_*')).each { |f| File.delete(f) }
+      @all_links_tmp_path = File.join(@@working_directory, 'tmp_all_links.txt')
+      @index_path = File.join(@@working_directory, "index.xml")
+      @batch_file_prefix = File.join(@@working_directory, "tmp_sitemap_")
       @final_file_prefix = 'http://' + @@default_url_options[:host] + '/sitemap/sitemap_'
-      @lines_per_sitemap_file = 50000.0
     end
     
     def self.destroy_all_sitemap_files
       # we only care about files with extensions - so ignore all directories
-      Dir.glob(File.join(RAILS_ROOT, 'public', 'sitemap', '*.*')).each { |f| File.delete(f) }
+      Dir.glob(File.join(@@working_directory, '*.*')).each { |f| File.delete(f) }
     end
     
     def build(options={})
+      # :compress can be set to false, but if its nil we'll use the default value
+      options[:compress] = (options[:compress].nil?) ? @@default_compression : options[:compress]
       # truncate existing sitemap file
       @all_link_tmp_file = File.open(@all_links_tmp_path, 'w')
       
@@ -43,15 +47,19 @@ module EOL
       write_taxon_page_urls
       @all_link_tmp_file.close
       
+      finalize(options)
+    end
+    
+    def finalize(options={})
       number_of_sitemaps = split_into_smaller_files(options)
       # # delete the tmp file with all links
       File.delete(@all_links_tmp_path)
       # delete all published sitemaps
-      Dir.glob(File.join(RAILS_ROOT, 'public', 'sitemap', 'sitemap_*')).each { |f| File.delete(f) }
+      Dir.glob(File.join(@@working_directory, 'sitemap_*')).each { |f| File.delete(f) }
       # rename tmp sitemaps to make them published
-      Dir.glob(File.join(RAILS_ROOT, 'public', 'sitemap', 'tmp_sitemap_*')).each do |f|
+      Dir.glob(File.join(@@working_directory, 'tmp_sitemap_*')).each do |f|
         if m = f.match(/tmp_(sitemap.*$)/)
-          File.rename(f, File.join(RAILS_ROOT, 'public', 'sitemap', m[1]))
+          File.rename(f, File.join(@@working_directory, m[1]))
         end
       end
       
@@ -71,8 +79,8 @@ module EOL
       
       File.open(@all_links_tmp_path, 'r') do |working_file|
         while line = working_file.gets
-          if line_count % @lines_per_sitemap_file == 0
-            sitemap_paths << create_sitemap_from_batch(lines_in_batch, index_of_batch, options)
+          if line_count % @@lines_per_sitemap_file == 0
+            create_sitemap_from_batch(lines_in_batch, index_of_batch, options)
             lines_in_batch = []
             index_of_batch += 1
           end
@@ -81,7 +89,7 @@ module EOL
         end
         
         # create another sitemap with the remainder
-        sitemap_paths << create_sitemap_from_batch(lines_in_batch, index_of_batch, options)
+        create_sitemap_from_batch(lines_in_batch, index_of_batch, options)
       end
       index_of_batch
     end
@@ -89,10 +97,11 @@ module EOL
     def create_sitemap_from_batch(lines, suffix, options={})
       return nil if lines.blank?
       if options[:xml]
-        write_batch_as_xml(lines, suffix, options={})
+        batch_file_path = write_batch_as_xml(lines, suffix, options)
       else
-        write_batch_as_text(lines, suffix, options={})
+        batch_file_path = write_batch_as_text(lines, suffix, options)
       end
+      gzip_file(batch_file_path) if options[:compress] && batch_file_path
     end
     
     # ## This is a different version of the method below. This version of the method uses XMLBuilder to generate
@@ -104,7 +113,8 @@ module EOL
     #   batch_xml.instruct! :xml, :encoding => "UTF-8"
     #   xml = batch_xml.urlset(:xmlns => "http://www.sitemaps.org/schemas/sitemap/0.9",
     #                          "xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance",
-    #                          "xsi:schemaLocation" => "http://www.sitemaps.org/schemas/sitemap/sitemap.xsd") do |urlset|
+    #                          "xmlns:image" => "http://www.google.com/schemas/sitemap-image/1.1",
+    #                          "xsi:schemaLocation" => "http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/sitemap.xsd http://www.google.com/schemas/sitemap-image/1.1 http://www.google.com/schemas/sitemap-image/1.1/sitemap-image.xsd") do |urlset|
     #     lines.each do |line_metadata|
     #       urlset.url do |url|
     #         # the properties need to appear in a certain order in order to be valid according
@@ -136,15 +146,27 @@ module EOL
       batch_file.puts '<?xml version="1.0" encoding="UTF-8"?>'
       batch_file.puts '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"'
       batch_file.puts '  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'
-      batch_file.puts '  xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/sitemap.xsd">'
+      batch_file.puts '  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"'
+      batch_file.puts '  xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/sitemap.xsd http://www.google.com/schemas/sitemap-image/1.1 http://www.google.com/schemas/sitemap-image/1.1/sitemap-image.xsd">'
     
       lines.each do |line_metadata|
         url = "<url>"
-        # the properties need to appear in a certain order in order to be valid according
-        # to the sitemap XSD
+        # the properties need to appear in a certain order in order to be valid according to the sitemap XSD
         ["loc", "lastmod", "changefreq", "priority"].each do |property|
           if value = line_metadata[property]
             url += "<#{property}>#{value}</#{property}>"
+          end
+        end
+        if line_metadata["images"]
+          line_metadata["images"].each do |image_metadata|
+            url += "\n<image:image>"
+            # the properties need to appear in a certain order in order to be valid according to the sitemap XSD
+            ["loc", "caption", "geo_location", "title", "license"].each do |property|
+              if value = image_metadata[property]
+                url += "<image:#{property}>#{value}</image:#{property}>"
+              end
+            end
+            url += "</image:image>"
           end
         end
         url += "</url>\n"
@@ -152,6 +174,7 @@ module EOL
       end
       batch_file.puts '</urlset>'
       batch_file.close
+      
       batch_file_path
     end
     
@@ -173,11 +196,12 @@ module EOL
       xml.instruct! :xml, :encoding => "UTF-8"
       xml.sitemapindex(:xmlns => "http://www.sitemaps.org/schemas/sitemap/0.9",
                        "xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance",
-                       "xsi:schemaLocation" => "http://www.sitemaps.org/schemas/sitemap/siteindex.xsd") do |smi|
+                       "xsi:schemaLocation" => "http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/siteindex.xsd") do |smi|
         (1..number_of_sitemaps).each do |suffix|
           smi.sitemap do |sm|
             url = @final_file_prefix + "#{suffix}."
             url += (options[:xml] ? 'xml' : 'txt')
+            url += ".gz" if options[:compress]
             sm.loc url
           end
         end
@@ -193,6 +217,7 @@ module EOL
       iteration_size = 200000
       start_time = Time.now
       start = min_id
+      
       until start > max_id
         concept_ids = TaxonConcept.connection.select_values("SELECT id FROM taxon_concepts WHERE #{base_conditions}
           AND id BETWEEN #{start} AND #{start + iteration_size - 1}")
@@ -272,7 +297,10 @@ module EOL
       content_pages = ContentPage.find(:all, :select => { :content_pages => [ :id, :page_name ] },
         :conditions => "active = 1 AND page_name NOT IN ('#{names_which_have_routes.join("', '")}')")
       content_pages.each do |content_page|
-        metadata = { :loc => cms_page_url(content_page.page_name), :changefreq => 'weekly', :priority => 1 }
+        page_url = cms_page_url(content_page.page_name)
+        page_url.gsub!(/%20/, '_') # turn %20 into _
+        page_url.gsub!(/&/, '&amp;') # turn & into &amp;
+        metadata = { :loc => page_url, :changefreq => 'weekly', :priority => 1 }
         @all_link_tmp_file.puts metadata.to_json
       end
     end
@@ -280,6 +308,15 @@ module EOL
     def write_url(url, priority = 1)
       metadata = { :loc => url, :priority => priority }
       @all_link_tmp_file.puts metadata.to_json
+    end
+    
+    def gzip_file(path)
+      new_path = path + '.gz'
+      Zlib::GzipWriter.open(new_path) do |gz|
+        gz.write IO.read(path)
+      end
+      File.delete(path)
+      new_path
     end
     
   end

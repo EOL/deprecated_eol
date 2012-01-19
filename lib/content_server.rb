@@ -21,8 +21,12 @@ class ContentServer
 
   end
 
-  def self.cache_path(cache_url, subdir = $CONTENT_SERVER_CONTENT_PATH)
-    (self.next + subdir + self.cache_url_to_path(cache_url))
+  def self.cache_path(cache_url, specified_content_host = nil)
+    if specified_content_host
+      (specified_content_host + $CONTENT_SERVER_CONTENT_PATH + self.cache_url_to_path(cache_url))
+    else
+      (self.next + $CONTENT_SERVER_CONTENT_PATH + self.cache_url_to_path(cache_url))
+    end
   end
 
   def self.cache_url_to_path(cache_url)

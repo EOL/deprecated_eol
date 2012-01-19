@@ -95,6 +95,7 @@ class Collection < ActiveRecord::Base
   def show_references
     false
   end
+  alias :show_references? :show_references
 
   def special?
     special_collection_id

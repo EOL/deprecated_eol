@@ -5,7 +5,10 @@ class CollectionItem < ActiveRecord::Base
   belongs_to :collection
   belongs_to :object, :polymorphic => true
   belongs_to :added_by_user, :class_name => User.to_s, :foreign_key => :added_by_user_id
-  has_and_belongs_to_many :refs
+  #TODO: (The table is missing:) has_and_belongs_to_many :refs
+  def refs
+    []
+  end
 
   named_scope :collections, :conditions => {:object_type => 'Collection'}
   named_scope :communities, :conditions => {:object_type => 'Community'}

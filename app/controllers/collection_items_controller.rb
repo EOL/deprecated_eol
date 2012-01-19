@@ -54,12 +54,12 @@ class CollectionItemsController < ApplicationController
     # updates are handled by the Collections update method and specifically the annotate method in Collections controller.
     return access_denied unless current_user.can_update?(@collection_item)
     if @collection_item.update_attributes(params[:collection_item])
-      # update collection item references      
+      # update collection item references
       if @collection_item.collection.show_references?
         @collection_item.refs.clear
         @references = params[:references]
         params[:references] = params[:references].split("\n") unless params[:references].blank?
-        unless params[:references].blank?        
+        unless params[:references].blank?
           params[:references].each do |reference|
             if reference.strip != ''
               reference = reference.downcase
@@ -67,8 +67,8 @@ class CollectionItemsController < ApplicationController
               if (ref)
                 @collection_item.refs << ref
               else
-                @collection_item.refs << Ref.new(:full_reference => reference, :user_submitted => true, :published => 1, :visibility => Visibility.visible)  
-              end            
+                @collection_item.refs << Ref.new(:full_reference => reference, :user_submitted => true, :published => 1, :visibility => Visibility.visible)
+              end
             end
           end
         end
@@ -97,20 +97,20 @@ class CollectionItemsController < ApplicationController
         @collection = @collection_item.collection
         @page_title = I18n.t(:collection_item_edit_page_title, :collection_name => @collection.name)
         @references = ''
-        @collection_item.refs.each do |ref|      
+        @collection_item.refs.each do |ref|
           @references = @references + "\n" unless @references==''
-          @references = @references + ref.full_reference      
-        end  
+          @references = @references + ref.full_reference
+        end
         render :edit, :layout => 'v2/basic'
       end
       format.js do
         if current_user.can_update?(@collection_item)
           @collection = @collection_item.collection
           @references = ''
-          @collection_item.refs.each do |ref|      
+          @collection_item.refs.each do |ref|
             @references = @references + "\n" unless @references==''
-            @references = @references + ref.full_reference      
-          end  
+            @references = @references + ref.full_reference
+          end
           render :partial => 'collections/edit_collection_item', :locals => { :collection_item => @collection_item }
         else
           render :text => I18n.t(:collection_item_edit_by_javascript_not_authorized_error)

@@ -25,7 +25,7 @@ class Taxa::LiteratureController < TaxaController
   def bhl_title
     @title_item_id = params[:title_item_id]
     unless @title_item_id && @title_item_id.is_numeric?
-      redirect_to bhl_taxon_literature_path(@taxon_concept), :status => :moved_permanently
+      redirect_to bhl_taxon_literature_path(@taxon_concept)
     end
     @assistive_section_header = I18n.t(:assistive_literature_header)
     @bhl_title_results = EOL::Solr::BHL.search_publication(@taxon_concept, @title_item_id)

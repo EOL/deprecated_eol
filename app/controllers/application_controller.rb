@@ -377,13 +377,13 @@ class ApplicationController < ActionController::Base
   def redirect_if_already_logged_in
     if logged_in?
       flash[:notice] = I18n.t(:destination_inappropriate_for_logged_in_users)
-      redirect_to(current_user, :status => :moved_permanently)
+      redirect_to(current_user)
     end
   end
 
   def must_log_in
     respond_to do |format|
-      format.html { store_location; redirect_to login_url, :status => :moved_permanently }
+      format.html { store_location; redirect_to login_url }
       format.js   { render :partial => 'content/must_login', :layout => false }
     end
     return false
@@ -436,7 +436,7 @@ class ApplicationController < ActionController::Base
       end
     end
     return_to = (params[:return_to].blank? ? root_url : params[:return_to])
-    redirect_to return_to, :status => :moved_permanently
+    redirect_to return_to
   end
 
   # pulled over from Rails core helper file so it can be used in controllers as well

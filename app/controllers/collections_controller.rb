@@ -167,6 +167,20 @@ class CollectionsController < ApplicationController
     end
   end
 
+protected
+  def set_meta_title
+    if @collection && !@collection.name.blank?
+      I18n.t(:meta_title_template,
+        :page_title => I18n.t(:head_title_collection, :name => @collection.name))
+    end
+  end
+  def set_meta_description
+    if @collection && !@collection.name.blank?
+      I18n.t(:meta_description_collection, :collection_name => @collection.name,
+        :collection_description => @collection.description)
+    end
+  end
+
 private
 
   def find_collection

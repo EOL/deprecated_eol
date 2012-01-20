@@ -1,6 +1,6 @@
 class Taxa::NamesController < TaxaController
 
-  before_filter :instantiate_taxon_concept, :redirect_if_superceded
+  before_filter :instantiate_taxon_concept, :redirect_if_superceded, :instantiate_preferred_names
   before_filter :add_page_view_log_entry, :update_user_content_level
   before_filter :set_vet_options, :only => [:common_names, :vet_common_name]
   before_filter :authentication_for_names, :only => [ :create, :update ]
@@ -187,6 +187,36 @@ private
       store_location params[:return_to] unless params[:return_to].blank?
       redirect_back_or_default common_names_taxon_names_path(@taxon_concept)
     end
+  end
+
+  protected
+  def set_meta_title
+    I18n.t(:meta_title_template,
+      :page_title => [
+        I18n.t(:meta_title_taxon_names),
+        @preferred_common_name,
+        @scientific_name,
+        @assistive_section_header,
+        @selected_hierarchy_entry ? @selected_hierarchy_entry.hierarchy_label : nil,
+      ].compact.join(" - "))
+  end
+  def set_meta_description
+    if @selected_hierarchy_entry
+      @preferred_common_name ?
+        I18n.t(:meta_description_hierarchy_entry_names_with_common_name, :scientific_name => @scientific_name,
+          :hierarchy_provider => @selected_hierarchy_entry.hierarchy_label,
+          :preferred_common_name => @preferred_common_name) :
+        I18n.t(:meta_description_hierarchy_entry_names, :scientific_name => @scientific_name,
+          :hierarchy_provider => @selected_hierarchy_entry.hierarchy_label)
+    else
+      @preferred_common_name ?
+      I18n.t(:meta_description_taxon_names_with_common_name, :scientific_name => @scientific_name,
+        :preferred_common_name => @preferred_common_name) :
+      I18n.t(:meta_description_taxon_names, :scientific_name => @scientific_name)
+    end
+  end
+  def additional_meta_keywords
+   [ I18n.t(:meta_keywords_taxon_names) ]
   end
 
 end

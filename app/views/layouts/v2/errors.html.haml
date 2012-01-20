@@ -1,8 +1,9 @@
 !!! 5
 %html{ "xml:lang" => I18n.locale, :lang => I18n.locale, :xmlns => "http://www.w3.org/1999/xhtml" }
   %head
+    - @error_page_title ||= controller.instance_variable_get("@error_page_title")
     %title
-      = I18n.t(:encyclopedia_of_life)
+      = I18n.t(:meta_title_template, :page_title => @error_page_title)
     %meta{ :charset => "utf-8" }
     = stylesheet_include_i18n_merged 'errors'
     = javascript_include_merged 'errors'
@@ -18,7 +19,6 @@
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
         })();
   %body
-    - @error_page_title ||= controller.instance_variable_get("@error_page_title")
     #content
       %h1= @error_page_title
       = yield

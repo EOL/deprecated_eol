@@ -19,8 +19,10 @@
         = link_to I18n.t(:donate), donate_path
       - if position == :footer
         %li
-          = link_to I18n.t(:contact_us_link), contacts_path(:referred_page => current_url(false))
-        %li
           = link_to I18n.t(:terms_of_use_link), terms_of_use_path
         %li
           = link_to I18n.t(:citing_link), cms_page_path('citing')
+    -# Keep this OUT of the cache call, please: the referred page needs to be dynamic.
+    - if position == :footer
+      %li
+        = link_to I18n.t(:contact_us_link), contacts_path(:referred_page => current_url(false))

@@ -856,6 +856,14 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     end
   end
 
+  def notification_count
+    self.activity_log(:after => User.find(self, :select => 'last_notification_at').last_notification_at).count
+  end
+
+  def message_count
+    self.activity_log(:filter => 'comments', :after => User.find(self, :select => 'last_notification_at').last_notification_at).count
+  end
+
 private
 
   # set the defaults on this user object

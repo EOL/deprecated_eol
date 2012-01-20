@@ -1,2 +1,6 @@
-%span#notifications
-  = I18n.t(:user_notifications_with_count, :count => 6, :link => user_newsfeed_path(current_user), :messages => link_to(I18n.t(:user_notifications_messages_with_count, :count => 2), user_newsfeed_path(current_user, :filter => 'messages')))
+- notes = current_user.notification_count
+- if notes > 0
+  %span#notifications
+    = I18n.t(:user_notifications_with_count, :count => notes, :link => user_newsfeed_path(current_user), :messages => link_to(I18n.t(:user_notifications_messages_with_count, :count => current_user.message_count), user_newsfeed_path(current_user, :filter => 'comments')))
+- else
+  = current_user.tag_line

@@ -87,10 +87,17 @@ Things you need:
 === SOLR
 
 EOL requires Solr (a fast indexing engine) to run properly.  Solr is run using Java, and the required JAR
-file is included with the EOL project's source code.  (TODO - we need to check the legal situtaion with
-this--we may need to include a LICENCSE for it.)  There is a rake task for starting (solr:start) and
+file is included with the EOL project's source code.  There is a rake task for starting (solr:start) and
 stopping (solr:stop) the Solr server.  Searches will not function without Solr, and at some point, the
 entire codebase (rendering a taxa page) may require Solr as well.
+
+To remove your Solr data (if it's become corrupt or the like):
+
+  rake solr:stop
+  rm -R solr/solr/data/*/index
+  rm -R solr/solr/data/*/spellchecker
+  rake solr:start
+  rake solr:build
 
 To re-build your indexes for Solr searching (up to 100 TaxonConcepts), run the command:
 
@@ -179,6 +186,12 @@ Run the following two commands:
 Go to http://localhost:3000 and (hopefully) see stuff.
 
 === TROUBLESHOOTING THE SEARCH FEATURE
+
+To get to the solr UI, see:
+
+  http://localhost:8983/solr/
+
+...here, you will find links to each of the solr indexes and will be able to run custom queries and get basic info.
 
 If you can't get running the search feature hopefully it's only because of Solr indexes missing.
 

@@ -5,9 +5,5 @@ module EOL
     def activity_log(options = {})
       EOL::ActivityLog.find(self, options)
     end
-    def reload(*args)
-      @activity_log_cache = nil
-      super args
-    end
   end
 end

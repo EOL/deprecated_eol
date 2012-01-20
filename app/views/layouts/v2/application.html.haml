@@ -49,6 +49,20 @@
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
         })();
       = javascript_include_tag 'ga_social_tracking'
+    - if $QUANTCAST_ID && $ENABLE_QUANTCAST
+      / Quantcast Tag, part 1
+      :javascript
+        var _qevents = _qevents || [];
+
+        (function() {
+          var elem = document.createElement('script');
+
+          elem.src = (document.location.protocol == "https:" ? "https://secure" : "http://edge") + ".quantserve.com/quant.js";
+          elem.async = true;
+          elem.type = "text/javascript";
+          var scpt = document.getElementsByTagName('script')[0];
+          scpt.parentNode.insertBefore(elem, scpt);
+        })();
   %body{:class => @home_page ? 'home' : nil}
     %ul#controls.assistive
       %li= link_to I18n.t(:skip_to_content), '#main'
@@ -127,7 +141,10 @@
           if (twitter) { EOL.loadTwitter(); }
         });
 
-
-
-
-
+    - if $QUANTCAST_ID && $ENABLE_QUANTCAST
+      / Quantcast Tag, part 2
+      :javascript
+        _qevents.push( { qacct:"#{$QUANTCAST_ID}"} );
+      %noscript
+        %div{ :style => "display: none;" }
+          %img{ :src => "//pixel.quantserve.com/pixel/#{$QUANTCAST_ID}.gif", :height => "1", :width => "1", :alt => "Quantcast" }

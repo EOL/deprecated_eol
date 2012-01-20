@@ -32,10 +32,10 @@ log/*.log
 log/*.txt
 public/feeds
 public/files/solr_import_file_*.csv
-public/javascripts/*-cached_packaged.js
+public/javascripts/*packaged.js
 public/opensearch.xml
 public/search.xml
-public/stylesheets/*-cached_packaged.css
+public/stylesheets/*packaged.css
 public/uploads/datasets/*
 public/uploads/Image/*
 public/uploads/images/collection_icons/*

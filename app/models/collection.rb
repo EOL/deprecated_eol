@@ -158,6 +158,7 @@ class Collection < ActiveRecord::Base
     collection_items.any?{|ci| ci.object_type == item.class.name && ci.object_id == item.id}
   end
 
+  # TODO - This does NOT belong here.  It belongs on ViewStyle (as a class method).  Fix.
   def default_view_style
     view_style ? view_style : ViewStyle.annotated
   end

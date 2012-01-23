@@ -31,7 +31,8 @@
       %dt
         = f.label :view_style_id
       %dd
-        = f.select :view_style_id, options_from_collection_for_select(@view_as_options, :id, :name, @collection.view_style_id)
+        - vs_id = @collection.view_style_id || @collection.default_view_style.id
+        = f.select :view_style_id, options_from_collection_for_select(@view_as_options, :id, :name, vs_id)
       %dt
         = f.label :logo
       %dd

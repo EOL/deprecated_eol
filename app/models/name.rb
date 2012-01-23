@@ -107,11 +107,18 @@ class Name < SpeciesSchemaModel
     return Name.find_by_clean_name(clean_string)
   end
 
-  def is_surrogate?
+  def is_surrogate_or_hybrid?
     # return true if ranked_canonical_form_id.blank?
-    return true if string.match(/(^|[^\w])(incertae sedis|incertaesedis|culture|clone|isolate|phage|sp|cf|uncultured|DNA|unclassified|sect)([^\w]|$)/i)
+    red_flag_words = [ 'incertae sedis', 'incertaesedis', 'culture', 'clone', 'isolate',
+                       'phage', 'sp', 'cf', 'uncultured', 'DNA', 'unclassified', 'sect',
+                       'ß', 'str', 'biovar', 'type', 'strain', 'serotype', 'hybrid',
+                       'cultivar', 'x', '×', 'pop', 'group', 'environmental', 'sample',
+                       'endosymbiont']
+    return true if string.match(/(^|[^\w])(#{red_flag_words.join('|')})([^\w]|$)/i)
     return true if string.match(/[0-9][a-z]/i)
     return true if string.match(/[a-z][0-9]/i)
+    return true if string.match(/[a-z]-[0-9]/i)
+    return true if string.match(/ [0-9]{1,3}$/)
     return true if string.match(/virus([^\w]|$)/i)
     return false
   end

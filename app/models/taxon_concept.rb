@@ -1245,7 +1245,7 @@ class TaxonConcept < SpeciesSchemaModel
     surrogates = []
     return [] if published_hierarchy_entries.blank?
     published_hierarchy_entries.each do |he|
-      if he.name.is_surrogate?
+      if he.name.is_surrogate_or_hybrid?
         surrogates << he.name.string
       else
         preferred_names << he.name.string
@@ -1253,7 +1253,7 @@ class TaxonConcept < SpeciesSchemaModel
       end
 
       he.scientific_synonyms.each do |s|
-        if s.name.is_surrogate?
+        if s.name.is_surrogate_or_hybrid?
           surrogates << s.name.string
         else
           synonyms << s.name.string

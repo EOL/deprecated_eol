@@ -5,7 +5,7 @@ module EOL
     @@default_url_options = { :host => 'eol.org' } # need to explicitly set the host for the above
     @@working_directory = File.join(RAILS_ROOT, 'public', 'sitemap')
     @@lines_per_sitemap_file = 50000.0
-    @@default_compression = false
+    @@default_compression = true
     
     def initialize
       Dir.glob(File.join(@@working_directory, 'tmp_*')).each { |f| File.delete(f) }
@@ -97,43 +97,62 @@ module EOL
     def create_sitemap_from_batch(lines, suffix, options={})
       return nil if lines.blank?
       if options[:xml]
-        batch_file_path = write_batch_as_xml(lines, suffix, options)
+        if options[:use_xml_builder]
+          batch_file_path = write_batch_as_xml_using_builder(lines, suffix, options)
+        else
+          batch_file_path = write_batch_as_xml(lines, suffix, options)
+        end
       else
         batch_file_path = write_batch_as_text(lines, suffix, options)
       end
       gzip_file(batch_file_path) if options[:compress] && batch_file_path
     end
     
-    # ## This is a different version of the method below. This version of the method uses XMLBuilder to generate
-    # ## the XML for the file which consumes a bit of memory and is also significantly slower then the method
-    # ## below. The version below writes the XML to the file directly as a string.
-    # def write_batch_as_xml(lines, suffix, options={})
-    #   lines.map!{ |l| JSON.parse(l) }
-    #   batch_xml = Builder::XmlMarkup.new( :indent => 2 )
-    #   batch_xml.instruct! :xml, :encoding => "UTF-8"
-    #   xml = batch_xml.urlset(:xmlns => "http://www.sitemaps.org/schemas/sitemap/0.9",
-    #                          "xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance",
-    #                          "xmlns:image" => "http://www.google.com/schemas/sitemap-image/1.1",
-    #                          "xsi:schemaLocation" => "http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/sitemap.xsd http://www.google.com/schemas/sitemap-image/1.1 http://www.google.com/schemas/sitemap-image/1.1/sitemap-image.xsd") do |urlset|
-    #     lines.each do |line_metadata|
-    #       urlset.url do |url|
-    #         # the properties need to appear in a certain order in order to be valid according
-    #         # to the sitemap XSD
-    #         ["loc", "lastmod", "changefreq", "priority"].each do |property|
-    #           if value = line_metadata[property]
-    #             url.tag! property, value
-    #           end
-    #         end
-    #       end
-    #     end
-    #   end
-    #   
-    #   batch_file_path = @batch_file_prefix + "#{suffix}.xml"
-    #   final_file = File.open(batch_file_path, 'w')
-    #   final_file.puts xml
-    #   final_file.close
-    #   batch_file_path
-    # end
+    ## This is a different version of the method below. This version of the method uses XMLBuilder to generate
+    ## the XML for the file which consumes a bit of memory and is also significantly slower then the method
+    ## below. The version below writes the XML to the file directly as a string.
+    def write_batch_as_xml_using_builder(lines, suffix, options={})
+      lines.map!{ |l| JSON.parse(l) }
+      batch_xml = Builder::XmlMarkup.new( :indent => 2 )
+      batch_xml.instruct! :xml, :encoding => "UTF-8"
+      xml = batch_xml.urlset(:xmlns => "http://www.sitemaps.org/schemas/sitemap/0.9",
+                             "xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance",
+                             "xmlns:image" => "http://www.google.com/schemas/sitemap-image/1.1",
+                             "xsi:schemaLocation" => "http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/sitemap.xsd http://www.google.com/schemas/sitemap-image/1.1 http://www.google.com/schemas/sitemap-image/1.1/sitemap-image.xsd") do |urlset|
+        lines.each do |line_metadata|
+          urlset.url do |url|
+            # the properties need to appear in a certain order in order to be valid according
+            # to the sitemap XSD
+            ["loc", "lastmod", "changefreq", "priority"].each do |property|
+              if value = line_metadata[property]
+                url.tag! property, value
+              end
+            end
+            
+            # check for included images
+            if line_metadata["images"]
+              line_metadata["images"].each do |image_metadata|
+                url.image :image do |image|
+                  # the properties need to appear in a certain order in order to be valid according to the sitemap XSD
+                  ["loc", "caption", "geo_location", "title", "license"].each do |property|
+                    if value = image_metadata[property]
+                      image.tag! "image:#{property}", value
+                    end
+                  end
+                end
+              end
+            end
+            
+          end
+        end
+      end
+      
+      batch_file_path = @batch_file_prefix + "#{suffix}.xml"
+      final_file = File.open(batch_file_path, 'w')
+      final_file.puts xml
+      final_file.close
+      batch_file_path
+    end
     
     ## This is a different version of the method commented out above. The above method uses XMLBuilder and this
     ## one writes XML as strings. The SiteMap XML is very simple so we gain little from using XMLBuilder,

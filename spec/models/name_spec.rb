@@ -38,18 +38,43 @@ describe Name do
       'Lactobacullus genera incertae sedis',
       'Incertae sedis{25. 15}',
       'uncultured Leucocoprinus',
+      'Morchella esculenta ß ovalis Wallr.',
+      'Yersinia pestis G1670',
+      'Yersinia pestis Nepal516',
+      'Yersinia pestis biovar Orientalis str. PEXU2',
+      'Yersinia pestis FV-1',
+      'Yersinia pestis KIM D27',
+      'Artemisia vulgaris (type 1)',
+      'Helicobacter pylori 120',
+      'Helicobacter pylori HPKX_1039_AG0C1',
+      'Helicobacter pylori 74B',
+      'Helicobacter pylori 245',
+      'Infectious bursal disease virus',
+      'JC virus',
+      'Doritis pulcherrima hybrid',
+      'Doritis pulcherrima cultivar',
+      'Heuchera sanguinea X Tiarella cordifolia',
+      'Heuchera sanguinea x Tiarella cordifolia',
+      'Heuchera sanguinea × Tiarella cordifolia',
+      'Herpes simplexvirus',
+      'Herpes simplex strain',
+      'Oryza sativa Japonica Group',
+      'Asteraceae environmental sample',
+      'Polychaeta group',
+      'Drosophila cf. polychaeta SM-2007',
       'haloarchaeon TP100'].each do |str|
       name.string = str
-      name.is_surrogate?.should == true
+      name.is_surrogate_or_hybrid?.should == true
     end
     
     [ 'Aus bus',
       'Aus bus Linnaeus',
       'Aus bus Linnaeus 1983',
       'Aus bus var. cus Linnaeus 3434',
+      'Aus bus var. cus Linnaeus 1766-7',
       'Something 7-maculata'].each do |str|
       name.string = str
-      name.is_surrogate?.should == false
+      name.is_surrogate_or_hybrid?.should == false
     end
     
   end

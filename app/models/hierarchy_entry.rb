@@ -78,7 +78,7 @@ class HierarchyEntry < SpeciesSchemaModel
   def title_canonical
     return @title_canonical unless @title_canonical.nil?
     # used the ranked version first
-    if name.is_surrogate?
+    if name.is_surrogate_or_hybrid?
       @title_canonical = name.string.firstcap
     elsif name.ranked_canonical_form && !name.ranked_canonical_form.string.blank?
       @title_canonical = name.ranked_canonical_form.string.firstcap

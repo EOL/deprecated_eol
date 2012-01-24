@@ -430,6 +430,10 @@ describe DataObject do
     dato.access_image_from_remote_server(size = '580_360').should == true
     dato.access_image_from_remote_server('260_190').should == false
     dato.access_image_from_remote_server(size = '260_190').should == false
+
+    dato.thumb_or_object(size = :orig).should == dato.object_url
+    dato.access_image_from_remote_server(:orig).should == true
+    dato.access_image_from_remote_server(size = :orig).should == true
   end
 
 end

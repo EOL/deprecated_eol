@@ -689,7 +689,7 @@ class DataObject < SpeciesSchemaModel
   end
 
   def access_image_from_remote_server(size)
-    return true if size == '580_360' && self.map_from_DiscoverLife?
+    return true if ['580_360', :orig].include?(size) && self.map_from_DiscoverLife?
     # we can add here other criterias for image to be hosted remotely
     false
   end

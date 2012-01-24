@@ -69,17 +69,24 @@ module EOL
           query = "activity_log_type:CommunityActivityLog AND user_id:#{source.id}"
         end
       end
-      if options[:after] && options[:after].respond_to?(:utc)
-        query += " AND date_created:[#{options[:after].utc.strftime('%Y-%m-%dT%H:%M:%S')}Z TO NOW]"
-      end
       results = EOL::Solr::ActivityLog.search_with_pagination(query, options)
     end
 
+    # The obnoxious "query_part" joining here is used because--for reasons beyond my ken--just adding an "AND
+    # date_rage thus-and-so" to the end of the query does NOT work.  Repeat: IT DOES NOT WORK.  Don't waste your time
+    # trying; the date range needs to be queried for each of the clauses.
     def self.user_news_activities(source, options = {})
-      query = "(feed_type_affected:UserNews AND feed_type_primary_key:#{source.id})"
+      query_parts = ["feed_type_affected:UserNews AND feed_type_primary_key:#{source.id}"]
       if source.watch_collection
-        query += " OR (feed_type_affected:Collection AND feed_type_primary_key:#{source.watch_collection.id} NOT user_id:#{source.id})"
+        query_parts << "feed_type_affected:Collection AND feed_type_primary_key:#{source.watch_collection.id} NOT user_id:#{source.id}"
       end
+      if options[:filter] && options[:filter] == 'comments'
+        query_parts.each {|part| part += " AND activity_log_type:Comment"}
+      end
+      if options[:after] && options[:after].respond_to?(:utc)
+        query_parts.each {|part| part += " AND date_created:[#{options[:after].utc.strftime('%Y-%m-%dT%H:%M:%S')}Z TO NOW]" }
+      end
+      query = "(" + query_parts.join(") OR (") + ")"
       results = EOL::Solr::ActivityLog.search_with_pagination(query, options)
     end
 

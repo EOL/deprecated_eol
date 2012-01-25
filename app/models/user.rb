@@ -856,33 +856,17 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     end
   end
 
-  # TODO - I'm worried about this value persisting too long... but I want to store it for use in #message_count
-  def notifications
-    @notifications ||= self.activity_log(:news => true) # WAIT: , :after => User.find(self, :select => 'last_notification_at').last_notification_at)
-  end
-
   def notification_count
-    self.notifications.count
+    self.activity_log(:news => true, :after => User.find(self, :select => 'last_notification_at').last_notification_at).count
   end
 
-  # Presently (!) This will only be called after #notifications_count, which has already set @notifications.  Thus,
-  # we're just cycling through those results (assuming it's a reasonable number) to find those items that are direct
-  # to the user. I'm only doing this to avoid putting reply_to_id into Solr.  If we did so, this would likely be
-  # (much) faster with large sets. I suspect I'll want to do this eventually anyway, to allow filtering on the page.
-  # Urk.
+  # Note that this does not include the "after" date (and allows pagination); it's used for building the filtered view.
+  def messages(options)
+    self.activity_log(options.reverse_merge({:news => true, :filter => 'messages'}))
+  end
+
   def message_count
-    # TODO - YOU WERE HERE ...  stop this.  Just use Solr, but filter for comments, THEN check the replies.  That'll
-    # work.  ...I think.  Well.... no.  Nevermind, this needs to be in solr entirely, so we can filter the view.
-    notifications.select { |n|
-      # Just being safe here to avoid errors being thrown on bad objects:
-      n.has_key?('instance') && (
-        # This catches replies to this user:
-        (n['instance'].respond_to?(:reply_to_id) && n['instance'].reply_to_id == self.id) ||
-        # And this catches messages that were just posted to the user's newsfeed directly:
-        (n['instance'].respond_to?(:parent_id) && n['instance'].respond_to?(:parent_type) &&
-         n['instance'].parent_id == self.id && n['instance'].parent_type == 'User')
-      )
-    }.count
+    self.activity_log(:news => true, :filter => 'messages', :after => User.find(self, :select => 'last_message_at').last_message_at).count
   end
 
 private

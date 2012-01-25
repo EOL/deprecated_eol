@@ -109,16 +109,22 @@ class Name < SpeciesSchemaModel
 
   def is_surrogate_or_hybrid?
     # return true if ranked_canonical_form_id.blank?
-    red_flag_words = [ 'incertae sedis', 'incertaesedis', 'culture', 'clone', 'isolate',
+    red_flag_words = [ 'incertae', 'sedis', 'incertaesedis', 'culture', 'clone', 'isolate',
                        'phage', 'sp', 'cf', 'uncultured', 'DNA', 'unclassified', 'sect',
                        'ß', 'str', 'biovar', 'type', 'strain', 'serotype', 'hybrid',
                        'cultivar', 'x', '×', 'pop', 'group', 'environmental', 'sample',
-                       'endosymbiont']
+                       'endosymbiont', 'a', 'b', 'c', 'd', 'species', 'complex',
+                       'unassigned', 'n', 'gen', 'auct', 'non', 'aff']
     return true if string.match(/(^|[^\w])(#{red_flag_words.join('|')})([^\w]|$)/i)
+    return true if string.match(/_/i)
     return true if string.match(/[0-9][a-z]/i)
     return true if string.match(/[a-z][0-9]/i)
     return true if string.match(/[a-z]-[0-9]/i)
     return true if string.match(/ [0-9]{1,3}$/)
+    return true if string.match(/[0-9]{5,}/)
+    return true if string.match(/[03456789][0-9]{3}/) # years should start with 1 or 2
+    return true if string.match(/1[02345][0-9]{2}/) # 1600 - 1900
+    return true if string.match(/2[1-9][0-9]{2}/) # 1600 - 1900
     return true if string.match(/virus([^\w]|$)/i)
     return false
   end

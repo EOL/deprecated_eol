@@ -62,6 +62,12 @@ describe Name do
       'Asteraceae environmental sample',
       'Polychaeta group',
       'Drosophila cf. polychaeta SM-2007',
+      'Helicobacter pylori NCTC 11637',
+      'Coccidioides posadasii RMSCC 1040',
+      'Coccidioides posadasii RMSCC 2133',
+      'Coccidioides posadasii CPA 0001',
+      'Coccidioides posadasii str. Silveira',
+      'Arctiidae_unassigned',
       'haloarchaeon TP100'].each do |str|
       name.string = str
       name.is_surrogate_or_hybrid?.should == true
@@ -70,7 +76,10 @@ describe Name do
     [ 'Aus bus',
       'Aus bus Linnaeus',
       'Aus bus Linnaeus 1983',
-      'Aus bus var. cus Linnaeus 3434',
+      'Aus bus var. cus Linnaeus 1777',
+      'Aus bus var. cus (Linnaeus 1785)',
+      'Aus bus var. cus Linnaeus,1934',
+      'Aus bus var. cus (Linnaeus,1934)',
       'Aus bus var. cus Linnaeus 1766-7',
       'Something 7-maculata'].each do |str|
       name.string = str

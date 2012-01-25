@@ -68,7 +68,11 @@ class HierarchyEntry < SpeciesSchemaModel
   end
 
   def italicized_name
-    species_or_below? ? name.italicized : name.string
+    if name.is_surrogate_or_hybrid?
+      name.string
+    else
+      species_or_below? ? name.italicized : name.string
+    end
   end
 
   def canonical_form

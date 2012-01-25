@@ -9,5 +9,12 @@
     = render :partial => 'comments/new'
     .newsfeed_heading
       %h3= I18n.t(:newsfeed)
-      - # TODO: Filter form?
-    = render :partial => 'activity_logs/index', :locals => {:log => @user_activity_log}
+      %span
+        - if @filter == 'messages'
+          = I18n.t(:messages_filter)
+          = link_to(I18n.t(:all_filter), user_newsfeed_path(@user))
+        - else
+          = link_to(I18n.t(:messages_filter), user_newsfeed_path(@user, :filter => 'messages'))
+          = I18n.t(:all_filter)
+    - log = @filter == 'messages' ? @user.messages(:page => @page) : @user.activity_log(:news => true, :page => @page)
+    = render :partial => 'activity_logs/index', :locals => {:log => log}

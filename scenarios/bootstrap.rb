@@ -38,7 +38,7 @@ end
 def bootstrap_toc
   current_order = TocItem.count # Just a reasonable place to start counting for "parent" items.
   description_labels = [
-      'Succinct',
+      'Brief Description',
       'Diagnosis of genus and species',
       'Physical Description',
       'Formal Description',

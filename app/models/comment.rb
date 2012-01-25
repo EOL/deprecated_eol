@@ -215,6 +215,7 @@ class Comment < ActiveRecord::Base
       'activity_log_type' => 'Comment',
       'activity_log_id' => self.id,
       'action_keyword' => self.parent.class.name,
+      'reply_to_id' => self.user_id,
       'user_id' => self.user_id,
       'date_created' => self.created_at.solr_timestamp }
     EOL::Solr::ActivityLog.index_activities(base_index_hash, activity_logs_affected)

@@ -807,6 +807,7 @@ en:
   all_communities: All communities
   all_count: "All (%{count})"
   all_errors: "ALL errors"
+  all_filter: "all"
   all_harvesting_logs: "ALL harvesting logs"
   all_images: All images
   all_information: "All information"
@@ -1811,6 +1812,7 @@ en:
     other: "%{count} members;"
   merge_concepts: "merge concepts"
   message_colon: "Message:"
+  messages_filter: "messages"
   meta_description_collection: "%{collection_name} %{collection_description}. An Encyclopedia of Life collection."
   meta_description_community: "%{community_name} %{community_description}. An Encyclopedia of Life community."
   meta_description_default: "The Encyclopedia of Life is an unprecedented effort to gather and share scientific knowledge about all living things in a single online resource, giving each of us a breathtaking view of our amazing world."

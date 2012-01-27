@@ -78,7 +78,7 @@ module EOL
       if options[:filter] && options[:filter] == 'messages'
         query = "activity_log_type:Comment AND (reply_to_id:#{source.id} OR (feed_type_affected:UserNews AND feed_type_primary_key:#{source.id}))"
       else
-        query = "feed_type_affected:UserNews AND feed_type_primary_key:#{source.id}"
+        query = "reply_to_id:#{source.id} OR (feed_type_affected:UserNews AND feed_type_primary_key:#{source.id})"
         if source.watch_collection
           query = "(#{query}) OR (feed_type_affected:Collection AND feed_type_primary_key:#{source.watch_collection.id} NOT user_id:#{source.id})"
         end

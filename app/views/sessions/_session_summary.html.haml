@@ -7,8 +7,9 @@
   .details
     %p
       %strong= h current_user.short_name
-      %br/
-      %span#tag_line{ :"data-user-id" => current_user.id }= h current_user.tag_line
+      - if current_user.agreed_with_terms # They don't have one yet AND this causes an infinite loop, otherwise:
+        %br/
+        %span#tag_line{ :"data-user-id" => current_user.id }= h current_user.tag_line
     %p.user_links
       - if current_user.is_admin?
         = link_to I18n.t(:pages_admin_section_link), admin_path

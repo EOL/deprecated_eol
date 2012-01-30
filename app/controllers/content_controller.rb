@@ -11,7 +11,7 @@ class ContentController < ApplicationController
 
   def index
     @home_page = true
-    @meta_title = "Animals - Plants - Pictures & Information: The Encyclopedia of Life"
+    @meta_title = "Animals - Plants - Pictures & Information - Encyclopedia of Life"
     @meta_description = "The Encyclopedia of Life is an unprecedented effort to gather scientific knowledge about all animal and plant life where pictures, information, facts, and more are available for all things living in our plant and animal kingdoms."
     @meta_keywords = "Animals, Animal Pictures, Animal Information, Plants, Plant Life, Plant Pictures, Plant Information, Flora, Fauna"
     current_user.log_activity(:viewed_home_page)

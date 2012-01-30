@@ -122,6 +122,7 @@ EOL.init_comment_behaviours = function() {
   $submit_edit_buttons.click(function( event ) {
     event.preventDefault();
     EOL.ajax_submit($(this));
+    return(false); // JRice added this 1/30/12.  See the comment with this date, above, for an explanation.
   });
   var $delete_comment_links = $feed.find("form.delete_comment input[type='submit']");
   $delete_comment_links.unbind("click");
@@ -130,6 +131,7 @@ EOL.init_comment_behaviours = function() {
     if (confirm($(this).data('confirmation'))) {
       EOL.ajax_submit($(this));
     }
+    return(false); // JRice added this 1/30/12.  See the comment with this date, above, for an explanation.
   });
 };
 

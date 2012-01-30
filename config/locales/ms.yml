@@ -459,7 +459,6 @@ ms:
   collection_was_added_to_community: "\"%{collection}\" telah ditambahkan kepada komuniti ini."
   collection_was_removed_by_owner: Himpunan ini telah dibuang oleh pemiliknya.
   collections: Himpunan
-  collections_lowercase: himpunan
   collections_summary_empty: Halaman ini belum ada dalam sebarang himpunan.
   collections_summary_header_with_count: Terdapat dalam %{count} himpunan
   collections_with_count: "%{count} Himpunan"
@@ -733,12 +732,10 @@ ms:
   daily: Harian
   darwin_core: Darwin Core
   dashboard: Papan Pemuka
-  data: Data
   data_object_api_description: Dengan diberi pengenal pasti untuk suaut objek data, API ini akan memulangkan semua metadata mengenai objek itu seperti yang diserahkan kepada EOL oleh rakan kongsi kandungan yang menyumbang. Rakan kongsi kandungan itu dipetik dalam unsur ejen pertama dan memegang peranan 'rakan kongsi'.
   data_object_ignore: abaikan perkara ini
   data_object_not_associated_with_any_hierarchies: Objek data ini tidak berkaitan dengan sebarang hierarki.
   data_object_undo_ignore: buang dari senarai abai
-  data_objects: data_objects
   data_usage_reports: Laporan Penggunaan Data
   date_caps: Tarikh
   date_uploaded: Tarikh muat naik
@@ -849,7 +846,6 @@ ms:
   external_link_header: Pautan Luar
   external_link_icon_alt_text: Pautan luar.
   facebook: Facebook
-  failed_login_attempts: cubaan log masuk gagal)- mesti disemak untuk membolehkan pengguna log masuk
   family_name_colon: "Nama Keluarga:"
   feedback: Maklum Balas
   file: Fail
@@ -888,7 +884,6 @@ ms:
   flickr: Flickr
   focus_list_newsfeed: Suapan Berita Senarai Tumpuan
   for_example_for_the_taxon_element_for_a_node: Misalnya, untuk unsur Taxon untuk suatu nodus dalam hierarki ITIS, dc:identifier merupakan ITIS TSN. Unsur dwct:taxonID mengandungi <i>pengenal pasti EOL</i> yang digunakan dalam API %{link}.
-  for_name: " bagi %{name}"
   for_pdfs_and_docs_parens: (untuk PDF & doc)
   forgot_password: Lupa kata laluan
   forgot_password_cannot_find_user_from_username_or_email_error: Maaf, tiada akaun pengguna dengan nama pengguna atau e-mel yang diberikan, <em>%{username_or_email}</em>.
@@ -1113,12 +1108,10 @@ ms:
   hidden: Tersorok
   hidden_comment: komen tersorok
   hide: sorokkan
-  hierarchies: hierarki
   hierarchies_description: Encyclopedia of Life tidak mempunyai hierarki taksonomi yang tunggal untuk mencipta halaman-halamannya. Sebaliknya, EOL mengindekskan banyak hierarki dan membandingkan sesama halaman itu. API ini menyenaraikan metadata tentang hierarki seperti nama pembekal dan URL sumber, di samping menyenaraikan semua takson yang merupakan takson akar dalam pepohon taksonomi.
   hierarchies_entries_description: Encyclopedia of Life tidak mempunyai hierarki taksonomi yang tunggal untuk mencipta halaman-halamannya. Sebaliknya, EOL mengindekskan berbilang hierarki dan membandingkan sesama hierarki itu. Hasilnya, sebarang halaman EOL boleh dikaitkan dengan beberapa nodus dari pelbagai hierarki. API ini memberikan akses kepada suatu hierarki dan hubungan dalamannya. Rujuk dokumentasi di  API halaman untuk maklumat tentang mengakses hierarki lain yang berpadan dengan suatu halaman EOL. Ruangan taxonConceptID mengandungi pengenal pasti halaman EOL yang boleh digunakan dalam API halaman.
   hierarchies_title: Hierarki
   hierarchy: Hierarki
-  hierarchy_entries: entri_hierarki
   hierarchy_entry_switch_missing_id_error: Maaf, halaman entri hierarki yang anda pilih itu tidak dapat dijumpai kerana tiadanya pengenal pasti.
   hierarchy_roots_colon: "Akar Hierarki:"
   hierarchy_selector_drop_down_list_label: Inilah label yang akan muncul dalam senarai juntai bawah pemilih hierarki
@@ -1255,7 +1248,6 @@ ms:
   literature_references: Rujukan kepustakaan
   location: Lokasi
   location_colon: "Lokasi:"
-  logging: Log
   login: log masuk
   login_header: Daftar masuk ke dalam akaun <abbr title="Encyclopedia of Life">EOL</abbr> anda
   login_or_create_account: Log Masuk atau Buka Akaun
@@ -1263,7 +1255,6 @@ ms:
   login_to_the_website_as: Log masuk ke dalam tapak web sebagai %{username}
   logo_header: Logo
   logout: Log keluar
-  main_colon: "Utama:"
   maintained_by: disenggarakan oleh
   make_an_editor: wujudkan pengurus
   make_user_an_editor_title: Benarkan %{user} untuk menguruskan himpunan-himpunan yang berikut
@@ -1330,7 +1321,6 @@ ms:
   name_preferred_taxonomically_for_source_help_tip: "%{icon} menandakan nama yang diutamakan oleh setiap sumber."
   name_preferred_taxonomically_for_source_yes: Diutamakan
   names: Nama
-  names_children_column_header: Kanak-kanak
   names_common_empty: Belum ada nama am yang dikaitkan dengan takson ini
   names_common_list_by_language_assistive_header: Nama am tersenarai mengikut bahasa
   names_curation_column_header: Kurasi
@@ -1474,7 +1464,6 @@ ms:
   page_urls: "URL Halaman:"
   pages_admin_section_link: Pentadbir
   pages_curator_section_link: Kurator
-  pages_lowercase: halaman
   pages_method_description: mengambil pengenal pasti halaman EOL dan memulangkan nama saintifik untuk halaman itu, dan boleh juga memulangkan maklumat tentang nama am, media (teks, gambar, video), dan rujukan kepada hierarki yang mengenali takson yang diterangkan di
   pages_title: Halaman
   pages_with_count: "%{count} halaman"
@@ -1497,7 +1486,6 @@ ms:
   permalink: Pautan kekal
   person_rating: Penilaian ahli
   personal_space: Ruangan Peribadi
-  ping: ping
   ping_method_description: Kaedah ini akan gagal (iaitu paling berkemungkinan memulangkan halaman ralat EOL) atau memulangkan pesanan Kejayaan. Tiada lagi pesanan lain yang mungkin dikeluarkan
   please_confirm_your_donation_details: Sila sahkan butiran dermaan anda
   please_indicate_curation_reason: "Sila pilih satu sebab dan/atau tinggalkan komen kurasi (pilihan):"
@@ -1513,7 +1501,6 @@ ms:
   profile_image_alt_text_curator: Gambar profil untuk kurator %{user_given_name} %{user_family_name}
   profile_image_alt_text_member: Gambar profil untuk ahli %{user_given_name} %{user_family_name}
   profile_newsfeed: Suapan Berita Saya
-  provider_hierarchies: provider_hierarchies
   provider_hierarchies_method_description: Kaedah ini akan memulangkan rujukan kepada semua hierarki yang dibekalkan oleh Rakan Kongsi Kandungan EOL. Responsnya akan merangkumi label hierarki dan ID unik EOL yang mewakili hierarki itu
   public: Umum
   public_domain: domain awam
@@ -1568,21 +1555,18 @@ ms:
   rights: Hak
   rights_holder: Pemegang hak
   rights_statement: Pernyataan hak-hak
-  rss: rss
   rss_feed: Suapan RSS
   save: Simpan
   save_annotation_submit_button: Simpan penjelasan
   save_curated_association_submit_button: Simpan perkaitan
   scientific_name: Nama Saintifik
   search: Cari
-  search_by_provider: cari_mengikut_pembekal
   search_by_provider_method_description: dapatkan ID halaman EOL dengan satu hierarchy_id pembekal dan pengenal pasti unik pembekal itu
   search_by_term_page_title: "Mencari: %{term}"
   search_field_label: Cari dalam EOL
   search_for_comments_containing_the_text: "Cari komen yang mengandungi teks:"
   search_for_users_containing_this_in_their_username_name_or_email_address: Cari pengguna yang nama pengguna, nama atau alamat e-melnya mengandungi yang ini.
   search_input_advisory_information: Isikan nama am atau saintifik bagi hidupan-hidupan yang anda ingin ketahui dengan lebih lanjut. Anda juga boleh mencari ahli, himpunan dan komuniti dalam EOL.
-  search_lowercase: cari
   search_method_description: dengan diberi nilai untuk unsur tertentu (e.g. nama saintifik=Homo sapiens), memulangkan senarai halaman EOL yang mengandungi istilah carian itu
   search_next_label: Berikutnya
   search_placeholder: Cari dalam EOL ...
@@ -1755,8 +1739,6 @@ ms:
   title: Tajuk
   to_process_your_donation_please_proceed: Untuk memproses dermaan anda, sila teruskan
   toc: Jadual isi kandungan
-  toc_entry: Entri Jadual Isi Kandungan
-  toc_no_longer_available: "Jadual Isi Kandungan: sudah tiada lagi"
   topic: Topik
   topic_area: Kawasan Topik
   total_items_with_count: 
@@ -1813,7 +1795,6 @@ ms:
   user_left_comment_on_date: "%{username} meninggalkan komen pada %{date}."
   user_says_colon: "%{users_name} berkata:"
   user_submitted_text_found: "Teks serahan pengguna dijumpai:"
-  user_submitted_text_titlecase: Teks Serahan Pengguna
   user_system_down: Maaf, sistem pendaftaran pengguna tidak tersedia buat masa ini. Sila cuba lagi nanti.
   username: Nama pengguna
   username_colon: "Nama pengguna:"
@@ -1847,7 +1828,6 @@ ms:
   video_rating: Penilaian video
   video_title_not_available_in_language: Tajuk tidak terdapat dalam %{language}
   videos_with_count: "%{count} video"
-  view: Lihat
   view_added_text: lihat teks tambahan
   view_article_source: Lihat sumber rencana
   view_contact_us_submissions: lihat serahan kepada 'hubungi kami'

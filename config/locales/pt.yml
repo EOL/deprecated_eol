@@ -403,7 +403,6 @@ pt:
   collection_updated_notice: Colecção <em>%{collection_name}</em> actualizada com sucesso.
   collection_was_removed_by_owner: Esta colecção foi retirada pelo seu proprietário.
   collections: Colecções
-  collections_lowercase: colecções
   collections_summary_empty: Esta página ainda não está em nenhuma colecção,
   collections_summary_header_with_count: 
     one: Presente em %{count} colecção
@@ -641,7 +640,6 @@ pt:
   data_object_ignore: ignorar este item
   data_object_not_associated_with_any_hierarchies: Este objecto de dados não está associado com nenhuma hierarquia.
   data_object_undo_ignore: remover da lista de ignorados
-  data_objects: data_objects
   data_usage_reports: Relatórios de uso de dados
   dato_create_cancel: Cancelar
   dato_create_update_user_text_missing_taxon_id_exception: Não é possível contruir um texto DataObject ou UsersDataObject se faltar taxon_concept_id.
@@ -742,7 +740,6 @@ pt:
   external_link_header: Ligação externa
   external_link_icon_alt_text: Ligação externa.
   facebook: Facebook
-  failed_login_attempts: tentativas de login falhadas) - deve ser verificado para o utilizador para log in
   family_name_colon: "Apelido:"
   feedback: Comentários
   fill_in_a_message_below_to_send_email_to_user: "Preencha a mensagem abaixo para mandar um e-mail a este utilizador a partir do site. A mensagem será enviada quando enviar o formulário:"
@@ -970,11 +967,9 @@ pt:
       wikipedia_queue: 
         create: Submeter pedido
   hidden: Oculto
-  hierarchies: hierarquias
   hierarchies_description: A Encyclopedia of Life não tem uma hierarquia taxonómica única sobre a qual cria as suas páginas. Ao invés, a EOL indexa muitas hierarquias e compara-as umas com as outras. Esta API lista metadados sobre uma hierarquia tais como o nome do fornecedor e URL da fonte, assim como listas de todos os taxa que são a raiz da árvore taxonómica
   hierarchies_title: Hierarquias
   hierarchy: Hierarquia
-  hierarchy_entries: hierarchy_entries
   hierarchy_entry_switch_missing_id_error: Desculpe, a página de entrada da hierarquia seleccionada não foi encontrada devido à falta de um identificador.
   hierarchy_roots_colon: "Raízes da Hierarquia:"
   hierarchy_selector_drop_down_list_label: Este é a etiqueta que será exibida no menu suspenso seleccionador de hierarquia
@@ -1131,7 +1126,6 @@ pt:
   name_preferred_for_language_yes: Preferido
   name_preferred_taxonomically_for_source_yes: Preferido
   names: Nomes
-  names_children_column_header: Descendentes
   names_common_list_by_language_assistive_header: Nomes comuns listados por língua
   names_curation_column_header: Curadoria
   names_et_al: "%{names}, et al."
@@ -1212,7 +1206,6 @@ pt:
   overview: Vista geral
   pages_admin_section_link: Administradores
   pages_curator_section_link: Curadores
-  pages_lowercase: páginas
   pages_title: Referências
   pages_with_count: 
     one: "%{count}"
@@ -1236,7 +1229,6 @@ pt:
   percentage_of_descendants_with_text: percentagem de descendentes com texto
   permalink: Ligação permanente
   personal_space: Espaço pessoal
-  ping: ping
   please_confirm_your_donation_details: Por favor confirme os detalhes da doação
   please_indicate_curation_reason: "Por favor selecione um motivo e/ou, opcionalmente, deixe um comentário de curadoria:"
   please_refresh: Por favor, actualize seu navegador para ver a versão mais recente do site EOL
@@ -1251,7 +1243,6 @@ pt:
   profile_image_alt_text_curator: Foto do perfil do curador %{user_full_name}
   profile_image_alt_text_member: Foto de perfil do membro %{user_full_name}
   profile_newsfeed: Meu Newsfeed
-  provider_hierarchies: provider_hierarchies
   public: Público
   reset_password_enter_new_password_notice: A senha usada só é válida para esta sessão, por favor entre nova senha para continuar.
   resources: Recursos

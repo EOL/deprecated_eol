@@ -1,6 +1,7 @@
 # Messages for Arabic (العربية)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
+# Author: AWikitranslator
 # Author: AwamerT
 # Author: Ghada.nabeel
 # Author: Malhargan
@@ -8,163 +9,6 @@
 # Author: Rana El Deeb
 # Author: Sara.elshobaky
 ar: 
-  date:
-    formats:
-      default: "%Y-%m-%d"
-      short: "%e %b"
-      long: "%B %e, %Y"
-    day_names:
-      - الأحد
-      - الإثنين
-      - الثلاثاء
-      - الأربعاء
-      - الخميس
-      - الجمعة
-      - السبت
-    abbr_day_names:
-      - الأحد
-      - الإثنين
-      - الثلاثاء
-      - الأربعاء
-      - الخميس
-      - الجمعة
-      - السبت
-    month_names:
-      - ~
-      - يناير
-      - فبراير
-      - مارس
-      - ابريل
-      - مايو
-      - يونيو
-      - يوليو
-      - اغسطس
-      - سبتمبر
-      - اكتوبر
-      - نوفمبر
-      - ديسمبر
-    abbr_month_names:
-      - ~
-      - يناير
-      - فبراير
-      - مارس
-      - ابريل
-      - مايو
-      - يونيو
-      - يوليو
-      - اغسطس
-      - سبتمبر
-      - اكتوبر
-      - نوفمبر
-      - ديسمبر
-    order:
-      - :year
-      - :month
-      - :day
-  time:
-    formats:
-      default: "%a %b %d %H:%M:%S %Z %Y"
-      short: "%d %b %H:%M"
-      long: "%B %d, %Y %H:%M"
-    am: 'صباحا'
-    pm: 'مساءا'
-  support:
-    array:
-      words_connector: ", "
-      two_words_connector: " و "
-      last_word_connector: ", و "
-    select:
-      prompt: "يرجى الاختيار"
-  number:
-    format:
-      separator: "."
-      delimiter: ","
-      precision: 3
-      significant: false
-      strip_insignificant_zeros: false
-    currency:
-      format:
-        format: "%u%n"
-        unit: "$"
-        separator: "."
-        delimiter: ","
-        precision: 2
-        significant: false
-        strip_insignificant_zeros: false
-    percentage:
-      format:
-        delimiter: ""
-    precision:
-      format:
-        delimiter: ""
-    human:
-      format:
-        delimiter: ""
-        precision: 3
-        significant: true
-        strip_insignificant_zeros: true
-      storage_units:
-        format: "%n %u"
-        units:
-          byte:
-            one: "Byte"
-            other: "Bytes"
-          kb: "KB"
-          mb: "MB"
-          gb: "GB"
-          tb: "TB"
-      decimal_units:
-        format: "%n %u"
-        units:
-          unit: ""
-          thousand: ألف
-          million: مليون
-          billion: مليار
-          trillion: تريليون
-          quadrillion: الكدريليون رقم
-  datetime:
-    distance_in_words:
-      half_a_minute: 'نصف دقيقة'
-      less_than_x_seconds:
-        one: 'أقل من ثانية'
-        other: '%{count} ثانية'
-      x_seconds:
-        one: 'ثانية واحدة'
-        other: '%{count} ثانية'
-      less_than_x_minutes:
-        one: 'أقل من دقيقة'
-        other: '%{count} دقيقة'
-      x_minutes:
-        one: 'دقيقة واحدة'
-        other: '%{count} دقيقة'
-      about_x_hours:
-        one: 'حوالي ساعة واحدة'
-        other: '%{count} ساعة'
-      x_days:
-        one: 'يوم واحد'
-        other: '%{count} يوم'
-      about_x_months:
-        one: 'حوالي شهر واحد'
-        other: '%{count} شهر'
-      x_months:
-        one: 'شهر واحد'
-        other: '%{count} شهر'
-      about_x_years:
-        one: 'حوالي سنة'
-        other: '%{count} سنوات'
-      over_x_years:
-        one: 'أكثر من سنة'
-        other: '%{count} سنة'
-      almost_x_years:
-        one:   "تقريبا سنة واحدة"
-        other: "ما يقرب من %{count} سنة"
-    prompts:
-      year:   "السنة"
-      month:  "الشهر"
-      day:    "اليوم"
-      hour:   "ساعة"
-      minute: "دقيقة"
-      second: "ثانية"
   0_1_or_2: 0، 1 أو 2
   0_or_1: 0، أو 1
   1st_view: العرض الأول
@@ -192,6 +36,7 @@ ar:
         sort_style_id: اتجاه التصنيف الافتراضي
       collection_item: 
         annotation: تعليق توضيحي
+        refs: المراجع <small>(ضع كل مرجع في سطر جديد)</small>
         sort_field: افرز حسب
       comment: 
         body: تعليق
@@ -680,7 +525,6 @@ ar:
   collection_was_added_to_community: تمت إضافة "%{collection}"  لهذا المجتمع.
   collection_was_removed_by_owner: تم حذف تلك المجموعة من قبل مالكها.
   collections: المجموعات
-  collections_lowercase: المجموعات
   collections_summary_empty: لم يتم ضم تلك الصفحة إلى أي مجموعة إلى الآن.
   collections_summary_header_with_count: 
     one: موجود في %{count} مجموعة
@@ -694,6 +538,7 @@ ar:
   comment_created_at: "تم إضافة التعليق في:"
   comment_new_posters_image_advisory_info: سوف تظهر صورتك الشخصية وأسمك بجانب تعليقك في القوائم.
   comment_new_posters_image_alt: صورتك الشخصية، إذا كنت قد أضفت واحدة.
+  comment_new_title: أضف تعليقا جديدا
   comment_not_added_error: عفوًا، حدث خطأ، تعذر إضافة التعليق.
   comment_or_rate_on_this_article: التعليق على هذه المقالة أو تقييمها
   comment_show_posters_image_alt: الصورة الشخصية لـ%{posters_name} الذي أضاف ذلك التعليق.
@@ -763,7 +608,6 @@ ar:
   contact_us: اتصل بنا
   contact_us_functions: وظائف الاتصال بنا
   contact_us_link: اتصل بنا
-  contact_us_request_failed: وقع خطأ!
   contact_us_request_received: تم استلام طلب "اتصل بنا"
   contact_us_request_sent: تم إرسال الطلب بنجاح
   contact_us_submissions: طلبات خاصة برابط اتصل بنا
@@ -1029,16 +873,13 @@ ar:
   daily: يوميًّا
   darwin_core: أرشيف داروين كور
   dashboard: لوحة البيانات
-  data: بيانات
   data_logging_active: تسجيل البيانات نشط
-  data_master: خبير بيانات
   data_object: وحدة بيانات
   data_object_api_description: عند إدخال المعرف الخاص بأحد عناصر البيانات سوف تعرض واجهة برمجة التطبيقات تلك جميع البيانات الفوقية حول العنصر كما تم تقديمها إلى موسوعة الحياة بواسطة مقدم المحتوى المشارك. يتم ذكر شريك المحتوى في عنصر العامل الأول ويؤدي دور "الشريك".
   data_object_ignore: تجاهل هذا العنصر
   data_object_not_associated_with_any_hierarchies: ذلك الموضوع غير مرتبط بأية تسلسلات هرمية
   data_object_reference: مرجع كائن البيانات
   data_object_undo_ignore: إزالة من قائمة التجاهل
-  data_objects: عناصر_البيانات
   data_usage_reports: تقارير استخدام البيانات
   date_caps: التاريخ
   date_uploaded: تحميل التاريخ
@@ -1195,7 +1036,6 @@ ar:
   external_report_click_year_to_proceed: تقرير خارجي. انقر على "السنة" للمضي قدمًا.
   facebook: موقع فايسبوك
   faculty_staff_or_grad_student_credential_option: حالة أساتذة أو عاملون أو طلبة دراسات عليا في قسم بجامعة أو كلية ذات صلة
-  failed_login_attempts: باءت محاولات تسجيل الدخول بالفشل)- يجب أن يتم التحقق من المشكلة ليتمكن المستخدم من تسجيل الدخول
   family_name_colon: "اسم العائلة:"
   feedback: التعليقات
   file: ملف
@@ -1244,7 +1084,6 @@ ar:
   focus_list_newsfeed: تحديثات قائمة اﻹهمامات
   for_example_for_the_taxon_element_for_a_node: "على سبيل المثال، سوف يكون المعرف الخاص بعنصر أحد النقاط  في التسلسل الهرمي الخاص [نظام المعلومات التصنيفية المتكامل هو الرقم التسلسلي التصنيفي بنظام المعلومات التصنيفية المتكامل (ITIS TSN). عناصر الأصناف بأرشيف داروين كور: يضم عنصر معرف الأصنوفة  <i>EOL identifier</i> معرف موسوعة الحياة ليتم استخدامه في واجهة برمجة التطبيقات%{link}."
   for_images_to_reference_parens: (للصور من لأجل المرجع)
-  for_name: لـ %{name}
   for_pdfs_and_docs_parens: (لملفات الـ PDF ومستندات doc)
   for_terms_or_definitions_conta: "للمصطلحات أو التعريفات المحتوية على:"
   forgot_password: هل نسيت كلمة السر؟
@@ -1267,7 +1106,7 @@ ar:
   from_community: من مجتمع  %{community}
   full_content_url: عنوان محتوى كامل
   gbif_map: خريطة المرفق العالمي لمعلومات التنوع الحيوي
-  gbif_occurrence_disclaimer: تعتمد تلك الخريطة على سجلات الأحداث المتاحة من خلال <a href='http://http://www.gbif.org/'>GBIF network</a> ويمكن ألا تمثل التوزيع التصنيفي الكامل.
+  gbif_occurrence_disclaimer: تعتمد تلك الخريطة على سجلات الأحداث المتاحة من خلال <a href='http://www.gbif.org/'>GBIF network</a> ويمكن ألا تمثل التوزيع التصنيفي الكامل.
   gbif_occurrence_learn_more_link: الوصول إلى هذه البيانات من خلال بوابة بيانات المرفق العالمي لمعلومات التنوع البيولوجي.
   general_site_admin: مشرف الموقع العام
   get_help_choosing_a_subchapter: أحصل على مساعدة في اختيار فصل فرعي
@@ -1308,8 +1147,9 @@ ar:
         view_style_id: عرض مبدئي
       collection_item: 
         annotation: تعليق توضيحي
-        sort_field: افرز حسب <small>(تاريخ، رقم، نص؛ اختياري)</small>
         sort_field_show: قيمة التصنيف
+      comment: 
+        body_edit: عدل التعليق
       content_page: 
         active: نشر
         active_more: سوف تكون الصفحات المنشورة ظاهرة للعامة. أزل العلامة أمام <em>published</em> إذا كنت ترغب في منع عامة المستخدمين من مشاهدة نسخ من تلك الصفحة بأي لغة.
@@ -1492,12 +1332,10 @@ ar:
   hidden: مخفي
   hidden_comment: hidden comment
   hide: hide
-  hierarchies: التسلسلات الهرمية
   hierarchies_description: لا تعتمد موسوعة الحياة تسلسل هرمي تصنيفي واحد في إنشاء الصفحات. عوضًا عن ذلك، تفهرس موسوعة الحياة العديد من التسلسلات الهرمية وتعقد مقارنة بينهم. تعرض واجهة برمجة التطبيقات تلك البيانات الفوقية عن أحد التسلسلات الهرمية مثل اسم مقدمها والعنوان الإلكتروني للمصدر، كما تعرض جميع الأصناف التي تمثل الأصناف الرئيسية للشجرة التصنيفية.
   hierarchies_entries_description: لا تعتمد موسوعة الحياة تسلسلاً هرميًّا تصنيفيًّا واحدًا في إنشاء الصفحات. عوضًا عن ذلك، تفهرس موسوعة الحياة العديد من التسلسلات الهرمية وتعقد مقارنة بينهم. ونتيجة لذلك، يمكن أن ترتبط أي من صفحات موسوعة الحياة بعدة نقاط في تسلسلات هرمية متنوعة. تتيح واجهة برمجة التطبيقات الوصول إلى تسلسل هرمي واحد والعلاقات بداخله. يرجى العودة إلى التوثيق بواجهة برمجة التطبيقات في الصفحات للمزيد من المعلومات حول الوصول إلى تسلسلات هرمية أخرى تماثل صفحة محددة بموسوعة الحياة. تضم خانة معرف مفهوم الأصنوفة معرف صفحة موسوعة الحياة والذي يمكن استخدامه في واجهة برمجة تطبيقات الصفحات.
   hierarchies_title: التسلسلات الهرمية
   hierarchy: تسلسل هرمي
-  hierarchy_entries: مداخل التسلسل الهرمي
   hierarchy_entry_switch_missing_id_error: عفوًا، لم نتمكن من العثور على صفحة مدخل التسلسل الهرمي الذي قمت باختياره نتيجة لفقدان المعرف.
   hierarchy_roots_colon: "التسلسلات الهرمي الرئيسي:"
   hierarchy_selector_drop_down_list_label: ذلك هو التصنيف الذي سوف يظهر في لائحة اختيار التسلسل الهرمي المنسدلة
@@ -1540,7 +1378,6 @@ ar:
   include_all_metadata: ضم جميع البيانات الفوقية الخاصة بعناصر البيانات
   indexed: مفهرس
   info_item: معلومة
-  info_items: معلومات
   information_for_any_audience: معلومات لعامة الجمهور
   information_intended_for_beginners: معلومات للمبتدئين
   information_intended_for_experts: معلومات للخبراء
@@ -1656,7 +1493,6 @@ ar:
   literature_references: مراجع المطبوعات
   location: الموقع
   location_colon: "المكان:"
-  logging: تسجيل
   login: تسجيل الدخول
   login_header: سجل دخولك لحسابك <abbr title="Encyclopedia of Life">بموسوعة الحياة</abbr>
   login_hidden_user_message: الحساب %{given_name} غير نشط
@@ -1665,9 +1501,7 @@ ar:
   login_to_the_website_as: ادخل على الموقع باسم %{username}
   logo_header: شعار
   logout: تسجيل الخروج
-  main_colon: "الرئيسية:"
   main_content_area: "مساحة المحتوى الرئيسية:"
-  main_master_colon: "المشرف الرئيسي:"
   main_species_page_link_with_spaces: " &nbsp;&nbsp; صفحة الأنواع >>"
   maintained_by: يحفظها
   major_heading: العنوان الرئيسي
@@ -1716,7 +1550,6 @@ ar:
   meta_description_colon: "الأوصاف الفوقية:"
   meta_description_community: "%{community_name} %{community_description}. مجتمع بموسوعة الحياة."
   meta_description_default: تمثل موسوعة الحياة جهدًا غير مسبوق لجمع ومشاركة المعرفة العلمية حول كل الكائنات الحية في مورد إلكتروني واحد، متيحة لكل واحد منا منظرًا يسلب الألباب لعالمنا المذهل.
-  meta_description_taxon: أوصاف وصور ومقاطع فيديو وأكثر عن %{preferred_common_name_or_blank} %{scientific_name} في موسوعة الحياة.
   meta_keywords_colon: "كلمات مفتاحية فوقية:"
   meta_title_default: موسوعة الحياة
   meta_title_template: "%{page_title} - موسوعة الحياة"
@@ -1782,7 +1615,6 @@ ar:
   name_preferred_taxonomically_for_source_help_tip: توضح %{icon} الاسم  المفضل لكل مصدر.
   name_preferred_taxonomically_for_source_yes: المفضل
   names: أسماء
-  names_children_column_header: الأطفال
   names_common_empty: لا توجد اسماء شائعة مرتبطة بتلك الأصنوفة حتى الأن.
   names_common_list_by_language_assistive_header: الاسماء الشائعة معروضة وفقًا للغة
   names_curation_column_header: الإشراف
@@ -1849,7 +1681,6 @@ ar:
   note_that_you_can_reference_im: لاحظ أنه يمكنك إضافة مراجع للصور ذات رمز HTML &lt;img&gt; ولكن يجب أن يكن لهم عنوان URL كأن يكون عنوان الموقع الأصلي أو موقع مثل فليكر. ولا توجد وسيلة لتحميل الصور داخل عنصر الخبر يمكن استخدامها بصورة مباشرة.
   notes: ملاحظات
   notes_not_shown_to_user: "ملحوظات (لا تظهر للمستخدم):"
-  notice_colon: "ملاحطة:"
   notifier: 
     activity_log_empty: No recent actions by curators.
     activity_on_content_partner_content: 
@@ -1975,11 +1806,9 @@ ar:
   page_statistics_and_tools: إحصائيات وأدوات الصفحة
   page_statistics_explanation: <p> تجمع موسوعة الحياة بعض الإحصائيات عن تلك الصفحة أتوماتيكيًا. يتم إعادة حساب تلك الإحصائيات كل يوم أو يومين.</p><h5>معدل الثراء</h5><p> يتكون معدل الثراء من عدة عوامل مختلفة:<ul><li>حجم النص المتواجد في الصفحة</li><li>عدد ملفات الوسائط المتعددة أو الخرائط المتاحة</li><li>عدد الموضوعات المختلفة المناقشة</li><li>عدد المصادر المختلفة التي تقدم معلومات</li><li>ما إذا تم مراجعة المعلومات</li><li>إذا كانت الصفحة تحتوى على الكثير من الوسائط المتعددة أو النصوص بالفعل، فإن إضافة المزيد لن يزيد من معدل الثراء</li><li>يتراوح معدل الثراء ما بين 0 و100. لا داعي للقلق، فأن الفارق الذي يساوي عدة نقاط ليس ذا أهمية كبرى. مع مرور الوقت، من الممكن تغيير كيفية حساب ذلك المعدل ليعكس خبرتك في التعامل مع الموقع الإلكتروني بصورة أفضل. يرجى إعلامنا برأيك من خلال إضافة تعليق في الصفحات التي تعتقد بأننا أخطأنا في الحكم عليها. </p><h5>الصور الموثوق بها</p><h5>تضم جميع الصور الموثوق بها بتلك الصفحة والصفحات التي تظهر في التصنيف أسفل تلك الصفحة. ويضم كل من الصور المقدمة من الشركاء الموثوق بهم وتلك المقدمة من شركاء مثل فليكر أو ويكيميديا والتي أقرها أحد مشرفي موسوعة الحياة.</p><h5>المقالات الموثوق بها</p><h5>تضم جميع المقالات النصية الموثوق بها في علامة تبويب الشرح وعلامة تبويب المصادر. تضم مقالات نصية مقدمة من الشركاء الموثوق بهم، كما تضم المقالات المقدمة من أعضاء موسوعة الحياة مباشرة أو المقدمة من موقع ويكيبيديا والتي أقرها أحد مشرفي موسوعة الحياة. ولا تضم المقالات الموجودة في الصفحات التي تظهر في التصنيف المتواجد أسفل تلك الصفحة.</p><h5>المقالات غير المراجعة</p><h5>تضم جميع المقالات النصية غير المراجعة في علامة تبويب الشرح في تلك الصفحة والعديد من المقالات في علامة تبويب المصادر. تضم مقالات نصية مقدمة مباشرة من أعضاء موسوعة الحياة مباشرة أو المقدمة من موقع ويكيبيديا وفي انتظارإقرارها من قبل أحد مشرفي موسوعة الحياة. ولا تضم المقالات الموجودة في الصفحات التي تظهر في التصنيف المتواجد أسفل تلك الصفحة.</p>
   page_urls: "عناوين الصفحة/ الصفحات URL:"
-  page_view: عرض الصفحة
   pages: الصفحات.
   pages_admin_section_link: المشرفون
   pages_curator_section_link: المشرفون
-  pages_lowercase: صفحات
   pages_method_description: يقبل معرف صفحة بموسوعة الحياة ويعرض الاسم  العلمي لتلك الصفحة، كما يعرض اختياريًا  معلومات عن الأسماء الشائعة، والوسائط (نصوص، وصور، ومقاطع فيديو)، ومراجع للتسلسلات الهرمية التي تقر بالأصنوفة الموضحة في
   pages_title: المراجع
   pages_with_count: 
@@ -2014,7 +1843,6 @@ ar:
   person_rating: تقييم الشخص
   personal_profile_menu: الصفحة الشخصية
   personal_space: المساحة الشخصية
-  ping: محرك بحث بينج
   ping_method_description: يمكن لتلك الطريقة أن تفشل (في تلك الحالة من المرجح أن يتم عرض صفحة الخطأ بموسوعة الحياة) أو أن يتم عرض رسالة نجاح. لا يمكن عرض رسائل أخرى.
   please: رجاءً
   please_ask_big_before_changing_toc: رجاء التأكد مع أحد أعضاء معلوماتية التنوع الحيوي قبل تحرير جدول المحتويات. فبعض أسماء الفصول لا يمكن تغييرها إذ يبحث الكود عن بعض الفصول بعنوانهم. لا يمكن رسم خرائط عناصر المعلومات في واجهة المستخدم هذه، إذ يجب أن يتم هذا يدويًا في قاعدة البيانات.
@@ -2043,7 +1871,6 @@ ar:
   profile_picture: صورة الحساب الشخصي
   project: مشروع
   provider: مقدم المحتوى
-  provider_hierarchies: التسلسلات الهرمية التابعة لمقدم المحتوى
   provider_hierarchies_method_description: سوف تعرض تلك الطريقة مراجع إلى جميع التسلسلات الهرمية المقدمة من شركاء محتوى موسوعة الحياة. وسوف تضم الاستجابة عنوان التسلسل الهرمي والمعرف المميز بموسوعة الحياة والذي يمثل ذلك التسلسل.
   providers: مقدمو المحتوى
   public: عام
@@ -2077,6 +1904,7 @@ ar:
   recognized_by_as_a_rank: "%{recognized_by} على أنها  %{taxon_rank}"
   recognized_by_from_source_as_a_rank: "%{recognized_by} فى  %{source} على أنها %{taxon_rank}"
   record_not_found: "[record not found]"
+  references_cabs_colon: "المراجع:"
   related_names_with_count: 
     one: "%{count} أسم ذا صلة"
     other: "%{count} أسم ذا صلة"
@@ -2116,7 +1944,6 @@ ar:
   rights: الحقوق
   rights_holder: صاحب حقوق الملكية
   rights_statement: إقرار الحقوق
-  rss: RSS
   rss_feed: خبر سريع RSS
   save: حفظ
   save_annotation_submit_button: حفظ التعليق
@@ -2125,7 +1952,6 @@ ar:
   sci_name_avg_table_head: متوسط الأسماء العلمية
   scientific_name: اسم علمي
   search: بحث
-  search_by_provider: البحث وفقًا لمقدم المحتوى
   search_by_provider_method_description: أحصل على معرفات صفحة موسوعة الحياة عند إدخال معرف_تسلسل هرمي خاص بأحد مقدمي المحتوى والمعرف المميز الخاص بمقدم المحتوى.
   search_by_term_page_title: "البحث: %{term}"
   search_field_label: البحث في موسوعة الحياة
@@ -2137,7 +1963,6 @@ ar:
   search_for_users_containing_this_in_their_username_name_or_email_address: "بحث عن المستخدمين الذين تحتوى اسماء المستخدمين، أو الاسماء، أو البريد الإلكتروني الخاص بهم على:"
   search_input_advisory_information: ادخل اسم شائع أو اسم علمي لكائن حي ترغب في معرفة المزيد عنه. يمكنك أيضًا البحث عن أعضاء، ومجموعات، ومجتمعات بموسوعة الحياة.
   search_log_report_intro: تبين هذه المساحة أكثر مصطلحات البحث شيوعًا بين المستخدمين، وعدد مرات إجراء البحث وبعض المعلومات حول عدد النتائج الواردة لمصطلح البحث. انقر على الأعمدة للترتيب حسب الأعمدة. وانقر على مصطلح البحث للحصول على المعلومات التي قام المستخدمين بالنقر عليها بعد إجراء البحث (إن وجد).
-  search_lowercase: بحث
   search_method_description: عند إدخال قيمة عنصر محدد (مثل الاسم  العلمي= هومو سابينس)، سوف يتم عرض قائمة مرقمة لصفحات موسوعة الحياة التي تضم مصطلح البحث
   search_next_label: التالي
   search_placeholder: البحث في موسوعة الحياة...
@@ -2262,7 +2087,6 @@ ar:
   spm_category_partner_count: فئة التخطيط الإحصائي المتكرر - عدد المشاركين
   started: بدأ
   stat: إحصائية
-  statistic: إحصاء
   statistics: الإحصائيات
   sub_heading: عنوان فرعي
   subject: الموضوع
@@ -2273,6 +2097,7 @@ ar:
   supplier: المُورِّد
   supplier_allcaps: "المُورِّد:"
   supplier_colon: "المُورِّد:"
+  survey_link: شارك في استقصائنا
   switch_language_advisory_information: تغيير لغة الموقع إلى %{language_label}
   synonym: مرادف
   synonyms_with_count: 
@@ -2325,7 +2150,6 @@ ar:
   taxon_suggested: الأصنوفة المقترحة
   taxonomic_summary_of_content: الملخص التصنيفي للمحتوى
   technical_functions: الوظائف التقنية
-  term: المصطلح
   term_cannot_be_left_blank: لا يمكن ترك المصطلح خالي
   term_is_already_def_error: المصطلح ' %{term}'  مُعرَّف بالفعل
   terms_agreement_form_fallback: يرجى استعراض والموافقة على <a href="%{terms_url}">شروط الاستخدام</a> قبيل الدخول غلى حسابك.
@@ -2397,7 +2221,6 @@ ar:
   this_map_is_unpublished: هذه الخريطة غير منشورة.
   this_method_takes_an_integer_or_string: This method takes an integer or string which is the unique identifier for a taxon from some provider's database, and a hierarchy_id which represents the provider and returns the EOL page ID for that taxon. For example using the %{link_provider} API, I can find out that the EOL hierarchy_id for the Integrated Taxonomic Information System (ITIS) is %{itis_id}. I can then search EOL for the ITIS Taxonomic Serial Number (TSN) of 180542,<i>Ursus maritimus</i>, by calling %{link_url}
   this_page_shows_information_ab: تُظهر هذه الصفحة معلومات حول مصطلح بحث محدد ويقوم المستخدم بالنقر على النتائج بعد إجراء البحث.
-  this_resource_here_stars: هذا المورد هنا ***
   this_resource_unpublished_notice: لم يقرر المدير أن هذا المورد منشور في هذا الوقت.
   this_section_is_used_to_create: يستخدم هذا القسم لإنشاء أخبار جديدة. وتظهر الأخبار الجديدة على الجزء الأيمن من الصفحة الرئيسية، وفي %{rss_link} وعلى صفحة %{news_archive}.
   this_sound_cannot_be_curated_because_unpublished: لا يمكن معالجة هذا الصوت لأنه غير منشور
@@ -2416,8 +2239,6 @@ ar:
   to_submit_a_species_photograph_for: لتقديم صورة أنواع لـ %{taxon} ارسل الصور إلى %{flickr_link} واتبع التعليمات الظاهرة على الصفحة الرئيسية لهذه المجموعة .
   to_submit_text_content_for_taxon_please_be_sure_you_are_logged: لتقديم محتوى نصي لـ %{taxon} رجاء التأكد من تسجيلك في موقع موسوعة الحياة والنقر على
   toc: الفهرس
-  toc_entry: مدخل في جدول المحتويات
-  toc_no_longer_available: جدول المحتويات غير متاح حاليًا
   topic: موضوع
   topic_area: موضوع
   topics_avilable_to_contact_us_info: الموضوعات التالية متاحة من صفحة "اتصل بنا". يمكنك إضافة أو تحرير الموضوعات والبريد الإلكتروني الخاص بكل منها. وتتم كل التغييرات في الحال.
@@ -2443,7 +2264,6 @@ ar:
   type: النوع
   unable_to_copy_items_to_collection_error: عفوًا، تعذر نسخ عناصر المجموعة إلى %{name}.
   unable_to_invite_users_to_community_error: تعذر إرسال الدعوات إلى  %{users}.
-  unique_page_view: عرض صفحة متفرد
   unknown: غير معروف
   unpublished: لم يتم نشره
   unreviewed: لم تتم مراجعته
@@ -2511,7 +2331,6 @@ ar:
   user_says_colon: "%{users_name} يقول:"
   user_submitted_text: نص قدمه مستخدم
   user_submitted_text_found: "النص المضاف من قبل المستخدم:"
-  user_submitted_text_titlecase: النص الذي أضافه المستخدم
   user_system_down: نعتذر، فنظام تسجيل المستخدمين غير متاح حاليًّا. يرجى المحاولة لاحقًا.
   user_was_added_as_editor_of_collection: تمت إضافة هذا المستخدم كمدير لـ "%{collection}".
   username: اسم المستخدم
@@ -2553,7 +2372,6 @@ ar:
   videos_with_count: 
     one: "%{count} فيديو"
     other: "%{count} فيديو"
-  view: عرض
   view_added_text: عرض النص المضاف
   view_article_source: عرض مصدر المقال
   view_as_button: تغيير طريقة العرض

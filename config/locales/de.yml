@@ -394,6 +394,7 @@ de:
   an_unknown_user: Ein unbekannter Nutzer
   and: und
   and_between_form_items: und
+  annotation_cabs_colon: "Annotation:"
   any_integer: eine beliebige ganze Zahl
   api_docs_collections_description: Nach Angabe der Kennung für eine Sammlung wird diese API alle ihre Metadaten sowie die in ihr enthaltenen Objekte ausgeben. Die Objektliste kann nach Objekttyp gefiltert werden sowie nach den oben angegebenen Attributen sortiert werden.
   application_version_advisory_information: Programmversion
@@ -427,6 +428,7 @@ de:
   assistive_overview_header: Übersicht
   assistive_taxon_community_header: Gemeinschaft
   assistive_updates_header: Aktualisierungen
+  assistive_updates_statistics_header: Seitenstatistiken
   associated_submit_button: verbunden
   associated_with_article_header: In diesem Artikel
   associated_with_header: Verbunden mit
@@ -535,7 +537,6 @@ de:
   collection_was_added_to_community: Die Sammlung „%{collection}“ wurde dieser Gemeinschaft hinzugefügt.
   collection_was_removed_by_owner: Diese Sammlung wurde von ihrem Besitzer entfernt.
   collections: Sammlungen
-  collections_lowercase: Sammlungen
   collections_summary_empty: Diese Seite befindet sich noch nicht in einer Sammlung.
   collections_summary_header_with_count: 
     one: Bestandteil einer Sammlung
@@ -624,7 +625,7 @@ de:
   contact_us: Kontaktieren Sie uns
   contact_us_functions: Kontaktfunktionen
   contact_us_link: Kontaktieren Sie uns
-  contact_us_request_failed: Ein Fehler ist / Mehrere Fehler sind aufgetreten.
+  contact_us_request_failed: Beim Senden dieser Anfrage ist leider ein Fehler aufgetreten.
   contact_us_request_received: Ihre Kontaktanfrage wurde empfangen
   contact_us_request_sent: Die Anfrage wurde erfolgreich gesendet
   contact_us_submissions: Kontaktaufnahmen
@@ -893,16 +894,15 @@ de:
   daily: Täglich
   darwin_core: Darwin Core
   dashboard: Übersichtsseite
-  data: Daten
+  data_database_colon: "Datenbanken (Daten):"
   data_logging_active: Datenprotokollierung aktiv
-  data_master: Hauptdaten
+  data_master_database_colon: "Hauptdatenbanken (Daten):"
   data_object: Datenobjekt
   data_object_api_description: Nach Angabe der Kennung für ein Datenobjekt wird diese API alle Metadaten des Objektes zurückgeben, wie sie EOL von den bereitstellenden Inhaltspartnern mitgeteilt wurden. Der Inhaltspartner wird dabei im ersten Element mit der Rolle „Partner“ zitiert.
   data_object_ignore: Dieses Objekt ignorieren
   data_object_not_associated_with_any_hierarchies: Dieses Datenobjekt ist keiner Hierarchien zugeordnet.
   data_object_reference: Datenobjektquelle
   data_object_undo_ignore: Von der Liste der zu ignorierenden Objekte entfernen
-  data_objects: data_objects
   data_usage_reports: Datennutzungsbericht
   date_caps: Datum
   date_uploaded: Hochladedatum
@@ -1059,7 +1059,9 @@ de:
   external_report_click_year_to_proceed: Externer Bericht. Klicken Sie auf das Jahr, um den Vorgang fortzusetzen.
   facebook: Facebook
   faculty_staff_or_grad_student_credential_option: Professor, Doktorand oder Mitarbeiter der Fakultät bzw. eines Fachbereiches einer Hochschule
-  failed_login_attempts: fehlgeschlagene Anmeldeversuche) - muss aktiviert werden, damit sich Nutzer anmelden können
+  failed_login_attempts_with_count: 
+    one: (Ein gescheiterter Anmeldeversuch) - muss ausgewählt sein, damit sich der Nutzer anmelden kann
+    other: (%{count} gescheiterte Anmeldeversuche) - muss ausgewählt sein, damit sich der Nutzer anmelden kann
   family_name_colon: "Nachname:"
   feedback: Rückmeldungen
   file: Datei
@@ -1108,7 +1110,6 @@ de:
   focus_list_newsfeed: Neuigkeitenfeed der Schwerpunktliste
   for_example_for_the_taxon_element_for_a_node: Beispielsweise wird der dc:identifier für das Taxonelement eines Knotenpunkts in der ITIS-Hierarchie die ITIS TSN sein. Das Element dwct:taxonID enthält den <i>EOL identifier</i>, der in der %{link} API verwendet werden kann.
   for_images_to_reference_parens: (nach zu referenzierenden Bildern)
-  for_name: nach %{name}
   for_pdfs_and_docs_parens: (nach PDF-Dateien und Dokumenten)
   for_terms_or_definitions_conta: "nach Bedingungen und Definitionen, die folgendes enthalten:"
   forgot_password: Passwort vergessen?
@@ -1131,7 +1132,7 @@ de:
   from_community: von der Gemeinschaft %{community}
   full_content_url: Vollständige URL
   gbif_map: GBIF-Karte
-  gbif_occurrence_disclaimer: Diese Karte basiert auf den Datensätzen zur Vorkommen, die über <a href='http://http://www.gbif.org/'>GBIF</a> verfügbar sind, und stellen möglicherweise nicht das gesamte Verbreitungsgebiet dar.
+  gbif_occurrence_disclaimer: Diese Karte basiert auf den Datensätzen zur Vorkommen, die über <a href='http://www.gbif.org/'>GBIF</a> verfügbar sind, und stellen möglicherweise nicht das gesamte Verbreitungsgebiet dar.
   gbif_occurrence_learn_more_link: Greifen Sie über das GBIF-Portal auf diese Daten zu.
   general_site_admin: allgemeine Websiteadministration
   get_help_choosing_a_subchapter: Holen Sie sich Hilfe zur Auswahl eines Unterkapitels
@@ -1142,6 +1143,7 @@ de:
   global_access_tagline: Globaler Zugang zum Wissen über das Leben auf der Erde.
   global_navigation: Globale Navigation
   glossary_is_empty: (Glossar ist leer)
+  glossary_term: Begriff
   glossary_terms: Glossarbegriffe
   go: Los
   go_back: zurück
@@ -1172,8 +1174,7 @@ de:
         view_style_id: "Standardansicht:"
       collection_item: 
         annotation: Annotation
-        sort_field: Sortieren nach <small>(Datum, Zahl oder Text; optional)</small>
-        sort_field_more: Optionaler Wert, nach dem die Sammlung sortiert werden soll (Datumsangaben im Format JJJJ.MM.TT, Zahlen oder Text).
+        sort_field: Sortieren nach <small>(Datum - JJJJ.MM.TT, Zahl oder Text)</small>
         sort_field_show: "Wert sortieren:"
       comment: 
         body_edit: Kommentar bearbeiten
@@ -1359,12 +1360,10 @@ de:
   hidden: Verborgen
   hidden_comment: versteckter Kommentar
   hide: verbergen
-  hierarchies: Hierarchien
   hierarchies_description: Bei der Enzyklopädie des Lebens (EOL) gibt es keine einzelne taxonomische Hierarchie auf deren Basis die Seiten erstellt werden. Tatsächlich indexiert EOL viele Hierarchien und vergleicht sie miteinander. Diese API listet die Metadaten, bspw. den Bereitsteller der Daten und die URL der Quelle, einer Hierarchie auf, wie auch alle Taxa, die die Basistaxa eines Taxonomiebaumes darstellen.
   hierarchies_entries_description: Bei der Enzyklopädie des Lebens (EOL) gibt es keine einzelne taxonomische Hierarchie auf deren Basis die Seiten erstellt werden. Tatsächlich indexiert EOL viele Hierarchien und vergleicht sie miteinander. Daher kann jede Seite der EOL einen Bezug zu mehreren Knotenpunkten unterschiedlicher Hierarchien aufweisen. Diese API ermöglicht die Anzeige einer einzelnen Hierarchie mitsamt ihren internen Verbindungen. Bitte lesen Sie die Dokumentation zur Seiten-API um zu erfahren, wie man auf andere Hierarchien zugreifen kann, die mit einer bestimmten Seite der EOL in Verbindung stehen. Das Feld „taxonConceptID“ enthält die Kennung der EOL-Seite, die in der Seiten-API genutzt werden kann.
   hierarchies_title: Hierarchien
   hierarchy: Hierarchie
-  hierarchy_entries: hierarchy_entries
   hierarchy_entry_switch_missing_id_error: Die Eingabeseite für die von Ihnen ausgewählte Hierarchie konnte leider, aufgrund einer fehlenden Kennung, nicht gefunden werden.
   hierarchy_roots_colon: "Hierarchiebasen:"
   hierarchy_selector_drop_down_list_label: Dies ist die Bezeichnung, die zur Ausklappliste in der Hierarchieauswahl angezeigt werden wird.
@@ -1411,7 +1410,7 @@ de:
   include_all_metadata: alle Metadaten zu Datenobjekten einbeziehen
   indexed: Indiziert
   info_item: Information
-  info_items: Informationen
+  info_items_col_header: Informationen
   information_for_any_audience: Informationen für alle Nutzer
   information_intended_for_beginners: Informationen für Einsteiger
   information_intended_for_experts: Informationen für Experten
@@ -1527,7 +1526,7 @@ de:
   literature_references: Literaturquellen
   location: Standort
   location_colon: "Ort:"
-  logging: Protokollierung
+  logging_database_colon: "Protokollierungsdatenbanken:"
   login: Anmelden
   login_header: Melden Sie mit Ihrem Konto bei <abbr title="Enzyklopädie des Lebens">EOL</abbr> an.
   login_hidden_user_message: Das Konto %{given_name} ist nicht mehr aktiv
@@ -1536,9 +1535,9 @@ de:
   login_to_the_website_as: Anmeldung auf der Website als %{username}
   logo_header: Logo
   logout: Abmelden
-  main_colon: "Startseite:"
   main_content_area: "Hauptinhaltsbereich:"
-  main_master_colon: "Hauptseite:"
+  main_database_colon: "Hauptdatenbanken:"
+  main_master_database_colon: "Führende Hauptdatenbanken:"
   main_species_page_link_with_spaces: " &nbsp;&nbsp; Seite zu Arten>>"
   maintained_by: gepflegt von
   major_heading: Hauptüberschrift
@@ -1591,9 +1590,77 @@ de:
   meta_description_colon: "Meta-Beschreibung:"
   meta_description_community: "%{community_name} %{community_description}. Eine Gemeinschaft der Enzyklopädie des Lebens (EOL)."
   meta_description_default: Die Enzyklopädie des Lebens (EOL) stellt ein bislang noch nie dagewesenes Bemühen dar, wissenschaftliche Erkenntnisse zu allen Lebewesen an einer einzigen, online verfügbaren, Stelle zusammenzutragen, um uns so einen atemberaubenden Blick auf unsere erstaunliche Welt zu ermöglichen.
-  meta_description_taxon: Beschreibungen, Bilder, Videos und mehr zu %{preferred_common_name_or_blank} %{scientific_name} in der Enzyklopädie des Lebens (EOL).
+  meta_description_hierarchy_entry_communities: Beteiligen Sie sich als Teil der Gemeinschaft bezüglich %{scientific_name}. Tragen Sie Ihr Erfahrungen und Ihr Fachwissen zu %{scientific_name}, entsprechend der Klassifizierung in der Enzyklopädie des Lebens (EOL) durch %{hierarchy_provider}, bei.
+  meta_description_hierarchy_entry_communities_with_common_name: Beteiligen Sie sich als Teil der Gemeinschaft bezüglich %{preferred_common_name}. Tragen Sie Ihr Erfahrungen und Ihr Fachwissen zu %{scientific_name}, entsprechend der Klassifizierung in der Enzyklopädie des Lebens (EOL) durch %{hierarchy_provider}, bei.
+  meta_description_hierarchy_entry_details: Informationen zu %{scientific_name}, entsprechend der Klassifizierung in der Enzyklopädie des Lebens (EOL) durch %{hierarchy_provider}.
+  meta_description_hierarchy_entry_details_with_chapter_list: Informationen zu %{scientific_name}, entsprechend der Klassifizierung in der Enzyklopädie des Lebens (EOL) durch %{hierarchy_provider}. Enthält auch Informationen zu %{chapter_list}.
+  meta_description_hierarchy_entry_details_with_common_name: Informationen zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}, entsprechend der Klassifizierung in der Enzyklopädie des Lebens (EOL) durch %{hierarchy_provider}.
+  meta_description_hierarchy_entry_details_with_common_name_and_chapter_list: Informationen zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}, entsprechend der Klassifizierung in der Enzyklopädie des Lebens (EOL) durch %{hierarchy_provider}. Enthält auch Informationen zu %{chapter_list}.
+  meta_description_hierarchy_entry_literature: Literatur und Informationen zu %{scientific_name}, entsprechend der Klassifizierung in der Enzyklopädie des Lebens (EOL) durch %{hierarchy_provider}. Lesen Sie Artikel zu %{scientific_name} in der Enzyklopädie des Lebens.
+  meta_description_hierarchy_entry_literature_with_common_name: Literatur und Informationen zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}, entsprechend der Klassifizierung in der Enzyklopädie des Lebens (EOL) durch %{hierarchy_provider}. Lesen Sie Artikel zu %{preferred_common_name} in der Enzyklopädie des Lebens.
+  meta_description_hierarchy_entry_maps: Geografische Informationen zum Verbreitungsgebiet und dem heimischen Lebensraum zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
+  meta_description_hierarchy_entry_maps_with_common_name: Wo können %{preferred_common_name} beobachtet werden und wo leben sie? Geografische Informationen zum Verbreitungsgebiet und dem heimischen Lebensraum zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
+  meta_description_hierarchy_entry_media: Bilder und Videos zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
+  meta_description_hierarchy_entry_media_with_common_name: Bilder und Videos zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
+  meta_description_hierarchy_entry_names: Taxonomische Klassifizierung und wissenschaftliche Namen zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
+  meta_description_hierarchy_entry_names_with_common_name: Taxonomische Klassifizierung und wissenschaftliche Namen zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
+  meta_description_hierarchy_entry_overview: Eine Übersicht zu %{scientific_name}, entsprechend der Klassifizierung in der Enzyklopädie des Lebens (EOL) durch %{hierarchy_provider}.
+  meta_description_hierarchy_entry_overview_with_common_name: Eine Übersicht zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}, entsprechend der Klassifizierung in der Enzyklopädie des Lebens (EOL) durch %{hierarchy_provider}.
+  meta_description_hierarchy_entry_resources: Quellen und Referenzierungen von Inhaltspartnern zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
+  meta_description_hierarchy_entry_resources_with_common_name: Quellen und Referenzierungen von Inhaltspartnern zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
+  meta_description_hierarchy_entry_updates_show: Nachrichten und Neuigkeiten zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
+  meta_description_hierarchy_entry_updates_show_with_common_name: Nachrichten und Neuigkeiten zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
+  meta_description_hierarchy_entry_updates_statistics: Statistiken und Daten zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
+  meta_description_hierarchy_entry_updates_statistics_with_common_name: Statistiken und Daten zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
+  meta_description_taxon_communities: Beteiligen Sie sich als Teil der Gemeinschaft bezüglich %{scientific_name}. Tragen Sie Ihr Erfahrungen und Ihr Fachwissen zu %{scientific_name} bei.
+  meta_description_taxon_communities_with_common_name: Beteiligen Sie sich als Teil der Gemeinschaft bezüglich %{preferred_common_name}. Tragen Sie Ihr Erfahrungen und Ihr Fachwissen zu %{scientific_name} bei.
+  meta_description_taxon_details: Informationen zu %{scientific_name} in der Enzyklopädie des Lebens (EOL).
+  meta_description_taxon_details_with_chapter_list: Informationen zu %{scientific_name} in der Enzyklopädie des Lebens (EOL). Enthält Informationen zu %{chapter_list}.
+  meta_description_taxon_details_with_common_name: Informationen zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}, in der Enzyklopädie des Lebens (EOL).
+  meta_description_taxon_details_with_common_name_and_chapter_list: Informationen zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}, in der Enzyklopädie des Lebens (EOL). Enthält auch Informationen zu %{chapter_list}.
+  meta_description_taxon_literature: Literatur und Informationen zu %{scientific_name} in der Enzyklopädie des Lebens (EOL). Lesen Sie Artikel zu %{scientific_name} in der Enzyklopädie des Lebens.
+  meta_description_taxon_literature_with_common_name: Literatur und Informationen zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}, in der Enzyklopädie des Lebens (EOL). Lesen Sie Artikel zu %{preferred_common_name} in der Enzyklopädie des Lebens.
+  meta_description_taxon_maps: Geografische Informationen zum Verbreitungsgebiet und dem heimischen Lebensraum zu %{scientific_name}.
+  meta_description_taxon_maps_with_common_name: Wo können %{preferred_common_name} beobachtet werden und wo leben sie? Geografische Informationen zum Verbreitungsgebiet und dem heimischen Lebensraum zu %{scientific_name}.
+  meta_description_taxon_media: Bilder und Videos von %{scientific_name}.
+  meta_description_taxon_media_with_common_name: Bilder und Videos von %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}.
+  meta_description_taxon_names: Taxonomische Klassifizierung und wissenschaftliche Namen zu %{scientific_name}.
+  meta_description_taxon_names_with_common_name: Taxonomische Klassifizierung und wissenschaftliche Namen zu %{preferred_common_name}, auch bekannt als %{scientific_name}.
+  meta_description_taxon_overview: Eine Übersicht zu %{scientific_name} in der Enzyklopädie des Lebens (EOL).
+  meta_description_taxon_overview_with_common_name: Eine Übersicht zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}, in der Enzyklopädie des Lebens (EOL).
+  meta_description_taxon_resources: Quellen und Referenzierungen von Inhaltspartnern zu %{scientific_name}.
+  meta_description_taxon_resources_with_common_name: Quellen und Referenzierungen von Inhaltspartnern zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}.
+  meta_description_taxon_updates: Nachrichten und Neuigkeiten zu %{scientific_name}.
+  meta_description_taxon_updates_statistics: Statistiken und Daten zu %{scientific_name} in der Enzyklopädie des Lebens (EOL).
+  meta_description_taxon_updates_statistics_with_common_name: Statistiken und Daten zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}, in der Enzyklopädie des Lebens (EOL).
+  meta_description_taxon_updates_with_common_name: Nachrichten zu %{preferred_common_name} und Neuigkeiten zu %{scientific_name}.
   meta_keywords_colon: "Meta-Keywords:"
+  meta_keywords_taxon_communities: "%{scientific_name}-Gemeinschaft"
+  meta_keywords_taxon_communities_with_common_name: "%{preferred_common_name}-Gemeinschaft, %{scientific_name}-Gemeinschaft"
+  meta_keywords_taxon_literature: Informationen zu %{scientific_name}, Literatur zu %{scientific_name}, Artikel zu %{scientific_name}
+  meta_keywords_taxon_literature_with_common_name: Informationen zu %{preferred_common_name}, Literatur zu %{preferred_common_name}, Artikel zu %{scientific_name}
+  meta_keywords_taxon_maps: Verbreitungsgebiet von %{scientific_name}, heimischer Lebensraum, wo lebt %{scientific_name}
+  meta_keywords_taxon_maps_with_common_name: Verbreitungsgebiet von %{preferred_common_name}, heimischer Lebensraum, wo lebt %{preferred_common_name}
+  meta_keywords_taxon_media: Fotos von %{scientific_name}, Videos von %{scientific_name}, Bilder von %{scientific_name}, Mediendateien
+  meta_keywords_taxon_media_with_common_name: Fotos von %{preferred_common_name}, Videos von %{preferred_common_name}, Bilder von %{preferred_common_name}, Mediendateien
+  meta_keywords_taxon_names: Taxonomie, Klassifizierung
+  meta_keywords_taxon_updates: Nachrichten zu %{scientific_name}, Neuigkeiten zu %{scientific_name}.
+  meta_keywords_taxon_updates_statistics: Statistiken zu %{scientific_name}, Daten zu %{scientific_name}
+  meta_keywords_taxon_updates_statistics_with_common_name: Statistiken zu %{preferred_common_name}, Daten zu %{preferred_common_name}
+  meta_keywords_taxon_updates_with_common_name: Nachrichten zu %{preferred_common_name}, Neuigkeiten zu %{preferred_common_name}, Neuigkeiten zu %{scientific_name}
   meta_title_default: Enzyklopädie des Lebens
+  meta_title_taxon_communities: "%{scientific_name}-Gemeinschaft und Expertenkommentare"
+  meta_title_taxon_communities_with_common_name: Gemeinschaft zu %{preferred_common_name} – Expertenkommentare zu %{scientific_name}
+  meta_title_taxon_literature: Artikel zu %{scientific_name}
+  meta_title_taxon_literature_with_common_name: Literatur und Informationen zu %{preferred_common_name} - Artikel zu %{scientific_name}
+  meta_title_taxon_maps_with_common_name: Lebensraum von %{preferred_common_name}
+  meta_title_taxon_media: Bilder von %{scientific_name} – Videos von %{scientific_name} – Medien zu %{scientific_name}
+  meta_title_taxon_media_with_common_name: Bilder von %{preferred_common_name} – Videos von %{preferred_common_name} – Medien zu %{scientific_name}
+  meta_title_taxon_names: Taxonomieklassifizierung
+  meta_title_taxon_updates_show: Nachrichten und Neuigkeiten zu %{scientific_name}
+  meta_title_taxon_updates_show_with_common_name: Nachrichten zu %{preferred_common_name} - Neuigkeiten zu %{scientific_name}
+  meta_title_taxon_updates_statistics: Statistische Daten und Informationen zu %{scientific_name}
+  meta_title_taxon_updates_statistics_with_common_name: Statistiken zu %{preferred_common_name} - Statistische Daten und Informationen zu %{scientific_name}
   meta_title_template: "%{page_title} - Enzyklopädie des Lebens"
   method: Methode
   method_to_get_metadata_about_the_hierarchy: nach Angabe einer Hierarchiekennung wird diese Methode die Metadaten der Hierarchie und Ihre Basistaxa ausgeben
@@ -1607,7 +1674,7 @@ de:
       species: Arten
       taxa: Taxa
     search: 
-      no_results_found: Keine Ergebnisse gefunden
+      no_results_found: Es wurde keine Ergebnisse gefunden.
       results: Ergebnisse
       suggestions: Vorschläge
     taxa: 
@@ -1659,7 +1726,6 @@ de:
   name_preferred_taxonomically_for_source_help_tip: "%{icon} zeigt den bevorzugen Namen für jede Quelle an."
   name_preferred_taxonomically_for_source_yes: Bevorzugt
   names: Namen
-  names_children_column_header: Untergeordnete Namen
   names_common_empty: Diesem Taxon wurden bislang noch keine gebräuchlichen Namen zugeordnet.
   names_common_list_by_language_assistive_header: Nach Sprachen aufgelistete gebräuchliche Namen
   names_curation_column_header: Kuratierung
@@ -1726,7 +1792,6 @@ de:
   note_that_you_can_reference_im: Beachten Sie, dass Sie mit dem HTML-Tag &lt;img&gt; Bilder einbinden können. Sie müssen allerdings vorhanden sein, entweder auf der ursprünglichen Website oder auf Websites wie Flickr. Es gibt keine Möglichkeit Bilder hochzuladen, um Sie innerhalb von Nachrichten anzeigen zu können.
   notes: Anmerkungen
   notes_not_shown_to_user: "Anmerkungen (werden Nutzern nicht angezeigt):"
-  notice_colon: "HINWEIS:"
   notifier: 
     activity_log_empty: Keine aktuellen Aktionen durch Kuratoren.
     activity_on_content_partner_content: 
@@ -1856,11 +1921,10 @@ de:
   page_statistics_and_tools: Seitenstatistiken und Hilfsmittel
   page_statistics_explanation: <p>EOL berechnet automatisch einige Statistiken zu den in ihr enthaltenen Seiten. Diese Statistiken werden entweder jeden oder alle zweit Tage neu berechnet.</p><h5>Reichhaltigkeitswert</h5><p>Der Reichhaltigkeitswert setzt sich auch vielen verschiedenen Faktoren zusammen:<ul><li>wie umfangreich der Text einer Seite ist,</li><li>wie viele Multimedia- oder Kartendateien zur Verfügung stehen,</li><li>wie viele verschiedene Themen abgedeckt werden,</li><li>wie viele unterschiedliche Quellen zu den Informationen vorhanden sind und</li><li>ob die Informationen überprüft wurden oder nicht.</li></ul></p><p>Sofern eine Seite bereits eine Menge an Multimediadateien enthält oder über einen umfangreichen Text verfügt, kann dadurch der Reichhaltigkeitswert nicht weiter erhöht werden.</p><p>Der Reichhaltigkeitswert kann zwischen 0 und 100 liegen. Unterschiede von ein paar Punkte spielen dabei keine große Rolle. Im Laufe der Zeit kann sich die Berechnungsmethode ändern, um Ihre Erfahrungen mit der Website besser darstellen zu können. Lassen Sie es uns bitte durch Sie einen Kommentar auf den entsprechenden Seiten wissen, sofern Sie denken, dass wir deren Inhalt falsch eingeschätzt haben.</p><h5>Vertrauenswürdige Bilder</h5><p>Diese Statistik enthält alle vertrauenswürdigen Bilder einer Seite sowie von Seiten, die in einer ihr untergeordneten Klassifikation angezeigt werden. Dies beinhaltet Bilder, die von vertrauenswürdigen Partnern stammen, sowie Bilder von Partnern wie Flickr oder Wikimedia Commons, die von einem EOL-Kurator als vertrauenswürdig eingestuft wurden.</p><h5>Ungeprüfte Bilder</h5><p>In dieser Statistik sind alle nicht geprüften Bilder einer Seite sowie von Seiten enthalten, die in einer ihr untergeordneten Klassifikation angezeigt werden. Einige EOL-Partner bieten viele Bilder hoher Qualität, die noch noch nicht geprüft wurde. Bilder die von einem EOL-Kurator als nicht vertrauenswürdig eingestuft wurden, sind nicht enthalten.</p><h5>Vertrauenswürdige Artikel</h5><p>Die Statistik umfasst alle vertrauenswürdigen Artikel unter dem Reiter Einzelheiten sowie etliche Artikel unter dem Reiter Quellen. Sie enthält auch Artikel von vertrauenswürdigen Partnern. Enthalten sind zudem Artikel, die direkt in der EOL von Mitwirkenden erstellt wurden, oder Artikel der Wikipedia, die in der EOL enthalten sind, und denen bereits von einem EOL-Kurator vertraut wurde. Alle Artikel auf Seiten einer der Seite untergeordneten Klassifikation sind allerdings nicht enthalten.</p><h5>Ungeprüfte Artikel</h5><p>Die Statistik umfasst alle nicht geprüften Artikel unter dem Reiter Einzelheiten sowie etliche Artikel unter dem Reiter Quellen. Enthalten sind Artikel, die direkt in der EOL von Mitwirkenden erstellt wurden, oder Artikel der Wikipedia, die in der EOL enthalten sind, und die noch nicht durch einen EOL-Kurator überprüft wurden. Alle Artikel auf Seiten einer der Seite untergeordneten Klassifikation sind allerdings nicht enthalten.</p>
   page_urls: "Seiten-URL(s):"
-  page_view: Seitenansicht
+  page_views_th: Seitenaufrufe
   pages: Seiten.
   pages_admin_section_link: Administratoren
   pages_curator_section_link: Kuratoren
-  pages_lowercase: Seiten
   pages_method_description: nimmt eine EOL-Seitenkennung auf und gibt den wissenschaftlichen Namen auf der Seite aus. Optional werden die Informationen zu gebräuchlichen Namen, Medien (Texte, Bilder und Videos) sowie die Quellen zu den Hierarchien ausgegeben, die das der Seite beschriebenen Taxon enthalten.
   pages_title: Quellen
   pages_with_count: 
@@ -1895,7 +1959,6 @@ de:
   person_rating: Personenbewertung
   personal_profile_menu: Persönliches Profil
   personal_space: Persönlicher Bereich
-  ping: Ping
   ping_method_description: Diese Methode wird entweder scheitern und höchstwahrscheinlich eine EOL-Fehlerseite anzeigen oder es wird eine Erfolgsnachricht gezeigt. Andere Meldungen gibt es hierzu nicht.
   please: Bitte
   please_ask_big_before_changing_toc: Bitte nehmen Sie Kontakt zur Gruppe für Biodiversitätsinformatik auf, bevor Sie das Inhaltsverzeichnis bearbeiten. Einige Kapitelnamen können nicht verändert werden, da ihren Namen dem Abruf der Inhalte dienen. Informationsobjekte können nicht über diese Nutzeroberfläche hinterlegt und müssen manuell in der Datenbank gepflegt werden.
@@ -1904,6 +1967,7 @@ de:
   please_leave_your_feedback: Bitte hinterlassen Sie Ihre Rückmeldung
   please_note_that_some_of_these: Bitte beachten Sie, dass einige dieser Hilfsmittel vorläufig sind und entweder Fehler haben, bzw. sich über die Zeit noch ändern könnten.
   please_note_wiki_etc_are_not_spm: "* Beachten Sie, dass Wikipedia, Bildung und Barcodes EOL-interne Bestandteile sind. Sie sind nicht Teil des SPM."
+  please_publish_this_resource_notice: "*** <strong>HINWEIS:</strong> Bitte die Quelle hier <strong>%{publish_link}</strong> veröffentlichen ***"
   please_refresh: Bitte aktualisieren Sie die Anzeige in Ihrem Browser, um die neueste Version der Website von EOL sehen zu können.
   please_return_to_eol_homepage: Bitte kehren Sie zur Startseite von EOL zurück
   please_state_one_credential: "Bitte geben Sie mindestens eine der Anmeldeinformationen aus dieser Liste an:"
@@ -1924,7 +1988,6 @@ de:
   profile_picture: Profilbild
   project: Projekt
   provider: Anbieter
-  provider_hierarchies: provider_hierarchies
   provider_hierarchies_method_description: Diese Methode wird Quellen zu allen Hierarchien ausgeben, die von EOL-Inhaltspartnern bereitgestellt wurden. Die Ausgabe wird die Bezeichnung der Hierarchie und deren eindeutige EOL-Kennung enthalten.
   providers: Anbieter
   public: Öffentlich
@@ -1998,7 +2061,6 @@ de:
   rights: Berechtigungen
   rights_holder: Rechteinhaber
   rights_statement: Urheberrechtserklärung
-  rss: RSS
   rss_feed: RSS-Feed
   save: Speichern
   save_annotation_submit_button: Annotation speichern
@@ -2007,7 +2069,6 @@ de:
   sci_name_avg_table_head: Durchschnittlich vorhandene wissenschaftliche Namen
   scientific_name: Wissenschaftlicher Name
   search: Suche
-  search_by_provider: search_by_provider
   search_by_provider_method_description: die Seitenkennungen bei EOL zu einer Hierarchiekennung und einer eindeutigen Kennung des Anbieters abrufen
   search_by_term_page_title: "Suche: %{term}"
   search_field_label: EOL durchsuchen
@@ -2019,7 +2080,6 @@ de:
   search_for_users_containing_this_in_their_username_name_or_email_address: Nach Nutzern suchen, die dies in ihrem Nutzernamen, ihrem Namen oder ihrer E-Mail-Adresse haben.
   search_input_advisory_information: Bitte eine gebräuchliche oder wissenschaftliche Bezeichnung für die lebenden Organismen angeben, zu denen Sie mehr in Erfahrung bringen möchten. Sie können aber auch nach anderen EOL-Mitgliedern, Sammlungen sowie Gemeinschaften suchen.
   search_log_report_intro: Dieser Bereich zeigt die am häufigsten von Nutzern verwendeten Suchbegriffe. Zudem wird angezeigt, wie oft sie genutzt wurden und zusätzlich ein paar Informationen über die Anzahl der zur Suche jeweils angezeigten Ergebnisse. Klicken Sie auf eine der Spalten, um nach ihr zu sortieren. Sofern Sie auf einen Suchbegriff klicken, erhalten Sie Informationen dazu, wie oft, wenn überhaupt, die Nutzer ihn nach Abschluss der Suche aufgerufen haben.
-  search_lowercase: suchen
   search_method_description: gibt nach Angabe eines Wertes zu einem bestimmten Objekt (z. B. wissenschaftlicher Name=Homo sapiens) eine durchnummerierte Liste der Seiten auf EOL zurück, die den Suchbegriff enthalten
   search_next_label: Nächste
   search_placeholder: EOL durchsuchen …
@@ -2149,7 +2209,6 @@ de:
   spm_category_partner_count: SPM-Kategorie - Inhaltspartneranzahl
   started: Gestartet
   stat: Statistik
-  statistic: Statistik
   statistics: Statistiken
   sub_heading: Untergeordnete Überschrift
   subject: Betreff
@@ -2213,8 +2272,8 @@ de:
   taxon_suggested: Vorgeschlagenes Taxon
   taxonomic_summary_of_content: taxonomische Zusammenfassung des Inhalts
   technical_functions: Technische Funktionen
-  term: Begriff
   term_cannot_be_left_blank: Der Begriff darf nicht ausgelassen werden
+  term_for_search_admin_ui: Begriff
   term_is_already_def_error: „%{term}“ ist bereits definiert
   terms_agreement_form_fallback: Bitte lesen und akzeptieren Sie die <a href="%{terms_url}">Nutzungsbedingungen</a>, bevor Sie auf Ihr Konto zugreifen.
   terms_agreement_form_header: Nutzungsbedingungen
@@ -2260,6 +2319,7 @@ de:
   the_suggested_page_to_direct_users_to_link: die vorgeschlagene Seite, zu der die Nutzer geleitet werden sollen
   the_topic_was_updated: Das Thema wurde aktualisiert.
   the_user_was_updated: Der Nutzer wurde aktualisiert.
+  the_user_who_performed_this_action_was_removed: Der Benutzer, der diese Aktion durchführte, wurde entfernt.
   the_xml_search_response_implements: "Die XML-Antwort zur Suche nutzt das OpenSearch-Antwortformat unter Verwendung von Atom 1.0. Unter folgenden Link finden Sie die vollständige OpenSearch-Spezifikation: %{link}"
   there_are_currently_no_members_in_this_community: Diese Gemeinschaft hat momentan keine Mitglieder.
   there_is_no_singular_eol: Bei der Enzyklopädie des Lebens (EOL) gibt es keine einzelne taxonomische Hierarchie. Tatsächlich indexiert EOL viele Hierarchien und vergleicht sie miteinander, um zu ermitteln welche Knotenpunkte auf die selben Taxa verweisen. Diese Taxonelemente sind die Hierarchieknotenpunkte. Das ist der Grund warum möglicherweise mehrere von ihnen für eine bestimmte EOL-Seite vorhanden sind. Bitte lesen Sie die Dokumentation zur %{link}-API um mehr hierzu zu erfahren.
@@ -2285,7 +2345,6 @@ de:
   this_map_is_unpublished: Diese Karte ist unveröffentlicht.
   this_method_takes_an_integer_or_string: Diese Methode gibt zu einer Ganzzahl oder einer Zeichenkette, die der eindeutigen Bezeichner eines Taxons in der Datenbank eines Anbieters ist, in Verbindung mit der Hierarchiekennung des Datenanbieters, die Seitenkennung von EOL zum entsprechenden Taxons aus. Sofern man bspw. die %{link_provider}-API nutzt, kann man die Hierarchiekennung bei EOL zur Kennung %{itis_id} des „Integrated Taxonomic Information System“ (ITIS) ermitteln. Danach kann man in der EOL nach der „ITIS Taxonomic Serial Number“ (TSN) 180542,<i>Ursus maritimus</i> suchen, indem man %{link_url} aufruft.
   this_page_shows_information_ab: Diese Seite zeigt Informationen über die Anzahl der zur Suche jeweils angezeigten Ergebnisse an, sowie welche Ergebnisse die Nutzer nach Abschluss der Suche anklickten.
-  this_resource_here_stars: diese Quelle hier ***
   this_resource_unpublished_notice: Diese Quelle wurde bis zum jetzigen Zeitpunkt noch nicht als veröffentlicht festgelegt.
   this_section_is_used_to_create: Dieser Abschnitt wird dazu verwendet Nachrichten zu erstellen. Nachrichten werden auf der rechten Seite der Startseite sowie in einem %{rss_link} und auf der Archivseite %{news_archive} angezeigt.
   this_sound_cannot_be_curated_because_unpublished: Diese Geräusche können nicht kuratiert werden, da er unveröffentlicht ist.
@@ -2304,8 +2363,8 @@ de:
   to_submit_a_species_photograph_for: Um eine Fotografie für %{taxon} einzureichen, senden Sie bitte das Foto an %{flickr_link} und folgen Sie der Anleitung auf der dortigen Seite.
   to_submit_text_content_for_taxon_please_be_sure_you_are_logged: Um Texte für %{taxon} speichern zu können, müssen Sie darauf achten bei der EOL angemeldet zu sein. Klicken Sie
   toc: Inhaltsverzeichnis
-  toc_entry: Inhaltsverzeichniseintrag
-  toc_no_longer_available: "Inhaltsverzeichnis: nicht mehr verfügbar"
+  toc_entry_col_header: Inhaltsverzeichniseintrag
+  toc_no_longer_available: Die Informationen zum Inhaltsverzeichnis sind nicht mehr verfügbar.
   topic: Thema
   topic_area: Themenbereich
   topics_avilable_to_contact_us_info: Die folgenden Themengebiete sind über die Kontaktseite verfügbar. Sie können Themengebiete, sowie die entsprechenden E-Mail-Adressen, hinzufügen oder bearbeiten. Alle Änderungen werden sofort wirksam.
@@ -2333,7 +2392,7 @@ de:
   type: Art
   unable_to_copy_items_to_collection_error: Es war leider nicht möglich die Sammlung zu %{name} zu kopieren.
   unable_to_invite_users_to_community_error: Die Einladungen konnten nicht zu %{users} gesendet werden.
-  unique_page_view: Eindeutige Seitenzugriffe
+  unique_page_views_th: Eindeutige Seitenzugriffe
   unknown: Unbekannt
   unknown_type_not_associated_with_any_published_entries: Diese Daten sind keinen veröffentlichten Taxa zugeordnet.
   unpublished: Unveröffentlicht
@@ -2412,7 +2471,9 @@ de:
   user_agent: Browser
   user_already_active_notice: Ihr Konto ist bereits aktiv. Bitte melden Sie sich an.
   user_comment: Nutzerkommentar
+  user_commented_on_deleted_user: "<strong>%{user_with_link}</strong> kommentierte die Seite eines gelöschten Nutzers:"
   user_commented_on_something_colon: "<strong>%{user}</strong> kommentierte %{what}:"
+  user_commented_on_themself: "<strong>%{user_with_link}</strong> kommentierte <a href='%{link}'>%{username}s Neuigkeitenfeed</a>:"
   user_comments: Nutzerkommentare
   user_hidden_message: Dieser Nutzer ist nicht mehr aktiv
   user_id: Benutzerkennung
@@ -2425,7 +2486,6 @@ de:
   user_says_colon: "%{users_name} sagt:"
   user_submitted_text: Von Nutzern verfasster Text
   user_submitted_text_found: "Gefundener, von Nutzern verfasster, Text:"
-  user_submitted_text_titlecase: Von Nutzern verfasster Text
   user_system_down: Das Nutzerregistrierungssystem ist momentan nicht verfügbar. Bitte versuchen Sie es später erneut.
   user_was_added_as_editor_of_collection: Dieser Nutzer wurde der Sammlung „%{collection}“ als Verwalter zugeordnet.
   username: Nutzername
@@ -2468,7 +2528,6 @@ de:
   videos_with_count: 
     one: Ein Video
     other: "%{count} Videos"
-  view: Anzeigen
   view_added_text: hinzugefügten Text anzeigen
   view_article_source: Artikelquelltext anzeigen
   view_as_button: Ansicht ändern
@@ -2490,6 +2549,7 @@ de:
   view_translation_source_link: Übersetzungsquelltext anzeigen
   view_user_activity: Benutzeraktivität anzeigen
   view_user_comments: Nutzerkommentare anzeigen
+  view_verb: Ansehen
   view_video_source: Quelle der Videodatei anzeigen
   view_your_curator_profile: Ihr Profil als Kurator ansehen
   visible_title: Sichtbar

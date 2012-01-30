@@ -320,7 +320,6 @@ sv:
   collection_not_found_error: Tyvärr, den samlingen kunde inte hittas.
   collection_updated_notice: Samlingen <em>%{collection_name}</em> uppdaterades.
   collections: Samlingar
-  collections_lowercase: samlingar
   collections_summary_empty: Denna sida är inte i några samlingar ännu.
   collections_summary_header_with_count: 
     one: Finns i %{count} samling
@@ -611,7 +610,6 @@ sv:
       collection: 
         view_style_id: Standardvisning
       collection_item: 
-        sort_field: Sortera efter <small>(datum, nummer eller text; valfritt)</small>
         sort_field_show: "Sorteringsvärde:"
       content_page: 
         active: Publicerad
@@ -736,7 +734,6 @@ sv:
   hidden: Dolda
   hidden_comment: dold kommentar
   hide: dölj
-  hierarchies: hierarkier
   home: Hem
   home_page_link_advisory_information: Denna länk tar dig till startsidan för Encyclopedia Of Life
   id: ID
@@ -935,7 +932,6 @@ sv:
   page_statistics_and_tools: sidstatistik och verktyg
   pages_admin_section_link: Administratörer
   pages_curator_section_link: Kuratorer
-  pages_lowercase: sidor
   pages_title: Sidor
   pages_with_count: 
     one: "%{count} sida"
@@ -957,7 +953,6 @@ sv:
     other: "%{count} personer"
   permalink: Permanent länk
   personal_space: Personliga utrymme
-  ping: ping
   please_confirm_your_donation_details: Var god bekräfta din donationsdetaljer
   please_indicate_curation_reason: "Var god välj en anledning och/eller alternativ lämna en kuratorkommentar:"
   please_wait: Var god vänta …
@@ -1005,7 +1000,6 @@ sv:
   search_by_term_page_title: "Sök: %{term}"
   search_field_label: Sök EOL
   search_input_advisory_information: Skriv in vanliga eller vetenskapliga namn på levande organismer som du skulle vilja veta mer om. Du kan även sök efter EOL-medlemmar, samlingar och gemenskaper.
-  search_lowercase: sök
   search_placeholder: Sök i EOL...
   search_results: Sökresultat
   search_the_site: Sök på webbplatsen
@@ -1177,7 +1171,6 @@ sv:
   videos_with_count: 
     one: "%{count} video"
     other: "%{count} videor"
-  view: Visa
   view_article_source: Visa artikelkälla
   view_curators: visa kuratorer
   view_error_log: visa fellogg

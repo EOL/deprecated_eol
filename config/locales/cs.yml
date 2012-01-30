@@ -275,7 +275,6 @@ cs:
   collection_not_found_error: Omlouváme se, tato sbírka nebyla nalezena.
   collection_was_removed_by_owner: Sbírka byla odstraněna jejím vlastníkem.
   collections: Sbírky
-  collections_lowercase: sbírky
   collections_summary_empty: Tato stránka ještě není v žádné sbírce.
   collections_summary_header_with_count: 
     one: V %{count} sbírce
@@ -388,7 +387,6 @@ cs:
   dashboard: Nástěnka
   data_object_ignore: ignorovat tento objekt
   data_object_undo_ignore: Odstranit ze seznamu ignorovaných
-  data_objects: data_objects
   dato_create_cancel: Storno
   dato_edit_cancel: Storno
   dato_edit_text_link_button: Upravit tento článek
@@ -602,10 +600,8 @@ cs:
       wikipedia_queue: 
         create: Odeslat žádost
   hidden: Skryté
-  hierarchies: hierarchie
   hierarchies_title: Hierarchie
   hierarchy: Hierarchie
-  hierarchy_entries: hierarchy_entries
   hierarchy_updated: Hierarchie aktualizována
   home: Domů
   id: ID
@@ -681,7 +677,6 @@ cs:
   name_preferred_for_language_yes: Preferované
   name_preferred_taxonomically_for_source_yes: Preferované
   names: Názvy
-  names_children_column_header: Podřazené
   names_common_list_by_language_assistive_header: Běžné názvy podle jazyků
   names_name_column_header: Název
   names_sources_column_header: Zdroje
@@ -733,7 +728,6 @@ cs:
   page_statistics_and_tools: statistiky a nástroje stránky
   pages_admin_section_link: Administrátoři
   pages_curator_section_link: Kurátoři
-  pages_lowercase: stránky
   pages_title: Reference
   pages_with_pictures_and_text: Stránky s obrázky a textem
   pages_with_pictures_or_text: Stránky s obrázky nebo textem
@@ -776,12 +770,10 @@ cs:
   save_curated_association_submit_button: Uložit asociace
   scientific_name: Vědecký název
   search: Vyhledávání
-  search_by_provider: seach_by_provider
   search_by_term_page_title: "Vyhledávání: %{term}"
   search_field_label: Vyhledávat v EOL
   search_for_comments_containing_the_text: "Hledat komentáře obsahující text:"
   search_for_users_containing_this_in_their_username_name_or_email_address: Hledat uživatele jejichž jméno, uživatelské jméno nebo emailová adresa toto obsahuje.
-  search_lowercase: hledat
   search_placeholder: Prohledat EOL ...
   search_results: Výsledky vyhledávání
   search_term_reports: zpráva o hledání výrazu
@@ -901,7 +893,6 @@ cs:
   user: Uživatel
   user_activity_stats_header: Činnost
   user_says_colon: "%{users_name} říká:"
-  user_submitted_text_titlecase: Text vložený uživateli
   username: Uživatelské jméno
   username_colon: Uživatelské jméno
   username_taken: "%{name} již existuje"
@@ -912,7 +903,6 @@ cs:
   value_default: (výchozí)
   value_empty: (prázdné)
   values: Hodnoty
-  view: Zobrazení
   view_added_text: zobrazit přidaný text
   view_article_source: Zobrazit zdroj článku
   view_curators: zobrazit kurátory

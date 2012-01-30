@@ -398,7 +398,6 @@ es:
   collection_updated_notice: Colección <em>%{collection_name}</em> actualizado correctamente.
   collection_was_removed_by_owner: Esta colección fue retirada por su propietario.
   collections: Colecciones
-  collections_lowercase: colecciones
   collections_summary_header_with_count: 
     one: "Presente en %{count} colección "
     other: Presente en %{count} colecciónes
@@ -616,7 +615,6 @@ es:
   data_object_ignore: ignorar este elemento
   data_object_not_associated_with_any_hierarchies: Este objeto de datos no está asociado con ninguna jerarquía.
   data_object_undo_ignore: eliminar de la lista de ignorados
-  data_objects: data_objects
   data_usage_reports: Informes de uso de datos
   dato_create_cancel: Cancelar
   dato_create_update_user_text_missing_taxon_id_exception: No se puede construir un texto DataObject o UsersDataObject si falta taxon_concept_id.
@@ -718,7 +716,6 @@ es:
   external_link_header: Enlace externo
   external_link_icon_alt_text: Enlace externo.
   facebook: Facebook
-  failed_login_attempts: intentos fallidos de inicio de sesión) - se debe comprobar para que el usuario pueda iniciar sesión
   family_name_colon: "Apellido:"
   feedback: Realimentación
   fill_in_a_message_below_to_send_email_to_user: "Llenar un mensaje a continuación para enviar un correo electrónico a este usuario.  El mensaje se enviará cuando usted envíe el formulario:"
@@ -944,12 +941,10 @@ es:
       wikipedia_queue: 
         create: Enviar solicitud
   hidden: Oculto
-  hierarchies: jerarquías
   hierarchies_description: La Enciclopedia de la Vida no crea sus páginas usando una sola jerarquía taxonómica. Más bien, EOL indexa muchas jerarquías y las compara entre sí. Este API lista de metadatos sobre una jerarquía, tales como el nombre del proveedor y el URL de la fuente, así como todos los taxones que están en la raíz del árbol taxonómico
   hierarchies_entries_description: La Enciclopedia de la Vida no crea sus páginas usando una sola jerarquía taxonómica. Más bien, EOL indexa muchas jerarquías y las compara entre sí. Como resultado, una página de EOL puede estar relacionada con varios nodos de varias jerarquías. Este API da acceso a una jerarquía individual y a sus relaciones internas. Vea la documentación el API páginas para ver cómo acceder a otras jerarquías que corresponden a una página de EOL. El campo taxonConceptID contiene el identificador de página de EOL que puede ser usado en el API páginas.
   hierarchies_title: Jerarquías
   hierarchy: Jerarquía
-  hierarchy_entries: hierarchy_entries
   hierarchy_entry_switch_missing_id_error: Lo sentimos, la página de entrada de la jerarquía que ha seleccionado no se pudo encontrar debido a la falta de un identificador.
   hierarchy_selector_drop_down_list_label: Esta es la etiqueta que aparecerá en el menú desplegable de selección de jerarquía
   hierarchy_updated: Jerarquía actualizada
@@ -1114,7 +1109,6 @@ es:
   name_preferred_taxonomically_for_source_help_tip: "%{icon} marca el nombre preferido para cada recurso."
   name_preferred_taxonomically_for_source_yes: Preferred
   names: Nombres
-  names_children_column_header: Niños
   names_common_empty: Todavía no se han asociado nombres comunes con este taxón
   names_common_list_by_language_assistive_header: Nombres comunes listados por idioma
   names_curation_column_header: Curación
@@ -1202,7 +1196,6 @@ es:
   page_statistics_explanation: <p>EOL calcula automáticamente algunas estadísticas sobre sus páginas. Estas estadísticas se recalculan cada uno o dos días.</p><h5>Puntuación de Riqueza</h5><p>Puntuación de Riqueza es una combinación de muchos factores como:<ul><li>¿Cuánto texto tiene una página</li><li>¿Cuántos multimedia o archivos de mapas están disponibles</li><li>¿Cuántos temas diferentes están cubiertos</li><li>¿Cuántas diferentes fuentes aportan información</li></ul></p><p>Además, consideramos si se ha revisado la información o no. Si una página tiene ya un mucho texto o multimedia, no aumentar la puntuación de riqueza al agregar más.</p><p>La puntuación de riqueza oscila entre 0 y 100, donde las páginas más ricas tienen las puntuaciones más altas. No te preocupes, probablemente no son muy importantes las diferencias en las puntuaciones de riqueza de unos pocos puntos. Con el tiempo podemos cambiar la manera calculamos esta puntuación para reflejar mejor su experiencia en el sitio. Asegúrese de hacernos saber qué piensa dejando un comentario en las páginas que crea que hemos juzgado mal.</p><h5>Imágenes de confianza</h5><p>Incluye todas las imágenes de confianza para esta página y las páginas que aparecen en una clasificación por debajo de esta página. Este número incluye imágenes que proveinen de socios confiables, así como imágenes procedentes de socios como Flickr o Wikimedia Commons que han sido declaradas de confianza por un curador EOL.</p><h5>Imágenes no revisadas</h5><p>Incluye todas las imágenes no revisadas para esta página y las páginas que aparecen en una clasificación por debajo de esta página. Algunos de nuestros socios ofrecen gran cantidad de imágenes de alta calidad que pueden ser mejores que las que son de confianza, pero simplemente no han sido revisadas aún. No incluye imágenes que han sido declaradas de no confianza por un curador EOL.</p><h5>Artículos de confianza</h5><p>Incluye todos los artículos de texto confianza en la pestaña Detalles de esta página y varios artículos de la pestaña de recursos. Este número incluye artículos de texto que provienen de socios de confianza. También incluye artículos contribuidos directamente a EOL por sus miembros o de Wikipedia que han sido confiados por un curador de EOL. No incluye artículos sobre las páginas que aparecen en una clasificación por debajo de esta página.</p><h5>Artículos no revisados</h5><p>Incluye todos los artículos de texto no revisados en la pestaña Detalles de esta página y varios artículos de la pestaña de recursos. Este número incluye artículos de texto contribuidos directamente a EOL por sus miembros o de Wikipedia que están esperando la revisión de un curador EOL. No incluye artículos sobre las páginas que aparecen en una clasificación por debajo de esta página.</p>
   pages_admin_section_link: Administradores
   pages_curator_section_link: Curadores
-  pages_lowercase: páginas
   pages_method_description: toma un identificador de página de EOL y retorna el nombre científico para esa página, y, opcionalmente, información sobre nombres comunes, medios (texto, imágenes y vídeos), y referencias a las jerarquías que reconocen el taxón descrito en el
   pages_title: Referencias
   pages_with_count: 
@@ -1223,7 +1216,6 @@ es:
   password_colon: "Contraseña:"
   permalink: Permalink
   personal_space: Espacio personal
-  ping: ping
   ping_method_description: este método tiene solo dos posibles resultados, puede fracasar (en cuyo caso posiblemente retorne una página de error de EOL), o bien, puede retornar un mensaje de éxito.
   please_confirm_your_donation_details: Por favor confirmar los detalles de su donación
   please_indicate_curation_reason: "Por favor, seleccione un motivo y, opcionalmente, deje un comentario de curación:"
@@ -1236,7 +1228,6 @@ es:
   profile_image_alt_text_curator: Imagen de perfil del curador %{user_full_name}
   profile_image_alt_text_member: Imagen de perfil del miembro %{user_full_name}
   profile_newsfeed: Newsfeed Mio
-  provider_hierarchies: provider_hierarchies
   provider_hierarchies_method_description: Este método retornará referencias a todas las jerarquías proveídas por los Socios de Contenido de EOL. La respuesta incluirá la etiqueta de la jerarquía y el ID único de EOL que la representa
   public: Público
   public_domain: dominio público
@@ -1294,14 +1285,12 @@ es:
   save_curated_association_submit_button: Guardar asociación
   scientific_name: Nombre científico
   search: Buscar
-  search_by_provider: search_by_provider
   search_by_provider_method_description: obtener los ID de página de EOL a partir de la hierarchy_id del proveedor y su identificador único
   search_by_term_page_title: "Buscar: %{term}"
   search_field_label: Buscar en EOL
   search_for_comments_containing_the_text: "Buscar comentarios que tienen el texto:"
   search_for_users_containing_this_in_their_username_name_or_email_address: Buscar los usuarios que tienen esto en su nombre de usuario, nombre, o dirección electrónica.
   search_input_advisory_information: Escriba un nombre común o un nombre científico de una criatura viviente de la que le gustaría saber más. También puede buscar miembros de EOL, colecciones y comunidades.
-  search_lowercase: buscar
   search_method_description: dado un valor para un elemento específico  (e.g., scientific name=Homo sapiens), devuelve una lista paginada de las páginas de EOL que contienen el termino buscado
   search_placeholder: Buscar en EOL ...
   search_results: Resultados de la búsqueda
@@ -1493,7 +1482,6 @@ es:
   user_left_comment_on_date: "%{username} dejó un comentario en fecha %{date}."
   user_says_colon: "%{users_name} dice:"
   user_submitted_text_found: "Se encontró el siguiente texto enviado por usuario:"
-  user_submitted_text_titlecase: Texto Enviado por el Usuario
   user_system_down: Lo sentimos, pero el sistema de registro de usuario no está disponible en este momento. Por favor, inténtelo de nuevo más tarde.
   username: Nombre de usuario
   username_colon: "Nombre de usuario:"
@@ -1523,7 +1511,6 @@ es:
   values: Valores
   version_1_0_uses_fields_from_the_latest_version: la versión 1.0 usa campos de la última versión del esquema %{link}
   vetted: Aprobados
-  view: Vista
   view_added_text: ver texto añadido
   view_article_source: Ver fuente del artículo
   view_contact_us_submissions: ver las solicitudes a contáctenos

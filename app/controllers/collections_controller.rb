@@ -366,22 +366,17 @@ private
   def annotate
     if @collection.update_attributes(params[:collection])
       if @collection.show_references
-        @collection_item = CollectionItem.find(params[:collection][:collection_items_attributes].keys.map {|i|
+        collection_item = CollectionItem.find(params[:collection][:collection_items_attributes].keys.map {|i|
               params[:collection][:collection_items_attributes][i][:id] }.first)
-        @collection_item.refs.clear
-        @references = params[:references]
-        params[:references] = params[:references].split("\n") unless params[:references].blank?
-
+        collection_item.refs.clear
         unless params[:references].blank?
-          params[:references].each do |reference|
-            if reference.strip != ''
-              reference = reference.downcase
-              ref = Ref.find_by_full_reference_and_user_submitted_and_published_and_visibility_id(reference, 1, 1, Visibility.visible.id)
-              if (ref)
-                @collection_item.refs << ref
-              else
-                @collection_item.refs << Ref.new(:full_reference => reference, :user_submitted => true, :published => 1, :visibility => Visibility.visible)
-              end
+          params[:references].split("\n").each do |original_ref|
+            reference = original_ref.strip.downcase
+            unless reference.blank?
+              ref = Ref.find_or_create_by_full_reference_and_user_submitted_and_published_and_visibility_id(reference, 1, 1, Visibility.visible.id)
+              puts "++ created Ref #{ref.id}"
+              collection_item.refs << ref
+              collection_item.save!
             end
           end
         end

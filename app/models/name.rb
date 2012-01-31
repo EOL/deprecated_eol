@@ -129,8 +129,8 @@ class Name < SpeciesSchemaModel
     return false
   end
 
+private
 
-  private
   def clean_name_must_be_unique
     found_name = Name.find_by_string(self.string)
     errors.add_to_base("Name string must be unique") unless found_name.nil?

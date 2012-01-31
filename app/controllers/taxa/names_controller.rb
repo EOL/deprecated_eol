@@ -45,8 +45,7 @@ class Taxa::NamesController < TaxaController
       if !params[:preferred_name_id].nil?
         name = Name.find(params[:preferred_name_id])
         language = Language.find(params[:language_id])
-        @taxon_concept.add_common_name_synonym(name.string, :agent => current_user.agent, :language => language, :preferred => 1,
-                                   :vetted => Vetted.trusted)
+        @taxon_concept.add_common_name_synonym(name.string, :agent => current_user.agent, :language => language, :preferred => 1, :vetted => Vetted.trusted)
         expire_taxa([@taxon_concept.id])
       end
 
@@ -64,6 +63,7 @@ class Taxa::NamesController < TaxaController
     synonym_id = params[:synonym_id].to_i
     category_id = params[:category_id].to_i
     synonym = Synonym.find(synonym_id)
+    synonym.hide_in_solr
     if synonym && @taxon_concept
       log_action(@taxon_concept, synonym, :remove_common_name)
       tcn = TaxonConceptName.find_by_synonym_id_and_taxon_concept_id(synonym_id, @taxon_concept.id)
@@ -116,10 +116,12 @@ class Taxa::NamesController < TaxaController
       when "Trusted"
         log_action(@taxon_concept, synonym, :trust_common_name)
       when "Inappropriate"
+        synonym.hide_in_solr
         log_action(@taxon_concept, synonym, :inappropriate_common_name)
       when "Unknown"
         log_action(@taxon_concept, synonym, :unreview_common_name)
       when "Untrusted"
+        synonym.hide_in_solr
         log_action(@taxon_concept, synonym, :untrust_common_name)
       end
     end

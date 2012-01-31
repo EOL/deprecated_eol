@@ -3,9 +3,9 @@
     .site_column
       .hgroup
         %h1= @page_title
-        = yield :social_sharing
         %h2<
           = render :partial => 'data_objects/owner', :locals => { :data_object => @data_object }
+        = yield :social_sharing
       .page_actions
         %ul
           %li

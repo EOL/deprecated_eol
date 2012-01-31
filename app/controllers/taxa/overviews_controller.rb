@@ -44,21 +44,4 @@ class Taxa::OverviewsController < TaxaController
     current_user.log_activity(:viewed_taxon_concept_overview, :taxon_concept_id => @taxon_concept.id)
   end
 
-protected
-  def set_meta_description
-    if @selected_hierarchy_entry
-      @preferred_common_name ?
-        I18n.t(:meta_description_hierarchy_entry_overview_with_common_name, :scientific_name => @scientific_name,
-          :hierarchy_provider => @selected_hierarchy_entry.hierarchy_label,
-          :preferred_common_name => @preferred_common_name) :
-        I18n.t(:meta_description_hierarchy_entry_overview, :scientific_name => @scientific_name,
-          :hierarchy_provider => @selected_hierarchy_entry.hierarchy_label)
-    else
-      @preferred_common_name ?
-        I18n.t(:meta_description_taxon_overview_with_common_name, :scientific_name => @scientific_name,
-          :preferred_common_name => @preferred_common_name) :
-        I18n.t(:meta_description_taxon_overview, :scientific_name => @scientific_name)
-    end
-  end
-
 end

@@ -33,36 +33,4 @@ class Taxa::LiteratureController < TaxaController
     current_user.log_activity(:viewed_taxon_concept_bhl_title, :taxon_concept_id => @taxon_concept.id)
   end
 
-protected
-  def set_meta_title
-    I18n.t(:meta_title_template,
-      :page_title => [
-        @preferred_common_name ? I18n.t(:meta_title_taxon_maps_with_common_name,
-        :preferred_common_name => @preferred_common_name, :scientific_name => @scientific_name) :
-        I18n.t(:meta_title_taxon_literature, :scientific_name => @scientific_name),
-        @assistive_section_header,
-        @selected_hierarchy_entry ? @selected_hierarchy_entry.hierarchy_label : nil,
-      ].compact.join(" - "))
-  end
-  def set_meta_description
-    if @selected_hierarchy_entry
-      @preferred_common_name ?
-        I18n.t(:meta_description_hierarchy_entry_literature_with_common_name, :scientific_name => @scientific_name,
-          :hierarchy_provider => @selected_hierarchy_entry.hierarchy_label,
-          :preferred_common_name => @preferred_common_name) :
-        I18n.t(:meta_description_hierarchy_entry_literature, :scientific_name => @scientific_name,
-          :hierarchy_provider => @selected_hierarchy_entry.hierarchy_label)
-    else
-      @preferred_common_name ?
-        I18n.t(:meta_description_taxon_literature_with_common_name, :scientific_name => @scientific_name,
-          :preferred_common_name => @preferred_common_name) :
-        I18n.t(:meta_description_taxon_literature, :scientific_name => @scientific_name)
-    end
-  end
-  def additional_meta_keywords
-   [ @preferred_common_name ?
-      I18n.t(:meta_keywords_taxon_literature_with_common_name, :preferred_common_name => @preferred_common_name,
-        :scientific_name => @scientific_name) :
-      I18n.t(:meta_keywords_taxon_literature, :scientific_name => @scientific_name) ]
-  end
 end

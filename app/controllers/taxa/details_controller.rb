@@ -68,40 +68,14 @@ class Taxa::DetailsController < TaxaController
 protected
   def set_meta_description
     chapter_list = @toc.collect{|i| i.label}.uniq.compact.join("; ") unless @toc.blank?
-    if @selected_hierarchy_entry
-      if @preferred_common_name
-        chapter_list ?
-          I18n.t(:meta_description_hierarchy_entry_details_with_common_name_and_chapter_list,
-            :scientific_name => @scientific_name,
-            :hierarchy_provider => @selected_hierarchy_entry.hierarchy_label,
-            :preferred_common_name => @preferred_common_name, :chapter_list => chapter_list) :
-          I18n.t(:meta_description_hierarchy_entry_details_with_common_name, :scientific_name => @scientific_name,
-            :hierarchy_provider => @selected_hierarchy_entry.hierarchy_label,
-            :preferred_common_name => @preferred_common_name)
-      else
-        chapter_list ?
-          I18n.t(:meta_description_hierarchy_entry_details_with_chapter_list, :scientific_name => @scientific_name,
-            :hierarchy_provider => @selected_hierarchy_entry.hierarchy_label,
-            :chapter_list => chapter_list) :
-          I18n.t(:meta_description_hierarchy_entry_details, :scientific_name => @scientific_name,
-            :hierarchy_provider => @selected_hierarchy_entry.hierarchy_label)
-      end
-    else
-      if @preferred_common_name
-        chapter_list ?
-          I18n.t(:meta_description_taxon_details_with_common_name_and_chapter_list, :scientific_name => @scientific_name,
-            :preferred_common_name => @preferred_common_name, :chapter_list => chapter_list) :
-          I18n.t(:meta_description_taxon_details_with_common_name, :scientific_name => @scientific_name,
-            :preferred_common_name => @preferred_common_name)
-      else
-        chapter_list ?
-          I18n.t(:meta_description_taxon_details_with_chapter_list, :scientific_name => @scientific_name,
-            :chapter_list => chapter_list) :
-          I18n.t(:meta_description_taxon_details, :scientific_name => @scientific_name)
-      end
-    end
+    translation_vars = variables_for_meta_tag_translations
+    translation_vars[:chapter_list] = chapter_list unless chapter_list.blank?
+    I18n.t("meta_description#{translation_vars[:preferred_common_name] ? '_with_common_name' : ''}#{translation_vars[:chapter_list] ? '' : '_with_chapter_list'}",
+           translation_vars)
   end
-  def additional_meta_keywords
-    @toc.collect{|i| i.label}
+  def set_meta_keywords
+    keywords = super
+    additional_keywords = @toc.collect{|i| i.label}.compact.join(", ")
+    "#{keywords} #{additional_keywords}".strip
   end
 end

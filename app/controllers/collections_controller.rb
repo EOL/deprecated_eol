@@ -166,17 +166,18 @@ class CollectionsController < ApplicationController
   end
 
 protected
-  def set_meta_title
-    if @collection && !@collection.name.blank?
-      I18n.t(:meta_title_template,
-        :page_title => I18n.t(:head_title_collection, :name => @collection.name))
-    end
+  def scoped_variables_for_translations
+    return @scoped_variables_for_translations unless @scoped_variables_for_translations.nil?
+    @scoped_variables_for_translations = super
+    @scoped_variables_for_translations.merge!({
+      :collection_name => @collection ? Sanitize.clean(@collection.name) : nil,
+      :collection_description => @collection ? Sanitize.clean(@collection.description) : nil
+    })
+    @scoped_variables_for_translations[:collection_description] = I18n.t(:collection_description_default) if @scoped_variables_for_translations[:collection_description].blank?
+    @scoped_variables_for_translations
   end
-  def set_meta_description
-    if @collection && !@collection.name.blank?
-      I18n.t(:meta_description_collection, :collection_name => @collection.name,
-        :collection_description => @collection.description)
-    end
+  def meta_open_graph_image_url
+    @collection ? image_url(@collection.logo_url) : nil
   end
 
 private
@@ -471,8 +472,6 @@ private
     @site_column_id = 'collections_edit'
     @site_column_class = 'copy' # TODO - why?! (This was a HR thing.)
     @editing = true # TODO - there's a more elegant way to handle the difference in the layout...
-    @meta_title = I18n.t(:meta_title_template, :page_title => I18n.t(:edit_collection_head_title,
-      :collection_name => @collection.name)) unless @collection.blank?
   end
 
   def set_sort_options

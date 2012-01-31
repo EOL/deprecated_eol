@@ -258,6 +258,18 @@ class UsersController < ApplicationController
     render :text => usernames.to_json
   end
 
+protected
+  def scoped_variables_for_translations
+    return @scoped_variables_for_translations unless @scoped_variables_for_translations.nil?
+    @scoped_variables_for_translations = super
+    @scoped_variables_for_translations.merge!({
+      :user_full_name => @user ? Sanitize.clean(@user.full_name) : nil
+    })
+  end
+  def meta_open_graph_image_url
+    @user ? image_url(@user.logo_url) : nil
+  end
+
 private
 
   def users_layout # choose an appropriate views layout for an action

@@ -33,7 +33,8 @@ class ApplicationController < ActionController::Base
   helper :all
 
   helper_method :logged_in?, :current_url, :current_user, :return_to_url, :current_agent, :agent_logged_in?,
-    :allow_page_to_be_cached?, :link_to_item, :get_meta_data
+    :allow_page_to_be_cached?, :link_to_item, :meta_data, :tweet_data, :meta_open_graph_data,
+    :meta_open_graph_image_url, :image_url
 
   before_filter :set_locale
 
@@ -580,27 +581,50 @@ protected
   end
 
   # Used in V2
-  def get_meta_data
-    @meta_data = {} if @meta_data.blank?
-    @meta_data[:title] ||= set_meta_title # get more specific values from controllers
-    @meta_data[:title] ||= set_meta_title_fallback
-    @meta_data[:description] ||= set_meta_description
-    @meta_data[:description] ||= set_meta_description_fallback
-    @meta_data[:keywords] = set_meta_keywords
-    @meta_data
+  def controller_action_scope
+    controller_path.split("/") << action_name
   end
-  def set_meta_title_fallback
-    @page_title.blank? ? I18n.t(:meta_title_default) : I18n.t(:meta_title_template, :page_title => @page_title)
+  def scoped_variables_for_translations
+    { :default => '',
+      :scope => controller_action_scope }
   end
-  alias set_meta_title set_meta_title_fallback
-  def set_meta_description_fallback
-    I18n.t(:meta_description_default)
+  def meta_data(title = meta_title, description = meta_description, keywords = meta_keywords)
+    return @meta_data unless @meta_data.blank?
+    title = nil if title.blank?
+    @meta_data = {:title => [title, I18n.t(:meta_title_suffix)].compact.join(" - ").strip,
+                  :description => description,
+                  :keywords => keywords}.delete_if{ |k, v| v.nil? }
   end
-  alias set_meta_description set_meta_description_fallback
-  def set_meta_keywords_fallback
+  def meta_title
+    translation_vars = scoped_variables_for_translations
+    translation_vars[:default] = @page_title if !@page_title.nil? && translation_vars[:default].blank?
+    t(".meta_title", translation_vars)
+  end
+  def meta_description
+    t(".meta_description", scoped_variables_for_translations)
+  end
+  def meta_keywords
+    t(".meta_keywords", scoped_variables_for_translations)
+  end
+  def tweet_data(lang = I18n.locale.to_s, via = $TWITTER_USERNAME, hashtags = $TWITTER_HASHTAG,
+                 text = I18n.t(:tweet_text, scoped_variables_for_translations))
+    @tweet_data = {:lang => lang, :via => via, :hashtags => hashtags,
+                   :text => text}.delete_if{ |k, v| v.blank? }
+  end
+  def meta_open_graph_data(image)
+    { 'fb:app_id' => $FACEBOOK_APP_ID,
+      'og:site_name' => I18n.t(:encyclopedia_of_life),
+      'og:type' => 'non_profit',
+      'og:title' => meta_data[:title],
+      'og:image' => image
+    }
+  end
+  def meta_open_graph_image_url
     nil
   end
-  alias set_meta_keywords set_meta_keywords_fallback
+  def image_url(image_with_path)
+    request.protocol + request.host_with_port + image_with_path
+  end
 
 private
 

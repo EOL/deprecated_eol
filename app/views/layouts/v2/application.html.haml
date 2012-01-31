@@ -4,9 +4,8 @@
   'xmlns:fb' => $ENABLED_SOCIAL_PLUGINS && $ENABLED_SOCIAL_PLUGINS.include?(:facebook) ? "http://ogp.me/ns/fb#" : nil,
   'xmlns:og' => $ENABLED_SOCIAL_PLUGINS && $ENABLED_SOCIAL_PLUGINS.include?(:facebook) ? "http://ogp.me/ns#" : nil }
   %head
-    - @meta_data = get_meta_data
     %title
-      &= strip_tags @meta_data[:title]
+      &= strip_tags meta_data[:title]
     %meta{ :charset => "utf-8" }
     - # HTML4 charset declaration, might go when browsers catch up with html5
     %meta{ :content => "text/html; charset=utf-8", "http-equiv" => "Content-type" }
@@ -14,10 +13,10 @@
     - # Prevents generation of links to "smart tags"
     %meta{ :name => "MSSmartTagsPreventParsing", :content => "true" }
 
-    - unless @meta_data[:description].blank?
-      %meta{ :name => "description", :content => h(strip_tags(@meta_data[:description])) }
-    - unless @meta_data[:keywords].blank?
-      %meta{ :name => "keywords", :content => h(strip_tags(@meta_data[:keywords])) }
+    - unless meta_data[:description].blank?
+      %meta{ :name => "description", :content => h(strip_tags(meta_data[:description])) }
+    - unless meta_data[:keywords].blank?
+      %meta{ :name => "keywords", :content => h(strip_tags(meta_data[:keywords])) }
 
     - if @no_cache
       %meta{ :content => "NO-CACHE", "http-equiv" => "CACHE-CONTROL" }

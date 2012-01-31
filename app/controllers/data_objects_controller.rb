@@ -277,6 +277,17 @@ class DataObjectsController < ApplicationController
     redirect_back_or_default
   end
 
+protected
+  def scoped_variables_for_translations
+    translation_vars = super
+    translation_vars.merge({
+      :dato_title => @data_object ? Sanitize.clean(@data_object.best_title) : nil
+    })
+  end
+  def meta_open_graph_image_url
+    @data_object ? @data_object.thumb_or_object : nil
+  end
+
   # NOTE - It seems like this is a HEAVY controller... and perhaps it is.  But I can't think of *truly* appropriate
   # places to put the following code for handling curation and the logging thereof.
 private
@@ -528,17 +539,17 @@ private
     if $CACHE
       tc = he.taxon_concept
       if @data_object.data_type.label == 'Image'
-        
+
         txei_exists = TaxonConceptExemplarImage.find_by_taxon_concept_id_and_data_object_id(tc.id, @data_object.id)
         txei_exists.destroy unless txei_exists.nil?
-        
+
         cached_taxon_exemplar = $CACHE.fetch(TaxonConcept.cached_name_for("best_image_#{tc.id}"))
         unless cached_taxon_exemplar.nil? || cached_taxon_exemplar == "none"
           $CACHE.delete(TaxonConcept.cached_name_for("best_image_#{tc.id}")) if cached_taxon_exemplar.guid == @data_object.guid
         end
         $CACHE.delete(TaxonConcept.cached_name_for("media_count_#{tc.id}_curator"))
         $CACHE.delete(TaxonConcept.cached_name_for("media_count_#{tc.id}"))
-        
+
         tc.published_browsable_hierarchy_entries.each do |pbhe|
           cached_taxon_he_exemplar = $CACHE.fetch(TaxonConcept.cached_name_for("best_image_#{tc.id}_#{pbhe.id}"))
           unless cached_taxon_he_exemplar.nil? || cached_taxon_he_exemplar == "none"

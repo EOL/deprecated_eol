@@ -104,21 +104,25 @@ EOL.init_comment_behaviours = function() {
   $edit_comment_links.click(function( event ) {
     event.preventDefault();
     $(this).closest("ul.actions").hide();
-    $(this).closest(".details").after('<div class="comment_edit_form"></div>');
-    var $update = $(this).closest(".details").next(".comment_edit_form");
+    var $details = $(this).closest(".editable").find('blockquote').hide().end().find(".details");
+    $details.after('<div class="comment_edit_form"></div>');
+    var $update = $details.next(".comment_edit_form");
     EOL.ajax_get($(this), {update: $update, type: 'GET'});
+    return(false); // JRice added this 1/30/12, since the HREF was getting loaded twice.  This fixed it.  I'm not
+                   // sure why event.preventDefault() wasn't behaving as advertised, here, but this _does_ fix...
   });
   var $cancel_edit_links = $feed.find(".comment_edit_form a");
   $cancel_edit_links.unbind("click");
   $cancel_edit_links.click(function( event ) {
     event.preventDefault();
-    $(this).closest(".comment_edit_form").hide().prev('.details').find("ul.actions").show().end().end().remove();
+    $(this).closest(".comment_edit_form").hide().closest('li').find('ul.actions').show().end().find('blockquote').show().end().end().remove();
   });
   var $submit_edit_buttons = $feed.find(".comment_edit_form input[type='submit']");
   $submit_edit_buttons.unbind("click");
   $submit_edit_buttons.click(function( event ) {
     event.preventDefault();
     EOL.ajax_submit($(this));
+    return(false); // JRice added this 1/30/12.  See the comment with this date, above, for an explanation.
   });
   var $delete_comment_links = $feed.find("form.delete_comment input[type='submit']");
   $delete_comment_links.unbind("click");
@@ -127,6 +131,7 @@ EOL.init_comment_behaviours = function() {
     if (confirm($(this).data('confirmation'))) {
       EOL.ajax_submit($(this));
     }
+    return(false); // JRice added this 1/30/12.  See the comment with this date, above, for an explanation.
   });
 };
 

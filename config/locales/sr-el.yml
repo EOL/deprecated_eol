@@ -30,12 +30,15 @@ sr-el:
   activerecord:
     attributes:
       collection:
+        additional_annotation_fields: Dodatna polja za zabeleške
         description: Opis zbirke
         logo: Slika glavne zbirke
         name: Naziv zbirke
+        show_references: Navodi (tekst ili adresa)
         sort_style_id: Podrazumevani smer svrstavanja
       collection_item:
         annotation: Zabeleška
+        refs: Navodi <small>(svaki navod u novi red)</small>
         sort_field: Poređaj po
       comment:
         body: Komentar
@@ -530,7 +533,6 @@ sr-el:
   collections_filter: Zbirke
   collections_link: Zbirke
   collections_page_title: Zbirke
-  collections_lowercase: zbirke
   collections_summary_empty: Ova stranica još nije ni u jednoj zbirci.
   collections_summary_header_with_count:
     one: Dostupno u %{count} zbirci
@@ -595,6 +597,7 @@ sr-el:
     one: "%{count} stavka"
     other: "%{count} stavke"
   community_invitation_comment: Želeo/la bih da vas pozovem da se pridružite zajednici „%{community}“.
+  community_logo_alt_text: Logotip zajednice %{community_name}
   community_managers_with_count:
     one: "%{count} rukovodilac zajednice"
     other: "%{count} rukovodioca zajednice"
@@ -621,7 +624,6 @@ sr-el:
   contact_us: kontaktirajte s nama
   contact_us_functions: Kontakt
   contact_us_link: Kontakt
-  contact_us_request_failed: Došlo je do greške.
   contact_us_request_received: Zahtev za kontaktiranje je primljen
   contact_us_request_sent: Zahtev je poslat
   contact_us_submissions: Poslato na „Kontaktirajte s nama“
@@ -889,16 +891,13 @@ sr-el:
   daily: Dnevno
   darwin_core: Darvinovo jezgro
   dashboard: Upravljačka tabla
-  data: Podaci
   data_logging_active: Zapisivanje podataka je aktivno
-  data_master: Upravitelj podacima
   data_object: Objekat podataka
   data_object_api_description: Kada navedete naznaku za objekat podataka, ovaj API će prijaviti sve metapodatke o objektu koje je poslao partner za sadržaj. Partner se navodi u prvom elementu agenta i ima ulogu „partnera“.
   data_object_ignore: zanemari ovu stavku
   data_object_not_associated_with_any_hierarchies: Ovaj objekat podataka nije povezan ni s jednom hijerarhijom.
   data_object_reference: Navod objekta podataka
   data_object_undo_ignore: ukloni iz zanemarenih
-  data_objects: objekti_podataka
   data_usage_reports: Izveštaji o korišćenju podataka
   date_caps: Datum
   date_uploaded: Datum otpremanja
@@ -1054,7 +1053,6 @@ sr-el:
   external_report_click_year_to_proceed: Spoljni izveštaj. Kliknite na godinu da nastavite.
   facebook: Fejsbuk
   faculty_staff_or_grad_student_credential_option: status na fakultetu, nastavni kadar ili diplomirani na univerzitetu ili odseku na koledžu
-  failed_login_attempts: neuspešni pokušaji prijave) – mora biti označeno da bi se korisnik mogao prijaviti
   family_name_colon: "Prezime:"
   feedback: Povratne informacije
   file: Datoteka
@@ -1103,7 +1101,6 @@ sr-el:
   focus_list_newsfeed: Dovod tematskog spiska
   for_example_for_the_taxon_element_for_a_node: Na primer, za taksonski element čvora u hijerarhiji ITIS, dc:identifier će biti ITIS TSN. Element dwct:taxonID sadrži <i>EOL naznaku</i> koja se koristi u API-ju %{link}.
   for_images_to_reference_parens: (za slike kojima treba navođenje)
-  for_name: " za %{name}"
   for_pdfs_and_docs_parens: (za dokumente)
   for_terms_or_definitions_conta: "za pojmove ili tumačenja koja sadrže:"
   forgot_password: Zaboravili ste lozinku?
@@ -1126,7 +1123,7 @@ sr-el:
   from_community: iz zajednice %{community}
   full_content_url: Adresa punog sadržaja
   gbif_map: Karta GBIF
-  gbif_occurrence_disclaimer: Karta se zasniva na zapisima koji su dostupni preko <a href='http://http://www.gbif.org/'>mreže GBIF</a> i možda ne predstavlja celu raspodelu.
+  gbif_occurrence_disclaimer: Karta se zasniva na zapisima koji su dostupni preko <a href='http://www.gbif.org/'>mreže GBIF</a> i možda ne predstavlja celu raspodelu.
   gbif_occurrence_learn_more_link: Pristup do ovih datoteka preko Portala GBIF.
   general_site_admin: opšti rukovodilac sajta
   get_help_choosing_a_subchapter: Pomoć u odabiranju potpoglavlja
@@ -1165,8 +1162,6 @@ sr-el:
         view_style_id: Podrazumevani prikaz
       collection_item:
         annotation: Zabeleška
-        sort_field: Poređaj po <small>(datum, broj ili tekst; neobavezno)</small>
-        sort_field_more: Neobavezna vrednost pored koje bi se svrstavale zbirke (datum u obliku GGGG.MM.DD, broj ili tekst).
         sort_field_show: "Vrednost svrstavanja:"
       comment:
         body_edit: Uredi komentar
@@ -1352,12 +1347,10 @@ sr-el:
   hidden: Sakriveno
   hidden_comment: sakriven komentar
   hide: sakrij
-  hierarchies: hijerarhije
   hierarchies_description: Enciklopedija života nema jedinstvenu taksonomsku hijerarhiju prema kojoj pravi stranice, već popisuje razne hijerarhije i međusobno ih upoređuje. Ovaj API navodi metapodatke o hijerarhiji kao što su naziv dobavljača i izvorna adresa, i prikazuje sve taksone koji su osnova taksonomskog stabla
   hierarchies_entries_description: Enciklopedija života nema jednu taksonomsku hijerarhiju prema kojoj pravi stranice, već popisuje razne hijerarhije i međusobno ih upoređuje. Kao rezultat, jedna stranica se može odnositi na nekoliko čvorova iz raznih hijerarhija. Ovaj API omogućava pristup do jedinstvene hijerarhije i njenih unutrašnjih veza. Pogledajte dokumentaciju o API-ju za više informacija o tome kako da pristupite drugim hijerarhijama koje pripadaju određenoj stranici na EOL-u. Polje taxonConceptID sadrži naznaku stranice koja se može koristiti u API-ju.
   hierarchies_title: Hijerarhije
   hierarchy: Hijerarhija
-  hierarchy_entries: hijerarhijski_unosi
   hierarchy_entry_switch_missing_id_error: Nažalost, ne mogu da pronađem stranicu za hijerarhijske unose jer nedostaje naznaka.
   hierarchy_roots_colon: "Osnove hijerarhije:"
   hierarchy_selector_drop_down_list_label: Ovo je natpis koji će biti prikazan u padajućem meniju za odabir hijerarhije
@@ -1404,7 +1397,6 @@ sr-el:
   include_all_metadata: uključi sve metapodatke za objekte podataka
   indexed: Popisano
   info_item: Stavka s podacima
-  info_items: Stavke s podacima
   information_for_any_audience: Podaci za svakoga
   information_intended_for_beginners: Podaci za početnike
   information_intended_for_experts: Podaci za stručnjake
@@ -1520,7 +1512,6 @@ sr-el:
   literature_references: Navodi iz literature
   location: Mesto
   location_colon: "Mesto:"
-  logging: Zapisivanje
   login: prijava
   login_header: Prijavite se na svoj nalog na <abbr title="Enciklopedija života">EOL-u</abbr>
   login_hidden_user_message: Nalog %{given_name} više nije aktivan
@@ -1529,9 +1520,7 @@ sr-el:
   login_to_the_website_as: Prijavite se kao %{username}
   logo_header: Logotip
   logout: Odjava
-  main_colon: "Glavno:"
   main_content_area: "Glavni deo za sadržaj:"
-  main_master_colon: "Glavni upravnik:"
   main_species_page_link_with_spaces: " &nbsp;&nbsp; stranica za vrste>>"
   maintained_by: "održava:"
   major_heading: Glavno zaglavlje
@@ -1584,7 +1573,6 @@ sr-el:
   meta_description_colon: "Meta opis:"
   meta_description_community: "%{community_name} %{community_description}. Zajednica Enciklopedije života."
   meta_description_default: Enciklopedija života je besprimeren napor koji ima za cilj da prikupi i podeli naučna saznanja o svim živim bićima na jedan internet resurs. Ovako svako od nas dobija uzbudljiv uvid u naš čudesni svet.
-  meta_description_taxon: Opisi, slike, video-snimci i više o %{preferred_common_name_or_blank} %{scientific_name} u Enciklopediji života.
   meta_keywords_colon: "Meta ključne reči:"
   meta_title_suffix: Enciklopedija života
   meta_title_template: "%{page_title} – Enciklopedija života"
@@ -1720,7 +1708,6 @@ sr-el:
   note_that_you_can_reference_im: Imajte na umu da možete da navodite slike s HTML oznakom &lt;img&gt;, ali one moraju da postoje u adresi (izvorni sajt ili mesto kao Flikr). Ne postoji mogućnost otpremanja slika za neposrednu upotrebu u novostima.
   notes: Beleške
   notes_not_shown_to_user: "Beleške (nevidljivo za korisnika):"
-  notice_colon: "Napomena:"
   notifier:
     activity_log_empty: Nema skorašnjih aktivnosti kustosa.
     activity_on_content_partner_content:
@@ -1850,11 +1837,9 @@ sr-el:
   page_statistics_and_tools: statistike stranice i alatke
   page_statistics_explanation: <p>EOL samostalno proračunava neke statističke podatke o stranicama. Ovi podaci se obnavljaju svaki dan ili dva.</p><h5>Ocena sadržajnosti</h5><p>Ocena sadržajnosti se sastoji od više različitih faktora:<ul><li>koliko teksta ima stranica</li><li>koliko je slika, snimaka i mapa dostupno</li><li>koliko je različitih tema pokriveno</li><li>koliko različitih izvora ima na stranici</li></ul></p><p>Pored ovoga, ulogu igra i faktor da li su podaci pregledani. Ako jedna stranica već ima mnogo multimedijalnog sadržaja i teksta, dodavanje više takvih sadržaja može smanjiti ocenu sadržajnosti.</p><p>Ocena se kreće od 0 do 100. Ne brinite, razlike u nekoliko bodova nisu bitne. S vremenom možemo promeniti način izračunavanja ocene da bolje održava vaše iskustvo na sajtu. Recite nam šta mislite tako što ćete napisati komentar na stranicama za koje mislite da smo pogrešno procenili.</p><h5>Poverljive slike</h5><p>Sadrži sve poverljive slike za stranice koje se pojavljuju u klasifikaciji ispod ove stranice. Uključuje i slike koje su došle od poverljivih partnera, i one koje je poverio naš kustos s Flikra ili Vikimedijine ostave.</p><h5>Nepregledane slike</h5><p>Sadrži sve nepregledane slike za stranice koje se pojavljuju u klasifikaciji ispod ove stranice. Neki naši partneri pružaju razne visokokvalitetne slike koje još nisu pregledane. Ne uključuje slike koje nisu poverljive.</p><h5>Poverljivi članci</h5><p>Sadrži sve poverljive članke koji se nalaze na jezičku za detalje i neke članke na jezičku za resurse. Sadrži sve članke proverenih partnera, kao i one koje su poslali naši korisnici i korisnici s Vikipedije koji su odobreni od strane kustosa. Ne uključuje članke na stranicama koje se pojavljuju u klasifikaciji ispod ove stranice.</p><h5>Nepregledani članci</h5><p>Sadrži sve nepregledane članke na jezičku za detalje i neke članke na jezičku za resurse. Sadrži članke koje su poslali naši korisnici i korisnici s Vikipedije koji čekaju na pregled od strane kustosa. Ne uključuje članke na stranicama koje se pojavljuju u klasifikaciji ispod ove stranice.</p>
   page_urls: "Adresa stranice:"
-  page_view: Pregledi
   pages: stranice.
   pages_admin_section_link: Administratori
   pages_curator_section_link: Kustosi
-  pages_lowercase: stranice
   pages_method_description: uzima naznaku stranice na EOL-u i prikazuje naučno ime te stranice. Može da prikaže i podatke o trivijalnim imenima, datotekama (tekst, slike i video-snimci) i navodima hijerarhija koje prepoznaju takson opisan na
   pages_title: Navodi
   pages_with_count:
@@ -1889,7 +1874,6 @@ sr-el:
   person_rating: Ocena lica
   personal_profile_menu: Lični profil
   personal_space: Lični prostor
-  ping: ping
   ping_method_description: Ova metoda ili neće uspeti ili će prijaviti poruku da je sve prošlo kako treba. Ne postoje druge moguće poruke
   please: Molimo
   please_ask_big_before_changing_toc: Konsultujte se s članom grupe Bioraznovrsna informatika pre uređivanja pregleda sadržaja. Neki nazivi poglavlja ne mogu da se menjaju budući da su povezani sa samim kodom. Infoobjekti ne mogu da se preslikaju na ovo sučelje – to mora da se uradi ručno u bazi.
@@ -1918,7 +1902,6 @@ sr-el:
   profile_picture: Slika na profilu
   project: Projekat
   provider: Dobavljač
-  provider_hierarchies: dobavljačke_hijerarhije
   provider_hierarchies_method_description: Ova metoda će prikazati navode za sve hijerarhije koje pružaju partneri za sadržaj EOL-a. Odgovor će imati natpis hijerarhije i jedinstvenu naznaku koja predstavlja tu hijerarhiju EOL-a
   providers: Dobavljači
   public: Javno
@@ -1951,6 +1934,7 @@ sr-el:
   recognized_by_as_a_rank: "%{recognized_by} kao %{taxon_rank}"
   recognized_by_from_source_as_a_rank: "%{recognized_by} u %{source} kao %{taxon_rank}"
   record_not_found: (zapis nije pronađen)
+  references_cabs_colon: "Navodi:"
   related_names_with_count:
     one: "%{count} srodni naziv"
     other: "%{count} srodna naziva"
@@ -1990,7 +1974,6 @@ sr-el:
   rights: Prava
   rights_holder: Nosilac prava
   rights_statement: Izjava o pravima
-  rss: RSS
   rss_feed: Dovod
   save: Sačuvaj
   save_annotation_submit_button: Sačuvaj zabelešku
@@ -1999,7 +1982,6 @@ sr-el:
   sci_name_avg_table_head: Naučni naziv (prosečno)
   scientific_name: Naučni naziv
   search: Pretraži
-  search_by_provider: traži_po_dobavljaču
   search_by_provider_method_description: dobijanje naznake za stranicu na EOL-u ako je naveden hierarchy_id i jedinstvena naznaka dobavljača
   search_by_term_page_title: "Pretraga: %{term}"
   search_field_label: Traženje na EOL-u
@@ -2011,7 +1993,6 @@ sr-el:
   search_for_users_containing_this_in_their_username_name_or_email_address: Traži korisnike koji sadrže ovo u svom korisničkom imenu, imenu ili e-adresi.
   search_input_advisory_information: Unesite trivijalan ili naučni naziv živog bića koji vas interesuje. Možete pretražiti i članove, zbirke i zajednice na EOL-u.
   search_log_report_intro: U ovom odeljku su navedeni najčešće pretraženi pojmovi, koliko puta je pretražen svaki od njih i neki podaci o broju dobijenih rezultata. Kliknite na kolone da poređate prikaz pored svake od njih. Kliknite na pojam da pogledate na koji rezultat su kliknuli korisnici (ako postoji) posle pretrage.
-  search_lowercase: pretraga
   search_method_description: ako je zadata podrazumevana vrednost za određeni element (npr. naučno ime = Homo sapiens), metoda će prikazati spisak stranica na EOL-u koje sadrže pojam pretrage
   search_next_label: Sledeće
   search_placeholder: Pretraži…
@@ -2141,7 +2122,6 @@ sr-el:
   spm_category_partner_count: SPM kategorija – broj partnera
   started: Započeto
   stat: Statistika
-  statistic: Statistika
   statistics: Statistike
   sub_heading: Podnaslov
   subject: predmet
@@ -2152,6 +2132,7 @@ sr-el:
   supplier: Dobavljač
   supplier_allcaps: "Dobavljač:"
   supplier_colon: "Dobavljač:"
+  survey_link: Popunite našu anketu
   switch_language_advisory_information: Promeni jezik sajta u %{language_label}
   synonym: Sinonim
   synonyms_with_count:
@@ -2204,7 +2185,6 @@ sr-el:
   taxon_suggested: Predloženi takson
   taxonomic_summary_of_content: taksonomski pregled sadržaja
   technical_functions: Tehničke mogućnosti
-  term: Pojam
   term_cannot_be_left_blank: Pojam ne može da ostane prazan
   term_is_already_def_error: pojam „%{term}“ je već određen
   terms_agreement_form_fallback: Pročitajte i prihvatite <a href="%{terms_url}">uslove korišćenja</a> pre nego što pristupite nalogu.
@@ -2276,7 +2256,6 @@ sr-el:
   this_map_is_unpublished: Ova karta je neobjavljena.
   this_method_takes_an_integer_or_string: Ova metoda uzima ceo broj ili nisku koja je jedinstvena naznaka taksona iz baze jednog dobavljača, kao i hierarchy_id koji predstavlja dobavljača i prikazuje naznaku stranice na EOL-u tog taksona. Na primer, koristeći API %{link_provider}, možete saznati da je hierarchy_id za Integrisani taksonomski sistem informacija (ITIS) %{itis_id}. Potom možete pretražiti EOL za taksonomski serijski broj na ITIS-u (TSN) 180542,<i>Ursus maritimus</i>, pozivajući %{link_url}
   this_page_shows_information_ab: Na ovoj stranici su prikazani podaci o datom pojmu za pretragu i navedeni su rezultati pretrage koji su kliknuli korisnici.
-  this_resource_here_stars: ovaj resurs ***
   this_resource_unpublished_notice: Ovaj resurs trenutno nije označen kao objavljen od strane administratora.
   this_section_is_used_to_create: Ovaj odeljak služi za stvaranje novih stavki. Novosti su prikazane u desnom delu početne stranice, kao i u %{rss_link} i stranici %{news_archive}.
   this_sound_cannot_be_curated_because_unpublished: Ovaj zvučni snimak ne može da se kustosira jer je uklonjen iz objava.
@@ -2295,8 +2274,6 @@ sr-el:
   to_submit_a_species_photograph_for: Da biste poslali sliku za %{taxon}, pošaljite slike na %{flickr_link} i pratite uputstva prikazana na početnoj stranici te grupe.
   to_submit_text_content_for_taxon_please_be_sure_you_are_logged: Da biste poslali tekstualni sadržaj za %{taxon}, proverite da li ste prijavljeni na EOL, pa kliknite na
   toc: Sadržaj
-  toc_entry: Stavka u pregledu sadržaja
-  toc_no_longer_available: "Sadržaj: više nije dostupan"
   topic: Tema
   topic_area: Tematska oblast
   topics_avilable_to_contact_us_info: Sledeće tematske oblasti su dostupne na stranici „Kontakt“. Možete da dodajete nove ili da uređujete postojeće tematske oblasti i njihove e-adrese. Sve izmene se vrše odmah.
@@ -2324,7 +2301,6 @@ sr-el:
   type: Vrsta
   unable_to_copy_items_to_collection_error: Nažalost, ne mogu da umnožim stavke %{name}.
   unable_to_invite_users_to_community_error: Ne mogu da pošaljem pozivnice za %{users}.
-  unique_page_view: Zasebni pregledi
   unknown: Nepoznato
   unknown_type_not_associated_with_any_published_entries: Ovi podaci nisu povezani ni s jednim objavljenim taksonom.
   unpublished: Neobjavljeno
@@ -2416,7 +2392,6 @@ sr-el:
   user_says_colon: "%{users_name} reče:"
   user_submitted_text: Tekst koji je poslao korisnik
   user_submitted_text_found: "Pronađen je tekst koji je poslao korisnik:"
-  user_submitted_text_titlecase: Tekst koji je poslao korisnik
   user_system_down: Žao nam je, ali otvaranje naloga je trenutno onemogućeno. Pokušajte ponovo nešto kasnije.
   user_was_added_as_editor_of_collection: Ovaj korisnik je naznačen za rukovodioca zbirke „%{collection}“.
   username: Korisničko ime
@@ -2459,7 +2434,6 @@ sr-el:
   videos_with_count:
     one: "%{count} video-snimak"
     other: "%{count} video-snimka"
-  view: Pregled
   view_added_text: pogledaj dodati tekst
   view_article_source: Pogledaj izvor članka
   view_as_button: Promeni prikaz

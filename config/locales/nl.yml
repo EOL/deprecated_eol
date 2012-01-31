@@ -341,7 +341,7 @@ nl:
   admin_translated_content_page_delete_successful_notice: De vertaling in %{language} van de pagina <em>%{page_name}</em> is verwijderd.
   admin_translated_content_page_edit_subheader: Vertaling in %{language} voor <em>%{page_name}</em> bewerken
   admin_translated_content_page_edit_tip: Paginanam en inhoud zijn %{required_icon} verplicht.
-  admin_translated_content_page_new_header: Kies en taal en voeg inhoud toe
+  admin_translated_content_page_new_header: Kies een taal en voeg inhoud toe
   admin_translated_content_page_new_link: Vertaling toevoegen
   admin_translated_content_page_new_subheader: Vertaling toevoegen voor <em>%{page_name}</em>
   admin_translated_content_page_new_tip: Taal, paginanaam en inhoud zijn %{required_icon} verplicht.
@@ -382,6 +382,7 @@ nl:
   an_unknown_user: Een onbekende gebruiker
   and: en
   and_between_form_items: en
+  annotation_cabs_colon: "Annotatie:"
   any_integer: een geheel getal
   application_version_advisory_information: Programmaversie
   are_you_sure: Weet u het zeker?
@@ -411,6 +412,7 @@ nl:
   assistive_overview_header: Overzicht
   assistive_taxon_community_header: Gemeenschap
   assistive_updates_header: Updates
+  assistive_updates_statistics_header: Paginastatistieken
   associated_submit_button: gekoppeld
   associated_with_article_header: In dit artikel
   associated_with_header: Gekoppeld met
@@ -503,7 +505,6 @@ nl:
   collection_was_added_to_community: "\"%{collection}\" is toegevoegd aan deze gemeenschap."
   collection_was_removed_by_owner: Deze verzameling is verwijderd door de eigenaar.
   collections: Verzamelingen
-  collections_lowercase: verzamelingen
   collections_summary_empty: Deze pagina is nog geen onderdeel van een verzameling.
   collections_summary_header_with_count: 
     one: Aanwezig in één verzameling
@@ -579,9 +580,10 @@ nl:
   contact_us: contact opnemen
   contact_us_functions: "\"Neem contact met ons op\"-functies"
   contact_us_link: Contact opnemen
-  contact_us_request_failed: Er is een fout opgetreden!
+  contact_us_request_failed: Er is een fout opgetreden tijdens het verzenden van deze rapportage.
   contact_us_request_received: Contactverzoek ontvangen
   contact_us_request_sent: Aanvraag verzonden
+  contact_us_topics: Onderwerpen voor "Neem contact met ons op"
   contacts: Contactpersonen
   containing_value: met %{value}.
   content: Inhoud
@@ -820,15 +822,14 @@ nl:
   daily: Dagelijks
   darwin_core: Darwin Core
   dashboard: Dashboard
-  data: Gegevens
+  data_database_colon: "Gegevens:"
   data_logging_active: Er worden gegevens verzameld
-  data_master: Gegevensmaster
+  data_master_database_colon: "Gegevensmaster:"
   data_object: Gegevensobject
   data_object_ignore: dit item negeren
   data_object_not_associated_with_any_hierarchies: Dit gegevensobject is niet gekoppeld aan een hiërarchie.
   data_object_reference: Gegevensobjectverwijzing
   data_object_undo_ignore: uit de negeerlijst verwijderen
-  data_objects: data_objects
   data_usage_reports: Gegevensgebruikrapportages
   date_caps: Datum
   date_uploaded: Uploaddatum
@@ -894,6 +895,7 @@ nl:
   edit_comment: Opmerking bewerken
   edit_comment_lowercase: opmerking bewerken
   edit_community: Gemeenschap bewerken
+  edit_contact_us_topic: Onderwerp voor "Contact met ons opnemen" bewerken
   edit_contact_us_topics: onderwerpen voor "contact met ons opnemen" bewerken
   edit_eol_glossary: EOL-woordenlijst bewerken
   edit_glossary_term: Woordenlijstterm bewerken
@@ -962,7 +964,6 @@ nl:
   external_link_icon_alt_text: Externe verwijzing.
   external_report_click_url_to_proceed: Externe rapport. Klik op URL om verder te gaan.
   facebook: Facebook
-  failed_login_attempts: mislukte aanmeldpogingen). Moet gecontroleerd worden voordat gebruiker aan kan melden
   family_name_colon: "Familienaam:"
   feedback: Terugkoppeling
   file: Bestand
@@ -1009,7 +1010,6 @@ nl:
   flickr: Flickr
   focus_list_newsfeed: Newsfeed voor focuslijsten
   for_example_for_the_taxon_element_for_a_node: Voor bijvoorbeeld het taxonelement van een node in de hiërarchie ITIS, is de dc:indentifier dat van ITIS TSN. Het element dwct:taxonID bevat de <i>EOL identifier</i> die wordt gebruikt in de %{link}-API.
-  for_name: voor %{name}
   forgot_password: Wachtwoord vergeten
   forgot_password_cannot_find_user_from_username_or_email_error: Er zijn geen gebruikers met de opgegeven gebruikersnaam of e-mailadres <em>%{username_or_email}</em>.
   forgot_password_form_cancel: Annuleren
@@ -1028,7 +1028,7 @@ nl:
   from_communities: "van gemeenschappen: %{communities}"
   from_community: van gemeenschap %{community}
   full_content_url: URL voor volledige inhoud
-  gbif_occurrence_disclaimer: Deze kaart is gebaseerd op het voorkomen van records die beschikbaar zijn via het <a href='http://http://www.gbif.org/'>GBIF-netwerk</a> en deze kaart vertegenwoordigt mogelijk niet de volledige distributie.
+  gbif_occurrence_disclaimer: Deze kaart is gebaseerd op het voorkomen van records die beschikbaar zijn via het <a href='http://www.gbif.org/'>GBIF-netwerk</a> en deze kaart vertegenwoordigt mogelijk niet de volledige distributie.
   gbif_occurrence_learn_more_link: Deze gegevens via het GBIF-portaal raadplegen
   general_site_admin: algemene sitebeheerder
   get_help_choosing_a_subchapter: Hulp bij het kiezen van een subhoofdstuk
@@ -1039,6 +1039,7 @@ nl:
   global_access_tagline: Wereldwijde toegang tot kennis over het leven op aarde.
   global_navigation: Globale navigatie
   glossary_is_empty: (de woordenlijst leeg is)
+  glossary_term: term
   glossary_terms: Termen uit de woordenlijst
   go: OK
   go_back: Teruggaan
@@ -1067,8 +1068,7 @@ nl:
         view_style_id: Standaardweergave
       collection_item: 
         annotation: Annotatie
-        sort_field: Sorteren op <small>(datum, nummer of tekst; optioneel)</small>
-        sort_field_more: Optionele waarde om de verzameling op te sorteren (gebruik JJJJ.MM.DD voor een datum, een getal of tekst).
+        sort_field: Sorteren op <small>(datum in notatie JJJJ.MM.DD, nummer of tekst)</small>
         sort_field_show: "Sorteerwaarde:"
       comment: 
         body_edit: Opmerking bewerken
@@ -1254,10 +1254,8 @@ nl:
   hidden: Verborgen
   hidden_comment: verborgen opmerking
   hide: verbergen
-  hierarchies: hiërarchieën
   hierarchies_title: Hiërarchieën
   hierarchy: Hiërarchie
-  hierarchy_entries: hierarchy_entries
   home: Hoofdmenu
   home_page_link_advisory_information: Via deze verwijzing komt u op de hoofdpagina van de website Encyclopedia of Life
   html_format: (HTML-indeling)
@@ -1290,7 +1288,6 @@ nl:
   include_all_metadata: alle metadata voor gegevensobjecten opnemen
   indexed: Geïndexeerd
   info_item: Informatiebericht
-  info_items: Informatiebericht
   information_for_any_audience: Informatie voor elk publiek
   information_intended_for_beginners: Informatie voor beginners
   information_intended_for_experts: Informatie voor deskundigen
@@ -1390,8 +1387,9 @@ nl:
   literature_header: Referenties
   location: Locatie
   location_colon: "Locatie:"
-  logging: Logboekregistratie
+  logging_database_colon: "Logboekregistratie:"
   login: aanmelden
+  login_header: Aanmelden met uw <abbr title="Encyclopedia of Life">EOL</abbr>-gebruiker
   login_hidden_user_message: De gebruiker %{given_name} is niet langer actief
   login_or_create_account: Aanmelden of registreren
   login_required_button: Aanmelden verplicht
@@ -1483,7 +1481,6 @@ nl:
   name_preferred_for_language_yes: Voorkeur
   name_preferred_taxonomically_for_source_yes: Voorkeur
   names: Namen
-  names_children_column_header: Kinderen
   names_common_list_by_language_assistive_header: Gemeenschappelijke namen per taal
   names_curation_column_header: Conservering
   names_et_al: "%{names}, et al."
@@ -1495,6 +1492,7 @@ nl:
   names_status_column_header: Status
   never: Nooit
   new_collection: Nieuwe verzameling
+  new_contact_us_topic: Nieuw onderwerp voor "Neem contact met ons op"
   new_news_item: Nieuw nieuwsbericht
   new_search_suggestion: Nieuwe zoeksuggestie
   new_upload: Nieuwe upload
@@ -1523,7 +1521,6 @@ nl:
   note: "Notitie:"
   notes: Notities
   notes_not_shown_to_user: "Notities (niet zichtbaar voor de gebruiker):"
-  notice_colon: "KENNISGEVING:"
   notifier: 
     activity_log_empty: Geen recente handelingen door conservatoren.
     activity_on_content_partner_content: 
@@ -1628,7 +1625,6 @@ nl:
   pages: pagina's.
   pages_admin_section_link: Beheerders
   pages_curator_section_link: Conservatoren
-  pages_lowercase: pagina's
   pages_title: Referenties
   pages_with_pictures_and_text: Pagina's met afbeeldingen en tekst
   pages_with_pictures_or_text: Pagina's met afbeeldingen of tekst
@@ -1648,7 +1644,6 @@ nl:
   person_rating: Persoonswaardering
   personal_profile_menu: Persoonlijk profiel
   personal_space: Persoonlijke ruimte
-  ping: ping
   please_confirm_your_donation_details: Bevestig uw donatiegegevens
   please_indicate_curation_reason: "Selecteer een reden en laat eventueel een opmerking achter:"
   please_leave_your_feedback: Geef uw terugkoppeling
@@ -1672,7 +1667,6 @@ nl:
   profile_picture: Profielfoto
   project: Project
   provider: Leverancier
-  provider_hierarchies: provider_hierarchies
   providers: Leveranciers
   public: Openbaar
   public_domain: publiek domein
@@ -1721,7 +1715,6 @@ nl:
   rights: Rechten
   rights_holder: Rechthebbende
   rights_statement: Rechtenverklaring
-  rss: RSS
   rss_feed: RSS-feed
   save: Opslaan
   save_annotation_submit_button: Annotatie opslaan
@@ -1734,7 +1727,6 @@ nl:
   search_for_messages_containing: "Zoeken naar berichten die de volgende tekst bevatten:"
   search_for_terms_containing: "Zoeken naar termen die bevatten:"
   search_input_advisory_information: Voer de triviale of of wetenschappelijke namen van levende organismen in waar u meer over wilt weten. U kunt ook zoeken naar EOL-leden, verzamelingen en gemeenschappen.
-  search_lowercase: zoeken
   search_next_label: Volgende
   search_placeholder: EOL doorzoeken ...
   search_previous_label: Vorige
@@ -1947,8 +1939,7 @@ nl:
   title: Titel
   to_process_your_donation_please_proceed: Om uw donatie te verwerken ga u door
   toc: Inhoudsopgave
-  toc_entry: Inhoudsopgave
-  toc_no_longer_available: "Inhoudsopgave: niet langer beschikbaar"
+  toc_no_longer_available: Gegevens voor de inhoudsopgave zijn niet langer beschikbaar
   topic: Onderwerp
   topic_area: Aandachtsgebied
   total: Totaal
@@ -1969,7 +1960,6 @@ nl:
   tumblr: Tumblr
   twitter: Twitter
   type: Type
-  unique_page_view: Unieke paginaweergave
   unknown: Onbekend
   unknown_type_not_associated_with_any_published_entries: Deze gegevens zijn niet gekoppeld met gepubliceerde taxa.
   unpublished: Ongepubliceerd
@@ -2055,6 +2045,7 @@ nl:
   view_harvesting_log: logboek bekijken
   view_image_map_source: Kaartbron weergeven
   view_image_source: Afbeeldingsbron weergeven
+  view_in_classification: in classificatie bekijken
   view_map_source: Kaartbron weergeven
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Alleen pagina's bekijken met tenminste een afbeelding of tekst
   view_sound_source: Audiobron weergeven

@@ -5,7 +5,7 @@ class TaxonConceptName < SpeciesSchemaModel
   belongs_to :language
   belongs_to :name
   belongs_to :synonym
-  belongs_to :sorce_hierarcy_entry, :class_name => HierarchyEntry.to_s
+  belongs_to :source_hierarcy_entry, :class_name => HierarchyEntry.to_s
   belongs_to :taxon_concept
   belongs_to :vetted
 
@@ -34,7 +34,7 @@ class TaxonConceptName < SpeciesSchemaModel
         AND source_hierarchy_entry_id = ?
     }, val, self[:name_id], self[:taxon_concept_id], self[:source_hierarchy_entry_id]]))
   end
-  
+
   def sources
     all_sources = []
     if synonym
@@ -47,7 +47,7 @@ class TaxonConceptName < SpeciesSchemaModel
     all_sources.delete(Hierarchy.eol_contributors.agent)
     all_sources.uniq!
     all_sources.compact!
-    
+
     # This is *kind of* a hack.  Long, long ago, we kinda mangled our data by not having synonym IDs
     # for uBio names, so uBio became the 'default' common name provider
     if all_sources.blank?
@@ -55,5 +55,5 @@ class TaxonConceptName < SpeciesSchemaModel
     end
     all_sources
   end
-  
+
 end

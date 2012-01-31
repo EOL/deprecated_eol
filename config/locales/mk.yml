@@ -31,12 +31,15 @@ mk:
   activerecord: 
     attributes: 
       collection: 
+        additional_annotation_fields: Дополнителни полиња за прибелешки
         description: Опис на збирката
         logo: Главна слика на збирката
         name: Име на збирката
+        show_references: Наводи (текст или URL)
         sort_style_id: Стандардна насока на подредување
       collection_item: 
         annotation: Прибелешка
+        refs: Наводи <small>(ставајте го секој во нов ред)</small>
         sort_field: Подреди по
       comment: 
         body: Коментар
@@ -388,6 +391,7 @@ mk:
   an_unknown_user: Непознат корисник
   and: и
   and_between_form_items: и
+  annotation_cabs_colon: "Прибелешка:"
   any_integer: секој цел број
   api_docs_collections_description: Кога ќе му се зададе назнака на збирка, овој API ќе ги даде сите метаподатоци за збирката и експонатите што ги содржи. Списокот на експонати може да се филтрира по тип и да се подредува по горенаведените атрибути.
   application_version_advisory_information: Верзија на програмот
@@ -421,6 +425,7 @@ mk:
   assistive_overview_header: Преглед
   assistive_taxon_community_header: Заедница
   assistive_updates_header: Поднови
+  assistive_updates_statistics_header: Статистики за страници
   associated_submit_button: поврзано
   associated_with_article_header: Во статијава
   associated_with_header: Поврзано со
@@ -529,7 +534,6 @@ mk:
   collection_was_added_to_community: Збирката „%{collection}“ е додадена во оваа заедница.
   collection_was_removed_by_owner: Оваа збирка е отстранета од нејзиниот сопственик.
   collections: Збирки
-  collections_lowercase: збирки
   collections_summary_empty: Оваа страница сè уште не фигурира во ниедна збирка.
   collections_summary_header_with_count: 
     one: Фигурира во %{count} збирка
@@ -591,6 +595,7 @@ mk:
     one: "%{count} експонат"
     other: "%{count} експонати"
   community_invitation_comment: Би сакал да те поканам да ни придружиш на заедницата „%{community}“.
+  community_logo_alt_text: Лого за заедницата %{community_name}
   community_managers_with_count: 
     one: "%{count} раководител на заедницата"
     other: "%{count} раководители на заедницата"
@@ -615,7 +620,7 @@ mk:
   contact_us: контактирајте нè
   contact_us_functions: Функции за контактирање
   contact_us_link: Контактирајте нè
-  contact_us_request_failed: Се појавија грешки!
+  contact_us_request_failed: Се појави грешка при обидот да го испратам барањето.
   contact_us_request_received: Барањето за контактирање е примено
   contact_us_request_sent: Барањето е успешно испратено
   contact_us_submissions: Поднесено на „Контактирајте нè“
@@ -768,7 +773,7 @@ mk:
   content_partner_statistics_column_header_taxa_page_unique_page_views: Засебни посети
   content_partner_statistics_column_header_total_count: Сите страници
   content_partner_statistics_empty: Не пронајдов статистики за месец %{month_name} %{year} г.
-  content_partner_statistics_link: Статистики за користеноста
+  content_partner_statistics_link: Статистики за употреба
   content_partner_statistics_month_label: Месец
   content_partner_statistics_summary_caption: Краток преглед на статистиките за користење на таксонските страници со содржини доставени од %{partner_name} во однос на вкупната употреба на мрежното место на EOL.
   content_partner_statistics_taxa_page_caption: Подробни статистики за употребата на таксонските страници со содржини доставени од %{partner_name}.
@@ -884,16 +889,15 @@ mk:
   daily: Дневно
   darwin_core: Darwin Core
   dashboard: Контролна табла
-  data: Податоци
+  data_database_colon: "Податочна:"
   data_logging_active: Заведување на податоци е активно
-  data_master: Управител на податоците
+  data_master_database_colon: "Податочна матична:"
   data_object: Податочен објект
   data_object_api_description: Кога ќе му се зададе назнака за податочниот објект, овој API ќе ги даде сите метаподатоци за објектот на EOL поднесен од соучесник. Соучесникот се наведува во првиот елемент за агент и ја има улогата „соучесник“.
   data_object_ignore: занемари го експонатов
   data_object_not_associated_with_any_hierarchies: Овој податочен објект не е поврзан со ниедна хиерархија.
   data_object_reference: Навод на подат. објект
   data_object_undo_ignore: отстрани од занемарени
-  data_objects: data_objects
   data_usage_reports: Извештаи за користење на податоци
   date_caps: Датум
   date_uploaded: Датум на подигање
@@ -1050,7 +1054,9 @@ mk:
   external_report_click_year_to_proceed: Надворешен извештај. Стиснете на година за да продолжите.
   facebook: Facebook
   faculty_staff_or_grad_student_credential_option: статус на факултет, наставен кадар или дипломец на релевантен универзитет или оддел во колеџ.
-  failed_login_attempts: неуспешни обиди за најава) - мора да е штиклирано за да може да се најави корисникот
+  failed_login_attempts_with_count: 
+    one: (%{count} неуспешен обид за најава)- мора да е штиклирано за да може да се најави корисникот
+    other: (%{count} неуспешни обиди за најава)- мора да е штиклирано за да може да се најави корисникот
   family_name_colon: "Презиме:"
   feedback: Мислења
   file: Податотека
@@ -1099,7 +1105,6 @@ mk:
   focus_list_newsfeed: Канал на тематскиот список
   for_example_for_the_taxon_element_for_a_node: "На пример: елементот Таксон за еден јазол во хиерархијата ITIS, dc:identifier ќе биде дадениот ITIS TSN. Елементот dwct:taxonID ја содржи <i>EOL-назнаката</i> што се користи за API-прилогот на %{link}."
   for_images_to_reference_parens: (за слики на кои им треба наведување)
-  for_name: за %{name}
   for_pdfs_and_docs_parens: (за PDF и документи)
   for_terms_or_definitions_conta: "за поими или толкувања што содржат:"
   forgot_password: Заборавена лозинка
@@ -1122,7 +1127,7 @@ mk:
   from_community: од заедницата %{community}.
   full_content_url: URL-адреса на полната содржина
   gbif_map: GBIF-карта
-  gbif_occurrence_disclaimer: Картава се заснова на евиденцијата на јавувања достапни преку <a href='http://http://www.gbif.org/'>мрежата GBIF</a> и може да не ја претставува целата распределба.
+  gbif_occurrence_disclaimer: Картава се заснова на евиденцијата на јавувања достапни преку <a href='http://www.gbif.org/'>мрежата GBIF</a> и може да не ја претставува целата распределба.
   gbif_occurrence_learn_more_link: Пристап до овие податоци преку Порталот на GBIF.
   general_site_admin: општ раководител на мреж. место
   get_help_choosing_a_subchapter: Помош со одбирањето на подглава
@@ -1133,6 +1138,7 @@ mk:
   global_access_tagline: Глобален пристап до сознанија за живиот свет на Земјата.
   global_navigation: Општа навигација
   glossary_is_empty: (поимникот е празен)
+  glossary_term: поим
   glossary_terms: Поими во поимникот
   go: Оди
   go_back: назад
@@ -1163,8 +1169,7 @@ mk:
         view_style_id: Основен изглед
       collection_item: 
         annotation: Прибелешка
-        sort_field: Подреди по <small>(датум, број или текст; незадолжително)</small>
-        sort_field_more: Незадолжителна вредност според која би се подредувала збирката (датум со формат ГГГГ.ММ.ДД, бројки или текст).
+        sort_field: Подреди по <small>(датум ГГГГ.ММ.ДД, број или текст)</small>
         sort_field_show: "Вредност за подредување:"
       comment: 
         body_edit: Уреди коментар
@@ -1350,12 +1355,10 @@ mk:
   hidden: Скриен
   hidden_comment: скриен коментар
   hide: скриј
-  hierarchies: хиерархии
   hierarchies_description: Енциклопедијата на живиот свет нема единствена таксономска хиерархија според која ги создава страниците, туку индексира повеќе разни хиерархии и ги споредува. Овој API ги наведува метаподатоците за хиерархијата како име на добавувачот и изворната URL-адреса, и ги наведува сите таксони што се основа на таксономското дрво
   hierarchies_entries_description: Енциклопедијата на живиот свет нема една таксономска хиерархија по која се води во создавањето на страниците, туку индексира повеќе разни хиерархии и меѓусебно ги споредува. Како резултат на ова, една страница на EOL може да се однесува на неколку јазли од разни хиерархии. Овој API-прилог овозможува пристап до една единствена хиерархија и нејзините внатрешни поврзаности. Погледајте ја документацијата на API на страниците, каде ќе најдете информации како да дојдете до други хиерархии што соодветствуваат на дадена страница на EOL. Полето taxonConceptID ја содржи назнаката на страницата на EOL што може да се употреби во API на страниците.
   hierarchies_title: Хиерархии
   hierarchy: Хиерархија
-  hierarchy_entries: hierarchy_entries
   hierarchy_entry_switch_missing_id_error: Нажалост, не можев да ја пронајдам страницата во хиерархискиот запис бидејќи недостасува назнаката.
   hierarchy_roots_colon: "Основи на хиерархијата:"
   hierarchy_selector_drop_down_list_label: Ова е натписот што ќе фигурира во паѓачкиот список за избирање на хиерархијата
@@ -1402,7 +1405,7 @@ mk:
   include_all_metadata: вклучи ги сите метаподатоци за податочните објекти
   indexed: Индексирано
   info_item: Инфообјект
-  info_items: Инфообјекти
+  info_items_col_header: Инфообјекти
   information_for_any_audience: Информации за секого
   information_intended_for_beginners: Информации за почетници
   information_intended_for_experts: Информации наменети за стручњаци
@@ -1518,7 +1521,7 @@ mk:
   literature_references: Наводи од литература
   location: Место
   location_colon: "Место:"
-  logging: Најава
+  logging_database_colon: "Дневничка:"
   login: најава
   login_header: Најавете се со вашата сметка на <abbr title="Енциклопедија на живиот свет">EOL</abbr>
   login_hidden_user_message: Сметката %{given_name} повеќе не е активна
@@ -1527,9 +1530,9 @@ mk:
   login_to_the_website_as: Најавете се како %{username}
   logo_header: Лого
   logout: Одјава
-  main_colon: "Главен:"
   main_content_area: "Главен дел за содржина:"
-  main_master_colon: "Главен управител:"
+  main_database_colon: "Главна:"
+  main_master_database_colon: "Главна матична:"
   main_species_page_link_with_spaces: " &nbsp;&nbsp; стран. за вид>>"
   maintained_by: "одржува:"
   major_heading: Главно заглавие
@@ -1582,9 +1585,77 @@ mk:
   meta_description_colon: "Метаопис:"
   meta_description_community: "%{community_name} %{community_description}.  Заедница на Енциклопедијата на живиот свет."
   meta_description_default: Енциклопедијата на живиот свет е беспримерен потфат кој има за цел да собире и сподели научни сознанија за сите живи битија во еден ресурс на интернет. Со ова секој од нас добива возбудлив увид во нашиот чудесен свет.
-  meta_description_taxon: Описи, слики, видеоснимки и повеќе за %{preferred_common_name_or_blank} %{scientific_name} во Енциклопедијата на живиот свет.
+  meta_description_hierarchy_entry_communities: Станете дел од заедницата посветена на %{scientific_name} и учествувајте со своите наоди и стручни познавања за %{scientific_name} според класификацијата на %{hierarchy_provider}.
+  meta_description_hierarchy_entry_communities_with_common_name: Станете дел од заедницата посветена на %{preferred_common_name} и учествувајте со вашите наоди и стручни познавања за %{scientific_name} според класификацијата на %{hierarchy_provider}.
+  meta_description_hierarchy_entry_details: Информации за %{scientific_name} според класификацијата на %{hierarchy_provider} во Енциклопедијата на живиот свет
+  meta_description_hierarchy_entry_details_with_chapter_list: Информации за %{scientific_name} според класификацијата на %{hierarchy_provider} во Енциклопедијата на живиот свет. Содржи информации за %{chapter_list}.
+  meta_description_hierarchy_entry_details_with_common_name: "Информации за %{preferred_common_name}, научно: %{scientific_name} според класификацијата на %{hierarchy_provider} во Енциклопедијата на живиот свет."
+  meta_description_hierarchy_entry_details_with_common_name_and_chapter_list: "Информации за %{preferred_common_name}, научно: %{scientific_name} според класификацијата на %{hierarchy_provider} во Енциклопедијата на живиот свет. Содржи информации за %{chapter_list}."
+  meta_description_hierarchy_entry_literature: Литератира и информации за %{scientific_name} според класификацијата на %{hierarchy_provider} во Енциклопедијата на живиот свет. Прочитајте статии за %{scientific_name} во Енциклопедијата на живиот свет.
+  meta_description_hierarchy_entry_literature_with_common_name: Литератира и информации за %{preferred_common_name} (%{scientific_name}) според класификацијата на %{hierarchy_provider} во Енциклопедијата на живиот свет. Прочитајте статии за %{preferred_common_name} во Енциклопедијата на живиот свет.
+  meta_description_hierarchy_entry_maps: Географски информации за %{scientific_name} според класификацијата на %{hierarchy_provider} - каде живеат и во кој дел на светот се автохтони.
+  meta_description_hierarchy_entry_maps_with_common_name: Каде се среќаваат %{preferred_common_name} и каде живеат? Географски информации за %{scientific_name} според класификацијата на %{hierarchy_provider} - каде живеат и во кој дел на светот се автохтони.
+  meta_description_hierarchy_entry_media: Слики и видеоснимки од %{scientific_name} според класификацијата на %{hierarchy_provider}.
+  meta_description_hierarchy_entry_media_with_common_name: Слики и видеоснимки од %{preferred_common_name} (%{scientific_name}) според класификацијата на %{hierarchy_provider}.
+  meta_description_hierarchy_entry_names: Таксономска класификација и научни имиња на %{scientific_name} според класификацијата на %{hierarchy_provider}.
+  meta_description_hierarchy_entry_names_with_common_name: Таксономска класификација и научни имиња на %{preferred_common_name} (%{scientific_name}) според класификацијата на %{hierarchy_provider}.
+  meta_description_hierarchy_entry_overview: Преглед на %{scientific_name} според класификацијата на %{hierarchy_provider} во Енциклопедијата на живиот свет.
+  meta_description_hierarchy_entry_overview_with_common_name: "Преглед на %{preferred_common_name}, научно: %{scientific_name} според класификацијата на %{hierarchy_provider} во Енциклопедијата на живиот свет."
+  meta_description_hierarchy_entry_resources: Ресурси и наводи од соучесниците за %{scientific_name} според класификацијата на %{hierarchy_provider}.
+  meta_description_hierarchy_entry_resources_with_common_name: Ресурси и наводи од соучесниците за %{preferred_common_name} (%{scientific_name}) според класификацијата на %{hierarchy_provider}.
+  meta_description_hierarchy_entry_updates_show: Новости и измени за %{scientific_name} според класификацијата на %{hierarchy_provider}.
+  meta_description_hierarchy_entry_updates_show_with_common_name: Новости за %{preferred_common_name} и измени на %{scientific_name} според класификацијата на %{hierarchy_provider}.
+  meta_description_hierarchy_entry_updates_statistics: Статистики и податоци за %{scientific_name} според класификацијата на %{hierarchy_provider}.
+  meta_description_hierarchy_entry_updates_statistics_with_common_name: Статистики и податоци за %{preferred_common_name} (%{scientific_name}) според класификацијата на %{hierarchy_provider}.
+  meta_description_taxon_communities: Станете дел од заедницата посветена на %{scientific_name} и учествувајте со вашите наоди и стручни познавања за %{scientific_name}.
+  meta_description_taxon_communities_with_common_name: Станете дел од заедницата посветена на %{preferred_common_name} и учествувајте со вашите наоди и стручни познавања за %{scientific_name}.
+  meta_description_taxon_details: Информации за %{scientific_name} во Енциклопедијата на живиот свет
+  meta_description_taxon_details_with_chapter_list: Информации за %{scientific_name} во Енциклопедијата на живиот свет. Содржи информации за %{chapter_list}.
+  meta_description_taxon_details_with_common_name: "Информации за %{preferred_common_name}, научно: %{scientific_name} во Енциклопедијата на живиот свет."
+  meta_description_taxon_details_with_common_name_and_chapter_list: "Информации за %{preferred_common_name}, научно: %{scientific_name} во Енциклопедијата на живиот свет. Содржи информации за %{chapter_list}."
+  meta_description_taxon_literature: Литература и информации за %{scientific_name} во Енциклопедијата на живиот свет. Прочитајте статии за %{scientific_name} во Енциклопедијата на живиот свет.
+  meta_description_taxon_literature_with_common_name: Литература и информации за %{preferred_common_name} (%{scientific_name}) во Енциклопедијата на живиот свет. Прочитајте статии за %{preferred_common_name} во Енциклопедијата на живиот свет.
+  meta_description_taxon_maps: Географски информации за %{scientific_name} каде живеат и во кои делови од светот се автохтони.
+  meta_description_taxon_maps_with_common_name: Каде се среќаваат %{preferred_common_name} и каде живеат? Географски информации за %{scientific_name} каде живеат и во кои делови на светот се автохтони.
+  meta_description_taxon_media: Слики и видеоснимки од %{scientific_name}.
+  meta_description_taxon_media_with_common_name: Слики и видеоснимки од %{preferred_common_name} (%{scientific_name}).
+  meta_description_taxon_names: Таксономска класификација и научни имиња на %{scientific_name}.
+  meta_description_taxon_names_with_common_name: Таксономска класификација и научни имиња на %{preferred_common_name} (%{scientific_name}).
+  meta_description_taxon_overview: Преглед на %{scientific_name} во Енциклопедијата на живиот свет.
+  meta_description_taxon_overview_with_common_name: "Преглед на %{preferred_common_name}, научно: %{scientific_name} во Енциклопедијата на живиот свет."
+  meta_description_taxon_resources: Ресурси и наводи од соучесниците за %{scientific_name}.
+  meta_description_taxon_resources_with_common_name: ресурси и наводи од соучесниците за %{preferred_common_name} (%{scientific_name}).
+  meta_description_taxon_updates: Новости и измени за %{scientific_name}.
+  meta_description_taxon_updates_statistics: Статистики и податоци за %{scientific_name} во Енциклопедијата на живиот свет.
+  meta_description_taxon_updates_statistics_with_common_name: Статистики и податоци за %{preferred_common_name} (%{scientific_name}) во Енциклопедиајта на живиот свет.
+  meta_description_taxon_updates_with_common_name: Новости за %{preferred_common_name} и измени за %{scientific_name}.
   meta_keywords_colon: "Метаклучни зборови:"
+  meta_keywords_taxon_communities: заедница посветена на %{scientific_name}
+  meta_keywords_taxon_communities_with_common_name: заедница посветена на %{preferred_common_name}, заедница посветена на %{scientific_name}
+  meta_keywords_taxon_literature: информации за %{scientific_name}, литература за %{scientific_name}, статии за %{scientific_name}
+  meta_keywords_taxon_literature_with_common_name: информации за %{preferred_common_name}, литература за %{preferred_common_name}, статии за %{scientific_name}
+  meta_keywords_taxon_maps: живеалиште на %{scientific_name}, автохтони, каде живеат %{scientific_name}
+  meta_keywords_taxon_maps_with_common_name: живеалиште на %{preferred_common_name}, автохтони, каде живеат %{preferred_common_name}
+  meta_keywords_taxon_media: слики од %{scientific_name}, видеоснимки од %{scientific_name}, слики од %{scientific_name}, видеа од %{scientific_name}, слики од %{scientific_name}, снимки
+  meta_keywords_taxon_media_with_common_name: слики од %{preferred_common_name}, видеоснимки од %{preferred_common_name}, слики од %{preferred_common_name}, видеа од %{preferred_common_name}, слики од %{preferred_common_name}, снимки
+  meta_keywords_taxon_names: таксономија, класификација
+  meta_keywords_taxon_updates: Новости за %{scientific_name}, измени за %{scientific_name}
+  meta_keywords_taxon_updates_statistics: статистики за %{scientific_name}, статистики за %{scientific_name}, податоци за %{scientific_name}
+  meta_keywords_taxon_updates_statistics_with_common_name: статистики за %{preferred_common_name}, статистики за %{preferred_common_name}, податоци за %{preferred_common_name}
+  meta_keywords_taxon_updates_with_common_name: Новости за %{preferred_common_name}, измени за %{preferred_common_name}, актуелности за %{scientific_name}
   meta_title_default: Енциклопедија на живиот свет
+  meta_title_taxon_communities: Коментари од заедницата и стручњаците за %{scientific_name}
+  meta_title_taxon_communities_with_common_name: Заедница посветена на %{preferred_common_name} – Стручни коментари за %{scientific_name}
+  meta_title_taxon_literature: Статии за %{scientific_name}
+  meta_title_taxon_literature_with_common_name: Литература и информации за %{preferred_common_name} – Статии за %{scientific_name}
+  meta_title_taxon_maps_with_common_name: Живеалиште на %{preferred_common_name}
+  meta_title_taxon_media: Слики од %{scientific_name} – Видеоснимки од %{scientific_name} – Снимки од %{scientific_name}
+  meta_title_taxon_media_with_common_name: Слики од %{preferred_common_name} – Видеоснимки од %{preferred_common_name} – Снимки од %{scientific_name}
+  meta_title_taxon_names: Таксономска класификација
+  meta_title_taxon_updates_show: Новости и измени за %{scientific_name}
+  meta_title_taxon_updates_show_with_common_name: Новости за %{preferred_common_name} – Нови измени за %{scientific_name}
+  meta_title_taxon_updates_statistics: Статистички податоци и информации за %{scientific_name}
+  meta_title_taxon_updates_statistics_with_common_name: Статистики за %{preferred_common_name} – Статистички податоци и информации за %{scientific_name}
   meta_title_template: "%{page_title} — Енциклопедија на живиот свет"
   method: Метод
   method_to_get_metadata_about_the_hierarchy: кога ќе му се зададе хиерархиска назнака овој метод дава метаподатоци за хиерархијата и ги наведува основните таксони
@@ -1650,7 +1721,6 @@ mk:
   name_preferred_taxonomically_for_source_help_tip: "%{icon} го означува претпочитаното име за секој извор."
   name_preferred_taxonomically_for_source_yes: Претпочитано
   names: Имиња
-  names_children_column_header: Поттаксони
   names_common_empty: Досега нема тривијални имиња поврзани со овој таксон
   names_common_list_by_language_assistive_header: Тривијални имиња наведени по јазици
   names_curation_column_header: Кустосување
@@ -1717,7 +1787,6 @@ mk:
   note_that_you_can_reference_im: Имајте предвид дека можете да наведувате слики со HTML-ознаката &lt;img&gt;, но тие мора да постојат на URL-адреса, како од изворното мрежно место или места како Flickr. Не постои можност за подигање на слики за непосредна употреба во новостите.
   notes: Белешки
   notes_not_shown_to_user: "Белешки (невидливи за корисникот):"
-  notice_colon: "НАПОМЕНА:"
   notifier: 
     activity_log_empty: Нема скорешни активности на кустосите.
     activity_on_content_partner_content: 
@@ -1847,11 +1916,10 @@ mk:
   page_statistics_and_tools: статистики за страниците и алатки
   page_statistics_explanation: <p>EOL автоматски пресметува некои статистики за нејзините страници. Пресметката се повторува секој ден или на два дена</p><h5>Оценка на содржајноста</h5><p>Оценката на содржајноста се состои од повеќе различни фактори како:<ul><li>колку текст има во една страница</li><li>колку слики, снимки и карти се на располагање</li><li>колку различни тематики се покриени</li><li>колку различни извори учествуваат во информациите</li></ul></p><p>Покрај ова, игра улога и фактот дали информациите се прегледани. Ако една страница веќе има мултимедијални содржини и текст, просто додавајќи уште такви содржини може да не ја промени оценката на содржајноста.</p><p>Оценката се движи од 0 до 100, со тоа што посодржајните страници имаат повисока оценка. не грижете се, разликите од неколку бода не се така важни. Со време може да се случи да го смениме начинот на пресметување на оценката за да биде подобар одраз на вашто искуство на EOL. Ви препорачуваме да ги искажувате вашите критики со коментари на страниците што мислите дека се погрешно оценети.</p><h5>Доверливи слики</h5><p>Ги содржи сите доверливи слики за оваа страница и страниците што фигурираат во класификацијата под оваа страница. Тука се вбројуваат сликите преземени од доверливи соучесници како и соучесници од типот на Flickr и Заедничката Ризница на Викимедија, во кои искажал доверба кустос на EOL.</p><h5>Непрегледани слики</h5><p>Ги содржи сите непрегледани слики за оваа страница и страниците што фигурираат во класификацијата под оваа страница. Некои од соучесниците нудат голем број на висококвалитетни слики што може да се подобри од доверливите, но едноставно не се прегледани. Тука не се вбројуваат сликите за кои кустос на EOL одлучил дека се недоверливи.</p><h5>Доверливи статии</h5><p>Ги опфаќа сите доверливи текстуални статии во јазичето за подробности на страницава и неколку статии во јазичето за ресурси. Тука спаѓаат текстуални статии преземени од доверливи соучесици, но и статиите кои се непосреден придонес на EOL нејзините членови или статии од Википедија за кои кустос на EOL одлучил дека се доверливи. Не се вбројуваат статиите на страници што фигурираат на класификацијата под оваа страница.</p><h5>Непрегледани статии</h5><p>Ги опфаќа сите непрегледани текстуални статии во јазичето за подробности на страницава и неколку статии во јазичето за ресурси. Тука спаѓаат текстуални статии преземени од доверливи соучесици и статиите од Википедија што чекаат да бидат прегледани од кустос на EOL. Не се вбројуваат статиите на страници што фигурираат на класификацијата под оваа страница.
   page_urls: "URL на стран.:"
-  page_view: Прегледи
+  page_views_th: Посети
   pages: страници.
   pages_admin_section_link: Администратори
   pages_curator_section_link: Кустоси
-  pages_lowercase: страници
   pages_method_description: зема назнака на страница на EOL и го дава научното име за таа страница. По желба дава и информации за тривијалните имиња, медиумите (текст, слики и видеоснимки) и упатува на хиерархиите што го признаваат таксонот опишан на
   pages_title: Страници
   pages_with_count: 
@@ -1886,7 +1954,6 @@ mk:
   person_rating: Оценка на лицето
   personal_profile_menu: Личен профил
   personal_space: Личен простор
-  ping: ping
   ping_method_description: Овој метод или нема да успее (тогаш ќе добиете известување за грешка) или ќе даде порака за успешно спроведена постапка. Не постојат други пораки освен овие две
   please: Ве молиме
   please_ask_big_before_changing_toc: Консултирајте член на групата Биоразновидносна информатика пред да го уредувате прегледот на содржини. Некои имиња на главите не можат да се менуваат бидејќи се врзани со самиот код. Инфообјектите не можат да се пресликаат на овој посредник - тоа мора да се изврши рачно во базата.
@@ -1895,6 +1962,7 @@ mk:
   please_leave_your_feedback: Ве молиме дајте ваше мислење
   please_note_that_some_of_these: Имајте предвид дека некои од алаткиве се во бета и затоа може да се изменат со текот на времето или да содржат грешки.
   please_note_wiki_etc_are_not_spm: "*Имајте на ум дека Википедија, Образование и Линиски код се внатрешни предметни определници на EOL и како такви не се дел од SPM."
+  please_publish_this_resource_notice: "*** <strong>НАПОМЕНА:</strong> Овој ресурс треба да се <strong>%{publish_link}</strong> тука ***"
   please_refresh: Превчитајте го прелистувачот за да можете да ја видите најновата верзија на мрежното место на EOL
   please_return_to_eol_homepage: Вратете се на почетната страница на EOL
   please_state_one_credential: "Наведете барем едно конкретно полномоштво од списокот:"
@@ -1915,7 +1983,6 @@ mk:
   profile_picture: Профилна слика
   project: Проект
   provider: Добавувач
-  provider_hierarchies: добавувачки_хиерархии
   provider_hierarchies_method_description: Овој метод ќе ги даде сите наводи на сите хиерархии доставени од соучесниците на EOL. Во одговорот ќе има натпис на хиерархијата и единствената назнака што ја претставува таа хиерархија на EOL
   providers: Добавувачи
   public: Јавно
@@ -1949,6 +2016,7 @@ mk:
   recognized_by_as_a_rank: "%{recognized_by} како %{taxon_rank}"
   recognized_by_from_source_as_a_rank: "%{recognized_by} во %{source} како %{taxon_rank}"
   record_not_found: "[записот не е пронајден]"
+  references_cabs_colon: "Наводи:"
   related_names_with_count: 
     one: "%{count} поврзано име"
     other: "%{count} поврзани имиња"
@@ -1988,7 +2056,6 @@ mk:
   rights: Права
   rights_holder: Сопственик на правата
   rights_statement: Изјава за правата
-  rss: rss
   rss_feed: RSS канал
   save: Зачувај
   save_annotation_submit_button: Зачувај прибелешки
@@ -1997,7 +2064,6 @@ mk:
   sci_name_avg_table_head: Научно име (прос.)
   scientific_name: Научно име
   search: Пребарај
-  search_by_provider: пребарување_по_добавувач
   search_by_provider_method_description: добивање на назнаки на страници на EOL ако е зададен hierarchy_id and и единствената назнака на добавувачот
   search_by_term_page_title: "Пребарување: %{term}"
   search_field_label: Пребарување по EOL
@@ -2009,7 +2075,6 @@ mk:
   search_for_users_containing_this_in_their_username_name_or_email_address: Пребарај корисници што го содржат ова во корисничкото име, името или е-поштата.
   search_input_advisory_information: Внесете го тривијалното или научното име на некое живо суштество што ве интересира. Можете и да пребарувате по членовите, збирките и заедниците на EOL.
   search_log_report_intro: Во овој дел се наведени најчесто пребаруваните поими, колку пати е пребаран секој од нив и некои информации за бројот на добиените резултати. Стиснете на колоните за да го подредите приказот според секоја од нив. Стиснете на поимот за да видите на кој резултат стиснале корисниците (ако има таков) по пребарувањето.
-  search_lowercase: пребарување
   search_method_description: ако иам зададена вредност за конкретен елемент (на пр. научно име=Homo sapiens), дава список со страници на EOL што го содржат пребараниот поим
   search_next_label: Следно
   search_placeholder: Пребарајте ја EOL ...
@@ -2139,7 +2204,6 @@ mk:
   spm_category_partner_count: SPM категорија - број на партнери
   started: Отпочнато
   stat: Статистика
-  statistic: Статистика
   statistics: Статистики
   sub_heading: Поднаслов
   subject: предмет
@@ -2150,6 +2214,7 @@ mk:
   supplier: Добавувач
   supplier_allcaps: "ДОБАВУВАЧ:"
   supplier_colon: "Добавувач:"
+  survey_link: Пополнете ја нашата анкета
   switch_language_advisory_information: Префрлете го јазикот на мрежното место на %{language_label}
   synonym: Синоним
   synonyms_with_count: 
@@ -2202,8 +2267,8 @@ mk:
   taxon_suggested: Предложен таксон
   taxonomic_summary_of_content: таксономски преглед на содржините
   technical_functions: Технички функции
-  term: Поим
   term_cannot_be_left_blank: Поимот не може да стои празен
+  term_for_search_admin_ui: Поим
   term_is_already_def_error: поимот „%{term}“ е веќе определен
   terms_agreement_form_fallback: Прочитајте ги <a href="%{terms_url}">условите на употреба</a> и согласете се за да имате пристап до сметката.
   terms_agreement_form_header: Услови на употреба
@@ -2249,6 +2314,7 @@ mk:
   the_suggested_page_to_direct_users_to_link: предложената страница на која ќе се префрлаат корисниците
   the_topic_was_updated: Темата е подновена.
   the_user_was_updated: Корисникот е подновен.
+  the_user_who_performed_this_action_was_removed: Корисникот што го има извршено ова дејство е отстранет.
   the_xml_search_response_implements: Пребарувањето со XML-одговори го спроведува форматот на одговори OpenSearch користејќи Atom 1.0. Подробен технички опис на OpenSearch ќе најдете на %{link}
   there_are_currently_no_members_in_this_community: Заедницата моментално нема членови.
   there_is_no_singular_eol: EOL нема една единствена таксономска хиерархија, туку индексира повеќе разни хиерархии и меѓусебно ги споредува за да определи кои јазли се однесуваат на еден ист таксон. Овие таксонски елементи ги претставуваат споменатите хиерархиски јазли, и затоа може да се јават неколку од нив на една страница на EOL. Повеќе информации ќе најдете во документацијата на API-прилогот на %{link} .
@@ -2274,7 +2340,6 @@ mk:
   this_map_is_unpublished: Оваа карта е необјавена.
   this_method_takes_an_integer_or_string: Овој метод зема цел број или низа што е единствена назнака на таксон од базата на еден добавувач, како и hierarchy_id што го претставува добавувачот и ја дава назнаката на страницата од EOL за тој таксон. На пример, користјеќи го API-прилогот на %{link_provider} можам да дознаам дека hierarchy_id од EOL за Интегрираниот таксономски информативен систем (ITIS) е %{itis_id}. Потоа можам да го пребарам по EOL таксономскиот сериски број на ITIS (TSN) 180542,<i>Ursus maritimus</i>, повикувајќи ја %{link_url}
   this_page_shows_information_ab: На оваа страница се прикажани информации за даден поим за пребарување и ги наведува резултатите од пребарувањето што ги стиснале корисниците.
-  this_resource_here_stars: овдешниов ресурс ***
   this_resource_unpublished_notice: Овој ресурс во моментов не е означен како објавен од страна на администратор.
   this_section_is_used_to_create: Овој дел служи за создавање на нови експонати. Новостите се истакнуваат во десниот дел на домашната страница, како и во %{rss_link} и страницата %{news_archive}.
   this_sound_cannot_be_curated_because_unpublished: Оваа звучна снимка не може да се кустосува бидејќи е тргната од објавени.
@@ -2293,8 +2358,8 @@ mk:
   to_submit_a_species_photograph_for: За да поднесете слика за таксонот %{taxon}, испратете ги сликите на %{flickr_link} и проследете ги напатствијата истакнати на матичната страница на таа група.
   to_submit_text_content_for_taxon_please_be_sure_you_are_logged: За да поднесете текстуална содржина за таксонот %{taxon}, проверете дали сте најавени на EOL, па стиснете на
   toc: Содржина
-  toc_entry: Ставка во Содржината
-  toc_no_longer_available: "Содржина: повеќе не е достапна"
+  toc_entry_col_header: Ставка во содржината
+  toc_no_longer_available: Содржината повеќе не е достапна
   topic: Тема
   topic_area: Тематска област
   topics_avilable_to_contact_us_info: Следниве тематски области достапни од страницата „Котактирајте нè“. Можете да додавате нови или да ги уредувате постоечките тематски области и нивните е-поштенски адреси. Сите измени се вршат веднаш.
@@ -2322,7 +2387,7 @@ mk:
   type: Тип
   unable_to_copy_items_to_collection_error: Нажалост, не можев да ги ископирам експонатите во %{name}.
   unable_to_invite_users_to_community_error: Не можев да испратам покани до %{users}.
-  unique_page_view: Засебна посета
+  unique_page_views_th: Засебни посети
   unknown: Непознат
   unknown_type_not_associated_with_any_published_entries: Овие податоци не се поврзани со ниеден објавен таксон.
   unpublished: Необјавено
@@ -2401,7 +2466,9 @@ mk:
   user_agent: Кориснички агент
   user_already_active_notice: Вашата сметка е веќе активна. Најавете се.
   user_comment: Кориснички коментар
+  user_commented_on_deleted_user: "<strong>%{user_with_link}</strong> коментираше на страницата на корисник што е отстранет:"
   user_commented_on_something_colon: "<strong>%{user}</strong> коментираше на %{what}:"
+  user_commented_on_themself: "<strong>%{user_with_link}</strong> коментираше на <a href='%{link}'>каналот за новости на %{username}</a>:"
   user_comments: Кориснички коментари
   user_hidden_message: Корисников повеќе не е активен
   user_id: Корисничка назнака
@@ -2414,7 +2481,6 @@ mk:
   user_says_colon: "%{users_name} вели:"
   user_submitted_text: Кориснички-поднесен текст
   user_submitted_text_found: "Пронајден кориснички-поднесен текст:"
-  user_submitted_text_titlecase: Кориснички-поднесен текст
   user_system_down: Се извинуваме, но системот за регистрација е моментално недостапен. Обидете се подоцна.
   user_was_added_as_editor_of_collection: Овој корисник е назначен за раководител на „%{collection}“.
   username: Корисничко име
@@ -2457,7 +2523,6 @@ mk:
   videos_with_count: 
     one: "%{count} видео"
     other: "%{count} видеа"
-  view: Преглед
   view_added_text: погл. додаден текст
   view_article_source: Погл. извор на статијата
   view_as_button: Промени изглед
@@ -2479,6 +2544,7 @@ mk:
   view_translation_source_link: Извор на преводот
   view_user_activity: погл. кориснички активности
   view_user_comments: погл. кориснички коментари
+  view_verb: Погл.
   view_video_source: Погл. извор на видеоснимката
   view_your_curator_profile: Погл. вашиот кустоски профил
   visible_title: Видливо

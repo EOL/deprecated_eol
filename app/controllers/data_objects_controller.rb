@@ -279,10 +279,17 @@ class DataObjectsController < ApplicationController
 
 protected
   def scoped_variables_for_translations
-    translation_vars = super
-    translation_vars.merge({
-      :dato_title => @data_object ? Sanitize.clean(@data_object.best_title) : nil
+    return @scoped_variables_for_translations unless @scoped_variables_for_translations.nil?
+    @scoped_variables_for_translations = super
+    if @data_object
+      supplier = (@data_object.added_by_user? && !@data_object.users_data_object.blank?) ?
+        @data_object.users_data_object.user.full_name : @data_object.content_partner.name
+    end
+    @scoped_variables_for_translations.merge!({
+      :dato_title => @data_object ? Sanitize.clean(@data_object.best_title) : nil,
+      :supplier => supplier ? Sanitize.clean(supplier) : nil
     })
+    @scoped_variables_for_translations
   end
   def meta_open_graph_image_url
     @data_object ? @data_object.thumb_or_object : nil

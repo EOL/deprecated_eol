@@ -536,7 +536,7 @@ en:
     newsfeeds:
       show:
         meta_description: "%{community_name}. %{community_description}"
-        meta_keywords: "%{community_name}, Encyclopedia of Life Community, newsfeed"
+        meta_keywords: "%{community_name}, Encyclopedia of Life Community, %{community_name} newsfeed, %{community_name} comments, %{community_name} activity"
         meta_title: "%{community_name}"
         tweet_text: "%{community_name}"
     show:
@@ -551,26 +551,24 @@ en:
     statistics:
       show:
         meta_description: "Usage statistics for %{partner_name} data."
-        meta_keywords: ""
+        meta_keywords: "%{partner_name} Statistics, %{partner_name} Web Usage"
         meta_title: "%{partner_name} Statistics"
         tweet_text: "%{partner_name} usage statistics"
     index:
       meta_description: "List of Encyclopedia of Life data providers and content partners."
-      meta_keywords: ""
+      meta_keywords: "Encyclopedia of Life Content Partners, Encyclopedia of Life Data Providers"
       meta_title: "Content Partners"
     show:
       meta_description: "%{partner_name}. %{partner_description}"
-      meta_keywords: ""
+      meta_keywords: "%{partner_name}, Encyclopedia of Life Content Partner"
       meta_title: "%{partner_name}"
       tweet_text: "%{partner_name}"
     edit:
       meta_title: "Edit %{partner_name}"
   data_objects:
     show:
-      meta_description: ""
-      meta_keywords: ""
-      meta_title: "%{dato_title}"
-      tweet_text: "%{dato_title}"
+      meta_title: "%{dato_title} from %{supplier}"
+      tweet_text: "%{dato_title} from %{supplier}"
   notifier:
     activity_log_empty: "No recent actions by curators."
     activity_user_added_association_on_date: "%{curator_level} %{users_name} (%{users_url}) added unknown association for %{object_name} (%{object_url})\n%{action_date}.\n"
@@ -665,11 +663,8 @@ en:
         tweet_text: "Collections of %{scientific_name}"
       curators:
         hierarchy_entry:
-          meta_description: ""
-          meta_description_with_common_name: ""
-          meta_keywords: ""
-          meta_title: ""
-          meta_title_with_common_name: ""
+          meta_title: "Curators of %{scientific_name} as classified by %{hierarchy_provider}"
+          meta_title_with_common_name: "Experts on %{preferred_common_name} (%{scientific_name} as classified by %{hierarchy_provider})"
           tweet_text: "Curators of %{scientific_name} as classified by %{hierarchy_provider}"
         meta_description: ""
         meta_description_with_common_name: "%{preferred_common_name} experts monitor %{preferred_common_name} (%{scientific_name}) data making sure."
@@ -686,8 +681,8 @@ en:
           meta_description_with_common_name: "Information about the %{preferred_common_name}, scientifically known as %{scientific_name} as classified by %{hierarchy_provider} in the Encyclopedia of Life."
           meta_description_with_common_name_with_chapter_list: "Information about the %{preferred_common_name}, scientifically known as %{scientific_name} as classified by %{hierarchy_provider} in the Encyclopedia of Life. Includes information on %{chapter_list}."
           meta_keywords: ""
-          meta_title: ""
-          meta_title_with_common_name: ""
+          meta_title: "Information about %{scientific_name} as classified by %{hierarchy_provider}"
+          meta_title_with_common_name: "Information about the %{preferred_common_name} (%{scientific_name} as classified by %{hierarchy_provider})"
           tweet_text: "Information about %{scientific_name} as classified by %{hierarchy_provider}"
         meta_description: "Information about %{scientific_name} in the Encyclopedia of Life"
         meta_description_with_chapter_list: "Information about %{scientific_name} in the Encyclopedia of Life. Includes information on %{chapter_list}."
@@ -704,8 +699,8 @@ en:
           meta_description: "Literature and information on %{scientific_name} as classified by %{hierarchy_provider} in the Encyclopedia of Life. Read articles about %{scientific_name} in the Encyclopedia of Life."
           meta_description_with_common_name: "Literature and information on %{preferred_common_name} also known as %{scientific_name} as classified by %{hierarchy_provider} in the Encyclopedia of Life. Read articles about %{preferred_common_name} in the Encyclopedia of Life."
           meta_keywords:  ""
-          meta_title: ""
-          meta_title_with_common_name: ""
+          meta_title: "BHL Literature on %{scientific_name} as classified by %{hierarchy_provider}"
+          meta_title_with_common_name: "BHL Literature on %{preferred_common_name} (%{scientific_name} as classified by %{hierarchy_provider})"
           tweet_text: "Literature from #BHL on %{scientific_name} as classified by %{hierarchy_provider}"
         meta_description: ""
         meta_description_with_common_name: ""

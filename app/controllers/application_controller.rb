@@ -596,28 +596,41 @@ protected
                   :keywords => keywords}.delete_if{ |k, v| v.nil? }
   end
   def meta_title
-    translation_vars = scoped_variables_for_translations
+    return @meta_title unless @meta_title.blank?
+    translation_vars = scoped_variables_for_translations.clone
     translation_vars[:default] = @page_title if !@page_title.nil? && translation_vars[:default].blank?
-    t(".meta_title", translation_vars)
+    @meta_title = t(".meta_title", translation_vars)
   end
   def meta_description
-    t(".meta_description", scoped_variables_for_translations)
+    return @meta_description unless @meta_description.blank?
+    translation_vars = scoped_variables_for_translations.clone
+    @meta_description = t(".meta_description", translation_vars)
   end
   def meta_keywords
-    t(".meta_keywords", scoped_variables_for_translations)
+    return @meta_keywords unless @meta_keywords.blank?
+    translation_vars = scoped_variables_for_translations.clone
+    @meta_keywords = t(".meta_keywords", translation_vars)
   end
-  def tweet_data(lang = I18n.locale.to_s, via = $TWITTER_USERNAME, hashtags = $TWITTER_HASHTAG,
-                 text = I18n.t(:tweet_text, scoped_variables_for_translations))
+  def tweet_data(text = nil, lang = I18n.locale.to_s, via = $TWITTER_USERNAME, hashtags = $TWITTER_HASHTAG)
+    return @tweet_data unless @tweet_data.blank?
+    if text.nil?
+      translation_vars = scoped_variables_for_translations.clone
+      translation_vars[:default] = meta_title if translation_vars[:default].blank?
+      text = I18n.t(:tweet_text, translation_vars)
+    end
     @tweet_data = {:lang => lang, :via => via, :hashtags => hashtags,
                    :text => text}.delete_if{ |k, v| v.blank? }
   end
   def meta_open_graph_data(image)
-    { 'fb:app_id' => $FACEBOOK_APP_ID,
+    return @meta_open_graph_data unless @meta_open_graph_data.blank?
+    @meta_open_graph_data = {
+      'fb:app_id' => $FACEBOOK_APP_ID,
       'og:site_name' => I18n.t(:encyclopedia_of_life),
       'og:type' => 'non_profit',
       'og:title' => meta_data[:title],
+      'og:description' => meta_data[:description],
       'og:image' => image
-    }
+    }.delete_if{ |k, v| v.blank? }
   end
   def meta_open_graph_image_url
     nil

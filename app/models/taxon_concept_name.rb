@@ -40,9 +40,9 @@ class TaxonConceptName < SpeciesSchemaModel
     if synonym
       all_sources += synonym.agents
       all_sources << synonym.hierarchy.agent
-    elsif sorce_hierarcy_entry
-      all_sources += sorce_hierarcy_entry.agents
-      all_sources << sorce_hierarcy_entry.hierarchy.agent
+    elsif source_hierarcy_entry
+      all_sources += source_hierarcy_entry.agents
+      all_sources << source_hierarcy_entry.hierarchy.agent
     end
     all_sources.delete(Hierarchy.eol_contributors.agent)
     all_sources.uniq!

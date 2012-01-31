@@ -230,7 +230,7 @@ class TaxonConcept < SpeciesSchemaModel
   # Assumes current user if option[:user] is nil
   def text(options={})
     options[:user] ||= current_user
-    text_datos = data_objects.select{ |d| d.is_text? }
+    text_datos = data_objects.select{ |d| d.is_text? && d.published? }
     text_user_objects = users_data_objects.select{ |udo| udo.data_object && udo.data_object.is_text? && udo.data_object.published && udo.visibility == Visibility.visible }.collect{ |udo| udo.data_object}
 
     # Get text_user_objects from superceded taxa
@@ -243,7 +243,7 @@ class TaxonConcept < SpeciesSchemaModel
         end
       end
     end
-    
+
     combined_objects = text_datos | text_user_objects | text_user_objects_superceded
 
     # if this is a content partner, we preload associations to prevent
@@ -831,7 +831,7 @@ class TaxonConcept < SpeciesSchemaModel
       opts[:visibility_statuses] ||= ['visible']
       opts[:filter_by] ||= 'visible'
     end
-    
+
     @media = EOL::Solr::DataObjects.search_with_pagination(self.id, {
       :page => opts[:page],
       :per_page => opts[:per_page],
@@ -1340,7 +1340,7 @@ class TaxonConcept < SpeciesSchemaModel
       }).total_entries
     end
   end
-  
+
   # returns a DataObject, not a TaxonConceptExemplarImage
   def published_exemplar_image
     if concept_exemplar_image = taxon_concept_exemplar_image
@@ -1353,7 +1353,7 @@ class TaxonConcept < SpeciesSchemaModel
       end
     end
   end
-  
+
   def exemplar_or_best_image_from_solr(selected_hierarchy_entry = nil)
     cache_key = "best_image_#{self.id}"
     cache_key += "_#{selected_hierarchy_entry.id}" if selected_hierarchy_entry && selected_hierarchy_entry.class == HierarchyEntry

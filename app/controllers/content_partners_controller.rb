@@ -94,6 +94,20 @@ class ContentPartnersController < ApplicationController
     end
   end
 
+protected
+  def scoped_variables_for_translations
+    translation_vars = super
+    translation_vars.merge({
+      :partner_name => @partner ? Sanitize.clean(@partner.name) : nil,
+      :partner_description => @partner ? Sanitize.clean(@partner.description) : nil
+    })
+    translation_vars[:partner_description] = I18n.t(:content_partner_default_description) if translation_vars[:partner_description].blank?
+    translation_vars
+  end
+  def meta_open_graph_image_url
+    @partner ? image_url(@partner.logo_url) : nil
+  end
+
 private
 
   def content_partners_layout

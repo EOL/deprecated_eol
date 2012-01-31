@@ -4,7 +4,6 @@
       = image_tag @partner.logo_url, :alt => ""
       .hgroup
         %h1= h @partner.name
-        = yield :social_sharing
         - if @page_subheader.blank?
           %p
             - unless @partner.oldest_published_harvest_events.blank?
@@ -20,6 +19,7 @@
 
         - else
           %h2= @page_subheader
+        = yield :social_sharing
 
       .page_actions
         %ul

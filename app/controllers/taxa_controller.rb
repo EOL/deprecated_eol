@@ -119,24 +119,48 @@ class TaxaController < ApplicationController
   end
 
 protected
-  def set_meta_title
-    I18n.t(:meta_title_template,
-      :page_title => [@preferred_common_name, @scientific_name,
-                      @selected_hierarchy_entry ? @selected_hierarchy_entry.hierarchy_label : nil,
-                      @assistive_section_header].compact.join(" - "))
+  def controller_action_scope
+    scope = super
+    scope << :hierarchy_entry if @selected_hierarchy_entry
+    scope
   end
-  def set_meta_keywords
+  def scoped_variables_for_translations
+    translation_vars = super
+    translation_vars.merge({:preferred_common_name => @preferred_common_name,
+      :scientific_name => @scientific_name,
+      :hierarchy_provider => @selected_hierarchy_entry ? @selected_hierarchy_entry.hierarchy_label : nil,
+    })
+  end
+  def meta_title
+    translation_vars = scoped_variables_for_translations
+    translation_vars[:default] = [@preferred_common_name,
+                                  @scientific_name,
+                                  @selected_hierarchy_entry ? @selected_hierarchy_entry.hierarchy_label : nil,
+                                  @assistive_section_header].compact.join(" - ")
+    t(".meta_title#{translation_vars[:preferred_common_name] ? '_with_common_name' : ''}", translation_vars)
+  end
+  def meta_description
+    translation_vars = scoped_variables_for_translations
+    t(".meta_description#{translation_vars[:preferred_common_name] ? '_with_common_name' : ''}", translation_vars)
+  end
+  def meta_keywords
     keywords = [ @preferred_common_name,
       @scientific_name,
       @preferred_common_name && @assistive_section_header ? "#{@preferred_common_name} #{@assistive_section_header}" : nil,
       @scientific_name && @assistive_section_header ? "#{@scientific_name} #{@assistive_section_header}" : nil,
       @selected_hierarchy_entry ? @selected_hierarchy_entry.hierarchy_label : nil,
-     ]
-     keywords = keywords.concat(additional_meta_keywords)
-     keywords.uniq.compact.join(", ").strip
+    ].uniq.compact!.join(", ").strip
+    translation_vars = scoped_variables_for_translations
+    additional_keywords = t(".meta_keywords#{translation_vars[:preferred_common_name] ? '_with_common_name' : ''}",
+                            translation_vars)
+    "#{keywords}, #{additional_keywords}".strip
   end
-  def additional_meta_keywords
-    []
+  def meta_open_graph_image_url
+    return nil if @taxon_concept.blank?
+    dato = @taxon_concept.published_exemplar_image.blank? ?
+      @taxon_concept.images_from_solr.first :
+      @taxon_concept.published_exemplar_image
+    dato.thumb_or_object
   end
 
 private

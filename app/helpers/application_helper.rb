@@ -91,27 +91,6 @@ module ApplicationHelper
     end
   end
 
-  # Used in V2 to get absolute URLs for images, i.e. starting with http... use like image_path
-  # requires ActionView::Helpers::AssetTagHelper
-  def image_url(image)
-    request.protocol + request.host_with_port + image_path(image)
-  end
-
-  # Used in V2 for Facebook Like button @see /views/shared/_social_sharing
-  def set_social_plugin_meta_defaults
-    @meta_facebook_data = {
-      'fb:app_id' => $FACEBOOK_APP_ID
-    }
-    # @see http://developers.facebook.com/docs/opengraph/
-    # TODO: Define custom object types for biodiversity namespaces e.g. species?
-    # TODO: Define og:locale, and og:locale:alternate. Note format expected includes region e.g. "en_US"
-    @meta_open_graph_data = {
-      'og:site_name' => I18n.t(:encyclopedia_of_life),
-      'og:image' => image_url('logo_open_graph_default.png'),
-      'og:type' => 'non_profit'
-    }
-  end
-
   # Used in V2 to return class for active navigation tabs.
   def resource_is_active(resource, action = nil)
     if action
@@ -230,16 +209,6 @@ module ApplicationHelper
   # format numbers with commas for digit separators
   def format_number_with_commas(st)
     st.to_s.gsub(/(\d)(?=(\d\d\d)+(?!\d))/, "\\1,")
-  end
-
-  # Obsolete for V2 - we don't want global replace of spaces with commas we want key phrases not just key words
-  # take an input string, split it up by spaces and return a comma delimited list of the words
-  def meta_keywords(input_string,strip_html=true)
-    keyword_list=''
-    input_string=strip_tags(input_string) if strip_html
-    input_string.split(' ').each {|word| keyword_list+=word + ","}
-    keyword_list.chop! if keyword_list.length>0
-    return keyword_list
   end
 
   # Link to a single stylesheet asset (which may be comprised of several individual files).

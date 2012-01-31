@@ -14,7 +14,7 @@
 # Author: Seb35
 # Author: Verdy p
 # Author: Zcqsc06
-fr: 
+fr:
   0_1_or_2: 0, 1 ou 2
   0_or_1: 0 ou 1
   1st_view: Première vue
@@ -30,30 +30,30 @@ fr:
   actions: Actions
   active: Actif
   active_colon: "Actif :"
-  activerecord: 
-    attributes: 
-      collection: 
+  activerecord:
+    attributes:
+      collection:
         additional_annotation_fields: Champs supplémentaires d'annotation
         description: Description de la collection
         logo: Logo de la collection principale
         name: Nom de la collection
         show_references: Références (Texte ou URL)
         sort_style_id: Direction de tri par défaut
-      collection_item: 
+      collection_item:
         annotation: Annotation
         refs: Références <small>(placez chaque référence sur une nouvelle ligne)</small>
         sort_field: Trier par
-      comment: 
+      comment:
         body: Commentaire
-      community: 
+      community:
         description: Description de la communauté
         logo: Téléverser un logo
         name: Nom de la communauté
-      content_page: 
+      content_page:
         active: Publié
         page_name: Nom unique
         sort_order: Ordre de tri
-      content_partner: 
+      content_partner:
         acronym: Abréviation du projet
         admin_notes: Notes d’administration
         auto_publish: Auto-publier
@@ -69,31 +69,31 @@ fr:
         resources: Ressources
         user_id: Géré par
         vetted: Approuvé
-      content_partner_agreement: 
+      content_partner_agreement:
         created_at: Créé à
         signed_by: Signé par
         signed_on_date: Signé le
-      content_partner_contact: 
+      content_partner_contact:
         email_reports_frequency_hours: Fréquence des rapports par courriel
-      data_object: 
+      data_object:
         bibliographic_citation: Citation bibliographique
         description: Description
         object_title: Titre
         rights_holder: Détenteur des droits
         rights_statement: Déclaration de droits
         source_url: URL source
-      harvest_event: 
+      harvest_event:
         resource: Ressource
-      hierarchy: 
+      hierarchy:
         browsable: Navigable
         complete: Complet
         description: Description
         descriptive_label: Libellé descriptif
         label: Libellé
         request_publish: Demander une publication
-      name: 
+      name:
         string: Nom
-      resource: 
+      resource:
         accesspoint_url: URL du jeu de données
         auto_publish: Auto-publier
         bibliographic_citation: Citation bibliographique
@@ -110,14 +110,14 @@ fr:
         rights_statement: Déclaration des droits par défaut
         title: Nom de la ressource
         vetted: Approuvé
-      translated_content_page: 
+      translated_content_page:
         active_translation: Publié
         left_content: Navigation
         main_content: Corps
         meta_description: Description des métadonnées
         meta_keywords: Mots-clefs des métadonnées
         title: Titre
-      user: 
+      user:
         agreed_with_terms: Conditions de l’accord d’utilisation
         api_key: Clé de l’API
         bio: Biographie
@@ -134,11 +134,11 @@ fr:
         requested_curator_level_id: Niveau souhaité de supervision
         tag_line: Slogan
         username: Nom d’utilisateur
-    errors: 
+    errors:
       format: "%{attribute} %{message}"
-      full_messages: 
+      full_messages:
         format: "%{attribute} %{message}"
-      messages: 
+      messages:
         accepted: doit être accepté
         blank: ne peut être laissé en blanc
         confirmation: ne correspond pas à la confirmation
@@ -159,26 +159,26 @@ fr:
         record_invalid: "La validation a échoué : %{errors}"
         taken: est déjà pris
         wrong_type: est du mauvais type
-      models: 
-        harvest_event: 
-          attributes: 
-            publish: 
+      models:
+        harvest_event:
+          attributes:
+            publish:
               inclusion: n’est autorisé que pour le dernier évènement de récolte et seulement si cet évènement n’est pas encore publié
-        resource: 
-          attributes: 
-            accesspoint_url: 
+        resource:
+          attributes:
+            accesspoint_url:
               blank: ne peut être laissé vide, sauf si vous téléversez un fichier ressource à la place
               inaccessible: est inaccessible, l’URL doit être accessible au public
               invalid: est non valide, cela doit pointer vers un fichier XML, XML.GZIP ou XML.GZ.
-            dataset: 
+            dataset:
               blank: ne peut pas être vide, sauf si vous fournissez à la place l’URL d’un jeu de données
               wrong_type: n’a pas le format requis, cela doit être un fichier GZIP, TAR ou XML.
-            dwc_archive_url: 
+            dwc_archive_url:
               inaccessible: est inaccessible, l’URL doit être accessible au public
               invalid: est invalide, cela doit pointer vers un fichier TAR.GZIP, TAR.GZ ou TGZ.
-      template: 
+      template:
         body: "Les champs suivants n’ont pas été validés :"
-    models: 
+    models:
       user: compte
   activity: Activité
   activity_added_an_editor_of_collection: <strong>%{user}</strong> a ajouté un gestionnaire à la collection « %{collection} ».
@@ -489,7 +489,9 @@ fr:
   collection_updated_notice: La collection <em>%{collection_name}</em> a été mise à jour avec succès.
   collection_was_added_to_community: La collection « %{collection} » a été ajoutée à cette communauté.
   collection_was_removed_by_owner: Cette collection a été retirée par son propriétaire.
-  collections: Collections
+  collections_filter: Collections
+  collections_link: Collections
+  collections_page_title: Collections
   collections_lowercase: collections
   collections_summary_empty: Cette page ne fait encore partie d’aucune collection.
   comment: Commentaire
@@ -507,35 +509,38 @@ fr:
   comment_show_posters_image_alt: Image de profil de %{posters_name}, qui a ajouté ce commentaire.
   commented_on_your_image: " a commenté votre image sur le <a href=\"%{data_object_link}\">site de l’''Encyclopédie de la vie'' (EOL)</a> :\n%{comment_body}"
   comments: Commentaires
+  comments_filter: Commentaires
   comments_and_tags: Commentaires et balises
   comments_moderated: Commentaires modérés.
   comments_on: "Commentaires à propos de :"
-  comments_with_count: 
+  comments_with_count:
     one: "%{count} commentaire"
     other: "%{count} commentaires"
   common_activities_by_logged_in: Activités communes des utilisateurs identifiés
   common_name: Nom usuel
   common_name_avg: Moyenne de noms usuels
   common_name_exists: Le nom usuel <em>%{name_string}</em> existe déjà
-  common_names_with_count: 
+  common_names_with_count:
     one: "%{count} nom commun"
     other: "%{count} noms communs"
   common_user_activity_page_title: Activité commune de l’utilisateur
-  communities: Communautés
+  communities_filter: Communautés
+  communities_link: Communautés
+  communities_page_title: Communautés
   communities_index_empty: Il n'y a pas de communautés actives.
   communities_index_header: Communautés actives.
   communities_summary_empty: Ce taxon n'a encore été approuvé par aucune communauté.
-  communities_summary_header_with_count: 
+  communities_summary_header_with_count:
     one: Appartient à %{count} communauté
     other: Appartient à %{count} communautés
   communities_that_can_edit_this_collection: Communautés qui peuvent gérer cette collection
-  communities_with_count: 
+  communities_with_count:
     one: "%{count} Communauté"
     other: "%{count} Communautés"
   community: Communauté
   community_activity: Activité de la communauté
   community_can_now_manage_this_collection: La communauté « %{community} » est maintenant autorisée à gérer cette collection.
-  community_contributions_with_count: 
+  community_contributions_with_count:
     one: "%{count} contribution"
     other: "%{count} contributions"
   community_destroyed: Vous avez supprimé cette communauté. Elle n’apparaîtra plus dans les pages de taxon ni dans les résultats de recherches.
@@ -567,7 +572,6 @@ fr:
   contact_us_topics: Sujets pour nous contacter
   contacts: Contacts
   containing_value: " contenant %{value}."
-  content: Contenu
   content_has_been_updated: Le contenu a été mis à jour.
   content_notes_not_shown_to_us: "Notes sur le contenu (non montrées à l’utilisateur) :"
   content_partner: Partenaire de contenu
@@ -723,7 +727,7 @@ fr:
   content_partner_update_unsuccessful_error: Une erreur s'est produite. Les informations sur le partenaire n'ont pas été mises à jour.
   content_partner_vetted_false: Non supervisé
   content_partner_vetted_true: Approuvé
-  content_partners: Partenaires de contenu
+  content_partners_link: Partenaires de contenu
   content_partners_empty: Aucun partenaire n'a été trouvé.
   content_partners_page_description: Les partenaires de l'Encyclopedia of Life possèdent une grande quantité d'information concernant la biodiversité sur leurs propres sites internet ou dans leurs bases de données, qu'ils partagent aussi avec l'EOL. Nous apprécions vivement leurs apports critiques à la mission de l'EOL et nous vous encourageons à en apprendre plus sur eux. En savoir plus sur <a href="%{more_url}">les partenaires de contenu</a>.
   content_partners_page_title: Partenaires de contenu
@@ -875,7 +879,6 @@ fr:
   edit_annotation: modifier l’annotation
   edit_collection_details: modifier les détails de la collection
   edit_collection_details_header: Modifier les détails de la collection
-  edit_collection_head_title: "Modifier : %{collection_name}"
   edit_comment: Modifier le commentaire
   edit_comment_lowercase: modifier le commentaire
   edit_community: Modifier la communauté
@@ -1034,28 +1037,26 @@ fr:
   has_hidden_your_image: a caché votre image
   has_trusted_your_image: a fait confiance à votre image
   has_untrusted_your_image: a retiré la confiance à votre image
-  head_title_collection: "Collection : %{name}"
-  head_title_community: "Communauté : %{name}"
   hello_user: Bonjour %{user}
   help: Assistance
-  helpers: 
-    label: 
-      collection: 
+  helpers:
+    label:
+      collection:
         view_style_id: Vue par défaut
-      collection_item: 
+      collection_item:
         annotation: Annotation
         sort_field: Trier par <small>(date, nombre ou texte ; facultatif)</small>
         sort_field_show: "Valeur de tri :"
-      comment: 
+      comment:
         body_edit: Modifier le commentaire
-      content_page: 
+      content_page:
         active: Publié
         active_more: Les pages publiées seront visibles par le public. Décochez <em>publié</em> si vous voulez éviter qu’un utilisateur quelconque puisse voir les versions de cette page dans n’importe quelle langue.
         page_name: Nom unique <small>(uniquement des chiffres ou lettres ISO latines minuscules de base ou des soulignés)</small>
         page_name_more: Entrez un identifiant unique, auto-descriptif, significatif et persistant pour cette page. Le nom que vous entrez ici sera utilisé pour générer l’URL de cette page, c.-à-d. que le nom unique <em>conditions_d_utilisation</em> est converti dans l’URL <em>http://www.eol.org/info/conditions_d_utilisation</em>.
         parent_content_page_id: Parent
         parent_content_page_id_more: Sélectionnez une éventuelle page parente sous laquelle cette page sera imbriquée.
-      content_partner: 
+      content_partner:
         created_at: Inscrit
         current_agreement: Accord actuel
         description_of_data: Description des données <small>(privée)</small>
@@ -1070,12 +1071,12 @@ fr:
         oldest_published_harvest_event: Publié en premier
         public_more: Les profils de partenaires de contenu public sont visibles par tout le monde et les informations des partenaires sont incluses dans les listes de partenaires de contenu. Décochez la case pour exclure les détails sur les partenaires de contenu des listes et pour restreindre l’accès au profil complet au seul utilisateur ayant créé le partenaire de contenu et aux administrateurs de EOL.
         user_id: Détails du partenaire de contenu géré par
-      content_partner_agreement: 
+      content_partner_agreement:
         mou_url: URL du fichier de l’accord <small>(alternative facultative)</small>
         mou_url_more: Entrez une éventuelle URL vers le fichier contenant l’accord de ce partenaire. Ce fichier remplacera tout autre texte d’accord. Si vous désirez enregistrer ce fichier (par exemple un fichier PDF) sur les serveurs de contenu d’EOL, veuillez d’abord <a href="%{upload_content_url}">téléverser ce fichier</a> pour en obtenir l’URL.
-      content_partner_contact: 
+      content_partner_contact:
         email_reports_frequency_hours_more: Les rapports par courriel sont envoyés uniquement s’il y a eu des commentaires ou des actions de supervision sur vos données ou sur les pages de taxonomie liées à votre jeu de données.
-      data_object: 
+      data_object:
         bibliographic_citation: Citation bibliographique
         description: Texte <small>(certaines balises de formatage HTML sont autorisées)</small>
         license_id: Licence
@@ -1086,26 +1087,26 @@ fr:
         rights_statement: Déclaration des droits
         source_url: URL vers l’objet de données d’origine
         toc_item: Sous-chapitre
-      google_analytics_partner_summaries: 
+      google_analytics_partner_summaries:
         page_views: Pages vues <small>(nombre de visites des pages)</small>
         taxa_pages: Pages <small>(nombre de pages)</small>
         taxa_pages_viewed: Pages vues <small>(nombre de pages visualisées par les visiteurs)</small>
         time_on_page: Temps total passé sur les pages <small>(en heures)</small>
         unique_page_views: Pages vues uniques <small>(nombre de visiteurs ayant visualisé les pages)</small>
-      harvest_event: 
+      harvest_event:
         began_at: Démarré
         completed_at: Terminé
         publish_more: Drapeaux d’évènement de collecte pour la publication, le contenu ne sera pas rendu public immédiatement.
         published_at: Publié
         published_status: État
-      hierarchy: 
+      hierarchy:
         browsable_more: Vérifiez la navigabilité de cette hiérarchie pour la promouvoir en hiérarchie principale navigable sur EOL.
         browsable_status_with_colon: "État de navigabilité :"
         complete: Conservé
         complete_more: "Une hiérarchie supervisée suppose que chaque entrée est conçue pour être unique, c’est-à-dire que les chaînes de nom correspondantes seront traitées comme des homonymes. <strong>AVERTISSEMENT : ne modifiez pas cet attribut sauf si vous êtes certain de la cohérence des homonymes dans la hiérarchie car cela pourrait compromettre l’intégrité des données.</strong>"
         request_publish: Publication demandée
         request_publish_more: Indique si une hiérarchie est en demande de promotion pour qu’elle devienne l’une des principales hiérarchies navigables sur EOL.
-      resource: 
+      resource:
         accesspoint_url: URL du dataset <small>(XML, XML.GZIP ou XML.GZ seulement)</small>
         accesspoint_url_existing_remove: Cette ressource est actuellement en cours de chargement depuis l'URL terminant <em>%{accesspoint_url}</em>. Chargez un fichier si vous voulez supprimer l'URL existante et charger la ressource depuis un fichier à la place (non recommandé).
         administration_settings: Paramètres d'administration <small>(visibles seulement par les administrateurs d'EOL)</small>
@@ -1124,11 +1125,11 @@ fr:
         resource_url_or_file_upload: Téléverser un fichier de ressources
         resource_url_or_file_url: Charger une ressource depuis l’URL
         title: Nom de la ressource
-      session: 
+      session:
         password: Mot de passe
         remember_me: Me reconnecter automatiquement aux prochaines visites avec ce navigateur durant 2 semaines
         username_or_email: Nom d’utilisateur ou adresse de courriel
-      translated_content_page: 
+      translated_content_page:
         active_translation: Publié
         active_translation_more: Les traductions publiées seront visibles par le public, sauf si la page elle-même n’est pas publiée. Décochez <em>publié</em> si vous voulez éviter qu’un utilisateur quelconque puisse visualiser cette version de la page.
         language_id: Langue
@@ -1137,7 +1138,7 @@ fr:
         meta_description_more: Fournissez une courte description résumant les concepts clés du contenu de la page. Cette description est quelquefois utilisée par les moteurs de recherche du web à la fois pour vérifier la pertinence et pour compléter les listes de résultats du moteur de recherche.
         meta_keywords_more: Entrez une liste de mots et de courtes expressions séparés par des virgules qui reflètent le mieux le contenu de la page. Ces expressions et mots-clés sont parfois utilisés par les moteurs de recherche de la toile Internet afin d’améliorer la pertinence de la page au regard des critères de recherche.
         title_more: Le titre de ce contenu apparaîtra dans la zone d’entête de la page. Le titre devrait inclure les mots-clés les plus appropriés au contenu.
-      user: 
+      user:
         agreed_with_terms: J’accepte les <a href="%{terms_url}">conditions d’utilisation</a>
         api_key_more: Lisez en plus au sujet de <a href="%{api_docs_url}">l’ajout d’une clé pour vos appels à l’API</a>.
         bio: À mon sujet
@@ -1168,63 +1169,63 @@ fr:
         user_identities: Je suis
         username: Nom d’utilisateur <small>(4 à 32 caractères)</small>
         username_or_email: Nom d’utilisateur ou adresse courriel
-      wikipedia_queue: 
+      wikipedia_queue:
         revision_url: URL de version de page <small>(par exemple, http://fr.wikipedia.org/w/index.php?title=Girafe&oldid=73335161)</small>
         revision_url_more: En entrant une URL de version de page Wikipédia, vous demandez à ce que EOL ingère cette version particulière comme approuvée. Cette version remplacera la version actuelle de l’article dans EOL s’il y en a déjà une.
-    select: 
+    select:
       prompt: Veuillez sélectionner
-    submit: 
-      collection_item: 
+    submit:
+      collection_item:
         update: Enregistrer
-      content_page: 
+      content_page:
         create: Créer la page
         edit: Modifier
         preview: Aperçu
         update: Mettre à jour la page
-      content_partner: 
+      content_partner:
         create: Créer un partenaire de contenu
         update: Enregistrer les informations du partenaire
-      content_partner_agreement: 
+      content_partner_agreement:
         agree: En accord avec les conditions du partenaire de contenu
         create: Créer un nouvel accord
         update: Accord de mise à jour
-      content_partner_contact: 
+      content_partner_contact:
         create: Ajouter un contact
         destroy: Supprimer le contact
         update: Contact de mise à jour
       create: Créer %{model}
-      data_object: 
+      data_object:
         create: Ajouter l’article
         create_text: Ajouter l’article
         update: Enregistrer l’article
-      harvest_event: 
+      harvest_event:
         publish: Publier
-      hierarchy: 
+      hierarchy:
         request_publish: Demander de promouvoir la hiérarchie
         update: Mettre à jour la hiérarchie
-      name: 
+      name:
         create: Ajouter le nom
         update: Mettre à jour le nom
-      resource: 
+      resource:
         create: Ajouter une ressource
         force_harvest: Demander de forcer la récolte
         update: Mettre à jour la ressource
         update_settings: Paramètres de mise à jour
-      session: 
+      session:
         create: S’identifier
       submit: Enregistrer %{model}
-      translated_content_page: 
+      translated_content_page:
         create: Ajouter la traduction
         update: Enregistrer les modifications apportées à la traduction
       update: Mettre à jour %{model}
-      user: 
+      user:
         create: Créer un compte
         curation_application: Appliquer maintenant
         curation_privileges: Soumettre la demande
         forgot_password: Envoyer un courriel
         generate_api_key: Générer une clé
         update: Enregistrer les informations de profil
-      wikipedia_queue: 
+      wikipedia_queue:
         create: Soumettre la demande
   here: ici
   hidden: Masqué
@@ -1362,20 +1363,20 @@ fr:
   map_rating: Évaluation de la carte
   media: Média
   member_of: membre de
-  members_with_count: 
+  members_with_count:
     one: "%{count} membre"
     other: "%{count} membres"
   method: Méthode
   method_to_get_metadata_about_the_hierarchy: avec un identifiant de hiérarchie donné, cette méthode retourne des métadonnées à propos de la hiérarchie et liste les taxons racines
   methods: Méthodes
   minimal_page: Page minimale
-  mobile: 
-    contents: 
+  mobile:
+    contents:
       species: Espèces
       taxa: Taxons
-    search: 
+    search:
       results: Résultats
-    taxa: 
+    taxa:
       community: Communauté
       images: Images
       literature: Littérature
@@ -1395,6 +1396,7 @@ fr:
   name_colon: "Nom :"
   name_preferred_for_language_yes: Préféré
   names: Noms
+  names_filter: Noms
   names_children_column_header: Enfants
   names_name_column_header: Nom
   names_parents_column_header: Parents
@@ -1407,12 +1409,12 @@ fr:
   not_evaluated: Non évalué
   note: "Note :"
   notes: Notes
-  notifier: 
+  notifier:
     activity_log_empty: Aucune action récente par les conservateurs.
-    activity_on_content_partner_content: 
+    activity_on_content_partner_content:
       message: "Ceci est un courrier automatique envoyé par l’''Encyclopédie de la vie'' (EOL). Il résume les commentaires récents et les actions de conservation prises concernant le contenu fourni à EOL par le partenaire de contenu %{partner_full_name} (%{partner_profile_url}). Vous recevez ce message car vous êtes inscrit comme contact pour %{partner_full_name}.\n\nSi vous avez des questions ou avez besoin d’aide pour accéder à votre compte de membre EOL, veuillez contacter %{species_pages_group_email}.\n\nActions de conservation :\n%{curator_activity_log}\n\nCommentaires sur les données :\n%{data_object_comments}\n\nCommentaires sur les pages avec lesquelles vos données sont associées :\n%{page_comments}"
       subject: Résumé de l’activité récente sur le contenu fourni à l’''Encyclopédie de la vie'' par le partenaire %{partner_full_name}
-    activity_on_user_content: 
+    activity_on_user_content:
       message: "Ceci est un courrier automatique de l’''Encyclopédie de la vie'' (EOL). Il résume les commentaires récents et les actions de conservation prises concernant le contenu que vous avez ajouté à l’EOL avec votre compte utilisateur %{members_username}.\n\nSi vous avez des questions ou avez besoin d’aide pour accéder à votre compte de membre EOL, veuillez contacter %{species_pages_group_email}.\n\nActions de conservation :\n%{curator_activity_log}\n\nCommentaires sur les données :\n%{data_object_comments}\n\nCommentaires sur les pages avec lesquelles vos données sont associées :\n%{page_comments}"
       subject: Résumé des activités récentes sur le contenu que vous avez ajouté à l'Encyclopedia of Life
     activity_user_marked_data_object_as_inappropriate_on_date: "Le %{curator_level} %{users_name} (%{users_url}) a marqué comme inapproprié :\n%{object_name} (%{object_url})\n%{action_date}."
@@ -1420,47 +1422,47 @@ fr:
     activity_user_marked_data_object_as_untrusted_for_taxon_on_date: "Le %{curator_level} %{users_name} (%{users_url}) a marqué comme non fiable :\n%{object_name} (%{object_url}) pour %{taxon_name} (%{taxon_url})\n%{action_date}."
     activity_user_marked_data_object_as_untrusted_on_date: "Le %{curator_level}  %{users_name} (%{users_url}) a marqué comme non fiable :\n%{object_name} (%{object_url})\n%{action_date}."
     comments_empty: Aucun commentaire récent.
-    contact_us_auto_response: 
+    contact_us_auto_response:
       message: "Merci d’avoir contacté le projet ''Encyclopédie de la vie'' (EOL). Vos commentaires ont été envoyés au groupe approprié.\n\nNous apprécions votre avis."
       subject: Merci d’avoir contacté l’''Encyclopédie de la vie'' (EOL)
-    contact_us_message: 
+    contact_us_message:
       message: "Le message suivant a été soumis à EOL par son formulaire de contact :\nDe : %{from_name}\nCourriel : %{from_email}\nSujet : %{subject}\n\n%{message}"
       subject: "Un message à EOL : %{title}"
-    content_partner_created: 
+    content_partner_created:
       message: "Ceci est une notification automatique du système EOL pour le groupe des pages des espèces. L’utilisateur %{user_full_name} a créé un partenaire de contenu %{partner_full_name} ; en voici les détails :\n \nUtilisateur : %{user_full_name}\nCourriel : %{user_email}\nURL du profil : %{user_profile_url}\n\nPartenaire : %{partner_full_name}\nURL du profil du partenaire : %{partner_profile_url}\nCréé le : %{partner_created_at_date}"
       subject: L’utilisateur d’EOL %{user_full_name} a inscrit le partenaire de contenu %{partner_full_name}
-    content_partner_resource_created: 
+    content_partner_resource_created:
       message: "Ceci est une notification automatique du système EOL pour le groupe de pages des espèces. L’utilisateur %{user_full_name} a ajouté une nouvelle ressource %{resource_title} au partenaire de contenu %{partner_full_name} ; en voici les détails :\n\nUtilisateur : %{user_full_name}\nCourriel : %{user_email}\nURL du profil : %{user_profile_url}\n\nPartenaire : %{partner_full_name}\nURL des ressources du partenaire : %{partner_resources_url}\n\nRessource : %{resource_title}\nURL de la ressource : %{resource_url}\nCréée le : %{resource_created_at_date}\nÉtat : %{resource_status}"
       subject: L’utilisateur d’EOL %{user_full_name} a ajouté une nouvelle ressource %{resource_title} au partenaire de contenu %{partner_full_name}
-    content_partner_resource_force_harvest_request: 
+    content_partner_resource_force_harvest_request:
       message: "Ceci est une notification automatique du système EOL pour le groupe de pages des espèces. L’utilisateur %{user_full_name} a demandé une récolte forcée pour la ressource %{resource_title} appartenant au partenaire de contenu %{partner_full_name} ; en voici les détails  :\n\nUtilisateur : %{user_full_name}\nCourriel : %{user_email}\nURL du profil : %{user_profile_url}\n\nPartenaire : %{partner_full_name}\nURL des ressources du partenaire : %{partner_resources_url}\n\nRessource : %{resource_title}\nURL de la ressource : %{resource_url}\nMise à jour le : %{resource_updated_at_date}\nÉtat : %{resource_status}"
       subject: L’utilisateur d’EOL %{user_full_name} a demandé une récolte forcée pour la ressource %{resource_title} appartenant au partenaire de contenu %{partner_full_name}
-    content_partner_resource_hierarchy_publish_request: 
+    content_partner_resource_hierarchy_publish_request:
       message: "Ceci est une notification automatique du système EOL pour le groupe de pages des espèces. L’utilisateur %{user_full_name} a demandé à ce que la ressource %{resource_title} appartenant au partenaire de contenu %{partner_full_name} soit promue (publiée) comme hiérarchie navigable sur EOL ; en voici les détails :\n\nUtilisateur : %{user_full_name}\nCourriel : %{user_email}\nURL du profil : %{user_profile_url}\n\nPartenaire : %{partner_full_name}\nURL des ressources du partenaire : %{partner_resources_url}\n\nRessource : %{resource_title}\nURL de la ressource : %{resource_url}\nURL pour modifier la hiérarchie : %{hierarchy_edit_url}"
       subject: L’utilisateur d’EOL %{user_full_name} a demandé une promotion de hiérarchie pour la ressource %{resource_title} appartenant au partenaire de contenu %{partner_full_name}
-    content_partner_statistics_reminder: 
+    content_partner_statistics_reminder:
       message: Ceci est un rappel automatique envoyé par l’''Encyclopédie de la vie'' (EOL). Les statistiques d’utilisation sur le web pour les données fournies à l’EOL par %{partner_full_name} en %{month} %{year} sont maintenant disponibles à l’adresse %{partner_statistics_url} .
       subject: Rappel des statistiques d’utilisation de l’''Encyclopédie de la vie'' (EOL) par le partenaire %{partner_full_name} en %{month} %{year}
-    curator_approved: 
+    curator_approved:
       message: "Merci d’avoir demandé le privilège de supervision sur l’''Encyclopédie de la vie'' (EOL) en tant que %{curator_level}. Votre demande a été approuvée.\n\nPour plus d’informations sur la supervision et les fonctions qui sont à votre disposition, visitez http://www.eol.org/curators ."
       subject: Votre demande pour un privilège de supervision sur l’''Encyclopédie de la vie'' (EOL) en tant que %{curator_level} a été approuvée
     greeting_dear_name_with_comma: "{{GENDER:%{name}}}|Cher|Chère}} %{name},"
     signature_basic: L’équipe de l’''Encyclopédie de la vie''
     signature_with_species_pages_group_contact: "Si vous avez des questions, vous pouvez nous contacter à l’adresse %{species_pages_group_email}.\n\nL’équipe de l’''Encyclopédie de la vie''"
     signature_with_support_contact: "Si vous rencontrez des problèmes, vous pouvez nous contacter à l’adresse %{support_email}.\n\nL’équipe de l’''Encyclopédie de la vie''"
-    user_activated: 
+    user_activated:
       message: "Bienvenue sur l’''Encyclopédie de la vie'' (EOL) et merci pour votre inscription ! Votre nom d’utilisateur est %{username} et l’adresse de votre profil est %{profile_url}. Vous pouvez vous connecter à votre compte à l’adresse http://www.eol.org/login .\n\nPour en savoir plus sur l’utilisation de l’EOL, notamment comment créer des collections, participer aux communautés et contribuer au contenu, vous pouvez lire les pages d’aide à l’adresse http://www.eol.org/help ."
       subject: Votre compte sur l’''Encyclopédie de la vie'' (EOL) a été activé
     user_commented_on_something_date_body: "Le %{curator_level} %{users_name} (%{users_url}) a commenté :\n%{commented_on_name} (%{commented_on_url})\n%{comment_date} :\n%{comment_body}"
-    user_message: 
+    user_message:
       subject: Un message de l’''Encyclopédie de la vie'' (EOL)
-    user_reset_password: 
+    user_reset_password:
       message: "L’''Encyclopédie de la vie'' (www.eol.org) a reçu une demande de réinitialisation de votre mot de passe. Si vous n’avez pas effectué cette demande, veuillez ignorer ce courriel.\n\nLe lien suivant, qui n’est valable qu’une seule fois, vous permet de réinitialiser votre mot de passe :\n\n%{password_reset_url}\n\nSuivez ce lien (en cliquant dessus ou en le copiant en entier dans la barre d’adresse de votre navigateur avant de le valider) afin d’accéder à la page où vous pourrez saisir un nouveau mot de passe. Veuillez noter que si ce lien a expiré, il vous sera demandé de saisir à nouveau votre nom d’utilisateur ou votre adresse courriel afin de recevoir un courriel contenant un nouveau lien de réinitialisation de mot de passe."
       subject: Réinitialiser le mot de passe de votre compte utilisateur sur l’''Encyclopédie de la vie'' (EOL)
-    user_updated_email_preferences: 
+    user_updated_email_preferences:
       message: "Ceci est une notification automatique du système EOL. L'utilisateur %{user_full_name} (%{user_profile_url}) a mis à jour son adresse courriel ou ses préférences pour les listes de diffusion.\n\nPréférences précédentes :\nCourriel : %{previous_email}\nPréférence pour les listes de diffusion : %{previous_mailing_list_preference}\n\nPréférences actuelles : \nCourriel : %{updated_email}\nPréférence pour les listes de diffusion : %{updated_mailing_list_preference}\nMise à jour du : %{updated_at}"
       subject: L’utilisateur d’EOL %{user_full_name} a modifié son adresse courriel ou ses préférences pour les listes de diffusion
-    user_verification: 
+    user_verification:
       message: "Merci pour votre inscription sur l’''Encyclopédie de la vie'' (EOL). Le lien suivant vous permet de confirmer et finaliser votre inscription :\n\n%{verification_url}\n\nSuivez ce lien (en cliquant dessus ou en le copiant en entier dans la barre d’adresse de votre navigateur avant de le valider) afin d’activer votre compte. Lorsque votre compte sera activé, vous recevrez un courriel de confirmation."
       subject: Veuillez vérifier votre demande de compte sur l’''Encyclopédie de la vie'' (EOL)
   object: Objet
@@ -1472,7 +1474,7 @@ fr:
   object_type_video_option: Vidéo
   object_visibility_visible_option: Visible
   option_please_select: Veuillez sélectionner
-  other_collection_items_with_count: 
+  other_collection_items_with_count:
     one: "%{count} autre élément"
     other: "%{count} autres éléments"
   other_us_dollars_amount: "Other : $US"
@@ -1492,7 +1494,7 @@ fr:
   partner: Partenaire
   password_colon: "Mot de passe :"
   pause: pause
-  people_with_count: 
+  people_with_count:
     one: "%{count} personne"
     other: "%{count} personnes"
   permalink: Lien permanent
@@ -1564,7 +1566,7 @@ fr:
   sound_from_supplier: Enregistrement sonore fourni par %{whom}
   sound_of: Enregistrement sonore de
   sound_rating: Évaluation de l’enregistrement sonore
-  sounds_with_count: 
+  sounds_with_count:
     one: "%{count} son"
     other: "%{count} sons"
   source_url: URL source
@@ -1575,15 +1577,15 @@ fr:
   supplier: Fournisseur
   supplier_colon: "Fournisseur :"
   synonym: Synonyme
-  synonyms_with_count: 
+  synonyms_with_count:
     one: "%{count} synonyme"
     other: "%{count} synonymes"
   table_column_header_actions: Actions
   table_of_contents: Table des matières
-  tasks_with_count: 
+  tasks_with_count:
     one: "%{count} tâche trouvée"
     other: "%{count} tâches trouvées"
-  taxa: Taxons
+  taxa_column_header: Taxons
   taxon: taxon
   taxon_rating: Évaluation du taxon
   term_is_already_def_error: « %{term} » est déjà défini
@@ -1592,7 +1594,7 @@ fr:
   text: texte
   text_capital: Texte
   text_summary_more_link: Lire l'entrée complète
-  text_with_count: 
+  text_with_count:
     one: "%{count} article"
     other: "%{count} articles"
   thank_you: Merci
@@ -1653,7 +1655,7 @@ fr:
   watch_list: Liste de suivi
   what_is_eol: Qu'est-ce que l’EOL ?
   what_is_this_question: Qu’est-ce que ceci ?
-  will_paginate: 
+  will_paginate:
     next_label: Suivant →
     page_gap: ...
     previous_label: ← Précédent

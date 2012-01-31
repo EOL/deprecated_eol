@@ -6,7 +6,6 @@ class ContentPartners::Resources::HarvestEventsController < ContentPartners::Res
     @resource = @partner.resources.find(params[:resource_id])
     @harvest_events = @resource.harvest_events.paginate(:page => params[:page], :per_page => 50, :order => "id DESC")
     @page_subheader = I18n.t(:content_partner_resource_harvest_events_for_resource_subheader, :resource_title => Sanitize.clean(@resource.title))
-    @meta_title = I18n.t(:meta_title_template, :page_title => "#{Sanitize.clean(@partner.name)} - #{@page_subheader}")
   end
 
   # PUT /content_partners/:content_partner_id/resources/:resource_id/harvest_events/:id

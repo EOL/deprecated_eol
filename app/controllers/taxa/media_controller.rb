@@ -95,33 +95,4 @@ class Taxa::MediaController < TaxaController
     redirect_back_or_default taxon_media_path params[:taxon_concept_id]
   end
 
-protected
-  def set_meta_title
-    I18n.t(:meta_title_template,
-      :page_title => [
-        @preferred_common_name ? I18n.t(:meta_title_taxon_media_with_common_name, :scientific_name => @scientific_name,
-        :preferred_common_name => @preferred_common_name) : I18n.t(:meta_title_taxon_media, :scientific_name => @scientific_name),
-        @selected_hierarchy_entry ? @selected_hierarchy_entry.hierarchy_label : nil,
-      ].compact.join(" - "))
-  end
-  def set_meta_description
-    if @selected_hierarchy_entry
-      @preferred_common_name ?
-        I18n.t(:meta_description_hierarchy_entry_media_with_common_name, :scientific_name => @scientific_name,
-          :hierarchy_provider => @selected_hierarchy_entry.hierarchy_label,
-          :preferred_common_name => @preferred_common_name) :
-        I18n.t(:meta_description_hierarchy_entry_media, :scientific_name => @scientific_name,
-          :hierarchy_provider => @selected_hierarchy_entry.hierarchy_label)
-    else
-      @preferred_common_name ?
-        I18n.t(:meta_description_taxon_media_with_common_name, :scientific_name => @scientific_name,
-          :preferred_common_name => @preferred_common_name) :
-        I18n.t(:meta_description_taxon_media, :scientific_name => @scientific_name)
-    end
-  end
-  def additional_meta_keywords
-    [ @preferred_common_name ? I18n.t(:meta_keywords_taxon_media_with_common_name,
-      :preferred_common_name => @preferred_common_name) : I18n.t(:meta_keywords_taxon_media, :scientific_name => @scientific_name)
-    ]
-  end
 end

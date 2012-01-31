@@ -3,21 +3,20 @@
 - unless $ENABLED_SOCIAL_PLUGINS.blank?
   = content_for :head do
     - # We only define OpenGraph meta tags if we have social sharing buttons on the page
+    - # @see http://developers.facebook.com/docs/opengraph/
+    - # TODO: Define custom object types for biodiversity namespaces e.g. species?
+    - # TODO: Define og:locale, and og:locale:alternate. Note format expected includes region e.g. "en_US"
     - if $ENABLED_SOCIAL_PLUGINS.include?(:facebook)
-      - set_social_plugin_meta_defaults
-      - unless @meta_facebook_data.blank?
-        - @meta_facebook_data.each do |property, content|
-          %meta{ :property => property, :content => content }
-      - unless @meta_open_graph_data.blank?
-        - @meta_open_graph_data.each do |property, content|
-          %meta{ :property => property, :content => content }
+      - meta_open_graph_tags = meta_open_graph_data(meta_open_graph_image_url || image_url(image_path('logo_open_graph_default')))
+      - meta_open_graph_tags.each do |property, content|
+        %meta{ :property => property, :content => content }
 
   #social_sharing
-    .twitter
-      - if $ENABLED_SOCIAL_PLUGINS.include?(:twitter)
+    - if $ENABLED_SOCIAL_PLUGINS.include?(:twitter)
+      .twitter
         %a{:href => "https://twitter.com/share", :class => "twitter-share-button",
-          :data => {:lang => I18n.locale.to_s, :hashtags => "eol", :via => "eol"}}
+          :data => tweet_data}
           = I18n.t(:social_sharing_twitter_tweet_button)
-    #fb-root.facebook
-      - if $ENABLED_SOCIAL_PLUGINS.include?(:facebook)
+    - if $ENABLED_SOCIAL_PLUGINS.include?(:facebook)
+      #fb-root.facebook
         %fb:like{:layout => "button_count", :send => "false", :show_faces => "false"}

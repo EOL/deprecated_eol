@@ -49,26 +49,4 @@ class Taxa::ResourcesController < TaxaController
     current_user.log_activity(:viewed_taxon_concept_resources_nucleotide_sequences, :taxon_concept_id => @taxon_concept.id)
   end
 
-protected
-  def set_meta_description
-    if @selected_hierarchy_entry
-      @preferred_common_name ?
-        I18n.t(:meta_description_hierarchy_entry_resources_with_common_name, :scientific_name => @scientific_name,
-          :hierarchy_provider => @selected_hierarchy_entry.hierarchy_label,
-          :preferred_common_name => @preferred_common_name) :
-        I18n.t(:meta_description_hierarchy_entry_resources, :scientific_name => @scientific_name,
-          :hierarchy_provider => @selected_hierarchy_entry.hierarchy_label)
-    else
-      @preferred_common_name ?
-        I18n.t(:meta_description_taxon_resources_with_common_name, :scientific_name => @scientific_name,
-          :preferred_common_name => @preferred_common_name) :
-        I18n.t(:meta_description_taxon_resources, :scientific_name => @scientific_name)
-    end
-  end
-  def additional_meta_keywords
-   [ @preferred_common_name ?
-      I18n.t(:meta_keywords_taxon_resources_with_common_name, :preferred_common_name => @preferred_common_name,
-        :scientific_name => @scientific_name) :
-      I18n.t(:meta_keywords_taxon_resources, :scientific_name => @scientific_name) ]
-  end
 end

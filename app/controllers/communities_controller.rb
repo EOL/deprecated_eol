@@ -219,17 +219,17 @@ class CommunitiesController < ApplicationController
   end
 
 protected
-  def set_meta_title
-    if @community && !@community.name.blank?
-      I18n.t(:meta_title_template,
-        :page_title => I18n.t(:head_title_community, :name => @community.name))
-    end
+  def scoped_variables_for_translations
+    translation_vars = super
+    translation_vars.merge({
+      :community_name => @community ? Sanitize.clean(@community.name) : nil,
+      :community_description => @community ? Sanitize.clean(@community.description) : nil
+    })
+    translation_vars[:community_description] = I18n.t(:community_default_description) if translation_vars[:community_description].blank?
+    translation_vars
   end
-  def set_meta_description
-    if @community && !@community.name.blank?
-      I18n.t(:meta_description_community, :community_name => @community.name,
-        :community_description => @community.description)
-    end
+  def meta_open_graph_image_url
+    @community ? image_url(@community.logo_url) : nil
   end
 
 private

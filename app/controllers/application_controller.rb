@@ -52,10 +52,14 @@ class ApplicationController < ActionController::Base
 
   def set_locale
     begin
-      I18n.locale = current_user.language_abbr
+      I18n.locale = params[:locale]       
     rescue
-      I18n.locale = 'en' # Yes, I am hard-coding that because I don't want an error from Language.  Ever.
-    end
+      begin
+        I18n.locale = session[:language].to_s
+      rescue
+        I18n.locale = 'en' # Yes, I am hard-coding that because I don't want an error from Language.  Ever.
+      end      
+    end    
   end
 
   def allow_login_then_submit
@@ -427,7 +431,10 @@ class ApplicationController < ActionController::Base
 
   # Set the current language
   def set_language
+    from_language = I18n.locale.to_s
+    
     language = params[:language].to_s
+    
     unless language.blank?
       session[:language] = nil # Don't want to "remember" this anymore, since they've manually changed it.
       alter_current_user do |user|
@@ -435,7 +442,22 @@ class ApplicationController < ActionController::Base
         user.language = Language.from_iso(language)
       end
     end
-    return_to = (params[:return_to].blank? ? root_url : params[:return_to])
+    
+    params[:language] = language
+    
+    session[:language] = language
+    
+    if params[:return_to].blank?
+      return_to = root_url.sub("/" + from_language, "/" + language)      
+    else            
+      if params[:return_to].to_s.include? ("/" + from_language)
+        return_to = params[:return_to].to_s.sub("/" + from_language, "/" + language)
+      else
+        return_to = params[:return_to].sub(root_url.slice(0, root_url.rindex("/")), root_url)
+        return_to = return_to.to_s.sub("/" + from_language, "/" + language)        
+      end
+    end
+    
     redirect_to return_to
   end
 

@@ -1,5 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
-
+  
+  map.filter 'locale'
+  
   map.find_feed '/activity_logs/find/:id', :controller => 'feeds', :action => 'find'
   map.preview '/preview', :controller => 'content', :action => 'preview'
 

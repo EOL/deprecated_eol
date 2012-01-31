@@ -13,6 +13,7 @@ RAILS_GEM_VERSION = '2.3.8' unless defined? RAILS_GEM_VERSION
 require "rubygems"
 require "bundler/setup"
 
+
 Rails::Initializer.run do |config|
   # Settings in config/environments/* take precedence over those specified here
 
@@ -58,6 +59,7 @@ Rails::Initializer.run do |config|
   config.gem 'email_spec'
   config.gem 'invert'
   config.gem 'sass', :version => '3.1.1'
+  config.gem 'routing-filter'
 
   # Use SQL instead of Active Record's schema dumper when creating the test database.
   # This is necessary if your schema can't be completely dumped by the schema dumper,

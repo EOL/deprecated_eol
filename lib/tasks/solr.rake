@@ -51,15 +51,15 @@ namespace :solr do
     solr.delete_all_documents
     puts "** Creating indexes..."
     count = TaxonConcept.count
-    puts "** You have #{count} Taxon Concepts.  In the interest of time, this task will only add the first 100." if 
+    puts "** You have #{count} Taxon Concepts.  In the interest of time, this task will only add the first 100." if
       count > 100
     solr.build_indexes(TaxonConcept.all[0..99])
   end
-  
+
   desc 'Build the elevate.xml file using Search Suggestions'
   task :build_concept_elevate => :environment do
     suggestions = SearchSuggestion.find(:all, :select => 'term, taxon_id', :order => 'term ASC, sort_order DESC')
-    
+
     taxon_concept_elevate_path = File.join(RAILS_ROOT, 'solr', 'solr', 'data', 'taxon_concepts', 'elevate.xml')
     File.open(taxon_concept_elevate_path, 'w') do |f|
       f.write("<?xml version='1.0' encoding='UTF-8' ?>\n")
@@ -81,14 +81,14 @@ namespace :solr do
       f.write("</elevate>\n")
     end
   end
-  
+
   desc 'Rebuild the site_search index'
   task :rebuild_site_search => :environment do
     builder = EOL::Solr::SiteSearchCoreRebuilder.new()
     builder.obliterate
     builder.begin_rebuild
   end
-  
+
   desc 'Rebuild a site_search resource tyoe'
   task :rebuild_site_search_resource_type, [:resource_type] => :environment do |t, args|
     if args[:resource_type].blank?
@@ -99,25 +99,25 @@ namespace :solr do
     builder = EOL::Solr::SiteSearchCoreRebuilder.new()
     builder.reindex_model(klass)
   end
-  
+
   desc 'Rebuild the collection_items index'
   task :rebuild_collection_items => :environment do
     builder = EOL::Solr::CollectionItemsCoreRebuilder.new()
     builder.begin_rebuild
   end
-  
+
   desc 'Rebuild the bhl index'
   task :rebuild_bhl => :environment do
     builder = EOL::Solr::BHLCoreRebuilder.new()
     builder.begin_rebuild
   end
-  
+
   desc 'Rebuild the ENTIRE activity_logs index with only comments'
   task :rebuild_comments_activity_log => :environment do
     solr = SolrAPI.new($SOLR_SERVER, $SOLR_ACTIVITY_LOGS_CORE)
     solr.obliterate
     EOL::Solr::ActivityLog.rebuild_comments_logs
   end
-  
-  
+
+
 end

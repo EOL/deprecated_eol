@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
 
   helper_method :logged_in?, :current_url, :current_user, :return_to_url, :current_agent, :agent_logged_in?,
     :allow_page_to_be_cached?, :link_to_item, :meta_data, :tweet_data, :meta_open_graph_data,
-    :meta_open_graph_image_url
+    :meta_open_graph_image_url, :image_url
 
   before_filter :set_locale
 

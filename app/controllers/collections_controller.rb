@@ -167,13 +167,14 @@ class CollectionsController < ApplicationController
 
 protected
   def scoped_variables_for_translations
-    translation_vars = super
-    translation_vars.merge({
+    return @scoped_variables_for_translations unless @scoped_variables_for_translations.nil?
+    @scoped_variables_for_translations = super
+    @scoped_variables_for_translations.merge!({
       :collection_name => @collection ? Sanitize.clean(@collection.name) : nil,
       :collection_description => @collection ? Sanitize.clean(@collection.description) : nil
     })
-    translation_vars[:collection_description] = I18n.t(:collection_default_description) if translation_vars[:collection_description].blank?
-    translation_vars
+    @scoped_variables_for_translations[:collection_description] = I18n.t(:collection_description_default) if @scoped_variables_for_translations[:collection_description].blank?
+    @scoped_variables_for_translations
   end
   def meta_open_graph_image_url
     @collection ? image_url(@collection.logo_url) : nil

@@ -260,12 +260,13 @@ class UsersController < ApplicationController
 
 protected
   def scoped_variables_for_translations
-    translation_vars = super
-    translation_vars.merge({
+    return @scoped_variables_for_translations unless @scoped_variables_for_translations.nil?
+    @scoped_variables_for_translations = super
+    @scoped_variables_for_translations.merge!({
       :user_full_name => @user ? Sanitize.clean(@user.full_name) : nil
     })
   end
-  def meta_open_graph_image_path
+  def meta_open_graph_image_url
     @user ? image_url(@user.logo_url) : nil
   end
 

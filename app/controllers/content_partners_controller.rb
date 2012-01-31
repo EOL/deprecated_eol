@@ -96,13 +96,14 @@ class ContentPartnersController < ApplicationController
 
 protected
   def scoped_variables_for_translations
-    translation_vars = super
-    translation_vars.merge({
+    @scoped_variables_for_translations
+    @scoped_variables_for_translations = super
+    @scoped_variables_for_translations.merge!({
       :partner_name => @partner ? Sanitize.clean(@partner.name) : nil,
       :partner_description => @partner ? Sanitize.clean(@partner.description) : nil
     })
-    translation_vars[:partner_description] = I18n.t(:content_partner_default_description) if translation_vars[:partner_description].blank?
-    translation_vars
+    @scoped_variables_for_translations[:partner_description] = I18n.t(:content_partner_default_description) if @scoped_variables_for_translations[:partner_description].blank?
+    @scoped_variables_for_translations
   end
   def meta_open_graph_image_url
     @partner ? image_url(@partner.logo_url) : nil

@@ -284,6 +284,9 @@ protected
       :dato_title => @data_object ? Sanitize.clean(@data_object.best_title) : nil
     })
   end
+  def meta_open_graph_image_url
+    @data_object ? @data_object.thumb_or_object : nil
+  end
 
   # NOTE - It seems like this is a HEAVY controller... and perhaps it is.  But I can't think of *truly* appropriate
   # places to put the following code for handling curation and the logging thereof.

@@ -125,17 +125,19 @@ protected
     scope
   end
   def scoped_variables_for_translations
-    translation_vars = super
-    translation_vars.merge({:preferred_common_name => @preferred_common_name,
-      :scientific_name => @scientific_name,
-      :hierarchy_provider => @selected_hierarchy_entry ? @selected_hierarchy_entry.hierarchy_label : nil,
+    return @scoped_variables_for_translations unless @scoped_variables_for_translations.nil?
+    @scoped_variables_for_translations = super
+    @scoped_variables_for_translations.merge!({
+      :preferred_common_name => Sanitize.clean(@preferred_common_name),
+      :scientific_name => Sanitize.clean(@scientific_name),
+      :hierarchy_provider => @selected_hierarchy_entry ? Sanitize.clean(@selected_hierarchy_entry.hierarchy_label) : nil,
     })
   end
   def meta_title
     translation_vars = scoped_variables_for_translations
-    translation_vars[:default] = [@preferred_common_name,
-                                  @scientific_name,
-                                  @selected_hierarchy_entry ? @selected_hierarchy_entry.hierarchy_label : nil,
+    translation_vars[:default] = [translation_vars[:preferred_common_name],
+                                  translation_vars[:scientific_name],
+                                  translation_vars[:hierarchy_provider],
                                   @assistive_section_header].compact.join(" - ")
     t(".meta_title#{translation_vars[:preferred_common_name] ? '_with_common_name' : ''}", translation_vars)
   end
@@ -144,13 +146,13 @@ protected
     t(".meta_description#{translation_vars[:preferred_common_name] ? '_with_common_name' : ''}", translation_vars)
   end
   def meta_keywords
-    keywords = [ @preferred_common_name,
-      @scientific_name,
-      @preferred_common_name && @assistive_section_header ? "#{@preferred_common_name} #{@assistive_section_header}" : nil,
-      @scientific_name && @assistive_section_header ? "#{@scientific_name} #{@assistive_section_header}" : nil,
-      @selected_hierarchy_entry ? @selected_hierarchy_entry.hierarchy_label : nil,
-    ].uniq.compact!.join(", ").strip
     translation_vars = scoped_variables_for_translations
+    keywords = [ translation_vars[:preferred_common_name],
+      translation_vars[:scientific_name],
+      translation_vars[:preferred_common_name] && @assistive_section_header ? "#{translation_vars[:preferred_common_name]} #{@assistive_section_header}" : nil,
+      translation_vars[:scientific_name] && @assistive_section_header ? "#{translation_vars[:scientific_name]} #{@assistive_section_header}" : nil,
+      translation_vars[:hierarchy_provider]
+    ].uniq.compact.join(", ").strip
     additional_keywords = t(".meta_keywords#{translation_vars[:preferred_common_name] ? '_with_common_name' : ''}",
                             translation_vars)
     "#{keywords}, #{additional_keywords}".strip
@@ -160,7 +162,7 @@ protected
     dato = @taxon_concept.published_exemplar_image.blank? ?
       @taxon_concept.images_from_solr.first :
       @taxon_concept.published_exemplar_image
-    dato.thumb_or_object
+    dato.nil? ? nil : dato.thumb_or_object
   end
 
 private

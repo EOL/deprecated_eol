@@ -3,7 +3,7 @@
   %head
     - @error_page_title ||= controller.instance_variable_get("@error_page_title")
     %title
-      = I18n.t(:meta_title_template, :page_title => @error_page_title)
+      = @error_page_title
     %meta{ :charset => "utf-8" }
     = stylesheet_include_i18n_merged 'errors'
     = javascript_include_merged 'errors'

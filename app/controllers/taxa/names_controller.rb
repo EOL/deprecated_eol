@@ -31,6 +31,7 @@ class Taxa::NamesController < TaxaController
       unless synonym.errors.blank?
         flash[:error] = I18n.t(:common_name_exists, :name_string => params[:name][:string])
       else
+        @taxon_concept.reindex_in_solr
         log_action(@taxon_concept, synonym, :add_common_name)
         expire_taxa([@taxon_concept.id])
       end
@@ -114,11 +115,13 @@ class Taxa::NamesController < TaxaController
     if synonym
       case vetted.label
       when "Trusted"
+        @taxon_concept.reindex_in_solr
         log_action(@taxon_concept, synonym, :trust_common_name)
       when "Inappropriate"
         synonym.hide_in_solr
         log_action(@taxon_concept, synonym, :inappropriate_common_name)
       when "Unknown"
+        @taxon_concept.reindex_in_solr
         log_action(@taxon_concept, synonym, :unreview_common_name)
       when "Untrusted"
         synonym.hide_in_solr

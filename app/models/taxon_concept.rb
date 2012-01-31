@@ -1284,7 +1284,8 @@ class TaxonConcept < SpeciesSchemaModel
   def common_names_for_solr
     common_names_by_language = {}
     published_hierarchy_entries.each do |he|
-      he.common_names.each do |cn|
+      he.common_names.each do |cn| # TODO - this needs to filter out the non-vetted stuff...
+        next unless cn.vetted_id == Vetted.trusted.id || cn.vetted_id == Vetted.unknown.id
         next if cn.name.blank?
         language = (cn.language_id!=0 && cn.language && !cn.language.iso_code.blank?) ? cn.language.iso_code : 'unknown'
         common_names_by_language[language] ||= []
@@ -1427,6 +1428,13 @@ class TaxonConcept < SpeciesSchemaModel
 
   def number_of_descendants
     connection.select_values("SELECT count(*) as count FROM taxon_concepts_flattened WHERE ancestor_id=#{self.id}")[0].to_i rescue 0
+  end
+
+  # These methods are defined in config/initializers, FWIW:
+  def reindex_in_solr
+    puts "** Reindexing"
+    remove_from_index
+    add_to_index
   end
 
 private

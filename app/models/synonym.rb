@@ -93,7 +93,7 @@ class Synonym < SpeciesSchemaModel
       puts "** WARNING: Solr connection failed."
       return nil
     end
-    solr_connection.delete_by_query("keyword_exact:\"#{name.string}\" resource_unique_key:\"TaxonConcept_#{taxon_concept_name.taxon_concept_id}\"")
+    solr_connection.delete_by_query("keyword_exact:\"#{name.string}\" resource_unique_key:\"TaxonConcept_#{taxon_concept_name.taxon_concept_id}\" language:#{language.iso_639_1}") # TODO - figure out if is right.
   end
 
 private

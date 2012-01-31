@@ -92,7 +92,12 @@ module EOL
     end
 
     def self.data_object_activities(source, options = {})
-      results = EOL::Solr::ActivityLog.search_with_pagination("feed_type_affected:DataObject AND feed_type_primary_key:#{source.id}", options)
+      unless options[:ids].blank?
+        clause = "(feed_type_primary_key:" + options[:ids].join(" OR feed_type_primary_key:") + ")"
+      else
+        clause = "feed_type_primary_key:#{source.id}"
+      end
+      results = EOL::Solr::ActivityLog.search_with_pagination("feed_type_affected:DataObject AND " + clause, options)
     end
 
     def self.taxon_concept_activities(source, options = {})

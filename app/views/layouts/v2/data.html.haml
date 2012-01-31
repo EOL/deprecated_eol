@@ -1,20 +1,26 @@
+- @revisions ||= DataObject.sort_by_created_date(@data_object.revisions).reverse
+- @latest_published_revision ||= @revisions.select{|r| r.published?}.first
 - content_for :main do
   #page_heading
     .site_column
       .hgroup
-        %h1= @page_title
+        %h1<
+          - unless @latest_published_revision.id == @data_object.id
+            - link =  link_to @latest_published_revision.best_title, data_object_path(@latest_published_revision)
+            = I18n.t(:older_version_of_latest_published_data_object_title_link, :link => link)
+          - else
+            = @page_title
         %h2<
           = render :partial => 'data_objects/owner', :locals => { :data_object => @data_object }
         = yield :social_sharing
       .page_actions
         %ul
           %li
-            = render :partial => 'shared/add_to_my_collection', :locals => { :item => @data_object, :my_collection => @watch_collection }
+            = render :partial => 'shared/add_to_my_collection', :locals => { :item => @data_object, :my_collection => @watch_collection } if @latest_published_revision.id == @data_object.id
           - if @data_object.users_data_object && @data_object.users_data_object.user.id == current_user.id
-            - latest_published_revision = @revisions.select{|r| r.published?}.first
-            - unless latest_published_revision.nil?
+            - unless @latest_published_revision.nil?
               %li
-                = link_to I18n.t(:dato_edit_text_link_button), edit_data_object_path(latest_published_revision), :class => 'button'
+                = link_to I18n.t(:dato_edit_text_link_button), edit_data_object_path(@latest_published_revision), :class => 'button'
 
       = render :partial => 'shared/flash_messages'
 

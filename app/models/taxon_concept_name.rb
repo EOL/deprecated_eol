@@ -5,7 +5,7 @@ class TaxonConceptName < SpeciesSchemaModel
   belongs_to :language
   belongs_to :name
   belongs_to :synonym
-  belongs_to :sorce_hierarcy_entry, :class_name => HierarchyEntry.to_s
+  belongs_to :source_hierarcy_entry, :class_name => HierarchyEntry.to_s
   belongs_to :taxon_concept
   belongs_to :vetted
 

@@ -9,7 +9,7 @@
     - else
       = render :partial => "/data_objects/data_object_#{en_type}", :locals => { :size => '580_360' }
   - unless @data_object.is_text? # NOTE - text description was already shown in partial above so we don't want to show it again.
-    = render :partial => '/data_objects/description.html.haml', :locals => { :data_object => @data_object }
+    = render :partial => '/data_objects/description', :locals => { :data_object => @data_object }
   - unless for_worklist
     - # For worklist we show updates below associations form not here.
     .article.list.updates

@@ -72,6 +72,10 @@ class Hierarchy < SpeciesSchemaModel
     cached_find(:label, "Encyclopedia of Life Contributors")
   end
 
+  def self.ubio
+    cached_find(:label, "uBio Namebank")
+  end
+
   def self.ncbi
     cached('ncbi') do
       Hierarchy.find_by_label("NCBI Taxonomy", :order => "hierarchy_group_version desc")

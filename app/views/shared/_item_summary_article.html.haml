@@ -17,6 +17,9 @@
       - secondary_title = I18n.t(:description_of) + ' ' + he.name.canonical_form.string
     - if item.published_entries.length > 1
       - secondary_title += ' ' + I18n.t(:and) + ' ' + I18n.t(:other_taxa_with_count, :count => item.published_entries.length - 1)
-    = link_to secondary_title, data_object_path(item)
-    %br
+    - if secondary_title.blank? && udo = item.users_data_object
+      - secondary_title = I18n.t(:description_of) + ' ' + udo.taxon_concept.entry.name.canonical_form.string
+    - unless secondary_title.blank?
+      = link_to secondary_title, data_object_path(item)
+      %br
     = item.description_teaser

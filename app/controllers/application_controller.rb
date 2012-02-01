@@ -591,9 +591,9 @@ protected
   def meta_data(title = meta_title, description = meta_description, keywords = meta_keywords)
     return @meta_data unless @meta_data.blank?
     title = nil if title.blank?
-    @meta_data = {:title => [title, I18n.t(:meta_title_suffix)].compact.join(" - ").strip,
-                  :description => description,
-                  :keywords => keywords}.delete_if{ |k, v| v.nil? }
+    @meta_data = {:title => Sanitize.clean([title, I18n.t(:meta_title_suffix)].compact.join(" - ").strip),
+                  :description => Sanitize.clean(description),
+                  :keywords => Sanitize.clean(keywords)}.delete_if{ |k, v| v.nil? }
   end
   def meta_title
     return @meta_title unless @meta_title.blank?

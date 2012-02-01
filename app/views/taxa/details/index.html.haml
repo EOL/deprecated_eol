@@ -14,7 +14,7 @@
         %p= link_to I18n.t(:add_article_to_page_link_button), new_taxon_data_object_path(@taxon_concept), :class => 'button'
   - else
     #sidebar
-      - if @exemplar_image && @exemplar_image.is_image?
+      - if @exemplar_image
         = image_tag @exemplar_image.thumb_or_object('260_190')
       #toc
         %h3= I18n.t(:table_of_contents)

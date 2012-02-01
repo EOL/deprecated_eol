@@ -86,16 +86,6 @@ class Synonym < SpeciesSchemaModel
     update_attributes!(:vetted => vet_obj)
   end
 
-  def hide_in_solr
-    begin
-      solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_SITE_SEARCH_CORE)
-    rescue Errno::ECONNREFUSED => e
-      puts "** WARNING: Solr connection failed."
-      return nil
-    end
-    solr_connection.delete_by_query("keyword_exact:\"#{name.string}\" resource_unique_key:\"TaxonConcept_#{taxon_concept_name.taxon_concept_id}\" language:#{language.iso_639_1}") # TODO - figure out if is right.
-  end
-
 private
 
   def set_preferred

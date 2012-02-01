@@ -64,11 +64,11 @@ class Taxa::NamesController < TaxaController
     synonym_id = params[:synonym_id].to_i
     category_id = params[:category_id].to_i
     synonym = Synonym.find(synonym_id)
-    synonym.hide_in_solr
     if synonym && @taxon_concept
       log_action(@taxon_concept, synonym, :remove_common_name)
       tcn = TaxonConceptName.find_by_synonym_id_and_taxon_concept_id(synonym_id, @taxon_concept.id)
       @taxon_concept.delete_common_name(tcn)
+      @taxon_concept.reindex_in_solr
     end
 
     if !params[:hierarchy_entry_id].blank?
@@ -115,18 +115,15 @@ class Taxa::NamesController < TaxaController
     if synonym
       case vetted.label
       when "Trusted"
-        @taxon_concept.reindex_in_solr
         log_action(@taxon_concept, synonym, :trust_common_name)
       when "Inappropriate"
-        synonym.hide_in_solr
         log_action(@taxon_concept, synonym, :inappropriate_common_name)
       when "Unknown"
-        @taxon_concept.reindex_in_solr
         log_action(@taxon_concept, synonym, :unreview_common_name)
       when "Untrusted"
-        synonym.hide_in_solr
         log_action(@taxon_concept, synonym, :untrust_common_name)
       end
+      @taxon_concept.reindex_in_solr
     end
 
     respond_to do |format|

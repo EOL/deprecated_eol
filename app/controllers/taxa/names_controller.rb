@@ -115,18 +115,15 @@ class Taxa::NamesController < TaxaController
     if synonym
       case vetted.label
       when "Trusted"
-        @taxon_concept.reindex_in_solr
         log_action(@taxon_concept, synonym, :trust_common_name)
       when "Inappropriate"
-        @taxon_concept.reindex_in_solr
         log_action(@taxon_concept, synonym, :inappropriate_common_name)
       when "Unknown"
-        @taxon_concept.reindex_in_solr
         log_action(@taxon_concept, synonym, :unreview_common_name)
       when "Untrusted"
-        @taxon_concept.reindex_in_solr
         log_action(@taxon_concept, synonym, :untrust_common_name)
       end
+      @taxon_concept.reindex_in_solr
     end
 
     respond_to do |format|

@@ -15,8 +15,12 @@
     .article.list.updates
       .header
         %h3= I18n.t(:recent_updates)
-      = render :partial => '/activity_logs/index', :locals => { :log => @data_object.activity_log(:page => @page || nil) }
-      = render :partial => '/comments/new', :locals => {:parent => @data_object}
+      - if @latest_published_revision.id == @data_object.id
+        = render :partial => '/activity_logs/index', :locals => { :log => @data_object.activity_log(:ids => @revisions.collect{ |r| r.id }, :page => @page || nil) }
+        = render :partial => '/comments/new', :locals => { :parent => @data_object }
+      - else
+        .empty
+          = link_to I18n.t(:view_current_version_link), data_object_path(@latest_published_revision)
 #sidebar
   = render :partial => '/data_objects/list_associations', :locals => { :data_object => @data_object, :en_type => en_type, :for_worklist => for_worklist }
   .article.source
@@ -25,14 +29,20 @@
     = render :partial => '/data_objects/attribution', :locals => { :supplier => true }
     - if @data_object.is_image?
       %p= link_to I18n.t(:view_full_size_image), @data_object.thumb_or_object(:orig)
-  = render :partial => '/data_objects/rating', :locals => { :data_object => @data_object, :en_type => en_type }
+  - unless for_worklist
+    = render :partial => '/data_objects/rating', :locals => { :data_object => @data_object, :en_type => en_type } if @latest_published_revision.id == @data_object.id
+  - else
+    = render :partial => '/data_objects/rating', :locals => { :data_object => @data_object, :en_type => en_type }
   - if for_worklist
     - # For worklist we show updates here below the associations form, not above.
     .article.list.updates
       .header
         %h3= I18n.t(:recent_updates)
-      = render :partial => '/activity_logs/index', :locals => { :log => @data_object.activity_log(:page => @page || nil) }
-      = render :partial => '/comments/new', :locals => {:parent => @data_object}
+      - revisions = DataObject.sort_by_created_date(@data_object.revisions).reverse
+      - latest_published_revision = revisions.select{|r| r.published?}.first
+      - if latest_published_revision.id == @data_object.id
+        = render :partial => '/activity_logs/index', :locals => { :log => @data_object.activity_log(:ids => revisions.collect{ |r| r.id }, :page => @page || nil) }
+        = render :partial => '/comments/new', :locals => { :parent => @data_object }
   - unless @revisions.blank?
     = render :partial => '/data_objects/revisions', :locals => { :data_object => @data_object, :revisions => @revisions }
   - if !@translations.blank? && @translations.length>1

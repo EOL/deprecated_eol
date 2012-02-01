@@ -246,18 +246,19 @@ module EOL
           # @all_link_tmp_file.puts metadata.to_json
           
           url_prefix = '{"changefreq":"weekly","loc":"http://' + @@default_url_options[:host] + '/pages/' + tc_id + '/'
-          { 'overview' => 1,
-            'details' => 0.5,
-            'media' => 0.5,
-            'maps' => 0.1,
-            'names' => 0.1,
-            'community' => 0.1,
-            'resources' => 0.1,
-            'literature' => 0.1,
-            'updates' => 0.1
-          }.each do |path, priority|
-            @all_link_tmp_file.puts url_prefix + path + '","priority":' + priority.to_s + '}'
-          end
+          @all_link_tmp_file.puts url_prefix + 'overview","priority":1}'
+          # { 'overview' => 1,
+          #   'details' => 0.5,
+          #   'media' => 0.5,
+          #   'maps' => 0.1,
+          #   'names' => 0.1,
+          #   'community' => 0.1,
+          #   'resources' => 0.1,
+          #   'literature' => 0.1,
+          #   'updates' => 0.1
+          # }.each do |path, priority|
+          #   @all_link_tmp_file.puts url_prefix + path + '","priority":' + priority.to_s + '}'
+          # end
         end
         start += iteration_size
       end

@@ -156,6 +156,7 @@ class DataObjectsController < ApplicationController
     get_attribution
     @slim_container = true
     @revisions = DataObject.sort_by_created_date(@data_object.revisions).reverse
+    @latest_published_revision = @revisions.select{|r| r.published?}.first
     @translations = @data_object.available_translations_data_objects(current_user, nil)
     @taxon_concepts = @data_object.get_taxon_concepts(:published => :preferred)
     @scientific_names = @taxon_concepts.inject({}) { |res, tc| res[tc.scientific_name] = { :common_name => tc.common_name, :taxon_concept_id => tc.id }; res }

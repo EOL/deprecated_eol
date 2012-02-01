@@ -282,9 +282,12 @@ protected
   def scoped_variables_for_translations
     return @scoped_variables_for_translations unless @scoped_variables_for_translations.nil?
     @scoped_variables_for_translations = super
-    if @data_object
-      supplier = (@data_object.added_by_user? && !@data_object.users_data_object.blank?) ?
-        @data_object.users_data_object.user.full_name : @data_object.content_partner.name
+    if (@data_object && @data_object.added_by_user? && !@data_object.users_data_object.blank?)
+      supplier = @data_object.users_data_object.user.full_name
+    elsif (@data_object && @data_object.content_partner)
+      supplier = @data_object.content_partner.name
+    else
+      supplier = nil
     end
     @scoped_variables_for_translations.merge!({
       :dato_title => @data_object ? Sanitize.clean(@data_object.best_title) : nil,

@@ -4,9 +4,6 @@
     %h2.assistive= I18n.t(:global_navigation)
   %ul.nav
     - cache(:controller => "/content", :part => "global_navigation_#{position}_#{current_user.language_abbr}") do
-      - if position == :footer && I18n.locale == :en
-        %li
-          = link_to I18n.t(:survey_link), "http://www.surveymonkey.com/s/88LW5QC"
       %li
         = link_to I18n.t(:discover_link), discover_path
       %li

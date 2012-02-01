@@ -38,7 +38,6 @@
       - unless item.parent.nil?
         - parent_link = user_newsfeed_path(item.parent_id)
     %p
-      - latest_published_version = DataObject.latest_published_version_of(item.parent_id) if item.parent_type == "DataObject"
       - if parent_link
         - if item.parent == item.user
           = I18n.t(:user_commented_on_themself, :user_with_link => name_with_link, :username => item.parent.summary_name, :link => parent_link)
@@ -46,10 +45,12 @@
           = I18n.t(:user_commented_on_deleted_user, :user_with_link => name_with_link)
         - else
           - if item.parent_type == "DataObject"
-            - unless latest_published_version.id == item.parent_id
+            - if DataObject.latest_published_version_of(item.parent_id) != item.parent_id
               = I18n.t(:user_commented_on_older_data_object_colon, :user => name_with_link, :what => I18n.t(:older_version_of_latest_published_data_object_link, :link => link_to(item.parent.summary_name, parent_link)))
             - else
               = I18n.t(:user_commented_on_something_colon, :user => name_with_link, :what => link_to(item.parent.summary_name, parent_link))
+          - else
+            = I18n.t(:user_commented_on_something_colon, :user => name_with_link, :what => link_to(item.parent.summary_name, parent_link))
       - else
         - unless item.parent.nil?
           - if item.parent_type == "DataObject"

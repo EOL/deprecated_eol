@@ -5,7 +5,7 @@
   'xmlns:og' => $ENABLED_SOCIAL_PLUGINS && $ENABLED_SOCIAL_PLUGINS.include?(:facebook) ? "http://ogp.me/ns#" : nil }
   %head
     %title<
-      &= strip_tags @meta_title ||= meta_data[:title]
+      = strip_tags @meta_title ||= meta_data[:title]
     %meta{ :charset => "utf-8" }
     - # HTML4 charset declaration, might go when browsers catch up with html5
     %meta{ :content => "text/html; charset=utf-8", "http-equiv" => "Content-type" }

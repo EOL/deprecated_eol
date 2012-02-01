@@ -181,9 +181,12 @@ $(function() {
       });
       $li.delegate(".collection_item_form input[type='submit']", "click", function( event ) {
         event.preventDefault();
+        var $ci_form = $(this).closest(".collection_item_form")
         EOL.ajax_submit($(this), {
           data: "_method=put&commit_annotation=true&" +
-            $(this).closest(".collection_item_form").find("input, textarea").serialize()
+            $ci_form.find("input, textarea").serialize(),
+            update: $ci_form.prev(),
+            complete: function() { $ci_form.hide().remove(); }
         });
       });
     });

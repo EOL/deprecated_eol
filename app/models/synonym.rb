@@ -126,6 +126,7 @@ private
       :taxon_concept_id => hierarchy_entry.taxon_concept_id,
       :name_id => name_id,
       :source_hierarchy_entry_id => hierarchy_entry_id,
+      :synonym_id => self.id,
       :language_id => language_id})
       tcn.preferred = self.preferred
       tcn.vetted_id = vetted_id
@@ -137,6 +138,7 @@ private
         :name_id => name_id,
         :preferred => self.preferred,
         :source_hierarchy_entry_id => hierarchy_entry_id,
+        :synonym_id => self.id,
         :taxon_concept_id => hierarchy_entry.taxon_concept_id,
         :vetted_id => vetted_id,
         :vern => vern)

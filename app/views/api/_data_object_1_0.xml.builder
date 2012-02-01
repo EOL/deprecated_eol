@@ -27,8 +27,10 @@ unless data_object.blank?
       xml.dc :source, data_object.source_url unless data_object.source_url.blank?
     end
     
-    data_object.info_items.each do |ii|
-      xml.subject ii.schema_value unless ii.schema_value.blank?
+    if data_object.is_text?
+      data_object.info_items.each do |ii|
+        xml.subject ii.schema_value unless ii.schema_value.blank?
+      end
     end
     
     unless minimal

@@ -121,10 +121,11 @@ class Name < SpeciesSchemaModel
     return true if string.match(/[a-z][0-9]/i)
     return true if string.match(/[a-z]-[0-9]/i)
     return true if string.match(/ [0-9]{1,3}$/)
+    return true if string.match(/(^|[^\w])[0-9]{1,3}-[0-9]{1,3}(^|[^\w])/)
     return true if string.match(/[0-9]{5,}/)
     return true if string.match(/[03456789][0-9]{3}/) # years should start with 1 or 2
-    return true if string.match(/1[02345][0-9]{2}/) # 1600 - 1900
-    return true if string.match(/2[1-9][0-9]{2}/) # 1600 - 1900
+    return true if string.match(/1[02345][0-9]{2}/) # 1600 - 1999
+    return true if string.match(/2[1-9][0-9]{2}/) # 2000 - 2100
     return true if string.match(/virus([^\w]|$)/i)
     return false
   end

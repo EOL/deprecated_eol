@@ -1285,7 +1285,12 @@ class TaxonConcept < SpeciesSchemaModel
     common_names_by_language = {}
     published_hierarchy_entries.each do |he|
       he.common_names.each do |cn| # TODO - this needs to filter out the non-vetted stuff...
-        next unless cn.vetted_id == Vetted.trusted.id || cn.vetted_id == Vetted.unknown.id
+        vet_id = begin
+                   cn.vetted_id
+                 rescue # This seems to happen mostly during tests, but I figure it's best to be safe, anyway.
+                   Synonym.find(cn).vetted_id
+                 end
+        next unless vet_id == Vetted.trusted.id || vet_id == Vetted.unknown.id
         next if cn.name.blank?
         language = (cn.language_id!=0 && cn.language && !cn.language.iso_code.blank?) ? cn.language.iso_code : 'unknown'
         common_names_by_language[language] ||= []

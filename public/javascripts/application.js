@@ -171,9 +171,8 @@ $(function() {
       var $li = $(this);
       $li.delegate("p.edit a", "click", function( event ) {
         event.preventDefault();
-        $(this).parent().hide();
-        $(this).parent().after('<div class="collection_item_form"></div>');
-        var $update = $(this).parent().next('.collection_item_form');
+        $(this).parent().parent().hide().after('<div class="collection_item_form"></div>');
+        var $update = $(this).parent().parent().next('.collection_item_form');
         EOL.ajax_get($(this), {update: $update, type: 'GET'});
       });
       $li.delegate(".collection_item_form a", "click", function( event ) {

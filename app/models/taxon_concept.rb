@@ -1284,7 +1284,7 @@ class TaxonConcept < SpeciesSchemaModel
   def common_names_for_solr
     common_names_by_language = {}
     published_hierarchy_entries.each do |he|
-      he.common_names.each do |cn| # TODO - this needs to filter out the non-vetted stuff...
+      he.common_names.each do |cn|
         vet_id = begin
                    cn.vetted_id
                  rescue # This seems to happen mostly during tests, but I figure it's best to be safe, anyway.

@@ -188,7 +188,7 @@ es:
   activity_user_changed_community_icon: <strong>%{user}</strong> cabio el logotipo de la comunidad "%{community}".
   activity_user_changed_community_name: <strong>%{user}</strong> cambío el nobre de la comunidad "%{community}".
   activity_user_created_collection: <strong>%{user}</strong> creó la colección "%{collection}".
-  activity_user_created_community: <strong>%{user}</strong> creó la comunidad"%{collection}".
+  activity_user_created_community: <strong>%{user}</strong> creó la comunidad "%{community}".
   activity_user_created_text: <strong>%{user}</strong> añado el texto a "%{object_name}" on "%{taxon_concept}".
   activity_user_curated_an_unknown_object: <strong>%{user}</strong> curado un objecto desconocido.
   activity_user_deleted_community: <strong>%{user}</strong> eliminado la comunidad "%{community}".

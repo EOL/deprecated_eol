@@ -2446,6 +2446,7 @@ en:
   preferred_common_name_advisory_information: "Preferred common name for this taxon."
   press_room: "Press Room"
   preview_changes: "Preview Changes"
+  preview_version_of_latest_published_data_object_title_link: "Preview version of %{link}"
   preview: "preview"
   previously_published: "previously published"
   proceed_to_checkout_page: "Proceed to Checkout Page"

@@ -7,7 +7,10 @@
         %h1<
           - unless @latest_published_revision.id == @data_object.id
             - link =  link_to @latest_published_revision.best_title, data_object_path(@latest_published_revision)
-            = I18n.t(:older_version_of_latest_published_data_object_title_link, :link => link)
+            - if @latest_published_revision.id > @data_object.id
+              = I18n.t(:older_version_of_latest_published_data_object_title_link, :link => link)
+            - else
+              = I18n.t(:preview_version_of_latest_published_data_object_title_link, :link => link)
           - else
             = @page_title
         %h2<

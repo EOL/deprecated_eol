@@ -1290,9 +1290,13 @@ class TaxonConcept < SpeciesSchemaModel
                  rescue # This seems to happen mostly during tests, but I figure it's best to be safe, anyway.
                    Synonym.find(cn).vetted_id
                  end
-        next unless vet_id == Vetted.trusted.id || vet_id == Vetted.unknown.id
+        next unless vet_id == Vetted.trusted.id || vet_id == Vetted.unknown.id # only Trusted or Unknown names go in
         next if cn.name.blank?
+        # only names from our curators, ubio, or from published and visible entries go in
+        next unless ((he.published == 1 && he.visibility_id == Visibility.visible.id) || cn.hierarchy_id == Hierarchy.eol_contributors.id || cn.hierarchy_id == Hierarchy.ubio.id)
+        next if Language.all_unknowns.include? cn.language
         language = (cn.language_id!=0 && cn.language && !cn.language.iso_code.blank?) ? cn.language.iso_code : 'unknown'
+        next if language == 'unknown' # we dont index names in unknown languages to cut down on noise
         common_names_by_language[language] ||= []
         common_names_by_language[language] << cn.name.string
       end

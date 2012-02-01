@@ -1,0 +1,126 @@
+%table.results_table{ :cellspacing => "0" }
+  %tr
+    %th
+    %th
+  - if $COUNT_UNIQUE_VISITORS
+    %tr
+      %td.odd
+        =I18n.t("visitors")
+      %td.odd
+        =I18n.t("as_of_time_there_were_unique_visitors", :time => format_date_time(Time.now) , :count => @visitors.count)
+  %tr
+    %td.odd
+      =I18n.t("your_ip_address")
+    %td.odd
+      = request.remote_ip
+      (
+      =I18n.t("internal_ip_address") if @allowed_ip
+      )
+  %tr
+    %td.even
+      =I18n.t("server_ip_address")
+    %td.even
+      = $IP_ADDRESS_OF_SERVER
+  %tr
+    %td.odd
+      =I18n.t("rails_environment")
+    %td.odd
+      = ENV["RAILS_ENV"]
+  %tr
+    %td.even
+      =I18n.t("rails_databases")
+    %td.even
+      =I18n.t(:main_colon)
+      = @config.database_configuration[ENV["RAILS_ENV"]]["database"] + ' @ ' + @config.database_configuration[ENV["RAILS_ENV"]]["host"]
+      %br
+      =I18n.t(:data)
+      = @config.database_configuration[ENV["RAILS_ENV"]+'_data']["database"] + ' @ ' + @config.database_configuration[ENV["RAILS_ENV"]+'_data']["host"]
+      %br
+      =I18n.t(:logging)
+      = @config.database_configuration[ENV["RAILS_ENV"]+'_logging']["database"] + ' @ ' + @config.database_configuration[ENV["RAILS_ENV"]+'_logging']["host"]
+      %br
+      - unless @config.database_configuration['master_database'].nil?
+        =I18n.t("this_does_not_necessarily_mean", :env => ENV["RAILS_ENV"])
+        %br
+        =I18n.t(:main_master_colon)
+        = @config.database_configuration['master_database']["database"] + ' @ ' + @config.database_configuration['master_database']["host"]
+        %br
+      - unless @config.database_configuration['master_data_database'].nil?
+        =I18n.t(:data_master)
+        = @config.database_configuration['master_data_database']["database"] + ' @ ' + @config.database_configuration['master_data_database']["host"]
+        %br
+  %tr
+    %td.odd
+      =I18n.t("error_logging_active")
+    %td.odd
+      = $ERROR_LOGGING.to_s
+  %tr
+    %td.even
+      =I18n.t("web_service_base_url")
+    %td.even
+      = $WEB_SERVICE_BASE_URL
+  %tr
+    %td.odd
+      =I18n.t("data_logging_active")
+    %td.odd
+      = $ENABLE_DATA_LOGGING.to_s
+  %tr
+    %td.even
+      =I18n.t("email_error_notification_activ")
+    %td.even
+      = $EXCEPTION_NOTIFY.to_s
+  %tr
+    %td.odd
+      =I18n.t("content_servers")
+    %td.odd
+      = $CONTENT_SERVERS.join(',')
+  %tr
+    %td.even
+      =I18n.t("allow_user_logins")
+    %td.even
+      = $ALLOW_USER_LOGINS.to_s
+  - if ActionController::Base.perform_caching
+    %tr
+      %td.odd
+        =I18n.t("fragment_caching_enabled")
+      %td.odd
+        %span#cache_clear_time
+          =I18n.t("home_page_cache_last_cleared_on", :date => format_date_time($CACHE_CLEARED_LAST))
+        %br
+        = link_to_remote I18n.t(:clear_entire_cache_store), :url=>{:controller=>'/administrator/site', :action=>'clear_all'}, :confirm=>I18n.t(:are_you_sure), :update=>'cache_clear_time'
+        %br
+        = link_to_remote I18n.t(:clear_all_non_species_pages), :url=>{:controller=>'/administrator/site', :action=>'expire_all'}, :update=>'cache_clear_time'
+        %br
+        %span#taxon_id_clear_time
+        =I18n.t(:taxon_id)
+        = text_field_tag :taxon_id, '', {:size=>8}
+        = link_to_remote I18n.t(:clear_species_page), :url=>{:controller=>'/administrator/site', :action=>'expire'}, :update=>'taxon_id_clear_time', :with => "'taxon_id=' + $('taxon_id').value"
+        %br
+    %tr
+      %td.even
+        =I18n.t("cache_store")
+      %td.even
+        = ActionController::Base.cache_store.class
+        %br
+        - if ActionController::Base.cache_store.respond_to?('stats')
+          = ActionController::Base.cache_store.stats.inspect
+  - if $ENABLE_ANALYTICS
+    %tr
+      %td.odd
+        =I18n.t("google_analytics_active")
+      %td.odd
+        = link_to I18n.t("google_analytic_results"), 'http://www.google.com/analytics/home', {:target=>'_blank'}
+  %tr
+    %td.even
+      Site maintenance message
+    %td.even
+      EOL is scheduled for maintenance on Thursday, December 22 between 8:00 and 10:00 AM EST.  During this time you may find changes in EOL's performance and availability.
+      %br
+      Enter New Maintenance message:
+      - form_tag({ :action=>'index' }, :method=>'get') do
+        - global_site_warning = SiteConfigurationOption.find_by_parameter('global_site_warning')
+        - global_site_warning_message = (global_site_warning && global_site_warning.value) ? global_site_warning.value : ""
+        = text_area_tag :taxon_id, global_site_warning_message, { :rows => 80, :cols => 3 }
+        %br
+        = f.submit
+      %br

@@ -9,7 +9,7 @@ module EOL
         response = solr_search(collection_id, options)
         total_results = response['response']['numFound']
         results = response['response']['docs']
-        add_resource_instances!(results)
+        add_resource_instances!(results, options)
 
         results = WillPaginate::Collection.create(options[:page], options[:per_page], total_results) do |pager|
           pager.replace(results)
@@ -19,7 +19,7 @@ module EOL
 
       private
 
-      def self.add_resource_instances!(docs)
+      def self.add_resource_instances!(docs, options = {})
         return if docs.empty?
         ids = docs.map{ |d| d['collection_item_id'] }
         instances = CollectionItem.find_all_by_id(ids)
@@ -32,11 +32,11 @@ module EOL
         add_community!(docs.select{ |d| d['object_type'] == 'Community' })
         add_collection!(docs.select{ |d| d['object_type'] == 'Collection' })
         add_user!(docs.select{ |d| d['object_type'] == 'User' })
-        add_taxon_concept!(docs.select{ |d| d['object_type'] == 'TaxonConcept' })
+        add_taxon_concept!(docs.select{ |d| d['object_type'] == 'TaxonConcept' }, options)
         add_data_object!(docs.select{ |d| ['Image', 'Video', 'Sound', 'Text', 'DataObject'].include? d['object_type'] })
       end
 
-      def self.add_community!(docs)
+      def self.add_community!(docs, options = {})
         return if docs.empty?
         ids = docs.map{ |d| d['object_id'] }
         instances = Community.find_all_by_id(ids)
@@ -45,7 +45,7 @@ module EOL
         end
       end
 
-      def self.add_collection!(docs)
+      def self.add_collection!(docs, options = {})
         return if docs.empty?
         ids = docs.map{ |d| d['object_id'] }
         instances = Collection.find_all_by_id(ids)
@@ -54,7 +54,7 @@ module EOL
         end
       end
 
-      def self.add_user!(docs)
+      def self.add_user!(docs, options = {})
         return if docs.empty?
         ids = docs.map{ |d| d['object_id'] }
         instances = User.find_all_by_id(ids)
@@ -63,12 +63,10 @@ module EOL
         end
       end
 
-      def self.add_taxon_concept!(docs)
+      def self.add_taxon_concept!(docs, options = {})
         return if docs.empty?
         includes = [
-          { :published_hierarchy_entries => [ { :name => :canonical_form } , :hierarchy, :vetted, { :flattened_ancestors => { :ancestor => [ :name, :rank ] } } ] },
-          { :preferred_common_names => [ :name, :language ] },
-          { :taxon_concept_content => :image_object },
+          { :published_hierarchy_entries => [ { :name => :canonical_form } , :hierarchy, :vetted ] },
           { :taxon_concept_exemplar_image => :data_object }]
         selects = {
           :taxon_concepts => '*',
@@ -81,6 +79,10 @@ module EOL
           :taxon_concept_content => [ :taxon_concept_id, :image_object_id ],
           :data_objects => [ :id, :object_cache_url, :data_type_id, :guid ]
         }
+        if options[:view_style] == ViewStyle.annotated
+          includes[0][:published_hierarchy_entries] << { :flattened_ancestors => { :ancestor => [ :name, :rank ] } }
+          includes << { :preferred_common_names => [ :name, :language ] }
+        end
         ids = docs.map{ |d| d['object_id'] }
         instances = TaxonConcept.core_relationships(:include => includes, :select => selects).find_all_by_id(ids)
         docs.each do |d|
@@ -90,9 +92,9 @@ module EOL
         end
       end
 
-      def self.add_data_object!(docs)
+      def self.add_data_object!(docs, options = {})
         return if docs.empty?
-        includes = [ { :data_objects_hierarchy_entries => { :hierarchy_entry => [ { :name => :canonical_form }, :hierarchy ] } }, :curated_data_objects_hierarchy_entries, { :toc_items => :translations } ]
+        includes = [ { :toc_items => :translations } ]
         selects = {
           :data_objects => '*',
           :data_objects_hierarchy_entries => '*',
@@ -103,6 +105,10 @@ module EOL
           :names => :string,
           :canonical_forms => :string
         }
+        if options[:view_style] == ViewStyle.annotated
+          includes << { :data_objects_hierarchy_entries => { :hierarchy_entry => [ { :name => :canonical_form }, :hierarchy ] } }
+          includes << :curated_data_objects_hierarchy_entries
+        end
         ids = docs.map{ |d| d['object_id'] }
         instances = DataObject.core_relationships(:include => includes, :select => selects).find_all_by_id(ids)
         docs.each do |d|

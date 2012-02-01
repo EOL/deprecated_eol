@@ -82,8 +82,15 @@ namespace :solr do
     end
   end
 
+
+  # In order for this rake task to work your Rails server must be running. You also need to have the proper $IP_ADDRESS_OF_SERVER
+  # so Solr knows how to download the files this script will tell it to download. The server must be on so Rails can serve the
+  # files via HTTP
   desc 'Rebuild the site_search index'
   task :rebuild_site_search => :environment do
+    puts 'In order for this rake task to work your Rails server must be running. You also need to have the proper $IP_ADDRESS_OF_SERVER'
+    puts 'so Solr knows how to download the files this script will tell it to download. The server must be on so Rails can serve the'
+    puts 'files via HTTP'
     builder = EOL::Solr::SiteSearchCoreRebuilder.new()
     builder.obliterate
     builder.begin_rebuild

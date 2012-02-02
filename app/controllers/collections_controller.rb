@@ -177,7 +177,7 @@ protected
     @scoped_variables_for_translations
   end
   def meta_open_graph_image_url
-    @collection ? image_url(@collection.logo_url) : nil
+    @collection ? view_helper_methods.image_url(@collection.logo_url('large', $SINGLE_DOMAIN_CONTENT_SERVER)) : nil
   end
 
 private
@@ -210,14 +210,14 @@ private
     @filter = params[:filter]
     @page = params[:page]
     @selected_collection_items = params[:collection_items] || []
-    
+
     @per_page = 50
     if @view_as == ViewStyle.list
       @per_page = 300
     elsif @view_as == ViewStyle.gallery
       @per_page = 250
     end
-    
+
     # NOTE - you still need these counts on the Update page:
     @facet_counts = EOL::Solr::CollectionItems.get_facet_counts(@collection.id)
     @collection_results = @filter == 'editors' ?  [] :

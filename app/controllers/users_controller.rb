@@ -263,11 +263,20 @@ protected
     return @scoped_variables_for_translations unless @scoped_variables_for_translations.nil?
     @scoped_variables_for_translations = super
     @scoped_variables_for_translations.merge!({
-      :user_full_name => @user ? Sanitize.clean(@user.full_name) : nil
+      :user_full_name => @user ? Sanitize.clean(@user.full_name) : nil,
+      :curator_level => @user && @user.curator_level ? Sanitize.clean(@user.curator_level.translated_label) : nil
     })
+    @scoped_variables_for_translations
+  end
+  def meta_description
+    return @meta_description unless @meta_description.blank?
+    translation_vars = scoped_variables_for_translations.clone
+    @meta_description = translation_vars[:curator_level].blank? ?
+      t(".meta_description", translation_vars) :
+      t(".meta_description_curator", translation_vars.merge({:default => t(".meta_description", translation_vars)}))
   end
   def meta_open_graph_image_url
-    @user ? image_url(@user.logo_url) : nil
+    @user ? view_helper_methods.image_url(@user.logo_url('large', $SINGLE_DOMAIN_CONTENT_SERVER)) : nil
   end
 
 private

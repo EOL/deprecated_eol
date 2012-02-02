@@ -955,14 +955,15 @@ en:
         meta_keywords: ""
         meta_title: "%{user_full_name} Content Partners"
         tweet_text: "%{user_full_name} content partners"
-    newsfeed:
+    newsfeeds:
       show:
         meta_description: "News, activity updates and comments for %{user_full_name}."
         meta_keywords: ""
         meta_title: "%{user_full_name} Newsfeed"
         tweet_text: "%{user_full_name} newsfeed"
     show:
-      meta_description: "%{user_full_name}"
+      meta_description: "Member profile for %{user_full_name} on the Encyclopedia of Life."
+      meta_description_curator: "Member profile for %{curator_level} %{user_full_name} on the Encyclopedia of Life."
       meta_keywords: ""
       meta_title: "%{user_full_name}"
       tweet_text: "%{user_full_name}"

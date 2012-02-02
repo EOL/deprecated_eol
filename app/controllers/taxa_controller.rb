@@ -159,10 +159,8 @@ protected
   end
   def meta_open_graph_image_url
     return nil if @taxon_concept.blank?
-    dato = @taxon_concept.published_exemplar_image.blank? ?
-      @taxon_concept.images_from_solr.first :
-      @taxon_concept.published_exemplar_image
-    dato.nil? ? nil : dato.thumb_or_object
+    dato = @taxon_concept.exemplar_or_best_image_from_solr
+    dato.nil? ? nil : dato.thumb_or_object('260_190', $SINGLE_DOMAIN_CONTENT_SERVER)
   end
 
 private

@@ -296,7 +296,9 @@ protected
     @scoped_variables_for_translations
   end
   def meta_open_graph_image_url
-    @data_object ? @data_object.thumb_or_object : nil
+    image = @data_object ? @data_object.thumb_or_object('260_190', $SINGLE_DOMAIN_CONTENT_SERVER) : nil
+    return nil if [nil, '#'].include?(image)
+    image
   end
 
   # NOTE - It seems like this is a HEAVY controller... and perhaps it is.  But I can't think of *truly* appropriate

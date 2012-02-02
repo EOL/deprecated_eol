@@ -7,8 +7,7 @@
     - # TODO: Define custom object types for biodiversity namespaces e.g. species?
     - # TODO: Define og:locale, and og:locale:alternate. Note format expected includes region e.g. "en_US"
     - if $ENABLED_SOCIAL_PLUGINS.include?(:facebook)
-      - meta_open_graph_tags = meta_open_graph_data(meta_open_graph_image_url || image_url(image_path('v2/logo_open_graph_default.png')))
-      - meta_open_graph_tags.each do |property, content|
+      - meta_open_graph_data.each do |property, content|
         %meta{ :property => property, :content => content }
 
   #social_sharing

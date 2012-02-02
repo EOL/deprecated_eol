@@ -85,14 +85,13 @@ class Community < ActiveRecord::Base
     members.map {|m| m.user_id}.include?(user.id)
   end
 
-  def logo_url(size = 'large')
+  def logo_url(size = 'large', specified_content_host = nil)
     if logo_cache_url.blank?
       return "v2/logos/community_default.png"
     elsif size.to_s == 'small'
-      DataObject.image_cache_path(logo_cache_url, '88_88')
+      DataObject.image_cache_path(logo_cache_url, '88_88', specified_content_host)
     else
-      DataObject.image_cache_path(logo_cache_url, '130_130')
-      # ContentServer.logo_path(logo_cache_url, size)
+      DataObject.image_cache_path(logo_cache_url, '130_130', specified_content_host)
     end
   end
 

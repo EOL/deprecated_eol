@@ -45,7 +45,7 @@
           = I18n.t(:user_commented_on_deleted_user, :user_with_link => name_with_link)
         - else
           - if item.parent_type == "DataObject"
-            - if DataObject.latest_published_version_of(item.parent_id) != item.parent_id
+            - if DataObject.latest_published_version_of(item.parent_id).id != item.parent_id
               = I18n.t(:user_commented_on_older_data_object_colon, :user => name_with_link, :what => I18n.t(:older_version_of_latest_published_data_object_link, :link => link_to(item.parent.summary_name, parent_link)))
             - else
               = I18n.t(:user_commented_on_something_colon, :user => name_with_link, :what => link_to(item.parent.summary_name, parent_link))
@@ -54,11 +54,12 @@
       - else
         - unless item.parent.nil?
           - if item.parent_type == "DataObject"
-            = I18n.t(:user_commented_on_older_data_object_colon, :user => name_with_link, :what => item.parent.summary_name)
+            - if DataObject.latest_published_version_of(item.parent_id).id != item.parent_id
+              = I18n.t(:user_commented_on_older_data_object_colon, :user => name_with_link, :what => item.parent.summary_name)
+            - else
+              = I18n.t(:user_commented_on_something_colon, :user => name_with_link, :what => item.parent.summary_name)
           - else
-            = I18n.t(:user_commented_on_something_colon, :user => name_with_link, :what => item.parent.summary_name)
-        - else
-          = I18n.t(:user_commented_on_something_colon, :user => name_with_link, :what => I18n.t(:record_not_found))
+            = I18n.t(:user_commented_on_something_colon, :user => name_with_link, :what => I18n.t(:record_not_found))
 
   - if item.deleted?
     %p.deleted_comment= I18n.t(:this_comment_was_deleted)

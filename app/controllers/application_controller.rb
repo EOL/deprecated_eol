@@ -33,8 +33,7 @@ class ApplicationController < ActionController::Base
   helper :all
 
   helper_method :logged_in?, :current_url, :current_user, :return_to_url, :current_agent, :agent_logged_in?,
-    :allow_page_to_be_cached?, :link_to_item, :meta_data, :tweet_data, :meta_open_graph_data,
-    :meta_open_graph_image_url, :image_url
+    :allow_page_to_be_cached?, :link_to_item, :meta_data, :tweet_data, :meta_open_graph_data
 
   before_filter :set_locale
 
@@ -621,7 +620,7 @@ protected
     @tweet_data = {:lang => lang, :via => via, :hashtags => hashtags,
                    :text => text}.delete_if{ |k, v| v.blank? }
   end
-  def meta_open_graph_data(image)
+  def meta_open_graph_data
     return @meta_open_graph_data unless @meta_open_graph_data.blank?
     @meta_open_graph_data = {
       'fb:app_id' => $FACEBOOK_APP_ID,
@@ -629,14 +628,11 @@ protected
       'og:type' => 'non_profit',
       'og:title' => meta_data[:title],
       'og:description' => meta_data[:description],
-      'og:image' => image
+      'og:image' => meta_open_graph_image_url || view_helper_methods.image_url('v2/logo_open_graph_default.png')
     }.delete_if{ |k, v| v.blank? }
   end
   def meta_open_graph_image_url
     nil
-  end
-  def image_url(image_with_path)
-    request.protocol + request.host_with_port + image_with_path
   end
 
 private

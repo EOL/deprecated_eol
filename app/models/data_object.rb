@@ -657,7 +657,7 @@ class DataObject < SpeciesSchemaModel
   end
   alias is_iucn? iucn?
 
-  def self.image_cache_path(cache_url, size = :large, specified_content_host = nil)
+  def self.image_cache_path(cache_url, size = '580_360', specified_content_host = nil)
     return if cache_url.blank? || cache_url == 0
     size = size ? "_" + size.to_s : ''
     ContentServer.cache_path(cache_url, specified_content_host) + "#{size}.#{$SPECIES_IMAGE_FORMAT}"
@@ -694,14 +694,14 @@ class DataObject < SpeciesSchemaModel
     false
   end
 
-  def thumb_or_object(size = :large)
+  def thumb_or_object(size = '580_360', specified_content_host = nil)
     if self.is_video? || self.is_sound?
-      return DataObject.image_cache_path(thumbnail_cache_url, size)
+      return DataObject.image_cache_path(thumbnail_cache_url, size, specified_content_host)
     elsif has_object_cache_url?
       if access_image_from_remote_server(size)
         return self.object_url
       else
-        return DataObject.image_cache_path(object_cache_url, size)
+        return DataObject.image_cache_path(object_cache_url, size, specified_content_host)
       end
     else
       return '#' # Really, this is an error, but we want to handle it pseudo-gracefully.
@@ -710,12 +710,12 @@ class DataObject < SpeciesSchemaModel
 
   # Returns path to a thumbnail.
   def smart_thumb
-    thumb_or_object(:small)
+    thumb_or_object('98_68')
   end
 
   # Returns path to a "larger" thumbnail (a'la main page).
   def smart_medium_thumb
-    thumb_or_object(:medium)
+    thumb_or_object('260_190')
   end
 
   # Returns path to the *full* image.
@@ -724,7 +724,7 @@ class DataObject < SpeciesSchemaModel
   end
 
   def original_image
-    thumb_or_object(nil)
+    thumb_or_object(:orig)
   end
 
   def sound_url

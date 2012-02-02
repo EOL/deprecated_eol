@@ -133,6 +133,16 @@ module ApplicationHelper
     end
   end
 
+  # Prefixes image paths with http://www.eol.org/images, so use image_url instead of image_path.
+  # It is intended for images stored in the code base i.e. default icons.
+  # You can pass data object images or user uploaded logos/profile images but these should already be
+  # absolute URLs from the content server, so will just get returned without any additional prefix.
+  def image_url(image)
+    image = image_path(image)
+    return image if image =~ /^https?:\/\//
+    "http://#{$SITE_DOMAIN_OR_IP}#{image}"
+  end
+
   # Used in V2 to provide semi-useful alternative text for data object image representations
   # TODO: These alt/title attributes are fairly useless in terms of accessibility.
   # We can include the item description but its not always going to make sense or be short enough

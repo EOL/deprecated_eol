@@ -177,7 +177,7 @@ protected
     @scoped_variables_for_translations
   end
   def meta_open_graph_image_url
-    @collection ? image_url(@collection.logo_url) : nil
+    @collection ? view_helper_methods.image_url(@collection.logo_url('large', $SINGLE_DOMAIN_CONTENT_SERVER)) : nil
   end
 
 private

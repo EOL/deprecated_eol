@@ -392,8 +392,10 @@ private
       respond_to do |format|
         format.js do
           # Sorry this is confusing, but we don't know which attribute number will have the id:
-          @collection_item = CollectionItem.find(params[:collection][:collection_items_attributes].keys.map {|i|
-            params[:collection][:collection_items_attributes][i][:id] }.first)
+          CollectionItem.with_master do
+            @collection_item = CollectionItem.find(params[:collection][:collection_items_attributes].keys.map {|i|
+              params[:collection][:collection_items_attributes][i][:id] }.first)
+          end
           render :partial => 'collection_items/show_editable_attributes',
             :locals => { :collection_item => @collection_item, :item_editable => true }
         end

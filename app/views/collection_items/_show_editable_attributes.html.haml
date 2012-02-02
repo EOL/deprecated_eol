@@ -8,10 +8,7 @@
     %strong= I18n.t :references_cabs_colon
     - collection_item.refs.each do |ref|
       %br
-      - if ref.full_reference.downcase.starts_with? 'http'
-        = link_to ref.full_reference, ref.full_reference
-      - else
-        = ref.full_reference
+      = ref.full_reference.split.map {|w| w.gsub(/^(http\S+)/, '<a href="\1">\1</a>') }.join(' ')
 - unless collection_item.sort_field.blank?
   %p.sort_value
     %strong= I18n.t('helpers.label.collection_item.sort_field_show')

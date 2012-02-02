@@ -210,14 +210,14 @@ private
     @filter = params[:filter]
     @page = params[:page]
     @selected_collection_items = params[:collection_items] || []
-    
+
     @per_page = 50
     if @view_as == ViewStyle.list
       @per_page = 300
     elsif @view_as == ViewStyle.gallery
       @per_page = 250
     end
-    
+
     # NOTE - you still need these counts on the Update page:
     @facet_counts = EOL::Solr::CollectionItems.get_facet_counts(@collection.id)
     @collection_results = @filter == 'editors' ?  [] :
@@ -380,10 +380,9 @@ private
         collection_item.refs.clear
         unless params[:references].blank?
           params[:references].split("\n").each do |original_ref|
-            reference = original_ref.strip.downcase
+            reference = original_ref.strip
             unless reference.blank?
               ref = Ref.find_or_create_by_full_reference_and_user_submitted_and_published_and_visibility_id(reference, 1, 1, Visibility.visible.id)
-              puts "++ created Ref #{ref.id}"
               collection_item.refs << ref
               collection_item.save!
             end
@@ -393,8 +392,10 @@ private
       respond_to do |format|
         format.js do
           # Sorry this is confusing, but we don't know which attribute number will have the id:
-          @collection_item = CollectionItem.find(params[:collection][:collection_items_attributes].keys.map {|i|
-            params[:collection][:collection_items_attributes][i][:id] }.first)
+          CollectionItem.with_master do
+            @collection_item = CollectionItem.find(params[:collection][:collection_items_attributes].keys.map {|i|
+              params[:collection][:collection_items_attributes][i][:id] }.first)
+          end
           render :partial => 'collection_items/show_editable_attributes',
             :locals => { :collection_item => @collection_item, :item_editable => true }
         end

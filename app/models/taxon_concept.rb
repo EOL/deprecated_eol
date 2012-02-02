@@ -1292,6 +1292,8 @@ class TaxonConcept < SpeciesSchemaModel
                  end
         next unless vet_id == Vetted.trusted.id || vet_id == Vetted.unknown.id # only Trusted or Unknown names go in
         next if cn.name.blank?
+        # HE is sometimes being queried against an incomplete cache, so we reload it if needed:
+        he = HierarchyEntry.find(he) unless he.attributes.keys.include?(:published) && he.attributes.keys.include?(:visibility_id)
         # only names from our curators, ubio, or from published and visible entries go in
         next unless ((he.published == 1 && he.visibility_id == Visibility.visible.id) || cn.hierarchy_id == Hierarchy.eol_contributors.id || cn.hierarchy_id == Hierarchy.ubio.id)
         next if Language.all_unknowns.include? cn.language

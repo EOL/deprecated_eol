@@ -1806,6 +1806,7 @@ en:
   done_already: "Done already"
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: "Don't show unknown registered dates (V1 users, all prior to Jan 5, 2009)"
   do_you_want_to_be_a_curator: "Do you want to be a curator"
+  download_wav_file: "Download WAV file"
   dublin_core: "Dublin Core"
   duplicate_items_were_ignored: "Duplicate items were ignored."
   each_method_documentation_page_has_formatted_responses: "Each method's documentation page has an example of both the XML and JSON formatted responses."

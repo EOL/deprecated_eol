@@ -218,7 +218,7 @@ private
     if @view_as == ViewStyle.list
       @per_page = 300
     elsif @view_as == ViewStyle.gallery
-      @per_page = 250
+      @per_page = 150
     end
 
     # NOTE - you still need these counts on the Update page:

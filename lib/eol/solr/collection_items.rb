@@ -23,17 +23,21 @@ module EOL
         return if docs.empty?
         ids = docs.map{ |d| d['collection_item_id'] }
         instances = CollectionItem.find_all_by_id(ids)
+        if options[:view_style] == ViewStyle.annotated
+          CollectionItem.preload_associations(instances, :refs, :select =>
+            { :refs => [ :id, :full_reference ] } )
+        end
         return if ids.empty?
         raise "No CollectionItem instances found from IDs #{ids.join(', ')}.  Rebuild indexes." if instances.empty?
         docs.each do |d|
           d['instance'] = instances.detect{ |i| i.id == d['collection_item_id'].to_i }
         end
 
-        add_community!(docs.select{ |d| d['object_type'] == 'Community' })
-        add_collection!(docs.select{ |d| d['object_type'] == 'Collection' })
-        add_user!(docs.select{ |d| d['object_type'] == 'User' })
+        add_community!(docs.select{ |d| d['object_type'] == 'Community' }, options)
+        add_collection!(docs.select{ |d| d['object_type'] == 'Collection' }, options)
+        add_user!(docs.select{ |d| d['object_type'] == 'User' }, options)
         add_taxon_concept!(docs.select{ |d| d['object_type'] == 'TaxonConcept' }, options)
-        add_data_object!(docs.select{ |d| ['Image', 'Video', 'Sound', 'Text', 'DataObject'].include? d['object_type'] })
+        add_data_object!(docs.select{ |d| ['Image', 'Video', 'Sound', 'Text', 'DataObject'].include? d['object_type'] }, options)
       end
 
       def self.add_community!(docs, options = {})
@@ -41,7 +45,9 @@ module EOL
         ids = docs.map{ |d| d['object_id'] }
         instances = Community.find_all_by_id(ids)
         docs.map! do |d|
-          d['instance'].object = instances.detect{ |i| i.id == d['object_id'].to_i }
+          unless d['instance'].nil?
+            d['instance'].object = instances.detect{ |i| i.id == d['object_id'].to_i }
+          end
         end
       end
 
@@ -49,8 +55,14 @@ module EOL
         return if docs.empty?
         ids = docs.map{ |d| d['object_id'] }
         instances = Collection.find_all_by_id(ids)
+        if options[:view_style] == ViewStyle.annotated
+          Collection.preload_associations(instances, [ :users, :communities ], :select =>
+            { :users => '*', :communities => '*' } )
+        end
         docs.map! do |d|
-          d['instance'].object = instances.detect{ |i| i.id == d['object_id'].to_i }
+          unless d['instance'].nil?
+            d['instance'].object = instances.detect{ |i| i.id == d['object_id'].to_i }
+          end
         end
       end
 
@@ -59,7 +71,9 @@ module EOL
         ids = docs.map{ |d| d['object_id'] }
         instances = User.find_all_by_id(ids)
         docs.map! do |d|
-          d['instance'].object = instances.detect{ |i| i.id == d['object_id'].to_i }
+          unless d['instance'].nil?
+            d['instance'].object = instances.detect{ |i| i.id == d['object_id'].to_i }
+          end
         end
       end
 
@@ -94,30 +108,41 @@ module EOL
 
       def self.add_data_object!(docs, options = {})
         return if docs.empty?
+        ids = docs.map{ |d| d['object_id'] }
+        instances = DataObject.core_relationships(:include => :all_published_versions).find_all_by_id(ids)
+        instances_that_are_used = []
+        docs.each do |d|
+          if i = instances.detect{ |i| i.id == d['object_id'].to_i }
+            if d['instance'] 
+              if latest_version = i.latest_published_version
+                d['instance'].object = latest_version
+              else
+                d['instance'].object = i
+              end
+              instances_that_are_used << d['instance'].object
+            end
+          end
+        end
+        
         includes = [ { :toc_items => :translations } ]
         selects = {
           :data_objects => '*',
           :data_objects_hierarchy_entries => '*',
           :hierarchies => '*',
           :curated_data_objects_hierarchy_entries => '*',
+          :table_of_contents => '*',
           :translated_table_of_contents => '*',
-          :hierarchy_entries => [ :published, :visibility_id, :taxon_concept_id ],
-          :names => :string,
-          :canonical_forms => :string
+          :users => '*',
+          :hierarchy_entries => [ :id, :published, :visibility_id, :taxon_concept_id, :name_id, :hierarchy_id ],
+          :names => [ :id, :string, :canonical_form_id ],
+          :canonical_forms => [ :id, :string ]
         }
+        
         if options[:view_style] == ViewStyle.annotated
-          includes << { :data_objects_hierarchy_entries => { :hierarchy_entry => [ { :name => :canonical_form }, :hierarchy ] } }
-          includes << :curated_data_objects_hierarchy_entries
+          includes << { :data_objects_hierarchy_entries => { :hierarchy_entry => [ { :name => :canonical_form } ] } }
+          includes << { :curated_data_objects_hierarchy_entries => [ :user, { :hierarchy_entry => [ { :name => :canonical_form } ] } ] }
         end
-        ids = docs.map{ |d| d['object_id'] }
-        instances = DataObject.core_relationships(:include => includes, :select => selects).find_all_by_id(ids)
-        docs.each do |d|
-          if i = instances.detect{ |i| i.id == d['object_id'].to_i }
-            if d['instance'] 
-              d['instance'].object = i
-            end
-          end
-        end
+        DataObject.preload_associations(instances_that_are_used, includes, :select => selects)
       end
 
       def self.solr_search(collection_id, options = {})

@@ -19,9 +19,9 @@ def continue_collect(user, url)
   check 'collection_id_'
   click_button 'Collect item'
   # TODO
-  #current_url.should match /#{url}/
-  #body.should include('added to collection')
-  #user.watch_collection.items.map {|li| li.object }.include?(collectable_item).should be_true
+  # current_url.should match /#{url}/
+  # body.should include('added to collection')
+  # user.watch_collection.items.map {|li| li.object }.include?(collectable_item).should be_true
 end
 
 describe "Collections and collecting:" do
@@ -47,7 +47,10 @@ describe "Collections and collecting:" do
     SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE).delete_all_documents
     DataObject.all.each{ |d| d.update_solr_index }
   end
-
+  
+  after(:all) do
+  end
+  
   shared_examples_for 'collections all users' do
     it 'should be able to view a collection and its items' do
       visit collection_path(@collection)
@@ -200,7 +203,65 @@ describe "Collections and collecting:" do
       end
     end
   end
-
+  
+  it "should always link collected objects to their latest published versions" do
+    @original_index_records_on_save_value = $INDEX_RECORDS_IN_SOLR_ON_SAVE
+    $INDEX_RECORDS_IN_SOLR_ON_SAVE = true
+    login_as @anon_user
+    visit data_object_path(@taxon.images_from_solr.first)
+    click_link 'Add to a collection'
+    current_url.should match /#{choose_collect_target_collections_path}/
+    check 'collection_id_'
+    click_button 'Collect item'
+    collectable_data_object = @taxon.images_from_solr.first
+    collectable_data_object.object_title = "Current data object"
+    collectable_data_object.save
+    
+    # first time visiting - collected image should show up
+    visit collection_path(@anon_user.watch_collection)
+    body.should have_tag('ul.object_list li', /#{collectable_data_object.object_title}/)
+    
+    # the image will unpublished, but there are no newer versions, so it will still show up
+    collectable_data_object.published = 0
+    collectable_data_object.save
+    visit collection_path(@anon_user.watch_collection)
+    body.should have_tag('ul.object_list li', /#{collectable_data_object.object_title}/)
+    
+    # the image is still unpublished, but there's a newer version. We should see the new version in the collection
+    newer_version_collected_data_object = DataObject.gen(:guid => @taxon.images_from_solr.first.guid,
+      :object_title => "Latest published version", :published => true )
+    visit collection_path(@anon_user.watch_collection)
+    body.should have_tag('ul.object_list li', /#{newer_version_collected_data_object.object_title}/)
+    body.should_not have_tag('ul.object_list li', /#{collectable_data_object.object_title}/)
+    
+    # the original image is published again, but this time we still see the newest version as we
+    # always show the latest version of an object. This is a rare case where there are two published versions
+    # of the same object, which technically shouldn't happen in production
+    collectable_data_object.published = 1
+    collectable_data_object.save
+    visit collection_path(@anon_user.watch_collection)
+    body.should have_tag('ul.object_list li', /#{newer_version_collected_data_object.object_title}/)
+    body.should_not have_tag('ul.object_list li', /#{collectable_data_object.object_title}/)
+    
+    # finally, with each version published, we should not be able to add the latest version into our collection
+    # as the collection already contains a version of this objects
+    visit data_object_path(newer_version_collected_data_object)
+    click_link 'Add to a collection'
+    current_url.should match /#{choose_collect_target_collections_path}/
+    body.should have_tag('li', /in collection/)
+    
+    # and deleting the first version from the collection will allow the new one to be added
+    @anon_user.watch_collection.collection_items[0].destroy
+    visit data_object_path(newer_version_collected_data_object)
+    click_link 'Add to a collection'
+    current_url.should match /#{choose_collect_target_collections_path}/
+    body.should_not have_tag('li', /in collection/)
+    
+    
+    newer_version_collected_data_object.destroy
+    $INDEX_RECORDS_IN_SOLR_ON_SAVE = @original_index_records_on_save_value
+  end
+  
 end
 
 

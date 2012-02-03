@@ -1370,8 +1370,8 @@ class TaxonConcept < SpeciesSchemaModel
     TaxonConceptExemplarImage
     TocItem
     @best_image ||= $CACHE.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 1.days) do
-      if self.published_exemplar_image
-        self.published_exemplar_image
+      if published_exemplar = self.published_exemplar_image
+        published_exemplar
       else
         best_images = EOL::Solr::DataObjects.search_with_pagination(self.id, {
           :per_page => 1,

@@ -610,7 +610,7 @@ protected
     translation_vars = scoped_variables_for_translations.clone
     @meta_keywords = t(".meta_keywords", translation_vars)
   end
-  def tweet_data(text = nil, lang = I18n.locale.to_s, via = $TWITTER_USERNAME, hashtags = $TWITTER_HASHTAG)
+  def tweet_data(text = nil, hashtags = nil, lang = I18n.locale.to_s, via = $TWITTER_USERNAME)
     return @tweet_data unless @tweet_data.blank?
     if text.nil?
       translation_vars = scoped_variables_for_translations.clone

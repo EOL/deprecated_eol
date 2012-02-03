@@ -623,9 +623,9 @@ protected
   def meta_open_graph_data
     return @meta_open_graph_data unless @meta_open_graph_data.blank?
     @meta_open_graph_data = {
-      'fb:app_id' => $FACEBOOK_APP_ID,
+      'og:url' => request.protocol + request.host_with_port + current_url, # TODO: we may want to use a canonical URL here instead of the current URL
       'og:site_name' => I18n.t(:encyclopedia_of_life),
-      'og:type' => 'non_profit',
+      'og:type' => 'website', # TODO: we may want to extend to other types depending on the page see http://ogp.me/#types
       'og:title' => meta_data[:title],
       'og:description' => meta_data[:description],
       'og:image' => meta_open_graph_image_url || view_helper_methods.image_url('v2/logo_open_graph_default.png')

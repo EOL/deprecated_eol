@@ -16,6 +16,8 @@
       %meta{ :name => "description", :content => h(strip_tags(@meta_description)) }
     - unless (@meta_keywords ||= meta_data[:keywords]).blank?
       %meta{ :name => "keywords", :content => h(strip_tags(@meta_keywords)) }
+    - if $ENABLED_SOCIAL_PLUGINS && $ENABLED_SOCIAL_PLUGINS.include?(:facebook) && $FACEBOOK_APP_ID
+      %meta{ :property => "fb:app_id", :content => $FACEBOOK_APP_ID }
 
     - if @no_cache
       %meta{ :content => "NO-CACHE", "http-equiv" => "CACHE-CONTROL" }

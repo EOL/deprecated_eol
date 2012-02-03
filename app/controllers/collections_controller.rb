@@ -9,7 +9,8 @@ class CollectionsController < ApplicationController
   before_filter :find_parent, :only => [:show]
   before_filter :find_parent_for_current_user_only,
     :except => [:show, :collect, :watch, :choose_editor_target, :choose_collect_target]
-  before_filter :build_collection_items_with_sorting_and_filtering, :only => [:show, :update]
+  before_filter :configure_sorting_and_filtering_and_facet_counts, :only => [:show, :update]
+  before_filter :build_collection_items, :only => [:show]
   before_filter :load_item, :only => [:choose_editor_target, :choose_collect_target, :create]
 
   layout 'v2/collections'
@@ -61,6 +62,8 @@ class CollectionsController < ApplicationController
   def update
     return redirect_to params.merge!(:action => 'show').except(*unnecessary_keys_for_redirect) if params[:commit_sort]
     return redirect_to params.merge!(:action => 'show').except(*unnecessary_keys_for_redirect) if params[:commit_view_as]
+    # the first two redirects don't need any collection items, several of the following methods do
+    build_collection_items
     return redirect_to_choose(:copy) if params[:commit_copy]
     return chosen if params[:scope] && params[:for] == 'copy'
     # copy is the only update action allowed for non-owners
@@ -202,7 +205,7 @@ private
   end
 
   # When you're going to show a bunch of collection items and provide sorting and filtering capabilities:
-  def build_collection_items_with_sorting_and_filtering
+  def configure_sorting_and_filtering_and_facet_counts
     set_view_as_options
     @view_as = ViewStyle.find(params[:view_as].blank? ? @collection.default_view_style : params[:view_as])
     set_sort_options
@@ -220,6 +223,10 @@ private
 
     # NOTE - you still need these counts on the Update page:
     @facet_counts = EOL::Solr::CollectionItems.get_facet_counts(@collection.id)
+  end
+  
+  # we don't need the collection items on the update page
+  def build_collection_items
     @collection_results = @filter == 'editors' ?  [] :
       @collection.items_from_solr(:facet_type => @filter, :page => @page, :sort_by => @sort_by, :per_page => @per_page, :view_style => @view_as)
     @collection_items = @collection_results.map { |i| i['instance'] }

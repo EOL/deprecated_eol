@@ -47,8 +47,11 @@ class DataObject < SpeciesSchemaModel
   # I'm calling this the 'better' method. DO NOT call this when using core relationships - it will not take just id and guid
   # from data_objects and you'll have way more data returned than you want
   has_many :all_comments, :class_name => Comment.to_s, :through => :all_versions, :source => :comments, :primary_key => :guid
-  # the select_with_include library doesn't allow to grab do.* one time, then do.id later on - but this would be a neat method,
+  # the select_with_include library doesn't allow to grab do.* one time, then do.id later on. So in order
+  # to use this with preloading I highly recommend doing DataObject.preload_associations(data_objects, :all_versions) on an array
+  # of data_objects which already has everything else preloaded
   has_many :all_versions, :class_name => DataObject.to_s, :foreign_key => :guid, :primary_key => :guid, :select => 'id, guid'
+  has_many :all_published_versions, :class_name => DataObject.to_s, :foreign_key => :guid, :primary_key => :guid, :order => "id desc"
 
   has_and_belongs_to_many :hierarchy_entries
   has_and_belongs_to_many :audiences
@@ -831,6 +834,12 @@ class DataObject < SpeciesSchemaModel
     obj = DataObject.find_by_sql("SELECT #{select} FROM data_objects WHERE guid='#{guid}' AND published=1 ORDER BY id desc LIMIT 1")
     return nil if obj.blank?
     return obj[0]
+  end
+  
+  # this method will be run on an instance of an object unlike the above methods. It is best to have preloaded
+  # all_published_versions in order for this method to be efficient
+  def latest_published_version
+    all_published_versions.sort_by{ |d| d.id }.reverse.first rescue nil
   end
 
   def self.tc_ids_from_do_ids(obj_ids)

@@ -154,8 +154,16 @@ class Collection < ActiveRecord::Base
     (users + communities).compact
   end
 
-  def has_item? item
-    collection_items.any?{|ci| ci.object_type == item.class.name && ci.object_id == item.id}
+  def has_item?(item)
+    # find the first object in their collection matching the given item
+    return true if CollectionItem.find(:first,
+      :conditions => "collection_id = #{self.id} and object_type = '#{item.class.name}' and object_id = #{item.id}")
+    if item.class == DataObject
+      # for data objects we can further check for any item in the collection with the same guid
+      return true if CollectionItem.find(:first,
+        :conditions => "collection_id = #{self.id} and object_type = '#{item.class.name}' and do_guid.id = #{item.id}",
+        :joins => 'JOIN data_objects do ON (collection_items.object_id=do.id) JOIN data_objects do_guid ON (do.guid=do_guid.guid)')
+    end
   end
 
   # TODO - This does NOT belong here.  It belongs on ViewStyle (as a class method).  Fix.

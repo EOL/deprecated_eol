@@ -148,3 +148,14 @@
       %noscript
         %div{ :style => "display: none;" }
           %img{ :src => "//pixel.quantserve.com/pixel/#{$QUANTCAST_ID}.gif", :height => "1", :width => "1", :alt => "Quantcast" }
+    - if $ENABLE_WEBTRENDS
+      :javascript
+        $(document).ready( function( ) {
+          var _tag = new WebTrends();
+          _tag.dcsGetId();
+          _tag.dcsCollect();
+        });
+      %noscript
+        %div{ :style => "display: none;" }
+          %img{ :src => "//logs1.smithsonian.museum/dcsg0chobadzpxfga2extd7pb_7c2s/njs.gif?dcsuri=/nojavascript&amp;WT.js=No&amp;WT.tv=9.4.0&amp;dcssip=www.eol.org", :height => "1", :width => "1", :alt => "DCSIMG", :id => "DCSIMG" }
+      = javascript_include_tag 'webtrends'

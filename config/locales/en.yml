@@ -521,11 +521,18 @@ en:
       meta_keywords: "%{collection_name}, Encyclopedia of Life Collection"
       meta_title: "%{collection_name}"
       tweet_text: "%{collection_name}"
-    newsfeed:
-      meta_description: "News, comments and member activity for the Enyclopedia of Life collection %{collection_name}."
-      meta_keywords: "%{collection_name} News"
-      meta_title: "%{collection_name} News"
-      tweet_text: "%{collection_name} News"
+    editors:
+      show:
+        meta_description: "Managers of the Enyclopedia of Life collection %{collection_name}."
+        meta_keywords: "%{collection_name} Managers"
+        meta_title: "%{collection_name} Managers"
+        tweet_text: "%{collection_name} Managers"
+    newsfeeds:
+      show:
+        meta_description: "News, comments and member activity for the Enyclopedia of Life collection %{collection_name}."
+        meta_keywords: "%{collection_name} News"
+        meta_title: "%{collection_name} News"
+        tweet_text: "%{collection_name} News"
   communities:
     collections:
       index:
@@ -569,6 +576,17 @@ en:
     show:
       meta_title: "%{dato_title} from %{supplier}"
       tweet_text: "%{dato_title} from %{supplier}"
+  members:
+    index:
+      meta_description: "Members of %{community_name}, an Encyclopedia of Life community."
+      meta_keywords: "%{community_name} Members"
+      meta_title: "%{community_name} Members"
+      tweet_text: "%{community_name} Members"
+    show:
+      meta_description: "%{member_name} is a member of %{community_name}, an Encyclopedia of Life community."
+      meta_keywords: "%{member_name} Community Member"
+      meta_title: "%{member_name} Member of %{community_name}"
+      tweet_text: "%{member_name} member of %{community_name}"
   notifier:
     activity_log_empty: "No recent actions by curators."
     activity_user_added_association_on_date: "%{curator_level} %{users_name} (%{users_url}) added unknown association for %{object_name} (%{object_url})\n%{action_date}.\n"

@@ -214,19 +214,13 @@ private
     @page = params[:page]
     @selected_collection_items = params[:collection_items] || []
 
-    @per_page = 50
-    if @view_as == ViewStyle.list
-      @per_page = 300
-    elsif @view_as == ViewStyle.gallery
-      @per_page = 150
-    end
-
     # NOTE - you still need these counts on the Update page:
     @facet_counts = EOL::Solr::CollectionItems.get_facet_counts(@collection.id)
   end
   
   # we don't need the collection items on the update page
   def build_collection_items
+    @per_page = @view_as.max_items_per_page || 50
     @collection_results = @filter == 'editors' ?  [] :
       @collection.items_from_solr(:facet_type => @filter, :page => @page, :sort_by => @sort_by, :per_page => @per_page, :view_style => @view_as)
     @collection_items = @collection_results.map { |i| i['instance'] }

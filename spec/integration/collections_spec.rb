@@ -229,7 +229,7 @@ describe "Collections and collecting:" do
     
     # the image is still unpublished, but there's a newer version. We should see the new version in the collection
     newer_version_collected_data_object = DataObject.gen(:guid => @taxon.images_from_solr.first.guid,
-      :object_title => "Latest published version", :published => true )
+      :object_title => "Latest published version", :published => true, :created_at => Time.now )
     visit collection_path(@anon_user.watch_collection)
     body.should have_tag('ul.object_list li', /#{newer_version_collected_data_object.object_title}/)
     body.should_not have_tag('ul.object_list li', /#{collectable_data_object.object_title}/)
@@ -261,6 +261,49 @@ describe "Collections and collecting:" do
     newer_version_collected_data_object.destroy
     $INDEX_RECORDS_IN_SOLR_ON_SAVE = @original_index_records_on_save_value
   end
+  
+  it "collections should respect the max_items_per_page value of their ViewStyles" do
+    @original_index_records_on_save_value = $INDEX_RECORDS_IN_SOLR_ON_SAVE
+    $INDEX_RECORDS_IN_SOLR_ON_SAVE = true
+    
+    collection_owner = User.gen(:password => 'somenewpassword')
+    collection = collection_owner.watch_collection
+    collection.view_style = ViewStyle.first
+    collection.save
+    
+    # adding 7 items in the collection
+    collection.add DataObject.gen
+    collection.add DataObject.gen
+    collection.add DataObject.gen
+    collection.add DataObject.gen
+    collection.add DataObject.gen
+    collection.add DataObject.gen
+    collection.add DataObject.gen
+    
+    # setting the collection's view style to one that allows 2 items per page
+    TranslatedViewStyle.reset_cached_instances
+    ViewStyle.reset_cached_instances
+    v = ViewStyle.first
+    v.max_items_per_page = 2
+    v.save
+    visit collection_path(collection_owner.watch_collection)
+    # there should be exactly 4 pages when we have a max_items_per_page of 2
+    body.should match(/href="\/collections\/#{collection.id}\?page=4/)
+    body.should_not match(/href="\/collections\/#{collection.id}\?page=5/)
+    
+    TranslatedViewStyle.reset_cached_instances
+    ViewStyle.reset_cached_instances
+    v = ViewStyle.first
+    v.max_items_per_page = 4
+    v.save
+    visit collection_path(collection_owner.watch_collection)
+    # there should be exactly 2 pages when we have a max_items_per_page of 4
+    body.should match(/href="\/collections\/#{collection.id}\?page=2/)
+    body.should_not match(/href="\/collections\/#{collection.id}\?page=3/)
+    
+    $INDEX_RECORDS_IN_SOLR_ON_SAVE = @original_index_records_on_save_value
+  end
+  
   
 end
 

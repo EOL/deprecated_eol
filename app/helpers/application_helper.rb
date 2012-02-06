@@ -512,7 +512,7 @@ module ApplicationHelper
           haml_concat link_to(name_string, taxon_concept, :popup => popup)
         else
           options = { :"#{options[:data_type]}_id" => options[:data_object_id] }
-          haml_concat link_to(name_string, taxon_concept_path(taxon_concept_id, options), :popup => popup)
+          haml_concat link_to(name_string, taxon_overview_path(taxon_concept_id, options), :popup => popup)
         end
       else
         haml_concat "associated with a deprecated_page: '#{name_string}'"

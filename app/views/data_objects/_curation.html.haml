@@ -10,7 +10,7 @@
             %li
               %p{:class => phe.vetted.label == Vetted.unknown.label ? "unreviewed" : phe.vetted.label.downcase}
                 = phe.vetted.label == Vetted.unknown.label ? "Unreviewed" : phe.vetted.label
-              = link_to(phe.name.string, taxon_concept_path(phe.taxon_concept_id))
+              = link_to(phe.name.string, taxon_path(phe.taxon_concept_id))
 
         - if current_user.min_curator_level?(:full)
           - if phe.by_curated_association? && phe.associated_by_curator.id == current_user.id

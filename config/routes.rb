@@ -138,7 +138,6 @@ ActionController::Routing::Routes.draw do |map|
 
 
   # Named routes (are some of these obsolete?)
-  map.taxon_concept 'pages/:id', :controller => 'taxa', :action => 'show'
   map.set_language 'set_language', :controller => 'application', :action => 'set_language'
 
   map.clear_caches 'clear_caches',      :controller => 'content', :action => 'clear_caches'
@@ -215,7 +214,10 @@ ActionController::Routing::Routes.draw do |map|
   ## Permanent redirects.
   map.with_options :controller => 'redirects', :action => 'show', :conditions => { :method => :get } do |redirect|
     redirect.connect '/podcast', :url => 'http://education.eol.org/podcast'
-    redirect.connect '/pages/:taxon_id/curators'
+    redirect.connect '/pages/:taxon_id_community_curators/curators'
+    redirect.connect '/taxa/content/:taxon_id'
+    redirect.connect '/taxa/images/:taxon_id_media'
+    redirect.connect '/taxa/maps/:taxon_id_maps'
     # TODO - remove /content/* named routes once search engines have reindexed the site and legacy URLs are not in use.
     redirect.connect '/content/exemplars', :conditional_redirect_id  => 'exemplars'
     redirect.connect '/content/news/*ignore', :cms_page_id => 'news'

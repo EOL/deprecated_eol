@@ -1,7 +1,0 @@
-- content_for :head do
-  = javascript_include_merged 'taxa-page-cached'
-  :javascript
-    if (!EOL) { EOL = {}; }
-    EOL.USE_EXTERNAL_LINK_POPUPS = #{$USE_EXTERNAL_LINK_POPUPS};
-    EOL.common_names_toc_id = #{TocItem.common_names.id || 0};
-= render :file => 'layouts/main'

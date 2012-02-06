@@ -501,7 +501,7 @@ class ApplicationController < ActionController::Base
     when 'User'
       user_url(item)
     when 'TaxonConcept'
-      taxon_concept_url(item)
+      taxon_url(item)
     else
       raise EOL::Exceptions::ObjectNotFound
     end

@@ -2441,6 +2441,7 @@ en:
   notes_not_shown_to_user: "Notes (not shown to user):"
   note_all_times_utc: "Note that all times are UTC (Greenwich Mean Time)"
   note_that_it_may_take_a_few_mi: "Note that it may take a few minutes after upload for the URLs to work since your file needs to propagate to the content servers."
+  notifications_tab_name: "Notifications"
   taxon_not_found_error: "\"%{taxon}\" not found"
   not_published_yet: "not published yet"
   not_shown_on_the_website_note: "(not shown on the website or link URL, for informational purposes only)"

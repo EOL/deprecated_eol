@@ -105,6 +105,15 @@
           - content_tag :button , :name => :commit_curation_privileges_get, :type => :submit do
             = I18n.t('helpers.submit.user.curation_application')
 
+      %dl
+        %dt
+          Notification Settings
+          %p
+            = check_box_tag 'foo'
+            Check here if you never want emails for any of the messages or notifications below.
+            - content_tag :button, :name => 'whatever', :type => :submit do
+              Notification Settings
+
     - if @user.is_curator? || @user.is_pending_curator?
       %fieldset.curation
         .header

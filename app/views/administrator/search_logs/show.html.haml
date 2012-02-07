@@ -19,7 +19,7 @@
         - scientific_name = I18n.t(:taxon_not_found_error, :taxon => taxon_concept[:taxon_concept_id])
       %tr
         %td{ :class => column_class, :style => "width: 12em" }
-          = taxon_concept.taxon_concept_id ? link_to(scientific_name, taxon_concept_url(:id=>taxon_concept[:taxon_concept_id]), {:target=>'blank'}) : I18n.t(:none)
+          = taxon_concept.taxon_concept_id ? link_to(scientific_name, taxon_url(:id=>taxon_concept[:taxon_concept_id]), {:target=>'blank'}) : I18n.t(:none)
         %td{ :class => column_class }
           = taxon_concept[:frequency]
         %td{ :class => column_class }

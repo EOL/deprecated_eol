@@ -52,6 +52,22 @@ class MembersController < ApplicationController
     redirect_to :action => 'index', :status => :moved_permanently
   end
 
+protected
+  def scoped_variables_for_translations
+    return @scoped_variables_for_translations unless @scoped_variables_for_translations.nil?
+    @scoped_variables_for_translations = super
+    @scoped_variables_for_translations.merge!({
+      :community_name => @community ? Sanitize.clean(@community.name) : nil,
+      :community_description => @community ? Sanitize.clean(@community.description) : nil,
+      :member_name => @member && @member.user ? @member.user.full_name : nil
+    })
+    @scoped_variables_for_translations[:community_description] = I18n.t(:community_description_default) if @scoped_variables_for_translations[:community_description].blank?
+    @scoped_variables_for_translations
+  end
+  def meta_open_graph_image_url
+    @community ? view_helper_methods.image_url(@community.logo_url('large', $SINGLE_DOMAIN_CONTENT_SERVER)) : nil
+  end
+
 private
 
   def load_community_and_current_member

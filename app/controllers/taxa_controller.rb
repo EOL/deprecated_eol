@@ -25,56 +25,6 @@ class TaxaController < ApplicationController
   # AJAX CALLS
   ################
 
-  def user_text_change_toc
-    @taxon_concept = TaxonConcept.find(params[:taxon_concept_id])
-    @taxon_concept.current_user = current_user
-
-    if (params[:data_objects_toc_category] && (toc_id = params[:data_objects_toc_category][:toc_id]))
-      @toc_item = TocEntry.new(TocItem.find(toc_id), :has_content => false)
-    else
-      @toc_item = TocEntry.new(@taxon_concept.tocitem_for_new_text, :has_content => false)
-    end
-
-    @category_id = @toc_item.category_id
-    get_content_variables(:ajax_update => true)
-    current_user.log_activity(:viewed_toc_id, :value => toc_id, :taxon_concept_id => @taxon_concept.id)
-  end
-
-  # AJAX: Render the requested content page
-  def content
-
-    if !request.xhr?
-      render :nothing => true
-      return
-    end
-
-    @taxon_concept = TaxonConcept.core_relationships(:only => [{:data_objects => :toc_items}, { :users_data_objects => { :data_object => :toc_items } }]).find(params[:id])
-    @category_id   = params[:category_id].to_i
-
-    @taxon_concept.current_user  = current_user
-    @curator = current_user.min_curator_level?(:full)
-
-    get_content_variables(:ajax_update => true)
-    if @content.nil?
-      render :text => '[content missing]'
-      return true
-    else
-      @new_text_tocitem_id = get_new_text_tocitem_id(@category_id)
-      current_user.log_activity(:viewed_content_for_category_id, :value => @category_id, :taxon_concept_id => @taxon_concept.id)
-    end
-  end
-
-  # AJAX: used to show a pop-up in a floating div, all views are in the "popups" subfolder
-  def show_popup
-    if !params[:name].blank? && request.xhr?
-      template = params[:name]
-      @taxon_name = params[:taxon_name] || "this taxon"
-      render :layout => false, :template => 'popups/' + template
-    else
-      render :nothing => true
-    end
-  end
-
   def publish_wikipedia_article
     tc = TaxonConcept.find(params[:taxon_concept_id].to_i)
     data_object = DataObject.find(params[:data_object_id].to_i)

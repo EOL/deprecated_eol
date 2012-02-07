@@ -109,13 +109,13 @@
         #learn_more{ :style => "display:none;" }
           %p
             Species are named according to the rules of "binomial nomenclature", which means a species name has two parts: the "genus" and the "species".  The genus name tells us which grouping the species belongs to and thus how it is related to other similar species.  For example, the wolf is known as
-            = link_to 'Canis lupus', taxon_concept_url(:id=>328607)
+            = link_to 'Canis lupus', taxon_url(:id=>328607)
             , which means it belongs to the genus called "canis" and its species name is "lupus".  If you were to look at the genus
-            = link_to 'Canis', taxon_concept_url(:id=>14460)
+            = link_to 'Canis', taxon_url(:id=>14460)
             , you would discover that (1) the coyote (
-            = link_to 'Canis latrans', taxon_concept_url(:id=>328608)
+            = link_to 'Canis latrans', taxon_url(:id=>328608)
             ) is in the same genus, (2) the domestic dog (
-            = link_to 'Canis lupus familiaris', taxon_concept_url(:id=>1228387)
+            = link_to 'Canis lupus familiaris', taxon_url(:id=>1228387)
             ) is a "sub-species" of wolf, and (3) walking up the tree of life, you would find that all canis are in the class of "Mammalia", meaning they are all mammals.  Placing these species into groupings in an overall "tree of life" is part of what scientists called "taxonomists" get to do! When your browse the Encyclopedia of Life, you can use the "classification browser" on the right side of the species pages to browse the tree of life.
           %br
           %p

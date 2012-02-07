@@ -475,9 +475,10 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     unless curator_level_id == level.id
       self.update_attributes(:curator_level_id => level.id)
       Notifier.deliver_curator_approved(self) if $PRODUCTION_MODE
-      if options[:user]
-        self.update_attributes(:curator_verdict_by => options[:user],
-                               :curator_verdict_at => Time.now)
+      if options[:by]
+        self.update_attributes(:curator_verdict_by => options[:by],
+                               :curator_verdict_at => Time.now,
+                               :curator_approved => 1)
       end
     end
     self.update_attributes(:requested_curator_level_id => nil)

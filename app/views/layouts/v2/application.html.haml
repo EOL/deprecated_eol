@@ -134,7 +134,7 @@
     - # TODO: Load third party scripts asynchronously after page has already loaded
     - unless $ENABLED_SOCIAL_PLUGINS.blank?
       :javascript
-        $(document).ready( function( ) {
+        $(function() {
           var facebook = "#{$ENABLED_SOCIAL_PLUGINS.include?(:facebook) ? true : nil}"
           var twitter = "#{$ENABLED_SOCIAL_PLUGINS.include?(:twitter) ? true : nil}"
           if (facebook) { EOL.loadFacebook("#{$FACEBOOK_APP_ID}","#{channel_facebook_url}"); }
@@ -147,15 +147,15 @@
         _qevents.push( { qacct:"#{$QUANTCAST_ID}"} );
       %noscript
         %div{ :style => "display: none;" }
-          %img{ :src => "//pixel.quantserve.com/pixel/#{$QUANTCAST_ID}.gif", :height => "1", :width => "1", :alt => "Quantcast" }
+          %img{ :src => "http://pixel.quantserve.com/pixel/#{$QUANTCAST_ID}.gif", :height => "1", :width => "1", :alt => "" }
     - if $ENABLE_WEBTRENDS
       :javascript
-        $(document).ready( function( ) {
+        $(function() {
           var _tag = new WebTrends();
           _tag.dcsGetId();
           _tag.dcsCollect();
         });
       %noscript
         %div{ :style => "display: none;" }
-          %img{ :src => "//logs1.smithsonian.museum/dcsg0chobadzpxfga2extd7pb_7c2s/njs.gif?dcsuri=/nojavascript&amp;WT.js=No&amp;WT.tv=9.4.0&amp;dcssip=www.eol.org", :height => "1", :width => "1", :alt => "DCSIMG", :id => "DCSIMG" }
+          %img{ :src => "http://logs1.smithsonian.museum/dcsg0chobadzpxfga2extd7pb_7c2s/njs.gif?dcsuri=/nojavascript&amp;WT.js=No&amp;WT.tv=9.4.0&amp;dcssip=www.eol.org", :height => "1", :width => "1", :alt => "", :id => "DCSIMG" }
       = javascript_include_tag 'webtrends'

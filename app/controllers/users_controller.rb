@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
   layout :users_layout
 
-  before_filter :authentication_only_allow_editing_of_self, :only => [:edit, :update, :terms_agreement, :curation_privileges]
+  before_filter :authentication_only_allow_editing_of_self, :only => [:edit, :notifications, :update, :terms_agreement, :curation_privileges]
   before_filter :redirect_if_already_logged_in, :only => [:new, :create, :verify, :pending, :activated,
                                                           :forgot_password, :reset_password]
   before_filter :check_user_agreed_with_terms, :except => [:terms_agreement, :reset_password, :usernames]
@@ -25,6 +25,10 @@ class UsersController < ApplicationController
   def edit
     # @user instantiated by authentication before filter and matched to current user
     instantiate_variables_for_edit
+  end
+
+  def notifications
+    @user = User.find(params[:id])
   end
 
    # GET /users/:id/curation_privileges

@@ -1771,24 +1771,33 @@ body > #header {
   font-size: 16px; }
 
 #profile_curator_info,
+#profile_notifications,
 #profile_content_partner {
   width: 640px; }
   #profile_curator_info fieldset,
+  #profile_notifications fieldset,
   #profile_content_partner fieldset {
     padding-top: 10px; }
     #profile_curator_info fieldset dt,
+    #profile_notifications fieldset dt,
     #profile_content_partner fieldset dt {
       margin: 0; }
       #profile_curator_info fieldset dt p, #profile_curator_info fieldset dt label, #profile_curator_info fieldset dt ol, #profile_curator_info fieldset dt ol li,
+      #profile_notifications fieldset dt p,
+      #profile_notifications fieldset dt label,
+      #profile_notifications fieldset dt ol,
+      #profile_notifications fieldset dt ol li,
       #profile_content_partner fieldset dt p,
       #profile_content_partner fieldset dt label,
       #profile_content_partner fieldset dt ol,
       #profile_content_partner fieldset dt ol li {
         margin-bottom: 0; }
     #profile_curator_info fieldset dd,
+    #profile_notifications fieldset dd,
     #profile_content_partner fieldset dd {
       margin: 0 0 10px 0; }
       #profile_curator_info fieldset dd input[type="text"],
+      #profile_notifications fieldset dd input[type="text"],
       #profile_content_partner fieldset dd input[type="text"] {
         width: 308px;
         height: 22px;
@@ -1800,10 +1809,12 @@ body > #header {
         background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
         background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white)); }
       #profile_curator_info fieldset dd textarea,
+      #profile_notifications fieldset dd textarea,
       #profile_content_partner fieldset dd textarea {
         width: 600px;
         height: 60px; }
     #profile_curator_info fieldset input[type="submit"],
+    #profile_notifications fieldset input[type="submit"],
     #profile_content_partner fieldset input[type="submit"] {
       padding: 7px 10px;
       font-size: 1em; }

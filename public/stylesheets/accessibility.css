@@ -1185,3 +1185,13 @@ body#prelaunch #footer ul.social_media {
 
 .highlight {
   background-color: #f3f7fa; }
+
+#profile_notifications table th {
+  width: 15%; }
+#profile_notifications table th.value {
+  text-align: left;
+  width: 55%; }
+#profile_notifications table td {
+  text-align: center; }
+#profile_notifications table td.value {
+  text-align: left; }

@@ -16,7 +16,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   belongs_to :curator_level
   belongs_to :requested_curator_level, :class_name => CuratorLevel.to_s, :foreign_key => :requested_curator_level_id
 
-
   has_many :curators_evaluated, :class_name => "User", :foreign_key => :curator_verdict_by_id
   has_many :users_data_objects_ratings
   has_many :members
@@ -41,6 +40,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   has_many :content_partners
   has_one :user_info
+  has_one :notification
   belongs_to :default_hierarchy, :class_name => Hierarchy.to_s, :foreign_key => :default_hierarchy_id
 
   before_save :check_credentials
@@ -52,6 +52,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   before_destroy :destroy_comments
   # TODO: before_destroy :destroy_data_objects
 
+  after_create :add_email_notification
 
   accepts_nested_attributes_for :user_info
 
@@ -957,4 +958,9 @@ private
       comment.destroy
     end
   end
+
+  def add_email_notification
+    Notification.create(:user_id => self.id)
+  end
+
 end

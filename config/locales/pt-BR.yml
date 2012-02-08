@@ -4,7 +4,7 @@
 # Author: Alcali
 # Author: Giro720
 # Author: Luckas Blade
-pt-BR: 
+pt-BR:
   account_information: Informações sobre a conta
   account_registered_but_not_ready_try_later: Sua conta está registrada, mas não está pronto para acessar. Por favor, tente novamente em cinco minutos.
   activity: Atividade
@@ -32,24 +32,24 @@ pt-BR:
   cannot_be_empty: não pode estar vazio.
   citation: Citação
   classification_tree_header: Classificação
-  classifications_summary_header_with_count: 
+  classifications_summary_header_with_count:
     one: Parte de %{count} teve a classificação aprovada
     other: Partes de %{count} teve classificações aprovadas
   collections: Coleções
-  collections_summary_header_with_count: 
+  collections_summary_header_with_count:
     one: presente em %{count} coleção
     other: presente em %{count} coleções
-  collections_with_count: 
+  collections_with_count:
     one: "%{count} Coleção"
     other: "%{count} Coleções"
-  common_names_with_count: 
+  common_names_with_count:
     one: "%{count} nome comum"
     other: "%{count} nomes comuns"
   communities: Comunidades
-  communities_summary_header_with_count: 
+  communities_summary_header_with_count:
     one: pertence a  %{count} comunidade
     other: Pertence a %{count} comunidades
-  communities_with_count: 
+  communities_with_count:
     one: "%{count} Comunidade"
     other: "%{count} Comunidades"
   community: Comunidade
@@ -64,7 +64,7 @@ pt-BR:
   create_a_community: Criar uma Comunidade
   create_community: Criar uma comunidade
   created_community: A Comunidade foi criada com sucesso.
-  curators_summary_header_with_count: 
+  curators_summary_header_with_count:
     one: "%{count} Curador"
     other: "%{count} Curadores"
   currently_in_eol: Atualmente na Enciclopédia da Vida
@@ -99,7 +99,7 @@ pt-BR:
   image_is_no_longer_available: Imagem não está mais disponível
   image_not_found: Imagem não encontrada
   images: Imagens
-  images_with_count: 
+  images_with_count:
     other: uma=%{count} imagem
   indexed: Cadastradas
   iucn_red_list_status_advisory_information: Este link levará você para o sítio da União Internacional para a Conservação da Natureza (UICN) onde você pode encontrar mais informações na lista vermelha da UICN de espécies ameaçadas.
@@ -111,14 +111,14 @@ pt-BR:
   license: Licença
   license_cc_by_nc_3_0: Creative Commons - Atribuição - Uso Não Comercial 3.0 (CC BY-NC 3.0)
   login_or_create_account: Entrar ou criar uma conta
-  maps_with_count: 
+  maps_with_count:
     one: "%{count} Mapa"
     other: "%{count} Mapas"
   media: Mídia
-  media_with_count: 
+  media_with_count:
     one: "%{count} Mídia"
     other: "%{count} Mídias"
-  members_with_count: 
+  members_with_count:
     other: um=%{count} colaborador
   minimal_page: Menor página
   most_active_members: Membros mais ativos
@@ -133,23 +133,23 @@ pt-BR:
   not_evaluated: Não avaliado
   object: Objeto
   object_type: Tipo de objeto
-  other_collection_items_with_count: 
+  other_collection_items_with_count:
     one: "%{count} outro item"
     other: "%{count} outros itens"
-  other_community_items_with_count: 
+  other_community_items_with_count:
     one: "%{count} outro item"
     other: "%{count} outros itens"
   overview: Visão geral
   pages_with_pictures_and_text: Páginas com fotos e texto
   pages_with_pictures_or_text: Páginas com imagens ou textos
-  people_with_count: 
+  people_with_count:
     one: "%{count} perssoa"
     other: "%{count} pessoas"
   post_comment: Postar comentário
   preferred_common_name_advisory_information: Este é o nome comum preferido para essa taxa
   profile: Perfil
-  profile_image_alt_text_curator: Foto do perfil do curador %{user_given_name} %{user_family_name}
-  profile_image_alt_text_member: Foto do perfil do membro %{user_given_name} {user_family_name}
+  profile_image_alt_text_curator: Foto do perfil do curador %{user_full_name}
+  profile_image_alt_text_member: Foto do perfil do membro %{user_full_name}
   punctuation_comma: ","
   recent_updates: Atualizações recentes
   remove: Remover
@@ -166,13 +166,13 @@ pt-BR:
   search_input_advisory_information: Digite os nomes comuns e científicos de organismos vivos que você gostaria de saber mais sobre, por exemplo, tente digitar tomate.
   search_placeholder: Pesquisa EOL...
   search_the_site: Busca no site
-  see_all_classifications_with_count_html: 
+  see_all_classifications_with_count_html:
     one: Ver <span class="assistive">%{count} aprovada classificação na qual esta taxa aparece.</span>
     other: Ver todas <span class="assistive">%{count} aprovadas classificações em que esta taxa aparece.</span>
-  see_all_collections_with_count_html: 
+  see_all_collections_with_count_html:
     one: Veja <span class="assistive">%{count} coleção em que esta taxa aparece.</span>
     other: Veja todos <span class="assistive">%{count} Coleções em que esta taxa aparece.</span>
-  see_all_communities_with_count_html: 
+  see_all_communities_with_count_html:
     one: Veja <span class="assistive">%{count} comunidade que focaliza esta taxa.</span>
     other: Veja todas <span class="assistive">%{count} comunidades que focalizam esta taxa.</span>
   see_all_media_link: Veja todas as mídias
@@ -189,7 +189,7 @@ pt-BR:
   switch_language_advisory_information: Mudar o idioma do sítio para %{language_label}
   synonym: Sinônimo
   taxa: Taxa
-  taxa_with_count: 
+  taxa_with_count:
     one: "%{count} taxon"
     other: "%{count} taxa"
   taxon: táxon
@@ -199,7 +199,7 @@ pt-BR:
   there_are_currently_no_members_in_this_community: No momento não há membros nesta comunidade.
   this_community_has_no_focus_list: Esta Comunidade não tem nenhuma lista de foco.
   threat_status_header_colon: "Categorias de ameaça:"
-  total_items_with_count: 
+  total_items_with_count:
     one: "%{count} item"
     other: "%{count} total de itens"
   unknown: Desconhecido
@@ -211,7 +211,7 @@ pt-BR:
   user_system_down: Pedimos desculpas, mas o sistema de registro de usuário não está disponível. Por favor, tente novamente mais tarde.
   users_about_me_header: Sobre mim
   users_form_account_header: Sua conta
-  videos_with_count: 
+  videos_with_count:
     one: "%{count} vídeo"
     other: "%{count} vídeos"
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Exibir páginas só com pelo menos uma imagem ou um pedaço de texto

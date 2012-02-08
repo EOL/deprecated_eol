@@ -1280,7 +1280,7 @@ de:
         credentials_more_successful_assistant_curator: Erfolgreiche Tätigkeit als Prokurator.
         curation_application: Ein Kurator werden
         curation_application_more: Sofern Sie Ihre Berechtigungen als Kurator ändern möchten, können Sie einfach einen entsprechenden Anfrage einreichen. Wir werden dann Ihre Eignung überprüfen.
-        curator_level: Derzeit sind Sie %{Curator_level_with_indefinite_article}.
+        curator_level: Derzeit sind Sie %{curator_level_with_indefinite_article}.
         curator_scope: Kuratierungsbereich
         curator_scope_more: Bitte machen Sie Angaben zur Ihrer Expertise, bspw. „Nagetiere von Borneo“, „Tritrophische Interaktionen“ oder „Konservierungsprobleme bei Fischpräparaten“. Dies wird nicht Ihre Möglichkeiten beim Kuratieren einschränken, sondern dient dazu die Gemeinschaft von EOL zu informieren.
         email_reports_frequency_hours: Wie oft möchten Sie E-Mail-Benachrichtigungen bezüglich der Aktivitäten bei Ihren Beiträgen erhalten?

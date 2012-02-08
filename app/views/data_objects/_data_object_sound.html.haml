@@ -8,12 +8,10 @@
     = render :partial => 'data_objects/jplayer', :locals => {:data_object => data_object, :en_mime_type => en_mime_type, :thumbnail => thumbnail}
   - if en_mime_type == 'audio/x-wav'
     .player_interface{:id => "player_interface_#{data_object.id}"}
-      - if thumbnail
-        = link_to(I18n.t(:download_wav_file), data_object.sound_url)
-      - else
+      - unless thumbnail
         %embed{:height => "20", :width => "450", :src => "#{data_object.sound_url}", :autostart => "false", :pluginspace => "http://www.apple.com/quicktime/download/", :pluginurl => "http://www.apple.com/quicktime/download/"}
         %br
-        = link_to(I18n.t(:download_wav_file), data_object.sound_url)
+      = link_to(I18n.t(:download_wav_file), data_object.sound_url)
 -# TODO: find sound players for 3 more sound types. Not priority as we don't have partners providing such audio types.
 -# audio/x-ms-wma
 -# audio/x-pn-realaudio

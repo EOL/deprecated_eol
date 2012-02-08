@@ -8,7 +8,7 @@
     .site_column
       #search_results
         #sidebar.filters
-          - form_tag({:action => 'show'}, :method => 'get', :id => 'main_search_type_filter') do
+          - form_tag({}, :method => 'get', :id => 'main_search_type_filter') do
             = hidden_field_tag :q, @querystring
             %fieldset
               %dl

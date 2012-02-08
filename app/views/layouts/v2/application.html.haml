@@ -22,7 +22,8 @@
     - if @no_cache
       %meta{ :content => "NO-CACHE", "http-equiv" => "CACHE-CONTROL" }
       %meta{ :content => "NO-CACHE", "http-equiv" => "PRAGMA" }
-
+    - if @rel_canonical_href = rel_canonical_href
+      %link{ :href => @rel_canonical_href, :rel => "canonical" }
     %link{ :href => "/favicon.ico", :rel => "shortcut icon", :type => "image/x-icon" }
     %link{ :href => "/opensearchdescription.xml", :title => I18n.t("encyclopedia_of_life"), :rel => "search", :type => "application/opensearchdescription+xml" }
 

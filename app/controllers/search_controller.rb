@@ -96,6 +96,23 @@ class SearchController < ApplicationController
     @logged_search_id = logged_search.nil? ? '' : logged_search.id
   end
 
+protected
+  def rel_canonical_href(uri = request.url, query_pairs_whitelist = rel_canonical_query_pairs_whitelist)
+    return @rel_canonical_href unless @rel_canonical_href.nil?
+    uri_parsed = URI.parse(super)
+    @rel_canonical_href = (!uri_parsed.query.blank? && !uri_parsed.query.grep(/q=.*/).blank?) ?
+       "#{uri_parsed.to_s}&show_all=true" :
+       uri_parsed.to_s
+    @rel_canonical_href
+  end
+  def rel_canonical_query_pairs_whitelist
+    return @rel_canonical_query_pairs_whitelist unless @rel_canonical_query_pairs_whitelist.nil?
+    @rel_canonical_query_pairs_whitelist = super.concat([
+        %r{q=.*}
+      ])
+    @rel_canonical_query_pairs_whitelist
+  end
+
   private
 
   # if the first returned taxon has a score greater than 3, and

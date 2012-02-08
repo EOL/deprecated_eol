@@ -707,7 +707,8 @@ class DataObject < SpeciesSchemaModel
         return DataObject.image_cache_path(object_cache_url, size, specified_content_host)
       end
     else
-      return '#' # Really, this is an error, but we want to handle it pseudo-gracefully.
+      return "" # returning blank string rather than nil otherwise if uncaught image_tag
+                # and/or image_path complains can't convert nil into String
     end
   end
 
@@ -835,7 +836,7 @@ class DataObject < SpeciesSchemaModel
     return nil if obj.blank?
     return obj[0]
   end
-  
+
   # this method will be run on an instance of an object unlike the above methods. It is best to have preloaded
   # all_published_versions in order for this method to be efficient
   def latest_published_version

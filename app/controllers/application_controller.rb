@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
   helper :all
 
   helper_method :logged_in?, :current_url, :current_user, :return_to_url, :current_agent, :agent_logged_in?,
-    :allow_page_to_be_cached?, :link_to_item, :meta_data, :tweet_data, :meta_open_graph_data
+    :allow_page_to_be_cached?, :link_to_item, :meta_data, :tweet_data, :meta_open_graph_data, :rel_canonical_href
 
   before_filter :set_locale
 
@@ -623,7 +623,7 @@ protected
   def meta_open_graph_data
     return @meta_open_graph_data unless @meta_open_graph_data.blank?
     @meta_open_graph_data = {
-      'og:url' => request.protocol + request.host_with_port + current_url, # TODO: we may want to use a canonical URL here instead of the current URL
+      'og:url' => rel_canonical_href,
       'og:site_name' => I18n.t(:encyclopedia_of_life),
       'og:type' => 'website', # TODO: we may want to extend to other types depending on the page see http://ogp.me/#types
       'og:title' => meta_data[:title],
@@ -633,6 +633,29 @@ protected
   end
   def meta_open_graph_image_url
     nil
+  end
+  # Returns preferred URL for rel canonical and social sharing.
+  # query_pairs_whitelist: array of regex containing allowed key value pairs
+  def rel_canonical_href(uri = request.url, query_pairs_whitelist = rel_canonical_query_pairs_whitelist)
+    return @rel_canonical_href unless @rel_canonical_href.nil?
+    uri_parsed = URI.parse(uri)
+    uri_parsed.path.sub!(/(\/)+$/,'')
+    unless uri_parsed.query.nil?
+      uri_query_pairs = uri_parsed.query.split('&')
+      uri_parsed.query = nil
+      query_pairs_allowed = []
+      query_pairs_whitelist.each do |pair_regex|
+        query_pairs_allowed.concat(uri_query_pairs.grep(pair_regex))
+      end
+      uri_parsed.query = query_pairs_allowed.uniq.sort.join('&') unless query_pairs_allowed.blank?
+    end
+    @rel_canonical_href = uri_parsed.to_s
+    @rel_canonical_href
+  end
+  def rel_canonical_query_pairs_whitelist
+    return @rel_canonical_query_pairs_whitelist unless @rel_canonical_query_pairs_whitelist.nil?
+    @rel_canonical_query_pairs_whitelist = [%r{page=([0-9]{2,}|[2-9]{1}).*}]
+    @rel_canonical_query_pairs_whitelist
   end
 
 private

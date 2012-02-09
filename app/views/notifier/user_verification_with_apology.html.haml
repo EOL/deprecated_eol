@@ -1,6 +1,6 @@
 = I18n.t(:greeting_dear_name_with_comma, :name => @user.full_name, :scope => :notifier)
 Please accept our apologies for our late response. We've been having problems with our registration system. Please contact support@eol.org if you have questions.
 :plain
-= I18n.t('.message', :verification_url => @verify_user_url)
+= I18n.t('notifier.user_verification.message', :verification_url => @verify_user_url)
 :plain
 = I18n.t(:signature_with_support_contact, :support_email => $SUPPORT_EMAIL_ADDRESS, :scope => :notifier)

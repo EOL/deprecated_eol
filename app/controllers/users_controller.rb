@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
   layout :users_layout
 
-  before_filter :authentication_only_allow_editing_of_self, :only => [:edit, :notifications, :update, :terms_agreement, :curation_privileges]
+  before_filter :authentication_only_allow_editing_of_self, :only => [:edit, :update, :terms_agreement, :curation_privileges]
   before_filter :redirect_if_already_logged_in, :only => [:new, :create, :verify, :pending, :activated,
                                                           :forgot_password, :reset_password]
   before_filter :check_user_agreed_with_terms, :except => [:terms_agreement, :reset_password, :usernames]
@@ -28,10 +28,6 @@ class UsersController < ApplicationController
     instantiate_variables_for_edit
   end
 
-  def notifications
-    @user = User.find(params[:id])
-  end
-
    # GET /users/:id/curation_privileges
   def curation_privileges
     # @user instantiated by authentication before filter and matched to current user
@@ -42,6 +38,7 @@ class UsersController < ApplicationController
   def update
     # @user instantiated by authentication before filter and matched to current user
     redirect_to curation_privileges_user_path(@user), :status => :moved_permanently and return if params[:commit_curation_privileges_get]
+    redirect_to edit_user_notification_path(@user), :status => :moved_permanently and return if params[:commit_notification_settings_get]
     generate_api_key and return if params[:commit_generate_api_key]
     unset_auto_managed_password if params[:user][:entered_password]
     user_before_update = @user
@@ -299,7 +296,7 @@ private
   end
 
   def authentication_only_allow_editing_of_self
-    @user = User.find(params[:id])
+    @user = User.find(params[:id] || params[:user_id])
     raise EOL::Exceptions::SecurityViolation, "User with ID=#{current_user.id} does not have edit access to User with ID=#{@user.id}" unless current_user.can_update?(@user)
   end
 

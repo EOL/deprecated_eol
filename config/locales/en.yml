@@ -160,12 +160,23 @@ en:
     models:
       user: "account"
     attributes:
+      collection:
+        name: Collection name
+        description: Collection description
+        sort_style_id: Default sorting direction
+        logo: Primary collection image
+        additional_annotation_fields: Additional annotation fields
+        show_references: References (Text or URL)
       collection_item:
         annotation: "Annotation"
         sort_field: "Sort by"
         refs: "References <small>(put each reference on a new line)</small>"
       comment:
         body: "Comment"
+      community:
+        name: Community name
+        description: Community description
+        logo: Upload a logo
       content_page:
         page_name: "Unique name"
         sort_order: "Sort order"
@@ -279,6 +290,25 @@ en:
         request_publish: "Request publish"
       name:
         string: "Name"
+      notification:
+        reply_to_comment: A reply to a comment you made
+        comment_on_my_profile: A comment on your profile
+        comment_on_my_contribution: A comment and/or curatorial action on a contribution you made
+        comment_on_my_collection: A comment on a collection you manage
+        comment_on_my_community: A comment in one of your communities
+        invitation_to_community: Invitation to join a community
+        made_me_a_manager: You have been made a collection or community manager
+        member_joined_my_community: A new member has joined a community that you manage
+        comment_on_my_watched_item: "Comments on objects, taxa, collections, or communities in your watchlist"
+        curation_on_my_watched_item: "Curator actions on objects, taxa, collections, or communities in your watchlist"
+        new_data_on_my_watched_item: New contributions to taxa in your watchlist
+        changes_to_my_watched_collection: Changes to collections in your watchlist
+        changes_to_my_watched_community: Changes to communities in your watchlist
+        member_joined_my_watched_community: New members have joined a community where you are a member
+        member_left_my_community: Members have left a community you manage
+        new_manager_in_my_community: Another member has become a manager of a community you manage
+        i_am_being_watched: You have been added to another member's watchlist
+        eol_newsletter: Send me the quarterly EOL newsletter
       resource:
         accesspoint_url: "Dataset URL"
         auto_publish: "Auto-publish"
@@ -310,6 +340,7 @@ en:
         credentials: "Credentials"
         curator_level: "Curator level"
         curator_scope: "Curation scope"
+        disable_email_notifications: "Don't send me ANY updates by email"
         email: "Email address"
         entered_password: "Password"
         entered_password_confirmation: "Password again <small>(to confirm)</small>"
@@ -320,17 +351,6 @@ en:
         requested_curator_level_id: "Desired curation level"
         tag_line: "Tagline"
         username: "Username"
-      collection:
-        name: Collection name
-        description: Collection description
-        sort_style_id: Default sorting direction
-        logo: Primary collection image
-        additional_annotation_fields: Additional annotation fields
-        show_references: References (Text or URL)
-      community:
-        name: Community name
-        description: Community description
-        logo: Upload a logo
     errors:
       format: "%{attribute} %{message}"
       template:
@@ -390,61 +410,6 @@ en:
               inaccessible: "is inaccessible, the URL must be publicly accessible"
               invalid: "is invalid, it should point to a TAR.GZIP, TAR.GZ or TGZ file"
   helpers:
-    select:
-      prompt: "Please select"
-    submit:
-      create: "Create %{model}"
-      update: "Update %{model}"
-      submit: 'Save %{model}'
-      collection_item:
-        update: "Save"
-      content_page:
-        create: "Create page"
-        edit: "Edit"
-        preview: "Preview"
-        update: "Update page"
-      content_partner:
-        create: "Create content partner"
-        update: "Save content partner information"
-      content_partner_agreement:
-        create: "Create new agreement"
-        update: "Update agreement"
-        agree: "Agree to content partner terms"
-      content_partner_contact:
-        create: "Add contact"
-        update: "Update contact"
-        destroy: "Delete contact"
-      data_object:
-        create: "Add article"
-        create_text: "Add article"
-        update: "Save article"
-      harvest_event:
-        publish: "Publish"
-      hierarchy:
-        update: "Update hierarchy"
-        request_publish: "Request to promote hierarchy"
-      name:
-        create: "Add name"
-        update: "Update name"
-      resource:
-        create: "Add resource"
-        update: "Update resource"
-        update_settings: "Update settings"
-        force_harvest: "Request force harvest"
-      session:
-        create: "Sign in"
-      translated_content_page:
-        create: "Add translation"
-        update: "Save changes to translation"
-      user:
-        create: "Create account"
-        update: "Save profile information"
-        forgot_password: "Send email"
-        generate_api_key: "Generate a key"
-        curation_application: "Apply now"
-        curation_privileges: "Submit request"
-      wikipedia_queue:
-        create: "Submit request"
     label:
       collection_item:
         annotation: "Annotation"
@@ -560,14 +525,15 @@ en:
         curator_scope: "Curation scope"
         curator_scope_more: 'Please indicate the scope of your expertise. For example: "Rodents of Borneo", "Tri-trophic interactions", or "Conservation issues in fish". This will not limit your ability to curate, but will inform the EOL community.'
         email_reports_frequency_hours: "How often would you like to receive email alerts about activity on your contributions?"
+        email_settings_submit: "email settings"
         entered_password: "Password <small>(4 - 16 characters)</small>"
         generate_api_key: "Requesting an API key"
         generate_api_key_more: "If you are interested in using the EOL API you can generate an API key to identify your application. Read more about <a href=\"%{api_docs_url}\">adding a key to your API calls</a>."
         logo: "Upload a new photo"
-        mailing_list: "I want to receive email newsletter updates"
-        mailing_list_yes: "Yes"
         new_password: "New password <small>(4 - 16 characters)</small>"
         new_password_confirmation: "New password <small>(to confirm)</small>"
+        notification_settings: "Updates by email"
+        notification_settings_more: "Configure your email settings for notifications."
         requested_curator_level: "Your request to become %{curator_level_with_indefinite_article} is pending."
         requested_curator_level_id_more: "Choose <em>Assistant Curator</em> if you do not yet have any credentials.  Choose <em>Full Curator</em> if you are a professional scientist or graduate student with credentials.  Choose <em>Master Curator</em> if you are an experienced EOL curator and want to take on more responsibilities."
         tag_line: 'Tagline or title <small>example: "Bird enthusiast"</small>'
@@ -577,6 +543,62 @@ en:
       wikipedia_queue:
         revision_url: "Revision URL <small>(e.g. http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)</small>"
         revision_url_more: "By entering a Wikipedia revision URL you are requesting that EOL ingests that particular revision as vetted. It will replace the current version of that article in EOL if we have it already."
+    select:
+      prompt: "Please select"
+    submit:
+      create: "Create %{model}"
+      update: "Update %{model}"
+      submit: 'Save %{model}'
+      collection_item:
+        update: "Save"
+      content_page:
+        create: "Create page"
+        edit: "Edit"
+        preview: "Preview"
+        update: "Update page"
+      content_partner:
+        create: "Create content partner"
+        update: "Save content partner information"
+      content_partner_agreement:
+        create: "Create new agreement"
+        update: "Update agreement"
+        agree: "Agree to content partner terms"
+      content_partner_contact:
+        create: "Add contact"
+        update: "Update contact"
+        destroy: "Delete contact"
+      data_object:
+        create: "Add article"
+        create_text: "Add article"
+        update: "Save article"
+      harvest_event:
+        publish: "Publish"
+      hierarchy:
+        update: "Update hierarchy"
+        request_publish: "Request to promote hierarchy"
+      name:
+        create: "Add name"
+        update: "Update name"
+      resource:
+        create: "Add resource"
+        update: "Update resource"
+        update_settings: "Update settings"
+        force_harvest: "Request force harvest"
+      session:
+        create: "Sign in"
+      translated_content_page:
+        create: "Add translation"
+        update: "Save changes to translation"
+      user:
+        create: "Create account"
+        update: "Save profile information"
+        forgot_password: "Send email"
+        generate_api_key: "Generate a key"
+        curation_application: "Apply now"
+        curation_privileges: "Submit request"
+        notification_settings: "Email settings"
+      wikipedia_queue:
+        create: "Submit request"
   will_paginate:
     previous_label: "&#8592; Previous"
     next_label: "Next &#8594;"
@@ -1051,6 +1073,10 @@ en:
         meta_keywords: ""
         meta_title: "%{user_full_name} Newsfeed"
         tweet_text: "%{user_full_name} newsfeed"
+    notifications:
+      edit:
+        page_description: "All of the updates listed below (except for the EOL newsletter) are available to you in your <a href=\"%{user_newsfeed_link}\">EOL newsfeed</a>, but many people would also like to be alerted by email about certain kinds of activities they find particularly interesting. You can use the buttons below to set the frequency of EOL emails to suit your preferences"
+        page_title: Email settings
     show:
       meta_description: "Member profile for %{user_full_name} on the Encyclopedia of Life."
       meta_description_curator: "Member profile for %{curator_level} %{user_full_name} on the Encyclopedia of Life."
@@ -2441,6 +2467,13 @@ en:
   notes_not_shown_to_user: "Notes (not shown to user):"
   note_all_times_utc: "Note that all times are UTC (Greenwich Mean Time)"
   note_that_it_may_take_a_few_mi: "Note that it may take a few minutes after upload for the URLs to work since your file needs to propagate to the content servers."
+  notification_frequency_daily_digest: "Daily digest"
+  notification_frequency_send_immediately: "Send immediately"
+  notification_frequency_never: "Never"
+  notification_frequency_weekly: "Weekly"
+  notifications_and_messages_review_notice: Please review messages and notifications that will be sent to you by email.
+  email_updates_for_eol_addicts: "Email updates for EOL addicts."
+  email_updates_for_eol_members: "Email updates most EOL members will want to get."
   notifications_tab_name: "Notifications"
   taxon_not_found_error: "\"%{taxon}\" not found"
   not_published_yet: "not published yet"
@@ -2651,6 +2684,7 @@ en:
   save_annotation_submit_button: "Save annotation"
   save_comment_lowercase: "save comment"
   save_curated_association_submit_button: "Save association"
+  save_email_settings: "save email settings"
   save: "Save"
   scientific_name: "Scientific Name"
   sci_name_avg_table_head: "Sci. Name avg"

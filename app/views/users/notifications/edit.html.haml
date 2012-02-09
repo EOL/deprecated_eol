@@ -1,0 +1,94 @@
+#content
+  #profile_notifications.site_column
+    .article.copy
+      - form_for @user, :url => user_notification_path(@user), :builder => ApplicationHelper::EolFormBuilder do |user_form|
+        - user_form.label :disable_email_notifications, :class => 'checkbox' do
+          = user_form.check_box :disable_email_notifications
+          = I18n.t('activerecord.attributes.user.disable_email_notifications')
+        - user_form.fields_for :notification do |notification|
+          %fieldset
+            %h3= I18n.t(:email_updates_for_eol_members)
+            %dl
+              %dt
+                = notification.label :eol_newsletter
+              %dd
+                = notification.check_box :eol_newsletter
+              %dt
+                = notification.label :reply_to_comment
+              %dd
+                = notification.select :reply_to_comment, options_from_collection_for_select(@notification_frequencies, :id, :translated_label, @user.notification.reply_to_comment)
+              %dt
+                = notification.label :comment_on_my_profile
+              %dd
+                = notification.select :comment_on_my_profile, options_from_collection_for_select(@notification_frequencies, :id, :translated_label, @user.notification.comment_on_my_profile)
+              %dt
+                = notification.label :comment_on_my_contribution
+              %dd
+                = notification.select :comment_on_my_contribution, options_from_collection_for_select(@notification_frequencies, :id, :translated_label, @user.notification.comment_on_my_contribution)
+              %dt
+                = notification.label :comment_on_my_collection
+              %dd
+                = notification.select :comment_on_my_collection, options_from_collection_for_select(@notification_frequencies, :id, :translated_label, @user.notification.comment_on_my_collection)
+              %dt
+                = notification.label :comment_on_my_community
+              %dd
+                = notification.select :comment_on_my_community, options_from_collection_for_select(@notification_frequencies, :id, :translated_label, @user.notification.comment_on_my_community)
+              - if false
+                -# Note that this distinction is NOT stored in the DB, so we cannot really handle it, yet:
+                %dt
+                  = notification.label :invitation_to_community
+                %dd
+                  = notification.select :invitation_to_community, options_from_collection_for_select(@notification_frequencies, :id, :translated_label, @user.notification.invitation_to_community)
+              %dt
+                = notification.label :made_me_a_manager
+              %dd
+                = notification.select :made_me_a_manager, options_from_collection_for_select(@notification_frequencies, :id, :translated_label, @user.notification.made_me_a_manager)
+              %dt
+                = notification.label :member_joined_my_community
+              %dd
+                = notification.select :member_joined_my_community, options_from_collection_for_select(@notification_frequencies, :id, :translated_label, @user.notification.member_joined_my_community)
+          %fieldset
+            %h3= I18n.t(:email_updates_for_eol_addicts)
+            %dl
+              %dt
+                = notification.label :comment_on_my_watched_item
+              %dd
+                = notification.select :comment_on_my_watched_item, options_from_collection_for_select(@notification_frequencies, :id, :translated_label, @user.notification.comment_on_my_watched_item)
+              %dt
+                = notification.label :curation_on_my_watched_item
+              %dd
+                = notification.select :curation_on_my_watched_item, options_from_collection_for_select(@notification_frequencies, :id, :translated_label, @user.notification.curation_on_my_watched_item)            
+              -# I imagine this includes: new associations, new data objects (UDOs), names... and possibly new
+              -# revisions of data objects.  I don't think this includes changing exemplar images...
+              %dt
+                = notification.label :new_data_on_my_watched_item
+              %dd
+                = notification.select :new_data_on_my_watched_item, options_from_collection_for_select(@notification_frequencies, :id, :translated_label, @user.notification.new_data_on_my_watched_item)
+              -# (this could be both for descriptions and for items)
+              %dt
+                = notification.label :changes_to_my_watched_collection
+              %dd
+                = notification.select :changes_to_my_watched_collection, options_from_collection_for_select(@notification_frequencies, :id, :translated_label, @user.notification.changes_to_my_watched_collection)
+              %dt
+                = notification.label :changes_to_my_watched_community
+              %dd
+                = notification.select :changes_to_my_watched_community, options_from_collection_for_select(@notification_frequencies, :id, :translated_label, @user.notification.changes_to_my_watched_community)
+              %dt
+                = notification.label :member_joined_my_watched_community
+              %dd
+                = notification.select :member_joined_my_watched_community, options_from_collection_for_select(@notification_frequencies, :id, :translated_label, @user.notification.member_joined_my_watched_community)
+              %dt
+                = notification.label :member_left_my_community
+              %dd
+                = notification.select :member_left_my_community, options_from_collection_for_select(@notification_frequencies, :id, :translated_label, @user.notification.member_left_my_community)
+              %dt
+                = notification.label :new_manager_in_my_community
+              %dd
+                = notification.select :new_manager_in_my_community, options_from_collection_for_select(@notification_frequencies, :id, :translated_label, @user.notification.new_manager_in_my_community)
+              %dt
+                = notification.label :i_am_being_watched
+              %dd
+                = notification.select :i_am_being_watched, options_from_collection_for_select(@notification_frequencies, :id, :translated_label, @user.notification.i_am_being_watched)
+        %fieldset.actions
+          = user_form.submit I18n.t(:save_email_settings)
+          = link_to I18n.t(:cancel), edit_user_path(@user)

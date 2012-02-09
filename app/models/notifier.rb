@@ -14,7 +14,7 @@ class Notifier < ActionMailer::Base
     contact_subject = ContactSubject.find(contact.contact_subject_id)
     contact_from = contact_subject.recipients
     contact_from = contact_from.split(',').map { |c| c.strip }
-    
+
     subject     I18n.t(:subject, :title => contact_subject.title, :scope => [:notifier, :contact_us_auto_response])
     recipients  contact.email
     from        contact_from
@@ -121,6 +121,13 @@ class Notifier < ActionMailer::Base
   end
 
   def user_verification(user, url)
+    subject     I18n.t(:subject, :scope => [:notifier, :user_verification])
+    recipients  user.email
+    from        $SUPPORT_EMAIL_ADDRESS
+    body        :user => user, :verify_user_url => url
+  end
+
+  def user_verification_with_apology(user, url)
     subject     I18n.t(:subject, :scope => [:notifier, :user_verification])
     recipients  user.email
     from        $SUPPORT_EMAIL_ADDRESS

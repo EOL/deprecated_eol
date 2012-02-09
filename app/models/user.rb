@@ -54,7 +54,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   after_create :add_email_notification
 
-  accepts_nested_attributes_for :user_info
+  accepts_nested_attributes_for :user_info, :notification
 
   @email_format_re = %r{^(?:[_\+a-z0-9-]+)(\.[_\+a-z0-9-]+)*@([a-z0-9-]+)(\.[a-zA-Z0-9\-\.]+)*(\.[a-z]{2,4})$}i
 

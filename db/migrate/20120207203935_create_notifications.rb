@@ -26,20 +26,28 @@ class CreateNotifications < ActiveRecord::Migration
       t.integer :member_left_my_community, :default => NotificationFrequency.never.id
       t.integer :new_manager_in_my_community, :default => NotificationFrequency.never.id
       t.integer :i_am_being_watched, :default => NotificationFrequency.never.id
+      t.boolean :eol_newsletter, :default => true
       t.datetime :last_notification_sent_at
       t.timestamps
     end
 
-    add_column :users, :email_notifications, :boolean, :default => true
+    add_column :users, :disable_email_notifications, :boolean, :default => false
 
-    User.all(:select => 'id').each do |user|
-      Notification.create(:user_id => user.id)
+    User.all(:select => 'id, mailing_list').each do |user|
+      Notification.create(:user_id => user.id, :eol_newsletter => user.mailing_list)
     end
+
+    remove_column :users, :mailing_list
+    # TODO - Figure out how not to use it for content partners and remove it from users table. 
+    # Do the same for last_report_email
+    # remove_column :users, :email_reports_frequency_hours
 
   end
 
   def self.down
-    remove_column :users, :email_notifications
+    add_column :users, :mailing_list, :boolean, :default => true
+    execute "UPDATE users, notifications SET users.mailing_list = notifications.eol_newsletter WHERE users.id = notifications.user_id"
+    remove_column :users, :disable_email_notifications
     drop_table :notifications
     drop_table :notification_frequencies
   end

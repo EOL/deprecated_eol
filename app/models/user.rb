@@ -37,6 +37,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   has_many :users_user_identities
   has_many :user_identities, :through => :users_user_identities
   has_many :worklist_ignored_data_objects
+  has_many :pending_notifications
 
   has_many :content_partners
   has_one :user_info
@@ -857,6 +858,15 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     end
   end
 
+  # This returns false unless the user wants an email notification for the given type, then it returns the
+  # NotificationFrequency object.
+  def listening_to?(type)
+    return false if disable_email_notifications
+    fqz = notification.send(type)
+    return false if fqz == NotificationFrequency.never
+    return fqz
+  end
+
 private
 
   # set the defaults on this user object
@@ -865,7 +875,6 @@ private
     self.default_taxonomic_browser = $DEFAULT_TAXONOMIC_BROWSER
     self.expertise     = $DEFAULT_EXPERTISE.to_s
     self.language      = Language.english
-    self.mailing_list  = false
     self.content_level = $DEFAULT_CONTENT_LEVEL
     self.vetted        = $DEFAULT_VETTED
     self.credentials   = ''

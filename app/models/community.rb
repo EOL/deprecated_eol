@@ -103,4 +103,8 @@ class Community < ActiveRecord::Base
     }.compact[0..3]
   end
 
+  def managers_as_users
+    members.managers.map {|m| m.user }
+  end
+
 end

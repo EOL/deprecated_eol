@@ -27,6 +27,8 @@ class Collection < ActiveRecord::Base
   has_and_belongs_to_many :users
 
   named_scope :published, :conditions => {:published => 1}
+  # NOTE - I'm actually not sure why the lambda needs TWO braces, but the exmaple I was copying used two, soooo...
+  named_scope :watch, lambda { { :conditions => {:special_collection_id => SpecialCollection.watch.id} } }
 
   validates_presence_of :name
   # JRice removed the requirement for the uniqueness of the name. Why? Imagine user#1 creates a collection named "foo".
@@ -152,6 +154,11 @@ class Collection < ActiveRecord::Base
 
   def maintained_by
     (users + communities).compact
+  end
+
+  # This will return users.
+  def managers
+    (users + communities.map {|com| com.managers }).compact.uniq
   end
 
   def has_item?(item)

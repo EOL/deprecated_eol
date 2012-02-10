@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  user: 
+  notification_frequency: 
+  target_id: 1
+  target_type: MyString
+  reason: MyString
+  sent_at: 2012-02-10 13:24:32
+
+two:
+  user: 
+  notification_frequency: 
+  target_id: 1
+  target_type: MyString
+  reason: MyString
+  sent_at: 2012-02-10 13:24:32

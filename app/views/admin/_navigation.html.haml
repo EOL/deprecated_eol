@@ -32,6 +32,8 @@
     = link_to I18n.t("edit_web_users"),{:controller=>'administrator/user', :action=>'index'}, {:class=>'toc_item active'}
   %li
     = link_to I18n.t("view_curators"),{:controller=>'administrator/curator', :action=>'index'}, {:class=>'toc_item active'}
+  %li
+    = link_to I18n.t(:list_newsletter_emails),{:controller=>'administrator/user', :action=>'list_newsletter_emails'}, {:class=>'toc_item active'}
 
   -# commented in V2, no final decision yet
   -#%h3

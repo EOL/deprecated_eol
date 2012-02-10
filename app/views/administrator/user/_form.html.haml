@@ -74,10 +74,10 @@
   %tr
     %td
       %strong
-        =I18n.t("request_mailing_list_colon")
+        = I18n.t(:disable_email_notifications_colon)
     %td
-      = f.check_box :mailing_list
-      =I18n.t("yes_answer")
+      = f.check_box :disable_email_notifications
+      = I18n.t("yes_answer")
   %tr
     %td
       %strong

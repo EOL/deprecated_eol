@@ -51,7 +51,6 @@ class UsersController < ApplicationController
       current_user.log_activity(:updated_user)
       store_location params[:return_to] if params[:return_to]
       provide_feedback
-      send_preferences_updated_email(user_before_update, @user) if user_updated_email_preferences?(user_before_update, @user)
       redirect_back_or_default @user
     else
       failed_to_update_user
@@ -260,6 +259,34 @@ class UsersController < ApplicationController
     render :text => usernames.to_json
   end
 
+  def notes
+    @user = User.find(params[:id])
+    unless @user.disable_email_notifications
+      # direct replies
+      # direct comments (on profile)
+      # find all of the user's UDOs (and the comments and curations on each)
+      # find all of the user's content partner's data objects
+      # find all the the user's collections (as manager)
+      #    ...comments on these
+      #    ...newly being made a manager here
+      # ... communities (as manager)
+      #    ...newly being made a manager here
+      #    ...comments on these
+      #    ...members joining these
+      #    ...members leaving these
+      #    ...new managers in these
+      # ...the items in their watchlist: comments on them
+      #    ...and curation actions on them
+      #    ..."new contributions" (datos and UDOs) on taxa on them
+      #    ..."changes" (adding/removing items?) to collections
+      #    ..."changes" (name/desc/collections) to communities
+      # communities where the user is a member
+      #    ...new members of communities
+      # being added to other user's watchlist
+    end
+
+  end
+
 protected
 
   def scoped_variables_for_translations
@@ -374,20 +401,6 @@ private
     else
       flash[:notice] = I18n.t(:update_user_successful_notice)
     end
-  end
-
-  def user_updated_email_preferences?(user_before_update, user_after_update)
-    user_before_update.mailing_list != user_after_update.mailing_list || user_before_update.email != user_after_update.email
-  end
-
-  def send_preferences_updated_email(user_before_update, user_after_update)
-    media_inquiry_subject = ContactSubject.find_by_id($MEDIA_INQUIRY_CONTACT_SUBJECT_ID)
-    if media_inquiry_subject.nil?
-      recipient = $SPECIES_PAGES_GROUP_EMAIL_ADDRESS
-    else
-      recipient = media_inquiry_subject.recipients
-    end
-    Notifier.deliver_user_updated_email_preferences(user_before_update, user_after_update, recipient)
   end
 
 end

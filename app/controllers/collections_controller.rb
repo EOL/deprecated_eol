@@ -458,7 +458,7 @@ private
 
   def find_parent
     if params[:collection_id]
-      @parent = Collection.find(params[:collection_id], :include => :collection_items)
+      @parent = Collection.find(params[:collection_id])
     else
       @parent = params[:user_id] ? User.find(params[:user_id]) : current_user
     end
@@ -466,7 +466,7 @@ private
 
   def find_parent_for_current_user_only
     if params[:collection_id]
-      @parent = Collection.find(params[:collection_id], :include => :collection_items)
+      @parent = Collection.find(params[:collection_id])
     else
       @parent = current_user
     end

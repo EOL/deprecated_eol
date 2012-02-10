@@ -23,6 +23,7 @@ class Comment < ActiveRecord::Base
 
   before_create :set_visible_at, :set_from_curator
   after_create :log_activity_in_solr
+  after_create :notify_listeners
 
   validates_presence_of :body, :user
 
@@ -264,6 +265,10 @@ class Comment < ActiveRecord::Base
 
 private
 
+  def reply_is_comment?
+    return self.reply? && reply_to_type == 'Comment'
+  end
+
   # Run when a comment is created, to ensure it is visible by default:
   def set_visible_at
     self.visible_at ||= Time.now
@@ -276,5 +281,49 @@ private
     return self.from_curator.to_s
   end
 
-end
+  # Find users who are "listening" to this comment and queue a pending notification for them:
+  def notify_listeners
+    # those who are listening to direct replies to comments they made,
+    if self.reply_is_comment? && fqz = self.reply_to.user.listening_to?(:reply_to_comment)
+      PendingNotification.create(:user => self.reply_to.user, :notification_frequency => fqz, :target => self,
+                                 :reason => 'reply_to_comment')
+    end
+    # ...or comments to profile
+    if self.parent_type == 'User' && fqz = self.parent.listening_to?(:comment_on_my_profile)
+      PendingNotification.create(:user => self.parent, :notification_frequency => fqz, :target => self,
+                                 :reason => 'comment_on_my_profile')
+    end
+    # ...or collections that people manage
+    if self.parent_type == 'Collection'
+      self.parent.managers.each do |manager|
+        fqz = manager.listening_to?(:comment_on_my_collection)
+        PendingNotification.create(:user => manager, :notification_frequency => fqz, :target => self,
+                                   :reason => 'comment_on_my_collection')
+      end
+    end
+    # ...or communities that people manage
+    if self.parent_type == 'Community'
+      self.parent.managers_as_users.each do |manager|
+        fqz = manager.listening_to?(:comment_on_my_community)
+        PendingNotification.create(:user => manager, :notification_frequency => fqz, :target => self,
+                                   :reason => 'comment_on_my_community')
+      end
+    end
+    # ...comments on collection items from watchlists
+    if self.parent.respond_to?(:containing_collections)
+      self.parent.containing_collections.watch.each do |collection|
+        fqz = collection.user.listening_to?(:comment_on_my_watched_item)
+        PendingNotification.create(:user => collection.user, :notification_frequency => fqz, :target => self,
+                                   :reason => 'comment_on_my_watched_item')
+      end
+    end
+    # ...or on "contributions that people made" (UDOs... data objects of CPs...)
+    if self.parent_type == 'DataObject'
+      user = self.parent.contributing_user
+      fqz = user.listening_to?(:comment_on_my_contribution)
+      PendingNotification.create(:user => user, :notification_frequency => fqz, :target => self,
+                                 :reason => 'comment_on_my_contribution')
+    end
+  end
 
+end

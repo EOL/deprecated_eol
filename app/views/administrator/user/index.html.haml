@@ -25,11 +25,6 @@
           = check_box_tag 'blank_dates', '1', @blank_dates
       %tr{:valign => 'top'}
         %td
-          = I18n.t(:joined_mailing_list)
-        %td
-          = check_box_tag 'joined_mailing_list', '1', @joined_mailing_list
-      %tr{:valign => 'top'}
-        %td
           &nbsp;
         %td
           = submit_tag I18n.t("search")
@@ -51,7 +46,7 @@
     %p
       = link_to I18n.t("add_a_new_user"),:action=>'new'
       |
-      = link_to I18n.t("export_this_list_as_csv"),{:action=>'index',:export=>'true',:start_date=>@start_date,:blank_dates=>@blank_dates,:joined_mailing_list=>@joined_mailing_list,:end_date=>@end_date,:user_search_string=>@user_search_string}
+      = link_to I18n.t("export_this_list_as_csv"),{:action=>'index',:export=>'true',:start_date=>@start_date,:blank_dates=>@blank_dates,:end_date=>@end_date,:user_search_string=>@user_search_string}
     %br
     - if @users.nil? == false && @users.size > 0
       =I18n.t("a_total_of_items_were_found_matching_your_criteria", :count => @user_count)

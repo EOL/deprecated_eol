@@ -1,0 +1,5 @@
+%ul
+  - @users.each do |user|
+    %li{:style => 'list-style: none;'}
+      = '"' + user.full_name + '"'
+      = "&lt;#{user.email}&gt;,"

@@ -835,7 +835,7 @@ class DataObject < SpeciesSchemaModel
     return nil if obj.blank?
     return obj[0]
   end
-  
+
   # this method will be run on an instance of an object unlike the above methods. It is best to have preloaded
   # all_published_versions in order for this method to be efficient
   def latest_published_version
@@ -1179,6 +1179,14 @@ class DataObject < SpeciesSchemaModel
       end
     end
     logs_affected
+  end
+
+  def contributing_user
+    if users_data_object
+      users_data_object.user
+    else
+      content_partner.user
+    end
   end
 
 end

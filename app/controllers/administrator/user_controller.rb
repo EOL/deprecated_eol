@@ -17,7 +17,6 @@ class Administrator::UserController  < AdminController
     @start_date = params[:start_date] || "2008-02-28"
     @end_date = params[:end_date] || Date.today.to_s(:db)
     @blank_dates = EOLConvert.to_boolean(params[:blank_dates])
-    @joined_mailing_list = EOLConvert.to_boolean(params[:joined_mailing_list])
     export = params[:export]
 
     begin
@@ -29,14 +28,12 @@ class Administrator::UserController  < AdminController
     end
 
     blank_date_condition = ' OR (created_at is null)' unless @blank_dates
-    joined_mailing_list_condition = ' AND (mailing_list = 1)' unless !@joined_mailing_list
 
-    condition = "( ( (created_at>=? AND created_at<=?) #{blank_date_condition}) #{joined_mailing_list_condition} ) 
-    AND (id=? OR email like ? OR username like ? OR given_name like ? OR identity_url like ? OR family_name like ? OR username like ?)
-    #{joined_mailing_list_condition} "
+    condition = "( (created_at>=? AND created_at<=?) #{blank_date_condition}) AND (id=? OR email like ? OR username like ? OR given_name like ? OR identity_url like ? OR family_name like ? OR username like ?)"
 
     if export
       @users = User.find(:all,
+        :include => :notification,
         :conditions => [condition,
         @start_date_db,
         @end_date_db,
@@ -50,11 +47,12 @@ class Administrator::UserController  < AdminController
         :order => 'created_at desc')
       report = StringIO.new
       CSV::Writer.generate(report, ',') do |title|
-          title << ['Id', 'Username', 'Name', 'Email', 'Registered Date', 'Mailings?']
+          title << ['Id', 'Username', 'Name', 'Email', 'Registered Date', 'Disable Email?', 'Receive Newsletter?']
           @users.each do |u|
             created_at = ''
             created_at = u.created_at.strftime("%m/%d/%y - %I:%M %p %Z") unless u.created_at.blank?
-            title << [u.id, u.username, u.full_name, u.email, created_at, u.mailing_list]
+            title << [u.id, u.username, u.full_name, u.email, created_at, u.disable_email_notifications,
+              u.notification.eol_newsletter]
           end
        end
        report.rewind
@@ -164,7 +162,7 @@ class Administrator::UserController  < AdminController
     flash[:notice] = I18n.t("admin_user_delete_successful_notice")
     redirect_to referred_url, :status => :moved_permanently
   end
-  
+
   def hide
     user = User.find(params[:id])
     user.hidden = 1
@@ -176,7 +174,7 @@ class Administrator::UserController  < AdminController
     flash[:notice] = I18n.t("admin_user_hide_successful_notice")
     redirect_to referred_url, :status => :moved_permanently
   end
-  
+
   def unhide
     user = User.find(params[:id])
     user.hidden = 0
@@ -261,6 +259,12 @@ class Administrator::UserController  < AdminController
     time_elapsed = (Time.now - start)/60
     time_elapsed = '%.2f' % time_elapsed
     @time_elapsed = time_elapsed.to_s + " mins."
+  end
+
+  def list_newsletter_emails
+    @users = User.find_by_sql('SELECT u.given_name, u.family_name, u.username, u.email, u.curator_level_id
+      FROM users u JOIN notifications n ON (u.id = n.user_id)
+      WHERE u.disable_email_notifications != 1 AND n.eol_newsletter = 1')
   end
 
 private

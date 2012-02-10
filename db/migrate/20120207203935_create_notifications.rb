@@ -9,7 +9,7 @@ class CreateNotifications < ActiveRecord::Migration
     NotificationFrequency.create_defaults
 
     create_table :notifications do |t|
-      t.integer :user_id, :null => false
+      t.integer :user_id, :null => false, :unique => true
       t.integer :reply_to_comment, :default => NotificationFrequency.immediately.id
       t.integer :comment_on_my_profile, :default => NotificationFrequency.immediately.id
       t.integer :comment_on_my_contribution, :default => NotificationFrequency.immediately.id
@@ -30,6 +30,8 @@ class CreateNotifications < ActiveRecord::Migration
       t.datetime :last_notification_sent_at
       t.timestamps
     end
+
+    add_index :notifications, :user_id
 
     add_column :users, :disable_email_notifications, :boolean, :default => false
 

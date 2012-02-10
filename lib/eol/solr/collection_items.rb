@@ -114,7 +114,7 @@ module EOL
         docs.each do |d|
           if i = instances.detect{ |i| i.id == d['object_id'].to_i }
             if d['instance'] 
-              if latest_version = i.latest_published_version
+              if latest_version = i.latest_published_version_in_same_language
                 d['instance'].object = latest_version
               else
                 d['instance'].object = i

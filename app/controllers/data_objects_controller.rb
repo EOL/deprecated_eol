@@ -155,11 +155,15 @@ class DataObjectsController < ApplicationController
     @page_title = @data_object.best_title
     get_attribution
     @slim_container = true
+    DataObject.preload_associations(@data_object, 
+      [ { :data_object_translation => { :original_data_object => :language } },
+        { :translations => { :data_object => :language } },
+        { :agents_data_objects => [ :agent, :agent_role ] },
+        { :data_objects_hierarchy_entries => { :hierarchy_entry => [ :name, :taxon_concept, :vetted, :visibility ] } },
+        { :curated_data_objects_hierarchy_entries => { :hierarchy_entry => [ :name, :taxon_concept, :vetted, :visibility ] } } ] )
     @revisions = DataObject.sort_by_created_date(@data_object.revisions).reverse
     @latest_published_revision = @revisions.select{|r| r.published?}.first
     @translations = @data_object.available_translations_data_objects(current_user, nil)
-    @taxon_concepts = @data_object.get_taxon_concepts(:published => :preferred)
-    @scientific_names = @taxon_concepts.inject({}) { |res, tc| res[tc.scientific_name] = { :common_name => tc.common_name, :taxon_concept_id => tc.id }; res }
     @image_source = get_image_source if @data_object.is_image?
     @current_user_ratings = logged_in? ? current_user.rating_for_object_guids([@data_object.guid]) : {}
     @page = params[:page]

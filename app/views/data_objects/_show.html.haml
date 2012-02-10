@@ -28,7 +28,10 @@
       %h3= I18n.t(:source_information_header)
     = render :partial => '/data_objects/attribution', :locals => { :supplier => true }
     - if @data_object.is_image?
-      %p= link_to I18n.t(:view_full_size_image), @data_object.thumb_or_object(:orig)
+      - if @data_object.access_image_from_remote_server?(:orig)
+        %p= link_to I18n.t(:view_full_size_image), @data_object.object_url
+      - else
+        %p= link_to I18n.t(:view_full_size_image), @data_object.thumb_or_object(:orig)
   - unless for_worklist
     = render :partial => '/data_objects/rating', :locals => { :data_object => @data_object, :en_type => en_type } if @latest_published_revision.id == @data_object.id
   - else

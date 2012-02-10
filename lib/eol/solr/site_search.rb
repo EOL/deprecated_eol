@@ -85,7 +85,8 @@ module EOL
       def self.add_taxon_concept!(docs)
         includes = [
           { :published_hierarchy_entries => [ { :name => :ranked_canonical_form } , :hierarchy, :vetted, { :flattened_ancestors => { :ancestor => [ :name, :rank ] } } ] },
-          { :preferred_common_names => [ :name, :language ] } ]
+          { :preferred_common_names => [ :name, :language ] },
+          { :taxon_concept_exemplar_image => :data_object } ]
         selects = {
           :taxon_concepts => '*',
           :hierarchy_entries => [ :id, :rank_id, :identifier, :hierarchy_id, :parent_id, :published, :visibility_id, :lft, :rgt, :taxon_concept_id, :source_url ],
@@ -93,7 +94,8 @@ module EOL
           :canonical_forms => [ :string ],
           :hierarchies => [ :agent_id, :browsable, :outlink_uri, :label ],
           :vetted => :view_order,
-          :hierarchy_entries_flattened => '*'
+          :hierarchy_entries_flattened => '*',
+          :data_objects => '*',
         }
         ids = docs.map{ |d| d['resource_id'] }
         return if ids.blank?

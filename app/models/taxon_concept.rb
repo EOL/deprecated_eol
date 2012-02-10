@@ -235,7 +235,8 @@ class TaxonConcept < SpeciesSchemaModel
 
     # Get text_user_objects from superceded taxa
     text_user_objects_superceded = []
-    if self.superceded_taxon_concepts
+    if superceded_concepts = self.superceded_taxon_concepts
+      TaxonConcept.preload_associations(superceded_concepts, :users_data_objects)
       taxa_udo = self.superceded_taxon_concepts.collect{ |tc| tc.users_data_objects}.select{|arr| !arr.empty?}
       taxa_udo.each do |taxon_udo|
         if taxon_udo
@@ -783,7 +784,10 @@ class TaxonConcept < SpeciesSchemaModel
 
   def iucn
     return @iucn if !@iucn.nil?
-    iucn_objects = data_objects.select{ |d| d.is_iucn? && d.published? }.sort_by{ |d| Invert(d.id) }
+    # IUCN was getting called over 240 times below, so I am checking the data_type
+    # here rather than using the is_iucn? which would call DataType.iucn later in DataObject
+    iucn_data_type = DataType.iucn
+    iucn_objects = data_objects.select{ |d| d.data_type_id == iucn_data_type.id && d.published? }.sort_by{ |d| Invert(d.id) }
     my_iucn = iucn_objects.empty? ? nil : DataObject.find(iucn_objects[0].id, :select => 'description, source_url')
     temp_iucn = my_iucn.nil? ? DataObject.new(:source_url => 'http://www.iucnredlist.org/about', :description => I18n.t(:not_evaluated)) : my_iucn
     @iucn = temp_iucn
@@ -1230,7 +1234,7 @@ class TaxonConcept < SpeciesSchemaModel
 
   def top_collections
     return @top_collections if @top_collections
-    all_containing_collections = Collection.which_contain(self).select{ |c| c.published? && !c.watch_collection? }
+    all_containing_collections = collections.select{ |c| c.published? && !c.watch_collection? }
     # This algorithm (-relevance) was faster than either #reverse or rel * -1.
     @top_collections = all_containing_collections.sort_by { |c| [ -c.relevance ] }[0..2]
   end
@@ -1358,8 +1362,10 @@ class TaxonConcept < SpeciesSchemaModel
     if concept_exemplar_image = taxon_concept_exemplar_image
       if the_best_image = concept_exemplar_image.data_object
         unless the_best_image.published?
-          # best_image may end up being NIL, which is OK
-          the_best_image = DataObject.latest_published_version_of(the_best_image.id)
+          # best_image may end up being NIL, which means there is no published version
+          # of it anymore - the example is no longer available. We don't want to show
+          # unpublished exemplar images
+          the_best_image = the_best_image.latest_published_version_in_same_language
         end
         return the_best_image
       end

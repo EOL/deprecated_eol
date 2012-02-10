@@ -424,16 +424,9 @@ describe DataObject do
                           :object_url => 'http://my.object.url',
                           :data_subtype_id => DataType.map.id)
     dohe = DataObjectsHarvestEvent.gen(:data_object_id => dato.id, :harvest_event_id => harvest.id)
-    dato.thumb_or_object(size = '580_360').should == dato.object_url
-    dato.thumb_or_object(size = '260_190').should == DataObject.image_cache_path(dato.object_cache_url, size)
-    dato.access_image_from_remote_server('580_360').should == true
-    dato.access_image_from_remote_server(size = '580_360').should == true
-    dato.access_image_from_remote_server('260_190').should == false
-    dato.access_image_from_remote_server(size = '260_190').should == false
-
-    dato.thumb_or_object(size = :orig).should == dato.object_url
-    dato.access_image_from_remote_server(:orig).should == true
-    dato.access_image_from_remote_server(size = :orig).should == true
+    dato.access_image_from_remote_server?('580_360').should == true
+    dato.access_image_from_remote_server?('260_190').should == false
+    dato.access_image_from_remote_server?(:orig).should == true
   end
 
 end

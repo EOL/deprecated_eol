@@ -49,7 +49,7 @@ module EOL
       def truncate_all_tables(options = {})
         options[:skip_empty_tables] = true if options[:skip_empty_tables].nil?
         options[:verbose] ||= false
-        all_connections.each do |conn|
+        all_connections.uniq.each do |conn|
           count = 0
           conn.tables.each do |table|
             unless table == 'schema_migrations'

@@ -5,5 +5,7 @@
 - if defined?(thumbnail) && thumbnail
   %a{ :data => { :data_object_id => data_object.id }, :href => data_object_path(data_object), :class => 'image' }
     = image_tag data_object.thumb_or_object(size), :alt => alt
+- elsif data_object.access_image_from_remote_server?(size)
+  = image_tag data_object.object_url, :alt => alt
 - else
   = image_tag data_object.thumb_or_object(size), :alt => alt

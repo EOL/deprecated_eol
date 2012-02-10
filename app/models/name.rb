@@ -116,7 +116,7 @@ class Name < SpeciesSchemaModel
                        'endosymbiont', 'a', 'b', 'c', 'd', 'species', 'complex',
                        'unassigned', 'n', 'gen', 'auct', 'non', 'aff']
     return true if string.match(/(^|[^\w])(#{red_flag_words.join('|')})([^\w]|$)/i)
-    return true if string.match(/_/i)
+    return true if string.match(/(_|'|")/i)
     return true if string.match(/[0-9][a-z]/i)
     return true if string.match(/[a-z][0-9]/i)
     return true if string.match(/[a-z]-[0-9]/i)

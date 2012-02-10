@@ -51,7 +51,8 @@ class DataObject < SpeciesSchemaModel
   # to use this with preloading I highly recommend doing DataObject.preload_associations(data_objects, :all_versions) on an array
   # of data_objects which already has everything else preloaded
   has_many :all_versions, :class_name => DataObject.to_s, :foreign_key => :guid, :primary_key => :guid, :select => 'id, guid'
-  has_many :all_published_versions, :class_name => DataObject.to_s, :foreign_key => :guid, :primary_key => :guid, :order => "id desc"
+  has_many :all_published_versions, :class_name => DataObject.to_s, :foreign_key => :guid, :primary_key => :guid, :order => "id desc",
+    :conditions => 'published = 1'
 
   has_and_belongs_to_many :hierarchy_entries
   has_and_belongs_to_many :audiences
@@ -127,6 +128,12 @@ class DataObject < SpeciesSchemaModel
     data_objects.sort_by do |obj|
       created_at = obj.created_at || 0
       created_at
+    end
+  end
+  
+  def self.sort_by_language_view_order_and_label(data_objects)
+    data_objects.sort_by do |obj|
+      obj.language ? [ obj.language.sort_order, obj.language.source_form ] : [ 0, 0 ]
     end
   end
 
@@ -565,7 +572,8 @@ class DataObject < SpeciesSchemaModel
   def content_partner
     # TODO - change this, since it would be more efficient to go through hierarchy_entries... but the first attempt
     # (using hierarchy_entries.first) failed to find the correct data in observed cases. WEB-2850
-    hierarchy_entries.first.hierarchy.resource.content_partner rescue (harvest_events.last.resource.content_partner rescue nil)
+    return @content_partner if @content_partner
+    @content_partner = data_objects_hierarchy_entries.first.hierarchy_entry.hierarchy.resource.content_partner rescue (harvest_events.last.resource.content_partner rescue nil)
   end
 
   # 'owner' chooses someone responsible for this data object in order of preference
@@ -585,7 +593,7 @@ class DataObject < SpeciesSchemaModel
     best_ado = agents_data_objects.find_all{|ado| ado.agent_role && ado.agent} if best_ado.blank?
     return nil if best_ado.blank?
     # TODO: optimize this, preload agents and users on DataObject or something
-    return best_ado.first.agent.full_name, User.find_by_agent_id(best_ado.first.agent.id)
+    return best_ado.first.agent.full_name, best_ado.first.agent.user
 
   end
 
@@ -615,7 +623,7 @@ class DataObject < SpeciesSchemaModel
   end
 
   def revisions
-    DataObject.find_all_by_guid(guid)
+    DataObject.find_all_by_guid_and_language_id(guid, language_id)
   end
 
   def visible_comments(user = nil)
@@ -691,7 +699,7 @@ class DataObject < SpeciesSchemaModel
     false
   end
 
-  def access_image_from_remote_server(size)
+  def access_image_from_remote_server?(size)
     return true if ['580_360', :orig].include?(size) && self.map_from_DiscoverLife?
     # we can add here other criterias for image to be hosted remotely
     false
@@ -701,11 +709,7 @@ class DataObject < SpeciesSchemaModel
     if self.is_video? || self.is_sound?
       return DataObject.image_cache_path(thumbnail_cache_url, size, specified_content_host)
     elsif has_object_cache_url?
-      if access_image_from_remote_server(size)
-        return self.object_url
-      else
-        return DataObject.image_cache_path(object_cache_url, size, specified_content_host)
-      end
+      return DataObject.image_cache_path(object_cache_url, size, specified_content_host)
     else
       return '#' # Really, this is an error, but we want to handle it pseudo-gracefully.
     end
@@ -764,7 +768,7 @@ class DataObject < SpeciesSchemaModel
       @taxon_concepts = taxon_concepts
     end
     if opts[:published]
-      published, unpublished = @taxon_concepts.partition {|item| TaxonConcept.find(item.id).published?}
+      published, unpublished = @taxon_concepts.partition {|item| item.published?}
       @taxon_concepts = (!published.empty? || opts[:published] == :strict) ? published : unpublished
     end
     @taxon_concepts
@@ -838,8 +842,19 @@ class DataObject < SpeciesSchemaModel
   
   # this method will be run on an instance of an object unlike the above methods. It is best to have preloaded
   # all_published_versions in order for this method to be efficient
-  def latest_published_version
-    all_published_versions.sort_by{ |d| d.id }.reverse.first rescue nil
+  def latest_published_version_in_same_language
+    return nil if all_published_versions.blank?
+    # if this object has a language, and its different from the revision language
+    all_published_versions.delete_if{ |d| self.language && d.language_id != self.language.id }
+    # if this object has no language, and the revision does
+    all_published_versions.delete_if{ |d| !self.language && d.language_id }
+    all_published_versions.sort_by{ |d| d.id }.reverse.first
+  end
+  
+  def is_latest_published_version_in_same_language?
+    return @is_latest_published_version unless @is_latest_published_version.nil?
+    the_latest = latest_published_version_in_same_language
+    @is_latest_published_version = (the_latest && the_latest.id == self.id) ? true : false
   end
 
   def self.tc_ids_from_do_ids(obj_ids)
@@ -985,19 +1000,19 @@ class DataObject < SpeciesSchemaModel
   # TODO - we need to make sure that the user_id of curated_dohe is added to the HE...
   def curated_hierarchy_entries
     dohes = data_objects_hierarchy_entries.map { |dohe|
-      he = dohe.hierarchy_entry
+      he = dohe.hierarchy_entry.dup
       if he
-        he.vetted_id = dohe.vetted_id
-        he.visibility_id = dohe.visibility_id
+        he.vetted = dohe.vetted
+        he.visibility = dohe.visibility
       end
       he
     }.compact
     cdohes = curated_data_objects_hierarchy_entries.map { |cdohe|
-      he = cdohe.hierarchy_entry
+      he = cdohe.hierarchy_entry.dup
       if he
         he.associated_by_curator = cdohe.user
-        he.vetted_id = cdohe.vetted_id
-        he.visibility_id = cdohe.visibility_id
+        he.vetted = cdohe.vetted
+        he.visibility = cdohe.visibility
       end
       he
     }.compact
@@ -1101,31 +1116,36 @@ class DataObject < SpeciesSchemaModel
   alias :translation_source :translated_from
 
   def available_translations_data_objects(current_user, taxon)
-    dobj_ids = []
-    if !translations.empty?
-      dobj_ids << id
+    latest_translations = []
+    # first checking if this is original, which will have translations
+    unless translations.blank?
+      latest_translations << self
       translations.each do |tr|
-        dobj_ids << tr.data_object.id
+        latest_translations << tr.data_object
       end
     else
-      org_tr = data_object_translation
-      if org_tr
-        org_dobj = org_tr.original_data_object
-        dobj_ids << org_dobj.id
-        org_dobj.translations.each do |tr|
-          dobj_ids << tr.data_object.id
+      # now checking if this is the translated form of some other original
+      if data_object_translation
+        original_data_object = data_object_translation.original_data_object
+        latest_translations << original_data_object
+        # including the other translations of the primary object
+        original_data_object.translations.each do |tr|
+          latest_translations << tr.data_object
         end
       end
     end
-    dobj_ids = dobj_ids.uniq
-    if !dobj_ids.empty? && dobj_ids.length>1
-      dobjs = DataObject.find_by_sql("SELECT do.* FROM data_objects do INNER JOIN languages l on (do.language_id = l.id) WHERE do.id in (#{dobj_ids.join(',')}) AND l.activated_on <= NOW() ORDER BY l.sort_order")
+    latest_translations.map!{ |d| d.latest_published_version_in_same_language }
+    latest_translations.compact!
+    latest_translations.uniq!
+    latest_translations.delete_if{ |d| d.language && !Language.approved_languages.include?(d.language) }
+    latest_translations.delete_if{ |d| !d.published? }
+    if latest_translations.length > 1
+      DataObject.sort_by_language_view_order_and_label(latest_translations)
       if !taxon.nil?
-        dobjs = DataObject.filter_list_for_user(dobjs, {:user => current_user, :taxon_concept => taxon})
+        dobjs = DataObject.filter_list_for_user(latest_translations, {:user => current_user, :taxon_concept => taxon})
       end
-      return dobjs
+      return latest_translations
     end
-    return nil
   end
 
 

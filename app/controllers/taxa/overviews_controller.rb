@@ -38,6 +38,12 @@ class Taxa::OverviewsController < TaxaController
 
     @media = promote_exemplar(@taxon_concept.images_from_solr(4, @selected_hierarchy_entry, true))
     DataObject.preload_associations(@media, :translations , :conditions => "data_object_translations.language_id=#{current_user.language_id}")
+    DataObject.preload_associations(@media, 
+      [ :users_data_object,
+        { :agents_data_objects => [ { :agent => :user }, :agent_role ] },
+        { :data_objects_hierarchy_entries => { :hierarchy_entry => [ { :name => :canonical_form }, :taxon_concept, :vetted, :visibility,
+          { :hierarchy => { :resource => :content_partner } } ] } },
+        { :curated_data_objects_hierarchy_entries => { :hierarchy_entry => [ :name, :taxon_concept, :vetted, :visibility ] } } ] )
     @watch_collection = logged_in? ? current_user.watch_collection : nil
     @assistive_section_header = I18n.t(:assistive_overview_header)
 

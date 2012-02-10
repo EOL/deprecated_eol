@@ -45,7 +45,7 @@
           = I18n.t(:user_commented_on_deleted_user, :user_with_link => name_with_link)
         - else
           - if item.parent_type == "DataObject"
-            - if DataObject.latest_published_version_of(item.parent_id).id != item.parent_id
+            - if item.parent.is_latest_published_version_in_same_language?
               = I18n.t(:user_commented_on_older_data_object_colon, :user => name_with_link, :what => I18n.t(:older_version_of_latest_published_data_object_link, :link => link_to(item.parent.summary_name, parent_link)))
             - else
               = I18n.t(:user_commented_on_something_colon, :user => name_with_link, :what => link_to(item.parent.summary_name, parent_link))
@@ -54,7 +54,7 @@
       - else
         - unless item.parent.nil?
           - if item.parent_type == "DataObject"
-            - if DataObject.latest_published_version_of(item.parent_id).id != item.parent_id
+            - if item.parent.is_latest_published_version_in_same_language?
               = I18n.t(:user_commented_on_older_data_object_colon, :user => name_with_link, :what => item.parent.summary_name)
             - else
               = I18n.t(:user_commented_on_something_colon, :user => name_with_link, :what => item.parent.summary_name)

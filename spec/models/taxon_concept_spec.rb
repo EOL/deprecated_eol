@@ -534,7 +534,7 @@ describe TaxonConcept do
     tc = TaxonConcept.gen
     col1 = Collection.gen
     col2 = Collection.gen
-    Collection.should_receive(:which_contain).with(tc).and_return([col1, col2])
+    tc.should_receive(:collections).and_return([col1, col2])
     col1.should_receive(:relevance).and_return(1)
     col2.should_receive(:relevance).and_return(2)
     tc.top_collections

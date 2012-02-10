@@ -38,7 +38,7 @@ class CreateNotifications < ActiveRecord::Migration
     end
 
     remove_column :users, :mailing_list
-    # TODO - Figure out how not to use it for content partners and remove it from users table. 
+    # TODO - Figure out how not to use it for content partners and remove it from users table.
     # Do the same for last_report_email
     # remove_column :users, :email_reports_frequency_hours
 

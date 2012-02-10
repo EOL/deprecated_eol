@@ -5,7 +5,7 @@
     .site_column
       .hgroup
         %h1<
-          - unless @latest_published_revision.id == @data_object.id
+          - unless @latest_published_revision.id == @data_object.id || @latest_published_revision.nil?
             - link =  link_to @latest_published_revision.best_title, data_object_path(@latest_published_revision)
             - if @latest_published_revision.id > @data_object.id
               = I18n.t(:older_version_of_latest_published_data_object_title_link, :link => link)

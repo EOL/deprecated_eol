@@ -12,11 +12,15 @@ class NotificationFrequency < ActiveRecord::Base
   end
 
   def self.daily
-    cached_find(:frequency, 'daily')
+    cached_find(:frequency, 'daily digest')
   end
 
   def self.immediately
-    cached_find(:frequency, 'immediately')
+    cached_find(:frequency, 'send immediately')
+  end
+
+  def self.weekly
+    cached_find(:frequency, 'weekly')
   end
 
   def translated_label

@@ -1,10 +1,8 @@
 class Collections::EditorsController < CollectionsController
 
+  skip_before_filter :user_able_to_edit_collection
+  skip_before_filter :build_collection_items
   before_filter :set_filter_to_editors
-  before_filter :find_collection
-  before_filter :prepare_show
-  before_filter :user_able_to_view_collection
-  before_filter :find_parent
 
   layout 'v2/collections'
 

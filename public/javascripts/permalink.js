@@ -1,7 +1,6 @@
 EOL.init_curation_behaviours = function() {
 
   (function($form) {
-    console.log('hi there');
     var actions = {
       trusted: function() {
         this.closest("fieldset").find("ul").hide()

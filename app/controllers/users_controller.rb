@@ -260,8 +260,8 @@ class UsersController < ApplicationController
   end
 
   def pending_notifications
-    @user = User.find(params[:id])
-    @notes = @user.pending_notifications
+    Periodically::Immediately.prepare_notifications
+    Periodically::Immediately.send_notifications
   end
 
 protected

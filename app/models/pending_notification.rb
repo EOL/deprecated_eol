@@ -4,6 +4,19 @@ class PendingNotification < ActiveRecord::Base
   belongs_to :target, :polymorphic => true # For the record, these should ONLY be activity_loggable classes.
 
   named_scope :unsent, :conditions => {:sent_at => nil}
-  named_scope :after, lambda { |t| {:conditions => ["created_at > ?", t ] } } # TODO -needed?
+  named_scope :daily, lambda { {:conditions => ["notification_frequency_id = ?", NotificationFrequency.daily ] } }
+  named_scope :immediately,
+    lambda { {:conditions => ["notification_frequency_id = ?", NotificationFrequency.immediately ] } }
+  named_scope :weekly, lambda { {:conditions => ["notification_frequency_id = ?", NotificationFrequency.weekly ] } }
+
+  def self.send_notifications(fqz)
+    notes_by_user_id = self.send(fqz).group_by(&:user_id)
+    notes_by_user_id.keys.each do |u_id|
+      user = User.find(u_id, :select => 'email') rescue nil # Don't much care if the user disappeared.
+      next unless user
+      Notifier.deliver_recent_activity(user, notes_by_user_id[u_id])
+      notes_by_user_id[u_id].each {|note| note.update_attribute(:sent_at, Time.now)} # Skips validations w/ _attribute
+    end
+  end
 
 end

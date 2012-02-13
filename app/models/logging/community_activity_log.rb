@@ -8,6 +8,8 @@ class CommunityActivityLog < LoggingModel
   belongs_to :member     # ONLY if it affected one
   belongs_to :collection # ONLY if it affected one
 
+  named_scope :notifications_not_prepared, :conditions => "notifications_prepared_at IS NULL"
+
   after_create :log_activity_in_solr
 
   def log_activity_in_solr
@@ -29,6 +31,10 @@ class CommunityActivityLog < LoggingModel
     # activity feed of community that was edited
     logs_affected['Community'] = [ self.community_id ]
     logs_affected
+  end
+
+  def notify_listeners
+    # TODO
   end
 
 end

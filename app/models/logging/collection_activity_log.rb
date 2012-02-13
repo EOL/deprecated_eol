@@ -7,6 +7,8 @@ class CollectionActivityLog < LoggingModel
   belongs_to :user # Who took the action
   belongs_to :activity # What happened
 
+  named_scope :notifications_not_prepared, :conditions => "notifications_prepared_at IS NULL"
+
   after_create :log_activity_in_solr
 
   def log_activity_in_solr
@@ -35,6 +37,10 @@ class CollectionActivityLog < LoggingModel
       logs_affected['Collection'] << c.id
     end
     logs_affected
+  end
+
+  def notify_listeners
+    # TODO
   end
 
 end

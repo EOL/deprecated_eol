@@ -1,9 +1,1 @@
-%ul
-  - @notes.each do |note|
-    %li= "Received comment \"#{note.target.body}\" because it was #{note.reason}"
-%p= "Might look like this:"
-.article.list.updates
-  - log = @notes.map {|n| {'instance' => n.target}}
-  .header
-    %h3= "Activity You Want To Know About:"
-  = render(:partial => 'activity_logs/index', :locals => {:log => log, :hide_pagination => true})
+Notifications should have been sent.

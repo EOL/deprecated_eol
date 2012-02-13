@@ -3,6 +3,13 @@ class Notifier < ActionMailer::Base
 
   @@test_recipient = "junk@example.com" # testing only if needed
 
+  def recent_activity(user, notes)
+    subject     I18n.t(:subject, :scope => [:notifier, :recent_activity])
+    recipients  user.email
+    from        $SUPPORT_EMAIL_ADDRESS
+    body        :notes => notes
+  end
+
   def curator_approved(user)
     subject     I18n.t(:subject, :curator_level => user.curator_level.label, :scope => [:notifier, :curator_approved])
     recipients  user.email

@@ -17,6 +17,8 @@ class CuratorActivityLog < LoggingModel
   belongs_to :synonym, :foreign_key => :object_id
   belongs_to :affected_comment, :foreign_key => :object_id, :class_name => Comment.to_s
 
+  named_scope :notifications_not_prepared, :conditions => "notifications_prepared_at IS NULL"
+
   validates_presence_of :user_id, :changeable_object_type_id, :activity_id, :created_at
 
   after_create :log_activity_in_solr
@@ -125,7 +127,7 @@ class CuratorActivityLog < LoggingModel
                                            Activity.trust_common_name.id, Activity.unreview_common_name.id,
                                            Activity.untrust_common_name.id, Activity.inappropriate_common_name.id],
       ChangeableObjectType.data_objects_hierarchy_entry.id => curation_activities,
-      ChangeableObjectType.curated_data_objects_hierarchy_entry.id => curation_activities + [ Activity.add_association.id, 
+      ChangeableObjectType.curated_data_objects_hierarchy_entry.id => curation_activities + [ Activity.add_association.id,
                                                                                               Activity.remove_association.id ],
       ChangeableObjectType.users_data_object.id => curation_activities
     }
@@ -162,7 +164,7 @@ class CuratorActivityLog < LoggingModel
 
     # action on a data object
     elsif [ ChangeableObjectType.data_object.id, ChangeableObjectType.data_objects_hierarchy_entry.id,
-            ChangeableObjectType.curated_data_objects_hierarchy_entry.id, ChangeableObjectType.users_data_object.id   
+            ChangeableObjectType.curated_data_objects_hierarchy_entry.id, ChangeableObjectType.users_data_object.id
             ].include?(self.changeable_object_type_id)
       logs_affected['DataObject'] = [ self.object_id ]
       self.data_object.curated_hierarchy_entries.each do |he|
@@ -178,4 +180,9 @@ class CuratorActivityLog < LoggingModel
     end
     logs_affected
   end
+
+  def notify_listeners
+    # TODO
+  end
+
 end

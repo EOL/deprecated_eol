@@ -315,8 +315,9 @@ private
     if self.parent.respond_to?(:containing_collections)
       self.parent.containing_collections.watch.each do |collection|
         # NOTE - this is assuming that there is only one user in #users, since it's a watch list:
-        if fqz = collection.users.first.listening_to?(:comment_on_my_watched_item)
-          PendingNotification.create(:user => collection.user, :notification_frequency => fqz, :target => self,
+        user = collection.users.first
+        if fqz = user.listening_to?(:comment_on_my_watched_item)
+          PendingNotification.create(:user => user, :notification_frequency => fqz, :target => self,
                                      :reason => 'comment_on_my_watched_item')
         end
       end

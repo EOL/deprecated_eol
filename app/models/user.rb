@@ -867,6 +867,14 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     return fqz
   end
 
+  def unsent_notifications
+    if notification.last_notification_sent_at
+      pending_notifications.unsent.after(notification.last_notification_sent_at)
+    else
+      pending_notifications.unsent
+    end
+  end
+
 private
 
   # set the defaults on this user object

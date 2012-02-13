@@ -259,6 +259,11 @@ class UsersController < ApplicationController
     render :text => usernames.to_json
   end
 
+  def pending_notifications
+    @user = User.find(params[:id])
+    @notes = @user.pending_notifications
+  end
+
 protected
 
   def scoped_variables_for_translations

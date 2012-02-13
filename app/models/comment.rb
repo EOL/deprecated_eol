@@ -284,7 +284,7 @@ private
   # Find users who are "listening" to this comment and queue a pending notification for them:
   def notify_listeners
     # those who are listening to direct replies to comments they made,
-    if self.reply_is_comment? && fqz = self.reply_to.user.listening_to?(:reply_to_comment)
+    if reply_is_comment? && fqz = self.reply_to.user.listening_to?(:reply_to_comment)
       PendingNotification.create(:user => self.reply_to.user, :notification_frequency => fqz, :target => self,
                                  :reason => 'reply_to_comment')
     end
@@ -296,33 +296,38 @@ private
     # ...or collections that people manage
     if self.parent_type == 'Collection'
       self.parent.managers.each do |manager|
-        fqz = manager.listening_to?(:comment_on_my_collection)
-        PendingNotification.create(:user => manager, :notification_frequency => fqz, :target => self,
-                                   :reason => 'comment_on_my_collection')
+        if fqz = manager.listening_to?(:comment_on_my_collection)
+          PendingNotification.create(:user => manager, :notification_frequency => fqz, :target => self,
+                                     :reason => 'comment_on_my_collection')
+        end
       end
     end
     # ...or communities that people manage
     if self.parent_type == 'Community'
       self.parent.managers_as_users.each do |manager|
-        fqz = manager.listening_to?(:comment_on_my_community)
-        PendingNotification.create(:user => manager, :notification_frequency => fqz, :target => self,
-                                   :reason => 'comment_on_my_community')
+        if fqz = manager.listening_to?(:comment_on_my_community)
+          PendingNotification.create(:user => manager, :notification_frequency => fqz, :target => self,
+                                     :reason => 'comment_on_my_community')
+        end
       end
     end
     # ...comments on collection items from watchlists
     if self.parent.respond_to?(:containing_collections)
       self.parent.containing_collections.watch.each do |collection|
-        fqz = collection.user.listening_to?(:comment_on_my_watched_item)
-        PendingNotification.create(:user => collection.user, :notification_frequency => fqz, :target => self,
-                                   :reason => 'comment_on_my_watched_item')
+        # NOTE - this is assuming that there is only one user in #users, since it's a watch list:
+        if fqz = collection.users.first.listening_to?(:comment_on_my_watched_item)
+          PendingNotification.create(:user => collection.user, :notification_frequency => fqz, :target => self,
+                                     :reason => 'comment_on_my_watched_item')
+        end
       end
     end
     # ...or on "contributions that people made" (UDOs... data objects of CPs...)
     if self.parent_type == 'DataObject'
       user = self.parent.contributing_user
-      fqz = user.listening_to?(:comment_on_my_contribution)
-      PendingNotification.create(:user => user, :notification_frequency => fqz, :target => self,
-                                 :reason => 'comment_on_my_contribution')
+      if fqz = user.listening_to?(:comment_on_my_contribution)
+        PendingNotification.create(:user => user, :notification_frequency => fqz, :target => self,
+                                   :reason => 'comment_on_my_contribution')
+      end
     end
   end
 

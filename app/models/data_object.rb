@@ -842,13 +842,18 @@ class DataObject < SpeciesSchemaModel
   
   # this method will be run on an instance of an object unlike the above methods. It is best to have preloaded
   # all_published_versions in order for this method to be efficient
+  # NOTE: English is basically the default language in the DB and we have cases where some revisions have
+  # a language == English, but other revisions have a language_id of 0. That explains some
+  # of the complicated logic in this method
   def latest_published_version_in_same_language
     return nil if all_published_versions.blank?
-    # if this object has a language, and its different from the revision language
-    all_published_versions.delete_if{ |d| self.language && d.language_id != self.language.id }
-    # if this object has no language, and the revision does
-    all_published_versions.delete_if{ |d| !self.language && d.language_id }
-    all_published_versions.sort_by{ |d| d.id }.reverse.first
+    all_published_versions_in_language = all_published_versions.dup
+    # if this object has a language, and its different from the revision language,
+    # except when this is English and the other has no language
+    all_published_versions_in_language.delete_if{ |d| self.language && (d.language_id != self.language.id && !(d.language_id == 0 && self.language == Language.english)) }
+    # if this object has no language, and the revision does have a language other than English
+    all_published_versions_in_language.delete_if{ |d| !self.language && d.language && d.language != Language.english }
+    all_published_versions_in_language.sort_by{ |d| d.id }.reverse.first
   end
   
   def is_latest_published_version_in_same_language?
@@ -999,17 +1004,15 @@ class DataObject < SpeciesSchemaModel
 
   # TODO - we need to make sure that the user_id of curated_dohe is added to the HE...
   def curated_hierarchy_entries
-    dohes = data_objects_hierarchy_entries.map { |dohe|
-      he = dohe.hierarchy_entry.dup
-      if he
+    dohes = data_objects_hierarchy_entries.compact.map { |dohe|
+      if dohe.hierarchy_entry && he = dohe.hierarchy_entry.dup
         he.vetted = dohe.vetted
         he.visibility = dohe.visibility
       end
       he
     }.compact
-    cdohes = curated_data_objects_hierarchy_entries.map { |cdohe|
-      he = cdohe.hierarchy_entry.dup
-      if he
+    cdohes = curated_data_objects_hierarchy_entries.compact.map { |cdohe|
+      if cdohe.hierarchy_entry && he = cdohe.hierarchy_entry.dup
         he.associated_by_curator = cdohe.user
         he.vetted = cdohe.vetted
         he.visibility = cdohe.visibility

@@ -17,6 +17,13 @@ class CollectionsController < ApplicationController
 
   def show
     return copy_items_and_redirect(@collection, [current_user.watch_collection]) if params[:commit_collect]
+    if @collection_results && @collection_results.is_a?(WillPaginate::Collection)
+      @rel_canonical_href = collection_url(@collection, :page => rel_canonical_href_page_number(@collection_results))
+      @rel_prev_href = rel_prev_href_params(@collection_results) ? collection_url(@rel_prev_href_params) : nil
+      @rel_next_href = rel_next_href_params(@collection_results) ? collection_url(@rel_next_href_params) : nil
+    else
+      @rel_canonical_href = collection_url(@collection)
+    end
   end
 
   def get_collection_objects(collection_ids)
@@ -169,18 +176,18 @@ class CollectionsController < ApplicationController
   end
 
 protected
+
   def scoped_variables_for_translations
-    return @scoped_variables_for_translations unless @scoped_variables_for_translations.nil?
-    @scoped_variables_for_translations = super
-    @scoped_variables_for_translations.merge!({
+    @scoped_variables_for_translations ||= super.dup.merge({
       :collection_name => @collection ? Sanitize.clean(@collection.name) : nil,
-      :collection_description => @collection ? Sanitize.clean(@collection.description) : nil
-    })
-    @scoped_variables_for_translations[:collection_description] = I18n.t(:collection_description_default) if @scoped_variables_for_translations[:collection_description].blank?
-    @scoped_variables_for_translations
+      :collection_description => (@collection && sanitized_description = Sanitize.clean(@collection.description).presence) ?
+        sanitized_description : I18n.t(:collection_description_default)
+    }).freeze
   end
+
   def meta_open_graph_image_url
-    @collection ? view_helper_methods.image_url(@collection.logo_url('large', $SINGLE_DOMAIN_CONTENT_SERVER)) : nil
+    @meta_open_graph_image_url ||= @collection ?
+      view_helper_methods.image_url(@collection.logo_url('large', $SINGLE_DOMAIN_CONTENT_SERVER)) : nil
   end
 
 private
@@ -217,7 +224,7 @@ private
     # NOTE - you still need these counts on the Update page:
     @facet_counts = EOL::Solr::CollectionItems.get_facet_counts(@collection.id)
   end
-  
+
   # we don't need the collection items on the update page
   def build_collection_items
     @per_page = @view_as.max_items_per_page || 50

@@ -14,6 +14,13 @@ class SearchController < ApplicationController
     @params_type.map!{ |t| t.camelize }
     @querystring = params[:q] || params[:id] || params[:mobile_search]
 
+    # To get consistent internal pagination links for SEO, we need to replace params[:id] with params[:q]
+    # TODO: We probably wouldn't have to do this if we made our search routes more consistent.
+    if params[:id]
+      params["q"] = params["id"]
+      params.delete("id")
+    end
+
     if @querystring == I18n.t(:search_placeholder) || @querystring == I18n.t(:must_provide_search_term_error)
       flash[:error] = I18n.t(:must_provide_search_term_error)
       redirect_to root_path
@@ -52,6 +59,11 @@ class SearchController < ApplicationController
     end
     params.delete(:type) if params[:type] == ['all']
     params.delete(:sort_by) if params[:sort_by] == 'score'
+
+    @rel_canonical_href = search_q_url({:q => @querystring, :show_all => true,
+      :page => rel_canonical_href_page_number(@all_results)})
+    @rel_prev_href = rel_prev_href_params(@all_results) ? search_q_url(@rel_prev_href_params) : nil
+    @rel_next_href = rel_next_href_params(@all_results) ? search_q_url(@rel_next_href_params) : nil
   end
 
   # there are various object types which can be the only result. This method handles redirecting to all of them

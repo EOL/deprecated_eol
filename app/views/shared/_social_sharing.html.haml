@@ -1,7 +1,7 @@
 - # Social sharing buttons e.g. Facebook Like
 - # NOTE: ASSUMES ONLY ONE BUTTON PER PAGE
 - unless $ENABLED_SOCIAL_PLUGINS.blank?
-  = content_for :head do
+  = content_for :head_meta do
     - # We only define OpenGraph meta tags if we have social sharing buttons on the page
     - # @see http://developers.facebook.com/docs/opengraph/
     - # TODO: Define custom object types for biodiversity namespaces e.g. species?

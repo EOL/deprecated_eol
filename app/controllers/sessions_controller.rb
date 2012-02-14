@@ -7,6 +7,7 @@ class SessionsController < ApplicationController
 
   # GET /sessions/new or named route /login
   def new
+    @rel_canonical_href = login_url
   end
 
   # POST /sessions

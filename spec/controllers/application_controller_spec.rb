@@ -14,4 +14,28 @@ describe ApplicationController do
     @controller.view_helper_methods.send(:hh, @taxon_name).should == @taxon_name_with_amp
   end
 
+  it "should define controller action scope for translations" do
+    @controller.send(:controller_action_scope).should be_a(Array)
+  end
+
+  it "should define generic parameters for translations" do
+    @controller.send(:scoped_variables_for_translations).should be_a(Hash)
+  end
+
+  it "should define default meta data values" do
+    @controller.send(:meta_data).should be_a(Hash)
+  end
+
+  it "should define default open graph tag values" do
+    @controller.send(:meta_open_graph_data).should be_a(Hash)
+  end
+
+  it "should define default tweet data values" do
+    @controller.send(:tweet_data).should be_a(Hash)
+  end
+
+  it "should store a copy of the original unmodified request params" do
+    @controller.send(:original_request_params).should be_a(Hash)
+  end
+
 end

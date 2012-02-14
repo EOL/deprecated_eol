@@ -7,6 +7,7 @@ class Communities::CollectionsController < CommunitiesController
 
   def index
     # TODO: Sort endorsed collections param[:sort_by] :oldest or :newest
+    @rel_canonical_href = community_collections_url(@community)
   end
 
 end

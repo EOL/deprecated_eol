@@ -47,10 +47,10 @@ describe "Collections and collecting:" do
     SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE).delete_all_documents
     DataObject.all.each{ |d| d.update_solr_index }
   end
-  
+
   after(:all) do
   end
-  
+
   shared_examples_for 'collections all users' do
     it 'should be able to view a collection and its items' do
       visit collection_path(@collection)
@@ -67,6 +67,7 @@ describe "Collections and collecting:" do
       visit collection_path(@collection)
       body.should have_tag('#view_as')
     end
+
   end
 
   shared_examples_for 'collecting all users' do
@@ -203,7 +204,7 @@ describe "Collections and collecting:" do
       end
     end
   end
-  
+
   it "should always link collected objects to their latest published versions" do
     @original_index_records_on_save_value = $INDEX_RECORDS_IN_SOLR_ON_SAVE
     $INDEX_RECORDS_IN_SOLR_ON_SAVE = true
@@ -216,24 +217,24 @@ describe "Collections and collecting:" do
     collectable_data_object = @taxon.images_from_solr.first
     collectable_data_object.object_title = "Current data object"
     collectable_data_object.save
-    
+
     # first time visiting - collected image should show up
     visit collection_path(@anon_user.watch_collection)
     body.should have_tag('ul.object_list li', /#{collectable_data_object.object_title}/)
-    
+
     # the image will unpublished, but there are no newer versions, so it will still show up
     collectable_data_object.published = 0
     collectable_data_object.save
     visit collection_path(@anon_user.watch_collection)
     body.should have_tag('ul.object_list li', /#{collectable_data_object.object_title}/)
-    
+
     # the image is still unpublished, but there's a newer version. We should see the new version in the collection
     newer_version_collected_data_object = DataObject.gen(:guid => @taxon.images_from_solr.first.guid,
       :object_title => "Latest published version", :published => true, :created_at => Time.now )
     visit collection_path(@anon_user.watch_collection)
     body.should have_tag('ul.object_list li', /#{newer_version_collected_data_object.object_title}/)
     body.should_not have_tag('ul.object_list li', /#{collectable_data_object.object_title}/)
-    
+
     # the original image is published again, but this time we still see the newest version as we
     # always show the latest version of an object. This is a rare case where there are two published versions
     # of the same object, which technically shouldn't happen in production
@@ -242,35 +243,35 @@ describe "Collections and collecting:" do
     visit collection_path(@anon_user.watch_collection)
     body.should have_tag('ul.object_list li', /#{newer_version_collected_data_object.object_title}/)
     body.should_not have_tag('ul.object_list li', /#{collectable_data_object.object_title}/)
-    
+
     # finally, with each version published, we should not be able to add the latest version into our collection
     # as the collection already contains a version of this objects
     visit data_object_path(newer_version_collected_data_object)
     click_link 'Add to a collection'
     current_url.should match /#{choose_collect_target_collections_path}/
     body.should have_tag('li', /in collection/)
-    
+
     # and deleting the first version from the collection will allow the new one to be added
     @anon_user.watch_collection.collection_items[0].destroy
     visit data_object_path(newer_version_collected_data_object)
     click_link 'Add to a collection'
     current_url.should match /#{choose_collect_target_collections_path}/
     body.should_not have_tag('li', /in collection/)
-    
-    
+
+
     newer_version_collected_data_object.destroy
     $INDEX_RECORDS_IN_SOLR_ON_SAVE = @original_index_records_on_save_value
   end
-  
-  it "collections should respect the max_items_per_page value of their ViewStyles" do
+
+  it "collections should respect the max_items_per_page value of their ViewStyles and have appropriate rel link tags" do
     @original_index_records_on_save_value = $INDEX_RECORDS_IN_SOLR_ON_SAVE
     $INDEX_RECORDS_IN_SOLR_ON_SAVE = true
-    
+
     collection_owner = User.gen(:password => 'somenewpassword')
     collection = collection_owner.watch_collection
     collection.view_style = ViewStyle.first
     collection.save
-    
+
     # adding 7 items in the collection
     collection.add DataObject.gen
     collection.add DataObject.gen
@@ -279,18 +280,36 @@ describe "Collections and collecting:" do
     collection.add DataObject.gen
     collection.add DataObject.gen
     collection.add DataObject.gen
-    
+
     # setting the collection's view style to one that allows 2 items per page
     TranslatedViewStyle.reset_cached_instances
     ViewStyle.reset_cached_instances
     v = ViewStyle.first
     v.max_items_per_page = 2
     v.save
-    visit collection_path(collection_owner.watch_collection)
+    visit collection_path(collection)
     # there should be exactly 4 pages when we have a max_items_per_page of 2
     body.should match(/href="\/collections\/#{collection.id}\?page=4/)
     body.should_not match(/href="\/collections\/#{collection.id}\?page=5/)
-    
+
+    # on page 1 rel canonical should not include page number;  rel prev should not exist; rel next is page 2; title should not include page
+    body.should have_tag('link[rel=canonical][href=?]', collection_url(collection))
+    body.should_not have_tag('link[rel=prev]')
+    body.should have_tag('link[rel=next][href=?]', /http:\/\/.*?\/collections\/#{collection.id}.*?page=2/)
+    body.should_not have_tag('title', /page 1/i)
+    # on page 2 rel canonical should include page 2; rel prev should be page 1; rel next should be page 3; title should include page
+    visit collection_path(collection, :page => 2)
+    body.should have_tag('link[rel=canonical][href=?]', collection_url(collection_owner.watch_collection, :page => 2))
+    body.should have_tag('link[rel=prev][href=?]', /http:\/\/.*?\/collections\/#{collection.id}.*?page=1/)
+    body.should have_tag('link[rel=next][href=?]', /http:\/\/.*?\/collections\/#{collection.id}.*?page=3/)
+    body.should have_tag('title', / - page 2/i)
+    # on last page there should be no rel next
+    visit collection_path(collection, :page => 4)
+    body.should have_tag('link[rel=canonical][href=?]', collection_url(collection_owner.watch_collection, :page => 4))
+    body.should have_tag('link[rel=prev][href=?]', /http:\/\/.*?\/collections\/#{collection.id}.*?page=3/)
+    body.should_not have_tag('link[rel=next]')
+    body.should have_tag('title', / - page 4/i)
+
     TranslatedViewStyle.reset_cached_instances
     ViewStyle.reset_cached_instances
     v = ViewStyle.first
@@ -300,11 +319,27 @@ describe "Collections and collecting:" do
     # there should be exactly 2 pages when we have a max_items_per_page of 4
     body.should match(/href="\/collections\/#{collection.id}\?page=2/)
     body.should_not match(/href="\/collections\/#{collection.id}\?page=3/)
-    
+
     $INDEX_RECORDS_IN_SOLR_ON_SAVE = @original_index_records_on_save_value
   end
-  
-  
+
+
+  it 'collection newsfeed should have rel canonical link tag' do
+    false
+  end
+  it 'collection newsfeed should have prev and next link tags if relevant' do
+    false
+  end
+  it 'collection newsfeed should append page number to head title if relevant' do
+    false
+  end
+  it 'collection editors should have rel canonical link tag' do
+    false
+  end
+  it 'collection editors should not have prev and next link tags' do
+    false
+  end
+
 end
 
 
@@ -413,7 +448,6 @@ describe "Preview Collections" do
     admin = User.gen(:admin => true)
     login_as admin
     visit collection_path(@collection)
-    # debugger
     body.should have_tag('h1', /#{@collection.name}/)
     body.should have_tag('ul.object_list li', /#{@collection.collection_items.first.object.best_title}/)
     visit logout_path

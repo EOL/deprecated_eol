@@ -647,6 +647,9 @@ en:
     user_verification:
       subject: "Please verify your request for an Encyclopedia of Life account"
       message: "Thanks for registering with the Encyclopedia of Life. The following link will verify that you wish to complete your registration:\n\n%{verification_url}\n\nFollow this link ('click' on it or copy and paste the entire link into your Web browser's address bar and load it) to activate your account. Once your account has been activated you will receive a confirmation email message."
+  sessions:
+    new:
+      meta_title: "Login"
   taxa:
     communities:
       index:
@@ -732,8 +735,8 @@ en:
           meta_description: ""
           meta_description_with_common_name: ""
           meta_keywords: ""
-          meta_title: ""
-          meta_title_with_common_name: ""
+          meta_title: "Literature on %{scientific_name} as classified by %{hierarchy_provider}"
+          meta_title_with_common_name: "Books on %{preferred_common_name} (%{scientific_name} as classified by %{hierarchy_provider})"
           tweet_text: "Literature on %{scientific_name} as classified by %{hierarchy_provider}"
         meta_description: "Literature and information on %{scientific_name} in the Encyclopedia of Life. Read articles about %{scientific_name} at the Encyclopedia of Life."
         meta_description_with_common_name: "Literature and information on %{preferred_common_name} also known as %{scientific_name} in the Encyclopedia of Life. Read articles about %{preferred_common_name} at the Encyclopedia of Life."
@@ -877,9 +880,9 @@ en:
           meta_description: ""
           meta_description_with_common_name: ""
           meta_keywords: ""
-          meta_title: ""
-          meta_title_with_common_name: ""
-          tweet_text: "Education resources for %{scientific_name} as classified by %{hierarchy_provider}"
+          meta_title: "Learning tools for %{scientific_name} as classified by %{hierarchy_provider}"
+          meta_title_with_common_name: "Learning tools for %{preferred_common_name} (%{scientific_name} as classified by %{hierarchy_provider})"
+          tweet_text: "Learning tools for %{scientific_name} as classified by %{hierarchy_provider}"
         meta_description: ""
         meta_description_with_common_name: ""
         meta_keywords: ""
@@ -923,9 +926,9 @@ en:
           meta_description: ""
           meta_description_with_common_name: ""
           meta_keywords: ""
-          meta_title: ""
-          meta_title_with_common_name: ""
-          tweet_text: "Comments on %{scientific_name} as classified by %{hierarchy_provider}"
+          meta_title: "Updates for %{scientific_name} as classified by %{hierarchy_provider}"
+          meta_title_with_common_name: "Updates for %{preferred_common_name} (%{scientific_name} as classified by %{hierarchy_provider})"
+          tweet_text: "Updates for %{scientific_name} as classified by %{hierarchy_provider}"
         meta_description: "News and updates on %{scientific_name}."
         meta_description_with_common_name: "News on %{preferred_common_name} and updates on %{scientific_name}."
         meta_keywords: "%{scientific_name} news, %{scientific_name} updates"
@@ -938,8 +941,8 @@ en:
           meta_description: ""
           meta_description_with_common_name: ""
           meta_keywords: ""
-          meta_title: ""
-          meta_title_with_common_name: ""
+          meta_title: "Statistics for %{scientific_name} as classified by %{hierarchy_provider}"
+          meta_title_with_common_name: "Statistics for %{preferred_common_name} (%{scientific_name} as classified by %{hierarchy_provider})"
           tweet_text: "Richness score for %{scientific_name} as classified by %{hierarchy_provider}"
         meta_description: "Statistics and data for %{scientific_name} at the Encyclopedia of Life."
         meta_description_with_common_name: "Statistics and data for %{preferred_common_name} also known as %{scientific_name} at the Encyclopedia of Life."
@@ -2428,6 +2431,7 @@ en:
   pages_curator_section_link: "Curators"
   pages_admin_section_link: "Admins"
   pages_method_description: "takes an EOL page identifier and returns the scientific  name for that page, and optionally returns information about common  names, media (text, images and videos), and references to the  hierarchies which recognize the taxon described on the"
+  pagination_page_number: "Page %{number}"
   pagination_next: "Next"
   pagination_next_with_count:
     one: "see next %{count}"

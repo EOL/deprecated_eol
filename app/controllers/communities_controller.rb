@@ -8,14 +8,16 @@ class CommunitiesController < ApplicationController
   before_filter :must_be_logged_in, :except => [:index, :show]
   before_filter :restrict_edit, :only => [:edit, :update, :delete]
 
+  # TODO: is this action being used, if not we should probably delete it along with it's view.
   def index
     @communities = Community.paginate(:page => params[:page])
     respond_to do |format|
-      format.html # index.html.erb
+      # format.html # index.html.erb
       format.xml  { render :xml => @communities }
     end
   end
 
+  # TODO: are we using the XML format here? If not we're needlessly loading @community
   def show
     respond_to do |format|
       format.html { redirect_to(community_newsfeed_path(params[:id] || params[:community_id]), :status => :moved_permanently) }
@@ -219,18 +221,18 @@ class CommunitiesController < ApplicationController
   end
 
 protected
+
   def scoped_variables_for_translations
-    return @scoped_variables_for_translations unless @scoped_variables_for_translations.nil?
-    @scoped_variables_for_translations = super
-    @scoped_variables_for_translations.merge!({
+    @scoped_variables_for_translations ||= super.dup.merge({
       :community_name => @community ? Sanitize.clean(@community.name) : nil,
-      :community_description => @community ? Sanitize.clean(@community.description) : nil
-    })
-    @scoped_variables_for_translations[:community_description] = I18n.t(:community_description_default) if @scoped_variables_for_translations[:community_description].blank?
-    @scoped_variables_for_translations
+      :community_description => (@community && sanitized_description = Sanitize.clean(@community.description).presence) ?
+        sanitized_description : I18n.t(:community_description_default)
+    }).freeze
   end
+
   def meta_open_graph_image_url
-    @community ? view_helper_methods.image_url(@community.logo_url('large', $SINGLE_DOMAIN_CONTENT_SERVER)) : nil
+    @meta_open_graph_image_url ||= @community ?
+      view_helper_methods.image_url(@community.logo_url('large', $SINGLE_DOMAIN_CONTENT_SERVER)) : nil
   end
 
 private

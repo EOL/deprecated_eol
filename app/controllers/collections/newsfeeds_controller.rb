@@ -7,6 +7,9 @@ class Collections::NewsfeedsController < CollectionsController
   layout 'v2/collections'
 
   def show
+    @rel_canonical_href = collection_newsfeed_url(@collection, :page => rel_canonical_href_page_number(@collection.activity_log))
+    @rel_prev_href = rel_prev_href_params(@collection.activity_log) ? collection_newsfeed_url(@rel_prev_href_params) : nil
+    @rel_next_href = rel_next_href_params(@collection.activity_log) ? collection_newsfeed_url(@rel_next_href_params) : nil
   end
 
 private

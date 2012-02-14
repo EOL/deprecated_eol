@@ -1,0 +1,37 @@
+= render :partial => 'menu'
+#content_partners.main_container
+  .copy
+    %h2= I18n.t(:admin_statistics_content_partner_header)
+  - form_tag({}, :method => :get) do
+    %fieldset.actions.download
+      = submit_tag I18n.t(:admin_content_partners_statistics_first_published_download_csv_submit),
+        :name => :commit_download_csv
+      %input{:type => 'checkbox', :name => 'all_records'}
+      %input{:type => 'hidden', :name => 'report', :value => 'content_partners'}
+      = I18n.t('all_title')
+      %input{:type => 'hidden', :name => 'page', :value => params[:page]}
+= will_paginate @stats, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next)
+%table.standard
+  %caption
+  %thead
+    %tr
+      %th= I18n.t('activerecord.attributes.eol_statistic.content_partners')
+      %th= I18n.t('activerecord.attributes.eol_statistic.content_partners_with_published_resources')
+      %th= I18n.t('activerecord.attributes.eol_statistic.content_partners_with_published_trusted_resources')
+      %th= I18n.t('activerecord.attributes.eol_statistic.published_resources')
+      %th= I18n.t('activerecord.attributes.eol_statistic.published_trusted_resources')
+      %th= I18n.t('activerecord.attributes.eol_statistic.published_unreviewed_resources')
+      %th= I18n.t('activerecord.attributes.eol_statistic.newly_published_resources_in_the_last_30_days')
+      %th= I18n.t('created_at')
+  %tbody
+    - @stats.each do |s|
+      %tr
+        %td{:align => 'right'}= number_with_delimiter(s.content_partners)
+        %td{:align => 'right'}= number_with_delimiter(s.content_partners_with_published_resources)
+        %td{:align => 'right'}= number_with_delimiter(s.content_partners_with_published_trusted_resources)
+        %td{:align => 'right'}= number_with_delimiter(s.published_resources)
+        %td{:align => 'right'}= number_with_delimiter(s.published_trusted_resources)
+        %td{:align => 'right'}= number_with_delimiter(s.published_unreviewed_resources)
+        %td{:align => 'right'}= number_with_delimiter(s.newly_published_resources_in_the_last_30_days)
+        %td= s.created_at.strftime("%Y-%m-%d")
+= will_paginate @stats, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next)

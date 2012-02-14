@@ -1,0 +1,10 @@
+#tabs_sidebar
+  %ul.tabs
+    %li{:class => resource_is_active('admins/statistics', 'index')}= link_to I18n.t(:admin_statistics_overall_stat_link), admin_statistics_path
+    %li{:class => resource_is_active('admins/statistics', 'content_partner')}= link_to I18n.t(:admin_statistics_content_partner_link), content_partner_admin_statistics_path
+    %li{:class => resource_is_active('admins/statistics', 'data_object')}= link_to I18n.t(:admin_statistics_data_object_link), data_object_admin_statistics_path
+    %li{:class => resource_is_active('admins/statistics', 'curator')}= link_to I18n.t(:admin_statistics_curator_link), curator_admin_statistics_path
+    %li{:class => resource_is_active('admins/statistics', 'rich_page')}= link_to I18n.t(:admin_statistics_rich_page_link), rich_page_admin_statistics_path
+    %li{:class => resource_is_active('admins/statistics', 'marine_stat')}= link_to I18n.t(:admin_statistics_marine_link), marine_stat_admin_statistics_path
+    %li{:class => resource_is_active('admins/statistics', 'user_added_text')}= link_to I18n.t(:admin_statistics_user_added_text_link), user_added_text_admin_statistics_path
+    %li{:class => resource_is_active('admins/statistics', 'lifedesk')}= link_to I18n.t(:admin_statistics_lifedesk_link), lifedesk_admin_statistics_path

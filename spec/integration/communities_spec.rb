@@ -35,19 +35,16 @@ describe "Communities" do
     context 'visiting show community' do
       before(:all) { visit community_path(@test_data[:community]) }
       subject { body }
+
+      it 'should have rel canonical link tag' do
+        should have_tag('link[rel=canonical][href=?]', community_newsfeed_url(@test_data[:community]))
+      end
+      it 'should have rel prev and next link tags when appropriate'
+
       it 'should show the community name and description' do
         should have_tag('h1', /#{@test_data[:community].name}/)
         should have_tag('#page_heading', /#{@test_data[:community].description}/)
       end
-
-      it 'should link to all of the community members'
-# maybe but not on default show tab
-#        body.should have_tag("ul#community_members") do
-#          @test_data[:community].members.each do |member|
-#            user = member.user
-#            with_tag("a[href=#{user_path(user)}]", :text => user.username)
-#          end
-#        end
 
       it 'should show the collections the community is focused upon' do
         body.should have_tag('#sidebar') do
@@ -56,6 +53,22 @@ describe "Communities" do
           end
         end
       end
+    end
+
+    context 'visiting community members' do
+      before(:all) { visit community_members_path(@test_data[:community]) }
+      subject { body }
+
+      it 'should have rel canonical link tag' do
+        should have_tag('link[rel=canonical][href=?]', community_members_url(@test_data[:community]))
+      end
+      it 'should link to all of the community members'
+#        body.should have_tag("ul#community_members") do
+#          @test_data[:community].members.each do |member|
+#            user = member.user
+#            with_tag("a[href=#{user_path(user)}]", :text => user.username)
+#          end
+#        end
     end
   end
 
@@ -216,4 +229,5 @@ describe "Communities" do
       end
     end
   end
+
 end

@@ -1,0 +1,31 @@
+= render :partial => 'menu'
+#content_partners.main_container
+  .copy
+    %h2= I18n.t(:admin_statistics_user_added_text_header)
+  - form_tag({}, :method => :get) do
+    %fieldset.actions.download
+      = submit_tag I18n.t(:admin_content_partners_statistics_first_published_download_csv_submit),
+        :name => :commit_download_csv
+      %input{:type => 'checkbox', :name => 'all_records'}
+      %input{:type => 'hidden', :name => 'report', :value => 'user_added_texts'}
+      = I18n.t('all_title')
+      %input{:type => 'hidden', :name => 'page', :value => params[:page]}
+  = will_paginate @stats, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next)
+  %table.standard
+    %caption
+    %thead
+      %tr
+        %th= I18n.t('activerecord.attributes.eol_statistic.data_objects_texts')
+        %th= I18n.t('activerecord.attributes.eol_statistic.udo_published')
+        %th= I18n.t('activerecord.attributes.eol_statistic.udo_published_by_curators')
+        %th= I18n.t('activerecord.attributes.eol_statistic.udo_published_by_non_curators')
+        %th= I18n.t('created_at')
+    %tbody
+      - @stats.each do |s|
+        %tr
+          %td{:align => 'right'}= number_with_delimiter(s.data_objects_texts)
+          %td{:align => 'right'}= number_with_delimiter(s.udo_published)
+          %td{:align => 'right'}= number_with_delimiter(s.udo_published_by_curators)
+          %td{:align => 'right'}= number_with_delimiter(s.udo_published_by_non_curators)
+          %td{:align => 'right'}= s.created_at.strftime("%Y-%m-%d")
+  = will_paginate @stats, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next)

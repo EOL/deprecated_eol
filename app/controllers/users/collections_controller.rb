@@ -9,6 +9,7 @@ class Users::CollectionsController < UsersController
       @featured_collections = @featured_collections.sort_by{|c| - c.created_at.to_i}
     end
     @featured_collections.delete_if{|c| c.id == @user.watch_collection.id}
+    @rel_canonical_href = user_collections_url(@user)
   end
 
 end

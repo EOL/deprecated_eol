@@ -22,6 +22,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  before_filter :original_request_params # store unmodified copy of request params
   before_filter :global_warning
   before_filter :check_if_mobile if $ENABLE_MOBILE
 
@@ -33,7 +34,7 @@ class ApplicationController < ActionController::Base
   helper :all
 
   helper_method :logged_in?, :current_url, :current_user, :return_to_url, :current_agent, :agent_logged_in?,
-    :allow_page_to_be_cached?, :link_to_item, :meta_data, :tweet_data, :meta_open_graph_data
+    :allow_page_to_be_cached?, :link_to_item
 
   before_filter :set_locale
 
@@ -579,51 +580,59 @@ protected
     end
   end
 
-  # Used in V2
+  # Defines the scope of the controller and action method (i.e. view path) for using in i18n calls
+  # Used by meta tag helper methods
   def controller_action_scope
-    controller_path.split("/") << action_name
+    @controller_action_scope ||= controller_path.split("/") << action_name
   end
+
+  # Defines base variables for use in scoped i18n calls, used by meta tag helper methods
   def scoped_variables_for_translations
-    { :default => '',
-      :scope => controller_action_scope }
+    @scoped_variables_for_translations ||= {
+      :default => '',
+      :scope => controller_action_scope }.freeze # frozen to force use of dup, otherwise wrong vars get sent to i18n
   end
+
   def meta_data(title = meta_title, description = meta_description, keywords = meta_keywords)
-    return @meta_data unless @meta_data.blank?
-    title = nil if title.blank?
-    @meta_data = {:title => Sanitize.clean([title, I18n.t(:meta_title_suffix)].compact.join(" - ").strip),
-                  :description => Sanitize.clean(description),
-                  :keywords => Sanitize.clean(keywords)}.delete_if{ |k, v| v.nil? }
+    @meta_data ||= {:title => Sanitize.clean([
+                      title.presence,
+                      @rel_canonical_href_page_number ? I18n.t(:pagination_page_number, :number => @rel_canonical_href_page_number) : nil,
+                      I18n.t(:meta_title_suffix)].compact.join(" - ").strip),
+                    :description => Sanitize.clean(description),
+                    :keywords => Sanitize.clean(keywords)}.delete_if{ |k, v| v.nil? }
   end
+  helper_method :meta_data
+
   def meta_title
     return @meta_title unless @meta_title.blank?
-    translation_vars = scoped_variables_for_translations.clone
+    translation_vars = scoped_variables_for_translations.dup
     translation_vars[:default] = @page_title if !@page_title.nil? && translation_vars[:default].blank?
     @meta_title = t(".meta_title", translation_vars)
   end
+
   def meta_description
-    return @meta_description unless @meta_description.blank?
-    translation_vars = scoped_variables_for_translations.clone
-    @meta_description = t(".meta_description", translation_vars)
+    @meta_description ||= t(".meta_description", scoped_variables_for_translations.dup)
   end
+
   def meta_keywords
-    return @meta_keywords unless @meta_keywords.blank?
-    translation_vars = scoped_variables_for_translations.clone
-    @meta_keywords = t(".meta_keywords", translation_vars)
+    @meta_keywords ||= t(".meta_keywords", scoped_variables_for_translations.dup)
   end
+
   def tweet_data(text = nil, hashtags = nil, lang = I18n.locale.to_s, via = $TWITTER_USERNAME)
     return @tweet_data unless @tweet_data.blank?
     if text.nil?
-      translation_vars = scoped_variables_for_translations.clone
+      translation_vars = scoped_variables_for_translations.dup
       translation_vars[:default] = meta_title if translation_vars[:default].blank?
       text = I18n.t(:tweet_text, translation_vars)
     end
     @tweet_data = {:lang => lang, :via => via, :hashtags => hashtags,
                    :text => text}.delete_if{ |k, v| v.blank? }
   end
+  helper_method :tweet_data
+
   def meta_open_graph_data
-    return @meta_open_graph_data unless @meta_open_graph_data.blank?
-    @meta_open_graph_data = {
-      'og:url' => request.protocol + request.host_with_port + current_url, # TODO: we may want to use a canonical URL here instead of the current URL
+    @meta_open_graph_data ||= {
+      'og:url' => meta_open_graph_url,
       'og:site_name' => I18n.t(:encyclopedia_of_life),
       'og:type' => 'website', # TODO: we may want to extend to other types depending on the page see http://ogp.me/#types
       'og:title' => meta_data[:title],
@@ -631,8 +640,39 @@ protected
       'og:image' => meta_open_graph_image_url || view_helper_methods.image_url('v2/logo_open_graph_default.png')
     }.delete_if{ |k, v| v.blank? }
   end
+  helper_method :meta_open_graph_data
+
+  def meta_open_graph_url
+    @meta_open_graph_url ||= request.url
+  end
+
   def meta_open_graph_image_url
-    nil
+    @meta_open_graph_image_url ||= nil
+  end
+
+  # rel canonical only cares about page param for paginated records with current_page greater than 1
+  def rel_canonical_href_page_number(records)
+    @rel_canonical_href_page_number ||= records.is_a?(WillPaginate::Collection) && records.current_page > 1 ?
+      records.current_page : nil
+  end
+
+  # rel prev href needs the current request params with current page number swapped out for the number of the previous page
+  # return nil if there is no previous page
+  def rel_prev_href_params(records, original_params = original_request_params.clone)
+    @rel_prev_href_params ||= records.is_a?(WillPaginate::Collection) && records.previous_page ?
+      original_params.merge({ :page => records.previous_page }) : nil
+  end
+
+  # rel next href needs the current request params with current page number swapped out for the number of the next page
+  # return nil if there is no next page
+  def rel_next_href_params(records, original_params = original_request_params.clone)
+    @rel_next_href_params ||= records.is_a?(WillPaginate::Collection) && records.next_page ?
+      original_params.merge({ :page => records.next_page }) : nil
+  end
+
+  # Set in before filter and frozen so we have an unmodified copy of request params for use in rel link tags
+  def original_request_params
+    @original_request_params ||= params.clone.freeze # frozen because we don't want @original_request_params to be modified
   end
 
 private

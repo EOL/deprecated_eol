@@ -19,6 +19,7 @@ class UsersController < ApplicationController
     @common_names_added = User.total_objects_curated_by_action_and_user(Activity.add_common_name.id, @user.id, [ChangeableObjectType.synonym.id])
     @common_names_removed = User.total_objects_curated_by_action_and_user(Activity.remove_common_name.id, @user.id, [ChangeableObjectType.synonym.id])
     @common_names_curated = User.total_objects_curated_by_action_and_user([Activity.trust_common_name.id, Activity.untrust_common_name.id, Activity.unreview_common_name.id, Activity.inappropriate_common_name.id], @user.id, [ChangeableObjectType.synonym.id])
+    @rel_canonical_href = user_url(@user)
   end
 
   # GET /users/:id/edit
@@ -259,24 +260,25 @@ class UsersController < ApplicationController
   end
 
 protected
+
   def scoped_variables_for_translations
-    return @scoped_variables_for_translations unless @scoped_variables_for_translations.nil?
-    @scoped_variables_for_translations = super
-    @scoped_variables_for_translations.merge!({
-      :user_full_name => @user ? Sanitize.clean(@user.full_name) : nil,
+    @scoped_variables_for_translations ||= super.dup.merge({
+      :user_full_name => @user ? Sanitize.clean(@user.full_name).presence : nil,
       :curator_level => @user && @user.curator_level ? Sanitize.clean(@user.curator_level.translated_label) : nil
-    })
-    @scoped_variables_for_translations
+    }).freeze
   end
+
   def meta_description
-    return @meta_description unless @meta_description.blank?
-    translation_vars = scoped_variables_for_translations.clone
+    return @meta_description if defined?(@meta_description)
+    translation_vars = scoped_variables_for_translations.dup
     @meta_description = translation_vars[:curator_level].blank? ?
       t(".meta_description", translation_vars) :
       t(".meta_description_curator", translation_vars.merge({:default => t(".meta_description", translation_vars)}))
   end
+
   def meta_open_graph_image_url
-    @user ? view_helper_methods.image_url(@user.logo_url('large', $SINGLE_DOMAIN_CONTENT_SERVER)) : nil
+    @meta_open_graph_image_url ||= @user ?
+      view_helper_methods.image_url(@user.logo_url('large', $SINGLE_DOMAIN_CONTENT_SERVER)) : nil
   end
 
 private

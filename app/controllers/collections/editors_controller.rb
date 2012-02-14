@@ -7,6 +7,7 @@ class Collections::EditorsController < CollectionsController
   layout 'v2/collections'
 
   def show
+    @rel_canonical_href = collection_editors_url(@collection)
   end
 
 private

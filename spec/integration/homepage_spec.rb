@@ -9,11 +9,22 @@ describe 'Home page' do
     Capybara.reset_sessions!
     visit('/') # cache the response the homepage gives before changes
     @homepage_with_foundation = source #source in contrast with body returns html BEFORE any javascript
-
   end
 
   after :all do
     truncate_all_tables
+  end
+
+  it "should provide consistent canonical URL for home page" do
+    canonical_href = root_url.sub(/\/+$/,'')
+    @homepage_with_foundation.should have_tag('link[rel=canonical][href=?]', canonical_href)
+    visit '/?page=3&q=blah'
+    body.should have_tag('link[rel=canonical][href=?]', canonical_href)
+  end
+
+  it "should not have rel prev or next link tags" do
+    visit '/?page=3'
+    body.should_not have_tag('link[rel=?]', /(prev|next)/)
   end
 
   it 'should say EOL somewhere' do

@@ -11,8 +11,10 @@ class Taxa::NamesController < TaxaController
   def index
     if @selected_hierarchy_entry
       @related_names = TaxonConcept.related_names(:hierarchy_entry_id => @selected_hierarchy_entry_id)
+      @rel_canonical_href = taxon_hierarchy_entry_names_url(@taxon_concept, @selected_hierarchy_entry)
     else
       @related_names = TaxonConcept.related_names(:taxon_concept_id => @taxon_concept.id)
+      @rel_canonical_href = taxon_names_url(@taxon_concept)
     end
     @assistive_section_header = I18n.t(:assistive_names_related_header)
     current_user.log_activity(:viewed_taxon_concept_names_related_names, :taxon_concept_id => @taxon_concept.id)
@@ -86,6 +88,9 @@ class Taxa::NamesController < TaxaController
                            :synonym_relations => [ :id ] } }
     TaxonConcept.preload_associations(@taxon_concept, associations, options )
     @assistive_section_header = I18n.t(:assistive_names_synonyms_header)
+    @rel_canonical_href = @selected_hierarchy_entry ?
+      synonyms_taxon_hierarchy_entry_names_url(@taxon_concept, @selected_hierarchy_entry) :
+      synonyms_taxon_names_url(@taxon_concept)
     current_user.log_activity(:viewed_taxon_concept_names_synonyms, :taxon_concept_id => @taxon_concept.id)
 
     # for common names count
@@ -99,6 +104,9 @@ class Taxa::NamesController < TaxaController
     @common_names = get_common_names
     @common_names_count = @common_names.collect{|cn| [cn.name.id,cn.language.id]}.uniq.count
     @assistive_section_header = I18n.t(:assistive_names_common_header)
+    @rel_canonical_href = @selected_hierarchy_entry ?
+      common_names_taxon_hierarchy_entry_names_url(@taxon_concept, @selected_hierarchy_entry) :
+      common_names_taxon_names_url(@taxon_concept)
     current_user.log_activity(:viewed_taxon_concept_names_common_names, :taxon_concept_id => @taxon_concept.id)
   end
 

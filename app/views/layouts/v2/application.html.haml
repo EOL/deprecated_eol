@@ -4,18 +4,19 @@
   'xmlns:fb' => $ENABLED_SOCIAL_PLUGINS && $ENABLED_SOCIAL_PLUGINS.include?(:facebook) ? "http://ogp.me/ns/fb#" : nil,
   'xmlns:og' => $ENABLED_SOCIAL_PLUGINS && $ENABLED_SOCIAL_PLUGINS.include?(:facebook) ? "http://ogp.me/ns#" : nil }
   %head
+    - @meta_data ||= meta_data
     %title<
-      = strip_tags @meta_title ||= meta_data[:title]
+      = strip_tags @meta_data[:title]
     %meta{ :charset => "utf-8" }
     - # HTML4 charset declaration, might go when browsers catch up with html5
     %meta{ :content => "text/html; charset=utf-8", "http-equiv" => "Content-type" }
     %meta{ :name => "verify-v1", :content => "mJIytYT6a+K1y+bCmD1wr1ge+4Q63O0YfTHCYWwkzaY=" }
     - # Prevents generation of links to "smart tags"
     %meta{ :name => "MSSmartTagsPreventParsing", :content => "true" }
-    - unless (@meta_description ||= meta_data[:description]).blank?
-      %meta{ :name => "description", :content => h(strip_tags(@meta_description)) }
-    - unless (@meta_keywords ||= meta_data[:keywords]).blank?
-      %meta{ :name => "keywords", :content => h(strip_tags(@meta_keywords)) }
+    - unless @meta_data[:description].blank?
+      %meta{ :name => "description", :content => h(strip_tags(@meta_data[:description])) }
+    - unless @meta_data[:keywords].blank?
+      %meta{ :name => "keywords", :content => h(strip_tags(@meta_data[:keywords])) }
     - if $ENABLED_SOCIAL_PLUGINS && $ENABLED_SOCIAL_PLUGINS.include?(:facebook) && $FACEBOOK_APP_ID
       %meta{ :property => "fb:app_id", :content => $FACEBOOK_APP_ID }
 
@@ -23,8 +24,16 @@
       %meta{ :content => "NO-CACHE", "http-equiv" => "CACHE-CONTROL" }
       %meta{ :content => "NO-CACHE", "http-equiv" => "PRAGMA" }
 
+    = yield :head_meta
+    - unless @rel_canonical_href.blank?
+      %link{ :href => @rel_canonical_href, :rel => "canonical" }
+    - unless @rel_prev_href.blank?
+      %link{ :href => @rel_prev_href, :rel => "prev" }
+    - unless @rel_next_href.blank?
+      %link{ :href => @rel_next_href, :rel => "next" }
     %link{ :href => "/favicon.ico", :rel => "shortcut icon", :type => "image/x-icon" }
     %link{ :href => "/opensearchdescription.xml", :title => I18n.t("encyclopedia_of_life"), :rel => "search", :type => "application/opensearchdescription+xml" }
+
 
     - if @home_page
       = stylesheet_include_i18n_merged 'home', :media => "all"
@@ -119,7 +128,7 @@
     :javascript
       (function(w, d, s) {
         function go(){
-          if ("#{$GOOGLE_ANALYTICS_ID}" && "#{$ENABLE_ANALYTICS}") { 
+          if ("#{$GOOGLE_ANALYTICS_ID}" && "#{$ENABLE_ANALYTICS}") {
             head.js({ 'ga_js': ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js' });
             head.ready("ga_js", function() {
               head.js({ ga_social_tracking: '/javascripts/ga_social_tracking.js' });

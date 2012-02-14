@@ -37,6 +37,9 @@ class ContentPartnersController < ApplicationController
     set_sort_options
     @page_title = I18n.t(:content_partners_page_title)
     @page_description = I18n.t(:content_partners_page_description, :more_url => cms_page_path('partners'))
+    @rel_canonical_href = content_partners_url(:page => rel_canonical_href_page_number(@partners))
+    @rel_prev_href = rel_prev_href_params(@partners) ? content_partners_url(@rel_prev_href_params) : nil
+    @rel_next_href = rel_next_href_params(@partners) ? content_partners_url(@rel_next_href_params) : nil
   end
 
   # GET /content_partners/new
@@ -69,6 +72,7 @@ class ContentPartnersController < ApplicationController
     @partner = ContentPartner.find(params[:id], :include => [{ :resources => :collection }, :content_partner_contacts ])
     access_denied unless current_user.can_read?(@partner)
     @partner_collections = @partner.resources.collect{|r| r.collection}.compact
+    @rel_canonical_href = content_partner_url(@partner)
   end
 
   # GET /content_partners/:id/edit
@@ -94,17 +98,16 @@ class ContentPartnersController < ApplicationController
 
 protected
   def scoped_variables_for_translations
-    @scoped_variables_for_translations
-    @scoped_variables_for_translations = super
-    @scoped_variables_for_translations.merge!({
+    @scoped_variables_for_translations ||= super.dup.merge({
       :partner_name => @partner ? Sanitize.clean(@partner.name) : nil,
-      :partner_description => @partner ? Sanitize.clean(@partner.description) : nil
-    })
-    @scoped_variables_for_translations[:partner_description] = I18n.t(:content_partner_default_description) if @scoped_variables_for_translations[:partner_description].blank?
-    @scoped_variables_for_translations
+      :partner_description => (@partner && sanitized_description = Sanitize.clean(@partner.description)) ?
+        sanitized_description : I18n.t(:content_partner_default_description)
+    }).freeze
   end
+
   def meta_open_graph_image_url
-    @partner ? view_helper_methods.image_url(@partner.logo_url('large', $SINGLE_DOMAIN_CONTENT_SERVER)) : nil
+    @meta_open_graph_image_url ||=  @partner ?
+      view_helper_methods.image_url(@partner.logo_url('large', $SINGLE_DOMAIN_CONTENT_SERVER)) : nil
   end
 
 private

@@ -2,6 +2,7 @@ if(!EOL) { var EOL = {}; }
 
 EOL.init_worklist_behaviors = function() {
   init_comments();
+  init_curation();
   $("#tasks li").unbind('click');
   $('#worklist #tasks li').click(function() {
     if($('#worklist #tasks li.active span.indicator').html() != '') {
@@ -12,7 +13,7 @@ EOL.init_worklist_behaviors = function() {
     $(this).find('span.indicator').addClass('invisible');
     $(this).addClass("active");
     var $update = $(this).closest('#worklist').find('#task');
-    EOL.ajax_get($(this).find("a"), {update: $update, type: 'GET'});
+    EOL.ajax_get($(this).find("a"), {update: $update, type: 'GET', complete: function() { EOL.init_worklist_behaviors(); } });
     return(false);
   });
 
@@ -48,7 +49,7 @@ EOL.init_worklist_behaviors = function() {
   $('#worklist #task form.comment input[type=submit]').click(function() {
     var $f = $(this).closest('form');
     $f.find("#return_to").val($f.find("#worklist_return_to").val());
-    EOL.ajax_submit($(this).closest('form'), { update: $(this).closest('#task'), complete:                              update_active_indicator('Commented') });
+    EOL.ajax_submit($(this).closest('form'), { update: $(this).closest('#task'), complete: function() { EOL.init_worklist_behaviors(); update_active_indicator('Commented'); } } );
     return(false);
   });
 
@@ -56,7 +57,7 @@ EOL.init_worklist_behaviors = function() {
   $('#worklist #task form.review_status input[type=submit]').click(function() {
     var $f = $(this).closest('form');
     $f.find("#return_to").val($f.find("#worklist_return_to").val());
-    EOL.ajax_submit($(this).closest('form'), {update: $(this).closest('#task'), complete:                               update_active_indicator('Saved')});
+    EOL.ajax_submit($(this).closest('form'), {update: $(this).closest('#task'), complete: function() { EOL.init_worklist_behaviors(); update_active_indicator('Saved'); } } );
     return(false);
   });
 
@@ -64,21 +65,16 @@ EOL.init_worklist_behaviors = function() {
   $('#worklist #task form.ignore_data_object input[type=submit]').click(function() {
     var $f = $(this).closest('form');
     $f.find("#return_to").val($f.find("#worklist_return_to").val());
-    EOL.ajax_submit($(this).closest('form'), {update: $(this).closest('#task'), complete:                               update_active_indicator('Ignored')});
+    EOL.ajax_submit($(this).closest('form'), {update: $(this).closest('#task'), complete: function() { EOL.init_worklist_behaviors(); update_active_indicator('Ignored'); } } );
     return(false);
   });
-
-  EOL.init_curation_behaviours();
+  
 
 };
 
 $(window).load(function() {
   resize_task_panel();
   EOL.init_worklist_behaviors();
-  $('#worklist #task').ajaxSuccess(function() {
-    resize_task_panel();
-    EOL.init_worklist_behaviors();
-  });
 });
 
 function resize_task_panel() {
@@ -109,5 +105,11 @@ function init_comments() {
   if (EOL.init_comment_behaviours != undefined) {
     // This ends up getting called twice on page-load, but we really do need it here for when a new task is loaded.
     EOL.init_comment_behaviours();
+  }
+}
+function init_curation() {
+  if (EOL.init_curation_behaviours != undefined) {
+    // This ends up getting called twice on page-load, but we really do need it here for when a new task is loaded.
+    EOL.init_curation_behaviours();
   }
 }

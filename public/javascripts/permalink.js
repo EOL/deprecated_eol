@@ -1,4 +1,4 @@
-$(function() {
+EOL.init_curation_behaviours = function() {
 
   (function($form) {
     var actions = {
@@ -35,6 +35,9 @@ $(function() {
 
   })($("form.review_status"));
 
+}
+$(function() {
+
   (function($main) {
     $main.find("a.jp-play").each(function() {
       switch($(this).attr('data-mime_type')) {
@@ -57,4 +60,5 @@ $(function() {
     });
   })($("#main"));
 
+  EOL.init_curation_behaviours();
 });

@@ -68,6 +68,8 @@ EOL.init_worklist_behaviors = function() {
     return(false);
   });
 
+  EOL.init_curation_behaviours();
+
 };
 
 $(window).load(function() {

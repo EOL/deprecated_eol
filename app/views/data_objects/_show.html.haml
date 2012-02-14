@@ -15,9 +15,10 @@
     .article.list.updates
       .header
         %h3= I18n.t(:recent_updates)
-      - if @latest_published_revision.id == @data_object.id
+      - if @latest_published_revision.nil? || @latest_published_revision.id == @data_object.id
         = render :partial => '/activity_logs/index', :locals => { :log => @data_object.activity_log(:ids => @revisions.collect{ |r| r.id }, :page => @page || nil) }
-        = render :partial => '/comments/new', :locals => { :parent => @data_object }
+        - unless @latest_published_revision.nil?
+          = render :partial => '/comments/new', :locals => { :parent => @data_object }
       - else
         .empty
           = link_to I18n.t(:view_current_version_link), data_object_path(@latest_published_revision)
@@ -33,7 +34,7 @@
       - else
         %p= link_to I18n.t(:view_full_size_image), @data_object.thumb_or_object(:orig)
   - unless for_worklist
-    = render :partial => '/data_objects/rating', :locals => { :data_object => @data_object, :en_type => en_type } if @latest_published_revision.id == @data_object.id
+    = render :partial => '/data_objects/rating', :locals => { :data_object => @data_object, :en_type => en_type } if @latest_published_revision && @latest_published_revision.id == @data_object.id
   - else
     = render :partial => '/data_objects/rating', :locals => { :data_object => @data_object, :en_type => en_type }
   - if for_worklist

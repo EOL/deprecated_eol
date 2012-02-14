@@ -52,14 +52,31 @@ class ApplicationController < ActionController::Base
 
   def set_locale
     begin
-      I18n.locale = params[:locale]       
+      if params[:locale].nil?
+        if session[:language].to_s.blank?
+          if $DEFAULT_LANGUAGE.blank?
+            I18n.locale = request.env["HTTP_ACCEPT_LANGUAGE"].split(",")[0].split("-")[0]
+            session[:language] = request.env["HTTP_ACCEPT_LANGUAGE"].split(",")[0].split("-")[0]
+          else
+            I18n.locale = $DEFAULT_LANGUAGE
+            session[:language] = $DEFAULT_LANGUAGE
+          end          
+        else
+          I18n.locale = session[:language].to_s
+        end
+      else
+        I18n.locale = params[:locale]
+        session[:language] = params[:locale]
+      end
+             
     rescue
-      begin
-        I18n.locale = session[:language].to_s
-      rescue
-        I18n.locale = 'en' # Yes, I am hard-coding that because I don't want an error from Language.  Ever.
-      end      
-    end    
+      if $DEFAULT_LANGUAGE.blank?
+        I18n.locale = request.env["HTTP_ACCEPT_LANGUAGE"].split(",")[0].split("-")[0]
+        session[:language] = request.env["HTTP_ACCEPT_LANGUAGE"].split(",")[0].split("-")[0]
+      else
+        I18n.locale = $DEFAULT_LANGUAGE
+      end            
+    end
   end
 
   def allow_login_then_submit

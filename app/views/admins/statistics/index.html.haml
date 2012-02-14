@@ -1,0 +1,83 @@
+= render :partial => 'menu'
+#content_partners.main_container
+  .copy
+    %h2= I18n.t(:admin_statistics_overall_stat_header)
+  - form_tag({}, :method => :get) do
+    %fieldset.actions.download
+      = submit_tag I18n.t(:admin_content_partners_statistics_first_published_download_csv_submit),
+        :name => :commit_download_csv
+      %input{:type => 'checkbox', :name => 'all_records'}
+      %input{:type => 'hidden', :name => 'report', :value => 'overall_stats'}
+      = I18n.t('all_title')
+      %input{:type => 'hidden', :name => 'page', :value => params[:page]}
+  = will_paginate @stats, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next)
+  %table.standard
+    %caption
+      -# %h2= I18n.t(:admin_statistics_overall_stat_header)
+    %tbody
+      - @stats.each do |s|
+        %tr
+          %td
+            %table{:width => '100%', :cellspacing => 0, :cellpadding => 0, :border => 0}
+              %tr
+                %td{:width => '35%'}= I18n.t('activerecord.attributes.eol_statistic.members_count')
+                %td{:width => '15%', :align => 'right'}= number_with_delimiter(s.members_count)
+                %td{:width => '50%', :align => 'right'}= I18n.t('created_at') + ': ' + s.created_at.strftime("%Y-%m-%d")
+              %tr
+                %td= I18n.t('activerecord.attributes.eol_statistic.communities_count')
+                %td{:align => 'right'}= number_with_delimiter(s.communities_count)
+              %tr
+                %td= I18n.t('activerecord.attributes.eol_statistic.collections_count')
+                %td{:align => 'right'}= number_with_delimiter(s.collections_count)
+              %tr
+                %td= I18n.t('activerecord.attributes.eol_statistic.pages_count')
+                %td{:align => 'right'}= number_with_delimiter(s.pages_count)
+              %tr
+                %td= I18n.t('activerecord.attributes.eol_statistic.pages_with_content')
+                %td{:align => 'right'}= number_with_delimiter(s.pages_with_content)
+              %tr
+                %td= I18n.t('activerecord.attributes.eol_statistic.pages_with_text')
+                %td{:align => 'right'}= number_with_delimiter(s.pages_with_text)
+              %tr
+                %td= I18n.t('activerecord.attributes.eol_statistic.pages_with_image')
+                %td{:align => 'right'}= number_with_delimiter(s.pages_with_image)
+              %tr
+                %td= I18n.t('activerecord.attributes.eol_statistic.pages_with_map')
+                %td{:align => 'right'}= number_with_delimiter(s.pages_with_map)
+              %tr
+                %td= I18n.t('activerecord.attributes.eol_statistic.pages_with_video')
+                %td{:align => 'right'}= number_with_delimiter(s.pages_with_video)
+              %tr
+                %td= I18n.t('activerecord.attributes.eol_statistic.pages_with_sound')
+                %td{:align => 'right'}= number_with_delimiter(s.pages_with_sound)
+              %tr
+                %td= I18n.t('activerecord.attributes.eol_statistic.pages_without_text')
+                %td{:align => 'right'}= number_with_delimiter(s.pages_without_text)
+              %tr
+                %td= I18n.t('activerecord.attributes.eol_statistic.pages_without_image')
+                %td{:align => 'right'}= number_with_delimiter(s.pages_without_image)
+              %tr
+                %td= I18n.t('activerecord.attributes.eol_statistic.pages_with_image_no_text')
+                %td{:align => 'right'}= number_with_delimiter(s.pages_with_image_no_text)
+              %tr
+                %td= I18n.t('activerecord.attributes.eol_statistic.pages_with_text_no_image')
+                %td{:align => 'right'}= number_with_delimiter(s.pages_with_text_no_image)
+              %tr
+                %td= I18n.t('activerecord.attributes.eol_statistic.base_pages')
+                %td{:align => 'right'}= number_with_delimiter(s.base_pages)
+              %tr
+                %td= I18n.t('activerecord.attributes.eol_statistic.pages_with_at_least_a_trusted_object')
+                %td{:align => 'right'}= number_with_delimiter(s.pages_with_at_least_a_trusted_object)
+              %tr
+                %td= I18n.t('activerecord.attributes.eol_statistic.pages_with_at_least_a_curatorial_action')
+                %td{:align => 'right'}= number_with_delimiter(s.pages_with_at_least_a_curatorial_action)
+              %tr
+                %td= I18n.t('activerecord.attributes.eol_statistic.pages_with_BHL_links')
+                %td{:align => 'right'}= number_with_delimiter(s.pages_with_BHL_links)
+              %tr
+                %td= I18n.t('activerecord.attributes.eol_statistic.pages_with_BHL_links_no_text')
+                %td{:align => 'right'}= number_with_delimiter(s.pages_with_BHL_links_no_text)
+              %tr
+                %td= I18n.t('activerecord.attributes.eol_statistic.pages_with_BHL_links_only')
+                %td{:align => 'right'}= number_with_delimiter(s.pages_with_BHL_links_only)
+  = will_paginate @stats, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next)

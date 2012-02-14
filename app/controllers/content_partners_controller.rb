@@ -99,9 +99,9 @@ class ContentPartnersController < ApplicationController
 protected
   def scoped_variables_for_translations
     @scoped_variables_for_translations ||= super.dup.merge({
-      :partner_name => @partner ? Sanitize.clean(@partner.name) : nil,
-      :partner_description => (@partner && sanitized_description = Sanitize.clean(@partner.description)) ?
-        sanitized_description : I18n.t(:content_partner_default_description)
+      :partner_name => @partner ? @partner.name : nil,
+      :partner_description => (@partner && description = @partner.description) ?
+        description : I18n.t(:content_partner_default_description)
     }).freeze
   end
 

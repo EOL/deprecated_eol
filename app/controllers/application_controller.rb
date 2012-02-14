@@ -594,12 +594,13 @@ protected
   end
 
   def meta_data(title = meta_title, description = meta_description, keywords = meta_keywords)
-    @meta_data ||= {:title => Sanitize.clean([
+    @meta_data ||= {:title => [
                       title.presence,
                       @rel_canonical_href_page_number ? I18n.t(:pagination_page_number, :number => @rel_canonical_href_page_number) : nil,
-                      I18n.t(:meta_title_suffix)].compact.join(" - ").strip),
-                    :description => Sanitize.clean(description),
-                    :keywords => Sanitize.clean(keywords)}.delete_if{ |k, v| v.nil? }
+                      I18n.t(:meta_title_suffix)].compact.join(" - ").strip,
+                    :description => description,
+                    :keywords => keywords
+                   }.delete_if{ |k, v| v.nil? }
   end
   helper_method :meta_data
 

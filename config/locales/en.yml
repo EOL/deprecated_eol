@@ -237,7 +237,7 @@ en:
         udo_published_by_non_curators: "Non-curator submitted text"
         # content partner stats
         content_partners: "Content partners"
-        content_partners_with_published_resources: "With published resources" 
+        content_partners_with_published_resources: "With published resources"
         content_partners_with_published_trusted_resources: "With published trusted resources"
         published_resources: "Published resources"
         published_trusted_resources: "Published trusted resources"
@@ -837,15 +837,15 @@ en:
           meta_description_with_common_name: "Photographs, film and audio of the %{preferred_common_name} also known as %{scientific_name} as classified by %{hierarchy_provider}."
           meta_keywords: "photographs of %{scientific_name}, films of %{scientific_name}, sounds of %{scientific_name}, audio of %{scientific_name}"
           meta_keywords_with_common_name: "photographs of %{preferred_common_name}, films of %{preferred_common_name}, sounds of %{preferred_common_name}, audio of %{preferred_common_name}, photographs of %{scientific_name}, films of %{scientific_name}, sounds of %{scientific_name}, audio of %{scientific_name}"
-          meta_title: "Audio, Film &amp; Photographs of %{scientific_name} as classified by %{hierarchy_provider}"
-          meta_title_with_common_name: "Audio, Film &amp; Images of %{preferred_common_name} (%{scientific_name} as classified by %{hierarchy_provider})"
+          meta_title: "Audio, Film & Photographs of %{scientific_name} as classified by %{hierarchy_provider}"
+          meta_title_with_common_name: "Audio, Film & Images of %{preferred_common_name} (%{scientific_name} as classified by %{hierarchy_provider})"
           tweet_text: "Media of %{scientific_name} as classified by %{hierarchy_provider}"
         meta_description: "Pictures and videos of %{scientific_name}."
         meta_description_with_common_name: "Pictures and videos of the %{preferred_common_name} also known as %{scientific_name}."
         meta_keywords: "pictures of %{scientific_name}, videos of %{scientific_name}, images of %{scientific_name}, vids of %{scientific_name}, pics of %{scientific_name}, media"
         meta_keywords_with_common_name: "pictures of %{preferred_common_name}, videos of %{preferred_common_name}, images of %{preferred_common_name}, vids of %{preferred_common_name}, pics of %{preferred_common_name}, media"
-        meta_title: "Pictures &amp; Video of %{preferred_common_name} (%{scientific_name})"
-        meta_title_with_common_name: "Pictures &amp; Video of %{preferred_common_name} (%{scientific_name})"
+        meta_title: "Pictures & Video of %{preferred_common_name} (%{scientific_name})"
+        meta_title_with_common_name: "Pictures & Video of %{preferred_common_name} (%{scientific_name})"
         tweet_text: "Media of %{scientific_name}"
     names:
       index:

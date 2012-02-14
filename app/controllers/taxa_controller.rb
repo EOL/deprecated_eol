@@ -76,9 +76,9 @@ protected
 
   def scoped_variables_for_translations
     @scoped_variables_for_translations ||= super.dup.merge({
-      :preferred_common_name => Sanitize.clean(@preferred_common_name).presence,
-      :scientific_name => Sanitize.clean(@scientific_name).presence,
-      :hierarchy_provider => @selected_hierarchy_entry ? Sanitize.clean(@selected_hierarchy_entry.hierarchy_label).presence : nil,
+      :preferred_common_name => @preferred_common_name.presence,
+      :scientific_name => @scientific_name.presence,
+      :hierarchy_provider => @selected_hierarchy_entry ? @selected_hierarchy_entry.hierarchy_label.presence : nil,
     }).freeze
   end
 

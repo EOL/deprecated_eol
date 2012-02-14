@@ -69,34 +69,37 @@ class TaxaController < ApplicationController
   end
 
 protected
+
   def controller_action_scope
-    scope = super
-    scope << :hierarchy_entry if @selected_hierarchy_entry
-    scope
+    @controller_action_scope ||= @selected_hierarchy_entry ? super << :hierarchy_entry : super
   end
+
   def scoped_variables_for_translations
-    return @scoped_variables_for_translations unless @scoped_variables_for_translations.nil?
-    @scoped_variables_for_translations = super
-    @scoped_variables_for_translations.merge!({
-      :preferred_common_name => Sanitize.clean(@preferred_common_name),
-      :scientific_name => Sanitize.clean(@scientific_name),
-      :hierarchy_provider => @selected_hierarchy_entry ? Sanitize.clean(@selected_hierarchy_entry.hierarchy_label) : nil,
-    })
+    @scoped_variables_for_translations ||= super.dup.merge({
+      :preferred_common_name => Sanitize.clean(@preferred_common_name).presence,
+      :scientific_name => Sanitize.clean(@scientific_name).presence,
+      :hierarchy_provider => @selected_hierarchy_entry ? Sanitize.clean(@selected_hierarchy_entry.hierarchy_label).presence : nil,
+    }).freeze
   end
+
   def meta_title
-    translation_vars = scoped_variables_for_translations
+    return @meta_title if defined?(@meta_title)
+    translation_vars = scoped_variables_for_translations.dup
     translation_vars[:default] = [translation_vars[:preferred_common_name],
                                   translation_vars[:scientific_name],
                                   translation_vars[:hierarchy_provider],
                                   @assistive_section_header].compact.join(" - ")
-    t(".meta_title#{translation_vars[:preferred_common_name] ? '_with_common_name' : ''}", translation_vars)
+    @meta_title = t(".meta_title#{translation_vars[:preferred_common_name] ? '_with_common_name' : ''}", translation_vars)
   end
+
   def meta_description
-    translation_vars = scoped_variables_for_translations
-    t(".meta_description#{translation_vars[:preferred_common_name] ? '_with_common_name' : ''}", translation_vars)
+    @meta_description ||= t(".meta_description#{scoped_variables_for_translations[:preferred_common_name] ? '_with_common_name' : ''}",
+                            scoped_variables_for_translations.dup)
   end
+
   def meta_keywords
-    translation_vars = scoped_variables_for_translations
+    return @meta_keywords if defined?(@meta_keywords)
+    translation_vars = scoped_variables_for_translations.dup
     keywords = [ translation_vars[:preferred_common_name],
       translation_vars[:scientific_name],
       translation_vars[:preferred_common_name] && @assistive_section_header ? "#{translation_vars[:preferred_common_name]} #{@assistive_section_header}" : nil,
@@ -105,12 +108,12 @@ protected
     ].uniq.compact.join(", ").strip
     additional_keywords = t(".meta_keywords#{translation_vars[:preferred_common_name] ? '_with_common_name' : ''}",
                             translation_vars)
-    "#{keywords}, #{additional_keywords}".strip
+    @meta_keywords = "#{keywords}, #{additional_keywords}".strip
   end
+
   def meta_open_graph_image_url
-    return nil if @taxon_concept.blank?
-    dato = @taxon_concept.exemplar_or_best_image_from_solr
-    dato.nil? ? nil : dato.thumb_or_object('260_190', $SINGLE_DOMAIN_CONTENT_SERVER)
+    @meta_open_graph_image_url ||= (@taxon_concept && dato = @taxon_concept.exemplar_or_best_image_from_solr) ?
+       dato.thumb_or_object('260_190', $SINGLE_DOMAIN_CONTENT_SERVER).presence : nil
   end
 
 private

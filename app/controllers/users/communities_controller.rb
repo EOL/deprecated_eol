@@ -7,6 +7,7 @@ class Users::CommunitiesController < UsersController
     else
       @communities = @user.communities.published.sort! { |a,b| a.created_at <=> b.created_at }
     end
+    @rel_canonical_href = user_communities_url(@user)
   end
 
 end

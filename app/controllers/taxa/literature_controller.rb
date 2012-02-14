@@ -3,13 +3,12 @@ class Taxa::LiteratureController < TaxaController
   before_filter :add_page_view_log_entry, :update_user_content_level
 
   def show
-    references
-  end
-
-  def references
-    @assistive_section_header = I18n.t(:assistive_literature_header)
     @references = Ref.find_refs_for(@taxon_concept.id)
     @references = Ref.sort_by_full_reference(@references)
+    @assistive_section_header = I18n.t(:assistive_literature_header)
+    @rel_canonical_href = @selected_hierarchy_entry ?
+      taxon_hierarchy_entry_literature_url(@taxon_concept, @selected_hierarchy_entry) :
+      taxon_literature_url(@taxon_concept)
     current_user.log_activity(:viewed_taxon_concept_literature, :taxon_concept_id => @taxon_concept.id)
   end
 
@@ -19,6 +18,18 @@ class Taxa::LiteratureController < TaxaController
     @page = params[:page]
     @sort = 'year' unless ['title', 'title_desc', 'year', 'year_desc'].include?(@sort)
     @bhl_results = EOL::Solr::BHL.search(@taxon_concept, :sort => @sort, :page => @page)
+
+    if @selected_hierarchy_entry
+      @rel_canonical_href = bhl_taxon_hierarchy_entry_literature_url(@taxon_concept, @selected_hierarchy_entry,
+        :page => rel_canonical_href_page_number(@bhl_results[:results]))
+      @rel_prev_href = rel_prev_href_params(@bhl_results[:results]) ? bhl_taxon_hierarchy_entry_literature_url(@rel_prev_href_params) : nil
+      @rel_next_href = rel_next_href_params(@bhl_results[:results]) ? bhl_taxon_hierarchy_entry_literature_url(@rel_next_href_params) : nil
+    else
+      @rel_canonical_href = bhl_taxon_literature_url(@taxon_concept, :page => rel_canonical_href_page_number(@bhl_results[:results]))
+      @rel_prev_href = rel_prev_href_params(@bhl_results[:results]) ? bhl_taxon_literature_url(@rel_prev_href_params) : nil
+      @rel_next_href = rel_next_href_params(@bhl_results[:results]) ? bhl_taxon_literature_url(@rel_next_href_params) : nil
+    end
+
     current_user.log_activity(:viewed_taxon_concept_literature, :taxon_concept_id => @taxon_concept.id)
   end
 
@@ -30,6 +41,11 @@ class Taxa::LiteratureController < TaxaController
     @assistive_section_header = I18n.t(:assistive_literature_header)
     @bhl_title_results = EOL::Solr::BHL.search_publication(@taxon_concept, @title_item_id)
     # TODO: user natural sort to sort numerically, also romain numerals... not by string
+
+    @rel_canonical_href = @selected_hierarchy_entry ?
+      entry_bhl_title_url(@taxon_concept, @selected_hierarchy_entry, @title_item_id) :
+      bhl_title_url(@taxon_concept, @title_item_id)
+
     current_user.log_activity(:viewed_taxon_concept_bhl_title, :taxon_concept_id => @taxon_concept.id)
   end
 

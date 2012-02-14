@@ -155,7 +155,7 @@ class DataObjectsController < ApplicationController
     @page_title = @data_object.best_title
     get_attribution
     @slim_container = true
-    DataObject.preload_associations(@data_object, 
+    DataObject.preload_associations(@data_object,
       [ { :data_object_translation => { :original_data_object => :language } },
         { :translations => { :data_object => :language } },
         { :agents_data_objects => [ :agent, :agent_role ] },
@@ -167,6 +167,9 @@ class DataObjectsController < ApplicationController
     @image_source = get_image_source if @data_object.is_image?
     @current_user_ratings = logged_in? ? current_user.rating_for_object_guids([@data_object.guid]) : {}
     @page = params[:page]
+    @rel_canonical_href = data_object_url(@data_object, :page => rel_canonical_href_page_number(@data_object.activity_log))
+    @rel_prev_href = rel_prev_href_params(@data_object.activity_log) ? data_object_url(@rel_prev_href_params) : nil
+    @rel_next_href = rel_next_href_params(@data_object.activity_log) ? data_object_url(@rel_next_href_params) : nil
   end
 
   # GET /data_objects/1/attribution
@@ -283,26 +286,25 @@ class DataObjectsController < ApplicationController
   end
 
 protected
+
   def scoped_variables_for_translations
     return @scoped_variables_for_translations unless @scoped_variables_for_translations.nil?
-    @scoped_variables_for_translations = super
     if (@data_object && @data_object.added_by_user? && !@data_object.users_data_object.blank?)
-      supplier = @data_object.users_data_object.user.full_name
+      supplier = @data_object.users_data_object.user.full_name rescue nil
     elsif (@data_object && @data_object.content_partner)
       supplier = @data_object.content_partner.name
     else
       supplier = nil
     end
-    @scoped_variables_for_translations.merge!({
-      :dato_title => @data_object ? Sanitize.clean(@data_object.best_title) : nil,
-      :supplier => supplier ? Sanitize.clean(supplier) : nil
-    })
-    @scoped_variables_for_translations
+    @scoped_variables_for_translations = super.dup.merge({
+      :dato_title => @data_object ? Sanitize.clean(@data_object.best_title).presence : nil,
+      :supplier => supplier ? Sanitize.clean(supplier).presence : nil
+    }).freeze
   end
+
   def meta_open_graph_image_url
-    image = @data_object ? @data_object.thumb_or_object('260_190', $SINGLE_DOMAIN_CONTENT_SERVER) : nil
-    return nil if [nil, '#'].include?(image)
-    image
+    @meta_open_graph_image_url ||= @data_object ?
+      @data_object.thumb_or_object('260_190', $SINGLE_DOMAIN_CONTENT_SERVER).presence : nil
   end
 
   # NOTE - It seems like this is a HEAVY controller... and perhaps it is.  But I can't think of *truly* appropriate

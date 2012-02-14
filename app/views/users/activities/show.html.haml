@@ -22,6 +22,6 @@
         %fieldset.actions
           = submit_tag I18n.t(:filter_button)
     - if @filter == "curated_taxa"
-      = render :partial => 'users/activities/taxa_curated', :locals => {:taxon_concept_ids => User.taxon_concept_ids_curated(@user.id).paginate(:page => @page, :per_page => 20)}
+      = render :partial => 'users/activities/taxa_curated', :locals => {:taxon_concept_ids => @curated_taxa_ids}
     - else
-      = render :partial => 'activity_logs/index', :locals => {:log => @user.activity_log(:page => @page, :filter => @filter)}
+      = render :partial => 'activity_logs/index', :locals => {:log => @user_activity_log}

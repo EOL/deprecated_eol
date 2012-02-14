@@ -263,8 +263,8 @@ protected
 
   def scoped_variables_for_translations
     @scoped_variables_for_translations ||= super.dup.merge({
-      :user_full_name => @user ? Sanitize.clean(@user.full_name).presence : nil,
-      :curator_level => @user && @user.curator_level ? Sanitize.clean(@user.curator_level.translated_label) : nil
+      :user_full_name => @user ? @user.full_name.presence : nil,
+      :curator_level => @user && @user.curator_level ? @user.curator_level.translated_label : nil
     }).freeze
   end
 

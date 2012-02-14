@@ -61,9 +61,9 @@ class MembersController < ApplicationController
 protected
   def scoped_variables_for_translations
     @scoped_variables_for_translations ||= super.dup.merge({
-      :community_name => @community ? Sanitize.clean(@community.name).presence : nil,
-      :community_description => (@community && sanitized_description = Sanitize.clean(@community.description).presence) ?
-        sanitized_description : I18n.t(:community_description_default),
+      :community_name => @community ? @community.name.presence : nil,
+      :community_description => (@community && description = @community.description.presence) ?
+        description : I18n.t(:community_description_default),
       :member_name => @member && @member.user ? @member.user.full_name.presence : nil
     }).freeze
   end

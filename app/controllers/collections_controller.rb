@@ -179,9 +179,9 @@ protected
 
   def scoped_variables_for_translations
     @scoped_variables_for_translations ||= super.dup.merge({
-      :collection_name => @collection ? Sanitize.clean(@collection.name) : nil,
-      :collection_description => (@collection && sanitized_description = Sanitize.clean(@collection.description).presence) ?
-        sanitized_description : I18n.t(:collection_description_default)
+      :collection_name => @collection ? @collection.name : nil,
+      :collection_description => (@collection && description = @collection.description.presence) ?
+        description : I18n.t(:collection_description_default)
     }).freeze
   end
 

@@ -298,8 +298,8 @@ protected
       supplier = nil
     end
     @scoped_variables_for_translations = super.dup.merge({
-      :dato_title => @data_object ? Sanitize.clean(@data_object.best_title).presence : nil,
-      :supplier => supplier ? Sanitize.clean(supplier).presence : nil
+      :dato_title => @data_object ? @data_object.best_title.presence : nil,
+      :supplier => supplier ? supplier.presence : nil
     }).freeze
   end
 

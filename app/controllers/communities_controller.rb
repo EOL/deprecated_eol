@@ -224,9 +224,9 @@ protected
 
   def scoped_variables_for_translations
     @scoped_variables_for_translations ||= super.dup.merge({
-      :community_name => @community ? Sanitize.clean(@community.name) : nil,
-      :community_description => (@community && sanitized_description = Sanitize.clean(@community.description).presence) ?
-        sanitized_description : I18n.t(:community_description_default)
+      :community_name => @community ? @community.name : nil,
+      :community_description => (@community && description = @community.description.presence) ?
+        description : I18n.t(:community_description_default)
     }).freeze
   end
 

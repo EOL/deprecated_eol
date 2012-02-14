@@ -165,6 +165,15 @@ ActionController::Routing::Routes.draw do |map|
                                        :only => [:index], :namespace => 'admins/' do |content_partner|
 
     end
+    admin.resources :statistics, :collection => {:content_partner => [:get], 
+                                                 :data_object => [:get], 
+                                                 :marine_stat => [:get], 
+                                                 :curator => [:get],
+                                                 :rich_page => [:get],
+                                                 :user_added_text => [:get],
+                                                 :lifedesk => [:get]},
+                                       :only => [:index], :namespace => 'admins/' do |statistic|
+    end
   end
 
   # Old V1 /admin and /administrator namespaces (controllers)

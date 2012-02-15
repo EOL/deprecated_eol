@@ -607,6 +607,27 @@ body
         right: 0
         top: 32px
         z-index: 1
+        ul
+          float: right
+          overflow: hidden
+          margin-left: 1px
+          font-weight: bold
+          font-size: .9em
+          li
+            a
+              display: block
+              height: 25px
+              line-height: 25px
+              text-decoration: none
+              background: url("/images/v2/icon_header_messages.png") 6px 45% no-repeat #566572
+              padding: 0 5px 0 24px
+              &:hover
+                background-color: #667d91
+            + li
+              margin-top: 1px
+              a
+                background-image: url("/images/v2/icon_header_notifications.png")
+                background-position: 9px 50%
         img
           float: right
           margin: 0 0 0 10px

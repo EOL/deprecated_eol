@@ -466,18 +466,19 @@ EOL.initFacebook = function(app_id, channel_url) {
     _ga.trackFacebook();
   }
 };
-EOL.get_notifications = function() {
-  var $cell = $('#header span#tag_line');
-  if ($cell != undefined) {
-    $.ajax({
-      url: '/users/'+$cell.data('user-id')+'/notifications',
-      dataType: 'html',
-      beforeSend: function(xhr) { $cell.fadeTo(300, 0.3); },
-      success: function(response) { $cell.html(response); },
-      error: function(xhr, stat, err) { $cell.html('<p>Sorry, there was an error: '+stat+'</p>'); },
-      complete: function() {
-        $cell.delay(25).fadeTo(100, 1, function() {$cell.css({filter:''});});
-      }
-    });
-  }
-}
+// TODO: No longer using tag_line if we want to load notifications via AJAX this needs to be modified, see session_summary partial
+//EOL.get_notifications = function() {
+//  var $cell = $('#header span#tag_line');
+//  if ($cell != undefined) {
+//    $.ajax({
+//      url: '/users/'+$cell.data('user-id')+'/notifications',
+//      dataType: 'html',
+//      beforeSend: function(xhr) { $cell.fadeTo(300, 0.3); },
+//      success: function(response) { $cell.html(response); },
+//      error: function(xhr, stat, err) { $cell.html('<p>Sorry, there was an error: '+stat+'</p>'); },
+//      complete: function() {
+//        $cell.delay(25).fadeTo(100, 1, function() {$cell.css({filter:''});});
+//      }
+//    });
+//  }
+//}

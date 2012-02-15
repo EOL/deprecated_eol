@@ -3126,6 +3126,12 @@ en:
   user_notifications_messages_with_count:
     one: "%{count} message"
     other: "%{count} messages"
+  user_notifications_with_count_assitive:
+    one: '%{count}<span class="assistive"> notification</span>'
+    other: '%{count}<span class="assistive"> notifications</span>'
+  user_notifications_messages_with_count_assistive:
+    one: '%{count}<span class="assistive"> message</span>'
+    other: '%{count}<span class="assistive"> messages</span>'
   user_was_added_as_editor_of_collection: "This user was added as a manager of \"%{collection}\"."
   username_taken: "%{name} is already taken"
   username_colon: "Username:"

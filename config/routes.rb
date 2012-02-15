@@ -165,9 +165,9 @@ ActionController::Routing::Routes.draw do |map|
                                        :only => [:index], :namespace => 'admins/' do |content_partner|
 
     end
-    admin.resources :statistics, :collection => {:content_partner => [:get], 
-                                                 :data_object => [:get], 
-                                                 :marine_stat => [:get], 
+    admin.resources :statistics, :collection => {:content_partner => [:get],
+                                                 :data_object => [:get],
+                                                 :marine_stat => [:get],
                                                  :curator => [:get],
                                                  :rich_page => [:get],
                                                  :user_added_text => [:get],
@@ -237,6 +237,7 @@ ActionController::Routing::Routes.draw do |map|
     redirect.connect '/settings'
     redirect.connect '/account/show/:user_id'
     redirect.connect '/info/xrayvision', :collection_id => 14770
+    redirect.connect '/info/naturesbest2011', :collection_id => 19338
   end
 
   ## Content pages including CMS and other miscellaneous pages

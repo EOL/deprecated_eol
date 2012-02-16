@@ -46,7 +46,22 @@
     = csrf_meta_tag # Recommended by https://github.com/rails/jquery-ujs
 
     = yield :head
-
+    - if $GOOGLE_ANALYTICS_ID && $ENABLE_ANALYTICS != false # Weird, but in this case nil is okay: only false is bad.
+      :javascript
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', '#{$GOOGLE_ANALYTICS_ID}']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    - if $ENABLE_WEBTRENDS
+      = javascript_include_tag 'webtrends'
+      :javascript
+        var _tag=new WebTrends();
+        _tag.dcsGetId();
+        _tag.dcsCollect();
   %body{:class => @home_page ? 'home' : nil}
     %ul#controls.assistive
       %li= link_to I18n.t(:skip_to_content), '#main'
@@ -129,27 +144,13 @@
       (function(w, d, s) {
         function go(){
           if ("#{$GOOGLE_ANALYTICS_ID}" && "#{$ENABLE_ANALYTICS}") {
-            head.js({ 'ga_js': ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js' });
-            head.ready("ga_js", function() {
-              head.js({ ga_social_tracking: '/javascripts/ga_social_tracking.js' });
-              var _gaq = _gaq || [];
-              _gaq.push(['_setAccount', '#{$GOOGLE_ANALYTICS_ID}']);
-              _gaq.push(['_trackPageview']);
-            });
+            head.js({ ga_social_tracking: '/javascripts/ga_social_tracking.js' });
           }
           if ("#{$QUANTCAST_ID}" && "#{$ENABLE_QUANTCAST}") {
             head.js({ 'quant_js': (document.location.protocol == 'https:' ? 'https://secure' : 'http://edge') + '.quantserve.com/quant.js' });
             head.ready("quant_js", function() {
               var _qevents = _qevents || [];
               _qevents.push( { qacct:"#{$QUANTCAST_ID}"} );
-            });
-          }
-          if ("#{$ENABLE_WEBTRENDS}") {
-            head.js({ 'webtrends_js': '/javascripts/webtrends.js' });
-            head.ready("webtrends_js", function() {
-              var _tag = new WebTrends();
-              _tag.dcsGetId();
-              _tag.dcsCollect();
             });
           }
           if("#{$ENABLED_SOCIAL_PLUGINS}") {

@@ -103,6 +103,17 @@ class TaxonConcept < SpeciesSchemaModel
     :include => [{ :published_hierarchy_entries => [ :name , :hierarchy, :hierarchies_content, :vetted ] }, { :data_objects => [ { :toc_items => :info_items }, :license] },
       { :users_data_objects => { :data_object => :toc_items } }]
 
+  def all_superceded_taxon_concept_ids
+    # arbitrarily 
+    superceded_taxon_concept_ids = []
+    TaxonConcept.preload_associations(self, { :superceded_taxon_concepts => { :superceded_taxon_concepts => { :superceded_taxon_concepts => :superceded_taxon_concepts } } }, :select => { :taxon_concepts => [ :id, :supercedure_id ] } )
+    superceded_taxon_concepts.each do |superceded_concept|
+      superceded_taxon_concept_ids << superceded_concept.id
+      superceded_taxon_concept_ids += superceded_concept.all_superceded_taxon_concept_ids
+    end
+    superceded_taxon_concept_ids.uniq
+  end
+  
   def show_curator_controls?(user = nil)
     return @show_curator_controls if !@show_curator_controls.nil?
     user = @current_user if user.nil?
@@ -1415,6 +1426,31 @@ class TaxonConcept < SpeciesSchemaModel
       :ignore_translations => ignore_translations
     })
   end
+  
+  def data_objects_from_solr(solr_query_parameters = {})
+    solr_query_parameters[:per_page] ||= 30  # return ALL objects by default
+    solr_query_parameters[:sort_by] ||= 'status'  # enumerated list defined in EOL::Solr::DataObjects
+    solr_query_parameters[:data_type_ids] ||= nil  # return objects of ANY type by default
+    solr_query_parameters[:filter_by_subtype] ||= false  # if this is true then we'll query using the data_subtype_id, even if its nil
+    solr_query_parameters[:data_subtype_ids] ||= nil  # return objects of ANY subtype by default - so this will include maps
+    solr_query_parameters[:license_ids] ||= nil
+    solr_query_parameters[:language_id] ||= nil
+    solr_query_parameters[:toc_ids] ||= nil
+    solr_query_parameters[:published] = true  # this can't be overridden - we always want published objects
+    solr_query_parameters[:vetted_types] ||= ['trusted', 'unreviewed']  # labels are english strings simply because the SOLR fields use these labels
+    solr_query_parameters[:visibility_types] ||= ['visible']  # labels are english strings simply because the SOLR fields use these labels
+    solr_query_parameters[:filter_hierarchy_entry] ||= nil  # the entry in the concept when the user has the classification filter on
+    solr_query_parameters[:ignore_translations] ||= false  # ignoring translations means we will not return objects which are translations of other original data objects
+    solr_query_parameters[:return_hierarchically_aggregated_objects] ||= false  # if true, we will return images of ALL SPECIES of Animals for example
+    
+    # these are really only relevant to the worklist
+    solr_query_parameters[:resource_id] ||= nil
+    solr_query_parameters[:curated_by_user] ||= nil
+    solr_query_parameters[:ignored_by_user] ||= nil
+    solr_query_parameters[:current_user] ||= nil
+    EOL::Solr::DataObjects.search_with_pagination(self.id, solr_query_parameters)
+  end
+  
 
   def media_facet_counts
     @media_facet_counts ||= EOL::Solr::DataObjects.get_facet_counts(self.id)

@@ -31,14 +31,32 @@ module EOL
       end
       
       def self.prepare_search_url(taxon_concept_id, options = {})
-        url =  $SOLR_SERVER + $SOLR_DATA_OBJECTS_CORE + '/select/?wt=json&q=' + CGI.escape("{!lucene}published:1 AND ancestor_id:#{taxon_concept_id}")
+        url =  $SOLR_SERVER + $SOLR_DATA_OBJECTS_CORE + '/select/?wt=json&q=' + CGI.escape("{!lucene}ancestor_id:#{taxon_concept_id}")
+        unless options[:published].nil?
+          url << CGI.escape(" AND published:#{(options[:published]) ? 1 : 0}")
+        end
+        
+        if options[:license_ids]
+          url << CGI.escape(" AND (license_id:#{options[:license_ids].join(' OR license_id:')})")
+        end
+        
+        if options[:toc_ids]
+          url << CGI.escape(" AND (toc_id:#{options[:toc_ids].join(' OR toc_id:')})")
+        end
+        
         if options[:filter_hierarchy_entry] && options[:filter_hierarchy_entry].class == HierarchyEntry
           field_suffix = "ancestor_he_id"
           search_id = options[:filter_hierarchy_entry].id
           url << CGI.escape(" AND ancestor_he_id:#{search_id}")
+          unless options[:return_hierarchically_aggregated_objects]
+            url << CGI.escape(" AND hierarchy_entry_id:#{search_id}")
+          end
         else
           field_suffix = "ancestor_id"
           search_id = taxon_concept_id
+          unless options[:return_hierarchically_aggregated_objects]
+            url << CGI.escape(" AND taxon_concept_id:#{search_id}")
+          end
         end
 
         if options[:vetted_types] && !options[:vetted_types].include?('all')
@@ -53,29 +71,40 @@ module EOL
         end
 
         if options[:data_type_ids]
+           # TODO: do we want to remove IUCN from this query?
           url << CGI.escape(" AND (data_type_id:#{options[:data_type_ids].join(' OR data_type_id:')})")
         else
+           # IUCN types are very special in the system and should never be returned
           url << CGI.escape(" NOT (data_type_id:#{DataType.iucn.id})")
         end
-        # filter
-        if options[:filter] == 'curated' && options[:user]
-          url << CGI.escape(" AND curated_by_user_id:#{options[:user].id}")
-        elsif options[:filter] == 'ignored' && options[:user]
-          url << CGI.escape(" AND ignored_by_user_id:#{options[:user].id}")
-        elsif options[:filter] == 'active'
-          url << CGI.escape(" NOT curated_by_user_id:#{options[:user].id} NOT ignored_by_user_id:#{options[:user].id}")
-        elsif options[:filter] == 'visible'
-          url << CGI.escape(" AND visible_ancestor_id:#{taxon_concept_id}")
+        
+        if options[:filter_by_subtype]
+          if options[:data_subtype_ids]
+            url << CGI.escape(" AND (data_subtype_id:#{options[:data_subtype_ids].join(' OR data_subtype_id:')})")
+          else
+            # these are all the objects with data_subtype_id = 0 OR NULL value in data_subtype
+            url << CGI.escape(" AND (data_subtype_id:0 OR (NOT (data_subtype_id:[* TO *])))")
+          end
         end
         
-        if options[:resource_id] && options[:resource_id] != 'all'
+        if options[:current_user] && options[:current_user].class == User
+          if options[:curated_by_user]
+            url << CGI.escape(" AND curated_by_user_id:#{options[:current_user].id}")
+          end
+          if options[:ignored_by_user]
+            url << CGI.escape(" AND ignored_by_user_id:#{options[:current_user].id}")
+          end
+        end
+        
+        if options[:resource_id]
           url << CGI.escape(" AND resource_id:#{options[:resource_id]}")
         end
-
-        if options[:ignore_maps]
-          url << CGI.escape(" NOT data_subtype_id:#{DataType.map.id}")
+        
+        if options[:language_id]
+          url << CGI.escape(" AND language_id:#{options[:language_id]}")
         end
         
+        # ignoring translations means we will not return objects which are translations of other original data objects
         if options[:ignore_translations]
           url << CGI.escape(" NOT is_translation:true")
         end
@@ -108,6 +137,7 @@ module EOL
         offset = (page - 1) * limit
         url << '&start=' << URI.encode(offset.to_s)
         url << '&rows='  << URI.encode(limit.to_s)
+        puts "\n\nThe SOLR Query: #{url}\n\n"
         res = open(url).read
         JSON.load res
       end
@@ -161,7 +191,7 @@ module EOL
       end
       
       def self.load_resource_facets(taxon_concept_id, options = {})
-        url = prepare_search_url(taxon_concept_id, options.merge(:resource_id => nil))
+        url = prepare_search_url(taxon_concept_id, options)
         url << '&rows=0'
         res = open(url).read
         response = JSON.load res

@@ -19,6 +19,7 @@ class Taxa::WorklistController < TaxaController
     @object_status = 'all' unless ['all', 'trusted', 'unreviewed', 'untrusted'].include?(@object_status)
     @object_visibility = 'all' unless ['all', 'visible', 'invisible'].include?(@object_visibility)
     @task_status = 'active' unless ['active', 'curated', 'ignored'].include?(@task_status)
+    # TODO: active means NOT curated and NOT ignored
     @resource_id = 'all' unless @resource_id == 'all' || @resource_id.is_numeric?
     data_type_ids = nil
     if params[:object_type] == 'video'

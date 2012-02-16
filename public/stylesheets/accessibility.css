@@ -1195,3 +1195,8 @@ body#prelaunch #footer ul.social_media {
 #profile_notifications .copy form dd {
   width: 200px;
   float: right; }
+span#tag_line span#notifications {
+  font-weight: bold;
+  color: #c1d72e; }
+  span#tag_line span#notifications a {
+    color: #d9f427; }

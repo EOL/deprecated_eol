@@ -120,11 +120,11 @@ module EOL
 
       def self.solr_search(query, options = {})
         options[:group_field] ||= 'activity_log_unique_key'
+        # add date-after:
         url =  $SOLR_SERVER + $SOLR_ACTIVITY_LOGS_CORE + '/select/?wt=json&q=' + CGI.escape(%Q[{!lucene}])
         url << CGI.escape(query)
         url << '&sort=date_created+desc&fl=activity_log_type,activity_log_id,user_id,date_created'
         url << "&group=true&group.field=#{options[:group_field]}&group.ngroups=true"
-
         # add paging
         limit  = options[:per_page] ? options[:per_page].to_i : 10
         page = options[:page] ? options[:page].to_i : 1
@@ -132,6 +132,7 @@ module EOL
         url << '&start=' << URI.encode(offset.to_s)
         url << '&rows='  << URI.encode(limit.to_s)
         res = open(url).read
+        puts ">>>> #{query}" # TODO -remove, this was debugging.
         JSON.load res
       end
 

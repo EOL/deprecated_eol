@@ -1,6 +1,1 @@
-.article.list.updates
-  - log = @notes.map {|n| {'instance' => n.target}}
-  .header
-    %h3
-      = I18n.t('.recent_activity_head', :scope => [:notifier, :recent_activity])
-  = render(:partial => 'activity_logs/index', :locals => {:log => log, :hide_pagination => true, :editable => false})
+I sent an email to you for notifications.

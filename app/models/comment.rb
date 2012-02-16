@@ -24,6 +24,7 @@ class Comment < ActiveRecord::Base
 
   before_create :set_visible_at, :set_from_curator
   after_create :log_activity_in_solr
+  after_create :queue_notifications
 
   validates_presence_of :body, :user
 
@@ -263,24 +264,6 @@ class Comment < ActiveRecord::Base
     reply_to_id
   end
 
-private
-
-  def reply_is_comment?
-    return self.reply? && reply_to_type == 'Comment'
-  end
-
-  # Run when a comment is created, to ensure it is visible by default:
-  def set_visible_at
-    self.visible_at ||= Time.now
-  end
-
-  def set_from_curator
-    if self.from_curator.nil?
-      self.from_curator = user.is_curator? ? true : false # Forces the value to true/false, rather than obj/nil
-    end
-    return self.from_curator.to_s
-  end
-
   # Find users who are "listening" to this comment and queue a pending notification for them:
   def notify_listeners
     # those who are listening to direct replies to comments they made,
@@ -330,6 +313,28 @@ private
                                    :reason => 'comment_on_my_contribution')
       end
     end
+  end
+
+private
+
+  def reply_is_comment?
+    return self.reply? && reply_to_type == 'Comment'
+  end
+
+  # Run when a comment is created, to ensure it is visible by default:
+  def set_visible_at
+    self.visible_at ||= Time.now
+  end
+
+  def set_from_curator
+    if self.from_curator.nil?
+      self.from_curator = user.is_curator? ? true : false # Forces the value to true/false, rather than obj/nil
+    end
+    return self.from_curator.to_s
+  end
+
+  def queue_notifications
+    Resque.enqueue(PrepareAndSendNotifications)
   end
 
 end

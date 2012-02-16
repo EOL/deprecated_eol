@@ -873,6 +873,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     else
       pending_notifications.unsent
     end
+  end
 
   # TODO - Still needed?
   def notification_count

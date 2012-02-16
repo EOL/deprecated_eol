@@ -1134,7 +1134,6 @@ Factory.define :user do |u|
   u.agent_id                  {|user| Factory(:agent, :full_name => "#{user.given_name} #{user.family_name}").id }
   u.flash_enabled             true
   u.language                  { Language.english }
-  u.mailing_list              true
   u.vetted                    false
   u.username                  do |user|
     attempt = "#{user.given_name[0..0]}_#{user.family_name[0..9]}".gsub(/\s/, '_').downcase

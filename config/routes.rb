@@ -80,7 +80,9 @@ ActionController::Routing::Routes.draw do |map|
                              :curation_privileges => :get, :make_editor => :put, :revoke_editor => :get,
                              :pending_notifications => :get, :notifications => :get },
                 :collection => { :forgot_password => :get, :usernames => :get } do |user|
-    user.resource :newsfeed, :only => [:show], :controller => "users/newsfeeds"
+    user.resource :newsfeed, :only => [:show],
+                             :collection => { :messages => [:get], :activity => [:get] },
+                             :controller => "users/newsfeeds"
     user.resource :notification, :only => [:edit, :update], :controller => "users/notifications"
     user.resource :activity, :only => [:show], :controller => "users/activities"
     user.resources :collections, :only => [:index], :controller => "users/collections"

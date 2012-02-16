@@ -1145,19 +1145,6 @@ ul li.editors a {
   padding: 7px 10px 6px !important;
   font-size: 12px !important; }
 
-div.newsfeed_heading {
-  padding: 6px 10px 5px;
-  text-align: left;
-  font-weight: bold;
-  text-transform: uppercase;
-  background: none repeat scroll 0 0 #f1f4dc;
-  border-bottom: 1px solid #ccd399; }
-  div.newsfeed_heading h3 {
-    color: #828d33;
-    font-weight: bold;
-    text-transform: uppercase;
-    font-size: 1em; }
-
 ul.media li .overlay {
   height: auto !important; }
 
@@ -1195,6 +1182,7 @@ body#prelaunch #footer ul.social_media {
 #profile_notifications .copy form dd {
   width: 200px;
   float: right; }
+
 span#tag_line span#notifications {
   font-weight: bold;
   color: #c1d72e; }

@@ -113,6 +113,27 @@ form
       font-weight: bold
       text-transform: uppercase
       color: #828d33
+    &.subnav
+      ul
+        overflow: hidden
+        font-weight: bold
+        li
+          float: left
+          margin: 0 10px 0 0
+          padding: 0
+          &.active a
+            background: #fff
+          &.active a, a:hover
+            border: 1px solid #828d33
+            color: #394651
+          a
+            padding: 5px
+            display: block
+            text-decoration: none
+            color: #828d33
+            background: #f5f7e7
+            border: 1px solid #cfd5a9
+
 form.comment
   padding: 0 20px
   margin: 0 0 35px 0
@@ -2491,6 +2512,7 @@ body
       select
         margin-left: 10px
     &.requests
+      float: right
       width: 218px
       margin: 0
       padding: 0

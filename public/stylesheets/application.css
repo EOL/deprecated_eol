@@ -584,6 +584,25 @@ form div {
       font-weight: bold;
       text-transform: uppercase;
       color: #828d33; }
+    .main_container .heading.subnav ul {
+      overflow: hidden;
+      font-weight: bold; }
+      .main_container .heading.subnav ul li {
+        float: left;
+        margin: 0 10px 0 0;
+        padding: 0; }
+        .main_container .heading.subnav ul li.active a {
+          background: white; }
+        .main_container .heading.subnav ul li.active a, .main_container .heading.subnav ul li a:hover {
+          border: 1px solid #828d33;
+          color: #394651; }
+        .main_container .heading.subnav ul li a {
+          padding: 5px;
+          display: block;
+          text-decoration: none;
+          color: #828d33;
+          background: #f5f7e7;
+          border: 1px solid #cfd5a9; }
 
 form.comment {
   padding: 0 20px;
@@ -3155,6 +3174,7 @@ body > #header {
   #profile_edit fieldset.account select {
     margin-left: 10px; }
   #profile_edit fieldset.requests {
+    float: right;
     width: 218px;
     margin: 0;
     padding: 0; }

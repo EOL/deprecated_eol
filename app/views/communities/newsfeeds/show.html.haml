@@ -32,7 +32,7 @@
     %p.help_text= I18n.t(:newsfeed_help_for_community)
   .article.list.updates
     = render :partial => 'comments/new', :locals => { :parent => @community }
-    .newsfeed_heading
+    .heading
       %h3= I18n.t(:newsfeed)
     = render :partial => 'activity_logs/index', :locals => { :log => @newsfeed }
 

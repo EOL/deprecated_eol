@@ -36,4 +36,4 @@ gem 'memcache'
 gem 'unicorn', '4.1.1'
 gem 'graylog2_exceptions', '1.3.0'
 gem 'multi_json', '1.0.4' # This appears to be a req't of resque, not working on staging
-gem 'resque', :require => "resque/server"
+# WAIT - gem 'resque', :require => "resque/server"

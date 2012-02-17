@@ -70,6 +70,12 @@ describe TaxonConcept do
     @child2              = @testy[:child2]
     @sub_child           = @testy[:sub_child]
     
+    @taxon_media_parameters = {}
+    @taxon_media_parameters[:per_page] = 100
+    @taxon_media_parameters[:data_type_ids] = DataType.image_type_ids + DataType.video_type_ids + DataType.sound_type_ids
+    @taxon_media_parameters[:return_hierarchically_aggregated_objects] = true
+    
+    
     # rebuild the Solr DataObject index
     SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE).delete_all_documents
     DataObject.all.each{ |d| d.update_solr_index }
@@ -183,8 +189,8 @@ describe TaxonConcept do
   #end
 
   it 'should have images and videos in #media' do
-    @taxon_concept.media.map(&:description).should include(@video_1_text)
-    @taxon_concept.media.map(&:object_cache_url).should include(@testy[:image_1])
+    @taxon_concept.data_objects_from_solr(@taxon_media_parameters).map(&:description).should include(@video_1_text)
+    @taxon_concept.data_objects_from_solr(@taxon_media_parameters).map(&:object_cache_url).should include(@testy[:image_1])
   end
 
   it 'should show its untrusted images, by default' do
@@ -271,21 +277,20 @@ describe TaxonConcept do
     @taxon_concept.reload
     trusted   = Vetted.trusted.id
     unknown   = Vetted.unknown.id
-    @taxon_concept.media(:data_type_ids => DataType.image_type_ids).map { |item|
+    @taxon_concept.data_objects_from_solr(@taxon_media_parameters.merge(:data_type_ids => DataType.image_type_ids)).map { |item|
       item_vetted = item.vetted_by_taxon_concept(@taxon_concept, :find_best => true)
       item_vetted_id = item_vetted.id unless item_vetted.nil?
       item_vetted_id
     }.uniq.should == [trusted, unknown]
   end
   
-  it 'should return media sorted by trusted, unknown, untrusted for logged in curators' do
+  it 'should return media sorted by trusted, unknown, untrusted' do
     # TODO - add inappropriate if needed
     @taxon_concept.reload
-    @taxon_concept.current_user = @curator
     trusted   = Vetted.trusted.id
     unknown   = Vetted.unknown.id
     untrusted = Vetted.untrusted.id
-    @taxon_concept.media(:data_type_ids => DataType.image_type_ids).map { |item|
+    @taxon_concept.data_objects_from_solr(@taxon_media_parameters.merge(:data_type_ids => DataType.image_type_ids, :vetted_types => ['trusted', 'unreviewed', 'untrusted'])).map { |item|
       item_vetted = item.vetted_by_taxon_concept(@taxon_concept, :find_best => true)
       item_vetted_id = item_vetted.id unless item_vetted.nil?
       item_vetted_id

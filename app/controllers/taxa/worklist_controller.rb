@@ -21,6 +21,7 @@ class Taxa::WorklistController < TaxaController
     @task_status = 'active' unless ['active', 'curated', 'ignored'].include?(@task_status)
     # TODO: active means NOT curated and NOT ignored
     @resource_id = 'all' unless @resource_id == 'all' || @resource_id.is_numeric?
+    @resource_id = nil if @resource_id == 'all'
     data_type_ids = nil
     if params[:object_type] == 'video'
       data_type_ids = DataType.video_type_ids
@@ -39,12 +40,21 @@ class Taxa::WorklistController < TaxaController
       :data_type_ids => data_type_ids,
       :vetted_types => search_vetted_types,
       :visibility_types => [ @object_visibility ],
+      :return_hierarchically_aggregated_objects => true,
       :user => current_user,
-      :filter => @task_status,
       :resource_id => @resource_id,
       :facet_by_resource => true
     }
-    @data_objects = EOL::Solr::DataObjects.search_with_pagination(@taxon_concept.id, search_options)
+    if @task_status == 'active'
+      search_options[:curated_by_user] = false
+      search_options[:ignored_by_user] = false
+    elsif @task_status == 'curated'
+      search_options[:curated_by_user] = true
+    elsif @task_status == 'ignored'
+      search_options[:ignored_by_user] = true
+    end
+    
+    @data_objects = @taxon_concept.data_objects_from_solr(search_options)
     @resource_counts = EOL::Solr::DataObjects.load_resource_facets(@taxon_concept.id, search_options).sort_by{ |c| c[:resource].title.downcase }
 
     @current_data_object = @data_objects.detect{ |ct| ct.id == params[:current].to_i } unless params[:current].blank?

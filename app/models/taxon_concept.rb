@@ -831,36 +831,6 @@ class TaxonConcept < SpeciesSchemaModel
     end
   end
 
-  def media(opts = {}, hierarchy_entry = nil)
-    opts[:page] ||= 1
-    opts[:per_page] ||= 100
-    opts[:per_page] = 100 if opts[:per_page] > 100
-    opts[:sort_by] ||= 'status'
-    opts[:data_type_ids] ||= DataType.image_type_ids + DataType.video_type_ids + DataType.sound_type_ids
-    if current_user.is_curator?
-      opts[:search_statuses] ||= ['trusted', 'unreviewed', 'untrusted']
-      opts[:visibility_statuses] ||= ['visible', 'invisible']
-      opts[:filter_by] ||= ''
-    else
-      opts[:search_statuses] ||= ['trusted', 'unreviewed']
-      opts[:visibility_statuses] ||= ['visible']
-      opts[:filter_by] ||= 'visible'
-    end
-
-    @media = EOL::Solr::DataObjects.search_with_pagination(self.id, {
-      :page => opts[:page],
-      :per_page => opts[:per_page],
-      :sort_by => opts[:sort_by],
-      :data_type_ids => opts[:data_type_ids],
-      :vetted_types => opts[:search_statuses],
-      :visibility_types => opts[:visibility_statuses],
-      :ignore_maps => true,
-      :ignore_translations => true,
-      :filter => opts[:filter_by],
-      :filter_hierarchy_entry => hierarchy_entry
-    })
-  end
-
   # title and sub-title depend on expertise level of the user that is passed in (default to novice if none specified)
   def title(hierarchy = nil)
     return @title unless @title.nil?
@@ -1356,14 +1326,14 @@ class TaxonConcept < SpeciesSchemaModel
       visibility_types << 'invisible'
     end
     @media_count ||= $CACHE.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 1.days) do
-      best_images = EOL::Solr::DataObjects.search_with_pagination(self.id, {
+      best_images = self.data_objects_from_solr({
         :per_page => 1,
         :data_type_ids => DataType.image_type_ids + DataType.video_type_ids + DataType.sound_type_ids,
         :vetted_types => vetted_types,
         :visibility_types => visibility_types,
-        :ignore_maps => true,
         :ignore_translations => true,
         :filter_hierarchy_entry => selected_hierarchy_entry,
+        :return_hierarchically_aggregated_objects => true
       }).total_entries
     end
   end
@@ -1392,14 +1362,13 @@ class TaxonConcept < SpeciesSchemaModel
       if published_exemplar = self.published_exemplar_image
         published_exemplar
       else
-        best_images = EOL::Solr::DataObjects.search_with_pagination(self.id, {
+        best_images = self.data_objects_from_solr({
           :per_page => 1,
           :sort_by => 'status',
           :data_type_ids => DataType.image_type_ids,
           :vetted_types => ['trusted', 'unreviewed'],
-          :visibility_types => 'visible',
+          :visibility_types => ['visible'],
           :published => true,
-          :ignore_maps => true,
           :skip_preload => true,
           :filter_hierarchy_entry => selected_hierarchy_entry
         })
@@ -1415,26 +1384,28 @@ class TaxonConcept < SpeciesSchemaModel
   end
 
   def images_from_solr(limit = 4, selected_hierarchy_entry = nil, ignore_translations = false)
-    @images_from_solr ||=  EOL::Solr::DataObjects.search_with_pagination(self.id, {
+    @images_from_solr ||= data_objects_from_solr({
       :per_page => limit,
       :sort_by => 'status',
       :data_type_ids => DataType.image_type_ids,
       :vetted_types => ['trusted', 'unreviewed'],
       :visibility_types => 'visible',
-      :ignore_maps => true,
       :filter_hierarchy_entry => selected_hierarchy_entry,
-      :ignore_translations => ignore_translations
+      :ignore_translations => ignore_translations,
+      :return_hierarchically_aggregated_objects => true
     })
   end
   
   def data_objects_from_solr(solr_query_parameters = {})
-    solr_query_parameters[:per_page] ||= 30  # return ALL objects by default
+    solr_query_parameters[:page] ||= 1  # return FIRST page by default
+    solr_query_parameters[:per_page] ||= 30  # return 30 objects by default
     solr_query_parameters[:sort_by] ||= 'status'  # enumerated list defined in EOL::Solr::DataObjects
     solr_query_parameters[:data_type_ids] ||= nil  # return objects of ANY type by default
-    solr_query_parameters[:filter_by_subtype] ||= false  # if this is true then we'll query using the data_subtype_id, even if its nil
+    solr_query_parameters[:filter_by_subtype] ||= true  # if this is true then we'll query using the data_subtype_id, even if its nil
     solr_query_parameters[:data_subtype_ids] ||= nil  # return objects of ANY subtype by default - so this will include maps
     solr_query_parameters[:license_ids] ||= nil
-    solr_query_parameters[:language_id] ||= nil
+    solr_query_parameters[:language_ids] ||= nil
+    solr_query_parameters[:allow_nil_languages] ||= nil
     solr_query_parameters[:toc_ids] ||= nil
     solr_query_parameters[:published] = true  # this can't be overridden - we always want published objects
     solr_query_parameters[:vetted_types] ||= ['trusted', 'unreviewed']  # labels are english strings simply because the SOLR fields use these labels
@@ -1442,15 +1413,20 @@ class TaxonConcept < SpeciesSchemaModel
     solr_query_parameters[:filter_hierarchy_entry] ||= nil  # the entry in the concept when the user has the classification filter on
     solr_query_parameters[:ignore_translations] ||= false  # ignoring translations means we will not return objects which are translations of other original data objects
     solr_query_parameters[:return_hierarchically_aggregated_objects] ||= false  # if true, we will return images of ALL SPECIES of Animals for example
+    solr_query_parameters[:skip_preload] ||= false  # if true, we will do less preload of associations
     
     # these are really only relevant to the worklist
     solr_query_parameters[:resource_id] ||= nil
-    solr_query_parameters[:curated_by_user] ||= nil
-    solr_query_parameters[:ignored_by_user] ||= nil
-    solr_query_parameters[:current_user] ||= nil
+    unless defined?(solr_query_parameters[:curated_by_user])
+      solr_query_parameters[:curated_by_user] = nil  # true, false or nil
+    end
+    unless defined?(solr_query_parameters[:ignored_by_user])
+      solr_query_parameters[:ignored_by_user] = nil  # true, false or nil
+    end
+    solr_query_parameters[:user] ||= nil
+    solr_query_parameters[:facet_by_resource] ||= false  # this will add a facet parameter to the solr query
     EOL::Solr::DataObjects.search_with_pagination(self.id, solr_query_parameters)
   end
-  
 
   def media_facet_counts
     @media_facet_counts ||= EOL::Solr::DataObjects.get_facet_counts(self.id)

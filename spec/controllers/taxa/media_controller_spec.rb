@@ -27,12 +27,16 @@ describe Taxa::MediaController do
 
       # rank objects in order: 1 - oldest image; 2 - oldest video; 3 - oldest sound
       # assumes exemplar is nil
-      @trusted_count = @taxon_concept.media.select{ |item|
+      taxon_media_parameters = {}
+      taxon_media_parameters[:per_page] = 100
+      taxon_media_parameters[:data_type_ids] = DataType.image_type_ids + DataType.video_type_ids + DataType.sound_type_ids
+      taxon_media_parameters[:return_hierarchically_aggregated_objects] = true
+      @trusted_count = @taxon_concept.data_objects_from_solr(taxon_media_parameters).select{ |item|
         item_vetted = item.vetted_by_taxon_concept(@taxon_concept)
         item_vetted.id == Vetted.trusted.id
       }.count
       
-      @media = @taxon_concept.media.sort_by{|m| m.id}
+      @media = @taxon_concept.data_objects_from_solr(taxon_media_parameters).sort_by{|m| m.id}
       @newest_media = @media.last(10).reverse
       @oldest_media = @media.first(3)
 

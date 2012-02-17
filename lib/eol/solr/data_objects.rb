@@ -24,6 +24,7 @@ module EOL
         unless options[:skip_preload]
           includes = [ :hierarchy_entries, :toc_items ]
           selects[:hierarchy_entries] = '*'
+          selects[:table_of_contents] = '*'
         end
         EOL::Solr.add_standard_instance_to_docs!(DataObject, docs, 'data_object_id',
           :includes => includes,
@@ -83,16 +84,20 @@ module EOL
             url << CGI.escape(" AND (data_subtype_id:#{options[:data_subtype_ids].join(' OR data_subtype_id:')})")
           else
             # these are all the objects with data_subtype_id = 0 OR NULL value in data_subtype
-            url << CGI.escape(" AND (data_subtype_id:0 OR (NOT (data_subtype_id:[* TO *])))")
+            url << CGI.escape(" AND (data_subtype_id:0 OR (*:* NOT data_subtype_id:[* TO *]))")
           end
         end
         
-        if options[:current_user] && options[:current_user].class == User
-          if options[:curated_by_user]
-            url << CGI.escape(" AND curated_by_user_id:#{options[:current_user].id}")
+        if options[:user] && options[:user].class == User
+          if options[:curated_by_user] === true
+            url << CGI.escape(" AND curated_by_user_id:#{options[:user].id}")
+          elsif options[:curated_by_user] === false
+            url << CGI.escape(" NOT curated_by_user_id:#{options[:user].id}")
           end
-          if options[:ignored_by_user]
-            url << CGI.escape(" AND ignored_by_user_id:#{options[:current_user].id}")
+          if options[:ignored_by_user] === true
+            url << CGI.escape(" AND ignored_by_user_id:#{options[:user].id}")
+          elsif options[:ignored_by_user] === false
+            url << CGI.escape(" NOT ignored_by_user_id:#{options[:user].id}")
           end
         end
         
@@ -100,8 +105,12 @@ module EOL
           url << CGI.escape(" AND resource_id:#{options[:resource_id]}")
         end
         
-        if options[:language_id]
-          url << CGI.escape(" AND language_id:#{options[:language_id]}")
+        if options[:language_ids]
+          nil_language_clause = "";
+          if options[:allow_nil_languages]
+            nil_language_clause = "OR (language_id:0 OR (*:* NOT language_id:[* TO *]))"
+          end
+          url << CGI.escape(" AND (language_id:#{options[:language_ids].join(' OR language_id:')} #{nil_language_clause})")
         end
         
         # ignoring translations means we will not return objects which are translations of other original data objects
@@ -257,8 +266,8 @@ module EOL
           'data_subtype_id' => data_object.data_subtype_id || 0,
           'published' => data_object.published? ? 1 : 0,
           'data_rating' => data_object.data_rating,
-          # 'language_id' => data_object.language_id,
-          # 'license_id' => data_object.license_id,
+          'language_id' => data_object.language_id,
+          'license_id' => data_object.license_id,
           'created_at' => data_object.created_at ? data_object.created_at.solr_timestamp : nil
         }
         # add resource ID

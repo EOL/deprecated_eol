@@ -3,6 +3,7 @@
 # the TocEntry that is displayed on the page)
 class TocEntry
 
+  attr_reader :toc_item
   attr_reader :category_id
   attr_reader :has_content
   attr_reader :has_unpublished_content
@@ -49,6 +50,7 @@ class TocEntry
   end
 
   def set_fixed_attributes_from(toc_item)
+    @toc_item        = toc_item
     @category_id     = toc_item.id
     @label           = toc_item.label
     @allow_user_text = toc_item.allow_user_text?

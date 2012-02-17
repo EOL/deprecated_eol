@@ -133,6 +133,7 @@ DEPENDENCIES
   json (= 1.5.3)
   macaddr
   memcache
+  multi_json (= 1.0.4)
   mysql
   newrelic_rpm
   optiflag

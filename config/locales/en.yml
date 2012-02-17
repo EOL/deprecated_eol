@@ -200,6 +200,7 @@ en:
         rights_statement: "Rights statement"
         source_url: "Source URL"
       eol_statistic:
+        created_at: "Created at"
         # overall stats
         members_count: "Members"
         communities_count: "Communities"
@@ -418,6 +419,8 @@ en:
         create: "Add article"
         create_text: "Add article"
         update: "Save article"
+      eol_statistic:
+          download_csv: "Download as CSV"
       harvest_event:
         publish: "Publish"
       hierarchy:
@@ -492,6 +495,8 @@ en:
         rights_holder: "Rights holder"
         rights_statement: "Rights statement"
         source_url: "URL to original data object"
+      eol_statistic:
+        download_all: "All <small>(include records from all pages)</small>"
       google_analytics_partner_summaries:
         taxa_pages: "Pages <small>(number of pages)</small>"
         taxa_pages_viewed: "Pages viewed <small>(number of pages viewed by visitors)</small>"
@@ -584,6 +589,42 @@ en:
   faker:
     lorem:
       words: [alias, consequatur, aut, perferendis, sit, voluptatem, accusantium, doloremque, aperiam, eaque, ipsa, quae, ab, illo, inventore, veritatis, et, quasi, architecto, beatae, vitae, dicta, sunt, explicabo, aspernatur, aut, odit, aut, fugit, sed, quia, consequuntur, magni, dolores, eos, qui, ratione, voluptatem, sequi, nesciunt, neque, dolorem, ipsum, quia, dolor, sit, amet, consectetur, adipisci, velit, sed, quia, non, numquam, eius, modi, tempora, incidunt, ut, labore, et, dolore, magnam, aliquam, quaerat, voluptatem, ut, enim, ad, minima, veniam, quis, nostrum, exercitationem, ullam, corporis, nemo, enim, ipsam, voluptatem, quia, voluptas, sit, suscipit, laboriosam, nisi, ut, aliquid, ex, ea, commodi, consequatur, quis, autem, vel, eum, iure, reprehenderit, qui, in, ea, voluptate, velit, esse, quam, nihil, molestiae, et, iusto, odio, dignissimos, ducimus, qui, blanditiis, praesentium, laudantium, totam, rem, voluptatum, deleniti, atque, corrupti, quos, dolores, et, quas, molestias, excepturi, sint, occaecati, cupiditate, non, provident, sed, ut, perspiciatis, unde, omnis, iste, natus, error, similique, sunt, in, culpa, qui, officia, deserunt, mollitia, animi, id, est, laborum, et, dolorum, fuga, et, harum, quidem, rerum, facilis, est, et, expedita, distinctio, nam, libero, tempore, cum, soluta, nobis, est, eligendi, optio, cumque, nihil, impedit, quo, porro, quisquam, est, qui, minus, id, quod, maxime, placeat, facere, possimus, omnis, voluptas, assumenda, est, omnis, dolor, repellendus, temporibus, autem, quibusdam, et, aut, consequatur, vel, illum, qui, dolorem, eum, fugiat, quo, voluptas, nulla, pariatur, at, vero, eos, et, accusamus, officiis, debitis, aut, rerum, necessitatibus, saepe, eveniet, ut, et, voluptates, repudiandae, sint, et, molestiae, non, recusandae, itaque, earum, rerum, hic, tenetur, a, sapiente, delectus, ut, aut, reiciendis, voluptatibus, maiores, doloribus, asperiores, repellat]
+  # start of views scope
+  admins:
+    statistics:
+      content_partner_link: "Content partners"
+      curator_link: "Curator statistics"
+      data_object_link: "Data objects"
+      index_link: "Overall statistics"
+      lifedesk_link: "LifeDesks"
+      marine_link: "Marine statistics"
+      page_richness_link: "Rich pages"
+      user_added_data_link: "User-submitted text"
+      content_partner:
+        page_header: "Content Partner Statistics"
+        page_title: "Administration: Content Partner Statistics"
+      curator:
+        page_header: "Curator Statistics"
+        page_title: "Administration: Curator Statistics"
+      data_object:
+        page_header: "Data Object Statistics"
+        page_title: "Administration: Data Object Statistics"
+      index:
+        page_header: "Overall Statistics"
+        page_title: "Administration: Overall Statistics"
+        table_caption: "Overall site statistics created at %{created_at_time}"
+      lifedesk:
+        page_header: "LifeDesks Statistics"
+        page_title: "Administration: LifeDesks Statistics"
+      marine:
+        page_header: "Marine Coverage in EOL"
+        page_title: "Administration: Marine Statistics"
+      page_richness:
+        page_header: "Rich Page Statistics"
+        page_title: "Administration: Rich Pages Statistics"
+      user_added_data:
+        page_header: "User Submitted Text Statistics"
+        page_title: "Administration: User Submitted Text Statistics"
   collections:
     show:
       meta_description: "%{collection_description}"
@@ -1057,6 +1098,7 @@ en:
       meta_keywords: ""
       meta_title: "%{user_full_name}"
       tweet_text: "%{user_full_name}"
+  # end of views scope
   this_article_cannot_be_curated_because_unpublished: "This article cannot be curated because it is unpublished."
   this_article_is_unpublished: "This article is unpublished."
   this_image_cannot_be_curated_because_unpublished: "This image cannot be curated because it is unpublished."
@@ -1277,33 +1319,7 @@ en:
   admin_information: "This is the new administration console for EOL V2. We are in the process of transferring administration functionality from V1. If the administration section you are looking for is not listed please visit the <a href=\"/administrator\">V1 Administration Console</a>."
   admin_link: "Overview"
   admin_page_title: "Administration: Overview"
-
   admin_statistics_link: "Statistics"
-  admin_statistics_content_partner_header: "Content Partner Statistics"
-  admin_statistics_content_partner_link: "Content partners"
-  admin_statistics_content_partner_page_title: "Administration: Content Partner Statistics"
-  admin_statistics_curator_header: "Curator Statistics"
-  admin_statistics_curator_link: "Curator statistics"
-  admin_statistics_curator_page_title: "Administration: Curator Statistics"
-  admin_statistics_data_object_header: "Data Object Statistics"
-  admin_statistics_data_object_link: "Data objects"
-  admin_statistics_data_object_page_title: "Administration: Data Object Statistics"
-  admin_statistics_lifedesk_header: "LifeDesks Statistics"
-  admin_statistics_lifedesk_link: "LifeDesks"
-  admin_statistics_lifedesk_page_title: "Administration: LifeDesks Statistics"
-  admin_statistics_marine_header: "Marine Coverage in EOL"
-  admin_statistics_marine_link: "Marine statistics"
-  admin_statistics_marine_page_title: "Administration: Marine Statistics"
-  admin_statistics_overall_stat_header: "Overall Statistics"
-  admin_statistics_overall_stat_link: "Overall statistics"
-  admin_statistics_overall_stat_page_title: "Administration: Overall Statistics"
-  admin_statistics_rich_page_header: "Rich Page Statistics"
-  admin_statistics_rich_page_link: "Rich pages"
-  admin_statistics_rich_page_page_title: "Administration: Rich Pages Statistics"
-  admin_statistics_user_added_text_header: "User Submitted Text Statistics"
-  admin_statistics_user_added_text_link: "User-submitted text"
-  admin_statistics_user_added_text_page_title: "Administration: User Submitted Text Statistics"
-
   admin_translated_content_page_create_successful_notice: "Translation has been added to <a href=\"#%{anchor}\"><em>%{page_name}</em></a>"
   admin_translated_content_page_create_unsuccessful_error: "Sorry, an error occurred, the translation could not be added."
   admin_translated_content_page_delete_confirmation: 'Are you sure you want to delete the %{language} version of "%{page_name}". Delete action cannot be undone.'

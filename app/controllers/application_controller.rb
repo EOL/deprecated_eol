@@ -585,6 +585,7 @@ protected
   def controller_action_scope
     @controller_action_scope ||= controller_path.split("/") << action_name
   end
+  helper_method :controller_action_scope
 
   # Defines base variables for use in scoped i18n calls, used by meta tag helper methods
   def scoped_variables_for_translations
@@ -675,6 +676,11 @@ protected
   def original_request_params
     @original_request_params ||= params.clone.freeze # frozen because we don't want @original_request_params to be modified
   end
+  
+  def page_title
+    @page_title ||= t(".page_title", :scope => controller_action_scope)
+  end
+  helper_method :page_title
 
 private
 

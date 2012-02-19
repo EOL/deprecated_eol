@@ -245,7 +245,7 @@ module EOL
           # metadata = { :loc => taxon_overview_url(tc_id), :changefreq => 'weekly' }
           # @all_link_tmp_file.puts metadata.to_json
           
-          url_prefix = '{"changefreq":"weekly","loc":"http://' + @@default_url_options[:host] + '/pages/' + tc_id + '/'
+          url_prefix = '{"changefreq":"weekly","loc":"http://' + @@default_url_options[:host] + '/' + I18n.locale.to_s + '/pages/' + tc_id + '/'
           { 'overview' => 1,
             'details' => 0.5,
             'media' => 0.5,

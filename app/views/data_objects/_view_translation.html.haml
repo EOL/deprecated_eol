@@ -2,7 +2,7 @@
   - languages = data_object.available_translation_languages(current_user, taxon)
   - unless languages.blank?
     - form_tag set_language_path, :class => 'select_submit' do
-      = hidden_field_tag :return_to, current_url
+      = hidden_field_tag :return_to, current_url(false)
       %label= I18n.t(:language)
       = select_tag 'language', options_from_collection_for_select(languages, 'iso_639_1', 'source_form', current_user.language_abbr)
       %fieldset.actions

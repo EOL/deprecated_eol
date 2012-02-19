@@ -49,7 +49,7 @@
               - if current_user.is_admin?
                 [
                 = link_to I18n.t(:content_partner_resource_hierarchy_edit_link),
-                  edit_content_partner_resource_hierarchy_path(@partner, @resource, hierarchy, :return_to => current_url)
+                  edit_content_partner_resource_hierarchy_path(@partner, @resource, hierarchy, :return_to => current_url(false))
                 ]
               - if hierarchy.request_to_publish_can_be_made?
                 = button_to I18n.t('helpers.submit.hierarchy.request_publish'),
@@ -146,7 +146,7 @@
                 = link_to I18n.t(:content_partner_resource_preview_collection_show_link), @resource.preview_collection
               - if current_user.is_admin? && !@resource.latest_harvest_event.publish? && @resource.latest_harvest_event.publish_is_allowed?
                 - form_for [@partner, @resource, @resource.latest_harvest_event] do |f|
-                  = hidden_field_tag 'return_to', current_url
+                  = hidden_field_tag 'return_to', current_url(false)
                   = f.hidden_field :publish, :value => :true
                   %fieldset.actions
                     = f.submit I18n.t('helpers.submit.harvest_event.publish'), :name => :commit_publish_harvest_event,

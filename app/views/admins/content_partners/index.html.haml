@@ -114,7 +114,7 @@
                           = I18n.t("content_partner_resource_hierarchy_#{en_browsable_status}")
                           [
                           = link_to I18n.t(:content_partner_resource_hierarchy_edit_link),
-                            edit_content_partner_resource_hierarchy_path(partner, resource, hierarchy, :return_to => current_url)
+                            edit_content_partner_resource_hierarchy_path(partner, resource, hierarchy, :return_to => current_url(false))
                           ]
                       %dt
                         = I18n.t('helpers.label.resource.latest_harvest_event')

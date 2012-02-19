@@ -318,7 +318,7 @@ describe 'Taxa page' do
     before(:all) do
       SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE).delete_all_documents
       DataObject.all.each{ |d| d.update_solr_index }
-      visit("pages/#{@testy[:id]}")
+      visit("/en/pages/#{@testy[:id]}")
       @section = 'overview'
     end
     subject { body }
@@ -329,12 +329,12 @@ describe 'Taxa page' do
     it_should_behave_like 'taxon overview tab'
     it 'should allow logged in users to post comment in "Latest Updates" section' do
       visit logout_url
-      login_as @user
+      login_as @user      
       visit taxon_overview_path(@taxon_concept)
       comment = "Test comment by a logged in user."
       body.should have_tag(".updates .comment #comment_body")
       should have_tag(".updates .comment .actions input", :val => "Post Comment")
-      within(:xpath, '//form[@id="new_comment"]') do
+      within(:xpath, '//form[@id="new_comment"]') do        
         fill_in 'comment_body', :with => comment
         click_button "Post Comment"
       end
@@ -515,7 +515,7 @@ describe 'Taxa page' do
     it 'should show anonymous user the login page' do
       visit logout_path
       visit taxon_path(@testy[:unpublished_taxon_concept].id)
-      current_path.should == '/login'
+      current_path.should == '/en/login'
       body.should include('You must be logged in to perform this action')
     end
     it 'should show logged in unauthorised user access denied' do

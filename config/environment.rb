@@ -78,7 +78,7 @@ Rails::Initializer.run do |config|
   # default_language = 'en'
   # default_language = 'ar'
   # default_language = '' (this means that the default language would be extracted from the browser language)
-  $DEFAULT_LANGUAGE = 'ar'
+  $DEFAULT_LANGUAGE = 'en'
 
   # See Rails::Configuration for more options
 
@@ -105,7 +105,8 @@ Rails::Initializer.run do |config|
   # THIS IS WHERE ALL THE IMAGES/VIDEOS LIVE:
 #  $CONTENT_SERVERS = ['http://content1.eol.org/', 'http://content2.eol.org/', 'http://content3.eol.org/', 'http://content4.eol.org/', 'http://content5.eol.org/',
 #                      'http://content6.eol.org/', 'http://content7.eol.org/', 'http://content8.eol.org/', 'http://content9.eol.org/', 'http://content10.eol.org/']
-  $CONTENT_SERVERS = ['http://content1.eol.org/']
+  #$CONTENT_SERVERS = ['http://content1.eol.org/']
+  $CONTENT_SERVERS = ['http://localhost:3000/']
   $CONTENT_SERVER_CONTENT_PATH = "content" # if you put leading and trailing slashes here you get double slashes in the URLs, which work fine but aren't right
   $CONTENT_SERVER_RESOURCES_PATH = "/resources/"
   $CONTENT_SERVER_AGENT_LOGOS_PATH = "/content_partners/"

@@ -15,8 +15,8 @@ describe 'Login' do
   end
 
   it 'login page should render OK' do
-    visit('/login')
-    body.should have_tag('form[action="/sessions"]') do
+    visit('/en/login')
+    body.should have_tag('form[action="/en/sessions"]') do
       with_tag('input#session_username_or_email')
       with_tag('input#session_password')
     end
@@ -25,7 +25,7 @@ describe 'Login' do
   it 'should redirect us back to login if we logged in incorrectly' do
     login_as :username => 'snoopy', :password => 'wrongtotallywrong'
     #submitting a wrong password should re-render the login page
-    current_path.should == '/login'
+    current_path.should == '/en/login'
   end
 
   it 'should tell us if we logged in incorrectly' do

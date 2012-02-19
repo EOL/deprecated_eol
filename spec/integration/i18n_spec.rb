@@ -23,15 +23,17 @@ describe 'Switching Languages' do
 
   it 'should use the users language' do
     user = User.gen(:language => Language.gen_if_not_exists(:iso_639_1 => 'sp'))
+    I18n.locale = 'en'
     login_as user
-    visit('/')
+    visit('/set_language?language=sp')
     I18n.locale.to_s.should == 'sp'
   end
   
   it 'should set the users language' do
     user = User.gen(:language => Language.gen_if_not_exists(:iso_639_1 => 'fr'))
+    I18n.locale = 'en'
     login_as user
-    visit('/')
+    visit('/fr/')
     I18n.locale.to_s.should == 'fr'
     visit('/set_language?language=sp')
     I18n.locale.to_s.should == 'sp'

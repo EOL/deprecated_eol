@@ -131,42 +131,42 @@ describe 'Search' do
   # the following tests are for redirecting when there is only one result
   it 'should redirect to species page if only 1 possible match is found' do
     visit("/search?q=#{@unique_taxon_name}")
-    current_path.should match /^\/pages\/#{@panda.id}/
+    current_path.should match /^\/en\/pages\/#{@panda.id}/
   end
 
   it 'should redirect to a text page if only 1 possible match is found' do
     visit("/search?q=#{CGI::escape(@text_description)}")
-    current_path.should match /^\/data_objects\//
+    current_path.should match /^\/en\/data_objects\//
   end
 
   it 'should redirect to an image page if only 1 possible match is found' do
     visit("/search?q=#{CGI::escape(@image_description)}")
-    current_path.should match /^\/data_objects\//
+    current_path.should match /^\/en\/data_objects\//
   end
 
   it 'should redirect to a video page if only 1 possible match is found' do
     visit("/search?q=#{CGI::escape(@video_description)}")
-    current_path.should match /^\/data_objects\//
+    current_path.should match /^\/en\/data_objects\//
   end
 
   it 'should redirect to a sound page if only 1 possible match is found' do
     visit("/search?q=#{CGI::escape(@sound_description)}")
-    current_path.should match /^\/data_objects\//
+    current_path.should match /^\/en\/data_objects\//
   end
 
   it 'should redirect to user page if only 1 possible match is found' do
     visit("/search?q=#{@user1.username}")
-    current_path.should match /^\/users\/#{@user1.id}/
+    current_path.should match /\/en\/users\/#{@user1.id}/
   end
 
   it 'should redirect to community page if only 1 possible match is found' do
     visit("/search?q=#{CGI::escape(@community.description)}")
-    current_path.should match /^\/communities\/#{@community.id}/
+    current_path.should match /\/en\/communities\/#{@community.id}/
   end
 
   it 'should redirect to collection page if only 1 possible match is found' do
     visit("/search?q=#{CGI::escape(@collection.name)}")
-    current_path.should match /^\/collections\/#{@collection.id}/
+    current_path.should match /\/en\/collections\/#{@collection.id}/
   end
 
 
@@ -174,52 +174,52 @@ describe 'Search' do
   # the following tests are for testing filtering. There is an entry for panda in each category, but only one, so
   # we should get redirected when the filter is on
   it 'should return all results when not filtering' do
-    visit("/search?q=#{@name_for_all_types}")
-    current_path.should match /^\/search/
+    visit("/en/search?q=#{@name_for_all_types}")
+    current_path.should match /\/en\/search/
     body.should have_tag('h2', /8 results for.*?#{@name_for_all_types}/)
 
-    visit("/search?q=#{@name_for_all_types}&" + CGI::escape("type[]=all"))
-    current_path.should match /^\/search/
+    visit("/en/search?q=#{@name_for_all_types}&" + CGI::escape("type[]=all"))
+    current_path.should match /\/en\/search/
     body.should have_tag('h2', /8 results for.*?#{@name_for_all_types}/)
   end
 
   it 'should filter by collection' do
     visit("/search?q=#{@name_for_all_types}&" + CGI::escape("type[]=collection"))
-    current_path.should match /^\/collections\/#{@collection.id}/
+    current_path.should match /\/en\/collections\/#{@collection.id}/
   end
 
   it 'should filter by community' do
     visit("/search?q=#{@name_for_all_types}&" + CGI::escape("type[]=community"))
-    current_path.should match /^\/communities\/#{@community.id}/
+    current_path.should match /\/en\/communities\/#{@community.id}/
   end
 
   it 'should filter by image' do
     visit("/search?q=#{@name_for_all_types}&" + CGI::escape("type[]=image"))
-    current_path.should match /^\/data_objects\//
+    current_path.should match /\/en\/data_objects\//
   end
 
   it 'should filter by sound' do
     visit("/search?q=#{@name_for_all_types}&" + CGI::escape("type[]=sound"))
-    current_path.should match /^\/data_objects\//
+    current_path.should match /\/en\/data_objects\//
   end
 
   it 'should filter by video' do
     visit("/search?q=#{@name_for_all_types}&" + CGI::escape("type[]=video"))
-    current_path.should match /^\/data_objects\//
+    current_path.should match /\/en\/data_objects\//
   end
 
   it 'should filter by text' do
     visit("/search?q=#{@name_for_all_types}&" + CGI::escape("type[]=text"))
-    current_path.should match /^\/data_objects\//
+    current_path.should match /\/en\/data_objects\//
   end
 
   it 'should filter by taxon concept' do
     visit("/search?q=#{@name_for_all_types}&" + CGI::escape("type[]=taxon_concept"))
-    current_path.should match /^\/pages\/#{@panda.id}/
+    current_path.should match /\/en\/pages\/#{@panda.id}/
   end
 
   it 'should filter by user' do
     visit("/search?q=#{@name_for_all_types}&" + CGI::escape("type[]=user"))
-    current_path.should match /^\/users\/#{@user2.id}/
+    current_path.should match /\/en\/users\/#{@user2.id}/
   end
 end

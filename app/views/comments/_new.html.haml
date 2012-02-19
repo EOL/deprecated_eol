@@ -9,10 +9,10 @@
   = f.hidden_field :reply_to_type, :value => nil
   = f.hidden_field :reply_to_id, :value => nil
   - if params[:worklist_return_to]
-    = hidden_field_tag :worklist_return_to, params[:force_return_to] || current_url
+    = hidden_field_tag :worklist_return_to, params[:force_return_to] || current_url(false)
     = hidden_field_tag :return_to, params[:worklist_return_to]
   - else
-    = hidden_field_tag :return_to, current_url
+    = hidden_field_tag :return_to, current_url(false)
   = hidden_field_tag :submit_to, '/comments/create' unless logged_in?
   %fieldset
     = image_tag current_user.logo_url(:small), :alt => I18n.t(:comment_new_posters_image_alt),
@@ -24,4 +24,4 @@
   %fieldset.actions
     = submit_tag(I18n.t(:post_comment), :'data-reply' => I18n.t(:leave_reply), :'data-cancel' => I18n.t(:cancel))
     - if defined?(cancel) && cancel
-      = link_to I18n.t(:cancel), current_url, :class => 'cancel'
+      = link_to I18n.t(:cancel), current_url(false), :class => 'cancel'

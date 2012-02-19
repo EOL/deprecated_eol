@@ -467,7 +467,7 @@ class ApplicationController < ActionController::Base
     if params[:return_to].blank?
       return_to = root_url.sub("/" + from_language, "/" + language)      
     else            
-      if params[:return_to].to_s.include? ("/" + from_language)
+      if params[:return_to].to_s.include? "/" + from_language
         return_to = params[:return_to].to_s.sub("/" + from_language, "/" + language)
       else
         return_to = params[:return_to].sub(root_url.slice(0, root_url.rindex("/")), root_url)

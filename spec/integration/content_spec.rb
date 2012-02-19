@@ -18,7 +18,7 @@ describe 'MediaRSS Feed' do
   end
 
   it 'should generate a proper MediaRSS feed' do
-    visit("/content/mediarss/#{@taxon_concept.id}")
+    visit("/#{I18n.locale}/content/mediarss/#{@taxon_concept.id}")
     xml_response = Nokogiri.XML(body)
     xml_response.xpath('//channel/title').inner_text.should == 'Encyclopedia of Life images for ' + @tc_name
     xml_response.xpath('//channel/description').inner_text.should == 'Encyclopedia of Life images'

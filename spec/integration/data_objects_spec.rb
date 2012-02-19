@@ -144,7 +144,7 @@ describe 'Data Object Page' do
 
   it 'should be able curate a DOHE association as Unreviewed, Untrusted and Trusted' do
     login_as @full_curator
-    visit("/data_objects/#{@image.id}")
+    visit("/#{I18n.locale}/data_objects/#{@image.id}")
     trusted_association = @image.all_associations.first
     page.body.should have_tag("form.review_status") do
       with_tag("select#vetted_id_#{trusted_association.id} option[selected=selected]", :text => "Trusted")
@@ -202,7 +202,7 @@ describe 'Data Object Page' do
 
   it 'should be able curate a CDOHE association as Unreviewed, Untrusted and Trusted' do
     login_as @full_curator
-    visit("/data_objects/#{@image.id}")
+    visit("/#{I18n.locale}/data_objects/#{@image.id}")
     trusted_association = @image.all_associations.last
     page.body.should have_tag("form.review_status") do
       with_tag("select#vetted_id_#{trusted_association.id} option[selected=selected]", :text => "Trusted")
@@ -260,7 +260,7 @@ describe 'Data Object Page' do
 
   it 'should be able curate a UDO association as Unreviewed, Untrusted and Trusted' do
     login_as @full_curator
-    visit("/data_objects/#{@user_submitted_text.id}")
+    visit("/#{I18n.locale}/data_objects/#{@user_submitted_text.id}")
     trusted_association = @user_submitted_text.all_associations.first
     page.body.should have_tag("form.review_status") do
       with_tag("select#vetted_id_#{trusted_association.id} option[selected=selected]", :text => "Trusted")
@@ -318,15 +318,15 @@ describe 'Data Object Page' do
 
   it 'should allow a curator to remove an association if added by curator' do
     login_as @assistant_curator
-    visit("/data_objects/#{@image.id}")
+    visit("/#{I18n.locale}/data_objects/#{@image.id}")
     page.body.should_not have_tag('form.review_status a', :text => 'Remove association')
     visit('/logout')
     login_as @master_curator
-    visit("/data_objects/#{@image.id}")
+    visit("/#{I18n.locale}/data_objects/#{@image.id}")
     page.body.should_not have_tag('form.review_status a', :text => 'Remove association')
     visit('/logout')
     login_as @full_curator
-    visit("/data_objects/#{@image.id}")
+    visit("/#{I18n.locale}/data_objects/#{@image.id}")
     page.body.should have_tag('form.review_status a', :text => 'Remove association')
     page.body.should have_tag('form.review_status a', :text => @another_name)
     click_link "remove_association_#{@extra_he.id}"
@@ -352,7 +352,7 @@ describe 'Data Object Page' do
   it 'should allow logged in users to post a comment' do
     comment = "Test comment by a logged in user."
     login_as @user
-    visit("/data_objects/#{@image.id}")
+    visit("/#{I18n.locale}/data_objects/#{@image.id}")
     body.should_not have_tag("blockquote", :text => comment)
     body.should have_tag(".comment #comment_body")
     body.should have_tag("#new_comment .actions input", :val => "Post Comment")
@@ -360,7 +360,7 @@ describe 'Data Object Page' do
       fill_in 'comment_body', :with => comment
       click_button "Post Comment"
     end
-    visit("/data_objects/#{@image.id}")
+    visit("/#{I18n.locale}/data_objects/#{@image.id}")
     body.should have_tag("blockquote", :text => comment)
     visit('/logout')
   end

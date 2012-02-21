@@ -724,7 +724,7 @@ en:
     curator_approved:
       subject: "Your request for Encyclopedia of Life curator privilege %{curator_level} has been approved"
       message: "Thank you for requesting curator privilege %{curator_level}. Your request has been approved.\n\nFor more information on curation and what functions are available to you, visit http://www.eol.org/curators."
-    pending_notifications:
+    recent_activity:
       subject: "Recent Activity on EOL"
       recent_activity_head: "Recent Activity:"
     user_activated:

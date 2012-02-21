@@ -1,0 +1,16 @@
+Greetings, <%= @user.full_name %>.
+
+You have some notifications arriving because you asked for them to be delievered "immediately".  We're currently working on
+this code, so this isn't terribly helpful, but at least you can get some idea of how often you'll get email.  Heh.
+
+<% @notes.each do |note| %>
+  <% if note.respond_to?(:body) %>
+    You got a comment from <%= note.user.full_name %>:
+
+    <%= note.body %>
+  <% else %>
+    You got something else.  It was a <%= note.class.name %>, but I can't handle those yet.
+  <% end %>
+
+<% end %>
+Thanks.  Have fun.

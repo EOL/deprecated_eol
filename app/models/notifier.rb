@@ -7,7 +7,7 @@ class Notifier < ActionMailer::Base
     subject     I18n.t(:subject, :scope => [:notifier, :recent_activity])
     recipients  user.email
     from        $SUPPORT_EMAIL_ADDRESS
-    body        :notes => notes
+    body        :notes => notes, :user => user
   end
 
   def curator_approved(user)

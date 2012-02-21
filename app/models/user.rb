@@ -239,6 +239,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   # Please use consistent format for naming Users across the site.  At the moment, this means using #full_name unless
   # you KNOW you have an exception.
   def full_name(options={})
+    reload_all_values_if_missing([:curator_level_id, :given_name, :family_name, :username])
     if is_curator? # MUST show their name:
       return [given_name, family_name].join(' ').strip
     else # Other users show their full name when available, otherwise their username:
@@ -250,6 +251,16 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     end
   end
   alias summary_name full_name # This is for collection item duck-typing, you need not use this elsewhere.
+
+  # Note that this can end up being expensive, but avoids errors.  Watch your qeries!
+  def reload_all_values_if_missing(which)
+    which = [which] unless which.is_a?(Array)
+    reload_needed = false
+    which.each do |attr|
+      reload_needed = true unless self.has_attribute?(attr.to_sym) 
+    end
+    self.reload if reload_needed
+  end
 
   # Don't use short_name unless you KNOW you should.
   def short_name

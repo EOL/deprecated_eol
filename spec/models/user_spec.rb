@@ -66,7 +66,6 @@ describe User do
     user.username.should == test_name
     user.default_taxonomic_browser.should == $DEFAULT_TAXONOMIC_BROWSER
     user.language.should == Language.english
-    user.mailing_list.should == false
     user.content_level.should == $DEFAULT_CONTENT_LEVEL.to_i
     user.credentials.should == ''
     user.curator_scope.should == ''
@@ -145,7 +144,6 @@ describe User do
 
   it 'should have defaults when creating a new user' do
     user = User.create_new
-    user.mailing_list.should          == false
     user.content_level.should         == $DEFAULT_CONTENT_LEVEL.to_i
     user.default_taxonomic_browser    == $DEFAULT_TAXONOMIC_BROWSER
     user.flash_enabled                == true

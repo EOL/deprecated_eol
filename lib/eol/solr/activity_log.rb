@@ -132,7 +132,6 @@ module EOL
         url << '&start=' << URI.encode(offset.to_s)
         url << '&rows='  << URI.encode(limit.to_s)
         res = open(url).read
-        puts ">>>> #{query}" # TODO -remove, this was debugging.
         JSON.load res
       end
 

@@ -197,25 +197,4 @@ describe Notifier do
     end
   end
 
-  describe 'user_updated_email_preferences' do
-    before(:all) do
-      @new_user = @user
-      @new_user.email = 'changed@byuser.com'
-      @new_user.mailing_list = 1
-      @email = Notifier.create_user_updated_email_preferences(@user, @new_user, 'recipient@justatest.com')
-    end
-
-    it "should be set to be delivered to the recipient" do
-      @email.should deliver_to('recipient@justatest.com')
-    end
-
-    it "should have a relevant subject" do
-      @email.should have_subject("EOL user #{@user.full_name} changed their email address or mailing list preferences")
-    end
-
-    it "should contain the user's full name, profile url and email preferences before and after update" do
-      @email.should have_text(/#{@user.full_name}.+?\/users\/#{@user.id}.+?E-mail: #{@user.email}.+?Mailing list preference: #{@user.mailing_list}.+?E-mail: #{@new_user.email}.+?Mailing list preference: #{@new_user.mailing_list}/im)
-    end
-
-  end
 end

@@ -57,9 +57,6 @@ describe 'Masochism' do
           number_of_tables = test_data[:abstract_model].connection.select_values('SHOW TABLES').length
           number_of_tables.should > 6
         end
-        unless number_of_tables>6
-          puts "** WARNING: YOU MUST RUN MIGRATIONS IN test_master ENVIRONMENT"
-        end
       end
 
       it 'should properly use the master' do

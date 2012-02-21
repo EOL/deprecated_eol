@@ -69,7 +69,6 @@ module EOL
           query = "activity_log_type:CommunityActivityLog AND user_id:#{source.id}"
         end
       end
-      puts "&&&& #{query}"
       results = EOL::Solr::ActivityLog.search_with_pagination(query, options)
     end
 
@@ -86,7 +85,6 @@ module EOL
       if options[:after] && options[:after].respond_to?(:utc)
         query = "(#{query}) AND date_created:[#{options[:after].utc.strftime('%Y-%m-%dT%H:%M:%S')}Z TO NOW]"
       end
-      puts "&&&& [news] #{query}"
       results = EOL::Solr::ActivityLog.search_with_pagination(query, options)
     end
 

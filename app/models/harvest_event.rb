@@ -84,6 +84,10 @@ class HarvestEvent < SpeciesSchemaModel
     self.published_at.blank? && !self.completed_at.blank? && self == self.resource.latest_harvest_event
   end
 
+  def publish_pending?
+    self.published_at.blank? && self.publish?
+  end
+
 protected
 
   def remove_related_data_objects

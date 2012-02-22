@@ -69,8 +69,6 @@ class Resource < SpeciesSchemaModel
     case new_status
       when ResourceStatus.force_harvest
         !resource_status.blank? && resource_status != ResourceStatus.being_processed
-      when ResourceStatus.publish_pending
-        resource_status == ResourceStatus.processed
       else
         true
     end
@@ -173,7 +171,7 @@ class Resource < SpeciesSchemaModel
     return true if self.content_partner.full_name == "Discover Life"
     false
   end
-    
+
 private
 
   def url_or_dataset_not_both

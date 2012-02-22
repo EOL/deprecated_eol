@@ -1703,7 +1703,7 @@ en:
   content_partner_resource_edit_link: "Edit"
   content_partner_resource_edit_subheader: "Edit resource"
   content_partner_resource_edit_with_type_link: "Edit resource"
-  content_partner_resource_harvest_event_confirm_publish: "Are you sure you want to publish harvest event %{completed_at} for resource %{resource_title}?"
+  content_partner_resource_harvest_event_confirm_publish: "Are you sure you want to publish harvest event %{completed_at} for resource %{resource_title}? Please note, once you confirm that you would like to publish this harvest event, your request will be queued for processing and may take up to 24 hours to complete."
   content_partner_resource_harvest_event_current_published: "Currently published"
   content_partner_resource_harvest_event_not_published: "Not published"
   content_partner_resource_harvest_event_previously_published: "Previously published"

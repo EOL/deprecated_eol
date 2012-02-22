@@ -180,9 +180,6 @@ def load_old_foundation_data
   ResourceStatus.gen_if_not_exists(:label => 'Being Processed')
   ResourceStatus.gen_if_not_exists(:label => 'Processed')
   ResourceStatus.gen_if_not_exists(:label => 'Processing Failed')
-  ResourceStatus.gen_if_not_exists(:label => 'Published')
-  ResourceStatus.gen_if_not_exists(:label => 'Publish Pending')
-  ResourceStatus.gen_if_not_exists(:label => 'Unpublish Pending')
   ResourceStatus.gen_if_not_exists(:label => 'Force Harvest')
 
   SynonymRelation.gen_if_not_exists(:label => "acronym")
@@ -248,7 +245,7 @@ agent_col.user ||= User.gen
 if agent_col.user.content_partners.blank?
   agent_col.user.content_partners << ContentPartner.gen(:full_name => "Catalogue of Life")
 end
-resource = Resource.gen(:title => 'Bootstrapper', :resource_status => ResourceStatus.published,
+resource = Resource.gen(:title => 'Bootstrapper', :resource_status => ResourceStatus.processed,
   :hierarchy => Hierarchy.find_by_label('Species 2000 & ITIS Catalogue of Life: Annual Checklist 2010'),
   :content_partner => agent_col.user.content_partners.first, :vetted => true)
 event    = HarvestEvent.gen(:resource => resource)

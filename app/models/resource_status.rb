@@ -43,19 +43,4 @@ class ResourceStatus < SpeciesSchemaModel
     cached_find_translated(:label, 'Validation Failed')
   end
 
-  # TODO: Remove the statuses published, publish pending and unpublish pending once migration
-  # (20111014173215) has been executed to move ResourceStatus.publish_pending to
-  # HarvestEvent.publish = true. ResourceStatus.publish is to be replaced by inferring from
-  # HarvestEvent.published_at for the latest harvest event. ResourceStatus.unpublish_pending does
-  # not currently do anything.
-  def self.published
-    cached_find_translated(:label, 'Published')
-  end
-  def self.publish_pending
-    cached_find_translated(:label, 'Publish Pending')
-  end
-  def self.unpublish_pending
-    cached_find_translated(:label, 'Unpublish Pending')
-  end
-
 end

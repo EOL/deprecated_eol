@@ -283,7 +283,7 @@ last_user = User.last
 u = User.gen(:email => last_user.email)
 u.vetted = false
 tc.current_user = u
-taxon_concept_image = tc.filter_data_objects_by_type(:data_type_ids => DataType.image_type_ids).first
+taxon_concept_image = tc.data_objects.find(:all, :conditions => "data_type_id IN (#{DataType.imag_type_ids.join(',')})").first
 taxon_concept_image.comments[0].body = 'First comment'
 taxon_concept_image.comments[0].save!
 taxon_concept_image.comment(u, 'Second comment')
@@ -372,7 +372,7 @@ tc31 = build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common
 
 curator_for_tc31 = build_curator(tc31, :username => 'curator_for_tc', :password => 'password')
 text_dato = tc31.overview.first # TODO - this doesn't seem to ACTAULLY be the overview.  Fix it?
-image_dato = tc31.filter_data_objects_by_type(:data_type_ids => DataType.image_type_ids).first
+image_dato = tc31.find(:all, :conditions => "data_type_id IN (#{DataType.imag_type_ids.join(',')})").first
 
 # rating of old version of dato was 1
 text_dato.rate(curator_for_tc31, 1)
@@ -583,7 +583,7 @@ end
 RandomHierarchyImage.delete_all
 
 HierarchyEntry.all.each do |he|
-  entry_best_images = he.taxon_concept.filter_data_objects_by_type(:data_type_ids => DataType.image_type_ids).compact
+  entry_best_images = he.taxon_concept.find(:all, :conditions => "data_type_id IN (#{DataType.imag_type_ids.join(',')})").compact
   RandomHierarchyImage.gen(:hierarchy => he.hierarchy, :taxon_concept => he.taxon_concept, :hierarchy_entry => he, :data_object => entry_best_images.first) if !entry_best_images.blank?
 end
 

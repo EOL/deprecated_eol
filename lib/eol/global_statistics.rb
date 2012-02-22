@@ -31,19 +31,7 @@ module EOL
     end
 
     def self.count_pages_with_content
-      # # This query uses the DataObjects table directly to get a more accurate number, but it takes from 30-50 seconds
-      # TaxonConcept.connection.execute("select count(*) from ((select distinct taxon_concept_id from data_objects_hierarchy_entries dohe join data_objects do on (dohe.data_object_id=do.id) join hierarchy_entries he on (dohe.hierarchy_entry_id=he.id) where do.published=1 and dohe.visibility_id=1 and he.published=1) UNION DISTINCT (select distinct taxon_concept_id from users_data_objects udo join data_objects do on (udo.data_object_id=do.id) where udo.visibility_id=1 and do.published=1) UNION DISTINCT (select distinct taxon_concept_id from curated_data_objects_hierarchy_entries cdohe join data_objects do on (cdohe.data_object_id=do.id) join hierarchy_entries he on (cdohe.hierarchy_entry_id=he.id) where do.published=1 and cdohe.visibility_id=1 and he.published=1)) counts").fetch_row.first.to_i
-      
-      # This query uses the cache table for faster but slightly out-of-date (by up to a day or two) numbers
-      TaxonConceptMetric.connection.execute("
-        SELECT count(*) FROM taxon_concept_metrics
-        WHERE image_total > 0
-        OR text_total > 0
-        OR video_total > 0
-        OR sound_total > 0
-        OR flash_total > 0
-        OR youtube_total > 0
-        OR user_submitted_text > 0").fetch_row.first.to_i
+      EolStatistic.find(:last).pages_with_content rescue 0
     end
 
     def self.solr_count(type)

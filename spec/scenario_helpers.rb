@@ -15,7 +15,7 @@ def add_comments_to_reharvested_data_objects(tc)
   invis_comment = text_dato.comment(user, 'this is an invisible comment applied to the old overview')
   invis_comment.hide user
 
-  image_dato = tc.filter_data_objects_by_type(:data_type_ids => DataType.image_type_ids).first
+  image_dato = tc.find(:all, :conditions => "data_type_id IN (#{DataType.imag_type_ids.join(',')})").first
   image_dato.comment(user, 'this is a comment applied to the old image')
   invis_image = image_dato.comment(user, 'this is an invisible comment applied to the old image')
   invis_image.hide user

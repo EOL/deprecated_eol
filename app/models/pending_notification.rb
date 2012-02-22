@@ -16,7 +16,7 @@ class PendingNotification < ActiveRecord::Base
       next unless user
       notes = notes_by_user_id[u_id]
       next unless notes
-      Notifier.deliver_recent_activity(user, notes)
+      Notifier.deliver_recent_activity(user, notes.map(&:target))
       notes.each {|note| note.update_attribute(:sent_at, Time.now)} # Skips validations w/ _attribute
     end
   end

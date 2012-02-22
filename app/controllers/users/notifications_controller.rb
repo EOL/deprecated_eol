@@ -13,7 +13,6 @@ class Users::NotificationsController < UsersController
   # PUT /users/:user_id/notification
   def update
     convert_notification_frequencies_ids_to_objects
-    debugger
     if @user.update_attributes(params[:user])
       flash[:notice] = "Notification settings successfully updated."
       redirect_back_or_default edit_user_path(@user)
@@ -32,19 +31,17 @@ class Users::NotificationsController < UsersController
   end
 
   def convert_notification_frequencies_ids_to_objects
+    new_params = {}
     params[:user][:notification_attributes].keys.each do |k|
-      next if k = 'id'
+      next if k == 'id'
       fqz = begin
               NotificationFrequency.find(params[:user][:notification_attributes][k].to_i)
             rescue ActiveRecord::RecordNotFound => e
               nil
             end
-      if fqz
-        params[:user][:notification_attributes][k] = fqz
-      else
-        params[:user][:notification_attributes].delete([k])
-      end
+      new_params[k] = fqz if fqz
     end
+    params[:user][:notification_attributes] = new_params
   end
 
 end

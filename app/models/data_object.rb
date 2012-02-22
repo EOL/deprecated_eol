@@ -28,6 +28,7 @@ class DataObject < SpeciesSchemaModel
   has_many :top_concept_images
   has_many :agents_data_objects
   has_many :data_objects_hierarchy_entries
+  has_many :data_objects_taxon_concepts
   has_many :curated_data_objects_hierarchy_entries
   has_many :comments, :as => :parent
   has_many :data_objects_harvest_events
@@ -104,7 +105,7 @@ class DataObject < SpeciesSchemaModel
       obj_vetted = obj_association.vetted unless obj_association.nil?
       obj_visibility = obj_association.visibility unless obj_association.nil?
       type_order = obj.data_type_id
-      toc_view_order = (!obj.is_text? || obj.info_items.blank? || obj.info_items[0].toc_item.blank?) ? 0 : obj.info_items[0].toc_item.view_order
+      toc_view_order = (!obj.is_text? || obj.toc_items.blank?) ? 0 : obj.toc_items[0].view_order
       vetted_view_order = obj_vetted.blank? ? 0 : obj_vetted.view_order
       visibility_view_order = 2
       visibility_view_order = 1 if obj_visibility && obj_visibility.id == Visibility.preview.id

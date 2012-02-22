@@ -167,13 +167,6 @@ private
     end
   end
 
-  def get_content_variables(options = {})
-    @content = @taxon_concept.content_by_category(@category_id, :current_user => current_user, :hierarchy_entry => options[:hierarchy_entry])
-    @whats_this = @content[:category_name].blank? ? "" : WhatsThis.get_url_for_name(@content[:category_name])
-    @ajax_update = options[:ajax_update]
-    @languages = build_language_list if is_common_names?(@category_id)
-  end
-
   def update_user_content_level
     current_user.content_level = params[:content_level] if ['1','2','3','4'].include?(params[:content_level])
   end

@@ -132,7 +132,7 @@ describe DataObject do
  end
 
  it 'ratings should show rating for old and new version of re-harvested dato' do
-   text_dato  = @taxon_concept.overview.last
+   text_dato  = @taxon_concept.data_objects.select{ |d| d.is_text? }.last
    image_dato = @taxon_concept.images_from_solr(100).last
 
    text_dato.rate(@another_curator, 4)

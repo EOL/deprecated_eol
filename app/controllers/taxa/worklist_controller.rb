@@ -55,7 +55,8 @@ class Taxa::WorklistController < TaxaController
     end
     
     @data_objects = @taxon_concept.data_objects_from_solr(search_options)
-    @resource_counts = EOL::Solr::DataObjects.load_resource_facets(@taxon_concept.id, search_options).sort_by{ |c| c[:resource].title.downcase }
+    @resource_counts = EOL::Solr::DataObjects.load_resource_facets(@taxon_concept.id,
+      search_options.merge({ :resource_id => nil })).sort_by{ |c| c[:resource].title.downcase }
 
     @current_data_object = @data_objects.detect{ |ct| ct.id == params[:current].to_i } unless params[:current].blank?
     @current_data_object = @data_objects.first if @current_data_object.blank?

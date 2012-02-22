@@ -20,7 +20,7 @@ module EOL
 
       def self.add_resource_instances!(docs, options)
         includes = []
-        selects = { :data_objects => '*' }
+        selects = options[:preload_select] || { :data_objects => '*' }
         unless options[:skip_preload]
           includes = [ :hierarchy_entries, :toc_items ]
           selects[:hierarchy_entries] = '*'
@@ -44,6 +44,10 @@ module EOL
         if options[:toc_ids]
           url << CGI.escape(" AND (toc_id:#{options[:toc_ids].join(' OR toc_id:')})")
         end
+        if options[:toc_ids_to_ignore]
+          url << CGI.escape(" NOT (toc_id:#{options[:toc_ids_to_ignore].join(' OR toc_id:')})")
+        end
+        
         
         if options[:filter_hierarchy_entry] && options[:filter_hierarchy_entry].class == HierarchyEntry
           field_suffix = "ancestor_he_id"
@@ -113,6 +117,13 @@ module EOL
           url << CGI.escape(" AND (language_id:#{options[:language_ids].join(' OR language_id:')} #{nil_language_clause})")
         end
         
+        if options[:language_ids_to_ignore]
+          url << CGI.escape(" NOT (language_id:#{options[:language_ids_to_ignore].join(' OR language_id:')})")
+          unless options[:allow_nil_languages]
+            url << CGI.escape(" AND language_id:[* TO *]")
+          end
+        end
+        
         # ignoring translations means we will not return objects which are translations of other original data objects
         if options[:ignore_translations]
           url << CGI.escape(" NOT is_translation:true")
@@ -146,7 +157,7 @@ module EOL
         offset = (page - 1) * limit
         url << '&start=' << URI.encode(offset.to_s)
         url << '&rows='  << URI.encode(limit.to_s)
-        puts "\n\nThe SOLR Query: #{url}\n\n"
+        # puts "\n\nThe SOLR Query: #{url}\n\n"
         res = open(url).read
         JSON.load res
       end

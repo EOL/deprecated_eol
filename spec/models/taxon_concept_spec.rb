@@ -27,6 +27,7 @@ describe TaxonConcept do
     @testy = EOL::TestInfo.load('testy')
     @overview            = @testy[:overview]
     @overview_text       = @testy[:overview_text]
+    @brief_summary_text  = @testy[:brief_summary_text]
     @toc_item_2          = @testy[:toc_item_2]
     @toc_item_3          = @testy[:toc_item_3]
     @canonical_form      = @testy[:canonical_form]
@@ -172,7 +173,10 @@ describe TaxonConcept do
     # Tricky, tricky. See, we add special things to the TOC like "Common Names" and "Search the Web", when they are
     # appropriate.  I could test for those here, but that seems the perview of TocItem.  So, I'm only checking the
     # first three elements:
-    @taxon_concept.toc[0..3].should == [@overview, @testy[:brief_summary], @toc_item_2, @toc_item_3]
+    user = User.gen
+    text = @taxon_concept.details_text_for_user(user)
+    toc_items_to_show = @taxon_concept.table_of_contents_for_text(text)
+    toc_items_to_show[0..3].should == [@overview, @testy[:brief_summary], @toc_item_2, @toc_item_3]
   end
 
   # TODO - this is failing, but low-priority, I added a bug for it: EOLINFRASTRUCTURE-657
@@ -199,14 +203,14 @@ describe TaxonConcept do
   end
 
   it 'should be able to get an overview' do
-    results = @taxon_concept.overview
-    results.length.should == 1
-    results.first.description.should == @overview_text
+    overview = @taxon_concept.overview_text_for_user(User.gen)
+    overview.class.should == DataObject
+    overview.description.should == @brief_summary_text
   end
 
   it 'should return available text objects for given toc items in order of preference and rating' do
     given_toc_items = [@testy[:toc_item_2], @testy[:brief_summary]]
-    results = @taxon_concept.text_objects_for_toc_items(given_toc_items)
+    results = @taxon_concept.data_objects_from_solr(:data_type_ids => [ DataType.text.id] , :toc_ids => given_toc_items.collect(&:id))
     results.each do |text|
       text.data_type_id.should == DataType.text.id
       diff = text.toc_items - given_toc_items
@@ -214,19 +218,11 @@ describe TaxonConcept do
     end
   end
 
-  it 'should return at least one text object even if none of the given toc items are found if option required is true' do
-    given_toc_items = [TocItem.wikipedia]
-    results = @taxon_concept.text_objects_for_toc_items(given_toc_items)
-    results.should be_nil
-    results = @taxon_concept.text_objects_for_toc_items(given_toc_items, :required => true)
-    results.first.data_type_id.should == DataType.text.id
-  end
-
   it 'should return a subset of text objects for each given toc item if option limit is set' do
     given_toc_items = [@testy[:toc_item_2], @testy[:toc_item_3]]
-    results = @taxon_concept.text_objects_for_toc_items(given_toc_items)
+    results = @taxon_concept.data_objects_from_solr(:data_type_ids => [ DataType.text.id], :toc_ids => given_toc_items.collect(&:id))
     results.count.should == 3
-    results = @taxon_concept.text_objects_for_toc_items(given_toc_items, :limit => 1)
+    results = @taxon_concept.data_objects_from_solr(:data_type_ids => [ DataType.text.id], :toc_ids => given_toc_items.collect(&:id), :per_page => 2)
     results.count.should == 2
   end
 
@@ -315,16 +311,6 @@ describe TaxonConcept do
     tc.quick_common_name.should == "A name"
     tc.add_common_name_synonym("Another name", :agent => agent, :language => Language.english)
     tc.quick_common_name.should == "A name"
-  end
-
-  # WEB-2542
-  it 'should return a toc item which accepts user submitted text' do
-      @taxon_concept.tocitem_for_new_text.class.should == TocItem
-      @empty_taxon_concept.tocitem_for_new_text.class.should == TocItem
-  end
-
-  it 'should return first toc item which accepts user submitted text' do
-    @taxon_concept.tocitem_for_new_text.label.should == @overview.label
   end
 
   it 'should include the LigerCat TocItem when the TaxonConcept has one'

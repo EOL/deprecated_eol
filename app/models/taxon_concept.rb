@@ -220,149 +220,6 @@ class TaxonConcept < SpeciesSchemaModel
     self.quick_scientific_names(taxon_concept_ids, hierarchy)
   end
 
-  def tocitem_for_new_text
-    table_of_contents.each do |toc|
-      return TocItem.find(toc.category_id) if toc.allow_user_text?
-    end
-    TocItem.find(:first, :joins => :info_items)
-  end
-
-  # pull list of categories for given taxon_concept_id
-  def table_of_contents(options = {})
-    if @table_of_contents.nil?
-      tb = TocBuilder.new
-      @table_of_contents = tb.toc_for(self, :user => current_user, :agent_logged_in => options[:agent_logged_in])
-    end
-    @table_of_contents
-  end
-  alias :toc :table_of_contents
-
-  # Extracts user filtered text objects from taxon concept data objects and user data objects
-  # Assumes current user if option[:user] is nil
-  def text(options={})
-    options[:user] ||= current_user
-    text_datos = data_objects.select{ |d| d.is_text? && d.published? }
-    text_user_objects = users_data_objects.select{ |udo| udo.data_object && udo.data_object.is_text? && udo.data_object.published && udo.visibility == Visibility.visible }.collect{ |udo| udo.data_object}
-
-    # Get text_user_objects from superceded taxa
-    text_user_objects_superceded = []
-    if superceded_concepts = self.superceded_taxon_concepts
-      TaxonConcept.preload_associations(superceded_concepts, :users_data_objects)
-      taxa_udo = self.superceded_taxon_concepts.collect{ |tc| tc.users_data_objects}.select{|arr| !arr.empty?}
-      taxa_udo.each do |taxon_udo|
-        if taxon_udo
-          text_user_objects_superceded |= taxon_udo.select{ |udo| udo.data_object && udo.data_object.is_text? && udo.data_object.published && udo.visibility == Visibility.visible }.collect{ |udo| udo.data_object}
-        end
-      end
-    end
-
-    combined_objects = text_datos | text_user_objects | text_user_objects_superceded
-
-    # if this is a content partner, we preload associations to prevent
-    # a bunch of queries later on in DataObject.filter_list_for_user
-    if options[:user] && options[:user].is_content_partner?
-      DataObject.preload_associations(combined_objects,
-        [ :hierarchy_entries => { :hierarchy => :agent } ],
-        :select => {
-          :hierarchy_entries => :hierarchy_id,
-          :agents => :id } )
-    end
-    DataObject.filter_list_for_user(combined_objects, :taxon_concept => self, :user => options[:user])
-  end
-
-  def text_toc_items_for_session(options={})
-    text_objects = text(options)
-    return text_objects.collect{ |d| d.toc_items }.flatten.compact.uniq
-  end
-
-  # options
-  #   :required will return the next available text object if no text is returned by toc_items
-  #   :limit returns a subset of objects for each toc_item
-  def text_objects_for_toc_items(toc_items, options={})
-    text_objects = text
-
-    return nil if text_objects.empty? || text_objects.nil?
-    toc_items = [toc_items] unless toc_items.is_a?(Array)
-
-    datos_to_load = []
-    toc_items.each do |toc_item|
-      unless toc_item.nil?
-        items = text_objects.select{ |t| t.toc_items && t.toc_items.include?(toc_item) }
-        if options[:language]
-          items = items.select{ |t| t[:language_id] == Language.id_from_iso(options[:language]) }
-        end
-        unless items.blank? || items.nil?
-          if options[:limit].nil? || options[:limit].to_i == 0
-            datos_to_load += items
-          elsif options[:limit].to_i == 1
-            datos_to_load << items[0]
-          elsif options[:limit].to_i > 1
-            datos_to_load += items[0..options[:limit].to_i]
-          end
-        end
-      end
-    end
-    datos_to_load << text_objects[0] if datos_to_load.blank? && options[:required]
-
-    return nil if datos_to_load.empty?
-
-    add_include = [ :translations, :data_object_translation, :users_data_objects_ratings, :comments, :agents_data_objects, :info_items, :toc_items, { :users_data_object => [:user, :taxon_concept, :vetted, :visibility] },
-      { :published_refs => { :ref_identifiers => :ref_identifier_type } },
-      { :data_objects_hierarchy_entries => :hierarchy_entry },
-      :users_data_objects_ratings ]
-    add_select = {
-      :users_data_objects_ratings => '*',
-      :data_objects_hierarchy_entries => '*',
-      :refs => '*',
-      :ref_identifiers => '*',
-      :ref_identifier_types => '*',
-      :users => '*',
-      :data_object_translations => '*',
-      :hierarchy_entries => [ :taxon_concept_id, :vetted_id, :visibility_id ],
-      :comments => [:parent_id, :visible_at] }
-
-    objects = DataObject.core_relationships(:add_include => add_include, :add_select => add_select).
-        find_all_by_id(datos_to_load.collect{ |d| d.id })
-    DataObject.preload_associations(objects, :all_comments)
-    if options[:user] && options[:user].is_curator? && options[:user].min_curator_level?(:full)
-      DataObject.preload_associations(objects, :users_data_objects_ratings, :conditions => "users_data_objects_ratings.user_id=#{options[:user].id}")
-    end
-
-    DataObject.sort_by_rating(objects, self)
-
-  end
-
-  # Return a list of data objects associated with this TC's Overview toc (returns nil if it doesn't have one)
-  def overview
-    return text_objects_for_toc_items(TocItem.overview)
-  end
-
-  # Returns special content, if exists, for given toc items
-  def special_content_for_toc_items(toc_items)
-    return unless toc_items
-    toc_items = [toc_items] unless toc_items.is_a?(Array)
-    special_content = []
-    toc_items.each do |toc_item|
-      ccb = CategoryContentBuilder.new
-      if ccb.can_handle?(toc_item)
-        content = ccb.content_for(toc_item, :taxon_concept => self)
-        special_content << content unless content.nil?
-      end
-    end
-    special_content
-  end
-
-  # Returns education content
-  def education_content
-    toc_item = TocItem.education
-    ccb = CategoryContentBuilder.new
-    if ccb.can_handle?(toc_item)
-      ccb.content_for(toc_item, :taxon_concept => self)
-    else
-      get_default_content(toc_item)
-    end
-  end
-
   # Returns nucleotide sequences HE
   def nucleotide_sequences_hierarchy_entry_for_taxon
     return TaxonConcept.find_entry_in_hierarchy(self.id, Hierarchy.ncbi.id)
@@ -371,37 +228,6 @@ class TaxonConcept < SpeciesSchemaModel
   # Returns external links
   def content_partners_links
    return self.outlinks.sort_by { |ol| ol[:hierarchy_entry].hierarchy.label }
-  end
-
-  # Returns harvested text objects, user submitted object and special content for given toc items
-  def details_for_toc_items(toc_items, options = {})
-    details = []
-    text_objects = text_objects_for_toc_items(toc_items, options)
-    if text_objects
-      text_object_toc_items = text_objects.collect{ |d| d.toc_items }.flatten.compact.uniq
-      text_object_toc_items.each do |toc_item|
-        detail = {
-          :content_type  => 'text',
-          :toc_item => toc_item,
-          :data_objects  => text_objects.collect{ |d| d if d.toc_items.include?(toc_item) }.compact
-        }
-        details << detail
-      end
-    end
-    special_content = special_content_for_toc_items(toc_items)
-    details += special_content unless special_content.empty?
-    return details
-  end
-
-  # This may throw an ActiveRecord::RecordNotFound exception if the TocItem's category_id doesn't exist.
-  def content_by_category(category_id, options = {})
-    toc_item = TocItem.find(category_id) # Note: this "just works" even if category_id *is* a TocItem.
-    ccb = CategoryContentBuilder.new
-    if ccb.can_handle?(toc_item)
-      ccb.content_for(toc_item, :taxon_concept => self, :hierarchy_entry => options[:hierarchy_entry])
-    else
-      get_default_content(toc_item)
-    end
   end
 
   # Get a list of TaxonConcept models that are ancestors to this one.
@@ -450,15 +276,6 @@ class TaxonConcept < SpeciesSchemaModel
     published_hierarchy_entries.detect {|he| he.species_or_below? }
   end
 
-  def has_details?
-    exclude = TocItem.exclude_from_details
-    dato_toc_items = data_objects.select{ |d| d.is_text? }
-    return false unless dato_toc_items && ! dato_toc_items.empty? # No text at all.
-    dato_toc_items.map(&:toc_items).flatten.reject {|i| exclude.include?(i.label) } # Only things from details tab.
-    return false unless dato_toc_items && ! dato_toc_items.empty? # Nothing on details tab.
-    return true # Something's left; we must have details...
-  end
-
   def has_outlinks?
     return TaxonConcept.count_by_sql("SELECT 1
       FROM hierarchy_entries he
@@ -478,12 +295,13 @@ class TaxonConcept < SpeciesSchemaModel
     used_hierarchies = []
     entries_for_this_concept = HierarchyEntry.find_all_by_taxon_concept_id(id,
       :select => {
-        :hierarchy_entries => [:published, :visibility_id, :identifier, :source_url],
-        :hierarchies => [:label, :outlink_uri, :url, :id],
+        :hierarchy_entries => [ :published, :visibility_id, :identifier, :source_url ],
+        :hierarchies => [ :label, :outlink_uri, :url, :id ],
         :resources => [ :title, :id, :content_partner_id ],
+        :content_partners => '*',
         :agents => [ :logo_cache_url, :full_name ],
         :collection_types => [ :parent_id ] },
-      :include => { :hierarchy => [:resource, :agent, :collection_types] })
+      :include => { :hierarchy => [ { :resource => :content_partner }, :agent, :collection_types] })
     entries_for_this_concept.each do |he|
       next if used_hierarchies.include?(he.hierarchy)
       next if he.published != 1 && he.visibility_id != Visibility.visible.id
@@ -798,8 +616,12 @@ class TaxonConcept < SpeciesSchemaModel
     # IUCN was getting called over 240 times below, so I am checking the data_type
     # here rather than using the is_iucn? which would call DataType.iucn later in DataObject
     iucn_data_type = DataType.iucn
-    iucn_objects = data_objects.select{ |d| d.data_type_id == iucn_data_type.id && d.published? }.sort_by{ |d| Invert(d.id) }
-    my_iucn = iucn_objects.empty? ? nil : DataObject.find(iucn_objects[0].id, :select => 'description, source_url')
+    
+    iucn_objects = DataObject.find(:all, :joins => :data_objects_taxon_concepts,
+      :conditions => "`data_objects_taxon_concepts`.`taxon_concept_id` = #{self.id}
+        AND `data_objects`.`data_type_id` = #{DataType.iucn.id} AND `data_objects`.`published` = 1",
+      :order => "`data_objects`.`id` DESC")
+    my_iucn = iucn_objects.empty? ? nil : iucn_objects.first
     temp_iucn = my_iucn.nil? ? DataObject.new(:source_url => 'http://www.iucnredlist.org/about', :description => I18n.t(:not_evaluated)) : my_iucn
     @iucn = temp_iucn
     return @iucn
@@ -887,7 +709,6 @@ class TaxonConcept < SpeciesSchemaModel
     else
       return 0
     end
-    # You can also count here: @taxon_concept.content_by_category(TocItem.related_names.id, :current_user => current_user)
   end
 
   def self.related_names(options = {})
@@ -1357,6 +1178,13 @@ class TaxonConcept < SpeciesSchemaModel
     cache_key = "best_image_#{self.id}"
     cache_key += "_#{selected_hierarchy_entry.id}" if selected_hierarchy_entry && selected_hierarchy_entry.class == HierarchyEntry
     TaxonConceptExemplarImage
+    CuratedDataObjectsHierarchyEntry
+    DataObjectsHierarchyEntry
+    ContentPartner
+    AgentsDataObject
+    AgentRole
+    Agent
+    UsersDataObject
     TocItem
     @best_image ||= $CACHE.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 1.days) do
       if published_exemplar = self.published_exemplar_image
@@ -1396,6 +1224,89 @@ class TaxonConcept < SpeciesSchemaModel
     })
   end
   
+  def overview_text_for_user(the_user)
+    overview_toc_item_ids = [TocItem.brief_summary, TocItem.comprehensive_description, TocItem.distribution].collect{ |toc_item| toc_item.id }
+    overview_text_objects = self.text_for_user(the_user, {
+      :per_page => 5,
+      :language_ids => [ the_user.language_id ],
+      :toc_ids => overview_toc_item_ids })
+    DataObject.preload_associations(overview_text_objects, { :data_objects_hierarchy_entries => :hierarchy_entry },
+      :select => {
+        :data_objects_hierarchy_entries => '*',
+        :hierarchy_entries => '*'
+      })
+    overview_text_objects = DataObject.sort_by_rating(overview_text_objects, self)
+    overview_text_objects.first
+  end
+  
+  # this just gets the TOCitems and their parents for the text given, sorted by view_order
+  def table_of_contents_for_text(text_objects)
+    toc_items_to_show = []
+    text_objects.each do |obj|
+      next unless obj.toc_items
+      obj.toc_items.each do |toc_item|
+        toc_items_to_show << toc_item
+        if p = toc_item.parent
+          toc_items_to_show << p
+        end
+      end
+    end
+    toc_items_to_show.compact!
+    toc_items_to_show.uniq!
+    toc_items_to_show.sort_by(&:view_order)
+  end
+  
+  def has_details_text_for_user?(the_user)
+    !details_text_for_user(the_user, :limit => 1, :skip_preload => true).empty?
+  end
+  
+  # there is an artificial limit of 300 text objects here to increase the default 30
+  def details_text_for_user(the_user, options = {})
+    text_objects = self.text_for_user(the_user, {
+      :language_ids => [ the_user.language_id ],
+      :toc_ids_to_ignore => TocItem.exclude_from_details.collect{ |toc_item| toc_item.id },
+      :per_page => (options[:limit] || 300) })
+    
+    # now preload info needed for display details metadata
+    unless options[:skip_preload]
+      selects = {
+        :hierarchy_entries => [ :id, :rank_id, :identifier, :hierarchy_id, :parent_id, :published, :visibility_id, :lft, :rgt, :taxon_concept_id, :source_url ],
+        :hierarchies => [ :id, :agent_id, :browsable, :outlink_uri, :label ],
+        :data_objects_hierarchy_entries => '*',
+        :curated_data_objects_hierarchy_entries => '*',
+        :data_object_translations => '*',
+        :table_of_contents => '*',
+        :info_items => '*',
+        :users_data_objects => '*',
+        :resources => '*',
+        :content_partners => '*',
+        :refs => '*',
+        :ref_identifiers => '*',
+        :comments => '*',
+        :users_data_objects_ratings => '*' }
+      DataObject.preload_associations(text_objects, [ :users_data_objects_ratings, :comments,
+        { :published_refs => :ref_identifiers }, :translations, :data_object_translation, { :toc_items => :info_items },
+        { :data_objects_hierarchy_entries => { :hierarchy_entry => { :hierarchy => { :resource => :content_partner } } } },
+        { :curated_data_objects_hierarchy_entries => :hierarchy_entry }, :info_items, :users_data_object ],
+        :select => selects)
+    end
+    text_objects
+  end
+  
+  def text_for_user(the_user = nil, options = {})
+    vetted_types = ['trusted', 'unreviewed']
+    visibility_types = ['visible']
+    if the_user.class == User && the_user.is_curator?
+      vetted_types << 'untrusted'
+      visibility_types << 'invisible'
+    end
+    options[:per_page] ||= 500
+    options[:data_type_ids] = DataType.text_type_ids
+    options[:vetted_types] = vetted_types
+    options[:visibility_types] = visibility_types
+    self.data_objects_from_solr(options)
+  end
+  
   def data_objects_from_solr(solr_query_parameters = {})
     solr_query_parameters[:page] ||= 1  # return FIRST page by default
     solr_query_parameters[:per_page] ||= 30  # return 30 objects by default
@@ -1405,8 +1316,10 @@ class TaxonConcept < SpeciesSchemaModel
     solr_query_parameters[:data_subtype_ids] ||= nil  # return objects of ANY subtype by default - so this will include maps
     solr_query_parameters[:license_ids] ||= nil
     solr_query_parameters[:language_ids] ||= nil
-    solr_query_parameters[:allow_nil_languages] ||= nil
+    solr_query_parameters[:language_ids_to_ignore] ||= nil
+    solr_query_parameters[:allow_nil_languages] ||= false  # true or false
     solr_query_parameters[:toc_ids] ||= nil
+    solr_query_parameters[:toc_ids_to_ignore] ||= nil
     solr_query_parameters[:published] = true  # this can't be overridden - we always want published objects
     solr_query_parameters[:vetted_types] ||= ['trusted', 'unreviewed']  # labels are english strings simply because the SOLR fields use these labels
     solr_query_parameters[:visibility_types] ||= ['visible']  # labels are english strings simply because the SOLR fields use these labels

@@ -97,7 +97,7 @@ describe Taxa::MediaController do
       highly_ranked_sound_association.save!
       @highly_ranked_sound.save
 
-      @highly_ranked_text = @taxon_concept.text.first
+      @highly_ranked_text = @taxon_concept.data_objects.detect{ |d| d.is_text? }
       @highly_ranked_text.data_rating = 21
       highly_ranked_text_association = @highly_ranked_text.association_for_taxon_concept(@taxon_concept)
       highly_ranked_text_association.vetted_id = Vetted.trusted.id

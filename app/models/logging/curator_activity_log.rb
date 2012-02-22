@@ -75,7 +75,7 @@ class CuratorActivityLog < LoggingModel
         begin
           synonym.hierarchy_entry.taxon_concept_id
         rescue
-          raise "Synonym #{synonym.id} does not have a HierarchyEntry"
+          puts "ERROR: [/app/models/logging/curator_activity_log.rb] Synonym #{object_id} does not have a HierarchyEntry"
         end
       when ChangeableObjectType.users_data_object.id:
         udo_taxon_concept.id

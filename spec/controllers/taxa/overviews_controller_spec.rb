@@ -22,7 +22,7 @@ describe Taxa::OverviewsController do
     end
     it 'should instantiate summary text' do
       overviews_do_show
-      assigns[:summary_text][0].should be_a(DataObject)
+      assigns[:summary_text].should be_a(DataObject)
     end
     it 'should instantiate summary media' do
       overviews_do_show

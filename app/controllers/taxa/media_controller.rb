@@ -94,8 +94,8 @@ class Taxa::MediaController < TaxaController
       TaxonConceptExemplarImage.set_exemplar(taxon_concept, data_object_id)
     end
 
-    object = DataObject.find_by_id(data_object_id)
-    log_action(@taxon_concept, object, :choose_exemplar)
+    @data_object = DataObject.find_by_id(data_object_id)
+    log_action(@taxon_concept, @data_object, :choose_exemplar)
 
     store_location(params[:return_to] || request.referer)
     redirect_back_or_default taxon_media_path params[:taxon_concept_id]

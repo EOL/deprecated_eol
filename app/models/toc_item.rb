@@ -128,7 +128,7 @@ class TocItem < SpeciesSchemaModel
   def self.exclude_from_details
     temp = []
     # Education:
-    temp = temp | ["Education", "Education Resources"] # to Resource tab
+    temp = temp | ["Education", "Education Resources", "High School Lab Series"] # to Resource tab
     # Physical Description:
     temp = temp | ["Identification Resources"] # to Resource tab
     # References and More Information:
@@ -141,7 +141,7 @@ class TocItem < SpeciesSchemaModel
     temp = temp | ["Content Summary"] # to Updates tab
     # Resources:
     temp = temp | ["Content Partners"] # to Resource tab
-    temp
+    temp.collect{ |label| TocItem.cached_find_translated(:label, label, 'en', :find_all => true) }.flatten.compact
   end
 
   def self.last_major_chapter
@@ -206,7 +206,7 @@ class TocItem < SpeciesSchemaModel
   end
 
   def is_child?
-    !(self.parent_id.nil? or self.parent_id == 0)
+    !(self.parent_id.nil? || self.parent_id == 0)
   end
 
   def allow_user_text?
@@ -328,6 +328,7 @@ class TocItem < SpeciesSchemaModel
   def is_major?
     return parent_id == 0
   end
+  alias :is_parent? :is_major?
 
   def is_sub?
     return parent_id != 0

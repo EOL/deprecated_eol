@@ -49,7 +49,7 @@ class Mobile::Taxa::DetailsController < Mobile::TaxaController
     # exclude selected toc_items
     toc_items_to_show.delete_if {|ti| temp.include?(ti.label)}
 
-    @toc = TocBuilder.new.toc_for_toc_items(toc_items_to_show)
+    @toc = []
 
     @exemplar_image = @taxon_concept.exemplar_or_best_image_from_solr
 

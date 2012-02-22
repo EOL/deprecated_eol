@@ -5,62 +5,23 @@ class Taxa::DetailsController < TaxaController
 
   # GET /pages/:taxon_id/details
   def index
-    @taxon_concept.current_user = current_user
-    # @details = @taxon_concept.details_for_toc_items(ContentTable.details.toc_items)
-    @text_objects = @taxon_concept.data_objects_from_solr({ :data_type_ids => DataType.text_type_ids, :language_ids => [ current_user.language_id ] })
-    selects = {
-      :taxon_concepts => '*',
-      :hierarchy_entries => [ :id, :rank_id, :identifier, :hierarchy_id, :parent_id, :published, :visibility_id, :lft, :rgt, :taxon_concept_id, :source_url ],
-      :names => [ :string, :italicized, :canonical_form_id, :ranked_canonical_form_id ],
-      :hierarchies => [ :agent_id, :browsable, :outlink_uri, :label ],
-      :hierarchies_content => [ :content_level, :image, :text, :child_image, :map, :youtube, :flash ],
-      :vetted => :view_order,
-      :data_objects => [ :id, :data_type_id, :data_subtype_id, :published, :guid, :data_rating, :object_cache_url, :language_id ],
-      :data_objects_hierarchy_entries => '*',
-      :curated_data_objects_hierarchy_entries => '*',
-      :data_object_translations => '*',
-      :table_of_contents => '*',
-      :info_items => '*',
-      :users_data_objects => '*',
-      :curator_activity_logs => '*',
-      :resources => '*',
-      :content_partners => '*',
-      :refs => '*',
-      :ref_identifiers => '*',
-      :comments => '*',
-      :users_data_objects_ratings => '*',
-      :users => [ :given_name, :family_name, :logo_cache_url ] ,
-      :taxon_concept_exemplar_image => '*' }
-    DataObject.preload_associations(@text_objects, [ :users_data_objects_ratings, :comments, { :published_refs => :ref_identifiers }, :translations, :data_object_translation, { :toc_items => :info_items }, { :data_objects_hierarchy_entries => { :hierarchy_entry => { :hierarchy => { :resource => :content_partner } } } },
-      { :curated_data_objects_hierarchy_entries => :hierarchy_entry }, :info_items, :users_data_object ],
-      :select => selects)
     
-    # @details_count_by_language = {}
-    # @details.each do |det|
-    #   unless TocItem.exclude_from_details.include?(det[:toc_item])
-    #     if det[:data_objects]
-    #       det[:data_objects].each do |d|
-    #         d.language ||= current_user.language
-    #         @details_count_by_language[d.language] ||= 0
-    #         @details_count_by_language[d.language] += 1
-    #       end
-    #       # remove anything not in the current users language
-    #       det[:data_objects].delete_if{ |d| d.language_id != current_user.language_id }
-    #     end
-    #   end
-    # end
-    # @details_count_by_language.delete_if{ |k,v| k.blank? || k == current_user.language }
-    # # some sections may be empty now that other languages have been removed
-    # @details.delete_if{ |d| d[:data_objects].blank? }
-
-    toc_items_to_show = @text_objects.collect{ |d| d.toc_items }.compact.flatten.uniq
-    # exclude = TocItem.exclude_from_details
-    # toc_items_to_show.delete_if {|ti| exclude.include?(ti.label) }
-    TocItem.preload_associations(toc_items_to_show, :info_items)
-    @toc = TocBuilder.new.toc_for_toc_items(toc_items_to_show)
-
+    @text_objects = @taxon_concept.details_text_for_user(current_user)
+    @toc_items_to_show = @taxon_concept.table_of_contents_for_text(@text_objects)
+    
+    @data_objects_in_other_languages = @taxon_concept.text_for_user(current_user, {
+      :language_ids_to_ignore => [ current_user.language_id, 0 ],
+      :allow_nil_languages => false,
+      :preload_select => { :data_objects => [ :id, :guid, :language_id ] },
+      :skip_preload => true,
+      :toc_ids_to_ignore => TocItem.exclude_from_details.collect{ |toc_item| toc_item.id } })
+    @details_count_by_language = {}
+    @data_objects_in_other_languages.each do |obj|
+      @details_count_by_language[obj.language] ||= 0
+      @details_count_by_language[obj.language] += 1
+    end
+    
     @exemplar_image = @taxon_concept.exemplar_or_best_image_from_solr(@selected_hierarchy_entry)
-
     @assistive_section_header = I18n.t(:assistive_details_header)
     @rel_canonical_href = @selected_hierarchy_entry ?
       taxon_hierarchy_entry_details_url(@taxon_concept, @selected_hierarchy_entry) :

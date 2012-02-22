@@ -30,6 +30,7 @@ testy[:brief_summary]   = TocItem.brief_summary
 testy[:brief_summary_text] = 'This is a test brief summary.'
 testy[:toc_item_2]      = TocItem.gen_if_not_exists(:view_order => 2, :label => "test toc item 2")
 testy[:toc_item_3]      = TocItem.gen_if_not_exists(:view_order => 3, :label => "test toc item 3")
+testy[:toc_item_4]      = TocItem.gen_if_not_exists(:view_order => 4, :label => "test toc item 4")
 testy[:canonical_form]  = Factory.next(:species) + 'tsty'
 testy[:ranked_canonical_form] = Factory.next(:species) + ' var. tsty'
 testy[:attribution]     = Faker::Eol.attribution
@@ -92,17 +93,18 @@ tc.add_common_name_synonym(testy[:unreviewed_name], :agent => agent, :language =
 tc.add_common_name_synonym(testy[:untrusted_name], :agent => agent, :language => Language.english,
                                               :vetted => Vetted.untrusted, :preferred => false)
 # References for overview text object
-tc.overview[0].add_ref('A published visible reference for testing.',
+overview = tc.data_objects.select{ |d| d.is_text? }.first
+overview.add_ref('A published visible reference for testing.',
   1, Visibility.visible)
-tc.overview[0].add_ref('A published invisible reference for testing.',
+overview.add_ref('A published invisible reference for testing.',
   1, Visibility.invisible)
-tc.overview[0].add_ref('An unpublished visible reference for testing.',
+overview.add_ref('An unpublished visible reference for testing.',
   0, Visibility.visible)
-tc.overview[0].add_ref('A published visible reference with an invalid identifier for testing.',
+overview.add_ref('A published visible reference with an invalid identifier for testing.',
   1, Visibility.visible).add_identifier('invalid', 'An invalid reference identifier.')
-tc.overview[0].add_ref('A published visible reference with a DOI identifier for testing.',
+overview.add_ref('A published visible reference with a DOI identifier for testing.',
   1, Visibility.visible).add_identifier('doi', '10.12355/foo/bar.baz.230')
-tc.overview[0].add_ref('A published visible reference with a URL identifier for testing.',
+overview.add_ref('A published visible reference with a URL identifier for testing.',
   1, Visibility.visible).add_identifier('url', 'some/url.html')
 
 # And we want one comment that the world cannot see:

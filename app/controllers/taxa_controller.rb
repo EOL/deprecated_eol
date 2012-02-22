@@ -192,20 +192,6 @@ private
     redirect_to search_path(:id => params[:id])
   end
 
-  def taxa_page_cache_fragment_name
-    return {
-      :controller => '/taxa',
-      :part => "page_#{@taxon_concept.id}_#{@section}_#{@taxon_concept.current_user.taxa_page_cache_str}_#{@taxon_concept.show_curator_controls?}"
-    }
-  end
-  helper_method(:taxa_page_cache_fragment_name)
-
-  def show_taxa_html_can_be_cached?
-    return(allow_page_to_be_cached? and
-           params[:category_id].blank? and
-           params[:image_id].blank?)
-  end
-
   # For regular users, a page is accessible only if the taxon_concept is published.
   # If an agent is logged in, then it's only accessible if the taxon_concept is
   # referenced by the Agent's most recent harvest events

@@ -25,7 +25,7 @@ class TaxonConcept < SpeciesSchemaModel
   has_many :published_hierarchy_entries, :class_name => HierarchyEntry.to_s,
     :conditions => 'hierarchy_entries.published=1 AND hierarchy_entries.visibility_id=#{Visibility.visible.id}'
 
-  has_many :published_browsable_hierarchy_entries, :class_name => HierarchyEntry.to_s, :foreign_key => 'hierarchy_entry_id',
+  has_many :published_browsable_hierarchy_entries, :class_name => HierarchyEntry.to_s, :foreign_key => 'id',
     :finder_sql => 'SELECT he.id, he.rank_id, h.id hierarchy_id, h.label hierarchy_label
     FROM hierarchies h
     JOIN hierarchy_entries he ON h.id = he.hierarchy_id
@@ -113,16 +113,6 @@ class TaxonConcept < SpeciesSchemaModel
     end
     superceded_taxon_concept_ids.uniq
   end
-  
-  def show_curator_controls?(user = nil)
-    return @show_curator_controls if !@show_curator_controls.nil?
-    user = @current_user if user.nil?
-    if user.nil?
-      raise "a user must be specified"
-    end
-    @show_curator_controls = user.min_curator_level?(:full)
-    @show_curator_controls
-  end
 
   # The common name will defaut to the current user's language.
   def common_name(hierarchy = nil)
@@ -135,10 +125,6 @@ class TaxonConcept < SpeciesSchemaModel
     end
     return common_names[0].name.string unless common_names.blank?
     return nil
-  end
-
-  def self.common_names_for_concepts(taxon_concept_ids, hierarchy = nil)
-    quick_common_names(taxon_concept_ids, hierarchy)
   end
 
   # TODO - this will now be called on ALL taxon pages.  Eep!  Make this more efficient:
@@ -211,13 +197,6 @@ class TaxonConcept < SpeciesSchemaModel
   def scientific_name(hierarchy = nil, italicize = true)
     hierarchy ||= Hierarchy.default
     quick_scientific_name(italicize && species_or_below? ? :italicized : :normal, hierarchy)
-  end
-
-  # same as above but a static method expecting an array of IDs
-  def self.scientific_names_for_concepts(taxon_concept_ids, hierarchy = nil)
-    return false if taxon_concept_ids.blank?
-    hierarchy ||= Hierarchy.default
-    self.quick_scientific_names(taxon_concept_ids, hierarchy)
   end
 
   # Returns nucleotide sequences HE
@@ -520,23 +499,6 @@ class TaxonConcept < SpeciesSchemaModel
     return final_name
   end
 
-  def self.quick_common_names(taxon_concept_ids, language = nil, hierarchy = nil)
-    return false if taxon_concept_ids.blank?
-    language  ||= TaxonConcept.current_user_static.language
-    hierarchy ||= Hierarchy.default
-    common_name_results = SpeciesSchemaModel.connection.execute("SELECT n.string name, he.hierarchy_id source_hierarchy_id, tcn.taxon_concept_id FROM taxon_concept_names tcn JOIN names n ON (tcn.name_id = n.id) LEFT JOIN hierarchy_entries he ON (tcn.source_hierarchy_entry_id = he.id) WHERE tcn.taxon_concept_id IN (#{taxon_concept_ids.join(',')}) AND language_id=#{language.id} AND preferred=1").all_hashes
-
-    concept_names = {}
-    taxon_concept_ids.each{|id| concept_names[id.to_i] = nil }
-    common_name_results.each do |r|
-      if concept_names[r['taxon_concept_id'].to_i].blank? || r['source_hierarchy_id'].to_i == hierarchy.id
-        concept_names[r['taxon_concept_id'].to_i] = r['name'].firstcap
-      end
-    end
-    return concept_names
-  end
-
-
   def quick_scientific_name(type = :normal, hierarchy = nil)
     hierarchy_entry = entry(hierarchy)
     # if hierarchy_entry is nil then this concept has no entries, and shouldn't be published
@@ -558,26 +520,6 @@ class TaxonConcept < SpeciesSchemaModel
   end
   alias :summary_name :quick_scientific_name
 
-  def self.quick_scientific_names(taxon_concept_ids, hierarchy = nil)
-    concept_entries = self.entries_for_concepts(taxon_concept_ids, hierarchy)
-    return nil if concept_entries.blank?
-
-    hierarchy_entry_ids = concept_entries.values.collect{|he| he.id || nil}.compact
-    scientific_name_results = SpeciesSchemaModel.connection.execute(
-      "SELECT n.string name_string, n.italicized, he.hierarchy_id source_hierarchy_id, he.taxon_concept_id, he.rank_id
-       FROM hierarchy_entries he LEFT JOIN names n ON (he.name_id = n.id)
-       WHERE he.id IN (#{hierarchy_entry_ids.join(',')})").all_hashes
-
-    concept_names = {}
-    scientific_name_results.each do |r|
-      if concept_names[r['taxon_concept_id'].to_i].blank?
-        name_string = Rank.italicized_ids.include?(r['rank_id'].to_i) ? r['italicized'] : r['name_string']
-        concept_names[r['taxon_concept_id'].to_i] = name_string.firstcap
-      end
-    end
-    return concept_names
-  end
-
 
   def superceded_the_requested_id?
     @superceded_the_requested_id
@@ -586,14 +528,6 @@ class TaxonConcept < SpeciesSchemaModel
   def superceded_the_requested_id
     @superceded_the_requested_id = true
   end
-  # # Some TaxonConcepts are "superceded" by others, and we need to follow the chain (up to a sane limit):
-  # def self.find_with_supercedure(taxon_concept_id, level = 0)
-  #   level += 1
-  #   raise "Supercedure stack is 7 levels deep" if level == 7
-  #   tc = TaxonConcept.find(taxon_concept_id)
-  #   return tc if (tc.supercedure_id == 0 || tc == nil)
-  #   self.find_with_supercedure(tc.supercedure_id, level)
-  # end
 
   # Some TaxonConcepts are "superceded" by others, and we need to follow the chain (up to a sane limit):
   def self.find_with_supercedure(*args)
@@ -629,11 +563,6 @@ class TaxonConcept < SpeciesSchemaModel
 
   def iucn_conservation_status_url
     return iucn.source_url
-  end
-
-  # TODO - find refs to these and make them grab a hierarchy...
-  def current_node(hierarchy_id = nil)
-    return entry(hierarchy_id)
   end
 
   # Returns an array of HierarchyEntry models (not TaxonConcept models), useful for building navigable
@@ -685,16 +614,6 @@ class TaxonConcept < SpeciesSchemaModel
 
   def content_level
     taxon_concept_content.content_level
-  end
-
-  def self.from_taxon_concepts(taxon_concept_ids,page)
-    if(taxon_concept_ids.length > 0) then
-    query="Select taxon_concepts.id taxon_concept_id, taxon_concepts.supercedure_id, taxon_concepts.published, vetted.label vetted_label
-    From taxon_concepts
-    Inner Join vetted ON taxon_concepts.vetted_id = vetted.id
-    WHERE taxon_concepts.id IN (#{ taxon_concept_ids.join(', ') })"
-    self.paginate_by_sql [query, taxon_concept_ids], :page => page, :per_page => 20 , :order => 'id'
-    end
   end
 
   # This could use name... but I only need it for searches, and ID is all that matters, there.
@@ -876,55 +795,6 @@ class TaxonConcept < SpeciesSchemaModel
                          WHERE tcn.taxon_concept_id = ? AND vern = 0', id])
   end
 
-  def has_stats?
-    HierarchyEntryStat.count_by_sql("SELECT 1
-      FROM hierarchy_entries he
-      JOIN hierarchies h ON (he.hierarchy_id = h.id)
-      JOIN hierarchy_entry_stats hes ON (he.id = hes.hierarchy_entry_id)
-      WHERE he.taxon_concept_id = #{self.id}
-      AND h.browsable = 1
-      AND he.published = 1
-      AND he.visibility_id = #{Visibility.visible.id}
-      LIMIT 1") > 0
-  end
-
-  def has_related_names?
-    entries_with_parents = published_hierarchy_entries.select{ |he| he.hierarchy.browsable? && he.parent_id != 0 }
-    return true unless entries_with_parents.empty?
-    return TaxonConcept.count_by_sql("SELECT 1
-                                      FROM hierarchy_entries he
-                                      JOIN hierarchy_entries he_children ON (he.id=he_children.parent_id)
-                                      JOIN hierarchies h ON (he_children.hierarchy_id=h.id)
-                                      WHERE he.taxon_concept_id=#{id}
-                                      AND h.browsable=1
-                                      AND he_children.published=1
-                                      LIMIT 1") > 0
-  end
-
-  def has_synonyms?
-    return TaxonConcept.count_by_sql("SELECT 1
-      FROM hierarchy_entries he
-      JOIN hierarchies h ON (he.hierarchy_id = h.id)
-      JOIN synonyms s ON (he.id = s.hierarchy_entry_id)
-      WHERE he.taxon_concept_id = #{self.id}
-      AND he.published = 1
-      AND h.browsable = 1
-      AND s.synonym_relation_id NOT IN (#{SynonymRelation.common_name_ids.join(',')})
-      LIMIT 1") > 0
-  end
-
-  def has_common_names?
-    return TaxonConcept.count_by_sql("SELECT 1
-      FROM hierarchy_entries he
-      JOIN hierarchies h ON (he.hierarchy_id = h.id)
-      JOIN synonyms s ON (he.id = s.hierarchy_entry_id)
-      WHERE he.taxon_concept_id = #{self.id}
-      AND he.published = 1
-      AND h.browsable = 1
-      AND s.synonym_relation_id IN (#{SynonymRelation.common_name_ids.join(',')})
-      LIMIT 1") > 0
-  end
-
   def has_literature_references?
     Ref.literature_references_for?(self.id)
   end
@@ -989,20 +859,21 @@ class TaxonConcept < SpeciesSchemaModel
   end
 
   def videos(options = {})
-    videos = filter_data_objects_by_type(options.merge({:data_type_ids => DataType.video_type_ids}))
+    videos = data_objects.find(:all, :conditions => "data_type_id IN (#{DataType.video_type_ids.join(',')})")
     @length_of_videos = videos.length # cached, so we don't have to query this again.
     videos
   end
   alias :video_data_objects :videos
 
   def sounds(options = {})
-    sounds = filter_data_objects_by_type(options.merge({:data_type_ids => DataType.sound_type_ids}))
+    sounds = data_objects.find(:all, :conditions => "data_type_id IN (#{DataType.sound_type_ids.join(',')})")
     @length_of_sounds = sounds.length # cached, so we don't have to query this again.
     sounds
   end
 
   def map_images(options ={})
-    filter_data_objects_by_type(options.merge({ :data_type_ids => DataType.image_type_ids, :data_subtype_ids => DataType.map_type_ids }))
+    sounds = data_objects.find(:all, :conditions => "data_type_id IN (#{DataType.image_type_ids.join(',')}) AND
+      data_subtype_id IN (#{DataType.map_type_ids.join(',')})")
   end
 
   def curated_hierarchy_entries
@@ -1345,29 +1216,6 @@ class TaxonConcept < SpeciesSchemaModel
     @media_facet_counts ||= EOL::Solr::DataObjects.get_facet_counts(self.id)
   end
 
-  # You must pass in the :data_type_ids option for this to work.  Use DataObject.FOO_type_ids for the value.  eg:
-  #   videos = filter_data_objects_by_type(:data_type_ids => DataObject.video_type_ids)
-  def filter_data_objects_by_type(options = {})
-    usr = current_user
-    if options[:unvetted]
-      usr = current_user.clone
-      usr.vetted = false
-    end
-
-    objects = data_objects.select{ |d| options[:data_type_ids].include?(d.data_type_id) }
-    if options[:data_subtype_ids]
-      objects = objects.select{ |d| options[:data_subtype_ids].include?(d.data_subtype_id) }
-    end
-    filtered_objects = DataObject.filter_list_for_user(objects, :taxon_concept => self, :user => usr)
-
-    add_include = [:agents_data_objects]
-
-    objects = DataObject.core_relationships(:add_include => add_include).
-        find_all_by_id(filtered_objects.collect{ |d| d.id })
-    objects = DataObject.sort_by_rating(objects, self)
-    return objects
-  end
-
   def number_of_descendants
     connection.select_values("SELECT count(*) as count FROM taxon_concepts_flattened WHERE ancestor_id=#{self.id}")[0].to_i rescue 0
   end
@@ -1402,38 +1250,5 @@ private
       he.vet_synonyms(options)
     end
   end
-
-  def get_default_content(toc_item)
-    result = {
-      :content_type  => 'text',
-      :category_name => toc_item.label,
-      :data_objects  => text_objects_for_toc_items(toc_item, :user => current_user)
-    }
-    # TODO = this should not be hard-coded! IDEA = use partials.  Then we have variables and they can be dynamically changed.
-    # NOTE: I tried to dynamically alter data_objects directly, below, but they didn't
-    # "stick".  Thus, I override the array:
-    override_data_objects = []
-    result[:data_objects].each do |data_object|
-
-      # override the object's description with the linked one if available
-      data_object.description = data_object.description_linked if !data_object.description_linked.nil?
-
-      if entry && data_object.sources.detect { |src| src.full_name == 'FishBase' }
-        # TODO - We need a better way to choose which Agent to look at.  : \
-        # TODO - We need a better way to choose which Collection to look at.  : \
-        # TODO - We need a better way to choose which Mapping to look at.  : \
-        foreign_key      = data_object.agents[0].collections[0].mappings[0].foreign_key
-        (genus, species) = entry.name.canonical_form.string.split()
-        data_object.fake_author(
-          :full_name => 'See FishBase for additional references',
-          :homepage  => "http://www.fishbase.org/References/SummaryRefList.cfm?ID=#{foreign_key}&GenusName=#{genus}&SpeciesName=#{species}",
-          :logo_cache_url  => '')
-      end
-      override_data_objects << data_object
-    end
-    result[:data_objects] = override_data_objects
-    return result
-  end
-
 end
 

@@ -138,57 +138,6 @@ class DataObject < SpeciesSchemaModel
     end
   end
 
-  def self.custom_filter(data_objects, taxon_concept, type, status)
-
-    return data_objects if data_objects.blank?
-
-    # set types on which to filter or blank if no filter should be applied
-    allowed_data_types = []
-    type.each do |typ|
-      if typ == 'all'
-        allowed_data_types = []
-        break
-      end
-      allowed_data_types.concat(DataType.video_type_ids) if typ == 'all' || typ == 'video'
-      allowed_data_types.concat(DataType.image_type_ids) if typ == 'all' || typ == 'image' || typ == 'photosynth'
-      allowed_data_types.concat(DataType.sound_type_ids) if typ == 'all' || typ == 'sound'
-    end unless type.blank?
-
-    # set visibilities and vetted statuses on which to filter or blank if no filter should be applied
-    allowed_visibilities = []
-    allowed_vetted_status = []
-    status.each do |sta|
-      if sta == 'all'
-        allowed_vetted_status = []
-        allowed_visibilities = []
-        break
-      elsif sta == 'inappropriate'
-        allowed_visibilities << Vetted.inappropriate.id
-      else
-        allowed_vetted_status << Vetted.send(sta.to_sym).id
-      end
-    end unless status.blank?
-
-    # we only delete objects by type, visibility or vetted respectively if allowed parameters exist
-    data_objects.delete_if { |object|
-      dato_association = object.association_with_exact_or_best_vetted_status(taxon_concept)
-      dato_vetted_id = dato_association.vetted_id unless dato_association.nil?
-      dato_visibility_id = dato_association.visibility_id unless dato_association.nil?
-      # filter by type: delete object if type is not allowed
-      (! allowed_data_types.blank? && ! allowed_data_types.include?(object.data_type_id)) ||
-      # photosynth: delete non-photosynth images if type does not also include images or all
-      (! type.blank? && ! object.source_url.match(/http:\/\/photosynth.net/i) &&
-        object.is_image? && type.include?('photosynth') && ! type.include?('image') && ! type.include?('all')) ||
-      # filter by visibility: only delete by visibility if vetted status is blank or also not allowed
-      (! allowed_visibilities.blank? && ! allowed_visibilities.include?(dato_visibility_id) &&
-        (allowed_vetted_status.blank? || ! allowed_vetted_status.include?(dato_vetted_id))) ||
-      # filter by vetted status: only delete by vetted if visibility is blank or also not allowed
-      (! allowed_vetted_status.blank? && ! allowed_vetted_status.include?(dato_vetted_id) &&
-        (allowed_visibilities.blank? || ! allowed_visibilities.include?(dato_visibility_id))) }
-
-  end
-
-
   # TODO - this smells like a good place to use a Strategy pattern.  The user can have certain behaviour based
   # on their access.
   def self.filter_list_for_user(data_objects, options={})
@@ -267,7 +216,16 @@ class DataObject < SpeciesSchemaModel
       AND do.created_at IS NOT NULL
       AND do.created_at != '0000-00-00 00:00:00'").uniq
     data_objects.sort_by{ |d| d.created_at }
-    DataObject.core_relationships.find_all_by_id(data_objects.collect{ |d| d.id })
+    data_objects = DataObject.core_relationships.find_all_by_id(data_objects.collect{ |d| d.id })
+    DataObject.preload_associations(data_objects, [ { :data_objects_hierarchy_entries =>
+      { :hierarchy_entry => :name } }, :curated_data_objects_hierarchy_entries ],
+      :select => {
+        :hierarchy_entries => '*',
+        :names => '*',
+        :data_objects_hierarchy_entries => '*',
+        :curated_data_objects_hierarchy_entries => '*'
+      } )
+    data_objects
   end
 
   #----- user submitted text --------
@@ -625,11 +583,6 @@ class DataObject < SpeciesSchemaModel
 
   def revisions
     DataObject.find_all_by_guid_and_language_id(guid, language_id)
-  end
-
-  def visible_comments(user = nil)
-    return all_comments if (not user.nil?) and user.is_admin?
-    all_comments.find_all {|c| c.visible? }
   end
 
   def image?

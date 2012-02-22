@@ -16,7 +16,7 @@
             %h4= link_to community.name, community_url(community)
             %p
               -# the .reduce(:+) add all the values of the array, thus counting all the items in all collections
-              = I18n.t(:other_community_items_with_count, :count => community.collections.map {|c| c.collection_items.count }.reduce(:+) )
+              = I18n.t(:other_community_items_with_count, :count => community.collections.map {|c| c.cached_count }.reduce(:+) )
               = I18n.t(:punctuation_comma)
               = I18n.t(:members_with_count, :count => community.members.count)
   - else

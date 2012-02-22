@@ -227,11 +227,11 @@ describe TaxonConcept do
   end
 
   it "should have common names" do
-    @taxon_concept.has_common_names?.should be_true
+    @taxon_concept.all_common_names.length.should > 0
   end
 
   it "should not have common names" do
-    @tc_with_no_common_names.has_common_names?.should == false
+    @tc_with_no_common_names.all_common_names.length.should == 0
   end
 
   it "should be able to filter common_names by taxon_concept or hierarchy_entry" do

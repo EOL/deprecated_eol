@@ -188,6 +188,12 @@ class Collection < ActiveRecord::Base
     EOL::Solr::CollectionItems.get_facet_counts(self.id)
   end
 
+  def cached_count
+    $CACHE.fetch("collections/cached_count/#{self.id}", :expires_in => 10.minutes) do
+      collection_items.count
+    end
+  end
+
   def watch_collection?
     special_collection_id && special_collection_id == SpecialCollection.watch.id
   end

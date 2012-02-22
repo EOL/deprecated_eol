@@ -35,5 +35,4 @@ gem 'newrelic_rpm'
 gem 'memcache'
 gem 'unicorn', '4.1.1'
 gem 'graylog2_exceptions', '1.3.0'
-gem 'system_timer'
 gem 'resque', :require => "resque/server"

@@ -332,7 +332,7 @@ $(function() {
     }).not(":checked").closest("dt").next("dd").hide();
   })($("#content_partner_resources"));
 
-  EOL.get_notifications();
+  //EOL.get_notifications();
 
 });
 

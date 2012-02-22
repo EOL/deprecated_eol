@@ -13,6 +13,7 @@ class Users::NotificationsController < UsersController
   # PUT /users/:user_id/notification
   def update
     convert_notification_frequencies_ids_to_objects
+    debugger
     if @user.update_attributes(params[:user])
       flash[:notice] = "Notification settings successfully updated."
       redirect_back_or_default edit_user_path(@user)

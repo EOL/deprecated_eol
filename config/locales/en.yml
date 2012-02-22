@@ -1072,7 +1072,7 @@ en:
         tweet_text: "%{user_full_name} content partners"
     newsfeeds:
       activity_link: "activity"
-      messages_link: "messages"
+      messages_link: "comments"
       newsfeed_link: "newsfeed"
       show:
         meta_description: "News, activity updates and comments for %{user_full_name}."
@@ -2442,7 +2442,7 @@ en:
   newsfeed_help_for_collection: "The Newsfeed for this EOL Collection gathers updates associated with the items belonging to it, including the activities of its owner and comments from other EOL users."
   newsfeed_help_for_community: "The Newsfeed for this EOL Community gathers updates associated with the items belonging to its Managed Collections, including activities of its members and comments from other EOL users."
   newsfeed_help_for_focus_list: "The Focus List Newsfeed gathers updates associated with the items belonging to an EOL Community's primary Focus List, including activities of its managers and comments from other EOL users."
-  newsfeed_help_for_profile: "The EOL Profile Newsfeed contains messages left for its owner by other members, EOL Community invitations, and gathers updates associated with the items in the owner's EOL Watch List."
+  newsfeed_help_for_profile: "The EOL Profile Newsfeed contains comments left for its owner by other members, EOL Community invitations, and gathers updates associated with the items in the owner's EOL Watch List."
   newsfeed_help_for_taxon: "The Newsfeed for this EOL Taxon Page gathers updates associated with items shown on it, including curator actions and comments from EOL users."
   newsfeed_help_for_watchlist: "The EOL Watch List Newsfeed gathers updates associated with the items in the owner's EOL Watch List, including the activities of its owner."
   new_upload: "New Upload"
@@ -2480,7 +2480,7 @@ en:
   notification_frequency_send_immediately: "Send immediately"
   notification_frequency_never: "Never"
   notification_frequency_weekly: "Weekly"
-  notifications_and_messages_review_notice: Please review messages and notifications that will be sent to you by email.
+  notifications_and_messages_review_notice: Please review notifications that will be sent to you by email.
   email_updates_for_eol_addicts: "Email updates for EOL addicts."
   email_updates_for_eol_members: "Email updates most EOL members will want to get."
   notifications_tab_name: "Notifications"
@@ -3092,14 +3092,14 @@ en:
     one: "You have <a href='%{link}'>%{count} notification</a> (%{messages})"
     other: "You have <a href='%{link}'>%{count} notifications</a> (%{messages})"
   user_notifications_messages_with_count:
-    one: "%{count} message"
-    other: "%{count} messages"
+    one: "%{count} comments"
+    other: "%{count} comments"
   user_notifications_with_count_assitive:
     one: '%{count}<span class="assistive"> notification</span>'
     other: '%{count}<span class="assistive"> notifications</span>'
   user_notifications_messages_with_count_assistive:
-    one: '%{count}<span class="assistive"> message</span>'
-    other: '%{count}<span class="assistive"> messages</span>'
+    one: '%{count}<span class="assistive"> comments</span>'
+    other: '%{count}<span class="assistive"> comments</span>'
   user_was_added_as_editor_of_collection: "This user was added as a manager of \"%{collection}\"."
   username_taken: "%{name} is already taken"
   username_colon: "Username:"

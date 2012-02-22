@@ -628,11 +628,6 @@ class DataObject < SpeciesSchemaModel
     ContentServer.cache_path(cache_url, specified_content_host) + "#{size}.#{$SPECIES_IMAGE_FORMAT}"
   end
 
-  def has_thumbnail_cache?
-    return false if thumbnail_cache_url.blank? or thumbnail_cache_url == 0
-    return true
-  end
-
   def has_object_cache_url?
     return false if object_cache_url.blank? or object_cache_url == 0
     return true
@@ -780,12 +775,6 @@ class DataObject < SpeciesSchemaModel
     return obj[0]
   end
 
-  def self.latest_published_version_ids_of_do_ids(data_object_ids)
-    latest_published_version_ids = DataObject.find_by_sql("SELECT do.id FROM data_objects do_old JOIN data_objects do ON (do_old.guid=do.guid) WHERE do.id IN (#{data_object_ids.collect{|doi| doi}.join(', ')}) AND do.published=1")
-    latest_published_version_ids.collect!{|data_object| (data_object.id)}.uniq!
-    latest_published_version_ids
-  end
-
   def self.latest_published_version_of_guid(guid, options={})
     options[:return_only_id] ||= false
     select = (options[:return_only_id]) ? 'id' : '*'
@@ -814,25 +803,6 @@ class DataObject < SpeciesSchemaModel
     return @is_latest_published_version unless @is_latest_published_version.nil?
     the_latest = latest_published_version_in_same_language
     @is_latest_published_version = (the_latest && the_latest.id == self.id) ? true : false
-  end
-
-  def self.tc_ids_from_do_ids(obj_ids)
-    obj_tc_id = {} #same Hash.new
-    if(obj_ids.length > 0) then
-      sql = "SELECT dotc.taxon_concept_id tc_id , do.data_type_id, do.id do_id
-      FROM data_objects_taxon_concepts dotc
-      JOIN data_objects do ON dotc.data_object_id = do.id
-      JOIN taxon_concepts tc ON dotc.taxon_concept_id = tc.id
-      WHERE tc.published AND dotc.data_object_id IN (#{obj_ids.join(',')})"
-      rset = DataObject.find_by_sql([sql])
-      rset.each do |post|
-        obj_tc_id["#{post.do_id}"] = post.tc_id
-        if(post.data_type_id == DataType.text.id)then obj_tc_id["datatype#{post.do_id}"] = "text"
-                                  else obj_tc_id["datatype#{post.do_id}"] = "image"
-        end
-      end
-    end
-    return obj_tc_id
   end
 
   # To retrieve an association for the data object by using given hierarchy entry
@@ -927,26 +897,6 @@ class DataObject < SpeciesSchemaModel
   # To retrieve the reasons provided while hiding an association
   def hide_reasons(hierarchy_entry)
     reasons(hierarchy_entry, Activity.hide)
-  end
-
-  def self.generate_dataobject_stats(harvest_event_id)
-    ids = connection.select_values("SELECT do.id
-      FROM data_objects_harvest_events dohe
-      JOIN data_objects do ON dohe.data_object_id = do.id
-      WHERE dohe.harvest_event_id = #{harvest_event_id}")
-    data_objects = DataObject.find_all_by_id(ids, :include => [ :data_type ])
-
-    # to get total_taxa count
-    query = "Select count(distinct he.taxon_concept_id) taxa_count
-    From harvest_events_hierarchy_entries hehe
-    Join hierarchy_entries he ON hehe.hierarchy_entry_id = he.id
-    Join taxon_concepts tc ON he.taxon_concept_id = tc.id
-    where hehe.harvest_event_id = #{harvest_event_id}
-    and tc.supercedure_id=0 and tc.vetted_id != #{Vetted.untrusted.id}
-    and tc.published=1"
-
-    total_taxa = connection.select_values(query)[0]
-    [data_objects, total_taxa]
   end
 
   def flickr_photo_id

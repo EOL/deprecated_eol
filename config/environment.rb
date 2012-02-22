@@ -246,6 +246,9 @@ Rails::Initializer.run do |config|
 
   $ENABLE_TRANSLATION_LOGS = false # This is expensive; DON'T do it by default!
 
+  # If this is false, mail errors are silently ignored.  That doesn't make us happy:
+  config.action_mailer.raise_delivery_errors = true
+
   # Note that if this is not set (and it usually isn't), the default is cookie_store.
   if $USE_SQL_SESSION_MANAGEMENT
     config.action_controller.session_store = :active_record_store
@@ -259,6 +262,7 @@ Rails::Initializer.run do |config|
 
   identity_yml_path = File.join(File.dirname(__FILE__), 'identity.yml')
   if FileTest.exist? identity_yml_path
+
     source = YAML::load(File.open(identity_yml_path))
     $IP_ADDRESS_OF_SERVER = source['ip_address']
   end
@@ -284,11 +288,6 @@ ENV['RECAPTCHA_PRIVATE_KEY'] = ''
 
 # Assign it during deployment with capistrano
 ENV['APP_VERSION'] = ''
-
-# if exception_notify is true, configure below
-ExceptionNotifier.exception_recipients = [] # email addresses of people to get exception notifications, separated by spaces, blank array if nobody, can also set $EXCEPTION_NOTIFY to false
-ExceptionNotifier.sender_address = $EXCEPTION_EMAIL_ADDRESS
-ExceptionNotifier.email_prefix = "[EOL] "
 
 WillPaginate::ViewHelpers.pagination_options[:previous_label] = I18n.t(:search_previous_label)
 WillPaginate::ViewHelpers.pagination_options[:next_label] = I18n.t(:search_next_label)

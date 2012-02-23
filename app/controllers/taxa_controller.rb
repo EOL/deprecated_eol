@@ -105,10 +105,10 @@ protected
       translation_vars[:preferred_common_name] && @assistive_section_header ? "#{translation_vars[:preferred_common_name]} #{@assistive_section_header}" : nil,
       translation_vars[:scientific_name] && @assistive_section_header ? "#{translation_vars[:scientific_name]} #{@assistive_section_header}" : nil,
       translation_vars[:hierarchy_provider]
-    ].uniq.compact.join(", ").strip
+    ].uniq.compact.join(", ")
     additional_keywords = t(".meta_keywords#{translation_vars[:preferred_common_name] ? '_with_common_name' : ''}",
                             translation_vars)
-    @meta_keywords = "#{keywords}, #{additional_keywords}".strip
+    @meta_keywords = [keywords, additional_keywords.presence].compact.join(', ')
   end
 
   def meta_open_graph_image_url

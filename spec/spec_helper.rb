@@ -43,7 +43,7 @@ Spec::Runner.configure do |config|
   config.include(Capybara, :type => :integration)
 
   # before running any spec, especially when running them individually, we'll want to truncate the database
-  truncate_all_tables
+  truncate_all_tables_once
 
   config.after(:each) do
     $CACHE.clear if $CACHE

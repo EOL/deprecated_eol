@@ -67,7 +67,7 @@ module EOL
       def self.add_collection!(docs)
         ids = docs.map{ |d| d['resource_id'] }
         return if ids.blank?
-        instances = Collection.find_all_by_id(ids)
+        instances = Collection.find_all_by_id(ids, :include => [ :users, :communities ])
         docs.each do |d|
           d['instance'] = instances.detect{ |i| i.id == d['resource_id'].to_i }
         end

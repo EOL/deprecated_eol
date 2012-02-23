@@ -97,8 +97,8 @@ module EOL
           :selects => { :collection_activity_logs => '*', :users => '*', :collections => '*', :collection_items => '*' })
         EOL::Solr.add_standard_instance_to_docs!(CuratorActivityLog,
           docs.select{ |d| d['activity_log_type'] == 'CuratorActivityLog' }, 'activity_log_id',
-          :includes => [ { :hierarchy_entry => [ :name, :taxon_concept ] }, :user ],
-          :selects => { :curator_activity_logs => '*', :names => [ :string ], :users => '*' })
+          :includes => [ { :hierarchy_entry => [ :name, :taxon_concept ] }, :user, :untrust_reasons ],
+          :selects => { :curator_activity_logs => '*', :names => [ :string ], :users => '*', :untrust_reasons => '*' })
         EOL::Solr.add_standard_instance_to_docs!(CommunityActivityLog,
           docs.select{ |d| d['activity_log_type'] == 'CommunityActivityLog' }, 'activity_log_id')
         EOL::Solr.add_standard_instance_to_docs!(UsersDataObject,

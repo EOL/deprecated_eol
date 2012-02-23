@@ -154,7 +154,6 @@ describe 'Taxa worklist' do
     page.select("Test Framework Import (49)", :from => "resource_id")
     click_button "show tasks"
     body.should have_tag('.filters .actions', :text => '49 tasks found')
-    
     page.select("Media Light Resource (1)", :from => "resource_id")
     click_button "show tasks"
     body.should have_tag('.filters .actions', :text => '1 task found')

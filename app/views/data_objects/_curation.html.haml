@@ -16,10 +16,10 @@
           - if phe.by_curated_association? && phe.associated_by_curator.id == current_user.id
             = link_to I18n.t(:remove_data_object_association), remove_association_path(:id => data_object.id, :hierarchy_entry_id => phe.id), :id => "remove_association_#{phe.id}"
           - vetted_selected = phe.vetted_id.to_i
-          - options = Vetted.all.collect{|v| [ (v.label == 'Unknown') ? 'Unreviewed' : v.label, v.id ] }
+          - options = [ Vetted.trusted, Vetted.unknown, Vetted.untrusted ].collect{|v| [ (v.label == 'Unknown') ? 'Unreviewed' : v.label, v.id ] }
           = select_tag "vetted_id_#{phe.id}", options_for_select(options, vetted_selected)
           - visibility_selected = phe.visibility_id.to_i
-          - options = Visibility.all.collect{|v| [ v.label, v.id ] }.delete_if { |x| x == [ Visibility.preview.label, Visibility.preview.id ] }
+          - options = [ Visibility.visible, Visibility.invisible].collect{|v| [ v.label, v.id ] }.delete_if { |x| x == [ Visibility.preview.label, Visibility.preview.id ] }
           = select_tag "visibility_id_#{phe.id}", options_for_select(options, visibility_selected)
           %br
           - untrusted_reasons = (vetted_selected == Vetted.untrusted.id.to_i) ? data_object.untrust_reasons(phe) : []

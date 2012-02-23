@@ -15,5 +15,5 @@
               .details
                 %h4= link_to(community.name, community_path(community))
                 %p
-                  = I18n.t(:members_with_count, :count => community.members.count)
+                  = I18n.t(:members_with_count, :count => community.cached_count_members)
                   = "#{I18n.t(:community_focus_items_with_count, :count => community.collections.map {|c| c.collection_items}.flatten.compact.count)}#{I18n.t(:punctuation_comma)}"

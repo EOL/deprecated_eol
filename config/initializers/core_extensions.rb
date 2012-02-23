@@ -185,15 +185,16 @@ module ActiveRecord
               if args[0] && args[0].class == String && args[0].match(/^[a-z]{2}$/)
                 options_language_iso = args[0]
               end
-              options_include = args.select{ |a| a && a.class == Hash && !a[:include].blank? }.shift
-              options_include = options_include[:include] unless options_include.blank?
+              options_hash = args.select{ |a| a && a.class == Hash && !a.blank? }.shift
+              options_include = options_hash[:include] unless options_hash.blank?
+              find_all = options_hash[:find_all] unless options_hash.blank?
               search_language_iso = options_language_iso || APPLICATION_DEFAULT_LANGUAGE_ISO || nil
               language_id = Language.id_from_iso(search_language_iso)
               return nil if language_id.nil?
 
               table = self::TRANSLATION_CLASS.table_name
               # find the record where the translated field is * and language is *
-              found = send("find", :first, :joins => :translations,
+              found = send("find", ((find_all === true) ? :all : :first), :joins => :translations,
                 :conditions => "`#{table}`.`#{field}` = '#{value}' AND `#{table}`.`language_id` = #{language_id}",
                 :include => options_include)
             rescue => e
@@ -208,10 +209,13 @@ module ActiveRecord
             if args[0] && args[0].class == String && args[0].match(/^[a-z]{2}$/)
               options_language_iso = args[0]
             end
-            options_include = args.select{ |a| a && a.class == Hash && !a[:include].blank? }.shift
+            options_hash = args.select{ |a| a && a.class == Hash && !a.blank? }.shift
+            find_all = options_hash[:find_all] unless options_hash.blank?
             language_iso = options_language_iso || APPLICATION_DEFAULT_LANGUAGE_ISO || nil
-            cached_with_local_cache("#{field}/#{value}/#{language_iso}") do
-              find_by_translated(field, value, language_iso, options_include)
+            cache_key = "#{field}/#{value}/#{language_iso}"
+            cache_key += "/all" if find_all === true
+            cached_with_local_cache(cache_key) do
+              find_by_translated(field, value, language_iso, options_hash)
             end
           end
 

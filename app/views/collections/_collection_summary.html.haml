@@ -14,7 +14,7 @@
       - elsif collection.communities.count > 1
         &bull;
         = I18n.t(:from_communities, :communities => collection.communities.map {|community| link_to(truncate(community.name, :length => 64), community_path(community)) }.to_sentence )
-    = I18n.t(:items_with_count_semi_colon, :count => collection.collection_items.count)
+    = I18n.t(:items_with_count_semi_colon, :count => collection.cached_count)
     = I18n.t(:last_updated_time_ago, :time_passed => time_ago_in_words(collection.updated_at))
     - if maintainers = collection.maintained_by
       = I18n.t(:maintained_by)

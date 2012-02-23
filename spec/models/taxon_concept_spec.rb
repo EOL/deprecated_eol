@@ -27,6 +27,7 @@ describe TaxonConcept do
     @testy = EOL::TestInfo.load('testy')
     @overview            = @testy[:overview]
     @overview_text       = @testy[:overview_text]
+    @brief_summary_text  = @testy[:brief_summary_text]
     @toc_item_2          = @testy[:toc_item_2]
     @toc_item_3          = @testy[:toc_item_3]
     @canonical_form      = @testy[:canonical_form]
@@ -69,6 +70,12 @@ describe TaxonConcept do
     @child1              = @testy[:child1]
     @child2              = @testy[:child2]
     @sub_child           = @testy[:sub_child]
+    
+    @taxon_media_parameters = {}
+    @taxon_media_parameters[:per_page] = 100
+    @taxon_media_parameters[:data_type_ids] = DataType.image_type_ids + DataType.video_type_ids + DataType.sound_type_ids
+    @taxon_media_parameters[:return_hierarchically_aggregated_objects] = true
+    
     
     # rebuild the Solr DataObject index
     SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE).delete_all_documents
@@ -166,7 +173,10 @@ describe TaxonConcept do
     # Tricky, tricky. See, we add special things to the TOC like "Common Names" and "Search the Web", when they are
     # appropriate.  I could test for those here, but that seems the perview of TocItem.  So, I'm only checking the
     # first three elements:
-    @taxon_concept.toc[0..3].should == [@overview, @testy[:brief_summary], @toc_item_2, @toc_item_3]
+    user = User.gen
+    text = @taxon_concept.details_text_for_user(user)
+    toc_items_to_show = @taxon_concept.table_of_contents_for_text(text)
+    toc_items_to_show[0..3].should == [@overview, @testy[:brief_summary], @toc_item_2, @toc_item_3]
   end
 
   # TODO - this is failing, but low-priority, I added a bug for it: EOLINFRASTRUCTURE-657
@@ -183,8 +193,8 @@ describe TaxonConcept do
   #end
 
   it 'should have images and videos in #media' do
-    @taxon_concept.media.map(&:description).should include(@video_1_text)
-    @taxon_concept.media.map(&:object_cache_url).should include(@testy[:image_1])
+    @taxon_concept.data_objects_from_solr(@taxon_media_parameters).map(&:description).should include(@video_1_text)
+    @taxon_concept.data_objects_from_solr(@taxon_media_parameters).map(&:object_cache_url).should include(@testy[:image_1])
   end
 
   it 'should show its untrusted images, by default' do
@@ -193,14 +203,14 @@ describe TaxonConcept do
   end
 
   it 'should be able to get an overview' do
-    results = @taxon_concept.overview
-    results.length.should == 1
-    results.first.description.should == @overview_text
+    overview = @taxon_concept.overview_text_for_user(User.gen)
+    overview.class.should == DataObject
+    overview.description.should == @brief_summary_text
   end
 
   it 'should return available text objects for given toc items in order of preference and rating' do
     given_toc_items = [@testy[:toc_item_2], @testy[:brief_summary]]
-    results = @taxon_concept.text_objects_for_toc_items(given_toc_items)
+    results = @taxon_concept.data_objects_from_solr(:data_type_ids => [ DataType.text.id] , :toc_ids => given_toc_items.collect(&:id))
     results.each do |text|
       text.data_type_id.should == DataType.text.id
       diff = text.toc_items - given_toc_items
@@ -208,28 +218,20 @@ describe TaxonConcept do
     end
   end
 
-  it 'should return at least one text object even if none of the given toc items are found if option required is true' do
-    given_toc_items = [TocItem.wikipedia]
-    results = @taxon_concept.text_objects_for_toc_items(given_toc_items)
-    results.should be_nil
-    results = @taxon_concept.text_objects_for_toc_items(given_toc_items, :required => true)
-    results.first.data_type_id.should == DataType.text.id
-  end
-
   it 'should return a subset of text objects for each given toc item if option limit is set' do
     given_toc_items = [@testy[:toc_item_2], @testy[:toc_item_3]]
-    results = @taxon_concept.text_objects_for_toc_items(given_toc_items)
+    results = @taxon_concept.data_objects_from_solr(:data_type_ids => [ DataType.text.id], :toc_ids => given_toc_items.collect(&:id))
     results.count.should == 3
-    results = @taxon_concept.text_objects_for_toc_items(given_toc_items, :limit => 1)
+    results = @taxon_concept.data_objects_from_solr(:data_type_ids => [ DataType.text.id], :toc_ids => given_toc_items.collect(&:id), :per_page => 2)
     results.count.should == 2
   end
 
   it "should have common names" do
-    @taxon_concept.has_common_names?.should be_true
+    @taxon_concept.all_common_names.length.should > 0
   end
 
   it "should not have common names" do
-    @tc_with_no_common_names.has_common_names?.should == false
+    @tc_with_no_common_names.all_common_names.length.should == 0
   end
 
   it "should be able to filter common_names by taxon_concept or hierarchy_entry" do
@@ -271,21 +273,20 @@ describe TaxonConcept do
     @taxon_concept.reload
     trusted   = Vetted.trusted.id
     unknown   = Vetted.unknown.id
-    @taxon_concept.media(:data_type_ids => DataType.image_type_ids).map { |item|
+    @taxon_concept.data_objects_from_solr(@taxon_media_parameters.merge(:data_type_ids => DataType.image_type_ids)).map { |item|
       item_vetted = item.vetted_by_taxon_concept(@taxon_concept, :find_best => true)
       item_vetted_id = item_vetted.id unless item_vetted.nil?
       item_vetted_id
     }.uniq.should == [trusted, unknown]
   end
   
-  it 'should return media sorted by trusted, unknown, untrusted for logged in curators' do
+  it 'should return media sorted by trusted, unknown, untrusted' do
     # TODO - add inappropriate if needed
     @taxon_concept.reload
-    @taxon_concept.current_user = @curator
     trusted   = Vetted.trusted.id
     unknown   = Vetted.unknown.id
     untrusted = Vetted.untrusted.id
-    @taxon_concept.media(:data_type_ids => DataType.image_type_ids).map { |item|
+    @taxon_concept.data_objects_from_solr(@taxon_media_parameters.merge(:data_type_ids => DataType.image_type_ids, :vetted_types => ['trusted', 'unreviewed', 'untrusted'])).map { |item|
       item_vetted = item.vetted_by_taxon_concept(@taxon_concept, :find_best => true)
       item_vetted_id = item_vetted.id unless item_vetted.nil?
       item_vetted_id
@@ -310,16 +311,6 @@ describe TaxonConcept do
     tc.quick_common_name.should == "A name"
     tc.add_common_name_synonym("Another name", :agent => agent, :language => Language.english)
     tc.quick_common_name.should == "A name"
-  end
-
-  # WEB-2542
-  it 'should return a toc item which accepts user submitted text' do
-      @taxon_concept.tocitem_for_new_text.class.should == TocItem
-      @empty_taxon_concept.tocitem_for_new_text.class.should == TocItem
-  end
-
-  it 'should return first toc item which accepts user submitted text' do
-    @taxon_concept.tocitem_for_new_text.label.should == @overview.label
   end
 
   it 'should include the LigerCat TocItem when the TaxonConcept has one'

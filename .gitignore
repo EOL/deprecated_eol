@@ -16,11 +16,10 @@ config/deploy.rb
 config/environments/integration_local.rb
 config/environments/labs1.rb
 config/environments/staging_test.rb
-config/environments/v2staging_dev.rb
-config/environments/v2staging_dev_cache.rb
 config/environments/local.*
 config/environments/v2demo*
 config/environments/v2prelaunch*
+config/environments/v2staging_dev_private.rb
 config/remi-deploy.rb
 config/systems/
 config/newrelic.yml

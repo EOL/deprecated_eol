@@ -373,16 +373,18 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   def taxa_commented
     # list of taxa where user entered a comment
     taxa = []
-    comments = Comment.find_all_by_user_id(self.id)
+    Comment.preload_associations(comments, :parent)
+    Comment.preload_associations(comments.select{ |c| c.parent_type == 'DataObject' },
+      { :parent => [ { :data_objects_hierarchy_entries => :hierarchy_entry }, :curated_data_objects_hierarchy_entries, :users_data_object ] })
     comments.each do |comment|
       taxa << comment.parent_id.to_i if comment.parent_type == 'TaxonConcept'
       if comment.parent_type == 'DataObject'
-        object = DataObject.find_by_id(comment.parent_id)
+        object = comment.parent
         if !object.blank?
           if object.association_with_best_vetted_status.class.name == 'DataObjectsHierarchyEntry' || object.association_with_best_vetted_status.class.name == 'CuratedDataObjectsHierarchyEntry'
-            taxa << object.association_with_best_vetted_status.hierarchy_entry.taxon_concept.id
+            taxa << object.association_with_best_vetted_status.hierarchy_entry.taxon_concept_id
           elsif object.association_with_best_vetted_status.class.name == 'UsersDataObject'
-            taxa << object.association_with_best_vetted_status.taxon_concept.id
+            taxa << object.association_with_best_vetted_status.taxon_concept_id
           end
         end
       end
@@ -398,7 +400,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def total_comment_submitted
-    return Comment.find_all_by_user_id(self.id).count
+    return comments.count
   end
 
   def total_wikipedia_nominated
@@ -809,7 +811,9 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     else
       editable_collections.delete_if{ |c| !c.published? }
     end
-    editable_collections += members.managers.map {|m| m.community && m.community.collections }.flatten.compact
+    # I changed this to m.manager? instead of using the named scope as I couldn't see
+    # how to preload named scopes, but members could be preloaded
+    editable_collections += members.select{ |m| m.manager? }.map {|m| m.community && m.community.collections }.flatten.compact
     editable_collections = [watch_collection] + editable_collections.sort_by(&:name).uniq
     editable_collections.compact
   end

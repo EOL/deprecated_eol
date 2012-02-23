@@ -2,6 +2,7 @@ class Users::NewsfeedsController < UsersController
 
   def show
     @user = User.find(params[:user_id])
+    preload_user_associations
     @page = params[:page] || 1
     @parent = @user # for new comment form
     @user_activity_log = @user.activity_log(:news => true, :page => @page)

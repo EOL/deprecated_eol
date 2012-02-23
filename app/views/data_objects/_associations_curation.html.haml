@@ -32,11 +32,11 @@
             %legend= link_to entry.taxon_concept.quick_scientific_name, taxon_overview_path(entry.taxon_concept_id)
 
           - vetted_selected = entry.vetted_id.to_i
-          - statuses = Vetted.all.collect{|v| [ v == Vetted.unknown ? I18n.t(:unreviewed) : v.label, v.id ] unless v == Vetted.inappropriate }.compact.sort
+          - statuses = [ Vetted.trusted, Vetted.unknown, Vetted.untrusted ].collect{|v| [ v == Vetted.unknown ? I18n.t(:unreviewed) : v.label, v.id ] unless v == Vetted.inappropriate }.compact.sort
           = select_tag "vetted_id_#{entry.id}", options_for_select(statuses, vetted_selected)
           = I18n.t(:and_between_form_items)
           - visibility_selected = entry.visibility_id.to_i
-          - visibilities = Visibility.all.collect{|v| [ v == Visibility.invisible ? I18n.t(:hidden) : v.label, v.id ] unless v == Visibility.preview }.compact.sort
+          - visibilities = [ Visibility.visible, Visibility.invisible].collect{|v| [ v == Visibility.invisible ? I18n.t(:hidden) : v.label, v.id ] unless v == Visibility.preview }.compact.sort
           = select_tag "visibility_id_#{entry.id}", options_for_select(visibilities, visibility_selected)
 
           - unless supplier.blank?          

@@ -2,6 +2,7 @@ class Users::ActivitiesController < UsersController
 
   def show
     @user = User.find(params[:user_id])
+    preload_user_associations
     @page = params[:page]
     @filter = params[:filter]
     if @filter == "curated_taxa"

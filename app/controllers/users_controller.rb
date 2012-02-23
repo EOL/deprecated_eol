@@ -12,6 +12,7 @@ class UsersController < ApplicationController
   # GET /users/:id
   def show
     @user = User.find(params[:id])
+    preload_user_associations
     if @user.is_hidden?
       flash[:notice] = I18n.t(:user_hidden_message)
     end
@@ -387,6 +388,11 @@ private
       recipient = media_inquiry_subject.recipients
     end
     Notifier.deliver_user_updated_email_preferences(user_before_update, user_after_update, recipient)
+  end
+  
+  def preload_user_associations
+    # used to count the collections and communities in the menu
+    User.preload_associations(@user, [ :collections_including_unpublished, { :members => { :community => :collections } } ] )
   end
 
 end

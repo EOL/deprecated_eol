@@ -33,4 +33,4 @@
             = @summary_text.description.balance_tags
         %p.flag{:class => vetted_id_class(item_vetted_id)}= item_vetted_label == Vetted.unknown.label ? I18n.t(:unreviewed) : item_vetted_label
         .meta.attribution
-          = render :partial => 'data_objects/attribution_minimal', :locals => { :data_object => @summary_text, :supplier => true }
+          = render :partial => 'data_objects/attribution_minimal', :locals => { :data_object => @summary_text }

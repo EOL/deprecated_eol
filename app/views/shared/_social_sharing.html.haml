@@ -6,16 +6,16 @@
     - # @see http://developers.facebook.com/docs/opengraph/
     - # TODO: Define custom object types for biodiversity namespaces e.g. species?
     - # TODO: Define og:locale, and og:locale:alternate. Note format expected includes region e.g. "en_US"
-    - if $ENABLED_SOCIAL_PLUGINS.include?(:facebook)
+    - if $ENABLED_SOCIAL_PLUGINS && $ENABLED_SOCIAL_PLUGINS.include?(:facebook)
       - meta_open_graph_data.each do |property, content|
         %meta{ :property => property, :content => content }
 
   #social_sharing
-    - if $ENABLED_SOCIAL_PLUGINS.include?(:twitter)
+    - if $ENABLED_SOCIAL_PLUGINS && $ENABLED_SOCIAL_PLUGINS.include?(:twitter)
       .twitter
         %a{:href => "https://twitter.com/share", :class => "twitter-share-button",
           :data => tweet_data}
           = I18n.t(:social_sharing_twitter_tweet_button)
-    - if $ENABLED_SOCIAL_PLUGINS.include?(:facebook)
+    - if $ENABLED_SOCIAL_PLUGINS && $ENABLED_SOCIAL_PLUGINS.include?(:facebook)
       #fb-root.facebook
         %fb:like{:layout => "button_count", :send => "false", :show_faces => "false"}

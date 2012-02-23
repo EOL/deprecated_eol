@@ -328,21 +328,6 @@ module ApplicationHelper
     end
   end
 
-  def random_image_thumb_partial(random_image, image_id_name = '', new_window = false)
-    return_html=""
-    unless random_image.nil?
-      name = sanitize(strip_tags(random_image['scientific_name']))
-      return_html = %Q{<a}
-      return_html+= %Q{ target=\"_blank\" } if new_window
-      return_html+= %Q{ id="#{image_id_name}_href"}       unless image_id_name == ''
-      return_html+= %Q{ href="/pages/#{random_image['taxon_concept_id']}"><img}
-      return_html+= %Q{ id="#{image_id_name}"}            unless image_id_name == ''
-      return_html+= %Q{ src="#{random_image['image_cache_path']}" alt="#{name}"}
-      return_html+= %Q{ title="#{name}"/></a>}
-    end
-    return return_html
-  end
-
   # NOTE - these next two methods replace older versions.  The old ones used "raw" html, these use haml.  If you find this is
   # causing errors, go back in time to October 12th and grab the methods.
 
@@ -356,19 +341,6 @@ module ApplicationHelper
                       :src => src,  :border => 0, :alt => project_name,
                       :title => project_name, :class => "agent_logo"}
     end
-  end
-
-  def get_year_month_list
-    arr=[]
-    start="2009_07"
-    str=""
-    var_date = Time.now
-    while( start != str)
-      var_date = var_date - 1.month
-      str = var_date.year.to_s + "_" + "%02d" % var_date.month.to_s
-      arr << [var_date.strftime("%B %Y"), str]
-    end
-    return arr
   end
 
   # TODO - change these methods to haml methods after conversion
@@ -388,20 +360,6 @@ module ApplicationHelper
       args[0] += " #{external_link_icon}"
     end
     link_to(args[0],args[1],html_options, &block)
-  end
-
-  def random_image_linked_name(random_image, new_window = false)
-    return_html=""
-    unless random_image.nil?
-      scientific_name = random_image['scientific_name']
-      common_name = random_image['common_name']
-      return_html = %Q{<a }
-      return_html+= %Q{ target="_blank" } if new_window
-      #return_html+= %Q{ id="#{h(scientific_name)}"} very strange id and it was broken so I commented it out
-      return_html+= %Q{ href="/pages/#{random_image['taxon_concept_id']}">#{sanitize(scientific_name)}</a><br />}
-      return_html+= %Q{#{sanitize(common_name.firstcap)}} unless common_name.nil?
-    end
-    return return_html
   end
 
   def allow_some_html(text)
@@ -465,22 +423,6 @@ module ApplicationHelper
     "<img src=\"/images/icons/published.png\" alt=\"#{description}\" title=\"#{description}\" #{style} />"
   end
 
-  def tree_entry_text(he, selectable, div_id)
-    begin
-      name = he.italicized_name.firstcap
-    rescue ActiveRecord::RecordNotFound
-      name = 'unknown'
-    end
-    if selectable
-      selection_link = %[<a href="#" class="value_#{he.id}" onclick="javascript:select_clade_of_clade_selector(#{he.id}); return false;">#{name}</a>]
-    else
-      selection_link = name
-    end
-    expansion_link = %[<a href="#{ request.path }?clade_to_expand=#{he.id}" class="expand-clade">+</a>]
-    selection_link += " &nbsp; " + expansion_link if he.number_of_descendants != 0
-    selection_link
-  end
-
   @@TOOLTIP_GLOBAL_COUNT = 0
   def define_term(term)
     if glossary_term = GlossaryTerm.find_by_term(term)
@@ -497,26 +439,6 @@ module ApplicationHelper
     capture_haml do
       haml_tag :input, {:id => "cancel", :type => 'button', :name => c, :value => c,
                         :onclick => "javascript:window.location='#{url}';"}
-    end
-  end
-
-  # display links to taxon concepts, if they are published. A message otherwise.
-  # NOTE: we assume all taxon concepts are either published or not
-  def taxon_concept_link(taxon_concept = nil, options = {})
-    capture_haml do
-      popup = options[:popup]
-      taxon_concept_id = options[:taxon_concept_id] || taxon_concept.id
-      name_string = options[:name_string] || taxon_concept.scientific_name
-      if (taxon_concept && taxon_concept.published?) || taxon_concept_id
-        if options[:data_type].nil?
-          haml_concat link_to(name_string, taxon_concept, :popup => popup)
-        else
-          options = { :"#{options[:data_type]}_id" => options[:data_object_id] }
-          haml_concat link_to(name_string, taxon_overview_path(taxon_concept_id, options), :popup => popup)
-        end
-      else
-        haml_concat "associated with a deprecated_page: '#{name_string}'"
-      end
     end
   end
 

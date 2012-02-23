@@ -17,7 +17,7 @@ describe Factory do
   def self.model_classes
    [ MimeType, AgentRole, DataType, Agent, ContentPartner,
      Language, License, Visibility, Vetted, DataType, User,
-     ItemPage, DataObjectTag, DataObjectTags, DataObject,
+     ItemPage, DataObject,
      Hierarchy, HierarchyEntry,
      TaxonConcept, PageName, PublicationTitle, InfoItem,
      Contact, ContactSubject, ResourceStatus, RefIdentifierType, Audience,

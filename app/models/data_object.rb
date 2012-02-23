@@ -536,6 +536,7 @@ class DataObject < SpeciesSchemaModel
   end
 
   # 'owner' chooses someone responsible for this data object in order of preference
+  # this method returns [OwnerName, OwnerUser || nil]
   def owner
     # rights holder is preferred
     return rights_holder, nil unless rights_holder.blank?
@@ -558,27 +559,7 @@ class DataObject < SpeciesSchemaModel
 
   # Find all of the authors associated with this data object, including those that we dynamically add elsewhere
   def authors
-    default_authors = agents_data_objects.select{ |ado| ado.agent_role_id == AgentRole.author.id }.collect {|ado| ado.agent }.compact
-    @fake_authors.nil? ? default_authors : default_authors + @fake_authors
-  end
-
-  # Find all of the photographers associated with this data object, including those that we dynamically add elsewhere
-  def photographers
-    agents_data_objects.agents_data_objects.select{ |ado| ado.agent_role_id == AgentRole.photographer.id }.collect {|ado| ado.agent }.compact
-  end
-
-  # Add an author to this data object that isn't in the database.
-  def fake_author(author_options)
-    @fake_authors ||= []
-    @fake_authors << Agent.new(author_options)
-  end
-
-  # Find Agents associated with this data object as sources.  If there are none, find authors.
-  def sources
-    list = agents_data_objects.select{ |ado| ado.agent_role_id == AgentRole.source.id }.collect {|ado| ado.agent }.compact
-    return list unless list.blank?
-    # I ended up with empty lists in cases where I thought I shouldn't, so tried to defer to authors for those:
-    return authors
+    @default_authors = agents_data_objects.select{ |ado| ado.agent_role_id == AgentRole.author.id }.collect {|ado| ado.agent }.compact
   end
 
   def revisions

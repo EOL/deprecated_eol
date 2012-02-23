@@ -40,7 +40,7 @@ protected
   end
   def meta_keywords
     keywords = super
-    toc_subjects = @toc.collect{|i| i.label}.compact.join(", ")
+    toc_subjects = @toc_items_to_show.collect{|i| i.label}.compact.join(", ")
     [keywords, toc_subjects].compact.join(', ')
   end
 end

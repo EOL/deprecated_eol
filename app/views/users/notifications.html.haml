@@ -1,8 +1,0 @@
-- # TODO: this is currently obsolete as we are no longer using the tag line area.
-- # TODO: if we want to load with AJAX take the notification %ul out of the session_summary partial instead of using the following:
-- notes = current_user.notification_count
-- if notes > 0
-  %span#notifications
-    = I18n.t(:user_notifications_with_count, :count => notes, :link => user_newsfeed_path(current_user), :messages => link_to(I18n.t(:user_notifications_messages_with_count, :count => current_user.message_count), user_newsfeed_path(current_user, :filter => 'messages')))
-- else
-  = current_user.tag_line

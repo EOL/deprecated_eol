@@ -2775,6 +2775,7 @@ en:
     other: "%{count} sounds"
   source_information_header: "Source information"
   source_and_additional_information: "Source and Additional Information"
+  source_colon: "Source:"
   special_collection: "Special collection"
   special_collections_cannot_be_destroyed: This collection is special and cannot be destroyed.
   species_curated: "Species Curated"

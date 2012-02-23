@@ -9,5 +9,3 @@
   = render :partial => 'data_objects/agents', :locals => { :data_object => data_object }
   - unless data_object.bibliographic_citation.blank?
     %p= data_object.bibliographic_citation
-  - unless data_object.source_url.blank?
-    %p= link_to I18n.t("view_#{en_type}_source"), data_object.source_url

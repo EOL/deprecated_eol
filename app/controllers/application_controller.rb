@@ -433,7 +433,7 @@ class ApplicationController < ActionController::Base
       session[:language] = nil # Don't want to "remember" this anymore, since they've manually changed it.
       alter_current_user do |user|
         I18n.locale = language
-        user.language = Language.from_iso(language)
+        user.update_attribute(:language_id, Language.from_iso(language).id) # No validations; don't care about rest.
       end
     end
     return_to = (params[:return_to].blank? ? root_url : params[:return_to])

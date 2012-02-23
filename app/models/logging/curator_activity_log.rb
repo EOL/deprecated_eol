@@ -163,9 +163,7 @@ class CuratorActivityLog < LoggingModel
       end
 
     # action on a data object
-    elsif [ ChangeableObjectType.data_object.id, ChangeableObjectType.data_objects_hierarchy_entry.id,
-            ChangeableObjectType.curated_data_objects_hierarchy_entry.id, ChangeableObjectType.users_data_object.id
-            ].include?(self.changeable_object_type_id)
+    elsif object_is_data_object?
       logs_affected['DataObject'] = [ self.object_id ]
       self.data_object.curated_hierarchy_entries.each do |he|
         logs_affected['TaxonConcept'] ||= []
@@ -181,8 +179,35 @@ class CuratorActivityLog < LoggingModel
     logs_affected
   end
 
+  # Note you can pass in #find options, here, so, for example, you might specify :select => 'id'.
+  def models_affected(options = {})
+    affected = []
+    log_hash = activity_logs_affected
+    log_hash.keys.each do |klass_name|
+      # A little ruby magic to turn the string into an actual class, then #find the instances for each...
+      affected += Kernel.const_get(klass_name).find(log_hash[klass_name], options)
+    end
+    affected
+  end
+
+  # All of these "types" are actually stored as a data_object, for reasons that escape me at the time of this
+  # writing.  ...But if you care to find out why, I suggest you look at the data objects controller.
+  def object_is_data_object?
+    [ ChangeableObjectType.data_object.id, ChangeableObjectType.data_objects_hierarchy_entry.id,
+      ChangeableObjectType.curated_data_objects_hierarchy_entry.id, ChangeableObjectType.users_data_object.id
+    ].include?(self.changeable_object_type_id)
+  end
+
   def notify_listeners
-    # TODO
+    # Curator actions on objects, taxa, collections, or communities in your watchlist
+    models_affected(:select => 'id').each do |object|
+      object.respond_to?(:containing_collections)
+      object.containing_collections.watch.each do |collection|
+        # NOTE - this is assuming that there is only one user in #users, since it's a watch list:
+        user = collection.users.first
+        user.notify_if_listening(:to => :curation_on_my_watched_item, :about => self)
+      end
+    end
   end
 
 end

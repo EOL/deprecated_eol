@@ -33,8 +33,49 @@ class CommunityActivityLog < LoggingModel
     logs_affected
   end
 
+  # Note you can pass in #find options, here, so, for example, you might specify :select => 'id'.
+  def models_affected(options = {})
+    affected = []
+    log_hash = activity_logs_affected
+    log_hash.keys.each do |klass_name|
+      # A little ruby magic to turn the string into an actual class, then #find the instances for each...
+      affected += Kernel.const_get(klass_name).find(log_hash[klass_name], options)
+    end
+    affected
+  end
+
+    # Community:
+    Activity.find_or_create('create')
+    Activity.find_or_create('delete')
+    Activity.find_or_create('add_member')
+    Activity.find_or_create('add_collection')
+    Activity.find_or_create('change_description')
+    Activity.find_or_create('change_name')
+    Activity.find_or_create('change_icon')
+    Activity.find_or_create('add_manager')
   def notify_listeners
-    # TODO
+    if activity.id == Activity.add_manager.id
+      # You have been made a collection or community manager
+      new_manager = member.user
+      PendingNotification.if_listening(new_manager, :to => :made_me_a_manager, :about => self)
+      # Another member has become a manager of a community you manage
+      community.managers_as_users.each do |manager|
+        next if manager.id == new_manager.id # They were notified above...
+        manager.notify_if_listening(:to => :new_manager_in_my_community, :about => self)
+      end
+    elsif activity.id == Activity.add_member.id
+      # A new member has joined a community that you manage
+      community.managers_as_users.each do |manager|
+        manager.notify_if_listening(:to => :member_joined_my_community, :about => self)
+      end
+      # New members have joined a community where you are a member TODO - this is kinda expensive in large groups. :\
+      members.map {|m| m.user }.each do |old_member|
+        next if old_member.id == member_id # You don't need to be notified about YOU joining!
+        old_member.notify_if_listening(:to => :member_joined_my_watched_community, :about => self)
+      end
+    end
+    # Changes to communities in your watchlist
+    # Members have left a community you manage
   end
 
 end

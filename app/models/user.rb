@@ -900,6 +900,13 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     self.activity_log(:news => true, :filter => 'messages', :after => User.find(self, :select => 'last_message_at').last_message_at).count
   end
 
+  def notifiy_if_listening(options)
+    if fqz = listening_to?(options[:to])
+      PendingNotification.create(:user => self, :notification_frequency => fqz, :target => options[:about],
+                                 :reason => options[:to].to_s)
+    end
+  end
+
 private
 
   # set the defaults on this user object

@@ -84,13 +84,6 @@ class Activity < LazyLoggingModel
       # TODO - this should be cached, but since we're in method_missing, that's a little tricky.
       transact = TranslatedActivity.find(:first, :conditions => ["name = ? AND language_id = ?", name.to_s,
                                     Language.english.id])
-      # TODO - this is ABSOLUTELY a TEMP fix, to ensure that every action is captured... only needed until things
-      # settle.  Remove this after launch:
-      unless transact
-        Activity.create_defaults
-        transact = TranslatedActivity.find(:first, :conditions => ["name = ? AND language_id = ?", name.to_s,
-                                      Language.english.id])
-      end
       if transact
         transact.activity
       else

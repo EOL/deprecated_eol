@@ -49,7 +49,8 @@ class Activity < LazyLoggingModel
     # Community:
     Activity.find_or_create('create')
     Activity.find_or_create('delete')
-    Activity.find_or_create('add_member')
+    Activity.find_or_create('join')
+    Activity.find_or_create('leave')
     Activity.find_or_create('add_collection')
     Activity.find_or_create('change_description')
     Activity.find_or_create('change_name')

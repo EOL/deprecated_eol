@@ -1206,6 +1206,7 @@ en:
   activity_user_created_community: "<strong>%{user}</strong> created the community \"%{community}\"."
   activity_user_deleted_community: "<strong>%{user}</strong> deleted the community \"%{community}\"."
   activity_user_joined_community: "<strong>%{user}</strong> joined the community \"%{community}\"."
+  activity_user_left_community: "<strong>%{user}</strong> left the community \"%{community}\"."
   activity_user_changed_community_description: "<strong>%{user}</strong> updated the description of the community \"%{community}\"."
   activity_user_changed_community_name: "<strong>%{user}</strong> changed the name of the community \"%{community}\"."
   activity_user_changed_community_icon: "<strong>%{user}</strong> changed the logo of the community \"%{community}\"."
@@ -1817,7 +1818,7 @@ en:
   copyright: "COPYRIGHT:"
   correct_donation_message: "If this information is not correct, please %{go_back_link} to make changes"
   could_not_find_collection_error: "Sorry, that collection could not be found."
-  could_not_find_user: "Couldn't find a member for this user"
+  could_not_find_user: "You are not a member of this community."
   count: "Count"
   count_results_for_search_term:
     one: "%{count} result for <em>%{search_term}</em>"

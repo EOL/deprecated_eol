@@ -22,6 +22,7 @@ class CuratorActivityLog < LoggingModel
   validates_presence_of :user_id, :changeable_object_type_id, :activity_id, :created_at
 
   after_create :log_activity_in_solr
+  after_create :queue_notifications
 
   def self.find_all_by_data_objects_on_taxon_concept(tc)
     dato_ids = tc.all_data_objects.map {|dato| dato.id}
@@ -180,10 +181,14 @@ class CuratorActivityLog < LoggingModel
   end
 
   # Note you can pass in #find options, here, so, for example, you might specify :select => 'id'.
+  # NOTE = if you copy/paste this again, please STOP and extract it to a module.  Too much duplication.
   def models_affected(options = {})
     affected = []
     log_hash = activity_logs_affected
+    original_options = options.dup # For whatever reason (I didn't want to dig), options gets modified in the #find,
+                                   # below.  To avoid this, we dup the original options, then...
     log_hash.keys.each do |klass_name|
+      options = original_options.dup # ...here we make sure the options we pass in are a dupe of the originals.
       # A little ruby magic to turn the string into an actual class, then #find the instances for each...
       affected += Kernel.const_get(klass_name).find(log_hash[klass_name], options)
     end
@@ -208,6 +213,12 @@ class CuratorActivityLog < LoggingModel
         user.notify_if_listening(:to => :curation_on_my_watched_item, :about => self)
       end
     end
+  end
+
+private
+
+  def queue_notifications
+    Resque.enqueue(PrepareAndSendNotifications)
   end
 
 end

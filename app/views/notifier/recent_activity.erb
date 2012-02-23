@@ -8,6 +8,14 @@ this code, so this isn't terribly helpful, but at least you can get some idea of
     You got a comment from <%= note.user.full_name %>:
 
     <%= note.body %>
+  <% elsif note.is_a?(CommunityActivityLog) %>
+    <% if note.activity_id == Activity.join.id %>
+      The user <%= note.user.full_name %> joined the community <%= note.community.name %>.
+    <% elsif note.activity_id == Activity.leave.id %>
+      The user <%= note.user.full_name %> left the community <%= note.community.name %>.
+    <% else %>
+      Someone did something to the <%= note.community.name %> community. It might have been a <%= note.activity.name %>
+    <% end %>
   <% else %>
     You got something else.  It was a <%= note.class.name %>, but I can't handle those yet.
   <% end %>

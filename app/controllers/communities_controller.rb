@@ -54,7 +54,7 @@ class CommunitiesController < ApplicationController
       @community.collections.each do |focus|
         auto_collect(focus)
       end
-      redirect_to(@community, :notice => notice, :status => :moved_permanently)
+      redirect_to(community_newsfeed_path(@community), :notice => notice, :status => :moved_permanently)
     else
       flash.now[:error] = I18n.t(:create_community_unsuccessful_error)
       render :action => "new", :layout => 'v2/new_community'
@@ -73,7 +73,7 @@ class CommunitiesController < ApplicationController
         upload_logo(@community) unless params[:community][:logo].blank?
         log_action(:change_name) if name_change
         log_action(:change_description) if description_change
-        format.html { redirect_to(@community, :notice => notice, :status => :moved_permanently) }
+        format.html { redirect_to(community_newsfeed_path(@community), :notice => notice, :status => :moved_permanently) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -102,22 +102,22 @@ class CommunitiesController < ApplicationController
     else
       flash[:error] = I18n.t(:community_not_destroyed_error)
     end
-    redirect_to(community_path(@community), :status => :moved_permanently)
+    redirect_to(community_newsfeed_path(@community), :status => :moved_permanently)
   end
 
   def join
     if @community.has_member?(current_user)
-      redirect_to(@community, :notice => I18n.t(:already_member_of_community) , :status => :moved_permanently)
+      redirect_to(community_newsfeed_path(@community), :notice => I18n.t(:already_member_of_community) , :status => :moved_permanently)
     else
-      @community.add_member(current_user)
-
+      member = @community.add_member(current_user)
+      log_action(:join, :community => @community, :member_id => member.id)
       auto_collect(@community, :annotation => I18n.t(:user_joined_community_on_date, :date => I18n.l(Date.today),
                                                      :username => current_user.full_name))
       @community.collections.each do |focus|
         auto_collect(focus)
       end
       respond_to do |format|
-        format.html { redirect_to(@community, :notice => I18n.t(:you_joined_community) + " #{flash[:notice]}" , :status => :moved_permanently) }
+        format.html { redirect_to(community_newsfeed_path(@community), :notice => I18n.t(:you_joined_community) + " #{flash[:notice]}" , :status => :moved_permanently) }
       end
     end
   end
@@ -126,10 +126,11 @@ class CommunitiesController < ApplicationController
     respond_to do |format|
       begin
         @community.remove_member(current_user)
+        log_action(:leave, :community => @community)
       rescue EOL::Exceptions::ObjectNotFound => e
-        format.html { redirect_to(@community, :notice => I18n.t(:could_not_find_user)) }
+        format.html { redirect_to(community_newsfeed_path(@community), :notice => I18n.t(:could_not_find_user)) }
       end
-      format.html { redirect_to(@community, :notice => I18n.t(:you_left_community)) }
+      format.html { redirect_to(community_newsfeed_path(@community), :notice => I18n.t(:you_left_community)) }
     end
   end
 
@@ -181,7 +182,7 @@ class CommunitiesController < ApplicationController
     flash.now[:errors] = @errors.to_sentence unless @errors.empty?
     flash[:notice] = @notices.to_sentence unless @notices.empty?
     respond_to do |format|
-      format.html { redirect_to @community, :status => :moved_permanently }
+      format.html { redirect_to community_newsfeed_path(@community), :status => :moved_permanently }
       format.js do
         convert_flash_messages_for_ajax
         render :partial => 'shared/flash_messages', :layout => false # JS will handle rendering these.

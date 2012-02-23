@@ -11,6 +11,7 @@ class CommunityActivityLog < LoggingModel
   named_scope :notifications_not_prepared, :conditions => "notifications_prepared_at IS NULL"
 
   after_create :log_activity_in_solr
+  after_create :queue_notifications
 
   def log_activity_in_solr
     keyword = self.activity.name('en') rescue nil
@@ -37,22 +38,16 @@ class CommunityActivityLog < LoggingModel
   def models_affected(options = {})
     affected = []
     log_hash = activity_logs_affected
+    original_options = options.dup # For whatever reason (I didn't want to dig), options gets modified in the #find,
+                                   # below.  To avoid this, we dup the original options, then...
     log_hash.keys.each do |klass_name|
+      options = original_options.dup # ...here we make sure the options we pass in are a dupe of the originals.
       # A little ruby magic to turn the string into an actual class, then #find the instances for each...
       affected += Kernel.const_get(klass_name).find(log_hash[klass_name], options)
     end
     affected
   end
 
-    # Community:
-    Activity.find_or_create('create')
-    Activity.find_or_create('delete')
-    Activity.find_or_create('add_member')
-    Activity.find_or_create('add_collection')
-    Activity.find_or_create('change_description')
-    Activity.find_or_create('change_name')
-    Activity.find_or_create('change_icon')
-    Activity.find_or_create('add_manager')
   def notify_listeners
     if activity.id == Activity.add_manager.id
       # You have been made a collection or community manager
@@ -63,19 +58,37 @@ class CommunityActivityLog < LoggingModel
         next if manager.id == new_manager.id # They were notified above...
         manager.notify_if_listening(:to => :new_manager_in_my_community, :about => self)
       end
-    elsif activity.id == Activity.add_member.id
+    elsif activity.id == Activity.join.id
       # A new member has joined a community that you manage
       community.managers_as_users.each do |manager|
         manager.notify_if_listening(:to => :member_joined_my_community, :about => self)
       end
       # New members have joined a community where you are a member TODO - this is kinda expensive in large groups. :\
-      members.map {|m| m.user }.each do |old_member|
+      community.members.map {|m| m.user }.each do |old_member|
         next if old_member.id == member_id # You don't need to be notified about YOU joining!
         old_member.notify_if_listening(:to => :member_joined_my_watched_community, :about => self)
       end
+    elsif activity.id == Activity.leave.id
+      # Members have left a community you manage
+      community.managers_as_users.each do |manager|
+        manager.notify_if_listening(:to => :member_left_my_community, :about => self)
+      end
     end
     # Changes to communities in your watchlist
-    # Members have left a community you manage
+    models_affected(:select => 'id').each do |object|
+      object.respond_to?(:containing_collections)
+      object.containing_collections.watch.each do |collection|
+        # NOTE - this is assuming that there is only one user in #users, since it's a watch list:
+        user = collection.users.first
+        user.notify_if_listening(:to => :changes_to_my_watched_community, :about => self)
+      end
+    end
+  end
+
+private
+
+  def queue_notifications
+    Resque.enqueue(PrepareAndSendNotifications)
   end
 
 end

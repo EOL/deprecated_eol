@@ -2,6 +2,7 @@ class Users::CommunitiesController < UsersController
 
   def index
     @user = User.find(params[:user_id], :include => { :members => :community })
+    preload_user_associations
     if params[:sort_by] == 'newest' || params[:sort_by].nil?
       @communities = @user.communities.published.sort! { |a,b| b.created_at <=> a.created_at }
     else

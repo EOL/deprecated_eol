@@ -64,6 +64,7 @@ class Taxa::WorklistController < TaxaController
     params.delete(:worklist_return_to)
     params.delete(:data_object_id)
     if @current_data_object
+      preload_object
       params[:worklist_return_to] = taxon_worklist_data_object_path(@taxon_concept, @current_data_object)
       params[:force_return_to] = taxon_worklist_data_object_path(@taxon_concept, @current_data_object)
     end
@@ -77,11 +78,24 @@ class Taxa::WorklistController < TaxaController
 
   def data_objects
     @current_data_object = DataObject.find(params[:data_object_id])
+    preload_object
     params.delete(:worklist_return_to)
     params.delete(:data_object_id)
     params.delete(:action)
     params[:worklist_return_to] = taxon_worklist_data_object_path(@taxon_concept, @current_data_object)
     params[:force_return_to] = taxon_worklist_data_object_path(@taxon_concept, @current_data_object)
     render(:partial => 'curation_content')
+  end
+  
+  private
+  def preload_object
+    DataObject.preload_associations(@current_data_object,
+      [ { :data_object_translation => { :original_data_object => :language } },
+        { :translations => { :data_object => :language } },
+        { :agents_data_objects => [ :agent, :agent_role ] },
+        { :data_objects_hierarchy_entries => { :hierarchy_entry => [ :name, :taxon_concept, :vetted, :visibility ] } },
+        { :curated_data_objects_hierarchy_entries => { :hierarchy_entry => [ :name, :taxon_concept, :vetted, :visibility ] } } ] )
+    @revisions = DataObject.sort_by_created_date(@current_data_object.revisions).reverse
+    @activity_log = @current_data_object.activity_log(:ids => @revisions.collect{ |r| r.id }, :page => @page || nil)
   end
 end

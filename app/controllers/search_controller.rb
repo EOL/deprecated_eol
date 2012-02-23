@@ -40,7 +40,7 @@ class SearchController < ApplicationController
     else
       search_response = EOL::Solr::SiteSearch.search_with_pagination(@querystring, params.merge({ :per_page => @@results_per_page }))
       @all_results = search_response[:results]
-      @facets = EOL::Solr::SiteSearch.get_facet_counts(@querystring)
+      @facets = (@wildcard_search) ? {} : EOL::Solr::SiteSearch.get_facet_counts(@querystring)
       @suggestions = search_response[:suggestions]
       log_search(request) unless params[:mobile_search]
       current_user.log_activity(:text_search_on, :value => params[:q])

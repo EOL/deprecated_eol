@@ -16,6 +16,11 @@ module EOL
       ids = docs.map{ |d| d[primary_key_field_name] }.compact
       return if ids.blank?
       instances = klass.find_all_by_id(ids, :include => options[:includes], :select => options[:selects])
+      # TODO: making an exception here for Comments as you can only use the Comment.preload_associations syntax
+      # to get the poloymorphic associations
+      if klass == Comment
+        Comment.preload_associations(instances, :parent)
+      end
       docs.each do |d|
         d['instance'] = instances.detect{ |i| i.id == d[primary_key_field_name].to_i }
       end

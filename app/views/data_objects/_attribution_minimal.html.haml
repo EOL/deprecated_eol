@@ -9,4 +9,4 @@
   .copy
     %p.owner
       = render :partial => 'data_objects/owner', :locals => { :data_object => data_object, :linked => true }
-    = render :partial => 'data_objects/supplier', :locals => { :data_object => data_object }
+    = render :partial => 'data_objects/supplier', :locals => { :data_object => data_object, :minimal => true }

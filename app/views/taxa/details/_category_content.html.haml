@@ -9,7 +9,7 @@
       %p= link_to I18n.t(:article_more_about), data_object_path(dato)         
     = render :partial => 'data_objects/data_object_article', :locals => { :data_object => dato , :show_view_source => 'false'}
     .meta.attribution
-      = render :partial => 'data_objects/attribution_minimal', :locals => { :data_object => dato, :supplier => true }
+      = render :partial => 'data_objects/attribution_minimal', :locals => { :data_object => dato }
     %p.flag{:class => vetted_id_class(dato_vetted_id)}= dato_vetted_label == Vetted.unknown.label ? I18n.t(:unreviewed) : dato_vetted_label
     = render :partial => 'data_objects/rating', :locals => { :data_object => dato, :hide_user_rating => true }
     %div.actions

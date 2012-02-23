@@ -15,27 +15,6 @@ describe DataObject do
 
     @dato = DataObject.gen(:description => 'That <b>description has unclosed <i>html tags')
     DataObjectsTaxonConcept.gen(:taxon_concept_id => @taxon_concept.id, :data_object_id => @dato.id)
-    @tag1 = DataObjectTag.gen(:key => 'foo',    :value => 'bar')
-    @tag2 = DataObjectTag.gen(:key => 'foo',    :value => 'baz')
-    @tag3 = DataObjectTag.gen(:key => 'boozer', :value => 'brimble')
-    DataObjectTags.gen(:data_object_tag => @tag1, :data_object => @dato)
-    DataObjectTags.gen(:data_object_tag => @tag2, :data_object => @dato)
-    DataObjectTags.gen(:data_object_tag => @tag3, :data_object => @dato)
-
-    @look_for_less_than_tags = true
-    DataObjectTag.delete_all(:key => 'foos', :value => 'ball')
-    @tag = DataObjectTag.gen(:key => 'foos', :value => 'ball')
-    how_many = (DataObjectTags.minimum_usage_count_for_public_tags - 1)
-    # In late April of 2008, we "dialed down" the number of tags that it takes... to one.  Which screws up
-    # the tests that assume you need more than one tag to make a tag public.  This logic fixes that, but
-    # in a way that's flexible enough that it will still work if we dial it back up.
-    if how_many < 1
-      how_many = 1
-      @look_for_less_than_tags = false
-    end
-    how_many.times do
-      DataObjectTags.gen(:data_object_tag => @tag, :data_object => @dato, :user => User.gen)
-    end
 
     # rebuild the Solr DataObject index
     SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE).delete_all_documents

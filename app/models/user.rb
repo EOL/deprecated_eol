@@ -20,8 +20,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   has_many :curators_evaluated, :class_name => "User", :foreign_key => :curator_verdict_by_id
   has_many :users_data_objects_ratings
   has_many :members
-  has_many :data_object_tags, :class_name => DataObjectTags.to_s
-  has_many :tags, :class_name => DataObjectTag.to_s, :through => :data_object_tags, :source => :data_object_tag
   has_many :comments
   has_many :curator_activity_logs
   has_many :curator_activity_logs_on_data_objects, :class_name => CuratorActivityLog.to_s,
@@ -435,20 +433,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   # TODO - test
   def total_comments_curated
     User.comment_curation_actions(self.id).length
-  end
-
-  # TODO - test all of these taggy things.  And move this to a module, I think.
-  def data_object_tags_for data_object
-    data_object_tags.find_all_by_data_object_guid data_object.guid, :include => :data_object_tag
-  end
-  def tags_for(data_object)
-    data_object_tags_for(data_object).map(&:tag).uniq
-  end
-  def tagged_objects
-    data_object_tags.find_all.map(&:object)
-  end
-  def tag_keys
-    tags.map(&:key).uniq
   end
 
   def can_create?(resource)

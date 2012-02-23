@@ -10,6 +10,9 @@ namespace :solr do
     port = $SOLR_SERVER.gsub(/^.*:(\d+).*$/, '\\1')
     FileUtils.cd(File.join($SOLR_DIR)) do
       command = ["#{RAILS_ROOT}/bin/solr", 'start', '--', '-p', port.to_s]
+      if $SOLR_SERVER_RAM
+        command << '-r'
+      end
       if $SOLR_DIR
         command << '-s' << $SOLR_DIR
       end

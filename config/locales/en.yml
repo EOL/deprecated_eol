@@ -1072,7 +1072,7 @@ en:
         tweet_text: "%{user_full_name} content partners"
     newsfeeds:
       activity_link: "activity"
-      messages_link: "comments"
+      comments_link: "comments"
       newsfeed_link: "newsfeed"
       show:
         meta_description: "News, activity updates and comments for %{user_full_name}."
@@ -3088,16 +3088,12 @@ en:
   user_joined_when: "\"%{user}\" joined %{when}"
   user_left_comment_on_date: "%{username} left a comment on %{date}."
   user_no_longer_has_manager_access_to_collection: "%{user} no longer has manager access to \"%{collection}\"."
-  user_notifications_with_count:
-    one: "You have <a href='%{link}'>%{count} notification</a> (%{messages})"
-    other: "You have <a href='%{link}'>%{count} notifications</a> (%{messages})"
-  user_notifications_messages_with_count:
-    one: "%{count} comments"
-    other: "%{count} comments"
-  user_notifications_with_count_assitive:
+  user_pending_notifications_assitive: '<span class="assistive">notifications</span>'
+  user_pending_notifications_with_count_assitive:
     one: '%{count}<span class="assistive"> notification</span>'
     other: '%{count}<span class="assistive"> notifications</span>'
-  user_notifications_messages_with_count_assistive:
+  user_pending_notifications_comments_assistive: '<span class="assistive">comments</span>'
+  user_pending_notifications_comments_with_count_assistive:
     one: '%{count}<span class="assistive"> comments</span>'
     other: '%{count}<span class="assistive"> comments</span>'
   user_was_added_as_editor_of_collection: "This user was added as a manager of \"%{collection}\"."

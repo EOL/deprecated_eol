@@ -9,8 +9,8 @@
       %ul
         %li{:class => resource_is_active('users/newsfeeds', 'show')}
           = link_to I18n.t(:newsfeed_link, :scope => [:users, :newsfeeds]), user_newsfeed_path(@user)
-        %li{:class => resource_is_active('users/newsfeeds', 'messages')}
-          = link_to I18n.t(:messages_link, :scope => [:users, :newsfeeds]), messages_user_newsfeed_path(@user)
+        %li{:class => resource_is_active('users/newsfeeds', 'comments')}
+          = link_to I18n.t(:comments_link, :scope => [:users, :newsfeeds]), comments_user_newsfeed_path(@user)
         %li{:class => resource_is_active('users/newsfeeds', 'activity')}
           = link_to I18n.t(:activity_link, :scope => [:users, :newsfeeds]) + 'TODO', activity_user_newsfeed_path(@user)
     = render :partial => 'activity_logs/index', :locals => {:log => @log}

@@ -332,7 +332,7 @@ $(function() {
     }).not(":checked").closest("dt").next("dd").hide();
   })($("#content_partner_resources"));
 
-  //EOL.get_notifications();
+  EOL.get_notifications_counts();
 
 });
 
@@ -466,19 +466,17 @@ EOL.initFacebook = function(app_id, channel_url) {
     _ga.trackFacebook();
   }
 };
-// TODO: No longer using tag_line if we want to load notifications via AJAX this needs to be modified, see session_summary partial
-//EOL.get_notifications = function() {
-//  var $cell = $('#header span#tag_line');
-//  if ($cell != undefined) {
-//    $.ajax({
-//      url: '/users/'+$cell.data('user-id')+'/notifications',
-//      dataType: 'html',
-//      beforeSend: function(xhr) { $cell.fadeTo(300, 0.3); },
-//      success: function(response) { $cell.html(response); },
-//      error: function(xhr, stat, err) { $cell.html('<p>Sorry, there was an error: '+stat+'</p>'); },
-//      complete: function() {
-//        $cell.delay(25).fadeTo(100, 1, function() {$cell.css({filter:''});});
-//      }
-//    });
-//  }
-//}
+
+EOL.get_notifications_counts = function() {
+  $('#header .session > ul li').each(function() {
+    var $a = $(this).find('a');
+    if ($a != undefined) {
+      console.log($a);
+      $.ajax({
+        url: $a.attr('href'),
+        dataType: 'html',
+        success: function(response) { $a.html(response); }
+      });
+    }
+  });
+}

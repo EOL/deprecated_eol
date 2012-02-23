@@ -78,10 +78,10 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users, :path_names => { :new => :register },
                 :member => { :terms_agreement => [ :get, :post ], :pending => :get, :activated => :get,
                              :curation_privileges => :get, :make_editor => :put, :revoke_editor => :get,
-                             :pending_notifications => :get, :notifications => :get },
+                             :pending_notifications => :get },
                 :collection => { :forgot_password => :get, :usernames => :get } do |user|
     user.resource :newsfeed, :only => [:show],
-                             :collection => { :messages => [:get], :activity => [:get] },
+                             :collection => { :comments => [:get], :activity => [:get] },
                              :controller => "users/newsfeeds"
     user.resource :notification, :only => [:edit, :update], :controller => "users/notifications"
     user.resource :activity, :only => [:show], :controller => "users/activities"

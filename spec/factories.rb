@@ -1224,3 +1224,7 @@ Factory.define :google_analytics_partner_taxon do |g|
   g.year { Factory.next :year }
   g.month { Factory.next :month }
 end
+
+Factory.define :eol_statistic do |e|
+  e.members_count rand(1000)
+end

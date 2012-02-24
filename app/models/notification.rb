@@ -1,3 +1,4 @@
+# This is a user's notification settings, really.  Might have been a better name for this, in retrospect.
 class Notification < ActiveRecord::Base
   belongs_to :user
   has_many :pending_notifications
@@ -25,7 +26,7 @@ class Notification < ActiveRecord::Base
     :class_name => 'NotificationFrequency'
   belongs_to :changes_to_my_watched_community, :foreign_key => :changes_to_my_watched_community,
     :class_name => 'NotificationFrequency'
-  # This one is a misnomer.  It should be "member joined a community where I am a member.  Sorry.
+  # This one is a misnomer.  It should be "member joined a community where I am a member." Sorry.
   belongs_to :member_joined_my_watched_community, :foreign_key => :member_joined_my_watched_community,
     :class_name => 'NotificationFrequency'
   belongs_to :member_left_my_community, :foreign_key => :member_left_my_community,

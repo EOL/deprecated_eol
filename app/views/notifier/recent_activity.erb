@@ -9,6 +9,16 @@ email.  Heh.
 You got a comment from <%= note.user.full_name %>:
 
     <%= note.body %>
+  <%- elsif note.is_a?(CollectionActivityLog) -%>
+    <%- if note.activity_id == Activity.collect.id -%>
+      <%- if note.collection_item.object.id == @user.id -%>
+    <%= note.user.full_name %> is watching you.
+      <%- else %>
+    <%= note.user.full_name %> added <%= note.collection_item.object_type %> #<%= note.collection_item.object.id %> to <%= note.collection.name %>.
+      <%- end -%>
+    <%- else -%>
+    <%= note.user.full_name %> performed a <%= note.activity.name %> on the <%= note.collection.name %> collection.
+    <%- end -%>
   <%- elsif note.is_a?(CommunityActivityLog) -%>
     <%- if note.activity_id == Activity.join.id -%>
     The user <%= note.user.full_name %> joined the community <%= note.community.name %>.
@@ -17,7 +27,7 @@ You got a comment from <%= note.user.full_name %>:
     <%- elsif note.activity_id == Activity.add_manager.id -%>
     The user <%= note.user.full_name %> made <%= note.member.user.full_name %> a manager of the community <%= note.community.name -%>.
     <%- else -%>
-    Someone did something to the <%= note.community.name %> community. It might have been a <%= note.activity.name %>
+    <%= note.user.full_name %> performed a <%= note.activity.name %> on the <%= note.community.name %> community.
     <%- end -%>
   <%- elsif note.is_a?(CuratorActivityLog) -%>
     <% if note.data_object %>
@@ -27,6 +37,8 @@ You got a comment from <%= note.user.full_name %>:
     <%= note.user.full_name %> performed a <%= note.activity.name %> action on <%= note.taxon_concept.title %>
     (pages/<%= note.taxon_concept.id %>)
     <% end %>
+  <%- elsif note.is_a?(UsersDataObject) -%>
+    <%= note.user.full_name %> added an article called <%= note.data_object.best_title %> to <%= note.taxon_concept.title %>.  ( pages/<%= note.taxon_concept.id %>/details )
   <%- else -%>
     You got something else.  It was a <%= note.class.name %>, but I can't handle those yet.
   <%- end %>

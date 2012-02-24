@@ -267,42 +267,60 @@ class Comment < ActiveRecord::Base
 
   # Find users who are "listening" to this comment and queue a pending notification for them:
   def notify_listeners
-    # those who are listening to direct replies to comments they made,
+    notify_reply_recipients
+    notify_profile_recipients
+    notify_collection_managers_of_comment
+    notify_community_managers_of_comment
+    notify_watchers 
+    notify_contributors_of_comments
+  end
+
+private
+
+  def notify_reply_recipients
     if reply_is_comment?
       self.reply_to.notify_if_listening(:to => :reply_to_comment, :about => self)
     end
-    # ...or comments to profile
+  end
+
+  def notify_profile_recipients
     if self.parent_type == 'User'
       self.parent.notify_if_listening(:to => :comment_on_my_profile, :about => self)
     end
-    # ...or collections that people manage
+  end
+
+  def notify_collection_managers_of_comment
     if self.parent_type == 'Collection'
       self.parent.managers.each do |manager|
         manager.notify_if_listening(:to => :comment_on_my_collection, :about => self)
       end
     end
-    # ...or communities that people manage
+  end
+
+  def notify_community_managers_of_comment
     if self.parent_type == 'Community'
       self.parent.managers_as_users.each do |manager|
         manager.notify_if_listening(:to => :comment_on_my_community, :about => self)
       end
     end
-    # ...comments on collection items from watchlists
+  end
+
+  def notify_watchers
     if self.parent.respond_to?(:containing_collections)
       self.parent.containing_collections.watch.each do |collection|
-        # NOTE - this is assuming that there is only one user in #users, since it's a watch list:
-        user = collection.users.first
-        user.notify_if_listening(:to => :comment_on_my_watched_item, :about => self)
+        collection.users.each do |user|
+          user.notify_if_listening(:to => :comment_on_my_watched_item, :about => self)
+        end
       end
     end
-    # ...or on "contributions that people made" (UDOs... data objects of CPs...)
+  end
+
+  def notify_contributors_of_comments
     if self.parent_type == 'DataObject'
       user = self.parent.contributing_user
       user.notify_if_listening(:to => :comment_on_my_contribution, :about => self)
     end
   end
-
-private
 
   def reply_is_comment?
     return self.reply? && reply_to_type == 'Comment'

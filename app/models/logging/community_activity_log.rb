@@ -50,44 +50,63 @@ class CommunityActivityLog < LoggingModel
 
   def notify_listeners
     if activity.id == Activity.add_manager.id
-      # You have been made a collection or community manager
-      if member
-        new_manager = member.user
-        new_manager.notify_if_listening(:to => :made_me_a_manager, :about => self)
-      end
-      # Another member has become a manager of a community you manage
-      community.managers_as_users.each do |manager|
-        next if manager.id == new_manager.id # They were notified above...
-        manager.notify_if_listening(:to => :new_manager_in_my_community, :about => self)
-      end
+      notify_new_manager
+      notify_managers_about_new_manager
     elsif activity.id == Activity.join.id
-      # A new member has joined a community that you manage
-      community.managers_as_users.each do |manager|
-        manager.notify_if_listening(:to => :member_joined_my_community, :about => self)
-      end
-      # New members have joined a community where you are a member TODO - this is kinda expensive in large groups. :\
-      community.members.map {|m| m.user }.each do |old_member|
-        next if old_member.id == member_id # You don't need to be notified about YOU joining!
-        old_member.notify_if_listening(:to => :member_joined_my_watched_community, :about => self)
-      end
+      notify_managers_about_new_member
+      notify_members_about_new_member
     elsif activity.id == Activity.leave.id
-      # Members have left a community you manage
-      community.managers_as_users.each do |manager|
-        manager.notify_if_listening(:to => :member_left_my_community, :about => self)
-      end
+      notify_managers_about_user_leaving
     end
-    # Changes to communities in your watchlist
-    models_affected(:select => 'id').each do |object|
-      object.respond_to?(:containing_collections)
-      object.containing_collections.watch.each do |collection|
-        # NOTE - this is assuming that there is only one user in #users, since it's a watch list:
-        user = collection.users.first
-        user.notify_if_listening(:to => :changes_to_my_watched_community, :about => self)
-      end
-    end
+    notify_watchers_about_changes
   end
 
 private
+
+  def notify_new_manager
+    if member
+      new_manager = member.user
+      new_manager.notify_if_listening(:to => :made_me_a_manager, :about => self)
+    end
+  end
+
+  def notify_managers_about_new_manager
+    community.managers_as_users.each do |manager|
+      next if manager.id == new_manager.id # They were notified above...
+      manager.notify_if_listening(:to => :new_manager_in_my_community, :about => self)
+    end
+  end
+
+  def notify_managers_about_new_member
+    community.managers_as_users.each do |manager|
+      manager.notify_if_listening(:to => :member_joined_my_community, :about => self)
+    end
+  end
+
+  # TODO - this is kinda expensive in large groups. :\
+  def notify_members_about_new_member
+    community.members.map {|m| m.user }.each do |old_member|
+      next if old_member.id == member_id # You don't need to be notified about YOU joining!
+      old_member.notify_if_listening(:to => :member_joined_my_watched_community, :about => self)
+    end
+  end
+
+  def notify_managers_about_user_leaving
+    community.managers_as_users.each do |manager|
+      manager.notify_if_listening(:to => :member_left_my_community, :about => self)
+    end
+  end
+
+  def notify_watchers_about_changes
+    models_affected(:select => 'id').each do |object|
+      object.respond_to?(:containing_collections)
+      object.containing_collections.watch.each do |collection|
+        collection.users.each do |user|
+          user.notify_if_listening(:to => :changes_to_my_watched_community, :about => self)
+        end
+      end
+    end
+  end
 
   def queue_notifications
     Resque.enqueue(PrepareAndSendNotifications)

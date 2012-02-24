@@ -10,6 +10,7 @@ class CollectionActivityLog < LoggingModel
   named_scope :notifications_not_prepared, :conditions => "notifications_prepared_at IS NULL"
 
   after_create :log_activity_in_solr
+  after_create :queue_notifications
 
   def log_activity_in_solr
     keyword = self.collection_item.object_type rescue nil
@@ -40,7 +41,32 @@ class CollectionActivityLog < LoggingModel
   end
 
   def notify_listeners
-    # TODO
+    notify_watchers_about_changes
+    notify_watched_user
+  end
+
+private
+
+  def notify_watchers_about_changes
+    Collection.find(activity_logs_affected['Collection']).select {|c| c.watch_collection? }.each do |collection|
+      collection.users.each do |user|
+        user.notify_if_listening(:to => :changes_to_my_watched_collection, :about => self)
+      end
+    end
+  end
+
+  def notify_watched_user
+    if someone_is_being_watched?
+      collection_item.object.notify_if_listening(:to => :i_am_being_watched, :about => self)
+    end
+  end
+
+  def someone_is_being_watched?
+    activity.id == Activity.collect.id && collection_item.object_type == 'User'
+  end
+
+  def queue_notifications
+    Resque.enqueue(PrepareAndSendNotifications)
   end
 
 end

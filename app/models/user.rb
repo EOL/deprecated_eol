@@ -380,14 +380,14 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
         object = comment.parent
         if !object.blank?
           if object.association_with_best_vetted_status.class.name == 'DataObjectsHierarchyEntry' || object.association_with_best_vetted_status.class.name == 'CuratedDataObjectsHierarchyEntry'
-            taxa << object.association_with_best_vetted_status.hierarchy_entry.taxon_concept_id
+            taxa << object.association_with_best_vetted_status.hierarchy_entry.taxon_concept_id rescue nil
           elsif object.association_with_best_vetted_status.class.name == 'UsersDataObject'
             taxa << object.association_with_best_vetted_status.taxon_concept_id
           end
         end
       end
     end
-    taxa.uniq
+    taxa.compact.uniq
   end
 
   def self.taxa_synonyms_curated(user_id = nil)

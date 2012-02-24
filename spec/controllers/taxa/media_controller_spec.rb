@@ -59,9 +59,9 @@ describe Taxa::MediaController do
       highly_ranked_image_association.save!
       @highly_ranked_image.save
 
-      @newest_video_poorly_rated_trusted = @taxon_concept.videos.last
-      @oldest_video_highly_rated_unreviewed = @taxon_concept.videos.first
-      @highly_ranked_video = @taxon_concept.videos.second
+      @newest_video_poorly_rated_trusted = @taxon_concept.data_objects.select{ |d| d.is_video? }.last
+      @oldest_video_highly_rated_unreviewed = @taxon_concept.data_objects.select{ |d| d.is_video? }.first
+      @highly_ranked_video = @taxon_concept.data_objects.select{ |d| d.is_video? }.second
       @newest_video_poorly_rated_trusted.data_rating = 0
       newest_video_poorly_rated_trusted_association = @newest_video_poorly_rated_trusted.association_for_taxon_concept(@taxon_concept)
       newest_video_poorly_rated_trusted_association.vetted_id = Vetted.trusted.id
@@ -78,9 +78,9 @@ describe Taxa::MediaController do
       highly_ranked_video_association.save!
       @highly_ranked_video.save
 
-      @newest_sound_poorly_rated_trusted = @taxon_concept.sounds.last
-      @oldest_sound_highly_rated_unreviewed = @taxon_concept.sounds.first
-      @highly_ranked_sound = @taxon_concept.sounds.second
+      @newest_sound_poorly_rated_trusted = @taxon_concept.data_objects.select{ |d| d.is_sound? }.last
+      @oldest_sound_highly_rated_unreviewed = @taxon_concept.data_objects.select{ |d| d.is_sound? }.first
+      @highly_ranked_sound = @taxon_concept.data_objects.select{ |d| d.is_sound? }.second
       @newest_sound_poorly_rated_trusted.data_rating = 0
       newest_sound_poorly_rated_trusted_association = @newest_sound_poorly_rated_trusted.association_for_taxon_concept(@taxon_concept)
       newest_sound_poorly_rated_trusted_association.vetted_id = Vetted.trusted.id

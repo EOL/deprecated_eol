@@ -159,8 +159,8 @@ describe TaxonConcept do
   end
 
   it 'should be able to show videos' do
-    @taxon_concept.video_data_objects.should_not be_nil
-    @taxon_concept.video_data_objects.map(&:description).should only_include @video_1_text, @video_2_text, @video_3_text
+    @taxon_concept.data_objects.select{ |d| d.is_video? }.should_not be_nil
+    @taxon_concept.data_objects.select{ |d| d.is_video? }.map(&:description).should only_include @video_1_text, @video_2_text, @video_3_text
   end
 
   it 'should have visible comments that don\'t show invisible comments' do

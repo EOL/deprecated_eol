@@ -48,6 +48,20 @@ module ActiveRecord
 
       def cached_read(key)
         name = cached_name_for(key)
+        # TODO: to avoid the => undefined class/module Agent - type of errors when reading
+        # cached instances with associations preloaded. Very hacky, I apologize
+        if !Rails.configuration.cache_classes && defined?(self::CACHE_ALL_ROWS_DEFAULT_INCLUDES)
+          if self.name == 'Hierarchy'
+            Agent
+            Resource
+            ContentPartner
+            User
+          elsif self.name == 'TocItem'
+            InfoItem
+          elsif self.name == 'InfoItem'
+            TocItem
+          end
+        end
         $CACHE.read(name)
       end
 

@@ -7,7 +7,14 @@ class Taxa::MapsController < TaxaController
     @curator = current_user.min_curator_level?(:full)
     @assistive_section_header = I18n.t(:assistive_maps_header)
     @watch_collection = logged_in? ? current_user.watch_collection : nil
-    @maps = @taxon_concept.map_images
+    @maps = @taxon_concept.data_objects_from_solr({
+      :page => 1,
+      :per_page => 100,
+      :data_type_ids => DataType.image_type_ids,
+      :data_subtype_ids => DataType.map_type_ids,
+      :ignore_translations => true
+    })
+    DataObject.preload_associations(@maps, [ :users_data_objects_ratings, { :data_objects_hierarchy_entries => :hierarchy_entry } ] )
     @rel_canonical_href = @selected_hierarchy_entry ?
       taxon_hierarchy_entry_maps_url(@taxon_concept, @selected_hierarchy_entry) :
       taxon_maps_url(@taxon_concept)

@@ -75,7 +75,8 @@ module ActiveRecord
         def chache_all_class_instances
           return true if check_local_cache("already_cached_all_instances")
           cached('instances_cached') do
-            all_instances = find(:all)
+            includes = defined?(self::CACHE_ALL_ROWS_DEFAULT_INCLUDES) ? self::CACHE_ALL_ROWS_DEFAULT_INCLUDES : nil
+            all_instances = find(:all, :include => includes)
             all_instances.each do |obj|
               cached("instance_id_#{obj.id}") do
                 obj

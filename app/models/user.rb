@@ -907,6 +907,9 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     end
   end
 
+  def to_s
+    "User ##{id}: #{full_name}"
+  end
 private
 
   # set the defaults on this user object

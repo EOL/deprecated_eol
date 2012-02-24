@@ -155,7 +155,7 @@ class CuratorActivityLog < LoggingModel
 
     # action on a concept
     if self.changeable_object_type_id == ChangeableObjectType.synonym.id
-      logs_affected['TaxonConcept'] = [ self.taxon_concept_id ]
+      logs_affected['TaxonConcept'] = [ self[:taxon_concept_id] || self.taxon_concept_id ]
       logs_affected['AncestorTaxonConcept'] = self.taxon_concept.flattened_ancestor_ids
       logs_affected['Synonym'] = [ self.object_id ]
       Collection.which_contain(self.taxon_concept).each do |c|
@@ -180,21 +180,6 @@ class CuratorActivityLog < LoggingModel
     logs_affected
   end
 
-  # Note you can pass in #find options, here, so, for example, you might specify :select => 'id'.
-  # NOTE = if you copy/paste this again, please STOP and extract it to a module.  Too much duplication.
-  def models_affected(options = {})
-    affected = []
-    log_hash = activity_logs_affected
-    original_options = options.dup # For whatever reason (I didn't want to dig), options gets modified in the #find,
-                                   # below.  To avoid this, we dup the original options, then...
-    log_hash.keys.each do |klass_name|
-      options = original_options.dup # ...here we make sure the options we pass in are a dupe of the originals.
-      # A little ruby magic to turn the string into an actual class, then #find the instances for each...
-      affected += Kernel.const_get(klass_name).find(log_hash[klass_name], options)
-    end
-    affected
-  end
-
   # All of these "types" are actually stored as a data_object, for reasons that escape me at the time of this
   # writing.  ...But if you care to find out why, I suggest you look at the data objects controller.
   def object_is_data_object?
@@ -204,15 +189,14 @@ class CuratorActivityLog < LoggingModel
   end
 
   def notify_listeners
+    collections = Collection.find(activity_logs_affected['Collection']).select {|c| c.watch_collection? }
     # Curator actions on objects, taxa, collections, or communities in your watchlist
-    models_affected(:select => 'id').each do |object|
-      object.respond_to?(:containing_collections)
-      object.containing_collections.watch.each do |collection|
-        # NOTE - this is assuming that there is only one user in #users, since it's a watch list:
-        user = collection.users.first
-        user.notify_if_listening(:to => :curation_on_my_watched_item, :about => self)
-      end
+    collections.each do |collection|
+      # NOTE - this is assuming that there is only one user in #users, since it's a watch list:
+      user = collection.users.first
+      user.notify_if_listening(:to => :curation_on_my_watched_item, :about => self)
     end
+    # If the object is a UDO, we prolly want to notify the owner:
   end
 
 private

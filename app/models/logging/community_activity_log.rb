@@ -51,8 +51,10 @@ class CommunityActivityLog < LoggingModel
   def notify_listeners
     if activity.id == Activity.add_manager.id
       # You have been made a collection or community manager
-      new_manager = member.user
-      PendingNotification.if_listening(new_manager, :to => :made_me_a_manager, :about => self)
+      if member
+        new_manager = member.user
+        new_manager.notify_if_listening(:to => :made_me_a_manager, :about => self)
+      end
       # Another member has become a manager of a community you manage
       community.managers_as_users.each do |manager|
         next if manager.id == new_manager.id # They were notified above...

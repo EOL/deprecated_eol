@@ -1,7 +1,7 @@
 # NOTE #perform is for resque to pick it up, e.g.: Resque.enque(PrepareAndSendNotifications)
 # Also, @queue must be a class variable with the Resque queue name to work in.
 # Code taken (kinda) from http://railscasts.com/episodes/271-resque
-module PrepareAndSendNotifications
+class PrepareAndSendNotifications
   @queue = :notifications
 
   def self.prepare_notifications
@@ -20,14 +20,14 @@ module PrepareAndSendNotifications
 
   # TODO - these will be handled later... I need to figure them out.
 
-  module Daily
+  class Daily
     @queue = :notifications
     def self.perform
       PendingNotification.send_notifications(:daily)
     end
   end
 
-  module Weekly
+  class Weekly
     @queue = :notifications
     def self.perform
       PendingNotification.send_notifications(:weekly)

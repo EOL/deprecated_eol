@@ -204,6 +204,10 @@ class Collection < ActiveRecord::Base
     update_attributes(:relevance => calculate_relevance)
   end
 
+  def to_s
+    "Collection ##{id}: #{name}"
+  end
+
 private
 
   # This should set the relevance attribute score between 0 and 100.  Use this sparringly, it's expensive to calculate:

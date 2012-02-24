@@ -1,24 +1,35 @@
 Greetings, <%= @user.full_name %>.
 
-You have some notifications arriving because you asked for them to be delievered "immediately".  We're currently working on
-this code, so this isn't terribly helpful, but at least you can get some idea of how often you'll get email.  Heh.
+You have some notifications arriving because you asked for them to be delievered "immediately".  We're currently
+working on this code, so this isn't terribly helpful, but at least you can get some idea of how often you'll get
+email.  Heh.
 
-<% @notes.each do |note| %>
-  <% if note.respond_to?(:body) %>
-    You got a comment from <%= note.user.full_name %>:
+<%- @notes.each do |note| -%>
+  <%- if note.respond_to?(:body) -%>
+You got a comment from <%= note.user.full_name %>:
 
     <%= note.body %>
-  <% elsif note.is_a?(CommunityActivityLog) %>
-    <% if note.activity_id == Activity.join.id %>
-      The user <%= note.user.full_name %> joined the community <%= note.community.name %>.
-    <% elsif note.activity_id == Activity.leave.id %>
-      The user <%= note.user.full_name %> left the community <%= note.community.name %>.
-    <% else %>
-      Someone did something to the <%= note.community.name %> community. It might have been a <%= note.activity.name %>
+  <%- elsif note.is_a?(CommunityActivityLog) -%>
+    <%- if note.activity_id == Activity.join.id -%>
+    The user <%= note.user.full_name %> joined the community <%= note.community.name %>.
+    <%- elsif note.activity_id == Activity.leave.id -%>
+    The user <%= note.user.full_name %> left the community <%= note.community.name %>.
+    <%- elsif note.activity_id == Activity.add_manager.id -%>
+    The user <%= note.user.full_name %> made <%= note.member.user.full_name %> a manager of the community <%= note.community.name -%>.
+    <%- else -%>
+    Someone did something to the <%= note.community.name %> community. It might have been a <%= note.activity.name %>
+    <%- end -%>
+  <%- elsif note.is_a?(CuratorActivityLog) -%>
+    <% if note.data_object %>
+    <%= note.user.full_name %> performed a <%= note.activity.name %> action on <%= note.data_object.best_title %>
+    (<%= note.data_object.data_type.label %> #<%= note.data_object.id %>)
+    <% elsif note.taxon_concept %>
+    <%= note.user.full_name %> performed a <%= note.activity.name %> action on <%= note.taxon_concept.title %>
+    (pages/<%= note.taxon_concept.id %>)
     <% end %>
-  <% else %>
+  <%- else -%>
     You got something else.  It was a <%= note.class.name %>, but I can't handle those yet.
-  <% end %>
+  <%- end %>
 
-<% end %>
+<%- end -%>
 Thanks.  Have fun.

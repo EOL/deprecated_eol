@@ -864,6 +864,9 @@ class TaxonConcept < SpeciesSchemaModel
     @title_canonical = entry.title_canonical
   end
 
+  def to_s
+    "TaxonConcept ##{id}: #{title}"
+  end
 
   def subtitle(hierarchy = nil)
     return @subtitle unless @subtitle.nil?

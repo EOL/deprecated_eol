@@ -1,4 +1,4 @@
-if ($.fn.spotlite != undefined) {
+if ($.fn.spotlite != undefined && $('.spotlite-results').length > 0) {
   $(function() {
     $.ajax({
       url: "/users/usernames",

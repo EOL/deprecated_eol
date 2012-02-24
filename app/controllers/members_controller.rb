@@ -50,6 +50,7 @@ class MembersController < ApplicationController
 
   def grant_manager
     @member.grant_manager
+    log_action(:add_manager)
     redirect_to :action => 'index', :status => :moved_permanently
   end
 
@@ -108,6 +109,13 @@ private
   def restrict_delete
     @current_member ||= current_user.member_of(@community)
     raise EOL::Exceptions::SecurityViolation unless @current_member && @current_member.manager?
+  end
+
+  def log_action(act, opts = {})
+    community = @community || opts.delete(community)
+    CommunityActivityLog.create(
+      {:community => community, :user => current_user, :member => @member, :activity => Activity.send(act)}.merge(opts)
+    )
   end
 
 end

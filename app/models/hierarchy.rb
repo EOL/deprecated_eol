@@ -14,6 +14,7 @@ require 'invert' # TEMP - Ant and JRice are attempting a fix
 
 class Hierarchy < SpeciesSchemaModel
   CACHE_ALL_ROWS = true
+  CACHE_ALL_ROWS_DEFAULT_INCLUDES = [ { :agent => { :user => :content_partners } }, { :resource => { :content_partner => :user } } ]
   belongs_to :agent           # This is the attribution.
   has_and_belongs_to_many :collection_types
   has_one :resource

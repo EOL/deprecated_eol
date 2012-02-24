@@ -1,5 +1,6 @@
 class InfoItem < SpeciesSchemaModel
   CACHE_ALL_ROWS = true
+  CACHE_ALL_ROWS_DEFAULT_INCLUDES = :toc_item
   uses_translations
   belongs_to :toc_item, :foreign_key => :toc_id 
   has_many   :data_objects_info_items

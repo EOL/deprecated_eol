@@ -201,7 +201,7 @@ class TaxonConcept < SpeciesSchemaModel
 
   # Returns nucleotide sequences HE
   def nucleotide_sequences_hierarchy_entry_for_taxon
-    return TaxonConcept.find_entry_in_hierarchy(self.id, Hierarchy.ncbi.id)
+    @ncbi_entry ||= TaxonConcept.find_entry_in_hierarchy(self.id, Hierarchy.ncbi.id)
   end
 
   # Returns external links
@@ -858,19 +858,6 @@ class TaxonConcept < SpeciesSchemaModel
     return true
   end
 
-  def videos(options = {})
-    videos = data_objects.find(:all, :conditions => "data_type_id IN (#{DataType.video_type_ids.join(',')})")
-    @length_of_videos = videos.length # cached, so we don't have to query this again.
-    videos
-  end
-  alias :video_data_objects :videos
-
-  def sounds(options = {})
-    sounds = data_objects.find(:all, :conditions => "data_type_id IN (#{DataType.sound_type_ids.join(',')})")
-    @length_of_sounds = sounds.length # cached, so we don't have to query this again.
-    sounds
-  end
-
   def map_images(options ={})
     sounds = data_objects.find(:all, :conditions => "data_type_id IN (#{DataType.image_type_ids.join(',')}) AND
       data_subtype_id IN (#{DataType.map_type_ids.join(',')})")
@@ -1027,6 +1014,22 @@ class TaxonConcept < SpeciesSchemaModel
         :filter_hierarchy_entry => selected_hierarchy_entry,
         :return_hierarchically_aggregated_objects => true
       }).total_entries
+    end
+  end
+
+  def maps_count()
+    @maps_count ||= $CACHE.fetch(TaxonConcept.cached_name_for("maps_count_#{self.id}"), :expires_in => 1.days) do
+      count = self.data_objects_from_solr({
+        :per_page => 1,
+        :data_type_ids => DataType.image_type_ids,
+        :data_subtype_ids => DataType.map_type_ids,
+        :vetted_types => ['trusted', 'unreviewed'],
+        :visibility_types => ['visible'],
+        :ignore_translations => true,
+        :return_hierarchically_aggregated_objects => true
+      }).total_entries
+      count +=1 if self.has_map
+      count
     end
   end
 

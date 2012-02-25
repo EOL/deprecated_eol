@@ -1,4 +1,4 @@
-class Language < SpeciesSchemaModel
+class Language < ActiveRecord::Base
   CACHE_ALL_ROWS = true
   uses_translations(:foreign_key => 'original_language_id')
   has_many :data_objects

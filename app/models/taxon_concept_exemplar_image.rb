@@ -1,4 +1,4 @@
-class TaxonConceptExemplarImage < SpeciesSchemaModel
+class TaxonConceptExemplarImage < ActiveRecord::Base
   belongs_to :data_object
   belongs_to :taxon_concept
   set_primary_key :taxon_concept_id

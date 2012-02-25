@@ -12,7 +12,7 @@
 #
 require 'invert' # TEMP - Ant and JRice are attempting a fix
 
-class Hierarchy < SpeciesSchemaModel
+class Hierarchy < ActiveRecord::Base
   CACHE_ALL_ROWS = true
   CACHE_ALL_ROWS_DEFAULT_INCLUDES = [ { :agent => { :user => :content_partners } }, { :resource => { :content_partner => :user } } ]
   belongs_to :agent           # This is the attribution.

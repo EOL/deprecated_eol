@@ -18,8 +18,6 @@ config.cache_classes = true
 # (default for production)
 config.after_initialize do
   ActiveReload::ConnectionProxy.setup_for ActiveRecord::Base, ActiveRecord::Base
-  ActiveReload::ConnectionProxy.setup_for SpeciesSchemaModel, SpeciesSchemaModel
-  ActiveReload::ConnectionProxy.setup_for LegacySpeciesSchemaModel, LegacySpeciesSchemaModel
   ActiveReload::ConnectionProxy.setup_for LoggingModel, LoggingModel
 end
 

@@ -4,7 +4,7 @@ require 'erb'
 
 # Represents any kind of object imported from a ContentPartner, eg. an image, article, video, etc.  This is one
 # of our primary models, and an awful lot of work occurs here.
-class DataObject < SpeciesSchemaModel
+class DataObject < ActiveRecord::Base
 
   @@maximum_rating = 5.0
   @@minimum_rating = 0.5
@@ -727,7 +727,7 @@ class DataObject < SpeciesSchemaModel
     return false unless in_wikipedia?
     return false unless dato_association.visibility_id == Visibility.preview.id
 
-    SpeciesSchemaModel.connection.execute("UPDATE data_objects SET published=0 WHERE guid='#{guid}'");
+    connection.execute("UPDATE data_objects SET published=0 WHERE guid='#{guid}'");
     reload
 
     dato_vetted = self.vetted_by_taxon_concept(taxon_concept)

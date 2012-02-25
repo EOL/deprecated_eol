@@ -1,4 +1,4 @@
-class Visibility < SpeciesSchemaModel
+class Visibility < ActiveRecord::Base
   CACHE_ALL_ROWS = true
   uses_translations
   has_many :data_objects_hierarchy_entry

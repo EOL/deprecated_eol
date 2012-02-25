@@ -1,4 +1,4 @@
-class DataObjectsHierarchyEntry < SpeciesSchemaModel
+class DataObjectsHierarchyEntry < ActiveRecord::Base
 
   include EOL::CuratableAssociation
 

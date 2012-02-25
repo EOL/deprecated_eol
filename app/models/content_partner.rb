@@ -1,4 +1,4 @@
-class ContentPartner < SpeciesSchemaModel
+class ContentPartner < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :content_partner_status
@@ -55,7 +55,7 @@ class ContentPartner < SpeciesSchemaModel
 
   # has this partner submitted data_objects which are currently published
   def has_published_resources?
-    has_resources = SpeciesSchemaModel.connection.execute(%Q{
+    has_resources = ActiveRecord::Base.connection.execute(%Q{
         SELECT 1
         FROM resources r
         JOIN harvest_events he ON (r.id = he.resource_id)

@@ -1,4 +1,4 @@
-class PageName < SpeciesSchemaModel
+class PageName < ActiveRecord::Base
   belongs_to :item_page
   belongs_to :name
   set_primary_keys :name_id, :item_page_id

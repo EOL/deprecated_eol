@@ -1,4 +1,4 @@
-class CuratedDataObjectsHierarchyEntry < SpeciesSchemaModel
+class CuratedDataObjectsHierarchyEntry < ActiveRecord::Base
 
   include EOL::CuratableAssociation
 

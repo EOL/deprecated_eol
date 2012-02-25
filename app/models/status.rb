@@ -1,4 +1,4 @@
-class Status < SpeciesSchemaModel
+class Status < ActiveRecord::Base
   CACHE_ALL_ROWS = true
   uses_translations
   has_many :harvest_events_hierarchy_entries

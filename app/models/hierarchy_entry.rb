@@ -1,6 +1,6 @@
 # Represents an entry in the Tree of Life (see Hierarchy).  This is one of the major models of the EOL codebase, and most
 # data links to these instances.
-class HierarchyEntry < SpeciesSchemaModel
+class HierarchyEntry < ActiveRecord::Base
 
   acts_as_tree :order => 'lft'
 

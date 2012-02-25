@@ -1,4 +1,4 @@
-class GoogleAnalyticsSummary < SpeciesSchemaModel
+class GoogleAnalyticsSummary < ActiveRecord::Base
   set_primary_keys :year, :month
   
   def time_on_pages_in_hours

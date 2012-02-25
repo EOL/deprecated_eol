@@ -11,7 +11,7 @@ describe 'Index With Solr' do
 
   after(:all) do
     # remove callbacks
-    class GlossaryTerm < SpeciesSchemaModel
+    class GlossaryTerm < ActiveRecord::Base
       remove_index_with_solr
     end
     $INDEX_RECORDS_IN_SOLR_ON_SAVE = @original_index_config
@@ -26,7 +26,7 @@ describe 'Index With Solr' do
     gt.destroy
 
     # add callbacks and make sure they exist
-    class GlossaryTerm < SpeciesSchemaModel
+    class GlossaryTerm < ActiveRecord::Base
       index_with_solr :keywords => [:term, :definition]
     end
 
@@ -38,7 +38,7 @@ describe 'Index With Solr' do
     gt.destroy
 
     # remove callbacks and make sure they are gone again
-    class GlossaryTerm < SpeciesSchemaModel
+    class GlossaryTerm < ActiveRecord::Base
       remove_index_with_solr
     end
 
@@ -52,7 +52,7 @@ describe 'Index With Solr' do
 
   it 'should index the object on creation' do
     # add callbacks - they will exist for the remainder of the tests
-    class GlossaryTerm < SpeciesSchemaModel
+    class GlossaryTerm < ActiveRecord::Base
       index_with_solr :keywords => [:term, :definition]
     end
 
@@ -109,7 +109,7 @@ describe 'Index With Solr' do
 
   it 'should index based on methods as well as fields' do
     exception = false
-    class GlossaryTerm < SpeciesSchemaModel
+    class GlossaryTerm < ActiveRecord::Base
       index_with_solr :keywords => [:term, :definition, :some_new_method]
 
       def some_new_method
@@ -131,7 +131,7 @@ describe 'Index With Solr' do
 
   it 'should throw an error if the field to index on doesnt exist' do
     exception = false
-    class GlossaryTerm < SpeciesSchemaModel
+    class GlossaryTerm < ActiveRecord::Base
       index_with_solr :keywords => [:term, :definition, :some_nonsense]
     end
 

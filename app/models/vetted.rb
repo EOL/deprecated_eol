@@ -1,4 +1,4 @@
-class Vetted < SpeciesSchemaModel
+class Vetted < ActiveRecord::Base
   set_table_name "vetted"
   CACHE_ALL_ROWS = true
   uses_translations

@@ -13,7 +13,7 @@
 #
 # See the comments at the top of the Taxon for more information on this.
 # I include there a basic biological definition of what a Taxon is.
-class TaxonConcept < SpeciesSchemaModel
+class TaxonConcept < ActiveRecord::Base
   include ModelQueryHelper
   include EOL::ActivityLoggable
 
@@ -388,7 +388,7 @@ class TaxonConcept < SpeciesSchemaModel
     hierarchy_entry_ids = concept_entries.values.collect{|he| he.id || nil}.compact
     return false if hierarchy_entry_ids.blank?
 
-    results = SpeciesSchemaModel.connection.execute("
+    results = TaxonConcept.connection.execute("
         SELECT he.id, he.taxon_concept_id, n.string name_string, n_parent1.string parent_name_string, n_parent2.string grandparent_name_string
         FROM hierarchy_entries he
         JOIN names n ON (he.name_id=n.id)
@@ -480,7 +480,7 @@ class TaxonConcept < SpeciesSchemaModel
   def quick_common_name(language = nil, hierarchy = nil)
     language ||= current_user.language
     hierarchy ||= Hierarchy.default
-    common_name_results = SpeciesSchemaModel.connection.execute(
+    common_name_results = connection.execute(
       "SELECT n.string name, he.hierarchy_id source_hierarchy_id
         FROM taxon_concept_names tcn
           JOIN names n ON (tcn.name_id = n.id)
@@ -510,7 +510,7 @@ class TaxonConcept < SpeciesSchemaModel
       else                   {:name_field => 'n.string',     :also_join => ''}
     end
 
-    scientific_name_results = SpeciesSchemaModel.connection.execute(
+    scientific_name_results = connection.execute(
       "SELECT #{search_type[:name_field]} name, he.hierarchy_id source_hierarchy_id
        FROM hierarchy_entries he JOIN names n ON (he.name_id = n.id) #{search_type[:also_join]}
        WHERE he.id=#{hierarchy_entry.id}").all_hashes
@@ -640,7 +640,7 @@ class TaxonConcept < SpeciesSchemaModel
       filter << "he_parent.id=#{options[:hierarchy_entry_id]}"
     end
 
-    parents = SpeciesSchemaModel.connection.execute("
+    parents = TaxonConcept.connection.execute("
       SELECT n.id name_id, n.string name_string, n.canonical_form_id, he_parent.taxon_concept_id, h.label hierarchy_label, he_parent.id hierarchy_entry_id
       FROM hierarchy_entries he_parent
       JOIN hierarchy_entries he_child ON (he_parent.id=he_child.parent_id)
@@ -650,7 +650,7 @@ class TaxonConcept < SpeciesSchemaModel
       AND browsable=1
     ").all_hashes.uniq
 
-    children = SpeciesSchemaModel.connection.execute("
+    children = TaxonConcept.connection.execute("
       SELECT n.id name_id, n.string name_string, n.canonical_form_id, he_child.taxon_concept_id, h.label hierarchy_label, he_child.id hierarchy_entry_id
       FROM hierarchy_entries he_parent
       JOIN hierarchy_entries he_child ON (he_parent.id=he_child.parent_id)
@@ -873,7 +873,7 @@ class TaxonConcept < SpeciesSchemaModel
     # communities are sorted by the most number of members - descending order
     community_ids = communities.map{|c| c.id}.compact
     return [] if community_ids.blank?
-    temp = SpeciesSchemaModel.connection.execute("SELECT c.id, COUNT(m.user_id) total FROM members m JOIN communities c ON c.id = m.community_id WHERE c.id in (#{community_ids.join(',')})   GROUP BY c.id ORDER BY total desc").all_hashes
+    temp = connection.execute("SELECT c.id, COUNT(m.user_id) total FROM members m JOIN communities c ON c.id = m.community_id WHERE c.id in (#{community_ids.join(',')})   GROUP BY c.id ORDER BY total desc").all_hashes
     if temp.blank?
       return communities
     else

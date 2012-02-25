@@ -1,4 +1,4 @@
-class Rank < SpeciesSchemaModel
+class Rank < ActiveRecord::Base
   CACHE_ALL_ROWS = true
   uses_translations
   has_many :hierarchy_entries

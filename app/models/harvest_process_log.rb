@@ -1,3 +1,3 @@
-class HarvestProcessLog < SpeciesSchemaModel
+class HarvestProcessLog < ActiveRecord::Base
   
 end

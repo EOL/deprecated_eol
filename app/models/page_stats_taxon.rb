@@ -1,5 +1,5 @@
 # This table provides access to some cached species page stastics generated nightly by an automated script that runs the appropriate queries
-class PageStatsTaxon < SpeciesSchemaModel
+class PageStatsTaxon < ActiveRecord::Base
     set_primary_keys :id
 
     def self.latest

@@ -1,4 +1,4 @@
-class GoogleAnalyticsPartnerSummary < SpeciesSchemaModel
+class GoogleAnalyticsPartnerSummary < ActiveRecord::Base
   belongs_to :user
   set_primary_keys :year, :month, :user_id
   

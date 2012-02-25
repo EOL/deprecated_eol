@@ -16,7 +16,7 @@ describe 'Curation' do
   end
 
   before(:each) do
-    SpeciesSchemaModel.connection.execute('set AUTOCOMMIT=1')
+    ActiveRecord::Base.connection.execute('set AUTOCOMMIT=1')
   end
 
   after(:each) do

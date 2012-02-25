@@ -84,7 +84,7 @@ module PartnerUpdatesEmailer
   end
 
   def self.all_actions_since_hour(number_of_hours = 24)
-    all_action_ids = SpeciesSchemaModel.connection.select_values("
+    all_action_ids = ActiveRecord::Base.connection.select_values("
       SELECT id
       FROM #{CuratorActivityLog.full_table_name}
       WHERE DATE_ADD(created_at, INTERVAL #{number_of_hours} HOUR) >= UTC_TIMESTAMP()
@@ -140,7 +140,7 @@ module PartnerUpdatesEmailer
   end
 
   def self.all_comments_since_hour(number_of_hours = 24)
-    all_comment_ids = SpeciesSchemaModel.connection.select_values("SELECT id FROM #{Comment.full_table_name} WHERE DATE_ADD(created_at, INTERVAL #{number_of_hours} HOUR) >= UTC_TIMESTAMP()")
+    all_comment_ids = ActiveRecord::Base.connection.select_values("SELECT id FROM #{Comment.full_table_name} WHERE DATE_ADD(created_at, INTERVAL #{number_of_hours} HOUR) >= UTC_TIMESTAMP()")
 
     partner_comments = { :objects => {}, :pages => {} }
     user_comments = { :objects => {}, :pages => {} }

@@ -1,4 +1,4 @@
-class CollectionType < SpeciesSchemaModel
+class CollectionType < ActiveRecord::Base
   CACHE_ALL_ROWS = true
   uses_translations
   acts_as_tree :order => 'lft'

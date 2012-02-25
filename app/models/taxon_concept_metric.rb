@@ -1,4 +1,4 @@
-class TaxonConceptMetric < SpeciesSchemaModel
+class TaxonConceptMetric < ActiveRecord::Base
   belongs_to :taxon_concept
   
   def richness_for_display(decimal_places = 2)

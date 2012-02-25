@@ -1,4 +1,4 @@
-class License < SpeciesSchemaModel
+class License < ActiveRecord::Base
   CACHE_ALL_ROWS = true
   uses_translations
   # this is only used in testing. For some translted models we only want to create one instance for a particular

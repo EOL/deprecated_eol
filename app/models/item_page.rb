@@ -1,4 +1,4 @@
-class ItemPage < SpeciesSchemaModel
+class ItemPage < ActiveRecord::Base
   has_many :page_names
   belongs_to :title_item
   

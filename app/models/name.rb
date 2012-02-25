@@ -6,7 +6,7 @@
 # Even common names have an italicized form, which the PHP side auto-generates.  They can't always be trusted, but there are cases
 # where a name is both common and scientific, so it must be populated.
 #
-class Name < SpeciesSchemaModel
+class Name < ActiveRecord::Base
 
   belongs_to :canonical_form
   belongs_to :ranked_canonical_form, :class_name => CanonicalForm.to_s, :foreign_key => :ranked_canonical_form_id

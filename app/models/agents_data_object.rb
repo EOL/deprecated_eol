@@ -1,5 +1,5 @@
 # Joins an Agent to a DataObject via an AgentRole.
-class AgentsDataObject < SpeciesSchemaModel
+class AgentsDataObject < ActiveRecord::Base
 
   belongs_to :data_object
   belongs_to :agent

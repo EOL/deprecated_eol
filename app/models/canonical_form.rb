@@ -3,7 +3,7 @@
 # the most part algorithmically generated. 
 #
 # Every Name should have a CanonicalForm.
-class CanonicalForm < SpeciesSchemaModel
+class CanonicalForm < ActiveRecord::Base
   has_many :names
   belongs_to :name # Yes, really.
 end

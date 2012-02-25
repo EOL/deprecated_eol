@@ -1,4 +1,4 @@
-class DataObjectsInfoItem < SpeciesSchemaModel
+class DataObjectsInfoItem < ActiveRecord::Base
   belongs_to :data_object
   belongs_to :info_item
   set_primary_keys :data_object_id, :info_item_id

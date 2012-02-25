@@ -70,7 +70,6 @@ $HOMEPAGE_MARCH_RICHNESS_THRESHOLD = nil
 #NOTE: for this to work, you *must* also use config.cache_classes = true (default for production)
 # config.after_initialize do
 #   ActiveReload::ConnectionProxy.setup_for ActiveReload::MasterDatabase, ActiveRecord::Base
-#   ActiveReload::ConnectionProxy.setup_for SpeciesSchemaWriter, SpeciesSchemaModel
 # end
 
 # uncomment the line below if you want to use the minified/combined JS files from the asset packager for testing purposes

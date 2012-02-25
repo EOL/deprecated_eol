@@ -21,18 +21,16 @@ class CreateEolLogging < EOL::LoggingMigration
 
   def self.down
     ActiveRecord::Migration.not_okay_in_production
-    drop_table "agent_log_dailies"
-    drop_table "country_log_dailies"
-    drop_table "curator_activities"
-    drop_table "curator_activity_log_dailies"
-    drop_table "curator_comment_logs"
-    drop_table "curator_data_object_logs"
-    drop_table "data_object_log_dailies"
-    drop_table "data_object_logs"
+    drop_table "activities"
+    drop_table "api_logs"
+    drop_table "collection_activity_logs"
+    drop_table "community_activity_logs"
+    drop_table "curator_activity_logs"
     drop_table "external_link_logs"
     drop_table "ip_addresses"
+    drop_table "page_view_logs"
     drop_table "search_logs"
-    drop_table "state_log_dailies"
-    drop_table "user_log_dailies"
+    drop_table "translated_activities"
+    drop_table "user_activity_logs"
   end
 end

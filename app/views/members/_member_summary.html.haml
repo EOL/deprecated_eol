@@ -1,18 +1,19 @@
 - minimal ||= false
 %li
-  = link_to image_tag(member.user.logo_url(:small)), member.user
-  .details
-    %h4= link_to member.user.full_name, member.user
-    %p= member.user.tag_line
-    - unless minimal
-      %p.meta
-        = I18n.t(:joined_time_ago, :time_passed => time_ago_in_words(member.created_at)).downcase
-        -# NOT YET: = I18n.t(:community_contributions_with_count, :count => 9999999)
-        &bull;
-        = I18n.t(:comments_with_count, :count => member.comment_count).downcase
-      %p
-        - if defined?(revoke) && revoke
-          = link_to I18n.t(:revoke_manager_link), revoke_manager_community_member_path(@community, member), :confirm => I18n.t(:are_you_sure)
-        - if defined?(grant) && grant
-          = link_to I18n.t(:grant_manager_link), grant_manager_community_member_path(@community, member)
-          = link_to I18n.t(:remove_membership), [@community, member], :method => :delete, :confirm => I18n.t(:are_you_sure)
+  - unless member.user.blank?
+    = link_to image_tag(member.user.logo_url(:small)), member.user
+    .details
+      %h4= link_to member.user.full_name, member.user
+      %p= member.user.tag_line
+      - unless minimal
+        %p.meta
+          = I18n.t(:joined_time_ago, :time_passed => time_ago_in_words(member.created_at)).downcase
+          -# NOT YET: = I18n.t(:community_contributions_with_count, :count => 9999999)
+          &bull;
+          = I18n.t(:comments_with_count, :count => member.comment_count).downcase
+        %p
+          - if defined?(revoke) && revoke
+            = link_to I18n.t(:revoke_manager_link), revoke_manager_community_member_path(@community, member), :confirm => I18n.t(:are_you_sure)
+          - if defined?(grant) && grant
+            = link_to I18n.t(:grant_manager_link), grant_manager_community_member_path(@community, member)
+            = link_to I18n.t(:remove_membership), [@community, member], :method => :delete, :confirm => I18n.t(:are_you_sure)

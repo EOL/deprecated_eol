@@ -90,7 +90,6 @@ module EOL
           :hierarchies => [ :agent_id, :browsable, :outlink_uri, :label ],
           :vetted => :view_order,
           :hierarchy_entries_flattened => '*',
-          :taxon_concept_content => [ :taxon_concept_id, :image_object_id ],
           :data_objects => [ :id, :object_cache_url, :data_type_id, :guid ]
         }
         if options[:view_style] == ViewStyle.annotated

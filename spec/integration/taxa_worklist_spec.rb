@@ -11,8 +11,7 @@ describe 'Taxa worklist' do
     CuratorLevel.create_defaults
     @curator = build_curator(@taxon_concept) # build_curator generates a full curator by default.
     @user = User.gen()
-    SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE).delete_all_documents
-    DataObject.all.each{ |d| d.update_solr_index }
+    EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
     @taxon_concept.images_from_solr(100).last.data_objects_hierarchy_entries.first.update_attribute(:visibility_id, Visibility.invisible.id)
     @test_partner = ContentPartner.gen(:display_name => 'Media Light Partner')
     @test_resource = Resource.gen(:content_partner => @test_partner, :title => 'Media Light Resource')
@@ -20,7 +19,7 @@ describe 'Taxa worklist' do
     image = @taxon_concept.images_from_solr.first
     DataObjectsHarvestEvent.connection.execute("UPDATE data_objects_harvest_events SET harvest_event_id=#{hevt.id} WHERE data_object_id=#{image.id}")
     DataObjectsHarvestEvent.connection.execute("COMMIT")
-    DataObject.all.each{ |d| d.update_solr_index }
+    EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
     login_as(@curator)
     visit taxon_worklist_path(@taxon_concept)
     @default_body = body

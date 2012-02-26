@@ -47,8 +47,7 @@ describe 'Search' do
     flatten_hierarchies
     ci_solr_api = SolrAPI.new($SOLR_SERVER, $SOLR_COLLECTION_ITEMS_CORE)
     ci_solr_api.delete_all_documents
-    builder = EOL::Solr::SiteSearchCoreRebuilder.new()
-    builder.begin_rebuild
+    EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild
   end
 
   it 'should redirect to species page if only 1 possible match is found (also for pages/searchterm)' do

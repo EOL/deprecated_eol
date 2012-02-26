@@ -29,15 +29,13 @@ class HierarchyEntry < ActiveRecord::Base
   has_and_belongs_to_many :published_refs, :class_name => Ref.to_s, :join_table => 'hierarchy_entries_refs',
     :association_foreign_key => 'ref_id', :conditions => 'published=1 AND visibility_id=#{Visibility.visible.id}'
 
-  has_one :hierarchies_content
   has_one :hierarchy_entry_stat
 
   define_core_relationships :select => {
       :hierarchy_entries => [ :id, :identifier, :hierarchy_id, :parent_id, :lft, :rgt, :taxon_concept_id, :rank_id ],
       :names => [ :string, :italicized ],
-      :canonical_forms => :string,
-      :hierarchies_content => [ :content_level, :image, :text, :child_image ]},
-    :include => [ :name, :hierarchies_content ]
+      :canonical_forms => :string },
+    :include => [ :name ]
 
   def self.sort_by_lft(hierarchy_entries)
     hierarchy_entries.sort_by{ |he| he.lft }
@@ -95,12 +93,6 @@ class HierarchyEntry < ActiveRecord::Base
     end
   end
 
-  def media
-    {:images => hierarchies_content.image != 0 || hierarchies_content.child_image  != 0,
-     :video  => hierarchies_content.flash != 0 || hierarchies_content.youtube != 0,
-     :map    => hierarchies_content.map != 0}
-  end
-
   def rank_label
     rank.nil? ? I18n.t(:taxon) : rank.label
   end
@@ -127,16 +119,6 @@ class HierarchyEntry < ActiveRecord::Base
   def species_or_below?
     return false if rank_id == 0  # this was causing a lookup for rank id=0, so I'm trying to save queries here
     return Rank.italicized_ids.include?(rank_id)
-  end
-
-  def valid
-    return false if hierarchies_content.nil? # This really only happens in test environ, but...
-    hierarchies_content.content_level >= $VALID_CONTENT_LEVEL
-  end
-
-  def enable
-    return false if hierarchies_content.nil?
-    return species_or_below? ? (hierarchies_content.text == 1 or hierarchies_content.image == 1) : valid
   end
 
   def ancestors(params = {}, cross_reference_hierarchy = nil)
@@ -302,11 +284,6 @@ class HierarchyEntry < ActiveRecord::Base
 
   def number_of_descendants
     rgt - lft - 1
-  end
-
-  def has_content?
-    return false unless hierarchies_content  # this should really only happen during testing, and even that'
-    hierarchies_content.content_level > 1
   end
 
   def is_leaf?

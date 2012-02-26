@@ -76,10 +76,7 @@ describe TaxonConcept do
     @taxon_media_parameters[:data_type_ids] = DataType.image_type_ids + DataType.video_type_ids + DataType.sound_type_ids
     @taxon_media_parameters[:return_hierarchically_aggregated_objects] = true
     
-    
-    # rebuild the Solr DataObject index
-    SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE).delete_all_documents
-    DataObject.all.each{ |d| d.update_solr_index }
+    EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
   end
 
   it 'should capitalize the title (even if the name starts with a quote)' do

@@ -15,10 +15,7 @@ describe DataObject do
 
     @dato = DataObject.gen(:description => 'That <b>description has unclosed <i>html tags')
     DataObjectsTaxonConcept.gen(:taxon_concept_id => @taxon_concept.id, :data_object_id => @dato.id)
-
-    # rebuild the Solr DataObject index
-    SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE).delete_all_documents
-    DataObject.all.each{ |d| d.update_solr_index }
+    EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
 
     @hierarchy_entry = HierarchyEntry.gen
     @image_dato      = @taxon_concept.images_from_solr(100).last
@@ -257,31 +254,6 @@ describe DataObject do
     @dato.refs << ref = Ref.gen(:full_reference => full_ref, :published => 1, :visibility => Visibility.visible)
     ref_after = @dato.visible_references[0].full_reference.balance_tags
     ref_after.should == repaired_ref
-  end
-
-  it 'feeds should find text data objects for feeds' do
-    res = DataObject.for_feeds(:text, @taxon_concept.id)
-    res.class.should == Array
-    data_types = res.map {|i| i['data_type_id']}.uniq
-    data_types.size.should == 1
-    DataType.find(data_types[0]).should == DataType.find_by_translated(:label, "Text")
-  end
-
-  it 'feeds should find image data objects for feeds' do
-    res = DataObject.for_feeds(:images, @taxon_concept.id)
-    res.class.should == Array
-    data_types = res.map {|i| i['data_type_id']}.uniq
-    data_types.size.should == 1
-    DataType.find(data_types[0]).should == DataType.find_by_translated(:label, "Image")
-  end
-
-  it 'feeds should find image and text data objects for feeds' do
-    res = DataObject.for_feeds(:all, @taxon_concept.id)
-    res.class.should == Array
-    data_types = res.map {|i| i['data_type_id']}.uniq
-    data_types.size.should == 2
-    data_types = data_types.map {|i| DataType.find(i).label}.sort
-    data_types.should == ["Image", "Text"]
   end
 
   it 'should delegate #image_cache_path to ContentServer' do

@@ -113,9 +113,10 @@ class Name < ActiveRecord::Base
                        'phage', 'sp', 'cf', 'uncultured', 'DNA', 'unclassified', 'sect',
                        'ß', 'str', 'biovar', 'type', 'strain', 'serotype', 'hybrid',
                        'cultivar', 'x', '×', 'pop', 'group', 'environmental', 'sample',
-                       'endosymbiont', 'a', 'b', 'c', 'd', 'species', 'complex',
+                       'endosymbiont', 'species', 'complex',
                        'unassigned', 'n', 'gen', 'auct', 'non', 'aff']
     return true if string.match(/(^|[^\w])(#{red_flag_words.join('|')})([^\w]|$)/i)
+    return true if string.match(/ [abcd] /i)
     return true if string.match(/(_|'|")/i)
     return true if string.match(/[0-9][a-z]/i)
     return true if string.match(/[a-z][0-9]/i)

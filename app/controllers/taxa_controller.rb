@@ -167,10 +167,6 @@ private
     end
   end
 
-  def update_user_content_level
-    current_user.content_level = params[:content_level] if ['1','2','3','4'].include?(params[:content_level])
-  end
-
   def add_page_view_log_entry
     PageViewLog.create(:user => current_user, :agent => current_user.agent, :taxon_concept => @taxon_concept)
   end

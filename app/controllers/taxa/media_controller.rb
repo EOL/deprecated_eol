@@ -1,7 +1,7 @@
 class Taxa::MediaController < TaxaController
 
   before_filter :instantiate_taxon_concept, :redirect_if_superceded, :instantiate_preferred_names
-  before_filter :add_page_view_log_entry, :update_user_content_level
+  before_filter :add_page_view_log_entry
 
   def index
     @page = params[:page] ||= 1

@@ -17,10 +17,7 @@ describe 'build_taxon_concept (spec helper method)' do
       :images => [], :toc => [], :flash => [], :youtube => [], :comments => [], :bhl => []
     )
     @taxon_concept_naked.current_user = User.gen(:vetted => true) # Otherwise things aren't empty
-
-    # rebuild the Solr DataObject index
-    SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE).delete_all_documents
-    DataObject.all.each{ |d| d.update_solr_index }
+    EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
   end
 
   it 'should not have a common name by defaut' do

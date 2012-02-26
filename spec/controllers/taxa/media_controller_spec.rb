@@ -11,10 +11,7 @@ describe Taxa::MediaController do
     load_scenario_with_caching :media_heavy
     @data = EOL::TestInfo.load('media_heavy')
     @taxon_concept = @data[:taxon_concept]
-    
-    # rebuild the Solr DataObject index
-    SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE).delete_all_documents
-    DataObject.all.each{ |d| d.update_solr_index }
+    EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
   end
 
   describe 'GET index' do
@@ -103,8 +100,7 @@ describe Taxa::MediaController do
       highly_ranked_text_association.vetted_id = Vetted.trusted.id
       highly_ranked_text_association.save!
       @highly_ranked_text.save
-      SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE).delete_all_documents
-      DataObject.all.each{ |d| d.update_solr_index }
+      EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
     end
 
     it 'should instantiate the taxon concept' do
@@ -246,11 +242,9 @@ describe Taxa::MediaController do
       session[:user] = build_curator(@taxon_concept)
       @taxon_concept.taxon_concept_exemplar_image.should be_nil
       exemplar_image = @taxon_concept.images_from_solr.first
-      TopConceptImage.find_by_taxon_concept_id_and_data_object_id(@taxon_concept, exemplar_image.id).update_attribute(:view_order, 5)
       put :set_as_exemplar, :taxon_id => @taxon_concept.id, :taxon_concept_exemplar_image => { :data_object_id => exemplar_image.id }
       @taxon_concept.reload
       @taxon_concept.taxon_concept_exemplar_image.data_object_id.should == exemplar_image.id
-      TopConceptImage.find_by_taxon_concept_id_and_data_object_id(@taxon_concept, exemplar_image.id).view_order.should == 1
       response.redirected_to.should == taxon_media_path(@taxon_concept)
     end
   end

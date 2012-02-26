@@ -120,8 +120,7 @@ describe 'Solr API' do
     end
     
     it 'should rebuild the core' do
-      builder = EOL::Solr::SiteSearchCoreRebuilder.new()
-      builder.begin_rebuild
+      EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild
       # names for preferred name, synonym, surrogate and common names
       @solr.get_results("*:*")['numFound'].should == 25
       @solr.get_results("resource_id:#{@test_taxon_concept.id}")['numFound'].should == 4

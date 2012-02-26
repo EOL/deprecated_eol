@@ -17,7 +17,6 @@ class TaxonConcept < ActiveRecord::Base
   include ModelQueryHelper
   include EOL::ActivityLoggable
 
-  #TODO belongs_to :taxon_concept_content
   belongs_to :vetted
 
   has_many :feed_data_objects
@@ -72,16 +71,10 @@ class TaxonConcept < ActiveRecord::Base
 
   has_many :superceded_taxon_concepts, :class_name => TaxonConcept.to_s, :foreign_key => "supercedure_id"
 
-  has_one :taxon_concept_content
   has_one :taxon_concept_metric
   has_one :taxon_concept_exemplar_image
 
   has_and_belongs_to_many :data_objects
-
-  named_scope :has_content, :joins => :taxon_concept_content,
-    :conditions => 'taxon_concepts.published=1 AND taxon_concepts.supercedure_id=0 AND
-      (taxon_concept_content.text=1 OR taxon_concept_content.image=1 OR taxon_concept_content.flash=1
-       OR taxon_concept_content.youtube=1)'
 
   attr_accessor :includes_unvetted # true or false indicating if this taxon concept has any unvetted/unknown data objects
 
@@ -93,14 +86,13 @@ class TaxonConcept < ActiveRecord::Base
       :taxon_concepts => '*',
       :hierarchy_entries => [ :id, :rank_id, :identifier, :hierarchy_id, :parent_id, :published, :visibility_id, :lft, :rgt, :taxon_concept_id, :source_url ],
       :hierarchies => [ :agent_id, :browsable, :outlink_uri, :label ],
-      :hierarchies_content => [ :content_level, :image, :text, :child_image, :map, :youtube, :flash ],
       :names => :string,
       :vetted => :view_order,
       :canonical_forms => :string,
       :data_objects => [ :id, :data_type_id, :published, :guid, :data_rating, :language_id, :object_cache_url ],
       :licenses => :title,
       :table_of_contents => '*' },
-    :include => [{ :published_hierarchy_entries => [ :name , :hierarchy, :hierarchies_content, :vetted ] }, { :data_objects => [ { :toc_items => :info_items }, :license] },
+    :include => [{ :published_hierarchy_entries => [ :name , :hierarchy, :vetted ] }, { :data_objects => [ { :toc_items => :info_items }, :license] },
       { :users_data_objects => { :data_object => :toc_items } }]
 
   def all_superceded_taxon_concept_ids
@@ -610,10 +602,6 @@ class TaxonConcept < ActiveRecord::Base
     comment = comments.create :user => user, :body => body
     user.comments.reload # be friendly - update the user's comments automatically
     comment
-  end
-
-  def content_level
-    taxon_concept_content.content_level
   end
 
   # This could use name... but I only need it for searches, and ID is all that matters, there.

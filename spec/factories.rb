@@ -646,21 +646,6 @@ Factory.define :hierarchy do |hierarchy|
   hierarchy.complete                1
 end
 
-Factory.define :hierarchies_content do |hc|
-  hc.association     :hierarchy_entry
-  hc.text                     0
-  hc.text_unpublished         0
-  hc.image                    0
-  hc.image_unpublished        0
-  hc.child_image              0
-  hc.child_image_unpublished  0
-  hc.flash                    0
-  hc.youtube                  0
-  hc.map                      0
-  hc.content_level            1
-  hc.image_object_id          0 # the preferred image for that hierarchy_entry, but probably not used (still, accurate in production)
-end
-
 Factory.define :hierarchy_entry do |he|
   he.guid           { Factory.next(:guid) }
   he.identifier     ''
@@ -896,22 +881,6 @@ Factory.define :taxon_concept do |tc|
   tc.split_from     0
 end
 
-# We may want the default to actually have some content.  Not sure.
-Factory.define :taxon_concept_content do |tcc|
-  tcc.association :taxon_concept
-  tcc.text                     0
-  tcc.text_unpublished         0
-  tcc.image                    0
-  tcc.image_unpublished        0
-  tcc.child_image              0
-  tcc.child_image_unpublished  0
-  tcc.flash                    0
-  tcc.youtube                  0
-  tcc.map                      0
-  tcc.content_level            1
-  tcc.image_object_id          0 # the preferred image for that hierarchy_entry, but probably not used (still, accurate in production)
-end
-
 Factory.define :taxon_concept_exemplar_image do |tcei|
   tcei.association :taxon_concept
   tcei.association :data_object
@@ -1126,7 +1095,6 @@ Factory.define :user do |u|
   u.default_taxonomic_browser 'text'
   u.expertise                 'middle'
   u.remote_ip                 { "123.45.67.1#{rand(10)}" }
-  u.content_level             2
   u.email                     { Factory.next(:email) }
   u.default_hierarchy         { Hierarchy.first || Hierarchy.gen }
   u.given_name                { Factory.next(:first_name) }

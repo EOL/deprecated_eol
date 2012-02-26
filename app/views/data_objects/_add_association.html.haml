@@ -2,10 +2,7 @@
 - if image = item.exemplar_or_best_image_from_solr
   = link_to image_tag(image.thumb_or_object('88_88')), taxon_overview_path(item)
 - else
-  - if item.taxon_concept_content && item.taxon_concept_content.image_object
-    = link_to image_tag(item.taxon_concept_content.image_object.thumb_or_object('88_88')), taxon_overview_path(item)
-  - else
-    = link_to image_tag("/images/v2/icon_taxon.png"), taxon_overview_path(item)
+  = link_to image_tag("/images/v2/icon_taxon.png"), taxon_overview_path(item)
 .details
   %h4= link_to item.title_canonical, taxon_overview_path(item)
   - subtitle = item.preferred_common_name_in_language(current_user.language)

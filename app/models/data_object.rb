@@ -41,7 +41,8 @@ class DataObject < ActiveRecord::Base
   has_many :collection_items, :as => :object
   has_many :containing_collections, :through => :collection_items, :source => :collection
   has_many :translations, :class_name => DataObjectTranslation.to_s, :foreign_key => :original_data_object_id
-  has_many :curator_activity_logs, :as => :object
+  has_many :curator_activity_logs, :foreign_key => :object_id, :conditions => 'changeable_object_type_id IN (#{ [ ChangeableObjectType.data_object.id, ChangeableObjectType.data_objects_hierarchy_entry.id,
+    ChangeableObjectType.curated_data_objects_hierarchy_entry.id, ChangeableObjectType.users_data_object.id ].join(",") } )'
   has_many :users_data_objects_ratings, :foreign_key => 'data_object_guid', :primary_key => :guid
   # has_many :all_comments, :class_name => Comment.to_s, :foreign_key => 'parent_id', :finder_sql => 'SELECT c.* FROM #{Comment.full_table_name} c JOIN #{DataObject.full_table_name} do ON (c.parent_id = do.id) WHERE do.guid=\'#{guid}\' AND c.parent_type = \'DataObject\''
   # TODO - I don't have time to make sure this fix isn't going to break or slow down other parts of the site, so
@@ -710,7 +711,7 @@ class DataObject < ActiveRecord::Base
 
   def update_solr_index
     if self.published
-      EOL::Solr::DataObjects.reindex_single_object(self)
+      EOL::Solr::DataObjectsCoreRebuilder.reindex_single_object(self)
     else
       # hidden, so delete it from solr
       solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE)

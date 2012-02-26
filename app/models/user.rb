@@ -853,7 +853,6 @@ private
     self.expertise     = $DEFAULT_EXPERTISE.to_s
     self.language      = Language.english
     self.mailing_list  = false
-    self.content_level = $DEFAULT_CONTENT_LEVEL
     self.vetted        = $DEFAULT_VETTED
     self.credentials   = ''
     self.curator_scope = ''

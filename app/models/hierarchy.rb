@@ -112,7 +112,6 @@ class Hierarchy < ActiveRecord::Base
     # from the cache
     HierarchyEntry
     Rank
-    HierarchiesContent
     Name
     CanonicalForm
     Hierarchy.cached("kingdoms_for_#{id}") do

@@ -210,6 +210,7 @@ class Comment < ActiveRecord::Base
   end
 
   def log_activity_in_solr
+    return if $SKIP_CREATING_ACTIVITY_LOGS_FOR_COMMENTS
     base_index_hash = {
       'activity_log_unique_key' => "Comment_#{id}",
       'activity_log_type' => 'Comment',

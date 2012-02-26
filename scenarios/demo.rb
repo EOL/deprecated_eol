@@ -73,10 +73,12 @@ species = [
     :sci => 'Plantae',
     :common => 'Plants',
     :rank => 'kingdom'},
-  { :id => 2861424, :depth => 5, :parent => 5559, :sci => 'Amanitaceae', :rank => 'family' },
-  { :id => 18878, :depth => 4, :parent => 2861424, :sci => 'Amanita', :rank => 'genus' },
+  # I changed some of the concept IDs to fix a problem with the solr indexers which iterate from 
+  # id 0 to id max(id) which was over 17million, causing it to fire off tons of queries
+  { :id => 50000, :depth => 5, :parent => 5559, :sci => 'Amanitaceae', :rank => 'family' }, # was id=2861424
+  { :id => 18878, :depth => 4, :parent => 50000, :sci => 'Amanita', :rank => 'genus' },
   { :id => 7160, :depth => 5, :parent => 1, :sci => 'Nephropidae', :rank => 'family' },
-  { :id => 17954507, :depth => 5, :parent => 7160, :sci => 'Dinochelus', :rank => 'genus' },
+  { :id => 50001, :depth => 5, :parent => 7160, :sci => 'Dinochelus', :rank => 'genus' }, # was id=17954507
   { :id => 3594, :depth => 4, :parent => 3352, :sci => 'Raphidophyceae', :rank => 'family' },
   { :id => 89513, :depth => 5, :parent => 3594, :sci => 'Haramonas', :rank => 'genus' },
   { :id => 7676, :depth => 4, :parent => 1, :sci => 'Canidae', :common => 'Coyotes, dogs, foxes, jackals, and wolves', :rank => 'family' },
@@ -85,7 +87,7 @@ species = [
   { :id => 14031, :depth => 5, :parent => 6747, :sci => 'Pinus ', :common => 'Pine', :rank => 'genus' },
   { :id => 699, :depth => 4, :parent => 1, :sci => 'Formicidae', :rank => 'family' },
   { :id => 49148, :depth => 5, :parent => 699, :sci => 'Anochetus', :rank => 'genus' },
-  { :id => 2866150, :parent => 18878,
+  { :id => 50002, :parent => 18878, # was id=2866150
     :sci => 'Amanita muscaria',
     :attribution => '(L. ex Fr.) Hook.',
     :common => 'Fly Agaric',
@@ -104,7 +106,7 @@ species = [
     1988 and 1998, three were from Laos (Trimm et al. 1999). This misidentification is a leading cause of mushroom
      poisoning in the United States.',
     :rank => 'species'},
-  { :id => 17924149, :parent => 17954507,
+  { :id => 17924149, :parent => 50001,
     :sci => 'Dinochelus ausubeli',
     :attribution => 'Ahyong, Chan & Bouchet, 2010',
     :common => "Ausubel's Mighty Claws Lobster",
@@ -303,7 +305,7 @@ taxa.each do |tc|
   endorsed_collection.add tc
   endorsed_collection.add tc.exemplar_or_best_image_from_solr
 
-  summary_text = tc.text_objects_for_toc_items(summart_text_toc_items, { :limit => 1 })
+  summary_text = tc.data_objects.select{ |d| d.is_text? }
   endorsed_collection.add summary_text.first unless summary_text.blank?
 
   Comment.gen(:parent => tc, :body => "Could we add some images of this in its natural habitat?", :user => loud_user)
@@ -336,10 +338,7 @@ make_all_nested_sets
 rebuild_collection_type_nested_set
 flatten_hierarchies
 
-builder = EOL::Solr::SiteSearchCoreRebuilder.new()
-builder.obliterate
-builder.begin_rebuild
-
+EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild
 $INDEX_RECORDS_IN_SOLR_ON_SAVE = original_index_records_on_save_value
 
 puts "Adding data_object translations relationships"

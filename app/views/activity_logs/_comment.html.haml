@@ -46,7 +46,7 @@
         - else
           - if item.parent_type == "DataObject"
             - if item.parent.is_latest_published_version_in_same_language?
-            = I18n.t(:user_commented_on_something_colon, :user => name_with_link, :what => link_to(item.parent.summary_name, parent_link))
+              = I18n.t(:user_commented_on_something_colon, :user => name_with_link, :what => link_to(item.parent.summary_name, parent_link))
             - else
               = I18n.t(:user_commented_on_older_data_object_colon, :user => name_with_link, :what => I18n.t(:older_version_of_latest_published_data_object_link, :link => link_to(item.parent.summary_name, parent_link)))
           - else

@@ -273,6 +273,8 @@ $(function() {
               // add the HTML for the new image
               opts.addSlide('<a href="'+ image_data['taxon_page_path'] + '"><img src="' +
                 image_data['image_url'] + '" alt="' + image_data['taxon_name'] +'" width="130" height="130"/></a>');
+              // since we had to add a slide we need to change the index of the next slide
+              opts.nextSlide = opts.currSlide + 1
             }
           }
         }

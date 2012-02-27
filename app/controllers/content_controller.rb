@@ -7,7 +7,15 @@ class ContentController < ApplicationController
   layout 'v2/basic'
 
   prepend_before_filter :redirect_back_to_http if $USE_SSL_FOR_LOGIN
-  before_filter :check_user_agreed_with_terms, :except => [:show]
+  before_filter :check_user_agreed_with_terms, :except => [:show, :random_homepage_images]
+  
+  skip_before_filter :original_request_params, :only => :random_homepage_images
+  skip_before_filter :global_warning, :only => :random_homepage_images
+  skip_before_filter :redirect_to_http_if_https, :only => :random_homepage_images
+  skip_before_filter :set_session, :only => :random_homepage_images
+  skip_before_filter :clear_any_logged_in_session, :only => :random_homepage_images
+  skip_before_filter :check_user_agreed_with_terms, :only => :random_homepage_images
+  skip_before_filter :set_locale, :only => :random_homepage_images
 
   def index
     @rel_canonical_href = root_url.sub!(/\/+$/,'')
@@ -15,11 +23,11 @@ class ContentController < ApplicationController
     current_user.log_activity(:viewed_home_page)
     begin
       @explore_taxa = $CACHE.fetch('homepage/random_images', :expires_in => 30.minutes) do
-        RandomHierarchyImage.random_set(60)
+        RandomHierarchyImage.random_set(12)
       end
     rescue TypeError => e
       # TODO - FIXME  ... This appears to have to do with $CACHE.fetch (obviously)... not sure why, though.
-      @explore_taxa = RandomHierarchyImage.random_set(60)
+      @explore_taxa = RandomHierarchyImage.random_set(12)
     end
 
     # recalculate the activity logs on homepage every $HOMEPAGE_ACTIVITY_LOG_CACHE_TIME minutes
@@ -27,8 +35,8 @@ class ContentController < ApplicationController
       expire_fragment(:action => 'index', :action_suffix => "activity_#{current_user.language_abbr}")
     end
 
-    # recalculate the activity logs on homepage every $HOMEPAGE_ACTIVITY_LOG_CACHE_TIME minutes
-    $CACHE.fetch('homepage/march_of_life_expiration', :expires_in => 60.seconds) do
+    # recalculate the march of life on homepage every 2 minutes
+    $CACHE.fetch('homepage/march_of_life_expiration', :expires_in => 120.seconds) do
       expire_fragment(:action => 'index', :action_suffix => 'march_of_life')
     end
 
@@ -43,6 +51,21 @@ class ContentController < ApplicationController
                        else
                          collection_path($RICH_PAGES_COLLECTION_ID)
                        end
+  end
+  
+  def random_homepage_images
+    begin
+      number_of_images = (params[:count] && params[:count].is_numeric?) ? params[:count].to_i : 1
+      number_of_images = 1 if number_of_images < 1 || number_of_images > 10
+      random_images = RandomHierarchyImage.random_set(number_of_images).map do |random_image|
+        { :image_url => random_image.taxon_concept.exemplar_or_best_image_from_solr.thumb_or_object('130_130'),
+          :taxon_name => random_image.taxon_concept.title_canonical,
+          :taxon_page_path => taxon_overview_path(random_image.taxon_concept_id) }
+      end
+      render :json => random_images, :callback => params[:callback]
+    rescue
+      render :json => { :error => "Error retrieving random images" }
+    end
   end
 
   def replace_single_explore_taxa

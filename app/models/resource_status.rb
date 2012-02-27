@@ -43,4 +43,8 @@ class ResourceStatus < ActiveRecord::Base
     cached_find_translated(:label, 'Validation Failed')
   end
 
+  def self.published
+    cached_find_translated(:label, 'Published')
+  end
+
 end

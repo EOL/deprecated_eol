@@ -185,6 +185,7 @@ def load_old_foundation_data
   ResourceStatus.gen_if_not_exists(:label => 'Processed')
   ResourceStatus.gen_if_not_exists(:label => 'Processing Failed')
   ResourceStatus.gen_if_not_exists(:label => 'Force Harvest')
+  ResourceStatus.gen_if_not_exists(:label => 'Published')
 
   SynonymRelation.gen_if_not_exists(:label => "acronym")
   SynonymRelation.gen_if_not_exists(:label => "anamorph")

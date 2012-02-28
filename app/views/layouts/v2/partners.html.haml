@@ -15,7 +15,7 @@
               - unless @partner.homepage.blank?
                 %br/
             - unless @partner.homepage.blank?
-              = link_to @partner.homepage, @partner.homepage
+              = link_to @partner.homepage, @partner.homepage, :rel => :nofollow
 
         - else
           %h2= @page_subheader

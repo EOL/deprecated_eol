@@ -3,6 +3,7 @@ class Admins::ContentPartnersController < AdminsController
 
   # GET /admin/content_partners
   def index
+
     @page_title = I18n.t(:admin_content_partners_page_title)
 
     @name = params[:name] || ''

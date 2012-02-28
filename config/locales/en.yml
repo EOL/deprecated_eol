@@ -163,7 +163,7 @@ en:
       collection_item:
         annotation: "Annotation"
         sort_field: "Sort by"
-        refs: "References <small>(put each reference on a new line)</small>"
+        refs: "References"
       comment:
         body: "Comment"
       content_page:
@@ -397,6 +397,7 @@ en:
       create: "Create %{model}"
       update: "Update %{model}"
       submit: 'Save %{model}'
+      filter_sort: "Filter and sort"
       collection_item:
         update: "Save"
       content_page:
@@ -449,8 +450,11 @@ en:
       wikipedia_queue:
         create: "Submit request"
     label:
+      collection:
+        view_style_id: "Default view"
       collection_item:
         annotation: "Annotation"
+        refs: "References <small>(put each reference on a new line)</small>"
         sort_field: "Sort by <small>(date YYYY.MM.DD, number, or text)</small>"
         sort_field_show: "Sort value:"
       comment:
@@ -482,8 +486,6 @@ en:
         mou_url_more: "Optionally enter a URL to the file containing this partner's agreement. This file will override any other agreement text. If you would like to store the file (e.g. a PDF file) on EOL content servers then first <a href=\"%{upload_content_url}\">upload the file</a>, to get the URL."
       content_partner_contact:
         email_reports_frequency_hours_more: "Email reports are sent only if there were comments or curator actions on your data or on taxon pages relevant to your data set."
-      collection:
-        view_style_id: "Default view"
       data_object:
         bibliographic_citation: "Bibliographic citation"
         description: "Text <small>(some HTML markup is allowed)</small>"

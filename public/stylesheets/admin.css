@@ -449,6 +449,9 @@ table.standard tbody th[scope="row"] {
   width: 118px; }
 #sidebar .filters form dd select {
   width: 120px; }
+#sidebar .filters.small fieldset.actions {
+  padding: 0;
+  margin: 10px 0 0 0; }
 
 #content_partners.main_container .header {
   border-bottom: 1px solid #394651;

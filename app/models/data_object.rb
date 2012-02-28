@@ -301,7 +301,8 @@ class DataObject < ActiveRecord::Base
                                  :visibility => no_current_but_new_visibility, :vetted => current_or_new_vetted)
     new_dato.users_data_object = udo
     new_dato.update_solr_index
-    old_dato.reload
+    # reindex the old object now that its unpublished
+    old_dato.published = 0
     old_dato.update_solr_index
     new_dato
   end

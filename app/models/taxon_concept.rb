@@ -675,24 +675,11 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def data_objects_for_api(options = {})
-    options[:images] ||= 3
-    options[:videos] ||= 1
-    # TODO - sounds for API
-    options[:text] ||= 1
-    if options[:subjects]
-      options[:text_subjects] = options[:subjects].split("|")
-    else
-      options[:text_subjects] = ['TaxonBiology', 'GeneralDescription', 'Description']
-    end
-    # create an alias Uses for Use (it was misspelled somewhere)
-    if options[:text_subjects].include?('Use')
-      options[:text_subjects] << 'Uses'
-    end
-    if options[:text_subjects].include?('all')
-      options[:text_subjects] = nil
-    else
-      options[:text_subjects].map!{ |l| InfoItem.find_by_translated(:label, l) }.compact
-    end
+    # setting some default search options
+    solr_search_params = {}
+    solr_search_params[:sort_by] = 'status',
+    solr_search_params[:visibility_types] = ['visible']
+    solr_search_params[:skip_preload] = true
     if options[:licenses]
       if options[:licenses].include?('all')
         options[:licenses] = nil
@@ -700,70 +687,90 @@ class TaxonConcept < ActiveRecord::Base
         options[:licenses] = options[:licenses].split("|").map do |l|
           l = 'public domain' if l == 'pd'
           l = 'not applicable' if l == 'na'
-          License.find(:all, :conditions => "title like '#{l}%'")
+          License.find(:all, :conditions => "title REGEXP '^#{l}([^-]|$)'")
         end.flatten.compact
+        solr_search_params[:license_ids] = options[:licenses].blank? ? nil : options[:licenses].collect(&:id)
       end
     end
     if options[:vetted] == "1"  # trusted
-      options[:vetted] = [Vetted.trusted]
+      solr_search_params[:vetted_types] = ['trusted']
     elsif options[:vetted] == "2"  # everything except untrusted
-      options[:vetted] = [Vetted.trusted, Vetted.unknown]
+      solr_search_params[:vetted_types] = ['trusted', 'unreviewed']
     else
-      options[:vetted] = nil
+      solr_search_params[:vetted_types] = ['trusted', 'unreviewed', 'untrusted']
     end
-
-    return_data_objects = []
-    # get the images
+    
+    # GET THE TEXT
+    text_objects = []
+    if options[:text].to_i > 0
+      options[:subjects] ||= 'TaxonBiology|GeneralDescription|Description'
+      options[:text_subjects] = options[:subjects].split("|")
+      options[:text_subjects] << 'Uses' if options[:text_subjects].include?('Use')
+      if options[:text_subjects].include?('all')
+        options[:text_subjects] = nil
+      else
+        options[:text_subjects] = options[:text_subjects].map{ |l| InfoItem.cached_find_translated(:label, l, 'en', :find_all => true) }.flatten.compact
+        options[:toc_items] = options[:text_subjects].map{ |ii| ii.toc_item }.flatten.compact
+      end
+    
+      text_objects = self.data_objects_from_solr(solr_search_params.merge({
+        :per_page => options[:text],
+        :toc_ids => options[:toc_items] ? options[:toc_items].collect(&:id) : nil,
+        :data_type_ids => DataType.text_type_ids
+      }))
+      DataObject.preload_associations(text_objects, [ { :info_items => :translations } ] )
+    end
+    
+    # GET THE IMAGES
+    image_objects = []
     if options[:images].to_i > 0
-      image_data_objects = images_from_solr(20)
-      image_data_objects = DataObject.filter_list_for_user(image_data_objects, :taxon_concept => self)
-      # remove non-matching vetted and license values
-      image_data_objects.delete_if do |d|
-        d_vetted = d.vetted_by_taxon_concept(self, :find_best => true)
-        d_vetted = d_vetted unless d_vetted.nil?
-        (options[:vetted] && !options[:vetted].include?(d_vetted)) ||
-        (options[:licenses] && !options[:licenses].include?(d.license))
-      end
-      image_data_objects = image_data_objects.group_objects_by('guid')  # group by guid
-      image_data_objects = DataObject.sort_by_rating(image_data_objects, self)  # order by rating
-      return_data_objects += image_data_objects[0...options[:images].to_i]  # get the # requested
+      image_objects = self.data_objects_from_solr(solr_search_params.merge({
+        :per_page => options[:images],
+        :data_type_ids => DataType.image_type_ids,
+        :return_hierarchically_aggregated_objects => true
+      }))
     end
-
-    # get the rest
-    if options[:text].to_i > 0 || options[:videos].to_i
-      non_image_objects = data_objects.select{ |d| !d.is_image? }
-      non_image_objects = DataObject.filter_list_for_user(non_image_objects, :taxon_concept => self)
-      non_image_objects.delete_if do |d|
-        d_vetted = d.vetted_by_taxon_concept(self, :find_best => true)
-        d_vetted = d_vetted unless d_vetted.nil?
-        (options[:vetted] && !options[:vetted].include?(d_vetted)) ||
-        (options[:licenses] && !options[:licenses].include?(d.license)) ||
-        (d.is_text? && options[:text_subjects] && (options[:text_subjects] & d.info_items).empty?)
-        # the use of & above is the array set intersection operator
-      end
-      non_image_objects = non_image_objects.group_objects_by('guid')  # group by guid
-      non_image_objects = DataObject.sort_by_rating(non_image_objects, self)  # order by rating
-
-      # remove items over the count limit
-      types_count = {:text => 0, :video => 0}
-      non_image_objects.each do |d|
-        if d.is_text?
-          types_count[:text] += 1
-          return_data_objects << d if types_count[:text] <= options[:text].to_i
-        elsif d.is_video?
-          types_count[:video] += 1
-          return_data_objects << d if types_count[:video] <= options[:videos].to_i
-        end
+    
+    # GET THE VIDEOS
+    video_objects = []
+    if options[:videos].to_i > 0
+      video_objects = self.data_objects_from_solr(solr_search_params.merge({
+        :per_page => options[:videos],
+        :data_type_ids => DataType.video_type_ids,
+        :return_hierarchically_aggregated_objects => true
+      }))
+    end
+    
+    sound_objects = []
+    if options[:sounds].to_i > 0
+      sound_objects = self.data_objects_from_solr(solr_search_params.merge({
+        :per_page => options[:sounds],
+        :data_type_ids => DataType.sound_type_ids,
+        :return_hierarchically_aggregated_objects => true
+      }))
+    end
+    
+    map_objects = []
+    if options[:maps].to_i > 0
+      sound_objects = self.data_objects_from_solr(solr_search_params.merge({
+        :per_page => options[:sounds],
+        :data_type_ids => DataType.image_type_ids,
+        :data_subtype_ids => DataType.map_type_ids
+      }))
+    end
+    
+    all_data_objects = [ text_objects, image_objects, video_objects, sound_objects, map_objects ].flatten.compact
+    if options[:iucn]
+      if iucn_do = iucn
+        iucn.data_type = DataType.text
+        all_data_objects << iucn
       end
     end
-    data_objects = DataObject.core_relationships(:add_include => :published_refs, :add_select => { :refs => :full_reference }).
-      find_all_by_id(return_data_objects.collect{ |d| d.id })
-    # set flash and youtube types to video, iucn to text
-    data_objects.each do |d|
-      d.data_type = DataType.video if d.is_video?
-      d.data_type = DataType.text if d.is_iucn?
-    end
-    data_objects
+    
+    # preload necessary associations for API response
+    DataObject.preload_associations(all_data_objects, [ :data_objects_hierarchy_entries, :curated_data_objects_hierarchy_entries, 
+      :users_data_object, { :agents_data_objects => :agent }, :published_refs ] )
+    all_data_objects
   end
 
   def all_common_names

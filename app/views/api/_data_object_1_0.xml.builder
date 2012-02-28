@@ -12,6 +12,7 @@ unless data_object.blank?
       xml.mimeType data_object.mime_type.label unless data_object.mime_type.blank?
       
       for ado in data_object.agents_data_objects
+        next unless ado.agent
         xml.agent ado.agent.full_name, :homepage => ado.agent.homepage, :role => ado.agent_role.label.downcase
       end
       
@@ -54,6 +55,7 @@ unless data_object.blank?
     end
     
     xml.additionalInformation do
+      xml.dataSubtype data_object.data_subtype.label if data_object.data_subtype
       xml.vettedStatus data_object.association_with_best_vetted_status.vetted.label
       xml.dataRating data_object.data_rating
     end

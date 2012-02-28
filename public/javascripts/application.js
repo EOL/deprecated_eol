@@ -10,8 +10,10 @@ $.ajaxSetup({accepts: {
   xml: "application/xml, text/xml"
 }});
 
-// Globally change cursor to busy when we're waiting on AJAX event to finish.
-$("html").bind("ajaxStart", function(){
+
+// Globally change cursor to busy when we're waiting on AJAX event to finish,
+// except for the homepage march of life
+$("html :not(.thumbnails ul li)").bind("ajaxStart", function(){
   $(this).addClass('busy');
 }).bind("ajaxStop", function(){
   $(this).removeClass('busy');

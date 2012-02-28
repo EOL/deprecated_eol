@@ -45,9 +45,16 @@ class ApplicationController < ActionController::Base
     # using SiteConfigutation over an environment constant DOES require a query for EVERY REQUEST
     # but the table is tiny (<5 rows right now) and the coloumn is indexed. But it also gives us the flexibility
     # to display or remove a message within seconds which I think is worth it
-    parameter = SiteConfigurationOption.find_by_parameter('global_site_warning')
-    if parameter && parameter.value
-      flash.now[:error] = parameter.value
+    warning = $CACHE.fetch("application/global_warning", :expires_in => 10.minutes) do
+      parameter = SiteConfigurationOption.find_by_parameter('global_site_warning')
+      if parameter && parameter.value
+        parameter.value
+      else
+        1
+      end
+    end
+    if warning && warning.class == String
+      flash.now[:error] = warning
     end
   end
 
@@ -716,8 +723,8 @@ private
   # Rails cache (memcached, probably) version of the user, by id:
   def cached_user
     User # KNOWN BUG (in Rails): if you end up with "undefined class/module" errors in a fetch() call, you must call
-         # that class beforehand.
-    $CACHE.fetch("users/#{session[:user_id]}") { User.find(session[:user_id]) rescue nil }
+    Agent # that class beforehand.
+    $CACHE.fetch("users/#{session[:user_id]}") { User.find(session[:user_id], :include => :agent) rescue nil }
   end
 
   # Having a *temporary* logged in user, as opposed to reading the user from the cache, lets us change some values

@@ -48,17 +48,17 @@ class RandomHierarchyImage < ActiveRecord::Base
     RandomHierarchyImage.preload_associations(random_image_result,
       [ :data_object,
         { :taxon_concept => [
-          { :published_hierarchy_entries => { :name => [ :canonical_form, :ranked_canonical_form ] } },
+          { :published_hierarchy_entries => [ :hierarchy, { :name => [ :canonical_form, :ranked_canonical_form ] } ] },
           { :taxon_concept_exemplar_image => :data_object } ] } ],
       :select => {
         :data_objects => [ :id, :object_cache_url, :data_type_id, :guid ],
         :names => [ :id, :italicized, :string, :canonical_form_id, :ranked_canonical_form_id ],
         :canonical_forms => [ :id, :string ],
-        :taxon_concepts => [ :id ] })
+        :taxon_concepts => [ :id ],
+        :hierarchies => '*' })
     
     random_images = self.random_set(limit, Hierarchy.default, :size => options[:size]) if random_images.blank? && hierarchy.id != Hierarchy.default.id
     #raise "Found no Random Taxa in the database (#{starting_id}, #{limit})" if random_images.blank?
-    
     # by calling this here, the cached values will contain the pre-cached name. This saves a bunch of load time on the homepage
     random_images.each{ |r| r.taxon_concept.title_canonical }
     return random_images
@@ -70,13 +70,13 @@ class RandomHierarchyImage < ActiveRecord::Base
   end
   
   def self.min_id()
-    $CACHE.fetch('random_hierarchy_image/min_id', :expires_in => 10.minutes) do
+    $CACHE.fetch('random_hierarchy_image/min_id', :expires_in => 60.minutes) do
       self.connection.select_value("select min(id) min from random_hierarchy_images").to_i
     end
   end
   
   def self.hierarchy_count(hierarchy)
-    $CACHE.fetch("random_hierarchy_image/hierarchy_count_#{hierarchy.id}", :expires_in => 10.minutes) do
+    $CACHE.fetch("random_hierarchy_image/hierarchy_count_#{hierarchy.id}", :expires_in => 60.minutes) do
       self.connection.select_value("select count(*) count from random_hierarchy_images rhi WHERE rhi.hierarchy_id=#{hierarchy.id}").to_i
     end
   end

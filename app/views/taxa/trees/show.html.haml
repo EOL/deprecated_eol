@@ -1,12 +1,7 @@
 = javascript_include_merged 'taxa-navigation'
-
-- taxon_rank = (@hierarchy_entry.rank.blank? || @hierarchy_entry.rank.label.blank?) ? I18n.t(:taxon).firstcap : @hierarchy_entry.rank.label.firstcap
-%h4= I18n.t(:rank_recognized_by_agent_colon, :rank => taxon_rank, :agent => link_to(@hierarchy_entry.hierarchy.agent.full_name, taxon_hierarchy_entry_overview_path(@taxon_concept, @hierarchy_entry)))
-
-%ul
-  - if ancestors = @hierarchy_entry.ancestors
-    - hierarchy_entry = ancestors.pop
-    = render(:partial => 'navigation/node_with_ancestry_page', :locals => { :ancestors => ancestors, :hierarchy_entry => hierarchy_entry })
-  - else
-    %li
-      = render(:partial => 'navigation/node_name_page', :locals => { :hierarchy_entry => @hierarchy_entry })
+- if ancestors = @hierarchy_entry.ancestors
+  - hierarchy_entry = ancestors.pop
+  = render(:partial => 'navigation/node_with_ancestry_page', :locals => { :ancestors => ancestors, :hierarchy_entry => hierarchy_entry })
+- else
+  %li
+    = render(:partial => 'navigation/node_name_page', :locals => { :hierarchy_entry => @hierarchy_entry })

@@ -124,8 +124,8 @@ class HierarchyEntry < ActiveRecord::Base
   def ancestors(params = {}, cross_reference_hierarchy = nil)
     return @ancestors unless @ancestors.nil?
     # TODO: reimplement completing a partial hierarchy with another curated hierarchy
-    add_include = []
-    add_select = {}
+    add_include = [ :taxon_concept ]
+    add_select = { :taxon_concepts => '*' }
     unless params[:include_stats].blank?
       add_include << :hierarchy_entry_stat
       add_select[:hierarchy_entry_stats] = '*'
@@ -146,8 +146,8 @@ class HierarchyEntry < ActiveRecord::Base
   end
 
   def children(params = {})
-    add_include = []
-    add_select = {}
+    add_include = [ :taxon_concept ]
+    add_select = { :taxon_concepts => '*' }
     unless params[:include_stats].blank?
       add_include << :hierarchy_entry_stat
       add_select[:hierarchy_entry_stats] = '*'

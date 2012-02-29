@@ -1,7 +1,9 @@
 class Users::NewsfeedsController < UsersController
 
+  # GET /users/:user_id/newsfeed
   def show
     @user = User.find(params[:user_id])
+    redirect_if_user_is_inactive
     preload_user_associations
     @page = params[:page] || 1
     @parent = @user # for new comment form

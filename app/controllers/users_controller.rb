@@ -13,8 +13,9 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     preload_user_associations
+    redirect_if_user_is_inactive
     if @user.is_hidden?
-      flash[:notice] = I18n.t(:user_hidden_message)
+      flash[:notice] = I18n.t(:user_no_longer_active_message)
     end
     @user_submitted_text_count = User.count_submitted_datos(@user.id)
     @common_names_added = User.total_objects_curated_by_action_and_user(Activity.add_common_name.id, @user.id, [ChangeableObjectType.synonym.id])
@@ -26,6 +27,7 @@ class UsersController < ApplicationController
   # GET /users/:id/edit
   def edit
     # @user instantiated by authentication before filter and matched to current user
+    redirect_if_user_is_inactive
     instantiate_variables_for_edit
   end
 
@@ -393,6 +395,13 @@ private
   def preload_user_associations
     # used to count the collections and communities in the menu
     User.preload_associations(@user, [ :collections_including_unpublished, { :members => { :community => :collections } } ] )
+  end
+
+  def redirect_if_user_is_inactive
+    unless @user.active
+      flash[:notice] = I18n.t(:user_no_longer_active_message)
+      redirect_back_or_default
+    end
   end
 
 end

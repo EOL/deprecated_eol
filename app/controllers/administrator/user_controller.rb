@@ -125,24 +125,24 @@ class Administrator::UserController  < AdminController
 
   def update
 
-   @user = User.find(params[:id])
-   was_curator = @user.full_curator? || @user.master_curator?
-   @message = params[:message]
+    @user = User.find(params[:id])
+    was_curator = @user.full_curator? || @user.master_curator?
+    @message = params[:message]
 
-   Notifier.deliver_user_message(@user.full_name, @user.email, @message) unless @message.blank?
+    Notifier.deliver_user_message(@user.full_name, @user.email, @message) unless @message.blank?
 
-   user_params = params[:user]
+    user_params = params[:user]
 
-   unless user_params[:entered_password].blank? && user_params[:entered_password_confirmation].blank?
+    unless user_params[:entered_password].blank? && user_params[:entered_password_confirmation].blank?
       if user_params[:entered_password].length < 4 || user_params[:entered_password].length > 16
-         @user.errors.add_to_base( I18n.t(:password_must_be_4to16_characters) )
-         render :action => 'edit'
-         return
-     end
-     @user.password = user_params[:entered_password]
-   end
+        @user.errors.add_to_base( I18n.t(:password_must_be_4to16_characters) )
+        render :action => 'edit'
+        return
+      end
+      @user.password = user_params[:entered_password]
+    end
 
-   if @user.update_attributes(user_params)
+    if @user.update_attributes(user_params)
       if params[:curator_denied]
         @user.revoke_curator
       else
@@ -150,6 +150,7 @@ class Administrator::UserController  < AdminController
           @user.grant_curator(:full, :by => current_user)
         end
       end
+      @user.add_to_index
       flash[:notice] = I18n.t("the_user_was_updated")
       redirect_back_or_default(url_for(:action => 'index'))
     else

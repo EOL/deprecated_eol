@@ -13,11 +13,11 @@ describe 'Users' do
     truncate_all_tables
     load_foundation_cache
     Capybara.reset_sessions!
-    @username = 'userprofilespec'
-    @password = 'beforeall'
-    @user     = create_user(@username, @password)
+    username = 'userprofilespec'
+    password = 'beforeall'
+    @user     = create_user(username, password)
     @watch_collection = @user.watch_collection
-    @anon_user = User.gen(:password => 'password')
+    # @anon_user = User.gen(:password => 'password')
   end
 
   after(:each) do
@@ -140,4 +140,23 @@ describe 'Users' do
     end
   end
 
+  it 'should not show a newsfeed, info, activity, collections, communities, content partners of a deactivated user' do
+    @user.active = false
+    @user.save!
+    visit user_newsfeed_path(@user)
+    body.should include('This user is no longer active')
+    visit(user_path(@user))
+    body.should include('This user is no longer active')
+    visit(user_activity_path(@user))
+    body.should include('This user is no longer active')
+    visit(user_collections_path(@user))
+    body.should include('This user is no longer active')
+    visit(user_communities_path(@user))
+    body.should include('This user is no longer active')
+    visit(user_content_partners_path(@user))
+    body.should include('This user is no longer active')
+    @user.active = true
+    @user.save!
+  end
+  
 end

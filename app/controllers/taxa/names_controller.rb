@@ -145,7 +145,7 @@ class Taxa::NamesController < TaxaController
       format.js do
         # TODO - this is a huge waste of time, but I couldn't come up with a timely solution... we only need ONE set
         # of names, here, not all of them:
-        render :partial => 'common_names_edit_row', :locals => {:common_names => get_common_names,
+        render :partial => 'common_names_edit_row', :locals => {:common_names => get_common_names(:name_id => name_id, :language_id => language_id),
           :language => TranslatedLanguage.find(language_id).label, :name_id => name_id }
       end
     end
@@ -153,12 +153,12 @@ class Taxa::NamesController < TaxaController
 
 private
 
-  def get_common_names
+  def get_common_names(options = {})
     unknown_id = Language.unknown.id
     if @selected_hierarchy_entry
-      names = EOL::CommonNameDisplay.find_by_hierarchy_entry_id(@selected_hierarchy_entry.id)
+      names = EOL::CommonNameDisplay.find_by_hierarchy_entry_id(@selected_hierarchy_entry.id, options)
     else
-      names = EOL::CommonNameDisplay.find_by_taxon_concept_id(@taxon_concept.id)
+      names = EOL::CommonNameDisplay.find_by_taxon_concept_id(@taxon_concept.id, nil, options)
     end
     common_names = names.select {|n| !n.language.iso_639_1.blank? || !n.language.iso_639_2.blank? }
   end
@@ -169,7 +169,7 @@ private
   end
 
   def set_vet_options
-    @common_name_vet_options = {I18n.t(:trusted) => Vetted.trusted.id.to_s, I18n.t(:unreviewed) => Vetted.unknown.id.to_s, I18n.t(:untrusted) => Vetted.untrusted.id.to_s, I18n.t(:inappropriate) => Vetted.inappropriate.id.to_i}
+    @common_name_vet_options = {I18n.t(:trusted) => Vetted.trusted.id.to_s, I18n.t(:unreviewed) => Vetted.unknown.id.to_s, I18n.t(:untrusted) => Vetted.untrusted.id.to_s}
   end
 
   def preload_core_relationships_for_names

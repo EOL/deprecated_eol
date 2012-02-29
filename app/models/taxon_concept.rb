@@ -174,8 +174,7 @@ class TaxonConcept < ActiveRecord::Base
       JOIN #{DataObjectsTaxonConcept.full_table_name} dotc ON (do_all_versions.id = dotc.data_object_id)
       WHERE dotc.taxon_concept_id=#{self.id}
       AND cal.changeable_object_type_id IN(#{ChangeableObjectType.data_object_scope.join(",")})
-      AND acts.id IN (#{Activity.raw_curator_action_ids.join(",")})
-      ORDER BY cal.updated_at DESC").uniq
+      AND acts.id IN (#{Activity.raw_curator_action_ids.join(",")})").uniq
     User.find(curators)
   end
 
@@ -739,6 +738,7 @@ class TaxonConcept < ActiveRecord::Base
         :data_type_ids => DataType.video_type_ids,
         :return_hierarchically_aggregated_objects => true
       }))
+      video_objects.each{ |d| d.data_type = DataType.video }
     end
     
     sound_objects = []
@@ -752,7 +752,7 @@ class TaxonConcept < ActiveRecord::Base
     
     map_objects = []
     if options[:maps].to_i > 0
-      sound_objects = self.data_objects_from_solr(solr_search_params.merge({
+      map_objects = self.data_objects_from_solr(solr_search_params.merge({
         :per_page => options[:sounds],
         :data_type_ids => DataType.image_type_ids,
         :data_subtype_ids => DataType.map_type_ids
@@ -942,6 +942,7 @@ class TaxonConcept < ActiveRecord::Base
 
   def common_names_for_solr
     common_names_by_language = {}
+    unknowns = Language.all_unknowns
     published_hierarchy_entries.each do |he|
       he.common_names.each do |cn|
         vet_id = begin
@@ -952,10 +953,10 @@ class TaxonConcept < ActiveRecord::Base
         next unless vet_id == Vetted.trusted.id || vet_id == Vetted.unknown.id # only Trusted or Unknown names go in
         next if cn.name.blank?
         # HE is sometimes being queried against an incomplete cache, so we reload it if needed:
-        he = HierarchyEntry.find(he) unless he.attributes.keys.include?(:published) && he.attributes.keys.include?(:visibility_id)
+        he = HierarchyEntry.find(he) unless he.attributes.keys.include?('published') && he.attributes.keys.include?('visibility_id')
         # only names from our curators, ubio, or from published and visible entries go in
         next unless ((he.published == 1 && he.visibility_id == Visibility.visible.id) || cn.hierarchy_id == Hierarchy.eol_contributors.id || cn.hierarchy_id == Hierarchy.ubio.id)
-        next if Language.all_unknowns.include? cn.language
+        next if unknowns.include? cn.language
         language = (cn.language_id!=0 && cn.language && !cn.language.iso_code.blank?) ? cn.language.iso_code : 'unknown'
         next if language == 'unknown' # we dont index names in unknown languages to cut down on noise
         common_names_by_language[language] ||= []
@@ -1203,8 +1204,11 @@ class TaxonConcept < ActiveRecord::Base
 
   # These methods are defined in config/initializers, FWIW:
   def reindex_in_solr
-    puts "** Reindexing"
     remove_from_index
+    TaxonConcept.preload_associations(self, [
+      { :published_hierarchy_entries => [ { :name => :canonical_form },
+      { :scientific_synonyms => { :name => :canonical_form } },
+      { :common_names => [ :name, :language ] } ] } ] )
     add_to_index
   end
 

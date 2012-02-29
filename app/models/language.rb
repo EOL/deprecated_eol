@@ -80,7 +80,7 @@ class Language < ActiveRecord::Base
   end
   
   def self.all_unknowns
-    cached("unknown_languages") do
+    @@all_unknown_languages ||= cached("unknown_languages") do
       unknown_languages = []
       ['unknown', 'unspecified', 'undetermined', 'common name', 'miscellaneous languages', 'multiple languages'].each do |l|
         if lang = cached_find_translated(:label, l)

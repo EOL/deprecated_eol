@@ -966,22 +966,6 @@ class TaxonConcept < ActiveRecord::Base
     return keywords
   end
 
-  def maps_count
-    count = 0
-    count +=1 if self.has_map
-    map_image_count = connection.select_values("
-      SELECT COUNT(distinct do.id) AS count_all
-      FROM data_objects_taxon_concepts dotc
-      JOIN data_objects do ON (dotc.data_object_id=do.id)
-      JOIN data_objects_hierarchy_entries dohe on (do.id=dohe.data_object_id)
-      WHERE (dotc.taxon_concept_id = #{self.id})
-      AND do.published = 1
-      AND dohe.visibility_id = #{Visibility.visible.id}
-      AND do.data_type_id IN (#{DataType.image_type_ids.join(',')})
-      AND do.data_subtype_id IN (#{DataType.map_type_ids.join(',')})")[0].to_i
-    count += map_image_count
-  end
-
   def media_count(user, selected_hierarchy_entry = nil)
     cache_key = "media_count_#{self.id}"
     cache_key += "_#{selected_hierarchy_entry.id}" if selected_hierarchy_entry && selected_hierarchy_entry.class == HierarchyEntry
@@ -1013,8 +997,7 @@ class TaxonConcept < ActiveRecord::Base
         :data_subtype_ids => DataType.map_type_ids,
         :vetted_types => ['trusted', 'unreviewed'],
         :visibility_types => ['visible'],
-        :ignore_translations => true,
-        :return_hierarchically_aggregated_objects => true
+        :ignore_translations => true
       }).total_entries
       count +=1 if self.has_map
       count

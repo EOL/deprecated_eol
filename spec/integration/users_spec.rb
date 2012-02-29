@@ -17,28 +17,23 @@ describe 'Users' do
     password = 'beforeall'
     @user     = create_user(username, password)
     @watch_collection = @user.watch_collection
-    # @anon_user = User.gen(:password => 'password')
+    @anon_user = User.gen(:password => 'password')
   end
 
   after(:each) do
     visit('/logout')
   end
 
-  it 'should allow users to change filter content hierarchy (obsolete?)' # do
-#    login_as @user
-#    visit('/account/site_settings')
-#    body.should_not have_tag('#header a[href*=?]', /login/)
-#    body.should include('Filter EOL')
-#    body.should have_tag('input#user_filter_content_by_hierarchy')
-#  end
-
-  it 'should generate api key' # do
-#    login_as @user
-#    visit edit_user_path(@user)
-#    click_button 'Generate a key'
-#    body.should_not include("Generate a key")
-#    body.should have_tag('dt', 'API key')
-#  end
+  it 'should generate api key' do
+   login_as @user
+   visit edit_user_path(@user)
+   click_button 'Generate a key'
+   body.should_not include("Generate a key")
+   body.should have_tag('.requests dl') do
+     with_tag('dt', 'API key')
+     with_tag('dd textarea')
+   end
+ end
 
   describe 'collections' do
     before(:each) do
@@ -55,6 +50,12 @@ describe 'Users' do
     end
     it "should have a 'My info' section"  do
       body.should have_tag("h3", :text => "My info")
+      body.should have_tag(".info") do
+        with_tag('dt', 'Full name')
+        with_tag('dd', @user.full_name)
+        with_tag('dt', 'Username')
+        with_tag('dd', @user.username)
+      end
       #TODO - add more tests for 'My info' section
     end
     it "should not see Curator qualifications section if user is not curator" do
@@ -113,20 +114,19 @@ describe 'Users' do
   describe 'newsfeed' do
     it 'should show a newsfeed'
     it 'should allow comments to be added' do
-#      visit logout_url
-#      visit user_path(@user)
-#      page.fill_in 'comment_body', :with => "#{@anon_user.username} woz 'ere"
-#      click_button 'Post Comment'
-#      if current_url.match /#{login_url}/
-#        page.fill_in 'session_username_or_email', :with => @anon_user.username
-#        page.fill_in 'session_password', :with => 'password'
-#        click_button 'Sign in'
-#      end
-#      current_url.should match /#{user_path(@user)}/
-#      body.should include('Comment successfully added')
-#      Comment.last.body.should match /#{@anon_user.username}/
+      visit logout_url
+      visit user_newsfeed_path(@user)
+      page.fill_in 'comment_body', :with => "#{@anon_user.username} woz 'ere"
+      click_button 'Post Comment'
+      if current_url.match /#{login_url}/
+        page.fill_in 'session_username_or_email', :with => @anon_user.username
+        page.fill_in 'session_password', :with => 'password'
+        click_button 'Sign in'
+      end
+      current_url.should match /#{user_path(@user)}/
+      body.should include('Comment successfully added')
+      Comment.last.body.should match /#{@anon_user.username}/
 
-      login_as @user
       visit user_newsfeed_path(@user)
       page.fill_in 'comment_body', :with => "#{@user.username} woz 'ere"
       click_button 'Post Comment'

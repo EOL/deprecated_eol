@@ -25,11 +25,6 @@ describe 'Taxa worklist' do
     @default_body = body
   end
   
-  # after(:each) do
-  #   visit('/logout')
-  #   Capybara.reset_sessions!
-  # end
-  
   after(:all) do
     truncate_all_tables
   end
@@ -65,7 +60,6 @@ describe 'Taxa worklist' do
     end
   end
   
-  # TODO : This is not a good test but still I'm adding it for now. Review/modify it. Remove it if this test is not really necessary.
   it 'should show ratings, description, associations, revisions, source information sections selected task' do
     @default_body.should have_tag('#worklist #task') do
       with_tag('.ratings .average_rating')
@@ -158,11 +152,23 @@ describe 'Taxa worklist' do
     body.should have_tag('.filters .actions', :text => '1 task found')
   end
   
+  it 'should be able to rate active task' do
+    visit taxon_worklist_path(@taxon_concept)
+    body.should have_tag('.ratings') do
+      with_tag('.average_rating h5 small', 'from 0 people')
+      with_tag('.average_rating .rating', 'Average rating: 2.5 of 5')
+      with_tag('.rating h5', 'Your rating')
+      with_tag('.rating ul .current_rating_0', 'Your current rating: 0 of 5')
+    end
+    click_link 'Change rating to 5 of 5'
+    body.should have_tag('.ratings') do
+      with_tag('.average_rating h5 small', 'from 1 person')
+      with_tag('.average_rating .rating', 'Average rating: 5.0 of 5')
+      with_tag('.rating h5', 'Your rating')
+      with_tag('.rating ul .current_rating_5', 'Your current rating: 5 of 5')
+    end
+  end
   
-  
-  # 
-  # it 'should be able to rate active task'
-  # 
   # it 'should be able to curate an association for the active task'
   # 
   # it 'should be able to add an association for the active task'

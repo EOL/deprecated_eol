@@ -49,7 +49,7 @@ unless data_object.blank?
     end
     
     xml.additionalInformation do
-      xml.vettedStatus data_object.association_with_best_vetted_status.vetted.label
+      xml.vettedStatus data_object.association_with_best_vetted_status.vetted.label if data_object.association_with_best_vetted_status
       xml.dataRating data_object.data_rating
     end
   end

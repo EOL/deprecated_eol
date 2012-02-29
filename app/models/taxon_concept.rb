@@ -761,7 +761,8 @@ class TaxonConcept < ActiveRecord::Base
     
     all_data_objects = [ text_objects, image_objects, video_objects, sound_objects, map_objects ].flatten.compact
     if options[:iucn]
-      if iucn_do = iucn
+      # we create fake IUCN objects if there isn't a real one. Don't use those in the API
+      if iucn && iucn.id
         iucn.data_type = DataType.text
         all_data_objects << iucn
       end

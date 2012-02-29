@@ -56,7 +56,7 @@ unless data_object.blank?
     
     xml.additionalInformation do
       xml.dataSubtype data_object.data_subtype.label if data_object.data_subtype
-      xml.vettedStatus data_object.association_with_best_vetted_status.vetted.label
+      xml.vettedStatus data_object.association_with_best_vetted_status.vetted.label if data_object.association_with_best_vetted_status
       xml.dataRating data_object.data_rating
     end
   end

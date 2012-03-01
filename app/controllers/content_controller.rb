@@ -278,6 +278,20 @@ class ContentController < ApplicationController
     end
   end
 
+  # TODO - is this even *used*?  I can't find it anywhere and it doesn't seem to work as expected when you call it's url.
+  def expire_taxon
+    if allowed_request && !params[:id].nil?
+      begin
+        expire_taxa([params[:id]])
+        render :text => "Taxon ID #{params[:id]} and its ancestors expired.", :layout => false
+      rescue => e
+        render :text => "Could not expire Taxon Concept: #{e.message}", :layout => false
+      end
+    else
+      redirect_to root_url, :status => :moved_permanently
+    end
+  end
+
   # convenience page to expire a specific list of species page based on a comma delimited list of taxa IDs passed in as a
   # post or get with parameter taxa_ids (call with http://www.eol.org/expire_taxa)
   def expire_multiple

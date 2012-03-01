@@ -177,7 +177,6 @@ list = Set.new()
   views/taxa/_collections_summary.html.haml
   views/taxa/_collections_summary_empty.html.haml
   views/taxa/_communities_summary.html.haml
-  views/taxa/_curator_citation.html.haml
   views/taxa/_curators_summary.html.haml
   views/taxa/_iucn_status_summary.html.haml
   views/taxa/_media_summary.html.haml

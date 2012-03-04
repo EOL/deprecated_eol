@@ -1,0 +1,199 @@
+# Messages for Ukrainian (Українська)
+# Exported from translatewiki.net
+# Export driver: syck-pecl
+# Author: Dim Grits
+# Author: Дар'я Козлова
+uk: 
+  translated_activities-name-activity_id-19: профіль
+  translated_activities-name-activity_id-50: ненадійний
+  translated_activities-name-activity_id-51: показати
+  translated_activities-name-activity_id-52: створити
+  translated_activities-name-activity_id-53: приховати
+  translated_activities-name-activity_id-54: оновити
+  translated_activities-name-activity_id-55: неприпустимий
+  translated_activities-name-activity_id-56: вилучити
+  translated_activities-name-activity_id-57: оцінити
+  translated_activities-name-activity_id-58: надійний
+  translated_activities-name-activity_id-59: не переглянутий
+  translated_activities-name-activity_id-63: зібрати
+  translated_activities-name-activity_id-64: вилучити
+  translated_agent_roles-label-agent_role_id-1: Аниматор
+  translated_agent_roles-label-agent_role_id-10: Проект
+  translated_agent_roles-label-agent_role_id-11: Видавець
+  translated_agent_roles-label-agent_role_id-13: Джерело
+  translated_agent_roles-label-agent_role_id-15: Контактна особа
+  translated_agent_roles-label-agent_role_id-2: Автор
+  translated_agent_roles-label-agent_role_id-22: Перекладач
+  translated_agent_roles-label-agent_role_id-4: Композитор
+  translated_agent_roles-label-agent_role_id-5: Автор
+  translated_agent_roles-label-agent_role_id-7: Редактор
+  translated_agent_roles-label-agent_role_id-8: Ілюстратор
+  translated_agent_roles-label-agent_role_id-9: Фотограф
+  translated_collection_types-label-collection_type_id-1: Таксономія
+  translated_collection_types-label-collection_type_id-10: Звуки
+  translated_collection_types-label-collection_type_id-11: Посилання
+  translated_collection_types-label-collection_type_id-12: Література
+  translated_collection_types-label-collection_type_id-13: Таксономія
+  translated_collection_types-label-collection_type_id-14: Молекулярний штрих-код
+  translated_collection_types-label-collection_type_id-15: Опис
+  translated_collection_types-label-collection_type_id-16: Зображення
+  translated_collection_types-label-collection_type_id-18: Охоронний статус
+  translated_collection_types-label-collection_type_id-19: Відомості про назву
+  translated_collection_types-label-collection_type_id-2: Молекулярний штрих-код
+  translated_collection_types-label-collection_type_id-21: Номенклатура
+  translated_collection_types-label-collection_type_id-22: Звуки
+  translated_collection_types-label-collection_type_id-23: Посилання
+  translated_collection_types-label-collection_type_id-24: Література
+  translated_collection_types-label-collection_type_id-3: Опис
+  translated_collection_types-label-collection_type_id-4: Зображення
+  translated_collection_types-label-collection_type_id-9: Номенклатура
+  translated_contact_subjects-title-contact_subject_id-10: Зміст
+  translated_contact_subjects-title-contact_subject_id-11: Технічні проблеми (труднощі з веб-сайтом, пошуковим інструментом або обліковим записом користувача)
+  translated_contact_subjects-title-contact_subject_id-12: Інше
+  translated_contact_subjects-title-contact_subject_id-13: Куратор підтримки
+  translated_contact_subjects-title-contact_subject_id-17: Зробити фінансову пожертву
+  translated_contact_subjects-title-contact_subject_id-18: Стати контент-партнером
+  translated_contact_subjects-title-contact_subject_id-3: Навчання і освіта
+  translated_contact_subjects-title-contact_subject_id-7: Біологічні дослідження
+  translated_contact_subjects-title-contact_subject_id-8: Ботаніка
+  translated_data_types-label-data_type_id-1: Зображення
+  translated_data_types-label-data_type_id-10: Карта
+  translated_data_types-label-data_type_id-2: Звук
+  translated_data_types-label-data_type_id-3: Текст
+  translated_data_types-label-data_type_id-4: Відео
+  translated_data_types-label-data_type_id-5: GBIF зображення
+  translated_data_types-label-data_type_id-6: МСОП
+  translated_data_types-label-data_type_id-7: Adobe Flash
+  translated_data_types-label-data_type_id-8: YouTube
+  translated_licenses-description-license_id-2: "&#169; Усі права захищено"
+  translated_licenses-description-license_id-29: Деякі права захищені
+  translated_licenses-description-license_id-3: Деякі права захищені
+  translated_licenses-description-license_id-30: Деякі права захищені
+  translated_licenses-description-license_id-31: Деякі права захищені
+  translated_licenses-description-license_id-32: Деякі права захищені
+  translated_licenses-description-license_id-33: Деякі права захищені
+  translated_licenses-description-license_id-34: Суспільне надбання (Public Domain)
+  translated_licenses-description-license_id-35: Суспільне надбання (Public Domain)
+  translated_licenses-description-license_id-36: Деякі права захищені
+  translated_licenses-description-license_id-37: Деякі права захищені
+  translated_licenses-description-license_id-38: Деякі права захищені
+  translated_licenses-description-license_id-39: Суспільне надбання (Public Domain)
+  translated_licenses-description-license_id-4: Деякі права захищені
+  translated_licenses-description-license_id-42: Деякі права захищені
+  translated_licenses-description-license_id-5: Деякі права захищені
+  translated_licenses-description-license_id-6: Деякі права захищені
+  translated_licenses-description-license_id-7: Деякі права захищені
+  translated_licenses-description-license_id-8: Деякі права захищені
+  translated_licenses-description-license_id-9: Деякі права захищені
+  translated_ranks-label-rank_id-112: рід
+  translated_ranks-label-rank_id-113: рід
+  translated_ranks-label-rank_id-118: рід
+  translated_ranks-label-rank_id-175: надвид
+  translated_ranks-label-rank_id-335: вид
+  translated_ranks-label-rank_id-352: підродина
+  translated_ranks-label-rank_id-370: підклас
+  translated_ranks-label-rank_id-383: підродина
+  translated_ranks-label-rank_id-390: підрід
+  translated_ranks-label-rank_id-391: підрід
+  translated_ranks-label-rank_id-394: підрід
+  translated_ranks-label-rank_id-413: підвид
+  translated_ranks-label-rank_id-414: підвид
+  translated_ranks-label-rank_id-415: підвид
+  translated_ranks-label-rank_id-51: клас
+  translated_ranks-label-rank_id-85: родина
+  translated_ranks-label-rank_id-86: родина
+  translated_ranks-label-rank_id-91: родина
+  translated_ranks-label-rank_id-92: родина
+  translated_ranks-label-rank_id-99: Родина
+  translated_resource_statuses-label-resource_status_id-1: Завантаження
+  translated_resource_statuses-label-resource_status_id-2: Завантажено
+  translated_resource_statuses-label-resource_status_id-3: Не вдалося завантажити
+  translated_resource_statuses-label-resource_status_id-5: Перевірені
+  translated_service_types-label-service_type_id-2: Інше
+  translated_sort_styles-name-sort_style_id-2: Найстаріший
+  translated_sort_styles-name-sort_style_id-3: За алфавітом
+  translated_sort_styles-name-sort_style_id-4: Від Я до А
+  translated_synonym_relations-label-synonym_relation_id-1: синонім
+  translated_synonym_relations-label-synonym_relation_id-16: неоднозначний синонім
+  translated_synonym_relations-label-synonym_relation_id-21: інше, дивіться коментар
+  translated_synonym_relations-label-synonym_relation_id-24: відхилена назва
+  translated_synonym_relations-label-synonym_relation_id-3: акронім
+  translated_synonym_relations-label-synonym_relation_id-52: авторство
+  translated_synonym_relations-label-synonym_relation_id-56: орфографічні помилки
+  translated_table_of_contents-label-table_of_contents_id-1: Огляд
+  translated_table_of_contents-label-table_of_contents_id-13: Загальні назви
+  translated_table_of_contents-label-table_of_contents_id-14: МСОП
+  translated_table_of_contents-label-table_of_contents_id-17: Посилання на літературу
+  translated_table_of_contents-label-table_of_contents_id-194: Розмір
+  translated_table_of_contents-label-table_of_contents_id-2: Короткий виклад
+  translated_table_of_contents-label-table_of_contents_id-218: Розосередження
+  translated_table_of_contents-label-table_of_contents_id-221: Ризики
+  translated_table_of_contents-label-table_of_contents_id-225: В Інтернеті
+  translated_table_of_contents-label-table_of_contents_id-227: Пошук в Інтернеті
+  translated_table_of_contents-label-table_of_contents_id-24: Коментарі
+  translated_table_of_contents-label-table_of_contents_id-244: Бібліографії
+  translated_table_of_contents-label-table_of_contents_id-251: Переваги
+  translated_table_of_contents-label-table_of_contents_id-267: Морфологія
+  translated_table_of_contents-label-table_of_contents_id-278: Бібліографія
+  translated_table_of_contents-label-table_of_contents_id-285: Асоціації
+  translated_table_of_contents-label-table_of_contents_id-286: Стан збереження
+  translated_table_of_contents-label-table_of_contents_id-289: Еволюція
+  translated_table_of_contents-label-table_of_contents_id-292: Дивіться також
+  translated_table_of_contents-label-table_of_contents_id-293: Діагностичний опис
+  translated_table_of_contents-label-table_of_contents_id-297: Трофічна стратегія
+  translated_table_of_contents-label-table_of_contents_id-299: Освіта
+  translated_table_of_contents-label-table_of_contents_id-3: Фізичний опис
+  translated_table_of_contents-label-table_of_contents_id-300: Вікіпедія
+  translated_table_of_contents-label-table_of_contents_id-303: Назви та систематика
+  translated_table_of_contents-label-table_of_contents_id-305: Синоніми
+  translated_table_of_contents-label-table_of_contents_id-312: Міграція
+  translated_table_of_contents-label-table_of_contents_id-313: Хвороби і паразити
+  translated_table_of_contents-label-table_of_contents_id-314: Популяційна біологія
+  translated_table_of_contents-label-table_of_contents_id-316: Поведінка
+  translated_table_of_contents-label-table_of_contents_id-317: Циклічність
+  translated_table_of_contents-label-table_of_contents_id-318: Життєвий цикл
+  translated_table_of_contents-label-table_of_contents_id-319: Очікувана тривалість життя
+  translated_table_of_contents-label-table_of_contents_id-320: Розмноження
+  translated_table_of_contents-label-table_of_contents_id-321: Зростання
+  translated_table_of_contents-label-table_of_contents_id-322: Палеонтологія
+  translated_table_of_contents-label-table_of_contents_id-323: Систематика або філогенетика
+  translated_table_of_contents-label-table_of_contents_id-324: Функціональна адаптація
+  translated_table_of_contents-label-table_of_contents_id-325: Фізіологія і клітинна біологія
+  translated_table_of_contents-label-table_of_contents_id-326: Молекулярна біологія і генетика
+  translated_table_of_contents-label-table_of_contents_id-327: Фізіологія
+  translated_table_of_contents-label-table_of_contents_id-328: Цитологія
+  translated_table_of_contents-label-table_of_contents_id-329: Генетика
+  translated_table_of_contents-label-table_of_contents_id-33: Тенденції
+  translated_table_of_contents-label-table_of_contents_id-330: Нуклеотидні послідовності
+  translated_table_of_contents-label-table_of_contents_id-331: Штрих-код
+  translated_table_of_contents-label-table_of_contents_id-332: Геном
+  translated_table_of_contents-label-table_of_contents_id-333: Молекулярна біологія
+  translated_table_of_contents-label-table_of_contents_id-334: Загрози
+  translated_table_of_contents-label-table_of_contents_id-335: Законодавство
+  translated_table_of_contents-label-table_of_contents_id-336: Примітки
+  translated_table_of_contents-label-table_of_contents_id-337: Освіта
+  translated_table_of_contents-label-table_of_contents_id-338: Освітні інтернет-ресурси
+  translated_table_of_contents-label-table_of_contents_id-339: Освітні інтернет-ресурси
+  translated_table_of_contents-label-table_of_contents_id-34: Коментарі
+  translated_table_of_contents-label-table_of_contents_id-347: Таксономія
+  translated_table_of_contents-label-table_of_contents_id-4: Екологія
+  translated_table_of_contents-label-table_of_contents_id-41: Середовище проживання
+  translated_table_of_contents-label-table_of_contents_id-5: Еволюція та систематика
+  translated_table_of_contents-label-table_of_contents_id-6: Актуальність для людини та екосистеми
+  translated_table_of_contents-label-table_of_contents_id-7: Посилання і більше інформації
+  translated_table_of_contents-label-table_of_contents_id-8: Заповідник
+  translated_untrust_reasons-label-untrust_reason_id-3: низька якість
+  translated_untrust_reasons-label-untrust_reason_id-4: дубликат
+  translated_untrust_reasons-label-untrust_reason_id-5: Інше
+  translated_user_identities-label-user_identity_id-1: ентузіаст
+  translated_user_identities-label-user_identity_id-2: студент
+  translated_user_identities-label-user_identity_id-3: педагог
+  translated_user_identities-label-user_identity_id-4: натураліст
+  translated_user_identities-label-user_identity_id-5: вчений
+  translated_vetted-label-vetted_id-0: Невідомо
+  translated_vetted-label-vetted_id-4: Ненадійний
+  translated_vetted-label-vetted_id-5: Надійний
+  translated_vetted-label-vetted_id-6: Неслушний
+  translated_visibilities-label-visibility_id-0: Невидимий
+  translated_visibilities-label-visibility_id-1: Видимий
+  translated_visibilities-label-visibility_id-2: Попередній перегляд

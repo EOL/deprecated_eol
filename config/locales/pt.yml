@@ -24,10 +24,18 @@ pt:
   activerecord: 
     attributes: 
       collection: 
+        additional_annotation_fields: Campos adicionais de anotação
         description: Descrição da colecção
         logo: Imagem principal da colecção
         name: Nome da colecção
+        show_references: Referências (texto ou URL)
         sort_style_id: Direcção de ordenação por defeito
+      collection_item: 
+        annotation: Anotação
+        refs: Referências
+        sort_field: Ordenar por
+      comment: 
+        body: Comentar
       community: 
         description: Descrição da comunidade
         logo: Carregar um logótipo
@@ -56,6 +64,8 @@ pt:
         created_at: Criado em
         signed_by: Assinado por
         signed_on_date: Assinado na data
+      content_partner_contact: 
+        email_reports_frequency_hours: Frequência dos relatórios por e-mail
       data_object: 
         bibliographic_citation: Citação bibliográfica
         description: Descrição
@@ -63,6 +73,23 @@ pt:
         rights_holder: Detentor dos direitos
         rights_statement: Declaração dos direitos
         source_url: URL de origem
+      eol_statistic: 
+        base_pages: Páginas de base
+        collections_count: Colecções
+        communities_count: Comunidades
+        created_at: Criado em
+        members_count: Membros
+        pages_count: Número total de páginas
+        pages_with_content: Páginas com conteúdo
+        pages_with_image: Páginas com imagens
+        pages_with_image_no_text: Páginas com imagens, mas sem texto
+        pages_with_map: Páginas com mapa
+        pages_with_sound: Páginas com áudio
+        pages_with_text: Páginas com texto
+        pages_with_text_no_image: Páginas com texto mas nenhuma imagem
+        pages_with_video: Páginas com vídeo
+        pages_without_image: Páginas sem imagem
+        pages_without_text: Páginas sem texto
       harvest_event: 
         resource: Recurso
       hierarchy: 
@@ -103,6 +130,7 @@ pt:
         api_key: Chave API
         bio: Biografia
         credentials: Credenciais
+        curator_level: Nível de curadoria
         curator_scope: Âmbito de curadoria
         email: Endereço de correio electrónico
         entered_password: Palavra-passe
@@ -402,7 +430,6 @@ pt:
   collection_not_found_error: Pedimos desculpa, mas a colecção não foi encontrada.
   collection_updated_notice: Colecção <em>%{collection_name}</em> actualizada com sucesso.
   collection_was_removed_by_owner: Esta colecção foi retirada pelo seu proprietário.
-  collections: Colecções
   collections_summary_empty: Esta página ainda não está em nenhuma colecção,
   collections_summary_header_with_count: 
     one: Presente em %{count} colecção
@@ -427,7 +454,6 @@ pt:
   common_names_with_count: 
     one: "%{count} nome comum"
     other: "%{count} nomes comuns"
-  communities: Comunidades
   communities_index_empty: Não há nenhuma comunidade activa.
   communities_index_header: Comunidades activas
   communities_summary_empty: Este taxon ainda não foi destacado em nenhuma comunidade.
@@ -474,7 +500,6 @@ pt:
   content_partner_agreement_cancel_edit_agreement_link: Cancelar
   content_partner_agreement_cancel_new_agreement_link: Cancelar
   content_partner_agreement_cancel_sign_agreement_link: Cancelar
-  content_partner_agreement_create_successful_notice: Aceitou com êxito os termos do parceiro de conteúdo, pode adicionar recursos de dados.
   content_partner_agreement_create_unsuccessful_error: Desculpe, ocorreu um erro, parece haver um problema técnico com acordos de parceiro de conteúdo. Por favor, tente novamente. Se o problema persistir, por favor informe a EOL.
   content_partner_agreement_signed_successful_notice: Aceitou com êxito os termos do parceiro de conteúdo, pode adicionar recursos de dados.
   content_partner_agreement_signed_unsuccessful_error: Desculpe, ocorreu um erro, parece haver um problema técnico com acordos de parceiro de conteúdo. Por favor, tente novamente. Se o problema persistir, por favor informe a EOL.
@@ -554,7 +579,6 @@ pt:
   content_partner_statistics_taxa_page_caption: Estatísticas de uso detalhadas para páginas de taxon contendo conteúdo fornecido por %{partner_name}.
   content_partner_update_successful_notice: Detalhes do parceiro actualizados com sucesso.
   content_partner_update_unsuccessful_error: Desculpe, ocorreu um erro, os detalhes do parceiro não foram actualizados.
-  content_partners: Parceiros de Conteúdo
   content_partners_empty: Não foram encontradas parceiros de conteúdo.
   content_partners_page_description: Os parceiros de conteúdo da Encyclopedia of Life têm grandes quantidades de informação sobre biodiversidade nos seus próprios sites ou bases de dados que também partilham via as páginas da EOL. Muito apreciamos as suas contribuições críticas para a missão da EOL e encorajamos que aprenda mais sobre eles. Saiba mais sobre <a href="%{more_url}">como se tornar um parceiro de conteúdor.</a>
   content_partners_page_title: Parceiros de Conteúdo
@@ -692,7 +716,6 @@ pt:
   edit_annotation: editar anotação
   edit_collection_details: Editar detalhes da colecção
   edit_collection_details_header: Editar detalhes da colecção
-  edit_collection_head_title: "Editar: %{collection_name}"
   edit_community: Editar comunidade
   edit_contact_us_topics: editar tópicos de contacto
   edit_eol_glossary: editar glossário EOL
@@ -793,12 +816,13 @@ pt:
   grant_full_curator_link: Conceder
   has_already_been_taken: já não está disponível.
   has_colon: "Tem:"
-  head_title_collection: "Colecção: %{name}"
-  head_title_community: "Comunidade: %{name}"
   hello_user: Olá %{user}
   help: Ajuda
   helpers: 
     label: 
+      collection_item: 
+        annotation: Anotação
+        sort_field: Ordenar por <small>(data AAAA.MM.DD, número ou texto)</small>
       content_page: 
         active: Publicado
         active_more: Páginas publicadas serão visíveis ao público. Desmarque <em>publicado</em> se quiser impedir utilizadores em geral de ver versões desta página em qualquer língua.
@@ -918,6 +942,8 @@ pt:
     select: 
       prompt: Por favor seleccione
     submit: 
+      collection_item: 
+        update: Gravar
       content_page: 
         create: Criar página
         edit: Editar
@@ -939,6 +965,8 @@ pt:
         create: Adicionar artigo
         create_text: Adicionar artigo
         update: Guardar artigo
+      harvest_event: 
+        publish: Publicar
       hierarchy: 
         request_publish: Solicitar promoção de hierarquia
         update: Actualizar hierarquia
@@ -1126,6 +1154,7 @@ pt:
   name_preferred_for_language_yes: Preferido
   name_preferred_taxonomically_for_source_yes: Preferido
   names: Nomes
+  names_children_column_header: Descendentes
   names_common_list_by_language_assistive_header: Nomes comuns listados por língua
   names_curation_column_header: Curadoria
   names_et_al: "%{names}, et al."

@@ -715,7 +715,8 @@ class TaxonConcept < ActiveRecord::Base
       text_objects = self.data_objects_from_solr(solr_search_params.merge({
         :per_page => options[:text],
         :toc_ids => options[:toc_items] ? options[:toc_items].collect(&:id) : nil,
-        :data_type_ids => DataType.text_type_ids
+        :data_type_ids => DataType.text_type_ids,
+        :filter_by_subtype => false
       }))
       DataObject.preload_associations(text_objects, [ { :info_items => :translations } ] )
     end
@@ -736,7 +737,8 @@ class TaxonConcept < ActiveRecord::Base
       video_objects = self.data_objects_from_solr(solr_search_params.merge({
         :per_page => options[:videos],
         :data_type_ids => DataType.video_type_ids,
-        :return_hierarchically_aggregated_objects => true
+        :return_hierarchically_aggregated_objects => true,
+        :filter_by_subtype => false
       }))
       video_objects.each{ |d| d.data_type = DataType.video }
     end
@@ -746,7 +748,8 @@ class TaxonConcept < ActiveRecord::Base
       sound_objects = self.data_objects_from_solr(solr_search_params.merge({
         :per_page => options[:sounds],
         :data_type_ids => DataType.sound_type_ids,
-        :return_hierarchically_aggregated_objects => true
+        :return_hierarchically_aggregated_objects => true,
+        :filter_by_subtype => false
       }))
     end
     
@@ -1158,6 +1161,7 @@ class TaxonConcept < ActiveRecord::Base
     options[:data_type_ids] = DataType.text_type_ids
     options[:vetted_types] = vetted_types
     options[:visibility_types] = visibility_types
+    options[:filter_by_subtype] = false
     self.data_objects_from_solr(options)
   end
   
@@ -1166,7 +1170,9 @@ class TaxonConcept < ActiveRecord::Base
     solr_query_parameters[:per_page] ||= 30  # return 30 objects by default
     solr_query_parameters[:sort_by] ||= 'status'  # enumerated list defined in EOL::Solr::DataObjects
     solr_query_parameters[:data_type_ids] ||= nil  # return objects of ANY type by default
-    solr_query_parameters[:filter_by_subtype] ||= true  # if this is true then we'll query using the data_subtype_id, even if its nil
+    unless defined?(solr_query_parameters[:filter_by_subtype])
+      solr_query_parameters[:filter_by_subtype] = true  # if this is true then we'll query using the data_subtype_id, even if its nil
+    end
     solr_query_parameters[:data_subtype_ids] ||= nil  # return objects of ANY subtype by default - so this will include maps
     solr_query_parameters[:license_ids] ||= nil
     solr_query_parameters[:language_ids] ||= nil

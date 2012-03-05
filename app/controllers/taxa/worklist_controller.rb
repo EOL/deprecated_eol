@@ -38,6 +38,7 @@ class Taxa::WorklistController < TaxaController
       :per_page => 16,
       :sort_by => @sort_by,
       :data_type_ids => data_type_ids,
+      :filter_by_subtype => false,
       :vetted_types => search_vetted_types,
       :visibility_types => [ @object_visibility ],
       :return_hierarchically_aggregated_objects => true,

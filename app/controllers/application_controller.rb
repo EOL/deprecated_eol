@@ -681,6 +681,13 @@ protected
 
   # Set in before filter and frozen so we have an unmodified copy of request params for use in rel link tags
   def original_request_params
+    return @original_request_params if @original_request_params
+    if params[:controller] == 'search' && params[:action] == 'index' && params[:id]
+      if params[:q].blank?
+        params["q"] = params["id"]
+      end
+      params.delete("id")
+    end
     @original_request_params ||= params.clone.freeze # frozen because we don't want @original_request_params to be modified
   end
   

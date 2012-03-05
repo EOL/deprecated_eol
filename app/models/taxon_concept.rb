@@ -1085,7 +1085,7 @@ class TaxonConcept < ActiveRecord::Base
   def overview_text_for_user(the_user)
     overview_toc_item_ids = [TocItem.brief_summary, TocItem.comprehensive_description, TocItem.distribution].collect{ |toc_item| toc_item.id }
     overview_text_objects = self.text_for_user(the_user, {
-      :per_page => 5,
+      :per_page => 20,
       :language_ids => [ the_user.language_id ],
       :toc_ids => overview_toc_item_ids })
     DataObject.preload_associations(overview_text_objects, { :data_objects_hierarchy_entries => :hierarchy_entry },

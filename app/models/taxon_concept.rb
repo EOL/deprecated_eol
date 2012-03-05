@@ -1170,7 +1170,7 @@ class TaxonConcept < ActiveRecord::Base
     solr_query_parameters[:per_page] ||= 30  # return 30 objects by default
     solr_query_parameters[:sort_by] ||= 'status'  # enumerated list defined in EOL::Solr::DataObjects
     solr_query_parameters[:data_type_ids] ||= nil  # return objects of ANY type by default
-    unless defined?(solr_query_parameters[:filter_by_subtype])
+    unless solr_query_parameters.has_key?(:filter_by_subtype)
       solr_query_parameters[:filter_by_subtype] = true  # if this is true then we'll query using the data_subtype_id, even if its nil
     end
     solr_query_parameters[:data_subtype_ids] ||= nil  # return objects of ANY subtype by default - so this will include maps
@@ -1190,10 +1190,10 @@ class TaxonConcept < ActiveRecord::Base
     
     # these are really only relevant to the worklist
     solr_query_parameters[:resource_id] ||= nil
-    unless defined?(solr_query_parameters[:curated_by_user])
+    unless solr_query_parameters.has_key?(:curated_by_user)
       solr_query_parameters[:curated_by_user] = nil  # true, false or nil
     end
-    unless defined?(solr_query_parameters[:ignored_by_user])
+    unless solr_query_parameters.has_key?(:ignored_by_user)
       solr_query_parameters[:ignored_by_user] = nil  # true, false or nil
     end
     solr_query_parameters[:user] ||= nil

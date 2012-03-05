@@ -1055,6 +1055,7 @@ class TaxonConcept < ActiveRecord::Base
           :visibility_types => ['visible'],
           :published => true,
           :skip_preload => true,
+          :return_hierarchically_aggregated_objects => true,
           :filter_hierarchy_entry => selected_hierarchy_entry
         })
         (best_images.empty?) ? 'none' : best_images.first

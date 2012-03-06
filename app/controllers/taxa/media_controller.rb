@@ -1,7 +1,7 @@
 class Taxa::MediaController < TaxaController
 
   before_filter :instantiate_taxon_concept, :redirect_if_superceded, :instantiate_preferred_names
-  before_filter :add_page_view_log_entry, :update_user_content_level
+  before_filter :add_page_view_log_entry
 
   def index
     @page = params[:page] ||= 1
@@ -31,27 +31,24 @@ class Taxa::MediaController < TaxaController
       if current_user.is_curator?
         search_statuses = ['trusted', 'unreviewed', 'untrusted']
         visibility_statuses = ['visible', 'invisible']
-        filter_by = ''
       else
         search_statuses = ['trusted', 'unreviewed']
         visibility_statuses = ['visible']
-        filter_by = 'visible'
       end
     else
       search_statuses = @status
     end
 
-    @media = EOL::Solr::DataObjects.search_with_pagination(@taxon_concept.id, {
+    @media = @taxon_concept.data_objects_from_solr({
       :page => @page,
       :per_page => @per_page,
       :sort_by => @sort_by,
       :data_type_ids => data_type_ids,
       :vetted_types => search_statuses,
       :visibility_types => visibility_statuses,
-      :ignore_maps => true,
       :ignore_translations => true,
-      :filter => filter_by,
-      :filter_hierarchy_entry => @selected_hierarchy_entry
+      :filter_hierarchy_entry => @selected_hierarchy_entry,
+      :return_hierarchically_aggregated_objects => true
     })
 
     # There should not be an older revision of exemplar image on the media tab. But recently there were few cases found.
@@ -97,8 +94,8 @@ class Taxa::MediaController < TaxaController
       TaxonConceptExemplarImage.set_exemplar(taxon_concept, data_object_id)
     end
 
-    object = DataObject.find_by_id(data_object_id)
-    log_action(@taxon_concept, object, :choose_exemplar)
+    @data_object = DataObject.find_by_id(data_object_id)
+    log_action(@taxon_concept, @data_object, :choose_exemplar)
 
     store_location(params[:return_to] || request.referer)
     redirect_back_or_default taxon_media_path params[:taxon_concept_id]

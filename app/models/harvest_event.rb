@@ -1,4 +1,4 @@
-class HarvestEvent < SpeciesSchemaModel
+class HarvestEvent < ActiveRecord::Base
 
   belongs_to :resource
   has_many :data_objects_harvest_events
@@ -84,15 +84,19 @@ class HarvestEvent < SpeciesSchemaModel
     self.published_at.blank? && !self.completed_at.blank? && self == self.resource.latest_harvest_event
   end
 
+  def publish_pending?
+    self.published_at.blank? && self.publish?
+  end
+
 protected
 
   def remove_related_data_objects
     # get data objects
-    data_objects=SpeciesSchemaModel.connection.select_values("SELECT do.id FROM data_objects do JOIN data_objects_harvest_events dohe ON dohe.data_object_id=do.id WHERE dohe.status_id != #{Status.unchanged.id} and dohe.harvest_event_id=#{self.id}").join(",")
+    data_objects=connection.select_values("SELECT do.id FROM data_objects do JOIN data_objects_harvest_events dohe ON dohe.data_object_id=do.id WHERE dohe.status_id != #{Status.unchanged.id} and dohe.harvest_event_id=#{self.id}").join(",")
     #remove data_objects_hierarchy_entries
-    SpeciesSchemaModel.connection.execute("DELETE FROM data_objects_hierarchy_entries WHERE data_object_id IN (#{data_objects})")
+    connection.execute("DELETE FROM data_objects_hierarchy_entries WHERE data_object_id IN (#{data_objects})")
     #remove data objects that have been inserted or updated
-    SpeciesSchemaModel.connection.execute("DELETE FROM data_objects WHERE id in (#{data_objects})")
+    connection.execute("DELETE FROM data_objects WHERE id in (#{data_objects})")
     #remove data_objects_harvest_events
     DataObjectsHarvestEvent.delete_all(['harvest_event_id=?',self.id])
     #remove harvest_events_taxa

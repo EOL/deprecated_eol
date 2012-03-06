@@ -11,10 +11,7 @@ describe Taxa::MediaController do
     load_scenario_with_caching :media_heavy
     @data = EOL::TestInfo.load('media_heavy')
     @taxon_concept = @data[:taxon_concept]
-    
-    # rebuild the Solr DataObject index
-    SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE).delete_all_documents
-    DataObject.all.each{ |d| d.update_solr_index }
+    EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
   end
 
   describe 'GET index' do
@@ -27,12 +24,16 @@ describe Taxa::MediaController do
 
       # rank objects in order: 1 - oldest image; 2 - oldest video; 3 - oldest sound
       # assumes exemplar is nil
-      @trusted_count = @taxon_concept.media.select{ |item|
+      taxon_media_parameters = {}
+      taxon_media_parameters[:per_page] = 100
+      taxon_media_parameters[:data_type_ids] = DataType.image_type_ids + DataType.video_type_ids + DataType.sound_type_ids
+      taxon_media_parameters[:return_hierarchically_aggregated_objects] = true
+      @trusted_count = @taxon_concept.data_objects_from_solr(taxon_media_parameters).select{ |item|
         item_vetted = item.vetted_by_taxon_concept(@taxon_concept)
         item_vetted.id == Vetted.trusted.id
       }.count
       
-      @media = @taxon_concept.media.sort_by{|m| m.id}
+      @media = @taxon_concept.data_objects_from_solr(taxon_media_parameters).sort_by{|m| m.id}
       @newest_media = @media.last(10).reverse
       @oldest_media = @media.first(3)
 
@@ -55,9 +56,9 @@ describe Taxa::MediaController do
       highly_ranked_image_association.save!
       @highly_ranked_image.save
 
-      @newest_video_poorly_rated_trusted = @taxon_concept.videos.last
-      @oldest_video_highly_rated_unreviewed = @taxon_concept.videos.first
-      @highly_ranked_video = @taxon_concept.videos.second
+      @newest_video_poorly_rated_trusted = @taxon_concept.data_objects.select{ |d| d.is_video? }.last
+      @oldest_video_highly_rated_unreviewed = @taxon_concept.data_objects.select{ |d| d.is_video? }.first
+      @highly_ranked_video = @taxon_concept.data_objects.select{ |d| d.is_video? }.second
       @newest_video_poorly_rated_trusted.data_rating = 0
       newest_video_poorly_rated_trusted_association = @newest_video_poorly_rated_trusted.association_for_taxon_concept(@taxon_concept)
       newest_video_poorly_rated_trusted_association.vetted_id = Vetted.trusted.id
@@ -74,9 +75,9 @@ describe Taxa::MediaController do
       highly_ranked_video_association.save!
       @highly_ranked_video.save
 
-      @newest_sound_poorly_rated_trusted = @taxon_concept.sounds.last
-      @oldest_sound_highly_rated_unreviewed = @taxon_concept.sounds.first
-      @highly_ranked_sound = @taxon_concept.sounds.second
+      @newest_sound_poorly_rated_trusted = @taxon_concept.data_objects.select{ |d| d.is_sound? }.last
+      @oldest_sound_highly_rated_unreviewed = @taxon_concept.data_objects.select{ |d| d.is_sound? }.first
+      @highly_ranked_sound = @taxon_concept.data_objects.select{ |d| d.is_sound? }.second
       @newest_sound_poorly_rated_trusted.data_rating = 0
       newest_sound_poorly_rated_trusted_association = @newest_sound_poorly_rated_trusted.association_for_taxon_concept(@taxon_concept)
       newest_sound_poorly_rated_trusted_association.vetted_id = Vetted.trusted.id
@@ -93,14 +94,13 @@ describe Taxa::MediaController do
       highly_ranked_sound_association.save!
       @highly_ranked_sound.save
 
-      @highly_ranked_text = @taxon_concept.text.first
+      @highly_ranked_text = @taxon_concept.data_objects.detect{ |d| d.is_text? }
       @highly_ranked_text.data_rating = 21
       highly_ranked_text_association = @highly_ranked_text.association_for_taxon_concept(@taxon_concept)
       highly_ranked_text_association.vetted_id = Vetted.trusted.id
       highly_ranked_text_association.save!
       @highly_ranked_text.save
-      SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE).delete_all_documents
-      DataObject.all.each{ |d| d.update_solr_index }
+      EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
     end
 
     it 'should instantiate the taxon concept' do
@@ -242,11 +242,9 @@ describe Taxa::MediaController do
       session[:user] = build_curator(@taxon_concept)
       @taxon_concept.taxon_concept_exemplar_image.should be_nil
       exemplar_image = @taxon_concept.images_from_solr.first
-      TopConceptImage.find_by_taxon_concept_id_and_data_object_id(@taxon_concept, exemplar_image.id).update_attribute(:view_order, 5)
       put :set_as_exemplar, :taxon_id => @taxon_concept.id, :taxon_concept_exemplar_image => { :data_object_id => exemplar_image.id }
       @taxon_concept.reload
       @taxon_concept.taxon_concept_exemplar_image.data_object_id.should == exemplar_image.id
-      TopConceptImage.find_by_taxon_concept_id_and_data_object_id(@taxon_concept, exemplar_image.id).view_order.should == 1
       response.redirected_to.should == taxon_media_path(@taxon_concept)
     end
   end

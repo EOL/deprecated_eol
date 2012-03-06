@@ -1,26 +1,19 @@
-- content.each do |item|
-  - if item[:data_objects]
-    - item[:data_objects].each do |dato|
-      - dato_vetted = dato.vetted_by_taxon_concept(@taxon_concept, :find_best => true)
-      - dato_vetted_id = dato_vetted.id unless dato_vetted.nil?
-      - dato_vetted_label = dato_vetted.label unless dato_vetted.nil?
-      %div{:id => "data_object_#{dato.id}", :class => 'article'}
-        - unless dato.object_title.blank?
-          %h4= dato.object_title
-        .meta.learn_more
-          %p= link_to I18n.t(:article_more_about), data_object_path(dato)         
-        = render :partial => 'data_objects/data_object_article', :locals => { :data_object => dato , :show_view_source => 'false'}
-        .meta.attribution
-          = render :partial => 'data_objects/attribution_minimal', :locals => { :data_object => dato, :supplier => true }
-        %p.flag{:class => vetted_id_class(dato_vetted_id)}= dato_vetted_label == Vetted.unknown.label ? I18n.t(:unreviewed) : dato_vetted_label
-        = render :partial => 'data_objects/rating', :locals => { :data_object => dato, :hide_user_rating => true }
-        %div.actions
-          - if dato.comments.length > 0
-            %p= link_to I18n.t(:see_all_comments_with_count_for_text_or_rate, :count => dato.comments.length), data_object_path(dato)
-          - else
-            %p= link_to I18n.t(:comment_or_rate_on_this_article), data_object_path(dato)
-
-  - else
-    .article
-      .copy
-        = render :partial => "taxa/content/content_#{item[:content_type]}", :locals => { :content => item } rescue nil
+- content.each do |dato|
+  - dato_vetted = dato.vetted_by_taxon_concept(@taxon_concept, :find_best => true)
+  - dato_vetted_id = dato_vetted.id unless dato_vetted.nil?
+  - dato_vetted_label = dato_vetted.label unless dato_vetted.nil?
+  %div{:id => "data_object_#{dato.id}", :class => 'article'}
+    - unless dato.object_title.blank?
+      %h4= dato.object_title
+    .meta.learn_more
+      %p= link_to I18n.t(:article_more_about), data_object_path(dato)         
+    = render :partial => 'data_objects/data_object_article', :locals => { :data_object => dato , :show_view_source => 'false'}
+    .meta.attribution
+      = render :partial => 'data_objects/attribution_minimal', :locals => { :data_object => dato }
+    %p.flag{:class => vetted_id_class(dato_vetted_id)}= dato_vetted_label == Vetted.unknown.label ? I18n.t(:unreviewed) : dato_vetted_label
+    = render :partial => 'data_objects/rating', :locals => { :data_object => dato, :hide_user_rating => true }
+    %div.actions
+      - if dato.comments.length > 0
+        %p= link_to I18n.t(:see_all_comments_with_count_for_text_or_rate, :count => dato.comments.length), data_object_path(dato)
+      - else
+        %p= link_to I18n.t(:comment_or_rate_on_this_article), data_object_path(dato)

@@ -1,0 +1,9 @@
+- form_tag({}, :method => :get) do
+  = hidden_field_tag :page, params[:page]
+  %fieldset
+    %label{:for => :all_records}
+      = I18n.t(:download_all, :scope => [:helpers, :label, :eol_statistic])
+      = check_box_tag :all_records
+  %fieldset.actions
+    = submit_tag I18n.t(:download_csv, :scope => [:helpers, :submit, :eol_statistic]),
+      :name => :commit_download_csv

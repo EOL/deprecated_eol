@@ -1,4 +1,4 @@
-class ContentPartnerAgreement < SpeciesSchemaModel
+class ContentPartnerAgreement < ActiveRecord::Base
 
   belongs_to :content_partner
 

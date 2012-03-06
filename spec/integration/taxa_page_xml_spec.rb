@@ -22,7 +22,6 @@
 #                         # into which table(s) need clearing.
 #     load_foundation_cache # Here instead of earlier because of the truncating logic just above.
 #     Capybara.reset_sessions!
-#     HierarchiesContent.delete_all
 #     exemplar_he      = HierarchyEntry.gen(:hierarchy => Hierarchy.default)
 #     @exemplar        = build_taxon_concept(:id => 910093, :parent_hierarchy_entry_id => exemplar_he.id) # That ID is one of the (hard-coded) exemplars.
 #     @parent          = build_taxon_concept

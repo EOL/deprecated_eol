@@ -10,6 +10,7 @@ describe Taxa::DetailsController do
     truncate_all_tables
     load_scenario_with_caching :testy
     @testy = EOL::TestInfo.load('testy')
+    EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
   end
 
   describe 'GET index' do
@@ -20,21 +21,14 @@ describe Taxa::DetailsController do
     end
     it 'should instantiate the details Array containing text data objects and special content' do
       details_do_index
-      assigns[:details].should be_a(Array)
-      datos = assigns[:details].collect{|h| h[:data_objects]}.compact.flatten
-      datos.take_while{|d| d.should be_a(DataObject)}.should == datos
-    end
-    it 'should not add special content to details Array if special content is empty' do
-      # Nucleotide sequences is used as example of special content that is part of
-      # taxon details but has no content associated with this test taxon.
-      details_do_index
-      assigns[:details].collect{|h| h if h[:content_type] == 'nucleotide_sequences'}.compact.should be_empty
+      assigns[:text_objects].should be_a(Array)
+      assigns[:text_objects].take_while{|d| d.should be_a(DataObject)}.should == assigns[:text_objects]
     end
     it 'should instantiate a table of contents' do
       details_do_index
-      assigns[:toc].should be_a(Array)
-      assigns[:toc].include?(@testy[:overview]).should be_true # TocItem with content should be included
-      assigns[:toc].include?(@testy[:toc_item_3]).should be_false # TocItem without content should be excluded
+      assigns[:toc_items_to_show].should be_a(Array)
+      assigns[:toc_items_to_show].include?(@testy[:overview]).should be_true # TocItem with content should be included
+      assigns[:toc_items_to_show].include?(@testy[:toc_item_4]).should be_false # TocItem without content should be excluded
     end
     it 'should instantiate an exemplar image'
     it 'should instantiate an assistive header' do

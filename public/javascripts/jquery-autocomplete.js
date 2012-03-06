@@ -302,28 +302,7 @@
                 if (data) {
                         callback(data);
                 } else {
-                  // CUSTOMIZATION FOR TAGGING:
-                  // ONLY DO ANYTHING IF A VALID TAG KEY IS SELECTED
-                  if (EOL.Tagging.category_selected()) {
-                    var self = this;
-                        this.dom.$elem.addClass(this.options.loadingClass);
-                    var ajaxCallback = function(data) {
-                        var parsed = false;
-                        if (data !== false) {
-                                parsed = self.parseRemoteData(data);
-                                self.cacheWrite(filter, parsed);
-                        }
-                                self.dom.$elem.removeClass(self.options.loadingClass);
-                                callback(parsed);
-                    };
-                    $.ajax({
-                      url: this.makeUrl(filter),
-                      success: ajaxCallback,
-                      error: function() {
-                        ajaxCallback(false);
-                      }
-                    });
-                  }
+                  
                 }
         };
 
@@ -360,11 +339,6 @@
                 url += url.indexOf('?') == -1 ? '?' : '&';
                 url += urlAppend.join('&');
                 }
-                // CUSTOMIZATION FOR TAGGING:
-                try {
-                  url = url.replace('TAG_KEY_GOES_HERE', EOL.Tagging.selected_category());
-                } catch(err) {} // Because that moniker doesn't always exist.
-                // CUSTOMIZATION FOR TAGGING ^^
                 return url;
         };
 

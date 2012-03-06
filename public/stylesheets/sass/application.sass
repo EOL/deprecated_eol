@@ -1271,6 +1271,17 @@ body
     padding: 0
     width: 640px
 
+#new_content_partner_agreement, form.edit_content_partner_agreement
+  dl
+    clear: both
+    dd
+      margin: 0 0 10px 0
+      input[type="text"]
+        +input
+      textarea
+        +input(700px)
+        height: 400px
+
 #content_partner_show
   #sidebar
     width: 240px
@@ -1320,7 +1331,37 @@ body
                 margin: 0 5px 0 0
                 & + a
                   margin: 0
-
+    &#resources_show
+      .section
+        &.half
+          float: left
+          width: 299px
+          margin-right: 20px
+        dl
+          line-height: 140%
+          margin: 0 0 40px 0
+          dt
+            font-weight: bold
+          dd
+            margin: 0 0 5px 20px
+        &.processing_status
+          clear: both
+  .empty
+    font-size: 1em
+  .agreement
+    address
+      display: block
+      width: 40%
+      line-height: 170%
+      &.partner
+        float: left
+      &.eol
+        float: right
+  dl.agreement
+    margin: 0 0 15px 0
+    line-height: 140%
+    dd
+      margin-bottom: 5px
   p
     &.resource_status
       border: 1px solid #cad3db
@@ -1333,6 +1374,32 @@ body
       &.upload_failed, &.processing_failed, &.validation_failed
         background: #ffeae6
         border-color: #f2d2cc
+#content_partner_edit, #content_partner_new
+  &.site_column
+    width: 640px
+
+ul.content_partner_contacts
+  li
+    margin: 0 0 20px 0
+#content_partner_statistics
+  .main_container
+    border: none
+    padding: 0
+  .header
+    border-top: 1px solid #CAD3DB
+    padding-top: 1em
+    margin-top: 40px
+  .heading
+    text-align: center
+    fieldset, input[type="submit"]
+      display: inline
+      margin: 0
+  table
+    margin-top: 20px
+    caption
+      line-height: 170%
+      font-size: 1.08em
+      font-weight: bold
 #content_partner_resources
   width: 600px
   fieldset

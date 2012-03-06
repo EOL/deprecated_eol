@@ -1,4 +1,4 @@
-class HierarchyEntryStat < SpeciesSchemaModel
+class HierarchyEntryStat < ActiveRecord::Base
   belongs_to :hierarchy_entry
   
   def pecent_with_images

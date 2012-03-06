@@ -10,6 +10,9 @@ namespace :solr do
     port = $SOLR_SERVER.gsub(/^.*:(\d+).*$/, '\\1')
     FileUtils.cd(File.join($SOLR_DIR)) do
       command = ["#{RAILS_ROOT}/bin/solr", 'start', '--', '-p', port.to_s]
+      if $SOLR_SERVER_RAM
+        command << '-r'
+      end
       if $SOLR_DIR
         command << '-s' << $SOLR_DIR
       end
@@ -28,6 +31,9 @@ namespace :solr do
     port = $SOLR_SERVER
     port.gsub!(/^.*:(\d+).*$/, '\\1')
     command = ["#{RAILS_ROOT}/bin/solr", 'run', '--', '-p', port.to_s]
+    if $SOLR_SERVER_RAM
+      command << '-r'
+    end
     if $SOLR_DIR
       command << '-s' << $SOLR_DIR
     end
@@ -42,75 +48,45 @@ namespace :solr do
     end
   end
 
-  desc 'Build the Solr indexes based on the existing TaxonConcepts'
-  # TODO - when we have other indexes, we may want sub-tasks to do TCs, Tags, images, and whatever else...
-  task :build => 'solr:start' do
-    require 'solr_api'
-    solr = SolrAPI.new($SOLR_SERVER, $SOLR_TAXON_CONCEPTS_CORE)
-    puts "** Deleting all existing entries..."
-    solr.delete_all_documents
-    puts "** Creating indexes..."
-    count = TaxonConcept.count
-    puts "** You have #{count} Taxon Concepts.  In the interest of time, this task will only add the first 100." if
-      count > 100
-    solr.build_indexes(TaxonConcept.all[0..99])
+  desc 'Rebuild the data objects index'
+  task :rebuild_all  => :environment do |t, args|
+    puts "\n\nRebuilding DataObjects ...\n"
+    EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
+    puts "Rebuilding SiteSearch ...\n"
+    EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild
+    puts "Rebuilding CollectionItems ...\n"
+    EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild
+    puts "Complete\n\n"
   end
 
-  desc 'Build the elevate.xml file using Search Suggestions'
-  task :build_concept_elevate => :environment do
-    suggestions = SearchSuggestion.find(:all, :select => 'term, taxon_id', :order => 'term ASC, sort_order DESC')
-
-    taxon_concept_elevate_path = File.join(RAILS_ROOT, 'solr', 'solr', 'data', 'taxon_concepts', 'elevate.xml')
-    File.open(taxon_concept_elevate_path, 'w') do |f|
-      f.write("<?xml version='1.0' encoding='UTF-8' ?>\n")
-      f.write("<elevate>\n")
-      unless suggestions.empty?
-        last_suggestion = nil
-        suggestions.each do |s|
-          if last_suggestion.nil? || last_suggestion.term != s.term
-            unless last_suggestion.nil?
-              f.write("  </query>\n")
-            end
-            f.write("  <query text='#{s.term}'>\n")
-          end
-          f.write("    <doc id='#{s.taxon_id}'/>\n")
-          last_suggestion = s
-        end
-        f.write("  </query>\n")
-      end
-      f.write("</elevate>\n")
-    end
+  desc 'Rebuild the data objects index'
+  task :rebuild_data_objects, [:data_object_id]  => :environment do |t, args|
+    puts "\n\nPreparing and POSTing data_object XML document(s)...\n"
+    EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
+    puts "Complete\n\n"
   end
 
-
-  # In order for this rake task to work your Rails server must be running. You also need to have the proper $IP_ADDRESS_OF_SERVER
-  # so Solr knows how to download the files this script will tell it to download. The server must be on so Rails can serve the
-  # files via HTTP
   desc 'Rebuild the site_search index'
   task :rebuild_site_search => :environment do
-    puts 'In order for this rake task to work your Rails server must be running. You also need to have the proper $IP_ADDRESS_OF_SERVER'
-    puts 'so Solr knows how to download the files this script will tell it to download. The server must be on so Rails can serve the'
-    puts 'files via HTTP'
-    builder = EOL::Solr::SiteSearchCoreRebuilder.new()
-    builder.obliterate
-    builder.begin_rebuild
+    puts "\n\nPreparing and POSTing XML document(s)...\n"
+    EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild
+    puts "Complete\n\n"
   end
 
-  desc 'Rebuild a site_search resource tyoe'
-  task :rebuild_site_search_resource_type, [:resource_type] => :environment do |t, args|
-    if args[:resource_type].blank?
-      puts "\n\n    rake solr:rebuild_site_search_resource_type[ClassName]"
-      return
-    end
-    klass = args[:resource_type].constantize
-    builder = EOL::Solr::SiteSearchCoreRebuilder.new()
-    builder.reindex_model(klass)
-  end
+  # desc 'Rebuild a site_search resource tyoe'
+  # task :rebuild_site_search_resource_type, [:resource_type] => :environment do |t, args|
+  #   if args[:resource_type].blank?
+  #     puts "\n\n    rake solr:rebuild_site_search_resource_type[ClassName]"
+  #     return
+  #   end
+  #   klass = args[:resource_type].constantize
+  #   builder = EOL::Solr::SiteSearchCoreRebuilder.new()
+  #   builder.reindex_model(klass)
+  # end
 
   desc 'Rebuild the collection_items index'
   task :rebuild_collection_items => :environment do
-    builder = EOL::Solr::CollectionItemsCoreRebuilder.new()
-    builder.begin_rebuild
+    EOL::Solr::CollectionItemsCoreRebuilder.begin_rebuild
   end
 
   desc 'Rebuild the bhl index'

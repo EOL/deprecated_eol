@@ -20,10 +20,11 @@ module EOL
 
       def self.add_resource_instances!(docs, options)
         includes = []
-        selects = { :data_objects => '*' }
+        selects = options[:preload_select] || { :data_objects => '*' }
         unless options[:skip_preload]
           includes = [ :hierarchy_entries, :toc_items ]
           selects[:hierarchy_entries] = '*'
+          selects[:table_of_contents] = '*'
         end
         EOL::Solr.add_standard_instance_to_docs!(DataObject, docs, 'data_object_id',
           :includes => includes,
@@ -31,14 +32,36 @@ module EOL
       end
       
       def self.prepare_search_url(taxon_concept_id, options = {})
-        url =  $SOLR_SERVER + $SOLR_DATA_OBJECTS_CORE + '/select/?wt=json&q=' + CGI.escape("{!lucene}published:1 AND ancestor_id:#{taxon_concept_id}")
+        url =  $SOLR_SERVER + $SOLR_DATA_OBJECTS_CORE + '/select/?wt=json&q=' + CGI.escape("{!lucene}ancestor_id:#{taxon_concept_id}")
+        unless options[:published].nil?
+          url << CGI.escape(" AND published:#{(options[:published]) ? 1 : 0}")
+        end
+        
+        if options[:license_ids]
+          url << CGI.escape(" AND (license_id:#{options[:license_ids].join(' OR license_id:')})")
+        end
+        
+        if options[:toc_ids]
+          url << CGI.escape(" AND (toc_id:#{options[:toc_ids].join(' OR toc_id:')})")
+        end
+        if options[:toc_ids_to_ignore]
+          url << CGI.escape(" NOT (toc_id:#{options[:toc_ids_to_ignore].join(' OR toc_id:')})")
+        end
+        
+        
         if options[:filter_hierarchy_entry] && options[:filter_hierarchy_entry].class == HierarchyEntry
           field_suffix = "ancestor_he_id"
           search_id = options[:filter_hierarchy_entry].id
           url << CGI.escape(" AND ancestor_he_id:#{search_id}")
+          unless options[:return_hierarchically_aggregated_objects]
+            url << CGI.escape(" AND hierarchy_entry_id:#{search_id}")
+          end
         else
           field_suffix = "ancestor_id"
           search_id = taxon_concept_id
+          unless options[:return_hierarchically_aggregated_objects]
+            url << CGI.escape(" AND taxon_concept_id:#{search_id}")
+          end
         end
 
         if options[:vetted_types] && !options[:vetted_types].include?('all')
@@ -53,29 +76,55 @@ module EOL
         end
 
         if options[:data_type_ids]
+           # TODO: do we want to remove IUCN from this query?
           url << CGI.escape(" AND (data_type_id:#{options[:data_type_ids].join(' OR data_type_id:')})")
         else
+           # IUCN types are very special in the system and should never be returned
           url << CGI.escape(" NOT (data_type_id:#{DataType.iucn.id})")
         end
-        # filter
-        if options[:filter] == 'curated' && options[:user]
-          url << CGI.escape(" AND curated_by_user_id:#{options[:user].id}")
-        elsif options[:filter] == 'ignored' && options[:user]
-          url << CGI.escape(" AND ignored_by_user_id:#{options[:user].id}")
-        elsif options[:filter] == 'active'
-          url << CGI.escape(" NOT curated_by_user_id:#{options[:user].id} NOT ignored_by_user_id:#{options[:user].id}")
-        elsif options[:filter] == 'visible'
-          url << CGI.escape(" AND visible_ancestor_id:#{taxon_concept_id}")
+        
+        if options[:filter_by_subtype]
+          if options[:data_subtype_ids]
+            url << CGI.escape(" AND (data_subtype_id:#{options[:data_subtype_ids].join(' OR data_subtype_id:')})")
+          else
+            # these are all the objects with data_subtype_id = 0 OR NULL value in data_subtype
+            url << CGI.escape(" AND (data_subtype_id:0 OR (*:* NOT data_subtype_id:[* TO *]))")
+          end
         end
         
-        if options[:resource_id] && options[:resource_id] != 'all'
+        if options[:user] && options[:user].class == User
+          if options[:curated_by_user] === true
+            url << CGI.escape(" AND curated_by_user_id:#{options[:user].id}")
+          elsif options[:curated_by_user] === false
+            url << CGI.escape(" NOT curated_by_user_id:#{options[:user].id}")
+          end
+          if options[:ignored_by_user] === true
+            url << CGI.escape(" AND ignored_by_user_id:#{options[:user].id}")
+          elsif options[:ignored_by_user] === false
+            url << CGI.escape(" NOT ignored_by_user_id:#{options[:user].id}")
+          end
+        end
+        
+        if options[:resource_id]
           url << CGI.escape(" AND resource_id:#{options[:resource_id]}")
         end
-
-        if options[:ignore_maps]
-          url << CGI.escape(" NOT data_subtype_id:#{DataType.map.id}")
+        
+        if options[:language_ids]
+          nil_language_clause = "";
+          if options[:allow_nil_languages]
+            nil_language_clause = "OR (language_id:0 OR (*:* NOT language_id:[* TO *]))"
+          end
+          url << CGI.escape(" AND (language_id:#{options[:language_ids].join(' OR language_id:')} #{nil_language_clause})")
         end
         
+        if options[:language_ids_to_ignore]
+          url << CGI.escape(" NOT (language_id:#{options[:language_ids_to_ignore].join(' OR language_id:')})")
+          unless options[:allow_nil_languages]
+            url << CGI.escape(" AND language_id:[* TO *]")
+          end
+        end
+        
+        # ignoring translations means we will not return objects which are translations of other original data objects
         if options[:ignore_translations]
           url << CGI.escape(" NOT is_translation:true")
         end
@@ -108,6 +157,7 @@ module EOL
         offset = (page - 1) * limit
         url << '&start=' << URI.encode(offset.to_s)
         url << '&rows='  << URI.encode(limit.to_s)
+        # puts "\n\nThe SOLR Query: #{url}\n\n"
         res = open(url).read
         JSON.load res
       end
@@ -161,7 +211,7 @@ module EOL
       end
       
       def self.load_resource_facets(taxon_concept_id, options = {})
-        url = prepare_search_url(taxon_concept_id, options.merge(:resource_id => nil))
+        url = prepare_search_url(taxon_concept_id, options)
         url << '&rows=0'
         res = open(url).read
         response = JSON.load res
@@ -218,148 +268,6 @@ module EOL
         end
         facets
       end
-
-      def self.reindex_single_object(data_object)
-        hash = {
-          'data_object_id' => data_object.id,
-          'guid' => data_object.guid,
-          'data_type_id' => data_object.data_type_id,
-          'data_subtype_id' => data_object.data_subtype_id || 0,
-          'published' => data_object.published? ? 1 : 0,
-          'data_rating' => data_object.data_rating,
-          # 'language_id' => data_object.language_id,
-          # 'license_id' => data_object.license_id,
-          'created_at' => data_object.created_at ? data_object.created_at.solr_timestamp : nil
-        }
-        # add resource ID
-        if he = data_object.harvest_events.first
-          hash['resource_id'] = he.resource_id
-        end
-        # add toc IDs
-        data_object.data_objects_table_of_contents.each do |dotoc|
-          hash['toc_id'] ||= []
-          hash['toc_id'] << dotoc.toc_id
-        end
-        # add translation_flag
-        if data_object.translated_from
-          hash['is_translation'] = true
-        end
-
-        # add ignored users
-        data_object.worklist_ignored_data_objects.each do |ido|
-          hash['ignored_by_user_id'] ||= []
-          hash['ignored_by_user_id'] << ido.user_id
-        end
-        # add curated users
-        curation = CuratorActivityLog.find_all_by_object_id_and_changeable_object_type_id_and_activity_id(data_object.id,
-          [ ChangeableObjectType.data_object.id, ChangeableObjectType.data_objects_hierarchy_entry.id,
-            ChangeableObjectType.curated_data_objects_hierarchy_entry.id, ChangeableObjectType.users_data_object.id],
-          [ Activity.untrusted.id, Activity.trusted.id, Activity.hide.id, Activity.show.id,
-            Activity.inappropriate.id, Activity.unreviewed.id,  Activity.add_association.id,  Activity.add_common_name.id])
-        curation.each do |cal|
-          hash['curated_by_user_id'] ||= []
-          hash['curated_by_user_id'] << cal.user_id
-        end
-        # add concepts and ancestors
-        (data_object.hierarchy_entries + data_object.curated_hierarchy_entries + [data_object.users_data_object]).compact.each do |he|
-          field_prefixes = []
-          if he.vetted
-            vetted_label = he.vetted.label('en').downcase rescue nil
-            vetted_label = 'unreviewed' if vetted_label == 'unknown'
-            field_prefixes << vetted_label if ['trusted', 'unreviewed', 'untrusted', 'inappropriate'].include?(vetted_label)
-          end
-          if he.visibility
-            visibility_label = he.visibility.label('en').downcase rescue nil
-            field_prefixes << visibility_label if ['invisible', 'visible', 'preview'].include?(visibility_label)
-          end
-          hash['taxon_concept_id'] ||= []
-          hash['taxon_concept_id'] << he.taxon_concept_id
-          hash['ancestor_id'] ||= []
-          hash['ancestor_id'] << he.taxon_concept_id
-          if he.class == UsersDataObject
-            hash['added_by_user_id'] = he.user_id
-          else
-            hash['hierarchy_entry_id'] ||= []
-            hash['hierarchy_entry_id'] << he.id
-          end
-          field_prefixes.each do |prefix|
-            hash[prefix + '_ancestor_id'] ||= []
-            hash[prefix + '_ancestor_id'] << he.taxon_concept_id
-          end
-          
-          # TC ancestors
-          if he.taxon_concept # sometimes in specs there isn't a concept for an entry...
-            he.taxon_concept.flattened_ancestors.each do |a|
-              hash['ancestor_id'] ||= []
-              hash['ancestor_id'] << a.ancestor_id
-              field_prefixes.each do |prefix|
-                hash[prefix + '_ancestor_id'] ||= []
-                hash[prefix + '_ancestor_id'] << a.ancestor_id
-              end
-            end
-            # HE ancestors
-            TaxonConcept.preload_associations(he.taxon_concept, { :published_hierarchy_entries => :flattened_ancestors })
-            he.taxon_concept.published_hierarchy_entries.each do |tche|
-              hash['ancestor_he_id'] ||= []
-              hash['ancestor_he_id'] << tche.id
-              field_prefixes.each do |prefix|
-                hash[prefix + '_ancestor_he_id'] ||= []
-                hash[prefix + '_ancestor_he_id'] << tche.id
-              end
-
-              tche.flattened_ancestors.each do |a|
-                hash['ancestor_he_id'] ||= []
-                hash['ancestor_he_id'] << a.ancestor_id
-                field_prefixes.each do |prefix|
-                  hash[prefix + '_ancestor_he_id'] ||= []
-                  hash[prefix + '_ancestor_he_id'] << a.ancestor_id
-                end
-              end
-            end
-          end
-
-        end
-        # clean up and use unique values
-        hash.each do |k, v|
-          if v.class == Array
-            v.delete(0)
-            v.uniq!
-            v.compact!
-          end
-        end
-
-        if hash['trusted_ancestor_id']
-          hash['max_vetted_weight'] = 5
-        elsif hash['unreviewed_ancestor_id']
-          hash['max_vetted_weight'] = 4
-        elsif hash['untrusted_ancestor_id']
-          hash['max_vetted_weight'] = 3
-        elsif hash['inappropriate_ancestor_id']
-          hash['max_vetted_weight'] = 2
-        else
-          hash['max_vetted_weight'] = 1
-        end
-
-        if hash['visible_ancestor_id']
-          hash['max_visibility_weight'] = 4
-        elsif hash['invisible_ancestor_id']
-          hash['max_visibility_weight'] = 3
-        elsif hash['preview_ancestor_id']
-          hash['max_visibility_weight'] = 2
-        else
-          hash['max_visibility_weight'] = 1
-        end
-
-        begin
-          solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE)
-          solr_connection.delete_by_id(data_object.id)
-          solr_connection.create(hash)
-          return true
-        rescue
-        end
-        return false
-      end
-
     end
   end
 end

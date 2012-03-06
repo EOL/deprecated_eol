@@ -17,7 +17,7 @@ describe Taxa::LiteratureController do
     url_identifier = 'some/url.html'
     doi_identifier = '10.12355/foo/bar.baz.230'
     bad_identifier = 'you should not see this identifier'
-    @test_taxon_concept.overview[0].refs << ref = Ref.gen(:full_reference => full_ref, :published => 1, :visibility => Visibility.visible)
+    @test_taxon_concept.data_objects[0].refs << ref = Ref.gen(:full_reference => full_ref, :published => 1, :visibility => Visibility.visible)
     builder = EOL::Solr::BHLCoreRebuilder.new()
     builder.begin_rebuild
   end

@@ -1,15 +1,5 @@
 module TaxaHelper
 
-  # These start out display:none, so we can show them only after JS behaviours have been applied.
-  # which: a string to be used to create the ID of the anchor: try 'comment', 'tagging', or 'curator'.
-  # where: the URL you want the anchor to reference (used by JS to create an Ajax request).
-  def popup_link(which, where, options = {})
-    html_options = {
-      :id => "large-image-#{which}-button-popup-link", :class => 'popup-link', :style => 'display:none;'
-    }.merge(options)
-    link_to '<span style="display:block;width:24px;height:25px;"></span>', where, html_options
-  end
-
   def vetted_id_class(vetted_id)
     return case vetted_id
       when Vetted.unknown.id   then 'unknown'
@@ -75,11 +65,6 @@ module TaxaHelper
     final_string = display_strings.join(', ')
     final_string = I18n.t(:names_et_al, :names => final_string) if params[:only_first] && citables.length > 1
     return final_string
-  end
-
-  def get_hierarchy_entry_from_path
-    fullpath = request.fullpath
-    hierarchy_entry_id = fullpath.scan(/entries\/(.*?)\//imu)
   end
 
   def citables_to_icons(original_citables, params={})
@@ -151,52 +136,6 @@ module TaxaHelper
     end
   end
 
-  def we_have_css_for_kingdom?(kingdom)
-    return false if kingdom.nil?
-    return $KINGDOM_IDs.include?(kingdom.id.to_s)
-  end
-
-  # TODO - I don't see anywhere we use this method. Would love to get rid of it, if we no longer need it :)
-  # TODO - this would be useless if we put all these things into a view and show/hide the div.  Which we should:
-  # def video_hash(video, taxon_concept_id='')
-  #   if taxon_concept_id.blank? # grab the first taxon concept ID from the video object if we didn't just pass it in
-  #     taxon_concept_ids = video.published_entries.collect{ |he| he.taxon_concept_id }
-  #     taxon_concept_id = taxon_concept_ids[0] unless taxon_concept_ids.blank?
-  #   end
-  #   data_supplier = video.data_supplier_agent
-  #   data_supplier_name = data_supplier ? data_supplier.full_name : ''
-  #   data_supplier_url = data_supplier ? data_supplier.homepage : ''
-  #   data_supplier_icon = data_supplier ? citables_to_icons(video.citable_data_supplier) : ''
-  #
-  #   trust = ''
-  #   trust = 'unknown' if video.unknown?
-  #   trust = 'untrusted' if video.untrusted?
-  #
-  #   return "{author: '"               + escape_javascript(citables_to_string(video.authors.collect{ |a| a.citable })) +
-  #          "', nameString: '"         + escape_javascript(video.first_concept_name.to_s) +
-  #          "', collection: '"         + escape_javascript(citables_to_string(video.sources.collect{ |a| a.citable })) +
-  #          "', location: '"           + escape_javascript(video.location || '') +
-  #          "', info_url: '"           + escape_javascript(video.source_url || '') +
-  #          "', field_notes: '"        + escape_javascript(video.description || '') +
-  #          "', license_text: '"       + escape_javascript(video.license.blank? ? '' : video.license.description || '') +
-  #          "', license_logo: '"       + escape_javascript(video.license.blank? ? '' : video.license.logo_url || '') +
-  #          "', license_link: '"       + escape_javascript(video.license.blank? ? '' : video.license.source_url || '') +
-  #          "', title:'"               + escape_javascript(video.object_title) +
-  #          "', video_type:'"          + escape_javascript(video.data_type.label) +
-  #          "', video_trusted:'"       + escape_javascript(video.vetted_id.to_s) +
-  #          "', trust:'"               + escape_javascript(trust) +
-  #          "', video_data_supplier:'" + escape_javascript(data_supplier.to_s) +
-  #          "', video_supplier_name:'" + escape_javascript(data_supplier_name.to_s) +
-  #          "', video_supplier_url:'"  + escape_javascript(data_supplier_url.to_s) +
-  #          "', video_supplier_icon:'" + escape_javascript(data_supplier_icon.to_s) +
-  #          "', video_url:'"           + escape_javascript(video.video_url.to_s || video.object_url || '') +
-  #          "', data_object_id:'"      + escape_javascript(video.id.to_s) +
-  #          "', mime_type_id:'"        + escape_javascript(video.mime_type_id.to_s) +
-  #          "', object_cache_url:'"    + escape_javascript(video.object_cache_url.to_s) +
-  #          "', taxon_concept_id:'#{taxon_concept_id}'}"
-  #
-  # end
-
   def reformat_specialist_projects(projects)
     max_columns = 2
     num_mappings = projects.size
@@ -258,25 +197,6 @@ private
     lparams["page"] = link_page
     lparams.delete("action")
     "/search/?#{lparams.to_query}"
-  end
-
-  # TODO - move this to CommonNameDisplay
-  def remove_duplicate_names(names)
-    names.each do |lang, names_in_language|
-      names_in_language.each_with_index do |name_a, index_a|
-        names_in_language.each_with_index do |name_b, index_b|
-          next if index_a == index_b
-          if name_a.name.id == name_b.name.id
-            name_a.duplicate = true
-            name_b.duplicate = true
-            # name_a.duplicate_with_curator = true if name_b.trusted_by_agent?
-            # name_b.duplicate_with_curator = true if name_a.trusted_by_agent?
-          end
-        end
-      end
-      # Remove entries that are duplicates in the curator hierarchy
-      names_in_language.delete_if {|name| name.duplicate_with_curator }
-    end
   end
 
 end

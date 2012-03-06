@@ -43,6 +43,8 @@ module ActiveRecord
           return [] if self.class == Collection && self.watch_collection?
           return [] if self.class == Collection && !self.published?
           return [] if self.class == Community && !self.published?
+          return [] if self.class == User && !self.active?
+          return [] if self.class == User && self.is_hidden?
 
           params = {
             :resource_type        => self.class.to_s,

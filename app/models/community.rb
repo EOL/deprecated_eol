@@ -102,6 +102,12 @@ class Community < ActiveRecord::Base
       Member.find_by_community_id_and_user_id(id, uid)
     }.compact[0..3]
   end
+  
+  def cached_count_members
+    $CACHE.fetch("communities/cached_count_members/#{self.id}", :expires_in => 10.minutes) do
+      members.count
+    end
+  end
 
   def managers_as_users
     members.managers.map {|m| m.user }

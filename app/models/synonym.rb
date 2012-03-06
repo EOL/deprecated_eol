@@ -1,6 +1,6 @@
 # Alternative names for a hierarchy entry, as provided by a specific agent.  There can be many such synonyms related to a
 # hierarchy entry, but only one of them should be marked as "preferred".
-class Synonym < SpeciesSchemaModel
+class Synonym < ActiveRecord::Base
   belongs_to :hierarchy
   belongs_to :hierarchy_entry
   belongs_to :language
@@ -14,7 +14,7 @@ class Synonym < SpeciesSchemaModel
   has_many :agents_synonyms
 
   before_save :set_preferred
-  after_update :update_taxon_concept_name, :update_vetted_on_synonyms_for_same_tc
+  after_update :update_taxon_concept_name
   after_create :create_taxon_concept_name
   before_destroy :set_preferred_true_for_last_synonym
 
@@ -99,16 +99,6 @@ private
       TaxonConceptName.connection.execute("UPDATE taxon_concept_names set preferred = 0 where taxon_concept_id = #{tc_id} and  language_id = #{language_id}")
     end
     self.preferred = 0 if language_id == Language.unknown.id
-  end
-
-  def update_vetted_on_synonyms_for_same_tc
-    tc_id = hierarchy_entry.taxon_concept_id
-    Synonym.connection.execute(%Q{
-      UPDATE synonyms s
-        JOIN hierarchy_entries he ON (s.hierarchy_entry_id = he.id)
-      SET s.vetted_id = #{vetted_id}
-      WHERE he.taxon_concept_id = #{tc_id}
-    })
   end
 
   def update_taxon_concept_name

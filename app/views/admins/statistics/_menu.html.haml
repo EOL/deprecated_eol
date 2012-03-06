@@ -1,10 +1,19 @@
-#tabs_sidebar
+#tabs_bar
   %ul.tabs
-    %li{:class => resource_is_active('admins/statistics', 'index')}= link_to I18n.t(:admin_statistics_overall_stat_link), admin_statistics_path
-    %li{:class => resource_is_active('admins/statistics', 'content_partner')}= link_to I18n.t(:admin_statistics_content_partner_link), content_partner_admin_statistics_path
-    %li{:class => resource_is_active('admins/statistics', 'data_object')}= link_to I18n.t(:admin_statistics_data_object_link), data_object_admin_statistics_path
-    %li{:class => resource_is_active('admins/statistics', 'curator')}= link_to I18n.t(:admin_statistics_curator_link), curator_admin_statistics_path
-    %li{:class => resource_is_active('admins/statistics', 'rich_page')}= link_to I18n.t(:admin_statistics_rich_page_link), rich_page_admin_statistics_path
-    %li{:class => resource_is_active('admins/statistics', 'marine_stat')}= link_to I18n.t(:admin_statistics_marine_link), marine_stat_admin_statistics_path
-    %li{:class => resource_is_active('admins/statistics', 'user_added_text')}= link_to I18n.t(:admin_statistics_user_added_text_link), user_added_text_admin_statistics_path
-    %li{:class => resource_is_active('admins/statistics', 'lifedesk')}= link_to I18n.t(:admin_statistics_lifedesk_link), lifedesk_admin_statistics_path
+    - shared_translation_scope = [:admins, :statistics]
+    %li{:class => resource_is_active('admins/statistics', 'index')}
+      = link_to I18n.t(:index_link, :scope => shared_translation_scope), admin_statistics_path
+    %li{:class => resource_is_active('admins/statistics', 'content_partner')}
+      = link_to I18n.t(:content_partner_link, :scope => shared_translation_scope), content_partner_admin_statistics_path
+    %li{:class => resource_is_active('admins/statistics', 'data_object')}
+      = link_to I18n.t(:data_object_link, :scope => shared_translation_scope), data_object_admin_statistics_path
+    %li{:class => resource_is_active('admins/statistics', 'curator')}
+      = link_to I18n.t(:curator_link, :scope => shared_translation_scope), curator_admin_statistics_path
+    %li{:class => resource_is_active('admins/statistics', 'page_richness')}
+      = link_to I18n.t(:page_richness_link, :scope => shared_translation_scope), page_richness_admin_statistics_path
+    %li{:class => resource_is_active('admins/statistics', 'marine')}
+      = link_to I18n.t(:marine_link, :scope => shared_translation_scope), marine_admin_statistics_path
+    %li{:class => resource_is_active('admins/statistics', 'user_added_data')}
+      = link_to I18n.t(:user_added_data_link, :scope => shared_translation_scope), user_added_data_admin_statistics_path
+    %li{:class => resource_is_active('admins/statistics', 'lifedesk')}
+      = link_to I18n.t(:lifedesk_link, :scope => shared_translation_scope), lifedesk_admin_statistics_path

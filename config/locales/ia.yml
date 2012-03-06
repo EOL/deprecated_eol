@@ -2,26 +2,53 @@
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: McDutchie
-ia:
+ia: 
+  0_1_or_2: 0, 1 o 2
+  0_or_1: 0 o 1
+  1st_view: Prime vista
+  a_taxon: un taxon
+  a_total_of_comment_were_found_matching_your_criteria: 
+    one: Un sol commento corresponde a tu criterios.
+    other: Un total de %{count} commentos corresponde a tu criterios.
+  a_total_of_items_were_found_matching_your_criteria: 
+    one: Un sol elemento corresponde a tu criterios.
+    other: Un total de %{count} elementos corresponde a tu criterios.
+  a_total_of_terms_were_found_matching_your: 
+    one: Un sol termino corresponde a tu criterios.
+    other: Un total de %{count} terminos corresponde a tu criterios.
   about_eol: A proposito de EOL
   account_information: Informationes del conto
+  account_information_menu: Informationes del conto
   account_registered_but_not_ready_try_later: Tu conto ha essite create, ma non es ancora preste pro accesso. Per favor reproba post cinque minutas.
-  activerecord:
-    attributes:
-      collection:
+  action: Action
+  action_not_available_error: Iste action non es disponibile.
+  actions: Actiones
+  active: Active
+  active_colon: "Active:"
+  activerecord: 
+    attributes: 
+      collection: 
+        additional_annotation_fields: Additional campos de annotation
         description: Description del collection
         logo: Imagine principal del collection
         name: Nomine del collection
+        show_references: Referentias (texto o URL)
         sort_style_id: Direction predefinite de ordination
-      community:
+      collection_item: 
+        annotation: Annotation
+        refs: Referentias
+        sort_field: Ordinar per
+      comment: 
+        body: Commento
+      community: 
         description: Description del communitate
         logo: Incargar un logo
         name: Nomine del communitate
-      content_page:
+      content_page: 
         active: Publicate
         page_name: Nomine unic
         sort_order: Ordine de classification
-      content_partner:
+      content_partner: 
         acronym: Abbreviation de projecto
         admin_notes: Notas de administration
         auto_publish: Auto-publicar
@@ -37,29 +64,94 @@ ia:
         resources: Ressources
         user_id: Administrate per
         vetted: Examinate
-      content_partner_agreement:
+      content_partner_agreement: 
         created_at: Create le
         signed_by: Signate per
         signed_on_date: Signate in data
-      data_object:
+      content_partner_contact: 
+        email_reports_frequency_hours: Frequentia de reportos per e-mail
+      data_object: 
         bibliographic_citation: Citation bibliographic
         description: Description
         object_title: Titulo
         rights_holder: Detentor del derectos
         rights_statement: Declaration del derectos
         source_url: URL de origine
-      harvest_event:
+      eol_statistic: 
+        active_curators: Curatores active
+        base_pages: Paginas de base
+        collections_count: Collectiones
+        communities_count: Communitates
+        content_partners: Partners de contento
+        content_partners_with_published_resources: Con ressources publicate
+        content_partners_with_published_trusted_resources: Con ressources publicate digne de fide
+        created_at: Create a
+        curator_actions_in_the_last_30_days: Actiones de curator in le ultime 30 dies
+        curators: Curatores
+        curators_assistant: Curatores assistente
+        curators_full: Curatores principal
+        curators_master: Curatores maestro
+        data_objects: Objectos de datos
+        data_objects_images: Objectos de imagine
+        data_objects_maps: Objectos de carta
+        data_objects_sounds: Objectos de audio
+        data_objects_texts: Objectos de texto
+        data_objects_trusted: Objectos de datos digne de fide
+        data_objects_trusted_or_unreviewed_but_hidden: Digne de fide o non revidite ma celate
+        data_objects_unreviewed: Objectos de datos non revidite
+        data_objects_untrusted: Objectos de datos non digne de fide
+        data_objects_videos: Objectos de video
+        hotlist_pages: Paginas favorite
+        lifedesk_data_objects: Objectos de datos LifeDesks
+        lifedesk_taxa: Taxones LifeDesks
+        marine_pages: Paginas marin
+        marine_pages_in_col: Paginas marin trovate in COL
+        marine_pages_with_objects: Paginas marin con objectos de datos
+        marine_pages_with_objects_vetted: Paginas marin con objectos de datos digne de fide
+        members_count: Membros
+        newly_published_resources_in_the_last_30_days: Novemente publicate in le ultime mense
+        objects_curated_in_the_last_30_days: Objectos curate in le ultime 30 dies
+        pages_count: Total de paginas
+        pages_curated_by_active_curators: Paginas curate per curatores active
+        pages_with_BHL_links: Paginas con ligamines al BHL
+        pages_with_BHL_links_no_text: Paginas con ligamines al BHL ma sin texto
+        pages_with_BHL_links_only: Pagina con ligamines al BHL solmente
+        pages_with_at_least_a_curatorial_action: Paginas con action curatorial
+        pages_with_at_least_a_trusted_object: Paginas con objecto de confidentia
+        pages_with_content: Paginas con contento
+        pages_with_image: Paginas con imagine
+        pages_with_image_no_text: Paginas con imagine ma sin texto
+        pages_with_map: Paginas con carta
+        pages_with_score_10_to_39: Paginas con score 10-39
+        pages_with_score_less_than_10: Paginas con score inferior a 10
+        pages_with_sound: Paginas con audio
+        pages_with_text: Paginas con texto
+        pages_with_text_no_image: Paginas con texto ma sin imagine
+        pages_with_video: Paginas con video
+        pages_without_image: Paginas sin imagine
+        pages_without_text: Paginas sin texto
+        published_resources: Ressources publicate
+        published_trusted_resources: Ressources publicate digne de fide
+        published_unreviewed_resources: Ressources non revidite publicate
+        redhotlist_pages: Paginas favorite rubie
+        rich_hotlist_pages: Paginas ric favorite
+        rich_pages: Paginas ric
+        rich_redhotlist_pages: Paginas favorite rubie ric
+        udo_published: Texto submittite per usator
+        udo_published_by_curators: Texto submittite per curator
+        udo_published_by_non_curators: Texto non submittite per curator
+      harvest_event: 
         resource: Ressource
-      hierarchy:
+      hierarchy: 
         browsable: Navigabile
         complete: Complete
         description: Description
         descriptive_label: Etiquetta descriptive
         label: Etiquetta
         request_publish: Requestar publication
-      name:
+      name: 
         string: Nomine
-      resource:
+      resource: 
         accesspoint_url: URL del insimul de datos
         auto_publish: Auto-publicar
         bibliographic_citation: Citation bibliographic
@@ -76,18 +168,19 @@ ia:
         rights_statement: Declaration predefinite de derectos
         title: Nomine del ressource
         vetted: Examinate
-      translated_content_page:
+      translated_content_page: 
         active_translation: Publicate
         left_content: Navigation
         main_content: Texto
         meta_description: Description de metadatos
         meta_keywords: Parolas-clave de metadatos
         title: Titulo
-      user:
+      user: 
         agreed_with_terms: Accordo con le conditiones de uso
         api_key: Clave API
         bio: Bio
         credentials: Datos de authentication
+        curator_level: Nivello de curator
         curator_scope: Sphera de curation
         email: Adresse de e-mail
         entered_password: Contrasigno
@@ -99,11 +192,11 @@ ia:
         requested_curator_level_id: Nivello desirate de curation
         tag_line: Motto
         username: Nomine de usator
-    errors:
+    errors: 
       format: "%{attribute} %{message}"
-      full_messages:
+      full_messages: 
         format: "%{attribute} %{message}"
-      messages:
+      messages: 
         accepted: debe esser acceptate
         blank: non pote esser vacue
         confirmation: non corresponde al confirmation
@@ -111,14 +204,14 @@ ia:
         equal_to: debe esser equal a %{count}
         even: debe esser par
         exclusion: es reservate
-        greater_than:
+        greater_than: 
           one: debe esser superior a %{count}
           other: debe esser superior a %{count}
         greater_than_or_equal_to: debe esser superior o equal a %{count}
         inaccessible: es inaccessibile
         inclusion: non es includite in le lista
         invalid: es invalide
-        less_than:
+        less_than: 
           one: debe esser inferior a %{count}
           other: debe esser inferior a %{count}
         less_than_or_equal_to: debe esser inferior o equal a %{count}
@@ -127,44 +220,57 @@ ia:
         odd: debe esser impare
         record_invalid: "Validation fallite: %{errors}"
         taken: ha jam essite prendite
-        too_long:
+        too_long: 
           one: es troppo longe (le maximo es %{count} character)
           other: es troppo longe (le maximo es %{count} characteres)
-        too_short:
+        too_short: 
           one: es troppo curte (le minimo es %{count} character)
           other: es troppo curte (le minimo es %{count} characteres)
         wrong_length: ha un longitude incorrecte (debe esser %{count} characteres)
         wrong_type: es del typo incorrecte
-      models:
-        harvest_event:
-          attributes:
-            publish:
+      models: 
+        harvest_event: 
+          attributes: 
+            publish: 
               inclusion: es solmente permittite pro le ultime evento de recolta e solmente si iste evento non es jam publicate
-        resource:
-          attributes:
-            accesspoint_url:
+        resource: 
+          attributes: 
+            accesspoint_url: 
               blank: non pote esser vacue, a minus que tu incarga un file de ressource in su loco
               inaccessible: es inaccessibile; le URL debe esser accessibile al publico
               invalid: es invalide; debe punctar a un file XML, XML.GZIP o XML.GZ.
-            dataset:
+            dataset: 
               blank: non pote esser vacue a minus que tu specifica le URL de un insimul de datos in su loco
               wrong_type: es del typo incorrecte; debe esser un file GZIP, TAR o XML
-            dwc_archive_url:
+            dwc_archive_url: 
               inaccessible: es inaccessibile; le URL debe esser accessibile al publico
               invalid: es invalide; debe punctar a un file TAR.GZIP, TAR.GZ o TGZ.
-      template:
+      template: 
         body: "Le validation ha fallite pro le sequente campos:"
-        header:
+        header: 
           one: "%{count} error de validation trovate"
           other: "%{count} errores de validation trovate"
-    models:
+    models: 
       user: conto
   activity: Activitate
+  activity_added_an_editor_of_collection: <strong>%{user}</strong> assignava un gerente al collection "%{collection}".
+  activity_choose_exemplar: <strong>%{user}</strong> marcava un imagine como exemplar pro "%{object_name}".
+  activity_hid_with_reasons_colon: "motivo(s) pro celar: %{reasons}"
   activity_log_empty: Nulle persona ha ancora fornite actualisationes.
   activity_log_empty_learn_more_link: Apprende como contribuer
+  activity_untrusted_with_reasons_colon: "motivo(s) pro retirar confidentia: %{reasons}"
+  activity_user_added_as_an_editor_of_collection: <strong>%{user}</strong> esseva facite gerente del collection "%{collection}".
+  activity_user_added_association: <strong>%{user}</strong> addeva un association a "%{object_name}".
+  activity_user_added_collection_to_community: <strong>%{user}</strong> addeva le collection "%{collection}" al communitate "%{community}".
+  activity_user_added_common_name: <strong>%{user}</strong> addeva le nomine commun in %{language} "%{name}" a un objecto incognite.
+  activity_user_added_common_name_to_taxon: <strong>%{user}</strong> addeva le nomine commun in %{language} "%{name}" a "%{taxon}".
   activity_user_added_community_manager: <strong>%{user}</strong> faceva %{manager} gerente del communitate "%{community}".
   activity_user_added_item_to_collection: <strong>%{user}</strong> addeva "%{item}" al collection "%{collection}".
+  activity_user_added_named_association: <strong>%{user}</strong> addeva un association inter "%{object_name}" e "%{name}".
+  activity_user_added_unknown_association: <strong>%{user}</strong> addeva un association a un objecto incognite.
   activity_user_added_unknown_item_to_collection: <strong>%{user}</strong> addeva un objecto incognite al collection "%{collection}".
+  activity_user_added_unknown_name: <strong>%{user}</strong> addeva un nomine commun incognite a un objecto incognite.
+  activity_user_added_unknown_name_to_taxon: <strong>%{user}</strong> addeva un nomine commun a "%{taxon}".
   activity_user_changed_community_description: <strong>%{user}</strong> actualisava le description del communitate "%{community}".
   activity_user_changed_community_icon: <strong>%{user}</strong> cambiava le logotypo del communitate "%{community}".
   activity_user_changed_community_name: <strong>%{user}</strong> cambiava le nomine del communitate "%{community}".
@@ -174,82 +280,484 @@ ia:
   activity_user_curated_an_unknown_object: <strong>%{user}</strong> gereva un objecto incognite.
   activity_user_deleted_community: <strong>%{user}</strong> deleva le communitate "%{community}".
   activity_user_hid_data_object: <strong>%{user}</strong> marcava "%{object_name}" como celate.
+  activity_user_hid_named_association: <strong>%{user}</strong> marcava un association inter "%{object_name}" e "%{name}" como celate.
   activity_user_hid_unknown_object: <strong>%{user}</strong> marcava un objecto incognite como celate.
+  activity_user_hid_unknown_object_association: <strong>%{user}</strong> marcava un association inter un objecto incognite e "%{name}" como celate.
+  activity_user_inappropriate_common_name: <strong>%{user}</strong> marcava le nomine commun in %{language} "%{name}" pro un objecto incognite como inappropriate.
+  activity_user_inappropriate_common_name_from_taxon: <strong>%{user}</strong> marcava le nomine commun in %{language} "%{name}" pro "%{taxon}" como inappropriate.
+  activity_user_inappropriate_unknown_name: <strong>%{user}</strong> marcava un nomine commun incognite pro un taxon incognite como inappropriate.
+  activity_user_inappropriate_unknown_name_to_taxon: <strong>%{user}</strong> marcava un nomine commun pro "%{taxon}" como inappropriate.
   activity_user_joined_community: <strong>%{user}</strong> adhereva al communitate "%{community}".
   activity_user_marked_content_as_inappropriate: <strong>%{user}</strong> marcava contento como inappropriate.
   activity_user_modified_collection: <strong>%{user}</strong> modificava le collection "%{collection}".
   activity_user_modified_community: <strong>%{user}</strong> modificava le communitate "%{community}".
   activity_user_rated_data_object: <strong>%{user}</strong> evalutava "%{object_name}".
   activity_user_rated_unknown_object: <strong>%{user}</strong> evalutava un objecto incognite.
+  activity_user_removed_all_items_from_collection: <strong>%{user}</strong> removeva tote le elementos del collection "%{collection}".
+  activity_user_removed_association: <strong>%{user}</strong> removeva un association a "%{object_name}".
   activity_user_removed_item_from_collection: <strong>%{user}</strong> removeva "%{item}" del collection "%{collection}".
+  activity_user_removed_named_association: <strong>%{user}</strong> removeva un association inter "%{object_name}" e "%{name}".
+  activity_user_removed_unknown_association: <strong>%{user}</strong> removeva un association a un objecto incognite.
+  activity_user_removed_unknown_name: <strong>%{user}</strong> removeva un nomine commun incognite de un objecto incognite.
+  activity_user_removed_unknown_name_to_taxon: <strong>%{user}</strong> removeva un nomine commun de "%{taxon}".
   activity_user_showed_data_object: <strong>%{user}</strong> marcava "%{object_name}" como visibile.
+  activity_user_showed_named_association: <strong>%{user}</strong> marcava un association inter "%{object_name}" e "%{name}" como visibile.
   activity_user_showed_unknown_object: <strong>%{user}</strong> marcava un objecto incognite como visibile.
+  activity_user_showed_unknown_object_association: <strong>%{user}</strong> marcava un association inter un objecto incognite e "%{name}" como visibile.
+  activity_user_trust_common_name: <strong>%{user}</strong> marcava le nomine commun in %{language} "%{name}" pro un objecto incognite como digne de fide.
+  activity_user_trust_common_name_from_taxon: <strong>%{user}</strong> marcava le nomine commun in %{language} "%{name}" pro "%{taxon}" como digne de fide.
+  activity_user_trust_unknown_name: <strong>%{user}</strong> marcava un nomine commun incognite pro un taxon incognite como digne de fide.
+  activity_user_trust_unknown_name_to_taxon: <strong>%{user}</strong> marcava un nomine commun pro "%{taxon}" como digne de fide.
   activity_user_trusted_data_object: <strong>%{user}</strong> marcava "%{object_name}" como digne de fide.
+  activity_user_trusted_named_association: <strong>%{user}</strong> marcava un association inter "%{object_name}" e "%{name}" como digne de fide.
   activity_user_trusted_unknown_object: <strong>%{user}</strong> marcava un objecto incognite como digne de fide.
+  activity_user_trusted_unknown_object_association: <strong>%{user}</strong> marcava un association inter un objecto incognite e "%{name}" como digne de fide.
+  activity_user_unreview_common_name: <strong>%{user}</strong> marcava le nomine commun in %{language} "%{name}" pro un objecto incognite como non revidite.
+  activity_user_unreview_common_name_from_taxon: <strong>%{user}</strong> marcava le nomine commun in %{language} "%{name}" pro "%{taxon}" como non revidite.
+  activity_user_unreview_unknown_name: <strong>%{user}</strong> marcava un nomine commun incognite pro un taxon incognite como non revidite.
+  activity_user_unreview_unknown_name_to_taxon: <strong>%{user}</strong> marcava un nomine commun pro "%{taxon}" como non revidite.
   activity_user_unreviewed_data_object: <strong>%{user}</strong> marcava "%{object_name}" como non revidite.
+  activity_user_unreviewed_named_association: <strong>%{user}</strong> marcava un association inter "%{object_name}" e "%{name}" como non revidite.
   activity_user_unreviewed_unknown_object: <strong>%{user}</strong> marcava un objecto incognite como non revidite.
+  activity_user_unreviewed_unknown_object_association: <strong>%{user}</strong> marcava un association inter un objecto incognite e "%{name}" como non revidite.
+  activity_user_untrust_common_name: <strong>%{user}</strong> marcava le nomine commun in %{language} "%{name}" pro un objecto incognite como non digne de fide.
+  activity_user_untrust_common_name_from_taxon: <strong>%{user}</strong> marcava le nomine commun in %{language} "%{name}" pro "%{taxon}" como non digne de fide.
+  activity_user_untrust_unknown_name: <strong>%{user}</strong> marcava un nomine commun incognite pro un taxon incognite como non digne de fide.
+  activity_user_untrust_unknown_name_to_taxon: <strong>%{user}</strong> marcava un nomine commun pro "%{taxon}" como non digne de fide.
   activity_user_untrusted_data_object: <strong>%{user}</strong> marcava "%{object_name}" como non digne de fide.
+  activity_user_untrusted_named_association: <strong>%{user}</strong> marcava un association inter "%{object_name}" e "%{name}" como non digne de fide.
   activity_user_untrusted_unknown_object: <strong>%{user}</strong> marcava un objecto incognite como non digne de fide.
+  activity_user_untrusted_unknown_object_association: <strong>%{user}</strong> marcava un association inter un objecto incognite e "%{name}" como non digne de fide.
   activity_user_updated_text: <strong>%{user}</strong> actualisava le texto de "%{object_name}" in "%{taxon_concept}".
+  add: Adder
+  add_a_collection_to_a_community: Adder "%{collection}" a un communitate
+  add_a_comment: Adder un commento.
   add_a_comment_colon: "Adder un commento:"
   add_a_new_common_name: Adder un nove nomine commun
+  add_a_new_file_brackets: "[adder un nove file]"
+  add_a_new_news_item: Adder un actualitate
+  add_a_new_role: Adder un nove rolo
+  add_a_new_search_suggestion: Adder un nove suggestion de recerca
+  add_a_new_term: Adder un nove termino
+  add_a_new_topic_area: Adder un nove area thematic
+  add_a_new_user: Adder un nove usator
   add_a_taxon_association_label: Adder un association de taxon
   add_article_to_page_link_button: Adder un articulo a iste pagina
+  add_association_submit_button: adder association
   add_brief_summary_to_page_link_button: Adder un curte summario a iste pagina
+  add_collection_to_a_new_community: Adder "%{collection}" a un nove communitate
+  add_collection_to_community: Adder le collection a un communitate
+  add_education_resources_to_page_link_button: Adder ressources educative a iste pagina
+  add_identification_resources_to_page_link_button: Adder ressources de identification a iste pagina
+  add_item_to_new_collection: Adder "%{item}" a un nove collection
+  add_language: Adder lingua
   add_new_association_link: Adder nove association
+  add_new_tag_suggestion: Adder nove suggestion de etiquetta
+  add_page: Adder pagina
+  add_sub_chapter: Adder sub-capitulo
+  add_to_a_community: Adder a un communitate
   add_to_my_collection_button: Adder a mi collection
   admin: admin
+  admin_content_page_active: Publicate
+  admin_content_page_child_new_link: Crear subpagina
+  admin_content_page_create_successful_notice: Le pagina <a href="#%{anchor}"><em>%{page_name}</em></a> ha essite create con successo.
+  admin_content_page_create_unsuccessful_error: Un error ha occurrite, e le pagina non ha essite create.
+  admin_content_page_delete_confirmation: Es tu secur de voler deler "%{page_name}" e tote su traductiones? Le deletiones non pote esser disfacite.
+  admin_content_page_delete_successful_notice: Le pagina "%{page_name}" e le traductiones associate ha essite delite.
+  admin_content_page_edit_header: Actualisar le information de base pro le pagina <em>%{page_name}</em>
+  admin_content_page_edit_tip: Es recommendate non modificar le nomine unic de iste pagina, a minus que tu es plenmente conscie del consequentias, incluse le impacto sur ligamines verso iste pagina o verso routes con nomines. Un nomine unic es %{required_icon} obligatori.
+  admin_content_page_new_header: Crear un nove pagina de contento
+  admin_content_page_new_link: Crear nove pagina
+  admin_content_page_new_tip: Entra information de base sur iste pagina. Un nomine unic es %{required_icon} obligatori.
+  admin_content_page_not_active: Non publicate
+  admin_content_page_parent_option_root: Sin genitor
+  admin_content_page_root: Radice
+  admin_content_page_sort_order_updated: Le ordine de paginas ha cambiate.
+  admin_content_page_update_successful_notice: Le pagina <a href="#%{anchor}"><em>%{page_name}</em></a> ha essite actualisate con successo.
+  admin_content_page_update_unsuccessful_error: Un error ha occurrite, e le pagina non ha essite actualisate.
+  admin_content_pages_empty: Nulle pagina de contento trovate.
+  admin_content_pages_index_information: Le sequente lista include tote le paginas static actualmente disponibile in le sito web EOL. Cata pagina ha un o plus traductiones. Quando tu crea un nove pagina, le sito te demandara de adder un traduction. Le traductiones publicate es accessibile al publico.
+  admin_content_pages_link: Gestion de contento
+  admin_content_pages_page_title: "Administration: gestion de contento"
+  admin_content_partners_index_header: Partners de contento
+  admin_content_partners_link: Partners de contento
+  admin_content_partners_notifications_link: Notificationes
+  admin_content_partners_notifications_page_title: "Administration: notificationes a partners de contento"
+  admin_content_partners_notifications_sent_to_recipients_header: "Notificationes ha essite inviate a:"
+  admin_content_partners_notifications_statistics_reminder_description: "Invia un e-mail a tote le partners de contento, informante les que illes pote nunc consultar le statisticas de uso per web de lor datos durante le ultime mense. Nota: le invio manual de iste notification es un solution temporari e debe esser retirate quando un solution automatic es implementate."
+  admin_content_partners_notifications_statistics_reminder_header: Rememoration sur statisticas de uso per web
+  admin_content_partners_notifications_statistics_reminder_send_confirmation: Es tu secur de voler inviar le rememoration de statisticas de uso web a tote le partners de contento?
+  admin_content_partners_notifications_statistics_reminder_send_submit: Inviar rememoration
+  admin_content_partners_page_title: "Administration: gerer partners de contento"
+  admin_content_partners_statistics_date_from_label: Expeditor
+  admin_content_partners_statistics_date_to_label: Destinatario
+  admin_content_partners_statistics_first_published_caption: Partners de contento con ressources publicate pro le prime vice inter le %{date_from} e le %{date_to}.
+  admin_content_partners_statistics_first_published_download_csv_submit: Discargar como CSV
+  admin_content_partners_statistics_first_published_empty: Nulle ressources de partner de contento esseva publicate pro le prime vice inter le %{date_from} e le %{date_to}.
+  admin_content_partners_statistics_first_published_header: Prime publication de ressources
+  admin_content_partners_statistics_link: Statisticas
+  admin_content_partners_statistics_page_title: "Administration: statisticas de partner de contento"
+  admin_home: initio admin
   admin_information: Isto es le nove consola de administration pro EOL V2. Nos es in le processo de transferer le functionalitate administrative ab V1. Si le section administrative que tu cerca non es listate, per favor visita le <a href="/administrator">consola de administration V1</a>.
+  admin_link: Vista general
+  admin_login_confirmation: Es tu secur de voler identificar te al registro de partner de contento como %{name}? Si tu face isto, tu session como administrator essera claudite.
+  admin_notes_not_visible_to_user: "Notas admin (non visibile al usator):"
+  admin_page_title: "Administration: vista general"
+  admin_translated_content_page_create_successful_notice: Le traduction ha essite addite a <a href="#%{anchor}"><em>%{page_name}</em></a>
+  admin_translated_content_page_create_unsuccessful_error: Un error ha occurrite, e le traduction non poteva esser addite.
+  admin_translated_content_page_delete_confirmation: Es tu secur de voler deler le version in %{language} de "%{page_name}"? Le deletion non pote esser disfacite.
+  admin_translated_content_page_delete_successful_notice: Le traduction in %{language} del pagina <em>%{page_name}</em> ha essite delite.
+  admin_translated_content_page_edit_subheader: Modificar le traduction in %{language} de <em>%{page_name}</em>
+  admin_translated_content_page_edit_tip: Titulo e texto es %{required_icon} obligatori.
+  admin_translated_content_page_new_header: Selige un lingua e adde contento
+  admin_translated_content_page_new_link: Adder traduction
+  admin_translated_content_page_new_subheader: Adder traduction de <em>%{page_name}</em>
+  admin_translated_content_page_new_tip: Lingua, titulo e texto es %{required_icon} obligatori.
+  admin_translated_content_page_update_successful_notice: Le traduction in %{language} de <a href="#%{anchor}"><em>%{page_name}</em></a> ha essite actualisate.
+  admin_translated_content_page_update_unsuccessful_error: Un error ha occurrite, e le traduction non poteva esser actualisate.
+  agent: Agente
+  all: totes
+  all_apis_return_by_default_an_xml_response: "Tote le APIs retorna normalmente un responsa in XML. Le methodos de un API pote esser appellate sin extension de formato pro obtener le responsa in XML, e le addition de un extension XML resulta in un responsa identic:"
+  all_articles: Tote le articulos
+  all_changes: Tote le modificationes
+  all_collections: Tote le collectiones
+  all_comments_entered_by_users: Tote le commentos entrate per usatores in le sito web es monstrate hic infra, in ordine inverse de tempore de coordination.
+  all_communities: Tote le communitates
+  all_count: Totes (%{count})
+  all_errors: TOTE le errores
+  all_harvesting_logs: TOTE le registros de recolta
+  all_images: Tote le imagines
   all_information: Tote le informationes
+  all_items: Tote le elementos
+  all_news: tote le novas
   all_pages: Tote le paginas
+  all_people: Tote le personas
+  all_sounds: Tote le sonos
+  all_sources: Tote le fontes
+  all_taxa: Tote le taxones
+  all_title: Totes
+  all_user_submitted_texts_on_the_website: Tote le textos submittite per usatores in le sito web es monstrate hic infra, in ordine inverse de hora de creation.
+  all_videos: Tote le videos
+  allow_user_logins: Permitter que usatores aperi session
   already_a_member_question: Tu es ja membro?
   already_member_of_community: Tu es ja membro de iste communitate.
   alternate_classification: Classification alternative
+  amount: Amonta
+  an_unknown_user: Un usator incognite
+  and: e
+  and_between_form_items: e
+  any_integer: un numero integre
+  api_docs_collections_description: Date le identificator de un collection, iste API retorna tote le metadatos sur le collection e le elementos que illo contine. Le lista de elementos pote esser filtrate per typo de elemento, e ordinate per le attributos listate hic supra.
   application_version_advisory_information: Version del application
   are_you_sure: Es tu secur?
+  are_you_sure_this_action_cannot_be_undone: Es tu secur? Iste action non pote esser disfacite.
+  article_from: articulo ex
+  article_from_supplier: Articulo de %{whom}
+  article_more_about: Leger plus a proposito de iste articulo
+  article_not_associated_with_any_published_entries: Iste articulo non es associate a alcun taxon publicate.
+  article_of: Articulo de
+  article_rating: Evalutation del articulo
+  articles_in_languages_with_count: 
+    one: "Articulos in iste pagina es disponibile in %{count} lingua:"
+    other: "Articulos in iste pagina es disponibile in %{count} linguas:"
+  articles_in_other_languages_with_count: 
+    one: "Articulos in iste pagina es disponibile in %{count} altere lingua:"
+    other: "Articulos in iste pagina es disponibile in %{count} altere linguas:"
+  articles_with_count: 
+    one: "%{count} articulo"
+    other: "%{count} articulos"
+  as_of_time_there_were_unique_visitors: 
+    one: A %{time} il habeva %{count} visitator unic
+    other: A %{time} il habeva %{count} visitatores unic
   assistive_details_header: Detalios
+  assistive_literature_header: Litteratura
+  assistive_maps_header: Cartas
   assistive_media_header: Multimedia
+  assistive_names_common_header: Nomines commun
+  assistive_names_related_header: Nomines connexe
+  assistive_names_synonyms_header: Synonymos
   assistive_overview_header: Vista general
+  assistive_taxon_community_header: Communitate
+  assistive_updates_header: Actualisationes
+  assistive_updates_statistics_header: Statisticas de paginas
+  associated_submit_button: associate
+  associated_with_article_header: In iste articulo
+  associated_with_header: Associate con
+  associated_with_image_header: In iste imagine
+  associated_with_image_map_header: In iste carta
+  associated_with_map_header: In iste carta
+  associated_with_sound_header: In iste audio
+  associated_with_video_header: In iste video
+  associations_more_link: plus <span class="assistive">associationes de taxon</span>
+  attribute: Attributo
+  audio_current_time_assistive: Si JavaScript es activate, isto indicara le position actual de lectura del file audio in minutas e secundas.
+  audio_duration_assistive: Si JavaScript es activate, isto indicara le duration del file audio in minutas e secundas. Dependente del dimension del file, il pote prender un poco de tempore pro le JavaScript calcular le duration del file e monstrar un valor hic.
+  audio_mute: mute
+  audio_pause: pausa
+  audio_pause_assistive: Si JavaScript es activate, iste ligamine permitte pausar un file audio adjacente que es in curso de lectura. Si non, per favor ignora iste ligamine.
+  audio_play: facer sonar
+  audio_play_assistive: Si JavaScript es activate, iste ligamine comenciara a facer sonar le file audio, sin quitar le fenestra active. Si JavaScript non es activate, iste es un ligamine verso un file audio que, si seligite, se comportara secundo le configuration de tu dispositivo.
+  audio_stop: stop
+  audio_stop_assistive: Si JavaScript es activate, iste ligamine permitte stoppar le lectura de un file audio adjacente. Si non, per favor ignora iste ligamine.
+  audio_unmute: audibile
+  author_of_peer_reviewed_publication_credential_option: autorato de un publication revidite per pares (fornir referentia)
   authoritative_information: information de autoritate
+  available: disponibile
   average_rating_value_of_total: "Evalutation medie: %{rating} de %{total}"
+  back: Retornar
+  back_to_profile: Retornar al profilo
+  began: Comenciava
+  belongs_in_count_communities: 
+    one: Pertine a %{count} communitate
+    other: Pertine a %{count} communitates
+  bhl_publication: Publication de ''BHL''
+  bi_monthly: Bimensual
   biodiversity_heritage_library: Biodiversity Heritage Library
+  biomedical_terms: Terminos biomedic
+  biomedical_terms_clouds_provided_by: Nubes fornite per le <a href="%{supplier_url}">projecto "Biology of Aging"</a> del "MBL".
+  biomedical_terms_introduction: Iste terminos es derivate per cercar le nomine <em>%{scientific_name}</em> in le base de datos de litteratura biomedic, <a href="%{pubmed_url}">PubMed</a>. Le resultatos es analysate con le instrumento <a href="%{ligercat_url}">LigerCat</a>, que construe le nube usante le <a href="%{mesh_url}">Medical Subject Headings (MESH)</a> le plus relevante. Le dimension relative de cata termino indica le frequentia de apparition in le resultatos del recerca in PubMed. Clicca sur un termino pro acceder al nube LigerCat complete, con capacitates de recerca PubMed in directo.
+  biomedical_terms_provided_by: Terminos fornite per <a href="%{supplier_url}">PubMed</a>.
+  body: "Corpore:"
+  browsable: Navigabile
+  browsable_hierarchies: Hierarchias navigabile
+  browse_hierarchy: percurrer hierarchia
+  browsing_branch_colon: "Branca:"
+  build_communities: Construer communitates
+  by: per
+  by_caps: Per
+  by_scientific_name_table_header: per nomine scientific
+  cache_store: Immagazinage del cache
+  calculate_averages_slow: Calcular medias (lente)
   cancel: Cancellar
   cannot_be_associated_with_both_a_user_and_a_community: Non pote esser associate e con un usator e con un communitate
   cannot_be_empty: non pote esser vacue.
+  cannot_create_collection_item_from_class_error: Impossibile crear un elemento de collection ex un %{klass}
+  cannot_create_community_from_watch_collection_error: Non es possibile crear un communitate ab un observatorio.
+  cannot_expand_children: non pote expander infantes
+  cannot_find_member: Non se trova un membro con iste ID.
+  cannot_index_collection_item_type_error: Impossibile indexar un elemento de collection ex un %{type}
+  change: Cambiar
   change_rating_to_1_of_5: Cambiar evalutation a 1 de 5
   change_rating_to_2_of_5: Cambiar evalutation a 2 de 5
   change_rating_to_3_of_5: Cambiar evalutation a 3 de 5
   change_rating_to_4_of_5: Cambiar evalutation a 4 de 5
   change_rating_to_5_of_5: Cambiar evalutation a 5 de 5
+  choose_collection_header: Selige collection
   citation: Citation
-  classifications_summary_header_with_count:
+  citing_link: Citation
+  classification_tree_header: Classification
+  classifications_empty: Iste pagina non es includite in alcun classification que pote esser percurrite in EOL.
+  classifications_summary_header_with_count: 
     one: Parte de %{count} classification approbate
     other: Parte de %{count} classificationes approbate
-  collections: Collectiones
-  collections_summary_header_with_count:
+  clear_all_non_species_pages: Rader tote le paginas non de specie
+  clear_entire_cache_store: Rader tote le cache
+  clear_species_page: Rader pagina de specie
+  click: Clic
+  click_on_a_user_to_view_the_users_detailed_profile: Clicca sur un usator pro vider le profilo detaliate del usator, clicca sur le specie pro vider le pagina ubi le texto existe (usa le button Retro del navigator pro retornar hic).
+  click_on_a_username_to_view_the_users_detailed_profile: Clicca sur un nomine de usator pro vider le profilo detaliate de iste usator, clicca sur le typo de datos pro vider le objecto commentate (usa le button Retro del navigator pro retornar hic), clicca sur "modificar" pro modificar le commento o clicca sur "deler" pro deler permanentemente le commento.
+  click_on_an_activity_to_see_th: Clicca sur un activitate pro vider omne altere activitates que occurreva intra un intervallo de cinque minutas.
+  clicked_time: Hora de clic
+  close_this_window_to_return_to_edit_window: CLAUDE ISTE FENESTRA PRO RETORNAR AL FENESTRA DE MODIFICATION
+  collect_item: Colliger elemento
+  collect_items: Colliger elementos
+  collection_created_notice: Collection <em>%{collection_name}</em> create con successo.
+  collection_created_with_count_notice: 
+    one: Collection <em>%{collection_name}</em> create con %{count} elemento.
+    other: Collection <em>%{collection_name}</em> create con %{count} elementos.
+  collection_delete_link: Deler permanentemente iste collection
+  collection_destroyed: Le collection ha essite delite.
+  collection_image: Imagine de collection
+  collection_is_empty: Iste collection es vacue.
+  collection_item_edit_by_javascript_not_authorized_error: Tu non ha le permission de modificar iste elemento de collection. Si tu es le proprietario o redactor del collection, per favor recarga le pagina e verifica que tu ha aperite session.
+  collection_item_edit_page_title: Modificar elemento in collection <em>%{collection_name}</em>
+  collection_item_not_found_error: Iste elemento de collection non poteva esser trovate.
+  collection_name_label: Nomine del collection
+  collection_newsfeed: Syndication de novas del collection
+  collection_not_created_error: Un error ha occurrite. Le collection <em>%{collection_name}</em> non poteva esser create.
+  collection_not_destroyed_error: Le collection non ha essite delite.
+  collection_not_found_error: Iste collection non poteva esser trovate.
+  collection_not_updated_error: Un error ha occurrite, e le collection non poteva esser actualisate.
+  collection_rating: Evalutation del collection
+  collection_updated_notice: Collection <em>%{collection_name}</em> actualisate con successo.
+  collection_was_added_to_community: "\"%{collection}\" ha essite addite a iste communitate."
+  collection_was_removed_by_owner: Iste collection ha essite removite per su proprietario.
+  collections_summary_empty: Iste pagina non face ancora parte de alcun collection.
+  collections_summary_header_with_count: 
     one: Presente in %{count} collection
     other: Presente in %{count} collectiones
-  collections_with_count:
+  collections_with_count: 
     one: "%{count} collection"
     other: "%{count} collectiones"
-  common_names_with_count:
+  comment: Commento
+  comment_added_notice: Commento addite con successo.
+  comment_body_label: Tu commento
+  comment_created_at: Create le
+  comment_delete_confirm: Es tu secur de voler deler iste commento?
+  comment_edit_by_javascript_not_authorized_error: Tu non ha le permission de modificar iste commento. Si tu es le autor del commento, per favor recarga le pagina e verifica que tu ha aperite session.
+  comment_new_posters_image_advisory_info: Le imagine e nomine de tu profilo apparera al latere de tu commento in le listas.
+  comment_new_posters_image_alt: Le imagine de tu profilo, si tu ha fornite un.
+  comment_new_title: Adder un nove commento
+  comment_not_added_error: Un error ha occurrite, e le commento non poteva esser addite.
+  comment_not_deleted_error: Un error ha occurrite, e le commento non poteva esser delite.
+  comment_not_updated_error: Un error ha occurrite, e le commento non poteva esser actualisate.
+  comment_show_posters_image_alt: Imagine del profilo de %{posters_name} qui addeva iste commento.
+  commented_on_your_image: " commentava tu imagine in le <a href='%{data_object_link}'>sito Encyclopedia del Vita</a>:\n%{comment_body}"
+  comments: Commentos
+  comments_and_tags: Commentos e etiquettas
+  comments_moderated: Commentos moderate
+  comments_on: "Commentos a proposito de:"
+  comments_with_count: 
+    one: "%{count} commento"
+    other: "%{count} commentos"
+  common_activities_by_logged_in: Activitates commun per usatores identificate.
+  common_name: Nomine commun
+  common_name_avg: Media de nomines commun
+  common_name_exists: Le nomine commun <em>%{name_string}</em> jam existe
+  common_names_with_count: 
     one: "%{count} nomine commun"
     other: "%{count} nomines commun"
-  communities: Communitates
-  communities_summary_header_with_count:
+  common_user_activity_page_title: Activitate commun de usatores
+  communities_index_empty: Il non ha communitates active.
+  communities_index_header: Communitates active
+  communities_summary_empty: Iste taxon non ha ancora essite mittite in evidentia in alcun communitate.
+  communities_summary_header_with_count: 
     one: Pertine a %{count} communitate
     other: Pertine a %{count} communitates
-  communities_with_count:
+  communities_that_can_edit_this_collection: Communitates que pote gerer iste collection
+  communities_with_count: 
     one: "%{count} communitate"
     other: "%{count} communitates"
   community: Communitate
   community_activity: Activitate del communitate
+  community_can_now_manage_this_collection: "\"%{community}\" ora ha le permission de gerer iste collection."
+  community_contributions_with_count: 
+    one: "%{count} contribution"
+    other: "%{count} contributiones"
+  community_destroyed: Tu ha delite iste communitate. Illo non apparera plus in paginas de taxon o in recercas.
+  community_empty_notice: Iste communitate non ha membros.
   community_focus: Focalisation del communitate
+  community_focus_items_with_count: 
+    one: "%{count} elemento"
+    other: "%{count} elementos"
+  community_invitation_comment: Io te invita a devenir membro del communitate "%{community}".
+  community_logo_alt_text: Logo pro le communitate %{community_name}
+  community_managers_with_count: 
+    one: "%{count} gerente del communitate"
+    other: "%{count} gerentes del communitate"
   community_members: Membros del communitate
+  community_name_label: Nomine del communitate
+  community_newsfeed: Syndication de novas del communitate
+  community_no_longer_has_manager_access_to_collection: "\"%{community}\" non plus ha accesso de gerente a \"%{collection}\"."
+  community_not_destroyed_error: Un problema occurreva e le communitate non ha essite delite.
+  community_rating: Evalutation per le communitate
+  community_removed_by_owner: Iste communitate ha essite removite per su proprietario.
+  community_tab_collections_description: Le collectiones es create per usatores de EOL pro colliger species, multimedia, articulos, o mesmo membros que ha qualcosa in commun, como geographia, ecologia o un signification personal. Le communitates pote "mitter in evidentia" collectiones que es de particular interesse e valor a illes.
+  community_tab_communities_description: Communitates es gruppos de membros de EOL que se reuni pro divider lor interesses e expertise. Communitates de EOL es organisate circa un o plus collectiones de EOL, e offere al membros un modo de focalisar se al topicos de preoccupation commun. Plus information super le communitates de EOL, includente instructiones pro crear le tue, es disponibile in le <a href='/info/communities'>pagina de adjuta</a>.
+  community_tab_curators_description: Curatores es usatores de EOL con expertise in biologia qui dona lor tempore pro revider contento in EOL, assecurante que le informationes presentate al publico es accurate e de alte qualitate.
+  completed: Completate
+  confirm_delete_community: Es tu secur de voler deler iste communitate? Le membros restante potera totevia vider lo e le syndication de novas essera mantenite, ma illo non apparera in recercas o in paginas de taxon, e non plus essera modificabile.
+  confirm_leave: Es tu secur de voler quitar iste communitate?
+  confirm_password_colon: "Confirma contrasigno:"
+  contact: Contacto
+  contact_information: Informationes de contacto
+  contact_updated: Contacto actualisate
+  contact_us: contacta nos
+  contact_us_functions: Functiones pro contactar nos
   contact_us_link: Contactar nos
-  content_partners: Partners de contento
+  contact_us_submissions: Submissiones pro contactar nos
+  contact_us_topics: Topicos pro contactar nos
+  contacts: Contactos
+  containing_value: continente %{value}.
+  content_has_been_updated: Le contento ha essite actualisate.
+  content_notes_not_shown_to_us: "Notas sur le contento (non visibile al usator):"
+  content_partner: Partner de contento
+  content_partner_about_header: A proposito de %{partner_name}
+  content_partner_admin_index_link_back_to: retornar al gestion de partners
+  content_partner_administration_notes_empty: Il non ha notas de administration.
+  content_partner_administration_notes_header: Notas de administration
+  content_partner_administration_settings_header: Configurationes de administration
+  content_partner_administration_settings_introduction: Le sequente campos administrative es solmente visibile e modificabile pro administratores de EOL.
+  content_partner_agreement_cancel_edit_agreement_link: Cancellar
+  content_partner_agreement_cancel_new_agreement_link: Cancellar
+  content_partner_agreement_cancel_sign_agreement_link: Cancellar
+  content_partner_agreement_create_successful_notice: Le conditiones de partner de contento ha essite create con successo.
+  content_partner_agreement_create_unsuccessful_error: Un error ha occurrite, e le contracto de conditiones de partner de contento non ha essite create.
+  content_partner_agreement_signed_successful_notice: Tu ha acceptate le conditiones de partner de contento; tu pote ora adder ressources de datos.
+  content_partner_agreement_signed_unsuccessful_error: Un error ha occurrite; il pare haber un problema technic con le accordos de partner de contento. Per favor reproba. Si le problema persiste, per favor notifica EOL.
+  content_partner_agreement_subheader: Accordo de partner de contento
+  content_partner_agreement_update_successful_notice: Le conditiones de partner de contento ha essite actualisate con successo.
+  content_partner_agreement_update_unsuccessful_error: Un error ha occurrite, e le conditiones de partner de contento non ha essite actualisate.
+  content_partner_collections_empty: Le collectiones de partner de contento lista datos que le partner ha fornite per lor ressources. Nulle collectiones publicate ha essite trovate pro le momento.
+  content_partner_column_header_partner: Partner
+  content_partner_contact_create_successful_notice: Le contacto ha essite addite.
+  content_partner_contact_create_unsuccessful_error: Un error ha occurrite, e le contacto non ha essite addite.
+  content_partner_contact_delete_successful_notice: Le contacto ha essite delite.
+  content_partner_contact_delete_unsuccessful_error: Un error ha occurrite, e le contacto non ha essite delite.
+  content_partner_contact_edit_link: Modificar contacto
+  content_partner_contact_edit_page_subheader: Modificar contacto
+  content_partner_contact_new_edit_form_header: Information de contacto del partner de contento
+  content_partner_contact_new_edit_form_tip: Prenomine, nomine de familia e e-mail es %{required_icon} obligatori.
+  content_partner_contact_new_link: Adder un nove contacto
+  content_partner_contact_new_page_subheader: Adder un contacto
+  content_partner_contact_update_successful_notice: Contacto actualisate con successo.
+  content_partner_contact_update_unsuccessful_error: Un error ha occurrite, e le contacto non ha essite actualisate.
+  content_partner_contacts_header: Contactos
+  content_partner_create_successful_notice: Partner de contento create con successo.
+  content_partner_create_unsuccessful_error: Un error ha occurrite, e le partner de contento non ha essite create.
+  content_partner_current_agreement_create_link: Crear un nove
+  content_partner_current_agreement_edit_link: Modificar
+  content_partner_current_agreement_empty: Nulle accordo
+  content_partner_current_agreement_not_accepted: Non ancora acceptate
+  content_partner_current_agreement_signed_on_with_date: Signate le %{date}
+  content_partner_current_agreement_view_link: Vider
+  content_partner_data_description_empty: Nemo ha addite un description del datos fornite.
+  content_partner_data_description_header: Description del datos
+  content_partner_edit_link: Modificar partner de contento
+  content_partner_filter_option_published_latest_harvest_not_published: Ultime non publicate
+  content_partner_filter_option_published_latest_harvest_pending_publish: Ultime attendente publication
+  content_partner_filter_option_published_latest_harvest_published: Ultime publicate
+  content_partner_filter_option_published_never_harvested: Nunquam recoltate
+  content_partner_filter_option_published_never_published: Nunquam publicate
+  content_partner_filter_option_published_no_resources: Nulle ressource
+  content_partner_filter_option_vetted_no: 'No'
+  content_partner_filter_option_vetted_yes: Si
+  content_partner_filter_published: Publicate
+  content_partner_has_unpublished_content_false: Nulle contento non publicate
+  content_partner_has_unpublished_content_true: Contento non publicate
+  content_partner_homepage_link: Visitar le sito web del partner
+  content_partner_latest_published_harvest_event_time_ago: Ultime actualisation %{time_passed} retro;
+  content_partner_logo_alt_text: Logo del partner de contento %{partner_name}
+  content_partner_managed_by_header: Gerite per
+  content_partner_new_edit_form_profile_header: Information de profilo del partner de contento
+  content_partner_new_edit_form_tip: Parte del information que tu entra hic essera visibile al publico. Le nomine e description del projecto es %{required_icon} obligatori.
+  content_partner_new_link: Adder un nove partner de contento
+  content_partner_new_page_subheader: Adder un nove partner de contento
+  content_partner_notes_empty: Il non ha notas additional pro iste projecto.
+  content_partner_notes_header: Notas del projecto
+  content_partner_oldest_published_harvest_event_time_ago: Prime publication in EOL %{time_passed} retro;
+  content_partner_overview_agreement_header: Accordo de partner
+  content_partner_overview_agreement_link: Vider accordo actual
+  content_partner_overview_link: Vision general del partner
+  content_partner_overview_link_back_to: retornar al vision general del partner
+  content_partner_profile_menu: Profilo de partner de contento
+  content_partner_public_false: Private
+  content_partner_public_true: Public
+  content_partner_registered_time_ago: Registrate %{time_passed} retro;
+  content_partner_reports: Reportos de partner de contento
+  content_partner_resource_about_header: A proposito del ressource
+  content_partner_resource_auto_publish_false: 'No'
+  content_partner_resource_auto_publish_true: Si
+  content_partner_resource_collection_empty: Nulle collection ha essite generate pro iste ressource.
+  content_partner_resource_collection_header: Collection publicate
+  content_partner_resource_collection_show_link: Vider collection publicate
+  content_partner_resource_collections_header: Collectiones
+  content_partner_resource_confirm_force_harvest: Es tu secur de voler fortiar le recolta del ressource %{resource_title}?
+  content_partner_resource_create_successful_notice: "Le detalios sur le ressource del partner ha essite addite. Stato actual del datos del ressource: %{resource_status}"
+  content_partner_resource_create_unsuccessful_error: Un error ha occurrite, e le ressource non ha essite addite.
+  content_partner_resource_dataset_details_header: Gruppo de datos
+  content_partner_resource_url_or_dataset_not_both_error: Le URL de un gruppo de datos o un file per ressource, ma non ambes. Per favor decide si tu vole specificar un URL o incargar un file pro iste ressource describite. Altere ressources pote esser addite plus tarde.
   content_summary_introduction_html: Le sequente valores representa le summa de differente typos de contento pro iste taxon e tote su descendentes taxonomic. Le contento %{glossary_term_trusted} o ha essite approbate per un curator de EOL o proveni de un suppletor digne de fide. Le contento %{glossary_term_unreviewed} non ha ancora essite evalutate per un curator de EOL. Cata hierarchia taxonomic es unic, dunque cata hierarchia navigabile es listate pro comparation.
-  content_summary_table_caption: Un summario del contento associate con %{taxon_name} e su descendentes in %{hierarchy_label}
   content_summary_table_count_column_header: Numero
   content_summary_table_summary: Iste tabella contine le numeros de varie typos de contento, separate per stato.
   content_summary_table_type_descendants_row: Numero de descendentes
@@ -262,15 +770,15 @@ ia:
   create_a_collection: Crear un collection
   create_a_community: Crear un communitate
   create_account: crear un conto
-  created_community: Le communitate ha essite create con successo.
-  curators_summary_header_with_count:
-    one: "%{count} curator"
-    other: "%{count} curatores"
+  curator_admin_index_help: Clicca sur un nomine de usator pro vider le profilo detaliate del usator. Tu pote cambiar le permissiones de curator al nivello de clade in le paginas de profilo del usatores. Si le datos de authentication es truncate, clicca pro expander e monstrar le datos de authentication complete.
+  curator_level: Nivello de curator
+  curator_level_with_indefinite_article_assistant_curator: un <strong>curator assistente</strong>
+  curator_level_with_indefinite_article_full_curator: un <strong>plen curator</strong>
+  curator_level_with_indefinite_article_master_curator: un <strong>maestro curator</strong>
   currently_in_eol: Actualmente in le Encyclopedia del Vita
   dashboard: Pannello de instrumentos
   delete_community: Deler iste communitate
   detail: Detalio
-  development_version_name: V2 VERSION IN DISVELOPPAMENTO - non pro uso public
   displaying_numerical_range: Lista de %{start_number} a %{end_number}
   donate: Donar
   donation_error_no_amount: Per favor selige un amonta a donar.
@@ -278,9 +786,6 @@ ia:
   edit_community: Modificar communitate
   edit_my_profile: Modificar mi profilo
   encyclopedia_of_life: Encyclopedia del Vita
-  endorsed_collections_with_count:
-    one: "%{count} collection approbate"
-    other: "%{count} collectiones approbate"
   eol_colon: "EOL:"
   eol_glossary: Glossario de EOL
   eol_news: Novas de EOL
@@ -303,16 +808,24 @@ ia:
   has_already_been_taken: ha jam essite prendite.
   hello_user: Salute %{user}
   help: Adjuta
-  helpers:
-    label:
-      content_page:
+  helpers: 
+    label: 
+      collection: 
+        view_style_id: Vista predefinite
+      collection_item: 
+        annotation: Annotation
+        sort_field: Ordinar per <small>(data AAAA.MM.DD, numero o texto)</small>
+        sort_field_show: "Valor de ordination:"
+      comment: 
+        body_edit: Modificar commento
+      content_page: 
         active: Publicate
         active_more: Le paginas publicate essera visibile al publico. Dismarca <em>publicate</em> si tu non vole que le usatores in general pote vider versiones de iste pagina in omne lingua.
         page_name: Nomine unic <small>(characteres alphanumeric latin basic de ISO in minusculas e tractos de sublineamento solmente)</small>
         page_name_more: Specifica un identificator unic, auto-descriptive, significative e persistente pro iste pagina. Le nomine que tu specifica hic essera usate pro generar le URL de iste pagina, p.ex. le nomine unic <em>conditiones_de_uso</em> es convertite al URL <em>http://www.eol.org/info/conditiones_de_uso</em>.
         parent_content_page_id: Genitor
         parent_content_page_id_more: Selige eventualmente un genitor sub le qual iste pagina debe esser classificate.
-      content_partner:
+      content_partner: 
         created_at: Registrate
         current_agreement: Accordo actual
         description_of_data: Description del datos <small>(private)</small>
@@ -327,10 +840,12 @@ ia:
         oldest_published_harvest_event: Prime publication
         public_more: Le profilos public de partner de contento es visibile pro omnes, e le information super le partner es includite in listas de partners de contento. Dismarca iste option pro excluder le detalios del partner de contento del listas e pro restringer le accesso al profilos al usator qui ha create le partner de contento e al administratores de EOL.
         user_id: Detalios del partner de contento gerite per
-      content_partner_agreement:
+      content_partner_agreement: 
         mou_url: URL del file de accordo <small>(optional alternative)</small>
         mou_url_more: Optionalmente specifica un URL verso le file que contine le accordo de iste partner. Iste file supplantara omne altere texto de accordo. Si tu vole immagazinar le file (p.ex. un file PDF) in servitores de contento de EOL, alora primo <a href="%{upload_content_url}">incarga le file</a>, pro obtener le URL.
-      data_object:
+      content_partner_contact: 
+        email_reports_frequency_hours_more: Le reportos per e-mail es inviate solmente si il habeva commentos o actiones de curator super tu datos o super paginas de taxon relevante a tu insimul de datos.
+      data_object: 
         bibliographic_citation: Citation bibliographic
         description: Texto <small>(alcun marcation HTML es permittite)</small>
         license_id: Licentia
@@ -341,26 +856,26 @@ ia:
         rights_statement: Declaration del derectos
         source_url: URL verso le objecto de datos original
         toc_item: Subcapitulo
-      google_analytics_partner_summaries:
+      google_analytics_partner_summaries: 
         page_views: Visitas de paginas <small>(numeros de visitas a paginas)</small>
         taxa_pages: Paginas <small>(numero de paginas)</small>
         taxa_pages_viewed: Paginas vidite <small>(numero de paginas vidite per visitatores)</small>
         time_on_page: Tempore total passate sur paginas <small>(horas)</small>
         unique_page_views: Visitas unic de paginas <small>(numero de visitatores que ha vidite paginas)</small>
-      harvest_event:
+      harvest_event: 
         began_at: Comenciate
         completed_at: Terminate
         publish_more: Marca un evento de recolta pro publication, le contento non essera rendite public immediatemente.
         published_at: Publicate
         published_status: Stato
-      hierarchy:
+      hierarchy: 
         browsable_more: Marca le option "navigabile" pro promover iste hierarchia pro devenir un del primari hierarchias navigabile in EOL.
         browsable_status_with_colon: "Stato de navigabilitate:"
         complete: Curate
         complete_more: "Un hierarchia curate assume que cata elemento es intendite pro esser unic, i.e. nomines correspondente essera tractate como homonymos. <strong>ATTENTION: Non cambia iste attributo a minus que tu es certe del stato de homonymos in le hierarchia. Facer isto poterea mitter in periculo le integritate del datos.</strong>"
         request_publish: Publication requestate
         request_publish_more: Indica si il ha un requesta pendente a promover iste hierarchia pro devenir un del primari hierarchias navigabile in EOL.
-      resource:
+      resource: 
         accesspoint_url: URL del collection de datos <small>(XML, XML.GZIP o XML.GZ solmente)</small>
         accesspoint_url_existing_remove: Iste ressource es actualmente in curso de cargamento ab le URL terminante in <em>%{accesspoint_url}</em>. Incarga un file si tu vole remover le URL existente e cargar le ressource ex un file in su loco (non recommendate).
         administration_settings: Configurationes de administration <small>(solmente visibile pro administratores de EOL)</small>
@@ -379,11 +894,11 @@ ia:
         resource_url_or_file_upload: Incargar file de ressource
         resource_url_or_file_url: Cargar ressource ab URL
         title: Nomine del ressource
-      session:
+      session: 
         password: Contrasigno
         remember_me: Mantener mi session aperte durante 2 septimanas
         username_or_email: Nomine de usator o adresse de e-mail
-      translated_content_page:
+      translated_content_page: 
         active_translation: Publicate
         active_translation_more: Le traductiones publicate essera visibile al publico, a minus que le pagina mesme non es publicate. Dismarca <em>publicate</em> si tu vole que le usatores in general non vide iste version del pagina.
         language_id: Lingua
@@ -392,7 +907,7 @@ ia:
         meta_description_more: Forni un curte description que summarisa le conceptos clave del contento del pagina. Iste description es usate a vices per le motores de recerca Web pro verificar le relevantia e pro esser includite in le resultatos del recercas.
         meta_keywords_more: Entra un lista, separate per commas, de parolas e curte phrases que reflecte le plus ben le contento del pagina. Iste parolas e phrases clave es usate a vices per le motores de recerca Web pro evalutar le relevantia del un pagina contra le criterios del recerca.
         title_more: Le titulo de iste contento apparera in le area de titulo del pagina. Le titulo debe includer le parolas-clave le plus relevante al contento.
-      user:
+      user: 
         agreed_with_terms: Io accepta le <a href="%{terms_url}">conditiones de uso</a>
         api_key_more: Lege plus a proposito de <a href="%{api_docs_url}">adder un clave a tu appellos al API</a>.
         bio: A proposito de me
@@ -423,66 +938,80 @@ ia:
         user_identities: Io es
         username: Nomine de usator <small>(4 - 32 characteres)</small>
         username_or_email: Nomine de usator o adresse de e-mail
-      wikipedia_queue:
+      wikipedia_queue: 
         revision_url: URL del version <small>(p.ex. http://ia.wikipedia.org/w/index.php?title=Elephante&oldid=321041)</small>
         revision_url_more: Per specificar le URL de un version specific de un articulo de Wikipedia, tu requesta que EOL accepta iste particular version como verificate. Illo reimplaciara le version actual de iste articulo in EOL, si existe.
-    select:
+    select: 
       prompt: Per favor selige
-    submit:
-      content_page:
+    submit: 
+      collection_item: 
+        update: Salveguardar
+      content_page: 
         create: Crear pagina
         edit: Modificar
         preview: Previsualisar
         update: Actualisar pagina
-      content_partner:
+      content_partner: 
         create: Crear partner de contento
         update: Salveguardar information de partner de contento
-      content_partner_agreement:
+      content_partner_agreement: 
         agree: De accordo con le conditiones del partner de contento
         create: Crear nove accordo
         update: Actualisar accordo
-      content_partner_contact:
+      content_partner_contact: 
         create: Adder contacto
         destroy: Deler contacto
         update: Actualisar contacto
       create: Crear %{model}
-      data_object:
+      data_object: 
         create: Adder articulo
         create_text: Adder articulo
         update: Salveguardar articulo
-      harvest_event:
+      eol_statistic: 
+        download_csv: Discargar como CSV
+      harvest_event: 
         publish: Publicar
-      hierarchy:
+      hierarchy: 
         request_publish: Requestar promotion de hierarchia
         update: Actualisar hierarchia
-      name:
+      name: 
         create: Adder nomine
         update: Actualisar nomine
-      resource:
+      resource: 
         create: Adder ressource
         force_harvest: Requestar recolta fortiate
         update: Actualisar ressource
         update_settings: Actualisar configurationes
-      session:
+      session: 
         create: Aperir session
       submit: Salveguardar %{model}
-      translated_content_page:
+      translated_content_page: 
         create: Adder traduction
         update: Salveguardar cambiamentos in traduction
       update: Actualisar %{model}
-      user:
+      user: 
         create: Crear conto
         curation_application: Sollicitar ora
         curation_privileges: Submitter requesta
         forgot_password: Inviar e-mail
         generate_api_key: Generar un clave
         update: Salveguardar information de profilo
-      wikipedia_queue:
+      wikipedia_queue: 
         create: Submitter requesta
   home: Initio
   home_page_link_advisory_information: Iste ligamine te porta al pagina principal del sito web del Encyclopedia del Vita
+  image_alt_text: Iste imagine %{vetted_status} es de %{taxon_name}
+  image_from_supplier: Imagine de %{whom}
+  image_map_alt_text: Iste carta %{vetted_status} es de %{taxon_name}
+  image_map_from_supplier: Carta de %{whom}
+  image_map_not_associated_with_any_published_entries: Iste carta non es associate a alcun taxon publicate.
+  image_map_of: Carta de
+  image_map_rating: Evalutation del carta
+  image_not_associated_with_any_published_entries: Iste imagine non es associate a alcun taxon publicate.
+  image_of: Imagine de
+  image_rating: Evalutation del imagine
   images: Imagines
-  images_with_count:
+  images_with_count: 
     one: "%{count} imagine"
     other: "%{count} imagines"
   indexed: Indexate
@@ -490,10 +1019,10 @@ ia:
   join_community_button: Adherer a iste communitate
   join_eol_button_html: Inscribe te ora a <abbr title="Encyclopedia of Life">EOL</abbr>
   join_eol_community_html: Face parte del communitate de <abbr title="Encyclopedia del Vita (of Life)">EOL</abbr>!
+  jsonp_by_adding_a_callback_parameter: ... e JSONP per adder un parametro de appello de retorno
   just_pages_with_pictures_and_text: Solmente le paginas con imagines e texto
   language: "Lingua:"
   last_updated_time_ago: Ultime actualisation %{time_passed} retro
-  learn_about_content_partners: Cognoscer nostre partners de contento
   leave_a_comment: Lassar un commento
   license: Licentia
   license_all_rights_reserved: Tote le derectos reservate
@@ -524,14 +1053,19 @@ ia:
   login: aperir session
   login_or_create_account: Aperir session o crear conto
   logout: Clauder session
-  maps_with_count:
+  map_alt_text: Iste carta %{vetted_status} es de %{taxon_name}
+  map_from_supplier: Carta de %{whom}
+  map_not_associated_with_any_published_entries: Iste carta non es associate a alcun taxon publicate.
+  map_of: Carta de
+  map_rating: Evalutation del carta
+  maps_with_count: 
     one: "%{count} carta"
     other: "%{count} cartas"
   media: Multimedia
-  media_with_count:
+  media_with_count: 
     one: "%{count} imagine"
     other: "%{count} imagines"
-  members_with_count:
+  members_with_count: 
     one: "%{count} membro"
     other: "%{count} membros"
   minimal_page: Pagina minimal
@@ -543,82 +1077,95 @@ ia:
   my_info: Mi information
   newsfeed: Syndication de novas
   not_evaluated: Non evalutate
-  notifier:
+  notifier: 
     activity_log_empty: Nulle action recente per le curatores.
-    activity_on_content_partner_content:
-      message: "Isto es un message de e-mail automatic ab le Encyclopedia del Vita (EOL) que summarisa le commentos recente e actiones de curatores in contento fornite a EOL per le partner de contento %{partner_full_name} (%{partner_profile_url}). Tu recipe iste summario perque tu es listate como contacto pro %{partner_full_name}.\n\nActiones de curatores:\n%{curator_activity_log}\n\nCommentos sur objectos de datos:\n%{data_object_comments}\n\nCommentos sur paginas con le quales tu datos es associate:\n%{page_comments}"
+    activity_on_content_partner_content: 
       subject: Summario de activitate recente in contento fornite al Encyclopedia del Vita per le partner de contento %{partner_full_name}
-    activity_on_user_content:
-      message: "Isto es un message de e-mail automatic ab le Encyclopedia del Vita (EOL) que summarisa le commentos recente e actiones de curatores in contento que tu ha addite a EOL per tu conto de membro con le nomine de usator %{members_username}.\n\nActiones de curatores:\n%{curator_activity_log}\n\nCommentos sur objectos de datos:\n%{data_object_comments}\n\nCommentos sur paginas con le quales tu datos es associate:\n%{page_comments}"
+    activity_on_user_content: 
       subject: Summario de activitate recente in contento que tu ha addite al Encyclopedia del Vita
-    activity_user_marked_data_object_as_inappropriate_on_date: "%{users_name} (%{users_url}) marcava como inappropriate:\n%{object_name} (%{object_url})\n%{action_date}."
-    activity_user_marked_data_object_as_trusted_for_taxon_on_date: "%{users_name} (%{users_url}) marcava como digne de fide:\n%{object_name} (%{object_url}) pro %{taxon_name} (%{taxon_url})\n%{action_date}."
-    activity_user_marked_data_object_as_trusted_on_date: "%{users_name} (%{users_url}) marcava como digne de fide:\n%{object_name} (%{object_url})\n%{action_date}."
-    activity_user_marked_data_object_as_untrusted_for_taxon_on_date: "%{users_name} (%{users_url}) marcava como non digne de fide:\n%{object_name} (%{object_url}) pro %{taxon_name} (%{taxon_url})\n%{action_date}."
-    activity_user_marked_data_object_as_untrusted_on_date: "%{users_name} (%{users_url}) marcava como non digne de fide:\n%{object_name} (%{object_url})\n%{action_date}."
+    activity_user_added_association_for_taxon_on_date: "%{curator_level} %{users_name} (%{users_url}) addeva un association:\n%{taxon_name} (%{taxon_url}) a %{object_name} (%{object_url})\n%{action_date}."
+    activity_user_added_association_on_date: "%{curator_level} %{users_name} (%{users_url}) addeva un association incognite a %{object_name} (%{object_url})\n%{action_date}."
+    activity_user_removed_association_for_taxon_on_date: "%{curator_level} %{users_name} (%{users_url}) removeva un association:\n%{taxon_name} (%{taxon_url}) de %{object_name} (%{object_url})\n%{action_date}."
+    activity_user_removed_association_on_date: "%{curator_level} %{users_name} (%{users_url}) removeva un association incognite de %{object_name} (%{object_url})\n%{action_date}."
     comments_empty: Nulle commento recente.
-    contact_us_auto_response:
+    contact_us_auto_response: 
       message: "Gratias pro contactar le projecto Encyclopedia del Vita. Vostre commentos ha essite inviate al gruppo appropriate.\n\nNos apprecia vostre retroaction."
       subject: Gratias pro contactar le Encyclopedia del Vita
-    contact_us_message:
-      message: "Le sequente message ha essite submittite a EOL via le formulario \"Contacta nos\":\nAutor: %{from_name}\nE-mail: %{from_email}\nSubjecto: %{subject}\nGruppo de taxones: %{taxon_group}\n\n%{message}"
+    contact_us_message: 
       subject: "Un message a EOL: %{title}"
-    content_partner_created:
+    content_partner_created: 
       message: "Isto es un notification automatic del systema de EOL pro le gruppo Paginas sur Species. Le usator %{user_full_name} ha create le partner de contento %{partner_full_name}. Le detalios seque:\n\nUsator: %{user_full_name}\nE-mail: %{user_email}\nURL del profilo: %{user_profile_url}\n\nPartner: %{partner_full_name}\nURL del profilo del partner: %{partner_profile_url}\nCreate le: %{partner_created_at_date}"
       subject: Le usator de EOL %{user_full_name} ha create le partner de contento %{partner_full_name}
-    content_partner_resource_created:
+    content_partner_resource_created: 
       message: "Isto es un notification automatic del systema de EOL pro le gruppo Paginas sur Species. Le usator %{user_full_name} ha addite un nove ressource %{resource_title} al partner de contento %{partner_full_name}. Le detalios seque:\n\nUsator: %{user_full_name}\nE-mail: %{user_email}\nURL del profilo: %{user_profile_url}\n\nPartner: %{partner_full_name}\nURL de ressources del partner: %{partner_resources_url}\n\nRessource: %{resource_title}\nURL del ressource: %{resource_url}\nCreate le: %{resource_created_at_date}\nStato: %{resource_status}"
       subject: Le usator de EOL %{user_full_name} ha addite un nove ressource %{resource_title} al partner de contento %{partner_full_name}
-    content_partner_resource_force_harvest_request:
+    content_partner_resource_force_harvest_request: 
       message: "Isto es un notification automatic del systema de EOL pro le Gruppo de Paginas de Species. Le usator %{user_full_name} requestava un recolta fortiate pro le ressource %{resource_title} pertinente al partner de contento %{partner_full_name}. Le detalios seque:\n\nUsator: %{user_full_name}\nE-mail: %{user_email}\nURL de profilo: %{user_profile_url}\n\nPartner: %{partner_full_name}\nURL de ressources de partner: %{partner_resources_url}\n\nRessource: %{resource_title}\nURL del ressource: %{resource_url}\nActualisate le: %{resource_updated_at_date}\nStato: %{resource_status}"
       subject: Le usator %{user_full_name} de EOL requestava un recolta fortiate pro le ressource %{resource_title} pertinente al partner de contento %{partner_full_name}
-    content_partner_resource_hierarchy_publish_request:
+    content_partner_resource_hierarchy_publish_request: 
       message: "Isto es un notification automatic del systema de EOL pro le Gruppo de Paginas de Species. Le %{user_full_name} requestava que un hierarchia associate con le ressource %{resource_title}, pertinente al partner de contento %{partner_full_name}, sia promovite (publicate) a un hierarchia navigabile in EOL. Le detalios seque:\n\nUsator: %{user_full_name}\nE-mail: %{user_email}\nURL de profilo: %{user_profile_url}\n\nPartner: %{partner_full_name}\nURL de ressources de partner: %{partner_resources_url}\n\nRessource: %{resource_title}\nURL del ressource: %{resource_url}\nURL pro modification del hierarchia: %{hierarchy_edit_url}"
       subject: Le usator %{user_full_name} de EOL requestava un promotion de hierarchia pro le ressource %{resource_title} pertinente al partner de contento %{partner_full_name}
+    content_partner_statistics_reminder: 
+      message: Isto es un rememoration inviate automaticamente per le Encyclopedia del Vita. Le statisticas de uso in web pro datos fornite a EOL per %{partner_full_name} pro %{month} %{year} es nunc disponibile a %{partner_statistics_url}.
+      subject: Rememoration de statisticas de uso del Encyclopedia del Vita pro %{partner_full_name}, %{month} %{year}
+    curator_approved: 
+      message: "Gratias pro requestar le privilegio de curator %{curator_level}. Tu requesta ha essite approbate.\n\nPro plus information sur curation e le functiones disponibile a te, visita http://www.eol.org/curators."
+      subject: Tu requesta pro le privilegio de curator %{curator_level} del Encyclopedia del Vita ha essite approbate
     greeting_dear_name_with_comma: Car %{name},
     signature_basic: Le equipa del Encyclopedia del Vita
     signature_with_species_pages_group_contact: "Si tu ha alcun question, per favor contacta nos a %{species_pages_group_email}.\n\nLe equipa del Encyclopedia del Vita"
     signature_with_support_contact: "Si tu incontra alcun problema, per favor contacta nos a %{support_email}.\n\nLe equipa del Encyclopedia del Vita"
-    user_commented_on_something_date_body: "%{users_name} (%{users_url}) commentava:\n%{commented_on_name} (%{commented_on_url})\n%{comment_date}:\n%{comment_body}"
-  other_collection_items_with_count:
+    user_activated: 
+      message: "Benvenite al Encyclopedia del Vita (EOL) e gratias pro inscriber te! Per favor nota que tu nomine de usator es %{username} e le adrese URL de tu profilo es %{profile_url}. Tu pote aperir session in tu conto a http://www.eol.org/login.\n\nPro saper plus sur le uso de EOL, per exemplo, como crear collectiones, participar in communitates e contribuer contento, per favor visita nostre paginas de adjuta a http://www.eol.org/help."
+      subject: Tu conto in le Encyclopedia del Vita ha essite activate
+    user_message: 
+      subject: Un message del Encyclopedia del Vita
+    user_reset_password: 
+      message: "Le Encyclopedia del Vita (www.eol.org) ha recipite un requesta de reinitialisar tu contrasigno. Si tu non ha facite iste requesta, per favor ignora iste e-mail.\n\nLe sequente ligamine forni un sol opportunitate de reinitialisar tu contrasigno:\n\n%{password_reset_url}\n\nSeque iste ligamine (clicca sur illo, o copia e colla le adresse integre in le barra de adresses de tu navigator del web) pro acceder al pagina ubi tu pote specificar un nove contrasigno. Per favor nota que, si le ligamine ha expirate, le systema te demandara de entrar tu nomine de usator o adresse de e-mail de novo pro reciper un nove message con un nove ligamine pro reinitialisar le contrasigno."
+      subject: Reinitialisar le contrasigno de tu conto del Encyclopedia del Vita
+    user_updated_email_preferences: 
+      message: "Isto es un notification automatic del systema de EOL. Le usator %{user_full_name} (%{user_profile_url}) ha actualisate su adresse de e-mail o preferentias de lista de diffusion.\n\nPreferentias previe:\nE-mail: %{previous_email}\nLista de diffusion: %{previous_mailing_list_preference}\n\nPreferentias actual:\nE-mail: %{updated_email}\nLista de diffusion: %{updated_mailing_list_preference}\nActualisate a: %{updated_at}"
+      subject: Le usator de EOL %{user_full_name} cambiava su adresse de e-mail o preferentias de lista de diffusion
+    user_verification: 
+      message: "Gratias pro tu inscription in Encyclopedia del Vita. Le sequente ligamine es pro verificar que vole completar tu inscription:\n\n%{verification_url}\n\nSeque iste ligamine (clicca sur illo, o copia e colla le ligamine integre in le barra de adresses de tu navigator del web) pro activar tu conto. Post le activation de tu conto, tu recipera un e-mail de confirmation."
+      subject: Per favor verifica tu requesta de un conto in Encyclopedia del Vita
+  other_collection_items_with_count: 
     one: "%{count} altere elemento"
     other: "%{count} altere elementos"
-  other_community_items_with_count:
+  other_community_items_with_count: 
     one: "%{count} altere elemento"
     other: "%{count} altere elementos"
   overview: Vista general
   pages_with_pictures_and_text: Paginas con imagines e texto
   pages_with_pictures_or_text: Paginas con imagines o texto
-  people_with_count:
+  people_with_count: 
     one: "%{count} persona"
     other: "%{count} personas"
+  person_rating: Evalutation del persona
   personal_space: Spatio personal
   post_comment: Publicar commento
-  preferred_common_name_advisory_information: Iste es le nomine preferite pro iste taxon.
   press_room: Sala de pressa
   profile: Profilo
   profile_image_alt_text_curator: Imagine de profilo del curator %{user_full_name}
   profile_image_alt_text_member: Imagine de profilo del membro %{user_full_name}
   punctuation_comma: ","
-  rated_by_count_people:
+  rated_by_count_people: 
     one: de %{count} persona
     other: de %{count} personas
   recent_updates: Actualisationes recente
   remove_membership: Remover inscription
   resources: Ressources
   rights: Derectos
-  rights_holder: Detentor del derectos
   search_field_label: Cercar in EOL
-  search_input_advisory_information: Entra nomines commun o scientific de organismos vive de que tu vole saper plus. Per exemplo, tenta scriber "tomate".
   search_placeholder: Cercar in EOL ...
   search_the_site: Cercar in le sito
-  see_all_classifications_with_count_html:
+  see_all_classifications_with_count_html: 
     one: Vider le unic <span class="assistive">classification approbate in que iste taxon appare.</span>
     other: Vider tote le <span class="assistive">%{count} classificationes approbate in que iste taxon appare.</span>
-  see_all_collections_with_count_html:
+  see_all_collections_with_count_html: 
     one: Vider le unic <span class="assistive">collection in que iste taxon appare.</span>
     other: Vider tote le <span class="assistive">%{count} collectiones in que iste taxon appare.</span>
-  see_all_communities_with_count_html:
+  see_all_communities_with_count_html: 
     one: Vider le <span class="assistive">%{count} communitate que se concentra super iste taxon.</span>
     other: Vider tote le <span class="assistive">%{count} communitates que se concentra super iste taxon.</span>
   see_all_media_link: Vider tote le multimedia
@@ -639,43 +1186,64 @@ ia:
   sort_by_newest_option: Le plus nove
   sort_by_oldest_option: Le plus ancian
   sort_by_rating_option: Evalutation
-  sounds_with_count:
+  sound_alt_text: Iste registration audio %{vetted_status} es de %{taxon_name}
+  sound_from_supplier: Sono de %{whom}
+  sound_not_associated_with_any_published_entries: Iste sono non es associate a alcun taxon publicate.
+  sound_of: Sono de
+  sound_rating: Evalutation del sono
+  sounds_with_count: 
     one: "%{count} sono"
     other: "%{count} sonos"
   source_url: URL de origine
   supplier: Suppletor
   switch_language_advisory_information: Cambiar le lingua del sito a %{language_label}
   table_of_contents: Tabula de contento
-  taxa: Taxones
-  taxa_with_count:
+  taxa_with_count: 
     one: "%{count} taxon"
     other: "%{count} taxones"
   taxon: taxon
+  taxon_rating: Evalutation del taxon
   text_summary_more_link: Leger articulo complete
-  text_with_count:
+  text_with_count: 
     one: "%{count} articulo"
     other: "%{count} articulos"
   there_are_currently_no_members_in_this_community: Actualmente il non ha membros in iste communitate.
-  threat_status_header_colon: "Stato de menacia de IUCN:"
+  this_article_cannot_be_curated_because_unpublished: Iste articulo non pote esser curate perque illo non es publicate.
+  this_article_is_unpublished: Iste articulo non es publicate.
+  this_image_cannot_be_curated_because_unpublished: Iste imagine non pote esser curate perque illo non es publicate.
+  this_image_is_unpublished: Iste imagine non es publicate.
+  this_image_map_cannot_be_curated_because_unpublished: Iste carta non pote esser curate perque illo non es publicate.
+  this_image_map_is_unpublished: Iste carta non es publicate.
+  this_map_cannot_be_curated_because_unpublished: Iste carta non pote esser curate perque illo non es publicate.
+  this_map_is_unpublished: Iste carta non es publicate.
+  this_sound_cannot_be_curated_because_unpublished: Iste sono non pote esser curate perque illo non es publicate.
+  this_sound_is_unpublished: Iste sono non es publicate.
+  this_video_cannot_be_curated_because_unpublished: Iste video non pote esser curate perque illo non es publicate.
+  this_video_is_unpublished: Iste video non es publicate.
   time_ago: "%{time_passed} retro"
-  total_items_with_count:
+  total_items_with_count: 
     one: "%{count} elemento"
     other: "%{count} elementos"
   trusted: Digne de confidentia
   twitter: Twitter
   unknown: Incognite
+  unknown_type_not_associated_with_any_published_entries: Iste datos non es associate a alcun taxon publicate.
   unreviewed: Non revidite
-  updated_community: Le communitate ha essite actualisate con successo.
   user_comment: Commento de usator
   user_system_down: Nos regretta que le systema pro le creation de contos non es disponibile al momento. Per favor reproba plus tarde.
   using_the_site: Usar iste sito
-  videos_with_count:
+  video_alt_text: Iste video %{vetted_status} es de %{taxon_name}
+  video_from_supplier: Video de %{whom}
+  video_not_associated_with_any_published_entries: Iste video non es associate a alcun taxon publicate.
+  video_of: Video de
+  video_rating: Evalutation del video
+  videos_with_count: 
     one: "%{count} video"
     other: "%{count} videos"
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Vider solmente paginas con al minus un imagine o pecia de texto
   what_is_eol: Que es EOL?
   what_is_this_question: Que es isto?
-  will_paginate:
+  will_paginate: 
     next_label: Sequente &#8594;
     page_gap: "&hellip;"
     previous_label: "&#8592; Precedente"
@@ -683,6 +1251,7 @@ ia:
   you_are_not_authorized_to_perform_this_action: Tu non es autorisate a exequer iste action.
   you_joined_community: Tu ha adherite a iste communitate.
   you_left_community: Tu ha quitate iste communitate.
+  you_may_upload_static_files_fo: Isto permitte incargar files static pro uso in le systema de gestion de contento (per exemplo, files PDF, documentos Word, imagines, etc.). Non usa isto pro incargar contento pro paginas de specie; isto es pro uso solmente in altere paginas (como annuncios de empleos, bulletines de novas, contractos con partners de contento, etc.). Pro files PDF como contractos e bulletines de novas, tu pote ligar al "URL facile" si tu vole (le qual redirigera automaticamente al "URL complete"). Pro imagines que es incorporate in un pagina e inserite con un etiquetta &lt;img&gt;, tu debe usar le "URL complete". Le "URL complete" pote continer un altere numero de servitor de contento cata vice que tu refresca le pagina (p.ex. "content2.eol.org", "content3.eol.org", etc.); isto es normal, e qualcunque numero pote esser usate in ligamines perque tote illos es equivalente.
   your_current_rating_0_of_5: "Tu evalutation actual: 0 de 5"
   your_current_rating_1_of_5: "Tu evalutation actual: 1 de 5"
   your_current_rating_2_of_5: "Tu evalutation actual: 2 de 5"

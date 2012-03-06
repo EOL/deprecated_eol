@@ -61,7 +61,4 @@ $(function() {
   })($("#main"));
 
   EOL.init_curation_behaviours();
-  $('#tasks').ajaxSuccess(function() {
-    EOL.init_curation_behaviours();
-  });
 });

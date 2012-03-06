@@ -1,4 +1,4 @@
-class WikipediaQueue < SpeciesSchemaModel
+class WikipediaQueue < ActiveRecord::Base
 
   set_table_name "wikipedia_queue"
 

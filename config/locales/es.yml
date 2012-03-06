@@ -1,6 +1,8 @@
 # Messages for Spanish (Español)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
+# Author: Armando-Martin
+# Author: Bernardom
 # Author: Crazymadlover
 # Author: Eduardoescdel
 # Author: Erick mata
@@ -10,38 +12,49 @@
 # Author: Sampalahnuk
 # Author: Toliño
 # Author: Vivaelcelta
-es:
+es: 
   0_1_or_2: 0, 1 o 2
   0_or_1: 0 o 1
+  1st_view: Primera vista
   a_pipe_delimited_list_of_licenses: una lista de licencias delimitada por barras verticales | o bien, 'todo' para obtener objetos bajo cualquier licencia. Licencias abreviadas cc- son todas
   a_pipe_delimited_list_of_spm_info_item_subject_names: una lista de nombres de temas de elementos de información SPM delimitada por barras verticales | o 'todo' para obtener texto sobre cualquier tema
   a_taxon: un taxón
-  a_total_of_comment_were_found_matching_your_criteria:
+  a_total_of_comment_were_found_matching_your_criteria: 
     one: Un total de %{count} comentario que coincide con sus criterios ha sido encontrado.
     other: Un total de %{count} comentarios que coinciden con sus criterios ha sido encontrado.
   about_eol: Acerca de EOL
   account_information: Información de la cuenta
+  account_information_menu: Información de cuenta
   account_registered_but_not_ready_try_later: Su cuenta está registrada, pero no está lista para que tengas acceso. Por favor, inténtelo de nuevo dentro de cinco minutos.
   action: Acción
   action_not_available_error: Lo sentimos, esa acción no está disponible.
   actions: Acciones
+  active: Activo
   active_colon: "Activo:"
-  activerecord:
-    attributes:
-      collection:
+  activerecord: 
+    attributes: 
+      collection: 
+        additional_annotation_fields: Campos de anotación adicionales
         description: Descripción de la colección
         logo: Imagen principal de la colección
         name: Nombre de la colección
+        show_references: Referencias (Texto o URL)
         sort_style_id: La dirección por defecto de ordenación
-      community:
+      collection_item: 
+        annotation: Anotación
+        refs: Referencias
+        sort_field: Ordenar por
+      comment: 
+        body: Comentario
+      community: 
         description: Descripción de la comunidad
         logo: Subir un logotipo
         name: Nombre de la comunidad
-      content_page:
+      content_page: 
         active: Publicado
         page_name: Nombre único
         sort_order: Orden de clasificación
-      content_partner:
+      content_partner: 
         acronym: Abreviatura de proyecto
         admin_notes: Notas de la administración
         auto_publish: Publicar automáticamente
@@ -57,35 +70,101 @@ es:
         resources: Recursos
         user_id: Administrado por
         vetted: Aprobados
-      content_partner_agreement:
+      content_partner_agreement: 
         created_at: Creado el
         signed_by: Firmado por
         signed_on_date: Firmado en fecha
-      data_object:
+      content_partner_contact: 
+        email_reports_frequency_hours: Frecuencia de los informes de correo electrónico
+      data_object: 
         bibliographic_citation: Cita bibliográfica
         description: Descripción
         object_title: Título
         rights_holder: Posesor de los derechos
         rights_statement: Declaración de los derechos
         source_url: URL de origen
-      harvest_event:
+      eol_statistic: 
+        active_curators: Conservadores activos
+        base_pages: Páginas de base
+        collections_count: Colecciones
+        communities_count: Comunidades
+        content_partners: Socios de contenido
+        content_partners_with_published_resources: Con recursos publicados
+        content_partners_with_published_trusted_resources: Con recursos fiables publicados
+        created_at: Creado en
+        curator_actions_in_the_last_30_days: Acciones de un conservador en los últimos 30 días
+        curators: Conservadores
+        curators_assistant: Conservadores adjuntos
+        curators_full: Conservadores con todas las funciones
+        curators_master: Conservadores maestros
+        data_objects: Objetos de datos
+        data_objects_images: Objetos de imagen
+        data_objects_maps: Objetos de mapa
+        data_objects_sounds: Objetos de audio
+        data_objects_texts: Objetos de texto
+        data_objects_trusted: Objetos de datos fiables
+        data_objects_trusted_or_unreviewed_but_hidden: Fiable o no revisado pero oculto
+        data_objects_unreviewed: Objetos de datos no revisados
+        data_objects_untrusted: Objetos de datos no fiables
+        data_objects_videos: Objetos de vídeo
+        hotlist_pages: Páginas más demandadas
+        lifedesk_data_objects: Objetos de datos de LifeDesks
+        lifedesk_taxa: Taxones LifeDesks
+        marine_pages: Páginas marinas
+        marine_pages_in_col: Páginas marinas encontradas en COL
+        marine_pages_with_objects: Páginas marinas con objetos de datos
+        marine_pages_with_objects_vetted: Páginas marinas con objetos de datos fiables
+        members_count: Miembros
+        newly_published_resources_in_the_last_30_days: Recién publicado en el último mes
+        objects_curated_in_the_last_30_days: Objetos supervisados en los últimos 30 días
+        pages_count: Total de páginas
+        pages_curated_by_active_curators: Páginas supervisadas por conservadores activos
+        pages_with_BHL_links: Páginas con enlaces BHL
+        pages_with_BHL_links_no_text: Páginas con enlaces BHL pero sin texto
+        pages_with_BHL_links_only: Páginas sólo con enlaces BHL
+        pages_with_at_least_a_curatorial_action: Páginas con acción de mantenimiento
+        pages_with_at_least_a_trusted_object: Páginas con objeto de confianza
+        pages_with_content: Páginas con contenido
+        pages_with_image: Páginas con imagen
+        pages_with_image_no_text: Páginas con imagen pero sin texto
+        pages_with_map: Páginas con mapa
+        pages_with_score_10_to_39: Páginas con puntuación de 10 a 39
+        pages_with_score_less_than_10: Páginas con puntuación inferior a 10
+        pages_with_sound: Páginas con audio
+        pages_with_text: Páginas con texto
+        pages_with_text_no_image: Páginas con texto pero sin ninguna imagen
+        pages_with_video: Páginas con video
+        pages_without_image: Páginas sin imagen
+        pages_without_text: Páginas sin texto
+        published_resources: Recursos publicados
+        published_trusted_resources: Recursos fiables publicados
+        published_unreviewed_resources: Recursos no revisados publicados
+        redhotlist_pages: Páginas Rojas más demandadas
+        rich_hotlist_pages: Páginas ricas más demandadas
+        rich_pages: Páginas ricas
+        rich_redhotlist_pages: Páginas ricas rojas más demandadas
+        udo_published: Texto enviado por el usuario
+        udo_published_by_curators: Texto enviado por el responsable de mantenimiento
+        udo_published_by_non_curators: Texto no enviado por responsable de mantenimiento
+      harvest_event: 
         resource: Recurso
-      hierarchy:
+      hierarchy: 
         browsable: Navegable
         complete: Completo
         description: Descripción
         descriptive_label: Etiqueta descriptiva
         label: Etiqueta
         request_publish: Solicitar la publicación
-      name:
+      name: 
         string: Nombre
-      resource:
+      resource: 
         accesspoint_url: Conjunto de datos URL
         auto_publish: Publicar automáticamente
         bibliographic_citation: Cita bibliográfica
         dataset: Archivo de conjunto de datos
         description: Descripción de recursos
         dwc_archive_url: Darwin Core Archivo URL
+        harvest_events: Recoger eventos
         hierarchy: Jerarquía
         language_id: Idioma predeterminado
         license_id: Licencia predeterminada
@@ -95,18 +174,19 @@ es:
         rights_statement: Declaración de los derechos de forma predeterminada
         title: Nombre del recurso
         vetted: Aprobado
-      translated_content_page:
+      translated_content_page: 
         active_translation: Publicado
         left_content: Navegación
         main_content: Cuerpo
         meta_description: Descripción de metadatos
         meta_keywords: Palabras clave de metadatos
         title: Título
-      user:
+      user: 
         agreed_with_terms: Términos de uso
         api_key: Llave API
         bio: Biografía
         credentials: Credenciales
+        curator_level: Nivel de supervisor
         curator_scope: Alcance del curación
         email: Dirección de correo electrónico
         entered_password: Contraseña
@@ -118,11 +198,11 @@ es:
         requested_curator_level_id: Nivel deseado para curación
         tag_line: Lema
         username: Nombre de usuario
-    errors:
+    errors: 
       format: "%{attribute} %{message}"
-      full_messages:
+      full_messages: 
         format: "%{attribute} %{message}"
-      messages:
+      messages: 
         accepted: Obligatoria aceptación
         blank: No puede dejar blanco
         confirmation: no coincide con la confirmación
@@ -130,14 +210,14 @@ es:
         equal_to: necesita ser igual a% {count}
         even: necesita ser par
         exclusion: está reservado
-        greater_than:
+        greater_than: 
           one: necesita ser mayor que %{count}
           other: necesitan ser mayores que %{count}
         greater_than_or_equal_to: necesita ser mayor que o igual a% {count}
         inaccessible: es inaccesible
         inclusion: no está incluido en la lista
         invalid: no es válido
-        less_than:
+        less_than: 
           one: debe ser menor que %{count}
           other: deben ser menores que %{count}
         less_than_or_equal_to: necesita ser menor que o igual a % {count}
@@ -146,44 +226,57 @@ es:
         odd: necesita ser impar
         record_invalid: "La validación falló: %{errors}"
         taken: ya está en uso
-        too_long:
+        too_long: 
           one: es demasiado largo (el máximo es %{count} carácter
           other: es demasiado largo (el máximo son %{count} caracteres)
-        too_short:
+        too_short: 
           one: es demasiado corto (el mínimo es %{count} carácter
           other: es demasiado corto (el mínimo son %{count} caracteres)
         wrong_length: es longitud mal (debe ser %{count} caracteres)
         wrong_type: es tipo incorecto
-      models:
-        resource:
-          attributes:
-            accesspoint_url:
+      models: 
+        harvest_event: 
+          attributes: 
+            publish: 
+              inclusion: sólo permitido para el último evento de recogida y sólo si ese evento ya no está publicado
+        resource: 
+          attributes: 
+            accesspoint_url: 
               blank: no puede estar vacío, a menos levantaste un archivo de recursos en vez
               inaccessible: es inaccesible, la URL necesita ser accesible al público
               invalid: no es válida, debe apuntar a un archivo XML, XML.GZIP o XML.GZ.
-            dataset:
+            dataset: 
               blank: no puede estar blanco, a menos proporcionaste una dirección URL conjunto de datos en ves
               wrong_type: es el tipo incorrecto, debe ser un archivo GZIP, TAR o XML
-            dwc_archive_url:
+            dwc_archive_url: 
               inaccessible: es inaccesible, la URL necesita ser accesible al público
               invalid: no es válida, se debe apuntar a un archivo TAR.GZIP, TAR.GZ o TGZ.
-      template:
+      template: 
         body: "Se encontraron problemas con los siguientes campos:"
-        header:
+        header: 
           one: Se encontró %{count} un error de validación
           other: Se encontraron %{count} errores de validación
-    models:
+    models: 
       user: cuenta
   activity: Actividad
+  activity_added_an_editor_of_collection: <strong>%{user}</strong> añadio un administrador a la colección "%{collection}".
+  activity_choose_exemplar: <strong>%{user}</strong> ha definido una imagen como ejemplar para "%{object_name}".
+  activity_hid_with_reasons_colon: "razón para ocultar: %{reasons}"
   activity_log_empty: Nadie ha proporcionado actualizaciones todavía.
   activity_log_empty_learn_more_link: Aprende cómo contribuir
+  activity_untrusted_with_reasons_colon: "razón para definir como no fiable: %{reasons}"
+  activity_user_added_as_an_editor_of_collection: <strong>%{user}</strong> fue añadido como administrador a la colección "%{collection}".
   activity_user_added_association: <strong>%{user}</strong> agregó una asociación "%{object_name}".
+  activity_user_added_collection_to_community: <strong>%{user}</strong> añadió la colección "%{collection}" a la comunidad "%{community}".
+  activity_user_added_common_name: <strong>%{user}</strong> agregó el nombre común en %{language} "%{name}" a un objeto desconocido.
+  activity_user_added_common_name_to_taxon: <strong>%{user}</strong> agregó el nombre común "%{name}" en %{language} a "%{taxon}".
   activity_user_added_community_manager: <strong>%{user}</strong> hizo %{manager} un administrador de la comunidad "%{community}".
   activity_user_added_item_to_collection: <strong>%{user}</strong> añadio "%{item}" a la colección  "%{collection}".
   activity_user_added_named_association: <strong>%{user}</strong> agregó una asociación "%{object_name}" y "%{name}".
   activity_user_added_unknown_association: <strong>%{user}</strong> agregó una asociación a un objeto desconocido.
   activity_user_added_unknown_item_to_collection: <strong>%{user}</strong> añadio un elemento desconocido a la colección  "%{collection}".
   activity_user_added_unknown_name: <strong>%{user}</strong> agregó el nombre común a un objeto desconocido.
+  activity_user_added_unknown_name_to_taxon: <strong>%{user}</strong> agregó un nombre común a "%{taxon}".
   activity_user_changed_community_description: <strong>%{user}</strong> ha actualizado la descriptción de la comunidad "%{community}".
   activity_user_changed_community_icon: <strong>%{user}</strong> cabio el logotipo de la comunidad "%{community}".
   activity_user_changed_community_name: <strong>%{user}</strong> cambío el nobre de la comunidad "%{community}".
@@ -193,7 +286,13 @@ es:
   activity_user_curated_an_unknown_object: <strong>%{user}</strong> curado un objecto desconocido.
   activity_user_deleted_community: <strong>%{user}</strong> eliminado la comunidad "%{community}".
   activity_user_hid_data_object: <strong>%{user}</strong> marco "%{object_name}" como ocultado.
+  activity_user_hid_named_association: <strong>%{user}</strong> marcó una asociación entre "%{object_name}" y "%{name}" como oculta.
   activity_user_hid_unknown_object: <strong>%{user}</strong> marcó un objecto desconocido como oculto.
+  activity_user_hid_unknown_object_association: <strong>%{user}</strong> marcó una asociación entre un objeto desconocido y "%{name}" como oculta.
+  activity_user_inappropriate_common_name: <strong>%{user}</strong> marcó el nombre común en %{language} "%{name}" de un objeto desconocido como inapropiado.
+  activity_user_inappropriate_common_name_from_taxon: <strong>%{user}</strong> marcó el nombre común en %{language} "%{name}" para "%{taxon}" como inapropiado.
+  activity_user_inappropriate_unknown_name: <strong>%{user}</strong> ha marcado como inapropiado un nombre común desconocido para un taxón desconocido.
+  activity_user_inappropriate_unknown_name_to_taxon: <strong>%{user}</strong> ha marcado un nombre común como inapropriado para "%{taxon}".
   activity_user_joined_community: <strong>%{user}</strong> se unió con la comunidad "%{community}".
   activity_user_marked_content_as_inappropriate: <strong>%{user}</strong> marco contenido inapropiado.
   activity_user_modified_collection: <strong>%{user}</strong> modificó la colección "%{collection}".
@@ -206,28 +305,63 @@ es:
   activity_user_removed_named_association: <strong>%{user}</strong> eliminar una asociación entre "%{object_name}" y "%{name}".
   activity_user_removed_unknown_association: <strong>%{user}</strong> elimino una asociación a un objeto desconocido.
   activity_user_removed_unknown_name: <strong>%{user}</strong> elimino un nombre común desconocido de un objeto desconocido.
+  activity_user_removed_unknown_name_to_taxon: <strong>%{user}</strong> eliminó un nombre común de "%{taxon}".
   activity_user_showed_data_object: <strong>%{user}</strong> marcó "%{object_name}" como visible.
+  activity_user_showed_named_association: <strong>%{user}</strong> marcó una asociación entre "%{object_name}" y "%{name}" como visible.
   activity_user_showed_unknown_object: <strong>%{user}</strong> marcó un objecto desconocido como visible.
+  activity_user_showed_unknown_object_association: <strong>%{user}</strong> marcó una asociación entre un objeto desconocido y "%{name}" como visible.
+  activity_user_trust_common_name: <strong>%{user}</strong> marcó el nombre común "%{name}" en %{language} de un objeto desconocido como fiable.
+  activity_user_trust_common_name_from_taxon: <strong>%{user}</strong> marcó el nombre común "%{name}" en %{language} desde "%{taxon}" como de confianza.
+  activity_user_trust_unknown_name: <strong>%{user}</strong> ha marcado como fiable un nombre común desconocido para un taxón desconocido.
+  activity_user_trust_unknown_name_to_taxon: <strong>%{user}</strong>ha marcado un nombre común como fiable para "%{taxon}".
   activity_user_trusted_data_object: <strong>%{user}</strong> marcó "%{object_name}" con confieanza.
+  activity_user_trusted_named_association: <strong>%{user}</strong> marcó una asociación entre "%{object_name}" y "%{name}" como fiable.
   activity_user_trusted_unknown_object: <strong>%{user}</strong> marcó un objeto desconocido con confianza.
+  activity_user_trusted_unknown_object_association: <strong>%{user}</strong> marcó una asociación entre un objeto desconocido y "%{name}" como fiable.
+  activity_user_unreview_common_name: <strong>%{user}</strong> marcó el nombre común en %{language} "%{name}" de un objeto desconocido como no revisado.
+  activity_user_unreview_common_name_from_taxon: <strong>%{user}</strong> marcó el nombre común en %{language} "%{name}" para "%{taxon}" como no revisado.
+  activity_user_unreview_unknown_name: <strong>%{user}</strong> ha marcado como no revisado un nombre común desconocido para un taxón desconocido.
+  activity_user_unreview_unknown_name_to_taxon: <strong>%{user}</strong>ha marcado un nombre común como no revisado para "%{taxon}".
   activity_user_unreviewed_data_object: <strong>%{user}</strong> marcó "%{object_name}" no revisado.
+  activity_user_unreviewed_named_association: <strong>%{user}</strong> marcó una asociación entre "%{object_name}" y "%{name}" como no revisada.
   activity_user_unreviewed_unknown_object: <strong>%{user}</strong> marcó un objeto desconocido sin revisar.
+  activity_user_unreviewed_unknown_object_association: <strong>%{user}</strong> marcó una asociación entre un objeto desconocido y "%{name}" como no revisada.
+  activity_user_untrust_common_name: <strong>%{user}</strong> marcó el nombre común en %{language} "%{name}" de un objeto desconocido como no fiable.
+  activity_user_untrust_common_name_from_taxon: <strong>%{user}</strong> marcó el nombre común en %{language} "%{name}" para "%{taxon}" como no fiable.
+  activity_user_untrust_unknown_name: <strong>%{user}</strong> ha marcado como no fiable un nombre común desconocido para un taxón desconocido.
+  activity_user_untrust_unknown_name_to_taxon: <strong>%{user}</strong>ha marcado un nombre común como no fiable para "%{taxon}".
   activity_user_untrusted_data_object: <strong>%{user}</strong> marcó "%{object_name}" sin confieanza.
+  activity_user_untrusted_named_association: <strong>%{user}</strong> marcó una asociación entre "%{object_name}" y "%{name}" como no fiable.
   activity_user_untrusted_unknown_object: <strong>%{user}</strong> marcó un objeto desconocido con confianza.
+  activity_user_untrusted_unknown_object_association: <strong>%{user}</strong> marcó una asociación entre un objeto desconocido y "%{name}" como no fiable.
   activity_user_updated_text: <strong>%{user}</strong> actualizado "%{object_name}" texto en "%{taxon_concept}".
+  add: Añadir
+  add_a_collection_to_a_community: Añadir "%{collection}" a una comunidad
+  add_a_comment: "Añadir un comentario:"
   add_a_comment_colon: "Añadir un comentario:"
   add_a_new_common_name: Añadir un nuevo nombre común
+  add_a_new_file_brackets: "[agregar un nuevo archivo]"
+  add_a_new_news_item: Agregar un nuevo elemento de noticias
+  add_a_new_role: Añadir un nuevo rol
+  add_a_new_search_suggestion: Agregar una nueva sugerencia de búsqueda
+  add_a_new_term: Agregar un nuevo término
+  add_a_new_topic_area: Agregar un nuevo tema
   add_a_new_user: Agregar un nuevo usuario
   add_a_taxon_association_label: Añadir una asociación de taxón
   add_article_to_page_link_button: Añadir un artículo a esta página
   add_association_submit_button: añadir asociación
   add_brief_summary_to_page_link_button: Añadir un breve resumen a esta página
+  add_collection_to_a_new_community: Añadir "%{collection}" a una nueva comunidad
+  add_collection_to_community: Añadir colección a la comunidad
   add_education_resources_to_page_link_button: Agregar recursos educativos a esta página
   add_identification_resources_to_page_link_button: Agregar recursos de identificación a esta página
   add_item_to_new_collection: Añadir "%{item}" a una colección nueva
   add_language: Añadir idioma
   add_new_association_link: Añadir nueva asociación
+  add_new_tag_suggestion: Agregar nueva sugerencia de etiqueta
   add_page: Añadir página
+  add_sub_chapter: Añadir subcapítulo
+  add_to_a_community: Añadir a una comunidad
   add_to_my_collection_button: Añadir a colección
   admin: admin
   admin_content_page_active: Publicado
@@ -254,15 +388,25 @@ es:
   admin_content_partners_index_header: Contenidos asociados
   admin_content_partners_link: Socios de contenido
   admin_content_partners_notifications_link: Notificaciones
+  admin_content_partners_notifications_page_title: "Administración: notificaciones al socio de contenido"
+  admin_content_partners_notifications_sent_to_recipients_header: "Las notificaciones fueron enviadas a:"
+  admin_content_partners_notifications_statistics_reminder_description: "Envía un correo electrónico a todos los contactos de los socios de contenido informándoles que ahora puede verificar estadísticas de uso de la web del mes pasado para sus datos en EOL. Nota: El accionamiento manualmente de esta notificación por correo electrónico es una solución temporal y debe eliminarse una vez que una solución automatizada la sustituya."
+  admin_content_partners_notifications_statistics_reminder_header: Recordatorio de las estadísticas de uso de la Web
+  admin_content_partners_notifications_statistics_reminder_send_confirmation: ¿Está seguro de que desea enviar el correo electrónico recordatorio de las estadísticas de uso de la web a todos los socios de contenido?
   admin_content_partners_notifications_statistics_reminder_send_submit: Enviar un recordatorio
   admin_content_partners_page_title: "Administración: Gestionar Socios de Contenido"
   admin_content_partners_statistics_date_from_label: De
   admin_content_partners_statistics_date_to_label: A
+  admin_content_partners_statistics_first_published_caption: Socios de contenido con recursos publicados por primera vez entre %{date_from} y %{date_to}.
   admin_content_partners_statistics_first_published_download_csv_submit: Descargar como CSV
+  admin_content_partners_statistics_first_published_empty: Ningún recurso de los socios de contenido fue publicado entre %{date_from} y %{date_to}.
+  admin_content_partners_statistics_first_published_header: Recursos publicados por primera vez
   admin_content_partners_statistics_link: Estatísticas
+  admin_content_partners_statistics_page_title: "Administración: Estadísticas del socio contenido"
   admin_home: Inicio Administración
   admin_information: Esta es la neueva consola de administración para EOL V2. Estamos en el proceso de transferencia los funciones de administración de V1. Si no aparece la sección de administración que buscas, visite la <a href="/administrator">V1 Administration Console</a>.
   admin_link: Consola de Administración
+  admin_login_confirmation: ¿Está seguro que desea identificarse en el registro de socios de contenido como %{name}?  Si hace esto, cerrará la sesión en el sitio Web como administrador.
   admin_notes_not_visible_to_user: "Notas de Admin (no visibles para el usuario):"
   admin_page_title: Consola de Administración
   admin_translated_content_page_create_successful_notice: Se ha agregado la traducción a <a href="#%{anchor}"><em>%{page_name}</em></a>
@@ -276,6 +420,41 @@ es:
   admin_translated_content_page_new_subheader: Añade traducción de <em>%{page_name}</em>
   admin_translated_content_page_new_tip: Idioma, el título y el cuerpo son %{required_icon} requeridos.
   admin_translated_content_page_update_unsuccessful_error: Lo sentimos, ha ocurrido un error, la traducción no se pudo actualizar.
+  admins: 
+    statistics: 
+      content_partner: 
+        page_header: Estadísticas del socio de contenido
+        page_title: "Administración: Estadísticas del socio de contenido"
+      content_partner_link: Socios de contenido
+      curator: 
+        page_header: Estadísticas de conservador
+        page_title: "Administración: Estadísticas del conservador"
+      curator_link: Estadísticas de conservador
+      data_object: 
+        page_header: Estadísticas del objeto de datos
+        page_title: "Administración: Estadísticas del objeto de datos"
+      data_object_link: Objetos de datos
+      index: 
+        page_header: Estadísticas generales
+        page_title: "Administración: Estadísticas generales"
+        table_caption: Estadísticas globales del sitio creado en %{created_at_time}
+      index_link: Estadísticas generales
+      lifedesk: 
+        page_header: Estadísticas de LifeDesks
+        page_title: "Administración: Estadísticas de LifeDesks"
+      lifedesk_link: LifeDesks
+      marine: 
+        page_header: Cobertura marina en EOL
+        page_title: "Administración: Estadísticas marinas"
+      marine_link: Estadísticas marinas
+      page_richness: 
+        page_header: Estadísticas de página rica
+        page_title: "Administración: Estadísticas de las páginas ricas"
+      page_richness_link: Páginas ricas
+      user_added_data: 
+        page_header: Estadísticas de texto enviado por el usuario
+        page_title: "Administración: Estadísticas de texto enviado por el usuario"
+      user_added_data_link: Texto enviado por el usuario
   agent: Agente
   all: todos
   all_apis_return_by_default_an_xml_response: "Todas las API devuelven, por defecto, una respuesta en XML. Los métodos de un API pueden ser llamados sin una extensión de formao para obtener una respuesta en XML, y agregar una extensión en XML dará una respuesta idéntica:"
@@ -284,36 +463,51 @@ es:
   all_collections: Todas las colecciones
   all_comments_entered_by_users: Todos los comentarios ingresados por usuarios del sitio web se muestran abajo, en orden inverso al tiempo de creación.
   all_communities: Todas las comunidades
+  all_count: Todos (%{count})
+  all_errors: TODOS los errores
   all_images: Todas las imágenes
   all_information: Toda la información
   all_items: Todos los elementos
+  all_news: todas las noticias
   all_pages: Todas las páginas
   all_people: Todas las personas
   all_sounds: Todos los sonidos
+  all_sources: Todas las fuentes
   all_taxa: Todos los taxones
   all_title: Todos
   all_user_submitted_texts_on_the_website: Todos los textos enviados por el usuario en el sitio web se muestran a continuación, ordenados inversamente por hora de creación.
   all_videos: Todos los vídeos
+  allow_user_logins: Permite inicios de sesión de los usuarios
   already_a_member_question: ¿Ya eres miembro?
   already_member_of_community: Ya eres miembro de esta comunidad.
   alternate_classification: Clasificación alternativa
+  amount: Cantidad
+  an_unknown_user: Un usuario desconocido
   and: 'y'
   and_between_form_items: 'y'
   any_integer: cualquier entero
   api_docs_collections_description: Dado el identificador de una colección, esta API devolverá todos los metadatos sobre la colección y los elementos que contiene. La lista de elementos puede ser filtrada por tipo de elemento, y ordenada por los atributos listados arriba.
   application_version_advisory_information: Versión de la aplicación
   are_you_sure: ¿Está usted seguro?
+  are_you_sure_this_action_cannot_be_undone: ¿Estás seguro?  No se puede deshacer esta acción.
   article_from: artículo de
+  article_from_supplier: Artículo de %{whom}
   article_more_about: Apredé mas información sobre este artículo
-  articles_in_languages_with_count:
+  article_not_associated_with_any_published_entries: Este artículo no está asociado con ninguno de los taxones publicados.
+  article_of: Artículo de
+  article_rating: Calificación del artículo
+  articles_in_languages_with_count: 
     one: "Los artículos en esta página están disponibles en%{count} lenguaje:"
     other: " Los artículos en esta página están disponibles en %{count} lenguajes:"
-  articles_in_other_languages_with_count:
+  articles_in_other_languages_with_count: 
     one: "Los artículos en esta página están disponibles en %{count} otro lenguaje:"
     other: " Los artículos en esta página están disponibles en %{count} otros lenguajes:"
-  articles_with_count:
+  articles_with_count: 
     one: "%{count} artículo"
     other: "%{count} artículos"
+  as_of_time_there_were_unique_visitors: 
+    one: En %{time} hubo %{count} único visitante
+    other: En %{time} hubo %{count} visitantes únicos
   assistive_details_header: Detalles
   assistive_literature_header: Literatura
   assistive_maps_header: Mapas
@@ -343,7 +537,7 @@ es:
   authoritative_information: información autorizada
   average_rating_value_of_total: Promedio de calificacio'n %{rating} of %{total}
   back_to_profile: Regresar al perfil
-  belongs_in_count_communities:
+  belongs_in_count_communities: 
     one: Pertenece a %{count} Comunidad
     other: Pertenece a %{count} Comunidades
   bi_monthly: Bimensual
@@ -374,7 +568,7 @@ es:
   citation_example: Fisher, Brian. "Pogonomyrmex anergismus Cole, 1954." Encyclopedia of Life, disponible en <a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>. Consultado 15 Jan 2009.
   citing_link: Citando
   classification_tree_header: Clasificación
-  classifications_summary_header_with_count:
+  classifications_summary_header_with_count: 
     one: "Encontrado en %{count} clasificación "
     other: Encontrado en %{count} classifications
   click_on_a_user_to_view_the_users_detailed_profile: Haga clic en un usuario para ver el perfil del usuario detallada, haga clic en las especies para ver la página donde existe el texto (utilice el botón Atrás del navegador para regresar aquí).
@@ -383,7 +577,7 @@ es:
   cms_available_in_languages: "Esta página está disponible en:"
   collect_item: Recoger el artículo
   collection_created_notice: Colección <em>%{collection_name}</em> creado correctamente.
-  collection_created_with_count_notice:
+  collection_created_with_count_notice: 
     one: Colección <em>%{collection_name}</em> creado correctamente con %{count} elemento de la colección.
     other: Colección <em>%{collection_name}</em> creado correctamente con %{count} elemento de la colección.
   collection_delete_link: Elimina permanentemente esta colección
@@ -395,15 +589,34 @@ es:
   collection_newsfeed: Newsfeed de Colección
   collection_not_created_error: Lo sentimos, ha ocurrido un error, la colección <em>%{collection_name}</em> no se pudo crear.
   collection_not_destroyed_error: Lo sentimos, la colección no se ha eliminado.
+  collection_rating: Evaluación de la colección
   collection_updated_notice: Colección <em>%{collection_name}</em> actualizado correctamente.
   collection_was_removed_by_owner: Esta colección fue retirada por su propietario.
+  collections: 
+    editors: 
+      show: 
+        meta_description: Administradores de la colección de la Enciclopedia de la Vida %{collection_name}.
+        meta_keywords: Administradores de %{collection_name}
+        meta_title: Administradores de %{collection_name}
+        tweet_text: Administradores de %{collection_name}
+    newsfeeds: 
+      show: 
+        meta_description: Noticias, comentarios y actividad de los miembros de la colección Enciclopedia de la Vida %{collection_name}.
+        meta_keywords: Noticias de %{collection_name}
+        meta_title: Noticias de %{collection_name}
+        tweet_text: Noticias de %{collection_name}
+    show: 
+      meta_description: "%{collection_description}"
+      meta_keywords: "%{collection_name}, Colección Enciclopedia de la Vida"
+      meta_title: "%{collection_name}"
+      tweet_text: "%{collection_name}"
   collections_filter: Colecciones
   collections_link: Colecciones
   collections_page_title: Colecciones
-  collections_summary_header_with_count:
+  collections_summary_header_with_count: 
     one: "Presente en %{count} colección "
     other: Presente en %{count} colecciónes
-  collections_with_count:
+  collections_with_count: 
     one: "%{count} Colección"
     other: "%{count} Colecciones"
   comment: Comentario
@@ -415,53 +628,74 @@ es:
   comment_not_added_error: Lo sentimos, ha ocurrido un error, el comentario no se pudo añadir.
   comment_show_posters_image_alt: Imagen de perfil de %{posters_name} quien agregó este comentario.
   comments: Comentarios
-  comments_filter: Comentarios
   comments_and_tags: Comentarios y etiquetas
+  comments_filter: Comentarios
   comments_moderated: Comentarios se moderan
-  comments_with_count:
+  comments_with_count: 
     one: "%{count} Comentario"
     other: "%{count} Comentarios"
-  common_names_with_count:
+  common_names_with_count: 
     one: "%{count} nombre común"
     other: "%{count} nombres comúnes"
+  communities: 
+    collections: 
+      index: 
+        meta_description: Colecciones comunitarias reunidas por %{community_name}, una comunidad de la Enciclopedia de la Vida.
+        meta_keywords: Colecciones de %{community_name}
+        meta_title: Colecciones de %{community_name}
+        tweet_text: Colecciones de %{community_name}
+    newsfeeds: 
+      show: 
+        meta_description: "%{community_description}"
+        meta_keywords: "%{community_name}, Comunidad de Encyclopedia of Life, canal de noticias de %{community_name}, comentarios de %{community_name}, actividad de %{community_name}"
+        meta_title: "%{community_name}"
+        tweet_text: "%{community_name}"
+    show: 
+      meta_description: La comunidad de Encyclopedia of Life %{community_name} fue eliminada por su propietario
+      meta_title: "%{community_name} Eliminada por el propietario"
   communities_filter: Comunidades
-  communities_link: Comunidades
-  communities_page_title: Comunidades
   communities_index_empty: No hay comunidades activas.
   communities_index_header: Comunidades activas
-  communities_summary_header_with_count:
+  communities_link: Comunidades
+  communities_page_title: Comunidades
+  communities_summary_header_with_count: 
     one: "Pertenece a %{count} comunidad "
     other: Pertenece a %{count} comunidades
-  communities_with_count:
+  communities_with_count: 
     one: "%{count} Comunidad"
     other: "%{count} Comunidades"
   community: Comunidad
   community_activity: Actividad de la Comunidad
-  community_contributions_with_count:
+  community_contributions_with_count: 
     one: "%{count} Contribución"
     other: "%{count} Contribuciones"
   community_empty_notice: Esta comunidad no tiene miembros.
-  community_focus_items_with_count:
+  community_focus_items_with_count: 
     one: "%{count} elemento"
     other: "%{count} elementos"
   community_invitation_comment: Me gustaría invitarte a unirse a la comunidad "%{community}".
-  community_managers_with_count:
+  community_managers_with_count: 
     one: "%{count} administrador de la Comunidad"
     other: "%{count} administradores de la Comunidad"
   community_members: Miembros de la comunidad
   community_newsfeed: Newsfeed de Comunidad
+  community_rating: Evaluación de la comunidad
   community_removed_by_owner: Esta comunidad fue retirado por su dueño.
   confirm_delete_community: ¿Está saguaro de que desae borer esta comunidad? Los miembros restantes todavía podrán verla y los newsfeed se mantendrán, pero no se mostrará en las búsquedas o en páginas de taxones, y no se podrán editor más.
   confirm_leave: ¿Está seguro de que deseas salir de esta comunidad?
   confirm_password_colon: "Confirmar contraseña:"
   contact_us_functions: Contáctenos Funciones
   contact_us_link: Contáctenos
+  content: 
+    index: 
+      meta_description: La Encyclopedia of Life es un esfuerzo sin precedentes para recopilar conocimientos científicos acerca de toda la vida animal y vegetal donde están disponibles fotos, información, datos y más datos sobre todos los seres vivos de nuestros reinos vegetal y animal.
+      meta_keywords: Animales, Fotos de animales, Información de animales, Plantas, Vida vegetal, Fotografías de plantas, Información de plantas, Flora, Fauna
+      meta_title: Animales - Plantes - Imágenes e Información
   content_has_been_updated: Se ha actualizado el contenido.
   content_partner: Socio de Contenido
   content_partner_about_header: Acerca de %{partner_name}
   content_partner_administration_notes_empty: No hay notas de la administración.
   content_partner_administration_notes_header: Notas de la administración
-  content_partner_agreement_create_successful_notice: Has aceptado correctamente los términos de socio de contenido, ahora puede agregar recursos de datos.
   content_partner_agreement_create_unsuccessful_error: Lo sentimos, ha ocurrido un error, parece que hay un problema técnico con los acuerdos con los socios de contenido. Por favor, inténtelo de nuevo, si el problema persiste por favor notifique a EOL.
   content_partner_agreement_subheader: Acuerdo de socio de contenido
   content_partner_collections_empty: Colecciones de contenido socio lista de datos que el socio ha proporcionado a través de sus recursos. No se encontraron colecciones publicadas en este momento.
@@ -538,11 +772,29 @@ es:
   content_partner_statistics_taxa_page_caption: Estadísticas detalladas de uso de las páginas de tacones con contenido proporcionado por %{partner_name}.
   content_partner_update_successful_notice: Detalles del socio actualizados correctamente.
   content_partner_update_unsuccessful_error: Lo sentimos, ha ocurrido un error, los detalles del socio no se han actualizado.
-  content_partners_link: Socios de Contenido
+  content_partners: 
+    edit: 
+      meta_title: Editar %{partner_name}
+    index: 
+      meta_description: Lista de proveedores de datos y socios de contenido de Encyclopedia of Life.
+      meta_keywords: Socios de contenido de Encyclopedia of Life, Suministradores de datos de Encyclopedia of Life
+      meta_title: Socios de contenido
+    show: 
+      meta_description: "%{partner_name}. %{partner_description}"
+      meta_keywords: "%{partner_name}, Socio de contenido de Encyclopedia of Life"
+      meta_title: "%{partner_name}"
+      tweet_text: "%{partner_name}"
+    statistics: 
+      show: 
+        meta_description: Estadísticas de uso de datos de %{partner_name}.
+        meta_keywords: Estadísticas de %{partner_name} , Uso de la Web por parte de %{partner_name}
+        meta_title: Estadísticas de %{partner_name}
+        tweet_text: Estadísticas de uso de %{partner_name}
   content_partners_empty: No se encontró ningún socio de contenido.
+  content_partners_link: Socios de Contenido
   content_partners_page_description: EOL socios de contenido tienen grandes cantidades de información sobre la biodiversidad en sus propios sitios Web o bases de datos que comparten también a través de páginas EOL. Mucho apreciamos sus importantes contribuciones a la misión EOL y animamos a aprender más acerca de ellos. Más información sobre cómo <a href="%{more_url}">becoming a content partner.</a>
   content_partners_page_title: Socios de Contenido
-  content_partners_with_count:
+  content_partners_with_count: 
     one: "%{count} Socio de contenido "
     other: "%{count} Socios de contenido"
   content_setting_colon: "Configuración de contenido:"
@@ -555,7 +807,7 @@ es:
   content_summary_table_type_trusted_text_row: Número de elementos de texto de confianza
   content_summary_table_type_unreviewed_images_row: Número de imágenes sin revisar
   content_summary_table_type_unreviewed_text_row: Número de elementos de texto sin revisar
-  copied_items_from_collection_with_count_notice:
+  copied_items_from_collection_with_count_notice: 
     one: Copió %{count} elemento de %{name}.
     other: Copió %{count} elementos de %{name}.
   copy: Copiar
@@ -563,7 +815,7 @@ es:
   correct_donation_message: Si esta información no es correcta, por favor %{go_back_link} para hacer cambios
   could_not_find_collection_error: Lo sentimos, que no se encontró esa colección.
   could_not_find_user: No se pudo encontrar a un miembro para este usuario
-  count_results_for_search_term:
+  count_results_for_search_term: 
     one: "%{count} resultado de <em>%{search_term}</em>"
     other: "%{count} resultados de <em>%{search_term}</em>"
   create_a_collection: Crear una colección
@@ -604,11 +856,11 @@ es:
   curator_status_changed_by: Estado de curador cambiado por %{user} en fecha %{date}
   curators: Curadores
   curators_empty: Nuestros conservadores no han tomado ninguna medida en esta página aún.
-  curators_summary_header_with_count:
+  curators_summary_header_with_count: 
     one: Revisado por %{count} curador
     other: Revisados por %{count} curadores
   curators_summary_learn_more_link: Aprenda a curar
-  curators_with_count:
+  curators_with_count: 
     one: "%{count} Curador"
     other: "%{count} Curadores"
   current_language: "Idioma: %{iso_code}"
@@ -620,6 +872,10 @@ es:
   data_object_ignore: ignorar este elemento
   data_object_not_associated_with_any_hierarchies: Este objeto de datos no está asociado con ninguna jerarquía.
   data_object_undo_ignore: eliminar de la lista de ignorados
+  data_objects: 
+    show: 
+      meta_title: "%{dato_title} de %{supplier}"
+      tweet_text: "%{dato_title} de %{supplier}"
   data_usage_reports: Informes de uso de datos
   dato_create_cancel: Cancelar
   dato_create_update_user_text_missing_taxon_id_exception: No se puede construir un texto DataObject o UsersDataObject si falta taxon_concept_id.
@@ -690,7 +946,7 @@ es:
   encyclopedia_of_life: Enciclopedia de la Vida
   endorsed_by: Presentado por
   endorsed_collections: Colecciones destacadas
-  endorsed_collections_with_count:
+  endorsed_collections_with_count: 
     one: "%{count} Colección destacada"
     other: "%{count} Colecciones destacadas"
   eol_api: EOL API
@@ -779,16 +1035,24 @@ es:
   has_colon: "Tiene:"
   hello_user: Hola %{user}
   help: Ayuda
-  helpers:
-    label:
-      content_page:
+  helpers: 
+    label: 
+      collection: 
+        view_style_id: Vista predeterminada
+      collection_item: 
+        annotation: Anotación
+        sort_field: Ordenar por <small>(date AAAA.MM.DD, número, o texto)</small>
+        sort_field_show: "Valor de tipo:"
+      comment: 
+        body_edit: Editar comentario
+      content_page: 
         active: Publicado
         active_more: Páginas publicadas será visible para el público. Desmarque <em>published</em> si desea evitar que los usuarios en general puedan ver las versiones de esta página en cualquier idioma.
         page_name: Nombre único <small>(en minúsculas ISO caracteres básicos América alfanuméricos y subrayados)</small>
         page_name_more: Introduzca un único identificador de auto descriptivo y significativo y persistente para esta página. El nombre que introduzca aquí se utiliza para generar el URL de esta página, por ejemplo, el <em>terms_of_use</em> nombre único se convierte en el <em>http://www.eol.org/info/terms_of_use</em> URL.
         parent_content_page_id: Padre
         parent_content_page_id_more: Opcionalmente, puede seleccionar un padre en las que se debe esta página anidados.
-      content_partner:
+      content_partner: 
         created_at: Registrado
         current_agreement: Acuerdo actual
         description_of_data: Descripción de datos <small>(privada)</small>
@@ -801,8 +1065,14 @@ es:
         logo_new: "Subir un nuevo logotipo:"
         notes: Notas del proyecto <small>(privados)</small>
         oldest_published_harvest_event: Primera publicación
+        public_more: Los perfiles de los socios de contenido público son visibles para todos y lainformación de los asociados se incluye en los listados de socios. Anule la selección para excluir detalles de contenido de los socios de los listados y restrinja el acceso al perfil del usuario solo al socio que creó ell contenido y a los administradores de EOL.
         user_id: Detalles de Socio Contenido administrados por
-      data_object:
+      content_partner_agreement: 
+        mou_url: Dirección URL del fichero del acuerdo <small>(alternativa opcional)</small>
+        mou_url_more: Opcionalmente, escriba una dirección URL para el archivo que contiene el acuerdo de este socio. Este archivo anulará cualquier otro texto de acuerdo. Si desea almacenar el archivo (por ejemplo, un archivo PDF) en los servidores de contenidos de EOL entonces primero <a href="%{upload_content_url}">cargue el archivo</a>, para obtener la dirección URL.
+      content_partner_contact: 
+        email_reports_frequency_hours_more: Los informes de correo electrónico se envían sólo si hubo comentarios o acciones de supervisión sobre sus datos o en las páginas del taxón correspondiente a su conjunto de datos.
+      data_object: 
         bibliographic_citation: Cita bibliográfica
         description: Texto <small>(algunas marcas se permite código HTML)</small>
         license_id: Licencia
@@ -813,21 +1083,28 @@ es:
         rights_statement: Declaración de los derechos
         source_url: URL a el original objeto de datos
         toc_item: Subcapítulo
-      google_analytics_partner_summaries:
+      eol_statistic: 
+        download_all: Todos <small>(incluye registros de todas las páginas)</small>
+      google_analytics_partner_summaries: 
         page_views: Páginas vistas <small>(número de visitas a las páginas)</small>
         taxa_pages: Páginas <small>(número de páginas)</small>
         taxa_pages_viewed: Páginas vistas <small>(número de páginas vistas por los visitantes)</small>
         time_on_page: Tiempo total empleado en las páginas <small>(horas)</small>
         unique_page_views: Vistas únicas de página <small>(número de visitantes 'unicos que ven página)</small>
-      harvest_event:
+      harvest_event: 
         began_at: Iniciado
         completed_at: Completado
+        publish_more: Las banderas recogen los eventos que serán publicados, el contenido no se hará público inmediatamente.
         published_at: Publicado
         published_status: Estado
-      hierarchy:
+      hierarchy: 
+        browsable_more: Compruebe la navegabilidad para promover esta jerarquía hasta convertirla en una de las principales jerarquías navegables en EOL.
+        browsable_status_with_colon: "Estado de navegabilidad:"
         complete: Conservada
+        complete_more: "Una jerarquía de supervisión asume que cada entrada está destinada a ser única, es decir, las cadenas que coinciden en el nombre serán tratadas como homónimas. <strong>Advertencia: no cambie este atributo a menos que esté seguro de la condición de homónimos en la jerarquía, haciéndolo así que podría poner en peligro la integridad de los datos.</strong>"
         request_publish: Publicar lo solicitado
-      resource:
+        request_publish_more: Indica si existe una solicitud pendiente para promover esta jerarquía hasta convertirla en una de las principales jerarquías navegables en EOL.
+      resource: 
         accesspoint_url: Conjunto de datos URL <small>(XML, XML.GZIP o XML.GZ solamente)</small>
         accesspoint_url_existing_remove: Actualmente este recurso se está cargando desde la URL que termina por <em>%{accesspoint_url}</em>. Sube un archivo si desea eliminar la dirección URL existente y cargar el recurso de un archivo en su lugar (no recomendado).
         administration_settings: Opciones de administración <small>(sólo visible para los administradores de EOL)</small>
@@ -836,6 +1113,7 @@ es:
         dataset_existing_replace: El archivo <em>%{file_name}</em> está asociado actualmente con este recurso. Sube un archivo nuevo para reemplazar el archivo existente de <em>%{file_name}</em> .
         dwc_archive_url: Si hay un Archivo Darwin Core asociados con este recurso, escribe la dirección URL aquí <small>(TAR.GZIP, TAR.GZ o TGZ solamente):</small>
         hierarchy: Jerarquía
+        latest_harvest_event: Última recogida
         latest_published_harvest_event: Última publicación
         oldest_published_harvest_event: Primera publicación
         refresh_period_hours: Frecuencia
@@ -845,11 +1123,11 @@ es:
         resource_url_or_file_upload: Subir archivo de recursos
         resource_url_or_file_url: Cargar recursos de URL
         title: Nombre del recurso
-      session:
+      session: 
         password: Contraseña
         remember_me: Permanecer conectado 2 semanas
         username_or_email: Nombre de usuario o dirección de correo electrónico
-      translated_content_page:
+      translated_content_page: 
         active_translation: Publicado
         active_translation_more: Traducciones publicadas serán visible para el público, a menos que la página no está publicado. Desmarque <em>publicado</em> si deseas evitar que los usuarios en general puedan ver esta versión de la página.
         language_id: Idioma
@@ -858,7 +1136,7 @@ es:
         meta_description_more: Proporcione una descripción breve, resuma los conceptos clave del contenido de la página. Esta descripción se utiliza a veces por los motores de búsqueda Web para comprobar la relevancia y de anuncio en los resultados del motor de búsqueda.
         meta_keywords_more: Escriba una lista separada por comas de palabras y frases cortas que mejor reflejen el contenido de la página. Estas palabras y frases clave son a veces utilizados por los motores de búsqueda Web para evaluar la relevancia de la página contra los términos de búsqueda.
         title_more: El título de este contenido va aparece en el encabezado de la página. El título debe incluir las palabras clave más relevantes para el contenido.
-      user:
+      user: 
         agreed_with_terms: Estoy de acuerdo con los <a href="%{terms_url}">términos de uso</a>
         api_key_more: Lea más acerca de <a href="%{api_docs_url}"> adición de una clave a las llamadas de API</a> .
         bio: Sobre mí
@@ -889,58 +1167,65 @@ es:
         user_identities: Soy
         username: Nombre de usuario <small>(4-32 caracteres)</small>
         username_or_email: Nombre de usuario o dirección de correo electrónico
-      wikipedia_queue:
+      wikipedia_queue: 
         revision_url: URL de la revisión <small>(e.g. http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)</small>
         revision_url_more: Cuando usted indica una revisión de URL de Wikipedia, está pidiendo que EOL ingiera esa revisión particular como de confianza. El sistema reemplazará la versión actual de ese artículo en EOL si ya EOL la tiene.
-    select:
+    select: 
       prompt: Por favor seleccione
-    submit:
-      content_page:
+    submit: 
+      collection_item: 
+        update: Guardar
+      content_page: 
         create: Crear página
         edit: Editar
         preview: Previsualización
         update: Actualizar página
-      content_partner:
+      content_partner: 
         create: Crear contenido socio
         update: Guardar la información de contenido socio
-      content_partner_agreement:
+      content_partner_agreement: 
         agree: Aceptar los términos de los contenidos asociados
         create: Crear un nuevo acuerdo
         update: Actualizar el acuerdo
-      content_partner_contact:
+      content_partner_contact: 
         create: Agregar contacto
         destroy: Eliminar contacto
         update: Actualizar contacto
       create: Crear %{model}
-      data_object:
+      data_object: 
         create: Agregar artículo
         create_text: Agregar artículo
         update: Guardar artículo
-      hierarchy:
+      eol_statistic: 
+        download_csv: Descargar como CSV
+      harvest_event: 
+        publish: Publicar
+      hierarchy: 
         request_publish: Solicitar la promoción de jerarquía
         update: Actualizar a jerarquía
-      name:
+      name: 
         create: Agregar nombre
         update: Actualizar el nombre
-      resource:
+      resource: 
         create: Agregar recurso
+        force_harvest: Solicitud de forzar la recogida
         update: Actualizar el recurso
         update_settings: Actualizar la configuración
-      session:
+      session: 
         create: Iniciar sesión
       submit: Guardar %{model}
-      translated_content_page:
+      translated_content_page: 
         create: Agregar traducción
         update: Guardar los cambios a la traducción
       update: Actualizar %{model}
-      user:
+      user: 
         create: Crear cuenta
         curation_application: Solicitar ahora
         curation_privileges: Enviar solicitud
         forgot_password: Enviar correo electrónico
         generate_api_key: Generar una clave
         update: Guardar información del perfil
-      wikipedia_queue:
+      wikipedia_queue: 
         create: Enviar solicitud
   hidden: Oculto
   hierarchies_description: La Enciclopedia de la Vida no crea sus páginas usando una sola jerarquía taxonómica. Más bien, EOL indexa muchas jerarquías y las compara entre sí. Este API lista de metadatos sobre una jerarquía, tales como el nombre del proveedor y el URL de la fuente, así como todos los taxones que están en la raíz del árbol taxonómico
@@ -955,9 +1240,19 @@ es:
   id: ID
   if_checked_and_user_is_saved: Si se marca y el usuario se guarda, a continuación, los credenciales, alcance, aprobación y clade seleccionados se borran y el usuario ya no aparece como curador.  Usted debería agregar una nota a continuación para indicar la razón.  No se envía información al usuario.
   if_the_details_parameter_is_not_set: Si el parámetro de detalles no es establecido, entonces solamente el identificador de objeto de datos, tipo de datos, y, en el caso de artículos, el tema será retornado. EL tipo de datos será un valor del %{linka} vocabulario de tipo de datos. EL texto del tema será un valor de la %{linkb} ontología de elementos de información.
+  image_alt_text: Esta imagen %{vetted_status} es de %{taxon_name}
+  image_from_supplier: Imagen de %{whom}
   image_is_no_longer_available: La imagen ya no está disponible
+  image_map_alt_text: Este mapa %{vetted_status} es de %{taxon_name}
+  image_map_from_supplier: Mapa de %{whom}
+  image_map_not_associated_with_any_published_entries: Este mapa no está asociado con ninguno de los taxones publicados.
+  image_map_of: Mapa de
+  image_map_rating: Evaluación del mapa
+  image_not_associated_with_any_published_entries: Esta imagen no está asociada con ninguno de los taxones publicados.
   image_not_found: Imagen no encontrada
   image_objects_will_contain_two_mediaurl_elements: Los objetos de Imagen tendrán dos elementos tipo mediaURL - el primero es el URL de la imagen en el sitio web del proveedor, y el segundo, el URL de la versión en cache del medio en hospedado en un servidor de EOL. La versión EOL de la imagen estará proporcionalmente escalada si la imagen original tiene un tamaño superior a 460 pixels de ancho por 345 pixeles de alto.
+  image_of: Imagen de
+  image_rating: Evaluación de la imagen
   images: Imágenes
   import_once: Importar una vez
   in_collection: en la colección
@@ -991,7 +1286,7 @@ es:
   items_no_copy_none_selected_warning: No se copió ningún elemento porque ninguno fue seleccionado. Para copiar elementos a otra colección, primero seleccione la casilla adyacente a los elementos de la lista que desea copiar.
   items_no_move_none_selected_warning: Ningún elemento fue trasladado porque ninguno fue seleccionado. Para trasladar elementos a otra colección, primero seleccione la casilla adyacente a los elementos de la lista que desea trasladar.
   items_no_remove_none_selected_warning: Ningún elemento fue borrado porque ninguno fue seleccionado. Para borrar elementos de la colección, primero seleccione la casilla adyacente a los elementos de la lista que desea borrar.
-  items_with_count_semi_colon:
+  items_with_count_semi_colon: 
     one: "%{count} elemento;"
     other: "%{count} elementos;"
   iucn_red_list_status_advisory_information: Este vínculo le llevará al sitio web de la Unión Internacional para la Conservación de sitio Web de la Naturaleza (UICN), donde podrá encontrar más información en la Lista Roja de Especies Amenazadas  de la UICN.
@@ -1064,9 +1359,14 @@ es:
   maintained_by: mantenido por
   managed_by: Administrado por
   manager_parens: (administrador)
+  map_alt_text: Este mapa %{vetted_status} es de %{taxon_name}
+  map_from_supplier: Mapa de %{whom}
+  map_not_associated_with_any_published_entries: Este mapa no está asociado con ninguno de los taxones publicados.
+  map_of: Mapa de
+  map_rating: Evaluación del mapa
   maps_empty_contribute_instructions: Aprenda cómo contribuir con mapas a EOL.
   maps_image_maps_header: Medio fue etiquetado como "mapa"
-  maps_with_count:
+  maps_with_count: 
     one: "%{count} Mapa"
     other: "%{count} Mapas"
   max_collection_items_error: Lo sentimos, su solicitud supera el límite de %{max} elementos en una colección.
@@ -1074,12 +1374,23 @@ es:
   media_list_empty_contribute_instructions: Aprenda cómo contribuir con medios a EOL.
   media_list_empty_search: Ningún medio disponible coincide con su criterio de búsqueda.
   media_summary_empty_contribute_instructions: Aprenda cómo contribuir con imágenes a EOL.
-  media_with_count:
+  media_with_count: 
     one: "%{count} Medio"
     other: "%{count} Medios"
   member_of: miembro de
+  members: 
+    index: 
+      meta_description: Miembros de %{community_name}, una comunidad de Encyclopedia of Life.
+      meta_keywords: Miembros de %{community_name}
+      meta_title: Miembros de %{community_name}
+      tweet_text: Miembros de %{community_name}
+    show: 
+      meta_description: "%{member_name} es un miembro de %{community_name}, una comunidad de Encyclopedia of Life."
+      meta_keywords: "%{member_name}, miembro de la comunidad"
+      meta_title: "%{member_name} Miembro de %{community_name}"
+      tweet_text: "%{member_name} miembro de %{community_name}"
   members_like_you: Miembros como usted
-  members_with_count:
+  members_with_count: 
     one: "%{count} miembro"
     other: "%{count} miembros"
   method: Método
@@ -1088,7 +1399,7 @@ es:
   minimal_page: Página minima
   moderator_colon: "Moderador:"
   monthly: Mensualmente
-  more_children_with_count:
+  more_children_with_count: 
     one: "%{count} más..."
     other: "%{count} más..."
   more_information_on_the_various_licenses: licencias. Visite su sitio para más información sobre las licencias que ofrecen
@@ -1096,7 +1407,7 @@ es:
   move: Trasladar
   move_down: Mover hacia abajo
   move_up: Mover hacia arriba
-  moved_items_from_collection_with_count_notice:
+  moved_items_from_collection_with_count_notice: 
     one: Trasladó %{count} elemento de %{name}.
     other: Trasladó %{count} elementos de %{name}.
   must_be_associated_with_either_a_user_or_a_community: Debe estar asociado a un usuario o una comunidad
@@ -1111,12 +1422,12 @@ es:
   name_preferred_taxonomically_for_source_help_tip: "%{icon} marca el nombre preferido para cada recurso."
   name_preferred_taxonomically_for_source_yes: Preferred
   names: Nombres
-  names_filter: Nombres
   names_children_column_header: Niños
   names_common_empty: Todavía no se han asociado nombres comunes con este taxón
   names_common_list_by_language_assistive_header: Nombres comunes listados por idioma
   names_curation_column_header: Curación
   names_explanation: Los científicos tienen el objetivo de describir un único 'árbol de la vida' que refleje las relaciones evolutivas de los organismos. Sin embargo, estas relaciones evolutivas apenas se están descubriendo y hay múltiples opiniones. EOL refleja esas diferencias brindando acceso a distintas clasificaciones científicas. Algunas especies han sido nombradas maás de una vez. Tales duplicados son listados como sinónimos. EOL también da acceso a nombres comunes, los cuales varían entre regiones e idiomas.
+  names_filter: Nombres
   names_name_column_header: Nombre
   names_parents_column_header: Padres
   names_preferred_column_header: Preferido
@@ -1145,14 +1456,66 @@ es:
   not_yet_implemented_error: Lo sentimos, esta función no ha sido implementada.
   note_about_homonym_problems: "NOTA: cambiar este atributo sólo si está seguro - restaurarlo después del cambio podría causar serios problemas de homonimia"
   notes: Notas de proyecto
-  notifier:
+  notifier: 
+    activity_log_empty: No hay acciones recientes por parte de los supervisores.
+    activity_on_content_partner_content: 
+      message: "Este es un correo electrónico de The Encyclopedia of Life (EOL) resumiendo los comentarios recientes y las acciones de mantenimiento del contenido proporcionado a EOL por el socio %{partner_full_name} (%{partner_profile_url}). Está recibiendo este resumen porque aparece como contacto de %{partner_full_name}.\nSi tiene alguna pregunta o necesita ayuda para acceder a su cuenta de miembro de EOL, póngase en contacto con %{species_pages_group_email}.\n\nAcciones de mantenimiento:\n%{curator_activity_log}\nComentarios sobre objetos de datos:\n%{data_object_comments}\nComentarios en las páginas a las que sus datos están asociados:\n%{page_comments}"
+      subject: Resumen de la actividad reciente en el contenido proporcionado a la Encyclopedia of Life por el socio %{partner_full_name}
+    activity_on_user_content: 
+      message: "Este es un correo electrónico automático de The Encyclopedia of Life (EOL) resumiendo los comentarios recientes y las acciones de mantenimiento sobre el contenido que ha agregado a EOL a través de su cuenta de miembro con nombre de usuario %{members_username}.\nSi tiene alguna pregunta o necesita ayuda para acceder a su cuenta de miembro de EOL, póngase en contacto con %{species_pages_group_email}.\n\nAcciones de mantenimiento:\n%{curator_activity_log}\nComentarios sobre objetos de datos:\n%{data_object_comments}\nComentarios en las páginas de datos a las que sus datos están asociados:\n%{page_comments}"
+      subject: Resumen de la actividad reciente sobre el contenido que ha agregado a The Encyclopedia of Life
+    activity_user_added_association_for_taxon_on_date: "%{curator_level} %{users_name} (%{users_url}) ha agregado una asociatioción:\n%{taxon_name} (%{taxon_url}) para %{object_name} (%{object_url})\n%{action_date}."
+    activity_user_added_association_on_date: "%{curator_level} %{users_name} (%{users_url}) ha añadido una asociación desconocida para %{object_name} (%{object_url})\n%{action_date}."
+    activity_user_marked_data_object_as_inappropriate_on_date: "%{curator_level} %{users_name} (%{users_url}) ha marcado como inapropiada:\n%{object_name} (%{object_url})\n%{action_date}."
+    activity_user_marked_data_object_as_trusted_for_taxon_on_date: "El %{curator_level} %{users_name} (%{users_url}) ha marcado como fiable:\n%{object_name} (%{object_url}) para %{taxon_name} (%{taxon_url})\n%{action_date}."
+    activity_user_marked_data_object_as_untrusted_for_taxon_on_date: "El %{curator_level} %{users_name} (%{users_url}) ha marcado como no fiable:\n%{object_name} (%{object_url}) para %{taxon_name} (%{taxon_url})\n%{action_date}."
+    activity_user_marked_data_object_as_untrusted_on_date: "El %{curator_level} %{users_name} (%{users_url}) ha marcado como no fiable:\n%{object_name} (%{object_url})\n%{action_date}."
+    activity_user_removed_association_for_taxon_on_date: "El %{curator_level} %{users_name} (%{users_url}) ha eliminado una asociación:\n%{taxon_name} (%{taxon_url}) de %{object_name} (%{object_url})\n%{action_date}."
+    activity_user_removed_association_on_date: "%{curator_level} %{users_name} (%{users_url}) ha eliminado una asociación desconocida para %{object_name} (%{object_url})\n%{action_date}."
     comments_empty: No hay comentarios recientes.
-    contact_us_auto_response:
+    contact_us_auto_response: 
+      message: "Gracias por ponerse en contacto con el proyecto The Encyclopedia of Life. Sus comentarios se han enviado al grupo adecuado.\nApreciamos sus comentarios."
       subject: Gracias por ponerse en contacto con la Enciclopedia de la vida
-    user_activated:
+    contact_us_message: 
+      message: "El siguiente mensaje se envió a EOL a través del formulario de contacto:\nDe: %{from_name}\nCorreo electrónico: %{from_email}\nAsunto: %{subject}\n\n%{message}"
+      subject: "Un mensaje para EOL: %{title}"
+    content_partner_created: 
+      message: "Esta es una notificación automatizada del sistema EOL para el grupo de páginas de especies. El usuario %{user_full_name} ha inscrito al socio de contenido %{partner_full_name}, según se detalla a continuación:\n\nUsuario: %{user_full_name}\nCorreo electrónico: %{user_email}\nURL del perfil: %{user_profile_url}\n\nAsociado: %{partner_full_name}\nURL de perfil del socio: %{partner_profile_url}\nCreado el: %{partner_created_at_date}"
+      subject: El usuario de EOL %{user_full_name} ha inscrito al socio de contenido %{partner_full_name}
+    content_partner_resource_created: 
+      message: "Esta es una notificación automatizada del sistema EOL para el grupo de páginas de especies. El usuario %{user_full_name} agregó un nuevo recurso %{resource_title} al socio de contenido %{partner_full_name}, según se detalla a continuación:\n\nUsuario: %{user_full_name}\nCorreo electrónico: %{user_email}\nURL del perfil: %{user_profile_url}\n\nAsociado: %{partner_full_name}\nURL de recursos del Socio: %{partner_resources_url}\n\nRecurso: %{resource_title}\nURL del recurso: %{resource_url}\nCreado el: %{resource_created_at_date}\nEstado: %{resource_status}"
+      subject: El usuario EOL %{user_full_name} agregó el nuevo recurso %{resource_title} al socio de contenido %{partner_full_name}
+    content_partner_resource_force_harvest_request: 
+      message: "Esta es una notificación automatizada del sistema EOL para el grupo de páginas de especies. El usuario %{user_full_name} solicitó una recogida forzada para el recurso %{resource_title} al socio de contenido %{partner_full_name}, según se detalla a continuación:\n\nUsuario: %{user_full_name}\nCorreo electrónico: %{user_email}\nURL del perfil: %{user_profile_url}\n\nAsociado: %{partner_full_name}\nURL de recursos del Socio: %{partner_resources_url}\n\nRecurso: %{resource_title}\nURL del recurso: %{resource_url}\nCreado el: %{resource_updated_at_date}\nEstado: %{resource_status}"
+      subject: El usuario de EOL %{user_full_name} solicitó una ´recogida forzada para el recurso %{resource_title} perteneciente al socio de contenido %{partner_full_name}
+    content_partner_resource_hierarchy_publish_request: 
+      message: "Esta es una notificación automatizada del sistema de EOL para el grupo de páginas de especies. El usuario %{user_full_name} pidió que una jerarquía asociada con el recurso %{resource_title}, perteneciente al socio de contenido %{partner_full_name}, fuese promovida (publicada) a una jerarquía navegable en EOL, según se detalla a continuación:\n\nUsuario: %{user_full_name}\nCorreo electrónico: %{user_email}\nURL del perfil: %{user_profile_url}\n\nAsociado: %{partner_full_name}\nURL de recursos del socio: %{partner_resources_url}\n\nRecurso: %{resource_title}\nURL del recurso : %{resource_url}\nURL para editar la jerarquía: %{hierarchy_edit_url}"
+      subject: El usuario de EOL %{user_full_name} solicitó una promoción de jerarquía para el recurso %{resource_title} perteneciente al socio de contenido %{partner_full_name}
+    content_partner_statistics_reminder: 
+      message: Este es un recordatorio de correo electrónico automatizado de Encyclopedia of Life. Las estadísticas de uso de la Web para los datos facilitados a EOL por %{partner_full_name} durante %{month} %{year} están ahora disponibles en %{partner_statistics_url}.
+      subject: Recordatorio de Estadísticas de uso de The Encyclopedia of Life para el socio %{partner_full_name}, en %{month} de %{year}
+    curator_approved: 
+      message: "Gracias por solicitar privilegios de conservador %{curator_level}. Su solicitud ha sido aprobada.\nPara obtener más información sobre conservación y qué funciones están disponibles para usted, visite http://www.eol.org/curators."
+      subject: Se ha aprobado su solicitud de privilegios de conservador %{curator_level} de Encyclopedia of Life
+    greeting_dear_name_with_comma: Querido %{name},
+    signature_basic: El Equipo de The Encyclopedia of Life
+    signature_with_species_pages_group_contact: "Si tienes alguna pregunta, póngase en contacto con nosotros en %{species_pages_group_email}.\nEl Equipo de The Encyclopedia of Life"
+    signature_with_support_contact: "Si experimenta algún problema, póngase en contacto con nosotros en %{support_email}.\nEl Equipo de The Encyclopedia of Life"
+    user_activated: 
+      message: "¡Bienvenido a Encyclopedia of Life (EOL) y gracias por registrarse! Recuerde que su nombre de usuario es %{username} y la dirección URL de su perfil que es %{profile_url}. Puede iniciar sesión en su cuenta en http://www.eol.org/login.\n\nPara obtener más información acerca de cómo utilizar EOL, incluyendo cómo crear colecciones de EOL, participar en las comunidades de EOL y contribuir con contenido, visite nuestras páginas de ayuda en http://www.eol.org/help."
       subject: Tu cuenta de la Enciclopedia de la vida se ha sido activada
-    user_message:
+    user_commented_on_something_date_body: "%{curator_level} %{users_name} (%{users_url}) ha comentado en:\n%{commented_on_name} (%{commented_on_url})\n%{comment_date}:\n%{comment_body}"
+    user_message: 
       subject: Un mensaje de la Enciclopedia de la vida
+    user_reset_password: 
+      message: "Encyclopedia of Life (www.eol.org) recibió una solicitud para restablecer la contraseña. Si no hizo esta solicitud, ignore este mensaje.\n\nEl siguiente enlace le proporcionará una oportunidad única para restablecer la contraseña:\n\n%{password_reset_url}\n\nSiga este enlace (haciendo 'clic' sobre él, o copiando y pegando todo el enlace en la barra de direcciones del navegador Web y cargándolo) para acceder a la página donde puede introducir una nueva contraseña. Tenga en cuenta que si ha caducado el enlace se le pedirá que introduzca nuevamente su nombre de usuario o su dirección de correo electrónico para recibir por correo electrónico un nuevo mensaje de de restablecimiento de contraseña con un nuevo enlace."
+      subject: Restablecer la contraseña de la cuenta de Encyclopedia of Life
+    user_updated_email_preferences: 
+      message: "Esta es una notificación automática del sistema de EOL. El usuario %{user_full_name} (%{user_profile_url}) actualizó su dirección de correo electrónico o sus preferencias de la lista de correo.\n\nPreferencias anteriores:\nCorreo electrónico: %{previous_email}\nLista de correo: %{previous_mailing_list_preference}\n\nPreferencias actuales:\nCorreo electrónico: %{updated_email}\nLista de correo: %{updated_mailing_list_preference}\nActualizado el: %{updated_at}"
+      subject: El usuario de EOL %{user_full_name} ha cambiado dirección de correo electrónico o sus preferencias de la lista de correo
+    user_verification: 
+      message: "Gracias por registrarse en Encyclopedia of Life. El siguiente enlace verificará que desea completar el registro:\n\n%{verification_url}\n\nSiga este enlace (haciendo 'clic' sobre él, o copiando y pegando todo el enlace en la barra de direcciones del navegador Web y cargándolo) para activar su cuenta. Una vez que su cuenta ha sido activada recibirá un mensaje de correo electrónico de confirmación."
+      subject: Por favor, compruebe su solicitud para una cuenta de Encyclopedia of Life
   nucleotide_sequences: Secuencias de Nucleótidos
   nucleotide_sequences_ncbi_database: La base de datos de <a href="%{ncbi_taxonomy_link}">Taxonomía de NCBI</a> contiene los nombres de todos los organismos que están representados en las bases de datos genéticas con al menos una secuencia de proteínas o nucleótidos.
   nucleotide_sequences_ncbi_mission: La misión del <a href="%{ncbi_link}">National Center for Biotechnology Information</a> es desarrollar nuevas tecnologías para ayudar a comprender los procesos genéticos y moleculares fundamentales que controlan la salud y enfermedades.
@@ -1182,13 +1545,13 @@ es:
   only_show_authoritative_conten: "Mostrar sólo contenido autorizado:"
   option_please_select: Por favor seleccione
   or_add_it_to_an_existing_collection: o agregar a una colección existente
-  other_collection_items_with_count:
+  other_collection_items_with_count: 
     one: "%{count} otro elemento"
     other: "%{count} otros elementos"
-  other_community_items_with_count:
+  other_community_items_with_count: 
     one: "%{count} otro elemento"
     other: "%{count} otros elementos"
-  other_taxa_with_count:
+  other_taxa_with_count: 
     one: "%{count} taxón"
     other: "%{count} taxones"
   other_us_dollars_amount: "Otros: US$"
@@ -1202,23 +1565,24 @@ es:
   pages_curator_section_link: Curadores
   pages_method_description: toma un identificador de página de EOL y retorna el nombre científico para esa página, y, opcionalmente, información sobre nombres comunes, medios (texto, imágenes y vídeos), y referencias a las jerarquías que reconocen el taxón descrito en el
   pages_title: Referencias
-  pages_with_count:
+  pages_with_count: 
     one: "%{count}}"
     other: "%{count}"
   pages_with_pictures_and_text: Páginas con imágenes y texto
   pages_with_pictures_or_text: Páginas con imágenes o texto
   pagination_next: Siguiente
-  pagination_next_with_count:
+  pagination_next_with_count: 
     one: ver próximo %{count}}
     other: ver próximos %{count}
   pagination_previous: Anterior
-  pagination_previous_with_count:
+  pagination_previous_with_count: 
     one: ver anterior %{count}}
     other: ver anterior %{count}
   parameters: Parámetros
   partner_page: página de socio
   password_colon: "Contraseña:"
   permalink: Permalink
+  person_rating: Evaluación de la persona
   personal_space: Espacio personal
   ping_method_description: este método tiene solo dos posibles resultados, puede fracasar (en cuyo caso posiblemente retorne una página de error de EOL), o bien, puede retornar un mensaje de éxito.
   please_confirm_your_donation_details: Por favor confirmar los detalles de su donación
@@ -1242,7 +1606,7 @@ es:
   quarterly: Trimestral
   rank_recognized_by_agent: "%{rank} reconocido por %{agent}"
   rank_recognized_by_from_source: "%{rank} reconocido por %{agent} in %{source}"
-  rated_by_count_people:
+  rated_by_count_people: 
     one: de %{count} persona
     other: de %{count} personas
   rating_added_notice: Puntaje se agregó exitosamente.
@@ -1253,14 +1617,14 @@ es:
   recognized_by: Reconocido por
   recognized_by_as_a_rank: "%{recognized_by} como un %{taxon_rank}"
   recognized_by_from_source_as_a_rank: "%{recognized_by} en %{source} como un %{taxon_rank}"
-  related_names_with_count:
+  related_names_with_count: 
     one: "%{count} nombre relacionado"
     other: "%{count} nombres relacionados"
   remove: Borrar
   remove_curatorship_colon: "Eliminar la curaduría:"
   remove_data_object_association: Eliminar asociación
   remove_membership: Eliminar afiliación.
-  removed_count_items_from_collection_notice:
+  removed_count_items_from_collection_notice: 
     one: "%{count} elemento ha sido borrado de esta colección."
     other: "%{count} elementos han sido borrados de esta colección."
   request: Request
@@ -1300,21 +1664,21 @@ es:
   search_results: Resultados de la búsqueda
   search_term_reports: buscar informes
   search_the_site: Buscar en el sitio
-  see_all_classifications_with_count_html:
+  see_all_classifications_with_count_html: 
     one: Ver <span class="assistive">%{count} clasificación aprobada en la que aparece este taxón.</span>
     other: Ver las <span class="assistive">%{count} clasificaciones aprobadas en las que aparece este taxón.</span>
-  see_all_collections_with_count_html:
+  see_all_collections_with_count_html: 
     one: Ver <span class="assistive">%{count} colección en la que aparece este taxón.</span>
     other: Ver las <span class="assistive">%{count} colecciones en las que aparece este taxón.</span>
-  see_all_communities_with_count_html:
+  see_all_communities_with_count_html: 
     one: Ver la <span class="assistive">%{count} comunidad que tiene como foco este taxón.</span>
     other: Ver las <span class="assistive">%{count} comunidades que tienen como foco este taxón.</span>
-  see_all_featured_collections_with_count:
+  see_all_featured_collections_with_count: 
     one: Mira el %{count} colección especial.
     other: Mira los %{count} colecciónes especiales.
   see_all_media_link: Ver todos los medios
   see_all_of_your_collections: Ver todas sus colecciones
-  see_all_updates_with_count_html:
+  see_all_updates_with_count_html: 
     one: Ver la <span class="assistive">%{count} actualización para esta página.</span>
     other: Ver todas las <span class="assistive">%{count} actualizaciones para esta página.</span>
   see_notes: ver notas
@@ -1323,6 +1687,9 @@ es:
   selected_items: Elementos seleccionados
   selected_language_advisory_information: Este es el idioma seleccionado actualmente.
   send_email_colon: "Enviar correo electrónico:"
+  sessions: 
+    new: 
+      meta_title: Iniciar sesión
   set_as_exemplar: Establecer como ejemplar
   show: Mostrar
   show_data_from_all_content_partners: Eliminar filtro de clasificación
@@ -1354,6 +1721,11 @@ es:
   sort_by_year_ascending: Año Ascendente
   sort_by_year_descending: Año Descendentemente
   sort_collection_by_label: Ordenar colección por
+  sound_alt_text: Esta grabación de audio %{vetted_status} es de %{taxon_name}
+  sound_from_supplier: Sonido de %{whom}
+  sound_not_associated_with_any_published_entries: Este sonido no está asociado con ninguno de los taxones publicados.
+  sound_of: Sonido de
+  sound_rating: Evaluación del sonido
   source_and_additional_information: Fuente e Información Adicional
   source_information_header: Información de fuente
   source_url: URL de origen
@@ -1370,7 +1742,7 @@ es:
   supplier_colon: "Proveedor:"
   switch_language_advisory_information: Cambiar el idioma del sitio a %{language_label}
   synonym: Sinónimo
-  synonyms_with_count:
+  synonyms_with_count: 
     one: "%{count} sinónimo"
     other: "%{count} sinónimos"
   table_column_header_actions: Acciones
@@ -1380,9 +1752,118 @@ es:
   task_status_active_option: Activo
   task_status_curated_option: Curado
   task_status_ignored_option: Ignorado
-  tasks_with_count:
+  tasks_with_count: 
     one: "%{count} tarea encontrada"
     other: "%{count} tareas encontradas"
+  taxa: 
+    communities: 
+      collections: 
+        hierarchy_entry: 
+          meta_description: Colecciones que contienen %{scientific_name} tal como fueron clasificadas por %{hierarchy_provider}
+          meta_description_with_common_name: Colecciones que contienen %{preferred_common_name} (%{scientific_name} como fueron clasificadas por %{hierarchy_provider}).
+          meta_keywords: Colecciones de %{scientific_name}, Observaciones de %{scientific_name}, Colecciones de %{hierarchy_provider}, Observaciones de %{hierarchy_provider}, Especímenes de %{hierarchy_provider}
+          meta_title: Colecciones de %{scientific_name} tal como fueron clasificadas por %{hierarchy_provider}
+          meta_title_with_common_name: Colecciones de %{preferred_common_name} (%{scientific_name} que fueron clasificadas por %{hierarchy_provider})
+          tweet_text: Colecciones de %{scientific_name} tal como fueron clasificadas por %{hierarchy_provider}
+        meta_description: Colecciones que contienen %{scientific_name}.
+        meta_description_with_common_name: Colecciones que contienen %{preferred_common_name} (%{scientific_name}).
+        meta_keywords: Colecciones de %{scientific_name} , Observaciones de %{scientific_name}
+        meta_keywords_with_common_name: Colecciones de %{preferred_common_name}, Observaciones de %{preferred_common_name}, Colecciones de %{scientific_name}, Observaciones de %{scientific_name}
+        meta_title: Colecciones de %{scientific_name}
+        meta_title_with_common_name: Colecciones de %{preferred_common_name} (%{scientific_name})
+        tweet_text: Colecciones de %{scientific_name}
+      curators: 
+        hierarchy_entry: 
+          meta_title: Conservadores de %{scientific_name} que fue clasificada por %{hierarchy_provider}
+          meta_title_with_common_name: Expertos en %{preferred_common_name} (%{scientific_name} tal como fue clasificado por %{hierarchy_provider})
+          tweet_text: Conservadores de %{scientific_name} tal como fue clasificado por %{hierarchy_provider}
+        meta_keywords: "%{scientific_name} Expertos, %{scientific_name} Conservadores"
+        meta_keywords_with_common_name: "%{preferred_common_name} Expertos, %{preferred_common_name} Conservadores, %{scientific_name} Expertos, %{scientific_name} Conservadores"
+        meta_title: Conservadores de %{scientific_name}
+        meta_title_with_common_name: Expertos en %{preferred_common_name} (%{scientific_name})
+        tweet_text: Conservadores de %{scientific_name}
+      index: 
+        hierarchy_entry: 
+          meta_description: Compartir información y conocimientos sobre %{scientific_name} como fue clasificado por %{hierarchy_provider}.
+          meta_description_with_common_name: Compartir información y conocimientos sobre %{preferred_common_name} (%{scientific_name}) como fue clasificado por %{hierarchy_provider}.
+          meta_keywords: Comunidad de %{scientific_name}, %{hierarchy_provider}
+          meta_title: Personas interesadas en %{scientific_name} como fue clasificado por %{hierarchy_provider}
+          meta_title_with_common_name: Personas interesadas en %{preferred_common_name} (%{scientific_name} como fue clasificado por %{hierarchy_provider})
+          tweet_text: Personas interesadas en %{scientific_name} tal como fue clasificado por %{hierarchy_provider}
+        meta_description: ¿Interesado en %{scientific_name}? Únase a los expertos de %{scientific_name} y comparta sus propias observaciones de %{scientific_name} en la Encyclopedia of Life.
+        meta_description_with_common_name: ¿Interesado en %{preferred_common_name} (%{scientific_name})? Únase a los expertos de %{preferred_common_name} y comparta sus propias observaciones de %{preferred_common_name} en la Encyclopedia of Life.
+        meta_keywords: Comunidad de %{scientific_name}
+        meta_keywords_with_common_name: Comunidad de %{preferred_common_name}, %{scientific_name}
+        meta_title: Personas interesadas en %{scientific_name}
+        meta_title_with_common_name: Personas interesadas en %{preferred_common_name} (%{scientific_name})
+        tweet_text: Personas interesadas en %{scientific_name}
+    details: 
+      index: 
+        hierarchy_entry: 
+          meta_description: Información acerca de %{scientific_name} tal como fue clasificada por %{hierarchy_provider} en la Encyclopedia of Life
+          meta_description_with_chapter_list: Información acerca de %{scientific_name} tal como fue clasificado por %{hierarchy_provider} en la Encyclopedia of Life. Incluye información de %{chapter_list} para {scientific_name} %.
+          meta_description_with_common_name: Información sobre %{preferred_common_name}, conocido científicamente como %{scientific_name} tal como fue clasificado por %{hierarchy_provider} en la Encyclopedia of Life.
+          meta_description_with_common_name_with_chapter_list: Información sobre %{preferred_common_name}, conocido científicamente como %{scientific_name} tal como fue clasificado por %{hierarchy_provider} en la Encyclopedia of Life. Incluye información sobre %{chapter_list}.
+          meta_title: Información acerca de %{scientific_name} tal como fue clasificado por %{hierarchy_provider}
+          meta_title_with_common_name: Información sobre %{preferred_common_name} (%{scientific_name} tal como fue clasificado por %{hierarchy_provider})
+          tweet_text: Información acerca de %{scientific_name} tal como fue clasificado por %{hierarchy_provider}
+        meta_description: Información acerca de %{scientific_name} en la Encyclopedia of Life
+        meta_description_with_chapter_list: Información acerca de %{scientific_name} en la Encyclopedia of Life. Incluye información sobre %{chapter_list}.
+        meta_description_with_common_name: Información sobre %{preferred_common_name}, conocido científicamente como %{scientific_name} en la Encyclopedia of Life.
+        meta_description_with_common_name_with_chapter_list: Información sobre %{preferred_common_name}, conocido científicamente como %{scientific_name} en la Encyclopedia of Life. Incluye información sobre %{chapter_list}.
+        meta_title: Información acerca de %{scientific_name}
+        meta_title_with_common_name: Hechos acerca de %{preferred_common_name} (%{scientific_name})
+        tweet_text: Información sobre %{scientific_name}
+    literature: 
+      bhl: 
+        hierarchy_entry: 
+          meta_description: Literatura e información sobre %{scientific_name}tal como fue clasificado por %{hierarchy_provider} en la Encyclopedia of Life. Lea artículos sobre %{scientific_name} en la Encyclopedia of Life.
+          meta_description_with_common_name: Literatura e información sobre %{preferred_common_name} también conocido como %{scientific_name} tal como fue clasificado por %{hierarchy_provider} en la Encyclopedia of Life. Lea artículos sobre %{preferred_common_name} en la Encyclopedia of Life.
+          meta_title: Literatura en BHL sobre %{scientific_name} tal como fue clasificado por %{hierarchy_provider}
+          meta_title_with_common_name: Libros en BHL sobre %{preferred_common_name} (%{scientific_name} tal como fue clasificado por %{hierarchy_provider})
+          tweet_text: Libros en BHL sobre %{scientific_name} tal como fue clasificado por %{hierarchy_provider}
+        meta_title: Citas de BHL para %{scientific_name}
+        meta_title_with_common_name: Referencias de BHL para %{preferred_common_name} (%{scientific_name})
+        tweet_text: "Literatura de #BHL sobre %{scientific_name}"
+      show: 
+        hierarchy_entry: 
+          meta_title: Literatura de %{scientific_name} tal como fue clasificado por %{hierarchy_provider}
+          meta_title_with_common_name: Libros sobre %{preferred_common_name} (%{scientific_name} tal como fue clasificado por %{hierarchy_provider})
+          tweet_text: Libros sobre %{scientific_name} tal como fue clasificado por %{hierarchy_provider}
+        meta_description: Libros e información sobre %{scientific_name} en la Encyclopedia of Life. Lea artículos sobre %{scientific_name} en la Encyclopedia of Life.
+        meta_description_with_common_name: Literatura e información sobre %{preferred_common_name} también conocido como %{scientific_name} en la Encyclopedia of Life. Leer artículos sobre %{preferred_common_name} en la Encyclopedia of Life.
+        meta_keywords: información sobre %{scientific_name}, literatura sobre %{scientific_name}, artículos sobre %{scientific_name}
+        meta_keywords_with_common_name: información sobre %{preferred_common_name}, literatura sobre %{preferred_common_name}, artículos sobre %{scientific_name}
+        meta_title: Literatura sobre %{scientific_name}
+        meta_title_with_common_name: Libros sobre %{preferred_common_name} (%{scientific_name})
+        tweet_text: Literatura sobre %{scientific_name}
+    maps: 
+      show: 
+        hierarchy_entry: 
+          meta_description: Información geográfica sobre %{scientific_name} tal como fue clasificado por %{hierarchy_provider} dónde viven y de dónde son autóctonos en el mundo.
+          meta_description_with_common_name: ¿Dónde se encuentra %{preferred_common_name} y dónde vive? Información geográfica sobre %{scientific_name} tal como fue clasificado por %{hierarchy_provider} dónde viven y de dónde son autóctonos en el mundo.
+          meta_title: Mapas sobre %{scientific_name} tal como fue clasificado por %{hierarchy_provider}
+          meta_title_with_common_name: Mapas sobre %{preferred_common_name} (%{scientific_name} tal como fue clasificado por %{hierarchy_provider})
+          tweet_text: Mapas sobre %{scientific_name} tal como fue clasificado por %{hierarchy_provider}
+        meta_description: Información geográfica sobre %{scientific_name}, dónde viven y de dónde es autóctono.
+        meta_description_with_common_name: "¿Dónde se encuentra %{preferred_common_name} y dónde vive? Información geográfica sobre %{scientific_name}:  dónde viven y de dónde son autóctonos en el mundo."
+        meta_keywords: hábitat de %{scientific_name} , de dónde es autóctono, dónde vive %{scientific_name}
+        meta_keywords_with_common_name: hábitat de %{preferred_common_name}, de dónde es autóctono, dónde vive %{preferred_common_name}
+        meta_title: Hábitat de %{scientific_name}
+        meta_title_with_common_name: Hábitat de %{preferred_common_name} (%{scientific_name})
+        tweet_text: Mapas de %{scientific_name}
+    media: 
+      index: 
+        hierarchy_entry: 
+          meta_description: Imágenes y vídeos de %{scientific_name} tal como fue clasificado por %{hierarchy_provider}
+          meta_description_with_common_name: Fotografías, vídeos y audios de %{preferred_common_name} también conocido como %{scientific_name} tal como fue clasificado por %{hierarchy_provider}.
+          meta_keywords: fotografías de %{scientific_name}, películas de %{scientific_name}, sonidos of %{scientific_name}, audios de %{scientific_name}
+          meta_keywords_with_common_name: fotografías de %{preferred_common_name}, películas de %{preferred_common_name}, sonidos de %{preferred_common_name}, audios de %{preferred_common_name}, fotografías de %{scientific_name}, películas de %{scientific_name}, sonidos de %{scientific_name}, audios de %{scientific_name}
+          meta_title: Audios, Películas & Fotografías de %{scientific_name} tal como fue clasificado por %{hierarchy_provider}
+          meta_title_with_common_name: Audios, películas e imágenes sobre %{preferred_common_name} (%{scientific_name} tal como fue clasificado por %{hierarchy_provider})
+          tweet_text: Contenido multimedia sobre %{scientific_name} tal como fue clasificado por %{hierarchy_provider}
+        meta_description: Imágenes y vídeos de %{scientific_name}.
+        meta_description_with_common_name: Imágenes y vídeos de %{preferred_common_name} también conocido como %{scientific_name}.
   taxa_column_header: Taxones
   taxon: taxón
   taxon_biomedical_terms_link: Términos biomédicos
@@ -1402,6 +1883,7 @@ es:
   taxon_partner_links_header: Vínculos a socios
   taxon_partner_links_intro: Abajo aparece una lista de socios, incluidos socios de contenidos, con información sobre esta página. Donde sea posible, los vínculos lo llevarán al contenido correspondiente en el sitio web del socio. EL identificador único que usa cada socio para este taxón está empotrado en estos vínculos, y estos identificadores también están accesibles por medio de <a href="%{eol_api_link}">EOL API</a>
   taxon_partner_links_link: Vínculos de socio
+  taxon_rating: Evaluación del taxón
   taxon_recognized_by_header: Reconocido por
   taxonomic_summary_of_content: Resumen taxonómico de contenido
   technical_functions: Funciones Técnicas
@@ -1425,19 +1907,31 @@ es:
   the_json_response_for_this_method: La respuesta JSON para este método retorna más información que la respuesta XML. Incluye varias estadísticas sobre este nodo y sus descendientes taxonómicos. Por ejemplo, hay un campo retornado denominado"total_descendants" el cual lista el número de nodos que son descendientes de un nodo dado, según esta jerarquía; "total_trusted_text" incluye el número total de objetos de datos de texto únicos vinculados con esta página o con cualquiera de sus descendientes.
   the_xml_search_response_implements: La respuesta a una búsqueda implementa el formato de respuesta OpenSearch usando Atom 1.0. Ver la especificación OpenSearch completa en %{link}
   there_are_currently_no_members_in_this_community: Actualmente no hay miembros en esta comunidad.
+  this_article_cannot_be_curated_because_unpublished: Este artículo no puede ser supervisado porque no ha sido publicado.
+  this_article_is_unpublished: Este artículo no ha sido publicado.
   this_cannot_be_undone_are_you_sure: Está acción no puede deshacer; ¿está seguro?
   this_community_has_no_endorsed_collections: Esta comunidad no ha promovido ninguna colección.
   this_community_has_no_focus_list: Esta comunidad no tiene ninguna lista de foco.
   this_community_was_deleted: Esta comunidad fue borrada por su dueño.
+  this_image_cannot_be_curated_because_unpublished: Esta imagen no puede ser supervisada porque no ha sido publicada.
+  this_image_is_unpublished: Esta imagen no ha sido publicada.
+  this_image_map_cannot_be_curated_because_unpublished: Este mapa no puede ser supervisado porque no ha sido publicado.
+  this_image_map_is_unpublished: Este mapa no ha sido publicado.
   this_is_a_flat_list_of_10_million_strings: Esta es una lista plana de 10 millones de hileras - no se permite navegar en ella
   this_is_a_focus_collection_for_community: Esta colección es el enfoque de "%{community}".
   this_is_the_label_that_will_be_used_for_attribution: Esta es la etiqueta que se utilizará para la atribución
+  this_map_cannot_be_curated_because_unpublished: Este mapa no puede ser supervisado porque no ha sido publicado.
+  this_map_is_unpublished: Este mapa no ha sido publicado.
   this_method_takes_an_integer_or_string: Este método toma un entero o hilera que es el identificador único para un taxón de una base de datos de un proveedor y y un identificador hierarchy_id que corresponde al proveedor y retorna el ID de página de EOL para ese taxón. Por ejemplo, si usa el API %{link_provider}, puede encontrar que el identificador de EOL, hierarchy_id, para el Integrated Taxonomic Information System (ITIS) es %{itis_id}. Entonces, después puede buscar en EOL el ITIS Taxonomic Serial Number (TSN) de 180542,<i>Ursus maritimus</i>, llamando a %{link_url}
+  this_sound_cannot_be_curated_because_unpublished: Este sonido no puede ser supervisado porque no ha sido publicado.
+  this_sound_is_unpublished: Este sonido no ha sido publicado.
+  this_video_cannot_be_curated_because_unpublished: Este vídeo no puede ser supervisado porque no ha sido publicado.
+  this_video_is_unpublished: Este vídeo no ha sido publicado.
   time_ago: "%{time_passed} hace"
   title: Título
   to_process_your_donation_please_proceed: Para procesar su donación, por favor siga
   toc: TDC
-  total_items_with_count:
+  total_items_with_count: 
     one: "%{count} ítem"
     other: "%{count} total ítems"
   translation_deleted: Se ha eliminado la traducción
@@ -1452,6 +1946,7 @@ es:
   unable_to_copy_items_to_collection_error: Lo siento, no se pudo copiar los elementos de la colección a %{name}.
   unable_to_invite_users_to_community_error: No se pudo enviar invitaciones a %{users}.
   unknown: Desconocido
+  unknown_type_not_associated_with_any_published_entries: Estos datos no están asociados con ninguno de los taxones publicados.
   unpublished: Sin publicar
   unreviewed: Sin revisar
   unreviewed_images: Imágenes sin revisar
@@ -1493,7 +1988,7 @@ es:
   users_about_me_header: Acerca de mí
   users_content_partners_header: Socios de Contenidos
   users_content_partners_information: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt hendrerit tortor, commodo faucibus turpis imperdiet non. Nullam tincidunt, est vel euismod volutpat, libero turpis suscipit neque, nec viverra magna augue non nisl. Praesent et risus sit amet quam sagittis pulvinar eu at odio. Etiam mattis enim turpis, cursus rutrum massa. Ut blandit varius tellus, vitae interdum nulla pulvinar nec.
-  users_content_partners_with_count:
+  users_content_partners_with_count: 
     one: "%{count} Socio de contenido "
     other: "%{count} Socios de contenido"
   users_curation_header: Cualidades del curador
@@ -1501,7 +1996,7 @@ es:
   users_form_curation_header: Cualidades del curador
   users_form_profile_info_header: Información pública del perfil
   users_form_tip: Nombre de usuario es obligatorio para todos los usuarios, otros elementos marcados como requeridos %{required_icon} son opcionales para los usuarios generales pero obligatorios para los curadores.
-  users_member_of_count_communities:
+  users_member_of_count_communities: 
     one: "Pertenece a %{count} comunidad "
     other: Pertenece a %{count} comunidades
   users_my_info_header: Mi información
@@ -1515,6 +2010,11 @@ es:
   values: Valores
   version_1_0_uses_fields_from_the_latest_version: la versión 1.0 usa campos de la última versión del esquema %{link}
   vetted: Aprobados
+  video_alt_text: Este vídeo %{vetted_status} es de %{taxon_name}
+  video_from_supplier: Vídeo de %{whom}
+  video_not_associated_with_any_published_entries: Este vídeo no está asociado con ninguno de los taxones publicados.
+  video_of: Vídeo de
+  video_rating: Evaluación del vídeo
   view_added_text: ver texto añadido
   view_article_source: Ver fuente del artículo
   view_contact_us_submissions: ver las solicitudes a contáctenos
@@ -1550,7 +2050,7 @@ es:
   wikipedia_queue_new_intro: Envíe una revisión de un artículo de Wikipedia para ser ingerido por EOL como objeto de texto de confianza.
   wikipedia_queue_new_page_title: Solicite la importación de un artículo de Wikipedia
   will_find_taxon_pages_matching_the_search_term: encontrará páginas de taxón si el nombre preferido o cualquier sinónimo o nombre común coincide exactamente con el término buscado
-  will_paginate:
+  will_paginate: 
     next_label: Próxima &#8594;
     page_gap: "&hellip;"
     previous_label: "&#8592; Anterior"

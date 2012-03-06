@@ -10,7 +10,7 @@ if (!EOL.init_common_name_behaviors) {
       form.submit();
     });
     // Checkbox may ask the user to confirm; if they don't, it re-checks the box:
-    $('td.vet_common_name select').change(function() {
+    $('td.vet_common_name select').unbind('change').change(function() {
       var $update = $(this).closest('tr');
       var url = $(this).attr('data_url');
       url = url.replace(/REPLACE_ME/, $(this).val());

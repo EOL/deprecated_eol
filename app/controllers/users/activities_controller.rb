@@ -1,7 +1,10 @@
 class Users::ActivitiesController < UsersController
 
+  # GET /users/:user_id/activity
   def show
     @user = User.find(params[:user_id])
+    redirect_if_user_is_inactive
+    preload_user_associations
     @page = params[:page]
     @filter = params[:filter]
     if @filter == "curated_taxa"

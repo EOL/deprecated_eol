@@ -5,7 +5,9 @@ require 'solr_api'
 def check_api_key(url, user)
   visit(url)
   log = ApiLog.last
-  log.request_uri.should == url
+  url.split(/[\?&]/).each do |url_part|
+    log.request_uri.should match(url_part)
+  end
   log.key.should_not be_nil
   log.key.should == user.api_key
   log.user_id.should == user.id
@@ -133,10 +135,8 @@ describe 'EOL APIs' do
     make_all_nested_sets
     flatten_hierarchies
     
-    builder = EOL::Solr::SiteSearchCoreRebuilder.new()
-    builder.reindex_model(TaxonConcept)
-    SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE).delete_all_documents
-    DataObject.all.each{ |d| d.update_solr_index }
+    EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild
+    EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
     
     visit("/api/pages/0.4/#{@taxon_concept.id}")
     @default_pages_body = body

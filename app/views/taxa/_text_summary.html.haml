@@ -1,6 +1,6 @@
 - link = @selected_hierarchy_entry ? taxon_hierarchy_entry_details_path(@taxon_concept.id, @selected_hierarchy_entry.id) : taxon_details_path(@taxon_concept.id)
 #text_summary.article.overview
-  - if @summary_text.nil?
+  - if @summary_text.blank?
     .header
       %h3= I18n.t(:text_summary_empty_header)
     .empty
@@ -10,29 +10,27 @@
         - taxon = @taxon_concept.quick_scientific_name(:italicized, @selected_hierarchy_entry.hierarchy)
       - else
         - taxon = "<i>#{@taxon_concept.title_canonical()}</i>"
-      - if @taxon_concept.has_details?
+      - if @taxon_concept.has_details_text_for_user?(current_user)
         %p= I18n.t(:explore_what_we_know_about_taxon, :taxon => link_to(taxon, link))
       = link_to I18n.t(:add_brief_summary_to_page_link_button), new_taxon_data_object_path(@taxon_concept), :class => 'button'
   - else
-    - @summary_text.each do |item|
-      - item_vetted = item.vetted_by_taxon_concept(@taxon_concept, :find_best => true)
-      - item_vetted_id = item_vetted.id unless item_vetted.nil?
-      - item_vetted_label = item_vetted.label unless item_vetted.nil?
-      - unless item.description.empty? || item.description.nil?
-        %div{:class => vetted_id_class(item_vetted_id), :data => { :text_id =>  item.id } }
-          .header
-            %h3= h item.toc_items[0].label
-            = link_to(I18n.t(:text_summary_more_link), link)
-          .meta.learn_more
-            %p= link_to I18n.t(:article_more_about), data_object_path(item)
-            = render :partial => 'data_objects/view_translation', :locals => { :data_object => item, :taxon => @taxon_concept}
-          .copy
-            - item.description = item.description_linked unless item.description_linked.blank? rescue nil
-            - if item.added_by_user?
-              = Sanitize.clean(item.description.balance_tags, Sanitize::Config::RELAXED).allow_some_html
-            - else
-              = item.description.balance_tags
-          %p.flag{:class => vetted_id_class(item_vetted_id)}= item_vetted_label == Vetted.unknown.label ? I18n.t(:unreviewed) : item_vetted_label
-          .meta.attribution
-            = render :partial => 'data_objects/attribution_minimal', :locals => { :data_object => item, :supplier => true }
-        - break
+    - item_vetted = @summary_text.vetted_by_taxon_concept(@taxon_concept, :find_best => true)
+    - item_vetted_id = item_vetted.id unless item_vetted.nil?
+    - item_vetted_label = item_vetted.label unless item_vetted.nil?
+    - unless @summary_text.description.empty? || @summary_text.description.nil?
+      %div{:class => vetted_id_class(item_vetted_id), :data => { :text_id =>  @summary_text.id } }
+        .header
+          %h3= h @summary_text.toc_items[0].label
+          = link_to(I18n.t(:text_summary_more_link), link)
+        .meta.learn_more
+          %p= link_to I18n.t(:article_more_about), data_object_path(@summary_text)
+          = render :partial => 'data_objects/view_translation', :locals => { :data_object => @summary_text, :taxon => @taxon_concept}
+        .copy
+          - @summary_text.description = @summary_text.description_linked unless @summary_text.description_linked.blank? rescue nil
+          - if @summary_text.added_by_user?
+            = Sanitize.clean(@summary_text.description.balance_tags, Sanitize::Config::RELAXED).allow_some_html
+          - else
+            = @summary_text.description.balance_tags
+        %p.flag{:class => vetted_id_class(item_vetted_id)}= item_vetted_label == Vetted.unknown.label ? I18n.t(:unreviewed) : item_vetted_label
+        .meta.attribution
+          = render :partial => 'data_objects/attribution_minimal', :locals => { :data_object => @summary_text }

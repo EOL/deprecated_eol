@@ -20,7 +20,8 @@
         %p= I18n.t("this_#{en_type}_is_unpublished")
       - else
         %p= I18n.t("this_#{en_type}_cannot_be_curated_because_unpublished")
-    = link_to I18n.t(:view_current_version_link), data_object_path(@latest_published_revision) unless for_worklist
+    - unless @latest_published_revision.nil?
+      = link_to I18n.t(:view_current_version_link), data_object_path(@latest_published_revision) unless for_worklist
 
   - if for_worklist
     = render :partial => 'data_objects/ignore', :locals => { :data_object => @data_object }

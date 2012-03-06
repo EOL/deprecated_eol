@@ -6,7 +6,7 @@
 # Even common names have an italicized form, which the PHP side auto-generates.  They can't always be trusted, but there are cases
 # where a name is both common and scientific, so it must be populated.
 #
-class Name < SpeciesSchemaModel
+class Name < ActiveRecord::Base
 
   belongs_to :canonical_form
   belongs_to :ranked_canonical_form, :class_name => CanonicalForm.to_s, :foreign_key => :ranked_canonical_form_id
@@ -113,9 +113,10 @@ class Name < SpeciesSchemaModel
                        'phage', 'sp', 'cf', 'uncultured', 'DNA', 'unclassified', 'sect',
                        'ß', 'str', 'biovar', 'type', 'strain', 'serotype', 'hybrid',
                        'cultivar', 'x', '×', 'pop', 'group', 'environmental', 'sample',
-                       'endosymbiont', 'a', 'b', 'c', 'd', 'species', 'complex',
+                       'endosymbiont', 'species', 'complex',
                        'unassigned', 'n', 'gen', 'auct', 'non', 'aff']
     return true if string.match(/(^|[^\w])(#{red_flag_words.join('|')})([^\w]|$)/i)
+    return true if string.match(/ [abcd] /i)
     return true if string.match(/(_|'|")/i)
     return true if string.match(/[0-9][a-z]/i)
     return true if string.match(/[a-z][0-9]/i)

@@ -1,4 +1,4 @@
-class GoogleAnalyticsPageStat < SpeciesSchemaModel
+class GoogleAnalyticsPageStat < ActiveRecord::Base
   belongs_to :taxon_concept
   set_primary_keys :taxon_concept_id, :year, :month, :page_views
   

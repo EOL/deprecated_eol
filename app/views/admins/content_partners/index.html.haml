@@ -2,12 +2,14 @@
 
 #sidebar
   .filters.small
-    = render :partial => 'content_partners/sort_form'
-  .filters.small
     - form_tag({}, :method => :get) do
       %fieldset
         - option_please_select = "<option value=\"\">#{I18n.t(:option_please_select)}</option>"
         %dl
+          %dt
+            = label_tag :sort_by, I18n.t(:sort_by_label)
+          %dd
+            = select_tag :sort_by, options_for_select(@sort_by_options, @sort_by)
           %dt
             = label_tag :name, I18n.t('activerecord.attributes.content_partner.full_name')
           %dd
@@ -31,7 +33,7 @@
           %dd
             = select_tag :vetted, options_for_select(@vetted_options, @vetted)
       %fieldset.actions
-        = submit_tag I18n.t(:filter_button), :name => nil
+        = submit_tag I18n.t(:filter_sort, :scope => [:helpers, :submit]), :name => nil
         %small= link_to I18n.t(:cancel), admin_content_partners_path
 #content_partners.main_container
   - if @partners.blank?

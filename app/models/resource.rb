@@ -1,4 +1,4 @@
-class Resource < SpeciesSchemaModel
+class Resource < ActiveRecord::Base
 
   # This class represents some notion of a set of data.  For example, a collection of images of butterflies.
 
@@ -69,8 +69,6 @@ class Resource < SpeciesSchemaModel
     case new_status
       when ResourceStatus.force_harvest
         !resource_status.blank? && resource_status != ResourceStatus.being_processed
-      when ResourceStatus.publish_pending
-        resource_status == ResourceStatus.processed
       else
         true
     end
@@ -133,11 +131,11 @@ class Resource < SpeciesSchemaModel
 #    set_to_state = EOLConvert.to_boolean(vetted) ? Vetted.trusted.id : Vetted.unknown.id
 #
 #    # update the vetted_id of all data_objects associated with the latest
-#    SpeciesSchemaModel.connection.execute("update harvest_events he straight_join data_objects_harvest_events dohe on (he.id=dohe.harvest_event_id) straight_join data_objects do on (dohe.data_object_id=do.id) set do.vetted_id = #{set_to_state} where do.vetted_id = 0 and he.resource_id = #{self.id}")
+#    connection.execute("update harvest_events he straight_join data_objects_harvest_events dohe on (he.id=dohe.harvest_event_id) straight_join data_objects do on (dohe.data_object_id=do.id) set do.vetted_id = #{set_to_state} where do.vetted_id = 0 and he.resource_id = #{self.id}")
 #
 #    if set_to_state == Vetted.trusted.id && !hierarchy.nil?
 #      # update the vetted_id of all concepts associated with this resource - only vet them never unvet them
-#      SpeciesSchemaModel.connection.execute("UPDATE hierarchy_entries he JOIN taxon_concepts tc ON (he.taxon_concept_id=tc.id) SET tc.vetted_id=#{Vetted.trusted.id} WHERE hierarchy_id=#{hierarchy.id}")
+#      connection.execute("UPDATE hierarchy_entries he JOIN taxon_concepts tc ON (he.taxon_concept_id=tc.id) SET tc.vetted_id=#{Vetted.trusted.id} WHERE hierarchy_id=#{hierarchy.id}")
 #    end
 #
 #    self.vetted=vetted
@@ -173,7 +171,7 @@ class Resource < SpeciesSchemaModel
     return true if self.content_partner.full_name == "Discover Life"
     false
   end
-    
+
 private
 
   def url_or_dataset_not_both

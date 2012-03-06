@@ -76,9 +76,9 @@ protected
 
   def scoped_variables_for_translations
     @scoped_variables_for_translations ||= super.dup.merge({
-      :preferred_common_name => Sanitize.clean(@preferred_common_name).presence,
-      :scientific_name => Sanitize.clean(@scientific_name).presence,
-      :hierarchy_provider => @selected_hierarchy_entry ? Sanitize.clean(@selected_hierarchy_entry.hierarchy_label).presence : nil,
+      :preferred_common_name => @preferred_common_name.presence,
+      :scientific_name => @scientific_name.presence,
+      :hierarchy_provider => @selected_hierarchy_entry ? @selected_hierarchy_entry.hierarchy_label.presence : nil,
     }).freeze
   end
 
@@ -105,10 +105,10 @@ protected
       translation_vars[:preferred_common_name] && @assistive_section_header ? "#{translation_vars[:preferred_common_name]} #{@assistive_section_header}" : nil,
       translation_vars[:scientific_name] && @assistive_section_header ? "#{translation_vars[:scientific_name]} #{@assistive_section_header}" : nil,
       translation_vars[:hierarchy_provider]
-    ].uniq.compact.join(", ").strip
+    ].uniq.compact.join(", ")
     additional_keywords = t(".meta_keywords#{translation_vars[:preferred_common_name] ? '_with_common_name' : ''}",
                             translation_vars)
-    @meta_keywords = "#{keywords}, #{additional_keywords}".strip
+    @meta_keywords = [keywords, additional_keywords.presence].compact.join(', ')
   end
 
   def meta_open_graph_image_url
@@ -167,17 +167,6 @@ private
     end
   end
 
-  def get_content_variables(options = {})
-    @content = @taxon_concept.content_by_category(@category_id, :current_user => current_user, :hierarchy_entry => options[:hierarchy_entry])
-    @whats_this = @content[:category_name].blank? ? "" : WhatsThis.get_url_for_name(@content[:category_name])
-    @ajax_update = options[:ajax_update]
-    @languages = build_language_list if is_common_names?(@category_id)
-  end
-
-  def update_user_content_level
-    current_user.content_level = params[:content_level] if ['1','2','3','4'].include?(params[:content_level])
-  end
-
   def add_page_view_log_entry
     PageViewLog.create(:user => current_user, :agent => current_user.agent, :taxon_concept => @taxon_concept)
   end
@@ -197,20 +186,6 @@ private
 
   def do_the_search
     redirect_to search_path(:id => params[:id])
-  end
-
-  def taxa_page_cache_fragment_name
-    return {
-      :controller => '/taxa',
-      :part => "page_#{@taxon_concept.id}_#{@section}_#{@taxon_concept.current_user.taxa_page_cache_str}_#{@taxon_concept.show_curator_controls?}"
-    }
-  end
-  helper_method(:taxa_page_cache_fragment_name)
-
-  def show_taxa_html_can_be_cached?
-    return(allow_page_to_be_cached? and
-           params[:category_id].blank? and
-           params[:image_id].blank?)
   end
 
   # For regular users, a page is accessible only if the taxon_concept is published.

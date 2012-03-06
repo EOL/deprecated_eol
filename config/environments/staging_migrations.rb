@@ -31,7 +31,6 @@ config.cache_classes = true
 # (default for production)
 config.after_initialize do 
   ActiveReload::ConnectionProxy.setup_for ActiveReload::MasterDatabase, ActiveRecord::Base
-  ActiveReload::ConnectionProxy.setup_for SpeciesSchemaWriter, SpeciesSchemaModel
   ActiveReload::ConnectionProxy.setup_for LoggingWriter, LoggingModel
 end
 $LOGGING_READ_FROM_MASTER = true

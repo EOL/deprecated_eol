@@ -1904,6 +1904,32 @@ body > #header {
     padding: 0;
     width: 640px; }
 
+#new_content_partner_agreement dl, form.edit_content_partner_agreement dl {
+  clear: both; }
+  #new_content_partner_agreement dl dd, form.edit_content_partner_agreement dl dd {
+    margin: 0 0 10px 0; }
+    #new_content_partner_agreement dl dd input[type="text"], form.edit_content_partner_agreement dl dd input[type="text"] {
+      width: 308px;
+      height: 22px;
+      padding: 2px 5px;
+      font: normal 1em Helvetica, Arial, sans-serif;
+      border: 1px solid #cad3db;
+      background-color: white;
+      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
+      background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
+      background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white)); }
+    #new_content_partner_agreement dl dd textarea, form.edit_content_partner_agreement dl dd textarea {
+      width: 700px;
+      height: 22px;
+      padding: 2px 5px;
+      font: normal 1em Helvetica, Arial, sans-serif;
+      border: 1px solid #cad3db;
+      background-color: white;
+      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
+      background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
+      background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white));
+      height: 400px; }
+
 #content_partner_show #sidebar {
   width: 240px;
   padding-left: 40px;
@@ -1945,6 +1971,34 @@ body > #header {
           margin: 0 5px 0 0; }
           #content_partner_show .main_container table.standard tbody tr td.actions a + a {
             margin: 0; }
+  #content_partner_show .main_container#resources_show .section.half {
+    float: left;
+    width: 299px;
+    margin-right: 20px; }
+  #content_partner_show .main_container#resources_show .section dl {
+    line-height: 140%;
+    margin: 0 0 40px 0; }
+    #content_partner_show .main_container#resources_show .section dl dt {
+      font-weight: bold; }
+    #content_partner_show .main_container#resources_show .section dl dd {
+      margin: 0 0 5px 20px; }
+  #content_partner_show .main_container#resources_show .section.processing_status {
+    clear: both; }
+#content_partner_show .empty {
+  font-size: 1em; }
+#content_partner_show .agreement address {
+  display: block;
+  width: 40%;
+  line-height: 170%; }
+  #content_partner_show .agreement address.partner {
+    float: left; }
+  #content_partner_show .agreement address.eol {
+    float: right; }
+#content_partner_show dl.agreement {
+  margin: 0 0 15px 0;
+  line-height: 140%; }
+  #content_partner_show dl.agreement dd {
+    margin-bottom: 5px; }
 #content_partner_show p.resource_status {
   border: 1px solid #cad3db;
   background: #f1f4f7;
@@ -1956,6 +2010,31 @@ body > #header {
   #content_partner_show p.resource_status.upload_failed, #content_partner_show p.resource_status.processing_failed, #content_partner_show p.resource_status.validation_failed {
     background: #ffeae6;
     border-color: #f2d2cc; }
+
+#content_partner_edit.site_column, body > #header #content_partner_edit.section, body > #footer #content_partner_edit.section, .thumbnails ul#content_partner_edit, #content_partner_new.site_column, body > #header #content_partner_new.section, body > #footer #content_partner_new.section, .thumbnails ul#content_partner_new {
+  width: 640px; }
+
+ul.content_partner_contacts li {
+  margin: 0 0 20px 0; }
+
+#content_partner_statistics .main_container {
+  border: none;
+  padding: 0; }
+#content_partner_statistics .header {
+  border-top: 1px solid #cad3db;
+  padding-top: 1em;
+  margin-top: 40px; }
+#content_partner_statistics .heading {
+  text-align: center; }
+  #content_partner_statistics .heading fieldset, #content_partner_statistics .heading input[type="submit"] {
+    display: inline;
+    margin: 0; }
+#content_partner_statistics table {
+  margin-top: 20px; }
+  #content_partner_statistics table caption {
+    line-height: 170%;
+    font-size: 1.08em;
+    font-weight: bold; }
 
 #content_partner_resources {
   width: 600px; }

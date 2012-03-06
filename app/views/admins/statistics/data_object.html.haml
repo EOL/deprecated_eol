@@ -1,43 +1,28 @@
 = render :partial => 'menu'
-#content_partners.main_container
+#statistics_data_object.main_container
   .copy
-    %h2= I18n.t(:admin_statistics_data_object_header)
-  - form_tag({}, :method => :get) do
-    %fieldset.actions.download
-      = submit_tag I18n.t(:admin_content_partners_statistics_first_published_download_csv_submit),
-        :name => :commit_download_csv
-      %input{:type => 'checkbox', :name => 'all_records'}
-      %input{:type => 'hidden', :name => 'report', :value => 'data_objects'}
-      = I18n.t('all_title')
-      %input{:type => 'hidden', :name => 'page', :value => params[:page]}
-= will_paginate @stats, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next)
-%table.standard
-  %caption
-  %thead
-    %tr
-      %th= I18n.t('activerecord.attributes.eol_statistic.data_objects')
-      %th= I18n.t('activerecord.attributes.eol_statistic.data_objects_texts')
-      %th= I18n.t('activerecord.attributes.eol_statistic.data_objects_images')
-      %th= I18n.t('activerecord.attributes.eol_statistic.data_objects_videos')
-      %th= I18n.t('activerecord.attributes.eol_statistic.data_objects_sounds')
-      %th= I18n.t('activerecord.attributes.eol_statistic.data_objects_maps')
-      %th= I18n.t('activerecord.attributes.eol_statistic.data_objects_trusted')
-      %th= I18n.t('activerecord.attributes.eol_statistic.data_objects_unreviewed')
-      %th= I18n.t('activerecord.attributes.eol_statistic.data_objects_untrusted')
-      %th= I18n.t('activerecord.attributes.eol_statistic.data_objects_trusted_or_unreviewed_but_hidden')
-      %th= I18n.t('created_at')
-  %tbody
-    - @stats.each do |s|
+    %h2= t(".page_header")
+  = render 'download_form'  
+  = will_paginate @stats, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next)
+  %table.standard
+    %caption
+      = t(".page_header")
+    %thead
       %tr
-        %td{:align => 'right'}= number_with_delimiter(s.data_objects)
-        %td{:align => 'right'}= number_with_delimiter(s.data_objects_texts)
-        %td{:align => 'right'}= number_with_delimiter(s.data_objects_images)
-        %td{:align => 'right'}= number_with_delimiter(s.data_objects_videos)
-        %td{:align => 'right'}= number_with_delimiter(s.data_objects_sounds)
-        %td{:align => 'right'}= number_with_delimiter(s.data_objects_maps)
-        %td{:align => 'right'}= number_with_delimiter(s.data_objects_trusted)
-        %td{:align => 'right'}= number_with_delimiter(s.data_objects_unreviewed)
-        %td{:align => 'right'}= number_with_delimiter(s.data_objects_untrusted)
-        %td{:align => 'right'}= number_with_delimiter(s.data_objects_trusted_or_unreviewed_but_hidden)
-        %td{:align => 'right'}= s.created_at.strftime("%Y-%m-%d")
-= will_paginate @stats, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next)
+        - report_attributes.each do |attribute|
+          %th= I18n.t("activerecord.attributes.eol_statistic.#{attribute}")
+    %tbody
+      - @stats.each do |s|
+        %tr
+          %td= number_with_delimiter(s.data_objects)
+          %td= number_with_delimiter(s.data_objects_texts)
+          %td= number_with_delimiter(s.data_objects_images)
+          %td= number_with_delimiter(s.data_objects_videos)
+          %td= number_with_delimiter(s.data_objects_sounds)
+          %td= number_with_delimiter(s.data_objects_maps)
+          %td= number_with_delimiter(s.data_objects_trusted)
+          %td= number_with_delimiter(s.data_objects_unreviewed)
+          %td= number_with_delimiter(s.data_objects_untrusted)
+          %td= number_with_delimiter(s.data_objects_trusted_or_unreviewed_but_hidden)
+          %td= s.created_at.strftime("%Y-%m-%d")
+  = will_paginate @stats, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next)

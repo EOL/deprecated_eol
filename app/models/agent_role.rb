@@ -1,5 +1,5 @@
 # An enumerated list of the different kinds of roles an Agent fills.
-class AgentRole < SpeciesSchemaModel
+class AgentRole < ActiveRecord::Base
 
   CACHE_ALL_ROWS = true
   uses_translations

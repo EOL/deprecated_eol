@@ -46,7 +46,7 @@
         - else
           - if item.parent_type == "DataObject"
             - if item.parent.is_latest_published_version_in_same_language?
-            = I18n.t(:user_commented_on_something_colon, :user => name_with_link, :what => link_to(item.parent.summary_name, parent_link))
+              = I18n.t(:user_commented_on_something_colon, :user => name_with_link, :what => link_to(item.parent.summary_name, parent_link))
             - else
               = I18n.t(:user_commented_on_older_data_object_colon, :user => name_with_link, :what => I18n.t(:older_version_of_latest_published_data_object_link, :link => link_to(item.parent.summary_name, parent_link)))
           - else
@@ -60,52 +60,52 @@
               = I18n.t(:user_commented_on_something_colon, :user => name_with_link, :what => item.parent.summary_name)
           - else
             = I18n.t(:user_commented_on_something_colon, :user => name_with_link, :what => I18n.t(:record_not_found))
-
-  - if item.deleted?
-    %p.deleted_comment= I18n.t(:this_comment_was_deleted)
-  - else
-    %blockquote{:cite => h(item.user.full_name)}
-      - show_body = ''
-      - if truncate_comments && item.body.length > 140
-        - parent_newsfeed = nil
-        - case item.parent_type
-        - when 'TaxonConcept'
-          - parent_newsfeed = taxon_updates_path(item.parent_id)
-        - when 'DataObject'
-          - parent_newsfeed = data_object_path(item.parent_id)
-        - when 'Community'
-          - parent_newsfeed = community_newsfeed_path(item.parent_id)
-        - when 'Collection'
-          - parent_newsfeed = filtered_collection_path(item.parent, 'newsfeed')
-        - when 'User'
-          - parent_newsfeed = user_newsfeed_path(item.parent_id)
-        - if parent_newsfeed
-          - show_body = truncate(item.body, :length => 140, :omission => I18n.t(:truncated_comment_omission, :link => parent_newsfeed))
+    - if item.deleted?
+      %p.deleted_comment= I18n.t(:this_comment_was_deleted)
+    - else
+      %blockquote{:cite => h(item.user.full_name)}
+        - show_body = ''
+        - if truncate_comments && item.body.length > 140
+          - parent_newsfeed = nil
+          - case item.parent_type
+          - when 'TaxonConcept'
+            - parent_newsfeed = taxon_updates_path(item.parent_id)
+          - when 'DataObject'
+            - parent_newsfeed = data_object_path(item.parent_id)
+          - when 'Community'
+            - parent_newsfeed = community_newsfeed_path(item.parent_id)
+          - when 'Collection'
+            - parent_newsfeed = filtered_collection_path(item.parent, 'newsfeed')
+          - when 'User'
+            - parent_newsfeed = user_newsfeed_path(item.parent_id)
+          - if parent_newsfeed
+            - show_body = truncate(item.body, :length => 140, :omission => I18n.t(:truncated_comment_omission, :link => parent_newsfeed))
+          - else
+            - show_body = truncate(item.body, :length => 140, :omission => I18n.t(:truncated_comment_omission_linkless))
         - else
-          - show_body = truncate(item.body, :length => 140, :omission => I18n.t(:truncated_comment_omission_linkless))
-      - else
-        - show_body = item.body
-      - if item.reply? and item.reply_to.respond_to?(:user)
-        - show_body = "@#{link_to(item.reply_to.user.full_name, "##{item.reply_to_type}-#{item.reply_to_id}")}: #{show_body}"
-      = sanitize show_body.balance_tags
-  %p.meta
-    = I18n.t(:created_colon)
-    = I18n.t(:time_ago, :time_passed => time_ago_in_words(item.created_at))
-    - unless item.created_at == item.updated_at
-      &bull;
-      - if item.deleted?
-        = I18n.t(:deleted_colon)
-      - else
-        = I18n.t(:edited_colon)
-      = I18n.t(:time_ago, :time_passed => time_ago_in_words(item.updated_at))
-  - unless item.deleted?
-    %ul.actions
-      %li.reply= link_to(I18n.t(:reply), parent_newsfeed + "#reply-to-Comment-#{item.id}", :'data-reply-to' => item.user.full_name, :'data-reply-to-type' => item.class.name, :'data-reply-to-id' => item.id)
-      - if editable && current_user.can_update?(item)
-        %li
-          = link_to I18n.t(:edit), edit_comment_path(item.id, :return_to => "#{current_url}##{item.class.name}-#{item.id}"), :class => 'edit_comment'
-      - if editable && current_user.can_delete?(item)
-        %li
-          - form_for item, :html => { :method => :delete, :class => 'delete_comment' } do |f|
-            = hidden_field_tag :return_to, "#{current_url}##{item.class.name}-#{item.id}"
-            = f.submit I18n.t(:delete), { 'data-confirmation' => I18n.t(:comment_delete_confirm) }
+          - show_body = item.body
+        - if item.reply? and item.reply_to.respond_to?(:user)
+          - show_body = "@#{link_to(item.reply_to.user.full_name, "##{item.reply_to_type}-#{item.reply_to_id}")}: #{show_body}"
+        = sanitize show_body.balance_tags
+    %p.meta
+      = I18n.t(:created_colon)
+      = I18n.t(:time_ago, :time_passed => time_ago_in_words(item.created_at))
+      - unless item.created_at == item.updated_at
+        &bull;
+        - if item.deleted?
+          = I18n.t(:deleted_colon)
+        - else
+          = I18n.t(:edited_colon)
+        = I18n.t(:time_ago, :time_passed => time_ago_in_words(item.updated_at))
+    - unless item.deleted?
+      %ul.actions
+        - if ! defined?(@latest_published_revision) || @latest_published_revision
+          %li.reply= link_to(I18n.t(:reply), parent_newsfeed + "#reply-to-Comment-#{item.id}", :'data-reply-to' => item.user.full_name, :'data-reply-to-type' => item.class.name, :'data-reply-to-id' => item.id)
+          - if editable && current_user.can_update?(item)
+            %li
+              = link_to I18n.t(:edit), edit_comment_path(item.id, :return_to => "#{current_url}##{item.class.name}-#{item.id}"), :class => 'edit_comment'
+        - if editable && current_user.can_delete?(item)
+          %li
+            - form_for item, :html => { :method => :delete, :class => 'delete_comment' } do |f|
+              = hidden_field_tag :return_to, "#{current_url}##{item.class.name}-#{item.id}"
+              = f.submit I18n.t(:delete), { 'data-confirmation' => I18n.t(:comment_delete_confirm) }

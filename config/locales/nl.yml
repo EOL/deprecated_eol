@@ -34,7 +34,7 @@ nl:
         sort_style_id: Standaard sorteerrichting
       collection_item: 
         annotation: Annotatie
-        refs: Verwijzingen <small>(zet elke verwijzing op een nieuwe regel)</small>
+        refs: Verwijzingen
         sort_field: Sorteren op
       comment: 
         body: Opmerking
@@ -75,6 +75,69 @@ nl:
         rights_holder: Rechtenhouder
         rights_statement: Verklaring van de rechten
         source_url: Bron-URL
+      eol_statistic: 
+        active_curators: Actieve conservatoren
+        base_pages: Basispagina's
+        collections_count: Verzamelingen
+        communities_count: Gemeenschappen
+        content_partners: Contentpartners
+        content_partners_with_published_resources: Met gepubliceerde bronnen
+        content_partners_with_published_trusted_resources: Met gepubliceerde vertrouwde bronnen
+        created_at: Aangemaakt op
+        curator_actions_in_the_last_30_days: Conservatoire handelingen in de afgelopen 30 dagen
+        curators: Conservatoren
+        curators_assistant: Assistentconservatoren
+        curators_full: Volledige conservatoren
+        curators_master: Meesterconservatoren
+        data_objects: Gegevensobjecten
+        data_objects_images: Afbeeldingsobjecten
+        data_objects_maps: Kaartobjecten
+        data_objects_sounds: Audio objecten
+        data_objects_texts: Tekstobjecten
+        data_objects_trusted: Vertrouwde gegevensobjecten
+        data_objects_trusted_or_unreviewed_but_hidden: Vertrouwd of ongecontroleerd maar verborgen
+        data_objects_unreviewed: Ongecontroleerde gegevensobjecten
+        data_objects_untrusted: Niet-vertrouwde gegevensobjecten
+        data_objects_videos: Video-objecten
+        hotlist_pages: Populaire pagina's
+        lifedesk_data_objects: LifeDesks gegevensobjecten
+        lifedesk_taxa: Stemmen LifeDesks
+        marine_pages: Mariene biologiepagina's
+        marine_pages_in_col: Mariene biologiepagina's in CoL
+        marine_pages_with_objects: Mariene biologiepagina's met gegevensobjecten
+        marine_pages_with_objects_vetted: Mariene biologiepagina's met vertrouwde gegevensobjecten
+        members_count: Leden
+        newly_published_resources_in_the_last_30_days: Nieuw gepubliceerd in de afgelopen maand
+        objects_curated_in_the_last_30_days: Objecten die beheerd zijn in de afgelopen 30 dagen
+        pages_count: Totaal aantal pagina's
+        pages_curated_by_active_curators: Pagina's die beheerd worden door actieve conservatoren
+        pages_with_BHL_links: Pagina's met BHL-verwijzingen
+        pages_with_BHL_links_no_text: Pagina's met BHL-verwijzingen maar geen tekst
+        pages_with_BHL_links_only: Pagina's met alleen BHL-verwijzingen
+        pages_with_at_least_a_curatorial_action: Pagina's met conservatoire handeling
+        pages_with_at_least_a_trusted_object: Pagina's met een vertrouwd object
+        pages_with_content: Pagina's met inhoud
+        pages_with_image: Pagina's met afbeelding
+        pages_with_image_no_text: Pagina's met beeld maar geen tekst
+        pages_with_map: Pagina's met kaart
+        pages_with_score_10_to_39: Pagina's met een score tussen 10 en 39
+        pages_with_score_less_than_10: Pagina's met een score lager dan 10
+        pages_with_sound: Pagina's met audio
+        pages_with_text: Pagina's met tekst
+        pages_with_text_no_image: Pagina's met tekst maar geen afbeelding
+        pages_with_video: Pagina's met video
+        pages_without_image: Pagina's zonder afbeelding
+        pages_without_text: Pagina's zonder tekst
+        published_resources: Gepubliceerde bronnen
+        published_trusted_resources: Gepubliceerde vertrouwde bronnen
+        published_unreviewed_resources: Gepubliceerde ongecontroleerde bronnen
+        redhotlist_pages: Rode populaire pagina's
+        rich_hotlist_pages: Rijke populaire pagina's
+        rich_pages: Rijke pagina 's
+        rich_redhotlist_pages: Rijke, rode, populaire pagina's
+        udo_published: Door gebruikers toegevoegde tekst
+        udo_published_by_curators: Door conservator toegevoegde tekst
+        udo_published_by_non_curators: Door niet-conservator toegevoegde tekst
       harvest_event: 
         resource: Bron
       hierarchy: 
@@ -350,6 +413,37 @@ nl:
   admin_user_delete_successful_notice: De gebruiker is verwijderd.
   admin_user_hide_successful_notice: Gebruiker is verborgen
   admin_user_unhide_successful_notice: Gebruiker is weer zichtbaar gemaakt
+  admins: 
+    statistics: 
+      content_partner: 
+        page_header: Contentpartnerstatistieken
+        page_title: "Beheer: Contentpartnerstatistieken"
+      content_partner_link: Contentpartners
+      curator: 
+        page_header: Conservatorstatistieken
+        page_title: "Beheer: Conservatorstatistieken"
+      curator_link: Conservatorstatistieken
+      data_object: 
+        page_header: Gegevensobjectstatistieken
+        page_title: "Beheer: Gegevensobjectstatistieken"
+      data_object_link: Gegevensobjecten
+      index: 
+        page_header: Algemene statistieken
+        page_title: "Beheer: Algemene statistieken"
+        table_caption: Algemene sitestatistieken aangemaakt op %{created_at_time}
+      index_link: Algemene statistieken
+      lifedesk: 
+        page_header: LifeDesksstatistieken
+        page_title: "Beheer: LifeDesksstatistieken"
+      lifedesk_link: LifeDesks
+      page_richness: 
+        page_header: Rijke paginastatistieken
+        page_title: "Beheer: Rijke paginastatistieken"
+      page_richness_link: Rijke pagina 's
+      user_added_data: 
+        page_header: Statistieken voor door gebruikers toegevoegde tekst
+        page_title: "Beheer: Statistieken voor door gebruikers toegevoegde tekst"
+      user_added_data_link: Door gebruikers toegevoegde tekst
   agent: Agent
   all: alle
   all_apis_return_by_default_an_xml_response: "Alle API's antwoorden standaard in XML. De API-methoden kunnen aangeroepen worden met een opmaakextensie om het XML-antwoord te krijgen en door een XML-uitbreiding toe te voegen, geeft het een identiek antwoord:"
@@ -443,10 +537,10 @@ nl:
     one: Hoort bij één gemeenschap
     other: Hoort bij %{count} gemeenschappen
   bhl_publication: BHL-publicatie
-  bi_monthly: Tweemaandelijks
+  bi_monthly: Twee keer per maand
   biodiversity_heritage_library: Biodiversity Heritage Library
   biomedical_terms: Biomedische termen
-  biomedical_terms_provided_by: Voorwaarden verstrekt door <a href="%{supplier_url}">PubMed</a>.
+  biomedical_terms_provided_by: Termen verstrekt door <a href="%{supplier_url}">PubMed</a>.
   body: "Bericht:"
   browsable: Doorzoekbaar
   browsable_hierarchies: Bladerbare hiërarchieën
@@ -478,7 +572,7 @@ nl:
   classifications_summary_header_with_count: 
     one: Gevonden in één goedgekeurde classificatie
     other: Gevonden in %{count} classificaties
-  clear_all_non_species_pages: Alle niet-soortenpagina 's legen
+  clear_all_non_species_pages: Alle niet-soortenpagina's legen
   clear_entire_cache_store: Volledige cache-opslag legen
   clear_species_page: Soortenpagina legen
   click: Klik
@@ -504,7 +598,24 @@ nl:
   collection_updated_notice: De verzameling <em>%{collection_name}</em> is bijgewerkt.
   collection_was_added_to_community: "\"%{collection}\" is toegevoegd aan deze gemeenschap."
   collection_was_removed_by_owner: Deze verzameling is verwijderd door de eigenaar.
-  collections: Verzamelingen
+  collections: 
+    editors: 
+      show: 
+        meta_description: Beheerders van de Enyclopedia of Life-verzameling %{collection_name}.
+        meta_keywords: "%{collection_name}-beheerders"
+        meta_title: "%{collection_name}-beheerders"
+        tweet_text: "%{collection_name}-beheerders"
+    newsfeeds: 
+      show: 
+        meta_description: Nieuws, opmerkingen en ledenactiviteit voor de Enyclopedia of Life-verzameling %{collection_name}.
+        meta_keywords: Nieuws over %{collection_name}
+        meta_title: Nieuws over %{collection_name}
+        tweet_text: Nieuws over %{collection_name}
+    show: 
+      meta_keywords: "%{collection_name}, Encyclopedia of Life-verzameling"
+  collections_filter: Verzamelingen
+  collections_link: Verzamelingen
+  collections_page_title: Verzamelingen
   collections_summary_empty: Deze pagina is nog geen onderdeel van een verzameling.
   collections_summary_header_with_count: 
     one: Aanwezig in één verzameling
@@ -524,6 +635,7 @@ nl:
   comment_show_posters_image_alt: Profielafbeelding van %{posters_name} die deze opmerking heeft toegevoegd.
   comments: Opmerkingen
   comments_and_tags: Opmerkingen en labels
+  comments_filter: Opmerkingen
   comments_moderated: Opmerkingen gemodereerd
   comments_on: Opmerkingen bij
   comments_with_count: 
@@ -537,9 +649,18 @@ nl:
     one: één triviale naam
     other: "%{count} triviale namen"
   common_user_activity_page_title: Acitiviteit van gewone gebruikers
-  communities: Gemeenschappen
+  communities: 
+    collections: 
+      index: 
+        meta_description: Gemeenschapsverzamelingen samengesteld door %{community_name}, een Encyclopedia of Life-gemeenschap.
+        meta_keywords: Verzamelingen van %{community_name}
+        meta_title: Verzamelingen van %{community_name}
+        tweet_text: Verzamelingen van %{community_name}
+  communities_filter: Gemeenschappen
   communities_index_empty: Er zijn geen actieve gemeenschappen.
   communities_index_header: Actieve gemeenschappen
+  communities_link: Gemeenschappen
+  communities_page_title: Gemeenschappen
   communities_summary_empty: Dit taxon is nog in geen enkele gemeenschap uitgelicht geweest.
   communities_summary_header_with_count: 
     one: Hoort bij één gemeenschap
@@ -571,6 +692,7 @@ nl:
   community_not_destroyed_error: Er is een probleem opgetreden en de gemeenschap is niet verwijderd.
   community_rating: Gemeenschapswaardering
   community_removed_by_owner: Deze gemeenschap is verwijderd door de eigenaar.
+  community_tab_collections_header: Verzamelingen
   completed: Voltooid
   confirm_leave: Weet u zeker dat u deze gemeenschap wilt verlaten?
   confirm_password_colon: "Wachtwoord bevestigen:"
@@ -586,7 +708,6 @@ nl:
   contact_us_topics: Onderwerpen voor "Neem contact met ons op"
   contacts: Contactpersonen
   containing_value: met %{value}.
-  content: Inhoud
   content_has_been_updated: De inhoud is bijgewerkt
   content_notes_not_shown_to_us: "Opmerkingen over inhoud (niet zichtbaar voor gebruiker):"
   content_partner: Contentpartner
@@ -726,7 +847,6 @@ nl:
   content_partner_update_unsuccessful_error: Er is een fout opgetreden. De partnergegevens zijn niet bijgewerkt.
   content_partner_vetted_false: Niet-beoordeeld
   content_partner_vetted_true: Doorgelicht
-  content_partners: Contentpartners
   content_partners_empty: Geen contentpartners gevonden.
   content_partners_page_description: Contentpartners van Encyclopedia of Life hebben grote hoeveelheden gegevens over biodiversiteit op hun eigen websites of in hun databases, die zij ook delen via EOL-paginas. Wij zijn hen zeer dankbaar voor hun belangrijke bijdragen aan de missie van EOL en moedigen u aan hen beter te leren kennen. Lees meer over <a href="%{more_url}">een contentpartner worden</a>.
   content_partners_page_title: Contentpartners
@@ -891,7 +1011,6 @@ nl:
   edit_annotation: annotatie bewerken
   edit_collection_details: Collectiegegevens bewerken
   edit_collection_details_header: Collectiegegevens bewerken
-  edit_collection_head_title: "Bewerken: %{collection_name}"
   edit_comment: Opmerking bewerken
   edit_comment_lowercase: opmerking bewerken
   edit_community: Gemeenschap bewerken
@@ -1058,8 +1177,6 @@ nl:
   has_hidden_your_image: heeft uw afbeelding verborgen
   has_trusted_your_image: heeft uw afbeelding als vertrouwd gemarkeerd
   has_untrusted_your_image: heeft uw afbeelding als niet-vertrouwd gemarkeerd
-  head_title_collection: "Verzameling: %{name}"
-  head_title_community: "Gemeenschap: %{name}"
   hello_user: Hallo %{user}
   help: Hulp
   helpers: 
@@ -1068,6 +1185,7 @@ nl:
         view_style_id: Standaardweergave
       collection_item: 
         annotation: Annotatie
+        refs: Verwijzingen <small>(zet elke verwijzing op een nieuwe regel)</small>
         sort_field: Sorteren op <small>(datum in notatie JJJJ.MM.DD, nummer of tekst)</small>
         sort_field_show: "Sorteerwaarde:"
       comment: 
@@ -1110,6 +1228,8 @@ nl:
         rights_statement: Rechtenverklaring
         source_url: URL naar het oorspronkelijke gegevensobject
         toc_item: Subhoofdstuk
+      eol_statistic: 
+        download_all: Alle <small>(records van alle pagina's opnemen)</small>
       google_analytics_partner_summaries: 
         page_views: Bekeken pagina's <small>(aantal bezoeken aan pagina's)</small>
         taxa_pages: Pagina's <small>(aantal pagina's)</small>
@@ -1221,6 +1341,9 @@ nl:
         create: Artikel toevoegen
         create_text: Artikel toevoegen
         update: Artikel opslaan
+      eol_statistic: 
+        download_csv: Downloaden als CSV
+      filter_sort: Filteren en sorteren
       harvest_event: 
         publish: Publiceren
       hierarchy: 
@@ -1430,7 +1553,6 @@ nl:
   message_colon: "Bericht:"
   meta_description_colon: "Metabeschrijving:"
   meta_keywords_colon: "Metatrefwoorden:"
-  meta_title_default: Encyclopedia of Life
   method: Methode
   methods: Methoden
   minimal_page: Minimale pagina
@@ -1481,9 +1603,11 @@ nl:
   name_preferred_for_language_yes: Voorkeur
   name_preferred_taxonomically_for_source_yes: Voorkeur
   names: Namen
+  names_children_column_header: Kinderen
   names_common_list_by_language_assistive_header: Gemeenschappelijke namen per taal
   names_curation_column_header: Conservering
   names_et_al: "%{names}, et al."
+  names_filter: Namen
   names_name_column_header: Naam
   names_parents_column_header: Bovenliggende
   names_preferred_column_header: Voorkeur
@@ -1662,7 +1786,7 @@ nl:
   profile: Profiel
   profile_colon: "Profiel:"
   profile_image_alt_text_curator: Profielfoto van de conservator %{user_full_name}
-  profile_image_alt_text_member: Profielfoto voor het lid %{user_given_name} %{user_family_name}
+  profile_image_alt_text_member: Profielfoto voor het lid %{user_full_name}
   profile_newsfeed: Mijn nieuwsfeed
   profile_picture: Profielfoto
   project: Project
@@ -1762,6 +1886,9 @@ nl:
     one: Er is een uitnodiging verzonden naar %{users}.
     other: Er zijn uitnodigingen verzonden naar %{users}.
   server_ip_address: IP-adres server
+  sessions: 
+    new: 
+      meta_title: Aanmelden
   set_as_exemplar: Als voorbeeld instellen
   share_a_collection: Verzameling delen
   show: Weergeven
@@ -1815,6 +1942,7 @@ nl:
     one: Eén geluid
     other: "%{count} geluiden"
   source_and_additional_information: Bron en aanvullende gegevens
+  source_colon: "Bron:"
   source_information_header: Brongegevens
   source_url: Bron-URL
   special_collection: Speciale verzameling
@@ -1857,7 +1985,14 @@ nl:
   tasks_with_count: 
     one: één taak gevonden
     other: "%{count} taken gevonden"
-  taxa: Taxa
+  taxa: 
+    literature: 
+      show: 
+        meta_title: Literatuur over %{scientific_name}
+        meta_title_with_common_name: Boeken over %{preferred_common_name} (%{scientific_name})
+    maps: 
+      show: 
+        tweet_text: Kaarten van %{scientific_name}
   taxa_with_count: 
     one: Eén taxon
     other: "%{count} taxa"
@@ -2002,8 +2137,8 @@ nl:
   user_already_active_notice: Uw gebruiker is al actief. Meld u aan.
   user_comment: Opmerking van gebruiker
   user_comments: Opmerkingen van gebruikers
-  user_hidden_message: Deze gebruiker is niet langer actief
   user_id: Gebruikers-ID
+  user_no_longer_active_message: Deze gebruiker is niet langer actief
   user_response: Antwoord van de gebruiker
   user_says_colon: "%{users_name} schrijft:"
   user_system_down: Onze excuses, maar het gebruikersregistratiesysteem is momenteel niet beschikbaar. Probeer het later opnieuw.
@@ -2014,7 +2149,7 @@ nl:
   users_content_partners_header: Contentpartners
   users_form_account_header: Uw gebruiker
   users_member_of_count_communities: 
-    one: Lid van %{count} gemeenschap
+    one: Lid van één gemeenschap
     other: Lid van %{count} gemeenschappen
   users_my_info_header: Mijn gegevens
   using_the_site: De site gebruiken
@@ -2039,7 +2174,11 @@ nl:
   view_article_source: Paginabron weergeven
   view_as_button: Weergave wijzigen
   view_as_label: Weergeven als
+  view_common_activities: algemene activiteiten bekijken
   view_common_activities_link: Lijst van de meest voorkomende activiteiten bekijken.
+  view_contact_us_submissions: contactpogingen bekijken
+  view_curators: conservatoren bekijken
+  view_current_version_link: Huidige versie bekijken
   view_error_log: foutenlogboek weergeven
   view_full_size_image: Afbeelding weergeven op volledige grootte
   view_harvesting_log: logboek bekijken
@@ -2053,7 +2192,9 @@ nl:
   view_translation_source_link: Vertalingsbron weergeven
   view_user_activity: Gebruikersactiviteit bekijken
   view_user_comments: gebruikersreacties bekijken
+  view_verb: Bekijken
   view_video_source: Videobron weergeven
+  view_your_curator_profile: Uw conservatorprofiel bekijken
   visible_title: Zichtbaar
   visitors: Bezoekers
   vivisimo: Vivisimo

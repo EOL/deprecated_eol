@@ -2,18 +2,22 @@ class Users::NewsfeedsController < UsersController
 
   # GET /users/:user_id/newsfeed
   def show
+    @user = user
+    redirect_if_user_is_inactive
+    preload_user_associations
     respond_to do |format|
       format.html {
-        @parent = user # for new comment form
-        @log = user.activity_log(:news => true, :page => params[:page] || 1)
+        @page = params[:page] || 1
+        @parent = @user # for new comment form
+        @user_activity_log = @user.activity_log(:news => true, :page => @page)
         # reset last-seen dates:
         # QUESTION: if they see this all newsfeed, doesn't that mean they also see their new messages i.e. last_message_at should be updated too?
         # QUESTION: what if they only see page 1 of their latest notifications?
         user.update_attribute(:last_notification_at, Time.now) if user.id == current_user.id
         # Uses log results to calculate page numbering for rel link tags
-        @rel_canonical_href = user_newsfeed_url(user, :page => rel_canonical_href_page_number(@log))
-        @rel_prev_href = rel_prev_href_params(@log) ? user_newsfeed_url(@rel_prev_href_params) : nil
-        @rel_next_href = rel_next_href_params(@log) ? user_newsfeed_url(@rel_next_href_params) : nil
+        @rel_canonical_href = user_newsfeed_url(@user, :page => rel_canonical_href_page_number(@user_activity_log))
+        @rel_prev_href = rel_prev_href_params(@user_activity_log) ? user_newsfeed_url(@rel_prev_href_params) : nil
+        @rel_next_href = rel_next_href_params(@user_activity_log) ? user_newsfeed_url(@rel_next_href_params) : nil
       }
       format.js do # link is called with AJAX to get pending count for session summary
         render :text => I18n.t(:user_pending_notifications_with_count_assitive, :count => user.message_count)

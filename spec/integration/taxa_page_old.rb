@@ -33,7 +33,6 @@ describe 'Taxa page (HTML)' do
     load_scenario_with_caching(:testy)
     testy = EOL::TestInfo.load('testy')
     Capybara.reset_sessions!
-    HierarchiesContent.delete_all
 
     @exemplar        = testy[:exemplar]
     @overview        = testy[:overview]

@@ -45,9 +45,16 @@ class ApplicationController < ActionController::Base
     # using SiteConfigutation over an environment constant DOES require a query for EVERY REQUEST
     # but the table is tiny (<5 rows right now) and the coloumn is indexed. But it also gives us the flexibility
     # to display or remove a message within seconds which I think is worth it
-    parameter = SiteConfigurationOption.find_by_parameter('global_site_warning')
-    if parameter && parameter.value
-      flash.now[:error] = parameter.value
+    warning = $CACHE.fetch("application/global_warning", :expires_in => 10.minutes) do
+      parameter = SiteConfigurationOption.find_by_parameter('global_site_warning')
+      if parameter && parameter.value
+        parameter.value
+      else
+        1
+      end
+    end
+    if warning && warning.class == String
+      flash.now[:error] = warning
     end
   end
 
@@ -585,6 +592,7 @@ protected
   def controller_action_scope
     @controller_action_scope ||= controller_path.split("/") << action_name
   end
+  helper_method :controller_action_scope
 
   # Defines base variables for use in scoped i18n calls, used by meta tag helper methods
   def scoped_variables_for_translations
@@ -594,12 +602,13 @@ protected
   end
 
   def meta_data(title = meta_title, description = meta_description, keywords = meta_keywords)
-    @meta_data ||= {:title => Sanitize.clean([
+    @meta_data ||= {:title => [
                       title.presence,
                       @rel_canonical_href_page_number ? I18n.t(:pagination_page_number, :number => @rel_canonical_href_page_number) : nil,
-                      I18n.t(:meta_title_suffix)].compact.join(" - ").strip),
-                    :description => Sanitize.clean(description),
-                    :keywords => Sanitize.clean(keywords)}.delete_if{ |k, v| v.nil? }
+                      I18n.t(:meta_title_suffix)].compact.join(" - ").strip,
+                    :description => description,
+                    :keywords => keywords
+                   }.delete_if{ |k, v| v.nil? }
   end
   helper_method :meta_data
 
@@ -674,6 +683,11 @@ protected
   def original_request_params
     @original_request_params ||= params.clone.freeze # frozen because we don't want @original_request_params to be modified
   end
+  
+  def page_title
+    @page_title ||= t(".page_title", :scope => controller_action_scope)
+  end
+  helper_method :page_title
 
 private
 
@@ -709,8 +723,8 @@ private
   # Rails cache (memcached, probably) version of the user, by id:
   def cached_user
     User # KNOWN BUG (in Rails): if you end up with "undefined class/module" errors in a fetch() call, you must call
-         # that class beforehand.
-    $CACHE.fetch("users/#{session[:user_id]}") { User.find(session[:user_id]) rescue nil }
+    Agent # that class beforehand.
+    $CACHE.fetch("users/#{session[:user_id]}") { User.find(session[:user_id], :include => :agent) rescue nil }
   end
 
   # Having a *temporary* logged in user, as opposed to reading the user from the cache, lets us change some values

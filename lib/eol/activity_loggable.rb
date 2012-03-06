@@ -3,7 +3,12 @@
 module EOL
   module ActivityLoggable
     def activity_log(options = {})
-      EOL::ActivityLog.find(self, options)
+      @saved_activity_logs_from_options ||= {}
+      @saved_activity_logs_from_options[options] ||= EOL::ActivityLog.find(self, options.dup)
+    end
+    def reload(*args)
+      @saved_activity_logs_from_options = {}
+      super args
     end
   end
 end

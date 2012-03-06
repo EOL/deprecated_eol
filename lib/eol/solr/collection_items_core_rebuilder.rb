@@ -1,70 +1,75 @@
 module EOL
   module Solr
     class CollectionItemsCoreRebuilder
-      attr_reader :solr_api
-      attr_reader :objects_to_send
 
-      def initialize()
-        @solr_api = SolrAPI.new($SOLR_SERVER, $SOLR_COLLECTION_ITEMS_CORE)
-        @objects_to_send = []
+      def self.connect
+        SolrAPI.new($SOLR_SERVER, $SOLR_COLLECTION_ITEMS_CORE)
       end
 
-      def obliterate
-        @solr_api.delete_all_documents
+      def self.obliterate
+        solr_api = self.connect
+        solr_api.delete_all_documents
       end
 
-      def begin_rebuild(optimize = true)
-        @solr_api.delete_all_documents
-        start_to_index_collection_items
-        @solr_api.optimize if optimize
+      def self.begin_rebuild(options = {})
+        options[:optimize] = true unless defined?(options[:optimize])
+        solr_api = self.connect
+        solr_api.delete_all_documents
+        self.start_to_index_collection_items(solr_api)
+        solr_api.optimize if options[:optimize]
       end
 
-      def start_to_index_collection_items
-        start = CollectionItem.first.id
-        max_id = CollectionItem.last.id
-        limit = 5000
+      def self.start_to_index_collection_items(solr_api)
+        start = CollectionItem.first.id rescue 0
+        max_id = CollectionItem.last.id rescue 0
+        return if max_id == 0
+        limit = 500
         i = start
+        objects_to_send = []
         while i <= max_id
-          @objects_to_send = {}
-          lookup_collection_items(i, limit);
-          @objects_to_send.each do |k, o|
-            o['title'] = SolrAPI.text_filter(o['title'])
-            o['annotation'] = SolrAPI.text_filter(o['annotation'])
+          objects_to_send = []
+          objects_to_send += self.lookup_collection_items(i, limit);
+          objects_to_send.each do |o|
+            o['title'] = SolrAPI.text_filter(o['title']) if o['title']
+            o['annotation'] = SolrAPI.text_filter(o['annotation']) if o['annotation']
           end
-          @solr_api.send_attributes(@objects_to_send) unless @objects_to_send.blank?
+          unless objects_to_send.blank?
+            solr_api.create(objects_to_send)
+          end
           i += limit
         end
       end
 
-      def lookup_collection_items(start, limit)
+      def self.lookup_collection_items(start, limit)
         max = start + limit
+        objects_to_send = []
         collection_items = CollectionItem.find(:all, :conditions => "id BETWEEN #{start} AND #{max}")
-        preload_concepts_and_objects!(collection_items)
+        self.preload_concepts_and_objects!(collection_items)
         collection_items.each do |i|
           begin
             hash = i.solr_index_hash
-            hash.delete('collection_item_id')
-            @objects_to_send[i.id] = hash
+            objects_to_send << hash
           rescue EOL::Exceptions::InvalidCollectionItemType => e
             puts "** #{e.message}"
           end
         end
+        objects_to_send
       end
 
-      def preload_concepts_and_objects!(collection_items)
-        preload_object!(collection_items.select{ |d| d.object_type == 'Community' })
-        preload_object!(collection_items.select{ |d| d.object_type == 'Collection' })
-        preload_object!(collection_items.select{ |d| d.object_type == 'User' })
-        preload_taxon_concepts!(collection_items.select{ |d| d.object_type == 'TaxonConcept' })
-        preload_data_objects!(collection_items.select{ |d| ['Image', 'Video', 'Sound', 'Text', 'DataObject'].include?(d.object_type) })
+      def self.preload_concepts_and_objects!(collection_items)
+        self.preload_object!(collection_items.select{ |d| d.object_type == 'Community' })
+        self.preload_object!(collection_items.select{ |d| d.object_type == 'Collection' })
+        self.preload_object!(collection_items.select{ |d| d.object_type == 'User' })
+        self.preload_taxon_concepts!(collection_items.select{ |d| d.object_type == 'TaxonConcept' })
+        self.preload_data_objects!(collection_items.select{ |d| ['Image', 'Video', 'Sound', 'Text', 'DataObject'].include?(d.object_type) })
       end
 
-      def preload_object!(collection_items)
+      def self.preload_object!(collection_items)
         return if collection_items.blank?
         CollectionItem.preload_associations(collection_items, :object)
       end
 
-      def preload_taxon_concepts!(collection_items)
+      def self.preload_taxon_concepts!(collection_items)
         return if collection_items.blank?
         includes = { :object => [ :taxon_concept_metric,
           { :published_hierarchy_entries => { :name => :canonical_form } } ] }
@@ -78,7 +83,7 @@ module EOL
         CollectionItem.preload_associations(collection_items, includes, :select => selects)
       end
 
-      def preload_data_objects!(collection_items)
+      def self.preload_data_objects!(collection_items)
         return if collection_items.blank?
         includes = { :object => [ :data_type, { :toc_items => :translations } ] }
         selects = {

@@ -6,7 +6,7 @@
   %head
     - @meta_data ||= meta_data
     %title<
-      = strip_tags @meta_data[:title]
+      = h strip_tags @meta_data[:title]
     %meta{ :charset => "utf-8" }
     - # HTML4 charset declaration, might go when browsers catch up with html5
     %meta{ :content => "text/html; charset=utf-8", "http-equiv" => "Content-type" }
@@ -46,7 +46,6 @@
     = csrf_meta_tag # Recommended by https://github.com/rails/jquery-ujs
 
     = yield :head
-
   %body{:class => @home_page ? 'home' : nil}
     %ul#controls.assistive
       %li= link_to I18n.t(:skip_to_content), '#main'
@@ -91,6 +90,8 @@
             .term
               .site_column
                 %p
+                  -# the non-breaking space here gives the march of life name bar some height on page load
+                  &nbsp;
 
     #central
       .section{ :role => "main" }
@@ -114,57 +115,38 @@
           %li= link_to I18n.t(:youtube), $EOL_YOUTUBE_ACCOUNT, :class => "youtube"
 
       = yield :footer
-
+    = javascript_include_merged 'head.load.min'
+    - if $GOOGLE_ANALYTICS_ID && $ENABLE_ANALYTICS
+      :javascript
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', '#{$GOOGLE_ANALYTICS_ID}']);
+        _gaq.push(['_trackPageview']);
+        EOL.after_onload_JS(('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js');
+      - if $ENABLED_SOCIAL_PLUGINS
+        :javascript
+          head.ready("ga.js", function() {
+            head.js('/javascripts/ga_social_tracking.js');
+            head.ready("ga_social_tracking.js", EOL.load_social_plugins());
+          });
+    - elsif $ENABLED_SOCIAL_PLUGINS
+      :javascript
+        EOL.load_social_plugins();
     - if $QUANTCAST_ID && $ENABLE_QUANTCAST
+      :javascript
+        var _qevents = _qevents || [];
+        _qevents.push( { qacct:"#{$QUANTCAST_ID}"} );
+        EOL.after_onload_JS((document.location.protocol == 'https:' ? 'https://secure' : 'http://edge') + '.quantserve.com/quant.js');
       %noscript
         %div{ :style => "display: none;" }
           %img{ :src => "http://pixel.quantserve.com/pixel/#{$QUANTCAST_ID}.gif", :height => "1", :width => "1", :alt => "" }
     - if $ENABLE_WEBTRENDS
+      = javascript_include_merged :webtrends
+      :javascript
+        (function() {
+          var _tag=new WebTrends();
+          _tag.dcsGetId();
+          _tag.dcsCollect();
+        })();
       %noscript
         %div{ :style => "display: none;" }
           %img{ :src => "http://logs1.smithsonian.museum/dcsg0chobadzpxfga2extd7pb_7c2s/njs.gif?dcsuri=/nojavascript&amp;WT.js=No&amp;WT.tv=9.4.0&amp;dcssip=www.eol.org", :height => "1", :width => "1", :alt => "", :id => "DCSIMG" }
-    = javascript_include_tag 'head.load.min'
-    - # Load third party javascript after the page load so that rendering of the page should not be blocked because of them. This saves some seconds, especially the loading of the facebook and twitter plugins on the page. We are head.js to load the Google analytics, Quantcast and Webtrends javascript files in parallel asynchronously. And the Social tracking javascript file in sequence after the Google analytics javascript file. Use 'net' tab in Firebug to see how it works in realtime (read more: http://getfirebug.com/network).
-    :javascript
-      (function(w, d, s) {
-        function go(){
-          if ("#{$GOOGLE_ANALYTICS_ID}" && "#{$ENABLE_ANALYTICS}") {
-            head.js({ 'ga_js': ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js' });
-            head.ready("ga_js", function() {
-              head.js({ ga_social_tracking: '/javascripts/ga_social_tracking.js' });
-              var _gaq = _gaq || [];
-              _gaq.push(['_setAccount', '#{$GOOGLE_ANALYTICS_ID}']);
-              _gaq.push(['_trackPageview']);
-            });
-          }
-          if ("#{$QUANTCAST_ID}" && "#{$ENABLE_QUANTCAST}") {
-            head.js({ 'quant_js': (document.location.protocol == 'https:' ? 'https://secure' : 'http://edge') + '.quantserve.com/quant.js' });
-            head.ready("quant_js", function() {
-              var _qevents = _qevents || [];
-              _qevents.push( { qacct:"#{$QUANTCAST_ID}"} );
-            });
-          }
-          if ("#{$ENABLE_WEBTRENDS}") {
-            head.js({ 'webtrends_js': '/javascripts/webtrends.js' });
-            head.ready("webtrends_js", function() {
-              var _tag = new WebTrends();
-              _tag.dcsGetId();
-              _tag.dcsCollect();
-            });
-          }
-          if("#{$ENABLED_SOCIAL_PLUGINS}") {
-            // As we have Google analytics disabled in the development mode, this loop is required.
-            if(!"#{$GOOGLE_ANALYTICS_ID}" || !"#{$ENABLE_ANALYTICS}") {
-              head.js({ ga_social_tracking: '/javascripts/ga_social_tracking.js' });
-            }
-            head.ready("ga_social_tracking", function() {
-              var facebook = "#{$ENABLED_SOCIAL_PLUGINS.include?(:facebook) ? true : nil}"
-              var twitter = "#{$ENABLED_SOCIAL_PLUGINS.include?(:twitter) ? true : nil}"
-              if (facebook) { EOL.loadFacebook("#{$FACEBOOK_APP_ID}","#{channel_facebook_url}"); }
-              if (twitter) { EOL.loadTwitter(); }
-            });
-          }
-        }
-        if (w.addEventListener) { w.addEventListener("load", go, false); }
-        else if (w.attachEvent) { w.attachEvent("onload",go); }
-      }(window, document, 'script'));

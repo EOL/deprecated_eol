@@ -79,7 +79,6 @@ module EOL
     def build
       puts "** Enter: build" if @debugging
       gen_taxon_concept
-      gen_taxon_concept_content
       set_depth
       gen_canonical_name
       gen_he
@@ -97,7 +96,6 @@ module EOL
 
       #denormalized tables
       gen_random_hierarchy_image
-      add_feed_objects
       add_data_objects_taxon_concepts
     end
 
@@ -128,19 +126,6 @@ module EOL
       else
         @tc = TaxonConcept.gen(:vetted => vetted)
         @id = @tc.id
-      end
-    end
-
-    # This is vital for searches to function properly.
-    # TODO - a) this is not configurable in any way; b) this does not set text, image, child_image, flash, youtube,
-    # internal_image, map, or image_object_id; c) I'm not sure if any of the fields in (b) are used: check.
-    def gen_taxon_concept_content
-      tcc = TaxonConceptContent.find_by_taxon_concept_id(@tc.id)
-      if tcc
-        tcc.content_level = 4
-        tcc.save!
-      else
-        TaxonConceptContent.gen(:content_level => 4, :taxon_concept => @tc)
       end
     end
 
@@ -318,14 +303,6 @@ module EOL
                  :hierarchy => @tc.hierarchy_entries[0].hierarchy,
                  :taxon_concept => @tc }
       RandomHierarchyImage.gen(options)
-    end
-
-    def add_feed_objects
-      @tc.data_objects.each do |obj|
-        unless FeedDataObject.find_by_taxon_concept_id_and_data_object_id(@tc.id, obj.id)
-          FeedDataObject.gen(:taxon_concept => @tc, :data_object => obj, :data_type => obj.data_type)
-        end
-      end
     end
 
     def add_data_objects_taxon_concepts

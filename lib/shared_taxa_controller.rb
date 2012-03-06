@@ -33,9 +33,4 @@ module SharedTaxaController
     end
     data_objects
   end
-
-  # from taxa_controller
-  def update_user_content_level
-    current_user.content_level = params[:content_level] if ['1','2','3','4'].include?(params[:content_level])
-  end
 end

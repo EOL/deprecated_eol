@@ -41,11 +41,8 @@ describe "Collections and collecting:" do
     @under_privileged_user = User.gen
     @anon_user = User.gen(:password => 'password')
     @taxon = @test_data[:taxon_concept_1]
-    builder = EOL::Solr::CollectionItemsCoreRebuilder.new()
-    builder.begin_rebuild
-
-    SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE).delete_all_documents
-    DataObject.all.each{ |d| d.update_solr_index }
+    EOL::Solr::CollectionItemsCoreRebuilder.begin_rebuild
+    EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
   end
 
   after(:all) do
@@ -369,8 +366,7 @@ describe "Preview Collections" do
     @anon_user = User.gen(:password => 'password')
     @taxon = @test_data[:taxon_concept_1]
     @collection.add(@taxon)
-    builder = EOL::Solr::CollectionItemsCoreRebuilder.new()
-    builder.begin_rebuild
+    EOL::Solr::CollectionItemsCoreRebuilder.begin_rebuild
   end
 
   it 'should show collections on the taxon page' do

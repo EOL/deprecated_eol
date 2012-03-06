@@ -341,6 +341,18 @@ body > #footer {
   .pagination span.disabled, .pagination span.prev_page, .pagination span.next_page {
     color: #616e7a; }
 
+table.standard tbody th[scope="row"] {
+  background-color: #eff2f4;
+  text-align: right;
+  padding: 0 10px; }
+
+#tabs_bar {
+  margin: 0 20px; }
+  #tabs_bar ul li {
+    display: inline-block; }
+    #tabs_bar ul li.active {
+      border-color: #93a4b0 #93a4b0 white #93a4b0; }
+
 .main_container .heading {
   overflow: hidden;
   margin-bottom: 20px; }
@@ -437,6 +449,9 @@ body > #footer {
   width: 118px; }
 #sidebar .filters form dd select {
   width: 120px; }
+#sidebar .filters.small fieldset.actions {
+  padding: 0;
+  margin: 10px 0 0 0; }
 
 #content_partners.main_container .header {
   border-bottom: 1px solid #394651;
@@ -515,3 +530,17 @@ body > #footer {
   margin-bottom: 5px; }
 #content_partners_statistics table th {
   width: 25%; }
+
+#content.statistics .site_column, #content.statistics body > #header .section, body > #header #content.statistics .section, #content.statistics body > #footer .section, body > #footer #content.statistics .section, #content.statistics .thumbnails ul, .thumbnails #content.statistics ul {
+  width: 100%; }
+#content.statistics .main_container {
+  border: none; }
+  #content.statistics .main_container fieldset {
+    display: inline-block; }
+    #content.statistics .main_container fieldset.actions {
+      margin-left: 10px; }
+  #content.statistics .main_container table tbody td {
+    text-align: right; }
+#content.statistics #statistics_overall table {
+  width: 40%;
+  margin-bottom: 40px; }

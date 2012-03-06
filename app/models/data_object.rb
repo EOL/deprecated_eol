@@ -4,7 +4,7 @@ require 'erb'
 
 # Represents any kind of object imported from a ContentPartner, eg. an image, article, video, etc.  This is one
 # of our primary models, and an awful lot of work occurs here.
-class DataObject < SpeciesSchemaModel
+class DataObject < ActiveRecord::Base
 
   @@maximum_rating = 5.0
   @@minimum_rating = 0.5
@@ -28,6 +28,7 @@ class DataObject < SpeciesSchemaModel
   has_many :top_concept_images
   has_many :agents_data_objects
   has_many :data_objects_hierarchy_entries
+  has_many :data_objects_taxon_concepts
   has_many :curated_data_objects_hierarchy_entries
   has_many :comments, :as => :parent
   has_many :data_objects_harvest_events
@@ -40,7 +41,8 @@ class DataObject < SpeciesSchemaModel
   has_many :collection_items, :as => :object
   has_many :containing_collections, :through => :collection_items, :source => :collection
   has_many :translations, :class_name => DataObjectTranslation.to_s, :foreign_key => :original_data_object_id
-  has_many :curator_activity_logs, :as => :object
+  has_many :curator_activity_logs, :foreign_key => :object_id, :conditions => 'changeable_object_type_id IN (#{ [ ChangeableObjectType.data_object.id, ChangeableObjectType.data_objects_hierarchy_entry.id,
+    ChangeableObjectType.curated_data_objects_hierarchy_entry.id, ChangeableObjectType.users_data_object.id ].join(",") } )'
   has_many :users_data_objects_ratings, :foreign_key => 'data_object_guid', :primary_key => :guid
   # has_many :all_comments, :class_name => Comment.to_s, :foreign_key => 'parent_id', :finder_sql => 'SELECT c.* FROM #{Comment.full_table_name} c JOIN #{DataObject.full_table_name} do ON (c.parent_id = do.id) WHERE do.guid=\'#{guid}\' AND c.parent_type = \'DataObject\''
   # TODO - I don't have time to make sure this fix isn't going to break or slow down other parts of the site, so
@@ -104,7 +106,7 @@ class DataObject < SpeciesSchemaModel
       obj_vetted = obj_association.vetted unless obj_association.nil?
       obj_visibility = obj_association.visibility unless obj_association.nil?
       type_order = obj.data_type_id
-      toc_view_order = (!obj.is_text? || obj.info_items.blank? || obj.info_items[0].toc_item.blank?) ? 0 : obj.info_items[0].toc_item.view_order
+      toc_view_order = (!obj.is_text? || obj.toc_items.blank?) ? 0 : obj.toc_items[0].view_order
       vetted_view_order = obj_vetted.blank? ? 0 : obj_vetted.view_order
       visibility_view_order = 2
       visibility_view_order = 1 if obj_visibility && obj_visibility.id == Visibility.preview.id
@@ -136,57 +138,6 @@ class DataObject < SpeciesSchemaModel
       obj.language ? [ obj.language.sort_order, obj.language.source_form ] : [ 0, 0 ]
     end
   end
-
-  def self.custom_filter(data_objects, taxon_concept, type, status)
-
-    return data_objects if data_objects.blank?
-
-    # set types on which to filter or blank if no filter should be applied
-    allowed_data_types = []
-    type.each do |typ|
-      if typ == 'all'
-        allowed_data_types = []
-        break
-      end
-      allowed_data_types.concat(DataType.video_type_ids) if typ == 'all' || typ == 'video'
-      allowed_data_types.concat(DataType.image_type_ids) if typ == 'all' || typ == 'image' || typ == 'photosynth'
-      allowed_data_types.concat(DataType.sound_type_ids) if typ == 'all' || typ == 'sound'
-    end unless type.blank?
-
-    # set visibilities and vetted statuses on which to filter or blank if no filter should be applied
-    allowed_visibilities = []
-    allowed_vetted_status = []
-    status.each do |sta|
-      if sta == 'all'
-        allowed_vetted_status = []
-        allowed_visibilities = []
-        break
-      elsif sta == 'inappropriate'
-        allowed_visibilities << Vetted.inappropriate.id
-      else
-        allowed_vetted_status << Vetted.send(sta.to_sym).id
-      end
-    end unless status.blank?
-
-    # we only delete objects by type, visibility or vetted respectively if allowed parameters exist
-    data_objects.delete_if { |object|
-      dato_association = object.association_with_exact_or_best_vetted_status(taxon_concept)
-      dato_vetted_id = dato_association.vetted_id unless dato_association.nil?
-      dato_visibility_id = dato_association.visibility_id unless dato_association.nil?
-      # filter by type: delete object if type is not allowed
-      (! allowed_data_types.blank? && ! allowed_data_types.include?(object.data_type_id)) ||
-      # photosynth: delete non-photosynth images if type does not also include images or all
-      (! type.blank? && ! object.source_url.match(/http:\/\/photosynth.net/i) &&
-        object.is_image? && type.include?('photosynth') && ! type.include?('image') && ! type.include?('all')) ||
-      # filter by visibility: only delete by visibility if vetted status is blank or also not allowed
-      (! allowed_visibilities.blank? && ! allowed_visibilities.include?(dato_visibility_id) &&
-        (allowed_vetted_status.blank? || ! allowed_vetted_status.include?(dato_vetted_id))) ||
-      # filter by vetted status: only delete by vetted if visibility is blank or also not allowed
-      (! allowed_vetted_status.blank? && ! allowed_vetted_status.include?(dato_vetted_id) &&
-        (allowed_visibilities.blank? || ! allowed_visibilities.include?(dato_visibility_id))) }
-
-  end
-
 
   # TODO - this smells like a good place to use a Strategy pattern.  The user can have certain behaviour based
   # on their access.
@@ -266,7 +217,16 @@ class DataObject < SpeciesSchemaModel
       AND do.created_at IS NOT NULL
       AND do.created_at != '0000-00-00 00:00:00'").uniq
     data_objects.sort_by{ |d| d.created_at }
-    DataObject.core_relationships.find_all_by_id(data_objects.collect{ |d| d.id })
+    data_objects = DataObject.core_relationships.find_all_by_id(data_objects.collect{ |d| d.id })
+    DataObject.preload_associations(data_objects, [ { :data_objects_hierarchy_entries =>
+      { :hierarchy_entry => :name } }, :curated_data_objects_hierarchy_entries ],
+      :select => {
+        :hierarchy_entries => '*',
+        :names => '*',
+        :data_objects_hierarchy_entries => '*',
+        :curated_data_objects_hierarchy_entries => '*'
+      } )
+    data_objects
   end
 
   #----- user submitted text --------
@@ -341,6 +301,9 @@ class DataObject < SpeciesSchemaModel
                                  :visibility => no_current_but_new_visibility, :vetted => current_or_new_vetted)
     new_dato.users_data_object = udo
     new_dato.update_solr_index
+    # reindex the old object now that its unpublished
+    old_dato.published = 0
+    old_dato.update_solr_index
     new_dato
   end
 
@@ -577,6 +540,7 @@ class DataObject < SpeciesSchemaModel
   end
 
   # 'owner' chooses someone responsible for this data object in order of preference
+  # this method returns [OwnerName, OwnerUser || nil]
   def owner
     # rights holder is preferred
     return rights_holder, nil unless rights_holder.blank?
@@ -599,36 +563,11 @@ class DataObject < SpeciesSchemaModel
 
   # Find all of the authors associated with this data object, including those that we dynamically add elsewhere
   def authors
-    default_authors = agents_data_objects.select{ |ado| ado.agent_role_id == AgentRole.author.id }.collect {|ado| ado.agent }.compact
-    @fake_authors.nil? ? default_authors : default_authors + @fake_authors
-  end
-
-  # Find all of the photographers associated with this data object, including those that we dynamically add elsewhere
-  def photographers
-    agents_data_objects.agents_data_objects.select{ |ado| ado.agent_role_id == AgentRole.photographer.id }.collect {|ado| ado.agent }.compact
-  end
-
-  # Add an author to this data object that isn't in the database.
-  def fake_author(author_options)
-    @fake_authors ||= []
-    @fake_authors << Agent.new(author_options)
-  end
-
-  # Find Agents associated with this data object as sources.  If there are none, find authors.
-  def sources
-    list = agents_data_objects.select{ |ado| ado.agent_role_id == AgentRole.source.id }.collect {|ado| ado.agent }.compact
-    return list unless list.blank?
-    # I ended up with empty lists in cases where I thought I shouldn't, so tried to defer to authors for those:
-    return authors
+    @default_authors = agents_data_objects.select{ |ado| ado.agent_role_id == AgentRole.author.id }.collect {|ado| ado.agent }.compact
   end
 
   def revisions
     DataObject.find_all_by_guid_and_language_id(guid, language_id)
-  end
-
-  def visible_comments(user = nil)
-    return all_comments if (not user.nil?) and user.is_admin?
-    all_comments.find_all {|c| c.visible? }
   end
 
   def image?
@@ -672,11 +611,6 @@ class DataObject < SpeciesSchemaModel
     return if cache_url.blank? || cache_url == 0
     size = size ? "_" + size.to_s : ''
     ContentServer.cache_path(cache_url, specified_content_host) + "#{size}.#{$SPECIES_IMAGE_FORMAT}"
-  end
-
-  def has_thumbnail_cache?
-    return false if thumbnail_cache_url.blank? or thumbnail_cache_url == 0
-    return true
   end
 
   def has_object_cache_url?
@@ -780,7 +714,7 @@ class DataObject < SpeciesSchemaModel
 
   def update_solr_index
     if self.published
-      EOL::Solr::DataObjects.reindex_single_object(self)
+      EOL::Solr::DataObjectsCoreRebuilder.reindex_single_object(self)
     else
       # hidden, so delete it from solr
       solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE)
@@ -797,7 +731,7 @@ class DataObject < SpeciesSchemaModel
     return false unless in_wikipedia?
     return false unless dato_association.visibility_id == Visibility.preview.id
 
-    SpeciesSchemaModel.connection.execute("UPDATE data_objects SET published=0 WHERE guid='#{guid}'");
+    connection.execute("UPDATE data_objects SET published=0 WHERE guid='#{guid}'");
     reload
 
     dato_vetted = self.vetted_by_taxon_concept(taxon_concept)
@@ -824,12 +758,6 @@ class DataObject < SpeciesSchemaModel
     obj = DataObject.find_by_sql("SELECT do.* FROM data_objects do_old JOIN data_objects do ON (do_old.guid=do.guid) WHERE do_old.id=#{data_object_id} AND do.published=1 ORDER BY id desc LIMIT 1")
     return nil if obj.blank?
     return obj[0]
-  end
-
-  def self.latest_published_version_ids_of_do_ids(data_object_ids)
-    latest_published_version_ids = DataObject.find_by_sql("SELECT do.id FROM data_objects do_old JOIN data_objects do ON (do_old.guid=do.guid) WHERE do.id IN (#{data_object_ids.collect{|doi| doi}.join(', ')}) AND do.published=1")
-    latest_published_version_ids.collect!{|data_object| (data_object.id)}.uniq!
-    latest_published_version_ids
   end
 
   def self.latest_published_version_of_guid(guid, options={})
@@ -860,25 +788,6 @@ class DataObject < SpeciesSchemaModel
     return @is_latest_published_version unless @is_latest_published_version.nil?
     the_latest = latest_published_version_in_same_language
     @is_latest_published_version = (the_latest && the_latest.id == self.id) ? true : false
-  end
-
-  def self.tc_ids_from_do_ids(obj_ids)
-    obj_tc_id = {} #same Hash.new
-    if(obj_ids.length > 0) then
-      sql = "SELECT dotc.taxon_concept_id tc_id , do.data_type_id, do.id do_id
-      FROM data_objects_taxon_concepts dotc
-      JOIN data_objects do ON dotc.data_object_id = do.id
-      JOIN taxon_concepts tc ON dotc.taxon_concept_id = tc.id
-      WHERE tc.published AND dotc.data_object_id IN (#{obj_ids.join(',')})"
-      rset = DataObject.find_by_sql([sql])
-      rset.each do |post|
-        obj_tc_id["#{post.do_id}"] = post.tc_id
-        if(post.data_type_id == DataType.text.id)then obj_tc_id["datatype#{post.do_id}"] = "text"
-                                  else obj_tc_id["datatype#{post.do_id}"] = "image"
-        end
-      end
-    end
-    return obj_tc_id
   end
 
   # To retrieve an association for the data object by using given hierarchy entry
@@ -973,26 +882,6 @@ class DataObject < SpeciesSchemaModel
   # To retrieve the reasons provided while hiding an association
   def hide_reasons(hierarchy_entry)
     reasons(hierarchy_entry, Activity.hide)
-  end
-
-  def self.generate_dataobject_stats(harvest_event_id)
-    ids = connection.select_values("SELECT do.id
-      FROM data_objects_harvest_events dohe
-      JOIN data_objects do ON dohe.data_object_id = do.id
-      WHERE dohe.harvest_event_id = #{harvest_event_id}")
-    data_objects = DataObject.find_all_by_id(ids, :include => [ :data_type ])
-
-    # to get total_taxa count
-    query = "Select count(distinct he.taxon_concept_id) taxa_count
-    From harvest_events_hierarchy_entries hehe
-    Join hierarchy_entries he ON hehe.hierarchy_entry_id = he.id
-    Join taxon_concepts tc ON he.taxon_concept_id = tc.id
-    where hehe.harvest_event_id = #{harvest_event_id}
-    and tc.supercedure_id=0 and tc.vetted_id != #{Vetted.untrusted.id}
-    and tc.published=1"
-
-    total_taxa = connection.select_values(query)[0]
-    [data_objects, total_taxa]
   end
 
   def flickr_photo_id

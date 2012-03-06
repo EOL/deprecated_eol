@@ -167,18 +167,15 @@ ActionController::Routing::Routes.draw do |map|
       content_page.resources :translated_content_pages, :as => :translations, :except => [:show, :index], :controller => 'translated_content_pages'
     end
     admin.resources :content_partners, :collection => {:notifications => [:get, :post], :statistics => [:get, :post]},
-                                       :only => [:index], :namespace => 'admins/' do |content_partner|
-
-    end
+                                       :only => [:index], :namespace => 'admins/'
     admin.resources :statistics, :collection => {:content_partner => [:get],
                                                  :data_object => [:get],
-                                                 :marine_stat => [:get],
+                                                 :marine => [:get],
                                                  :curator => [:get],
-                                                 :rich_page => [:get],
-                                                 :user_added_text => [:get],
+                                                 :page_richness => [:get],
+                                                 :user_added_data => [:get],
                                                  :lifedesk => [:get]},
-                                       :only => [:index], :namespace => 'admins/' do |statistic|
-    end
+                                       :only => [:index], :namespace => 'admins/'
   end
 
   # Old V1 /admin and /administrator namespaces (controllers)
@@ -242,6 +239,7 @@ ActionController::Routing::Routes.draw do |map|
     redirect.connect '/settings'
     redirect.connect '/account/show/:user_id'
     redirect.connect '/info/xrayvision', :collection_id => 14770
+    redirect.connect '/info/naturesbest2011', :collection_id => 19338
   end
 
   ## Content pages including CMS and other miscellaneous pages

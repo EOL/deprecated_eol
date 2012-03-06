@@ -1,28 +1,21 @@
 = render :partial => 'menu'
-#content_partners.main_container
+#statistics_lifedesk.main_container
   .copy
-    %h2= I18n.t(:admin_statistics_lifedesk_header)
-  - form_tag({}, :method => :get) do
-    %fieldset.actions.download
-      = submit_tag I18n.t(:admin_content_partners_statistics_first_published_download_csv_submit),
-        :name => :commit_download_csv
-      %input{:type => 'checkbox', :name => 'all_records'}
-      %input{:type => 'hidden', :name => 'report', :value => 'lifedesks'}
-      = I18n.t('all_title')
-      %input{:type => 'hidden', :name => 'page', :value => params[:page]}
+    %h2= t(".page_header")
+  = render 'download_form'
   = will_paginate @stats, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next)
   %table.standard
     %caption
+      = t(".page_header")
     %thead
       %tr
-        %th= I18n.t('activerecord.attributes.eol_statistic.lifedesk_taxa')
-        %th= I18n.t('activerecord.attributes.eol_statistic.lifedesk_data_objects')
-        %th= I18n.t('created_at')
+        - report_attributes.each do |attribute|
+          %th= I18n.t("activerecord.attributes.eol_statistic.#{attribute}")
     %tbody
       - @stats.each do |s|
         %tr
-          %td{:align => 'right'}= number_with_delimiter(s.lifedesk_taxa)
-          %td{:align => 'right'}= number_with_delimiter(s.lifedesk_data_objects)
-          %td{:align => 'right'}= s.created_at.strftime("%Y-%m-%d")
+          %td= number_with_delimiter(s.lifedesk_taxa)
+          %td= number_with_delimiter(s.lifedesk_data_objects)
+          %td= s.created_at.strftime("%Y-%m-%d")
   = will_paginate @stats, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next)
 

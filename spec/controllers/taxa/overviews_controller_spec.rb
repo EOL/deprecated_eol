@@ -10,8 +10,7 @@ describe Taxa::OverviewsController do
     truncate_all_tables
     load_scenario_with_caching :testy
     @testy = EOL::TestInfo.load('testy')
-    SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE).delete_all_documents
-    DataObject.all.each{ |d| d.update_solr_index }
+    EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
   end
 
   describe 'GET show' do
@@ -22,7 +21,7 @@ describe Taxa::OverviewsController do
     end
     it 'should instantiate summary text' do
       overviews_do_show
-      assigns[:summary_text][0].should be_a(DataObject)
+      assigns[:summary_text].should be_a(DataObject)
     end
     it 'should instantiate summary media' do
       overviews_do_show

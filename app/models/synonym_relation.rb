@@ -1,4 +1,4 @@
-class SynonymRelation < SpeciesSchemaModel
+class SynonymRelation < ActiveRecord::Base
   CACHE_ALL_ROWS = true
   uses_translations
   has_many :synonyms

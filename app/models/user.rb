@@ -19,8 +19,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   has_many :curators_evaluated, :class_name => "User", :foreign_key => :curator_verdict_by_id
   has_many :users_data_objects_ratings
   has_many :members
-  has_many :data_object_tags, :class_name => DataObjectTags.to_s
-  has_many :tags, :class_name => DataObjectTag.to_s, :through => :data_object_tags, :source => :data_object_tag
   has_many :comments
   has_many :curator_activity_logs
   has_many :curator_activity_logs_on_data_objects, :class_name => CuratorActivityLog.to_s,
@@ -386,21 +384,23 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   def taxa_commented
     # list of taxa where user entered a comment
     taxa = []
-    comments = Comment.find_all_by_user_id(self.id)
+    Comment.preload_associations(comments, :parent)
+    Comment.preload_associations(comments.select{ |c| c.parent_type == 'DataObject' },
+      { :parent => [ { :data_objects_hierarchy_entries => :hierarchy_entry }, :curated_data_objects_hierarchy_entries, :users_data_object ] })
     comments.each do |comment|
       taxa << comment.parent_id.to_i if comment.parent_type == 'TaxonConcept'
       if comment.parent_type == 'DataObject'
-        object = DataObject.find_by_id(comment.parent_id)
+        object = comment.parent
         if !object.blank?
           if object.association_with_best_vetted_status.class.name == 'DataObjectsHierarchyEntry' || object.association_with_best_vetted_status.class.name == 'CuratedDataObjectsHierarchyEntry'
-            taxa << object.association_with_best_vetted_status.hierarchy_entry.taxon_concept.id
+            taxa << object.association_with_best_vetted_status.hierarchy_entry.taxon_concept_id rescue nil
           elsif object.association_with_best_vetted_status.class.name == 'UsersDataObject'
-            taxa << object.association_with_best_vetted_status.taxon_concept.id
+            taxa << object.association_with_best_vetted_status.taxon_concept_id
           end
         end
       end
     end
-    taxa.uniq
+    taxa.compact.uniq
   end
 
   def self.taxa_synonyms_curated(user_id = nil)
@@ -411,7 +411,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def total_comment_submitted
-    return Comment.find_all_by_user_id(self.id).count
+    return comments.count
   end
 
   def total_wikipedia_nominated
@@ -446,20 +446,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   # TODO - test
   def total_comments_curated
     User.comment_curation_actions(self.id).length
-  end
-
-  # TODO - test all of these taggy things.  And move this to a module, I think.
-  def data_object_tags_for data_object
-    data_object_tags.find_all_by_data_object_guid data_object.guid, :include => :data_object_tag
-  end
-  def tags_for(data_object)
-    data_object_tags_for(data_object).map(&:tag).uniq
-  end
-  def tagged_objects
-    data_object_tags.find_all.map(&:object)
-  end
-  def tag_keys
-    tags.map(&:key).uniq
   end
 
   def can_create?(resource)
@@ -755,22 +741,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     return_ratings
   end
 
-  def uservoice_token
-    return nil if $USERVOICE_ACCOUNT_KEY.blank?
-    user_hash = Hash.new
-    user_hash[:guid] = "eol_#{self.id}"
-    user_hash[:expires] = Time.now + 5.hours
-    user_hash[:email] = self.email
-    user_hash[:display_name] = self.full_name
-    user_hash[:locale] = self.language.iso_639_1
-    self.is_admin? ? user_hash[:admin]='accept' : user_hash[:admin]='deny'
-    json_token = user_hash.to_json
-
-    key = EzCrypto::Key.with_password $USERVOICE_ACCOUNT_KEY, $USERVOICE_API_KEY
-    encrypted = key.encrypt(json_token)
-    token = CGI.escape(Base64.encode64(encrypted)).gsub(/\n/, '')
-  end
-
   # This is *very* generalized and tracks nearly everything:
   def log_activity(what, options = {})
     UserActivityLog.log(what, options.merge(:user => self)) if self.id && self.id != 0
@@ -822,7 +792,9 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     else
       editable_collections.delete_if{ |c| !c.published? }
     end
-    editable_collections += members.managers.map {|m| m.community && m.community.collections }.flatten.compact
+    # I changed this to m.manager? instead of using the named scope as I couldn't see
+    # how to preload named scopes, but members could be preloaded
+    editable_collections += members.select{ |m| m.manager? }.map {|m| m.community && m.community.collections }.flatten.compact
     editable_collections = [watch_collection] + editable_collections.sort_by(&:name).uniq
     editable_collections.compact
   end
@@ -918,7 +890,6 @@ private
     self.default_taxonomic_browser = $DEFAULT_TAXONOMIC_BROWSER
     self.expertise     = $DEFAULT_EXPERTISE.to_s
     self.language      = Language.english
-    self.content_level = $DEFAULT_CONTENT_LEVEL
     self.vetted        = $DEFAULT_VETTED
     self.credentials   = ''
     self.curator_scope = ''

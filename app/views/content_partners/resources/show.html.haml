@@ -78,7 +78,7 @@
           %dt= I18n.t('activerecord.attributes.resource.bibliographic_citation')
           %dd= @resource.bibliographic_citation.blank? ? I18n.t(:value_empty) : @resource.bibliographic_citation
 
-    .section.half
+    .section.half.processing_status
       .article
         .header
           %h3= I18n.t(:content_partner_resource_processing_header)
@@ -144,13 +144,18 @@
               - unless @resource.preview_collection.blank?
                 %br/
                 = link_to I18n.t(:content_partner_resource_preview_collection_show_link), @resource.preview_collection
-              - if current_user.is_admin? && !@resource.latest_harvest_event.publish? && @resource.latest_harvest_event.publish_is_allowed?
-                - form_for [@partner, @resource, @resource.latest_harvest_event] do |f|
-                  = hidden_field_tag 'return_to', current_url
-                  = f.hidden_field :publish, :value => :true
-                  %fieldset.actions
-                    = f.submit I18n.t('helpers.submit.harvest_event.publish'), :name => :commit_publish_harvest_event,
-                      :confirm => I18n.t(:content_partner_resource_harvest_event_confirm_publish, :completed_at => format_date_time(@resource.latest_harvest_event.completed_at), :resource_title => h(@resource.title))
+              - if current_user.is_admin?
+                - if !@resource.latest_harvest_event.publish? && @resource.latest_harvest_event.publish_is_allowed?
+                  - form_for [@partner, @resource, @resource.latest_harvest_event] do |f|
+                    = hidden_field_tag 'return_to', current_url
+                    = f.hidden_field :publish, :value => :true
+                    %fieldset.actions
+                      = f.submit I18n.t('helpers.submit.harvest_event.publish'), :name => :commit_publish_harvest_event,
+                        :confirm => I18n.t(:content_partner_resource_harvest_event_confirm_publish, :completed_at => format_date_time(@resource.latest_harvest_event.completed_at), :resource_title => h(@resource.title))
+                - elsif @resource.latest_harvest_event.publish_pending?
+                  %br/
+                  %em= I18n.t(:content_partner_resource_harvest_event_publish_pending)
+
           %dt
             = I18n.t('helpers.label.resource.latest_published_harvest_event')
           %dd

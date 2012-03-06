@@ -1,4 +1,4 @@
-class Ref < SpeciesSchemaModel
+class Ref < ActiveRecord::Base
 
   has_many :ref_identifiers
   belongs_to :visibility

@@ -1,6 +1,6 @@
 # Represents an entry in the Tree of Life (see Hierarchy).  This is one of the major models of the EOL codebase, and most
 # data links to these instances.
-class HierarchyEntry < SpeciesSchemaModel
+class HierarchyEntry < ActiveRecord::Base
 
   acts_as_tree :order => 'lft'
 
@@ -29,15 +29,13 @@ class HierarchyEntry < SpeciesSchemaModel
   has_and_belongs_to_many :published_refs, :class_name => Ref.to_s, :join_table => 'hierarchy_entries_refs',
     :association_foreign_key => 'ref_id', :conditions => 'published=1 AND visibility_id=#{Visibility.visible.id}'
 
-  has_one :hierarchies_content
   has_one :hierarchy_entry_stat
 
   define_core_relationships :select => {
       :hierarchy_entries => [ :id, :identifier, :hierarchy_id, :parent_id, :lft, :rgt, :taxon_concept_id, :rank_id ],
       :names => [ :string, :italicized ],
-      :canonical_forms => :string,
-      :hierarchies_content => [ :content_level, :image, :text, :child_image ]},
-    :include => [ :name, :hierarchies_content ]
+      :canonical_forms => :string },
+    :include => [ :name ]
 
   def self.sort_by_lft(hierarchy_entries)
     hierarchy_entries.sort_by{ |he| he.lft }
@@ -95,12 +93,6 @@ class HierarchyEntry < SpeciesSchemaModel
     end
   end
 
-  def media
-    {:images => hierarchies_content.image != 0 || hierarchies_content.child_image  != 0,
-     :video  => hierarchies_content.flash != 0 || hierarchies_content.youtube != 0,
-     :map    => hierarchies_content.map != 0}
-  end
-
   def rank_label
     rank.nil? ? I18n.t(:taxon) : rank.label
   end
@@ -129,21 +121,11 @@ class HierarchyEntry < SpeciesSchemaModel
     return Rank.italicized_ids.include?(rank_id)
   end
 
-  def valid
-    return false if hierarchies_content.nil? # This really only happens in test environ, but...
-    hierarchies_content.content_level >= $VALID_CONTENT_LEVEL
-  end
-
-  def enable
-    return false if hierarchies_content.nil?
-    return species_or_below? ? (hierarchies_content.text == 1 or hierarchies_content.image == 1) : valid
-  end
-
   def ancestors(params = {}, cross_reference_hierarchy = nil)
     return @ancestors unless @ancestors.nil?
     # TODO: reimplement completing a partial hierarchy with another curated hierarchy
-    add_include = []
-    add_select = {}
+    add_include = [ :taxon_concept ]
+    add_select = { :taxon_concepts => '*' }
     unless params[:include_stats].blank?
       add_include << :hierarchy_entry_stat
       add_select[:hierarchy_entry_stats] = '*'
@@ -164,8 +146,8 @@ class HierarchyEntry < SpeciesSchemaModel
   end
 
   def children(params = {})
-    add_include = []
-    add_select = {}
+    add_include = [ :taxon_concept ]
+    add_select = { :taxon_concepts => '*' }
     unless params[:include_stats].blank?
       add_include << :hierarchy_entry_stat
       add_select[:hierarchy_entry_stats] = '*'
@@ -302,11 +284,6 @@ class HierarchyEntry < SpeciesSchemaModel
 
   def number_of_descendants
     rgt - lft - 1
-  end
-
-  def has_content?
-    return false unless hierarchies_content  # this should really only happen during testing, and even that'
-    hierarchies_content.content_level > 1
   end
 
   def is_leaf?

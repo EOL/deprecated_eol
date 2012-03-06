@@ -108,8 +108,6 @@ module EOL
                                 :vetted_id       => options[:vetted_id] || Vetted.trusted.id,
                                 :taxon_concept => tc,
                                 :name          => name)
-        HierarchiesContent.gen(:hierarchy_entry => he, :text => 1, :image => 1, :content_level => 4,
-                               :map => options[:map] ? 1 : 0, :youtube => 1, :flash => 1)
         HierarchyEntryStat.gen(:hierarchy_entry => he)
         # TODO - Create two AgentsHierarchyEntry(ies); you want "Source Database" and "Compiler" as partner roles
         return he
@@ -265,15 +263,6 @@ def DataObject.build_reharvested_dato(dato)
   dato.hierarchy_entries.each do |he|
     DataObjectsHierarchyEntry.gen(:data_object_id => new_dato.id, :hierarchy_entry_id => he.id)
     DataObjectsTaxonConcept.gen(:taxon_concept => he.taxon_concept, :data_object => new_dato)
-  end
-  #   2e) if this is an image, remove the old image from top_images and insert the new image.
-  if dato.image?
-    TopImage.delete_all("data_object_id = #{dato.id}")
-    TopImage.gen(:data_object_id => new_dato.id,
-                 :hierarchy_entry_id => dato.hierarchy_entries.first.id)
-    TopConceptImage.delete_all("data_object_id = #{dato.id}")
-    TopConceptImage.gen(:data_object_id => new_dato.id,
-                 :taxon_concept_id => dato.hierarchy_entries.first.taxon_concept_id)
   end
   # TODO - this could also handle tags, info items, and refs.
   # 3) unpublish old version

@@ -1,6 +1,6 @@
 class Taxa::ResourcesController < TaxaController
   before_filter :instantiate_taxon_concept, :redirect_if_superceded, :instantiate_preferred_names
-  before_filter :add_page_view_log_entry, :update_user_content_level
+  before_filter :add_page_view_log_entry
 
   def show
     @assistive_section_header = I18n.t(:resources)
@@ -12,36 +12,36 @@ class Taxa::ResourcesController < TaxaController
   end
 
   def identification_resources
-    toc_id = TocItem.identification_resources.id
     @assistive_section_header = I18n.t(:resources)
-    identification_resources_toc_items = ContentTable.details.toc_items.select{ |ti| ti.parent_id == toc_id || ti.id == toc_id}
-    @contents = @taxon_concept.details_for_toc_items(identification_resources_toc_items, :language => current_user.language_abbr)
     @rel_canonical_href = @selected_hierarchy_entry ?
       identification_resources_taxon_hierarchy_entry_resources_url(@taxon_concept, @selected_hierarchy_entry) :
       identification_resources_taxon_resources_url(@taxon_concept)
+
+    @contents = @taxon_concept.text_for_user(current_user, {
+      :language_ids => [ current_user.language_id ],
+      :toc_ids => [ TocItem.identification_resources.id ] })
     current_user.log_activity(:viewed_taxon_concept_resources, :taxon_concept_id => @taxon_concept.id)
   end
 
   def education
-    tocs = [TocItem.education, TocItem.education_resources].compact.map(&:id)
     @assistive_section_header = I18n.t(:resources)
-    education_toc_items = ContentTable.details.toc_items.select do |ti|
-      tocs.include?(ti.parent_id) || tocs.include?(ti.id)
-    end
     @rel_canonical_href = @selected_hierarchy_entry ?
       education_taxon_hierarchy_entry_resources_url(@taxon_concept, @selected_hierarchy_entry) :
       education_taxon_resources_url(@taxon_concept)
-    @contents = @taxon_concept.details_for_toc_items(education_toc_items, :language => current_user.language_abbr)
+    
+    # there are two education chapters - one is the parent of the other
+    education_root = TocItem.cached_find_translated(:label, 'Education', 'en', :find_all => true).detect{ |toc_item| toc_item.is_parent? }
+    education_chapters = [ education_root ] + education_root.children
+    @contents = @taxon_concept.text_for_user(current_user, {
+      :language_ids => [ current_user.language_id ],
+      :toc_ids => education_chapters.collect{ |toc_item| toc_item.id } })
     current_user.log_activity(:viewed_taxon_concept_resources_education, :taxon_concept_id => @taxon_concept.id)
   end
 
   def biomedical_terms
     if !Resource.ligercat.nil? && HierarchyEntry.find_by_hierarchy_id_and_taxon_concept_id(Resource.ligercat.hierarchy.id, @taxon_concept.id)
-      @biomedical_exists = true
-      toc_id = TocItem.biomedical_terms.id
-      biomedical_terms_toc_items = ContentTable.details.toc_items.select{ |ti| ti.id == toc_id}
       @assistive_section_header = I18n.t(:resources)
-      @contents = @taxon_concept.details_for_toc_items(biomedical_terms_toc_items, :language => current_user.language_abbr)
+      @biomedical_exists = true
     else
       @biomedical_exists = false
     end

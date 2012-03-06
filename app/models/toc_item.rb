@@ -1,10 +1,10 @@
-class TocItem < SpeciesSchemaModel
+class TocItem < ActiveRecord::Base
   set_table_name 'table_of_contents'
   CACHE_ALL_ROWS = true
+  CACHE_ALL_ROWS_DEFAULT_INCLUDES = :info_items
+  
   uses_translations(:foreign_key => 'table_of_contents_id')
   acts_as_tree :order => 'view_order'
-
-  attr_writer :has_content
 
   has_many :info_items, :foreign_key => :toc_id
 
@@ -126,22 +126,24 @@ class TocItem < SpeciesSchemaModel
   end
 
   def self.exclude_from_details
-    temp = []
-    # Education:
-    temp = temp | ["Education", "Education Resources"] # to Resource tab
-    # Physical Description:
-    temp = temp | ["Identification Resources"] # to Resource tab
-    # References and More Information:
-    temp = temp | ["Search the Web"] # to be removed
-    temp = temp | ["Literature References", "Biodiversity Heritage Library", "Bibliographies", "Bibliography"] # to Literature Tab
-    temp = temp | ["Biomedical Terms", "On the Web"] # to Resources tab
-    # Names and Taxonomy: ---> Names Tab
-    temp = temp | ["Related Names", "Synonyms", "Common Names"]
-    # Page Statistics:
-    temp = temp | ["Content Summary"] # to Updates tab
-    # Resources:
-    temp = temp | ["Content Partners"] # to Resource tab
-    temp
+    cached('exclude_from_details') do
+      temp = []
+      # Education:
+      temp = temp | ["Education", "Education Resources", "High School Lab Series"] # to Resource tab
+      # Physical Description:
+      temp = temp | ["Identification Resources"] # to Resource tab
+      # References and More Information:
+      temp = temp | ["Search the Web"] # to be removed
+      temp = temp | ["Literature References", "Biodiversity Heritage Library", "Bibliographies", "Bibliography"] # to Literature Tab
+      temp = temp | ["Biomedical Terms", "On the Web"] # to Resources tab
+      # Names and Taxonomy: ---> Names Tab
+      temp = temp | ["Related Names", "Synonyms", "Common Names"]
+      # Page Statistics:
+      temp = temp | ["Content Summary"] # to Updates tab
+      # Resources:
+      temp = temp | ["Content Partners"] # to Resource tab
+      temp.collect{ |label| TocItem.cached_find_translated(:label, label, 'en', :find_all => true) }.flatten.compact
+    end
   end
 
   def self.last_major_chapter
@@ -206,7 +208,7 @@ class TocItem < SpeciesSchemaModel
   end
 
   def is_child?
-    !(self.parent_id.nil? or self.parent_id == 0)
+    !(self.parent_id.nil? || self.parent_id == 0)
   end
 
   def allow_user_text?
@@ -328,6 +330,7 @@ class TocItem < SpeciesSchemaModel
   def is_major?
     return parent_id == 0
   end
+  alias :is_parent? :is_major?
 
   def is_sub?
     return parent_id != 0

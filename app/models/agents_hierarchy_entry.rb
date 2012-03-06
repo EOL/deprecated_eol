@@ -1,5 +1,5 @@
 # Associates an Agent with a HierarchyEntry while assigning an AgentRole.
-class AgentsHierarchyEntry < SpeciesSchemaModel
+class AgentsHierarchyEntry < ActiveRecord::Base
 
   belongs_to :hierarchy_entry
   belongs_to :agent

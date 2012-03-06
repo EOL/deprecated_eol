@@ -15,28 +15,36 @@ module EOL
     attr_accessor :vetted
 
     # NOTE - this uses TaxonConceptNames, and Synonyms.  TCN is a denormlized version of Synonyms.
-    def self.find_by_taxon_concept_id(tc_id, hierarchy_entry_id = nil)
+    def self.find_by_taxon_concept_id(tc_id, hierarchy_entry_id = nil, options = {})
       inc = [ :name, :language, :vetted, { :synonym => [ :agents, { :hierarchy => :agent } ] } ]
-      sel = { :taxon_concept_names => [ :preferred, :vetted_id ],
+      sel = { :taxon_concept_names => [ :preferred, :vetted_id, :name_id, :language_id, :vetted_id, :synonym_id ],
+              :synonyms => [ :id, :hierarchy_id ],
+              :hierarchies => [ :id, :agent_id ],
+              :agents_synonyms => '*',
               :agents => '*',
-              :names => :string,
-              :vetted => :view_order,
-              :languages => [ :source_form, :iso_639_1 ]}
-      if hierarchy_entry_id
+              :names => [ :id, :string],
+              :vetted => [ :id, :view_order],
+              :languages => [ :id, :source_form, :iso_639_1 ]}
+      conditions = nil
+      if options[:name_id] && options[:language_id]
+        conditions = "taxon_concept_names.name_id = #{options[:name_id]} AND taxon_concept_names.language_id = #{options[:language_id]}"
+      end
+      unless hierarchy_entry_id.blank?
         taxon_concept_names = TaxonConceptName.find_all_by_source_hierarchy_entry_id_and_vern(hierarchy_entry_id, 1,
-          :select => sel, :include => inc)
+          :conditions => conditions)
       else
         taxon_concept_names = TaxonConceptName.find_all_by_taxon_concept_id_and_vern(tc_id, 1,
-          :select => sel, :include => inc)
+          :conditions => conditions)
       end
+      TaxonConceptName.preload_associations(taxon_concept_names, inc, :select => sel)
       display_names = taxon_concept_names.map do |tcn|
         EOL::CommonNameDisplay.new(tcn)
       end
       EOL::CommonNameDisplay.group_by_name(display_names)
     end
 
-    def self.find_by_hierarchy_entry_id(hierarchy_entry_id)
-      find_by_taxon_concept_id(nil, hierarchy_entry_id)
+    def self.find_by_hierarchy_entry_id(hierarchy_entry_id, options)
+      find_by_taxon_concept_id(nil, hierarchy_entry_id, options)
     end
 
     def initialize(tcn)

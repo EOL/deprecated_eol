@@ -12,8 +12,8 @@ class MembersController < ApplicationController
     # TODO: It would make my life easier if this controller were nested under communities
     if @community
       @rel_canonical_href = community_members_url(@community, :page => rel_canonical_href_page_number(@members))
-      @rel_prev_href = rel_prev_href_params(@members) ? community_newsfeed_url(@rel_prev_href_params) : nil
-      @rel_next_href = rel_next_href_params(@members) ? community_newsfeed_url(@rel_next_href_params) : nil
+      @rel_prev_href = rel_prev_href_params(@members) ? community_members_url(@rel_prev_href_params) : nil
+      @rel_next_href = rel_next_href_params(@members) ? community_members_url(@rel_next_href_params) : nil
     end
     respond_to do |format|
       format.html # index.html.erb
@@ -62,9 +62,9 @@ class MembersController < ApplicationController
 protected
   def scoped_variables_for_translations
     @scoped_variables_for_translations ||= super.dup.merge({
-      :community_name => @community ? Sanitize.clean(@community.name).presence : nil,
-      :community_description => (@community && sanitized_description = Sanitize.clean(@community.description).presence) ?
-        sanitized_description : I18n.t(:community_description_default),
+      :community_name => @community ? @community.name.presence : nil,
+      :community_description => (@community && description = @community.description.presence) ?
+        description : I18n.t(:community_description_default),
       :member_name => @member && @member.user ? @member.user.full_name.presence : nil
     }).freeze
   end

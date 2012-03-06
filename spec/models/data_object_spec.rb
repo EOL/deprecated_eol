@@ -15,31 +15,7 @@ describe DataObject do
 
     @dato = DataObject.gen(:description => 'That <b>description has unclosed <i>html tags')
     DataObjectsTaxonConcept.gen(:taxon_concept_id => @taxon_concept.id, :data_object_id => @dato.id)
-    @tag1 = DataObjectTag.gen(:key => 'foo',    :value => 'bar')
-    @tag2 = DataObjectTag.gen(:key => 'foo',    :value => 'baz')
-    @tag3 = DataObjectTag.gen(:key => 'boozer', :value => 'brimble')
-    DataObjectTags.gen(:data_object_tag => @tag1, :data_object => @dato)
-    DataObjectTags.gen(:data_object_tag => @tag2, :data_object => @dato)
-    DataObjectTags.gen(:data_object_tag => @tag3, :data_object => @dato)
-
-    @look_for_less_than_tags = true
-    DataObjectTag.delete_all(:key => 'foos', :value => 'ball')
-    @tag = DataObjectTag.gen(:key => 'foos', :value => 'ball')
-    how_many = (DataObjectTags.minimum_usage_count_for_public_tags - 1)
-    # In late April of 2008, we "dialed down" the number of tags that it takes... to one.  Which screws up
-    # the tests that assume you need more than one tag to make a tag public.  This logic fixes that, but
-    # in a way that's flexible enough that it will still work if we dial it back up.
-    if how_many < 1
-      how_many = 1
-      @look_for_less_than_tags = false
-    end
-    how_many.times do
-      DataObjectTags.gen(:data_object_tag => @tag, :data_object => @dato, :user => User.gen)
-    end
-
-    # rebuild the Solr DataObject index
-    SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE).delete_all_documents
-    DataObject.all.each{ |d| d.update_solr_index }
+    EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
 
     @hierarchy_entry = HierarchyEntry.gen
     @image_dato      = @taxon_concept.images_from_solr(100).last
@@ -132,7 +108,7 @@ describe DataObject do
  end
 
  it 'ratings should show rating for old and new version of re-harvested dato' do
-   text_dato  = @taxon_concept.overview.last
+   text_dato  = @taxon_concept.data_objects.select{ |d| d.is_text? }.last
    image_dato = @taxon_concept.images_from_solr(100).last
 
    text_dato.rate(@another_curator, 4)
@@ -278,31 +254,6 @@ describe DataObject do
     @dato.refs << ref = Ref.gen(:full_reference => full_ref, :published => 1, :visibility => Visibility.visible)
     ref_after = @dato.visible_references[0].full_reference.balance_tags
     ref_after.should == repaired_ref
-  end
-
-  it 'feeds should find text data objects for feeds' do
-    res = DataObject.for_feeds(:text, @taxon_concept.id)
-    res.class.should == Array
-    data_types = res.map {|i| i['data_type_id']}.uniq
-    data_types.size.should == 1
-    DataType.find(data_types[0]).should == DataType.find_by_translated(:label, "Text")
-  end
-
-  it 'feeds should find image data objects for feeds' do
-    res = DataObject.for_feeds(:images, @taxon_concept.id)
-    res.class.should == Array
-    data_types = res.map {|i| i['data_type_id']}.uniq
-    data_types.size.should == 1
-    DataType.find(data_types[0]).should == DataType.find_by_translated(:label, "Image")
-  end
-
-  it 'feeds should find image and text data objects for feeds' do
-    res = DataObject.for_feeds(:all, @taxon_concept.id)
-    res.class.should == Array
-    data_types = res.map {|i| i['data_type_id']}.uniq
-    data_types.size.should == 2
-    data_types = data_types.map {|i| DataType.find(i).label}.sort
-    data_types.should == ["Image", "Text"]
   end
 
   it 'should delegate #image_cache_path to ContentServer' do

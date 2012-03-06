@@ -170,7 +170,7 @@ en:
       collection_item:
         annotation: "Annotation"
         sort_field: "Sort by"
-        refs: "References <small>(put each reference on a new line)</small>"
+        refs: "References"
       comment:
         body: "Comment"
       community:
@@ -211,6 +211,7 @@ en:
         rights_statement: "Rights statement"
         source_url: "Source URL"
       eol_statistic:
+        created_at: "Created at"
         # overall stats
         members_count: "Members"
         communities_count: "Communities"
@@ -410,9 +411,70 @@ en:
               inaccessible: "is inaccessible, the URL must be publicly accessible"
               invalid: "is invalid, it should point to a TAR.GZIP, TAR.GZ or TGZ file"
   helpers:
+    select:
+      prompt: "Please select"
+    submit:
+      create: "Create %{model}"
+      update: "Update %{model}"
+      submit: 'Save %{model}'
+      filter_sort: "Filter and sort"
+      collection_item:
+        update: "Save"
+      content_page:
+        create: "Create page"
+        edit: "Edit"
+        preview: "Preview"
+        update: "Update page"
+      content_partner:
+        create: "Create content partner"
+        update: "Save content partner information"
+      content_partner_agreement:
+        create: "Create new agreement"
+        update: "Update agreement"
+        agree: "Agree to content partner terms"
+      content_partner_contact:
+        create: "Add contact"
+        update: "Update contact"
+        destroy: "Delete contact"
+      data_object:
+        create: "Add article"
+        create_text: "Add article"
+        update: "Save article"
+      eol_statistic:
+          download_csv: "Download as CSV"
+      harvest_event:
+        publish: "Publish"
+      hierarchy:
+        update: "Update hierarchy"
+        request_publish: "Request to promote hierarchy"
+      name:
+        create: "Add name"
+        update: "Update name"
+      resource:
+        create: "Add resource"
+        update: "Update resource"
+        update_settings: "Update settings"
+        force_harvest: "Request force harvest"
+      session:
+        create: "Sign in"
+      translated_content_page:
+        create: "Add translation"
+        update: "Save changes to translation"
+      user:
+        create: "Create account"
+        update: "Save profile information"
+        forgot_password: "Send email"
+        generate_api_key: "Generate a key"
+        curation_application: "Apply now"
+        curation_privileges: "Submit request"
+      wikipedia_queue:
+        create: "Submit request"
     label:
+      collection:
+        view_style_id: "Default view"
       collection_item:
         annotation: "Annotation"
+        refs: "References <small>(put each reference on a new line)</small>"
         sort_field: "Sort by <small>(date YYYY.MM.DD, number, or text)</small>"
         sort_field_show: "Sort value:"
       comment:
@@ -444,8 +506,6 @@ en:
         mou_url_more: "Optionally enter a URL to the file containing this partner's agreement. This file will override any other agreement text. If you would like to store the file (e.g. a PDF file) on EOL content servers then first <a href=\"%{upload_content_url}\">upload the file</a>, to get the URL."
       content_partner_contact:
         email_reports_frequency_hours_more: "Email reports are sent only if there were comments or curator actions on your data or on taxon pages relevant to your data set."
-      collection:
-        view_style_id: "Default view"
       data_object:
         bibliographic_citation: "Bibliographic citation"
         description: "Text <small>(some HTML markup is allowed)</small>"
@@ -457,6 +517,8 @@ en:
         rights_holder: "Rights holder"
         rights_statement: "Rights statement"
         source_url: "URL to original data object"
+      eol_statistic:
+        download_all: "All <small>(include records from all pages)</small>"
       google_analytics_partner_summaries:
         taxa_pages: "Pages <small>(number of pages)</small>"
         taxa_pages_viewed: "Pages viewed <small>(number of pages viewed by visitors)</small>"
@@ -606,6 +668,42 @@ en:
   faker:
     lorem:
       words: [alias, consequatur, aut, perferendis, sit, voluptatem, accusantium, doloremque, aperiam, eaque, ipsa, quae, ab, illo, inventore, veritatis, et, quasi, architecto, beatae, vitae, dicta, sunt, explicabo, aspernatur, aut, odit, aut, fugit, sed, quia, consequuntur, magni, dolores, eos, qui, ratione, voluptatem, sequi, nesciunt, neque, dolorem, ipsum, quia, dolor, sit, amet, consectetur, adipisci, velit, sed, quia, non, numquam, eius, modi, tempora, incidunt, ut, labore, et, dolore, magnam, aliquam, quaerat, voluptatem, ut, enim, ad, minima, veniam, quis, nostrum, exercitationem, ullam, corporis, nemo, enim, ipsam, voluptatem, quia, voluptas, sit, suscipit, laboriosam, nisi, ut, aliquid, ex, ea, commodi, consequatur, quis, autem, vel, eum, iure, reprehenderit, qui, in, ea, voluptate, velit, esse, quam, nihil, molestiae, et, iusto, odio, dignissimos, ducimus, qui, blanditiis, praesentium, laudantium, totam, rem, voluptatum, deleniti, atque, corrupti, quos, dolores, et, quas, molestias, excepturi, sint, occaecati, cupiditate, non, provident, sed, ut, perspiciatis, unde, omnis, iste, natus, error, similique, sunt, in, culpa, qui, officia, deserunt, mollitia, animi, id, est, laborum, et, dolorum, fuga, et, harum, quidem, rerum, facilis, est, et, expedita, distinctio, nam, libero, tempore, cum, soluta, nobis, est, eligendi, optio, cumque, nihil, impedit, quo, porro, quisquam, est, qui, minus, id, quod, maxime, placeat, facere, possimus, omnis, voluptas, assumenda, est, omnis, dolor, repellendus, temporibus, autem, quibusdam, et, aut, consequatur, vel, illum, qui, dolorem, eum, fugiat, quo, voluptas, nulla, pariatur, at, vero, eos, et, accusamus, officiis, debitis, aut, rerum, necessitatibus, saepe, eveniet, ut, et, voluptates, repudiandae, sint, et, molestiae, non, recusandae, itaque, earum, rerum, hic, tenetur, a, sapiente, delectus, ut, aut, reiciendis, voluptatibus, maiores, doloribus, asperiores, repellat]
+  # start of views scope
+  admins:
+    statistics:
+      content_partner_link: "Content partners"
+      curator_link: "Curator statistics"
+      data_object_link: "Data objects"
+      index_link: "Overall statistics"
+      lifedesk_link: "LifeDesks"
+      marine_link: "Marine statistics"
+      page_richness_link: "Rich pages"
+      user_added_data_link: "User-submitted text"
+      content_partner:
+        page_header: "Content Partner Statistics"
+        page_title: "Administration: Content Partner Statistics"
+      curator:
+        page_header: "Curator Statistics"
+        page_title: "Administration: Curator Statistics"
+      data_object:
+        page_header: "Data Object Statistics"
+        page_title: "Administration: Data Object Statistics"
+      index:
+        page_header: "Overall Statistics"
+        page_title: "Administration: Overall Statistics"
+        table_caption: "Overall site statistics created at %{created_at_time}"
+      lifedesk:
+        page_header: "LifeDesks Statistics"
+        page_title: "Administration: LifeDesks Statistics"
+      marine:
+        page_header: "Marine Coverage in EOL"
+        page_title: "Administration: Marine Statistics"
+      page_richness:
+        page_header: "Rich Page Statistics"
+        page_title: "Administration: Rich Pages Statistics"
+      user_added_data:
+        page_header: "User Submitted Text Statistics"
+        page_title: "Administration: User Submitted Text Statistics"
   collections:
     show:
       meta_description: "%{collection_description}"
@@ -801,8 +899,8 @@ en:
           tweet_text: "Information about %{scientific_name} as classified by %{hierarchy_provider}"
         meta_description: "Information about %{scientific_name} in the Encyclopedia of Life"
         meta_description_with_chapter_list: "Information about %{scientific_name} in the Encyclopedia of Life. Includes information on %{chapter_list}."
-        meta_description_with_common_name: "Information about the %{preferred_common_name}, scientifically known as %{scientific_name} in the Encyclopedia of Life."
-        meta_description_with_common_name_with_chapter_list: "Information about the %{preferred_common_name}, scientifically known as %{scientific_name} in the Encyclopedia of Life. Includes information on %{chapter_list}."
+        meta_description_with_common_name: "Information about %{preferred_common_name}, scientifically known as %{scientific_name} in the Encyclopedia of Life."
+        meta_description_with_common_name_with_chapter_list: "Information about %{preferred_common_name}, scientifically known as %{scientific_name} in the Encyclopedia of Life. Includes information on %{chapter_list}."
         meta_keywords: ""
         meta_keywords_with_common_name: ""
         meta_title: "Information about %{scientific_name}"
@@ -862,15 +960,15 @@ en:
           meta_description_with_common_name: "Photographs, film and audio of the %{preferred_common_name} also known as %{scientific_name} as classified by %{hierarchy_provider}."
           meta_keywords: "photographs of %{scientific_name}, films of %{scientific_name}, sounds of %{scientific_name}, audio of %{scientific_name}"
           meta_keywords_with_common_name: "photographs of %{preferred_common_name}, films of %{preferred_common_name}, sounds of %{preferred_common_name}, audio of %{preferred_common_name}, photographs of %{scientific_name}, films of %{scientific_name}, sounds of %{scientific_name}, audio of %{scientific_name}"
-          meta_title: "Audio, Film &amp; Photographs of %{scientific_name} as classified by %{hierarchy_provider}"
-          meta_title_with_common_name: "Audio, Film &amp; Images of %{preferred_common_name} (%{scientific_name} as classified by %{hierarchy_provider})"
+          meta_title: "Audio, Film & Photographs of %{scientific_name} as classified by %{hierarchy_provider}"
+          meta_title_with_common_name: "Audio, Film & Images of %{preferred_common_name} (%{scientific_name} as classified by %{hierarchy_provider})"
           tweet_text: "Media of %{scientific_name} as classified by %{hierarchy_provider}"
         meta_description: "Pictures and videos of %{scientific_name}."
         meta_description_with_common_name: "Pictures and videos of the %{preferred_common_name} also known as %{scientific_name}."
         meta_keywords: "pictures of %{scientific_name}, videos of %{scientific_name}, images of %{scientific_name}, vids of %{scientific_name}, pics of %{scientific_name}, media"
         meta_keywords_with_common_name: "pictures of %{preferred_common_name}, videos of %{preferred_common_name}, images of %{preferred_common_name}, vids of %{preferred_common_name}, pics of %{preferred_common_name}, media"
-        meta_title: "Pictures &amp; Video of %{preferred_common_name} (%{scientific_name})"
-        meta_title_with_common_name: "Pictures &amp; Video of %{preferred_common_name} (%{scientific_name})"
+        meta_title: "Pictures & Video of %{preferred_common_name} (%{scientific_name})"
+        meta_title_with_common_name: "Pictures & Video of %{preferred_common_name} (%{scientific_name})"
         tweet_text: "Media of %{scientific_name}"
     names:
       index:
@@ -1089,6 +1187,7 @@ en:
       meta_keywords: ""
       meta_title: "%{user_full_name}"
       tweet_text: "%{user_full_name}"
+  # end of views scope
   this_article_cannot_be_curated_because_unpublished: "This article cannot be curated because it is unpublished."
   this_article_is_unpublished: "This article is unpublished."
   this_image_cannot_be_curated_because_unpublished: "This image cannot be curated because it is unpublished."
@@ -1310,33 +1409,7 @@ en:
   admin_information: "This is the new administration console for EOL V2. We are in the process of transferring administration functionality from V1. If the administration section you are looking for is not listed please visit the <a href=\"/administrator\">V1 Administration Console</a>."
   admin_link: "Overview"
   admin_page_title: "Administration: Overview"
-
   admin_statistics_link: "Statistics"
-  admin_statistics_content_partner_header: "Content Partner Statistics"
-  admin_statistics_content_partner_link: "Content partners"
-  admin_statistics_content_partner_page_title: "Administration: Content Partner Statistics"
-  admin_statistics_curator_header: "Curator Statistics"
-  admin_statistics_curator_link: "Curator statistics"
-  admin_statistics_curator_page_title: "Administration: Curator Statistics"
-  admin_statistics_data_object_header: "Data Object Statistics"
-  admin_statistics_data_object_link: "Data objects"
-  admin_statistics_data_object_page_title: "Administration: Data Object Statistics"
-  admin_statistics_lifedesk_header: "LifeDesks Statistics"
-  admin_statistics_lifedesk_link: "LifeDesks"
-  admin_statistics_lifedesk_page_title: "Administration: LifeDesks Statistics"
-  admin_statistics_marine_header: "Marine Coverage in EOL"
-  admin_statistics_marine_link: "Marine statistics"
-  admin_statistics_marine_page_title: "Administration: Marine Statistics"
-  admin_statistics_overall_stat_header: "Overall Statistics"
-  admin_statistics_overall_stat_link: "Overall statistics"
-  admin_statistics_overall_stat_page_title: "Administration: Overall Statistics"
-  admin_statistics_rich_page_header: "Rich Page Statistics"
-  admin_statistics_rich_page_link: "Rich pages"
-  admin_statistics_rich_page_page_title: "Administration: Rich Pages Statistics"
-  admin_statistics_user_added_text_header: "User Submitted Text Statistics"
-  admin_statistics_user_added_text_link: "User-submitted text"
-  admin_statistics_user_added_text_page_title: "Administration: User Submitted Text Statistics"
-
   admin_translated_content_page_create_successful_notice: "Translation has been added to <a href=\"#%{anchor}\"><em>%{page_name}</em></a>"
   admin_translated_content_page_create_unsuccessful_error: "Sorry, an error occurred, the translation could not be added."
   admin_translated_content_page_delete_confirmation: 'Are you sure you want to delete the %{language} version of "%{page_name}". Delete action cannot be undone.'
@@ -1504,7 +1577,7 @@ en:
   curator_level_with_indefinite_article_assistant_curator: "an <strong>assistant curator</strong>"
   click: "Click"
   clicked_time: "Clicked Time"
-  click_on_an_activity_to_see_th: "Click on an activity to see any other activities that occured within a five minute window."
+  click_on_an_activity_to_see_th: "Click on an activity to see any other activities that occurred within a five minute window."
   click_on_a_username_to_view_the_users_detailed_profile: "Click on a username to view that user's detailed profile, click on the data type to view the object commented on (use your browser back button to return here), click on \"edit\" to edit the comment or click on \"delete\" the permanently delete the comment."
   click_on_a_user_to_view_the_users_detailed_profile: "Click on a user to view the user's detailed profile, click on the species to view the page where the text exists (use your browser back button to return here)."
   close_this_window_to_return_to_edit_window: "CLOSE THIS WINDOW TO RETURN TO EDIT WINDOW"
@@ -1721,7 +1794,7 @@ en:
   content_partner_resource_edit_link: "Edit"
   content_partner_resource_edit_subheader: "Edit resource"
   content_partner_resource_edit_with_type_link: "Edit resource"
-  content_partner_resource_harvest_event_confirm_publish: "Are you sure you want to publish harvest event %{completed_at} for resource %{resource_title}?"
+  content_partner_resource_harvest_event_confirm_publish: "Are you sure you want to publish harvest event %{completed_at} for resource %{resource_title}? Please note, once you confirm that you would like to publish this harvest event, your request will be queued for processing and may take up to 24 hours to complete."
   content_partner_resource_harvest_event_current_published: "Currently published"
   content_partner_resource_harvest_event_not_published: "Not published"
   content_partner_resource_harvest_event_previously_published: "Previously published"
@@ -2820,6 +2893,7 @@ en:
     other: "%{count} sounds"
   source_information_header: "Source information"
   source_and_additional_information: "Source and Additional Information"
+  source_colon: "Source:"
   special_collection: "Special collection"
   special_collections_cannot_be_destroyed: This collection is special and cannot be destroyed.
   species_curated: "Species Curated"
@@ -3281,7 +3355,7 @@ en:
   admin_user_hide_successful_notice: "User has been hidden"
   admin_user_unhide_successful_notice: "User has been unhidden"
   login_hidden_user_message: "The account %{given_name} is no longer active"
-  user_hidden_message: "This user is no longer active"
+  user_no_longer_active_message: "This user is no longer active"
   no_answer: "No"
   allowed_html_tags: "Allowed HTML: %{comma_separated_tags}"
   contact_us_request_sent: "Request Sent Successfully"

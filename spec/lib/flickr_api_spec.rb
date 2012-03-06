@@ -14,7 +14,7 @@ describe 'FlickrApi' do
     @now = Time.now.to_i
     # http://www.flickr.com/photos/encyclopediaoflife/5416503569/ - a photo I use for testing for EOL
     @photo_id = 5416503569
-    if defined? $FLICKR_API_KEY && defined? FLICKR_TOKEN
+    if defined? FLICKR_API_KEY && defined? FLICKR_TOKEN
       @flickr_api = FlickrApi.new(:api_key => FLICKR_API_KEY,
                                   :secret => FLICKR_SECRET,
                                   :auth_frob => FLICKR_FROB,

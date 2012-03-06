@@ -7,10 +7,7 @@ describe 'Curating Associations' do
     truncate_all_tables
 
     load_scenario_with_caching(:testy)
-
-    # rebuild the Solr DataObject index
-    SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE).delete_all_documents
-    DataObject.all.each{ |d| d.update_solr_index }
+    EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
 
     @testy = EOL::TestInfo.load('testy')
     @taxon_concept = @testy[:taxon_concept]

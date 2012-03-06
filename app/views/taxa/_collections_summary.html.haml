@@ -18,6 +18,6 @@
           .details
             %h4= link_to collection.name, collection_path(collection)
             -# Sometimes we cache the counts of the collections with fewer queries... but not always:
-            - count = collection.respond_to?(:collection_items_count) ? collection.collection_items_count : collection.collection_items.count
+            - count = collection.cached_count
             - count -= 1
             %p= I18n.t(:other_collection_items_with_count, :count => count)

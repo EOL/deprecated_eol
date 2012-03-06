@@ -4,6 +4,7 @@
   #page_heading{:class => display_admins_navigation? ? 'with_nav' : nil}
     .site_column
       .hgroup
+        - @page_title ||= page_title
         %h1= @page_title
         - unless @page_subheader.blank?
           %h2= @page_subheader
@@ -17,7 +18,7 @@
           %li{:class => resource_is_active('admins/content_partners')}= link_to I18n.t(:admin_content_partners_link), admin_content_partners_path
           %li{:class => resource_is_active('admins/statistics')}= link_to I18n.t(:admin_statistics_link), admin_statistics_path
 
-  #content.admin
+  #content{:class => controller_name}
     .site_column
       = yield
 

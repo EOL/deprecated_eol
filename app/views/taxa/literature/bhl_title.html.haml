@@ -18,7 +18,7 @@
               %tr
                 %td
                   - first_result = @bhl_title_results[:results].first
-                  = external_link_to([first_result['publication_title'], first_result['volume_info']].join(' ; '), "http://www.biodiversitylibrary.org/item/#{first_result['title_item_id']}")
+                  = external_link_to([first_result['publication_title'], first_result['volume_info']].join(' ; '), "http://www.biodiversitylibrary.org/item/#{first_result['title_item_id']}", :rel => :nofollow)
                 %td
                   = first_result['year']
                 %td
@@ -30,7 +30,7 @@
                   %td
                     - link_text = [r['prefix'], r['number']].join(' ')
                     - link_text = I18n.t(:text_capital) if link_text.strip.blank?
-                    = external_link_to(link_text, "http://www.biodiversitylibrary.org/page/#{r['id']}")
+                    = external_link_to(link_text, "http://www.biodiversitylibrary.org/page/#{r['id']}", :rel => :nofollow)
                   %td
                   %td
                   %td

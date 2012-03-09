@@ -7,8 +7,6 @@ class CollectionActivityLog < LoggingModel
   belongs_to :user # Who took the action
   belongs_to :activity # What happened
 
-  named_scope :notifications_not_prepared, :conditions => "notifications_prepared_at IS NULL"
-
   after_create :log_activity_in_solr
   after_create :queue_notifications
 
@@ -21,52 +19,66 @@ class CollectionActivityLog < LoggingModel
       'action_keyword' => keyword,
       'user_id' => self.user_id,
       'date_created' => self.created_at.solr_timestamp }
-    EOL::Solr::ActivityLog.index_activities(base_index_hash, activity_logs_affected)
+    EOL::Solr::ActivityLog.index_notifications(base_index_hash, notification_recipient_objects)
+  end
+  
+  def queue_notifications
+    Notification.queue_notifications(notification_recipient_objects, self)
   end
 
-  def activity_logs_affected
-    logs_affected = {}
-    # activity feed of user making comment
-    logs_affected['User'] = [ self.user.id ]
-    logs_affected['Collection'] = [ self.collection.id ]
-    if self.collection && ! self.collection.communities.blank?
-      logs_affected['Community'] = [ self.collection.communities ]
-    end
-    # news feed of collections which contain the thing commented on
-    Collection.which_contain(self.collection).each do |c|
-      logs_affected['Collection'] ||= []
-      logs_affected['Collection'] << c.id
-    end
-    logs_affected
-  end
-
-  def notify_listeners
-    notify_watchers_about_changes
-    notify_watched_user
+  def notification_recipient_objects
+    return @notification_recipients if @notification_recipients
+    @notification_recipients = []
+    add_recipient_collection!(@notification_recipients)
+    add_recipient_communities!(@notification_recipients)
+    add_recipient_containing_collections!(@notification_recipients)
+    add_recipient_collector!(@notification_recipients)
+    add_recipient_users_watchlists!(@notification_recipients)
+    add_recipient_users_getting_watched!(@notification_recipients)
+    @notification_recipients
   end
 
 private
 
-  def notify_watchers_about_changes
-    Collection.find(activity_logs_affected['Collection']).select {|c| c.watch_collection? }.each do |collection|
+  def add_recipient_collection!(recipients)
+    recipients << self.collection  # for collection newsfeed
+  end
+
+  def add_recipient_collector!(recipients)
+    # TODO: this is a new notification type - probably for ACTIVITY only
+    recipients << { :user => user, :notification_type => :i_collected_something,
+                    :frequency => NotificationFrequency.never }
+  end
+
+  def add_recipient_communities!(recipients)
+    if self.collection && ! self.collection.communities.blank?
+      recipients += self.collection.communities  # communities associated this collection
+    end
+  end
+
+  def add_recipient_containing_collections!(recipients)
+    # news feed of collections which contain the thing commented on
+    Collection.which_contain(self.collection).each do |c|
+      recipients << c
+    end
+  end
+
+  def add_recipient_users_watchlists!(recipients)
+    recipients.select{ |c| c.class == Collection && c.watch_collection? }.each do |collection|
       collection.users.each do |user|
-        user.notify_if_listening(:to => :changes_to_my_watched_collection, :about => self)
+        user.add_as_recipient_if_listening_to!(:changes_to_my_watched_collection, recipients)
       end
     end
   end
 
-  def notify_watched_user
+  def add_recipient_users_getting_watched!(recipients)
     if someone_is_being_watched?
-      collection_item.object.notify_if_listening(:to => :i_am_being_watched, :about => self)
+      collection_item.object.add_as_recipient_if_listening_to!(:i_am_being_watched, recipients)
     end
   end
 
   def someone_is_being_watched?
     activity.id == Activity.collect.id && collection_item.object_type == 'User'
-  end
-
-  def queue_notifications
-    Resque.enqueue(PrepareAndSendNotifications)
   end
 
 end

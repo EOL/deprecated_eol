@@ -1069,35 +1069,62 @@ class DataObject < ActiveRecord::Base
       'action_keyword' => options[:keyword],
       'date_created' => self.updated_at.solr_timestamp || self.created_at.solr_timestamp }
     base_index_hash[:user_id] = options[:user].id if options[:user]
-    EOL::Solr::ActivityLog.index_activities(base_index_hash, activity_logs_affected(options))
+    EOL::Solr::ActivityLog.index_notifications(base_index_hash, notification_recipient_objects(options))
+    queue_notifications
   end
 
-  def activity_logs_affected(options)
-    logs_affected = {}
-    # activity feed of user making comment
-    logs_affected['User'] = [ options[:user].id ] if options[:user]
-    watch_collection_id = options[:user].watch_collection.id rescue nil
-    logs_affected['Collection'] = [ watch_collection_id ] if watch_collection_id
-    # this is when the object is first added. Using the passed-in value to prevent potential slave lag interference
-    if options[:taxon_concept]
-      logs_affected['TaxonConcept'] = [ options[:taxon_concept].id ]
-      logs_affected['AncestorTaxonConcept'] = options[:taxon_concept].flattened_ancestor_ids
-    else
-      self.curated_hierarchy_entries.each do |he|
-        logs_affected['TaxonConcept'] ||= []
-        logs_affected['TaxonConcept'] << he.taxon_concept_id
-        logs_affected['AncestorTaxonConcept'] ||= []
-        logs_affected['AncestorTaxonConcept'] |= he.taxon_concept.flattened_ancestor_ids
-      end
-    end
-    logs_affected
+  def queue_notifications
+    Notification.queue_notifications(notification_recipient_objects, self)
+  end
+
+  def notification_recipient_objects(options = {})
+    return @notification_recipients if @notification_recipients
+    @notification_recipients = []
+    add_recipient_user_making_object_modification!(@notification_recipients, options)
+    add_recipient_pages_affected!(@notification_recipients, options)
+    add_recipient_users_watching!(@notification_recipients, options)
+    @notification_recipients
   end
 
   def contributing_user
-    if users_data_object
+    if users_data_object && users_data_object.user
       users_data_object.user
-    else
+    elsif content_partner && content_partner.user
       content_partner.user
+    end
+  end
+
+private
+
+  def add_recipient_user_making_object_modification!(recipients, options = {})
+    if options[:user]
+      # TODO: this is a new notification type - probably for ACTIVITY only
+      recipients << { :user => options[:user], :notification_type => :i_created_something,
+                      :frequency => NotificationFrequency.never }
+      # watch collection of user
+      recipients << self.user.watch_collection if self.user.watch_collection
+    end
+  end
+  
+  def add_recipient_pages_affected!(recipients, options = {})
+    if options[:taxon_concept]
+      recipients << options[:taxon_concept]
+      recipients << { :ancestor_ids => options[:taxon_concept].flattened_ancestor_ids }
+    else
+      self.curated_hierarchy_entries.each do |he|
+        recipients << he.taxon_concept
+        recipients << { :ancestor_ids => he.taxon_concept.flattened_ancestor_ids }
+      end
+    end
+  end
+  
+  def add_recipient_users_watching!(recipients, options = {})
+    if options[:taxon_concept]
+      options[:taxon_concept].containing_collections.watch.each do |collection|
+        collection.users.each do |user|
+          user.add_as_recipient_if_listening_to!(:new_data_on_my_watched_item, recipients)
+        end
+      end
     end
   end
 

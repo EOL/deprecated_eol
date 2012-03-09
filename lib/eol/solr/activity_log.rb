@@ -2,16 +2,47 @@ module EOL
   module Solr
     class ActivityLog
 
-      def self.index_activities(base_index_hash, activity_logs_affected)
+      def self.index_notifications(base_index_hash, notification_recipient_objects)
         # TODO: is it appropriate to re-use this variable here which generally stops writing to the Logging MySQL DB
         return unless $ENABLE_DATA_LOGGING
         begin
+          type_and_ids_to_send = {}
+          [ Collection, Community, DataObject, TaxonConcept ].each do |klass|
+            if klass_objects = notification_recipient_objects.select{ |o| o.class == klass }
+              type_and_ids_to_send[klass.to_s] = klass_objects.collect{ |o| o.id }
+            end
+          end
+          # AncestorTaxonConcept
+          if ancestor_taxon_concept_ids = notification_recipient_objects.select{ |o| o.class == Hash && o[:ancestor_ids] }
+            type_and_ids_to_send['AncestorTaxonConcept'] = ancestor_taxon_concept_ids.collect{ |h| h[:ancestor_ids] }.flatten
+          end
+          # User ACTIVITY feeds
+          activity_users = notification_recipient_objects.collect do |o|
+            (o.class == Hash && o[:user] && Notification.types_to_show_in_activity_feeds.include?(o[:notification_type])) ? o[:user] : nil
+          end.compact
+          if activity_users
+            type_and_ids_to_send['User'] = activity_users.collect{ |c| c.id }
+          end
+          # User Newsfeeds
+          users = notification_recipient_objects.collect do |o|
+            if o.class == User
+              o
+            elsif o.class == Hash && o[:user] && !Notification.types_to_show_in_activity_feeds.include?(o[:notification_type])
+              o[:user]
+            else
+              nil
+            end
+          end.compact
+          if users 
+            type_and_ids_to_send['UserNews'] = users.collect{ |c| c.id }
+          end
+          
           solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_ACTIVITY_LOGS_CORE)
-          activity_logs_affected.each do |feed_type_affected, ids|
+          type_and_ids_to_send.each do |feed_type, ids|
             ids = ids.uniq.delete_if{ |id| id.blank? || id == 0 }
             unless ids.blank?
               solr_connection.create(base_index_hash.dup.merge({
-                'feed_type_affected' => feed_type_affected,
+                'feed_type_affected' => feed_type,
                 'feed_type_primary_key' => ids }))
             end
           end
@@ -20,6 +51,7 @@ module EOL
           return nil
         end
       end
+      
 
       def self.search_with_pagination(query, options = {})
         options[:page]        ||= 1

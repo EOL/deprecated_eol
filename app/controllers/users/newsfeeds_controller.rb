@@ -30,12 +30,12 @@ class Users::NewsfeedsController < UsersController
     respond_to do |format|
       format.html {
         @parent = user # for new comment form
-        @log = user.messages(:page => params[:page] || 1)
+        @user_activity_log = user.messages(:page => params[:page] || 1)
         # reset last-seen dates:
         user.update_attribute(:last_message_at, Time.now) if user.id == current_user.id
         @rel_canonical_href = user_newsfeed_url(user)
-        @rel_prev_href = rel_prev_href_params(@log) ? comments_user_newsfeed_url(@rel_prev_href_params) : nil
-        @rel_next_href = rel_next_href_params(@log) ? comments_user_newsfeed_url(@rel_next_href_params) : nil
+        @rel_prev_href = rel_prev_href_params(@user_activity_log) ? comments_user_newsfeed_url(@rel_prev_href_params) : nil
+        @rel_next_href = rel_next_href_params(@user_activity_log) ? comments_user_newsfeed_url(@rel_next_href_params) : nil
       }
       format.js do # link is called with AJAX to get pending count for session summary
         render :text => I18n.t(:user_pending_notifications_comments_with_count_assistive, :count => user.message_count)
@@ -47,10 +47,10 @@ class Users::NewsfeedsController < UsersController
   def activity
     # TODO: activity is presumably newsfeed minus comments
     @parent = user # for new comment form
-    @log = []
+    @user_activity_log = []
     @rel_canonical_href = user_newsfeed_url(user)
-    @rel_prev_href = rel_prev_href_params(@log) ? activity_user_newsfeed_url(@rel_prev_href_params) : nil
-    @rel_next_href = rel_next_href_params(@log) ? activity_user_newsfeed_url(@rel_next_href_params) : nil
+    @rel_prev_href = rel_prev_href_params(@user_activity_log) ? activity_user_newsfeed_url(@rel_prev_href_params) : nil
+    @rel_next_href = rel_next_href_params(@user_activity_log) ? activity_user_newsfeed_url(@rel_next_href_params) : nil
   end
 
 protected

@@ -872,10 +872,9 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     self.activity_log(:news => true, :filter => 'messages', :after => User.find(self, :select => 'last_message_at').last_message_at).count
   end
 
-  def notify_if_listening(options)
-    if fqz = listening_to?(options[:to])
-      PendingNotification.create(:user => self, :notification_frequency => fqz, :target => options[:about],
-                                 :reason => options[:to].to_s)
+  def add_as_recipient_if_listening_to!(notification_type, recipients)
+    if frequency = self.listening_to?(notification_type)
+      recipients << { :user => self, :notification_type => notification_type, :frequency => frequency }
     end
   end
 

@@ -303,7 +303,7 @@ private
   end
 
   def authentication_only_allow_editing_of_self
-    @user = User.find(params[:id])
+    @user = User.find(params[:id] || params[:user_id])
     raise EOL::Exceptions::SecurityViolation, "User with ID=#{current_user.id} does not have edit access to User with ID=#{@user.id}" unless current_user.can_update?(@user)
   end
 

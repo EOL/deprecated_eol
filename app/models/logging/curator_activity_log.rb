@@ -18,8 +18,6 @@ class CuratorActivityLog < LoggingModel
   belongs_to :synonym, :foreign_key => :object_id
   belongs_to :affected_comment, :foreign_key => :object_id, :class_name => Comment.to_s
 
-  named_scope :notifications_not_prepared, :conditions => "notifications_prepared_at IS NULL"
-
   validates_presence_of :user_id, :changeable_object_type_id, :activity_id, :created_at
 
   after_create :log_activity_in_solr
@@ -146,40 +144,75 @@ class CuratorActivityLog < LoggingModel
       'action_keyword' => keywords,
       'user_id' => self.user_id,
       'date_created' => self.created_at.solr_timestamp }
-    EOL::Solr::ActivityLog.index_activities(base_index_hash, activity_logs_affected)
+    EOL::Solr::ActivityLog.index_notifications(base_index_hash, notification_recipient_objects)
   end
 
-  def activity_logs_affected
-    logs_affected = {}
-    # activity feed of user taking action
-    logs_affected['User'] = [ self.user_id ]
+  def queue_notifications
+    Notification.queue_notifications(notification_recipient_objects, self)
+  end
 
-    # action on a concept
+  def notification_recipient_objects
+    return @notification_recipients if @notification_recipients
+    @notification_recipients = []
+    add_recipient_user_taking_action!(@notification_recipients)
+    add_recipient_affected_by_common_name!(@notification_recipients)
+    add_recipient_affected_by_object_curation!(@notification_recipients)
+    add_recipient_users_watching!(@notification_recipients)
+    add_recipient_author_of_curated_text!(@notification_recipients)
+    @notification_recipients
+  end
+
+private
+
+  def add_recipient_user_taking_action!(recipients)
+    # TODO: this is a new notification type - probably for ACTIVITY only
+    recipients << { :user => self.user, :notification_type => :i_curated_something,
+                    :frequency => NotificationFrequency.never }
+  end
+
+  def add_recipient_affected_by_common_name!(recipients)
     if self.changeable_object_type_id == ChangeableObjectType.synonym.id
-      logs_affected['TaxonConcept'] = [ self[:taxon_concept_id] || self.taxon_concept_id ]
-      logs_affected['AncestorTaxonConcept'] = self.taxon_concept.flattened_ancestor_ids
-      logs_affected['Synonym'] = [ self.object_id ]
-      Collection.which_contain(self.taxon_concept).each do |c|
-        logs_affected['Collection'] ||= []
-        logs_affected['Collection'] << c.id
-      end
-
-    # action on a data object
-    elsif object_is_data_object?
-      logs_affected['DataObject'] = [ self.object_id ]
-      self.data_object.curated_hierarchy_entries.each do |he|
-        logs_affected['TaxonConcept'] ||= []
-        logs_affected['TaxonConcept'] << he.taxon_concept_id
-        logs_affected['AncestorTaxonConcept'] ||= []
-        logs_affected['AncestorTaxonConcept'] |= he.taxon_concept.flattened_ancestor_ids
-      end
-      Collection.which_contain(self.data_object).each do |c|
-        logs_affected['Collection'] ||= []
-        logs_affected['Collection'] << c.id
+      unless self.taxon_concept.blank?
+        recipients << self.taxon_concept
+        recipients << { :ancestor_ids => self.taxon_concept.flattened_ancestor_ids }
+        # TODO: Synonym log??? this can maybe go away
+        # logs_affected['Synonym'] = [ self.object_id ]
+        Collection.which_contain(self.taxon_concept).each do |c|
+          recipients << c
+        end
       end
     end
-    logs_affected
   end
+
+  def add_recipient_affected_by_object_curation!(recipients)
+    if object_is_data_object?
+      recipients << self.data_object
+      self.data_object.curated_hierarchy_entries.each do |he|
+        recipients << he.taxon_concept
+        recipients << { :ancestor_ids => he.taxon_concept.flattened_ancestor_ids }
+      end
+      Collection.which_contain(self.data_object).each do |c|
+        recipients << c
+      end
+    end
+  end
+
+  def add_recipient_users_watching!(recipients)
+    recipients.select{ |r| r.class == Collection && r.watch_collection? }.each do |collection|
+      collection.users.each do |user|
+        user.add_as_recipient_if_listening_to!(:curation_on_my_watched_item, recipients)
+      end
+    end
+  end
+  
+  def add_recipient_author_of_curated_text!(recipients)
+    if object_is_data_object?
+      if u = self.data_object.contributing_user
+        u.add_as_recipient_if_listening_to!(:comment_on_my_contribution, recipients)
+      end
+    end
+  end
+  
 
   # All of these "types" are actually stored as a data_object, for reasons that escape me at the time of this
   # writing.  ...But if you care to find out why, I suggest you look at the data objects controller.
@@ -187,23 +220,6 @@ class CuratorActivityLog < LoggingModel
     [ ChangeableObjectType.data_object.id, ChangeableObjectType.data_objects_hierarchy_entry.id,
       ChangeableObjectType.curated_data_objects_hierarchy_entry.id, ChangeableObjectType.users_data_object.id
     ].include?(self.changeable_object_type_id)
-  end
-
-  def notify_listeners
-    collections = Collection.find(activity_logs_affected['Collection']).select {|c| c.watch_collection? }
-    # Curator actions on objects, taxa, collections, or communities in your watchlist
-    collections.each do |collection|
-      # NOTE - this is assuming that there is only one user in #users, since it's a watch list:
-      user = collection.users.first
-      user.notify_if_listening(:to => :curation_on_my_watched_item, :about => self)
-    end
-    # If the object is a UDO, we prolly want to notify the owner:
-  end
-
-private
-
-  def queue_notifications
-    Resque.enqueue(PrepareAndSendNotifications)
   end
 
 end

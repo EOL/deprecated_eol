@@ -7,8 +7,8 @@ describe Comment do
     load_foundation_cache
     @tc = build_taxon_concept()
     @tc_comment = @tc.comments[0]
-    @text_comment = @tc.data_objects.select { |d| d.data_type.label == 'Text'  }.select { |t| !t.comments.blank? }.first.comments.first
-    @image_comment = @tc.images_from_solr(100).select { |i| !i.comments.blank? }.first.comments.first
+    @text_comment = @tc.data_objects.select { |d| d.is_text? && !d.comments.blank? }.first.comments.first
+    @image_comment = @tc.data_objects.select { |d| d.is_image? && !d.comments.blank? }.first.comments.first
     @curator = User.find(@tc.curators[0])
     @non_curator = User.gen
     EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild

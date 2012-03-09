@@ -38,4 +38,18 @@ class Notification < ActiveRecord::Base
   # NOTE - there's a relationship here to the PendingNotification class, which actually references the literal name of
   # the field.  THUS (!) if you create a new field on this table, note that you are limited to 64 characters or less.
   # I think that's a reasonable limit.  ;)
+  
+  def self.types_to_show_in_activity_feeds
+    return [ :i_collected_something, :i_modified_a_community, :i_commented_on_something, :i_curated_something, :i_created_something ]
+  end
+  
+  def self.queue_notifications(notification_recipient_objects, target)
+    notification_recipient_objects.select{ |o| o.class == Hash && o[:user] }.each do |h|
+      next if h[:frequency] == NotificationFrequency.never
+      PendingNotification.create(:user => h[:user], :notification_frequency => h[:frequency], :target => target,
+                                 :reason => h[:notification_type].to_s)
+    end
+    Resque.enqueue(PrepareAndSendNotifications)
+  end
+  
 end

@@ -77,10 +77,7 @@ module EOL
       if options[:filter] && options[:filter] == 'messages'
         query = "activity_log_type:Comment AND (reply_to_id:#{source.id} OR (feed_type_affected:UserNews AND feed_type_primary_key:#{source.id}))"
       else
-        query = "reply_to_id:#{source.id} OR (feed_type_affected:UserNews AND feed_type_primary_key:#{source.id})"
-        if source.watch_collection
-          query = "(#{query}) OR (feed_type_affected:Collection AND feed_type_primary_key:#{source.watch_collection.id} NOT user_id:#{source.id})"
-        end
+        query = "feed_type_affected:UserNews AND feed_type_primary_key:#{source.id}"
       end
       if options[:after] && options[:after].respond_to?(:utc)
         query = "(#{query}) AND date_created:[#{options[:after].utc.strftime('%Y-%m-%dT%H:%M:%S')}Z TO NOW]"

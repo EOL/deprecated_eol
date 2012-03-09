@@ -20,7 +20,6 @@ class Comment < ActiveRecord::Base
 
   # I *do not* have any idea why Time.now wasn't working (I assume it was a time-zone thing), but this works:
   named_scope :visible, lambda { { :conditions => ['visible_at <= ?', 0.seconds.from_now] } }
-  named_scope :notifications_not_prepared, :conditions => "notifications_prepared_at IS NULL"
 
   before_create :set_visible_at, :set_from_curator
   after_create :log_activity_in_solr
@@ -221,44 +220,29 @@ class Comment < ActiveRecord::Base
       'reply_to_id' => self.user_id,
       'user_id' => self.user_id,
       'date_created' => self.created_at.solr_timestamp }
-    EOL::Solr::ActivityLog.index_activities(base_index_hash, activity_logs_affected)
+    EOL::Solr::ActivityLog.index_notifications(base_index_hash, notification_recipient_objects)
   end
 
-  def activity_logs_affected
-    logs_affected = {}
-    return {} if self.parent.nil?
-    # activity feed of user making comment
-    logs_affected['User'] = [ self.user_id ]
-    logs_affected['User'] << self.reply_to.user_id if reply? and reply_to.respond_to?(:user_id)
-    watch_collection_id = self.user.watch_collection.id rescue nil
-    # watch collection of user making comment
-    logs_affected['Collection'] = [ watch_collection_id ] if watch_collection_id
-    if self.parent_type == 'User'
-      # news feed of user commented on
-      logs_affected['UserNews'] = [ self.parent_id ]
-    else
-      # news feed of other types
-      logs_affected[self.parent.class.name] = [ self.parent_id ]
-    end
-    # news feed of collections which contain the thing commented on
-    self.parent.containing_collections.each do |c|
-      next if c.blank?
-      logs_affected['Collection'] ||= []
-      logs_affected['Collection'] << c.id
-    end
-    if self.parent_type == 'TaxonConcept'
-      # page's ancestors
-      logs_affected['AncestorTaxonConcept'] = self.parent.flattened_ancestor_ids
-    elsif self.parent_type == 'DataObject'
-      # object's pages and pages' ancestors
-      self.parent.curated_hierarchy_entries.each do |he|
-        logs_affected['TaxonConcept'] ||= []
-        logs_affected['TaxonConcept'] << he.taxon_concept_id
-        logs_affected['AncestorTaxonConcept'] ||= []
-        logs_affected['AncestorTaxonConcept'] |= he.taxon_concept.flattened_ancestor_ids
-      end
-    end
-    logs_affected
+  def queue_notifications
+    Notification.queue_notifications(notification_recipient_objects, self)
+  end
+
+  def notification_recipient_objects
+    return @notification_recipients if @notification_recipients
+    @notification_recipients = []
+    add_recipient_user_making_comment!(@notification_recipients)
+    add_recipient_object_getting_commented_on!(@notification_recipients)
+    add_recipient_collections_containing_object_getting_commented_on!(@notification_recipients)
+    add_recipient_replied_to_user!(@notification_recipients)
+    add_recipient_collection_managers!(@notification_recipients)
+    add_recipient_community_managers!(@notification_recipients)
+    add_recipient_users_watching!(@notification_recipients)
+    add_recipient_author_of_commented_on_text!(@notification_recipients)
+    @notification_recipients
+  end
+
+  def reply_is_comment?
+    return self.reply? && reply_to_type == 'Comment'
   end
 
   # A reply is only counted as a reply if it has an "@username:" somewhere in it.
@@ -266,65 +250,85 @@ class Comment < ActiveRecord::Base
     reply_to_id
   end
 
-  # Find users who are "listening" to this comment and queue a pending notification for them:
-  def notify_listeners
-    notify_reply_recipients
-    notify_profile_recipients
-    notify_collection_managers_of_comment
-    notify_community_managers_of_comment
-    notify_watchers 
-    notify_contributors_of_comments
-  end
-
 private
 
-  def notify_reply_recipients
-    if reply_is_comment?
-      self.reply_to.notify_if_listening(:to => :reply_to_comment, :about => self)
-    end
+  def add_recipient_user_making_comment!(recipients)
+    # TODO: this is a new notification type - probably for ACTIVITY only
+    recipients << { :user => self.user, :notification_type => :i_commented_on_something,
+                    :frequency => NotificationFrequency.never }
+    # watch collection of user making comment
+    recipients << self.user.watch_collection if self.user.watch_collection
   end
 
-  def notify_profile_recipients
+  def add_recipient_object_getting_commented_on!(recipients)
     if self.parent_type == 'User'
-      self.parent.notify_if_listening(:to => :comment_on_my_profile, :about => self)
+      # news feed of user commented on
+      user_commented_on = self.parent
+      user_commented_on.add_as_recipient_if_listening_to!(:comment_on_my_profile, recipients)
+    else
+      # news feed of other types
+      recipients << self.parent
+    end
+    
+    if self.parent_type == 'TaxonConcept'
+      # page's ancestors
+      recipients << { :ancestor_ids => self.parent.flattened_ancestor_ids }
+    elsif self.parent_type == 'DataObject'
+      # object's pages and pages' ancestors
+      self.parent.curated_hierarchy_entries.each do |he|
+        recipients << he.taxon_concept
+        recipients << { :ancestor_ids => he.taxon_concept.flattened_ancestor_ids }
+      end
     end
   end
 
-  def notify_collection_managers_of_comment
+  def add_recipient_collections_containing_object_getting_commented_on!(recipients)
+    # news feed of collections which contain the thing commented on
+    self.parent.containing_collections.each do |c|
+      next if c.blank?
+      recipients << c
+    end
+  end
+
+  def add_recipient_replied_to_user!(recipients)
+    if reply_is_comment?
+      original_comment_user = self.reply_to.user
+      original_comment_user.add_as_recipient_if_listening_to!(:reply_to_comment, recipients)
+    end
+  end
+
+  def add_recipient_collection_managers!(recipients)
     if self.parent_type == 'Collection'
       self.parent.managers.each do |manager|
-        manager.notify_if_listening(:to => :comment_on_my_collection, :about => self)
+        manager.add_as_recipient_if_listening_to!(:comment_on_my_collection, recipients)
       end
     end
   end
 
-  def notify_community_managers_of_comment
+  def add_recipient_community_managers!(recipients)
     if self.parent_type == 'Community'
       self.parent.managers_as_users.each do |manager|
-        manager.notify_if_listening(:to => :comment_on_my_community, :about => self)
+        manager.add_as_recipient_if_listening_to!(:comment_on_my_community, recipients)
       end
     end
   end
 
-  def notify_watchers
+  def add_recipient_users_watching!(recipients)
     if self.parent.respond_to?(:containing_collections)
       self.parent.containing_collections.watch.each do |collection|
         collection.users.each do |user|
-          user.notify_if_listening(:to => :comment_on_my_watched_item, :about => self)
+          user.add_as_recipient_if_listening_to!(:comment_on_my_watched_item, recipients)
         end
       end
     end
   end
 
-  def notify_contributors_of_comments
+  def add_recipient_author_of_commented_on_text!(recipients)
     if self.parent_type == 'DataObject'
-      user = self.parent.contributing_user
-      user.notify_if_listening(:to => :comment_on_my_contribution, :about => self)
+      if user = self.parent.contributing_user
+        user.add_as_recipient_if_listening_to!(:comment_on_my_contribution, recipients)
+      end
     end
-  end
-
-  def reply_is_comment?
-    return self.reply? && reply_to_type == 'Comment'
   end
 
   # Run when a comment is created, to ensure it is visible by default:
@@ -337,10 +341,6 @@ private
       self.from_curator = user.is_curator? ? true : false # Forces the value to true/false, rather than obj/nil
     end
     return self.from_curator.to_s
-  end
-
-  def queue_notifications
-    Resque.enqueue(PrepareAndSendNotifications)
   end
 
 end

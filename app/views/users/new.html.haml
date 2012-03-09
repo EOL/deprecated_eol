@@ -35,3 +35,8 @@
   %fieldset.actions
     = f.submit I18n.t('helpers.submit.user.create')
     = link_to I18n.t(:already_a_member_question), login_path
+
+= button_to I18n.t("Facebook"), :action => :create, :oauth_provider => :facebook
+/ = button_to I18n.t("Twitter"), { :action => :create, :provider => "twitter" }
+/ = button_to I18n.t("Google"), { :action => :create, :provider => "google" }
+/ = button_to I18n.t("Yahoo"), { :action => :create, :provider => "yahoo" }  

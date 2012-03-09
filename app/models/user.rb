@@ -32,6 +32,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   has_many :user_identities, :through => :users_user_identities
   has_many :worklist_ignored_data_objects
   has_many :pending_notifications
+  has_many :authentications
 
   has_many :content_partners
   has_one :user_info
@@ -66,7 +67,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   validates_confirmation_of :entered_password, :if => :password_validation_required?
 
-  validates_format_of :email, :with => @email_format_re
+  validates_format_of :email, :with => @email_format_re, :if => :email_validation_required?
 
   validates_acceptance_of :agreed_with_terms, :accept => true
 
@@ -469,6 +470,9 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def grant_curator(level = :full, options = {})
+    # TODO: Seems a little odd to have a default level here. Also there are no checks on these update_attributes calls
+    # to see if they were successful or not - also why are we calling update_attributes 3 times instead of just once?
+    # Can't we just define the parameters to be updated first then just call update_attributes once?
     level = CuratorLevel.send(level)
     unless curator_level_id == level.id
       self.update_attributes(:curator_level_id => level.id)
@@ -484,6 +488,8 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   alias approve_to_curate grant_curator
 
   def revoke_curator
+    # TODO: This is weird, if we are revoking the curator access why not call update_attributes once and 
+    # add if-else loop to check if it successfully updated the attributes.
     unless curator_level_id == nil
       self.update_attributes(:curator_level_id => nil)
     end
@@ -880,6 +886,10 @@ private
     else
       return true # encryption not required but we don't want to halt the process
     end
+  end
+
+  def email_validation_required?
+    ! self.email == "oauth_user"
   end
 
   # validation condition for required curator attributes

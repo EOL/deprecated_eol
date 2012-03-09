@@ -119,12 +119,34 @@ class UsersController < ApplicationController
 
   # GET /users/register
   def new
-    @user = User.new
+    if params[:oauth_provider]
+      if oauth = EOL::Oauth.init(params[:oauth_provider], {:code => params[:code], :callback => new_user_url(:oauth_provider => params[:oauth_provider])})
+        debugger
+        pp 'test'
+      else
+        #TODO: there was a problem initializing oauth
+        return
+      end
+      user_hash = get_user_attributes(new_user_url(:oauth_provider => params[:oauth_provider]), params)
+      if user_hash.nil? # OAuth authentication failed
+        # TODO: give user notice that they couldn't authenticate with OAuth provider (they'll just get the usual sign up form)
+      end
+    end
+    @user = User.new(user_hash)
   end
 
   # POST /users
   def create
-    @user = User.new(params[:user].reverse_merge(:language => current_language))
+    if params[:oauth_provider]
+      if oauth = EOL::Oauth.init(params[:oauth_provider], :callback => new_user_url(:oauth_provider => params[:oauth_provider]))
+        return redirect_to oauth.authorize_url
+      else
+        #TODO: there was a problem initializing oauth
+        return
+      end
+    end
+    
+    @user = User.create_new(params[:user])
     failed_to_create_user and return unless @user.valid? && verify_recaptcha
     @user.validation_code = User.generate_key
     while(User.find_by_validation_code(@user.validation_code))

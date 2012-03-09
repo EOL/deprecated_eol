@@ -78,21 +78,24 @@ ActionController::Routing::Routes.draw do |map|
   # users
   map.resources :users, :path_names => { :new => :register },
                 :member => { :terms_agreement => [ :get, :post ], :pending => :get, :activated => :get,
-                             :curation_privileges => :get, :make_editor => :put, :revoke_editor => :get,
+                             :curation_privileges => [ :get ], :make_editor => :put, :revoke_editor => :get,
                              :pending_notifications => :get },
-                :collection => { :forgot_password => :get, :usernames => :get } do |user|
-    user.resource :newsfeed, :only => [:show],
-                             :collection => { :comments => [:get] },
+                :collection => { :forgot_password => :get, :usernames => :get, :authenticate => :get } do |user|
+    user.resource :newsfeed, :only => [:show], :collection => { :comments => [:get] },
                              :controller => "users/newsfeeds"
     user.resource :notification, :only => [:edit, :update], :controller => "users/notifications"
     user.resource :activity, :only => [:show], :controller => "users/activities"
     user.resources :collections, :only => [:index], :controller => "users/collections"
     user.resources :communities, :only => [:index], :controller => "users/communities"
     user.resources :content_partners, :only => [:index], :namespace => "users/"
+    user.resources :authentications, :only => [:index, :create, :update], :namespace => "users/" # OAuth for existing users
   end
   map.verify_user '/users/:user_id/verify/:validation_code', :controller => 'users', :action => 'verify'
   # can't add dynamic segment to a member in rails 2.3 so we have to specify named route:
   map.reset_password_user 'users/:user_id/reset_password/:password_reset_token', :controller => 'users', :action => 'reset_password'
+  # # OAuth
+  #   map.authenticate '/users/authentications/:provider', :controller => 'users/authentications', :action => 'new'
+  #   map.oauth_callback '/callback', :controller => 'users/authentications', :action => 'callback'
 
   # sessions
   map.resources :sessions, :only => [:new, :create, :destroy]

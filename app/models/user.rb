@@ -130,14 +130,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     return false, users
   end
 
-  def self.oauth_authenticate(authentication)
-    if user = self.find_by_id_and_active(authentication.user_id, true)
-      return true, user
-    end
-    # if we get here authentication was unsuccessful
-    return false, nil
-  end
-
   def self.generate_key
     Digest::SHA1.hexdigest(rand(10**16).to_s + Time.now.to_f.to_s)
   end

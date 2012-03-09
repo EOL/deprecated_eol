@@ -56,24 +56,15 @@ class Users::AuthenticationsController < UsersController
     if logged_in? && authorized && current_user.id == authorized.user_id
       authorized.update_attributes(profile_information)
       flash[:notice] = I18n.t(:sign_in_successful_notice)
-    elsif logged_in? && !authorized && authentication = Authentication.create(:user_id => current_user.id, :provider => profile_information[:provider])
-      authentication.update_attributes(profile_information)
+    elsif logged_in? && !authorized && Authentication.create({ :user_id => current_user.id }.merge(profile_information))
       flash[:notice] = I18n.t(:oauth_authentication_added_and_sign_in_successful, :oauth_provider => profile_information[:provider])
     elsif !logged_in? && authorized
       authorized.update_attributes(profile_information)
-      if authenticated = User.oauth_authenticate(authorized)
-        reset_session
-        set_current_user(authorized.user)
-        flash[:notice] = I18n.t(:sign_in_successful_notice)
-      else
-        flash[:notice] = I18n.t(:oauth_sign_in_unsuccessful_error)
-      end
+      oauthenticate(authorized, :message => I18n.t(:sign_in_successful_notice))
     elsif !logged_in? && !authorized
-      remote_ip = request.remote_ip
-      if new_user = create_new_eol_user(profile_information, remote_ip)
-        reset_session
-        set_current_user(new_user)
-        flash[:notice] = I18n.t(:oauth_eol_account_created_and_authentication_added, :oauth_provider => profile_information[:provider])
+      if new_user = create_new_eol_user(profile_information, options)
+        new_authentication = Authentication.create({ :user_id => new_user.id }.merge(profile_information))
+        oauthenticate(new_authentication, :message => I18n.t(:oauth_eol_account_created_and_authentication_added, :oauth_provider => profile_information[:provider]))
       else
         flash[:notice] = I18n.t(:oauth_sign_in_unsuccessful_error)
       end
@@ -83,47 +74,59 @@ class Users::AuthenticationsController < UsersController
     redirect_back_or_default
   end
 
-  # Create new EOL user
-  def create_new_eol_user(profile_information, remote_ip)
-    # Get username no more than 32 characters
-    username = profile_information[:user_name]
-    username_already_exists = User.find_by_username(username)
-    if username_already_exists
-      username = "#{profile_information[:user_name]}_#{profile_information[:guid]}_#{profile_information[:provider]}".slice(0..31)
+  def oauthenticate(authentication, options)
+    if authenticated = Authentication.authenticate(authentication)
+      reset_session
+      set_current_user(authentication.user)
+      flash[:notice] = options[:message]
     else
-      username = profile_information[:user_name].slice(0..31)
+      flash[:notice] = I18n.t(:oauth_sign_in_unsuccessful_error)
     end
-    
+  end
+
+  # Create new EOL user
+  def create_new_eol_user(profile_information, options)
+    # Get username no more than 32 characters
+    username = get_user_name(profile_information)
     # Get random password no more than 16 characters
     password = (0...16).map{65.+(rand(25)).chr}.join
     
     # Create new user
-    oauth_user = User.create_new(
+    new_user = User.create_new(
                  :username => username,
                  :given_name => profile_information[:given_name],
                  :family_name => profile_information[:family_name],
                  :email => profile_information[:email].nil? ? "oauth_user" : profile_information[:email],
                  :entered_password => password, 
                  :entered_password_confirmation => password,
-                 :remote_ip => remote_ip
+                 :remote_ip => options[:remote_ip]
                  )
-    if oauth_user.save
+    if new_user.save
     #   begin
     #     # FIXME: Figure out whether we still need an agent to be created for a user in V2
     #     # If we do note that user does not have full_name on creation.
-    #     @user.update_attributes(:agent_id => Agent.create_agent_from_user(@user.full_name).id)
+    #     @user.update_attributes(:agent_id => Agent.create_agent_from_user(profile_information[:full_name]).id)
     #   rescue ActiveRecord::StatementInvalid
     #     # Interestingly, we are getting users who already have agents attached to them.  I'm not sure why, but it's causing registration to fail (or seem to; the user is created), and this is bad.
     #   end
       EOL::GlobalStatistics.increment('users')
-      if oauth_user.email == "oauth_user"
-        oauth_user.update_attribute(:email, "")
+      if new_user.email == "oauth_user"
+        new_user.update_attribute(:email, "")
       end
-      authentication = oauth_user.authentications.find_or_create_by_provider_and_guid(profile_information[:provider], profile_information[:guid])
-      authentication.update_attributes(profile_information)
-      oauth_user
+      new_user
     else
       nil
+    end
+  end
+
+  # return username no more than 32 characters
+  def get_user_name(profile_information)
+    username = profile_information[:user_name]
+    username_already_exists = User.find_by_username(username)
+    if username_already_exists
+      username = "#{profile_information[:user_name]}_#{profile_information[:guid]}_#{profile_information[:provider]}".slice(0..31)
+    else
+      username = profile_information[:user_name].slice(0..31)
     end
   end
 

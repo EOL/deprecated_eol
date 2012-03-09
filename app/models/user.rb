@@ -36,6 +36,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   has_many :users_user_identities
   has_many :user_identities, :through => :users_user_identities
   has_many :worklist_ignored_data_objects
+  has_many :authentications
 
   has_many :content_partners
   has_one :user_info
@@ -70,7 +71,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   validates_confirmation_of :entered_password, :if => :password_validation_required?
 
-  validates_format_of :email, :with => @email_format_re
+  validates_format_of :email, :with => @email_format_re, :if => :email_validation_required?
 
   validates_acceptance_of :agreed_with_terms, :accept => true
 
@@ -127,6 +128,14 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
       u.invalid_login_attempt # log failed attempts
     end
     return false, users
+  end
+
+  def self.oauth_authenticate(authentication)
+    if user = self.find_by_id_and_active(authentication.user_id, true)
+      return true, user
+    end
+    # if we get here authentication was unsuccessful
+    return false, nil
   end
 
   def self.generate_key
@@ -865,6 +874,10 @@ private
     else
       return true # encryption not required but we don't want to halt the process
     end
+  end
+
+  def email_validation_required?
+    ! self.email == "oauth_user"
   end
 
   # validation condition for required curator attributes

@@ -5,6 +5,7 @@
 # Author: Coyau
 # Author: Crochet.david
 # Author: DavidL
+# Author: Davidtsm
 # Author: Gomoko
 # Author: Hashar
 # Author: Jean-Frédéric
@@ -13,6 +14,7 @@
 # Author: McDutchie
 # Author: Od1n
 # Author: Seb35
+# Author: Sherbrooke
 # Author: Verdy p
 # Author: Zcqsc06
 fr: 
@@ -722,6 +724,7 @@ fr:
   content: 
     index: 
       meta_description: L'Encyclopédie de la Vie est un effort sans précédent pour collecter les connaissances scientifiques au sujet de toute vie animale et végétale, où les images, informations, faits et autres sont disponibles pour toutes les choses vivantes dans nos règnes animal et végétal.
+      meta_keywords: Animaux, Images d'Animaux, Information sur les Animaux, Plantes, Vie des Plantes, Images de Plantes, Information sur les Plantes, Flore, Faune
   content_has_been_updated: Le contenu a été mis à jour.
   content_notes_not_shown_to_us: "Notes sur le contenu (non montrées à l’utilisateur) :"
   content_partner: Partenaire de contenu
@@ -813,6 +816,7 @@ fr:
   content_partner_resource_edit_link: Modifier
   content_partner_resource_edit_subheader: Modifier la ressource
   content_partner_resource_edit_with_type_link: Modifier la ressource
+  content_partner_resource_harvest_event_confirm_publish: Êtes-vous sûr de vouloir publier l'événement de récolte %{completed_at} pour la ressource %{resource_title}? Prendre note que lorsque vous confirmerez la publication, votre requête sera mise dans une queue de traitement et peut prendre jusqu'à 24 heures avant qu'elle en soit traitée.
   content_partner_resource_harvest_event_current_published: Publié actuellement
   content_partner_resource_harvest_event_not_published: Non publié
   content_partner_resource_harvest_event_previously_published: Publié précédemment
@@ -1920,6 +1924,7 @@ fr:
   pagination_next_with_count: 
     one: voir le %{count} suivant
     other: voir les %{count} suivants
+  pagination_page_number: Page %{number}
   pagination_previous: Précédent
   pagination_previous_with_count: 
     one: voir le %{count} précédent
@@ -2010,7 +2015,7 @@ fr:
     one: "%{count} nom lié"
     other: "%{count} noms liés"
   remove: Supprimer
-  remove_curatorship_colon: "Supprimer la supervision:"
+  remove_curatorship_colon: "Supprimer la supervision :"
   remove_data_object_association: Supprimer l'association
   remove_membership: Supprimer l'adhésion
   removed_count_items_from_collection_notice: 
@@ -2018,7 +2023,7 @@ fr:
     other: "%{count} éléments ont été supprimés de cette collection."
   reply: Répondre
   request: Demande
-  request_mailing_list_colon: "Liste de diffusion des demandes:"
+  request_mailing_list_colon: "Liste de diffusion des demandes :"
   required_form_element: Obligatoire
   reset_password_enter_new_password_notice: Il s'agit d'une connexion unitaire; veuillez saisir un nouveau mot de passe pour continuer.
   reset_password_instructions_sent_to_user_notice: Les instructions pour réinitialiser le mot de passe sur votre compte <em>%{username}</em> ont été envoyées à votre adresse de courriel.
@@ -2029,7 +2034,7 @@ fr:
   response_formats: Formats de réponse
   results: Résultats
   results_offset: Résultats %{from} - %{to} sur %{total} pour <em>%{for}</em>
-  results_per_page: "Résultats par page:"
+  results_per_page: "Résultats par page :"
   return: retour
   return_all_common_names_for_this_taxon: renvoie tous les noms communs pour ce taxon
   return_all_synonyms_for_this_taxon: renvoie tous les synonymes pour ce taxon
@@ -2054,13 +2059,13 @@ fr:
   scientific_name: Nom scientifique
   search: Rechercher
   search_by_provider_method_description: obtenir les IDs de page EOL à partir d'un hierarchy_id du fournisseur et de l'identifiant unique du fournisseur
-  search_by_term_page_title: "Rechercher: %{term}"
+  search_by_term_page_title: "Rechercher : %{term}"
   search_field_label: Recherche sur EOL
-  search_for_comments_containing_the_text: "Rechercher les commentaires contenant le texte:"
-  search_for_curators_containing: "Recherche les superviseurs contenant:"
-  search_for_items_containing: "Recherche les éléments contenant:"
-  search_for_messages_containing: "Recherche les messages contenant:"
-  search_for_terms_containing: "Recherche les termes contenant:"
+  search_for_comments_containing_the_text: "Rechercher les commentaires contenant le texte :"
+  search_for_curators_containing: "Recherche les superviseurs contenant :"
+  search_for_items_containing: "Recherche les éléments contenant :"
+  search_for_messages_containing: "Recherche les messages contenant :"
+  search_for_terms_containing: "Recherche les termes contenant :"
   search_for_users_containing_this_in_their_username_name_or_email_address: Rechercher les utilisateurs contenant ceci dans leur nom d'utilisateur, leur nom ou leur adresse de courriel.
   search_input_advisory_information: Entrez le nom commun ou le nom scientifique d'une créature vivante sur laquelle vous désireriez en savoir plus. Vous pouvez aussi rechercher des membres EOL, des collections et des communautés.
   search_log_report_intro: Cette zone affiche les termes de recherche utilisateur les plus courants, le nombre de fois que cette recherche a été exécutée, et quelques informations sur le nombre de résultats renvoyés pour ce critère de recherche. Cliquez sur les colonnes pour trier selon cette colonne. Cliquez sur un critère de recherche pour voir les informations sur le résultat sur lequel les utilisateurs ont cliqué (le cas échéant) après une recherche.
@@ -2178,6 +2183,7 @@ fr:
     one: "%{count} son"
     other: "%{count} sons"
   source_and_additional_information: Source et information supplémentaire
+  source_colon: "Source :"
   source_information_header: Source d'information
   source_url: URL source
   special_collection: Collection spéciale

@@ -31,4 +31,4 @@
                     %td
                       = hierarchy_or_resource_name(outlink[:hierarchy])
                     %td
-                      = link_to hierarchy_outlink_collection_types(outlink[:hierarchy]), outlink[:outlink_url]
+                      = link_to hierarchy_outlink_collection_types(outlink[:hierarchy]), outlink[:outlink_url], :rel => :nofollow

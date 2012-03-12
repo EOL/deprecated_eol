@@ -43,7 +43,7 @@
                       :time_passed => time_ago_in_words(partner.latest_published_harvest_events.first.published_at))
                   - unless partner.homepage.blank?
                     %br/
-                    = link_to I18n.t(:content_partner_homepage_link), h(partner.homepage)
+                    = link_to I18n.t(:content_partner_homepage_link), h(partner.homepage), :rel => :nofollow
         .footer
           = will_paginate @partners, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next),
             :inner_window => 2, :outer_window => 2

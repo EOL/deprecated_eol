@@ -55,7 +55,11 @@ namespace :solr do
     puts "Rebuilding SiteSearch ...\n"
     EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild
     puts "Rebuilding CollectionItems ...\n"
-    EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild
+    EOL::Solr::CollectionItemsCoreRebuilder.begin_rebuild
+    # puts "Rebuilding ActivityLogs ...\n"
+    # solr = SolrAPI.new($SOLR_SERVER, $SOLR_ACTIVITY_LOGS_CORE)
+    # solr.obliterate
+    # EOL::Solr::ActivityLog.rebuild_comments_logs
     puts "Complete\n\n"
   end
 

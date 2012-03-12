@@ -1,4 +1,8 @@
 - # Note: this partial is shared between data object and taxa pages
+- reload_ajax_rating ||= false
+- if reload_ajax_rating
+  :javascript
+    EOL.enableRatings();
 - en_type ||= en_type(data_object)
 - total = 5
 - average_rating = data_object.safe_rating || 0
@@ -28,7 +32,7 @@
         %li{:class => "current_rating_#{user_rating}"}<
           = I18n.t("your_current_rating_#{user_rating}_of_#{total}")
         - link_url = params[:force_return_to] ? params[:force_return_to] : current_url(false)
-        - @rating_link_template ||= rate_data_object_path(data_object, :stars => '#RATINGINDEX', :return_to => link_url, :minimal => minimal.to_s)
+        - @rating_link_template = rate_data_object_path(data_object, :stars => '#RATINGINDEX', :return_to => link_url, :minimal => minimal.to_s)
         - total.times do |i|
           - rating = i + 1
           %li

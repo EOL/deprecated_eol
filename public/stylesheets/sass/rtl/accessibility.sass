@@ -336,72 +336,8 @@ form#switch_hierarchy_entry
       input[type="text"]
         width: 118px
         direction: rtl
-#new_content_partner_agreement, form.edit_content_partner_agreement
-  dl
-    clear: both
-    dd
-      margin: 0 0 10px 0
-      input[type="text"]
-        +input
-      textarea
-        +input(700px)
-        height: 400px
-#content_partner_show
-  .empty
-    font-size: 1em
-  .agreement
-    address
-      display: block
-      width: 40%
-      line-height: 170%
-      &.partner
-        float: right
-      &.eol
-        float: left
-  dl.agreement
-    margin: 0 0 15px 0
-    line-height: 140%
-    dd
-      margin: 0 20px 5px 0
-  #resources_show
-    .section
-      &.half
-        float: right
-        width: 299px
-        margin-left: 20px
-      dl
-        line-height: 140%
-        margin: 0 0 40px 0
-        dt
-          font-weight: bold
-        dd
-          margin: 0 20px 5px 0
-#content_partner_edit, #content_partner_new
-  &.site_column
-    width: 640px
 
-ul.content_partner_contacts
-  li
-    margin: 0 0 20px 0
-#content_partner_statistics
-  .main_container
-    border: none
-    padding: 0
-  .header
-    border-top: 1px solid #CAD3DB
-    padding-top: 1em
-    margin-top: 40px
-  .heading
-    text-align: center
-    fieldset, input[type="submit"]
-      display: inline
-      margin: 0
-  table
-    margin-top: 20px
-    caption
-      line-height: 170%
-      font-size: 1.08em
-      font-weight: bold
+
 
 /** warning messages - check HR commits for updates to this **/
 p.status
@@ -794,7 +730,7 @@ body
   #main
     .article
       .copy, .references
-        margin: 0 0 15px 0
+        margin: 0 40px 15px 40px
         line-height: 170%
         li
           margin: 0 0 10px 0
@@ -1245,7 +1181,7 @@ table
     +direction-alignment(ltr, left)
     select
       direction: rtl
-#classifications_summary
+.classifications
   ul
     li
       ul
@@ -1257,7 +1193,6 @@ table
               display: inline
           a.show_tree
             +direction-alignment(rtl,left)
-            display: block
 
 input#user_email,
 input#user_username,

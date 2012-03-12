@@ -34,10 +34,8 @@ class CreateNotifications < ActiveRecord::Migration
     add_index :notifications, :user_id
 
     add_column :users, :disable_email_notifications, :boolean, :default => false
-
-    User.all(:select => 'id, mailing_list').each do |user|
-      Notification.create(:user_id => user.id, :eol_newsletter => user.mailing_list)
-    end
+    
+    execute("INSERT IGNORE INTO notifications (user_id, eol_newsletter) SELECT id, mailing_list FROM users")
 
     remove_column :users, :mailing_list
     # TODO - Figure out how not to use it for content partners and remove it from users table.

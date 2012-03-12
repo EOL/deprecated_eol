@@ -1,5 +1,9 @@
 class RetrofitReplyToIdsToSolrComments < ActiveRecord::Migration
   def self.up
+    
+    
+    # TODO: Move this to a later date so NotificationFrequencies exist
+    
     # We released the reply-to functionality this year.  I'm going back a little further just to be safe (though I
     # did actually check it and there isn't really a need; it doesn't hurt):
     # (NOTE - as of this writing, there were all of 36 comments on staging (at least) to apply this to, so I'm not

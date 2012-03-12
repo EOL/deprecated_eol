@@ -132,13 +132,16 @@ module EOL
           :table_of_contents => '*',
           :translated_table_of_contents => '*',
           :users => '*',
+          :vetted => '*',
+          :visibilties => '*',
           :hierarchy_entries => [ :id, :published, :visibility_id, :taxon_concept_id, :name_id, :hierarchy_id ],
           :names => [ :id, :string, :canonical_form_id ],
           :canonical_forms => [ :id, :string ]
         }
         
         if options[:view_style] == ViewStyle.annotated
-          includes << { :data_objects_hierarchy_entries => { :hierarchy_entry => [ { :name => :canonical_form } ] } }
+          includes << { :data_objects_hierarchy_entries => [ { :hierarchy_entry => [ { :name => :canonical_form }, :hierarchy ] },
+            :vetted, :visibility ] }
           includes << { :curated_data_objects_hierarchy_entries => [ :user, { :hierarchy_entry => [ { :name => :canonical_form } ] } ] }
         end
         DataObject.preload_associations(instances_that_are_used, includes, :select => selects)

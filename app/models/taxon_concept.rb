@@ -112,11 +112,10 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def preferred_common_name_in_language(language)
-    common_names = preferred_common_names.select do |preferred_common_name|
+    best_name_in_language = preferred_common_names.detect do |preferred_common_name|
       preferred_common_name.language_id == language.id
     end
-    return common_names[0].name.string unless common_names.blank?
-    return nil
+    best_name_in_language.name.string if best_name_in_language
   end
 
   # TODO - this will now be called on ALL taxon pages.  Eep!  Make this more efficient:
@@ -317,7 +316,8 @@ class TaxonConcept < ActiveRecord::Base
     hierarchy ||= Hierarchy.default
     raise "Error finding default hierarchy" if hierarchy.nil? # EOLINFRASTRUCTURE-848
     raise "Cannot find a HierarchyEntry with anything but a Hierarchy" unless hierarchy.is_a? Hierarchy
-
+    
+    TaxonConcept.preload_associations(self, :published_hierarchy_entries => [ :vetted, :hierarchy ])
     @all_entries ||= HierarchyEntry.sort_by_vetted(published_hierarchy_entries)
     if @all_entries.blank?
       @all_entries = HierarchyEntry.sort_by_vetted(hierarchy_entries)
@@ -1088,7 +1088,8 @@ class TaxonConcept < ActiveRecord::Base
       :per_page => 20,
       :language_ids => [ the_user.language_id ],
       :toc_ids => overview_toc_item_ids })
-    DataObject.preload_associations(overview_text_objects, { :data_objects_hierarchy_entries => :hierarchy_entry },
+    DataObject.preload_associations(overview_text_objects, { :data_objects_hierarchy_entries => [ :hierarchy_entry,
+      :vetted, :visibility ] },
       :select => {
         :data_objects_hierarchy_entries => '*',
         :hierarchy_entries => '*'
@@ -1135,6 +1136,8 @@ class TaxonConcept < ActiveRecord::Base
         :data_object_translations => '*',
         :table_of_contents => '*',
         :info_items => '*',
+        :toc_items => '*',
+        :translated_table_of_contents => '*',
         :users_data_objects => '*',
         :resources => '*',
         :content_partners => '*',
@@ -1144,8 +1147,10 @@ class TaxonConcept < ActiveRecord::Base
         :users_data_objects_ratings => '*' }
       DataObject.preload_associations(text_objects, [ :users_data_objects_ratings, :comments,
         { :published_refs => :ref_identifiers }, :translations, :data_object_translation, { :toc_items => :info_items },
-        { :data_objects_hierarchy_entries => { :hierarchy_entry => { :hierarchy => { :resource => :content_partner } } } },
-        { :curated_data_objects_hierarchy_entries => :hierarchy_entry }, :info_items, :users_data_object ],
+        { :data_objects_hierarchy_entries => [ { :hierarchy_entry => { :hierarchy => { :resource => :content_partner } } },
+          :vetted, :visibility ] },
+        { :curated_data_objects_hierarchy_entries => :hierarchy_entry }, :info_items, :users_data_object,
+        { :toc_items => [ :translations, [ :parent => :translations ] ] } ],
         :select => selects)
     end
     text_objects

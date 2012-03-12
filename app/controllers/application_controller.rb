@@ -1,4 +1,5 @@
 require 'uri'
+require 'ruby-prof'
 ContentPage # TODO - figure out why this fails to autoload.  Look at http://kballcodes.com/2009/09/05/rails-memcached-a-better-solution-to-the-undefined-classmodule-problem/
 
 class ApplicationController < ActionController::Base
@@ -37,6 +38,20 @@ class ApplicationController < ActionController::Base
     :allow_page_to_be_cached?, :link_to_item
 
   before_filter :set_locale
+  
+  around_filter :profile
+  
+  def profile
+    return yield if params[:profile].nil?
+    return yield if ![ 'v2staging', 'v2staging_dev', 'v2staging_dev_cache', 'development', 'test'].include?(ENV['RAILS_ENV'])
+    result = RubyProf.profile { yield }
+    printer = RubyProf::GraphPrinter.new(result)
+    out = StringIO.new
+    printer.print(out, 0)
+    response.body.replace out.string
+    response.content_type = "text/plain"
+  end
+  
 
   # Continuously display a warning message.  This is used for things like "System Shutting down at 15 past" and the
   # like.  And, yes, if there's a "real" error, they won't see the message because flash[:error] will be

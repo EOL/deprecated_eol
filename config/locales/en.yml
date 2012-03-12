@@ -1979,7 +1979,6 @@ en:
   edit_upload: "Edit Upload"
   edit_username: "Edit %{username}"
   edit_web_users: "edit web users"
-  editors_tab_label: "Editors"
   editors_tab_label: "Managers"
   e_g_search_for_the_eol_page: "(e.g. search for the EOL page ID for the ITIS TSN 180542:"
   email_colon: "Email:"

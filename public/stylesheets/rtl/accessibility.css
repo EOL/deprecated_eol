@@ -303,84 +303,6 @@ form#switch_hierarchy_entry fieldset {
   width: 118px;
   direction: rtl; }
 
-#new_content_partner_agreement dl, form.edit_content_partner_agreement dl {
-  clear: both; }
-  #new_content_partner_agreement dl dd, form.edit_content_partner_agreement dl dd {
-    margin: 0 0 10px 0; }
-    #new_content_partner_agreement dl dd input[type="text"], form.edit_content_partner_agreement dl dd input[type="text"] {
-      width: 308px;
-      height: 22px;
-      padding: 2px 5px;
-      font: normal 1em Helvetica, Arial, sans-serif;
-      border: 1px solid #cad3db;
-      background-color: white;
-      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
-      background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
-      background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white)); }
-    #new_content_partner_agreement dl dd textarea, form.edit_content_partner_agreement dl dd textarea {
-      width: 700px;
-      height: 22px;
-      padding: 2px 5px;
-      font: normal 1em Helvetica, Arial, sans-serif;
-      border: 1px solid #cad3db;
-      background-color: white;
-      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
-      background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
-      background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white));
-      height: 400px; }
-
-#content_partner_show .empty {
-  font-size: 1em; }
-#content_partner_show .agreement address {
-  display: block;
-  width: 40%;
-  line-height: 170%; }
-  #content_partner_show .agreement address.partner {
-    float: right; }
-  #content_partner_show .agreement address.eol {
-    float: left; }
-#content_partner_show dl.agreement {
-  margin: 0 0 15px 0;
-  line-height: 140%; }
-  #content_partner_show dl.agreement dd {
-    margin: 0 20px 5px 0; }
-#content_partner_show #resources_show .section.half {
-  float: right;
-  width: 299px;
-  margin-left: 20px; }
-#content_partner_show #resources_show .section dl {
-  line-height: 140%;
-  margin: 0 0 40px 0; }
-  #content_partner_show #resources_show .section dl dt {
-    font-weight: bold; }
-  #content_partner_show #resources_show .section dl dd {
-    margin: 0 20px 5px 0; }
-
-#content_partner_edit.site_column, #content_partner_new.site_column {
-  width: 640px; }
-
-ul.content_partner_contacts li {
-  margin: 0 0 20px 0; }
-
-#content_partner_statistics .main_container {
-  border: none;
-  padding: 0; }
-#content_partner_statistics .header {
-  border-top: 1px solid #cad3db;
-  padding-top: 1em;
-  margin-top: 40px; }
-#content_partner_statistics .heading {
-  text-align: center; }
-  #content_partner_statistics .heading fieldset, #content_partner_statistics .heading input[type="submit"] {
-    display: inline;
-    margin: 0; }
-#content_partner_statistics table {
-  margin-top: 20px; }
-  #content_partner_statistics table caption {
-    line-height: 170%;
-    font-size: 1.08em;
-    font-weight: bold; }
-
 /*warning messages - check HR commits for updates to this */
 p.status.error {
   border: 1px solid #f2d2cc;
@@ -738,7 +660,7 @@ body > #header .section .session.join {
  * to remove some HR styles from nested p. Check latest HR and remove the table styles here if possible.
  * if we keep this we should DRY it out - same for whole file actually */
 #taxon_detail #main .article .copy, #taxon_detail #main .article .references {
-  margin: 0 0 15px 0;
+  margin: 0 40px 15px 40px;
   line-height: 170%; }
   #taxon_detail #main .article .copy li, #taxon_detail #main .article .references li {
     margin: 0 0 10px 0;
@@ -1187,17 +1109,16 @@ table.synonyms, table.common_names, table.edit_common_names, table.related_names
   table.synonyms select, table.common_names select, table.edit_common_names select, table.related_names select {
     direction: rtl; }
 
-#classifications_summary ul li ul {
+.classifications ul li ul {
   direction: ltr; }
-  #classifications_summary ul li ul li.show_tree_count {
+  .classifications ul li ul li.show_tree_count {
     direction: rtl;
     text-align: left; }
-    #classifications_summary ul li ul li.show_tree_count a.show_tree {
+    .classifications ul li ul li.show_tree_count a.show_tree {
       display: inline; }
-  #classifications_summary ul li ul li a.show_tree {
+  .classifications ul li ul li a.show_tree {
     direction: rtl;
-    text-align: left;
-    display: block; }
+    text-align: left; }
 
 input#user_email,
 input#user_username,

@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Schu
+# Author: Shirayuki
 ja: 
   translated_activities-name-activity_id-19: プロファイル
   translated_activities-name-activity_id-50: 信頼できない
@@ -75,6 +76,7 @@ ja:
   translated_contact_subjects-title-contact_subject_id-17: 財政貢献を行う
   translated_contact_subjects-title-contact_subject_id-18: コンテンツパートナーになるには
   translated_contact_subjects-title-contact_subject_id-19: 種のページグループへのフィードバック
+  translated_contact_subjects-title-contact_subject_id-2: 貢献
   translated_contact_subjects-title-contact_subject_id-20: コンテンツパートナーサポート
   translated_contact_subjects-title-contact_subject_id-21: 種ページグループの Cynthia Parr にメッセージを送信
   translated_contact_subjects-title-contact_subject_id-23: Eli Agbayani にメッセージを送信

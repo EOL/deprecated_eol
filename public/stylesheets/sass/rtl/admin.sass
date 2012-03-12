@@ -1,5 +1,18 @@
 @import "common"
 
+table.standard
+  tbody
+    th[scope="row"]
+      background-color: #EFF2F4
+      text-align: left
+      padding: 0 10px
+#tabs_bar
+  margin: 0 20px
+  ul
+    li
+      display: inline-block
+      &.active
+        border-color: #93A4B0 #93A4B0 white #93A4B0
 .main_container
   .heading
     overflow: hidden
@@ -95,6 +108,11 @@
           width: 118px
         select
           width: 120px
+    &.small
+      fieldset
+        &.actions
+          padding: 0
+          margin: 10px 0 0 0
 #content_partners
   &.main_container
     .header
@@ -178,3 +196,20 @@
       margin-bottom: 5px
     th
       width: 25%
+#content.statistics
+  .site_column
+    width: 100%
+  .main_container
+    border: none
+    fieldset
+      display: inline-block
+      &.actions
+        margin-right: 10px
+    table
+      tbody
+        td
+          text-align: left
+  #statistics_overall
+    table
+      width: 40%
+      margin-bottom: 40px

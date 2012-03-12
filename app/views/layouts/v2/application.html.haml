@@ -108,11 +108,11 @@
         = render :partial => '/layouts/v2/global_navigation', :locals => { :position => :footer }
         %ul.social_media
           - # TODO: add rss ?
-          %li= link_to I18n.t(:twitter), $EOL_TWITTER_ACCOUNT, :class => "twitter"
-          %li= link_to I18n.t(:facebook), $EOL_FACEBOOK_ACCOUNT, :class => "facebook"
-          %li= link_to I18n.t(:tumblr), $EOL_TUMBLR_ACCOUNT, :class => "tumblr"
-          %li= link_to I18n.t(:flickr), $EOL_FLICKR_ACCOUNT, :class => "flickr"
-          %li= link_to I18n.t(:youtube), $EOL_YOUTUBE_ACCOUNT, :class => "youtube"
+          %li= link_to I18n.t(:twitter), $EOL_TWITTER_ACCOUNT, :class => "twitter", :rel => :nofollow
+          %li= link_to I18n.t(:facebook), $EOL_FACEBOOK_ACCOUNT, :class => "facebook", :rel => :nofollow
+          %li= link_to I18n.t(:tumblr), $EOL_TUMBLR_ACCOUNT, :class => "tumblr", :rel => :nofollow
+          %li= link_to I18n.t(:flickr), $EOL_FLICKR_ACCOUNT, :class => "flickr", :rel => :nofollow
+          %li= link_to I18n.t(:youtube), $EOL_YOUTUBE_ACCOUNT, :class => "youtube", :rel => :nofollow
 
       = yield :footer
     = javascript_include_merged 'head.load.min'

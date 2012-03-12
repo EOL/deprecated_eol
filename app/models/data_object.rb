@@ -544,21 +544,12 @@ class DataObject < ActiveRecord::Base
   def owner
     # rights holder is preferred
     return rights_holder, nil unless rights_holder.blank?
-
-    # otherwise choose agents ordered by preferred agent_role
-    role_order = [ AgentRole.author, AgentRole.photographer, AgentRole.source,
-                   AgentRole.editor, AgentRole.contributor ]
-    role_order.each do |role|
-      best_ado = agents_data_objects.find_all{|ado| ado.agent_role_id == role.id && ado.agent}
-      break unless best_ado.blank?
+    unless agents_data_objects.empty?
+      AgentsDataObject.sort_by_role_for_owner(agents_data_objects)
+      if first_agent = agents_data_objects.first.agent
+        return first_agent.full_name, first_agent.user
+      end
     end
-
-    # if we don't have any agents with the preferred roles then just pick one
-    best_ado = agents_data_objects.find_all{|ado| ado.agent_role && ado.agent} if best_ado.blank?
-    return nil if best_ado.blank?
-    # TODO: optimize this, preload agents and users on DataObject or something
-    return best_ado.first.agent.full_name, best_ado.first.agent.user
-
   end
 
   # Find all of the authors associated with this data object, including those that we dynamically add elsewhere

@@ -13,7 +13,7 @@
   #social_sharing
     - if $ENABLED_SOCIAL_PLUGINS && $ENABLED_SOCIAL_PLUGINS.include?(:twitter)
       .twitter
-        %a{:href => "https://twitter.com/share", :class => "twitter-share-button",
+        %a{:href => "https://twitter.com/share", :class => "twitter-share-button", :rel => "nofollow",
           :data => tweet_data}
           = I18n.t(:social_sharing_twitter_tweet_button)
     - if $ENABLED_SOCIAL_PLUGINS && $ENABLED_SOCIAL_PLUGINS.include?(:facebook)

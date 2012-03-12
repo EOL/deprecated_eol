@@ -79,9 +79,9 @@ module EOL
           'data_subtype_id' => data_object.data_subtype_id || 0,
           'published' => data_object.published? ? 1 : 0,
           'data_rating' => data_object.data_rating,
-          'language_id' => data_object.language_id,
+          'language_id' => data_object.language_id || 0,
           'license_id' => data_object.license_id,
-          'created_at' => data_object.created_at ? data_object.created_at.solr_timestamp : nil
+          'created_at' => data_object.created_at ? data_object.created_at.solr_timestamp : '1960-01-01T00:00:01Z'
         }
         # add resource ID
         if he = data_object.harvest_events.first

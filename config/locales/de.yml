@@ -108,6 +108,9 @@ de:
         data_objects_unreviewed: Ungeprüfte Datenobjekte
         data_objects_untrusted: Nicht vertrauenswürdige Datenobjekte
         data_objects_videos: Videoobjekte
+        hotlist_pages: Beliebte Seiten
+        lifedesk_data_objects: LifeDesks-Datenobjekte
+        lifedesk_taxa: LifeDesks-Taxa
         marine_pages: Seiten zu marinem Leben
         marine_pages_in_col: Seiten zu marinem Leben im CoL
         marine_pages_with_objects: Seiten zu marinem Leben mit Datenobjekten
@@ -137,6 +140,10 @@ de:
         published_resources: Veröffentlichte Quellen
         published_trusted_resources: Vertrauenswürdige veröffentlichte Quellen
         published_unreviewed_resources: Veröffentlichte ungeprüfte Quellen
+        redhotlist_pages: Beliebte rote Seiten
+        rich_hotlist_pages: Beliebte reichhaltige Seiten
+        rich_pages: Reichhaltige Seiten
+        rich_redhotlist_pages: Beliebte rote und reichhaltige Seiten
         udo_published: Von Nutzern verfasste Texte
         udo_published_by_curators: Von Kuratoren verfasste Texte
         udo_published_by_non_curators: Nicht von Kuratoren verfasste Texte
@@ -357,8 +364,8 @@ de:
   add_brief_summary_to_page_link_button: Fügen Sie dieser Seite eine kurze Zusammenfassung hinzu
   add_collection_to_a_new_community: Die Sammlung „%{collection}“ einer neuen Gemeinschaft hinzufügen
   add_collection_to_community: Die Sammlung der Gemeinschaft hinzufügen
-  add_education_resources_to_page_link_button: Fügen Sie dieser Seite Bildungsmaterialien hinzu
-  add_identification_resources_to_page_link_button: Fügen Sie dieser Seite Identifikationsquellen hinzu
+  add_education_resources_to_page_link_button: Fügen Sie dieser Seite Bildungsmittel hinzu
+  add_identification_resources_to_page_link_button: Fügen Sie dieser Seite Identifizierungsquellen hinzu
   add_item_to_new_collection: „%{item}“ zu einer neuen Sammlung hinzufügen
   add_language: Sprache hinzufügen
   add_new_association_link: Fügen Sie eine neue Zuordnung hinzu
@@ -449,10 +456,18 @@ de:
         page_title: "Verwaltung: Gesamtstatistiken"
         table_caption: Die Gesamtstatistiken der Website wurden am %{created_at_time} erstellt
       index_link: Gesamtstatistiken
+      lifedesk: 
+        page_header: Statistiken zu LifeDesks
+        page_title: "Verwaltung: Statistiken zu LifeDesks"
+      lifedesk_link: LifeDesks
       marine: 
         page_header: Marines Leben in der EOL
         page_title: "Verwaltung: Statistiken zu marinem Leben"
       marine_link: Statistiken zu marinem Leben
+      page_richness: 
+        page_header: Statistiken zu reichhaltigen Seiten
+        page_title: "Verwaltung: Statistiken zu reichhaltigen Seiten"
+      page_richness_link: Reichhaltige Seiten
       user_added_data: 
         page_header: Statistiken zu von Nutzern erstellten Texten
         page_title: "Verwaltung: Statistiken zu von Nutzern erstellten Texten"
@@ -866,6 +881,7 @@ de:
   content_partner_resource_edit_link: Bearbeiten
   content_partner_resource_edit_subheader: Quelle bearbeiten
   content_partner_resource_edit_with_type_link: Quelle bearbeiten
+  content_partner_resource_harvest_event_confirm_publish: Sind Sie sicher, dass Sie den Datenabruf vom %{completed_at} für Quelle %{resource_title} veröffentlichen wollen? Bitte beachten Sie, dass es nach Ihrer Bestätigung noch bis zu 24 Stunden dauern kann, bis der Datenabruf durchgeführt wird, da er zunächst in eine Auftragswarteschlange aufgenommen wird.
   content_partner_resource_harvest_event_current_published: Derzeit veröffentlicht
   content_partner_resource_harvest_event_not_published: Nicht veröffentlicht
   content_partner_resource_harvest_event_previously_published: Zuvor veröffentlicht
@@ -1335,6 +1351,7 @@ de:
         view_style_id: "Standardansicht:"
       collection_item: 
         annotation: Annotation
+        refs: Quellen <small>(setzen Sie jede Quellenangabe in jeweils eine neue Zeile)</small>
         sort_field: Sortieren nach <small>(Datum - JJJJ.MM.TT, Zahl oder Text)</small>
         sort_field_show: "Wert sortieren:"
       comment: 
@@ -1372,7 +1389,7 @@ de:
         license_id: Lizenz
         license_id_more: Lesen Sie die <a href="%{policy_url}">Lizenzbestimmungen von EOL</a>
         object_title: Titel
-        refs: Quellen <small>(setzen Sie jede Quelle in jeweils eine neue Zeile)</small>
+        refs: Quellen <small>(setzen Sie jede Quellenangabe in jeweils eine neue Zeile)</small>
         rights_holder: Rechteinhaber
         rights_statement: Urheberrechtserklärung
         source_url: URL zum ursprünglichen Datenobjekt
@@ -1492,6 +1509,7 @@ de:
         update: Artikel speichern
       eol_statistic: 
         download_csv: Als CSV-Datei herunterladen
+      filter_sort: Filtern und Sortieren
       harvest_event: 
         publish: Veröffentlichen
       hierarchy: 
@@ -2306,6 +2324,7 @@ de:
     one: Eine Tonaufnahme
     other: "%{count} Tonaufnahmen"
   source_and_additional_information: Quelle und weitere Informationen
+  source_colon: "Quelle:"
   source_information_header: Informationen zur Quelle
   source_url: Quell-URL
   special_collection: Sondersammlung
@@ -2356,6 +2375,7 @@ de:
         hierarchy_entry: 
           meta_description: Sammlungen die %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}, enthalten.
           meta_description_with_common_name: Sammlungen die %{preferred_common_name} (%{scientific_name}), entsprechend der Klassifizierung durch %{hierarchy_provider}, enthalten.
+          meta_keywords: Sammlungen zu %{scientific_name}, Beobachtungen zu %{scientific_name}, Sammlungen von %{hierarchy_provider}, Beobachtungen von %{hierarchy_provider}, Musterexemplate von %{hierarchy_provider}
           meta_title: Sammlungen zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
           meta_title_with_common_name: Sammlungen zu %{preferred_common_name} (%{scientific_name}), entsprechend der Klassifizierung durch %{hierarchy_provider}.
           tweet_text: Sammlungen zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
@@ -2377,6 +2397,8 @@ de:
         tweet_text: Kuratoren zu %{scientific_name}
       index: 
         hierarchy_entry: 
+          meta_description: Teile Informationen und Fachwissen zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
+          meta_description_with_common_name: Teile Informationen und Fachwissen zu %{preferred_common_name} (%{scientific_name}), entsprechend der Klassifizierung durch %{hierarchy_provider}.
           meta_keywords: Gemeinschaft zu %{scientific_name}, %{hierarchy_provider}
           meta_title: An %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}, interessierte Menschen.
           meta_title_with_common_name: An %{preferred_common_name} (%{scientific_name}), entsprechend der Klassifizierung durch %{hierarchy_provider}, interessierte Menschen.
@@ -2494,10 +2516,51 @@ de:
         meta_title: "%{scientific_name}"
         meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})"
         tweet_text: Überblick zu %{scientific_name}
+    resources: 
+      biomedical_terms: 
+        hierarchy_entry: 
+          tweet_text: Biomedizinische Begriffe zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
+        meta_title: Biomedizinische Begriffe zu %{scientific_name}
+        meta_title_with_common_name: Biomedizinische Begriffe zu %{preferred_common_name} (%{scientific_name})
+        tweet_text: Biomedizinische Begriffe zu %{scientific_name}
+      education: 
+        hierarchy_entry: 
+          meta_title: Lernhilfen zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
+          meta_title_with_common_name: Lernhilfen zu %{preferred_common_name} (%{scientific_name}), entsprechend der Klassifizierung durch %{hierarchy_provider}.
+          tweet_text: Lernhilfen zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
+        meta_title: Bildungsmittel zu %{scientific_name}
+        meta_title_with_common_name: Bildungsmittel zu %{preferred_common_name} (%{scientific_name})
+        tweet_text: Bildungsmittel zu %{scientific_name}
+      identification_resources: 
+        hierarchy_entry: 
+          tweet_text: Identifizierungsquellen zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
+        meta_title: Identifizierungsquellen zu %{scientific_name}
+        meta_title_with_common_name: Identifizierungsquellen zu %{preferred_common_name} (%{scientific_name})
+        tweet_text: Identifizierungsquellen zu %{scientific_name}
+      nucleotide_sequences: 
+        hierarchy_entry: 
+          tweet_text: Nukleotidsequenzen zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
+        meta_title: Nukleotidsequenzen zu %{scientific_name}
+        meta_title_with_common_name: Nukleotidsequenzen zu %{preferred_common_name} (%{scientific_name})
+        tweet_text: Nukleotidsequenzen zu %{scientific_name}
+      show: 
+        hierarchy_entry: 
+          meta_title: Datenlieferanten zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
+          meta_title_with_common_name: Datenlieferanten zu %{preferred_common_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}
+          tweet_text: Datenlieferanten zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
+        meta_title: Quellen von Inhalten zu %{scientific_name}
+        meta_title_with_common_name: Quellen von Inhalten zu %{preferred_common_name} (%{scientific_name})
+        tweet_text: Quellen von Inhalten zu %{scientific_name}
     updates: 
       show: 
+        hierarchy_entry: 
+          meta_title: Aktualisierungen zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
+          meta_title_with_common_name: Aktualisierungen zu %{preferred_common_name} (%{scientific_name}), entsprechend der Klassifizierung durch %{hierarchy_provider}.
+          tweet_text: Aktualisierungen zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
         meta_description: Nachrichten und Neuigkeiten zu %{scientific_name}.
         meta_description_with_common_name: Nachrichten zu %{preferred_common_name} und Neuigkeiten zu %{scientific_name}.
+        meta_keywords: Nachrichten zu %{scientific_name}, Neuigkeiten zu %{scientific_name}.
+        meta_keywords_with_common_name: Nachrichten zu %{preferred_common_name}, Neuigkeiten zu %{preferred_common_name}, Neuigkeiten zu %{scientific_name}
         meta_title: Kommentare zu %{scientific_name}
         meta_title_with_common_name: Kommentare zu %{preferred_common_name} (%{scientific_name})
         tweet_text: Kommentare zu %{scientific_name}
@@ -2505,6 +2568,14 @@ de:
         hierarchy_entry: 
           meta_title: Statistiken zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
           meta_title_with_common_name: Statistiken zu %{preferred_common_name} (%{scientific_name}), entsprechend der Klassifizierung durch %{hierarchy_provider}.
+          tweet_text: Reichhaltigkeitswert zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
+        meta_description: Statistiken und Daten zu %{scientific_name} in der Enzyklopädie des Lebens (EOL).
+        meta_description_with_common_name: Statistiken und Daten zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}, in der Enzyklopädie des Lebens (EOL).
+        meta_keywords: Statistiken zu %{scientific_name}, Daten zu %{scientific_name}
+        meta_keywords_with_common_name: Statistiken zu %{preferred_common_name}, Daten zu %{preferred_common_name}
+        meta_title: Reichhaltigkeit von %{scientific_name}
+        meta_title_with_common_name: Reichhaltigkeit von %{preferred_common_name} (%{scientific_name})
+        tweet_text: Reichhaltigkeitswert für %{scientific_name}
   taxa_column_header: Taxa
   taxa_with_count: 
     one: Ein Taxon
@@ -2513,14 +2584,14 @@ de:
   taxon_biomedical_terms_link: Biomedizinsiche Begriffe
   taxon_concept_stats: Statistiken zum Taxonkonzept
   taxon_details_empty: Bislang hat noch niemand Einzelheiten für diese Seite zur Verfügung gestellt.
-  taxon_education_empty: Bislang hat noch niemand Bildungsmaterialien für diese Seite zur Verfügung gestellt.
-  taxon_education_header: Bildungsmaterialien
-  taxon_education_link: Bildungsmaterialien
+  taxon_education_empty: Bislang hat noch niemand Bildungsmittel für diese Seite zur Verfügung gestellt.
+  taxon_education_header: Bildungsmittel
+  taxon_education_link: Bildungsmittel
   taxon_group: Taxongruppe
   taxon_id: Taxonkennung
-  taxon_identification_resources_empty: Bislang hat noch niemand Identifikationsmittel für diese Seite zur Verfügung gestellt.
-  taxon_identification_resources_header: Identifikationsmittel
-  taxon_identification_resources_link: Identifikationsmittel
+  taxon_identification_resources_empty: Bislang hat noch niemand für diese Seite Identifizierungsquellen zur Verfügung gestellt.
+  taxon_identification_resources_header: Identifizierungsquellen
+  taxon_identification_resources_link: Identifizierungsquellen
   taxon_newsfeed: Neuigkeitenfeed zu Taxa
   taxon_not_found_error: „%{taxon}“ wurde nicht gefunden
   taxon_nucleotide_sequences_link: Nukleotidsequenzen
@@ -2748,6 +2819,7 @@ de:
   user_joined_community_on_date: "%{username} trat dieser Gemeinschaft am %{date} bei."
   user_joined_when: „%{user}“ registrierte sich %{when}
   user_left_comment_on_date: "%{username} hinterließ einen Kommentar am %{date}."
+  user_no_longer_active_message: Dieser Nutzer ist nicht mehr aktiv
   user_no_longer_has_manager_access_to_collection: Der Nutzer „%{user}“ kann die Sammlung „%{collection}“ nicht länger verwalten.
   user_response: Nutzerantwort
   user_says_colon: "%{users_name} sagt:"
@@ -2761,7 +2833,24 @@ de:
   users: 
     activities: 
       show: 
+        meta_description: Kuratierungsaktivitäten und Kommentare von %{user_full_name}
         meta_title: "%{user_full_name} - Aktivitäten"
+        tweet_text: Aktivitäten von %{user_full_name}
+    collections: 
+      index: 
+        meta_description: Von %{user_full_name} verwaltete Sammlungen.
+        meta_title: Sammlungen von %{user_full_name}
+        tweet_text: Sammlungen von %{user_full_name}
+    communities: 
+      index: 
+        meta_description: Gemeinschaften in denen %{user_full_name} ein Mitglied ist.
+        meta_title: Gemeinschaften von %{user_full_name}
+        tweet_text: Gemeinschaften von %{user_full_name}
+    content_partners: 
+      index: 
+        meta_description: Inhaltspartner mit denen %{user_full_name} in Verbindung steht.
+        meta_title: Inhaltspartner von %{user_full_name}
+        tweet_text: Inhaltspartner von %{user_full_name}
     newsfeeds: 
       show: 
         meta_description: Neuigkeiten, Aktivitäten und Kommentare zu %{user_full_name}.

@@ -2,8 +2,6 @@ source 'http://rubygems.org'
 
 group :development, :test do
   gem 'faker'
-#  gem 'remi-rspec-custom-matchers'
-#  gem 'remi-indifferent-variable-hash'
   gem 'eol_scenarios'
   gem 'rspec', '1.3.0'
   gem 'rspec-rails'
@@ -36,3 +34,4 @@ gem 'memcache'
 gem 'unicorn', '4.1.1'
 gem 'graylog2_exceptions', '1.3.0'
 gem 'resque', :require => "resque/server"
+gem 'ruby-prof'

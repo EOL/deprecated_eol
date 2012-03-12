@@ -80,6 +80,69 @@ gl:
         rights_holder: Titular dos dereitos
         rights_statement: Declaración dos dereitos
         source_url: URL de orixe
+      eol_statistic: 
+        active_curators: Conservadores activos
+        base_pages: Páxinas de base
+        collections_count: Coleccións
+        communities_count: Comunidades
+        content_partners: Socios de contidos
+        content_partners_with_published_resources: Con recursos publicados
+        content_partners_with_published_trusted_resources: Con recursos de confianza publicados
+        created_at: Creado o
+        curator_actions_in_the_last_30_days: Accións de conservación nos últimos 30 días
+        curators: Conservadores
+        curators_assistant: Conservadores axudantes
+        curators_full: Conservadores completos
+        curators_master: Mestres conservadores
+        data_objects: Obxectos de datos
+        data_objects_images: Obxectos de imaxe
+        data_objects_maps: Obxectos de mapa
+        data_objects_sounds: Obxectos de son
+        data_objects_texts: Obxectos de texto
+        data_objects_trusted: Obxectos de datos de confianza
+        data_objects_trusted_or_unreviewed_but_hidden: De confianza ou sen revisar, pero agochados
+        data_objects_unreviewed: Obxectos de datos sen revisar
+        data_objects_untrusted: Obxectos de datos non fiables
+        data_objects_videos: Obxectos de vídeo
+        hotlist_pages: Páxinas do momento
+        lifedesk_data_objects: Obxectos de datos LifeDesks
+        lifedesk_taxa: Taxons LifeDesks
+        marine_pages: Páxinas mariñas
+        marine_pages_in_col: Páxinas mariñas atopadas no COL
+        marine_pages_with_objects: Páxinas mariñas con obxectos de datos
+        marine_pages_with_objects_vetted: Páxinas mariñas con obxectos de datos de confianza
+        members_count: Membros
+        newly_published_resources_in_the_last_30_days: Publicados recentemente no último mes
+        objects_curated_in_the_last_30_days: Obxectos conservados nos últimos 30 días
+        pages_count: Número total de páxinas
+        pages_curated_by_active_curators: Páxinas conservadas por conservadores activos
+        pages_with_BHL_links: Páxinas con ligazóns cara á BHL
+        pages_with_BHL_links_no_text: Páxinas con ligazóns cara á BHL, pero sen texto
+        pages_with_BHL_links_only: Páxinas con ligazóns cara á BHL unicamente
+        pages_with_at_least_a_curatorial_action: Páxinas con acción de conservación
+        pages_with_at_least_a_trusted_object: Páxinas con obxecto de confianza
+        pages_with_content: Páxinas con contido
+        pages_with_image: Páxinas con imaxe
+        pages_with_image_no_text: Páxinas con imaxe, pero sen texto
+        pages_with_map: Páxinas con mapa
+        pages_with_score_10_to_39: Páxinas cunha puntuación de 10 a 39
+        pages_with_score_less_than_10: Páxinas cunha puntuación inferior a 10
+        pages_with_sound: Páxinas con son
+        pages_with_text: Páxinas con texto
+        pages_with_text_no_image: Páxinas con texto, pero sen imaxe
+        pages_with_video: Páxinas con vídeo
+        pages_without_image: Páxinas sen imaxe
+        pages_without_text: Páxinas sen texto
+        published_resources: Recursos publicados
+        published_trusted_resources: Recursos de confianza publicados
+        published_unreviewed_resources: Recursos publicados sen revisar
+        redhotlist_pages: Páxinas vermellas do momento
+        rich_hotlist_pages: Páxinas ricas do momento
+        rich_pages: Páxinas ricas
+        rich_redhotlist_pages: Páxinas ricas e vermellas do momento
+        udo_published: Texto enviado polo usuario
+        udo_published_by_curators: Texto enviado polo conservador
+        udo_published_by_non_curators: Texto enviado polo non-conservador
       harvest_event: 
         resource: Recurso
       hierarchy: 
@@ -221,6 +284,8 @@ gl:
   activity_user_deleted_community: <strong>%{user}</strong> borrou a comunidade "%{community}".
   activity_user_hid_data_object: <strong>%{user}</strong> marcou "%{object_name}" como agochado.
   activity_user_hid_named_association: <strong>%{user}</strong> marcou unha asociación entre "%{object_name}" e "%{name}" como agochada.
+  activity_user_hid_named_association_on_older_data_object: <strong>%{user}</strong> marcou unha asociación entre "%{object_name}" e "%{name}" como agochada.
+  activity_user_hid_older_data_object: <strong>%{user}</strong> marcou "%{object_name}" como agochado.
   activity_user_hid_unknown_object: <strong>%{user}</strong> marcou un obxecto descoñecido como agochado.
   activity_user_hid_unknown_object_association: <strong>%{user}</strong> marcou unha asociación entre un obxecto descoñecido e "%{name}" como agochada.
   activity_user_inappropriate_common_name: <strong>%{user}</strong> marcou o nome común en %{language} "%{name}" dun obxecto descoñecido como inaxeitado.
@@ -242,6 +307,8 @@ gl:
   activity_user_removed_unknown_name_to_taxon: <strong>%{user}</strong> eliminou un nome común de "%{taxon}".
   activity_user_showed_data_object: <strong>%{user}</strong> marcou "%{object_name}" como visible.
   activity_user_showed_named_association: <strong>%{user}</strong> marcou unha asociación entre "%{object_name}" e "%{name}" como visible.
+  activity_user_showed_named_association_on_older_data_object: <strong>%{user}</strong> marcou unha asociación entre "%{object_name}" e "%{name}" como visible.
+  activity_user_showed_older_data_object: <strong>%{user}</strong> marcou "%{object_name}" como visible.
   activity_user_showed_unknown_object: <strong>%{user}</strong> marcou un obxecto descoñecido como visible.
   activity_user_showed_unknown_object_association: <strong>%{user}</strong> marcou unha asociación entre un obxecto descoñecido e "%{name}" como visible.
   activity_user_trust_common_name: <strong>%{user}</strong> marcou o nome común en %{language} "%{name}" dun obxecto descoñecido como de confianza.
@@ -250,6 +317,8 @@ gl:
   activity_user_trust_unknown_name_to_taxon: <strong>%{user}</strong> confiou nun nome común de "%{taxon}".
   activity_user_trusted_data_object: <strong>%{user}</strong> marcou "%{object_name}" como de confianza.
   activity_user_trusted_named_association: <strong>%{user}</strong> marcou unha asociación entre "%{object_name}" e "%{name}" como de confianza.
+  activity_user_trusted_named_association_on_older_data_object: <strong>%{user}</strong> marcou unha asociación entre "%{object_name}" e "%{name}" como de confianza.
+  activity_user_trusted_older_data_object: <strong>%{user}</strong> marcou "%{object_name}" como de confianza.
   activity_user_trusted_unknown_object: <strong>%{user}</strong> marcou un obxecto descoñecido como de confianza.
   activity_user_trusted_unknown_object_association: <strong>%{user}</strong> marcou unha asociación entre un obxecto descoñecido e "%{name}" como de confianza.
   activity_user_unreview_common_name: <strong>%{user}</strong> marcou o nome común en %{language} "%{name}" dun obxecto descoñecido como non revisado.
@@ -258,6 +327,8 @@ gl:
   activity_user_unreview_unknown_name_to_taxon: <strong>%{user}</strong> deixou sen revisión un nome común de "%{taxon}".
   activity_user_unreviewed_data_object: <strong>%{user}</strong> marcou "%{object_name}" como non revisado.
   activity_user_unreviewed_named_association: <strong>%{user}</strong> marcou unha asociación entre "%{object_name}" e "%{name}" como non revisada.
+  activity_user_unreviewed_named_association_on_older_data_object: <strong>%{user}</strong> marcou unha asociación entre "%{object_name}" e "%{name}" como non revisada.
+  activity_user_unreviewed_older_data_object: <strong>%{user}</strong> marcou "%{object_name}" como non revisado.
   activity_user_unreviewed_unknown_object: <strong>%{user}</strong> marcou un obxecto descoñecido como non revisado.
   activity_user_unreviewed_unknown_object_association: <strong>%{user}</strong> marcou unha asociación entre un obxecto descoñecido e "%{name}" como non revisada.
   activity_user_untrust_common_name: <strong>%{user}</strong> marcou o nome común en %{language} "%{name}" dun obxecto descoñecido como de non confianza.
@@ -266,6 +337,8 @@ gl:
   activity_user_untrust_unknown_name_to_taxon: <strong>%{user}</strong> deixou de confiar nun nome común de "%{taxon}".
   activity_user_untrusted_data_object: <strong>%{user}</strong> marcou "%{object_name}" como de non confianza.
   activity_user_untrusted_named_association: <strong>%{user}</strong> marcou unha asociación entre "%{object_name}" e "%{name}" como de non confianza.
+  activity_user_untrusted_named_association_on_older_data_object: <strong>%{user}</strong> marcou unha asociación entre "%{object_name}" e "%{name}" como de non confianza.
+  activity_user_untrusted_older_data_object: <strong>%{user}</strong> marcou "%{object_name}" como de non confianza.
   activity_user_untrusted_unknown_object: <strong>%{user}</strong> marcou un obxecto descoñecido como de non confianza.
   activity_user_untrusted_unknown_object_association: <strong>%{user}</strong> marcou unha asociación entre un obxecto descoñecido e "%{name}" como de non confianza.
   activity_user_updated_text: <strong>%{user}</strong> actualizou texto de "%{object_name}" en "%{taxon_concept}".
@@ -322,7 +395,7 @@ gl:
   admin_content_partners_index_header: Socios de contidos
   admin_content_partners_link: Socios de contidos
   admin_content_partners_notifications_link: Notificacións
-  admin_content_partners_notifications_page_title: "Administración: Notificacións dos contidos asociados"
+  admin_content_partners_notifications_page_title: "Administración: Notificacións dos socios de contidos"
   admin_content_partners_notifications_sent_to_recipients_header: "As notificacións enviáronse a:"
   admin_content_partners_notifications_statistics_reminder_description: "Envía un correo electrónico a todos os contactos de contidos asociados informando de que xa poden ollar as estatísticas de uso da web do mes pasado en relación aos seus datos na EOL. Nota: O envío manual desta notificación por correo electrónico é unha solución temporal e débese abandonar unha vez que a tarefa estea automatizada."
   admin_content_partners_notifications_statistics_reminder_header: Recordatorio das estatísticas de uso da web
@@ -336,7 +409,7 @@ gl:
   admin_content_partners_statistics_first_published_empty: Non se publicaron recursos de socios de contido por vez primeira entre %{date_from} e %{date_to}.
   admin_content_partners_statistics_first_published_header: Publicación orixinal dos recursos
   admin_content_partners_statistics_link: Estatísticas
-  admin_content_partners_statistics_page_title: "Administración: Estatísticas dos contidos asociados"
+  admin_content_partners_statistics_page_title: "Administración: Estatísticas dos socios de contidos"
   admin_home: inicio administrativo
   admin_information: Esta é a nova consola de administración da EOL. Estamos traballando no proceso de transferir as funcións administrativas desde a versión 1. Se a sección de administración que buscas non aparece aquí, vai á <a href="/administrator">versión 1 da consola de administración</a>.
   admin_link: Vista xeral
@@ -344,6 +417,7 @@ gl:
   admin_notes_not_visible_to_user: "Notas administrativas (non visibles para o usuario):"
   admin_page_title: "Administración: Vista xeral"
   admin_spam_delete: Borrar o spam
+  admin_statistics_link: Estatísticas
   admin_translated_content_page_create_successful_notice: A tradución engadiuse a <a href="#%{anchor}"><em>%{page_name}</em></a>
   admin_translated_content_page_create_unsuccessful_error: Sentímolo, houbo un erro. Non se engadiu a tradución.
   admin_translated_content_page_delete_confirmation: Está seguro de querer borrar a versión en %{language} de "%{page_name}". A eliminación non se pode desfacer.
@@ -359,6 +433,41 @@ gl:
   admin_user_delete_successful_notice: Borrouse o usuario
   admin_user_hide_successful_notice: Agochouse o usuario
   admin_user_unhide_successful_notice: Descubriuse o usuario
+  admins: 
+    statistics: 
+      content_partner: 
+        page_header: Estatísticas dos socios de contidos
+        page_title: "Administración: Estatísticas dos socios de contidos"
+      content_partner_link: Socios de contidos
+      curator: 
+        page_header: Estatísticas de conservación
+        page_title: "Administración: Estatísticas de conservación"
+      curator_link: Estatísticas de conservación
+      data_object: 
+        page_header: Estatísticas dos obxectos de datos
+        page_title: "Administración: Estatísticas dos obxectos de datos"
+      data_object_link: Obxectos de datos
+      index: 
+        page_header: Estatísticas globais
+        page_title: "Administración: Estatísticas globais"
+        table_caption: Estatísticas globais do sitio creadas o %{created_at_time}
+      index_link: Estatísticas globais
+      lifedesk: 
+        page_header: Estatísticas de LifeDesks
+        page_title: "Administración: Estatísticas de LifeDesks"
+      lifedesk_link: LifeDesks
+      marine: 
+        page_header: Cobertura mariña na EOL
+        page_title: "Administración: Estatísticas mariñas"
+      marine_link: Estatísticas mariñas
+      page_richness: 
+        page_header: Estatísticas das páxinas ricas
+        page_title: "Administración: Estatísticas das páxinas ricas"
+      page_richness_link: Páxinas ricas
+      user_added_data: 
+        page_header: Estatísticas do texto enviado polo usuario
+        page_title: "Administración: Estatísticas do texto enviado polo usuario"
+      user_added_data_link: Texto enviado polo usuario
   agent: Axente
   all: todos
   all_apis_return_by_default_an_xml_response: "Todas as API devoven por defecto unha resposta XML. Os métodos da API poden chamarse sen necesidade dunha extensión de formato para conseguir a resposta XML. A adición dunha extensión XML producirá unha respota idéntica:"
@@ -517,6 +626,7 @@ gl:
     one: Creouse a colección <em>%{collection_name}</em> con %{count} elemento.
     other: Creouse a colección <em>%{collection_name}</em> con %{count} elementos.
   collection_delete_link: Borrar permanentemente esta colección
+  collection_description_default: Unha colección da Enciclopedia da vida.
   collection_destroyed: Borrouse a colección.
   collection_image: Imaxe da colección
   collection_is_empty: Esta colección está baleira.
@@ -533,6 +643,21 @@ gl:
   collection_updated_notice: A colección <em>%{collection_name}</em> actualizouse correctamente.
   collection_was_added_to_community: "\"%{collection}\" engadiuse á comunidade."
   collection_was_removed_by_owner: O propietario borrou esta colección.
+  collections: 
+    editors: 
+      show: 
+        meta_description: Administradores da colección %{collection_name} da Enciclopedia da vida.
+        meta_keywords: Administradores de %{collection_name}
+        meta_title: Administradores de %{collection_name}
+        tweet_text: Administradores de %{collection_name}
+    newsfeeds: 
+      show: 
+        meta_description: Novas, comentarios e actividade comunitaria da colección %{collection_name} da Enciclopedia da vida.
+        meta_keywords: Novas de %{collection_name}
+        meta_title: Novas de %{collection_name}
+        tweet_text: Novas de %{collection_name}
+    show: 
+      meta_keywords: "%{collection_name}, colección da Enciclopedia da vida"
   collections_filter: Coleccións
   collections_link: Coleccións
   collections_page_title: Coleccións
@@ -574,6 +699,19 @@ gl:
     one: "%{count} nome común"
     other: "%{count} nomes comúns"
   common_user_activity_page_title: Actividade común de usuario
+  communities: 
+    collections: 
+      index: 
+        meta_description: Coleccións comunitarias reunidas por %{community_name}, unha comunidade da Enciclopedia da vida.
+        meta_keywords: Coleccións de %{community_name}
+        meta_title: Coleccións de %{community_name}
+        tweet_text: Coleccións de %{community_name}
+    newsfeeds: 
+      show: 
+        meta_keywords: "%{community_name}, comunidade da Enciclopedia da vida, fonte de novas de %{community_name}, comentarios de %{community_name}, actividade de %{community_name}"
+    show: 
+      meta_description: O propietario de %{community_name} eliminou esta comunidade da Enciclopedia da vida
+      meta_title: "%{community_name} eliminada polo propietario"
   communities_filter: Comunidades
   communities_index_empty: Non hai comunidades activas.
   communities_index_header: Comunidades activas
@@ -593,6 +731,7 @@ gl:
   community_contributions_with_count: 
     one: "%{count} contribución"
     other: "%{count} contribucións"
+  community_description_default: Unha comunidade da Enciclopedia da vida.
   community_destroyed: Borraches a comunidade. Xa non aparecerá nas páxinas dos taxons nin nas procuras.
   community_empty_notice: Esta comunidade non ten membros.
   community_focus: Coleccións xestionadas
@@ -615,6 +754,7 @@ gl:
   community_rating: Avaliación da comunidade
   community_removed_by_owner: O propietario borrou esta comunidade.
   community_tab_collections_description: Os usuarios da EOL crean as coleccións para xuntaren especies, ficheiros multimedia, artigos ou mesmo membros que teñan algo en común, como a xeografía, a ecoloxía ou un significado persoal. As comunidades poden destacar aquelas coleccións que teñan un interese en particular ou algún valor para elas.
+  community_tab_collections_header: Coleccións
   community_tab_communities_description: As comunidades son grupos de membros da EOL que se unen para compartiren os seus intereses e a súa experiencia. As comunidades da EOL organízanse en base a unha ou máis coleccións e ofrecen aos seus membros un modo de centrar os esforzos en temas semellantes. Hai máis información sobre as comunidades da EOL, así como instrucións para crear unha nova, na <a href='/info/communities'>páxina de axuda</a>.
   community_tab_curators_description: Os conservadores son usuarios da EOL con experiencia en bioloxía que empregan o seu tempo en revisar os contidos da EOL, asegurándose de que o que ti les é preciso e de boa calidade.
   completed: Completado
@@ -634,6 +774,11 @@ gl:
   contact_us_topics: Temas de contacto
   contacts: Contactos
   containing_value: que conteña %{value}.
+  content: 
+    index: 
+      meta_description: A Enciclopedia da vida é un esforzo sen precedentes por colleitar coñecementos científicos sobre toda a vida animal e vexetal, en forma de imaxes, información, feitos e máis cousas acerca de todo organismo nos reinos animal e vexetal.
+      meta_keywords: Animais, imaxes de animais, información sobre animais, plantas, vida vexetal, imaxes de plantas, información sobre plantas, flora, fauna
+      meta_title: Animais, plantas, imaxes e información
   content_has_been_updated: Actualizáronse os contidos.
   content_notes_not_shown_to_us: "Notas dos contidos (non se mostran ao usuario):"
   content_partner: Socio de contidos
@@ -678,6 +823,7 @@ gl:
   content_partner_current_agreement_view_link: Ver
   content_partner_data_description_empty: Ninguén engadiu unha descrición dos datos especificados.
   content_partner_data_description_header: Descrición dos datos
+  content_partner_default_description: Un socio de contidos da Enciclopedia da vida.
   content_partner_edit_link: Editar un contido asociado
   content_partner_filter_option_published_latest_harvest_not_published: Últimos non publicados
   content_partner_filter_option_published_latest_harvest_pending_publish: Última publicación pendente
@@ -725,6 +871,7 @@ gl:
   content_partner_resource_edit_link: Editar
   content_partner_resource_edit_subheader: Editar o recurso
   content_partner_resource_edit_with_type_link: Editar o recurso
+  content_partner_resource_harvest_event_confirm_publish: Estás seguro de querer publicar o rexistro de colleita %{completed_at} do recurso %{resource_title}? Ten en conta que, unha vez confirmada a publicación, a túa solicitude poñerase á cola para procesala e pode levar ata 24 horas completar a tarefa.
   content_partner_resource_harvest_event_current_published: Publicado actualmente
   content_partner_resource_harvest_event_not_published: Sen publicar
   content_partner_resource_harvest_event_previously_published: Publicado anteriormente
@@ -788,6 +935,22 @@ gl:
   content_partner_update_unsuccessful_error: Sentímolo, houbo un erro. Non se actualizaron os detalles do socio.
   content_partner_vetted_false: Sen revisar
   content_partner_vetted_true: Aprobado
+  content_partners: 
+    edit: 
+      meta_title: Editar %{partner_name}
+    index: 
+      meta_description: Lista dos provedores de datos e socios de contidos da Enciclopedia da vida.
+      meta_keywords: Socios de contidos da Enciclopedia da vida, provedores de datos da Enciclopedia da vida
+      meta_title: Socios de contidos
+    show: 
+      meta_description: "%{partner_name}. %{partner_description}"
+      meta_keywords: "%{partner_name}, socio de contidos da Enciclopedia da vida"
+    statistics: 
+      show: 
+        meta_description: Estatísticas de uso dos datos de %{partner_name}.
+        meta_keywords: Estatísticas de %{partner_name}, uso web de %{partner_name}
+        meta_title: Estatísticas de %{partner_name}
+        tweet_text: Estatísticas de uso de %{partner_name}
   content_partners_empty: Non se atoparon socios de contidos.
   content_partners_link: Socios de contidos
   content_partners_page_description: Os socios de contidos da Enciclopedia da vida teñen unha gran cantidade de información sobre a biodiversidade nas súas páxinas web ou bases de datos, que comparten a través das páxinas da EOL. Apreciamos enormemente as súas magníficas contribucións á misión da EOL e animamoste a que aprendas delas. Descubre máis información sobre <a href="%{more_url}">como converterse nun socio de contidos.</a>
@@ -903,6 +1066,10 @@ gl:
   data_object_not_associated_with_any_hierarchies: Este obxecto de datos non está asociado con ningunha xerarquía.
   data_object_reference: Referencia do obxecto de datos
   data_object_undo_ignore: eliminar da lista de ignorados
+  data_objects: 
+    show: 
+      meta_title: "%{dato_title} de %{supplier}"
+      tweet_text: "%{dato_title} de %{supplier}"
   data_usage_reports: Informes de uso dos datos
   date_caps: Data
   date_uploaded: Data da carga
@@ -963,6 +1130,7 @@ gl:
   donation_sponsorship_preamble: "Se queres obter máis información sobre os programas de patrocinio que hai dispoñibles ou queres facer un agasallo recorrente, ponte en contacto coa secretaría da Enciclopedia da vida por <a href=\"mailto:%{email_address}\">correo electrónico</a> ou por teléfono no 1 (202) 633-8730 (nos Estados Unidos de América). Entre as oportunidades para as doazóns específicas están:"
   done_already: Xa está feito
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Non mostrar as datas descoñecidas rexistradas (usuarios da versión 1, todos os anteriores ao 5 de xaneiro de 2009)
+  download_wav_file: Descargar o ficheiro WAV
   dublin_core: Dublin Core
   duplicate_items_were_ignored: Ignoráronse os elementos duplicados.
   e_g_search_for_the_eol_page: "(por exemplo, procura o identificador da páxina da EOL de ITIS TSN 180542:"
@@ -1170,6 +1338,7 @@ gl:
         view_style_id: Vista por defecto
       collection_item: 
         annotation: Anotación
+        refs: Referencias <small>(pon cada referencia nunha nova liña)</small>
         sort_field: Ordenar por <small>(data AAAA.MM.DD, número ou texto)</small>
         sort_field_show: "Valor de ordenación:"
       comment: 
@@ -1212,6 +1381,8 @@ gl:
         rights_statement: Declaración dos dereitos
         source_url: URL do obxecto de datos orixinal
         toc_item: Subcapítulo
+      eol_statistic: 
+        download_all: Todos <small>(inclúe rexistros de todas as páxinas)</small>
       google_analytics_partner_summaries: 
         page_views: Visitas de páxina <small>(número de visitas ás páxinas)</small>
         taxa_pages: Páxinas <small>(número de páxinas)</small>
@@ -1323,6 +1494,9 @@ gl:
         create: Engadir o artigo
         create_text: Engadir o artigo
         update: Gardar o artigo
+      eol_statistic: 
+        download_csv: Descargar como CSV
+      filter_sort: Filtrar e ordenar
       harvest_event: 
         publish: Publicar
       hierarchy: 
@@ -1569,6 +1743,17 @@ gl:
     other: "%{count} ficheiros multimedia"
   member_of: membro de
   member_of_professional_society_credential_option: membro dunha sociedade profesional
+  members: 
+    index: 
+      meta_description: Membros de %{community_name}, unha comunidade da Enciclopedia da vida.
+      meta_keywords: Membros de %{community_name}
+      meta_title: Membros de %{community_name}
+      tweet_text: Membros de %{community_name}
+    show: 
+      meta_description: "%{member_name} é membro de %{community_name}, unha comunidade da Enciclopedia da vida."
+      meta_keywords: "%{member_name}, membro da comunidade"
+      meta_title: "%{member_name}, membro de %{community_name}"
+      tweet_text: "%{member_name}, membro de %{community_name}"
   members_like_you: Membros coma ti
   members_with_count: 
     one: "%{count} membro"
@@ -1805,6 +1990,8 @@ gl:
   object_visibility_invisible_option: Agochado
   object_visibility_visible_option: Visible
   objects_curated: Obxectos conservados
+  older_version_of_latest_published_data_object_link: unha versión vella de "%{link}"
+  older_version_of_latest_published_data_object_title_link: Versión vella de %{link}
   on_time_col_header: o
   only_multi_search_suggestions: (unicamente se hai múltiples suxestións para o mesmo termo de procura; a ordenación é crecente)
   only_show_authoritative_conten: "Mostrar unicamente os contidos autorizados:"
@@ -1854,6 +2041,7 @@ gl:
   pagination_next_with_count: 
     one: ollar o seguinte
     other: ollar os %{count} seguintes
+  pagination_page_number: Páxina %{number}
   pagination_previous: Anterior
   pagination_previous_with_count: 
     one: ollar o anterior
@@ -1894,6 +2082,7 @@ gl:
   press_room: Sala de prensa
   preview: vista previa
   preview_changes: Vista previa dos cambios
+  preview_version_of_latest_published_data_object_title_link: Vista previa de %{link}
   previously_published: publicado anteriormente
   proceed_to_checkout_page: Continuar ata a páxina do pagamento
   process_name: Nome do proceso
@@ -2030,6 +2219,9 @@ gl:
     other: Os convites enviáronse a %{users}.
   sep_emails_with_commas_note: (separa os diferentes enderezos por comas)
   server_ip_address: Servidor do enderezo IP
+  sessions: 
+    new: 
+      meta_title: Rexistro
   set_as_exemplar: Establecer como exemplar
   share_a_collection: Compartir unha colección
   show: Mostrar
@@ -2089,6 +2281,7 @@ gl:
     one: "%{count} son"
     other: "%{count} sons"
   source_and_additional_information: Fonte e información adicional
+  source_colon: "Fonte:"
   source_information_header: Fonte da información
   source_url: URL de orixe
   special_collection: Colección especial
@@ -2197,7 +2390,9 @@ gl:
   the_cp_count_info: O valor numérico representa o número total de socios de contidos con obxectos de datos publicados baixo a categoría SPM respectiva do tema.
   the_file_was_uploaded: Cargouse o ficheiro.
   the_following_bibliography: A seguinte bibliografía sae de reunir todas as referencias proporcionadas polos nosos socios de contidos. Pode haber fontes duplicadas.
+  the_following_users_were_prese: "Os seguintes usuarios viron a ventá emerxente coa enquisa e responderon á petición de respondela, tal como se mostra a continuación:"
   the_glossary_term_was_successf: O termo do glosario actualizouse correctamente.
+  the_id_of_provider_hierarchy_you_are_searching: o ID da xerarquía do provedor dentro da que fas a procura. Revise %{link} para ollar os identificadores válidos
   the_image_from_this_source_has_not_been_reviewed: Non se revisou a imaxe desta fonte.
   the_image_from_this_source_is_not_trusted: A imaxe desta fonte non é de confianza.
   the_info_highlighted_is_reviewed: A información que está resaltada en vermello a continuación foi revisada por un conservador e marcouna como de non confianza.
@@ -2211,7 +2406,9 @@ gl:
   the_topic_was_updated: Actualizouse o tema.
   the_user_was_updated: Actualizouse o usuario.
   the_user_who_performed_this_action_was_removed: O usuario que levou a cabo a acción foi eliminado.
+  the_xml_search_response_implements: A resposta XML á procura introduce o formato de resposta OpenSearch mediante Atom 1.0. Bote unha ollada a %{link} para a especificación do OpenSearch ao completo
   there_are_currently_no_members_in_this_community: Actualmente non hai membros nesta comunidade.
+  this_area_shows_all_submission: Esta zona mostra todos os envíos inseridos mediante as páxinas de contacto. Para ollar as entradas, selecciona o tema a continuación ou %{link}
   this_article_cannot_be_curated_because_unpublished: Este artigo non se pode conservar porque non está publicado.
   this_article_is_unpublished: Este artigo non está publicado.
   this_cannot_be_undone_are_you_sure: Esta acción non se pode desfacer. Queres continuar?
@@ -2249,6 +2446,7 @@ gl:
   toc_no_longer_available: A información do ÍNDICE xa non está dispoñible
   topic: Tema
   topic_area: Área do tema
+  topics_avilable_to_contact_us_info: A páxina de contacto inclúe os seguintes temas. Podes engadir ou editar estes temas e os seus correspondentes enderezos de correo electrónico. Todos os cambios feitos son inmediatos.
   total: Total
   total_comments_have_been_submitted: 
     one: Enviouse %{count} comentario en %{string}
@@ -2350,6 +2548,7 @@ gl:
   user_already_active_notice: A túa conta xa está activa. Inicia sesión.
   user_comment: Comentario de usuario
   user_commented_on_deleted_user: "<strong>%{user_with_link}</strong> comentou na páxina dun usuario que foi eliminado:"
+  user_commented_on_older_data_object_colon: "<strong>%{user}</strong> comentou en \"%{what}\":"
   user_commented_on_something_colon: "<strong>%{user}</strong> comentou en \"%{what}\":"
   user_commented_on_themself: "<strong>%{user_with_link}</strong> comentou na <a href='%{link}'>fonte de novas de %{username}</a>:"
   user_comments: Comentarios do usuario
@@ -2357,6 +2556,7 @@ gl:
   user_joined_community_on_date: "%{username} uniuse a esta comunidade o %{date}."
   user_joined_when: "\"%{user}\" uniuse %{when}"
   user_left_comment_on_date: "%{username} deixou un comentario o %{date}."
+  user_no_longer_active_message: Este usuario xa non está activo
   user_no_longer_has_manager_access_to_collection: "%{user} xa non ten acceso de administrador en \"%{collection}\"."
   user_response: Resposta do usuario
   user_says_colon: "%{users_name} di:"
@@ -2367,6 +2567,11 @@ gl:
   username: Nome de usuario
   username_colon: "Nome de usuario:"
   username_taken: "%{name} xa está collido"
+  users: 
+    newsfeeds: 
+      show: 
+        meta_title: Fonde de novas de %{user_full_name}
+        tweet_text: Fonde de novas de %{user_full_name}
   users_about_me_header: Acerca de min
   users_content_partners_header: Socios de contidos
   users_content_partners_information: Os socios de contidos da EOL son individuos ou organizacións que comparten os seus datos sobre a biodiversidade co mundo a través da EOL. Máis información sobre os <a href="%{more_url}">socios de contidos da EOL</a>.
@@ -2410,6 +2615,7 @@ gl:
   view_common_activities_link: Ollar a lista das actividades máis comúns.
   view_contact_us_submissions: ollar os envíos de contacto
   view_curators: ollar os conservadores
+  view_current_version_link: Ollar a versión actual
   view_error_log: ollar o rexistro de erros
   view_full_size_image: Ollar a imaxe a tamaño completo
   view_harvesting_log: ollar o rexistro de colleita
@@ -2432,9 +2638,12 @@ gl:
   wants_colon: "Quere:"
   watch_list: Lista de vixilancia
   watch_list_newsfeed: Fonte de novas da lista de vixilancia
+  web_service_base_url: URL de base do servizo web
   web_users: Usuarios da web
   weekly: Semanalmente
   welcome: Benvido
+  welcome_and_you_were_logged_out: Dámosche a benvida á nova EOL! Houbo un problema co teu rexistro antigo, de modo que saíches do sistema. A túa información de rexistro debería funcionar de novo. Perdón polas molestias!
+  welcome_to_the_eol_administrat: Dámosche a benvida á consola de administración da EOL. Selecciona unha función das opcións que hai á esquerda.
   what_do_these_numbers_mean: Que significan estes números?
   what_is_eol: Que é a EOL?
   what_is_this_question: Que é isto?
@@ -2461,6 +2670,7 @@ gl:
   you_have_been_logged_out: Saíches ao anonimato.
   you_joined_community: Uniuse a esta comunidade sen problemas.
   you_left_community: Deixou esta comunidade sen problemas.
+  you_must_be_comfortable: Debes ter coñecementos de HTML se queres crear hiperligazóns ou dar formato aos textos.
   you_removed_the_member_from_the_community: Eliminaches correctamente o membro da comunidade.
   your_current_rating_0_of_5: "A túa valoración actual: 0 de 5"
   your_current_rating_1_of_5: "A túa valoración actual: 1 de 5"

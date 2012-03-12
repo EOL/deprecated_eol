@@ -361,6 +361,9 @@ es:
   translated_vetted-label-vetted_id-4: Sin confianza
   translated_vetted-label-vetted_id-5: De confianza
   translated_vetted-label-vetted_id-6: Inapropiado
+  translated_view_styles-name-view_style_id-1: "Lista"
+  translated_view_styles-name-view_style_id-2: "Galería"
+  translated_view_styles-name-view_style_id-3: "Con anotaciones"
   translated_visibilities-label-visibility_id-0: Invisible
   translated_visibilities-label-visibility_id-1: Visible
   translated_visibilities-label-visibility_id-2: Previsualizar

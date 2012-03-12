@@ -1,7 +1,7 @@
 - data_object ||= @data_object
 - taxon_concept ||= nil
 - size ||= '260_190'
-- alt ||= alternative_text(data_object, 'image', taxon_concept)
+- alt ||= alternative_text(data_object, 'image', @taxon_concept)
 - if defined?(thumbnail) && thumbnail
   %a{ :data => { :data_object_id => data_object.id }, :href => data_object_path(data_object), :class => 'image' }
     = image_tag data_object.thumb_or_object(size), :alt => alt

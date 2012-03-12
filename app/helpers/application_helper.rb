@@ -145,21 +145,16 @@ module ApplicationHelper
 
   # Used in V2 to provide semi-useful alternative text for data object image representations
   # TODO: These alt/title attributes are fairly useless in terms of accessibility.
-  # We can include the item description but its not always going to make sense or be short enough
-  # ideally we need a short description provided by the content partner, describing what is in the item.
+  # We used to show part of the description, but that caused us to use Sanitize, sometimes
+  # multiple times which was horrendous for performance. We used to use the I18n key
+  # "#{en_type}_alt_text". We should think about what the best alt text would be and
+  # figure out how to get that as fast as possible (alternative to Sanitize? No sanitizing at all?)
   def alternative_text(data_object, en_type, taxon_concept = nil)
-    alt = data_object.object_title || nil
-    if alt.blank? && data_object.description_teaser.blank?
-      taxon_name = taxon_concept.title_canonical() unless taxon_concept.nil?
-      taxon_name = taxon_name.blank? ? I18n.t(:a_taxon) : Sanitize.clean(taxon_name)
-      data_object_vetted = data_object.vetted_by_taxon_concept(taxon_concept, :find_best => true) unless taxon_concept.nil?
-      data_object_vetted_label = (data_object_vetted.blank? || data_object_vetted.label.blank?) ? "" : data_object_vetted.label
-      alt = I18n.t("#{en_type}_alt_text", :vetted_status => data_object_vetted_label.downcase,
-                 :taxon_name => taxon_name) if alt.blank? && ! en_type.blank?
+    if taxon_concept && taxon_concept.class == TaxonConcept && title = taxon_concept.title_canonical
+      I18n.t("#{en_type}_of_taxon", :taxon_name => title)
     else
-      alt = data_object.description_teaser
+      I18n.t("item_type_#{en_type}_assistive", :taxon_name => title)
     end
-    alt = Sanitize.clean(alt)
   end
 
   # A little onclick magic to make Ajaxy-links work before the page is fully loaded.  JS in the application.js file will

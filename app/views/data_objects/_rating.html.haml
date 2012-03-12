@@ -27,9 +27,9 @@
       %ul
         %li{:class => "current_rating_#{user_rating}"}<
           = I18n.t("your_current_rating_#{user_rating}_of_#{total}")
+        - link_url = params[:force_return_to] ? params[:force_return_to] : current_url(false)
+        - @rating_link_template ||= rate_data_object_path(data_object, :stars => '#RATINGINDEX', :return_to => link_url, :minimal => minimal.to_s)
         - total.times do |i|
           - rating = i + 1
           %li
-            - link_url = params[:force_return_to] ? params[:force_return_to] : current_url(false)
-            = link_to I18n.t("change_rating_to_#{i + 1}_of_#{total}"),
-              rate_data_object_path(data_object, :stars => rating, :return_to => link_url, :minimal => minimal.to_s), :class => "star_#{rating}"
+            = link_to(I18n.t("change_rating_to_#{rating}_of_#{total}"), @rating_link_template.gsub('%23RATINGINDEX', rating.to_s), :class => "star_#{rating}")

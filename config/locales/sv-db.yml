@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: McDutchie
+# Author: Ufred
 # Author: WikiPhoenix
 sv: 
   translated_activities-name-activity_id-19: profil
@@ -203,10 +204,12 @@ sv:
   translated_table_of_contents-label-table_of_contents_id-251: Fördelar
   translated_table_of_contents-label-table_of_contents_id-267: Morfologi
   translated_table_of_contents-label-table_of_contents_id-278: Bibliografi
+  translated_table_of_contents-label-table_of_contents_id-286: Bevarandestatus
   translated_table_of_contents-label-table_of_contents_id-289: Evolution
   translated_table_of_contents-label-table_of_contents_id-292: Dubbelgångare
   translated_table_of_contents-label-table_of_contents_id-293: Diagnostisk beskrivning
   translated_table_of_contents-label-table_of_contents_id-296: Hantering
+  translated_table_of_contents-label-table_of_contents_id-297: Tropisk strategi
   translated_table_of_contents-label-table_of_contents_id-299: Utbildning
   translated_table_of_contents-label-table_of_contents_id-3: Fysisk beskrivning
   translated_table_of_contents-label-table_of_contents_id-300: Wikipedia
@@ -224,11 +227,13 @@ sv:
   translated_table_of_contents-label-table_of_contents_id-314: Populationsbiologi
   translated_table_of_contents-label-table_of_contents_id-315: Livshistoria och beteende
   translated_table_of_contents-label-table_of_contents_id-316: Beteende
+  translated_table_of_contents-label-table_of_contents_id-317: Cyklicitet
   translated_table_of_contents-label-table_of_contents_id-318: Livscykel
   translated_table_of_contents-label-table_of_contents_id-319: Förväntad livslängd
   translated_table_of_contents-label-table_of_contents_id-320: Reproduktion
   translated_table_of_contents-label-table_of_contents_id-321: Tillväxt
   translated_table_of_contents-label-table_of_contents_id-322: Fossilhistorik
+  translated_table_of_contents-label-table_of_contents_id-323: Systematik och fylogeni
   translated_table_of_contents-label-table_of_contents_id-324: Funktionella anpassningar
   translated_table_of_contents-label-table_of_contents_id-325: Fysiologi och cellbiologi
   translated_table_of_contents-label-table_of_contents_id-326: Molekylärbiologi och genetik
@@ -238,6 +243,7 @@ sv:
   translated_table_of_contents-label-table_of_contents_id-33: Trender
   translated_table_of_contents-label-table_of_contents_id-330: Nukleotidsekvenser
   translated_table_of_contents-label-table_of_contents_id-331: Streckkod
+  translated_table_of_contents-label-table_of_contents_id-332: Genom
   translated_table_of_contents-label-table_of_contents_id-333: Molekylärbiologi
   translated_table_of_contents-label-table_of_contents_id-334: Hot
   translated_table_of_contents-label-table_of_contents_id-336: Anteckningar
@@ -251,7 +257,9 @@ sv:
   translated_table_of_contents-label-table_of_contents_id-347: Taxonomi
   translated_table_of_contents-label-table_of_contents_id-348: Typinformation
   translated_table_of_contents-label-table_of_contents_id-4: Ekologi
+  translated_table_of_contents-label-table_of_contents_id-41: Habitat
   translated_table_of_contents-label-table_of_contents_id-5: Evolution och systematik
+  translated_table_of_contents-label-table_of_contents_id-6: Betydelse för människor och ekosystem
   translated_table_of_contents-label-table_of_contents_id-7: Referenser och mer information
   translated_table_of_contents-label-table_of_contents_id-8: Konversation
   translated_untrust_reasons-label-untrust_reason_id-1: felidentifierad

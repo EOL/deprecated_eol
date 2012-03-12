@@ -112,11 +112,10 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def preferred_common_name_in_language(language)
-    common_names = preferred_common_names.select do |preferred_common_name|
+    best_name_in_language = preferred_common_names.detect do |preferred_common_name|
       preferred_common_name.language_id == language.id
     end
-    return common_names[0].name.string unless common_names.blank?
-    return nil
+    best_name_in_language.name.string if best_name_in_language
   end
 
   # TODO - this will now be called on ALL taxon pages.  Eep!  Make this more efficient:
@@ -317,7 +316,8 @@ class TaxonConcept < ActiveRecord::Base
     hierarchy ||= Hierarchy.default
     raise "Error finding default hierarchy" if hierarchy.nil? # EOLINFRASTRUCTURE-848
     raise "Cannot find a HierarchyEntry with anything but a Hierarchy" unless hierarchy.is_a? Hierarchy
-
+    
+    TaxonConcept.preload_associations(self, :published_hierarchy_entries => [ :vetted, :hierarchy ])
     @all_entries ||= HierarchyEntry.sort_by_vetted(published_hierarchy_entries)
     if @all_entries.blank?
       @all_entries = HierarchyEntry.sort_by_vetted(hierarchy_entries)
@@ -715,7 +715,8 @@ class TaxonConcept < ActiveRecord::Base
       text_objects = self.data_objects_from_solr(solr_search_params.merge({
         :per_page => options[:text],
         :toc_ids => options[:toc_items] ? options[:toc_items].collect(&:id) : nil,
-        :data_type_ids => DataType.text_type_ids
+        :data_type_ids => DataType.text_type_ids,
+        :filter_by_subtype => false
       }))
       DataObject.preload_associations(text_objects, [ { :info_items => :translations } ] )
     end
@@ -736,7 +737,8 @@ class TaxonConcept < ActiveRecord::Base
       video_objects = self.data_objects_from_solr(solr_search_params.merge({
         :per_page => options[:videos],
         :data_type_ids => DataType.video_type_ids,
-        :return_hierarchically_aggregated_objects => true
+        :return_hierarchically_aggregated_objects => true,
+        :filter_by_subtype => false
       }))
       video_objects.each{ |d| d.data_type = DataType.video }
     end
@@ -746,7 +748,8 @@ class TaxonConcept < ActiveRecord::Base
       sound_objects = self.data_objects_from_solr(solr_search_params.merge({
         :per_page => options[:sounds],
         :data_type_ids => DataType.sound_type_ids,
-        :return_hierarchically_aggregated_objects => true
+        :return_hierarchically_aggregated_objects => true,
+        :filter_by_subtype => false
       }))
     end
     
@@ -1052,6 +1055,7 @@ class TaxonConcept < ActiveRecord::Base
           :visibility_types => ['visible'],
           :published => true,
           :skip_preload => true,
+          :return_hierarchically_aggregated_objects => true,
           :filter_hierarchy_entry => selected_hierarchy_entry
         })
         (best_images.empty?) ? 'none' : best_images.first
@@ -1081,10 +1085,11 @@ class TaxonConcept < ActiveRecord::Base
   def overview_text_for_user(the_user)
     overview_toc_item_ids = [TocItem.brief_summary, TocItem.comprehensive_description, TocItem.distribution].collect{ |toc_item| toc_item.id }
     overview_text_objects = self.text_for_user(the_user, {
-      :per_page => 5,
+      :per_page => 20,
       :language_ids => [ the_user.language_id ],
       :toc_ids => overview_toc_item_ids })
-    DataObject.preload_associations(overview_text_objects, { :data_objects_hierarchy_entries => :hierarchy_entry },
+    DataObject.preload_associations(overview_text_objects, { :data_objects_hierarchy_entries => [ :hierarchy_entry,
+      :vetted, :visibility ] },
       :select => {
         :data_objects_hierarchy_entries => '*',
         :hierarchy_entries => '*'
@@ -1131,6 +1136,8 @@ class TaxonConcept < ActiveRecord::Base
         :data_object_translations => '*',
         :table_of_contents => '*',
         :info_items => '*',
+        :toc_items => '*',
+        :translated_table_of_contents => '*',
         :users_data_objects => '*',
         :resources => '*',
         :content_partners => '*',
@@ -1140,8 +1147,10 @@ class TaxonConcept < ActiveRecord::Base
         :users_data_objects_ratings => '*' }
       DataObject.preload_associations(text_objects, [ :users_data_objects_ratings, :comments,
         { :published_refs => :ref_identifiers }, :translations, :data_object_translation, { :toc_items => :info_items },
-        { :data_objects_hierarchy_entries => { :hierarchy_entry => { :hierarchy => { :resource => :content_partner } } } },
-        { :curated_data_objects_hierarchy_entries => :hierarchy_entry }, :info_items, :users_data_object ],
+        { :data_objects_hierarchy_entries => [ { :hierarchy_entry => { :hierarchy => { :resource => :content_partner } } },
+          :vetted, :visibility ] },
+        { :curated_data_objects_hierarchy_entries => :hierarchy_entry }, :info_items, :users_data_object,
+        { :toc_items => [ :translations, [ :parent => :translations ] ] } ],
         :select => selects)
     end
     text_objects
@@ -1158,6 +1167,7 @@ class TaxonConcept < ActiveRecord::Base
     options[:data_type_ids] = DataType.text_type_ids
     options[:vetted_types] = vetted_types
     options[:visibility_types] = visibility_types
+    options[:filter_by_subtype] = false
     self.data_objects_from_solr(options)
   end
   
@@ -1166,7 +1176,9 @@ class TaxonConcept < ActiveRecord::Base
     solr_query_parameters[:per_page] ||= 30  # return 30 objects by default
     solr_query_parameters[:sort_by] ||= 'status'  # enumerated list defined in EOL::Solr::DataObjects
     solr_query_parameters[:data_type_ids] ||= nil  # return objects of ANY type by default
-    solr_query_parameters[:filter_by_subtype] ||= true  # if this is true then we'll query using the data_subtype_id, even if its nil
+    unless solr_query_parameters.has_key?(:filter_by_subtype)
+      solr_query_parameters[:filter_by_subtype] = true  # if this is true then we'll query using the data_subtype_id, even if its nil
+    end
     solr_query_parameters[:data_subtype_ids] ||= nil  # return objects of ANY subtype by default - so this will include maps
     solr_query_parameters[:license_ids] ||= nil
     solr_query_parameters[:language_ids] ||= nil
@@ -1184,10 +1196,10 @@ class TaxonConcept < ActiveRecord::Base
     
     # these are really only relevant to the worklist
     solr_query_parameters[:resource_id] ||= nil
-    unless defined?(solr_query_parameters[:curated_by_user])
+    unless solr_query_parameters.has_key?(:curated_by_user)
       solr_query_parameters[:curated_by_user] = nil  # true, false or nil
     end
-    unless defined?(solr_query_parameters[:ignored_by_user])
+    unless solr_query_parameters.has_key?(:ignored_by_user)
       solr_query_parameters[:ignored_by_user] = nil  # true, false or nil
     end
     solr_query_parameters[:user] ||= nil

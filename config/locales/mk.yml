@@ -875,6 +875,7 @@ mk:
   content_partner_resource_edit_link: Уреди
   content_partner_resource_edit_subheader: Уреди ресурс
   content_partner_resource_edit_with_type_link: Уреди ресурс
+  content_partner_resource_harvest_event_confirm_publish: Дали сте сигурни дека сакате да го објавите преземањето %{completed_at} за ресурсот %{resource_title}? Имајте предвид дека откако ќе го потврдите ова, барањето ќе биде ставено во редица за обработка и чекањето може да потрае до 24 часа.
   content_partner_resource_harvest_event_current_published: Тековно објавен
   content_partner_resource_harvest_event_not_published: Необјавен
   content_partner_resource_harvest_event_previously_published: Претходно објавен
@@ -1344,6 +1345,7 @@ mk:
         view_style_id: Основен изглед
       collection_item: 
         annotation: Прибелешка
+        refs: Наводи <small>(секој во нов ред)</small>
         sort_field: Подреди по <small>(датум ГГГГ.ММ.ДД, број или текст)</small>
         sort_field_show: "Вредност за подредување:"
       comment: 
@@ -1381,7 +1383,7 @@ mk:
         license_id: Лиценца
         license_id_more: Прочитајте ги <a href="%{policy_url}">Правилата за лиценцирање на EOL</a>
         object_title: Наслов
-        refs: Наводи <small>(секој навод во нов ред)</small>
+        refs: Наводи <small>(секој во нов ред)</small>
         rights_holder: Сопственик на правата
         rights_statement: Изјава за правата
         source_url: URL до изворниот податочен објект
@@ -1501,6 +1503,7 @@ mk:
         update: Зачувај статија
       eol_statistic: 
         download_csv: Преземи како CSV
+      filter_sort: Филтрирај и подреди
       harvest_event: 
         publish: Објави
       hierarchy: 
@@ -2846,6 +2849,7 @@ mk:
   user_joined_community_on_date: "%{username} ѝ се придружи оваа заедница на %{date}."
   user_joined_when: „%{user}“ се зачлени %{when}
   user_left_comment_on_date: "%{username} напиша коментар на %{date}."
+  user_no_longer_active_message: Корисников повеќе не е активен
   user_no_longer_has_manager_access_to_collection: "%{user} повеќе нема раководителски пристап до „%{collection}“."
   user_response: Кориснички одговор
   user_says_colon: "%{users_name} вели:"

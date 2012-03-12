@@ -106,7 +106,9 @@ module EOL
       end
       
       def self.add_data_object!(docs)
-        includes = [ { :data_objects_hierarchy_entries => { :hierarchy_entry => [ { :name => :canonical_form }, :hierarchy ] } }, :curated_data_objects_hierarchy_entries, { :toc_items => :translations } ]
+        includes = [ { :data_objects_hierarchy_entries => [ { :hierarchy_entry => [ { :name => :canonical_form }, :hierarchy ] },
+            :vetted, :visibility ] },
+          :curated_data_objects_hierarchy_entries, { :toc_items => :translations } ]
         selects = {
           :data_objects => '*',
           :translated_table_of_contents => '*',
@@ -114,7 +116,9 @@ module EOL
           :hierarchy_entries => [ :published, :visibility_id, :taxon_concept_id ],
           :hierarchies => :browsable,
           :names => :string,
-          :canonical_forms => :string
+          :canonical_forms => :string,
+          :vetted => '*',
+          :visibilities => '*'
         }
         ids = docs.map{ |d| d['resource_id'] }
         return if ids.blank?

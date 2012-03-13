@@ -65,6 +65,8 @@ qqq:
   scientific_name_avg: "these are table column headings, and the \'avg\' is meant to represent \'average\', because we're counting the number of scientific name results that occurred, on average, for a search term within a given date range."
   activerecord:
     attributes:
+      eol_statistic:
+        rich_pages: "'Rich' in this case refers to 'high quality'... ie: pages with lots of text and images."
       resource:
         harvest_events: "A 'Harvest Event' is the record of when data was imported for a resource (which is a collection of species information), so the term is meant to capture the sense of data being 'harvested' in a single 'event' in time."
     errors:

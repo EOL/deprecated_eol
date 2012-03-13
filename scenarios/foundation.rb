@@ -30,7 +30,7 @@ ContentPage.gen_if_not_exists(:page_name => 'Working Group E', :title => 'Workin
 ContentPage.gen_if_not_exists(:page_name => 'Contact Us', :title => 'Contact Us', :sort_order => 3)
 ContentPage.gen_if_not_exists(:page_name => 'Screencasts', :title => 'Screencasts', :sort_order => 4)
 ContentPage.gen_if_not_exists(:page_name => 'Press Releases', :title => 'Press Releases', :sort_order => 5)
-ContentPage.gen_if_not_exists(:page_name => 'terms_of_use', :title => 'Terms Of Use', :sort_order => 6)
+ContentPage.gen_if_not_exists(:page_name => 'terms_of_use', :title => 'Terms of Use', :sort_order => 6)
 
 #ContactSubject.gen_if_not_exists(:title => 'Media Contact', :recipients=>'test@test.com', :active=>true)
 ContactSubject.gen_if_not_exists(:title => 'Membership and registration', :recipients => "membership@eol.org", :active => 1)

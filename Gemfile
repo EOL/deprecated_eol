@@ -9,6 +9,7 @@ group :development, :test do
   gem 'capybara', '0.3.9'
   gem 'daemons'
   gem 'optiflag'
+  gem 'ruby-prof'
 end
 
 gem 'mysql'
@@ -34,4 +35,3 @@ gem 'memcache'
 gem 'unicorn', '4.1.1'
 gem 'graylog2_exceptions', '1.3.0'
 gem 'resque', :require => "resque/server"
-gem 'ruby-prof'

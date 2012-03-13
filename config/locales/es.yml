@@ -895,6 +895,7 @@ es:
   default_focus_collection_name_from_community: "%{name}'s enfoque"
   default_watch_collection_name: "%{username}'s lista de vigilancia"
   delete: borra
+  deleted_colon: "borrado:"
   delete_community: Borrar esta comunidad
   description: Descripción
   description_of: Descripción de
@@ -1946,7 +1947,7 @@ es:
   this_sound_is_unpublished: Este sonido no ha sido publicado.
   this_video_cannot_be_curated_because_unpublished: Este vídeo no puede ser supervisado porque no ha sido publicado.
   this_video_is_unpublished: Este vídeo no ha sido publicado.
-  time_ago: "%{time_passed} hace"
+  time_ago: "hace %{time_passed}"
   title: Título
   to_process_your_donation_please_proceed: Para procesar su donación, por favor siga
   toc: TDC

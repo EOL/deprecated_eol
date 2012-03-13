@@ -1,4 +1,4 @@
-class RefIdentifier < SpeciesSchemaModel
+class RefIdentifier < ActiveRecord::Base
 
   set_primary_keys :ref_id, :ref_identifier_type_id
 

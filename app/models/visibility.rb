@@ -1,5 +1,4 @@
-class Visibility < SpeciesSchemaModel
-  CACHE_ALL_ROWS = true
+class Visibility < ActiveRecord::Base
   uses_translations
   has_many :data_objects_hierarchy_entry
   has_many :curated_data_objects_hierarchy_entry

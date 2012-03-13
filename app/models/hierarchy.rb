@@ -12,9 +12,7 @@
 #
 require 'invert' # TEMP - Ant and JRice are attempting a fix
 
-class Hierarchy < SpeciesSchemaModel
-  CACHE_ALL_ROWS = true
-  CACHE_ALL_ROWS_DEFAULT_INCLUDES = [ { :agent => { :user => :content_partners } }, { :resource => { :content_partner => :user } } ]
+class Hierarchy < ActiveRecord::Base
   belongs_to :agent           # This is the attribution.
   has_and_belongs_to_many :collection_types
   has_one :resource
@@ -112,12 +110,11 @@ class Hierarchy < SpeciesSchemaModel
     # from the cache
     HierarchyEntry
     Rank
-    HierarchiesContent
     Name
     CanonicalForm
     Hierarchy.cached("kingdoms_for_#{id}") do
-      add_include = []
-      add_select = {}
+      add_include = [ :taxon_concept ]
+      add_select = { :taxon_concepts => '*' }
       unless params[:include_stats].blank?
         add_include << :hierarchy_entry_stat
         add_select[:hierarchy_entry_stats] = '*'

@@ -13,7 +13,7 @@ mk:
   translated_activities-name-activity_id-56: избриши
   translated_activities-name-activity_id-57: оцени
   translated_activities-name-activity_id-58: доверливо
-  translated_activities-name-activity_id-59: непрегледано
+  translated_activities-name-activity_id-59: непроверено
   translated_activities-name-activity_id-63: додај во збирка
   translated_activities-name-activity_id-64: отстрани
   translated_agent_roles-label-agent_role_id-1: Аниматор
@@ -83,7 +83,7 @@ mk:
   translated_contact_subjects-title-contact_subject_id-22: Ресурси за Мексиканскиот Залив
   translated_contact_subjects-title-contact_subject_id-23: Испратете му порака на Ели Агбајани
   translated_contact_subjects-title-contact_subject_id-3: Учење и образование
-  translated_contact_subjects-title-contact_subject_id-4: Кустосување на страници
+  translated_contact_subjects-title-contact_subject_id-4: Згрижување на страници
   translated_contact_subjects-title-contact_subject_id-5: Класификација
   translated_contact_subjects-title-contact_subject_id-6: Биоинформатичко истражување
   translated_contact_subjects-title-contact_subject_id-7: Биолошко истражување
@@ -215,7 +215,7 @@ mk:
   translated_synonym_relations-label-synonym_relation_id-19: прифатено име
   translated_synonym_relations-label-synonym_relation_id-2: тривијално име
   translated_synonym_relations-label-synonym_relation_id-20: артефакт од базата
-  translated_synonym_relations-label-synonym_relation_id-21: друго, вид. коментари
+  translated_synonym_relations-label-synonym_relation_id-21: друго, погл. коментари
   translated_synonym_relations-label-synonym_relation_id-22: правописна варијанта (погрешно напишано)
   translated_synonym_relations-label-synonym_relation_id-23: погрешно применето
   translated_synonym_relations-label-synonym_relation_id-24: отфрлено име

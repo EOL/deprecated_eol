@@ -2,20 +2,20 @@
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Anakmalaysia
-ms:
+ms: 
   0_1_or_2: 0, 1 atau 2
   0_or_1: 0 atau 1
   1st_view: Pandangan Pertama
   a_pipe_delimited_list_of_licenses: senarai lesen terasing tanda paip | atau 'all' untuk mendapatkan objek-objek di bawah sebarang lesen. Lesen-lesen yang bersingkatan cc- adalah 'all'
   a_pipe_delimited_list_of_spm_info_item_subject_names: senarai nama-nama subjek perkara info MPS berbatas tanda paip | atau 'semua' unuk mendapatkan teks dalam sebarang subjek
   a_taxon: satu takson
-  a_total_of_comment_were_found_matching_your_criteria:
+  a_total_of_comment_were_found_matching_your_criteria: 
     one: "%{count} komen didapati sepadan dengan kriteria anda."
     other: Sejumlah %{count} komen didapati sepadan dengan kriteria anda.
-  a_total_of_items_were_found_matching_your_criteria:
+  a_total_of_items_were_found_matching_your_criteria: 
     one: "%{count} perkara didapati sepadan dengan kriteria anda."
     other: Sejumlah %{count} perkara didapati sepadan dengan kriteria anda.
-  a_total_of_terms_were_found_matching_your:
+  a_total_of_terms_were_found_matching_your: 
     one: "%{count} perkara didapati sepadan dengan kriteria anda."
     other: Sejumlah %{count} perkara didapati sepadan dengan kriteria anda.
   about_eol: Perihal EOL
@@ -27,22 +27,22 @@ ms:
   actions: Tindakan
   active: Aktif
   active_colon: "Aktif:"
-  activerecord:
-    attributes:
-      collection:
+  activerecord: 
+    attributes: 
+      collection: 
         description: Keterangan himpunan
         logo: Gambar utama himpunan
         name: Nama himpunan
         sort_style_id: Arah isihan asali
-      community:
+      community: 
         description: Keterangan komuniti
         logo: Muat naik logo
         name: Nama komuniti
-      content_page:
+      content_page: 
         active: Diterbitkan
         page_name: Nama unik
         sort_order: Isihan
-      content_partner:
+      content_partner: 
         acronym: Singkatan projek
         admin_notes: Catatan pentadbiran
         auto_publish: Autoterbit
@@ -58,29 +58,29 @@ ms:
         resources: Sumber
         user_id: Diuruskan oleh
         vetted: Disemak
-      content_partner_agreement:
+      content_partner_agreement: 
         created_at: Dicipta pada
         signed_by: Ditandatangani oleh
         signed_on_date: Ditandatangani pada tarikh
-      data_object:
+      data_object: 
         bibliographic_citation: Petikan bibliografi
         description: Keterangan
         object_title: Tajuk
         rights_holder: Pemegang hak
         rights_statement: Pernyataan hak-hak
         source_url: URL sumber
-      harvest_event:
+      harvest_event: 
         resource: Sumber
-      hierarchy:
+      hierarchy: 
         browsable: Boleh disemak imbas
         complete: Lengkap
         description: Keterangan
         descriptive_label: Label keterangan
         label: Label
         request_publish: Pohon penerbitan
-      name:
+      name: 
         string: Nama
-      resource:
+      resource: 
         accesspoint_url: URL set data
         auto_publish: Autoterbit
         bibliographic_citation: Petikan bibliografi
@@ -97,14 +97,14 @@ ms:
         rights_statement: Pernyataan hak asali
         title: Nama sumber
         vetted: Disemak
-      translated_content_page:
+      translated_content_page: 
         active_translation: Diterbitkan
         left_content: Pandu arah
         main_content: Isi
         meta_description: Keterangan metadata
         meta_keywords: Kata kunci metadata
         title: Tajuk
-      user:
+      user: 
         agreed_with_terms: Perjanjian terma-terma penggunaan
         api_key: Kunci API
         bio: Bio
@@ -120,11 +120,11 @@ ms:
         requested_curator_level_id: Tahap kurasi yang diingini
         tag_line: Slogan
         username: Nama pengguna
-    errors:
+    errors: 
       format: "%{attribute} %{message}"
-      full_messages:
+      full_messages: 
         format: "%{attribute} %{message}"
-      messages:
+      messages: 
         accepted: mesti diterima
         blank: tidak boleh kosong
         confirmation: tidak sepadan dengan pengesahan
@@ -148,27 +148,27 @@ ms:
         too_short: terlalu pendek (minimum %{count} aksara)
         wrong_length: tidak betul panjangnya (mestilah %{count} aksara)
         wrong_type: tersalah jenis
-      models:
-        harvest_event:
-          attributes:
-            publish:
+      models: 
+        harvest_event: 
+          attributes: 
+            publish: 
               inclusion: hanya dibenarkan untuk peristiwa kutipan yang terakhir dan hanya jika peristiwa itu belum diterbitkan
-        resource:
-          attributes:
-            accesspoint_url:
+        resource: 
+          attributes: 
+            accesspoint_url: 
               blank: tidak boleh kosong, melainkan anda memuat naik fail sumber
               inaccessible: tidak dapat diakses, URL mestilah boleh diakses oleh umum
               invalid: tidak sah; ia mesti menghala ke fail XML, XML.GZIP atau XML.GZ.
-            dataset:
+            dataset: 
               blank: tidak boleh kosong melainkan anda memberikan URL set data
               wrong_type: tersalah jenis; ia mesti berbentuk fail GZIP, TAR atau XML
-            dwc_archive_url:
+            dwc_archive_url: 
               inaccessible: tidak dapat diakses, URL mestilah boleh diakses oleh umum
               invalid: tidak sah; ia mesti menghala ke fail TAR, TAR.GZIP atau TAR.GZ.
-      template:
+      template: 
         body: "Ruangan-ruangan berikut gagal disahkan:"
         header: "%{count} ralat pengesahan dialami"
-    models:
+    models: 
       user: akaun
   activity: Kegiatan
   activity_added_an_editor_of_collection: <strong>%{user}</strong> menambahkan pengurus ke dalam himpunan "%{collection}".
@@ -347,7 +347,7 @@ ms:
   articles_in_languages_with_count: "Rencana-rencana di halaman ini terdapat dalam %{count} bahasa:"
   articles_in_other_languages_with_count: "Rencana-rencana di halaman ini terdapat dalam %{count} bahasa lain:"
   articles_with_count: "%{count} rencana"
-  as_of_time_there_were_unique_visitors:
+  as_of_time_there_were_unique_visitors: 
     one: Sehingga %{time}, terdapat seorang pengunjung unik
     other: Sehingga %{time}, terdapat %{count} orang pengunjung unik
   assistive_details_header: Butiran
@@ -458,7 +458,6 @@ ms:
   collection_updated_notice: Himpunan <em>%{collection_name}</em> berjaya dikemas kini.
   collection_was_added_to_community: "\"%{collection}\" telah ditambahkan kepada komuniti ini."
   collection_was_removed_by_owner: Himpunan ini telah dibuang oleh pemiliknya.
-  collections: Himpunan
   collections_summary_empty: Halaman ini belum ada dalam sebarang himpunan.
   collections_summary_header_with_count: Terdapat dalam %{count} himpunan
   collections_with_count: "%{count} Himpunan"
@@ -481,7 +480,6 @@ ms:
   common_name: Nama Am
   common_names_with_count: "%{count} nama am"
   common_user_activity_page_title: Kegiatan Pengguna Umum
-  communities: Komuniti
   communities_index_empty: Tiada komuniti yang aktif.
   communities_index_header: Komuniti aktif
   communities_summary_empty: Takson ini belum ditampilkan oleh mana-mana komuniti.
@@ -528,7 +526,6 @@ ms:
   content_partner_agreement_cancel_edit_agreement_link: Batalkan
   content_partner_agreement_cancel_new_agreement_link: Batalkan
   content_partner_agreement_cancel_sign_agreement_link: Batalkan
-  content_partner_agreement_create_successful_notice: Anda telah bersetuju dengan terma-terma rakan kongsi kandungan. Anda boleh memberikan sumber data sekarang.
   content_partner_agreement_create_unsuccessful_error: Maaf, berlakunya ralat, nampaknya ada masalah teknikal pada perjanjian rakan kongsi kandungan. Sila cuba lagi, jika masalah masih timbul, sila maklumkan EOL.
   content_partner_agreement_signed_successful_notice: Anda telah bersetuju dengan terma-terma rakan kongsi kandungan. Anda boleh memberikan sumber data sekarang.
   content_partner_agreement_signed_unsuccessful_error: Maaf, berlakunya ralat, nampaknya ada masalah teknikal pada perjanjian rakan kongsi kandungan. Sila cuba lagi, jika masalah masih timbul, sila maklumkan EOL.
@@ -656,7 +653,6 @@ ms:
   content_partner_status_empty: Status tidak diketahui
   content_partner_update_successful_notice: Butiran rakan kongsi berjaya dikemas kini.
   content_partner_update_unsuccessful_error: Maaf, berlakunya ralat, butiran rakan kongsi tidak dapat dikemas kini.
-  content_partners: Rakan Kongsi Kandungan
   content_partners_empty: Tiada rakan kongsi kandungan dijumpai.
   content_partners_page_description: Rakan-rakan kongsi kandungan Encyclopedia of Life mempunyai sejumlah besar maklumat biodiversiti di tapak web atau pangkalan data sendiri yang juga dikongsikan di halaman-halaman EOL. Kami amat menghargai sumbangan penting mereka kepada misi EOL serta menggalakkan anda untuk lebih mengenali mereka. Ketahui lebih lanjut tentang <a href="%{more_url}">menjadi rakan kongsi kandungan.</a>
   content_partners_page_title: Rakan Kongsi Kandungan
@@ -795,7 +791,6 @@ ms:
   edit_annotation: sunting penjelasan
   edit_collection_details: Sunting butiran himpunan
   edit_collection_details_header: Sunting butiran himpunan
-  edit_collection_head_title: "Sunting: %{collection_name}"
   edit_comment: Sunting Komen
   edit_community: Sunting komuniti
   edit_contact_us_topics: sunting topik 'hubungi kami'
@@ -922,22 +917,20 @@ ms:
   has_hidden_your_image: telah menyorokkan gambar anda
   has_trusted_your_image: mempercayai gambar anda
   has_untrusted_your_image: tidak mempercayai gambar anda
-  head_title_collection: "Himpunan: %{name}"
-  head_title_community: "Komuniti: %{name}"
   hello_user: Apa khabar, %{user}
   help: Bantuan
-  helpers:
-    label:
-      collection:
+  helpers: 
+    label: 
+      collection: 
         view_style_id: Paparan asali
-      content_page:
+      content_page: 
         active: Diterbitkan
         active_more: Halaman-halaman yang diterbitkan akan boleh dilihat oleh khalayak umum. Padamkan rait pada <em>diterbitkan</em> jika anda tidak mahu pengguna am membaca laman ini dalam sebarang versi bahasa.
         page_name: Nama unik <small>(aksara huruf kecil Rumi dan angka, dan aksara garis bawah sahaja)</small>
         page_name_more: Berikan pengenal pasti yang unik, menerangkan diri, bererti dan persisten untuk halaman ini. Nama yang anda isikan di sin akan digunakan untuk menjana URL untuk laman ini, cth. nama unik <em>terms_of_use</em> ditukar ke URL <em>http://www.eol.org/info/terms_of_use</em>.
         parent_content_page_id: Induk
         parent_content_page_id_more: Anda juga boleh memilih induk untuk menaungi halaman ini.
-      content_partner:
+      content_partner: 
         created_at: Berdaftar
         current_agreement: Persetujuan semasa
         description_of_data: Keterangan data <small>(sulit)</small>
@@ -952,10 +945,10 @@ ms:
         oldest_published_harvest_event: Terbitan pertama
         public_more: Profil awam rakan kongsi kandungan diperlihatkan kepada semua, dan maklumat rakan kongsi disertakan dalam senarai rakan kongsi kandungan. Padamkan tanda pada petak ini untuk mengecualikan butiran-butiran rakan kongsi kandungan daripada senaraian serta mengehadkan capaian profil kepada pengguna yang mewujudkan rakan kongsi kandungan itu serta pentadbir EOL.
         user_id: Butiran rakan kongsi kandungan diuruskan oleh
-      content_partner_agreement:
+      content_partner_agreement: 
         mou_url: URL fail persetujuan <small>(alternatif pilihan)</small>
         mou_url_more: Anda juga boleh mengisikan URL pada fail yang mengandungi persetujuan rakan kongsi ini. Fail ini akan membatalan sebarang teks persetujuan lain yang ada. Jika anda ingin menyimpan fail itu (cth. fail PDF) dalam pelayan kandungan EOL, mula-mula <a href="%{upload_content_url}">muat naik fail</a> berkenaan untuk memperoleh URL-nya.
-      data_object:
+      data_object: 
         bibliographic_citation: Petikan bibliografi
         description: Teks <small>(sedikit penanda HTML dibenarkan)</small>
         license_id: Lesen
@@ -966,26 +959,26 @@ ms:
         rights_statement: Pernyataan hak-hak
         source_url: URL ke objek data asal
         toc_item: Bab kecil
-      google_analytics_partner_summaries:
+      google_analytics_partner_summaries: 
         page_views: Kunjungan halaman <small>(bilangan kunjungan ke halaman)</small>
         taxa_pages: Halaman <small>(bilangan halaman)</small>
         taxa_pages_viewed: Halaman yang dikunjungi <small>(bilangan halaman yang dikunjungi oleh pengunjung)</small>
         time_on_page: Jumlah masa yang diluangkan pada halaman <small>(jam)</small>
         unique_page_views: Kunjungan laman unik<small>(bilangan pengunjung yang mengunjungi halaman)</small>
-      harvest_event:
+      harvest_event: 
         began_at: Dimulakan
         completed_at: Siap
         publish_more: Peristiwa kutipan bendera untuk penerbitan, kandungan tidak akan diumumkan serta-merta.
         published_at: Diterbitkan
         published_status: Status
-      hierarchy:
+      hierarchy: 
         browsable_more: Semak status boleh semak imbas untuk mempromosikan hierarki ini supaya menjadi salah satu hierarki boleh semak imbas yang utama di EOL.
         browsable_status_with_colon: "Status boleh semak imbas:"
         complete: Dikurasi
         complete_more: "Hierarki yang dikurasi menganggap bahawa setiap entri dimaksudkan sebagai unik, iaitu rentetan nama yang sepadan dianggap sebagai homonim. <strong>AMARAN: Jangan tukar atribut ini melainkan anda pasti akan status homonim-homonim dalam hierarki. Jika anda berbuat demikian, anda mungkin menjejaskan keutuhan data.</strong>"
         request_publish: Penerbitan dipohon
         request_publish_more: Menunjukkan sama ada terdapat permohonan yang tergantung untuk mempromosikan hierarki ini sebagai salah satu hierarki utama yang boleh dilayari di EOL.
-      resource:
+      resource: 
         accesspoint_url: URL set data <small>(XML, XML.GZIP atau XML.GZ sahaja)</small>
         accesspoint_url_existing_remove: Sumber ini sedang dimuatkan dari URL yang berakhir dengan <em>%{accesspoint_url}</em>. Ataupun, anda boleh memuat naik satu fail jika anda ingin menggugurkan URL sedia ada dan memuatkan sumber daripada fail (tetapi ini tidak digalakkan).
         administration_settings: Tetapan pentadbiran <small>(untuk tatapan pentadbir EOL sahaja)</small>
@@ -1004,11 +997,11 @@ ms:
         resource_url_or_file_upload: Muat naik fail sumber
         resource_url_or_file_url: Muatkan sumber dari URL
         title: Nama sumber
-      session:
+      session: 
         password: Kata laluan
         remember_me: Kekalkan log masuk saya selama 2 minggu
         username_or_email: Nama pengguna atau alamat e-mel
-      translated_content_page:
+      translated_content_page: 
         active_translation: Diterbitkan
         active_translation_more: Terjemahan yang diterbitkan akan diperlihatkan kepada umum, melainkan laman itu sendiri belum diterbitkan. Hilangkan tanda pada <em>diterbitkan</em> jika anda mahu mengelakkan pengguna am daripada melihat versi laman ini.
         language_id: Bahasa
@@ -1017,7 +1010,7 @@ ms:
         meta_description_more: Nyatakan keterangan ringkas yang merumuskan konsep-konsep penting dalam kandungan halaman. Adakalanya, keterangan ini digunakan oleh enjin carian di Internet untuk menyemak perkaitan serta menyeranaikannya dalam hasil carian.
         meta_keywords_more: Isikan satu senarai kata-kata kunci (perkataan dan ungkapan ringkas) yang diasingkan dengan koma, yang paling mencerminkan kandungan halaman. Adakalanya, keterangan ini digunakan oleh enjin carian di Internet untuk menyemak perkaitan halaman dengan istilah carian.
         title_more: Tajuk kandungan ini akan terpapar pada kawasan pengatas laman. Tajuknya mestilah merangkumi kata-kata kunci yang paling berkaitan dengan kandungan.
-      user:
+      user: 
         agreed_with_terms: Saya bersetuju dengan <a href="%{terms_url}">terma-terma penggunaan</a>
         api_key_more: Ketahui lebih lanjut mengenai <a href="%{api_docs_url}">penambahan kunci pada panggilan API anda</a>.
         bio: Perihal saya
@@ -1048,61 +1041,61 @@ ms:
         user_identities: Saya
         username: Nama pengguna <small>(4 – 32 aksara)</small>
         username_or_email: Nama pengguna atau alamat e-mel
-      wikipedia_queue:
+      wikipedia_queue: 
         revision_url: URL Semakan <small>(cth. http://ms.wikipedia.org/w/index.php?title=Harimau&oldid=1762971)</small>
         revision_url_more: Dengan menaipkan URL semakan Wikipedia, anda meminta supaya EOL menginges semakan itu sebagai disemak. Ia akan menggantikan versi semasa rencana itu dalam EOL jika kami sudah adanya.
-    select:
+    select: 
       prompt: Sila pilih
-    submit:
-      content_page:
+    submit: 
+      content_page: 
         create: Buat halaman
         edit: Sunting
         preview: Pralihat
         update: Kemas kini halaman
-      content_partner:
+      content_partner: 
         create: Wujudkan rakan kongsi kandungan
         update: Simpan maklumat rakan kongsi kandungan
-      content_partner_agreement:
+      content_partner_agreement: 
         agree: Bersetuju dengan terma rakan kongsi kandungan
         create: Buat persetujuan baru
         update: Kemaskinikan persetujuan
-      content_partner_contact:
+      content_partner_contact: 
         create: Tambahkan hubungan
         destroy: Buang hubungan
         update: Kemas kini hubungan
       create: Buat %{model}
-      data_object:
+      data_object: 
         create: Buat rencana
         create_text: Buat rencana
         update: Simpan rencana
-      harvest_event:
+      harvest_event: 
         publish: Terbitkan
-      hierarchy:
+      hierarchy: 
         request_publish: Permintaan untuk mempromosikan hierarki
         update: Kemaskinikan hierarki
-      name:
+      name: 
         create: Tambahkan nama
         update: Kemas kini nama
-      resource:
+      resource: 
         create: Tambahkan sumber
         force_harvest: Pohon pengutipan paksa
         update: Kemas kini sumber
         update_settings: Kemaskinikan tetapan
-      session:
+      session: 
         create: Daftar masuk
       submit: Simpan %{model}
-      translated_content_page:
+      translated_content_page: 
         create: Berikan terjemahan
         update: Simpan perubahan terjemahan
       update: Kemas kini %{model}
-      user:
+      user: 
         create: Buka akaun
         curation_application: Pohonlah sekarang
         curation_privileges: Serahkan permohonan
         forgot_password: Hantar e-mel
         generate_api_key: Jana kunci
         update: Simpan maklumat profil
-      wikipedia_queue:
+      wikipedia_queue: 
         create: Serahkan permohonan
   here: sini
   hidden: Tersorok
@@ -1288,11 +1281,11 @@ ms:
   method_to_get_metadata_about_the_hierarchy: dengan pengenal pasti hierarki, kaedah ini memulangkan metadata mengenai hierarki dan menyenaraikan takson-takson akar
   methods: Kaedah
   minimal_page: Halaman Minimal
-  mobile:
-    contents:
+  mobile: 
+    contents: 
       explore_eol: Jelajahi EOL
       species: Spesies
-    taxa:
+    taxa: 
       community: Komuniti
       literature: Kepustakaan
       overview: Intisari
@@ -1321,6 +1314,7 @@ ms:
   name_preferred_taxonomically_for_source_help_tip: "%{icon} menandakan nama yang diutamakan oleh setiap sumber."
   name_preferred_taxonomically_for_source_yes: Diutamakan
   names: Nama
+  names_children_column_header: Kanak-kanak
   names_common_empty: Belum ada nama am yang dikaitkan dengan takson ini
   names_common_list_by_language_assistive_header: Nama am tersenarai mengikut bahasa
   names_curation_column_header: Kurasi
@@ -1362,53 +1356,53 @@ ms:
   note_about_homonym_problems: "PERINGATAN: tukar atribut ini hanya jika anda benar-benar pasti - tindakan ini boleh menyebabkan masalah homonim (kata yang sama bunyi tetapi lain erti) yang besar"
   note_all_times_utc: Semua waktu dinyatakan dalam UTC (Waktu Min Greenwich)
   notes: Catatan
-  notifier:
+  notifier: 
     activity_log_empty: Tiada tindakan terbaru oleh kurator.
-    activity_on_content_partner_content:
+    activity_on_content_partner_content: 
       subject: Ringkasan kegiatan terkini pada kandungan yang diberikan kepada Encyclopedia of Life oleh rakan kongsi %{partner_full_name}
-    activity_on_user_content:
+    activity_on_user_content: 
       subject: Ringkasan kegiatan terbaru pada kandungan yang disumbangkan anda kepada Encyclopedia of Life
     comments_empty: Tiada komen terbaru.
-    contact_us_auto_response:
+    contact_us_auto_response: 
       message: "Terima kasih kerana menghubungi pihak projek Encyclopedia of Life. Komen-komen anda telah dihantar kepada kumpulan yang berkenaan.\n\nKami menghargai maklum balas anda."
       subject: Terima kasih kerana menghubungi Encyclopedia of Life
-    contact_us_message:
+    contact_us_message: 
       message: "Pesanan yang berikut diserahkan kepada pihak EOL melalui borang Hubungi Kami:\nDaripada: %{from_name}\nE-mel: %{from_email}\nTajuk: %{subject}\n\n%{message}"
       subject: "Pesanan kepada EOL: %{title}"
-    content_partner_created:
+    content_partner_created: 
       message: "Ini merupakan pemberitahuan sistem janaan automatik daripada EOL untuk Kumpulan Halaman Spesies. Pengguna %{user_full_name} mewujudkan rakan kongsi kandungan %{partner_full_name}, butiran adalah seperti berikut:\n\nPengguna: %{user_full_name}\nE-mel: %{user_email}\nURL Profil: %{user_profile_url}\n\nRakan Kongsi: %{partner_full_name}\nURL Rakan Kongsi: %{partner_profile_url}\nDiwujudkan: %{partner_created_at_date}"
       subject: Pengguna EOL, %{user_full_name} mewujudkan rakan kongsi kandungan %{partner_full_name}
-    content_partner_resource_created:
+    content_partner_resource_created: 
       message: "Ini merupakan pemberitahuan sistem EOL untuk Kumpulan Halaman Spesies. Pengguna %{user_full_name} memberikan sumber baru, %{resource_title}, kepada rakan kongsi kandungan, %{partner_full_name}. Butiran-butirannya adalah seperti berikut:\n\nPengguna: %{user_full_name}\nE-mel: %{user_email}\nURL Profil: %{user_profile_url}\n\nRakan Kongsi: %{partner_full_name}\nURL Sumber Rakan Kongsi: %{partner_resources_url}\n\nSumber: %{resource_title}\nURL Sumber: %{resource_url}\nDicipta: %{resource_created_at_date}\nStatus: %{resource_status}"
       subject: Pengguna EOL, %{user_full_name} memberikan sumber baru, %{resource_title}, kepada rakan kongsi kandungan, %{partner_full_name}
-    content_partner_resource_force_harvest_request:
+    content_partner_resource_force_harvest_request: 
       message: "Ini merupakan pemberitahuan sistem EOL untuk Kumpulan Halaman Spesies. Pengguna %{user_full_name} memohon kutipan paksa untuk sumber %{resource_title} yang milik rakan kongsi kandungan, %{partner_full_name}. Butiran-butirannya adalah seperti berikut:\n\n\nPengguna: %{user_full_name}\nE-mel: %{user_email}\nURL Profil: %{user_profile_url}\n\nRakan Kongsi: %{partner_full_name}\nURL Sumber Rakan Kongsi: %{partner_resources_url}\n\nSumber: %{resource_title}\nURL Sumber: %{resource_url}\nDikemaskinikan: %{resource_updated_at_date}\nStatus: %{resource_status}"
       subject: Pengguna EOL, %{user_full_name} memohon kutipan paksa untuk sumber %{resource_title} yang milik rakan kongsi kandungan, %{partner_full_name}
-    content_partner_resource_hierarchy_publish_request:
+    content_partner_resource_hierarchy_publish_request: 
       message: "Ini merupakan pemberitahuan sistem EOL untuk Kumpulan Halaman Spesies. Pengguna %{user_full_name} memohon supaya hierarki yang dikaitkan dengan sumber %{resource_title} yang milik rakan kongsi kandungan, %{partner_full_name}, dipromosikan (diterbitkan) kepada hierarki yang boleh dilayari di EOL. Butiran-butirannya adalah seperti berikut:\n\nPengguna: %{user_full_name}\nE-mel: %{user_email}\nURL Profil: %{user_profile_url}\n\nRakan Kongsi: %{partner_full_name}\nURL Sumber Rakan Kongsi: %{partner_resources_url}\n\nSumber: %{resource_title}\nURL Sumber: %{resource_url}\nURL Sunting Hierarki: %{hierarchy_edit_url}"
       subject: Pengguna EOL, %{user_full_name} memohon promosi hierarki untuk sumber %{resource_title} yang milik rakan kongsi kandungan, %{partner_full_name}
-    content_partner_statistics_reminder:
+    content_partner_statistics_reminder: 
       message: Ini merupakan peringatan e-mel yang dihasilkan secara automatik daripada Encyclopedia of Life. Statistik penggunaan web untuk data yang dibekalkan kepada EOL oleh %{partner_full_name} pada %{month} %{year}, kini terdapat di %{partner_statistics_url}.
       subject: Peringatan statistik penggunaan Encyclopedia of Life untuk %{partner_full_name}, %{month} %{year}
-    curator_approved:
+    curator_approved: 
       message: "Terima kasih kerana memohon keistimewaan kurator %{curator_level}. Permohonan anda telah diluluskan.\n\nUntuk maklumat lanjut tentang kurasi dan fungsi-fungsi yang tersedia untuk anda, kunjungi http://www.eol.org/curators."
       subject: Permohonan anda untuk keistimewaan kurator %{curator_level} Encyclopedia of Life telah diluluskan
     greeting_dear_name_with_comma: "%{name},"
     signature_basic: Pasukan Encyclopedia of Life
     signature_with_species_pages_group_contact: "Jika anda ada sebarang persoalan, sila hubungi kami di %{species_pages_group_email}.\n\nPasukan Encyclopedia of Life"
     signature_with_support_contact: "Jika anda menghadapi sebarang masalah, sila hubungi kami di %{support_email}.\n\nPasukan Encyclopedia of Life"
-    user_activated:
+    user_activated: 
       message: "Selamat datang ke Encyclopedia of Life (EOL) dan terima kasih kerana mendaftar! Sila ambil perhatian bahawa nama pengguna anda ialah %{username} dan URL profil anda ialah %{profile_url}. Anda boleh log masuk ke dalam akaun anda di http://www.eol.org/login.\n\nUntuk mengetahui lebih lanjut tentang penggunaan EOL, termasuklah cara-cara mencipta Himpunan EOL, menyertai Komuniti EOL dan menyumbangkan kandungan, sila kunjungi halaman-halaman bantuan kami di http://www.eol.org/help."
       subject: Akaun Encyclopedia of Life anda telah diaktifkan
-    user_message:
+    user_message: 
       subject: Pesanan daripada Encyclopedia of Life
-    user_reset_password:
+    user_reset_password: 
       message: "Encyclopedia of Life (www.eol.org) telah menerima permohonan untuk mengeset semula kata laluan anda. Sekiranya bukan anda yang membuat permintaan ini, sila abaikan e-mel ini.\n\nPautan yang berikut akan memberi anda peluang sekali sahaja untuk mengeset semula kata laluan anda:\n\n%{password_reset_url}\n\nIkut pautan ini (klik sahaja pautan tersebut, atau salin dan tampalkan seluruh pautan kepada ruangan alamat pelayar Web anda dan muatkannya) untuk mengakses laman ini untuk membuat kata laluan baru. Sila ambil perhatian: jika pautan itu luput, anda akan diminta untuk menaipkan alamat e-mel anda sekali lagi untuk menerima pesanan e-mel dan pautan yang baru untuk mengeset semula kata laluan."
       subject: Set semua kata laluan akaun Encyclopedia of Life anda
-    user_updated_email_preferences:
+    user_updated_email_preferences: 
       message: "Ini merupakan pemberitahuan sistem EOL yang dihasilkan secara automatik. Pengguna %{user_full_name} (%{user_profile_url}) mengemaskinikan alamat e-mel atau keutamaan senarai melnya.\n\nKeutamaan terdahulu:\nE-mel: %{previous_email}\nKeutamaan senarai mel: %{previous_mailing_list_preference}\n\nKeutamaan terkini:\nE-mel: %{updated_email}\nKeutamaan senarai mel: %{updated_mailing_list_preference}\nDikemaskinikan pada: %{updated_at}"
       subject: Pengguna EOL, %{user_full_name} menukar alamat e-mel atau keutamaan senarai melnya
-    user_verification:
+    user_verification: 
       message: "Terima kasih kerana berdaftar dengan Encyclopedia of Life. Pautan yang berikut akan mengesahkan bahawa anda berhasrat untuk melengkapkan pendaftaran anda:\n\n%{verification_url}\n\nIkut pautan ini (klik sahaja pautan tersebut, atau salin dan tampalkan seluruh pautan kepada ruangan alamat pelayar Web anda dan muatkannya) untuk mengaktifkan akaun anda. Sebaik sahaja akaun anda diaktifkan, anda akan menerima satu pesanan e-mel pengesahan."
       subject: Sila sahkan permohonan anda untuk akaun Encyclopedia of Life account
   nucleotide_sequences: Jujukan Nukleotida
@@ -1577,16 +1571,16 @@ ms:
   search_the_site: Cari dalam tapak ini
   see_all_classifications_with_count_html: <span class="assistive">%{count} pengelasan lulus yang ada takson ini.</span>
   see_all_collections_with_count_html: <span class="assistive">%{count} himpunan yang ada takson ini.</span>
-  see_all_comments_with_count_for_text_or_rate:
+  see_all_comments_with_count_for_text_or_rate: 
     one: lihat %{count} untuk rencana ini atau berikan penilaian kepadanya
     other: lihat semua %{count} untuk rencana ini atau berikan penilaian kepadanya
   see_all_communities_with_count_html: Lihat <span class="assistive">%{count} komuniti yang bertumpu pada takson ini.</span>
-  see_all_featured_collections_with_count:
+  see_all_featured_collections_with_count: 
     one: Lihat %{count} himpunan pilihan.
     other: Lihat kesemua %{count} himpunan pilihan.
   see_all_media_link: Lihat semua media
   see_all_of_your_collections: Lihat semua himpunan anda
-  see_all_updates_with_count_html:
+  see_all_updates_with_count_html: 
     one: Lihat <span class="assistive">%{count} kemas kini untuk takson ini.</span>
     other: Lihat semua <span class="assistive">%{count} kemas kini untuk takson ini.</span>
   see_notes: lihat catatan
@@ -1654,7 +1648,7 @@ ms:
   supplier_colon: "Pembekal:"
   switch_language_advisory_information: Tukar bahasa tapak kepada %{language_label}
   synonym: Sinonim
-  synonyms_with_count:
+  synonyms_with_count: 
     one: "%{count} sinonim"
     other: "%{count} sinonim"
   table_column_header_actions: Tindakan
@@ -1668,7 +1662,6 @@ ms:
   task_status_curated_option: Dikurasi
   task_status_ignored_option: Diabaikan
   tasks_with_count: "%{count} tugas dijumpai"
-  taxa: Takson
   taxa_with_count: "%{count} takson"
   taxon: takson
   taxon_biomedical_terms_link: Istilah bioperubatan
@@ -1741,7 +1734,7 @@ ms:
   toc: Jadual isi kandungan
   topic: Topik
   topic_area: Kawasan Topik
-  total_items_with_count:
+  total_items_with_count: 
     one: "%{count} perkara"
     other: "%{count} perkara kesemuanya"
   translation_deleted: Terjemahan telah dipadamkan
@@ -1802,7 +1795,7 @@ ms:
   users_about_me_header: Perihal saya
   users_content_partners_header: Rakan kongsi kandungan
   users_content_partners_information: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt hendrerit tortor, commodo faucibus turpis imperdiet non. Nullam tincidunt, est vel euismod volutpat, libero turpis suscipit neque, nec viverra magna augue non nisl. Praesent et risus sit amet quam sagittis pulvinar eu at odio. Etiam mattis enim turpis, cursus rutrum massa. Ut blandit varius tellus, vitae interdum nulla pulvinar nec.
-  users_content_partners_with_count:
+  users_content_partners_with_count: 
     one: "%{count} rakan kongsi kandungan semasa"
     other: "%{count} rakan kongsi kandungan semasa"
   users_curation_header: Kelayakan kurator
@@ -1863,7 +1856,7 @@ ms:
   wikipedia_queue_new_intro: Serahkan semakan rencana Wikipedia untuk diinges ke dalam EOL sebagai objek teks yang disemak.
   wikipedia_queue_new_page_title: Minta import rencana Wikipedia
   will_find_taxon_pages_matching_the_search_term: akan mencari halaman takson jika nama yang diutamakan atau sebarang sinonim atau nama am tepat-tepat sepadan dengan istilah carian
-  will_paginate:
+  will_paginate: 
     next_label: Seterusnya &#8594;
     page_gap: "&hellip;"
     previous_label: "&#8592; Sebelumnya"

@@ -1,4 +1,4 @@
-class Language < SpeciesSchemaModel
+class Language < ActiveRecord::Base
   CACHE_ALL_ROWS = true
   uses_translations(:foreign_key => 'original_language_id')
   has_many :data_objects
@@ -80,7 +80,7 @@ class Language < SpeciesSchemaModel
   end
   
   def self.all_unknowns
-    cached("unknown_languages") do
+    @@all_unknown_languages ||= cached("unknown_languages") do
       unknown_languages = []
       ['unknown', 'unspecified', 'undetermined', 'common name', 'miscellaneous languages', 'multiple languages'].each do |l|
         if lang = cached_find_translated(:label, l)

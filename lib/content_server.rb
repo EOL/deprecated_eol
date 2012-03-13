@@ -9,6 +9,18 @@ class ContentServer
     @@next = 0 if @@next > $CONTENT_SERVERS.length - 1
     return $CONTENT_SERVERS[@@next]
   end
+  
+  # this method will reliably return the same host for a given
+  # asset, maintaining a decent amount of randomization. Designed
+  # to avoid serving the same asset from different hosts in order
+  # to improve caching
+  def self.host_for(cache_url)
+    # get ascii value of last character
+    last_ascii_value = cache_url.to_s[-1]
+    # get the remainder of ASCII %(mod) LENGTH and use it as the array index
+    $CONTENT_SERVERS[ (last_ascii_value % $CONTENT_SERVERS.length)]
+  end
+  
 
   def self.logo_path(url, size = nil)
     return self.blank if url.blank?
@@ -25,7 +37,7 @@ class ContentServer
     if specified_content_host
       (specified_content_host + $CONTENT_SERVER_CONTENT_PATH + self.cache_url_to_path(cache_url))
     else
-      (self.next + $CONTENT_SERVER_CONTENT_PATH + self.cache_url_to_path(cache_url))
+      (self.host_for(cache_url) + $CONTENT_SERVER_CONTENT_PATH + self.cache_url_to_path(cache_url))
     end
   end
 

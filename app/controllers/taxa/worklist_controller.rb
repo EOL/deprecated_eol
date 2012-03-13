@@ -3,7 +3,7 @@ class Taxa::WorklistController < TaxaController
   before_filter :check_authentication
   before_filter :restrict_to_curators
   before_filter :instantiate_taxon_concept, :redirect_if_superceded, :instantiate_preferred_names
-  before_filter :add_page_view_log_entry, :update_user_content_level
+  before_filter :add_page_view_log_entry
 
   def show
     @page = params[:page] ||= 1
@@ -38,6 +38,7 @@ class Taxa::WorklistController < TaxaController
       :per_page => 16,
       :sort_by => @sort_by,
       :data_type_ids => data_type_ids,
+      :filter_by_subtype => false,
       :vetted_types => search_vetted_types,
       :visibility_types => [ @object_visibility ],
       :return_hierarchically_aggregated_objects => true,

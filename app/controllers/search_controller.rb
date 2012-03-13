@@ -14,13 +14,6 @@ class SearchController < ApplicationController
     @params_type.map!{ |t| t.camelize }
     @querystring = params[:q] || params[:id] || params[:mobile_search]
 
-    # To get consistent internal pagination links for SEO, we need to replace params[:id] with params[:q]
-    # TODO: We probably wouldn't have to do this if we made our search routes more consistent.
-    if params[:id]
-      params["q"] = params["id"]
-      params.delete("id")
-    end
-
     if @querystring == I18n.t(:search_placeholder) || @querystring == I18n.t(:must_provide_search_term_error)
       flash[:error] = I18n.t(:must_provide_search_term_error)
       redirect_to root_path

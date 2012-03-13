@@ -2,7 +2,7 @@ class Mobile::Taxa::MediaController < Mobile::TaxaController
 
   def index
     includes = [
-      { :published_hierarchy_entries => [ :name , :hierarchy, :hierarchies_content, :vetted ] },
+      { :published_hierarchy_entries => [ :name , :hierarchy, :vetted ] },
       { :data_objects => { :toc_items => :info_items } },
       { :top_concept_images => :data_object },
       { :curator_activity_logs => :user },
@@ -13,7 +13,6 @@ class Mobile::Taxa::MediaController < Mobile::TaxaController
       :hierarchy_entries => [ :id, :rank_id, :identifier, :hierarchy_id, :parent_id, :published, :visibility_id, :lft, :rgt, :taxon_concept_id, :source_url ],
       :names => [ :string, :italicized, :canonical_form_id ],
       :hierarchies => [ :agent_id, :browsable, :outlink_uri, :label ],
-      :hierarchies_content => [ :content_level, :image, :text, :child_image, :map, :youtube, :flash ],
       :vetted => :view_order,
       :data_objects => [ :id, :data_type_id, :data_subtype_id, :published, :guid, :data_rating, :object_cache_url, :source_url ],
       :table_of_contents => '*',

@@ -38,7 +38,7 @@ class Comment < ActiveRecord::Base
   def self.for_feeds(type = :all, taxon_concept_id = nil, max_results = 50)
     return [] if taxon_concept_id.nil?
     min_date = 30.days.ago.strftime('%Y-%m-%d')
-    comments_hash = SpeciesSchemaModel.connection.execute(ActiveRecord::Base.sanitize_sql_array(["
+    comments_hash = Comment.connection.execute(ActiveRecord::Base.sanitize_sql_array(["
       ( SELECT c.id, c.body description, he_children.taxon_concept_id, 'Comment' data_type_label, c.created_at, n.string scientific_name
         FROM hierarchy_entries he_parent
           JOIN hierarchy_entries he_children
@@ -210,6 +210,7 @@ class Comment < ActiveRecord::Base
   end
 
   def log_activity_in_solr
+    return if $SKIP_CREATING_ACTIVITY_LOGS_FOR_COMMENTS
     base_index_hash = {
       'activity_log_unique_key' => "Comment_#{id}",
       'activity_log_type' => 'Comment',

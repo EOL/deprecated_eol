@@ -1,6 +1,6 @@
 class Taxa::MapsController < TaxaController
   before_filter :instantiate_taxon_concept, :redirect_if_superceded, :instantiate_preferred_names
-  before_filter :add_page_view_log_entry, :update_user_content_level
+  before_filter :add_page_view_log_entry
 
   def show
     # TODO - On next line @curator is defined and doesn't seem to be used anywhere for maps tab. Remove it if not really needed.
@@ -14,7 +14,8 @@ class Taxa::MapsController < TaxaController
       :data_subtype_ids => DataType.map_type_ids,
       :ignore_translations => true
     })
-    DataObject.preload_associations(@maps, [ :users_data_objects_ratings, { :data_objects_hierarchy_entries => :hierarchy_entry } ] )
+    DataObject.preload_associations(@maps, [ :users_data_objects_ratings, { :data_objects_hierarchy_entries =>
+      [ :hierarchy_entry, :vetted, :visibility ] } ] )
     @rel_canonical_href = @selected_hierarchy_entry ?
       taxon_hierarchy_entry_maps_url(@taxon_concept, @selected_hierarchy_entry) :
       taxon_maps_url(@taxon_concept)

@@ -14,6 +14,10 @@
 original_index_records_on_save_value = $INDEX_RECORDS_IN_SOLR_ON_SAVE
 $INDEX_RECORDS_IN_SOLR_ON_SAVE = false
 
+# Looking up the activity logs for comments is slow here as lots of comments
+# are created in the bootstrap. They will get indexed en masse at the end of
+# this scenario
+$SKIP_CREATING_ACTIVITY_LOGS_FOR_COMMENTS = true
 
 require 'spec/eol_spec_helpers'
 require 'spec/scenario_helpers'
@@ -180,10 +184,8 @@ def load_old_foundation_data
   ResourceStatus.gen_if_not_exists(:label => 'Being Processed')
   ResourceStatus.gen_if_not_exists(:label => 'Processed')
   ResourceStatus.gen_if_not_exists(:label => 'Processing Failed')
-  ResourceStatus.gen_if_not_exists(:label => 'Published')
-  ResourceStatus.gen_if_not_exists(:label => 'Publish Pending')
-  ResourceStatus.gen_if_not_exists(:label => 'Unpublish Pending')
   ResourceStatus.gen_if_not_exists(:label => 'Force Harvest')
+  ResourceStatus.gen_if_not_exists(:label => 'Published')
 
   SynonymRelation.gen_if_not_exists(:label => "acronym")
   SynonymRelation.gen_if_not_exists(:label => "anamorph")
@@ -248,7 +250,7 @@ agent_col.user ||= User.gen
 if agent_col.user.content_partners.blank?
   agent_col.user.content_partners << ContentPartner.gen(:full_name => "Catalogue of Life")
 end
-resource = Resource.gen(:title => 'Bootstrapper', :resource_status => ResourceStatus.published,
+resource = Resource.gen(:title => 'Bootstrapper', :resource_status => ResourceStatus.processed,
   :hierarchy => Hierarchy.find_by_label('Species 2000 & ITIS Catalogue of Life: Annual Checklist 2010'),
   :content_partner => agent_col.user.content_partners.first, :vetted => true)
 event    = HarvestEvent.gen(:resource => resource)
@@ -286,7 +288,7 @@ last_user = User.last
 u = User.gen(:email => last_user.email)
 u.vetted = false
 tc.current_user = u
-taxon_concept_image = tc.data_objects.find(:all, :conditions => "data_type_id IN (#{DataType.imag_type_ids.join(',')})").first
+taxon_concept_image = tc.data_objects.find(:all, :conditions => "data_type_id IN (#{DataType.image_type_ids.join(',')})").first
 taxon_concept_image.comments[0].body = 'First comment'
 taxon_concept_image.comments[0].save!
 taxon_concept_image.comment(u, 'Second comment')
@@ -374,8 +376,8 @@ tc31 = build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common
 )
 
 curator_for_tc31 = build_curator(tc31, :username => 'curator_for_tc', :password => 'password')
-text_dato = tc31.overview.first # TODO - this doesn't seem to ACTAULLY be the overview.  Fix it?
-image_dato = tc31.find(:all, :conditions => "data_type_id IN (#{DataType.imag_type_ids.join(',')})").first
+text_dato = tc31.data_objects.select{ |d| d.is_text? }.first
+image_dato = tc31.data_objects.select{ |d| d.is_image? }.first
 
 # rating of old version of dato was 1
 text_dato.rate(curator_for_tc31, 1)
@@ -389,7 +391,7 @@ user.build_watch_collection
 overv = TocItem.find_by_translated(:label, 'Overview')
 desc = TocItem.find_by_translated(:label, 'Description')
 tc = build_taxon_concept(:toc => [{:toc_item => overv}, {:toc_item => overv}, {:toc_item => desc}], :comments => [{}])
-description_dato = tc.content_by_category(desc)[:data_objects].first
+description_dato = tc.data_objects.select{ |d| d.is_text? && d.toc_items.include?(desc) }.first
 description_dato.comment(user, 'First comment')
 description_dato.comment(user, 'Second comment')
 description_dato.comment(user, 'Third comment')
@@ -403,8 +405,8 @@ description_dato.comment(user, 'Tenth comment')
 description_dato.comment(user, 'Eleventh comment')
 description_dato.comment(user, 'Twelfth comment')
 
-DataObjectsInfoItem.gen(:data_object => tc.overview.first, :info_item => InfoItem.find_by_translated(:label, "Cyclicity"))
-DataObjectsInfoItem.gen(:data_object => tc.overview.last, :info_item => InfoItem.find_by_translated(:label, "Distribution"))
+DataObjectsInfoItem.gen(:data_object => tc.data_objects.select{ |d| d.is_text? }.first, :info_item => InfoItem.find_by_translated(:label, "Cyclicity"))
+DataObjectsInfoItem.gen(:data_object => tc.data_objects.select{ |d| d.is_text? }.last, :info_item => InfoItem.find_by_translated(:label, "Distribution"))
 
 
 
@@ -586,7 +588,7 @@ end
 RandomHierarchyImage.delete_all
 
 HierarchyEntry.all.each do |he|
-  entry_best_images = he.taxon_concept.find(:all, :conditions => "data_type_id IN (#{DataType.imag_type_ids.join(',')})").compact
+  entry_best_images = he.taxon_concept.data_objects.select{ |d| d.is_image? }
   RandomHierarchyImage.gen(:hierarchy => he.hierarchy, :taxon_concept => he.taxon_concept, :hierarchy_entry => he, :data_object => entry_best_images.first) if !entry_best_images.blank?
 end
 
@@ -598,19 +600,8 @@ make_all_nested_sets
 rebuild_collection_type_nested_set
 flatten_hierarchies
 
-# TaxonConcept.all.each do |tc|
-#   tc.save # This will save the record, thus indexing the concept with all its names
-# end
-
-DataObject.find(:all).each_with_index do |d,i|
-  d.created_at = Time.now - i.hours
-  d.save!
-end
-
-Comment.find(:all).each_with_index do |c,i|
-  c.created_at = Time.now - i.hours
-  c.save!
-end
+DataObject.connection.execute("UPDATE data_objects SET updated_at = DATE_SUB(NOW(), INTERVAL id HOUR)")
+Comment.connection.execute("UPDATE comments SET updated_at = DATE_SUB(NOW(), INTERVAL id HOUR)")
 
 (-12..12).each do |n|
   date = n.month.ago
@@ -622,5 +613,9 @@ end
   GoogleAnalyticsPartnerTaxon.gen(:year => year, :month => month, :taxon_concept => tc30, :user => Agent.catalogue_of_life.user )
 end
 
-$INDEX_RECORDS_IN_SOLR_ON_SAVE = original_index_records_on_save_value
+EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
+EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild
+EOL::Solr::CollectionItemsCoreRebuilder.begin_rebuild
 
+$INDEX_RECORDS_IN_SOLR_ON_SAVE = original_index_records_on_save_value
+$SKIP_CREATING_ACTIVITY_LOGS_FOR_COMMENTS = false

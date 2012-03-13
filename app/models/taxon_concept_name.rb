@@ -1,4 +1,4 @@
-class TaxonConceptName < SpeciesSchemaModel
+class TaxonConceptName < ActiveRecord::Base
 
   set_primary_keys :taxon_concept_id, :name_id, :source_hierarchy_entry_id, :language_id, :synonym_id
 

@@ -19,7 +19,6 @@ if $ENABLE_MOBILE
       @testy = EOL::TestInfo.load('testy')
       @taxon_concept = @testy[:taxon_concept]
       Capybara.reset_sessions!
-      HierarchiesContent.delete_all
       @section = 'overview'
     end
 
@@ -85,7 +84,6 @@ if $ENABLE_MOBILE
       @testy = EOL::TestInfo.load('testy')
       @taxon_concept = @testy[:taxon_concept]
       Capybara.reset_sessions!
-      HierarchiesContent.delete_all
       @section = 'overview'
     end
 
@@ -171,8 +169,7 @@ if $ENABLE_MOBILE
       visit('/logout')
       make_all_nested_sets
       flatten_hierarchies
-      builder = EOL::Solr::SiteSearchCoreRebuilder.new()
-      builder.begin_rebuild
+      EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild
     end
 
     it 'should show a search field on mobile home page' do

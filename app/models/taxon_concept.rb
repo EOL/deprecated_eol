@@ -13,11 +13,10 @@
 #
 # See the comments at the top of the Taxon for more information on this.
 # I include there a basic biological definition of what a Taxon is.
-class TaxonConcept < SpeciesSchemaModel
+class TaxonConcept < ActiveRecord::Base
   include ModelQueryHelper
   include EOL::ActivityLoggable
 
-  #TODO belongs_to :taxon_concept_content
   belongs_to :vetted
 
   has_many :feed_data_objects
@@ -72,16 +71,10 @@ class TaxonConcept < SpeciesSchemaModel
 
   has_many :superceded_taxon_concepts, :class_name => TaxonConcept.to_s, :foreign_key => "supercedure_id"
 
-  has_one :taxon_concept_content
   has_one :taxon_concept_metric
   has_one :taxon_concept_exemplar_image
 
   has_and_belongs_to_many :data_objects
-
-  named_scope :has_content, :joins => :taxon_concept_content,
-    :conditions => 'taxon_concepts.published=1 AND taxon_concepts.supercedure_id=0 AND
-      (taxon_concept_content.text=1 OR taxon_concept_content.image=1 OR taxon_concept_content.flash=1
-       OR taxon_concept_content.youtube=1)'
 
   attr_accessor :includes_unvetted # true or false indicating if this taxon concept has any unvetted/unknown data objects
 
@@ -93,14 +86,13 @@ class TaxonConcept < SpeciesSchemaModel
       :taxon_concepts => '*',
       :hierarchy_entries => [ :id, :rank_id, :identifier, :hierarchy_id, :parent_id, :published, :visibility_id, :lft, :rgt, :taxon_concept_id, :source_url ],
       :hierarchies => [ :agent_id, :browsable, :outlink_uri, :label ],
-      :hierarchies_content => [ :content_level, :image, :text, :child_image, :map, :youtube, :flash ],
       :names => :string,
       :vetted => :view_order,
       :canonical_forms => :string,
       :data_objects => [ :id, :data_type_id, :published, :guid, :data_rating, :language_id, :object_cache_url ],
       :licenses => :title,
       :table_of_contents => '*' },
-    :include => [{ :published_hierarchy_entries => [ :name , :hierarchy, :hierarchies_content, :vetted ] }, { :data_objects => [ { :toc_items => :info_items }, :license] },
+    :include => [{ :published_hierarchy_entries => [ :name , :hierarchy, :vetted ] }, { :data_objects => [ { :toc_items => :info_items }, :license] },
       { :users_data_objects => { :data_object => :toc_items } }]
 
   def all_superceded_taxon_concept_ids
@@ -120,11 +112,10 @@ class TaxonConcept < SpeciesSchemaModel
   end
 
   def preferred_common_name_in_language(language)
-    common_names = preferred_common_names.select do |preferred_common_name|
+    best_name_in_language = preferred_common_names.detect do |preferred_common_name|
       preferred_common_name.language_id == language.id
     end
-    return common_names[0].name.string unless common_names.blank?
-    return nil
+    best_name_in_language.name.string if best_name_in_language
   end
 
   # TODO - this will now be called on ALL taxon pages.  Eep!  Make this more efficient:
@@ -182,8 +173,7 @@ class TaxonConcept < SpeciesSchemaModel
       JOIN #{DataObjectsTaxonConcept.full_table_name} dotc ON (do_all_versions.id = dotc.data_object_id)
       WHERE dotc.taxon_concept_id=#{self.id}
       AND cal.changeable_object_type_id IN(#{ChangeableObjectType.data_object_scope.join(",")})
-      AND acts.id IN (#{Activity.raw_curator_action_ids.join(",")})
-      ORDER BY cal.updated_at DESC").uniq
+      AND acts.id IN (#{Activity.raw_curator_action_ids.join(",")})").uniq
     User.find(curators)
   end
 
@@ -326,7 +316,8 @@ class TaxonConcept < SpeciesSchemaModel
     hierarchy ||= Hierarchy.default
     raise "Error finding default hierarchy" if hierarchy.nil? # EOLINFRASTRUCTURE-848
     raise "Cannot find a HierarchyEntry with anything but a Hierarchy" unless hierarchy.is_a? Hierarchy
-
+    
+    TaxonConcept.preload_associations(self, :published_hierarchy_entries => [ :vetted, :hierarchy ])
     @all_entries ||= HierarchyEntry.sort_by_vetted(published_hierarchy_entries)
     if @all_entries.blank?
       @all_entries = HierarchyEntry.sort_by_vetted(hierarchy_entries)
@@ -388,7 +379,7 @@ class TaxonConcept < SpeciesSchemaModel
     hierarchy_entry_ids = concept_entries.values.collect{|he| he.id || nil}.compact
     return false if hierarchy_entry_ids.blank?
 
-    results = SpeciesSchemaModel.connection.execute("
+    results = TaxonConcept.connection.execute("
         SELECT he.id, he.taxon_concept_id, n.string name_string, n_parent1.string parent_name_string, n_parent2.string grandparent_name_string
         FROM hierarchy_entries he
         JOIN names n ON (he.name_id=n.id)
@@ -480,7 +471,7 @@ class TaxonConcept < SpeciesSchemaModel
   def quick_common_name(language = nil, hierarchy = nil)
     language ||= current_user.language
     hierarchy ||= Hierarchy.default
-    common_name_results = SpeciesSchemaModel.connection.execute(
+    common_name_results = connection.execute(
       "SELECT n.string name, he.hierarchy_id source_hierarchy_id
         FROM taxon_concept_names tcn
           JOIN names n ON (tcn.name_id = n.id)
@@ -510,7 +501,7 @@ class TaxonConcept < SpeciesSchemaModel
       else                   {:name_field => 'n.string',     :also_join => ''}
     end
 
-    scientific_name_results = SpeciesSchemaModel.connection.execute(
+    scientific_name_results = connection.execute(
       "SELECT #{search_type[:name_field]} name, he.hierarchy_id source_hierarchy_id
        FROM hierarchy_entries he JOIN names n ON (he.name_id = n.id) #{search_type[:also_join]}
        WHERE he.id=#{hierarchy_entry.id}").all_hashes
@@ -612,10 +603,6 @@ class TaxonConcept < SpeciesSchemaModel
     comment
   end
 
-  def content_level
-    taxon_concept_content.content_level
-  end
-
   # This could use name... but I only need it for searches, and ID is all that matters, there.
   def <=>(other)
     return id <=> other.id
@@ -640,7 +627,7 @@ class TaxonConcept < SpeciesSchemaModel
       filter << "he_parent.id=#{options[:hierarchy_entry_id]}"
     end
 
-    parents = SpeciesSchemaModel.connection.execute("
+    parents = TaxonConcept.connection.execute("
       SELECT n.id name_id, n.string name_string, n.canonical_form_id, he_parent.taxon_concept_id, h.label hierarchy_label, he_parent.id hierarchy_entry_id
       FROM hierarchy_entries he_parent
       JOIN hierarchy_entries he_child ON (he_parent.id=he_child.parent_id)
@@ -650,7 +637,7 @@ class TaxonConcept < SpeciesSchemaModel
       AND browsable=1
     ").all_hashes.uniq
 
-    children = SpeciesSchemaModel.connection.execute("
+    children = TaxonConcept.connection.execute("
       SELECT n.id name_id, n.string name_string, n.canonical_form_id, he_child.taxon_concept_id, h.label hierarchy_label, he_child.id hierarchy_entry_id
       FROM hierarchy_entries he_parent
       JOIN hierarchy_entries he_child ON (he_parent.id=he_child.parent_id)
@@ -687,24 +674,11 @@ class TaxonConcept < SpeciesSchemaModel
   end
 
   def data_objects_for_api(options = {})
-    options[:images] ||= 3
-    options[:videos] ||= 1
-    # TODO - sounds for API
-    options[:text] ||= 1
-    if options[:subjects]
-      options[:text_subjects] = options[:subjects].split("|")
-    else
-      options[:text_subjects] = ['TaxonBiology', 'GeneralDescription', 'Description']
-    end
-    # create an alias Uses for Use (it was misspelled somewhere)
-    if options[:text_subjects].include?('Use')
-      options[:text_subjects] << 'Uses'
-    end
-    if options[:text_subjects].include?('all')
-      options[:text_subjects] = nil
-    else
-      options[:text_subjects].map!{ |l| InfoItem.find_by_translated(:label, l) }.compact
-    end
+    # setting some default search options
+    solr_search_params = {}
+    solr_search_params[:sort_by] = 'status',
+    solr_search_params[:visibility_types] = ['visible']
+    solr_search_params[:skip_preload] = true
     if options[:licenses]
       if options[:licenses].include?('all')
         options[:licenses] = nil
@@ -712,70 +686,95 @@ class TaxonConcept < SpeciesSchemaModel
         options[:licenses] = options[:licenses].split("|").map do |l|
           l = 'public domain' if l == 'pd'
           l = 'not applicable' if l == 'na'
-          License.find(:all, :conditions => "title like '#{l}%'")
+          License.find(:all, :conditions => "title REGEXP '^#{l}([^-]|$)'")
         end.flatten.compact
+        solr_search_params[:license_ids] = options[:licenses].blank? ? nil : options[:licenses].collect(&:id)
       end
     end
     if options[:vetted] == "1"  # trusted
-      options[:vetted] = [Vetted.trusted]
+      solr_search_params[:vetted_types] = ['trusted']
     elsif options[:vetted] == "2"  # everything except untrusted
-      options[:vetted] = [Vetted.trusted, Vetted.unknown]
+      solr_search_params[:vetted_types] = ['trusted', 'unreviewed']
     else
-      options[:vetted] = nil
+      solr_search_params[:vetted_types] = ['trusted', 'unreviewed', 'untrusted']
     end
-
-    return_data_objects = []
-    # get the images
+    
+    # GET THE TEXT
+    text_objects = []
+    if options[:text].to_i > 0
+      options[:subjects] ||= 'TaxonBiology|GeneralDescription|Description'
+      options[:text_subjects] = options[:subjects].split("|")
+      options[:text_subjects] << 'Uses' if options[:text_subjects].include?('Use')
+      if options[:text_subjects].include?('all')
+        options[:text_subjects] = nil
+      else
+        options[:text_subjects] = options[:text_subjects].map{ |l| InfoItem.cached_find_translated(:label, l, 'en', :find_all => true) }.flatten.compact
+        options[:toc_items] = options[:text_subjects].map{ |ii| ii.toc_item }.flatten.compact
+      end
+    
+      text_objects = self.data_objects_from_solr(solr_search_params.merge({
+        :per_page => options[:text],
+        :toc_ids => options[:toc_items] ? options[:toc_items].collect(&:id) : nil,
+        :data_type_ids => DataType.text_type_ids,
+        :filter_by_subtype => false
+      }))
+      DataObject.preload_associations(text_objects, [ { :info_items => :translations } ] )
+    end
+    
+    # GET THE IMAGES
+    image_objects = []
     if options[:images].to_i > 0
-      image_data_objects = images_from_solr(20)
-      image_data_objects = DataObject.filter_list_for_user(image_data_objects, :taxon_concept => self)
-      # remove non-matching vetted and license values
-      image_data_objects.delete_if do |d|
-        d_vetted = d.vetted_by_taxon_concept(self, :find_best => true)
-        d_vetted = d_vetted unless d_vetted.nil?
-        (options[:vetted] && !options[:vetted].include?(d_vetted)) ||
-        (options[:licenses] && !options[:licenses].include?(d.license))
-      end
-      image_data_objects = image_data_objects.group_objects_by('guid')  # group by guid
-      image_data_objects = DataObject.sort_by_rating(image_data_objects, self)  # order by rating
-      return_data_objects += image_data_objects[0...options[:images].to_i]  # get the # requested
+      image_objects = self.data_objects_from_solr(solr_search_params.merge({
+        :per_page => options[:images],
+        :data_type_ids => DataType.image_type_ids,
+        :return_hierarchically_aggregated_objects => true
+      }))
     end
-
-    # get the rest
-    if options[:text].to_i > 0 || options[:videos].to_i
-      non_image_objects = data_objects.select{ |d| !d.is_image? }
-      non_image_objects = DataObject.filter_list_for_user(non_image_objects, :taxon_concept => self)
-      non_image_objects.delete_if do |d|
-        d_vetted = d.vetted_by_taxon_concept(self, :find_best => true)
-        d_vetted = d_vetted unless d_vetted.nil?
-        (options[:vetted] && !options[:vetted].include?(d_vetted)) ||
-        (options[:licenses] && !options[:licenses].include?(d.license)) ||
-        (d.is_text? && options[:text_subjects] && (options[:text_subjects] & d.info_items).empty?)
-        # the use of & above is the array set intersection operator
-      end
-      non_image_objects = non_image_objects.group_objects_by('guid')  # group by guid
-      non_image_objects = DataObject.sort_by_rating(non_image_objects, self)  # order by rating
-
-      # remove items over the count limit
-      types_count = {:text => 0, :video => 0}
-      non_image_objects.each do |d|
-        if d.is_text?
-          types_count[:text] += 1
-          return_data_objects << d if types_count[:text] <= options[:text].to_i
-        elsif d.is_video?
-          types_count[:video] += 1
-          return_data_objects << d if types_count[:video] <= options[:videos].to_i
-        end
+    
+    # GET THE VIDEOS
+    video_objects = []
+    if options[:videos].to_i > 0
+      video_objects = self.data_objects_from_solr(solr_search_params.merge({
+        :per_page => options[:videos],
+        :data_type_ids => DataType.video_type_ids,
+        :return_hierarchically_aggregated_objects => true,
+        :filter_by_subtype => false
+      }))
+      video_objects.each{ |d| d.data_type = DataType.video }
+    end
+    
+    sound_objects = []
+    if options[:sounds].to_i > 0
+      sound_objects = self.data_objects_from_solr(solr_search_params.merge({
+        :per_page => options[:sounds],
+        :data_type_ids => DataType.sound_type_ids,
+        :return_hierarchically_aggregated_objects => true,
+        :filter_by_subtype => false
+      }))
+    end
+    
+    map_objects = []
+    if options[:maps].to_i > 0
+      map_objects = self.data_objects_from_solr(solr_search_params.merge({
+        :per_page => options[:sounds],
+        :data_type_ids => DataType.image_type_ids,
+        :data_subtype_ids => DataType.map_type_ids
+      }))
+    end
+    
+    all_data_objects = [ text_objects, image_objects, video_objects, sound_objects, map_objects ].flatten.compact
+    if options[:iucn]
+      # we create fake IUCN objects if there isn't a real one. Don't use those in the API
+      if iucn && iucn.id
+        iucn.data_type = DataType.text
+        all_data_objects << iucn
       end
     end
-    data_objects = DataObject.core_relationships(:add_include => :published_refs, :add_select => { :refs => :full_reference }).
-      find_all_by_id(return_data_objects.collect{ |d| d.id })
-    # set flash and youtube types to video, iucn to text
-    data_objects.each do |d|
-      d.data_type = DataType.video if d.is_video?
-      d.data_type = DataType.text if d.is_iucn?
-    end
-    data_objects
+    
+    # preload necessary associations for API response
+    DataObject.preload_associations(all_data_objects, [ :data_objects_hierarchy_entries, :curated_data_objects_hierarchy_entries, 
+      :users_data_object, { :agents_data_objects => :agent }, :published_refs ] )
+    all_data_objects
   end
 
   def all_common_names
@@ -873,7 +872,7 @@ class TaxonConcept < SpeciesSchemaModel
     # communities are sorted by the most number of members - descending order
     community_ids = communities.map{|c| c.id}.compact
     return [] if community_ids.blank?
-    temp = SpeciesSchemaModel.connection.execute("SELECT c.id, COUNT(m.user_id) total FROM members m JOIN communities c ON c.id = m.community_id WHERE c.id in (#{community_ids.join(',')})   GROUP BY c.id ORDER BY total desc").all_hashes
+    temp = connection.execute("SELECT c.id, COUNT(m.user_id) total FROM members m JOIN communities c ON c.id = m.community_id WHERE c.id in (#{community_ids.join(',')})   GROUP BY c.id ORDER BY total desc").all_hashes
     if temp.blank?
       return communities
     else
@@ -947,6 +946,7 @@ class TaxonConcept < SpeciesSchemaModel
 
   def common_names_for_solr
     common_names_by_language = {}
+    unknowns = Language.all_unknowns
     published_hierarchy_entries.each do |he|
       he.common_names.each do |cn|
         vet_id = begin
@@ -957,10 +957,10 @@ class TaxonConcept < SpeciesSchemaModel
         next unless vet_id == Vetted.trusted.id || vet_id == Vetted.unknown.id # only Trusted or Unknown names go in
         next if cn.name.blank?
         # HE is sometimes being queried against an incomplete cache, so we reload it if needed:
-        he = HierarchyEntry.find(he) unless he.attributes.keys.include?(:published) && he.attributes.keys.include?(:visibility_id)
+        he = HierarchyEntry.find(he) unless he.attributes.keys.include?('published') && he.attributes.keys.include?('visibility_id')
         # only names from our curators, ubio, or from published and visible entries go in
         next unless ((he.published == 1 && he.visibility_id == Visibility.visible.id) || cn.hierarchy_id == Hierarchy.eol_contributors.id || cn.hierarchy_id == Hierarchy.ubio.id)
-        next if Language.all_unknowns.include? cn.language
+        next if unknowns.include? cn.language
         language = (cn.language_id!=0 && cn.language && !cn.language.iso_code.blank?) ? cn.language.iso_code : 'unknown'
         next if language == 'unknown' # we dont index names in unknown languages to cut down on noise
         common_names_by_language[language] ||= []
@@ -976,22 +976,6 @@ class TaxonConcept < SpeciesSchemaModel
       end
     end
     return keywords
-  end
-
-  def maps_count
-    count = 0
-    count +=1 if self.has_map
-    map_image_count = connection.select_values("
-      SELECT COUNT(distinct do.id) AS count_all
-      FROM data_objects_taxon_concepts dotc
-      JOIN data_objects do ON (dotc.data_object_id=do.id)
-      JOIN data_objects_hierarchy_entries dohe on (do.id=dohe.data_object_id)
-      WHERE (dotc.taxon_concept_id = #{self.id})
-      AND do.published = 1
-      AND dohe.visibility_id = #{Visibility.visible.id}
-      AND do.data_type_id IN (#{DataType.image_type_ids.join(',')})
-      AND do.data_subtype_id IN (#{DataType.map_type_ids.join(',')})")[0].to_i
-    count += map_image_count
   end
 
   def media_count(user, selected_hierarchy_entry = nil)
@@ -1025,8 +1009,7 @@ class TaxonConcept < SpeciesSchemaModel
         :data_subtype_ids => DataType.map_type_ids,
         :vetted_types => ['trusted', 'unreviewed'],
         :visibility_types => ['visible'],
-        :ignore_translations => true,
-        :return_hierarchically_aggregated_objects => true
+        :ignore_translations => true
       }).total_entries
       count +=1 if self.has_map
       count
@@ -1072,6 +1055,7 @@ class TaxonConcept < SpeciesSchemaModel
           :visibility_types => ['visible'],
           :published => true,
           :skip_preload => true,
+          :return_hierarchically_aggregated_objects => true,
           :filter_hierarchy_entry => selected_hierarchy_entry
         })
         (best_images.empty?) ? 'none' : best_images.first
@@ -1101,10 +1085,11 @@ class TaxonConcept < SpeciesSchemaModel
   def overview_text_for_user(the_user)
     overview_toc_item_ids = [TocItem.brief_summary, TocItem.comprehensive_description, TocItem.distribution].collect{ |toc_item| toc_item.id }
     overview_text_objects = self.text_for_user(the_user, {
-      :per_page => 5,
+      :per_page => 20,
       :language_ids => [ the_user.language_id ],
       :toc_ids => overview_toc_item_ids })
-    DataObject.preload_associations(overview_text_objects, { :data_objects_hierarchy_entries => :hierarchy_entry },
+    DataObject.preload_associations(overview_text_objects, { :data_objects_hierarchy_entries => [ :hierarchy_entry,
+      :vetted, :visibility ] },
       :select => {
         :data_objects_hierarchy_entries => '*',
         :hierarchy_entries => '*'
@@ -1151,6 +1136,8 @@ class TaxonConcept < SpeciesSchemaModel
         :data_object_translations => '*',
         :table_of_contents => '*',
         :info_items => '*',
+        :toc_items => '*',
+        :translated_table_of_contents => '*',
         :users_data_objects => '*',
         :resources => '*',
         :content_partners => '*',
@@ -1160,8 +1147,10 @@ class TaxonConcept < SpeciesSchemaModel
         :users_data_objects_ratings => '*' }
       DataObject.preload_associations(text_objects, [ :users_data_objects_ratings, :comments,
         { :published_refs => :ref_identifiers }, :translations, :data_object_translation, { :toc_items => :info_items },
-        { :data_objects_hierarchy_entries => { :hierarchy_entry => { :hierarchy => { :resource => :content_partner } } } },
-        { :curated_data_objects_hierarchy_entries => :hierarchy_entry }, :info_items, :users_data_object ],
+        { :data_objects_hierarchy_entries => [ { :hierarchy_entry => { :hierarchy => { :resource => :content_partner } } },
+          :vetted, :visibility ] },
+        { :curated_data_objects_hierarchy_entries => :hierarchy_entry }, :info_items, :users_data_object,
+        { :toc_items => [ :translations, [ :parent => :translations ] ] } ],
         :select => selects)
     end
     text_objects
@@ -1178,6 +1167,7 @@ class TaxonConcept < SpeciesSchemaModel
     options[:data_type_ids] = DataType.text_type_ids
     options[:vetted_types] = vetted_types
     options[:visibility_types] = visibility_types
+    options[:filter_by_subtype] = false
     self.data_objects_from_solr(options)
   end
   
@@ -1186,7 +1176,9 @@ class TaxonConcept < SpeciesSchemaModel
     solr_query_parameters[:per_page] ||= 30  # return 30 objects by default
     solr_query_parameters[:sort_by] ||= 'status'  # enumerated list defined in EOL::Solr::DataObjects
     solr_query_parameters[:data_type_ids] ||= nil  # return objects of ANY type by default
-    solr_query_parameters[:filter_by_subtype] ||= true  # if this is true then we'll query using the data_subtype_id, even if its nil
+    unless solr_query_parameters.has_key?(:filter_by_subtype)
+      solr_query_parameters[:filter_by_subtype] = true  # if this is true then we'll query using the data_subtype_id, even if its nil
+    end
     solr_query_parameters[:data_subtype_ids] ||= nil  # return objects of ANY subtype by default - so this will include maps
     solr_query_parameters[:license_ids] ||= nil
     solr_query_parameters[:language_ids] ||= nil
@@ -1204,10 +1196,10 @@ class TaxonConcept < SpeciesSchemaModel
     
     # these are really only relevant to the worklist
     solr_query_parameters[:resource_id] ||= nil
-    unless defined?(solr_query_parameters[:curated_by_user])
+    unless solr_query_parameters.has_key?(:curated_by_user)
       solr_query_parameters[:curated_by_user] = nil  # true, false or nil
     end
-    unless defined?(solr_query_parameters[:ignored_by_user])
+    unless solr_query_parameters.has_key?(:ignored_by_user)
       solr_query_parameters[:ignored_by_user] = nil  # true, false or nil
     end
     solr_query_parameters[:user] ||= nil
@@ -1225,8 +1217,11 @@ class TaxonConcept < SpeciesSchemaModel
 
   # These methods are defined in config/initializers, FWIW:
   def reindex_in_solr
-    puts "** Reindexing"
     remove_from_index
+    TaxonConcept.preload_associations(self, [
+      { :published_hierarchy_entries => [ { :name => :canonical_form },
+      { :scientific_synonyms => { :name => :canonical_form } },
+      { :common_names => [ :name, :language ] } ] } ] )
     add_to_index
   end
 

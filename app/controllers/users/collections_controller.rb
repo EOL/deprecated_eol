@@ -1,7 +1,9 @@
 class Users::CollectionsController < UsersController
 
+  # GET /users/:user_id/collections
   def index
     @user = User.find(params[:user_id])
+    redirect_if_user_is_inactive
     preload_user_associations
     @featured_collections = @user.all_collections(@user)
     if params[:sort_by] && params[:sort_by].to_sym == :oldest

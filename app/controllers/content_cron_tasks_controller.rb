@@ -49,4 +49,27 @@ class ContentCronTasksController < ApplicationController
     end
     render :text => "Curator Actions sent to Flickr: #{all_text}"
   end
+  
+  def send_monthly_partner_stats_notification
+    last_month = Date.today - 1.month
+    if !GoogleAnalyticsPageStat.find(:first, :conditions => ['year = :year AND month = :month', {:year => last_month.year, :month => last_month.month}]) ||
+       !GoogleAnalyticsPartnerTaxon.find(:first, :conditions => ['year = :year AND month = :month', {:year => last_month.year, :month => last_month.month}]) ||
+       !GoogleAnalyticsSummary.find(:first, :conditions => ['year = :year AND month = :month', {:year => last_month.year, :month => last_month.month}])
+      render :text => "Monthly partner stats notification will not be sent at this time."
+      return
+    end
+    @content_partners = ContentPartner.find(:all,
+                          :include => [ :content_partner_contacts, { :user => :google_analytics_partner_summaries } ],
+                          :conditions => [ 'google_analytics_partner_summaries.year = :year AND 
+                                            google_analytics_partner_summaries.month = :month AND content_partner_contacts.email IS NOT NULL', 
+                                            { :year => last_month.year, :month => last_month.month } ] )
+    @content_partners.each do |content_partner|
+      content_partner.content_partner_contacts.each do |contact|
+        Notifier.deliver_content_partner_statistics_reminder(content_partner, contact,
+          Date::MONTHNAMES[last_month.month], last_month.year)
+      end
+    end
+    render :text => "Monthly partner stats notification sent"
+  end
+
 end

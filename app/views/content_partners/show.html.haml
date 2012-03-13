@@ -39,7 +39,7 @@
     %h3= I18n.t(:content_partner_about_header, :partner_name => @partner.name)
     %p= sanitize @partner.description.balance_tags
     - unless @partner.homepage.blank?
-      %p= link_to I18n.t(:content_partner_homepage_link), @partner.homepage
+      %p= link_to I18n.t(:content_partner_homepage_link), @partner.homepage, :rel => :nofollow
 
     - unless @partner.agreement.blank? || !current_user.can_read?(@partner.agreement)
       %h3= I18n.t(:content_partner_overview_agreement_header)

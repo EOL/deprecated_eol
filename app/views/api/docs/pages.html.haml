@@ -1,4 +1,3 @@
-= render(:partial=>'uservoice')
 - url = url_for(:controller => '/api', :action => 'pages', :version => '1.0', :id => '1045608', :images => 2, :text => 2, :subjects => 'all', :details => 1, :common_names => 1, :only_path => false)
 #content.cms_page
   #api_doc.site_column
@@ -48,6 +47,24 @@
               =I18n.t("limits_the_number_of_returned_video_objects")
           %tr
             %td
+              sounds
+            %td
+              0-75
+            %td
+              0
+            %td
+              =I18n.t("limits_the_number_of_returned_sound_objects")
+          %tr
+            %td
+              maps
+            %td
+              0-75
+            %td
+              0
+            %td
+              =I18n.t("limits_the_number_of_returned_map_objects")
+          %tr
+            %td
               text
             %td
               0-75
@@ -55,6 +72,15 @@
               1
             %td
               =I18n.t("limits_the_number_of_returned_text_objects")
+          %tr
+            %td
+              iucn
+            %td
+              =I18n.t("0_or_1")
+            %td
+              0
+            %td
+              =I18n.t("limits_the_number_of_returned_iucn_objects")
           %tr
             %td
               =I18n.t("subject")
@@ -75,7 +101,7 @@
               all
             %td
               =I18n.t("a_pipe_delimited_list_of_licenses")
-              = link_to I18n.t("creative_commons"), "http://creativecommons.org/licenses/"
+              = link_to I18n.t("creative_commons"), "http://creativecommons.org/licenses/", :rel => :nofollow
               =I18n.t("more_information_on_the_various_licenses")
           %tr
             %td

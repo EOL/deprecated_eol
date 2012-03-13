@@ -135,10 +135,8 @@ describe 'EOL APIs' do
     make_all_nested_sets
     flatten_hierarchies
     
-    builder = EOL::Solr::SiteSearchCoreRebuilder.new()
-    builder.reindex_model(TaxonConcept)
-    SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE).delete_all_documents
-    DataObject.all.each{ |d| d.update_solr_index }
+    EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild
+    EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
     
     visit("/api/pages/0.4/#{@taxon_concept.id}")
     @default_pages_body = body

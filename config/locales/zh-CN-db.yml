@@ -9,9 +9,13 @@ zh-CN:
   translated_audiences-label-audience_id-2: 公众
   translated_audiences-label-audience_id-3: 孩子
   translated_collection_types-label-collection_type_id-1: 分类法
+  translated_collection_types-label-collection_type_id-10: 声音
+  translated_collection_types-label-collection_type_id-11: 链接
   translated_collection_types-label-collection_type_id-2: 分子条码
   translated_collection_types-label-collection_type_id-3: 描述
   translated_collection_types-label-collection_type_id-4: 图像
+  translated_collection_types-label-collection_type_id-8: 分子数据
+  translated_collection_types-label-collection_type_id-9: 命名法
   translated_contact_roles-label-contact_role_id-1: 基础联系
   translated_contact_roles-label-contact_role_id-2: 联系管理员
   translated_contact_roles-label-contact_role_id-3: 技术性问题联系
@@ -94,9 +98,24 @@ zh-CN:
   translated_resource_statuses-label-resource_status_id-7: 正在处理
   translated_resource_statuses-label-resource_status_id-8: 已处理
   translated_resource_statuses-label-resource_status_id-9: 处理失败
+  translated_synonym_relations-label-synonym_relation_id-10: GenBank同义词
+  translated_synonym_relations-label-synonym_relation_id-12: 包括
+  translated_synonym_relations-label-synonym_relation_id-16: 存在歧义的同义词
+  translated_synonym_relations-label-synonym_relation_id-19: 已接受的名称
+  translated_synonym_relations-label-synonym_relation_id-2: 俗名
+  translated_synonym_relations-label-synonym_relation_id-20: 数据库工件
+  translated_synonym_relations-label-synonym_relation_id-25: 同音同形异义词 (非法)
+  translated_synonym_relations-label-synonym_relation_id-3: 首字母缩写词
+  translated_synonym_relations-label-synonym_relation_id-46: 异型同义词
+  translated_synonym_relations-label-synonym_relation_id-47: 同型同义词
   translated_synonym_relations-label-synonym_relation_id-48: 不可用名称
   translated_synonym_relations-label-synonym_relation_id-49: 有效名称
+  translated_synonym_relations-label-synonym_relation_id-5: BLAST名称
   translated_synonym_relations-label-synonym_relation_id-50: 有效
+  translated_synonym_relations-label-synonym_relation_id-51: 已接受
+  translated_synonym_relations-label-synonym_relation_id-6: 等价名称
+  translated_synonym_relations-label-synonym_relation_id-7: GenBank首字母缩写词
+  translated_synonym_relations-label-synonym_relation_id-9: GenBank俗名
   translated_table_of_contents-label-table_of_contents_id-1: 概述
   translated_table_of_contents-label-table_of_contents_id-13: 俗名
   translated_table_of_contents-label-table_of_contents_id-14: IUCN

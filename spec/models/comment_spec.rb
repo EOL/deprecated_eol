@@ -11,10 +11,7 @@ describe Comment do
     @image_comment = @tc.images_from_solr(100).select { |i| !i.comments.blank? }.first.comments.first
     @curator = User.find(@tc.curators[0])
     @non_curator = User.gen
-
-    # rebuild the Solr DataObject index
-    SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE).delete_all_documents
-    DataObject.all.each{ |d| d.update_solr_index }
+    EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
   end
 
   # for_feeds

@@ -1,7 +1,7 @@
 # These individuals are associated with the roles such as "administrative contact" or "technical contact"
 # are not used for attribution or logging in - they are simply used for administrative purposes when
 # contacting the project.
-class ContentPartnerContact < SpeciesSchemaModel
+class ContentPartnerContact < ActiveRecord::Base
   belongs_to :content_partner
   belongs_to :contact_role
 

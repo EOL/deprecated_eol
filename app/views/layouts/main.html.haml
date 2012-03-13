@@ -23,7 +23,7 @@
 
       - if @taxon_concept.has_feed?
         %link#content_rss{ :title => 'Latest Content', :href => url_for(:controller => :feeds, :action => :all, :id => @taxon_concept.id), :rel => "alternate", :type => "application/rss+xml"}
-      - if (@taxon_concept.entry && @taxon_concept.entry.hierarchies_content && (@taxon_concept.entry.hierarchies_content.image != 0 || @taxon_concept.entry.hierarchies_content.child_image != 0))
+      - if @taxon_concept.exemplar_or_best_image_from_solr
         %link#media_rss{ :title => 'MediaRSS Feed', :href => "/content/mediarss/#{@taxon_concept.id}", :rel => "alternate", :type => "application/rss+xml" }
       - else
         %meta{ :name => "description", :content => "Encyclopedia of Life" }

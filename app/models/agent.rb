@@ -6,7 +6,7 @@
 # All Users also have an associated agent, as the Agent is currently the entity which
 # is cited in the site. We can at some point remove this duplication.
 # TODO: when the User name is updated, is the agent name updated too?
-class Agent < SpeciesSchemaModel
+class Agent < ActiveRecord::Base
   has_one :user
 
   # Because of the tables pluralization these may trip you up sometimes

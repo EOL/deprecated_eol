@@ -109,26 +109,10 @@ module EOL
     end
 
     def build_type_specific_relations
-      if @type == 'Image'
-        build_top_image
-      elsif @type == 'Text'
+      if @type == 'Text'
         DataObjectsTableOfContent.gen(:data_object => @dato, :toc_item => @toc_item)
         @toc_item.info_items.each do |ii|
           DataObjectsInfoItem.gen(:data_object => @dato, :info_item => ii)
-        end
-      end
-    end
-
-    def build_top_image
-      if @dato.published
-        @he.ancestors.each do |he|
-          TopImage.gen :data_object => @dato, :hierarchy_entry => he
-          TopConceptImage.gen :data_object => @dato, :taxon_concept => he.taxon_concept
-        end
-      else
-        @he.ancestors.each do |he|
-          TopUnpublishedImage.gen :data_object => @dato, :hierarchy_entry => he
-          TopUnpublishedConceptImage.gen :data_object => @dato, :taxon_concept => he.taxon_concept
         end
       end
     end

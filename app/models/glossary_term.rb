@@ -1,2 +1,2 @@
-class GlossaryTerm < SpeciesSchemaModel
+class GlossaryTerm < ActiveRecord::Base
 end

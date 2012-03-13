@@ -1,4 +1,4 @@
-class EolStatistic < SpeciesSchemaModel
+class EolStatistic < ActiveRecord::Base
 
   def self.report_attributes
     {'overall'         => [:members_count, :communities_count, :collections_count, :pages_count, :pages_with_content, :pages_with_text, :pages_with_image, :pages_with_map, :pages_with_video, :pages_with_sound, :pages_without_text, :pages_without_image, :pages_with_image_no_text, :pages_with_text_no_image, :base_pages, :pages_with_at_least_a_trusted_object, :pages_with_at_least_a_curatorial_action, :pages_with_BHL_links, :pages_with_BHL_links_no_text, :pages_with_BHL_links_only, :created_at],

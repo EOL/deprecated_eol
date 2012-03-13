@@ -11,4 +11,4 @@
       - next if img_url.nil?
       - opacity = (i >= total) ? 0 : 1  # anything on the second row should be invisible in case JS is disabled
       - zindex = (i >= total) ? -1 : 1  # anything on the second row should be in the background in case JS is disabled
-      = link_to image_tag(img_url, :alt => random_image.taxon_concept.title_canonical), taxon_overview_path(random_image.taxon_concept_id), :style => "position:absolute; opacity:#{opacity}; z-index: #{zindex};"
+      = link_to image_tag(img_url, :alt => random_image.taxon_concept.title_canonical), taxon_overview_path(random_image.taxon_concept_id), :style => "position:absolute; opacity:#{opacity}; z-index: #{zindex};", :height => 130, :width => 130

@@ -728,22 +728,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     return_ratings
   end
 
-  def uservoice_token
-    return nil if $USERVOICE_ACCOUNT_KEY.blank?
-    user_hash = Hash.new
-    user_hash[:guid] = "eol_#{self.id}"
-    user_hash[:expires] = Time.now + 5.hours
-    user_hash[:email] = self.email
-    user_hash[:display_name] = self.full_name
-    user_hash[:locale] = self.language.iso_639_1
-    self.is_admin? ? user_hash[:admin]='accept' : user_hash[:admin]='deny'
-    json_token = user_hash.to_json
-
-    key = EzCrypto::Key.with_password $USERVOICE_ACCOUNT_KEY, $USERVOICE_API_KEY
-    encrypted = key.encrypt(json_token)
-    token = CGI.escape(Base64.encode64(encrypted)).gsub(/\n/, '')
-  end
-
   # This is *very* generalized and tracks nearly everything:
   def log_activity(what, options = {})
     UserActivityLog.log(what, options.merge(:user => self)) if self.id && self.id != 0
@@ -853,7 +837,6 @@ private
     self.expertise     = $DEFAULT_EXPERTISE.to_s
     self.language      = Language.english
     self.mailing_list  = false
-    self.content_level = $DEFAULT_CONTENT_LEVEL
     self.vetted        = $DEFAULT_VETTED
     self.credentials   = ''
     self.curator_scope = ''

@@ -11,8 +11,7 @@ describe 'Taxa worklist' do
     CuratorLevel.create_defaults
     @curator = build_curator(@taxon_concept) # build_curator generates a full curator by default.
     @user = User.gen()
-    SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE).delete_all_documents
-    DataObject.all.each{ |d| d.update_solr_index }
+    EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
     @taxon_concept.images_from_solr(100).last.data_objects_hierarchy_entries.first.update_attribute(:visibility_id, Visibility.invisible.id)
     @test_partner = ContentPartner.gen(:display_name => 'Media Light Partner')
     @test_resource = Resource.gen(:content_partner => @test_partner, :title => 'Media Light Resource')
@@ -20,16 +19,11 @@ describe 'Taxa worklist' do
     image = @taxon_concept.images_from_solr.first
     DataObjectsHarvestEvent.connection.execute("UPDATE data_objects_harvest_events SET harvest_event_id=#{hevt.id} WHERE data_object_id=#{image.id}")
     DataObjectsHarvestEvent.connection.execute("COMMIT")
-    DataObject.all.each{ |d| d.update_solr_index }
+    EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
     login_as(@curator)
     visit taxon_worklist_path(@taxon_concept)
     @default_body = body
   end
-  
-  # after(:each) do
-  #   visit('/logout')
-  #   Capybara.reset_sessions!
-  # end
   
   after(:all) do
     truncate_all_tables
@@ -66,7 +60,6 @@ describe 'Taxa worklist' do
     end
   end
   
-  # TODO : This is not a good test but still I'm adding it for now. Review/modify it. Remove it if this test is not really necessary.
   it 'should show ratings, description, associations, revisions, source information sections selected task' do
     @default_body.should have_tag('#worklist #task') do
       with_tag('.ratings .average_rating')
@@ -159,11 +152,23 @@ describe 'Taxa worklist' do
     body.should have_tag('.filters .actions', :text => '1 task found')
   end
   
+  it 'should be able to rate active task' do
+    visit taxon_worklist_path(@taxon_concept)
+    body.should have_tag('.ratings') do
+      with_tag('.average_rating h5 small', 'from 0 people')
+      with_tag('.average_rating .rating', 'Average rating: 2.5 of 5')
+      with_tag('.rating h5', 'Your rating')
+      with_tag('.rating ul .current_rating_0', 'Your current rating: 0 of 5')
+    end
+    click_link 'Change rating to 5 of 5'
+    body.should have_tag('.ratings') do
+      with_tag('.average_rating h5 small', 'from 1 person')
+      with_tag('.average_rating .rating', 'Average rating: 5.0 of 5')
+      with_tag('.rating h5', 'Your rating')
+      with_tag('.rating ul .current_rating_5', 'Your current rating: 5 of 5')
+    end
+  end
   
-  
-  # 
-  # it 'should be able to rate active task'
-  # 
   # it 'should be able to curate an association for the active task'
   # 
   # it 'should be able to add an association for the active task'

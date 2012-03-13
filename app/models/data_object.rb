@@ -4,7 +4,7 @@ require 'erb'
 
 # Represents any kind of object imported from a ContentPartner, eg. an image, article, video, etc.  This is one
 # of our primary models, and an awful lot of work occurs here.
-class DataObject < SpeciesSchemaModel
+class DataObject < ActiveRecord::Base
 
   @@maximum_rating = 5.0
   @@minimum_rating = 0.5
@@ -41,7 +41,8 @@ class DataObject < SpeciesSchemaModel
   has_many :collection_items, :as => :object
   has_many :containing_collections, :through => :collection_items, :source => :collection
   has_many :translations, :class_name => DataObjectTranslation.to_s, :foreign_key => :original_data_object_id
-  has_many :curator_activity_logs, :as => :object
+  has_many :curator_activity_logs, :foreign_key => :object_id, :conditions => 'changeable_object_type_id IN (#{ [ ChangeableObjectType.data_object.id, ChangeableObjectType.data_objects_hierarchy_entry.id,
+    ChangeableObjectType.curated_data_objects_hierarchy_entry.id, ChangeableObjectType.users_data_object.id ].join(",") } )'
   has_many :users_data_objects_ratings, :foreign_key => 'data_object_guid', :primary_key => :guid
   # has_many :all_comments, :class_name => Comment.to_s, :foreign_key => 'parent_id', :finder_sql => 'SELECT c.* FROM #{Comment.full_table_name} c JOIN #{DataObject.full_table_name} do ON (c.parent_id = do.id) WHERE do.guid=\'#{guid}\' AND c.parent_type = \'DataObject\''
   # TODO - I don't have time to make sure this fix isn't going to break or slow down other parts of the site, so
@@ -300,6 +301,9 @@ class DataObject < SpeciesSchemaModel
                                  :visibility => no_current_but_new_visibility, :vetted => current_or_new_vetted)
     new_dato.users_data_object = udo
     new_dato.update_solr_index
+    # reindex the old object now that its unpublished
+    old_dato.published = 0
+    old_dato.update_solr_index
     new_dato
   end
 
@@ -540,21 +544,12 @@ class DataObject < SpeciesSchemaModel
   def owner
     # rights holder is preferred
     return rights_holder, nil unless rights_holder.blank?
-
-    # otherwise choose agents ordered by preferred agent_role
-    role_order = [ AgentRole.author, AgentRole.photographer, AgentRole.source,
-                   AgentRole.editor, AgentRole.contributor ]
-    role_order.each do |role|
-      best_ado = agents_data_objects.find_all{|ado| ado.agent_role_id == role.id && ado.agent}
-      break unless best_ado.blank?
+    unless agents_data_objects.empty?
+      AgentsDataObject.sort_by_role_for_owner(agents_data_objects)
+      if first_agent = agents_data_objects.first.agent
+        return first_agent.full_name, first_agent.user
+      end
     end
-
-    # if we don't have any agents with the preferred roles then just pick one
-    best_ado = agents_data_objects.find_all{|ado| ado.agent_role && ado.agent} if best_ado.blank?
-    return nil if best_ado.blank?
-    # TODO: optimize this, preload agents and users on DataObject or something
-    return best_ado.first.agent.full_name, best_ado.first.agent.user
-
   end
 
   # Find all of the authors associated with this data object, including those that we dynamically add elsewhere
@@ -710,7 +705,7 @@ class DataObject < SpeciesSchemaModel
 
   def update_solr_index
     if self.published
-      EOL::Solr::DataObjects.reindex_single_object(self)
+      EOL::Solr::DataObjectsCoreRebuilder.reindex_single_object(self)
     else
       # hidden, so delete it from solr
       solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE)
@@ -727,7 +722,7 @@ class DataObject < SpeciesSchemaModel
     return false unless in_wikipedia?
     return false unless dato_association.visibility_id == Visibility.preview.id
 
-    SpeciesSchemaModel.connection.execute("UPDATE data_objects SET published=0 WHERE guid='#{guid}'");
+    connection.execute("UPDATE data_objects SET published=0 WHERE guid='#{guid}'");
     reload
 
     dato_vetted = self.vetted_by_taxon_concept(taxon_concept)

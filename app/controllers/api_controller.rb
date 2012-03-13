@@ -20,17 +20,12 @@ class ApiController < ApplicationController
     params[:images] = 75 if params[:images].to_i > 75
     params[:videos] = 75 if params[:videos].to_i > 75
     params[:text] = 75 if params[:text].to_i > 75
+    params[:sounds] = 75 if params[:sounds].to_i > 75
+    params[:maps] = 75 if params[:maps].to_i > 75
     params[:details] = 1 if params[:format] == 'html'
 
     begin
-      inc = [ { :data_objects => [ :info_items, { :data_objects_hierarchy_entries => :hierarchy_entry },
-        { :curated_data_objects_hierarchy_entries => :hierarchy_entry }, :users_data_object ] },
-        { :published_hierarchy_entries => { :name => :canonical_form } } ]
-      sel = { :data_objects => [ :id, :data_type_id, :published, :guid, :data_rating ],
-        :data_objects_hierarchy_entries => [ :vetted_id, :visibility_id ],
-        :users_data_objects => [ :vetted_id, :visibility_id ],
-        :canonical_forms => :string }
-      taxon_concept = TaxonConcept.core_relationships(:add_include => inc, :add_select => sel).find(taxon_concept_id)
+      taxon_concept = TaxonConcept.find(taxon_concept_id)
       raise if taxon_concept.blank? || !taxon_concept.published?
     rescue
       render(:partial => 'error.xml.builder', :locals => { :error => "Unknown identifier #{taxon_concept_id}" })

@@ -24,7 +24,6 @@ describe 'Taxa page' do
     @hierarchy_entry = @taxon_concept.published_browsable_hierarchy_entries[0]
     @user = @testy[:user]
     Capybara.reset_sessions!
-    HierarchiesContent.delete_all
     Activity.create_defaults
   end
 
@@ -316,8 +315,7 @@ describe 'Taxa page' do
   # overview tab - taxon_concept
   context 'overview when taxon has all expected data - taxon_concept' do
     before(:all) do
-      SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE).delete_all_documents
-      DataObject.all.each{ |d| d.update_solr_index }
+      EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
       visit("pages/#{@testy[:id]}")
       @section = 'overview'
     end
@@ -346,8 +344,7 @@ describe 'Taxa page' do
   # overview tab - hierarchy_entry
   context 'overview when taxon has all expected data - hierarchy_entry' do
     before(:all) do
-      SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE).delete_all_documents
-      DataObject.all.each{ |d| d.update_solr_index }
+      EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
       visit taxon_hierarchy_entry_overview_path(@taxon_concept, @hierarchy_entry)
       @section = 'overview'
     end

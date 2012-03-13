@@ -10,8 +10,10 @@ $.ajaxSetup({accepts: {
   xml: "application/xml, text/xml"
 }});
 
-// Globally change cursor to busy when we're waiting on AJAX event to finish.
-$("html").bind("ajaxStart", function(){
+
+// Globally change cursor to busy when we're waiting on AJAX event to finish,
+// except for the homepage march of life
+$("html :not(.thumbnails ul li)").bind("ajaxStart", function(){
   $(this).addClass('busy');
 }).bind("ajaxStop", function(){
   $(this).removeClass('busy');
@@ -181,7 +183,7 @@ $(function() {
       });
       $li.delegate(".collection_item_form input[type='submit']", "click", function( event ) {
         event.preventDefault();
-        var $ci_form = $(this).closest(".collection_item_form")
+        var $ci_form = $(this).closest(".collection_item_form");
         EOL.ajax_submit($(this), {
           data: "_method=put&commit_annotation=true&" +
             $ci_form.find("input, textarea").serialize(),
@@ -230,13 +232,8 @@ $(function() {
     duration: 200
   });
 
-  // Wouldn't it be nice if ratings were Ajaxified?
-  $('.media .ratings .rating ul > li > a').click(function() {
-    var $update = $(this).closest('div.ratings');
-    EOL.ajax_submit($(this), {url: $(this).attr('href'), update: $update, type: 'GET'});
-    return(false);
-  });
-
+  EOL.enableRatings();
+  
   // initiates march of life on homepage
   $('.thumbnails ul li').each(function() {
     var number_of_slides = $('.thumbnails ul li').length;
@@ -248,25 +245,60 @@ $(function() {
       fx: 'fade',
       timeout: number_of_slides * display_time,
       delay: random[index] * display_time,
-      speed: transition_time
+      speed: transition_time,
+      before: loadMoreMarchOfLife
     });
   });
 
-  // properly shows the march of life name on mouseover
-  $(".thumbnails li img").unbind().mouseover(function() {
-    var $e = $(this).parent().parent();
-    $thumbs = $e.closest(".thumbnails");
-    // margin = $thumbs.find("li").eq(0).outerWidth(true) - $e.outerWidth();
-    var term_p = $thumbs.find(".term p");
-    var left_pos = $e.position().left - 100 + 5;
-    var right_pos = term_p.outerWidth(true) - $e.position().left - $e.outerWidth(true) - 100;
-    if($e.is($(".thumbnails li:last"))) {
-      right_pos = right_pos - 15;
+  // this method is used to grab more images for the march of life before callback
+  function loadMoreMarchOfLife(curr, next, opts) {
+    // on the first pass, addSlide is undefined (plugin hasn't yet created the fn); 
+    // when we're finshed adding slides we'll null it out again 
+    if (!opts.addSlide) return;
+
+    cycle_list_item = $(this).closest('li');
+    number_of_images_in_li = cycle_list_item.find('img').size();
+    if(number_of_images_in_li < 10) {
+      // call to get more images
+      $.getJSON('content/random_homepage_images?count=5', function(data) {
+        // make sure there were no errors, 
+        if(!data['error']) {
+          for(i = 0 ; i < data.length ; i++) {
+            image_data = data[i];
+            // make sure this image isn't already featured on this page
+            if($("img[src='" + image_data['image_url'] + "']").size() == 0) {
+              // add the HTML for the new image
+              opts.addSlide('<a href="'+ image_data['taxon_page_path'] + '"><img src="' +
+                image_data['image_url'] + '" alt="' + image_data['taxon_name'] +'" width="130" height="130"/></a>');
+              // since we had to add a slide we need to change the index of the next slide
+              opts.nextSlide = opts.currSlide + 1;
+              enable_mouseover_alt_text_for_march_of_life();
+            }
+          }
+        }
+      });
     }
-    term_p.css({
-      textAlign: 'center'
-    }).css("margin-left", left_pos+"px").css("margin-right", right_pos+"px").text($(this).attr("alt"));
-  }).eq(0).mouseover();
+  };
+
+  function enable_mouseover_alt_text_for_march_of_life()
+  {
+    // properly shows the march of life name on mouseover
+    $(".thumbnails li img").unbind().mouseover(function() {
+      var $e = $(this).parent().parent();
+      $thumbs = $e.closest(".thumbnails");
+      // margin = $thumbs.find("li").eq(0).outerWidth(true) - $e.outerWidth();
+      var term_p = $thumbs.find(".term p");
+      var left_pos = $e.position().left - 100 + 5;
+      var right_pos = term_p.outerWidth(true) - $e.position().left - $e.outerWidth(true) - 100;
+      if($e.is($(".thumbnails li:last"))) {
+        right_pos = right_pos - 15;
+      }
+      term_p.css({
+        textAlign: 'center'
+      }).css("margin-left", left_pos+"px").css("margin-right", right_pos+"px").text($(this).attr("alt"));
+    });
+  }
+  enable_mouseover_alt_text_for_march_of_life();
 
   // removes the homepage march of life name on mouseout
   $(".thumbnails li").mouseout(function() {
@@ -288,7 +320,7 @@ $(function() {
   $("#simple_search :submit").click(function() {
     var $q = $("#simple_search :submit").closest('form').find('#q');
     if ($q.val() == $(this).attr('data_unchanged')) {
-      $q.css('color', '#aa0000').val($(this).attr('data_error')).click(function() { $(this).val('').css('color', 'black').unbind('click') });
+      $q.css('color', '#aa0000').val($(this).attr('data_error')).click(function() { $(this).val('').css('color', 'black').unbind('click'); });
       return(false);
     } else if ($q.val() == $(this).attr('data_error')) {
       var blinkspeed = 160;
@@ -426,6 +458,15 @@ EOL.ajax_get = function(el, args) {
   return(false); // stop event... there's a better way to do this?
 };
 
+EOL.enableRatings = function() {
+  // Wouldn't it be nice if ratings were Ajaxified?
+  $('.media .ratings .rating ul > li > a').unbind('click').click(function() {
+    var $update = $(this).closest('div.ratings');
+    EOL.ajax_submit($(this), {url: $(this).attr('href'), update: $update, type: 'GET'});
+    return(false);
+  });
+};
+
 // Third party scripts for social plugins
 EOL.loadTwitter = function() {
   if($(".twitter-share-button").length > 0){
@@ -465,8 +506,8 @@ EOL.initFacebook = function(app_id, channel_url) {
   }
 };
 EOL.load_social_plugins = function() {
-  var facebook = "#{($ENABLED_SOCIAL_PLUGINS && $ENABLED_SOCIAL_PLUGINS.include?(:facebook)) ? true : nil}"
-  var twitter = "#{($ENABLED_SOCIAL_PLUGINS && $ENABLED_SOCIAL_PLUGINS.include?(:twitter)) ? true : nil}"
+  var facebook = "#{($ENABLED_SOCIAL_PLUGINS && $ENABLED_SOCIAL_PLUGINS.include?(:facebook)) ? true : nil}";
+  var twitter = "#{($ENABLED_SOCIAL_PLUGINS && $ENABLED_SOCIAL_PLUGINS.include?(:twitter)) ? true : nil}";
   if (facebook) { EOL.loadFacebook("#{$FACEBOOK_APP_ID}","#{channel_facebook_url}"); }
   if (twitter) { EOL.loadTwitter(); }
 };

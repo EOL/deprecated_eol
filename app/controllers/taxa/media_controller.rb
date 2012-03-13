@@ -1,7 +1,7 @@
 class Taxa::MediaController < TaxaController
 
   before_filter :instantiate_taxon_concept, :redirect_if_superceded, :instantiate_preferred_names
-  before_filter :add_page_view_log_entry, :update_user_content_level
+  before_filter :add_page_view_log_entry
 
   def index
     @page = params[:page] ||= 1
@@ -57,7 +57,7 @@ class Taxa::MediaController < TaxaController
       @media.map!{ |m| (m.guid == @exemplar_image.guid && m.id != @exemplar_image.id) ? @exemplar_image : m } unless @exemplar_image.nil?
     end
 
-    DataObject.preload_associations(@media, [:users_data_object, { :data_objects_hierarchy_entries => :hierarchy_entry },
+    DataObject.preload_associations(@media, [:users_data_object, { :data_objects_hierarchy_entries => [ :vetted, :hierarchy_entry ] },
       :curated_data_objects_hierarchy_entries])
 
     DataObject.preload_associations(@media, :translations , :conditions => "data_object_translations.language_id=#{current_user.language_id}")

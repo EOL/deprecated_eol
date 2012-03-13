@@ -45,11 +45,10 @@ class ApplicationController < ActionController::Base
     return yield if params[:profile].nil?
     return yield if ![ 'v2staging', 'v2staging_dev', 'v2staging_dev_cache', 'development', 'test'].include?(ENV['RAILS_ENV'])
     result = RubyProf.profile { yield }
-    printer = RubyProf::GraphPrinter.new(result)
+    printer = RubyProf::GraphHtmlPrinter.new(result)
     out = StringIO.new
-    printer.print(out, 0)
+    printer.print(out, :min_percent=>0)
     response.body.replace out.string
-    response.content_type = "text/plain"
   end
   
 

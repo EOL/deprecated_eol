@@ -23,7 +23,6 @@
         %p= I18n.t(:invite_members_help_text)
       %dd.invite
         = text_area_tag :invitations
-        = text_field_tag :invitations
   %fieldset.actions
     - submit_label ||= I18n.t(:save)
     = submit_tag(submit_label)

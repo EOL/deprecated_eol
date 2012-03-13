@@ -10,6 +10,10 @@
       - case item.activity_id
       - when Activity.add_editor.id
         = I18n.t(:activity_added_an_editor_of_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection)))
+      - when Activity.change_name.id
+        = I18n.t(:activity_user_changed_collection_name, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection)))
+      - when Activity.change_description.id
+        = I18n.t(:activity_user_changed_collection_description, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection)))
       - else
         = I18n.t(:activity_user_added_unknown_item_to_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection)))
     - elsif item.collection_item.object.nil?

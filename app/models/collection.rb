@@ -158,7 +158,7 @@ class Collection < ActiveRecord::Base
 
   # This will return users.
   def managers
-    (users + communities.map {|com| com.managers }).compact.uniq
+    (users + communities.map {|com| com.managers_as_users }).flatten.compact.uniq
   end
 
   def has_item?(item)

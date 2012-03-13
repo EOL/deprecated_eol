@@ -6,22 +6,15 @@ class PrepareAndSendNotifications
 
   def self.perform
     PendingNotification.send_notifications(:immediately)
-  end
-
-  # TODO - these will be handled later... I need to figure them out.
-
-  class Daily
-    @queue = :notifications
-    def self.perform
+    
+    if (NotificationEmailerSettings.last_daily_emails_sent + 24.hours) < Time.now
       PendingNotification.send_notifications(:daily)
+      NotificationEmailerSettings.last_daily_emails_sent = Time.now
     end
-  end
-
-  class Weekly
-    @queue = :notifications
-    def self.perform
+    
+    if (NotificationEmailerSettings.last_weekly_emails_sent + 1.week) < Time.now
       PendingNotification.send_notifications(:weekly)
+      NotificationEmailerSettings.last_weekly_emails_sent = Time.now
     end
   end
-
 end

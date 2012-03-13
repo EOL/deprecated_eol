@@ -44,12 +44,16 @@ class Notification < ActiveRecord::Base
   end
   
   def self.queue_notifications(notification_recipient_objects, target)
+    notifications_were_queued = false
     notification_recipient_objects.select{ |o| o.class == Hash && o[:user] }.each do |h|
-      next if h[:frequency] == NotificationFrequency.never
+      next if h[:frequency] == NotificationFrequency.never  # some of the Activity Feed notifications will get here
+      next if h[:frequency] == NotificationFrequency.newsfeed_only  # the notify but don't email actions will get here
+      next if h[:user] && h[:user].disable_email_notifications  # trapping this override at the last moment so Solr records are created
       PendingNotification.create(:user => h[:user], :notification_frequency => h[:frequency], :target => target,
                                  :reason => h[:notification_type].to_s)
+      notifications_were_queued = true
     end
-    Resque.enqueue(PrepareAndSendNotifications)
+    Resque.enqueue(PrepareAndSendNotifications) if notifications_were_queued
   end
   
 end

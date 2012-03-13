@@ -1,4 +1,4 @@
-class Authentication < ActiveRecord::Base
+class OpenAuthentication < ActiveRecord::Base
 
   belongs_to :user
 

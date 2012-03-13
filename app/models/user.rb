@@ -458,6 +458,9 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def grant_curator(level = :full, options = {})
+    # TODO: Seems a little odd to have a default level here. Also there are no checks on these update_attributes calls
+    # to see if they were successful or not - also why are we calling update_attributes 3 times instead of just once?
+    # Can't we just define the parameters to be updated first then just call update_attributes once?
     level = CuratorLevel.send(level)
     unless curator_level_id == level.id
       self.update_attributes(:curator_level_id => level.id)
@@ -473,6 +476,8 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   alias approve_to_curate grant_curator
 
   def revoke_curator
+    # TODO: This is weird, if we are revoking the curator access why not call update_attributes once and 
+    # add if-else loop to check if it successfully updated the attributes.
     unless curator_level_id == nil
       self.update_attributes(:curator_level_id => nil)
     end

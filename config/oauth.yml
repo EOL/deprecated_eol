@@ -1,58 +1,41 @@
-common: &common
-  yahoo:
-    type: 'OAuth'
-    key: $YAHOO_CONSUMER_KEY
-    secret: $YAHOO_CONSUMER_SECRET
-    params:
-      :site: 'https://api.login.yahoo.com'
-      :request_token_path: '/oauth/v2/get_request_token'
-      :authorize_path: '/oauth/v2/request_auth'
-      :access_token_path: '/oauth/v2/get_token'
-  twitter:
-    type: 'OAuth'
-    key: $TWITTER_CONSUMER_KEY
-    secret: $TWITTER_CONSUMER_SECRET
-    params:
-      :site: 'http://api.twitter.com'
-      :authorize_path: '/oauth/authenticate'
-  google:
-    type: 'OAuth2'
-    key: $GOOGLE_CONSUMER_KEY
-    secret: $GOOGLE_CONSUMER_SECRET
-    params:
-      :site: 'https://accounts.google.com'
-      :authorize_url: '/o/oauth2/auth'
-      :token_url: '/o/oauth2/token'
-    authorize_url_params:
-      :response_type: 'code'
-      :scope: 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email'
-    access_token_params:
-  facebook:
-    type: 'OAuth2'
-    key: $FACEBOOK_CONSUMER_KEY
-    secret: $FACEBOOK_CONSUMER_SECRET
-    params:
-      :site: 'https://graph.facebook.com'
-      :authorize_path: '/oauth/authenticate'
-      :token_url: '/oauth/access_token'
-    authorize_url_params:
-      :response_type: 'code'
-      :scope: 'email,offline_access'
-    access_token_params:
-      :parse: :facebook
-
-development:
-  <<: *common
-  redirect_url: 'http://localhost:3000/callback'
-
-test:
-  <<: *common
-  redirect_url: 'http://localhost:3000/callback'
-
-v2staging:
-  <<: *common
-  redirect_url: 'http://v2staging.eol.org/callback'
-
-production:
-  <<: *common
-  redirect_url: 'http://www.eol.org/callback'
+yahoo:
+  type: 'OAuth'
+  key: $YAHOO_CONSUMER_KEY
+  secret: $YAHOO_CONSUMER_SECRET
+  params:
+    :site: 'https://api.login.yahoo.com'
+    :request_token_path: '/oauth/v2/get_request_token'
+    :authorize_path: '/oauth/v2/request_auth'
+    :access_token_path: '/oauth/v2/get_token'
+twitter:
+  type: 'OAuth'
+  key: $TWITTER_CONSUMER_KEY
+  secret: $TWITTER_CONSUMER_SECRET
+  params:
+    :site: 'http://api.twitter.com'
+    :authorize_path: '/oauth/authenticate'
+google:
+  type: 'OAuth2'
+  key: $GOOGLE_CONSUMER_KEY
+  secret: $GOOGLE_CONSUMER_SECRET
+  params:
+    :site: 'https://accounts.google.com'
+    :authorize_url: '/o/oauth2/auth'
+    :token_url: '/o/oauth2/token'
+  authorize_url_params:
+    :response_type: 'code'
+    :scope: 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email'
+  access_token_params:
+facebook:
+  type: 'OAuth2'
+  key: $FACEBOOK_CONSUMER_KEY
+  secret: $FACEBOOK_CONSUMER_SECRET
+  params:
+    :site: 'https://graph.facebook.com'
+    :authorize_path: '/oauth/authenticate'
+    :token_url: '/oauth/access_token'
+  authorize_url_params:
+    :response_type: 'code'
+    :scope: 'email,offline_access'
+  access_token_params:
+    :parse: :facebook

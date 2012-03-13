@@ -1,10 +1,8 @@
 class Users::AuthenticationsController < UsersController
 
-  OAUTH_CONFIG = YAML.load_file("#{RAILS_ROOT}/config/oauth.yml")[RAILS_ENV]
-
-  def authenticate
+  def new
     provider_config = OAUTH_CONFIG["#{params[:provider]}"]
-    redirect_url = "#{OAUTH_CONFIG['redirect_url']}?provider=#{params[:provider]}"
+    redirect_url = "#{oauth_callback_url}?provider=#{params[:provider]}"
     case provider_config['type']
     when 'OAuth'
       client = EOL::Oauth.consumer(provider_config)
@@ -23,7 +21,7 @@ class Users::AuthenticationsController < UsersController
     end
   end
 
-  def callback
+  def create
     provider_config = OAUTH_CONFIG["#{params[:provider]}"]
     case provider_config['type']
     when 'OAuth'
@@ -32,7 +30,7 @@ class Users::AuthenticationsController < UsersController
       access_token = request_token.get_access_token(:oauth_verifier => params[:oauth_verifier])
     when 'OAuth2'
       client = EOL::Oauth.consumer2(provider_config)
-      redirect_url = "#{OAUTH_CONFIG['redirect_url']}?provider=#{params[:provider]}"
+      redirect_url = "#{oauth_callback_url}?provider=#{params[:provider]}"
       access_token = client.auth_code.get_token(params[:code], (provider_config['access_token_params'] || {}).merge(:redirect_uri => redirect_url))
     else
       # Failed to get consumer information for OAuth provider #{params[:provider]}
@@ -54,7 +52,7 @@ class Users::AuthenticationsController < UsersController
   def save_profile_information(profile_information, options)
     authorized = Authentication.find_by_provider_and_guid(profile_information[:provider], profile_information[:guid])
     if logged_in? && authorized && current_user.id == authorized.user_id
-      authorized.update_attributes(profile_information)
+      authorized.update_attributes(profile_information) # change notice to already logged in
       flash[:notice] = I18n.t(:sign_in_successful_notice)
     elsif logged_in? && !authorized && Authentication.create({ :user_id => current_user.id }.merge(profile_information))
       flash[:notice] = I18n.t(:oauth_authentication_added_and_sign_in_successful, :oauth_provider => profile_information[:provider])
@@ -102,14 +100,15 @@ class Users::AuthenticationsController < UsersController
                  :remote_ip => options[:remote_ip]
                  )
     if new_user.save
-    #   begin
-    #     # FIXME: Figure out whether we still need an agent to be created for a user in V2
-    #     # If we do note that user does not have full_name on creation.
-    #     @user.update_attributes(:agent_id => Agent.create_agent_from_user(profile_information[:full_name]).id)
-    #   rescue ActiveRecord::StatementInvalid
-    #     # Interestingly, we are getting users who already have agents attached to them.  I'm not sure why, but it's causing registration to fail (or seem to; the user is created), and this is bad.
-    #   end
+      # begin
+      #   # FIXME: Figure out whether we still need an agent to be created for a user in V2
+      #   # If we do note that user does not have full_name on creation.
+      #   new_user.update_attributes(:agent_id => Agent.create_agent_from_user(profile_information[:full_name]).id)
+      # rescue ActiveRecord::StatementInvalid
+      #   # Interestingly, we are getting users who already have agents attached to them.  I'm not sure why, but it's causing registration to fail (or seem to; the user is created), and this is bad.
+      # end
       EOL::GlobalStatistics.increment('users')
+      # FIXME: Fix blank email returned from twitter & yahoo
       if new_user.email == "oauth_user"
         new_user.update_attribute(:email, "")
       end
@@ -122,12 +121,10 @@ class Users::AuthenticationsController < UsersController
   # return username no more than 32 characters
   def get_user_name(profile_information)
     username = profile_information[:user_name]
-    username_already_exists = User.find_by_username(username)
-    if username_already_exists
-      username = "#{profile_information[:user_name]}_#{profile_information[:guid]}_#{profile_information[:provider]}".slice(0..31)
-    else
-      username = profile_information[:user_name].slice(0..31)
+    if username.blank? || User.find_by_username(username) # username not provided or already exists in EOL
+      username = "#{profile_information[:provider]}_#{profile_information[:guid]}"
     end
+    username.slice(0..31)
   end
 
 end

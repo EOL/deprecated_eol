@@ -5,7 +5,7 @@ class CreateNotificationEmailerSettings < ActiveRecord::Migration
       t.datetime :last_weekly_emails_sent
       t.timestamps
     end
-    NotificationEmailerSettings.create()
+    NotificationEmailerSettings.create(:last_daily_emails_sent => Time.now(), :last_weekly_emails_sent => Time.now())
   end
 
   def self.down

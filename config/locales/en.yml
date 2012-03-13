@@ -233,9 +233,9 @@ en:
         data_objects_unreviewed: "Unreviewed data objects"
         data_objects_untrusted: "Untrusted data objects"
         data_objects_trusted_or_unreviewed_but_hidden: "Trusted or unreviewed but hidden"
-        udo_published: "User submitted text"
-        udo_published_by_curators: "Curator submitted text"
-        udo_published_by_non_curators: "Non-curator submitted text"
+        udo_published: "User-submitted text"
+        udo_published_by_curators: "Curator-submitted text"
+        udo_published_by_non_curators: "Non-curator-submitted text"
         # content partner stats
         content_partners: "Content partners"
         content_partners_with_published_resources: "With published resources"
@@ -246,7 +246,7 @@ en:
         newly_published_resources_in_the_last_30_days: "Newly published in the last month"
         # marine stats
         marine_pages: "Marine pages"
-        marine_pages_in_col: "Marine pages found in COL"
+        marine_pages_in_col: "Marine pages found in CoL"
         marine_pages_with_objects: "Marine pages with data objects"
         marine_pages_with_objects_vetted: "Marine pages with trusted data objects"
         # curator stats
@@ -625,8 +625,8 @@ en:
         page_header: "Rich Page Statistics"
         page_title: "Administration: Rich Pages Statistics"
       user_added_data:
-        page_header: "User Submitted Text Statistics"
-        page_title: "Administration: User Submitted Text Statistics"
+        page_header: "User-Submitted Text Statistics"
+        page_title: "Administration: User-Submitted Text Statistics"
   collections:
     show:
       meta_description: "%{collection_description}"
@@ -799,8 +799,8 @@ en:
           meta_title: "Curators of %{scientific_name} as classified by %{hierarchy_provider}"
           meta_title_with_common_name: "Experts on %{preferred_common_name} (%{scientific_name} as classified by %{hierarchy_provider})"
           tweet_text: "Curators of %{scientific_name} as classified by %{hierarchy_provider}"
-        meta_description: ""
-        meta_description_with_common_name: "%{preferred_common_name} experts monitor %{preferred_common_name} (%{scientific_name}) data making sure."
+        meta_description: "%{scientific_name} experts who monitor its data in the Encyclopedia of Life."
+        meta_description_with_common_name: "%{preferred_common_name} experts (also known as %{scientific_name} experts) who monitor its data in the Encyclopedia of Life."
         meta_keywords: "%{scientific_name} Experts, %{scientific_name} Curators"
         meta_keywords_with_common_name: "%{preferred_common_name} Experts, %{preferred_common_name} Curators, %{scientific_name} Experts, %{scientific_name} Curators"
         meta_title: "Curators of %{scientific_name}"
@@ -2161,7 +2161,7 @@ en:
   hierarchy_updated: "Hierarchy updated"
   home: "Home"
   home_page_cache_last_cleared_on: "Home page cache last cleared on %{date}"
-  home_page_link_advisory_information: "This link will take you to the home page of the Encyclopedia Of Life Web site"
+  home_page_link_advisory_information: "This link will take you to the home page of the Encyclopedia of Life Web site"
   html_format: "(HTML format)"
   html_format_with_left_col: "(HTML FORMAT, only enter if you wish to have a left column on the page, otherwise leave blank)"
   content_upload_url: "http://%{domain}%{upload_attachment}"
@@ -3017,7 +3017,7 @@ en:
   used_for_friendly_url_note: "(used to generate a friendly link for users, cannot contain spaces or special characters)"
   user_activation_failed_resent_validation_email_error: "Sorry, an error occurred, your account could not be verified. This usually occurs when the verficiation link you entered or selected is not recognized. Activation instructions have been resent to the email address you registered with, please ensure the verficiation link you use matches the one provided in the activation email."
   user_activation_failed_user_not_found_error: "Sorry, an error occurred, the account you are trying to verify could not be found. Please ensure the verficiation link you use matches the one provided in the activation email you received after registering."
-  user_activation_successful_notice: "Welcome, and thanks for joining the Encyclopedia Of Life team. Your account with username <em>%{username}</em> is now active, please login."
+  user_activation_successful_notice: "Welcome, and thanks for joining the Encyclopedia of Life team. Your account with username <em>%{username}</em> is now active, please login."
   user_activity_click_on_the_numbers: "Click on the numbers to see respective activity feeds."
   user_activity_report_intro: "User-activity report.  Select a specific user to see his activities sorted inversely by time created. Select 'All' to see all user activities. Then click 'Search' to proceed (use your browser back button to return here)."
   user_activity_page_title: "User Activity"

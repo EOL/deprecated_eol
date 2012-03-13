@@ -1,0 +1,57 @@
+- content_for :title do
+  = t(".subject")
+
+%h1{:style => 'font-weight: normal;'}= I18n.t(:greeting_dear_name_with_comma, :name => @user.full_name, :scope => :notifier)
+
+- @notes.each do |note|
+  - if note.respond_to?(:body)
+    %p= t(".comment_activity_by_user", :user_name => note.user.full_name)
+    %blockquote{:style => "padding: 0 20px; border: 1px solid #93a4b0"}
+      %p= note.body
+
+  - elsif note.is_a?(CollectionActivityLog)
+    %p
+      - if note.activity_id == Activity.collect.id
+        - if note.collection_item.object.id == @user.id
+          = t(".collection_activity_user_watching_recipient", :user_name => note.user.full_name)
+        - else
+          = t(".collection_activity_user_added_item", :user_name => note.user.full_name,
+            :collection_item_type => note.collection_item.object_type,
+            :collection_item_id => note.collection_item.object.id,
+            :collection_name => note.collection.name)
+      - else
+        = t(".collection_activity_by_user", :user_name => note.user.full_name,
+          :activity_name => note.activity.name, :collection_name => note.collection.name)
+
+  - elsif note.is_a?(CommunityActivityLog)
+    %p
+      - if note.activity_id == Activity.join.id
+        = t(".community_activity_user_joined", :user_name => note.user.full_name, :community_name => note.community.name)
+      - elsif note.activity_id == Activity.leave.id
+        = t(".community_activity_user_left", :user_name => note.user.full_name, :community_name => note.community.name)
+      - elsif note.activity_id == Activity.add_manager.id
+        = t(".community_activity_user_made_member_a_manager", :user_name => note.user.full_name,
+          :member_name => note.member.user.full_name, :community_name => note.community.name)
+      - else
+        = t(".community_activity_by_user", :user_name => note.user.full_name,
+          :activity_name => note.activity.name, :community_name => note.community.name)
+
+  - elsif note.is_a?(CuratorActivityLog)
+    %p
+      - if note.data_object
+        = t(".curator_activity_on_data_object_by_user", :user_name => note.user.full_name,
+          :activity_name => note.activity.name, :dato_title => note.data_object.best_title,
+          :dato_type => note.data_object.data_type.label, :dato_id => note.data_object.id)
+      - elsif note.taxon_concept
+        = t(".curator_activity_on_taxon_concept_by_user", :user_name => note.user.full_name,
+          :activity_name => note.activity.name, :taxon_concept => note.taxon_concept.title,
+          :taxon_overview_url => taxon_overview_url(note.taxon_concept.id))
+
+  - elsif note.is_a?(UsersDataObject)
+    %p
+      = t(".data_object_activity_article_added_by_user", :user_name => note.user.full_name,
+        :dato_title => note.data_object.best_title, :taxon_concept => note.taxon_concept.title,
+        :taxon_details_url => taxon_details_url(note.taxon_concept.id))
+
+  - else
+    -# FIXME: something else occurred here that is not yet handled - should we raise exception for note.class.name ?

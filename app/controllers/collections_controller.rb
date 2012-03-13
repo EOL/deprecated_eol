@@ -79,11 +79,16 @@ class CollectionsController < ApplicationController
     return remove_and_redirect if params[:commit_remove]
     return annotate if params[:commit_annotation]
     return chosen if params[:scope] # Note that updating the collection params doesn't specify a scope.
+    
+    name_change = params[:collection][:name] != @collection.name
+    description_change = params[:collection][:description] != @collection.description
     if @collection.update_attributes(params[:collection])
       upload_logo(@collection) unless params[:collection][:logo].blank?
       flash[:notice] = I18n.t(:collection_updated_notice, :collection_name => @collection.name) if
         params[:collection] # NOTE - when we sort, we don't *actually* update params...
       redirect_to params.merge!(:action => 'show').except(*unnecessary_keys_for_redirect), :status => :moved_permanently
+      CollectionActivityLog.create({ :collection => @collection, :user => current_user, :activity => Activity.change_name }) if name_change
+      CollectionActivityLog.create({ :collection => @collection, :user => current_user, :activity => Activity.change_description }) if description_change
     else
       set_edit_vars
       render :action => :edit

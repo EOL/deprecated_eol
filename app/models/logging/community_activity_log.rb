@@ -58,7 +58,7 @@ private
                       :frequency => frequency }
     end
     community.managers_as_users.each do |manager|
-      next if activity.id == Activity.add_manager.id && manager.id == new_manager.id  # the new manager was notified above...
+      next if activity.id == Activity.add_manager.id && (new_manager && manager.id == new_manager.id)  # the new manager was notified above...
       if activity.id == Activity.add_manager.id
         manager.add_as_recipient_if_listening_to!(:new_manager_in_my_community, recipients)
       elsif activity.id == Activity.join.id && frequency = manager.listening_to?(:member_joined_my_community)

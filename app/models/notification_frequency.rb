@@ -2,6 +2,7 @@ class NotificationFrequency < ActiveRecord::Base
 
   def self.create_defaults
     NotificationFrequency.create(:frequency => 'never')
+    NotificationFrequency.create(:frequency => 'newsfeed only')
     NotificationFrequency.create(:frequency => 'weekly')
     NotificationFrequency.create(:frequency => 'daily digest')
     NotificationFrequency.create(:frequency => 'send immediately')
@@ -21,6 +22,10 @@ class NotificationFrequency < ActiveRecord::Base
 
   def self.weekly
     cached_find(:frequency, 'weekly')
+  end
+
+  def self.newsfeed_only
+    cached_find(:frequency, 'newsfeed only')
   end
 
   def translated_label

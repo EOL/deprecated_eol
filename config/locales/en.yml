@@ -594,8 +594,8 @@ en:
         logo: "Upload a new photo"
         new_password: "New password <small>(4 - 16 characters)</small>"
         new_password_confirmation: "New password <small>(to confirm)</small>"
-        notification_settings: "Updates by email"
-        notification_settings_more: "Configure your email settings for notifications."
+        notification_settings: "Notification Settings"
+        notification_settings_more: "Configure your notification settings."
         requested_curator_level: "Your request to become %{curator_level_with_indefinite_article} is pending."
         requested_curator_level_id_more: "Choose <em>Assistant Curator</em> if you do not yet have any credentials.  Choose <em>Full Curator</em> if you are a professional scientist or graduate student with credentials.  Choose <em>Master Curator</em> if you are an experienced EOL curator and want to take on more responsibilities."
         tag_line: 'Tagline or title <small>example: "Bird enthusiast"</small>'
@@ -658,7 +658,7 @@ en:
         generate_api_key: "Generate a key"
         curation_application: "Apply now"
         curation_privileges: "Submit request"
-        notification_settings: "Email settings"
+        notification_settings: "Notification settings"
       wikipedia_queue:
         create: "Submit request"
   will_paginate:
@@ -1180,7 +1180,7 @@ en:
     notifications:
       edit:
         page_description: "All of the updates listed below (except for the EOL newsletter) are available to you in your <a href=\"%{user_newsfeed_link}\">EOL newsfeed</a>, but many people would also like to be alerted by email about certain kinds of activities they find particularly interesting. You can use the buttons below to set the frequency of EOL emails to suit your preferences"
-        page_title: Email settings
+        page_title: Notification settings
     show:
       meta_description: "Member profile for %{user_full_name} on the Encyclopedia of Life."
       meta_description_curator: "Member profile for %{curator_level} %{user_full_name} on the Encyclopedia of Life."
@@ -1304,6 +1304,8 @@ en:
   activity_user_removed_all_items_from_collection: "<strong>%{user}</strong> removed all items from the collection \"%{collection}\"."
   activity_user_added_unknown_item_to_collection: "<strong>%{user}</strong> added an unknown item to the collection \"%{collection}\"."
   activity_user_added_item_to_collection: "<strong>%{user}</strong> added \"%{item}\" to the collection \"%{collection}\"."
+  activity_user_changed_collection_description: "<strong>%{user}</strong> changed the description of the collection \"%{collection}\"."
+  activity_user_changed_collection_name: "<strong>%{user}</strong> changed the name of the collection \"%{collection}\"."
   activity_user_created_collection: "<strong>%{user}</strong> created the collection \"%{collection}\"."
   activity_user_created_text: "<strong>%{user}</strong> added text to \"%{object_name}\" on \"%{taxon_concept}\"."
   activity_user_updated_text: "<strong>%{user}</strong> updated \"%{object_name}\" text on \"%{taxon_concept}\"."
@@ -1316,6 +1318,7 @@ en:
   activity_user_changed_community_name: "<strong>%{user}</strong> changed the name of the community \"%{community}\"."
   activity_user_changed_community_icon: "<strong>%{user}</strong> changed the logo of the community \"%{community}\"."
   activity_user_added_community_manager: "<strong>%{user}</strong> made %{manager} a manager of the community \"%{community}\"."
+  activity_user_added_community_manager_missing: "<strong>%{user}</strong> added a manager to the community \"%{community}\"."
 
   #all common name activities are in this block
   activity_user_added_common_name_to_taxon: "<strong>%{user}</strong> added the %{language} common name \"%{name}\" to \"%{taxon}\"."
@@ -2563,9 +2566,10 @@ en:
   notification_frequency_send_immediately: "Send immediately"
   notification_frequency_never: "Never"
   notification_frequency_weekly: "Weekly"
+  notification_frequency_newsfeed_only: "Newsfeed Only"
   notifications_and_messages_review_notice: Please review notifications that will be sent to you by email.
-  email_updates_for_eol_addicts: "Email updates for EOL addicts."
-  email_updates_for_eol_members: "Email updates most EOL members will want to get."
+  email_updates_for_eol_addicts: "Updates for EOL addicts."
+  email_updates_for_eol_members: "Updates most EOL members will want to get."
   notifications_tab_name: "Notifications"
   taxon_not_found_error: "\"%{taxon}\" not found"
   not_published_yet: "not published yet"

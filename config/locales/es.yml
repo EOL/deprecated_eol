@@ -643,6 +643,7 @@ es:
   default_focus_collection_name_from_community: "%{name}'s enfoque"
   default_watch_collection_name: "%{username}'s lista de vigilancia"
   delete: borra
+  deleted_colon: "borrado:"
   delete_community: Borrar esta comunidad
   description: Descripción
   description_of: Descripción de
@@ -1456,7 +1457,7 @@ es:
   this_is_a_focus_collection_for_community: Esta colección es el enfoque de "%{community}".
   this_is_the_label_that_will_be_used_for_attribution: Esta es la etiqueta que se utilizará para la atribución
   this_method_takes_an_integer_or_string: Este método toma un entero o hilera que es el identificador único para un taxón de una base de datos de un proveedor y y un identificador hierarchy_id que corresponde al proveedor y retorna el ID de página de EOL para ese taxón. Por ejemplo, si usa el API %{link_provider}, puede encontrar que el identificador de EOL, hierarchy_id, para el Integrated Taxonomic Information System (ITIS) es %{itis_id}. Entonces, después puede buscar en EOL el ITIS Taxonomic Serial Number (TSN) de 180542,<i>Ursus maritimus</i>, llamando a %{link_url}
-  time_ago: "%{time_passed} hace"
+  time_ago: "hace %{time_passed}"
   title: Título
   to_process_your_donation_please_proceed: Para procesar su donación, por favor siga
   toc: TDC

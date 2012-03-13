@@ -570,7 +570,7 @@ es:
   classification_tree_header: Clasificación
   classifications_summary_header_with_count: 
     one: "Encontrado en %{count} clasificación "
-    other: Encontrado en %{count} clasificaciónes
+    other: Encontrado en %{count} clasificaciones
   click_on_a_user_to_view_the_users_detailed_profile: Haga clic en un usuario para ver el perfil del usuario detallada, haga clic en las especies para ver la página donde existe el texto (utilice el botón Atrás del navegador para regresar aquí).
   click_on_a_username_to_view_the_users_detailed_profile: Haga clic en un nombre de usuario para ver el perfil detallado de ese usuario, haga clic en el tipo de datos para ver el objeto comentado (use el botón de "back" en su navegador para volver aquí), haga clic en "editar" para editar el comentario o haz clic en "borrar" para eliminar permanentemente el comentario.
   close_this_window_to_return_to_edit_window: CIERRE ESTA VENTANA PARA VOLVER A LA VENTANA EDITAR
@@ -1622,9 +1622,9 @@ es:
   punctuation_comma: ","
   punctuation_semi_colon: ;
   quarterly: Trimestral
-  rank_recognized_by_agent: "%{rank} reconocido por %{agent}"
-  rank_recognized_by_from_source: "%{rank} reconocido por %{agent} in %{source}"
-  rank_recognized_by_agent_colon: "<b>%{rank}</b> reconocido por %{agent}:"
+  rank_recognized_by_agent: "%{rank} reconocidas por %{agent}"
+  rank_recognized_by_from_source: "%{rank} reconocidas por %{agent} in %{source}"
+  rank_recognized_by_agent_colon: "<b>%{rank}</b> reconocidas por %{agent}:"
   rated_by_count_people: 
     one: de %{count} persona
     other: de %{count} personas

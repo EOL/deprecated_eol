@@ -1326,13 +1326,13 @@ es:
   search_the_site: Buscar en el sitio
   see_all_classifications_with_count_html:
     one: Ver <span class="assistive">%{count} clasificación aprobada en la que aparece este taxón.</span>
-    other: Ver las <span class="assistive">%{count} clasificaciones aprobadas en las que aparece este taxón.</span>
+    other: Ver todas <span class="assistive">las %{count} clasificaciones aprobadas en las que aparece este taxón.</span>
   see_all_collections_with_count_html:
     one: Ver <span class="assistive">%{count} colección en la que aparece este taxón.</span>
-    other: Ver las <span class="assistive">%{count} colecciones en las que aparece este taxón.</span>
+    other: Ver todas <span class="assistive">las %{count} colecciones en las que aparece este taxón.</span>
   see_all_communities_with_count_html:
     one: Ver la <span class="assistive">%{count} comunidad que tiene como foco este taxón.</span>
-    other: Ver las <span class="assistive">%{count} comunidades que tienen como foco este taxón.</span>
+    other: Ver todas <span class="assistive">las %{count} comunidades que tienen como foco este taxón.</span>
   see_all_featured_collections_with_count:
     one: Mira el %{count} colección especial.
     other: Mira los %{count} colecciónes especiales.

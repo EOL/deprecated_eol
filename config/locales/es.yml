@@ -733,7 +733,7 @@ es:
   fill_in_a_message_below_to_send_email_to_user: "Llenar un mensaje a continuación para enviar un correo electrónico a este usuario.  El mensaje se enviará cuando usted envíe el formulario:"
   filter_button: Filtrar
   filter_by_status: Filtrar por estado
-  filter_by_status_all_option: todos los estados
+  filter_by_status_all_option: Todos los estados
   filter_by_type_all_option_with_count:
     one: "Todos los tipos (%{count})"
     other: "Todos los tipos (%{count})"

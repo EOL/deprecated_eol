@@ -2878,7 +2878,7 @@ en:
   technical_functions: "Technical Functions"
   term_cannot_be_left_blank: "Term cannot be left blank"
   terms_agreement_form_fallback: 'Please review and agree to the <a href="%{terms_url}">terms of use</a> before accessing your account.'
-  terms_agreement_form_header: "Terms Of use"
+  terms_agreement_form_header: "Terms of use"
   terms_agreement_form_submit: "I agree"
   terms_of_use_link: "Terms of use &amp; privacy"
   term_for_search_admin_ui: "Term"

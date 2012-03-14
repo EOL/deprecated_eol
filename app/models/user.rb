@@ -32,7 +32,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   has_many :user_identities, :through => :users_user_identities
   has_many :worklist_ignored_data_objects
   has_many :pending_notifications
-  has_many :authentications
+  has_many :open_authentications, :dependent => :destroy
 
   has_many :content_partners
   has_one :user_info
@@ -44,30 +44,33 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   after_save :update_watch_collection_name
   after_save :clear_cache
 
+  after_create :add_agent
+
   before_destroy :destroy_comments
   # TODO: before_destroy :destroy_data_objects
 
   after_create :add_email_notification
 
-  accepts_nested_attributes_for :user_info, :notification
+  accepts_nested_attributes_for :user_info, :notification, :open_authentications
 
   @email_format_re = %r{^(?:[_\+a-z0-9-]+)(\.[_\+a-z0-9-]+)*@([a-z0-9-]+)(\.[a-zA-Z0-9\-\.]+)*(\.[a-z]{2,4})$}i
 
-  validate :ensure_unique_username_against_master
+  validate :ensure_unique_username_against_master, :if => :eol_authentication?
 
   validates_presence_of :curator_verdict_at, :if => Proc.new { |obj| !obj.curator_verdict_by.blank? }
   validates_presence_of :credentials, :if => :curator_attributes_required?
   validates_presence_of :curator_scope, :if => :curator_attributes_required?
-  validates_presence_of :given_name, :if => :first_last_names_required?
+  validates_presence_of :given_name, :if => :given_name_required?
   validates_presence_of :family_name, :if => :first_last_names_required?
-  validates_presence_of :username
+  validates_presence_of :username, :if => :eol_authentication?
 
-  validates_length_of :username, :within => 4..32
+  validates_length_of :username, :within => 4..32, :if => :eol_authentication?
   validates_length_of :entered_password, :within => 4..16, :if => :password_validation_required?
 
   validates_confirmation_of :entered_password, :if => :password_validation_required?
 
-  validates_format_of :email, :with => @email_format_re, :if => :email_validation_required?
+  validates_format_of :email, :with => @email_format_re
+  validates_confirmation_of :email, :if => :email_confirmation_required?
 
   validates_acceptance_of :agreed_with_terms, :accept => true
 
@@ -87,7 +90,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   index_with_solr :keywords => [:username, :full_name]
 
-  attr_accessor :entered_password, :entered_password_confirmation, :curator_request
+  attr_accessor :entered_password, :entered_password_confirmation, :email_confirmation, :curator_request
 
   # Aaaaactually, this also preps the icon and tagline, since that's commonly shown with the title.
   def self.load_for_title_only(load_these)
@@ -106,8 +109,8 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def self.authenticate(username_or_email, password)
-    user = self.find_by_username_and_active(username_or_email, true)
-    users = user.blank? ? self.find_all_by_email_and_active(username_or_email, true) : [user]
+    user = self.find_by_username(username_or_email)
+    users = user.blank? ? self.find_all_by_email(username_or_email) : [user]
     users.each do |u|
       if u.hashed_password == self.hash_password(password)
         u.reset_login_attempts
@@ -129,7 +132,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     User.with_master do
       user = User.find_by_username_and_active(username_or_email, true)
       user ||= User.find_by_email_and_active(username_or_email, true)
-      user.nil? ? false : true  # Just cleaning up the nil, is all.  False is less likely to annoy.
+      user.nil? ? false : true
     end
   end
 
@@ -229,7 +232,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     begin
       ($CACHE.fetch("users/#{id}") { User.find(id, :include => :agent) }).dup # #dup avoids frozen hashes!
     rescue
-      nil 
+      nil
     end
   end
 
@@ -287,7 +290,9 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def activate
-    self.update_attributes(:active => true, :validation_code => nil)
+    # Using update_attribute instead of updates_attributes to by pass validation errors.
+    self.update_attribute(:active, true)
+    self.update_attribute(:validation_code, nil)
     build_watch_collection
   end
 
@@ -488,7 +493,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   alias approve_to_curate grant_curator
 
   def revoke_curator
-    # TODO: This is weird, if we are revoking the curator access why not call update_attributes once and 
+    # TODO: This is weird, if we are revoking the curator access why not call update_attributes once and
     # add if-else loop to check if it successfully updated the attributes.
     unless curator_level_id == nil
       self.update_attributes(:curator_level_id => nil)
@@ -823,6 +828,19 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     end
   end
 
+  def recover_account_token_valid?(token)
+    recover_account_token =~ /^[a-f0-9]{40}/ && recover_account_token == token && !recover_account_token_expired?
+  end
+
+  def recover_account_token_expired?
+    recover_account_token_expires_at.blank? || Time.now > recover_account_token_expires_at
+  end
+
+  # An eol authentication indicates a user that has no open authentications, i.e. only has eol credentials
+  def eol_authentication?
+    open_authentications.blank?
+  end
+
   # This returns false unless the user wants an email notification for the given type, then it returns the
   # NotificationFrequency object.
   def listening_to?(type)
@@ -870,13 +888,11 @@ private
     self.reload
   end
 
-  def password_required?
-    hashed_password.blank? || hashed_password.nil? || ! self.entered_password.blank?
-  end
-
-  # We need to validate the password if hashed password is empty i.e. on user#create, or if someone is trying to change it i.e. user#update
+  # We need to validate the password if hashed password is empty
+  # i.e. on user#create, or if someone is trying to change it i.e. user#update
+  # Don't need password when user authenticates with open authentication e.g. Facebook
   def password_validation_required?
-    password_required? || ! self.entered_password.blank?
+    eol_authentication? && (hashed_password.blank? || hashed_password.nil? || ! self.entered_password.blank?)
   end
 
   # Callback before_save and before_update we only encrypt password if someone has entered a valid password
@@ -888,8 +904,8 @@ private
     end
   end
 
-  def email_validation_required?
-    ! self.email == "oauth_user"
+  def email_confirmation_required?
+    self.new_record? # TODO: require email confirmation if user changes their email on edit
   end
 
   # validation condition for required curator attributes
@@ -899,6 +915,10 @@ private
       self.requested_curator_level_id != CuratorLevel.assistant_curator.id) ||
     (!self.curator_level_id.nil? && !self.curator_level_id.zero? &&
       self.curator_level_id != CuratorLevel.assistant_curator.id)
+  end
+
+  def given_name_required?
+    first_last_names_required? || !eol_authentication?
   end
 
   def first_last_names_required?
@@ -931,6 +951,17 @@ private
     unless collection.blank?
       collection.name = I18n.t(:default_watch_collection_name, :username => self.full_name.titleize)
       collection.save!
+    end
+  end
+
+  # Callback after_create
+  def add_agent
+    return unless agent_id.blank?
+    begin
+      # TODO: User may not have a full_name on creation so passing it here is possibly redundant.
+      self.update_attribute(:agent_id, Agent.create_agent_from_user(full_name).id)
+    rescue ActiveRecord::StatementInvalid
+      # Interestingly, we are getting users who already have agents attached to them.  I'm not sure why, but it's causing registration to fail (or seem to; the user is created), and this is bad.
     end
   end
 

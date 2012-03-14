@@ -920,7 +920,6 @@ sr:
   create_community_around_this_collection_header: Прављење заједнице која је посвећена овој збирци
   create_community_button: Направи заједницу
   create_community_unsuccessful_error: Нажалост, дошло је до грешке. Не могу да направим заједницу. Проверите да ли су сва поља попуњена.
-  create_user_form_header: Отварање новог налога на <abbr title="Encyclopedia of Life">EOL-у</abbr>
   create_user_unsuccessful_error: Нажалост, дошло је до грешке. Не могу да отворим нови налог. Проверите да ли су сва поља попуњена.
   created: Направљено
   created_at: Направљено у
@@ -2618,6 +2617,9 @@ sr:
   username: Корисничко име
   username_colon: "Корисничко име:"
   username_taken: "%{name} је заузето"
+  users:
+    new:
+      create_user_header: Отварање новог налога на <abbr title="Encyclopedia of Life">EOL-у</abbr>
   users_about_me_header: О мени
   users_content_partners_header: Партнери за садржај
   users_content_partners_information: Партнери за садржај су појединци или организације који деле своје податке о биоразноврсности са светом преко EOL-а. Сазнајте више о <a href="%{more_url}">партнерима за садржај</a>.

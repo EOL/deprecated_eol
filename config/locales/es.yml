@@ -1280,7 +1280,6 @@ es:
   create_community_around_this_collection_header: Crear una comunidad alrededor de esta colección
   create_community_button: Crear una comunidad
   create_community_unsuccessful_error: Lo sentimos, ha ocurrido un error, su comunidad no fue creada. Asegúrese de que todos los campos se completen correctamente.
-  create_user_form_header: Crear una nueva cuenta <abbr title="Encyclopedia of Life">EOL</abbr>
   create_user_unsuccessful_error: Lo sentimos, ha ocurrido un error, su nueva cuenta no se ha creado. Asegúrese de que todos los campos se completen correctamente.
   created: Creado
   created_at: Creado
@@ -3251,6 +3250,8 @@ es:
         meta_description: asociaciones de socios de contenido de %{user_full_name}.
         meta_title: socios de contenido de %{user_full_name}
         tweet_text: socios de contenido de %{user_full_name}
+    new:
+      create_user_header: Crear una nueva cuenta <abbr title="Encyclopedia of Life">EOL</abbr>
     newsfeeds: 
       activity: 
         meta_title: canal web de actividad de %{user_full_name}

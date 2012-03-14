@@ -730,7 +730,6 @@ ms:
   create_community_about_text: Anda bakal mewujudkan sebuah komuniti yang berkisarkan isi kandungan "%{collection_name}". Semua pengguna akan dapat menyertai komuniti anda, tetapi mereka sahaja yang anda lantik sebagai "pengurus" akan dibenarkan untuk menyunting komuniti itu sendiri atau himpunan yang berkaitan dengan komuniti anda.
   create_community_around_this_collection_header: Tubuhkan komuniti yang berkisar pada himpunan ini
   create_community_unsuccessful_error: Maaf, berlakunya ralat, komuniti anda tidak diwujudkan. Sila pastikan bahawa semua ruangan diisi dengan betul.
-  create_user_form_header: Buka akaun <abbr title="Encyclopedia of Life">EOL</abbr> baru
   create_user_unsuccessful_error: Maaf, berlakunya ralat, akaun anda tidak dibuka. Sila pastikan bahawa semua ruangan diisi dengan betul.
   created: Dicipta
   created_at: Dicipta Pada
@@ -1873,6 +1872,9 @@ ms:
   username: Nama pengguna
   username_colon: "Nama pengguna:"
   username_taken: "%{name} sudah diambil"
+  users:
+    new:
+      create_user_header: Buka akaun <abbr title="Encyclopedia of Life">EOL</abbr> baru
   users_about_me_header: Perihal saya
   users_content_partners_header: Rakan kongsi kandungan
   users_content_partners_information: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt hendrerit tortor, commodo faucibus turpis imperdiet non. Nullam tincidunt, est vel euismod volutpat, libero turpis suscipit neque, nec viverra magna augue non nisl. Praesent et risus sit amet quam sagittis pulvinar eu at odio. Etiam mattis enim turpis, cursus rutrum massa. Ut blandit varius tellus, vitae interdum nulla pulvinar nec.

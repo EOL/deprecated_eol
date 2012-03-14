@@ -289,6 +289,15 @@ en:
         descriptive_label: "Descriptive label"
         label: "Label"
         request_publish: "Request publish"
+      open_authentication:
+        created_at: "Created"
+        guid: "GUID"
+        provider: "Third-party provider"
+        secret: "Secret"
+        token: "Token"
+        updated_at: "Last updated"
+        user_id: "User ID"
+        verified_at: "Last verified"
       name:
         string: "Name"
       notification:
@@ -343,6 +352,7 @@ en:
         curator_scope: "Curation scope"
         disable_email_notifications: "Don't send me ANY updates by email"
         email: "Email address"
+        email_confirmation: "Email address again <small>(to confirm)</small>"
         entered_password: "Password"
         entered_password_confirmation: "Password again <small>(to confirm)</small>"
         family_name: "Last name"
@@ -403,6 +413,9 @@ en:
           attributes:
             publish:
               inclusion: "is only allowed for the latest harvest event and only if that event is not already published"
+        open_authentications:
+          guid_provider_must_be_unique: "the third-party account is already connected with an EOL account"
+          provider_user_id_must_be_unique: "only one account from each third-party provider can be connected to an EOL account"
         resource:
           attributes:
             accesspoint_url:
@@ -419,6 +432,7 @@ en:
     select:
       prompt: "Please select"
     submit:
+      cancel: "Cancel"
       create: "Create %{model}"
       update: "Update %{model}"
       submit: 'Save %{model}'
@@ -455,6 +469,8 @@ en:
       name:
         create: "Add name"
         update: "Update name"
+      open_authentication:
+        destroy: "Disconnect"
       resource:
         create: "Add resource"
         update: "Update resource"
@@ -462,16 +478,25 @@ en:
         force_harvest: "Request force harvest"
       session:
         create: "Sign in"
+        sign_in_with_facebook: "Sign in with Facebook"
+        sign_in_with_google: "Sign in with Google"
+        sign_in_with_twitter: "Sign in with Twitter"
+        sign_in_with_yahoo: "Sign in with Yahoo"
       translated_content_page:
         create: "Add translation"
         update: "Save changes to translation"
       user:
         create: "Create account"
-        update: "Save profile information"
-        forgot_password: "Send email"
-        generate_api_key: "Generate a key"
         curation_application: "Apply now"
         curation_privileges: "Submit request"
+        forgot_password: "Send email"
+        generate_api_key: "Generate a key"
+        recover_account: "Send email"
+        sign_up_with_facebook: "Sign up with Facebook"
+        sign_up_with_google: "Sign up with Google"
+        sign_up_with_twitter: "Sign up with Twitter"
+        sign_up_with_yahoo: "Sign up with Yahoo"
+        update: "Save profile information"
       wikipedia_queue:
         create: "Submit request"
     label:
@@ -547,6 +572,9 @@ en:
         complete_more: "A curated hierarchy assumes that every entry is intended to be unique, i.e. matching name strings will be treated as homonyms. <strong>WARNING: Do not change this attribute unless you are certain of the status of homonyms in the hierarchy, doing so could jeopardize the integrity of the data.</strong>"
         request_publish: "Publish requested"
         request_publish_more: "Indicates whether there is a pending request to promote this hierarchy to become one of the primary browsable hierarchies on EOL."
+      open_authentication:
+        connected: Connected
+        connect: Add
       resource:
         administration_settings: "Administration settings <small>(only visible to EOL administrators)</small>"
         accesspoint_url: "Dataset URL <small>(XML, XML.GZIP or XML.GZ only)</small>"
@@ -597,6 +625,7 @@ en:
         curator_scope_more: 'Please indicate the scope of your expertise. For example: "Rodents of Borneo", "Tri-trophic interactions", or "Conservation issues in fish". This will not limit your ability to curate, but will inform the EOL community.'
         email_reports_frequency_hours: "How often would you like to receive email alerts about activity on your contributions?"
         email_settings_submit: "email settings"
+        email: "Email address"
         entered_password: "Password <small>(4 - 16 characters)</small>"
         generate_api_key: "Request an API key"
         generate_api_key_more: "If you are interested in using the EOL API you can generate an API key to identify your application. Read more about <a href=\"%{api_docs_url}\">adding a key to your API calls</a>."
@@ -605,6 +634,9 @@ en:
         new_password_confirmation: "New password <small>(to confirm)</small>"
         notification_settings: "Notification Settings"
         notification_settings_more: "Configure your notification settings."
+        open_authentications: "Connected accounts"
+        open_authentications_more: "Manage connections to third-party accounts that you can use to sign in to EOL. <a href=\"%{open_authentications_url}\">Edit connected accounts</a>."
+        open_authentications_connected_accounts: "Your connected accounts"
         requested_curator_level: "Your request to become %{curator_level_with_indefinite_article} is pending."
         requested_curator_level_id_more: "Choose <em>Assistant Curator</em> if you do not yet have any credentials.  Choose <em>Full Curator</em> if you are a professional scientist or graduate student with credentials.  Choose <em>Master Curator</em> if you are an experienced EOL curator and want to take on more responsibilities."
         tag_line: 'Tagline or title <small>example: "Bird enthusiast"</small>'
@@ -850,14 +882,17 @@ en:
     user_activated:
       subject: "Your Encyclopedia of Life account has been activated"
       message: "Welcome to the Encyclopedia of Life (EOL) and thank you for registering! Please note your username is %{username} and your profile URL is %{profile_url}. You can log in to your account at http://www.eol.org/login.\n\nTo learn more about how to use EOL, including how to create EOL Collections, participate in EOL Communities and contribute content, please visit our help pages at http://www.eol.org/help."
+    user_activated_with_open_authentication:
+      subject: "Your Encyclopedia of Life account has been activated"
+      message: "Welcome to the Encyclopedia of Life (EOL) and thank you for registering! Please note you signed up using%{oauth_provider} giving EOL permission to access your basic information for authentication purposes. Your profile URL on EOL is %{profile_url}. You can sign in to your EOL account with %{oauth_provider} at http://www.eol.org/login.\n\nTo learn more about how to use EOL, including how to create EOL Collections, participate in EOL Communities and contribute content, please visit our help pages at http://www.eol.org/help."
     user_message:
       subject: "A message from the Encyclopedia of Life"
+    user_recover_account:
+      subject: "Recover your Encyclopedia of Life account"
+      message: "The Encyclopedia of Life (http://eol.org) received a request to recover your account. If you did not make this request, please ignore this email.\n\nThe following link provides a one time log in to allow you to change your password, or to add a new connected account which you may use to sign in with in the future:\n\n%{temporary_login_url}\n\nPlease note, this link expires after 24 hours, after that time you may visit %{recover_account_url} to request a new temporary login link if you are still having trouble accessing your account."
     user_updated_email_preferences:
       subject: "EOL user %{user_full_name} changed their email address or mailing list preferences"
       message: "This is an automated EOL system notification. User %{user_full_name} (%{user_profile_url}) updated their email address or mailing list preferences.\n\nPrevious preferences:\nE-mail: %{previous_email}\nMailing list preference: %{previous_mailing_list_preference}\n\nUpdated to:\nE-mail: %{updated_email}\nMailing list preference: %{updated_mailing_list_preference}\nUpdated: %{updated_at}"
-    user_reset_password:
-      subject: "Reset your Encyclopedia of Life account password"
-      message: "The Encyclopedia of Life (www.eol.org) received a request to reset your password. If you did not make this request, please ignore this email.\n\nThe following link will reset your password:\n\n%{password_reset_url}\n\nPlease note that after 24 hours, the link expires and you will need to make a new reset request."
     user_verification:
       subject: "Please verify your request for an Encyclopedia of Life account"
       message: "Thanks for registering with the Encyclopedia of Life. The following link will verify that you wish to complete your registration and activate your account:\n\n%{verification_url}\n\nOnce your account has been activated you will receive a confirmation email message."
@@ -913,7 +948,14 @@ en:
       meta_keywords: "eol community activity, eol recent activity, encyclopedia of life activities"
   sessions:
     new:
+      login_with_facebook_assistive: "Login to EOL using your Facebook credentials."
+      login_with_google_assistive: "Login to EOL using your Google credentials."
+      login_with_twitter_assistive: "Login to EOL using your Twitter credentials."
+      login_with_yahoo_assistive: "Login to EOL using your Yahoo credentials."
+      login_with_open_authentication_header: "Or<span class=\"assistive\"> log in to EOL with open authentication</span>:"
       meta_title: "Login"
+      problems_signing_in_with_connected_accounts: "Problems signing in with your connected accounts?"
+      problems_signing_in_with_eol_authentication: "Problems signing in?"
   taxa:
     communities:
       index:
@@ -1240,6 +1282,24 @@ en:
         meta_keywords: ""
         meta_title: "%{user_full_name} Content Partners"
         tweet_text: "%{user_full_name} content partners"
+    edit:
+      form_tip_account: "To sign in to EOL you either need an EOL username and password, or you can connect a third-party account. Username and password are required if you do not have a connected account, however only enter a new password here if you'd like to change your existing one. Email address and preferred language are required (%{required_icon}) for all users."
+      form_tip_account_oauth: "Email address and preferred language are required %{required_icon} for all users."
+      form_tip_profile: "Items marked as required %{required_icon} are optional for general users but required for curators."
+      form_tip_profile_oauth: "First name is required, other items marked as required %{required_icon} are optional for general users but required for curators."
+      form_tip_curation: "Credentials and curation scope are optional for Assistant Curators but required %{required_icon} for Full and Master Curators"
+    new:
+      create_user_header: "Create a new <abbr title=\"Encyclopedia of Life\">EOL</abbr> account"
+      create_user_header_facebook: "Confirm your Facebook details and sign up"
+      create_user_header_google: "Confirm your Google details and sign up"
+      create_user_header_twitter: "Confirm your Twitter details and sign up"
+      create_user_header_yahoo: "Confirm your Yahoo details and sign up"
+      create_user_with_open_authentication_header: "Or<span class=\"assistive\"> sign up with open authentication</span>:"
+      meta_title: "Join EOL"
+      sign_up_with_facebook_assistive: "Sign up to EOL using your Facebook credentials."
+      sign_up_with_google_assistive: "Sign up to EOL using your Google credentials."
+      sign_up_with_twitter_assistive: "Sign up to EOL using your Twitter credentials."
+      sign_up_with_yahoo_assistive: "Sign up to EOL using your Yahoo credentials."
     newsfeeds:
       activity_link: "activity"
       comments_link: "comments"
@@ -1260,6 +1320,74 @@ en:
       edit:
         page_description: "All of the updates listed below (except for the EOL newsletter) are available to you in your <a href=\"%{user_newsfeed_link}\">EOL newsfeed</a>, but many people would also like to be alerted by email about certain kinds of activities they find particularly interesting. You can use the buttons below to set the frequency of EOL emails to suit your preferences"
         page_title: Notification settings
+    open_authentications:
+      errors:
+        authorize_uri_missing: "Sorry, an error occurred, we are unable to initiate authentication at this time."
+        missing_attributes: "Sorry, there was a problem accessing your third-party account details."
+        not_authorized_to_add_authentication: "Sorry, we don't have authorization to connect that account."
+        not_authorized_to_signup: "Sorry, we are not authorized to sign you up to EOL with that account."
+        not_connected: "Sorry, we couldn't find a connection to an EOL account."
+        facebook:
+          add_connection_failed_account_already_connected: "Sorry, we can't connect your Facebook account to your EOL account, your Facebook account is already connected to an <a href=\"%{existing_eol_account_url}\">EOL account</a>."
+          missing_attributes: "Sorry, there was a problem accessing your Facebook details."
+          not_authorized_to_add_authentication: "Sorry, we don't have authorization to connect your Facebook account."
+          not_authorized_to_signup: "Sorry, we are not authorized to sign you up to EOL using your Facebook account."
+          not_connected: "Sorry, we couldn't find a connection between your Facebook account and EOL."
+          signup_failed_account_already_connected: "Sorry, we can't sign you up for a new EOL account with your Facebook account, it is already connected to an <a href=\"%{existing_eol_account_url}\">EOL user account</a>. Did you mean to <a href=\"%{login_url}\">log in</a> instead?"
+        google:
+          missing_attributes: "Sorry, there was a problem accessing your Google details."
+          not_authorized_to_add_authentication: "Sorry, we don't have authorization to connect your Google account."
+          not_authorized_to_signup: "Sorry, we are not authorized to sign you up to EOL using your Google account."
+          not_connected: "Sorry, we couldn't find a connection between your Google account and EOL."
+          signup_failed_account_already_connected: "Sorry, we can't sign you up for a new EOL account with your Google account, it is already connected to an <a href=\"%{existing_eol_account_url}\">EOL user account</a>. Did you mean to <a href=\"%{login_url}\">log in</a> instead?"
+        twitter:
+          missing_attributes: "Sorry, there was a problem accessing your Twitter details."
+          not_authorized_to_add_authentication: "Sorry, we don't have authorization to connect your Twitter account."
+          not_authorized_to_signup: "Sorry, we are not authorized to sign you up to EOL using your Twitter account."
+          not_connected: "Sorry, we couldn't find a connection between your Twitter account and EOL."
+          signup_failed_account_already_connected: "Sorry, we can't sign you up for a new EOL account with your Twitter account, it is already connected to an <a href=\"%{existing_eol_account_url}\">EOL user account</a>. Did you mean to <a href=\"%{login_url}\">log in</a> instead?"
+        yahoo:
+          missing_attributes: "Sorry, there was a problem accessing your Yahoo! details."
+          not_authorized_to_add_authentication: "Sorry, we don't have authorization to connect your Yahoo! account."
+          not_authorized_to_signup: "Sorry, we are not authorized to sign you up to EOL using your Yahoo! account."
+          not_connected: "Sorry, we couldn't find a connection between your Yahoo! account and EOL."
+          signup_failed_account_already_connected: "Sorry, we can't sign you up for a new EOL account with your Yahoo! account, it is already connected to an <a href=\"%{existing_eol_account_url}\">EOL user account</a>. Did you mean to <a href=\"%{login_url}\">log in</a> instead?"
+      facebook: Facebook
+      google: Google
+      index:
+        last_verified: "Last verified %{time_passed} ago;"
+        page_title: "Connected accounts"
+        page_description: "Manage connections to third-party accounts that you can use to log in to EOL."
+        return_link: "Return to edit profile."
+      notices:
+        facebook:
+          new_authentication_added: "Facebook authentication has been added to your account."
+        google:
+          new_authentication_added: "Google authentication has been added to your account."
+        twitter:
+          new_authentication_added: "Twitter authentication has been added to your account."
+        yahoo:
+          new_authentication_added: "Yahoo! authentication has been added to your account."
+      twitter: Twitter
+      yahoo: Yahoo!
+    recover_account:
+      errors:
+        temporary_login_user_not_found: "Sorry, the EOL account you were trying to recover could not be found, please request a new email to recover your account."
+        token_expired_or_invalid: "Sorry, the temporary login link has expired or is invalid, please request a new email to recover your account."
+        user_not_found_by_email_address: "An EOL account with that email address could not be found."
+        unable_to_update_token: "Sorry, an error occurred and the email was not sent, please try again."
+      form_header: "Recover account"
+      form_tip: "To recover your EOL account, enter the email address associated with that account. Please check your spam folder if you do not receive an account recovery email within an hour."
+      notices:
+        recovery_email_sent: "Account recovery email has been sent with further instructions. Please check your spam filter if you do not receive the email with an hour."
+        temporarily_logged_in_update_authentication_details: "You are temporarily logged in to allow account recovery, please change your password or update your connected accounts to ensure you can sign in successfully."
+      meta_title: "Recover account"
+    recover_account_choose_account:
+      errors:
+        user_not_found_choose_again: "Sorry, an error occurred and the email was not sent, please select the account you would like to recover access to and try again."
+      form_header: "Recover account"
+      form_tip: "There are several accounts registered with the email address <em>%{email}</em>, please select which account you would like to recover access to."
+      legend_choose_account: "Choose an account"
     show:
       meta_description: "Member profile for %{user_full_name} on the Encyclopedia of Life."
       meta_description_curator: "Member profile for %{curator_level} %{user_full_name} on the Encyclopedia of Life."
@@ -2241,7 +2369,6 @@ en:
   create_a_collection: "Create a collection"
   create_collection_button: "Create collection"
   create_community_button: "Create community"
-  create_user_form_header: "Create a new <abbr title=\"Encyclopedia of Life\">EOL</abbr> account"
   create_user_unsuccessful_error: "Sorry, an error occurred, your new account was not created. Please ensure all fields are completed correctly."
   created_at: "Created at"
   created_by: "Created by"
@@ -2447,6 +2574,13 @@ en:
   every_method_can_also_return_json_response: "Every method can also return a JSON response by adding a .json extension"
   example_colon: "Example:"
   exception: "Exception"
+  exceptions:
+    security_violations:
+      default: "Access denied."
+      hidden_user_login: "Sorry, login is disabled for that account."
+      hidden_user_recover_account: "Sorry, account recovery is disabled for that account."
+      hidden_user_temporary_login: "Sorry, account recovery and login are disabled for that account."
+      inactive_user_login: "Sorry, that account is not yet active. If you did not receive a verification email when you signed up please follow the account recovery procedure to verify your email address and activate your account."
   expand_all_children: "expand all children"
   explore: "Explore"
   explore_what_we_know_about_taxon: "Explore what EOL knows about %{taxon}."
@@ -2918,9 +3052,6 @@ en:
   nucleotide_sequences_ncbi_mission: "The mission of the <a rel=\"nofollow\" href=\"%{ncbi_link}\">National Center for Biotechnology Information</a> is to develop new information technologies to aid in the understanding of fundamental molecular and genetic processes that control health and disease."
   nucleotide_sequences_ncbi_database: "The <a rel=\"nofollow\" href=\"%{ncbi_taxonomy_link}\">NCBI Taxonomy</a> database contains the names of all organisms that are represented in the genetic databases with at least one nucleotide or protein sequence."
   nucleotide_sequences_proteins_link: "View protein and nucleotide sequences in NCBI"
-  oauth_authentication_added_and_sign_in_successful: "Authentication using your %{oauth_provider} credentials has been added."
-  oauth_eol_account_created_and_authentication_added: "You have successfully created Encyclopedia of Life account using your %{oauth_provider} credentials."
-  oauth_sign_in_unsuccessful_error: "Login failed."
   object_curation: "Object Curation"
   object: "Object"
   objects_curated: "Objects Curated"

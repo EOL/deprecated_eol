@@ -1250,7 +1250,6 @@ ar:
   create_community_around_this_collection_header: إنشاء مجتمع عن تلك المجموعة
   create_community_button: إنشاء مجتمع
   create_community_unsuccessful_error: عفوًا، حدث خطأ، تعذر إنشاء المجتمع. يرجى التأكد من ملء جميع الخانات بشكل صحيح.
-  create_user_form_header: إنشاء حساب جديد  <abbr title="Encyclopedia of Life">بموسوعة الحياة</abbr>
   create_user_unsuccessful_error: عفوًا، حدث خطأ، لم يتم إنشاء حسابك الجديد. يرجى التأكد من ملء جميع الخانات بشكل صحيح.
   created: أنشئ في
   created_at: تم إنشائه في
@@ -3180,6 +3179,8 @@ ar:
         meta_description: ارتباطات %{user_full_name} بشركاء المحتوى.
         meta_title: شركاء المحتوى الذي يرتبط بهم%{user_full_name}
         tweet_text: شركاء المحتوى الذي يرتبط بهم %{user_full_name}
+    new:
+      create_user_header: إنشاء حساب جديد  <abbr title="Encyclopedia of Life">بموسوعة الحياة</abbr>
     newsfeeds: 
       activity_link: نشاط
       comments: 

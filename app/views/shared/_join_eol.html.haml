@@ -5,4 +5,6 @@
   %p{:class => join_style}= link_to I18n.t(:join_eol_button_html), new_user_path
   %p
     = I18n.t(:already_a_member_question)
-    = link_to I18n.t(:sign_in), login_path(:return_to => current_url(false))
+    - return_to = current_url(false).gsub(/return_to=.*?&/, '')
+    = link_to I18n.t(:sign_in), login_path(:return_to => return_to.include?(login_path) ? nil : return_to)
+

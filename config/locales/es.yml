@@ -655,7 +655,7 @@ es:
   development_version_name: EOL V2 Beta
   did_you_mean: "¿Quiso decir: %{suggestions} ?"
   disabled_for_now: DISCAPACITADOS EN ESTE MOMENTO
-  discover_link: Descrubrir
+  discover_link: Descubrir
   displaying_numerical_range: Viendo %{start_number} &mdash; %{end_number} de %{total}
   donate: Donar
   donation_amount_legend: Elija la cantidad que le gustaría donar

@@ -3199,6 +3199,8 @@ de:
         meta_description: Inhaltspartner mit denen %{user_full_name} in Verbindung steht.
         meta_title: Inhaltspartner von %{user_full_name}
         tweet_text: Inhaltspartner von %{user_full_name}
+    new:
+      create_user_header: Erstellen Sie eine neues Konto bei <abbr title="Enzyklopädie des Lebens">EOL</abbr>
     newsfeeds: 
       activity: 
         meta_title: Aktivitätenfeed von %{user_full_name}

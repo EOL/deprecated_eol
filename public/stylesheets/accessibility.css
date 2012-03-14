@@ -162,10 +162,7 @@ form#switch_hierarchy_entry fieldset {
 #content.session .pending {
   width: 320px;
   min-height: 225px;
-  padding: 75px 159px;
-  margin: 0 auto;
-  border: 1px solid #cad3db;
-  background: #f0f4f7 url("/images/v2/bg_sign-in.gif") 0 0 no-repeat; }
+  padding: 75px 159px; }
 
 /*recaptcha */
 #new_user iframe {

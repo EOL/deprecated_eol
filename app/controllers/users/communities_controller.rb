@@ -1,5 +1,7 @@
 class Users::CommunitiesController < UsersController
 
+  skip_before_filter :extend_for_open_authentication
+
   # GET /users/:user_id/communities
   def index
     @user = User.find(params[:user_id], :include => { :members => :community })

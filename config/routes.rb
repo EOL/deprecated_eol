@@ -1,5 +1,31 @@
 ActionController::Routing::Routes.draw do |map|
 
+  ## Permanent redirects should be first in routes file.
+  map.with_options :controller => 'redirects', :action => 'show', :conditions => { :method => :get } do |redirect|
+    redirect.connect '/podcast', :url => 'http://education.eol.org/podcast'
+    redirect.connect '/pages/:taxon_id/curators', :sub_tab => 'curators'
+    redirect.connect '/pages/:taxon_id/images', :sub_tab => 'media'
+    redirect.connect '/pages/:taxon_id/classification_attribution', :sub_tab => 'names'
+    redirect.connect '/taxa/content/:taxon_id'
+    redirect.connect '/taxa/images/:taxon_id', :sub_tab => 'media'
+    redirect.connect '/taxa/maps/:taxon_id', :sub_tab => 'maps'
+    # TODO - remove /content/* named routes once search engines have reindexed the site and legacy URLs are not in use.
+    redirect.connect '/content/exemplars', :conditional_redirect_id  => 'exemplars'
+    redirect.connect '/content/news/*ignore', :cms_page_id => 'news'
+    redirect.connect '/content/page/2012eolfellowsapplication', :cms_page_id => '2012_eol_fellows_application'
+    redirect.connect '/content/page/2012fellowsonlineapp',  :cms_page_id => '2012_fellows_online_app'
+    redirect.connect '/content/page/curator_central', :cms_page_id => 'curators'
+    redirect.connect '/content/page/:cms_page_id'
+    redirect.connect '/settings'
+    redirect.connect '/account/show/:user_id'
+    redirect.connect '/users/forgot_password', :conditional_redirect_id => 'recover_account'
+    redirect.connect '/users/:user_id/reset_password/:recover_account_token'
+    redirect.connect '/info/xrayvision', :collection_id => 14770
+    redirect.connect '/info/naturesbest2011', :collection_id => 19338
+    redirect.connect '/index'
+    redirect.connect '/home.html'
+  end
+
   map.find_feed '/activity_logs/find/:id', :controller => 'feeds', :action => 'find'
   map.preview '/preview', :controller => 'content', :action => 'preview'
 
@@ -80,7 +106,8 @@ ActionController::Routing::Routes.draw do |map|
                 :member => { :terms_agreement => [ :get, :post ], :pending => :get, :activated => :get,
                              :curation_privileges => [ :get ], :make_editor => :put, :revoke_editor => :get,
                              :pending_notifications => :get },
-                :collection => { :forgot_password => :get, :usernames => :get, :authenticate => :get } do |user|
+                :collection => { :usernames => :get, :recover_account => :get,
+                                 :verify_open_authentication => :get } do |user|
     user.resource :newsfeed, :only => [:show], :collection => { :comments => [:get] },
                              :controller => "users/newsfeeds"
     user.resource :notification, :only => [:edit, :update], :controller => "users/notifications"
@@ -88,14 +115,12 @@ ActionController::Routing::Routes.draw do |map|
     user.resources :collections, :only => [:index], :controller => "users/collections"
     user.resources :communities, :only => [:index], :controller => "users/communities"
     user.resources :content_partners, :only => [:index], :namespace => "users/"
-    user.resources :authentications, :only => [:index, :create, :update], :namespace => "users/" # OAuth for existing users
+    user.resources :open_authentications, :only => [:index, :create, :new, :destroy], :namespace => "users/" # OAuth for existing users
   end
+  # can't add dynamic segment to a member in rails 2.3 so we have to specify named routes for the following:
   map.verify_user '/users/:user_id/verify/:validation_code', :controller => 'users', :action => 'verify'
-  # can't add dynamic segment to a member in rails 2.3 so we have to specify named route:
-  map.reset_password_user 'users/:user_id/reset_password/:password_reset_token', :controller => 'users', :action => 'reset_password'
-  # # OAuth
-  #   map.authenticate '/users/authentications/:provider', :controller => 'users/authentications', :action => 'new'
-  #   map.oauth_callback '/callback', :controller => 'users/authentications', :action => 'callback'
+  map.temporary_login_user 'users/:user_id/temporary_login/:recover_account_token',
+                           :controller => 'users', :action => 'temporary_login'
 
   # sessions
   map.resources :sessions, :only => [:new, :create, :destroy]
@@ -225,30 +250,6 @@ ActionController::Routing::Routes.draw do |map|
   #  mobile.search 'search/:id', :controller => 'search', :action => 'index' # this looks for mobile/search controller but I'm using the main search controller instead
   end
   map.mobile_search 'mobile/search/:id', :controller => 'search', :action => 'index'
-
-  ## Permanent redirects.
-  map.with_options :controller => 'redirects', :action => 'show', :conditions => { :method => :get } do |redirect|
-    redirect.connect '/podcast', :url => 'http://education.eol.org/podcast'
-    redirect.connect '/pages/:taxon_id_community_curators/curators'
-    redirect.connect '/pages/:taxon_id_images/images'
-    redirect.connect '/pages/:taxon_id_classification_attribution/classification_attribution'
-    redirect.connect '/taxa/content/:taxon_id'
-    redirect.connect '/taxa/images/:taxon_id_media'
-    redirect.connect '/taxa/maps/:taxon_id_maps'
-    # TODO - remove /content/* named routes once search engines have reindexed the site and legacy URLs are not in use.
-    redirect.connect '/content/exemplars', :conditional_redirect_id  => 'exemplars'
-    redirect.connect '/content/news/*ignore', :cms_page_id => 'news'
-    redirect.connect '/content/page/2012eolfellowsapplication', :cms_page_id => '2012_eol_fellows_application'
-    redirect.connect '/content/page/2012fellowsonlineapp',  :cms_page_id => '2012_fellows_online_app'
-    redirect.connect '/content/page/curator_central', :cms_page_id => 'curators'
-    redirect.connect '/content/page/:cms_page_id'
-    redirect.connect '/settings'
-    redirect.connect '/account/show/:user_id'
-    redirect.connect '/info/xrayvision', :collection_id => 14770
-    redirect.connect '/info/naturesbest2011', :collection_id => 19338
-    redirect.connect '/index'
-    redirect.connect '/home.html'
-  end
 
   ## Content pages including CMS and other miscellaneous pages
   map.with_options :controller => 'content', :action => 'show', :conditions => { :method => :get } do |content_page|

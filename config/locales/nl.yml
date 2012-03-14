@@ -873,7 +873,6 @@ nl:
   create_community_around_this_collection_header: Maakt een gemeenschap rondom deze verzameling
   create_community_button: Gemeenschap aanmaken
   create_community_unsuccessful_error: Er is een fout opgetreden. Uw gemeenschap is niet gemaakt. Controleer of alle velden correct zijn ingevuld.
-  create_user_form_header: Nieuwe <abbr title="Encyclopedia of Life">EOL</abbr>-gebruiker aanmaken
   create_user_unsuccessful_error: Er is een fout opgetreden. Uw gebruiker is niet gemaakt. Controleer of alle velden correct zijn ingevuld.
   created: Aangemaakt
   created_at: Aangemaakt op
@@ -2305,6 +2304,8 @@ nl:
         meta_description: Gemeenschappen waar %{user_full_name} lid van is.
         meta_title: Gemeenschappen van %{user_full_name}
         tweet_text: gemeenschappen van %{user_full_name}
+    new:
+      create_user_header: Nieuwe <abbr title="Encyclopedia of Life">EOL</abbr>-gebruiker aanmaken
   users_about_me_header: Over mij
   users_content_partners_header: Contentpartners
   users_form_account_header: Uw gebruiker

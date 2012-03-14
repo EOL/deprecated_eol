@@ -591,7 +591,6 @@ pt:
   create_community_about_text: Está prestes a criar uma comunidade em torno do conteúdo de "%{collection_name}".  Todos os utilizadores serão capazes de se juntar à sua Comunidade, mas somente os membros a quem conceder o estatuto de "gestor" terão permissão para editar a própria comunidade ou a colecção associada com a sua comunidade.
   create_community_around_this_collection_header: Criar uma comunidade em torno desta colecção
   create_community_unsuccessful_error: Desculpe, ocorreu um erro, a sua comunidade não foi criada. Certifique-se que todos os campos estão preenchidos correctamente.
-  create_user_form_header: Criar uma nova conta <abbr title="Encyclopedia of Life">EOL</abbr>
   create_user_unsuccessful_error: Desculpe, ocorreu um erro, a sua nova conta não foi criada. Por favor, certifique-se que todos os campos estão preenchidos correctamente.
   created: Criado
   created_at: Criado Em
@@ -1309,6 +1308,9 @@ pt:
   user_activity_stats_header: Actividade
   user_activity_stats_objects_curated: Objectos curados
   user_activity_stats_taxa_curated: Taxa curados
+  users:
+    new:
+      create_user_header: Criar uma nova conta <abbr title="Encyclopedia of Life">EOL</abbr>
   will_paginate: 
     next_label: Próximo &#8594;
     page_gap: "&hellip;"

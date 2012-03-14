@@ -129,6 +129,30 @@ describe User do
     @user.password.should == pass
   end
 
+  it 'should have defaults when creating a new user' do
+    user = User.create_new
+    user.mailing_list.should          == false
+    user.default_taxonomic_browser    == $DEFAULT_TAXONOMIC_BROWSER
+    user.flash_enabled                == true
+    user.active                       == true
+  end
+
+  it 'should require password for a user with eol authentication'
+  it 'should require username for a user with eol authentication'
+  it 'should require email for a user with eol authentication'
+
+  it 'should not require username, password or email address for open authenticated user' do
+    user = User.new(:given_name => "Oauth", :open_authentications_attributes => [ { :guid => 1234 }])
+    user.valid?.should be_true
+  end
+  
+  it 'should require given name for open authenticated user' do
+    user = User.new(:open_authentications_attributes => [ { :guid => 1234 }])
+    user.valid?.should be_false
+    user.given_name = "Oauth"
+    user.valid?.should be_true
+  end
+
   it 'should fail validation if the email is in the wrong format' do
     user = User.new(:email => 'wrong(at)format(dot)com')
     user.valid?.should_not be_true

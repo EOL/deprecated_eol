@@ -1,42 +1,73 @@
-- form_for @user, :builder => ApplicationHelper::EolFormBuilder do |f|
-  %fieldset
-    %h1= I18n.t(:create_user_form_header)
-    = validation_errors_for(@user)
-    %dl
-      %dt
-        = f.label :username
-      %dd
-        = f.text_field :username, { :maxlength => 32 }
-      %dt
-        = f.label :email
-      %dd
-        = f.text_field :email, { :maxlength => 100 }
-      %dt
-        = f.label :entered_password
-      %dd
-        = f.password_field :entered_password, { :maxlength => 16 }
-      %dt
-        = f.label :entered_password_confirmation
-      %dd
-        = f.password_field :entered_password_confirmation, { :maxlength => 16 }
-    - f.label :agreed_with_terms, :class => 'checkbox' do
-      = f.check_box :agreed_with_terms
-      = I18n.t('helpers.label.user.agreed_with_terms', :terms_url => terms_of_use_path)
-  - if $ENABLE_RECAPTCHA
+#sign_up
+  - form_for @user, :builder => ApplicationHelper::EolFormBuilder do |f|
+    - f.fields_for :open_authentications, @user.open_authentications do |oaf|
+      = oaf.hidden_field :guid
+      = oaf.hidden_field :provider
     %fieldset
-      :javascript
-        var RecaptchaOptions = { theme : 'clean'};
+      %h1
+        - if @user.eol_authentication?
+          = t(".create_user_header")
+        - else
+          = t(".create_user_header_#{@user.open_authentications.first.provider}")
+      = validation_errors_for(@user)
       %dl
-        %dt
-          %label{ :for => "recaptcha" }
-            = I18n.t(:recaptcha)
+        - if @user.eol_authentication?
+          %dt.required
+            = f.label :username
+          %dd
+            = f.text_field :username, { :maxlength => 32 }
+        - else # it's an open authentication sign up
+          %dt.required
+            = f.label :given_name
+          %dd
+            = f.text_field :given_name
+          %dt
+            = f.label :family_name
+          %dd
+            = f.text_field :family_name
+        %dt.required
+          = f.label :email
         %dd
-          = recaptcha_tags
-  %fieldset.actions
-    = f.submit I18n.t('helpers.submit.user.create')
-    = link_to I18n.t(:already_a_member_question), login_path
+          = f.text_field :email
+        %dt.required
+          = f.label :email_confirmation
+        %dd
+          = f.text_field :email_confirmation
+        - if @user.eol_authentication?
+          %dt{:class => @user.eol_authentication? ? 'required' : nil}
+            = f.label :entered_password
+          %dd
+            = f.password_field :entered_password, { :maxlength => 16 }
+          %dt{:class => @user.eol_authentication? ? 'required' : nil}
+            = f.label :entered_password_confirmation
+          %dd
+            = f.password_field :entered_password_confirmation, { :maxlength => 16 }
+        - f.label :agreed_with_terms, :class => 'checkbox required' do
+          = f.check_box :agreed_with_terms
+          = I18n.t('helpers.label.user.agreed_with_terms', :terms_url => terms_of_use_path)
+    - if @user.eol_authentication? && $ENABLE_RECAPTCHA
+      %fieldset
+        :javascript
+          var RecaptchaOptions = { theme : 'clean'};
+        %dl
+          %dt
+            %label{ :for => "recaptcha" }
+              = I18n.t(:recaptcha)
+          %dd
+            = recaptcha_tags
+    %fieldset.actions
+      = f.submit I18n.t('helpers.submit.user.create')
+      - if @user.eol_authentication?
+        = link_to I18n.t(:already_a_member_question), login_path
+      - else
+        = link_to I18n.t('helpers.submit.cancel'), new_user_path
 
-= button_to I18n.t("Facebook"), :action => :create, :oauth_provider => :facebook
-/ = button_to I18n.t("Twitter"), { :action => :create, :provider => "twitter" }
-/ = button_to I18n.t("Google"), { :action => :create, :provider => "google" }
-/ = button_to I18n.t("Yahoo"), { :action => :create, :provider => "yahoo" }  
+  - if @user.eol_authentication? # only show open authentications if open authentication have not already been chosen
+    .open_authentications
+      %h2= t(".create_user_with_open_authentication_header")
+      - [:facebook, :twitter, :google, :yahoo].each do |provider|
+        - form_for User.new, :html => { :id => "new_user_#{provider}" } do |f|
+          = hidden_field_tag :oauth_provider, provider
+          %fieldset.actions
+            = f.submit I18n.t("helpers.submit.user.sign_up_with_#{provider}"), :id => "user_submit_#{provider}"
+          -#= image_submit_tag image_path("v2/oauth_signup_#{provider}.gif"), :title => t(".sign_up_with_#{provider}_assistive")

@@ -1,11 +1,16 @@
 class UsersController < ApplicationController
 
+  include EOL::Login
+
   layout :users_layout
 
-  before_filter :authentication_only_allow_editing_of_self, :only => [:edit, :update, :terms_agreement, :curation_privileges]
   before_filter :redirect_if_already_logged_in, :only => [:new, :create, :verify, :pending, :activated,
-                                                          :forgot_password, :reset_password]
-  before_filter :check_user_agreed_with_terms, :except => [:terms_agreement, :reset_password, :usernames]
+                                                          :recover_account, :temporary_login]
+  before_filter :check_user_agreed_with_terms, :except => [:terms_agreement, :temporary_login, :usernames]
+  before_filter :extend_for_open_authentication, :only => [:new, :create]
+
+  rescue_from EOL::Exceptions::OpenAuthMissingAuthorizeUri, :with => :oauth_missing_authorize_uri_rescue
+  rescue_from OAuth::Unauthorized, :with => :oauth_unauthorized_rescue
 
   @@objects_per_page = 20
 
@@ -14,6 +19,10 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     preload_user_associations
     redirect_if_user_is_inactive
+    # TODO: User inactive versus user hidden is confusing.
+    # TODO: Why are we continuing with show if user is inactive?
+    # TODO: Why are we not redirecting if user is hidden?
+    # TODO: Why are we showing no longer active message for hidden user? Rather than hidden message? Are they they same thing? If so why do we have both?
     if @user.is_hidden?
       flash[:notice] = I18n.t(:user_no_longer_active_message)
     end
@@ -34,20 +43,26 @@ class UsersController < ApplicationController
 
   # GET /users/:id/edit
   def edit
-    # @user instantiated by authentication before filter and matched to current user
+    @user = User.find(params[:id], :include => :open_authentications)
+    raise EOL::Exceptions::SecurityViolation,
+      "User with ID=#{current_user.id} does not have edit access to User with ID=#{@user.id}" unless current_user.can_update?(@user)
     redirect_if_user_is_inactive
     instantiate_variables_for_edit
   end
 
    # GET /users/:id/curation_privileges
   def curation_privileges
-    # @user instantiated by authentication before filter and matched to current user
+    @user = User.find(params[:id])
+    raise EOL::Exceptions::SecurityViolation,
+      "User with ID=#{current_user.id} does not have edit access to User with ID=#{@user.id}" unless current_user.can_update?(@user)
     instantiate_variables_for_curation_privileges
   end
 
   # PUT /users/:id
   def update
-    # @user instantiated by authentication before filter and matched to current user
+    @user = User.find(params[:id])
+    raise EOL::Exceptions::SecurityViolation,
+      "User with ID=#{current_user.id} does not have edit access to User with ID=#{@user.id}" unless current_user.can_update?(@user)
     redirect_to curation_privileges_user_path(@user), :status => :moved_permanently and return if params[:commit_curation_privileges_get]
     redirect_to edit_user_notification_path(@user), :status => :moved_permanently and return if params[:commit_notification_settings_get]
     generate_api_key and return if params[:commit_generate_api_key]
@@ -118,35 +133,17 @@ class UsersController < ApplicationController
   end
 
   # GET /users/register
+  # Extended by EOL::OpenAuth::ExtendUsersController
   def new
-    if params[:oauth_provider]
-      if oauth = EOL::Oauth.init(params[:oauth_provider], {:code => params[:code], :callback => new_user_url(:oauth_provider => params[:oauth_provider])})
-        debugger
-        pp 'test'
-      else
-        #TODO: there was a problem initializing oauth
-        return
-      end
-      user_hash = get_user_attributes(new_user_url(:oauth_provider => params[:oauth_provider]), params)
-      if user_hash.nil? # OAuth authentication failed
-        # TODO: give user notice that they couldn't authenticate with OAuth provider (they'll just get the usual sign up form)
-      end
-    end
-    @user = User.new(user_hash)
+    # Clear OAuth tokens from session for new signups
+    session.delete_if{|k,v| k.to_s.match /^oauth_(token|secret)/}
+    @user = User.new
   end
 
   # POST /users
+  # Extended by EOL::OpenAuth::ExtendUsersController
   def create
-    if params[:oauth_provider]
-      if oauth = EOL::Oauth.init(params[:oauth_provider], :callback => new_user_url(:oauth_provider => params[:oauth_provider]))
-        return redirect_to oauth.authorize_url
-      else
-        #TODO: there was a problem initializing oauth
-        return
-      end
-    end
-    
-    @user = User.create_new(params[:user])
+    @user = User.new(params[:user].reverse_merge(:language => current_language))
     failed_to_create_user and return unless @user.valid? && verify_recaptcha
     @user.validation_code = User.generate_key
     while(User.find_by_validation_code(@user.validation_code))
@@ -156,13 +153,6 @@ class UsersController < ApplicationController
     @user.remote_ip = request.remote_ip
     if @user.save
       @user.clear_entered_password
-      begin
-        # FIXME: Figure out whether we still need an agent to be created for a user in V2
-        # If we do note that user does not have full_name on creation.
-        @user.update_attributes(:agent_id => Agent.create_agent_from_user(@user.full_name).id)
-      rescue ActiveRecord::StatementInvalid
-        # Interestingly, we are getting users who already have agents attached to them.  I'm not sure why, but it's causing registration to fail (or seem to; the user is created), and this is bad.
-      end
       send_verification_email
       EOL::GlobalStatistics.increment('users')
       redirect_to pending_user_path(@user), :status => :moved_permanently
@@ -213,10 +203,12 @@ class UsersController < ApplicationController
     flash.now[:notice] = I18n.t(:user_activation_successful_notice, :username => @user.username)
   end
 
-  # GET and POST for member /users/:user_id/terms_agreement
+  # GET and POST for member /users/:id/terms_agreement
   def terms_agreement
-    # @user instantiated by authentication before filter and matched to current user
-    access_denied unless current_user.can_update?(@user)
+    @user = User.find(params[:id])
+    raise EOL::Exceptions::SecurityViolation,
+      "User with ID=#{current_user.id} does not have permission to access terms agreement"\
+      " for User with ID=#{@user.id}" unless current_user.can_update?(@user)
     if request.post? && params[:commit_agreed]
       @user.agreed_with_terms = true
       @user.save(false) # saving without validation to avoid issues with invalid legacy users
@@ -231,54 +223,6 @@ class UsersController < ApplicationController
     end
   end
 
-  # GET and POST for named route /users/forgot_password
-  def forgot_password
-    if request.post?
-      if params[:user][:username_or_email].blank?
-        if params[:commit_choose_account]
-          @users = User.find_all_by_email(params[:user][:email])
-          flash.now[:error] = I18n.t(:forgot_password_form_choose_username_blank_error)
-          render :action => 'forgot_password_choose_account'
-        else
-          flash.now[:error] = I18n.t(:forgot_password_form_username_or_email_blank_error)
-        end
-      else
-        @username_or_email = params[:user][:username_or_email].strip
-        @users = User.find_all_by_email(@username_or_email)
-        @users = User.find_all_by_username(@username_or_email) if @users.empty?
-        store_location(params[:return_to]) unless params[:return_to].nil? # store the page we came from so we can return there if it's passed in the URL
-        if @users.size == 1
-          user = @users[0]
-          generate_password_reset_token(user)
-          Notifier.deliver_user_reset_password(user, reset_password_user_url(user, user.password_reset_token))
-          flash[:notice] =  I18n.t(:reset_password_instructions_sent_to_user_notice, :username => user.username)
-          redirect_to login_path, :status => :moved_permanently
-        elsif @users.size > 1
-          render :action => 'forgot_password_choose_account'
-        else
-          flash.now[:error] =  I18n.t(:forgot_password_cannot_find_user_from_username_or_email_error, :username_or_email => Sanitize.clean(params[:user][:username_or_email]))
-        end
-      end
-    end
-  end
-
-  # GET for named route /users/:user_id/reset_password/:password_reset_token
-  def reset_password
-    password_reset_token = params[:password_reset_token]
-    user = User.find_by_password_reset_token(password_reset_token)
-    is_expired = Time.now > user.password_reset_token_expires_at if user && !user.password_reset_token_expires_at.blank?
-    delete_password_reset_token(user) if is_expired
-    if ! user || is_expired
-      flash[:error] =  I18n.t(:reset_password_token_expired_error)
-      redirect_to forgot_password_users_path
-    else
-      session[:user_id] = user.id # Log them in.
-      delete_password_reset_token(user)
-      flash[:notice] = I18n.t(:reset_password_enter_new_password_notice)
-      redirect_to edit_user_path(user), :status => :moved_permanently
-    end
-  end
-
   # NOTE - this is slightly silly, but the JS plugin we're using really does want all usernames in one call.
   def usernames
     usernames = $CACHE.fetch('users/usernames', :expires_in => 55.minutes) do
@@ -290,6 +234,106 @@ class UsersController < ApplicationController
   def pending_notifications
     Periodically::Immediately.prepare_notifications
     Periodically::Immediately.send_notifications
+  end
+
+  # GET /users/verify_open_authentication
+  # Authentication callback for adding open authentications to existing users
+  def verify_open_authentication
+    oauth_provider = params.delete(:oauth_provider)
+    @open_auth = EOL::OpenAuth.init(oauth_provider,
+                  verify_open_authentication_users_url(:oauth_provider => oauth_provider),
+                  params.merge({:request_token_token => session.delete("#{oauth_provider}_request_token_token"),
+                                :request_token_secret => session.delete("#{oauth_provider}_request_token_secret")}))
+    if @open_auth.have_attributes?
+      if @open_auth.is_connected?
+        if @open_auth.open_authentication.user_id == current_user.id
+          @open_auth.open_authentication.connection_established
+        else
+          flash[:error] = I18n.t(:add_connection_failed_account_already_connected,
+                                 :existing_eol_account_url => user_url(@open_auth.open_authentication.user_id),
+                                 :scope => [:users, :open_authentications, :errors, @open_auth.provider])
+        end
+      else
+        session["oauth_token_#{@open_auth.provider}_#{@open_auth.guid}"] = @open_auth.authentication_attributes[:token]
+        session["oauth_secret_#{@open_auth.provider}_#{@open_auth.guid}"] = @open_auth.authentication_attributes[:secret]
+        redirect_to new_user_open_authentication_url(current_user, :open_authentication => {
+          :guid => @open_auth.guid, :provider => @open_auth.provider}) and return
+      end
+    else
+      flash[:error] = I18n.t(:missing_attributes, :scope => [:users, :open_authentications,
+                                                             :errors, @open_auth.provider])
+    end
+    redirect_to user_open_authentications_url(current_user)
+  end
+
+  # GET and POST for :collection route /users/recover_account
+  def recover_account
+    if request.post? && params[:user]
+      if params[:commit_choose_account]
+        user = User.find(params[:user][:id]) rescue nil
+        if user.nil?
+          @users = User.find_all_by_email(params[:user][:email].strip)
+          flash.now[:error] = I18n.t('users.recover_account_choose_account.errors.user_not_found_choose_again')
+          render :action => 'recover_account_choose_account' and return
+        end
+      else
+        @users = User.find_all_by_email(params[:user][:email].strip)
+        if @users.blank?
+          return flash.now[:error] = I18n.t('users.recover_account.errors.user_not_found_by_email_address')
+        elsif @users.size > 1
+          render :action => 'recover_account_choose_account' and return
+        end
+        user = @users.first
+      end
+      if user.hidden?
+        raise EOL::Exceptions::SecurityViolation.new(
+          "Hidden User with ID=#{user.id} attempted to recover their account and was disallowed.",
+          :hidden_user_recover_account)
+      end
+
+      # Bypass validation errors on user model
+      user.recover_account_token = User.generate_key
+      user.recover_account_token_expires_at = 24.hours.from_now
+      user.save(false)
+      user.reload # Just to ensure everything is dandy
+      if user.recover_account_token =~ /^[a-f0-9]{40}$/ && !user.recover_account_token_expired?
+        Notifier.deliver_user_recover_account(user, temporary_login_user_url(user, user.recover_account_token))
+        flash[:notice] = I18n.t('users.recover_account.notices.recovery_email_sent')
+        redirect_to login_path and return
+      else
+        flash.now[:error] = I18n.t('users.recover_account.errors.unable_to_update_token')
+      end
+    end
+  end
+
+  # GET for named route /users/:user_id/temporary_login/:recover_account_token
+  def temporary_login
+    user = User.find(params[:user_id])
+    if user.nil?
+      flash[:error] = I18n.t('users.recover_account.errors.temporary_login_user_not_found')
+    else
+      if user.hidden?
+        raise EOL::Exceptions::SecurityViolation.new(
+          "Hidden User with ID=#{user.id} attempted to use a temporary login link and was disallowed.",
+          :hidden_user_temporary_login)
+      end
+      if user.recover_account_token_valid?(params[:recover_account_token])
+        user.recover_account_token = nil
+        user.recover_account_token_expires_at = nil
+        user.save(false)
+        unless user.active?
+          # Treat this as email verification for inactive users
+          user.activate
+          Notifier.deliver_user_activated(user)
+        end
+        log_in(user)
+        flash[:notice] = I18n.t('users.recover_account.notices.temporarily_logged_in_update_authentication_details')
+        redirect_to edit_user_path(user), :status => :moved_permanently and return
+     else
+        flash[:error] =  I18n.t('users.recover_account.errors.token_expired_or_invalid')
+      end
+    end
+    redirect_to recover_account_users_path
   end
 
 protected
@@ -316,29 +360,39 @@ protected
 
 private
 
+  def extend_for_open_authentication
+    self.extend(EOL::OpenAuth::ExtendUsersController) if params[:oauth_provider] ||
+      (! params[:user].nil? && ! params[:user][:open_authentications_attributes].blank?)
+  end
+
+  def oauth_missing_authorize_uri_rescue
+    error_scope = [:users, :open_authentications, :errors]
+    error_scope << @open_auth.provider if !@open_auth.nil? && !@open_auth.provider.nil?
+    flash[:error] = I18n.t(:authorize_uri_missing, :scope => error_scope)
+    redirect_to new_user_url
+  end
+
+  def oauth_unauthorized_rescue
+    error_scope = [:users, :open_authentications, :errors]
+    error_scope << @open_auth.provider if !@open_auth.nil? && !@open_auth.provider.nil?
+    if logged_in?
+      flash[:error] = I18n.t(:not_authorized_to_add_authentication, :scope => error_scope)
+      redirect_to user_open_authentications_url(current_user)
+    else
+      flash[:error] = I18n.t(:not_authorized_to_signup, :scope => error_scope)
+      redirect_to new_user_url
+    end
+  end
+
   def users_layout # choose an appropriate views layout for an action
     case action_name
-    when 'forgot_password', 'terms_agreement', 'new', 'pending', 'activated'
+    when 'recover_account', 'terms_agreement', 'new', 'pending', 'activated'
       'v2/sessions'
     when 'curation_privileges'
       'v2/basic'
     else
       'v2/users'
     end
-  end
-
-  def authentication_only_allow_editing_of_self
-    @user = User.find(params[:id] || params[:user_id])
-    raise EOL::Exceptions::SecurityViolation, "User with ID=#{current_user.id} does not have edit access to User with ID=#{@user.id}" unless current_user.can_update?(@user)
-  end
-
-  def generate_password_reset_token(user)
-    new_token = User.generate_key
-    user.update_attributes(:password_reset_token => new_token, :password_reset_token_expires_at => 24.hours.from_now)
-  end
-
-  def delete_password_reset_token(user)
-    user.update_attributes(:password_reset_token => nil, :password_reset_token_expires_at => nil) if user
   end
 
   def failed_to_create_user
@@ -426,7 +480,7 @@ private
     end
     Notifier.deliver_user_updated_email_preferences(user_before_update, user_after_update, recipient)
   end
-  
+
   def preload_user_associations
     # used to count the collections and communities in the menu
     User.preload_associations(@user, [ :collections_including_unpublished, { :members => { :community => :collections } } ] )

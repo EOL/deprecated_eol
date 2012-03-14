@@ -1,0 +1,14 @@
+#recover_account
+  - form_for :user do |f|
+    %fieldset
+      %h1= t(".form_header")
+      %p= t(".form_tip")
+      %dl
+        %dt
+          = f.label :email
+        %dd
+          = f.text_field :email
+    %fieldset.actions
+      = f.submit I18n.t('helpers.submit.user.recover_account')
+      = link_to  I18n.t('helpers.submit.cancel'), login_path
+

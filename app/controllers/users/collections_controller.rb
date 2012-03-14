@@ -1,5 +1,7 @@
 class Users::CollectionsController < UsersController
 
+  skip_before_filter :extend_for_open_authentication
+
   # GET /users/:user_id/collections
   def index
     @user = User.find(params[:user_id])

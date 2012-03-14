@@ -1,4 +1,9 @@
 - form_for @user, :builder => ApplicationHelper::EolFormBuilder do |f|
+  - # TODO: check for and add hidden authentication attributes
+  - # TODO: if authentication attributes exist we may want to remove username and password fields
+  - f.fields_for :open_authentications, @user.open_authentications do |oaf|
+    = oaf.hidden_field :guid
+    = oaf.hidden_field :provider
   %fieldset
     %h1= I18n.t(:create_user_form_header)
     = validation_errors_for(@user)
@@ -35,8 +40,8 @@
   %fieldset.actions
     = f.submit I18n.t('helpers.submit.user.create')
     = link_to I18n.t(:already_a_member_question), login_path
-
-= button_to I18n.t("Facebook"), :action => :create, :oauth_provider => :facebook
-/ = button_to I18n.t("Twitter"), { :action => :create, :provider => "twitter" }
-/ = button_to I18n.t("Google"), { :action => :create, :provider => "google" }
-/ = button_to I18n.t("Yahoo"), { :action => :create, :provider => "yahoo" }  
+.oauth_signup
+  = button_to I18n.t(:oauth_sign_up_with_facebook), :action => :create, :oauth_provider => :facebook
+  = button_to I18n.t(:oauth_sign_up_with_twitter), :action => :create, :oauth_provider => :twitter
+  = button_to I18n.t(:oauth_sign_up_with_google), :action => :create, :oauth_provider => :google
+  = button_to I18n.t(:oauth_sign_up_with_yahoo), :action => :create, :oauth_provider => :yahoo 

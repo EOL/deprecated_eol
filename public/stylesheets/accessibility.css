@@ -164,6 +164,13 @@ form#switch_hierarchy_entry fieldset {
   margin: 0 auto;
   border: 1px solid #cad3db;
   background: #f0f4f7 url("/images/v2/bg_sign-in.gif") 0 0 no-repeat; }
+#content.session .oauth_signup form {
+  background: none;
+  border: none;
+  margin: 0;
+  min-height: auto;
+  padding: 0;
+  width: 0; }
 
 /*recaptcha */
 #new_user iframe {

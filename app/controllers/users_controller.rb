@@ -111,12 +111,22 @@ class UsersController < ApplicationController
 
   # GET /users/register
   def new
-
     if params[:oauth_provider]
       if open_auth = EOL::OpenAuth.init(params[:oauth_provider], new_user_url(:oauth_provider => params[:oauth_provider]), params)
-        # TODO: Verify resource access was successful and that we have user and authentication attributes
-        flash.now[:error] = I18n.t(:oauth_error_accessing_basic_info) unless open_auth.access_granted &&
-          oauth_user_attributes = open_auth.user_attributes.merge({:open_authentications_attributes => [open_auth.authentication_attributes]})
+        if open_auth.user_attributes.nil? || open_auth.authentication_attributes.nil?
+          flash.now[:error] = I18n.t(:oauth_error_accessing_basic_info)
+        else
+          if (authorized = OpenAuthentication.find_by_provider_and_guid(open_auth.authentication_attributes[:provider], open_auth.authentication_attributes[:guid], :include => :user)) && ! authorized.user.nil?
+            # TODO: what do we do when we have authentication record but no user here?
+            open_authentication_log_in(authorized.user)
+            return redirect_to user_newsfeed_path(authorized.user)
+          else
+            session["open_authentication_attributes_#{open_auth.authentication_attributes[:provider]}_#{open_auth.authentication_attributes[:guid]}"] = open_auth.authentication_attributes
+            oauth_user_attributes = open_auth.user_attributes.merge({ :open_authentications_attributes => [
+              { :guid => open_auth.authentication_attributes[:guid],
+                :provider => open_auth.authentication_attributes[:provider] }]})
+          end
+        end
       else
         flash.now[:error] = I18n.t(:oauth_error_initializing_access)
       end
@@ -137,13 +147,28 @@ class UsersController < ApplicationController
       end
     end
 
-    @user = User.create_new(params[:user])
-    failed_to_create_user and return unless @user.valid? && verify_recaptcha
-    @user.validation_code = User.generate_key
-    while(User.find_by_validation_code(@user.validation_code))
-      @user.validation_code.succ!
+    if (open_authentication_signup = !params[:user][:open_authentications_attributes].blank?) && 
+       (guid = params[:user][:open_authentications_attributes]["0"][:guid]) &&
+       (provider = params[:user][:open_authentications_attributes]["0"][:provider])
+       params[:user][:open_authentications_attributes]["0"] = session["open_authentication_attributes_#{provider}_#{guid}"]
+       params[:user][:active] = true
+       # TODO: some error handling here what if params[:user][:open_authentications_attributes]["0"] is nil now?
+       # TODO: return if there is a problem here we shouldn't create user without the proper authentication data
     end
-    @user.active = false
+    
+    @user = User.create_new(params[:user]) # TODO: check this adds authentication params from form submit
+    
+    # TODO: for oauth change validation rules in user model
+    # TODO: for oauth don't make them validate their account if open_authentication_signup then blah
+    failed_to_create_user and return unless @user.valid? && verify_recaptcha
+    unless open_authentication_signup
+      @user.validation_code = User.generate_key
+      while(User.find_by_validation_code(@user.validation_code))
+        @user.validation_code.succ!
+      end
+      @user.active = false
+    end
+    
     @user.remote_ip = request.remote_ip
     if @user.save
       @user.clear_entered_password
@@ -154,9 +179,14 @@ class UsersController < ApplicationController
       rescue ActiveRecord::StatementInvalid
         # Interestingly, we are getting users who already have agents attached to them.  I'm not sure why, but it's causing registration to fail (or seem to; the user is created), and this is bad.
       end
-      send_verification_email
       EOL::GlobalStatistics.increment('users')
-      redirect_to pending_user_path(@user), :status => :moved_permanently
+      if open_authentication_signup
+        open_authentication_log_in(@user)
+        redirect_to user_newsfeed_path(@user)
+      else
+        send_verification_email
+        redirect_to pending_user_path(@user), :status => :moved_permanently
+      end
     else
       failed_to_create_user and return
     end
@@ -306,6 +336,13 @@ protected
   end
 
 private
+
+  def open_authentication_log_in(user)
+    # TODO: this shares some functionality with session controller log_in method - we might want to refactor to share code
+    set_current_user(user)
+    flash[:notice] = I18n.t(:sign_in_successful_notice)
+    session.delete(:recently_visited_collections)
+  end
 
   def users_layout # choose an appropriate views layout for an action
     case action_name

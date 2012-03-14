@@ -4,6 +4,9 @@ class Notifier < ActionMailer::Base
   @@test_recipient = "junk@example.com" # testing only if needed
 
   def recent_activity(user, notes)
+    I18n.locale = User.find(user,
+                            :select => "users.id, users.email, languages.id, languages.iso_639_1",
+                            :joins => "JOIN languages ON (users.language_id = languages.id)").language_abbr
     subject     I18n.t(:subject, :scope => [:notifier, :recent_activity])
     recipients  user.email
     from        $SUPPORT_EMAIL_ADDRESS

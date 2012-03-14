@@ -1,0 +1,51 @@
+
+= HAML i18n plugin
+
+This monkeypatch for HAML provides automatic localization of raw text resources
+within HAML templates.
+
+Only resources available for translation are dynamically compiled. In case
+raw text has no translation (in any of available locales), it is kept as raw.
+
+== Usage
+
+Install as a plugin, make sure you have i18n environment setup and running,
+in particular 'translate' helper should be available.
+
+Then, any HAML code, like
+    .person
+      Person Name
+      = person.name
+      
+will be rendered with    
+    translate("Person Name")
+
+== Optimal template rendering
+
+haml_i18n will not translate all raw text within the template.
+It'll try to findout if the translation is available. If not, to original text
+will be pushed statically.
+
+'have_translation' method takes care of this. It tries to mimic actionpack logic with
+scoping. Scopes will be applied in the next order:
+
+- viewfolder.templatename.key
+- viewfolder.key
+- .key
+
+This optimization allows to combine it with more traditional way, where multiple templates
+per each locale are created with no performance degradation:
+
+    template.haml
+    template.en.haml
+    template.es.haml
+
+Notice: In the development environment haml_i18n will always try to translate, no matter if it can
+find translation or not.
+
+== Translation search scoping
+
+When actually translating, i18n/actionpack will take care of applying scopes within
+the 'translate' method! The scoping rules there could be abit different from what
+'have_translation' does. 
+

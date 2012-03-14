@@ -1,7 +1,6 @@
 require 'ruby-debug'
 require 'haml'
 require 'i18n'
-require File.join([RAILS_ROOT,"vendor","plugins","haml_i18n","haml_parser"])
 
 desc 'Tasks useful for extracting raw text for internatiolization'
 

@@ -36,7 +36,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   has_many :users_user_identities
   has_many :user_identities, :through => :users_user_identities
   has_many :worklist_ignored_data_objects
-  has_many :authentications
+  has_many :open_authentications
 
   has_many :content_partners
   has_one :user_info
@@ -53,6 +53,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
 
   accepts_nested_attributes_for :user_info
+  accepts_nested_attributes_for :open_authentications
 
   @email_format_re = %r{^(?:[_\+a-z0-9-]+)(\.[_\+a-z0-9-]+)*@([a-z0-9-]+)(\.[a-zA-Z0-9\-\.]+)*(\.[a-z]{2,4})$}i
 
@@ -476,7 +477,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   alias approve_to_curate grant_curator
 
   def revoke_curator
-    # TODO: This is weird, if we are revoking the curator access why not call update_attributes once and 
+    # TODO: This is weird, if we are revoking the curator access why not call update_attributes once and
     # add if-else loop to check if it successfully updated the attributes.
     unless curator_level_id == nil
       self.update_attributes(:curator_level_id => nil)

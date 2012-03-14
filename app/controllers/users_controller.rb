@@ -111,33 +111,32 @@ class UsersController < ApplicationController
 
   # GET /users/register
   def new
+
     if params[:oauth_provider]
-      if oauth = EOL::Oauth.init(params[:oauth_provider], {:code => params[:code], :callback => new_user_url(:oauth_provider => params[:oauth_provider])})
-        debugger
-        pp 'test'
+      if open_auth = EOL::OpenAuth.init(params[:oauth_provider], new_user_url(:oauth_provider => params[:oauth_provider]), params)
+        # TODO: Verify resource access was successful and that we have user and authentication attributes
+        flash.now[:error] = I18n.t(:oauth_error_accessing_basic_info) unless open_auth.access_granted &&
+          oauth_user_attributes = open_auth.user_attributes.merge({:open_authentications_attributes => [open_auth.authentication_attributes]})
       else
-        #TODO: there was a problem initializing oauth
-        return
-      end
-      user_hash = get_user_attributes(new_user_url(:oauth_provider => params[:oauth_provider]), params)
-      if user_hash.nil? # OAuth authentication failed
-        # TODO: give user notice that they couldn't authenticate with OAuth provider (they'll just get the usual sign up form)
+        flash.now[:error] = I18n.t(:oauth_error_initializing_access)
       end
     end
-    @user = User.new(user_hash)
+    @user = User.new(oauth_user_attributes || nil)
   end
 
   # POST /users
   def create
     if params[:oauth_provider]
-      if oauth = EOL::Oauth.init(params[:oauth_provider], :callback => new_user_url(:oauth_provider => params[:oauth_provider]))
-        return redirect_to oauth.authorize_url
+      if open_auth = EOL::OpenAuth.init(params[:oauth_provider], new_user_url(:oauth_provider => params[:oauth_provider]))
+        session.merge(open_auth.session_data) if defined?(open_auth.request_token)
+        return redirect_to open_auth.authorize_uri
       else
-        #TODO: there was a problem initializing oauth
-        return
+        flash[:error] = I18n.t(:oauth_error_initializing_authorization, :oauth_provider => params[:oauth_provider])
+        params.delete(:oauth_provider)
+        return redirect_to :action => :new
       end
     end
-    
+
     @user = User.create_new(params[:user])
     failed_to_create_user and return unless @user.valid? && verify_recaptcha
     @user.validation_code = User.generate_key
@@ -413,7 +412,7 @@ private
     end
     Notifier.deliver_user_updated_email_preferences(user_before_update, user_after_update, recipient)
   end
-  
+
   def preload_user_associations
     # used to count the collections and communities in the menu
     User.preload_associations(@user, [ :collections_including_unpublished, { :members => { :community => :collections } } ] )

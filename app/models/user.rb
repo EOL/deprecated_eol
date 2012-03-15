@@ -1,10 +1,12 @@
-# NOTE - there is a method called #stale? (toward the bottom) which needs to be kept up-to-date with any changes made
+# NOTE there is a method called #stale? (toward the bottom) which needs to be kept up-to-date with any changes made
 # to the user model.  We *could* achieve a similar result with method_missing, but I worry that it would cause other
 # problems.
 #
-# Note that email is NOT a unique field: one email address is allowed to have multiple accounts.
-# NOTE this inherist from MASTER.  All queries against a user need to be up-to-date, since this contains config information
-# which can change quickly.  There is a similar clause in the execute() method in the connection proxy for masochism.
+# NOTE that email is NOT a unique field: one email address is allowed to have multiple accounts.
+#
+# NOTE this inherits from MASTER.  All queries against a user need to be up-to-date, since this contains config
+# information which can change quickly.  There is a similar clause in the execute() method in the connection proxy
+# for masochism.
 
 class User < $PARENT_CLASS_MUST_USE_MASTER
 

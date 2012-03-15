@@ -1,4 +1,4 @@
-class SiteConfigurationOption < $PARENT_CLASS_MUST_USE_MASTER
+class SiteConfigurationOption < ActiveRecord::Base
   validates_uniqueness_of :parameter
   
   def self.reference_parsing_enabled

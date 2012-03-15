@@ -112,7 +112,8 @@ class UsersController < ApplicationController
   # GET /users/register
   def new
     if params[:oauth_provider]
-      if open_auth = EOL::OpenAuth.init(params[:oauth_provider], new_user_url(:oauth_provider => params[:oauth_provider]), params)
+      if open_auth = EOL::OpenAuth.init(params[:oauth_provider], new_user_url(:oauth_provider => params[:oauth_provider]), params.merge({:request_token_token => session.delete("#{params[:oauth_provider]}_request_token_token"), :request_token_secret => session.delete("#{params[:oauth_provider]}_request_token_secret")}))
+        
         if open_auth.user_attributes.nil? || open_auth.authentication_attributes.nil?
           flash.now[:error] = I18n.t(:oauth_error_accessing_basic_info)
         else
@@ -121,7 +122,8 @@ class UsersController < ApplicationController
             open_authentication_log_in(authorized.user)
             return redirect_to user_newsfeed_path(authorized.user)
           else
-            session["open_authentication_attributes_#{open_auth.authentication_attributes[:provider]}_#{open_auth.authentication_attributes[:guid]}"] = open_auth.authentication_attributes
+            session["oauth_token_#{open_auth.authentication_attributes[:provider]}_#{open_auth.authentication_attributes[:guid]}"] = open_auth.authentication_attributes[:token]
+            session["oauth_secret_#{open_auth.authentication_attributes[:provider]}_#{open_auth.authentication_attributes[:guid]}"] = open_auth.authentication_attributes[:secret]
             oauth_user_attributes = open_auth.user_attributes.merge({ :open_authentications_attributes => [
               { :guid => open_auth.authentication_attributes[:guid],
                 :provider => open_auth.authentication_attributes[:provider] }]})
@@ -138,7 +140,7 @@ class UsersController < ApplicationController
   def create
     if params[:oauth_provider]
       if open_auth = EOL::OpenAuth.init(params[:oauth_provider], new_user_url(:oauth_provider => params[:oauth_provider]))
-        session.merge(open_auth.session_data) if defined?(open_auth.request_token)
+        session.merge!(open_auth.session_data) if defined?(open_auth.request_token)
         return redirect_to open_auth.authorize_uri
       else
         flash[:error] = I18n.t(:oauth_error_initializing_authorization, :oauth_provider => params[:oauth_provider])
@@ -146,14 +148,25 @@ class UsersController < ApplicationController
         return redirect_to :action => :new
       end
     end
-
+    
     if (open_authentication_signup = !params[:user][:open_authentications_attributes].blank?) && 
        (guid = params[:user][:open_authentications_attributes]["0"][:guid]) &&
-       (provider = params[:user][:open_authentications_attributes]["0"][:provider])
-       params[:user][:open_authentications_attributes]["0"] = session["open_authentication_attributes_#{provider}_#{guid}"]
+       (provider = params[:user][:open_authentications_attributes]["0"][:provider]) &&
+       (params[:user][:open_authentications_attributes]["0"][:token] = session["oauth_token_#{provider}_#{guid}"]) &&
+       (params[:user][:open_authentications_attributes]["0"][:secret] = session["oauth_secret_#{provider}_#{guid}"])
+       # TODO: if user fails validation we still need session data, if we remove validation so user never fails then we
+       # can do session.delete here instead
+       # Then we have all the necessary authentication attributes to create a user
        params[:user][:active] = true
-       # TODO: some error handling here what if params[:user][:open_authentications_attributes]["0"] is nil now?
-       # TODO: return if there is a problem here we shouldn't create user without the proper authentication data
+    else
+      # TODO: if user cannot fail validation then we can delete session data in the if statements otherwise we have to
+      # delete it here
+      session.delete("oauth_token_#{provider}_#{guid}") rescue nil
+      session.delete("oauth_secret_#{provider}_#{guid}") rescue nil
+      flash[:error] = I18n.t(:oauth_user_create_unsuccessful)
+      return redirect_to new_user_path # something bad happened
+      # TODO: some error handling here what if params[:user][:open_authentications_attributes]["0"] is missing token and secret
+      # TODO: return if there is a problem here we shouldn't create user without the proper authentication data
     end
     
     @user = User.create_new(params[:user]) # TODO: check this adds authentication params from form submit
@@ -181,6 +194,8 @@ class UsersController < ApplicationController
       end
       EOL::GlobalStatistics.increment('users')
       if open_authentication_signup
+        session.delete("oauth_token_#{provider}_#{guid}")
+        session.delete("oauth_secret_#{provider}_#{guid}")
         open_authentication_log_in(@user)
         redirect_to user_newsfeed_path(@user)
       else

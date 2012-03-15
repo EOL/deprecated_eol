@@ -64,9 +64,8 @@ module EOL
           @request_token = OAuth::RequestToken.new(client, request_token_token, request_token_secret)
         else
           @request_token = client.get_request_token(:oauth_callback => callback)
+          @authorize_uri = request_token.authorize_url
         end
-        @authorize_uri = request_token.authorize_url
-
       end
 
       def session_data
@@ -75,7 +74,7 @@ module EOL
       end
 
       def access_token
-        @access_token ||= request_token.get_access_token(verifier)
+        @access_token ||= request_token.get_access_token(:oauth_verifier => verifier)
       end
 
     end

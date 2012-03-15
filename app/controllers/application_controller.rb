@@ -514,23 +514,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def link_to_item(item)
-    case item.class.name
-    when 'Collection'
-      collection_url(item)
-    when 'Community'
-      community_url(item)
-    when 'DataObject'
-      data_object_url(item)
-    when 'User'
-      user_url(item)
-    when 'TaxonConcept'
-      taxon_url(item)
-    else
-      raise EOL::Exceptions::ObjectNotFound
-    end
-  end
-
   # clear the cached activity logs on homepage
   def clear_cached_homepage_activity_logs
     $CACHE.delete('homepage/activity_logs_expiration') if $CACHE

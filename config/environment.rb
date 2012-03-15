@@ -332,6 +332,11 @@ if defined?(PhusionPassenger)
   end
 end
 
+# Defailts for email... this strikes me as silly, but you can read about it here:
+# http://api.rubyonrails.org/classes/ActionMailer/Base.html#label-Generating+URLs
+# ...When you're using mailer, you need to specify the host.
+$EMAIL_HOST = "eol.org"
+
 # Default values for some footer elements:
 $EOL_TWITTER_ACCOUNT  = "http://twitter.com/#!/EOL"
 $EOL_FACEBOOK_ACCOUNT = "http://www.facebook.com/encyclopediaoflife"

@@ -1,0 +1,7 @@
+%h1{:style => 'font-weight: normal;'}= I18n.t('.greeting', :name => @user.full_name)
+%p= I18n.t('.someone_commented_on_something', :who => who, :what => what)
+%blockquote{:style => "padding: 0 20px; border: 1px solid #93a4b0"}
+  = body
+
+%h2{ :style => 'text-align: center; font-weight: normal;' }
+  = link_to(I18n.t('.comment_link'), comment_link, :style => 'color: #017aa2')

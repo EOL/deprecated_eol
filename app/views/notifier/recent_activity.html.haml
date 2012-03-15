@@ -4,10 +4,8 @@
 %h1{:style => 'font-weight: normal;'}= I18n.t(:greeting_dear_name_with_comma, :name => @user.full_name, :scope => :notifier)
 
 - @notes.each do |note|
-  - if note.respond_to?(:body)
-    %p= t(".comment_activity_by_user", :user_name => note.user.full_name)
-    %blockquote{:style => "padding: 0 20px; border: 1px solid #93a4b0"}
-      %p= note.body
+  - if note.is_a?(Comment)
+    = render(:partial => 'notifier/recent_activity/comment', :locals => { :who => note.user.full_name, :what => note.parent.summary_name, :body => note.body, :comment_link => link_to_item(Kernel.const_get(note.parent_type).find(note.parent_id), :host => $EMAIL_HOST) })
 
   - elsif note.is_a?(CollectionActivityLog)
     %p

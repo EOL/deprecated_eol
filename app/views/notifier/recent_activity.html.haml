@@ -1,13 +1,31 @@
+-# NOTE = there are five classes that one of the @notes could be:
+  Comment
+  CollectionActivityLog
+  CommunityActivityLog
+  CuratorActivityLog
+  DataObject
+  ...You may want to know that when you're trying to construct I18n names or the like.
 - content_for :title do
-  = t(".subject")
-
+  -# Grrr.  This is a lot of ugly code just to get a "nice" title... but it is /is/ nice, when there's only one note:
+  - if @notes.length == 1
+    - note = @notes.first
+    - who = note.user.full_name
+    - case note.class
+    - when Comment
+      - if note.parent == @user
+        = I18n.t('.comment_title_your_newsfeed', :who => who)
+      - else
+        = t(".comment_title", :who => who, :what => note.parent.summary_name)
+    - else
+      = t(".#{note.class.name.underscore}_title", :who => who)
+  - else
+    = t(".subject")
 %h1{:style => 'font-weight: normal;'}= I18n.t(:greeting_dear_name_with_comma, :name => @user.full_name, :scope => :notifier)
-
 - @notes.each do |note|
-  - if note.is_a?(Comment)
+  - case note.class
+  - when Comment
     = render(:partial => 'notifier/recent_activity/comment', :locals => { :who => note.user.full_name, :what => note.parent.summary_name, :body => note.body, :comment_link => link_to_item(Kernel.const_get(note.parent_type).find(note.parent_id), :host => $EMAIL_HOST) })
-
-  - elsif note.is_a?(CollectionActivityLog)
+  - when CollectionActivityLog
     %p
       - if note.activity_id == Activity.collect.id
         - if note.collection_item.object.id == @user.id
@@ -20,8 +38,7 @@
       - else
         = t(".collection_activity_by_user", :user_name => note.user.full_name,
           :activity_name => note.activity.name, :collection_name => note.collection.name)
-
-  - elsif note.is_a?(CommunityActivityLog)
+  - when CommunityActivityLog
     %p
       - if note.activity_id == Activity.join.id
         = t(".community_activity_user_joined", :user_name => note.user.full_name, :community_name => note.community.name)
@@ -33,8 +50,7 @@
       - else
         = t(".community_activity_by_user", :user_name => note.user.full_name,
           :activity_name => note.activity.name, :community_name => note.community.name)
-
-  - elsif note.is_a?(CuratorActivityLog)
+  - when CuratorActivityLog
     %p
       - if note.data_object
         = t(".curator_activity_on_data_object_by_user", :user_name => note.user.full_name,
@@ -44,12 +60,10 @@
         = t(".curator_activity_on_taxon_concept_by_user", :user_name => note.user.full_name,
           :activity_name => note.activity.name, :taxon_concept => note.taxon_concept.title,
           :taxon_overview_url => taxon_overview_url(note.taxon_concept.id))
-
-  - elsif note.is_a?(UsersDataObject)
+  - when DataObject
     %p
       = t(".data_object_activity_article_added_by_user", :user_name => note.user.full_name,
         :dato_title => note.data_object.best_title, :taxon_concept => note.taxon_concept.title,
         :taxon_details_url => taxon_details_url(note.taxon_concept.id))
-
   - else
-    -# FIXME: something else occurred here that is not yet handled - should we raise exception for note.class.name ?
+    - raise EOL::Exceptions::UnknownFeedType

@@ -67,29 +67,6 @@ es:
   translated_contact_roles-label-contact_role_id-1: Contacto principal
   translated_contact_roles-label-contact_role_id-2: Contacto administrativo
   translated_contact_roles-label-contact_role_id-3: Contacto Técnico
-  translated_contact_subjects-title-contact_subject_id-1: Contacto medios (entrevistas, solicitudes de imágenes)
-  translated_contact_subjects-title-contact_subject_id-10: Contentos
-  translated_contact_subjects-title-contact_subject_id-11: Problemas técnicos (problemas con la herramienta de búsqueda, el sitio web, o cuentas de usuario)
-  translated_contact_subjects-title-contact_subject_id-12: Otro
-  translated_contact_subjects-title-contact_subject_id-13: Soporte para los curadores
-  translated_contact_subjects-title-contact_subject_id-14: Solicitud para subir imágenes
-  translated_contact_subjects-title-contact_subject_id-15: Hacer una corrección (imágenes & gramática, ortografía, información)
-  translated_contact_subjects-title-contact_subject_id-16: Comentarios de proyecto global
-  translated_contact_subjects-title-contact_subject_id-17: Hacer una contribución financiera
-  translated_contact_subjects-title-contact_subject_id-18: Hágase Socio de Contenido
-  translated_contact_subjects-title-contact_subject_id-19: Comentarios al grupo de Páginas de Especies
-  translated_contact_subjects-title-contact_subject_id-2: Contribuciones
-  translated_contact_subjects-title-contact_subject_id-20: Soporte para los Socios de Contenido
-  translated_contact_subjects-title-contact_subject_id-21: Enviar un mensaje a Cynthia Parr en el grupo de Páginas de Especies
-  translated_contact_subjects-title-contact_subject_id-22: Recursos del Golfo de México
-  translated_contact_subjects-title-contact_subject_id-23: Manda un mesaje a Eli Agbayani
-  translated_contact_subjects-title-contact_subject_id-3: Aprendizaje y Educación
-  translated_contact_subjects-title-contact_subject_id-4: Cura Páginas
-  translated_contact_subjects-title-contact_subject_id-5: Clasificación
-  translated_contact_subjects-title-contact_subject_id-6: Investigación Bioinformática
-  translated_contact_subjects-title-contact_subject_id-7: Investigación biológica
-  translated_contact_subjects-title-contact_subject_id-8: Biología vegetal
-  translated_contact_subjects-title-contact_subject_id-9: Literatura y Biodiversity Heritage Library
   translated_content_partner_statuses-label-content_partner_status_id-1: Pendiente
   translated_content_partner_statuses-label-content_partner_status_id-2: Activo
   translated_content_partner_statuses-label-content_partner_status_id-3: Archivado
@@ -361,9 +338,9 @@ es:
   translated_vetted-label-vetted_id-4: Sin confianza
   translated_vetted-label-vetted_id-5: De confianza
   translated_vetted-label-vetted_id-6: Inapropiado
-  translated_view_styles-name-view_style_id-1: "Lista"
-  translated_view_styles-name-view_style_id-2: "Galería"
-  translated_view_styles-name-view_style_id-3: "Con anotaciones"
+  translated_view_styles-name-view_style_id-1: Lista
+  translated_view_styles-name-view_style_id-2: Galería
+  translated_view_styles-name-view_style_id-3: Con anotaciones
   translated_visibilities-label-visibility_id-0: Invisible
   translated_visibilities-label-visibility_id-1: Visible
   translated_visibilities-label-visibility_id-2: Previsualizar

@@ -511,6 +511,7 @@ gl:
   article_more_about: Máis información sobre este artigo
   article_not_associated_with_any_published_entries: Este artigo non está asociado a ningún taxon publicado.
   article_of: Artigo de
+  article_of_taxon: Artigo de %{taxon_name}
   article_rating: Avaliación do artigo
   articles_in_languages_with_count: 
     one: "Os artigos desta páxina están dispoñibles en %{count} lingua:"
@@ -1552,12 +1553,14 @@ gl:
   image_map_from_supplier: Mapa de %{whom}
   image_map_not_associated_with_any_published_entries: Este mapa non está asociado a ningún taxon publicado.
   image_map_of: Mapa de
+  image_map_of_taxon: Mapa de %{taxon_name}
   image_map_rating: Avaliación do mapa
   image_not_associated_with_any_published_entries: Esta imaxe non está asociada a ningún taxon publicado.
   image_not_found: Non se atopou a imaxe
   image_object: Obxecto de imaxe
   image_objects_will_contain_two_mediaurl_elements: Os obxectos de imaxe conterán dous elementos do tipo mediaURL. O primeiro é o enderezo URL da imaxe no sitio web do provedor e o segundo é o enderezo URL da versión gardada na memoria caché do ficheiro multimedia aloxado nun dos servidores da EOL. A versión da imaxe presente na EOL será redimensionada (conservando as dimensións proporcionalmente) se a orixinal é maior que 460 píxeles de largo ou 345 píxeles de alto.
   image_of: Imaxe de
+  image_of_taxon: Imaxe de %{taxon_name}
   image_rating: Avaliación da imaxe
   images: Imaxes
   images_in_red_are_not_trusted: As imaxes que están en vermello non son de confianza.
@@ -1678,6 +1681,8 @@ gl:
   license_public_domain: Dominio público
   licensing: Licenza
   limits_the_number_of_returned_image_objects: limita o número de obxectos de imaxe devoltos
+  limits_the_number_of_returned_map_objects: limita o número de obxectos de mapa devoltos
+  limits_the_number_of_returned_sound_objects: limita o número de obxectos de son devoltos
   limits_the_number_of_returned_text_objects: limita o número de obxectos de texto devoltos
   limits_the_number_of_returned_video_objects: limita o número de obxectos de vídeo devoltos
   link_name: Nome da ligazón
@@ -1721,6 +1726,7 @@ gl:
   map_from_supplier: Mapa de %{whom}
   map_not_associated_with_any_published_entries: Este mapa non está asociado a ningún taxon publicado.
   map_of: Mapa de
+  map_of_taxon: Mapa de %{taxon_name}
   map_rating: Avaliación do mapa
   maps_empty: Polo de agora, ninguén achegou mapas a esta páxina.
   maps_empty_contribute_instructions: Descubre como achegar mapas á EOL.
@@ -2276,6 +2282,7 @@ gl:
   sound_not_associated_with_any_published_entries: Este son non está asociado a ningún taxon publicado.
   sound_object: Obxecto de son
   sound_of: Son de
+  sound_of_taxon: Son de %{taxon_name}
   sound_rating: Avaliación do son
   sounds_with_count: 
     one: "%{count} son"
@@ -2326,6 +2333,94 @@ gl:
   tasks_with_count: 
     one: "%{count} tarefa atopada"
     other: "%{count} tarefas atopadas"
+  taxa: 
+    communities: 
+      collections: 
+        hierarchy_entry: 
+          meta_title: Coleccións de %{scientific_name}, segundo as clasificou %{hierarchy_provider}
+          tweet_text: Coleccións de %{scientific_name}, segundo as clasificou %{hierarchy_provider}
+      curators: 
+        hierarchy_entry: 
+          meta_title: Conservadores de %{scientific_name}, segundo os clasificou %{hierarchy_provider}
+          tweet_text: Conservadores de %{scientific_name}, segundo os clasificou %{hierarchy_provider}
+      index: 
+        hierarchy_entry: 
+          meta_title: Xente interesada en %{scientific_name}, segundo a clasificou %{hierarchy_provider}
+          meta_title_with_common_name: Xente interesada en %{preferred_common_name} (%{scientific_name}, segundo a clasificou %{hierarchy_provider})
+          tweet_text: Xente interesada en %{scientific_name}, segundo a clasificou %{hierarchy_provider}
+        meta_keywords: Comunidade sobre %{scientific_name}
+        meta_keywords_with_common_name: Comunidade sobre %{preferred_common_name}, comunidade sobre %{scientific_name}
+        meta_title: Xente interesada en %{scientific_name}
+        meta_title_with_common_name: Xente interesada en %{preferred_common_name} (%{scientific_name})
+        tweet_text: Xente interesada en %{scientific_name}
+    details: 
+      index: 
+        hierarchy_entry: 
+          meta_description: Información sobre %{scientific_name}, segundo a clasificou %{hierarchy_provider}, na Enciclopedia da vida.
+          meta_description_with_common_name: Información sobre %{preferred_common_name}, cientificamente coñecido como %{scientific_name}, segundo a clasificou %{hierarchy_provider}, na Enciclopedia da vida.
+          meta_description_with_common_name_with_chapter_list: Información sobre %{preferred_common_name}, cientificamente coñecido como %{scientific_name}, segundo a clasificou %{hierarchy_provider}, na Enciclopedia da vida. Inclúe información sobre %{chapter_list}.
+          meta_title: Información sobre %{scientific_name}, segundo a clasificou %{hierarchy_provider}
+          tweet_text: Información sobre %{scientific_name}, segundo a clasificou %{hierarchy_provider}
+        meta_description: Información sobre %{scientific_name} na Enciclopedia da vida
+        meta_description_with_chapter_list: Información sobre %{scientific_name} na Enciclopedia da vida. Inclúe información sobre %{chapter_list}.
+        meta_description_with_common_name: Información sobre %{preferred_common_name}, cientificamente coñecido como %{scientific_name}, na Enciclopedia da vida.
+        meta_description_with_common_name_with_chapter_list: Información sobre %{preferred_common_name}, cientificamente coñecido como %{scientific_name}, na Enciclopedia da vida. Inclúe información sobre %{chapter_list}.
+    literature: 
+      bhl: 
+        hierarchy_entry: 
+          meta_description: Literatura e información sobre %{scientific_name}, segundo a clasificou %{hierarchy_provider}, na Enciclopedia da vida. Le artigos sobre %{scientific_name} na Enciclopedia da vida.
+          meta_description_with_common_name: Literatura e información sobre %{preferred_common_name}, tamén coñecido como %{scientific_name}, segundo a clasificou %{hierarchy_provider}, na Enciclopedia da vida. Le artigos sobre %{preferred_common_name} na Enciclopedia da vida.
+      show: 
+        hierarchy_entry: 
+          meta_title: Literatura sobre %{scientific_name}, segundo as clasificou %{hierarchy_provider}
+          tweet_text: Literatura sobre %{scientific_name}, segundo as clasificou %{hierarchy_provider}
+        meta_description: Literatura e información sobre %{scientific_name} na Enciclopedia da vida. Le artigos sobre %{scientific_name} na Enciclopedia da vida.
+        meta_description_with_common_name: Literatura e información sobre %{preferred_common_name}, tamén coñecido como %{scientific_name}, na Enciclopedia da vida. Le artigos sobre %{preferred_common_name} na Enciclopedia da vida.
+        meta_keywords: información sobre %{scientific_name}, literatura sobre %{scientific_name}, artigos sobre %{scientific_name}
+        meta_keywords_with_common_name: información sobre %{preferred_common_name}, literatura sobre %{preferred_common_name}, artigos sobre %{scientific_name}
+    maps: 
+      show: 
+        hierarchy_entry: 
+          meta_description: Información xeográfica sobre %{scientific_name}, segundo a clasificou %{hierarchy_provider}, onde vive e de onde é orixinario.
+          meta_description_with_common_name: Onde atopamos %{preferred_common_name} e onde viven? Información xeográfica sobre %{scientific_name}, segundo a clasificou %{hierarchy_provider}, onde vive e de onde é orixinario.
+        meta_description: Información xeográfica sobre %{scientific_name}, onde vive e de onde é orixinario.
+        meta_description_with_common_name: Onde atopamos %{preferred_common_name} e onde viven? Información xeográfica sobre %{scientific_name}, onde vive e de onde é orixinario.
+        meta_keywords: hábitat de %{scientific_name}, autóctono, onde vive %{scientific_name}
+        meta_keywords_with_common_name: hábitat de %{preferred_common_name}, autóctono, onde vive %{preferred_common_name}
+    media: 
+      index: 
+        hierarchy_entry: 
+          meta_description: Fotografías e vídeos sobre %{scientific_name}, segundo os clasificou %{hierarchy_provider}.
+          meta_description_with_common_name: Fotografías, vídeos e sons sobre %{preferred_common_name}, tamén coñecido como %{scientific_name}, segundo os clasificou %{hierarchy_provider}.
+        meta_description: Fotografías e vídeos sobre %{scientific_name}.
+        meta_description_with_common_name: Fotografías e vídeos sobre %{preferred_common_name}, tamén coñecido como %{scientific_name}.
+        meta_keywords: fotografías de %{scientific_name}, vídeos de %{scientific_name}, imaxes de %{scientific_name}, vídeos de %{scientific_name}, fotos de %{scientific_name}, ficheiros multimedia
+        meta_keywords_with_common_name: fotografías de %{preferred_common_name}, vídeos de %{preferred_common_name}, imaxes de %{preferred_common_name}, vídeos de %{preferred_common_name}, fotos de %{preferred_common_name}, ficheiros multimedia
+    names: 
+      common_names: 
+        hierarchy_entry: 
+          tweet_text: Nomes comúns de %{scientific_name}, segundo os clasificou %{hierarchy_provider}
+      index: 
+        hierarchy_entry: 
+          meta_description: Taxonomía, xerarquías de clasificación e nomes científicos relacionados de %{scientific_name}, segundo os clasificou %{hierarchy_provider}.
+          meta_description_with_common_name: Taxonomía, xerarquías de clasificación e nomes científicos relacionados de %{preferred_common_name}, tamén coñecido como %{scientific_name}, segundo os clasificou %{hierarchy_provider}.
+          tweet_text: Nomes relacionados con %{scientific_name}, segundo os clasificou %{hierarchy_provider}
+        meta_description: Clasificación taxonómica e nomes científicos de %{scientific_name}.
+        meta_description_with_common_name: Clasificación taxonómica e nomes científicos de %{preferred_common_name}, tamén chamado %{scientific_name}.
+    overviews: 
+      show: 
+        meta_description: Unha vista xeral de %{scientific_name} na Enciclopedia da vida.
+        meta_description_with_common_name: Unha vista xeral de %{preferred_common_name}, cientificamente coñecido como %{scientific_name}, na Enciclopedia da vida.
+    resources: 
+      education: 
+        hierarchy_entry: 
+          meta_title: Ferramentas de aprendizaxe sobre %{scientific_name}, segundo as clasificou %{hierarchy_provider}
+          tweet_text: Ferramentas de aprendizaxe sobre %{scientific_name}, segundo as clasificou %{hierarchy_provider}
+      show: 
+        hierarchy_entry: 
+          meta_title: Provedores de datos sobre %{scientific_name}, segundo os clasificou %{hierarchy_provider}
+          tweet_text: Provedores de datos sobre %{scientific_name}, segundo os clasificou %{hierarchy_provider}
+        meta_description_with_common_name: Recursos sobre %{preferred_common_name} e citas de socios sobre %{scientific_name}.
   taxa_column_header: Taxons
   taxa_with_count: 
     one: "%{count} taxon"
@@ -2582,10 +2677,12 @@ gl:
   users_form_account_header: A túa conta
   users_form_curation_header: Habilidades do conservador
   users_form_profile_info_header: Información pública de perfil
+  users_form_tip: O nome de usuario é obrigatorio para todos os usuarios. O resto de elementos marcados como necesarios %{required_icon} son opcionais para os usuarios xerais, pero obrigatorios para os conservadores.
   users_member_of_count_communities: 
     one: Membro de %{count} comunidade
     other: Membro de %{count} comunidades
   users_my_info_header: A miña información
+  users_pending_activation_message: Enviouse unha mensaxe de confirmación ao enderezo de correo electrónico que proporcionaches. Para completar o proceso de rexistro e pasar a ser membro da EOL, preme na ligazón incluída nesa mensaxe. Grazas!
   users_that_can_edit_this_collection: Usuarios que poden xestionar esta colección
   using_the_site: Utilización do sitio
   validation_error: Erro de validación
@@ -2602,6 +2699,7 @@ gl:
   video_not_associated_with_any_published_entries: Este vídeo non está asociado a ningún taxon publicado.
   video_object: Obxecto de vídeo
   video_of: Vídeo de
+  video_of_taxon: Vídeo de %{taxon_name}
   video_rating: Avaliación do vídeo
   video_title_not_available_in_language: O título non está dispoñible en %{language}
   videos_with_count: 

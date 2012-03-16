@@ -725,6 +725,7 @@ fr:
     index: 
       meta_description: L'Encyclopédie de la Vie est un effort sans précédent pour collecter les connaissances scientifiques au sujet de toute vie animale et végétale, où les images, informations, faits et autres sont disponibles pour toutes les choses vivantes dans nos règnes animal et végétal.
       meta_keywords: Animaux, Images d'Animaux, Information sur les Animaux, Plantes, Vie des Plantes, Images de Plantes, Information sur les Plantes, Flore, Faune
+      meta_title: Animaux - Plantes - Images & Informations
   content_has_been_updated: Le contenu a été mis à jour.
   content_notes_not_shown_to_us: "Notes sur le contenu (non montrées à l’utilisateur) :"
   content_partner: Partenaire de contenu
@@ -880,6 +881,22 @@ fr:
   content_partner_update_unsuccessful_error: Une erreur s'est produite. Les informations sur le partenaire n'ont pas été mises à jour.
   content_partner_vetted_false: Non supervisé
   content_partner_vetted_true: Approuvé
+  content_partners: 
+    edit: 
+      meta_title: Modifier %{partner_name}
+    index: 
+      meta_description: Liste des fournisseurs de données et des partenaires de contenu de l'Encyclopédie de la Vie.
+      meta_keywords: Partenaires de contenu de l'Encyclopédie de la Vie, fournisseurs de données de l'Encyclopédie de la Vie
+      meta_title: Partenaires de contenu
+    show: 
+      meta_description: "%{partner_name}. %{partner_description}"
+      meta_keywords: "%{partner_name}, partenaire de contenu de l'Encyclopédie de la Vie"
+    statistics: 
+      show: 
+        meta_description: Statistiques d'utilisation des données pour %{partner_name}
+        meta_keywords: Statistiques de %{partner_name}, utilisation web de %{partner_name}
+        meta_title: Statistiques de %{partner_name}
+        tweet_text: statistiques d'utilisation de %{partner_name}
   content_partners_empty: Aucun partenaire n'a été trouvé.
   content_partners_link: Partenaires de contenu
   content_partners_page_description: Les partenaires de l'Encyclopedia of Life possèdent une grande quantité d'information concernant la biodiversité sur leurs propres sites internet ou dans leurs bases de données, qu'ils partagent aussi avec l'EOL. Nous apprécions vivement leurs apports critiques à la mission de l'EOL et nous vous encourageons à en apprendre plus sur eux. En savoir plus sur <a href="%{more_url}">les partenaires de contenu</a>.
@@ -977,6 +994,10 @@ fr:
   data_object_not_associated_with_any_hierarchies: Cet objet de données n’est associé à aucune hiérarchie.
   data_object_reference: Référence de l’objet de données
   data_object_undo_ignore: retirer de la liste à ignorer
+  data_objects: 
+    show: 
+      meta_title: "%{dato_title} de %{supplier}"
+      tweet_text: "%{dato_title} de %{supplier}"
   data_usage_reports: Rapports d’utilisation des données
   date_caps: Date
   date_uploaded: Date de téléversement
@@ -1233,6 +1254,7 @@ fr:
         view_style_id: Vue par défaut
       collection_item: 
         annotation: Annotation
+        refs: Références <small>(placez chaque référence sur une nouvelle ligne)</small>
         sort_field: Trier par <small>(date AAAA.MM.JJ, nombre ou texte)</small>
         sort_field_show: "Valeur de tri :"
       comment: 
@@ -1390,6 +1412,7 @@ fr:
         update: Enregistrer l’article
       eol_statistic: 
         download_csv: Télécharger comme fichier CSV
+      filter_sort: Filtrer et trier
       harvest_event: 
         publish: Publier
       hierarchy: 
@@ -1637,6 +1660,17 @@ fr:
     other: "%{count} supports"
   member_of: membre de
   member_of_professional_society_credential_option: membre d’une société professionnelle
+  members: 
+    index: 
+      meta_description: Membres de %{community_name}, une communauté de l'Encyclopédie de la Vie.
+      meta_keywords: Membres de %{community_name}
+      meta_title: Membres de %{community_name}
+      tweet_text: Membres de %{community_name}
+    show: 
+      meta_description: "%{member_name} est un membre de %{community_name}, une communauté de l'Encyclopédie de la Vie."
+      meta_keywords: Membre de la communauté %{member_name}
+      meta_title: "%{member_name} Membre de %{community_name}"
+      tweet_text: "%{member_name} membre de %{community_name}"
   members_like_you: Membres comme vous
   members_with_count: 
     one: "%{count} membre"
@@ -2124,6 +2158,9 @@ fr:
     other: Des invitations ont été envoyées à %{users}.
   sep_emails_with_commas_note: (séparez les adresses de courriel multiples par des virgules)
   server_ip_address: Adresse IP du serveur
+  sessions: 
+    new: 
+      meta_title: Connexion
   set_as_exemplar: Définir comme modèle
   share_a_collection: Partager une collection
   show: Afficher
@@ -2228,6 +2265,112 @@ fr:
   tasks_with_count: 
     one: "%{count} tâche trouvée"
     other: "%{count} tâches trouvées"
+  taxa: 
+    communities: 
+      collections: 
+        hierarchy_entry: 
+          meta_description: Collections contenant %{scientific_name} tel que classé par %{hierarchy_provider}.
+          meta_description_with_common_name: Collections contenant %{preferred_common_name} (%{scientific_name} tel que classé par %{hierarchy_provider}).
+          meta_keywords: Collections de %{scientific_name}, Observations sur %{scientific_name}, Collections de %{hierarchy_provider}, Observations sur %{hierarchy_provider}, Spécimens de %{hierarchy_provider}
+          meta_title: Collections de %{scientific_name} tel que classé par %{hierarchy_provider}
+          meta_title_with_common_name: Collections de %{preferred_common_name} (%{scientific_name} tel que classé par %{hierarchy_provider})
+          tweet_text: Collections de %{scientific_name} tel que classé par %{hierarchy_provider}
+        meta_description: Collections contenant %{scientific_name}.
+        meta_description_with_common_name: Collections contenant %{preferred_common_name} (%{scientific_name}).
+        meta_keywords: Collections de %{scientific_name}, Observations sur %{scientific_name}
+        meta_keywords_with_common_name: Collections de %{preferred_common_name}, Observations sur %{preferred_common_name}, Collections de %{scientific_name}, Observations sur %{scientific_name}
+        meta_title: Collections de %{scientific_name}
+        meta_title_with_common_name: Collections de %{preferred_common_name} (%{scientific_name})
+        tweet_text: Collections de %{scientific_name}
+      curators: 
+        hierarchy_entry: 
+          meta_title: Conservateurs de %{scientific_name} tel que classé par %{hierarchy_provider}
+          meta_title_with_common_name: Experts sur %{preferred_common_name} (%{scientific_name} tel que classé par %{hierarchy_provider})
+          tweet_text: Conservateurs de %{scientific_name} tel que classé par %{hierarchy_provider}
+        meta_keywords: Experts de %{scientific_name}, Conservateurs de %{scientific_name}
+        meta_keywords_with_common_name: Experts de %{preferred_common_name}, Conservateurs de %{preferred_common_name}, Experts de %{scientific_name}, Conservateurs de %{scientific_name}
+        meta_title: Conservateurs de %{scientific_name}
+        meta_title_with_common_name: Experts de %{preferred_common_name} (%{scientific_name})
+        tweet_text: Conservateurs de %{scientific_name}
+      index: 
+        hierarchy_entry: 
+          meta_description: Partager l'information et l'expertise sur %{scientific_name} tel que classé par %{hierarchy_provider}.
+          meta_description_with_common_name: Partager l'information et l'expertise sur %{preferred_common_name} (%{scientific_name}), tel que classé par %{hierarchy_provider}.
+          meta_keywords: communauté %{scientific_name}, %{hierarchy_provider}
+          meta_title: Les gens intéressés par %{scientific_name} tel que classé par %{hierarchy_provider}
+          meta_title_with_common_name: Personnes intéressées par %{preferred_common_name} (%{scientific_name} tel que classé par %{hierarchy_provider})
+          tweet_text: Personnes intéressées par %{scientific_name} tel que classé par %{hierarchy_provider}
+        meta_description: Intéressé par %{scientific_name}? Rejoignez les experts de %{scientific_name} et partagez vos propres observations sur %{scientific_name} dans l'Encyclopédie de la Vie.
+        meta_description_with_common_name: Intéressé par %{preferred_common_name} (%{scientific_name})? Rejoignez les experts de %{preferred_common_name} et partagez vos propres observations sur %{preferred_common_name} sur l'Encyclopédie de la Vie.
+        meta_keywords: communauté %{scientific_name}
+        meta_keywords_with_common_name: communauté %{preferred_common_name}, communauté %{scientific_name}
+        meta_title: Personnes intéressées par %{scientific_name}
+        meta_title_with_common_name: Personnes intéressées par %{preferred_common_name} (%{scientific_name})
+        tweet_text: Personnes intéressées par %{scientific_name}
+    details: 
+      index: 
+        hierarchy_entry: 
+          meta_description: Information sur %{scientific_name} tel que classé par %{hierarchy_provider} dans l'Encyclopédie de la Vie
+          meta_description_with_chapter_list: Information sur %{scientific_name} tel que classé par %{hierarchy_provider} dans l'Encyclopédie de la Vie. Inclut les informations %{chapter_list} pour %{scientific_name}.
+          meta_description_with_common_name: Information sur le %{preferred_common_name}, scientifiquement appelé %{scientific_name} tel que classé par %{hierarchy_provider} dans l'Encyclopédie de la Vie.
+          meta_description_with_common_name_with_chapter_list: Information sur le %{preferred_common_name}, scientifiquement appelé %{scientific_name} tel que classé par %{hierarchy_provider} dans l'Encyclopédie de la Vie. COmprend des informations sur %{chapter_list}.
+          meta_title: Information sur %{scientific_name} tel que classé par %{hierarchy_provider}
+          meta_title_with_common_name: Information sur le %{preferred_common_name} (%{scientific_name} tel que classé par %{hierarchy_provider})
+          tweet_text: Information sur %{scientific_name} tel que classé par %{hierarchy_provider}
+        meta_description: Information sur %{scientific_name} dans l'Encyclopédie de la Vie
+        meta_description_with_chapter_list: Information sur %{scientific_name} dans l'Encyclopédie de la Vie. Comprend des informations sur %{chapter_list}.
+        meta_description_with_common_name: Information sur %{preferred_common_name}, scientifiquement appelé %{scientific_name} dans l'Encyclopédie de la Vie.
+        meta_description_with_common_name_with_chapter_list: Information sur %{preferred_common_name}, scientifiquement appelé %{scientific_name} dans l'Encyclopédie de la Vie. Comprend des informations sur %{chapter_list}.
+        meta_title: Information sur %{scientific_name}
+        meta_title_with_common_name: Faits concernant %{preferred_common_name} (%{scientific_name})
+        tweet_text: Informations sur %{scientific_name}
+    literature: 
+      bhl: 
+        hierarchy_entry: 
+          meta_description: Littérature et informations sur %{scientific_name} tel que classé par %{hierarchy_provider} dans l'Encyclopédie de la Vie. Lisez les articles sur %{scientific_name} dans l'Encyclopédie de la Vie.
+          meta_description_with_common_name: Littérature et informations sur %{preferred_common_name}, appelé aussi %{scientific_name} tel que classé par %{hierarchy_provider} dans l'Encyclopédie de la Vie. Lisez les articles sur %{preferred_common_name} dans l'Encyclopédie de la Vie.
+          meta_title: Littérature BHL sur %{scientific_name} tel que classé par %{hierarchy_provider}
+          meta_title_with_common_name: Littérature BHL sur %{preferred_common_name} (%{scientific_name} tel que classé par %{hierarchy_provider})
+          tweet_text: "Littérature de #BHL sur %{scientific_name} tel que classé par %{hierarchy_provider}"
+        meta_title: Citations BHL pour %{scientific_name}
+        meta_title_with_common_name: Références BHL pour %{preferred_common_name} (%{scientific_name})
+        tweet_text: "Littérature de #BHL sur %{scientific_name}"
+      show: 
+        hierarchy_entry: 
+          meta_title: Littérature sur %{scientific_name} tel que classé par %{hierarchy_provider}
+          meta_title_with_common_name: Livres sur %{preferred_common_name} (%{scientific_name} tel que classé par %{hierarchy_provider})
+          tweet_text: Littérature sur %{scientific_name} tel que classé par %{hierarchy_provider}
+        meta_description: Bibliographie et informations sur %{scientific_name} sur l'Encyclopédie la Vie. Lire les articles sur %{scientific_name} sur l'Encyclopédie de la Vie.
+        meta_description_with_common_name: Bibliographie et informations sur %{preferred_common_name}, appelé aussi %{scientific_name} sur l'Encyclopédie de la Vie. Lire les articles sur %{preferred_common_name} sur l'Encyclopédie de la Vie.
+        meta_keywords: informations sur %{scientific_name}, littérature sur %{scientific_name}, articles pour %{scientific_name}
+        meta_keywords_with_common_name: informations sur %{preferred_common_name}, littérature sur %{preferred_common_name}, articles sur %{scientific_name}
+        meta_title: Littérature sur %{scientific_name}
+        meta_title_with_common_name: Livres sur %{preferred_common_name} (%{scientific_name})
+        tweet_text: Littérature sur %{scientific_name}
+    maps: 
+      show: 
+        hierarchy_entry: 
+          meta_description: Information géographique sur %{scientific_name} tel que classé par %{hierarchy_provider} selon la région où ils vivent et où ils sont indigènes dans le monde.
+          meta_description_with_common_name: Où trouve-t-on des %{preferred_common_name} et où vivent-ils? Information géographique concernant %{scientific_name} tel que classé par %{hierarchy_provider}, la région où ils vivent et où ils sont indigènes, dans le monde.
+          meta_title: Cartes de %{scientific_name} tel que classé par %{hierarchy_provider}
+          meta_title_with_common_name: Cartes de %{preferred_common_name} (%{scientific_name} tel que classé par %{hierarchy_provider})
+          tweet_text: Cartes de %{scientific_name} tel que classé par %{hierarchy_provider}
+        meta_description: Informations géographiques sur %{scientific_name}, l'endroit où ils vivent et d'où ils proviennent, dans le monde.
+        meta_description_with_common_name: Où trouve-t-on des %{preferred_common_name} et où vivent-ils? Informations géographiques sur %{scientific_name}, l'endroit où ils vivent et d'où ils sont originaires, dans le monde.
+        meta_keywords: habitat de %{scientific_name}, origine, où vit %{scientific_name}
+        meta_keywords_with_common_name: habitat de %{preferred_common_name}, origine, où vit %{preferred_common_name}
+        meta_title: Habitat de %{scientific_name}
+        meta_title_with_common_name: Habitat de %{preferred_common_name} (%{scientific_name})
+        tweet_text: Cartes de %{scientific_name}
+    media: 
+      index: 
+        hierarchy_entry: 
+          meta_description: Images et vidéos de %{scientific_name} tel que classé par %{hierarchy_provider}.
+          meta_description_with_common_name: Photographies, films et sons de %{preferred_common_name}, appelé aussi %{scientific_name} tel que classé par %{hierarchy_provider}.
+          meta_keywords: photographies de %{scientific_name}, films sur %{scientific_name}, sons de %{scientific_name}, audios sur %{scientific_name}
+          meta_keywords_with_common_name: photographies de %{preferred_common_name}, films sur %{preferred_common_name}, sons de %{preferred_common_name}, audios sur %{preferred_common_name}, photographies de %{scientific_name}, films sur %{scientific_name}, sons de %{scientific_name}, audios sur %{scientific_name}
+          meta_title: Audio, Film & Photographies sur %{scientific_name} tel que classé par %{hierarchy_provider}
+          meta_title_with_common_name: Audio, Film & Images sur %{preferred_common_name} (%{scientific_name} tel que classé par %{hierarchy_provider})
   taxa_column_header: Taxons
   taxon: taxon
   taxon_biomedical_terms_link: Termes biomédicaux

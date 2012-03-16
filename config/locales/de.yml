@@ -515,6 +515,7 @@ de:
   article_more_about: Erfahren Sie mehr zu diesem Artikel
   article_not_associated_with_any_published_entries: Dieser Artikel ist keinen veröffentlichten Taxa zugeordnet.
   article_of: Artikel zu
+  article_of_taxon: Artikel zu %{taxon_name}
   article_rating: Artikelbewertung
   articles_in_languages_with_count: 
     one: "Die Artikel auf dieser Seite sind in folgender Sprache vorhanden:"
@@ -1146,7 +1147,7 @@ de:
   dublin_core: Dublin Core
   duplicate_items_were_ignored: Dubletten wurden ignoriert.
   e_g_search_for_the_eol_page: "(bspw. Suche nach der EOL-Seitenkennung für die ITIS TSN-180542:"
-  each_method_documentation_page_has_formatted_responses: Jede Dokumentationsseite zu einer Methode enthält ein Beispiel für sowohl in XML, wie auch in JSON formatierte Antworten.
+  each_method_documentation_page_has_formatted_responses: Jede Dokumentationsseite zu einer Methode enthält ein Beispiel für, sowohl in XML, wie auch in JSON formatierte Antworten.
   edit: Bearbeiten
   edit_annotation: Vermerk bearbeiten
   edit_collection_details: Informationen zur Sammlung bearbeiten
@@ -1223,7 +1224,7 @@ de:
   error_logging_active: Fehlerprotokollierung aktive
   error_watch_collections_cannot_be_shared: Beobachtungslisten zu Sammlungen können leider nicht mit anderen geteilt werden
   esc_key_hides_this_message: (Die Esc-Taste blendet diese Meldung aus)
-  every_method_can_also_return_json_response: Jeder Methode kann auch eine Antwort in JSON zurückgeben, indem man eine .json-Erweiterung anhängt.
+  every_method_can_also_return_json_response: Jede Methode kann auch eine Antwort in JSON zurückgeben, indem man die Dateiendung .json anhängt.
   example_colon: "Beispiel:"
   exception: Ausnahme
   expand_all_children: alle untergeordneten Objekte expandieren
@@ -1569,12 +1570,14 @@ de:
   image_map_from_supplier: Karte von %{whom}
   image_map_not_associated_with_any_published_entries: Diese Karte ist keinen veröffentlichten Taxa zugeordnet.
   image_map_of: Karte zu
+  image_map_of_taxon: Karte zu %{taxon_name}
   image_map_rating: Kartenbewertung
   image_not_associated_with_any_published_entries: Dieses Bild ist keinen veröffentlichten Taxa zugeordnet.
   image_not_found: Das Bild wurde nicht gefunden.
   image_object: Bildobjekt
   image_objects_will_contain_two_mediaurl_elements: Bildobjekte werden zwei Elemente zur URL (mediaURL) enthalten. Das erste wird die URL des Bildes auf der Website des Bildanbieters und die zweite die gecachte Version des Bildes auf dem EOL-Server sein. Die Version des Bildes bei EOL wird unter Beibehaltung des Seitenverhältnisses verkleinert worden sein, sofern das Originalbild größer als 460 x 345 Pixel war.
   image_of: Bild zu
+  image_of_taxon: Bild zu %{taxon_name}
   image_rating: Bildbewertung
   images: Bilder
   images_in_red_are_not_trusted: Rot gekennzeichneten Bildern wird nicht vertraut.
@@ -1695,6 +1698,9 @@ de:
   license_public_domain: Gemeinfreiheit
   licensing: Lizenz
   limits_the_number_of_returned_image_objects: begrenzt die Anzahl der zurückgegebenen Bildobjekte
+  limits_the_number_of_returned_iucn_objects: den Status aus der Roten Liste der IUCN einbeziehen
+  limits_the_number_of_returned_map_objects: begrenzt die Anzahl der zurückgegebenen Kartenobjekte
+  limits_the_number_of_returned_sound_objects: begrenzt die Anzahl der zurückgegebenen Geräuschobjekte
   limits_the_number_of_returned_text_objects: begrenzt die Anzahl der zurückgegebenen Textobjekte
   limits_the_number_of_returned_video_objects: begrenzt die Anzahl der zurückgegebenen Videoobjekte
   link_name: Name des Links
@@ -1711,7 +1717,7 @@ de:
   location_colon: "Ort:"
   logging_database_colon: "Protokollierungsdatenbanken:"
   login: Anmelden
-  login_header: Melden Sie mit Ihrem Konto bei <abbr title="Enzyklopädie des Lebens">EOL</abbr> an.
+  login_header: Melden Sie sich mit Ihrem Konto bei <abbr title="Enzyklopädie des Lebens">EOL</abbr> an.
   login_hidden_user_message: Das Konto %{given_name} ist nicht mehr aktiv
   login_or_create_account: Anmelden oder Nutzerkonto erstellen
   login_required_button: Anmeldung erforderlich
@@ -1738,6 +1744,7 @@ de:
   map_from_supplier: Karte von %{whom}
   map_not_associated_with_any_published_entries: Diese Karte ist keinen veröffentlichten Taxa zugeordnet.
   map_of: Karte zu
+  map_of_taxon: Karte zu %{taxon_name}
   map_rating: Kartenbewertung
   maps_empty: Bislang hat noch niemand Karten für diese Seite zur Verfügung gestellt.
   maps_empty_contribute_instructions: Erfahren Sie, wie Sie EOL Karten zur Verfügung stellen können.
@@ -2319,6 +2326,7 @@ de:
   sound_not_associated_with_any_published_entries: Dieses Geräusch ist keinen veröffentlichten Taxa zugeordnet.
   sound_object: Geräuschobjekt
   sound_of: Geräusch zu
+  sound_of_taxon: Audiodatei zu %{taxon_name}
   sound_rating: Geräuschbewertung
   sounds_with_count: 
     one: Eine Tonaufnahme
@@ -2392,6 +2400,7 @@ de:
           meta_title_with_common_name: Experten zu %{preferred_common_name} (%{scientific_name}), entsprechend der Klassifizierung durch %{hierarchy_provider}.
           tweet_text: Kuratoren zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
         meta_keywords: Experten zu %{scientific_name}, Kuratoren zu %{scientific_name}
+        meta_keywords_with_common_name: Experten zu %{preferred_common_name}, Kuratoren zu %{preferred_common_name}, Experten zu %{scientific_name}, Kuratoren zu %{scientific_name}
         meta_title: Kuratoren zu %{scientific_name}
         meta_title_with_common_name: Experten zu %{preferred_common_name} (%{scientific_name})
         tweet_text: Kuratoren zu %{scientific_name}
@@ -2403,6 +2412,8 @@ de:
           meta_title: An %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}, interessierte Menschen.
           meta_title_with_common_name: An %{preferred_common_name} (%{scientific_name}), entsprechend der Klassifizierung durch %{hierarchy_provider}, interessierte Menschen.
           tweet_text: An %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}, interessierte Menschen.
+        meta_description: Interesse an %{scientific_name}? Schließen Sie sich den Experten zu %{scientific_name} an und teilen Sie Ihre eigenen Beobachtungen zu %{scientific_name} mit anderen auf der Enzyklopädie des Lebens (EOL).
+        meta_description_with_common_name: Interesse an %{preferred_common_name} (%{scientific_name})? Schließen Sie sich den Experten zu %{preferred_common_name} an und teilen Sie Ihre eigenen Beobachtungen zu %{preferred_common_name} mit anderen auf der Enzyklopädie des Lebens (EOL).
         meta_keywords: Gemeinschaft zu %{scientific_name}
         meta_keywords_with_common_name: Gemeinschaft zu %{preferred_common_name}, Gemeinschaft zu %{scientific_name}
         meta_title: Menschen, die sich für %{scientific_name} interessieren
@@ -2411,9 +2422,9 @@ de:
     details: 
       index: 
         hierarchy_entry: 
-          meta_description: Informationen zu %{scientific_name}, entsprechend der Klassifizierung in der Enzyklopädie des Lebens (EOL) durch %{hierarchy_provider}.
+          meta_description: Informationen zu %{scientific_name} in der Enzyklopädie des Lebens (EOL), entsprechend der Klassifizierung durch %{hierarchy_provider}.
           meta_description_with_chapter_list: Informationen zu %{scientific_name}, entsprechend der Klassifizierung in der Enzyklopädie des Lebens (EOL) durch %{hierarchy_provider}. Enthält auch Informationen zu %{chapter_list} über %{scientific_name}.
-          meta_description_with_common_name: Informationen zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}, entsprechend der Klassifizierung in der Enzyklopädie des Lebens (EOL) durch %{hierarchy_provider}.
+          meta_description_with_common_name: Informationen zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}, in der Enzyklopädie des Lebens (EOL), entsprechend der Klassifizierung durch %{hierarchy_provider}.
           meta_description_with_common_name_with_chapter_list: Informationen zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}, entsprechend der Klassifizierung in der Enzyklopädie des Lebens (EOL) durch %{hierarchy_provider}. Enthält auch Informationen zu %{chapter_list}.
           meta_title: Informationen zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
           meta_title_with_common_name: Informationen zu %{preferred_common_name} (%{scientific_name}), entsprechend der Klassifizierung durch %{hierarchy_provider}.
@@ -2441,6 +2452,8 @@ de:
           meta_title: Literatur zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
           meta_title_with_common_name: Bücher zu %{preferred_common_name} (%{scientific_name}), entsprechend der Klassifizierung durch %{hierarchy_provider}.
           tweet_text: Literatur zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
+        meta_description: Literatur und Informationen zu %{scientific_name} in der Enzyklopädie des Lebens (EOL). Lesen Sie Artikel zu %{scientific_name} in der Enzyklopädie des Lebens.
+        meta_description_with_common_name: Literatur und Informationen zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}, in der Enzyklopädie des Lebens (EOL). Lesen Sie Artikel zu %{preferred_common_name} in der Enzyklopädie des Lebens.
         meta_keywords: Informationen zu %{scientific_name}, Literatur zu %{scientific_name}, Artikel zu %{scientific_name}
         meta_keywords_with_common_name: Informationen zu %{preferred_common_name}, Literatur zu %{preferred_common_name}, Artikel zu %{scientific_name}
         meta_title: Literatur zu %{scientific_name}
@@ -2449,9 +2462,15 @@ de:
     maps: 
       show: 
         hierarchy_entry: 
+          meta_description: Geografische Informationen zum Verbreitungsgebiet und dem heimischen Lebensraum zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
+          meta_description_with_common_name: Wo können %{preferred_common_name} beobachtet werden und wo leben sie? Geografische Informationen zum Verbreitungsgebiet und dem heimischen Lebensraum zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
           meta_title: Karten zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
           meta_title_with_common_name: Karten zu %{preferred_common_name} (%{scientific_name}), entsprechend der Klassifizierung durch %{hierarchy_provider}.
           tweet_text: Karten zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
+        meta_description: Geografische Informationen zum Verbreitungsgebiet und dem heimischen Lebensraum zu %{scientific_name}.
+        meta_description_with_common_name: Wo können %{preferred_common_name} beobachtet werden und wo leben sie? Geografische Informationen zum Verbreitungsgebiet und dem heimischen Lebensraum zu %{scientific_name}.
+        meta_keywords: Verbreitungsgebiet von %{scientific_name}, heimischer Lebensraum, wo lebt %{scientific_name}
+        meta_keywords_with_common_name: Verbreitungsgebiet von %{preferred_common_name}, heimischer Lebensraum, wo lebt %{preferred_common_name}
         meta_title: Lebensraum von %{scientific_name}
         meta_title_with_common_name: Lebensraum von %{preferred_common_name} (%{scientific_name})
         tweet_text: Karten zu %{scientific_name}
@@ -2468,6 +2487,7 @@ de:
         meta_description: Bilder und Videos zu %{scientific_name}.
         meta_description_with_common_name: Bilder und Videos zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}.
         meta_keywords: Fotos zu %{scientific_name}, Videos zu %{scientific_name}, Bilder zu %{scientific_name}, Mediendateien
+        meta_keywords_with_common_name: Fotos zu %{preferred_common_name}, Videos zu %{preferred_common_name}, Bilder zu %{preferred_common_name}, Mediendateien
         meta_title: Bilder und Videos zu %{preferred_common_name} (%{scientific_name})
         meta_title_with_common_name: Bilder und Videos zu %{preferred_common_name} (%{scientific_name})
         tweet_text: Medien zu %{scientific_name}
@@ -2475,18 +2495,26 @@ de:
       common_names: 
         hierarchy_entry: 
           meta_description: "%{scientific_name} zugeordnete umgangssprachlichen Namen, entsprechend der Klassifizierung durch %{hierarchy_provider}"
+          meta_description_with_common_name: Ein umgangssprachlicher Name zu %{scientific_name} lautet %{preferred_common_name}. Finden Sie heraus welche anderen umgangssprachlicher Namen mit %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}, verknüpft sind.
           meta_keywords: Umgangssprachliche Namen von %{scientific_name}
           meta_keywords_with_common_name: Wissenschaftliche Namen zu %{preferred_common_name}, Umgangssprachliche Namen zu %{scientific_name}
           meta_title: Umgangssprachlichen Namen zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}
           meta_title_with_common_name: Umgangssprachliche Namen zu %{preferred_common_name} (%{scientific_name}), entsprechend der Klassifizierung durch %{hierarchy_provider}.
           tweet_text: Gebräuchliche Namen zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
         meta_description: Gebräuchliche Namen für %{scientific_name}.
+        meta_description_with_common_name: Der wissenschaftliche Name für %{preferred_common_name} lautet %{scientific_name}. Finden Sie heraus, welche anderen gebräuchlichen Namen es für %{scientific_name} gibt.
         meta_keywords: Gebräuchliche Namen für %{scientific_name}
         meta_keywords_with_common_name: Gebräuchliche Namen für %{scientific_name}, Wissenschaftliche Namen für %{preferred_common_name}
         meta_title: Gebräuchliche Namen für %{scientific_name}
         meta_title_with_common_name: Gebräuchliche Namen für %{preferred_common_name} (%{scientific_name})
         tweet_text: Gebräuchliche Namen für %{scientific_name}.
       index: 
+        hierarchy_entry: 
+          meta_description: Taxonomie, Hierarchieklassifizierungen und wissenschaftliche Namen zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
+          meta_description_with_common_name: Taxonomie, Hierarchieklassifizierungen und wissenschaftliche Namen zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
+          tweet_text: Namen im Zusammenhang mit %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
+        meta_description: Taxonomische Klassifizierung und wissenschaftliche Namen zu %{scientific_name}.
+        meta_description_with_common_name: Taxonomische Klassifizierung und wissenschaftliche Namen zu %{preferred_common_name}, auch bekannt als %{scientific_name}.
         meta_title: Namen mit Bezug zu %{scientific_name}
         meta_title_with_common_name: Namen mit Bezug zu %{preferred_common_name} (%{scientific_name})
         tweet_text: Namen mit Bezug zu %{scientific_name}
@@ -2497,6 +2525,7 @@ de:
           meta_keywords: Synonyme zu %{scientific_name}
           meta_keywords_with_common_name: Synonyme zu %{preferred_common_name}, Synonyme zu %{scientific_name}
           meta_title: "%{scientific_name} - Synonyme entsprechend der Klassifizierung durch %{hierarchy_provider}"
+          meta_title_with_common_name: Synonyme zu %{preferred_common_name} (%{scientific_name}), entsprechend der Klassifizierung durch %{hierarchy_provider}.
           tweet_text: Synonyme zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
         meta_description: Synonyme zu %{scientific_name}.
         meta_description_with_common_name: Synonyme zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}.
@@ -2508,9 +2537,15 @@ de:
     overviews: 
       show: 
         hierarchy_entry: 
+          meta_description: Eine Zusammenfassung der Informationen zu %{scientific_name} in der Enzyklopädie des Lebens (EOL), entsprechend der Klassifizierung durch %{hierarchy_provider}.
+          meta_description_with_common_name: Eine Zusammenfassung der Informationen zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}, in der Enzyklopädie des Lebens (EOL), entsprechend der Klassifizierung durch %{hierarchy_provider}.
+          meta_keywords: "%{scientific_name} anerkannt von %{hierarchy_provider}, %{scientific_name} klassifiziert von %{hierarchy_provider}"
+          meta_keywords_with_common_name: "%{scientific_name} anerkannt von %{hierarchy_provider}, %{scientific_name} klassifiziert von %{hierarchy_provider}"
           meta_title: "%{scientific_name} - entsprechend der Klassifizierung durch %{hierarchy_provider}"
+          meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}), entsprechend der Klassifizierung durch %{hierarchy_provider}."
           tweet_text: Überblick zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
         meta_description: Eine Übersicht zu %{scientific_name} in der Enzyklopädie des Lebens (EOL).
+        meta_description_with_common_name: Eine Übersicht zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}, in der Enzyklopädie des Lebens (EOL).
         meta_keywords: "%{scientific_name} anerkannt durch %{hierarchy_provider}"
         meta_keywords_with_common_name: "%{scientific_name} anerkannt durch %{hierarchy_provider}"
         meta_title: "%{scientific_name}"
@@ -2545,9 +2580,17 @@ de:
         tweet_text: Nukleotidsequenzen zu %{scientific_name}
       show: 
         hierarchy_entry: 
+          meta_description: Liste der Lieferanten von Quelldaten zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
+          meta_description_with_common_name: Liste der Lieferanten von Quelldaten zu %{preferred_common_name} (%{scientific_name}), entsprechen der Klassifizierung durch %{hierarchy_provider}.
+          meta_keywords: Datenlieferanten zu %{scientific_name}, Quelldaten zu %{scientific_name}
+          meta_keywords_with_common_name: Datenlieferanten zu %{preferred_common_name}, Quelldaten zu %{preferred_common_name}, Datenlieferanten zu %{scientific_name}, Quelldaten zu %{scientific_name}
           meta_title: Datenlieferanten zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
           meta_title_with_common_name: Datenlieferanten zu %{preferred_common_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}
           tweet_text: Datenlieferanten zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
+        meta_description: Quellen und Zitate von Inhaltspartnern zu %{scientific_name}
+        meta_description_with_common_name: Quellen zu %{preferred_common_name} und Zitate von Inhaltspartnern zu %{scientific_name}.
+        meta_keywords: Quellen zu %{scientific_name}, Inhaltelieferanten zu %{scientific_name}
+        meta_keywords_with_common_name: Quellen zu %{preferred_common_name}, Inhaltelieferanten zu %{preferred_common_name}, Quellen zu %{scientific_name}, Inhaltelieferanten zu %{scientific_name}
         meta_title: Quellen von Inhalten zu %{scientific_name}
         meta_title_with_common_name: Quellen von Inhalten zu %{preferred_common_name} (%{scientific_name})
         tweet_text: Quellen von Inhalten zu %{scientific_name}
@@ -2765,7 +2808,7 @@ de:
   user: Nutzer
   user_activation_failed_resent_validation_email_error: Es ist leider ein Fehler aufgetreten, so dass Ihr Konto nicht bestätigt werden konnte. Dies geschieht normalerweise in den Fällen, in denen der eingegebene oder ausgewählte Bestätigungslink nicht erkannt wird. Anweisungen zur Aktivierung des Kontos wurden erneut an die während des Registrierungsvorgangs angegebene E-Mail-Adresse gesandt. Bitte stellen Sie sicher, dass der Link dem, mit der Bestätigungs-E-Mail mitgeteilten, Bestätigungslink entspricht.
   user_activation_failed_user_not_found_error: Es ist leider ein Fehler aufgetreten. Das Nutzerkonto, dass Sie zu bestätigen versuchen, konnte nicht gefunden werden. Bitte stellen Sie sicher, das der von Ihnen genutzte Bestätigungslink dem Link entspricht, den Sie während des Registrierungsvorgangs erhalten haben.
-  user_activation_successful_notice: Willkommen und vielen Dank, dass Sie der Gemeinschaft der Enzyklopädie des Lebens (EOL) beitreten. Ihr Konto mit den Nutzernamen <em>%{username}</em> ist nun aktiv. Bitte melden Sie sich nun an.
+  user_activation_successful_notice: Willkommen und vielen Dank, dass Sie dem Team der Enzyklopädie des Lebens (EOL) beitreten. Ihr Konto mit den Nutzernamen <em>%{username}</em> ist nun aktiv. Bitte melden Sie sich nun an.
   user_activity_click_on_the_numbers: Klicken Sie auf die Zahlen, um die entsprechenden Aktivitätsverläufe anzusehen.
   user_activity_page_title: Nutzeraktivität
   user_activity_report_intro: Aktivitätenbericht zu Nutzern. Wählen Sie einen einzelnen Nutzer aus, um dessen Aktivitäten einzusehen, die in umgekehrter zeitlicher Reihenfolge sortiert angezeigt werden. Wählen Sie „Alle“, um alle Aktivitäten des Nutzers angezeigt zu bekommen. Klicken Sie danach auf „Suchen“, um fortzufahren. Sie können die Schaltfläche „Zurück“ Ihres Browsers nutzen, um an diese Stellen zurückzukehren.
@@ -2893,6 +2936,7 @@ de:
   video_not_associated_with_any_published_entries: Dieses Video ist keinen veröffentlichten Taxa zugeordnet.
   video_object: Videoobjekt
   video_of: Video zu
+  video_of_taxon: Video zu %{taxon_name}
   video_rating: Videobewertung
   video_title_not_available_in_language: Der Titel ist nicht auf %{language} vorhanden.
   videos_with_count: 

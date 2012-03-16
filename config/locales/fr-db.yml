@@ -71,29 +71,18 @@ fr:
   translated_contact_roles-label-contact_role_id-1: Contact Principale
   translated_contact_roles-label-contact_role_id-2: Contact administratif
   translated_contact_roles-label-contact_role_id-3: Contact Technique
-  translated_contact_subjects-title-contact_subject_id-1: Contact média (interviews, demandes d'image)
-  translated_contact_subjects-title-contact_subject_id-10: Contenu
-  translated_contact_subjects-title-contact_subject_id-11: Problèmes techniques (difficultés avec le site Web, outil de recherche ou comptes utilisateur)
-  translated_contact_subjects-title-contact_subject_id-12: Autres
-  translated_contact_subjects-title-contact_subject_id-13: Support de conservation
-  translated_contact_subjects-title-contact_subject_id-14: Demande pour télécharger des images
-  translated_contact_subjects-title-contact_subject_id-15: Faire une correction (images, orthographe & grammaire, information)
-  translated_contact_subjects-title-contact_subject_id-16: Ressenti sur le projet global
-  translated_contact_subjects-title-contact_subject_id-17: Faire une contribution financière
-  translated_contact_subjects-title-contact_subject_id-18: Devenir un partenaire de contenu
-  translated_contact_subjects-title-contact_subject_id-19: Ressenti au groupe des pages d'espèces
-  translated_contact_subjects-title-contact_subject_id-2: Contributions
-  translated_contact_subjects-title-contact_subject_id-20: Soutien des partenaires de contenu
-  translated_contact_subjects-title-contact_subject_id-21: Envoyer un message à Cynthia Parr du groupe de pages des espèces
-  translated_contact_subjects-title-contact_subject_id-22: Ressources du Golfe du Mexique
-  translated_contact_subjects-title-contact_subject_id-23: Envoyer un message à Éli Agbayani
-  translated_contact_subjects-title-contact_subject_id-3: Apprentissage et Enseignement
-  translated_contact_subjects-title-contact_subject_id-4: Pages vicaire
-  translated_contact_subjects-title-contact_subject_id-5: Classification
-  translated_contact_subjects-title-contact_subject_id-6: Recherches bioinformatique
-  translated_contact_subjects-title-contact_subject_id-7: Recherche biologique
-  translated_contact_subjects-title-contact_subject_id-8: Biologie végétale
-  translated_contact_subjects-title-contact_subject_id-9: Bibliothèque du patrimoine Littérature et Biodiversité
+  translated_contact_subjects-title-contact_subject_id-24: Adhésion et inscription
+  translated_contact_subjects-title-contact_subject_id-25: Conditions d'utilisation et licence
+  translated_contact_subjects-title-contact_subject_id-26: Apprentissage et éducation
+  translated_contact_subjects-title-contact_subject_id-27: Devenez un partenaire de contenu
+  translated_contact_subjects-title-contact_subject_id-28: Soutien des partenaires de contenu
+  translated_contact_subjects-title-contact_subject_id-29: Soutien des conservateurs
+  translated_contact_subjects-title-contact_subject_id-30: Faire une correction (orthographe et grammaire, images, informations)
+  translated_contact_subjects-title-contact_subject_id-31: Contribuer par des images, des vidéos ou des sons
+  translated_contact_subjects-title-contact_subject_id-32: Demandes de supports (interviews, enquêtes de presse, demandes de logo)
+  translated_contact_subjects-title-contact_subject_id-33: Faire un don financier
+  translated_contact_subjects-title-contact_subject_id-34: Questions techniques (problèmes de recherche, fonctionnement litigieux du site web)
+  translated_contact_subjects-title-contact_subject_id-35: Ressenti général
   translated_content_partner_statuses-label-content_partner_status_id-1: En attente
   translated_content_partner_statuses-label-content_partner_status_id-2: Actif
   translated_content_partner_statuses-label-content_partner_status_id-3: Archivé
@@ -267,6 +256,11 @@ fr:
   translated_synonym_relations-label-synonym_relation_id-61: synonyme objectif
   translated_synonym_relations-label-synonym_relation_id-62: synonyme senior
   translated_synonym_relations-label-synonym_relation_id-63: non accepté
+  translated_synonym_relations-label-synonym_relation_id-64: incorrect
+  translated_synonym_relations-label-synonym_relation_id-65: synonyme de genre
+  translated_synonym_relations-label-synonym_relation_id-66: représentation alternative
+  translated_synonym_relations-label-synonym_relation_id-67: espèces à confirmer
+  translated_synonym_relations-label-synonym_relation_id-68: horticulturel
   translated_synonym_relations-label-synonym_relation_id-7: acronyme de GenBank
   translated_synonym_relations-label-synonym_relation_id-8: anamorphose de GenBank
   translated_synonym_relations-label-synonym_relation_id-9: nom commun de GenBank
@@ -365,6 +359,9 @@ fr:
   translated_vetted-label-vetted_id-4: Non fiable
   translated_vetted-label-vetted_id-5: Fiable
   translated_vetted-label-vetted_id-6: Inapproprié
+  translated_view_styles-name-view_style_id-1: Liste
+  translated_view_styles-name-view_style_id-2: Galerie
+  translated_view_styles-name-view_style_id-3: Annoté
   translated_visibilities-label-visibility_id-0: Invisible
   translated_visibilities-label-visibility_id-1: Visible
   translated_visibilities-label-visibility_id-2: Aperçu

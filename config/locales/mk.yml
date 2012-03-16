@@ -511,6 +511,7 @@ mk:
   article_more_about: Повеќе за статијава
   article_not_associated_with_any_published_entries: Оваа статија не е поврзана со ниеден објавен таксон.
   article_of: Статија на
+  article_of_taxon: Статија за %{taxon_name}
   article_rating: Оценка на статијата
   articles_in_languages_with_count: 
     one: "Статиите на страницава се достапни на %{count} јазик:"
@@ -1563,12 +1564,14 @@ mk:
   image_map_from_supplier: Карта од %{whom}
   image_map_not_associated_with_any_published_entries: Оваа карта не е поврзана со ниеден објавен таксон.
   image_map_of: Карта на
+  image_map_of_taxon: Карта на %{taxon_name}
   image_map_rating: Оценка на картата
   image_not_associated_with_any_published_entries: Оваа слика не е поврзана со ниеден објавен таксон.
   image_not_found: Сликата не е пронајдена
   image_object: Сликовен објект
   image_objects_will_contain_two_mediaurl_elements: Објектите кои се слики ќе содржат два елемента mediaURL - првиот е URL-адреса на сликата на мрежното место на добавувачот, а вториот е URL-адреса на кешираната верзија вдомена на опслужувачот на EOL. Верзијата на EOL ќе биде со изменета големина (запазувајќи ја сразмерноста) ако изворната слика е поголема од 460 пиксели во ширина и 345 пиксели во висина.
   image_of: Слика од
+  image_of_taxon: Слика од %{taxon_name}
   image_rating: Оценка на сликата
   images: Слики
   images_in_red_are_not_trusted: Сликите со црвено се недоверливи.
@@ -1689,6 +1692,9 @@ mk:
   license_public_domain: Јавна сопственост
   licensing: Лиценцирање
   limits_the_number_of_returned_image_objects: го ограничува бројот на добиени слики од пребарувањето
+  limits_the_number_of_returned_iucn_objects: вклучи го објектот за статус на Црвениот список на МСЗП
+  limits_the_number_of_returned_map_objects: го ограничува бројот на добиени картографски објекти од пребарувањето
+  limits_the_number_of_returned_sound_objects: го ограничува бројот на добиени аудиоснимки од пребарувањето
   limits_the_number_of_returned_text_objects: го ограничува бројот на добиени текстови од пребарувањето
   limits_the_number_of_returned_video_objects: го ограничува бројот на добиени видеоснимки од пребарувањето
   link_name: Име на врската
@@ -1732,6 +1738,7 @@ mk:
   map_from_supplier: Карта од %{whom}
   map_not_associated_with_any_published_entries: Оваа карта не е поврзана со ниеден објавен таксон.
   map_of: Карта на
+  map_of_taxon: Карта на %{taxon_name}
   map_rating: Оценка на картата
   maps_empty: Досега никој нема поставено карти на оваа страница.
   maps_empty_contribute_instructions: Дознајте како да придонесувате на EOL со карти.
@@ -2313,6 +2320,7 @@ mk:
   sound_not_associated_with_any_published_entries: Оваа аудиоснимка не е поврзана со ниеден објавен таксон.
   sound_object: Звучен објект
   sound_of: Звук на
+  sound_of_taxon: Аудиоснимка од %{taxon_name}
   sound_rating: Оценка на звукот
   sounds_with_count: 
     one: "%{count} звук"
@@ -2385,7 +2393,7 @@ mk:
           meta_title: Кустоси на %{scientific_name} според класификацијата на %{hierarchy_provider}
           meta_title_with_common_name: Стручњаци за %{preferred_common_name} (%{scientific_name} според класификацијата на %{hierarchy_provider})
           tweet_text: Кустоси на %{scientific_name} според класификацијата на %{hierarchy_provider}
-        meta_description_with_common_name: Стручњаците на %{preferred_common_name} ги надгледуваат податоците за %{preferred_common_name} (%{scientific_name}).
+        meta_description_with_common_name: Стручњаците за %{preferred_common_name} (стручњаци за %{scientific_name}) кои ги надгледуваат податоците за овој таксон во Енциклопедијата на живиот свет.
         meta_keywords: Стручњаци за %{scientific_name}, Кустоси на %{scientific_name}
         meta_keywords_with_common_name: Стручаци за %{preferred_common_name}, Кустоси на %{preferred_common_name}, Стручњаци за %{scientific_name}, Кустоси на %{scientific_name}
         meta_title: Кустоси на %{scientific_name}
@@ -2923,6 +2931,7 @@ mk:
   video_not_associated_with_any_published_entries: Оваа видеоснимка не е поврзана со ниеден објавен таксон.
   video_object: Видео објект
   video_of: Видео од
+  video_of_taxon: Видеоснимка од %{taxon_name}
   video_rating: Оценка на видеото
   video_title_not_available_in_language: Насловот не е достапен на %{language}
   videos_with_count: 

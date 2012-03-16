@@ -67,29 +67,18 @@ de:
   translated_contact_roles-label-contact_role_id-1: Hauptkonakt
   translated_contact_roles-label-contact_role_id-2: Administrativer Kontakt
   translated_contact_roles-label-contact_role_id-3: Technischer Kontakt
-  translated_contact_subjects-title-contact_subject_id-1: Medienkontakt (Interviews, Bildanforderungen)
-  translated_contact_subjects-title-contact_subject_id-10: Inhalt
-  translated_contact_subjects-title-contact_subject_id-11: Technische Probleme (Schwierigkeiten mit der Website, der Suchfunktion oder den Nutzerkonten)
-  translated_contact_subjects-title-contact_subject_id-12: Anderes
-  translated_contact_subjects-title-contact_subject_id-13: Unterstützung durch Kuratoren
-  translated_contact_subjects-title-contact_subject_id-14: Anfrage zum Hochladen von Bildern
-  translated_contact_subjects-title-contact_subject_id-15: Korrektur durchführen (Bilder, Rechtschreibung und Grammatik, Informationen)
-  translated_contact_subjects-title-contact_subject_id-16: Rückmeldung zum gesamten Projekt
-  translated_contact_subjects-title-contact_subject_id-17: Finanziell Unterstützen
-  translated_contact_subjects-title-contact_subject_id-18: Ein Inhaltepartner werden
-  translated_contact_subjects-title-contact_subject_id-19: Rückmeldung an die mit Arten befassten Gruppe
-  translated_contact_subjects-title-contact_subject_id-2: Beiträge
-  translated_contact_subjects-title-contact_subject_id-20: Unterstützung für Inhaltepartner
-  translated_contact_subjects-title-contact_subject_id-21: Eine Nachricht an Cynthia Parr von der mit Arten befassten Gruppe senden
-  translated_contact_subjects-title-contact_subject_id-22: Quellen zum Golf von Mexiko
-  translated_contact_subjects-title-contact_subject_id-23: Eine Nachricht an Eli Agbayani senden
-  translated_contact_subjects-title-contact_subject_id-3: Lernen und Bildung
-  translated_contact_subjects-title-contact_subject_id-4: Seiten kuratieren
-  translated_contact_subjects-title-contact_subject_id-5: Klassifikation
-  translated_contact_subjects-title-contact_subject_id-6: Bioinformatische Forschung
-  translated_contact_subjects-title-contact_subject_id-7: Biologische Forschung
-  translated_contact_subjects-title-contact_subject_id-8: Pflanzenbiologie
-  translated_contact_subjects-title-contact_subject_id-9: Biodiversity Heritage Library (BHL)
+  translated_contact_subjects-title-contact_subject_id-24: Mitgliedschaft und Registrierung
+  translated_contact_subjects-title-contact_subject_id-25: Nutzungsbedingungen und Lizenzierung
+  translated_contact_subjects-title-contact_subject_id-26: Lernen und Bildung
+  translated_contact_subjects-title-contact_subject_id-27: Ein Inhaltepartner werden
+  translated_contact_subjects-title-contact_subject_id-28: Unterstützung für Inhaltspartner
+  translated_contact_subjects-title-contact_subject_id-29: Unterstützung für Kuratoren
+  translated_contact_subjects-title-contact_subject_id-30: Eine Korrektur vornehmen (Rechtschreibung und Grammatik, Bilder, Informationen)
+  translated_contact_subjects-title-contact_subject_id-31: Bilder, Videos und Geräusche beitragen
+  translated_contact_subjects-title-contact_subject_id-32: Medienanfragen (Interviews, Presseanfragen, Logoanforderungen)
+  translated_contact_subjects-title-contact_subject_id-33: Eine finanzielle Unterstützung gewähren
+  translated_contact_subjects-title-contact_subject_id-34: Technische Fragen (Probleme mit der Suchfunktion, der Funktionalität der Website)
+  translated_contact_subjects-title-contact_subject_id-35: Allgemeine Rückmeldungen
   translated_content_partner_statuses-label-content_partner_status_id-1: Ausstehend
   translated_content_partner_statuses-label-content_partner_status_id-2: Aktiv
   translated_content_partner_statuses-label-content_partner_status_id-3: Archiviert
@@ -263,6 +252,11 @@ de:
   translated_synonym_relations-label-synonym_relation_id-61: objektives Synonym
   translated_synonym_relations-label-synonym_relation_id-62: Senior Synonym
   translated_synonym_relations-label-synonym_relation_id-63: nicht akzeptiert
+  translated_synonym_relations-label-synonym_relation_id-64: ungültig
+  translated_synonym_relations-label-synonym_relation_id-65: Gattungssynonym
+  translated_synonym_relations-label-synonym_relation_id-66: Alternative Darstellung
+  translated_synonym_relations-label-synonym_relation_id-67: Anfragen zu Arten
+  translated_synonym_relations-label-synonym_relation_id-68: Gartenbau
   translated_synonym_relations-label-synonym_relation_id-7: GenBank - Akronym
   translated_synonym_relations-label-synonym_relation_id-8: GenBank - Anamorph
   translated_synonym_relations-label-synonym_relation_id-9: GenBank - Allgemeiner Name
@@ -361,6 +355,9 @@ de:
   translated_vetted-label-vetted_id-4: Nicht vertrauenswürdig
   translated_vetted-label-vetted_id-5: Vertrauenswürdig
   translated_vetted-label-vetted_id-6: Ungeeignet
+  translated_view_styles-name-view_style_id-1: Liste
+  translated_view_styles-name-view_style_id-2: Galerie
+  translated_view_styles-name-view_style_id-3: Annotiert
   translated_visibilities-label-visibility_id-0: Nicht sichtbar
   translated_visibilities-label-visibility_id-1: Sichtbar
   translated_visibilities-label-visibility_id-2: Vorschau

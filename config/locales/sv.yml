@@ -71,6 +71,8 @@ sv:
         collections_count: Samlingar
         communities_count: Gemenskaper
         content_partners: Innehållspartners
+        content_partners_with_published_resources: Med publicerade resurser
+        content_partners_with_published_trusted_resources: Med publicerade betrodda resurser
         created_at: Skapades den
         curators: Kuratorer
         data_objects: Dataobjekt
@@ -84,6 +86,7 @@ sv:
         data_objects_untrusted: Obetrodda dataobjekt
         data_objects_videos: Videoobjekt
         members_count: Medlemmar
+        newly_published_resources_in_the_last_30_days: Nyligen publicerade under den senaste månaden
         pages_count: Totalt antal sidor
         pages_with_at_least_a_trusted_object: Sidor med betrodda objekt
         pages_with_content: Sidor med innehåll
@@ -99,6 +102,8 @@ sv:
         pages_without_image: Sidor utan bild
         pages_without_text: Sidor utan text
         published_resources: Publicerade resurser
+        published_trusted_resources: Publicerade betrodda resurser
+        published_unreviewed_resources: Publicerade ogranskade resurser
       harvest_event: 
         resource: Resurs
       hierarchy: 

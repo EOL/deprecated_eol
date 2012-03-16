@@ -2,7 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Rancher
-sr-el: 
+sr-CS: 
   translated_activities-name-activity_id-19: profil
   translated_activities-name-activity_id-50: nepoverljivo
   translated_activities-name-activity_id-51: prikaži
@@ -66,29 +66,6 @@ sr-el:
   translated_contact_roles-label-contact_role_id-1: Glavni kontakt
   translated_contact_roles-label-contact_role_id-2: Administrativni kontakt
   translated_contact_roles-label-contact_role_id-3: Tehnički kontakt
-  translated_contact_subjects-title-contact_subject_id-1: Kontakt za medije (intervjui, zahtevi za slike)
-  translated_contact_subjects-title-contact_subject_id-10: Sadržaj
-  translated_contact_subjects-title-contact_subject_id-11: Tehnički problemi (poteškoće sa sajtom, alatka za pretragu ili korisnički nalozi)
-  translated_contact_subjects-title-contact_subject_id-12: Drugo
-  translated_contact_subjects-title-contact_subject_id-13: Podrška za kustose
-  translated_contact_subjects-title-contact_subject_id-14: Zahtevanje za otpremanje slika
-  translated_contact_subjects-title-contact_subject_id-15: Pravljenje ispravke (slike, pravopis i gramatika, podaci)
-  translated_contact_subjects-title-contact_subject_id-16: Opšte mišljenje o projektu
-  translated_contact_subjects-title-contact_subject_id-17: Dobrovoljan novčani prilog
-  translated_contact_subjects-title-contact_subject_id-18: Postanite partner za sadržaj
-  translated_contact_subjects-title-contact_subject_id-19: Mišljenje o grupi sa stranicama za vrste
-  translated_contact_subjects-title-contact_subject_id-2: Doprinosi
-  translated_contact_subjects-title-contact_subject_id-20: Podrška za partnere za sadržaj
-  translated_contact_subjects-title-contact_subject_id-21: Poruka za Sintiju Par od Grupe sa stranicama za vrste
-  translated_contact_subjects-title-contact_subject_id-22: Resursi o Meksičkom zalivu
-  translated_contact_subjects-title-contact_subject_id-23: Slanje poruke za Eli Agbajani
-  translated_contact_subjects-title-contact_subject_id-3: Učenje i obrazovanje
-  translated_contact_subjects-title-contact_subject_id-4: Kustosiranje stranica
-  translated_contact_subjects-title-contact_subject_id-5: Klasifikacija
-  translated_contact_subjects-title-contact_subject_id-6: Bioinformatičko istraživanje
-  translated_contact_subjects-title-contact_subject_id-7: Biološko istraživanje
-  translated_contact_subjects-title-contact_subject_id-8: Botanika
-  translated_contact_subjects-title-contact_subject_id-9: Literatura i Biblioteka o bioraznovrsnosti nasleđa
   translated_content_partner_statuses-label-content_partner_status_id-1: Na čekanju
   translated_content_partner_statuses-label-content_partner_status_id-2: Aktivno
   translated_content_partner_statuses-label-content_partner_status_id-3: Arhivirano

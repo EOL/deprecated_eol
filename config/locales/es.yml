@@ -9,6 +9,7 @@
 # Author: Fitoschido
 # Author: McDutchie
 # Author: Mor
+# Author: Rbcastroc
 # Author: Sampalahnuk
 # Author: Toliño
 # Author: Vivaelcelta
@@ -332,6 +333,7 @@ es:
   activity_user_untrust_unknown_name_to_taxon: <strong>%{user}</strong>ha marcado un nombre común como no fiable para "%{taxon}".
   activity_user_untrusted_data_object: <strong>%{user}</strong> marcó "%{object_name}" sin confieanza.
   activity_user_untrusted_named_association: <strong>%{user}</strong> marcó una asociación entre "%{object_name}" y "%{name}" como no fiable.
+  activity_user_untrusted_older_data_object: <strong>%{user}</strong> marcó %{object_name} como no confiable.
   activity_user_untrusted_unknown_object: <strong>%{user}</strong> marcó un objeto desconocido con confianza.
   activity_user_untrusted_unknown_object_association: <strong>%{user}</strong> marcó una asociación entre un objeto desconocido y "%{name}" como no fiable.
   activity_user_updated_text: <strong>%{user}</strong> actualizado "%{object_name}" texto en "%{taxon_concept}".
@@ -518,9 +520,14 @@ es:
   assistive_overview_header: Visión general
   assistive_taxon_community_header: Comunidad
   assistive_updates_header: Actualizaciones
+  assistive_updates_statistics_header: Estadísticas de la página
   associated_submit_button: asociado
+  associated_with_article_header: En este artículo
   associated_with_header: Asociado con
   associated_with_image_header: En esta imagen
+  associated_with_image_map_header: En este mapa
+  associated_with_map_header: En este mapa
+  associated_with_sound_header: En este audio
   associated_with_video_header: En este vídeo
   associations_more_link: más <span class="assistive">asociaciones de taxón</span>
   attribute: Atributo
@@ -534,6 +541,7 @@ es:
   audio_stop: stop
   audio_stop_assistive: Con Javascript activado este enlace le permitirá dejar un archivo de audio adyacentes que se está reproduciendo, en caso contrario por favor, ignora este enlace.
   audio_unmute: restablecer sonido
+  author_of_peer_reviewed_publication_credential_option: autoría de una publicación revisada por pares (proporcionar referencia)
   authoritative_information: información autorizada
   average_rating_value_of_total: Promedio de calificacio'n %{rating} of %{total}
   back_to_profile: Regresar al perfil
@@ -613,10 +621,10 @@ es:
   collections_filter: Colecciones
   collections_link: Colecciones
   collections_page_title: Colecciones
-  collections_summary_header_with_count:
-    one: "Presente en %{count} colección"
+  collections_summary_header_with_count: 
+    one: Presente en %{count} colección
     other: Presente en %{count} colecciones
-  collections_with_count:
+  collections_with_count: 
     one: "%{count} Colección"
     other: "%{count} Colecciones"
   comment: Comentario
@@ -719,6 +727,10 @@ es:
   content_partner_data_description_empty: Nadie ha añadido una descripción de los datos facilitados.
   content_partner_data_description_header: Descripción de los datos
   content_partner_edit_link: Editar socio de contenido
+  content_partner_filter_option_published_latest_harvest_not_published: Últimos inéditos
+  content_partner_filter_option_published_latest_harvest_pending_publish: Última pendiente de publicar
+  content_partner_filter_option_published_latest_harvest_published: Últimas publicadas
+  content_partner_filter_option_published_never_published: Nunca publicado
   content_partner_filter_option_vetted_no: 'No'
   content_partner_filter_option_vetted_yes: Sí
   content_partner_has_unpublished_content_false: No hay contenido inédito
@@ -832,7 +844,9 @@ es:
   create_user_unsuccessful_error: Lo sentimos, ha ocurrido un error, su nueva cuenta no se ha creado. Asegúrese de que todos los campos se completen correctamente.
   created: Creado
   created_at: Creado
+  created_by: Creado por
   created_colon: "Creado:"
+  created_community: La comunidad se ha actualizado correctamente.
   creative_commons: Creative Commons
   credentials: Credenciales
   curated: Curada
@@ -895,8 +909,8 @@ es:
   default_focus_collection_name_from_community: "%{name}'s enfoque"
   default_watch_collection_name: "%{username}'s lista de vigilancia"
   delete: borra
-  deleted_colon: "borrado:"
   delete_community: Borrar esta comunidad
+  deleted_colon: "borrado:"
   description: Descripción
   description_of: Descripción de
   descriptive_label: Etiqueta descriptiva
@@ -986,33 +1000,33 @@ es:
   filter_button: Filtrar
   filter_by_status: Filtrar por estado
   filter_by_status_all_option: Todos los estados
-  filter_by_type_all_option_with_count:
-    one: "Todos los tipos (%{count})"
-    other: "Todos los tipos (%{count})"
   filter_by_status_inappropriate_option: Inapropiado
   filter_by_status_trusted_option: De confianza
   filter_by_status_unreviewed_option: Sin revisar
   filter_by_status_untrusted_option: No es de confianza
   filter_by_type: Filtrar por tipo
   filter_by_type_all_option: Todos los tipos
+  filter_by_type_all_option_with_count: 
+    one: Todos los tipos (%{count})
+    other: Todos los tipos (%{count})
   filter_by_type_collection_option: Colecciones
   filter_by_type_community_option: Comunidades
   filter_by_type_image_option: Imágenes
-  filter_by_type_image_option_with_count:
-    one: "Imágenes (%{count})"
-    other: "Imágenes (%{count})"
+  filter_by_type_image_option_with_count: 
+    one: Imágenes (%{count})
+    other: Imágenes (%{count})
   filter_by_type_photosynth_option: Fotosíntesis
   filter_by_type_sound_option: Sonidos
-  filter_by_type_sound_option_with_count:
-    one: "Sonidos (%{count})"
-    other: "Sonidos (%{count})"
+  filter_by_type_sound_option_with_count: 
+    one: Sonidos (%{count})
+    other: Sonidos (%{count})
   filter_by_type_taxon_concept_option: Taxones
   filter_by_type_text_option: Artículos
   filter_by_type_user_option: Personas
   filter_by_type_video_option: Vídeos
-  filter_by_type_video_option_with_count:
-    one: "Vídeos (%{count})"
-    other: "Vídeos (%{count})"
+  filter_by_type_video_option_with_count: 
+    one: Vídeos (%{count})
+    other: Vídeos (%{count})
   filter_media: filtrar medios
   filtered_information: Información filtrada
   find_taxa_submit_button: Encontrar taxones
@@ -1057,6 +1071,7 @@ es:
         view_style_id: Vista predeterminada
       collection_item: 
         annotation: Anotación
+        refs: Referencias <small>(poner cada referencia en una nueva línea)</small>
         sort_field: Ordenar por <small>(date AAAA.MM.DD, número, o texto)</small>
         sort_field_show: "Valor de tipo:"
       comment: 
@@ -1214,6 +1229,7 @@ es:
         update: Guardar artículo
       eol_statistic: 
         download_csv: Descargar como CSV
+      filter_sort: Filtrar y ordenar
       harvest_event: 
         publish: Publicar
       hierarchy: 
@@ -1270,7 +1286,7 @@ es:
   image_of: Imagen de
   image_rating: Evaluación de la imagen
   images: Imágenes
-  images_with_count:
+  images_with_count: 
     one: "%{count} Imagen"
     other: "%{count} Imágenes"
   import_once: Importar una vez
@@ -1466,6 +1482,7 @@ es:
   no_active_members: No ha habido suficiente actividad todavía.
   no_items_were_copied_to_collections_error: Nimgún elemento fue copiado a las colecciones:%{names}.
   no_record_found_matching_your_criteria: Ningún registro encontrado coincide con sus criterios.
+  no_related_names: Ninguno de los nombres se ha relacionado con este taxón todavía.
   no_tasks_found: No encontró tareas
   no_user_submitted_data_objects: No hay objetos de datos enviados por el usuario que coincidan con sus criterios de búsqueda.
   none: ninguno
@@ -1624,8 +1641,8 @@ es:
   punctuation_semi_colon: ;
   quarterly: Trimestral
   rank_recognized_by_agent: "%{rank} reconocidas por %{agent}"
-  rank_recognized_by_from_source: "%{rank} reconocidas por %{agent} in %{source}"
   rank_recognized_by_agent_colon: "<b>%{rank}</b> reconocidas por %{agent}:"
+  rank_recognized_by_from_source: "%{rank} reconocidas por %{agent} in %{source}"
   rated_by_count_people: 
     one: de %{count} persona
     other: de %{count} personas
@@ -1687,13 +1704,13 @@ es:
   see_all_classifications_with_count_html: 
     one: Ver <span class="assistive">%{count} clasificación aprobada en la que aparece este taxón.</span>
     other: Ver todas <span class="assistive">las %{count} clasificaciones aprobadas en las que aparece este taxón.</span>
-  see_all_collections_with_count_html:
+  see_all_collections_with_count_html: 
     one: Ver <span class="assistive">%{count} colección en la que aparece este taxón.</span>
     other: Ver todas <span class="assistive">las %{count} colecciones en las que aparece este taxón.</span>
-  see_all_communities_with_count_html:
+  see_all_communities_with_count_html: 
     one: Ver la <span class="assistive">%{count} comunidad que tiene como foco este taxón.</span>
     other: Ver todas <span class="assistive">las %{count} comunidades que tienen como foco este taxón.</span>
-  see_all_featured_collections_with_count:
+  see_all_featured_collections_with_count: 
     one: Mira el %{count} colección especial.
     other: Mira los %{count} colecciónes especiales.
   see_all_media_link: Ver todos los medios
@@ -1884,6 +1901,59 @@ es:
           tweet_text: Contenido multimedia sobre %{scientific_name} tal como fue clasificado por %{hierarchy_provider}
         meta_description: Imágenes y vídeos de %{scientific_name}.
         meta_description_with_common_name: Imágenes y vídeos de %{preferred_common_name} también conocido como %{scientific_name}.
+        meta_keywords: Fotografías de %{scientific_name}, videos de %{scientific_name}, imágenes de %{scientific_name}, cortos de %{scientific_name}, fotos of %{scientific_name}, multimedia
+        meta_keywords_with_common_name: Fotos de %{preferred_common_name}, videos de %{preferred_common_name}, imágenes de %{preferred_common_name}, videos de %{preferred_common_name}, fotos de % {preferred_common_name}, medios de comunicación
+        meta_title: Fotos & Video de %{preferred_common_name} (%{scientific_name})
+        meta_title_with_common_name: Fotos & Video de %{preferred_common_name} (%{scientific_name})
+        tweet_text: Medios de %{scientific_name}
+    names: 
+      common_names: 
+        hierarchy_entry: 
+          meta_description: Nombres vernáculos asociados a %{scientific_name} según han sido clasificados por %{hierarchy_provider}.
+          meta_description_with_common_name: Un nombre vernáculo para %{scientific_name} es %{preferred_common_name}. Averiguar qué otros nombres vernáculos se asocian con %{scientific_name} según han sido clasificados por %{hierarchy_provider}.
+          meta_keywords: Nombres vernáculos para %{scientific_name}
+          meta_keywords_with_common_name: Nombre científico de %{preferred_common_name}, nombres vernáculos de %{scientific_name}
+          meta_title: Nombres vernáculos de %{scientific_name} según han sido clasificados por %{hierarchy_provider}
+          meta_title_with_common_name: Nombres vernáculos de %{preferred_common_name} (%{scientific_name} según han sido clasificados por %{hierarchy_provider})
+          tweet_text: Nombres comunes de %{scientific_name} según han sido clasificados por %{hierarchy_provider}
+        meta_description: Nombres comunes de %{scientific_name}.
+        meta_description_with_common_name: El nombre científico de %{preferred_common_name} es %{scientific_name}. Averiguar cuáles son los otros nombres comunes de %{scientific_name}.
+        meta_keywords: Nombres comunes de %{scientific_name}
+        meta_keywords_with_common_name: Nombres comunes de %{scientific_name}, Nombre científico de %{preferred_common_name}
+        meta_title: Nombres comunes de %{scientific_name}
+        meta_title_with_common_name: Nombres comunes de %{preferred_common_name} (%{scientific_name})
+        tweet_text: Nombres comunes de %{scientific_name}.
+      index: 
+        hierarchy_entry: 
+          meta_description: Taxonomía, jerarquías de clasificación y nombres científicos relacionados para %{scientific_name} según han sido clasificados por %{hierarchy_provider}.
+          meta_description_with_common_name: Taxonomía, jerarquías de clasificación y nombres científicos de %{preferred_common_name}, también llamado %{scientific_name} como ha sido clasificado por %{hierarchy_provider}.
+          tweet_text: Nombres relacionados con %{scientific_name} según han sido clasificados por %{hierarchy_provider}
+        meta_description: Clasificación taxonomica y nombres científicos de %{scientific_name}.
+        meta_description_with_common_name: Clasificación taxonomica y nombres científicos para %{preferred_common_name}, también llamado %{scientific_name}.
+        meta_title: Nombres relacionados con %{scientific_name}
+        meta_title_with_common_name: Nombres relacionados con %{preferred_common_name} (%{scientific_name})
+        tweet_text: Nombres relacionados con %{scientific_name}
+      synonyms: 
+        hierarchy_entry: 
+          meta_description: Sinónimos asociados a %{scientific_name} según han sido clasificados por %{hierarchy_provider}.
+          meta_description_with_common_name: Sinónimos asociados con %{scientific_name} según han sido clasificados por %{hierarchy_provider}, comúnmente conocido como %{preferred_common_name}.
+          meta_keywords: Sinónimos de %{scientific_name}
+          meta_keywords_with_common_name: Sinónimos de %{preferred_common_name} % Sinónimos de %{scientific_name}
+    overviews: 
+      show: 
+        meta_keywords_with_common_name: "%{scientific_name} reconocido por %{hierarchy_provider}"
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})"
+        tweet_text: Visión general de %{scientific_name}
+    resources: 
+      identification_resources: 
+        meta_title: Recursos de identificación de %{scientific_name}
+        meta_title_with_common_name: Recursos de identificación de %{preferred_common_name} (%{scientific_name})
+        tweet_text: Recursos de identificación de %{scientific_name}
+      nucleotide_sequences: 
+        meta_title: Secuencias de nucleótidos de %{scientific_name}
+      show: 
+        hierarchy_entry: 
+          meta_keywords: proveedores de datos de %{scientific_name}, datos de origen de %{scientific_name}
   taxa_column_header: Taxones
   taxon: taxón
   taxon_biomedical_terms_link: Términos biomédicos
@@ -1947,7 +2017,7 @@ es:
   this_sound_is_unpublished: Este sonido no ha sido publicado.
   this_video_cannot_be_curated_because_unpublished: Este vídeo no puede ser supervisado porque no ha sido publicado.
   this_video_is_unpublished: Este vídeo no ha sido publicado.
-  time_ago: "hace %{time_passed}"
+  time_ago: hace %{time_passed}
   title: Título
   to_process_your_donation_please_proceed: Para procesar su donación, por favor siga
   toc: TDC

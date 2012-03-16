@@ -34,6 +34,12 @@ ms:
         logo: Gambar utama himpunan
         name: Nama himpunan
         sort_style_id: Arah isihan asali
+      collection_item: 
+        annotation: Anotasi
+        refs: Rujukan
+        sort_field: Isih mengikut
+      comment: 
+        body: Komen
       community: 
         description: Keterangan komuniti
         logo: Muat naik logo
@@ -62,6 +68,8 @@ ms:
         created_at: Dicipta pada
         signed_by: Ditandatangani oleh
         signed_on_date: Ditandatangani pada tarikh
+      content_partner_contact: 
+        email_reports_frequency_hours: Kekerapan laporan e-mel
       data_object: 
         bibliographic_citation: Petikan bibliografi
         description: Keterangan
@@ -69,6 +77,59 @@ ms:
         rights_holder: Pemegang hak
         rights_statement: Pernyataan hak-hak
         source_url: URL sumber
+      eol_statistic: 
+        active_curators: Kurator aktif
+        collections_count: Himpunan
+        communities_count: Komuniti
+        content_partners: Rakan kongsi kandungan
+        content_partners_with_published_resources: Bersumber terbitan
+        content_partners_with_published_trusted_resources: Bersumber terbitan yang dipercayai
+        created_at: Dibuat pada
+        curator_actions_in_the_last_30_days: Tindakan kurator pada 30 hari terkini
+        curators: Kurator
+        curators_assistant: Kurator pembantu
+        curators_full: Kurator penuh
+        curators_master: Kurator pakar
+        data_objects: Objek data
+        data_objects_images: Objek gambar
+        data_objects_maps: Objek peta
+        data_objects_sounds: Objek audio
+        data_objects_texts: Objek teks
+        data_objects_trusted: Objek data yang dipercayai
+        data_objects_trusted_or_unreviewed_but_hidden: Dipercayai atau belum diperiksa, tetapi disorokkan
+        data_objects_unreviewed: Objek data yang belum diperiksa
+        data_objects_untrusted: Objek data yang tidak dipercayai
+        data_objects_videos: Objek video
+        marine_pages: Halaman marin
+        marine_pages_in_col: Halaman marin yang ditemui dalam CoL
+        marine_pages_with_objects: Halaman marin berobjek data
+        marine_pages_with_objects_vetted: Halaman marin berobjek data yang dipercayai
+        members_count: Ahli
+        newly_published_resources_in_the_last_30_days: Terbitan terbaru dalam sebulan terakhir
+        objects_curated_in_the_last_30_days: Objek yang dikurasi pada 30 hari terkini
+        pages_count: Jumlah halaman
+        pages_curated_by_active_curators: Halaman-halaman yang dibuat oleh kurator aktif
+        pages_with_BHL_links: Halaman berpautan BHL
+        pages_with_BHL_links_no_text: Halaman berpautan BHL tanpa teks
+        pages_with_BHL_links_only: Halaman berpautan BHL sahaja
+        pages_with_at_least_a_curatorial_action: Halaman bertindakan kurator
+        pages_with_at_least_a_trusted_object: Halaman berobjek dipercayai
+        pages_with_content: Halaman berkandungan
+        pages_with_image: Halaman bergambar
+        pages_with_image_no_text: Halaman bergambar tanpa teks
+        pages_with_map: Halaman berpeta
+        pages_with_sound: Halaman beraudio
+        pages_with_text: Halaman berteks
+        pages_with_text_no_image: Halaman berteks tanpa gambar
+        pages_with_video: Halaman bervideo
+        pages_without_image: Halaman tanpa gambar
+        pages_without_text: Halaman tanpa teks
+        published_resources: Sumber terbitan
+        published_trusted_resources: Sumber terbitan yang dipercayai
+        published_unreviewed_resources: Sumber terbitan yang belum diperiksa
+        udo_published: Teks serahan pengguna
+        udo_published_by_curators: Teks serahan kurator
+        udo_published_by_non_curators: Teks serahan bukan kurator
       harvest_event: 
         resource: Sumber
       hierarchy: 
@@ -109,6 +170,7 @@ ms:
         api_key: Kunci API
         bio: Bio
         credentials: Bukti kelayakan
+        curator_level: Tahap kurator
         curator_scope: Skop kurasi
         email: Alamat e-mel
         entered_password: Kata laluan
@@ -304,6 +366,14 @@ ms:
   admin_translated_content_page_update_successful_notice: Terjemahan %{language} untuk <a href="#%{anchor}"><em>%{page_name}</em></a> telah dikemas kini.
   admin_translated_content_page_update_unsuccessful_error: Maaf, berlakunya ralat, terjemahan tidak dapat dikemaskinikan.
   admin_user_delete_successful_notice: Pengguna telah dihapuskan
+  admins: 
+    statistics: 
+      content_partner: 
+        page_header: Statistik Rakan Kongsi Kandungan
+      curator: 
+        page_header: Statistik Kurator
+      data_object_link: Objek data
+      index_link: Statistik keseluruhan
   agent: Ejen
   all: semua
   all_apis_return_by_default_an_xml_response: "Semua API memulangkan respons XML secara asali. Kaedah-kaedah API itu boleh dipanggil tanpa sambungan format untuk mendapatkan respons XML. Penambahan sambungan XML akan mendapatkan respons yang serupa:"
@@ -458,6 +528,12 @@ ms:
   collection_updated_notice: Himpunan <em>%{collection_name}</em> berjaya dikemas kini.
   collection_was_added_to_community: "\"%{collection}\" telah ditambahkan kepada komuniti ini."
   collection_was_removed_by_owner: Himpunan ini telah dibuang oleh pemiliknya.
+  collections: 
+    newsfeeds: 
+      show: 
+        meta_keywords: Berita %{collection_name}
+        meta_title: Berita %{collection_name}
+        tweet_text: Berita %{collection_name}
   collections_summary_empty: Halaman ini belum ada dalam sebarang himpunan.
   collections_summary_header_with_count: Terdapat dalam %{count} himpunan
   collections_with_count: "%{count} Himpunan"
@@ -653,6 +729,11 @@ ms:
   content_partner_status_empty: Status tidak diketahui
   content_partner_update_successful_notice: Butiran rakan kongsi berjaya dikemas kini.
   content_partner_update_unsuccessful_error: Maaf, berlakunya ralat, butiran rakan kongsi tidak dapat dikemas kini.
+  content_partners: 
+    statistics: 
+      show: 
+        meta_title: Statistik %{partner_name}
+        tweet_text: statistik penggunaan %{partner_name}
   content_partners_empty: Tiada rakan kongsi kandungan dijumpai.
   content_partners_page_description: Rakan-rakan kongsi kandungan Encyclopedia of Life mempunyai sejumlah besar maklumat biodiversiti di tapak web atau pangkalan data sendiri yang juga dikongsikan di halaman-halaman EOL. Kami amat menghargai sumbangan penting mereka kepada misi EOL serta menggalakkan anda untuk lebih mengenali mereka. Ketahui lebih lanjut tentang <a href="%{more_url}">menjadi rakan kongsi kandungan.</a>
   content_partners_page_title: Rakan Kongsi Kandungan
@@ -923,6 +1004,13 @@ ms:
     label: 
       collection: 
         view_style_id: Paparan asali
+      collection_item: 
+        annotation: Anotasi
+        refs: Rujukan <small>(letakkan setiap rujukan di baris baru)</small>
+        sort_field: Isih mengikut <small>(tarikh YYYY.MM.DD, nombor, atau teks)</small>
+        sort_field_show: "Nilai isih:"
+      comment: 
+        body_edit: Sunting komen
       content_page: 
         active: Diterbitkan
         active_more: Halaman-halaman yang diterbitkan akan boleh dilihat oleh khalayak umum. Padamkan rait pada <em>diterbitkan</em> jika anda tidak mahu pengguna am membaca laman ini dalam sebarang versi bahasa.
@@ -948,6 +1036,8 @@ ms:
       content_partner_agreement: 
         mou_url: URL fail persetujuan <small>(alternatif pilihan)</small>
         mou_url_more: Anda juga boleh mengisikan URL pada fail yang mengandungi persetujuan rakan kongsi ini. Fail ini akan membatalan sebarang teks persetujuan lain yang ada. Jika anda ingin menyimpan fail itu (cth. fail PDF) dalam pelayan kandungan EOL, mula-mula <a href="%{upload_content_url}">muat naik fail</a> berkenaan untuk memperoleh URL-nya.
+      content_partner_contact: 
+        email_reports_frequency_hours_more: Laporan e-mel dihantar hanya jika terdapat komen-komen atau tindakan-tindakan kurator pada data anda, ataupun pada halaman-halaman takson yang relevan dengan set data anda.
       data_object: 
         bibliographic_citation: Petikan bibliografi
         description: Teks <small>(sedikit penanda HTML dibenarkan)</small>
@@ -959,6 +1049,8 @@ ms:
         rights_statement: Pernyataan hak-hak
         source_url: URL ke objek data asal
         toc_item: Bab kecil
+      eol_statistic: 
+        download_all: Semua <small>(termasuk rekod dari semua halaman)</small>
       google_analytics_partner_summaries: 
         page_views: Kunjungan halaman <small>(bilangan kunjungan ke halaman)</small>
         taxa_pages: Halaman <small>(bilangan halaman)</small>
@@ -1047,6 +1139,8 @@ ms:
     select: 
       prompt: Sila pilih
     submit: 
+      collection_item: 
+        update: Simpan
       content_page: 
         create: Buat halaman
         edit: Sunting
@@ -1068,6 +1162,9 @@ ms:
         create: Buat rencana
         create_text: Buat rencana
         update: Simpan rencana
+      eol_statistic: 
+        download_csv: Muat turun dalam bentuk CSV
+      filter_sort: Tapis dan isih
       harvest_event: 
         publish: Terbitkan
       hierarchy: 
@@ -1272,6 +1369,11 @@ ms:
   media_summary_empty_contribute_instructions: Pelajari cara menyumbangkan gambar kepada EOL.
   media_with_count: "%{count} Media"
   member_of: ahli
+  members: 
+    index: 
+      meta_keywords: Ahli-ahli %{community_name}
+      meta_title: Ahli-ahli %{community_name}
+      tweet_text: Ahli-ahli %{community_name}
   members_like_you: Ahli seperti anda
   members_with_count: "%{count} ahli"
   members_with_count_semi_colon: "%{count} ahli;"
@@ -1572,8 +1674,8 @@ ms:
   see_all_classifications_with_count_html: <span class="assistive">%{count} pengelasan lulus yang ada takson ini.</span>
   see_all_collections_with_count_html: <span class="assistive">%{count} himpunan yang ada takson ini.</span>
   see_all_comments_with_count_for_text_or_rate: 
-    one: lihat %{count} untuk rencana ini atau berikan penilaian kepadanya
-    other: lihat semua %{count} untuk rencana ini atau berikan penilaian kepadanya
+    one: lihat %{count} komen untuk rencana ini atau berikan penilaian kepadanya
+    other: lihat kesemua %{count} komen untuk rencana ini atau berikan penilaian kepadanya
   see_all_communities_with_count_html: Lihat <span class="assistive">%{count} komuniti yang bertumpu pada takson ini.</span>
   see_all_featured_collections_with_count: 
     one: Lihat %{count} himpunan pilihan.
@@ -1591,6 +1693,9 @@ ms:
   send: Hantar
   send_email_colon: "Hantar e-mel:"
   server_ip_address: Alamat IP Pelayan
+  sessions: 
+    new: 
+      meta_title: Log masuk
   set_as_exemplar: Jadikan contoh
   show: Tunjukkan
   show_data_from_all_content_partners: Gugurkan penapis pengelasan

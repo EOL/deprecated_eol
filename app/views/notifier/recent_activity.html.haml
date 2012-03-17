@@ -1,10 +1,3 @@
--# NOTE = there are five classes that one of the @notes could be:
-  Comment
-  CollectionActivityLog
-  CommunityActivityLog
-  CuratorActivityLog
-  DataObject
-  ...You may want to know that when you're trying to construct I18n names or the like.
 - content_for :title do
   -# Grrr.  This is a lot of ugly code just to get a "nice" title... but it is /is/ nice, when there's only one note:
   - if @notes.length == 1
@@ -26,44 +19,12 @@
   - when Comment
     = render(:partial => 'notifier/recent_activity/comment', :locals => { :who => note.user.full_name, :what => note.parent.summary_name, :body => note.body, :comment_link => link_to_item(Kernel.const_get(note.parent_type).find(note.parent_id), :host => $EMAIL_HOST) })
   - when CollectionActivityLog
-    %p
-      - if note.activity_id == Activity.collect.id
-        - if note.collection_item.object.id == @user.id
-          = t(".collection_activity_user_watching_recipient", :user_name => note.user.full_name)
-        - else
-          = t(".collection_activity_user_added_item", :user_name => note.user.full_name,
-            :collection_item_type => note.collection_item.object_type,
-            :collection_item_id => note.collection_item.object.id,
-            :collection_name => note.collection.name)
-      - else
-        = t(".collection_activity_by_user", :user_name => note.user.full_name,
-          :activity_name => note.activity.name, :collection_name => note.collection.name)
+    = render(:partial => 'notifier/recent_activity/collection_activity_log', :note => note)
   - when CommunityActivityLog
-    %p
-      - if note.activity_id == Activity.join.id
-        = t(".community_activity_user_joined", :user_name => note.user.full_name, :community_name => note.community.name)
-      - elsif note.activity_id == Activity.leave.id
-        = t(".community_activity_user_left", :user_name => note.user.full_name, :community_name => note.community.name)
-      - elsif note.activity_id == Activity.add_manager.id
-        = t(".community_activity_user_made_member_a_manager", :user_name => note.user.full_name,
-          :member_name => note.member.user.full_name, :community_name => note.community.name)
-      - else
-        = t(".community_activity_by_user", :user_name => note.user.full_name,
-          :activity_name => note.activity.name, :community_name => note.community.name)
+    = render(:partial => 'notifier/recent_activity/community_activity_log', :note => note)
   - when CuratorActivityLog
-    %p
-      - if note.data_object
-        = t(".curator_activity_on_data_object_by_user", :user_name => note.user.full_name,
-          :activity_name => note.activity.name, :dato_title => note.data_object.best_title,
-          :dato_type => note.data_object.data_type.label, :dato_id => note.data_object.id)
-      - elsif note.taxon_concept
-        = t(".curator_activity_on_taxon_concept_by_user", :user_name => note.user.full_name,
-          :activity_name => note.activity.name, :taxon_concept => note.taxon_concept.title,
-          :taxon_overview_url => taxon_overview_url(note.taxon_concept.id))
+    = render(:partial => 'notifier/recent_activity/curator_activity_log', :note => note)
   - when DataObject
-    %p
-      = t(".data_object_activity_article_added_by_user", :user_name => note.user.full_name,
-        :dato_title => note.data_object.best_title, :taxon_concept => note.taxon_concept.title,
-        :taxon_details_url => taxon_details_url(note.taxon_concept.id))
+    = render(:partial => 'notifier/recent_activity/data_object', :note => note)
   - else
     - raise EOL::Exceptions::UnknownFeedType

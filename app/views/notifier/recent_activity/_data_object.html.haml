@@ -1,0 +1,4 @@
+%p
+  = t(".data_object_activity_article_added_by_user", :user_name => note.user.full_name,
+    :dato_title => note.data_object.best_title, :taxon_concept => note.taxon_concept.title,
+    :taxon_details_url => taxon_details_url(note.taxon_concept.id))

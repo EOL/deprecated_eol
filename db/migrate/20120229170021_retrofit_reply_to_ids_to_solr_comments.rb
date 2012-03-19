@@ -10,8 +10,12 @@ class RetrofitReplyToIdsToSolrComments < ActiveRecord::Migration
     # worried about performance.  OBVIOSULY, Solr needs to be restarted before this migration can run.)
     solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_ACTIVITY_LOGS_CORE)
     Comment.find_by_sql("SELECT * FROM comments WHERE reply_to_id IS NOT NULL AND created_at > 2011-12-1").each do |c|
-      solr_connection.delete_by_query("activity_log_unique_key:Comment_#{c.id}")
-      c.log_activity_in_solr
+      begin
+        solr_connection.delete_by_query("activity_log_unique_key:Comment_#{c.id}")
+        c.log_activity_in_solr
+      rescue
+        # containing_collections may be nil in some casees, this avoids that.  ...I hope.
+      end
     end
   end
 

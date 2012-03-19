@@ -11,7 +11,7 @@ class Users::NewsfeedsController < UsersController
       format.html {
         @page = params[:page] || 1
         @parent = @user # for new comment form
-        @user_activity_log = @user.activity_log(:page => @page, :filter => @filter)
+        @user_activity_log = @user.activity_log(:news => true, :page => @page, :filter => @filter)
         # reset last-seen dates:
         # QUESTION: if they see this all newsfeed, doesn't that mean they also see their new messages i.e. last_message_at should be updated too?
         # QUESTION: what if they only see page 1 of their latest notifications?

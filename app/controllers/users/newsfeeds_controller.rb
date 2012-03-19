@@ -5,11 +5,13 @@ class Users::NewsfeedsController < UsersController
     @user = user
     redirect_if_user_is_inactive
     preload_user_associations
+    @filter = params[:filter] || 'all'
+    @filters = ['all', 'messages', 'community', 'collections', 'watchlist', 'curation']
     respond_to do |format|
       format.html {
         @page = params[:page] || 1
         @parent = @user # for new comment form
-        @user_activity_log = @user.activity_log(:news => true, :page => @page)
+        @user_activity_log = @user.activity_log(:page => @page, :filter => @filter)
         # reset last-seen dates:
         # QUESTION: if they see this all newsfeed, doesn't that mean they also see their new messages i.e. last_message_at should be updated too?
         # QUESTION: what if they only see page 1 of their latest notifications?
@@ -41,16 +43,6 @@ class Users::NewsfeedsController < UsersController
         render :text => I18n.t(:user_pending_notifications_comments_with_count_assistive, :count => user.message_count)
       end
     end
-  end
-
-  # GET /users/:user_id/newsfeed/activity
-  def activity
-    # TODO: activity is presumably newsfeed minus comments
-    @parent = user # for new comment form
-    @user_activity_log = []
-    @rel_canonical_href = user_newsfeed_url(user)
-    @rel_prev_href = rel_prev_href_params(@user_activity_log) ? activity_user_newsfeed_url(@rel_prev_href_params) : nil
-    @rel_next_href = rel_next_href_params(@user_activity_log) ? activity_user_newsfeed_url(@rel_next_href_params) : nil
   end
 
 protected

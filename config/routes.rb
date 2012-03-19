@@ -81,7 +81,7 @@ ActionController::Routing::Routes.draw do |map|
                              :pending_notifications => :get },
                 :collection => { :forgot_password => :get, :usernames => :get } do |user|
     user.resource :newsfeed, :only => [:show],
-                             :collection => { :comments => [:get], :activity => [:get] },
+                             :collection => { :comments => [:get] },
                              :controller => "users/newsfeeds"
     user.resource :notification, :only => [:edit, :update], :controller => "users/notifications"
     user.resource :activity, :only => [:show], :controller => "users/activities"

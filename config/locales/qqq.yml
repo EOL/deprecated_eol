@@ -114,3 +114,15 @@ qqq:
   names_children_column_header: "Refers to child elements in a hierarchy tree. 'Children' on EOL is almost always going to be in the context of a tree. So, any node in the tree will have parents, ancestors, children, and descendants."
   edit_the_topic_area_intro: "In this context, the 'topic area' is one text area, the 'email addresses' is another text area, and there is ONE checkbox (called 'active') to be checked. This last checkbox allows admins to add options at one point in time without having them show up, and then to quickly activate them later."
   list_newsletter_emails: "This is a link placed in the admin navigation sidebar that will list all of the email addresses for users who have signed up to receive the EOL newsletter."
+  filter_newsfeed_option_all: "This will be a value in a drop-down to allow users to show certain newsfeed item
+  types.  In this case, it allows the users to see messages related to: All (all items will be shown, no filtering)"
+  filter_newsfeed_option_messages: "This will be a value in a drop-down to allow users to show certain newsfeed
+  item types.  In this case, it allows the users to see messages related to: Messages"
+  filter_newsfeed_option_community: "This will be a value in a drop-down to allow users to show certain newsfeed
+  item types.  In this case, it allows the users to see messages related to: Community"
+  filter_newsfeed_option_collections: "This will be a value in a drop-down to allow users to show certain newsfeed
+  item types.  In this case, it allows the users to see messages related to: Collections"
+  filter_newsfeed_option_watchlist: "This will be a value in a drop-down to allow users to show certain newsfeed
+  item types.  In this case, it allows the users to see messages related to: Watchlist"
+  filter_newsfeed_option_curation: "This will be a value in a drop-down to allow users to show certain newsfeed
+  item types.  In this case, it allows the users to see messages related to: Curation"

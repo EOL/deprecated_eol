@@ -73,11 +73,20 @@ module EOL
     end
 
     def self.user_news_activities(source, options = {})
-      query = ""
-      if options[:filter] && options[:filter] == 'messages'
-        query = "activity_log_type:Comment AND (reply_to_id:#{source.id} OR (feed_type_affected:UserNews AND feed_type_primary_key:#{source.id}))"
-      else
-        query = "feed_type_affected:UserNews AND feed_type_primary_key:#{source.id}"
+      query = "feed_type_affected:UserNews AND feed_type_primary_key:#{source.id}"
+      if options[:filter]
+        case options[:filter]
+        when 'messages'
+          query = "activity_log_type:Comment AND (reply_to_id:#{source.id} OR (#{query}))"
+        when 'community'
+          query = "activity_log_type:CommunityActivityLog AND (#{query})"
+        when 'collections'
+          query = "activity_log_type:CollectionActivityLog AND (#{query})"
+        when 'watchlist'
+          query = "activity_log_type:NO_IDEA AND (#{query})"
+        when 'curation'
+          query = "activity_log_type:CurationActivityLog AND (#{query})"
+        end
       end
       if options[:after] && options[:after].respond_to?(:utc)
         query = "(#{query}) AND date_created:[#{options[:after].utc.strftime('%Y-%m-%dT%H:%M:%S')}Z TO NOW]"

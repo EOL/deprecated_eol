@@ -1,30 +1,31 @@
+-# NOTE / TODO - I couldn't get case statements using note.class to work; using note.class.name, however, works.
 - content_for :title do
   -# Grrr.  This is a lot of ugly code just to get a "nice" title... but it is /is/ nice, when there's only one note:
   - if @notes.length == 1
     - note = @notes.first
     - who = note.user.full_name
-    - case note.class
-    - when Comment
-      - if note.parent == @user
-        = I18n.t('.comment_title_your_newsfeed', :who => who)
+    - case note.class.name
+      - when 'Comment'
+        - if note.parent == @user
+          = I18n.t('.comment_title_your_newsfeed', :who => who)
+        - else
+          = t(".comment_title", :who => who, :what => note.parent.summary_name)
       - else
-        = t(".comment_title", :who => who, :what => note.parent.summary_name)
-    - else
-      = t(".#{note.class.name.underscore}_title", :who => who)
+        = t(".#{note.class.name.underscore}_title", :who => who)
   - else
     = t(".subject")
 %h1{:style => 'font-weight: normal;'}= I18n.t(:greeting_dear_name_with_comma, :name => @user.full_name, :scope => :notifier)
 - @notes.each do |note|
-  - case note.class
-  - when Comment
+  - case note.class.name
+  - when 'Comment'
     = render(:partial => 'notifier/recent_activity/comment', :locals => { :who => note.user.full_name, :what => note.parent.summary_name, :body => note.body, :comment_link => link_to_item(Kernel.const_get(note.parent_type).find(note.parent_id), :host => $EMAIL_HOST) })
-  - when CollectionActivityLog
+  - when 'CollectionActivityLog'
     = render(:partial => 'notifier/recent_activity/collection_activity_log', :note => note)
-  - when CommunityActivityLog
+  - when 'CommunityActivityLog'
     = render(:partial => 'notifier/recent_activity/community_activity_log', :note => note)
-  - when CuratorActivityLog
+  - when 'CuratorActivityLog'
     = render(:partial => 'notifier/recent_activity/curator_activity_log', :note => note)
-  - when DataObject
+  - when 'DataObject'
     = render(:partial => 'notifier/recent_activity/data_object', :note => note)
   - else
-    - raise EOL::Exceptions::UnknownFeedType
+    - raise EOL::Exceptions::UnknownFeedType.new("#{note.class.name} not known.")

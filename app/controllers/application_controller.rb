@@ -695,6 +695,25 @@ protected
   end
   helper_method :page_title
 
+  # NOTE - this is TOTALLY DUPLICATED from application_helper, because I CAN'T GET COLLECTIONS TO WORK.  WTF?!?
+  def link_to_item(item, options = {})
+    case item.class.name
+    when 'Collection'
+      collection_url(item, options)
+    when 'Community'
+      community_url(item, options)
+    when 'DataObject'
+      data_object_url(item, options)
+    when 'User'
+      user_url(item, options)
+    when 'TaxonConcept'
+      taxon_url(item, options)
+    else
+      raise EOL::Exceptions::ObjectNotFound
+    end
+  end
+
+
 private
 
   def find_ancestor_ids(taxa_ids)

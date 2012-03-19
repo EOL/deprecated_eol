@@ -7,13 +7,13 @@
     - case note.class.name
       - when 'Comment'
         - if note.parent == @user
-          = I18n.t('.comment_title_your_newsfeed', :who => who)
+          = I18n.t('notifier.recent_activity.comment_title_your_newsfeed', :who => who)
         - else
-          = t(".comment_title", :who => who, :what => note.parent.summary_name)
+          = t("notifier.recent_activity.comment_title", :who => who, :what => note.parent.summary_name)
       - else
-        = t(".#{note.class.name.underscore}_title", :who => who)
+        = t("notifier.recent_activity.#{note.class.name.underscore}_title", :who => who)
   - else
-    = t(".subject")
+    = t("notifier.default_subject")
 %h1{:style => 'font-weight: normal;'}= I18n.t(:greeting_dear_name_with_comma, :name => @user.full_name, :scope => :notifier)
 - @notes.each do |note|
   - case note.class.name

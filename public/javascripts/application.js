@@ -364,8 +364,6 @@ $(function() {
     }).not(":checked").closest("dt").next("dd").hide();
   })($("#content_partner_resources"));
 
-  EOL.get_notifications_counts();
-
 });
 
 (function($) {
@@ -507,20 +505,6 @@ EOL.initFacebook = function(app_id, channel_url) {
     _ga.trackFacebook();
   }
 };
-
-EOL.get_notifications_counts = function() {
-  $('#header .session > ul li').each(function() {
-    var $a = $(this).find('a');
-    if ($a != undefined) {
-      console.log($a);
-      $.ajax({
-        url: $a.attr('href'),
-        dataType: 'html',
-        success: function(response) { $a.html(response); }
-      });
-    }
-  });
-}
 
 EOL.load_social_plugins = function() {
   var facebook = "#{($ENABLED_SOCIAL_PLUGINS && $ENABLED_SOCIAL_PLUGINS.include?(:facebook)) ? true : nil}";

@@ -32,7 +32,7 @@ class Users::NewsfeedsController < UsersController
     respond_to do |format|
       format.html {
         @parent = user # for new comment form
-        @user_activity_log = user.messages(:page => params[:page] || 1)
+        @user_activity_log = user.activity_log(:news => true, :filter => 'messages', :page => params[:page] || 1)
         # reset last-seen dates:
         user.update_attribute(:last_message_at, Time.now) if user.id == current_user.id
         @rel_canonical_href = user_newsfeed_url(user)

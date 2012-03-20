@@ -862,11 +862,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     self.activity_log(:news => true, :after => User.find(self, :select => 'last_notification_at').last_notification_at).count
   end
 
-  # Note that this does not include the "after" date (and allows pagination); it's used for building the filtered view.
-  def messages(options)
-    self.activity_log(options.reverse_merge({:news => true, :filter => 'messages'}))
-  end
-
   def message_count
     self.activity_log(:news => true, :filter => 'messages', :after => User.find(self, :select => 'last_message_at').last_message_at).count
   end

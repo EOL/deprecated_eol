@@ -2195,7 +2195,7 @@ en:
   filter_by_status: "Filter by status"
   filtered_information: "Filtered information"
   filter_newsfeed_option_all: "All"
-  filter_newsfeed_option_messages: "Messages"
+  filter_newsfeed_option_messages: "Comments"
   filter_newsfeed_option_community: "Community"
   filter_newsfeed_option_collections: "Collections"
   filter_newsfeed_option_watchlist: "Watchlist"

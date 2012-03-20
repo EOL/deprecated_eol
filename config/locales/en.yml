@@ -1899,7 +1899,6 @@ en:
   dato_new_edit_user_text_form_tip: 'Your article will be marked as "unreviewed" until a curator reviews it. If you are a curator, your article will be posted directly to the taxon page. The Text field marked with a dot (%{required_icon}) is required.'
   dato_create_user_text_missing_taxon_id_exception: "Unable to build a text DataObject or UsersDataObject if taxon id is nil."
   dato_create_user_text_missing_user_exception: "Unable to build a text DataObject or UsersDataObject if taxon id is nil."
-  dato_create_update_user_text_missing_taxon_id_exception: "Unable to build a text DataObject or UsersDataObject if taxon_concept_id is missing."
   dato_create_user_text_validation_error: "Please ensure you have completed the form correctly."
   dato_update_users_text_not_owner_exception: "Only the original author of this text object may edit it."
   dato_edit_text_link_button: "Edit this article"

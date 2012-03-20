@@ -74,6 +74,9 @@ class DataObject < ActiveRecord::Base
   validates_presence_of :description, :if => :is_text?
   validates_length_of :rights_statement, :maximum => 300
 
+  before_validation :default_values
+  after_create :clean_values
+
   index_with_solr :keywords => [ :object_title ], :fulltexts => [ :description ]
 
   define_core_relationships :select => {
@@ -229,143 +232,30 @@ class DataObject < ActiveRecord::Base
     data_objects
   end
 
-  #----- user submitted text --------
-  # TODO: do we really need update_user_text and create_user_text methods?
-  # A lot of repetition, why do we need to set all these defaults here?
+  #----- user-submitted text --------
 
-  def self.update_user_text(all_params, user)
-    old_dato = DataObject.find(all_params[:id])
-    raise I18n.t(:dato_update_users_text_not_owner_exception) unless old_dato.user.id == user.id
-    taxon_concept = old_dato.taxon_concept_for_users_text
-    raise I18n.t(:dato_create_update_user_text_missing_taxon_id_exception) if taxon_concept.blank?
-
-    do_params = {
-      :guid => old_dato.guid,
-      :identifier => '',
-      :data_type_id => all_params[:data_object][:data_type_id],
-      :mime_type_id => MimeType.find_by_translated(:label, 'text/plain').id,
-      :location => '',
-      :latitude => 0,
-      :longitude => 0,
-      :altitude => 0,
-      :object_url => '',
-      :thumbnail_url => '',
-      :object_title => ERB::Util.h(all_params[:data_object][:object_title]), # No HTML allowed
-      :description => Sanitize.clean(all_params[:data_object][:description].balance_tags, Sanitize::Config::RELAXED), #.allow_some_html,
-      :language_id => all_params[:data_object][:language_id],
-      :license_id => all_params[:data_object][:license_id],
-      :rights_holder => ERB::Util.h(all_params[:data_object][:rights_holder]), # No HTML allowed
-      :rights_statement => ERB::Util.h(all_params[:data_object][:rights_statement]), # No HTML allowed
-      :bibliographic_citation => ERB::Util.h(all_params[:data_object][:bibliographic_citation]), # No HTML allowed
-      :source_url => ERB::Util.h(all_params[:data_object][:source_url]), # No HTML allowed
-      :published => 1,
-      :data_rating => old_dato.data_rating
-    }
-
-    # this is to support problems with things on version2 and prelaunch and will NOT be needed later:
-    do_params[:vetted_id] = Vetted.untrusted.id if DataObject.column_names.include?('vetted_id')
-    do_params[:visibility_id] = Visibility.visible.id if DataObject.column_names.include?('visibility_id')
-
-    new_dato = DataObject.new(do_params)
-    new_dato.toc_items << TocItem.find(all_params[:data_object][:toc_items][:id])
-
-    unless all_params[:references].blank?
-      all_params[:references].each do |reference|
-        if reference.strip != ''
-          new_dato.refs << Ref.new(:full_reference => reference, :user_submitted => true, :published => 1, :visibility => Visibility.visible)
-        end
-      end
+  def self.create_user_text(params, options)
+    dato = DataObject.new(params.reverse_merge!(:rights_holder => options[:user].full_name))
+    if dato.save
+      dato.toc_items = TocItem.find(options[:toc_id])
+      dato.from_user_for_taxon_concept(options[:user], options[:taxon_concept])
+      dato.update_solr_index
     end
+    dato
+  end
 
-    new_dato.save
-    return new_dato if new_dato.nil? || new_dato.errors.any?
-
-    # We need to set all previous revisions of this data object to unpublished
-    DataObject.update_all("published = 0", "id != #{new_dato.id} AND guid = '#{new_dato.guid}'")
-
-    no_current_but_new_visibility = Visibility.visible
-    current_or_new_vetted = old_dato.users_data_object.vetted
-    if user.is_curator? || user.is_admin?
-      if user.assistant_curator?
-        current_or_new_vetted = (current_or_new_vetted == Vetted.trusted) ? Vetted.trusted : Vetted.unknown
-      else
-        current_or_new_vetted = Vetted.trusted
-      end
-    else
-      current_or_new_vetted = Vetted.unknown
+  # NOTE - you probably want to check that the user performing this has rights to do so, before calling this.
+  def replicate(params, options)
+    new_dato = DataObject.new(params.reverse_merge!(:guid => self.guid))
+    if new_dato.save
+      new_dato.toc_items = TocItem.find(options[:toc_id])
+      new_dato.unpublish_previous_revisions
+      self.replicate_associations(new_dato)
+      new_dato.update_solr_index
     end
-
-    DataObjectsTaxonConcept.find_or_create_by_taxon_concept_id_and_data_object_id(taxon_concept.id, new_dato.id)
-
-    udo = UsersDataObject.create(:user => user, :data_object => new_dato, :taxon_concept => taxon_concept,
-                                 :visibility => no_current_but_new_visibility, :vetted => current_or_new_vetted)
-    new_dato.users_data_object = udo
-    new_dato.update_solr_index
-    # reindex the old object now that its unpublished
-    old_dato.published = 0
-    old_dato.update_solr_index
     new_dato
   end
 
-  def self.create_user_text(all_params, user, taxon_concept)
-
-    raise I18n.t(:dato_create_user_text_missing_user_exception) if user.nil?
-    raise I18n.t(:dato_create_user_text_missing_taxon_id_exception) if taxon_concept.blank?
-
-    if defined?(PhusionPassenger)
-      UUID.state_file(0664) # Makes the file writable, which we seem to need to do with Passenger...
-    end
-
-    rights_holder = ERB::Util.h(all_params[:data_object][:rights_holder])
-    rights_holder ||= user.full_name
-
-    do_params = {
-      :guid => UUID.generate.gsub('-',''),
-      :identifier => '',
-      :data_type_id => all_params[:data_object][:data_type_id],
-      :mime_type_id => MimeType.find_by_translated(:label, 'text/plain').id,
-      :location => '',
-      :latitude => 0,
-      :longitude => 0,
-      :altitude => 0,
-      :object_url => '',
-      :thumbnail_url => '',
-      :object_title => ERB::Util.h(all_params[:data_object][:object_title]), # No HTML allowed
-      :description => Sanitize.clean(all_params[:data_object][:description].balance_tags, Sanitize::Config::RELAXED), #.allow_some_html,
-      :language_id => all_params[:data_object][:language_id],
-      :license_id => all_params[:data_object][:license_id],
-      :rights_holder => rights_holder, # No HTML allowed
-      :rights_statement => ERB::Util.h(all_params[:data_object][:rights_statement]), # No HTML allowed
-      :bibliographic_citation => ERB::Util.h(all_params[:data_object][:bibliographic_citation]), # No HTML allowed
-      :source_url => ERB::Util.h(all_params[:data_object][:source_url]), # No HTML allowed
-      :published => 1
-    }
-
-    # this is to support problems with things on version2 and prelaunch and will NOT be needed later:
-    do_params[:vetted_id] = Vetted.untrusted.id if DataObject.column_names.include?('vetted_id')
-    do_params[:visibility_id] = Visibility.visible.id if DataObject.column_names.include?('visibility_id')
-
-    dato = DataObject.new(do_params)
-    dato.toc_items << TocItem.find(all_params[:data_object][:toc_items][:id])
-
-    unless all_params[:references].blank?
-      all_params[:references].each do |reference|
-        if reference.strip != ''
-          dato.refs << Ref.new(:full_reference => reference, :user_submitted => true, :published => 1, :visibility => Visibility.visible)
-        end
-      end
-    end
-
-    dato.save
-    return dato if dato.nil? || dato.errors.any?
-
-    DataObjectsTaxonConcept.find_or_create_by_taxon_concept_id_and_data_object_id(taxon_concept.id, dato.id)
-
-    default_vetted_status = user.min_curator_level?(:full) || user.is_admin? ? Vetted.trusted : Vetted.unknown
-    udo = UsersDataObject.create(:user => user, :data_object => dato, :taxon_concept => taxon_concept, :visibility => Visibility.visible, :vetted => default_vetted_status)
-    dato.update_solr_index
-    dato
-  end
 
   def created_by_user?
     user != nil
@@ -1082,6 +972,65 @@ class DataObject < ActiveRecord::Base
       end
     end
     logs_affected
+  end
+
+  def unpublish_previous_revisions
+    DataObject.find(:all, :conditions => "id != #{self.id} AND guid = '#{self.guid}'").each do |dato|
+      dato.update_attribute(:published, 0)
+      dato.update_solr_index
+    end
+  end
+
+  def replicate_associations(new_dato)
+    new_dato.users_data_object = users_data_object.replicate(new_dato)
+    DataObjectsTaxonConcept.find_or_create_by_taxon_concept_id_and_data_object_id(users_data_object.taxon_concept_id, new_dato.id)
+    curated_data_objects_hierarchy_entries.each do |cdohe|
+      CuratedDataObjectsHierarchyEntry.replicate(new_dato)
+    end
+  end
+
+  # Stores information in the DB telling us that a user created this dato specifically for a given TC:
+  def from_user_for_taxon_concept(user, taxon_concept)
+    DataObjectsTaxonConcept.find_or_create_by_taxon_concept_id_and_data_object_id(taxon_concept.id, self.id)
+    UsersDataObject.create(:user => user, :data_object => self,
+                           :taxon_concept => taxon_concept, :visibility => Visibility.visible)
+  end
+
+private
+
+  # NOTE - description required.
+  def default_values # Ideally, these would be in the DB, but I didn't want to take that step.  ...yet.
+    if defined?(PhusionPassenger)
+      UUID.state_file(0664) # Makes the file writable, which we seem to need to do with Passenger...
+    end
+    self.guid ||= UUID.generate.gsub('-','')
+    self.identifier ||= ''
+    self.data_type_id ||= DataType.text.id
+    self.mime_type_id ||= MimeType.find_by_translated(:label, 'text/plain').id
+    self.location ||= ''
+    self.latitude ||= 0
+    self.longitude ||= 0
+    self.altitude ||= 0
+    self.object_url ||= ''
+    self.thumbnail_url ||= ''
+    self.object_title ||= ''
+    self.language_id ||= Language.default.id
+    self.license_id ||= License.default.id
+    self.published ||= 1
+    self.rights_statement ||= ''
+    self.bibliographic_citation ||= ''
+    self.source_url ||= ''
+    self.data_rating ||= 2.5
+  end
+
+  def clean_values
+    # Some HTML Allowed:
+    self.description = Sanitize.clean(self.description.balance_tags, Sanitize::Config::RELAXED)
+    # No HTML Allowed:
+    self.rights_holder          = ERB::Util.h(self.rights_holder)
+    self.rights_statement       = ERB::Util.h(self.rights_statement)
+    self.bibliographic_citation = ERB::Util.h(self.bibliographic_citation)
+    self.source_url             = ERB::Util.h(self.source_url)
   end
 
 end

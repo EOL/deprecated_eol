@@ -21,6 +21,9 @@ class License < ActiveRecord::Base
   def self.public_domain
     cached_find(:title, 'public domain')
   end
+  class << self
+    alias default public_domain
+  end
   
   def self.cc
     cached_find(:title, 'cc-by 3.0')

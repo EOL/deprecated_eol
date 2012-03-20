@@ -36,6 +36,6 @@ facebook:
     :token_url: '/oauth/access_token'
   authorize_url_params:
     :response_type: 'code'
-    :scope: 'email,offline_access'
+    :scope: 'email'
   access_token_params:
     :parse: :facebook

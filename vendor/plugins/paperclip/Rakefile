@@ -1,6 +1,6 @@
 require 'rake'
 require 'rake/testtask'
-require 'rake/rdoctask'
+require 'rdoc/task'
 require 'rake/gempackagetask'
 
 $LOAD_PATH << File.join(File.dirname(__FILE__), 'lib')
@@ -23,7 +23,7 @@ task :shell do |t|
 end
 
 desc 'Generate documentation for the paperclip plugin.'
-Rake::RDocTask.new(:rdoc) do |rdoc|
+RDoc::Task.new do |rdoc|
   rdoc.rdoc_dir = 'doc'
   rdoc.title    = 'Paperclip'
   rdoc.options << '--line-numbers' << '--inline-source'

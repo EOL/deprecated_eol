@@ -244,7 +244,7 @@ describe DataObject do
     dato_descr_before = @dato.description
     dato_descr_after  = @dato.description.balance_tags
 
-    dato_descr_after.should == 'That <b>description has unclosed <i>html tags</b></i>'
+    dato_descr_after.should == 'That <b>description has unclosed <i>html tags</i></b>'
   end
 
   it 'should close tags in references' do

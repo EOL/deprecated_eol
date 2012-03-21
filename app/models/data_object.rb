@@ -623,8 +623,7 @@ class DataObject < ActiveRecord::Base
     dato_association.visibility_id = Visibility.visible.id
     dato_association.vetted_id = Vetted.trusted.id
     dato_association.save!
-    self.published = 1
-    self.save!
+    self.update_attribute(:published, 1)
   end
 
   def visible_references(options = {})

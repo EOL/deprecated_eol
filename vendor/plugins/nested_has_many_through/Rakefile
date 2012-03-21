@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(rspec_base) if File.exist?(rspec_base) and !$LOAD_PATH.includ
 
 require 'spec/rake/spectask'
 require 'spec/rake/verify_rcov'
-require 'rake/rdoctask'
+require 'rdoc/task'
 
 plugin_name = File.basename(File.dirname(__FILE__))
 
@@ -54,7 +54,7 @@ task :rdoc => :doc
 task "SPECDOC" => "spec:doc"
 
 desc "Generate rdoc for #{plugin_name}"
-Rake::RDocTask.new(:doc) do |t|
+RDoc::Task.new do |t|
   t.rdoc_dir = 'doc'
   t.main     = 'README.rdoc'
   t.title    = "#{plugin_name}"

@@ -12,7 +12,7 @@ class UsersDataObject < ActiveRecord::Base
   belongs_to :vetted
   belongs_to :visibility
 
-  before_save :auto_vet
+  before_create :auto_vet
 
   def self.get_user_submitted_data_object_ids(user_id)
     if(user_id == 'All') then

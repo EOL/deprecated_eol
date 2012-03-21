@@ -246,7 +246,7 @@ class DataObject < ActiveRecord::Base
 
   # NOTE - you probably want to check that the user performing this has rights to do so, before calling this.
   def replicate(params, options)
-    new_dato = DataObject.new(params.reverse_merge!(:guid => self.guid))
+    new_dato = DataObject.new(params.reverse_merge!(:guid => self.guid, :published => 1))
     if new_dato.save
       new_dato.toc_items = TocItem.find(options[:toc_id])
       new_dato.unpublish_previous_revisions
@@ -984,7 +984,7 @@ class DataObject < ActiveRecord::Base
     new_dato.users_data_object = users_data_object.replicate(new_dato)
     DataObjectsTaxonConcept.find_or_create_by_taxon_concept_id_and_data_object_id(users_data_object.taxon_concept_id, new_dato.id)
     curated_data_objects_hierarchy_entries.each do |cdohe|
-      CuratedDataObjectsHierarchyEntry.replicate(new_dato)
+      cdohe.replicate(new_dato)
     end
   end
 
@@ -1015,7 +1015,7 @@ private
     self.object_title ||= ''
     self.language_id ||= Language.default.id
     self.license_id ||= License.default.id
-    self.published ||= 1
+    self.published = true if self.published.nil? # Note the logic MUST be different here!
     self.rights_statement ||= ''
     self.bibliographic_citation ||= ''
     self.source_url ||= ''

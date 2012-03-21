@@ -54,21 +54,17 @@ class ApplicationController < ActionController::Base
   
 
   # Continuously display a warning message.  This is used for things like "System Shutting down at 15 past" and the
-  # like.  And, yes, if there's a "real" error, they won't see the message because flash[:error] will be
-  # over-written.  But so it goes.  This is the final countdown.
+  # like.  And, yes, if there's a "real" error, they miss this message.  So what?
   def global_warning
     # using SiteConfigutation over an environment constant DOES require a query for EVERY REQUEST
     # but the table is tiny (<5 rows right now) and the coloumn is indexed. But it also gives us the flexibility
     # to display or remove a message within seconds which I think is worth it
-    warning = $CACHE.fetch("application/global_warning", :expires_in => 10.minutes) do
-      parameter = SiteConfigurationOption.find_by_parameter('global_site_warning')
-      if parameter && parameter.value
-        parameter.value
-      else
-        1
-      end
+    # NOTE (!) if you set this value and don't see it change in 10 minutes, CHECK YOUR SLAVE LAG. It reads from slaves.
+    warning = $CACHE.fetch("application/global_site_warning", :expires_in => 10.minutes) do
+      sco = SiteConfigurationOption.find_by_parameter('global_site_warning') rescue nil
+      sco.try(:value)
     end
-    if warning && warning.class == String
+    unless warning.blank?
       flash.now[:error] = warning
     end
   end

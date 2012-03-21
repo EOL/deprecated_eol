@@ -16,14 +16,17 @@ class Administrator::CuratorController < AdminController
     @additional_javascript = ['application', 'admin-curator', 'temp']
 
     only_unapproved_condition = ' curator_approved = 0 AND ' if @only_unapproved
-    clade_condition = "credentials != '' OR curator_scope!= ''"
+    
+    curator_level_ids = CuratorLevel.all.collect{ |c| c.id }.join(",")
+    if_curator = "(curator_level_id IN (#{curator_level_ids}))"
+    requested_curatorship = "(requested_curator_level_id IN (#{curator_level_ids}))"
 
     # We search six fields, so we need to pass six values.  TODO - this is likely silly and could be improved.
-    condition = "(#{clade_condition}) AND #{only_unapproved_condition} (email like ? OR username like ? OR given_name like ? OR identity_url like ? OR family_name like ? OR username like ?)"
+    condition = "(#{if_curator} OR #{requested_curatorship}) AND #{only_unapproved_condition} (email like ? OR username like ? OR given_name like ? OR identity_url like ? OR family_name like ? OR username like ?)"
     conditions = [condition, search_string_parameter, search_string_parameter, search_string_parameter,
       search_string_parameter, search_string_parameter, search_string_parameter]
 
-    @users = User.paginate(:conditions => conditions, :include => :curator_level, :order => 'curator_approved ASC, created_at DESC',:page => params[:page])
+    @users = User.paginate(:conditions => conditions, :include => :curator_level, :order => 'requested_curator_at DESC, curator_approved ASC',:page => params[:page])
     @user_count = User.count(:conditions => conditions)
   end
 

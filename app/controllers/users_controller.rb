@@ -43,6 +43,9 @@ class UsersController < ApplicationController
     redirect_to curation_privileges_user_path(@user), :status => :moved_permanently and return if params[:commit_curation_privileges_get]
     generate_api_key and return if params[:commit_generate_api_key]
     unset_auto_managed_password if params[:user][:entered_password]
+    if (requested_curator_level_id = params[:user][:requested_curator_level_id]) && requested_curator_level_id.to_i != @user.requested_curator_level_id && requested_curator_level_id.to_i != @user.curator_level_id
+      params[:user][:requested_curator_at] = Time.now
+    end
     user_before_update = @user
     if @user.update_attributes(params[:user])
       # not using alter_current_user because it doesn't allow for validation checks
@@ -371,7 +374,7 @@ private
   end
 
   def authentication_only_allow_editing_of_self
-    @user = User.find(params[:id])
+    @user = User.find(params[:id] || params[:user_id])
     raise EOL::Exceptions::SecurityViolation, "User with ID=#{current_user.id} does not have edit access to User with ID=#{@user.id}" unless current_user.can_update?(@user)
   end
 

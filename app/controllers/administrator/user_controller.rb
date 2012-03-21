@@ -126,7 +126,8 @@ class Administrator::UserController  < AdminController
   def update
 
     @user = User.find(params[:id])
-    was_curator = @user.full_curator? || @user.master_curator?
+    past_curator_level_id = @user.curator_level_id
+    
     @message = params[:message]
 
     Notifier.deliver_user_message(@user.full_name, @user.email, @message) unless @message.blank?
@@ -143,11 +144,13 @@ class Administrator::UserController  < AdminController
     end
 
     if @user.update_attributes(user_params)
-      if params[:curator_denied]
+      if params[:curator_denied] || params[:user][:curator_level_id].blank?
         @user.revoke_curator
       else
-        if EOLConvert.to_boolean(params[:user][:curator_approved]) && !was_curator
-          @user.grant_curator(:full, :by => current_user)
+        if params[:user][:curator_level_id] != past_curator_level_id
+          @user.update_attributes(:curator_verdict_by => current_user,
+                                  :curator_verdict_at => Time.now,
+                                  :curator_approved => 1)
         end
       end
       @user.add_to_index

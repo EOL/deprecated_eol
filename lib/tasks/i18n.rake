@@ -501,6 +501,8 @@ namespace :i18n do
   desc 'Task to import db translations in db'
   task (:import_db_translations => :environment) do
     def load_language_keys(lang_abbr)
+      filename = File.join([RAILS_ROOT, "config", "locales", lang_abbr + "-db.yml"])
+      return nil unless File.exists?(filename)
       temp_yml = YAML.load_file(File.join([RAILS_ROOT, "config", "locales", lang_abbr + "-db.yml"]))
       return temp_yml[lang_abbr] || temp_yml.values.last # this || fixes a bug with Arabic.  Not sure why.
     end
@@ -584,6 +586,7 @@ namespace :i18n do
       if (lang_id != 0)
         puts "processing " + lang + " file"
         lang_keys = load_language_keys(lang)
+        next if lang_keys.blank?
         lang_keys.each do |pair|
           (key, val) = pair
           (table_name, column_name, identity_column_name, field_id) = key.split(db_field_delim)

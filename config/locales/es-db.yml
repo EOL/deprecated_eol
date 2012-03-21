@@ -132,7 +132,7 @@ es:
   translated_ranks-label-rank_id-113: gen.
   translated_ranks-label-rank_id-118: género
   translated_ranks-label-rank_id-169: infraorden
-  translated_ranks-label-rank_id-175: infraespecies
+  translated_ranks-label-rank_id-175: infraespecie
   translated_ranks-label-rank_id-183: reino
   translated_ranks-label-rank_id-266: orden
   translated_ranks-label-rank_id-280: filo
@@ -142,7 +142,7 @@ es:
   translated_ranks-label-rank_id-324: serie
   translated_ranks-label-rank_id-332: ES
   translated_ranks-label-rank_id-333: es.
-  translated_ranks-label-rank_id-335: especies
+  translated_ranks-label-rank_id-335: especie
   translated_ranks-label-rank_id-352: sub-familia
   translated_ranks-label-rank_id-370: subclase
   translated_ranks-label-rank_id-375: subdivisión
@@ -169,8 +169,8 @@ es:
   translated_ranks-label-rank_id-517: variedades
   translated_ranks-label-rank_id-518: variedad
   translated_ranks-label-rank_id-562: nothogénero
-  translated_ranks-label-rank_id-563: nothoespecies
-  translated_ranks-label-rank_id-564: nothosubespecies
+  translated_ranks-label-rank_id-563: nothoespecie
+  translated_ranks-label-rank_id-564: nothosubespecie
   translated_ranks-label-rank_id-565: nothovariedad
   translated_ranks-label-rank_id-74: división
   translated_ranks-label-rank_id-85: f
@@ -361,6 +361,9 @@ es:
   translated_vetted-label-vetted_id-4: Sin confianza
   translated_vetted-label-vetted_id-5: De confianza
   translated_vetted-label-vetted_id-6: Inapropiado
+  translated_view_styles-name-view_style_id-1: "Lista"
+  translated_view_styles-name-view_style_id-2: "Galería"
+  translated_view_styles-name-view_style_id-3: "Con anotaciones"
   translated_visibilities-label-visibility_id-0: Invisible
   translated_visibilities-label-visibility_id-1: Visible
   translated_visibilities-label-visibility_id-2: Previsualizar

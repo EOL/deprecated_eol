@@ -2,8 +2,6 @@ source 'http://rubygems.org'
 
 group :development, :test do
   gem 'faker'
-#  gem 'remi-rspec-custom-matchers'
-#  gem 'remi-indifferent-variable-hash'
   gem 'eol_scenarios'
   gem 'rspec', '1.3.0'
   gem 'rspec-rails'
@@ -11,6 +9,7 @@ group :development, :test do
   gem 'capybara', '0.3.9'
   gem 'daemons'
   gem 'optiflag'
+  gem 'ruby-prof'
 end
 
 gem 'mysql'
@@ -35,6 +34,5 @@ gem 'newrelic_rpm'
 gem 'memcache'
 gem 'unicorn', '4.1.1'
 gem 'graylog2_exceptions', '1.3.0'
-gem 'resque'
 gem 'oauth'
 gem 'oauth2'

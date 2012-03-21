@@ -1,4 +1,5 @@
 require 'uri'
+require 'ruby-prof'
 ContentPage # TODO - figure out why this fails to autoload.  Look at http://kballcodes.com/2009/09/05/rails-memcached-a-better-solution-to-the-undefined-classmodule-problem/
 
 class ApplicationController < ActionController::Base
@@ -37,23 +38,33 @@ class ApplicationController < ActionController::Base
     :allow_page_to_be_cached?, :link_to_item
 
   before_filter :set_locale
+  
+  around_filter :profile
+  
+  def profile
+    return yield if params[:profile].nil?
+    return yield if ![ 'v2staging', 'v2staging_dev', 'v2staging_dev_cache', 'development', 'test'].include?(ENV['RAILS_ENV'])
+    result = RubyProf.profile { yield }
+    printer = RubyProf::GraphPrinter.new(result)
+    out = StringIO.new
+    printer.print(out, 0)
+    response.body.replace out.string
+    response.content_type = "text/plain"
+  end
+  
 
   # Continuously display a warning message.  This is used for things like "System Shutting down at 15 past" and the
-  # like.  And, yes, if there's a "real" error, they won't see the message because flash[:error] will be
-  # over-written.  But so it goes.  This is the final countdown.
+  # like.  And, yes, if there's a "real" error, they miss this message.  So what?
   def global_warning
     # using SiteConfigutation over an environment constant DOES require a query for EVERY REQUEST
     # but the table is tiny (<5 rows right now) and the coloumn is indexed. But it also gives us the flexibility
     # to display or remove a message within seconds which I think is worth it
-    warning = $CACHE.fetch("application/global_warning", :expires_in => 10.minutes) do
-      parameter = SiteConfigurationOption.find_by_parameter('global_site_warning')
-      if parameter && parameter.value
-        parameter.value
-      else
-        1
-      end
+    # NOTE (!) if you set this value and don't see it change in 10 minutes, CHECK YOUR SLAVE LAG. It reads from slaves.
+    warning = $CACHE.fetch("application/global_site_warning", :expires_in => 10.minutes) do
+      sco = SiteConfigurationOption.find_by_parameter('global_site_warning') rescue nil
+      sco.try(:value)
     end
-    if warning && warning.class == String
+    unless warning.blank?
       flash.now[:error] = warning
     end
   end
@@ -681,6 +692,13 @@ protected
 
   # Set in before filter and frozen so we have an unmodified copy of request params for use in rel link tags
   def original_request_params
+    return @original_request_params if @original_request_params
+    if params[:controller] == 'search' && params[:action] == 'index' && params[:id]
+      if params[:q].blank?
+        params["q"] = params["id"]
+      end
+      params.delete("id")
+    end
     @original_request_params ||= params.clone.freeze # frozen because we don't want @original_request_params to be modified
   end
   

@@ -4,6 +4,7 @@
 # Author: Aswn
 # Author: Karthi.dr
 # Author: Shanmugamp7
+# Author: செல்வா
 ta: 
   translated_activities-name-activity_id-19: சுயவிவரம்
   translated_activities-name-activity_id-50: நம்பகமற்றது.
@@ -15,12 +16,15 @@ ta:
   translated_activities-name-activity_id-56: நீக்கு
   translated_activities-name-activity_id-57: விகிதம்
   translated_activities-name-activity_id-58: நம்பகமானது.
+  translated_activities-name-activity_id-59: மீள்பார்வையிடாதவை
   translated_activities-name-activity_id-63: சேகரி
   translated_activities-name-activity_id-64: நீக்கு
   translated_agent_roles-label-agent_role_id-1: உயிர்ப்பூட்டுபவர்
   translated_agent_roles-label-agent_role_id-10: திட்டம்
   translated_agent_roles-label-agent_role_id-11: வெளியீட்டாளர்
+  translated_agent_roles-label-agent_role_id-12: பதிவி
   translated_agent_roles-label-agent_role_id-13: மூலம்
+  translated_agent_roles-label-agent_role_id-14: மூலத் தரவுதளம்
   translated_agent_roles-label-agent_role_id-15: தொடர்புகொள்ள வேண்டிய நபர்
   translated_agent_roles-label-agent_role_id-16: பங்களிப்பாளர்
   translated_agent_roles-label-agent_role_id-2: எழுத்தாளர்
@@ -38,6 +42,7 @@ ta:
   translated_audiences-label-audience_id-1: நிபுணத்துவம் வாய்ந்த  பயனீட்டாளர்கள்
   translated_audiences-label-audience_id-2: பொதுமக்கள்
   translated_audiences-label-audience_id-3: குழந்தைகள்
+  translated_collection_types-label-collection_type_id-1: வகைப்பாட்டியல்
   translated_collection_types-label-collection_type_id-10: ஒலிகள்
   translated_collection_types-label-collection_type_id-11: இணைப்புகள்
   translated_collection_types-label-collection_type_id-12: இலக்கியம்
@@ -72,7 +77,12 @@ ta:
   translated_contact_subjects-title-contact_subject_id-15: (படங்கள், எழுத்துப்பிழை & இலக்கணம், தகவல்) ஆகியவற்றில்  திருத்தம் செய்
   translated_contact_subjects-title-contact_subject_id-16: ஒட்டுமொத்த திட்ட கருத்து
   translated_contact_subjects-title-contact_subject_id-17: ஒரு நிதி பங்களிப்பு செய்யவும்
+  translated_contact_subjects-title-contact_subject_id-18: உள்ளடக்கம் உருவாக்கும் பங்குபற்றுநர் ஆகுங்கள்
   translated_contact_subjects-title-contact_subject_id-2: பங்களிப்புகள்
+  translated_contact_subjects-title-contact_subject_id-20: உள்ளடக்கம் உருவாக்கும் பங்குபற்றுநர் உதவி
+  translated_contact_subjects-title-contact_subject_id-21: இனகங்கள் பக்கக் குழுவில் உள்ள சிந்தியா பார் அவர்களுக்கு செய்தி அனுப்புக
+  translated_contact_subjects-title-contact_subject_id-22: மெக்சிகோ வளைகுடா வளங்கள்
+  translated_contact_subjects-title-contact_subject_id-23: எலி அக்பயானிக்கு செய்தி அனுப்புக
   translated_contact_subjects-title-contact_subject_id-3: கற்றல் மற்றும் கல்வி
   translated_contact_subjects-title-contact_subject_id-5: வகைப்படுத்துதல்
   translated_contact_subjects-title-contact_subject_id-6: உயிரிதகவலியல் ஆய்வு
@@ -92,6 +102,8 @@ ta:
   translated_data_types-label-data_type_id-5: GBIF படம்
   translated_data_types-label-data_type_id-6: உலகளவிய இயற்கை பாகாப்பு ஒருங்கமைவு (IUCN)
   translated_data_types-label-data_type_id-8: YouTube
+  translated_licenses-description-license_id-1: காக்க உரிமைகள் ஏதும் இல்லை
+  translated_licenses-description-license_id-2: "&#169; எல்லா உரிமைகளும் காக்கப்பட்டுள்ளன"
   translated_licenses-description-license_id-29: சில உரிமைகள் பாதுகாக்கப்பட்டது
   translated_licenses-description-license_id-3: சில உரிமைகள் பாதுகாக்கப்பட்டது
   translated_licenses-description-license_id-30: சில உரிமைகள் பாதுகாக்கப்பட்டது
@@ -113,8 +125,14 @@ ta:
   translated_licenses-description-license_id-8: சில உரிமைகள் பாதுகாக்கப்பட்டது
   translated_licenses-description-license_id-9: சில உரிமைகள் பாதுகாக்கப்பட்டது
   translated_ranks-label-rank_id-106: படிவம்
+  translated_ranks-label-rank_id-112: பேரினம்
+  translated_ranks-label-rank_id-113: பேரினம்
+  translated_ranks-label-rank_id-118: பேரினம்
+  translated_ranks-label-rank_id-169: துணைவரிசை
+  translated_ranks-label-rank_id-175: துணையினம்
   translated_ranks-label-rank_id-183: பேரரசு
   translated_ranks-label-rank_id-266: வரிசை
+  translated_ranks-label-rank_id-280: திணை
   translated_ranks-label-rank_id-317: பிரிவு
   translated_ranks-label-rank_id-324: வரிசை
   translated_ranks-label-rank_id-335: இனம்
@@ -122,20 +140,31 @@ ta:
   translated_ranks-label-rank_id-370: துணை பிரிவு
   translated_ranks-label-rank_id-375: துணைப்பிரிவு
   translated_ranks-label-rank_id-383: துணைக்குடும்பம்
+  translated_ranks-label-rank_id-390: துணைப்பேரினம்
+  translated_ranks-label-rank_id-391: துணைப்பேரினம்
+  translated_ranks-label-rank_id-394: துணைப்பேரினம்
   translated_ranks-label-rank_id-396: துணைப்பேரரசுகள்
   translated_ranks-label-rank_id-399: துணைவரிசை
+  translated_ranks-label-rank_id-401: துணைத்திணை
   translated_ranks-label-rank_id-408: துணைப்பிரிவு
   translated_ranks-label-rank_id-411: துணைத்தொடர்கள்
+  translated_ranks-label-rank_id-415: சிற்றினங்கள்
+  translated_ranks-label-rank_id-463: மேற்குடும்பம்
+  translated_ranks-label-rank_id-472: மேற்திணை
+  translated_ranks-label-rank_id-503: வகைப்படுதாதவை
   translated_ranks-label-rank_id-51: வகுப்பு
   translated_ranks-label-rank_id-517: பல வகைகள்
   translated_ranks-label-rank_id-518: பல வகை
   translated_ranks-label-rank_id-74: பிரிவு
+  translated_ranks-label-rank_id-91: குடும்பம்
+  translated_ranks-label-rank_id-92: குடும்பம்
   translated_ranks-label-rank_id-99: குடும்பம்
   translated_resource_statuses-label-resource_status_id-1: பதிவேற்றப்படுகிறது
   translated_resource_statuses-label-resource_status_id-10: வெளியிடப்பட்டது
   translated_resource_statuses-label-resource_status_id-11: பிரசுரிப்பது நிலுவையில் உள்ளது
   translated_resource_statuses-label-resource_status_id-2: பதிவேற்றப்பட்டுவிட்டது
   translated_resource_statuses-label-resource_status_id-3: பதிவேற்றம் தோல்வியடைந்தது.
+  translated_resource_statuses-label-resource_status_id-4: உள்ளடக்க வழங்கிக்கு நகர்த்தப்பட்டுள்ளன
   translated_resource_statuses-label-resource_status_id-5: சரிபார்க்கப்பட்டது
   translated_resource_statuses-label-resource_status_id-6: செல்லத்தக்கதாக்குதல் தோல்வியடைந்தது
   translated_resource_statuses-label-resource_status_id-7: செயலாக்கப்படுகிறது
@@ -155,18 +184,42 @@ ta:
   translated_statuses-label-status_id-4: மறுபடியும் உபயோகிக்கப்பட்டது.
   translated_synonym_relations-label-synonym_relation_id-1: ஒரே பொருள் உடைய
   translated_synonym_relations-label-synonym_relation_id-12: சேர்க்கிறது
+  translated_synonym_relations-label-synonym_relation_id-13: பிழையானபெயர்
+  translated_synonym_relations-label-synonym_relation_id-14: எழுத்துப்பிழை
   translated_synonym_relations-label-synonym_relation_id-16: தெளிவற்ற இணை சொல்
+  translated_synonym_relations-label-synonym_relation_id-17: தவறாகப் பயன்படுத்தப்பட்டப் பெயர்
+  translated_synonym_relations-label-synonym_relation_id-18: தற்காலிகமாக ஏற்கப்பட்ட பெயர்
   translated_synonym_relations-label-synonym_relation_id-19: ஏற்றுக்கொள்ளப்பட்ட பெயர்
   translated_synonym_relations-label-synonym_relation_id-2: பொதுவான பெயர்
+  translated_synonym_relations-label-synonym_relation_id-20: தரவுதள விளைவு
+  translated_synonym_relations-label-synonym_relation_id-21: மற்றது, கருத்துகளைக் காண்
+  translated_synonym_relations-label-synonym_relation_id-22: எழுத்துக்கூட்டல் வேறுபாடு (எழுத்துப்பிழை)
+  translated_synonym_relations-label-synonym_relation_id-23: தவறாகப் பயன்படுத்தப்பட்டது
   translated_synonym_relations-label-synonym_relation_id-24: நிராகரிக்கப்பட்ட பெயர்
+  translated_synonym_relations-label-synonym_relation_id-27: தேவையில்லா மீள்பெயரீடு (தவறானது)
+  translated_synonym_relations-label-synonym_relation_id-28: வழக்கிழன்த பெயர்
   translated_synonym_relations-label-synonym_relation_id-3: சுருக்க பெயர்
+  translated_synonym_relations-label-synonym_relation_id-30: கிட்டவில்லை, தரவுதள விளைவு
+  translated_synonym_relations-label-synonym_relation_id-31: தேவையில்லா மாற்றம்
+  translated_synonym_relations-label-synonym_relation_id-32: அடுத்த பெயர்/தொடர்
+  translated_synonym_relations-label-synonym_relation_id-33: கிட்டவில்லை, துறையிலக்கியத்தில் பிழையான எழுத்துக்கூட்டல்
+  translated_synonym_relations-label-synonym_relation_id-34: முதலில் சூட்டிய பெயர்/தொடர்
+  translated_synonym_relations-label-synonym_relation_id-35: கிட்டவில்லை, தவறான முதல் எழுத்துக்கூட்டல்
+  translated_synonym_relations-label-synonym_relation_id-40: கிட்டவில்லை, மற்றவை
+  translated_synonym_relations-label-synonym_relation_id-41: கிட்டவில்லை, முறைநிறுவாத பெயர்
+  translated_synonym_relations-label-synonym_relation_id-43: முறைநிறுவா வெளியீடு, மற்றவை
+  translated_synonym_relations-label-synonym_relation_id-44: முறைநிறுவா வெளியீடு, நிறுவாப் பெயர்
   translated_synonym_relations-label-synonym_relation_id-48: கிடைக்கப்பெறாத பெயர்
   translated_synonym_relations-label-synonym_relation_id-49: செல்லத்தக்க பெயர்
+  translated_synonym_relations-label-synonym_relation_id-5: பிளாசிட்டுப் பெயர்
   translated_synonym_relations-label-synonym_relation_id-50: செல்லத்தக்கது
   translated_synonym_relations-label-synonym_relation_id-51: ஏற்றுக்கொள்ளப்பட்டது.
   translated_synonym_relations-label-synonym_relation_id-52: அதிகாரம்
+  translated_synonym_relations-label-synonym_relation_id-53: வெளியிடப்படாத பெயர்
   translated_synonym_relations-label-synonym_relation_id-55: சரியற்ற அதிகார விவரங்கள்
   translated_synonym_relations-label-synonym_relation_id-56: சரியற்ற எழுத்துகள்
+  translated_synonym_relations-label-synonym_relation_id-57: மாற்று எழுத்துக்கூட்டல்
+  translated_synonym_relations-label-synonym_relation_id-58: அகரமுதலி மாற்றுச்சொல்
   translated_synonym_relations-label-synonym_relation_id-6: இணையான பெயர்
   translated_synonym_relations-label-synonym_relation_id-63: ஏற்கப்படவில்லை
   translated_table_of_contents-label-table_of_contents_id-1: மேலோட்டம்

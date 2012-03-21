@@ -1,7 +1,5 @@
 class TocItem < ActiveRecord::Base
   set_table_name 'table_of_contents'
-  CACHE_ALL_ROWS = true
-  CACHE_ALL_ROWS_DEFAULT_INCLUDES = :info_items
   
   uses_translations(:foreign_key => 'table_of_contents_id')
   acts_as_tree :order => 'view_order'

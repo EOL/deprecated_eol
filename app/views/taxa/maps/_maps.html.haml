@@ -23,4 +23,4 @@
       so.write("map_image");
     %p
       = I18n.t(:gbif_occurrence_disclaimer)
-      = link_to I18n.t(:gbif_occurrence_learn_more_link), "http://data.gbif.org/species/#{taxon_concept.gbif_map_id}/"
+      = link_to I18n.t(:gbif_occurrence_learn_more_link), "http://data.gbif.org/species/#{taxon_concept.gbif_map_id}/", :rel => :nofollow

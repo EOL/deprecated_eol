@@ -492,7 +492,7 @@ es:
   are_you_sure_this_action_cannot_be_undone: ¿Estás seguro?  No se puede deshacer esta acción.
   article_from: artículo de
   article_from_supplier: Artículo de %{whom}
-  article_more_about: Apredé mas información sobre este artículo
+  article_more_about: Apreda más sobre este artículo
   article_not_associated_with_any_published_entries: Este artículo no está asociado con ninguno de los taxones publicados.
   article_of: Artículo de
   article_rating: Calificación del artículo
@@ -570,7 +570,7 @@ es:
   classification_tree_header: Clasificación
   classifications_summary_header_with_count: 
     one: "Encontrado en %{count} clasificación "
-    other: Encontrado en %{count} classifications
+    other: Encontrado en %{count} clasificaciones
   click_on_a_user_to_view_the_users_detailed_profile: Haga clic en un usuario para ver el perfil del usuario detallada, haga clic en las especies para ver la página donde existe el texto (utilice el botón Atrás del navegador para regresar aquí).
   click_on_a_username_to_view_the_users_detailed_profile: Haga clic en un nombre de usuario para ver el perfil detallado de ese usuario, haga clic en el tipo de datos para ver el objeto comentado (use el botón de "back" en su navegador para volver aquí), haga clic en "editar" para editar el comentario o haz clic en "borrar" para eliminar permanentemente el comentario.
   close_this_window_to_return_to_edit_window: CIERRE ESTA VENTANA PARA VOLVER A LA VENTANA EDITAR
@@ -613,10 +613,10 @@ es:
   collections_filter: Colecciones
   collections_link: Colecciones
   collections_page_title: Colecciones
-  collections_summary_header_with_count: 
-    one: "Presente en %{count} colección "
-    other: Presente en %{count} colecciónes
-  collections_with_count: 
+  collections_summary_header_with_count:
+    one: "Presente en %{count} colección"
+    other: Presente en %{count} colecciones
+  collections_with_count:
     one: "%{count} Colección"
     other: "%{count} Colecciones"
   comment: Comentario
@@ -681,6 +681,7 @@ es:
   community_newsfeed: Newsfeed de Comunidad
   community_rating: Evaluación de la comunidad
   community_removed_by_owner: Esta comunidad fue retirado por su dueño.
+  community_tab_collections_header: Colecciones
   confirm_delete_community: ¿Está saguaro de que desae borer esta comunidad? Los miembros restantes todavía podrán verla y los newsfeed se mantendrán, pero no se mostrará en las búsquedas o en páginas de taxones, y no se podrán editor más.
   confirm_leave: ¿Está seguro de que deseas salir de esta comunidad?
   confirm_password_colon: "Confirmar contraseña:"
@@ -894,6 +895,7 @@ es:
   default_focus_collection_name_from_community: "%{name}'s enfoque"
   default_watch_collection_name: "%{username}'s lista de vigilancia"
   delete: borra
+  deleted_colon: "borrado:"
   delete_community: Borrar esta comunidad
   description: Descripción
   description_of: Descripción de
@@ -905,6 +907,7 @@ es:
   development_version_name: EOL V2 Beta
   did_you_mean: "¿Quiso decir: %{suggestions} ?"
   disabled_for_now: DISCAPACITADOS EN ESTE MOMENTO
+  discover_link: Descubrir
   displaying_numerical_range: Viendo %{start_number} &mdash; %{end_number} de %{total}
   donate: Donar
   donation_amount_legend: Elija la cantidad que le gustaría donar
@@ -941,6 +944,7 @@ es:
   edit_table_of_contents: editar la tabla de contenidos
   edit_tag_suggestions: editar sugerencias de etiqueta
   edit_web_users: editar usuarios de la web
+  editors_tab_label: Administradores
   email: Dirección de correo electrónico
   email_colon: "Correo electrónico:"
   encyclopedia_of_life: Enciclopedia de la Vida
@@ -981,7 +985,10 @@ es:
   fill_in_a_message_below_to_send_email_to_user: "Llenar un mensaje a continuación para enviar un correo electrónico a este usuario.  El mensaje se enviará cuando usted envíe el formulario:"
   filter_button: Filtrar
   filter_by_status: Filtrar por estado
-  filter_by_status_all_option: todos los estados
+  filter_by_status_all_option: Todos los estados
+  filter_by_type_all_option_with_count:
+    one: "Todos los tipos (%{count})"
+    other: "Todos los tipos (%{count})"
   filter_by_status_inappropriate_option: Inapropiado
   filter_by_status_trusted_option: De confianza
   filter_by_status_unreviewed_option: Sin revisar
@@ -991,12 +998,21 @@ es:
   filter_by_type_collection_option: Colecciones
   filter_by_type_community_option: Comunidades
   filter_by_type_image_option: Imágenes
+  filter_by_type_image_option_with_count:
+    one: "Imágenes (%{count})"
+    other: "Imágenes (%{count})"
   filter_by_type_photosynth_option: Fotosíntesis
   filter_by_type_sound_option: Sonidos
+  filter_by_type_sound_option_with_count:
+    one: "Sonidos (%{count})"
+    other: "Sonidos (%{count})"
   filter_by_type_taxon_concept_option: Taxones
   filter_by_type_text_option: Artículos
   filter_by_type_user_option: Personas
   filter_by_type_video_option: Vídeos
+  filter_by_type_video_option_with_count:
+    one: "Vídeos (%{count})"
+    other: "Vídeos (%{count})"
   filter_media: filtrar medios
   filtered_information: Información filtrada
   find_taxa_submit_button: Encontrar taxones
@@ -1254,6 +1270,9 @@ es:
   image_of: Imagen de
   image_rating: Evaluación de la imagen
   images: Imágenes
+  images_with_count:
+    one: "%{count} Imagen"
+    other: "%{count} Imágenes"
   import_once: Importar una vez
   in_collection: en la colección
   in_this_data_type: "en este %{data_type}:"
@@ -1604,8 +1623,9 @@ es:
   punctuation_comma: ","
   punctuation_semi_colon: ;
   quarterly: Trimestral
-  rank_recognized_by_agent: "%{rank} reconocido por %{agent}"
-  rank_recognized_by_from_source: "%{rank} reconocido por %{agent} in %{source}"
+  rank_recognized_by_agent: "%{rank} reconocidas por %{agent}"
+  rank_recognized_by_from_source: "%{rank} reconocidas por %{agent} in %{source}"
+  rank_recognized_by_agent_colon: "<b>%{rank}</b> reconocidas por %{agent}:"
   rated_by_count_people: 
     one: de %{count} persona
     other: de %{count} personas
@@ -1666,21 +1686,21 @@ es:
   search_the_site: Buscar en el sitio
   see_all_classifications_with_count_html: 
     one: Ver <span class="assistive">%{count} clasificación aprobada en la que aparece este taxón.</span>
-    other: Ver las <span class="assistive">%{count} clasificaciones aprobadas en las que aparece este taxón.</span>
-  see_all_collections_with_count_html: 
+    other: Ver todas <span class="assistive">las %{count} clasificaciones aprobadas en las que aparece este taxón.</span>
+  see_all_collections_with_count_html:
     one: Ver <span class="assistive">%{count} colección en la que aparece este taxón.</span>
-    other: Ver las <span class="assistive">%{count} colecciones en las que aparece este taxón.</span>
-  see_all_communities_with_count_html: 
+    other: Ver todas <span class="assistive">las %{count} colecciones en las que aparece este taxón.</span>
+  see_all_communities_with_count_html:
     one: Ver la <span class="assistive">%{count} comunidad que tiene como foco este taxón.</span>
-    other: Ver las <span class="assistive">%{count} comunidades que tienen como foco este taxón.</span>
-  see_all_featured_collections_with_count: 
+    other: Ver todas <span class="assistive">las %{count} comunidades que tienen como foco este taxón.</span>
+  see_all_featured_collections_with_count:
     one: Mira el %{count} colección especial.
     other: Mira los %{count} colecciónes especiales.
   see_all_media_link: Ver todos los medios
   see_all_of_your_collections: Ver todas sus colecciones
   see_all_updates_with_count_html: 
     one: Ver la <span class="assistive">%{count} actualización para esta página.</span>
-    other: Ver todas las <span class="assistive">%{count} actualizaciones para esta página.</span>
+    other: Ver todas <span class="assistive">las %{count} actualizaciones para esta página.</span>
   see_notes: ver notas
   select_colon: Seleccionar
   select_topic: Por favor, seleccione un área temática
@@ -1927,7 +1947,7 @@ es:
   this_sound_is_unpublished: Este sonido no ha sido publicado.
   this_video_cannot_be_curated_because_unpublished: Este vídeo no puede ser supervisado porque no ha sido publicado.
   this_video_is_unpublished: Este vídeo no ha sido publicado.
-  time_ago: "%{time_passed} hace"
+  time_ago: "hace %{time_passed}"
   title: Título
   to_process_your_donation_please_proceed: Para procesar su donación, por favor siga
   toc: TDC

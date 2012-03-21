@@ -66,6 +66,39 @@ sv:
         rights_holder: Rättighetsinnehavare
         rights_statement: Rättighetsuttalande
         source_url: Käll-URL
+      eol_statistic: 
+        base_pages: Grundläggande sidor
+        collections_count: Samlingar
+        communities_count: Gemenskaper
+        content_partners: Innehållspartners
+        created_at: Skapades den
+        curators: Kuratorer
+        data_objects: Dataobjekt
+        data_objects_images: Bildobjekt
+        data_objects_maps: Kartobjekt
+        data_objects_sounds: Ljudobjekt
+        data_objects_texts: Textobjekt
+        data_objects_trusted: Betrodda dataobjekt
+        data_objects_trusted_or_unreviewed_but_hidden: Betrodda eller ogranskade, men dolda
+        data_objects_unreviewed: Ogranskade dataobjekt
+        data_objects_untrusted: Obetrodda dataobjekt
+        data_objects_videos: Videoobjekt
+        members_count: Medlemmar
+        pages_count: Totalt antal sidor
+        pages_with_at_least_a_trusted_object: Sidor med betrodda objekt
+        pages_with_content: Sidor med innehåll
+        pages_with_image: Sidor med bild
+        pages_with_image_no_text: Sidor med bild, men ingen text
+        pages_with_map: Sidor med karta
+        pages_with_score_10_to_39: Sidor med poäng 10-39
+        pages_with_score_less_than_10: Sidor med poäng mindre än 10
+        pages_with_sound: Sidor med ljud
+        pages_with_text: Sidor med text
+        pages_with_text_no_image: Sidor med text, men ingen bild
+        pages_with_video: Sidor med videoklipp
+        pages_without_image: Sidor utan bild
+        pages_without_text: Sidor utan text
+        published_resources: Publicerade resurser
       harvest_event: 
         resource: Resurs
       hierarchy: 
@@ -639,9 +672,11 @@ sv:
         description_of_data: Beskrivning av data <small>(privat)</small>
         display_name: Visningsnamn <small>(valfritt)</small>
         last_action: Senaste åtgärd
+        latest_published_harvest_event: Senast publicerad
         logo_current: "Nuvarande logotyp:"
         logo_new: "Ladda upp en ny logotyp:"
         notes: Projektanteckningar <small>(privat)</small>
+        oldest_published_harvest_event: Först publicerad
       data_object: 
         bibliographic_citation: Bibliografiskt citat
         description: Text <small>(vissa HTML-koder är tillåtet)</small>
@@ -728,14 +763,20 @@ sv:
         create: Lägg till artikel
         create_text: Lägg till artikel
         update: Spara artikel
+      eol_statistic: 
+        download_csv: Ladda ned som CSV.
+      filter_sort: Filtrera och sortera
       harvest_event: 
         publish: Publicera
+      hierarchy: 
+        update: Uppdatera hierarki
       name: 
         create: Lägg till namn
         update: Uppdatera namn
       resource: 
         create: Lägg till resurs
         update: Uppdatera resurs
+        update_settings: Uppdateringsinställningar
       session: 
         create: Logga in
       submit: Spara %{model}

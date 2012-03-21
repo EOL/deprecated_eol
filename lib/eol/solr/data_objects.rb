@@ -87,8 +87,8 @@ module EOL
           if options[:data_subtype_ids]
             url << CGI.escape(" AND (data_subtype_id:#{options[:data_subtype_ids].join(' OR data_subtype_id:')})")
           else
-            # these are all the objects with data_subtype_id = 0 OR NULL value in data_subtype
-            url << CGI.escape(" AND (data_subtype_id:0 OR (*:* NOT data_subtype_id:[* TO *]))")
+            # these are all the objects with data_subtype_id = 0 (there are no NULL subtypes in Solr)
+            url << CGI.escape(" AND data_subtype_id:0")
           end
         end
         
@@ -112,7 +112,8 @@ module EOL
         if options[:language_ids]
           nil_language_clause = "";
           if options[:allow_nil_languages]
-            nil_language_clause = "OR (language_id:0 OR (*:* NOT language_id:[* TO *]))"
+            # these are all the objects with language_id = 0 (there are no NULL subtypes in Solr)
+            nil_language_clause = "OR language_id:0"
           end
           url << CGI.escape(" AND (language_id:#{options[:language_ids].join(' OR language_id:')} #{nil_language_clause})")
         end

@@ -53,7 +53,8 @@ class HierarchyEntry < ActiveRecord::Base
     hierarchy_entries.sort_by do |he|
       vetted_view_order = he.vetted.blank? ? 0 : he.vetted.view_order
       browsable = he.hierarchy.browsable? ? 0 : 1
-      [Invert(he.published),
+      published = he.published? ? 0 : 1
+      [published,
        vetted_view_order,
        browsable,
        he.taxon_concept_id,

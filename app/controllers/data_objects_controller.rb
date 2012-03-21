@@ -143,7 +143,7 @@ class DataObjectsController < ApplicationController
       format.html { redirect_back_or_default }
       format.js do
         @current_user_ratings = logged_in? ? current_user.rating_for_object_guids([@data_object.guid]) : {}
-        render :partial => 'rating', :locals => { :data_object => @data_object,
+        render :partial => 'rating', :locals => { :data_object => @data_object, :reload_ajax_rating => true,
           :minimal => params[:minimal] == 'true' ? true : false }
       end
     end

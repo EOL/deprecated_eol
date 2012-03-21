@@ -232,13 +232,8 @@ $(function() {
     duration: 200
   });
 
-  // Wouldn't it be nice if ratings were Ajaxified?
-  $('.media .ratings .rating ul > li > a').click(function() {
-    var $update = $(this).closest('div.ratings');
-    EOL.ajax_submit($(this), {url: $(this).attr('href'), update: $update, type: 'GET'});
-    return(false);
-  });
-
+  EOL.enableRatings();
+  
   // initiates march of life on homepage
   $('.thumbnails ul li').each(function() {
     var number_of_slides = $('.thumbnails ul li').length;
@@ -461,6 +456,15 @@ EOL.ajax_get = function(el, args) {
     }
   });
   return(false); // stop event... there's a better way to do this?
+};
+
+EOL.enableRatings = function() {
+  // Wouldn't it be nice if ratings were Ajaxified?
+  $('.media .ratings .rating ul > li > a').unbind('click').click(function() {
+    var $update = $(this).closest('div.ratings');
+    EOL.ajax_submit($(this), {url: $(this).attr('href'), update: $update, type: 'GET'});
+    return(false);
+  });
 };
 
 // Third party scripts for social plugins

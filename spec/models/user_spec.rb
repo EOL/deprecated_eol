@@ -150,6 +150,24 @@ describe User do
     user.active                       == true
   end
 
+  it 'should require password for a user with eol authentication'
+  it 'should require username for a user with eol authentication'
+  it 'should require email for a user with eol authentication'
+
+  it 'should not require username, password or email address for open authenticated user' do
+    user = User.new(:given_name => "Oauth", :open_authentication_attributes => [ { :guid => 1234 }])
+    user.valid?.should_be true
+    false # refactor these tests so they make sense for new and existing users for oauth and eol authentications
+  end
+  
+  it 'should require given name for open authenticated user' do
+    user = User.new(:open_authentication_attributes => [ { :guid => 1234 }])
+    user.valid?.should_be false
+    user.given_name = "Oauth"
+    user.valid?.should_be true
+    false # test existing users and refactor these tests so they make sense for new and existing users for oauth and eol authentications
+  end
+
   it 'should fail validation if the email is in the wrong format' do
     user = User.create_new(:email => 'wrong(at)format(dot)com')
     user.valid?.should_not be_true

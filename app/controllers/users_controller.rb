@@ -122,7 +122,7 @@ class UsersController < ApplicationController
         else
           if (authorized = OpenAuthentication.find_by_provider_and_guid(open_auth.authentication_attributes[:provider], open_auth.authentication_attributes[:guid], :include => :user)) && ! authorized.user.nil?
             # TODO: what do we do when we have authentication record but no user here?
-            open_authentication_log_in(authorized.user)
+            log_in(authorized.user)
             return redirect_to user_newsfeed_path(authorized.user)
           else
             session["oauth_token_#{open_auth.authentication_attributes[:provider]}_#{open_auth.authentication_attributes[:guid]}"] = open_auth.authentication_attributes[:token]
@@ -152,24 +152,25 @@ class UsersController < ApplicationController
       end
     end
     
-    if (open_authentication_signup = !params[:user][:open_authentications_attributes].blank?) && 
-       (guid = params[:user][:open_authentications_attributes]["0"][:guid]) &&
-       (provider = params[:user][:open_authentications_attributes]["0"][:provider]) &&
-       (params[:user][:open_authentications_attributes]["0"][:token] = session["oauth_token_#{provider}_#{guid}"]) &&
-       (params[:user][:open_authentications_attributes]["0"][:secret] = session["oauth_secret_#{provider}_#{guid}"])
-       # TODO: if user fails validation we still need session data, if we remove validation so user never fails then we
-       # can do session.delete here instead
-       # Then we have all the necessary authentication attributes to create a user
-       params[:user][:active] = true
-    else
-      # TODO: if user cannot fail validation then we can delete session data in the if statements otherwise we have to
-      # delete it here
-      session.delete("oauth_token_#{provider}_#{guid}") rescue nil
-      session.delete("oauth_secret_#{provider}_#{guid}") rescue nil
-      flash[:error] = I18n.t(:oauth_user_create_unsuccessful)
-      return redirect_to new_user_path # something bad happened
-      # TODO: some error handling here what if params[:user][:open_authentications_attributes]["0"] is missing token and secret
-      # TODO: return if there is a problem here we shouldn't create user without the proper authentication data
+    if (open_authentication_signup = !params[:user][:open_authentications_attributes].blank?)
+      if (guid = params[:user][:open_authentications_attributes]["0"][:guid]) &&
+        (provider = params[:user][:open_authentications_attributes]["0"][:provider]) &&
+        (params[:user][:open_authentications_attributes]["0"][:token] = session["oauth_token_#{provider}_#{guid}"]) &&
+        (params[:user][:open_authentications_attributes]["0"][:secret] = session["oauth_secret_#{provider}_#{guid}"])
+        # TODO: if user fails validation we still need session data, if we remove validation so user never fails then we
+        # can do session.delete here instead
+        # Then we have all the necessary authentication attributes to create a user
+        params[:user][:active] = true
+      else
+        # TODO: if user cannot fail validation then we can delete session data in the if statements otherwise we have to
+        # delete it here
+        session.delete("oauth_token_#{provider}_#{guid}") rescue nil
+        session.delete("oauth_secret_#{provider}_#{guid}") rescue nil
+        flash[:error] = I18n.t(:oauth_user_create_unsuccessful)
+        return redirect_to new_user_path # something bad happened
+        # TODO: some error handling here what if params[:user][:open_authentications_attributes]["0"] is missing token and secret
+        # TODO: return if there is a problem here we shouldn't create user without the proper authentication data
+      end
     end
     
     @user = User.create_new(params[:user]) # TODO: check this adds authentication params from form submit
@@ -199,7 +200,7 @@ class UsersController < ApplicationController
       if open_authentication_signup
         session.delete("oauth_token_#{provider}_#{guid}")
         session.delete("oauth_secret_#{provider}_#{guid}")
-        open_authentication_log_in(@user)
+        log_in(@user)
         redirect_to user_newsfeed_path(@user)
       else
         send_verification_email
@@ -354,13 +355,6 @@ protected
   end
 
 private
-
-  def open_authentication_log_in(user)
-    # TODO: this shares some functionality with session controller log_in method - we might want to refactor to share code
-    set_current_user(user)
-    flash[:notice] = I18n.t(:sign_in_successful_notice)
-    session.delete(:recently_visited_collections)
-  end
 
   def users_layout # choose an appropriate views layout for an action
     case action_name

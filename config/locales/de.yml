@@ -1015,7 +1015,6 @@ de:
   create_community_around_this_collection_header: Gründen Sie eine Gemeinschaft zu dieser Sammlung
   create_community_button: Gemeinschaft gründen
   create_community_unsuccessful_error: Es ist leider ein Fehler aufgetreten, so dass Ihre Gemeinschaft nicht gegründet werden konnte. Bitte stellen Sie sicher, dass alle Felder richtig ausgefüllt wurden.
-  create_user_form_header: Erstellen Sie eine neues Konto bei <abbr title="Enzyklopädie des Lebens">EOL</abbr>
   create_user_unsuccessful_error: Es ist leider ein Fehler aufgetreten, so dass Ihr neues Konto nicht erstellt werden konnte. Bitte stellen Sie sicher, dass alle Felder richtig ausgefüllt wurden.
   created: Erstellt
   created_at: Erstellt am
@@ -2851,6 +2850,8 @@ de:
         meta_description: Inhaltspartner mit denen %{user_full_name} in Verbindung steht.
         meta_title: Inhaltspartner von %{user_full_name}
         tweet_text: Inhaltspartner von %{user_full_name}
+    new:
+      create_user_header: Erstellen Sie eine neues Konto bei <abbr title="Enzyklopädie des Lebens">EOL</abbr>
     newsfeeds: 
       show: 
         meta_description: Neuigkeiten, Aktivitäten und Kommentare zu %{user_full_name}.

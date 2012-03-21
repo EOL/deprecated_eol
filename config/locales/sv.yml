@@ -519,7 +519,6 @@ sv:
   create_community: Skapa gemenskap
   create_community_about_heading: Om att skapa en gemenskap
   create_community_around_this_collection_header: Skapa en gemenskap runt denna samling
-  create_user_form_header: Skapa ett nytt <abbr title="Encyclopedia of Life">EOL</abbr>-konto
   create_user_unsuccessful_error: Tyvärr, ett fel uppstod. Ditt nya konto skapades inte. Var god försäkra dig om att alla fält är korrekt ifyllda.
   created: Skapad
   created_colon: "Skapades:"
@@ -1226,6 +1225,9 @@ sv:
   username: Användarnamn
   username_colon: "Användarnamn:"
   username_taken: "%{name} är upptaget"
+  users:
+    new:
+      create_user_header: Skapa ett nytt <abbr title="Encyclopedia of Life">EOL</abbr>-konto
   users_about_me_header: Om mig
   users_content_partners_header: Innehållspartners
   users_content_partners_information: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt hendrerit tortor, commodo faucibus turpis imperdiet non. Nullam tincidunt, est vel euismod volutpat, libero turpis suscipit neque, nec viverra magna augue non nisl. Praesent et risus sit amet quam sagittis pulvinar eu at odio. Etiam mattis enim turpis, cursus rutrum massa. Ut blandit varius tellus, vitae interdum nulla pulvinar nec.

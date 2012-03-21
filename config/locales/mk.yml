@@ -1009,7 +1009,6 @@ mk:
   create_community_around_this_collection_header: Создај заедница посветена на оваа збирка
   create_community_button: Создај заедница
   create_community_unsuccessful_error: Нажалост, се појави грешка. Заедницата не е создадена. Проверете дали сите полиња се исправно пополнети.
-  create_user_form_header: Создајте нова сметка на <abbr title="Encyclopedia of Life">EOL</abbr>
   create_user_unsuccessful_error: Нажалост, се појави грешка, па затоа не можев да ја создадам вашата нова сметка. Проверете дали сите полиња се исправно пополнети.
   created: Создадено
   created_at: Создадено во
@@ -2881,6 +2880,8 @@ mk:
         meta_description: Врски со соучесници во содржините на %{user_full_name}
         meta_title: Соучесници во содржините на %{user_full_name}
         tweet_text: Соучесници во содржините на %{user_full_name}
+    new:
+      create_user_header: Создајте нова сметка на <abbr title="Encyclopedia of Life">EOL</abbr>
     newsfeeds: 
       show: 
         meta_description: Новости, актуелни активности и коментари за %{user_full_name}.

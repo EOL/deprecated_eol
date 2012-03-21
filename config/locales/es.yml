@@ -828,7 +828,6 @@ es:
   create_community_about_heading: Sobre la creación de una comunidad
   create_community_around_this_collection_header: Crear una comunidad alrededor de esta colección
   create_community_unsuccessful_error: Lo sentimos, ha ocurrido un error, su comunidad no fue creada. Asegúrese de que todos los campos se completen correctamente.
-  create_user_form_header: Crear una nueva cuenta <abbr title="Encyclopedia of Life">EOL</abbr>
   create_user_unsuccessful_error: Lo sentimos, ha ocurrido un error, su nueva cuenta no se ha creado. Asegúrese de que todos los campos se completen correctamente.
   created: Creado
   created_at: Creado
@@ -2005,6 +2004,9 @@ es:
   username: Nombre de usuario
   username_colon: "Nombre de usuario:"
   username_taken: "%{name} ya está en uso"
+  users:
+    new:
+      create_user_header: Crear una nueva cuenta <abbr title="Encyclopedia of Life">EOL</abbr>
   users_about_me_header: Acerca de mí
   users_content_partners_header: Socios de Contenidos
   users_content_partners_information: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt hendrerit tortor, commodo faucibus turpis imperdiet non. Nullam tincidunt, est vel euismod volutpat, libero turpis suscipit neque, nec viverra magna augue non nisl. Praesent et risus sit amet quam sagittis pulvinar eu at odio. Etiam mattis enim turpis, cursus rutrum massa. Ut blandit varius tellus, vitae interdum nulla pulvinar nec.

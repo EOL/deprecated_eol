@@ -920,7 +920,6 @@ fr:
   create_community_around_this_collection_header: Créer une communauté autour de cette collection
   create_community_button: Créer une communauté
   create_community_unsuccessful_error: Désolé, une erreur est survenue ; votre communauté n’a pas été créée. Veuillez vous assurer que tous les champs sont correctement renseignés.
-  create_user_form_header: Créer un nouveau compte <abbr title="Encyclopédie de la vie">EOL</abbr>
   create_user_unsuccessful_error: Désolé, une erreur est survenue ; votre nouveau compte n’a pas été créé. Veuillez vous assurer que tous les champs sont correctement renseignés.
   created: Créé
   created_at: Créé à
@@ -2477,6 +2476,9 @@ fr:
   username: Nom d'utilisateur
   username_colon: "Nom d’utilisateur :"
   username_taken: "%{name} est déjà pris"
+  users:
+    new:
+      create_user_header: Créer un nouveau compte <abbr title="Encyclopédie de la vie">EOL</abbr>
   users_about_me_header: À mon sujet
   users_content_partners_header: Partenaires de contenu
   users_content_partners_information: Les partenaires de contenu EOL sont des individus ou des organisations qui partagent leurs données sur la biodiversité avec tout le monde via EOL. Pour en savoir plus sur les <a href="%{more_url}">Partenaires de contenu EOL</a>.

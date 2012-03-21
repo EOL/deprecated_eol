@@ -1063,6 +1063,13 @@ en:
         meta_title: "Richness of %{scientific_name}"
         meta_title_with_common_name: "Richness of %{preferred_common_name} (%{scientific_name})"
         tweet_text: "Richness score for %{scientific_name}"
+  sessions:
+    new:
+      login_with_facebook_assistive: "Login to EOL using your Facebook credentials."
+      login_with_google_assistive: "Login to EOL using your Google credentials."
+      login_with_twitter_assistive: "Login to EOL using your Twitter credentials."
+      login_with_yahoo_assistive: "Login to EOL using your Yahoo credentials."
+      login_with_open_authentication_header: "Or log in with:"
   users:
     activities:
       show:
@@ -1088,6 +1095,17 @@ en:
         meta_keywords: ""
         meta_title: "%{user_full_name} Content Partners"
         tweet_text: "%{user_full_name} content partners"
+    new:
+      create_user_header: "Create a new <abbr title=\"Encyclopedia of Life\">EOL</abbr> account"
+      create_user_header_facebook: "Confirm your Facebook details and sign up"
+      create_user_header_google: "Confirm your Google details and sign up"
+      create_user_header_twitter: "Confirm your Twitter details and sign up"
+      create_user_header_yahoo: "Confirm your Yahoo details and sign up"
+      create_user_with_open_authentication_header: "Or sign up with:"
+      sign_up_with_facebook_assistive: "Sign up to EOL using your Facebook credentials."
+      sign_up_with_google_assistive: "Sign up to EOL using your Google credentials."
+      sign_up_with_twitter_assistive: "Sign up to EOL using your Twitter credentials."
+      sign_up_with_yahoo_assistive: "Sign up to EOL using your Yahoo credentials."
     newsfeeds:
       show:
         meta_description: "News, activity updates and comments for %{user_full_name}."
@@ -1824,7 +1842,6 @@ en:
   create_a_collection: "Create a collection"
   create_collection_button: "Create collection"
   create_community_button: "Create community"
-  create_user_form_header: "Create a new <abbr title=\"Encyclopedia of Life\">EOL</abbr> account"
   create_user_unsuccessful_error: "Sorry, an error occurred, your new account was not created. Please ensure all fields are completed correctly."
   created_at: "Created at"
   created_by: "Created by"

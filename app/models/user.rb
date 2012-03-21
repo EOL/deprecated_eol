@@ -57,17 +57,17 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   @email_format_re = %r{^(?:[_\+a-z0-9-]+)(\.[_\+a-z0-9-]+)*@([a-z0-9-]+)(\.[a-zA-Z0-9\-\.]+)*(\.[a-z]{2,4})$}i
 
-  validate :ensure_unique_username_against_master
+  validate :ensure_unique_username_against_master, :if => :eol_authentication?
 
   validates_presence_of :curator_verdict_by, :if => Proc.new { |obj| !obj.curator_verdict_at.blank? }
   validates_presence_of :curator_verdict_at, :if => Proc.new { |obj| !obj.curator_verdict_by.blank? }
   validates_presence_of :credentials, :if => :curator_attributes_required?
   validates_presence_of :curator_scope, :if => :curator_attributes_required?
-  validates_presence_of :given_name, :if => :first_last_names_required?
+  validates_presence_of :given_name, :if => :given_name_required?
   validates_presence_of :family_name, :if => :first_last_names_required?
-  validates_presence_of :username
+  validates_presence_of :username, :if => :eol_authentication?
 
-  validates_length_of :username, :within => 4..32
+  validates_length_of :username, :within => 4..32, :if => :eol_authentication?
   validates_length_of :entered_password, :within => 4..16, :if => :password_validation_required?
 
   validates_confirmation_of :entered_password, :if => :password_validation_required?
@@ -834,6 +834,11 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
       data_object.update_solr_index
     end
   end
+  
+  # An eol authentication indicates a user that has no open authentications, i.e. only has eol credentials
+  def eol_authentication?
+    open_authentications.blank?
+  end
 
 private
 
@@ -856,13 +861,11 @@ private
     self.reload
   end
 
-  def password_required?
-    hashed_password.blank? || hashed_password.nil? || ! self.entered_password.blank?
-  end
-
-  # We need to validate the password if hashed password is empty i.e. on user#create, or if someone is trying to change it i.e. user#update
+  # We need to validate the password if hashed password is empty
+  # i.e. on user#create, or if someone is trying to change it i.e. user#update
+  # Don't need password when user authenticates with open authentication e.g. Facebook
   def password_validation_required?
-    password_required? || ! self.entered_password.blank?
+    eol_authentication? && (hashed_password.blank? || hashed_password.nil? || ! self.entered_password.blank?)
   end
 
   # Callback before_save and before_update we only encrypt password if someone has entered a valid password
@@ -875,7 +878,8 @@ private
   end
 
   def email_validation_required?
-    ! self.email == "oauth_user"
+    # TODO: have they requested email notifications?
+    curator_attributes_required? || eol_authentication?
   end
 
   # validation condition for required curator attributes
@@ -885,6 +889,10 @@ private
       self.requested_curator_level_id != CuratorLevel.assistant_curator.id) ||
     (!self.curator_level_id.nil? && !self.curator_level_id.zero? &&
       self.curator_level_id != CuratorLevel.assistant_curator.id)
+  end
+
+  def given_name_required?
+    first_last_names_required? || !eol_authentication?
   end
 
   def first_last_names_required?

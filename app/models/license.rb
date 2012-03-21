@@ -37,4 +37,9 @@ class License < ActiveRecord::Base
   def self.by_sa
     cached_find(:title, 'cc-by-sa 3.0')
   end
+  
+  # we have several different licenses with the title public domain
+  def is_public_domain?
+    self.title == 'public domain'
+  end
 end

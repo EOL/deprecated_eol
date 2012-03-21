@@ -1119,12 +1119,12 @@ class TaxonConcept < ActiveRecord::Base
     !details_text_for_user(the_user, :limit => 1, :skip_preload => true).empty?
   end
   
-  # there is an artificial limit of 300 text objects here to increase the default 30
+  # there is an artificial limit of 600 text objects here to increase the default 30
   def details_text_for_user(the_user, options = {})
     text_objects = self.text_for_user(the_user, {
       :language_ids => [ the_user.language_id ],
       :toc_ids_to_ignore => TocItem.exclude_from_details.collect{ |toc_item| toc_item.id },
-      :per_page => (options[:limit] || 300) })
+      :per_page => (options[:limit] || 600) })
     
     # now preload info needed for display details metadata
     unless options[:skip_preload]

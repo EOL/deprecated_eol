@@ -3,4 +3,12 @@
   - data_object.agents_data_objects.each do |ado|
     - role_label = (ado.agent_role && ado.agent_role.label) ? ado.agent_role.label + ': ' : ''
     - if ado.agent
-      %p= "#{role_label}#{ado.agent.full_name}"
+      %p
+        = role_label
+        - if ado.agent.homepage.blank?
+          = ado.agent.full_name
+        - else
+          - unless ado.agent.homepage.start_with?('http://')
+            - ado.agent.homepage = "http://" + ado.agent.homepage
+          %a{ :href => ado.agent.homepage }
+            = ado.agent.full_name

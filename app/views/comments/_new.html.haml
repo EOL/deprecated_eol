@@ -15,8 +15,10 @@
     = hidden_field_tag :return_to, current_url
   = hidden_field_tag :submit_to, '/comments/create' unless logged_in?
   %fieldset
-    = image_tag current_user.logo_url(:small), :alt => I18n.t(:comment_new_posters_image_alt),
-      :title => I18n.t(:comment_new_posters_image_advisory_info)
+    - logo = current_user.logo_url(:small)
+    - if logo
+      = image_tag logo, :alt => I18n.t(:comment_new_posters_image_alt),
+        :title => I18n.t(:comment_new_posters_image_advisory_info)
     %div
       = f.label :body, I18n.t(:comment_body_label), :class => 'assistive'
       = f.text_area :body, :rows => rows, :cols => cols

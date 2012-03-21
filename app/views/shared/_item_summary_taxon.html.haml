@@ -13,7 +13,7 @@
   - if view_style == 'list' && @filter.nil?
     %small= I18n.t(:item_type_taxon)
 - unless ['gallery','list'].include?(view_style)
-  - subtitle = item.preferred_common_name_in_language(current_user.language)
+  - subtitle = item.preferred_common_name_in_language(current_language)
   - unless subtitle.blank?
     = link_to subtitle.firstcap, taxon_overview_path(item)
   - # we need the search result object, and the best match can't be in the title or subtitle

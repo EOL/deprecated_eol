@@ -469,7 +469,7 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def quick_common_name(language = nil, hierarchy = nil)
-    language ||= current_user.language
+    language ||= current_language
     hierarchy ||= Hierarchy.default
     common_name_results = connection.execute(
       "SELECT n.string name, he.hierarchy_id source_hierarchy_id

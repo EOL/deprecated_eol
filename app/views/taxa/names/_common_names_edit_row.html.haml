@@ -2,7 +2,7 @@
 -# This is STUPID.  But I don't have the time to make it all right... so this is using the same logic (basically) as
 -# the _common_names_edit view to pull out the single name we actually want.  ARGH!
 - if defined?(common_names) && defined?(language) && defined?(name_id)
-  - common_names_by_language(common_names, current_user.language_id).each do |language_names_pair|
+  - common_names_by_language(common_names, current_language.id).each do |language_names_pair|
     - next unless language_names_pair[0] == language
     - name = language_names_pair[1].select {|n| n.name.id == name_id }.first
 %td{:class => 'preferred_name_selector'}

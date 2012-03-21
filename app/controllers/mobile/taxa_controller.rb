@@ -37,7 +37,7 @@ class Mobile::TaxaController < Mobile::MobileController
     @browsable_hierarchy_entries.compact!
     @hierarchies = @browsable_hierarchy_entries.collect{|he| he.hierarchy }.uniq
     toc_items = [TocItem.brief_summary, TocItem.comprehensive_description, TocItem.distribution]
-    options = {:limit => 1, :language => current_user.language_abbr}
+    options = {:limit => 1, :language => current_language.iso_639_1}
     @summary_text = @taxon_concept.text_objects_for_toc_items(toc_items, options)
 
     if @selected_hierarchy_entry

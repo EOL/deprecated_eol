@@ -7,7 +7,7 @@
         %dt
           = synonym.label :language_id
         %dd
-          = synonym.select(:language_id, @languages, :selected => current_user.language_id)
+          = synonym.select(:language_id, @languages, :selected => current_language.id)
           = synonym.hidden_field :hierarchy_entry_id, :value => @selected_hierarchy_entry_id
       %dt
         = f.label :string

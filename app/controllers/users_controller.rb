@@ -51,7 +51,6 @@ class UsersController < ApplicationController
       # not using alter_current_user because it doesn't allow for validation checks
       # and we probably don't want to update current_user with invalid attributes
       upload_logo(@user) unless params[:user][:logo].blank?
-      $CACHE.delete("users/#{session[:user_id]}")
       set_current_user(@user)
       current_user.log_activity(:updated_user)
       store_location params[:return_to] if params[:return_to]
@@ -196,7 +195,6 @@ class UsersController < ApplicationController
       # validation will more appropriately happen when user attempts to edit profile
       # avoiding alter_current_user as this would try to save again but fail if any validation issues
       if current_user.id == @user.id
-        $CACHE.delete("users/#{session[:user_id]}")
         set_current_user(@user)
       end
       redirect_back_or_default(user_path(current_user))

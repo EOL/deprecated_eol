@@ -60,7 +60,7 @@ class Taxa::MediaController < TaxaController
     DataObject.preload_associations(@media, [:users_data_object, { :data_objects_hierarchy_entries => [ :vetted, :hierarchy_entry ] },
       :curated_data_objects_hierarchy_entries])
 
-    DataObject.preload_associations(@media, :translations , :conditions => "data_object_translations.language_id=#{current_user.language_id}")
+    DataObject.preload_associations(@media, :translations , :conditions => "data_object_translations.language_id=#{current_language.id}")
     @facets = EOL::Solr::DataObjects.get_aggregated_media_facet_counts(@taxon_concept.id,
       :filter_hierarchy_entry => @selected_hierarchy_entry, :user => current_user)
     @current_user_ratings = logged_in? ? current_user.rating_for_object_guids(@media.collect{ |m| m.guid }) : {}

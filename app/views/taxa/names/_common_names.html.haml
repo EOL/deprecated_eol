@@ -1,4 +1,4 @@
-- names_by_language = common_names_by_language(@common_names, current_user.language_id).uniq
+- names_by_language = common_names_by_language(@common_names, current_language.id).uniq
 - if names_by_language.blank?
   .empty
     %p= I18n.t(:names_common_empty)

@@ -141,7 +141,7 @@ private
   end
 
   def instantiate_preferred_names
-    @preferred_common_name = @selected_hierarchy_entry ? @selected_hierarchy_entry.taxon_concept.preferred_common_name_in_language(current_user.language) : @taxon_concept.preferred_common_name_in_language(current_user.language)
+    @preferred_common_name = @selected_hierarchy_entry ? @selected_hierarchy_entry.taxon_concept.preferred_common_name_in_language(current_language) : @taxon_concept.preferred_common_name_in_language(current_language)
     @scientific_name = @selected_hierarchy_entry ? @taxon_concept.quick_scientific_name(:italicized, @selected_hierarchy_entry.hierarchy) : @taxon_concept.title_canonical
   end
 

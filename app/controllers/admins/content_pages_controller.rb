@@ -11,7 +11,7 @@ class Admins::ContentPagesController < AdminsController
   def new
     parent_content_page = ContentPage.find(params[:content_page_id]) if params[:content_page_id]
     @content_page = ContentPage.new(:parent => parent_content_page, :active => true)
-    @translated_content_page = @content_page.translations.build(:language_id => current_user.language_id, :active_translation => true)
+    @translated_content_page = @content_page.translations.build(:language_id => current_language.id, :active_translation => true)
     set_content_page_new_options
   end
 

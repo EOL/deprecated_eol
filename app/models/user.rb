@@ -45,7 +45,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   before_save :encrypt_password
   before_save :instantly_approve_curator_level, :if => :curator_level_can_be_instantly_approved?
   after_save :update_watch_collection_name
-  after_save :clear_cached_user
+  after_save :clear_cache
 
   before_destroy :destroy_comments
   # TODO: before_destroy :destroy_data_objects
@@ -230,6 +230,11 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     User.with_master do
       User.count(:conditions => ['email = ?', email]) == 0
     end
+  end
+
+  def self.cached(id)
+    Agent
+    $CACHE.fetch("users/#{id}") { User.find(id, :include => :agent) rescue nil }
   end
 
   # Please use consistent format for naming Users across the site.  At the moment, this means using #full_name unless
@@ -826,6 +831,10 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     end
   end
 
+  def clear_cache
+    $CACHE.delete("users/#{self.id}") if $CACHE
+  end
+
 private
 
   # set the defaults on this user object
@@ -903,11 +912,6 @@ private
       collection.name = I18n.t(:default_watch_collection_name, :username => self.full_name.titleize)
       collection.save!
     end
-  end
-
-  # Callback after_save
-  def clear_cached_user
-    $CACHE.delete("users/#{self.id}") if $CACHE
   end
 
   def destroy_comments

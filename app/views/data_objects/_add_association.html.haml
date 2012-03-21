@@ -5,7 +5,7 @@
   = link_to image_tag("/images/v2/icon_taxon.png"), taxon_overview_path(item)
 .details
   %h4= link_to item.title_canonical, taxon_overview_path(item)
-  - subtitle = item.preferred_common_name_in_language(current_user.language)
+  - subtitle = item.preferred_common_name_in_language(current_language)
   - unless subtitle.blank?
     %p= subtitle.firstcap
   - unless item.entries.blank?

@@ -4,7 +4,8 @@
     - form_tag set_language_path, :class => 'select_submit' do
       = hidden_field_tag :return_to, current_url
       %label= I18n.t(:language)
-      = select_tag 'language', options_from_collection_for_select(languages, 'iso_639_1', 'source_form', current_user.language_abbr)
+      = select_tag 'language', options_from_collection_for_select(languages, 'iso_639_1', 'source_form',
+        current_language.iso_639_1)
       %fieldset.actions
         = submit_tag I18n.t(:translations_submit), :name => nil
   - tr_source = data_object.translation_source

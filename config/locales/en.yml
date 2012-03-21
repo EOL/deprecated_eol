@@ -1369,6 +1369,9 @@ en:
   alternate_classification: "Alternate classification"
   amount: "Amount"
   an_unknown_user: "An unknown user"
+  anonymous_user_full_name: 'Anonymous User'
+  anonymous_user_given_name: 'Anonymous'
+  anonymous_user_tag_line: 'Not Logged In'
   and: "and"
   and_between_form_items: "and"
   jsonp_by_adding_a_callback_parameter: "... and JSONP by adding a callback parameter"

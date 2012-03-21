@@ -15,7 +15,7 @@ class DataObjectsController < ApplicationController
     set_text_data_object_options
     @data_object = DataObject.new(:data_type => DataType.text,
                                   :license_id => License.by_nc.id,
-                                  :language_id => current_user.language_id)
+                                  :language_id => current_language.id)
     # default to passed in toc param or brief summary if selectable, otherwise just the first selectable toc item
 
     @selected_toc_item = @toc_items.select{|ti| ti.id == params[:toc].to_i}.first

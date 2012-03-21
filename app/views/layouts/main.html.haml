@@ -71,7 +71,7 @@
           %a{ :href => root_url, :title =>  I18n.t(:encyclopedia_of_life)  }
             %span
         %hr
-        - cache(:controller => '/content', :part => 'top_nav_' + current_user.language_abbr) do
+        - cache(:controller => '/content', :part => 'top_nav_' + current_language.iso_639_1) do
           %p.hide
             = I18n.t(:global_navigation)
           %ul#global-navigation

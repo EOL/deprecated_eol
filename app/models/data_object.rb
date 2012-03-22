@@ -232,10 +232,8 @@ class DataObject < ActiveRecord::Base
     data_objects
   end
 
-  #----- user-submitted text --------
-
   def self.create_user_text(params, options)
-    dato = DataObject.new(params.reverse_merge!(:rights_holder => options[:user].full_name))
+    dato = DataObject.new(params.reverse_merge!(:rights_holder => options[:user].full_name, :published => true))
     if dato.save
       dato.toc_items = TocItem.find(options[:toc_id])
       dato.from_user_for_taxon_concept(options[:user], options[:taxon_concept])
@@ -997,7 +995,7 @@ class DataObject < ActiveRecord::Base
 
 private
 
-  # NOTE - description required.
+  # NOTE - description required, and published will default to false from the DB, so you PROBABLLY want to specify it.
   def default_values # Ideally, these would be in the DB, but I didn't want to take that step.  ...yet.
     if defined?(PhusionPassenger)
       UUID.state_file(0664) # Makes the file writable, which we seem to need to do with Passenger...
@@ -1015,7 +1013,6 @@ private
     self.object_title ||= ''
     self.language_id ||= Language.default.id
     self.license_id ||= License.default.id
-    self.published = true if self.published.nil? # Note the logic MUST be different here!
     self.rights_statement ||= ''
     self.bibliographic_citation ||= ''
     self.source_url ||= ''

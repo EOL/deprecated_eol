@@ -9,10 +9,11 @@ module EOL
 
       def login_as(user, options = {})
         if user.is_a? User # let us pass a newly created user (with an entered_password)
-          options = { :username => user.username, :password => user.entered_password }.merge(options)
+          options.reverse_merge!(:username => user.username, :password => user.entered_password)
         elsif user.is_a? Hash
           options = options.merge(user)
         end
+        debugger if $FOO == 'bar'
         visit logout_path
         visit login_path
         fill_in "session_username_or_email", :with => options[:username]

@@ -469,7 +469,7 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def quick_common_name(language = nil, hierarchy = nil)
-    language ||= current_language
+    language ||= current_user.language || Language.default
     hierarchy ||= Hierarchy.default
     common_name_results = connection.execute(
       "SELECT n.string name, he.hierarchy_id source_hierarchy_id
@@ -573,14 +573,12 @@ class TaxonConcept < ActiveRecord::Base
     end
   end
 
-  # title and sub-title depend on expertise level of the user that is passed in (default to novice if none specified)
   def title(hierarchy = nil)
     return @title unless @title.nil?
     return '' if entry.nil?
     @title = entry.italicized_name.firstcap
   end
 
-  # title and sub-title depend on expertise level of the user that is passed in (default to novice if none specified)
   def title_canonical(hierarchy = nil)
     return @title_canonical unless @title_canonical.nil?
     return '' if entry.nil?
@@ -1086,7 +1084,7 @@ class TaxonConcept < ActiveRecord::Base
     overview_toc_item_ids = [TocItem.brief_summary, TocItem.comprehensive_description, TocItem.distribution].collect{ |toc_item| toc_item.id }
     overview_text_objects = self.text_for_user(the_user, {
       :per_page => 20,
-      :language_ids => [ the_user.language_id ],
+      :language_ids => [ the_user.language.id ],
       :toc_ids => overview_toc_item_ids })
     DataObject.preload_associations(overview_text_objects, { :data_objects_hierarchy_entries => [ :hierarchy_entry,
       :vetted, :visibility ] },
@@ -1122,7 +1120,7 @@ class TaxonConcept < ActiveRecord::Base
   # there is an artificial limit of 600 text objects here to increase the default 30
   def details_text_for_user(the_user, options = {})
     text_objects = self.text_for_user(the_user, {
-      :language_ids => [ the_user.language_id ],
+      :language_ids => [ the_user.language.id ],
       :toc_ids_to_ignore => TocItem.exclude_from_details.collect{ |toc_item| toc_item.id },
       :per_page => (options[:limit] || 600) })
     

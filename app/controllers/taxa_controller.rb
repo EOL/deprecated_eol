@@ -207,7 +207,7 @@ private
     @languages = Language.with_iso_639_1.map do |lang|
       { :label    => lang.label,
         :id       => lang.id,
-        :selected => lang.id == (current_user_copy && current_user_copy.language_id) ? "selected" : nil
+        :selected => lang.id == (current_user_copy && current_user_copy.language.id) ? "selected" : nil
       }
     end
   end

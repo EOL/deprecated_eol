@@ -223,7 +223,11 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   def self.cached(id)
     Agent
-    $CACHE.fetch("users/#{id}") { User.find(id, :include => :agent) rescue nil }
+    begin
+      ($CACHE.fetch("users/#{id}") { User.find(id, :include => :agent) }).dup # #dup avoids frozen hashes!
+    rescue
+      nil 
+    end
   end
 
   # Please use consistent format for naming Users across the site.  At the moment, this means using #full_name unless
@@ -585,11 +589,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     false # She's not a manager
   end
 
-  def can_view_collection?(collection)
-    return true if collection.published? || collection.users.include?(self) || self.is_admin?
-    false
-  end
-
   def selected_default_hierarchy
     hierarchy = Hierarchy.find_by_id(default_hierarchy_id)
     hierarchy.blank? ? '' : hierarchy.label
@@ -691,7 +690,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def taxa_page_cache_str
-    return "#{language_abbr}_#{expertise}_#{vetted}_#{default_taxonomic_browser}_#{default_hierarchy_id}"
+    return "#{language_abbr}_#{vetted}_#{default_taxonomic_browser}_#{default_hierarchy_id}"
   end
 
   # This is a method that checks if the user model pulled from a session is actually up-to-date:

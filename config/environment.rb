@@ -117,12 +117,6 @@ Rails::Initializer.run do |config|
   # Note that you can override this in the environment-specific file, too, if you want to.
   $DEFAULT_HIERARCHY_NAME = "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2010"
 
-  # SITE CONTENT CONFIGURATION
-  $DEFAULT_VETTED = false # default to showing all content (changed October 6, 2009 by Peter Mangiafico at request of Gary Borisy)
-  $DEFAULT_EXPERTISE = :expert # default expertise level (options are :middle, :novice, :expert)
-  $DEFAULT_TITLE_EXPERTISE = :italicized_canonical
-  $DEFAULT_SUBTITLE_EXPERTISE = :middle
-
   # TODO - Remove all references to "content levels" here and in the code --- this is all not required anymore
   ################
   $DEFAULT_CONTENT_LEVEL = "1" # default content level for types of pages shown to user (1..4)

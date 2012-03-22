@@ -501,7 +501,7 @@ private
   end
 
   def user_able_to_view_collection
-    unless @collection && current_user.can_view_collection?(@collection)
+    unless @collection && current_user.can_read?(@collection)
       if logged_in?
         raise EOL::Exceptions::SecurityViolation, "User with ID=#{current_user.id} does not have read access to Collection with ID=#{@collection.id}"
       else

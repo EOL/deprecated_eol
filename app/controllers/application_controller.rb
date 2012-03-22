@@ -273,33 +273,32 @@ class ApplicationController < ActionController::Base
     @current_language ||= Language.find(session[:language_id]) rescue Language.default
   end
 
+  # Deceptively simple... but note that memcached will only be hit ONCE per request because of the ||=
   def current_user
-    @current_user ||= if session[:user_id]
-                        User.cached(session[:user_id])
-                      elsif cookies[:user_auth_token]
-                        load_user_from_cookie
+    @current_user ||= if session[:user_id]               # Try loading from session
+                        User.cached(session[:user_id])   #   Will be nil if there was a problem...
+                      elsif cookies[:user_auth_token]    # Try loading from cookie
+                        load_user_from_cookie            #   Again, nil if there was a problem...
                       end
-    # Either there was no session/cookie, or the session/cookie was corrupt:
+    # If the user didn't have a session, didn't have a cookie, OR if there was a problem, they are anonymous:
     @current_user ||= EOL::AnonymousUser.new(current_language)
   end
 
   def recently_visited_collections(collection_id = nil)
     session[:recently_visited_collections] ||= []
     session[:recently_visited_collections] << collection_id
-    session[:recently_visited_collections] = session[:recently_visited_collections].uniq
-    session[:recently_visited_collections] = session[:recently_visited_collections][-6..-1]
+    session[:recently_visited_collections] = session[:recently_visited_collections].uniq    # Ignore duplicates.
+    session[:recently_visited_collections] = session[:recently_visited_collections][-6..-1] # Only keep last six.
   end
 
-  # this method is used as a before_filter when user logins are disabled to ensure users who may have had a previous
-  # session before we switched off user logins is booted out
+  # Boot all users out when we don't want logins (note: preserves language):
   def clear_any_logged_in_session
     session[:user_id] = nil
-    session[:language_id] = nil
     current_agent = nil
   end
 
   def logged_in?
-    !session[:user_id].blank? || !cookies[:user_auth_token].blank?
+    session[:user_id]
   end
 
   def check_authentication
@@ -475,7 +474,7 @@ protected
         :url => request.url,
         :ip_address => request.remote_ip,
         :user_agent => request.user_agent,
-        :user_id => current_user.id,
+        :user_id => logged_in? ? current_user.id : 0,
         :exception_name => exception.to_s,
         :backtrace => "Application Server: " + $IP_ADDRESS_OF_SERVER + "\r\n" + exception.backtrace.to_s
       )
@@ -725,7 +724,9 @@ private
 
   def load_user_from_cookie
     begin
-      User.find_by_remember_token(cookies[:user_auth_token]) rescue nil
+      user = User.find_by_remember_token(cookies[:user_auth_token]) rescue nil
+      session[:user_id] = user.id # The cookie will persist, but now we can log in directly from the session.
+      user
     rescue ActionController::SessionRestoreError => e
       reset_session
       cookies.delete(:user_auth_token)
@@ -733,6 +734,5 @@ private
       nil
     end
   end
-
 
 end

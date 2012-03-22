@@ -1093,7 +1093,6 @@ end
 Factory.define :user do |u|
   u.admin                     false
   u.default_taxonomic_browser 'text'
-  u.expertise                 'middle'
   u.remote_ip                 { "123.45.67.1#{rand(10)}" }
   u.email                     { Factory.next(:email) }
   u.default_hierarchy         { Hierarchy.first || Hierarchy.gen }

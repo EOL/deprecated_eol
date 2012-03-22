@@ -203,6 +203,11 @@ class Collection < ActiveRecord::Base
     update_attributes(:relevance => calculate_relevance)
   end
 
+  def can_be_viewed_by?(user)
+    return true if collection.published? || collection.users.include?(user) || user.is_admin?
+    false
+  end
+
 private
 
   # This should set the relevance attribute score between 0 and 100.  Use this sparringly, it's expensive to calculate:

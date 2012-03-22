@@ -194,7 +194,7 @@ class UsersController < ApplicationController
     else
       page = ContentPage.find_by_page_name('terms_of_use')
       unless page.nil?
-        @terms = TranslatedContentPage.find_by_content_page_id_and_language_id_and_active_translation(page, @user.language_id, 1)
+        @terms = TranslatedContentPage.find_by_content_page_id_and_language_id_and_active_translation(page, @user.language.id, 1)
         @terms = TranslatedContentPage.find_by_content_page_id_and_language_id_and_active_translation(page, Language.english.id, 1) if @terms.blank?
       end
     end
@@ -241,6 +241,7 @@ class UsersController < ApplicationController
       flash[:error] =  I18n.t(:reset_password_token_expired_error)
       redirect_to forgot_password_users_path
     else
+      session[:user_id] = user.id # Log them in.
       delete_password_reset_token(user)
       flash[:notice] = I18n.t(:reset_password_enter_new_password_notice)
       redirect_to edit_user_path(user), :status => :moved_permanently
@@ -337,7 +338,7 @@ private
 
   def generate_api_key
     @user.clear_entered_password
-    user.update_attributes({:api_key => User.generate_key})
+    @user.update_attributes({:api_key => User.generate_key})
     instantiate_variables_for_edit
     render :edit
   end

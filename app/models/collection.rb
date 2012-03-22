@@ -155,6 +155,7 @@ class Collection < ActiveRecord::Base
   end
 
   def has_item?(item)
+    return false unless item
     # find the first object in their collection matching the given item
     return true if CollectionItem.find(:first,
       :conditions => "collection_id = #{self.id} and object_type = '#{item.class.name}' and object_id = #{item.id}")
@@ -202,6 +203,25 @@ class Collection < ActiveRecord::Base
     # TODO - this occasionally seems to make Paperclip quite grumpy, but only in tests.  Hmmmn.
     update_attributes(:relevance => calculate_relevance)
   end
+  
+  def count_containing_collections(opts = {})
+    if opts[:is_featured] === true
+      extra_condition = "AND com.id IS NOT NULL"
+    elsif opts[:is_featured] === false
+      extra_condition = "AND com.id IS NULL"
+    end
+      
+    count_result = connection.execute("
+      SELECT COUNT(DISTINCT(c.id))
+      FROM collections c
+      JOIN collection_items ci ON ( c.id = ci.collection_id )
+      LEFT JOIN (
+        collections_communities cc
+        JOIN communities com ON ( cc.community_id = com.id )
+      ) ON ( c.id = cc.collection_id )
+      WHERE ( ci.object_id = #{self.id} AND ci.object_type = 'Collection') #{extra_condition}")
+    count_result.fetch_row.first
+  end
 
 private
 
@@ -218,7 +238,7 @@ private
   end
 
   def calculate_feature_relevance
-    features = containing_collections.select {|c| c.focus? }.count
+    features = count_containing_collections(:is_featured => true)
     times_featured_score = case features
                            when 0
                              0
@@ -227,7 +247,7 @@ private
                            else
                              50
                            end
-    collected = containing_collections.reject {|c| c.focus? }.count
+    collected = count_containing_collections(:is_featured => false)
     times_collected_score = case collected
                             when 0
                               0

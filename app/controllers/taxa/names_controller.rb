@@ -179,7 +179,7 @@ private
       @hierarchy_entries =
         @taxon_concept.published_browsable_hierarchy_entries.select {|he| he.id == @selected_hierarchy_entry.id}
     end
-    HierarchyEntry.preload_associations(@hierarchy_entries, { :agents_hierarchy_entries => :agent } )
+    HierarchyEntry.preload_associations(@hierarchy_entries, [ { :agents_hierarchy_entries => :agent }, :rank, { :hierarchy => :agent } ] )
   end
 
   def authentication_for_names

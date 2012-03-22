@@ -84,11 +84,14 @@ module EOL
       
       def self.add_taxon_concept!(docs)
         includes = [
-          { :published_hierarchy_entries => [ { :name => :ranked_canonical_form } , :hierarchy, :vetted, { :flattened_ancestors => { :ancestor => [ :name, :rank ] } } ] },
+          { :taxon_concept_preferred_entry => 
+            { :hierarchy_entry => [ { :flattened_ancestors => { :ancestor => :name } },
+              { :name => :canonical_form } , :hierarchy, :vetted ] } },
           { :preferred_common_names => [ :name, :language ] },
           { :taxon_concept_exemplar_image => :data_object } ]
         selects = {
           :taxon_concepts => '*',
+          :taxon_concept_preferred_entries => '*',
           :hierarchy_entries => [ :id, :rank_id, :identifier, :hierarchy_id, :parent_id, :published, :visibility_id, :lft, :rgt, :taxon_concept_id, :source_url ],
           :names => [ :string, :italicized, :canonical_form_id ],
           :canonical_forms => [ :string ],
@@ -100,6 +103,7 @@ module EOL
         ids = docs.map{ |d| d['resource_id'] }
         return if ids.blank?
         instances = TaxonConcept.core_relationships(:include => includes, :select => selects).find_all_by_id(ids)
+        EOL::Solr::DataObjects.lookup_best_images_for_concepts(instances)
         docs.each do |d|
           d['instance'] = instances.detect{ |i| i.id == d['resource_id'].to_i }
         end

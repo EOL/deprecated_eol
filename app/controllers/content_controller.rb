@@ -22,6 +22,12 @@ class ContentController < ApplicationController
     @home_page = true
     current_user.log_activity(:viewed_home_page)
     begin
+      RandomHierarchyImage
+      DataObject
+      TaxonConcept
+      TaxonConceptPreferredEntry
+      Name
+      TaxonConceptExemplarImage
       @explore_taxa = $CACHE.fetch('homepage/random_images', :expires_in => 30.minutes) do
         RandomHierarchyImage.random_set(12)
       end

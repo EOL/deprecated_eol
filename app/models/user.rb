@@ -518,9 +518,10 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def watch_collection
+    return @watch_collection if @watch_collection
     collection = Collection.find_by_sql("SELECT c.* FROM collections c JOIN collections_users cu ON (c.id = cu.collection_id) WHERE cu.user_id = #{self.id} AND c.special_collection_id = #{SpecialCollection.watch.id} LIMIT 1").first
     collection ||= build_watch_collection
-    collection
+    @watch_collection = collection
   end
 
   # set the language from the abbreviation

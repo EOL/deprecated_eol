@@ -47,7 +47,7 @@ $ERROR_LOGGING=true # set to true to record uncaught application errors in sql d
 
 $ENABLE_ANALYTICS=false
 $ENABLE_RECAPTCHA=false # set to true to enable recaptcha on registration and contact us form
-$ENABLED_SOCIAL_PLUGINS = [:facebook, :twitter] # Enable social sharing on the site e.g. Facebook Like button
+$ENABLED_SOCIAL_PLUGINS = [:facebook, :twitter, :google, :yahoo] # Enable social sharing on the site e.g. Facebook Like button
 #$WEB_SERVICE_TIMEOUT_SECONDS=20 # how many seconds to wait when calling a webservice before timing out and returning nil
 $LOG_WEB_SERVICE_EXECUTION_TIME=true # if set to false, then execution times for web service calls will not be recorded
 $USE_SSL_FOR_LOGIN=false

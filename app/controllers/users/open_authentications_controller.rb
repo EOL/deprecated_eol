@@ -1,52 +1,64 @@
-class Users::AuthenticationsController < UsersController
+class Users::OpenAuthenticationsController < UsersController
+
+  layout 'v2/users'
+
+  before_filter :authentication_only_allow_editing_of_self, :only => [:index, :create, :new]
+  skip_before_filter :redirect_if_already_logged_in
+
+  def index
+    # @user instantiated by authentication before filter and matched to current user
+  end
 
   def new
-    provider_config = OAUTH_CONFIG["#{params[:provider]}"]
-    redirect_url = "#{oauth_callback_url}?provider=#{params[:provider]}"
-    case provider_config['type']
-    when 'OAuth'
-      client = EOL::Oauth.consumer(provider_config)
-      request_token = client.get_request_token(:oauth_callback => redirect_url)
-      # Save received token and secret in session
-      session["#{params[:provider]}_request_token_token"] = request_token.token
-      session["#{params[:provider]}_request_token_secret"] = request_token.secret
-      redirect_to request_token.authorize_url
-    when 'OAuth2'
-      client = EOL::Oauth.consumer2(provider_config)
-      redirect_to client.auth_code.authorize_url((provider_config['authorize_url_params'] || {}).merge(:redirect_uri => redirect_url))
-    else
-      # Failed to get client information for provider: #{params[:provider]}
-      flash[:notice] = I18n.t(:oauth_sign_in_unsuccessful_error)
-      redirect_back_or_default
+    # TODO: has user authorized? If so redirect with params to create. If not render index with error message.
+    if params[:oauth_provider]
+      if open_auth = EOL::OpenAuth.init(params[:oauth_provider], new_user_open_authentication_url(:oauth_provider => params[:oauth_provider]), params.merge({:request_token_token => session.delete("#{params[:oauth_provider]}_request_token_token"), :request_token_secret => session.delete("#{params[:oauth_provider]}_request_token_secret")}))
+        if open_auth.user_attributes.nil? || open_auth.authentication_attributes.nil?
+          flash.now[:error] = I18n.t(:oauth_error_accessing_basic_info)
+        else
+          if (authorized = OpenAuthentication.find_by_provider_and_guid(open_auth.authentication_attributes[:provider], open_auth.authentication_attributes[:guid], :include => :user)) && ! authorized.user.nil?
+            # TODO: what do we do when we have authentication record but no user here?
+            log_in(authorized.user)
+            return redirect_to user_newsfeed_path(authorized.user)
+          else
+            params[:open_authentication] = open_auth.authentication_attributes
+            return create
+          end
+        end
+      else
+        flash.now[:error] = I18n.t(:oauth_error_initializing_access)
+      end
     end
+    @user = User.new(oauth_user_attributes || nil)
   end
 
   def create
-    provider_config = OAUTH_CONFIG["#{params[:provider]}"]
-    case provider_config['type']
-    when 'OAuth'
-      client = EOL::Oauth.consumer(provider_config)
-      request_token = OAuth::RequestToken.new(client, session["#{params[:provider]}_request_token_token"], session["#{params[:provider]}_request_token_secret"])
-      access_token = request_token.get_access_token(:oauth_verifier => params[:oauth_verifier])
-    when 'OAuth2'
-      client = EOL::Oauth.consumer2(provider_config)
-      redirect_url = "#{oauth_callback_url}?provider=#{params[:provider]}"
-      access_token = client.auth_code.get_token(params[:code], (provider_config['access_token_params'] || {}).merge(:redirect_uri => redirect_url))
-    else
-      # Failed to get consumer information for OAuth provider #{params[:provider]}
-      redirect_back_or_default
+    if request.post? && open_authentication_provider = params[:open_authentication][:provider]
+      # autorize url and redirect to confirm details new
+      if open_auth = EOL::OpenAuth.init(open_authentication_provider, new_user_open_authentication_url(:oauth_provider => open_authentication_provider))
+        session.merge!(open_auth.session_data) if defined?(open_auth.request_token)
+        return redirect_to open_auth.authorize_uri
+      else
+        flash[:error] = I18n.t(:oauth_error_initializing_authorization, :oauth_provider => open_authentication_provider)
+      end
+    elsif request.get? && params[:open_authentication][:guid]
+      # create new authentication record
+      open_authentication = @user.open_authentications.build(params[:open_authentication])
+      if open_authentication.save
+        flash[:notice] = "Added #{params[:open_authentication][:provider]} authentication"
+      else
+        flash[:error] = "Error saving #{params[:open_authentication][:provider]} authentication"
+      end
     end
-
-    if profile_information = EOL::Oauth.profile(params[:provider], access_token)
-      profile_information[:provider] = params[:provider]
-      save_profile_information(profile_information, :remote_ip => request.remote_ip)
-    else
-      flash[:notice] = I18n.t(:oauth_sign_in_unsuccessful_error)
-      redirect_back_or_default
-    end
+    redirect_to :action => :index
   end
 
   private
+  
+  def open_authentication_providers
+    @open_authentication_providers ||= @user.open_authentications.collect{ |oa| oa.provider } if @user.open_authentications
+  end
+  helper_method :open_authentication_providers
 
   # Save authentication information
   def save_profile_information(profile_information, options)

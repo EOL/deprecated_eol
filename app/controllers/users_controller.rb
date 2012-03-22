@@ -155,11 +155,11 @@ class UsersController < ApplicationController
     if (open_authentication_signup = !params[:user][:open_authentications_attributes].blank?)
       if (guid = params[:user][:open_authentications_attributes]["0"][:guid]) &&
         (provider = params[:user][:open_authentications_attributes]["0"][:provider]) &&
-        (params[:user][:open_authentications_attributes]["0"][:token] = session["oauth_token_#{provider}_#{guid}"]) &&
-        (params[:user][:open_authentications_attributes]["0"][:secret] = session["oauth_secret_#{provider}_#{guid}"])
+        (params[:user][:open_authentications_attributes]["0"][:token] = session["oauth_token_#{provider}_#{guid}"])
         # TODO: if user fails validation we still need session data, if we remove validation so user never fails then we
         # can do session.delete here instead
         # Then we have all the necessary authentication attributes to create a user
+        params[:user][:open_authentications_attributes]["0"][:secret] = session["oauth_secret_#{provider}_#{guid}"]
         params[:user][:active] = true
       else
         # TODO: if user cannot fail validation then we can delete session data in the if statements otherwise we have to

@@ -1,7 +1,5 @@
 # An enumerated list of the different kinds of roles an Agent fills.
 class AgentRole < ActiveRecord::Base
-
-  CACHE_ALL_ROWS = true
   uses_translations
 
   has_many :agents_data_objects

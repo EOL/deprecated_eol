@@ -3,8 +3,7 @@ class UnpublishPreviousRevisionsOfUdo < ActiveRecord::Migration
     udos = UsersDataObject.find(:all, :include => :data_object)
     udos.each do |udo|
       if udo.data_object_id != udo.data_object.revisions.last.id
-        udo.data_object.published = 0
-        udo.data_object.save
+        udo.data_object.update_attribute(:published, 0)
       end
     end
   end

@@ -29,6 +29,11 @@ describe RedirectsController do
       response.redirected_to.should == collection_path(1)
       response.status.should == '301 Moved Permanently'
     end
+    it 'should default to premenantly redirecting to /' do
+      get :show
+      response.redirected_to.should == :root
+      response.status.should == '301 Moved Permanently'
+    end
   end
 
 end

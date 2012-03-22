@@ -13,7 +13,11 @@ module EOL
     end
     
     def self.add_standard_instance_to_docs!(klass, docs, primary_key_field_name, options = {})
-      ids = docs.map{ |d| d[primary_key_field_name] }.compact
+      if docs.class == Hash
+        ids = docs.map{ |k,d| d[primary_key_field_name] }.compact
+      else
+        ids = docs.map{ |d| d[primary_key_field_name] }.compact
+      end
       return if ids.blank?
       instances = klass.find_all_by_id(ids, :include => options[:includes], :select => options[:selects])
       # TODO: making an exception here for Comments as you can only use the Comment.preload_associations syntax
@@ -21,8 +25,14 @@ module EOL
       if klass == Comment
         Comment.preload_associations(instances, :parent)
       end
-      docs.each do |d|
-        d['instance'] = instances.detect{ |i| i.id == d[primary_key_field_name].to_i }
+      if docs.class == Hash
+        docs.each do |k,d|
+          d['instance'] = instances.detect{ |i| i.id == d[primary_key_field_name].to_i }
+        end
+      else
+        docs.each do |d|
+          d['instance'] = instances.detect{ |i| i.id == d[primary_key_field_name].to_i }
+        end
       end
     end
   end

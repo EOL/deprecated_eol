@@ -518,9 +518,10 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def watch_collection
+    return @watch_collection if @watch_collection
     collection = Collection.find_by_sql("SELECT c.* FROM collections c JOIN collections_users cu ON (c.id = cu.collection_id) WHERE cu.user_id = #{self.id} AND c.special_collection_id = #{SpecialCollection.watch.id} LIMIT 1").first
     collection ||= build_watch_collection
-    collection
+    @watch_collection = collection
   end
 
   # set the language from the abbreviation
@@ -813,8 +814,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   def hide_data_objects
     data_objects = UsersDataObject.find_all_by_user_id(self.id, :include => :data_object).collect{|udo| udo.data_object}.uniq
     data_objects.each do |data_object|
-      data_object.published = 0
-      data_object.save
+      data_object.update_attribute(:published, 0)
       data_object.update_solr_index
     end
   end
@@ -822,8 +822,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   def unhide_data_objects
     data_objects = UsersDataObject.find_all_by_user_id(self.id, :include => :data_object).collect{|udo| udo.data_object}.uniq
     data_objects.each do |data_object|
-      data_object.published = 1
-      data_object.save
+      data_object.update_attribute(:published, 1)
       data_object.update_solr_index
     end
   end

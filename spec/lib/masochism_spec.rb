@@ -13,10 +13,8 @@ describe 'Masochism' do
   describe ': test_master setup' do
     it 'should have a test_master environment' do
       ActiveRecord::Base.configurations['test_master'].class.should == Hash
-      ActiveRecord::Base.configurations['test_master_data'].class.should == Hash
       ActiveRecord::Base.configurations['test_master_logging'].class.should == Hash
       unless ActiveRecord::Base.configurations['test_master'] &&
-          ActiveRecord::Base.configurations['test_master_data'] &&
           ActiveRecord::Base.configurations['test_master_logging']
         puts "** WARNING: YOU NEED TO CREATE A test_master DATABASE.YML ENTRY"
       end

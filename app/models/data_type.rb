@@ -1,5 +1,4 @@
 class DataType < ActiveRecord::Base
-  CACHE_ALL_ROWS = true
   uses_translations
   has_many :data_objects
   @@full_attribution_order = nil
@@ -57,23 +56,23 @@ class DataType < ActiveRecord::Base
   
 
   def self.sound_type_ids
-    ids = [DataType.sound.id]
+    @@sound_type_ids ||= [DataType.sound.id]
   end
 
   def self.image_type_ids
-    ids = [DataType.image.id]
+    @@image_type_ids ||= [DataType.image.id]
   end
 
   def self.video_type_ids
-    ids = [DataType.youtube.id, DataType.flash.id, DataType.video.id]
+    @@video_type_ids ||= [DataType.youtube.id, DataType.flash.id, DataType.video.id]
   end
 
   def self.text_type_ids
-    ids = [DataType.text.id]
+    @@text_type_ids ||= [DataType.text.id]
   end
   
   def self.map_type_ids
-    ids = [DataType.map.id]
+    @@map_type_ids ||= [DataType.map.id]
   end
   
 

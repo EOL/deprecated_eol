@@ -184,19 +184,10 @@ If you can't get running the search feature hopefully it's only because of Solr 
 
 Run the following commands:
 
-  rake db:drop:all
-  rake db:create:all
-  rake db:migrate
-  rake db:migrate RAILS_ENV=test
-  rake db:migrate RAILS_ENV=test_master
-  rake solr:start
-  rake truncate
-  rake scenarios:load NAME=bootstrap,demo
+  rake eol:db:rebuild
+  rake eol:db:recreate RAILS_ENV=test
+  rake eol:db:recreate RAILS_ENV=test_master
   ruby spec/integration/search_spec.rb
-  rake solr:build
-  rake solr:build RAILS_ENV=test
-  rake solr:rebuild_site_search
-  rake solr:rebuild_collection_items
 
 == TESTING
 

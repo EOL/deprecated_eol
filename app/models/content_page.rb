@@ -2,7 +2,6 @@
 # objects associated with it.  These pages are static content *or* links to external resources, and can be edited by
 # administrators.
 class ContentPage < $PARENT_CLASS_MUST_USE_MASTER
-  #CACHE_ALL_ROWS = true
   uses_translations
 
   belongs_to :parent, :class_name => ContentPage.to_s, :foreign_key => 'parent_content_page_id'

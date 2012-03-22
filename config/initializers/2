@@ -12,7 +12,7 @@ class UsersDataObject < ActiveRecord::Base
   belongs_to :vetted
   belongs_to :visibility
 
-  before_create :auto_vet
+  before_save :auto_vet
 
   def self.get_user_submitted_data_object_ids(user_id)
     if(user_id == 'All') then
@@ -34,8 +34,8 @@ class UsersDataObject < ActiveRecord::Base
     UsersDataObject.create(:user_id => user_id,
                            :data_object => new_dato,
                            :taxon_concept_id => taxon_concept_id,
-                           :visibility_id => visibility_id,
-                           :vetted_id => vetted_id)
+                           :visibility => visibility_id,
+                           :vetted => vetted_id)
   end
 
 private

@@ -15,6 +15,7 @@ class Taxa::DetailsController < TaxaController
       :preload_select => { :data_objects => [ :id, :guid, :language_id ] },
       :skip_preload => true,
       :toc_ids_to_ignore => TocItem.exclude_from_details.collect{ |toc_item| toc_item.id } })
+    DataObject.preload_associations(@data_objects_in_other_languages, :language)
     @details_count_by_language = {}
     @data_objects_in_other_languages.each do |obj|
       @details_count_by_language[obj.language] ||= 0

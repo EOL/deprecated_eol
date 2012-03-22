@@ -9,6 +9,8 @@ describe 'Select with Preload Include' do
     @last_data_object = DataObject.last
     @last_agent = Agent.last
     @last_user = User.last
+    @last_user_info = UserInfo.gen(:user => @last_user)
+    @last_user.user_info = @last_user_info
     @dohe = DataObjectsHarvestEvent.last
     ContentPartner.gen(:user => @last_user)
   end
@@ -205,7 +207,7 @@ describe 'Select with Preload Include' do
   it 'should be able to select from a has_one => belongs_to association' do
     a = Agent.find(:last,
                    :select => "agents.created_at, users.created_at, hierarchies.label",
-                   :include => [{:user => :default_hierarchy}])
+                   :include => [{:user => :user_info}])
     a.class.should == Agent
     a.id.should == @last_agent.id                       # we grab the primary key any time there's an include
     a.created_at.should == @last_agent.created_at       # should have the field asked for
@@ -214,16 +216,11 @@ describe 'Select with Preload Include' do
 
     a.user.class.should == User
     a.user.agent_id.should == @last_agent.id                    # we need to grab the foreign_key of :has_one
-    a.user.default_hierarchy_id.should == @last_agent.user.default_hierarchy_id
+    a.user.user_info.user_id.should == @last_agent.user.id
     a.user.created_at.should == @last_agent.user.created_at
     a.user.updated_at.should == nil
     a.user.updated_at.should_not == @last_agent.user.updated_at
 
-    a.user.default_hierarchy.class.should == Hierarchy
-    a.user.default_hierarchy.id.should == @last_agent.user.default_hierarchy.id
-    a.user.default_hierarchy.label.should == @last_agent.user.default_hierarchy.label
-    a.user.default_hierarchy.indexed_on?.should == false
-    @last_agent.user.default_hierarchy.indexed_on?.should == true
   end
 
 

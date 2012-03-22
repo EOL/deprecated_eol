@@ -27,7 +27,8 @@ module EOL
       Language
       @defaults ||=
         $CACHE.fetch("anonymous/#{@lang}") do
-          {:agent => nil,
+          {:active => true, # Actually a bit torn about this one, but "inactive" means "waiting for email verify"...
+          :agent => nil,
           :agreed_with_terms => false,
           :all_collections => [],
           :blank? => true,
@@ -37,9 +38,9 @@ module EOL
           :can_manage_community? => false,
           :can_update? => false,
           :content_page_cache_str => 'anonymous',
-          :default_hierarchy_id => nil,
+          :credentials => '',
+          :curator_scope => '',
           :email => '',
-          :filter_content_by_hierarchy => nil,
           :full_name => I18n.t(:anonymous_user_full_name),
           :given_name => I18n.t(:anonymous_user_given_name),
           :ignored_data_object? => false,
@@ -54,7 +55,6 @@ module EOL
           :nil? => true,
           :rating_for_object_guids => nil,
           :save => false,
-          :selected_default_hierarchy => Hierarchy.default,
           :short_name => I18n.t(:anonymous_user_given_name),
           :tag_line => I18n.t(:anonymous_user_tag_line),
           :username => I18n.t(:anonymous_user_given_name),

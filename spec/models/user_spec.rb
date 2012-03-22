@@ -134,11 +134,6 @@ describe User do
     user.valid?.should_not be_true
   end
 
-  it 'should fail validation if the secondary hierarchy is the same as the first' do
-    user = User.new(:default_hierarchy_id => 1, :secondary_hierarchy_id => 1)
-    user.valid?.should_not be_true
-  end
-
   it 'should fail validation if a curator requests a new account without credentials' do
     user = User.new(:curator_request => true, :credentials => '')
     user.valid?.should_not be_true

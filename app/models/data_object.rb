@@ -993,6 +993,14 @@ class DataObject < ActiveRecord::Base
                            :taxon_concept => taxon_concept, :visibility => Visibility.visible)
   end
 
+  def revisions_by_date
+    @revisions_by_date ||= DataObject.sort_by_created_date(self.revisions).reverse
+  end
+
+  def latest_published_revision
+    revisions_by_date.select {|r| r.published? }.first
+  end
+
 private
 
   # NOTE - description required, and published will default to false from the DB, so you PROBABLLY want to specify it.

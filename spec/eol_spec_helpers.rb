@@ -13,7 +13,6 @@ module EOL
         elsif user.is_a? Hash
           options = options.merge(user)
         end
-        debugger if $FOO == 'bar'
         visit logout_path
         visit login_path
         fill_in "session_username_or_email", :with => options[:username]
@@ -133,7 +132,6 @@ module EOL
         end
         tc ||= entry.taxon_concept
         options = {
-          :vetted                  => true,
           :curator_approved        => true,
           :curator_scope           => 'scope',
           :credentials             => 'Curator'

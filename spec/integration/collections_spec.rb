@@ -73,7 +73,8 @@ describe "Collections and collecting:" do
         it_should_collect_item(taxon_overview_path(@taxon), @taxon)
       end
       it 'data objects' do
-        it_should_collect_item(data_object_path(@taxon.images_from_solr.first), @taxon.images_from_solr.first)
+        latest_revision_of_dato = @taxon.images_from_solr.first.latest_published_revision
+        it_should_collect_item(data_object_path(latest_revision_of_dato), latest_revision_of_dato)
       end
       it 'communities' do
         new_community = Community.gen

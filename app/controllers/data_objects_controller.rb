@@ -164,8 +164,8 @@ class DataObjectsController < ApplicationController
         { :agents_data_objects => [ :agent, :agent_role ] },
         { :data_objects_hierarchy_entries => { :hierarchy_entry => [ :name, :taxon_concept, :vetted, :visibility ] } },
         { :curated_data_objects_hierarchy_entries => { :hierarchy_entry => [ :name, :taxon_concept, :vetted, :visibility ] } } ] )
-    @revisions = DataObject.sort_by_created_date(@data_object.revisions).reverse
-    @latest_published_revision = @revisions.select{|r| r.published?}.first
+    @revisions = @data_object.revisions_by_date
+    @latest_published_revision = @data_object.latest_published_revision
     @translations = @data_object.available_translations_data_objects(current_user, nil)
     @translations.delete_if{ |t| t.language.nil? } unless @translations.nil?
     @image_source = get_image_source if @data_object.is_image?

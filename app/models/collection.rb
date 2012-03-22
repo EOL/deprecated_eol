@@ -203,8 +203,8 @@ class Collection < ActiveRecord::Base
     update_attributes(:relevance => calculate_relevance)
   end
 
-  def can_be_viewed_by?(user)
-    return true if collection.published? || collection.users.include?(user) || user.is_admin?
+  def can_be_read_by?(user)
+    return true if published? || users.include?(user) || user.is_admin?
     false
   end
 

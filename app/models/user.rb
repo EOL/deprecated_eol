@@ -1,7 +1,3 @@
-# NOTE - there is a method called #stale? (toward the bottom) which needs to be kept up-to-date with any changes made
-# to the user model.  We *could* achieve a similar result with method_missing, but I worry that it would cause other
-# problems.
-#
 # Note that email is NOT a unique field: one email address is allowed to have multiple accounts.
 # NOTE this inherist from MASTER.  All queries against a user need to be up-to-date, since this contains config information
 # which can change quickly.  There is a similar clause in the execute() method in the connection proxy for masochism.
@@ -39,7 +35,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   has_many :content_partners
   has_one :user_info
-  belongs_to :default_hierarchy, :class_name => Hierarchy.to_s, :foreign_key => :default_hierarchy_id
 
   before_save :check_credentials
   before_save :encrypt_password
@@ -589,11 +584,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     false # She's not a manager
   end
 
-  def selected_default_hierarchy
-    hierarchy = Hierarchy.find_by_id(default_hierarchy_id)
-    hierarchy.blank? ? '' : hierarchy.label
-  end
-
   def last_curator_activity
     last = CuratorActivityLog.find_by_user_id(id, :order => 'created_at DESC', :limit => 1)
     return nil if last.nil?
@@ -658,10 +648,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     end
   end
 
-  def default_hierarchy_valid?
-    return(self[:default_hierarchy_id] and Hierarchy.exists?(self[:default_hierarchy_id]))
-  end
-
   # These create and unset the fields required for remembering users between browser closes
   def remember_me
     remember_me_for 2.weeks
@@ -684,23 +670,11 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def content_page_cache_str
-    str = "#{language_abbr}"
-    str += "_#{default_hierarchy_id.to_s}" unless default_hierarchy_id.to_s.blank?
-    str
+    "#{language_abbr}"
   end
 
   def taxa_page_cache_str
-    return "#{language_abbr}_#{vetted}_#{default_taxonomic_browser}_#{default_hierarchy_id}"
-  end
-
-  # This is a method that checks if the user model pulled from a session is actually up-to-date:
-  #
-  # YOU SHOULD ADD NEW USER ATTRIBUTES TO THIS METHOD WHEN YOU TWEAK THE USER TABLE.
-  def stale?
-    # KEEP ALL OLD METHOD CHECKS
-    return true unless attributes.keys.include?("filter_content_by_hierarchy")
-    return true unless attributes.keys.include?("admin") # V2
-    return false
+    "#{language_abbr}"
   end
 
   def ensure_unique_username_against_master

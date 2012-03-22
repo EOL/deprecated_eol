@@ -155,23 +155,6 @@
         - if @taxon_concept
           .page-mode
 
-            - if current_user.vetted
-              - current_mode= I18n.t(:authoritative_information) ;change_mode= I18n.t(:all_information) ;set_vetted="false"
-            - else
-              - current_mode= I18n.t(:all_information) ;change_mode= I18n.t(:authoritative_information) ;set_vetted="true"
-
-            Showing:
-            %a{ :href => "#{current_url}?vetted=#{set_vetted}", :title => "click to show #{change_mode}" }
-              = current_mode
-            %br
-            - if (current_user.default_hierarchy_id.to_s != Hierarchy.default.id.to_s && !current_user.default_hierarchy_id.blank?)
-              %a{ :href => url_for(settings_url), :title => "using #{current_user.selected_default_hierarchy}, click to change" }
-                = I18n.t(:alternate_classification)
-              %br
-            - if current_user.filter_content_by_hierarchy
-              %a{ :href => url_for(settings_url), :title => "click to change settings" }
-                = I18n.t(:filtered_information)
-              %br
       - # a div to wrap *just* the rendered template, so it's easy to update the whole template via Ajax calls, if needed
       #content
         = yield(:content) or yield

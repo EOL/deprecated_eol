@@ -27,9 +27,15 @@ class CollectionItemsController < ApplicationController
     end
     flash.now[:errors] = @errors.to_sentence unless @errors.empty?
     flash[:notice] = @notices.to_sentence unless @notices.empty?
-
+    
     respond_to do |format|
-      format.html { redirect_to @collection_item.object, :status => :moved_permanently }
+      format.html do
+        redirect_object = @collection_item.object
+        if @collection_item.object.is_a?(TaxonConcept)
+          redirect_object = taxon_overview_url(@collection_item.object)
+        end
+        redirect_to redirect_object
+      end
       format.js do
         # this means we came from the collections summary on the overview page,
         # so render that entire summary box again

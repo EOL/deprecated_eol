@@ -222,11 +222,11 @@ class TaxonConcept < ActiveRecord::Base
 
   # Call this instead of @current_user, so that you will be given the appropriate (and DRY) defaults.
   def current_user
-    @current_user ||= User.create_new
+    @current_user ||= User.new
   end
 
   def self.current_user_static
-    @current_user ||= User.create_new
+    @current_user ||= User.new
   end
 
   # Set the current user, so that methods will have defaults (language, etc) appropriate to that user.

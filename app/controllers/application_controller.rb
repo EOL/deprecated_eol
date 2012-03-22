@@ -293,12 +293,9 @@ class ApplicationController < ActionController::Base
   # this method is used as a before_filter when user logins are disabled to ensure users who may have had a previous
   # session before we switched off user logins is booted out
   def clear_any_logged_in_session
-    if logged_in?
-      session[:user] = nil
-      session[:user_id] = nil
-      session[:language_id] = nil
-      current_agent = nil
-    end
+    session[:user_id] = nil
+    session[:language_id] = nil
+    current_agent = nil
   end
 
   def logged_in?
@@ -665,21 +662,6 @@ private
     @logged_in_user = user
   end
 
-  # There are several things we need to do when we change the (temporary) values on a logged-in user:
-  def set_logged_in_user(user)
-    set_temporary_logged_in_user(user)
-    session[:user_id] = user.id
-    set_unlogged_in_user(nil)
-  end
-
-  def unlogged_in_user
-    session[:user]
-  end
-
-  def set_unlogged_in_user(user)
-    session[:user] = user
-  end
-
   def expire_pages(pages)
     if pages.length > 0
       Language.find_active.each do |language|
@@ -700,10 +682,6 @@ private
         end
       end
     end
-  end
-
-  def clear_old_sessions
-    CGI::Session::ActiveRecordStore::Session.destroy_all( ['updated_at <?', $SESSION_EXPIRY_IN_SECONDS.seconds.ago] )
   end
 
   def log_search params

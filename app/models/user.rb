@@ -102,17 +102,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     end
   end
 
-  # create a new user using default attributes and then update with supplied parameters
-  def self.create_new options = {}
-    # NOTE - the agent_id is assigned in user controller, not in the model
-    new_user = User.new
-    new_user.send(:set_defaults) # It's a private method.  This is cheating, but we really DO want it private.
-    # Make sure a nil language doesn't upset things:
-    options.delete(:language_id) if options.has_key?(:language_id) && options[:language_id].nil?
-    new_user.attributes = options
-    new_user
-  end
-
   def self.authenticate(username_or_email, password)
     user = self.find_by_username_and_active(username_or_email, true)
     users = user.blank? ? self.find_all_by_email_and_active(username_or_email, true) : [user]
@@ -836,20 +825,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
 private
-
-  # set the defaults on this user object
-  # TODO - move the defaults to the database (LOW PRIO)
-  def set_defaults
-    self.default_taxonomic_browser = $DEFAULT_TAXONOMIC_BROWSER
-    self.expertise     = $DEFAULT_EXPERTISE.to_s
-    self.language      = Language.english
-    self.mailing_list  = false
-    self.vetted        = $DEFAULT_VETTED
-    self.credentials   = ''
-    self.curator_scope = ''
-    self.active        = true
-    self.flash_enabled = true
-  end
 
   def reload_if_stale
     return false if new_record? or changed? or frozen?

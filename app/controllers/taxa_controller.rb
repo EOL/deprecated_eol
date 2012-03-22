@@ -133,6 +133,7 @@ private
       @selected_hierarchy_entry = HierarchyEntry.find_by_id(@selected_hierarchy_entry_id) rescue nil
       if @selected_hierarchy_entry.hierarchy.browsable?
         # TODO: Eager load hierarchy entry agents?
+        TaxonConcept.preload_associations(@taxon_concept, { :published_hierarchy_entries => :hierarchy })
         @browsable_hierarchy_entries = @taxon_concept.published_hierarchy_entries.select{ |he| he.hierarchy.browsable? }
       else
         @selected_hierarchy_entry = nil

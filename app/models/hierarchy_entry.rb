@@ -298,11 +298,15 @@ class HierarchyEntry < ActiveRecord::Base
   end
 
   def preferred_classification_summary
-    return '' if flattened_ancestors.blank?
-    root_ancestor, immediate_parent = kingdom_and_immediate_parent
-    str_to_return = root_ancestor.name.string
-    str_to_return += " > " + immediate_parent.name.string if immediate_parent
-    return str_to_return
+    $CACHE.fetch(HierarchyEntry.cached_name_for("preferred_classification_summary_for_#{self.id}"), :expires_in => 5.days) do
+      HierarchyEntry.preload_associations(self, { :flattened_ancestors => :ancestor }, :select =>
+        { :hierarchy_entries => [ :id, :name_id, :rank_id, :taxon_concept_id, :lft, :rgt ] })
+      return '' if flattened_ancestors.blank?
+      root_ancestor, immediate_parent = kingdom_and_immediate_parent
+      str_to_return = root_ancestor.name.string
+      str_to_return += " > " + immediate_parent.name.string if immediate_parent
+      str_to_return
+    end
   end
 
   def kingdom_and_immediate_parent
@@ -310,11 +314,13 @@ class HierarchyEntry < ActiveRecord::Base
     sorted_ancestors = flattened_ancestors.sort{ |a,b| a.ancestor.lft <=> b.ancestor.lft }
     root_ancestor = sorted_ancestors.first.ancestor
     immediate_parent = sorted_ancestors.pop.ancestor
-    while immediate_parent && immediate_parent != root_ancestor && [ Rank.genus, Rank.species, Rank.subspecies, Rank.variety, Rank.infraspecies ].include?(immediate_parent.rank)
+    while immediate_parent && immediate_parent != root_ancestor && [ Rank.genus.id, Rank.species.id, Rank.subspecies.id, Rank.variety.id, Rank.infraspecies.id ].include?(immediate_parent.rank_id)
       immediate_parent = sorted_ancestors.pop.ancestor
     end
     immediate_parent = nil if immediate_parent == root_ancestor
-    [root_ancestor, immediate_parent]
+    entries_to_return = [root_ancestor, immediate_parent]
+    HierarchyEntry.preload_associations(entries_to_return, :name)
+    entries_to_return
   end
 
 

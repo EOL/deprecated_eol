@@ -56,6 +56,7 @@ class Taxa::WorklistController < TaxaController
     end
     
     @data_objects = @taxon_concept.data_objects_from_solr(search_options)
+    DataObject.preload_associations(@data_objects, [ { :hierarchy_entries => { :hierarchy => :agent } }, :data_type ] )
     @resource_counts = EOL::Solr::DataObjects.load_resource_facets(@taxon_concept.id,
       search_options.merge({ :resource_id => nil })).sort_by{ |c| c[:resource].title.downcase }
 

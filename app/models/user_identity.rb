@@ -1,5 +1,4 @@
 class UserIdentity < ActiveRecord::Base
-  CACHE_ALL_ROWS = true
   uses_translations
   
   has_many :users_user_identities

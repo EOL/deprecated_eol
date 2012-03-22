@@ -24,7 +24,7 @@ module EOL
               :agents => '*',
               :names => [ :id, :string],
               :vetted => [ :id, :view_order],
-              :languages => [ :id, :source_form, :iso_639_1 ]}
+              :languages => '*' }
       conditions = nil
       if options[:name_id] && options[:language_id]
         conditions = "taxon_concept_names.name_id = #{options[:name_id]} AND taxon_concept_names.language_id = #{options[:language_id]}"

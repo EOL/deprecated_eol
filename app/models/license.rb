@@ -1,5 +1,4 @@
 class License < ActiveRecord::Base
-  CACHE_ALL_ROWS = true
   uses_translations
   # this is only used in testing. For some translted models we only want to create one instance for a particular
   # label in a language. For example we only want one English DataType.image or one Rank.species. But other

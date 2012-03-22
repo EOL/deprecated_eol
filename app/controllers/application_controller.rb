@@ -60,11 +60,14 @@ class ApplicationController < ActionController::Base
     # but the table is tiny (<5 rows right now) and the coloumn is indexed. But it also gives us the flexibility
     # to display or remove a message within seconds which I think is worth it
     # NOTE (!) if you set this value and don't see it change in 10 minutes, CHECK YOUR SLAVE LAG. It reads from slaves.
+    # NOTE: if there is no row for global_site_warning, or the value is nil, we will cache the integer 1 so prevent
+    # future lookups (when we check the cache and find a value of nil, it makes it look like the lookup was not cached)
     warning = $CACHE.fetch("application/global_site_warning", :expires_in => 10.minutes) do
-      sco = SiteConfigurationOption.find_by_parameter('global_site_warning') rescue nil
-      sco.try(:value)
+      sco = SiteConfigurationOption.find_by_parameter('global_site_warning')
+      (sco && sco.value) ? sco.value : 1
     end
-    unless warning.blank?
+    
+    if warning && warning.class == String
       flash.now[:error] = warning
     end
   end
@@ -433,7 +436,7 @@ class ApplicationController < ActionController::Base
     when 'User'
       user_url(item)
     when 'TaxonConcept'
-      taxon_url(item)
+      taxon_overview_url(item)
     else
       raise EOL::Exceptions::ObjectNotFound
     end

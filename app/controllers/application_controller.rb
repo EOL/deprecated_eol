@@ -1,8 +1,9 @@
 require 'uri'
 begin
   require 'ruby-prof'
-rescue
+rescue MissingSourceFile
   # Sometimes it's not installed.  We don't care.
+  puts "(╯°□°)╯︵ ┻━┻"
 end
 ContentPage # TODO - figure out why this fails to autoload.  Look at http://kballcodes.com/2009/09/05/rails-memcached-a-better-solution-to-the-undefined-classmodule-problem/
 

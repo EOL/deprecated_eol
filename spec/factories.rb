@@ -1098,7 +1098,6 @@ Factory.define :user do |u|
   u.family_name               { Factory.next(:last_name) }
   u.agent_id                  {|user| Factory(:agent, :full_name => "#{user.given_name} #{user.family_name}").id }
   u.language                  { Language.english }
-  u.mailing_list              true
   u.username                  do |user|
     attempt = "#{user.given_name[0..0]}_#{user.family_name[0..9]}".gsub(/\s/, '_').downcase
     while(User.find_by_username(attempt)) do

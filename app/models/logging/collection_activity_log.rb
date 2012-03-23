@@ -29,51 +29,51 @@ class CollectionActivityLog < LoggingModel
   def notification_recipient_objects
     return @notification_recipients if @notification_recipients
     @notification_recipients = []
-    add_recipient_collection!(@notification_recipients)
-    add_recipient_communities!(@notification_recipients)
-    add_recipient_containing_collections!(@notification_recipients)
-    add_recipient_collector!(@notification_recipients)
-    add_recipient_users_watchlists!(@notification_recipients)
-    add_recipient_users_getting_watched!(@notification_recipients)
+    add_recipient_collection(@notification_recipients)
+    add_recipient_communities(@notification_recipients)
+    add_recipient_containing_collections(@notification_recipients)
+    add_recipient_collector(@notification_recipients)
+    add_recipient_users_watchlists(@notification_recipients)
+    add_recipient_users_getting_watched(@notification_recipients)
     @notification_recipients
   end
 
 private
 
-  def add_recipient_collection!(recipients)
+  def add_recipient_collection(recipients)
     recipients << self.collection  # for collection newsfeed
   end
 
-  def add_recipient_collector!(recipients)
+  def add_recipient_collector(recipients)
     # TODO: this is a new notification type - probably for ACTIVITY only
     recipients << { :user => user, :notification_type => :i_collected_something,
                     :frequency => NotificationFrequency.never }
   end
 
-  def add_recipient_communities!(recipients)
+  def add_recipient_communities(recipients)
     if self.collection && ! self.collection.communities.blank?
       recipients += self.collection.communities  # communities associated this collection
     end
   end
 
-  def add_recipient_containing_collections!(recipients)
+  def add_recipient_containing_collections(recipients)
     # news feed of collections which contain the thing commented on
     Collection.which_contain(self.collection).each do |c|
       recipients << c
     end
   end
 
-  def add_recipient_users_watchlists!(recipients)
+  def add_recipient_users_watchlists(recipients)
     recipients.select{ |c| c.class == Collection && c.watch_collection? }.each do |collection|
       collection.users.each do |user|
-        user.add_as_recipient_if_listening_to!(:changes_to_my_watched_collection, recipients)
+        user.add_as_recipient_if_listening_to(:changes_to_my_watched_collection, recipients)
       end
     end
   end
 
-  def add_recipient_users_getting_watched!(recipients)
+  def add_recipient_users_getting_watched(recipients)
     if someone_is_being_watched?
-      collection_item.object.add_as_recipient_if_listening_to!(:i_am_being_watched, recipients)
+      collection_item.object.add_as_recipient_if_listening_to(:i_am_being_watched, recipients)
     end
   end
 

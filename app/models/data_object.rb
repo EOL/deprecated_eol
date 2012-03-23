@@ -236,7 +236,7 @@ class DataObject < ActiveRecord::Base
     dato = DataObject.new(params.reverse_merge!(:rights_holder => options[:user].full_name, :published => true))
     if dato.save
       dato.toc_items = TocItem.find(options[:toc_id])
-      dato.from_user_for_taxon_concept(options[:user], options[:taxon_concept])
+      dato.build_relationship_to_taxon_concept_by_user(options[:taxon_concept], options[:user])
       dato.update_solr_index
     end
     dato
@@ -958,9 +958,9 @@ class DataObject < ActiveRecord::Base
   def notification_recipient_objects(options = {})
     return @notification_recipients if @notification_recipients
     @notification_recipients = []
-    add_recipient_user_making_object_modification!(@notification_recipients, options)
-    add_recipient_pages_affected!(@notification_recipients, options)
-    add_recipient_users_watching!(@notification_recipients, options)
+    add_recipient_user_making_object_modification(@notification_recipients, options)
+    add_recipient_pages_affected(@notification_recipients, options)
+    add_recipient_users_watching(@notification_recipients, options)
     @notification_recipients
   end
 
@@ -972,47 +972,6 @@ class DataObject < ActiveRecord::Base
     end
   end
 
-private
-
-  def add_recipient_user_making_object_modification!(recipients, options = {})
-    if options[:user]
-      # TODO: this is a new notification type - probably for ACTIVITY only
-      recipients << { :user => options[:user], :notification_type => :i_created_something,
-                      :frequency => NotificationFrequency.never }
-      # watch collection of user
-      recipients << self.user.watch_collection if self.user.watch_collection
-    end
-  end
-  
-  def add_recipient_pages_affected!(recipients, options = {})
-    if options[:taxon_concept]
-      recipients << options[:taxon_concept]
-      recipients << { :ancestor_ids => options[:taxon_concept].flattened_ancestor_ids }
-    else
-      self.curated_hierarchy_entries.each do |he|
-        recipients << he.taxon_concept
-        recipients << { :ancestor_ids => he.taxon_concept.flattened_ancestor_ids }
-      end
-    end
-  end
-  
-  def add_recipient_users_watching!(recipients, options = {})
-    if options[:taxon_concept]
-      options[:taxon_concept].containing_collections.watch.each do |collection|
-        collection.users.each do |user|
-          user.add_as_recipient_if_listening_to!(:new_data_on_my_watched_item, recipients)
-        end
-      end
-    end
-  end
-
-  def unpublish_previous_revisions
-    DataObject.find(:all, :conditions => "id != #{self.id} AND guid = '#{self.guid}'").each do |dato|
-      dato.update_attribute(:published, 0)
-      dato.update_solr_index
-    end
-  end
-
   def replicate_associations(new_dato)
     new_dato.users_data_object = users_data_object.replicate(new_dato)
     DataObjectsTaxonConcept.find_or_create_by_taxon_concept_id_and_data_object_id(users_data_object.taxon_concept_id, new_dato.id)
@@ -1021,8 +980,7 @@ private
     end
   end
 
-  # Stores information in the DB telling us that a user created this dato specifically for a given TC:
-  def from_user_for_taxon_concept(user, taxon_concept)
+  def build_relationship_to_taxon_concept_by_user(taxon_concept, user)
     DataObjectsTaxonConcept.find_or_create_by_taxon_concept_id_and_data_object_id(taxon_concept.id, self.id)
     UsersDataObject.create(:user => user, :data_object => self,
                            :taxon_concept => taxon_concept, :visibility => Visibility.visible)
@@ -1037,6 +995,45 @@ private
   end
 
 private
+
+  def add_recipient_user_making_object_modification(recipients, options = {})
+    if options[:user]
+      # TODO: this is a new notification type - probably for ACTIVITY only
+      recipients << { :user => options[:user], :notification_type => :i_created_something,
+                      :frequency => NotificationFrequency.never }
+      # watch collection of user
+      recipients << self.user.watch_collection if self.user.watch_collection
+    end
+  end
+  
+  def add_recipient_pages_affected(recipients, options = {})
+    if options[:taxon_concept]
+      recipients << options[:taxon_concept]
+      recipients << { :ancestor_ids => options[:taxon_concept].flattened_ancestor_ids }
+    else
+      self.curated_hierarchy_entries.each do |he|
+        recipients << he.taxon_concept
+        recipients << { :ancestor_ids => he.taxon_concept.flattened_ancestor_ids }
+      end
+    end
+  end
+  
+  def add_recipient_users_watching(recipients, options = {})
+    if options[:taxon_concept]
+      options[:taxon_concept].containing_collections.watch.each do |collection|
+        collection.users.each do |user|
+          user.add_as_recipient_if_listening_to(:new_data_on_my_watched_item, recipients)
+        end
+      end
+    end
+  end
+
+  def unpublish_previous_revisions
+    DataObject.find(:all, :conditions => "id != #{self.id} AND guid = '#{self.guid}'").each do |dato|
+      dato.update_attribute(:published, 0)
+      dato.update_solr_index
+    end
+  end
 
   # NOTE - description required, and published will default to false from the DB, so you PROBABLLY want to specify it.
   def default_values # Ideally, these would be in the DB, but I didn't want to take that step.  ...yet.

@@ -6,7 +6,7 @@ class Users::NewsfeedsController < UsersController
     redirect_if_user_is_inactive
     preload_user_associations
     @filter = params[:filter] || 'all'
-    @filters = ['all', 'messages', 'community', 'collections', 'watchlist', 'curation']
+    @filters = ['all', 'messages', 'community', 'collections', 'curation'] # TODO = 'watchlist' (can't do it now)
     respond_to do |format|
       format.html {
         @page = params[:page] || 1

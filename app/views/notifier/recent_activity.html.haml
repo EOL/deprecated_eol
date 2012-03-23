@@ -20,12 +20,12 @@
   - when 'Comment'
     = render(:partial => 'notifier/recent_activity/comment', :locals => { :who => note.user.full_name, :what => note.parent.summary_name, :body => note.body, :comment_link => link_to_item(Kernel.const_get(note.parent_type).find(note.parent_id), :host => $EMAIL_HOST) })
   - when 'CollectionActivityLog'
-    = render(:partial => 'notifier/recent_activity/collection_activity_log', :note => note)
+    = render(:partial => 'notifier/recent_activity/collection_activity_log', :locals => { :note => note })
   - when 'CommunityActivityLog'
-    = render(:partial => 'notifier/recent_activity/community_activity_log', :note => note)
+    = render(:partial => 'notifier/recent_activity/community_activity_log', :locals => { :note => note })
   - when 'CuratorActivityLog'
-    = render(:partial => 'notifier/recent_activity/curator_activity_log', :note => note)
+    = render(:partial => 'notifier/recent_activity/curator_activity_log', :locals => { :note => note })
   - when 'DataObject'
-    = render(:partial => 'notifier/recent_activity/data_object', :note => note)
+    = render(:partial => 'notifier/recent_activity/data_object', :locals => { :note => note })
   - else
     - raise EOL::Exceptions::UnknownFeedType.new("#{note.class.name} not known.")

@@ -154,23 +154,23 @@ class CuratorActivityLog < LoggingModel
   def notification_recipient_objects
     return @notification_recipients if @notification_recipients
     @notification_recipients = []
-    add_recipient_user_taking_action!(@notification_recipients)
-    add_recipient_affected_by_common_name!(@notification_recipients)
-    add_recipient_affected_by_object_curation!(@notification_recipients)
-    add_recipient_users_watching!(@notification_recipients)
-    add_recipient_author_of_curated_text!(@notification_recipients)
+    add_recipient_user_taking_action(@notification_recipients)
+    add_recipient_affected_by_common_name(@notification_recipients)
+    add_recipient_affected_by_object_curation(@notification_recipients)
+    add_recipient_users_watching(@notification_recipients)
+    add_recipient_author_of_curated_text(@notification_recipients)
     @notification_recipients
   end
 
 private
 
-  def add_recipient_user_taking_action!(recipients)
+  def add_recipient_user_taking_action(recipients)
     # TODO: this is a new notification type - probably for ACTIVITY only
     recipients << { :user => self.user, :notification_type => :i_curated_something,
                     :frequency => NotificationFrequency.never }
   end
 
-  def add_recipient_affected_by_common_name!(recipients)
+  def add_recipient_affected_by_common_name(recipients)
     if self.changeable_object_type_id == ChangeableObjectType.synonym.id
       unless self.taxon_concept.blank?
         recipients << self.taxon_concept
@@ -184,7 +184,7 @@ private
     end
   end
 
-  def add_recipient_affected_by_object_curation!(recipients)
+  def add_recipient_affected_by_object_curation(recipients)
     if object_is_data_object?
       recipients << self.data_object
       self.data_object.curated_hierarchy_entries.each do |he|
@@ -197,18 +197,18 @@ private
     end
   end
 
-  def add_recipient_users_watching!(recipients)
+  def add_recipient_users_watching(recipients)
     recipients.select{ |r| r.class == Collection && r.watch_collection? }.each do |collection|
       collection.users.each do |user|
-        user.add_as_recipient_if_listening_to!(:curation_on_my_watched_item, recipients)
+        user.add_as_recipient_if_listening_to(:curation_on_my_watched_item, recipients)
       end
     end
   end
   
-  def add_recipient_author_of_curated_text!(recipients)
+  def add_recipient_author_of_curated_text(recipients)
     if object_is_data_object?
       if u = self.data_object.contributing_user
-        u.add_as_recipient_if_listening_to!(:comment_on_my_contribution, recipients)
+        u.add_as_recipient_if_listening_to(:comment_on_my_contribution, recipients)
       end
     end
   end

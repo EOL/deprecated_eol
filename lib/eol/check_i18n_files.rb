@@ -386,7 +386,6 @@ module EOL
           end
           parent_ident = 0
           skip = false
-          debugger
           haml_engine.result_array.each_with_index do |entry,index|
             sline = entry.line.strip
             #Empty lines

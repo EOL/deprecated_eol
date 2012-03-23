@@ -230,14 +230,14 @@ class Comment < ActiveRecord::Base
   def notification_recipient_objects
     return @notification_recipients if @notification_recipients
     @notification_recipients = []
-    add_recipient_user_making_comment!(@notification_recipients)
-    add_recipient_object_getting_commented_on!(@notification_recipients)
-    add_recipient_collections_containing_object_getting_commented_on!(@notification_recipients)
-    add_recipient_replied_to_user!(@notification_recipients)
-    add_recipient_collection_managers!(@notification_recipients)
-    add_recipient_community_managers!(@notification_recipients)
-    add_recipient_users_watching!(@notification_recipients)
-    add_recipient_author_of_commented_on_text!(@notification_recipients)
+    add_recipient_user_making_comment(@notification_recipients)
+    add_recipient_object_getting_commented_on(@notification_recipients)
+    add_recipient_collections_containing_object_getting_commented_on(@notification_recipients)
+    add_recipient_replied_to_user(@notification_recipients)
+    add_recipient_collection_managers(@notification_recipients)
+    add_recipient_community_managers(@notification_recipients)
+    add_recipient_users_watching(@notification_recipients)
+    add_recipient_author_of_commented_on_text(@notification_recipients)
     @notification_recipients
   end
 
@@ -252,7 +252,7 @@ class Comment < ActiveRecord::Base
 
 private
 
-  def add_recipient_user_making_comment!(recipients)
+  def add_recipient_user_making_comment(recipients)
     # TODO: this is a new notification type - probably for ACTIVITY only
     recipients << { :user => self.user, :notification_type => :i_commented_on_something,
                     :frequency => NotificationFrequency.never }
@@ -260,11 +260,11 @@ private
     recipients << self.user.watch_collection if self.user.watch_collection
   end
 
-  def add_recipient_object_getting_commented_on!(recipients)
+  def add_recipient_object_getting_commented_on(recipients)
     if self.parent_type == 'User'
       # news feed of user commented on
       user_commented_on = self.parent
-      user_commented_on.add_as_recipient_if_listening_to!(:comment_on_my_profile, recipients)
+      user_commented_on.add_as_recipient_if_listening_to(:comment_on_my_profile, recipients)
     else
       # news feed of other types
       recipients << self.parent
@@ -282,7 +282,7 @@ private
     end
   end
 
-  def add_recipient_collections_containing_object_getting_commented_on!(recipients)
+  def add_recipient_collections_containing_object_getting_commented_on(recipients)
     # news feed of collections which contain the thing commented on
     self.parent.containing_collections.each do |c|
       next if c.blank?
@@ -290,43 +290,43 @@ private
     end
   end
 
-  def add_recipient_replied_to_user!(recipients)
+  def add_recipient_replied_to_user(recipients)
     if reply_is_comment?
       original_comment_user = self.reply_to.user
-      original_comment_user.add_as_recipient_if_listening_to!(:reply_to_comment, recipients)
+      original_comment_user.add_as_recipient_if_listening_to(:reply_to_comment, recipients)
     end
   end
 
-  def add_recipient_collection_managers!(recipients)
+  def add_recipient_collection_managers(recipients)
     if self.parent_type == 'Collection'
       self.parent.managers.each do |manager|
-        manager.add_as_recipient_if_listening_to!(:comment_on_my_collection, recipients)
+        manager.add_as_recipient_if_listening_to(:comment_on_my_collection, recipients)
       end
     end
   end
 
-  def add_recipient_community_managers!(recipients)
+  def add_recipient_community_managers(recipients)
     if self.parent_type == 'Community'
       self.parent.managers_as_users.each do |manager|
-        manager.add_as_recipient_if_listening_to!(:comment_on_my_community, recipients)
+        manager.add_as_recipient_if_listening_to(:comment_on_my_community, recipients)
       end
     end
   end
 
-  def add_recipient_users_watching!(recipients)
+  def add_recipient_users_watching(recipients)
     if self.parent.respond_to?(:containing_collections)
       self.parent.containing_collections.watch.each do |collection|
         collection.users.each do |user|
-          user.add_as_recipient_if_listening_to!(:comment_on_my_watched_item, recipients)
+          user.add_as_recipient_if_listening_to(:comment_on_my_watched_item, recipients)
         end
       end
     end
   end
 
-  def add_recipient_author_of_commented_on_text!(recipients)
+  def add_recipient_author_of_commented_on_text(recipients)
     if self.parent_type == 'DataObject'
       if user = self.parent.contributing_user
-        user.add_as_recipient_if_listening_to!(:comment_on_my_contribution, recipients)
+        user.add_as_recipient_if_listening_to(:comment_on_my_contribution, recipients)
       end
     end
   end

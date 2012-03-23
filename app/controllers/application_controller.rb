@@ -292,9 +292,9 @@ class ApplicationController < ActionController::Base
 
   def recently_visited_collections(collection_id = nil)
     session[:recently_visited_collections] ||= []
-    session[:recently_visited_collections] << collection_id
-    session[:recently_visited_collections] = session[:recently_visited_collections].uniq    # Ignore duplicates.
-    session[:recently_visited_collections] = session[:recently_visited_collections][-6..-1] # Only keep last six.
+    session[:recently_visited_collections].unshift(collection_id)
+    session[:recently_visited_collections] = session[:recently_visited_collections].uniq  # Ignore duplicates.
+    session[:recently_visited_collections] = session[:recently_visited_collections][0..5] # Only keep first six.
   end
 
   # Boot all users out when we don't want logins (note: preserves language):

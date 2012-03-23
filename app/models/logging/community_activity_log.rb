@@ -30,27 +30,27 @@ class CommunityActivityLog < LoggingModel
   def notification_recipient_objects
     return @notification_recipients if @notification_recipients
     @notification_recipients = []
-    add_recipient_user_making_edit!(@notification_recipients)
-    add_recipient_community!(@notification_recipients)
-    add_recipient_managers!(@notification_recipients)
-    add_recipient_users_watching!(@notification_recipients)
-    add_recipient_other_community_members!(@notification_recipients)
+    add_recipient_user_making_edit(@notification_recipients)
+    add_recipient_community(@notification_recipients)
+    add_recipient_managers(@notification_recipients)
+    add_recipient_users_watching(@notification_recipients)
+    add_recipient_other_community_members(@notification_recipients)
     @notification_recipients
   end
 
 private
 
-  def add_recipient_user_making_edit!(recipients)
+  def add_recipient_user_making_edit(recipients)
     # TODO: this is a new notification type - probably for ACTIVITY only
     recipients << { :user => user, :notification_type => :i_modified_a_community,
                     :frequency => NotificationFrequency.never }
   end
 
-  def add_recipient_community!(recipients)
+  def add_recipient_community(recipients)
     recipients << self.community
   end
   
-  def add_recipient_managers!(recipients)
+  def add_recipient_managers(recipients)
     # add users who want to be notified about becoming a manager
     if activity.id == Activity.add_manager.id && member && frequency = member.user.listening_to?(:made_me_a_manager)
       new_manager = member.user
@@ -60,28 +60,28 @@ private
     community.managers_as_users.each do |manager|
       next if activity.id == Activity.add_manager.id && (new_manager && manager.id == new_manager.id)  # the new manager was notified above...
       if activity.id == Activity.add_manager.id
-        manager.add_as_recipient_if_listening_to!(:new_manager_in_my_community, recipients)
+        manager.add_as_recipient_if_listening_to(:new_manager_in_my_community, recipients)
       elsif activity.id == Activity.join.id && frequency = manager.listening_to?(:member_joined_my_community)
-        manager.add_as_recipient_if_listening_to!(:member_joined_my_community, recipients)
+        manager.add_as_recipient_if_listening_to(:member_joined_my_community, recipients)
       elsif activity.id == Activity.leave.id && frequency = manager.listening_to?(:member_left_my_community)
-        manager.add_as_recipient_if_listening_to!(:member_left_my_community, recipients)
+        manager.add_as_recipient_if_listening_to(:member_left_my_community, recipients)
       end
     end
   end
   
-  def add_recipient_users_watching!(recipients)
+  def add_recipient_users_watching(recipients)
     self.community.containing_collections.watch.each do |collection|
       collection.users.each do |user|
-        user.add_as_recipient_if_listening_to!(:changes_to_my_watched_community, recipients)
+        user.add_as_recipient_if_listening_to(:changes_to_my_watched_community, recipients)
       end
     end
   end
 
   # TODO - this is kinda expensive in large groups. :\
-  def add_recipient_other_community_members!(recipients)
+  def add_recipient_other_community_members(recipients)
     community.members.map {|m| m.user }.each do |existing_user|
       next if existing_user.id == member_id # You don't need to be notified about YOU joining!
-      user.add_as_recipient_if_listening_to!(:member_joined_my_watched_community, recipients)
+      user.add_as_recipient_if_listening_to(:member_joined_my_watched_community, recipients)
     end
   end
 end

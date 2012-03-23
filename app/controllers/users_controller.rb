@@ -44,13 +44,12 @@ class UsersController < ApplicationController
     redirect_to edit_user_notification_path(@user), :status => :moved_permanently and return if params[:commit_notification_settings_get]
     generate_api_key and return if params[:commit_generate_api_key]
     unset_auto_managed_password if params[:user][:entered_password]
+    if (requested_curator_level_id = params[:user][:requested_curator_level_id]) && requested_curator_level_id.to_i != @user.requested_curator_level_id && requested_curator_level_id.to_i != @user.curator_level_id
+      params[:user][:requested_curator_at] = Time.now
+    end
     user_before_update = @user
     if @user.update_attributes(params[:user])
-      # not using alter_current_user because it doesn't allow for validation checks
-      # and we probably don't want to update current_user with invalid attributes
       upload_logo(@user) unless params[:user][:logo].blank?
-      $CACHE.delete("users/#{session[:user_id]}")
-      set_current_user(@user)
       current_user.log_activity(:updated_user)
       store_location params[:return_to] if params[:return_to]
       provide_feedback
@@ -116,7 +115,7 @@ class UsersController < ApplicationController
 
   # POST /users
   def create
-    @user = User.create_new(params[:user])
+    @user = User.new(params[:user])
     failed_to_create_user and return unless @user.valid? && verify_recaptcha
     @user.validation_code = User.generate_key
     while(User.find_by_validation_code(@user.validation_code))
@@ -191,16 +190,11 @@ class UsersController < ApplicationController
       @user.agreed_with_terms = true
       @user.save(false) # saving without validation to avoid issues with invalid legacy users
       # validation will more appropriately happen when user attempts to edit profile
-      # avoiding alter_current_user as this would try to save again but fail if any validation issues
-      if current_user.id == @user.id
-        $CACHE.delete("users/#{session[:user_id]}")
-        set_current_user(@user)
-      end
       redirect_back_or_default(user_path(current_user))
     else
       page = ContentPage.find_by_page_name('terms_of_use')
       unless page.nil?
-        @terms = TranslatedContentPage.find_by_content_page_id_and_language_id_and_active_translation(page, @user.language_id, 1)
+        @terms = TranslatedContentPage.find_by_content_page_id_and_language_id_and_active_translation(page, @user.language.id, 1)
         @terms = TranslatedContentPage.find_by_content_page_id_and_language_id_and_active_translation(page, Language.english.id, 1) if @terms.blank?
       end
     end
@@ -247,7 +241,7 @@ class UsersController < ApplicationController
       flash[:error] =  I18n.t(:reset_password_token_expired_error)
       redirect_to forgot_password_users_path
     else
-      set_current_user(user)
+      session[:user_id] = user.id # Log them in.
       delete_password_reset_token(user)
       flash[:notice] = I18n.t(:reset_password_enter_new_password_notice)
       redirect_to edit_user_path(user), :status => :moved_permanently
@@ -349,9 +343,7 @@ private
 
   def generate_api_key
     @user.clear_entered_password
-    @user = alter_current_user do |user|
-      user.update_attributes({ :api_key => User.generate_key })
-    end
+    @user.update_attributes({:api_key => User.generate_key})
     instantiate_variables_for_edit
     render :edit
   end

@@ -69,14 +69,17 @@ class CollectionsController < ApplicationController
   def update
     return redirect_to params.merge!(:action => 'show').except(*unnecessary_keys_for_redirect) if params[:commit_sort]
     return redirect_to params.merge!(:action => 'show').except(*unnecessary_keys_for_redirect) if params[:commit_view_as]
-    # the first two redirects don't need any collection items, several of the following methods do
-    build_collection_items
     return redirect_to_choose(:copy) if params[:commit_copy]
     return chosen if params[:scope] && params[:for] == 'copy'
+    return remove_and_redirect if params[:commit_remove]
+    return redirect_to_choose(:move) if params[:commit_move]
+    
+    # some of the following methods need the list of items on the page... I think.
+    # if not, we should remove this as it is very expensive
+    build_collection_items unless params[:commit_annotation]
+    
     # copy is the only update action allowed for non-owners
     return if user_able_to_edit_collection # reads weird but will raise exception and exit if user cannot edit collection
-    return redirect_to_choose(:move) if params[:commit_move]
-    return remove_and_redirect if params[:commit_remove]
     return annotate if params[:commit_annotation]
     return chosen if params[:scope] # Note that updating the collection params doesn't specify a scope.
     
@@ -130,7 +133,9 @@ class CollectionsController < ApplicationController
       flash[:error] = I18n.t(:max_collection_items_error, :max => $MAX_COLLECTION_ITEMS_TO_MANIPULATE)
       redirect_to collection_path(@collection), :status => :moved_permanently
     end
-    @collections = current_user.all_collections.delete_if{ |c| c.is_resource_collection? }
+    @collections = current_user.all_collections
+    Collection.preload_associations(@collections, [ :communities, :resource, :resource_preview ])
+    @collections.delete_if{ |c| c.is_resource_collection? }
     @page_title = I18n.t(:choose_collection_header)
   end
 
@@ -139,7 +144,9 @@ class CollectionsController < ApplicationController
     @user = User.find(params[:user_id]) rescue nil
     @community = Community.find(params[:community_id]) rescue nil
     @item = @user || @community # @item is for views, makes life easier.
-    @collections = current_user.all_collections.delete_if{ |c| c.is_resource_collection? || c.watch_collection? }
+    @collections = current_user.all_collections
+    Collection.preload_associations(@collections, [ :resource, :resource_preview ])
+    @collections.delete_if{ |c| c.is_resource_collection? || c.watch_collection? }
     raise EOL::Exceptions::NoCollectionsApply if @collections.blank?
     @page_title = I18n.t(:make_user_an_editor_title, :user => @item.summary_name)
     respond_to do |format|
@@ -151,7 +158,9 @@ class CollectionsController < ApplicationController
 
   def choose_collect_target
     return must_be_logged_in unless logged_in?
-    @collections = current_user.all_collections.delete_if{ |c| c.is_resource_collection? }
+    @collections = current_user.all_collections
+    Collection.preload_associations(@collections, [ :resource, :resource_preview ])
+    @collections.delete_if{ |c| c.is_resource_collection? }
     raise EOL::Exceptions::ObjectNotFound unless @item
     @page_title = I18n.t(:collect_item) + " - " + @item.summary_name
     respond_to do |format|
@@ -282,6 +291,11 @@ private
     copied = {}
     @copied_to = []
     all_items = []
+    # TODO - seriously bad. We shouldn't need to load ALL items for the destination collection (what if it had 10,000+ items?)
+    # Unfortunately this will require a bit more of a refactor than I have time for now
+    Collection.preload_associations(destinations, :collection_items)
+    params[:collection_items] = CollectionItem.find(params[:collection_items], :include => :object) if params[:collection_items]
+    Collection.preload_associations(source, :users)
     destinations.each do |destination|
       begin
         items = copy_items(:from => source, :to => destination, :items => params[:collection_items],
@@ -506,7 +520,7 @@ private
   end
 
   def user_able_to_view_collection
-    unless @collection && current_user.can_view_collection?(@collection)
+    unless @collection && current_user.can_read?(@collection)
       if logged_in?
         raise EOL::Exceptions::SecurityViolation, "User with ID=#{current_user.id} does not have read access to Collection with ID=#{@collection.id}"
       else

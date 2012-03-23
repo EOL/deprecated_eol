@@ -16,13 +16,19 @@ describe ContentPartners::ResourcesController do
   end
 
   describe 'GET index' do
-    it 'should render index if user can update content partner and agreement is accepted' do
+    it 'should render root if user not logged in' do
       get :index, { :content_partner_id => @content_partner.id }
       response.redirected_to.should == root_url
-      get :index, { :content_partner_id => @content_partner.id }, { :user => @user, :user_id => @user.id }
+    end
+    it 'should ask for agreement if user can update content partner and agreement is NOT accepted' do
+      session[:user_id] = @user.id
+      get :index, { :content_partner_id => @content_partner.id }
       response.redirected_to.should == new_content_partner_content_partner_agreement_path(@content_partner)
+    end
+    it 'should render index if user can update content partner and agreement is accepted' do
       @content_partner_agreement = ContentPartnerAgreement.gen(:content_partner => @content_partner, :signed_on_date => Time.now)
-      get :index, { :content_partner_id => @content_partner.id }, { :user => @user, :user_id => @user.id }
+      session[:user_id] = @user.id
+      get :index, { :content_partner_id => @content_partner.id }
       assigns[:partner].should == @content_partner
       assigns[:resources].should be_a(Array)
       assigns[:resources].first.should == @resource
@@ -69,9 +75,12 @@ describe ContentPartners::ResourcesController do
 #  end
 
   describe 'GET show' do
-    it 'should render resource show page if user can read content partner resources' do
+    it 'should render root if user not logged in' do
       get :show, { :content_partner_id => @content_partner.id, :id => @resource.id }
       response.redirected_to.should == root_url
+    end
+    it 'should render resource show page if user can read content partner resources' do
+      session[:user_id] = @user.id
       get :show, { :content_partner_id => @content_partner.id, :id => @resource.id }, { :user => @user, :user_id => @user.id }
       assigns[:partner].should == @content_partner
       assigns[:resource].should == @resource

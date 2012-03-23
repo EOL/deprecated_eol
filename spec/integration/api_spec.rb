@@ -153,15 +153,11 @@ describe 'EOL APIs' do
   end
   
   it 'pages should return only published concepts' do
-    @taxon_concept.published = 0
-    @taxon_concept.save!
-  
+    @taxon_concept.update_attribute(:published, 0)
     visit("/api/pages/0.4/#{@taxon_concept.id}")
     body.should include('<error>')
     body.should include('</response>')
-  
-    @taxon_concept.published = 1
-    @taxon_concept.save!
+    @taxon_concept.update_attribute(:published, 1)
   end
   
   it 'pages should show one data object per category' do
@@ -335,15 +331,13 @@ describe 'EOL APIs' do
   # DataObjects
   
   it "data objects shouldn't show invisible or unpublished objects" do
-    @object.published = 0
-    @object.save!
+    @object.update_attribute(:published, 0)
   
     visit("/api/data_objects/#{@object.guid}")
     body.should include('<error>')
     body.should include('</response>')
   
-    @object.published = 1
-    @object.save!
+    @object.update_attribute(:published, 1)
   end
   
   it "data objects should show a taxon element for the data object request" do
@@ -466,15 +460,11 @@ describe 'EOL APIs' do
   end
   
   it 'hierarchy_entries should return only published hierarchy_entries' do
-    @hierarchy_entry.published = 0
-    @hierarchy_entry.save!
-  
+    @hierarchy_entry.update_attribute(:published, 0)
     visit("/api/hierarchy_entries/#{@hierarchy_entry.id}")
     body.should include('<error>')
     body.should include('</response>')
-  
-    @hierarchy_entry.published = 1
-    @hierarchy_entry.save!
+    @hierarchy_entry.update_attribute(:published, 1)
   end
   
   it 'hierarchy_entries should show all information for hierarchy entries in DWC format' do

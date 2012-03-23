@@ -73,7 +73,8 @@ describe "Collections and collecting:" do
         it_should_collect_item(taxon_overview_path(@taxon), @taxon)
       end
       it 'data objects' do
-        it_should_collect_item(data_object_path(@taxon.images_from_solr.first), @taxon.images_from_solr.first)
+        latest_revision_of_dato = @taxon.images_from_solr.first.latest_published_revision
+        it_should_collect_item(data_object_path(latest_revision_of_dato), latest_revision_of_dato)
       end
       it 'communities' do
         new_community = Community.gen
@@ -220,8 +221,7 @@ describe "Collections and collecting:" do
     body.should have_tag('ul.object_list li', /#{collectable_data_object.object_title}/)
 
     # the image will unpublished, but there are no newer versions, so it will still show up
-    collectable_data_object.published = 0
-    collectable_data_object.save
+    collectable_data_object.update_attribute(:published, 0)
     visit collection_path(@anon_user.watch_collection)
     body.should have_tag('ul.object_list li', /#{collectable_data_object.object_title}/)
 
@@ -235,8 +235,7 @@ describe "Collections and collecting:" do
     # the original image is published again, but this time we still see the newest version as we
     # always show the latest version of an object. This is a rare case where there are two published versions
     # of the same object, which technically shouldn't happen in production
-    collectable_data_object.published = 1
-    collectable_data_object.save
+    collectable_data_object.update_attribute(:published, 1)
     visit collection_path(@anon_user.watch_collection)
     body.should have_tag('ul.object_list li', /#{newer_version_collected_data_object.object_title}/)
     body.should_not have_tag('ul.object_list li', /#{collectable_data_object.object_title}/)

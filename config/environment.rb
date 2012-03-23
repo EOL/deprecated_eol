@@ -117,12 +117,6 @@ Rails::Initializer.run do |config|
   # Note that you can override this in the environment-specific file, too, if you want to.
   $DEFAULT_HIERARCHY_NAME = "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2010"
 
-  # SITE CONTENT CONFIGURATION
-  $DEFAULT_VETTED = false # default to showing all content (changed October 6, 2009 by Peter Mangiafico at request of Gary Borisy)
-  $DEFAULT_EXPERTISE = :expert # default expertise level (options are :middle, :novice, :expert)
-  $DEFAULT_TITLE_EXPERTISE = :italicized_canonical
-  $DEFAULT_SUBTITLE_EXPERTISE = :middle
-
   # TODO - Remove all references to "content levels" here and in the code --- this is all not required anymore
   ################
   $DEFAULT_CONTENT_LEVEL = "1" # default content level for types of pages shown to user (1..4)
@@ -160,11 +154,6 @@ Rails::Initializer.run do |config|
   $EDUCATION_EMAIL = 'from@example.com'
   $MEDIA_INQUIRY_CONTACT_SUBJECT_ID = 1 # this should match the ContactSubject table with the ID of the media inquiry row (used on the special Media Contact page)
   $CONTRIBUTE_INQUIRY_CONTACT_SUBJECT_IDS = "13,14" # this should match the ContactSubject table with the IDs of the request to curate or contribute rows as a string in comma delimuted format  (used on the Contact us page to show an extra field)
-
-  # SESSION MANAGEMENT
-  $SESSION_EXPIRY_IN_SECONDS = (60*60) # the number of seconds of non-use before sessions are automatically expired in SQL
-  $USE_SQL_SESSION_MANAGEMENT = false   # set to true to use Rails built-in SQL session storage management
-  # (create the session table with 'rake db:sessions:create')
 
   # CACHE CONFIGURATION
   $CACHE_CLEARED_LAST = Time.now()  # This variable will record the last time the home page cache was cleared
@@ -249,11 +238,6 @@ Rails::Initializer.run do |config|
   # If this is false, mail errors are silently ignored.  That doesn't make us happy:
   config.action_mailer.raise_delivery_errors = true
 
-  # Note that if this is not set (and it usually isn't), the default is cookie_store.
-  if $USE_SQL_SESSION_MANAGEMENT
-    config.action_controller.session_store = :active_record_store
-  end
-
   begin
     require 'config/environments/local.rb'
   rescue LoadError
@@ -274,10 +258,6 @@ ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(
   :short_no_time => "%m/%d/%Y",
   :short_no_tz => "%m/%d/%Y - %I:%M %p"
 )
-
-if $USE_SQL_SESSION_MANAGEMENT
-  CGI::Session::ActiveRecordStore::Session.connection = ActiveRecord::Base.establish_connection("master_database")
-end
 
 # Windows users are colorblind:
 ActiveRecord::Base.colorize_logging = false if PLATFORM =~ /win32/

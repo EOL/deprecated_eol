@@ -39,10 +39,15 @@ describe UsersController do
   end
 
   describe 'GET edit' do
-    it 'should render edit only if editing self' do
-      expect{ get :edit, { :id => @user.id } }.should raise_error(EOL::Exceptions::SecurityViolation)
+    it 'should raise error if edit before log in' do
+      lambda { get :edit, { :id => @user.id } }.should raise_error(EOL::Exceptions::SecurityViolation)
+    end
+    it 'should raise security violation if edit wrong user' do
       user = User.gen
-      expect{ get :edit, { :id => user.id }, { :user => @user, :user_id => @user.id } }.should raise_error(EOL::Exceptions::SecurityViolation)
+      session[:user_id] = @user.id
+      lambda { get :edit, { :id => user.id } }.should raise_error(EOL::Exceptions::SecurityViolation)
+    end
+    it 'should render edit properly if editing self' do
       get :edit, { :id => @user.id }, { :user => @user, :user_id => @user.id }
       assigns[:user].should == @user
       response.rendered[:template].should == 'users/edit.html.haml'
@@ -52,12 +57,15 @@ describe UsersController do
 
   describe 'PUT update' do
 
-    it 'should update and render show only if updating self' do
+    it 'should raise error if not logged in' do
       hashed_password = User.find(@user).hashed_password
       expect{ put :update, { :id => @user.id, :user => { :id => @user.id, :entered_password => 'newpassword', :entered_password_confirmation => 'newpassword' } } }.should raise_error(EOL::Exceptions::SecurityViolation)
+    end
+    it 'should update and render show if updating self' do
+      hashed_password = User.find(@user).hashed_password
+      session[:user_id] = @user.id
       User.find(@user).hashed_password.should == hashed_password
-      put :update, { :id => @user.id, :user => { :id => @user.id, :entered_password => 'newpassword', :entered_password_confirmation => 'newpassword' } },
-                   { :user => @user, :user_id => @user.id }
+      put :update, { :id => @user.id, :user => { :id => @user.id, :entered_password => 'newpassword', :entered_password_confirmation => 'newpassword' } }
       user = User.find(@user)
       user.hashed_password.should_not == hashed_password
       user.hashed_password.should == User.hash_password('newpassword')
@@ -66,8 +74,8 @@ describe UsersController do
 
     it 'should render edit on validation errors' do
       hashed_password = User.find(@user).hashed_password
-      put :update, { :id => @user.id, :user => { :id => @user.id, :entered_password => 'abc', :entered_password_confirmation => 'abc' } },
-                   { :user => @user, :user_id => @user.id }
+      session[:user_id] = @user.id
+      put :update, { :id => @user.id, :user => { :id => @user.id, :entered_password => 'abc', :entered_password_confirmation => 'abc' } }
       User.find(@user).hashed_password.should == hashed_password
       response.rendered[:template].should == 'users/edit.html.haml'
     end
@@ -110,11 +118,18 @@ describe UsersController do
   end
 
   describe 'GET curation_privileges' do
-    it 'should render curation privileges only if applying for self' do
+    it 'should raise error when not logged in' do
       expect{ get :curation_privileges, { :id => @user.id } }.should raise_error(EOL::Exceptions::SecurityViolation)
+    end
+    it 'should render curation privileges only if applying for self' do
       user = User.gen
-      expect{ get :curation_privileges, { :id => user.id }, { :user => @user, :user_id => @user.id } }.should raise_error(EOL::Exceptions::SecurityViolation)
-      get :curation_privileges, { :id => @user.id }, { :user => @user, :user_id => @user.id }
+      session[:user_id] = @user.id
+      lambda { get :curation_privileges, { :id => user.id } }.should raise_error(EOL::Exceptions::SecurityViolation)
+    end
+    it 'should render curation privileges properly' do
+      user = User.gen
+      session[:user_id] = @user.id
+      get :curation_privileges, { :id => @user.id }
       assigns[:user].should == @user
       response.rendered[:template].should == 'users/curation_privileges.html.haml'
       response.redirected_to.should be_blank
@@ -263,22 +278,22 @@ describe UsersController do
     it 'should log in users with valid reset password token' do
       user = User.gen(:password_reset_token => User.generate_key, :password_reset_token_expires_at => 24.hours.from_now)
       get :reset_password, :user_id => user.id, :password_reset_token => user.password_reset_token
+      response.redirected_to.should == edit_user_path(user)
       user.reload
       user.password_reset_token.should be_nil
       user.password_reset_token_expires_at.should be_nil
       session[:user_id].should == user.id
-      response.redirected_to.should == edit_user_path(user)
     end
     it 'should not log in users with invalid reset password token' do
       user = User.gen(:password_reset_token => User.generate_key, :password_reset_token_expires_at => 24.hours.from_now)
       get :reset_password, :user_id => user.id, :password_reset_token => 'invalidtoken123'
-      session[:user].should_not == user
+      session[:user_id].should_not == user.id
       response.redirected_to.should == forgot_password_users_path
     end
     it 'should not log in users with expired reset password token' do
       user = User.gen(:password_reset_token => User.generate_key, :password_reset_token_expires_at => 24.hours.ago)
       get :reset_password, :user_id => user.id, :password_reset_token => 'invalidtoken123'
-      session[:user].should_not == user
+      session[:user_id].should_not == user.id
       response.redirected_to.should == forgot_password_users_path
     end
   end

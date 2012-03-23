@@ -60,20 +60,8 @@ describe User do
     end
   end
 
-  it 'should provide a nice, empty version of a user with #create_new' do
-    test_name = "Krampus"
-    user = User.create_new(:username => test_name)
-    user.username.should == test_name
-    user.default_taxonomic_browser.should == $DEFAULT_TAXONOMIC_BROWSER
-    user.language.should == Language.english
-    user.credentials.should == ''
-    user.curator_scope.should == ''
-    user.active.should == true
-    user.flash_enabled.should == true
-  end
-
   it 'should NOT log activity on a "fake" (unsaved, temporary, non-logged-in) user' do
-    user = User.create_new
+    user = User.new
     count = UserActivityLog.count
     user.log_activity(:clicked_link)
     UserActivityLog.count.should == count
@@ -141,44 +129,32 @@ describe User do
     @user.password.should == pass
   end
 
-  it 'should have defaults when creating a new user' do
-    user = User.create_new
-    user.default_taxonomic_browser    == $DEFAULT_TAXONOMIC_BROWSER
-    user.flash_enabled                == true
-    user.active                       == true
-  end
-
   it 'should fail validation if the email is in the wrong format' do
-    user = User.create_new(:email => 'wrong(at)format(dot)com')
-    user.valid?.should_not be_true
-  end
-
-  it 'should fail validation if the secondary hierarchy is the same as the first' do
-    user = User.create_new(:default_hierarchy_id => 1, :secondary_hierarchy_id => 1)
+    user = User.new(:email => 'wrong(at)format(dot)com')
     user.valid?.should_not be_true
   end
 
   it 'should fail validation if a curator requests a new account without credentials' do
-    user = User.create_new(:curator_request => true, :credentials => '')
+    user = User.new(:curator_request => true, :credentials => '')
     user.valid?.should_not be_true
   end
 
   it 'should fail validation if a curator requests a new account without either a scope or a clade' do
-    user = User.create_new(:curator_request => true, :curator_scope => nil)
+    user = User.new(:curator_request => true, :curator_scope => nil)
     user.valid?.should_not be_true
   end
 
   it '#full_name should resort to username if a given name is all they provided' do
     given = 'bubba'
     username = 'carryoncarryon'
-    user = User.create_new(:username => username, :given_name => given, :family_name => '')
+    user = User.new(:username => username, :given_name => given, :family_name => '')
     user.full_name.should == username
   end
 
   it '#full_name should build a full name out of a given and family names' do
     given = 'santa'
     family = 'klaws'
-    user = User.create_new(:given_name => given, :family_name => family)
+    user = User.new(:given_name => given, :family_name => family)
     user.full_name.should == "#{given} #{family}"
   end
 
@@ -192,7 +168,7 @@ describe User do
   end
 
   it 'should not allow you to add a user that already exists' do
-    User.create_new( :username => @user.username ).save.should be_false
+    User.new( :username => @user.username ).save.should be_false
   end
 
   it '(curator user) should allow curator rights to be revoked' do

@@ -1,5 +1,4 @@
 class RefIdentifierType < ActiveRecord::Base
-  CACHE_ALL_ROWS = true
   has_many :ref_identifiers
 
 end

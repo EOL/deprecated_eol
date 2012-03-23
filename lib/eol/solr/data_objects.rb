@@ -31,7 +31,74 @@ module EOL
           :selects => selects)
       end
       
+      def self.lookup_best_images_for_concepts(taxon_concepts)
+        taxon_concept_ids_to_lookup = []
+        all_best_images_for_concepts = {}
+        # check the exemplar images to avoid unnecessary Solr lookups
+        TaxonConcept.preload_associations(taxon_concepts, { :taxon_concept_exemplar_image => :data_object })
+        taxon_concepts.each do |tc|
+          next if $CACHE.read(TaxonConcept.cached_name_for("best_image_#{tc.id}"))
+          if best_image = tc.published_exemplar_image
+            all_best_images_for_concepts[tc.id] = best_image
+          else
+            taxon_concept_ids_to_lookup << tc.id
+          end
+        end
+        return if taxon_concept_ids_to_lookup.blank?
+        
+        # Lookup images for 20 taxa at a time
+        number_of_taxa_in_batch = 20
+        number_of_images_to_return = number_of_taxa_in_batch * 10
+        taxon_concept_ids_to_lookup.each_slice(number_of_taxa_in_batch) do |subset_of_taxon_concept_ids_to_lookup|
+          response = solr_search(subset_of_taxon_concept_ids_to_lookup, {
+            :pages => 1,
+            :per_page => number_of_images_to_return,
+            :sort_by => 'status',
+            :data_type_ids => DataType.image_type_ids,
+            :filter_by_subtype => true,
+            :data_subtype_ids => nil,
+            :vetted_types => ['trusted', 'unreviewed'],
+            :visibility_types => ['visible'],
+            :published => true,
+            :skip_preload => true,
+            :return_hierarchically_aggregated_objects => true,
+            :fl => 'data_object_id,guid,trusted_ancestor_id,unreviewed_ancestor_id'
+          })
+          best_solr_docs = {}
+          response['response']['docs'].each do |doc|
+            subset_of_taxon_concept_ids_to_lookup.each do |tc_id|
+              if (doc['trusted_ancestor_id'] && doc['trusted_ancestor_id'].include?(tc_id)) ||
+                 (doc['unreviewed_ancestor_id'] && doc['unreviewed_ancestor_id'].include?(tc_id))
+                best_solr_docs[tc_id] = doc
+                subset_of_taxon_concept_ids_to_lookup.delete(tc_id)
+              end
+            end
+            # all concepts have their best image
+            break if subset_of_taxon_concept_ids_to_lookup.empty?
+          end
+          add_resource_instances!(best_solr_docs, :skip_preload => true)
+          best_solr_docs.each{ |tc_id,d| all_best_images_for_concepts[tc_id] = d['instance'] }
+          
+          # set the cache value for all the best images that were just found
+          all_best_images_for_concepts.each do |tc_id, d|
+            $CACHE.fetch(TaxonConcept.cached_name_for("best_image_#{tc_id}"), :expires_in => 1.days) do
+              d || 'none'
+            end
+          end
+          # if we got back fewer images than we asked for - meaning if we didn't find an image
+          # for a concept we searched for, then that concept has no best images, so record that fact
+          if response['response']['docs'].length < number_of_images_to_return
+            subset_of_taxon_concept_ids_to_lookup.each do |tc_id|
+              $CACHE.fetch(TaxonConcept.cached_name_for("best_image_#{tc_id}"), :expires_in => 1.days) do 
+                'none'
+              end
+            end
+          end
+        end
+      end
+      
       def self.prepare_search_url(taxon_concept_id, options = {})
+        taxon_concept_id = "(" + taxon_concept_id.join(" OR ") + ")" if taxon_concept_id.class == Array
         url =  $SOLR_SERVER + $SOLR_DATA_OBJECTS_CORE + '/select/?wt=json&q=' + CGI.escape("{!lucene}ancestor_id:#{taxon_concept_id}")
         unless options[:published].nil?
           url << CGI.escape(" AND published:#{(options[:published]) ? 1 : 0}")
@@ -141,7 +208,11 @@ module EOL
           url << '&sort=data_rating+desc'
         end
         # we only need a couple fields
-        url << "&fl=data_object_id,guid"
+        if options[:fl]
+          url << "&fl=#{options[:fl]}"
+        else
+          url << "&fl=data_object_id,guid"
+        end
         
         if options[:facet_by_resource]
           url << '&facet.field=resource_id&facet.mincount=1&facet.limit=300&facet=on'
@@ -196,9 +267,16 @@ module EOL
         f = response['facet_counts']['facet_fields']['data_type_id']
         f.each_with_index do |rt, index|
           next if index % 2 == 1 # if its odd, skip this. Solr has a strange way of returning the facets in JSON
-          data_type = DataType.find(rt.to_i)
-          key = data_type.label('en').downcase
-          facets[key] = f[index+1].to_i
+          data_type_id = rt.to_i
+          if DataType.image_type_ids.include?(data_type_id)
+            key = 'image'
+          elsif DataType.video_type_ids.include?(data_type_id)
+            key = 'video'
+          elsif DataType.sound_type_ids.include?(data_type_id)
+            key = 'sound'
+          end
+          facets[key] ||= 0
+          facets[key] += f[index+1].to_i
         end
         facets['all'] = response['response']['numFound']
         
@@ -253,8 +331,25 @@ module EOL
             key_prefix = "ancestor_" + key_prefix if do_ancestor
             f.each_with_index do |rt, index|
               next if index % 2 == 1 # if its odd, skip this. Solr has a strange way of returning the facets in JSON
-              data_type = DataType.find(rt.to_i)
-              key = key_prefix + "_" + data_type.label('en').downcase
+              
+              
+              data_type_id = rt.to_i
+              if DataType.image_type_ids.include?(data_type_id)
+                data_type_label = 'image'
+              elsif DataType.video_type_ids.include?(data_type_id)
+                data_type_label = 'video'
+              elsif DataType.sound_type_ids.include?(data_type_id)
+                data_type_label = 'sound'
+              elsif DataType.text_type_ids.include?(data_type_id)
+                data_type_label = 'text'
+              else
+                data_type = DataType.find(data_type_id)
+                data_type_label = data_type.label('en').downcase
+              end
+              
+              
+              
+              key = key_prefix + "_" + data_type_label
               facets[key] = f[index+1].to_i
             end
             facets['all'] = response['response']['numFound']

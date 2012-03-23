@@ -122,8 +122,7 @@ testy[:taxon_concept_with_bad_title] = build_taxon_concept(:canonical_form => te
 testy[:taxon_concept_with_unpublished_iucn] = build_taxon_concept()
 testy[:bad_iucn_value] = 'bad value'
 iucn_entry = build_iucn_entry(testy[:taxon_concept_with_unpublished_iucn], testy[:bad_iucn_value])
-iucn_entry.published = 0
-iucn_entry.save
+iucn_entry.update_attribute(:published, 0)
 
 testy[:taxon_concept_with_no_common_names] = build_taxon_concept(
   :common_names => [],

@@ -12,7 +12,7 @@ class WikipediaQueuesController < ApplicationController
     access_denied unless current_user.can_create?(@new_wikipedia_queue)
     curators_page = ContentPage.find_by_page_name('curators', :include => :translations)
     unless curators_page.blank?
-      translation = curators_page.translations.select{|t| t.language_id == current_user.language_id}.compact
+      translation = curators_page.translations.select{|t| t.language_id == current_language.id}.compact
       translation ||= curators_page.translations.select{|t| t.language_id == Language.english.id}.compact
       @navigation_menu =  translation.first.left_content rescue nil
     end

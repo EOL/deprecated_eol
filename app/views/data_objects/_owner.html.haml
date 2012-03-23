@@ -2,7 +2,9 @@
 - if data_object.rights_holder.blank?
   - owner, user = data_object.owner
 - else
-  - owner = "&copy; #{data_object.rights_holder}"
+  - owner = "#{data_object.rights_holder}"
+  - unless data_object.license && data_object.license.is_public_domain?
+    - owner = "&copy; " + owner
 - if owner.blank?
   = "&nbsp;"
 - else

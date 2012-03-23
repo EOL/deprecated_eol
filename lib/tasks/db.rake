@@ -2,19 +2,25 @@ require 'eol_data'
 
 namespace :eol do
   namespace :db do
-    namespace :create do
-      desc 'Create all of the database associated with your environment'
-      task :all => :environment do
-        include EOL::DB::Create
-        all
-      end
+    desc 'Drop all of the the databases, re-create them, and then bootstrap them.'
+    task :rebuild => :environment do
+      EOL::DB.rebuild
     end
-    namespace :drop do
-      desc 'Drop all of the database associated with your environment'
-      task :all => :environment do
-        include EOL::DB::Drop
-        all
-      end
+    desc 'Drop and then create all of the databases associated with your environment.'
+    task :recreate => :environment do
+      EOL::DB.recreate
+    end
+    desc 'Create all of the databases associated with your environment.'
+    task :create => :environment do
+      EOL::DB.create
+    end
+    desc 'Drop all of the databases associated with your environment.'
+    task :drop => :environment do
+      EOL::DB.drop
+    end
+    desc 'Truncate (!) then populate your databases with reasonable testing data.'
+    task :populate => :environment do
+      EOL::DB.populate
     end
   end
 end

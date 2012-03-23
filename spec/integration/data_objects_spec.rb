@@ -435,4 +435,30 @@ describe 'Data Object Page' do
       visit('/logout')
     end
   end
+  
+  it "should not show copyright symbol for public domain objects" do
+    @image.rights_holder = "Someone"
+    @image.save
+    visit("/data_objects/#{@image.id}")
+    body.should match('&copy;')
+    
+    original_license = @image.license
+    @image.license = License.public_domain
+    @image.save
+    visit("/data_objects/#{@image.id}")
+    body.should_not match('&copy;')
+    @image.license = original_license
+    @image.save
+  end
+  
+  it "should link agents to their homepage, and add http if the link does not include it" do
+    agent = Agent.new(:full_name => 'doesnt matter', :homepage => 'www.somesite.com')
+    agent.send(:create_without_callbacks)
+    @image.agents_data_objects << AgentsDataObject.gen(:agent => agent, :agent_role => AgentRole.author, :data_object => @image)
+    @image.save
+    visit("/data_objects/#{@image.id}")
+    body.should have_tag("a[href=http://#{agent.homepage}]", :text => agent.full_name)
+  end
+  
+  
 end

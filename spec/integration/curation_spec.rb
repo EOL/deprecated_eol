@@ -58,7 +58,7 @@ describe 'Curation' do
   # TODO: commented out this entire block as none of the specs were enabled and it was eating up 25 seconds of spec time
   # context "on taxon overview" do
   #
-  #   it 'should show a list of acting curators with a photo, curator name and expertise'
+  #   it 'should show a list of acting curators with a photo, and curator name
   #
   #   it 'should change the curator count if another curator curates an image'
   #     #num_curators = @taxon_concept.acting_curators.length

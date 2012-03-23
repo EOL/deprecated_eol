@@ -1,6 +1,6 @@
 require 'rake'
 require 'rake/testtask'
-require 'rake/rdoctask'
+require 'rdoc/task'
 require 'spec/rake/spectask'
 
 desc 'Default: run unit tests.'
@@ -32,7 +32,7 @@ task :test do
 end
 
 desc 'Generate documentation for the make_resourceful plugin.'
-Rake::RDocTask.new(:rdoc) do |rdoc|
+RDoc::Task.new do |rdoc|
   rdoc.rdoc_dir = 'rdoc'
   rdoc.title    = 'make_resourceful'
   rdoc.options << '--line-numbers' << '--inline-source'

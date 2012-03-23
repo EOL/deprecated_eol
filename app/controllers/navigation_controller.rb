@@ -4,7 +4,6 @@ class NavigationController < ApplicationController
 
   def show_tree_view
     # set the users default hierarchy if they haven't done so already
-    current_user.default_hierarchy_id = Hierarchy.default.id if current_user.default_hierarchy_id.nil? || !Hierarchy.exists?(current_user.default_hierarchy_id)
     @selected_hierarchy_entry = HierarchyEntry.find_by_id(params[:selected_hierarchy_entry_id].to_i)
     @session_hierarchy = @selected_hierarchy_entry.hierarchy
     @session_secondary_hierarchy = @session_hierarchy
@@ -16,14 +15,6 @@ class NavigationController < ApplicationController
   def show_tree_view_for_selection
     load_taxon_for_tree_view
     render :layout => false, :partial => 'tree_view_for_selection', :locals => { :current_user => current_user }
-  end
-  
-  # AJAX call to set default taxonomic browser in session and save to profile
-  def set_default_taxonomic_browser
-    browser = params[:browser] || $DEFAULT_TAXONOMIC_BROWSER
-    current_user.default_taxonomic_browser=browser
-    current_user.save if logged_in?
-    render :nothing=>true
   end
   
   def browse

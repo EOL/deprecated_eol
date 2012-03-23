@@ -1,7 +1,3 @@
-# NOTE - there is a method called #stale? (toward the bottom) which needs to be kept up-to-date with any changes made
-# to the user model.  We *could* achieve a similar result with method_missing, but I worry that it would cause other
-# problems.
-#
 # Note that email is NOT a unique field: one email address is allowed to have multiple accounts.
 # NOTE this inherist from MASTER.  All queries against a user need to be up-to-date, since this contains config information
 # which can change quickly.  There is a similar clause in the execute() method in the connection proxy for masochism.
@@ -40,13 +36,12 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   has_many :content_partners
   has_one :user_info
   has_one :notification
-  belongs_to :default_hierarchy, :class_name => Hierarchy.to_s, :foreign_key => :default_hierarchy_id
 
   before_save :check_credentials
   before_save :encrypt_password
   before_save :instantly_approve_curator_level, :if => :curator_level_can_be_instantly_approved?
   after_save :update_watch_collection_name
-  after_save :clear_cached_user
+  after_save :clear_cache
 
   before_destroy :destroy_comments
   # TODO: before_destroy :destroy_data_objects
@@ -102,17 +97,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
        given.downcase,
        u.username.downcase]
     end
-  end
-
-  # create a new user using default attributes and then update with supplied parameters
-  def self.create_new options = {}
-    # NOTE - the agent_id is assigned in user controller, not in the model
-    new_user = User.new
-    new_user.send(:set_defaults) # It's a private method.  This is cheating, but we really DO want it private.
-    # Make sure a nil language doesn't upset things:
-    options.delete(:language_id) if options.has_key?(:language_id) && options[:language_id].nil?
-    new_user.attributes = options
-    new_user
   end
 
   def self.authenticate(username_or_email, password)
@@ -231,6 +215,15 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   def self.unique_email?(email)
     User.with_master do
       User.count(:conditions => ['email = ?', email]) == 0
+    end
+  end
+
+  def self.cached(id)
+    Agent
+    begin
+      ($CACHE.fetch("users/#{id}") { User.find(id, :include => :agent) }).dup # #dup avoids frozen hashes!
+    rescue
+      nil 
     end
   end
 
@@ -531,9 +524,10 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def watch_collection
+    return @watch_collection if @watch_collection
     collection = Collection.find_by_sql("SELECT c.* FROM collections c JOIN collections_users cu ON (c.id = cu.collection_id) WHERE cu.user_id = #{self.id} AND c.special_collection_id = #{SpecialCollection.watch.id} LIMIT 1").first
     collection ||= build_watch_collection
-    collection
+    @watch_collection = collection
   end
 
   # set the language from the abbreviation
@@ -604,16 +598,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     false # She's not a manager
   end
 
-  def can_view_collection?(collection)
-    return true if collection.published? || collection.users.include?(self) || self.is_admin?
-    false
-  end
-
-  def selected_default_hierarchy
-    hierarchy = Hierarchy.find_by_id(default_hierarchy_id)
-    hierarchy.blank? ? '' : hierarchy.label
-  end
-
   def last_curator_activity
     last = CuratorActivityLog.find_by_user_id(id, :order => 'created_at DESC', :limit => 1)
     return nil if last.nil?
@@ -678,10 +662,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     end
   end
 
-  def default_hierarchy_valid?
-    return(self[:default_hierarchy_id] and Hierarchy.exists?(self[:default_hierarchy_id]))
-  end
-
   # These create and unset the fields required for remembering users between browser closes
   def remember_me
     remember_me_for 2.weeks
@@ -704,23 +684,11 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def content_page_cache_str
-    str = "#{language_abbr}"
-    str += "_#{default_hierarchy_id.to_s}" unless default_hierarchy_id.to_s.blank?
-    str
+    "#{language_abbr}"
   end
 
   def taxa_page_cache_str
-    return "#{language_abbr}_#{expertise}_#{vetted}_#{default_taxonomic_browser}_#{default_hierarchy_id}"
-  end
-
-  # This is a method that checks if the user model pulled from a session is actually up-to-date:
-  #
-  # YOU SHOULD ADD NEW USER ATTRIBUTES TO THIS METHOD WHEN YOU TWEAK THE USER TABLE.
-  def stale?
-    # KEEP ALL OLD METHOD CHECKS
-    return true unless attributes.keys.include?("filter_content_by_hierarchy")
-    return true unless attributes.keys.include?("admin") # V2
-    return false
+    "#{language_abbr}"
   end
 
   def ensure_unique_username_against_master
@@ -826,8 +794,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   def hide_data_objects
     data_objects = UsersDataObject.find_all_by_user_id(self.id, :include => :data_object).collect{|udo| udo.data_object}.uniq
     data_objects.each do |data_object|
-      data_object.published = 0
-      data_object.save
+      data_object.update_attribute(:published, 0)
       data_object.update_solr_index
     end
   end
@@ -835,8 +802,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   def unhide_data_objects
     data_objects = UsersDataObject.find_all_by_user_id(self.id, :include => :data_object).collect{|udo| udo.data_object}.uniq
     data_objects.each do |data_object|
-      data_object.published = 1
-      data_object.save
+      data_object.update_attribute(:published, 1)
       data_object.update_solr_index
     end
   end
@@ -875,20 +841,12 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   def to_s
     "User ##{id}: #{full_name}"
   end
-private
 
-  # set the defaults on this user object
-  # TODO - move the defaults to the database (LOW PRIO)
-  def set_defaults
-    self.default_taxonomic_browser = $DEFAULT_TAXONOMIC_BROWSER
-    self.expertise     = $DEFAULT_EXPERTISE.to_s
-    self.language      = Language.english
-    self.vetted        = $DEFAULT_VETTED
-    self.credentials   = ''
-    self.curator_scope = ''
-    self.active        = true
-    self.flash_enabled = true
+  def clear_cache
+    $CACHE.delete("users/#{self.id}") if $CACHE
   end
+
+private
 
   def reload_if_stale
     return false if new_record? or changed? or frozen?
@@ -951,11 +909,6 @@ private
       collection.name = I18n.t(:default_watch_collection_name, :username => self.full_name.titleize)
       collection.save!
     end
-  end
-
-  # Callback after_save
-  def clear_cached_user
-    $CACHE.delete("users/#{self.id}") if $CACHE
   end
 
   def destroy_comments

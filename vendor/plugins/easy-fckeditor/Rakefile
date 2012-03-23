@@ -1,7 +1,7 @@
 require 'rake'
 require 'rake/testtask'
 require 'rake/packagetask'
-require 'rake/rdoctask'
+require 'rdoc/task'
 require 'find'
 
 desc 'Default: run unit tests.'
@@ -15,7 +15,7 @@ Rake::TestTask.new(:test) do |t|
 end
 
 desc 'Generate documentation for the fckeditor plugin.'
-Rake::RDocTask.new(:rdoc) do |rdoc|
+RDoc::Task.new do |rdoc|
   rdoc.rdoc_dir = 'rdoc'
   rdoc.title    = 'Fckeditor'
   rdoc.options << '--line-numbers' << '--inline-source'

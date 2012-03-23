@@ -3,6 +3,7 @@ class Taxa::OverviewsController < TaxaController
   before_filter :add_page_view_log_entry
 
   def show
+    TaxonConcept.preload_associations(@taxon_concept, { :published_hierarchy_entries => :hierarchy })
     @browsable_hierarchy_entries ||= @taxon_concept.published_hierarchy_entries.select{ |he| he.hierarchy.browsable? }
     @browsable_hierarchy_entries = [@selected_hierarchy_entry] if @browsable_hierarchy_entries.blank? # TODO: Check this - we are getting here with a hierarchy entry that has a hierarchy that is not browsable.
     @browsable_hierarchy_entries.compact!
@@ -11,9 +12,9 @@ class Taxa::OverviewsController < TaxaController
     @summary_text = @taxon_concept.overview_text_for_user(current_user)
     
     @media = promote_exemplar(@taxon_concept.images_from_solr(4, @selected_hierarchy_entry, true))
-    DataObject.preload_associations(@media, :translations , :conditions => "data_object_translations.language_id=#{current_user.language_id}")
+    DataObject.preload_associations(@media, :translations , :conditions => "data_object_translations.language_id=#{current_language.id}")
     DataObject.preload_associations(@media, 
-      [ :users_data_object,
+      [ :users_data_object, :license,
         { :agents_data_objects => [ { :agent => :user }, :agent_role ] },
         { :data_objects_hierarchy_entries => [ { :hierarchy_entry => [ { :name => :canonical_form }, :taxon_concept, :vetted, :visibility,
           { :hierarchy => { :resource => :content_partner } } ] }, :vetted, :visibility ] },

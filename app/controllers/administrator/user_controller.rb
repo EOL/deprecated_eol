@@ -97,12 +97,12 @@ class Administrator::UserController  < AdminController
   def new
     @page_title = I18n.t("new_user")
     store_location(referred_url) if request.get?
-    @user = User.create_new
+    @user = User.new(:language_id => current_language.id)
   end
 
   def create
 
-    @user = User.create_new(params[:user])
+    @user = User.new(params[:user])
     @message = params[:message]
 
     Notifier.deliver_user_message(@user.full_name, @user.email, @message) unless @message.blank?
@@ -227,7 +227,7 @@ class Administrator::UserController  < AdminController
       user = User.find_by_id(params[:id])
       if !user.blank?
         reset_session
-        set_current_user(user)
+        session[:user_id] = user.id
         flash[:notice] = I18n.t("you_have_been_logged_in_as_username", :username => user.username)
         redirect_to root_url, :status => :moved_permanently
       end

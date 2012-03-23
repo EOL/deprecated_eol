@@ -73,6 +73,7 @@ class TaxonConcept < ActiveRecord::Base
 
   has_one :taxon_concept_metric
   has_one :taxon_concept_exemplar_image
+  has_one :taxon_concept_preferred_entry
 
   has_and_belongs_to_many :data_objects
 
@@ -222,11 +223,11 @@ class TaxonConcept < ActiveRecord::Base
 
   # Call this instead of @current_user, so that you will be given the appropriate (and DRY) defaults.
   def current_user
-    @current_user ||= User.create_new
+    @current_user ||= User.new
   end
 
   def self.current_user_static
-    @current_user ||= User.create_new
+    @current_user ||= User.new
   end
 
   # Set the current user, so that methods will have defaults (language, etc) appropriate to that user.
@@ -269,8 +270,9 @@ class TaxonConcept < ActiveRecord::Base
         :resources => [ :title, :id, :content_partner_id ],
         :content_partners => '*',
         :agents => [ :logo_cache_url, :full_name ],
-        :collection_types => [ :parent_id ] },
-      :include => { :hierarchy => [ { :resource => :content_partner }, :agent, :collection_types] })
+        :collection_types => '*',
+        :translated_collection_types => '*' },
+      :include => { :hierarchy => [ { :resource => :content_partner }, :agent, { :collection_types => :translations }] })
     entries_for_this_concept.each do |he|
       next if used_hierarchies.include?(he.hierarchy)
       next if he.published != 1 && he.visibility_id != Visibility.visible.id
@@ -312,10 +314,18 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   # Singleton method to fetch the Hierarchy Entry, used for taxonomic relationships
-  def entry(hierarchy = nil, strict_lookup = false)
+  def entry(hierarchy = nil)
     hierarchy ||= Hierarchy.default
+    @cached_entry ||= {}
+    return @cached_entry[hierarchy] if @cached_entry && @cached_entry[hierarchy]
     raise "Error finding default hierarchy" if hierarchy.nil? # EOLINFRASTRUCTURE-848
     raise "Cannot find a HierarchyEntry with anything but a Hierarchy" unless hierarchy.is_a? Hierarchy
+    
+    # return the cached one unless it is expired
+    if taxon_concept_preferred_entry && taxon_concept_preferred_entry.hierarchy_entry &&
+        !taxon_concept_preferred_entry.expired?
+      return taxon_concept_preferred_entry.hierarchy_entry
+    end
     
     TaxonConcept.preload_associations(self, :published_hierarchy_entries => [ :vetted, :hierarchy ])
     @all_entries ||= HierarchyEntry.sort_by_vetted(published_hierarchy_entries)
@@ -323,14 +333,15 @@ class TaxonConcept < ActiveRecord::Base
       @all_entries = HierarchyEntry.sort_by_vetted(hierarchy_entries)
     end
 
-    # we want ONLY the entry in this hierarchy
-    if strict_lookup
-      return @all_entries.detect{ |he| he.hierarchy_id == hierarchy.id } || nil
-    end
-
-    return @all_entries.detect{ |he| he.hierarchy_id == hierarchy.id } ||
+    best_entry ||= (@all_entries.detect{ |he| he.hierarchy_id == hierarchy.id } ||
       @all_entries[0] ||
-      nil
+      nil)
+    
+    if best_entry
+      taxon_concept_preferred_entry.delete if taxon_concept_preferred_entry
+      TaxonConceptPreferredEntry.create(:taxon_concept_id => self.id, :hierarchy_entry_id => best_entry.id)
+    end
+    @cached_entry[hierarchy] = best_entry
   end
 
   def entry_for_agent(agent_id)
@@ -469,7 +480,7 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def quick_common_name(language = nil, hierarchy = nil)
-    language ||= current_user.language
+    language ||= current_user.language || Language.default
     hierarchy ||= Hierarchy.default
     common_name_results = connection.execute(
       "SELECT n.string name, he.hierarchy_id source_hierarchy_id
@@ -573,14 +584,12 @@ class TaxonConcept < ActiveRecord::Base
     end
   end
 
-  # title and sub-title depend on expertise level of the user that is passed in (default to novice if none specified)
   def title(hierarchy = nil)
     return @title unless @title.nil?
     return '' if entry.nil?
     @title = entry.italicized_name.firstcap
   end
 
-  # title and sub-title depend on expertise level of the user that is passed in (default to novice if none specified)
   def title_canonical(hierarchy = nil)
     return @title_canonical unless @title_canonical.nil?
     return '' if entry.nil?
@@ -1046,6 +1055,7 @@ class TaxonConcept < ActiveRecord::Base
     Agent
     UsersDataObject
     TocItem
+    License
     @best_image ||= $CACHE.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 1.days) do
       if published_exemplar = self.published_exemplar_image
         published_exemplar
@@ -1089,7 +1099,7 @@ class TaxonConcept < ActiveRecord::Base
     overview_toc_item_ids = [TocItem.brief_summary, TocItem.comprehensive_description, TocItem.distribution].collect{ |toc_item| toc_item.id }
     overview_text_objects = self.text_for_user(the_user, {
       :per_page => 20,
-      :language_ids => [ the_user.language_id ],
+      :language_ids => [ the_user.language.id ],
       :toc_ids => overview_toc_item_ids })
     DataObject.preload_associations(overview_text_objects, { :data_objects_hierarchy_entries => [ :hierarchy_entry,
       :vetted, :visibility ] },
@@ -1122,12 +1132,12 @@ class TaxonConcept < ActiveRecord::Base
     !details_text_for_user(the_user, :limit => 1, :skip_preload => true).empty?
   end
   
-  # there is an artificial limit of 300 text objects here to increase the default 30
+  # there is an artificial limit of 600 text objects here to increase the default 30
   def details_text_for_user(the_user, options = {})
     text_objects = self.text_for_user(the_user, {
-      :language_ids => [ the_user.language_id ],
+      :language_ids => [ the_user.language.id ],
       :toc_ids_to_ignore => TocItem.exclude_from_details.collect{ |toc_item| toc_item.id },
-      :per_page => (options[:limit] || 300) })
+      :per_page => (options[:limit] || 600) })
     
     # now preload info needed for display details metadata
     unless options[:skip_preload]
@@ -1147,12 +1157,13 @@ class TaxonConcept < ActiveRecord::Base
         :refs => '*',
         :ref_identifiers => '*',
         :comments => '*',
+        :licenses => '*',
         :users_data_objects_ratings => '*' }
-      DataObject.preload_associations(text_objects, [ :users_data_objects_ratings, :comments,
+      DataObject.preload_associations(text_objects, [ :users_data_objects_ratings, :comments, :license,
         { :published_refs => :ref_identifiers }, :translations, :data_object_translation, { :toc_items => :info_items },
         { :data_objects_hierarchy_entries => [ { :hierarchy_entry => { :hierarchy => { :resource => :content_partner } } },
           :vetted, :visibility ] },
-        { :curated_data_objects_hierarchy_entries => :hierarchy_entry }, :info_items, :users_data_object,
+        { :curated_data_objects_hierarchy_entries => :hierarchy_entry }, :users_data_object,
         { :toc_items => [ :translations, [ :parent => :translations ] ] } ],
         :select => selects)
     end

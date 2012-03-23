@@ -387,7 +387,6 @@ input.warn, textarea.warn {border-color: #aaaaaa; background-image: none}
 #textarea .attribution-icon {float: right}
 #textarea h5 {text-transform: uppercase; padding-top: 4pt; font-weight: bold}
 #textarea a {font-weight: normal; font-style: normal; color: #cccccc}
-select#user_default_hierarchy_id {width: 21em; margin-bottom: 6px}
 #pages .pagination span {display: inline}
 #attribution-example {margin: 1em 0; padding: 1em; background-color: #eaeaea; border: 1px solid silver}
 #attribution-example h3 {border-bottom: 1px solid #cccccc !important; color: #999999 !important; font-weight: 700 !important; text-transform: uppercase !important}

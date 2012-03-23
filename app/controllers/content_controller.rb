@@ -12,7 +12,6 @@ class ContentController < ApplicationController
   skip_before_filter :original_request_params, :only => :random_homepage_images
   skip_before_filter :global_warning, :only => :random_homepage_images
   skip_before_filter :redirect_to_http_if_https, :only => :random_homepage_images
-  skip_before_filter :set_session, :only => :random_homepage_images
   skip_before_filter :clear_any_logged_in_session, :only => :random_homepage_images
   skip_before_filter :check_user_agreed_with_terms, :only => :random_homepage_images
   skip_before_filter :set_locale, :only => :random_homepage_images
@@ -22,6 +21,12 @@ class ContentController < ApplicationController
     @home_page = true
     current_user.log_activity(:viewed_home_page)
     begin
+      RandomHierarchyImage
+      DataObject
+      TaxonConcept
+      TaxonConceptPreferredEntry
+      Name
+      TaxonConceptExemplarImage
       @explore_taxa = $CACHE.fetch('homepage/random_images', :expires_in => 30.minutes) do
         RandomHierarchyImage.random_set(12)
       end
@@ -32,7 +37,7 @@ class ContentController < ApplicationController
 
     # recalculate the activity logs on homepage every $HOMEPAGE_ACTIVITY_LOG_CACHE_TIME minutes
     $CACHE.fetch('homepage/activity_logs_expiration', :expires_in => $HOMEPAGE_ACTIVITY_LOG_CACHE_TIME.minutes) do
-      expire_fragment(:action => 'index', :action_suffix => "activity_#{current_user.language_abbr}")
+      expire_fragment(:action => 'index', :action_suffix => "activity_#{current_language.iso_639_1}")
     end
 
     # recalculate the march of life on homepage every 2 minutes
@@ -150,7 +155,8 @@ class ContentController < ApplicationController
           end
         else
           # try and render preferred language translation, otherwise links to other available translations will be shown
-          @selected_language = params[:language] ? Language.from_iso(params[:language]) : Language.from_iso(current_user.language_abbr)
+          @selected_language = params[:language] ? Language.from_iso(params[:language]) :
+            Language.from_iso(current_language.iso_639_1)
           @translated_pages = translations_available_to_user
           @translated_content = translations_available_to_user.select{|t| t.language_id == @selected_language.id}.compact.first
           @page_title = @translated_content.nil? ? I18n.t(:cms_missing_content_title) : @translated_content.title

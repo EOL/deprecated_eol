@@ -1790,10 +1790,6 @@ input.warn, textarea.warn {
     font-style: normal;
     color: #cccccc; }
 
-select#user_default_hierarchy_id {
-  width: 21em;
-  margin-bottom: 6px; }
-
 #pages .pagination span {
   display: inline; }
 

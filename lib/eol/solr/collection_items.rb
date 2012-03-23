@@ -79,25 +79,31 @@ module EOL
 
       def self.add_taxon_concept!(docs, options = {})
         return if docs.empty?
-        includes = [
-          { :published_hierarchy_entries => [ { :name => :canonical_form } , :hierarchy, :vetted ] },
-          { :taxon_concept_exemplar_image => :data_object }]
+        includes = [ { :taxon_concept_preferred_entry => 
+          { :hierarchy_entry => [ { :flattened_ancestors => { :ancestor => :name } },
+            { :name => :canonical_form } , :hierarchy, :vetted ] } },
+          { :taxon_concept_exemplar_image => :data_object } ]
         selects = {
           :taxon_concepts => '*',
+          :taxon_concept_preferred_entries => '*',
+          :taxon_concept_exemplar_images => '*',
           :hierarchy_entries => [ :id, :rank_id, :identifier, :hierarchy_id, :parent_id, :published, :visibility_id, :lft, :rgt, :taxon_concept_id, :source_url ],
           :names => [ :string, :italicized, :canonical_form_id ],
           :canonical_forms => [ :string ],
           :hierarchies => [ :agent_id, :browsable, :outlink_uri, :label ],
           :vetted => :view_order,
           :hierarchy_entries_flattened => '*',
-          :data_objects => [ :id, :object_cache_url, :data_type_id, :guid ]
+          :ranks => '*',
+          :data_objects => [ :id, :object_cache_url, :data_type_id, :guid, :published ]
         }
         if options[:view_style] == ViewStyle.annotated
-          includes[0][:published_hierarchy_entries] << { :flattened_ancestors => { :ancestor => [ :name, :rank ] } }
           includes << { :preferred_common_names => [ :name, :language ] }
         end
         ids = docs.map{ |d| d['object_id'] }
         instances = TaxonConcept.core_relationships(:include => includes, :select => selects).find_all_by_id(ids)
+        unless options[:view_style] == ViewStyle.list
+          EOL::Solr::DataObjects.lookup_best_images_for_concepts(instances)
+        end
         docs.each do |d|
           if d['instance']
             d['instance'].object = instances.detect{ |i| i.id == d['object_id'].to_i }
@@ -108,7 +114,7 @@ module EOL
       def self.add_data_object!(docs, options = {})
         return if docs.empty?
         ids = docs.map{ |d| d['object_id'] }
-        instances = DataObject.core_relationships(:include => :all_published_versions).find_all_by_id(ids)
+        instances = DataObject.core_relationships(:include => [ :language, :all_published_versions ]).find_all_by_id(ids)
         instances_that_are_used = []
         docs.each do |d|
           if i = instances.detect{ |i| i.id == d['object_id'].to_i }
@@ -136,7 +142,8 @@ module EOL
           :visibilties => '*',
           :hierarchy_entries => [ :id, :published, :visibility_id, :taxon_concept_id, :name_id, :hierarchy_id ],
           :names => [ :id, :string, :canonical_form_id ],
-          :canonical_forms => [ :id, :string ]
+          :canonical_forms => [ :id, :string ],
+          :languages => '*'
         }
         
         if options[:view_style] == ViewStyle.annotated

@@ -195,7 +195,7 @@ describe TaxonConcept do
   end
 
   it 'should show its untrusted images, by default' do
-    @taxon_concept.current_user = User.create_new # It's okay if this one "sticks", so no cleanup code
+    @taxon_concept.current_user = nil
     @taxon_concept.images_from_solr(100).map(&:object_cache_url).should include(@image_unknown_trust)
   end
 
@@ -346,6 +346,7 @@ describe TaxonConcept do
                                 :vetted_id => Vetted.trusted.id,
                                 :published => 1)
     concept = TaxonConcept.find(concept.id) # cheating so I can flush all the instance variables
+    concept.taxon_concept_preferred_entry = nil
     concept.entry.id.should == he_vetted.id
     concept.entry.name.string.should == vetted_name.string
 

@@ -7,6 +7,9 @@ class LazyLoggingModel < LoggingModel
     # never create a Logging row when data logging is turned off
     return nil unless $ENABLE_DATA_LOGGING
 
+    if opts[:user].is_a?(EOL::AnonymousUser)
+      opts[:user] = nil
+    end
     instance = self.new(opts)
     instance.created_at = Time.now if instance.respond_to? :created_at
     instance.updated_at = Time.now if instance.respond_to? :updated_at

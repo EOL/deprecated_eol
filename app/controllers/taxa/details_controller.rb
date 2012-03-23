@@ -10,11 +10,12 @@ class Taxa::DetailsController < TaxaController
     @toc_items_to_show = @taxon_concept.table_of_contents_for_text(@text_objects)
     
     @data_objects_in_other_languages = @taxon_concept.text_for_user(current_user, {
-      :language_ids_to_ignore => [ current_user.language_id, 0 ],
+      :language_ids_to_ignore => [ current_language.id, 0 ],
       :allow_nil_languages => false,
       :preload_select => { :data_objects => [ :id, :guid, :language_id ] },
       :skip_preload => true,
       :toc_ids_to_ignore => TocItem.exclude_from_details.collect{ |toc_item| toc_item.id } })
+    DataObject.preload_associations(@data_objects_in_other_languages, :language)
     @details_count_by_language = {}
     @data_objects_in_other_languages.each do |obj|
       @details_count_by_language[obj.language] ||= 0

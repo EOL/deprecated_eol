@@ -133,6 +133,7 @@ private
       @selected_hierarchy_entry = HierarchyEntry.find_by_id(@selected_hierarchy_entry_id) rescue nil
       if @selected_hierarchy_entry.hierarchy.browsable?
         # TODO: Eager load hierarchy entry agents?
+        TaxonConcept.preload_associations(@taxon_concept, { :published_hierarchy_entries => :hierarchy })
         @browsable_hierarchy_entries = @taxon_concept.published_hierarchy_entries.select{ |he| he.hierarchy.browsable? }
       else
         @selected_hierarchy_entry = nil
@@ -141,7 +142,7 @@ private
   end
 
   def instantiate_preferred_names
-    @preferred_common_name = @selected_hierarchy_entry ? @selected_hierarchy_entry.taxon_concept.preferred_common_name_in_language(current_user.language) : @taxon_concept.preferred_common_name_in_language(current_user.language)
+    @preferred_common_name = @selected_hierarchy_entry ? @selected_hierarchy_entry.taxon_concept.preferred_common_name_in_language(current_language) : @taxon_concept.preferred_common_name_in_language(current_language)
     @scientific_name = @selected_hierarchy_entry ? @taxon_concept.quick_scientific_name(:italicized, @selected_hierarchy_entry.hierarchy) : @taxon_concept.title_canonical
   end
 
@@ -207,7 +208,7 @@ private
     @languages = Language.with_iso_639_1.map do |lang|
       { :label    => lang.label,
         :id       => lang.id,
-        :selected => lang.id == (current_user_copy && current_user_copy.language_id) ? "selected" : nil
+        :selected => lang.id == (current_user_copy && current_user_copy.language.id) ? "selected" : nil
       }
     end
   end

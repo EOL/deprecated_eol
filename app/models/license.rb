@@ -1,5 +1,4 @@
 class License < ActiveRecord::Base
-  CACHE_ALL_ROWS = true
   uses_translations
   # this is only used in testing. For some translted models we only want to create one instance for a particular
   # label in a language. For example we only want one English DataType.image or one Rank.species. But other
@@ -21,6 +20,9 @@ class License < ActiveRecord::Base
   def self.public_domain
     cached_find(:title, 'public domain')
   end
+  class << self
+    alias default public_domain
+  end
   
   def self.cc
     cached_find(:title, 'cc-by 3.0')
@@ -36,5 +38,10 @@ class License < ActiveRecord::Base
   
   def self.by_sa
     cached_find(:title, 'cc-by-sa 3.0')
+  end
+  
+  # we have several different licenses with the title public domain
+  def is_public_domain?
+    self.title == 'public domain'
   end
 end

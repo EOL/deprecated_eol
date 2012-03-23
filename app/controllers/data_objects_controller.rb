@@ -15,7 +15,7 @@ class DataObjectsController < ApplicationController
     set_text_data_object_options
     @data_object = DataObject.new(:data_type => DataType.text,
                                   :license_id => License.by_nc.id,
-                                  :language_id => current_user.language_id)
+                                  :language_id => current_language.id)
     # default to passed in toc param or brief summary if selectable, otherwise just the first selectable toc item
 
     @selected_toc_item = @toc_items.select{|ti| ti.id == params[:toc].to_i}.first
@@ -37,13 +37,17 @@ class DataObjectsController < ApplicationController
     end
 
     @references = params[:references] # we'll need these if validation fails and we re-render new
-    params[:references] = params[:references].split("\n") unless params[:references].blank?
-    @data_object = DataObject.create_user_text(params, current_user, @taxon_concept)
+    raise I18n.t(:dato_create_user_text_missing_user_exception) if current_user.nil?
+    raise I18n.t(:dato_create_user_text_missing_taxon_id_exception) if @taxon_concept.blank?
+    toc_ids = params[:data_object].delete(:toc_items)[:id].to_a
+    @data_object = DataObject.create_user_text(params[:data_object], :user => current_user,
+                                               :taxon_concept => @taxon_concept, :toc_id => toc_ids)
     @selected_toc_item = @data_object.toc_items.first unless @data_object.nil?
 
     if @data_object.nil? || @data_object.errors.any?
       failed_to_create_data_object && return
     else
+      add_references(params[:references].split("\n")) unless params[:references].blank?
       current_user.log_activity(:created_data_object_id, :value => @data_object.id,
                                 :taxon_concept_id => @taxon_concept.id)
       # add this new object to the user's watch collection
@@ -56,8 +60,7 @@ class DataObjectsController < ApplicationController
       @data_object.log_activity_in_solr(:keyword => 'create', :user => current_user, :taxon_concept => @taxon_concept)
 
       # Will try to redirect to the appropriate tab/section after adding text
-      toc_item_id = params[:data_object][:toc_items][:id].to_i
-      subchapter = TocItem.find(toc_item_id).label.downcase
+      subchapter = @data_object.toc_items.first.label.downcase
       subchapter = 'literature' if subchapter == 'literature references'
       subchapter.sub!( " ", "_" )
       temp = ["education", "education_resources", "identification_resources", "nucleotide_sequences", "biomedical_terms"] # to Resources tab
@@ -80,7 +83,6 @@ class DataObjectsController < ApplicationController
   end
 
   # GET /data_objects/:id/edit
-  # We only edit user data objects and they only have one taxon concept association so no need for taxon_id in route on edit - unlike new.
   def edit
     # @data_object is loaded in before_filter :load_data_object
     set_text_data_object_options
@@ -91,15 +93,15 @@ class DataObjectsController < ApplicationController
   end
 
   # PUT /data_objects/:id
-  # We only update user data objects and they only have one taxon concept association so no need for taxon_id in route on update - unlike create.
   def update
     # Note: We don't actually edit the data object we create a new one and unpublish the old one.
     # old @data_object is loaded in before_filter :load_data_object
     return failed_to_update_data_object unless params[:data_object]
     @references = params[:references]
-    params[:references] = params[:references].split("\n")
-    # Note: update_user_text doesn't actually update, it creates a new data_object
-    @data_object = DataObject.update_user_text(params, current_user)
+    raise I18n.t(:dato_update_users_text_not_owner_exception) unless @data_object.user.id == current_user.id
+    # Note: replicate doesn't actually update, it creates a new data_object
+    toc_ids = params[:data_object].delete(:toc_items)[:id].to_a
+    @data_object = @data_object.replicate(params[:data_object], :toc_id => toc_ids)
     @selected_toc_item = @data_object.toc_items.first unless @data_object.nil?
 
     if @data_object.nil? || @data_object.errors.any?
@@ -107,6 +109,7 @@ class DataObjectsController < ApplicationController
       # is now true. The edit action expects a data_object id, but we need the new values.
       failed_to_update_data_object and return
     else
+      add_references(params[:references].split("\n")) unless params[:references].blank?
       current_user.log_activity(:updated_data_object_id, :value => @data_object.id,
                                 :taxon_concept_id => @data_object.taxon_concept_for_users_text.id)
       redirect_to data_object_path(@data_object), :status => :moved_permanently
@@ -161,8 +164,8 @@ class DataObjectsController < ApplicationController
         { :agents_data_objects => [ :agent, :agent_role ] },
         { :data_objects_hierarchy_entries => { :hierarchy_entry => [ :name, :taxon_concept, :vetted, :visibility ] } },
         { :curated_data_objects_hierarchy_entries => { :hierarchy_entry => [ :name, :taxon_concept, :vetted, :visibility ] } } ] )
-    @revisions = DataObject.sort_by_created_date(@data_object.revisions).reverse
-    @latest_published_revision = @revisions.select{|r| r.published?}.first
+    @revisions = @data_object.revisions_by_date
+    @latest_published_revision = @data_object.latest_published_revision
     @translations = @data_object.available_translations_data_objects(current_user, nil)
     @translations.delete_if{ |t| t.language.nil? } unless @translations.nil?
     @image_source = get_image_source if @data_object.is_image?
@@ -582,4 +585,16 @@ private
       end
     end
   end
+
+  def add_references(references)
+    unless references.blank?
+      references.each do |reference|
+        if reference.strip != ''
+          @data_object.refs << Ref.new(:full_reference => reference, :user_submitted => true, :published => 1,
+                                       :visibility => Visibility.visible)
+        end
+      end
+    end
+  end
+
 end

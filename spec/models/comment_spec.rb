@@ -8,6 +8,7 @@ describe Comment do
     @tc = build_taxon_concept()
     @tc_comment = @tc.comments[0]
     @text_comment = @tc.data_objects.select { |d| d.data_type.label == 'Text'  }.select { |t| !t.comments.blank? }.first.comments.first
+    # If this next line fails, something went wrong with Solr building data... Perhaps we should reindex, here?
     @image_comment = @tc.images_from_solr(100).select { |i| !i.comments.blank? }.first.comments.first
     @curator = User.find(@tc.curators[0])
     @non_curator = User.gen

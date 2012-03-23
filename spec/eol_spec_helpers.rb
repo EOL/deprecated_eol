@@ -9,7 +9,7 @@ module EOL
 
       def login_as(user, options = {})
         if user.is_a? User # let us pass a newly created user (with an entered_password)
-          options = { :username => user.username, :password => user.entered_password }.merge(options)
+          options.reverse_merge!(:username => user.username, :password => user.entered_password)
         elsif user.is_a? Hash
           options = options.merge(user)
         end
@@ -132,7 +132,6 @@ module EOL
         end
         tc ||= entry.taxon_concept
         options = {
-          :vetted                  => true,
           :curator_approved        => true,
           :curator_scope           => 'scope',
           :credentials             => 'Curator'
@@ -328,26 +327,16 @@ TaxonConcept.class_eval do
                :language    => Language.english,
                :vetted      => false
               }.merge(options)
-
     dato = DataObject.create_user_text(
-                                        {:data_object=>
-                                          {:toc_items=>{:id=>options[:toc_item].id},
-                                           :data_type_id=>DataType.text.id,
-                                           :object_title=>options[:title],
-                                           :license_id=>options[:license].id,
-                                           :language_id=>options[:language].id,
-                                           :description=>options[:description]},
-                                         :commit=>"Add article",
-                                         :action=>"create",
-                                         :controller=>"data_objects",
-                                         :references=>""}, options[:user], self
-                                      )
-
-
-
-
-
-
+      { :object_title => options[:title],
+        :license_id => options[:license].id,
+        :language_id => options[:language].id,
+        :description => options[:description]
+      },
+      :toc_id => [options[:toc_item].id],
+      :user => options[:user],
+      :taxon_concept => self
+    )
     if options[:vetted]
       curator = User.find(self.curators.first) # Curators array doesn't return "full" user objects...
       curator ||= User.first

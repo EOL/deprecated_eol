@@ -31,17 +31,25 @@ describe CollectionsController do
   end
 
   describe "#update" do
+    it "When not logged in, users cannot update the description" do
+      session[:user_id] = nil
+      lambda { post :update, :id => @collection.id, :commit_edit_collection => 'Submit',
+                             :collection => {:description => "New Description"}
+      }.should raise_error(EOL::Exceptions::MustBeLoggedIn)
+    end
     it "Unauthorized users cannot update the description" do
-      expect{ post :update, :id => @collection.id, :commit_edit_collection => 'Submit',
-                            :collection => {:description => "New Description"} }.should raise_error(EOL::Exceptions::MustBeLoggedIn)
       user = User.gen
-      expect{ post :update, { :id => @collection.id, :commit_edit_collection => 'Submit', :collection => {:description => "New Description"} },
-                            { :user => user, :user_id => user.id } }.should raise_error(EOL::Exceptions::SecurityViolation)
+      lambda {
+        session[:user_id] = user.id
+        post :update, { :id => @collection.id, :commit_edit_collection => 'Submit',
+                        :collection => {:description => "New Description"} },
+                      { :user => user, :user_id => user.id }
+      }.should raise_error(EOL::Exceptions::SecurityViolation)
 
     end
     it "Updates the description" do
-      session[:user] = @test_data[:user]
       getter = lambda{
+        session[:user_id] = @test_data[:user].id
         post :update, :id => @collection.id, :commit_edit_collection => 'Submit',  :collection => {:description => "New Description"}
         @collection.reload
       }

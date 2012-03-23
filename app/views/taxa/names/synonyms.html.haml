@@ -17,6 +17,7 @@
             :icon => image_tag("/images/v2/icon_required.png", :alt => I18n.t(:name_preferred_for_language_yes), :class => 'indicator'))
 
         - hierarchy_entries = @selected_hierarchy_entry.blank? ? @taxon_concept.published_hierarchy_entries : [@selected_hierarchy_entry]
+        - HierarchyEntry.preload_associations(hierarchy_entries, :hierarchy)
         - hierarchy_entries.delete_if{ |he| !he.hierarchy.browsable? }
         - for he in hierarchy_entries
           - unless he.scientific_synonyms.blank?

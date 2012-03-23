@@ -1092,18 +1092,13 @@ end
 
 Factory.define :user do |u|
   u.admin                     false
-  u.default_taxonomic_browser 'text'
-  u.expertise                 'middle'
   u.remote_ip                 { "123.45.67.1#{rand(10)}" }
   u.email                     { Factory.next(:email) }
-  u.default_hierarchy         { Hierarchy.first || Hierarchy.gen }
   u.given_name                { Factory.next(:first_name) }
   u.family_name               { Factory.next(:last_name) }
   u.agent_id                  {|user| Factory(:agent, :full_name => "#{user.given_name} #{user.family_name}").id }
-  u.flash_enabled             true
   u.language                  { Language.english }
   u.mailing_list              true
-  u.vetted                    false
   u.username                  do |user|
     attempt = "#{user.given_name[0..0]}_#{user.family_name[0..9]}".gsub(/\s/, '_').downcase
     while(User.find_by_username(attempt)) do
@@ -1135,6 +1130,10 @@ end
 Factory.define :users_data_object do |u|
   u.association :data_object
   u.association :user
+end
+
+Factory.define :user_info do |ui|
+  ui.areas_of_interest 'derp derp'
 end
 
 Factory.define :user_identity do |ui|

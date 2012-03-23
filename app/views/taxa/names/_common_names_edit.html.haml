@@ -1,7 +1,7 @@
 = javascript_include_merged 'common-names'
 = render :partial => 'data_objects/curation_js'
 = render :partial => 'common_names_new'
-- names_by_language = common_names_by_language(@common_names, current_user.language_id)
+- names_by_language = common_names_by_language(@common_names, current_language.id)
 - names_by_language.each do |language_names_pair|
   - language = language_names_pair[0]
   - names = language_names_pair[1]

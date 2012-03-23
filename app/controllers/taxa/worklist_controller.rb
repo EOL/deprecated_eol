@@ -56,6 +56,7 @@ class Taxa::WorklistController < TaxaController
     end
     
     @data_objects = @taxon_concept.data_objects_from_solr(search_options)
+    DataObject.preload_associations(@data_objects, [ { :hierarchy_entries => { :hierarchy => :agent } }, :data_type ] )
     @resource_counts = EOL::Solr::DataObjects.load_resource_facets(@taxon_concept.id,
       search_options.merge({ :resource_id => nil })).sort_by{ |c| c[:resource].title.downcase }
 
@@ -96,7 +97,7 @@ class Taxa::WorklistController < TaxaController
         { :agents_data_objects => [ :agent, :agent_role ] },
         { :data_objects_hierarchy_entries => { :hierarchy_entry => [ :name, :taxon_concept, :vetted, :visibility ] } },
         { :curated_data_objects_hierarchy_entries => { :hierarchy_entry => [ :name, :taxon_concept, :vetted, :visibility ] } } ] )
-    @revisions = DataObject.sort_by_created_date(@current_data_object.revisions).reverse
+    @revisions = @current_data_object.revisions_by_date
     @activity_log = @current_data_object.activity_log(:ids => @revisions.collect{ |r| r.id }, :page => @page || nil)
   end
 end

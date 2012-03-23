@@ -15,7 +15,6 @@ describe Admins::MonthlyNotificationController do
       {:partner_full_name=>"johndoe organization", :email=>"johndoe@example.com", :full_name=>"John Doe"}, last_month.month.to_s, last_month.year.to_s)
     # when
 
-    session[:user] = @admin
     session[:user_id] = @admin.id
 
     get :send_email

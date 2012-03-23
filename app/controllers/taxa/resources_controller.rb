@@ -18,7 +18,7 @@ class Taxa::ResourcesController < TaxaController
       identification_resources_taxon_resources_url(@taxon_concept)
 
     @contents = @taxon_concept.text_for_user(current_user, {
-      :language_ids => [ current_user.language_id ],
+      :language_ids => [ current_language.id ],
       :toc_ids => [ TocItem.identification_resources.id ] })
     current_user.log_activity(:viewed_taxon_concept_resources, :taxon_concept_id => @taxon_concept.id)
   end
@@ -33,7 +33,7 @@ class Taxa::ResourcesController < TaxaController
     education_root = TocItem.cached_find_translated(:label, 'Education', 'en', :find_all => true).detect{ |toc_item| toc_item.is_parent? }
     education_chapters = [ education_root ] + education_root.children
     @contents = @taxon_concept.text_for_user(current_user, {
-      :language_ids => [ current_user.language_id ],
+      :language_ids => [ current_language.id ],
       :toc_ids => education_chapters.collect{ |toc_item| toc_item.id } })
     current_user.log_activity(:viewed_taxon_concept_resources_education, :taxon_concept_id => @taxon_concept.id)
   end

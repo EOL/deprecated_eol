@@ -14,8 +14,8 @@
         %p= link_to I18n.t(:add_article_to_page_link_button), new_taxon_data_object_path(@taxon_concept), :class => 'button'
   - else
     #sidebar
-      - if @exemplar_image
-        = image_tag @exemplar_image.thumb_or_object('260_190')
+      - if @exemplar_image && img = @exemplar_image.thumb_or_object('260_190')
+        = image_tag(img)
       #toc
         %h3= I18n.t(:table_of_contents)
         - for root in roots
@@ -36,7 +36,7 @@
         - root_content = @text_objects.collect{ |d| d if (d.toc_items.include?(root) rescue nil) }.compact
         - children = @toc_items_to_show.collect{ |toc_item| toc_item if toc_item.parent_id == root.id }.compact
         - unless root_content.empty? && children.empty?
-          - DataObject.sort_by_rating(root_content, @taxon_concept)
+          - root_content = DataObject.sort_by_rating(root_content, @taxon_concept)
           %h2{:id => category_anchor(root)}= root.label
           .section
             = render :partial => 'category_content', :locals => { :content => root_content }
@@ -44,6 +44,6 @@
               - for child in children
                 - child_content = @text_objects.collect{ |d| d if (d.toc_items.include?(child) rescue nil) }.compact
                 - unless child_content.empty?
-                  - DataObject.sort_by_rating(child_content, @taxon_concept)
+                  - child_content = DataObject.sort_by_rating(child_content, @taxon_concept)
                   %h3{:id => category_anchor(child)}= child.label
                   = render :partial => 'category_content', :locals => { :content => child_content }

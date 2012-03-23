@@ -239,6 +239,8 @@ ActionController::Routing::Routes.draw do |map|
     redirect.connect '/account/show/:user_id'
     redirect.connect '/info/xrayvision', :collection_id => 14770
     redirect.connect '/info/naturesbest2011', :collection_id => 19338
+    redirect.connect '/index'
+    redirect.connect '/home.html'
   end
 
   ## Content pages including CMS and other miscellaneous pages
@@ -266,8 +268,6 @@ ActionController::Routing::Routes.draw do |map|
 
   ##### ALL ROUTES BELOW SHOULD PROBABLY ALWAYS BE AT THE BOTTOM SO THEY ARE RUN LAST ####
   # this represents a URL with just a random namestring -- send to search page (e.g. www.eol.org/animalia)
-  # ...with the exception of "index", which historically pointed to home:
-  map.connect '/index', :controller => 'content', :action => 'index'
   map.connect ':id', :id => /\d+/,  :controller => 'taxa', :action => 'show' # only a number passed in to the root of the web, then assume a specific taxon concept ID
   map.connect ':id', :id => /[A-Za-z0-9% ]+/,  :controller => 'search'  # if text, then go to the search page
 

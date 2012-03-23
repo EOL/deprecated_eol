@@ -1,6 +1,11 @@
 module EOL
 
   module DB
+
+    @@db_defaults = {
+      :charset   => ENV['CHARSET']   || 'utf8',
+      :collation => ENV['COLLATION'] || 'utf8_general_ci'
+    }
     
     def self.all_connections
       connections = [ActiveRecord::Base, LoggingModel]
@@ -8,40 +13,54 @@ module EOL
       connections.map {|c| c.connection}
     end
 
-    module Create
-      def all
-        ActiveRecord::Base.configurations.keys.find_all {|c| c =~ /#{RAILS_ENV}/ }.each do |config_name|
-          config = ActiveRecord::Base.configurations[config_name]
-          begin
-            ActiveRecord::Base.establish_connection(config)
-            ActiveRecord::Base.connection
-          rescue
-            @charset   = ENV['CHARSET']   || 'utf8'
-            @collation = ENV['COLLATION'] || 'utf8_general_ci'
-            begin
-              ActiveRecord::Base.establish_connection(config.merge('database' => nil))
-              ActiveRecord::Base.connection.create_database(config['database'], :charset => (config['charset'] || @charset), :collation => (config['collation'] || @collation))
-              ActiveRecord::Base.establish_connection(config)
-            rescue
-              $stderr.puts "Couldn't create database.  Try manually running: create database #{config['database']} character set = #{config['charset'] || @charset} collate = #{config['collation'] || @collation}"
-            end
-          else
-            $stderr.puts "#{config['database']} already exists"
-          end
-        end
+    def self.clear_temp
+      Dir.new('tmp').select {|f| f =~ /\.(sql|yml)$/ }.each do |f|
+        File.unlink("tmp/#{f}")
       end
     end
 
-    module Drop
-      def all
-        ActiveRecord::Base.configurations.keys.find_all {|c| c =~ /#{RAILS_ENV}/ }.each do |config_name|
-          begin
-            ActiveRecord::Base.connection.drop_database ActiveRecord::Base.configurations[config_name]['database']
-          rescue
-            $stderr.puts "#{ActiveRecord::Base.configurations[config_name]['database']} doesn't exist"
-          end
-        end
+    def self.create
+      arb_conf = ActiveRecord::Base.configurations[RAILS_ENV]
+      log_conf = LoggingModel.configurations[RAILS_ENV + '_logging']
+      ActiveRecord::Base.establish_connection({'database' => ''}.reverse_merge!(arb_conf))
+      ActiveRecord::Base.connection.create_database(arb_conf['database'], arb_conf.reverse_merge!(@@db_defaults))
+      ActiveRecord::Base.establish_connection(arb_conf)
+      LoggingModel.establish_connection({'database' => ''}.reverse_merge!(log_conf))
+      LoggingModel.connection.create_database(log_conf['database'], log_conf.reverse_merge!(@@db_defaults))
+      LoggingModel.establish_connection(log_conf)
+    end
+
+    def self.drop
+      raise "This action is ONLY available in the development, test, and test_master environments." unless
+        ['development', 'test', 'test_master'].include?(RAILS_ENV)
+      EOL::DB.all_connections.each do |connection|
+        connection.drop_database connection.config[:database]
       end
+    end
+
+    def self.recreate
+      EOL::DB.drop
+      EOL::DB.create
+      Rake::Task['db:migrate'].invoke
+    end
+
+    def self.rebuild
+      Rake::Task['solr:stop'].invoke
+      EOL::DB.recreate
+      EOL::DB.clear_temp
+      # This looks like duplication with #populate, but it skips truncating, since the DBs are fresh.  Faster:
+      Rake::Task['solr:start'].invoke
+      ENV['NAME'] = 'bootstrap'
+      Rake::Task['scenarios:load'].invoke
+      Rake::Task['solr:rebuild_all'].invoke
+    end
+
+    def self.populate
+      Rake::Task['solr:start'].invoke
+      Rake::Task['truncate'].invoke
+      ENV['NAME'] = 'bootstrap'
+      Rake::Task['scenarios:load'].invoke
+      Rake::Task['solr:rebuild_all'].invoke
     end
 
     def start_transactions

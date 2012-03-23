@@ -29,6 +29,7 @@ gem 'newrelic_rpm'
 gem 'rack', '1.1.0'
 gem 'rails', '2.3.8'
 gem 'rdoc'
+gem 'resque', :require => "resque/server"
 gem 'ruby-debug'
 gem 'sanitize','2.0.1'
 gem 'sass', '3.1.1'

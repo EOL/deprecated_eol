@@ -106,6 +106,16 @@ describe Admins::ContentPartnersController do
       get :statistics, nil, { :user => @admin, :user_id => @admin.id }
       response.rendered[:template].should == "admins/content_partners/statistics.html.haml"
     end
+    it 'should filter content partners on first published date' do
+      cp = ContentPartner.gen(:user => @non_admin)
+      r = Resource.gen(:content_partner_id => cp.id)
+      he = HarvestEvent.gen(:resource_id => r.id, :published_at => Time.mktime(2000, 01, 15),
+               :began_at => Time.mktime(2000, 01, 14), :completed_at => Time.mktime(2000, 01, 14))
+      from = { :year => 2000, :month => 01, :day => 14 }
+      to = { :year => 2000, :month => 01, :day => 16 }
+      get :statistics, { :from => from, :to =>  to }, { :user => @admin, :user_id => @admin.id }
+      assigns[:harvest_events].should == [he]
+    end
   end
 
 end

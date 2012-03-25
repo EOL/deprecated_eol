@@ -4,21 +4,14 @@ module SharedTaxaController
   # TO-DO by the maintainers: remove those methods from original controllers and include the module      #
   ########################################################################################################
 
-  # from taxa_controller
-  # If you want this to redirect to search, call (do_the_search && return if this_request_is_really_a_search) before this.
-  def find_taxon_concept
-    tc_id = params[:id].to_i
-    tc_id = params[:taxon_id].to_i if tc_id == 0
-    tc_id = params[:taxon_concept_id].to_i if tc_id == 0
-    TaxonConcept.find(tc_id)
-  end
-
+  # TODO: this file is likely out of date since mobile development has not kept up with V2 post launch development.
 
   private
 
   # from taxa_controller
   def instantiate_taxon_concept
-    @taxon_concept = find_taxon_concept
+    @taxon_concept = TaxonConcept.find(params[:taxon_concept_id] || params[:taxon_id] || params[:id])
+    raise EOL::Exceptions::SecurityViolation, "User with ID=#{current_user.id} does not have access to TaxonConcept with id=#{@taxon_concept.id}" unless @taxon_concept.published?
   end
 
   # from taxa_controller

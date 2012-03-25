@@ -508,6 +508,7 @@ en:
       harvest_event:
         began_at: "Started"
         completed_at: "Completed"
+        first_published_at: "First published"
         publish_more: "Flags harvest event for publication, content will not be made public immediately."
         published_at: "Published"
         published_status: "Status"

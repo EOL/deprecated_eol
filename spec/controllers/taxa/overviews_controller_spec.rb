@@ -14,7 +14,19 @@ describe Taxa::OverviewsController do
   end
 
   describe 'GET show' do
-
+    it "should NOT be accessible if taxon concept id is not found" do
+      expect{ get :show, :id => TaxonConcept.last.id + 1 }.should raise_error(ActiveRecord::RecordNotFound)
+    end
+    it "should NOT be accessible if taxon concept is unpublished" do
+      expect{ get :show, :id => @testy[:unpublished_taxon_concept].id }.should raise_error(EOL::Exceptions::MustBeLoggedIn)
+      expect{ get :show, { :id => @testy[:unpublished_taxon_concept].id },
+                         { :user_id => @testy[:user].id } }.should raise_error(EOL::Exceptions::SecurityViolation)
+    end
+    it 'should be accessible if taxon concept is published' do
+      overviews_do_show
+      response.redirected_to.should be_nil
+      response.rendered[:template].should == "taxa/overviews/show.html.haml"
+    end
     it 'should instantiate the taxon concept' do
       overviews_do_show
       assigns[:taxon_concept].should be_a(TaxonConcept)
@@ -31,6 +43,7 @@ describe Taxa::OverviewsController do
       overviews_do_show
       assigns[:assistive_section_header].should be_a(String)
     end
+
   end
 
 end

@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
 
+  include EOL::Login
+
   layout :users_layout
 
   before_filter :authentication_only_allow_editing_of_self, :only => [:edit, :update, :terms_agreement, :curation_privileges]
@@ -111,12 +113,12 @@ class UsersController < ApplicationController
   # GET /users/register
   def new
     if params[:oauth_provider]
-      if open_auth = EOL::OpenAuth.init(params[:oauth_provider], new_user_url(:oauth_provider => params[:oauth_provider]), params.merge({:request_token_token => session.delete("#{params[:oauth_provider]}_request_token_token"), :request_token_secret => session.delete("#{params[:oauth_provider]}_request_token_secret")}))
+      open_auth = verify_open_authentication(new_user_url(:oauth_provider => params[:oauth_provider])) 
+      if open_auth.nil?
+      else
+        log_in(open_authentication.user) if open_authentication = OpenAuthentication.existing_authentication(open_auth.authentication_attributes[:provider], open_auth.authentication_attributes[:guid]) && ! open_authentication.user.nil?
         
-        if open_auth.user_attributes.nil? || open_auth.authentication_attributes.nil?
-          flash.now[:error] = I18n.t(:oauth_error_accessing_basic_info)
-        else
-          if (authorized = OpenAuthentication.find_by_provider_and_guid(open_auth.authentication_attributes[:provider], open_auth.authentication_attributes[:guid], :include => :user)) && ! authorized.user.nil?
+          if (authorized = OpenAuthentication.find_by_provider_and_guid(, , :include => :user)) && 
             # TODO: what do we do when we have authentication record but no user here?
             log_in(authorized.user)
             return redirect_to user_newsfeed_path(authorized.user)
@@ -128,25 +130,15 @@ class UsersController < ApplicationController
                 :provider => open_auth.authentication_attributes[:provider] }]})
           end
         end
-      else
-        flash.now[:error] = I18n.t(:oauth_error_initializing_access)
-      end
+      
     end
     @user = User.new(oauth_user_attributes || nil)
   end
 
   # POST /users
   def create
-    if params[:oauth_provider]
-      if open_auth = EOL::OpenAuth.init(params[:oauth_provider], new_user_url(:oauth_provider => params[:oauth_provider]))
-        session.merge!(open_auth.session_data) if defined?(open_auth.request_token)
-        return redirect_to open_auth.authorize_uri
-      else
-        flash[:error] = I18n.t(:oauth_error_initializing_authorization, :oauth_provider => params[:oauth_provider])
-        params.delete(:oauth_provider)
-        return redirect_to :action => :new
-      end
-    end
+    return initialize_open_authentication(new_user_url(:oauth_provider => params[:oauth_provider]), 
+                                          new_user_url) if params[:oauth_provider]
     
     if (open_authentication_signup = !params[:user][:open_authentications_attributes].blank?)
       if (guid = params[:user][:open_authentications_attributes]["0"][:guid]) &&

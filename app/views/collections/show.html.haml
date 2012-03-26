@@ -45,7 +45,9 @@
           = select_tag :view_as, options_from_collection_for_select(@view_as_options, :id, :name, @view_as.id)
         %fieldset.actions
           = submit_tag I18n.t(:view_as_button), :name => 'commit_view_as'
-      = will_paginate @collection_results, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next), :inner_window => 2, :outer_window => 2
+      - previous_label = (@collection_results.current_page == 1) ? '' : I18n.t(:pagination_previous)
+      - next_label = (@collection_results.current_page == @collection_results.total_pages) ? '' : I18n.t(:pagination_next)
+      = will_paginate @collection_results, :previous_label => previous_label, :next_label => next_label, :inner_window => 2, :outer_window => 2
       - case @view_as
       - when ViewStyle.gallery
         = render :partial => 'collections/show_gallery_style'
@@ -53,4 +55,4 @@
         = render :partial => 'collections/show_list_style'
       - else
         = render :partial => 'collections/show_annotated_style', :locals => { :editable => editable, :parent_form => f }
-      = will_paginate @collection_results, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next), :inner_window => 2, :outer_window => 2
+      = will_paginate @collection_results, :previous_label => previous_label, :next_label => next_label, :inner_window => 2, :outer_window => 2

@@ -781,8 +781,9 @@ class TaxonConcept < ActiveRecord::Base
     end
     
     # preload necessary associations for API response
-    DataObject.preload_associations(all_data_objects, [ :data_objects_hierarchy_entries, :curated_data_objects_hierarchy_entries, 
-      :users_data_object, { :agents_data_objects => :agent }, :published_refs ] )
+    DataObject.preload_associations(all_data_objects, [ { :data_objects_hierarchy_entries => :vetted },
+      :curated_data_objects_hierarchy_entries, :data_type, :license, :language, :mime_type,
+      :users_data_object, { :agents_data_objects => [ :agent, :agent_role ] }, :published_refs ] )
     all_data_objects
   end
 

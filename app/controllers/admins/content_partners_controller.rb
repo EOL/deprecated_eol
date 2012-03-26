@@ -103,25 +103,26 @@ class Admins::ContentPartnersController < AdminsController
 
   # GET /admins/content_partners/statistics
   def statistics
+
     # Note: currently just one statistic is being shown (first published by date) if more stats are needed this
     # may deserve its own controller.
     @page_title = I18n.t(:admin_content_partners_statistics_page_title)
 
-    @date_from = Time.mktime(params[:from][:year], params[:from][:month], params[:from][:day]) rescue nil
-    @date_to = Time.mktime(params[:to][:year], params[:to][:month], params[:to][:day]) rescue nil
+    from = Time.mktime(params[:from][:year], params[:from][:month], params[:from][:day]) rescue nil
+    to = Time.mktime(params[:to][:year], params[:to][:month], params[:to][:day]) rescue nil
 
-    @date_from = Time.now.beginning_of_month - 1.month if @date_from.blank?
-    @date_to = Time.now.beginning_of_month - 1.second if @date_to.blank?
+    @date_from = from.blank? ? Time.now.beginning_of_month - 1.month : from > to ? to : from
+    @date_to = to.blank? ? Time.now.beginning_of_month - 1.second : from > to ? from : to
 
-    @harvest_events = HarvestEvent.find(:all, :select => 'id, MIN(published_at), resource_id, published_at',
-                           :group => :resource_id,
-                           :conditions => ['published_at BETWEEN :from AND :to AND completed_at IS NOT NULL',
+    @harvest_events = HarvestEvent.find(:all, :include => :resource,
+                        :select => { :harvest_events => [ :id, :resource_id, :published_at ], :resources => [ :id, :content_partner_id, :title ] },
+                        :order => :published_at,
+                        :conditions => ['published_at BETWEEN :from AND :to AND completed_at IS NOT NULL',
                                            { :from => @date_from.mysql_timestamp,
                                              :to => @date_to.mysql_timestamp}])
-    @resources = Resource.find_all_by_id(@harvest_events.collect{|he| he.resource_id}.compact,
-                                         :select => 'id, title, content_partner_id').compact
-    @content_partners = ContentPartner.find_all_by_id(@resources.collect{|r| r.content_partner_id}.compact,
-                                                      :select => 'id, full_name, created_at').compact
+    @harvest_events.delete_if{|he| he != he.resource.oldest_published_harvest_event }
+    HarvestEvent.preload_associations(@harvest_events, { :resource => :content_partner },
+                        :select => { :content_partners => [:id, :full_name, :created_at ] })
 
     if params[:commit_download_csv_first_published]
       report = StringIO.new
@@ -129,18 +130,17 @@ class Admins::ContentPartnersController < AdminsController
         row << ['Partner ID','Partner Full Name', 'Registered Date', 'Resource ID', 'Resource', 'Harvest ID', 'First Published']
         @harvest_events.each do |harvest_event|
           r = []
-          resource = @resources.select{|r| r.id == harvest_event.resource_id}.first rescue nil
-          if resource.blank?
+          if harvest_event.resource.blank?
             r = [ nil, nil, nil, nil, nil ]
           else
             content_partner = @content_partners.select{|cp| cp.id == resource.content_partner_id}.first rescue nil
-            if content_partner.blank?
+            if harvest_event.resource.content_partner.blank?
               r = [ nil, nil, nil]
             else
-              r = [content_partner.id, content_partner.full_name, content_partner.created_at]
+              r = [harvest_event.resource.content_partner.id, harvest_event.resource.content_partner.full_name, harvest_event.resource.content_partner.created_at]
             end
-            r << resource.id
-            r << resource.title
+            r << harvest_event.resource.id
+            r << harvest_event.resource.title
           end
           r << harvest_event.id
           r << harvest_event.published_at

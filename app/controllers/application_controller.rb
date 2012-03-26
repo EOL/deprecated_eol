@@ -42,9 +42,9 @@ class ApplicationController < ActionController::Base
     :agent_logged_in?, :allow_page_to_be_cached?, :link_to_item
 
   before_filter :set_locale
-  
+
   around_filter :profile
-  
+
   def profile
     return yield if params[:profile].nil?
     return yield if ![ 'v2staging', 'v2staging_dev', 'v2staging_dev_cache', 'development', 'test'].include?(ENV['RAILS_ENV'])
@@ -55,7 +55,7 @@ class ApplicationController < ActionController::Base
     response.body.replace out.string
     response.content_type = "text/plain"
   end
-  
+
 
   # Continuously display a warning message.  This is used for things like "System Shutting down at 15 past" and the
   # like.  And, yes, if there's a "real" error, they miss this message.  So what?
@@ -70,7 +70,7 @@ class ApplicationController < ActionController::Base
       sco = SiteConfigurationOption.find_by_parameter('global_site_warning')
       (sco && sco.value) ? sco.value : 1
     end
-    
+
     if warning && warning.class == String
       flash.now[:error] = warning
     end
@@ -531,13 +531,24 @@ protected
   end
 
   def meta_data(title = meta_title, description = meta_description, keywords = meta_keywords)
-    @meta_data ||= {:title => [
+    return @meta_data if @meta_data
+    @meta_data =  { :title => [
                       title.presence,
                       @rel_canonical_href_page_number ? I18n.t(:pagination_page_number, :number => @rel_canonical_href_page_number) : nil,
-                      I18n.t(:meta_title_suffix)].compact.join(" - ").strip,
-                    :description => description,
-                    :keywords => keywords
-                   }.delete_if{ |k, v| v.nil? }
+                    ].compact.join(" - ").strip,
+                  :description => description,
+                  :keywords => keywords
+                }.delete_if{ |k, v| v.nil? }
+    if @meta_data[:title]
+      if @home_page
+        # Encyclopedia of Life - $TITLE
+        @meta_data[:title] = I18n.t(:meta_title_site_name) + " - " + @meta_data[:title]
+      else
+        # $TITLE - Encyclopedia of Life
+        @meta_data[:title] += " - "  + I18n.t(:meta_title_site_name)
+      end
+    end
+    @meta_data
   end
   helper_method :meta_data
 
@@ -619,7 +630,7 @@ protected
     end
     @original_request_params ||= params.clone.freeze # frozen because we don't want @original_request_params to be modified
   end
-  
+
   def page_title
     @page_title ||= t(".page_title", :scope => controller_action_scope)
   end

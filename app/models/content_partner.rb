@@ -92,28 +92,6 @@ class ContentPartner < ActiveRecord::Base
     resources.collect(&:oldest_published_harvest_event).compact.sort_by{|he| he.published_at}
   end
 
-  # Returns true if the Content Partner's latest harvest contains this taxon_concept or taxon_concept id (the raw ID is
-  # preferred)
-  def latest_unpublished_harvest_contains?(taxon_concept_id)
-    taxon_concept_id = taxon_concept_id.id if taxon_concept_id.class == TaxonConcept
-    resources.each do |resource|
-      event = resource.latest_unpublished_harvest_event
-      if event # They do HAVE an unpublished event
-        tc = TaxonConcept.find_by_sql([%q{
-          SELECT tc.id
-          FROM taxon_concepts tc
-            JOIN hierarchy_entries he ON (tc.id = he.taxon_concept_id)
-            JOIN harvest_events_hierarchy_entries hehe ON (he.id = hehe.hierarchy_entry_id)
-          WHERE hehe.harvest_event_id = ?
-            AND tc.id = ?
-        }, event.id, taxon_concept_id])
-        return true unless tc.blank?
-      end
-    end
-    # we looked at ALL resources and found none applicable
-    return false
-  end
-
   def self.partners_published_in_month(year, month)
     start_time = Time.mktime(year, month)
     end_time = Time.mktime(year, month) + 1.month

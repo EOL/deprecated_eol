@@ -34,13 +34,11 @@
             %th= I18n.t('activerecord.attributes.content_partner.full_name')
             %th= I18n.t('helpers.label.content_partner.created_at')
             %th= I18n.t('activerecord.attributes.harvest_event.resource')
-            %th= I18n.t('helpers.label.harvest_event.published_at')
+            %th= I18n.t('helpers.label.harvest_event.first_published_at')
         %tbody
           - @harvest_events.each do |harvest_event|
-            - resource = @resources.select{|r| r.id == harvest_event.resource_id}.first rescue nil
-            - content_partner = @content_partners.select{|cp| cp.id == resource.content_partner_id}.first rescue nil
             %tr
-              %td= link_to content_partner.full_name, content_partner rescue I18n.t(:value_empty)
-              %td= content_partner.created_at.strftime('%Y-%m-%d') rescue I18n.t(:value_empty)
-              %td= link_to resource.title, content_partner_resource_path(content_partner, resource) rescue I18n.t(:value_empty)
+              %td= link_to harvest_event.resource.content_partner.full_name, harvest_event.resource.content_partner rescue I18n.t(:value_empty)
+              %td= harvest_event.resource.content_partner.created_at.strftime('%Y-%m-%d') rescue I18n.t(:value_empty)
+              %td= link_to harvest_event.resource.title, content_partner_resource_path(harvest_event.resource.content_partner, harvest_event.resource) rescue I18n.t(:value_empty)
               %td= harvest_event.published_at

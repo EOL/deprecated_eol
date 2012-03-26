@@ -1776,7 +1776,7 @@ mk:
   message_colon: "Порака:"
   meta_description_colon: "Метаопис:"
   meta_keywords_colon: "Метаклучни зборови:"
-  meta_title_suffix: Енциклопедија на живиот свет
+  meta_title_site_name: Енциклопедија на живиот свет
   method: Метод
   method_to_get_metadata_about_the_hierarchy: кога ќе му се зададе хиерархиска назнака овој метод дава метаподатоци за хиерархијата и ги наведува основните таксони
   methods: Методи

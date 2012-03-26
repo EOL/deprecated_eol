@@ -508,6 +508,7 @@ en:
       harvest_event:
         began_at: "Started"
         completed_at: "Completed"
+        first_published_at: "First published"
         publish_more: "Flags harvest event for publication, content will not be made public immediately."
         published_at: "Published"
         published_status: "Status"
@@ -2364,7 +2365,7 @@ en:
     other: "%{count} members;"
   merge_concepts: "merge concepts"
   message_colon: "Message:"
-  meta_title_suffix: "Encyclopedia of Life"
+  meta_title_site_name: "Encyclopedia of Life"
   method: "Method"
   methods: "Methods"
   minimal_page: "Minimal Page"

@@ -498,7 +498,7 @@ private
 
   def set_sort_options
     @sort_options = [SortStyle.newest, SortStyle.oldest, SortStyle.alphabetical, SortStyle.reverse_alphabetical,
-                     SortStyle.richness, SortStyle.rating, SortStyle.sort_field]
+                     SortStyle.richness, SortStyle.rating, SortStyle.sort_field, SortStyle.reverse_sort_field]
   end
 
   def set_view_as_options

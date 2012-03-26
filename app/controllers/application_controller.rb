@@ -375,7 +375,7 @@ class ApplicationController < ActionController::Base
       current_user.update_attribute(:language_id, language.id)
       current_user.clear_cache
     end
-    redirect_back_or_default
+    redirect_to(params[:return_to].blank? ? root_url : params[:return_to])
   end
 
   # pulled over from Rails core helper file so it can be used in controllers as well

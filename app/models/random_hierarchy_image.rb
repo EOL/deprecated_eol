@@ -11,6 +11,28 @@ class RandomHierarchyImage < ActiveRecord::Base
   delegate :quick_scientific_name, :to => :taxon_concept
   delegate :quick_common_name, :to => :taxon_concept
 
+  def self.random_set_cached
+    begin
+      RandomHierarchyImage.random_set_precache_class_loads
+      $CACHE.fetch('homepage/random_images', :expires_in => 30.minutes) do
+        RandomHierarchyImage.random_set(12)
+      end
+    rescue TypeError => e
+      # TODO - FIXME  ... This appears to have to do with $CACHE.fetch (obviously)... not sure why, though.
+      RandomHierarchyImage.random_set(12)
+    end
+  end
+
+  # Classes that MUST be loaded before attempting to cache random images.
+  def self.random_set_precache_class_loads
+    DataObject
+    TaxonConcept
+    TaxonConceptPreferredEntry
+    Name
+    TaxonConceptExemplarImage
+    Hierarchy
+  end
+
   def self.random_set(limit = 10, hierarchy = nil, options = {})
     hierarchy ||= Hierarchy.default
     options[:size] ||= '130_130'

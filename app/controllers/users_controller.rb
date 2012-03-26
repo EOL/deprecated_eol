@@ -115,7 +115,7 @@ class UsersController < ApplicationController
 
   # POST /users
   def create
-    @user = User.new(params[:user])
+    @user = User.new(params[:user].reverse_merge(:language => current_language)
     failed_to_create_user and return unless @user.valid? && verify_recaptcha
     @user.validation_code = User.generate_key
     while(User.find_by_validation_code(@user.validation_code))

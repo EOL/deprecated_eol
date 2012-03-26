@@ -1,6 +1,5 @@
 - if collection_item.annotation && ! collection_item.annotation.blank?
   .annotation
-    %strong= I18n.t :annotation_cabs_colon
     %p= collection_item.annotation
 - if @collection.show_references
   %p.references

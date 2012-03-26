@@ -42,7 +42,6 @@ describe "Collections and collecting:" do
     @anon_user = User.gen(:password => 'password')
     @taxon = @test_data[:taxon_concept_1]
     EOL::Solr::CollectionItemsCoreRebuilder.begin_rebuild
-    EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
   end
 
   after(:all) do
@@ -315,7 +314,15 @@ describe "Collections and collecting:" do
     # there should be exactly 2 pages when we have a max_items_per_page of 4
     body.should match(/href="\/collections\/#{collection.id}\?page=2/)
     body.should_not match(/href="\/collections\/#{collection.id}\?page=3/)
-
+    
+    # now testing the next/previous links show only when necessary
+    body.should_not include "Previous"
+    body.should include "Next"
+    
+    visit collection_path(collection_owner.watch_collection, :page => 2)
+    body.should include "Previous"
+    body.should_not include "Next"
+    
     $INDEX_RECORDS_IN_SOLR_ON_SAVE = @original_index_records_on_save_value
   end
 

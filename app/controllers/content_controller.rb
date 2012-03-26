@@ -296,8 +296,7 @@ private
     begin
       what.shuffle!
     rescue TypeError => e # it's a frozen array, it's been cached somewhere.
-      what = @explore_taxa.dup
-      what.shuffle!
+      what = (@explore_taxa.nil?) ? @explore_taxa : @explore_taxa.dup.shuffle!
     end
   end
 

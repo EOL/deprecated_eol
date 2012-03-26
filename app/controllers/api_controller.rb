@@ -25,7 +25,7 @@ class ApiController < ApplicationController
     params[:details] = 1 if params[:format] == 'html'
 
     begin
-      taxon_concept = TaxonConcept.find(taxon_concept_id)
+      taxon_concept = TaxonConcept.find(taxon_concept_id, :include => { :published_hierarchy_entries => [ :hierarchy, :name ] })
       raise if taxon_concept.blank? || !taxon_concept.published?
     rescue
       render(:partial => 'error.xml.builder', :locals => { :error => "Unknown identifier #{taxon_concept_id}" })
@@ -311,6 +311,7 @@ class ApiController < ApplicationController
       @facet_counts = EOL::Solr::CollectionItems.get_facet_counts(@collection.id)
       @collection_results = @collection.items_from_solr(:facet_type => @filter, :page => params[:page], :per_page => @per_page, :sort_by => @sort_by)
       @collection_items = @collection_results.map { |i| i['instance'] }
+      CollectionItem.preload_associations(@collection_items, :refs)
       raise if @collection.blank?
     rescue
       render(:partial => 'error.xml.builder', :locals => { :error => "Unknown identifier #{id}" })

@@ -1572,7 +1572,7 @@ ar:
   message_colon: "رسالة:"
   meta_description_colon: "الأوصاف الفوقية:"
   meta_keywords_colon: "كلمات مفتاحية فوقية:"
-  meta_title_suffix: موسوعة الحياة
+  meta_title_site_name: موسوعة الحياة
   method: طريقة
   method_to_get_metadata_about_the_hierarchy: عند تقديم معرف تسلسل هرمي، تعرض تلك الطريقة بيانات فوقية عن التسلسل الهرمي وتعدد الأصناف الأساسية
   methods: طرق

@@ -2365,7 +2365,7 @@ en:
     other: "%{count} members;"
   merge_concepts: "merge concepts"
   message_colon: "Message:"
-  meta_title_suffix: "Encyclopedia of Life"
+  meta_title_site_name: "Encyclopedia of Life"
   method: "Method"
   methods: "Methods"
   minimal_page: "Minimal Page"

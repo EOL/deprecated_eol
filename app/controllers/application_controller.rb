@@ -527,13 +527,24 @@ protected
   end
 
   def meta_data(title = meta_title, description = meta_description, keywords = meta_keywords)
-    @meta_data ||= {:title => [
+    return @meta_data if @meta_data
+    @meta_data =  { :title => [
                       title.presence,
                       @rel_canonical_href_page_number ? I18n.t(:pagination_page_number, :number => @rel_canonical_href_page_number) : nil,
-                      I18n.t(:meta_title_suffix)].compact.join(" - ").strip,
-                    :description => description,
-                    :keywords => keywords
-                   }.delete_if{ |k, v| v.nil? }
+                    ].compact.join(" - ").strip,
+                  :description => description,
+                  :keywords => keywords
+                }.delete_if{ |k, v| v.nil? }
+    if @meta_data[:title]
+      if @home_page
+        # Encyclopedia of Life - $TITLE
+        @meta_data[:title] = I18n.t(:meta_title_site_name) + " - " + @meta_data[:title]
+      else
+        # $TITLE - Encyclopedia of Life
+        @meta_data[:title] += " - "  + I18n.t(:meta_title_site_name)
+      end
+    end
+    @meta_data
   end
   helper_method :meta_data
 

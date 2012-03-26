@@ -26,15 +26,6 @@ class CollectionsController < ApplicationController
     end
   end
 
-  def get_collection_objects(collection_ids)
-    collection_ids = collection_ids.reverse[1..collection_ids.length]
-    @recently_visited_collections = []
-    collections = Collection.find(collection_ids)
-    collection_ids.each do |collection_id|
-      @recently_visited_collections << collections.detect { |c| c.id == collection_id }
-    end
-  end
-
   def new
     @page_title = I18n.t(:create_a_collection)
     @collection = Collection.new
@@ -605,8 +596,7 @@ private
     types = CollectionItem.types
     @collection_item_scopes = [[I18n.t(:selected_items), :selected_items], [I18n.t(:all_items), :all_items]]
     @collection_item_scopes << [I18n.t("all_#{types[@filter.to_sym][:i18n_key]}"), @filter] if @filter
-    collection_ids = recently_visited_collections(@collection.id)
-    get_collection_objects(collection_ids) unless collection_ids.nil?
+    @recently_visited_collections = Collection.find(recently_visited_collections(@collection.id)) if @collection
   end
 
 end

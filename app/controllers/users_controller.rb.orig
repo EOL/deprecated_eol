@@ -376,9 +376,8 @@ private
     end
   end
 
-  # TODO - DO WE STILL NEED THIS?  ...I don't think we do.  (?)  I created a method to give Marie a list of all the
-  # users who need an email, and I don't think she needs to get individual emails anymore.
-
+<<<<<<< HEAD
+=======
   def user_updated_email_preferences?(user_before_update, user_after_update)
     if user_after_update.has_attribute?(:mailing_list) # TODO - superfluous, remove.
       user_before_update.mailing_list != user_after_update.mailing_list || user_before_update.email != user_after_update.email
@@ -397,6 +396,7 @@ private
     Notifier.deliver_user_updated_email_preferences(user_before_update, user_after_update, recipient)
   end
   
+>>>>>>> master
   def preload_user_associations
     # used to count the collections and communities in the menu
     User.preload_associations(@user, [ :collections_including_unpublished, { :members => { :community => :collections } } ] )

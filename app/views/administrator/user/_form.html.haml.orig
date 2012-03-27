@@ -53,7 +53,18 @@
   %tr
     %td
       %strong
+<<<<<<< HEAD
+        =I18n.t("only_show_authoritative_conten")
+    %td
+      = f.check_box :vetted
+      =I18n.t("true_label")
+  %tr
+    %td
+      %strong
+        = I18n.t(:disable_email_notifications_colon)
+=======
         =I18n.t("request_mailing_list_colon")
+>>>>>>> master
     %td
       = f.check_box :disable_email_notifications
       = I18n.t("yes_answer")

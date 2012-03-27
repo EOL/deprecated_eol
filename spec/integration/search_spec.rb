@@ -221,4 +221,19 @@ describe 'Search' do
     visit("/search?q=#{@name_for_all_types}&" + CGI::escape("type[]=user"))
     current_path.should match /^\/users\/#{@user2.id}/
   end
+  
+  it 'should only show next and previous links when necessary' do
+    # make enough so paging kicks in
+    26.times do |i|
+      User.gen(:username => "testingsearchpaging #{i}")
+    end
+    EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild
+    visit("/search?q=testingsearchpaging&page=1")
+    body.should_not include "see previous"
+    body.should include "see next"
+    
+    visit("/search?q=testingsearchpaging&page=2")
+    body.should include "see previous"
+    body.should_not include "see next"
+  end
 end

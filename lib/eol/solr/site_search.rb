@@ -162,6 +162,7 @@ module EOL
           end
         else
           # create initial query, 'exact' or 'contains'
+          query.fix_spaces
           if options[:exact]
             lucene_query << "keyword_exact:\"#{query}\"^5"
           else

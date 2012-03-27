@@ -2,7 +2,12 @@ require 'uri'
 begin
   require 'ruby-prof'
 rescue MissingSourceFile
+<<<<<<< HEAD
+  # Sometimes it's not installed.  We don't care.
+  puts "(╯°□°)╯︵ ┻━┻"
+=======
   puts "!! WARNING: ruby-prof missing.  Ignoring."
+>>>>>>> master
 end
 ContentPage # TODO - figure out why this fails to autoload.  Look at http://kballcodes.com/2009/09/05/rails-memcached-a-better-solution-to-the-undefined-classmodule-problem/
 
@@ -300,7 +305,11 @@ class ApplicationController < ActionController::Base
     session[:recently_visited_collections] ||= []
     session[:recently_visited_collections].unshift(collection_id)
     session[:recently_visited_collections] = session[:recently_visited_collections].uniq  # Ignore duplicates.
+<<<<<<< HEAD
+    session[:recently_visited_collections] = session[:recently_visited_collections][0..5] # Only keep first six.
+=======
     session[:recently_visited_collections] = session[:recently_visited_collections][0..5] # Only keep six.
+>>>>>>> master
   end
 
   # Boot all users out when we don't want logins (note: preserves language):

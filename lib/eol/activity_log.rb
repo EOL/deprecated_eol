@@ -93,7 +93,6 @@ module EOL
       if options[:after] && options[:after].respond_to?(:utc)
         query = "(#{query}) AND date_created:[#{options[:after].utc.strftime('%Y-%m-%dT%H:%M:%S')}Z TO NOW]"
       end
-          debugger
       results = EOL::Solr::ActivityLog.search_with_pagination(query, options)
     end
 

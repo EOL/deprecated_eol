@@ -1782,7 +1782,7 @@ de:
   message_colon: "Nachricht:"
   meta_description_colon: "Meta-Beschreibung:"
   meta_keywords_colon: "Meta-Keywords:"
-  meta_title_suffix: Enzyklopädie des Lebens
+  meta_title_site_name: Enzyklopädie des Lebens
   method: Methode
   method_to_get_metadata_about_the_hierarchy: nach Angabe einer Hierarchiekennung wird diese Methode die Metadaten der Hierarchie und Ihre Basistaxa ausgeben
   methods: Methoden

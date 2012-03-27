@@ -14,7 +14,7 @@ class DataObjectsController < ApplicationController
     @taxon_concept = TaxonConcept.find(params[:taxon_id])
     set_text_data_object_options
     @data_object = DataObject.new(:data_type => DataType.text,
-                                  :license_id => License.by_nc.id,
+                                  :license_id => License.cc.id,
                                   :language_id => current_language.id)
     # default to passed in toc param or brief summary if selectable, otherwise just the first selectable toc item
 

@@ -27,7 +27,7 @@
             %legend= link_to entry.name.string, taxon_overview_path(entry.taxon_concept_id)
             - if entry.by_curated_association? && entry.associated_by_curator.id == current_user.id
               %p
-                = link_to I18n.t(:remove_data_object_association), remove_association_path(:id => data_object.id, :hierarchy_entry_id => entry.id), :id => "remove_association_#{entry.id}"
+                = link_to I18n.t(:remove_data_object_association), remove_association_path(:id => data_object.id, :hierarchy_entry_id => entry.id), :id => "remove_association_#{entry.id}", :confirm => I18n.t(:are_you_sure)
           - else
             %legend= link_to entry.taxon_concept.quick_scientific_name, taxon_overview_path(entry.taxon_concept_id)
 

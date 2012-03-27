@@ -46,8 +46,7 @@ private
 
   def log_in(user)
     session[:user_id] = user.id
-    session[:language_id] = user.language.id
-    I18n.locale = user.language.iso_639_1
+    update_current_language(user.language)
     flash[:notice] = I18n.t(:sign_in_successful_notice)
     if params[:remember_me]
       if user.is_admin?
@@ -57,6 +56,7 @@ private
         cookies[:user_auth_token] = { :value => user.remember_token , :expires => user.remember_token_expires_at }
       end
     end
+    session.delete(:recently_visited_collections) # Yes, it was requested that these be empty when you log in.
   end
 
   def log_out

@@ -1583,7 +1583,7 @@ sr-EC:
   message_colon: "Порука:"
   meta_description_colon: "Мета опис:"
   meta_keywords_colon: "Мета кључне речи:"
-  meta_title_suffix: Енциклопедија живота
+  meta_title_site_name: Енциклопедија живота
   method: Начин
   method_to_get_metadata_about_the_hierarchy: када наведете назнаку хијерархије, ова метода ће пријавити метаподатке о хијерархији и приказати основне таксоне
   methods: Начини

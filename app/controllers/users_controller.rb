@@ -48,7 +48,7 @@ class UsersController < ApplicationController
     end
     user_before_update = @user
     if @user.update_attributes(params[:user])
-      session[:language_id] = @user.language_id
+      update_current_language(@user.language)
       upload_logo(@user) unless params[:user][:logo].blank?
       current_user.log_activity(:updated_user)
       store_location params[:return_to] if params[:return_to]
@@ -372,7 +372,11 @@ private
   end
 
   def user_updated_email_preferences?(user_before_update, user_after_update)
-    user_before_update.mailing_list != user_after_update.mailing_list || user_before_update.email != user_after_update.email
+    if user_after_update.has_attribute?(:mailing_list) # TODO - superfluous, remove.
+      user_before_update.mailing_list != user_after_update.mailing_list || user_before_update.email != user_after_update.email
+    else
+      false
+    end
   end
 
   def send_preferences_updated_email(user_before_update, user_after_update)

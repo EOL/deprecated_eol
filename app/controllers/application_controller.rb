@@ -280,6 +280,12 @@ class ApplicationController < ActionController::Base
     @current_language ||= Language.find(session[:language_id]) rescue Language.default
   end
 
+  def update_current_language(new_language)
+    @current_language = new_language
+    session[:language_id] = new_language.id
+    I18n.locale = new_language.iso_639_1
+  end
+
   # Deceptively simple... but note that memcached will only be hit ONCE per request because of the ||=
   def current_user
     @current_user ||= if session[:user_id]               # Try loading from session
@@ -368,8 +374,7 @@ class ApplicationController < ActionController::Base
 
   def set_language
     language = Language.from_iso(params[:language]) rescue Language.default
-    session[:language_id] = language.id
-    I18n.locale = language.iso_639_1
+    update_current_language(language)
     if logged_in?
       # Don't want to worry about validations on the user; language is simple.  Just update it:
       current_user.update_attribute(:language_id, language.id)

@@ -76,8 +76,8 @@ module EOL
       query = "feed_type_affected:UserNews AND feed_type_primary_key:#{source.id}"
       if options[:filter]
         case options[:filter]
-        when 'all' # This needs to INCLUDE comments!
-          query = "#{query} OR (activity_log_type:Comment AND reply_to_id:#{source.id})"
+        when 'all' # This needs to INCLUDE messages!
+          query = "(#{query}) OR (activity_log_type:Comment AND reply_to_id:#{source.id})"
         when 'messages'
           query = "activity_log_type:Comment AND (reply_to_id:#{source.id} OR (#{query}))"
         when 'community'
@@ -93,6 +93,7 @@ module EOL
       if options[:after] && options[:after].respond_to?(:utc)
         query = "(#{query}) AND date_created:[#{options[:after].utc.strftime('%Y-%m-%dT%H:%M:%S')}Z TO NOW]"
       end
+          debugger
       results = EOL::Solr::ActivityLog.search_with_pagination(query, options)
     end
 

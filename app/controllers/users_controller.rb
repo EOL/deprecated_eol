@@ -48,6 +48,7 @@ class UsersController < ApplicationController
     end
     user_before_update = @user
     if @user.update_attributes(params[:user])
+      session[:language_id] = @user.language_id
       upload_logo(@user) unless params[:user][:logo].blank?
       current_user.log_activity(:updated_user)
       store_location params[:return_to] if params[:return_to]

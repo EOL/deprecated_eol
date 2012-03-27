@@ -46,7 +46,7 @@ private
 
   def log_in(user)
     session[:user_id] = user.id
-    session[:language_id] = user.language.id
+    session[:language_id] = user.language_id
     I18n.locale = user.language.iso_639_1
     flash[:notice] = I18n.t(:sign_in_successful_notice)
     if params[:remember_me]

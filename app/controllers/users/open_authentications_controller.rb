@@ -54,7 +54,7 @@ class Users::OpenAuthenticationsController < UsersController
   end
 
   private
-  
+
   def open_authentication_providers
     @open_authentication_providers ||= @user.open_authentications.collect{ |oa| oa.provider } if @user.open_authentications
   end
@@ -100,14 +100,14 @@ class Users::OpenAuthenticationsController < UsersController
     username = get_user_name(profile_information)
     # Get random password no more than 16 characters
     password = (0...16).map{65.+(rand(25)).chr}.join
-    
+
     # Create new user
     new_user = User.create_new(
                  :username => username,
                  :given_name => profile_information[:given_name],
                  :family_name => profile_information[:family_name],
                  :email => profile_information[:email].nil? ? "oauth_user" : profile_information[:email],
-                 :entered_password => password, 
+                 :entered_password => password,
                  :entered_password_confirmation => password,
                  :remote_ip => options[:remote_ip]
                  )

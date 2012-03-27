@@ -437,16 +437,24 @@ en:
         force_harvest: "Request force harvest"
       session:
         create: "Sign in"
+        sign_in_with_facebook: "Sign in with Facebook"
+        sign_in_with_google: "Sign in with Google"
+        sign_in_with_twitter: "Sign in with Twitter"
+        sign_in_with_yahoo: "Sign in with Yahoo"
       translated_content_page:
         create: "Add translation"
         update: "Save changes to translation"
       user:
         create: "Create account"
-        update: "Save profile information"
-        forgot_password: "Send email"
-        generate_api_key: "Generate a key"
         curation_application: "Apply now"
         curation_privileges: "Submit request"
+        forgot_password: "Send email"
+        generate_api_key: "Generate a key"
+        sign_up_with_facebook: "Sign up with Facebook"
+        sign_up_with_google: "Sign up with Google"
+        sign_up_with_twitter: "Sign up with Twitter"
+        sign_up_with_yahoo: "Sign up with Yahoo"
+        update: "Save profile information"
       wikipedia_queue:
         create: "Submit request"
     label:
@@ -1069,7 +1077,7 @@ en:
       login_with_google_assistive: "Login to EOL using your Google credentials."
       login_with_twitter_assistive: "Login to EOL using your Twitter credentials."
       login_with_yahoo_assistive: "Login to EOL using your Yahoo credentials."
-      login_with_open_authentication_header: "Or log in with:"
+      login_with_open_authentication_header: "Or<span class=\"assistive\"> log in to EOL with open authentication</span>:"
   users:
     activities:
       show:
@@ -1101,7 +1109,7 @@ en:
       create_user_header_google: "Confirm your Google details and sign up"
       create_user_header_twitter: "Confirm your Twitter details and sign up"
       create_user_header_yahoo: "Confirm your Yahoo details and sign up"
-      create_user_with_open_authentication_header: "Or sign up with:"
+      create_user_with_open_authentication_header: "Or<span class=\"assistive\"> sign up with open authentication</span>:"
       sign_up_with_facebook_assistive: "Sign up to EOL using your Facebook credentials."
       sign_up_with_google_assistive: "Sign up to EOL using your Google credentials."
       sign_up_with_twitter_assistive: "Sign up to EOL using your Twitter credentials."

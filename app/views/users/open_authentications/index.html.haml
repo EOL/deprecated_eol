@@ -6,4 +6,3 @@
     - form_for [@user, @user.open_authentications.build(:provider => open_authentication_provider)], :html => { :id => "new_open_authentication_#{open_authentication_provider}" } do |f|
       = f.hidden_field :provider
       = image_submit_tag image_path("v2/oauth_signup_#{open_authentication_provider}.gif"), :title => "test"
-  

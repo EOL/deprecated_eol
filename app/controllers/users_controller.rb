@@ -112,31 +112,22 @@ class UsersController < ApplicationController
 
   # GET /users/register
   def new
-    if params[:oauth_provider]
-      open_auth = verify_open_authentication(new_user_url(:oauth_provider => params[:oauth_provider])) 
-      if open_auth.nil?
-      else
-        log_in(open_authentication.user) if open_authentication = OpenAuthentication.existing_authentication(open_auth.authentication_attributes[:provider], open_auth.authentication_attributes[:guid]) && ! open_authentication.user.nil?
-        
-          if (authorized = OpenAuthentication.find_by_provider_and_guid(, , :include => :user)) && 
-            # TODO: what do we do when we have authentication record but no user here?
-            log_in(authorized.user)
-            return redirect_to user_newsfeed_path(authorized.user)
-          else
-            session["oauth_token_#{open_auth.authentication_attributes[:provider]}_#{open_auth.authentication_attributes[:guid]}"] = open_auth.authentication_attributes[:token]
-            session["oauth_secret_#{open_auth.authentication_attributes[:provider]}_#{open_auth.authentication_attributes[:guid]}"] = open_auth.authentication_attributes[:secret]
-            oauth_user_attributes = open_auth.user_attributes.merge({ :open_authentications_attributes => [
-              { :guid => open_auth.authentication_attributes[:guid],
-                :provider => open_auth.authentication_attributes[:provider] }]})
-          end
-        end
-      
+    if params[:oauth_provider] && (open_auth = verify_open_authentication(new_user_url(:oauth_provider => params[:oauth_provider])))
+      if (open_authentication = login_existing_open_authentication_user(open_auth))
+        return redirect_to user_newsfeed_path(open_authentication.user)
+      end
+      session["oauth_token_#{open_auth.authentication_attributes[:provider]}_#{open_auth.authentication_attributes[:guid]}"] = open_auth.authentication_attributes[:token]
+      session["oauth_secret_#{open_auth.authentication_attributes[:provider]}_#{open_auth.authentication_attributes[:guid]}"] = open_auth.authentication_attributes[:secret]
+      oauth_user_attributes = open_auth.user_attributes.merge({ :open_authentications_attributes => [
+        { :guid => open_auth.authentication_attributes[:guid],
+          :provider => open_auth.authentication_attributes[:provider] }]})
     end
-    @user = User.new(oauth_user_attributes || nil)
+    @user = User.new(oauth_user_attributes || nil) if @user.nil?
   end
 
   # POST /users
   def create
+    
     return initialize_open_authentication(new_user_url(:oauth_provider => params[:oauth_provider]), 
                                           new_user_url) if params[:oauth_provider]
     
@@ -160,7 +151,7 @@ class UsersController < ApplicationController
         # TODO: return if there is a problem here we shouldn't create user without the proper authentication data
       end
     end
-    
+
     @user = User.new(params[:user]) # TODO: check this adds authentication params from form submit
     
     # TODO: for oauth change validation rules in user model

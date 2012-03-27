@@ -11,6 +11,7 @@ module EOL
                                                   :oauth_verifier => nil })
       case provider
       when 'facebook'
+        # fix this
         OpenAuthFacebook.new(config_file['facebook'], callback, options[:code])
       when 'google'
         OpenAuthGoogle.new(config_file['google'], callback, options[:code])
@@ -58,6 +59,7 @@ module EOL
 
       def initialize(provider, config, callback, request_token_token = nil, request_token_secret = nil, verifier = nil)
         super(provider, config, callback)
+        # use const_get instead of eval
         @client = OAuth::Consumer.new(eval(config['key']), eval(config['secret']), config['params'].dup)
         @verifier = verifier
         if request_token_token && request_token_secret

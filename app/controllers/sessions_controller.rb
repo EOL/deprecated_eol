@@ -1,5 +1,7 @@
 class SessionsController < ApplicationController
 
+  include EOL::Login
+
   layout 'v2/sessions'
 
   before_filter :redirect_if_already_logged_in, :only => [:new, :create]
@@ -7,27 +9,16 @@ class SessionsController < ApplicationController
 
   # GET /sessions/new or named route /login
   def new
-    if params[:oauth_provider]
-      if open_auth = EOL::OpenAuth.init(params[:oauth_provider], new_user_url(:oauth_provider => params[:oauth_provider]), params.merge({:request_token_token => session.delete("#{params[:oauth_provider]}_request_token_token"), :request_token_secret => session.delete("#{params[:oauth_provider]}_request_token_secret")}))
-        
-        if open_auth.user_attributes.nil? || open_auth.authentication_attributes.nil?
-          flash.now[:error] = I18n.t(:oauth_error_accessing_basic_info)
-        else
-          if (authorized = OpenAuthentication.find_by_provider_and_guid(open_auth.authentication_attributes[:provider], open_auth.authentication_attributes[:guid], :include => :user)) && ! authorized.user.nil?
-            # TODO: what do we do when we have authentication record but no user here?
-            log_in(authorized.user)
-            return redirect_to user_newsfeed_path(authorized.user)
-          else
-            # TODO: User not authorized - they might need to sign up or there is a problem
-            # session["oauth_token_#{open_auth.authentication_attributes[:provider]}_#{open_auth.authentication_attributes[:guid]}"] = open_auth.authentication_attributes[:token]
-            #             session["oauth_secret_#{open_auth.authentication_attributes[:provider]}_#{open_auth.authentication_attributes[:guid]}"] = open_auth.authentication_attributes[:secret]
-            #             oauth_user_attributes = open_auth.user_attributes.merge({ :open_authentications_attributes => [
-            #               { :guid => open_auth.authentication_attributes[:guid],
-            #                 :provider => open_auth.authentication_attributes[:provider] }]})
-          end
-        end
+    if params[:oauth_provider] && (open_auth = verify_open_authentication(new_session_url(:oauth_provider => params[:oauth_provider])))
+      if (open_authentication = login_existing_open_authentication_user(open_auth))
+        return redirect_to user_newsfeed_path(open_authentication.user)
       else
-        flash.now[:error] = I18n.t(:oauth_error_initializing_access)
+        # TODO: User not authorized - they might need to sign up or there is a problem
+        # session["oauth_token_#{open_auth.authentication_attributes[:provider]}_#{open_auth.authentication_attributes[:guid]}"] = open_auth.authentication_attributes[:token]
+        #             session["oauth_secret_#{open_auth.authentication_attributes[:provider]}_#{open_auth.authentication_attributes[:guid]}"] = open_auth.authentication_attributes[:secret]
+        #             oauth_user_attributes = open_auth.user_attributes.merge({ :open_authentications_attributes => [
+        #               { :guid => open_auth.authentication_attributes[:guid],
+        #                 :provider => open_auth.authentication_attributes[:provider] }]})
       end
     end
     @rel_canonical_href = login_url
@@ -35,16 +26,8 @@ class SessionsController < ApplicationController
 
   # POST /sessions
   def create
-    if params[:oauth_provider]
-      if open_auth = EOL::OpenAuth.init(params[:oauth_provider], new_session_url(:oauth_provider => params[:oauth_provider]))
-        session.merge!(open_auth.session_data) if defined?(open_auth.request_token)
-        return redirect_to open_auth.authorize_uri
-      else
-        flash[:error] = I18n.t(:oauth_error_initializing_authorization, :oauth_provider => params[:oauth_provider])
-        params.delete(:oauth_provider)
-        return redirect_to :action => :new
-      end
-    end
+    return initialize_open_authentication(new_session_url(:oauth_provider => params[:oauth_provider]), 
+                                          new_session_url) if params[:oauth_provider]
     
     success, user = User.authenticate(params[:session][:username_or_email], params[:session][:password])
     if success && user.is_a?(User) # authentication successful

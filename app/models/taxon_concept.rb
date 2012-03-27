@@ -722,7 +722,7 @@ class TaxonConcept < ActiveRecord::Base
       end
     
       text_objects = self.data_objects_from_solr(solr_search_params.merge({
-        :per_page => options[:text],
+        :per_page => options[:text].to_i,
         :toc_ids => options[:toc_items] ? options[:toc_items].collect(&:id) : nil,
         :data_type_ids => DataType.text_type_ids,
         :filter_by_subtype => false
@@ -734,7 +734,7 @@ class TaxonConcept < ActiveRecord::Base
     image_objects = []
     if options[:images].to_i > 0
       image_objects = self.data_objects_from_solr(solr_search_params.merge({
-        :per_page => options[:images],
+        :per_page => options[:images].to_i,
         :data_type_ids => DataType.image_type_ids,
         :return_hierarchically_aggregated_objects => true
       }))
@@ -744,7 +744,7 @@ class TaxonConcept < ActiveRecord::Base
     video_objects = []
     if options[:videos].to_i > 0
       video_objects = self.data_objects_from_solr(solr_search_params.merge({
-        :per_page => options[:videos],
+        :per_page => options[:videos].to_i,
         :data_type_ids => DataType.video_type_ids,
         :return_hierarchically_aggregated_objects => true,
         :filter_by_subtype => false
@@ -755,7 +755,7 @@ class TaxonConcept < ActiveRecord::Base
     sound_objects = []
     if options[:sounds].to_i > 0
       sound_objects = self.data_objects_from_solr(solr_search_params.merge({
-        :per_page => options[:sounds],
+        :per_page => options[:sounds].to_i,
         :data_type_ids => DataType.sound_type_ids,
         :return_hierarchically_aggregated_objects => true,
         :filter_by_subtype => false
@@ -765,14 +765,14 @@ class TaxonConcept < ActiveRecord::Base
     map_objects = []
     if options[:maps].to_i > 0
       map_objects = self.data_objects_from_solr(solr_search_params.merge({
-        :per_page => options[:sounds],
+        :per_page => options[:sounds].to_i,
         :data_type_ids => DataType.image_type_ids,
         :data_subtype_ids => DataType.map_type_ids
       }))
     end
     
     all_data_objects = [ text_objects, image_objects, video_objects, sound_objects, map_objects ].flatten.compact
-    if options[:iucn]
+    if options[:iucn] && options[:iucn] != "0"
       # we create fake IUCN objects if there isn't a real one. Don't use those in the API
       if iucn && iucn.id
         iucn.data_type = DataType.text

@@ -15,14 +15,12 @@ class Administrator::CuratorController < AdminController
     @only_unapproved = EOLConvert.to_boolean(params[:only_unapproved])
     @additional_javascript = ['application', 'admin-curator', 'temp']
 
-    only_unapproved_condition = ' curator_approved = 0 AND ' if @only_unapproved
-    
     curator_level_ids = CuratorLevel.all.collect{ |c| c.id }.join(",")
-    if_curator = "(curator_level_id IN (#{curator_level_ids}))"
-    requested_curatorship = "(requested_curator_level_id IN (#{curator_level_ids}))"
+    curator_condition = "(requested_curator_level_id IN (#{curator_level_ids}))"
+    curator_condition += "OR (curator_level_id IN (#{curator_level_ids}))" unless @only_unapproved
 
     # We search six fields, so we need to pass six values.  TODO - this is likely silly and could be improved.
-    condition = "(#{if_curator} OR #{requested_curatorship}) AND #{only_unapproved_condition} (email like ? OR username like ? OR given_name like ? OR identity_url like ? OR family_name like ? OR username like ?)"
+    condition = "#{curator_condition} AND (email like ? OR username like ? OR given_name like ? OR identity_url like ? OR family_name like ? OR username like ?)"
     conditions = [condition, search_string_parameter, search_string_parameter, search_string_parameter,
       search_string_parameter, search_string_parameter, search_string_parameter]
 

@@ -376,9 +376,7 @@ describe 'Data Object Page' do
     click_link("Edit this article")
     current_path.should == edit_data_object_path(udo_dato)
     click_button("Save article")
-    new_udo_revision = DataObject.last
-    # TODO - this seems to be failing, but I'm in a rush, so fix this later.  Looks like we go back to the old
-    # version after the save.  (?)
+    new_udo_revision = DataObject.latest_published_version_of(udo_dato.id)
     current_path.should == data_object_path(new_udo_revision)
     DataObject.find(udo_dato).published.should be_false
     visit data_object_path(udo_dato)

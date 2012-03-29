@@ -994,6 +994,14 @@ class DataObject < ActiveRecord::Base
     revisions_by_date.select {|r| r.published? }.first
   end
 
+  def unpublish_previous_revisions
+    DataObject.find(:all, :conditions => "id != #{self.id} AND guid = '#{self.guid}'").each do |dato|
+      dato.update_attribute(:published, 0)
+      dato.update_solr_index
+    end
+  end
+
+
 private
 
   def add_recipient_user_making_object_modification(recipients, options = {})
@@ -1025,13 +1033,6 @@ private
           user.add_as_recipient_if_listening_to(:new_data_on_my_watched_item, recipients)
         end
       end
-    end
-  end
-
-  def unpublish_previous_revisions
-    DataObject.find(:all, :conditions => "id != #{self.id} AND guid = '#{self.guid}'").each do |dato|
-      dato.update_attribute(:published, 0)
-      dato.update_solr_index
     end
   end
 

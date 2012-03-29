@@ -1,9 +1,8 @@
 class Notifier < ActionMailer::Base
+
   helper :application
 
   layout "v2/email"
-
-  @@test_recipient = "junk@example.com" # testing only if needed
 
   def recent_activity(user, notes)
     I18n.locale = User.find(user,

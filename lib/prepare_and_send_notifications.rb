@@ -2,6 +2,7 @@
 # Also, @queue must be a class variable with the Resque queue name to work in.
 # Code taken (kinda) from http://railscasts.com/episodes/271-resque
 class PrepareAndSendNotifications
+
   @queue = :notifications
 
   def self.perform
@@ -17,4 +18,5 @@ class PrepareAndSendNotifications
       NotificationEmailerSettings.last_weekly_emails_sent = Time.now
     end
   end
+
 end

@@ -1,0 +1,9 @@
+%p
+  - if note.data_object
+    = t(".curator_activity_on_data_object_by_user", :user_name => note.user.full_name,
+      :activity_name => note.activity.name, :dato_title => note.data_object.best_title,
+      :dato_type => note.data_object.data_type.label, :dato_id => note.data_object.id)
+  - elsif note.taxon_concept
+    = t(".curator_activity_on_taxon_concept_by_user", :user_name => note.user.full_name,
+      :activity_name => note.activity.name, :taxon_concept => note.taxon_concept.title,
+      :taxon_overview_url => taxon_overview_url(note.taxon_concept.id))

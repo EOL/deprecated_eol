@@ -2,18 +2,6 @@ class Notifier < ActionMailer::Base
 
   helper :application
 
-  layout "v2/email"
-
-  def recent_activity(user, notes)
-    I18n.locale = User.find(user,
-                            :select => "users.id, users.email, languages.id, languages.iso_639_1",
-                            :joins => "JOIN languages ON (users.language_id = languages.id)").language_abbr
-    subject     I18n.t(:subject, :scope => [:notifier, :recent_activity])
-    recipients  user.email
-    from        $SUPPORT_EMAIL_ADDRESS
-    body        :notes => notes, :user => user
-  end
-
   def curator_approved(user)
     subject     I18n.t(:subject, :curator_level => user.curator_level.label, :scope => [:notifier, :curator_approved])
     recipients  user.email

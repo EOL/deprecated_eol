@@ -19,7 +19,7 @@
   %hr{:style => "border: none; border-bottom: 1px solid #d2d9df;"}
   - case note.class.name
   - when 'Comment'
-    = render(:partial => 'recent_activity_mailer/recent_activity/comment', :locals => { :who => note.user.full_name, :what => note.parent.summary_name, :body => note.body, :comment_link => link_to_item(Kernel.const_get(note.parent_type).find(note.parent_id), :host => $EMAIL_HOST) })
+    = render(:partial => 'recent_activity_mailer/recent_activity/comment', :locals => { :who => note.user.full_name, :what => note.parent.summary_name, :body => note.body, :comment_link => link_to_item(Kernel.const_get(note.parent_type).find(note.parent_id)) })
   - when 'CollectionActivityLog'
     -# = render(:partial => 'recent_activity_mailer/recent_activity/collection_activity_log', :locals => { :note => note })
     = render(:partial => 'activity_logs/collection_activity_log', :locals => { :item => note })

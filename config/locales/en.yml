@@ -833,7 +833,7 @@ en:
       curator_activity_log_title: "%{who} has curated something"
       data_object_title: "%{who} has added new content to EOL"
       someone_commented_on_something: "<b>%{who}</b> has commented on <b>%{what}</b>."
-      comment_link: "Click here to view the comment"
+      comment_link: "View comment on EOL"
       collection_activity_by_user: "<b>%{user_name}</b> performed a %{activity_name} on the <b>%{collection_name}</b> collection."
       collection_activity_user_added_item: "<b>%{user_name}</b> added %{collected_item_type} #%{collected_item_id} to <b>%{collection_name}</b>."
       collection_activity_user_watching_recipient: "<b>%{user_name}</b> is watching you."

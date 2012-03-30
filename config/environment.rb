@@ -237,6 +237,9 @@ Rails::Initializer.run do |config|
 
   # If this is false, mail errors are silently ignored.  That doesn't make us happy:
   config.action_mailer.raise_delivery_errors = true
+  # URLs are not handled correctly in email (IMO), but this fixes it:
+  config.action_mailer.default_url_options = { :host => "eol.org" }
+
 
   begin
     require 'config/environments/local.rb'
@@ -311,11 +314,6 @@ if defined?(PhusionPassenger)
     end
   end
 end
-
-# Defailts for email... this strikes me as silly, but you can read about it here:
-# http://api.rubyonrails.org/classes/ActionMailer/Base.html#label-Generating+URLs
-# ...When you're using mailer, you need to specify the host.
-$EMAIL_HOST = "eol.org"
 
 # Default values for some footer elements:
 $EOL_TWITTER_ACCOUNT  = "http://twitter.com/#!/EOL"

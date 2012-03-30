@@ -18,7 +18,7 @@
   - if item.community
     = I18n.t(:activity_user_changed_community_icon, :user => name_with_link, :community => link_to(item.community.summary_name, community_path(item.community), :style => 'color: #195184'))
 - when Activity.add_manager.id
-  - if item.member.nil?activity_user_added_community_manager_missing
+  - if item.member.nil?
     = I18n.t(:activity_user_added_community_manager_missing, :user => name_with_link, :community => link_to(item.community.summary_name, community_path(item.community), :style => 'color: #195184'))
   - else
     = I18n.t(:activity_user_added_community_manager, :user => name_with_link, :manager => h(item.member.user.full_name), :community => link_to(item.community.summary_name, community_path(item.community), :style => 'color: #195184'))

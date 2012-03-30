@@ -1,9 +1,14 @@
+- actual_date ||= false
+- display_curator ||= false
 = link_to image_tag(item.user.logo_url(:small), :alt => I18n.t(:comment_show_posters_image_alt,
   :posters_name => h(item.user.full_name))), user_path(item.user), :class => 'avatar'
 .details
   %p
     -# TODO - these ChangeableObjectType checks are all failing because they are NOT on datos, they are on dohe and cdohe's.  Fix.
-    - name_with_link = link_to(h(item.user.full_name), user_path(item.user))
+    - curator_level = ''
+    - if !item.user.curator_level.nil? && display_curator
+      - curator_level = " (" + item.user.curator_level.translated_label + ")"
+    - name_with_link = link_to(h(item.user.full_name), user_path(item.user)) + curator_level
     - object_path = item.data_object ? data_object_path(item.data_object) : nil
     - object_link = object_path ? link_to(item.data_object.summary_name, object_path) : nil
     - synonym_activity_ids = [Activity.add_common_name.id, Activity.remove_common_name.id,
@@ -125,7 +130,10 @@
     - else
       = I18n.t(:activity_user_curated_an_unknown_object, :user => name_with_link)
   %p.meta
-    = I18n.t(:time_ago, :time_passed => time_ago_in_words(item.updated_at))
+    - if actual_date
+      = item.updated_at
+    - else
+      = I18n.t(:time_ago, :time_passed => time_ago_in_words(item.updated_at))
   - if item.user && object_path
     - if ! defined?(@latest_published_revision) || @latest_published_revision
       %ul.actions

@@ -2,6 +2,8 @@
   - editable = true
 - truncate_comments ||= false
 - hide_pagination ||= false
+- actual_date ||= false
+- display_curator ||= false
 - if log.blank?
   .empty
     -if @filter.blank?
@@ -16,16 +18,16 @@
       %li{:id => "#{item.class.name}-#{item.id}"}
         - case item.class.name
         - when "CuratorActivityLog"
-          = render :partial => 'activity_logs/curator_activity_log', :locals => {:item => item}
+          = render :partial => 'activity_logs/curator_activity_log', :locals => {:item => item, :actual_date => actual_date, :display_curator => display_curator}
         - when "Comment"
           .editable
-            = render :partial => 'activity_logs/comment', :locals => {:item => item, :truncate_comments => truncate_comments, :editable => editable}
+            = render :partial => 'activity_logs/comment', :locals => {:item => item, :truncate_comments => truncate_comments, :editable => editable, :actual_date => actual_date, :display_curator => display_curator}
         - when "UsersDataObject"
-          = render :partial => 'activity_logs/users_data_object_log', :locals => {:item => item}
+          = render :partial => 'activity_logs/users_data_object_log', :locals => {:item => item, :actual_date => actual_date, :display_curator => display_curator}
         - when "CollectionActivityLog"
-          = render :partial => 'activity_logs/collection_activity_log', :locals => {:item => item}
+          = render :partial => 'activity_logs/collection_activity_log', :locals => {:item => item, :actual_date => actual_date, :display_curator => display_curator}
         - when "CommunityActivityLog"
-          = render :partial => 'activity_logs/community_activity_log', :locals => {:item => item}
+          = render :partial => 'activity_logs/community_activity_log', :locals => {:item => item, :actual_date => actual_date, :display_curator => display_curator}
         - else
           - raise "Unknown activity log type: #{item.class.name}"
   - unless hide_pagination

@@ -1,8 +1,13 @@
+- actual_date ||= false
+- display_curator ||= false
 - if item.user
   = link_to image_tag(item.user.logo_url(:small), :alt => I18n.t(:comment_show_posters_image_alt,
     :posters_name => h(item.user.full_name))), user_path(item.user), :class => 'avatar'
 .details
-  - name_with_link = item.user ? link_to(h(item.user.full_name), user_path(item.user)) : I18n.t(:an_unknown_user)
+  - curator_level = ''
+  - if item.user  && !item.user.curator_level.nil? && display_curator
+    - curator_level = " (" + item.user.curator_level.translated_label + ")"
+  - name_with_link = item.user ? link_to(h(item.user.full_name), user_path(item.user)) + curator_level : I18n.t(:an_unknown_user)
   %p
     - if item.collection.nil?
       = I18n.t(:activity_user_added_unknown_item_to_collection, :user => name_with_link, :collection => '[UNKNOWN]')
@@ -41,7 +46,10 @@
         - else
           = I18n.t(:activity_user_modified_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection)))
     %p.meta
-      = I18n.t(:time_ago, :time_passed => time_ago_in_words(item.created_at))
+      - if actual_date
+        = item.created_at
+      - else
+        = I18n.t(:time_ago, :time_passed => time_ago_in_words(item.created_at))
     - if item.user && item.collection
       %ul.actions
         %li.reply= link_to(I18n.t(:reply), collection_path(item.collection) + "#reply-to-CollectionActivityLog-#{item.id}", :'data-reply-to' => item.user.full_name, :'data-reply-to-type' => item.class.name, :'data-reply-to-id' => item.id)

@@ -1,7 +1,7 @@
 -# TODO - these ChangeableObjectType checks are all failing because they are NOT on datos, they are on dohe and cdohe's.  Fix.
-- name_with_link = link_to(h(item.user.full_name), user_path(item.user), :style => 'color: #017AA2')
+- name_with_link = link_to(h(item.user.full_name), user_path(item.user), :style => 'color: #195184')
 - object_path = item.data_object ? data_object_path(item.data_object) : nil
-- object_link = object_path ? link_to(item.data_object.summary_name, object_path, :style => 'color: #017AA2') : nil
+- object_link = object_path ? link_to(item.data_object.summary_name, object_path, :style => 'color: #195184') : nil
 - synonym_activity_ids = [Activity.add_common_name.id, Activity.remove_common_name.id,
                           Activity.trust_common_name.id, Activity.unreview_common_name.id, Activity.untrust_common_name.id, Activity.inappropriate_common_name.id]
 - if synonym_activity_ids.include? item.activity_id
@@ -27,7 +27,7 @@
 - when Activity.inappropriate.id
   = I18n.t(:activity_user_marked_content_as_inappropriate, :user => name_with_link)
 - when Activity.add_association.id
-  - scientific_name_link = link_to(h(item.hierarchy_entry.name.string), taxon_path(item.hierarchy_entry.taxon_concept), :style => 'color: #017AA2') unless item.hierarchy_entry.nil?
+  - scientific_name_link = link_to(h(item.hierarchy_entry.name.string), taxon_path(item.hierarchy_entry.taxon_concept), :style => 'color: #195184') unless item.hierarchy_entry.nil?
   - if object_link
     - if scientific_name_link
       = I18n.t(:activity_user_added_named_association, :user => name_with_link, :object_name => object_link, :name => scientific_name_link)
@@ -36,7 +36,7 @@
   - else
     = I18n.t(:activity_user_added_unknown_association, :user => name_with_link)
 - when Activity.remove_association.id
-  - scientific_name_link = link_to(h(item.hierarchy_entry.name.string), taxon_path(item.hierarchy_entry.taxon_concept), :style => 'color: #017AA2') unless item.hierarchy_entry.nil?
+  - scientific_name_link = link_to(h(item.hierarchy_entry.name.string), taxon_path(item.hierarchy_entry.taxon_concept), :style => 'color: #195184') unless item.hierarchy_entry.nil?
   - if object_link
     - if scientific_name_link
       = I18n.t(:activity_user_removed_named_association, :user => name_with_link, :object_name => object_link, :name => scientific_name_link)
@@ -50,19 +50,19 @@
   - if item.synonym && item.synonym.respond_to?(:name) && item.synonym.name.respond_to?(:string)
     - if item.taxon_concept && item.taxon_concept.is_a?(TaxonConcept)
       - object_path = taxon_path(item.taxon_concept)
-      = I18n.t(:activity_user_added_common_name_to_taxon, :user => name_with_link, :name => item.synonym.name.string, :taxon => link_to(item.taxon_concept.quick_scientific_name, object_path, :style => 'color: #017AA2'), :language => lang)
+      = I18n.t(:activity_user_added_common_name_to_taxon, :user => name_with_link, :name => item.synonym.name.string, :taxon => link_to(item.taxon_concept.quick_scientific_name, object_path, :style => 'color: #195184'), :language => lang)
     - else
       = I18n.t(:activity_user_added_common_name, :user => name_with_link, :name => item.synonym.name.string, :language => lang)
   - else
     - if item.taxon_concept && item.taxon_concept.is_a?(TaxonConcept)
       - object_path = taxon_path(item.taxon_concept)
-      = I18n.t(:activity_user_added_unknown_name_to_taxon, :user => name_with_link, :taxon => link_to(item.taxon_concept.quick_scientific_name, object_path, :style => 'color: #017AA2'))
+      = I18n.t(:activity_user_added_unknown_name_to_taxon, :user => name_with_link, :taxon => link_to(item.taxon_concept.quick_scientific_name, object_path, :style => 'color: #195184'))
     - else
       = I18n.t(:activity_user_added_unknown_name, :user => name_with_link)
 - when Activity.remove_common_name.id
   - if item.taxon_concept && item.taxon_concept.is_a?(TaxonConcept)
     - object_path = taxon_path(item.taxon_concept)
-    = I18n.t(:activity_user_removed_unknown_name_to_taxon, :user => name_with_link, :taxon => link_to(item.taxon_concept.quick_scientific_name, object_path, :style => 'color: #017AA2'))
+    = I18n.t(:activity_user_removed_unknown_name_to_taxon, :user => name_with_link, :taxon => link_to(item.taxon_concept.quick_scientific_name, object_path, :style => 'color: #195184'))
   - else
     = I18n.t(:activity_user_removed_unknown_name, :user => name_with_link)
 
@@ -70,52 +70,52 @@
   - if item.synonym && item.synonym.respond_to?(:name) && item.synonym.name.respond_to?(:string)
     - if item.taxon_concept && item.taxon_concept.is_a?(TaxonConcept)
       - object_path = taxon_path(item.taxon_concept)
-      = I18n.t(:activity_user_trust_common_name_from_taxon, :user => name_with_link, :name => item.synonym.name.string, :taxon => link_to(item.taxon_concept.quick_scientific_name, object_path, :style => 'color: #017AA2'), :language => lang)
+      = I18n.t(:activity_user_trust_common_name_from_taxon, :user => name_with_link, :name => item.synonym.name.string, :taxon => link_to(item.taxon_concept.quick_scientific_name, object_path, :style => 'color: #195184'), :language => lang)
     - else
       = I18n.t(:activity_user_trust_common_name, :user => name_with_link, :name => item.synonym.name.string, :language => lang)
   - else
     - if item.taxon_concept && item.taxon_concept.is_a?(TaxonConcept)
       - object_path = taxon_path(item.taxon_concept)
-      = I18n.t(:activity_user_trust_unknown_name_to_taxon, :user => name_with_link, :taxon => link_to(item.taxon_concept.quick_scientific_name, object_path, :style => 'color: #017AA2'))
+      = I18n.t(:activity_user_trust_unknown_name_to_taxon, :user => name_with_link, :taxon => link_to(item.taxon_concept.quick_scientific_name, object_path, :style => 'color: #195184'))
     - else
       = I18n.t(:activity_user_trust_unknown_name, :user => name_with_link)
 - when Activity.untrust_common_name.id
   - if item.synonym && item.synonym.respond_to?(:name) && item.synonym.name.respond_to?(:string)
     - if item.taxon_concept && item.taxon_concept.is_a?(TaxonConcept)
       - object_path = taxon_path(item.taxon_concept)
-      = I18n.t(:activity_user_untrust_common_name_from_taxon, :user => name_with_link, :name => item.synonym.name.string, :taxon => link_to(item.taxon_concept.quick_scientific_name, object_path, :style => 'color: #017AA2'), :language => lang)
+      = I18n.t(:activity_user_untrust_common_name_from_taxon, :user => name_with_link, :name => item.synonym.name.string, :taxon => link_to(item.taxon_concept.quick_scientific_name, object_path, :style => 'color: #195184'), :language => lang)
     - else
       = I18n.t(:activity_user_untrust_common_name, :user => name_with_link, :name => item.synonym.name.string, :language => lang)
   - else
     - if item.taxon_concept && item.taxon_concept.is_a?(TaxonConcept)
       - object_path = taxon_path(item.taxon_concept)
-      = I18n.t(:activity_user_untrust_unknown_name_to_taxon, :user => name_with_link, :taxon => link_to(item.taxon_concept.quick_scientific_name, object_path, :style => 'color: #017AA2'))
+      = I18n.t(:activity_user_untrust_unknown_name_to_taxon, :user => name_with_link, :taxon => link_to(item.taxon_concept.quick_scientific_name, object_path, :style => 'color: #195184'))
     - else
       = I18n.t(:activity_user_untrust_unknown_name, :user => name_with_link)
 - when Activity.unreview_common_name.id
   - if item.synonym && item.synonym.respond_to?(:name) && item.synonym.name.respond_to?(:string)
     - if item.taxon_concept && item.taxon_concept.is_a?(TaxonConcept)
       - object_path = taxon_path(item.taxon_concept)
-      = I18n.t(:activity_user_unreview_common_name_from_taxon, :user => name_with_link, :name => item.synonym.name.string, :taxon => link_to(item.taxon_concept.quick_scientific_name, object_path, :style => 'color: #017AA2'), :language => lang)
+      = I18n.t(:activity_user_unreview_common_name_from_taxon, :user => name_with_link, :name => item.synonym.name.string, :taxon => link_to(item.taxon_concept.quick_scientific_name, object_path, :style => 'color: #195184'), :language => lang)
     - else
       = I18n.t(:activity_user_unreview_common_name, :user => name_with_link, :name => item.synonym.name.string, :language => lang)
   - else
     - if item.taxon_concept && item.taxon_concept.is_a?(TaxonConcept)
       - object_path = taxon_path(item.taxon_concept)
-      = I18n.t(:activity_user_unreview_unknown_name_to_taxon, :user => name_with_link, :taxon => link_to(item.taxon_concept.quick_scientific_name, object_path, :style => 'color: #017AA2'))
+      = I18n.t(:activity_user_unreview_unknown_name_to_taxon, :user => name_with_link, :taxon => link_to(item.taxon_concept.quick_scientific_name, object_path, :style => 'color: #195184'))
     - else
       = I18n.t(:activity_user_unreview_unknown_name, :user => name_with_link)
 - when Activity.inappropriate_common_name.id
   - if item.synonym && item.synonym.respond_to?(:name) && item.synonym.name.respond_to?(:string)
     - if item.taxon_concept && item.taxon_concept.is_a?(TaxonConcept)
       - object_path = taxon_path(item.taxon_concept)
-      = I18n.t(:activity_user_inappropriate_common_name_from_taxon, :user => name_with_link, :name => item.synonym.name.string, :taxon => link_to(item.taxon_concept.quick_scientific_name, object_path, :style => 'color: #017AA2'), :language => lang)
+      = I18n.t(:activity_user_inappropriate_common_name_from_taxon, :user => name_with_link, :name => item.synonym.name.string, :taxon => link_to(item.taxon_concept.quick_scientific_name, object_path, :style => 'color: #195184'), :language => lang)
     - else
       = I18n.t(:activity_user_inappropriate_common_name, :user => name_with_link, :name => item.synonym.name.string, :language => lang)
   - else
     - if item.taxon_concept && item.taxon_concept.is_a?(TaxonConcept)
       - object_path = taxon_path(item.taxon_concept)
-      = I18n.t(:activity_user_inappropriate_unknown_name_to_taxon, :user => name_with_link, :taxon => link_to(item.taxon_concept.quick_scientific_name, object_path, :style => 'color: #017AA2'))
+      = I18n.t(:activity_user_inappropriate_unknown_name_to_taxon, :user => name_with_link, :taxon => link_to(item.taxon_concept.quick_scientific_name, object_path, :style => 'color: #195184'))
     - else
       = I18n.t(:activity_user_inappropriate_unknown_name, :user => name_with_link)
 - else

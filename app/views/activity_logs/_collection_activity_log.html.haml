@@ -1,41 +1,41 @@
-- name_with_link = item.user ? link_to(h(item.user.full_name), user_path(item.user), :style => 'color: #017AA2') : I18n.t(:an_unknown_user)
+- name_with_link = item.user ? link_to(h(item.user.full_name), user_path(item.user), :style => 'color: #195184') : I18n.t(:an_unknown_user)
 - if item.collection.nil?
   = I18n.t(:activity_user_added_unknown_item_to_collection, :user => name_with_link, :collection => '[UNKNOWN]')
 - elsif item.collection_item.nil?
   - case item.activity_id
   - when Activity.add_editor.id
-    = I18n.t(:activity_added_an_editor_of_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection), :style => 'color: #017AA2'))
+    = I18n.t(:activity_added_an_editor_of_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection), :style => 'color: #195184'))
   - when Activity.change_name.id
-    = I18n.t(:activity_user_changed_collection_name, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection), :style => 'color: #017AA2'))
+    = I18n.t(:activity_user_changed_collection_name, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection), :style => 'color: #195184'))
   - when Activity.change_description.id
-    = I18n.t(:activity_user_changed_collection_description, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection), :style => 'color: #017AA2'))
+    = I18n.t(:activity_user_changed_collection_description, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection), :style => 'color: #195184'))
   - else
-    = I18n.t(:activity_user_added_unknown_item_to_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection), :style => 'color: #017AA2'))
+    = I18n.t(:activity_user_added_unknown_item_to_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection), :style => 'color: #195184'))
 - elsif item.collection_item.object.nil?
-  = I18n.t(:activity_user_added_unknown_item_to_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection), :style => 'color: #017AA2'))
+  = I18n.t(:activity_user_added_unknown_item_to_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection), :style => 'color: #195184'))
 - else
   - case item.activity_id
   - when Activity.create.id
-    = I18n.t(:activity_user_created_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection), :style => 'color: #017AA2'))
+    = I18n.t(:activity_user_created_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection), :style => 'color: #195184'))
   - when ((Activity.collect.id && item.collection) ? Activity.collect.id : 'nonsense')
-    = I18n.t(:activity_user_added_item_to_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection), :style => 'color: #017AA2'), :item => link_to(item.collection_item.object.summary_name, link_to_item(item.collection_item.object), :style => 'color: #017AA2'))
+    = I18n.t(:activity_user_added_item_to_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection), :style => 'color: #195184'), :item => link_to(item.collection_item.object.summary_name, link_to_item(item.collection_item.object), :style => 'color: #195184'))
   - when Activity.remove.id
-    = I18n.t(:activity_user_removed_item_from_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection), :style => 'color: #017AA2'), :item =>  link_to(item.collection_item.object.summary_name, link_to_item(item.collection_item.object), :style => 'color: #017AA2'))
+    = I18n.t(:activity_user_removed_item_from_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection), :style => 'color: #195184'), :item =>  link_to(item.collection_item.object.summary_name, link_to_item(item.collection_item.object), :style => 'color: #195184'))
   - when Activity.remove_all.id
-    = I18n.t(:activity_user_removed_all_items_from_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection), :style => 'color: #017AA2'))
+    = I18n.t(:activity_user_removed_all_items_from_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection), :style => 'color: #195184'))
   - when Activity.add_editor.id
-    = I18n.t(:activity_user_added_as_an_editor_of_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection), :style => 'color: #017AA2'))
+    = I18n.t(:activity_user_added_as_an_editor_of_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection), :style => 'color: #195184'))
   - else
     - case item.activity_id
     - when Activity.create.id
-      = I18n.t(:activity_user_created_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection), :style => 'color: #017AA2'))
+      = I18n.t(:activity_user_created_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection), :style => 'color: #195184'))
     - when ((Activity.collect.id && item.collection) ? Activity.collect.id : 'nonsense')
-      = I18n.t(:activity_user_added_item_to_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection), :style => 'color: #017AA2'), :item => link_to(item.collection_item.object.summary_name, link_to_item(item.collection_item.object), :style => 'color: #017AA2'))
+      = I18n.t(:activity_user_added_item_to_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection), :style => 'color: #195184'), :item => link_to(item.collection_item.object.summary_name, link_to_item(item.collection_item.object), :style => 'color: #195184'))
     - when Activity.remove.id
-      = I18n.t(:activity_user_removed_item_from_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection), :style => 'color: #017AA2'), :item =>  link_to(item.collection_item.object.summary_name, link_to_item(item.collection_item.object), :style => 'color: #017AA2'))
+      = I18n.t(:activity_user_removed_item_from_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection), :style => 'color: #195184'), :item =>  link_to(item.collection_item.object.summary_name, link_to_item(item.collection_item.object), :style => 'color: #195184'))
     - when Activity.remove_all.id
-      = I18n.t(:activity_user_removed_all_items_from_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection), :style => 'color: #017AA2'))
+      = I18n.t(:activity_user_removed_all_items_from_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection), :style => 'color: #195184'))
     - when Activity.add_editor.id
-      = I18n.t(:activity_user_added_as_an_editor_of_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection), :style => 'color: #017AA2'))
+      = I18n.t(:activity_user_added_as_an_editor_of_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection), :style => 'color: #195184'))
     - else
-      = I18n.t(:activity_user_modified_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection), :style => 'color: #017AA2'))
+      = I18n.t(:activity_user_modified_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection), :style => 'color: #195184'))

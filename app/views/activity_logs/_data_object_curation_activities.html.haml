@@ -1,4 +1,4 @@
-- scientific_name_link = link_to(h(item.hierarchy_entry.name.string), taxon_path(item.hierarchy_entry.taxon_concept), :style => 'color: #017AA2') unless item.hierarchy_entry.nil?
+- scientific_name_link = link_to(h(item.hierarchy_entry.name.string), taxon_path(item.hierarchy_entry.taxon_concept), :style => 'color: #195184') unless item.hierarchy_entry.nil?
 - if scientific_name_link && object_link
   - if item.data_object.is_latest_published_version_in_same_language?
     = I18n.t("activity_user_#{activity}_named_association", :user => name_with_link, :object_name => object_link, :name => scientific_name_link)

@@ -11,14 +11,22 @@ class PendingNotification < ActiveRecord::Base
 
   def self.send_notifications(fqz)
     notes_by_user_id = self.send(fqz).unsent.group_by(&:user_id)
+    sent_note_ids = []
     notes_by_user_id.keys.each do |u_id|
       user = User.find(u_id, :select => 'id, email') rescue nil # Don't much care if the user disappeared.
       next unless user && user.email
       notes = notes_by_user_id[u_id]
       next unless notes
       RecentActivityMailer.deliver_recent_activity(user, notes.map(&:target).uniq)
-      notes.each {|note| note.update_attribute(:sent_at, Time.now)} # Skips validations w/ _attribute
+      sent_note_ids += notes.map(&:id)
     end
+    unless sent_note_ids.empty?
+      # Bulk update cuts down on queries (and thus time):
+      PendingNotification.connection.execute("UPDATE #{PendingNotification.table_name}
+        SET sent_at='#{Time.now.mysql_timestamp}'
+        WHERE id IN (#{sent_note_ids.flatten.join(', ')})")
+    end
+    sent_note_ids.flatten.count # A semi-helpul return value.
   end
 
 end

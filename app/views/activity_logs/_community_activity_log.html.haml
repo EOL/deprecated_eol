@@ -1,29 +1,29 @@
-- name_with_link =  link_to h(item.user.full_name), user_path(item.user), :style => 'color: #394651'
+- name_with_link =  link_to h(item.user.full_name), user_path(item.user), :style => 'color: #017AA2'
 - case item.activity_id
 - when Activity.create.id
   - if item.community
-    = I18n.t(:activity_user_created_community, :user => name_with_link, :community => link_to(item.community.summary_name, community_path(item.community), :style => 'color: #394651'))
+    = I18n.t(:activity_user_created_community, :user => name_with_link, :community => link_to(item.community.summary_name, community_path(item.community), :style => 'color: #017AA2'))
 - when Activity.delete.id
-  = I18n.t(:activity_user_deleted_community, :user => name_with_link, :community => link_to(item.community.summary_name, community_path(item.community), :style => 'color: #394651'))
+  = I18n.t(:activity_user_deleted_community, :user => name_with_link, :community => link_to(item.community.summary_name, community_path(item.community), :style => 'color: #017AA2'))
 - when Activity.join.id
-  = I18n.t(:activity_user_joined_community, :user => item.user.nil? ? '' : link_to(h(item.user.full_name), item.user, :style => 'color: #394651'), :community => link_to(item.community.summary_name, community_path(item.community), :style => 'color: #394651'))
+  = I18n.t(:activity_user_joined_community, :user => item.user.nil? ? '' : link_to(h(item.user.full_name), item.user, :style => 'color: #017AA2'), :community => link_to(item.community.summary_name, community_path(item.community), :style => 'color: #017AA2'))
 - when Activity.leave.id
-  = I18n.t(:activity_user_left_community, :user => item.user.nil? ? '' : link_to(h(item.user.full_name), item.user, :style => 'color: #394651'), :community => link_to(item.community.summary_name, community_path(item.community), :style => 'color: #394651'))
+  = I18n.t(:activity_user_left_community, :user => item.user.nil? ? '' : link_to(h(item.user.full_name), item.user, :style => 'color: #017AA2'), :community => link_to(item.community.summary_name, community_path(item.community), :style => 'color: #017AA2'))
 - when Activity.change_description.id
-  = I18n.t(:activity_user_changed_community_description, :user => name_with_link, :community => link_to(item.community.summary_name, community_path(item.community), :style => 'color: #394651'))
+  = I18n.t(:activity_user_changed_community_description, :user => name_with_link, :community => link_to(item.community.summary_name, community_path(item.community), :style => 'color: #017AA2'))
 - when Activity.change_name.id
   - if item.community
-    = I18n.t(:activity_user_changed_community_name, :user => name_with_link, :community => link_to(item.community.summary_name, community_path(item.community), :style => 'color: #394651'))
+    = I18n.t(:activity_user_changed_community_name, :user => name_with_link, :community => link_to(item.community.summary_name, community_path(item.community), :style => 'color: #017AA2'))
 - when Activity.change_icon.id
   - if item.community
-    = I18n.t(:activity_user_changed_community_icon, :user => name_with_link, :community => link_to(item.community.summary_name, community_path(item.community), :style => 'color: #394651'))
+    = I18n.t(:activity_user_changed_community_icon, :user => name_with_link, :community => link_to(item.community.summary_name, community_path(item.community), :style => 'color: #017AA2'))
 - when Activity.add_manager.id
   - if item.member.nil?activity_user_added_community_manager_missing
-    = I18n.t(:activity_user_added_community_manager_missing, :user => name_with_link, :community => link_to(item.community.summary_name, community_path(item.community), :style => 'color: #394651'))
+    = I18n.t(:activity_user_added_community_manager_missing, :user => name_with_link, :community => link_to(item.community.summary_name, community_path(item.community), :style => 'color: #017AA2'))
   - else
-    = I18n.t(:activity_user_added_community_manager, :user => name_with_link, :manager => h(item.member.user.full_name), :community => link_to(item.community.summary_name, community_path(item.community), :style => 'color: #394651'))
+    = I18n.t(:activity_user_added_community_manager, :user => name_with_link, :manager => h(item.member.user.full_name), :community => link_to(item.community.summary_name, community_path(item.community), :style => 'color: #017AA2'))
 - when Activity.add_collection.id
-  = I18n.t(:activity_user_added_collection_to_community, :user => name_with_link, :collection => link_to(item.collection.name, collection_path(item.collection), :style => 'color: #394651'), :community => link_to(item.community.summary_name, community_path(item.community), :style => 'color: #394651'))
+  = I18n.t(:activity_user_added_collection_to_community, :user => name_with_link, :collection => link_to(item.collection.name, collection_path(item.collection), :style => 'color: #017AA2'), :community => link_to(item.community.summary_name, community_path(item.community), :style => 'color: #017AA2'))
 - else
   
-  = I18n.t(:activity_user_modified_community, :user => name_with_link, :community => link_to(item.community.summary_name, community_path(item.community), :style => 'color: #394651'))
+  = I18n.t(:activity_user_modified_community, :user => name_with_link, :community => link_to(item.community.summary_name, community_path(item.community), :style => 'color: #017AA2'))

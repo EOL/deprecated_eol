@@ -15,10 +15,10 @@
   - else
     = t("recent_activity.default_subject")
 %h1{:style => 'font-weight: normal;'}= I18n.t(:greeting_dear_name_with_comma, :name => @user.full_name, :scope => :notifier)
-- @notes.each do |note|
+- @notes.each do |item|
   %hr{:style => "border: none; border-bottom: 1px solid #d2d9df;"}
-  - if note.class.name == 'Comment' # Annoying, but comments really do behave quite differently from the others:
-    = render(:partial => 'comment', :locals => { :who => note.user.full_name, :what => note.parent.summary_name, :body => note.body, :comment_link => link_to_item(Kernel.const_get(note.parent_type).find(note.parent_id)) })
+  - if item.class.name == 'Comment' # Annoying, but comments really do behave quite differently from the others:
+    = render(:partial => 'comment', :locals => { :who => item.user.full_name, :what => item.parent.summary_name, :body => item.body, :comment_link => link_to_item(Kernel.const_get(item.parent_type).find(item.parent_id)) })
   - else
     - name_with_link = item.user ? link_to(h(item.user.full_name), user_path(item.user)) : I18n.t(:an_unknown_user)
     %table{:cellpadding => 5, :style => "border: 1px solid #e2e9ef; margin: 0 10px 10px 0;"}
@@ -28,4 +28,4 @@
             = link_to image_tag(item.user.logo_url(:small), :alt => I18n.t(:comment_show_posters_image_alt,
               :posters_name => h(item.user.full_name))), user_path(item.user), :class => 'avatar'
         %td
-          = render(:partial => "activity_logs/#{note.class.name.underscore}", :locals => { :item => note })
+          = render(:partial => "activity_logs/#{item.class.name.underscore}", :locals => { :item => item })

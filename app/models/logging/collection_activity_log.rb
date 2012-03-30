@@ -10,6 +10,8 @@ class CollectionActivityLog < LoggingModel
   after_create :log_activity_in_solr
   after_create :queue_notifications
 
+  alias :link_to :collection # Needed for rendering links; we need to know which association to make the link to
+
   def log_activity_in_solr
     keyword = self.collection_item.object_type rescue nil
     base_index_hash = {

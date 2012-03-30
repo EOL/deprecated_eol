@@ -1,38 +1,29 @@
-= link_to image_tag(item.user.logo_url(:small), :alt => I18n.t(:comment_show_posters_image_alt,
-  :posters_name => h(item.user.full_name))), user_path(item.user), :class => 'avatar'
-.details
-  %p
-    - name_with_link =  link_to h(item.user.full_name), user_path(item.user)
-    - case item.activity_id
-    - when Activity.create.id
-      - if item.community
-        = I18n.t(:activity_user_created_community, :user => name_with_link, :community => link_to(item.community.summary_name, community_path(item.community)))
-    - when Activity.delete.id
-      = I18n.t(:activity_user_deleted_community, :user => name_with_link, :community => link_to(item.community.summary_name, community_path(item.community)))
-    - when Activity.join.id
-      = I18n.t(:activity_user_joined_community, :user => item.user.nil? ? '' : link_to(h(item.user.full_name), item.user), :community => link_to(item.community.summary_name, community_path(item.community)))
-    - when Activity.leave.id
-      = I18n.t(:activity_user_left_community, :user => item.user.nil? ? '' : link_to(h(item.user.full_name), item.user), :community => link_to(item.community.summary_name, community_path(item.community)))
-    - when Activity.change_description.id
-      = I18n.t(:activity_user_changed_community_description, :user => name_with_link, :community => link_to(item.community.summary_name, community_path(item.community)))
-    - when Activity.change_name.id
-      - if item.community
-        = I18n.t(:activity_user_changed_community_name, :user => name_with_link, :community => link_to(item.community.summary_name, community_path(item.community)))
-    - when Activity.change_icon.id
-      - if item.community
-        = I18n.t(:activity_user_changed_community_icon, :user => name_with_link, :community => link_to(item.community.summary_name, community_path(item.community)))
-    - when Activity.add_manager.id
-      - if item.member.nil?activity_user_added_community_manager_missing
-        = I18n.t(:activity_user_added_community_manager_missing, :user => name_with_link, :community => link_to(item.community.summary_name, community_path(item.community)))
-      - else
-        = I18n.t(:activity_user_added_community_manager, :user => name_with_link, :manager => h(item.member.user.full_name), :community => link_to(item.community.summary_name, community_path(item.community)))
-    - when Activity.add_collection.id
-      = I18n.t(:activity_user_added_collection_to_community, :user => name_with_link, :collection => link_to(item.collection.name, collection_path(item.collection)), :community => link_to(item.community.summary_name, community_path(item.community)))
-    - else
-      
-      = I18n.t(:activity_user_modified_community, :user => name_with_link, :community => link_to(item.community.summary_name, community_path(item.community)))
-  %p.meta
-    = I18n.t(:time_ago, :time_passed => time_ago_in_words(item.created_at))
-  - if item.user
-    %ul.actions
-      %li.reply= link_to(I18n.t(:reply), community_newsfeed_path(item.community) + "#reply-to-CommunityActivityLog-#{item.id}", :'data-reply-to' => item.user.full_name, :'data-reply-to-type' => item.class.name, :'data-reply-to-id' => item.id)
+- name_with_link =  link_to h(item.user.full_name), user_path(item.user)
+- case item.activity_id
+- when Activity.create.id
+  - if item.community
+    = I18n.t(:activity_user_created_community, :user => name_with_link, :community => link_to(item.community.summary_name, community_path(item.community)))
+- when Activity.delete.id
+  = I18n.t(:activity_user_deleted_community, :user => name_with_link, :community => link_to(item.community.summary_name, community_path(item.community)))
+- when Activity.join.id
+  = I18n.t(:activity_user_joined_community, :user => item.user.nil? ? '' : link_to(h(item.user.full_name), item.user), :community => link_to(item.community.summary_name, community_path(item.community)))
+- when Activity.leave.id
+  = I18n.t(:activity_user_left_community, :user => item.user.nil? ? '' : link_to(h(item.user.full_name), item.user), :community => link_to(item.community.summary_name, community_path(item.community)))
+- when Activity.change_description.id
+  = I18n.t(:activity_user_changed_community_description, :user => name_with_link, :community => link_to(item.community.summary_name, community_path(item.community)))
+- when Activity.change_name.id
+  - if item.community
+    = I18n.t(:activity_user_changed_community_name, :user => name_with_link, :community => link_to(item.community.summary_name, community_path(item.community)))
+- when Activity.change_icon.id
+  - if item.community
+    = I18n.t(:activity_user_changed_community_icon, :user => name_with_link, :community => link_to(item.community.summary_name, community_path(item.community)))
+- when Activity.add_manager.id
+  - if item.member.nil?activity_user_added_community_manager_missing
+    = I18n.t(:activity_user_added_community_manager_missing, :user => name_with_link, :community => link_to(item.community.summary_name, community_path(item.community)))
+  - else
+    = I18n.t(:activity_user_added_community_manager, :user => name_with_link, :manager => h(item.member.user.full_name), :community => link_to(item.community.summary_name, community_path(item.community)))
+- when Activity.add_collection.id
+  = I18n.t(:activity_user_added_collection_to_community, :user => name_with_link, :collection => link_to(item.collection.name, collection_path(item.collection)), :community => link_to(item.community.summary_name, community_path(item.community)))
+- else
+  
+  = I18n.t(:activity_user_modified_community, :user => name_with_link, :community => link_to(item.community.summary_name, community_path(item.community)))

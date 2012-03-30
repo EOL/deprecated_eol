@@ -36,6 +36,18 @@ class CuratorActivityLog < LoggingModel
     ")
   end
 
+  # Needed for rendering links; we need to know which association to make the link to
+  def link_to
+    case changeable_object_type_id
+      when ChangeableObjectType.comment.id:
+        comment_object.parent
+      when ChangeableObjectType.synonym.id:
+        synonym.hierarchy_entry.taxon_concept
+      else
+        data_object
+    end
+  end
+
   def taxon_concept_name
     case changeable_object_type_id
       when ChangeableObjectType.data_object.id:

@@ -11,6 +11,8 @@ class CommunityActivityLog < LoggingModel
   after_create :log_activity_in_solr
   after_create :queue_notifications
 
+  alias :link_to :community # Needed for rendering links; we need to know which association to make the link to
+
   def log_activity_in_solr
     keyword = self.activity.name('en') rescue nil
     base_index_hash = {

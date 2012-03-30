@@ -6,7 +6,7 @@ class RecentActivityMailer < ActionMailer::Base
 
   def recent_activity(user, notes)
     set_locale(user)
-    subject      I18n.t(:subject, :scope => [:notifier, :recent_activity])
+    subject      I18n.t(:default_subject, :scope => [:recent_activity])
     recipients   user.email
     from         $SUPPORT_EMAIL_ADDRESS
     body         :notes => notes, :user => user

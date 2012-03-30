@@ -453,5 +453,21 @@ module ApplicationHelper
       raise EOL::Exceptions::ObjectNotFound
     end
   end
+  def link_to_newsfeed(item, options = {})
+    case item.class.name
+    when 'Collection'
+      collection_newsfeed_url(item, options)
+    when 'Community'
+      community_newsfeed_url(item, options)
+    when 'DataObject'
+      data_object_url(item, options)
+    when 'User'
+      user_newsfeed_url(item, options)
+    when 'TaxonConcept'
+      taxon_url(item, options)
+    else
+      raise EOL::Exceptions::ObjectNotFound
+    end
+  end
 
 end

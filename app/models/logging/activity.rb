@@ -80,10 +80,16 @@ class Activity < LazyLoggingModel
     end
   end
 
+  def self.synonym_activity_ids
+    @@synonym_activity_ids ||= cached("synonym_activity_ids") do
+      [Activity.add_common_name.id, Activity.remove_common_name.id, Activity.trust_common_name.id,
+        Activity.unreview_common_name.id, Activity.untrust_common_name.id, Activity.inappropriate_common_name.id]
+    end
+  end
+
   def self.method_missing(name, *args, &block)
     @@activity_local_cache ||= {}
     @@activity_local_cache[name] ||= cached("activity_method_missing_#{name}") do
-    # cached("activity_method_missing_#{name}") do
       # TODO - this should be cached, but since we're in method_missing, that's a little tricky.
       transact = TranslatedActivity.find(:first, :conditions => ["name = ? AND language_id = ?", name.to_s,
                                     Language.english.id])

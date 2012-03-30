@@ -7,30 +7,25 @@
     - case note.class.name
       - when 'Comment'
         - if note.parent == @user
-          = I18n.t('notifier.recent_activity.comment_title_your_newsfeed', :who => who)
+          = I18n.t('recent_activity.comment_title_your_newsfeed', :who => who)
         - else
-          = t("notifier.recent_activity.comment_title", :who => who, :what => note.parent.summary_name)
+          = t("recent_activity.comment_title", :who => who, :what => note.parent.summary_name)
       - else
-        = t("notifier.recent_activity.#{note.class.name.underscore}_title", :who => who)
+        = t("recent_activity.#{note.class.name.underscore}_title", :who => who)
   - else
-    = t("notifier.default_subject")
+    = t("recent_activity.default_subject")
 %h1{:style => 'font-weight: normal;'}= I18n.t(:greeting_dear_name_with_comma, :name => @user.full_name, :scope => :notifier)
 - @notes.each do |note|
   %hr{:style => "border: none; border-bottom: 1px solid #d2d9df;"}
-  - case note.class.name
-  - when 'Comment'
-    = render(:partial => 'recent_activity_mailer/recent_activity/comment', :locals => { :who => note.user.full_name, :what => note.parent.summary_name, :body => note.body, :comment_link => link_to_item(Kernel.const_get(note.parent_type).find(note.parent_id)) })
-  - when 'CollectionActivityLog'
-    -# = render(:partial => 'recent_activity_mailer/recent_activity/collection_activity_log', :locals => { :note => note })
-    = render(:partial => 'activity_logs/collection_activity_log', :locals => { :item => note })
-  - when 'CommunityActivityLog'
-    -# = render(:partial => 'recent_activity_mailer/recent_activity/community_activity_log', :locals => { :note => note })
-    = render(:partial => 'activity_logs/community_activity_log', :locals => { :note => note })
-  - when 'CuratorActivityLog'
-    -# = render(:partial => 'recent_activity_mailer/recent_activity/curator_activity_log', :locals => { :note => note })
-    = render(:partial => 'activity_logs/curator_activity_log', :locals => { :note => note })
-  - when 'DataObject'
-    -# = render(:partial => 'recent_activity_mailer/recent_activity/data_object', :locals => { :note => note })
-    = render(:partial => 'activity_logs/users_data_object_log', :locals => { :note => note })
+  - if note.class.name == 'Comment' # Annoying, but comments really do behave quite differently from the others:
+    = render(:partial => 'comment', :locals => { :who => note.user.full_name, :what => note.parent.summary_name, :body => note.body, :comment_link => link_to_item(Kernel.const_get(note.parent_type).find(note.parent_id)) })
   - else
-    - logger.warn("!! WARNING: Skipped an email note to #{@user.username} having a #{note.class.name} (##{note.id})... the rest was sent")
+    - name_with_link = item.user ? link_to(h(item.user.full_name), user_path(item.user)) : I18n.t(:an_unknown_user)
+    %table{:cellpadding => 5, :style => "border: 1px solid #e2e9ef; margin: 0 10px 10px 0;"}
+      %tr
+        - if item.user
+          %td
+            = link_to image_tag(item.user.logo_url(:small), :alt => I18n.t(:comment_show_posters_image_alt,
+              :posters_name => h(item.user.full_name))), user_path(item.user), :class => 'avatar'
+        %td
+          = render(:partial => "activity_logs/#{note.class.name.underscore}", :locals => { :item => note })

@@ -14,20 +14,24 @@
   %ul.feed
     - log.map {|l| l.is_a?(Hash) ? l['instance'] : l }.compact.each do |item|
       %li{:id => "#{item.class.name}-#{item.id}"}
-        - case item.class.name
-        - when "CuratorActivityLog"
-          = render :partial => 'activity_logs/curator_activity_log', :locals => {:item => item}
-        - when "Comment"
+        - if item.class.name == "Comment" # Aggrivating, but comments do everything differently.
           .editable
             = render :partial => 'activity_logs/comment', :locals => {:item => item, :truncate_comments => truncate_comments, :editable => editable}
-        - when "UsersDataObject"
-          = render :partial => 'activity_logs/users_data_object_log', :locals => {:item => item}
-        - when "CollectionActivityLog"
-          = render :partial => 'activity_logs/collection_activity_log', :locals => {:item => item}
-        - when "CommunityActivityLog"
-          = render :partial => 'activity_logs/community_activity_log', :locals => {:item => item}
         - else
-          - raise "Unknown activity log type: #{item.class.name}"
+          - if item.user.nil?
+            = I18n.t(:the_user_who_performed_this_action_was_removed)
+          - else
+            = link_to image_tag(item.user.logo_url(:small), :alt => I18n.t(:comment_show_posters_image_alt,
+              :posters_name => h(item.user.full_name))), user_path(item.user), :class => 'avatar'
+          .details
+            %p
+              = render :partial => "activity_logs/#{item.class.name.underscore}", :locals => {:item => item}
+              %p.meta
+                = I18n.t(:time_ago, :time_passed => time_ago_in_words(item.created_at))
+
+              - if item.user && item.link_to
+                %ul.actions
+                  %li.reply= link_to(I18n.t(:reply), link_to_newsfeed(item.link_to) + "#reply-to-#{item.class.name}-#{item.id}", :'data-reply-to' => item.user.full_name, :'data-reply-to-type' => item.class.name, :'data-reply-to-id' => item.id)
   - unless hide_pagination
     = will_paginate log, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next),
       :inner_window => 2, :outer_window => 2

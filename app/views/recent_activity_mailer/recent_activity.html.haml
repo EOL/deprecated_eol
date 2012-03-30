@@ -25,8 +25,9 @@
       %tr
         - if item.user
           %td
-            = link_to image_tag(item.user.logo_url(:small), :alt => I18n.t(:comment_show_posters_image_alt,
-              :posters_name => h(item.user.full_name))), user_path(item.user),
-              :style => 'max-height: 48px; max-width: 48px; border: 1px solid #394651; margin: 0 10px 0 0;'
+            = link_to image_tag(item.user.logo_url(:small), :size => "48x48",
+              :style => 'height: 48px; width: 48px; border: 1px solid #394651;',
+              :alt => I18n.t(:comment_show_posters_image_alt,
+              :posters_name => h(item.user.full_name))), user_path(item.user)
         %td
           = render(:partial => "activity_logs/#{item.class.name.underscore}", :locals => { :item => item })

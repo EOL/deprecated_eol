@@ -2,7 +2,7 @@ class Users::OpenAuthenticationsController < UsersController
 
   layout 'v2/users'
 
-  before_filter :authentication_only_allow_editing_of_self, :only => [:index, :create, :new]
+  before_filter :authentication_only_allow_editing_of_self, :only => [:index, :create]
   skip_before_filter :redirect_if_already_logged_in
 
   def index
@@ -12,7 +12,7 @@ class Users::OpenAuthenticationsController < UsersController
   def new
     # TODO: has user authorized? If so redirect with params to create. If not render index with error message.
     if params[:oauth_provider]
-      if open_auth = EOL::OpenAuth.init(params[:oauth_provider], new_user_open_authentication_url(:oauth_provider => params[:oauth_provider]), params.merge({:request_token_token => session.delete("#{params[:oauth_provider]}_request_token_token"), :request_token_secret => session.delete("#{params[:oauth_provider]}_request_token_secret")}))
+      if open_auth = EOL::OpenAuth.init(params[:oauth_provider], open_authentications_callback_url(:oauth_provider => params[:oauth_provider]), params.merge({:request_token_token => session.delete("#{params[:oauth_provider]}_request_token_token"), :request_token_secret => session.delete("#{params[:oauth_provider]}_request_token_secret")}))
         if open_auth.user_attributes.nil? || open_auth.authentication_attributes.nil?
           flash.now[:error] = I18n.t(:oauth_error_accessing_basic_info)
         else
@@ -29,13 +29,12 @@ class Users::OpenAuthenticationsController < UsersController
         flash.now[:error] = I18n.t(:oauth_error_initializing_access)
       end
     end
-    @user = User.new(oauth_user_attributes || nil)
   end
 
   def create
     if request.post? && open_authentication_provider = params[:open_authentication][:provider]
       # autorize url and redirect to confirm details new
-      if open_auth = EOL::OpenAuth.init(open_authentication_provider, new_user_open_authentication_url(:oauth_provider => open_authentication_provider))
+      if open_auth = EOL::OpenAuth.init(open_authentication_provider, open_authentications_callback_url(:oauth_provider => open_authentication_provider))
         session.merge!(open_auth.session_data) if defined?(open_auth.request_token)
         return redirect_to open_auth.authorize_uri
       else
@@ -43,14 +42,14 @@ class Users::OpenAuthenticationsController < UsersController
       end
     elsif request.get? && params[:open_authentication][:guid]
       # create new authentication record
-      open_authentication = @user.open_authentications.build(params[:open_authentication])
+      open_authentication = current_user.open_authentications.build(params[:open_authentication])
       if open_authentication.save
         flash[:notice] = "Added #{params[:open_authentication][:provider]} authentication"
       else
         flash[:error] = "Error saving #{params[:open_authentication][:provider]} authentication"
       end
     end
-    redirect_to :action => :index
+    redirect_to :action => :index, :id => current_user.id
   end
 
   private

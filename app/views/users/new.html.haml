@@ -19,7 +19,7 @@
           %dd
             = f.text_field :username, { :maxlength => 32 }
         - else # it's an open authentication sign up
-          %dt
+          %dt.required
             = f.label :given_name
           %dd
             = f.text_field :given_name
@@ -40,15 +40,16 @@
             = f.label :entered_password_confirmation
           %dd
             = f.password_field :entered_password_confirmation, { :maxlength => 16 }
-      - f.label :agreed_with_terms, :class => 'checkbox' do
-        = f.check_box :agreed_with_terms
-        = I18n.t('helpers.label.user.agreed_with_terms', :terms_url => terms_of_use_path)
+        %dt{:class => @user.eol_authentication? ? '' : 'required'}
+          - f.label :agreed_with_terms, :class => 'checkbox' do
+            = f.check_box :agreed_with_terms
+            = I18n.t('helpers.label.user.agreed_with_terms', :terms_url => terms_of_use_path)
     - if $ENABLE_RECAPTCHA
       %fieldset
         :javascript
           var RecaptchaOptions = { theme : 'clean'};
         %dl
-          %dt
+          %dt{:class => @user.eol_authentication? ? '' : 'required'}
             %label{ :for => "recaptcha" }
               = I18n.t(:recaptcha)
           %dd

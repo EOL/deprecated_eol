@@ -3136,10 +3136,10 @@ ul.content_partner_contacts li {
       #content.session #sign_up > form a, #content.session #sign_in > form a {
         font-weight: bold; }
       #content.session #sign_up > form label.checkbox, #content.session #sign_in > form label.checkbox {
-        padding: 0 0 15px 0; }
+        padding: 10px 0 15px 8px; }
     #content.session #sign_up .open_authentications, #content.session #sign_in .open_authentications {
-      width: 380px;
-      padding: 25px 120px 20px 140px; }
+      width: 400px;
+      padding: 25px 100px 20px 140px; }
       #content.session #sign_up .open_authentications h2, #content.session #sign_in .open_authentications h2 {
         text-align: center;
         padding: 0 0 25px 0;
@@ -3156,7 +3156,7 @@ ul.content_partner_contacts li {
             padding: 7px 10px 8px;
             margin: 0 10px 0 0;
             font-size: 1em;
-            min-width: 145px; }
+            min-width: 155px; }
         #content.session #sign_up .open_authentications form#new_user_facebook fieldset.actions, #content.session #sign_up .open_authentications form#new_session_facebook fieldset.actions, #content.session #sign_in .open_authentications form#new_user_facebook fieldset.actions, #content.session #sign_in .open_authentications form#new_session_facebook fieldset.actions {
           background: transparent url("/images/v2/icon_social_plugins.png") 0 0 no-repeat; }
         #content.session #sign_up .open_authentications form#new_user_twitter fieldset.actions, #content.session #sign_up .open_authentications form#new_session_twitter fieldset.actions, #content.session #sign_in .open_authentications form#new_user_twitter fieldset.actions, #content.session #sign_in .open_authentications form#new_session_twitter fieldset.actions {

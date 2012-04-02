@@ -83,7 +83,7 @@ ActionController::Routing::Routes.draw do |map|
     user.resources :collections, :only => [:index], :controller => "users/collections"
     user.resources :communities, :only => [:index], :controller => "users/communities"
     user.resources :content_partners, :only => [:index], :namespace => "users/"
-    user.resources :open_authentications, :only => [:index, :create, :new], :namespace => "users/" # OAuth for existing users
+    user.resources :open_authentications, :only => [:index, :create], :namespace => "users/" # OAuth for existing users
   end
   map.verify_user '/users/:user_id/verify/:validation_code', :controller => 'users', :action => 'verify'
   # can't add dynamic segment to a member in rails 2.3 so we have to specify named route:
@@ -91,6 +91,7 @@ ActionController::Routing::Routes.draw do |map|
   # # OAuth
   #   map.authenticate '/users/authentications/:provider', :controller => 'users/authentications', :action => 'new'
   #   map.oauth_callback '/callback', :controller => 'users/authentications', :action => 'callback'
+  map.open_authentications_callback '/users/open_authentications/callback', :controller => 'users/open_authentications', :action => 'new'
 
   # sessions
   map.resources :sessions, :only => [:new, :create, :destroy]

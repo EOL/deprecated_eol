@@ -2478,6 +2478,9 @@ ul.content_partner_contacts li {
   #permalink .media img {
     display: block;
     margin: 0 auto; }
+#permalink.image #main .article .copy {
+  line-height: 170%;
+  word-wrap: break-word; }
 #permalink.text #main .article.copy {
   overflow: hidden;
   padding: 40px;

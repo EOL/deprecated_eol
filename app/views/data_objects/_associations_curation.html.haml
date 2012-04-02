@@ -21,7 +21,6 @@
       - else
         = hidden_field_tag :return_to, current_url
       - entries.each do |entry|
-        - supplier = entry.hierarchy.agent unless entry.class == UsersDataObject
         %fieldset
           - if entry.class == HierarchyEntry
             %legend= link_to entry.name.string, taxon_overview_path(entry.taxon_concept_id)
@@ -39,8 +38,9 @@
           - visibilities = [ Visibility.visible, Visibility.invisible].collect{|v| [ v == Visibility.invisible ? I18n.t(:hidden) : v.label, v.id ] unless v == Visibility.preview }.compact.sort
           = select_tag "visibility_id_#{entry.id}", options_for_select(visibilities, visibility_selected)
 
-          - unless supplier.blank?          
-            = render :partial => 'data_objects/supplier', :locals => { :agent => supplier, :data_object => data_object }            
+          - if entry.class == HierarchyEntry && entry.by_curated_association? && entry.associated_by_curator
+            - supplied_by_user = entry.associated_by_curator
+          = render :partial => 'data_objects/supplier', :locals => { :association_supplied_by_user => supplied_by_user, :data_object => data_object }
           - untrusted_reasons =[]
           - if vetted_selected == Vetted.untrusted.id.to_i
             - dato_untrust_reasons = data_object.untrust_reasons(entry)

@@ -1,8 +1,5 @@
 - unless data_object.blank?
-  - visible ||= true
-  - invisible ||= current_user.is_admin? || current_user.is_curator? ? true : false
-  - preview ||= false
-  - associations = data_object.all_associations.collect{|e| e if (visible && Visibility.visible == e.visibility) || (invisible && Visibility.invisible == e.visibility) || (preview && Visibility.preview == e.visibility)}.compact
+  - associations = data_object.filtered_associations(:preview => false, :invisible => current_user.is_admin? || current_user.is_curator?)
   - unless associations.blank?
     %p
       = collect_names_and_status(associations[0..2]).join(' &bull; ')

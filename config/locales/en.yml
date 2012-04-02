@@ -1472,6 +1472,7 @@ en:
   cannot_be_empty: "cannot be empty."
   cannot_create_collection_item_from_class_error: "We cannot create a collection item from a %{klass}"
   cannot_create_community_from_watch_collection_error: "You cannot create a community from a watch list."
+  cannot_curate_association_in_preview_mode: "The association to %{name} cannot be curated because it is being previewed after a harvest."
   cannot_expand_children: "cannot expand children"
   cannot_find_member: "Cannot find a member with this id."
   cannot_index_collection_item_type_error: "We cannot index a collection item from a %{type}"

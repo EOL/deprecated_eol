@@ -798,15 +798,18 @@ class DataObject < ActiveRecord::Base
     curated_hierarchy_entries.select{ |he| he.published != 1 }
   end
 
-  # This method adds users data object entry in the list of entries to retrieve all associations
-  def all_associations(options = {:with_unpublished => false})
-    unless options[:with_unpublished]
-      entries_with_published_taxon_concepts = published_entries ? published_entries.map{ |pe| pe.taxon_concept.published? ? pe : nil } : nil
-      udo_with_published_taxon_concept = users_data_object && users_data_object.taxon_concept.published? ? users_data_object : nil
-      (entries_with_published_taxon_concepts + [udo_with_published_taxon_concept]).compact
-    else
-      (published_entries + unpublished_entries + [users_data_object]).compact
-    end
+  # Preview visibility CAN apply here, so be careful. By default, preview is included; otherwise, pages would show up
+  # without any association at all, and that would be confusing. But note that preview associations should NOT be
+  # curatable!
+  def filtered_associations(which = {})
+    good_ids = [Visibility.visible.id]
+    good_ids << Visibility.preview.id unless which[:preview] == false
+    good_ids << Visibility.invisible.id if which[:invisible]
+    all_associations.select {|asoc| good_ids.include?(asoc.visibility_id) }.compact
+  end
+
+  def all_associations
+    @all_assoc ||= (published_entries + unpublished_entries + [users_data_object]).compact
   end
 
   def first_concept_name

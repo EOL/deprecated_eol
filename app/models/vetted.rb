@@ -31,6 +31,18 @@ class Vetted < ActiveRecord::Base
     [self.untrusted.id,self.unknown.id].join(',')
   end
 
+  def self.for_curating_selects
+    @@for_curating_selects ||= {}
+    return(@@for_curating_selects[I18n.locale]) if @@for_curating_selects[I18n.locale]
+    @@for_curating_selects ||= {}
+    @@for_curating_selects[I18n.locale] =
+      [Vetted.trusted, Vetted.unknown, Vetted.untrusted].map {|v| [v.curation_label, v.id] }.compact
+  end
+
+  def curation_label
+    self.id == Vetted.unknown.id ? I18n.t(:unreviewed) : self.label
+  end
+
   def sort_weight
     weights = vetted_weight
     return weights.has_key?(id) ? weights[id] : 4

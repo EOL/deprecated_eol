@@ -1,5 +1,19 @@
 if(!EOL) { var EOL = {}; }
 
+// Fix for Chrome, adding taxa to collections on map tab (and possibly other problems). See http://stackoverflow.com/questions/7825448/webkit-issues-with-event-layerx-and-event-layery
+(function(){
+    // remove layerX and layerY
+    var all = $.event.props,
+        len = all.length,
+        res = [];
+    while (len--) {
+      var el = all[len];
+      if (el != 'layerX' && el != 'layerY') res.push(el);
+    }
+    $.event.props = res;
+}());
+
+
 // TODO - not all of these are required, if we know we won't use them:
 $.ajaxSetup({accepts: {
   '*': "text/javascript, */*",

@@ -38,6 +38,10 @@ class UsersDataObject < ActiveRecord::Base
                            :vetted_id => vetted_id)
   end
 
+  def italicized_name
+    @name ||= taxon_concept.quick_scientific_name
+  end
+
 private
 
   # DataObject#create_user_text and #replicate count on this working, so if you change this, check those!

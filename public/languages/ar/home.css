@@ -527,6 +527,9 @@ body {
       margin: 0 0 20px 0; }
       #content .section .community h3 {
         border-bottom: 1px solid #e5e8eb; }
+        #content .section .community h3 > small {
+          font-size: 0.9em;
+          padding-right: 100px; }
       #content .section .community > ul {
         padding: 20px 40px 10px 0;
         border-bottom: 1px solid #e5e8eb; }

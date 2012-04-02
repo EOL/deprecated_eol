@@ -7,6 +7,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :tasks
   map.resources :task_states
   map.resources :task_names
+  map.resources :recent_activities,:only => [:index]
 
   map.placeholder 'placeholder', :action => 'not_yet_implemented', :controller => 'application'
 

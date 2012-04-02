@@ -38,6 +38,9 @@ module EOL
         results = WillPaginate::Collection.create(options[:page], options[:per_page], total_results) do |pager|
            pager.replace(results)
         end
+        if results.length == 0
+          results.total_entries = 0
+        end
         results
       end
 
@@ -119,10 +122,14 @@ module EOL
       end
 
       def self.solr_search(query, options = {})
+        options[:sort_by] ||= 'date_created+desc'
         options[:group_field] ||= 'activity_log_unique_key'
         url =  $SOLR_SERVER + $SOLR_ACTIVITY_LOGS_CORE + '/select/?wt=json&q=' + CGI.escape(%Q[{!lucene}])
         url << CGI.escape(query)
-        url << '&sort=date_created+desc&fl=activity_log_type,activity_log_id,user_id,date_created'
+        unless options[:specific_time].blank?
+          url << "&fq=date_created:[NOW/DAY-7DAY+TO+NOW/DAY%2B1DAY]"
+        end
+        url << "&sort=#{options[:sort_by]}&fl=activity_log_type,activity_log_id,user_id,date_created"
         url << "&group=true&group.field=#{options[:group_field]}&group.ngroups=true"
 
         # add paging

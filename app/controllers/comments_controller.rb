@@ -34,6 +34,8 @@ class CommentsController < ApplicationController
   # GET /comments/:id/edit
   def edit
     # @comment set in before_filter :allow_modify_comments
+    actual_date = params[:actual_date]
+    actual_date ||= false
     respond_to do |format|
       format.html do
         return access_denied unless current_user.can_update?(@comment)
@@ -43,7 +45,7 @@ class CommentsController < ApplicationController
       end
       format.js do
         if current_user.can_update?(@comment)
-          render :partial => 'comments/edit', :locals => { :comment => @comment }
+          render :partial => 'comments/edit', :locals => { :comment => @comment, :actual_date => actual_date }
         else
           render :text => I18n.t(:comment_edit_by_javascript_not_authorized_error)
         end
@@ -54,6 +56,8 @@ class CommentsController < ApplicationController
   # PUT /comments/:id
   def update
     # @comment set in before_filter :allow_modify_comments
+    actual_date = params[:actual_date]
+    actual_date ||= false
     if @comment.update_attributes(params[:comment])
       respond_to do |format|
         format.html do
@@ -61,7 +65,7 @@ class CommentsController < ApplicationController
           redirect_to params[:return_to] || url_for(:action=>'index'), :status => :moved_permanently
         end
         format.js do
-          render :partial => 'activity_logs/comment', :locals => { :item => @comment }
+          render :partial => 'activity_logs/comment', :locals => { :item => @comment, :actual_date => actual_date }
         end
       end
     else
@@ -78,6 +82,8 @@ class CommentsController < ApplicationController
   # DELETE /comments/:id
   def destroy
     # @comment set in before_filter :allow_modify_comments
+    actual_date = params[:actual_date]
+    actual_date ||= false
     if @comment.update_attributes(:deleted => 1)
       respond_to do |format|
         format.html do
@@ -85,7 +91,7 @@ class CommentsController < ApplicationController
           redirect_to params[:return_to] || referred_url
         end
         format.js do
-          render :partial => 'activity_logs/comment', :locals => { :item => @comment, :truncate_comments => false }
+          render :partial => 'activity_logs/comment', :locals => { :item => @comment, :truncate_comments => false, :actual_date => actual_date }
         end
       end
     else

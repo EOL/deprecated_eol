@@ -2981,6 +2981,7 @@ en:
   truncated_comment_omission_linkless: "..."
   trusted: "Trusted"
   trusted_images: "Trusted images"
+  trusted_maps: "Trusted maps"
   trusted_text_objects: "Trusted articles"
   tumblr: Tumblr
   twitter: "Twitter"
@@ -2992,6 +2993,7 @@ en:
   unpublished: "Unpublished"
   unreviewed: "Unreviewed"
   unreviewed_images: "Unreviewed images"
+  unreviewed_maps: "Unreviewed maps"
   unreviewed_text_objects: "Unreviewed articles"
   untrusted: "Untrusted"
   update: "Update"

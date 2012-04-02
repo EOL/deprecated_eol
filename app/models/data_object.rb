@@ -573,6 +573,7 @@ class DataObject < ActiveRecord::Base
   # it's actually used quite often. ...and in some cases, just to get the ID of the first one.  Ouch.
   # :published -> :strict - return only published taxon concepts
   # :published -> :preferred - same as above, but returns unpublished taxon concepts if no published ones are found
+  # NOTE - honestly, I don't know if I trust this anymore anyway!  Compare to #all_associations, for example.
   def get_taxon_concepts(opts = {})
     return @taxon_concepts if @taxon_concepts
     if created_by_user?

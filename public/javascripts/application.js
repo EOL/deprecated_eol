@@ -26,12 +26,14 @@ $(function() {
       $(this).closest("form").submit();
     });
 
+  // Taxon overview media summary behaviours.
   (function($ss) {
     var placeholder = "<li class=\"placeholder\"></li>";
 
     $ss.each(function() {
       var $gallery = $(this),
           thumbs = [];
+      // Insert ul.thumbnails, and for every large image use data-thumb to create thumbnail src.
       $("<ul />", { "class": "thumbnails" }).insertBefore($gallery.find("p.all"));
       $gallery.find(".image > a > img").each(function() {
         var $e = $(this),
@@ -44,6 +46,7 @@ $(function() {
         else { li = placeholder; }
         thumbs.push(li);
       });
+      // Insert placeholder list items up to max 4 items if < 4 large images.
       for (var i = 1, len = 4 - thumbs.length; i <= len; i++) {
         thumbs.push(placeholder);
       }
@@ -51,7 +54,7 @@ $(function() {
       $gallery.find(".thumbnails li").not(".placeholder").eq(0).addClass("active");
     });
 
-    $ss.find(".image img").each(function() {
+    $ss.find(".image > a img").each(function() {
       this.onload = function() {
         $(this).data("height", this.height);
       };
@@ -521,3 +524,4 @@ EOL.after_onload_JS = function(jsFile) {
     else if (w.attachEvent) { w.attachEvent("onload",go); }
   }(window, document, 'script'));
 };
+

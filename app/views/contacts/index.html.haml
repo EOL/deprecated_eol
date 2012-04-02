@@ -30,7 +30,7 @@
       %dt
         = f.label :comment
       %dd
-        = f.text_area :comments, { :maxlength => 400 }
+        = f.text_area :comments, { :maxlength => 5000 }
   - if $ENABLE_RECAPTCHA
     %fieldset
       :javascript

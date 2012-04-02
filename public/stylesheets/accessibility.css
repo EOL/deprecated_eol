@@ -157,6 +157,8 @@ form#switch_hierarchy_entry fieldset {
 #content.session form.terms_agreement {
   padding: 75px 69px;
   width: 500px; }
+#content.session p {
+  padding-bottom: 2em; }
 #content.session .pending {
   width: 320px;
   min-height: 225px;

@@ -756,7 +756,7 @@ en:
       message: "This is an automated EOL system notification. User %{user_full_name} (%{user_profile_url}) updated their email address or mailing list preferences.\n\nPrevious preferences:\nE-mail: %{previous_email}\nMailing list preference: %{previous_mailing_list_preference}\n\nUpdated to:\nE-mail: %{updated_email}\nMailing list preference: %{updated_mailing_list_preference}\nUpdated: %{updated_at}"
     user_reset_password:
       subject: "Reset your Encyclopedia of Life account password"
-      message: "The Encyclopedia of Life (www.eol.org) received a request to reset your password. If you did not make this request, please ignore this email.\n\nThe following link will provide you with a one-time opportunity to reset your password:\n\n%{password_reset_url}\n\nFollow this link ('click' on it or copy and paste the entire link into your Web browser's address bar and load it) to access the page where you can enter a new password. Please note that if the link has expired you will be asked to enter your username or email address again to receive a new reset password email message and link."
+      message: "The Encyclopedia of Life (www.eol.org) received a request to reset your password. If you did not make this request, please ignore this email.\n\nThe following link will reset your password:\n\n%{password_reset_url}\n\nPlease note that after 24 hours, the link expires and you will need to make a new reset request."
     user_verification:
       subject: "Please verify your request for an Encyclopedia of Life account"
       message: "Thanks for registering with the Encyclopedia of Life. The following link will verify that you wish to complete your registration:\n\n%{verification_url}\n\nFollow this link ('click' on it or copy and paste the entire link into your Web browser's address bar and load it) to activate your account. Once your account has been activated you will receive a confirmation email message."
@@ -2101,6 +2101,8 @@ en:
   forgot_password_form_choose_username_blank_error: "Please select the account you wish to reset the password for."
   forgot_password_form_username_or_email_blank_error: "Please enter your username or email address to reset your password."
   forgot_password_form_header: "Reset your password"
+  forgot_password_form_helper: "Please note that password reset emails <em>frequently</em> get flagged as 'Spam' by
+  email filters. Please check your spam folder if you do not receive your email within an hour."
   forgot_password_cannot_find_user_from_username_or_email_error: "Sorry, there are no user accounts with the provided username or email <em>%{username_or_email}</em>."
   for_images_to_reference_parens: "(for images to reference)"
   for_pdfs_and_docs_parens: "(for PDFs & docs)"

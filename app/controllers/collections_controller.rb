@@ -35,6 +35,7 @@ class CollectionsController < ApplicationController
     @collection = Collection.new(params[:collection])
     if @collection.save
       @collection.users = [current_user]
+      log_activity(:activity => Activity.create)
       flash[:notice] = I18n.t(:collection_created_with_count_notice,
                               :collection_name => link_to_name(@collection),
                               :count => @collection.collection_items.count)
@@ -355,8 +356,7 @@ private
                                   :added_by_user_id => current_user.id }.merge!(copiable)
         count += 1
         # TODO - gak.  This points to the wrong collection item and needs to be moved to AFTER the save:
-        CollectionActivityLog.create(:collection => options[:to], :user => current_user,
-                                     :activity => Activity.collect, :collection_item => collection_item)
+        log_activity(:collection => options[:to], :activity => Activity.collect, :collection_item => collection_item)
       end
     end
     if new_collection_items.empty?
@@ -431,14 +431,13 @@ private
         item.remove_collection_item_from_solr # TODO - needed?  Or does the #after_save method handle this?
         count += 1
         unless bulk_log
-          CollectionActivityLog.create(:collection_id => removed_from_id, :user => current_user,
-                                       :activity => Activity.remove, :collection_item => item)
+          log_activity(:activity => Activity.remove, :collection_item => item)
         end
       end
     end
     @collection_items.delete_if {|ci| collection_items.include?(ci.id.to_s) } if @collection_items
     if bulk_log
-      CollectionActivityLog.create(:collection => @collection, :user => current_user, :activity => Activity.remove_all)
+      log_activity(:activity => Activity.remove_all)
     end
     # Recalculate the collection's relevance (quietly):
     (col = Collection.find(removed_from_id)) && col.set_relevance
@@ -533,12 +532,12 @@ private
     if params[:for] == 'copy'
       auto_collect(@collection)
       EOL::GlobalStatistics.increment('collections')
-      CollectionActivityLog.create(:collection => @collection, :user => current_user, :activity => Activity.create)
+      log_activity(:activity => Activity.create)
       return copy_items_and_redirect(source, [@collection])
     elsif params[:for] == 'move'
       auto_collect(@collection)
       EOL::GlobalStatistics.increment('collections')
-      CollectionActivityLog.create(:collection => @collection, :user => current_user, :activity => Activity.create)
+      log_activity(:activity => Activity.create)
       return copy_items_and_redirect(source, [@collection], :move => true)
     else
       @collection.destroy
@@ -592,6 +591,10 @@ private
     @collection_item_scopes = [[I18n.t(:selected_items), :selected_items], [I18n.t(:all_items), :all_items]]
     @collection_item_scopes << [I18n.t("all_#{types[@filter.to_sym][:i18n_key]}"), @filter] if @filter
     @recently_visited_collections = Collection.find(recently_visited_collections(@collection.id)) if @collection
+  end
+
+  def log_activity(options = {})
+    CollectionActivityLog.create(options.reverse_merge(:collection => @collection, :user => current_user))
   end
 
 end

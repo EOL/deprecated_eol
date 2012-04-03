@@ -775,7 +775,6 @@ class DataObject < ActiveRecord::Base
     nil
   end
 
-  # TODO - we need to make sure that the user_id of curated_dohe is added to the HE...
   def curated_hierarchy_entries
     dohes = data_objects_hierarchy_entries.compact.map { |dohe|
       if dohe.hierarchy_entry && he = dohe.hierarchy_entry.dup
@@ -1008,6 +1007,11 @@ class DataObject < ActiveRecord::Base
 
   def latest_published_revision
     revisions_by_date.select {|r| r.published? }.first
+  end
+
+  def reload
+    @all_assoc = nil
+    super
   end
 
 private

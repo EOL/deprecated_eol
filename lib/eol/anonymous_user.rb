@@ -17,6 +17,14 @@ module EOL
       0
     end
 
+    # This can actually be dynamic:
+    def language
+      @lang_object ||= @lang.is_a?(Language) ? @lang : Language.find_by_iso_639_1(@lang)
+    end
+    def language_id
+      language.id
+    end
+
     # This actually does require a little logic, so can't be a default:
     # NOTE - returns self for convenience; objects can call things like #is_admin? on this object, but not on nil.
     def can_read?(object)
@@ -24,7 +32,6 @@ module EOL
     end
 
     def defaults
-      Language
       @defaults ||=
         $CACHE.fetch("anonymous/#{@lang}") do
           {:active => true, # Actually a bit torn about this one, but "inactive" means "waiting for email verify"...
@@ -46,7 +53,6 @@ module EOL
           :ignored_data_object? => false,
           :is_admin? => false,
           :is_curator? => false,
-          :language => Language.default,
           :log_activity => nil,
           :logo_url => nil,
           :member_of => false,

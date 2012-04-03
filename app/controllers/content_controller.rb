@@ -17,6 +17,7 @@ class ContentController < ApplicationController
   skip_before_filter :set_locale, :only => :random_homepage_images
 
   def index
+    debugger
     @rel_canonical_href = root_url.sub!(/\/+$/,'')
     @home_page = true
     @explore_taxa = safely_shuffle(RandomHierarchyImage.random_set_cached)

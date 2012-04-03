@@ -21,4 +21,17 @@ class Visibility < ActiveRecord::Base
   def self.invisible
     cached_find_translated(:label, 'Invisible')
   end
+
+  def self.for_curating_selects
+    @@for_curating_selects ||= {}
+    return(@@for_curating_selects[I18n.locale]) if @@for_curating_selects[I18n.locale]
+    @@for_curating_selects ||= {}
+    @@for_curating_selects[I18n.locale] =
+      [Visibility.visible, Visibility.invisible].map {|v| [v.curation_label, v.id] }.compact
+  end
+
+  def curation_label
+    self.id == Visibility.invisible.id ? I18n.t(:hidden) : self.label
+  end
+
 end

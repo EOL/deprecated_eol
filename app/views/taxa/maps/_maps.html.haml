@@ -6,6 +6,7 @@
     :javascript
       var so = new SWFObject("/EOLSpeciesMap.swf", "swf", "100%", "100%", "9");
       so.addParam("allowFullScreen", "true");
+      so.addParam("wmode", "transparent");
       so.addVariable("swf", "");
       so.addVariable("taxon_id", #{taxon_concept.gbif_map_id});
       so.addVariable("data_server_endpoint", '#{$MAP_DATA_SERVER_ENDPOINT}');

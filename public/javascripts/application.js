@@ -1,5 +1,19 @@
 if(!EOL) { var EOL = {}; }
 
+// Fix for Chrome, adding taxa to collections on map tab (and possibly other problems). See http://stackoverflow.com/questions/7825448/webkit-issues-with-event-layerx-and-event-layery
+(function(){
+    // remove layerX and layerY
+    var all = $.event.props,
+        len = all.length,
+        res = [];
+    while (len--) {
+      var el = all[len];
+      if (el != 'layerX' && el != 'layerY') res.push(el);
+    }
+    $.event.props = res;
+}());
+
+
 // TODO - not all of these are required, if we know we won't use them:
 $.ajaxSetup({accepts: {
   '*': "text/javascript, */*",
@@ -26,12 +40,14 @@ $(function() {
       $(this).closest("form").submit();
     });
 
+  // Taxon overview media summary behaviours.
   (function($ss) {
     var placeholder = "<li class=\"placeholder\"></li>";
 
     $ss.each(function() {
       var $gallery = $(this),
           thumbs = [];
+      // Insert ul.thumbnails, and for every large image use data-thumb to create thumbnail src.
       $("<ul />", { "class": "thumbnails" }).insertBefore($gallery.find("p.all"));
       $gallery.find(".image > a > img").each(function() {
         var $e = $(this),
@@ -44,6 +60,7 @@ $(function() {
         else { li = placeholder; }
         thumbs.push(li);
       });
+      // Insert placeholder list items up to max 4 items if < 4 large images.
       for (var i = 1, len = 4 - thumbs.length; i <= len; i++) {
         thumbs.push(placeholder);
       }
@@ -51,7 +68,7 @@ $(function() {
       $gallery.find(".thumbnails li").not(".placeholder").eq(0).addClass("active");
     });
 
-    $ss.find(".image img").each(function() {
+    $ss.find(".image > a img").each(function() {
       this.onload = function() {
         $(this).data("height", this.height);
       };

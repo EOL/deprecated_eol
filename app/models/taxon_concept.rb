@@ -646,7 +646,8 @@ class TaxonConcept < ActiveRecord::Base
       JOIN names n ON (he_parent.name_id=n.id)
       JOIN hierarchies h ON (he_child.hierarchy_id=h.id)
       WHERE #{filter[0]}
-      AND browsable=1
+      AND he_parent.published = 1
+      AND browsable = 1
     ").all_hashes.uniq
 
     children = TaxonConcept.connection.execute("
@@ -656,7 +657,8 @@ class TaxonConcept < ActiveRecord::Base
       JOIN names n ON (he_child.name_id=n.id)
       JOIN hierarchies h ON (he_parent.hierarchy_id=h.id)
       WHERE #{filter[1]}
-      AND browsable=1
+      AND he_child.published = 1
+      AND browsable = 1
     ").all_hashes.uniq
 
     grouped_parents = {}

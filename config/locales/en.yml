@@ -2762,7 +2762,7 @@ en:
     other: "See all <span class=\"assistive\">%{count} updates for this page.</span>"
   see_all_media_link: "See all media"
   see_all_editors_with_count:
-    one: "See the %{count} managers"
+    one: "See the %{count} manager"
     other: "See all %{count} managers"
   see_notes: "see notes"
   select_a_hierarchy_around_whic: "Select a hierarchy around which to organize content summaries:"

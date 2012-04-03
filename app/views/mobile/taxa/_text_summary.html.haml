@@ -3,7 +3,6 @@
     - @summary_text.each do |item|
       - item_vetted = item.vetted_by_taxon_concept(@taxon_concept, :find_best => true)
       - item_vetted_id = item_vetted.id unless item_vetted.nil?
-      - en_type = item.data_type.label('en').downcase.strip
       - unless item.description.empty? || item.description.nil?
         %div{:class => vetted_id_class(item_vetted_id), :data => { :text_id =>  item.id } }
           .header

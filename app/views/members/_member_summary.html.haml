@@ -7,10 +7,10 @@
       %p= member.user.tag_line
       - unless minimal
         %p.meta
-          = I18n.t(:joined_time_ago, :time_passed => time_ago_in_words(member.created_at)).downcase
+          = I18n.t(:joined_time_ago, :time_passed => time_ago_in_words(member.created_at)).safe_downcase
           -# NOT YET: = I18n.t(:community_contributions_with_count, :count => 9999999)
           &bull;
-          = I18n.t(:comments_with_count, :count => member.comment_count).downcase
+          = I18n.t(:comments_with_count, :count => member.comment_count).safe_downcase
         %p
           - if defined?(revoke) && revoke
             = link_to I18n.t(:revoke_manager_link), revoke_manager_community_member_path(@community, member), :confirm => I18n.t(:are_you_sure)

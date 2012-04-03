@@ -76,7 +76,7 @@ private
   def set_translated_content_page_edit_options
     @page_subheader = I18n.t(:admin_translated_content_page_edit_subheader,
                              :page_name => @content_page.page_name,
-                             :language => @translated_content_page.language.label.downcase)
+                             :language => @translated_content_page.language.label.safe_downcase)
     @navigation_tree = ContentPage.get_navigation_tree(@content_page.id)
   end
 

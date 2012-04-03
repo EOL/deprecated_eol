@@ -42,7 +42,11 @@ class CuratorActivityLog < LoggingModel
       when ChangeableObjectType.comment.id:
         comment_object.parent
       when ChangeableObjectType.synonym.id:
-        synonym.hierarchy_entry.taxon_concept
+        if synonym && synonym.hierarchy_entry
+          synonym.hierarchy_entry.taxon_concept
+        else
+          taxon_concept # could be nil, be careful!
+        end
       else
         data_object
     end
@@ -224,7 +228,6 @@ private
       end
     end
   end
-  
 
   # All of these "types" are actually stored as a data_object, for reasons that escape me at the time of this
   # writing.  ...But if you care to find out why, I suggest you look at the data objects controller.

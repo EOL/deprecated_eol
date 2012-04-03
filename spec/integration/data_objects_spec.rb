@@ -404,8 +404,7 @@ describe 'Data Object Page' do
 
   # TODO - Move this test to the taxa_page_spec.
   it 'should allow logged in full/master curators and admins to add text to EOL pages as Trusted' do
-    users = [@full_curator, @master_curator, @admin]
-    users.each do |user|
+    [@full_curator, @master_curator, @admin].each do |user|
       login_as user
       visit taxon_details_path(@tc)
       click_link "Add an article to this page"

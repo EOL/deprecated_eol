@@ -263,6 +263,9 @@ class DataObject < ActiveRecord::Base
     @udo ||= UsersDataObject.find_by_data_object_id(id)
     @udo_user ||= @udo.nil? ? nil : User.find(@udo.user_id)
   end
+  def user_id
+    user.id
+  end
 
   def taxon_concept_for_users_text
     unless user.nil?

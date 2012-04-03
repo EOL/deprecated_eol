@@ -50,6 +50,7 @@ class UsersController < ApplicationController
     end
     user_before_update = @user
     if @user.update_attributes(params[:user])
+      update_current_language(@user.language)
       upload_logo(@user) unless params[:user][:logo].blank?
       current_user.log_activity(:updated_user)
       store_location params[:return_to] if params[:return_to]
@@ -152,7 +153,7 @@ class UsersController < ApplicationController
       end
     end
 
-    @user = User.new(params[:user]) # TODO: check this adds authentication params from form submit
+	@user = User.new(params[:user].reverse_merge(:language => current_language)) # TODO: check this adds authentication params from form submit
     
     # TODO: for oauth change validation rules in user model
     # TODO: for oauth don't make them validate their account if open_authentication_signup then blah
@@ -422,7 +423,11 @@ private
   end
 
   def user_updated_email_preferences?(user_before_update, user_after_update)
-    user_before_update.mailing_list != user_after_update.mailing_list || user_before_update.email != user_after_update.email
+    if user_after_update.has_attribute?(:mailing_list) # TODO - superfluous, remove.
+      user_before_update.mailing_list != user_after_update.mailing_list || user_before_update.email != user_after_update.email
+    else
+      false
+    end
   end
 
   def send_preferences_updated_email(user_before_update, user_after_update)

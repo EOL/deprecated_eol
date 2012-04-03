@@ -197,6 +197,8 @@ module EOL
           url << '&sort=data_rating+desc'
         elsif options[:sort_by] == SortStyle.sort_field
           url << '&sort=sort_field+asc'
+        elsif options[:sort_by] == SortStyle.reverse_sort_field
+          url << '&sort=sort_field+desc'
         end
 
         # add paging

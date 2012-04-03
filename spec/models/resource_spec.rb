@@ -23,10 +23,6 @@ describe Resource do
   it "should return the resource's latest published harvest event" do
     @resource.latest_published_harvest_event.should == @latest_published_harvest_event
   end
-  it "should return the resource's latest unpublished harvest event" do
-    # this test reflects that this method is probably dumb, since what is probably wanted is to see if the latest harvest event is unpublished
-    @resource.latest_unpublished_harvest_event.should == @latest_unpublished_harvest_event
-  end
   it "should return the resource's latest harvest event" do
     @resource.latest_harvest_event.should == @latest_harvest_event
   end

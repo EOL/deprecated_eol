@@ -52,9 +52,10 @@ class Ref < ActiveRecord::Base
                   JOIN data_objects_refs dor ON (do.id=dor.data_object_id)
                   JOIN refs ON (dor.ref_id=refs.id)
                   WHERE udo.taxon_concept_id=?
+                  AND udo.visibility_id = ?
                   AND do.published=1
                   AND refs.published=1
-                  AND refs.visibility_id=?", taxon_concept_id, Visibility.visible.id, Visibility.visible.id, Visibility.visible.id, taxon_concept_id, Visibility.visible.id, taxon_concept_id, Visibility.visible.id])
+                  AND refs.visibility_id=?", taxon_concept_id, Visibility.visible.id, Visibility.visible.id, Visibility.visible.id, taxon_concept_id, Visibility.visible.id, taxon_concept_id, Visibility.visible.id, Visibility.visible.id])
   end
 
   # Determines whether or not the TaxonConcept has Literature References

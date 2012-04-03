@@ -573,6 +573,7 @@ class DataObject < ActiveRecord::Base
   # it's actually used quite often. ...and in some cases, just to get the ID of the first one.  Ouch.
   # :published -> :strict - return only published taxon concepts
   # :published -> :preferred - same as above, but returns unpublished taxon concepts if no published ones are found
+  # NOTE - honestly, I don't know if I trust this anymore anyway!  Compare to #all_associations, for example.
   def get_taxon_concepts(opts = {})
     return @taxon_concepts if @taxon_concepts
     if created_by_user?
@@ -593,7 +594,12 @@ class DataObject < ActiveRecord::Base
 
   def update_solr_index
     if self.published
-      EOL::Solr::DataObjectsCoreRebuilder.reindex_single_object(self)
+      self.class.uncached do
+        # creating another instance to remove any change of this instance not
+        # matching the database and indexing stale or changed information
+        object_to_index = DataObject.find(self.id)
+        EOL::Solr::DataObjectsCoreRebuilder.reindex_single_object(object_to_index)
+      end
     else
       # hidden, so delete it from solr
       solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE)
@@ -705,11 +711,11 @@ class DataObject < ActiveRecord::Base
 
   # To retrieve the vetted status of an association by using given taxon concept
   def vetted_by_taxon_concept(taxon_concept, options={})
-    association = association_for_taxon_concept(taxon_concept)
-    return association.vetted unless association.blank?
     if options[:find_best] == true && association = association_with_best_vetted_status
       return association.vetted
     end
+    association = association_for_taxon_concept(taxon_concept)
+    return association.vetted unless association.blank?
     return nil
   end
 

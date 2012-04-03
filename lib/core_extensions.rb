@@ -167,6 +167,11 @@ class String
     split(/ /).length
   end
 
+  def fix_spaces
+    gsub!(/ {2,}/, ' ')
+    strip!
+  end
+
   def is_numeric?
     begin
       Float(self)

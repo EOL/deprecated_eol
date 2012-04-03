@@ -858,10 +858,13 @@ private
   end
 
   # before_save TODO - could replace this with actual method that does all approvals however that is going to work
-  # TODO - this is not hooked up with the V1 curator approved attributes - need more info
   def instantly_approve_curator_level
     unless self.requested_curator_level_id.nil? || self.requested_curator_level_id.zero?
-      self.curator_level_id = self.requested_curator_level_id
+      unless self.curator_level_id == self.requested_curator_level_id
+        self.curator_level_id = self.requested_curator_level_id
+        self.curator_approved = 1
+        self.curator_verdict_at = Time.now
+      end
       self.requested_curator_level_id = nil
     end
   end

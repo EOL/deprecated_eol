@@ -12,15 +12,6 @@ class TaxaController < ApplicationController
     return redirect_to taxon_overview_path(params[:id]), :status => :moved_permanently
   end
 
-  # If you want this to redirect to search, call (do_the_search && return if this_request_is_really_a_search) before this.
-  def find_taxon_concept
-    # Try most specific first...
-    tc_id = params[:taxon_concept_id].to_i
-    tc_id = params[:taxon_id].to_i if tc_id == 0
-    tc_id = params[:id].to_i if tc_id == 0
-    TaxonConcept.find(tc_id)
-  end
-
   ################
   # AJAX CALLS
   ################
@@ -119,14 +110,15 @@ protected
 private
 
   def instantiate_taxon_concept
-    @taxon_concept = find_taxon_concept
-    unless accessible_page?(@taxon_concept)
+    @taxon_concept = TaxonConcept.find(params[:taxon_concept_id] || params[:taxon_id] || params[:id])
+    unless @taxon_concept.published?
       if logged_in?
         raise EOL::Exceptions::SecurityViolation, "User with ID=#{current_user.id} does not have access to TaxonConcept with id=#{@taxon_concept.id}"
       else
         raise EOL::Exceptions::MustBeLoggedIn, "Non-authenticated user does not have access to TaxonConcept with ID=#{@taxon_concept.id}"
       end
     end
+
     @taxon_concept.current_user = current_user
     @selected_hierarchy_entry_id = params[:hierarchy_entry_id]
     if @selected_hierarchy_entry_id
@@ -187,16 +179,6 @@ private
 
   def do_the_search
     redirect_to search_path(:id => params[:id])
-  end
-
-  # For regular users, a page is accessible only if the taxon_concept is published.
-  # If an agent is logged in, then it's only accessible if the taxon_concept is
-  # referenced by the Agent's most recent harvest events
-  def accessible_page?(taxon_concept)
-    return false if taxon_concept.nil?      # TC wasn't found.
-    return true if taxon_concept.published? # Anyone can see published TCs
-    return true if agent_logged_in? and current_agent.latest_unpublished_harvest_contains?(taxon_concept.id)
-    return false # current agent can't see this unpublished page, or agent isn't logged in.
   end
 
   def is_common_names?(category_id)

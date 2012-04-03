@@ -1,5 +1,9 @@
 require 'uri'
-require 'ruby-prof'
+begin
+  require 'ruby-prof'
+rescue MissingSourceFile
+  puts "!! WARNING: ruby-prof missing.  Ignoring."
+end
 ContentPage # TODO - figure out why this fails to autoload.  Look at http://kballcodes.com/2009/09/05/rails-memcached-a-better-solution-to-the-undefined-classmodule-problem/
 
 class ApplicationController < ActionController::Base
@@ -38,9 +42,9 @@ class ApplicationController < ActionController::Base
     :agent_logged_in?, :allow_page_to_be_cached?, :link_to_item
 
   before_filter :set_locale
-  
+
   around_filter :profile
-  
+
   def profile
     return yield if params[:profile].nil?
     return yield if ![ 'v2staging', 'v2staging_dev', 'v2staging_dev_cache', 'development', 'test'].include?(ENV['RAILS_ENV'])
@@ -51,7 +55,7 @@ class ApplicationController < ActionController::Base
     response.body.replace out.string
     response.content_type = "text/plain"
   end
-  
+
 
   # Continuously display a warning message.  This is used for things like "System Shutting down at 15 past" and the
   # like.  And, yes, if there's a "real" error, they miss this message.  So what?
@@ -66,7 +70,7 @@ class ApplicationController < ActionController::Base
       sco = SiteConfigurationOption.find_by_parameter('global_site_warning')
       (sco && sco.value) ? sco.value : 1
     end
-    
+
     if warning && warning.class == String
       flash.now[:error] = warning
     end
@@ -276,6 +280,12 @@ class ApplicationController < ActionController::Base
     @current_language ||= Language.find(session[:language_id]) rescue Language.default
   end
 
+  def update_current_language(new_language)
+    @current_language = new_language
+    session[:language_id] = new_language.id
+    I18n.locale = new_language.iso_639_1
+  end
+
   # Deceptively simple... but note that memcached will only be hit ONCE per request because of the ||=
   def current_user
     @current_user ||= if session[:user_id]               # Try loading from session
@@ -289,9 +299,9 @@ class ApplicationController < ActionController::Base
 
   def recently_visited_collections(collection_id = nil)
     session[:recently_visited_collections] ||= []
-    session[:recently_visited_collections] << collection_id
-    session[:recently_visited_collections] = session[:recently_visited_collections].uniq    # Ignore duplicates.
-    session[:recently_visited_collections] = session[:recently_visited_collections][-6..-1] # Only keep last six.
+    session[:recently_visited_collections].unshift(collection_id)
+    session[:recently_visited_collections] = session[:recently_visited_collections].uniq  # Ignore duplicates.
+    session[:recently_visited_collections] = session[:recently_visited_collections][0..5] # Only keep six.
   end
 
   # Boot all users out when we don't want logins (note: preserves language):
@@ -364,14 +374,13 @@ class ApplicationController < ActionController::Base
 
   def set_language
     language = Language.from_iso(params[:language]) rescue Language.default
-    session[:language_id] = language.id
-    I18n.locale = language.iso_639_1
+    update_current_language(language)
     if logged_in?
       # Don't want to worry about validations on the user; language is simple.  Just update it:
       current_user.update_attribute(:language_id, language.id)
       current_user.clear_cache
     end
-    redirect_back_or_default
+    redirect_to(params[:return_to].blank? ? root_url : params[:return_to])
   end
 
   # pulled over from Rails core helper file so it can be used in controllers as well
@@ -527,13 +536,24 @@ protected
   end
 
   def meta_data(title = meta_title, description = meta_description, keywords = meta_keywords)
-    @meta_data ||= {:title => [
+    return @meta_data if @meta_data
+    @meta_data =  { :title => [
                       title.presence,
                       @rel_canonical_href_page_number ? I18n.t(:pagination_page_number, :number => @rel_canonical_href_page_number) : nil,
-                      I18n.t(:meta_title_suffix)].compact.join(" - ").strip,
-                    :description => description,
-                    :keywords => keywords
-                   }.delete_if{ |k, v| v.nil? }
+                    ].compact.join(" - ").strip,
+                  :description => description,
+                  :keywords => keywords
+                }.delete_if{ |k, v| v.nil? }
+    if @meta_data[:title]
+      if @home_page
+        # Encyclopedia of Life - $TITLE
+        @meta_data[:title] = I18n.t(:meta_title_site_name) + " - " + @meta_data[:title]
+      else
+        # $TITLE - Encyclopedia of Life
+        @meta_data[:title] += " - "  + I18n.t(:meta_title_site_name)
+      end
+    end
+    @meta_data
   end
   helper_method :meta_data
 
@@ -615,7 +635,7 @@ protected
     end
     @original_request_params ||= params.clone.freeze # frozen because we don't want @original_request_params to be modified
   end
-  
+
   def page_title
     @page_title ||= t(".page_title", :scope => controller_action_scope)
   end

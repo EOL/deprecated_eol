@@ -3,9 +3,7 @@ module EOL
     
     def log_in(user)
       session[:user_id] = user.id
-      user.language = Language.english if user.language.nil? # remove this line, we don't need this
-      session[:language_id] = user.language.id
-      I18n.locale = user.language.iso_639_1
+      update_current_language(user.language)
       flash[:notice] = I18n.t(:sign_in_successful_notice)
       if params[:remember_me]
         if user.is_admin?
@@ -17,14 +15,14 @@ module EOL
       end
       session.delete(:recently_visited_collections) # Yes, it was requested that these be empty when you log in.
     end
-    
+
     def login_existing_open_authentication_user(open_auth)
       if (open_authentication = OpenAuthentication.existing_authentication(open_auth.authentication_attributes[:provider], open_auth.authentication_attributes[:guid])) && (! open_authentication.user.nil?)
         log_in(open_authentication.user)
         open_authentication
       end
     end
-    
+
     # Redirect to oauth provider to for authentication approval
     def initialize_open_authentication(authorize_callback, error_return_to = nil)
       if open_auth = EOL::OpenAuth.init(params[:oauth_provider], authorize_callback)
@@ -36,7 +34,7 @@ module EOL
         redirect_to error_return_to unless error_return_to.nil?
       end
     end
-    
+
     # Checks to make sure we have access to users basic information and authentication attributes
     def verify_open_authentication(authorize_callback)
       if (open_auth = EOL::OpenAuth.init(params[:oauth_provider], authorize_callback, params.merge({:request_token_token => session.delete("#{params[:oauth_provider]}_request_token_token"), :request_token_secret => session.delete("#{params[:oauth_provider]}_request_token_secret")})))
@@ -49,5 +47,6 @@ module EOL
         flash.now[:error] = I18n.t(:oauth_error_initializing_access)
       end
     end
+
   end
 end

@@ -68,10 +68,15 @@ EOL.redirect_to_comment_source = function(href, reply) {
 // I'm trying to keep this one minimal: it just checks that the first two parts of each of the paths match, not
 // caring about sub-paths (like 'newsfeed').  Note that [0] is ignored, since it's blank:
 EOL.close_enough = function(href) {
-  var sh = href.replace(/#.*$/, '');
-  var hspl = href.split('/');
-  var lspl = location.pathname.split('/');
-  return(hspl[1] == lspl[1] && hspl[2] == hspl[2]);
+  var sh = href.replace(/#.*$/, '').replace(/^.*\/\/[^\/]*\//, '').replace(/^\//, '');
+  var hspl = sh.split('/');
+  var lspl = location.pathname.replace(/^\/+/, '').split('/');
+  if (hspl[0] == lspl[0] && hspl[1] == hspl[1]) {
+    return(true);
+  } else if (hspl[1] == lspl[1] && hspl[2] == hspl[2]) {
+    return(true);
+  }
+  return(false);
 };
 EOL.jump_to_comment = function(target, href, reply) {
   if (target.size() == 0 || reply && ! EOL.close_enough(href)) {

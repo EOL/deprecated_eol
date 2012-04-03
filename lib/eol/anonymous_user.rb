@@ -24,6 +24,9 @@ module EOL
     def language_id
       language.id
     end
+    def language_abbr
+      language.iso_639_1
+    end
 
     # This actually does require a little logic, so can't be a default:
     # NOTE - returns self for convenience; objects can call things like #is_admin? on this object, but not on nil.

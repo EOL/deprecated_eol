@@ -13,7 +13,4 @@
         - status = entry.vetted.curation_label
         %li
           %p{:class => en_status}= status
-          - unless entry.class == status
-            = link_to entry.name.string, taxon_overview_path(entry.taxon_concept_id)
-          - else
-            = link_to entry.taxon_concept.quick_scientific_name, taxon_overview_path(entry.taxon_concept_id)
+          = link_to entry.italicized_name, taxon_overview_path(entry.taxon_concept_id)

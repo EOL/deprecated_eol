@@ -30,8 +30,8 @@
             = select_tag "visibility_id_#{entry.id}", options_for_select(Visibility.for_curating_selects, visibility_selected)
           - if entry.class == HierarchyEntry && entry.by_curated_association? && entry.associated_by_curator
             - supplied_by_user = entry.associated_by_curator
-          - unless supplier.blank?          
-            = render :partial => 'data_objects/supplier', :locals => { :association_supplied_by_user => supplied_by_user, :data_object => data_object }
+            - unless supplied_by_user.blank?          
+              = render :partial => 'data_objects/supplier', :locals => { :association_supplied_by_user => supplied_by_user, :data_object => data_object }
           - untrusted_reasons =[]
           - if vetted_selected == Vetted.untrusted.id.to_i
             - dato_untrust_reasons = data_object.untrust_reasons(entry)

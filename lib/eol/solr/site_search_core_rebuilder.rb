@@ -108,7 +108,7 @@ module EOL
       def self.lookup_content_pages(start, limit)
         max = start + limit
         objects_to_send = []
-        content_pages = ContentPage.find(:all, :conditions => "id BETWEEN #{start} AND #{max} AND active=1", :select => 'content_pages.id, content_pages.page_name, content_pages.active')
+        content_pages = ContentPage.find(:all, :conditions => "id BETWEEN #{start} AND #{max} AND active=1", :select => 'content_pages.id, content_pages.page_name, content_pages.active, translations.title, translations.main_content')
         content_pages.each do |cp|
           objects_to_send += cp.keywords_to_send_to_solr_index
         end

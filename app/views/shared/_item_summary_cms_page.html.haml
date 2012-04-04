@@ -1,11 +1,13 @@
 - view_style ||= 'default'
 - unless view_style == 'list'
-  = link_to image_tag(item.logo_url(:small), :alt => item.page_name), cms_page_path(item.page_name)
+  = link_to image_tag(item.logo_url(:small), :alt => item.title), cms_page_path(item.page_name)
 - unless ['gallery','list'].include?(view_style)
   = link_to content_tag(:span, '', {:class => 'icon', :title => I18n.t(:item_type_cms_page_assistive)}), cms_page_path(item.page_name)
 %h4
-  = link_to h(truncate(item.page_name, :length => 64)), cms_page_path(item.page_name)
+  = link_to h(truncate(item.title, :length => 64)), cms_page_path(item.page_name)
   - if view_style == 'list' && @filter.nil?
     %small= I18n.t(:item_type_cms_page)
 - unless ['gallery','list'].include?(view_style)
   = link_to h(item.page_name), cms_page_path(item.page_name)
+  %br
+= item.main_content_teaser

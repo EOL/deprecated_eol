@@ -21,6 +21,7 @@ module EOL
         self.reindex_model(DataObject, solr_api)
         self.reindex_model(User, solr_api)
         self.reindex_model(TaxonConcept, solr_api)
+        self.reindex_model(ContentPage, solr_api)
         solr_api.optimize if options[:optimize]
       end
 
@@ -45,6 +46,8 @@ module EOL
             objects_to_send += self.lookup_users(i, limit);
           when 'TaxonConcept'
             objects_to_send += self.lookup_taxon_concepts(i, limit);
+          when 'ContentPage'
+            objects_to_send += self.lookup_content_pages(i, limit);
           end
           objects_to_send.each do |o|
             if o[:keyword].class == String
@@ -98,6 +101,16 @@ module EOL
         users = User.find(:all, :conditions => "id BETWEEN #{start} AND #{max} AND active=1", :select => 'id, username, given_name, family_name, curator_level_id, created_at, updated_at, active, hidden')
         users.each do |u|
           objects_to_send += u.keywords_to_send_to_solr_index
+        end
+        objects_to_send
+      end
+
+      def self.lookup_content_pages(start, limit)
+        max = start + limit
+        objects_to_send = []
+        content_pages = ContentPage.find(:all, :conditions => "id BETWEEN #{start} AND #{max} AND active=1", :select => 'content_pages.id, content_pages.page_name, content_pages.active')
+        content_pages.each do |cp|
+          objects_to_send += cp.keywords_to_send_to_solr_index
         end
         objects_to_send
       end

@@ -24,6 +24,8 @@ class ContentPage < $PARENT_CLASS_MUST_USE_MASTER
   # TODO: add unique index of page_name in db ?
   # TODO: Validate format of page name alphanumeric and underscores only - when we move to machine names
 
+  index_with_solr :keywords => [:title, :main_content]
+
   def can_be_read_by?(user_wanting_access)
     user_wanting_access.is_admin? || active?
   end
@@ -105,6 +107,10 @@ class ContentPage < $PARENT_CLASS_MUST_USE_MASTER
     if all_pages_with_this_name.count == 1
       return self.id
     end
+  end
+
+  def logo_url(size = 'large', specified_content_host = nil)
+    return "v2/logos/cms_pages.png"
   end
 
 private

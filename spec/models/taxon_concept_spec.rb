@@ -581,6 +581,51 @@ describe TaxonConcept do
     @taxon_concept.exemplar_or_best_image_from_solr.id.should_not == image.id
   end
 
+  it 'should show details text with no language only to users in the default language' do
+    user = User.gen(:language => Language.default)
+    best_text = @taxon_concept.details_text_for_user(user).first
+    best_text.language_id.should == Language.default.id
+    best_text.language_id = 0
+    best_text.data_rating = 5
+    best_text.save
+    best_text.update_solr_index
+    new_best_text = @taxon_concept.details_text_for_user(user).first
+    new_best_text.language_id.should == 0
+    new_best_text.id.should == best_text.id
+    
+    user = User.gen(:language => Language.find_by_iso_639_1('fr'))
+    new_best_text = @taxon_concept.overview_text_for_user(user)
+    new_best_text.should == nil
+    
+    # cleaning up
+    best_text.language_id = Language.default.id
+    best_text.save
+    best_text.update_solr_index
+  end
+
+  it 'should show overview text with no language only to users in the default language' do
+    user = User.gen(:language => Language.default)
+    best_text = @taxon_concept.overview_text_for_user(user)
+    best_text.language_id.should == Language.default.id
+    best_text.language_id = 0
+    best_text.data_rating = 5
+    best_text.save
+    best_text.update_solr_index
+    new_best_text = @taxon_concept.overview_text_for_user(user)
+    new_best_text.language_id.should == 0
+    new_best_text.id.should == best_text.id
+    
+    user = User.gen(:language => Language.find_by_iso_639_1('fr'))
+    new_best_text = @taxon_concept.overview_text_for_user(user)
+    new_best_text.should == nil
+    
+    # cleaning up
+    best_text.language_id = Language.default.id
+    best_text.save
+    best_text.update_solr_index
+  end
+  
+
   #
   # I'm all for pending tests, but in this case, they run SLOWLY, so it's best to comment them out:
   #

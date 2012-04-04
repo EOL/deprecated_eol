@@ -1100,6 +1100,7 @@ class TaxonConcept < ActiveRecord::Base
     overview_text_objects = self.text_for_user(the_user, {
       :per_page => 20,
       :language_ids => [ the_user.language.id ],
+      :allow_nil_languages => (the_user.language.id == Language.default.id),
       :toc_ids => overview_toc_item_ids })
     DataObject.preload_associations(overview_text_objects, { :data_objects_hierarchy_entries => [ :hierarchy_entry,
       :vetted, :visibility ] },
@@ -1136,6 +1137,7 @@ class TaxonConcept < ActiveRecord::Base
   def details_text_for_user(the_user, options = {})
     text_objects = self.text_for_user(the_user, {
       :language_ids => [ the_user.language.id ],
+      :allow_nil_languages => (the_user.language.id == Language.default.id),
       :toc_ids_to_ignore => TocItem.exclude_from_details.collect{ |toc_item| toc_item.id },
       :per_page => (options[:limit] || 600) })
     

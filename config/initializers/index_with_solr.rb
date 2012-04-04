@@ -44,6 +44,7 @@ module ActiveRecord
           return [] if self.class == Collection && !self.published?
           return [] if self.class == Community && !self.published?
           return [] if self.class == User && !self.active?
+          return [] if self.class == User && self.is_hidden?
           return [] if self.class == ContentPage && !self.active?
 
           params = {

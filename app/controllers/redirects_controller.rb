@@ -12,6 +12,10 @@ class RedirectsController < ApplicationController
       redirect_to taxon_overview_path(params[:taxon_id]), :status => :moved_permanently and return
     elsif params[:taxon_id_media]
       redirect_to taxon_media_path(params[:taxon_id_media]), :status => :moved_permanently and return
+    elsif params[:taxon_id_images]
+      redirect_to taxon_media_path(params[:taxon_id_images]), :status => :moved_permanently and return
+    elsif params[:taxon_id_classification_attribution]
+      redirect_to taxon_names_path(params[:taxon_id_classification_attribution]), :status => :moved_permanently and return
     elsif params[:taxon_id_maps]
       redirect_to taxon_maps_path(params[:taxon_id_maps]), :status => :moved_permanently and return
     elsif params[:taxon_id_community_curators]

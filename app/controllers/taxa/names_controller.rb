@@ -61,7 +61,6 @@ class Taxa::NamesController < TaxaController
     end
   end
 
-  # TODO - This needs to add a CuratorActivityLog.
   def delete
     synonym_id = params[:synonym_id].to_i
     category_id = params[:category_id].to_i
@@ -110,7 +109,6 @@ class Taxa::NamesController < TaxaController
     current_user.log_activity(:viewed_taxon_concept_names_common_names, :taxon_concept_id => @taxon_concept.id)
   end
 
-  # TODO - This needs to add a CuratorActivityLog.
   def vet_common_name
     language_id = params[:language_id].to_i
     name_id = params[:id].to_i

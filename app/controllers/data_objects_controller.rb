@@ -199,7 +199,7 @@ class DataObjectsController < ApplicationController
     @data_object.remove_curated_association(current_user, he)
     clear_cached_media_count_and_exemplar(he)
     @data_object.update_solr_index
-    log_action(he, :remove_association, nil)
+    log_action(he, :remove_association, :taxon_concept_id => he.taxon_concept_id)
     redirect_to data_object_path(@data_object), :status => :moved_permanently
   end
 
@@ -208,7 +208,7 @@ class DataObjectsController < ApplicationController
     @data_object.add_curated_association(current_user, he)
     clear_cached_media_count_and_exemplar(he)
     @data_object.update_solr_index
-    log_action(he, :add_association, nil)
+    log_action(he, :add_association)
     redirect_to data_object_path(@data_object), :status => :moved_permanently
   end
 
@@ -500,8 +500,7 @@ private
     end
   end
 
-  # TODO - Remove the opts parameter if we not intend to use it.
-  def log_action(object, method, opts)
+  def log_action(object, method, opts = {})
     object_id = object.data_object_id if object.class.name == "DataObjectsHierarchyEntry" || object.class.name == "CuratedDataObjectsHierarchyEntry" || object.class.name == "UsersDataObject"
     object_id = object.id if object_id.blank?
 
@@ -518,7 +517,7 @@ private
     end
 
     auto_collect(@data_object) # SPG asks for all curation to add the item to their watchlist.
-    CuratorActivityLog.create(
+    CuratorActivityLog.create(opts.reverse_merge(
       :user => current_user,
       :changeable_object_type => changeable_object_type,
       :object_id => object_id,
@@ -526,7 +525,7 @@ private
       :data_object => @data_object,
       :hierarchy_entry => he,
       :created_at => 0.seconds.from_now
-    )
+    ))
   end
 
   def save_untrust_reasons(log, action, untrust_reason_ids)

@@ -24,5 +24,6 @@
             = link_to he.hierarchy.agent.full_name, he.hierarchy.agent.homepage
           - classification_summary = item.entry.preferred_classification_summary
           - unless classification_summary.blank?
-            %span<> &bull;
+            %span
+              &bull;
             = classification_summary

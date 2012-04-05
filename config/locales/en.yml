@@ -1121,6 +1121,33 @@ en:
         meta_keywords: ""
         meta_title: "%{user_full_name} Newsfeed"
         tweet_text: "%{user_full_name} newsfeed"
+    open_authentications:
+      errors:
+        authorize_uri_missing: "Sorry, an error occurred, we are unable to initiate authentication at this time."
+        authorized_user_not_found: "Sorry, we couldn't find your EOL user account."
+        not_authorized_to_add_authentication: "Sorry, we don't have authorization to add the authentication."
+        not_authorized_to_signup: "Sorry, we are not authorized to sign you up with this authentication."
+        facebook:
+          authorized_user_not_found: "Sorry, we couldn't find an EOL user account associated with your Facebook account."
+          not_authorized: "Sorry, we don't have authorization to authenticate you with Facebook."
+        google:
+          authorized_user_not_found: "Sorry, we couldn't find an EOL user account associated with your Google account."
+          not_authorized: "Sorry, we don't have authorization to authenticate you with Google."
+        twitter:
+          authorized_user_not_found: "Sorry, we couldn't find an EOL user account associated with your Twitter account."
+          not_authorized: "Sorry, we don't have authorization to authenticate you with Twitter."
+        yahoo:
+          authorized_user_not_found: "Sorry, we couldn't find an EOL user account associated with your Yahoo! account."
+          not_authorized: "Sorry, we don't have authorization to authenticate you with Yahoo!."
+      notices:
+        facebook:
+          new_authentication_added: "Facebook authentication has been added to your account."
+        google:
+          new_authentication_added: "Google authentication has been added to your account."
+        twitter:
+          new_authentication_added: "Twitter authentication has been added to your account."
+        yahoo:
+          new_authentication_added: "Yahoo! authentication has been added to your account."
     show:
       meta_description: "Member profile for %{user_full_name} on the Encyclopedia of Life."
       meta_description_curator: "Member profile for %{curator_level} %{user_full_name} on the Encyclopedia of Life."

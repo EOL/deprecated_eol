@@ -447,6 +447,7 @@ Factory.define :translated_content_page do |tcp|
   tcp.main_content      {|c| "<h1>Main Content for #{c.title} ROCKS!</h1>" }
   tcp.meta_keywords     {|c| "keywords for #{c.title}"}
   tcp.meta_description  {|c| "description for #{c.title}"}
+  tcp.active_translation true
 end
 
 Factory.define :topic_area do |ta|

@@ -4,10 +4,13 @@ class UsersController < ApplicationController
 
   layout :users_layout
 
-  before_filter :authentication_only_allow_editing_of_self, :only => [:edit, :update, :terms_agreement, :curation_privileges]
   before_filter :redirect_if_already_logged_in, :only => [:new, :create, :verify, :pending, :activated,
                                                           :forgot_password, :reset_password]
   before_filter :check_user_agreed_with_terms, :except => [:terms_agreement, :reset_password, :usernames]
+  before_filter :extend_for_open_authentication, :only => [:new, :create, :authenticate]
+
+  rescue_from EOL::Exceptions::OpenAuthMissingAuthorizeUri, :with => :oauth_missing_authorize_uri
+  rescue_from OAuth::Unauthorized, :with => :oauth_not_authorized
 
   @@objects_per_page = 20
 
@@ -28,20 +31,26 @@ class UsersController < ApplicationController
 
   # GET /users/:id/edit
   def edit
-    # @user instantiated by authentication before filter and matched to current user
+    @user = User.find(params[:id], :include => :open_authentications)
+    raise EOL::Exceptions::SecurityViolation,
+      "User with ID=#{current_user.id} does not have edit access to User with ID=#{@user.id}" unless current_user.can_update?(@user)
     redirect_if_user_is_inactive
     instantiate_variables_for_edit
   end
 
    # GET /users/:id/curation_privileges
   def curation_privileges
-    # @user instantiated by authentication before filter and matched to current user
+    @user = User.find(params[:id])
+    raise EOL::Exceptions::SecurityViolation,
+      "User with ID=#{current_user.id} does not have edit access to User with ID=#{@user.id}" unless current_user.can_update?(@user)
     instantiate_variables_for_curation_privileges
   end
 
   # PUT /users/:id
   def update
-    # @user instantiated by authentication before filter and matched to current user
+    @user = User.find(params[:id])
+    raise EOL::Exceptions::SecurityViolation,
+      "User with ID=#{current_user.id} does not have edit access to User with ID=#{@user.id}" unless current_user.can_update?(@user)
     redirect_to curation_privileges_user_path(@user), :status => :moved_permanently and return if params[:commit_curation_privileges_get]
     generate_api_key and return if params[:commit_generate_api_key]
     unset_auto_managed_password if params[:user][:entered_password]
@@ -112,61 +121,21 @@ class UsersController < ApplicationController
   end
 
   # GET /users/register
+  # Extended by EOL::OpenAuth::ExtendUsersController
   def new
-    if params[:oauth_provider] && (open_auth = verify_open_authentication(new_user_url(:oauth_provider => params[:oauth_provider])))
-      if (open_authentication = login_existing_open_authentication_user(open_auth))
-        return redirect_to user_newsfeed_path(open_authentication.user)
-      end
-      session["oauth_token_#{open_auth.authentication_attributes[:provider]}_#{open_auth.authentication_attributes[:guid]}"] = open_auth.authentication_attributes[:token]
-      session["oauth_secret_#{open_auth.authentication_attributes[:provider]}_#{open_auth.authentication_attributes[:guid]}"] = open_auth.authentication_attributes[:secret]
-      oauth_user_attributes = open_auth.user_attributes.merge({ :open_authentications_attributes => [
-        { :guid => open_auth.authentication_attributes[:guid],
-          :provider => open_auth.authentication_attributes[:provider] }]})
-    end
-    @user = User.new(oauth_user_attributes || nil) if @user.nil?
+    @user = User.new
   end
 
   # POST /users
+  # Extended by EOL::OpenAuth::ExtendUsersController
   def create
-    
-    return initialize_open_authentication(new_user_url(:oauth_provider => params[:oauth_provider]), 
-                                          new_user_url) if params[:oauth_provider]
-    
-    if (open_authentication_signup = !params[:user][:open_authentications_attributes].blank?)
-      if (guid = params[:user][:open_authentications_attributes]["0"][:guid]) &&
-        (provider = params[:user][:open_authentications_attributes]["0"][:provider]) &&
-        (params[:user][:open_authentications_attributes]["0"][:token] = session["oauth_token_#{provider}_#{guid}"])
-        # TODO: if user fails validation we still need session data, if we remove validation so user never fails then we
-        # can do session.delete here instead
-        # Then we have all the necessary authentication attributes to create a user
-        params[:user][:open_authentications_attributes]["0"][:secret] = session["oauth_secret_#{provider}_#{guid}"]
-        params[:user][:active] = true
-      else
-        # TODO: if user cannot fail validation then we can delete session data in the if statements otherwise we have to
-        # delete it here
-        session.delete("oauth_token_#{provider}_#{guid}") rescue nil
-        session.delete("oauth_secret_#{provider}_#{guid}") rescue nil
-        flash[:error] = I18n.t(:oauth_user_create_unsuccessful)
-        return redirect_to new_user_path # something bad happened
-        # TODO: some error handling here what if params[:user][:open_authentications_attributes]["0"] is missing token and secret
-        # TODO: return if there is a problem here we shouldn't create user without the proper authentication data
-      end
-    end
-
-	@user = User.new(params[:user].reverse_merge(:language => current_language)) # TODO: check this adds authentication params from form submit
-    
-    # TODO: for oauth change validation rules in user model
-    # TODO: for oauth don't make them validate their account if open_authentication_signup then blah
-    
+    @user = User.new(params[:user].reverse_merge(:language => current_language))
     failed_to_create_user and return unless @user.valid? && verify_recaptcha
-    unless open_authentication_signup
-      @user.validation_code = User.generate_key
-      while(User.find_by_validation_code(@user.validation_code))
-        @user.validation_code.succ!
-      end
-      @user.active = false
+    @user.validation_code = User.generate_key
+    while(User.find_by_validation_code(@user.validation_code))
+      @user.validation_code.succ!
     end
-    
+    @user.active = false
     @user.remote_ip = request.remote_ip
     if @user.save
       @user.clear_entered_password
@@ -177,18 +146,29 @@ class UsersController < ApplicationController
       rescue ActiveRecord::StatementInvalid
         # Interestingly, we are getting users who already have agents attached to them.  I'm not sure why, but it's causing registration to fail (or seem to; the user is created), and this is bad.
       end
+      send_verification_email
       EOL::GlobalStatistics.increment('users')
-      if open_authentication_signup
-        session.delete("oauth_token_#{provider}_#{guid}")
-        session.delete("oauth_secret_#{provider}_#{guid}")
-        log_in(@user)
-        redirect_to user_newsfeed_path(@user)
-      else
-        send_verification_email
-        redirect_to pending_user_path(@user), :status => :moved_permanently
-      end
+      redirect_to pending_user_path(@user), :status => :moved_permanently
     else
       failed_to_create_user and return
+    end
+  end
+
+  # GET /users/verify_open_authentication
+  # Authentication callback for adding open authentications to existing users
+  def verify_open_authentication
+    oauth_provider = params.delete(:oauth_provider)
+    open_auth = EOL::OpenAuth.init(oauth_provider, verify_open_authentication_users_url(:oauth_provider => oauth_provider),
+                                   params.merge({:request_token_token => session.delete("#{oauth_provider}_request_token_token"),
+                                                 :request_token_secret => session.delete("#{oauth_provider}_request_token_secret")}))
+    if open_auth.authorized?
+      session["oauth_token_#{open_auth.provider}_#{open_auth.guid}"] = open_auth.authentication_attributes[:token]
+      session["oauth_secret_#{open_auth.provider}_#{open_auth.guid}"] = open_auth.authentication_attributes[:secret]
+      redirect_to new_user_open_authentication_url(current_user, :open_authentication => {:guid => open_auth.guid, 
+                                                                                     :provider => open_auth.provider})
+    else
+      flash[:error] = I18n.t(:not_authorized, :scope => [:users, :open_authentications, :errors, oauth_provider.to_sym])
+      redirect_to user_open_authentications_url(current_user)
     end
   end
 
@@ -234,10 +214,12 @@ class UsersController < ApplicationController
     flash.now[:notice] = I18n.t(:user_activation_successful_notice, :username => @user.username)
   end
 
-  # GET and POST for member /users/:user_id/terms_agreement
+  # GET and POST for member /users/:id/terms_agreement
   def terms_agreement
-    # @user instantiated by authentication before filter and matched to current user
-    access_denied unless current_user.can_update?(@user)
+    @user = User.find(params[:id])
+    raise EOL::Exceptions::SecurityViolation,
+      "User with ID=#{current_user.id} does not have permission to access terms agreement for User with ID=#{@user.id}"
+      unless current_user.can_update?(@user)
     if request.post? && params[:commit_agreed]
       @user.agreed_with_terms = true
       @user.save(false) # saving without validation to avoid issues with invalid legacy users
@@ -332,6 +314,26 @@ protected
 
 private
 
+  def extend_for_open_authentication
+    self.extend(EOL::OpenAuth::ExtendUsersController) if params[:oauth_provider] ||
+      (! params[:user].nil? && ! params[:user][:open_authentications_attributes].blank?)
+  end
+
+  def oauth_missing_authorize_uri
+    flash[:error] = I18n.t(:authorize_uri_missing, :scope => [:users, :open_authentications, :errors])
+    redirect_to new_user_url
+  end
+
+  def oauth_not_authorized
+    if logged_in?
+      flash[:error] = I18n.t(:not_authorized_to_add_authentication, :scope => [:users, :open_authentications, :errors])
+      redirect_to user_open_authentications_url(current_user)
+    else
+      flash[:error] = I18n.t(:not_authorized_to_signup, :scope => [:users, :open_authentications, :errors])
+      redirect_to new_user_url
+    end
+  end
+
   def users_layout # choose an appropriate views layout for an action
     case action_name
     when 'forgot_password', 'terms_agreement', 'new', 'pending', 'activated'
@@ -341,11 +343,6 @@ private
     else
       'v2/users'
     end
-  end
-
-  def authentication_only_allow_editing_of_self
-    @user = User.find(params[:id] || params[:user_id])
-    raise EOL::Exceptions::SecurityViolation, "User with ID=#{current_user.id} does not have edit access to User with ID=#{@user.id}" unless current_user.can_update?(@user)
   end
 
   def generate_password_reset_token(user)

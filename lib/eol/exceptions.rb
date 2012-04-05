@@ -11,6 +11,8 @@ module EOL
     class NoCollectionsApply < StandardError; end
     class ObjectNotFound < StandardError; end
     class OnlyUsersCanCreateCommunitiesFromCollections < StandardError; end
+    class OpenAuthBadResponse < StandardError; end
+    class OpenAuthMissingAuthorizeUri < StandardError; end
     class Pending < StandardError; end
     class SecurityViolation < StandardError; end
     class UnknownFeedType < StandardError; end

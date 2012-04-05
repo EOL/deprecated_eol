@@ -3139,8 +3139,12 @@ ul.content_partner_contacts li {
       #content.session #sign_up > form a, #content.session #sign_in > form a {
         font-weight: bold; }
       #content.session #sign_up > form label.checkbox, #content.session #sign_in > form label.checkbox {
-        padding: 10px 0 15px 8px; }
+        padding: 0 0 15px 0; }
+        #content.session #sign_up > form label.checkbox.required, #content.session #sign_in > form label.checkbox.required {
+          padding-left: 10px;
+          background-position-y: 3px; }
     #content.session #sign_up .open_authentications, #content.session #sign_in .open_authentications {
+      overflow: hidden;
       width: 400px;
       padding: 25px 100px 20px 140px; }
       #content.session #sign_up .open_authentications h2, #content.session #sign_in .open_authentications h2 {

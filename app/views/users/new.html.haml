@@ -14,7 +14,7 @@
       = validation_errors_for(@user)
       %dl
         - if @user.eol_authentication?
-          %dt
+          %dt.required
             = f.label :username
           %dd
             = f.text_field :username, { :maxlength => 32 }
@@ -27,29 +27,28 @@
             = f.label :family_name
           %dd
             = f.text_field :family_name
-        %dt
+        %dt{:class => @user.eol_authentication? ? 'required' : nil}
           = f.label :email
         %dd
           = f.text_field :email, { :maxlength => 100 }
         - if @user.eol_authentication?
-          %dt
+          %dt{:class => @user.eol_authentication? ? 'required' : nil}
             = f.label :entered_password
           %dd
             = f.password_field :entered_password, { :maxlength => 16 }
-          %dt
+          %dt{:class => @user.eol_authentication? ? 'required' : nil}
             = f.label :entered_password_confirmation
           %dd
             = f.password_field :entered_password_confirmation, { :maxlength => 16 }
-        %dt{:class => @user.eol_authentication? ? '' : 'required'}
-          - f.label :agreed_with_terms, :class => 'checkbox' do
-            = f.check_box :agreed_with_terms
-            = I18n.t('helpers.label.user.agreed_with_terms', :terms_url => terms_of_use_path)
-    - if $ENABLE_RECAPTCHA
+        - f.label :agreed_with_terms, :class => 'checkbox required' do
+          = f.check_box :agreed_with_terms
+          = I18n.t('helpers.label.user.agreed_with_terms', :terms_url => terms_of_use_path)
+    - if @user.eol_authentication? && $ENABLE_RECAPTCHA
       %fieldset
         :javascript
           var RecaptchaOptions = { theme : 'clean'};
         %dl
-          %dt{:class => @user.eol_authentication? ? '' : 'required'}
+          %dt
             %label{ :for => "recaptcha" }
               = I18n.t(:recaptcha)
           %dd

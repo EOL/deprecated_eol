@@ -6,29 +6,17 @@ class SessionsController < ApplicationController
 
   before_filter :redirect_if_already_logged_in, :only => [:new, :create]
   before_filter :check_user_agreed_with_terms, :except => [:destroy]
+  before_filter :extend_for_open_authentication, :only => [:new, :create]
+
+  rescue_from EOL::Exceptions::OpenAuthMissingAuthorizeUri, :with => :oauth_missing_authorize_uri
 
   # GET /sessions/new or named route /login
   def new
-    if params[:oauth_provider] && (open_auth = verify_open_authentication(new_session_url(:oauth_provider => params[:oauth_provider])))
-      if (open_authentication = login_existing_open_authentication_user(open_auth))
-        return redirect_to user_newsfeed_path(open_authentication.user)
-      else
-        # TODO: User not authorized - they might need to sign up or there is a problem
-        # session["oauth_token_#{open_auth.authentication_attributes[:provider]}_#{open_auth.authentication_attributes[:guid]}"] = open_auth.authentication_attributes[:token]
-        #             session["oauth_secret_#{open_auth.authentication_attributes[:provider]}_#{open_auth.authentication_attributes[:guid]}"] = open_auth.authentication_attributes[:secret]
-        #             oauth_user_attributes = open_auth.user_attributes.merge({ :open_authentications_attributes => [
-        #               { :guid => open_auth.authentication_attributes[:guid],
-        #                 :provider => open_auth.authentication_attributes[:provider] }]})
-      end
-    end
     @rel_canonical_href = login_url
   end
 
   # POST /sessions
   def create
-    return initialize_open_authentication(new_session_url(:oauth_provider => params[:oauth_provider]), 
-                                          new_session_url) if params[:oauth_provider]
-    
     success, user = User.authenticate(params[:session][:username_or_email], params[:session][:password])
     if success && user.is_a?(User) # authentication successful
       if user.is_hidden?
@@ -66,6 +54,15 @@ private
     lang = current_language.id
     reset_session
     session[:language_id] = lang # Don't want this to change on logout.
+  end
+
+  def extend_for_open_authentication
+    self.extend(EOL::OpenAuth::ExtendUsersController) if params[:oauth_provider]
+  end
+
+  def oauth_missing_authorize_uri
+    flash[:error] = I18n.t(:authorize_uri_missing, :scope => [:users, :open_authentications, :errors])
+    redirect_to login_url
   end
 
 end

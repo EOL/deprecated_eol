@@ -74,8 +74,13 @@ module ActiveRecord
               elsif return_value.class == Array
                 return_value.each do |rv|
                   keyword_type = rv[:keyword_type] || field_or_method
-                  keywords_to_send_to_solr << params.merge({ :keyword => rv[:keywords], :keyword_type => keyword_type,
-                    :language => rv[:language], :ancestor_taxon_concept_id => rv[:ancestor_taxon_concept_id] })
+                  if self.class == TaxonConcept
+                    keywords_to_send_to_solr << params.merge({ :keyword => rv[:keywords], :keyword_type => keyword_type,
+                      :language => rv[:language], :ancestor_taxon_concept_id => rv[:ancestor_taxon_concept_id] })
+                  elsif self.class == ContentPage
+                    keywords_to_send_to_solr << params.merge({ :keyword => rv[:keywords], :keyword_type => keyword_type,
+                      :language => rv[:language] })
+                  end
                 end
               end
             else

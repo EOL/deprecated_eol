@@ -24,7 +24,7 @@ class ContentPage < $PARENT_CLASS_MUST_USE_MASTER
   # TODO: add unique index of page_name in db ?
   # TODO: Validate format of page name alphanumeric and underscores only - when we move to machine names
 
-  index_with_solr :keywords => [ :title, :page_name, :main_content ]
+  index_with_solr :keywords => [ :page_name, :content_pages_for_solr ]
 
   def can_be_read_by?(user_wanting_access)
     user_wanting_access.is_admin? || active?
@@ -120,6 +120,33 @@ class ContentPage < $PARENT_CLASS_MUST_USE_MASTER
   # TODO: Fix this. Change the logo to appropriate one.
   def logo_url(size = 'large', specified_content_host = nil)
     return "v2/logos/cms_pages.png"
+  end
+
+  def content_pages_for_solr
+    translated_content_pages_for_solr = {}
+    unknowns = Language.all_unknowns
+    translations.each do |t|
+      translated_page_id = t.id
+      active_translation = t.active_translation
+      next if t.active_translation == 0 # only active translations for the content page will go in
+      next if t.title.blank?
+      next if t.main_content.blank?
+      next if unknowns.include? t.language
+      language = (t.language_id != 0 && t.language && !t.language.iso_code.blank?) ? t.language.iso_code : 'unknown'
+      next if language == 'unknown' # we dont index content pages in unknown languages to cut down on noise
+      translated_content_pages_for_solr[translated_page_id] = {
+        :language => language,
+        :keywords => [ t.title, t.meta_keywords, t.meta_description, t.main_content ]
+      }
+    end
+
+    keywords = []
+    translated_content_pages_for_solr.each do |translated_page_id, translated_content_page|
+      if translated_page_id
+        keywords <<  { :keyword_type => 'ContentPage', :translated_page_id => translated_page_id, :keywords => translated_content_page[:keywords], :language => translated_content_page[:language] }
+      end
+    end
+    return keywords
   end
 
 private

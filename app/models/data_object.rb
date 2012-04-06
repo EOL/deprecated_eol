@@ -242,6 +242,30 @@ class DataObject < ActiveRecord::Base
     dato
   end
 
+  def self.latest_published_version_of(data_object_id)
+    obj = DataObject.find_by_sql("SELECT do.* FROM data_objects do_old JOIN data_objects do ON (do_old.guid=do.guid) WHERE do_old.id=#{data_object_id} AND do.published=1 ORDER BY id desc LIMIT 1")
+    return nil if obj.blank?
+    return obj[0]
+  end
+
+  def self.latest_published_version_of_guid(guid, options={})
+    options[:return_only_id] ||= false
+    select = (options[:return_only_id]) ? 'id' : '*'
+    obj = DataObject.find_by_sql("SELECT #{select} FROM data_objects WHERE guid='#{guid}' AND published=1 ORDER BY id desc LIMIT 1")
+    return nil if obj.blank?
+    return obj[0]
+  end
+
+  def self.image_cache_path(cache_url, size = '580_360', specified_content_host = nil)
+    return if cache_url.blank? || cache_url == 0
+    size = size ? "_" + size.to_s : ''
+    ContentServer.cache_path(cache_url, specified_content_host) + "#{size}.#{$SPECIES_IMAGE_FORMAT}"
+  end
+
+  def self.load_for_title_only(find_these)
+    DataObject.find(find_these, :select => 'id, object_title', :include => [:toc_items, :data_type])
+  end
+
   # NOTE - you probably want to check that the user performing this has rights to do so, before calling this.
   def replicate(params, options)
     new_dato = DataObject.new(params.reverse_merge!(:guid => self.guid, :published => 1))
@@ -489,12 +513,6 @@ class DataObject < ActiveRecord::Base
   end
   alias is_iucn? iucn?
 
-  def self.image_cache_path(cache_url, size = '580_360', specified_content_host = nil)
-    return if cache_url.blank? || cache_url == 0
-    size = size ? "_" + size.to_s : ''
-    ContentServer.cache_path(cache_url, specified_content_host) + "#{size}.#{$SPECIES_IMAGE_FORMAT}"
-  end
-
   def has_object_cache_url?
     return false if object_cache_url.blank? or object_cache_url == 0
     return true
@@ -639,20 +657,6 @@ class DataObject < ActiveRecord::Base
 
   def to_s
     "[DataObject id:#{id}]"
-  end
-
-  def self.latest_published_version_of(data_object_id)
-    obj = DataObject.find_by_sql("SELECT do.* FROM data_objects do_old JOIN data_objects do ON (do_old.guid=do.guid) WHERE do_old.id=#{data_object_id} AND do.published=1 ORDER BY id desc LIMIT 1")
-    return nil if obj.blank?
-    return obj[0]
-  end
-
-  def self.latest_published_version_of_guid(guid, options={})
-    options[:return_only_id] ||= false
-    select = (options[:return_only_id]) ? 'id' : '*'
-    obj = DataObject.find_by_sql("SELECT #{select} FROM data_objects WHERE guid='#{guid}' AND published=1 ORDER BY id desc LIMIT 1")
-    return nil if obj.blank?
-    return obj[0]
   end
 
   # this method will be run on an instance of an object unlike the above methods. It is best to have preloaded

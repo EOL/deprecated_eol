@@ -14,20 +14,73 @@
         = t("recent_activity.#{note.class.name.underscore}_title", :who => who)
   - else
     = t("recent_activity.default_subject")
-%h1{:style => 'font-weight: normal;'}= I18n.t(:greeting_dear_name_with_comma, :name => @user.full_name, :scope => :notifier)
-- @notes.each do |item|
-  %hr{:style => "border: none; border-bottom: 1px solid #d2d9df;"}
-  - if item.class.name == 'Comment' # Annoying, but comments really do behave quite differently from the others:
-    = render(:partial => 'comment', :locals => { :who => item.user.full_name, :what => item.parent.summary_name, :body => item.body, :comment_link => link_to_item(Kernel.const_get(item.parent_type).find(item.parent_id)) })
-  - else
-    - name_with_link = item.user ? link_to(h(item.user.full_name), user_url(item.user)) : I18n.t(:an_unknown_user)
-    %table{:cellpadding => 5, :style => "border: 0; margin: 0 10px 10px 0;"}
-      %tr
-        - if item.user
-          %td
-            = link_to image_tag(item.user.logo_url(:small, nil, :mail => true),
-              :size => "48x48", :style => 'height: 48px; width: 48px; border: 1px solid #394651;',
-              :alt => I18n.t(:comment_show_posters_image_alt,
-              :posters_name => h(item.user.full_name))), user_url(item.user)
-        %td
-          = render(:partial => "activity_logs/#{item.class.name.underscore}", :locals => { :item => item })
+%h1{:style => 'font-weight: normal;'}= I18n.t(:greeting_dear_name_with_comma, :name => @user.full_name,
+  :scope => :notifier)
+%p= I18n.t(:intro, :scope => :recent_activity, :time => I18n.localize(Time.now, :format => :short))
+- grouped_notes = @notes.group_by {|i| i.class.name }
+- grouped_notes.keys.each do |klass|
+  - if grouped_notes[klass].count > 1 # Digest-like
+    - case klass
+    - when 'CollectionActivityLog'
+      - grouped_notes[klass].group_by(&:collection).each do |collection, items|
+        %hr{:style => "border: none; border-bottom: 1px solid #d2d9df;clear:both;"}
+        %h2= I18n.t("recent_activity.bulk_collection_activity_with_count", :count => items.count,
+          :to => link_to(h(collection.summary_name), collection_url(collection), :style => 'color:#195184'))
+        - items.each do |item|
+          = render(:partial => 'activity_logs/collection_activity_log',
+            :locals => {:item => item, :collection => collection})
+    - when 'CommunityActivityLog'
+      - grouped_notes[klass].group_by(&:community).each do |community, items|
+        - joins = items.select {|i| i.activity_id == Activity.join.id }
+        - nonjoins = items - joins
+        - unless joins.empty?
+          %hr{:style => "border: none; border-bottom: 1px solid #d2d9df; clear:both;"}
+          %h2= I18n.t("recent_activity.bulk_community_joins_with_count", :count => joins.count,
+            :community => link_to(h(community.summary_name), community_url(community), :style => 'color:#195184'))
+          - joins.each do |item|
+            - user = User.load_for_title_only(item.user)
+            %table{:cellpadding => 5, :style => 'border: 1px solid #e2e9ef; margin: 0 10px 10px 0; float: left;'}
+              %tbody
+                %tr
+                  %td{:rowspan => 2}= link_to image_tag(user.logo_url(:small, nil, :mail => true),
+                      :size => "48x48", :style => 'height: 48px; width: 48px; border: 1px solid #394651;',
+                      :alt => I18n.t(:comment_show_posters_image_alt,
+                      :posters_name => h(user.full_name))), user_url(user)
+                %tr
+                  %td
+                    %b= link_to(h(user.full_name), user_url(user))
+                    %br/
+                    = sanitize(user.tag_line).balance_tags
+        - unless nonjoins.empty?
+          %hr{:style => "border: none; border-bottom: 1px solid #d2d9df; clear:both;"}
+          %h2= I18n.t("recent_activity.bulk_community_activity_with_count", :count => nonjoins.count,
+            :to => link_to(h(community.summary_name), community_url(community), :style => 'color:#195184'))
+          - nonjoins.each do |item|
+            = render(:partial => 'activity_logs/community_activity_log',
+              :locals => {:item => item, :community => community})
+    - when 'Comment' # Comments need to look at parents:
+      - grouped_notes[klass].group_by(&:parent).each do |parent, comments|
+        %h2= I18n.t("recent_activity.bulk_comments_with_count", :count => comments.count,
+          :on => link_to(h(parent.summary_name), link_to_item(parent), :style => 'color:#195184'))
+        - comments.each do |comment|
+          %blockquote= I18n.t("recent_activity.comment_body_brief", :body => comment.body, :author => link_to(h(comment.user.full_name), user_url(comment.user), :style => 'color: #195184'))
+    - when 'CuratorActivityLog'
+      - grouped_notes[klass].group_by(&:link_to).each do |association, items|
+        - if association.class.name == 'TaxonConcept' or association.class.name == 'DataObject'
+          - dato = association.class.name == 'DataObject' ? DataObject.load_for_title_only(association) : nil
+          - taxon = association.class.name == 'TaxonConcept' ? TaxonConcept.load_for_title_only(association) : nil
+          %hr{:style => "border: none; border-bottom: 1px solid #d2d9df;clear:both;"}
+          %h2= I18n.t("recent_activity.bulk_curation_with_count", :count => items.count,
+            :to => link_to(h((dato || taxon).summary_name), link_to_item(dato || taxon), :style => 'color:#195184'))
+          - items.each do |item|
+            = render(:partial => 'activity_logs/curator_activity_log',
+              :locals => {:item => item, :data_object => dato, :taxon_concept => taxon })
+    - else
+      - grouped_notes[klass].each do |item|
+        - #TODO: these should be handled specifically where possible!
+        = render(:partial => 'recent_activity_mailer/single_activity', :locals => {:item => item})
+  - else # Only one:
+    - grouped_notes[klass].each do |item|
+      = render(:partial => 'recent_activity_mailer/single_activity', :locals => {:item => item})
+%hr{:style => "border: none; border-bottom: 1px solid #d2d9df;clear:both;"}
+%p= I18n.t(:unsubscribe, :scope => :recent_activity, :email_prefs_url => edit_user_notification_url(@user))

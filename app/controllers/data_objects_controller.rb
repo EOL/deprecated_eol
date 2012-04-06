@@ -416,7 +416,7 @@ private
     if something_needs_curation?(opts)
       curated_object = get_curated_object(@data_object, hierarchy_entry)
       handle_curation(curated_object, user, opts).each do |action|
-        log = log_action(curated_object, action, opts)
+        log = log_action(curated_object, action)
         # Saves untrust reasons, if any
         unless opts[:untrust_reason_ids].blank?
           save_untrust_reasons(log, action, opts[:untrust_reason_ids])
@@ -517,7 +517,7 @@ private
     end
 
     auto_collect(@data_object) # SPG asks for all curation to add the item to their watchlist.
-    CuratorActivityLog.create(opts.reverse_merge(
+    create_options = {
       :user => current_user,
       :changeable_object_type => changeable_object_type,
       :object_id => object_id,
@@ -525,7 +525,9 @@ private
       :data_object => @data_object,
       :hierarchy_entry => he,
       :created_at => 0.seconds.from_now
-    ))
+    }
+    create_options[:taxon_concept_id] = opts[:taxon_concept_id] if opts[:taxon_concept_id]
+    CuratorActivityLog.create(create_options)
   end
 
   def save_untrust_reasons(log, action, untrust_reason_ids)

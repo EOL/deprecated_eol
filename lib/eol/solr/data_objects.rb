@@ -37,6 +37,7 @@ module EOL
         # check the exemplar images to avoid unnecessary Solr lookups
         TaxonConcept.preload_associations(taxon_concepts, { :taxon_concept_exemplar_image => :data_object })
         taxon_concepts.each do |tc|
+          TaxonConcept.prepare_cache_classes
           next if $CACHE.read(TaxonConcept.cached_name_for("best_image_#{tc.id}"))
           if best_image = tc.published_exemplar_image
             all_best_images_for_concepts[tc.id] = best_image

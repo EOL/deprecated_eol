@@ -1,3 +1,6 @@
+- data_object ||= nil
+- taxon_concept ||= nil
+- bulk = data_object || taxon_concept
 - translation_vars = {:scope => [:activity_logs, :curator_activity_log]}
 - translation_vars[:reasons] = item.untrust_reasons.map(&:label).to_sentence
 - item.untrust_reasons.nil? ? [] : item.untrust_reasons.map(&:label)
@@ -7,7 +10,7 @@
 - else
   - translation_vars[:user] = link_to(h(item.user.full_name), user_url(item.user),
     :style => 'color: #195184')
-- data_object_type = 'data_object'
+- data_object_type = data_object ? 'it' : 'data_object'
 - if item.data_object.nil?
   - data_object_type = 'an_unknown_data_object'
 - else
@@ -30,25 +33,25 @@
   - association_type = 'an_unknown_name'
 - else
   - translation_vars[:name] = item.synonym.name.string
-- taxon_type = 'taxon'
+- taxon_type = taxon_concept ? 'it' : 'taxon'
 - if item.taxon_concept.nil? || ! item.taxon_concept.is_a?(TaxonConcept)
   - taxon_type = 'an_unknown_taxon'
 - else
   - translation_vars[:taxon] = link_to(item.taxon_concept.quick_scientific_name, taxon_url(item.taxon_concept),
     :style => 'color: #195184')
-%p
+%p{:style => bulk ? 'padding: 0 3em;' : nil}
   - case item.activity_id
   - when Activity.trusted.id
     = I18n.t("trusted.#{user_type}_trusted_#{data_object_type}_on_#{association_type}", translation_vars)
   - when Activity.untrusted.id
     = I18n.t("untrusted.#{user_type}_untrusted_#{data_object_type}_on_#{association_type}", translation_vars)
-    - unless translation_vars[:reasons].empty?
+    - unless translation_vars[:reasons].empty? || bulk
       %p= I18n.t(:reasons_to_untrust, translation_vars)
   - when Activity.show.id
     = I18n.t("show.#{user_type}_showed_#{data_object_type}_on_#{association_type}", translation_vars)
   - when Activity.hide.id
     = I18n.t("hide.#{user_type}_hid_#{data_object_type}_on_#{association_type}", translation_vars)
-    - unless translation_vars[:reasons].empty?
+    - unless translation_vars[:reasons].empty? || bulk
       %p= I18n.t(:reasons_to_hide, translation_vars)
   - when Activity.unreviewed.id
     = I18n.t("unreviewed.#{user_type}_unreviewed_#{data_object_type}_on_#{association_type}", translation_vars)

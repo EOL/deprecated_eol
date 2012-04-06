@@ -1,4 +1,5 @@
 - translation_vars = {:scope => [:activity_logs, :collection_activity_log]}
+- collection ||= nil
 - user_type = 'user'
 - if item.user.nil?
   - user_type = 'an_unknown_user'
@@ -6,7 +7,9 @@
   - translation_vars[:user] = link_to(h(item.user.full_name), user_path(item.user),
     :style => 'color: #195184')
 - collection_type = 'collection'
-- if item.collection.nil?
+- if collection
+  - collection_type = 'it'
+- elsif item.collection.nil?
   - collection_type = 'an_unknown_collection'
 - else
   - translation_vars[:collection] = link_to(item.collection.summary_name, collection_path(item.collection),
@@ -17,7 +20,7 @@
 - else
   - translation_vars[:item] = link_to(item.collection_item.object.summary_name,
     link_to_item(item.collection_item.object), :style => 'color: #195184')
-%p
+%p{collection ? {:style => 'padding: 0 3em;'} : nil}
   - case item.activity_id
   - when Activity.add_editor.id
     = I18n.t("add_editor.#{user_type}_of_#{collection_type}", translation_vars)

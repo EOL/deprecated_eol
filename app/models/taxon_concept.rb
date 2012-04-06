@@ -96,6 +96,25 @@ class TaxonConcept < ActiveRecord::Base
     :include => [{ :published_hierarchy_entries => [ :name , :hierarchy, :vetted ] }, { :data_objects => [ { :toc_items => :info_items }, :license] },
       { :users_data_objects => { :data_object => :toc_items } }]
 
+  def self.prepare_cache_classes
+    TaxonConceptExemplarImage
+    CuratedDataObjectsHierarchyEntry
+    DataObjectsHierarchyEntry
+    ContentPartner
+    AgentsDataObject
+    AgentRole
+    Agent
+    UsersDataObject
+    TocItem
+    License
+    Visibility
+    Resource
+  end
+
+  def self.load_for_title_only(load_these)
+    TaxonConcept.find(load_these, :select => 'id, supercedure_id', :include => [:hierarchy_entries])
+  end
+
   def all_superceded_taxon_concept_ids
     # arbitrarily 
     superceded_taxon_concept_ids = []
@@ -521,7 +540,6 @@ class TaxonConcept < ActiveRecord::Base
     return final_name
   end
   alias :summary_name :quick_scientific_name
-
 
   def superceded_the_requested_id?
     @superceded_the_requested_id
@@ -1049,16 +1067,7 @@ class TaxonConcept < ActiveRecord::Base
   def exemplar_or_best_image_from_solr(selected_hierarchy_entry = nil)
     cache_key = "best_image_#{self.id}"
     cache_key += "_#{selected_hierarchy_entry.id}" if selected_hierarchy_entry && selected_hierarchy_entry.class == HierarchyEntry
-    TaxonConceptExemplarImage
-    CuratedDataObjectsHierarchyEntry
-    DataObjectsHierarchyEntry
-    ContentPartner
-    AgentsDataObject
-    AgentRole
-    Agent
-    UsersDataObject
-    TocItem
-    License
+    TaxonConcept.prepare_cache_classes
     @best_image ||= $CACHE.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 1.days) do
       if published_exemplar = self.published_exemplar_image
         published_exemplar

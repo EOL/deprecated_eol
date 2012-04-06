@@ -624,7 +624,30 @@ describe TaxonConcept do
     best_text.save
     best_text.update_solr_index
   end
-  
+
+  it 'should use the name from the specified hierarchy' do
+    tc = TaxonConcept.gen
+    name1 = Name.gen(:string => "Name1")
+    he1 = HierarchyEntry.gen(:taxon_concept => tc, :name => name1, :hierarchy => Hierarchy.gen)
+    name2 = Name.gen(:string => "Name2")
+    he2 = HierarchyEntry.gen(:taxon_concept => tc, :name => name2, :hierarchy => Hierarchy.gen)
+    
+    tc.entry.should == he1
+    tc.title.should == he1.name.string
+    tc = TaxonConcept.find(tc.id)
+    
+    tc.entry(he1.hierarchy).should == he1
+    tc.title(he1.hierarchy).should == he1.name.string
+    tc = TaxonConcept.find(tc.id)
+    
+    tc.entry(he2.hierarchy).should == he2
+    tc.title(he2.hierarchy).should == he2.name.string
+    tc = TaxonConcept.find(tc.id)
+    
+    # now checking the default again to make sure we get the original value
+    tc.entry.should == he1
+    tc.title.should == he1.name.string
+  end
 
   #
   # I'm all for pending tests, but in this case, they run SLOWLY, so it's best to comment them out:

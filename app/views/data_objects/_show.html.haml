@@ -33,6 +33,12 @@
         %p= link_to I18n.t(:view_full_size_image), @data_object.object_url
       - else
         %p= link_to I18n.t(:view_full_size_image), @data_object.thumb_or_object(:orig)
+  - if @data_object.translated_from
+    .article.source
+      .header
+        %h3= I18n.t(:translation_information_header)
+      = render :partial => 'data_objects/supplier', :locals => { :data_object => @data_object, :translation => true }
+      = render :partial => 'data_objects/agents', :locals => { :data_object => @data_object }
   - unless for_worklist
     = render :partial => '/data_objects/rating', :locals => { :data_object => @data_object, :en_type => en_type } if @latest_published_revision && @latest_published_revision.id == @data_object.id
   - else

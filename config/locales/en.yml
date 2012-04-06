@@ -3006,6 +3006,7 @@ en:
     other: "%{count} total items"
   total_searches: "Total searches:"
   total: "Total"
+  translation_information_header: "Translation information"
   translations_submit: "View translation"
   trigger_search_term_entered_by: "trigger search term entered by the user"
   true: "True"

@@ -594,11 +594,13 @@ class DataObject < ActiveRecord::Base
 
   def update_solr_index
     if self.published
-      self.class.uncached do
-        # creating another instance to remove any change of this instance not
-        # matching the database and indexing stale or changed information
-        object_to_index = DataObject.find(self.id)
-        EOL::Solr::DataObjectsCoreRebuilder.reindex_single_object(object_to_index)
+      DataObject.with_master do
+        self.class.uncached do
+          # creating another instance to remove any change of this instance not
+          # matching the database and indexing stale or changed information
+          object_to_index = DataObject.find(self.id)
+          EOL::Solr::DataObjectsCoreRebuilder.reindex_single_object(object_to_index)
+        end
       end
     else
       # hidden, so delete it from solr

@@ -97,33 +97,52 @@ class Resource < ActiveRecord::Base
     (resource_status.nil?) ?  I18n.t(:content_partner_resource_resource_status_new) : resource_status.label
   end
 
-  # TODO: We probably don't need this - and not sure its being used correctly anyway. It's being called
-  # by taxa controller accessible_page? method which I don't think is needed anymore, some code clean up
-  # probably needed in taxa controller.
-  def latest_unpublished_harvest_event
-    return @latest_unpublished_harvest if defined? @latest_unpublished_harvest # avoid running query twice if result was nil
-    @latest_unpublished_harvest = HarvestEvent.find(:first,
-        :conditions => ["published_at IS NULL AND completed_at IS NOT NULL AND resource_id = ?", id],
-        :limit => 1, :order => 'completed_at desc')
+  def oldest_published_harvest_event
+    return @oldest_published_harvest if defined? @oldest_published_harvest
+    HarvestEvent
+    cache_key = "oldest_published_harvest_event_for_resource_#{id}"
+    @oldest_published_harvest = $CACHE.read(Resource.cached_name_for(cache_key))
+    # not using fetch as only want to set expiry when there is no harvest event
+    if @oldest_published_harvest.nil? #cache miss
+      @oldest_published_harvest = HarvestEvent.find(:first,
+        :conditions => ["published_at IS NOT NULL AND completed_at IS NOT NULL AND resource_id = ?", id],
+        :limit => 1, :order => 'published_at')
+      if @oldest_published_harvest.nil?
+        # resource not yet published store 0 in cache with expiry so we don't try to find it again for a while
+        $CACHE.write(Resource.cached_name_for(cache_key), 0, :expires_in => 6.hours)
+      else
+        $CACHE.write(Resource.cached_name_for(cache_key), @oldest_published_harvest)
+      end
+    elsif @oldest_published_harvest == 0 # cache hit, resource not yet published so set harvest event to nil
+      @oldest_published_harvest = nil
+    end
+    @oldest_published_harvest
   end
 
   def latest_published_harvest_event
-    return @latest_published_harvest if defined? @latest_published_harvest # avoid running query twice if result was nil
-    @latest_published_harvest = HarvestEvent.find(:first,
+    return @latest_published_harvest if defined? @latest_published_harvest
+    HarvestEvent
+    cache_key = "latest_published_harvest_event_for_resource_#{id}"
+    @latest_published_harvest = $CACHE.fetch(Resource.cached_name_for(cache_key), :expires_in => 6.hours) do
+      he = HarvestEvent.find(:first,
        :conditions => ["published_at IS NOT NULL AND completed_at IS NOT NULL AND resource_id = ?", id],
        :limit => 1, :order => 'published_at desc')
-  end
-
-  def oldest_published_harvest_event
-    return @oldest_published_harvest if defined? @oldest_published_harvest # avoid running query twice if result was nil
-    @oldest_published_harvest = HarvestEvent.find(:first,
-        :conditions => ["published_at IS NOT NULL AND completed_at IS NOT NULL AND resource_id = ?", id],
-        :limit => 1, :order => 'published_at')
+      he.nil? ? 0 : he # use 0 instead of nil when setting for cache because cache treats nil as a miss
+    end
+    @latest_published_harvest = nil if @latest_published_harvest == 0 # return nil or HarvestEvent, i.e. not the 0 cache hit
+    @latest_published_harvest
   end
 
   def latest_harvest_event
-    return @latest_harvest if defined? @latest_harvest # avoid running query twice if result was nil
-    @latest_harvest = HarvestEvent.find(:first, :limit => 1, :order => 'id DESC', :conditions => ["resource_id = ?", id])
+    return @latest_harvest if defined? @latest_harvest
+    HarvestEvent
+    cache_key = "latest_harvest_event_for_resource_#{self.id}"
+    @latest_harvest = $CACHE.fetch(Resource.cached_name_for(cache_key), :expires_in => 6.hours) do
+      he = HarvestEvent.find(:first, :limit => 1, :order => 'id DESC', :conditions => ["resource_id = ?", id])
+      he.nil? ? 0 : he # use 0 instead of nil when setting for cache because cache treats nil as a miss
+    end
+    @latest_harvest = nil if @latest_harvest == 0 # return nil or HarvestEvent, i.e. not the 0 cache hit
+    @latest_harvest
   end
 
 #  # vet or unvet entire resource (0 = unknown, 1 = vet)

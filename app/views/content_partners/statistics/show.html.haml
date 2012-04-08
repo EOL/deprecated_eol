@@ -67,17 +67,10 @@
           %th= I18n.t(:content_partner_statistics_column_header_taxa_page_unique_page_views)
           %th= I18n.t(:content_partner_statistics_column_header_taxa_page_time_on_page_seconds)
         %tbody
-          - count = 0
           - @pages.each do |page|
-            - column_class=cycle('odd','even')
-            - count += 1
-            - concept = TaxonConcept.find(page.taxon_concept_id)
-            - name = concept.quick_scientific_name(:italicized)
             %tr
               %td= page.taxon_concept_id
-              %td
-                %i
-                  = name
+              %td= page.taxon_concept.title
               %td= page.page_views
               %td= page.unique_page_views
               %td= page.timeonpage

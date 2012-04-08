@@ -32,7 +32,7 @@ describe Taxa::NamesController do
 
   describe 'POST names' do
     before :each do
-      session[:user] = @testy[:curator]
+      session[:user_id] = @testy[:curator].id
       @approved_languages = Language.approved_languages.collect{|l| l.id}
     end
     it 'should add a new common name in approved languages' do

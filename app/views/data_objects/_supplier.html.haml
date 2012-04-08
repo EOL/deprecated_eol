@@ -1,13 +1,22 @@
+- association_supplied_by_user ||= nil
 - minimal = false unless defined?(minimal)
+- translation = false unless defined?(translation)
 %p
-  - if data_object.added_by_user? && !data_object.users_data_object.blank?
+  - if association_supplied_by_user
+    = I18n.t(:supplier_colon)
+    = link_to association_supplied_by_user.full_name, association_supplied_by_user rescue nil
+  - elsif data_object.added_by_user? && !data_object.users_data_object.blank?
     = I18n.t(:supplier_colon)
     = link_to data_object.users_data_object.user.full_name, data_object.users_data_object.user rescue nil
   - elsif data_object.content_partner
     - if !data_object.source_url.blank?
-      = I18n.t(:source_colon)
-      = link_to data_object.content_partner.name, data_object.source_url, :rel => :nofollow rescue nil
-      %br
+      - if minimal
+        = I18n.t(:source_colon)
+        = link_to data_object.content_partner.name, data_object.source_url, :rel => :nofollow rescue nil
+        %br
+      - elsif !translation
+        = link_to I18n.t(:view_source), data_object.source_url, :rel => :nofollow rescue nil
+        %br
     - elsif !data_object.content_partner.homepage.blank?
       = I18n.t(:supplier_colon)
       = link_to data_object.content_partner.name, data_object.content_partner.homepage, :rel => :nofollow rescue nil

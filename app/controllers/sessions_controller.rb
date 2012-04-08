@@ -45,9 +45,10 @@ class SessionsController < ApplicationController
 private
 
   def log_in(user)
-    set_current_user(user)
+    session[:user_id] = user.id
+    update_current_language(user.language)
     flash[:notice] = I18n.t(:sign_in_successful_notice)
-    if EOLConvert.to_boolean(params[:remember_me])
+    if params[:remember_me]
       if user.is_admin?
         flash[:notice] += " #{I18n.t(:sign_in_remember_me_disallowed_for_admins_notice)}"
       else
@@ -55,18 +56,14 @@ private
         cookies[:user_auth_token] = { :value => user.remember_token , :expires => user.remember_token_expires_at }
       end
     end
-    session.delete(:recently_visited_collections)
-    expire_user_specific_caches
-  end
-
-  def expire_user_specific_caches
-    # the portion of the homepage underneath the march of life. Language-specific
-    # expire_fragment(:controller => 'content', :part => 'home_' + current_user.content_page_cache_str + '_logged_in')
+    session.delete(:recently_visited_collections) # Yes, it was requested that these be empty when you log in.
   end
 
   def log_out
     cookies.delete :user_auth_token
-    session[:language] = current_user.language_abbr # Store this, so it doesn't change on logout.
+    lang = current_language.id
     reset_session
+    session[:language_id] = lang # Don't want this to change on logout.
   end
+
 end

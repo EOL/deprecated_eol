@@ -3,7 +3,7 @@
   - if position == :header
     %h2.assistive= I18n.t(:global_navigation)
   %ul.nav
-    - cache(:controller => "/content", :part => "global_navigation_#{position}_#{current_user.language_abbr}") do
+    - cache(:controller => "/content", :part => "global_navigation_#{position}_#{current_language.iso_639_1}") do
       %li
         = link_to I18n.t(:discover_link), discover_path
       %li

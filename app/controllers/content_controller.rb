@@ -12,7 +12,6 @@ class ContentController < ApplicationController
   skip_before_filter :original_request_params, :only => :random_homepage_images
   skip_before_filter :global_warning, :only => :random_homepage_images
   skip_before_filter :redirect_to_http_if_https, :only => :random_homepage_images
-  skip_before_filter :set_session, :only => :random_homepage_images
   skip_before_filter :clear_any_logged_in_session, :only => :random_homepage_images
   skip_before_filter :check_user_agreed_with_terms, :only => :random_homepage_images
   skip_before_filter :set_locale, :only => :random_homepage_images
@@ -20,43 +19,10 @@ class ContentController < ApplicationController
   def index
     @rel_canonical_href = root_url.sub!(/\/+$/,'')
     @home_page = true
+    @explore_taxa = safely_shuffle(RandomHierarchyImage.random_set_cached)
+    @rich_pages_path = language_dependent_collection_path
     current_user.log_activity(:viewed_home_page)
-    begin
-      RandomHierarchyImage
-      DataObject
-      TaxonConcept
-      TaxonConceptPreferredEntry
-      Name
-      TaxonConceptExemplarImage
-      @explore_taxa = $CACHE.fetch('homepage/random_images', :expires_in => 30.minutes) do
-        RandomHierarchyImage.random_set(12)
-      end
-    rescue TypeError => e
-      # TODO - FIXME  ... This appears to have to do with $CACHE.fetch (obviously)... not sure why, though.
-      @explore_taxa = RandomHierarchyImage.random_set(12)
-    end
-
-    # recalculate the activity logs on homepage every $HOMEPAGE_ACTIVITY_LOG_CACHE_TIME minutes
-    $CACHE.fetch('homepage/activity_logs_expiration', :expires_in => $HOMEPAGE_ACTIVITY_LOG_CACHE_TIME.minutes) do
-      expire_fragment(:action => 'index', :action_suffix => "activity_#{current_user.language_abbr}")
-    end
-
-    # recalculate the march of life on homepage every 2 minutes
-    $CACHE.fetch('homepage/march_of_life_expiration', :expires_in => 120.seconds) do
-      expire_fragment(:action => 'index', :action_suffix => 'march_of_life')
-    end
-
-    begin
-      @explore_taxa.shuffle!
-    rescue TypeError => e # it's a frozen array, it's been cached somwhere.
-      @explore_taxa = @explore_taxa.dup
-      @explore_taxa.shuffle!
-    end
-    @rich_pages_path = if $RICH_LANG_PAGES_COLLECTION_IDS && $RICH_LANG_PAGES_COLLECTION_IDS.has_key?(I18n.locale)
-                         collection_path($RICH_LANG_PAGES_COLLECTION_IDS[I18n.locale])
-                       else
-                         collection_path($RICH_PAGES_COLLECTION_ID)
-                       end
+    periodically_recalculate_homepage_parts
   end
   
   def random_homepage_images
@@ -156,7 +122,8 @@ class ContentController < ApplicationController
           end
         else
           # try and render preferred language translation, otherwise links to other available translations will be shown
-          @selected_language = params[:language] ? Language.from_iso(params[:language]) : Language.from_iso(current_user.language_abbr)
+          @selected_language = params[:language] ? Language.from_iso(params[:language]) :
+            Language.from_iso(current_language.iso_639_1)
           @translated_pages = translations_available_to_user
           @translated_content = translations_available_to_user.select{|t| t.language_id == @selected_language.id}.compact.first
           @page_title = @translated_content.nil? ? I18n.t(:cms_missing_content_title) : @translated_content.title
@@ -314,4 +281,30 @@ class ContentController < ApplicationController
     @page_title = I18n.t("eol_glossary")
   end
 
+private
+
+  def periodically_recalculate_homepage_parts
+    $CACHE.fetch('homepage/activity_logs_expiration', :expires_in => $HOMEPAGE_ACTIVITY_LOG_CACHE_TIME.minutes) do
+      expire_fragment(:action => 'index', :action_suffix => "activity_#{current_language.iso_639_1}")
+    end
+    $CACHE.fetch('homepage/march_of_life_expiration', :expires_in => 120.seconds) do
+      expire_fragment(:action => 'index', :action_suffix => 'march_of_life')
+    end
+  end
+
+  def safely_shuffle(what)
+    begin
+      what.shuffle!
+    rescue TypeError => e # it's a frozen array, it's been cached somewhere.
+      what = (@explore_taxa.nil?) ? @explore_taxa : @explore_taxa.dup.shuffle!
+    end
+  end
+
+  def language_dependent_collection_path
+    if $RICH_LANG_PAGES_COLLECTION_IDS && $RICH_LANG_PAGES_COLLECTION_IDS.has_key?(I18n.locale)
+      collection_path($RICH_LANG_PAGES_COLLECTION_IDS[I18n.locale])
+    else
+      collection_path($RICH_PAGES_COLLECTION_ID)
+    end
+  end
 end

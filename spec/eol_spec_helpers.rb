@@ -9,7 +9,7 @@ module EOL
 
       def login_as(user, options = {})
         if user.is_a? User # let us pass a newly created user (with an entered_password)
-          options = { :username => user.username, :password => user.entered_password }.merge(options)
+          options.reverse_merge!(:username => user.username, :password => user.entered_password)
         elsif user.is_a? Hash
           options = options.merge(user)
         end
@@ -132,7 +132,6 @@ module EOL
         end
         tc ||= entry.taxon_concept
         options = {
-          :vetted                  => true,
           :curator_approved        => true,
           :curator_scope           => 'scope',
           :credentials             => 'Curator'

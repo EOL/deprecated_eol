@@ -42,41 +42,33 @@ describe ContentPartner do
       last_datos.map {|ob| ob.id}.sort
   end
 
-  it 'should know if a taxon_concept was in its latest harvest event' do
-    # TODO: latest_unpublished_harvest_contains uses latest_unpublished_harvest_event on resource which excludes
-    # published events so it might not be the latest harvest event... I think the methods and test are inaccurate
-    @content_partner.latest_unpublished_harvest_contains?(@contains_tc).should be_true    # Takes both a TaxonConcept...
-    @content_partner.latest_unpublished_harvest_contains?(@contains_tc.id).should be_true # ...and just an ID
-  end
-
-  it 'should know if a taxon_concept was NOT in its latest harvest event' do
-    # TODO: latest_unpublished_harvest_contains uses latest_unpublished_harvest_event on resource which excludes
-    # published events so it might not be the latest harvest event... I think the methods and test are inaccurate
-    @content_partner.latest_unpublished_harvest_contains?(@doesnt_contain_tc).should_not be_true    # Takes both a TaxonConcept...
-    @content_partner.latest_unpublished_harvest_contains?(@doesnt_contain_tc.id).should_not be_true # ...and just an ID
-  end
-
   it "should know when it has resources that have unpublished content" do
     cp = ContentPartner.gen(:user => @user)
     cp.has_unpublished_content?.should be_false # no resource means no content so we return false
+    $CACHE.clear
     resource = Resource.gen(:content_partner => cp)
     cp.reload
     cp.has_unpublished_content?.should be_true
+    $CACHE.clear
     event = HarvestEvent.gen(:resource => resource, :published_at => nil)
     cp.resources.reload
     event.resource.reload
     cp.has_unpublished_content?.should be_true
+    $CACHE.clear
     event.update_attributes(:publish => true)
     cp.resources.reload
     event.resource.reload
     cp.has_unpublished_content?.should be_true
+    $CACHE.clear
     event.update_attributes(:published_at => Time.now, :publish => false)
     cp.resources.reload
     event.resource.reload
     cp.has_unpublished_content?.should be_false
+    $CACHE.clear
     Resource.gen(:content_partner => cp)
     cp.reload
     cp.has_unpublished_content?.should be_true
+    $CACHE.clear
   end
 
   it "should know the date of the last action taken" do

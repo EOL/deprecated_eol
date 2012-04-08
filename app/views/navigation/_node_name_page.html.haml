@@ -3,7 +3,7 @@
 - include_common_names ||= @include_common_names
 - selected_hierarchy_entry ||= @selected_hierarchy_entry
 - in_hierarchy ||= @in_hierarchy
-- name_string = include_common_names ? hierarchy_entry.common_name_in_language(current_user.language).firstcap : hierarchy_entry.italicized_name.firstcap
+- name_string = include_common_names ? hierarchy_entry.common_name_in_language(current_language).firstcap : hierarchy_entry.italicized_name.firstcap
 - open ||= nil
 - if selected_hierarchy_entry && selected_hierarchy_entry.id == hierarchy_entry.id
   - if open

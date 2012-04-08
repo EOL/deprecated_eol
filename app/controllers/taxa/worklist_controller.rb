@@ -97,7 +97,7 @@ class Taxa::WorklistController < TaxaController
         { :agents_data_objects => [ :agent, :agent_role ] },
         { :data_objects_hierarchy_entries => { :hierarchy_entry => [ :name, :taxon_concept, :vetted, :visibility ] } },
         { :curated_data_objects_hierarchy_entries => { :hierarchy_entry => [ :name, :taxon_concept, :vetted, :visibility ] } } ] )
-    @revisions = DataObject.sort_by_created_date(@current_data_object.revisions).reverse
+    @revisions = @current_data_object.revisions_by_date
     @activity_log = @current_data_object.activity_log(:ids => @revisions.collect{ |r| r.id }, :page => @page || nil)
   end
 end

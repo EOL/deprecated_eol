@@ -2022,8 +2022,8 @@ es:
   to_process_your_donation_please_proceed: Para procesar su donación, por favor siga
   toc: TDC
   total_items_with_count: 
-    one: "%{count} ítem"
-    other: "%{count} total ítems"
+    one: "%{count} elemento"
+    other: "%{count} elementos"
   translation_deleted: Se ha eliminado la traducción
   translation_saved: Se ha guardado la traducción
   translations_submit: Mira la traducción

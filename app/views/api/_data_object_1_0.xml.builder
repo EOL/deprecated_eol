@@ -38,7 +38,7 @@ unless data_object.blank?
       xml.dc :description, data_object.description unless data_object.description.blank?
       xml.mediaURL data_object.object_url unless data_object.object_url.blank?
       if data_object.is_image?
-        xml.mediaURL DataObject.image_cache_path(data_object.object_cache_url, :orig) unless data_object.object_cache_url.blank?
+        xml.mediaURL DataObject.image_cache_path(data_object.object_cache_url, :orig, $SINGLE_DOMAIN_CONTENT_SERVER) unless data_object.object_cache_url.blank?
         xml.thumbnailURL DataObject.image_cache_path(data_object.object_cache_url, '98_68', $SINGLE_DOMAIN_CONTENT_SERVER) unless data_object.object_cache_url.blank?
       elsif data_object.is_video?
         xml.mediaURL data_object.video_url unless data_object.video_url.blank? || data_object.video_url == data_object.object_url

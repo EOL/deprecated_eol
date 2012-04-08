@@ -14,8 +14,8 @@ class DataObjectsController < ApplicationController
     @taxon_concept = TaxonConcept.find(params[:taxon_id])
     set_text_data_object_options
     @data_object = DataObject.new(:data_type => DataType.text,
-                                  :license_id => License.by_nc.id,
-                                  :language_id => current_user.language_id)
+                                  :license_id => License.cc.id,
+                                  :language_id => current_language.id)
     # default to passed in toc param or brief summary if selectable, otherwise just the first selectable toc item
 
     @selected_toc_item = @toc_items.select{|ti| ti.id == params[:toc].to_i}.first
@@ -164,8 +164,8 @@ class DataObjectsController < ApplicationController
         { :agents_data_objects => [ :agent, :agent_role ] },
         { :data_objects_hierarchy_entries => { :hierarchy_entry => [ :name, :taxon_concept, :vetted, :visibility ] } },
         { :curated_data_objects_hierarchy_entries => { :hierarchy_entry => [ :name, :taxon_concept, :vetted, :visibility ] } } ] )
-    @revisions = DataObject.sort_by_created_date(@data_object.revisions).reverse
-    @latest_published_revision = @revisions.select{|r| r.published?}.first
+    @revisions = @data_object.revisions_by_date
+    @latest_published_revision = @data_object.latest_published_revision
     @translations = @data_object.available_translations_data_objects(current_user, nil)
     @translations.delete_if{ |t| t.language.nil? } unless @translations.nil?
     @image_source = get_image_source if @data_object.is_image?

@@ -239,7 +239,7 @@ describe Taxa::MediaController do
     end
     
     it 'should set an image as exemplar' do
-      session[:user] = build_curator(@taxon_concept)
+      session[:user_id] = build_curator(@taxon_concept).id
       @taxon_concept.taxon_concept_exemplar_image.should be_nil
       exemplar_image = @taxon_concept.images_from_solr.first
       put :set_as_exemplar, :taxon_id => @taxon_concept.id, :taxon_concept_exemplar_image => { :data_object_id => exemplar_image.id }

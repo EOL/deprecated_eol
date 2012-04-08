@@ -4,6 +4,10 @@ class Language < ActiveRecord::Base
   has_many :users
   has_many :taxon_concept_names
 
+  def to_s
+    iso_639_1
+  end
+
   def self.find_active
     cached("active_languages") do
       self.find(:all, :conditions => ['activated_on <= ?', Time.now.to_s(:db)], :order => 'sort_order ASC, source_form ASC')

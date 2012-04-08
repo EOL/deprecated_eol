@@ -1,81 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<extension xmlns="http://ipt.gbif.org/extension/"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://ipt.gbif.org/extension/ http://gbrds.gbif.org/resources/schemas/extension.xsd"
-            title="EOL References Extension 1.0"
-            name="EOL References Extension 1.0"
-            namespace="http://www.eol.org/schema/reference_extension/1.0/">
-
-    <property name="referenceID"
-              namespace="http://www.eol.org/schema/reference#"
-              qualName="http://www.eol.org/schema/reference#referenceId"
-              required="true"/>
-
-    <property name="fullReference"
-              namespace="http://www.eol.org/schema/reference#"
-              qualName="http://www.eol.org/schema/reference#fullReference"/>
-
-    <property name="authorList"
-              namespace="http://www.eol.org/schema/reference#"
-              qualName="http://www.eol.org/schema/reference#authorList"/>
-
-    <property name="editorList"
-              namespace="http://www.eol.org/schema/reference#"
-              qualName="http://www.eol.org/schema/reference#editorList"/>
-
-    <property name="created"
-              namespace="http://www.eol.org/schema/reference#"
-              qualName="http://www.eol.org/schema/reference#created"/>
-
+<extension xmlns="http://ipt.gbif.org/extension/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dc="http://purl.org/dc/terms/" xsi:schemaLocation="http://ipt.gbif.org/extension/ http://gbrds.gbif.org/resources/schemas/extension.xsd" title="EOL References Extension 1.0" name="EOL References Extension 1.0" namespace="http://www.eol.org/schema/transfer#">
+    <property name="identifier"
+        namespace="http://purl.org/dc/terms/"
+        qualName="http://purl.org/dc/terms/identifier"
+        dc:description="An identifier for a resource that is referenced, cited, or otherwise pointed to by a taxon or media resource."
+        required="true"/>
+    <property name="publication_type"
+        namespace="eol#"
+        qualName="eol#publication_type"
+        dc:description="book, journal, journal article, webpage, â€¦"/>
+    <property name="full_reference"
+        namespace="http://eol.org/schema/reference/"
+        qualName="http://eol.org/schema/reference/full_reference"
+        dc:description="A complete bibliographic citation describing the resource. Use of this field will cause the more specific fields here to be ignored."/>
+    <property name="primary_title"
+        namespace="eol#"
+        qualName="eol#primary_title"
+        dc:description="Used to describe the title of a bibliographic resource."/>
     <property name="title"
-              namespace="http://www.eol.org/schema/reference#"
-              qualName="http://www.eol.org/schema/reference#title"/>
-
+        namespace="http://purl.org/dc/terms/"
+        qualName="http://purl.org/dc/terms/title"
+        dc:description="Used to describe the title of an artlcle or chapter"/>
     <property name="pages"
-              namespace="http://www.eol.org/schema/reference#"
-              qualName="http://www.eol.org/schema/reference#pages"/>
-
-    <property name="pagesStart"
-              namespace="http://www.eol.org/schema/reference#"
-              qualName="http://www.eol.org/schema/reference#pagesStart"/>
-
+        namespace="http://purl.org/ontology/bibo/"
+        qualName="http://purl.org/ontology/bibo/pages"
+        dc:description="A string of non-contiguous page spans that locate a Document within a Collection. Example: 23-25, 34, 54-56. For continuous page ranges, use the pageStart and pageEnd properties."/>
+    <property name="pageStart"
+        namespace="http://purl.org/ontology/bibo/"
+        qualName="http://purl.org/ontology/bibo/pageStart"
+        dc:description="Starting page number within a continuous page range."/>
     <property name="pageEnd"
-              namespace="http://www.eol.org/schema/reference#"
-              qualName="http://www.eol.org/schema/reference#pageEnd"/>
-
+        namespace="http://purl.org/ontology/bibo/"
+        qualName="http://purl.org/ontology/bibo/pageEnd"
+        dc:description="Ending page number within a continuous page range."/>
     <property name="volume"
-              namespace="http://www.eol.org/schema/reference#"
-              qualName="http://www.eol.org/schema/reference#volume"/>
-
+        namespace="http://purl.org/ontology/bibo/"
+        qualName="http://purl.org/ontology/bibo/volume"
+        dc:description="A volume number."/>
     <property name="edition"
-              namespace="http://www.eol.org/schema/reference#"
-              qualName="http://www.eol.org/schema/reference#edition"/>
-
+        namespace="http://purl.org/ontology/bibo/"
+        qualName="http://purl.org/ontology/bibo/edition"
+        dc:description="The name defining a special edition of a document. Normally its a literal value composed of a version number and words."/>
     <property name="publisher"
-              namespace="http://www.eol.org/schema/reference#"
-              qualName="http://www.eol.org/schema/reference#publisher"/>
-
+        namespace="http://purl.org/dc/terms/"
+        qualName="http://purl.org/dc/terms/publisher"
+        dc:description="Used to link a bibliographic item to its publisher."/>
+    <property name="authorList"
+        namespace="http://purl.org/ontology/bibo/"
+        qualName="http://purl.org/ontology/bibo/authorList"
+        dc:description="An ordered list of authors. Normally, this list is seen as a priority list that order authors by importance. Last name, first"/>
+    <property name="editorList"
+        namespace="http://purl.org/ontology/bibo/"
+        qualName="http://purl.org/ontology/bibo/editorList"
+        dc:description="An ordered list of editors. Normally, this list is seen as a priority list that order editors by importance."/>
+    <property name="created"
+        namespace="http://purl.org/dc/terms/"
+        qualName="http://purl.org/dc/terms/created"
+        dc:description="The date of the creation for the original resource from which the digital media was derived or created."/>
     <property name="language"
-              namespace="http://www.eol.org/schema/reference#"
-              qualName="http://www.eol.org/schema/reference#language"/>
-
+        namespace="http://purl.org/dc/terms/"
+        qualName="http://purl.org/dc/terms/language"
+        dc:description="Language of resource itself represented in ISO639-1 or ISO639-3."/>
     <property name="uri"
-              namespace="http://www.eol.org/schema/reference#"
-              qualName="http://www.eol.org/schema/reference#uri"/>
-
+        namespace="http://purl.org/ontology/bibo/"
+        qualName="http://purl.org/ontology/bibo/uri"
+        dc:description="Universal Resource Identifier of a document."/>
     <property name="doi"
-              namespace="http://www.eol.org/schema/reference#"
-              qualName="http://www.eol.org/schema/reference#doi"/>
-
-    <property name="isbn"
-              namespace="http://www.eol.org/schema/reference#"
-              qualName="http://www.eol.org/schema/reference#isbn"/>
-
-    <property name="issn"
-              namespace="http://www.eol.org/schema/reference#"
-              qualName="http://www.eol.org/schema/reference#issn"/>
-
-    <property name="taxonID"
-              namespace="http://rs.tdwg.org/dwc/terms/"
-              qualName="http://rs.tdwg.org/dwc/terms/relatedResourceID"/>
+        namespace="http://purl.org/ontology/bibo/"
+        qualName="http://purl.org/ontology/bibo/doi"
+        dc:description="Digital Object Identifier (DOI) for identifying the resource."/>
+    <property name="localityName"
+        namespace="http://schemas.talis.com/2005/address/schema#"
+        qualName="http://schemas.talis.com/2005/address/schema#localityName"
+        dc:description="Used to name the locality of a publisher, an author, etc."/>
 </extension>

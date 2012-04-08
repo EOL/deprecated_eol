@@ -41,13 +41,13 @@ module EOL
     def self.recreate
       EOL::DB.drop
       EOL::DB.create
+      Rake::Task['db:migrate'].invoke
     end
 
     def self.rebuild
       Rake::Task['solr:stop'].invoke
       EOL::DB.recreate
       EOL::DB.clear_temp
-      Rake::Task['db:migrate'].invoke
       # This looks like duplication with #populate, but it skips truncating, since the DBs are fresh.  Faster:
       Rake::Task['solr:start'].invoke
       ENV['NAME'] = 'bootstrap'

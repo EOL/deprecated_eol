@@ -286,7 +286,6 @@ tc.add_common_name_synonym('Tiger moth', :agent => agent_col, :language => Langu
 # While I'm at it, though, I am *also* giving this user the same email address as another user.
 last_user = User.last
 u = User.gen(:email => last_user.email)
-u.vetted = false
 tc.current_user = u
 taxon_concept_image = tc.data_objects.find(:all, :conditions => "data_type_id IN (#{DataType.image_type_ids.join(',')})").first
 taxon_concept_image.comments[0].body = 'First comment'

@@ -223,11 +223,11 @@ class TaxonConcept < ActiveRecord::Base
 
   # Call this instead of @current_user, so that you will be given the appropriate (and DRY) defaults.
   def current_user
-    @current_user ||= User.create_new
+    @current_user ||= User.new
   end
 
   def self.current_user_static
-    @current_user ||= User.create_new
+    @current_user ||= User.new
   end
 
   # Set the current user, so that methods will have defaults (language, etc) appropriate to that user.
@@ -315,16 +315,16 @@ class TaxonConcept < ActiveRecord::Base
 
   # Singleton method to fetch the Hierarchy Entry, used for taxonomic relationships
   def entry(hierarchy = nil)
-    hierarchy ||= Hierarchy.default
     @cached_entry ||= {}
     return @cached_entry[hierarchy] if @cached_entry && @cached_entry[hierarchy]
-    raise "Error finding default hierarchy" if hierarchy.nil? # EOLINFRASTRUCTURE-848
-    raise "Cannot find a HierarchyEntry with anything but a Hierarchy" unless hierarchy.is_a? Hierarchy
+    raise "Cannot find a HierarchyEntry with anything but a Hierarchy" if hierarchy && !hierarchy.is_a?(Hierarchy)
     
     # return the cached one unless it is expired
-    if taxon_concept_preferred_entry && taxon_concept_preferred_entry.hierarchy_entry &&
-        !taxon_concept_preferred_entry.expired?
-      return taxon_concept_preferred_entry.hierarchy_entry
+    unless hierarchy
+      if taxon_concept_preferred_entry && taxon_concept_preferred_entry.hierarchy_entry &&
+          !taxon_concept_preferred_entry.expired?
+        return taxon_concept_preferred_entry.hierarchy_entry
+      end
     end
     
     TaxonConcept.preload_associations(self, :published_hierarchy_entries => [ :vetted, :hierarchy ])
@@ -332,12 +332,13 @@ class TaxonConcept < ActiveRecord::Base
     if @all_entries.blank?
       @all_entries = HierarchyEntry.sort_by_vetted(hierarchy_entries)
     end
-
-    best_entry ||= (@all_entries.detect{ |he| he.hierarchy_id == hierarchy.id } ||
-      @all_entries[0] ||
-      nil)
     
-    if best_entry
+    if hierarchy
+      best_entry = @all_entries.detect{ |he| he.hierarchy_id == hierarchy.id }
+    end
+    best_entry ||= @all_entries[0]
+    
+    if best_entry && !hierarchy
       taxon_concept_preferred_entry.delete if taxon_concept_preferred_entry
       TaxonConceptPreferredEntry.create(:taxon_concept_id => self.id, :hierarchy_entry_id => best_entry.id)
     end
@@ -480,7 +481,7 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def quick_common_name(language = nil, hierarchy = nil)
-    language ||= current_user.language
+    language ||= current_user.language || Language.default
     hierarchy ||= Hierarchy.default
     common_name_results = connection.execute(
       "SELECT n.string name, he.hierarchy_id source_hierarchy_id
@@ -584,18 +585,16 @@ class TaxonConcept < ActiveRecord::Base
     end
   end
 
-  # title and sub-title depend on expertise level of the user that is passed in (default to novice if none specified)
   def title(hierarchy = nil)
     return @title unless @title.nil?
-    return '' if entry.nil?
-    @title = entry.italicized_name.firstcap
+    return '' if entry(hierarchy).nil?
+    @title = entry(hierarchy).italicized_name.firstcap
   end
 
-  # title and sub-title depend on expertise level of the user that is passed in (default to novice if none specified)
   def title_canonical(hierarchy = nil)
     return @title_canonical unless @title_canonical.nil?
-    return '' if entry.nil?
-    @title_canonical = entry.title_canonical
+    return '' if entry(hierarchy).nil?
+    @title_canonical = entry(hierarchy).title_canonical
   end
 
 
@@ -645,7 +644,8 @@ class TaxonConcept < ActiveRecord::Base
       JOIN names n ON (he_parent.name_id=n.id)
       JOIN hierarchies h ON (he_child.hierarchy_id=h.id)
       WHERE #{filter[0]}
-      AND browsable=1
+      AND he_parent.published = 1
+      AND browsable = 1
     ").all_hashes.uniq
 
     children = TaxonConcept.connection.execute("
@@ -655,7 +655,8 @@ class TaxonConcept < ActiveRecord::Base
       JOIN names n ON (he_child.name_id=n.id)
       JOIN hierarchies h ON (he_parent.hierarchy_id=h.id)
       WHERE #{filter[1]}
-      AND browsable=1
+      AND he_child.published = 1
+      AND browsable = 1
     ").all_hashes.uniq
 
     grouped_parents = {}
@@ -724,7 +725,7 @@ class TaxonConcept < ActiveRecord::Base
       end
     
       text_objects = self.data_objects_from_solr(solr_search_params.merge({
-        :per_page => options[:text],
+        :per_page => options[:text].to_i,
         :toc_ids => options[:toc_items] ? options[:toc_items].collect(&:id) : nil,
         :data_type_ids => DataType.text_type_ids,
         :filter_by_subtype => false
@@ -736,7 +737,7 @@ class TaxonConcept < ActiveRecord::Base
     image_objects = []
     if options[:images].to_i > 0
       image_objects = self.data_objects_from_solr(solr_search_params.merge({
-        :per_page => options[:images],
+        :per_page => options[:images].to_i,
         :data_type_ids => DataType.image_type_ids,
         :return_hierarchically_aggregated_objects => true
       }))
@@ -746,7 +747,7 @@ class TaxonConcept < ActiveRecord::Base
     video_objects = []
     if options[:videos].to_i > 0
       video_objects = self.data_objects_from_solr(solr_search_params.merge({
-        :per_page => options[:videos],
+        :per_page => options[:videos].to_i,
         :data_type_ids => DataType.video_type_ids,
         :return_hierarchically_aggregated_objects => true,
         :filter_by_subtype => false
@@ -757,7 +758,7 @@ class TaxonConcept < ActiveRecord::Base
     sound_objects = []
     if options[:sounds].to_i > 0
       sound_objects = self.data_objects_from_solr(solr_search_params.merge({
-        :per_page => options[:sounds],
+        :per_page => options[:sounds].to_i,
         :data_type_ids => DataType.sound_type_ids,
         :return_hierarchically_aggregated_objects => true,
         :filter_by_subtype => false
@@ -767,14 +768,14 @@ class TaxonConcept < ActiveRecord::Base
     map_objects = []
     if options[:maps].to_i > 0
       map_objects = self.data_objects_from_solr(solr_search_params.merge({
-        :per_page => options[:sounds],
+        :per_page => options[:sounds].to_i,
         :data_type_ids => DataType.image_type_ids,
         :data_subtype_ids => DataType.map_type_ids
       }))
     end
     
     all_data_objects = [ text_objects, image_objects, video_objects, sound_objects, map_objects ].flatten.compact
-    if options[:iucn]
+    if options[:iucn] && options[:iucn] != "0"
       # we create fake IUCN objects if there isn't a real one. Don't use those in the API
       if iucn && iucn.id
         iucn.data_type = DataType.text
@@ -783,8 +784,9 @@ class TaxonConcept < ActiveRecord::Base
     end
     
     # preload necessary associations for API response
-    DataObject.preload_associations(all_data_objects, [ :data_objects_hierarchy_entries, :curated_data_objects_hierarchy_entries, 
-      :users_data_object, { :agents_data_objects => :agent }, :published_refs ] )
+    DataObject.preload_associations(all_data_objects, [ { :data_objects_hierarchy_entries => :vetted },
+      :curated_data_objects_hierarchy_entries, :data_type, :license, :language, :mime_type,
+      :users_data_object, { :agents_data_objects => [ :agent, :agent_role ] }, :published_refs ] )
     all_data_objects
   end
 
@@ -1098,7 +1100,8 @@ class TaxonConcept < ActiveRecord::Base
     overview_toc_item_ids = [TocItem.brief_summary, TocItem.comprehensive_description, TocItem.distribution].collect{ |toc_item| toc_item.id }
     overview_text_objects = self.text_for_user(the_user, {
       :per_page => 20,
-      :language_ids => [ the_user.language_id ],
+      :language_ids => [ the_user.language.id ],
+      :allow_nil_languages => (the_user.language.id == Language.default.id),
       :toc_ids => overview_toc_item_ids })
     DataObject.preload_associations(overview_text_objects, { :data_objects_hierarchy_entries => [ :hierarchy_entry,
       :vetted, :visibility ] },
@@ -1134,7 +1137,8 @@ class TaxonConcept < ActiveRecord::Base
   # there is an artificial limit of 600 text objects here to increase the default 30
   def details_text_for_user(the_user, options = {})
     text_objects = self.text_for_user(the_user, {
-      :language_ids => [ the_user.language_id ],
+      :language_ids => [ the_user.language.id ],
+      :allow_nil_languages => (the_user.language.id == Language.default.id),
       :toc_ids_to_ignore => TocItem.exclude_from_details.collect{ |toc_item| toc_item.id },
       :per_page => (options[:limit] || 600) })
     

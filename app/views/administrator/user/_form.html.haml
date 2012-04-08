@@ -53,27 +53,6 @@
   %tr
     %td
       %strong
-        =I18n.t("content_setting_colon")
-    %td
-      = f.radio_button :expertise, "novice"
-      = I18n.t(:information_intended_for_beginners)
-      %br
-      = f.radio_button :expertise, "middle"
-      = I18n.t(:information_for_any_audience)
-      %br
-      = f.radio_button :expertise, "expert"
-      = I18n.t(:information_intended_for_experts)
-      %br
-  %tr
-    %td
-      %strong
-        =I18n.t("only_show_authoritative_conten")
-    %td
-      = f.check_box :vetted
-      =I18n.t("true_label")
-  %tr
-    %td
-      %strong
         =I18n.t("request_mailing_list_colon")
     %td
       = f.check_box :mailing_list

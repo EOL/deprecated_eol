@@ -1569,7 +1569,7 @@ sr-CS:
   message_colon: "Poruka:"
   meta_description_colon: "Meta opis:"
   meta_keywords_colon: "Meta ključne reči:"
-  meta_title_suffix: Enciklopedija života
+  meta_title_site_name: Enciklopedija života
   method: Način
   method_to_get_metadata_about_the_hierarchy: kada navedete naznaku hijerarhije, ova metoda će prijaviti metapodatke o hijerarhiji i prikazati osnovne taksone
   methods: Načini

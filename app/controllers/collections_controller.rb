@@ -26,15 +26,6 @@ class CollectionsController < ApplicationController
     end
   end
 
-  def get_collection_objects(collection_ids)
-    collection_ids = collection_ids.reverse[1..collection_ids.length]
-    @recently_visited_collections = []
-    collections = Collection.find(collection_ids)
-    collection_ids.each do |collection_id|
-      @recently_visited_collections << collections.detect { |c| c.id == collection_id }
-    end
-  end
-
   def new
     @page_title = I18n.t(:create_a_collection)
     @collection = Collection.new
@@ -44,6 +35,7 @@ class CollectionsController < ApplicationController
     @collection = Collection.new(params[:collection])
     if @collection.save
       @collection.users = [current_user]
+      log_activity(:activity => Activity.create)
       flash[:notice] = I18n.t(:collection_created_with_count_notice,
                               :collection_name => link_to_name(@collection),
                               :count => @collection.collection_items.count)
@@ -364,8 +356,7 @@ private
                                   :added_by_user_id => current_user.id }.merge!(copiable)
         count += 1
         # TODO - gak.  This points to the wrong collection item and needs to be moved to AFTER the save:
-        CollectionActivityLog.create(:collection => options[:to], :user => current_user,
-                                     :activity => Activity.collect, :collection_item => collection_item)
+        log_activity(:collection => options[:to], :activity => Activity.collect, :collection_item => collection_item)
       end
     end
     if new_collection_items.empty?
@@ -397,27 +388,22 @@ private
   def annotate
     if @collection.update_attributes(params[:collection])
       if @collection.show_references
-        collection_item = CollectionItem.find(params[:collection][:collection_items_attributes].keys.map {|i|
+        @collection_item = CollectionItem.find(params[:collection][:collection_items_attributes].keys.map {|i|
               params[:collection][:collection_items_attributes][i][:id] }.first)
-        collection_item.refs.clear
+        @collection_item.refs.clear
         unless params[:references].blank?
           params[:references].split("\n").each do |original_ref|
             reference = original_ref.strip
             unless reference.blank?
               ref = Ref.find_or_create_by_full_reference_and_user_submitted_and_published_and_visibility_id(reference, 1, 1, Visibility.visible.id)
-              collection_item.refs << ref
-              collection_item.save!
+              @collection_item.refs << ref
+              @collection_item.save!
             end
           end
         end
       end
       respond_to do |format|
         format.js do
-          # Sorry this is confusing, but we don't know which attribute number will have the id:
-          CollectionItem.with_master do
-            @collection_item = CollectionItem.find(params[:collection][:collection_items_attributes].keys.map {|i|
-              params[:collection][:collection_items_attributes][i][:id] }.first)
-          end
           render :partial => 'collection_items/show_editable_attributes',
             :locals => { :collection_item => @collection_item, :item_editable => true }
         end
@@ -445,14 +431,13 @@ private
         item.remove_collection_item_from_solr # TODO - needed?  Or does the #after_save method handle this?
         count += 1
         unless bulk_log
-          CollectionActivityLog.create(:collection_id => removed_from_id, :user => current_user,
-                                       :activity => Activity.remove, :collection_item => item)
+          log_activity(:activity => Activity.remove, :collection_item => item)
         end
       end
     end
     @collection_items.delete_if {|ci| collection_items.include?(ci.id.to_s) } if @collection_items
     if bulk_log
-      CollectionActivityLog.create(:collection => @collection, :user => current_user, :activity => Activity.remove_all)
+      log_activity(:activity => Activity.remove_all)
     end
     # Recalculate the collection's relevance (quietly):
     (col = Collection.find(removed_from_id)) && col.set_relevance
@@ -506,8 +491,8 @@ private
   end
 
   def set_sort_options
-    @sort_options = [SortStyle.newest, SortStyle.oldest, SortStyle.alphabetical, SortStyle.reverse_alphabetical,
-                     SortStyle.richness, SortStyle.rating, SortStyle.sort_field]
+    @sort_options = [ SortStyle.newest, SortStyle.oldest, SortStyle.alphabetical, SortStyle.reverse_alphabetical,
+                     SortStyle.richness, SortStyle.rating, SortStyle.sort_field, SortStyle.reverse_sort_field ]
   end
 
   def set_view_as_options
@@ -515,7 +500,7 @@ private
   end
 
   def user_able_to_view_collection
-    unless @collection && current_user.can_view_collection?(@collection)
+    unless @collection && current_user.can_read?(@collection)
       if logged_in?
         raise EOL::Exceptions::SecurityViolation, "User with ID=#{current_user.id} does not have read access to Collection with ID=#{@collection.id}"
       else
@@ -547,12 +532,12 @@ private
     if params[:for] == 'copy'
       auto_collect(@collection)
       EOL::GlobalStatistics.increment('collections')
-      CollectionActivityLog.create(:collection => @collection, :user => current_user, :activity => Activity.create)
+      log_activity(:activity => Activity.create)
       return copy_items_and_redirect(source, [@collection])
     elsif params[:for] == 'move'
       auto_collect(@collection)
       EOL::GlobalStatistics.increment('collections')
-      CollectionActivityLog.create(:collection => @collection, :user => current_user, :activity => Activity.create)
+      log_activity(:activity => Activity.create)
       return copy_items_and_redirect(source, [@collection], :move => true)
     else
       @collection.destroy
@@ -605,8 +590,11 @@ private
     types = CollectionItem.types
     @collection_item_scopes = [[I18n.t(:selected_items), :selected_items], [I18n.t(:all_items), :all_items]]
     @collection_item_scopes << [I18n.t("all_#{types[@filter.to_sym][:i18n_key]}"), @filter] if @filter
-    collection_ids = recently_visited_collections(@collection.id)
-    get_collection_objects(collection_ids) unless collection_ids.nil?
+    @recently_visited_collections = Collection.find(recently_visited_collections(@collection.id)) if @collection
+  end
+
+  def log_activity(options = {})
+    CollectionActivityLog.create(options.reverse_merge(:collection => @collection, :user => current_user))
   end
 
 end

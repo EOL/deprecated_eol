@@ -1771,7 +1771,7 @@ gl:
   message_colon: "Mensaxe:"
   meta_description_colon: "Descrición meta:"
   meta_keywords_colon: "Palabras clave meta:"
-  meta_title_suffix: Enciclopedia da vida
+  meta_title_site_name: Enciclopedia da vida
   method: Método
   method_to_get_metadata_about_the_hierarchy: a partir do identificador dunha xerarquía, este método devolve os metadatos acerca da xerarquía e lista os taxons raíz
   methods: Métodos

@@ -296,10 +296,6 @@ describe 'Taxa page (HTML)' do
 
       # and another entry just in NCBI
       HierarchyEntry.gen(:hierarchy => @ncbi, :rank => Rank.species)
-      @user_with_default_hierarchy = User.gen(:default_hierarchy_id => Hierarchy.default.id)
-      @user_with_ncbi_hierarchy    = User.gen(:default_hierarchy_id => @ncbi.id)
-      @user_with_nil_hierarchy     = User.gen(:default_hierarchy_id => nil)
-      @user_with_missing_hierarchy = User.gen(:default_hierarchy_id => 100056) # Seems safe not to assert this
       @default_tc = find_unique_tc(:in => Hierarchy.default, :not_in => @ncbi)
       @ncbi_tc    = find_unique_tc(:not_in => Hierarchy.default, :in => @ncbi)
       @common_tc  = find_common_tc(:in => Hierarchy.default, :also_in => @ncbi)
@@ -307,21 +303,6 @@ describe 'Taxa page (HTML)' do
 
     after(:each) do
       visit("/logout")
-    end
-
-    it "should see 'not in hierarchy' message when the user doesn't specify a default hierarchy and page is not in default hierarchy" do
-      login_as @user_with_nil_hierarchy
-      visit("/pages/#{@ncbi_tc.id}")
-      body.should match /Name not in\s*#{Hierarchy.default.label}/
-    end
-
-    it "should set the class of the hierarchy select drop-down based on whether a hierarchy is in or out of that hierarchy" do
-      login_as @user_with_ncbi_hierarchy
-      visit("/pages/#{@ncbi_tc.id}")
-      body.should have_tag('select.choose-hierarchy-select') do
-        with_tag('option.in', :text => /#{@ncbi.label}/)
-        with_tag('option.out', :text => /#{Hierarchy.default.label}/)
-      end
     end
 
     it "should recognize the browsable hierarchy attribute" do
@@ -333,40 +314,6 @@ describe 'Taxa page (HTML)' do
         without_tag('option', :text => /#{@non_browsable_hierarchy.label}/)
       end
     end
-
-    it "should attribute the default hierarchy when the user doesn't specify one and the page is in both hierarchies" do
-      login_as @user_with_nil_hierarchy
-      visit("/pages/#{@common_tc.id}")
-      body.should have_tag('span.classification-attribution-name', :text => /Species recognized by/) do
-        with_tag("a[href^=#{@col_mapping.outlink[:outlink_url]}]")
-      end
-      body.should have_tag('select.choose-hierarchy-select') do
-        with_tag('option[selected=selected]', :text => /#{Hierarchy.default.label}/)
-      end
-    end
-
-    it "should attribute the default hierarchy when the user has it as the default and page is in both hierarchies" do
-      login_as @user_with_default_hierarchy
-      visit("/pages/#{@common_tc.id}")
-      body.should have_tag('span.classification-attribution-name', :text => /Species recognized by/) do
-        with_tag("a[href^=#{@col_mapping.outlink[:outlink_url]}]")
-      end
-      body.should have_tag('select.choose-hierarchy-select') do
-        with_tag('option[selected=selected]', :text => /#{Hierarchy.default.label}/)
-      end
-    end
-
-    it "should use the label from the NCBI hierarchy when the user has it as the default and page is in both hierarchies" do
-      login_as @user_with_ncbi_hierarchy
-      visit("/pages/#{@common_tc.id}")
-      body.should have_tag('span.classification-attribution-name', :text => /Species recognized by/) do
-        with_tag("a[href^=#{@ncbi.agent.homepage.strip}]")
-      end
-      body.should have_tag('select.choose-hierarchy-select') do
-        with_tag('option[selected=selected]', :text => /#{@ncbi.label}/)
-      end
-    end
-  end
 
   # # Red background/icon on untrusted videos
   # it "should show red background for untrusted video links"

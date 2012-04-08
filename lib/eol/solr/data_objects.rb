@@ -323,15 +323,16 @@ module EOL
           ['trusted', 'unreviewed'].each do |vetted_status|
             url = base_url.dup + CGI.escape(%Q[published:1 AND #{vetted_status}_ancestor_id:#{taxon_concept_id} AND visible_ancestor_id:#{taxon_concept_id}])
             url << CGI.escape(" AND taxon_concept_id:#{taxon_concept_id}") unless do_ancestor
-            url << '&facet.field=data_type_id&facet=on&rows=0'
+            url << '&facet.field=data_type_id&facet.field=data_subtype_id&facet=on&rows=0'
             res = open(url).read
             response = JSON.load(res)
-            f = response['facet_counts']['facet_fields']['data_type_id']
             key_prefix = vetted_status
             key_prefix = "ancestor_" + key_prefix if do_ancestor
+            
+            # first check the DataType facets
+            f = response['facet_counts']['facet_fields']['data_type_id']
             f.each_with_index do |rt, index|
               next if index % 2 == 1 # if its odd, skip this. Solr has a strange way of returning the facets in JSON
-              
               
               data_type_id = rt.to_i
               if DataType.image_type_ids.include?(data_type_id)
@@ -347,10 +348,19 @@ module EOL
                 data_type_label = data_type.label('en').downcase
               end
               
-              
-              
               key = key_prefix + "_" + data_type_label
               facets[key] = f[index+1].to_i
+            end
+            
+            # Then check the Subtype facets
+            f = response['facet_counts']['facet_fields']['data_subtype_id']
+            f.each_with_index do |rt, index|
+              next if index % 2 == 1 # if its odd, skip this. Solr has a strange way of returning the facets in JSON
+              data_subtype_id = rt.to_i
+              if DataType.map_type_ids.include?(data_subtype_id)
+                facets[key_prefix + "_map"] = f[index+1].to_i
+                facets[key_prefix + "_image"] -= f[index+1].to_i
+              end
             end
             facets['all'] = response['response']['numFound']
             

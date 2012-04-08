@@ -1,5 +1,9 @@
 require 'uri'
-require 'ruby-prof'
+begin
+  require 'ruby-prof'
+rescue MissingSourceFile
+  puts "!! WARNING: ruby-prof missing.  Ignoring."
+end
 ContentPage # TODO - figure out why this fails to autoload.  Look at http://kballcodes.com/2009/09/05/rails-memcached-a-better-solution-to-the-undefined-classmodule-problem/
 
 class ApplicationController < ActionController::Base
@@ -28,19 +32,19 @@ class ApplicationController < ActionController::Base
   before_filter :check_if_mobile if $ENABLE_MOBILE
 
   prepend_before_filter :redirect_to_http_if_https
-  prepend_before_filter :set_session
+  prepend_before_filter :keep_home_page_fresh
   before_filter :clear_any_logged_in_session unless $ALLOW_USER_LOGINS
   before_filter :check_user_agreed_with_terms, :except => :error
 
   helper :all
 
-  helper_method :logged_in?, :current_url, :current_user, :return_to_url, :current_agent, :agent_logged_in?,
-    :allow_page_to_be_cached?, :link_to_item
+  helper_method :logged_in?, :current_url, :current_user, :current_language, :return_to_url, :current_agent,
+    :agent_logged_in?, :allow_page_to_be_cached?, :link_to_item
 
   before_filter :set_locale
-  
+
   around_filter :profile
-  
+
   def profile
     return yield if params[:profile].nil?
     return yield if ![ 'v2staging', 'v2staging_dev', 'v2staging_dev_cache', 'development', 'test'].include?(ENV['RAILS_ENV'])
@@ -51,7 +55,7 @@ class ApplicationController < ActionController::Base
     response.body.replace out.string
     response.content_type = "text/plain"
   end
-  
+
 
   # Continuously display a warning message.  This is used for things like "System Shutting down at 15 past" and the
   # like.  And, yes, if there's a "real" error, they miss this message.  So what?
@@ -66,7 +70,7 @@ class ApplicationController < ActionController::Base
       sco = SiteConfigurationOption.find_by_parameter('global_site_warning')
       (sco && sco.value) ? sco.value : 1
     end
-    
+
     if warning && warning.class == String
       flash.now[:error] = warning
     end
@@ -74,7 +78,7 @@ class ApplicationController < ActionController::Base
 
   def set_locale
     begin
-      I18n.locale = current_user.language_abbr
+      I18n.locale = current_language.iso_639_1
     rescue
       I18n.locale = 'en' # Yes, I am hard-coding that because I don't want an error from Language.  Ever.
     end
@@ -203,17 +207,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # check to see if a session exists, and create if it not
-  #  even non-logged in users get a session to store their expertise and language preferences
-  def set_session
-    unless logged_in?
-      create_new_user
-      clear_old_sessions if $USE_SQL_SESSION_MANAGEMENT
-      # expire home page fragment caches after specified internal to keep it fresh
-      if $CACHE_CLEARED_LAST.advance(:hours => $CACHE_CLEAR_IN_HOURS) < Time.now
-        expire_cache('home')
-        $CACHE_CLEARED_LAST = Time.now()
-      end
+  def keep_home_page_fresh
+    # expire home page fragment caches after specified internal to keep it fresh
+    if $CACHE_CLEARED_LAST.advance(:hours => $CACHE_CLEAR_IN_HOURS) < Time.now
+      expire_cache('home')
+      $CACHE_CLEARED_LAST = Time.now()
     end
   end
 
@@ -277,116 +275,43 @@ class ApplicationController < ActionController::Base
     redirect_to :protocol => "http://", :status => :moved_permanently  if request.ssl?
   end
 
-  # default new user when we don't have a logged in user
-  def create_new_user
-    session[:user_id] = nil
-    user = User.create_new(:remote_ip => request.remote_ip)
-    user.language_abbr= session[:language] if session[:language] # Recalls language from previous session.
-    user
+  # Language Object for the current request.  Stored as an instance variable to speed things up for multiple calls.
+  def current_language
+    @current_language ||= Language.find(session[:language_id]) rescue Language.default
   end
 
-  # return currently logged in user
+  def update_current_language(new_language)
+    @current_language = new_language
+    session[:language_id] = new_language.id
+    I18n.locale = new_language.iso_639_1
+  end
+
+  # Deceptively simple... but note that memcached will only be hit ONCE per request because of the ||=
   def current_user
-    if logged_in?
-      session[:user] = nil
-      return temporary_logged_in_user ? temporary_logged_in_user :
-                                        set_temporary_logged_in_user(cached_user)
-    else
-      session[:user] ||= create_new_user # if there wasn't one
-      session[:user] = create_new_user unless session[:user].respond_to?(:stale?)
-      session[:user] = create_new_user if session[:user].stale?
-      return session[:user]
-    end
+    @current_user ||= if session[:user_id]               # Try loading from session
+                        User.cached(session[:user_id])   #   Will be nil if there was a problem...
+                      elsif cookies[:user_auth_token]    # Try loading from cookie
+                        load_user_from_cookie            #   Again, nil if there was a problem...
+                      end
+    # If the user didn't have a session, didn't have a cookie, OR if there was a problem, they are anonymous:
+    @current_user ||= EOL::AnonymousUser.new(current_language)
   end
 
   def recently_visited_collections(collection_id = nil)
-    session[:recently_visited_collections] = [] if session[:recently_visited_collections].nil?
-    unless collection_id.nil?
-      session[:recently_visited_collections].delete_if{ |rvc| rvc == collection_id || rvc == nil }
-      session[:recently_visited_collections] << collection_id
-      session[:recently_visited_collections].shift if session[:recently_visited_collections].length > 6
-    end
-    return session[:recently_visited_collections]
+    session[:recently_visited_collections] ||= []
+    session[:recently_visited_collections].unshift(collection_id)
+    session[:recently_visited_collections] = session[:recently_visited_collections].uniq  # Ignore duplicates.
+    session[:recently_visited_collections] = session[:recently_visited_collections][0..5] # Only keep six.
   end
 
-  # For the duration of the request, change some of the values on this User.
-  #
-  # NOTE: if you want to change a User's settings for more than one request, use alter_current_user
-  # function.
-  def set_current_user(user)
-    if user.new_record?
-      set_unlogged_in_user(user)
-    else
-      set_logged_in_user(user)
-    end
-  end
-
-  # This is actually kind of tricky, since we need to actually save things if the user is logged in, but not if they
-  # aren't.  It also involves cache-clearing and the like, so be careful about skipping the set_current_user method.
-  def alter_current_user(&block)
-    user = current_user
-    user = User.find(user.id) if user.frozen? # Since we're modifying it, we can't use the one from memcached.
-    yield(user)
-    user.save if logged_in?
-    $CACHE.delete("users/#{session[:user_id]}")
-    set_current_user(user)
-    user
-  end
-
-  # this method is used as a before_filter when user logins are disabled to ensure users who may have had a previous
-  # session before we switched off user logins is booted out
+  # Boot all users out when we don't want logins (note: preserves language):
   def clear_any_logged_in_session
-    if logged_in?
-      session[:user] = nil
-      session[:user_id] = nil
-      current_agent = nil
-    end
+    session[:user_id] = nil
+    current_agent = nil
   end
 
-
-  ###########
-  # AUTHENTICATION/AUTHORIZATION METHODS
-
-  # check to see if we have a logged in user
   def logged_in?
-    return(logged_in_from_session? || logged_in_from_cookie?)
-  end
-
-  def logged_in_from_session?
-    begin
-      if session[:user_id]
-        if u = cached_user
-          return true
-        else
-          # I had a problem when switching environments when my session use didn't exist, and this should help fix that
-          session[:user_id] = nil
-        end
-      end
-    rescue ActionController::SessionRestoreError => e
-      reset_session
-      logger.warn "!! Rescued a corrupt session."
-    end
-    return false
-  end
-
-  def logged_in_from_cookie?
-    begin
-      user = cookies[:user_auth_token] && !cookies[:user_auth_token].blank? && User.find_by_remember_token(cookies[:user_auth_token])
-      if user
-        if user.language && user.respond_to?(:stale?) && ! user.stale?
-          cookies[:user_auth_token] = { :value => user.remember_token, :expires => user.remember_token_expires_at }
-          set_logged_in_user(user)
-          return true
-        else
-          cookies[:user_auth_token] = nil
-          logger.info "++ Removed an invalid user_auth_token cookie."
-        end
-      end
-    rescue ActionController::SessionRestoreError => e
-      reset_session
-      logger.warn "!! Rescued a corrupt cookie."
-    end
-    return false
+    session[:user_id]
   end
 
   def check_authentication
@@ -447,18 +372,15 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # Set the current language
   def set_language
-    language = params[:language].to_s
-    unless language.blank?
-      session[:language] = nil # Don't want to "remember" this anymore, since they've manually changed it.
-      alter_current_user do |user|
-        I18n.locale = language
-        user.language = Language.from_iso(language)
-      end
+    language = Language.from_iso(params[:language]) rescue Language.default
+    update_current_language(language)
+    if logged_in?
+      # Don't want to worry about validations on the user; language is simple.  Just update it:
+      current_user.update_attribute(:language_id, language.id)
+      current_user.clear_cache
     end
-    return_to = (params[:return_to].blank? ? root_url : params[:return_to])
-    redirect_to return_to
+    redirect_to(params[:return_to].blank? ? root_url : params[:return_to])
   end
 
   # pulled over from Rails core helper file so it can be used in controllers as well
@@ -523,7 +445,7 @@ class ApplicationController < ActionController::Base
     when 'User'
       user_url(item)
     when 'TaxonConcept'
-      taxon_url(item)
+      taxon_overview_url(item)
     else
       raise EOL::Exceptions::ObjectNotFound
     end
@@ -549,8 +471,6 @@ protected
   # e.g. see ActionController::Failsafe which catches e.g. MySQL exceptions such as database unknown
   def rescue_action_in_public(exception)
 
-    resolve_common_session_errors
-
     # exceptions in views are wrapped by ActionView::TemplateError and will return 500 response
     # if we use the original_exception we may get a more meaningful response code e.g. 404 for ActiveRecord::RecordNotFound
     if exception.is_a?(ActionView::TemplateError) && defined?(exception.original_exception)
@@ -566,7 +486,7 @@ protected
         :url => request.url,
         :ip_address => request.remote_ip,
         :user_agent => request.user_agent,
-        :user_id => current_user.id,
+        :user_id => logged_in? ? current_user.id : 0,
         :exception_name => exception.to_s,
         :backtrace => "Application Server: " + $IP_ADDRESS_OF_SERVER + "\r\n" + exception.backtrace.to_s
       )
@@ -616,13 +536,24 @@ protected
   end
 
   def meta_data(title = meta_title, description = meta_description, keywords = meta_keywords)
-    @meta_data ||= {:title => [
+    return @meta_data if @meta_data
+    @meta_data =  { :title => [
                       title.presence,
                       @rel_canonical_href_page_number ? I18n.t(:pagination_page_number, :number => @rel_canonical_href_page_number) : nil,
-                      I18n.t(:meta_title_suffix)].compact.join(" - ").strip,
-                    :description => description,
-                    :keywords => keywords
-                   }.delete_if{ |k, v| v.nil? }
+                    ].compact.join(" - ").strip,
+                  :description => description,
+                  :keywords => keywords
+                }.delete_if{ |k, v| v.nil? }
+    if @meta_data[:title]
+      if @home_page
+        # Encyclopedia of Life - $TITLE
+        @meta_data[:title] = I18n.t(:meta_title_site_name) + " - " + @meta_data[:title]
+      else
+        # $TITLE - Encyclopedia of Life
+        @meta_data[:title] += " - "  + I18n.t(:meta_title_site_name)
+      end
+    end
+    @meta_data
   end
   helper_method :meta_data
 
@@ -704,7 +635,7 @@ protected
     end
     @original_request_params ||= params.clone.freeze # frozen because we don't want @original_request_params to be modified
   end
-  
+
   def page_title
     @page_title ||= t(".page_title", :scope => controller_action_scope)
   end
@@ -741,13 +672,6 @@ private
     expire_page( :controller => 'content', :action => 'tc_api' )
   end
 
-  # Rails cache (memcached, probably) version of the user, by id:
-  def cached_user
-    User # KNOWN BUG (in Rails): if you end up with "undefined class/module" errors in a fetch() call, you must call
-    Agent # that class beforehand.
-    $CACHE.fetch("users/#{session[:user_id]}") { User.find(session[:user_id], :include => :agent) rescue nil }
-  end
-
   # Having a *temporary* logged in user, as opposed to reading the user from the cache, lets us change some values
   # (such as language or vetting) within the scope of a request *without* storing it the database.  So, for example,
   # when a URL includes "&vetted = true" (or some-such), we can serve that request with *temporary* user values that
@@ -758,21 +682,6 @@ private
 
   def set_temporary_logged_in_user(user)
     @logged_in_user = user
-  end
-
-  # There are several things we need to do when we change the (temporary) values on a logged-in user:
-  def set_logged_in_user(user)
-    set_temporary_logged_in_user(user)
-    session[:user_id] = user.id
-    set_unlogged_in_user(nil)
-  end
-
-  def unlogged_in_user
-    session[:user]
-  end
-
-  def set_unlogged_in_user(user)
-    session[:user] = user
   end
 
   def expire_pages(pages)
@@ -795,10 +704,6 @@ private
         end
       end
     end
-  end
-
-  def clear_old_sessions
-    CGI::Session::ActiveRecordStore::Session.destroy_all( ['updated_at <?', $SESSION_EXPIRY_IN_SECONDS.seconds.ago] )
   end
 
   def log_search params
@@ -840,30 +745,16 @@ private
   end
   helper_method :mobile_disabled_by_session?
 
-  def resolve_common_session_errors
+  def load_user_from_cookie
     begin
-      if session[:language]
-        session[:language].downcase
-      end
-      if session[:user]
-        session[:user].language.iso_code
-        logged_in_from_session?
-        logged_in_from_cookie?
-      end
-      if cookies[:user_auth_token]
-        User.find_by_remember_token(cookies[:user_auth_token])
-      end
-    rescue => e
-      logger.warn "!! WARNING: found a problem (#{e.class.name}) in session: #{e.message}"
-      session = nil
-      cookies = nil
-      flash = {}
+      user = User.find_by_remember_token(cookies[:user_auth_token]) rescue nil
+      session[:user_id] = user.id # The cookie will persist, but now we can log in directly from the session.
+      user
+    rescue ActionController::SessionRestoreError => e
       reset_session
-      flash[:notice] = begin
-                         I18n.t(:welcome_and_you_were_logged_out)
-                       rescue
-                         "There was a serious problem with your session and you have been logged out. Sorry."
-                       end
+      cookies.delete(:user_auth_token)
+      logger.warn "!! Rescued a corrupt cookie."
+      nil
     end
   end
 

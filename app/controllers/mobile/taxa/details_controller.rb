@@ -27,7 +27,8 @@ class Mobile::Taxa::DetailsController < Mobile::TaxaController
       :taxon_concept_exemplar_image => '*' }
     @taxon_concept = TaxonConcept.core_relationships(:include => includes, :select => selects).find_by_id(@taxon_concept.id)
     @taxon_concept.current_user = current_user
-    @details = @taxon_concept.details_for_toc_items(ContentTable.details.toc_items, :language => current_user.language_abbr)
+    @details = @taxon_concept.details_for_toc_items(ContentTable.details.toc_items, :language =>
+                                                    current_language.iso_639_1)
 
     toc_items_to_show = @details.blank? ? [] : @details.collect{|d| d[:toc_item]}
 

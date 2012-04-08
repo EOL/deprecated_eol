@@ -7,7 +7,7 @@ class SortStyle < ActiveRecord::Base
   def self.create_defaults
     TranslatedSortStyle.reset_cached_instances
     SortStyle.reset_cached_instances
-    ['Recently Added', 'Oldest', 'Alphabetical', 'Reverse Alphabetical', 'Richness', 'Rating', 'Sort Field'].each do |name|
+    ['Recently Added', 'Oldest', 'Alphabetical', 'Reverse Alphabetical', 'Richness', 'Rating', 'Sort Field', 'Reverse Sort Field'].each do |name|
       sstyle = SortStyle.create
       begin
         TranslatedSortStyle.create(:name => name, :sort_style_id => sstyle.id, :language_id => Language.english.id)
@@ -45,5 +45,10 @@ class SortStyle < ActiveRecord::Base
   def self.sort_field
     cached_find_translated(:name, 'Sort Field')
   end
+  
+  def self.reverse_sort_field
+    cached_find_translated(:name, 'Reverse Sort Field')
+  end
+  
 
 end

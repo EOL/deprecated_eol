@@ -12,7 +12,7 @@ class Taxa::OverviewsController < TaxaController
     @summary_text = @taxon_concept.overview_text_for_user(current_user)
     
     @media = promote_exemplar(@taxon_concept.images_from_solr(4, @selected_hierarchy_entry, true))
-    DataObject.preload_associations(@media, :translations , :conditions => "data_object_translations.language_id=#{current_user.language_id}")
+    DataObject.preload_associations(@media, :translations , :conditions => "data_object_translations.language_id=#{current_language.id}")
     DataObject.preload_associations(@media, 
       [ :users_data_object, :license,
         { :agents_data_objects => [ { :agent => :user }, :agent_role ] },

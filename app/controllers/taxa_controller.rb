@@ -12,15 +12,6 @@ class TaxaController < ApplicationController
     return redirect_to taxon_overview_path(params[:id]), :status => :moved_permanently
   end
 
-  # If you want this to redirect to search, call (do_the_search && return if this_request_is_really_a_search) before this.
-  def find_taxon_concept
-    # Try most specific first...
-    tc_id = params[:taxon_concept_id].to_i
-    tc_id = params[:taxon_id].to_i if tc_id == 0
-    tc_id = params[:id].to_i if tc_id == 0
-    TaxonConcept.find(tc_id)
-  end
-
   ################
   # AJAX CALLS
   ################
@@ -119,20 +110,22 @@ protected
 private
 
   def instantiate_taxon_concept
-    @taxon_concept = find_taxon_concept
-    unless accessible_page?(@taxon_concept)
+    @taxon_concept = TaxonConcept.find(params[:taxon_concept_id] || params[:taxon_id] || params[:id])
+    unless @taxon_concept.published?
       if logged_in?
         raise EOL::Exceptions::SecurityViolation, "User with ID=#{current_user.id} does not have access to TaxonConcept with id=#{@taxon_concept.id}"
       else
         raise EOL::Exceptions::MustBeLoggedIn, "Non-authenticated user does not have access to TaxonConcept with ID=#{@taxon_concept.id}"
       end
     end
+
     @taxon_concept.current_user = current_user
     @selected_hierarchy_entry_id = params[:hierarchy_entry_id]
     if @selected_hierarchy_entry_id
       @selected_hierarchy_entry = HierarchyEntry.find_by_id(@selected_hierarchy_entry_id) rescue nil
       if @selected_hierarchy_entry.hierarchy.browsable?
         # TODO: Eager load hierarchy entry agents?
+        TaxonConcept.preload_associations(@taxon_concept, { :published_hierarchy_entries => :hierarchy })
         @browsable_hierarchy_entries = @taxon_concept.published_hierarchy_entries.select{ |he| he.hierarchy.browsable? }
       else
         @selected_hierarchy_entry = nil
@@ -141,7 +134,11 @@ private
   end
 
   def instantiate_preferred_names
-    @preferred_common_name = @selected_hierarchy_entry ? @selected_hierarchy_entry.taxon_concept.preferred_common_name_in_language(current_user.language) : @taxon_concept.preferred_common_name_in_language(current_user.language)
+    @preferred_common_name = @selected_hierarchy_entry ? @selected_hierarchy_entry.taxon_concept.preferred_common_name_in_language(current_language) : @taxon_concept.preferred_common_name_in_language(current_language)
+    # This is only safe in English:
+    if I18n.locale == 'en' || I18n.locale == :en && ! @preferred_common_name_in_language.blank?
+      @preferred_common_name = @preferred_common_name.split(/ /).map {|w| w.firstcap }.join(' ')
+    end
     @scientific_name = @selected_hierarchy_entry ? @taxon_concept.quick_scientific_name(:italicized, @selected_hierarchy_entry.hierarchy) : @taxon_concept.title_canonical
   end
 
@@ -188,16 +185,6 @@ private
     redirect_to search_path(:id => params[:id])
   end
 
-  # For regular users, a page is accessible only if the taxon_concept is published.
-  # If an agent is logged in, then it's only accessible if the taxon_concept is
-  # referenced by the Agent's most recent harvest events
-  def accessible_page?(taxon_concept)
-    return false if taxon_concept.nil?      # TC wasn't found.
-    return true if taxon_concept.published? # Anyone can see published TCs
-    return true if agent_logged_in? and current_agent.latest_unpublished_harvest_contains?(taxon_concept.id)
-    return false # current agent can't see this unpublished page, or agent isn't logged in.
-  end
-
   def is_common_names?(category_id)
     TocItem.common_names.id == category_id
   end
@@ -207,7 +194,7 @@ private
     @languages = Language.with_iso_639_1.map do |lang|
       { :label    => lang.label,
         :id       => lang.id,
-        :selected => lang.id == (current_user_copy && current_user_copy.language_id) ? "selected" : nil
+        :selected => lang.id == (current_user_copy && current_user_copy.language.id) ? "selected" : nil
       }
     end
   end

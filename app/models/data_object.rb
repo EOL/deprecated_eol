@@ -232,10 +232,8 @@ class DataObject < ActiveRecord::Base
     data_objects
   end
 
-  #----- user-submitted text --------
-
   def self.create_user_text(params, options)
-    dato = DataObject.new(params.reverse_merge!(:rights_holder => options[:user].full_name))
+    dato = DataObject.new(params.reverse_merge!(:rights_holder => options[:user].full_name, :published => true))
     if dato.save
       dato.toc_items = TocItem.find(options[:toc_id])
       dato.from_user_for_taxon_concept(options[:user], options[:taxon_concept])
@@ -575,6 +573,7 @@ class DataObject < ActiveRecord::Base
   # it's actually used quite often. ...and in some cases, just to get the ID of the first one.  Ouch.
   # :published -> :strict - return only published taxon concepts
   # :published -> :preferred - same as above, but returns unpublished taxon concepts if no published ones are found
+  # NOTE - honestly, I don't know if I trust this anymore anyway!  Compare to #all_associations, for example.
   def get_taxon_concepts(opts = {})
     return @taxon_concepts if @taxon_concepts
     if created_by_user?
@@ -595,7 +594,14 @@ class DataObject < ActiveRecord::Base
 
   def update_solr_index
     if self.published
-      EOL::Solr::DataObjectsCoreRebuilder.reindex_single_object(self)
+      DataObject.with_master do
+        self.class.uncached do
+          # creating another instance to remove any change of this instance not
+          # matching the database and indexing stale or changed information
+          object_to_index = DataObject.find(self.id)
+          EOL::Solr::DataObjectsCoreRebuilder.reindex_single_object(object_to_index)
+        end
+      end
     else
       # hidden, so delete it from solr
       solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE)
@@ -707,11 +713,11 @@ class DataObject < ActiveRecord::Base
 
   # To retrieve the vetted status of an association by using given taxon concept
   def vetted_by_taxon_concept(taxon_concept, options={})
-    association = association_for_taxon_concept(taxon_concept)
-    return association.vetted unless association.blank?
     if options[:find_best] == true && association = association_with_best_vetted_status
       return association.vetted
     end
+    association = association_for_taxon_concept(taxon_concept)
+    return association.vetted unless association.blank?
     return nil
   end
 
@@ -771,7 +777,6 @@ class DataObject < ActiveRecord::Base
     nil
   end
 
-  # TODO - we need to make sure that the user_id of curated_dohe is added to the HE...
   def curated_hierarchy_entries
     dohes = data_objects_hierarchy_entries.compact.map { |dohe|
       if dohe.hierarchy_entry && he = dohe.hierarchy_entry.dup
@@ -799,15 +804,18 @@ class DataObject < ActiveRecord::Base
     curated_hierarchy_entries.select{ |he| he.published != 1 }
   end
 
-  # This method adds users data object entry in the list of entries to retrieve all associations
-  def all_associations(options = {:with_unpublished => false})
-    unless options[:with_unpublished]
-      entries_with_published_taxon_concepts = published_entries ? published_entries.map{ |pe| pe.taxon_concept.published? ? pe : nil } : nil
-      udo_with_published_taxon_concept = users_data_object && users_data_object.taxon_concept.published? ? users_data_object : nil
-      (entries_with_published_taxon_concepts + [udo_with_published_taxon_concept]).compact
-    else
-      (published_entries + unpublished_entries + [users_data_object]).compact
-    end
+  # Preview visibility CAN apply here, so be careful. By default, preview is included; otherwise, pages would show up
+  # without any association at all, and that would be confusing. But note that preview associations should NOT be
+  # curatable!
+  def filtered_associations(which = {})
+    good_ids = [Visibility.visible.id]
+    good_ids << Visibility.preview.id unless which[:preview] == false
+    good_ids << Visibility.invisible.id if which[:invisible]
+    all_associations.select {|asoc| good_ids.include?(asoc.visibility_id) }.compact
+  end
+
+  def all_associations
+    @all_assoc ||= (published_entries + unpublished_entries + [users_data_object]).compact
   end
 
   def first_concept_name
@@ -995,9 +1003,22 @@ class DataObject < ActiveRecord::Base
                            :taxon_concept => taxon_concept, :visibility => Visibility.visible)
   end
 
+  def revisions_by_date
+    @revisions_by_date ||= DataObject.sort_by_created_date(self.revisions).reverse
+  end
+
+  def latest_published_revision
+    revisions_by_date.select {|r| r.published? }.first
+  end
+
+  def reload
+    @all_assoc = nil
+    super
+  end
+
 private
 
-  # NOTE - description required.
+  # NOTE - description required, and published will default to false from the DB, so you PROBABLLY want to specify it.
   def default_values # Ideally, these would be in the DB, but I didn't want to take that step.  ...yet.
     if defined?(PhusionPassenger)
       UUID.state_file(0664) # Makes the file writable, which we seem to need to do with Passenger...
@@ -1015,7 +1036,6 @@ private
     self.object_title ||= ''
     self.language_id ||= Language.default.id
     self.license_id ||= License.default.id
-    self.published = true if self.published.nil? # Note the logic MUST be different here!
     self.rights_statement ||= ''
     self.bibliographic_citation ||= ''
     self.source_url ||= ''

@@ -1,11 +1,7 @@
 - en_type ||= 'unknown_type'
 - data_object ||= @data_object
 - unless data_object.blank?
-  - # How many, if any of these options do we need?
-  - visible ||= true
-  - invisible ||= current_user.is_admin? || current_user.is_curator? ? true : false
-  - preview ||= true
-  - entries = data_object.all_associations.collect{|e| e if (visible && Visibility.visible == e.visibility) || (invisible && Visibility.invisible == e.visibility) || (preview && Visibility.preview == e.visibility)}
+  - entries = data_object.filtered_associations(:invisible => current_user.is_admin? || current_user.is_curator?)
   - if entries.compact.blank?
     .copy
       %p= I18n.t("#{en_type}_not_associated_with_any_published_entries")
@@ -14,10 +10,7 @@
       - entries.each do |entry|
         - next if entry.nil?
         - en_status = entry.vetted.label('en').downcase
-        - status = entry.vetted == Vetted.unknown ? I18n.t(:unreviewed) : entry.vetted.label
+        - status = entry.vetted.curation_label
         %li
           %p{:class => en_status}= status
-          - unless entry.class == UsersDataObject
-            = link_to entry.name.string, taxon_overview_path(entry.taxon_concept_id)
-          - else
-            = link_to entry.taxon_concept.quick_scientific_name, taxon_overview_path(entry.taxon_concept_id)
+          = link_to entry.italicized_name, taxon_overview_path(entry.taxon_concept_id)

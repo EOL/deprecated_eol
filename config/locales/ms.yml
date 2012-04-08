@@ -233,24 +233,19 @@ ms:
     models: 
       user: akaun
   activity: Kegiatan
-  activity_added_an_editor_of_collection: <strong>%{user}</strong> menambahkan pengurus ke dalam himpunan "%{collection}".
   activity_log_empty: Kemas kini belum disediakan.
   activity_log_empty_learn_more_link: Pelajari cara untuk menyumbang
-  activity_user_added_as_an_editor_of_collection: <strong>%{user}</strong> ditambahkan sebagai pengurus himpunan "%{collection}".
   activity_user_added_association: <strong>%{user}</strong> menambahkan satu kaitan pada "%{object_name}".
   activity_user_added_collection_to_community: <strong>%{user}</strong> menambahkan himpunan "%{collection}" ke dalam komuniti "%{community}".
   activity_user_added_common_name: <strong>%{user}</strong> menambahkan nama am "%{name}" dalam %{language} pada objek yang tidak dikenali.
   activity_user_added_common_name_to_taxon: <strong>%{user}</strong> menambahkan nama am "%{name}" dalam %{language} pada "%{taxon}".
   activity_user_added_community_manager: <strong>%{user}</strong> melantik %{manager} sebagai pengurus komuniti "%{community}".
-  activity_user_added_item_to_collection: <strong>%{user}</strong> menambahkan "%{item}" ke dalam himpunan "%{collection}".
   activity_user_added_named_association: <strong>%{user}</strong> menambahkan satu kaitan antara "%{object_name}" dan "%{name}".
   activity_user_added_unknown_association: <strong>%{user}</strong> menambahkan satu kaitan pada objek yang tidak dikenali.
-  activity_user_added_unknown_item_to_collection: <strong>%{user}</strong> menambahkan perkara yang tidak dikenali ke dalam himpunan "%{collection}".
   activity_user_added_unknown_name: <strong>%{user}</strong> menambahkan nama am yang tidak dikenali pada objek yang tidak dikenali.
   activity_user_changed_community_description: <strong>%{user}</strong> mengemas kini keterangan komuniti "%{community}".
   activity_user_changed_community_icon: <strong>%{user}</strong> menukar logo komuniti "%{community}".
   activity_user_changed_community_name: <strong>%{user}</strong> menukar nama komuniti "%{community}".
-  activity_user_created_collection: <strong>%{user}</strong> mewujudkan himpunan "%{collection}".
   activity_user_created_community: <strong>%{user}</strong> mewujudkan komuniti "%{community}".
   activity_user_created_text: <strong>%{user}</strong> membubuh teks pada "%{object_name}" di "%{taxon_concept}".
   activity_user_curated_an_unknown_object: <strong>%{user}</strong> mengkurasi objek yang tidak dikenali.
@@ -259,13 +254,10 @@ ms:
   activity_user_hid_unknown_object: <strong>%{user}</strong> menandai objek yang tidak dikenali sebagai tersorok.
   activity_user_joined_community: <strong>%{user}</strong> menyertai komuniti "%{community}".
   activity_user_marked_content_as_inappropriate: <strong>%{user}</strong> menandai isi kandungan sebagai tidak sesuai.
-  activity_user_modified_collection: <strong>%{user}</strong> mengubah suai himpunan "%{collection}".
   activity_user_modified_community: <strong>%{user}</strong> mengubah suai komuniti "%{community}".
   activity_user_rated_data_object: <strong>%{user}</strong> menilai "%{object_name}".
   activity_user_rated_unknown_object: <strong>%{user}</strong> menilai objek yang tidak dikenali.
-  activity_user_removed_all_items_from_collection: <strong>%{user}</strong> membuang semua perkara daripada himpunan "%{collection}".
   activity_user_removed_association: <strong>%{user}</strong> memadamkan satu kaitan pada "%{object_name}".
-  activity_user_removed_item_from_collection: <strong>%{user}</strong> membuang "%{item}" daripada himpunan "%{collection}".
   activity_user_removed_named_association: <strong>%{user}</strong> memadamkan satu kaitan antara "%{object_name}" dan "%{name}".
   activity_user_removed_unknown_association: <strong>%{user}</strong> membuang satu kaitan pada objek yang tidak dikenali.
   activity_user_removed_unknown_name: <strong>%{user}</strong> membuang satu nama am yang tidak dikenali daripada objek yang tidak dikenali.
@@ -730,6 +722,8 @@ ms:
   content_partner_update_successful_notice: Butiran rakan kongsi berjaya dikemas kini.
   content_partner_update_unsuccessful_error: Maaf, berlakunya ralat, butiran rakan kongsi tidak dapat dikemas kini.
   content_partners: 
+    edit: 
+      meta_title: Sunting %{partner_name}
     statistics: 
       show: 
         meta_title: Statistik %{partner_name}
@@ -813,11 +807,14 @@ ms:
   data_object_ignore: abaikan perkara ini
   data_object_not_associated_with_any_hierarchies: Objek data ini tidak berkaitan dengan sebarang hierarki.
   data_object_undo_ignore: buang dari senarai abai
+  data_objects: 
+    show: 
+      meta_title: "%{dato_title} daripada %{supplier}"
+      tweet_text: "%{dato_title} daripada %{supplier}"
   data_usage_reports: Laporan Penggunaan Data
   date_caps: Tarikh
   date_uploaded: Tarikh muat naik
   dato_create_cancel: Batalkan
-  dato_create_update_user_text_missing_taxon_id_exception: Teks DataObject atau UsersDataObject tidak dapat dihasilkan jika tiadanya taxon_concept_id.
   dato_create_user_text_error: Maaf, berlakunya ralat, rencana tidak dapat disiarkan.
   dato_create_user_text_missing_taxon_id_exception: Teks DataObject atau UsersDataObject tidak dapat dihasilkan jika id taksonnya adalah nil.
   dato_create_user_text_missing_user_exception: Teks DataObject atau UsersDataObject tidak dapat dihasilkan jika id taksonnya adalah nil.
@@ -869,7 +866,6 @@ ms:
   e_g_search_for_the_eol_page: "(cth. carian untuk ID halaman EOL untuk ITIS TSN 180542:"
   each_method_documentation_page_has_formatted_responses: Halaman pendokumenan setiap kaedah mempunyai contoh kedua-dua balasan berformat XML dan JSON.
   edit: Sunting
-  edit_annotation: sunting penjelasan
   edit_collection_details: Sunting butiran himpunan
   edit_collection_details_header: Sunting butiran himpunan
   edit_comment: Sunting Komen
@@ -1499,13 +1495,11 @@ ms:
     user_message: 
       subject: Pesanan daripada Encyclopedia of Life
     user_reset_password: 
-      message: "Encyclopedia of Life (www.eol.org) telah menerima permohonan untuk mengeset semula kata laluan anda. Sekiranya bukan anda yang membuat permintaan ini, sila abaikan e-mel ini.\n\nPautan yang berikut akan memberi anda peluang sekali sahaja untuk mengeset semula kata laluan anda:\n\n%{password_reset_url}\n\nIkut pautan ini (klik sahaja pautan tersebut, atau salin dan tampalkan seluruh pautan kepada ruangan alamat pelayar Web anda dan muatkannya) untuk mengakses laman ini untuk membuat kata laluan baru. Sila ambil perhatian: jika pautan itu luput, anda akan diminta untuk menaipkan alamat e-mel anda sekali lagi untuk menerima pesanan e-mel dan pautan yang baru untuk mengeset semula kata laluan."
       subject: Set semua kata laluan akaun Encyclopedia of Life anda
     user_updated_email_preferences: 
       message: "Ini merupakan pemberitahuan sistem EOL yang dihasilkan secara automatik. Pengguna %{user_full_name} (%{user_profile_url}) mengemaskinikan alamat e-mel atau keutamaan senarai melnya.\n\nKeutamaan terdahulu:\nE-mel: %{previous_email}\nKeutamaan senarai mel: %{previous_mailing_list_preference}\n\nKeutamaan terkini:\nE-mel: %{updated_email}\nKeutamaan senarai mel: %{updated_mailing_list_preference}\nDikemaskinikan pada: %{updated_at}"
       subject: Pengguna EOL, %{user_full_name} menukar alamat e-mel atau keutamaan senarai melnya
     user_verification: 
-      message: "Terima kasih kerana berdaftar dengan Encyclopedia of Life. Pautan yang berikut akan mengesahkan bahawa anda berhasrat untuk melengkapkan pendaftaran anda:\n\n%{verification_url}\n\nIkut pautan ini (klik sahaja pautan tersebut, atau salin dan tampalkan seluruh pautan kepada ruangan alamat pelayar Web anda dan muatkannya) untuk mengaktifkan akaun anda. Sebaik sahaja akaun anda diaktifkan, anda akan menerima satu pesanan e-mel pengesahan."
       subject: Sila sahkan permohonan anda untuk akaun Encyclopedia of Life account
   nucleotide_sequences: Jujukan Nukleotida
   nucleotide_sequences_ncbi_database: Pangkalan data <a href="%{ncbi_taxonomy_link}">NCBI Taxonomy</a> mengandungi nama-nama bagi semua hidupan yang diwakili dalam pangkalan data genetik dengan sekurang-kurangnya satu jujukan protein atau nukleotida.
@@ -1653,7 +1647,6 @@ ms:
   rights_statement: Pernyataan hak-hak
   rss_feed: Suapan RSS
   save: Simpan
-  save_annotation_submit_button: Simpan penjelasan
   save_curated_association_submit_button: Simpan perkaitan
   scientific_name: Nama Saintifik
   search: Cari

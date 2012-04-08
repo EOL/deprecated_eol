@@ -68,6 +68,18 @@ ar:
   translated_contact_roles-label-contact_role_id-1: جهة الاتصال الرئيسية
   translated_contact_roles-label-contact_role_id-2: المسئول الإداري
   translated_contact_roles-label-contact_role_id-3: المسئول التقني
+  translated_contact_subjects-title-contact_subject_id-24: العضوية والتسجيل
+  translated_contact_subjects-title-contact_subject_id-25: شروط الاستخدام والترخيص
+  translated_contact_subjects-title-contact_subject_id-26: التعلم والتعليم
+  translated_contact_subjects-title-contact_subject_id-27: اصبح شريك محتوى
+  translated_contact_subjects-title-contact_subject_id-28: دعم شركاء المحتوى
+  translated_contact_subjects-title-contact_subject_id-29: دعم المشرفين
+  translated_contact_subjects-title-contact_subject_id-30: إجراء تصحيح (تدقيق إملائي ونحوي، صور، معلومات)
+  translated_contact_subjects-title-contact_subject_id-31: المساهمة بالصور ومقاطع الفيديو والمقاطع الصوتية
+  translated_contact_subjects-title-contact_subject_id-32: طلبات وسائل الإعلام (مقابلات، أسئلة صحفية، طلبات الشعار)
+  translated_contact_subjects-title-contact_subject_id-33: إسهام مالي
+  translated_contact_subjects-title-contact_subject_id-34: أسئلة فنية (مشاكل متعلقة بالبحث، أداء الموقع)
+  translated_contact_subjects-title-contact_subject_id-35: ملاحظات عامة
   translated_content_partner_statuses-label-content_partner_status_id-1: مُعلَّق
   translated_content_partner_statuses-label-content_partner_status_id-2: نشِط
   translated_content_partner_statuses-label-content_partner_status_id-3: في الأرشيف
@@ -241,6 +253,11 @@ ar:
   translated_synonym_relations-label-synonym_relation_id-61: مرادف مؤكد
   translated_synonym_relations-label-synonym_relation_id-62: مرادف رئيسي
   translated_synonym_relations-label-synonym_relation_id-63: غير مقبول
+  translated_synonym_relations-label-synonym_relation_id-64: غير صحيح
+  translated_synonym_relations-label-synonym_relation_id-65: مرادف للجنس
+  translated_synonym_relations-label-synonym_relation_id-66: تمثيل بديل
+  translated_synonym_relations-label-synonym_relation_id-67: نوع غير مُعرَّف (species inquirenda)
+  translated_synonym_relations-label-synonym_relation_id-68: مرتبط بعلم زراعة البساتين
   translated_synonym_relations-label-synonym_relation_id-7: مختصر بنك الجينات
   translated_synonym_relations-label-synonym_relation_id-8: لاجنسي ببنك الجينات
   translated_synonym_relations-label-synonym_relation_id-9: الاسم العام ببنك الجينات
@@ -339,6 +356,9 @@ ar:
   translated_vetted-label-vetted_id-4: غير موثوق به
   translated_vetted-label-vetted_id-5: موثوق به
   translated_vetted-label-vetted_id-6: غير لائق
+  translated_view_styles-name-view_style_id-1: قائمة
+  translated_view_styles-name-view_style_id-2: معرض الصور
+  translated_view_styles-name-view_style_id-3: مزوَّد بتعليق
   translated_visibilities-label-visibility_id-0: غير مرئي
   translated_visibilities-label-visibility_id-1: مرئي
   translated_visibilities-label-visibility_id-2: نظرة عامة

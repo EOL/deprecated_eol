@@ -66,6 +66,18 @@ ia:
   translated_contact_roles-label-contact_role_id-1: Contacto principal
   translated_contact_roles-label-contact_role_id-2: Contacto administrative
   translated_contact_roles-label-contact_role_id-3: Contacto technic
+  translated_contact_subjects-title-contact_subject_id-24: Membrato e registration
+  translated_contact_subjects-title-contact_subject_id-25: Conditiones de uso e licentias
+  translated_contact_subjects-title-contact_subject_id-26: Apprentissage e education
+  translated_contact_subjects-title-contact_subject_id-27: Devenir partner de contento
+  translated_contact_subjects-title-contact_subject_id-28: Supporto pro partners de contento
+  translated_contact_subjects-title-contact_subject_id-29: Supporto pro conservatores
+  translated_contact_subjects-title-contact_subject_id-30: Facer un correction (orthographia e grammatica, imagines, information)
+  translated_contact_subjects-title-contact_subject_id-31: Contribuer imagines, videos o sonos
+  translated_contact_subjects-title-contact_subject_id-32: Requestas de medios de communication (intervistas, inquestas de pressa, demandas de logo)
+  translated_contact_subjects-title-contact_subject_id-33: Facer un donation financiari
+  translated_contact_subjects-title-contact_subject_id-34: Questiones technic (problemas con le recerca, functionalitate del sito web)
+  translated_contact_subjects-title-contact_subject_id-35: Commentario general
   translated_content_partner_statuses-label-content_partner_status_id-1: Pendente
   translated_content_partner_statuses-label-content_partner_status_id-2: Active
   translated_content_partner_statuses-label-content_partner_status_id-3: Archivate
@@ -239,6 +251,11 @@ ia:
   translated_synonym_relations-label-synonym_relation_id-61: synonymo objective
   translated_synonym_relations-label-synonym_relation_id-62: synonymo senior
   translated_synonym_relations-label-synonym_relation_id-63: non acceptate
+  translated_synonym_relations-label-synonym_relation_id-64: invalide
+  translated_synonym_relations-label-synonym_relation_id-65: synonymo de genere
+  translated_synonym_relations-label-synonym_relation_id-66: representation alternative
+  translated_synonym_relations-label-synonym_relation_id-67: species a confirmar
+  translated_synonym_relations-label-synonym_relation_id-68: horticultural
   translated_synonym_relations-label-synonym_relation_id-7: acronymo de genbank
   translated_synonym_relations-label-synonym_relation_id-8: anamorpho de genbank
   translated_synonym_relations-label-synonym_relation_id-9: nomine commun de genbank
@@ -337,6 +354,9 @@ ia:
   translated_vetted-label-vetted_id-4: Non digne de confidentia
   translated_vetted-label-vetted_id-5: Digne de confidentia
   translated_vetted-label-vetted_id-6: Inappropriate
+  translated_view_styles-name-view_style_id-1: Lista
+  translated_view_styles-name-view_style_id-2: Galeria
+  translated_view_styles-name-view_style_id-3: Annotate
   translated_visibilities-label-visibility_id-0: Invisibile
   translated_visibilities-label-visibility_id-1: Visibile
   translated_visibilities-label-visibility_id-2: Previsualisation

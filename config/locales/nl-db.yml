@@ -69,6 +69,18 @@ nl:
   translated_contact_roles-label-contact_role_id-1: Primaire contactpersoon
   translated_contact_roles-label-contact_role_id-2: Administratieve contactpersoon
   translated_contact_roles-label-contact_role_id-3: Technische contactpersoon
+  translated_contact_subjects-title-contact_subject_id-24: Lidmaatschap en registratie
+  translated_contact_subjects-title-contact_subject_id-25: Gebruiksvoorwaarden en licenties
+  translated_contact_subjects-title-contact_subject_id-26: Leren en onderwijs
+  translated_contact_subjects-title-contact_subject_id-27: Contentpartner worden
+  translated_contact_subjects-title-contact_subject_id-28: Ondersteuning voor contentpartners
+  translated_contact_subjects-title-contact_subject_id-29: Curatorondersteuning
+  translated_contact_subjects-title-contact_subject_id-30: Maken van een correctie (spelling en grammatica, afbeeldingen, gegevens)
+  translated_contact_subjects-title-contact_subject_id-31: Afbeeldingen, video's en geluidsbestanden bijdragen
+  translated_contact_subjects-title-contact_subject_id-32: Mediaverzoeken (interviews, persverzoeken, logoaanvragen)
+  translated_contact_subjects-title-contact_subject_id-33: Financiële bijdrage doen
+  translated_contact_subjects-title-contact_subject_id-34: Technische vragen (problemen met zoeken, websitefunctionaliteit)
+  translated_contact_subjects-title-contact_subject_id-35: Algemene terugkoppeling
   translated_content_partner_statuses-label-content_partner_status_id-1: In behandeling
   translated_content_partner_statuses-label-content_partner_status_id-2: Actief
   translated_content_partner_statuses-label-content_partner_status_id-3: Gearchiveerd
@@ -242,6 +254,10 @@ nl:
   translated_synonym_relations-label-synonym_relation_id-61: objectief synoniem
   translated_synonym_relations-label-synonym_relation_id-62: senior synoniem
   translated_synonym_relations-label-synonym_relation_id-63: niet geaccepteerd
+  translated_synonym_relations-label-synonym_relation_id-64: ongeldig
+  translated_synonym_relations-label-synonym_relation_id-65: genussynoniem
+  translated_synonym_relations-label-synonym_relation_id-66: alternatieve representatie
+  translated_synonym_relations-label-synonym_relation_id-68: tuinbouw
   translated_synonym_relations-label-synonym_relation_id-7: GenBank-acroniem
   translated_synonym_relations-label-synonym_relation_id-8: GenBank-anamorf
   translated_synonym_relations-label-synonym_relation_id-9: GenBank-gemeenschappelijke naam
@@ -340,6 +356,9 @@ nl:
   translated_vetted-label-vetted_id-4: Niet-vertrouwd
   translated_vetted-label-vetted_id-5: Vertrouwd
   translated_vetted-label-vetted_id-6: Ongepast
+  translated_view_styles-name-view_style_id-1: Lijst
+  translated_view_styles-name-view_style_id-2: Galerij
+  translated_view_styles-name-view_style_id-3: Geannoteerd
   translated_visibilities-label-visibility_id-0: Onzichtbaar
   translated_visibilities-label-visibility_id-1: Zichtbaar
   translated_visibilities-label-visibility_id-2: Voorvertoning

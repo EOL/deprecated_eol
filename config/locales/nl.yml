@@ -248,28 +248,23 @@ nl:
     models: 
       user: gebruiker
   activity: Activiteit
-  activity_added_an_editor_of_collection: <strong>%{user}</strong> heeft een manager toegevoegd aan de collectie "%{collection}".
   activity_choose_exemplar: <strong>%{user}</strong> heeft een afbeelding ingesteld als representatief voor "%{object_name}".
   activity_hid_with_reasons_colon: "reden voor verbergen: %{reasons}"
   activity_log_empty: Niemand heeft de gegevens nog bijgewerkt.
   activity_log_empty_learn_more_link: Hoe u kunt bijdragen
   activity_untrusted_with_reasons_colon: "reden voor niet vertrouwen: %{reasons}"
-  activity_user_added_as_an_editor_of_collection: <strong>%{user}</strong> is manager gemaakt van de verzameling "%{collection}".
   activity_user_added_association: <strong>%{user}</strong> heeft een associatie toegevoegd aan "%{object_name}".
   activity_user_added_collection_to_community: <strong>%{user}</strong> heeft de verzameling"%{collection}" toegevoegd aan de gemeenschap "%{community}".
   activity_user_added_common_name: <strong>%{user}</strong> heeft de gewone naam "%{name}" toegevoegd aan een onbekend object in de taal %{language}.
   activity_user_added_common_name_to_taxon: <strong>%{user}</strong> heeft de gewone naam "%{name}" toegevoegd aan "%{taxon}" in de taal %{language}.
   activity_user_added_community_manager: <strong>%{user}</strong> heeft %{manager} manager gemaakt van de gemeenschap "%{community}".
-  activity_user_added_item_to_collection: <strong>%{user}</strong> heeft "%{item}" toegevoegd aan de verzameling "%{collection}".
   activity_user_added_named_association: <strong>%{user}</strong> heeft "%{object_name}" en "%{name}" gekoppeld.
   activity_user_added_unknown_association: <strong>%{user}</strong> heeft een associatie toegevoegd aan een onbekend object.
-  activity_user_added_unknown_item_to_collection: <strong>%{user}</strong> heeft een onbekend object toegevoegd aan de verzameling "%{collection}".
   activity_user_added_unknown_name: <strong>%{user}</strong> heeft een onbekende gewone naam toegevoegd aan een onbekend object.
   activity_user_added_unknown_name_to_taxon: <strong>%{user}</strong> heeft een gewone naam toegevoegd aan "%{taxon}".
   activity_user_changed_community_description: <strong>%{user}</strong> heeft de beschijving van de gemeenschap "%{community}" bijgewerkt.
   activity_user_changed_community_icon: <strong>%{user}</strong> heeft het logo van de gemeenschap "%{community}" bijgewerkt.
   activity_user_changed_community_name: <strong>%{user}</strong> heeft de naam van de gemeenschap "%{community}" bijgewerkt.
-  activity_user_created_collection: <strong>%{user}</strong> heeft de verzameling "%{collection}" aangemaakt.
   activity_user_created_community: <strong>%{user}</strong> heeft de gemeenschap "%{collection}" aangemaakt.
   activity_user_created_text: <strong>%{user}</strong> heeft tekst toegevoegd aan "%{object_name}" in "%{taxon_concept}".
   activity_user_curated_an_unknown_object: <strong>%{user}</strong> heeft een onbekend object geconserveerd.
@@ -284,13 +279,10 @@ nl:
   activity_user_inappropriate_unknown_name_to_taxon: <strong>%{user}</strong> heeft een gemeenschappelijke naam van "%{taxon}" als ongepast gemarkeerd.
   activity_user_joined_community: <strong>%{user}</strong> is lid geworden van de gemeenschap "%{community}".
   activity_user_marked_content_as_inappropriate: <strong>%{user}</strong> heeft inhoud aangemerkt als ongepast.
-  activity_user_modified_collection: <strong>%{user}</strong> heeft de verzameling "%{collection}" aangepast.
   activity_user_modified_community: <strong>%{user}</strong> heeft de gemeenschap "%{community}" aangepast.
   activity_user_rated_data_object: <strong>%{user}</strong> heeft "%{object_name}" beoordeeld.
   activity_user_rated_unknown_object: <strong>%{user}</strong> heeft een onbekend object beoordeeld.
-  activity_user_removed_all_items_from_collection: <strong>%{user}</strong> heeft alle items uit de verzameling "%{collection}" verwijderd.
   activity_user_removed_association: <strong>%{user}</strong> heeft een associatie met "%{object_name}" verwijderd.
-  activity_user_removed_item_from_collection: <strong>%{user}</strong> heeft "%{item}" uit de verzameling "%{collection}" verwijderd.
   activity_user_removed_named_association: <strong>%{user}</strong> heeft een koppeling "%{object_name}" en "%{name}" verwijderd.
   activity_user_removed_unknown_association: <strong>%{user}</strong> heeft een associatie met een onbekend object verwijderd.
   activity_user_removed_unknown_name: <strong>%{user}</strong> heeft een onbekende gewone naam van een onbekend object verwijderd.
@@ -440,7 +432,7 @@ nl:
       page_richness: 
         page_header: Rijke paginastatistieken
         page_title: "Beheer: Rijke paginastatistieken"
-      page_richness_link: Rijke pagina 's
+      page_richness_link: Rijke pagina's
       user_added_data: 
         page_header: Statistieken voor door gebruikers toegevoegde tekst
         page_title: "Beheer: Statistieken voor door gebruikers toegevoegde tekst"
@@ -478,6 +470,9 @@ nl:
   and: en
   and_between_form_items: en
   annotation_cabs_colon: "Annotatie:"
+  anonymous_user_full_name: Anonieme gebruiker
+  anonymous_user_given_name: Anoniem
+  anonymous_user_tag_line: Niet aangemeld
   any_integer: een geheel getal
   application_version_advisory_information: Programmaversie
   are_you_sure: Weet u het zeker?
@@ -487,6 +482,7 @@ nl:
   article_more_about: Meer informatie over deze pagina
   article_not_associated_with_any_published_entries: Dit artikel is niet gekoppeld met gepubliceerde taxa.
   article_of: Artikel van
+  article_of_taxon: Artikel over %{taxon_name}
   article_rating: Artikelwaardering
   articles_in_languages_with_count: 
     one: "Artikelen op deze pagina zijn beschikbaar in één taal:"
@@ -657,6 +653,8 @@ nl:
         meta_keywords: Verzamelingen van %{community_name}
         meta_title: Verzamelingen van %{community_name}
         tweet_text: Verzamelingen van %{community_name}
+    show: 
+      meta_title: "%{community_name} Verwijderd door eigenaar"
   communities_filter: Gemeenschappen
   communities_index_empty: Er zijn geen actieve gemeenschappen.
   communities_index_header: Actieve gemeenschappen
@@ -856,6 +854,9 @@ nl:
     show: 
       meta_description: "%{partner_name}. %{partner_description}"
       meta_keywords: "%{partner_name}, contentpartner van Encyclopedia of Life"
+    statistics: 
+      show: 
+        meta_title: "%{partner_name}-statistieken"
   content_partners_empty: Geen contentpartners gevonden.
   content_partners_page_description: Contentpartners van Encyclopedia of Life hebben grote hoeveelheden gegevens over biodiversiteit op hun eigen websites of in hun databases, die zij ook delen via EOL-paginas. Wij zijn hen zeer dankbaar voor hun belangrijke bijdragen aan de missie van EOL en moedigen u aan hen beter te leren kennen. Lees meer over <a href="%{more_url}">een contentpartner worden</a>.
   content_partners_page_title: Contentpartners
@@ -967,7 +968,6 @@ nl:
   date_caps: Datum
   date_uploaded: Uploaddatum
   dato_create_cancel: Annuleren
-  dato_create_update_user_text_missing_taxon_id_exception: Het was niet mogelijk een tekst-DataObject of -DataObject op te bouwen als taxon_concept_id niet aanwezig is.
   dato_create_user_text_error: Er is een fout opgetreden. De pagina is niet toegevoegd.
   dato_create_user_text_missing_taxon_id_exception: Het was niet mogelijk een tekst-DataObject of -DataObject op te bouwen als taxon_id "nil" is.
   dato_create_user_text_missing_user_exception: Het was niet mogelijk een tekst-DataObject of -DataObject op te bouwen als taxon_id "nil" is.
@@ -1021,7 +1021,6 @@ nl:
   dublin_core: Dublin Core
   duplicate_items_were_ignored: Dubbele items zijn genegeerd.
   edit: Bewerken
-  edit_annotation: annotatie bewerken
   edit_collection_details: Collectiegegevens bewerken
   edit_collection_details_header: Collectiegegevens bewerken
   edit_comment: Opmerking bewerken
@@ -1252,6 +1251,7 @@ nl:
       harvest_event: 
         began_at: Begonnen
         completed_at: Voltooid
+        first_published_at: Voor het eerst gepubliceerd
         publish_more: Markeert importgebeurtenissen voor publicatie. Inhoud wordt niet direct openbaar gemaakt.
         published_at: Gepubliceerd
         published_status: Status
@@ -1405,11 +1405,13 @@ nl:
   image_map_from_supplier: Kaart van %{whom}
   image_map_not_associated_with_any_published_entries: Deze kaart is niet gekoppeld met gepubliceerde taxa.
   image_map_of: Kaart van
+  image_map_of_taxon: Kaart van %{taxon_name}
   image_map_rating: Kaartwaardering
   image_not_associated_with_any_published_entries: Deze afbeelding is niet gekoppeld met gepubliceerde taxa.
   image_not_found: Afbeelding niet gevonden
   image_object: Afbeeldingsobject
   image_of: Afbeelding van
+  image_of_taxon: Afbeelding van %{taxon_name}
   image_rating: Afbeeldingswaardering
   images: Afbeeldingen
   images_in_red_are_not_trusted: Afbeeldingen in het rood worden niet vertrouwd.
@@ -1542,6 +1544,7 @@ nl:
   map_from_supplier: Kaart van %{whom}
   map_not_associated_with_any_published_entries: Deze kaart is niet gekoppeld met gepubliceerde taxa.
   map_of: Kaart van
+  map_of_taxon: Kaart van %{taxon_name}
   map_rating: Kaartwaardering
   maps_empty: Niemand heeft nog kaarten aan deze pagina bijgedragen.
   maps_empty_contribute_instructions: Meer over kaarten bijdragen aan EOL.
@@ -1563,7 +1566,7 @@ nl:
       tweet_text: "%{community_name}-leden"
     show: 
       meta_description: "%{member_name} is lid van %{community_name}, een Encyclopedia of Life-gemeenschap."
-      meta_keywords: "%{member_name}-gemeenschapslid"
+      meta_keywords: "%{member_name}, lid van deze gemeenschap"
       meta_title: "%{member_name}, lid van %{community_name}"
       tweet_text: "%{member_name}, lid van %{community_name}"
   members_like_you: Leden als u
@@ -1726,7 +1729,7 @@ nl:
       message: "Dit is een automatisch bericht van het EOL-berichtensysteem. De gebruiker %{user_full_name} (%{user_profile_url}) heeft zijn e-mailadres of e-mailvoorkeuren aangepast.\n\nVorige voorkeuren:\nE-mailadres: %{previous_email}\nMailinglijstvoorkeuren: %{previous_mailing_list_preference}\n\nBijgewerkt naar:\nE-mailadres: %{updated_email}\nMailinglijstvoorkeuren: %{updated_mailing_list_preference}\nBijgewerkt: %{updated_at}"
       subject: EOL-gebruiker %{user_full_name} heeft e-mailadres of de mailinglijstvoorkeuren gewijzigd
     user_verification: 
-      message: "Bedankt voor het registreren bij de Encyclopedia of Life. Via de volgende verwijzing kunt u uw registratie voltooien:\n\n%{verification_url}\n\nVolg deze verwijzing door erop te klikken of kopieer en plak de verwijzing in de adresbalk in de adresbalk van uw webbrowser om uw gebruiker te activeren. Zodra u uw gebruiker hebt geactiveerd, ontvangt u een bevestiging per e-mail."
+      message: "Bedankt voor het registreren bij de Encyclopedia of Life. Via de volgende verwijzing kunt u uw registratie voltooien en activeren:\n\n%{verification_url}\n\nZodra u uw gebruiker hebt geactiveerd, ontvangt u een bevestiging per e-mail."
       subject: Bevestig uw gebruiker bij Encyclopedia of Life
   nucleotide_sequences: Nucleotidesequenties
   num_content_partners: Aantal contentpartners
@@ -1866,7 +1869,6 @@ nl:
   rights_statement: Rechtenverklaring
   rss_feed: RSS-feed
   save: Opslaan
-  save_annotation_submit_button: Annotatie opslaan
   save_comment_lowercase: opmerking opslaan
   save_curated_association_submit_button: Koppeling opslaan
   scientific_name: Wetenschappelijke naam
@@ -1962,6 +1964,7 @@ nl:
   sound_not_associated_with_any_published_entries: Dit geluidsbestand is niet gekoppeld met gepubliceerde taxa.
   sound_object: Geluidsobject
   sound_of: Geluidsbestand van
+  sound_of_taxon: Audiobestand van %{taxon_name}
   sound_rating: Geluidsbestandswaardering
   sounds_with_count: 
     one: Eén geluid
@@ -2040,7 +2043,7 @@ nl:
           meta_title: Mensen die geïnteresseerd zijn in %{scientific_name} als ingedeeld door %{hierarchy_provider}.
           meta_title_with_common_name: Mensen die geïnteresseerd zijn in %{preferred_common_name} (%{scientific_name} als ingedeeld door %{hierarchy_provider}).
           tweet_text: Mensen die geïnteresseerd zijn in %{scientific_name} als ingedeeld door %{hierarchy_provider}.
-        meta_description: Geïnteresseerd in %{scientific_name}? Kom bij de experts over %{scientific_name} en deel uw observaties over %{scientific_name} in de Encyclopdia of Life.
+        meta_description: Geïnteresseerd in %{scientific_name}? Kom bij de experts over %{scientific_name} en deel uw observaties over %{scientific_name} in de Encyclopedia of Life.
         meta_description_with_common_name: Geïnteresseerd in %{preferred_common_name} (%{scientific_name})? Kom bij de experts over %{preferred_common_name} en deel uw observaties over %{preferred_common_name} in de Encyclopdia of Life.
         meta_keywords: "%{scientific_name}-gemeenschap"
         meta_keywords_with_common_name: "%{preferred_common_name}-gemeenschap, %{scientific_name}-gemeenschap"
@@ -2088,7 +2091,11 @@ nl:
         tweet_text: Synoniemen van %{scientific_name}
     overviews: 
       show: 
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})"
         tweet_text: Overzicht van %{scientific_name}
+    resources: 
+      biomedical_terms: 
+        tweet_text: Biomedische termen %{scientific_name}
   taxa_with_count: 
     one: Eén taxon
     other: "%{count} taxa"
@@ -2241,6 +2248,20 @@ nl:
   username: Gebruikersnaam
   username_colon: "Gebruikersnaam:"
   username_taken: "%{name} wordt al gebruikt"
+  users: 
+    activities: 
+      show: 
+        meta_title: Activiteit van %{user_full_name}
+        tweet_text: activiteit van %{user_full_name}
+    collections: 
+      index: 
+        meta_title: Verzamelingen van %{user_full_name}
+        tweet_text: verzamelingen van %{user_full_name}
+    communities: 
+      index: 
+        meta_description: Gemeenschappen waar %{user_full_name} lid van is.
+        meta_title: Gemeenschappen van %{user_full_name}
+        tweet_text: gemeenschappen van %{user_full_name}
   users_about_me_header: Over mij
   users_content_partners_header: Contentpartners
   users_form_account_header: Uw gebruiker
@@ -2261,6 +2282,7 @@ nl:
   video_not_associated_with_any_published_entries: Deze video is niet gekoppeld met gepubliceerde taxa.
   video_object: Video-object
   video_of: Video van
+  video_of_taxon: Video van %{taxon_name}
   video_rating: Videowaardering
   video_title_not_available_in_language: Titel niet beschikbaar in %{language}
   videos_with_count: 

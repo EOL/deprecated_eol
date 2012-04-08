@@ -69,6 +69,15 @@ pms:
   translated_contact_subjects-title-contact_subject_id-24: Associassion e argistrassion
   translated_contact_subjects-title-contact_subject_id-25: Condission d'utilisassion e licensa
   translated_contact_subjects-title-contact_subject_id-26: Amprendiment e ansegnament
+  translated_contact_subjects-title-contact_subject_id-27: Ch'a dventa un cambrada ëd contnù
+  translated_contact_subjects-title-contact_subject_id-28: Sostegn dij cambrada ëd contnù
+  translated_contact_subjects-title-contact_subject_id-29: Sostegn dij conservador
+  translated_contact_subjects-title-contact_subject_id-30: Fé na coression (ortografìa e gramàtica, plance, anformassion)
+  translated_contact_subjects-title-contact_subject_id-31: Contribuì con dle plance, dij filmà o dij son
+  translated_contact_subjects-title-contact_subject_id-32: Arcesta ëd mojen (antërviste, anceste dë stampa, arceste ëd marche)
+  translated_contact_subjects-title-contact_subject_id-33: Fé na donassion d'arzan
+  translated_contact_subjects-title-contact_subject_id-34: Chestion técniche (problema d'arserca, fonsionament problemàtich dël sit an sl'Aragnà)
+  translated_contact_subjects-title-contact_subject_id-35: Opinion general
   translated_content_partner_statuses-label-content_partner_status_id-1: Pendent
   translated_content_partner_statuses-label-content_partner_status_id-2: Ativ
   translated_content_partner_statuses-label-content_partner_status_id-3: Archivià
@@ -242,6 +251,11 @@ pms:
   translated_synonym_relations-label-synonym_relation_id-61: sinònim obietiv
   translated_synonym_relations-label-synonym_relation_id-62: sinònim pì vej
   translated_synonym_relations-label-synonym_relation_id-63: nen acetà
+  translated_synonym_relations-label-synonym_relation_id-64: pa bon
+  translated_synonym_relations-label-synonym_relation_id-65: sinònim ëd géner
+  translated_synonym_relations-label-synonym_relation_id-66: arpresentassion alternativa
+  translated_synonym_relations-label-synonym_relation_id-67: spece da confirmé
+  translated_synonym_relations-label-synonym_relation_id-68: òrt-coltural
   translated_synonym_relations-label-synonym_relation_id-7: sigla ëd genbank
   translated_synonym_relations-label-synonym_relation_id-8: anamòrfosi ëd genbank
   translated_synonym_relations-label-synonym_relation_id-9: nòm comun ëd genbank
@@ -340,6 +354,9 @@ pms:
   translated_vetted-label-vetted_id-4: Nen fidà
   translated_vetted-label-vetted_id-5: Fidà
   translated_vetted-label-vetted_id-6: Inapropià
+  translated_view_styles-name-view_style_id-1: Lista
+  translated_view_styles-name-view_style_id-2: Galarìa
+  translated_view_styles-name-view_style_id-3: Anotà
   translated_visibilities-label-visibility_id-0: Invisìbil
   translated_visibilities-label-visibility_id-1: Visìbil
   translated_visibilities-label-visibility_id-2: Preuva

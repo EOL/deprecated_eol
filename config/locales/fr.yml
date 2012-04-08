@@ -247,28 +247,23 @@ fr:
     models: 
       user: compte
   activity: Activité
-  activity_added_an_editor_of_collection: <strong>%{user}</strong> a ajouté un gestionnaire à la collection « %{collection} ».
   activity_choose_exemplar: <strong>%{user}</strong> a défini une image exemplaire pour « %{object_name} ».
   activity_hid_with_reasons_colon: "raison(s) du masquage : %{reasons}"
   activity_log_empty: Personne n’a encore fourni de mises à jour.
   activity_log_empty_learn_more_link: Apprenez comment contribuer
   activity_untrusted_with_reasons_colon: "raison(s) du retrait de la confiance : %{reasons}"
-  activity_user_added_as_an_editor_of_collection: <strong>%{user}</strong> a été ajouté en tant que gestionnaire de la collection « %{collection} ».
   activity_user_added_association: <strong>%{user}</strong> a ajouté une association à « %{object_name} ».
   activity_user_added_collection_to_community: <strong>%{user}</strong> a ajouté la collection « %{collection} » à la communauté « %{community} ».
   activity_user_added_common_name: <strong>%{user}</strong> a ajouté le nom usuel en %{language} « %{name} » à un objet inconnu.
   activity_user_added_common_name_to_taxon: <strong>%{user}</strong> a ajouté le nom usuel en %{language} « %{name} » à « %{taxon} ».
   activity_user_added_community_manager: <strong>%{user}</strong> a fait de %{manager} un gestionnaire de la communauté « %{community} ».
-  activity_user_added_item_to_collection: <strong>%{user}</strong> a ajouté « %{item} » à la collection « %{collection} ».
   activity_user_added_named_association: <strong>%{user}</strong> a ajouté une association entre « %{object_name} » et « %{name} ».
   activity_user_added_unknown_association: <strong>%{user}</strong> a ajouté une association à un objet inconnu.
-  activity_user_added_unknown_item_to_collection: <strong>%{user}</strong> a ajouté un élément inconnu à la collection « %{collection} ».
   activity_user_added_unknown_name: <strong>%{user}</strong> a ajouté un nom usuel inconnu à un objet inconnu.
   activity_user_added_unknown_name_to_taxon: <strong>%{user}</strong> a ajouté un nom usuel à "%{taxon}".
   activity_user_changed_community_description: <strong>%{user}</strong> a mis à jour la description de la communauté « %{community} ».
   activity_user_changed_community_icon: <strong>%{user}</strong> a changé le logo de la communauté « %{community} ».
   activity_user_changed_community_name: <strong>%{user}</strong> a changé le nom de la communauté « %{community} ».
-  activity_user_created_collection: <strong>%{user}</strong> a créé la collection « %{collection} ».
   activity_user_created_community: <strong>%{user}</strong> a créé la communauté « %{community} ».
   activity_user_created_text: <strong>%{user}</strong> a ajouté du texte à « %{object_name} » portant sur « %{taxon_concept} ».
   activity_user_curated_an_unknown_object: <strong>%{user}</strong> a supervisé un objet inconnu.
@@ -283,13 +278,10 @@ fr:
   activity_user_inappropriate_unknown_name_to_taxon: <strong>%{user}</strong> a marqué un nom usuel comme inapproprié pour "%{taxon}".
   activity_user_joined_community: <strong>%{user}</strong> a rejoint la communauté « %{community} ».
   activity_user_marked_content_as_inappropriate: <strong>%{user}</strong> a marqué un contenu comme inapproprié.
-  activity_user_modified_collection: <strong>%{user}</strong> a modifié la collection « %{collection} ».
   activity_user_modified_community: <strong>%{user}</strong> a modifié la communauté « %{community} ».
   activity_user_rated_data_object: <strong>%{user}</strong> a évalué « %{object_name} ».
   activity_user_rated_unknown_object: <strong>%{user}</strong> a évalué un élément inconnu.
-  activity_user_removed_all_items_from_collection: <strong>%{user}</strong> a retiré tous les éléments de la collection « %{collection} ».
   activity_user_removed_association: <strong>%{user}</strong> a retiré une association à « %{object_name} ».
-  activity_user_removed_item_from_collection: <strong>%{user}</strong> a retiré « %{item} » de la collection « %{collection} ».
   activity_user_removed_named_association: <strong>%{user}</strong> a retiré une association entre « %{object_name} » et « %{name} ».
   activity_user_removed_unknown_association: <strong>%{user}</strong> a retiré une association à un objet inconnu.
   activity_user_removed_unknown_name: <strong>%{user}</strong> a retiré un nom usuel inconnu pour un objet inconnu.
@@ -304,6 +296,7 @@ fr:
   activity_user_trust_unknown_name_to_taxon: <strong>%{user}</strong> a marqué un nom usuel comme digne de confiance pour "%{taxon}".
   activity_user_trusted_data_object: <strong>%{user}</strong> a marqué « %{object_name} » comme digne de confiance.
   activity_user_trusted_named_association: <strong>%{user}</strong> a marqué une association entre « %{object_name} » et « %{name} » comme digne de confiance.
+  activity_user_trusted_older_data_object: <strong>%{user}</strong> a marqué « %{object_name} » comme fiable.
   activity_user_trusted_unknown_object: <strong>%{user}</strong> a marqué un objet inconnu comme digne de confiance.
   activity_user_trusted_unknown_object_association: <strong>%{user}</strong> a marqué une association entre un objet inconnu et « %{name} » comme digne de confiance.
   activity_user_unreview_common_name: <strong>%{user}</strong> a marqué le nom usuel en %{language}  « %{name} » pour un objet inconnu comme non supervisé.
@@ -398,6 +391,7 @@ fr:
   admin_notes_not_visible_to_user: "Notes d’administration (non visibles par l’utilisateur) :"
   admin_page_title: "Administration : vue d’ensemble"
   admin_spam_delete: Supprimer les pourriels
+  admin_statistics_link: Statistiques
   admin_translated_content_page_create_successful_notice: La traduction a été ajoutée à <a href="#%{anchor}"><em>%{page_name}</em></a>
   admin_translated_content_page_create_unsuccessful_error: Désolé, une erreur est survenue ; la traduction n’a pas pu être ajoutée.
   admin_translated_content_page_delete_confirmation: Êtes-vous sûr de vouloir supprimer la version en %{language} de « %{page_name} » ? L’action de suppression est irréversible.
@@ -1002,7 +996,6 @@ fr:
   date_caps: Date
   date_uploaded: Date de téléversement
   dato_create_cancel: Annuler
-  dato_create_update_user_text_missing_taxon_id_exception: Impossible de construire un objet de données textuelles ou utilisateur si l’identifiant de concept de taxon est manquant.
   dato_create_user_text_error: Désolé, une erreur est survenue, l’article n’a pas pu être ajoutée.
   dato_create_user_text_missing_taxon_id_exception: Impossible de construire un objet de données textuelles ou utilisateur si l’identifiant de taxon est nul.
   dato_create_user_text_missing_user_exception: Impossible de construire un objet de données textuelles ou utilisateur si l’identifiant de taxon est nul.
@@ -1063,7 +1056,6 @@ fr:
   e_g_search_for_the_eol_page: "(par exemple rechercher l’identifiant de page EOL pour le TSN 180542 d’ITIS  :"
   each_method_documentation_page_has_formatted_responses: Chaque page de documentation de méthode comprend un exemple des deux réponses formatées en XML et JSON.
   edit: Modifier
-  edit_annotation: modifier l’annotation
   edit_collection_details: modifier les détails de la collection
   edit_collection_details_header: Modifier les détails de la collection
   edit_comment: Modifier le commentaire
@@ -1472,6 +1464,7 @@ fr:
   image_map_from_supplier: Carte fournie par %{whom}
   image_map_not_associated_with_any_published_entries: Cette carte n'est associée à aucune des taxonomies publiées.
   image_map_of: Carte de
+  image_map_of_taxon: Carte de %{taxon_name}
   image_map_rating: Évaluation de la carte
   image_not_associated_with_any_published_entries: Cette image n'est associée à aucune des taxonomies publiées.
   image_not_found: Image introuvable
@@ -1638,6 +1631,7 @@ fr:
   map_from_supplier: Carte fournie par %{whom}
   map_not_associated_with_any_published_entries: Cette carte n'est associée à aucune des taxonomies publiées.
   map_of: Carte de
+  map_of_taxon: Carte de %{taxon_name}
   map_rating: Évaluation de la carte
   maps_empty: Personne n'a encore contribué à une carte sur cette page.
   maps_empty_contribute_instructions: Apprenez comment contribuer aux cartes de EOL.
@@ -1866,13 +1860,11 @@ fr:
     user_message: 
       subject: Un message de l’''Encyclopédie de la vie'' (EOL)
     user_reset_password: 
-      message: "L’''Encyclopédie de la vie'' (www.eol.org) a reçu une demande de réinitialisation de votre mot de passe. Si vous n’avez pas effectué cette demande, veuillez ignorer ce courriel.\n\nLe lien suivant, qui n’est valable qu’une seule fois, vous permet de réinitialiser votre mot de passe :\n\n%{password_reset_url}\n\nSuivez ce lien (en cliquant dessus ou en le copiant en entier dans la barre d’adresse de votre navigateur avant de le valider) afin d’accéder à la page où vous pourrez saisir un nouveau mot de passe. Veuillez noter que si ce lien a expiré, il vous sera demandé de saisir à nouveau votre nom d’utilisateur ou votre adresse courriel afin de recevoir un courriel contenant un nouveau lien de réinitialisation de mot de passe."
       subject: Réinitialiser le mot de passe de votre compte utilisateur sur l’''Encyclopédie de la vie'' (EOL)
     user_updated_email_preferences: 
       message: "Ceci est une notification automatique du système EOL. L'utilisateur %{user_full_name} (%{user_profile_url}) a mis à jour son adresse courriel ou ses préférences pour les listes de diffusion.\n\nPréférences précédentes :\nCourriel : %{previous_email}\nPréférence pour les listes de diffusion : %{previous_mailing_list_preference}\n\nPréférences actuelles : \nCourriel : %{updated_email}\nPréférence pour les listes de diffusion : %{updated_mailing_list_preference}\nMise à jour du : %{updated_at}"
       subject: L’utilisateur d’EOL %{user_full_name} a modifié son adresse courriel ou ses préférences pour les listes de diffusion
     user_verification: 
-      message: "Merci pour votre inscription sur l’''Encyclopédie de la vie'' (EOL). Le lien suivant vous permet de confirmer et finaliser votre inscription :\n\n%{verification_url}\n\nSuivez ce lien (en cliquant dessus ou en le copiant en entier dans la barre d’adresse de votre navigateur avant de le valider) afin d’activer votre compte. Lorsque votre compte sera activé, vous recevrez un courriel de confirmation."
       subject: Veuillez vérifier votre demande de compte sur l’''Encyclopédie de la vie'' (EOL)
   nucleotide_sequences: Séquences nucléotides
   nucleotide_sequences_ncbi_database: La base de données de <a href="%{ncbi_taxonomy_link}">taxonomie NCBI</a> contient les noms de tous les organismes qui sont représentés dans les bases de données génétiques avec au moins une séquence nucléotidique ou de protéines.
@@ -2086,7 +2078,6 @@ fr:
   rights_statement: Déclaration des droits
   rss_feed: flux RSS
   save: Publier
-  save_annotation_submit_button: Publier la note
   save_comment_lowercase: enregistrer le commentaire
   save_curated_association_submit_button: Publier l'association
   sci_name_avg_table_head: Nom scientifique moyen
@@ -2287,6 +2278,7 @@ fr:
           meta_title: Conservateurs de %{scientific_name} tel que classé par %{hierarchy_provider}
           meta_title_with_common_name: Experts sur %{preferred_common_name} (%{scientific_name} tel que classé par %{hierarchy_provider})
           tweet_text: Conservateurs de %{scientific_name} tel que classé par %{hierarchy_provider}
+        meta_description_with_common_name: experts de %{preferred_common_name} (appelés aussi experts de %{scientific_name}) qui surveillent ses données dans l'Encyclopédie de la Vie.
         meta_keywords: Experts de %{scientific_name}, Conservateurs de %{scientific_name}
         meta_keywords_with_common_name: Experts de %{preferred_common_name}, Conservateurs de %{preferred_common_name}, Experts de %{scientific_name}, Conservateurs de %{scientific_name}
         meta_title: Conservateurs de %{scientific_name}
@@ -2313,7 +2305,7 @@ fr:
           meta_description: Information sur %{scientific_name} tel que classé par %{hierarchy_provider} dans l'Encyclopédie de la Vie
           meta_description_with_chapter_list: Information sur %{scientific_name} tel que classé par %{hierarchy_provider} dans l'Encyclopédie de la Vie. Inclut les informations %{chapter_list} pour %{scientific_name}.
           meta_description_with_common_name: Information sur le %{preferred_common_name}, scientifiquement appelé %{scientific_name} tel que classé par %{hierarchy_provider} dans l'Encyclopédie de la Vie.
-          meta_description_with_common_name_with_chapter_list: Information sur le %{preferred_common_name}, scientifiquement appelé %{scientific_name} tel que classé par %{hierarchy_provider} dans l'Encyclopédie de la Vie. COmprend des informations sur %{chapter_list}.
+          meta_description_with_common_name_with_chapter_list: Information sur le %{preferred_common_name}, scientifiquement appelé %{scientific_name} tel que classé par %{hierarchy_provider} dans l'Encyclopédie de la Vie. Comprend des informations sur %{chapter_list}.
           meta_title: Information sur %{scientific_name} tel que classé par %{hierarchy_provider}
           meta_title_with_common_name: Information sur le %{preferred_common_name} (%{scientific_name} tel que classé par %{hierarchy_provider})
           tweet_text: Information sur %{scientific_name} tel que classé par %{hierarchy_provider}
@@ -2371,6 +2363,22 @@ fr:
           meta_keywords_with_common_name: photographies de %{preferred_common_name}, films sur %{preferred_common_name}, sons de %{preferred_common_name}, audios sur %{preferred_common_name}, photographies de %{scientific_name}, films sur %{scientific_name}, sons de %{scientific_name}, audios sur %{scientific_name}
           meta_title: Audio, Film & Photographies sur %{scientific_name} tel que classé par %{hierarchy_provider}
           meta_title_with_common_name: Audio, Film & Images sur %{preferred_common_name} (%{scientific_name} tel que classé par %{hierarchy_provider})
+          tweet_text: Les supports de %{scientific_name} tels que classés par %{hierarchy_provider}
+        meta_description: Images et vidéos de %{scientific_name}.
+        meta_description_with_common_name: Images et vidéos de %{preferred_common_name} appelé aussi %{scientific_name}.
+        meta_keywords: images de %{scientific_name}, vidéos de %{scientific_name}, images de %{scientific_name}, vids de %{scientific_name}, pics de %{scientific_name}, support
+        meta_keywords_with_common_name: images de %{preferred_common_name}, vidéos sur %{preferred_common_name}, images de %{preferred_common_name}, vids de %{preferred_common_name}, pics de %{preferred_common_name}, support
+        meta_title: Images & Vidéos de %{preferred_common_name} (%{scientific_name})
+        meta_title_with_common_name: Images & Vidéos de %{preferred_common_name} (%{scientific_name})
+        tweet_text: Média de %{scientific_name}
+    names: 
+      synonyms: 
+        meta_description: Synonymes de %{scientific_name}.
+        meta_title: Synonymes de %{scientific_name}
+        tweet_text: Synonymes de %{scientific_name}
+    resources: 
+      biomedical_terms: 
+        meta_title: Termes biomédicales pour %{scientific_name}
   taxa_column_header: Taxons
   taxon: taxon
   taxon_biomedical_terms_link: Termes biomédicaux
@@ -2610,6 +2618,7 @@ fr:
   user_joined_community_on_date: "%{username} a rejoint cette communauté le %{date}."
   user_joined_when: "\"%{user}\" a rejoint %{when}"
   user_left_comment_on_date: "%{username} a laissé un commentaire le %{date}."
+  user_no_longer_active_message: Cet utilisateur n'est plus actif
   user_no_longer_has_manager_access_to_collection: "%{user} n'a plus d'accès gestionnaire à \"%{collection}\"."
   user_response: Réponse de l'utilisateur
   user_says_colon: "%{users_name} dit:"

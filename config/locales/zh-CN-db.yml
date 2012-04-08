@@ -1,10 +1,13 @@
 # Messages for Simplified Chinese (‪中文(简体)‬)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
+# Author: Dimension
 # Author: Hzy980512
 # Author: Linforest
 # Author: Shizhao
 zh-CN: 
+  translated_activities-name-activity_id-53: 隐藏
+  translated_activities-name-activity_id-56: 删除
   translated_audiences-label-audience_id-1: 专家级用户
   translated_audiences-label-audience_id-2: 公众
   translated_audiences-label-audience_id-3: 孩子
@@ -12,6 +15,7 @@ zh-CN:
   translated_collection_types-label-collection_type_id-10: 声音
   translated_collection_types-label-collection_type_id-11: 链接
   translated_collection_types-label-collection_type_id-2: 分子条码
+  translated_collection_types-label-collection_type_id-23: 链接
   translated_collection_types-label-collection_type_id-3: 描述
   translated_collection_types-label-collection_type_id-4: 图像
   translated_collection_types-label-collection_type_id-8: 分子数据

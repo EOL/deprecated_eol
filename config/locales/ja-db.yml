@@ -1,6 +1,7 @@
 # Messages for Japanese (日本語)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
+# Author: Masakiyamaguchi
 # Author: Schu
 # Author: Shirayuki
 ja: 
@@ -23,6 +24,7 @@ ja:
   translated_agent_roles-label-agent_role_id-12: 記録者
   translated_agent_roles-label-agent_role_id-13: ソース
   translated_agent_roles-label-agent_role_id-14: ソースデータベース
+  translated_agent_roles-label-agent_role_id-15: お問い合わせ
   translated_agent_roles-label-agent_role_id-16: 投稿者
   translated_agent_roles-label-agent_role_id-2: 著者
   translated_agent_roles-label-agent_role_id-21: プロバイダー
@@ -66,6 +68,7 @@ ja:
   translated_contact_roles-label-contact_role_id-1: 主な連絡先
   translated_contact_roles-label-contact_role_id-2: 管理者の連絡先
   translated_contact_roles-label-contact_role_id-3: 技術的な連絡先
+  translated_contact_subjects-title-contact_subject_id-31: 画像、ビデオ、それか音に貢献する。
   translated_content_partner_statuses-label-content_partner_status_id-1: ペンディング
   translated_content_partner_statuses-label-content_partner_status_id-2: アクティブ
   translated_content_partner_statuses-label-content_partner_status_id-3: アーカイブ
@@ -131,6 +134,7 @@ ja:
   translated_ranks-label-rank_id-74: 部門
   translated_ranks-label-rank_id-85: f
   translated_ranks-label-rank_id-86: f.
+  translated_ranks-label-rank_id-99: 家族
   translated_resource_statuses-label-resource_status_id-1: アップロード中...
   translated_resource_statuses-label-resource_status_id-10: 公開済み
   translated_resource_statuses-label-resource_status_id-11: 公開保留
@@ -174,6 +178,7 @@ ja:
   translated_synonym_relations-label-synonym_relation_id-6: 等価な名前
   translated_synonym_relations-label-synonym_relation_id-60: 異名 (subjective = heterotypic)
   translated_synonym_relations-label-synonym_relation_id-61: 客観シノニム
+  translated_synonym_relations-label-synonym_relation_id-64: 無効です
   translated_synonym_relations-label-synonym_relation_id-7: ジェンバンクの頭字語
   translated_synonym_relations-label-synonym_relation_id-8: ジェンバンクのアナモルフ
   translated_synonym_relations-label-synonym_relation_id-9: ジェンバンクの一般名
@@ -270,6 +275,8 @@ ja:
   translated_vetted-label-vetted_id-4: 信頼できない
   translated_vetted-label-vetted_id-5: 信頼できる
   translated_vetted-label-vetted_id-6: 不適切
+  translated_view_styles-name-view_style_id-1: 一覧
+  translated_view_styles-name-view_style_id-2: ギャラリー
   translated_visibilities-label-visibility_id-0: 不可視
   translated_visibilities-label-visibility_id-1: 可視
   translated_visibilities-label-visibility_id-2: プレビュー

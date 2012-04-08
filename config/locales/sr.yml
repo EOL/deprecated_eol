@@ -255,28 +255,23 @@ sr:
     models: 
       user: налог
   activity: Активност
-  activity_added_an_editor_of_collection: <strong>%{user}</strong> је додао управника у збирку „%{collection}“.
   activity_choose_exemplar: <strong>%{user}</strong> постави слику као пример „%{object_name}“.
   activity_hid_with_reasons_colon: "разлог за скривање: %{reasons}"
   activity_log_empty: Још нико није пружио доградње.
   activity_log_empty_learn_more_link: Сазнајте како да допринесете
   activity_untrusted_with_reasons_colon: "разлог за неповерљивост: %{reasons}"
-  activity_user_added_as_an_editor_of_collection: <strong>%{user}</strong> је додат као управник збирке „%{collection}“.
   activity_user_added_association: <strong>%{user}</strong> је додао везу с објектом „%{object_name}“.
   activity_user_added_collection_to_community: <strong>%{user}</strong> је додао збирку „%{collection}“ у заједницу „%{community}“.
   activity_user_added_common_name: <strong>%{user}</strong> је додао %{language} тривијалан назив „%{name}“ на непознати објекат.
   activity_user_added_common_name_to_taxon: <strong>%{user}</strong> је додао %{language} тривијалан назив „%{name}“ у „%{taxon}“.
   activity_user_added_community_manager: <strong>%{user}</strong> постави корисника %{manager} за руководиоца заједнице „%{community}“.
-  activity_user_added_item_to_collection: <strong>%{user}</strong> је додао ставку „%{item}“ у збирку „%{collection}“.
   activity_user_added_named_association: <strong>%{user}</strong> је додао везу између „%{object_name}“ и „%{name}“.
   activity_user_added_unknown_association: <strong>%{user}</strong> је додао везу за непознати објекат.
-  activity_user_added_unknown_item_to_collection: <strong>%{user}</strong> је додао непознату ставку у збирку „%{collection}“.
   activity_user_added_unknown_name: <strong>%{user}</strong> додате непознати тривијалан назив за непознати објекат.
   activity_user_added_unknown_name_to_taxon: <strong>%{user}</strong> је додао тривијалан назив на таксон „%{taxon}“.
   activity_user_changed_community_description: <strong>%{user}</strong> измени опис заједнице „%{community}“.
   activity_user_changed_community_icon: <strong>%{user}</strong> промени логотип заједнице „%{community}“.
   activity_user_changed_community_name: <strong>%{user}</strong> промени назив заједнице „%{community}“.
-  activity_user_created_collection: <strong>%{user}</strong> направи збирку „%{collection}“.
   activity_user_created_community: <strong>%{user}</strong> направи заједницу „%{community}“.
   activity_user_created_text: <strong>%{user}</strong> је додао текст у „%{object_name}“ на „%{taxon_concept}“.
   activity_user_curated_an_unknown_object: <strong>%{user}</strong> постаде кустос за непознати објекат.
@@ -291,13 +286,10 @@ sr:
   activity_user_inappropriate_unknown_name_to_taxon: <strong>%{user}</strong> означи тривијалан назив из таксона „%{taxon}“ као неприкладан.
   activity_user_joined_community: <strong>%{user}</strong> се придружи заједници „%{community}“.
   activity_user_marked_content_as_inappropriate: <strong>%{user}</strong> означи садржај као неприкладан.
-  activity_user_modified_collection: <strong>%{user}</strong> измени збирку „%{collection}“.
   activity_user_modified_community: <strong>%{user}</strong> измени заједницу „%{community}“.
   activity_user_rated_data_object: <strong>%{user}</strong> оцени објекат „%{object_name}“.
   activity_user_rated_unknown_object: <strong>%{user}</strong> оцени непознати објекат.
-  activity_user_removed_all_items_from_collection: <strong>%{user}</strong> уклони све ставке из збирке „%{collection}“.
   activity_user_removed_association: <strong>%{user}</strong> уклони везу с објектом „%{object_name}“.
-  activity_user_removed_item_from_collection: <strong>%{user}</strong> уклони ставку „%{item}“ из збирке „%{collection}“.
   activity_user_removed_named_association: <strong>%{user}</strong> уклони везу између „%{object_name}“ и „%{name}“.
   activity_user_removed_unknown_association: <strong>%{user}</strong> уклони везу с непознатим објектом.
   activity_user_removed_unknown_name: <strong>%{user}</strong> уклони непознати тривијалан назив из непознатог објекта.
@@ -1063,7 +1055,6 @@ sr:
   date_caps: Датум
   date_uploaded: Датум отпремања
   dato_create_cancel: Откажи
-  dato_create_update_user_text_missing_taxon_id_exception: Не могу да срочим DataObject или UsersDataObject за текст ако недостаје taxon_concept_id.
   dato_create_user_text_error: Нажалост, дошло је до грешке. Не могу да додам чланак.
   dato_create_user_text_missing_taxon_id_exception: Не могу да саставим текстуалан DataObject или UsersDataObject ако нема назнака за таксон.
   dato_create_user_text_missing_user_exception: Не могу да срочим DataObject или UsersDataObject за текст ако недостаје назнака за таксон.
@@ -1125,7 +1116,6 @@ sr:
   e_g_search_for_the_eol_page: "(нпр. претражите страницу EOL-а с назнаком ITIS TSN 180542:"
   each_method_documentation_page_has_formatted_responses: Страница документације за сваки метод садржи два примера за одговоре у формату XML и JSON.
   edit: Уреди
-  edit_annotation: уреди забелешку
   edit_collection_details: Уреди детаље о збирци
   edit_collection_details_header: Уређивање детаља о збирци
   edit_comment: Уреди коментар
@@ -1759,7 +1749,6 @@ sr:
   message_colon: "Порука:"
   meta_description_colon: "Мета опис:"
   meta_keywords_colon: "Мета кључне речи:"
-  meta_title_site_name: Енциклопедија живота
   method: Начин
   method_to_get_metadata_about_the_hierarchy: када наведете назнаку хијерархије, ова метода ће пријавити метаподатке о хијерархији и приказати основне таксоне
   methods: Начини
@@ -1944,13 +1933,11 @@ sr:
     user_message: 
       subject: Порука од Енциклопедије живота
     user_reset_password: 
-      message: "Енциклопедија живота (www.eol.org) је примила захтев за обнављање ваше лозинке. Ако нисте поднели овај захтев, занемарите ову поруку.\n\nСледећа веза вам даје једнократну прилику за поставите нову лозинку:\n\n%{password_reset_url}\n\nПратите ову везу (кликните на њу или је умножите у навигациону траку вашег прегледача) да дођете до странице на којој можете да промените лозинку. Имајте на уму да, ако је веза истекла, тада ћете морати поново да унесете корисничко име или е-адресу како бисте добили нову поруку за промену лозинке и нову везу."
       subject: Обнављање лозинке за налог на Енциклопедији живота
     user_updated_email_preferences: 
       message: "Ово је системско самообавештење. %{user_full_name} (%{user_profile_url}) промени своју е-адресу или поставке за дописну листу.\n\nПретходне поставке:\nЕ-адреса: %{previous_email}\nПоставка дописне листе: %{previous_mailing_list_preference}\n\nАжуриране поставке:\nЕ-адреса: %{updated_email}\nПоставка дописне листе: %{updated_mailing_list_preference}\nАжурирано: %{updated_at}"
       subject: "%{user_full_name} промени своју е-адресу или поставке за дописну листу"
     user_verification: 
-      message: "Хвала вам што сте отворили налог на Енциклопедији живота. Следећа веза служи да бисте потврдили упис:\n\n%{verification_url}\n\nПратите ову везу (кликните на њу или је умножите у навигациону траку на свом прегледачу) да бисте активирали налог. Потом ћете добити потврдну поруку да је ваш налог заиста активиран."
       subject: Потврдите ваш захтев за налог на Енциклопедији живота
   nucleotide_sequences: Нуклеотидне секвенце
   nucleotide_sequences_ncbi_database: База <a href="%{ncbi_taxonomy_link}">таксономије NCBI-ја</a> садржи називе свих организама који су заступљени у генетској бази с најмање једном нуклеотидном или протеинском секвенцом.
@@ -2166,7 +2153,6 @@ sr:
   rights_statement: Изјава о правима
   rss_feed: Довод
   save: Сачувај
-  save_annotation_submit_button: Сачувај забелешку
   save_comment_lowercase: сачувај коментар
   save_curated_association_submit_button: Сачувај везу
   sci_name_avg_table_head: Научни назив (просечно)

@@ -256,28 +256,23 @@ mk:
     models: 
       user: сметка
   activity: Активности
-  activity_added_an_editor_of_collection: <strong>%{user}</strong> назначи раководител на збирката „%{collection}“.
   activity_choose_exemplar: <strong>%{user}</strong> постави слика како пример „%{object_name}“.
   activity_hid_with_reasons_colon: "причина/ни за скривањето: %{reasons}"
   activity_log_empty: Сè уште никој нема актуелности од никого.
   activity_log_empty_learn_more_link: Дознајте како да придонесувате
   activity_untrusted_with_reasons_colon: "причина/ни за недоверливост: %{reasons}"
-  activity_user_added_as_an_editor_of_collection: <strong>%{user}</strong> е додаден како раководител на збирката „%{collection}“.
   activity_user_added_association: <strong>%{user}</strong> му додаде поврзаност на објектот „%{object_name}“.
   activity_user_added_collection_to_community: <strong>%{user}</strong> ја додаде збирката „%{collection}“ во заедницата „%{community}“.
   activity_user_added_common_name: <strong>%{user}</strong> му додаде тривијално име „%{name}“ на %{language} на непознат објект.
   activity_user_added_common_name_to_taxon: <strong>%{user}</strong> му го додаде тривијалното име на %{language} „%{name}“ на таксонот „%{taxon}“.
   activity_user_added_community_manager: <strong>%{user}</strong> го назначи корисникот %{manager} за раководител на заедницата „%{community}“.
-  activity_user_added_item_to_collection: <strong>%{user}</strong> го додаде експонатот „%{item}“ во збирката „%{collection}“.
   activity_user_added_named_association: <strong>%{user}</strong> додаде поврзаност помеѓу „%{object_name}“ и „%{name}“.
   activity_user_added_unknown_association: <strong>%{user}</strong> му додаде поврзаност на непознат објект.
-  activity_user_added_unknown_item_to_collection: <strong>%{user}</strong> додаде непознат експонат во збирката „%{collection}“.
   activity_user_added_unknown_name: <strong>%{user}</strong> додаде непознато тривијално име на непознат објект.
   activity_user_added_unknown_name_to_taxon: <strong>%{user}</strong> му додаде тривијално име на таксонот „%{taxon}“.
   activity_user_changed_community_description: <strong>%{user}</strong> го измени описот на заедницата „%{community}“.
   activity_user_changed_community_icon: <strong>%{user}</strong> го смени логото на заедницата „%{community}“.
   activity_user_changed_community_name: <strong>%{user}</strong> го смени името на заедницата „%{community}“.
-  activity_user_created_collection: <strong>%{user}</strong> ја создаде збирката „%{collection}“.
   activity_user_created_community: <strong>%{user}</strong> ја создаде заедницата „%{community}“.
   activity_user_created_text: <strong>%{user}</strong> додаде текст во „%{object_name}“ на „%{taxon_concept}“.
   activity_user_curated_an_unknown_object: <strong>%{user}</strong> стана кустос на непознат објект.
@@ -294,13 +289,10 @@ mk:
   activity_user_inappropriate_unknown_name_to_taxon: <strong>%{user}</strong> означи тривијално име од таксонот „%{taxon}“ како несоодветно.
   activity_user_joined_community: <strong>%{user}</strong> ѝ се приклучи на заедницата „%{community}“.
   activity_user_marked_content_as_inappropriate: <strong>%{user}</strong> ја означи содржината како несоодветна.
-  activity_user_modified_collection: <strong>%{user}</strong> ја измени збирката „%{collection}“.
   activity_user_modified_community: <strong>%{user}</strong> ја измени заедницата „%{community}“.
   activity_user_rated_data_object: <strong>%{user}</strong> го оцени објектот „%{object_name}“.
   activity_user_rated_unknown_object: <strong>%{user}</strong> оцени непознат објект.
-  activity_user_removed_all_items_from_collection: <strong>%{user}</strong> ги отстрани сите експонати од „%{collection}“.
   activity_user_removed_association: <strong>%{user}</strong> отстрани поврзаност од објектот „%{object_name}“.
-  activity_user_removed_item_from_collection: <strong>%{user}</strong> го отстрани експонатот „%{item}“ од збирката „%{collection}“.
   activity_user_removed_named_association: <strong>%{user}</strong> отстрани поврзаност помеѓу „%{object_name}“ и „%{name}“.
   activity_user_removed_unknown_association: <strong>%{user}</strong> отстрани поврзаност од непознат објект.
   activity_user_removed_unknown_name: <strong>%{user}</strong> отстрани непознато тривијално име од непознат објект.
@@ -1081,7 +1073,6 @@ mk:
   date_caps: Датум
   date_uploaded: Датум на подигање
   dato_create_cancel: Откажи
-  dato_create_update_user_text_missing_taxon_id_exception: Не можам да срочам DataObject or UsersDataObject за текст ако недостасува taxon_concept_id.
   dato_create_user_text_error: Нажалост, се појави грешка. Не можев да ја додадам статијата.
   dato_create_user_text_missing_taxon_id_exception: Не можам да составам текстуален DataObject или UsersDataObject ако нема назнака за таксонот.
   dato_create_user_text_missing_user_exception: Не можам да срочам DataObject или UsersDataObject за текст ако нема назнака за таксонот.
@@ -1143,7 +1134,6 @@ mk:
   e_g_search_for_the_eol_page: "(на пр. пребарајте ја страницата на EOL со назнака (ID) за ITIS TSN 180542:"
   each_method_documentation_page_has_formatted_responses: Страницата за документација на секој метод содржи по два примера за одговори во форматот XML и форматот JSON.
   edit: Уреди
-  edit_annotation: уреди прибелешки
   edit_collection_details: Уреди подробности за збирката
   edit_collection_details_header: Уреди подробности за збирката
   edit_comment: Уреди коментар
@@ -1783,7 +1773,6 @@ mk:
   message_colon: "Порака:"
   meta_description_colon: "Метаопис:"
   meta_keywords_colon: "Метаклучни зборови:"
-  meta_title_site_name: Енциклопедија на живиот свет
   method: Метод
   method_to_get_metadata_about_the_hierarchy: кога ќе му се зададе хиерархиска назнака овој метод дава метаподатоци за хиерархијата и ги наведува основните таксони
   methods: Методи
@@ -1968,13 +1957,11 @@ mk:
     user_message: 
       subject: Порака од Енциклопедијата на живиот свет
     user_reset_password: 
-      message: "Енциклопедијата на живиот свет (www.eol.org) прими барање за промена на вашата лозинка. Доколку немате поднесено вакво барање, тогаш занемарете ја поракава.\n\nСледнава врска ви дава еднократна можност да ставите нова лозинка:\n\n%{password_reset_url}\n\nПроследете ја врската („стиснете“ на неа или прекопирајте ја сета врска во прелистувачот) за да дојдете до страницата кајшто се става нова лозинка. Имајте на ум дека ако врската е истечена, тогаш ќе треба повторно да внесете корисничко име или е-пошта за да добиете нова порака за промена на лозинка и нова врска."
       subject: Задавање на нова лозинка на сметката на Енциклопедијата на живиот свет
     user_updated_email_preferences: 
       message: "Ова е автоматско известување од системот на EOL. Корисникот %{user_full_name} (%{user_profile_url}) ја смени неговата е-пошта или нагодувања за поштенскиот список.\n\nПретходни нагодувања:\nЕ-пошта: %{previous_email}\nНагодување на поштенски список: %{previous_mailing_list_preference}\n\nИзменети нагодувања:\nЕ-пошта: %{updated_email}\nНагодување на поштенски список: %{updated_mailing_list_preference}\nИзменето: %{updated_at}"
       subject: Корисникот %{user_full_name} на EOL ја смени неговата лозинка или нагодувања за поштенскиот список
     user_verification: 
-      message: "Ви благодариме што се регистриравте на Енциклопедијата на живиот свет. Со следнава потврдете дека сакате да ја довршите регистрацијата:\n\n%{verification_url}\n\nПроследете ја врската („стиснете“ на неа или прекопирајте ја сета врска во прелистувачот) за да ја активирате сметката. Потоа ќе добиете потврдна порака дека сметката е навистина активирана."
       subject: Потврдете го вашето барање за сметка на Енциклопедијата на живиот свет
   nucleotide_sequences: Нуклеотидни низи
   nucleotide_sequences_ncbi_database: Базата на <a href="%{ncbi_taxonomy_link}">таксономијата на NCBI</a> ги содржи имињата на сите организми што се застапени во генетските бази на податоци со барем по една нуклеотидна или белковинска низа.
@@ -2191,7 +2178,6 @@ mk:
   rights_statement: Изјава за правата
   rss_feed: RSS канал
   save: Зачувај
-  save_annotation_submit_button: Зачувај прибелешки
   save_comment_lowercase: зачувај коментар
   save_curated_association_submit_button: Зачувај поврзаност
   sci_name_avg_table_head: Научно име (прос.)

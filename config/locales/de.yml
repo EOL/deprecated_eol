@@ -260,28 +260,26 @@ de:
     models: 
       user: Konto
   activity: Aktivität
-  activity_added_an_editor_of_collection: <strong>%{user}</strong> hat der Sammlung „%{collection}“ einen Verwalter zugeordnet.
   activity_choose_exemplar: <strong>%{user}</strong> legte ein Bild zu „%{object_name}“ als exemplarisch fest.
   activity_hid_with_reasons_colon: "Grund/Gründe zum Ausblenden: %{reasons}"
   activity_log_empty: Bislang hat noch niemand Aktualisierungen vorgenommen.
   activity_log_empty_learn_more_link: Informieren Sie sich, wie sie hier beitragen können
+  activity_logs: 
+    collection_activity_log: 
+      other: add_editor=Datenreihen
   activity_untrusted_with_reasons_colon: "Grund/Gründe zum als nicht vertrauenswürdig Einstufen: %{reasons}"
-  activity_user_added_as_an_editor_of_collection: <strong>%{user}</strong> wurde zum Verwalter der Sammlung „%{collection}“ gemacht.
   activity_user_added_association: <strong>%{user}</strong> hat eine Zuordnung zu „%{object_name}“ vorgenommen.
   activity_user_added_collection_to_community: <strong>%{user}</strong> fügte die Sammlung „%{collection}“ der Gemeinschaft „%{community}“  hinzu.
   activity_user_added_common_name: <strong>%{user}</strong> hat einem unbekannten Objekt den gebräuchlichen Namen „%{name}“ (%{language}) hinzugefügt.
   activity_user_added_common_name_to_taxon: <strong>%{user}</strong> hat dem Taxon „%{taxon}“ den gebräuchlichen Namen „%{name}“ (%{language}) hinzugefügt.
   activity_user_added_community_manager: <strong>%{user}</strong> machte %{manager} zu einem Manager der Gemeinschaft „%{community}“.
-  activity_user_added_item_to_collection: <strong>%{user}</strong> fügte das Objekt „%{item}“ der Sammlung „%{collection}“ hinzu.
   activity_user_added_named_association: <strong>%{user}</strong> hat eine Zuordnung zwischen „%{object_name}“ und „%{name}“ vorgenommen.
   activity_user_added_unknown_association: <strong>%{user}</strong> hat bei einem unbekannten Objekt eine Zuordnung vorgenommen.
-  activity_user_added_unknown_item_to_collection: <strong>%{user}</strong> fügte der Sammlung „%{collection}“ ein unbekanntes Objekt hinzu.
   activity_user_added_unknown_name: <strong>%{user}</strong> hat einem unbekannten Objekt einen unbekannten gebräuchlichen Namen zugeordnet.
   activity_user_added_unknown_name_to_taxon: <strong>%{user}</strong> hat dem Taxon „%{taxon}“ einen gebräuchlichen Namen hinzugefügt.
   activity_user_changed_community_description: <strong>%{user}</strong> aktualisierte die Beschreibung der Gemeinschaft „%{community}“.
   activity_user_changed_community_icon: <strong>%{user}</strong> änderte das Logo der Gemeinschaft „%{community}“.
   activity_user_changed_community_name: <strong>%{user}</strong> änderte den Namen der Gemeinschaft „%{community}“.
-  activity_user_created_collection: <strong>%{user}</strong> gründete die Sammlung „%{collection}“.
   activity_user_created_community: <strong>%{user}</strong> gründete die Gemeinschaft „%{community}“.
   activity_user_created_text: <strong>%{user}</strong> fügte dem Objekt „%{object_name}“ bei „%{taxon_concept}“ Text hinzu.
   activity_user_curated_an_unknown_object: <strong>%{user}</strong> kuratierte ein unbekanntes Objekt.
@@ -298,13 +296,10 @@ de:
   activity_user_inappropriate_unknown_name_to_taxon: <strong>%{user}</strong> legte den gebräuchlichen Namen für das Taxon „%{taxon}“ als ungeeignet fest.
   activity_user_joined_community: <strong>%{user}</strong> trat der Gemeinschaft „%{community}“ bei.
   activity_user_marked_content_as_inappropriate: <strong>%{user}</strong> markierte einen Inhalt als ungeeignet.
-  activity_user_modified_collection: <strong>%{user}</strong> änderte die Sammlung „%{collection}“.
   activity_user_modified_community: <strong>%{user}</strong> änderte die Gemeinschaft „%{community}“.
   activity_user_rated_data_object: <strong>%{user}</strong> bewertete „%{object_name}“.
   activity_user_rated_unknown_object: <strong>%{user}</strong> bewertete ein unbekanntes Objekt.
-  activity_user_removed_all_items_from_collection: <strong>%{user}</strong> entfernte alle Objekte aus der Sammlung „%{collection}“.
   activity_user_removed_association: <strong>%{user}</strong> hat eine Zuordnung zu „%{object_name}“ entfernt.
-  activity_user_removed_item_from_collection: <strong>%{user}</strong> entfernte das Objekt „%{item}“ aus der Sammlung „%{collection}“.
   activity_user_removed_named_association: <strong>%{user}</strong> hat eine Zuordnung zwischen „%{object_name}“ und „%{name}“ entfernt.
   activity_user_removed_unknown_association: <strong>%{user}</strong> hat bei einem unbekannten Objekt eine Zuordnung entfernt.
   activity_user_removed_unknown_name: <strong>%{user}</strong> hat bei einem unbekannten Objekt einen unbekannten gebräuchlichen Namen entfernt.
@@ -505,6 +500,9 @@ de:
   and: und
   and_between_form_items: und
   annotation_cabs_colon: "Annotation:"
+  anonymous_user_full_name: Anonymer Nutzer
+  anonymous_user_given_name: Anonymer
+  anonymous_user_tag_line: Nicht angemeldet
   any_integer: eine beliebige ganze Zahl
   api_docs_collections_description: Nach Angabe der Kennung für eine Sammlung wird diese API alle ihre Metadaten sowie die in ihr enthaltenen Objekte ausgeben. Die Objektliste kann nach Objekttyp gefiltert werden sowie nach den oben angegebenen Attributen sortiert werden.
   application_version_advisory_information: Programmversion
@@ -593,6 +591,7 @@ de:
   cannot_be_empty: darf nicht leer sein.
   cannot_create_collection_item_from_class_error: Es kann kein Objekt für eine Sammlung aus einer %{klass} erstellt werden.
   cannot_create_community_from_watch_collection_error: Sie können keine Gemeinschaft auf Basis einer Beobachtungsliste erstellen.
+  cannot_curate_association_in_preview_mode: Die Zuordnung zu %{name} kann nicht kuratiert werden, da sie im Anschluss an den Datenabruf durchgesehen wird.
   cannot_expand_children: die untergeordnete Objekte können nicht expandiert werden
   cannot_find_member: Es kann kein Mitglied mit dieser Kennung gefunden werden.
   cannot_index_collection_item_type_error: Es kann keine Sammlung auf Basis eines %{type} indexiert werden.
@@ -1087,7 +1086,6 @@ de:
   date_caps: Datum
   date_uploaded: Hochladedatum
   dato_create_cancel: Abbrechen
-  dato_create_update_user_text_missing_taxon_id_exception: Es ist nicht möglich einen Text für das DataObject oder das UsersDataObject zu erstellen, sofern die taxon_concept_id fehlt.
   dato_create_user_text_error: Es ist leider ein Fehler aufgetreten, so dass der Artikel nicht hinzugefügt werden konnte.
   dato_create_user_text_missing_taxon_id_exception: Es ist nicht möglich einen Text für das DataObject oder das UsersDataObject zu erstellen, sofern die taxon_id gleich Null ist.
   dato_create_user_text_missing_user_exception: Es ist nicht möglich einen Text für das DataObject oder das UsersDataObject zu erstellen, sofern die taxon_id gleich Null ist.
@@ -1149,7 +1147,6 @@ de:
   e_g_search_for_the_eol_page: "(bspw. Suche nach der EOL-Seitenkennung für die ITIS TSN-180542:"
   each_method_documentation_page_has_formatted_responses: Jede Dokumentationsseite zu einer Methode enthält ein Beispiel für, sowohl in XML, wie auch in JSON formatierte Antworten.
   edit: Bearbeiten
-  edit_annotation: Vermerk bearbeiten
   edit_collection_details: Informationen zur Sammlung bearbeiten
   edit_collection_details_header: Informationen zur Sammlung bearbeiten
   edit_comment: Kommentar bearbeiten
@@ -1299,6 +1296,7 @@ de:
   forgot_password_form_choose_username_instructions: Es gibt mehrere Konten, die mit der E-Mail-Adresse <em>%{email}</em> registriert sind. Bitte wählen Sie das Konto, für welches das Passwort zurückgesetzt werden soll.
   forgot_password_form_choose_username_legend: Ein Nutzerkonto auswählen
   forgot_password_form_header: Ihr Passwort zurücksetzen
+  forgot_password_form_helper: Bitte beachten Sie, dass die E-Mail-Nachrichten zum Zurücksetzen des Passworts <em>häufig</em> von E-Mail-Filtern als Spam gekennzeichnet werden. Bitte überprüfen Sie Ihren Ordner für entsprechend gekennzeichnete E-Mail-Nachrichten, sofern Sie diese E-Mail-Nachricht nicht innerhalb einer Stunde erhalten.
   forgot_password_form_username_or_email_blank_error: Bitte geben Sie Ihren Nutzernamen oder Ihre E-Mail-Adresse an, um Ihr Passwort zurückzusetzen.
   form_validation_errors_for_attribute_assistive: Es ist ein Fehler bei der Überprüfung dieses Elements aufgetreten.
   fragment_caching_enabled: Fragmentzwischenspeicherung aktiviert
@@ -1406,6 +1404,7 @@ de:
       harvest_event: 
         began_at: Gestartet
         completed_at: Abgeschlossen
+        first_published_at: Erste Veröffentlichung
         publish_more: Markiert den Datenabruf als für die Veröffentlichung freigegeben. Die Inhalte werden allerdings nicht sofort veröffentlicht.
         published_at: Veröffentlicht
         published_status: Status
@@ -1789,7 +1788,6 @@ de:
   message_colon: "Nachricht:"
   meta_description_colon: "Meta-Beschreibung:"
   meta_keywords_colon: "Meta-Keywords:"
-  meta_title_site_name: Enzyklopädie des Lebens
   method: Methode
   method_to_get_metadata_about_the_hierarchy: nach Angabe einer Hierarchiekennung wird diese Methode die Metadaten der Hierarchie und Ihre Basistaxa ausgeben
   methods: Methoden
@@ -1974,13 +1972,13 @@ de:
     user_message: 
       subject: Eine Nachricht von der Enzyklopädie des Lebens (EOL)
     user_reset_password: 
-      message: "Es wurde eine Anforderung zum Zurücksetzen Ihres Passwortes an die Enzyklopädie des Lebens (EOL) gerichtet. Sofern diese Anforderung nicht von Ihnen stammt, sollten Sie diese E-Mail-Nachricht ignorieren.\n\nDer folgende Link ermöglicht das einmalige Zurücksetzen Ihres Passworts:\n\n%{password_reset_url}\n\nÖffnen Sie diesen Link (entweder ihn anklicken, oder ihn in das Adressfeld des Browsers kopieren und danach laden), um die Seite zu öffnen, auf der Sie ein neues Passwort festlegen können. Bitte beachten Sie, dass Sie, sofern die Gültigkeit des Links abgelaufen ist, erneut darum gebeten werden, Ihren Nutzernamen oder Ihre E-Mail-Adresse anzugeben, um eine neuerliche E-Mail-Nachricht mitsamt entsprechendem Link zu erhalten."
+      message: "Es wurde eine Anforderung zum Zurücksetzen Ihres Passwortes an die Enzyklopädie des Lebens (EOL) gerichtet. Sofern diese Anforderung nicht von Ihnen stammt, sollten Sie diese E-Mail-Nachricht ignorieren.\n\nDer folgende Link setzt Ihr Passwort zurück:\n\n%{password_reset_url}\n\nBitte beachten Sie, dass der Link nach 24 Stunden abläuft und Sie danach einen Neuen zum Zurücksetzen anfordern müssen."
       subject: Setzen Sie das Passwort Ihres Kontos bei der Enzyklopädie des Lebens (EOL) zurück
     user_updated_email_preferences: 
       message: "Dies ist eine automatische E-Mail-Nachricht von der Enzyklopädie des Lebens (EOL). Nutzer %{user_full_name} (%{user_profile_url}) hat seine E-Mail-Adresse oder seine Einstellung zur Mailingliste aktualisiert.\n\nUrsprüngliche Einstellungen:\nE-Mail: %{previous_email}\nEinstellung zur Mailingliste: %{previous_mailing_list_preference}\n\nAktualisiert zu:\nE-Mail: %{updated_email}\nEinstellung zur Mailingliste: %{updated_mailing_list_preference}\nAktualisiert am: %{updated_at}"
       subject: EOL-Nutzer %{user_full_name} änderte seine E-Mail-Adresse oder seine Einstellungen zur Mailingliste
     user_verification: 
-      message: "Vielen Dank für Ihre Registrierung bei der Enzyklopädie des Lebens (EOL). Der folgende Bestätigungslink stellt sicher, dass Sie Ihre Registrierung abschließen möchten:\n\n%{verification_url}\n\nÖffnen Sie diesen Link (entweder ihn anklicken, oder ihn in das Adressfeld des Browsers kopieren und danach laden), um Ihr Nutzerkonto zu aktivieren. Nachdem Ihr Nutzerkonto aktiviert wurde, werden Sie hierzu eine Bestätigungsnachricht per E-Mail erhalten."
+      message: "Vielen Dank für Ihre Registrierung bei der Enzyklopädie des Lebens (EOL). Der folgende Bestätigungslink stellt sicher, dass Sie Ihre Registrierung abschließen und Ihr Nutzerkonto aktivieren möchten:\n\n%{verification_url}\n\nNachdem Ihr Nutzerkonto aktiviert wurde, werden Sie hierzu eine Bestätigungsnachricht per E-Mail erhalten."
       subject: Bitte betätigen Sie Ihre Anfrage für ein Konto bei der Enzyklopädie des Lebens (EOL)
   nucleotide_sequences: Nukleotidsequenzen
   nucleotide_sequences_ncbi_database: Die <a href="%{ncbi_taxonomy_link}">NCBI-Taxonomiedatenbank</a> enthält die Namen aller Organismen, die in den genetischen Datenbanken mit mindestens einer Nukleotid- oder Proteinsequenz enthalten sind.
@@ -2197,7 +2195,6 @@ de:
   rights_statement: Urheberrechtserklärung
   rss_feed: RSS-Feed
   save: Speichern
-  save_annotation_submit_button: Annotation speichern
   save_comment_lowercase: Kommentar speichern
   save_curated_association_submit_button: Zuordnung speichern
   sci_name_avg_table_head: Durchschnittlich vorhandene wissenschaftliche Namen
@@ -2399,6 +2396,7 @@ de:
           meta_title: Kuratoren zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
           meta_title_with_common_name: Experten zu %{preferred_common_name} (%{scientific_name}), entsprechend der Klassifizierung durch %{hierarchy_provider}.
           tweet_text: Kuratoren zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
+        meta_description_with_common_name: Experten zu %{preferred_common_name} (Experten zu %{scientific_name}), die deren Daten in der Enzyklopädie des Lebens (EOL) überwachen.
         meta_keywords: Experten zu %{scientific_name}, Kuratoren zu %{scientific_name}
         meta_keywords_with_common_name: Experten zu %{preferred_common_name}, Kuratoren zu %{preferred_common_name}, Experten zu %{scientific_name}, Kuratoren zu %{scientific_name}
         meta_title: Kuratoren zu %{scientific_name}
@@ -2759,6 +2757,7 @@ de:
     other: Insgesamt %{count} Objekte
   total_searches: "Gesamtzahl der Suchen:"
   translation_deleted: Die Übersetzung wurde gelöscht
+  translation_information_header: Übersetzungsinformationen
   translation_saved: Die Übersetzung wurde gespeichert
   translations_submit: Übersetzung anzeigen
   trigger_search_term_entered_by: den vom Nutzer eingegebenen Suchbegriff ansteuern
@@ -2767,6 +2766,7 @@ de:
   truncated_comment_omission_linkless: …
   trusted: Vertrauenswürdig
   trusted_images: Vertrauenswürdige Bilder
+  trusted_maps: Vertrauenswürdige Karten
   trusted_text_objects: Vertrauenswürdige Artikel
   tumblr: Tumblr
   twitter: Twitter
@@ -2779,6 +2779,7 @@ de:
   unpublished: Unveröffentlicht
   unreviewed: Nicht geprüft
   unreviewed_images: Ungeprüfte Bilder
+  unreviewed_maps: Ungeprüfte Karten
   unreviewed_text_objects: Ungeprüfte Artikel
   untrusted: Nicht vertrauenswürdig
   update: Aktualisieren
@@ -2919,6 +2920,7 @@ de:
     one: Mitglied einer Gemeinschaft
     other: Mitglied von %{count} Gemeinschaften
   users_my_info_header: Meine Informationen
+  users_pending_activation_helper: Bitte beachten Sie, dass die E-Mail-Nachrichten zum Aktivieren des Nutzerkontos <em>häufig</em> von E-Mail-Filtern als Spam gekennzeichnet werden. Bitte überprüfen Sie Ihren Ordner für entsprechend gekennzeichnete E-Mail-Nachrichten, sofern Sie diese E-Mail-Nachricht nicht innerhalb einer Stunde erhalten.
   users_pending_activation_message: Ein Bestätigungsnachricht wurde an die von Ihnen angegebene E-Mail-Adresse gesandt. Um die Registrierung abzuschließen und so ein Mitglied von EOL zu werden, klicken Sie bitte auf den in dieser Nachricht enthaltenen Bestätigungslink. Vielen Dank.
   users_that_can_edit_this_collection: Nutzer, die diese Sammlung verwalten können
   using_the_site: Nutzung der Website
@@ -2960,6 +2962,7 @@ de:
   view_map_source: Quelle der Karte anzeigen
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Nur Seiten mit mindestens einem Bild oder Text anzeigen.
   view_sound_source: Quelle der Audiodatei anzeigen
+  view_source: Quelltext anzeigen
   view_this_hierarchy: diese Hierarchie ansehen
   view_translation_source_link: Übersetzungsquelltext anzeigen
   view_user_activity: Benutzeraktivität anzeigen

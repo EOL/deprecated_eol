@@ -52,17 +52,17 @@ module EOL
     def self.recent_activities(options = {})
       query = "*:*"
       if options[:filter]
-        if options[:filter].include? ('comments')
+        if options[:filter].include?('comments')
           query = "activity_log_type:Comment"
-        elsif options[:filter].include? ('data_object_curation')
+        elsif options[:filter].include?('data_object_curation')
           query = "activity_log_type:CuratorActivityLog AND feed_type_affected:DataObject"
-        elsif options[:filter].include? ('names')
+        elsif options[:filter].include?('names')
           query = "activity_log_type:CuratorActivityLog AND feed_type_affected:Synonym"
-        elsif options[:filter].include? ('added_data_objects')
+        elsif options[:filter].include?('added_data_objects')
           query = "activity_log_type:UsersDataObject"
-        elsif options[:filter].include? ('collections')
+        elsif options[:filter].include?('collections')
           query = "activity_log_type:CollectionActivityLog"
-        elsif options[:filter].include? ('communities')
+        elsif options[:filter].include?('communities')
           query = "activity_log_type:CommunityActivityLog"
         end
       end

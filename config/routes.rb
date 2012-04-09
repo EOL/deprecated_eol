@@ -7,11 +7,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :tasks
   map.resources :task_states
   map.resources :task_names
-<<<<<<< HEAD
   map.resources :contacts
-=======
   map.resources :recent_activities,:only => [:index]
->>>>>>> bibalex/activity
 
   map.placeholder 'placeholder', :action => 'not_yet_implemented', :controller => 'application'
 

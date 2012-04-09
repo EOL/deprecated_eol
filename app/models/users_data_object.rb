@@ -12,6 +12,8 @@ class UsersDataObject < ActiveRecord::Base
   belongs_to :vetted
   belongs_to :visibility
 
+  delegate :created_at, :summary_name, :description_teaser, :to => :data_object
+
   before_create :auto_vet
 
   alias :link_to :data_object # Needed for rendering links; we need to know which association to make the link to
@@ -29,14 +31,6 @@ class UsersDataObject < ActiveRecord::Base
       obj_ids << rec.data_object_id
     end
     return obj_ids
-  end
-
-  def created_at
-    data_object.created_at
-  end
-
-  def summary_name
-    data_object.summary_name
   end
 
   # Used when a user-submitted text is replicated.

@@ -16,10 +16,6 @@ class UsersDataObject < ActiveRecord::Base
 
   alias :link_to :data_object # Needed for rendering links; we need to know which association to make the link to
 
-  def created_at
-    data_object.created_at
-  end
-
   def self.get_user_submitted_data_object_ids(user_id)
     if(user_id == 'All') then
       sql="Select data_object_id From users_data_objects"
@@ -33,6 +29,14 @@ class UsersDataObject < ActiveRecord::Base
       obj_ids << rec.data_object_id
     end
     return obj_ids
+  end
+
+  def created_at
+    data_object.created_at
+  end
+
+  def summary_name
+    data_object.summary_name
   end
 
   # Used when a user-submitted text is replicated.

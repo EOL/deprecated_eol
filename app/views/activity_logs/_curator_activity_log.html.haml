@@ -34,7 +34,7 @@
     taxon_url(item.hierarchy_entry.taxon_concept), :style => 'color: #195184')
 - name_type = 'name'
 - if item.synonym.nil? || ! item.synonym.respond_to?(:name)
-  - association_type = 'an_unknown_name'
+  - name_type = 'an_unknown_name'
 - else
   - translation_vars[:name] = item.synonym.name.string
 - taxon_type = taxon_concept ? 'it' : 'taxon'

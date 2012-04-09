@@ -2417,7 +2417,7 @@ en:
     other: "All types (%{count})"
   filter_by_type_collection_option: "Collections"
   filter_by_type_community_option: "Communities"
-  filter_by_type_content_page_option: "CMS Pages"
+  filter_by_type_content_page_option: "EOL Information Pages"
   filter_by_type_image_option: "Images"
   filter_by_type_image_option_with_count:
     one: "Images (%{count})"

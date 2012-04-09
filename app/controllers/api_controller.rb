@@ -28,7 +28,7 @@ class ApiController < ApplicationController
       taxon_concept = TaxonConcept.find(taxon_concept_id, :include => { :published_hierarchy_entries => [ :hierarchy, :name ] })
       raise if taxon_concept.blank? || !taxon_concept.published?
     rescue
-      render(:partial => 'error.xml.builder', :locals => { :error => "Unknown identifier #{taxon_concept_id}" })
+      render_error("Unknown identifier #{taxon_concept_id}")
       return
     end
 
@@ -82,7 +82,7 @@ class ApiController < ApplicationController
       raise if data_object.blank?
       taxon_concept = data_object.first_taxon_concept
     rescue
-      render(:partial => 'error.xml.builder', :locals => { :error => "Unknown identifier #{data_object_guid}" })
+      render_error("Unknown identifier #{data_object_guid}")
       return
     end
 
@@ -128,7 +128,7 @@ class ApiController < ApplicationController
 
     # we had a bunch of searches like "link:QLlHJCZzx" which were throwing errors
     if @search_term.blank? || @search_term.match(/^link:[a-z]+$/i)
-      render(:partial => 'error.xml.builder', :locals => { :error => "Invalid search term: #{@search_term}" })
+      render_error("Invalid search term: #{@search_term}")
       return
     end
 
@@ -176,7 +176,7 @@ class ApiController < ApplicationController
       @children = @hierarchy_entry.children
       raise if @hierarchy_entry.nil? || !@hierarchy_entry.published?
     rescue
-      render(:partial => 'error.xml.builder', :locals => {:error => "Unknown identifier #{id}"})
+      render_error("Unknown identifier #{id}")
       return
     end
 
@@ -202,7 +202,7 @@ class ApiController < ApplicationController
     begin
       @synonym = Synonym.find(id)
     rescue
-      render(:partial => 'error.xml.builder', :locals => {:error => "Unknown identifier #{id}"})
+      render_error("Unknown identifier #{id}")
       return
     end
 
@@ -222,7 +222,7 @@ class ApiController < ApplicationController
       @hierarchy_roots = @hierarchy.kingdoms
       raise if @hierarchy.nil? || !@hierarchy.browsable?
     rescue
-      render(:partial => 'error.xml.builder', :locals => {:error => "Unknown hierarchy #{id}"})
+      render_error("Unknown hierarchy #{id}")
       return
     end
 
@@ -258,7 +258,7 @@ class ApiController < ApplicationController
     begin
       raise if params[:hierarchy_id].blank? || params[:id].blank?
     rescue
-      render(:partial => 'error.xml.builder', :locals => {:error => "You must provide both the hierarchy id and the identifier"})
+      render_error("You must provide both the hierarchy id and the identifier")
       return
     end
     @results = HierarchyEntry.find_all_by_hierarchy_id_and_identifier(params[:hierarchy_id], params[:id], :conditions => "published = 1 and visibility_id = #{Visibility.visible.id}")
@@ -314,7 +314,7 @@ class ApiController < ApplicationController
       CollectionItem.preload_associations(@collection_items, :refs)
       raise if @collection.blank?
     rescue
-      render(:partial => 'error.xml.builder', :locals => { :error => "Unknown identifier #{id}" })
+      render_error("Unknown identifier #{id}")
       return
     end
 
@@ -332,15 +332,22 @@ class ApiController < ApplicationController
   def check_version
     return if params[:controller] == 'api/docs'
     params[:version] ||= '1.0'
-    if ['ping','pages','data_objects','hierarchy_entries','search','synonyms','provider_hierarchies','search_by_provider'].include? action_name
+    if ['ping','pages','data_objects','hierarchy_entries','search','synonyms','provider_hierarchies','search_by_provider','collections'].include? action_name
       unless ['0.4','1.0'].include? params[:version]
-        render(:partial => 'error.xml.builder', :locals => {:error => "Unknown version #{params[:version]}"})
+        render_error("Unknown version #{params[:version]}")
         return
       end
     end
   end
 
   private
+  
+  def render_error(error_message)
+    respond_to do |format|
+      format.xml { render(:partial => 'error.xml.builder', :locals => { :error => error_message }) }
+      format.json { render(:json => [ :error => error_message ], :callback => params[:callback] ) }
+    end
+  end
 
   def handle_key
     @key = params[:key]

@@ -521,6 +521,7 @@ class TaxonConcept < ActiveRecord::Base
     return final_name
   end
 
+  # TODO - #title is much (!) faster.  Can we get rid of this entirely?
   def quick_scientific_name(type = :normal, hierarchy = nil)
     hierarchy_entry = entry(hierarchy)
     # if hierarchy_entry is nil then this concept has no entries, and shouldn't be published
@@ -540,7 +541,6 @@ class TaxonConcept < ActiveRecord::Base
     final_name = scientific_name_results[0]['name'].firstcap
     return final_name
   end
-  alias :summary_name :quick_scientific_name
 
   def superceded_the_requested_id?
     @superceded_the_requested_id
@@ -608,6 +608,7 @@ class TaxonConcept < ActiveRecord::Base
     return '' if entry(hierarchy).nil?
     @title = entry(hierarchy).italicized_name.firstcap
   end
+  alias :summary_name :title
 
   def title_canonical(hierarchy = nil)
     return @title_canonical unless @title_canonical.nil?

@@ -26,17 +26,15 @@
             = link_to image_tag(item.user.logo_url(:small), :alt => I18n.t(:comment_show_posters_image_alt,
               :posters_name => h(item.user.full_name))), user_url(item.user), :class => 'avatar'
           .details
-            %p
-              = render :partial => "activity_logs/#{item.class.name.underscore}", :locals => {:item => item,
-                :display_curator => display_curator}
-              %p.meta
-                - if actual_date
-                  = I18n.l(item.created_at, :format => :long)
-                - else
-                  = I18n.t(:time_ago, :time_passed => time_ago_in_words(item.created_at))
-              - if item.user && item.link_to
-                %ul.actions
-                  %li.reply= link_to(I18n.t(:reply), link_to_newsfeed(item.link_to) + "#reply-to-#{item.class.name}-#{item.id}", :'data-reply-to' => item.user.full_name, :'data-reply-to-type' => item.class.name, :'data-reply-to-id' => item.id)
+            %p= render :partial => "activity_logs/#{item.class.name.underscore}", :locals => {:item => item, :display_curator => display_curator}
+            %p.meta
+              - if actual_date
+                = I18n.l(item.created_at, :format => :long)
+              - else
+                = I18n.t(:time_ago, :time_passed => time_ago_in_words(item.created_at))
+            - if item.user && item.link_to
+              %ul.actions
+                %li.reply= link_to(I18n.t(:reply), link_to_newsfeed(item.link_to) + "#reply-to-#{item.class.name}-#{item.id}", :'data-reply-to' => item.user.full_name, :'data-reply-to-type' => item.class.name, :'data-reply-to-id' => item.id)
   - unless hide_pagination
     = will_paginate log, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next),
       :inner_window => 2, :outer_window => 2

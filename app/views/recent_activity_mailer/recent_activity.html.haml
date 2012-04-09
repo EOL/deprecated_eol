@@ -25,7 +25,7 @@
       - grouped_notes[klass].group_by(&:collection).each do |collection, items|
         %hr{:style => "border: none; border-bottom: 1px solid #d2d9df;clear:both;"}
         %h2= I18n.t("recent_activity.bulk_collection_activity_with_count", :count => items.count,
-          :to => link_to(h(collection.summary_name), collection_url(collection), :style => 'color:#195184'))
+          :to => link_to(h(collection.summary_name), collection_newsfeed_url(collection), :style => 'color:#195184'))
         - items.each do |item|
           = render(:partial => 'activity_logs/collection_activity_log',
             :locals => {:item => item, :collection => collection})
@@ -36,7 +36,7 @@
         - unless joins.empty?
           %hr{:style => "border: none; border-bottom: 1px solid #d2d9df; clear:both;"}
           %h2= I18n.t("recent_activity.bulk_community_joins_with_count", :count => joins.count,
-            :community => link_to(h(community.summary_name), community_url(community), :style => 'color:#195184'))
+            :community => link_to(h(community.summary_name), community_newsfeed_url(community), :style => 'color:#195184'))
           - joins.each do |item|
             - user = User.load_for_title_only(item.user)
             %table{:cellpadding => 5, :style => 'border: 1px solid #e2e9ef; margin: 0 10px 10px 0; float: left;'}
@@ -54,7 +54,7 @@
         - unless nonjoins.empty?
           %hr{:style => "border: none; border-bottom: 1px solid #d2d9df; clear:both;"}
           %h2= I18n.t("recent_activity.bulk_community_activity_with_count", :count => nonjoins.count,
-            :to => link_to(h(community.summary_name), community_url(community), :style => 'color:#195184'))
+            :to => link_to(h(community.summary_name), community_newsfeed_url(community), :style => 'color:#195184'))
           - nonjoins.each do |item|
             = render(:partial => 'activity_logs/community_activity_log',
               :locals => {:item => item, :community => community})

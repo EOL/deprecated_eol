@@ -1455,7 +1455,7 @@ en:
         user_hid_an_unknown_data_object_on_an_unknown_association: "<strong>%{user}</strong> marked an unknown data object as hidden in an unknown context."
         user_hid_an_unknown_data_object_on_association: "<strong>%{user}</strong> marked an unknown data object as hidden on the \"%{association}\" page."
         user_hid_data_object_on_an_unknown_association: "<strong>%{user}</strong> marked \"%{data_object}\" as hidden in an unknown context."
-        user_hid_it_on_association: "<strong>%{user}</strong> marked \"%{data_object}\" as hidden on the \"%{association}\" page."
+        user_hid_data_object_on_association: "<strong>%{user}</strong> marked \"%{data_object}\" as hidden on the \"%{association}\" page."
         an_unknown_user_hid_it_on_an_unknown_association: "An unknown user marked it as hidden in an unknown context."
         an_unknown_user_hid_it_on_association: "An unknown user marked it as hidden on the \"%{association}\" page."
         user_hid_it_on_an_unknown_association: "<strong>%{user}</strong> marked it as hidden in an unknown context."

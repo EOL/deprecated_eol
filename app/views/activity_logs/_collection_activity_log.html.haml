@@ -6,7 +6,7 @@
 - if item.user.nil?
   - user_type = 'an_unknown_user'
 - else
-  - translation_vars[:user] = link_to(h(item.user.full_name), user_path(item.user),
+  - translation_vars[:user] = link_to(h(item.user.full_name), user_url(item.user),
     :style => 'color: #195184')
   - if display_curator && item.user.is_curator?
     - translation_vars[:user] = I18n.t(:user_full_name_with_curator, :user => translation_vars[:user],
@@ -17,7 +17,7 @@
 - elsif item.collection.nil?
   - collection_type = 'an_unknown_collection'
 - else
-  - translation_vars[:collection] = link_to(item.collection.summary_name, collection_path(item.collection),
+  - translation_vars[:collection] = link_to(item.collection.summary_name, collection_url(item.collection),
     :style => 'color: #195184')
 - item_type = 'item'
 - if item.collection_item.nil? || item.collection_item.object.nil?

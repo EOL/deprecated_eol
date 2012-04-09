@@ -16,7 +16,7 @@
                   %label= I18n.t(:filter_by_type)
                 %dd
                   %ul
-                    - [:all, :taxon_concept, :image, :video, :sound, :text, :user, :community, :collection].each do |opt|
+                    - [:all, :taxon_concept, :image, :video, :sound, :text, :user, :community, :collection, :content_page].each do |opt|
                       - count = (opt == :all) ? @all_results.total_entries : @facets[opt.to_s.camelize]
                       - count ||= 0
                       - item_class = ((opt == :all && !@wildcard_search) || count > 0) ? nil : 'no_results'

@@ -45,6 +45,7 @@ module ActiveRecord
           return [] if self.class == Community && !self.published?
           return [] if self.class == User && !self.active?
           return [] if self.class == User && self.is_hidden?
+          return [] if self.class == ContentPage && !self.active?
 
           params = {
             :resource_type        => self.class.to_s,
@@ -73,8 +74,13 @@ module ActiveRecord
               elsif return_value.class == Array
                 return_value.each do |rv|
                   keyword_type = rv[:keyword_type] || field_or_method
-                  keywords_to_send_to_solr << params.merge({ :keyword => rv[:keywords], :keyword_type => keyword_type,
-                    :language => rv[:language], :ancestor_taxon_concept_id => rv[:ancestor_taxon_concept_id] })
+                  if self.class == TaxonConcept
+                    keywords_to_send_to_solr << params.merge({ :keyword => rv[:keywords], :keyword_type => keyword_type,
+                      :language => rv[:language], :ancestor_taxon_concept_id => rv[:ancestor_taxon_concept_id] })
+                  elsif self.class == ContentPage
+                    keywords_to_send_to_solr << params.merge({ :keyword => rv[:keywords], :keyword_type => keyword_type,
+                      :language => rv[:language] })
+                  end
                 end
               end
             else
@@ -85,10 +91,20 @@ module ActiveRecord
           options[:fulltexts] ||= []
           options[:fulltexts].each do |field_or_method|
             if self.respond_to?(field_or_method)
-              keyword = self.send(field_or_method)
-              next if keyword.blank?
-              keywords_to_send_to_solr << params.merge({ :keyword => keyword, :keyword_type => field_or_method,
-                :full_text => true })
+              return_value = self.send(field_or_method)
+              next if return_value.blank?
+              if return_value.class == String
+                keywords_to_send_to_solr << params.merge({ :keyword => return_value, :keyword_type => field_or_method,
+                  :full_text => true })
+              elsif return_value.class == Array
+                return_value.each do |rv|
+                  keyword_type = rv[:keyword_type] || field_or_method
+                  if self.class == ContentPage
+                    keywords_to_send_to_solr << params.merge({ :keyword => rv[:fulltexts], :keyword_type => keyword_type,
+                      :language => rv[:language], :full_text => true })
+                  end
+                end
+              end
             else
               raise "NoMethodError: undefined method `#{field_or_method}' for #{self.class.to_s}"
             end
@@ -149,6 +165,8 @@ module ActiveRecord
           resource_weight = 20
         elsif keyword[:resource_type].include? 'User'
           resource_weight = 30
+        elsif keyword[:resource_type].include? 'ContentPage'
+          resource_weight = 25
         end
         
         resource_weight = 499 if resource_weight.blank?

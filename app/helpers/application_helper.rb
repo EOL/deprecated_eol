@@ -130,6 +130,8 @@ module ApplicationHelper
       'taxon'
     elsif object.class == User
       'person'
+    elsif object.class == ContentPage
+      'cms_page'
     end
   end
 

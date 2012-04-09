@@ -1033,6 +1033,9 @@ a.other_actions {
 #search_results ul.object_list li {
   white-space: nowrap; }
 
+.cms_page span.icon {
+  background: #f3f7fa url("/images/v2/cms_page.png") 50% 50% no-repeat; }
+
 #taxon_maps #media_list {
   padding: 0; }
 

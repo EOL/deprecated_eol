@@ -334,16 +334,16 @@ class TaxonConcept < ActiveRecord::Base
 
   # Singleton method to fetch the Hierarchy Entry, used for taxonomic relationships
   def entry(hierarchy = nil)
-    hierarchy ||= Hierarchy.default
     @cached_entry ||= {}
     return @cached_entry[hierarchy] if @cached_entry && @cached_entry[hierarchy]
-    raise "Error finding default hierarchy" if hierarchy.nil? # EOLINFRASTRUCTURE-848
-    raise "Cannot find a HierarchyEntry with anything but a Hierarchy" unless hierarchy.is_a? Hierarchy
+    raise "Cannot find a HierarchyEntry with anything but a Hierarchy" if hierarchy && !hierarchy.is_a?(Hierarchy)
     
     # return the cached one unless it is expired
-    if taxon_concept_preferred_entry && taxon_concept_preferred_entry.hierarchy_entry &&
-        !taxon_concept_preferred_entry.expired?
-      return taxon_concept_preferred_entry.hierarchy_entry
+    unless hierarchy
+      if taxon_concept_preferred_entry && taxon_concept_preferred_entry.hierarchy_entry &&
+          !taxon_concept_preferred_entry.expired?
+        return taxon_concept_preferred_entry.hierarchy_entry
+      end
     end
     
     TaxonConcept.preload_associations(self, :published_hierarchy_entries => [ :vetted, :hierarchy ])
@@ -351,12 +351,13 @@ class TaxonConcept < ActiveRecord::Base
     if @all_entries.blank?
       @all_entries = HierarchyEntry.sort_by_vetted(hierarchy_entries)
     end
-
-    best_entry ||= (@all_entries.detect{ |he| he.hierarchy_id == hierarchy.id } ||
-      @all_entries[0] ||
-      nil)
     
-    if best_entry
+    if hierarchy
+      best_entry = @all_entries.detect{ |he| he.hierarchy_id == hierarchy.id }
+    end
+    best_entry ||= @all_entries[0]
+    
+    if best_entry && !hierarchy
       taxon_concept_preferred_entry.delete if taxon_concept_preferred_entry
       TaxonConceptPreferredEntry.create(:taxon_concept_id => self.id, :hierarchy_entry_id => best_entry.id)
     end
@@ -604,14 +605,14 @@ class TaxonConcept < ActiveRecord::Base
 
   def title(hierarchy = nil)
     return @title unless @title.nil?
-    return '' if entry.nil?
-    @title = entry.italicized_name.firstcap
+    return '' if entry(hierarchy).nil?
+    @title = entry(hierarchy).italicized_name.firstcap
   end
 
   def title_canonical(hierarchy = nil)
     return @title_canonical unless @title_canonical.nil?
-    return '' if entry.nil?
-    @title_canonical = entry.title_canonical
+    return '' if entry(hierarchy).nil?
+    @title_canonical = entry(hierarchy).title_canonical
   end
 
   def to_s
@@ -1112,6 +1113,7 @@ class TaxonConcept < ActiveRecord::Base
     overview_text_objects = self.text_for_user(the_user, {
       :per_page => 20,
       :language_ids => [ the_user.language.id ],
+      :allow_nil_languages => (the_user.language.id == Language.default.id),
       :toc_ids => overview_toc_item_ids })
     DataObject.preload_associations(overview_text_objects, { :data_objects_hierarchy_entries => [ :hierarchy_entry,
       :vetted, :visibility ] },
@@ -1148,6 +1150,7 @@ class TaxonConcept < ActiveRecord::Base
   def details_text_for_user(the_user, options = {})
     text_objects = self.text_for_user(the_user, {
       :language_ids => [ the_user.language.id ],
+      :allow_nil_languages => (the_user.language.id == Language.default.id),
       :toc_ids_to_ignore => TocItem.exclude_from_details.collect{ |toc_item| toc_item.id },
       :per_page => (options[:limit] || 600) })
     

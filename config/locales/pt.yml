@@ -203,15 +203,12 @@ pt:
   activity_log_empty_learn_more_link: Saiba como contribuir
   activity_user_added_association: <strong>%{user}</strong> adicionou uma associação para "%{object_name}".
   activity_user_added_community_manager: <strong>%{user}</strong> fez de %{manager} um administrador da comunidade "%{community}".
-  activity_user_added_item_to_collection: <strong>%{user}</strong> adicionou "%{item}" à colecção "%{collection}".
   activity_user_added_named_association: <strong>%{user}</strong> adicionou uma associação entre "%{object_name}" e "%{name}".
   activity_user_added_unknown_association: <strong>%{user}</strong> adicionou uma associação para um objecto desconhecido.
-  activity_user_added_unknown_item_to_collection: <strong>%{user}</strong> adicionou um item desconhecido à colecção "%{collection}".
   activity_user_added_unknown_name: <strong>%{user}</strong> adicionou um nome comum desconhecido a um objecto desconhecido.
   activity_user_changed_community_description: <strong>%{user}</strong> actualizou a descrição da comunidade "%{community}".
   activity_user_changed_community_icon: <strong>%{user}</strong> modificou o logotipo da comunidade "%{community}".
   activity_user_changed_community_name: <strong>%{user}</strong> modificou o nome da comunidade "%{community}".
-  activity_user_created_collection: <strong>%{user}</strong> criou a colecção "%{collection}".
   activity_user_created_community: <strong>%{user}</strong> criou a comunidade "%{community}".
   activity_user_created_text: <strong>%{user}</strong> adicionou texto a "%{object_name}" em "%{taxon_concept}".
   activity_user_curated_an_unknown_object: <strong>%{user}</strong> tratou de um objecto desconhecido.
@@ -220,13 +217,10 @@ pt:
   activity_user_hid_unknown_object: <strong>%{user}</strong> marcou um objecto desconhecido como escondido.
   activity_user_joined_community: <strong>%{user}</strong> juntou-se à comunidade "%{community}".
   activity_user_marked_content_as_inappropriate: <strong>%{user}</strong> marcou conteúdo como inapropriado.
-  activity_user_modified_collection: <strong>%{user}</strong> modificou a colecção "%{collection}".
   activity_user_modified_community: <strong>%{user}</strong> modificou a comunidade "%{community}".
   activity_user_rated_data_object: <strong>%{user}</strong> avaliou "%{object_name}".
   activity_user_rated_unknown_object: <strong>%{user}</strong> avaliou um objecto desconhecido.
-  activity_user_removed_all_items_from_collection: <strong>%{user}</strong> retirou todos os itens da colecção "%{collection}".
   activity_user_removed_association: <strong>%{user}</strong> removeu uma associação para "%{object_name}".
-  activity_user_removed_item_from_collection: <strong>%{user}</strong> retirou "%{item}" da colecção "%{collection}".
   activity_user_removed_named_association: <strong>%{user}</strong> removeu uma associação entre "%{object_name}" e "%{name}".
   activity_user_removed_unknown_association: <strong>%{user}</strong> removeu uma associação para um objecto desconhecido.
   activity_user_removed_unknown_name: <strong>%{user}</strong> removeu um nome comum desconhecido de um objecto desconhecido.
@@ -666,7 +660,6 @@ pt:
   data_object_undo_ignore: remover da lista de ignorados
   data_usage_reports: Relatórios de uso de dados
   dato_create_cancel: Cancelar
-  dato_create_update_user_text_missing_taxon_id_exception: Não é possível contruir um texto DataObject ou UsersDataObject se faltar taxon_concept_id.
   dato_create_user_text_error: Desculpe, ocorreu um erro, o artigo não pôde ser adicionado.
   dato_create_user_text_missing_taxon_id_exception: Não é possível contruir um texto DataObject ou UsersDataObject se o identificador do taxon for nulo.
   dato_create_user_text_missing_user_exception: Não é possível contruir um texto DataObject ou UsersDataObject se o identificador do taxon for nulo.
@@ -713,7 +706,6 @@ pt:
   e_g_search_for_the_eol_page: "(por exemplo, procurar pelo ID da página EOL para o ITIS TSN 180542:"
   each_method_documentation_page_has_formatted_responses: A página de documentação de cada método tem um exemplo de respostas formatadas quer em XML como em JSON.
   edit: Editar
-  edit_annotation: editar anotação
   edit_collection_details: Editar detalhes da colecção
   edit_collection_details_header: Editar detalhes da colecção
   edit_community: Editar comunidade

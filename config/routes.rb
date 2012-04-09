@@ -226,6 +226,8 @@ ActionController::Routing::Routes.draw do |map|
   map.with_options :controller => 'redirects', :action => 'show', :conditions => { :method => :get } do |redirect|
     redirect.connect '/podcast', :url => 'http://education.eol.org/podcast'
     redirect.connect '/pages/:taxon_id_community_curators/curators'
+    redirect.connect '/pages/:taxon_id_images/images'
+    redirect.connect '/pages/:taxon_id_classification_attribution/classification_attribution'
     redirect.connect '/taxa/content/:taxon_id'
     redirect.connect '/taxa/images/:taxon_id_media'
     redirect.connect '/taxa/maps/:taxon_id_maps'

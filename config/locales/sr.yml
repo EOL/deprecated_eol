@@ -2,7 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Rancher
-sr-EC: 
+sr: 
   0_1_or_2: 0, 1 или 2
   0_or_1: 0 или 1
   1st_view: Први преглед
@@ -64,7 +64,7 @@ sr-EC:
         notes: Белешке пројекта
         public: Јаван
         resources: Ресурси
-        user_id: "Руководилац:"
+        user_id: "Управник:"
         vetted: Проверено
       content_partner_agreement: 
         created_at: Направљено на
@@ -79,6 +79,69 @@ sr-EC:
         rights_holder: Носилац права
         rights_statement: Изјава о правима
         source_url: Изворна адреса
+      eol_statistic: 
+        active_curators: Активни кустоси
+        base_pages: Основне странице
+        collections_count: Збирке
+        communities_count: Заједнице
+        content_partners: Партнери за садржај
+        content_partners_with_published_resources: Са објављеним ресурсима
+        content_partners_with_published_trusted_resources: Са објављеним поверљивим ресурсима
+        created_at: Направљено на
+        curator_actions_in_the_last_30_days: Кустоске радње у последњих 30 дана
+        curators: Кустоси
+        curators_assistant: Помоћници кустоса
+        curators_full: Кустоси
+        curators_master: Виши кустоси
+        data_objects: Објекти података
+        data_objects_images: Сликовни објекти
+        data_objects_maps: Картографски објекти
+        data_objects_sounds: Звучни објекти
+        data_objects_texts: Текстуални објекти
+        data_objects_trusted: Поверљиви објекти података
+        data_objects_trusted_or_unreviewed_but_hidden: Поверљиви или непрегледани, али скривени
+        data_objects_unreviewed: Непрегледани објекти података
+        data_objects_untrusted: Неповерљиви објекти података
+        data_objects_videos: Видео-објекти
+        hotlist_pages: Предводници
+        lifedesk_data_objects: Објекти података Лајфдескса
+        lifedesk_taxa: Таксони Лајфдескса
+        marine_pages: Морске странице
+        marine_pages_in_col: Морске странице Каталога живог света (COL)
+        marine_pages_with_objects: Морске странице с објектима података
+        marine_pages_with_objects_vetted: Морске странице с поверљивим објектима података
+        members_count: Чланови
+        newly_published_resources_in_the_last_30_days: Новообјављени у последњем месецу
+        objects_curated_in_the_last_30_days: Објекти којима се управља у последњих 30 дана
+        pages_count: Укупно страница
+        pages_curated_by_active_curators: Странице којима управљају активни кустоси
+        pages_with_BHL_links: Странице с везама до BHL-а
+        pages_with_BHL_links_no_text: Странице с везама до BHL-а, али без текста
+        pages_with_BHL_links_only: Странице само с везама до BHL-а
+        pages_with_at_least_a_curatorial_action: Странице с кустоском радњом
+        pages_with_at_least_a_trusted_object: Странице с поверљивим објектом
+        pages_with_content: Странице са садржајем
+        pages_with_image: Странице са сликом
+        pages_with_image_no_text: Странице са сликом, али без текста
+        pages_with_map: Странице с мапом
+        pages_with_score_10_to_39: Странице с оценом 10–39
+        pages_with_score_less_than_10: Странице с оценом мањом од 10
+        pages_with_sound: Странице са звуком
+        pages_with_text: Странице с текстом
+        pages_with_text_no_image: Странице с текстом, али без слика
+        pages_with_video: Странице са снимком
+        pages_without_image: Странице без слика
+        pages_without_text: Странице без текста
+        published_resources: Објављени ресурси
+        published_trusted_resources: Објављени поверљиви ресурси
+        published_unreviewed_resources: Објављени непрегледани ресурси
+        redhotlist_pages: Врховни предводници
+        rich_hotlist_pages: Предводници по садржају
+        rich_pages: Обогаћене странице
+        rich_redhotlist_pages: Врховни предводници по садржају
+        udo_published: Текст који је послао корисник
+        udo_published_by_curators: Текст који је послао кустос
+        udo_published_by_non_curators: Текст које није послао кустос
       harvest_event: 
         resource: Ресурс
       hierarchy: 
@@ -192,32 +255,27 @@ sr-EC:
     models: 
       user: налог
   activity: Активност
-  activity_added_an_editor_of_collection: <strong>%{user}</strong> додаде руководиоца у збирку „%{collection}“.
   activity_choose_exemplar: <strong>%{user}</strong> постави слику као пример „%{object_name}“.
   activity_hid_with_reasons_colon: "разлог за скривање: %{reasons}"
   activity_log_empty: Још нико није пружио доградње.
   activity_log_empty_learn_more_link: Сазнајте како да допринесете
   activity_untrusted_with_reasons_colon: "разлог за неповерљивост: %{reasons}"
-  activity_user_added_as_an_editor_of_collection: <strong>%{user}</strong> је додат као руководилац збирке „%{collection}“.
-  activity_user_added_association: <strong>%{user}</strong> додаде везу с објектом „%{object_name}“.
-  activity_user_added_collection_to_community: <strong>%{user}</strong> додаде збирку „%{collection}“ у заједницу „%{community}“.
-  activity_user_added_common_name: <strong>%{user}</strong> додаде %{language} тривијалан назив „%{name}“ на непознати објекат.
-  activity_user_added_common_name_to_taxon: <strong>%{user}</strong> додаде %{language} тривијалан назив „%{name}“ у „%{taxon}“.
+  activity_user_added_association: <strong>%{user}</strong> је додао везу с објектом „%{object_name}“.
+  activity_user_added_collection_to_community: <strong>%{user}</strong> је додао збирку „%{collection}“ у заједницу „%{community}“.
+  activity_user_added_common_name: <strong>%{user}</strong> је додао %{language} тривијалан назив „%{name}“ на непознати објекат.
+  activity_user_added_common_name_to_taxon: <strong>%{user}</strong> је додао %{language} тривијалан назив „%{name}“ у „%{taxon}“.
   activity_user_added_community_manager: <strong>%{user}</strong> постави корисника %{manager} за руководиоца заједнице „%{community}“.
-  activity_user_added_item_to_collection: <strong>%{user}</strong> додаде ставку „%{item}“ у збирку „%{collection}“.
-  activity_user_added_named_association: <strong>%{user}</strong> додаде везу између „%{object_name}“ и „%{name}“.
-  activity_user_added_unknown_association: <strong>%{user}</strong> додаде везу за непознати објекат.
-  activity_user_added_unknown_item_to_collection: <strong>%{user}</strong> додаде непознату ставку у збирку „%{collection}“.
+  activity_user_added_named_association: <strong>%{user}</strong> је додао везу између „%{object_name}“ и „%{name}“.
+  activity_user_added_unknown_association: <strong>%{user}</strong> је додао везу за непознати објекат.
   activity_user_added_unknown_name: <strong>%{user}</strong> додате непознати тривијалан назив за непознати објекат.
-  activity_user_added_unknown_name_to_taxon: <strong>%{user}</strong> додаде тривијалан назив на таксон „%{taxon}“.
+  activity_user_added_unknown_name_to_taxon: <strong>%{user}</strong> је додао тривијалан назив на таксон „%{taxon}“.
   activity_user_changed_community_description: <strong>%{user}</strong> измени опис заједнице „%{community}“.
   activity_user_changed_community_icon: <strong>%{user}</strong> промени логотип заједнице „%{community}“.
   activity_user_changed_community_name: <strong>%{user}</strong> промени назив заједнице „%{community}“.
-  activity_user_created_collection: <strong>%{user}</strong> направи збирку „%{collection}“.
   activity_user_created_community: <strong>%{user}</strong> направи заједницу „%{community}“.
-  activity_user_created_text: <strong>%{user}</strong> додаде текст у „%{object_name}“ на „%{taxon_concept}“.
+  activity_user_created_text: <strong>%{user}</strong> је додао текст у „%{object_name}“ на „%{taxon_concept}“.
   activity_user_curated_an_unknown_object: <strong>%{user}</strong> постаде кустос за непознати објекат.
-  activity_user_deleted_community: <strong>%{user}</strong> обриса заједницу „%{community}“.
+  activity_user_deleted_community: <strong>%{user}</strong> је обрисао заједницу „%{community}“.
   activity_user_hid_data_object: <strong>%{user}</strong> означи објекат „%{object_name}“ као сакривен.
   activity_user_hid_named_association: <strong>%{user}</strong> означи везу између „%{object_name}“ и „%{name}“ као скривену.
   activity_user_hid_unknown_object: <strong>%{user}</strong> означи непознати објекат као сакривен.
@@ -228,13 +286,10 @@ sr-EC:
   activity_user_inappropriate_unknown_name_to_taxon: <strong>%{user}</strong> означи тривијалан назив из таксона „%{taxon}“ као неприкладан.
   activity_user_joined_community: <strong>%{user}</strong> се придружи заједници „%{community}“.
   activity_user_marked_content_as_inappropriate: <strong>%{user}</strong> означи садржај као неприкладан.
-  activity_user_modified_collection: <strong>%{user}</strong> измени збирку „%{collection}“.
   activity_user_modified_community: <strong>%{user}</strong> измени заједницу „%{community}“.
   activity_user_rated_data_object: <strong>%{user}</strong> оцени објекат „%{object_name}“.
   activity_user_rated_unknown_object: <strong>%{user}</strong> оцени непознати објекат.
-  activity_user_removed_all_items_from_collection: <strong>%{user}</strong> уклони све ставке из збирке „%{collection}“.
   activity_user_removed_association: <strong>%{user}</strong> уклони везу с објектом „%{object_name}“.
-  activity_user_removed_item_from_collection: <strong>%{user}</strong> уклони ставку „%{item}“ из збирке „%{collection}“.
   activity_user_removed_named_association: <strong>%{user}</strong> уклони везу између „%{object_name}“ и „%{name}“.
   activity_user_removed_unknown_association: <strong>%{user}</strong> уклони везу с непознатим објектом.
   activity_user_removed_unknown_name: <strong>%{user}</strong> уклони непознати тривијалан назив из непознатог објекта.
@@ -335,7 +390,7 @@ sr-EC:
   admin_content_partners_statistics_first_published_empty: Нема ресурса од партнера за садржај који су први пут објављени између %{date_from} и %{date_to}.
   admin_content_partners_statistics_first_published_header: Први објављени ресурси
   admin_content_partners_statistics_link: Статистике
-  admin_content_partners_statistics_page_title: "Администрација: статистике партнера за садржај"
+  admin_content_partners_statistics_page_title: "Администрација: статистика партнера за садржај"
   admin_home: почетна администрације
   admin_information: Ово је нова административна конзола за друго издање EOL-а. Тренутно преносимо административне могућности из првог издања. Ако се административни одељак који тражите не налази на списку, посетите <a href="/administrator">администраторску конзолу првог издања</a>.
   admin_link: Преглед
@@ -343,6 +398,7 @@ sr-EC:
   admin_notes_not_visible_to_user: "Администраторске белешке (невидљиво за корисника):"
   admin_page_title: "Администрација: преглед"
   admin_spam_delete: Обриши непожељну поруку
+  admin_statistics_link: Статистика
   admin_translated_content_page_create_successful_notice: Превод је додат на страницу <a href="#%{anchor}"><em>%{page_name}</em></a>
   admin_translated_content_page_create_unsuccessful_error: Нажалост, дошло је до грешке. Не могу да додам превод.
   admin_translated_content_page_delete_confirmation: Желите ли да обришете издање %{language} странице „%{page_name}“. Ова радња се не може опозвати.
@@ -358,6 +414,41 @@ sr-EC:
   admin_user_delete_successful_notice: Корисник је обрисан
   admin_user_hide_successful_notice: Корисник је сакривен
   admin_user_unhide_successful_notice: Корисник је откривен
+  admins: 
+    statistics: 
+      content_partner: 
+        page_header: Статистика за партнере за садржај
+        page_title: "Администрација: статистика партнера за садржај"
+      content_partner_link: Партнери за садржај
+      curator: 
+        page_header: Кустоска статистика
+        page_title: "Администрација: кустоска статистика"
+      curator_link: Кустоске статистика
+      data_object: 
+        page_header: Статистика објеката података
+        page_title: "Администрација: статистика објеката података"
+      data_object_link: Објекти података
+      index: 
+        page_header: Свеукупна статистика
+        page_title: "Администрација: свеукупна статистика"
+        table_caption: Свеукупна статистика је направљена %{created_at_time}
+      index_link: Свеукупна статистика
+      lifedesk: 
+        page_header: Статистика Лајфдескса
+        page_title: "Администрација: статистика Лајфдескса"
+      lifedesk_link: Лајфдескс
+      marine: 
+        page_header: Морска покривеност на EOL-у
+        page_title: "Администрација: морска статистика"
+      marine_link: Морска статистика
+      page_richness: 
+        page_header: Статистика обогаћених страница
+        page_title: "Администрација: статистика за обогаћене странице"
+      page_richness_link: Обогаћене странице
+      user_added_data: 
+        page_header: Статистика за текстове које су послали корисници
+        page_title: "Администрација: статистика за текстове које су послали корисници"
+      user_added_data_link: Текст који је послао корисник
   agent: Агент
   all: све
   all_apis_return_by_default_an_xml_response: "Сви АПИ-ји по подразумеваном дају XML одговор. Методе АПИ-ја могу се позвати без наставка за формат да би се добио XML одговор, а ако наставак ипак додате, добићете исти одговор:"
@@ -516,6 +607,7 @@ sr-EC:
     one: Збирка <em>%{collection_name}</em> је направљена са %{count} ставком.
     other: Збирка <em>%{collection_name}</em> је направљена са %{count} ставке.
   collection_delete_link: Трајно обриши ову збирку
+  collection_description_default: Збирка на Енциклопедији живота.
   collection_destroyed: Збирка је обрисана.
   collection_image: Слика збирке
   collection_is_empty: Ова збирка је тренутно празна.
@@ -532,6 +624,21 @@ sr-EC:
   collection_updated_notice: Збирка <em>%{collection_name}</em> је ажурирана.
   collection_was_added_to_community: Збирка „%{collection}“ је додата у ову заједницу.
   collection_was_removed_by_owner: Ова збирка је уклоњена од стране њеног власника.
+  collections: 
+    editors: 
+      show: 
+        meta_description: Управници збирке %{collection_name} на Енциклопедији живота.
+        meta_keywords: "%{collection_name} – управници"
+        meta_title: "%{collection_name} – управници"
+        tweet_text: "%{collection_name} – управници"
+    newsfeeds: 
+      show: 
+        meta_description: Новости, коментари и активности чланова за збирку %{collection_name} на Енциклопедији живота.
+        meta_keywords: "%{collection_name} – новости"
+        meta_title: "%{collection_name} – новости"
+        tweet_text: "%{collection_name} – новости"
+    show: 
+      meta_keywords: "%{collection_name}, збирка Енциклопедије живота"
   collections_filter: Збирке
   collections_link: Збирке
   collections_page_title: Збирке
@@ -555,7 +662,7 @@ sr-EC:
   comment_not_deleted_error: Нажалост, дошло је до грешке. Не могу да обришем коментар.
   comment_not_updated_error: Нажалост, дошло је до грешке. Не могу да ажурирам коментар.
   comment_or_rate_on_this_article: Прокоментаришите чланак или га оцените
-  comment_show_posters_image_alt: Слика на профилу корисника %{posters_name} који написа коментар.
+  comment_show_posters_image_alt: Слика на профилу корисника %{posters_name} који је написао коментар.
   commented_on_your_image: " прокоментариса вашу слику на <a href='%{data_object_link}'>Енциклопедији живота</a>:\n%{comment_body}"
   comments: Коментари
   comments_and_tags: Коментари и ознаке
@@ -573,6 +680,19 @@ sr-EC:
     one: "%{count} тривијалан назив"
     other: "%{count} тривијална назива"
   common_user_activity_page_title: Уобичајена корисничка активност
+  communities: 
+    collections: 
+      index: 
+        meta_description: Збирке које је саставила заједница %{community_name}.
+        meta_keywords: "%{community_name} – збирке"
+        meta_title: "%{community_name} – збирке"
+        tweet_text: "%{community_name} – збирке"
+    newsfeeds: 
+      show: 
+        meta_keywords: "%{community_name}, заједница Енциклопедије живота, новости за %{community_name}, коментари за %{community_name}, активности за %{community_name}"
+    show: 
+      meta_description: Заједницу %{community_name} је уклонио њен власник
+      meta_title: Заједницу %{community_name} је уклонио њен власник
   communities_filter: Заједнице
   communities_index_empty: Нема активних заједница.
   communities_index_header: Активне заједнице
@@ -592,6 +712,7 @@ sr-EC:
   community_contributions_with_count: 
     one: "%{count} допринос"
     other: "%{count} доприноса"
+  community_description_default: Заједница на Енциклопедији живота.
   community_destroyed: Обрисали сте ову заједницу. Она се више неће приказивати у таксонима или у претрази.
   community_empty_notice: Ова заједница нема чланова.
   community_focus: Руковођене збирке
@@ -601,8 +722,8 @@ sr-EC:
   community_invitation_comment: Желео/ла бих да вас позовем да се придружите заједници „%{community}“.
   community_logo_alt_text: Логотип заједнице %{community_name}
   community_managers_with_count: 
-    one: "%{count} руководилац заједнице"
-    other: "%{count} руководиоца заједнице"
+    one: "%{count} управник заједнице"
+    other: "%{count} управника заједнице"
   community_members: Чланови заједнице
   community_members_with_count: 
     one: "%{count} члан заједнице"
@@ -614,6 +735,7 @@ sr-EC:
   community_rating: Оцена заједнице
   community_removed_by_owner: Ова заједница је обрисана од стране свог власника.
   community_tab_collections_description: Збирке се праве од стране корисника EOL-а. Оне служе за постављање врста, мултимедијалног садржаја, чланака или чак чланова који имају нешто заједничко по разним основама као што су географија, екологија или лична значења. Заједнице могу „истакнути“ збирке које су од особеног интереса и вредности.
+  community_tab_collections_header: Збирке
   community_tab_communities_description: Заједнице су групе чланова које уједињују иста интересовања и стручности. Оне су организоване у збиркама, што омогућава члановима да решавају теме од заједничког интереса. Више информација о заједницама, укључујући и упутства како да је сами направите, доступне су на <a href='/info/communities'>страници за помоћ</a>.
   community_tab_curators_description: Кустоси су корисници EOL-а са стручношћу у области биологије који одвајају своје слободно време за преглед садржаја, и труде се да унети подаци буду што тачнији и прецизнији.
   completed: Завршено
@@ -633,6 +755,11 @@ sr-EC:
   contact_us_topics: Теме у „Контактирајте с нама“
   contacts: Контакти
   containing_value: садржи %{value}.
+  content: 
+    index: 
+      meta_description: Енциклопедија живота је ненадмашан подухват који има за циљ да скупи научна сазнања за сав биљни и животињски свет. Овде ћете наћи слике, информације, чињенице и много тога другог за све врсте у биљном и животињском царству.
+      meta_keywords: Животиње, слике животиња, подаци о животињама, биљке, биљни свет, слике биљки, подаци о биљкама, флора, фауна
+      meta_title: Животиње – биљке – слике и подаци
   content_has_been_updated: Садржај је ажуриран.
   content_notes_not_shown_to_us: "Белешке за садржај (невидљиво за корисника):"
   content_partner: Партнер за садржај
@@ -645,6 +772,7 @@ sr-EC:
   content_partner_agreement_cancel_edit_agreement_link: Откажи
   content_partner_agreement_cancel_new_agreement_link: Откажи
   content_partner_agreement_cancel_sign_agreement_link: Откажи
+  content_partner_agreement_create_successful_notice: Прихватили сте услове партнера за садржај. Сада можете да додате ресурсе података.
   content_partner_agreement_create_unsuccessful_error: Нажалост, дошло је до грешке. Изгледа да постоји технички проблем с условима партнера за садржај. Покушајте поново. Ако проблем и даље постоји, обавестите EOL.
   content_partner_agreement_signed_successful_notice: Прихватили сте услове партнера за садржај. Сада можете да додате ресурсе података.
   content_partner_agreement_signed_unsuccessful_error: Нажалост, дошло је до грешке. Изгледа да постоји технички проблем с условима партнера за садржај. Покушајте поново. Ако проблем и даље постоји, обавестите EOL.
@@ -676,6 +804,7 @@ sr-EC:
   content_partner_current_agreement_view_link: Преглед
   content_partner_data_description_empty: Нико није додао опис унетог податка.
   content_partner_data_description_header: Опис података
+  content_partner_default_description: Партнер за садржај Енциклопедије живота.
   content_partner_edit_link: Уреди партнера за садржај
   content_partner_filter_option_published_latest_harvest_not_published: Новообјављени
   content_partner_filter_option_published_latest_harvest_pending_publish: Најновији садржај који чека на објављивање
@@ -691,7 +820,7 @@ sr-EC:
   content_partner_homepage_link: Посетите страницу партнера
   content_partner_latest_published_harvest_event_time_ago: Ажурирано пре %{time_passed};
   content_partner_logo_alt_text: Логотип партнера за садржај %{partner_name}
-  content_partner_managed_by_header: "Руководилац:"
+  content_partner_managed_by_header: "Управник:"
   content_partner_new_edit_form_profile_header: Подаци на профилу о партнеру за садржај
   content_partner_new_edit_form_tip: Неки подаци које сте унели овде биће јавно доступни. Назив пројекта и опис су %{required_icon} неопходни.
   content_partner_new_link: Додај новог партнера
@@ -723,6 +852,7 @@ sr-EC:
   content_partner_resource_edit_link: Уреди
   content_partner_resource_edit_subheader: Уређивање ресурса
   content_partner_resource_edit_with_type_link: Уреди ресурс
+  content_partner_resource_harvest_event_confirm_publish: Желите ли да објавите преузимање %{completed_at} за ресурс %{resource_title}? Имајте у виду да, када потврдите да желите објавити ово, захтев ће бити стављен у ред за обраду и чекање може да потраје до 24 часа.
   content_partner_resource_harvest_event_current_published: Тренутно објављен
   content_partner_resource_harvest_event_not_published: Необјављен
   content_partner_resource_harvest_event_previously_published: Претходно објављен
@@ -786,6 +916,22 @@ sr-EC:
   content_partner_update_unsuccessful_error: Нажалост, дошло је до грешке. Не могу да ажурирам детаље о партнеру.
   content_partner_vetted_false: Непрегледано
   content_partner_vetted_true: Проверено
+  content_partners: 
+    edit: 
+      meta_title: "%{partner_name} – уређивање"
+    index: 
+      meta_description: Списак добављача података и партнера за садржај на Енциклопедији живота.
+      meta_keywords: Партнери за садржај, добављачи података
+      meta_title: Партнери за садржај
+    show: 
+      meta_description: "%{partner_name}. %{partner_description}"
+      meta_keywords: "%{partner_name}, партнер за садржај на Енциклопедији живота"
+    statistics: 
+      show: 
+        meta_description: Статистика употребе података за %{partner_name}.
+        meta_keywords: Статистика за %{partner_name}, употреба %{partner_name}
+        meta_title: "%{partner_name} – статистика"
+        tweet_text: "%{partner_name} – статистика о употреби"
   content_partners_empty: Не могу да пронађем партнере за садржај.
   content_partners_link: Партнери за садржај
   content_partners_page_description: Партнери за садржај Енциклопедије живота имају велики број података о биолошкој разноврсности на својим сајтовима или базама података које деле и на страницама EOL-а. Веома ценимо њихов значајан допринос и препоручујемо вам да сазнате више о њима. Сазнајте <a href="%{more_url}">како да постанете партнер за садржај.</a>
@@ -901,11 +1047,14 @@ sr-EC:
   data_object_not_associated_with_any_hierarchies: Овај објекат података није повезан ни с једном хијерархијом.
   data_object_reference: Навод објекта података
   data_object_undo_ignore: уклони из занемарених
+  data_objects: 
+    show: 
+      meta_title: "%{dato_title} из %{supplier}"
+      tweet_text: "%{dato_title} из %{supplier}"
   data_usage_reports: Извештаји о коришћењу података
   date_caps: Датум
   date_uploaded: Датум отпремања
   dato_create_cancel: Откажи
-  dato_create_update_user_text_missing_taxon_id_exception: Не могу да срочим DataObject или UsersDataObject за текст ако недостаје taxon_concept_id.
   dato_create_user_text_error: Нажалост, дошло је до грешке. Не могу да додам чланак.
   dato_create_user_text_missing_taxon_id_exception: Не могу да саставим текстуалан DataObject или UsersDataObject ако нема назнака за таксон.
   dato_create_user_text_missing_user_exception: Не могу да срочим DataObject или UsersDataObject за текст ако недостаје назнака за таксон.
@@ -961,12 +1110,12 @@ sr-EC:
   donation_sponsorship_preamble: "Ако желите да сазнате више о одређеним програмима којима треба покровитељство или желите да дате новчани прилог, обратите се Секретаријату Енциклопедије живота <a href=\"mailto:%{email_address}\">преко е-поште</a> или телефоном: 1 (202) 633-8730 (у САД). Ови прилози се користе за:"
   done_already: Већ урађено
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Не приказуј непознате уписане кориснике (кориснике првог издања, пре 5. јануара 2009.)
+  download_wav_file: Преузми WAV датотеку
   dublin_core: Даблинско језгро
   duplicate_items_were_ignored: Дуплиране ставке су занемарене.
   e_g_search_for_the_eol_page: "(нпр. претражите страницу EOL-а с назнаком ITIS TSN 180542:"
   each_method_documentation_page_has_formatted_responses: Страница документације за сваки метод садржи два примера за одговоре у формату XML и JSON.
   edit: Уреди
-  edit_annotation: уреди забелешку
   edit_collection_details: Уреди детаље о збирци
   edit_collection_details_header: Уређивање детаља о збирци
   edit_comment: Уреди коментар
@@ -993,7 +1142,7 @@ sr-EC:
   edit_username: Уреди %{username}
   edit_web_users: уреди кориснике
   edited_colon: "уређено:"
-  editors_tab_label: Руководиоци
+  editors_tab_label: Управници
   email: Е-адреса
   email_colon: "Е-адреса:"
   email_error_notification_activ: Обавештавање о грешкама при слању порука је активно
@@ -1128,10 +1277,10 @@ sr-EC:
   from_communities: "од заједница: %{communities}"
   from_community: из заједнице %{community}
   full_content_url: Адреса пуног садржаја
-  gbif_map: Карта GBIF
-  gbif_occurrence_disclaimer: Карта се заснива на записима који су доступни преко <a href='http://www.gbif.org/'>мреже GBIF</a> и можда не представља целу расподелу.
+  gbif_map: GBIF мапа
+  gbif_occurrence_disclaimer: Мапа се заснива на записима који су доступни преко <a href='http://www.gbif.org/'>GBIF мреже</a> и можда не представља целу расподелу.
   gbif_occurrence_learn_more_link: Приступ до ових датотека преко Портала GBIF.
-  general_site_admin: општи руководилац сајта
+  general_site_admin: општи управник сајта
   get_help_choosing_a_subchapter: Помоћ у одабирању потпоглавља
   get_more_tasks: више задатака
   given_name_colon: "Име:"
@@ -1169,6 +1318,7 @@ sr-EC:
         view_style_id: Подразумевани приказ
       collection_item: 
         annotation: Забелешка
+        refs: Наводи <small>(сваки у нови ред)</small>
         sort_field: Поређај по <small>(датум ГГГГ.ММ.ДД, број или текст)</small>
         sort_field_show: "Вредност сврставања:"
       comment: 
@@ -1194,7 +1344,7 @@ sr-EC:
         notes: Белешке пројекта <small>(приватно)</small>
         oldest_published_harvest_event: Прво објављено
         public_more: Јавни профили партнера за садржај видљиви су за свакога. Подаци о сваком партнеру се налазе у списку партнера. Дештриклирајте ово ако желите да изузмете детаље у списку и да ограничите приступ до профила корисника, тј. да може да приступи само ономе ко је направио партнера и администраторе на EOL-у.
-        user_id: С детаљима партнера за садржај руководи
+        user_id: Детаљима партнера за садржај управља
       content_partner_agreement: 
         mou_url: Адреса договора <small>(по избору)</small>
         mou_url_more: Можете да унесете адресу до датотеке која садржи уговор с овим партнером. Ова датотека има предност (тј. замењује) сваки други текст у уговору. Ако желите да сместите датотеку (нпр. ПДФ документ) на сервер, онда је најпре <a href="%{upload_content_url}">отпремите</a>, па ћете потом добити њену адресу.
@@ -1206,11 +1356,13 @@ sr-EC:
         license_id: Лиценца
         license_id_more: Прочитајте <a href="%{policy_url}">Правила за лиценцирање EOL-а</a>
         object_title: Наслов
-        refs: Наводи <small>(сваки навод у нови ред)</small>
+        refs: Наводи <small>(сваки у нови ред)</small>
         rights_holder: Носилац права
         rights_statement: Изјава о правима
         source_url: Адреса до изворног објекта података
         toc_item: Потпоглавље
+      eol_statistic: 
+        download_all: Све <small>(укључи записе са свих страница)</small>
       google_analytics_partner_summaries: 
         page_views: Прегледи <small>(број посета страница)</small>
         taxa_pages: Странице <small>(број страница)</small>
@@ -1322,6 +1474,9 @@ sr-EC:
         create: Додај чланак
         create_text: Додај чланак
         update: Сачувај чланак
+      eol_statistic: 
+        download_csv: Преузми као CSV
+      filter_sort: Филтрирај и поређај
       harvest_event: 
         publish: Објави
       hierarchy: 
@@ -1377,9 +1532,9 @@ sr-EC:
   image_from_supplier: Слика из %{whom}
   image_is_no_longer_available: Слика више није доступна
   image_map_alt_text: Ова %{vetted_status} мапа представља таксон %{taxon_name}
-  image_map_from: карта од
+  image_map_from: мапа од
   image_map_from_supplier: Мапа из %{whom}
-  image_map_not_associated_with_any_published_entries: Ова карта није повезана ни с једним објављеним таксоном.
+  image_map_not_associated_with_any_published_entries: Ова мапа није повезана ни с једним објављеним таксоном.
   image_map_of: Мапа
   image_map_rating: Оцена мапе
   image_not_associated_with_any_published_entries: Ова слика није повезана ни с једним објављеним таксоном.
@@ -1432,10 +1587,10 @@ sr-EC:
   item_type_community_assistive: Ова ставка је заједница
   item_type_image: Слика
   item_type_image_assistive: Ова ставка је слика
-  item_type_image_map: Карта
+  item_type_image_map: Мапа
   item_type_image_map_assistive: Ова ставка је слика на карти
-  item_type_map: Карта
-  item_type_map_assistive: Ова ставка је карта
+  item_type_map: Мапа
+  item_type_map_assistive: Ова ставка је мапа
   item_type_person: Лице
   item_type_person_assistive: Ова ставка је особа
   item_type_sound: Звук
@@ -1537,18 +1692,18 @@ sr-EC:
   maintained_by: "одржава:"
   major_heading: Главно заглавље
   make_an_editor: назначи за руководиоца
-  make_user_an_editor_title: Дозволи кориснику %{user} да руководи са следећим збиркама
+  make_user_an_editor_title: Дозволи кориснику %{user} да управља следећим збиркама
   manage_your_profile: Руковођење с вашим профилом
-  managed_by: "Руководилац:"
+  managed_by: "Управник:"
   managed_collections_with_count: 
     one: "%{count} збирка под руководством"
     other: "%{count} збирке под руководством"
   manager_endorse_collections_suggestion: Да бисте истакли збирку на страници ове заједнице, додајте је у било коју збирку којом управља заједница.
-  manager_parens: (руководилац)
+  manager_parens: (управник)
   map_alt_text: Ова %{vetted_status} мапа представља таксон %{taxon_name}
-  map_from: карта од
+  map_from: мапа од
   map_from_supplier: Мапа из %{whom}
-  map_not_associated_with_any_published_entries: Ова карта није повезана ни с једним објављеним таксоном.
+  map_not_associated_with_any_published_entries: Ова мапа није повезана ни с једним објављеним таксоном.
   map_of: Мапа
   map_rating: Оцена мапе
   maps_empty: Још нико није додао ниједну мапу на ову страницу.
@@ -1572,6 +1727,17 @@ sr-EC:
     other: "%{count} датотеке"
   member_of: члан
   member_of_professional_society_credential_option: члан стручног друштва
+  members: 
+    index: 
+      meta_description: Чланови заједнице %{community_name}.
+      meta_keywords: "%{community_name} – чланови"
+      meta_title: "%{community_name} – чланови"
+      tweet_text: "%{community_name} – чланови"
+    show: 
+      meta_description: "%{member_name} је члан заједнице %{community_name}."
+      meta_keywords: "%{member_name} – члан заједнице"
+      meta_title: "%{member_name} члан заједнице %{community_name}"
+      tweet_text: "%{member_name} члан заједнице %{community_name}"
   members_like_you: Чланови као ви
   members_with_count: 
     one: "%{count} члан"
@@ -1583,7 +1749,6 @@ sr-EC:
   message_colon: "Порука:"
   meta_description_colon: "Мета опис:"
   meta_keywords_colon: "Мета кључне речи:"
-  meta_title_site_name: Енциклопедија живота
   method: Начин
   method_to_get_metadata_about_the_hierarchy: када наведете назнаку хијерархије, ова метода ће пријавити метаподатке о хијерархији и приказати основне таксоне
   methods: Начини
@@ -1686,7 +1851,7 @@ sr-EC:
   next: Следеће
   no_active_members: Још нема довољно активности.
   no_answer: Не
-  no_collections_apply: Нема збирки до којих имате приступ којима може да се додели руководилац.
+  no_collections_apply: Нема збирки до којих имате приступ којима може да се додели управник.
   no_comments_are_available_for_subject: Нема коментара за %{subject}
   no_comments_have_been_left_yet: Досад нема коментара.
   no_errors_are_available: Нема грешака.
@@ -1724,8 +1889,8 @@ sr-EC:
     activity_on_user_content: 
       message: "Ово је аутоматска порука од Енциклопедије живота (EOL) у којој вам наводимо скорашње коментаре и кустоске радње на садржају који сте ви поставили преко свог налога (%{members_username}).\n\nАко имате било каква питања или вам треба помоћ да приступите налогу, пишите нам на %{species_pages_group_email}.\n\nКустоске радње:\n%{curator_activity_log}\n\nКоментари на објектима података:\n%{data_object_comments}\n\nКоментари на страницама повезаних с вашим подацима:\n%{page_comments}"
       subject: Преглед скорашњих садржаја које сте додали на Енциклопедију живота.
-    activity_user_added_association_for_taxon_on_date: "%{curator_level} %{users_name} (%{users_url}) додаде везу:\n%{taxon_name} (%{taxon_url}) на %{object_name} (%{object_url})\n%{action_date}."
-    activity_user_added_association_on_date: "%{curator_level} %{users_name} (%{users_url}) додаде непознату везу на %{object_name} (%{object_url})\n%{action_date}."
+    activity_user_added_association_for_taxon_on_date: "%{curator_level} %{users_name} (%{users_url}) је додао везу:\n%{taxon_name} (%{taxon_url}) на %{object_name} (%{object_url})\n%{action_date}."
+    activity_user_added_association_on_date: "%{curator_level} %{users_name} (%{users_url}) је додао непознату везу на %{object_name} (%{object_url})\n%{action_date}."
     activity_user_marked_data_object_as_inappropriate_on_date: "%{curator_level} %{users_name} (%{users_url}) означи као неприкладно:\n%{object_name} (%{object_url})\n%{action_date}."
     activity_user_marked_data_object_as_trusted_for_taxon_on_date: "%{curator_level} %{users_name} (%{users_url}) означи као поверљиво:\n%{object_name} (%{object_url}) за %{taxon_name} (%{taxon_url})\n%{action_date}."
     activity_user_marked_data_object_as_untrusted_for_taxon_on_date: "%{curator_level} %{users_name} (%{users_url}) означи као неповерљиво:\n%{object_name} (%{object_url}) за %{taxon_name} (%{taxon_url})\n%{action_date}."
@@ -1744,7 +1909,7 @@ sr-EC:
       subject: "%{user_full_name} направи партнера за садржај %{partner_full_name}"
     content_partner_resource_created: 
       message: "Ово је системско самообавештавање за групу страница за врсте. Корисник %{user_full_name} је додао нови ресурс %{resource_title} на партнера %{partner_full_name}, са следећим подацима:\n\nКорисник: %{user_full_name}\nЕ-адреса: %{user_email}\nАдреса профила: %{user_profile_url}\n\nПартнер: %{partner_full_name}\nАдреса ресурса партнера: %{partner_resources_url}\n\nРесурс: %{resource_title}\nАдреса ресурса: %{resource_url}\nНаправљено: %{resource_created_at_date}\nСтатус: %{resource_status}"
-      subject: "%{user_full_name} додаде нови ресурс %{resource_title} партнеру за садржај %{partner_full_name}"
+      subject: "%{user_full_name} је додао нови ресурс %{resource_title} партнеру за садржај %{partner_full_name}"
     content_partner_resource_force_harvest_request: 
       message: "Ово је системско самообавештавање за групу страница за врсте. Корисник %{user_full_name} је затражио наметнуто преузимање ресурса %{resource_title} који припада партнеру %{partner_full_name}, са следећим подацима:\n\nКорисник: %{user_full_name}\nЕ-адреса: %{user_email}\nАдреса профила: %{user_profile_url}\n\nПартнер: %{partner_full_name}\nАдреса ресурса партнера: %{partner_resources_url}\n\nРесурс: %{resource_title}\nАдреса ресурса: %{resource_url}\nАжурирано: %{resource_updated_at_date}\nСтатус: %{resource_status}"
       subject: "%{user_full_name} затражи наметнуто преузимање за ресурс %{resource_title} партнера %{partner_full_name}"
@@ -1768,13 +1933,11 @@ sr-EC:
     user_message: 
       subject: Порука од Енциклопедије живота
     user_reset_password: 
-      message: "Енциклопедија живота (www.eol.org) је примила захтев за обнављање ваше лозинке. Ако нисте поднели овај захтев, занемарите ову поруку.\n\nСледећа веза вам даје једнократну прилику за поставите нову лозинку:\n\n%{password_reset_url}\n\nПратите ову везу (кликните на њу или је умножите у навигациону траку вашег прегледача) да дођете до странице на којој можете да промените лозинку. Имајте на уму да, ако је веза истекла, тада ћете морати поново да унесете корисничко име или е-адресу како бисте добили нову поруку за промену лозинке и нову везу."
       subject: Обнављање лозинке за налог на Енциклопедији живота
     user_updated_email_preferences: 
       message: "Ово је системско самообавештење. %{user_full_name} (%{user_profile_url}) промени своју е-адресу или поставке за дописну листу.\n\nПретходне поставке:\nЕ-адреса: %{previous_email}\nПоставка дописне листе: %{previous_mailing_list_preference}\n\nАжуриране поставке:\nЕ-адреса: %{updated_email}\nПоставка дописне листе: %{updated_mailing_list_preference}\nАжурирано: %{updated_at}"
       subject: "%{user_full_name} промени своју е-адресу или поставке за дописну листу"
     user_verification: 
-      message: "Хвала вам што сте отворили налог на Енциклопедији живота. Следећа веза служи да бисте потврдили упис:\n\n%{verification_url}\n\nПратите ову везу (кликните на њу или је умножите у навигациону траку на свом прегледачу) да бисте активирали налог. Потом ћете добити потврдну поруку да је ваш налог заиста активиран."
       subject: Потврдите ваш захтев за налог на Енциклопедији живота
   nucleotide_sequences: Нуклеотидне секвенце
   nucleotide_sequences_ncbi_database: База <a href="%{ncbi_taxonomy_link}">таксономије NCBI-ја</a> садржи називе свих организама који су заступљени у генетској бази с најмање једном нуклеотидном или протеинском секвенцом.
@@ -1809,6 +1972,8 @@ sr-EC:
   object_visibility_invisible_option: Сакривено
   object_visibility_visible_option: Видљиво
   objects_curated: Кустосирани објекат
+  older_version_of_latest_published_data_object_link: старија верзија „%{link}“
+  older_version_of_latest_published_data_object_title_link: Старија верзија %{link}
   on_time_col_header: на
   only_multi_search_suggestions: (само ако има више предлога за један исти појам; подразумева се мало → много)
   only_show_authoritative_conten: "Приказуј само стручно-проверени садржај:"
@@ -1860,6 +2025,7 @@ sr-EC:
   pagination_next_with_count: 
     one: следећи
     other: следећа %{count}
+  pagination_page_number: Страница %{number}
   pagination_previous: Претходно
   pagination_previous_with_count: 
     one: претходни
@@ -1891,6 +2057,7 @@ sr-EC:
   please_leave_your_feedback: Пошаљите повратну информацију
   please_note_that_some_of_these: Неке од ових алатки су у бета фази и зато се могу изменити током времена, а могу садржати и грешке.
   please_note_wiki_etc_are_not_spm: "*Имајте на уму да су Википедија, Образовање и Бар-код унутрашњи субјекти EOL-а и као такви нису део SPM-а."
+  please_publish_this_resource_notice: "*** <strong>Напомена:</strong> овај ресурс треба да се <strong>%{publish_link}</strong> овде ***"
   please_refresh: Освежите прегледач да бисте видели последње издање EOL-а
   please_return_to_eol_homepage: Вратите се на почетну страницу
   please_state_one_credential: "Наведите барем једно конкретно уверење са списка:"
@@ -1900,6 +2067,7 @@ sr-EC:
   press_room: Штампа
   preview: преглед
   preview_changes: Преглед измена
+  preview_version_of_latest_published_data_object_title_link: Припремна верзија %{link}
   previously_published: претходно објављено
   proceed_to_checkout_page: Иди на страницу за проверу
   process_name: Назив поступка
@@ -1985,7 +2153,6 @@ sr-EC:
   rights_statement: Изјава о правима
   rss_feed: Довод
   save: Сачувај
-  save_annotation_submit_button: Сачувај забелешку
   save_comment_lowercase: сачувај коментар
   save_curated_association_submit_button: Сачувај везу
   sci_name_avg_table_head: Научни назив (просечно)
@@ -2057,6 +2224,9 @@ sr-EC:
     other: Поруке су послате на %{users}.
   sep_emails_with_commas_note: (одвојите адресе запетама)
   server_ip_address: ИП адреса сервера
+  sessions: 
+    new: 
+      meta_title: Пријава
   set_as_exemplar: Постави као пример
   share_a_collection: Дели збирку
   show: Прикажи
@@ -2116,6 +2286,7 @@ sr-EC:
     one: "%{count} звук"
     other: "%{count} звука"
   source_and_additional_information: Извор и додатни подаци
+  source_colon: "Извор:"
   source_information_header: Подаци о извору
   source_url: Изворна адреса
   special_collection: Посебна збирка
@@ -2160,6 +2331,105 @@ sr-EC:
   tasks_with_count: 
     one: Пронађен је %{count} задатак
     other: Пронађена су %{count} задатка
+  taxa: 
+    communities: 
+      collections: 
+        hierarchy_entry: 
+          meta_description: Збирке које садрже %{scientific_name} према класификацији %{hierarchy_provider}.
+          meta_description_with_common_name: Збирке које садрже %{preferred_common_name} (%{scientific_name} према класификацији %{hierarchy_provider}).
+          meta_keywords: Збирке %{scientific_name}, погледи на %{scientific_name}, збирке од %{hierarchy_provider}, погледи од %{hierarchy_provider}, примерци од %{hierarchy_provider}
+          meta_title: Збирке %{scientific_name} према класификацији %{hierarchy_provider}
+          meta_title_with_common_name: Збирке %{preferred_common_name} (%{scientific_name} према класификацији %{hierarchy_provider})
+          tweet_text: Збирке %{scientific_name} према класификацији %{hierarchy_provider}
+        meta_description: Збирке које садрже %{scientific_name}.
+        meta_description_with_common_name: Збирке које садрже %{preferred_common_name} (%{scientific_name}).
+        meta_keywords: Збирке %{scientific_name}, погледи на %{scientific_name}
+        meta_keywords_with_common_name: Збирке %{preferred_common_name}, погледи на %{preferred_common_name}, збирке %{scientific_name}, погледи на %{scientific_name}
+        meta_title: Збирке %{scientific_name}
+        meta_title_with_common_name: Збирке %{preferred_common_name} (%{scientific_name})
+        tweet_text: Збирке %{scientific_name}
+      curators: 
+        hierarchy_entry: 
+          meta_title: Кустоси %{scientific_name} према класификацији %{hierarchy_provider}
+          meta_title_with_common_name: Стручњаци %{preferred_common_name} (%{scientific_name} према класификацији %{hierarchy_provider})
+          tweet_text: Кустоси %{scientific_name} према класификацији %{hierarchy_provider}
+        meta_keywords: Стручњаци за %{scientific_name}, кустоси %{scientific_name}
+        meta_keywords_with_common_name: Стручњаци за %{preferred_common_name}, кустоси %{preferred_common_name}, стручњаци за %{scientific_name}, кустоси %{scientific_name}
+        meta_title: Кустоси %{scientific_name}
+        meta_title_with_common_name: Стручњаци за %{preferred_common_name} (%{scientific_name})
+        tweet_text: Кустоси %{scientific_name}
+      index: 
+        hierarchy_entry: 
+          meta_description: Делите податке и стручност за %{scientific_name} према класификацији %{hierarchy_provider}.
+          meta_description_with_common_name: Делите податке и стручност за %{preferred_common_name} (%{scientific_name}) према класификацији %{hierarchy_provider}.
+          meta_keywords: заједница %{scientific_name}, %{hierarchy_provider}
+          meta_title: Људи заинтересовани за %{scientific_name} према класификацији %{hierarchy_provider}
+          meta_title_with_common_name: Људи заинтересовани за %{preferred_common_name} (%{scientific_name} према класификацији %{hierarchy_provider})
+          tweet_text: Људи заинтересовани за %{scientific_name} према класификацији %{hierarchy_provider}
+        meta_description: Заинтересовани сте за %{scientific_name}? Придружите се стручњацима %{scientific_name} и делите своје погледе на %{scientific_name} на Енциклопедији живота.
+        meta_description_with_common_name: Заинтересовани сте за %{preferred_common_name} (%{scientific_name})? Придружите се стручњацима %{preferred_common_name} и делите своје погледе на %{preferred_common_name} на Енциклопедији живота.
+        meta_keywords: "%{scientific_name} – заједница"
+        meta_keywords_with_common_name: заједница %{preferred_common_name}, заједница %{scientific_name}
+        meta_title: Људи заинтересовани за %{scientific_name}
+        meta_title_with_common_name: Људи заинтересовани за %{preferred_common_name} (%{scientific_name})
+        tweet_text: Људи заинтересовани за %{scientific_name}
+    details: 
+      index: 
+        hierarchy_entry: 
+          meta_description: Подаци о %{scientific_name} према класификацији %{hierarchy_provider} на Енциклопедији живота.
+    literature: 
+      show: 
+        meta_title: Литература за %{scientific_name}
+        meta_title_with_common_name: Књиге за %{preferred_common_name} (%{scientific_name})
+        tweet_text: Литература за %{scientific_name}
+    maps: 
+      show: 
+        hierarchy_entry: 
+          meta_description: Географски подаци о %{scientific_name} према класификацији %{hierarchy_provider} – где живе и у ком делу света су настањени.
+          meta_description_with_common_name: Где се срећу %{preferred_common_name} и где живе? Географски подаци о %{scientific_name} према класификацији %{hierarchy_provider} – где живе и у ком делу света су настањени.
+          meta_title: Мапе %{scientific_name} према класификацији %{hierarchy_provider}
+          meta_title_with_common_name: Мапе %{preferred_common_name} (%{scientific_name} према класификацији %{hierarchy_provider})
+          tweet_text: Мапе %{scientific_name} према класификацији %{hierarchy_provider}
+        meta_description: Географски подаци о %{scientific_name} – где живе и у ком делу света су настањени.
+        meta_description_with_common_name: Где се срећу %{preferred_common_name} и где живе? Географски подаци о %{scientific_name} – где живе и у ком делу света су настањени.
+        meta_keywords: станиште за %{scientific_name}, настањење, где живе %{scientific_name}
+        meta_keywords_with_common_name: станиште за %{preferred_common_name}, настањење, где живе %{preferred_common_name}
+        meta_title: Станиште за %{scientific_name}
+        meta_title_with_common_name: Станиште за %{preferred_common_name} (%{scientific_name})
+        tweet_text: Мапе %{scientific_name}
+    media: 
+      index: 
+        hierarchy_entry: 
+          meta_description: Слике и видео-снимци за %{scientific_name} према класификацији %{hierarchy_provider}.
+          meta_description_with_common_name: Слике, филм и звук за %{preferred_common_name} (%{scientific_name}) према класификацији %{hierarchy_provider}.
+          meta_keywords: слике за %{scientific_name}, филмови за %{scientific_name}, звукови за %{scientific_name}, звук за %{scientific_name}
+          meta_keywords_with_common_name: слике за %{preferred_common_name}, филмови за %{preferred_common_name}, звукови за %{preferred_common_name}, звук за %{preferred_common_name}, слике за %{scientific_name}, филмови за %{scientific_name}, звукови за %{scientific_name}, звук за %{scientific_name}
+          meta_title: Звук, филм и слике за %{scientific_name} према класификацији %{hierarchy_provider}
+          meta_title_with_common_name: Звук, филм и слике за %{preferred_common_name} (%{scientific_name} према класификацији %{hierarchy_provider})
+          tweet_text: Снимци и слике за %{scientific_name} према класификацији %{hierarchy_provider}
+        meta_description: Слике и видео-снимци за %{scientific_name}.
+        meta_description_with_common_name: Слике и видео-снимци за %{preferred_common_name} (%{scientific_name}).
+        meta_keywords: слике за %{scientific_name}, видео-снимци за %{scientific_name}, слике за %{scientific_name}, снимци за %{scientific_name}, слике за %{scientific_name}, медијске датотеке
+        meta_keywords_with_common_name: слике за %{preferred_common_name}, видео-снимци за %{preferred_common_name}, слике за %{preferred_common_name}, снимци за %{preferred_common_name}, слике за %{preferred_common_name}, медијске датотеке
+        meta_title: Слике и видео-снимци за %{preferred_common_name} (%{scientific_name})
+        meta_title_with_common_name: Слике и видео-снимци за %{preferred_common_name} (%{scientific_name})
+        tweet_text: Медијске датотеке за %{scientific_name}
+    names: 
+      common_names: 
+        meta_keywords: Тривијална имена за %{scientific_name}
+        meta_keywords_with_common_name: Тривијална имена за %{scientific_name}, научно име за %{preferred_common_name}
+        meta_title: Тривијална имена за %{scientific_name}
+        meta_title_with_common_name: Тривијална имена за %{preferred_common_name} (%{scientific_name})
+        tweet_text: Тривијална имена за %{scientific_name}
+      index: 
+        hierarchy_entry: 
+          meta_description: Таксономија, класификациона хијерархија и повезана научна имена за %{scientific_name} према класификацији %{hierarchy_provider}.
+          meta_description_with_common_name: Таксономија, класификационе хијерархије и повезана научна имена за %{preferred_common_name} (%{scientific_name}) према класификацији %{hierarchy_provider}.
+          tweet_text: Имена повезана са %{scientific_name} према класификацији %{hierarchy_provider}
+        meta_description: Таксономска класификација и научна имена за %{scientific_name}.
+      synonyms: 
+        hierarchy_entry: 
+          meta_description: Синоними повезани са %{scientific_name} према класификацији %{hierarchy_provider}.
   taxa_column_header: Таксони
   taxa_with_count: 
     one: "%{count} таксон"
@@ -2241,6 +2511,7 @@ sr-EC:
   the_suggested_page_to_direct_users_to_link: предложена страница на коју ће се преносити корисници
   the_topic_was_updated: Тема је ажурирана.
   the_user_was_updated: Корисник је ажуриран.
+  the_user_who_performed_this_action_was_removed: Корисник који је извршио ову радњу је уклоњен.
   the_xml_search_response_implements: Претрага с XML одговором уграђује формат за одговоре Опенсерч користећи Атом 1.0. Детаљан технички опис за Опенсерч можете наћи на вези %{link}
   there_are_currently_no_members_in_this_community: Заједница тренутно нема чланова.
   there_is_no_singular_eol: EOL нема једну јединствену таксономску хијерархију, већ пописује разне хијерархије и међусобно их упоређује да би препознао који чворови се односе на исте таксоне. Ови таксонски елементи представљају хијерархијске чворове, и зато се може јавити неколико од њих на једној страници. Више информација можете наћи у документацији АПИ-ја на %{link}.
@@ -2257,13 +2528,13 @@ sr-EC:
   this_image_cannot_be_curated_because_unpublished: Ова слика не може да се кустосира јер је уклоњена из објава.
   this_image_is_unpublished: Ова слика је необјављена.
   this_image_map_cannot_be_curated_because_unpublished: Ова мапа не може да се кустосира јер је уклоњена из објава.
-  this_image_map_is_unpublished: Ова карта је необјављена.
+  this_image_map_is_unpublished: Ова мапа је необјављена.
   this_is_a_flat_list_of_10_million_strings: Ово је раван списак десет милиона ниски – не можете га прегледати
   this_is_a_focus_collection_for_community: Ова збирка је посвећена „%{community}“.
   this_is_the_breakdown_of_chapt: Ово је разложен преглед поглавља, потпоглавља и одговарајућих категорија за Профилне моделе врста.
   this_is_the_label_that_will_be_used_for_attribution: Ово је натпис који ће се користити за одавање заслуга
   this_map_cannot_be_curated_because_unpublished: Ова мапа не може да се кустосира јер је уклоњена из објава.
-  this_map_is_unpublished: Ова карта је необјављена.
+  this_map_is_unpublished: Ова мапа је необјављена.
   this_method_takes_an_integer_or_string: Ова метода узима цео број или ниску која је јединствена назнака таксона из базе једног добављача, као и hierarchy_id који представља добављача и приказује назнаку странице на EOL-у тог таксона. На пример, користећи АПИ %{link_provider}, можете сазнати да је hierarchy_id за Интегрисани таксономски систем информација (ITIS) %{itis_id}. Потом можете претражити EOL за таксономски серијски број на ITIS-у (TSN) 180542,<i>Ursus maritimus</i>, позивајући %{link_url}
   this_page_shows_information_ab: На овој страници су приказани подаци о датом појму за претрагу и наведени су резултати претраге који су кликнули корисници.
   this_resource_unpublished_notice: Овај ресурс тренутно није означен као објављен од стране администратора.
@@ -2392,13 +2663,17 @@ sr-EC:
   user_agent: Кориснички агент
   user_already_active_notice: Ваш налог је већ активан. Пријавите се.
   user_comment: Кориснички коментар
-  user_commented_on_something_colon: "<strong>%{user}</strong> прокоментариса %{what}:"
+  user_commented_on_deleted_user: "<strong>%{user_with_link}</strong> је прокоментарисао на страницу корисника који је уклоњен:"
+  user_commented_on_older_data_object_colon: "<strong>%{user}</strong> је прокоментарисао на %{what}:"
+  user_commented_on_something_colon: "<strong>%{user}</strong> је прокоментарисао на „%{what}“:"
+  user_commented_on_themself: "<strong>%{user_with_link}</strong> је прокоментарисао на <a href='%{link}'>довод новости корисника %{username}</a>:"
   user_comments: Кориснички коментари
   user_id: Корисничка назнака
   user_index_intro: Сви интернет корисници уписани у систем су приказани испод, поређани по обрнутом редоследу од времена уписа. Имајте на уму да датуми уписа створени пре другог издања EOL-а (5. јануар 2009.) нису доступни. Кликните на корисничко име да измените тог корисника.
   user_joined_community_on_date: "%{username} се придружи овој заједници датума %{date}."
   user_joined_when: „%{user}“ се придружи %{when}
-  user_left_comment_on_date: "%{username} написа коментар датума %{date}."
+  user_left_comment_on_date: "%{username} је оставио коментар (%{date})."
+  user_no_longer_active_message: Корисник више није активан
   user_no_longer_has_manager_access_to_collection: "%{user} више нема руководитељски приступ збирци „%{collection}“."
   user_response: Кориснички одговор
   user_says_colon: "%{users_name} рече:"
@@ -2454,6 +2729,7 @@ sr-EC:
   view_common_activities_link: Погледај списак најуобичајених активности.
   view_contact_us_submissions: погледај контактирања
   view_curators: погледај кустосе
+  view_current_version_link: Погледај текућу верзију
   view_error_log: погледај извештај грешака
   view_full_size_image: Погледај целу слику
   view_harvesting_log: погледај извештај о преузетом садржају

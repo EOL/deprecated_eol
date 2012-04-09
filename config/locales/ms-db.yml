@@ -66,29 +66,18 @@ ms:
   translated_contact_roles-label-contact_role_id-1: Hubungan Utama
   translated_contact_roles-label-contact_role_id-2: Hubungan Pentadbiran
   translated_contact_roles-label-contact_role_id-3: Hubungan Teknikal
-  translated_contact_subjects-title-contact_subject_id-1: Hubungan Media (wawancara, permohonan gambar)
-  translated_contact_subjects-title-contact_subject_id-10: Kandungan
-  translated_contact_subjects-title-contact_subject_id-11: Masalah teknikal (kesukaran dengan tapak web, alat carian atau akaun pengguna)
-  translated_contact_subjects-title-contact_subject_id-12: Lain-lain
-  translated_contact_subjects-title-contact_subject_id-13: Sokongan Kurator
-  translated_contact_subjects-title-contact_subject_id-14: Minta untuk memuat naik gambar
-  translated_contact_subjects-title-contact_subject_id-15: Buat pembetulan (gambar, ejaan & tatabahasa, maklumat)
-  translated_contact_subjects-title-contact_subject_id-16: Maklum Balas Projek Keseluruhan
-  translated_contact_subjects-title-contact_subject_id-17: Berikan sumbangan kewangan
-  translated_contact_subjects-title-contact_subject_id-18: Jadilah Rakan Kongsi Kandungan
-  translated_contact_subjects-title-contact_subject_id-19: Maklum Balas Kepada Kumpulan Halaman Spesies
-  translated_contact_subjects-title-contact_subject_id-2: Sumbangan
-  translated_contact_subjects-title-contact_subject_id-20: Sokongan Rakan Kongsi Kandungan
-  translated_contact_subjects-title-contact_subject_id-21: Hantar pesanan kepada Cynthia Parr di Kumpulan Halaman Spesies
-  translated_contact_subjects-title-contact_subject_id-22: Sumber Teluk Mexico
-  translated_contact_subjects-title-contact_subject_id-23: Hantar mesej kepada Eli Agbayani
-  translated_contact_subjects-title-contact_subject_id-3: Pembelajaran dan Pendidikan
-  translated_contact_subjects-title-contact_subject_id-4: Kurasi Laman
-  translated_contact_subjects-title-contact_subject_id-5: Pengelasan
-  translated_contact_subjects-title-contact_subject_id-6: Penyelidikan bioinformatik
-  translated_contact_subjects-title-contact_subject_id-7: Penyelidikan biologi
-  translated_contact_subjects-title-contact_subject_id-8: Biologi tumbuh-tumbuhan
-  translated_contact_subjects-title-contact_subject_id-9: Kepustakaan dan Perpustakaan Warisan Biodiversiti
+  translated_contact_subjects-title-contact_subject_id-24: Keahlian dan pendaftaran
+  translated_contact_subjects-title-contact_subject_id-25: Syarat-syarat penggunaan dan pelesenan
+  translated_contact_subjects-title-contact_subject_id-26: Pembelajaran dan pendidikan
+  translated_contact_subjects-title-contact_subject_id-27: Jadilah rakan kongsi kandungan
+  translated_contact_subjects-title-contact_subject_id-28: Sokongan rakan kongsi kandungan
+  translated_contact_subjects-title-contact_subject_id-29: Sokongan kurator
+  translated_contact_subjects-title-contact_subject_id-30: Buat pembetulan (ejaan dan tatabahasa, gambar, maklumat)
+  translated_contact_subjects-title-contact_subject_id-31: Sumbangkan gambar, video atau audio
+  translated_contact_subjects-title-contact_subject_id-32: Permohonan media (wawancara, pertanyaan akhbar, permintaan logo)
+  translated_contact_subjects-title-contact_subject_id-33: Berikan sumbangan kewangan
+  translated_contact_subjects-title-contact_subject_id-34: Pertanyaan teknikal (masalah dengan carian, kefungsian tapak sesawang)
+  translated_contact_subjects-title-contact_subject_id-35: Maklum balas am
   translated_content_partner_statuses-label-content_partner_status_id-1: Menunggu
   translated_content_partner_statuses-label-content_partner_status_id-2: Aktif
   translated_content_partner_statuses-label-content_partner_status_id-3: Dalam Arkib
@@ -262,6 +251,11 @@ ms:
   translated_synonym_relations-label-synonym_relation_id-61: sinonim objektif
   translated_synonym_relations-label-synonym_relation_id-62: sinonim senior
   translated_synonym_relations-label-synonym_relation_id-63: tidak diterima
+  translated_synonym_relations-label-synonym_relation_id-64: tidak sah
+  translated_synonym_relations-label-synonym_relation_id-65: sinonim genus
+  translated_synonym_relations-label-synonym_relation_id-66: representasi lain
+  translated_synonym_relations-label-synonym_relation_id-67: inkuirenda spesies
+  translated_synonym_relations-label-synonym_relation_id-68: hortikultur
   translated_synonym_relations-label-synonym_relation_id-7: singkatan genbank
   translated_synonym_relations-label-synonym_relation_id-8: anamorf genbank
   translated_synonym_relations-label-synonym_relation_id-9: nama am genbank
@@ -360,6 +354,9 @@ ms:
   translated_vetted-label-vetted_id-4: Tidak dipercayai
   translated_vetted-label-vetted_id-5: Dipercayai
   translated_vetted-label-vetted_id-6: Tidak sesuai
+  translated_view_styles-name-view_style_id-1: Senarai
+  translated_view_styles-name-view_style_id-2: Galeri
+  translated_view_styles-name-view_style_id-3: Dianotasikan
   translated_visibilities-label-visibility_id-0: Tidak boleh dilihat
   translated_visibilities-label-visibility_id-1: Boleh dilihat
   translated_visibilities-label-visibility_id-2: Pralihat

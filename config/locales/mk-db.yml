@@ -66,29 +66,18 @@ mk:
   translated_contact_roles-label-contact_role_id-1: Првичен контакт
   translated_contact_roles-label-contact_role_id-2: Административен контакт
   translated_contact_roles-label-contact_role_id-3: Технички контакт
-  translated_contact_subjects-title-contact_subject_id-1: Контакт за медиумите (интервјуа, барања за слики)
-  translated_contact_subjects-title-contact_subject_id-10: Содржина
-  translated_contact_subjects-title-contact_subject_id-11: Технички проблеми (потешкотии со мрежното место, алатката за пребарување или корисничките сметки)
-  translated_contact_subjects-title-contact_subject_id-12: Друго
-  translated_contact_subjects-title-contact_subject_id-13: Поддршка за кустоси
-  translated_contact_subjects-title-contact_subject_id-14: Барање за подигање на слики
-  translated_contact_subjects-title-contact_subject_id-15: Направете исправка (слики, правопис и граматика, информации)
-  translated_contact_subjects-title-contact_subject_id-16: Општи мислења за проектот
-  translated_contact_subjects-title-contact_subject_id-17: Паричен доброволен прилог
-  translated_contact_subjects-title-contact_subject_id-18: Станете соучесник во содржините
-  translated_contact_subjects-title-contact_subject_id-19: Мислење за групата на страниците за видови
-  translated_contact_subjects-title-contact_subject_id-2: Придонеси
-  translated_contact_subjects-title-contact_subject_id-20: Поддршка за соучесниците во содржините
-  translated_contact_subjects-title-contact_subject_id-21: Порака за Синтија Пар од Групата на страници за видови
-  translated_contact_subjects-title-contact_subject_id-22: Ресурси за Мексиканскиот Залив
-  translated_contact_subjects-title-contact_subject_id-23: Испратете му порака на Ели Агбајани
-  translated_contact_subjects-title-contact_subject_id-3: Учење и образование
-  translated_contact_subjects-title-contact_subject_id-4: Згрижување на страници
-  translated_contact_subjects-title-contact_subject_id-5: Класификација
-  translated_contact_subjects-title-contact_subject_id-6: Биоинформатичко истражување
-  translated_contact_subjects-title-contact_subject_id-7: Биолошко истражување
-  translated_contact_subjects-title-contact_subject_id-8: Растителна биологија
-  translated_contact_subjects-title-contact_subject_id-9: Литература и Библиотека на биоразновидносно наследство
+  translated_contact_subjects-title-contact_subject_id-24: Членство и регистрација
+  translated_contact_subjects-title-contact_subject_id-25: Услови на употреба и лиценцирање
+  translated_contact_subjects-title-contact_subject_id-26: Учење и образование
+  translated_contact_subjects-title-contact_subject_id-27: Станете соучесник во содржините
+  translated_contact_subjects-title-contact_subject_id-28: Поддршка за соучесниците во содржините
+  translated_contact_subjects-title-contact_subject_id-29: Поддршка за кустосите
+  translated_contact_subjects-title-contact_subject_id-30: Направете испрацка (правопис и граматика, слики, информации)
+  translated_contact_subjects-title-contact_subject_id-31: Учествувајте со слики, видео и аудиоснимки
+  translated_contact_subjects-title-contact_subject_id-32: Барања од медиумите (интервјуа, прашања од печатот, барања за лого)
+  translated_contact_subjects-title-contact_subject_id-33: Дајте паричен доброволен прилог
+  translated_contact_subjects-title-contact_subject_id-34: Технички прашања (проблеми со пребарувањето, функционирање на мрежното место)
+  translated_contact_subjects-title-contact_subject_id-35: Општи мислења
   translated_content_partner_statuses-label-content_partner_status_id-1: Во исчекување
   translated_content_partner_statuses-label-content_partner_status_id-2: Активно
   translated_content_partner_statuses-label-content_partner_status_id-3: Архивирано
@@ -262,6 +251,11 @@ mk:
   translated_synonym_relations-label-synonym_relation_id-61: објективен синоним
   translated_synonym_relations-label-synonym_relation_id-62: првичен синоним
   translated_synonym_relations-label-synonym_relation_id-63: неприфатено
+  translated_synonym_relations-label-synonym_relation_id-64: неважечко
+  translated_synonym_relations-label-synonym_relation_id-65: родов синоним
+  translated_synonym_relations-label-synonym_relation_id-66: други претставувања
+  translated_synonym_relations-label-synonym_relation_id-67: species inquirenda
+  translated_synonym_relations-label-synonym_relation_id-68: хортикултурно
   translated_synonym_relations-label-synonym_relation_id-7: акроним од GenBank
   translated_synonym_relations-label-synonym_relation_id-8: анаморфа од GenBank
   translated_synonym_relations-label-synonym_relation_id-9: тривијално име од GenBank
@@ -360,6 +354,9 @@ mk:
   translated_vetted-label-vetted_id-4: Недоверливо
   translated_vetted-label-vetted_id-5: Доверливо
   translated_vetted-label-vetted_id-6: Несоодветно
+  translated_view_styles-name-view_style_id-1: Список
+  translated_view_styles-name-view_style_id-2: Галерија
+  translated_view_styles-name-view_style_id-3: Прибележано
   translated_visibilities-label-visibility_id-0: Невидливо
   translated_visibilities-label-visibility_id-1: Видливо
   translated_visibilities-label-visibility_id-2: Преглед

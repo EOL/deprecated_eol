@@ -2412,6 +2412,7 @@ en:
     other: "All types (%{count})"
   filter_by_type_collection_option: "Collections"
   filter_by_type_community_option: "Communities"
+  filter_by_type_content_page_option: "CMS Pages"
   filter_by_type_image_option: "Images"
   filter_by_type_image_option_with_count:
     one: "Images (%{count})"
@@ -3096,7 +3097,7 @@ en:
     other: "See all <span class=\"assistive\">%{count} updates for this page.</span>"
   see_all_media_link: "See all media"
   see_all_editors_with_count:
-    one: "See the %{count} managers"
+    one: "See the %{count} manager"
     other: "See all %{count} managers"
   see_notes: "see notes"
   select_a_hierarchy_around_whic: "Select a hierarchy around which to organize content summaries:"
@@ -3340,6 +3341,7 @@ en:
     other: "%{count} total items"
   total_searches: "Total searches:"
   total: "Total"
+  translation_information_header: "Translation information"
   translations_submit: "View translation"
   trigger_search_term_entered_by: "trigger search term entered by the user"
   true: "True"

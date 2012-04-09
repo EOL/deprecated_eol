@@ -78,7 +78,7 @@ ia:
         rights_statement: Declaration del derectos
         source_url: URL de origine
       eol_statistic: 
-        active_curators: Curatores active
+        active_curators: Conservatores active
         base_pages: Paginas de base
         collections_count: Collectiones
         communities_count: Communitates
@@ -86,11 +86,11 @@ ia:
         content_partners_with_published_resources: Con ressources publicate
         content_partners_with_published_trusted_resources: Con ressources publicate digne de fide
         created_at: Create a
-        curator_actions_in_the_last_30_days: Actiones de curator in le ultime 30 dies
-        curators: Curatores
-        curators_assistant: Curatores assistente
-        curators_full: Curatores principal
-        curators_master: Curatores maestro
+        curator_actions_in_the_last_30_days: Actiones de conservator in le ultime 30 dies
+        curators: Conservatores
+        curators_assistant: Conservatores adjuncte
+        curators_full: Conservatores complete
+        curators_master: Conservatores maestros
         data_objects: Objectos de datos
         data_objects_images: Objectos de imagine
         data_objects_maps: Objectos de carta
@@ -110,13 +110,13 @@ ia:
         marine_pages_with_objects_vetted: Paginas marin con objectos de datos digne de fide
         members_count: Membros
         newly_published_resources_in_the_last_30_days: Novemente publicate in le ultime mense
-        objects_curated_in_the_last_30_days: Objectos curate in le ultime 30 dies
+        objects_curated_in_the_last_30_days: Objectos conservate in le ultime 30 dies
         pages_count: Total de paginas
-        pages_curated_by_active_curators: Paginas curate per curatores active
+        pages_curated_by_active_curators: Paginas conservate per conservatores active
         pages_with_BHL_links: Paginas con ligamines al BHL
         pages_with_BHL_links_no_text: Paginas con ligamines al BHL ma sin texto
         pages_with_BHL_links_only: Pagina con ligamines al BHL solmente
-        pages_with_at_least_a_curatorial_action: Paginas con action curatorial
+        pages_with_at_least_a_curatorial_action: Paginas con action de conservator
         pages_with_at_least_a_trusted_object: Paginas con objecto de confidentia
         pages_with_content: Paginas con contento
         pages_with_image: Paginas con imagine
@@ -138,8 +138,8 @@ ia:
         rich_pages: Paginas ric
         rich_redhotlist_pages: Paginas favorite rubie ric
         udo_published: Texto submittite per usator
-        udo_published_by_curators: Texto submittite per curator
-        udo_published_by_non_curators: Texto non submittite per curator
+        udo_published_by_curators: Texto submittite per conservator
+        udo_published_by_non_curators: Texto non submittite per conservator
       harvest_event: 
         resource: Ressource
       hierarchy: 
@@ -253,28 +253,23 @@ ia:
     models: 
       user: conto
   activity: Activitate
-  activity_added_an_editor_of_collection: <strong>%{user}</strong> assignava un gerente al collection "%{collection}".
   activity_choose_exemplar: <strong>%{user}</strong> marcava un imagine como exemplar pro "%{object_name}".
   activity_hid_with_reasons_colon: "motivo(s) pro celar: %{reasons}"
   activity_log_empty: Nulle persona ha ancora fornite actualisationes.
   activity_log_empty_learn_more_link: Apprende como contribuer
   activity_untrusted_with_reasons_colon: "motivo(s) pro retirar confidentia: %{reasons}"
-  activity_user_added_as_an_editor_of_collection: <strong>%{user}</strong> esseva facite gerente del collection "%{collection}".
   activity_user_added_association: <strong>%{user}</strong> addeva un association a "%{object_name}".
   activity_user_added_collection_to_community: <strong>%{user}</strong> addeva le collection "%{collection}" al communitate "%{community}".
   activity_user_added_common_name: <strong>%{user}</strong> addeva le nomine commun in %{language} "%{name}" a un objecto incognite.
   activity_user_added_common_name_to_taxon: <strong>%{user}</strong> addeva le nomine commun in %{language} "%{name}" a "%{taxon}".
   activity_user_added_community_manager: <strong>%{user}</strong> faceva %{manager} gerente del communitate "%{community}".
-  activity_user_added_item_to_collection: <strong>%{user}</strong> addeva "%{item}" al collection "%{collection}".
   activity_user_added_named_association: <strong>%{user}</strong> addeva un association inter "%{object_name}" e "%{name}".
   activity_user_added_unknown_association: <strong>%{user}</strong> addeva un association a un objecto incognite.
-  activity_user_added_unknown_item_to_collection: <strong>%{user}</strong> addeva un objecto incognite al collection "%{collection}".
   activity_user_added_unknown_name: <strong>%{user}</strong> addeva un nomine commun incognite a un objecto incognite.
   activity_user_added_unknown_name_to_taxon: <strong>%{user}</strong> addeva un nomine commun a "%{taxon}".
   activity_user_changed_community_description: <strong>%{user}</strong> actualisava le description del communitate "%{community}".
   activity_user_changed_community_icon: <strong>%{user}</strong> cambiava le logotypo del communitate "%{community}".
   activity_user_changed_community_name: <strong>%{user}</strong> cambiava le nomine del communitate "%{community}".
-  activity_user_created_collection: <strong>%{user}</strong> creava le collection "%{collection}".
   activity_user_created_community: <strong>%{user}</strong> creava le communitate "%{community}".
   activity_user_created_text: <strong>%{user}</strong> addeva texto a "%{object_name}" in "%{taxon_concept}".
   activity_user_curated_an_unknown_object: <strong>%{user}</strong> gereva un objecto incognite.
@@ -289,19 +284,18 @@ ia:
   activity_user_inappropriate_unknown_name_to_taxon: <strong>%{user}</strong> marcava un nomine commun pro "%{taxon}" como inappropriate.
   activity_user_joined_community: <strong>%{user}</strong> adhereva al communitate "%{community}".
   activity_user_marked_content_as_inappropriate: <strong>%{user}</strong> marcava contento como inappropriate.
-  activity_user_modified_collection: <strong>%{user}</strong> modificava le collection "%{collection}".
   activity_user_modified_community: <strong>%{user}</strong> modificava le communitate "%{community}".
   activity_user_rated_data_object: <strong>%{user}</strong> evalutava "%{object_name}".
   activity_user_rated_unknown_object: <strong>%{user}</strong> evalutava un objecto incognite.
-  activity_user_removed_all_items_from_collection: <strong>%{user}</strong> removeva tote le elementos del collection "%{collection}".
   activity_user_removed_association: <strong>%{user}</strong> removeva un association a "%{object_name}".
-  activity_user_removed_item_from_collection: <strong>%{user}</strong> removeva "%{item}" del collection "%{collection}".
   activity_user_removed_named_association: <strong>%{user}</strong> removeva un association inter "%{object_name}" e "%{name}".
   activity_user_removed_unknown_association: <strong>%{user}</strong> removeva un association a un objecto incognite.
   activity_user_removed_unknown_name: <strong>%{user}</strong> removeva un nomine commun incognite de un objecto incognite.
   activity_user_removed_unknown_name_to_taxon: <strong>%{user}</strong> removeva un nomine commun de "%{taxon}".
   activity_user_showed_data_object: <strong>%{user}</strong> marcava "%{object_name}" como visibile.
   activity_user_showed_named_association: <strong>%{user}</strong> marcava un association inter "%{object_name}" e "%{name}" como visibile.
+  activity_user_showed_named_association_on_older_data_object: <strong>%{user}</strong> marcava un association inter %{object_name} e "%{name}" como visibile.
+  activity_user_showed_older_data_object: <strong>%{user}</strong> marcava %{object_name} como visibile.
   activity_user_showed_unknown_object: <strong>%{user}</strong> marcava un objecto incognite como visibile.
   activity_user_showed_unknown_object_association: <strong>%{user}</strong> marcava un association inter un objecto incognite e "%{name}" como visibile.
   activity_user_trust_common_name: <strong>%{user}</strong> marcava le nomine commun in %{language} "%{name}" pro un objecto incognite como digne de fide.
@@ -310,6 +304,8 @@ ia:
   activity_user_trust_unknown_name_to_taxon: <strong>%{user}</strong> marcava un nomine commun pro "%{taxon}" como digne de fide.
   activity_user_trusted_data_object: <strong>%{user}</strong> marcava "%{object_name}" como digne de fide.
   activity_user_trusted_named_association: <strong>%{user}</strong> marcava un association inter "%{object_name}" e "%{name}" como digne de fide.
+  activity_user_trusted_named_association_on_older_data_object: <strong>%{user}</strong> marcava un association inter %{object_name} e "%{name}" como digne de fide.
+  activity_user_trusted_older_data_object: <strong>%{user}</strong> marcava %{object_name} como digne de fide.
   activity_user_trusted_unknown_object: <strong>%{user}</strong> marcava un objecto incognite como digne de fide.
   activity_user_trusted_unknown_object_association: <strong>%{user}</strong> marcava un association inter un objecto incognite e "%{name}" como digne de fide.
   activity_user_unreview_common_name: <strong>%{user}</strong> marcava le nomine commun in %{language} "%{name}" pro un objecto incognite como non revidite.
@@ -326,6 +322,8 @@ ia:
   activity_user_untrust_unknown_name_to_taxon: <strong>%{user}</strong> marcava un nomine commun pro "%{taxon}" como non digne de fide.
   activity_user_untrusted_data_object: <strong>%{user}</strong> marcava "%{object_name}" como non digne de fide.
   activity_user_untrusted_named_association: <strong>%{user}</strong> marcava un association inter "%{object_name}" e "%{name}" como non digne de fide.
+  activity_user_untrusted_named_association_on_older_data_object: <strong>%{user}</strong> marcava un association inter %{object_name} e "%{name}" como non digne de fide.
+  activity_user_untrusted_older_data_object: <strong>%{user}</strong> marcava %{object_name} como non digne de fide.
   activity_user_untrusted_unknown_object: <strong>%{user}</strong> marcava un objecto incognite como non digne de fide.
   activity_user_untrusted_unknown_object_association: <strong>%{user}</strong> marcava un association inter un objecto incognite e "%{name}" como non digne de fide.
   activity_user_updated_text: <strong>%{user}</strong> actualisava le texto de "%{object_name}" in "%{taxon_concept}".
@@ -415,6 +413,41 @@ ia:
   admin_translated_content_page_new_tip: Lingua, titulo e texto es %{required_icon} obligatori.
   admin_translated_content_page_update_successful_notice: Le traduction in %{language} de <a href="#%{anchor}"><em>%{page_name}</em></a> ha essite actualisate.
   admin_translated_content_page_update_unsuccessful_error: Un error ha occurrite, e le traduction non poteva esser actualisate.
+  admins: 
+    statistics: 
+      content_partner: 
+        page_header: Statisticas del partner de contento
+        page_title: "Administration: statisticas del partner de contento"
+      content_partner_link: Partners de contento
+      curator: 
+        page_header: Statisticas del conservator
+        page_title: "Administration: Statisticas del conservator"
+      curator_link: Statisticas del conservator
+      data_object: 
+        page_header: Statisticas del objecto de datos
+        page_title: "Administration: Statisticas del objecto de datos"
+      data_object_link: Objectos de datos
+      index: 
+        page_header: Statisticas general
+        page_title: "Administration: Statisticas general"
+        table_caption: Statisticas global del sito create a %{created_at_time}
+      index_link: Statisticas general
+      lifedesk: 
+        page_header: Statisticas de LifeDesks
+        page_title: "Administration: Statisticas de LifeDesks"
+      lifedesk_link: LifeDesks
+      marine: 
+        page_header: Copertura marin in EOL
+        page_title: "Administration: Statisticas marin"
+      marine_link: Statisticas marin
+      page_richness: 
+        page_header: Statisticas de pagina ric
+        page_title: "Administration: Statisticas de pagina ric"
+      page_richness_link: Paginas ric
+      user_added_data: 
+        page_header: Statisticas sur texto submittite per usator
+        page_title: "Administration: Statisticas sur texto submittite per usator"
+      user_added_data_link: Texto submittite per usator
   agent: Agente
   all: totes
   all_apis_return_by_default_an_xml_response: "Tote le APIs retorna normalmente un responsa in XML. Le methodos de un API pote esser appellate sin extension de formato pro obtener le responsa in XML, e le addition de un extension XML resulta in un responsa identic:"
@@ -456,6 +489,7 @@ ia:
   article_more_about: Leger plus a proposito de iste articulo
   article_not_associated_with_any_published_entries: Iste articulo non es associate a alcun taxon publicate.
   article_of: Articulo de
+  article_of_taxon: Articulo de %{taxon_name}
   article_rating: Evalutation del articulo
   articles_in_languages_with_count: 
     one: "Articulos in iste pagina es disponibile in %{count} lingua:"
@@ -582,6 +616,21 @@ ia:
   collection_updated_notice: Collection <em>%{collection_name}</em> actualisate con successo.
   collection_was_added_to_community: "\"%{collection}\" ha essite addite a iste communitate."
   collection_was_removed_by_owner: Iste collection ha essite removite per su proprietario.
+  collections: 
+    editors: 
+      show: 
+        meta_description: Gerentes del collection %{collection_name} del Encyclopedia del Vita.
+        meta_keywords: Gerentes de %{collection_name}
+        meta_title: Gerentes de %{collection_name}
+        tweet_text: Gerentes de %{collection_name}
+    newsfeeds: 
+      show: 
+        meta_description: Novas, commentos e activitate communitari pro le collection %{collection_name} del Encyclopedia del Vita.
+        meta_keywords: Novas sur %{collection_name}
+        meta_title: Novas sur %{collection_name}
+        tweet_text: Novas sur %{collection_name}
+    show: 
+      meta_keywords: "%{collection_name}, Collection Encyclopedia del Vita"
   collections_summary_empty: Iste pagina non face ancora parte de alcun collection.
   collections_summary_header_with_count: 
     one: Presente in %{count} collection
@@ -618,6 +667,19 @@ ia:
     one: "%{count} nomine commun"
     other: "%{count} nomines commun"
   common_user_activity_page_title: Activitate commun de usatores
+  communities: 
+    collections: 
+      index: 
+        meta_description: Collectiones communitari reunite per %{community_name}, un communitate del Encyclopedia del Vita.
+        meta_keywords: Collectiones de %{community_name}
+        meta_title: Collectiones de %{community_name}
+        tweet_text: Collectiones de %{community_name}
+    newsfeeds: 
+      show: 
+        meta_keywords: "%{community_name}, communitate del Encyclopedia del Vita, syndication de novas de %{community_name}, commentos de %{community_name}, activitate de %{community_name}"
+    show: 
+      meta_description: Iste communitate del Encyclopedia del Vita, %{community_name}, ha essite removite per su proprietario.
+      meta_title: "%{community_name} removite per proprietario"
   communities_index_empty: Il non ha communitates active.
   communities_index_header: Communitates active
   communities_summary_empty: Iste taxon non ha ancora essite mittite in evidentia in alcun communitate.
@@ -669,6 +731,11 @@ ia:
   contact_us_topics: Topicos pro contactar nos
   contacts: Contactos
   containing_value: continente %{value}.
+  content: 
+    index: 
+      meta_description: Le Encyclopedia del Vita es un effortio sin precedente pro colliger cognoscentia scientific super omne vita animal e vegetal in forma de imagines, information, factos e altere cosas concernente le organismos que vive in nostre regnos animal e vegetal.
+      meta_keywords: Animales, imagines de animales, information sur animales, plantas, vita vegetal, imagines de plantas, information sur plantas, flora, fauna
+      meta_title: Animales - Plantas - Imagines e information
   content_has_been_updated: Le contento ha essite actualisate.
   content_notes_not_shown_to_us: "Notas sur le contento (non visibile al usator):"
   content_partner: Partner de contento
@@ -757,6 +824,22 @@ ia:
   content_partner_resource_create_unsuccessful_error: Un error ha occurrite, e le ressource non ha essite addite.
   content_partner_resource_dataset_details_header: Gruppo de datos
   content_partner_resource_url_or_dataset_not_both_error: Le URL de un gruppo de datos o un file per ressource, ma non ambes. Per favor decide si tu vole specificar un URL o incargar un file pro iste ressource describite. Altere ressources pote esser addite plus tarde.
+  content_partners: 
+    edit: 
+      meta_title: Modificar %{partner_name}
+    index: 
+      meta_description: Lista de fornitores de datos e partners de contento del Encyclopedia del Vita.
+      meta_keywords: Partners de contento del Encyclopedia del Vita, fornitores de datos del Encyclopedia del Vita
+      meta_title: Partners de contento
+    show: 
+      meta_description: "%{partner_name}. %{partner_description}"
+      meta_keywords: "%{partner_name}, partner de contento del Encyclopedia del Vita"
+    statistics: 
+      show: 
+        meta_description: Statisticas de uso pro le datos de %{partner_name}.
+        meta_keywords: Statisticas de %{partner_name}, uso web de %{partner_name}
+        meta_title: Statisticas de %{partner_name}
+        tweet_text: Statisticas de uso de %{partner_name}
   content_summary_introduction_html: Le sequente valores representa le summa de differente typos de contento pro iste taxon e tote su descendentes taxonomic. Le contento %{glossary_term_trusted} o ha essite approbate per un curator de EOL o proveni de un suppletor digne de fide. Le contento %{glossary_term_unreviewed} non ha ancora essite evalutate per un curator de EOL. Cata hierarchia taxonomic es unic, dunque cata hierarchia navigabile es listate pro comparation.
   content_summary_table_count_column_header: Numero
   content_summary_table_summary: Iste tabella contine le numeros de varie typos de contento, separate per stato.
@@ -777,6 +860,10 @@ ia:
   curator_level_with_indefinite_article_master_curator: un <strong>maestro curator</strong>
   currently_in_eol: Actualmente in le Encyclopedia del Vita
   dashboard: Pannello de instrumentos
+  data_objects: 
+    show: 
+      meta_title: "%{dato_title} de %{supplier}"
+      tweet_text: "%{dato_title} de %{supplier}"
   delete_community: Deler iste communitate
   detail: Detalio
   displaying_numerical_range: Lista de %{start_number} a %{end_number}
@@ -814,6 +901,7 @@ ia:
         view_style_id: Vista predefinite
       collection_item: 
         annotation: Annotation
+        refs: Referentias <small>(pone cata referentia in un nove linea)</small>
         sort_field: Ordinar per <small>(data AAAA.MM.DD, numero o texto)</small>
         sort_field_show: "Valor de ordination:"
       comment: 
@@ -856,6 +944,8 @@ ia:
         rights_statement: Declaration del derectos
         source_url: URL verso le objecto de datos original
         toc_item: Subcapitulo
+      eol_statistic: 
+        download_all: totes <small>(includer registros de tote le paginas)</small>
       google_analytics_partner_summaries: 
         page_views: Visitas de paginas <small>(numeros de visitas a paginas)</small>
         taxa_pages: Paginas <small>(numero de paginas)</small>
@@ -969,6 +1059,7 @@ ia:
         update: Salveguardar articulo
       eol_statistic: 
         download_csv: Discargar como CSV
+      filter_sort: Filtrar e ordinar
       harvest_event: 
         publish: Publicar
       hierarchy: 
@@ -1006,9 +1097,11 @@ ia:
   image_map_from_supplier: Carta de %{whom}
   image_map_not_associated_with_any_published_entries: Iste carta non es associate a alcun taxon publicate.
   image_map_of: Carta de
+  image_map_of_taxon: Carta de %{taxon_name}
   image_map_rating: Evalutation del carta
   image_not_associated_with_any_published_entries: Iste imagine non es associate a alcun taxon publicate.
   image_of: Imagine de
+  image_of_taxon: Imagine de %{taxon_name}
   image_rating: Evalutation del imagine
   images: Imagines
   images_with_count: 
@@ -1057,6 +1150,7 @@ ia:
   map_from_supplier: Carta de %{whom}
   map_not_associated_with_any_published_entries: Iste carta non es associate a alcun taxon publicate.
   map_of: Carta de
+  map_of_taxon: Carta de %{taxon_name}
   map_rating: Evalutation del carta
   maps_with_count: 
     one: "%{count} carta"
@@ -1065,6 +1159,17 @@ ia:
   media_with_count: 
     one: "%{count} imagine"
     other: "%{count} imagines"
+  members: 
+    index: 
+      meta_description: Membros de %{community_name}, un communitate del Encyclopedia del Vita.
+      meta_keywords: Membros de %{community_name}
+      meta_title: Membros de %{community_name}
+      tweet_text: Membros de %{community_name}
+    show: 
+      meta_description: "%{member_name} es membro de %{community_name}, un communitate del Encyclopedia del Vita."
+      meta_keywords: "%{member_name}, membro de iste communitate"
+      meta_title: "%{member_name}, membro de %{community_name}"
+      tweet_text: "%{member_name}, membro de %{community_name}"
   members_with_count: 
     one: "%{count} membro"
     other: "%{count} membros"
@@ -1080,11 +1185,17 @@ ia:
   notifier: 
     activity_log_empty: Nulle action recente per le curatores.
     activity_on_content_partner_content: 
+      message: "!!Isto es un message de e-mail automatic ab le Encyclopedia del Vita (EOL) que summarisa le commentos recente e actiones de conservatores in contento fornite a EOL per le partner de contento %{partner_full_name} (%{partner_profile_url}). Tu recipe iste summario perque tu es listate como contacto pro %{partner_full_name}.\n\nSi tu ha questiones o require adjuta pro acceder a tu conto de membro in EOL, per favor contacta %{species_pages_group_email}.\n\n\nActiones de conservatores:\n%{curator_activity_log}\n\nCommentos sur objectos de datos:\n%{data_object_comments}\n\nCommentos sur paginas con le quales tu datos es associate:\n%{page_comments}"
       subject: Summario de activitate recente in contento fornite al Encyclopedia del Vita per le partner de contento %{partner_full_name}
     activity_on_user_content: 
+      message: "Isto es un message de e-mail automatic ab le Encyclopedia del Vita (EOL) que summarisa le commentos recente e actiones de conservatores in contento que tu ha addite a EOL per tu conto de membro con le nomine de usator %{members_username}.\n\nSi tu ha questiones o require adjuta pro acceder a tu conto de membro in EOL, per favor contacta %{species_pages_group_email}.\n\n\nActiones de conservatores:\n%{curator_activity_log}\n\nCommentos sur objectos de datos:\n%{data_object_comments}\n\nCommentos sur paginas con le quales tu datos es associate:\n%{page_comments}"
       subject: Summario de activitate recente in contento que tu ha addite al Encyclopedia del Vita
     activity_user_added_association_for_taxon_on_date: "%{curator_level} %{users_name} (%{users_url}) addeva un association:\n%{taxon_name} (%{taxon_url}) a %{object_name} (%{object_url})\n%{action_date}."
     activity_user_added_association_on_date: "%{curator_level} %{users_name} (%{users_url}) addeva un association incognite a %{object_name} (%{object_url})\n%{action_date}."
+    activity_user_marked_data_object_as_inappropriate_on_date: "Le %{curator_level} %{users_name} (%{users_url}) marcava como inappropriate:\n%{object_name} (%{object_url})\n%{action_date}."
+    activity_user_marked_data_object_as_trusted_for_taxon_on_date: "Le %{curator_level} %{users_name} (%{users_url}) marcava como digne de fide:\n%{object_name} (%{object_url}) pro %{taxon_name} (%{taxon_url})\n%{action_date}."
+    activity_user_marked_data_object_as_untrusted_for_taxon_on_date: "Le %{curator_level} %{users_name} (%{users_url}) marcava como non digne de fide:\n%{object_name} (%{object_url}) pro %{taxon_name} (%{taxon_url})\n%{action_date}."
+    activity_user_marked_data_object_as_untrusted_on_date: "Le %{curator_level} %{users_name} (%{users_url}) marcava como non digne de fide:\n%{object_name} (%{object_url})\n%{action_date}."
     activity_user_removed_association_for_taxon_on_date: "%{curator_level} %{users_name} (%{users_url}) removeva un association:\n%{taxon_name} (%{taxon_url}) de %{object_name} (%{object_url})\n%{action_date}."
     activity_user_removed_association_on_date: "%{curator_level} %{users_name} (%{users_url}) removeva un association incognite de %{object_name} (%{object_url})\n%{action_date}."
     comments_empty: Nulle commento recente.
@@ -1092,6 +1203,7 @@ ia:
       message: "Gratias pro contactar le projecto Encyclopedia del Vita. Vostre commentos ha essite inviate al gruppo appropriate.\n\nNos apprecia vostre retroaction."
       subject: Gratias pro contactar le Encyclopedia del Vita
     contact_us_message: 
+      message: "Le sequente message ha essite submittite a EOL via le formulario \"Contacta nos\":\nAutor: %{from_name}\nE-mail: %{from_email}\nSubjecto: %{subject}\n\n%{message}"
       subject: "Un message a EOL: %{title}"
     content_partner_created: 
       message: "Isto es un notification automatic del systema de EOL pro le gruppo Paginas sur Species. Le usator %{user_full_name} ha create le partner de contento %{partner_full_name}. Le detalios seque:\n\nUsator: %{user_full_name}\nE-mail: %{user_email}\nURL del profilo: %{user_profile_url}\n\nPartner: %{partner_full_name}\nURL del profilo del partner: %{partner_profile_url}\nCreate le: %{partner_created_at_date}"
@@ -1118,16 +1230,15 @@ ia:
     user_activated: 
       message: "Benvenite al Encyclopedia del Vita (EOL) e gratias pro inscriber te! Per favor nota que tu nomine de usator es %{username} e le adrese URL de tu profilo es %{profile_url}. Tu pote aperir session in tu conto a http://www.eol.org/login.\n\nPro saper plus sur le uso de EOL, per exemplo, como crear collectiones, participar in communitates e contribuer contento, per favor visita nostre paginas de adjuta a http://www.eol.org/help."
       subject: Tu conto in le Encyclopedia del Vita ha essite activate
+    user_commented_on_something_date_body: "Le %{curator_level} %{users_name} (%{users_url}) commentava:\n%{commented_on_name} (%{commented_on_url})\n%{comment_date}:\n%{comment_body}"
     user_message: 
       subject: Un message del Encyclopedia del Vita
     user_reset_password: 
-      message: "Le Encyclopedia del Vita (www.eol.org) ha recipite un requesta de reinitialisar tu contrasigno. Si tu non ha facite iste requesta, per favor ignora iste e-mail.\n\nLe sequente ligamine forni un sol opportunitate de reinitialisar tu contrasigno:\n\n%{password_reset_url}\n\nSeque iste ligamine (clicca sur illo, o copia e colla le adresse integre in le barra de adresses de tu navigator del web) pro acceder al pagina ubi tu pote specificar un nove contrasigno. Per favor nota que, si le ligamine ha expirate, le systema te demandara de entrar tu nomine de usator o adresse de e-mail de novo pro reciper un nove message con un nove ligamine pro reinitialisar le contrasigno."
       subject: Reinitialisar le contrasigno de tu conto del Encyclopedia del Vita
     user_updated_email_preferences: 
       message: "Isto es un notification automatic del systema de EOL. Le usator %{user_full_name} (%{user_profile_url}) ha actualisate su adresse de e-mail o preferentias de lista de diffusion.\n\nPreferentias previe:\nE-mail: %{previous_email}\nLista de diffusion: %{previous_mailing_list_preference}\n\nPreferentias actual:\nE-mail: %{updated_email}\nLista de diffusion: %{updated_mailing_list_preference}\nActualisate a: %{updated_at}"
       subject: Le usator de EOL %{user_full_name} cambiava su adresse de e-mail o preferentias de lista de diffusion
     user_verification: 
-      message: "Gratias pro tu inscription in Encyclopedia del Vita. Le sequente ligamine es pro verificar que vole completar tu inscription:\n\n%{verification_url}\n\nSeque iste ligamine (clicca sur illo, o copia e colla le ligamine integre in le barra de adresses de tu navigator del web) pro activar tu conto. Post le activation de tu conto, tu recipera un e-mail de confirmation."
       subject: Per favor verifica tu requesta de un conto in Encyclopedia del Vita
   other_collection_items_with_count: 
     one: "%{count} altere elemento"
@@ -1171,6 +1282,9 @@ ia:
   see_all_media_link: Vider tote le multimedia
   select_topic: Per favor selige un thema
   selected_language_advisory_information: Iste es le lingua actualmente seligite.
+  sessions: 
+    new: 
+      meta_title: Aperir session
   set_as_exemplar: Marcar como exemplar
   show_status_message: Monstrar message de stato
   show_warning_message: Monstrar message de advertimento
@@ -1190,6 +1304,7 @@ ia:
   sound_from_supplier: Sono de %{whom}
   sound_not_associated_with_any_published_entries: Iste sono non es associate a alcun taxon publicate.
   sound_of: Sono de
+  sound_of_taxon: Audio de %{taxon_name}
   sound_rating: Evalutation del sono
   sounds_with_count: 
     one: "%{count} sono"
@@ -1198,6 +1313,248 @@ ia:
   supplier: Suppletor
   switch_language_advisory_information: Cambiar le lingua del sito a %{language_label}
   table_of_contents: Tabula de contento
+  taxa: 
+    communities: 
+      collections: 
+        hierarchy_entry: 
+          meta_description: Collectiones que contine %{scientific_name} como classificate per %{hierarchy_provider}.
+          meta_description_with_common_name: Collectiones que contine %{preferred_common_name} (%{scientific_name} como classificate per %{hierarchy_provider}).
+          meta_keywords: Collectiones de %{scientific_name}, Observationes sur %{scientific_name}, Collectiones de %{hierarchy_provider}, Observationes sur %{hierarchy_provider}, Specimenes de %{hierarchy_provider}
+          meta_title: Collectiones de %{scientific_name} como classificate per %{hierarchy_provider}
+          meta_title_with_common_name: Collectiones de %{preferred_common_name} (%{scientific_name} como classificate per %{hierarchy_provider})
+          tweet_text: Collectiones de %{scientific_name} como classificate per %{hierarchy_provider}
+        meta_description: Collectiones que contine %{scientific_name}.
+        meta_description_with_common_name: Collectiones que contine %{preferred_common_name} (%{scientific_name}).
+        meta_keywords: Collectiones de %{scientific_name}, Observationes sur %{scientific_name}
+        meta_keywords_with_common_name: Collectiones de %{preferred_common_name}, Observationes sur %{preferred_common_name}, Collectiones de %{scientific_name}, Observationes sur %{scientific_name}
+        meta_title: Collectiones de %{scientific_name}
+        meta_title_with_common_name: Collectiones de %{preferred_common_name} (%{scientific_name})
+        tweet_text: Collectiones de %{scientific_name}
+      curators: 
+        hierarchy_entry: 
+          meta_title: Conservatores de %{scientific_name} como classificate per %{hierarchy_provider}
+          meta_title_with_common_name: Expertos de %{preferred_common_name} (%{scientific_name} como classificate per %{hierarchy_provider})
+          tweet_text: Conservatores de %{scientific_name} como classificate per %{hierarchy_provider}
+        meta_description_with_common_name: Exportos de %{preferred_common_name} experts (i.e. expertos de %{scientific_name}) qui survelia su datos in le Encyclopedia del Vita.
+        meta_keywords: Expertos de %{scientific_name}, Conservatores de %{scientific_name}
+        meta_keywords_with_common_name: Expertos de %{preferred_common_name}, Conservatores de %{preferred_common_name}, Expertos de %{scientific_name}, Conservatores de %{scientific_name}
+        meta_title: Conservatores de %{scientific_name}
+        meta_title_with_common_name: Expertos de %{preferred_common_name} (%{scientific_name})
+        tweet_text: Conservatores de %{scientific_name}
+      index: 
+        hierarchy_entry: 
+          meta_description: Divider information e expertise sur %{scientific_name} como classificate per %{hierarchy_provider}.
+          meta_description_with_common_name: Divider information e expertise sur %{preferred_common_name} (%{scientific_name}) como classificate per %{hierarchy_provider}.
+          meta_keywords: Communitate de %{scientific_name}, %{hierarchy_provider}
+          meta_title: Personas interessate in %{scientific_name} como classificate per %{hierarchy_provider}
+          meta_title_with_common_name: Personas interessate in %{preferred_common_name} (%{scientific_name} como classificate per %{hierarchy_provider})
+          tweet_text: Personas interessate in %{scientific_name} como classificate per %{hierarchy_provider}
+        meta_description: Interessate in %{scientific_name}? Uni te al expertos de %{scientific_name} e divide le tue observationes de %{scientific_name} in le Encyclopedia del Vita.
+        meta_description_with_common_name: Interessate in %{preferred_common_name} (%{scientific_name})? Uni te al expertos de %{preferred_common_name} e divide le tue observationes de %{preferred_common_name} in le Encyclopdia del Vita.
+        meta_keywords: Communitate de %{scientific_name}
+        meta_keywords_with_common_name: Communitate de %{preferred_common_name}, %{scientific_name}
+        meta_title: Personas interessate in %{scientific_name}
+        meta_title_with_common_name: Personas interessate in %{preferred_common_name} (%{scientific_name})
+        tweet_text: Personas interessate in %{scientific_name}
+    details: 
+      index: 
+        hierarchy_entry: 
+          meta_description: Information sur %{scientific_name} como classificate per %{hierarchy_provider} in le Encyclopedia del Vita
+          meta_description_with_chapter_list: Information sur %{scientific_name} como classificate per %{hierarchy_provider} in le Encyclopedia del Vita. Include le informationes %{chapter_list} pro %{scientific_name}.
+          meta_description_with_common_name: Information sur le %{preferred_common_name}, scientificamente appellate %{scientific_name} como classificate per %{hierarchy_provider} in le Encyclopedia del Vita.
+          meta_description_with_common_name_with_chapter_list: Information sur le %{preferred_common_name}, scientificamente appellate %{scientific_name} como classificate per %{hierarchy_provider} in le Encyclopedia del Vita. Include information sur %{chapter_list}.
+          meta_title: Information sur %{scientific_name} como classificate per %{hierarchy_provider}
+          meta_title_with_common_name: Information sur le %{preferred_common_name} (%{scientific_name} como classificate per %{hierarchy_provider})
+          tweet_text: Information sur %{scientific_name} como classificate per %{hierarchy_provider}
+        meta_description: Information sur %{scientific_name} in le Encyclopedia del Vita
+        meta_description_with_chapter_list: Information sur %{scientific_name} in le Encyclopedia del Vita. Include information sur %{chapter_list}.
+        meta_description_with_common_name: Information sur %{preferred_common_name}, scientificamente appellate %{scientific_name} in le Encyclopedia del Vita.
+        meta_description_with_common_name_with_chapter_list: Information sur %{preferred_common_name}, scientificamente appellate %{scientific_name} in le Encyclopedia del Vita. Include information sur %{chapter_list}.
+        meta_title: Information sur %{scientific_name}
+        meta_title_with_common_name: Factos concernente %{preferred_common_name} (%{scientific_name})
+        tweet_text: Information sur %{scientific_name}
+    literature: 
+      bhl: 
+        hierarchy_entry: 
+          meta_description: Litteratura e information sur %{scientific_name} como classificate per %{hierarchy_provider} in le Encyclopedia del Vita. Lege articulos sur %{scientific_name} in le Encyclopedia del Vita.
+          meta_description_with_common_name: Litteratura e information sur %{preferred_common_name} appellate anque %{scientific_name} como classificate per %{hierarchy_provider} in le Encyclopedia del Vita. Lege articulos sur %{preferred_common_name} in le Encyclopedia del Vita.
+          meta_title: Litteratura in BHL sur %{scientific_name} como classificate per %{hierarchy_provider}
+          meta_title_with_common_name: Litteratura in BHL sur %{preferred_common_name} (%{scientific_name} como classificate per %{hierarchy_provider})
+          tweet_text: "Litteratura in #BHL sur %{scientific_name} como classificate per %{hierarchy_provider}"
+        meta_title: Citationes de BHL pro %{scientific_name}
+        meta_title_with_common_name: Referentias de BHL pro %{preferred_common_name} (%{scientific_name})
+        tweet_text: "Litteratura in #BHL sur %{scientific_name}"
+      show: 
+        hierarchy_entry: 
+          meta_title: Litteratura sur %{scientific_name} como classificate per %{hierarchy_provider}
+          meta_title_with_common_name: Libros sur %{preferred_common_name} (%{scientific_name} como classificate per %{hierarchy_provider})
+          tweet_text: Litteratura sur %{scientific_name} como classificate per %{hierarchy_provider}
+        meta_description: Litteratura e information sur %{scientific_name} in le Encyclopedia del Vita. Lege articulos sur %{scientific_name} in le Encyclopedia del Vita.
+        meta_description_with_common_name: Litteratura e information sur %{preferred_common_name} appellate anque %{scientific_name} in le Encyclopedia del Vita. Lege articulos sur %{preferred_common_name} in le Encyclopedia del Vita.
+        meta_keywords: information sur %{scientific_name}, litteratura sur %{scientific_name}, articulos sur %{scientific_name}
+        meta_keywords_with_common_name: information sur %{preferred_common_name}, litteratura sur %{preferred_common_name}, articulos sur %{scientific_name}
+        meta_title: Litteratura sur %{scientific_name}
+        meta_title_with_common_name: Libros sur %{preferred_common_name} (%{scientific_name})
+        tweet_text: Litteratura sur %{scientific_name}
+    maps: 
+      show: 
+        hierarchy_entry: 
+          meta_description: Information geographic sur %{scientific_name} como classificate per %{hierarchy_provider} ubi vive e ubi es indigena in le mundo.
+          meta_description_with_common_name: Ubi se trova %{preferred_common_name} e ubi vive? Information geographic sur %{scientific_name} como classificate per %{hierarchy_provider} ubi vive e ubi es indigena in le mundo.
+          meta_title: Cartas de %{scientific_name} como classificate per %{hierarchy_provider}
+          meta_title_with_common_name: Cartas de %{preferred_common_name} (%{scientific_name} como classificate per %{hierarchy_provider})
+          tweet_text: Cartas de %{scientific_name} como classificate per %{hierarchy_provider}
+        meta_description: Information geographic sur %{scientific_name} ubi vive e ubi es indigena in le mundo.
+        meta_description_with_common_name: Ubi se trova %{preferred_common_name} e ubi vive? Information geographic sur %{scientific_name} ubi vive e ubi es indigena in le mundo.
+        meta_keywords: Habitat de %{scientific_name}, indigena, ubi vive %{scientific_name}
+        meta_keywords_with_common_name: Habitat de %{preferred_common_name}, indigena, ubi vive %{preferred_common_name}
+        meta_title: Habitat de %{scientific_name}
+        meta_title_with_common_name: Habitat de %{preferred_common_name} (%{scientific_name})
+        tweet_text: Cartas de %{scientific_name}
+    media: 
+      index: 
+        hierarchy_entry: 
+          meta_description: Imagines e videos de %{scientific_name} como classificate per %{hierarchy_provider}.
+          meta_description_with_common_name: Photographias, film e audio del %{preferred_common_name} appellate anque %{scientific_name} como classificate per %{hierarchy_provider}.
+          meta_keywords: photographias de %{scientific_name}, filmes de %{scientific_name}, sonos de %{scientific_name}, audio de %{scientific_name}
+          meta_keywords_with_common_name: photographias de %{preferred_common_name}, filmes de %{preferred_common_name}, sonos de %{preferred_common_name}, audio de %{preferred_common_name}, photographias de %{scientific_name}, filmes de %{scientific_name}, sonos de %{scientific_name}, audio de %{scientific_name}
+          meta_title: Audio, Film & Photographias de %{scientific_name} como classificate per %{hierarchy_provider}
+          meta_title_with_common_name: Audio, Film & Imagines de %{preferred_common_name} (%{scientific_name} como classificate per %{hierarchy_provider})
+          tweet_text: Contento multimedial sur %{scientific_name} como classificate per %{hierarchy_provider}
+        meta_description: Imagines e videos de %{scientific_name}.
+        meta_description_with_common_name: Imagines e videos del %{preferred_common_name} appellate anque %{scientific_name}.
+        meta_keywords: imagines de %{scientific_name}, videos de %{scientific_name}, imagines de %{scientific_name}, videos de %{scientific_name}, imagines de %{scientific_name}, multimedia
+        meta_keywords_with_common_name: photographias de %{preferred_common_name}, videos de %{preferred_common_name}, imagines de %{preferred_common_name}, filmes de %{preferred_common_name}, photos de %{preferred_common_name}, multimedia
+        meta_title: Imagines e videos de %{preferred_common_name} (%{scientific_name})
+        meta_title_with_common_name: Imagines e videos de %{preferred_common_name} (%{scientific_name})
+        tweet_text: Material multimedial de %{scientific_name}
+    names: 
+      common_names: 
+        hierarchy_entry: 
+          meta_description: Nomines vernacular associate a %{scientific_name} como classificate per %{hierarchy_provider}.
+          meta_description_with_common_name: Un nomine vernacular de %{scientific_name} es %{preferred_common_name}. Discoperi le altere nomines vernacular associate a %{scientific_name} como classificate per %{hierarchy_provider}.
+          meta_keywords: Nomines vernacular de %{scientific_name}
+          meta_keywords_with_common_name: Nomine scientific de %{preferred_common_name}, nomines vernacular de %{scientific_name}
+          meta_title: Nomines vernacular de %{scientific_name} como classificate per %{hierarchy_provider}
+          meta_title_with_common_name: Nomines vernacular de %{preferred_common_name} (%{scientific_name} como classificate per %{hierarchy_provider})
+          tweet_text: Nomines commun de %{scientific_name} como classificate per %{hierarchy_provider}
+        meta_description: Nomines commun de %{scientific_name}.
+        meta_description_with_common_name: Le nomine scientific de %{preferred_common_name} es %{scientific_name}. Discoperi le altere nomines commun de %{scientific_name}.
+        meta_keywords: Nomines commun de %{scientific_name}
+        meta_keywords_with_common_name: Nomines commun de %{scientific_name}, nomine scientific de %{preferred_common_name}
+        meta_title: Nomines commun de %{scientific_name}
+        meta_title_with_common_name: Nomines commun de %{preferred_common_name} (%{scientific_name})
+        tweet_text: Nomines commun de %{scientific_name}
+      index: 
+        hierarchy_entry: 
+          meta_description: Taxonomia, hierarchias de classification e nomines scientific associate pro %{scientific_name} como classificate per %{hierarchy_provider}.
+          meta_description_with_common_name: Taxonomia, hierarchias de classification e nomines scientific pro le %{preferred_common_name}, etiam appellate %{scientific_name} como classificate per %{hierarchy_provider}.
+          tweet_text: Nomines associate a %{scientific_name} como classificate per %{hierarchy_provider}
+        meta_description: Classification taxonomic e nomines scientific pro %{scientific_name}.
+        meta_description_with_common_name: Classification taxonomic e nomines scientific pro le %{preferred_common_name}, etiam appellate %{scientific_name}.
+        meta_title: Nomines associate a %{scientific_name}
+        meta_title_with_common_name: Nomines associate a %{preferred_common_name} (%{scientific_name})
+        tweet_text: Nomines associate a %{scientific_name}
+      synonyms: 
+        hierarchy_entry: 
+          meta_description: Synonymos associate a %{scientific_name} como classificate per %{hierarchy_provider}.
+          meta_description_with_common_name: Synonymos associate a %{scientific_name} como classificate per %{hierarchy_provider}, generalmente cognoscite como %{preferred_common_name}.
+          meta_keywords: Synonymos de %{scientific_name}
+          meta_keywords_with_common_name: Synonymos de %{preferred_common_name}, synonymos de %{scientific_name}
+          meta_title: Synonymos de %{scientific_name} como classificate per %{hierarchy_provider}
+          meta_title_with_common_name: Synonymos de %{preferred_common_name} (%{scientific_name} como classificate per %{hierarchy_provider})
+          tweet_text: Synonymos de %{scientific_name} como classificate per %{hierarchy_provider}
+        meta_description: Synonymos de %{scientific_name}.
+        meta_description_with_common_name: Synonymos de %{preferred_common_name}, scientificamente cognoscite como %{scientific_name}.
+        meta_keywords: Synonymos de %{scientific_name}
+        meta_keywords_with_common_name: Synonymos de %{preferred_common_name}, synonymos de %{scientific_name}
+        meta_title: Synonymos de %{scientific_name}
+        meta_title_with_common_name: Synonymos de %{preferred_common_name} (%{scientific_name})
+        tweet_text: Synonymos de %{scientific_name}
+    overviews: 
+      show: 
+        hierarchy_entry: 
+          meta_description: Summario de information sur %{scientific_name} como recognoscite per %{hierarchy_provider} in le Encyclopedia del Vita
+          meta_description_with_common_name: Summario de information sur %{preferred_common_name}, etiam cognoscite como %{scientific_name} como recognoscite per %{hierarchy_provider} in le Encyclopedia del Vita.
+          meta_keywords: "%{scientific_name} recognoscite per %{hierarchy_provider}, %{scientific_name} classificate per %{hierarchy_provider}"
+          meta_keywords_with_common_name: "%{scientific_name} recognoscite per %{hierarchy_provider}, %{scientific_name} classificate per %{hierarchy_provider}"
+          meta_title: "%{scientific_name} classificate per %{hierarchy_provider}"
+          meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} classificate per %{hierarchy_provider})"
+          tweet_text: Vision general de %{scientific_name} como classificate per %{hierarchy_provider}
+        meta_description: Un vision general de %{scientific_name} in le Encyclopedia del Vita.
+        meta_description_with_common_name: Un vision general del %{preferred_common_name}, scientificamente cognoscite como %{scientific_name} in le Encyclopedia del Vita.
+        meta_keywords: "%{scientific_name} recognoscite per %{hierarchy_provider}"
+        meta_keywords_with_common_name: "%{scientific_name} recognoscite per %{hierarchy_provider}"
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})"
+        tweet_text: Vision general de %{scientific_name}
+    resources: 
+      biomedical_terms: 
+        hierarchy_entry: 
+          tweet_text: Terminos biomedic pro %{scientific_name} como classificate per %{hierarchy_provider}
+        meta_title: Terminos biomedic pro %{scientific_name}
+        meta_title_with_common_name: Terminos biomedic pro %{preferred_common_name} (%{scientific_name})
+        tweet_text: Terminos biomedic pro %{scientific_name}
+      education: 
+        hierarchy_entry: 
+          meta_title: Material educative sur %{scientific_name} como classificate per %{hierarchy_provider}
+          meta_title_with_common_name: Material educative sur %{preferred_common_name} (%{scientific_name} como classificate per %{hierarchy_provider})
+          tweet_text: Material educative sur %{scientific_name} como classificate per %{hierarchy_provider}
+        meta_title: Ressources educative sur %{scientific_name}
+        meta_title_with_common_name: Ressources educative sur %{preferred_common_name} (%{scientific_name})
+        tweet_text: Ressources educative sur %{scientific_name}
+      identification_resources: 
+        hierarchy_entry: 
+          tweet_text: Ressources de identification pro %{scientific_name} como classificate per %{hierarchy_provider}
+        meta_title: Ressources de identification pro %{scientific_name}
+        meta_title_with_common_name: Ressources de identification pro %{preferred_common_name} (%{scientific_name})
+        tweet_text: Ressources de identification pro %{scientific_name}
+      nucleotide_sequences: 
+        hierarchy_entry: 
+          tweet_text: Sequentias de nucleotidos pro %{scientific_name} como classificate per %{hierarchy_provider}
+        meta_title: Sequentias de nucleotidos pro %{scientific_name}
+        meta_title_with_common_name: Sequentias de nucleotidos pro %{preferred_common_name} (%{scientific_name})
+        tweet_text: Sequentias de nucleotidos pro %{scientific_name}
+      show: 
+        hierarchy_entry: 
+          meta_description: Lista de providitores e datos de fonte pro %{scientific_name} como classificate per %{hierarchy_provider}.
+          meta_description_with_common_name: Lista de providitores e datos de fonte pro %{preferred_common_name} (%{scientific_name}) como classificate per %{hierarchy_provider}.
+          meta_keywords: Fornitores de datos sur %{scientific_name}, datos de fonte sur %{scientific_name}
+          meta_keywords_with_common_name: Fornitores de datos sur %{preferred_common_name}, fones de datos sur %{preferred_common_name}, fornitores de datos sur %{scientific_name}, fontes de datos sur %{scientific_name}
+          meta_title: Fornitores de datos sur %{scientific_name} como classificate per %{hierarchy_provider}
+          meta_title_with_common_name: Fornitores de datos sur %{preferred_common_name} como classificate per %{hierarchy_provider}
+          tweet_text: Fornitores de datos sur %{scientific_name} como classificate per %{hierarchy_provider}
+        meta_description: Ressources e citationes de partners sur %{scientific_name}
+        meta_description_with_common_name: Ressources sur %{preferred_common_name} e citationes de partners sur %{scientific_name}.
+        meta_keywords: Ressources sur %{scientific_name}, fornitores de contento sur %{scientific_name}
+        meta_keywords_with_common_name: Ressources sur %{preferred_common_name}, fornitores de contento sur %{preferred_common_name}, ressources sur %{scientific_name}, fornitores de contento sur %{scientific_name}
+        meta_title: Ressources de contento sur %{scientific_name}
+        meta_title_with_common_name: Ressources de contento sur %{preferred_common_name} (%{scientific_name})
+        tweet_text: Ressources de contento sur %{scientific_name}
+    updates: 
+      show: 
+        hierarchy_entry: 
+          meta_title: Actualitates sur %{scientific_name} como classificate per %{hierarchy_provider}
+          meta_title_with_common_name: Actualitates sur %{preferred_common_name} (%{scientific_name} como classificate per %{hierarchy_provider})
+          tweet_text: Actualitates sur %{scientific_name} como classificate per %{hierarchy_provider}
+        meta_description: Novas e actualitates sur %{scientific_name}.
+        meta_description_with_common_name: Novas sur %{preferred_common_name} e actualitates sur %{scientific_name}.
+        meta_keywords: Novas sur %{scientific_name}, actualitates sur %{scientific_name}
+        meta_keywords_with_common_name: Novas sur %{preferred_common_name}, actualitates sur %{preferred_common_name}, actualitates sur %{scientific_name}
+        meta_title: Commentos sur %{scientific_name}
+        meta_title_with_common_name: Commentos sur %{preferred_common_name} (%{scientific_name})
+        tweet_text: Commentos sur %{scientific_name}
+      statistics: 
+        hierarchy_entry: 
+          meta_title: Statisticas sur %{scientific_name} como classificate per %{hierarchy_provider}
+          meta_title_with_common_name: Statisticas sur %{preferred_common_name} (%{scientific_name} como classificate per %{hierarchy_provider})
+          tweet_text: Score de ricchessa pro %{scientific_name} como classificate per %{hierarchy_provider}
+        meta_description: Statisticas e datos sur %{scientific_name} in le Encyclopedia del Vita.
+        meta_description_with_common_name: Statisticas e datos sur %{preferred_common_name} appellate anque %{scientific_name} in le Encyclopedia del Vita.
+        meta_keywords: statisticas sur %{scientific_name}, statisticas de %{scientific_name}, datos sur %{scientific_name}
+        meta_keywords_with_common_name: statisticas de %{preferred_common_name}, statisticas sur %{preferred_common_name}, datos sur %{preferred_common_name}
+        meta_title: Ricchessa de %{scientific_name}
+        meta_title_with_common_name: Ricchessa de %{preferred_common_name} (%{scientific_name})
+        tweet_text: Score de ricchessa pro %{scientific_name}
   taxa_with_count: 
     one: "%{count} taxon"
     other: "%{count} taxones"
@@ -1231,11 +1588,41 @@ ia:
   unreviewed: Non revidite
   user_comment: Commento de usator
   user_system_down: Nos regretta que le systema pro le creation de contos non es disponibile al momento. Per favor reproba plus tarde.
+  users: 
+    activities: 
+      show: 
+        meta_description: Activitate de conservation e commentos per %{user_full_name}
+        meta_title: Activitate de %{user_full_name}
+        tweet_text: Activitate de %{user_full_name}
+    collections: 
+      index: 
+        meta_description: Collectiones gerite per %{user_full_name}.
+        meta_title: Collectiones de %{user_full_name}
+        tweet_text: Collectiones de %{user_full_name}
+    communities: 
+      index: 
+        meta_description: Communitates del quales %{user_full_name} es membro.
+        meta_title: Communitates de %{user_full_name}
+        tweet_text: Communitates de %{user_full_name}
+    content_partners: 
+      index: 
+        meta_description: Associationes de partners de contento de %{user_full_name}.
+        meta_title: Partners de contento de %{user_full_name}
+        tweet_text: Partners de contento de %{user_full_name}
+    newsfeeds: 
+      show: 
+        meta_description: Novas, activitates e commentos de %{user_full_name}.
+        meta_title: Syndication de novas de %{user_full_name}
+        tweet_text: Syndication de novas de %{user_full_name}
+    show: 
+      meta_description: Profilo de membro de %{user_full_name} in le Encyclopedia del Vita.
+      meta_description_curator: Profilo de membro del %{curator_level} %{user_full_name} in le Encyclopedia del Vita.
   using_the_site: Usar iste sito
   video_alt_text: Iste video %{vetted_status} es de %{taxon_name}
   video_from_supplier: Video de %{whom}
   video_not_associated_with_any_published_entries: Iste video non es associate a alcun taxon publicate.
   video_of: Video de
+  video_of_taxon: Video de %{taxon_name}
   video_rating: Evalutation del video
   videos_with_count: 
     one: "%{count} video"

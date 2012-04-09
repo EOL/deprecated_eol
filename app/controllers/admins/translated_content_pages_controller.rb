@@ -66,7 +66,12 @@ class Admins::TranslatedContentPagesController < AdminsController
 
 private
 
+  def set_translated_content_pages_options
+    @page_title = I18n.t(:admin_content_pages_page_title)
+  end
+
   def set_translated_content_page_new_options
+    set_translated_content_pages_options
     @languages = @content_page.not_available_in_languages(nil)
     @page_subheader = I18n.t(:admin_translated_content_page_new_subheader,
                              :page_name => @content_page.page_name)
@@ -74,6 +79,7 @@ private
   end
 
   def set_translated_content_page_edit_options
+    set_translated_content_pages_options
     @page_subheader = I18n.t(:admin_translated_content_page_edit_subheader,
                              :page_name => @content_page.page_name,
                              :language => @translated_content_page.language.label.safe_downcase)

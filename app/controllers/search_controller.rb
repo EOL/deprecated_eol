@@ -82,6 +82,8 @@ class SearchController < ApplicationController
       redirect_to user_path(result_instance.id)
     elsif result_instance.class == TaxonConcept
       redirect_to taxon_overview_path(result_instance.id)
+    elsif result_instance.class == ContentPage
+      redirect_to cms_page_path(result_instance.id)
     end
   end
 

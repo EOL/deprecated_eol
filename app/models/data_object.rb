@@ -615,11 +615,13 @@ class DataObject < ActiveRecord::Base
 
   def update_solr_index
     if self.published
-      self.class.uncached do
-        # creating another instance to remove any change of this instance not
-        # matching the database and indexing stale or changed information
-        object_to_index = DataObject.find(self.id)
-        EOL::Solr::DataObjectsCoreRebuilder.reindex_single_object(object_to_index)
+      DataObject.with_master do
+        self.class.uncached do
+          # creating another instance to remove any change of this instance not
+          # matching the database and indexing stale or changed information
+          object_to_index = DataObject.find(self.id)
+          EOL::Solr::DataObjectsCoreRebuilder.reindex_single_object(object_to_index)
+        end
       end
     else
       # hidden, so delete it from solr
@@ -857,7 +859,7 @@ class DataObject < ActiveRecord::Base
   end
 
   def description_teaser
-    full_teaser = Sanitize.clean(description[0..300], :elements => %w[b i], :remove_contents => %w[table script])
+    full_teaser = Sanitize.clean(description[0..300], :elements => %w[b i], :remove_contents => %w[table script]).strip
     return nil if full_teaser.blank?
     truncated_teaser = full_teaser.split[0..10].join(' ').balance_tags
     truncated_teaser << '...' if full_teaser.length > truncated_teaser.length

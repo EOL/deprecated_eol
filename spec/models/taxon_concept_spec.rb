@@ -581,6 +581,74 @@ describe TaxonConcept do
     @taxon_concept.exemplar_or_best_image_from_solr.id.should_not == image.id
   end
 
+  it 'should show details text with no language only to users in the default language' do
+    user = User.gen(:language => Language.default)
+    best_text = @taxon_concept.details_text_for_user(user).first
+    best_text.language_id.should == Language.default.id
+    best_text.language_id = 0
+    best_text.data_rating = 5
+    best_text.save
+    best_text.update_solr_index
+    new_best_text = @taxon_concept.details_text_for_user(user).first
+    new_best_text.language_id.should == 0
+    new_best_text.id.should == best_text.id
+    
+    user = User.gen(:language => Language.find_by_iso_639_1('fr'))
+    new_best_text = @taxon_concept.overview_text_for_user(user)
+    new_best_text.should == nil
+    
+    # cleaning up
+    best_text.language_id = Language.default.id
+    best_text.save
+    best_text.update_solr_index
+  end
+
+  it 'should show overview text with no language only to users in the default language' do
+    user = User.gen(:language => Language.default)
+    best_text = @taxon_concept.overview_text_for_user(user)
+    best_text.language_id.should == Language.default.id
+    best_text.language_id = 0
+    best_text.data_rating = 5
+    best_text.save
+    best_text.update_solr_index
+    new_best_text = @taxon_concept.overview_text_for_user(user)
+    new_best_text.language_id.should == 0
+    new_best_text.id.should == best_text.id
+    
+    user = User.gen(:language => Language.find_by_iso_639_1('fr'))
+    new_best_text = @taxon_concept.overview_text_for_user(user)
+    new_best_text.should == nil
+    
+    # cleaning up
+    best_text.language_id = Language.default.id
+    best_text.save
+    best_text.update_solr_index
+  end
+
+  it 'should use the name from the specified hierarchy' do
+    tc = TaxonConcept.gen
+    name1 = Name.gen(:string => "Name1")
+    he1 = HierarchyEntry.gen(:taxon_concept => tc, :name => name1, :hierarchy => Hierarchy.gen)
+    name2 = Name.gen(:string => "Name2")
+    he2 = HierarchyEntry.gen(:taxon_concept => tc, :name => name2, :hierarchy => Hierarchy.gen)
+    
+    tc.entry.should == he1
+    tc.title.should == he1.name.string
+    tc = TaxonConcept.find(tc.id)
+    
+    tc.entry(he1.hierarchy).should == he1
+    tc.title(he1.hierarchy).should == he1.name.string
+    tc = TaxonConcept.find(tc.id)
+    
+    tc.entry(he2.hierarchy).should == he2
+    tc.title(he2.hierarchy).should == he2.name.string
+    tc = TaxonConcept.find(tc.id)
+    
+    # now checking the default again to make sure we get the original value
+    tc.entry.should == he1
+    tc.title.should == he1.name.string
+  end
+
   #
   # I'm all for pending tests, but in this case, they run SLOWLY, so it's best to comment them out:
   #

@@ -2,7 +2,7 @@ module EOL
   module Solr
     class SiteSearch
       def self.types_to_show_all
-        [ 'Image', 'Video', 'Sound', 'User', 'Community', 'Collection' ]
+        [ 'Image', 'Video', 'Sound', 'User', 'Community', 'Collection', 'ContentPage' ]
       end
       
       def self.search_with_pagination(query, options = {})
@@ -53,6 +53,7 @@ module EOL
         add_user!(docs.select{ |d| d['resource_type'].include?('User') })
         add_taxon_concept!(docs.select{ |d| d['resource_type'].include?('TaxonConcept') })
         add_data_object!(docs.select{ |d| d['resource_type'].include?('DataObject') })
+        add_content_page!(docs.select{ |d| d['resource_type'].include?('ContentPage') })
       end
       
       def self.add_community!(docs)
@@ -77,6 +78,15 @@ module EOL
         ids = docs.map{ |d| d['resource_id'] }
         return if ids.blank?
         instances = User.find_all_by_id(ids)
+        docs.each do |d|
+          d['instance'] = instances.detect{ |i| i.id == d['resource_id'].to_i }
+        end
+      end
+      
+      def self.add_content_page!(docs)
+        ids = docs.map{ |d| d['resource_id'] }
+        return if ids.blank?
+        instances = ContentPage.find_all_by_id(ids)
         docs.each do |d|
           d['instance'] = instances.detect{ |i| i.id == d['resource_id'].to_i }
         end

@@ -19,6 +19,16 @@ describe RedirectsController do
       response.redirected_to.should == taxon_overview_path(1)
       response.status.should == '301 Moved Permanently'
     end
+    it 'should permanently redirect to media tab when calling /pages/#/images' do
+      get :show, :taxon_id_images => '1'
+      response.redirected_to.should == taxon_media_path(1)
+      response.status.should == '301 Moved Permanently'
+    end
+    it 'should permanently redirect to media tab when calling /pages/#/classification_attribution' do
+      get :show, :taxon_id_classification_attribution => '1'
+      response.redirected_to.should == taxon_names_path(1)
+      response.status.should == '301 Moved Permanently'
+    end
     it 'should permanently redirect to user profile when user id parameter is provided' do
       get :show, :user_id => '1'
       response.redirected_to.should == user_path(1)

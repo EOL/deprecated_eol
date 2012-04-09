@@ -1,65 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<extension xmlns="http://ipt.gbif.org/extension/"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://ipt.gbif.org/extension/ http://gbrds.gbif.org/resources/schemas/extension.xsd"
-            title="EOL Agents Extension 1.0"
-            name="EOL Agents Extension 1.0"
-            namespace="http://www.eol.org/schema/agents/2.0/">
-
-    <property name="agentID"
-              namespace="http://purl.org/dc/terms/"
-              qualName="http://purl.org/dc/terms/identifier"/>
-
-    <property name="name"
-              namespace="http://xmlns.com/foaf/0.1/"
-              qualName="http://xmlns.com/foaf/0.1/name"/>
-
-    <property name="firstName"
-              namespace="http://xmlns.com/foaf/0.1/"
-              qualName="http://xmlns.com/foaf/0.1/firstName"/>
-
-    <property name="familyName"
-              namespace="http://xmlns.com/foaf/0.1/"
-              qualName="http://xmlns.com/foaf/0.1/familyName"/>
-
-    <property name="email"
-              namespace="http://xmlns.com/foaf/0.1/"
-              qualName="http://xmlns.com/foaf/0.1/mbox"/>
-
-    <property name="homepage"
-              namespace="http://xmlns.com/foaf/0.1/"
-              qualName="http://xmlns.com/foaf/0.1/homepage"/>
-
-    <property name="logoURL"
-              namespace="http://xmlns.com/foaf/0.1/"
-              qualName="http://xmlns.com/foaf/0.1/img"/>
-
-    <property name="project"
-              namespace="http://xmlns.com/foaf/0.1/"
-              qualName="http://xmlns.com/foaf/0.1/name"/>
-
-    <property name="organization"
-              namespace="http://xmlns.com/foaf/0.1/"
-              qualName="http://xmlns.com/foaf/0.1/name"/>
-
-    <property name="accountName"
-              namespace="http://xmlns.com/foaf/0.1/"
-              qualName="http://xmlns.com/foaf/0.1/accountName"/>
-
-    <property name="openid"
-              namespace="http://xmlns.com/foaf/0.1/"
-              qualName="http://xmlns.com/foaf/0.1/openid"/>
-
-    <!-- for connecting with Flickr -->
-    <property name="yahooChatID"
-              namespace="http://xmlns.com/foaf/0.1/"
-              qualName="http://xmlns.com/foaf/0.1/yahooChatID"/>
-
+<extension xmlns="http://ipt.gbif.org/extension/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dc="http://purl.org/dc/terms/" xsi:schemaLocation="http://ipt.gbif.org/extension/ http://gbrds.gbif.org/resources/schemas/extension.xsd" title="EOL Agents Extension 1.0" name="EOL Agents Extension 1.0"
+        namespace="http://www.eol.org/schema/transfer#">
+    <property name="identifier"
+        namespace="http://purl.org/dc/terms/"
+        qualName="http://purl.org/dc/terms/identifier"
+        dc:description="An identifier for a resource that is referenced, cited, or otherwise pointed to by a taxon or media resource." required="true"/>
+    <property name="term_name"
+        namespace="http://xmlns.com/foaf/spec/#"
+        qualName="http://xmlns.com/foaf/spec/#term_name"
+        dc:description="A name for some thing"/>
+    <property name="term_firstName"
+        namespace="http://xmlns.com/foaf/spec/#"
+        qualName="http://xmlns.com/foaf/spec/#term_firstName"
+        dc:description="The first name of a person"/>
+    <property name="term_familyName"
+        namespace="http://xmlns.com/foaf/spec/#"
+        qualName="http://xmlns.com/foaf/spec/#term_familyName"
+        dc:description="The family name of some person"/>
     <property name="role"
-              namespace=""
-              qualName=""/>
-
-    <property name="mediaResourceID"
-                namespace="http://purl.org/dc/terms/"
-                qualName="http://purl.org/dc/terms/identifier"/>
+        namespace="eol#"
+        qualName="eol#role"
+        dc:description="The role the agent played in the preparation or delivery of a resource."/>
+    <property name="term_mbox"
+        namespace="http://xmlns.com/foaf/spec/#"
+        qualName="http://xmlns.com/foaf/spec/#term_mbox"
+        dc:description="A personal mailbox."/>
+    <property name="term_homepage"
+        namespace="http://xmlns.com/foaf/spec/#"
+        qualName="http://xmlns.com/foaf/spec/#term_homepage"
+        dc:description="A homepage for some thing."/>
+    <property name="term_logo"
+        namespace="http://xmlns.com/foaf/spec/#"
+        qualName="http://xmlns.com/foaf/spec/#term_logo"
+        dc:description="A logo representing some thing."/>
+    <property name="term_currentProject"
+        namespace="http://xmlns.com/foaf/spec/#"
+        qualName="http://xmlns.com/foaf/spec/#term_currentProject"
+        dc:description="A current project this person works on."/>
+    <property name="organization"
+        namespace="eol#"
+        qualName="eol#organization"
+        dc:description="An organization this person is affiliated with."/>
+    <property name="term_accountName"
+        namespace="http://xmlns.com/foaf/spec/#"
+        qualName="http://xmlns.com/foaf/spec/#term_accountName"
+        dc:description="Indicates the name (identifier) associated with this online account."/>
+    <property name="term_openid"
+        namespace="http://xmlns.com/foaf/spec/#"
+        qualName="http://xmlns.com/foaf/spec/#term_openid"
+        dc:description="An OpenID for an Agent."/>
 </extension>

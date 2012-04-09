@@ -1,12 +1,12 @@
 -# NOTE: If you alter this, copy the change to app/views/activity_logs/_users_data_object.html.haml  ...the reasons
   for the duplication are explained in that file.
 - display_curator ||= false
-- user = link_to(h(item.user.full_name), user_path(item.user), :style => 'color: #195184')
+- user = link_to(h(item.user.full_name), user_url(item.user), :style => 'color: #195184')
 - if display_curator && item.user.is_curator?
   - user = I18n.t(:user_full_name_with_curator, :user => user, :curator_level => item.user.curator_level.label)
 = I18n.t(:activity_user_created_text, :user => user,
-  :object_name => link_to(item.summary_name, data_object_path(item), :style => 'color: #195184'),
-  :taxon_concept => link_to(item.taxon_concepts.first.summary_name, taxon_overview_path(item.taxon_concepts.first),
+  :object_name => link_to(item.summary_name, data_object_url(item), :style => 'color: #195184'),
+  :taxon_concept => link_to(item.taxon_concepts.first.summary_name, taxon_overview_url(item.taxon_concepts.first),
   :style => 'color: #195184'))
 %blockquote{:cite => h(item.user.full_name)}
   %p= item.description_teaser

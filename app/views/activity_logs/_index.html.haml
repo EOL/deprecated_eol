@@ -9,7 +9,7 @@
     -if @filter.blank?
       %p= I18n.t(:activity_log_empty)
       - unless @latest_published_revision.nil?
-        %p= link_to I18n.t(:activity_log_empty_learn_more_link), cms_page_path('contribute')
+        %p= link_to I18n.t(:activity_log_empty_learn_more_link), cms_page_url('contribute')
     -else
       %p= I18n.t(:no_record_found_matching_your_criteria)
 - else
@@ -24,7 +24,7 @@
             = I18n.t(:the_user_who_performed_this_action_was_removed)
           - else
             = link_to image_tag(item.user.logo_url(:small), :alt => I18n.t(:comment_show_posters_image_alt,
-              :posters_name => h(item.user.full_name))), user_path(item.user), :class => 'avatar'
+              :posters_name => h(item.user.full_name))), user_url(item.user), :class => 'avatar'
           .details
             %p
               = render :partial => "activity_logs/#{item.class.name.underscore}", :locals => {:item => item,

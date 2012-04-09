@@ -7,41 +7,41 @@
 - display_curator ||= false
 - parent_newsfeed = case item.parent_type
   - when 'TaxonConcept'
-    - parent_newsfeed = taxon_updates_path(item.parent_id)
+    - parent_newsfeed = taxon_updates_url(item.parent_id)
   - when 'DataObject'
-    - parent_newsfeed = data_object_path(item.parent_id)
+    - parent_newsfeed = data_object_url(item.parent_id)
   - when 'Community'
-    - parent_newsfeed = community_newsfeed_path(item.parent_id)
+    - parent_newsfeed = community_newsfeed_url(item.parent_id)
   - when 'Collection'
-    - parent_newsfeed = collection_newsfeed_path(item.parent_id)
+    - parent_newsfeed = collection_newsfeed_url(item.parent_id)
   - when 'User'
-    - parent_newsfeed = user_newsfeed_path(item.parent_id)
+    - parent_newsfeed = user_newsfeed_url(item.parent_id)
   - else
     - nil
 - if item.user.nil?
   = I18n.t(:the_user_who_performed_this_action_was_removed)
 - else
   = link_to image_tag(item.user.logo_url(:small), :alt => I18n.t(:comment_show_posters_image_alt,
-    :posters_name => h(item.user.full_name))), user_path(item.user), :class => 'avatar'
+    :posters_name => h(item.user.full_name))), user_url(item.user), :class => 'avatar'
   .details
     - curator_level = ''
     - if !item.user.curator_level.nil? && display_curator
       - curator_level = " (" + item.user.curator_level.translated_label + ")"
-    - name_with_link = link_to(h(item.user.full_name), user_path(item.user)) + curator_level
+    - name_with_link = link_to(h(item.user.full_name), user_url(item.user)) + curator_level
     - parent_link = nil
     - case item.parent_type
     - when 'TaxonConcept'
-      - parent_link = taxon_overview_path(item.parent_id)
+      - parent_link = taxon_overview_url(item.parent_id)
     - when 'DataObject'
-      - parent_link = data_object_path(item.parent_id)
+      - parent_link = data_object_url(item.parent_id)
     - when 'Community'
-      - parent_link = community_path(item.parent_id)
+      - parent_link = community_url(item.parent_id)
     - when 'Collection'
-      - parent_link = collection_path(item.parent_id)
+      - parent_link = collection_url(item.parent_id)
     - when 'User'
       -# We placed a filter here to trap the error if user is deleted.
       - unless item.parent.nil?
-        - parent_link = user_newsfeed_path(item.parent_id)
+        - parent_link = user_newsfeed_url(item.parent_id)
     %p
       - if parent_link
         - if item.parent == item.user
@@ -74,15 +74,15 @@
           - parent_newsfeed = nil
           - case item.parent_type
           - when 'TaxonConcept'
-            - parent_newsfeed = taxon_updates_path(item.parent_id)
+            - parent_newsfeed = taxon_updates_url(item.parent_id)
           - when 'DataObject'
-            - parent_newsfeed = data_object_path(item.parent_id)
+            - parent_newsfeed = data_object_url(item.parent_id)
           - when 'Community'
-            - parent_newsfeed = community_newsfeed_path(item.parent_id)
+            - parent_newsfeed = community_newsfeed_url(item.parent_id)
           - when 'Collection'
-            - parent_newsfeed = filtered_collection_path(item.parent, 'newsfeed')
+            - parent_newsfeed = filtered_collection_url(item.parent, 'newsfeed')
           - when 'User'
-            - parent_newsfeed = user_newsfeed_path(item.parent_id)
+            - parent_newsfeed = user_newsfeed_url(item.parent_id)
           - if parent_newsfeed
             - show_body = truncate(item.body, :length => 140, :omission => I18n.t(:truncated_comment_omission, :link => parent_newsfeed))
           - else
@@ -114,7 +114,7 @@
           %li.reply= link_to(I18n.t(:reply), parent_newsfeed + "#reply-to-Comment-#{item.id}", :'data-reply-to' => item.user.full_name, :'data-reply-to-type' => item.class.name, :'data-reply-to-id' => item.id)
           - if editable && current_user.can_update?(item)
             %li
-              = link_to I18n.t(:edit), edit_comment_path(item.id, :return_to => "#{current_url}##{item.class.name}-#{item.id}", :actual_date => actual_date), :class => 'edit_comment'
+              = link_to I18n.t(:edit), edit_comment_url(item.id, :return_to => "#{current_url}##{item.class.name}-#{item.id}", :actual_date => actual_date), :class => 'edit_comment'
         - if editable && current_user.can_delete?(item)
           %li
             - form_for item, :html => { :method => :delete, :class => 'delete_comment' } do |f|

@@ -8,6 +8,7 @@ describe UsersController do
     SpecialCollection.gen(:name => 'Watch')
     CuratorLevel.create_defaults
     UserIdentity.create_defaults
+    Activity.create_defaults
     @user = User.gen
     cot = ChangeableObjectType.gen(:ch_object_type => 'synonym')
   end

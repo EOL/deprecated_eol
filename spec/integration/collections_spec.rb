@@ -72,7 +72,7 @@ describe "Collections and collecting:" do
         it_should_collect_item(taxon_overview_path(@taxon), @taxon)
       end
       it 'data objects' do
-        latest_revision_of_dato = @taxon.images_from_solr.first.latest_published_revision
+        latest_revision_of_dato = @taxon.data_objects.first.latest_published_revision
         it_should_collect_item(data_object_path(latest_revision_of_dato), latest_revision_of_dato)
       end
       it 'communities' do
@@ -206,12 +206,12 @@ describe "Collections and collecting:" do
     @original_index_records_on_save_value = $INDEX_RECORDS_IN_SOLR_ON_SAVE
     $INDEX_RECORDS_IN_SOLR_ON_SAVE = true
     login_as @anon_user
-    visit data_object_path(@taxon.images_from_solr.first)
+    visit data_object_path(@taxon.data_objects.first)
     click_link 'Add to a collection'
     current_url.should match /#{choose_collect_target_collections_path}/
     check 'collection_id_'
     click_button 'Collect item'
-    collectable_data_object = @taxon.images_from_solr.first
+    collectable_data_object = @taxon.data_objects.first
     collectable_data_object.object_title = "Current data object"
     collectable_data_object.save
 
@@ -225,7 +225,7 @@ describe "Collections and collecting:" do
     body.should have_tag('ul.object_list li', /#{collectable_data_object.object_title}/)
 
     # the image is still unpublished, but there's a newer version. We should see the new version in the collection
-    newer_version_collected_data_object = DataObject.gen(:guid => @taxon.images_from_solr.first.guid,
+    newer_version_collected_data_object = DataObject.gen(:guid => @taxon.data_objects.first.guid,
       :object_title => "Latest published version", :published => true, :created_at => Time.now )
     visit collection_path(@anon_user.watch_collection)
     body.should have_tag('ul.object_list li', /#{newer_version_collected_data_object.object_title}/)

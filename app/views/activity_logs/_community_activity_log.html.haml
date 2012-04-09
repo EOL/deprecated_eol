@@ -1,9 +1,13 @@
+- display_curator ||= false
 - translation_vars = {:scope => [:activity_logs, :community_activity_log]}
 - user_type = 'user'
 - if item.user.nil?
   - user_type = 'an_unknown_user'
 - else
   - translation_vars[:user] = link_to(h(item.user.full_name), user_path(item.user), :style => 'color: #195184')
+  - if display_curator && item.user.is_curator?
+    - translation_vars[:user] = I18n.t(:user_full_name_with_curator, :user => translation_vars[:user],
+      :curator_level => item.user.curator_level.label)
 - community_type = 'community'
 - if item.community.nil?
   - community_type = 'an_unknown_community'

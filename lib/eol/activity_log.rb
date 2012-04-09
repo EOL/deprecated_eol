@@ -24,6 +24,8 @@ module EOL
       case klass
       when nil
         global_activities(options)
+      when "RecentActivitiesController"
+        recent_activities(options)
       when "User"
         if options[:news]
           user_news_activities(source, options)
@@ -45,6 +47,26 @@ module EOL
 
     def self.global_activities(options = {})
       EOL::Solr::ActivityLog.global_activities(options)
+    end
+
+    def self.recent_activities(options = {})
+      query = "*:*"
+      if options[:filter]
+        if options[:filter].include? ('comments')
+          query = "activity_log_type:Comment"
+        elsif options[:filter].include? ('data_object_curation')
+          query = "activity_log_type:CuratorActivityLog AND feed_type_affected:DataObject"
+        elsif options[:filter].include? ('names')
+          query = "activity_log_type:CuratorActivityLog AND feed_type_affected:Synonym"
+        elsif options[:filter].include? ('added_data_objects')
+          query = "activity_log_type:UsersDataObject"
+        elsif options[:filter].include? ('collections')
+          query = "activity_log_type:CollectionActivityLog"
+        elsif options[:filter].include? ('communities')
+          query = "activity_log_type:CommunityActivityLog"
+        end
+      end
+      results =  EOL::Solr::ActivityLog.search_with_pagination(query, options)
     end
 
     # TODO - it would make more sense to move these methods to the source models, passed in as an argument when the

@@ -1,3 +1,4 @@
+- display_curator ||= false
 - data_object ||= nil
 - taxon_concept ||= nil
 - bulk = data_object || taxon_concept
@@ -10,6 +11,9 @@
 - else
   - translation_vars[:user] = link_to(h(item.user.full_name), user_url(item.user),
     :style => 'color: #195184')
+  - if display_curator && item.user.is_curator?
+    - translation_vars[:user] = I18n.t(:user_full_name_with_curator, :user => translation_vars[:user],
+      :curator_level => item.user.curator_level.label)
 - data_object_type = data_object ? 'it' : 'data_object'
 - if item.data_object.nil?
   - data_object_type = 'an_unknown_data_object'

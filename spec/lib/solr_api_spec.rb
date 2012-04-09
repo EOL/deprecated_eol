@@ -21,13 +21,13 @@ describe 'Solr API' do
       trusted = Vetted.trusted
       @solr = SolrAPI.new($SOLR_SERVER, $SOLR_TAXON_CONCEPTS_CORE)
       @data = { :common_name => ['Atlantic cod', 'Pacific cod'],
-               :preferred_scientific_name => ['Gadus mohua'],
-               :taxon_concept_id => ['1'],
-               :ancestor_taxon_concept_id => '3452345',
-               :top_image_id => '123',
-               :supercedure_id => 0, # This is not *required*, but the search specifies = 0, soooooo....
-               :vetted_id => trusted.id,
-               :published => 1}
+                :preferred_scientific_name => ['Gadus mohua'],
+                :taxon_concept_id => ['1'],
+                :ancestor_taxon_concept_id => '3452345',
+                :top_image_id => '123',
+                :supercedure_id => 0, # This is not *required*, but the search specifies = 0, soooooo....
+                :vetted_id => trusted.id,
+                :published => 1 }
     end
   
     it 'should connect to solr server from environment' do
@@ -106,12 +106,14 @@ describe 'Solr API' do
       TaxonConcept.delete_all
       HierarchyEntry.delete_all
       Synonym.delete_all
-      @solr = SolrAPI.new($SOLR_SERVER, $SOLR_SITE_SEARCH_CORE)
-      @solr.delete_all_documents
+      ContentPage.delete_all
       @scientific_name = "Something unique"
       @common_name = "Name not yet used"
       @test_taxon_concept = build_taxon_concept(:scientific_name => @scientific_name, :common_names => [@common_name])
       TaxonConcept.connection.execute("commit")
+      TranslatedContentPage.gen(:title => "Test Content Page", :main_content => "Main Content Page", :left_content => "Left Content Page")
+      @solr = SolrAPI.new($SOLR_SERVER, $SOLR_SITE_SEARCH_CORE)
+      @solr.delete_all_documents
     end
     
     it 'should start with an empty core' do
@@ -122,11 +124,23 @@ describe 'Solr API' do
     it 'should rebuild the core' do
       EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild
       # names for preferred name, synonym, surrogate and common names
-      @solr.get_results("*:*")['numFound'].should == 25
+      @solr.get_results("*:*")['numFound'].should == 28
       @solr.get_results("resource_id:#{@test_taxon_concept.id}")['numFound'].should == 4
       @solr.get_results("keyword:#{URI.escape(@scientific_name)}")['numFound'].should == 2
       @solr.get_results("keyword:#{URI.escape(@common_name)}")['numFound'].should == 1
+      @solr.get_results("resource_type:ContentPage")['numFound'].should == 3
     end
+    
+    it 'should reindex given model' do
+      EOL::Solr::SiteSearchCoreRebuilder.reindex_model(TaxonConcept, @solr)
+      @solr.get_results("*:*")['numFound'].should == 28
+      @solr.get_results("resource_id:#{@test_taxon_concept.id}")['numFound'].should == 4
+      @solr.get_results("keyword:#{URI.escape(@scientific_name)}")['numFound'].should == 2
+      @solr.get_results("keyword:#{URI.escape(@common_name)}")['numFound'].should == 1
+      EOL::Solr::SiteSearchCoreRebuilder.reindex_model(ContentPage, @solr)
+      @solr.get_results("resource_type:ContentPage")['numFound'].should == 3
+    end
+    
   end
   
   describe ': BHL' do

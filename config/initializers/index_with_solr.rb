@@ -94,7 +94,7 @@ module ActiveRecord
               return_value = self.send(field_or_method)
               next if return_value.blank?
               if return_value.class == String
-                keywords_to_send_to_solr << params.merge({ :keyword => return_value[:keywords], :keyword_type => field_or_method,
+                keywords_to_send_to_solr << params.merge({ :keyword => return_value, :keyword_type => field_or_method,
                   :full_text => true })
               elsif return_value.class == Array
                 return_value.each do |rv|

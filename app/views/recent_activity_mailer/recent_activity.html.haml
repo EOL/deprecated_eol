@@ -14,7 +14,7 @@
         = t("recent_activity.#{note.class.name.underscore}_title", :who => who)
   - else
     = t("recent_activity.default_subject")
-%p= I18n.t(:intro, :scope => :recent_activity, :time => I18n.localize(Time.now, :format => :short))
+%h2= I18n.t(:intro, :scope => :recent_activity, :time => I18n.localize(Time.now, :format => :long))
 - grouped_notes = @notes.group_by {|i| i.class.name }
 - grouped_notes.keys.each do |klass|
   - if grouped_notes[klass].count > 1 # Digest-like
@@ -58,8 +58,13 @@
               :locals => {:item => item, :community => community})
     - when 'Comment' # Comments need to look at parents:
       - grouped_notes[klass].group_by(&:parent).each do |parent, comments|
-        %h2= I18n.t("recent_activity.bulk_comments_with_count", :count => comments.count,
-          :on => link_to(h(parent.summary_name), link_to_item(parent), :style => 'color:#195184'))
+        %hr{:style => "border: none; border-bottom: 1px solid #d2d9df;clear:both;"}
+        - if parent == @user
+          %h2= I18n.t("recent_activity.bulk_comments_on_you_with_count", :count => comments.count,
+            :on => link_to(h(parent.summary_name), link_to_item(parent), :style => 'color:#195184'))
+        - else
+          %h2= I18n.t("recent_activity.bulk_comments_with_count", :count => comments.count,
+            :on => link_to(h(parent.summary_name), link_to_item(parent), :style => 'color:#195184'))
         - comments.each do |comment|
           %blockquote= I18n.t("recent_activity.comment_body_brief", :body => comment.body, :author => link_to(h(comment.user.full_name), user_url(comment.user), :style => 'color: #195184'))
     - when 'CuratorActivityLog'
@@ -69,7 +74,7 @@
           - taxon = association.class.name == 'TaxonConcept' ? TaxonConcept.load_for_title_only(association) : nil
           %hr{:style => "border: none; border-bottom: 1px solid #d2d9df;clear:both;"}
           %h2= I18n.t("recent_activity.bulk_curation_with_count", :count => items.count,
-            :to => link_to(h((dato || taxon).summary_name), link_to_item(dato || taxon), :style => 'color:#195184'))
+            :to => link_to((dato || taxon).summary_name, link_to_item(dato || taxon), :style => 'color:#195184'))
           - items.each do |item|
             = render(:partial => 'activity_logs/curator_activity_log',
               :locals => {:item => item, :data_object => dato, :taxon_concept => taxon })

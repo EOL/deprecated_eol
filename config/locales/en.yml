@@ -839,10 +839,14 @@ en:
       message: "Thanks for registering with the Encyclopedia of Life. The following link will verify that you wish to complete your registration and activate your account:\n\n%{verification_url}\n\nOnce your account has been activated you will receive a confirmation email message."
   recent_activity:
     intro: "Here is your EOL activity digest for %{time}"
-    unsubscribe: "Change your email settings at <a href='%{email_prefs_url}'>your notification preferences page</a>."
+    unsubscribe: "Change your email settings or unsubscribe at <a href='%{email_prefs_url}' style='color:#195184'>your notification preferences page</a>."
+    see_all_activity: "See all previous activity at <a href='%{activity_url}' style='color:#195184'>your user newsfeed page</a>."
     bulk_comments_with_count:
       one: "There is a new comment on %{on}"
       other: "There are %{count} new comments on %{on}"
+    bulk_comments_on_you_with_count:
+      one: "There is a new comment on your profile"
+      other: "There are %{count} new comments on your profile"
     bulk_curation_with_count:
       one: "Curators made an improvement to %{to}"
       other: "Curators made %{count} improvements to %{to}"

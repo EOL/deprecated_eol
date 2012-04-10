@@ -17,15 +17,15 @@ class CreateNotifications < ActiveRecord::Migration
       t.integer :comment_on_my_community, :default => NotificationFrequency.immediately.id
       t.integer :made_me_a_manager, :default => NotificationFrequency.immediately.id
       t.integer :member_joined_my_community, :default => NotificationFrequency.immediately.id
-      t.integer :comment_on_my_watched_item, :default => NotificationFrequency.never.id
-      t.integer :curation_on_my_watched_item, :default => NotificationFrequency.never.id
-      t.integer :new_data_on_my_watched_item, :default => NotificationFrequency.never.id
-      t.integer :changes_to_my_watched_collection, :default => NotificationFrequency.never.id
-      t.integer :changes_to_my_watched_community, :default => NotificationFrequency.never.id
-      t.integer :member_joined_my_watched_community, :default => NotificationFrequency.never.id
-      t.integer :member_left_my_community, :default => NotificationFrequency.never.id
-      t.integer :new_manager_in_my_community, :default => NotificationFrequency.never.id
-      t.integer :i_am_being_watched, :default => NotificationFrequency.never.id
+      t.integer :comment_on_my_watched_item, :default => NotificationFrequency.newsfeed_only.id
+      t.integer :curation_on_my_watched_item, :default => NotificationFrequency.newsfeed_only.id
+      t.integer :new_data_on_my_watched_item, :default => NotificationFrequency.newsfeed_only.id
+      t.integer :changes_to_my_watched_collection, :default => NotificationFrequency.newsfeed_only.id
+      t.integer :changes_to_my_watched_community, :default => NotificationFrequency.newsfeed_only.id
+      t.integer :member_joined_my_watched_community, :default => NotificationFrequency.newsfeed_only.id
+      t.integer :member_left_my_community, :default => NotificationFrequency.newsfeed_only.id
+      t.integer :new_manager_in_my_community, :default => NotificationFrequency.newsfeed_only.id
+      t.integer :i_am_being_watched, :default => NotificationFrequency.newsfeed_only.id
       t.boolean :eol_newsletter, :default => true
       t.datetime :last_notification_sent_at
       t.timestamps

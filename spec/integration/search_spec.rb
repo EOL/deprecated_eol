@@ -40,7 +40,7 @@ describe 'Search' do
     @user2                      = data[:user2]
     @community                  = data[:community]
     @collection                 = data[:collection]
-    @cms_page                   = data[:content_page]
+    @cms_page                   = data[:cms_page]
 
     Capybara.reset_sessions!
     visit('/logout')
@@ -160,7 +160,7 @@ describe 'Search' do
   end
 
   it 'should redirect to cms page if only 1 possible match is found' do
-    visit("/search?q=#{@cms_page.page_name}")
+    visit("/search?q=#{@cms_page.title}")
     current_path.should match /^\/info\/#{@cms_page.id}/
   end
 

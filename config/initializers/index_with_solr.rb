@@ -73,14 +73,14 @@ module ActiveRecord
                    :language => return_value[:language], :ancestor_taxon_concept_id => return_value[:ancestor_taxon_concept_id] })
               elsif return_value.class == Array
                 return_value.each do |rv|
-                  keyword_type = rv[:keyword_type] || field_or_method
-                  if self.class == TaxonConcept
-                    keywords_to_send_to_solr << params.merge({ :keyword => rv[:keywords], :keyword_type => keyword_type,
-                      :language => rv[:language], :ancestor_taxon_concept_id => rv[:ancestor_taxon_concept_id] })
-                  elsif self.class == ContentPage
-                    keywords_to_send_to_solr << params.merge({ :keyword => rv[:keywords], :keyword_type => keyword_type,
-                      :language => rv[:language] })
-                  end
+                  keyword_type = 
+                  additional_params = {
+                    :keyword => rv[:keywords],
+                    :keyword_type => rv[:keyword_type] || field_or_method,
+                    :language => rv[:language],
+                    :ancestor_taxon_concept_id => rv[:ancestor_taxon_concept_id] }
+                  additional_params.delete(:ancestor_taxon_concept_id) unless rv.include?(:ancestor_taxon_concept_id)
+                  keywords_to_send_to_solr << params.merge(additional_params)
                 end
               end
             else
@@ -99,10 +99,8 @@ module ActiveRecord
               elsif return_value.class == Array
                 return_value.each do |rv|
                   keyword_type = rv[:keyword_type] || field_or_method
-                  if self.class == ContentPage
-                    keywords_to_send_to_solr << params.merge({ :keyword => rv[:fulltexts], :keyword_type => keyword_type,
-                      :language => rv[:language], :full_text => true })
-                  end
+                  keywords_to_send_to_solr << params.merge({ :keyword => rv[:fulltexts], :keyword_type => keyword_type,
+                    :language => rv[:language], :full_text => true })
                 end
               end
             else
@@ -163,6 +161,8 @@ module ActiveRecord
           resource_weight = 10
         elsif keyword[:resource_type].include? 'Collection'
           resource_weight = 20
+		elsif keyword[:resource_type].include? 'ContentPage'
+          resource_weight = 25
         elsif keyword[:resource_type].include? 'User'
           resource_weight = 30
         elsif keyword[:resource_type].include? 'ContentPage'

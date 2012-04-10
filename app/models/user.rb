@@ -901,7 +901,6 @@ private
     unless self.requested_curator_level_id.nil? || self.requested_curator_level_id.zero?
       unless self.curator_level_id == self.requested_curator_level_id
         self.curator_level_id = self.requested_curator_level_id
-        self.curator_approved = 1
         self.curator_verdict_at = Time.now
       end
       self.requested_curator_level_id = nil

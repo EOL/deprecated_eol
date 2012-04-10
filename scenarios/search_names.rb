@@ -60,6 +60,6 @@ c = results[:community].collections.first
 c.name = "Focus list for this test community"
 c.save
 
-results[:content_page] = ContentPage.gen(:page_name => "test_cms_page")
+results[:cms_page] = TranslatedContentPage.gen(:title => "FAQ")
 
 EOL::TestInfo.save('search_names', results)

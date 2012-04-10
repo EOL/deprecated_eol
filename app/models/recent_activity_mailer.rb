@@ -6,9 +6,11 @@ class RecentActivityMailer < ActionMailer::Base
 
   def recent_activity(user, notes)
     @user = user # for the layout
+    supress_activity_email = SiteConfigurationOption.find_by_parameter('supress_activity_email').value rescue nil
+    puts "++ #{supress_activity_email}"
     set_locale(user)
     subject      I18n.t(:default_subject, :scope => [:recent_activity])
-    recipients   user.email
+    recipients   supress_activity_email || user.email
     from         $SUPPORT_EMAIL_ADDRESS
     body         :notes => notes, :user => user
     content_type 'text/html'

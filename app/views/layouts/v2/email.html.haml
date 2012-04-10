@@ -14,9 +14,10 @@
             %tr
               %td{:align => "left", :style => "color: #3f4b56; background: #fff;"}
                 = yield
-            %tr
-              %td{ :valign => 'baseline', :style => 'border-top: 1px solid #e2e9ef; padding: 20px 30px; background: #fff;'}
+                %hr{:style => "border: none; border-bottom: 1px solid #d2d9df;clear:both;"}
                 %p= I18n.t(:see_all_activity, :scope => :recent_activity, :activity_url => user_newsfeed_url(@user))
                 %p= I18n.t(:unsubscribe, :scope => :recent_activity, :email_prefs_url => edit_user_notification_url(@user))
+            %tr
+              %td{ :valign => 'baseline', :style => 'border-top: 1px solid #e2e9ef; padding: 20px 30px; background: #f8fcff;'}
                 = link_to image_tag("http://eol.org/images/v2/logo_footer.png", :alt => "", :style => "border: none; float: right;"), root_url, :style => 'text-decoration: none;'
                 

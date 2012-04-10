@@ -836,9 +836,10 @@ en:
       message: "The Encyclopedia of Life (www.eol.org) received a request to reset your password. If you did not make this request, please ignore this email.\n\nThe following link will reset your password:\n\n%{password_reset_url}\n\nPlease note that after 24 hours, the link expires and you will need to make a new reset request."
     user_verification:
       subject: "Please verify your request for an Encyclopedia of Life account"
+      message: "Thanks for registering with the Encyclopedia of Life. The following link will verify that you wish to complete your registration and activate your account:\n\n%{verification_url}\n\nOnce your account has been activated you will receive a confirmation email message."
   recent_activity:
     intro: "Here is your EOL activity digest for %{time}"
-    unsubscribe: "To stop receiving these notifications, <a href='%{email_prefs_url}'>edit your mail preferences</a>."
+    unsubscribe: "Change your email settings at <a href='%{email_prefs_url}'>your notification preferences page</a>."
     bulk_comments_with_count:
       one: "There is a new comment on %{on}"
       other: "There are %{count} new comments on %{on}"
@@ -1337,7 +1338,7 @@ en:
         an_unknown_user_added_item_to_it: "An unknown user added \"%{item}\"."
         user_added_an_unknown_item_to_it: "<strong>%{user}</strong> added an unknown item."
         user_added_item_to_it: "<strong>%{user}</strong> added \"%{item}\"."
-      other:
+      other_actions:
         an_unknown_user_modified_an_unknown_collection: "An unknown user modified an unknown collection."
         an_unknown_user_modified_collection: "An unknown user modified the collection \"%{collection}\"."
         user_modified_an_unknown_collection: "<strong>%{user}</strong> modified an unknown collection."
@@ -1384,7 +1385,7 @@ en:
         user_added_an_unknown_manager_to_community: "<strong>%{user}</strong> added an unknown manager to the community \"%{community}\"."
         user_added_manager_to_an_unknown_community: "<strong>%{user}</strong> added \"%{manager}\" to an unknown community."
         user_added_manager_to_community: "<strong>%{user}</strong> added \"%{manager}\" as a manager of the community \"%{community}\"."
-      other:
+      other_actions:
         an_unknown_user_modified_an_unknown_community: "An unknown user modified an unknown community."
         an_unknown_user_modified_community: "An unknown user modified the community \"%{community}\"."
         user_modified_an_unknown_community: "<strong>%{user}</strong> modified an unknown community."
@@ -1588,7 +1589,7 @@ en:
         an_unknown_user_unreviewed_name_on_it: "An unknown user marked the common name \"%{name}\" as unreviewed."
         user_unreviewed_an_unknown_name_on_it: "<strong>%{user}</strong> marked an unknown common name as unreviewed."
         user_unreviewed_name_on_it: "<strong>%{user}</strong> marked the common name \"%{name}\" as unreviewed."
-      other:
+      other_actions:
         an_unknown_user_curated_an_older_data_object: "An unknown user curated an older version of \"%{data_object}\"."
         an_unknown_user_curated_an_unknown_data_object: "An unknown user curated an unknown data object."
         an_unknown_user_curated_data_object: "An unknown user curated \"%{data_object}\"."

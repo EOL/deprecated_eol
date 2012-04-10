@@ -5,6 +5,7 @@ class RecentActivityMailer < ActionMailer::Base
   layout "v2/email"
 
   def recent_activity(user, notes)
+    @user = user # for the layout
     set_locale(user)
     subject      I18n.t(:default_subject, :scope => [:recent_activity])
     recipients   user.email

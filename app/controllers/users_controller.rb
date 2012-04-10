@@ -28,7 +28,7 @@ class UsersController < ApplicationController
       @notes = @notes.select {|n| n.user_id == @user.id }
       puts "$" * 400
       @notes = @notes.map(&:target)
-      if @notes
+      unless @notes.empty?
         render('recent_activity_mailer/recent_activity', :layout => 'v2/email')
         return(true)
       end

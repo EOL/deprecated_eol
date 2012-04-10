@@ -16,5 +16,6 @@
                 = yield
             %tr
               %td{ :valign => 'baseline', :style => 'border-top: 1px solid #e2e9ef; padding: 20px 30px; background: #fff;'}
+                %p= I18n.t(:unsubscribe, :scope => :recent_activity, :email_prefs_url => %edit_user_notification_url(@user))
                 - link_to image_tag("http://eol.org/images/v2/logo_footer.png", :alt => "", :style => "border: none; float: right;"), root_url, :style => 'text-decoration: none;'
                 

@@ -14,8 +14,6 @@
         = t("recent_activity.#{note.class.name.underscore}_title", :who => who)
   - else
     = t("recent_activity.default_subject")
-%h1{:style => 'font-weight: normal;'}= I18n.t(:greeting_dear_name_with_comma, :name => @user.full_name,
-  :scope => :notifier)
 %p= I18n.t(:intro, :scope => :recent_activity, :time => I18n.localize(Time.now, :format => :short))
 - grouped_notes = @notes.group_by {|i| i.class.name }
 - grouped_notes.keys.each do |klass|
@@ -82,5 +80,3 @@
   - else # Only one:
     - grouped_notes[klass].each do |item|
       = render(:partial => 'recent_activity_mailer/single_activity', :locals => {:item => item})
-%hr{:style => "border: none; border-bottom: 1px solid #d2d9df;clear:both;"}
-%p= I18n.t(:unsubscribe, :scope => :recent_activity, :email_prefs_url => edit_user_notification_url(@user))

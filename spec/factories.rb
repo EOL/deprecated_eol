@@ -434,19 +434,21 @@ Factory.define :contact_subject do |cs|
 end
 
 Factory.define :content_page do |cp|
-  cp.page_name   'Test Content Page'
-  cp.sort_order    1
-  cp.last_update_user_id 1 # This *should* be the admin, and we don't *really* care otherwise.
+  cp.page_name            'Test Content Page'
+  cp.sort_order           1
+  cp.last_update_user_id  1 # This *should* be the admin, and we don't *really* care otherwise.
+  cp.active               1
 end
 
 Factory.define :translated_content_page do |tcp|
-  tcp.association       :content_page
-  tcp.language          { Language.english }
-  tcp.title             'Test Content Page'
-  tcp.left_content      {|c| "<h3>This is Left Content in a #{c.title}</h3>" }
-  tcp.main_content      {|c| "<h1>Main Content for #{c.title} ROCKS!</h1>" }
-  tcp.meta_keywords     {|c| "keywords for #{c.title}"}
-  tcp.meta_description  {|c| "description for #{c.title}"}
+  tcp.association         :content_page
+  tcp.language            { Language.english }
+  tcp.title               'Test Content Page'
+  tcp.left_content        { |c| "<h3>This is Left Content in a #{c.title}</h3>" }
+  tcp.main_content        { |c| "<h1>Main Content for #{c.title} ROCKS!</h1>" }
+  tcp.meta_keywords       { |c| "keywords for #{c.title}"}
+  tcp.meta_description    { |c| "description for #{c.title}"}
+  tcp.active_translation  1
 end
 
 Factory.define :topic_area do |ta|

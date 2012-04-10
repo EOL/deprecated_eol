@@ -1,22 +1,24 @@
 module EOL
   module Solr
     class SiteSearch
+
+      # its used for a wildcard search if we're not looking for everything, or all concepts
       def self.types_to_show_all
         [ 'Image', 'Video', 'Sound', 'User', 'Community', 'Collection', 'ContentPage' ]
       end
-      
+
       def self.search_with_pagination(query, options = {})
         options[:page]        ||= 1
         options[:per_page]    ||= 25
         options[:per_page]      = 25 if options[:per_page] == 0
         
         response = solr_search(query, options)
-
+        
         total_results = response['grouped']['resource_unique_key']['ngroups']
         query_time = response['grouped']['QTime']
         return_hash = { :time => query_time,
                         :total => total_results }
-
+        
         return_hash[:results] = []
         response['grouped']['resource_unique_key']['groups'].each do |g|
           return_hash[:results] << g['doclist']['docs'][0]
@@ -46,7 +48,7 @@ module EOL
       end
 
       private
-      
+
       def self.add_resource_instances!(docs)
         add_community!(docs.select{ |d| d['resource_type'].include?('Community') })
         add_collection!(docs.select{ |d| d['resource_type'].include?('Collection') })
@@ -55,7 +57,7 @@ module EOL
         add_data_object!(docs.select{ |d| d['resource_type'].include?('DataObject') })
         add_content_page!(docs.select{ |d| d['resource_type'].include?('ContentPage') })
       end
-      
+
       def self.add_community!(docs)
         ids = docs.map{ |d| d['resource_id'] }
         return if ids.blank?
@@ -64,7 +66,7 @@ module EOL
           d['instance'] = instances.detect{ |i| i.id == d['resource_id'].to_i }
         end
       end
-      
+
       def self.add_collection!(docs)
         ids = docs.map{ |d| d['resource_id'] }
         return if ids.blank?
@@ -73,7 +75,7 @@ module EOL
           d['instance'] = instances.detect{ |i| i.id == d['resource_id'].to_i }
         end
       end
-      
+
       def self.add_user!(docs)
         ids = docs.map{ |d| d['resource_id'] }
         return if ids.blank?
@@ -82,7 +84,7 @@ module EOL
           d['instance'] = instances.detect{ |i| i.id == d['resource_id'].to_i }
         end
       end
-      
+
       def self.add_content_page!(docs)
         ids = docs.map{ |d| d['resource_id'] }
         return if ids.blank?
@@ -91,7 +93,7 @@ module EOL
           d['instance'] = instances.detect{ |i| i.id == d['resource_id'].to_i }
         end
       end
-      
+
       def self.add_taxon_concept!(docs)
         includes = [
           { :taxon_concept_preferred_entry => 
@@ -118,7 +120,7 @@ module EOL
           d['instance'] = instances.detect{ |i| i.id == d['resource_id'].to_i }
         end
       end
-      
+
       def self.add_data_object!(docs)
         includes = [ { :data_objects_hierarchy_entries => [ { :hierarchy_entry => [ { :name => :canonical_form }, :hierarchy ] },
             :vetted, :visibility ] },
@@ -141,7 +143,7 @@ module EOL
           d['instance'] = instances.detect{ |i| i.id == d['resource_id'].to_i }
         end
       end
-      
+
       def self.add_best_match_keywords!(docs, querystring)
         querystring_set = querystring.normalize.split(' ').to_set
         docs.each_with_index do |d, index|
@@ -158,11 +160,11 @@ module EOL
           docs[index]['best_keyword_match'] = best_match
         end
       end
-      
+
       def self.solr_search(query, options = {})
         url =  $SOLR_SERVER + $SOLR_SITE_SEARCH_CORE + '/select/?wt=json&q=' + CGI.escape(%Q[{!lucene}])
         lucene_query = ''
-        # if its a wildcard search and we're not looking for everything, or all concepts, do a real wildcard searc
+        # if its a wildcard search and we're not looking for everything, or all concepts, do a real wildcard search
         if query == '*' && options[:type] && options[:type].size == 1 && types_to_show_all.include?(options[:type].first)
           lucene_query << '*:*'
           if [ 'Image', 'Sound', 'Video' ].include?(options[:type].first)
@@ -225,7 +227,7 @@ module EOL
         res = open(url).read
         JSON.load res
       end
-      
+
       def self.search_suggestions(querystring, exact = false)
         suggested_results = []
         unless exact
@@ -241,7 +243,7 @@ module EOL
         end
         suggested_results
       end
-      
+
       # returns 'nonsense' when lookups were requested but failed, that way the search ultimately fails
       def self.filter_by_taxon_concept_id(options={})
         filter_taxon_concept_id = nil
@@ -257,7 +259,7 @@ module EOL
         end
         filter_taxon_concept_id
       end
-      
+
       def self.get_facet_counts(query, options={})
         url =  $SOLR_SERVER + $SOLR_SITE_SEARCH_CORE + '/select/?wt=json&q=' + CGI.escape(%Q[{!lucene}])
         if query == '*'
@@ -269,7 +271,7 @@ module EOL
           else
             url << CGI.escape("(keyword_exact:\"#{query}\" OR keyword:\"#{query}\")")
           end
-      
+          
           # add search suggestions and weight them way higher. Suggested searches are currently always TaxonConcepts
           search_suggestions(query, options[:exact]).each do |ss|
             url << CGI.escape(" OR (resource_id:\"#{ss.taxon_id}\" AND resource_type:TaxonConcept)")
@@ -279,7 +281,7 @@ module EOL
         url << "&group=true&group.field=resource_unique_key&group.ngroups=true&facet.field=resource_type&facet=on&rows=0"
         res = open(url).read
         response = JSON.load(res)
-
+        
         facets = {}
         f = response['facet_counts']['facet_fields']['resource_type']
         f.each_with_index do |rt, index|

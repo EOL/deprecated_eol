@@ -21,8 +21,7 @@
                 [I18n.t(:user_activity_stats_objects_curated_dropdown), 'data_object_curation'],
                 [I18n.t(:user_activity_stats_articles_added_dropdown), 'added_data_objects'],
                 [I18n.t(:collections_filter), 'collections'],
-                [I18n.t(:communities_filter), 'communities']
-                ], @filter)
+                [I18n.t(:communities_filter), 'communities'] ], @filter)
         %fieldset.actions
           = submit_tag I18n.t(:filter_button)
     = render :partial => 'activity_logs/index', :locals => {:log => @log, :actual_date => true, :display_curator => true}

@@ -1,3 +1,4 @@
+- link_style ||= nil
 - actual_date ||= false
 - display_curator ||= false
 - translation_vars = {:scope => [:activity_logs, :collection_activity_log]}
@@ -7,7 +8,7 @@
   - user_type = 'an_unknown_user'
 - else
   - translation_vars[:user] = link_to(h(item.user.full_name), user_url(item.user),
-    :style => 'color: #195184')
+    :style => link_style)
   - if display_curator && item.user.is_curator?
     - translation_vars[:user] = I18n.t(:user_full_name_with_curator, :user => translation_vars[:user],
       :curator_level => item.user.curator_level.label)
@@ -18,13 +19,13 @@
   - collection_type = 'an_unknown_collection'
 - else
   - translation_vars[:collection] = link_to(item.collection.summary_name, collection_url(item.collection),
-    :style => 'color: #195184')
+    :style => link_style)
 - item_type = 'item'
 - if item.collection_item.nil? || item.collection_item.object.nil?
   - item_type = 'an_unknown_item'
 - else
   - translation_vars[:item] = link_to(item.collection_item.object.summary_name,
-    link_to_item(item.collection_item.object), :style => 'color: #195184')
+    link_to_item(item.collection_item.object), :style => link_style)
 %p{:style => collection ? 'padding: 0 3em;' : nil}
   - case item.activity_id
   - when Activity.add_editor.id

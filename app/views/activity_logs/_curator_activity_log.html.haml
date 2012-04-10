@@ -1,3 +1,4 @@
+- link_style ||= nil
 - display_curator ||= false
 - data_object ||= nil
 - taxon_concept ||= nil
@@ -10,7 +11,7 @@
   - user_type = 'an_unknown_user'
 - else
   - translation_vars[:user] = link_to(h(item.user.full_name), user_url(item.user),
-    :style => 'color: #195184')
+    :style => link_style)
   - if display_curator && item.user.is_curator?
     - translation_vars[:user] = I18n.t(:user_full_name_with_curator, :user => translation_vars[:user],
       :curator_level => item.user.curator_level.label)
@@ -19,7 +20,7 @@
   - data_object_type = 'an_unknown_data_object'
 - else
   - translation_vars[:data_object] = link_to(item.data_object.summary_name, data_object_url(item.data_object),
-    :style => 'color: #195184')
+    :style => link_style)
   - data_object_type = 'an_older_data_object' unless item.data_object.is_latest_published_version_in_same_language?
 - language_type = 'language'
 - if item.synonym.nil? || item.synonym.language.nil?
@@ -31,7 +32,7 @@
   - association_type = 'an_unknown_association'
 - else
   - translation_vars[:association] = link_to(h(item.hierarchy_entry.name.string),
-    taxon_url(item.hierarchy_entry.taxon_concept), :style => 'color: #195184')
+    taxon_url(item.hierarchy_entry.taxon_concept), :style => link_style)
 - name_type = 'name'
 - if item.synonym.nil? || ! item.synonym.respond_to?(:name)
   - name_type = 'an_unknown_name'
@@ -42,7 +43,7 @@
   - taxon_type = 'an_unknown_taxon'
 - else
   - translation_vars[:taxon] = link_to(item.taxon_concept.quick_scientific_name, taxon_url(item.taxon_concept),
-    :style => 'color: #195184')
+    :style => link_style)
 %p{:style => bulk ? 'padding: 0 3em;' : nil}
   - case item.activity_id
   - when Activity.trusted.id

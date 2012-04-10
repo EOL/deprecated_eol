@@ -1,10 +1,11 @@
+- link_style ||= nil
 - display_curator ||= false
 - translation_vars = {:scope => [:activity_logs, :community_activity_log]}
 - user_type = 'user'
 - if item.user.nil?
   - user_type = 'an_unknown_user'
 - else
-  - translation_vars[:user] = link_to(h(item.user.full_name), user_url(item.user), :style => 'color: #195184')
+  - translation_vars[:user] = link_to(h(item.user.full_name), user_url(item.user), :style => link_style)
   - if display_curator && item.user.is_curator?
     - translation_vars[:user] = I18n.t(:user_full_name_with_curator, :user => translation_vars[:user],
       :curator_level => item.user.curator_level.label)
@@ -13,7 +14,7 @@
   - community_type = 'an_unknown_community'
 - else
   - translation_vars[:community] = link_to(h(item.community.summary_name), community_url(item.community),
-    :style => 'color: #195184')
+    :style => link_style)
 - manager_type = 'manager'
 - if item.member.nil?
   - manager_type = 'an_unknown_manager'
@@ -24,7 +25,7 @@
   - collection_type = 'an_unknown_collection'
 - else
   - translation_vars[:collection] = link_to(h(item.collection.name), collection_url(item.collection),
-    :style => 'color: #195184')
+    :style => link_style)
 %p
   - case item.activity_id
   - when Activity.create.id

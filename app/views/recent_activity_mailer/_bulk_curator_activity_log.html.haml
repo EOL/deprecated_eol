@@ -5,7 +5,7 @@
 - if item.user.nil?
   - user_type = 'an_unknown_user'
 - else
-  - translation_vars[:user] = link_to(h(item.user.full_name), user_url(item.user),
+  - translation_vars[:user] = link_to(sanitize(item.user.full_name), user_url(item.user),
     :style => 'color: #195184')
 - language_type = 'language'
 - if item.synonym.nil? || item.synonym.language.nil?
@@ -16,7 +16,7 @@
 - if item.hierarchy_entry.nil? || item.hierarchy_entry.name.nil?
   - association_type = 'an_unknown_association'
 - else
-  - translation_vars[:association] = link_to(h(item.hierarchy_entry.name.string),
+  - translation_vars[:association] = link_to(sanitize(item.hierarchy_entry.name.string),
     taxon_url(item.hierarchy_entry.taxon_concept), :style => 'color: #195184')
 - name_type = 'name'
 - if item.synonym.nil? || ! item.synonym.respond_to?(:name)

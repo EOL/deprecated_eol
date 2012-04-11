@@ -113,6 +113,31 @@ form
       font-weight: bold
       text-transform: uppercase
       color: #828d33
+    &.subnav
+      ul
+        overflow: hidden
+        font-weight: bold
+        float: right
+        direction: ltr
+        li
+          direction: rtl
+          float: right
+          margin: 0 0 0 10px
+          padding: 0
+          &.active a
+            background: #fff
+          &.active a, a:hover
+            border: 1px solid #828d33
+            color: #394651
+          a
+            padding: 5px
+            display: block
+            text-decoration: none
+            color: #828d33
+            background: #f5f7e7
+            border: 1px solid #cfd5a9
+      form
+        padding-top: 5px
 form.comment
   padding: 0 0 0 20px
   margin: 0 0 35px 0
@@ -251,7 +276,7 @@ p.status
       margin: 0 0 10px 20px
   form
     dl
-      margin-left: 0
+      margin-right: 0
       dd
         margin: 0 0 10px 0
   ul, ol
@@ -609,6 +634,27 @@ body
         left: 0
         top: 32px
         z-index: 1
+        ul
+          float: left
+          overflow: hidden
+          margin-right: 1px
+          font-weight: bold
+          font-size: .9em
+          li
+            a
+              display: block
+              height: 25px
+              line-height: 25px
+              text-decoration: none
+              background: url("/images/v2/icon_header_messages.png") 18px 45% no-repeat #566572
+              padding: 0 24px 0 5px
+              &:hover
+                background-color: #667d91
+            + li
+              margin-top: 1px
+              a
+                background-image: url("/images/v2/icon_header_notifications.png")
+                background-position: 22px 50%
         img
           float: left
           margin: 0 10px 0 0
@@ -1170,11 +1216,6 @@ body
         dt
           float: right
 
-#profile_curator_info
-  fieldset
-    label
-      font-size: 16px
-
 #profile_curator_info,
 #profile_content_partner
   width: 640px
@@ -1194,6 +1235,30 @@ body
     input[type="submit"]
       padding: 7px 10px
       font-size: 1em
+
+#profile_curator_info
+  fieldset
+    label
+      font-size: 1.2em
+
+#profile_notifications
+  width: 680px
+  .copy
+    form
+      fieldset
+        padding: 20px
+        dt
+          width: 360px
+          clear: both
+          float: right
+          label
+            font-weight: normal
+        dd
+          width: 200px
+          float: left
+          text-align: left
+        &.actions
+          border-top: 1px solid #CAD3DB
 
 #profile_content_connections
   padding: 40px
@@ -2546,6 +2611,7 @@ ul.content_partner_contacts
       select
         margin-right: 10px
     &.requests
+      float: left
       width: 218px
       margin: 0
       padding: 0

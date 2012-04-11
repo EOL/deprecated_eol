@@ -586,7 +586,8 @@ form div {
       color: #828d33; }
     .main_container .heading.subnav ul {
       overflow: hidden;
-      font-weight: bold; }
+      font-weight: bold;
+      float: left; }
       .main_container .heading.subnav ul li {
         float: left;
         margin: 0 10px 0 0;
@@ -603,6 +604,8 @@ form div {
           color: #828d33;
           background: #f5f7e7;
           border: 1px solid #cfd5a9; }
+    .main_container .heading.subnav form {
+      padding-top: 5px; }
 
 form.comment {
   padding: 0 20px;
@@ -1806,37 +1809,25 @@ body > #header {
         #profile_info .section.half dl.activity dt {
           float: left; }
 
-#profile_curator_info fieldset label {
-  font-size: 16px; }
-
 #profile_curator_info,
-#profile_notifications,
 #profile_content_partner {
   width: 640px; }
   #profile_curator_info fieldset,
-  #profile_notifications fieldset,
   #profile_content_partner fieldset {
     padding-top: 10px; }
     #profile_curator_info fieldset dt,
-    #profile_notifications fieldset dt,
     #profile_content_partner fieldset dt {
       margin: 0; }
       #profile_curator_info fieldset dt p, #profile_curator_info fieldset dt label, #profile_curator_info fieldset dt ol, #profile_curator_info fieldset dt ol li,
-      #profile_notifications fieldset dt p,
-      #profile_notifications fieldset dt label,
-      #profile_notifications fieldset dt ol,
-      #profile_notifications fieldset dt ol li,
       #profile_content_partner fieldset dt p,
       #profile_content_partner fieldset dt label,
       #profile_content_partner fieldset dt ol,
       #profile_content_partner fieldset dt ol li {
         margin-bottom: 0; }
     #profile_curator_info fieldset dd,
-    #profile_notifications fieldset dd,
     #profile_content_partner fieldset dd {
       margin: 0 0 10px 0; }
       #profile_curator_info fieldset dd input[type="text"],
-      #profile_notifications fieldset dd input[type="text"],
       #profile_content_partner fieldset dd input[type="text"] {
         width: 308px;
         height: 22px;
@@ -1848,15 +1839,33 @@ body > #header {
         background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
         background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white)); }
       #profile_curator_info fieldset dd textarea,
-      #profile_notifications fieldset dd textarea,
       #profile_content_partner fieldset dd textarea {
         width: 600px;
         height: 60px; }
     #profile_curator_info fieldset input[type="submit"],
-    #profile_notifications fieldset input[type="submit"],
     #profile_content_partner fieldset input[type="submit"] {
       padding: 7px 10px;
       font-size: 1em; }
+
+#profile_curator_info fieldset label {
+  font-size: 1.2em; }
+
+#profile_notifications {
+  width: 680px; }
+  #profile_notifications .copy form fieldset {
+    padding: 20px; }
+    #profile_notifications .copy form fieldset dt {
+      width: 360px;
+      clear: both;
+      float: left; }
+      #profile_notifications .copy form fieldset dt label {
+        font-weight: normal; }
+    #profile_notifications .copy form fieldset dd {
+      width: 200px;
+      float: right;
+      text-align: right; }
+    #profile_notifications .copy form fieldset.actions {
+      border-top: 1px solid #cad3db; }
 
 #profile_content_connections {
   padding: 40px; }

@@ -447,6 +447,26 @@ body {
       background-color: #080f13;
       background-color: rgba(8, 15, 19, 0.6);
       padding: 10px; }
+      body > #header .session.signed_in ul {
+        float: left;
+        overflow: hidden;
+        margin-left: 1px;
+        font-weight: bold;
+        font-size: 0.9em; }
+        body > #header .session.signed_in ul li a {
+          display: block;
+          height: 25px;
+          line-height: 25px;
+          text-decoration: none;
+          background: url("/images/v2/icon_header_messages.png") 18px 45% no-repeat #566572;
+          padding: 0 24px 0 5px; }
+          body > #header .session.signed_in ul li a:hover {
+            background-color: #667d91; }
+        body > #header .session.signed_in ul li + li {
+          margin-top: 1px; }
+          body > #header .session.signed_in ul li + li a {
+            background-image: url("/images/v2/icon_header_notifications.png");
+            background-position: 22px 50%; }
       body > #header .session.signed_in img {
         float: left;
         margin: 0 10px 0 0;

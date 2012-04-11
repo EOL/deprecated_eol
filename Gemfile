@@ -35,6 +35,5 @@ gem 'sanitize','2.0.1'
 gem 'sass', '3.1.1'
 gem 'unicorn', '4.1.1'
 gem 'graylog2_exceptions', '1.3.0'
-gem 'resque', :require => "resque/server"
 gem 'uuid', '2.3.3'
 gem 'will_paginate', '2.3.16'

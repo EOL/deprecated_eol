@@ -307,14 +307,14 @@ describe 'Data Object Page' do
     end
   end
 
-  it 'should allow a curator to remove an association if added by curator' do
+  it 'should allow a curator to remove self added associations' do
     login_as @assistant_curator
     visit("/data_objects/#{@image.id}")
     page.body.should_not have_tag('form.review_status a', :text => 'Remove association')
     visit('/logout')
     login_as @master_curator
     visit("/data_objects/#{@image.id}")
-    page.body.should have_tag('form.review_status a', :text => 'Remove association')
+    page.body.should_not have_tag('form.review_status a', :text => 'Remove association')
     visit('/logout')
     login_as @full_curator
     visit("/data_objects/#{@image.id}")

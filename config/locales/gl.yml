@@ -256,83 +256,9 @@ gl:
     models: 
       user: conta
   activity: Actividade
-  activity_choose_exemplar: <strong>%{user}</strong> definiu unha imaxe como exemplar de "%{object_name}".
-  activity_hid_with_reasons_colon: "motivo(s) para agochar: %{reasons}"
   activity_log_empty: Ninguén proporcionou actualización ningunha aínda.
   activity_log_empty_learn_more_link: Descubre como contribuír
-  activity_untrusted_with_reasons_colon: "motivo(s) para deixar de confiar: %{reasons}"
-  activity_user_added_association: <strong>%{user}</strong> engadiu unha asociación con "%{object_name}".
-  activity_user_added_collection_to_community: <strong>%{user}</strong> engadiu a colección "%{collection}" á comunidade "%{community}".
-  activity_user_added_common_name: <strong>%{user}</strong> engadiu o nome común en %{language} "%{name}" a un obxecto descoñecido.
-  activity_user_added_common_name_to_taxon: <strong>%{user}</strong> engadiu o nome común en %{language} "%{name}" a "%{taxon}".
-  activity_user_added_community_manager: <strong>%{user}</strong> converteu a %{manager} nun administrador da comunidade "%{community}".
-  activity_user_added_named_association: <strong>%{user}</strong> engadiu unha asociación entre "%{object_name}" e "%{name}".
-  activity_user_added_unknown_association: <strong>%{user}</strong> engadiu unha asociación cun obxecto descoñecido.
-  activity_user_added_unknown_name: <strong>%{user}</strong> engadiu un nome común descoñecido a un obxecto descoñecido.
-  activity_user_added_unknown_name_to_taxon: <strong>%{user}</strong> engadiu un nome común a "%{taxon}".
-  activity_user_changed_community_description: <strong>%{user}</strong> actualizou a descrición da comunidade "%{community}".
-  activity_user_changed_community_icon: <strong>%{user}</strong> cambiou o logotipo da comunidade "%{community}".
-  activity_user_changed_community_name: <strong>%{user}</strong> cambiou o nome da comunidade "%{community}".
-  activity_user_created_community: <strong>%{user}</strong> creou a comunidade "%{community}".
   activity_user_created_text: <strong>%{user}</strong> engadiu texto a "%{object_name}" en "%{taxon_concept}".
-  activity_user_curated_an_unknown_object: <strong>%{user}</strong> conservou un obxecto descoñecido.
-  activity_user_deleted_community: <strong>%{user}</strong> borrou a comunidade "%{community}".
-  activity_user_hid_data_object: <strong>%{user}</strong> marcou "%{object_name}" como agochado.
-  activity_user_hid_named_association: <strong>%{user}</strong> marcou unha asociación entre "%{object_name}" e "%{name}" como agochada.
-  activity_user_hid_named_association_on_older_data_object: <strong>%{user}</strong> marcou unha asociación entre "%{object_name}" e "%{name}" como agochada.
-  activity_user_hid_older_data_object: <strong>%{user}</strong> marcou "%{object_name}" como agochado.
-  activity_user_hid_unknown_object: <strong>%{user}</strong> marcou un obxecto descoñecido como agochado.
-  activity_user_hid_unknown_object_association: <strong>%{user}</strong> marcou unha asociación entre un obxecto descoñecido e "%{name}" como agochada.
-  activity_user_inappropriate_common_name: <strong>%{user}</strong> marcou o nome común en %{language} "%{name}" dun obxecto descoñecido como inaxeitado.
-  activity_user_inappropriate_common_name_from_taxon: <strong>%{user}</strong> marcou o nome común en %{language} "%{name}" de "%{taxon}" como inaxeitado.
-  activity_user_inappropriate_unknown_name: <strong>%{user}</strong> estableceu como inaxeitado un nome común descoñecido dun taxon descoñecido.
-  activity_user_inappropriate_unknown_name_to_taxon: <strong>%{user}</strong> estableceu un nome común de "%{taxon}" como inaxeitado.
-  activity_user_joined_community: <strong>%{user}</strong> uniuse á comunidade "%{community}".
-  activity_user_marked_content_as_inappropriate: <strong>%{user}</strong> marcou uns contidos como inapropiados.
-  activity_user_modified_community: <strong>%{user}</strong> modificou a comunidade "%{community}".
-  activity_user_rated_data_object: <strong>%{user}</strong> avaliou "%{object_name}".
-  activity_user_rated_unknown_object: <strong>%{user}</strong> avaliou un obxecto descoñecido.
-  activity_user_removed_association: <strong>%{user}</strong> eliminou unha asociación con "%{object_name}".
-  activity_user_removed_named_association: <strong>%{user}</strong> eliminou unha asociación entre "%{object_name}" e "%{name}".
-  activity_user_removed_unknown_association: <strong>%{user}</strong> eliminou unha asociación cun obxecto descoñecido.
-  activity_user_removed_unknown_name: <strong>%{user}</strong> eliminou un nome común descoñecido dun obxecto descoñecido.
-  activity_user_removed_unknown_name_to_taxon: <strong>%{user}</strong> eliminou un nome común de "%{taxon}".
-  activity_user_showed_data_object: <strong>%{user}</strong> marcou "%{object_name}" como visible.
-  activity_user_showed_named_association: <strong>%{user}</strong> marcou unha asociación entre "%{object_name}" e "%{name}" como visible.
-  activity_user_showed_named_association_on_older_data_object: <strong>%{user}</strong> marcou unha asociación entre "%{object_name}" e "%{name}" como visible.
-  activity_user_showed_older_data_object: <strong>%{user}</strong> marcou "%{object_name}" como visible.
-  activity_user_showed_unknown_object: <strong>%{user}</strong> marcou un obxecto descoñecido como visible.
-  activity_user_showed_unknown_object_association: <strong>%{user}</strong> marcou unha asociación entre un obxecto descoñecido e "%{name}" como visible.
-  activity_user_trust_common_name: <strong>%{user}</strong> marcou o nome común en %{language} "%{name}" dun obxecto descoñecido como de confianza.
-  activity_user_trust_common_name_from_taxon: <strong>%{user}</strong> marcou o nome común en %{language} "%{name}" de "%{taxon}" como de confianza.
-  activity_user_trust_unknown_name: <strong>%{user}</strong> confiou nun nome común descoñecido dun taxon descoñecido.
-  activity_user_trust_unknown_name_to_taxon: <strong>%{user}</strong> confiou nun nome común de "%{taxon}".
-  activity_user_trusted_data_object: <strong>%{user}</strong> marcou "%{object_name}" como de confianza.
-  activity_user_trusted_named_association: <strong>%{user}</strong> marcou unha asociación entre "%{object_name}" e "%{name}" como de confianza.
-  activity_user_trusted_named_association_on_older_data_object: <strong>%{user}</strong> marcou unha asociación entre "%{object_name}" e "%{name}" como de confianza.
-  activity_user_trusted_older_data_object: <strong>%{user}</strong> marcou "%{object_name}" como de confianza.
-  activity_user_trusted_unknown_object: <strong>%{user}</strong> marcou un obxecto descoñecido como de confianza.
-  activity_user_trusted_unknown_object_association: <strong>%{user}</strong> marcou unha asociación entre un obxecto descoñecido e "%{name}" como de confianza.
-  activity_user_unreview_common_name: <strong>%{user}</strong> marcou o nome común en %{language} "%{name}" dun obxecto descoñecido como non revisado.
-  activity_user_unreview_common_name_from_taxon: <strong>%{user}</strong> marcou o nome común en %{language} "%{name}" de "%{taxon}" como non revisado.
-  activity_user_unreview_unknown_name: <strong>%{user}</strong> deixou sen revisión un nome común descoñecido dun taxon descoñecido.
-  activity_user_unreview_unknown_name_to_taxon: <strong>%{user}</strong> deixou sen revisión un nome común de "%{taxon}".
-  activity_user_unreviewed_data_object: <strong>%{user}</strong> marcou "%{object_name}" como non revisado.
-  activity_user_unreviewed_named_association: <strong>%{user}</strong> marcou unha asociación entre "%{object_name}" e "%{name}" como non revisada.
-  activity_user_unreviewed_named_association_on_older_data_object: <strong>%{user}</strong> marcou unha asociación entre "%{object_name}" e "%{name}" como non revisada.
-  activity_user_unreviewed_older_data_object: <strong>%{user}</strong> marcou "%{object_name}" como non revisado.
-  activity_user_unreviewed_unknown_object: <strong>%{user}</strong> marcou un obxecto descoñecido como non revisado.
-  activity_user_unreviewed_unknown_object_association: <strong>%{user}</strong> marcou unha asociación entre un obxecto descoñecido e "%{name}" como non revisada.
-  activity_user_untrust_common_name: <strong>%{user}</strong> marcou o nome común en %{language} "%{name}" dun obxecto descoñecido como de non confianza.
-  activity_user_untrust_common_name_from_taxon: <strong>%{user}</strong> marcou o nome común en %{language} "%{name}" de "%{taxon}" como de non confianza.
-  activity_user_untrust_unknown_name: <strong>%{user}</strong> deixou de confiar nun nome común descoñecido dun taxon descoñecido.
-  activity_user_untrust_unknown_name_to_taxon: <strong>%{user}</strong> deixou de confiar nun nome común de "%{taxon}".
-  activity_user_untrusted_data_object: <strong>%{user}</strong> marcou "%{object_name}" como de non confianza.
-  activity_user_untrusted_named_association: <strong>%{user}</strong> marcou unha asociación entre "%{object_name}" e "%{name}" como de non confianza.
-  activity_user_untrusted_named_association_on_older_data_object: <strong>%{user}</strong> marcou unha asociación entre "%{object_name}" e "%{name}" como de non confianza.
-  activity_user_untrusted_older_data_object: <strong>%{user}</strong> marcou "%{object_name}" como de non confianza.
-  activity_user_untrusted_unknown_object: <strong>%{user}</strong> marcou un obxecto descoñecido como de non confianza.
-  activity_user_untrusted_unknown_object_association: <strong>%{user}</strong> marcou unha asociación entre un obxecto descoñecido e "%{name}" como de non confianza.
   activity_user_updated_text: <strong>%{user}</strong> actualizou texto de "%{object_name}" en "%{taxon_concept}".
   add: Engadir
   add_a_collection_to_a_community: Engadir "%{collection}" a unha comunidade
@@ -493,6 +419,9 @@ gl:
   and: e
   and_between_form_items: e
   annotation_cabs_colon: "Anotación:"
+  anonymous_user_full_name: Usuario anónimo
+  anonymous_user_given_name: Anónimo
+  anonymous_user_tag_line: Non accedeu ao sistema
   any_integer: calquera número enteiro
   api_docs_collections_description: Dado o identificador dunha colección, esta API devolverá todos os metadatos sobre a colección e os elementos que contén. A lista de elementos pódese filtrar por tipo de elemeto e ordenada baixo os atributos anteriores.
   application_version_advisory_information: Versión da aplicación
@@ -979,7 +908,7 @@ gl:
   copyright: "DEREITOS DE AUTOR:"
   correct_donation_message: Se esta información non é correcta, %{go_back_link} para facer cambios
   could_not_find_collection_error: Sentímolo, non se puido atopar a colección.
-  could_not_find_user: Non se puido atopar un membro para o usuario
+  could_not_find_user: Non es membro desta comunidade.
   count: Reconto
   count_results_for_search_term: 
     one: "%{count} resultado para <em>%{search_term}</em>"
@@ -1384,6 +1313,7 @@ gl:
       harvest_event: 
         began_at: Iniciado
         completed_at: Completado
+        first_published_at: Primeira publicación
         publish_more: Marca os rexistros de colleita para a publicación. O contido non se fará público inmediatamente.
         published_at: Publicado
         published_status: Estado
@@ -1444,11 +1374,9 @@ gl:
         curator_scope_more: "Indica o alcance da túa experiencia. Por exemplo: \"Roedores de Borneo\", \"Interaccións tritróficas\" ou \"Problemas de conservación do peixe\". Isto non limitará as túas capacidades de conservación, pero informará á comunidade da EOL."
         email_reports_frequency_hours: Con que frecuencia queres recibir alertas por correo electrónico sobre a actividade das túas contribucións?
         entered_password: Contrasinal <small>(entre 4 e 16 caracteres)</small>
-        generate_api_key: Solicitando unha clave API
+        generate_api_key: Solicitar unha clave API
         generate_api_key_more: Se estás interesado en utilizar a API da EOL, podes xerar unha clave API para identificar a túa aplicación. Podes ler máis información sobre <a href="%{api_docs_url}">engadir claves ás chamadas á API</a>.
         logo: Cargar unha nova foto
-        mailing_list: Quero recibir boletíns informativos por correo electrónico?
-        mailing_list_yes: Si
         new_password: Novo contrasinal <small>(entre 4 e 16 caracteres)</small>
         new_password_confirmation: Novo contrasinal <small>(para confirmar)</small>
         requested_curator_level: A túa solicitude de converterte en %{curator_level_with_indefinite_article} está pendente.
@@ -1486,9 +1414,6 @@ gl:
         create: Engadir o artigo
         create_text: Engadir o artigo
         update: Gardar o artigo
-      eol_statistic: 
-        download_csv: Descargar como CSV
-      filter_sort: Filtrar e ordenar
       harvest_event: 
         publish: Publicar
       hierarchy: 
@@ -1767,6 +1692,7 @@ gl:
   message_colon: "Mensaxe:"
   meta_description_colon: "Descrición meta:"
   meta_keywords_colon: "Palabras clave meta:"
+  meta_title_site_name: Enciclopedia da vida
   method: Método
   method_to_get_metadata_about_the_hierarchy: a partir do identificador dunha xerarquía, este método devolve os metadatos acerca da xerarquía e lista os taxons raíz
   methods: Métodos
@@ -1863,7 +1789,7 @@ gl:
   newsfeed_help_for_collection: A fonte de novas desta colección da EOL recolle as actualizacións asociadas aos elementos que pertencen a ela, incluídas as actividades do seu propietario e os comentarios dos outros usuarios da EOL.
   newsfeed_help_for_community: A fonte de novas desta comunidade da EOL recolle as actualizacións asociadas aos elementos que pertencen ás coleccións que xestiona, incluídas as actividades dos seus membros e os comentarios dos outros usuarios da EOL.
   newsfeed_help_for_focus_list: A fonte de novas do centro de atención recolle as actualizacións asociadas aos elementos que pertencen á lista primaria desta comunidade da EOL, incluídas as actividades dos seus administradores e os comentarios dos outros usuarios da EOL.
-  newsfeed_help_for_profile: A fonte de novas do perfil na EOL contén as mensaxes deixadas ao propietario polos outros membros e os convites a comunidades da EOL, ademais de recoller as actualizacións asociadas aos elementos que pertencen á lista de vixilancia do propietario.
+  newsfeed_help_for_profile: A fonte de novas do perfil na EOL contén os comentarios deixados ao propietario polos outros membros e os convites a comunidades da EOL, ademais de recoller as actualizacións asociadas aos elementos que pertencen á lista de vixilancia do propietario.
   newsfeed_help_for_taxon: A fonte de novas deste taxon da EOL recolle as actualizacións asociadas aos elementos mostrados nela, incluídas as accións de conservación e os comentarios dos outros usuarios da EOL.
   newsfeed_help_for_watchlist: A fonte de novas da lista de vixilancia da EOL recolle as actualizacións asociadas aos elementos presentes na lista de vixilancia do propietario, incluídas as actividades do devandito propietario.
   next: Seguinte
@@ -1951,11 +1877,13 @@ gl:
     user_message: 
       subject: Unha mensaxe da Enciclopedia da vida
     user_reset_password: 
+      message: "A Enciclopedia da vida (www.eol.org) recibiu unha solicitude para restablecer o teu contrasinal. Se non fixeches esta solicitude, ignora este correo.\n\nA seguinte ligazón ha restablecer o contrasinal:\n\n%{password_reset_url}\n\nTen en conta que a ligazón caduca despois de 24 horas. Transcorrido este tempo, terás que realizar outra solicitude de restablecemento."
       subject: Restablecer o teu contrasinal na Enciclopedia da vida
     user_updated_email_preferences: 
       message: "Esta é unha notificación automática do sistema da EOL. O usuario %{user_full_name} (%{user_profile_url}) actualizou o seu enderezo de correo electrónico ou as súas preferencias da lista de correo.\n\nPreferencias antigas:\nCorreo electrónico: %{previous_email}\nLista de correo: %{previous_mailing_list_preference}\n\nPreferencias actuais:\nCorreo electrónico: %{updated_email}\nLista de correo: %{updated_mailing_list_preference}\nActualizado o: %{updated_at}"
       subject: O usuario %{user_full_name} da EOL cambiou o seu enderezo de correo electrónico ou as súas preferencias da lista de correo
     user_verification: 
+      message: "Grazas por te rexistrares na Enciclopedia da vida. A seguinte ligazón comprobará que queres completar o teu rexistro e activará a conta:\n\n%{verification_url}\n\nUnha vez que actives a conta, recibirás unha mensaxe de confirmación por correo."
       subject: Comproba a túa solicitude dunha conta na Enciclopedia da vida
   nucleotide_sequences: Secuencias de nucleótidos
   nucleotide_sequences_ncbi_database: A base de datos <a href="%{ncbi_taxonomy_link}">NCBI Taxonomy</a> contén os nomes de todos os organismos representados nas bases de datos xenéticas con, polo menos, unha secuencia de proteínas ou nucleótidos.
@@ -2733,6 +2661,7 @@ gl:
     other: "%{count} elementos"
   total_searches: "Procuras totais:"
   translation_deleted: Borrouse a tradución
+  translation_information_header: Información sobre a tradución
   translation_saved: Gardouse a tradución
   translations_submit: Ollar a tradución
   trigger_search_term_entered_by: executar o termo de procura inserido polo usuario
@@ -2741,6 +2670,7 @@ gl:
   truncated_comment_omission_linkless: ...
   trusted: De confianza
   trusted_images: Imaxes de confianza
+  trusted_maps: Mapas de confianza
   trusted_text_objects: Artigos de confianza
   tumblr: Tumblr
   twitter: Twitter
@@ -2753,6 +2683,7 @@ gl:
   unpublished: Sen publicar
   unreviewed: Sen revisar
   unreviewed_images: Imaxes sen revisar
+  unreviewed_maps: Mapas sen revisar
   unreviewed_text_objects: Artigos sen revisar
   untrusted: Non é de confianza
   update: Actualizar
@@ -2932,6 +2863,7 @@ gl:
   view_map_source: Ollar a fonte do mapa
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Ollar unicamente as páxinas con, polo menos, unha imaxe ou un anaco de texto
   view_sound_source: Ollar a fonte do son
+  view_source: Ver o código fonte
   view_this_hierarchy: ollar esta xerarquía
   view_translation_source_link: Ollar a fonte de tradución
   view_user_activity: ollar a actividade do usuario

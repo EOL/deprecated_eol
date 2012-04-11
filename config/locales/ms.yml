@@ -235,40 +235,7 @@ ms:
   activity: Kegiatan
   activity_log_empty: Kemas kini belum disediakan.
   activity_log_empty_learn_more_link: Pelajari cara untuk menyumbang
-  activity_user_added_association: <strong>%{user}</strong> menambahkan satu kaitan pada "%{object_name}".
-  activity_user_added_collection_to_community: <strong>%{user}</strong> menambahkan himpunan "%{collection}" ke dalam komuniti "%{community}".
-  activity_user_added_common_name: <strong>%{user}</strong> menambahkan nama am "%{name}" dalam %{language} pada objek yang tidak dikenali.
-  activity_user_added_common_name_to_taxon: <strong>%{user}</strong> menambahkan nama am "%{name}" dalam %{language} pada "%{taxon}".
-  activity_user_added_community_manager: <strong>%{user}</strong> melantik %{manager} sebagai pengurus komuniti "%{community}".
-  activity_user_added_named_association: <strong>%{user}</strong> menambahkan satu kaitan antara "%{object_name}" dan "%{name}".
-  activity_user_added_unknown_association: <strong>%{user}</strong> menambahkan satu kaitan pada objek yang tidak dikenali.
-  activity_user_added_unknown_name: <strong>%{user}</strong> menambahkan nama am yang tidak dikenali pada objek yang tidak dikenali.
-  activity_user_changed_community_description: <strong>%{user}</strong> mengemas kini keterangan komuniti "%{community}".
-  activity_user_changed_community_icon: <strong>%{user}</strong> menukar logo komuniti "%{community}".
-  activity_user_changed_community_name: <strong>%{user}</strong> menukar nama komuniti "%{community}".
-  activity_user_created_community: <strong>%{user}</strong> mewujudkan komuniti "%{community}".
   activity_user_created_text: <strong>%{user}</strong> membubuh teks pada "%{object_name}" di "%{taxon_concept}".
-  activity_user_curated_an_unknown_object: <strong>%{user}</strong> mengkurasi objek yang tidak dikenali.
-  activity_user_deleted_community: <strong>%{user}</strong> menghapuskan komuniti "%{community}".
-  activity_user_hid_data_object: <strong>%{user}</strong> menandai "%{object_name}" sebagai tersorok.
-  activity_user_hid_unknown_object: <strong>%{user}</strong> menandai objek yang tidak dikenali sebagai tersorok.
-  activity_user_joined_community: <strong>%{user}</strong> menyertai komuniti "%{community}".
-  activity_user_marked_content_as_inappropriate: <strong>%{user}</strong> menandai isi kandungan sebagai tidak sesuai.
-  activity_user_modified_community: <strong>%{user}</strong> mengubah suai komuniti "%{community}".
-  activity_user_rated_data_object: <strong>%{user}</strong> menilai "%{object_name}".
-  activity_user_rated_unknown_object: <strong>%{user}</strong> menilai objek yang tidak dikenali.
-  activity_user_removed_association: <strong>%{user}</strong> memadamkan satu kaitan pada "%{object_name}".
-  activity_user_removed_named_association: <strong>%{user}</strong> memadamkan satu kaitan antara "%{object_name}" dan "%{name}".
-  activity_user_removed_unknown_association: <strong>%{user}</strong> membuang satu kaitan pada objek yang tidak dikenali.
-  activity_user_removed_unknown_name: <strong>%{user}</strong> membuang satu nama am yang tidak dikenali daripada objek yang tidak dikenali.
-  activity_user_showed_data_object: <strong>%{user}</strong> menandai "%{object_name}" sebagai boleh dilihat.
-  activity_user_showed_unknown_object: <strong>%{user}</strong> menandai objek yang tidak dikenali sebagai boleh dilihat.
-  activity_user_trusted_data_object: <strong>%{user}</strong> menandai "%{object_name}" sebagai dipercayai.
-  activity_user_trusted_unknown_object: <strong>%{user}</strong> menandai objek yang tidak dikenali sebagai dipercayai.
-  activity_user_unreviewed_data_object: <strong>%{user}</strong> menandai "%{object_name}" sebagai belum diperiksa.
-  activity_user_unreviewed_unknown_object: <strong>%{user}</strong> menandai objek yang tidak dikenali sebagai belum diperiksa.
-  activity_user_untrusted_data_object: <strong>%{user}</strong> menandai "%{object_name}" sebagai tidak dipercayai.
-  activity_user_untrusted_unknown_object: <strong>%{user}</strong> menandai objek yang tidak dikenali sebagai tidak dipercayai.
   activity_user_updated_text: <strong>%{user}</strong> mengemas kini teks "%{object_name}" pada "%{taxon_concept}".
   add: Tambahkan
   add_a_collection_to_a_community: Tambahkan "%{collection}" kepada komuniti
@@ -496,6 +463,7 @@ ms:
   click: Klik
   click_on_a_user_to_view_the_users_detailed_profile: Klik nama pengguna untuk melihat profil terperinci pengguna itu, klik nama spesies untuk melihat halaman yang mengandungi teks itu (klik butang ← pada pelayar anda untuk kembali ke sini)
   click_on_a_username_to_view_the_users_detailed_profile: Klik nama pengguna untuk melihat profil terperinci pengguna berkenaan, klik jenis data untuk melihat objek yang diulas (gunakan butang ← pada pelayar anda untuk kembali ke halaman ini), klik "sunting" untuk menyunting komen atau klik "hapuskan" untuk memadamkan komen itu dengan berkekalan.
+  click_on_an_activity_to_see_th: Klik satu kegiatan untuk melihat senarai kegiatan berkaitan yang dilakukan bersama kegiatan itu dalam jangka masa 5 minit {3-4 minit}.
   clicked_time: Masa Klik
   close_this_window_to_return_to_edit_window: TUTUP TETINGKAP INI UNTUK KEMBALI KE TETINGKAP PENYUNTINGAN
   cms_available_in_languages: "Laman ini boleh didapati dalam:"
@@ -594,6 +562,7 @@ ms:
   content_partner_agreement_cancel_edit_agreement_link: Batalkan
   content_partner_agreement_cancel_new_agreement_link: Batalkan
   content_partner_agreement_cancel_sign_agreement_link: Batalkan
+  content_partner_agreement_create_successful_notice: Anda telah bersetuju dengan terma-terma rakan kongsi kandungan. Anda boleh memberikan sumber data sekarang.
   content_partner_agreement_create_unsuccessful_error: Maaf, berlakunya ralat, nampaknya ada masalah teknikal pada perjanjian rakan kongsi kandungan. Sila cuba lagi, jika masalah masih timbul, sila maklumkan EOL.
   content_partner_agreement_signed_successful_notice: Anda telah bersetuju dengan terma-terma rakan kongsi kandungan. Anda boleh memberikan sumber data sekarang.
   content_partner_agreement_signed_unsuccessful_error: Maaf, berlakunya ralat, nampaknya ada masalah teknikal pada perjanjian rakan kongsi kandungan. Sila cuba lagi, jika masalah masih timbul, sila maklumkan EOL.
@@ -828,6 +797,7 @@ ms:
   dato_new_text_for_taxon_page_title: Berikan rencana kepada <i>%{taxon}</i>
   dato_new_text_page_description: Terima kasih kerana menyumbang kepada EOL. Rencana anda akan ditambahkan ke dalam Senarai Pantau anda supaya anda boleh mengikuti sebarang perbualan yang berkaitan dengannya serta menyemak status kurasinya.
   dato_update_user_text_error: Maaf, berlakunya ralat, rencana tidak dapat dikemaskinikan.
+  dato_update_users_text_not_owner_exception: Teks DataObject tidak dapat dikemas kini kerana pengguna semasa bukan pemiliknya
   default: Asali
   default_focus_collection_name_from_community: Tumpuan %{name}
   default_watch_collection_name: Himpunan %{username}
@@ -860,6 +830,7 @@ ms:
   donation_sponsorship_fellowships_title: Persaudaraan
   donation_sponsorship_infrastructure_description: Untuk meletakkan kuasa EOL di tangan insan-insan di seluruh dunia, sumbangan yang kecil mahupun besar dialu-alukan untuk menyokong perbelanjaraan prasarana dan operasi teras inisiatif ini.
   donation_sponsorship_infrastructure_title: Prasarana Teras
+  donation_sponsorship_preamble: "Jika anda ingin mengetahui lebih lanjut tentang program-program tertentu yang disediakan untuk penajaan, atau ingin membuat sumbangan secara berulang-ulang, sila hubungi Urusetia Encyclopedia of Life Secretariat melalui <a href=\"mailto:%{email_address}\">e-mel</a> (dalam bahasa Inggeris). Peluang untuk sumbangan bersasaran termasuk:"
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Jangan tunjukkan tarikh berdaftar yang tidak dikenali (pengguna V1, semuanya sebelum 5 Jan 2009)
   dublin_core: Dublin Core
   duplicate_items_were_ignored: Perkara bertindih diabaikan.
@@ -972,6 +943,8 @@ ms:
   frequency_never: Jangan
   frequency_weekly: Mingguan
   from_community: daripada komuniti %{community}.
+  gbif_occurrence_disclaimer: Peta ini berasaskan rekod kewujudan yang terdapat melalui GBIF dan tidak semestinya mewakili seluruh taburan takson
+  gbif_occurrence_learn_more_link: Ketahui lebih lanjut tentang peta kewujudan GBIF.
   general_site_admin: pentadbir tapak am
   get_help_choosing_a_subchapter: Dapatkan bantuan ketika memilih bab kecil
   get_more_tasks: dapatkan lebih banyak tugas
@@ -1119,8 +1092,6 @@ ms:
         generate_api_key: Meminta kunci API
         generate_api_key_more: Jika anda berminat untuk menggunakan API EOL, anda boleh menjana kunci API untuk mengecamkan permohonan anda. Ketahui lebih lanjut tentang <a href="%{api_docs_url}">penambahan kunci pada panggilan API anda</a>.
         logo: Muat naik gambar baru
-        mailing_list: Nak terima berita melalui e-mel?
-        mailing_list_yes: Ya
         new_password: Kata laluan baru <small>(4 – 16 aksara)</small>
         new_password_confirmation: Kata laluan baru <small>(untuk pengesahan)</small>
         requested_curator_level: Permohonan anda untuk menjadi %{curator_level_with_indefinite_article} sedang menunggu kelulusan.
@@ -1158,9 +1129,6 @@ ms:
         create: Buat rencana
         create_text: Buat rencana
         update: Simpan rencana
-      eol_statistic: 
-        download_csv: Muat turun dalam bentuk CSV
-      filter_sort: Tapis dan isih
       harvest_event: 
         publish: Terbitkan
       hierarchy: 
@@ -1346,6 +1314,7 @@ ms:
   make_user_an_editor_title: Benarkan %{user} untuk menguruskan himpunan-himpunan yang berikut
   managed_by: Diuruskan oleh
   managed_collections_with_count: "%{count} Himpunan Terurus"
+  manager_endorse_collections_suggestion: Untuk menampilkan satu himpunan pada halaman ini, tambahkan himpunan pilihan itu ke dalam tumpuan komuniti.
   manager_parens: (pengurus)
   map_alt_text: Peta %{vetted_status} ini mengenai %{taxon_name}
   map_from: peta dari
@@ -1457,9 +1426,15 @@ ms:
   notifier: 
     activity_log_empty: Tiada tindakan terbaru oleh kurator.
     activity_on_content_partner_content: 
+      message: "Ini ialah e-mel hantaran automatik daripada Encyclopedia of Life (EOL) yang berbentuk intisari komen-komen dan tindakan-tindakan kurator yang terkini pada kandungan yang disediakan kepada EOL oleh rakan kongsi kandungan %{partner_full_name} (%{partner_profile_url}). Anda menerima intisari ini kerana anda disenaraikan sebagai kenalan %{partner_full_name}.\n\nTindakan kurator:\n%{curator_activity_log}\n\nKomen pada objek data:\n%{data_object_comments}\n\nKomen pada halaman-halaman yang dikaitkan dengan data anda:\n%{page_comments}"
       subject: Ringkasan kegiatan terkini pada kandungan yang diberikan kepada Encyclopedia of Life oleh rakan kongsi %{partner_full_name}
     activity_on_user_content: 
+      message: "Ini ialah e-mel hantaran automatik daripada Encyclopedia of Life (EOL) yang berbentuk intisari komen-komen dan tindakan-tindakan kurator yang terkini pada kandungan yang disediakan kepada EOL oleh anda dengan nama pengguna %{members_username}.\n\nTindakan kurator:\n%{curator_activity_log}\n\nKomen pada objek data:\n%{data_object_comments}\n\nKomen pada halaman-halaman yang dikaitkan dengan data anda:\n%{page_comments}"
       subject: Ringkasan kegiatan terbaru pada kandungan yang disumbangkan anda kepada Encyclopedia of Life
+    activity_user_marked_data_object_as_inappropriate_on_date: "%{users_name} (%{users_url}) yang ditandai sebagai tidak sesuai:\n%{object_name} (%{object_url})\n%{action_date}."
+    activity_user_marked_data_object_as_trusted_for_taxon_on_date: "%{users_name} (%{users_url}) yang ditandai sebagai dipercayai:\n%{object_name} (%{object_url}) untuk %{taxon_name} (%{taxon_url})\n%{action_date}."
+    activity_user_marked_data_object_as_untrusted_for_taxon_on_date: "%{users_name} (%{users_url}) yang ditandai sebagai tidak dipercayai:\n%{object_name} (%{object_url}) untuk %{taxon_name} (%{taxon_url})\n%{action_date}."
+    activity_user_marked_data_object_as_untrusted_on_date: "%{users_name} (%{users_url}) yang ditandai sebagai tidak dipercayai:\n%{object_name} (%{object_url})\n%{action_date}."
     comments_empty: Tiada komen terbaru.
     contact_us_auto_response: 
       message: "Terima kasih kerana menghubungi pihak projek Encyclopedia of Life. Komen-komen anda telah dihantar kepada kumpulan yang berkenaan.\n\nKami menghargai maklum balas anda."
@@ -1492,14 +1467,17 @@ ms:
     user_activated: 
       message: "Selamat datang ke Encyclopedia of Life (EOL) dan terima kasih kerana mendaftar! Sila ambil perhatian bahawa nama pengguna anda ialah %{username} dan URL profil anda ialah %{profile_url}. Anda boleh log masuk ke dalam akaun anda di http://www.eol.org/login.\n\nUntuk mengetahui lebih lanjut tentang penggunaan EOL, termasuklah cara-cara mencipta Himpunan EOL, menyertai Komuniti EOL dan menyumbangkan kandungan, sila kunjungi halaman-halaman bantuan kami di http://www.eol.org/help."
       subject: Akaun Encyclopedia of Life anda telah diaktifkan
+    user_commented_on_something_date_body: "%{users_name} (%{users_url}) mengulas:\n%{commented_on_name} (%{commented_on_url})\n%{comment_date}:\n%{comment_body}"
     user_message: 
       subject: Pesanan daripada Encyclopedia of Life
     user_reset_password: 
+      message: "Encyclopedia of Life (www.eol.org) telah menerima permohonan untuk mengeset semula kata laluan anda. Sekiranya bukan anda yang membuat permintaan ini, sila abaikan e-mel ini.\n\nPautan yang berikut akan memberi anda peluang sekali sahaja untuk mengeset semula kata laluan anda:\n\n%{password_reset_url}\n\nIkut pautan ini (klik sahaja pautan tersebut, atau salin dan tampalkan seluruh pautan kepada ruangan alamat pelayar Web anda dan muatkannya) untuk mengakses laman ini untuk membuat kata laluan baru. Sila ambil perhatian: jika pautan itu luput, anda akan diminta untuk menaipkan alamat e-mel anda sekali lagi untuk menerima pesanan e-mel dan pautan yang baru untuk mengeset semula kata laluan."
       subject: Set semua kata laluan akaun Encyclopedia of Life anda
     user_updated_email_preferences: 
       message: "Ini merupakan pemberitahuan sistem EOL yang dihasilkan secara automatik. Pengguna %{user_full_name} (%{user_profile_url}) mengemaskinikan alamat e-mel atau keutamaan senarai melnya.\n\nKeutamaan terdahulu:\nE-mel: %{previous_email}\nKeutamaan senarai mel: %{previous_mailing_list_preference}\n\nKeutamaan terkini:\nE-mel: %{updated_email}\nKeutamaan senarai mel: %{updated_mailing_list_preference}\nDikemaskinikan pada: %{updated_at}"
       subject: Pengguna EOL, %{user_full_name} menukar alamat e-mel atau keutamaan senarai melnya
     user_verification: 
+      message: "Terima kasih kerana berdaftar dengan Encyclopedia of Life. Pautan yang berikut akan mengesahkan bahawa anda berhasrat untuk melengkapkan pendaftaran anda:\n\n%{verification_url}\n\nIkut pautan ini (klik sahaja pautan tersebut, atau salin dan tampalkan seluruh pautan kepada ruangan alamat pelayar Web anda dan muatkannya) untuk mengaktifkan akaun anda. Sebaik sahaja akaun anda diaktifkan, anda akan menerima satu pesanan e-mel pengesahan."
       subject: Sila sahkan permohonan anda untuk akaun Encyclopedia of Life account
   nucleotide_sequences: Jujukan Nukleotida
   nucleotide_sequences_ncbi_database: Pangkalan data <a href="%{ncbi_taxonomy_link}">NCBI Taxonomy</a> mengandungi nama-nama bagi semua hidupan yang diwakili dalam pangkalan data genetik dengan sekurang-kurangnya satu jujukan protein atau nukleotida.
@@ -1685,6 +1663,7 @@ ms:
   selected_language_advisory_information: Inilah bahasa yang dipilih sekarang.
   send: Hantar
   send_email_colon: "Hantar e-mel:"
+  sent_invitations_to_users: Jemputan telah dihantar ke %{users}.
   server_ip_address: Alamat IP Pelayan
   sessions: 
     new: 
@@ -1830,6 +1809,7 @@ ms:
   title: Tajuk
   to_process_your_donation_please_proceed: Untuk memproses dermaan anda, sila teruskan
   toc: Jadual isi kandungan
+  toc_no_longer_available: "Jadual Isi Kandungan: sudah tiada lagi"
   topic: Topik
   topic_area: Kawasan Topik
   total_items_with_count: 
@@ -1876,7 +1856,10 @@ ms:
   user_activation_failed_user_not_found_error: Maaf, berlakunya ralat, akaun yang anda cuba sahkan itu tidak dijumpai. Sila pastikan pautan pengesahan yang anda gunakan itu sepadan dengan yang diberikan dalam e-mel pengaktifan yang anda terima setelah mendaftar.
   user_activation_successful_notice: Selamat datang dan terima kasih kerana menyertai pasukan Encyclopedia Of Life. Akaun anda dengan nama pengguna <em>%{username}</em> kini aktif; sila log masuk.
   user_activity_page_title: Kegiatan Pengguna
+  user_activity_stats_articles_added: Rencana baru
   user_activity_stats_header: Kegiatan
+  user_activity_stats_objects_curated: Objek yang dikurasi
+  user_activity_stats_taxa_curated: Takson yang dikurasi
   user_already_active_notice: Akaun anda sudah aktif, sila log masuk.
   user_comment: Ulasan Pengguna
   user_commented_on_something_colon: "<strong>%{user}</strong> mengulas %{what}:"

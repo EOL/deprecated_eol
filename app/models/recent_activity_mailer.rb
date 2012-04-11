@@ -17,9 +17,11 @@ class RecentActivityMailer < ActionMailer::Base
   end
 
   def set_locale(user)
-    I18n.locale = User.find(user,
+    user_id = (user.class == User) ? user.id : user
+    locale_iso_code = User.find(user,
                             :select => "users.id, users.email, languages.id, languages.iso_639_1",
-                            :joins => "JOIN languages ON (users.language_id = languages.id)").language_abbr
+                            :joins => "JOIN languages ON (users.language_id = languages.id)").language_abbr rescue APPLICATION_DEFAULT_LANGUAGE_ISO
+    I18n.locale = locale_iso_code
   end
 
 end

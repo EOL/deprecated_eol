@@ -594,6 +594,30 @@ form div {
       font-weight: bold;
       text-transform: uppercase;
       color: #828d33; }
+    .main_container .heading.subnav ul {
+      overflow: hidden;
+      font-weight: bold;
+      float: right;
+      direction: ltr; }
+      .main_container .heading.subnav ul li {
+        direction: rtl;
+        float: right;
+        margin: 0 0 0 10px;
+        padding: 0; }
+        .main_container .heading.subnav ul li.active a {
+          background: white; }
+        .main_container .heading.subnav ul li.active a, .main_container .heading.subnav ul li a:hover {
+          border: 1px solid #828d33;
+          color: #394651; }
+        .main_container .heading.subnav ul li a {
+          padding: 5px;
+          display: block;
+          text-decoration: none;
+          color: #828d33;
+          background: #f5f7e7;
+          border: 1px solid #cfd5a9; }
+    .main_container .heading.subnav form {
+      padding-top: 5px; }
 
 form.comment {
   padding: 0 0 0 20px;
@@ -735,7 +759,7 @@ p.status {
   .copy dl dd {
     margin: 0 0 10px 20px; }
 .copy form dl {
-  margin-left: 0; }
+  margin-right: 0; }
   .copy form dl dd {
     margin: 0 0 10px 0; }
 .copy ul, .copy ol {
@@ -1176,6 +1200,26 @@ body > #header {
       left: 0;
       top: 32px;
       z-index: 1; }
+      body > #header .section .session ul {
+        float: left;
+        overflow: hidden;
+        margin-right: 1px;
+        font-weight: bold;
+        font-size: 0.9em; }
+        body > #header .section .session ul li a {
+          display: block;
+          height: 25px;
+          line-height: 25px;
+          text-decoration: none;
+          background: url("/images/v2/icon_header_messages.png") 18px 45% no-repeat #566572;
+          padding: 0 24px 0 5px; }
+          body > #header .section .session ul li a:hover {
+            background-color: #667d91; }
+        body > #header .section .session ul li + li {
+          margin-top: 1px; }
+          body > #header .section .session ul li + li a {
+            background-image: url("/images/v2/icon_header_notifications.png");
+            background-position: 22px 50%; }
       body > #header .section .session img {
         float: left;
         margin: 0 10px 0 0;
@@ -1786,9 +1830,6 @@ body > #header {
         #profile_info .section.half dl.activity dt {
           float: right; }
 
-#profile_curator_info fieldset label {
-  font-size: 16px; }
-
 #profile_curator_info,
 #profile_content_partner {
   width: 640px; }
@@ -1826,6 +1867,26 @@ body > #header {
     #profile_content_partner fieldset input[type="submit"] {
       padding: 7px 10px;
       font-size: 1em; }
+
+#profile_curator_info fieldset label {
+  font-size: 1.2em; }
+
+#profile_notifications {
+  width: 680px; }
+  #profile_notifications .copy form fieldset {
+    padding: 20px; }
+    #profile_notifications .copy form fieldset dt {
+      width: 360px;
+      clear: both;
+      float: right; }
+      #profile_notifications .copy form fieldset dt label {
+        font-weight: normal; }
+    #profile_notifications .copy form fieldset dd {
+      width: 200px;
+      float: left;
+      text-align: left; }
+    #profile_notifications .copy form fieldset.actions {
+      border-top: 1px solid #cad3db; }
 
 #profile_content_connections {
   padding: 40px; }
@@ -3232,6 +3293,7 @@ ul.content_partner_contacts li {
   #profile_edit fieldset.account select {
     margin-right: 10px; }
   #profile_edit fieldset.requests {
+    float: left;
     width: 218px;
     margin: 0;
     padding: 0; }

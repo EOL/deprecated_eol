@@ -117,6 +117,7 @@ form
       ul
         overflow: hidden
         font-weight: bold
+        float: left
         li
           float: left
           margin: 0 10px 0 0
@@ -133,7 +134,8 @@ form
             color: #828d33
             background: #f5f7e7
             border: 1px solid #cfd5a9
-
+      form
+        padding-top: 5px
 form.comment
   padding: 0 20px
   margin: 0 0 35px 0
@@ -1208,13 +1210,7 @@ body
         dt
           float: left
 
-#profile_curator_info
-  fieldset
-    label
-      font-size: 16px
-
 #profile_curator_info,
-#profile_notifications,
 #profile_content_partner
   width: 640px
   fieldset
@@ -1233,6 +1229,30 @@ body
     input[type="submit"]
       padding: 7px 10px
       font-size: 1em
+
+#profile_curator_info
+  fieldset
+    label
+      font-size: 1.2em
+
+#profile_notifications
+  width: 680px
+  .copy
+    form
+      fieldset
+        padding: 20px
+        dt
+          width: 360px
+          clear: both
+          float: left
+          label
+            font-weight: normal
+        dd
+          width: 200px
+          float: right
+          text-align: right
+        &.actions
+          border-top: 1px solid #CAD3DB
 
 #profile_content_connections
   padding: 40px

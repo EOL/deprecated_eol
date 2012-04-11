@@ -1099,19 +1099,3 @@ body#prelaunch #footer ul.social_media {
 
 .highlight {
   background-color: #f3f7fa; }
-
-#profile_notifications .copy form dt {
-  width: 360px;
-  clear: both;
-  float: left; }
-  #profile_notifications .copy form dt label {
-    font-weight: normal; }
-#profile_notifications .copy form dd {
-  width: 200px;
-  float: right; }
-
-span#tag_line span#notifications {
-  font-weight: bold;
-  color: #c1d72e; }
-  span#tag_line span#notifications a {
-    color: #d9f427; }

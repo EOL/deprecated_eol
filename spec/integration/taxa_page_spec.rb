@@ -32,8 +32,11 @@ describe 'Taxa page' do
       body.should have_tag('#page_heading h1', /\n.*#{@section}/i)
     end
     it 'should show the preferred common name' do
-      body.should have_tag('#page_heading h2', /^#{@testy[:common_name]}/)
+      body.should have_tag('#page_heading h2', /^#{@testy[:common_name]}/i)
     end
+    
+    it 'should show the preferred common name titlized properly when site language is English'
+    
     # it 'should show a link to common names with count' do
     #   body.should have_tag('#page_heading h2 small', /^#{@testy[:taxon_concept].common_names.count}/)
     # end

@@ -37,8 +37,8 @@
     .article.community
       %h3
         = I18n.t(:community_activity)
-        %small
-          = link_to I18n.t(:see_more), recent_activities_path, :method => :index
+        -# %small
+        -#   = link_to I18n.t(:see_more), recent_activities_path, :method => :index
       - cache(:action => 'index', :action_suffix => "activity_#{current_language.iso_639_1}") do
         = render :partial => 'activity_logs/index', :locals => { :log => EOL::ActivityLog.global($ACTIVITIES_ON_HOME_PAGE), :hide_pagination => true, :truncate_comments => true, :editable => false}
     - unless logged_in?

@@ -164,7 +164,7 @@ class UsersController < ApplicationController
     if open_auth.authorized?
       session["oauth_token_#{open_auth.provider}_#{open_auth.guid}"] = open_auth.authentication_attributes[:token]
       session["oauth_secret_#{open_auth.provider}_#{open_auth.guid}"] = open_auth.authentication_attributes[:secret]
-      redirect_to new_user_open_authentication_url(current_user, :open_authentication => {:guid => open_auth.guid, 
+      redirect_to new_user_open_authentication_url(current_user, :open_authentication => {:guid => open_auth.guid,
                                                                                      :provider => open_auth.provider})
     else
       flash[:error] = I18n.t(:not_authorized, :scope => [:users, :open_authentications, :errors, oauth_provider.to_sym])
@@ -218,8 +218,8 @@ class UsersController < ApplicationController
   def terms_agreement
     @user = User.find(params[:id])
     raise EOL::Exceptions::SecurityViolation,
-      "User with ID=#{current_user.id} does not have permission to access terms agreement for User with ID=#{@user.id}"
-      unless current_user.can_update?(@user)
+      "User with ID=#{current_user.id} does not have permission to access terms agreement"\
+      " for User with ID=#{@user.id}" unless current_user.can_update?(@user)
     if request.post? && params[:commit_agreed]
       @user.agreed_with_terms = true
       @user.save(false) # saving without validation to avoid issues with invalid legacy users

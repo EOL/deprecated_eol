@@ -30,6 +30,7 @@ class SessionsController < ApplicationController
         redirect_back_or_default(user_newsfeed_path(current_user))
       end
     else # authentication unsuccessful
+      # On failure user is actually an Array
       if user.blank? && User.active_on_master?(params[:session][:username_or_email])
         flash[:notice] = I18n.t(:account_registered_but_not_ready_try_later)
       else

@@ -32,7 +32,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   has_many :users_user_identities
   has_many :user_identities, :through => :users_user_identities
   has_many :worklist_ignored_data_objects
-  has_many :open_authentications
+  has_many :open_authentications, :dependent => :destroy
 
   has_many :content_partners
   has_one :user_info
@@ -67,7 +67,8 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   validates_confirmation_of :entered_password, :if => :password_validation_required?
 
-  validates_format_of :email, :with => @email_format_re, :if => :email_validation_required?
+  validates_format_of :email, :with => @email_format_re
+  validates_confirmation_of :email, :if => :email_confirmation_required?
 
   validates_acceptance_of :agreed_with_terms, :accept => true
 
@@ -87,7 +88,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   index_with_solr :keywords => [:username, :full_name]
 
-  attr_accessor :entered_password, :entered_password_confirmation, :curator_request
+  attr_accessor :entered_password, :entered_password_confirmation, :email_confirmation, :curator_request
 
   def self.sort_by_name(users)
     users.sort_by do |u|
@@ -833,9 +834,8 @@ private
     end
   end
 
-  def email_validation_required?
-    # TODO: have they requested email notifications?
-    curator_attributes_required? || eol_authentication?
+  def email_confirmation_required?
+    self.new_record? # TODO: require email confirmation if user changes their email on edit
   end
 
   # validation condition for required curator attributes

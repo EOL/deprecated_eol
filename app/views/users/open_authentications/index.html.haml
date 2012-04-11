@@ -1,8 +1,19 @@
-- $ENABLED_SOCIAL_PLUGINS.each do |open_authentication_provider|
-  - if open_authentication_providers.include?(open_authentication_provider.to_s)
-    - # already signed up
-    = image_tag image_path("v2/oauth_signup_#{open_authentication_provider}.gif"), :title => "test"
-  - else
-    - form_for [@user, @user.open_authentications.build(:provider => open_authentication_provider)], :html => { :id => "new_open_authentication_#{open_authentication_provider}" } do |f|
-      = f.hidden_field :provider
-      = image_submit_tag image_path("v2/oauth_signup_#{open_authentication_provider}.gif"), :title => "test"
+#content
+  #profile_open_authentications.site_column
+    .copy
+      %ul
+        - $ENABLED_SOCIAL_PLUGINS.sort_by{|provider_sym| provider_sym.to_s}.each do |oauth_provider|
+          %li{:class => oauth_provider}
+            = I18n.t(oauth_provider, :scope => [:users, :open_authentications])
+            - if connected_oauth_provider = @user.open_authentications.select{|oa| oa.provider == oauth_provider.to_s}.first
+              %small
+                = I18n.t('helpers.label.open_authentication.connected')
+                - unless connected_oauth_provider.verified_at.nil?
+                  = t('.last_verified', :time_passed => time_ago_in_words(connected_oauth_provider.verified_at))
+            - else
+              - form_for [@user, @user.open_authentications.build(:provider => oauth_provider)], :html => { :id => "new_open_authentication_#{oauth_provider}" } do |f|
+                = f.hidden_field :provider
+                %fieldset.actions
+                  = f.submit I18n.t('helpers.label.open_authentication.connect')
+
+      = link_to t('.return_link'), edit_user_url(@user)

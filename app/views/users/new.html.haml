@@ -27,10 +27,14 @@
             = f.label :family_name
           %dd
             = f.text_field :family_name
-        %dt{:class => @user.eol_authentication? ? 'required' : nil}
+        %dt.required
           = f.label :email
         %dd
-          = f.text_field :email, { :maxlength => 100 }
+          = f.text_field :email
+        %dt.required
+          = f.label :email_confirmation
+        %dd
+          = f.text_field :email_confirmation
         - if @user.eol_authentication?
           %dt{:class => @user.eol_authentication? ? 'required' : nil}
             = f.label :entered_password

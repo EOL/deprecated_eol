@@ -21,9 +21,22 @@ describe UsersController do
       response.rendered[:template].should_not == 'users/new.html.haml'
       response.redirected_to.should == @user
     end
+
+    it 'should be extended when registration is with open authentication' do
+      false
+    end
   end
 
   describe 'POST create' do
+    it 'should be extended when registration is with open authentication' do
+      false
+    end
+    it "should redirect to authorize URI for new open authentications" do
+      false
+    end
+    it "shouldn't create user if open authentication account already connected to a user" do
+      false
+    end
     it 'should rerender new on validation errors'
     it 'should redirect on success'
     it 'should send verify email notification'

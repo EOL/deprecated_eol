@@ -278,6 +278,15 @@ en:
         descriptive_label: "Descriptive label"
         label: "Label"
         request_publish: "Request publish"
+      open_authentication:
+        created_at: "Created"
+        guid: "GUID"
+        provider: "Third-party provider"
+        secret: "Secret"
+        token: "Token"
+        updated_at: "Last updated"
+        user_id: "User ID"
+        verified_at: "Last verified"
       name:
         string: "Name"
       resource:
@@ -312,6 +321,7 @@ en:
         curator_level: "Curator level"
         curator_scope: "Curation scope"
         email: "Email address"
+        email_confirmation: "Email address again <small>(to confirm)</small>"
         entered_password: "Password"
         entered_password_confirmation: "Password again <small>(to confirm)</small>"
         family_name: "Last name"
@@ -378,6 +388,9 @@ en:
           attributes:
             publish:
               inclusion: "is only allowed for the latest harvest event and only if that event is not already published"
+        open_authentications:
+          guid_provider_must_be_unique: "the third-party account is already connected with an EOL account"
+          provider_user_id_must_be_unique: "only one account from each third-party provider can be connected to an EOL account"
         resource:
           attributes:
             accesspoint_url:
@@ -527,6 +540,9 @@ en:
         complete_more: "A curated hierarchy assumes that every entry is intended to be unique, i.e. matching name strings will be treated as homonyms. <strong>WARNING: Do not change this attribute unless you are certain of the status of homonyms in the hierarchy, doing so could jeopardize the integrity of the data.</strong>"
         request_publish: "Publish requested"
         request_publish_more: "Indicates whether there is a pending request to promote this hierarchy to become one of the primary browsable hierarchies on EOL."
+      open_authentication:
+        connected: Connected
+        connect: Add
       resource:
         administration_settings: "Administration settings <small>(only visible to EOL administrators)</small>"
         accesspoint_url: "Dataset URL <small>(XML, XML.GZIP or XML.GZ only)</small>"
@@ -584,6 +600,9 @@ en:
         mailing_list_yes: "Yes"
         new_password: "New password <small>(4 - 16 characters)</small>"
         new_password_confirmation: "New password <small>(to confirm)</small>"
+        open_authentications: "Connected accounts"
+        open_authentications_more: "Manage other third-party accounts that you can use to sign in to EOL. <a href=\"%{open_authentications_url}\">Edit connected accounts</a>."
+        open_authentications_connected_accounts: "Your connected accounts"
         requested_curator_level: "Your request to become %{curator_level_with_indefinite_article} is pending."
         requested_curator_level_id_more: "Choose <em>Assistant Curator</em> if you do not yet have any credentials.  Choose <em>Full Curator</em> if you are a professional scientist or graduate student with credentials.  Choose <em>Master Curator</em> if you are an experienced EOL curator and want to take on more responsibilities."
         tag_line: 'Tagline or title <small>example: "Bird enthusiast"</small>'
@@ -1104,6 +1123,12 @@ en:
         meta_keywords: ""
         meta_title: "%{user_full_name} Content Partners"
         tweet_text: "%{user_full_name} content partners"
+    edit:
+      form_tip_account: "Username, email address and preferred language are required %{required_icon}. Only enter a new password if you'd like to change your existing one otherwise leave new password blank."
+      form_tip_account_oauth: "Email address and preferred language are required %{required_icon} for all users."
+      form_tip_profile: "Items marked as required %{required_icon} are optional for general users but required for curators."
+      form_tip_profile_oauth: "First name is required, other items marked as required %{required_icon} are optional for general users but required for curators."
+      form_tip_curation: "Credentials and curation scope are optional for Assistant Curators but required %{required_icon} for Full and Master Curators"
     new:
       create_user_header: "Create a new <abbr title=\"Encyclopedia of Life\">EOL</abbr> account"
       create_user_header_facebook: "Confirm your Facebook details and sign up"
@@ -1125,20 +1150,28 @@ en:
       errors:
         authorize_uri_missing: "Sorry, an error occurred, we are unable to initiate authentication at this time."
         authorized_user_not_found: "Sorry, we couldn't find your EOL user account."
-        not_authorized_to_add_authentication: "Sorry, we don't have authorization to add the authentication."
-        not_authorized_to_signup: "Sorry, we are not authorized to sign you up with this authentication."
+        not_authorized_to_add_authentication: "Sorry, we don't have authorization to connect that account."
+        not_authorized_to_signup: "Sorry, we are not authorized to sign you up to EOL with that account."
         facebook:
-          authorized_user_not_found: "Sorry, we couldn't find an EOL user account associated with your Facebook account."
-          not_authorized: "Sorry, we don't have authorization to authenticate you with Facebook."
+          authorized_user_not_found: "Sorry, we couldn't find an EOL user account connected with your Facebook account."
+          not_authorized: "Sorry, we don't have authorization to connect your Facebook account."
+          signup_failed_account_already_connected: "Sorry, we can't sign you up to EOL with the Facebook account you are logged into, because the Facebook account you are logged into is already connected to an <a href=\"%{existing_eol_account_url}\">existing EOL account</a>. Did you mean to <a href=\"%{login_url}\">log in</a>?"
         google:
-          authorized_user_not_found: "Sorry, we couldn't find an EOL user account associated with your Google account."
-          not_authorized: "Sorry, we don't have authorization to authenticate you with Google."
+          authorized_user_not_found: "Sorry, we couldn't find an EOL user account connected with your Google account."
+          not_authorized: "Sorry, we don't have authorization to connect your Google account."
         twitter:
-          authorized_user_not_found: "Sorry, we couldn't find an EOL user account associated with your Twitter account."
-          not_authorized: "Sorry, we don't have authorization to authenticate you with Twitter."
+          authorized_user_not_found: "Sorry, we couldn't find an EOL user account connected with your Twitter account."
+          not_authorized: "Sorry, we don't have authorization to connect your Twitter account."
         yahoo:
-          authorized_user_not_found: "Sorry, we couldn't find an EOL user account associated with your Yahoo! account."
-          not_authorized: "Sorry, we don't have authorization to authenticate you with Yahoo!."
+          authorized_user_not_found: "Sorry, we couldn't find an EOL user account connected with your Yahoo! account."
+          not_authorized: "Sorry, we don't have authorization to connect your Yahoo! account."
+      facebook: Facebook
+      google: Google
+      index:
+        last_verified: "Last verified %{time_passed} ago;"
+        page_title: "Connected accounts"
+        page_description: "Manage your other third-party accounts that you can use to log in to EOL."
+        return_link: "Return to edit profile."
       notices:
         facebook:
           new_authentication_added: "Facebook authentication has been added to your account."
@@ -1148,6 +1181,8 @@ en:
           new_authentication_added: "Twitter authentication has been added to your account."
         yahoo:
           new_authentication_added: "Yahoo! authentication has been added to your account."
+      twitter: Twitter
+      yahoo: Yahoo!
     show:
       meta_description: "Member profile for %{user_full_name} on the Encyclopedia of Life."
       meta_description_curator: "Member profile for %{curator_level} %{user_full_name} on the Encyclopedia of Life."

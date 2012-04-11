@@ -1,5 +1,7 @@
 class Users::ActivitiesController < UsersController
 
+  skip_before_filter :extend_for_open_authentication
+
   # GET /users/:user_id/activity
   def show
     @user = User.find(params[:user_id])

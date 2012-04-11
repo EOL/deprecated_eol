@@ -30,6 +30,8 @@ module ApplicationHelper
       super(method, options)
     end
 
+    # TODO: If there is a block can we have a flag or something to automatically prepend or append the 
+    # translated label without having to explicitly call I18n method?
     def label(method, content_or_options_with_block = nil, options = {}, &block)
       options = content_or_options_with_block if content_or_options_with_block.is_a?(Hash)
       options.symbolize_keys!

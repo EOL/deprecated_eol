@@ -1,5 +1,7 @@
 module EOL
   module OpenAuth
+    # Overrides for users controller actions. Triggered when params are present that indicate
+    # user has chosen to sign up using an Open Authentication provider.
     module ExtendUsersController
 
       # GET /users/register handling open authentication callbacks.
@@ -9,15 +11,21 @@ module EOL
                                       params.merge({:request_token_token => session.delete("#{oauth_provider}_request_token_token"),
                                                     :request_token_secret => session.delete("#{oauth_provider}_request_token_secret")}))
         if open_auth.authorized?
-          return if open_authentication_log_in(open_auth)
-          session["oauth_token_#{open_auth.provider}_#{open_auth.guid}"] = open_auth.authentication_attributes[:token]
-          session["oauth_secret_#{open_auth.provider}_#{open_auth.guid}"] = open_auth.authentication_attributes[:secret]
-          @user = User.new(open_auth.user_attributes.merge({:open_authentications_attributes => [{
+          if existing_open_authentication = OpenAuthentication.existing_authentication(open_auth.provider, open_auth.guid)
+            flash.now[:error] = I18n.t(:signup_failed_account_already_connected,
+                                       :login_url => login_url,
+                                       :existing_eol_account_url => user_url(existing_open_authentication.user_id),
+                                       :scope => [:users, :open_authentications, :errors, open_auth.provider])
+          else
+            session["oauth_token_#{open_auth.provider}_#{open_auth.guid}"] = open_auth.authentication_attributes[:token]
+            session["oauth_secret_#{open_auth.provider}_#{open_auth.guid}"] = open_auth.authentication_attributes[:secret]
+            @user = User.new(open_auth.user_attributes.merge({:open_authentications_attributes => [{
                                                               :guid => open_auth.guid, :provider => open_auth.provider }]}))
+          end
         else
           oauth_not_authorized
-          @user = User.new
         end
+        @user = User.new
       end
 
       # POST /users handling open authentication form submissions
@@ -33,10 +41,10 @@ module EOL
         provider = params[:user][:open_authentications_attributes]["0"][:provider]
         params[:user][:open_authentications_attributes]["0"][:token] = session["oauth_token_#{provider}_#{guid}"]
         params[:user][:open_authentications_attributes]["0"][:secret] = session["oauth_secret_#{provider}_#{guid}"]
-        params[:user][:active] = true
-        params[:user][:remote_ip] = request.remote_ip
 
-        @user = User.new(params[:user])
+        @user = User.new(params[:user].reverse_merge(:language => current_language,
+                                                     :active => true,
+                                                     :remote_ip => request.remote_ip))
         if @user.save # note no recaptcha for oauth signups
           EOL::GlobalStatistics.increment('users')
           session.delete("oauth_token_#{provider}_#{guid}")

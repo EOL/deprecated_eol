@@ -6,6 +6,7 @@ module EOL
   module Exceptions
     class FailedToCreateTag < StandardError; end
     class InvalidCollectionItemType < StandardError; end
+    class LoginDisallowedForInactiveUser < StandardError; end
     class MaxCollectionItemsExceeded < StandardError; end
     class MustBeLoggedIn < StandardError; end
     class NoCollectionsApply < StandardError; end

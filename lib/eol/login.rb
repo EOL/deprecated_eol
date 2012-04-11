@@ -19,6 +19,11 @@ module EOL
     def open_authentication_log_in(open_auth)
       if (open_authentication = OpenAuthentication.existing_authentication(open_auth.provider, open_auth.guid)) &&
          (! open_authentication.user.nil?)
+        unless open_authentication.user.active?
+          raise EOL::Exceptions::LoginDisallowedForInactiveUser,
+            "Inactive User with ID=#{open_authentication.user.id} attempted to log in and was disallowed."
+        end
+        open_authentication.verified
         log_in(open_authentication.user)
         redirect_to user_newsfeed_path(open_authentication.user)
       end

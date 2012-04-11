@@ -1,5 +1,7 @@
 module EOL
   module OpenAuth
+    # Overrides for sessions controller actions. Triggered when params are present that indicate
+    # user has chosen to log in using an Open Authentication provider.
     module ExtendSessionsController
 
       # GET named route /login (sessions/new) handling open authentication callback and login

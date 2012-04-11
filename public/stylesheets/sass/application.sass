@@ -2540,12 +2540,20 @@ ul.content_partner_contacts
             background: transparent url("/images/v2/icon_social_plugins.png") 0 -96px no-repeat
 
 #profile_edit
+  p.tip
+    margin: 0 10px 20px 10px
   input[type="text"], input[type="password"]
     +input(248px)
   .header
     margin: 0 0 20px 0
-  fieldset
+  .fieldsets
     float: left
+    overflow: hidden
+    margin: 0
+    padding: 0
+    button
+      display: block
+  fieldset
     padding: 0 40px 20px 0
     dl
       padding: 0 10px
@@ -2554,12 +2562,6 @@ ul.content_partner_contacts
       font-weight: bold
     button
       +button
-    ul
-      overflow: hidden
-      li
-        float: left
-        padding: 0 10px 5px 0
-        font-weight: bold
     &.profile,
     &.account
       width: 320px
@@ -2576,10 +2578,35 @@ ul.content_partner_contacts
       textarea
         width: 282px
         height: 120px
+      ul
+      overflow: hidden
+      li
+        float: left
+        padding: 0 10px 5px 0
+        font-weight: bold
     &.account
       input[type="checkbox"],
       select
         margin-left: 10px
+      ul
+        margin: 0 20px 0
+        li
+          list-style: none
+          margin: 0 0 5px 0
+          padding: 0 0 0 20px
+          background: transparent url('/images/v2/icon_social_plugins.png') no-repeat -16px 0
+          background-size: 16px
+          line-height: 140%
+          small
+            float: right
+          &.facebook
+            background-position: 0 0
+          &.google
+            background-position: 0 -49px
+          &.twitter
+            background-position: 0 -16px
+          &.yahoo
+            background-position: 0 -33px
     &.requests
       width: 218px
       margin: 0
@@ -2608,7 +2635,36 @@ ul.content_partner_contacts
         font-size: 1em
       a
         font-weight: bold
-
+#profile_open_authentications
+  ul
+    margin: 20px 200px
+    li
+      border-bottom: 1px solid #ccc
+      font-size: 1.6em
+      list-style: none
+      margin: 0 0 15px 0
+      padding: 3px 20px 8px 37px
+      background: transparent url('/images/v2/icon_social_plugins.png') no-repeat -32px 0
+      small, form, fieldset.actions, input
+        float: right
+        display: inline
+        margin: 0
+      input
+        font-size: smaller
+      &.facebook
+        background-position: 0 0
+      &.google
+        background-position: 0 -96px
+      &.twitter
+        background-position: 0 -32px
+      &.yahoo
+        background-position: 0 -64px
+    + a
+      margin-top: 40px
+      border-top: 1px solid #CAD3DB
+      padding: 20px
+      font-weight: bold
+      display: block
 ul.spotlite-matches
   background: #fff
   border: 1px solid #d4dce2

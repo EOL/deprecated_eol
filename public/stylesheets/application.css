@@ -3173,6 +3173,8 @@ ul.content_partner_contacts li {
         #content.session #sign_up .open_authentications form#new_user_google fieldset.actions, #content.session #sign_up .open_authentications form#new_session_google fieldset.actions, #content.session #sign_in .open_authentications form#new_user_google fieldset.actions, #content.session #sign_in .open_authentications form#new_session_google fieldset.actions {
           background: transparent url("/images/v2/icon_social_plugins.png") 0 -96px no-repeat; }
 
+#profile_edit p.tip {
+  margin: 0 10px 20px 10px; }
 #profile_edit input[type="text"], #profile_edit input[type="password"] {
   width: 248px;
   height: 22px;
@@ -3185,8 +3187,14 @@ ul.content_partner_contacts li {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white)); }
 #profile_edit .header {
   margin: 0 0 20px 0; }
-#profile_edit fieldset {
+#profile_edit .fieldsets {
   float: left;
+  overflow: hidden;
+  margin: 0;
+  padding: 0; }
+  #profile_edit .fieldsets button {
+    display: block; }
+#profile_edit fieldset {
   padding: 0 40px 20px 0; }
   #profile_edit fieldset dl {
     padding: 0 10px; }
@@ -3218,28 +3226,47 @@ ul.content_partner_contacts li {
       filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=white, endColorstr=#d7dde1);
       background-image: -moz-linear-gradient(100% 100% 90deg, #d7dde1, white);
       background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#d7dde1)); }
-  #profile_edit fieldset ul {
-    overflow: hidden; }
-    #profile_edit fieldset ul li {
-      float: left;
-      padding: 0 10px 5px 0;
-      font-weight: bold; }
   #profile_edit fieldset.profile, #profile_edit fieldset.account {
     width: 320px; }
     #profile_edit fieldset.profile input[type="text"],
     #profile_edit fieldset.profile input[type="file"],
     #profile_edit fieldset.profile input[type="password"], #profile_edit fieldset.account input[type="text"], #profile_edit fieldset.account input[type="file"], #profile_edit fieldset.account input[type="password"] {
       width: 288px; }
-  #profile_edit fieldset.profile dd img {
-    display: block;
-    margin: 0 0 15px 0;
-    border: 1px solid #394651; }
-  #profile_edit fieldset.profile textarea {
-    width: 282px;
-    height: 120px; }
+  #profile_edit fieldset.profile {
+    overflow: hidden; }
+    #profile_edit fieldset.profile dd img {
+      display: block;
+      margin: 0 0 15px 0;
+      border: 1px solid #394651; }
+    #profile_edit fieldset.profile textarea {
+      width: 282px;
+      height: 120px; }
+    #profile_edit fieldset.profile li {
+      float: left;
+      padding: 0 10px 5px 0;
+      font-weight: bold; }
   #profile_edit fieldset.account input[type="checkbox"],
   #profile_edit fieldset.account select {
     margin-left: 10px; }
+  #profile_edit fieldset.account ul {
+    margin: 0 20px 0; }
+    #profile_edit fieldset.account ul li {
+      list-style: none;
+      margin: 0 0 5px 0;
+      padding: 0 0 0 20px;
+      background: transparent url("/images/v2/icon_social_plugins.png") no-repeat -16px 0;
+      background-size: 16px;
+      line-height: 140%; }
+      #profile_edit fieldset.account ul li small {
+        float: right; }
+      #profile_edit fieldset.account ul li.facebook {
+        background-position: 0 0; }
+      #profile_edit fieldset.account ul li.google {
+        background-position: 0 -49px; }
+      #profile_edit fieldset.account ul li.twitter {
+        background-position: 0 -16px; }
+      #profile_edit fieldset.account ul li.yahoo {
+        background-position: 0 -33px; }
   #profile_edit fieldset.requests {
     width: 218px;
     margin: 0;
@@ -3275,6 +3302,36 @@ ul.content_partner_contacts li {
       font-size: 1em; }
     #profile_edit fieldset.actions a {
       font-weight: bold; }
+
+#profile_open_authentications ul {
+  margin: 20px 200px; }
+  #profile_open_authentications ul li {
+    border-bottom: 1px solid #cccccc;
+    font-size: 1.6em;
+    list-style: none;
+    margin: 0 0 15px 0;
+    padding: 3px 20px 8px 37px;
+    background: transparent url("/images/v2/icon_social_plugins.png") no-repeat -32px 0; }
+    #profile_open_authentications ul li small, #profile_open_authentications ul li form, #profile_open_authentications ul li fieldset.actions, #profile_open_authentications ul li input {
+      float: right;
+      display: inline;
+      margin: 0; }
+    #profile_open_authentications ul li input {
+      font-size: smaller; }
+    #profile_open_authentications ul li.facebook {
+      background-position: 0 0; }
+    #profile_open_authentications ul li.google {
+      background-position: 0 -96px; }
+    #profile_open_authentications ul li.twitter {
+      background-position: 0 -32px; }
+    #profile_open_authentications ul li.yahoo {
+      background-position: 0 -64px; }
+  #profile_open_authentications ul + a {
+    margin-top: 40px;
+    border-top: 1px solid #cad3db;
+    padding: 20px;
+    font-weight: bold;
+    display: block; }
 
 ul.spotlite-matches {
   background: white;

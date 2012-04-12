@@ -9,6 +9,6 @@
           = link_to image_tag(item.user.logo_url(:small, nil, :mail => true),
             :size => "48x48", :style => 'height: 48px; width: 48px; border: 1px solid #394651;',
             :alt => I18n.t(:comment_show_posters_image_alt,
-            :posters_name => sanitize(item.user.full_name))), user_url(item.user)
+            :posters_name => sanitize(item.user.full_name))), user_newsfeed_url(item.user)
       %td
         = render(:partial => "activity_logs/#{item.class.name.underscore}", :locals => { :item => item, :link_style => 'color: #195184' })

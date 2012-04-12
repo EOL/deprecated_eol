@@ -1528,7 +1528,7 @@ en:
         user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: "<strong>%{user}</strong> set an unknown exemplar image."
         user_chose_exemplar_an_unknown_data_object_on_taxon: "<strong>%{user}</strong> set an unknown data object as an exemplar on \"%{taxon}\"."
         user_chose_exemplar_data_object_on_an_unknown_taxon: "<strong>%{user}</strong> set \"%{data_object}\" as an exemplar on an unknown page."
-        user_chose_exemplar_data_object_on_taxon: "<strong>%{user}</strong> set it as an exemplar on \"%{taxon}\"."
+        user_chose_exemplar_data_object_on_taxon: "<strong>%{user}</strong> set \"%{data_object}\" as an exemplar on \"%{taxon}\"."
         an_unknown_user_chose_exemplar_it_on_an_unknown_taxon: "An unknown user set it as an exemplar on an unknown page."
         an_unknown_user_chose_exemplar_it_on_taxon: "An unknown user set it as an exemplar on \"%{taxon}\"."
         user_chose_exemplar_it_on_an_unknown_taxon: "<strong>%{user}</strong> set it as an exemplar on an unknown page."

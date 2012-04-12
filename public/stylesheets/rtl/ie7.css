@@ -7,3 +7,6 @@ body > #header .section .actions {
   direction: ltr; }
   #page_heading .site_column .hgroup {
     direction: rtl; }
+
+#profile_notifications .copy form fieldset dd {
+  float: none; }

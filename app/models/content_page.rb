@@ -122,11 +122,6 @@ class ContentPage < $PARENT_CLASS_MUST_USE_MASTER
     end
   end
 
-  # TODO: Fix this. Change the logo to appropriate one.
-  def logo_url
-    return "v2/logos/cms_pages.png"
-  end
-
   def content_pages_for_solr
     translated_content_pages_for_solr = {}
     unknowns = Language.all_unknowns

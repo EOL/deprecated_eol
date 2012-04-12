@@ -164,6 +164,25 @@ es:
         request_publish: Solicitar la publicación
       name: 
         string: Nombre
+      notification: 
+        changes_to_my_watched_collection: Cambios a colecciones de su lista de seguimiento
+        changes_to_my_watched_community: Cambios en comunidades de su lista de seguimiento
+        comment_on_my_collection: Un comentario en una colección que administra
+        comment_on_my_community: Un comentario en una de sus comunidades
+        comment_on_my_contribution: Un comentario y/o una acción de supervisión en una de sus aportaciones
+        comment_on_my_profile: Un comentario en tu perfil
+        comment_on_my_watched_item: Comentarios sobre objetos, taxones, colecciones o comunidades en su lista de seguimiento
+        curation_on_my_watched_item: Acciones de supervisión en objetos, taxones, colecciones o comunidades de su lista de seguimiento
+        eol_newsletter: Envienme el boletín trimestral de EOL
+        i_am_being_watched: Ha sido agregado a la lista de seguimiento de otro miembro
+        invitation_to_community: Invitación para unirse a una comunidad
+        made_me_a_manager: Ha sido hecho administrador de una colección o comunidad
+        member_joined_my_community: Un nuevo miembro se ha unido a una comunidad que administra
+        member_joined_my_watched_community: Nuevos miembros se han unido a una comunidad de la que usted es miembro
+        member_left_my_community: Miembros que han dejado una comunidad que usted administra
+        new_data_on_my_watched_item: Nuevas contribuciones a taxones de su lista de seguimiento
+        new_manager_in_my_community: Otro miembro se ha convertido en administrador de una comunidad que usted administra
+        reply_to_comment: Una respuesta a un comentario que hizo
       resource: 
         accesspoint_url: Conjunto de datos URL
         auto_publish: Publicar automáticamente
@@ -195,6 +214,7 @@ es:
         credentials: Credenciales
         curator_level: Nivel de supervisor
         curator_scope: Alcance del curación
+        disable_email_notifications: No enviarme NINGUNA actualización por correo electrónico
         email: Dirección de correo electrónico
         entered_password: Contraseña
         entered_password_confirmation: Contraseña otra ves <small>(a confirmar)</small>
@@ -266,83 +286,164 @@ es:
     models: 
       user: cuenta
   activity: Actividad
-  activity_choose_exemplar: <strong>%{user}</strong> ha definido una imagen como ejemplar para "%{object_name}".
-  activity_hid_with_reasons_colon: "razón para ocultar: %{reasons}"
   activity_log_empty: Nadie ha proporcionado actualizaciones todavía.
   activity_log_empty_learn_more_link: Aprende cómo contribuir
-  activity_untrusted_with_reasons_colon: "razón para definir como no fiable: %{reasons}"
-  activity_user_added_association: <strong>%{user}</strong> agregó una asociación "%{object_name}".
-  activity_user_added_collection_to_community: <strong>%{user}</strong> añadió la colección "%{collection}" a la comunidad "%{community}".
-  activity_user_added_common_name: <strong>%{user}</strong> agregó el nombre común en %{language} "%{name}" a un objeto desconocido.
-  activity_user_added_common_name_to_taxon: <strong>%{user}</strong> agregó el nombre común "%{name}" en %{language} a "%{taxon}".
-  activity_user_added_community_manager: <strong>%{user}</strong> hizo %{manager} un administrador de la comunidad "%{community}".
-  activity_user_added_named_association: <strong>%{user}</strong> agregó una asociación "%{object_name}" y "%{name}".
-  activity_user_added_unknown_association: <strong>%{user}</strong> agregó una asociación a un objeto desconocido.
-  activity_user_added_unknown_name: <strong>%{user}</strong> agregó el nombre común a un objeto desconocido.
-  activity_user_added_unknown_name_to_taxon: <strong>%{user}</strong> agregó un nombre común a "%{taxon}".
-  activity_user_changed_community_description: <strong>%{user}</strong> ha actualizado la descriptción de la comunidad "%{community}".
-  activity_user_changed_community_icon: <strong>%{user}</strong> cabio el logotipo de la comunidad "%{community}".
-  activity_user_changed_community_name: <strong>%{user}</strong> cambío el nobre de la comunidad "%{community}".
-  activity_user_created_community: <strong>%{user}</strong> creó la comunidad "%{community}".
+  activity_logs: 
+    collection_activity_log: 
+      add_editor: 
+        an_unknown_user_of_an_unknown_collection: Un usuario desconocido se ha agregado como administrador de una colección desconocida.
+        an_unknown_user_of_collection: Un usuario desconocido fue agregado como administrador de la colección "%{collection}".
+        an_unknown_user_of_it: Un usuario desconocido fue agregado como administrador.
+        user_of_an_unknown_collection: <strong>%{user}</strong> fue añadido como administrador de una colección desconocida.
+        user_of_collection: <strong>%{user}</strong> fue añadido como administrador a la colección "%{collection}".
+        user_of_it: <strong>%{user}</strong> fue agregado como administrador.
+      collect: 
+        an_unknown_user_added_an_unknown_item_to_an_unknown_collection: Un usuario desconocido ha añadido un elemento desconocido a una colección desconocida.
+        an_unknown_user_added_an_unknown_item_to_collection: Un usuario desconocido ha añadido un elemento desconocido a la colección "%{collection}".
+        an_unknown_user_added_an_unknown_item_to_it: Un usuario desconocido agregó un elemento desconocido.
+        an_unknown_user_added_item_to_an_unknown_collection: Un usuario desconocido ha agregado "%{item}" a una colección desconocida.
+        an_unknown_user_added_item_to_collection: Un usuario desconocido ha agregado "%{item}" a la colección "%{collection}".
+        an_unknown_user_added_item_to_it: Un usuario desconocido ha agregado "%{item}".
+        user_added_an_unknown_item_to_an_unknown_collection: <strong>%{user}</strong> ha agregado un elemento desconocido a una colección desconocida.
+        user_added_an_unknown_item_to_collection: <strong>%{user}</strong> ha agregado un elemento desconocido a la colección  "%{collection}".
+        user_added_an_unknown_item_to_it: <strong>%{user}</strong> ha agregado un elemento desconocido.
+        user_added_item_to_an_unknown_collection: <strong>%{user}</strong> ha agregado "%{item}" a una colección desconocida.
+        user_added_item_to_collection: <strong>%{user}</strong> ha agregado "%{item}" a la colección  "%{collection}".
+        user_added_item_to_it: <strong>%{user}</strong> ha agregado "%{item}".
+      create: 
+        an_unknown_user_created_an_unknown_collection: Un usuario desconocido ha creado una colección desconocida.
+        an_unknown_user_created_collection: Un usuario desconocido ha creado la colección "%{collection}".
+        an_unknown_user_created_it: Lo ha creado un usuario desconocido.
+        user_created_an_unknown_collection: <strong>%{user}</strong> ha creado una colección desconocida.
+        user_created_collection: <strong>%{user}</strong> creó la colección "%{collection}".
+        user_created_it: <strong>%{user}</strong> lo ha creado.
+      other_actions: 
+        an_unknown_user_modified_an_unknown_collection: Un usuario desconocido ha modificado una colección desconocida.
+        an_unknown_user_modified_collection: Un usuario desconocido ha modificado la colección "%{collection}".
+        an_unknown_user_modified_it: Un usuario desconocido lo ha modificado, y se ha perdido el cambio exacto.
+        user_modified_an_unknown_collection: <strong>%{user}</strong> ha modificado una colección desconocida.
+        user_modified_collection: <strong>%{user}</strong> modificó la colección "%{collection}".
+        user_modified_it: <strong>%{user}</strong> lo ha modificado, pero se ha perdido el cambio exacto.
+      remove: 
+        an_unknown_user_removed_an_unknown_item_from_an_unknown_collection: Un usuario desconocido ha eliminado un elemento desconocido de una colección desconocida.
+        an_unknown_user_removed_an_unknown_item_from_collection: Un usuario desconocido ha eliminado un elemento desconocido de la colección "%{collection}".
+        an_unknown_user_removed_an_unknown_item_from_it: Un usuario desconocido ha eliminado un elemento desconocido.
+        an_unknown_user_removed_item_from_an_unknown_collection: Un usuario desconocido ha eliminado "%{item}" de una colección desconocida.
+        an_unknown_user_removed_item_from_collection: Un usuario desconocido ha eliminado "%{item}" de la colección "%{collection}".
+        an_unknown_user_removed_item_from_it: Un usuario desconocido ha eliminado "%{item}".
+        user_removed_an_unknown_item_from_an_unknown_collection: <strong>%{user}</strong> ha eliminado un elemento desconocido de una colección desconocida.
+        user_removed_an_unknown_item_from_collection: <strong>%{user}</strong> ha eliminado un elemento desconocido de la colección  "%{collection}".
+        user_removed_an_unknown_item_from_it: <strong>%{user}</strong> ha eliminado un elemento desconocido.
+        user_removed_item_from_an_unknown_collection: <strong>%{user}</strong> ha eliminado "%{item}" de una colección desconocida.
+        user_removed_item_from_collection: <strong>%{user}</strong> eliminó "%{item}" de la colección "%{collection}".
+        user_removed_item_from_it: <strong>%{user}</strong> ha eliminado "%{item}".
+      remove_all: 
+        an_unknown_user_cleared_an_unknown_collection: Un usuario desconocido ha eliminado todos los elementos de una colección desconocida.
+        an_unknown_user_cleared_collection: Un usuario desconocido ha eliminado todos los elementos de la colección "%{collection}".
+        an_unknown_user_cleared_it: Un usuario desconocido ha eliminado todos los elementos.
+        user_cleared_an_unknown_collection: <strong>%{user}</strong> ha eliminado todos los elementos de una colección desconocida.
+        user_cleared_collection: <strong>%{user}</strong> eliminó todos los elementos de la colección "%{collection}".
+        user_cleared_it: <strong>%{user}</strong> ha eliminado todos los elementos.
+    community_activity_log: 
+      add_manager: 
+        an_unknown_user_added_an_unknown_manager_to_an_unknown_community: Un usuario desconocido había añadido un administrador desconocido a una comunidad desconocida.
+        an_unknown_user_added_an_unknown_manager_to_community: Un usuario desconocido ha añadido un administrador desconocido a la comunidad "%{community}".
+        an_unknown_user_added_manager_to_an_unknown_community: Un usuario desconocido ha añadido a "%{manager}" como administrador de una comunidad desconocida.
+        an_unknown_user_added_manager_to_community: Un usuario desconocido ha añadido a "%{manager}" como administrador de la comunidad %{community}.
+        user_added_an_unknown_manager_to_an_unknown_community: <strong>%{user}</strong> ha agregado un administrador desconocido a una colección desconocida.
+        user_added_an_unknown_manager_to_community: <strong>%{user}</strong> ha añadido un administrador desconocido a la comunidad "%{community}".
+        user_added_manager_to_an_unknown_community: <strong>%{user}</strong> ha agregado a "%{manager}" a una comunidad desconocida.
+        user_added_manager_to_community: <strong>%{user}</strong> ha agregado a %{manager} como administrador de la comunidad "%{community}".
+      change_description: 
+        an_unknown_user_changed_the_description_of_an_unknown_community: Un usuario desconocido ha cambiado la descripción de una comunidad desconocida.
+        an_unknown_user_changed_the_description_of_community: Un usuario desconocido ha cambiado la descripción de la comunidad "%{community}".
+        user_changed_the_description_of_an_unknown_community: <strong>%{user}</strong> ha cambiado la descripción de una comunidad desconocida.
+        user_changed_the_description_of_community: <strong>%{user}</strong> ha cambiado la descripción de la comunidad "%{community}".
+      change_icon: 
+        an_unknown_user_changed_the_icon_of_an_unknown_community: Un usuario desconocido ha cambiado el logotipo de una comunidad desconocida.
+        an_unknown_user_changed_the_icon_of_community: Un usuario desconocido ha cambiado el logotipo de la comunidad "%{community}".
+        user_changed_the_icon_of_an_unknown_community: <strong>%{user}</strong> ha cambiado el logotipo de una comunidad desconocida.
+        user_changed_the_icon_of_community: <strong>%{user}</strong> ha cambiado el logotipo de la comunidad "%{community}".
+      change_name: 
+        an_unknown_user_changed_the_name_of_an_unknown_community: Un usuario desconocido ha cambiado el nombre de una comunidad desconocida.
+        an_unknown_user_changed_the_name_of_community: Un usuario desconocido ha cambiado el nombre de la comunidad "%{community}".
+        user_changed_the_name_of_an_unknown_community: <strong>%{user}</strong> ha cambiado el nombre de una comunidad desconocida.
+        user_changed_the_name_of_community: <strong>%{user}</strong> ha cambiado el nombre de la comunidad "%{community}".
+      create: 
+        an_unknown_user_created_an_unknown_community: Un usuario desconocido ha creado una comunidad desconocida.
+        an_unknown_user_created_community: Un usuario desconocido ha creado la comunidad "%{community}".
+        user_created_an_unknown_community: <strong>%{user}</strong> ha creado una comunidad desconocida.
+        user_created_community: <strong>%{user}</strong> ha creado la comunidad "%{community}".
+      join: 
+        an_unknown_user_joined_an_unknown_community: Un usuario desconocido se ha unido una comunidad desconocida.
+        an_unknown_user_joined_community: Un usuario desconocido se ha unido a la comunidad "%{community}".
+        user_joined_an_unknown_community: <strong>%{user}</strong> se ha unido a una comunidad desconocida.
+        user_joined_community: <strong>%{user}</strong> se ha unido a la comunidad "%{community}".
+      leave: 
+        an_unknown_user_left_an_unknown_community: Un usuario desconocido ha dejado una comunidad desconocida.
+        an_unknown_user_left_community: Un usuario desconocido ha dejado la comunidad "%{community}".
+        user_left_an_unknown_community: <strong>%{user}</strong> ha dejado una comunidad desconocida.
+        user_left_community: <strong>%{user}</strong> ha dejado la comunidad "%{community}".
+      other_actions: 
+        an_unknown_user_modified_an_unknown_community: Un usuario desconocido ha modificado una comunidad desconocida.
+        an_unknown_user_modified_community: Un usuario desconocido ha modificado la comunidad "%{community}".
+        user_modified_an_unknown_community: <strong>%{user}</strong> ha modificado una comunidad desconocida.
+        user_modified_community: <strong>%{user}</strong> ha modificado la comindad "%{community}".
+    curator_activity_log: 
+      reasons_to_hide: "Razones para ocultar: %{reasons}"
+      reasons_to_untrust: "Razones para definir como no fiable: %{reasons}"
+      show: 
+        an_unknown_user_showed_an_older_data_object_on_an_unknown_association: Un usuario desconocido marcó una versión anterior de "%{data_object}" como visible en un contexto desconocido.
+        an_unknown_user_showed_an_older_data_object_on_association: Un usuario desconocido marcó una versión anterior de "%{data_object}" como visible en la página "%{association}".
+        an_unknown_user_showed_an_unknown_data_object_on_an_unknown_association: Un usuario desconocido ha marcado un objeto de datos desconocido como visible en un contexto desconocido.
+        an_unknown_user_showed_an_unknown_data_object_on_association: Un usuario desconocido ha marcado un objeto de datos desconocido como visible en la página "%{association}".
+        an_unknown_user_showed_data_object_on_an_unknown_association: Un usuario desconocido ha marcado "%{data_object}" como visible en un contexto desconocido.
+        an_unknown_user_showed_data_object_on_association: Un usuario desconocido ha marcado "%{data_object}" como visible en la página "%{association}".
+        an_unknown_user_showed_it_on_an_unknown_association: Un usuario desconocido lo ha marcado como visible en un contexto desconocido.
+        an_unknown_user_showed_it_on_association: Un usuario desconocido lo ha marcado como visible en la página "%{association}".
+        user_showed_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong> ha marcado una versión anterior de "%{data_object}" como visible en un contexto desconocido.
+        user_showed_an_older_data_object_on_association: <strong>%{user}</strong> marcó una versión anterior de "%{data_object}" como visible en la página "%{association}".
+        user_showed_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong> ha marcado un objeto de datos desconocido como visible en un contexto desconocido.
+        user_showed_an_unknown_data_object_on_association: <strong>%{user}</strong> ha marcado un objeto de datos desconocido como visible en la página "%{association}".
+        user_showed_data_object_on_an_unknown_association: <strong>%{user}</strong> ha marcado "%{data_object}" como visible en un contexto desconocido.
+        user_showed_data_object_on_association: <strong>%{user}</strong> ha marcado "%{data_object}" como visible en la página "%{association}".
+        user_showed_it_on_an_unknown_association: <strong>%{user}</strong> lo ha marcado como visible en un contexto desconocido.
+        user_showed_it_on_association: <strong>%{user}</strong> lo ha marcado como visible en la página "%{association}".
+      trusted: 
+        an_unknown_user_trusted_an_older_data_object_on_an_unknown_association: Un usuario desconocido marcó una versión anterior de "%{data_object}" como fiable en un contexto desconocido.
+        an_unknown_user_trusted_an_older_data_object_on_association: Un usuario desconocido marcó una versión anterior de "%{data_object}" como fiable en la página "%{association}".
+        an_unknown_user_trusted_an_unknown_data_object_on_an_unknown_association: Un usuario desconocido ha marcado un objeto de datos desconocido como fiable en un contexto desconocido.
+        an_unknown_user_trusted_an_unknown_data_object_on_association: Un usuario desconocido ha marcado un objeto de datos desconocido como fiable en la página "%{association}".
+        an_unknown_user_trusted_data_object_on_an_unknown_association: Un usuario desconocido ha marcado "%{data_object}" como fiable en un contexto desconocido.
+        an_unknown_user_trusted_data_object_on_association: Un usuario desconocido ha marcado "%{data_object}" como fiable en la página "%{association}".
+        an_unknown_user_trusted_it_on_an_unknown_association: Un usuario desconocido lo ha marcado como fiable en un contexto desconocido.
+        an_unknown_user_trusted_it_on_association: Un usuario desconocido lo ha marcado como fiable en la página "%{association}".
+        user_trusted_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong> ha marcado una versión anterior de "%{data_object}" como fiable en un contexto desconocido.
+        user_trusted_an_older_data_object_on_association: <strong>%{user}</strong> marcó una versión anterior de "%{data_object}" como fiable en la página "%{association}".
+        user_trusted_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong> ha marcado un objeto de datos desconocido como fiable en un contexto desconocido.
+        user_trusted_an_unknown_data_object_on_association: <strong>%{user}</strong> ha marcado un objeto de datos desconocido como fiable en la página "%{association}".
+        user_trusted_data_object_on_an_unknown_association: <strong>%{user}</strong> ha marcado "%{data_object}" como fiable en un contexto desconocido.
+        user_trusted_data_object_on_association: <strong>%{user}</strong> ha marcado "%{data_object}" como fiable en la página "%{association}".
+        user_trusted_it_on_an_unknown_association: <strong>%{user}</strong> lo ha marcado como fiable en un contexto desconocido.
+        user_trusted_it_on_association: <strong>%{user}</strong> lo ha marcado como fiable en la página "%{association}".
+      untrusted: 
+        an_unknown_user_untrusted_an_older_data_object_on_an_unknown_association: Un usuario desconocido ha marcado una versión anterior de "%{data_object}" como no fiable en un contexto desconocido.
+        an_unknown_user_untrusted_an_older_data_object_on_association: Un usuario desconocido marcó una versión anterior de "%{data_object}" como no fiable en la página "%{association}".
+        an_unknown_user_untrusted_an_unknown_data_object_on_an_unknown_association: Un usuario desconocido ha marcado un objeto de datos desconocido como no fiable en un contexto desconocido.
+        an_unknown_user_untrusted_an_unknown_data_object_on_association: Un usuario desconocido ha marcado un objeto de datos desconocido como no fiable en la página "%{association}".
+        an_unknown_user_untrusted_data_object_on_an_unknown_association: Un usuario desconocido ha marcado "%{data_object}" como no fiable en un contexto desconocido.
+        an_unknown_user_untrusted_data_object_on_association: Un usuario desconocido ha marcado "%{data_object}" como no fiable en la página "%{association}".
+        an_unknown_user_untrusted_it_on_an_unknown_association: Un usuario desconocido lo ha marcado como no fiable en un contexto desconocido.
+        an_unknown_user_untrusted_it_on_association: Un usuario desconocido lo ha marcado como no fiable en la página "%{association}".
+        user_untrusted_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong> ha marcado una versión anterior de "%{data_object}" como no fiable en un contexto desconocido.
+        user_untrusted_an_older_data_object_on_association: <strong>%{user}</strong> marcó una versión anterior de "%{data_object}" como no fiable en la página "%{association}".
+        user_untrusted_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong> ha marcado un objeto de datos desconocido como no fiable en un contexto desconocido.
+        user_untrusted_an_unknown_data_object_on_association: <strong>%{user}</strong> ha marcado un objeto de datos desconocido como no fiable en la página "%{association}".
+        user_untrusted_data_object_on_an_unknown_association: <strong>%{user}</strong> ha marcado "%{data_object}" como no fiable en un contexto desconocido.
+        user_untrusted_data_object_on_association: <strong>%{user}</strong> ha marcado "%{data_object}" como no fiable en la página "%{association}".
+        user_untrusted_it_on_an_unknown_association: <strong>%{user}</strong> lo ha marcado como no fiable en un contexto desconocido.
+        user_untrusted_it_on_association: <strong>%{user}</strong> lo ha marcado como no fiable en la página "%{association}".
   activity_user_created_text: <strong>%{user}</strong> añado el texto a "%{object_name}" on "%{taxon_concept}".
-  activity_user_curated_an_unknown_object: <strong>%{user}</strong> curado un objecto desconocido.
-  activity_user_deleted_community: <strong>%{user}</strong> eliminado la comunidad "%{community}".
-  activity_user_hid_data_object: <strong>%{user}</strong> marco "%{object_name}" como ocultado.
-  activity_user_hid_named_association: <strong>%{user}</strong> marcó una asociación entre "%{object_name}" y "%{name}" como oculta.
-  activity_user_hid_named_association_on_older_data_object: <strong>%{user}</strong> ha marcado una asociación entre %{object_name} y "%{name}" como oculta.
-  activity_user_hid_older_data_object: <strong>%{user}</strong> ha marcado %{object_name} como oculto.
-  activity_user_hid_unknown_object: <strong>%{user}</strong> marcó un objecto desconocido como oculto.
-  activity_user_hid_unknown_object_association: <strong>%{user}</strong> marcó una asociación entre un objeto desconocido y "%{name}" como oculta.
-  activity_user_inappropriate_common_name: <strong>%{user}</strong> marcó el nombre común en %{language} "%{name}" de un objeto desconocido como inapropiado.
-  activity_user_inappropriate_common_name_from_taxon: <strong>%{user}</strong> marcó el nombre común en %{language} "%{name}" para "%{taxon}" como inapropiado.
-  activity_user_inappropriate_unknown_name: <strong>%{user}</strong> ha marcado como inapropiado un nombre común desconocido para un taxón desconocido.
-  activity_user_inappropriate_unknown_name_to_taxon: <strong>%{user}</strong> ha marcado un nombre común como inapropriado para "%{taxon}".
-  activity_user_joined_community: <strong>%{user}</strong> se unió con la comunidad "%{community}".
-  activity_user_marked_content_as_inappropriate: <strong>%{user}</strong> marco contenido inapropiado.
-  activity_user_modified_community: <strong>%{user}</strong> modificó la comindad "%{community}".
-  activity_user_rated_data_object: <strong>%{user}</strong> calificó "%{object_name}".
-  activity_user_rated_unknown_object: <strong>%{user}</strong> clasificadó un objecto desconocido.
-  activity_user_removed_association: <strong>%{user}</strong> elimino una asociación a "%{object_name}".
-  activity_user_removed_named_association: <strong>%{user}</strong> eliminar una asociación entre "%{object_name}" y "%{name}".
-  activity_user_removed_unknown_association: <strong>%{user}</strong> elimino una asociación a un objeto desconocido.
-  activity_user_removed_unknown_name: <strong>%{user}</strong> elimino un nombre común desconocido de un objeto desconocido.
-  activity_user_removed_unknown_name_to_taxon: <strong>%{user}</strong> eliminó un nombre común de "%{taxon}".
-  activity_user_showed_data_object: <strong>%{user}</strong> marcó "%{object_name}" como visible.
-  activity_user_showed_named_association: <strong>%{user}</strong> marcó una asociación entre "%{object_name}" y "%{name}" como visible.
-  activity_user_showed_named_association_on_older_data_object: <strong>%{user}</strong> ha marcado una asociación entre %{object_name} y "%{name}" como visible.
-  activity_user_showed_older_data_object: <strong>%{user}</strong> ha marcado %{object_name} como visible.
-  activity_user_showed_unknown_object: <strong>%{user}</strong> marcó un objecto desconocido como visible.
-  activity_user_showed_unknown_object_association: <strong>%{user}</strong> marcó una asociación entre un objeto desconocido y "%{name}" como visible.
-  activity_user_trust_common_name: <strong>%{user}</strong> marcó el nombre común "%{name}" en %{language} de un objeto desconocido como fiable.
-  activity_user_trust_common_name_from_taxon: <strong>%{user}</strong> marcó el nombre común "%{name}" en %{language} desde "%{taxon}" como de confianza.
-  activity_user_trust_unknown_name: <strong>%{user}</strong> ha marcado como fiable un nombre común desconocido para un taxón desconocido.
-  activity_user_trust_unknown_name_to_taxon: <strong>%{user}</strong>ha marcado un nombre común como fiable para "%{taxon}".
-  activity_user_trusted_data_object: <strong>%{user}</strong> marcó "%{object_name}" con confieanza.
-  activity_user_trusted_named_association: <strong>%{user}</strong> marcó una asociación entre "%{object_name}" y "%{name}" como fiable.
-  activity_user_trusted_named_association_on_older_data_object: <strong>%{user}</strong> ha marcado una asociación entre "%{object_name}" y "%{name}" como de confianza.
-  activity_user_trusted_older_data_object: <strong>%{user}</strong> ha marcado %{object_name} como fiable.
-  activity_user_trusted_unknown_object: <strong>%{user}</strong> marcó un objeto desconocido con confianza.
-  activity_user_trusted_unknown_object_association: <strong>%{user}</strong> marcó una asociación entre un objeto desconocido y "%{name}" como fiable.
-  activity_user_unreview_common_name: <strong>%{user}</strong> marcó el nombre común en %{language} "%{name}" de un objeto desconocido como no revisado.
-  activity_user_unreview_common_name_from_taxon: <strong>%{user}</strong> marcó el nombre común en %{language} "%{name}" para "%{taxon}" como no revisado.
-  activity_user_unreview_unknown_name: <strong>%{user}</strong> ha marcado como no revisado un nombre común desconocido para un taxón desconocido.
-  activity_user_unreview_unknown_name_to_taxon: <strong>%{user}</strong>ha marcado un nombre común como no revisado para "%{taxon}".
-  activity_user_unreviewed_data_object: <strong>%{user}</strong> marcó "%{object_name}" no revisado.
-  activity_user_unreviewed_named_association: <strong>%{user}</strong> marcó una asociación entre "%{object_name}" y "%{name}" como no revisada.
-  activity_user_unreviewed_named_association_on_older_data_object: <strong>%{user}</strong> ha marcado una asociación entre %{object_name} y "%{name}" como no revisada.
-  activity_user_unreviewed_older_data_object: <strong>%{user}</strong> ha marcado %{object_name} como no revisado.
-  activity_user_unreviewed_unknown_object: <strong>%{user}</strong> marcó un objeto desconocido sin revisar.
-  activity_user_unreviewed_unknown_object_association: <strong>%{user}</strong> marcó una asociación entre un objeto desconocido y "%{name}" como no revisada.
-  activity_user_untrust_common_name: <strong>%{user}</strong> marcó el nombre común en %{language} "%{name}" de un objeto desconocido como no fiable.
-  activity_user_untrust_common_name_from_taxon: <strong>%{user}</strong> marcó el nombre común en %{language} "%{name}" para "%{taxon}" como no fiable.
-  activity_user_untrust_unknown_name: <strong>%{user}</strong> ha marcado como no fiable un nombre común desconocido para un taxón desconocido.
-  activity_user_untrust_unknown_name_to_taxon: <strong>%{user}</strong>ha marcado un nombre común como no fiable para "%{taxon}".
-  activity_user_untrusted_data_object: <strong>%{user}</strong> marcó "%{object_name}" sin confieanza.
-  activity_user_untrusted_named_association: <strong>%{user}</strong> marcó una asociación entre "%{object_name}" y "%{name}" como no fiable.
-  activity_user_untrusted_named_association_on_older_data_object: <strong>%{user}</strong> ha marcado una asociación entre "%{object_name}" y "%{name}" como no fiable.
-  activity_user_untrusted_older_data_object: <strong>%{user}</strong> marcó %{object_name} como no confiable.
-  activity_user_untrusted_unknown_object: <strong>%{user}</strong> marcó un objeto desconocido con confianza.
-  activity_user_untrusted_unknown_object_association: <strong>%{user}</strong> marcó una asociación entre un objeto desconocido y "%{name}" como no fiable.
   activity_user_updated_text: <strong>%{user}</strong> actualizado "%{object_name}" texto en "%{taxon_concept}".
   add: Añadir
   add_a_collection_to_a_community: Añadir "%{collection}" a una comunidad
@@ -503,6 +604,9 @@ es:
   and: 'y'
   and_between_form_items: 'y'
   annotation_cabs_colon: "Anotación:"
+  anonymous_user_full_name: Usuario anónimo
+  anonymous_user_given_name: Anónimo
+  anonymous_user_tag_line: No ha iniciado sesión
   any_integer: cualquier entero
   api_docs_collections_description: Dado el identificador de una colección, esta API devolverá todos los metadatos sobre la colección y los elementos que contiene. La lista de elementos puede ser filtrada por tipo de elemento, y ordenada por los atributos listados arriba.
   application_version_advisory_information: Versión de la aplicación
@@ -591,6 +695,7 @@ es:
   cannot_be_empty: no puede estar vacío.
   cannot_create_collection_item_from_class_error: No se puede crear un elemento de la colección de un %{klass}
   cannot_create_community_from_watch_collection_error: No puede crear una comunidad a partir de una lista de vigilancia.
+  cannot_curate_association_in_preview_mode: La asociación %{name} no puede ser supervisada porque está siendo previsualizada después de una recogida.
   cannot_expand_children: no se pueden expandir las dependencias
   cannot_find_member: No se puede encontrar un miembro con este identificador.
   cannot_index_collection_item_type_error: No se puede indexar un elemento de la colección de un %{type}
@@ -1295,6 +1400,7 @@ es:
   forgot_password_form_choose_username_instructions: Hay varias cuentas registradas en la dirección de correo <em>%{email}</em>, por favor, seleccione una cuenta para restablecerle la contraseña.
   forgot_password_form_choose_username_legend: Seleccione una cuenta
   forgot_password_form_header: Restablecer su contraseña
+  forgot_password_form_helper: Tenga en cuenta que esa contraseña restablece los mensajes de correo electrónico que son marcados <em>con frecuencia</em> como 'Spam' por los filtros de correo electrónico. Compruebe su carpeta de spam si no recibe el correo electrónico dentro de una hora.
   forgot_password_form_username_or_email_blank_error: Por favor ingrese su nombre de usuario o dirección de correo electrónico para restablecer su contraseña.
   form_validation_errors_for_attribute_assistive: Hay un error de validación en este elemento
   fragment_caching_enabled: La memoria caché de los fragmentos está activada
@@ -1402,6 +1508,7 @@ es:
       harvest_event: 
         began_at: Iniciado
         completed_at: Completado
+        first_published_at: Primera publicación
         publish_more: Las banderas recogen los eventos que serán publicados, el contenido no se hará público inmediatamente.
         published_at: Publicado
         published_status: Estado
@@ -1461,14 +1568,15 @@ es:
         curator_scope: Alcance de Curación
         curator_scope_more: "Por favor, indique el alcance de su experiencia. Por ejemplo: \"Los roedores de Borneo\", \"Tri-tróficos interacciones\", o \"Problemas de conservación de los peces\". Esto no limitará su capacidad de cura, sino que informar a la comunidad EOL."
         email_reports_frequency_hours: ¿Con qué frecuencia desea recibir alertas por correo electrónico acerca de la actividad de sus contribuciones?
+        email_settings_submit: configuración de correo electrónico
         entered_password: Contraseña <small>(4-16 caracteres)</small>
-        generate_api_key: Solicitando una llave API
+        generate_api_key: Solicitar una clave API
         generate_api_key_more: Si está interesado en usar la API de EOL, puede generar una llave API para identificar su aplicación. Lea más acerca de <a href="%{api_docs_url}"> cómo agregar una llave para sus llamadas a la API</a>.
         logo: Sube una foto nueva
-        mailing_list: Deseo recibir actualizaciones por correo electrónico boletín
-        mailing_list_yes: Sí
         new_password: Nueva contraseña <small>(4-16 caracteres)</small>
         new_password_confirmation: Nueva contraseña <small>(por confirmar)</small>
+        notification_settings: Configuración de notificaciones
+        notification_settings_more: Configure las opciones de notificación.
         requested_curator_level: Su solicitud para convertirse en %{curator_level_with_indefinite_article} está pendiente.
         requested_curator_level_id_more: Seleccione <em>Curador Asistente</em> si usted todavía no tiene credenciales.  Seleccione <em>Curador Pleno</em> si un científico professional o estudiante de postgrado con credenciales. Seleccione <em>Curador Master</em> si usted es un curador experimentado y quiere asumir más responsabilidades.
         tag_line: "Lema o título <small>ejemplo: \"Entusiasta de ave\"</small>"
@@ -1504,9 +1612,6 @@ es:
         create: Agregar artículo
         create_text: Agregar artículo
         update: Guardar artículo
-      eol_statistic: 
-        download_csv: Descargar como CSV
-      filter_sort: Filtrar y ordenar
       harvest_event: 
         publish: Publicar
       hierarchy: 
@@ -1533,6 +1638,7 @@ es:
         curation_privileges: Enviar solicitud
         forgot_password: Enviar correo electrónico
         generate_api_key: Generar una clave
+        notification_settings: Configuración de notificaciones
         update: Guardar información del perfil
       wikipedia_queue: 
         create: Enviar solicitud
@@ -1785,6 +1891,7 @@ es:
   message_colon: "Mensaje:"
   meta_description_colon: "Descrición meta:"
   meta_keywords_colon: "Palabras clave meta:"
+  meta_title_site_name: Encyclopedia of Life
   method: Método
   method_to_get_metadata_about_the_hierarchy: dado un identificador de jerarquía, este método devuelve los metadatos sobre la jerarquía y lista los taxones en la raíz
   methods: Métodos
@@ -2143,6 +2250,48 @@ es:
   rating_not_added_error: Lo sentimos, ha ocurrido un error, el puntaje no se pudo agregar.
   recaptcha: Escriba las dos palabras que ve abajo
   recaptcha_incorrect_error_with_anchor: Los caracteres <a href="#%{recaptcha_anchor}"></a> no coinciden, por favor, vuelva a intentarlo.
+  recent_activity: 
+    bulk_collection_activity_with_count: 
+      one: Hubo una actualización de %{to}
+      other: Hubo %{count} actualizaciones de %{to}
+    bulk_comments_on_you_with_count: 
+      one: Hay un nuevo comentario en su perfil
+      other: Hay %{count} nuevos comentarios en su perfil
+    bulk_comments_with_count: 
+      one: Hay un nuevo comentario en %{on}
+      other: Hay %{count} nuevos comentarios %{on}
+    bulk_community_activity_with_count: 
+      one: Hubo una actualización de %{to}
+      other: Hubo %{count} actualizaciones de %{to}
+    bulk_community_joins_with_count: 
+      one: Un nuevo miembro se unió a %{community}
+      other: "%{count} nuevos miembros se unieron a %{community}"
+    bulk_curation_with_count: 
+      one: Los supervisores hicieron una mejora en %{to}
+      other: Los supervisores hicieron %{count} mejoras en %{to}
+    collection_activity_by_user: <b>%{user_name}</b> ha realizado una %{activity_name} en la colección <b>%{collection_name}</b> .
+    collection_activity_log_title: "%{who} ha modificado una colección"
+    collection_activity_user_added_item: "<b>%{user_name}</b> ha añadido %{collected_item_type} #%{collected_item_id} a <b>%{collection_name}</b>."
+    collection_activity_user_watching_recipient: <b>%{user_name}</b> te está mirando.
+    comment_body_brief: "%{body} - %{author}"
+    comment_link: Ver comentarios en EOL
+    comment_title: "%{who} ha dejado comentarios sobre %{what}"
+    comment_title_your_newsfeed: "%{who} ha dejado comentarios en su página de noticias"
+    community_activity_by_user: <b>%{user_name}</b> ha realizado una %{activity_name} en la comunidad <b>%{community_name}</b> .
+    community_activity_log_title: "%{who} ha modificado una comunidad"
+    community_activity_user_joined: El usuario <b>%{user_name}</b> se ha unido a la comunidad <b>%{community_name}</b>.
+    community_activity_user_left: El usuario <b>%{user_name}</b> ha dejado la comunidad <b>%{community_name}</b>.
+    community_activity_user_made_member_a_manager: El usuario <b>%{user_name}</b> ha convertido a <b>%{member_name}</b> en administrador de la comunidad <b>%{community_name}</b>.
+    curator_activity_log_title: "%{who} ha supervisado algo"
+    curator_activity_on_data_object_by_user: "<b>%{user_name}</b> ha realizado una acción de %{activity_name} en <b>%{dato_title}</b> (%{dato_type} #%{dato_id})."
+    curator_activity_on_taxon_concept_by_user: <b>%{user_name}</b> ha realizado una acción de %{activity_name} en <b>%{taxon_concept}</b> (%{taxon_overview_url}).
+    data_object_activity_article_added_by_user: <b>%{user_name}</b> ha agregado un artículo llamado %{dato_title} a <b>%{taxon_concept}</b> (%{taxon_details_url}).
+    data_object_title: "%{who} ha añadido nuevos contenidos a EOL"
+    default_subject: Actividad reciente en EOL
+    intro: Este es su resumen de actividad en EOL de %{time}
+    see_all_activity: Ver toda la actividad anterior en <a href='%{activity_url}' style='color:#195184'>su página de noticias de usuario</a>.
+    someone_commented_on_something: <b>%{who}</b> ha comentado sobre <b>%{what}</b>.
+    unsubscribe: Cambie su configuración de correo electrónico o cancele la suscripción en <a href='%{email_prefs_url}' style='color:#195184'>su página de preferencias de notificación</a>.
   recent_updates: Actualizaciones recientes
   recently_visited: Visitados recientemente
   recipients: Destinatarios
@@ -2753,6 +2902,7 @@ es:
     other: "%{count} total ítems"
   total_searches: "Búsquedas totales:"
   translation_deleted: Se ha eliminado la traducción
+  translation_information_header: Información de la traducción
   translation_saved: Se ha guardado la traducción
   translations_submit: Mira la traducción
   trigger_search_term_entered_by: ejecutar el término de búsqueda introducido por el usuario
@@ -2761,6 +2911,7 @@ es:
   truncated_comment_omission_linkless: ...
   trusted: De confianza
   trusted_images: Imágenes de confianza
+  trusted_maps: Mapas de confianza
   trusted_text_objects: Artículos de confianza
   tumblr: Tumblr
   twitter: Twitter
@@ -2773,6 +2924,7 @@ es:
   unpublished: Sin publicar
   unreviewed: Sin revisar
   unreviewed_images: Imágenes sin revisar
+  unreviewed_maps: Mapas sin revisar
   unreviewed_text_objects: Artículos sin revisar
   untrusted: Sin confianza
   update: Actualizar
@@ -2889,10 +3041,17 @@ es:
         meta_title: socios de contenido de %{user_full_name}
         tweet_text: socios de contenido de %{user_full_name}
     newsfeeds: 
+      activity_link: actividad
+      comments_link: comentarios
+      newsfeed_link: página de noticias
       show: 
         meta_description: Noticias, actualizaciones de actividad y comentarios de %{user_full_name}.
         meta_title: Fuentes web de %{user_full_name}
         tweet_text: Fuente web de %{user_full_name}
+    notifications: 
+      edit: 
+        page_description: Todas las actualizaciones que se enumeran a continuación (excepto para el boletín de EOL) están disponibles para usted en su <a href="%{user_newsfeed_link}">página de noticias de EOL</a>, pero a mucha gente también le gustaría recibir alertas por correo electrónico sobre ciertos tipos de actividades que ellos encuentran particularmente interesantes. Puede utilizar los botones siguientes para definir la frecuencia de los correos electrónicos de EOL que satisfagan sus preferencias
+        page_title: Configuración de notificaciones
     show: 
       meta_description: Perfil de miembro de %{user_full_name} en la Encyclopedia of Life.
       meta_description_curator: Perfil de miembro del %{curator_level} %{user_full_name} en la Encyclopedia of Life.
@@ -2911,6 +3070,7 @@ es:
     one: "Pertenece a %{count} comunidad "
     other: Pertenece a %{count} comunidades
   users_my_info_header: Mi información
+  users_pending_activation_helper: Tenga en cuenta que los mensajes de correo electrónico de activación de la cuenta son marcados <em>con frecuencia</em> como 'Spam' por los filtros de correo electrónico. Compruebe su carpeta de Spam si no recibe el correo electrónico dentro de una hora.
   users_pending_activation_message: Se ha enviado un mensaje de confirmación a la dirección de correo electrónico proporcionada. Para completar el proceso de registro y convertirse en miembro de EOL, haga clic en el enlace incluido en ese correo electrónico. ¡Gracias!
   users_that_can_edit_this_collection: Usuarios que pueden administrar esta colección
   using_the_site: Uso del sitio
@@ -2952,6 +3112,7 @@ es:
   view_map_source: Ver código fuente del mapa
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Mira sólo las páginas con al menos una imagen o texto
   view_sound_source: Ver código fuente del audio
+  view_source: Ver código fuente
   view_this_hierarchy: ver esta jerarquía
   view_translation_source_link: Mira código fuente de traducción
   view_user_activity: ver la actividad del usuario

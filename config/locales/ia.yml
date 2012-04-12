@@ -151,6 +151,25 @@ ia:
         request_publish: Requestar publication
       name: 
         string: Nomine
+      notification: 
+        changes_to_my_watched_collection: Cambiamentos in collectiones in tu observatorio
+        changes_to_my_watched_community: Cambiamentos in communitates in tu observatorio
+        comment_on_my_collection: Un commento sur un collection que tu gere
+        comment_on_my_community: Un commento in un de tu communitates
+        comment_on_my_contribution: Un commento e/o action conservatori sur un contribution que tu faceva
+        comment_on_my_profile: Un commento in tu profilo
+        comment_on_my_watched_item: Commentos sur objectos, taxones, collectiones o communitates in tu observatorio
+        curation_on_my_watched_item: Actiones conservatori sur objectos, taxones, collectiones o communitates in tu observatorio
+        eol_newsletter: Inviar me le bulletin trimestral de EOL
+        i_am_being_watched: Tu ha essite addite al observatorio de un altere membro
+        invitation_to_community: Invitation a adherer a un communitate
+        made_me_a_manager: Tu ha essite facite gerente de un collection o communitate
+        member_joined_my_community: Un nove membro ha adherite a un communitate que tu gere
+        member_joined_my_watched_community: Nove membros ha adherite a un communitate ubi tu es membro
+        member_left_my_community: Alcun membros ha quitate un communitate que tu gere
+        new_data_on_my_watched_item: Nove contributiones sur taxones in tu observatorio
+        new_manager_in_my_community: Un altere membro ha devenite gerente de un communitate que tu gere
+        reply_to_comment: Un responsa a un commento que tu faceva
       resource: 
         accesspoint_url: URL del insimul de datos
         auto_publish: Auto-publicar
@@ -182,6 +201,7 @@ ia:
         credentials: Datos de authentication
         curator_level: Nivello de curator
         curator_scope: Sphera de curation
+        disable_email_notifications: NON inviar me actualitates per e-mail
         email: Adresse de e-mail
         entered_password: Contrasigno
         entered_password_confirmation: Repete contrasigno <small>(pro confirmation)</small>
@@ -253,79 +273,9 @@ ia:
     models: 
       user: conto
   activity: Activitate
-  activity_choose_exemplar: <strong>%{user}</strong> marcava un imagine como exemplar pro "%{object_name}".
-  activity_hid_with_reasons_colon: "motivo(s) pro celar: %{reasons}"
   activity_log_empty: Nulle persona ha ancora fornite actualisationes.
   activity_log_empty_learn_more_link: Apprende como contribuer
-  activity_untrusted_with_reasons_colon: "motivo(s) pro retirar confidentia: %{reasons}"
-  activity_user_added_association: <strong>%{user}</strong> addeva un association a "%{object_name}".
-  activity_user_added_collection_to_community: <strong>%{user}</strong> addeva le collection "%{collection}" al communitate "%{community}".
-  activity_user_added_common_name: <strong>%{user}</strong> addeva le nomine commun in %{language} "%{name}" a un objecto incognite.
-  activity_user_added_common_name_to_taxon: <strong>%{user}</strong> addeva le nomine commun in %{language} "%{name}" a "%{taxon}".
-  activity_user_added_community_manager: <strong>%{user}</strong> faceva %{manager} gerente del communitate "%{community}".
-  activity_user_added_named_association: <strong>%{user}</strong> addeva un association inter "%{object_name}" e "%{name}".
-  activity_user_added_unknown_association: <strong>%{user}</strong> addeva un association a un objecto incognite.
-  activity_user_added_unknown_name: <strong>%{user}</strong> addeva un nomine commun incognite a un objecto incognite.
-  activity_user_added_unknown_name_to_taxon: <strong>%{user}</strong> addeva un nomine commun a "%{taxon}".
-  activity_user_changed_community_description: <strong>%{user}</strong> actualisava le description del communitate "%{community}".
-  activity_user_changed_community_icon: <strong>%{user}</strong> cambiava le logotypo del communitate "%{community}".
-  activity_user_changed_community_name: <strong>%{user}</strong> cambiava le nomine del communitate "%{community}".
-  activity_user_created_community: <strong>%{user}</strong> creava le communitate "%{community}".
   activity_user_created_text: <strong>%{user}</strong> addeva texto a "%{object_name}" in "%{taxon_concept}".
-  activity_user_curated_an_unknown_object: <strong>%{user}</strong> gereva un objecto incognite.
-  activity_user_deleted_community: <strong>%{user}</strong> deleva le communitate "%{community}".
-  activity_user_hid_data_object: <strong>%{user}</strong> marcava "%{object_name}" como celate.
-  activity_user_hid_named_association: <strong>%{user}</strong> marcava un association inter "%{object_name}" e "%{name}" como celate.
-  activity_user_hid_unknown_object: <strong>%{user}</strong> marcava un objecto incognite como celate.
-  activity_user_hid_unknown_object_association: <strong>%{user}</strong> marcava un association inter un objecto incognite e "%{name}" como celate.
-  activity_user_inappropriate_common_name: <strong>%{user}</strong> marcava le nomine commun in %{language} "%{name}" pro un objecto incognite como inappropriate.
-  activity_user_inappropriate_common_name_from_taxon: <strong>%{user}</strong> marcava le nomine commun in %{language} "%{name}" pro "%{taxon}" como inappropriate.
-  activity_user_inappropriate_unknown_name: <strong>%{user}</strong> marcava un nomine commun incognite pro un taxon incognite como inappropriate.
-  activity_user_inappropriate_unknown_name_to_taxon: <strong>%{user}</strong> marcava un nomine commun pro "%{taxon}" como inappropriate.
-  activity_user_joined_community: <strong>%{user}</strong> adhereva al communitate "%{community}".
-  activity_user_marked_content_as_inappropriate: <strong>%{user}</strong> marcava contento como inappropriate.
-  activity_user_modified_community: <strong>%{user}</strong> modificava le communitate "%{community}".
-  activity_user_rated_data_object: <strong>%{user}</strong> evalutava "%{object_name}".
-  activity_user_rated_unknown_object: <strong>%{user}</strong> evalutava un objecto incognite.
-  activity_user_removed_association: <strong>%{user}</strong> removeva un association a "%{object_name}".
-  activity_user_removed_named_association: <strong>%{user}</strong> removeva un association inter "%{object_name}" e "%{name}".
-  activity_user_removed_unknown_association: <strong>%{user}</strong> removeva un association a un objecto incognite.
-  activity_user_removed_unknown_name: <strong>%{user}</strong> removeva un nomine commun incognite de un objecto incognite.
-  activity_user_removed_unknown_name_to_taxon: <strong>%{user}</strong> removeva un nomine commun de "%{taxon}".
-  activity_user_showed_data_object: <strong>%{user}</strong> marcava "%{object_name}" como visibile.
-  activity_user_showed_named_association: <strong>%{user}</strong> marcava un association inter "%{object_name}" e "%{name}" como visibile.
-  activity_user_showed_named_association_on_older_data_object: <strong>%{user}</strong> marcava un association inter %{object_name} e "%{name}" como visibile.
-  activity_user_showed_older_data_object: <strong>%{user}</strong> marcava %{object_name} como visibile.
-  activity_user_showed_unknown_object: <strong>%{user}</strong> marcava un objecto incognite como visibile.
-  activity_user_showed_unknown_object_association: <strong>%{user}</strong> marcava un association inter un objecto incognite e "%{name}" como visibile.
-  activity_user_trust_common_name: <strong>%{user}</strong> marcava le nomine commun in %{language} "%{name}" pro un objecto incognite como digne de fide.
-  activity_user_trust_common_name_from_taxon: <strong>%{user}</strong> marcava le nomine commun in %{language} "%{name}" pro "%{taxon}" como digne de fide.
-  activity_user_trust_unknown_name: <strong>%{user}</strong> marcava un nomine commun incognite pro un taxon incognite como digne de fide.
-  activity_user_trust_unknown_name_to_taxon: <strong>%{user}</strong> marcava un nomine commun pro "%{taxon}" como digne de fide.
-  activity_user_trusted_data_object: <strong>%{user}</strong> marcava "%{object_name}" como digne de fide.
-  activity_user_trusted_named_association: <strong>%{user}</strong> marcava un association inter "%{object_name}" e "%{name}" como digne de fide.
-  activity_user_trusted_named_association_on_older_data_object: <strong>%{user}</strong> marcava un association inter %{object_name} e "%{name}" como digne de fide.
-  activity_user_trusted_older_data_object: <strong>%{user}</strong> marcava %{object_name} como digne de fide.
-  activity_user_trusted_unknown_object: <strong>%{user}</strong> marcava un objecto incognite como digne de fide.
-  activity_user_trusted_unknown_object_association: <strong>%{user}</strong> marcava un association inter un objecto incognite e "%{name}" como digne de fide.
-  activity_user_unreview_common_name: <strong>%{user}</strong> marcava le nomine commun in %{language} "%{name}" pro un objecto incognite como non revidite.
-  activity_user_unreview_common_name_from_taxon: <strong>%{user}</strong> marcava le nomine commun in %{language} "%{name}" pro "%{taxon}" como non revidite.
-  activity_user_unreview_unknown_name: <strong>%{user}</strong> marcava un nomine commun incognite pro un taxon incognite como non revidite.
-  activity_user_unreview_unknown_name_to_taxon: <strong>%{user}</strong> marcava un nomine commun pro "%{taxon}" como non revidite.
-  activity_user_unreviewed_data_object: <strong>%{user}</strong> marcava "%{object_name}" como non revidite.
-  activity_user_unreviewed_named_association: <strong>%{user}</strong> marcava un association inter "%{object_name}" e "%{name}" como non revidite.
-  activity_user_unreviewed_unknown_object: <strong>%{user}</strong> marcava un objecto incognite como non revidite.
-  activity_user_unreviewed_unknown_object_association: <strong>%{user}</strong> marcava un association inter un objecto incognite e "%{name}" como non revidite.
-  activity_user_untrust_common_name: <strong>%{user}</strong> marcava le nomine commun in %{language} "%{name}" pro un objecto incognite como non digne de fide.
-  activity_user_untrust_common_name_from_taxon: <strong>%{user}</strong> marcava le nomine commun in %{language} "%{name}" pro "%{taxon}" como non digne de fide.
-  activity_user_untrust_unknown_name: <strong>%{user}</strong> marcava un nomine commun incognite pro un taxon incognite como non digne de fide.
-  activity_user_untrust_unknown_name_to_taxon: <strong>%{user}</strong> marcava un nomine commun pro "%{taxon}" como non digne de fide.
-  activity_user_untrusted_data_object: <strong>%{user}</strong> marcava "%{object_name}" como non digne de fide.
-  activity_user_untrusted_named_association: <strong>%{user}</strong> marcava un association inter "%{object_name}" e "%{name}" como non digne de fide.
-  activity_user_untrusted_named_association_on_older_data_object: <strong>%{user}</strong> marcava un association inter %{object_name} e "%{name}" como non digne de fide.
-  activity_user_untrusted_older_data_object: <strong>%{user}</strong> marcava %{object_name} como non digne de fide.
-  activity_user_untrusted_unknown_object: <strong>%{user}</strong> marcava un objecto incognite como non digne de fide.
-  activity_user_untrusted_unknown_object_association: <strong>%{user}</strong> marcava un association inter un objecto incognite e "%{name}" como non digne de fide.
   activity_user_updated_text: <strong>%{user}</strong> actualisava le texto de "%{object_name}" in "%{taxon_concept}".
   add: Adder
   add_a_collection_to_a_community: Adder "%{collection}" a un communitate
@@ -841,6 +791,7 @@ ia:
         meta_title: Statisticas de %{partner_name}
         tweet_text: Statisticas de uso de %{partner_name}
   content_summary_introduction_html: Le sequente valores representa le summa de differente typos de contento pro iste taxon e tote su descendentes taxonomic. Le contento %{glossary_term_trusted} o ha essite approbate per un curator de EOL o proveni de un suppletor digne de fide. Le contento %{glossary_term_unreviewed} non ha ancora essite evalutate per un curator de EOL. Cata hierarchia taxonomic es unic, dunque cata hierarchia navigabile es listate pro comparation.
+  content_summary_table_caption: Un summario del contento associate con %{taxon_name} e su descendentes in %{hierarchy_label}
   content_summary_table_count_column_header: Numero
   content_summary_table_summary: Iste tabella contine le numeros de varie typos de contento, separate per stato.
   content_summary_table_type_descendants_row: Numero de descendentes
@@ -853,11 +804,15 @@ ia:
   create_a_collection: Crear un collection
   create_a_community: Crear un communitate
   create_account: crear un conto
+  created_community: Le communitate ha essite create con successo.
   curator_admin_index_help: Clicca sur un nomine de usator pro vider le profilo detaliate del usator. Tu pote cambiar le permissiones de curator al nivello de clade in le paginas de profilo del usatores. Si le datos de authentication es truncate, clicca pro expander e monstrar le datos de authentication complete.
   curator_level: Nivello de curator
   curator_level_with_indefinite_article_assistant_curator: un <strong>curator assistente</strong>
   curator_level_with_indefinite_article_full_curator: un <strong>plen curator</strong>
   curator_level_with_indefinite_article_master_curator: un <strong>maestro curator</strong>
+  curators_summary_header_with_count: 
+    one: "%{count} curator"
+    other: "%{count} curatores"
   currently_in_eol: Actualmente in le Encyclopedia del Vita
   dashboard: Pannello de instrumentos
   data_objects: 
@@ -866,6 +821,7 @@ ia:
       tweet_text: "%{dato_title} de %{supplier}"
   delete_community: Deler iste communitate
   detail: Detalio
+  development_version_name: V2 VERSION IN DISVELOPPAMENTO - non pro uso public
   displaying_numerical_range: Lista de %{start_number} a %{end_number}
   donate: Donar
   donation_error_no_amount: Per favor selige un amonta a donar.
@@ -873,6 +829,9 @@ ia:
   edit_community: Modificar communitate
   edit_my_profile: Modificar mi profilo
   encyclopedia_of_life: Encyclopedia del Vita
+  endorsed_collections_with_count: 
+    one: "%{count} collection approbate"
+    other: "%{count} collectiones approbate"
   eol_colon: "EOL:"
   eol_glossary: Glossario de EOL
   eol_news: Novas de EOL
@@ -955,6 +914,7 @@ ia:
       harvest_event: 
         began_at: Comenciate
         completed_at: Terminate
+        first_published_at: Prime publication
         publish_more: Marca un evento de recolta pro publication, le contento non essera rendite public immediatemente.
         published_at: Publicate
         published_status: Stato
@@ -1014,14 +974,15 @@ ia:
         curator_scope: Sphera de curation
         curator_scope_more: "Per favor indica le dominio de tu expertise. Per exemplo: \"Roditores de Borneo\", \"Interactiones tri-trophic\" o \"Problemas de conservation in pisces\". Isto non limitara tu capacitate de curation, ma informara le communitate de EOL."
         email_reports_frequency_hours: Con que frequentia vole tu reciper alertas de e-mail sur le activitate concernente tu contributiones?
+        email_settings_submit: configuration de e-mail
         entered_password: Contrasigno <small>(4 - 16 characteres)</small>
         generate_api_key: Requestar un clave API
         generate_api_key_more: Si le uso del API de EOL te interessa, tu pote generar un clave API pro identificar tu application. Lege plus a proposito de <a href="%{api_docs_url}">adder un clave a tu appellos al API</a>.
         logo: Incargar un nove photo
-        mailing_list: Inviar me bulletines de actualitates per e-mail?
-        mailing_list_yes: Si
         new_password: Nove contrasigno <small>(4 - 16 characteres)</small>
         new_password_confirmation: Nove contrasigno <small>(pro confirmar)</small>
+        notification_settings: Configuration de notificationes
+        notification_settings_more: Configurar le optiones de notification.
         requested_curator_level: Tu requesta de devenir %{curator_level_with_indefinite_article} es pendente.
         requested_curator_level_id_more: Selige <em>curator assistente</em> si tu non ancora possede qualificationes.  Selige <em>curator plen</em> si tu es un scientista professional o un studente graduate con qualificationes.  Selige <em>maestro curator</em> si tu es un curator experte de EOL e vole assumer plus responsabilitates.
         tag_line: "Slogan o titulo <small>exemplo: \"Enthusiasta de aves\"</small>"
@@ -1057,9 +1018,6 @@ ia:
         create: Adder articulo
         create_text: Adder articulo
         update: Salveguardar articulo
-      eol_statistic: 
-        download_csv: Discargar como CSV
-      filter_sort: Filtrar e ordinar
       harvest_event: 
         publish: Publicar
       hierarchy: 
@@ -1086,6 +1044,7 @@ ia:
         curation_privileges: Submitter requesta
         forgot_password: Inviar e-mail
         generate_api_key: Generar un clave
+        notification_settings: Configuration de notificationes
         update: Salveguardar information de profilo
       wikipedia_queue: 
         create: Submitter requesta
@@ -1116,6 +1075,7 @@ ia:
   just_pages_with_pictures_and_text: Solmente le paginas con imagines e texto
   language: "Lingua:"
   last_updated_time_ago: Ultime actualisation %{time_passed} retro
+  learn_about_content_partners: Cognoscer nostre partners de contento
   leave_a_comment: Lassar un commento
   license: Licentia
   license_all_rights_reserved: Tote le derectos reservate
@@ -1234,11 +1194,13 @@ ia:
     user_message: 
       subject: Un message del Encyclopedia del Vita
     user_reset_password: 
+      message: "Le Encyclopedia del Vita (www.eol.org) ha recipite un requesta de reinitialisar tu contrasigno. Si tu non ha facite iste requesta, per favor ignora iste e-mail.\n\nLe sequente ligamine face reinitialisar tu contrasigno:\n\n%{password_reset_url}\n\nNota ben que le ligamine expirara post 24 horas e in tal caso tu debera facer un altere requesta de reinitialisation."
       subject: Reinitialisar le contrasigno de tu conto del Encyclopedia del Vita
     user_updated_email_preferences: 
       message: "Isto es un notification automatic del systema de EOL. Le usator %{user_full_name} (%{user_profile_url}) ha actualisate su adresse de e-mail o preferentias de lista de diffusion.\n\nPreferentias previe:\nE-mail: %{previous_email}\nLista de diffusion: %{previous_mailing_list_preference}\n\nPreferentias actual:\nE-mail: %{updated_email}\nLista de diffusion: %{updated_mailing_list_preference}\nActualisate a: %{updated_at}"
       subject: Le usator de EOL %{user_full_name} cambiava su adresse de e-mail o preferentias de lista de diffusion
     user_verification: 
+      message: "Gratias pro inscriber te in Encyclopedia del Vita. Le sequente ligamine es pro verificar que tu vole completar le inscription e activar tu conto:\n\n%{verification_url}\n\nPost le activation de tu conto, tu recipera un e-mail de confirmation."
       subject: Per favor verifica tu requesta de un conto in Encyclopedia del Vita
   other_collection_items_with_count: 
     one: "%{count} altere elemento"
@@ -1255,6 +1217,7 @@ ia:
   person_rating: Evalutation del persona
   personal_space: Spatio personal
   post_comment: Publicar commento
+  preferred_common_name_advisory_information: Iste es le nomine preferite pro iste taxon.
   press_room: Sala de pressa
   profile: Profilo
   profile_image_alt_text_curator: Imagine de profilo del curator %{user_full_name}
@@ -1263,11 +1226,51 @@ ia:
   rated_by_count_people: 
     one: de %{count} persona
     other: de %{count} personas
+  recent_activity: 
+    bulk_collection_activity_with_count: 
+      one: Il habeva un actualisation de %{to}
+      other: Il habeva %{count} actualisationes de %{to}
+    bulk_comments_with_count: 
+      one: Il ha un nove commento sur %{on}
+      other: Il ha %{count} nove commentos sur %{on}
+    bulk_community_activity_with_count: 
+      one: Il habeva un actualisation de %{to}
+      other: Il habeva %{count} actualisationes de %{to}
+    bulk_community_joins_with_count: 
+      one: Un nove membro adhereva a %{community}
+      other: "%{count} nove membros adhereva a %{community}"
+    bulk_curation_with_count: 
+      one: Conservatores faceva un melioration de %{to}
+      other: Conservatores faceva %{count} meliorationes de %{to}
+    collection_activity_by_user: <b>%{user_name}</b> exequeva un %{activity_name} sur le collection <b>%{collection_name}</b>.
+    collection_activity_log_title: "%{who} ha modificate un collection"
+    collection_activity_user_added_item: <b>%{user_name}</b> addeva %{collected_item_type} №%{collected_item_id} a <b>%{collection_name}</b>.
+    collection_activity_user_watching_recipient: <b>%{user_name}</b> te observa.
+    comment_body_brief: "%{body} - %{author}"
+    comment_link: Vider commento in EOL
+    comment_title: "%{who} ha commentate %{what}"
+    comment_title_your_newsfeed: "%{who} ha commentate tu syndication de novas"
+    community_activity_by_user: <b>%{user_name}</b> exequeva un %{activity_name} sur le communitate <b>%{community_name}</b>.
+    community_activity_log_title: "%{who} ha modificate un communitate"
+    community_activity_user_joined: Le usator <b>%{user_name}</b> adhereva al communitate <b>%{community_name}</b>.
+    community_activity_user_left: Le usator <b>%{user_name}</b> quitava le communitate <b>%{community_name}</b>.
+    community_activity_user_made_member_a_manager: Le usator <b>%{user_name}</b> faceva <b>%{member_name}</b> gerente del communitate <b>%{community_name}</b>.
+    curator_activity_log_title: "%{who} ha conservate qualcosa"
+    curator_activity_on_data_object_by_user: <b>%{user_name}</b> exequeva un action de %{activity_name} sur <b>%{dato_title}</b> (%{dato_type} №%{dato_id}).
+    curator_activity_on_taxon_concept_by_user: <b>%{user_name}</b> exequeva un action de %{activity_name} sur <b>%{taxon_concept}</b> (%{taxon_overview_url}).
+    data_object_activity_article_added_by_user: <b>%{user_name}</b> addeva un articulo appellate %{dato_title} a <b>%{taxon_concept}</b> (%{taxon_details_url}).
+    data_object_title: "%{who} ha addite nove contento a EOL"
+    default_subject: Activitate recente in EOL
+    intro: Ecce tu digesto de activitate in EOL pro %{time}
+    someone_commented_on_something: <b>%{who}</b> ha commentate <b>%{what}</b>.
+    unsubscribe: Pro non plus reciper iste notificationes, <a href='%{email_prefs_url}'>modifica tu preferentias de e-mail</a>.
   recent_updates: Actualisationes recente
   remove_membership: Remover inscription
   resources: Ressources
   rights: Derectos
+  rights_holder: Detentor del derectos
   search_field_label: Cercar in EOL
+  search_input_advisory_information: Entra nomines commun o scientific de organismos vive de que tu vole saper plus. Per exemplo, tenta scriber "tomate".
   search_placeholder: Cercar in EOL ...
   search_the_site: Cercar in le sito
   see_all_classifications_with_count_html: 
@@ -1577,6 +1580,7 @@ ia:
   this_sound_is_unpublished: Iste sono non es publicate.
   this_video_cannot_be_curated_because_unpublished: Iste video non pote esser curate perque illo non es publicate.
   this_video_is_unpublished: Iste video non es publicate.
+  threat_status_header_colon: "Stato de menacia de IUCN:"
   time_ago: "%{time_passed} retro"
   total_items_with_count: 
     one: "%{count} elemento"
@@ -1586,6 +1590,7 @@ ia:
   unknown: Incognite
   unknown_type_not_associated_with_any_published_entries: Iste datos non es associate a alcun taxon publicate.
   unreviewed: Non revidite
+  updated_community: Le communitate ha essite actualisate con successo.
   user_comment: Commento de usator
   user_system_down: Nos regretta que le systema pro le creation de contos non es disponibile al momento. Per favor reproba plus tarde.
   users: 
@@ -1610,6 +1615,9 @@ ia:
         meta_title: Partners de contento de %{user_full_name}
         tweet_text: Partners de contento de %{user_full_name}
     newsfeeds: 
+      activity_link: activitate
+      comments_link: commentos
+      newsfeed_link: syndication de novas
       show: 
         meta_description: Novas, activitates e commentos de %{user_full_name}.
         meta_title: Syndication de novas de %{user_full_name}

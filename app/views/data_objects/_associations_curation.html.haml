@@ -30,7 +30,7 @@
             = select_tag "visibility_id_#{entry.id}", options_for_select(Visibility.for_curating_selects, visibility_selected)
           - if entry.class == HierarchyEntry && entry.by_curated_association? && entry.associated_by_curator
             - supplied_by_user = entry.associated_by_curator
-            - unless supplied_by_user.blank?          
+            - unless supplied_by_user.blank?
               = render :partial => 'data_objects/supplier', :locals => { :association_supplied_by_user => supplied_by_user, :data_object => data_object }
           - untrusted_reasons =[]
           - if vetted_selected == Vetted.untrusted.id.to_i
@@ -57,12 +57,12 @@
               = check_box_tag "hide_reasons_#{entry.id}[]", UntrustReason.poor.id.to_s, untrusted_reasons.include?(UntrustReason.poor.id), {:id => "#{entry.id}_untrust_reason_poor"}
               %label{ :for => "#{entry.id}_untrust_reason_poor" }
                 = UntrustReason.poor.label
-            %input{ :type => "hidden", :id => "untrust_reasons_comment_#{entry.id}", :name => "untrust_reasons_comment_#{entry.id}" }
-
-            %dl
-              %dt
-                %label.assistive{:for => "curation_comment_#{entry.id}"}= I18n.t(:curation_comment)
-              %dd
-                = text_area_tag "curation_comment_#{entry.id}", nil, :rows => 4, :cols => 60, :placeholder => I18n.t(:curation_reason_placeholder)
+          -# Note: this curation comment box is always available in the interface even if the data object is being
+          -# curated as trusted/unreviewed and visible
+          %dl
+            %dt
+              %label.assistive{:for => "curation_comment_#{entry.id}"}= I18n.t(:curation_comment)
+            %dd
+              = text_area_tag "curation_comment_#{entry.id}", nil, :rows => 4, :cols => 60, :placeholder => I18n.t(:curation_reason_placeholder)
       %fieldset.actions
         = submit_tag I18n.t(:curated_association_update_button)

@@ -149,6 +149,9 @@ nl:
         request_publish: Verzoek publicatie
       name: 
         string: Naam
+      notification: 
+        comment_on_my_contribution: Een reactie of een conservatoire handeling op een bijdrage die u hebt gemaakt
+        comment_on_my_profile: Een reactie op uw profiel
       resource: 
         accesspoint_url: URL dataset
         auto_publish: Automatisch publiceren
@@ -248,73 +251,9 @@ nl:
     models: 
       user: gebruiker
   activity: Activiteit
-  activity_choose_exemplar: <strong>%{user}</strong> heeft een afbeelding ingesteld als representatief voor "%{object_name}".
-  activity_hid_with_reasons_colon: "reden voor verbergen: %{reasons}"
   activity_log_empty: Niemand heeft de gegevens nog bijgewerkt.
   activity_log_empty_learn_more_link: Hoe u kunt bijdragen
-  activity_untrusted_with_reasons_colon: "reden voor niet vertrouwen: %{reasons}"
-  activity_user_added_association: <strong>%{user}</strong> heeft een associatie toegevoegd aan "%{object_name}".
-  activity_user_added_collection_to_community: <strong>%{user}</strong> heeft de verzameling"%{collection}" toegevoegd aan de gemeenschap "%{community}".
-  activity_user_added_common_name: <strong>%{user}</strong> heeft de gewone naam "%{name}" toegevoegd aan een onbekend object in de taal %{language}.
-  activity_user_added_common_name_to_taxon: <strong>%{user}</strong> heeft de gewone naam "%{name}" toegevoegd aan "%{taxon}" in de taal %{language}.
-  activity_user_added_community_manager: <strong>%{user}</strong> heeft %{manager} manager gemaakt van de gemeenschap "%{community}".
-  activity_user_added_named_association: <strong>%{user}</strong> heeft "%{object_name}" en "%{name}" gekoppeld.
-  activity_user_added_unknown_association: <strong>%{user}</strong> heeft een associatie toegevoegd aan een onbekend object.
-  activity_user_added_unknown_name: <strong>%{user}</strong> heeft een onbekende gewone naam toegevoegd aan een onbekend object.
-  activity_user_added_unknown_name_to_taxon: <strong>%{user}</strong> heeft een gewone naam toegevoegd aan "%{taxon}".
-  activity_user_changed_community_description: <strong>%{user}</strong> heeft de beschijving van de gemeenschap "%{community}" bijgewerkt.
-  activity_user_changed_community_icon: <strong>%{user}</strong> heeft het logo van de gemeenschap "%{community}" bijgewerkt.
-  activity_user_changed_community_name: <strong>%{user}</strong> heeft de naam van de gemeenschap "%{community}" bijgewerkt.
-  activity_user_created_community: <strong>%{user}</strong> heeft de gemeenschap "%{collection}" aangemaakt.
   activity_user_created_text: <strong>%{user}</strong> heeft tekst toegevoegd aan "%{object_name}" in "%{taxon_concept}".
-  activity_user_curated_an_unknown_object: <strong>%{user}</strong> heeft een onbekend object geconserveerd.
-  activity_user_deleted_community: <strong>%{user}</strong> heeft de gemeenschap "%{collection}" verwijderd.
-  activity_user_hid_data_object: <strong>%{user}</strong> heeft "%{object_name}" gemarkeerd als verborgen.
-  activity_user_hid_named_association: <strong>%{user}</strong> heeft een koppeling tussen "%{object_name}" en "%{name}" als verborgen gemarkeerd.
-  activity_user_hid_unknown_object: <strong>%{user}</strong> heeft een onbekend object gemarkeerd als verborgen.
-  activity_user_hid_unknown_object_association: <strong>%{user}</strong> heeft een koppeling tussen een onbekend object en "%{name}" als verborgen gemarkeerd.
-  activity_user_inappropriate_common_name: <strong>%{user}</strong> heeft de gemeenschappelijke naam "%{name}" in het %{language} van een onbekend object als ongepast gemarkeerd.
-  activity_user_inappropriate_common_name_from_taxon: <strong>%{user}</strong> heeft de gemeenschappelijke naam "%{name}" in het %{language} van "%{taxon}" als ongepast gemarkeerd.
-  activity_user_inappropriate_unknown_name: <strong>%{user}</strong> heeft een onbekende gewone naam van een onbekend object als ongepast gemarkeerd.
-  activity_user_inappropriate_unknown_name_to_taxon: <strong>%{user}</strong> heeft een gemeenschappelijke naam van "%{taxon}" als ongepast gemarkeerd.
-  activity_user_joined_community: <strong>%{user}</strong> is lid geworden van de gemeenschap "%{community}".
-  activity_user_marked_content_as_inappropriate: <strong>%{user}</strong> heeft inhoud aangemerkt als ongepast.
-  activity_user_modified_community: <strong>%{user}</strong> heeft de gemeenschap "%{community}" aangepast.
-  activity_user_rated_data_object: <strong>%{user}</strong> heeft "%{object_name}" beoordeeld.
-  activity_user_rated_unknown_object: <strong>%{user}</strong> heeft een onbekend object beoordeeld.
-  activity_user_removed_association: <strong>%{user}</strong> heeft een associatie met "%{object_name}" verwijderd.
-  activity_user_removed_named_association: <strong>%{user}</strong> heeft een koppeling "%{object_name}" en "%{name}" verwijderd.
-  activity_user_removed_unknown_association: <strong>%{user}</strong> heeft een associatie met een onbekend object verwijderd.
-  activity_user_removed_unknown_name: <strong>%{user}</strong> heeft een onbekende gewone naam van een onbekend object verwijderd.
-  activity_user_removed_unknown_name_to_taxon: <strong>%{user}</strong> heeft een gewone naam van "%{taxon}" verwijderd.
-  activity_user_showed_data_object: <strong>%{user}</strong> heeft "%{object_name}" gemarkeerd als zichtbaar.
-  activity_user_showed_named_association: <strong>%{user}</strong> heeft een koppeling tussen "%{object_name}" en "%{name}" als zichtbaar gemarkeerd.
-  activity_user_showed_unknown_object: <strong>%{user}</strong> heeft een onbekend object gemarkeerd als zichtbaar.
-  activity_user_showed_unknown_object_association: <strong>%{user}</strong> heeft een koppeling tussen een onbekend object en "%{name}" als zichtbaar gemarkeerd.
-  activity_user_trust_common_name: <strong>%{user}</strong> heeft de gemeenschappelijke naam "%{name}" in het %{language} van een onbekend object als vertrouwd gemarkeerd.
-  activity_user_trust_common_name_from_taxon: <strong>%{user}</strong> heeft de gemeenschappelijke naam "%{name}" in het %{language} van "%{taxon}" als vertrouwd gemarkeerd.
-  activity_user_trust_unknown_name: <strong>%{user}</strong> heeft een onbekende gewone naam van een onbekend object als vertrouwd gemarkeerd.
-  activity_user_trust_unknown_name_to_taxon: <strong>%{user}</strong> heeft een gewone naam van "%{taxon}" als vertrouwd gemarkeerd.
-  activity_user_trusted_data_object: <strong>%{user}</strong> heeft "%{object_name}" gemarkeerd als vertrouwd.
-  activity_user_trusted_named_association: <strong>%{user}</strong> heeft een koppeling tussen "%{object_name}" en "%{name}" als vertrouwd gemarkeerd.
-  activity_user_trusted_unknown_object: <strong>%{user}</strong> heeft een onbekend object gemarkeerd als vertrouwd.
-  activity_user_trusted_unknown_object_association: <strong>%{user}</strong> heeft een koppeling tussen een onbekend object en "%{name}" als vertrouwd gemarkeerd.
-  activity_user_unreview_common_name: <strong>%{user}</strong> heeft de gemeenschappelijke naam "%{name}" in het %{language} van een onbekend object als ongecontroleerd gemarkeerd.
-  activity_user_unreview_common_name_from_taxon: <strong>%{user}</strong> heeft de gemeenschappelijke naam "%{name}" in het %{language} van "%{taxon}" als ongecontroleerd gemarkeerd.
-  activity_user_unreview_unknown_name: <strong>%{user}</strong> heeft een onbekende gewone naam van een onbekend object als ongecontroleerd gemarkeerd.
-  activity_user_unreview_unknown_name_to_taxon: <strong>%{user}</strong> heeft een gewone naam van "%{taxon}" als ongecontroleerd gemarkeerd.
-  activity_user_unreviewed_data_object: <strong>%{user}</strong> heeft "%{object_name}" gemarkeerd als niet-beoordeeld.
-  activity_user_unreviewed_named_association: <strong>%{user}</strong> heeft een koppeling tussen "%{object_name}" en "%{name}" als ongecontroleerd gemarkeerd.
-  activity_user_unreviewed_unknown_object: <strong>%{user}</strong> heeft een onbekend object gemarkeerd als niet-beoordeeld.
-  activity_user_unreviewed_unknown_object_association: <strong>%{user}</strong> heeft een koppeling tussen een onbekend object en "%{name}" als ongecontroleerd gemarkeerd.
-  activity_user_untrust_common_name: <strong>%{user}</strong> heeft de gemeenschappelijke naam "%{name}" in het %{language} van een onbekend object als niet-vertrouwd gemarkeerd.
-  activity_user_untrust_common_name_from_taxon: <strong>%{user}</strong> heeft de gemeenschappelijke naam "%{name}" in het %{language} van "%{taxon}" als niet-vertrouwd gemarkeerd.
-  activity_user_untrust_unknown_name: <strong>%{user}</strong> heeft een onbekende gewone naam van een onbekend object als niet-vertrouwd gemarkeerd.
-  activity_user_untrust_unknown_name_to_taxon: <strong>%{user}</strong> heeft een gewone naam van "%{taxon}" als niet-vertrouwd gemarkeerd.
-  activity_user_untrusted_data_object: <strong>%{user}</strong> heeft "%{object_name}" gemarkeerd als niet-vertrouwd.
-  activity_user_untrusted_named_association: <strong>%{user}</strong> heeft een koppeling tussen "%{object_name}" en "%{name}" als niet-vertrouwd gemarkeerd.
-  activity_user_untrusted_unknown_object: <strong>%{user}</strong> heeft een onbekend object gemarkeerd als niet-vertrouwd.
-  activity_user_untrusted_unknown_object_association: <strong>%{user}</strong> heeft een koppeling tussen een onbekend object en "%{name}" als niet-vertrouwd gemarkeerd.
   activity_user_updated_text: <strong>%{user}</strong> heeft tekst gewijzigd van "%{object_name}" in "%{taxon_concept}".
   add: Toevoegen
   add_a_collection_to_a_community: "\"%{collection}\" toevoegen aan een gemeenschap"
@@ -1315,8 +1254,6 @@ nl:
         generate_api_key: API-sleutel aanvragen
         generate_api_key_more: Als u geïnteresseerd bent in het gebruik van de EOL-API, kunt u een API-sleutel aanmaken om uw toepassing te identificeren. Lees meer over het <a href="%{api_docs_url}">toevoegen van een sleutel voor uw API-verzoeken</a>.
         logo: Nieuwe afbeelding uploaden
-        mailing_list: Ik wil nieuwsbrieven per e-mail ontvangen
-        mailing_list_yes: Ja
         new_password: Nieuw wachtwoord <small>(4 - 16 tekens)</small>
         new_password_confirmation: Nieuw wachtwoord <small>(te bevestigen)</small>
         requested_curator_level: Uw verzoek om %{curator_level_with_indefinite_article} te worden is in behandeling.
@@ -1354,9 +1291,6 @@ nl:
         create: Artikel toevoegen
         create_text: Artikel toevoegen
         update: Artikel opslaan
-      eol_statistic: 
-        download_csv: Downloaden als CSV
-      filter_sort: Filteren en sorteren
       harvest_event: 
         publish: Publiceren
       hierarchy: 
@@ -1796,6 +1730,7 @@ nl:
   person_rating: Persoonswaardering
   personal_profile_menu: Persoonlijk profiel
   personal_space: Persoonlijke ruimte
+  please: Gelieve
   please_confirm_your_donation_details: Bevestig uw donatiegegevens
   please_indicate_curation_reason: "Selecteer een reden en laat eventueel een opmerking achter:"
   please_leave_your_feedback: Geef uw terugkoppeling
@@ -2329,6 +2264,7 @@ nl:
   what_is_eol: Wat is EOL?
   what_is_this_question: Wat is dit?
   who_registered_before: aan
+  who_registered_from: wie geregistreerd is uit
   wikipedia_queue_create_successful_notice: Wikipedia-artikel %{article} verzie %{rev} wordt binnenkort geïmporteerd.
   wikipedia_queue_new_page_title: Import van Wikipedia-artikel aanvragen
   will_paginate: 

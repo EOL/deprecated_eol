@@ -192,73 +192,9 @@ sr-CS:
     models: 
       user: nalog
   activity: Aktivnost
-  activity_choose_exemplar: <strong>%{user}</strong> postavi sliku kao primer „%{object_name}“.
-  activity_hid_with_reasons_colon: "razlog za skrivanje: %{reasons}"
   activity_log_empty: Još niko nije pružio dogradnje.
   activity_log_empty_learn_more_link: Saznajte kako da doprinesete
-  activity_untrusted_with_reasons_colon: "razlog za nepoverljivost: %{reasons}"
-  activity_user_added_association: <strong>%{user}</strong> dodade vezu s objektom „%{object_name}“.
-  activity_user_added_collection_to_community: <strong>%{user}</strong> dodade zbirku „%{collection}“ u zajednicu „%{community}“.
-  activity_user_added_common_name: <strong>%{user}</strong> dodade %{language} trivijalan naziv „%{name}“ na nepoznati objekat.
-  activity_user_added_common_name_to_taxon: <strong>%{user}</strong> dodade %{language} trivijalan naziv „%{name}“ u „%{taxon}“.
-  activity_user_added_community_manager: <strong>%{user}</strong> postavi korisnika %{manager} za rukovodioca zajednice „%{community}“.
-  activity_user_added_named_association: <strong>%{user}</strong> dodade vezu između „%{object_name}“ i „%{name}“.
-  activity_user_added_unknown_association: <strong>%{user}</strong> dodade vezu za nepoznati objekat.
-  activity_user_added_unknown_name: <strong>%{user}</strong> dodate nepoznati trivijalan naziv za nepoznati objekat.
-  activity_user_added_unknown_name_to_taxon: <strong>%{user}</strong> dodade trivijalan naziv na takson „%{taxon}“.
-  activity_user_changed_community_description: <strong>%{user}</strong> izmeni opis zajednice „%{community}“.
-  activity_user_changed_community_icon: <strong>%{user}</strong> promeni logotip zajednice „%{community}“.
-  activity_user_changed_community_name: <strong>%{user}</strong> promeni naziv zajednice „%{community}“.
-  activity_user_created_community: <strong>%{user}</strong> napravi zajednicu „%{community}“.
   activity_user_created_text: <strong>%{user}</strong> dodade tekst u „%{object_name}“ na „%{taxon_concept}“.
-  activity_user_curated_an_unknown_object: <strong>%{user}</strong> postade kustos za nepoznati objekat.
-  activity_user_deleted_community: <strong>%{user}</strong> obrisa zajednicu „%{community}“.
-  activity_user_hid_data_object: <strong>%{user}</strong> označi objekat „%{object_name}“ kao sakriven.
-  activity_user_hid_named_association: <strong>%{user}</strong> označi vezu između „%{object_name}“ i „%{name}“ kao skrivenu.
-  activity_user_hid_unknown_object: <strong>%{user}</strong> označi nepoznati objekat kao sakriven.
-  activity_user_hid_unknown_object_association: <strong>%{user}</strong> označi vezu između nepoznatog objekta i „%{name}“ kao skrivenu.
-  activity_user_inappropriate_common_name: <strong>%{user}</strong> označi trivijalan naziv na %{language} „%{name}“ iz nepoznatog objekta kao neprikladan.
-  activity_user_inappropriate_common_name_from_taxon: <strong>%{user}</strong> označi trivijalan naziv na %{language} „%{name}“ iz taksona „%{taxon}“ kao neprikladan.
-  activity_user_inappropriate_unknown_name: <strong>%{user}</strong> označi nepoznati trivijalan naziv iz nepoznatog taksona kao neprikladan.
-  activity_user_inappropriate_unknown_name_to_taxon: <strong>%{user}</strong> označi trivijalan naziv iz taksona „%{taxon}“ kao neprikladan.
-  activity_user_joined_community: <strong>%{user}</strong> se pridruži zajednici „%{community}“.
-  activity_user_marked_content_as_inappropriate: <strong>%{user}</strong> označi sadržaj kao neprikladan.
-  activity_user_modified_community: <strong>%{user}</strong> izmeni zajednicu „%{community}“.
-  activity_user_rated_data_object: <strong>%{user}</strong> oceni objekat „%{object_name}“.
-  activity_user_rated_unknown_object: <strong>%{user}</strong> oceni nepoznati objekat.
-  activity_user_removed_association: <strong>%{user}</strong> ukloni vezu s objektom „%{object_name}“.
-  activity_user_removed_named_association: <strong>%{user}</strong> ukloni vezu između „%{object_name}“ i „%{name}“.
-  activity_user_removed_unknown_association: <strong>%{user}</strong> ukloni vezu s nepoznatim objektom.
-  activity_user_removed_unknown_name: <strong>%{user}</strong> ukloni nepoznati trivijalan naziv iz nepoznatog objekta.
-  activity_user_removed_unknown_name_to_taxon: <strong>%{user}</strong> ukloni trivijalan naziv iz taksona „%{taxon}“.
-  activity_user_showed_data_object: <strong>%{user}</strong> označi objekat „%{object_name}“ kao vidljiv.
-  activity_user_showed_named_association: <strong>%{user}</strong> označi vezu između „%{object_name}“ i „%{name}“ kao vidljivu.
-  activity_user_showed_unknown_object: <strong>%{user}</strong> označi nepoznati objekat kao vidljiv.
-  activity_user_showed_unknown_object_association: <strong>%{user}</strong> označi vezu između nepoznatog objekta i „%{name}“ kao vidljivu.
-  activity_user_trust_common_name: <strong>%{user}</strong> označi trivijalan naziv na %{language} „%{name}“ iz nepoznatog objekta kao poverljiv.
-  activity_user_trust_common_name_from_taxon: <strong>%{user}</strong> označi trivijalan naziv na %{language} „%{name}“ iz „%{taxon}“ kao poverljiv.
-  activity_user_trust_unknown_name: <strong>%{user}</strong> označi nepoznati trivijalan naziv iz nepoznatog taksona kao poverljiv.
-  activity_user_trust_unknown_name_to_taxon: <strong>%{user}</strong> označi trivijalan naziv iz taksona „%{taxon}“ kao poverljiv.
-  activity_user_trusted_data_object: <strong>%{user}</strong> označi objekat „%{object_name}“ kao poverljiv.
-  activity_user_trusted_named_association: <strong>%{user}</strong> označi vezu između „%{object_name}“ i „%{name}“ kao poverljivu.
-  activity_user_trusted_unknown_object: <strong>%{user}</strong> označi nepoznati objekat kao poverljiv.
-  activity_user_trusted_unknown_object_association: <strong>%{user}</strong> označi vezu između nepoznatog objekta i „%{name}“ kao poverljivu.
-  activity_user_unreview_common_name: <strong>%{user}</strong> označi trivijalan naziv na %{language} „%{name}“ iz nepoznatog objekta kao neproveren.
-  activity_user_unreview_common_name_from_taxon: <strong>%{user}</strong> označi trivijalan naziv na %{language} „%{name}“ iz taksona „%{taxon}“ kao neproveren.
-  activity_user_unreview_unknown_name: <strong>%{user}</strong> označi nepoznati trivijalan naziv iz nepoznatog taksona kao neproveren.
-  activity_user_unreview_unknown_name_to_taxon: <strong>%{user}</strong> označi trivijalan naziv iz taksona „%{taxon}“ kao neproveren.
-  activity_user_unreviewed_data_object: <strong>%{user}</strong> označi objekat „%{object_name}“ kao nepregledan.
-  activity_user_unreviewed_named_association: <strong>%{user}</strong> označi vezu između „%{object_name}“ i „%{name}“ kao neproverenu.
-  activity_user_unreviewed_unknown_object: <strong>%{user}</strong> označi nepoznati objekat kao nepregledan.
-  activity_user_unreviewed_unknown_object_association: <strong>%{user}</strong> označi vezu između nepoznatog objekta i „%{name}“ kao neproverenu.
-  activity_user_untrust_common_name: <strong>%{user}</strong> označi trivijalan naziv na %{language} „%{name}“ iz nepoznatog objekta kao nepoverljiv.
-  activity_user_untrust_common_name_from_taxon: <strong>%{user}</strong> označi trivijalan naziv na %{language} „%{name}“ iz taksona „%{taxon}“ kao nepoverljiv.
-  activity_user_untrust_unknown_name: <strong>%{user}</strong> označi nepoznati trivijalan naziv iz nepoznatog taksona kao nepoverljiv.
-  activity_user_untrust_unknown_name_to_taxon: <strong>%{user}</strong> označi trivijalan naziv iz taksona „%{taxon}“ kao nepoverljiv.
-  activity_user_untrusted_data_object: <strong>%{user}</strong> označi objekat „%{object_name}“ kao nepoverljiv.
-  activity_user_untrusted_named_association: <strong>%{user}</strong> označi vezu između „%{object_name}“ i „%{name}“ kao nepoverljivu.
-  activity_user_untrusted_unknown_object: <strong>%{user}</strong> označi nepoznati objekat kao nepoverljiv.
-  activity_user_untrusted_unknown_object_association: <strong>%{user}</strong> označi vezu između nepoznatog objekta i „%{name}“ kao nepoverljivu.
   activity_user_updated_text: <strong>%{user}</strong> izmeni tekst objekta „%{object_name}“ na „%{taxon_concept}“.
   add: Dodaj
   add_a_collection_to_a_community: Dodaj zbirku „%{collection}“ u zajednicu
@@ -616,6 +552,7 @@ sr-CS:
   contact_us: kontaktirajte s nama
   contact_us_functions: Kontakt
   contact_us_link: Kontakt
+  contact_us_request_failed: Došlo je do greške.
   contact_us_request_received: Zahtev za kontaktiranje je primljen
   contact_us_request_sent: Zahtev je poslat
   contact_us_submissions: Poslato na „Kontaktirajte s nama“
@@ -634,6 +571,7 @@ sr-CS:
   content_partner_agreement_cancel_edit_agreement_link: Otkaži
   content_partner_agreement_cancel_new_agreement_link: Otkaži
   content_partner_agreement_cancel_sign_agreement_link: Otkaži
+  content_partner_agreement_create_successful_notice: Prihvatili ste uslove partnera za sadržaj. Sada možete da dodate resurse podataka.
   content_partner_agreement_create_unsuccessful_error: Nažalost, došlo je do greške. Izgleda da postoji tehnički problem s uslovima partnera za sadržaj. Pokušajte ponovo. Ako problem i dalje postoji, obavestite EOL.
   content_partner_agreement_signed_successful_notice: Prihvatili ste uslove partnera za sadržaj. Sada možete da dodate resurse podataka.
   content_partner_agreement_signed_unsuccessful_error: Nažalost, došlo je do greške. Izgleda da postoji tehnički problem s uslovima partnera za sadržaj. Pokušajte ponovo. Ako problem i dalje postoji, obavestite EOL.
@@ -712,6 +650,7 @@ sr-CS:
   content_partner_resource_edit_link: Uredi
   content_partner_resource_edit_subheader: Uređivanje resursa
   content_partner_resource_edit_with_type_link: Uredi resurs
+  content_partner_resource_harvest_event_confirm_publish: Želite li da objavite preuzimanje %{completed_at} za resurs %{resource_title}?
   content_partner_resource_harvest_event_current_published: Trenutno objavljen
   content_partner_resource_harvest_event_not_published: Neobjavljen
   content_partner_resource_harvest_event_previously_published: Prethodno objavljen
@@ -1150,6 +1089,7 @@ sr-CS:
         view_style_id: Podrazumevani prikaz
       collection_item: 
         annotation: Zabeleška
+        sort_field: Poređaj po <small>(datum, broj ili tekst; neobavezno)</small>
         sort_field_show: "Vrednost svrstavanja:"
       comment: 
         body_edit: Uredi komentar
@@ -1263,8 +1203,6 @@ sr-CS:
         generate_api_key: Zahtevanje API ključa
         generate_api_key_more: Ako ste zainteresovani da koristite dodatak API za EOL, možete stvoriti API ključ za prepoznavanje vašeg programa. Pročitajte više o <a href="%{api_docs_url}">dodavanju ključa na API pozive</a>.
         logo: Otpremi novu sliku
-        mailing_list: Želite li da primate e-obaveštenja?
-        mailing_list_yes: Da
         new_password: Nova lozinka <small>(4-16 znakova)</small>
         new_password_confirmation: Potvrda nove lozinke
         requested_curator_level: Vaš zahtev da postanete %{curator_level_with_indefinite_article} čeka na proveru.
@@ -1743,11 +1681,13 @@ sr-CS:
     user_message: 
       subject: Poruka od Enciklopedije života
     user_reset_password: 
+      message: "Enciklopedija života (www.eol.org) je primila zahtev za obnavljanje vaše lozinke. Ako niste podneli ovaj zahtev, zanemarite ovu poruku.\n\nSledeća veza vam daje jednokratnu priliku za postavite novu lozinku:\n\n%{password_reset_url}\n\nPratite ovu vezu (kliknite na nju ili je umnožite u navigacionu traku vašeg pregledača) da dođete do stranice na kojoj možete da promenite lozinku. Imajte na umu da, ako je veza istekla, tada ćete morati ponovo da unesete korisničko ime ili e-adresu kako biste dobili novu poruku za promenu lozinke i novu vezu."
       subject: Obnavljanje lozinke za nalog na Enciklopediji života
     user_updated_email_preferences: 
       message: "Ovo je sistemsko samoobaveštenje. %{user_full_name} (%{user_profile_url}) promeni svoju e-adresu ili postavke za dopisnu listu.\n\nPrethodne postavke:\nE-adresa: %{previous_email}\nPostavka dopisne liste: %{previous_mailing_list_preference}\n\nAžurirane postavke:\nE-adresa: %{updated_email}\nPostavka dopisne liste: %{updated_mailing_list_preference}\nAžurirano: %{updated_at}"
       subject: "%{user_full_name} promeni svoju e-adresu ili postavke za dopisnu listu"
     user_verification: 
+      message: "Hvala vam što ste otvorili nalog na Enciklopediji života. Sledeća veza služi da biste potvrdili upis:\n\n%{verification_url}\n\nPratite ovu vezu (kliknite na nju ili je umnožite u navigacionu traku na svom pregledaču) da biste aktivirali nalog. Potom ćete dobiti potvrdnu poruku da je vaš nalog zaista aktiviran."
       subject: Potvrdite vaš zahtev za nalog na Enciklopediji života
   nucleotide_sequences: Nukleotidne sekvence
   nucleotide_sequences_ncbi_database: Baza <a href="%{ncbi_taxonomy_link}">taksonomije NCBI-ja</a> sadrži nazive svih organizama koji su zastupljeni u genetskoj bazi s najmanje jednom nukleotidnom ili proteinskom sekvencom.
@@ -2254,6 +2194,7 @@ sr-CS:
   to_submit_a_species_photograph_for: Da biste poslali sliku za %{taxon}, pošaljite slike na %{flickr_link} i pratite uputstva prikazana na početnoj stranici te grupe.
   to_submit_text_content_for_taxon_please_be_sure_you_are_logged: Da biste poslali tekstualni sadržaj za %{taxon}, proverite da li ste prijavljeni na EOL, pa kliknite na
   toc: Sadržaj
+  toc_no_longer_available: "Sadržaj: više nije dostupan"
   topic: Tema
   topic_area: Tematska oblast
   topics_avilable_to_contact_us_info: Sledeće tematske oblasti su dostupne na stranici „Kontakt“. Možete da dodajete nove ili da uređujete postojeće tematske oblasti i njihove e-adrese. Sve izmene se vrše odmah.

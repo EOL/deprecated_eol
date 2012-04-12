@@ -1043,6 +1043,9 @@ a.other_actions {
 #search_results ul.object_list li {
   white-space: nowrap; }
 
+.cms_page span.icon {
+  background: #f3f7fa url("/images/v2/icon_info_tabs.png") 50% 50% no-repeat; }
+
 #taxon_maps #media_list {
   padding: 0; }
 
@@ -1078,19 +1081,6 @@ ul li.total {
 ul li.editors a {
   padding: 7px 10px 6px !important;
   font-size: 12px !important; }
-
-div.newsfeed_heading {
-  padding: 6px 10px 5px;
-  text-align: right;
-  font-weight: bold;
-  text-transform: uppercase;
-  background: none repeat scroll 0 0 #f1f4dc;
-  border-bottom: 1px solid #ccd399; }
-  div.newsfeed_heading h3 {
-    color: #828d33;
-    font-weight: bold;
-    text-transform: uppercase;
-    font-size: 1em; }
 
 ul.media li .overlay {
   height: auto !important; }

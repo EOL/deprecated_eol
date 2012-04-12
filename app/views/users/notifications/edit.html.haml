@@ -2,9 +2,10 @@
   #profile_notifications.site_column
     .article.copy
       - form_for @user, :url => user_notification_path(@user), :builder => ApplicationHelper::EolFormBuilder do |user_form|
-        - user_form.label :disable_email_notifications, :class => 'checkbox' do
-          = user_form.check_box :disable_email_notifications
-          = I18n.t('activerecord.attributes.user.disable_email_notifications')
+        %fieldset
+          - user_form.label :disable_email_notifications, :class => 'checkbox' do
+            = user_form.check_box :disable_email_notifications
+            = I18n.t('activerecord.attributes.user.disable_email_notifications')
         - user_form.fields_for :notification do |notification|
           %fieldset
             %h3= I18n.t(:email_updates_for_eol_members)

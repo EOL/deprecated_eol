@@ -6,6 +6,7 @@ module EOL
       @saved_activity_logs_from_options ||= {}
       @saved_activity_logs_from_options[options] ||= EOL::ActivityLog.find(self, options.dup)
     end
+    # TODO - this isn't working.  :|
     def reload(*args)
       @saved_activity_logs_from_options = {}
       super args

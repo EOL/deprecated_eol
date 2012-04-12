@@ -833,9 +833,10 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     end
   end
 
-  # TODO - Still needed?
+  # WARNING: Before you go and try to make notification_count and message_count use the same query and then filter
+  # the results to count each type, rcognize (!) that they each use their own :after clause.  So be careful.
   def notification_count
-    self.activity_log(:news => true, :after => User.find(self, :select => 'last_notification_at').last_notification_at).count
+    self.activity_log(:news => true, :filter => 'all', :after => User.find(self, :select => 'last_notification_at').last_notification_at).count
   end
 
   def message_count

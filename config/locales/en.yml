@@ -1561,7 +1561,7 @@ en:
         user_trusted_an_unknown_name_on_an_unknown_taxon: "<strong>%{user}</strong> marked an unknown common name from an unknown page as trusted."
         user_trusted_an_unknown_name_on_taxon: "<strong>%{user}</strong> marked an unknown common name from \"%{taxon}\" as trusted."
         user_trusted_name_on_an_unknown_taxon: "<strong>%{user}</strong> marked the common name \"%{name}\" from an unknown page as trusted."
-        user_trusted_name_on_taxon: "<strong>%{user}</strong> marked the common name \"%{name}\"."
+        user_trusted_name_on_taxon: "<strong>%{user}</strong> marked the common name \"%{name}\" from \"%{taxon}\" as trusted."
         an_unknown_user_trusted_an_unknown_name_on_it: "An unknown user marked an unknown common name as trusted."
         an_unknown_user_trusted_name_on_it: "An unknown user marked the common name \"%{name}\" as trusted."
         user_trusted_an_unknown_name_on_it: "<strong>%{user}</strong> marked an unknown common name as trusted."

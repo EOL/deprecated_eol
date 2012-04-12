@@ -49,7 +49,11 @@ class Notification < ActiveRecord::Base
       PendingNotification.create(:user => h[:user], :notification_frequency => h[:frequency], :target => target,
                                  :reason => h[:notification_type].to_s)
     end
-    Resque.enqueue(PrepareAndSendNotifications) unless notification_queue.empty?
+    begin
+      Resque.enqueue(PrepareAndSendNotifications) unless notification_queue.empty?
+    rescue Errno::ECONNREFUSED
+      # Nothing really needed, here, I suppose.  The message will eventually get queued when the connection's back.
+    end
     notification_queue
   end
 

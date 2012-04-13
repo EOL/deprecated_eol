@@ -1,18 +1,17 @@
 - content_for :social_sharing do
   = render :partial => 'shared/social_sharing'
-#content
-  #taxon_resources.site_column
-    = render :partial => 'menu'
-    #taxon_detail
-      #main.main_container
-        %h3= I18n.t(:taxon_education_header)
-        .section
-          - if @contents.blank?
-            .empty
-              %p= I18n.t(:taxon_education_empty)
-              - toc_id = TocItem.education_resources ? TocItem.education_resources.id : nil
-              %p= link_to I18n.t(:add_education_resources_to_page_link_button), new_taxon_data_object_path(@taxon_concept, :toc => toc_id), :class => 'button'
-              - if $EDUCATION_EMAIL
-                %p= I18n.t(:or_email_education, :link => link_to($EDUCATION_EMAIL, "mailto:#{$EDUCATION_EMAIL}")).firstcap
-          - else
-            = render :partial => 'taxa/details/category_content', :locals => { :content => @contents }
+#taxon_resources
+  = render :partial => 'menu'
+  #taxon_detail
+    #main.main_container
+      %h3= I18n.t(:taxon_education_header)
+      .section
+        - if @contents.blank?
+          .empty
+            %p= I18n.t(:taxon_education_empty)
+            - toc_id = TocItem.education_resources ? TocItem.education_resources.id : nil
+            %p= link_to I18n.t(:add_education_resources_to_page_link_button), new_taxon_data_object_path(@taxon_concept, :toc => toc_id), :class => 'button'
+            - if $EDUCATION_EMAIL
+              %p= I18n.t(:or_email_education, :link => link_to($EDUCATION_EMAIL, "mailto:#{$EDUCATION_EMAIL}")).firstcap
+        - else
+          = render :partial => 'taxa/details/category_content', :locals => { :content => @contents }

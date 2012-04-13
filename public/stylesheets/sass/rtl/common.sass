@@ -320,7 +320,17 @@ body
       &:hover
         text-decoration: underline
   span
-    &.disabled,
     &.prev_page,
     &.next_page
       color: #616e7a
+    &.disabled
+      font-weight: normal
+      color: #CAD3DB
+  + ul
+    border-top: 1px solid #d4dce2
+    margin-top: 12px
+ul
+  + .pagination
+    border-top: 1px solid #d4dce2
+    padding: 12px 0 0 0
+    margin: 0

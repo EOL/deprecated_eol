@@ -1,47 +1,46 @@
 - content_for :social_sharing do
   = render :partial => 'shared/social_sharing'
-#content
-  #taxon_literature.site_column
-    = render :partial => 'literature_menu'
-    .main_container
-      .copy
-        = render :partial => 'bhl_header'
-        .heading
-          - if @bhl_results && @bhl_results[:total] > 0
-            - form_for(:taxon_concept, @taxon_concept, :url => bhl_taxon_literature_path(@taxon_concept), :html => { :method => "get", :class => "select_submit" }) do |f|
-              %fieldset
-                = label_tag :sort_by, I18n.t(:sort_by_label)
-                = select_tag :sort_by, options_for_select([ [ I18n.t(:sort_by_title_ascending), 'title' ], [ I18n.t(:sort_by_title_descending), 'title_desc' ],
-                  [ I18n.t(:sort_by_year_ascending), 'year' ], [ I18n.t(:sort_by_year_descending), 'year_desc' ] ], @sort)
-              %fieldset.actions
-                = submit_tag I18n.t(:sort_by_button), :name => nil
+#taxon_literature
+  = render :partial => 'literature_menu'
+  .main_container
+    .copy
+      = render :partial => 'bhl_header'
+      .heading
         - if @bhl_results && @bhl_results[:total] > 0
-          = will_paginate @bhl_results[:results], :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next),
-            :inner_window => 2, :outer_window => 2
-          %table.standard
-            %thead
+          - form_for(:taxon_concept, @taxon_concept, :url => bhl_taxon_literature_path(@taxon_concept), :html => { :method => "get", :class => "select_submit" }) do |f|
+            %fieldset
+              = label_tag :sort_by, I18n.t(:sort_by_label)
+              = select_tag :sort_by, options_for_select([ [ I18n.t(:sort_by_title_ascending), 'title' ], [ I18n.t(:sort_by_title_descending), 'title_desc' ],
+                [ I18n.t(:sort_by_year_ascending), 'year' ], [ I18n.t(:sort_by_year_descending), 'year_desc' ] ], @sort)
+            %fieldset.actions
+              = submit_tag I18n.t(:sort_by_button), :name => nil
+      - if @bhl_results && @bhl_results[:total] > 0
+        = will_paginate @bhl_results[:results], :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next),
+          :inner_window => 2, :outer_window => 2
+        %table.standard
+          %thead
+            %tr
+              %th= I18n.t(:title)
+              %th= I18n.t(:year)
+              %th= I18n.t(:details_title)
+              %th= I18n.t(:pages_title)
+          %tbody
+            - @bhl_results[:results].each do |r|
+              - if @selected_hierarchy_entry
+                - item_link = entry_bhl_title_path(@taxon_concept, @selected_hierarchy_entry, r['title_item_id'])
+              - else
+                - item_link = bhl_title_path(@taxon_concept, r['title_item_id'])
               %tr
-                %th= I18n.t(:title)
-                %th= I18n.t(:year)
-                %th= I18n.t(:details_title)
-                %th= I18n.t(:pages_title)
-            %tbody
-              - @bhl_results[:results].each do |r|
-                - if @selected_hierarchy_entry
-                  - item_link = entry_bhl_title_path(@taxon_concept, @selected_hierarchy_entry, r['title_item_id'])
-                - else
-                  - item_link = bhl_title_path(@taxon_concept, r['title_item_id'])
-                %tr
-                  %td
-                    = link_to([r['publication_title'], r['volume_info']].join(' ; '), item_link)
-                  %td
-                    = r['year']
-                  %td
-                    = r['details']
-                  %td.nowrap
-                    = link_to(I18n.t(:pages_with_count, :count => r['numFound']), item_link)
-          = will_paginate @bhl_results[:results], :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next),
-            :inner_window => 2, :outer_window => 2
-        - else
-          .empty
-            %p= I18n.t(:literature_empty)
+                %td
+                  = link_to([r['publication_title'], r['volume_info']].join(' ; '), item_link)
+                %td
+                  = r['year']
+                %td
+                  = r['details']
+                %td.nowrap
+                  = link_to(I18n.t(:pages_with_count, :count => r['numFound']), item_link)
+        = will_paginate @bhl_results[:results], :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next),
+          :inner_window => 2, :outer_window => 2
+      - else
+        .empty
+          %p= I18n.t(:literature_empty)

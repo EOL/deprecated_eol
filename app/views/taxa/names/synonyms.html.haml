@@ -1,42 +1,40 @@
 - content_for :social_sharing do
   = render :partial => 'shared/social_sharing'
-#content
-  #taxon_names.site_column
-    .article.recognized
-      .header
-        %h3= I18n.t(:taxon_recognized_by_header)
-      = render :partial => 'taxa/recognized_by'
-    = render :partial => 'menu'
-    .main_container
-      - if (@selected_hierarchy_entry && @selected_hierarchy_entry.scientific_synonyms.count <= 0) || @taxon_concept.viewable_synonyms.count <= 0
-        .empty
-          %p= I18n.t(:names_synonyms_empty)
-      - else
-        %p.help_text
-          = I18n.t(:name_preferred_taxonomically_for_source_help_tip,
-            :icon => image_tag("/images/v2/icon_required.png", :alt => I18n.t(:name_preferred_for_language_yes), :class => 'indicator'))
+#taxon_names
+  .article.recognized
+    .header
+      %h3= I18n.t(:taxon_recognized_by_header)
+    = render :partial => 'taxa/recognized_by'
+  = render :partial => 'menu'
+  .main_container
+    - if (@selected_hierarchy_entry && @selected_hierarchy_entry.scientific_synonyms.count <= 0) || @taxon_concept.viewable_synonyms.count <= 0
+      .empty
+        %p= I18n.t(:names_synonyms_empty)
+    - else
+      %p.help_text
+        = I18n.t(:name_preferred_taxonomically_for_source_help_tip,
+          :icon => image_tag("/images/v2/icon_required.png", :alt => I18n.t(:name_preferred_for_language_yes), :class => 'indicator'))
 
-        - hierarchy_entries = @selected_hierarchy_entry.blank? ? @taxon_concept.published_hierarchy_entries : [@selected_hierarchy_entry]
-        - HierarchyEntry.preload_associations(hierarchy_entries, :hierarchy)
-        - hierarchy_entries.delete_if{ |he| !he.hierarchy.browsable? }
-        - for he in hierarchy_entries
-          - unless he.scientific_synonyms.blank?
-            %h4= he.hierarchy.label
-            %table.standard.synonyms
-              %thead
+      - hierarchy_entries = @selected_hierarchy_entry.blank? ? @taxon_concept.published_hierarchy_entries : [@selected_hierarchy_entry]
+      - HierarchyEntry.preload_associations(hierarchy_entries, :hierarchy)
+      - hierarchy_entries.delete_if{ |he| !he.hierarchy.browsable? }
+      - for he in hierarchy_entries
+        - unless he.scientific_synonyms.blank?
+          %h4= he.hierarchy.label
+          %table.standard.synonyms
+            %thead
+              %tr
+                %th= I18n.t(:names_name_column_header)
+                %th= I18n.t(:names_relationship_column_header)
+            %tbody
+              %tr
+                %td.preferred
+                  = he.name.string
+                %td
+                  = I18n.t(:name_preferred_taxonomically_for_source_yes)
+              - for s in he.scientific_synonyms
                 %tr
-                  %th= I18n.t(:names_name_column_header)
-                  %th= I18n.t(:names_relationship_column_header)
-              %tbody
-                %tr
-                  %td.preferred
-                    = he.name.string
                   %td
-                    = I18n.t(:name_preferred_taxonomically_for_source_yes)
-                - for s in he.scientific_synonyms
-                  %tr
-                    %td
-                      = s.name.string
-                    %td
-                      = s.synonym_relation ? s.synonym_relation.label.capitalize! : I18n.t(:synonym)
-
+                    = s.name.string
+                  %td
+                    = s.synonym_relation ? s.synonym_relation.label.capitalize! : I18n.t(:synonym)

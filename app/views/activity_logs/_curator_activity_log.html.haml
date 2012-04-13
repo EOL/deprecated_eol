@@ -51,13 +51,15 @@
   - when Activity.untrusted.id
     = I18n.t("untrusted.#{user_type}_untrusted_#{data_object_type}_on_#{association_type}", translation_vars)
     - unless translation_vars[:reasons].empty? || bulk
-      %p= I18n.t(:reasons_to_untrust, translation_vars)
+      %br/
+      = I18n.t(:reasons_to_untrust, translation_vars)
   - when Activity.show.id
     = I18n.t("show.#{user_type}_showed_#{data_object_type}_on_#{association_type}", translation_vars)
   - when Activity.hide.id
     = I18n.t("hide.#{user_type}_hid_#{data_object_type}_on_#{association_type}", translation_vars)
     - unless translation_vars[:reasons].empty? || bulk
-      %p= I18n.t(:reasons_to_hide, translation_vars)
+      %br/
+      = I18n.t(:reasons_to_hide, translation_vars)
   - when Activity.unreviewed.id
     = I18n.t("unreviewed.#{user_type}_unreviewed_#{data_object_type}_on_#{association_type}", translation_vars)
   - when Activity.add_association.id

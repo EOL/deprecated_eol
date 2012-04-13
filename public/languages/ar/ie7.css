@@ -10,3 +10,8 @@ body > #header .section .actions {
 
 #profile_notifications .copy form fieldset dd {
   float: none; }
+
+#worklist .filters fieldset, #worklist .filters dl {
+  direction: ltr; }
+#worklist .filters dt, #worklist .filters dd {
+  direction: rtl; }

@@ -630,16 +630,6 @@ body
     a
       #E84226
 
-/** taxon disclaimer **/
-.disclaimer
-  clear: both
-  border-top: 1px solid #CAD3DB
-  padding-top: 10px
-  p
-    text-align: center
-    font-size: 0.9em
-    color: #394651
-    margin: 0
 /** Hierarchy Entry classification browser does not have styles from HR
   * HR assumes a list of classifications, where each top level list item is the container
   * On hierarchy entry page the container is a div not a list item, and top level list items are kingdoms
@@ -752,8 +742,6 @@ body
       img
         +max_dimensions($logo_size_primary, $logo_size_primary)
 #taxon_literature, #taxon_community, #taxon_resources
-  .main_container
-    padding: 20px
   h3
     font-size: 2em
 #taxon_resources
@@ -824,11 +812,6 @@ body
 .object_list
   div.checkbox
     margin: 0
-#collections
-  .heading
-    fieldset
-      display: inline
-      margin: 0
 // set the height of the GBIF map viewer
 #map_image
   height: 350px
@@ -848,24 +831,19 @@ body
       >a
         >img
           +max_dimensions($logo_size_secondary, $logo_size_secondary)
-#collections
+#collection
+  &.main_container
+    .taxon>img
+      +max_dimensions($logo_size_standout, $logo_size_standout)
   .collections
     .article
       >.header
         >a
           >img
             +max_dimensions($logo_size_secondary, $logo_size_secondary)
-#community
-  .article.list
-    img
-      +max_dimensions($logo_size_secondary, $logo_size_secondary)
 #page_heading
   &.with_image, &.profile
     img
-      +max_dimensions($logo_size_standout, $logo_size_standout)
-#collections
-  &.main_container
-    .taxon>img
       +max_dimensions($logo_size_standout, $logo_size_standout)
 #sidebar
   .collection_list, .collection_contributors, .content_partner_managers

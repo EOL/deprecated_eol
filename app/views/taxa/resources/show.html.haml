@@ -1,34 +1,33 @@
 - content_for :social_sharing do
   = render :partial => 'shared/social_sharing'
-#content
-  #taxon_resources.site_column
-    = render :partial => 'menu'
-    .main_container
-      .copy
-        %h3= I18n.t(:taxon_partner_links_header)
-        - if @links.empty?
-          .empty
-            %p= I18n.t(:taxon_partner_links_empty)
-            %p= link_to I18n.t(:taxon_partner_links_empty_learn_more_link), cms_page_path('partners')
-        - else
-          %p= I18n.t(:taxon_partner_links_intro, :eol_api_link => url_for(:controller => 'api/docs', :action => 'index', :only_path => false))
-          %table.standard
-            %thead
-              %tr
-                %th
-                  = I18n.t(:logo_header)
-                %th
-                  = I18n.t(:name)
-                %th
-                  = I18n.t(:external_link_header)
-            %tbody
-              - @links.each do |outlink|
-                - if outlink
-                  %tr
-                    %td
-                      - logo = image_tag(outlink[:hierarchy].resource.content_partner.logo_url, :alt => "") rescue agent_logo(outlink[:hierarchy].agent, "small")
-                      = link_to logo, outlink[:hierarchy].url
-                    %td
-                      = hierarchy_or_resource_name(outlink[:hierarchy])
-                    %td
-                      = link_to hierarchy_outlink_collection_types(outlink[:hierarchy]), outlink[:outlink_url], :rel => :nofollow
+#taxon_resources
+  = render :partial => 'menu'
+  .main_container
+    .copy
+      %h3= I18n.t(:taxon_partner_links_header)
+      - if @links.empty?
+        .empty
+          %p= I18n.t(:taxon_partner_links_empty)
+          %p= link_to I18n.t(:taxon_partner_links_empty_learn_more_link), cms_page_path('partners')
+      - else
+        %p= I18n.t(:taxon_partner_links_intro, :eol_api_link => url_for(:controller => 'api/docs', :action => 'index', :only_path => false))
+        %table.standard
+          %thead
+            %tr
+              %th
+                = I18n.t(:logo_header)
+              %th
+                = I18n.t(:name)
+              %th
+                = I18n.t(:external_link_header)
+          %tbody
+            - @links.each do |outlink|
+              - if outlink
+                %tr
+                  %td
+                    - logo = image_tag(outlink[:hierarchy].resource.content_partner.logo_url, :alt => "") rescue agent_logo(outlink[:hierarchy].agent, "small")
+                    = link_to logo, outlink[:hierarchy].url
+                  %td
+                    = hierarchy_or_resource_name(outlink[:hierarchy])
+                  %td
+                    = link_to hierarchy_outlink_collection_types(outlink[:hierarchy]), outlink[:outlink_url], :rel => :nofollow

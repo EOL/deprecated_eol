@@ -3186,6 +3186,7 @@ en:
   sort_by: "Sort by"
   sort_field: "Sort Field:"
   sorry_no_collections_are_available_to_share: "Sorry, no collections are available to share with this community."
+  sorry_no_communities_are_available_to_share: "Sorry, no communities are available to share this collection with."
   sound_file: "Sound File"
   sound_from: "sound from"
   sound_object: "Sound object"

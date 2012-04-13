@@ -16,6 +16,9 @@
     = t("recent_activity.default_subject")
 - if @frequency == :immediately
   %h2= I18n.t(:intro_immediately, :scope => :recent_activity, :name => @user.short_name)
+- elsif @frequency == :weekly
+  %h2= I18n.t(:intro_weekly, :scope => :recent_activity, :ending => I18n.localize(Date.today, :format => :long))
+  %hr{:style => "border: none; border-bottom: 1px solid #d2d9df;clear:both;"}
 - else
   %h2= I18n.t(:intro, :scope => :recent_activity, :time => I18n.localize(Time.now, :format => :long))
   %hr{:style => "border: none; border-bottom: 1px solid #d2d9df;clear:both;"}

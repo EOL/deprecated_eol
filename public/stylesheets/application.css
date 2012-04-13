@@ -2430,6 +2430,8 @@ ul.content_partner_contacts li {
 #text_object_new_edit fieldset {
   width: 640px;
   float: left; }
+  #text_object_new_edit fieldset dl {
+    margin: 0; }
   #text_object_new_edit fieldset.content + fieldset {
     width: 300px; }
     #text_object_new_edit fieldset.content + fieldset input[type="text"] {

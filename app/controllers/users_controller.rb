@@ -23,12 +23,9 @@ class UsersController < ApplicationController
     @common_names_curated = User.total_objects_curated_by_action_and_user([Activity.trust_common_name.id, Activity.untrust_common_name.id, Activity.unreview_common_name.id, Activity.inappropriate_common_name.id], @user.id, [ChangeableObjectType.synonym.id])
     @rel_canonical_href = user_url(@user)
     if (false) # THIS BLOCK IS BEING USED BY JRICE TO TEST NOTIFICATIONS QUICKLY.  You can remove it, if you're annoyed.
-      @notes = PendingNotification.unsent
-      puts "%" * 400
-      @notes = @notes.select {|n| n.user_id == @user.id }
-      puts "$" * 400
-      @notes = @notes.map(&:target)
+      @notes = PendingNotification.unsent.select {|n| n.user_id == @user.id }.map(&:target)
       unless @notes.empty?
+        @frequency = :immediately
         render('recent_activity_mailer/recent_activity', :layout => 'v2/email')
         return(true)
       end

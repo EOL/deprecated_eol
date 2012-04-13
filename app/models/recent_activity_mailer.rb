@@ -4,7 +4,7 @@ class RecentActivityMailer < ActionMailer::Base
 
   layout "v2/email"
 
-  def recent_activity(user, notes)
+  def recent_activity(user, notes, fqz)
     @user = user # for the layout
     supress_activity_email = SiteConfigurationOption.find_by_parameter('supress_activity_email').value rescue nil
     puts "++ #{supress_activity_email}"
@@ -12,7 +12,7 @@ class RecentActivityMailer < ActionMailer::Base
     subject      I18n.t(:default_subject, :scope => [:recent_activity])
     recipients   supress_activity_email || user.email
     from         $SUPPORT_EMAIL_ADDRESS
-    body         :notes => notes, :user => user
+    body         :notes => notes, :user => user, :frequency => fqz
     content_type 'text/html'
   end
 

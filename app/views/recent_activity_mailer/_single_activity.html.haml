@@ -1,4 +1,3 @@
-%hr{:style => "border: none; border-bottom: 1px solid #d2d9df;clear:both;"}
 - if item.class.name == 'Comment' # Annoying, but comments really do behave quite differently from the others:
   = render(:partial => 'comment', :locals => { :who => item.user.full_name, :what => item.parent.summary_name, :body => item.body, :comment_link => link_to_item(Kernel.const_get(item.parent_type).find(item.parent_id)) })
 - else
@@ -12,3 +11,4 @@
             :posters_name => sanitize(item.user.full_name))), user_newsfeed_url(item.user)
       %td
         = render(:partial => "activity_logs/#{item.class.name.underscore}", :locals => { :item => item, :link_style => 'color: #195184' })
+%hr{:style => "border: none; border-bottom: 1px solid #d2d9df;clear:both;"}

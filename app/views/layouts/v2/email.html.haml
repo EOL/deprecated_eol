@@ -14,7 +14,6 @@
             %tr
               %td{:align => "left", :style => "color: #3f4b56; background: #fff;"}
                 = yield
-                %hr{:style => "border: none; border-bottom: 1px solid #d2d9df;clear:both;"}
                 %p= I18n.t(:see_all_activity, :scope => :recent_activity, :activity_url => user_newsfeed_url(@user))
                 %p= I18n.t(:unsubscribe, :scope => :recent_activity, :email_prefs_url => edit_user_notification_url(@user))
             %tr

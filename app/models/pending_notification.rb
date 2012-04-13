@@ -18,7 +18,7 @@ class PendingNotification < ActiveRecord::Base
       next unless user && user.email
       notes = notes_by_user_id[u_id]
       next unless notes
-      RecentActivityMailer.deliver_recent_activity(user, notes.map(&:target).uniq)
+      RecentActivityMailer.deliver_recent_activity(user, notes.map(&:target).uniq, fqz)
       sent_note_ids += notes.map(&:id)
     end
     unless sent_note_ids.empty?

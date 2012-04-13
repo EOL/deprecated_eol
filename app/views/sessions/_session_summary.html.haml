@@ -21,6 +21,6 @@
       - if current_user.is_curator?
         = link_to I18n.t(:pages_curator_section_link), curators_path
         &bull;
-      = link_to I18n.t(:profile), user_newsfeed_path(current_user)
+      = link_to I18n.t(:profile), user_path(current_user)
       &bull;
       = link_to I18n.t(:sign_out), logout_url(:return_to => current_url(false))

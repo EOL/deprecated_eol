@@ -18,6 +18,7 @@
   %h2= I18n.t(:intro_immediately, :scope => :recent_activity, :name => @user.short_name)
 - else
   %h2= I18n.t(:intro, :scope => :recent_activity, :time => I18n.localize(Time.now, :format => :long))
+  %hr{:style => "border: none; border-bottom: 1px solid #d2d9df;clear:both;"}
 - grouped_notes = @notes.group_by {|i| i.class.name }
 - grouped_notes.keys.each do |klass|
   - case klass
@@ -50,6 +51,8 @@
                   %b= link_to(sanitize(user.full_name), user_url(user))
                   %br/
                   = sanitize(user.tag_line).balance_tags
+      - unless nonjoins.empty? && joins.empty?
+        %hr{:style => "border: none; border-bottom: 1px solid #d2d9df;clear:both;"}
       - unless nonjoins.empty?
         %h2= I18n.t("recent_activity.bulk_community_activity_with_count", :count => nonjoins.count,
           :to => link_to(sanitize(community.summary_name), community_newsfeed_url(community), :style => 'color:#195184'))
@@ -66,10 +69,10 @@
         %h2= I18n.t("recent_activity.bulk_comments_with_count", :count => comments.count,
           :on => link_to(sanitize(parent.summary_name), link_to_newsfeed(parent), :style => 'color:#195184'))
       - comments.each do |comment|
-        = render :partial => 'recent_activity_mailer/iconed_activity', :locals => { :user => comment.user,
+        = render(:partial => 'recent_activity_mailer/iconed_activity', :locals => { :user => comment.user,
           :action => I18n.t("recent_activity.comment_body_brief", :body => comment.body,
           :author => link_to(sanitize(comment.user.full_name), user_url(comment.user),
-          :style => 'color: #195184'))
+          :style => 'color: #195184')) })
   - when 'CuratorActivityLog'
     - grouped_notes[klass].group_by(&:link_to).each do |association, items|
       - if association.class.name == 'TaxonConcept' or association.class.name == 'DataObject'
@@ -85,6 +88,6 @@
   - else # No further grouping required:
     - grouped_notes[klass].each do |item|
       = render(:partial => 'recent_activity_mailer/iconed_activity', :locals => { :user => item.user,
-        :action => render(:partial => "activity_logs/#{item.class.name.underscore}", :locals => {
-        :item => item, :link_style => 'color: #195184' })})
+        :action => render(:partial => "activity_logs/#{item.class.name.underscore}",
+        :locals => {:item => item, :link_style => 'color: #195184' })})
   %hr{:style => "border: none; border-bottom: 1px solid #d2d9df;clear:both;"}

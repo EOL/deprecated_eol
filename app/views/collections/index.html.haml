@@ -1,7 +1,0 @@
-%h1=I18n.t("listing_collections")
-%table
-  %tr
-    %th=I18n.t("name")
-  - @collections.each do |collection|
-    %tr
-      %td= link_to h(collection.name), collection

@@ -338,8 +338,19 @@ body > #footer {
       border-color: #394651; }
     .pagination a.prev_page:hover, .pagination a.next_page:hover {
       text-decoration: underline; }
-  .pagination span.disabled, .pagination span.prev_page, .pagination span.next_page {
+  .pagination span.prev_page, .pagination span.next_page {
     color: #616e7a; }
+  .pagination span.disabled {
+    font-weight: normal;
+    color: #cad3db; }
+  .pagination + ul {
+    border-top: 1px solid #d4dce2;
+    margin-top: 12px; }
+
+ul + .pagination {
+  border-top: 1px solid #d4dce2;
+  padding: 12px 0 0 0;
+  margin: 0; }
 
 table.standard tbody th[scope="row"] {
   background-color: #eff2f4;

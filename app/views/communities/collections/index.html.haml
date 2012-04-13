@@ -2,7 +2,7 @@
   = render :partial => 'shared/social_sharing'
 #sidebar
   = render :partial => 'communities/active_members_sidebar'
-#collections_tab.main_container
+#community_collections.main_container
   .heading
     %h3= I18n.t(:managed_collections_with_count, :count => @community.collections.count)
   %ul.object_list

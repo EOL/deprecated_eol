@@ -8,7 +8,7 @@
     .collection_contributors
       = render :partial => 'collections/managed_by', :locals => { :collection => @collection }
     = render :partial => 'collections/recently_visited'
-  #collections.main_container
+  #collection.main_container
     .empty
       %p= I18n.t(:collection_is_empty)
       - if editable && ! @collection.special?
@@ -33,7 +33,7 @@
             - else
               = submit_tag I18n.t(:copy), :name => 'commit_copy'
       = render :partial => 'collections/recently_visited'
-    #collections.main_container
+    #collection.main_container
       .heading
         %fieldset
           = label_tag :sort_by, I18n.t(:sort_collection_by_label)

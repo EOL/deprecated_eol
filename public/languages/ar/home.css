@@ -348,8 +348,19 @@ body > #footer {
       border-color: #394651; }
     .pagination a.prev_page:hover, .pagination a.next_page:hover {
       text-decoration: underline; }
-  .pagination span.disabled, .pagination span.prev_page, .pagination span.next_page {
+  .pagination span.prev_page, .pagination span.next_page {
     color: #616e7a; }
+  .pagination span.disabled {
+    font-weight: normal;
+    color: #cad3db; }
+  .pagination + ul {
+    border-top: 1px solid #d4dce2;
+    margin-top: 12px; }
+
+ul + .pagination {
+  border-top: 1px solid #d4dce2;
+  padding: 12px 0 0 0;
+  margin: 0; }
 
 .session.join {
   font-weight: bold;
@@ -546,10 +557,12 @@ body {
       width: 380px;
       margin: 0 0 20px 0; }
       #content .section .community h3 {
+        position: relative;
         border-bottom: 1px solid #e5e8eb; }
         #content .section .community h3 > small {
-          font-size: 0.9em;
-          padding-right: 100px; }
+          position: absolute;
+          left: 10px;
+          top: 1px; }
       #content .section .community > ul {
         padding: 20px 40px 10px 0;
         border-bottom: 1px solid #e5e8eb; }

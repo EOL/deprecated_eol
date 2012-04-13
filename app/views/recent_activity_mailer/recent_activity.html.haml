@@ -54,7 +54,7 @@
                   %b= link_to(sanitize(user.full_name), user_url(user))
                   %br/
                   = sanitize(user.tag_line).balance_tags
-      - unless nonjoins.empty? && joins.empty?
+      - if !nonjoins.empty? && !joins.empty?
         %hr{:style => "border: none; border-bottom: 1px solid #d2d9df;clear:both;"}
       - unless nonjoins.empty?
         %h2= I18n.t("recent_activity.bulk_community_activity_with_count", :count => nonjoins.count,

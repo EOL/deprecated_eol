@@ -10,7 +10,7 @@ class PendingNotification < ActiveRecord::Base
   named_scope :weekly, lambda { {:conditions => ["notification_frequency_id = ?", NotificationFrequency.weekly ] } }
   named_scope :by_user_id, lambda { |uid| {:conditions => ["user_id = ?", uid ] } }
 
-  def self.send_notifications(fqz)
+  def self.send_notifications(fqz) # :immediately, :daily, :weekly are the only values allowed.
     notes_by_user_id = self.send(fqz).unsent.group_by(&:user_id)
     sent_note_ids = []
     notes_by_user_id.keys.each do |u_id|

@@ -31,11 +31,10 @@ describe 'Taxa page' do
     it 'should show the section name' do
       body.should have_tag('#page_heading h1', /\n.*#{@section}/i)
     end
-    it 'should show the preferred common name titlized properly when site language is English'
+
+    it 'should show the preferred common name titlized properly when site language is English' do
       body.should have_tag('#page_heading h2', /^#{@testy[:common_name].split(/ /).map {|w| w.firstcap }.join(' ')}/)
     end
-    
-    
   end
 
   shared_examples_for 'taxon details tab' do

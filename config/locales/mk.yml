@@ -1434,8 +1434,6 @@ mk:
     one: "%{count} истакната збирка"
     other: "%{count} истакнати збирки"
   enter_in_a_search_term_users_a: Внесете поим за пребарување, а потоа саканата назнака на таксон/страница до која ќе води како предлог во пребарувањето. Назнаката ќе ја најдете во URL-адресата на целната страница (на пр. www.eol.org/pages/5 ја има назнаката „5“). Името на страницата и првата слика (ако е на располагање) ќе бидат зачувани во резултатот.
-  eol_activities: активности_на_eol
-  eol_activity: активности на eol
   eol_administration_console: Административна конзола на EOL
   eol_api: API на EOL
   eol_api_collections: "EOL API: Збирки"
@@ -1449,15 +1447,11 @@ mk:
   eol_api_search: "EOL API: Пребарување"
   eol_api_search_by_provider: "EOL API: Пребарување по добавувач"
   eol_colon: "EOL:"
-  eol_community_activity: активности на заедниците на eol
   eol_curator_activity_email_message: Кустосот <a href='%{profile_url}'>%{curator_full_name}</a> %{action} на <a href='%{data_object_url}'>EOL</a>%{comment}
   eol_flickr_group: Група на EOL на Flickr
   eol_glossary: Поимник
-  eol_member_activity: активности во членовите на eol
   eol_news: Новости
   eol_pages: Страници
-  eol_recent_activity: скорешни_активности_на_eol
-  eol_recent_member_activities: активности_на_членовите_на_eol
   error_401_description: Нажалост, не сте овластени за да ја отворите таа URL-адреса.
   error_401_page_title: Нема овластување
   error_403_description: Нажалост, не сте овластени за да ја отворите таа URL-адреса.
@@ -2030,7 +2024,6 @@ mk:
   media_with_count: 
     one: "%{count} Медиум"
     other: "%{count} Медиуми"
-  member_activity: Активности на членовите во последните 7 дена
   member_of: член на
   member_of_professional_society_credential_option: член на стручно друштво
   members: 
@@ -2463,7 +2456,6 @@ mk:
     see_all_activity: Сите претходни активности ќе ги најдете на <a href='%{activity_url}' style='color:#195184'>вашата страница за актуелности</a>.
     someone_commented_on_something: <b>%{who}</b> коментираше на <b>%{what}</b>.
     unsubscribe: Сменете си ги нагодувањата за е-пошта или откажете ја претплатата на <a href='%{email_prefs_url}' style='color:#195184'>вашата страница за нагодување на известувањата</a>.
-  recent_eol_member_activity: Скорешни активности на членовите на EOL
   recent_updates: Најнови актуелности
   recently_visited: Неодамна посетени
   recipients: Примачи
@@ -2568,7 +2560,6 @@ mk:
   see_all_updates_with_count_html: 
     one: Погледајте ги сите <span class="assistive">%{count} измени на овој таксон.</span>
     other: Погледајте ги сите <span class="assistive">%{count} измени на овој таксон.</span>
-  see_more: Повеќе
   see_notes: вид. белешки
   select_a_hierarchy_around_whic: "Одберете хиерархија според која ќе ги организирате кратките описи на содржините:"
   select_an_item_from_the_menu: Одберете ставка од менито

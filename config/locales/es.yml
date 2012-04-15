@@ -390,8 +390,105 @@ es:
         user_modified_an_unknown_community: <strong>%{user}</strong> ha modificado una comunidad desconocida.
         user_modified_community: <strong>%{user}</strong> ha modificado la comindad "%{community}".
     curator_activity_log: 
+      add_association: 
+        an_unknown_user_associated_an_older_data_object_to_an_unknown_association: Un usuario desconocido agregó una asociación entre una versión anterior de "%{data_object}" y una página desconocida.
+        an_unknown_user_associated_an_older_data_object_to_association: Un usuario desconocido agregó una asociación entre una versión anterior de "%{data_object}" y "%{association}".
+        an_unknown_user_associated_an_unknown_data_object_to_an_unknown_association: Un usuario desconocido agregó una asociación desconocida.
+        an_unknown_user_associated_an_unknown_data_object_to_association: Un usuario desconocido agregó una asociación entre un objeto de datos desconocido y "%{association}".
+        an_unknown_user_associated_data_object_to_an_unknown_association: Un usuario desconocido agregó una asociación entre  "%{data_object}" y una página desconocida.
+        an_unknown_user_associated_data_object_to_association: Un usuario desconocido agregó una asociación entre "%{data_object}" y "%{association}".
+        an_unknown_user_associated_it_to_an_unknown_association: Un usuario desconocido agregó una asociación a una página desconocida.
+        an_unknown_user_associated_it_to_association: Un usuario desconocido agregó una asociación a "%{association}".
+        user_associated_an_older_data_object_to_an_unknown_association: <strong>%{user}</strong> agregó una asociación entre una versión anterior de "%{data_object}" y una página desconocida.
+        user_associated_an_older_data_object_to_association: <strong>%{user}</strong> agregó una asociación entre una versión anterior de "%{data_object}" y "%{association}".
+        user_associated_an_unknown_data_object_to_an_unknown_association: <strong>%{user}</strong> ha agregado una asociación desconocida.
+        user_associated_an_unknown_data_object_to_association: <strong>%{user}</strong> agregó una asociación entre un objeto de datos desconocido y "%{association}".
+        user_associated_data_object_to_an_unknown_association: <strong>%{user}</strong> agregó una asociación entre "%{data_object}" y una página desconocida.
+        user_associated_data_object_to_association: <strong>%{user}</strong> agregó una asociación entre "%{data_object}" y "%{association}".
+        user_associated_it_to_an_unknown_association: <strong>%{user}</strong> agregó una asociación a una página desconocida.
+        user_associated_it_to_association: <strong>%{user}</strong> agregó una asociación a "%{association}".
+      add_common_name: 
+        an_unknown_user_added_an_unknown_name_to_an_unknown_taxon: Un usuario desconocido ha agregado un nombre común desconocido a una página desconocida.
+        an_unknown_user_added_an_unknown_name_to_it: Un usuario desconocido agregó un elemento desconocido.
+        an_unknown_user_added_an_unknown_name_to_taxon: Un usuario desconocido agregó un nombre común desconocido a "%{taxon}".
+        an_unknown_user_added_name_to_an_unknown_taxon: Un usuario desconocido añadió el nombre común "%{name}" a una página desconocida.
+        an_unknown_user_added_name_to_it: Un usuario desconocido ha añadido el nombre común "%{name}".
+        an_unknown_user_added_name_to_taxon: Un usuario desconocido añadió el nombre común "%{name}" a "%{taxon}".
+        user_added_an_unknown_name_to_an_unknown_taxon: <strong>%{user}</strong> agregó un nombre común desconocido a una página desconocida.
+        user_added_an_unknown_name_to_it: <strong>%{user}</strong> ha añadido un nombre común desconocido.
+        user_added_an_unknown_name_to_taxon: <strong>%{user}</strong> agregó un nombre común desconocido a "%{taxon}".
+        user_added_name_to_an_unknown_taxon: <strong>%{user}</strong> agregó el nombre común "%{name}" a una página desconocida.
+        user_added_name_to_it: <strong>%{user}</strong> agregó el nombre común "%{name}".
+        user_added_name_to_taxon: <strong>%{user}</strong> agregó el nombre común "%{name}" a "%{taxon}".
+      choose_exemplar: 
+        an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: Un usuario desconocido ha definido una versión anterior de "%{data_object}" como un ejemplar de una página desconocida.
+        an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: Un usuario desconocido ha establecido "%{data_object}" como un ejemplar de "%{taxon}".
+        an_unknown_user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: Un usuario desconocido ha establecido una imagen ejemplar desconocida.
+        an_unknown_user_chose_exemplar_an_unknown_data_object_on_taxon: Un usuario desconocido ha establecido un objeto de datos desconocido como un ejemplar de "%{taxon}".
+        an_unknown_user_chose_exemplar_data_object_on_an_unknown_taxon: Un usuario desconocido ha establecido "%{data_object}" como un ejemplar de una página desconocida.
+        an_unknown_user_chose_exemplar_data_object_on_taxon: Un usuario desconocido ha establecido "%{data_object}" como un ejemplar de "%{taxon}".
+        an_unknown_user_chose_exemplar_it_on_an_unknown_taxon: Un usuario desconocido lo ha establecido como un ejemplar de una página desconocida.
+        an_unknown_user_chose_exemplar_it_on_taxon: Un usuario desconocido lo ha establecido como un ejemplar de "%{taxon}".
+        user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: <strong>%{user}</strong> ha establecido una versión anterior de "%{data_object}" como un ejemplar de una página desconocida.
+        user_chose_exemplar_an_older_data_object_on_taxon: <strong>%{user}</strong> ha establecido una versión anterior de "%{data_object}" como un ejemplar de "%{taxon}".
+        user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: <strong>%{user}</strong> ha establecido una imagen ejemplar desconocida.
+        user_chose_exemplar_an_unknown_data_object_on_taxon: <strong>%{user}</strong> ha establecido un objeto de datos desconocidos como un ejemplar de "%{taxon}".
+        user_chose_exemplar_data_object_on_an_unknown_taxon: <strong>%{user}</strong> ha establecido "%{data_object}" como un ejemplar de una página desconocida.
+        user_chose_exemplar_data_object_on_taxon: <strong>%{user}</strong> lo ha establecido como un ejemplar de "%{taxon}".
+        user_chose_exemplar_it_on_an_unknown_taxon: <strong>%{user}</strong> lo ha establecido como un ejemplar en una página desconocida.
+        user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> lo ha establecido como un ejemplar de "%{taxon}".
+      hide: 
+        an_unknown_user_hid_an_older_data_object_on_an_unknown_association: Un usuario desconocido ha marcado una versión anterior de "%{data_object}" como oculto en un contexto desconocido.
+        an_unknown_user_hid_an_older_data_object_on_association: Un usuario desconocido marcó una versión anterior de "%{data_object}" como oculto en la página "%{association}".
+        an_unknown_user_hid_an_unknown_data_object_on_an_unknown_association: Un usuario desconocido ha marcado un objeto de datos desconocido como oculto en un contexto desconocido.
+        an_unknown_user_hid_an_unknown_data_object_on_association: Un usuario desconocido ha marcado un objeto de datos desconocido como oculto en la página "%{association}".
+        an_unknown_user_hid_data_object_on_an_unknown_association: Un usuario desconocido ha marcado "%{data_object}" como oculto en un contexto desconocido.
+        an_unknown_user_hid_data_object_on_association: Un usuario desconocido ha marcado "%{data_object}" como oculto en la página "%{association}".
+        an_unknown_user_hid_it_on_an_unknown_association: Un usuario desconocido lo ha marcado como oculto en un contexto desconocido.
+        an_unknown_user_hid_it_on_association: Un usuario desconocido lo ha marcado como oculto en la página "%{association}".
+        user_hid_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong> ha marcado una versión anterior de "%{data_object}" como oculto en un contexto desconocido.
+        user_hid_an_older_data_object_on_association: <strong>%{user}</strong> marcó una versión anterior de "%{data_object}" como oculto en la página "%{association}".
+        user_hid_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong> ha marcado un objeto de datos desconocido como oculto en un contexto desconocido.
+        user_hid_an_unknown_data_object_on_association: <strong>%{user}</strong> ha marcado un objeto de datos desconocido como oculto en la página "%{association}".
+        user_hid_data_object_on_an_unknown_association: <strong>%{user}</strong> ha marcado "%{data_object}" como oculto en un contexto desconocido.
+        user_hid_data_object_on_association: <strong>%{user}</strong> ha marcado "%{data_object}" como oculto en la página "%{association}".
+        user_hid_it_on_an_unknown_association: <strong>%{user}</strong> lo ha marcado como oculto en un contexto desconocido.
+        user_hid_it_on_association: <strong>%{user}</strong> lo ha marcado como oculto en la página "%{association}".
+      other_actions: 
+        an_unknown_user_curated_an_older_data_object: Un usuario desconocido ha supervisado una versión anterior de "%{data_object}".
+        an_unknown_user_curated_an_unknown_data_object: Un usuario desconocido ha supervisado un objeto de datos desconocidos.
+        an_unknown_user_curated_data_object: Un usuario desconocido ha supervisado "%{data_object}".
+        an_unknown_user_curated_it: Un usuario desconocido lo ha supervisado, pero la acción exacta tomada se ha perdido.
+        user_curated_an_older_data_object: <strong>%{user}</strong> ha supervisado una versión anterior de "%{data_object}".
+        user_curated_an_unknown_data_object: <strong>%{user}</strong> ha supervisado un objecto de datos desconocido.
+        user_curated_data_object: <strong>%{user}</strong> ha supervisado "%{data_object}".
+        user_curated_it: <strong>%{user}</strong> lo ha supervisado, pero se ha perdido el cambio exacto.
       reasons_to_hide: "Razones para ocultar: %{reasons}"
       reasons_to_untrust: "Razones para definir como no fiable: %{reasons}"
+      remove_association: 
+        an_unknown_user_disassociated_an_older_data_object_from_an_unknown_taxon: Un usuario desconocido eliminó una asociación de una versión anterior de "%{data_object}".
+        an_unknown_user_disassociated_an_older_data_object_from_taxon: Un usuario desconocido eliminó una asociación entre "%{data_object}" y "%{taxon}".
+        an_unknown_user_disassociated_an_unknown_data_object_from_an_unknown_taxon: Un usuario desconocido eliminó una asociación desconocida.
+        an_unknown_user_disassociated_an_unknown_data_object_from_taxon: Un usuario desconocido eliminó una asociación entre un objeto de datos desconocido y "%{taxon}".
+        an_unknown_user_disassociated_data_object_from_an_unknown_taxon: Un usuario desconocido eliminó una asociación entre  "%{data_object}" y una página desconocida.
+        an_unknown_user_disassociated_data_object_from_taxon: Un usuario desconocido eliminó una asociación entre "%{data_object}" y "%{taxon}".
+        an_unknown_user_disassociated_it_from_an_unknown_taxon: Un usuario desconocido eliminó una asociación a una página desconocida.
+        an_unknown_user_disassociated_it_from_taxon: Un usuario desconocido eliminó una asociación a "%{association}".
+        user_disassociated_an_older_data_object_from_an_unknown_taxon: <strong>%{user}</strong> eliminó una asociación entre una versión anterior de "%{data_object}" y una página desconocida.
+        user_disassociated_an_older_data_object_from_taxon: <strong>%{user}</strong> eliminó una asociación entre una versión anterior de "%{data_object}" y "%{taxon}".
+        user_disassociated_an_unknown_data_object_from_an_unknown_taxon: <strong>%{user}</strong> ha eliminado una asociación desconocida.
+        user_disassociated_an_unknown_data_object_from_taxon: <strong>%{user}</strong> eliminó una asociación entre un objeto de datos desconocido y "%{taxon}".
+        user_disassociated_data_object_from_an_unknown_taxon: <strong>%{user}</strong> eliminó una asociación entre "%{data_object}" y una página desconocida.
+        user_disassociated_data_object_from_taxon: <strong>%{user}</strong> eliminó una asociación entre "%{data_object}" y "%{taxon}".
+        user_disassociated_it_from_an_unknown_taxon: <strong>%{user}</strong> elimino una asociación a una página desconocida.
+        user_disassociated_it_from_taxon: <strong>%{user}</strong> eliminó una asociación a "%{association}".
+      remove_common_name: 
+        an_unknown_user_removed_name_from_an_unknown_taxon: Un usuario desconocido eliminó un nombre común de una página desconocida.
+        an_unknown_user_removed_name_from_it: Un usuario desconocido eliminó un nombre común.
+        an_unknown_user_removed_name_from_taxon: Un usuario desconocido eliminó un nombre común de "%{taxon}".
+        user_removed_name_from_an_unknown_taxon: <strong>%{user}</strong> elimino un nombre común de una página desconocida.
+        user_removed_name_from_it: <strong>%{user}</strong> eliminó un nombre común.
+        user_removed_name_from_taxon: <strong>%{user}</strong> eliminó un nombre común de "%{taxon}".
       show: 
         an_unknown_user_showed_an_older_data_object_on_an_unknown_association: Un usuario desconocido marcó una versión anterior de "%{data_object}" como visible en un contexto desconocido.
         an_unknown_user_showed_an_older_data_object_on_association: Un usuario desconocido marcó una versión anterior de "%{data_object}" como visible en la página "%{association}".
@@ -409,6 +506,19 @@ es:
         user_showed_data_object_on_association: <strong>%{user}</strong> ha marcado "%{data_object}" como visible en la página "%{association}".
         user_showed_it_on_an_unknown_association: <strong>%{user}</strong> lo ha marcado como visible en un contexto desconocido.
         user_showed_it_on_association: <strong>%{user}</strong> lo ha marcado como visible en la página "%{association}".
+      trust_common_name: 
+        an_unknown_user_trusted_an_unknown_name_on_an_unknown_taxon: Un usuario desconocido marcó un nombre común desconocido de una página desconocida como fiable.
+        an_unknown_user_trusted_an_unknown_name_on_it: Un usuario desconocido marcó un nombre común desconocido como fiable.
+        an_unknown_user_trusted_an_unknown_name_on_taxon: Un usuario desconocido marcó un nombre común desconocido de "%{taxon}" como fiable.
+        an_unknown_user_trusted_name_on_an_unknown_taxon: Un usuario desconocido marcó el nombre común "%{name}" de una página desconocida como fiable.
+        an_unknown_user_trusted_name_on_it: Un usuario desconocido marcó el nombre común "%{name}" como fiable.
+        an_unknown_user_trusted_name_on_taxon: Un usuario desconocido marcó el nombre común "%{name}" de "%{taxon}" como fiable.
+        user_trusted_an_unknown_name_on_an_unknown_taxon: <strong>%{user}</strong> marcó un nombre común desconocido de una página desconocida como fiable.
+        user_trusted_an_unknown_name_on_it: <strong>%{user}</strong> marcó un nombre común desconocido como fiable.
+        user_trusted_an_unknown_name_on_taxon: <strong>%{user}</strong> marcó un nombre común desconocido de "%{taxon}" como fiable.
+        user_trusted_name_on_an_unknown_taxon: <strong>%{user}</strong> marcó el nombre común "%{name}" de una página desconocida como fiable.
+        user_trusted_name_on_it: <strong>%{user}</strong> marcó el nombre común "%{name}" como fiable.
+        user_trusted_name_on_taxon: <strong>%{user}</strong> marcó el nombre común "%{name}".
       trusted: 
         an_unknown_user_trusted_an_older_data_object_on_an_unknown_association: Un usuario desconocido marcó una versión anterior de "%{data_object}" como fiable en un contexto desconocido.
         an_unknown_user_trusted_an_older_data_object_on_association: Un usuario desconocido marcó una versión anterior de "%{data_object}" como fiable en la página "%{association}".
@@ -426,6 +536,49 @@ es:
         user_trusted_data_object_on_association: <strong>%{user}</strong> ha marcado "%{data_object}" como fiable en la página "%{association}".
         user_trusted_it_on_an_unknown_association: <strong>%{user}</strong> lo ha marcado como fiable en un contexto desconocido.
         user_trusted_it_on_association: <strong>%{user}</strong> lo ha marcado como fiable en la página "%{association}".
+      unreview_common_name: 
+        an_unknown_user_unreviewed_an_unknown_name_on_an_unknown_taxon: Un usuario desconocido marcó un nombre común desconocido de una página desconocida como no revisado.
+        an_unknown_user_unreviewed_an_unknown_name_on_it: Un usuario desconocido marcó un nombre común desconocido como no revisado.
+        an_unknown_user_unreviewed_an_unknown_name_on_taxon: Un usuario desconocido marcó un nombre común desconocido de "%{taxon}" como no revisado.
+        an_unknown_user_unreviewed_name_on_an_unknown_taxon: Un usuario desconocido marcó el nombre común "%{name}" de una página desconocida como no revisado.
+        an_unknown_user_unreviewed_name_on_it: Un usuario desconocido marcó el nombre común "%{name}" como no revisado.
+        an_unknown_user_unreviewed_name_on_taxon: Un usuario desconocido marcó el nombre común "%{name}" de "%{taxon}" como no revisado.
+        user_unreviewed_an_unknown_name_on_an_unknown_taxon: <strong>%{user}</strong> marcó un nombre común desconocido de una página desconocida como no revisado.
+        user_unreviewed_an_unknown_name_on_it: <strong>%{user}</strong> marcó un nombre común desconocido como no revisado.
+        user_unreviewed_an_unknown_name_on_taxon: <strong>%{user}</strong> marcó un nombre común desconocido de "%{taxon}" como no revisado.
+        user_unreviewed_name_on_an_unknown_taxon: <strong>%{user}</strong> marcó el nombre común "%{name}" de una página desconocida como no revisado.
+        user_unreviewed_name_on_it: <strong>%{user}</strong> marcó el nombre común "%{name}" como no revisado.
+        user_unreviewed_name_on_taxon: <strong>%{user}</strong> marcó el nombre común "%{name}" de "%{taxon}" como no revisado.
+      unreviewed: 
+        an_unknown_user_unreviewed_an_older_data_object_on_an_unknown_association: Un usuario desconocido ha marcado una versión anterior de "%{data_object}" como no revisada en un contexto desconocido.
+        an_unknown_user_unreviewed_an_older_data_object_on_association: Un usuario desconocido marcó una versión anterior de "%{data_object}" como no revisada en la página "%{association}".
+        an_unknown_user_unreviewed_an_unknown_data_object_on_an_unknown_association: Un usuario desconocido ha marcado un objeto de datos desconocido como no revisado en un contexto desconocido.
+        an_unknown_user_unreviewed_an_unknown_data_object_on_association: Un usuario desconocido ha marcado un objeto de datos desconocido como no revisado en la página "%{association}".
+        an_unknown_user_unreviewed_data_object_on_an_unknown_association: Un usuario desconocido ha marcado "%{data_object}" como no revisado en un contexto desconocido.
+        an_unknown_user_unreviewed_data_object_on_association: Un usuario desconocido ha marcado "%{data_object}" como no revisado en la página "%{association}".
+        an_unknown_user_unreviewed_it_on_an_unknown_association: Un usuario desconocido lo ha marcado como no revisado en un contexto desconocido.
+        an_unknown_user_unreviewed_it_on_association: Un usuario desconocido lo ha marcado como no revisado en la página "%{association}".
+        user_unreviewed_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong> ha marcado una versión anterior de "%{data_object}" como no revisada en un contexto desconocido.
+        user_unreviewed_an_older_data_object_on_association: <strong>%{user}</strong> marcó una versión anterior de "%{data_object}" como no revisada en la página "%{association}".
+        user_unreviewed_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong> ha marcado un objeto de datos desconocido como no revisado en un contexto desconocido.
+        user_unreviewed_an_unknown_data_object_on_association: <strong>%{user}</strong> ha marcado un objeto de datos desconocido como no revisado en la página "%{association}".
+        user_unreviewed_data_object_on_an_unknown_association: <strong>%{user}</strong> ha marcado "%{data_object}" como no revisado en un contexto desconocido.
+        user_unreviewed_data_object_on_association: <strong>%{user}</strong> ha marcado "%{data_object}" como no revisado en la página "%{association}".
+        user_unreviewed_it_on_an_unknown_association: <strong>%{user}</strong> lo ha marcado como no revisado en un contexto desconocido.
+        user_unreviewed_it_on_association: <strong>%{user}</strong> lo ha marcado como no revisado en la página "%{association}".
+      untrust_common_name: 
+        an_unknown_user_untrusted_an_unknown_name_on_an_unknown_taxon: Un usuario desconocido marcó un nombre común desconocido de una página desconocida como no fiable.
+        an_unknown_user_untrusted_an_unknown_name_on_it: Un usuario desconocido marcó un nombre común desconocido como no fiable.
+        an_unknown_user_untrusted_an_unknown_name_on_taxon: Un usuario desconocido marcó un nombre común desconocido de "%{taxon}" como no fiable.
+        an_unknown_user_untrusted_name_on_an_unknown_taxon: Un usuario desconocido marcó el nombre común "%{name}" de una página desconocida como no fiable.
+        an_unknown_user_untrusted_name_on_it: Un usuario desconocido marcó el nombre común "%{name}" como no fiable.
+        an_unknown_user_untrusted_name_on_taxon: Un usuario desconocido marcó el nombre común "%{name}" de "%{taxon}" como no fiable.
+        user_untrusted_an_unknown_name_on_an_unknown_taxon: <strong>%{user}</strong> marcó un nombre común desconocido de una página desconocida como no fiable.
+        user_untrusted_an_unknown_name_on_it: <strong>%{user}</strong> marcó un nombre común desconocido como no fiable.
+        user_untrusted_an_unknown_name_on_taxon: <strong>%{user}</strong> marcó un nombre común desconocido de "%{taxon}" como no fiable.
+        user_untrusted_name_on_an_unknown_taxon: <strong>%{user}</strong> marcó el nombre común "%{name}" de una página desconocida como no fiable.
+        user_untrusted_name_on_it: <strong>%{user}</strong> marcó el nombre común "%{name}" como no fiable.
+        user_untrusted_name_on_taxon: <strong>%{user}</strong> marcó el nombre común "%{name}" de "%{taxon}" como no fiable.
       untrusted: 
         an_unknown_user_untrusted_an_older_data_object_on_an_unknown_association: Un usuario desconocido ha marcado una versión anterior de "%{data_object}" como no fiable en un contexto desconocido.
         an_unknown_user_untrusted_an_older_data_object_on_association: Un usuario desconocido marcó una versión anterior de "%{data_object}" como no fiable en la página "%{association}".
@@ -581,6 +734,7 @@ es:
   all_communities: Todas las comunidades
   all_count: Todos (%{count})
   all_errors: TODOS los errores
+  all_filter: todos
   all_harvesting_logs: TODOS los registros de recogida
   all_images: Todas las imágenes
   all_information: Toda la información
@@ -1102,7 +1256,7 @@ es:
   copyright: "COPYRIGHT:"
   correct_donation_message: Si esta información no es correcta, por favor %{go_back_link} para hacer cambios
   could_not_find_collection_error: Lo sentimos, que no se encontró esa colección.
-  could_not_find_user: No se pudo encontrar a un miembro para este usuario
+  could_not_find_user: No eres miembro de esta comunidad.
   count: Cantidad
   count_results_for_search_term: 
     one: "%{count} resultado de <em>%{search_term}</em>"
@@ -1223,6 +1377,7 @@ es:
   details_title: Detalles
   development_version_name: EOL V2 Beta
   did_you_mean: "¿Quiso decir: %{suggestions} ?"
+  disable_email_notifications_colon: "Correos electrónicos deshabilitados:"
   disabled_for_now: DISCAPACITADOS EN ESTE MOMENTO
   discover_link: Descubrir
   displaying_numerical_range: Viendo %{start_number} &mdash; %{end_number} de %{total}
@@ -1363,16 +1518,21 @@ es:
     one: Todos los tipos (%{count})
     other: Todos los tipos (%{count})
   filter_by_type_collection_option: Colecciones
+  filter_by_type_comment_option: Comentarios
   filter_by_type_community_option: Comunidades
+  filter_by_type_content_page_option: Acerca de EOL
   filter_by_type_image_option: Imágenes
   filter_by_type_image_option_with_count: 
     one: Imágenes (%{count})
     other: Imágenes (%{count})
+  filter_by_type_name_option: Nombres
+  filter_by_type_object_curated_option: Objetos supervisados
   filter_by_type_photosynth_option: Fotosíntesis
   filter_by_type_sound_option: Sonidos
   filter_by_type_sound_option_with_count: 
     one: Sonidos (%{count})
     other: Sonidos (%{count})
+  filter_by_type_taxa_comment_option: Comentarios de taxones
   filter_by_type_taxon_concept_option: Taxones
   filter_by_type_text_option: Artículos
   filter_by_type_user_option: Personas
@@ -1381,6 +1541,12 @@ es:
     one: Vídeos (%{count})
     other: Vídeos (%{count})
   filter_media: filtrar medios
+  filter_newsfeed_option_all: Todos
+  filter_newsfeed_option_collections: Colecciones
+  filter_newsfeed_option_community: Comunidad
+  filter_newsfeed_option_curation: Supervisión
+  filter_newsfeed_option_messages: Comentarios
+  filter_newsfeed_option_watchlist: Lista de seguimiento
   filtered_information: Información filtrada
   find_taxa_submit_button: Encontrar taxones
   flash_notice_redirected_from_search_html: Ha llegado aquí buscando <em>%{search_string}</em>. <a href="%{more_results_url}">Haga clic aquí para volver a la página de búsqueda.</a>

@@ -19,6 +19,7 @@ tr:
   translated_activities-name-activity_id-58: güvenilir
   translated_agent_roles-label-agent_role_id-1: Canlandırıcı
   translated_agent_roles-label-agent_role_id-10: Proje
+  translated_agent_roles-label-agent_role_id-11: Yayımcı
   translated_agent_roles-label-agent_role_id-13: Kaynak
   translated_agent_roles-label-agent_role_id-14: Kaynak Veritabanı
   translated_agent_roles-label-agent_role_id-2: Yazar
@@ -28,10 +29,25 @@ tr:
   translated_agent_roles-label-agent_role_id-7: Editör
   translated_audiences-label-audience_id-2: Genel kamu
   translated_audiences-label-audience_id-3: Çocuklar
+  translated_collection_types-label-collection_type_id-1: Taksonomi
+  translated_collection_types-label-collection_type_id-10: Sesler
+  translated_collection_types-label-collection_type_id-11: Bağlantılar
+  translated_collection_types-label-collection_type_id-13: Taksonomi
+  translated_collection_types-label-collection_type_id-22: Sesler
+  translated_collection_types-label-collection_type_id-23: Bağlantılar
+  translated_collection_types-label-collection_type_id-4: Resimler
+  translated_contact_roles-label-contact_role_id-1: Birincil İletişim
+  translated_contact_roles-label-contact_role_id-2: Yönetimsel İletişim
+  translated_contact_roles-label-contact_role_id-3: Teknik İletişim
+  translated_contact_subjects-title-contact_subject_id-24: Üyelik ve kayıt
+  translated_contact_subjects-title-contact_subject_id-25: Kullanım koşulları ve lisanslama
+  translated_contact_subjects-title-contact_subject_id-26: Öğrenim ve eğitim
+  translated_contact_subjects-title-contact_subject_id-33: Finansal bağış yapın
   translated_contact_subjects-title-contact_subject_id-34: Teknik sorular (arama sorunları, web site işlevselliği)
   translated_contact_subjects-title-contact_subject_id-35: Genel geri bildirim
   translated_content_partner_statuses-label-content_partner_status_id-1: Beklemede
   translated_content_partner_statuses-label-content_partner_status_id-2: Etkin
+  translated_content_partner_statuses-label-content_partner_status_id-3: Arşivlendi
   translated_content_partner_statuses-label-content_partner_status_id-4: Etkin değil
   translated_content_tables-label-content_table_id-1: Ayrıntılar
   translated_data_types-label-data_type_id-1: Resim
@@ -43,6 +59,7 @@ tr:
   translated_data_types-label-data_type_id-6: Dünya Doğa ve Doğal Kaynakları Koruma Birliği (IUCN)
   translated_data_types-label-data_type_id-7: Flash
   translated_data_types-label-data_type_id-8: YouTube
+  translated_licenses-description-license_id-1: Hiçbir hakkı saklı değildir
   translated_licenses-description-license_id-2: "&#169; Tüm hakları saklıdır"
   translated_licenses-description-license_id-29: Bazı hakları saklıdır
   translated_licenses-description-license_id-3: Bazı hakları saklıdır
@@ -79,6 +96,9 @@ tr:
   translated_ranks-label-rank_id-415: alt tür
   translated_ranks-label-rank_id-51: sınıf
   translated_ranks-label-rank_id-99: aile
+  translated_resource_statuses-label-resource_status_id-1: Yükleniyor
+  translated_resource_statuses-label-resource_status_id-2: Yüklendi
+  translated_resource_statuses-label-resource_status_id-3: Yükleme Başarısız
   translated_table_of_contents-label-table_of_contents_id-1: Genel Bakış
   translated_table_of_contents-label-table_of_contents_id-13: Genel adlar
   translated_table_of_contents-label-table_of_contents_id-14: Dünya Doğa ve Doğal Kaynakları Koruma Birliği (IUCN)

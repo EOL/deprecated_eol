@@ -285,11 +285,118 @@ de:
   activity_logs: 
     collection_activity_log: 
       add_editor: 
-        an_unknown_user_of_it: Ein unbekannter Nutzer wurde als Verwalter hinzugefügt.
-        user_of_it: <strong>%{user}</strong> wurde als Verwalter hinzugefügt.
+        an_unknown_user_of_an_unknown_collection: Ein unbekannter Nutzer wurde zum Verwalter einer unbekannten Sammlung gemacht.
+        an_unknown_user_of_collection: Ein unbekannter Nutzer wurde zum Verwalter der Sammlung „%{collection}“ gemacht.
+        an_unknown_user_of_it: Ein unbekannter Nutzer wurde zum Verwalter gemacht.
+        user_of_an_unknown_collection: <strong>%{user}</strong> wurde zum Verwalter einer unbekannten Sammlung gemacht.
+        user_of_collection: <strong>%{user}</strong> wurde zum Verwalter der Sammlung „%{collection}“ gemacht.
+        user_of_it: <strong>%{user}</strong> wurde zum Verwalter gemacht.
+      collect: 
+        an_unknown_user_added_an_unknown_item_to_an_unknown_collection: Ein unbekannter Nutzer fügte ein unbekanntes Objekte einer unbekannten Sammlung hinzu.
+        an_unknown_user_added_an_unknown_item_to_collection: Ein unbekannter Nutzer fügte ein unbekanntes Objekt der Sammlung „%{collection}“ hinzu.
+        an_unknown_user_added_an_unknown_item_to_it: Ein unbekannter Nutzer fügte ein unbekanntes Objekt hinzu.
+        an_unknown_user_added_item_to_an_unknown_collection: Ein unbekannter Nutzer fügte das Objekt „%{item}“  einer unbekannten Sammlung hinzu.
+        an_unknown_user_added_item_to_collection: Ein unbekannter Nutzer fügte das Objekt „%{item}“ der Sammlung „%{collection}“ hinzu.
+        an_unknown_user_added_item_to_it: Ein unbekannter Nutzer fügte das Objekt „%{item}“ hinzu.
+        user_added_an_unknown_item_to_an_unknown_collection: <strong>%{user}</strong> fügte ein unbekanntes Objekte einer unbekannten Sammlung hinzu.
+        user_added_an_unknown_item_to_collection: <strong>%{user}</strong> fügte ein unbekanntes Objekt der Sammlung „%{collection}“ hinzu.
+        user_added_an_unknown_item_to_it: <strong>%{user}</strong> fügte ein unbekanntes Objekt hinzu.
+        user_added_item_to_an_unknown_collection: <strong>%{user}</strong> fügte das Objekt „%{item}“ einer unbekannten Sammlung hinzu.
+        user_added_item_to_collection: <strong>%{user}</strong> fügte das Objekt „%{item}“ der Sammlung „%{collection}“ hinzu.
+        user_added_item_to_it: <strong>%{user}</strong> fügte das Objekt „%{item}“ hinzu.
       create: 
+        an_unknown_user_created_an_unknown_collection: Ein unbekannter Nutzer erstellte eine unbekannte Sammlung.
+        an_unknown_user_created_collection: Ein unbekannter Nutzer erstellte die Sammlung „%{collection}“.
         an_unknown_user_created_it: Ein unbekannter Nutzer erstellte sie.
+        user_created_an_unknown_collection: <strong>%{user}</strong> erstellte eine unbekannte Sammlung.
+        user_created_collection: <strong>%{user}</strong> erstellte die Sammlung „%{collection}“.
         user_created_it: <strong>%{user}</strong> erstellte sie.
+      other_actions: 
+        an_unknown_user_modified_an_unknown_collection: Ein unbekannter Nutzer änderte eine unbekannte Sammlung.
+        an_unknown_user_modified_collection: Ein unbekannter Nutzer änderte die Sammlung „%{collection}“.
+        an_unknown_user_modified_it: Ein unbekannter Nutzer änderte sie, wobei die genaue Änderung verlorengegangen ist.
+        user_modified_an_unknown_collection: <strong>%{user}</strong> änderte eine unbekannte Sammlung.
+        user_modified_collection: <strong>%{user}</strong> änderte die Sammlung „%{collection}“.
+        user_modified_it: <strong>%{user}</strong> änderte sie, wobei die genaue Änderung verlorengegangen ist.
+      remove: 
+        an_unknown_user_removed_an_unknown_item_from_an_unknown_collection: Ein unbekannter Nutzer entfernte ein unbekanntes Objekte aus einer unbekannten Sammlung.
+        an_unknown_user_removed_an_unknown_item_from_collection: Ein unbekannter Nutzer entfernte ein unbekanntes Objekt aus der Sammlung „%{collection}“.
+        an_unknown_user_removed_an_unknown_item_from_it: Ein unbekannter Nutzer entfernte ein unbekanntes Objekt.
+        an_unknown_user_removed_item_from_an_unknown_collection: Ein unbekannter Nutzer entfernte das Objekt „%{item}“  aus einer unbekannten Sammlung.
+        an_unknown_user_removed_item_from_collection: Ein unbekannter Nutzer entfernte das Objekt „%{item}“ aus der Sammlung „%{collection}“.
+        an_unknown_user_removed_item_from_it: Ein unbekannter Nutzer entfernte das Objekt „%{item}“.
+        user_removed_an_unknown_item_from_an_unknown_collection: <strong>%{user}</strong> entfernte ein unbekanntes Objekte aus einer unbekannten Sammlung.
+        user_removed_an_unknown_item_from_collection: <strong>%{user}</strong> entfernte ein unbekanntes Objekt aus der Sammlung „%{collection}“.
+        user_removed_an_unknown_item_from_it: <strong>%{user}</strong> entfernte ein unbekanntes Objekt.
+        user_removed_item_from_an_unknown_collection: <strong>%{user}</strong> entfernte das Objekt „%{item}“ aus einer unbekannten Sammlung.
+        user_removed_item_from_collection: <strong>%{user}</strong> entfernte das Objekt „%{item}“ aus der Sammlung „%{collection}“.
+        user_removed_item_from_it: <strong>%{user}</strong> entfernte das Objekt „%{item}“.
+      remove_all: 
+        an_unknown_user_cleared_an_unknown_collection: Ein unbekannter Nutzer entfernte alle Objekte aus einer unbekannten Sammlung.
+        an_unknown_user_cleared_collection: Ein unbekannter Nutzer entfernte alle Objekte aus der Sammlung „%{collection}“.
+        an_unknown_user_cleared_it: Ein unbekannter Nutzer entfernte alle Objekte.
+        user_cleared_an_unknown_collection: <strong>%{user}</strong> entfernte alle Objekte aus einer unbekannten Sammlung.
+        user_cleared_collection: <strong>%{user}</strong> entfernte alle Objekte aus der Sammlung „%{collection}“.
+        user_cleared_it: <strong>%{user}</strong> entfernte alle Objekte.
+    community_activity_log: 
+      add_manager: 
+        an_unknown_user_added_an_unknown_manager_to_an_unknown_community: Ein unbekannter Nutzer machte einen unbekannten Verwalter zum Verwalter einer unbekannten Gemeinschaft.
+        an_unknown_user_added_an_unknown_manager_to_community: Ein unbekannter Nutzer machte einen unbekannten Verwalter zum Verwalter der Gemeinschaft „%{community}“.
+        an_unknown_user_added_manager_to_an_unknown_community: Ein unbekannter Nutzer machte den Verwalter „%{manager}“ zum Verwalter einer unbekannten Gemeinschaft.
+        an_unknown_user_added_manager_to_community: Ein unbekannter Nutzer machte den Verwalter „%{manager}“ zum Verwalter der Gemeinschaft „%{community}“.
+        user_added_an_unknown_manager_to_an_unknown_community: <strong>%{user}</strong> machte einen unbekannten Verwalter zum Verwalter einer unbekannten Gemeinschaft.
+        user_added_an_unknown_manager_to_community: <strong>%{user}</strong> machte einen unbekannten Verwalter zum Verwalter der Gemeinschaft „%{community}“.
+        user_added_manager_to_an_unknown_community: <strong>%{user}</strong> machte den Verwalter „%{manager}“ zum Verwalter einer unbekannten Gemeinschaft.
+        user_added_manager_to_community: <strong>%{user}</strong> machte den Verwalter „%{manager}“ zum Verwalter der Gemeinschaft „%{community}“.
+      change_description: 
+        an_unknown_user_changed_the_description_of_an_unknown_community: Ein unbekannter Nutzer änderte die Beschreibung einer unbekannten Gemeinschaft.
+        an_unknown_user_changed_the_description_of_community: Ein unbekannter Nutzer änderte die Beschreibung der Gemeinschaft „%{community}“.
+        user_changed_the_description_of_an_unknown_community: <strong>%{user}</strong> änderte die Beschreibung einer unbekannten Gemeinschaft.
+        user_changed_the_description_of_community: <strong>%{user}</strong> änderte die Beschreibung der Gemeinschaft „%{community}“.
+      change_icon: 
+        an_unknown_user_changed_the_icon_of_an_unknown_community: Ein unbekannter Nutzer änderte das Logo einer unbekannten Gemeinschaft.
+        an_unknown_user_changed_the_icon_of_community: Ein unbekannter Nutzer änderte das Logo der Gemeinschaft „%{community}“.
+        user_changed_the_icon_of_an_unknown_community: <strong>%{user}</strong> änderte das Logo einer unbekannten Gemeinschaft.
+        user_changed_the_icon_of_community: <strong>%{user}</strong> änderte das Logo der Gemeinschaft „%{community}“.
+      change_name: 
+        an_unknown_user_changed_the_name_of_an_unknown_community: Ein unbekannter Nutzer änderte den Namen einer unbekannten Gemeinschaft.
+        an_unknown_user_changed_the_name_of_community: Ein unbekannter Nutzer änderte den Namen der Gemeinschaft „%{community}“.
+        user_changed_the_name_of_an_unknown_community: <strong>%{user}</strong> änderte den Namen einer unbekannten Gemeinschaft.
+        user_changed_the_name_of_community: <strong>%{user}</strong> änderte den Namen der Gemeinschaft „%{community}“.
+      create: 
+        an_unknown_user_created_an_unknown_community: Ein unbekannter Nutzer gründete eine unbekannte Gemeinschaft.
+        an_unknown_user_created_community: Ein unbekannter Nutzer gründete die Gemeinschaft „%{community}“.
+        user_created_an_unknown_community: <strong>%{user}</strong> gründete eine unbekannte Gemeinschaft.
+        user_created_community: <strong>%{user}</strong> gründete die Gemeinschaft „%{community}“.
+      join: 
+        an_unknown_user_joined_an_unknown_community: Ein unbekannter Nutzer trat einer unbekannten Gemeinschaft bei.
+        an_unknown_user_joined_community: Ein unbekannter Nutzer trat der Gemeinschaft „%{community}“ bei.
+        user_joined_an_unknown_community: <strong>%{user}</strong> trat einer unbekannten Gemeinschaft bei.
+        user_joined_community: <strong>%{user}</strong> trat der Gemeinschaft „%{community}“ bei.
+      leave: 
+        an_unknown_user_left_an_unknown_community: Ein unbekannter Nutzer verließ eine unbekannte Gemeinschaft.
+        an_unknown_user_left_community: Ein unbekannter Nutzer verließ die Gemeinschaft „%{community}“.
+        user_left_an_unknown_community: <strong>%{user}</strong> verließ eine unbekannte Gemeinschaft.
+        user_left_community: <strong>%{user}</strong> verließ die Gemeinschaft „%{community}“.
+      other_actions: 
+        an_unknown_user_modified_an_unknown_community: Ein unbekannter Nutzer änderte eine unbekannte Gemeinschaft.
+        an_unknown_user_modified_community: Ein unbekannter Nutzer änderte die Gemeinschaft „%{community}“.
+        user_modified_an_unknown_community: <strong>%{user}</strong> änderte eine unbekannte Gemeinschaft.
+        user_modified_community: <strong>%{user}</strong> änderte die Gemeinschaft „%{community}“.
+    curator_activity_log: 
+      reasons_to_hide: "Gründe für das Verbergen: %{reasons}"
+      reasons_to_untrust: "Gründe für die Einstufung als nicht vertrauenswürdig: %{reasons}"
+      trusted: 
+        an_unknown_user_trusted_an_older_data_object_on_an_unknown_association: Ein unbekannter Nutzer markierte eine ältere Version von „%{data_object}“ in einem unbekannten Zusammenhang als vertrauenswürdig.
+        an_unknown_user_trusted_an_older_data_object_on_association: Ein unbekannter Nutzer markierte eine ältere Version von „%{data_object}“ auf der Seite „%{association}“ als vertrauenswürdig.
+        an_unknown_user_trusted_an_unknown_data_object_on_an_unknown_association: Ein unbekannter Nutzer markierte ein unbekanntes Datenobjekt in einem unbekannten Zusammenhang als vertrauenswürdig.
+        an_unknown_user_trusted_an_unknown_data_object_on_association: Ein unbekannter Nutzer markierte ein unbekanntes Datenobjekt auf der Seite „%{association}“ als vertrauenswürdig.
+        an_unknown_user_trusted_data_object_on_an_unknown_association: Ein unbekannter Nutzer markierte „%{data_object}“ in einem unbekannten Zusammenhang als vertrauenswürdig.
+        an_unknown_user_trusted_data_object_on_association: Ein unbekannter Nutzer markierte „%{data_object}“ auf der Seite „%{association}“ als vertrauenswürdig.
+        user_trusted_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong> markierte eine ältere Version von „%{data_object}“ in einem unbekannten Zusammenhang als vertrauenswürdig.
+        user_trusted_an_older_data_object_on_association: <strong>%{user}</strong> markierte eine ältere Version von „%{data_object}“ auf der Seite „%{association}“ als vertrauenswürdig.
+        user_trusted_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong> markierte ein unbekanntes Datenobjekt in einem unbekannten Zusammenhang als vertrauenswürdig.
+        user_trusted_an_unknown_data_object_on_association: <strong>%{user}</strong> markierte ein unbekanntes Datenobjekt auf der Seite „%{association}“ als vertrauenswürdig.
   activity_user_created_text: <strong>%{user}</strong> fügte dem Objekt „%{object_name}“ bei „%{taxon_concept}“ Text hinzu.
   activity_user_updated_text: <strong>%{user}</strong> änderte am Objekt „%{object_name}“ bei „%{taxon_concept}“ den Text.
   add: Hinzufügen
@@ -1728,7 +1835,6 @@ de:
   media_with_count: 
     one: "%{count} Medium"
     other: "%{count} Medien"
-  member_activity: Während der letzten sieben Tage durchgeführte Aktivitäten von EOL-Mitgliedern
   member_of: Mitglied von
   member_of_professional_society_credential_option: Mitglied einer fachspezifischen Gesellschaft
   members: 
@@ -1891,6 +1997,7 @@ de:
   notification_frequency_newsfeed_only: Nur über den Nachrichtenfeed
   notification_frequency_send_immediately: Sofort zusenden
   notification_frequency_weekly: Wöchentlich
+  notifications_and_messages_review_notice: Bitte überprüfen Sie die Benachrichtigungen, die Ihnen per E-Mail zugesandt werden.
   notifications_tab_name: Benachrichtigungen
   notifier: 
     activity_log_empty: Keine aktuellen Aktionen durch Kuratoren.
@@ -2008,7 +2115,7 @@ de:
   other_taxa_with_count: 
     one: Ein weiteres Taxon
     other: "%{count} weitere Taxa"
-  other_us_dollars_amount: "Anderer: US$"
+  other_us_dollars_amount: "Anderer: USD"
   outlink: Externer Link
   overview: Übersicht
   page: Seite
@@ -2137,6 +2244,7 @@ de:
     bulk_curation_with_count: 
       one: Kuratoren haben eine Verbesserung an %{to} durchgeführt.
       other: Kuratoren haben %{count} Verbesserungen an %{to} durchgeführt.
+    collection_activity_by_user: Die Aktion %{activity_name} wurde von Nutzer <b>%{user_name}</b> an der Sammlung <b>%{collection_name}</b> durchgeführt.
     collection_activity_log_title: "%{who} hat eine Sammlung geändert"
     collection_activity_user_added_item: <b>%{user_name}</b> fügte %{collected_item_type} Nr. %{collected_item_id} zu <b>%{collection_name}</b> hinzu.
     collection_activity_user_watching_recipient: <b>%{user_name}</b> hat Sie auf der Beobachtungsliste.
@@ -2144,17 +2252,21 @@ de:
     comment_link: Den Kommentar auf EOL ansehen
     comment_title: "%{who} hat %{what} kommentiert"
     comment_title_your_newsfeed: "%{who} hat Ihren Neuigkeitenfeed kommentiert"
+    community_activity_by_user: Die Aktion %{activity_name} wurde von Nutzer <b>%{user_name}</b> an der Sammlung <b>%{community_name}</b> durchgeführt.
     community_activity_log_title: "%{who} hat eine Gemeinschaft geändert"
     community_activity_user_joined: Der Nutzer <b>%{user_name}</b> trat der Gemeinschaft <b>%{community_name}</b> bei.
     community_activity_user_left: Der Nutzer <b>%{user_name}</b> verließ die Gemeinschaft <b>%{community_name}</b>.
     community_activity_user_made_member_a_manager: Der Nutzer <b>%{user_name}</b> machte <b>%{member_name}</b> zum Verwalter der Gemeinschaft <b>%{community_name}</b>.
     curator_activity_log_title: "%{who} hat etwas kuratiert"
+    curator_activity_on_data_object_by_user: Die Aktion %{activity_name} wurde von Nutzer <b>%{user_name}</b> an <b>%{dato_title}</b> (%{dato_type} Nr. %{dato_id}) durchgeführt.
+    curator_activity_on_taxon_concept_by_user: Die Aktion %{activity_name} wurde von Nutzer <b>%{user_name}</b> an <b>%{taxon_concept}</b> (%{taxon_overview_url}) durchgeführt.
+    data_object_activity_article_added_by_user: <b>%{user_name}</b> fügte den Artikel %{dato_title} zu <b>%{taxon_concept}</b> (%{taxon_details_url}) hinzu.
     data_object_title: "%{who} hat der EOL neue Inhalte hinzugefügt"
     default_subject: Kürzliche Aktivitäten auf EOL
     intro: Ihre Zusammenfassung zu Aktivitäten auf EOL für %{time}
+    see_all_activity: Alle bisherigen Aktivitäten auf <a href='%{activity_url}' style='color:#195184'>der Seite mit Ihrem Neuigkeitenfeed</a>.
     someone_commented_on_something: <b>%{who}</b> hat <b>%{what}</b> kommentiert.
     unsubscribe: Ändern Sie bitte Ihre E-Mail-Einstellungen oder beenden Sie Ihr Abonnement der Benachrichtigungen <a href='%{email_prefs_url}'>auf der Seite mit den Benachrichtigungseinstellungen</a>.
-  recent_eol_member_activity: Kürzlich durchgeführte Aktivitäten von EOL-Mitgliedern
   recent_updates: Letzte Aktualisierungen
   recently_visited: Kürzlich besucht
   recipients: Empfänger
@@ -2259,7 +2371,6 @@ de:
   see_all_updates_with_count_html: 
     one: Die <span class="assistive">Aktualisierung dieser Seite</span> ansehen.
     other: Alle <span class="assistive">%{count} Aktualisierungen dieser Seite</span> ansehen.
-  see_more: Mehr ansehen
   see_notes: Anmerkungen ansehen
   select_a_hierarchy_around_whic: "Wählen Sie eine Hierarchie zu der Inhaltszusammenfassungen erstellt werden sollen:"
   select_an_item_from_the_menu: Wählen Sie ein Objekt aus dem Menü
@@ -2879,6 +2990,9 @@ de:
   user_no_longer_has_manager_access_to_collection: Der Nutzer „%{user}“ kann die Sammlung „%{collection}“ nicht länger verwalten.
   user_pending_notifications_assitive: <span class="assistive">Benachrichtigungen</span>
   user_pending_notifications_comments_assistive: <span class="assistive">Kommentare</span>
+  user_pending_notifications_with_count_assitive: 
+    one: Eine <span class="assistive">Benachrichtigung</span>
+    other: "%{count}<span class=\"assistive\">Benachrichtigungen</span>"
   user_response: Nutzerantwort
   user_says_colon: "%{users_name} sagt:"
   user_submitted_text: Von Nutzern verfasster Text

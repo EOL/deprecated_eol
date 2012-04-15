@@ -1448,7 +1448,7 @@ nl:
   license_gnu_gpl: GNU General Public License (GNU GPL)
   license_not_applicable: Licentie niet van toepassing
   license_public_domain: Publiek domein
-  licensing: Licensering
+  licensing: Licentie
   limits_the_number_of_returned_image_objects: beperkt het aantal afbeeldingsobjecten
   limits_the_number_of_returned_text_objects: beperkt het aantal tekstobjecten
   limits_the_number_of_returned_video_objects: beperkt het aantal videoobjecten

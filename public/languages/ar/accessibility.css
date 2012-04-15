@@ -157,6 +157,8 @@ form#switch_hierarchy_entry fieldset {
 #content.session form.terms_agreement {
   padding: 75px 69px;
   width: 500px; }
+#content.session p {
+  padding-bottom: 2em; }
 #content.session .pending {
   width: 320px;
   min-height: 225px;
@@ -735,10 +737,6 @@ body > #header .section .session.join {
 .object_list div.checkbox {
   margin: 0; }
 
-#collections .heading fieldset {
-  display: inline;
-  margin: 0; }
-
 #map_image {
   height: 350px; }
 
@@ -760,19 +758,18 @@ body > #header .section .session.join {
   width: expression(this.width > 48 ? "48px" : true);
   height: expression(this.height > 48 ? "48px" : true); }
 
-#collections .collections .article > .header > a > img {
+#collection.main_container .taxon > img {
+  max-width: 88px;
+  max-height: 88px;
+  width: expression(this.width > 88 ? "88px" : true);
+  height: expression(this.height > 88 ? "88px" : true); }
+#collection .collections .article > .header > a > img {
   max-width: 48px;
   max-height: 48px;
   width: expression(this.width > 48 ? "48px" : true);
   height: expression(this.height > 48 ? "48px" : true); }
 
 #page_heading.with_image img, #page_heading.profile img {
-  max-width: 88px;
-  max-height: 88px;
-  width: expression(this.width > 88 ? "88px" : true);
-  height: expression(this.height > 88 ? "88px" : true); }
-
-#collections.main_container .taxon > img {
   max-width: 88px;
   max-height: 88px;
   width: expression(this.width > 88 ? "88px" : true);

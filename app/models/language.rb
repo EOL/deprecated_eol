@@ -17,7 +17,10 @@ class Language < ActiveRecord::Base
   def self.approved_languages
     approved_language_iso_codes = APPROVED_LANGUAGES rescue ['en', 'es', 'ar']
     cached("approved_languages") do
-      self.find_all_by_iso_639_1(approved_language_iso_codes, :order => 'sort_order ASC, source_form ASC')
+      # NOTE - the group_by handles duplicate ISO codes... rare but possible.
+      self.find_all_by_iso_639_1(approved_language_iso_codes,
+                                 :order => 'sort_order ASC, source_form ASC',
+                                 :group => 'iso_639_1')
     end
   end
 

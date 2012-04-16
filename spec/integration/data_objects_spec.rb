@@ -312,7 +312,11 @@ describe 'Data Object Page' do
     visit("/data_objects/#{@image.id}")
     page.body.should_not have_tag('form.review_status a', :text => 'Remove association')
     visit('/logout')
-    login_as @master_curator
+  end
+
+  it 'should allow a full curators to remove self added associations' do
+    # Note there is a curated association added by @full_curator for @image. See before(:all) section.
+    login_as @full_curator
     visit("/data_objects/#{@image.id}")
     page.body.should_not have_tag('form.review_status a', :text => 'Remove association')
     visit('/logout')
@@ -322,6 +326,7 @@ describe 'Data Object Page' do
     page.body.should have_tag('form.review_status a', :text => @another_name)
     click_link "remove_association_#{@extra_he.id}"
     page.body.should_not have_tag('form.review_status a', :text => @another_name)
+    visit('/logout')
   end
 
   it 'should allow logged in users to rate' do

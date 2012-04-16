@@ -200,41 +200,7 @@ sv:
   activity: Aktivitet
   activity_log_empty: Ingen har lämnat uppdateringar ännu.
   activity_log_empty_learn_more_link: Lär dig hur du bidrar
-  activity_user_added_association: <strong>%{user}</strong> lade till en association till "%{object_name}".
-  activity_user_added_common_name: <strong>%{user}</strong> lade till det %{language} vanliga namnet "%{name}" till ett okänt objekt.
-  activity_user_added_common_name_to_taxon: <strong>%{user}</strong> lade till det %{language} vanliga namnet "%{name}" till "%{taxon}".
-  activity_user_added_community_manager: <strong>%{user}</strong> gjorde %{manager} en ledare av gemenskapen "%{community}".
-  activity_user_added_named_association: <strong>%{user}</strong> lade till en association mellan "%{object_name}" och "%{name}".
-  activity_user_added_unknown_association: <strong>%{user}</strong> lade till en association till ett okänt objekt.
-  activity_user_added_unknown_name: <strong>%{user}</strong> lade till ett okänt vanligt namn till ett okänt objekt.
-  activity_user_added_unknown_name_to_taxon: <strong>%{user}</strong> lade till ett vanligt namn till "%{taxon}".
-  activity_user_changed_community_description: <strong>%{user}</strong> uppdaterade beskrivningen för gemenskapen "%{community}".
-  activity_user_changed_community_icon: <strong>%{user}</strong> ändrade logotypen för gemenskapen "%{community}".
-  activity_user_changed_community_name: <strong>%{user}</strong> ändrade namnet för gemenskapen "%{community}".
-  activity_user_created_community: <strong>%{user}</strong> skapade gemenskapen "%{community}".
   activity_user_created_text: <strong>%{user}</strong> lade till text till "%{object_name}" på "%{taxon_concept}".
-  activity_user_curated_an_unknown_object: <strong>%{user}</strong> kurerade ett okänt objekt.
-  activity_user_deleted_community: <strong>%{user}</strong> raderade gemenskapen "%{community}".
-  activity_user_hid_data_object: <strong>%{user}</strong> markerade "%{object_name}" som dold.
-  activity_user_hid_unknown_object: <strong>%{user}</strong> markerade ett okänt objekt som dold.
-  activity_user_joined_community: <strong>%{user}</strong> blev medlem i gemenskapen "%{community}".
-  activity_user_marked_content_as_inappropriate: <strong>%{user}</strong> markerade innehåll som olämpligt.
-  activity_user_modified_community: <strong>%{user}</strong> ändrade gemenskapen "%{community}".
-  activity_user_rated_data_object: <strong>%{user}</strong> betygsatte "%{object_name}".
-  activity_user_rated_unknown_object: <strong>%{user}</strong> betygsatte ett okänt objekt.
-  activity_user_removed_association: <strong>%{user}</strong> tog bort en association till "%{object_name}".
-  activity_user_removed_named_association: <strong>%{user}</strong> tog bort en association mellan "%{object_name}" och "%{name}".
-  activity_user_removed_unknown_association: <strong>%{user}</strong> tog bort en association till ett okänt objekt.
-  activity_user_removed_unknown_name: <strong>%{user}</strong> tog bort ett okänt vanligt namn från ett okänt objekt.
-  activity_user_removed_unknown_name_to_taxon: <strong>%{user}</strong> tog bort ett vanligt namn från "%{taxon}".
-  activity_user_showed_data_object: <strong>%{user}</strong> markerade "%{object_name}" som synlig.
-  activity_user_showed_unknown_object: <strong>%{user}</strong> markerade ett okänt objekt som synlig.
-  activity_user_trusted_data_object: <strong>%{user}</strong> markerade "%{object_name}" som pålitlig.
-  activity_user_trusted_unknown_object: <strong>%{user}</strong> markerade ett okänt objekt som pålitlig.
-  activity_user_unreviewed_data_object: <strong>%{user}</strong> markerade "%{object_name}" som ogranskad.
-  activity_user_unreviewed_unknown_object: <strong>%{user}</strong> markerade ett okänt objekt som ogranskad.
-  activity_user_untrusted_data_object: <strong>%{user}</strong> markerade "%{object_name}" som opålitlig.
-  activity_user_untrusted_unknown_object: <strong>%{user}</strong> markerade ett okänt objekt som opålitlig.
   activity_user_updated_text: <strong>%{user}</strong> uppdaterade "%{object_name}" text på "%{taxon_concept}".
   add: Lägg till
   add_a_collection_to_a_community: Lägg till "%{collection}" i en gemenskap
@@ -364,6 +330,8 @@ sv:
     one: Hittades i %{count} klassificering
     other: Hittades i %{count} klassificeringar
   cms_available_in_languages: "Denna sida finns tillgänglig på:"
+  cms_missing_content_message: Tyvärr, denna sida är inte är tillgänglig för detta språk.
+  cms_missing_content_title: Saknar innehåll
   collection_created_notice: Samlingen <em>%{collection_name}</em> skapdes.
   collection_destroyed: Samlingen har tagits bort.
   collection_image: Samlingsbild
@@ -411,6 +379,7 @@ sv:
     other: "%{count} bidrag"
   community_destroyed: Du har tagit bort denna gemenskap. Den kommer inte längre visas på taxon-sidor eller i sökningar.
   community_empty_notice: Denna gemenskap har inga medlemmar.
+  community_focus: Gemenskapsfokus
   community_focus_items_with_count: 
     one: "%{count} objekt"
     other: "%{count} objekt"
@@ -726,8 +695,6 @@ sv:
         entered_password: Lösenord <small>(4- 16 tecken)</small>
         generate_api_key: Begära en API-nyckel
         logo: Ladda upp ett nytt foto
-        mailing_list: Jag vill ta emot nyhetsbrev med uppdateringar via e-post?
-        mailing_list_yes: Ja
         new_password: Nytt lösenord <small>(4 - 16 tecken)</small>
         new_password_confirmation: Nytt lösenord <small>(bekräftelse)</small>
         requested_curator_level: Din begäran att bli %{curator_level_with_indefinite_article} pågår.
@@ -761,9 +728,6 @@ sv:
         create: Lägg till artikel
         create_text: Lägg till artikel
         update: Spara artikel
-      eol_statistic: 
-        download_csv: Ladda ned som CSV.
-      filter_sort: Filtrera och sortera
       harvest_event: 
         publish: Publicera
       hierarchy: 
@@ -961,6 +925,7 @@ sv:
     user_message: 
       subject: Ett meddelande från Encyclopedia of Life
     user_reset_password: 
+      message: "Encyclopedia of Life (www.eol.org) fick en begäran om att återställa ditt lösenord. Om du inte gjorde denna begäran, ignorera detta e-postmeddelande.\n\nFöljande länk kommer att förse dig med ett engångstillfälle att återställa ditt lösenord:\n\n%{password_reset_url}\n\nFölj denna länk ('klicka' på det eller kopiera och klistra in hela länken i din webbläsares adressfält och hämta sidan) för att få tillgång till sidan där du kan ange ett nytt lösenord. Observera att om länken har löpt ut kommer du uppmanas att ange ditt användarnamn eller e-postadress igen för att få ett nytt e-postmeddelande för att återställa lösenordet och en länk."
       subject: Återställ lösenordet för ditt Encyclopedia of Life-konto
     user_updated_email_preferences: 
       message: "Detta är en automatiskt systemmeddelande från EOL. Användaren %{user_full_name} (%{user_profile_url}) uppdaterade sin e-postadress eller inställningarna för e-postlistan.\n\nFöregående inställningar:\nE-post: %{previous_email}\nE-postlistans inställningar: %{previous_mailing_list_preference}\n\nUppdaterades till:\nE-post: %{updated_email}\nE-postlistans inställningar: %{updated_mailing_list_preference}\nUppdaterades: %{updated_at}"
@@ -1093,6 +1058,7 @@ sv:
   selected_items: Markerade objekt
   selected_language_advisory_information: Detta är det valda språket.
   send_email_colon: "Skicka e-post:"
+  sent_invitations_to_users: Inbjudningar skickades till %{users}.
   set_as_exemplar: Ange som förebild
   show: Visa
   show_data_from_all_content_partners: Ta bort klassificeringsfilter
@@ -1172,6 +1138,7 @@ sv:
   this_is_a_focus_collection_for_community: Denna samling är i fokus för "%{community}".
   this_sound_is_unpublished: Detta ljud är opublicerat.
   this_video_is_unpublished: Detta videoklipp är opublicerat.
+  threat_status_header_colon: "IUCN-hotstatus:"
   time_ago: "%{time_passed} sedan"
   title: Titel
   to_process_your_donation_please_proceed: För att behandla din donation går du vidare
@@ -1210,6 +1177,7 @@ sv:
   user: Användare
   user_activation_successful_notice: Välkommen och tack för att du gick med i Encyclopedia Of Life-gruppen. Ditt konto med användarnamnet <em>%{username}</em> är nu aktivt. Var god logga in.
   user_activity_page_title: Användaraktivitet
+  user_activity_stats_articles_added: Tillagda artiklar
   user_activity_stats_header: Aktivitet
   user_already_active_notice: Ditt konto är redan aktivt, var god logga in.
   user_comment: Användarkommentar

@@ -117,6 +117,11 @@ class HierarchyEntry < ActiveRecord::Base
     @associated_by_curator
   end
 
+  def can_be_deleted_by?(requestor)
+    return true if requestor.master_curator?
+    by_curated_association? && associated_by_curator == requestor
+  end
+
   def species_or_below?
     return false if rank_id == 0  # this was causing a lookup for rank id=0, so I'm trying to save queries here
     return Rank.italicized_ids.include?(rank_id)

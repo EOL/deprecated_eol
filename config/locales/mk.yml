@@ -154,6 +154,25 @@ mk:
         request_publish: Побарај објавување
       name: 
         string: Име
+      notification: 
+        changes_to_my_watched_collection: Измени во збирките на вашиот список на набљудувања
+        changes_to_my_watched_community: Измени во заедниците на вашиот список на набљудувања
+        comment_on_my_collection: Коментар на збирка со која раководите
+        comment_on_my_community: Коментар на една од вашите заедници
+        comment_on_my_contribution: Коментар и/или кустоска постапка врз ваш придонес
+        comment_on_my_profile: Коментар на вашиот профил
+        comment_on_my_watched_item: Коментари на експонатите, таксоните, збирките и заедниците на вашиот список на набљудувања
+        curation_on_my_watched_item: Кустоски постапки врз експонатите, таксоните, збирките и заеднизите на вашиот список на набљудувања
+        eol_newsletter: Испраќај ми тримесечен билтен
+        i_am_being_watched: Додадени сте во списокот на набљудувања на друг член
+        invitation_to_community: Покана за зачленување во заедница
+        made_me_a_manager: Назначени сте за раководител на збирка или заедница
+        member_joined_my_community: Заедницата со која раководите има нов член
+        member_joined_my_watched_community: Заедница во која членувате има нови членови
+        member_left_my_community: Членови напуштија заедница со која раководите
+        new_data_on_my_watched_item: Нови придонеси кон таксоните на вашиот список на набљудувања
+        new_manager_in_my_community: Заедница со која раководите доби уште еден раководител
+        reply_to_comment: Одговор на ваш коментар
       resource: 
         accesspoint_url: URL на податочниот збир
         auto_publish: Автообјави
@@ -185,6 +204,7 @@ mk:
         credentials: Полномоштва
         curator_level: Степен на кустоство
         curator_scope: Опсег на згрижувањето
+        disable_email_notifications: Не сакам да добивам НИКАКВИ актуелности по е-пошта
         email: Е-пошта
         entered_password: Лозинка
         entered_password_confirmation: Повторно лозинката <small>(за да потврдите)</small>
@@ -256,83 +276,317 @@ mk:
     models: 
       user: сметка
   activity: Активности
-  activity_choose_exemplar: <strong>%{user}</strong> постави слика како пример „%{object_name}“.
-  activity_hid_with_reasons_colon: "причина/ни за скривањето: %{reasons}"
   activity_log_empty: Сè уште никој нема актуелности од никого.
   activity_log_empty_learn_more_link: Дознајте како да придонесувате
-  activity_untrusted_with_reasons_colon: "причина/ни за недоверливост: %{reasons}"
-  activity_user_added_association: <strong>%{user}</strong> му додаде поврзаност на објектот „%{object_name}“.
-  activity_user_added_collection_to_community: <strong>%{user}</strong> ја додаде збирката „%{collection}“ во заедницата „%{community}“.
-  activity_user_added_common_name: <strong>%{user}</strong> му додаде тривијално име „%{name}“ на %{language} на непознат објект.
-  activity_user_added_common_name_to_taxon: <strong>%{user}</strong> му го додаде тривијалното име на %{language} „%{name}“ на таксонот „%{taxon}“.
-  activity_user_added_community_manager: <strong>%{user}</strong> го назначи корисникот %{manager} за раководител на заедницата „%{community}“.
-  activity_user_added_named_association: <strong>%{user}</strong> додаде поврзаност помеѓу „%{object_name}“ и „%{name}“.
-  activity_user_added_unknown_association: <strong>%{user}</strong> му додаде поврзаност на непознат објект.
-  activity_user_added_unknown_name: <strong>%{user}</strong> додаде непознато тривијално име на непознат објект.
-  activity_user_added_unknown_name_to_taxon: <strong>%{user}</strong> му додаде тривијално име на таксонот „%{taxon}“.
-  activity_user_changed_community_description: <strong>%{user}</strong> го измени описот на заедницата „%{community}“.
-  activity_user_changed_community_icon: <strong>%{user}</strong> го смени логото на заедницата „%{community}“.
-  activity_user_changed_community_name: <strong>%{user}</strong> го смени името на заедницата „%{community}“.
-  activity_user_created_community: <strong>%{user}</strong> ја создаде заедницата „%{community}“.
+  activity_logs: 
+    collection_activity_log: 
+      add_editor: 
+        an_unknown_user_of_an_unknown_collection: Непознат корисник е додаден како раководител на непозната збирка.
+        an_unknown_user_of_collection: Непознат корисник е додаден како раководител на збирката „%{collection}“.
+        an_unknown_user_of_it: Непознат корисник е додаден како раководител.
+        user_of_an_unknown_collection: <strong>%{user}</strong> е додаден како раководител на непозната збирка.
+        user_of_collection: <strong>%{user}</strong> е додаден како раководител на збирката „%{collection}“.
+        user_of_it: Корисникот <strong>%{user}</strong> е додаден како раководител.
+      collect: 
+        an_unknown_user_added_an_unknown_item_to_an_unknown_collection: Непознат корисник додаде непознат експонат во непозната збирка.
+        an_unknown_user_added_an_unknown_item_to_collection: Непознат корисник додаде непознат експонат во збирката „%{collection}“.
+        an_unknown_user_added_an_unknown_item_to_it: Непознат корисник додаде непознат експонат.
+        an_unknown_user_added_item_to_an_unknown_collection: Непознат корисник го додаде експонатот „%{item}“ во непозната збирка.
+        an_unknown_user_added_item_to_collection: Непознат корисник го додаде експонатот „%{item}“ во збирката „%{collection}“.
+        an_unknown_user_added_item_to_it: Непознат корисник го додаде експонатот „%{item}“.
+        user_added_an_unknown_item_to_an_unknown_collection: <strong>%{user}</strong> додаде непознат експонат во непозната збирка.
+        user_added_an_unknown_item_to_collection: <strong>%{user}</strong> додаде непознат експонат во збирката „%{collection}“.
+        user_added_an_unknown_item_to_it: <strong>%{user}</strong> додаде непознат експонат.
+        user_added_item_to_an_unknown_collection: <strong>%{user}</strong> го додаде експонатот „%{item}“ во непозната збирка.
+        user_added_item_to_collection: <strong>%{user}</strong> го додаде експонатот „%{item}“ во збирката „%{collection}“.
+        user_added_item_to_it: <strong>%{user}</strong> го додаде експонатот „%{item}“.
+      create: 
+        an_unknown_user_created_an_unknown_collection: Непознат корисник создаде непозната збирка.
+        an_unknown_user_created_collection: Непознат корисник ја создаде збирката „%{collection}“.
+        an_unknown_user_created_it: Ја создал непознат корисник.
+        user_created_an_unknown_collection: <strong>%{user}</strong> создаде непозната збирка.
+        user_created_collection: <strong>%{user}</strong> ја создаде збирката „%{collection}“.
+        user_created_it: Создавач е <strong>%{user}</strong>.
+      other_actions: 
+        an_unknown_user_modified_an_unknown_collection: Непознат корисник измени непозната збирка.
+        an_unknown_user_modified_collection: Непознат корисник ја измени збирката „%{collection}“.
+        an_unknown_user_modified_it: Изменета од непознат корисник, а точната промена е загубена.
+        user_modified_an_unknown_collection: <strong>%{user}</strong> измени непозната збирка.
+        user_modified_collection: <strong>%{user}</strong> ја измени збирката „%{collection}“.
+        user_modified_it: Ја измени <strong>%{user}</strong>, но точната промена е загубена.
+      remove: 
+        an_unknown_user_removed_an_unknown_item_from_an_unknown_collection: Непознат корисник отстрани непознат експонат од непозната збирка.
+        an_unknown_user_removed_an_unknown_item_from_collection: Непознат корисник отстрани непознат експонат од збирката „%{collection}“.
+        an_unknown_user_removed_an_unknown_item_from_it: Непознат корисник отстрани непознат експонат.
+        an_unknown_user_removed_item_from_an_unknown_collection: Непознат корисник го отстрани експонатот „%{item}“ од непозната збирка.
+        an_unknown_user_removed_item_from_collection: Непознат корисник го отстрани експонатот „%{item}“ од збирката „%{collection}“.
+        an_unknown_user_removed_item_from_it: Непознат корисник го отстрани експонатот „%{item}“.
+        user_removed_an_unknown_item_from_an_unknown_collection: <strong>%{user}</strong> отстрани непознат експонат од непозната збирка.
+        user_removed_an_unknown_item_from_collection: <strong>%{user}</strong> отстрани непознат експонат од збирката „%{collection}“.
+        user_removed_an_unknown_item_from_it: <strong>%{user}</strong> отстрани непознат експонат.
+        user_removed_item_from_an_unknown_collection: <strong>%{user}</strong> го отстрани експонатот „%{item}“ од непозната збирка.
+        user_removed_item_from_collection: <strong>%{user}</strong> го отстрани експонатот „%{item}“ од збирката „%{collection}“.
+        user_removed_item_from_it: <strong>%{user}</strong> го отстрани експонатот „%{item}“.
+      remove_all: 
+        an_unknown_user_cleared_an_unknown_collection: Непознат корисник ги отстрани сите експонати од непозната збирка.
+        an_unknown_user_cleared_collection: Непознат корисник ги отстрани сите експонати од збирката „%{collection}“.
+        an_unknown_user_cleared_it: Непознат корисник ги отстрани сите експонати.
+        user_cleared_an_unknown_collection: <strong>%{user}</strong> ги отстрани сите експонати од непозната збирка.
+        user_cleared_collection: <strong>%{user}</strong> ги отстрани сите експонати од збирката „%{collection}“.
+        user_cleared_it: <strong>%{user}</strong> ги отстрани сите експонати.
+    community_activity_log: 
+      add_manager: 
+        an_unknown_user_added_an_unknown_manager_to_an_unknown_community: Непознат корисник додаде непознат раководител во непозната заедница.
+        an_unknown_user_added_an_unknown_manager_to_community: Непознат корисник додаде непознат раководител во заедницата „%{community}“.
+        an_unknown_user_added_manager_to_an_unknown_community: Непознат корисник го додаде „%{manager}“ како раководител на непозната заедница.
+        an_unknown_user_added_manager_to_community: Непознат корисник го додаде „%{manager}“ како раководител на заедницата „%{community}“.
+        user_added_an_unknown_manager_to_an_unknown_community: <strong>%{user}</strong> додаде непознат раководител на непозната заедница.
+        user_added_an_unknown_manager_to_community: <strong>%{user}</strong> додаде непознат раководител на заедницата „%{community}“.
+        user_added_manager_to_an_unknown_community: <strong>%{user}</strong> го додаде „%{manager}“ во непозната заедница.
+        user_added_manager_to_community: <strong>%{user}</strong> го додаде „%{manager}“ како раководител на заедницата „%{community}“.
+      change_description: 
+        an_unknown_user_changed_the_description_of_an_unknown_community: Непознат корисник го измени описот на непозната заедница.
+        an_unknown_user_changed_the_description_of_community: Непознат корисник го измени описот на заедницата „%{community}“.
+        user_changed_the_description_of_an_unknown_community: <strong>%{user}</strong> го измени описот на непозната заедница.
+        user_changed_the_description_of_community: <strong>%{user}</strong> го измени описот на заедницата „%{community}“.
+      change_icon: 
+        an_unknown_user_changed_the_icon_of_an_unknown_community: Непознат корисник го смени логото на непозната заедница.
+        an_unknown_user_changed_the_icon_of_community: Непознат корисник го смени логото на заедницата „%{community}“.
+        user_changed_the_icon_of_an_unknown_community: <strong>%{user}</strong> го смени логото на непозната заедница.
+        user_changed_the_icon_of_community: <strong>%{user}</strong> го смени логото на заедницата „%{community}“.
+      change_name: 
+        an_unknown_user_changed_the_name_of_an_unknown_community: Непознат корисник го смени името на непозната заедница.
+        an_unknown_user_changed_the_name_of_community: Непознат корисник го смени името на заедницата „%{community}“.
+        user_changed_the_name_of_an_unknown_community: <strong>%{user}</strong> го смени името на непозната заедница.
+        user_changed_the_name_of_community: <strong>%{user}</strong> го смени името на заедницата „%{community}“.
+      create: 
+        an_unknown_user_created_an_unknown_community: Непознат корисник создаде непозната заедница.
+        an_unknown_user_created_community: Непознат корисник ја создаде заедницата „%{community}“.
+        user_created_an_unknown_community: <strong>%{user}</strong> создаде непозната заедница.
+        user_created_community: <strong>%{user}</strong> ја создаде заедницата „%{community}“.
+      join: 
+        an_unknown_user_joined_an_unknown_community: Непознат корисник се зачлени во непозната заедница.
+        an_unknown_user_joined_community: Непознат корисник се зачлени во заедницата „%{community}“.
+        user_joined_an_unknown_community: <strong>%{user}</strong> се зачлени во непозната заедница.
+        user_joined_community: <strong>%{user}</strong> се зачлени во заедницата „%{community}“.
+      leave: 
+        an_unknown_user_left_an_unknown_community: Непознат корисник напушти непозната заедница.
+        an_unknown_user_left_community: Непознат корисник ја напушти заедницата „%{community}“.
+        user_left_an_unknown_community: <strong>%{user}</strong> напушти непозната заедница.
+        user_left_community: <strong>%{user}</strong> ја напушти заедницата „%{community}“.
+      other_actions: 
+        an_unknown_user_modified_an_unknown_community: Непознат корисник измени непозната заедница.
+        an_unknown_user_modified_community: Непознат корисник ја измени заедницата „%{community}“.
+        user_modified_an_unknown_community: <strong>%{user}</strong> измени непозната заедница.
+        user_modified_community: <strong>%{user}</strong> ја измени заедницата „%{community}“.
+    curator_activity_log: 
+      add_association: 
+        an_unknown_user_associated_an_older_data_object_to_an_unknown_association: Непознат корисник додаде поврзаност помеѓу постара верзија на „%{data_object}“ и непозната страница.
+        an_unknown_user_associated_an_older_data_object_to_association: Непознат корисник додаде поврзаност помеѓу постара верзија на „%{data_object}“ и „%{association}“.
+        an_unknown_user_associated_an_unknown_data_object_to_an_unknown_association: Непознат корисник додаде непозната поврзаност.
+        an_unknown_user_associated_an_unknown_data_object_to_association: Непознат корисник додаде поврзаност помеѓу непознат податочен објект и „%{association}“.
+        an_unknown_user_associated_data_object_to_an_unknown_association: Непознат корисник додаде поврзаност помеѓу „%{data_object}“ и непозната страница.
+        an_unknown_user_associated_data_object_to_association: Непознат корисник додаде поврзаност помеѓу „%{data_object}“ и „%{association}“.
+        an_unknown_user_associated_it_to_an_unknown_association: Непознат корисник додаде поврзаност со непозната страница.
+        an_unknown_user_associated_it_to_association: Непознат корисник додаде поврзаност со „%{association}“.
+        user_associated_an_older_data_object_to_an_unknown_association: <strong>%{user}</strong> додаде поврзаност помеѓу постара верзија на „%{data_object}“ и непозната страница.
+        user_associated_an_older_data_object_to_association: <strong>%{user}</strong> додаде поврзаност помеѓу постара верзија на „%{data_object}“ и „%{association}“.
+        user_associated_an_unknown_data_object_to_an_unknown_association: <strong>%{user}</strong> додаде непозната поврзаност.
+        user_associated_an_unknown_data_object_to_association: <strong>%{user}</strong> додаде поврзаност помеѓу непознат податочен објект и „%{association}“.
+        user_associated_data_object_to_an_unknown_association: <strong>%{user}</strong> додаде поврзаност помеѓу „%{data_object}“ и непозната страница.
+        user_associated_data_object_to_association: <strong>%{user}</strong> додаде поврзаност помеѓу „%{data_object}“ и „%{association}“.
+        user_associated_it_to_an_unknown_association: <strong>%{user}</strong> додаде поврзаност со непозната страница.
+        user_associated_it_to_association: <strong>%{user}</strong> додаде поврзаност со „%{association}“.
+      add_common_name: 
+        an_unknown_user_added_an_unknown_name_to_an_unknown_taxon: Непознат корисник додаде непознато тривијално име во непозната страница.
+        an_unknown_user_added_an_unknown_name_to_it: Непознат корисник додаде непознато тривијално име.
+        an_unknown_user_added_an_unknown_name_to_taxon: Непознат корисник додаде непознато тривијално име во „%{taxon}“.
+        an_unknown_user_added_name_to_an_unknown_taxon: Непознат корисник го додаде тривијалното име „%{name}“ во непозната страница.
+        an_unknown_user_added_name_to_it: Непознат корисник го додаде тривијалното име „%{name}“.
+        an_unknown_user_added_name_to_taxon: Непознат корисник го додаде тривијалното име „%{name}“ во „%{taxon}“.
+        user_added_an_unknown_name_to_an_unknown_taxon: <strong>%{user}</strong> додаде непознато тривијално име во непозната страница.
+        user_added_an_unknown_name_to_it: <strong>%{user}</strong> додаде непознато тривијално име.
+        user_added_an_unknown_name_to_taxon: <strong>%{user}</strong> му додаде непознато тривијално име на таксонот „%{taxon}“.
+        user_added_name_to_an_unknown_taxon: <strong>%{user}</strong> го додаде тривијалното име „%{name}“ во непозната страница.
+        user_added_name_to_it: <strong>%{user}</strong> го додаде тривијалното име „%{name}“.
+        user_added_name_to_taxon: <strong>%{user}</strong> му го додаде тривијалното име „%{name}“ на таксонот „%{taxon}“.
+      choose_exemplar: 
+        an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: Непознат корисник укажа постара верзија на „%{data_object}“ како урнек на непозната страница.
+        an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: Непознат корисник го укажа „%{data_object}“ како урнек на „%{taxon}“.
+        an_unknown_user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: Непознат корисник укажа непозната слика како урнек.
+        an_unknown_user_chose_exemplar_an_unknown_data_object_on_taxon: Непознат корисник укажа непознат податочен објект како урнек на „%{taxon}“.
+        an_unknown_user_chose_exemplar_data_object_on_an_unknown_taxon: Непознат корисник го укажа „%{data_object}“ како урнек на непозната страница.
+        an_unknown_user_chose_exemplar_data_object_on_taxon: Непознат корисник го укажа „%{data_object}“ како урнек на „%{taxon}“.
+        an_unknown_user_chose_exemplar_it_on_an_unknown_taxon: Непознат корисник го укажа како урнек на непозната страница.
+        an_unknown_user_chose_exemplar_it_on_taxon: Непознат корисник го укажа како урнек на „%{taxon}“.
+        user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: <strong>%{user}</strong> означи постара верзија на „%{data_object}“ како урнек на непозната страница.
+        user_chose_exemplar_an_older_data_object_on_taxon: <strong>%{user}</strong> означи постара верзија на „%{data_object}“ како урнек на „%{taxon}“.
+        user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: <strong>%{user}</strong> укажа непозната слика како урнек.
+        user_chose_exemplar_an_unknown_data_object_on_taxon: <strong>%{user}</strong> укажа непознат податочен објект како урнек на „%{taxon}“.
+        user_chose_exemplar_data_object_on_an_unknown_taxon: <strong>%{user}</strong> го укажа „%{data_object}“ како урнек на непозната страница.
+        user_chose_exemplar_data_object_on_taxon: <strong>%{user}</strong> го укажа како урнек на „%{taxon}“.
+        user_chose_exemplar_it_on_an_unknown_taxon: <strong>%{user}</strong> го укажа како урнек на непозната страница.
+        user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> го укажа како урнек на „%{taxon}“.
+      hide: 
+        an_unknown_user_hid_an_older_data_object_on_an_unknown_association: Непознат корисник означи постара верзија на „%{data_object}“ како скриена во непознат контекст.
+        an_unknown_user_hid_an_older_data_object_on_association: Непознат корисник означи постара верзија на „%{data_object}“ како скриена на страницата „%{association}“.
+        an_unknown_user_hid_an_unknown_data_object_on_an_unknown_association: Непознат корисник означи непознат податочен објект како скриен во непознат контекст.
+        an_unknown_user_hid_an_unknown_data_object_on_association: Непознат корисник означи непознат податочен објект како скриен на страницата „%{association}“.
+        an_unknown_user_hid_data_object_on_an_unknown_association: Непознат корисник го означи „%{data_object}“ како скриен во непознат контекст.
+        an_unknown_user_hid_data_object_on_association: Непознат корисник го означи „%{data_object}“ како скриен на страницата „%{association}“.
+        an_unknown_user_hid_it_on_an_unknown_association: Непознат корисник го означи како скриен во непознат контекст.
+        an_unknown_user_hid_it_on_association: Непознат корисник го означи како скриен на страницата „%{association}“.
+        user_hid_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong> означи постара верзија на „%{data_object}“ како скриена во непознат контекст.
+        user_hid_an_older_data_object_on_association: <strong>%{user}</strong> означи постара верзија на „%{data_object}“ како скриена на страницата „%{association}“.
+        user_hid_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong> означи непознат податочен објект како скриен во непознат контекст.
+        user_hid_an_unknown_data_object_on_association: <strong>%{user}</strong> означи непознат податочен објект како скриен на страницата „%{association}“.
+        user_hid_data_object_on_an_unknown_association: <strong>%{user}</strong> го означи „%{data_object}“ како скриен во непознат контекст.
+        user_hid_data_object_on_association: <strong>%{user}</strong> го означи „%{data_object}“ како скриен на страницата „%{association}“.
+        user_hid_it_on_an_unknown_association: <strong>%{user}</strong> го означи како скриен во непознат контекст.
+        user_hid_it_on_association: <strong>%{user}</strong> го означи како скриен на страницата „%{association}“.
+      other_actions: 
+        an_unknown_user_curated_an_older_data_object: Непознат корисник згрижи постара верзија на „%{data_object}“.
+        an_unknown_user_curated_an_unknown_data_object: Непознат корисник згрижи непознат податочен објект.
+        an_unknown_user_curated_data_object: Непознат корисник го згрижи „%{data_object}“.
+        an_unknown_user_curated_it: Го згрижи непознат корисник, но точната постапка е загубена.
+        user_curated_an_older_data_object: <strong>%{user}</strong> згрижи постара верзија на „%{data_object}“.
+        user_curated_an_unknown_data_object: <strong>%{user}</strong> згрижи непознат податочен објект.
+        user_curated_data_object: <strong>%{user}</strong> го згрижи „%{data_object}“.
+        user_curated_it: Го згрижи <strong>%{user}</strong>, но точната постапка е загубена.
+      reasons_to_hide: "Причини за скривањето: %{reasons}"
+      reasons_to_untrust: "Причини за недоверливост: %{reasons}"
+      remove_association: 
+        an_unknown_user_disassociated_an_older_data_object_from_an_unknown_taxon: Непознат корисник отстрани поврзаност од постара верзија на „%{data_object}“.
+        an_unknown_user_disassociated_an_older_data_object_from_taxon: Непознат корисник отстрани поврзаност помеѓу „%{data_object}“ и „%{taxon}“.
+        an_unknown_user_disassociated_an_unknown_data_object_from_an_unknown_taxon: Непознат корисник отстрани непозната поврзаност.
+        an_unknown_user_disassociated_an_unknown_data_object_from_taxon: Непознат корисник отстрани поврзаност помеѓу непознат податочен објект и „%{taxon}“.
+        an_unknown_user_disassociated_data_object_from_an_unknown_taxon: Непознат корисник отстрани поврзаност помеѓу „%{data_object}“ и непозната страница.
+        an_unknown_user_disassociated_data_object_from_taxon: Непознат корисник отстрани поврзаност помеѓу „%{data_object}“ и „%{taxon}“.
+        an_unknown_user_disassociated_it_from_an_unknown_taxon: Непознат корисник отстрани поврзаност со непозната страница.
+        an_unknown_user_disassociated_it_from_taxon: Непознат корисник отстрани поврзаност со „%{association}“.
+        user_disassociated_an_older_data_object_from_an_unknown_taxon: <strong>%{user}</strong> отстрани поврзаност помеѓу постара верзија на „%{data_object}“ и непозната страница.
+        user_disassociated_an_older_data_object_from_taxon: <strong>%{user}</strong> отстрани поврзаност помеѓу постара верзија на „%{data_object}“ и „%{taxon}“.
+        user_disassociated_an_unknown_data_object_from_an_unknown_taxon: <strong>%{user}</strong> отстрани непозната поврзаност.
+        user_disassociated_an_unknown_data_object_from_taxon: <strong>%{user}</strong> отстрани поврзаност помеѓу непознат податочен објект и „%{taxon}“.
+        user_disassociated_data_object_from_an_unknown_taxon: <strong>%{user}</strong> отстрани поврзаност помеѓу „%{data_object}“ и непозната страница.
+        user_disassociated_data_object_from_taxon: <strong>%{user}</strong> отстрани поврзаност помеѓу „%{data_object}“ и „%{taxon}“.
+        user_disassociated_it_from_an_unknown_taxon: <strong>%{user}</strong> отстрани поврзаност од непозната страница.
+        user_disassociated_it_from_taxon: <strong>%{user}</strong> отстрани поврзаност со „%{association}“.
+      remove_common_name: 
+        an_unknown_user_removed_name_from_an_unknown_taxon: Непознат корисник отстрани тривијално име од непозната страница.
+        an_unknown_user_removed_name_from_it: Непознат корисник отстрани тривијално име.
+        an_unknown_user_removed_name_from_taxon: Непознат корисник отстрани тривијално име од „%{taxon}“.
+        user_removed_name_from_an_unknown_taxon: <strong>%{user}</strong> отстрани тривијално име од непозната страница.
+        user_removed_name_from_it: <strong>%{user}</strong> отстрани тривијално име.
+        user_removed_name_from_taxon: <strong>%{user}</strong> отстрани тривијално име од таксонот „%{taxon}“.
+      show: 
+        an_unknown_user_showed_an_older_data_object_on_an_unknown_association: Непознат корисник означи постара верзија на „%{data_object}“ како видлива во непознат контекст.
+        an_unknown_user_showed_an_older_data_object_on_association: Непознат корисник означи постара верзија на „%{data_object}“ како видлива на страницата „%{association}“.
+        an_unknown_user_showed_an_unknown_data_object_on_an_unknown_association: Непознат корисник означи непознат податочен објект како видлив во непознат контекст.
+        an_unknown_user_showed_an_unknown_data_object_on_association: Непознат корисник означи непознат податочен објект како видлив на страницата „%{association}“.
+        an_unknown_user_showed_data_object_on_an_unknown_association: Непознат корисник го означи „%{data_object}“ како видлив во непознат контекст.
+        an_unknown_user_showed_data_object_on_association: Непознат корисник го означи „%{data_object}“ како видлив на страницата „%{association}“.
+        an_unknown_user_showed_it_on_an_unknown_association: Непознат корисник го означи како видлив во непознат контекст.
+        an_unknown_user_showed_it_on_association: Непознат корисник го означи како видлив на страницата „%{association}“.
+        user_showed_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong> означи постара верзија на „%{data_object}“ како видлива во непознат контекст.
+        user_showed_an_older_data_object_on_association: <strong>%{user}</strong> означи постара верзија на „%{data_object}“ како видлива на страницата „%{association}“.
+        user_showed_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong> означи непознат податочен објект како видлив во непознат контекст.
+        user_showed_an_unknown_data_object_on_association: <strong>%{user}</strong> означи непознат податочен објект како видлив на страницата „%{association}“.
+        user_showed_data_object_on_an_unknown_association: <strong>%{user}</strong> го означи „%{data_object}“ како видлив во непознат контекст.
+        user_showed_data_object_on_association: <strong>%{user}</strong> го означи „%{data_object}“ како видлив на страницата „%{association}“.
+        user_showed_it_on_an_unknown_association: <strong>%{user}</strong> го означи како видлив во непознат контекст.
+        user_showed_it_on_association: <strong>%{user}</strong> го означи како видлив на страницата „%{association}“.
+      trust_common_name: 
+        an_unknown_user_trusted_an_unknown_name_on_an_unknown_taxon: Непознат корисник означи непознато тривијално име од непозната страница како доверливо.
+        an_unknown_user_trusted_an_unknown_name_on_it: Непознат корисник означи непознато тривијално име како доверливо.
+        an_unknown_user_trusted_an_unknown_name_on_taxon: Непознат корисник означи непознато тривијално име од „%{taxon}“ како доверливо.
+        an_unknown_user_trusted_name_on_an_unknown_taxon: Непознат корисник го означи тривијалното име „%{name}“ од непозната страница како доверливо.
+        an_unknown_user_trusted_name_on_it: Непознат корисник го означи тривијалното име „%{name}“ како доверливо.
+        an_unknown_user_trusted_name_on_taxon: Непознат корисник го означи тривијалното име „%{name}“ од „%{taxon}“ како доверливо.
+        user_trusted_an_unknown_name_on_an_unknown_taxon: <strong>%{user}</strong> означи непознато тривијално име од непозната страница како доверливо.
+        user_trusted_an_unknown_name_on_it: <strong>%{user}</strong> означи непознато тривијално име како доверливо.
+        user_trusted_an_unknown_name_on_taxon: <strong>%{user}</strong> означи непознато тривијално име од „%{taxon}“ како доверливо.
+        user_trusted_name_on_an_unknown_taxon: <strong>%{user}</strong> го означи тривијалното име „%{name}“ од непозната страница како доверливо.
+        user_trusted_name_on_it: <strong>%{user}</strong> го означи тривијалното име „%{name}“ како доверливо.
+        user_trusted_name_on_taxon: <strong>%{user}</strong> го означи тривијалното име „%{name}“.
+      trusted: 
+        an_unknown_user_trusted_an_older_data_object_on_an_unknown_association: Непознат корисник означи постара верзија на „%{data_object}“ како доверлива во непознат контекст.
+        an_unknown_user_trusted_an_older_data_object_on_association: Непознат корисник означи постара верзија на „%{data_object}“ како доверлива на страницата „%{association}“.
+        an_unknown_user_trusted_an_unknown_data_object_on_an_unknown_association: Непознат корисник означи непознат податочен објект како доверлив во непознат контекст.
+        an_unknown_user_trusted_an_unknown_data_object_on_association: Непознат корисник означи непознат податочен објект како доверлив на страницата „%{association}“.
+        an_unknown_user_trusted_data_object_on_an_unknown_association: Непознат корисник го означи „%{data_object}“ како доверлив во непознат контекст.
+        an_unknown_user_trusted_data_object_on_association: Непознат корисник го означи „%{data_object}“ како доверлив на страницата „%{association}“.
+        an_unknown_user_trusted_it_on_an_unknown_association: Непознат корисник го означи како доверлив во непознат контекст.
+        an_unknown_user_trusted_it_on_association: Непознат корисник го означи како доверлив на страницата „%{association}“.
+        user_trusted_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong> означи постара верзија на „%{data_object}“ како доверлива во непознат контекст.
+        user_trusted_an_older_data_object_on_association: <strong>%{user}</strong> означи постара верзија на „%{data_object}“ како доверлива на страницата „%{association}“.
+        user_trusted_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong> означи непознат податочен објект како доверлив во непознат контекст.
+        user_trusted_an_unknown_data_object_on_association: <strong>%{user}</strong> означи непознат податочен објект како доверлив на страницата „%{association}“.
+        user_trusted_data_object_on_an_unknown_association: <strong>%{user}</strong> го означи „%{data_object}“ како доверлив во непознат контекст.
+        user_trusted_data_object_on_association: <strong>%{user}</strong> го означи „%{data_object}“ како доверлив на страницата „%{association}“.
+        user_trusted_it_on_an_unknown_association: <strong>%{user}</strong> го означи како доверлив во непознат контекст.
+        user_trusted_it_on_association: <strong>%{user}</strong> го означи како доверлив на страницата „%{association}“.
+      unreview_common_name: 
+        an_unknown_user_unreviewed_an_unknown_name_on_an_unknown_taxon: Непознат корисник означи непознато тривијално име од непозната страница како непроверено.
+        an_unknown_user_unreviewed_an_unknown_name_on_it: Непознат корисник означи непознато тривијално име како непроверено.
+        an_unknown_user_unreviewed_an_unknown_name_on_taxon: Непознат корисник означи непознато тривијално име од „%{taxon}“ како непроверено.
+        an_unknown_user_unreviewed_name_on_an_unknown_taxon: Непознат корисник го означи тривијалното име „%{name}“ од непозната страница како непроверено.
+        an_unknown_user_unreviewed_name_on_it: Непознат корисник го означи тривијалното име „%{name}“ како непроверено.
+        an_unknown_user_unreviewed_name_on_taxon: Непознат корисник го означи тривијалното име „%{name}“ од „%{taxon}“ како непроверено.
+        user_unreviewed_an_unknown_name_on_an_unknown_taxon: <strong>%{user}</strong> означи непознато тривијално име од непозната страница како непроверено.
+        user_unreviewed_an_unknown_name_on_it: <strong>%{user}</strong> означи непознато тривијално име како непроверено.
+        user_unreviewed_an_unknown_name_on_taxon: <strong>%{user}</strong> означи непознато тривијално име од „%{taxon}“ како непроверено.
+        user_unreviewed_name_on_an_unknown_taxon: <strong>%{user}</strong> го означи тривијалното име „%{name}“ од непозната страница како непроверено.
+        user_unreviewed_name_on_it: <strong>%{user}</strong> го означи тривијалното име „%{name}“ како непроверено.
+        user_unreviewed_name_on_taxon: <strong>%{user}</strong> го означи тривијалното име „%{name}“ од „%{taxon}“ како непроверено.
+      unreviewed: 
+        an_unknown_user_unreviewed_an_older_data_object_on_an_unknown_association: Непознат корисник означи постара верзија на „%{data_object}“ како непроверена во непознат контекст.
+        an_unknown_user_unreviewed_an_older_data_object_on_association: Непознат корисник означи постара верзија на „%{data_object}“ како непроверена на страницата „%{association}“.
+        an_unknown_user_unreviewed_an_unknown_data_object_on_an_unknown_association: Непознат корисник означи непознат податочен објект како непроверен во непознат контекст.
+        an_unknown_user_unreviewed_an_unknown_data_object_on_association: Непознат корисник означи непознат податочен објект како непроверен на страницата „%{association}“.
+        an_unknown_user_unreviewed_data_object_on_an_unknown_association: Непознат корисник го означи „%{data_object}“ како непроверен во непознат контекст.
+        an_unknown_user_unreviewed_data_object_on_association: Непознат корисник го означи „%{data_object}“ како непроверен на страницата „%{association}“.
+        an_unknown_user_unreviewed_it_on_an_unknown_association: Непознат корисник го означи како непроверен во непознат контекст.
+        an_unknown_user_unreviewed_it_on_association: Непознат корисник го означи како непроверен на страницата „%{association}“.
+        user_unreviewed_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong> означи постара верзија на „%{data_object}“ како непроверена во непознат контекст.
+        user_unreviewed_an_older_data_object_on_association: <strong>%{user}</strong> означи постара верзија на „%{data_object}“ како непроверена на страницата „%{association}“.
+        user_unreviewed_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong> означи непознат податочен објект како непроверен во непознат контекст.
+        user_unreviewed_an_unknown_data_object_on_association: <strong>%{user}</strong> означи непознат податочен објект како непроверен на страницата „%{association}“.
+        user_unreviewed_data_object_on_an_unknown_association: <strong>%{user}</strong> го означи „%{data_object}“ како непроверен во непознат контекст.
+        user_unreviewed_data_object_on_association: <strong>%{user}</strong> го означи „%{data_object}“ како непроверен на страницата „%{association}“.
+        user_unreviewed_it_on_an_unknown_association: <strong>%{user}</strong> го означи како непроверен во непознат контекст.
+        user_unreviewed_it_on_association: <strong>%{user}</strong> го означи како непроверен на страницата „%{association}“.
+      untrust_common_name: 
+        an_unknown_user_untrusted_an_unknown_name_on_an_unknown_taxon: Непознат корисник означи непознато тривијално име од непозната страница како недоверливо.
+        an_unknown_user_untrusted_an_unknown_name_on_it: Непознат корисник означи непознато тривијално име како недоверливо.
+        an_unknown_user_untrusted_an_unknown_name_on_taxon: Непознат корисник означи непознато тривијално име од „%{taxon}“ како недоверливо.
+        an_unknown_user_untrusted_name_on_an_unknown_taxon: Непознат корисник го означи тривијалното име „%{name}“ од непозната страница како недоверливо.
+        an_unknown_user_untrusted_name_on_it: Непознат корисник го означи тривијалното име „%{name}“ како недоверливо.
+        an_unknown_user_untrusted_name_on_taxon: Непознат корисник го означи тривијалното име „%{name}“ од „%{taxon}“ како недоверливо.
+        user_untrusted_an_unknown_name_on_an_unknown_taxon: <strong>%{user}</strong> означи непознато тривијално име од непозната страница како недоверливо.
+        user_untrusted_an_unknown_name_on_it: <strong>%{user}</strong> означи непознато тривијално име како недоверливо.
+        user_untrusted_an_unknown_name_on_taxon: <strong>%{user}</strong> означи непознато тривијално име од „%{taxon}“ како недоверливо.
+        user_untrusted_name_on_an_unknown_taxon: <strong>%{user}</strong> го означи тривијалното име „%{name}“ од непозната страница како недоверливо.
+        user_untrusted_name_on_it: <strong>%{user}</strong> го означи тривијалното име „%{name}“ како недоверливо.
+        user_untrusted_name_on_taxon: <strong>%{user}</strong> го означи тривијалното име „%{name}“ од „%{taxon}“ како недоверливо.
+      untrusted: 
+        an_unknown_user_untrusted_an_older_data_object_on_an_unknown_association: Непознат корисник означи постара верзија на „%{data_object}“ како недоверлива во непознат контекст.
+        an_unknown_user_untrusted_an_older_data_object_on_association: Непознат корисник означи постара верзија на „%{data_object}“ како недоверлива на страницата „%{association}“.
+        an_unknown_user_untrusted_an_unknown_data_object_on_an_unknown_association: Непознат корисник означи непознат податочен објект како недоверлив во непознат контекст.
+        an_unknown_user_untrusted_an_unknown_data_object_on_association: Непознат корисник означи непознат податочен објект како недоверлив на страницата „%{association}“.
+        an_unknown_user_untrusted_data_object_on_an_unknown_association: Непознат корисник го означи „%{data_object}“ како недоверлив во непознат контекст.
+        an_unknown_user_untrusted_data_object_on_association: Непознат корисник го означи „%{data_object}“ како недоверлив на страницата „%{association}“.
+        an_unknown_user_untrusted_it_on_an_unknown_association: Непознат корисник го означи како недоверлив во непознат контекст.
+        an_unknown_user_untrusted_it_on_association: Непознат корисник го означи како недоверлив на страницата „%{association}“.
+        user_untrusted_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong> означи постара верзија на „%{data_object}“ како недеоверлива во непознат контекст.
+        user_untrusted_an_older_data_object_on_association: <strong>%{user}</strong> означи постара верзија на „%{data_object}“ како недеоверлива на страницата „%{association}“.
+        user_untrusted_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong> означи непознат податочен објект како недоверлив во непознат контекст.
+        user_untrusted_an_unknown_data_object_on_association: <strong>%{user}</strong> означи непознат податочен објект како недоверлив на страницата „%{association}“.
+        user_untrusted_data_object_on_an_unknown_association: <strong>%{user}</strong> го означи „%{data_object}“ како недоверлив во непознат контекст.
+        user_untrusted_data_object_on_association: <strong>%{user}</strong> го означи „%{data_object}“ како недоверлив на страницата „%{association}“.
+        user_untrusted_it_on_an_unknown_association: <strong>%{user}</strong> го означи како недоверливо во непознат контекст.
+        user_untrusted_it_on_association: <strong>%{user}</strong> го означи како недоверливо на страницата „%{association}“.
   activity_user_created_text: <strong>%{user}</strong> додаде текст во „%{object_name}“ на „%{taxon_concept}“.
-  activity_user_curated_an_unknown_object: <strong>%{user}</strong> стана кустос на непознат објект.
-  activity_user_deleted_community: <strong>%{user}</strong> ја избриша заедницата „%{community}“.
-  activity_user_hid_data_object: <strong>%{user}</strong> го означи објектот „%{object_name}“ како скриен.
-  activity_user_hid_named_association: <strong>%{user}</strong> ја означи поврзаноста помеѓу „%{object_name}“ и „%{name}“ како скриена.
-  activity_user_hid_named_association_on_older_data_object: <strong>%{user}</strong> ја означи поврзаноста помеѓу „%{object_name}“ и „%{name}“ како скриена.
-  activity_user_hid_older_data_object: <strong>%{user}</strong> го означи објектот „%{object_name}“ како скриен.
-  activity_user_hid_unknown_object: <strong>%{user}</strong> означи непознат објект како скриен.
-  activity_user_hid_unknown_object_association: <strong>%{user}</strong> ја означи поврзаноста помеѓу непознат објект и „%{name}“ како скриена.
-  activity_user_inappropriate_common_name: <strong>%{user}</strong> го означи тривијалното име на %{language} „%{name}“ од непознат експонат како несоодветно.
-  activity_user_inappropriate_common_name_from_taxon: <strong>%{user}</strong> го означи тривијалното име на %{language} „%{name}“ од таксонот „%{taxon}“ како несоодветно.
-  activity_user_inappropriate_unknown_name: <strong>%{user}</strong> означи непознато тривијално име од непознат таксон како несоодветно.
-  activity_user_inappropriate_unknown_name_to_taxon: <strong>%{user}</strong> означи тривијално име од таксонот „%{taxon}“ како несоодветно.
-  activity_user_joined_community: <strong>%{user}</strong> ѝ се приклучи на заедницата „%{community}“.
-  activity_user_marked_content_as_inappropriate: <strong>%{user}</strong> ја означи содржината како несоодветна.
-  activity_user_modified_community: <strong>%{user}</strong> ја измени заедницата „%{community}“.
-  activity_user_rated_data_object: <strong>%{user}</strong> го оцени објектот „%{object_name}“.
-  activity_user_rated_unknown_object: <strong>%{user}</strong> оцени непознат објект.
-  activity_user_removed_association: <strong>%{user}</strong> отстрани поврзаност од објектот „%{object_name}“.
-  activity_user_removed_named_association: <strong>%{user}</strong> отстрани поврзаност помеѓу „%{object_name}“ и „%{name}“.
-  activity_user_removed_unknown_association: <strong>%{user}</strong> отстрани поврзаност од непознат објект.
-  activity_user_removed_unknown_name: <strong>%{user}</strong> отстрани непознато тривијално име од непознат објект.
-  activity_user_removed_unknown_name_to_taxon: <strong>%{user}</strong> отстрани тривијално име од таксонот „%{taxon}“.
-  activity_user_showed_data_object: <strong>%{user}</strong> го означи објектот „%{object_name}“ како видлив.
-  activity_user_showed_named_association: <strong>%{user}</strong> ја означи поврзаноста помеѓу „%{object_name}“ и „%{name}“ како видлива.
-  activity_user_showed_named_association_on_older_data_object: <strong>%{user}</strong> ја означи поврзаноста помеѓу „%{object_name}“ и „%{name}“ како видлива.
-  activity_user_showed_older_data_object: <strong>%{user}</strong> го означи објектот „%{object_name}“ како видлив.
-  activity_user_showed_unknown_object: <strong>%{user}</strong> означи непознат објект како видлив.
-  activity_user_showed_unknown_object_association: <strong>%{user}</strong> ја означи поврзаноста помеѓу непознат објект и „%{name}“ како видлива.
-  activity_user_trust_common_name: <strong>%{user}</strong> го означи тривијалното име на %{language} „%{name}“ од непознат експонат како доверливо.
-  activity_user_trust_common_name_from_taxon: <strong>%{user}</strong> го означи тривијалното име на %{language} „%{name}“ од „%{taxon}“ како доверливо.
-  activity_user_trust_unknown_name: <strong>%{user}</strong> означи непознато тривијално име од непознат таксон како доверливо.
-  activity_user_trust_unknown_name_to_taxon: <strong>%{user}</strong> означи тривијално име од таксонот „%{taxon}“ како доверливо.
-  activity_user_trusted_data_object: <strong>%{user}</strong> го означи објектот „%{object_name}“ како доверлив.
-  activity_user_trusted_named_association: <strong>%{user}</strong> ја означи поврзаноста помеѓу „%{object_name}“ и „%{name}“ како доверлива.
-  activity_user_trusted_named_association_on_older_data_object: <strong>%{user}</strong> ја означи поврзаноста помеѓу „%{object_name}“ и „%{name}“ како доверлива.
-  activity_user_trusted_older_data_object: <strong>%{user}</strong> го означи објектот „%{object_name}“ како доверлив.
-  activity_user_trusted_unknown_object: <strong>%{user}</strong> означи непознат објект како доверлив.
-  activity_user_trusted_unknown_object_association: <strong>%{user}</strong> ја означи поврзаноста помеѓу непознат објект и „%{name}“ како доверлива.
-  activity_user_unreview_common_name: <strong>%{user}</strong> го означи тривијалното име на %{language} „%{name}“ од непознат експонат како непроверено.
-  activity_user_unreview_common_name_from_taxon: <strong>%{user}</strong> го означи тривијалното име на %{language} „%{name}“ од таксонот „%{taxon}“ како непроверено.
-  activity_user_unreview_unknown_name: <strong>%{user}</strong> означи непознато тривијално име од непознат таксон како недоверливо.
-  activity_user_unreview_unknown_name_to_taxon: <strong>%{user}</strong> означи тривијално име од таксонот „%{taxon}“ како непроверено.
-  activity_user_unreviewed_data_object: <strong>%{user}</strong> го означи објектот „%{object_name}“ како непроверен.
-  activity_user_unreviewed_named_association: <strong>%{user}</strong> ја означи поврзаноста помеѓу „%{object_name}“ и „%{name}“ како непроверена.
-  activity_user_unreviewed_named_association_on_older_data_object: <strong>%{user}</strong> ја означи поврзаноста помеѓу „%{object_name}“ и „%{name}“ како непроверена.
-  activity_user_unreviewed_older_data_object: <strong>%{user}</strong> го означи објектот „%{object_name}“ како непроверен.
-  activity_user_unreviewed_unknown_object: <strong>%{user}</strong> означи непознат објект како непроверен.
-  activity_user_unreviewed_unknown_object_association: <strong>%{user}</strong> ја означи поврзаноста помеѓу непознат објект и „%{name}“ како непроверена.
-  activity_user_untrust_common_name: <strong>%{user}</strong> го означи тривиланото име на %{language} „%{name}“ од непознат експонат како недоверливо.
-  activity_user_untrust_common_name_from_taxon: <strong>%{user}</strong> го означи тривијалното име на %{language} „%{name}“ од таксонот „%{taxon}“ како недоверливо.
-  activity_user_untrust_unknown_name: <strong>%{user}</strong> означи непознато тривијално име од непознат таксон како недоверливо.
-  activity_user_untrust_unknown_name_to_taxon: <strong>%{user}</strong> означи тривијално име од таксонот „%{taxon}“ како недоверливо.
-  activity_user_untrusted_data_object: <strong>%{user}</strong> го означи објектот „%{object_name}“ како недоверлив.
-  activity_user_untrusted_named_association: <strong>%{user}</strong> ја означи поврзаноста помеѓу „%{object_name}“ и „%{name}“ како недоверлива.
-  activity_user_untrusted_named_association_on_older_data_object: <strong>%{user}</strong> ја означи поврзаноста помеѓу „%{object_name}“ и „%{name}“ како недоверлива.
-  activity_user_untrusted_older_data_object: <strong>%{user}</strong> го означи објектот „%{object_name}“ како недоверлив.
-  activity_user_untrusted_unknown_object: <strong>%{user}</strong> означи непознат објект како недоверлив.
-  activity_user_untrusted_unknown_object_association: <strong>%{user}</strong> ја означи поврзаноста помеѓу непознат објект и „%{name}“ како недоверлива.
   activity_user_updated_text: <strong>%{user}</strong> го измени текстот на „%{object_name}“ на „%{taxon_concept}“.
   add: Додај
   add_a_collection_to_a_community: Додај ја збирката „%{collection}“ во заедница
@@ -470,6 +724,7 @@ mk:
   all_communities: Сите заедници
   all_count: Сите (%{count})
   all_errors: СИТЕ грешки
+  all_filter: сè
   all_harvesting_logs: СИТЕ дневници на преземања
   all_images: Сите слики
   all_information: Сите информации
@@ -493,6 +748,9 @@ mk:
   and: и
   and_between_form_items: и
   annotation_cabs_colon: "Прибелешка:"
+  anonymous_user_full_name: Анонимен корисник
+  anonymous_user_given_name: Анонимен
+  anonymous_user_tag_line: Не сте најавени
   any_integer: секој цел број
   api_docs_collections_description: Кога ќе му се зададе назнака на збирка, овој API ќе ги даде сите метаподатоци за збирката и експонатите што ги содржи. Списокот на експонати може да се филтрира по тип и да се подредува по горенаведените атрибути.
   application_version_advisory_information: Верзија на програмот
@@ -581,6 +839,7 @@ mk:
   cannot_be_empty: не може да стои празно.
   cannot_create_collection_item_from_class_error: Не можам да создадам експонат во збирката од %{klass}
   cannot_create_community_from_watch_collection_error: Не можете да создадете заедница од список на набљудувања.
+  cannot_curate_association_in_preview_mode: Поврзаноста со %{name} не може да се згрижи бидејќи е во фаза на прегледување по преземањето.
   cannot_expand_children: не можам да ги отворам поттаксоните
   cannot_find_member: Не можам да најдам член со оваа назнака.
   cannot_index_collection_item_type_error: Не можам да индексирам експонат за збирката од %{type}
@@ -985,7 +1244,7 @@ mk:
   copyright: "АВТ. ПРАВА:"
   correct_donation_message: Ако овие информации се погрешни, тогаш %{go_back_link} за да направите измени
   could_not_find_collection_error: Нажалост, не можав да ја најдам таа збирка.
-  could_not_find_user: Не можев да најдам член за овој корисник
+  could_not_find_user: Не членувате во оваа заедница.
   count: Број
   count_results_for_search_term: 
     one: "%{count} резултат за <em>%{search_term}</em>"
@@ -1106,6 +1365,7 @@ mk:
   details_title: Подробности
   development_version_name: EOL вер.2 Бета
   did_you_mean: "Дали мислевте на: %{suggestions} ?"
+  disable_email_notifications_colon: "Оневозможени адреси:"
   disabled_for_now: ЗАСЕГА ОНЕВОЗМОЖЕНО
   discover_link: Откријте
   displaying_numerical_range: Приказ на %{start_number} &mdash; %{end_number}
@@ -1165,6 +1425,8 @@ mk:
   email_colon: "Е-пошта:"
   email_error_notification_activ: Известувањето за гршки при испраќање на е-пошта е активно
   email_recipients: Примачи на е-пошта
+  email_updates_for_eol_addicts: Актуелности за зависници од EOL.
+  email_updates_for_eol_members: Новости што ќе сакаат да ги добиваат највеќето членови на EOL.
   encyclopedia_of_life: Енциклопедија на живиот свет
   endorsed_by: Истакнат на
   endorsed_collections: Истакнати збирки
@@ -1172,6 +1434,8 @@ mk:
     one: "%{count} истакната збирка"
     other: "%{count} истакнати збирки"
   enter_in_a_search_term_users_a: Внесете поим за пребарување, а потоа саканата назнака на таксон/страница до која ќе води како предлог во пребарувањето. Назнаката ќе ја најдете во URL-адресата на целната страница (на пр. www.eol.org/pages/5 ја има назнаката „5“). Името на страницата и првата слика (ако е на располагање) ќе бидат зачувани во резултатот.
+  eol_activities: активности_на_eol
+  eol_activity: активности на eol
   eol_administration_console: Административна конзола на EOL
   eol_api: API на EOL
   eol_api_collections: "EOL API: Збирки"
@@ -1185,11 +1449,15 @@ mk:
   eol_api_search: "EOL API: Пребарување"
   eol_api_search_by_provider: "EOL API: Пребарување по добавувач"
   eol_colon: "EOL:"
+  eol_community_activity: активности на заедниците на eol
   eol_curator_activity_email_message: Кустосот <a href='%{profile_url}'>%{curator_full_name}</a> %{action} на <a href='%{data_object_url}'>EOL</a>%{comment}
   eol_flickr_group: Група на EOL на Flickr
   eol_glossary: Поимник
+  eol_member_activity: активности во членовите на eol
   eol_news: Новости
   eol_pages: Страници
+  eol_recent_activity: скорешни_активности_на_eol
+  eol_recent_member_activities: активности_на_членовите_на_eol
   error_401_description: Нажалост, не сте овластени за да ја отворите таа URL-адреса.
   error_401_page_title: Нема овластување
   error_403_description: Нажалост, не сте овластени за да ја отворите таа URL-адреса.
@@ -1246,16 +1514,21 @@ mk:
     one: Сите типови (%{count})
     other: Сите типови (%{count})
   filter_by_type_collection_option: Збирки
+  filter_by_type_comment_option: Коментари
   filter_by_type_community_option: Заедници
+  filter_by_type_content_page_option: Информативни страници на EOL
   filter_by_type_image_option: Слики
   filter_by_type_image_option_with_count: 
     one: Слики (%{count})
     other: Слики (%{count})
+  filter_by_type_name_option: Имиња
+  filter_by_type_object_curated_option: Згрижени објекти
   filter_by_type_photosynth_option: Photosynth-прикази
   filter_by_type_sound_option: Звуци
   filter_by_type_sound_option_with_count: 
     one: Звуци (%{count})
     other: Звуци (%{count})
+  filter_by_type_taxa_comment_option: Коментари на таксони
   filter_by_type_taxon_concept_option: Таксони
   filter_by_type_text_option: Статии
   filter_by_type_user_option: Луѓе
@@ -1264,6 +1537,12 @@ mk:
     one: Видеа (%{count})
     other: Видеа (%{count})
   filter_media: филтрирај медиуми
+  filter_newsfeed_option_all: Сите
+  filter_newsfeed_option_collections: Збирки
+  filter_newsfeed_option_community: Заедница
+  filter_newsfeed_option_curation: Згрижување
+  filter_newsfeed_option_messages: Коментари
+  filter_newsfeed_option_watchlist: Набљудувања
   filtered_information: Филтрирани информации
   find_taxa_submit_button: најди таксони
   flash_notice_redirected_from_search_html: Стигнавте тука бараќи го поимот <em>%{search_string}</em>. <a href="%{more_results_url}">Стиснете тука за да се вратите на страницата за пребарување.</a>
@@ -1283,6 +1562,7 @@ mk:
   forgot_password_form_choose_username_instructions: Оваа е-пошта (<em>%{email}</em>) фигурира на повеќе сметки. Одберете на која сметка сакате да ѝ ја смените лозинката.
   forgot_password_form_choose_username_legend: Одберете сметка
   forgot_password_form_header: Ставете нова лозинка
+  forgot_password_form_helper: Имајте предвид дека <em>често</em> се случува филтрите да ги означат пораките за промена на лозинки како „Спам“. Доколку не ја добиете пораката во рок од еден час, проверете ја папката за спам.
   forgot_password_form_username_or_email_blank_error: Внесете го вашето корисничко име или е-пошта за да ја смените лозинката.
   form_validation_errors_for_attribute_assistive: Се појави грешка при проверката на овој елемент
   fragment_caching_enabled: Кеширањето на поделоци е овозможено
@@ -1304,7 +1584,7 @@ mk:
   given_name_colon: "Име:"
   given_the_vast_number: Земајќи го предвид огромниот број на научни и тривијални имиња (речиси 20 милиони), не е лесно секому да му се обезбеди точниот вид што го бара. Пример за тоа е англискиот поим Robin. Постојат неколку птици со такво име (American Robin, Alpine Robin, Smoky Robin) неколку вида риби Robin, како и таксоном со презиме Robin кој има именувано дузини видови. Во пребарувањето имаме и параметар „точно“ за добивање на резултати што целосно се совпаѓаат со бараното, но сепак не можеме да гарантираме дека добиениот таксон е токму оној што го барате. Постојано правиме напори да ја подобриме релевантноста на резултатите од пребарувањата, па затоа очекувајте подобрувања во подредувањето на резултатите во блиска иднина.
   gives_access_to_a_single_hierarchy_indexed_by_eol: дава пристап до една хиерархија индексирана од EOL и нејзините внатрешни заемни односи
-  global_access_tagline: Глобален пристап до сознанија за живиот свет на Земјата.
+  global_access_tagline: Глобален пристап до знаењето за живиот свет на Земјата
   global_navigation: Општа навигација
   glossary_is_empty: (поимникот е празен)
   glossary_term: поим
@@ -1390,6 +1670,7 @@ mk:
       harvest_event: 
         began_at: Започнато
         completed_at: Завршено
+        first_published_at: Првично објавено
         publish_more: Означува преземање за објавување. Содржината нема веднаш да биде јавно достапна.
         published_at: Објавено
         published_status: Статус
@@ -1443,20 +1724,21 @@ mk:
         credentials_more_professional: Член на стручно друштво.
         credentials_more_referral: Препорака од тековен кустос.
         credentials_more_successful_assistant_curator: Историја на успешно работење како помошник-кустос.
-        curation_application: Станување кустос
+        curation_application: Станете кустос
         curation_application_more: Ако сакате да ги измените вашите кустоски привилегии, едноставно поднесете ја пријавницата, и ние ќе ја разгледаме вашата подобност.
         curator_level: Моментално сте %{curator_level_with_indefinite_article}.
         curator_scope: Опсег на згрижувањето
         curator_scope_more: "Наведете го опфатот на вашата стручност. На пример: „Глодари на Борнео“, „Три-трофични заемодејства“ или „Заштитни прашања кај рибите“. Ова нема да биде никакво ограничување во вашите кустоски задачи, туку служи само како информација за заедницата на EOL."
         email_reports_frequency_hours: Колку често би сакале на е-пошта да добивате известувања за активности поврзани со вашите придонеси?
+        email_settings_submit: нагодувања за е-пошта
         entered_password: Лозинка <small>(4 - 16 знаци)</small>
-        generate_api_key: Барање на API-клуч
+        generate_api_key: Побарај API-клуч
         generate_api_key_more: Ако сте заинтересирани да го користите API-прилогот на EOL можете да создадете API-клуч за рапознатливост на вашиот програмски прилог. Повеќе за <a href="%{api_docs_url}">додавање на клуч на API-повици</a>.
         logo: Подигни нова слика
-        mailing_list: Сакате да примате билтен со актуелности по е-пошта?
-        mailing_list_yes: Да
         new_password: Нова лозинка <small>(4 - 16 знаци)</small>
         new_password_confirmation: Нова лозинка <small>(за потврда)</small>
+        notification_settings: Нагодувања за известувањата
+        notification_settings_more: Наместете ги поставките за известувањата.
         requested_curator_level: Вашето барање да станете %{curator_level_with_indefinite_article} чека на решение.
         requested_curator_level_id_more: Изберете <em>Помошник-кустос</em> ако немате работно искуство.  Одберете <em>Кустос</em> ако сте научен работник или дипломец со искуство. Одберете <em>Виш кустос</em> ако сте искусен кустос на EOL и сакате да преземете повеќе одговорности.
         tag_line: "Гесло или наслов <small>example: „Љубители на птиците“</small>"
@@ -1492,9 +1774,6 @@ mk:
         create: Додај статија
         create_text: Додај статија
         update: Зачувај статија
-      eol_statistic: 
-        download_csv: Преземи како CSV
-      filter_sort: Филтрирај и подреди
       harvest_event: 
         publish: Објави
       hierarchy: 
@@ -1521,6 +1800,7 @@ mk:
         curation_privileges: Поднеси барање
         forgot_password: Испрати е-пошта
         generate_api_key: Создај клуч
+        notification_settings: Нагодувања за известувањата
         update: Зачувај профилни информации
       wikipedia_queue: 
         create: Поднеси барање
@@ -1688,6 +1968,7 @@ mk:
   limits_the_number_of_returned_text_objects: го ограничува бројот на добиени текстови од пребарувањето
   limits_the_number_of_returned_video_objects: го ограничува бројот на добиени видеоснимки од пребарувањето
   link_name: Име на врската
+  list_newsletter_emails: наведи адреси за билтенот
   list_of_activity_combinations: Список на комбинации од активности во времетраење од 5 минути
   listing_collections: Збирки на списокот
   lists_the_identifiers_for_all_hierarchies: ги наведува сите назнаки за сите хиерархии доставени од соучесниците
@@ -1749,6 +2030,7 @@ mk:
   media_with_count: 
     one: "%{count} Медиум"
     other: "%{count} Медиуми"
+  member_activity: Активности на членовите во последните 7 дена
   member_of: член на
   member_of_professional_society_credential_option: член на стручно друштво
   members: 
@@ -1773,6 +2055,7 @@ mk:
   message_colon: "Порака:"
   meta_description_colon: "Метаопис:"
   meta_keywords_colon: "Метаклучни зборови:"
+  meta_title_site_name: Енциклопедија на живиот свет
   method: Метод
   method_to_get_metadata_about_the_hierarchy: кога ќе му се зададе хиерархиска назнака овој метод дава метаподатоци за хиерархијата и ги наведува основните таксони
   methods: Методи
@@ -1869,7 +2152,7 @@ mk:
   newsfeed_help_for_collection: Каналот за оваа збирка собира актуелности поврзани со експонатите во неа, вклучувајќи ги и активностите на нејзиниот сопственик и коментарите од други корисници на EOL.
   newsfeed_help_for_community: Каналот за оваа заедница собира актуелности поврзани со објектите во збирките се кои раководи, вклучувајќи ги и активностите на нејзините членови и коментарите од други корисници на EOL.
   newsfeed_help_for_focus_list: Каналот за тематскиот список собира актуелности поврзани со објектите во главната тематска збирка на една заедница, вклучувајќи ги и активностите на нејзините раководители и коментарите од други корисници на EOL.
-  newsfeed_help_for_profile: Каналот на профилот содржи пораки за неговиот сопственик од други членови на EOL, покани од заедници и собира актуелности поврзани со објектите во списокот на набљудувања на сопственикот.
+  newsfeed_help_for_profile: Каналот на профилот содржи коментари за неговиот сопственик од други членови на EOL, покани од заедници и собира актуелности поврзани со објектите во списокот на набљудувања на сопственикот.
   newsfeed_help_for_taxon: Каналот за оваа таксонска страница собира актуелности поврзани експонатите во неа, вклучувајќи ги постапките на кустосите и коментарите од корисниците на EOL.
   newsfeed_help_for_watchlist: Каналот за списокот на набљудувања собира актуелности поврзани со објектите на списокот на набљудувања на сопственикот, вклучувајќи ги и неговите активности.
   next: Следно
@@ -1905,6 +2188,13 @@ mk:
   note_that_you_can_reference_im: Имајте предвид дека можете да наведувате слики со HTML-ознаката &lt;img&gt;, но тие мора да постојат на URL-адреса, како од изворното мрежно место или места како Flickr. Не постои можност за подигање на слики за непосредна употреба во новостите.
   notes: Белешки
   notes_not_shown_to_user: "Белешки (невидливи за корисникот):"
+  notification_frequency_daily_digest: Дневен преглед
+  notification_frequency_never: Никогаш
+  notification_frequency_newsfeed_only: Само Актуелности
+  notification_frequency_send_immediately: Испрати веднаш
+  notification_frequency_weekly: Неделно
+  notifications_and_messages_review_notice: Прегледајте ги известувањата што сакате да ги добивате по е-пошта.
+  notifications_tab_name: Известувања
   notifier: 
     activity_log_empty: Нема скорешни активности на кустосите.
     activity_on_content_partner_content: 
@@ -1957,11 +2247,13 @@ mk:
     user_message: 
       subject: Порака од Енциклопедијата на живиот свет
     user_reset_password: 
+      message: "Енциклопедијата на живиот свет (www.eol.org) прими барање за промена на вашата лозинка. Доколку немате поднесено вакво барање, тогаш занемарете ја поракава.\n\nСледнава врска ви дава еднократна можност да ставите нова лозинка:\n\n%{password_reset_url}\n\nИмајте на ум дека врската истекува за 24 часа, а потоа ќе треба одново да го поставите барањето."
       subject: Задавање на нова лозинка на сметката на Енциклопедијата на живиот свет
     user_updated_email_preferences: 
       message: "Ова е автоматско известување од системот на EOL. Корисникот %{user_full_name} (%{user_profile_url}) ја смени неговата е-пошта или нагодувања за поштенскиот список.\n\nПретходни нагодувања:\nЕ-пошта: %{previous_email}\nНагодување на поштенски список: %{previous_mailing_list_preference}\n\nИзменети нагодувања:\nЕ-пошта: %{updated_email}\nНагодување на поштенски список: %{updated_mailing_list_preference}\nИзменето: %{updated_at}"
       subject: Корисникот %{user_full_name} на EOL ја смени неговата лозинка или нагодувања за поштенскиот список
     user_verification: 
+      message: "Ви благодариме што се пријавивте на Енциклопедијата на живиот свет. Со следнава потврдете дека сакате да го довршите пријавувањето:\n\n%{verification_url}\n\nЌе добиете потврдна порака веднаш штом ќе биде создадена сметката."
       subject: Потврдете го вашето барање за сметка на Енциклопедијата на живиот свет
   nucleotide_sequences: Нуклеотидни низи
   nucleotide_sequences_ncbi_database: Базата на <a href="%{ncbi_taxonomy_link}">таксономијата на NCBI</a> ги содржи имињата на сите организми што се застапени во генетските бази на податоци со барем по една нуклеотидна или белковинска низа.
@@ -2129,6 +2421,49 @@ mk:
   rating_not_added_error: Нажалост, се појави грешка. Не можев да ја додадам оценката.
   recaptcha: Внесете ги двата збора прикажани подолу
   recaptcha_incorrect_error_with_anchor: <a href="#%{recaptcha_anchor}">Знаците во reCaptcha</a> не се совпаѓаат. Обидете се повторно.
+  recent_activity: 
+    bulk_collection_activity_with_count: 
+      one: Има измена во %{to}
+      other: Има %{count} измени во %{to}
+    bulk_comments_on_you_with_count: 
+      one: Имате нов коментар на вашиот профил
+      other: Имате %{count} нови коментари на вашиот профил
+    bulk_comments_with_count: 
+      one: Има еден нов коментар на %{on}
+      other: Има %{count} коментари на %{on}
+    bulk_community_activity_with_count: 
+      one: Има измена во %{to}
+      other: Има %{count} измени во %{to}
+    bulk_community_joins_with_count: 
+      one: "%{community} има нов член"
+      other: "%{community} има %{count} нови члена"
+    bulk_curation_with_count: 
+      one: Кустосите направија подобрување на %{to}
+      other: Кустосите направија %{count} подобрувања на %{to}
+    collection_activity_by_user: <b>%{user_name}</b> иврши %{activity_name} на збирката <b>%{collection_name}</b>.
+    collection_activity_log_title: "%{who} измени збирка"
+    collection_activity_user_added_item: "<b>%{user_name}</b> додаде %{collected_item_type} #%{collected_item_id} во <b>%{collection_name}</b>."
+    collection_activity_user_watching_recipient: <b>%{user_name}</b> ве набљудува.
+    comment_body_brief: "%{body} - %{author}"
+    comment_link: Погл. коментарот на EOL
+    comment_title: "%{who} коментираше на %{what}"
+    comment_title_your_newsfeed: "%{who} коментираше на вашите актуелности"
+    community_activity_by_user: <b>%{user_name}</b> изврши %{activity_name} на заедницата <b>%{community_name}</b>.
+    community_activity_log_title: "%{who} измени заедница"
+    community_activity_user_joined: Корисникот <b>%{user_name}</b> се зачлени во заедницата <b>%{community_name}</b>.
+    community_activity_user_left: Корисникот <b>%{user_name}</b> ја напушти заедницата <b>%{community_name}</b>.
+    community_activity_user_made_member_a_manager: Корисникот <b>%{user_name}</b> го назначи <b>%{member_name}</b> за раководител на заедницата <b>%{community_name}</b>.
+    curator_activity_log_title: "%{who} згрижи нешто"
+    curator_activity_on_data_object_by_user: "<b>%{user_name}</b> изврши постапка од типот %{activity_name} врз <b>%{dato_title}</b> (%{dato_type} #%{dato_id})."
+    curator_activity_on_taxon_concept_by_user: <b>%{user_name}</b> изврши постапка од типот %{activity_name} врз <b>%{taxon_concept}</b> (%{taxon_overview_url}).
+    data_object_activity_article_added_by_user: <b>%{user_name}</b> додаде статија со наслов %{dato_title} во <b>%{taxon_concept}</b> (%{taxon_details_url}).
+    data_object_title: "%{who} додаде нови содржини на EOL"
+    default_subject: Скорешни активности на EOL
+    intro: Еве го вашиот преглед на активностите на EOL за %{time}
+    see_all_activity: Сите претходни активности ќе ги најдете на <a href='%{activity_url}' style='color:#195184'>вашата страница за актуелности</a>.
+    someone_commented_on_something: <b>%{who}</b> коментираше на <b>%{what}</b>.
+    unsubscribe: Сменете си ги нагодувањата за е-пошта или откажете ја претплатата на <a href='%{email_prefs_url}' style='color:#195184'>вашата страница за нагодување на известувањата</a>.
+  recent_eol_member_activity: Скорешни активности на членовите на EOL
   recent_updates: Најнови актуелности
   recently_visited: Неодамна посетени
   recipients: Примачи
@@ -2180,6 +2515,7 @@ mk:
   save: Зачувај
   save_comment_lowercase: зачувај коментар
   save_curated_association_submit_button: Зачувај поврзаност
+  save_email_settings: зачувај нагодувања
   sci_name_avg_table_head: Научно име (прос.)
   scientific_name: Научно име
   search: Пребарај
@@ -2232,6 +2568,7 @@ mk:
   see_all_updates_with_count_html: 
     one: Погледајте ги сите <span class="assistive">%{count} измени на овој таксон.</span>
     other: Погледајте ги сите <span class="assistive">%{count} измени на овој таксон.</span>
+  see_more: Повеќе
   see_notes: вид. белешки
   select_a_hierarchy_around_whic: "Одберете хиерархија според која ќе ги организирате кратките описи на содржините:"
   select_an_item_from_the_menu: Одберете ставка од менито
@@ -2740,6 +3077,7 @@ mk:
     other: вкупно %{count} експонати
   total_searches: "Вкупно пребарувања:"
   translation_deleted: Преводот е избришан
+  translation_information_header: Информации за преводот
   translation_saved: Преводот е зачуван
   translations_submit: Погл. превод
   trigger_search_term_entered_by: повикувачки поим што го внел корисникот
@@ -2748,6 +3086,7 @@ mk:
   truncated_comment_omission_linkless: ...
   trusted: Доверливи
   trusted_images: Доверливи слики
+  trusted_maps: Доверливи карти
   trusted_text_objects: Доверливи статии
   tumblr: Tumblr
   twitter: Twitter
@@ -2760,6 +3099,7 @@ mk:
   unpublished: Необјавено
   unreviewed: Непроверени
   unreviewed_images: Непроверени слики
+  unreviewed_maps: Непроверени карти
   unreviewed_text_objects: Непроверени текстуални објекти
   untrusted: Недоверливи
   update: Поднови
@@ -2838,6 +3178,7 @@ mk:
   user_commented_on_something_colon: "<strong>%{user}</strong> коментираше на %{what}:"
   user_commented_on_themself: "<strong>%{user_with_link}</strong> коментираше на <a href='%{link}'>каналот за новости на %{username}</a>:"
   user_comments: Кориснички коментари
+  user_full_name_with_curator: "%{user} (%{curator_level})"
   user_id: Корисничка назнака
   user_index_intro: Сите интернет-корисници регистрирани на системот се прикажани подолу, подредени по обратен редослед на регистрација. Имајте предвид дека датумите на регистрациите направени пред EOL вер. 2 (5 јануари 2009) се недостапнио. Стиснете на корисничко име за да го уредите тој корисник.
   user_joined_community_on_date: "%{username} ѝ се придружи оваа заедница на %{date}."
@@ -2845,6 +3186,14 @@ mk:
   user_left_comment_on_date: "%{username} напиша коментар на %{date}."
   user_no_longer_active_message: Корисников повеќе не е активен
   user_no_longer_has_manager_access_to_collection: "%{user} повеќе нема раководителски пристап до „%{collection}“."
+  user_pending_notifications_assitive: <span class="assistive">известувања</span>
+  user_pending_notifications_comments_assistive: <span class="assistive">коментари</span>
+  user_pending_notifications_comments_with_count_assistive: 
+    one: "%{count}<span class=\"assistive\"> коментар</span>"
+    other: "%{count}<span class=\"assistive\"> коментари</span>"
+  user_pending_notifications_with_count_assitive: 
+    one: "%{count}<span class=\"assistive\"> известување</span>"
+    other: "%{count}<span class=\"assistive\"> известувања</span>"
   user_response: Кориснички одговор
   user_says_colon: "%{users_name} вели:"
   user_submitted_text: Текст поднесен од корисник
@@ -2876,10 +3225,17 @@ mk:
         meta_title: Соучесници во содржините на %{user_full_name}
         tweet_text: Соучесници во содржините на %{user_full_name}
     newsfeeds: 
+      activity_link: активности
+      comments_link: коментари
+      newsfeed_link: актуелности
       show: 
         meta_description: Новости, актуелни активности и коментари за %{user_full_name}.
         meta_title: Новости за %{user_full_name}
         tweet_text: Новости за %{user_full_name}
+    notifications: 
+      edit: 
+        page_description: Сите долунаведени актуелности (освен билтенот на EOL) ви се на располагање во вашиот канал <a href="%{user_newsfeed_link}"> Актуелности на EOL</a>, но многумина сакаат да добиваат известија за определени активности што ги интересираат по е-пошта. На копчињата подолу можете да ја зададете саканата честота на пораките по е-пошта
+        page_title: Нагодувања за известувањата
     show: 
       meta_description: Членски профил на %{user_full_name} во Енциклопедијата на живиот свет.
       meta_description_curator: Членски профил на %{curator_level} %{user_full_name} во Енциклопедијата на живиот свет.
@@ -2900,6 +3256,7 @@ mk:
     one: Член на %{count} заедница
     other: Член на %{count} заедници
   users_my_info_header: Мое инфо
+  users_pending_activation_helper: Имајте предвид дека <em>често</em> се случува филтрите да ги означат пораките за активирање на сметки како „Спам“. Доколку не ја добиете пораката во рок од еден час, проверете ја папката за спам.
   users_pending_activation_message: Ви испративне потврдна порака на адресата што ја наведовте. За да ја довршите регистрацијата и со тоа да станете член на EOL, стиснете на врската укажана во пораката. Ви благодариме!
   users_that_can_edit_this_collection: Корисници што можат да раководат со збиркава
   using_the_site: Употреба
@@ -2941,6 +3298,7 @@ mk:
   view_map_source: Погл. извор на картата
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Само страниците со барем по една слика или некаков текст
   view_sound_source: Погл. извор на аудиоснимката
+  view_source: Извор
   view_this_hierarchy: погл. оваа хиерархија
   view_translation_source_link: Извор на преводот
   view_user_activity: погл. кориснички активности

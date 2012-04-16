@@ -201,37 +201,7 @@ pt:
   activity: Actividade
   activity_log_empty: Ninguém forneceu actualizações ainda.
   activity_log_empty_learn_more_link: Saiba como contribuir
-  activity_user_added_association: <strong>%{user}</strong> adicionou uma associação para "%{object_name}".
-  activity_user_added_community_manager: <strong>%{user}</strong> fez de %{manager} um administrador da comunidade "%{community}".
-  activity_user_added_named_association: <strong>%{user}</strong> adicionou uma associação entre "%{object_name}" e "%{name}".
-  activity_user_added_unknown_association: <strong>%{user}</strong> adicionou uma associação para um objecto desconhecido.
-  activity_user_added_unknown_name: <strong>%{user}</strong> adicionou um nome comum desconhecido a um objecto desconhecido.
-  activity_user_changed_community_description: <strong>%{user}</strong> actualizou a descrição da comunidade "%{community}".
-  activity_user_changed_community_icon: <strong>%{user}</strong> modificou o logotipo da comunidade "%{community}".
-  activity_user_changed_community_name: <strong>%{user}</strong> modificou o nome da comunidade "%{community}".
-  activity_user_created_community: <strong>%{user}</strong> criou a comunidade "%{community}".
   activity_user_created_text: <strong>%{user}</strong> adicionou texto a "%{object_name}" em "%{taxon_concept}".
-  activity_user_curated_an_unknown_object: <strong>%{user}</strong> tratou de um objecto desconhecido.
-  activity_user_deleted_community: <strong>%{user}</strong> apagou a comunidade "%{community}".
-  activity_user_hid_data_object: <strong>%{user}</strong> marcou "%{object_name}" como escondido.
-  activity_user_hid_unknown_object: <strong>%{user}</strong> marcou um objecto desconhecido como escondido.
-  activity_user_joined_community: <strong>%{user}</strong> juntou-se à comunidade "%{community}".
-  activity_user_marked_content_as_inappropriate: <strong>%{user}</strong> marcou conteúdo como inapropriado.
-  activity_user_modified_community: <strong>%{user}</strong> modificou a comunidade "%{community}".
-  activity_user_rated_data_object: <strong>%{user}</strong> avaliou "%{object_name}".
-  activity_user_rated_unknown_object: <strong>%{user}</strong> avaliou um objecto desconhecido.
-  activity_user_removed_association: <strong>%{user}</strong> removeu uma associação para "%{object_name}".
-  activity_user_removed_named_association: <strong>%{user}</strong> removeu uma associação entre "%{object_name}" e "%{name}".
-  activity_user_removed_unknown_association: <strong>%{user}</strong> removeu uma associação para um objecto desconhecido.
-  activity_user_removed_unknown_name: <strong>%{user}</strong> removeu um nome comum desconhecido de um objecto desconhecido.
-  activity_user_showed_data_object: <strong>%{user}</strong> marcou "%{object_name}" como visível.
-  activity_user_showed_unknown_object: <strong>%{user}</strong> marcou um objecto desconhecido como visível.
-  activity_user_trusted_data_object: <strong>%{user}</strong> marcou "%{object_name}" como confiável.
-  activity_user_trusted_unknown_object: <strong>%{user}</strong> marcou um objecto desconhecido como confiável.
-  activity_user_unreviewed_data_object: <strong>%{user}</strong> marcou "%{object_name}" como não revisto.
-  activity_user_unreviewed_unknown_object: <strong>%{user}</strong> marcou um objecto desconhecido como não revisto.
-  activity_user_untrusted_data_object: <strong>%{user}</strong> marcou "%{object_name}" como não confiável.
-  activity_user_untrusted_unknown_object: <strong>%{user}</strong> marcou um objecto desconhecido como não confiável.
   activity_user_updated_text: <strong>%{user}</strong> actualizou o texto de "%{object_name}" em "%{taxon_concept}".
   add_a_comment_colon: "Adicione um comentário:"
   add_a_new_common_name: Adicionar um novo nome comum
@@ -348,8 +318,10 @@ pt:
   assistive_taxon_community_header: Comunidade
   assistive_updates_header: Actualizações
   associated_submit_button: associado
+  associated_with_article_header: Associado com
   associated_with_header: Associado com
   associated_with_image_header: Nesta imagem
+  associated_with_sound_header: Associado com
   associated_with_video_header: Neste vídeo
   associations_more_link: mais <span class="assistive">associações de taxon</span>
   attribute: Atributo
@@ -407,6 +379,8 @@ pt:
   click_on_a_username_to_view_the_users_detailed_profile: Clique em um nome de utilizador para ver o perfil detalhado de um utilizador, clique no tipo de dados para ver o objecto que foi comentado (use o botão Voltar do seu navegador para voltar aqui), clique em "editar" para editar o comentário ou clique em "apagar" para eliminar permanentemente o comentário.
   close_this_window_to_return_to_edit_window: FECHE ESTA JANELA PARA VOLTAR À JANELA DE EDIÇÃO
   cms_available_in_languages: "Esta página está disponível em:"
+  cms_missing_content_message: Pedimos desculpa, mas esta página não está disponível nesta língua.
+  cms_missing_content_title: Conteúdo em falta
   collect_item: Colectar item
   collection_created_notice: Collecção <em>%{collection_name}</em> criada com sucesso.
   collection_created_with_count_notice: 
@@ -464,6 +438,7 @@ pt:
     other: "%{count} Contribuições"
   community_destroyed: Eliminou esta comunidade. Ela não aparecerá mais em páginas taxonómicas ou em pesquisas.
   community_empty_notice: Esta comunidade não tem membros.
+  community_focus: Foco de comunidade
   community_focus_items_with_count: 
     one: "%{count} item"
     other: "%{count} itens"
@@ -494,6 +469,7 @@ pt:
   content_partner_agreement_cancel_edit_agreement_link: Cancelar
   content_partner_agreement_cancel_new_agreement_link: Cancelar
   content_partner_agreement_cancel_sign_agreement_link: Cancelar
+  content_partner_agreement_create_successful_notice: Aceitou com êxito os termos do parceiro de conteúdo, pode adicionar recursos de dados.
   content_partner_agreement_create_unsuccessful_error: Desculpe, ocorreu um erro, parece haver um problema técnico com acordos de parceiro de conteúdo. Por favor, tente novamente. Se o problema persistir, por favor informe a EOL.
   content_partner_agreement_signed_successful_notice: Aceitou com êxito os termos do parceiro de conteúdo, pode adicionar recursos de dados.
   content_partner_agreement_signed_unsuccessful_error: Desculpe, ocorreu um erro, parece haver um problema técnico com acordos de parceiro de conteúdo. Por favor, tente novamente. Se o problema persistir, por favor informe a EOL.
@@ -523,6 +499,7 @@ pt:
   content_partner_has_unpublished_content_false: Nenhum conteúdo não publicado
   content_partner_has_unpublished_content_true: Conteúdo não publicado
   content_partner_homepage_link: Visite o site parceiro
+  content_partner_latest_published_harvest_event_time_ago: Colhido pela última vez há %{time_passed}
   content_partner_logo_alt_text: Logótipo do parceiro de conteúdo %{partner_name}
   content_partner_managed_by_header: Gerido por
   content_partner_new_edit_form_profile_header: Informações de perfil do parceiro de conteúdo
@@ -535,6 +512,7 @@ pt:
   content_partner_overview_agreement_link: Ver acordo actual
   content_partner_overview_link: Visão geral do parceiro
   content_partner_overview_link_back_to: voltar à visão geral do parceiro
+  content_partner_registered_time_ago: Registado há %{time_passed}
   content_partner_resource_about_header: Sobre o recurso
   content_partner_resource_collection_empty: Não foi gerada uma colecção para este recurso.
   content_partner_resource_collection_header: Colecção publicada
@@ -543,6 +521,7 @@ pt:
   content_partner_resource_create_unsuccessful_error: Desculpe, ocorreu um erro, o recurso não foi adicionado.
   content_partner_resource_dataset_details_header: Conjunto de dados
   content_partner_resource_description_empty: Não foi fornecida uma descrição para este recurso.
+  content_partner_resource_edit_link: Editar recurso
   content_partner_resource_edit_subheader: Editar recurso
   content_partner_resource_licensing_details_header: Direitos &amp; atribuição
   content_partner_resource_new_edit_form_tip: Introduza informação sobre esta fonte de dados. Certifique-se que fornece um nome de recurso e escreva a URL pública do ficheiro de dados ou carregue o seu ficheiro em formato GZIP, TAR ou XML. Se fornecer uma URL, pode especificar quantas vezes gostaria que os seus dados sejam recolhidos pela EOL. Por favor, certifique-se que o seu ficheiro de dados está num formato que pode ser importado pela EOL. <a href="%{more_url}">Aprenda mais sobre formatos de dados suportados</a>.
@@ -673,6 +652,7 @@ pt:
   dato_new_text_for_taxon_page_title: Adicionar um artigo a <i>%{taxon}</i>
   dato_new_text_page_description: Obrigado por contribuir para a EOL. O seu artigo será adicionado à sua Lista de Vigilância para que possa acompanhar qualquer conversa relacionada a ele e verificar o seu estado de curadoria.
   dato_update_user_text_error: Desculpe, ocorreu um erro, o artigo não pôde ser actualizado.
+  dato_update_users_text_not_owner_exception: Não é possível actualizar o texto DataObject de que o utilizador actual não seja dono
   default: Por defeito
   default_focus_collection_name_from_community: Foco de %{name}
   default_watch_collection_name: Páginas vigiadas por %{username}
@@ -795,6 +775,8 @@ pt:
   frequency_never: Nunca
   frequency_weekly: Semanalmente
   from_community: da comunidade %{community}
+  gbif_occurrence_disclaimer: Este mapa é baseado em registos de ocorrência disponíveis através do GBIF e pode não representar a totalidade da distribuição do taxon
+  gbif_occurrence_learn_more_link: Aprenda mais sobre mapas de ocorrência do GBIF.
   general_site_admin: administrador geral do site
   get_help_choosing_a_subchapter: Obtenha ajuda a escolher um subcapítulo
   get_more_tasks: obter mais tarefas
@@ -806,6 +788,7 @@ pt:
   go_back: voltar
   google_analytics_google_account_and_access_required: Google Analytics (conta do Google e acesso necessário)
   grant_full_curator_link: Conceder
+  grant_manager_link: Conceder papel de gestor
   has_already_been_taken: já não está disponível.
   has_colon: "Tem:"
   hello_user: Olá %{user}
@@ -918,8 +901,6 @@ pt:
         generate_api_key: Solicitar uma chave API
         generate_api_key_more: Se estiver interessado em usar a API da EOL pode gerar uma chave de API para identificar a sua aplicação. Leia mais sobre como <a href="%{api_docs_url}">adicionar uma chave para as chamadas de API</a>.
         logo: Carregar uma foto nova
-        mailing_list: Desejo receber boletins informativos por correio electrónico?
-        mailing_list_yes: Sim
         new_password: Nova senha <small>(4 - 16 caracteres)</small>
         new_password_confirmation: Nova senha <small>(confirmar)</small>
         requested_curator_level: O seu pedido para se tornar %{curator_level_with_indefinite_article} está pendente.
@@ -1173,6 +1154,10 @@ pt:
       subject: Resumo da actividade recente no conteúdo fornecido para a Enciclopédia da Vida pelo parceiro de conteúdo %{partner_full_name}
     activity_on_user_content: 
       subject: Resumo da actividade recente sobre o conteúdo que adicionou à Enciclopédia da Vida
+    activity_user_marked_data_object_as_inappropriate_on_date: "%{users_name} (%{users_url}) marcou como inapropiado:\n%{object_name} (%{object_url})\n%{action_date}."
+    activity_user_marked_data_object_as_trusted_for_taxon_on_date: "%{users_name} (%{users_url}) marcou como de confiança:\n%{object_name} (%{object_url}) para %{taxon_name} (%{taxon_url})\n%{action_date}."
+    activity_user_marked_data_object_as_untrusted_for_taxon_on_date: "%{users_name} (%{users_url}) marcou como não confiável:\n%{object_name} (%{object_url}) para %{taxon_name} (%{taxon_url})\n%{action_date}."
+    activity_user_marked_data_object_as_untrusted_on_date: "%{users_name} (%{users_url}) marcou como não confiável:\n%{object_name} (%{object_url})\n%{action_date}."
     comments_empty: Nenhum comentário recente.
     contact_us_auto_response: 
       message: "Obrigado por ter contactado o projecto Enciclopédia da Vida. Seus comentários foram enviados para o grupo apropriado.\nAgradecemos o seu feedback."
@@ -1187,6 +1172,7 @@ pt:
     signature_with_support_contact: "Se tiver algum problema, entre em contato conosco em %{support_email}.\n\nA Equipa da Enciclopédia da Vida"
     user_activated: 
       subject: A sua conta na Encyclopedia of Life foi activada
+    user_commented_on_something_date_body: "%{users_name} (%{users_url}) comentou sobre:\n%{commented_on_name} (%{commented_on_url})\n%{comment_date}:\n%{comment_body}"
     user_message: 
       subject: Uma mensagem da Encyclopedia of Life
   nucleotide_sequences: Sequências de Nucleótidos
@@ -1278,6 +1264,7 @@ pt:
   this_is_a_flat_list_of_10_million_strings: Esta é uma lista simples de 10 milhões de caracteres - não o vamos deixar navegar por ela
   this_is_a_focus_collection_for_community: Este é o foco de %{community}.
   this_is_the_label_that_will_be_used_for_attribution: Esta é a etiqueta que será usada para atribuição
+  threat_status_header_colon: "Estado de conservação IUCN:"
   time_ago: há %{time_passed}
   title: Título
   to_process_your_donation_please_proceed: Para processar a sua doação, prossiga
@@ -1317,7 +1304,10 @@ pt:
   us_dollars_35: 35$ US
   us_dollars_50: 50$ US
   user: Utilizador
+  user_activity_stats_articles_added: Artigos adicionados
   user_activity_stats_header: Actividade
+  user_activity_stats_objects_curated: Objectos curados
+  user_activity_stats_taxa_curated: Taxa curados
   will_paginate: 
     next_label: Próximo &#8594;
     page_gap: "&hellip;"

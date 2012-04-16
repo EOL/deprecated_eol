@@ -380,4 +380,47 @@ describe DataObject do
     dato.access_image_from_remote_server?(:orig).should == true
   end
 
+  it '#create_user_text should add rights holder only if rights holder not provided and license is not public domain' do
+    params = { :data_type_id => DataType.text.id.to_s,
+               :license_id => License.public_domain.id.to_s,
+               :object_title => "",
+               :bibliographic_citation => "",
+               :source_url => "",
+               :rights_statement => "",
+               :description => "",
+               :language_id => Language.english.id.to_s,
+               :rights_holder => ""}
+    options = { :taxon_concept => TaxonConcept.first,
+                :user => User.first,
+                :toc_id => [TocItem.first.id.to_s] }
+    dato = DataObject.create_user_text(params, options)
+    dato.rights_holder.should be_blank
+    dato.errors.count.should == 1
+    dato.should have(1).error_on(:description)
+    dato.should_not have(1).error_on(:rights_holder)
+
+    params[:license_id] = License.cc.id.to_s
+    dato = DataObject.create_user_text(params, options)
+    dato.rights_holder.should == options[:user].full_name
+    dato.errors.count.should == 1
+    dato.should have(1).error_on(:description)
+    dato.should_not have(1).error_on(:rights_holder)
+
+    user_entered_rights_holder = "Someone"
+    params[:rights_holder] = user_entered_rights_holder
+    dato = DataObject.create_user_text(params, options)
+    dato.rights_holder.should == user_entered_rights_holder
+    dato.errors.count.should == 1
+    dato.should have(1).error_on(:description)
+    dato.should_not have(1).error_on(:rights_holder)
+
+    params[:license_id] = License.public_domain.id.to_s
+    dato = DataObject.create_user_text(params, options)
+    dato.errors.count.should == 2
+    dato.should have(1).error_on(:description)
+    dato.should have(1).error_on(:rights_holder)
+
+  end
+
 end
+

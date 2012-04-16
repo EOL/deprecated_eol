@@ -235,7 +235,10 @@ class DataObject < ActiveRecord::Base
   end
 
   def self.create_user_text(params, options)
-    dato = DataObject.new(params.reverse_merge!(:published => true))
+    unless params[:license_id].to_i == License.public_domain.id || ! params[:rights_holder].blank?
+      params[:rights_holder] = options[:user].full_name
+    end
+    dato = DataObject.new(params.reverse_merge!({:published => true}))
     if dato.save
       dato.toc_items = TocItem.find(options[:toc_id])
       dato.build_relationship_to_taxon_concept_by_user(options[:taxon_concept], options[:user])

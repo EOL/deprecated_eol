@@ -1,14 +1,14 @@
 -# NOTE - this is AMOST an EXACT duplicate of app/views/activity_logs/_data_object.html.haml ... please keep it that
   way.  The thing is, we call these partials based on the class of the log item, and these two behave exactly the same,
   but rather than calling one partial from the other (which would be slower), we allow the duplication. The
-  difference is that UDOs user #taxon_concept and DATOs use #taxon_concepts.first.
+  difference is that UDOs use #taxon_concept and item#data_object, and DATOs use #taxon_concepts.first and item.
 - link_style ||= nil
 - display_curator ||= false
 - user = link_to(h(item.user.full_name), user_url(item.user), :style => link_style)
 - if display_curator && item.user.is_curator?
   - user = I18n.t(:user_full_name_with_curator, :user => user, :curator_level => item.user.curator_level.label)
 %p= I18n.t(:activity_user_created_text, :user => user,
-  :object_name => link_to(item.summary_name, data_object_url(item), :style => link_style),
+  :object_name => link_to(item.summary_name, data_object_url(item.data_object), :style => link_style),
   :taxon_concept => link_to(item.taxon_concept.summary_name, taxon_overview_url(item.taxon_concept),
   :style => link_style))
 %blockquote{:cite => h(item.user.full_name)}

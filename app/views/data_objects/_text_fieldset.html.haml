@@ -5,10 +5,10 @@
   %p.tip= I18n.t(:dato_new_edit_user_text_form_tip, :required_icon => image_tag('/images/v2/icon_required.png', :alt => ''))
   %dl
     - # Note: tried to use fields_for nested attributes :toc_items but got duplicate select box, unclear why
-    %dt
+    %dt.required
       = label_tag 'data_object[toc_items][id]', I18n.t('helpers.label.data_object.toc_item')
     %dd
-      = select_tag 'data_object[toc_items][id]', options_from_collection_for_select(@toc_items, :id, :label, @selected_toc_item.id)
+      = select_tag 'data_object[toc_items][id]', options_from_collection_for_select(@toc_items, :id, :label, @selected_toc_item_id)
       %p= link_to I18n.t(:get_help_choosing_a_subchapter), cms_page_path('writing_eol_chapters')
     %dt
       = f.label :object_title
@@ -18,7 +18,7 @@
       = f.label :description
     %dd
       = f.text_area :description
-      %p= f.allowed_html_help_tip(:all)
+      -# TODO: uncomment when this is ready %p= f.allowed_html_help_tip(:all)
     %dt
       = f.label :refs
     %dd
@@ -26,11 +26,11 @@
 %fieldset.information
   %h3= I18n.t(:dato_new_edit_user_text_fieldset_information_header)
   %dl
-    %dt
+    %dt.required
       = f.label :language_id
     %dd
       = f.select :language_id, options_from_collection_for_select(@languages, :id, :source_form, @data_object.language_id)
-    %dt
+    %dt.required
       = f.label :license_id
     %dd
       = f.select :license_id, options_from_collection_for_select(@licenses, :id, :title, @data_object.license_id)
@@ -39,15 +39,18 @@
       = f.label :rights_holder
     %dd
       = f.text_field :rights_holder
+      %p= I18n.t('helpers.label.data_object.rights_holder_more')
     %dt
       = f.label :rights_statement
     %dd
       = f.text_field :rights_statement, { :maxlength => 300 }
+      %p= I18n.t('helpers.label.data_object.rights_statement_more')
     %dt
       = f.label :bibliographic_citation
     %dd
       = f.text_area :bibliographic_citation
-      %p= f.allowed_html_help_tip
+      %p= I18n.t('helpers.label.data_object.bibliographic_citation_more')
+      -# TODO: add this when its ready f.allowed_html_help_tip
     %dt
       = f.label :source_url
     %dd

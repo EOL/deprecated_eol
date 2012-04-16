@@ -521,8 +521,8 @@ Factory.define :data_object do |dato|
                                         :description => 'Some rights reserved',
                                         :source_url => 'http://creativecommons.org/licenses/by/3.0/',
                                         :logo_url => '/images/licenses/cc_by_small.png') }
-  dato.rights_statement       ''
-  dato.rights_holder          ''
+  dato.rights_statement       'Test rights statement'
+  dato.rights_holder          'Test rights holder'
   dato.bibliographic_citation ''
   dato.source_url             ''
   dato.description            'Test Data Object'

@@ -39,6 +39,8 @@ module EOL
     #     Which Name object (q.v.) to link the Taxon to.
     #   +num_comments+::
     #     How many comments to attach to this object.
+    #   +rights_holder+::
+    #     Owner of usage rights, can't be blank for CC-BY licenses, must be blank for Public Domain license.
     #   +scientific_name+::
     #     Which raw scientific name the content provider assigned to the Taxon.  Defaults to the HE's.
     #   +taxon+::
@@ -194,7 +196,8 @@ module EOL
       }
     end
     def default_attributes
-      @default_attributes = {:license     => License.first,
+      @default_attributes = {:license     => License.public_domain,
+                             :rights_holder => '',
                              :language    => Language.english }
     end
 

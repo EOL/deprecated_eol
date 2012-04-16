@@ -41,11 +41,11 @@ describe 'EOL APIs' do
        :youtube         => [{:description => @video_3_text}],
        :images          => [{:object_cache_url => @image_1}, {:object_cache_url => @image_2},
                             {:object_cache_url => @image_3}],
-       :toc             => [{:toc_item => @overview, :description => @overview_text, :license => License.by_nc},
-                            {:toc_item => @distribution, :description => @distribution_text, :license => License.cc},
-                            {:toc_item => @description, :description => @description_text, :license => License.public_domain},
-                            {:toc_item => @description, :description => 'test uknown', :vetted => Vetted.unknown, :license => License.by_nc},
-                            {:toc_item => @description, :description => 'test untrusted', :vetted => Vetted.untrusted, :license => License.cc}])
+       :toc             => [{:toc_item => @overview, :description => @overview_text, :license => License.by_nc, :rights_holder => "Someone"},
+                            {:toc_item => @distribution, :description => @distribution_text, :license => License.cc, :rights_holder => "Someone"},
+                            {:toc_item => @description, :description => @description_text, :license => License.public_domain, :rights_holder => ""},
+                            {:toc_item => @description, :description => 'test uknown', :vetted => Vetted.unknown, :license => License.by_nc, :rights_holder => "Someone"},
+                            {:toc_item => @description, :description => 'test untrusted', :vetted => Vetted.untrusted, :license => License.cc, :rights_holder => "Someone"}])
     @taxon_concept.add_common_name_synonym(Faker::Eol.common_name.firstcap, :agent => Agent.last, :language => Language.english)
     @taxon_concept.add_common_name_synonym(Faker::Eol.common_name.firstcap, :agent => Agent.last, :language => Language.english)
 

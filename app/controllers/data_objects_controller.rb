@@ -17,11 +17,10 @@ class DataObjectsController < ApplicationController
                                   :license_id => License.cc.id,
                                   :language_id => current_language.id)
     # default to passed in toc param or brief summary if selectable, otherwise just the first selectable toc item
-
-    @selected_toc_item = @toc_items.select{|ti| ti.id == params[:toc].to_i}.first
-    @selected_toc_item ||= @toc_items.select{|ti| ti == TocItem.brief_summary}.first
-    @selected_toc_item ||= @toc_items[0]
-
+    selected_toc_item = @toc_items.select{|ti| ti.id == params[:toc].to_i}.first ||
+                        @toc_items.select{|ti| ti == TocItem.brief_summary}.first ||
+                        @toc_items[0]
+    @selected_toc_item_id = selected_toc_item.id
     @page_title = I18n.t(:dato_new_text_for_taxon_page_title, :taxon => Sanitize.clean(@taxon_concept.title_canonical))
     @page_description = I18n.t(:dato_new_text_page_description)
     current_user.log_activity(:creating_new_data_object, :taxon_concept_id => @taxon_concept.id)
@@ -42,9 +41,9 @@ class DataObjectsController < ApplicationController
     toc_ids = params[:data_object].delete(:toc_items)[:id].to_a
     @data_object = DataObject.create_user_text(params[:data_object], :user => current_user,
                                                :taxon_concept => @taxon_concept, :toc_id => toc_ids)
-    @selected_toc_item = @data_object.toc_items.first unless @data_object.nil?
 
     if @data_object.nil? || @data_object.errors.any?
+      @selected_toc_item_id = toc_ids.first.to_i rescue nil
       failed_to_create_data_object && return
     else
       add_references(params[:references].split("\n")) unless params[:references].blank?
@@ -86,7 +85,7 @@ class DataObjectsController < ApplicationController
   def edit
     # @data_object is loaded in before_filter :load_data_object
     set_text_data_object_options
-    @selected_toc_item = @data_object.toc_items[0]
+    @selected_toc_item_id = @data_object.toc_items.first.id rescue nil
     @references = @data_object.visible_references.map {|r| r.full_reference}.join("\n\n")
     @page_title = I18n.t(:dato_edit_text_title)
     @page_description = I18n.t(:dato_edit_text_page_description)
@@ -102,7 +101,7 @@ class DataObjectsController < ApplicationController
     # Note: replicate doesn't actually update, it creates a new data_object
     toc_ids = params[:data_object].delete(:toc_items)[:id].to_a
     @data_object = @data_object.replicate(params[:data_object], :toc_id => toc_ids)
-    @selected_toc_item = @data_object.toc_items.first unless @data_object.nil?
+    @selected_toc_item_id = @data_object.toc_items.first.id unless @data_object.nil? rescue nil
 
     if @data_object.nil? || @data_object.errors.any?
       # TODO: this is unpleasant, we are using update to create a new data object so @data_object.new_record?

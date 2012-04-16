@@ -309,7 +309,9 @@ TaxonConcept.class_eval do
   #   +language+:
   #     The language submitted, defaults to English.
   #   +license+:
-  #     The license the text was submitted as.  Defaults to the last one in the DB.
+  #     The license the text was submitted as.  Defaults to Public Domain, if you choose another one make sure you add Rights Holder.
+  #   +rights_holder+:
+  #     Owner of rights for the text. Must NOT be blank if License is NOT Public Domain. Must be blank if License is Public Domain.
   #   +title+:
   #     The title provided by the user (note none is required, and the default is none).
   #   +toc_item+:
@@ -320,18 +322,20 @@ TaxonConcept.class_eval do
   #     The text object will only be visible if the user is logged in with "All" rather than "Authoritative" mode.
   #     Set this to true if you want it to be visible to "Authoritative", or to remove the yellow background.
   def add_user_submitted_text(options = {})
-    options = {:description => 'some random text',
-               :user        => User.last,
-               :toc_item    => TocItem.overview,
-               :license     => License.last,
-               :language    => Language.english,
-               :vetted      => false
+    options = {:description       => 'some random text',
+               :user              => User.last,
+               :toc_item          => TocItem.overview,
+               :license           => License.public_domain,
+               :rights_holder     => '',
+               :language          => Language.english,
+               :vetted            => false
               }.merge(options)
     dato = DataObject.create_user_text(
       { :object_title => options[:title],
         :license_id => options[:license].id,
         :language_id => options[:language].id,
-        :description => options[:description]
+        :description => options[:description],
+        :rights_holder     => options[:rights_holder]
       },
       :toc_id => [options[:toc_item].id],
       :user => options[:user],

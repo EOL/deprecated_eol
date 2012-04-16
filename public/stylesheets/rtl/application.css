@@ -2452,12 +2452,6 @@ ul.content_partner_contacts li {
   float: right; }
   #text_object_new_edit fieldset dl {
     margin: 0; }
-  #text_object_new_edit fieldset.content + fieldset {
-    width: 300px; }
-    #text_object_new_edit fieldset.content + fieldset input[type="text"] {
-      width: 288px; }
-    #text_object_new_edit fieldset.content + fieldset textarea {
-      width: 282px; }
   #text_object_new_edit fieldset input[type="text"] {
     width: 308px;
     height: 22px;
@@ -2471,6 +2465,15 @@ ul.content_partner_contacts li {
   #text_object_new_edit fieldset textarea {
     width: 580px;
     height: 200px; }
+    #text_object_new_edit fieldset textarea#data_object_description {
+      height: 300px; }
+  #text_object_new_edit fieldset.content + fieldset {
+    width: 300px; }
+    #text_object_new_edit fieldset.content + fieldset input[type="text"] {
+      width: 288px; }
+    #text_object_new_edit fieldset.content + fieldset textarea {
+      width: 282px;
+      height: 100px; }
   #text_object_new_edit fieldset.actions {
     clear: both;
     width: 100%; }

@@ -247,74 +247,9 @@ fr:
     models: 
       user: compte
   activity: Activité
-  activity_choose_exemplar: <strong>%{user}</strong> a défini une image exemplaire pour « %{object_name} ».
-  activity_hid_with_reasons_colon: "raison(s) du masquage : %{reasons}"
   activity_log_empty: Personne n’a encore fourni de mises à jour.
   activity_log_empty_learn_more_link: Apprenez comment contribuer
-  activity_untrusted_with_reasons_colon: "raison(s) du retrait de la confiance : %{reasons}"
-  activity_user_added_association: <strong>%{user}</strong> a ajouté une association à « %{object_name} ».
-  activity_user_added_collection_to_community: <strong>%{user}</strong> a ajouté la collection « %{collection} » à la communauté « %{community} ».
-  activity_user_added_common_name: <strong>%{user}</strong> a ajouté le nom usuel en %{language} « %{name} » à un objet inconnu.
-  activity_user_added_common_name_to_taxon: <strong>%{user}</strong> a ajouté le nom usuel en %{language} « %{name} » à « %{taxon} ».
-  activity_user_added_community_manager: <strong>%{user}</strong> a fait de %{manager} un gestionnaire de la communauté « %{community} ».
-  activity_user_added_named_association: <strong>%{user}</strong> a ajouté une association entre « %{object_name} » et « %{name} ».
-  activity_user_added_unknown_association: <strong>%{user}</strong> a ajouté une association à un objet inconnu.
-  activity_user_added_unknown_name: <strong>%{user}</strong> a ajouté un nom usuel inconnu à un objet inconnu.
-  activity_user_added_unknown_name_to_taxon: <strong>%{user}</strong> a ajouté un nom usuel à "%{taxon}".
-  activity_user_changed_community_description: <strong>%{user}</strong> a mis à jour la description de la communauté « %{community} ».
-  activity_user_changed_community_icon: <strong>%{user}</strong> a changé le logo de la communauté « %{community} ».
-  activity_user_changed_community_name: <strong>%{user}</strong> a changé le nom de la communauté « %{community} ».
-  activity_user_created_community: <strong>%{user}</strong> a créé la communauté « %{community} ».
   activity_user_created_text: <strong>%{user}</strong> a ajouté du texte à « %{object_name} » portant sur « %{taxon_concept} ».
-  activity_user_curated_an_unknown_object: <strong>%{user}</strong> a supervisé un objet inconnu.
-  activity_user_deleted_community: <strong>%{user}</strong> a supprimé la communauté « %{community} ».
-  activity_user_hid_data_object: <strong>%{user}</strong> a marqué « %{object_name} » comme masqué.
-  activity_user_hid_named_association: <strong>%{user}</strong> a marqué une association entre « %{object_name} » et « %{name} » comme masquée.
-  activity_user_hid_unknown_object: <strong>%{user}</strong> a marqué un objet inconnu comme masqué.
-  activity_user_hid_unknown_object_association: <strong>%{user}</strong> a marqué une association entre un objet inconnu et « %{name} » comme masquée.
-  activity_user_inappropriate_common_name: <strong>%{user}</strong> a marqué le nom usuel en %{language}  « %{name} » pour un objet inconnu comme inapproprié.
-  activity_user_inappropriate_common_name_from_taxon: <strong>%{user}</strong> a marqué le nom usuel en %{language}  « %{name} » pour « %{taxon} » comme inapproprié.
-  activity_user_inappropriate_unknown_name: <strong>%{user}</strong> a marqué un nom usuel inconnu pour un taxon inconnu comme inapproprié.
-  activity_user_inappropriate_unknown_name_to_taxon: <strong>%{user}</strong> a marqué un nom usuel comme inapproprié pour "%{taxon}".
-  activity_user_joined_community: <strong>%{user}</strong> a rejoint la communauté « %{community} ».
-  activity_user_marked_content_as_inappropriate: <strong>%{user}</strong> a marqué un contenu comme inapproprié.
-  activity_user_modified_community: <strong>%{user}</strong> a modifié la communauté « %{community} ».
-  activity_user_rated_data_object: <strong>%{user}</strong> a évalué « %{object_name} ».
-  activity_user_rated_unknown_object: <strong>%{user}</strong> a évalué un élément inconnu.
-  activity_user_removed_association: <strong>%{user}</strong> a retiré une association à « %{object_name} ».
-  activity_user_removed_named_association: <strong>%{user}</strong> a retiré une association entre « %{object_name} » et « %{name} ».
-  activity_user_removed_unknown_association: <strong>%{user}</strong> a retiré une association à un objet inconnu.
-  activity_user_removed_unknown_name: <strong>%{user}</strong> a retiré un nom usuel inconnu pour un objet inconnu.
-  activity_user_removed_unknown_name_to_taxon: <strong>%{user}</strong> a retiré un nom usuel de "%{taxon}".
-  activity_user_showed_data_object: <strong>%{user}</strong> a marqué « %{object_name} » comme visible.
-  activity_user_showed_named_association: <strong>%{user}</strong> a marqué une association entre « %{object_name} » et « %{name} » comme visible.
-  activity_user_showed_unknown_object: <strong>%{user}</strong> a marqué un objet inconnu comme visible.
-  activity_user_showed_unknown_object_association: <strong>%{user}</strong> a marqué une association entre un objet inconnu et « %{name} » comme visible.
-  activity_user_trust_common_name: <strong>%{user}</strong> a marqué le nom usuel en %{language}  « %{name} » pour un objet inconnu comme fiable.
-  activity_user_trust_common_name_from_taxon: <strong>%{user}</strong> a marqué le nom usuel en %{language} « %{name} » pour « %{taxon} » comme fiable.
-  activity_user_trust_unknown_name: <strong>%{user}</strong> a marqué un nom usuel inconnu pour un taxon inconnu comme digne de confiance.
-  activity_user_trust_unknown_name_to_taxon: <strong>%{user}</strong> a marqué un nom usuel comme digne de confiance pour "%{taxon}".
-  activity_user_trusted_data_object: <strong>%{user}</strong> a marqué « %{object_name} » comme digne de confiance.
-  activity_user_trusted_named_association: <strong>%{user}</strong> a marqué une association entre « %{object_name} » et « %{name} » comme digne de confiance.
-  activity_user_trusted_older_data_object: <strong>%{user}</strong> a marqué « %{object_name} » comme fiable.
-  activity_user_trusted_unknown_object: <strong>%{user}</strong> a marqué un objet inconnu comme digne de confiance.
-  activity_user_trusted_unknown_object_association: <strong>%{user}</strong> a marqué une association entre un objet inconnu et « %{name} » comme digne de confiance.
-  activity_user_unreview_common_name: <strong>%{user}</strong> a marqué le nom usuel en %{language}  « %{name} » pour un objet inconnu comme non supervisé.
-  activity_user_unreview_common_name_from_taxon: <strong>%{user}</strong> a marqué le nom usuel en %{language}  « %{name} » pour « %{taxon} » comme non supervisé.
-  activity_user_unreview_unknown_name: <strong>%{user}</strong> a marqué un nom usuel inconnu pour un taxon inconnu comme non supervisé.
-  activity_user_unreview_unknown_name_to_taxon: <strong>%{user}</strong> a marqué un nom usuel comme non supervisé pour "%{taxon}".
-  activity_user_unreviewed_data_object: <strong>%{user}</strong> a marqué « %{object_name} » comme non supervisé.
-  activity_user_unreviewed_named_association: <strong>%{user}</strong> a marqué une association entre « %{object_name} » et « %{name} » comme non supervisée.
-  activity_user_unreviewed_unknown_object: <strong>%{user}</strong> a marqué un élément inconnu comme non supervisé.
-  activity_user_unreviewed_unknown_object_association: <strong>%{user}</strong> a marqué une association entre un objet inconnu et « %{name} » comme non supervisée.
-  activity_user_untrust_common_name: <strong>%{user}</strong> a marqué le nom usuel en %{language} « %{name} » pour un objet inconnu comme non fiable.
-  activity_user_untrust_common_name_from_taxon: <strong>%{user}</strong> a marqué le nom usuel en %{language} « %{name} » pour « %{taxon} » comme non fiable.
-  activity_user_untrust_unknown_name: <strong>%{user}</strong> a marqué un nom usuel inconnu pour un taxon inconnu comme non fiable.
-  activity_user_untrust_unknown_name_to_taxon: <strong>%{user}</strong> a marqué un nom usuel comme non fiable pour "%{taxon}".
-  activity_user_untrusted_data_object: <strong>%{user}</strong> a marqué « %{object_name} » comme non fiable.
-  activity_user_untrusted_named_association: <strong>%{user}</strong> a marqué une association entre « %{object_name} » et « %{name} » comme non fiable.
-  activity_user_untrusted_unknown_object: <strong>%{user}</strong> a marqué un élément inconnu comme non fiable.
-  activity_user_untrusted_unknown_object_association: <strong>%{user}</strong> a marqué une association entre un objet inconnu et « %{name} » comme non fiable.
   activity_user_updated_text: <strong>%{user}</strong> a mis à jour le texte « %{object_name} » portant sur « %{taxon_concept} ».
   add: Ajouter
   add_a_collection_to_a_community: Ajouter « %{collection} » à une communauté
@@ -474,7 +409,8 @@ fr:
   an_unknown_user: Un utilisateur inconnu
   and: et
   and_between_form_items: et
-  annotation_cabs_colon: "Annotation:"
+  annotation_cabs_colon: "Annotation :"
+  anonymous_user_given_name: Anonyme
   any_integer: un entier quelconque
   api_docs_collections_description: Étant donné l’identifiant d’une collection, cette API retournera toutes les métadonnées à propos de la collection et des éléments qu’elle contient. La liste des éléments peut être filtrée par type d’élément et triée selon les attributs listés ci-dessus.
   application_version_advisory_information: Version de l’application
@@ -1363,8 +1299,6 @@ fr:
         generate_api_key: Demander une clé d’API
         generate_api_key_more: Si l’utilisation de l’API d’EOL vous intéresse, vous pouvez générer une clé d’API permettant d’identifier votre application. En savoir plus sur <a href="%{api_docs_url}">l’ajout d’une clé à vos appels de l’API</a>.
         logo: Téléverser une nouvelle photo
-        mailing_list: Je veux recevoir par courriel les mises à jour de bulletins d’informations
-        mailing_list_yes: Oui
         new_password: Nouveau mot de passe <small>(4 à 16 caractères)</small>
         new_password_confirmation: Nouveau mot de passe <small>(pour confirmer)</small>
         requested_curator_level: Votre demande pour devenir %{curator_level_with_indefinite_article} est en attente.
@@ -1402,9 +1336,6 @@ fr:
         create: Ajouter l’article
         create_text: Ajouter l’article
         update: Enregistrer l’article
-      eol_statistic: 
-        download_csv: Télécharger comme fichier CSV
-      filter_sort: Filtrer et trier
       harvest_event: 
         publish: Publier
       hierarchy: 
@@ -1612,8 +1543,8 @@ fr:
   logo_header: Logo
   logout: Déconnexion
   main_content_area: "Zone principale de contenu :"
-  main_database_colon: "Principal:"
-  main_master_database_colon: "Maître principal:"
+  main_database_colon: "Principal :"
+  main_master_database_colon: "Maître principal :"
   main_species_page_link_with_spaces: " &nbsp;&nbsp; page de l'espèce>>"
   maintained_by: maintenu par
   major_heading: Titre majeur
@@ -1860,11 +1791,13 @@ fr:
     user_message: 
       subject: Un message de l’''Encyclopédie de la vie'' (EOL)
     user_reset_password: 
+      message: "L’''Encyclopédie de la vie'' (www.eol.org) a reçu une demande de réinitialisation de votre mot de passe. Si vous n’avez pas effectué cette demande, veuillez ignorer ce courriel.\n\nLe lien suivant, qui n’est valable qu’une seule fois, vous permet de réinitialiser votre mot de passe :\n\n%{password_reset_url}\n\nSuivez ce lien (en cliquant dessus ou en le copiant en entier dans la barre d’adresse de votre navigateur avant de le valider) afin d’accéder à la page où vous pourrez saisir un nouveau mot de passe. Veuillez noter que si ce lien a expiré, il vous sera demandé de saisir à nouveau votre nom d’utilisateur ou votre adresse courriel afin de recevoir un courriel contenant un nouveau lien de réinitialisation de mot de passe."
       subject: Réinitialiser le mot de passe de votre compte utilisateur sur l’''Encyclopédie de la vie'' (EOL)
     user_updated_email_preferences: 
       message: "Ceci est une notification automatique du système EOL. L'utilisateur %{user_full_name} (%{user_profile_url}) a mis à jour son adresse courriel ou ses préférences pour les listes de diffusion.\n\nPréférences précédentes :\nCourriel : %{previous_email}\nPréférence pour les listes de diffusion : %{previous_mailing_list_preference}\n\nPréférences actuelles : \nCourriel : %{updated_email}\nPréférence pour les listes de diffusion : %{updated_mailing_list_preference}\nMise à jour du : %{updated_at}"
       subject: L’utilisateur d’EOL %{user_full_name} a modifié son adresse courriel ou ses préférences pour les listes de diffusion
     user_verification: 
+      message: "Merci pour votre inscription sur l’''Encyclopédie de la vie'' (EOL). Le lien suivant vous permet de confirmer et finaliser votre inscription :\n\n%{verification_url}\n\nSuivez ce lien (en cliquant dessus ou en le copiant en entier dans la barre d’adresse de votre navigateur avant de le valider) afin d’activer votre compte. Lorsque votre compte sera activé, vous recevrez un courriel de confirmation."
       subject: Veuillez vérifier votre demande de compte sur l’''Encyclopédie de la vie'' (EOL)
   nucleotide_sequences: Séquences nucléotides
   nucleotide_sequences_ncbi_database: La base de données de <a href="%{ncbi_taxonomy_link}">taxonomie NCBI</a> contient les noms de tous les organismes qui sont représentés dans les bases de données génétiques avec au moins une séquence nucléotidique ou de protéines.
@@ -2374,6 +2307,7 @@ fr:
     names: 
       synonyms: 
         meta_description: Synonymes de %{scientific_name}.
+        meta_keywords: Synonymes de %{scientific_name}
         meta_title: Synonymes de %{scientific_name}
         tweet_text: Synonymes de %{scientific_name}
     resources: 
@@ -2536,6 +2470,7 @@ fr:
   unpublished: Non publié
   unreviewed: Non supervisé
   unreviewed_images: Images non revues
+  unreviewed_maps: Cartes non revues
   unreviewed_text_objects: Articles non revus
   untrusted: Non fiable
   update: Mettre à jour
@@ -2609,9 +2544,10 @@ fr:
   user_agent: Agent utilisateur
   user_already_active_notice: Votre compte est déjà actif, connectez-vous.
   user_comment: Commentaire d'utilisateur
-  user_commented_on_deleted_user: "<strong>%{user_with_link}</strong> a fait un commentaire sur la page d'un utilisateur qui a été supprimé:"
-  user_commented_on_something_colon: "<strong>%{user}</strong> a fait un commentaire sur %{what}:"
-  user_commented_on_themself: "<strong>%{user_with_link}</strong> a fait un commentaire sur le <a href='%{link}'>fil d'informations de %{username}</a>:"
+  user_commented_on_deleted_user: "<strong>%{user_with_link}</strong> a fait un commentaire sur la page d'un utilisateur qui a été supprimé :"
+  user_commented_on_older_data_object_colon: "<strong>%{user}</strong> a fait un commentaire sur %{what} :"
+  user_commented_on_something_colon: "<strong>%{user}</strong> a fait un commentaire sur « %{what} » :"
+  user_commented_on_themself: "<strong>%{user_with_link}</strong> a fait un commentaire sur le <a href='%{link}'>fil d'informations de %{username}</a> :"
   user_comments: Commentaires utilisateur
   user_id: ID de l’utilisateur
   user_index_intro: Tous les utilisateurs web inscrits dans le système sont affichés ci-dessous, triés par horaire d'inscription inverse. Notez que les dates d'inscription pour les utilisateurs avant EOL V2 (5 janvier 2009) ne sont pas disponibles. Cliquez sur un nom d'utilisateur pour modifier cet utilisateur.
@@ -2621,9 +2557,9 @@ fr:
   user_no_longer_active_message: Cet utilisateur n'est plus actif
   user_no_longer_has_manager_access_to_collection: "%{user} n'a plus d'accès gestionnaire à \"%{collection}\"."
   user_response: Réponse de l'utilisateur
-  user_says_colon: "%{users_name} dit:"
+  user_says_colon: "%{users_name} dit :"
   user_submitted_text: Texte soumis par l'utilisateur
-  user_submitted_text_found: "Texte soumis par l'utilisateur trouvé:"
+  user_submitted_text_found: "Texte soumis par l'utilisateur trouvé :"
   user_system_down: Nous sommes désolés, mais le système d’enregistrement des utilisateurs n’est pas disponible actuellement.  Veuillez réessayer plus tard.
   user_was_added_as_editor_of_collection: Cet utilisiateur a été ajouté comme gestionnaire de "%{collection}".
   username: Nom d'utilisateur
@@ -2644,11 +2580,11 @@ fr:
     one: Membre de %{count} communauté
     other: Membre de %{count} communautés
   users_my_info_header: Mes infos
-  users_pending_activation_message: Un message de confirmation a été envoyé à l'adresse de courriel que vous avez fournie. Pour compléter le processus d'inscription et devenir membre d'EOL, veuillez cliquer sur le lien inclus dans ce courriel. Merci!
+  users_pending_activation_message: Un message de confirmation a été envoyé à l'adresse de courriel que vous avez fournie. Pour compléter le processus d'inscription et devenir membre d'EOL, veuillez cliquer sur le lien inclus dans ce courriel. Merci !
   users_that_can_edit_this_collection: Utilisateurs qui peuvent gérer cette collection
   using_the_site: Utilisation du site
   validation_error: Erreur de validation
-  validation_following_fields: "Il y a des problèmes avec les champs suivants:"
+  validation_following_fields: "Il y a des problèmes avec les champs suivants :"
   value: Valeur
   value_default: (par défaut)
   value_empty: (vide)
@@ -2699,7 +2635,7 @@ fr:
   welcome: Bienvenue
   welcome_and_you_were_logged_out: Bienvenue sur le nouveau EOL! Il y a eu un problème avec votre ancienne connexion, nous vous avons donc déconnecté. Les informations de votre ancienne connexion devraient toutefois fonctionner à nouveau. Désolé!
   welcome_to_the_eol_administrat: Bienvenue à la Console d'Administration EOL.  Veuillez sélectionner une fonction dans le navigateur de gauche.
-  what_do_these_numbers_mean: Que signifient ces chiffres?
+  what_do_these_numbers_mean: Que signifient ces chiffres ?
   what_is_eol: Qu'est-ce que l’EOL ?
   what_is_this_question: Qu’est-ce que ceci ?
   who_registered_before: vers

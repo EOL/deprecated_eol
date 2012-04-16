@@ -7,12 +7,22 @@
     - path = make_editor_user_path(@user) if @user
     - path = make_editor_community_path(@community) if @community
     - form_tag(path, :method => :put) do |f|
+      - one_available = false
       %fieldset
         %ul
           - @collections.each do |collection|
-            = render :partial => 'collections_list_item', :locals => { :collection => collection, :has_item => @item.can_edit_collection?(collection), :hide_has_item => true }
+            - has_item = @item.can_edit_collection?(collection)
+            - one_available = true unless has_item
+            = render :partial => 'collections_list_item', :locals => { :collection => collection,
+              :has_item => has_item, :hide_has_item => true }
       %fieldset.actions
-        = link_to(I18n.t(:see_all_of_your_collections), user_collections_path(current_user), :class => 'other_actions close_and_go')
-        = submit_tag(I18n.t(:make_an_editor))
+        = link_to(I18n.t(:see_all_of_your_collections), user_collections_path(current_user),
+          :class => 'other_actions close_and_go')
+        - if one_available
+          = submit_tag(I18n.t(:make_an_editor))
+        - else
+          %p
+            %strong= I18n.t(:sorry_no_collections_are_available_to_share)
+          %br
         - if @item
           = link_to(I18n.t(:go_back), link_to_item(@item), :class => 'close')

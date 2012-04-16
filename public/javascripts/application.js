@@ -217,7 +217,7 @@ $(function() {
       $(this).closest('form').find('input[name="commit_view_as"]').click();
     });
     $collection.find('input[name="commit_view_as"]').hide();
-  })($("#collections"));
+  })($("#collection"));
 
   $("input[placeholder]").each(function() {
     var $e = $(this),

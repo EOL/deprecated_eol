@@ -3,11 +3,9 @@
 %div{:class => session_class}
   %h2.assistive= I18n.t(:account_information)
   %ul
-    -# OLD: %li= link_to I18n.t(:user_pending_notifications_comments_assistive) + I18n.t(:user_pending_notifications_comments_with_count_assistive, :count => user.message_count),
     %li= link_to I18n.t(:user_pending_notifications_comments_with_count_assistive, :count => current_user.message_count),
       comments_user_newsfeed_path(current_user)
-    -# OLD: %li= link_to I18n.t(:user_pending_notifications_assitive),
-    %li= link_to I18n.t(:user_pending_notifications_with_count_assitive, :count => current_user.message_count),
+    %li= link_to I18n.t(:user_pending_notifications_with_count_assitive, :count => current_user.notification_count),
       user_newsfeed_path(current_user)
   = link_to image_tag(current_user.logo_url('small'), :alt => I18n.t(:profile_image_alt_text_member, :user_full_name => h(current_user.full_name))),
     user_newsfeed_path(current_user)
@@ -23,6 +21,6 @@
       - if current_user.is_curator?
         = link_to I18n.t(:pages_curator_section_link), curators_path
         &bull;
-      = link_to I18n.t(:profile), user_newsfeed_path(current_user)
+      = link_to I18n.t(:profile), user_path(current_user)
       &bull;
       = link_to I18n.t(:sign_out), logout_url(:return_to => current_url(false))

@@ -1023,6 +1023,10 @@ class DataObject < ActiveRecord::Base
     super
   end
 
+  def can_be_deleted_by?(requestor)
+    return false
+  end
+
 private
 
   def add_recipient_user_making_object_modification(recipients, options = {})

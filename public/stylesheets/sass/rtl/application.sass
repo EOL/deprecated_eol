@@ -78,7 +78,6 @@ form
         &:active
           +gradient-bg(#e07f71, #cd331e)
   .heading &.filter
-    float: left
     label
       text-transform: uppercase
       color: #828d33
@@ -106,13 +105,25 @@ form
   border: 1px solid #93a4b0
   border-width: 0 1px
   .heading
-    padding: 6px 10px 13px 10px
+    position: relative
+    text-align: right
+    overflow: hidden
+    padding: 8px 10px 7px 10px
     border-bottom: 1px solid #ccd399
     background: #f1f4dc
     h3, label
       font-weight: bold
       text-transform: uppercase
       color: #828d33
+    h3, &.subnav ul
+      + form, + a
+        position: absolute
+        left: 10px
+        top: 6px
+    label
+      font-size: 0.92em
+    fieldset
+      display: inline
     &.subnav
       ul
         overflow: hidden
@@ -139,8 +150,8 @@ form
       form
         padding-top: 5px
 form.comment
-  padding: 0 0 0 20px
-  margin: 0 0 35px 0
+  padding: 0 20px
+  margin: 0 0 20px 0
   fieldset
     overflow: hidden
     padding: 0 0 10px 0
@@ -157,6 +168,7 @@ form.comment
   fieldset.actions
     clear: both
     padding: 0 62px 0 0
+    margin: 0 0 10px 0
     label
       float: left
     input[type="submit"]
@@ -355,14 +367,41 @@ table.standard
       > li
         overflow: hidden
         padding: 0 0 10px 0
-        img
+        line-height: 160%
+        & + li
+          border-top: 1px solid #d7dadc
+        > a > img, > img, > .editable > a > img
           float: right
-          margin: 0 0 0 10px
+          margin: 15px 15px 0 10px
           border: 1px solid #394651
+          +max_dimensions($logo_size_secondary, $logo_size_secondary)
         .details
-          padding: 5px 0 0 0
+          margin: 15px 0 0 15px
+          padding: 0
           overflow: hidden
+          img
+            max-width: 400px
+            margin: 5px 0
+          p.meta
+            color: #62707d
+            padding: 0
+        .editable
+          margin: 15px 15px 0
+          > a > img
+            margin: 0 0 0 10px
+          .details
+            margin: 0
+    &.half
+      > ul
+        > li
+          & + li
+            border: none
+          > a > img
+            margin: 0 0 0 10px
+          .details
+            margin: 0
   &.updates
+    padding: 0
     blockquote, p
       line-height: 140%
       padding: 0 0 8px 0
@@ -392,8 +431,6 @@ table.standard
             padding: 5px 0
             margin: 0 0 0 5px
     li
-      > a > img, .editable > a > img
-        +max_dimensions($logo_size_secondary, $logo_size_secondary)
       form
         &.edit_comment
           margin-top: 10px
@@ -405,8 +442,6 @@ table.standard
             width: 430px
             height: 60px
             +textarea
-    ul.feed + .pagination
-      margin-top: 12px
 
 .empty, .copy .empty
   padding: 15px 15px 10px 15px
@@ -535,6 +570,7 @@ ul.object_list
   + .footer
     border-top: 1px solid #394651
     padding-top: 12px
+    margin: 0
   li
     padding: 10px
     overflow: hidden
@@ -572,27 +608,6 @@ ul.object_list
       h4
         margin: 0
 
-#taxon_names
-  .article.recognized
-    ul
-      span
-        margin: 0 10px
-      a.view
-        font-size: .9em
-  .main_container
-    h4
-      font-size: 1.2em
-      margin: 0 20px 10px 0
-  table.standard
-    tr
-      td
-        position: relative
-        width: 33%
-        a
-          font-weight: bold
-        &.preferred
-          background: url("/images/v2/icon_required.png") 7px 50% no-repeat
-
 form.select_content_partner
   padding: 5px 0
   text-align: center
@@ -607,6 +622,17 @@ form.select_content_partner
     +button
     padding: 3px 10px
     font-size: .92em
+
+.disclaimer
+  clear: both
+  border-top: 1px solid #CAD3DB
+  padding-top: 10px
+  margin-top: 40px
+  p
+    text-align: center
+    font-size: 0.9em
+    color: #394651
+    margin: 0
 
 body
   > #header
@@ -963,38 +989,12 @@ body
         input
           margin: 0 0 5px 5px
 
-#collections
-  padding-bottom: 30px
+#collection
   .heading
-    font-size: .92em
+    padding: 1px 10px 4px 10px
     text-align: center
-    a
-      font-weight: bold
-  .article.list.updates
-    padding-top: 15px
-    margin: 0 0 0 -10px
-    > form
-      padding: 5px 0 20px 15px
-      margin: 0
-      border-bottom: 1px solid #d4dce2
-      textarea
-        width: 390px
-      fieldset
-        margin: 0
-      fieldset.actions
-        input[type="submit"]
-          padding: 7px 10px
-          font-size: 1em
-    > ul
-      > li
-        padding: 15px 0 0 15px
-        img
-          margin-bottom: 5px
-        border-bottom: 1px solid #d4dce2
   ul.object_list
     li
-      padding-top: 20px
-      padding-bottom: 20px
       img
         margin-left: -1px
       .checkbox
@@ -1040,6 +1040,7 @@ body
         input[type="text"]
           +input
   ul.collection_gallery
+    padding-top:  20px
     li
       float: right
       position: relative
@@ -1126,46 +1127,7 @@ body
       padding: 7px 10px
       font-size: 1em
 
-#collections_tab
-  ul.object_list
-    img
-      float: right
-      margin: 0 0 0 20px
-    & + .heading
-      margin-top: 40px
-  .heading
-    position: relative
-    text-align: right
-    form, a
-      position: absolute
-      left: 10px
-      top: 4px
-  .updates
-    padding: 20px 0 0 0
-    form.comment
-      padding-left: 0
-      textarea
-        width: 580px
-    ul.feed
-      margin: 0 0 20px 0
-      > li
-        padding: 20px
-        border-bottom: 1px solid #d4dce2
-    p.more
-      font-size: 1.16em
-      font-weight: bold
-      text-align: center
-
-#profile_collections, #profile_communities, #profile_newsfeed, #profile_activity
-  .heading
-    overflow: hidden
-    h3, a
-      line-height: 170%
-    h3
-      float: right
-    h3 + a
-      float: left
-#profile_collections, #profile_communities
+#community_collections, #profile_collections, #profile_communities
   ul.object_list
     img
       float: right
@@ -1188,13 +1150,9 @@ body
 #profile_newsfeed, #profile_activity
   ul.feed
     > li
-      padding: 15px 0 0 15px
-      border-bottom: 1px solid #d4dce2
       form.edit_comment
         textarea
           width: 580px
-
-
 #profile_info
   padding: 40px
   .section.half
@@ -1462,35 +1420,7 @@ ul.content_partner_contacts
       font-size: 1em
 
 #community
-  padding: 20px
-  ul.feed + .pagination
-    margin-top: 20px
-  .heading
-    overflow: hidden
-    border-width: 0
-    h3
-      float: right
-      padding: 5px 0 0 0
-  .article.list
-    padding: 0 0 40px 0
-    .heading
-      border-bottom-width: 1px
-    > ul
-      > li
-        padding: 10px 0 0 20px
-        border-bottom: 1px solid #d4dce2
-        .meta
-          padding: 0
-  .article.updates
-    padding: 0 0 25px 0
-    > ul
-      > li
-        overflow: hidden
-        padding: 20px
-        .details
-          img
-            margin: 0 0 0 8px
-            border: 1px solid #394651
+  padding: 0 20px
 
 #community_new
   .copy
@@ -1534,10 +1464,28 @@ ul.content_partner_contacts
           font-size: 1em
           padding: 7px 20px
           margin: 10px 0 10px 20px
-
+#taxon_names
+  .article.recognized
+    ul
+      span
+        margin: 0 10px
+      a.view
+        font-size: .9em
+  .main_container
+    h4
+      font-size: 1.2em
+      margin: 0 20px 10px 0
+  table.standard
+    tr
+      td
+        position: relative
+        width: 33%
+        a
+          font-weight: bold
+        &.preferred
+          background: url("/images/v2/icon_required.png") 7px 50% no-repeat
 #taxon_literature
   .main_container
-    padding: 20px
     .bhl_description
       overflow: hidden
       margin: 0 0 20px 0
@@ -1565,7 +1513,6 @@ ul.content_partner_contacts
             font-size: .9em
             line-height: 120%
             color: #616E7A
-
 #taxon
   float: right
   width: 580px
@@ -1587,7 +1534,7 @@ ul.content_partner_contacts
             display: block
             margin: 0 auto
         span.flag
-          padding: 1px 0 0 2px
+          padding: 1px 2px
           font-size: .75em
           line-height: 1em
           vertical-align: 1px
@@ -1674,6 +1621,7 @@ ul.content_partner_contacts
   + #sidebar
     width: 340px
     padding: 0
+    margin-bottom: 20px
     h3
       padding: 0 10px 3px 10px
       font-size: 1.16em
@@ -1695,24 +1643,41 @@ ul.content_partner_contacts
               font-weight: bold
           ul
             margin-left: 10px
-    .updates
-      > ul
-        border-bottom: 1px solid #d7dadc
-      form
-        &.comment
-          padding: 20px 10px 0 10px
-          margin: 0 0 0 -10px
-          img
-            border: 1px solid #394651
-          textarea
-            width: 240px
-          fieldset.actions
-            padding: 0 0 0 60px
-            input[type="submit"]
-              padding: 6px 0 0 15px
-        &.edit_comment
-          textarea
-            width: 300px
+    .article
+      &.list
+        > ul
+          > li
+            + li
+              border: none
+            > a > img
+              margin: 10px 0 0 10px
+            .details
+              margin: 10px 0 0 0
+            .editable
+              margin: 10px 0 0 0
+              > a > img
+                margin: 0 0 0 10px
+              .details
+                margin: 0
+      &.updates
+        padding: 0 10px 25px 10px
+        > ul
+          border-bottom: 1px solid #d7dadc
+        form
+          &.comment
+            padding: 20px 10px 0 10px
+            margin: 0 -10px
+            img
+              border: 1px solid #394651
+            textarea
+              width: 240px
+            fieldset.actions
+              padding: 0 60px 0 0
+              input[type="submit"]
+                padding: 6px 15px
+          &.edit_comment
+            textarea
+              width: 300px
 #taxon_detail
   #sidebar
     float: right
@@ -1827,7 +1792,6 @@ ul.content_partner_contacts
 
 #taxon_resources
   .main_container
-    padding: 40px
     table.standard
       img
         display: block
@@ -1836,6 +1800,8 @@ ul.content_partner_contacts
   fieldset
     width: 640px
     float: right
+    dl
+      margin: 0
     &.content + fieldset
       width: 300px
       input[type="text"]
@@ -1855,6 +1821,16 @@ ul.content_partner_contacts
         padding: 7px 20px
         margin: 10px 0 10px 20px
 #permalink
+  .article.list.updates
+    padding: 0 10px
+    > ul
+      > li
+        .editable
+          margin: 0
+        > a > img
+          margin: 15px 0 0 10px
+        .details
+          margin: 15px 0 0 0
   .ratings
     h5
       float: right
@@ -1907,6 +1883,12 @@ ul.content_partner_contacts
     img
       display: block
       margin: 0 auto
+  &.image
+    #main
+      .article
+        .copy
+          line-height: 170%
+          word-wrap: break-word
   &.text
     #main
       .article.copy
@@ -2204,6 +2186,16 @@ ul.content_partner_contacts
       h3
         padding: 0 10px 3px 10px
         font-size: 1.16em
+    .article.list.updates
+      padding: 0 10px
+      > ul
+        > li
+          .editable
+            margin: 0
+          > a > img
+            margin: 15px 0 0 10px
+          .details
+            margin: 15px 0 0 0
     .media
       margin: 0 0 20px 0
     .ratings
@@ -2433,40 +2425,11 @@ ul.content_partner_contacts
       color: #28323a
 
 #taxon_community
-  padding: 0
-  border: none
-  .column
-    float: right
-    padding: 0 0 40px 0
-    margin: 0 0 0 20px
-    .summary
-      padding: 10px
-      border-right: 2px solid #cad3db
-      h3
-        padding: 0 0 5px 0
-        font-size: 1.33em
-      p
-        line-height: 200%
-    .article
-      padding: 0 0 25px 0
-      ul
-        padding: 10px 0 0 10px
-      p.more
-        padding: 0 0 0 10px
-        font-weight: bold
-    .header
-      margin: 0
-    .heading
-      form
-        float: none
-    &.curators
-      clear: both
-      width: 220px
-    &.collections
-      width: 340px
-    &.communities
-      width: 340px
-      margin: 0
+  .article.list
+    > ul
+      > li
+        + li
+          border: none
 
 #taxon_maps
   #map
@@ -2527,8 +2490,6 @@ ul.content_partner_contacts
       padding: 0
       > ul
         > li
-          padding: 20px
-          border-bottom: 1px solid #d4dce2
           form
             &.comment
               padding: 0

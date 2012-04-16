@@ -1,28 +1,15 @@
 class RecentActivitiesController < ApplicationController
 
-  layout 'v2/activities'
+  layout 'v2/basic'
 
   def index
+    @page_title = I18n.t(:page_title, :scope => [:recent_activities, :index])
     @filter = params[:filter]
     @sort = params[:sort] || 'date_created+desc'
     @log = EOL::ActivityLog.find(self, :filter => @filter, :page => params[:page], :per_page => 50, :sort_by => @sort, :specific_time => "week")
-  end
-
-protected
-
-  def meta_title
-    return @meta_title if defined?(@meta_title)
-    @meta_title = I18n.t(:recent_eol_member_activity)
-  end
-
-  def meta_keywords
-    return @meta_keywords if defined?(@meta_keywords)
-    @meta_keywords = [I18n.t(:eol_activity), 
-                I18n.t(:eol_recent_member_activity), 
-                I18n.t(:eol_recent_member_activities), 
-                I18n.t(:eol_activities), 
-                I18n.t(:eol_community_activity), 
-                I18n.t(:eol_recent_activity)     ].uniq.compact.join(", ")
+    @rel_canonical_href = recent_activities_url(:page => rel_canonical_href_page_number(@log))
+    @rel_prev_href = rel_prev_href_params(@log) ? recent_activities_url(@rel_prev_href_params) : nil
+    @rel_next_href = rel_next_href_params(@log) ? recent_activities_url(@rel_next_href_params) : nil
   end
 
 end

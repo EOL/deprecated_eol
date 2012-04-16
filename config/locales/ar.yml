@@ -255,83 +255,9 @@ ar:
     models: 
       user: حساب
   activity: نشاط
-  activity_choose_exemplar: حدد <strong>%{user}</strong> صورة كمثال "%{object_name}".
-  activity_hid_with_reasons_colon: "اسباب الإخفاء: %{reasons}"
   activity_log_empty: لم يتم إضافة تحديثات بعد.
   activity_log_empty_learn_more_link: تعرف على كيفية المشاركة
-  activity_untrusted_with_reasons_colon: "اسباب اعتباره غير موثوقًا به: %{reasons}"
-  activity_user_added_association: <strong>%{user}</strong>  أضاف ارتباط إلى  "%{object_name}".
-  activity_user_added_collection_to_community: قام <strong>%{user}</strong> بإضافة المجموعة "%{collection}" للمجتمع "%{community}".
-  activity_user_added_common_name: قام <strong>%{user}</strong> بإضافة الاسم الشائع "%{name}" باللغة %{language} إلى كائن غير معروف.
-  activity_user_added_common_name_to_taxon: قام <strong>%{user}</strong> بإضافة الاسم الشائع "%{name}" باللغة %{language} إلى "%{taxon}".
-  activity_user_added_community_manager: <strong>%{user}</strong>  جعل من %{manager} مديرًا للمجتمع "%{community}".
-  activity_user_added_named_association: <strong>%{user}</strong>   أضاف ارتباط ما بين  "%{object_name}" و"%{name}".
-  activity_user_added_unknown_association: <strong>%{user}</strong>  أضاف ارتباط إلى عنصر غير معروف
-  activity_user_added_unknown_name: <strong>%{user}</strong>  أضاف اسم شائع غير معروف إلى عنصر غير معروف
-  activity_user_added_unknown_name_to_taxon: قام <strong>%{user}</strong> بإضافة اسم شائع إلى "%{taxon}".
-  activity_user_changed_community_description: <strong>%{user}</strong>  قام بتحديث وصف المجتمع "%{community}".
-  activity_user_changed_community_icon: <strong>%{user}</strong>  قام بتغيير شعار المجتمع "%{community}".
-  activity_user_changed_community_name: <strong>%{user}</strong>  قام بتغيير إسم المجتمع "%{community}".
-  activity_user_created_community: <strong>%{user}</strong>  قام بإنشاء المجتمع "%{community}".
   activity_user_created_text: <strong>%{user}</strong> أضاف نص إلى "%{object_name}" في "%{taxon_concept}".
-  activity_user_curated_an_unknown_object: <strong>%{user}</strong> أشرف على عنصر غير معروف.
-  activity_user_deleted_community: <strong>%{user}</strong>  قام بحذف المجتمع "%{community}".
-  activity_user_hid_data_object: <strong>%{user}</strong> صنف "%{object_name}" كمخفي.
-  activity_user_hid_named_association: وضع <strong>%{user}</strong> علامة "مخفي" على الارتباط بين "%{object_name}" و"%{name}".
-  activity_user_hid_named_association_on_older_data_object: <strong>%{user}</strong> صنف ارتباط ما بين %{object_name} و"%{name}" كمخفي.
-  activity_user_hid_older_data_object: <strong>%{user}</strong> صنف %{object_name} كمخفي.
-  activity_user_hid_unknown_object: <strong>%{user}</strong> صنف عنصر غير معروف كمخفي.
-  activity_user_hid_unknown_object_association: وضع المستخدم <strong>%{user}</strong> علامة "مخفي" على ارتباط بين كائن غير معروف و"%{name}".
-  activity_user_inappropriate_common_name: قام <strong>%{user}</strong> بوضع علامة غير مناسب على الاسم الشائع "%{name}" باللغة %{language}  من عنصر غير معروف.
-  activity_user_inappropriate_common_name_from_taxon: قام <strong>%{user}</strong> بوضع علامة غير مناسب على الاسم الشائع "%{name}" باللغة %{language}  من "%{taxon}" .
-  activity_user_inappropriate_unknown_name: قرر <strong>%{user}</strong> ان اسم شائع غير معروف من أصنوفة غير معروفة كان غير مناسبًا .
-  activity_user_inappropriate_unknown_name_to_taxon: اعتبر <strong>%{user}</strong>اسمًا شائعًا من "%{taxon}" غير مناسب.
-  activity_user_joined_community: <strong>%{user}</strong>  قام بالإنضمام إلى المجتمع "%{community}".
-  activity_user_marked_content_as_inappropriate: <strong>%{user}</strong> صنف المحتوى كغير لائق.
-  activity_user_modified_community: <strong>%{user}</strong>  قام بتعديل المجتمع "%{community}".
-  activity_user_rated_data_object: <strong>%{user}</strong> قيم "%{object_name}".
-  activity_user_rated_unknown_object: <strong>%{user}</strong> قيم عنصر غير معروف.
-  activity_user_removed_association: <strong>%{user}</strong>  حذف ارتباط إلى  "%{object_name}".
-  activity_user_removed_named_association: <strong>%{user}</strong> حذف ارتباط ما بين  "%{object_name}" و "%{name}".
-  activity_user_removed_unknown_association: <strong>%{user}</strong> حذف ارتباط إلى عنصر غير معروف
-  activity_user_removed_unknown_name: <strong>%{user}</strong> حذف اسم شائع غير معروف من عنصر غير معروف
-  activity_user_removed_unknown_name_to_taxon: قام <strong>%{user}</strong> بحذف اسم شائع من "%{taxon}".
-  activity_user_showed_data_object: قام <strong>%{user}</strong> بتحديد  "%{object_name}" كظاهر
-  activity_user_showed_named_association: وضع <strong>%{user}</strong> علامة مرئية على علاقة بين "%{object_name}"  و "%{name}".
-  activity_user_showed_named_association_on_older_data_object: <strong>%{user}</strong> صنف ارتباط ما بين %{object_name}" و"%{name}" كظاهر.
-  activity_user_showed_older_data_object: <strong>%{user}</strong> صنف "%{object_name}" كظاهر.
-  activity_user_showed_unknown_object: قام <strong>%{user}</strong> بتحديد  عنصر غير معروف كظاهر
-  activity_user_showed_unknown_object_association: وضع المستخدم <strong>%{user}</strong> علامة "مرئي" على ارتباط بين كائن غير معروف و"%{name}".
-  activity_user_trust_common_name: قام <strong>%{user}</strong> بوضع علامة موثوق فيه على الاسم الشائع "%{name}" باللغة %{language} والذي هو من عنصر غير معروف.
-  activity_user_trust_common_name_from_taxon: قام <strong>%{user}</strong> بوضع علامة موثوق فيه على الاسم الشائع "%{name}" باللغة %{language} من "%{taxon}".
-  activity_user_trust_unknown_name: اعتبر <strong>%{user}</strong> اسم شائع غير معروف لأصنوفة غير معروفة موثوقًا به.
-  activity_user_trust_unknown_name_to_taxon: اعتبر <strong>%{user}</strong>الاسم الشائع من "%{taxon}" موثوقًا به.
-  activity_user_trusted_data_object: <strong>%{user}</strong> صنف "%{object_name}" كموثوق به.
-  activity_user_trusted_named_association: اعتبر <strong>%{user}</strong> العلاقة بين "%{object_name}"  و "%{name}" موثوقًا بها.
-  activity_user_trusted_named_association_on_older_data_object: <strong>%{user}</strong> صنف ارتباط ما بين %{object_name}" و"%{name}" كموثوقًا به.
-  activity_user_trusted_older_data_object: <strong>%{user}</strong> صنف %{object_name} كموثوق به.
-  activity_user_trusted_unknown_object: <strong>%{user}</strong> صنف عنصر غير معروف كموثوق به.
-  activity_user_trusted_unknown_object_association: اعتبر <strong>%{user}</strong> العلاقة بين عنصر غير معروف و "%{name}" موثوقًا بها.
-  activity_user_unreview_common_name: قام <strong>%{user}</strong> بوضع علامة غير موثوق فيه على الاسم الشائع "%{name}"  باللغة %{language} والذي هو من عنصر غير معروف.
-  activity_user_unreview_common_name_from_taxon: قام <strong>%{user}</strong> بوضع علامة غير مُراجع على الاسم الشائع "%{name}" باللغة %{language}  من "%{taxon}" .
-  activity_user_unreview_unknown_name: عدل <strong>%{user}</strong> عن مراجعة اسم شائع غير معروف من أصنوفة غير معروفة.
-  activity_user_unreview_unknown_name_to_taxon: عدل <strong>%{user}</strong> عن مراجعة الاسم الشائع من "%{taxon}".
-  activity_user_unreviewed_data_object: <strong>%{user}</strong> صنف "%{object_name}" كغير مراجع.
-  activity_user_unreviewed_named_association: وضع <strong>%{user}</strong> علامة "غير مراجع" على الارتباط بين "%{object_name}"  و "%{name}" .
-  activity_user_unreviewed_named_association_on_older_data_object: <strong>%{user}</strong> صنف ارتباط ما بين %{object_name} و"%{name}" كغير مراجع.
-  activity_user_unreviewed_older_data_object: <strong>%{user}</strong> صنف %{object_name} كغير مراجع.
-  activity_user_unreviewed_unknown_object: <strong>%{user}</strong> صنف عنصر غير معروف كغير مراجع.
-  activity_user_unreviewed_unknown_object_association: وضع <strong>%{user}</strong> علامة "غير مراجع" على ارتباط بين كائن غير معروف و"%{name}".
-  activity_user_untrust_common_name: قام <strong>%{user}</strong> بوضع علامة غير موثوق فيه على الاسم الشائع "%{name}" باللغة %{language} والذي هو من عنصر غير معروف.
-  activity_user_untrust_common_name_from_taxon: قام <strong>%{user}</strong> بوضع علامة غير موثوق فيه على الاسم الشائع "%{name}" باللغة %{language}  من "%{taxon}" .
-  activity_user_untrust_unknown_name: اعتبر <strong>%{user}</strong> اسم شائع غير معروف من أصنوفة غير معروفة غير موثوقًا به.
-  activity_user_untrust_unknown_name_to_taxon: اعتبر <strong>%{user}</strong>الاسم الشائع من "%{taxon}" غير موثوقًا به.
-  activity_user_untrusted_data_object: <strong>%{user}</strong> صنف "%{object_name}" كغير موثوق به.
-  activity_user_untrusted_named_association: اعتبر <strong>%{user}</strong> العلاقة بين "%{object_name}"  و "%{name}" غير موثوقًا بها.
-  activity_user_untrusted_named_association_on_older_data_object: <strong>%{user}</strong> صنف ارتباط ما بين %{object_name} و"%{name}" كموثوقًا به.
-  activity_user_untrusted_older_data_object: <strong>%{user}</strong> صنف %{object_name} كغير موثوق به.
-  activity_user_untrusted_unknown_object: <strong>%{user}</strong> صنف عنصر غير معروف كغير موثوق به.
-  activity_user_untrusted_unknown_object_association: اعتبر <strong>%{user}</strong> العلاقة بين عنصر غير معروف و "%{name}" غير موثوقًا بها.
   activity_user_updated_text: <strong>%{user}</strong> حدث نص "%{object_name}" في "%{taxon_concept}" .
   add: أضف
   add_a_collection_to_a_community: أضف "%{collection}"  لمجتمع.
@@ -1440,8 +1366,6 @@ ar:
         generate_api_key: طلب مفتاح واجهة برمجة التطبيقات
         generate_api_key_more: إذا كنت ترغب في استخدام واجهة برمجة التطبيقات الخاصة بموسوعة الحياة، يمكنك توليد مقتاح واجهة التطبيقات لتحديد طلبك. إقرأ المزيد عن <a href='%{api_docs_url}'>إضافة مفتاح إلى واجهة برمجة التطبيقات</a> .
         logo: رفع صورة جديدة
-        mailing_list: أرغب في تلقي نشرة التحديثات عن طريق البريد الإلكتروني.
-        mailing_list_yes: نعم
         new_password: كلمة سر جديدة <small>(4-16 حرف)</small>
         new_password_confirmation: كلمة سر جديدة <small>(للتأكيد)</small>
         requested_curator_level: إن طلبك لتصبح %{curator_level_with_indefinite_article} معلق.
@@ -1479,9 +1403,6 @@ ar:
         create: أضف مقال
         create_text: أضف مقال
         update: حفظ المقال
-      eol_statistic: 
-        download_csv: تحميل بصيغة (CSV)
-      filter_sort: تنقية وترتيب
       harvest_event: 
         publish: انشر
       hierarchy: 
@@ -1938,11 +1859,13 @@ ar:
     user_message: 
       subject: رسالة من موسوعة الحياة
     user_reset_password: 
+      message: "تلقت موسوعة الحياة (www.eol.org) طلب لإعادة ضبط كلمة السر الخاصة بك. إذا كنت لم تقم بتقديم ذلك الطلب، يرجى تجاهل هذه الرسالة.\n\nسوف يقدم لك الرابط التالي فرصة واحدة لإعادة ضبط كلمة السر:\n\n%{password_reset_url}\n\nأتبع ذلك الرابط (\"أنقر\" على الرابط أو أنسخه وألصقه في شريط العناوين بالمتصفح وقم بتحميله) لتصل إلى الصفحة حيث يمكنك أن تدخل كلمة سر جديدة. يرجى الانتباه إلى أنه في حال انتهاء مدة صلاحية الرابط، سوف يطلب منك إدخال اسم المستخدم أو البريد الإلكتروني مرة أخرى لتتلقى رسالة أخرى لإعادة ضبط كلمة السر تتضمن رابط جديد."
       subject: إعادة ضبط كلمة السر الخاصة بحسابك بموسوعة الحياة
     user_updated_email_preferences: 
       message: "هذا نظام إشعار آلي من موسوعة الحياة. قام المستخدم %{user_full_name} (%{user_profile_url}) بتحديث بريده الإلكتروني أو قائمة تفضيلات المراسلة. \n\nالتفضيلات السابقة: \nالبريد الإلكتروني: %{previous_email}\n\nقائمة تفضيلات المراسلة: %{previous_mailing_list_preference}\n\nتم التحديث إلى: \nالبريد الإلكتروني: %{updated_email}\nقائمة تفضيلات المراسلة: %{updated_mailing_list_preference}\nالتحديث: %{updated_at}"
       subject: قام مستخدم موسوعة الحياة %{user_full_name} بتغيير العنوان الإلكتروني أو تفضيلات قائمة المراسلة
     user_verification: 
+      message: "شكرًا للتسجيل بموسوعة الحياة. سوف يؤكد الرابط التالي رغبتك في إتمام عملية التسجيل:\n\n%{verification_url}\n\nأتبع ذلك الرابط (\"أنقر\" على الرابط أو أنسخه وألصقه في شريط العناوين بالمتصفح وقم بتحميله) لتفعيل حسابك. حالما يتم تفعيل حسابك، سوف تتلقى رسالة تأكيد عبر البريد الإلكتروني."
       subject: يرجى تأكيد طلب إنشاء حساب بموسوعة الحياة
   nucleotide_sequences: تسلسلات النيوكليوتيدات
   nucleotide_sequences_ncbi_database: تضم قاعدة بيانات  <a href="%{ncbi_taxonomy_link}"> المركز الوطني لمعلومات التكنولوجيا الحيوية NCBI Taxonomy </a>  اسماء جميع الكائنات الحية الممثلة في قواعد البيانات الوراثية عن طريق تسلسل نيوكليوتيدات أو بروتينات واحد على الأقل.

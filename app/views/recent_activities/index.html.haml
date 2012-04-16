@@ -1,28 +1,28 @@
 - content_for :social_sharing do
   = render :partial => 'shared/social_sharing'
-#profile_activity.main_container
-  .article.list.updates
-    .heading
-      %h3= I18n.t(:member_activity)
-      - form_tag({}, :class => 'filter', :method => :get) do
-        %fieldset
-          %dl
-            %dt
-              = label_tag :sort_by, I18n.t(:sort_by_label)
-            %dd
-              = select_tag :sort, options_for_select([ [I18n.t(:sort_by_newest_option), 'date_created+desc'],
-                [I18n.t(:sort_by_oldest_option), 'date_created+asc'],
-                ], @sort)
-            %dt
-              = label_tag :filter_by, I18n.t(:show)
-            %dd
-              = select_tag :filter, options_for_select([ [I18n.t(:all_title), 'all'],
-                [I18n.t(:comments_filter), 'comments'],
-                [I18n.t(:user_activity_stats_objects_curated_dropdown), 'data_object_curation'],
-                [I18n.t(:user_activity_stats_articles_added_dropdown), 'added_data_objects'],
-                [I18n.t(:collections_filter), 'collections'],
-                [I18n.t(:communities_filter), 'communities'] ], @filter)
-        %fieldset.actions
-          = submit_tag I18n.t(:filter_button)
-    = render :partial => 'activity_logs/index', :locals => {:log => @log, :actual_date => true, :display_curator => true}
-
+#content
+  .site_column
+    #recent_activities.main_container
+      .article.list.updates
+        .heading
+          %h3= t(".list_header")
+          - form_tag({}, :class => 'filter', :method => :get) do
+            %fieldset
+              %dl
+                %dt
+                  = label_tag :sort_by, I18n.t(:sort_by_label)
+                %dd
+                  = select_tag :sort, options_for_select([ [I18n.t(:sort_by_newest_option), 'date_created+desc'],
+                    [I18n.t(:sort_by_oldest_option), 'date_created+asc'] ], @sort)
+                %dt
+                  = label_tag :filter_by, I18n.t(:show)
+                %dd
+                  = select_tag :filter, options_for_select([ [I18n.t(:all_title), 'all'],
+                    [I18n.t(:comments_filter), 'comments'],
+                    [I18n.t(:user_activity_stats_objects_curated_dropdown), 'data_object_curation'],
+                    [I18n.t(:user_activity_stats_articles_added_dropdown), 'added_data_objects'],
+                    [I18n.t(:collections_filter), 'collections'],
+                    [I18n.t(:communities_filter), 'communities'] ], @filter)
+            %fieldset.actions
+              = submit_tag I18n.t(:filter_button)
+        = render :partial => 'activity_logs/index', :locals => {:log => @log, :actual_date => true, :display_curator => true}

@@ -46,6 +46,10 @@ class UsersDataObject < ActiveRecord::Base
     @name ||= taxon_concept.quick_scientific_name
   end
 
+  def can_be_deleted_by?(requestor)
+    false # TODO - do we really want: user == requestor   ? ...seems so, but wasn't speced that way.
+  end
+
 private
 
   # DataObject#create_user_text and #replicate count on this working, so if you change this, check those!

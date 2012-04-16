@@ -255,73 +255,9 @@ sr:
     models: 
       user: налог
   activity: Активност
-  activity_choose_exemplar: <strong>%{user}</strong> постави слику као пример „%{object_name}“.
-  activity_hid_with_reasons_colon: "разлог за скривање: %{reasons}"
   activity_log_empty: Још нико није пружио доградње.
   activity_log_empty_learn_more_link: Сазнајте како да допринесете
-  activity_untrusted_with_reasons_colon: "разлог за неповерљивост: %{reasons}"
-  activity_user_added_association: <strong>%{user}</strong> је додао везу с објектом „%{object_name}“.
-  activity_user_added_collection_to_community: <strong>%{user}</strong> је додао збирку „%{collection}“ у заједницу „%{community}“.
-  activity_user_added_common_name: <strong>%{user}</strong> је додао %{language} тривијалан назив „%{name}“ на непознати објекат.
-  activity_user_added_common_name_to_taxon: <strong>%{user}</strong> је додао %{language} тривијалан назив „%{name}“ у „%{taxon}“.
-  activity_user_added_community_manager: <strong>%{user}</strong> постави корисника %{manager} за руководиоца заједнице „%{community}“.
-  activity_user_added_named_association: <strong>%{user}</strong> је додао везу између „%{object_name}“ и „%{name}“.
-  activity_user_added_unknown_association: <strong>%{user}</strong> је додао везу за непознати објекат.
-  activity_user_added_unknown_name: <strong>%{user}</strong> додате непознати тривијалан назив за непознати објекат.
-  activity_user_added_unknown_name_to_taxon: <strong>%{user}</strong> је додао тривијалан назив на таксон „%{taxon}“.
-  activity_user_changed_community_description: <strong>%{user}</strong> измени опис заједнице „%{community}“.
-  activity_user_changed_community_icon: <strong>%{user}</strong> промени логотип заједнице „%{community}“.
-  activity_user_changed_community_name: <strong>%{user}</strong> промени назив заједнице „%{community}“.
-  activity_user_created_community: <strong>%{user}</strong> направи заједницу „%{community}“.
   activity_user_created_text: <strong>%{user}</strong> је додао текст у „%{object_name}“ на „%{taxon_concept}“.
-  activity_user_curated_an_unknown_object: <strong>%{user}</strong> постаде кустос за непознати објекат.
-  activity_user_deleted_community: <strong>%{user}</strong> је обрисао заједницу „%{community}“.
-  activity_user_hid_data_object: <strong>%{user}</strong> означи објекат „%{object_name}“ као сакривен.
-  activity_user_hid_named_association: <strong>%{user}</strong> означи везу између „%{object_name}“ и „%{name}“ као скривену.
-  activity_user_hid_unknown_object: <strong>%{user}</strong> означи непознати објекат као сакривен.
-  activity_user_hid_unknown_object_association: <strong>%{user}</strong> означи везу између непознатог објекта и „%{name}“ као скривену.
-  activity_user_inappropriate_common_name: <strong>%{user}</strong> означи тривијалан назив на %{language} „%{name}“ из непознатог објекта као неприкладан.
-  activity_user_inappropriate_common_name_from_taxon: <strong>%{user}</strong> означи тривијалан назив на %{language} „%{name}“ из таксона „%{taxon}“ као неприкладан.
-  activity_user_inappropriate_unknown_name: <strong>%{user}</strong> означи непознати тривијалан назив из непознатог таксона као неприкладан.
-  activity_user_inappropriate_unknown_name_to_taxon: <strong>%{user}</strong> означи тривијалан назив из таксона „%{taxon}“ као неприкладан.
-  activity_user_joined_community: <strong>%{user}</strong> се придружи заједници „%{community}“.
-  activity_user_marked_content_as_inappropriate: <strong>%{user}</strong> означи садржај као неприкладан.
-  activity_user_modified_community: <strong>%{user}</strong> измени заједницу „%{community}“.
-  activity_user_rated_data_object: <strong>%{user}</strong> оцени објекат „%{object_name}“.
-  activity_user_rated_unknown_object: <strong>%{user}</strong> оцени непознати објекат.
-  activity_user_removed_association: <strong>%{user}</strong> уклони везу с објектом „%{object_name}“.
-  activity_user_removed_named_association: <strong>%{user}</strong> уклони везу између „%{object_name}“ и „%{name}“.
-  activity_user_removed_unknown_association: <strong>%{user}</strong> уклони везу с непознатим објектом.
-  activity_user_removed_unknown_name: <strong>%{user}</strong> уклони непознати тривијалан назив из непознатог објекта.
-  activity_user_removed_unknown_name_to_taxon: <strong>%{user}</strong> уклони тривијалан назив из таксона „%{taxon}“.
-  activity_user_showed_data_object: <strong>%{user}</strong> означи објекат „%{object_name}“ као видљив.
-  activity_user_showed_named_association: <strong>%{user}</strong> означи везу између „%{object_name}“ и „%{name}“ као видљиву.
-  activity_user_showed_unknown_object: <strong>%{user}</strong> означи непознати објекат као видљив.
-  activity_user_showed_unknown_object_association: <strong>%{user}</strong> означи везу између непознатог објекта и „%{name}“ као видљиву.
-  activity_user_trust_common_name: <strong>%{user}</strong> означи тривијалан назив на %{language} „%{name}“ из непознатог објекта као поверљив.
-  activity_user_trust_common_name_from_taxon: <strong>%{user}</strong> означи тривијалан назив на %{language} „%{name}“ из „%{taxon}“ као поверљив.
-  activity_user_trust_unknown_name: <strong>%{user}</strong> означи непознати тривијалан назив из непознатог таксона као поверљив.
-  activity_user_trust_unknown_name_to_taxon: <strong>%{user}</strong> означи тривијалан назив из таксона „%{taxon}“ као поверљив.
-  activity_user_trusted_data_object: <strong>%{user}</strong> означи објекат „%{object_name}“ као поверљив.
-  activity_user_trusted_named_association: <strong>%{user}</strong> означи везу између „%{object_name}“ и „%{name}“ као поверљиву.
-  activity_user_trusted_unknown_object: <strong>%{user}</strong> означи непознати објекат као поверљив.
-  activity_user_trusted_unknown_object_association: <strong>%{user}</strong> означи везу између непознатог објекта и „%{name}“ као поверљиву.
-  activity_user_unreview_common_name: <strong>%{user}</strong> означи тривијалан назив на %{language} „%{name}“ из непознатог објекта као непроверен.
-  activity_user_unreview_common_name_from_taxon: <strong>%{user}</strong> означи тривијалан назив на %{language} „%{name}“ из таксона „%{taxon}“ као непроверен.
-  activity_user_unreview_unknown_name: <strong>%{user}</strong> означи непознати тривијалан назив из непознатог таксона као непроверен.
-  activity_user_unreview_unknown_name_to_taxon: <strong>%{user}</strong> означи тривијалан назив из таксона „%{taxon}“ као непроверен.
-  activity_user_unreviewed_data_object: <strong>%{user}</strong> означи објекат „%{object_name}“ као непрегледан.
-  activity_user_unreviewed_named_association: <strong>%{user}</strong> означи везу између „%{object_name}“ и „%{name}“ као непроверену.
-  activity_user_unreviewed_unknown_object: <strong>%{user}</strong> означи непознати објекат као непрегледан.
-  activity_user_unreviewed_unknown_object_association: <strong>%{user}</strong> означи везу између непознатог објекта и „%{name}“ као непроверену.
-  activity_user_untrust_common_name: <strong>%{user}</strong> означи тривијалан назив на %{language} „%{name}“ из непознатог објекта као неповерљив.
-  activity_user_untrust_common_name_from_taxon: <strong>%{user}</strong> означи тривијалан назив на %{language} „%{name}“ из таксона „%{taxon}“ као неповерљив.
-  activity_user_untrust_unknown_name: <strong>%{user}</strong> означи непознати тривијалан назив из непознатог таксона као неповерљив.
-  activity_user_untrust_unknown_name_to_taxon: <strong>%{user}</strong> означи тривијалан назив из таксона „%{taxon}“ као неповерљив.
-  activity_user_untrusted_data_object: <strong>%{user}</strong> означи објекат „%{object_name}“ као неповерљив.
-  activity_user_untrusted_named_association: <strong>%{user}</strong> означи везу између „%{object_name}“ и „%{name}“ као неповерљиву.
-  activity_user_untrusted_unknown_object: <strong>%{user}</strong> означи непознати објекат као неповерљив.
-  activity_user_untrusted_unknown_object_association: <strong>%{user}</strong> означи везу између непознатог објекта и „%{name}“ као неповерљиву.
   activity_user_updated_text: <strong>%{user}</strong> измени текст објекта „%{object_name}“ на „%{taxon_concept}“.
   add: Додај
   add_a_collection_to_a_community: Додај збирку „%{collection}“ у заједницу
@@ -1435,8 +1371,6 @@ sr:
         generate_api_key: Захтевање АПИ кључа
         generate_api_key_more: Ако сте заинтересовани да користите додатак АПИ за EOL, можете створити АПИ кључ за препознавање вашег програма. Прочитајте више о <a href="%{api_docs_url}">додавању кључа на АПИ позиве</a>.
         logo: Отпреми нову слику
-        mailing_list: Желите ли да примате е-обавештења?
-        mailing_list_yes: Да
         new_password: Нова лозинка <small>(4-16 знакова)</small>
         new_password_confirmation: Потврда нове лозинке
         requested_curator_level: Ваш захтев да постанете %{curator_level_with_indefinite_article} чека на проверу.
@@ -1474,9 +1408,6 @@ sr:
         create: Додај чланак
         create_text: Додај чланак
         update: Сачувај чланак
-      eol_statistic: 
-        download_csv: Преузми као CSV
-      filter_sort: Филтрирај и поређај
       harvest_event: 
         publish: Објави
       hierarchy: 
@@ -1933,11 +1864,13 @@ sr:
     user_message: 
       subject: Порука од Енциклопедије живота
     user_reset_password: 
+      message: "Енциклопедија живота (www.eol.org) је примила захтев за обнављање ваше лозинке. Ако нисте поднели овај захтев, занемарите ову поруку.\n\nСледећа веза вам даје једнократну прилику за поставите нову лозинку:\n\n%{password_reset_url}\n\nПратите ову везу (кликните на њу или је умножите у навигациону траку вашег прегледача) да дођете до странице на којој можете да промените лозинку. Имајте на уму да, ако је веза истекла, тада ћете морати поново да унесете корисничко име или е-адресу како бисте добили нову поруку за промену лозинке и нову везу."
       subject: Обнављање лозинке за налог на Енциклопедији живота
     user_updated_email_preferences: 
       message: "Ово је системско самообавештење. %{user_full_name} (%{user_profile_url}) промени своју е-адресу или поставке за дописну листу.\n\nПретходне поставке:\nЕ-адреса: %{previous_email}\nПоставка дописне листе: %{previous_mailing_list_preference}\n\nАжуриране поставке:\nЕ-адреса: %{updated_email}\nПоставка дописне листе: %{updated_mailing_list_preference}\nАжурирано: %{updated_at}"
       subject: "%{user_full_name} промени своју е-адресу или поставке за дописну листу"
     user_verification: 
+      message: "Хвала вам што сте отворили налог на Енциклопедији живота. Следећа веза служи да бисте потврдили упис:\n\n%{verification_url}\n\nПратите ову везу (кликните на њу или је умножите у навигациону траку на свом прегледачу) да бисте активирали налог. Потом ћете добити потврдну поруку да је ваш налог заиста активиран."
       subject: Потврдите ваш захтев за налог на Енциклопедији живота
   nucleotide_sequences: Нуклеотидне секвенце
   nucleotide_sequences_ncbi_database: База <a href="%{ncbi_taxonomy_link}">таксономије NCBI-ја</a> садржи називе свих организама који су заступљени у генетској бази с најмање једном нуклеотидном или протеинском секвенцом.
@@ -2353,6 +2286,7 @@ sr:
           meta_title: Кустоси %{scientific_name} према класификацији %{hierarchy_provider}
           meta_title_with_common_name: Стручњаци %{preferred_common_name} (%{scientific_name} према класификацији %{hierarchy_provider})
           tweet_text: Кустоси %{scientific_name} према класификацији %{hierarchy_provider}
+        meta_description_with_common_name: Стручњаци %{preferred_common_name} који надгледају податке за %{preferred_common_name} (%{scientific_name}).
         meta_keywords: Стручњаци за %{scientific_name}, кустоси %{scientific_name}
         meta_keywords_with_common_name: Стручњаци за %{preferred_common_name}, кустоси %{preferred_common_name}, стручњаци за %{scientific_name}, кустоси %{scientific_name}
         meta_title: Кустоси %{scientific_name}

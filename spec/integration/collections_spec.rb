@@ -108,7 +108,7 @@ describe "Collections and collecting:" do
     it 'should be able to copy collection items to one of their existing collections' do
       visit collection_path(@collection, :commit_select_all => true) # Select all button is JS, fake it.
       click_button 'Copy selected'
-      body.should have_tag('#collections') do
+      body.should have_tag('#collection') do
         with_tag('input[value=?]', @user.watch_collection.name)
       end
     end
@@ -116,7 +116,7 @@ describe "Collections and collecting:" do
     it 'should be able to copy collection items to a new collection' do
       visit collection_path(@collection, :commit_select_all => true) # Select all button is JS, fake it.
       click_button 'Copy selected'
-      body.should have_tag('#collections') do
+      body.should have_tag('#collection') do
         with_tag('form.new_collection')
       end
     end

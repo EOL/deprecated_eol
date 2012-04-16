@@ -744,6 +744,7 @@ en:
       meta_description: "The Encyclopedia of Life is an unprecedented effort to gather scientific knowledge about all animal and plant life where pictures, information, facts, and more are available for all things living in our plant and animal kingdoms."
       meta_keywords: "Animals, Animal Pictures, Animal Information, Plants, Plant Life, Plant Pictures, Plant Information, Flora, Fauna"
       meta_title: "Animals - Plants - Pictures & Information"
+      see_all_recent_activites: "see more <span class=\"assistive\">activities in the last week</span>"
   content_partners:
     statistics:
       show:
@@ -839,14 +840,16 @@ en:
       message: "Thanks for registering with the Encyclopedia of Life. The following link will verify that you wish to complete your registration and activate your account:\n\n%{verification_url}\n\nOnce your account has been activated you will receive a confirmation email message."
   recent_activity:
     intro: "Here is your EOL activity digest for %{time}"
+    intro_immediately: "Hello, %{name} —"
+    intro_weekly: "Here is your EOL activity digest for the week ending %{ending}"
     unsubscribe: "Change your email settings or unsubscribe at <a href='%{email_prefs_url}' style='color:#195184'>your notification preferences page</a>."
     see_all_activity: "See all previous activity at <a href='%{activity_url}' style='color:#195184'>your user newsfeed page</a>."
     bulk_comments_with_count:
       one: "There is a new comment on %{on}"
       other: "There are %{count} new comments on %{on}"
     bulk_comments_on_you_with_count:
-      one: "There is a new comment on your profile"
-      other: "There are %{count} new comments on your profile"
+      one: "There is a new comment on <a href='%{url}' style='color:#195184'>your profile</a>"
+      other: "There are %{count} new comments on <a href='%{url}' style='color:#195184'>your profile</a>"
     bulk_curation_with_count:
       one: "Curators made an improvement to %{to}"
       other: "Curators made %{count} improvements to %{to}"
@@ -879,6 +882,12 @@ en:
     curator_activity_on_data_object_by_user: "<b>%{user_name}</b> performed a %{activity_name} action on <b>%{dato_title}</b> (%{dato_type} #%{dato_id})."
     curator_activity_on_taxon_concept_by_user: "<b>%{user_name}</b> performed a %{activity_name} action on <b>%{taxon_concept}</b> (%{taxon_overview_url})."
     data_object_activity_article_added_by_user: "<b>%{user_name}</b> added an article called %{dato_title} to <b>%{taxon_concept}</b> (%{taxon_details_url})."
+  recent_activities:
+    index:
+      list_header: "Last 7 Days"
+      page_title: "EOL Community Activity"
+      meta_title: "EOL Community Activity"
+      meta_keywords: "eol community activity, eol recent activity, encyclopedia of life activities"
   sessions:
     new:
       meta_title: "Login"
@@ -1217,6 +1226,13 @@ en:
         meta_keywords: ""
         meta_title: "%{user_full_name} Newsfeed"
         tweet_text: "%{user_full_name} newsfeed"
+      comments:
+        meta_description: "Comments feed for %{user_full_name}."
+        meta_title: "%{user_full_name} Comments Feed"
+        tweet_text: "%{user_full_name} comments feed"
+      activity:
+        meta_title: "%{user_full_name} Activity Feed"
+        tweet_text: "%{user_full_name} activity feed"
     notifications:
       edit:
         page_description: "All of the updates listed below (except for the EOL newsletter) are available to you in your <a href=\"%{user_newsfeed_link}\">EOL newsfeed</a>, but many people would also like to be alerted by email about certain kinds of activities they find particularly interesting. You can use the buttons below to set the frequency of EOL emails to suit your preferences"
@@ -1528,7 +1544,7 @@ en:
         user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: "<strong>%{user}</strong> set an unknown exemplar image."
         user_chose_exemplar_an_unknown_data_object_on_taxon: "<strong>%{user}</strong> set an unknown data object as an exemplar on \"%{taxon}\"."
         user_chose_exemplar_data_object_on_an_unknown_taxon: "<strong>%{user}</strong> set \"%{data_object}\" as an exemplar on an unknown page."
-        user_chose_exemplar_data_object_on_taxon: "<strong>%{user}</strong> set it as an exemplar on \"%{taxon}\"."
+        user_chose_exemplar_data_object_on_taxon: "<strong>%{user}</strong> set \"%{data_object}\" as an exemplar on \"%{taxon}\"."
         an_unknown_user_chose_exemplar_it_on_an_unknown_taxon: "An unknown user set it as an exemplar on an unknown page."
         an_unknown_user_chose_exemplar_it_on_taxon: "An unknown user set it as an exemplar on \"%{taxon}\"."
         user_chose_exemplar_it_on_an_unknown_taxon: "<strong>%{user}</strong> set it as an exemplar on an unknown page."
@@ -1561,7 +1577,7 @@ en:
         user_trusted_an_unknown_name_on_an_unknown_taxon: "<strong>%{user}</strong> marked an unknown common name from an unknown page as trusted."
         user_trusted_an_unknown_name_on_taxon: "<strong>%{user}</strong> marked an unknown common name from \"%{taxon}\" as trusted."
         user_trusted_name_on_an_unknown_taxon: "<strong>%{user}</strong> marked the common name \"%{name}\" from an unknown page as trusted."
-        user_trusted_name_on_taxon: "<strong>%{user}</strong> marked the common name \"%{name}\"."
+        user_trusted_name_on_taxon: "<strong>%{user}</strong> marked the common name \"%{name}\" from \"%{taxon}\" as trusted."
         an_unknown_user_trusted_an_unknown_name_on_it: "An unknown user marked an unknown common name as trusted."
         an_unknown_user_trusted_name_on_it: "An unknown user marked the common name \"%{name}\" as trusted."
         user_trusted_an_unknown_name_on_it: "<strong>%{user}</strong> marked an unknown common name as trusted."
@@ -2349,8 +2365,6 @@ en:
     one: "%{count} Featured collection"
     other: "%{count} Featured collections"
   enter_in_a_search_term_users_a: "Enter in a search term users are searching for and then the resulting taxon/page ID they should be directed to as a suggestion for that search.  The taxon/page ID is found in the URL of the page you wish to direct them to (e.g. www.eol.org/pages/5 has a taxon/page ID of 5).  The page name and the first image will be collected if available and stored with the result."
-  eol_activities: "eol_activities"
-  eol_activity: "eol activity"
   eol_administration_console: "EOL Administration Console"
   eol_api_data_objects: "EOL API: Data Objects"
   eol_api_colon: "EOL API:"
@@ -2364,14 +2378,10 @@ en:
   eol_api_search: "EOL API: Search"
   eol_api_collections: "EOL API: Collections"
   eol_colon: "EOL:"
-  eol_community_activity: "eol community activity"
   eol_flickr_group: "EOL Flickr Group"
   eol_glossary: "EOL Glossary"
-  eol_member_activity: "eol member activity"
   eol_news: "EOL News"
   eol_pages: "Pages"
-  eol_recent_member_activities: "eol_recent_member_activities"
-  eol_recent_activity: "eol_recent_activity"
   error_log_detail: "Error Log Detail"
   error_log: "Error Log"
   error_logging_active: "Error Logging Active"
@@ -2415,6 +2425,12 @@ en:
   fill_in_a_message_below_to_send_email_to_user: "Fill in a message below to send an email to this user from the site.  The message will be sent when you submit the form:"
   filter_button: "Filter"
   filter_by_day: "Filter by day"
+  filter_by_status_all_option: "All statuses"
+  filter_by_status_trusted_option: "Trusted"
+  filter_by_status_unreviewed_option: "Unreviewed"
+  filter_by_status_untrusted_option: "Untrusted"
+  filter_by_status_inappropriate_option: "Inappropriate"
+  filter_by_status: "Filter by status"
   filter_by_type: "Filter by type"
   filter_by_type_all_option: "All types"
   filter_by_type_all_option_with_count:
@@ -2443,12 +2459,6 @@ en:
   filter_by_type_object_curated_option: "Objects curated"
   filter_by_type_name_option: "Names"
   filter_by_type_taxa_comment_option: "Taxa comments"
-  filter_by_status_all_option: "All statuses"
-  filter_by_status_trusted_option: "Trusted"
-  filter_by_status_unreviewed_option: "Unreviewed"
-  filter_by_status_untrusted_option: "Untrusted"
-  filter_by_status_inappropriate_option: "Inappropriate"
-  filter_by_status: "Filter by status"
   filtered_information: "Filtered information"
   filter_newsfeed_option_all: "All"
   filter_newsfeed_option_messages: "Comments"
@@ -3014,7 +3024,6 @@ en:
   rating_not_added_error: "Sorry, an error occurred, the rating could not be added."
   recaptcha: "Type in the two words you see below"
   recaptcha_incorrect_error_with_anchor: 'The <a href="#%{recaptcha_anchor}">reCaptcha characters</a> did not match, please try again.'
-  recent_eol_member_activity: "Recent EOL Member Activity"
   recent_updates: "Latest updates"
   recently_visited: "Recently visited"
   recipients: "Recipients"
@@ -3114,7 +3123,6 @@ en:
   see_all_editors_with_count:
     one: "See the %{count} manager"
     other: "See all %{count} managers"
-  see_more: "See more"
   see_notes: "see notes"
   select_a_hierarchy_around_whic: "Select a hierarchy around which to organize content summaries:"
   select_an_item_from_the_menu: "Select an Item from the Menu"
@@ -3178,6 +3186,8 @@ en:
   sort_order: "Sort Order"
   sort_by: "Sort by"
   sort_field: "Sort Field:"
+  sorry_no_collections_are_available_to_share: "Sorry, no collections are available to share with this community."
+  sorry_no_communities_are_available_to_share: "Sorry, no communities are available to share this collection with."
   sound_file: "Sound File"
   sound_from: "sound from"
   sound_object: "Sound object"
@@ -3665,4 +3675,3 @@ en:
   contact_us_request_received: "Contact us request received"
   references_cabs_colon: "References:"
   annotation_cabs_colon: "Annotation:"
-  member_activity: "Recent Member Activities in Last 7 Days"

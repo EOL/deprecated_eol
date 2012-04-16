@@ -5,7 +5,6 @@ class RecentActivityMailer < ActionMailer::Base
   layout "v2/email"
 
   def recent_activity(user, notes, fqz) # :immediately, :daily, :weekly are the only values allowed.
-  def recent_activity(user, notes)
     @user = user # for the layout
     supress_activity_email = SiteConfigurationOption.find_by_parameter('supress_activity_email').value rescue nil
     puts "++ #{supress_activity_email}"

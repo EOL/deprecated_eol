@@ -54,7 +54,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   validate :ensure_unique_username_against_master
 
-  validates_presence_of :curator_verdict_by, :if => Proc.new { |obj| !obj.curator_verdict_at.blank? }
   validates_presence_of :curator_verdict_at, :if => Proc.new { |obj| !obj.curator_verdict_by.blank? }
   validates_presence_of :credentials, :if => :curator_attributes_required?
   validates_presence_of :curator_scope, :if => :curator_attributes_required?

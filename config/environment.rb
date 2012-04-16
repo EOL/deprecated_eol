@@ -226,7 +226,7 @@ Rails::Initializer.run do |config|
   $HOMEPAGE_MARCH_RICHNESS_THRESHOLD = 0.5
 
   APPLICATION_DEFAULT_LANGUAGE_ISO = 'en'
-  APPROVED_LANGUAGES = ['en', 'es', 'ar', 'fr', 'gl', 'sr-EC', 'sr-el', 'de', 'mk']
+  APPROVED_LANGUAGES = ['en', 'es', 'ar', 'fr', 'gl', 'sr', 'sr-CS', 'de', 'mk']
 
   # for those class that are using CACHE_ALL_ROWS, when the row is looked up in memcached, retain that value
   # in an array in a class variable. That way future lookups will read from local memory and will not require

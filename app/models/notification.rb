@@ -51,7 +51,7 @@ class Notification < ActiveRecord::Base
     end
     begin
       Resque.enqueue(PrepareAndSendNotifications) unless notification_queue.empty?
-    rescue Errno::ECONNREFUSED
+    rescue
       # Nothing really needed, here, I suppose.  The message will eventually get queued when the connection's back.
     end
     notification_queue

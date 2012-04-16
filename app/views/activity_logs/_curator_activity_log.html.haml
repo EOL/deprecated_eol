@@ -28,11 +28,16 @@
 - else
   - translation_vars[:language] = item.synonym.language.label
 - association_type = 'association'
-- if item.hierarchy_entry.nil? || item.hierarchy_entry.name.nil?
+- if (item.hierarchy_entry.nil? || item.hierarchy_entry.name.nil?) && !item.data_object.added_by_user?
   - association_type = 'an_unknown_association'
 - else
-  - translation_vars[:association] = link_to(h(item.hierarchy_entry.name.string),
-    taxon_url(item.hierarchy_entry.taxon_concept), :style => link_style)
+  - if !item.hierarchy_entry_id.nil?
+    - translation_vars[:association] = link_to(h(item.hierarchy_entry.name.string),
+      taxon_url(item.hierarchy_entry.taxon_concept), :style => link_style)
+  - else
+    - debugger
+    - translation_vars[:association] = link_to(h(item.taxon_concept.title),
+      taxon_url(item.taxon_concept), :style => link_style)
 - name_type = 'name'
 - if item.synonym.nil? || ! item.synonym.respond_to?(:name)
   - name_type = 'an_unknown_name'

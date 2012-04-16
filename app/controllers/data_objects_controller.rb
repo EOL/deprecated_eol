@@ -525,7 +525,9 @@ private
       :hierarchy_entry => he,
       :created_at => 0.seconds.from_now
     }
-    create_options[:taxon_concept_id] = opts[:taxon_concept_id] if opts[:taxon_concept_id]
+    if object.class.name == "UsersDataObject"
+      create_options.merge!(:taxon_concept_id => object.taxon_concept_id)
+    end
     CuratorActivityLog.create(create_options)
   end
 

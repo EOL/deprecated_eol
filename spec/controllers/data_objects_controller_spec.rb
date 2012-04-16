@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 def data_object_create_edit_variables_should_be_assigned
   assigns[:data_object].should be_a(DataObject)
   assigns[:toc_items].first.should be_a(TocItem)
-  assigns[:toc_items].select{|ti| ti == assigns[:selected_toc_item]}.first.should be_a(TocItem)
+  assigns[:toc_items].select{|ti| ti.id == assigns[:selected_toc_item_id]}.first.should be_a(TocItem)
   assigns[:languages].first.should be_a(Language)
   assigns[:licenses].first.should be_a(License)
   assigns[:page_title].should be_a(String)

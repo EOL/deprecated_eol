@@ -72,6 +72,8 @@ class DataObject < ActiveRecord::Base
   named_scope :preview, lambda { { :conditions => { :visibility_id => Visibility.preview.id } }}
 
   validates_presence_of :description, :if => :is_text?
+  validates_presence_of :rights_holder, :if => :rights_required?
+  validates_inclusion_of :rights_holder, :in => '', :unless => :rights_required?
   validates_length_of :rights_statement, :maximum => 300
 
   before_validation :default_values
@@ -233,7 +235,7 @@ class DataObject < ActiveRecord::Base
   end
 
   def self.create_user_text(params, options)
-    dato = DataObject.new(params.reverse_merge!(:rights_holder => options[:user].full_name, :published => true))
+    dato = DataObject.new(params.reverse_merge!(:published => true))
     if dato.save
       dato.toc_items = TocItem.find(options[:toc_id])
       dato.build_relationship_to_taxon_concept_by_user(options[:taxon_concept], options[:user])
@@ -1093,6 +1095,10 @@ private
     self.rights_statement       = ERB::Util.h(self.rights_statement)
     self.bibliographic_citation = ERB::Util.h(self.bibliographic_citation)
     self.source_url             = ERB::Util.h(self.source_url)
+  end
+  
+  def rights_required?
+    ! license.is_public_domain?
   end
 
 end

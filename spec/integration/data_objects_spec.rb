@@ -401,6 +401,7 @@ describe 'Data Object Page' do
       fill_in 'data_object_object_title', :with => "Unicorns"
       fill_in 'data_object_description', :with => "Unicorn is an imaginary animal."
       fill_in 'references', :with => "Wikipedia"
+      select "public domain", :from => "data_object_license_id"
       click_button "data_object_submit"
       dato_id = DataObject.last.id
       body.should have_tag("#data_object_#{dato_id}") do
@@ -425,6 +426,7 @@ describe 'Data Object Page' do
       fill_in 'data_object_object_title', :with => "Unicorns"
       fill_in 'data_object_description', :with => "Unicorn is an imaginary animal."
       fill_in 'references', :with => "Wikipedia"
+      select "public domain", :from => "data_object_license_id"
       click_button "data_object_submit"
       dato_id = DataObject.last.id
       body.should have_tag("#data_object_#{dato_id}") do
@@ -439,18 +441,16 @@ describe 'Data Object Page' do
   end
   
   it "should not show copyright symbol for public domain objects" do
+    @image.license = License.public_domain
+    @image.rights_holder = ""
+    @image.save
+    visit("/data_objects/#{@image.id}")
+    body.should_not match('&copy;')
+    @image.license = License.cc
     @image.rights_holder = "Someone"
     @image.save
     visit("/data_objects/#{@image.id}")
     body.should match('&copy;')
-    
-    original_license = @image.license
-    @image.license = License.public_domain
-    @image.save
-    visit("/data_objects/#{@image.id}")
-    body.should_not match('&copy;')
-    @image.license = original_license
-    @image.save
   end
   
   it "should link agents to their homepage, and add http if the link does not include it" do

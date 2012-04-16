@@ -1796,17 +1796,20 @@ ul.content_partner_contacts
     float: left
     dl
       margin: 0
+    input[type="text"]
+      +input
+    textarea
+      width: 580px
+      height: 200px
+      &#data_object_description
+        height: 300px
     &.content + fieldset
       width: 300px
       input[type="text"]
         width: 288px
       textarea
         width: 282px
-    input[type="text"]
-      +input
-    textarea
-      width: 580px
-      height: 200px
+        height: 100px
     &.actions
       clear: both
       width: 100%

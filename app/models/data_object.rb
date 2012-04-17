@@ -116,7 +116,7 @@ class DataObject < ActiveRecord::Base
       visibility_view_order = 2
       visibility_view_order = 1 if obj_visibility && obj_visibility.id == Visibility.preview.id
       visibility_view_order = 0 if obj_visibility.blank?
-      inverted_rating = obj.data_rating * -1
+      inverted_rating = obj.data_rating * -1 # Is this throwing an ArgumentError?  Restart your worker(s)!
       inverted_id = obj.id * -1
       sort = []
       sort_order.each do |item|

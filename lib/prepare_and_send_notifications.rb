@@ -6,18 +6,21 @@ class PrepareAndSendNotifications
   @queue = :notifications
 
   def self.perform
-    count = PendingNotification.send_notifications(:immediately)
+    puts "++ PrepareAndSendNotifications performing."
+    PendingNotification.send_notifications(:immediately)
     
     if (NotificationEmailerSettings.last_daily_emails_sent + 24.hours) < Time.now
-      count += PendingNotification.send_notifications(:daily)
+      puts "++ Sending daily mail."
+      PendingNotification.send_notifications(:daily)
       NotificationEmailerSettings.last_daily_emails_sent = Time.now
     end
     
     if (NotificationEmailerSettings.last_weekly_emails_sent + 1.week) < Time.now
-      count += PendingNotification.send_notifications(:weekly)
+      puts "++ Sending weekly mail."
+      PendingNotification.send_notifications(:weekly)
       NotificationEmailerSettings.last_weekly_emails_sent = Time.now
     end
-    puts "++ Sent #{count} notifications. (NOT emails. Notifications... many emails contain multiple notifications)."
+    puts "++ Done."
   end
 
 end

@@ -39,7 +39,7 @@
               - if en_type == 'image_map' # dato is image map and so uses image partial
                 = render :partial => "data_objects/data_object_image",
                   :locals => { :data_object => item, :thumbnail => true, :size => '260_190' }
-              - else
+              - else # If en_type is blank, you're getting a bogus data object class. Restart your workers.
                 = render :partial => "data_objects/data_object_#{en_type}",
                   :locals => { :data_object => item, :thumbnail => true, :size => '260_190' }
               - if item.data_type_id == DataType.image.id && current_user.min_curator_level?(:assistant)

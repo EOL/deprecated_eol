@@ -63,6 +63,7 @@
           = render(:partial => 'recent_activity_mailer/iconed_activity', :locals => { :user => item.user,
             :action => render(:partial => 'activity_logs/community_activity_log',
             :locals => {:item => item, :community => community, :link_style => 'color: #195184' })})
+      %hr{:style => "border: none; border-bottom: 1px solid #d2d9df;clear:both;"}
   - when 'Comment' # Comments need to look at parents:
     - grouped_notes[klass].group_by(&:parent).each do |parent, comments|
       - if parent == @user

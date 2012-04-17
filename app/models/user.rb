@@ -260,6 +260,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   # Don't use short_name unless you KNOW you should.
   def short_name
+    reload_all_values_if_missing([:given_name, :family_name])
     return given_name unless given_name.blank?
     return family_name unless family_name.blank?
     username

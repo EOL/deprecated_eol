@@ -35,7 +35,6 @@
     - translation_vars[:association] = link_to(h(item.hierarchy_entry.name.string),
       taxon_url(item.hierarchy_entry.taxon_concept), :style => link_style)
   - else
-    - debugger
     - translation_vars[:association] = link_to(h(item.taxon_concept.title),
       taxon_url(item.taxon_concept), :style => link_style)
 - name_type = 'name'

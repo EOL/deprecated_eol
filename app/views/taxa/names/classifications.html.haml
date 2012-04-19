@@ -4,10 +4,22 @@
   .article
     .copy
       %p= I18n.t(:names_explanation)
-  .article.recognized
-    .header
-      %h3= I18n.t(:taxon_recognized_by_header)
   = render :partial => 'menu'
   .main_container
     - # TODO - fancier.
-    = render :partial => 'taxa/recognized_by'
+    - if @hierarchy_entries.blank?
+      .empty
+        %p= I18n.t(:not_recognized_by_available_hierarchies)
+    - else
+      %table.standard.classifications
+        %thead
+          %tr
+            %th= "Recognized by:"
+            %th= "Source:"
+            %th= "Rank:"
+        %tbody
+          - @hierarchy_entries.each do |hierarchy_entry|
+            %tr
+              %td= hierarchy_entry.recognized_by_agents.map(&:full_name).to_sentence
+              %td= hierarchy_entry.hierarchy.agent.full_name
+              %td= hierarchy_entry.rank_label

@@ -4,11 +4,18 @@ class Taxa::NamesController < TaxaController
   before_filter :add_page_view_log_entry
   before_filter :set_vet_options, :only => [:common_names, :vet_common_name]
   before_filter :authentication_for_names, :only => [ :create, :update ]
-  before_filter :preload_core_relationships_for_names, :only => [ :index, :common_names, :synonyms ]
+  before_filter :preload_core_relationships_for_names, :only => [ :index, :related_names, :common_names, :synonyms ]
+  before_filter :count_browsable_hierarchies, :only => [:index, :related_names, :common_names, :synonyms]
+
+  def index
+    @assistive_section_header = I18n.t(:assistive_names_classifications_header)
+    common_names_count
+    render :action => 'classifications'
+  end
 
   # GET /pages/:taxon_id/names
   # related names default tab
-  def index
+  def related_names
     if @selected_hierarchy_entry
       @related_names = TaxonConcept.related_names(:hierarchy_entry_id => @selected_hierarchy_entry_id)
       @rel_canonical_href = taxon_hierarchy_entry_names_url(@taxon_concept, @selected_hierarchy_entry)
@@ -18,8 +25,6 @@ class Taxa::NamesController < TaxaController
     end
     @assistive_section_header = I18n.t(:assistive_names_related_header)
     current_user.log_activity(:viewed_taxon_concept_names_related_names, :taxon_concept_id => @taxon_concept.id)
-
-    # for common names count
     common_names_count
   end
 
@@ -91,8 +96,6 @@ class Taxa::NamesController < TaxaController
       synonyms_taxon_hierarchy_entry_names_url(@taxon_concept, @selected_hierarchy_entry) :
       synonyms_taxon_names_url(@taxon_concept)
     current_user.log_activity(:viewed_taxon_concept_names_synonyms, :taxon_concept_id => @taxon_concept.id)
-
-    # for common names count
     common_names_count
   end
 
@@ -163,7 +166,6 @@ private
 
   def common_names_count
     @common_names_count = get_common_names.collect{|cn| [cn.name.id,cn.language.id]}.uniq.count if @common_names_count.nil?
-    @common_names_count
   end
 
   def set_vet_options
@@ -188,4 +190,9 @@ private
     end
   end
 
+  # NOTE - #||= because instantiate_taxon_concept could have set it.  Confusing but true.  We should refactor this.
+  def count_browsable_hierarchies
+    @browsable_hierarchy_entries ||= @taxon_concept.published_hierarchy_entries.select{ |he| he.hierarchy.browsable? }
+    @browsable_hierarchy_entries = [@selected_hierarchy_entry] if @browsable_hierarchy_entries.blank? # TODO: Check this - we are getting here with a hierarchy entry that has a hierarchy that is not browsable.
+  end
 end

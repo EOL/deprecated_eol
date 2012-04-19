@@ -1788,6 +1788,7 @@ en:
   assistive_media_header: "Media"
   assistive_details_header: "Details"
   assistive_literature_header: "Literature"
+  assistive_names_classifictions_header: "Classifications"
   assistive_names_common_header: "Common names"
   assistive_names_related_header: "Related names"
   assistive_names_synonyms_header: "Synonyms"
@@ -1866,6 +1867,9 @@ en:
   classifications_summary_header_with_count:
     one: "Found in %{count} classification"
     other: "Found in %{count} classifications"
+  classifications_with_count:
+    one: "%{count} classification"
+    other: "%{count} classifications"
   clear_all_non_species_pages: "Clear all non-species pages"
   clear_entire_cache_store: "Clear entire cache store"
   clear_species_page: "Clear species page"
@@ -3283,7 +3287,6 @@ en:
   taxon_page_content_disclaimer: "EOL content is automatically assembled from many different content providers. As a result, from time to time you may find pages on EOL that are confusing."
   taxon_page_content_disclaimer_suggest_improvement: "To request an improvement, please leave a comment on the page. Thank you!"
   taxonomic_summary_of_content: "taxonomic summary of content"
-  taxon_recognized_by_header: "Recognized by"
   taxon_recognized_by: "Taxon recognized by %{whom}"
   taxon_selected_from_search_res: "Taxon Selected From Search Results"
   taxon_suggested: "Taxon Suggested"

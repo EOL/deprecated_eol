@@ -4,10 +4,6 @@
   .article
     .copy
       %p= I18n.t(:names_explanation)
-  .article.recognized
-    .header
-      %h3= I18n.t(:taxon_recognized_by_header)
-    = render :partial => 'taxa/recognized_by'
   = render :partial => 'menu'
   .main_container
     - if @related_names['parents'].blank? && @related_names['children'].blank?

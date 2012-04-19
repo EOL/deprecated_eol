@@ -1622,7 +1622,7 @@ en:
         an_unknown_user_curated_an_unknown_data_object: "An unknown user curated an unknown data object."
         an_unknown_user_curated_data_object: "An unknown user curated \"%{data_object}\"."
         user_curated_an_older_data_object: "<strong>%{user}</strong> curated an older version of \"%{data_object}\"."
-        user_curated_an_unknown_data_object: "<strong>%{user}</strong> curated an unknown data_object."
+        user_curated_an_unknown_data_object: "<strong>%{user}</strong> curated an unknown data object."
         user_curated_data_object: "<strong>%{user}</strong> curated \"%{data_object}\"."
         an_unknown_user_curated_it: "An unknown user curated it, but the exact action taken was lost."
         user_curated_it: "<strong>%{user}</strong> curated it, but the exact action taken was lost."

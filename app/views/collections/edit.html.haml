@@ -37,6 +37,12 @@
         = f.label :logo
       %dd
         = f.file_field :logo, :size=>10
+      %dt
+        = f.label :inaturalist_observations_url
+        %p= I18n.t('helpers.label.collection.inaturalist_observations_url_more')
+      %dd
+        = f.text_field :inaturalist_observations_url, :value => @collection.inaturalist_observations_url
+        = I18n.t('helpers.label.collection.inaturalist_observations_url_examples')
   %fieldset.actions
     = submit_tag I18n.t(:update_collection_submit_button), :class => 'button'
     = link_to I18n.t(:go_back), collection_path(@collection)

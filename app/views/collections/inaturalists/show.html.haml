@@ -1,0 +1,11 @@
+- content_for :social_sharing do
+  = render :partial => 'shared/social_sharing'
+- editable = @collection.editable_by?(current_user)
+= content_for :additional_page_actions do
+  = render :partial => 'collections/editable_actions', :locals => { :editable => editable }
+#tabs_sidebar
+  = render :partial => 'collections/filter_by_item_type'
+#sidebar
+  = render :partial => 'collections/recently_visited'
+#collection_newsfeed.main_container
+  = render :partial => 'shared/inaturalist_widget'

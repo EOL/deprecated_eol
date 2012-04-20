@@ -31,6 +31,7 @@ ActionController::Routing::Routes.draw do |map|
                                                :collect_item => :post } do |collection|
       collection.resource :newsfeed, :only => [:show], :namespace => "collections/"
       collection.resource :editors, :only => [:show], :namespace => "collections/"
+      collection.resource :inaturalist, :only => [:show], :namespace => "collections/"
     end
   # Not nesting collection_items under collections: creation is complex, plus edit only used for non-JS users
   map.resources :collection_items, :only => [:create, :edit, :update]

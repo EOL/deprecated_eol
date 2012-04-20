@@ -476,6 +476,10 @@ en:
         create: "Submit request"
     label:
       collection:
+        inaturalist_observations_url: iNaturalist Observations
+        inaturalist_observations_url_more: "If you know project on iNaturalist website created especially for this collection, please provide a link to the observations page to show iNaturalist observations on your EOL collection page in a new sub-tab."
+        inaturalist_observations_url_examples: "Examples:<br/>http://www.inaturalist.org/observations/project/harvard-yard-eol-collection<br/> http://www.inaturalist.org/observations/project/152"
+        more_inaturalist_observations: "View more observations for %{name} on iNaturalist »"
         view_style_id: "Default view"
       collection_item:
         annotation: "Annotation"
@@ -600,7 +604,11 @@ en:
         entered_password: "Password <small>(4 - 16 characters)</small>"
         generate_api_key: "Request an API key"
         generate_api_key_more: "If you are interested in using the EOL API you can generate an API key to identify your application. Read more about <a href=\"%{api_docs_url}\">adding a key to your API calls</a>."
+        inaturalist_username: iNaturalist Username
+        inaturalist_username_more: "Please specify your iNaturalist username below to show your iNaturalist observations on your profile."
+        inaturalist_observations_header: "iNaturalist Observations"
         logo: "Upload a new photo"
+        more_inaturalist_observations: "View %{name}'s observations »"
         new_password: "New password <small>(4 - 16 characters)</small>"
         new_password_confirmation: "New password <small>(to confirm)</small>"
         notification_settings: "Notification Settings"
@@ -731,6 +739,12 @@ en:
         meta_keywords: "%{collection_name} News"
         meta_title: "%{collection_name} News"
         tweet_text: "%{collection_name} News"
+    inaturalists:
+      show:
+        meta_description: "iNaturalist Observations for the Enyclopedia of Life collection %{collection_name}."
+        meta_keywords: "%{collection_name} iNaturalist Observations"
+        meta_title: "%{collection_name} iNaturalist Observations"
+        tweet_text: "%{collection_name} iNaturalist Observations"
   communities:
     collections:
       index:
@@ -1249,6 +1263,7 @@ en:
       meta_keywords: ""
       meta_title: "%{user_full_name}"
       tweet_text: "%{user_full_name}"
+      inaturalist_observations_header: "iNaturalist Observations"
   # end of views scope
   this_article_cannot_be_curated_because_unpublished: "This article cannot be curated because it is unpublished."
   this_article_is_unpublished: "This article is unpublished."
@@ -2575,6 +2590,7 @@ en:
     other: "%{count} images"
   import_once: "Import once"
   inappropriate: "Inappropriate"
+  inaturalist_tab_label: "iNaturalist Observations"
   include_all_metadata: "include all metadata for data objects"
   in_collection: "in collection"
   info_item: "Info item"

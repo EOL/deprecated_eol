@@ -25,9 +25,9 @@ html.busy, html.busy *, .busy {
  * we added extra fieldset - but check HR might give us an update for the fieldset */
 #profile_edit.article {
   padding: 0 0 25px 0; }
-#profile_edit fieldset.curation {
+#profile_edit fieldset.inaturalist, #profile_edit fieldset.curation {
   width: 320px; }
-  #profile_edit fieldset.curation textarea {
+  #profile_edit fieldset.inaturalist textarea, #profile_edit fieldset.curation textarea {
     width: 282px;
     height: 120px; }
 
@@ -1045,6 +1045,10 @@ ul li.total {
   margin-top: 20px; }
 
 ul li.editors a {
+  padding: 7px 10px 6px !important;
+  font-size: 12px !important; }
+
+ul li.inaturalist a {
   padding: 7px 10px 6px !important;
   font-size: 12px !important; }
 

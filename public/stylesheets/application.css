@@ -2270,52 +2270,53 @@ ul.content_partner_contacts li {
     #taxon + #sidebar h3 {
       padding: 0 10px 3px 10px;
       font-size: 1.16em; }
-    #taxon + #sidebar .classifications a.current {
-      font-weight: bold; }
-    #taxon + #sidebar .classifications > ul {
-      line-height: 160%;
-      font-size: 0.9em; }
-      #taxon + #sidebar .classifications > ul > li {
-        white-space: nowrap;
-        overflow-x: auto;
-        border: 1px solid #d7dadc;
-        padding: 10px 15px;
-        margin: 0 -10px 20px -10px; }
-        #taxon + #sidebar .classifications > ul > li h4 {
-          font-weight: normal; }
-          #taxon + #sidebar .classifications > ul > li h4 a {
-            font-weight: bold; }
-        #taxon + #sidebar .classifications > ul > li ul {
-          margin-left: 10px; }
-    #taxon + #sidebar .article.list > ul > li + li {
-      border: none; }
-    #taxon + #sidebar .article.list > ul > li > a > img {
-      margin: 10px 10px 0 0; }
-    #taxon + #sidebar .article.list > ul > li .details {
-      margin: 10px 0 0 0; }
-    #taxon + #sidebar .article.list > ul > li .editable {
-      margin: 10px 0 0 0; }
-      #taxon + #sidebar .article.list > ul > li .editable > a > img {
-        margin: 0 10px 0 0; }
-      #taxon + #sidebar .article.list > ul > li .editable .details {
-        margin: 0; }
-    #taxon + #sidebar .article.updates {
-      padding: 0 10px 25px 10px; }
-      #taxon + #sidebar .article.updates > ul {
-        border-bottom: 1px solid #d7dadc; }
-      #taxon + #sidebar .article.updates form.comment {
-        padding: 20px 10px 0 10px;
-        margin: 0 -10px; }
-        #taxon + #sidebar .article.updates form.comment img {
-          border: 1px solid #394651; }
-        #taxon + #sidebar .article.updates form.comment textarea {
-          width: 240px; }
-        #taxon + #sidebar .article.updates form.comment fieldset.actions {
-          padding: 0 0 0 60px; }
-          #taxon + #sidebar .article.updates form.comment fieldset.actions input[type="submit"] {
-            padding: 6px 15px; }
-      #taxon + #sidebar .article.updates form.edit_comment textarea {
-        width: 300px; }
+
+.classifications a.current {
+  font-weight: bold; }
+.classifications > ul {
+  line-height: 160%;
+  font-size: 0.9em; }
+  .classifications > ul > li {
+    white-space: nowrap;
+    overflow-x: auto;
+    border: 1px solid #d7dadc;
+    padding: 10px 15px;
+    margin: 0 -10px 20px -10px; }
+    .classifications > ul > li h4 {
+      font-weight: normal; }
+      .classifications > ul > li h4 a {
+        font-weight: bold; }
+    .classifications > ul > li ul {
+      margin-left: 10px; }
+  .classifications > ul .article.list > ul > li + li {
+    border: none; }
+  .classifications > ul .article.list > ul > li > a > img {
+    margin: 10px 10px 0 0; }
+  .classifications > ul .article.list > ul > li .details {
+    margin: 10px 0 0 0; }
+  .classifications > ul .article.list > ul > li .editable {
+    margin: 10px 0 0 0; }
+    .classifications > ul .article.list > ul > li .editable > a > img {
+      margin: 0 10px 0 0; }
+    .classifications > ul .article.list > ul > li .editable .details {
+      margin: 0; }
+  .classifications > ul .article.updates {
+    padding: 0 10px 25px 10px; }
+    .classifications > ul .article.updates > ul {
+      border-bottom: 1px solid #d7dadc; }
+    .classifications > ul .article.updates form.comment {
+      padding: 20px 10px 0 10px;
+      margin: 0 -10px; }
+      .classifications > ul .article.updates form.comment img {
+        border: 1px solid #394651; }
+      .classifications > ul .article.updates form.comment textarea {
+        width: 240px; }
+      .classifications > ul .article.updates form.comment fieldset.actions {
+        padding: 0 0 0 60px; }
+        .classifications > ul .article.updates form.comment fieldset.actions input[type="submit"] {
+          padding: 6px 15px; }
+    .classifications > ul .article.updates form.edit_comment textarea {
+      width: 300px; }
 
 #taxon_detail #sidebar {
   float: left;

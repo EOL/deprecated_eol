@@ -31,6 +31,15 @@ class TaxonConcept < ActiveRecord::Base
     WHERE he.taxon_concept_id = \'#{id}\' AND he.published = 1 and h.browsable = 1
     ORDER BY h.label'
 
+  # Same as published_browsable_hierarchy_entries, but with more fields, so we can render a tree for each:
+  has_many :browsable_published_browsable_hierarchy_entries, :class_name => HierarchyEntry.to_s, :foreign_key => 'id',
+    :finder_sql => 'SELECT he.id, he.rank_id, he.parent_id parent_id, he.name_id, he.taxon_concept_id,
+      h.id hierarchy_id, h.label hierarchy_label
+    FROM hierarchies h
+    JOIN hierarchy_entries he ON h.id = he.hierarchy_id
+    WHERE he.taxon_concept_id = \'#{id}\' AND he.published = 1 and h.browsable = 1
+    ORDER BY h.label'
+
   has_many :top_concept_images
   has_many :top_unpublished_concept_images
   has_many :curator_activity_logs
@@ -73,7 +82,7 @@ class TaxonConcept < ActiveRecord::Base
 
   has_one :taxon_concept_metric
   has_one :taxon_concept_exemplar_image
-  has_one :taxon_concept_preferred_entry
+  has_one :preferred_entry, :class_name => 'TaxonConceptPreferredEntry'
 
   has_and_belongs_to_many :data_objects
 
@@ -340,9 +349,9 @@ class TaxonConcept < ActiveRecord::Base
     
     # return the cached one unless it is expired
     unless hierarchy
-      if taxon_concept_preferred_entry && taxon_concept_preferred_entry.hierarchy_entry &&
-          !taxon_concept_preferred_entry.expired?
-        return taxon_concept_preferred_entry.hierarchy_entry
+      if preferred_entry && preferred_entry.hierarchy_entry &&
+          !preferred_entry.expired?
+        return preferred_entry.hierarchy_entry
       end
     end
     
@@ -358,7 +367,7 @@ class TaxonConcept < ActiveRecord::Base
     best_entry ||= @all_entries[0]
     
     if best_entry && !hierarchy
-      taxon_concept_preferred_entry.delete if taxon_concept_preferred_entry
+      preferred_entry.delete if preferred_entry
       TaxonConceptPreferredEntry.create(:taxon_concept_id => self.id, :hierarchy_entry_id => best_entry.id)
     end
     @cached_entry[hierarchy] = best_entry

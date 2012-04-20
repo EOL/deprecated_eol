@@ -1076,20 +1076,19 @@ body#prelaunch #footer ul.social_media {
 .highlight {
   background-color: #f3f7fa; }
 
-#taxon_names .main_container table.classifications td.classifications h4 {
-  font-weight: normal;
-  font-size: 1em; }
-  #taxon_names .main_container table.classifications td.classifications h4 a {
-    font-weight: bold; }
+#taxon_names .main_container table.classifications td.preferred_entry_selector {
+  width: 8%; }
+#taxon_names .main_container table.classifications td.rank {
+  width: 8%; }
 #taxon_names .main_container table.classifications td.classifications > ul {
   line-height: 160%;
   font-size: 0.9em; }
   #taxon_names .main_container table.classifications td.classifications > ul > li {
     white-space: nowrap;
     overflow-x: auto;
-    border: 1px solid #d7dadc;
-    padding: 10px 15px;
-    margin: 0 -10px 20px -10px; }
+    border: 0;
+    padding: 0;
+    margin: 0 0 10px; }
     #taxon_names .main_container table.classifications td.classifications > ul > li h4 {
       font-weight: normal; }
       #taxon_names .main_container table.classifications td.classifications > ul > li h4 a {

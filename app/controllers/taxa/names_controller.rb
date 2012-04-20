@@ -4,10 +4,12 @@ class Taxa::NamesController < TaxaController
   before_filter :add_page_view_log_entry
   before_filter :set_vet_options, :only => [:common_names, :vet_common_name]
   before_filter :authentication_for_names, :only => [ :create, :update ]
-  before_filter :preload_core_relationships_for_names, :only => [ :index, :related_names, :common_names, :synonyms ]
+  before_filter :preload_core_relationships_for_names, :only => [ :related_names, :common_names, :synonyms ]
   before_filter :count_browsable_hierarchies, :only => [:index, :related_names, :common_names, :synonyms]
 
   def index
+    @hierarchy_entries = @taxon_concept.browsable_published_browsable_hierarchy_entries
+    HierarchyEntry.preload_associations(@hierarchy_entries, [ { :agents_hierarchy_entries => :agent }, :rank, { :hierarchy => :agent } ], :select => {:hierarchy_entries => [:id, :parent_id, :taxon_concept_id]} )
     @assistive_section_header = I18n.t(:assistive_names_classifications_header)
     common_names_count
     render :action => 'classifications'
@@ -173,13 +175,10 @@ private
   end
 
   def preload_core_relationships_for_names
-    if @selected_hierarchy_entry.blank?
-      @hierarchy_entries = @taxon_concept.published_browsable_hierarchy_entries
-    else
-      @hierarchy_entries =
-        @taxon_concept.published_browsable_hierarchy_entries.select {|he| he.id == @selected_hierarchy_entry.id}
-    end
-    HierarchyEntry.preload_associations(@hierarchy_entries, [ { :agents_hierarchy_entries => :agent }, :rank, { :hierarchy => :agent } ] )
+    @hierarchy_entries = @taxon_concept.published_browsable_hierarchy_entries
+    @hierarchy_entries = @hierarchy_entries.select {|he| he.id == @selected_hierarchy_entry.id} if
+      @selected_hierarchy_entry
+    HierarchyEntry.preload_associations(@hierarchy_entries, [ { :agents_hierarchy_entries => :agent }, :rank, { :hierarchy => :agent } ], :select => {:hierarchy_entries => [:id, :parent_id, :taxon_concept_id]} )
   end
 
   def authentication_for_names

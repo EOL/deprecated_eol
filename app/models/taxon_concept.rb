@@ -346,14 +346,30 @@ class TaxonConcept < ActiveRecord::Base
     @cached_entry ||= {}
     return @cached_entry[hierarchy] if @cached_entry[hierarchy]
     raise "Cannot find a HierarchyEntry with anything but a Hierarchy" if hierarchy && !hierarchy.is_a?(Hierarchy)
-    return preferred_entry.hierarchy_entry if preferred_entry_usable?(hierarchy)
+    
+    # return the cached one unless it is expired
+    unless hierarchy
+      if preferred_entry && preferred_entry.hierarchy_entry &&
+          !preferred_entry.expired?
+        return preferred_entry.hierarchy_entry
+      end
+    end
+    
     TaxonConcept.preload_associations(self, :published_hierarchy_entries => [ :vetted, :hierarchy ])
     @all_entries ||= HierarchyEntry.sort_by_vetted(published_hierarchy_entries)
-    @all_entries = HierarchyEntry.sort_by_vetted(hierarchy_entries) if @all_entries.blank?
-    best_entry = hierarchy ? 
-      @all_entries.detect {|he| he.hierarchy_id == hierarchy.id } || @all_entries.first :
-      @all_entries.first
-    create_preferred_entry(best_entry) if hierarchy.nil?
+    if @all_entries.blank?
+      @all_entries = HierarchyEntry.sort_by_vetted(hierarchy_entries)
+    end
+    
+    if hierarchy
+      best_entry = @all_entries.detect{ |he| he.hierarchy_id == hierarchy.id }
+    end
+    best_entry ||= @all_entries[0]
+    
+    if best_entry && !hierarchy
+      preferred_entry.delete if preferred_entry
+      TaxonConceptPreferredEntry.create(:taxon_concept_id => self.id, :hierarchy_entry_id => best_entry.id)
+    end
     @cached_entry[hierarchy] = best_entry
   end
 

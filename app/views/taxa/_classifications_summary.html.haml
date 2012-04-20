@@ -11,7 +11,7 @@
     %ul
       - @browsable_hierarchy_entries.shuffle[0..1].each do |hierarchy_entry|
         %li
-          - taxon_rank = (hierarchy_entry.rank.blank? || hierarchy_entry.rank.label.blank?) ? I18n.t(:taxon).firstcap : hierarchy_entry.rank.label.firstcap
+          - taxon_rank = hierarchy_entry.rank_label
           - if hierarchy_entry.hierarchy.agent.user && !hierarchy_entry.hierarchy.agent.user.content_partners.blank?
             - agent = link_to(hierarchy_entry.hierarchy.agent.full_name, content_partner_path(hierarchy_entry.hierarchy.agent.user.content_partners.first))
           - elsif hierarchy_entry.hierarchy.resource && hierarchy_entry.hierarchy.resource.content_partner

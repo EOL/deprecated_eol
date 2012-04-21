@@ -4,10 +4,24 @@
 # Author: Dimension
 # Author: Hzy980512
 # Author: Linforest
+# Author: Shandongfx
 # Author: Shizhao
 zh-CN: 
+  translated_activities-name-activity_id-19: 配置
+  translated_activities-name-activity_id-50: 不受信任
+  translated_activities-name-activity_id-51: 显示
+  translated_activities-name-activity_id-52: 创建
   translated_activities-name-activity_id-53: 隐藏
+  translated_activities-name-activity_id-54: 更新
+  translated_activities-name-activity_id-55: 不恰当
   translated_activities-name-activity_id-56: 删除
+  translated_activities-name-activity_id-57: 比率
+  translated_activities-name-activity_id-58: 受信任的
+  translated_activities-name-activity_id-59: 未审核
+  translated_activities-name-activity_id-63: 收集
+  translated_activities-name-activity_id-64: 删除
+  translated_agent_roles-label-agent_role_id-10: 项目
+  translated_agent_roles-label-agent_role_id-11: 发布者
   translated_audiences-label-audience_id-1: 专家级用户
   translated_audiences-label-audience_id-2: 公众
   translated_audiences-label-audience_id-3: 孩子

@@ -3,6 +3,7 @@
 # Export driver: syck-pecl
 # Author: Beta16
 # Author: Inskatolata
+# Author: Jasonbleinel
 # Author: Rippitippi
 it: 
   translated_activities-name-activity_id-19: profilo
@@ -15,10 +16,13 @@ it:
   translated_activities-name-activity_id-56: cancella
   translated_activities-name-activity_id-57: valuta
   translated_activities-name-activity_id-58: attendibile
+  translated_activities-name-activity_id-59: non revisionato
+  translated_activities-name-activity_id-63: raccogliere
   translated_activities-name-activity_id-64: rimuovi
   translated_agent_roles-label-agent_role_id-1: Animatore
   translated_agent_roles-label-agent_role_id-10: Progetto
   translated_agent_roles-label-agent_role_id-11: Editore
+  translated_agent_roles-label-agent_role_id-12: Registrato da
   translated_agent_roles-label-agent_role_id-13: Fonte
   translated_agent_roles-label-agent_role_id-14: Database sorgente
   translated_agent_roles-label-agent_role_id-15: Persona di contatto
@@ -28,6 +32,7 @@ it:
   translated_agent_roles-label-agent_role_id-23: Revisore scientifico
   translated_agent_roles-label-agent_role_id-24: Revisore linguistico
   translated_agent_roles-label-agent_role_id-3: Compilatore
+  translated_agent_roles-label-agent_role_id-4: Autore
   translated_agent_roles-label-agent_role_id-5: Creatore
   translated_agent_roles-label-agent_role_id-6: Direttore
   translated_agent_roles-label-agent_role_id-7: Editore
@@ -41,11 +46,13 @@ it:
   translated_collection_types-label-collection_type_id-11: Collegamenti
   translated_collection_types-label-collection_type_id-12: Letteratura
   translated_collection_types-label-collection_type_id-13: Tassonomia
+  translated_collection_types-label-collection_type_id-14: Codici a barre molecolari
   translated_collection_types-label-collection_type_id-15: Descrizione
   translated_collection_types-label-collection_type_id-16: Immagini
   translated_collection_types-label-collection_type_id-17: Distribuzione
   translated_collection_types-label-collection_type_id-18: Stato di conservazione
   translated_collection_types-label-collection_type_id-19: Informazioni sul nome
+  translated_collection_types-label-collection_type_id-2: Codici a barre molecolari
   translated_collection_types-label-collection_type_id-20: Dati molecolari
   translated_collection_types-label-collection_type_id-21: Nomenclatura
   translated_collection_types-label-collection_type_id-22: Suoni
@@ -61,6 +68,18 @@ it:
   translated_contact_roles-label-contact_role_id-1: Contatto Principale
   translated_contact_roles-label-contact_role_id-2: Contatto amministrativo
   translated_contact_roles-label-contact_role_id-3: Contatto Tecnico
+  translated_contact_subjects-title-contact_subject_id-24: Iscrizione e registrazione
+  translated_contact_subjects-title-contact_subject_id-25: Termini d'uso e licenze
+  translated_contact_subjects-title-contact_subject_id-26: Formazione ed educazione
+  translated_contact_subjects-title-contact_subject_id-27: Diventa un partner di contenuti
+  translated_contact_subjects-title-contact_subject_id-28: Supporto dei partner di contenuti
+  translated_contact_subjects-title-contact_subject_id-29: Supporto del curatore
+  translated_contact_subjects-title-contact_subject_id-30: Fare una correzione (ortografia e grammatica, immagini, informazioni)
+  translated_contact_subjects-title-contact_subject_id-31: Contribuire tramite immagini, video o suoni
+  translated_contact_subjects-title-contact_subject_id-32: Richieste di supporto (interviste, richieste stampa, richieste logo)
+  translated_contact_subjects-title-contact_subject_id-33: Fai una donazione finanziaria
+  translated_contact_subjects-title-contact_subject_id-34: Domande tecniche (problemi con la ricerca, funzionalità del sito Web)
+  translated_contact_subjects-title-contact_subject_id-35: Feedback generale
   translated_content_partner_statuses-label-content_partner_status_id-1: In attesa
   translated_content_partner_statuses-label-content_partner_status_id-2: Attivo
   translated_content_partner_statuses-label-content_partner_status_id-3: Archiviato
@@ -97,6 +116,8 @@ it:
   translated_licenses-description-license_id-7: Alcuni diritti riservati
   translated_licenses-description-license_id-8: Alcuni diritti riservati
   translated_licenses-description-license_id-9: Alcuni diritti riservati
+  translated_ranks-label-rank_id-106: modulo
+  translated_ranks-label-rank_id-107: modulo
   translated_ranks-label-rank_id-112: Gen
   translated_ranks-label-rank_id-113: Gen.
   translated_ranks-label-rank_id-118: Genere
@@ -105,6 +126,8 @@ it:
   translated_ranks-label-rank_id-183: Regno
   translated_ranks-label-rank_id-266: Ordine
   translated_ranks-label-rank_id-280: Phylum
+  translated_ranks-label-rank_id-313: setta
+  translated_ranks-label-rank_id-314: setta.
   translated_ranks-label-rank_id-317: sezione
   translated_ranks-label-rank_id-324: serie
   translated_ranks-label-rank_id-332: SP
@@ -121,6 +144,7 @@ it:
   translated_ranks-label-rank_id-399: sottordine
   translated_ranks-label-rank_id-401: subphylum
   translated_ranks-label-rank_id-408: sottosezione
+  translated_ranks-label-rank_id-411: sottoserie
   translated_ranks-label-rank_id-413: subsp
   translated_ranks-label-rank_id-414: subsp.
   translated_ranks-label-rank_id-415: sottospecie
@@ -134,6 +158,10 @@ it:
   translated_ranks-label-rank_id-513: var.
   translated_ranks-label-rank_id-517: varietà
   translated_ranks-label-rank_id-518: varietà
+  translated_ranks-label-rank_id-562: ibrido
+  translated_ranks-label-rank_id-563: specie ibride
+  translated_ranks-label-rank_id-564: sottospecie ibride
+  translated_ranks-label-rank_id-565: varietà ibrida
   translated_ranks-label-rank_id-74: Divisione
   translated_ranks-label-rank_id-85: f
   translated_ranks-label-rank_id-86: f.
@@ -143,6 +171,8 @@ it:
   translated_resource_statuses-label-resource_status_id-1: Caricamento
   translated_resource_statuses-label-resource_status_id-10: Pubblicato
   translated_resource_statuses-label-resource_status_id-11: Pubblicazione in sospeso
+  translated_resource_statuses-label-resource_status_id-12: Annullare la pubblicazione in sospeso
+  translated_resource_statuses-label-resource_status_id-13: Force Harvest
   translated_resource_statuses-label-resource_status_id-2: Caricato
   translated_resource_statuses-label-resource_status_id-3: Caricamento non riuscito
   translated_resource_statuses-label-resource_status_id-4: Trasferito al Server dei Contenuti
@@ -154,6 +184,7 @@ it:
   translated_service_types-label-service_type_id-1: Schema di trasferimento EOL
   translated_service_types-label-service_type_id-2: Altro
   translated_sort_styles-name-sort_style_id-1: Aggiunti recentemente
+  translated_sort_styles-name-sort_style_id-2: Più vecchi
   translated_sort_styles-name-sort_style_id-3: Alfabetico
   translated_sort_styles-name-sort_style_id-4: Alfabetico inverso
   translated_sort_styles-name-sort_style_id-5: Ricchezza
@@ -163,21 +194,29 @@ it:
   translated_statuses-label-status_id-3: Non modificato
   translated_statuses-label-status_id-4: Riutilizzato
   translated_synonym_relations-label-synonym_relation_id-1: sinonimo
+  translated_synonym_relations-label-synonym_relation_id-10: sinonimo di GenBank
   translated_synonym_relations-label-synonym_relation_id-11: in parte
   translated_synonym_relations-label-synonym_relation_id-12: include
+  translated_synonym_relations-label-synonym_relation_id-13: termine improprio
   translated_synonym_relations-label-synonym_relation_id-14: errore ortografico
   translated_synonym_relations-label-synonym_relation_id-15: teleomorfo
   translated_synonym_relations-label-synonym_relation_id-16: sinonimo ambiguo
+  translated_synonym_relations-label-synonym_relation_id-17: nome erroneo
   translated_synonym_relations-label-synonym_relation_id-18: nome accettato provvisoriamente
   translated_synonym_relations-label-synonym_relation_id-19: nome accettato
   translated_synonym_relations-label-synonym_relation_id-2: nome comune
+  translated_synonym_relations-label-synonym_relation_id-20: oggetto del database
   translated_synonym_relations-label-synonym_relation_id-21: altro, vedi commenti
   translated_synonym_relations-label-synonym_relation_id-22: variante ortografica (errore ortografico)
+  translated_synonym_relations-label-synonym_relation_id-23: erroneo
   translated_synonym_relations-label-synonym_relation_id-24: nome rifiutato
   translated_synonym_relations-label-synonym_relation_id-25: omonimo (illegittimo)
   translated_synonym_relations-label-synonym_relation_id-26: pro parte
   translated_synonym_relations-label-synonym_relation_id-27: ridenominazione superflua (illegittima)
+  translated_synonym_relations-label-synonym_relation_id-28: nomen oblitum
+  translated_synonym_relations-label-synonym_relation_id-29: sinonimo minore
   translated_synonym_relations-label-synonym_relation_id-3: acronimo
+  translated_synonym_relations-label-synonym_relation_id-30: non disponibile, oggetto del database
   translated_synonym_relations-label-synonym_relation_id-31: sostituzione innecessaria
   translated_synonym_relations-label-synonym_relation_id-33: non disponibile, errore ortografico in letteratura
   translated_synonym_relations-label-synonym_relation_id-4: anamorfo

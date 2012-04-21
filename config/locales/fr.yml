@@ -3,6 +3,7 @@
 # Export driver: syck-pecl
 # Author: Boniface
 # Author: Coyau
+# Author: Cquoi
 # Author: Crochet.david
 # Author: DavidL
 # Author: Davidtsm
@@ -159,6 +160,25 @@ fr:
         request_publish: Demander une publication
       name: 
         string: Nom
+      notification: 
+        changes_to_my_watched_collection: Changements dans les collections de votre liste de suivi
+        changes_to_my_watched_community: Changements dans les communautés de votre liste de suivi
+        comment_on_my_collection: Un commentaire sur une collection que vous gérez
+        comment_on_my_community: Un commentaire dans l'un de vos communautés
+        comment_on_my_contribution: Un commentaire et/ou une action de conservation relative à une contribution que vous avez faite
+        comment_on_my_profile: Un commentaire sur votre profil
+        comment_on_my_watched_item: Commentaires sur les objets, les taxons, les collections ou les communautés de votre liste de suivi
+        curation_on_my_watched_item: Actions du conservateur sur les objets, les taxons, les collections ou les communautés de votre liste de suivi
+        eol_newsletter: Envoyez-moi le bulletin d'information trimestriel EOL
+        i_am_being_watched: Vous avez été ajouté à la liste de suivi d'un autre membre
+        invitation_to_community: Invitation à se joindre à une communauté
+        made_me_a_manager: Vous avez été fait responsable d'une collection ou d'une communauté
+        member_joined_my_community: Un nouveau membre s'est joint à une communauté que vous gérez
+        member_joined_my_watched_community: De nouveaux membres ont rejoint une communauté dont vous êtes membre
+        member_left_my_community: Des membres ont quitté une communauté que vous gérez
+        new_data_on_my_watched_item: Nouvelles contributions de taxons dans votre liste de suivi
+        new_manager_in_my_community: Un autre membre est devenu un manager d'une communauté que vous gérez
+        reply_to_comment: Une réponse à un commentaire que vous avez fait
       resource: 
         accesspoint_url: URL du jeu de données
         auto_publish: Auto-publier
@@ -190,6 +210,7 @@ fr:
         credentials: Certifications
         curator_level: Niveau de supervision
         curator_scope: Étendue de conservation
+        disable_email_notifications: Ne m'envoyez AUCUNE mise à jour par courriel
         email: Adresse électronique
         entered_password: Mot de passe
         entered_password_confirmation: Répéter le mot de passe <small>(pour confirmation)</small>
@@ -656,6 +677,7 @@ fr:
       meta_description: L'Encyclopédie de la Vie est un effort sans précédent pour collecter les connaissances scientifiques au sujet de toute vie animale et végétale, où les images, informations, faits et autres sont disponibles pour toutes les choses vivantes dans nos règnes animal et végétal.
       meta_keywords: Animaux, Images d'Animaux, Information sur les Animaux, Plantes, Vie des Plantes, Images de Plantes, Information sur les Plantes, Flore, Faune
       meta_title: Animaux - Plantes - Images & Informations
+      see_all_recent_activites: voyez plus d'activités <span class="assistive"> de la semaine dernière</span>
   content_has_been_updated: Le contenu a été mis à jour.
   content_notes_not_shown_to_us: "Notes sur le contenu (non montrées à l’utilisateur) :"
   content_partner: Partenaire de contenu
@@ -1236,6 +1258,7 @@ fr:
       harvest_event: 
         began_at: Démarré
         completed_at: Terminé
+        first_published_at: Publié en premier
         publish_more: Drapeaux d’évènement de collecte pour la publication, le contenu ne sera pas rendu public immédiatement.
         published_at: Publié
         published_status: État
@@ -1289,18 +1312,21 @@ fr:
         credentials_more_professional: Membre d’une société professionnelle.
         credentials_more_referral: Renvoi depuis le conservateur actuel.
         credentials_more_successful_assistant_curator: Historique de réussite en tant que conservateur adjoint.
-        curation_application: Devenir conservateur
+        curation_application: Devenez conservateur
         curation_application_more: Si vous désirez modifier vos privilèges de conservateur, soumettez simplement une demande d’adhésion et nous examinerons votre éligibilité.
         curator_level: Vous êtes actuellement %{curator_level_with_indefinite_article}.
         curator_scope: Étendue de conservation
         curator_scope_more: "Veuillez indiquer l’étendue de votre expertise. Par exemple : « Rongeurs de Bornéo », « Interactions tri-trophiques », ou « Problèmes de préservation des ressources halieutiques ». Cela ne limitera pas votre capacité de supervision en tant que conservateur, mais informera la communauté EOL."
         email_reports_frequency_hours: À quelle fréquence désirez-vous recevoir des alertes par courriel concernant l’activité sur vos contributions ?
+        email_settings_submit: Paramètres de courriel
         entered_password: Mot de passe <small>(4 à 16 caractères)</small>
-        generate_api_key: Demander une clé d’API
+        generate_api_key: Demandez une clé API
         generate_api_key_more: Si l’utilisation de l’API d’EOL vous intéresse, vous pouvez générer une clé d’API permettant d’identifier votre application. En savoir plus sur <a href="%{api_docs_url}">l’ajout d’une clé à vos appels de l’API</a>.
         logo: Téléverser une nouvelle photo
         new_password: Nouveau mot de passe <small>(4 à 16 caractères)</small>
         new_password_confirmation: Nouveau mot de passe <small>(pour confirmer)</small>
+        notification_settings: Paramètres de notification
+        notification_settings_more: Configurez vos paramètres de notification.
         requested_curator_level: Votre demande pour devenir %{curator_level_with_indefinite_article} est en attente.
         requested_curator_level_id_more: Choisissez <em>Conservateur adjoint</em> si vous n’avez pas encore de certificats. Choisissez <em>Conservateur</em> si vous êtes un chercheur professionnel ou un étudiant diplômé avec des certificats. Choisissez <em>Maître conservateur</em> si vous êtes un conservateur EOL expérimenté et voulez assumer davantage de responsabilités.
         tag_line: "Slogan ou titre <small>(exemple : « Passionné sur les oiseaux »)</small>"
@@ -1362,6 +1388,7 @@ fr:
         curation_privileges: Soumettre la demande
         forgot_password: Envoyer un courriel
         generate_api_key: Générer une clé
+        notification_settings: Paramètres de notification
         update: Enregistrer les informations de profil
       wikipedia_queue: 
         create: Soumettre la demande
@@ -1791,13 +1818,13 @@ fr:
     user_message: 
       subject: Un message de l’''Encyclopédie de la vie'' (EOL)
     user_reset_password: 
-      message: "L’''Encyclopédie de la vie'' (www.eol.org) a reçu une demande de réinitialisation de votre mot de passe. Si vous n’avez pas effectué cette demande, veuillez ignorer ce courriel.\n\nLe lien suivant, qui n’est valable qu’une seule fois, vous permet de réinitialiser votre mot de passe :\n\n%{password_reset_url}\n\nSuivez ce lien (en cliquant dessus ou en le copiant en entier dans la barre d’adresse de votre navigateur avant de le valider) afin d’accéder à la page où vous pourrez saisir un nouveau mot de passe. Veuillez noter que si ce lien a expiré, il vous sera demandé de saisir à nouveau votre nom d’utilisateur ou votre adresse courriel afin de recevoir un courriel contenant un nouveau lien de réinitialisation de mot de passe."
+      message: "L’''Encyclopédie de la vie'' (www.eol.org) a reçu une demande de réinitialisation de votre mot de passe. Si vous n’avez pas effectué cette demande, veuillez ignorer ce courriel.\n\nLe lien suivant réinitialisera votre mot de passe :\n\n%{password_reset_url}\n\nVeuillez noter qu'après 24 heures, le lien expire et qu'il vous faudra faire une nouvelle demande de réinitialisation."
       subject: Réinitialiser le mot de passe de votre compte utilisateur sur l’''Encyclopédie de la vie'' (EOL)
     user_updated_email_preferences: 
       message: "Ceci est une notification automatique du système EOL. L'utilisateur %{user_full_name} (%{user_profile_url}) a mis à jour son adresse courriel ou ses préférences pour les listes de diffusion.\n\nPréférences précédentes :\nCourriel : %{previous_email}\nPréférence pour les listes de diffusion : %{previous_mailing_list_preference}\n\nPréférences actuelles : \nCourriel : %{updated_email}\nPréférence pour les listes de diffusion : %{updated_mailing_list_preference}\nMise à jour du : %{updated_at}"
       subject: L’utilisateur d’EOL %{user_full_name} a modifié son adresse courriel ou ses préférences pour les listes de diffusion
     user_verification: 
-      message: "Merci pour votre inscription sur l’''Encyclopédie de la vie'' (EOL). Le lien suivant vous permet de confirmer et finaliser votre inscription :\n\n%{verification_url}\n\nSuivez ce lien (en cliquant dessus ou en le copiant en entier dans la barre d’adresse de votre navigateur avant de le valider) afin d’activer votre compte. Lorsque votre compte sera activé, vous recevrez un courriel de confirmation."
+      message: "Merci pour votre inscription sur l’''Encyclopédie de la vie'' (EOL). Le lien suivant permettra de vérifier que vous souhaitez terminer votre inscription et activer votre compte :\n\n%{verification_url}\n\nUne fois que votre compte aura été activé, vous recevrez un message de courrier électronique de confirmation."
       subject: Veuillez vérifier votre demande de compte sur l’''Encyclopédie de la vie'' (EOL)
   nucleotide_sequences: Séquences nucléotides
   nucleotide_sequences_ncbi_database: La base de données de <a href="%{ncbi_taxonomy_link}">taxonomie NCBI</a> contient les noms de tous les organismes qui sont représentés dans les bases de données génétiques avec au moins une séquence nucléotidique ou de protéines.

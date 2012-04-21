@@ -275,6 +275,70 @@ ia:
   activity: Activitate
   activity_log_empty: Nulle persona ha ancora fornite actualisationes.
   activity_log_empty_learn_more_link: Apprende como contribuer
+  activity_logs: 
+    collection_activity_log: 
+      add_editor: 
+        an_unknown_user_of_an_unknown_collection: Un usator incognite esseva addite como gerente de un collection incognite.
+        an_unknown_user_of_collection: Un usator incognite esseva addite como gerente del collection "%{collection}".
+        an_unknown_user_of_it: Un usator incognite esseva addite como gerente.
+        user_of_an_unknown_collection: <strong>%{user}</strong> esseva addite como gerente de un collection incognite.
+        user_of_collection: <strong>%{user}</strong> esseva addite como gerente del collection "%{collection}".
+        user_of_it: <strong>%{user}</strong> esseva addite como gerente.
+      collect: 
+        an_unknown_user_added_an_unknown_item_to_an_unknown_collection: Un usator incognite addeva un elemento incognite a un collection incognite.
+        an_unknown_user_added_an_unknown_item_to_collection: Un usator incognite addeva un elemento incognite al collection "%{collection}".
+        an_unknown_user_added_an_unknown_item_to_it: Un usator incognite addeva un elemento incognite.
+        an_unknown_user_added_item_to_an_unknown_collection: Un usator incognite addeva "%{item}" a un collection incognite.
+        an_unknown_user_added_item_to_collection: Un usator incognite addeva "%{item}" al collection "%{collection}".
+        an_unknown_user_added_item_to_it: Un usator incognite addeva "%{item}".
+        user_added_an_unknown_item_to_an_unknown_collection: <strong>%{user}</strong> addeva un elemento incognite a un collection incognite.
+        user_added_an_unknown_item_to_collection: <strong>%{user}</strong> addeva un objecto incognite al collection "%{collection}".
+        user_added_an_unknown_item_to_it: <strong>%{user}</strong> addeva un elemento incognite.
+        user_added_item_to_an_unknown_collection: <strong>%{user}</strong> addeva "%{item}" a un collection incognite.
+        user_added_item_to_collection: <strong>%{user}</strong> addeva "%{item}" al collection "%{collection}".
+        user_added_item_to_it: <strong>%{user}</strong> addeva "%{item}".
+      create: 
+        an_unknown_user_created_an_unknown_collection: Un usator incognite creava un collection incognite.
+        an_unknown_user_created_collection: Un usator incognite creava le collection "%{collection}".
+        an_unknown_user_created_it: Un usator incognite lo creava.
+        user_created_an_unknown_collection: <strong>%{user}</strong> creava un collection incognite.
+        user_created_collection: <strong>%{user}</strong> creava le collection "%{collection}".
+        user_created_it: <strong>%{user}</strong> lo creava.
+      other_actions: 
+        an_unknown_user_modified_an_unknown_collection: Un usator incognite modificava un collection incognite.
+        an_unknown_user_modified_collection: Un usator incognite modificava le collection "%{collection}".
+        an_unknown_user_modified_it: Un usator incognite lo modificava, e le modification exacte ha essite perdite.
+        user_modified_an_unknown_collection: <strong>%{user}</strong> modificava un collection incognite.
+        user_modified_collection: <strong>%{user}</strong> modificava le collection "%{collection}".
+        user_modified_it: <strong>%{user}</strong> lo modificava, ma le cambiamento exacte ha essite perdite.
+      remove: 
+        an_unknown_user_removed_an_unknown_item_from_an_unknown_collection: Un usator incognite removeva un elemento incognite de un collection incognite.
+        an_unknown_user_removed_an_unknown_item_from_collection: Un usator incognite removeva un elemento incognite del collection "%{collection}".
+        an_unknown_user_removed_an_unknown_item_from_it: Un usator incognite removeva un elemento incognite.
+        an_unknown_user_removed_item_from_an_unknown_collection: Un usator incognite removeva "%{item}" de un collection incognite.
+        an_unknown_user_removed_item_from_collection: Un usator incognite removeva "%{item}" del collection "%{collection}".
+        an_unknown_user_removed_item_from_it: Un usator incognite removeva "%{item}".
+        user_removed_an_unknown_item_from_an_unknown_collection: <strong>%{user}</strong> removeva un elemento incognite de un collection incognite.
+        user_removed_an_unknown_item_from_collection: <strong>%{user}</strong> removeva un elemento incognite del collection "%{collection}".
+        user_removed_an_unknown_item_from_it: <strong>%{user}</strong> removeva un elemento incognite.
+        user_removed_item_from_an_unknown_collection: <strong>%{user}</strong> removeva "%{item}" de un collection incognite.
+        user_removed_item_from_collection: <strong>%{user}</strong> removeva "%{item}" del collection "%{collection}".
+        user_removed_item_from_it: <strong>%{user}</strong> removeva "%{item}".
+      remove_all: 
+        an_unknown_user_cleared_an_unknown_collection: Un usator incognite removeva tote le elementos de un collection incognite.
+        an_unknown_user_cleared_collection: Un usator incognite removeva tote le elementos del collection "%{collection}".
+        an_unknown_user_cleared_it: Un usator incognite removeva tote le elementos.
+        user_cleared_an_unknown_collection: <strong>%{user}</strong> removeva tote le elementos de un collection incognite.
+        user_cleared_collection: <strong>%{user}</strong> removeva tote le elementos del collection "%{collection}".
+        user_cleared_it: <strong>%{user}</strong> removeva tote le elementos.
+    community_activity_log: 
+      create: 
+        an_unknown_user_created_an_unknown_community: Un usator incognite creava un communitate incognite.
+        an_unknown_user_created_community: Un usator incognite creava le communitate "%{community}".
+        user_created_an_unknown_community: <strong>%{user}</strong> creava un communitate incognite.
+        user_created_community: <strong>%{user}</strong> creava le communitate "%{community}".
+      join: 
+        an_unknown_user_joined_an_unknown_community: Un usator incognite adhereva a un communitate incognite.
   activity_user_created_text: <strong>%{user}</strong> addeva texto a "%{object_name}" in "%{taxon_concept}".
   activity_user_updated_text: <strong>%{user}</strong> actualisava le texto de "%{object_name}" in "%{taxon_concept}".
   add: Adder
@@ -686,6 +750,7 @@ ia:
       meta_description: Le Encyclopedia del Vita es un effortio sin precedente pro colliger cognoscentia scientific super omne vita animal e vegetal in forma de imagines, information, factos e altere cosas concernente le organismos que vive in nostre regnos animal e vegetal.
       meta_keywords: Animales, imagines de animales, information sur animales, plantas, vita vegetal, imagines de plantas, information sur plantas, flora, fauna
       meta_title: Animales - Plantas - Imagines e information
+      see_all_recent_activites: vider plus <span class="assistive">activitates in le ultime septimana</span>
   content_has_been_updated: Le contento ha essite actualisate.
   content_notes_not_shown_to_us: "Notas sur le contento (non visibile al usator):"
   content_partner: Partner de contento
@@ -1226,10 +1291,19 @@ ia:
   rated_by_count_people: 
     one: de %{count} persona
     other: de %{count} personas
+  recent_activities: 
+    index: 
+      list_header: Ultime 7 dies
+      meta_keywords: activitate del communitate de eol, activitate recente in eol, activitates in le encyclopedia del vita
+      meta_title: Activitate del communitate de EOL
+      page_title: Activitate del communitate de EOL
   recent_activity: 
     bulk_collection_activity_with_count: 
       one: Il habeva un actualisation de %{to}
       other: Il habeva %{count} actualisationes de %{to}
+    bulk_comments_on_you_with_count: 
+      one: Il ha un nove commento in tu profilo
+      other: Il ha %{count} nove commentos in tu profilo
     bulk_comments_with_count: 
       one: Il ha un nove commento sur %{on}
       other: Il ha %{count} nove commentos sur %{on}
@@ -1262,8 +1336,9 @@ ia:
     data_object_title: "%{who} ha addite nove contento a EOL"
     default_subject: Activitate recente in EOL
     intro: Ecce tu digesto de activitate in EOL pro %{time}
+    see_all_activity: Vide tote le previe activitate in <a href='%{activity_url}' style='color:#195184'>tu pagina de fluxo de novas</a>.
     someone_commented_on_something: <b>%{who}</b> ha commentate <b>%{what}</b>.
-    unsubscribe: Pro non plus reciper iste notificationes, <a href='%{email_prefs_url}'>modifica tu preferentias de e-mail</a>.
+    unsubscribe: Modifica tu preferentias de e-mail o disabona te usante <a href='%{email_prefs_url}' style='color:#195184'>le pagina de preferentias de notification</a>.
   recent_updates: Actualisationes recente
   remove_membership: Remover inscription
   resources: Ressources
@@ -1615,13 +1690,24 @@ ia:
         meta_title: Partners de contento de %{user_full_name}
         tweet_text: Partners de contento de %{user_full_name}
     newsfeeds: 
+      activity: 
+        meta_title: Fluxo de activitate de %{user_full_name}
+        tweet_text: fluxo de activitate de %{user_full_name}
       activity_link: activitate
+      comments: 
+        meta_description: Fluxo de commentos pro %{user_full_name}.
+        meta_title: Fluxo de commentos de %{user_full_name}
+        tweet_text: fluxo de commentos de %{user_full_name}
       comments_link: commentos
       newsfeed_link: syndication de novas
       show: 
         meta_description: Novas, activitates e commentos de %{user_full_name}.
         meta_title: Syndication de novas de %{user_full_name}
         tweet_text: Syndication de novas de %{user_full_name}
+    notifications: 
+      edit: 
+        page_description: Tote le actualitates listate hic infra (excepte le bulletin de novas de EOL) es disponibile in tu <a href="%{user_newsfeed_link}">fluxo de novas de EOL</a>, ma multe personas volerea anque esser alertate per e-mail sur certe typos de activitates de particular interesse. Con le buttones hic infra tu pote definir le frequentia de e-mail de EOL secundo tu preferentias.
+        page_title: Configuration de notificationes
     show: 
       meta_description: Profilo de membro de %{user_full_name} in le Encyclopedia del Vita.
       meta_description_curator: Profilo de membro del %{curator_level} %{user_full_name} in le Encyclopedia del Vita.

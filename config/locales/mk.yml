@@ -252,6 +252,11 @@ mk:
         wrong_length: има погрешна должина (треба да има %{count} знаци)
         wrong_type: е од погрешен тип
       models: 
+        data_object: 
+          attributes: 
+            rights_holder: 
+              blank: не може да стои празно за лиценца CC-BY
+              inclusion: мора да стои празно за лиценца за јавна сопственост
         harvest_event: 
           attributes: 
             publish: 
@@ -615,7 +620,7 @@ mk:
   add_page: Додај страница
   add_sub_chapter: Додај подглава
   add_to_a_community: Додај во заедница
-  add_to_my_collection_button: Додај во мојата збирка
+  add_to_my_collection_button: Додај во збирка
   admin: админ
   admin_content_page_active: Објавено
   admin_content_page_child_new_link: Создај потстраница
@@ -921,8 +926,8 @@ mk:
     one: Фигурира во %{count} збирка
     other: Фигурира во %{count} збирки
   collections_with_count: 
-    one: "%{count} Збирка"
-    other: "%{count} Збирки"
+    one: "%{count} збирка"
+    other: "%{count} збирки"
   comment: Коментар
   comment_added_notice: Коментарот е успешно додаден.
   comment_body_label: Ваш коментар
@@ -1035,6 +1040,7 @@ mk:
       meta_description: Енциклопедијата на живиот свет е ненадминат потфат кој има за цел да собере научни сознанија за сите животни и растенија во природата. Тука ќе најдете слики, информации, факти и многу друго за сите видови во растителното и животинското царство.
       meta_keywords: Животни, Слики од животни, Информации за животни, Растенија, Растителен свет, Слики од растенија, Информации за растенија, Флора, Фауна
       meta_title: Животни - Растенија - Слики и информации
+      see_all_recent_activites: погледајте повеќе <span class="assistive">активности од минатата недела</span>
   content_has_been_updated: Содржината е подновена.
   content_notes_not_shown_to_us: "Белешки за содржината (не видливо за корисникот):"
   content_partner: Соучесник во содржините
@@ -1644,6 +1650,7 @@ mk:
         email_reports_frequency_hours_more: Извештаите по е-пошта се испраќаат само ако има коментари или кустоски постапки за/на вашите податоци или таксонски страници што се однесуваат на нив.
       data_object: 
         bibliographic_citation: Библиоградско наведување
+        bibliographic_citation_more: Препорачан вид на наведување за овие податоци во облик на библиографски наводи, со достатно подробни информации за што понедвосмислено распознавање на податоците.
         description: Текст <small>(допуштено извесно HTML-форматирање)</small>
         license_id: Лиценца
         license_id_more: Прочитајте ги <a href="%{policy_url}">Правилата за лиценцирање на EOL</a>
@@ -1923,7 +1930,7 @@ mk:
   learn_about_eol: Како да ја користам EOL?
   learn_about_joining: Како да ви се придружам?
   learn_more_about_communities_link: Дознајте повеќе за Заедниците
-  learn_more_about_names_for_this_taxon: дознајте повеќ за имињата на овој таксон
+  learn_more_about_names_for_this_taxon: дознајте повеќе за имињата на овој таксон
   learn_more_link: (%{learn_more})
   learn_more_lowercase: дознајте повеќе
   leave_a_comment: Напишете коментар
@@ -2022,8 +2029,8 @@ mk:
   media_summary_empty: Досега никој нема поставено ниедна слика на оваа страница.
   media_summary_empty_contribute_instructions: Дознајте како да придонесувате на EOL со слики.
   media_with_count: 
-    one: "%{count} Медиум"
-    other: "%{count} Медиуми"
+    one: "%{count} медиум"
+    other: "%{count} медиуми"
   member_of: член на
   member_of_professional_society_credential_option: член на стручно друштво
   members: 
@@ -2414,6 +2421,12 @@ mk:
   rating_not_added_error: Нажалост, се појави грешка. Не можев да ја додадам оценката.
   recaptcha: Внесете ги двата збора прикажани подолу
   recaptcha_incorrect_error_with_anchor: <a href="#%{recaptcha_anchor}">Знаците во reCaptcha</a> не се совпаѓаат. Обидете се повторно.
+  recent_activities: 
+    index: 
+      list_header: Последните 7 дена
+      meta_keywords: активности на заедницата на eol, eol скорешни активности, активности на енциклопедијата на живиот свет
+      meta_title: Активности на заедницата на EOL
+      page_title: Активности на заедницата на EOL
   recent_activity: 
     bulk_collection_activity_with_count: 
       one: Има измена во %{to}
@@ -3088,7 +3101,7 @@ mk:
   unknown: Непознат
   unknown_type_not_associated_with_any_published_entries: Овие податоци не се поврзани со ниеден објавен таксон.
   unpublished: Необјавено
-  unreviewed: Непроверени
+  unreviewed: Непроверено
   unreviewed_images: Непроверени слики
   unreviewed_maps: Непроверени карти
   unreviewed_text_objects: Непроверени текстуални објекти
@@ -3216,7 +3229,14 @@ mk:
         meta_title: Соучесници во содржините на %{user_full_name}
         tweet_text: Соучесници во содржините на %{user_full_name}
     newsfeeds: 
+      activity: 
+        meta_title: Канал со активности на %{user_full_name}
+        tweet_text: Канал со активности на %{user_full_name}
       activity_link: активности
+      comments: 
+        meta_description: Канал со коментари за %{user_full_name}.
+        meta_title: Канал со коментари на %{user_full_name}
+        tweet_text: Канал со коментари на %{user_full_name}
       comments_link: коментари
       newsfeed_link: актуелности
       show: 

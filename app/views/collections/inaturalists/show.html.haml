@@ -8,4 +8,4 @@
 #sidebar
   = render :partial => 'collections/recently_visited'
 #collection_newsfeed.main_container
-  = render :partial => 'shared/inaturalist_widget'
+  = render :partial => 'shared/embed_external_page', :locals  => {:height => '800px', :width => '100%', :url => @inaturalist_url_for_iframe}

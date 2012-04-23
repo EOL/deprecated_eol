@@ -476,10 +476,9 @@ en:
         create: "Submit request"
     label:
       collection:
-        inaturalist_observations_url: iNaturalist Observations
-        inaturalist_observations_url_more: "If you know project on iNaturalist website created especially for this collection, please provide a link to the observations page to show iNaturalist observations on your EOL collection page in a new sub-tab."
-        inaturalist_observations_url_examples: "Examples:<br/>http://www.inaturalist.org/observations/project/harvard-yard-eol-collection<br/> http://www.inaturalist.org/observations/project/152"
-        more_inaturalist_observations: "View more observations for %{name} on iNaturalist »"
+        inaturalist_url: iNaturalist Observations
+        inaturalist_url_more: "Please provide a link to project on iNaturalist website created especially for this collection to show iNaturalist observations on your EOL collection page in a new sub-tab."
+        inaturalist_url_examples: "Examples: <br/>http://www.inaturalist.org/projects/harvard-yard-eol-collection<br/>http://www.inaturalist.org/projects/152"
         view_style_id: "Default view"
       collection_item:
         annotation: "Annotation"

@@ -7,11 +7,7 @@ class Collections::InaturalistsController < CollectionsController
   layout 'v2/collections'
 
   def show
-    # TODO: Figure out how to get iNaturalist Project name for this collection and assign it to @inaturalist_project_name
-    @inaturalist_project_name = "this collection"
-    @inaturalist_observations_url = @collection.inaturalist_observations_url
-    @inaturalist_observations_widget_url = "#{@inaturalist_observations_url}.widget?layout=large&limit=20&order=desc&order_by=observed_on"
-    @more_inaturalist_observations = I18n.t('helpers.label.collection.more_inaturalist_observations', :name => @inaturalist_project_name)
+    @inaturalist_url_for_iframe = "#{@collection.inaturalist_url.strip}?iframe=true"
   end
 
 private

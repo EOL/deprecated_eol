@@ -1,6 +1,6 @@
 #======================================================================
-#                     v2staging.rb
-# Environment specific settings for the V2Staging environment
+#                     staging.rb
+# Environment specific settings for the Staging environment
 #
 # Settings specified here will override those in config/environment.rb.
 # Configuration files are loaded in the following order with the settings
@@ -45,9 +45,9 @@ $USE_SSL_FOR_LOGIN = false
 
 #This part of the code should stay at the bottom to ensure that www.eol.org - related settings override everything
 begin
-  require File.join(File.dirname(__FILE__), 'v2staging_eol_org')
+  require File.join(File.dirname(__FILE__), 'staging_eol_org')
 rescue LoadError
-  puts '*************WARNING: COULD NOT LOAD V2STAGING_EOL_ORG FILE***********************'
+  puts '*************WARNING: COULD NOT LOAD STAGING_EOL_ORG FILE***********************'
 end
 
 

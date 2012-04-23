@@ -48,7 +48,7 @@ class ApplicationController < ActionController::Base
 
   def profile
     return yield if params[:profile].nil?
-    return yield if ![ 'v2staging', 'v2staging_dev', 'v2staging_dev_cache', 'development', 'test'].include?(ENV['RAILS_ENV'])
+    return yield if ![ 'staging', 'staging_dev', 'staging_dev_cache', 'development', 'test'].include?(ENV['RAILS_ENV'])
     result = RubyProf.profile { yield }
     printer = RubyProf::GraphHtmlPrinter.new(result)
     out = StringIO.new

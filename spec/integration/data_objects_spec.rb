@@ -378,6 +378,17 @@ describe 'Data Object Page' do
     visit data_object_path(udo_dato)
     click_link("Edit this article")
     current_path.should == edit_data_object_path(udo_dato)
+    fill_in 'data_object_description', :with => ''
+    click_button("Save article")
+    current_path.should == "/data_objects/#{udo_dato.id}"
+    body.should have_tag('fieldset#errors') do
+      with_tag("li", "Description can't be blank")
+    end
+    body.should have_tag("select#data_object_toc_items_id") do
+      with_tag("option[value=?][selected=selected]", udo_dato.toc_items.first.id)
+      without_tag("option[value=?][selected=selected]", /[^#{udo_dato.toc_items.first.id}]/)
+    end
+    fill_in 'data_object_description', :with => udo_dato.description
     click_button("Save article")
     new_udo_revision = DataObject.latest_published_version_of(udo_dato.id)
     current_path.should == data_object_path(new_udo_revision)
@@ -389,7 +400,7 @@ describe 'Data Object Page' do
     current_path.should == edit_data_object_path(new_udo_revision)
   end
 
-  # TODO - Move this test to the taxa_page_spec.
+  # This probably belongs in taxa_page_spec but shares expected behaviours with editing articles spec.
   it 'should allow logged in users and assistant curators to add text to EOL pages as Unreviewed' do
     users = [@user, @assistant_curator]
     users.each do |user|
@@ -398,11 +409,25 @@ describe 'Data Object Page' do
       click_link "Add an article to this page"
       current_url.should match "/pages/#{@tc.id}/data_objects/new"
       select "Overview", :from => "data_object_toc_items_id"
+      click_button("Add article")
+      current_path.should == "/pages/#{@tc.id}/data_objects"
+      body.should have_tag('fieldset#errors') do
+        with_tag("li", "Description can't be blank")
+      end
+      body.should have_tag("select#data_object_toc_items_id") do
+        with_tag("option[value=?][selected=selected]", TocItem.overview.id)
+        without_tag("option[value=?][selected=selected]", /[^#{TocItem.overview.id}]/)
+      end
       fill_in 'data_object_object_title', :with => "Unicorns"
       fill_in 'data_object_description', :with => "Unicorn is an imaginary animal."
       fill_in 'references', :with => "Wikipedia"
       select "public domain", :from => "data_object_license_id"
-      click_button "data_object_submit"
+      click_button("Add article")
+      body.should have_tag('fieldset#errors') do
+        with_tag("li", "Rights holder must be blank for a Public Domain license")
+      end
+      fill_in 'data_object_rights_holder', :with => ""
+      click_button("Add article")
       dato_id = DataObject.last.id
       body.should have_tag("#data_object_#{dato_id}") do
         with_tag('h4', :text => "Unicorns")
@@ -415,7 +440,7 @@ describe 'Data Object Page' do
     end
   end
 
-  # TODO - Move this test to the taxa_page_spec.
+  # This probably belongs in taxa_page_spec but shares expected behaviours with editing articles spec.
   it 'should allow logged in full/master curators and admins to add text to EOL pages as Trusted' do
     [@full_curator, @master_curator, @admin].each do |user|
       login_as user

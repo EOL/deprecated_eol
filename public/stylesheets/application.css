@@ -2557,6 +2557,8 @@ ul.content_partner_contacts li {
 #permalink #sidebar {
   width: 340px;
   padding: 0; }
+  #permalink #sidebar .article.list > ul > li + li {
+    border-top: none; }
   #permalink #sidebar h3 {
     padding: 0 10px 3px 10px;
     font-size: 1.16em; }

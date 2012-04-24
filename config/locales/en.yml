@@ -1566,7 +1566,7 @@ en:
         user_added_an_unknown_name_to_taxon: "<strong>%{user}</strong> added an unknown common name to \"%{taxon}\"."
         user_added_name_to_an_unknown_taxon: "<strong>%{user}</strong> added the common name \"%{name}\" to an unknown page."
         user_added_name_to_taxon: "<strong>%{user}</strong> added the common name \"%{name}\" to \"%{taxon}\"."
-        an_unknown_user_added_an_unknown_name_to_it: "An unknown user added an unknown common."
+        an_unknown_user_added_an_unknown_name_to_it: "An unknown user added an unknown common name."
         an_unknown_user_added_name_to_it: "An unknown user added the common name \"%{name}\"."
         user_added_an_unknown_name_to_it: "<strong>%{user}</strong> added an unknown common name."
         user_added_name_to_it: "<strong>%{user}</strong> added the common name \"%{name}\"."
@@ -3485,7 +3485,7 @@ en:
     other: '%{count}<span class="assistive"> notifications</span>'
   user_pending_notifications_comments_assistive: '<span class="assistive">comments</span>'
   user_pending_notifications_comments_with_count_assistive:
-    one: '%{count}<span class="assistive"> comments</span>'
+    one: '%{count}<span class="assistive"> comment</span>'
     other: '%{count}<span class="assistive"> comments</span>'
   user_was_added_as_editor_of_collection: "This user was added as a manager of \"%{collection}\"."
   username_taken: "%{name} is already taken"

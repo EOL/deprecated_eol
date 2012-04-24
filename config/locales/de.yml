@@ -384,8 +384,68 @@ de:
         user_modified_an_unknown_community: <strong>%{user}</strong> änderte eine unbekannte Gemeinschaft.
         user_modified_community: <strong>%{user}</strong> änderte die Gemeinschaft „%{community}“.
     curator_activity_log: 
+      add_association: 
+        an_unknown_user_associated_an_older_data_object_to_an_unknown_association: Ein unbekannter Nutzer hat zwischen einer älteren Version von „%{data_object}“ und einer unbekannten Seite eine Zuordnung vorgekommen.
+        an_unknown_user_associated_an_older_data_object_to_association: Ein unbekannter Nutzer hat zwischen einer älteren Version von „%{data_object}“ und „%{association}“ eine Zuordnung vorgenommen.
+        an_unknown_user_associated_an_unknown_data_object_to_an_unknown_association: Ein unbekannter Nutzer nahm eine unbekannte Zuordnung vor.
+        an_unknown_user_associated_an_unknown_data_object_to_association: Ein unbekannter Nutzer hat zwischen einem unbekannten Datenobjekt und „%{association}“ eine Zuordnung vorgenommen.
+        an_unknown_user_associated_data_object_to_an_unknown_association: Ein unbekannter Nutzer hat zwischen „%{data_object}“ und einer unbekannten Seite eine Zuordnung vorgenommen.
+        an_unknown_user_associated_data_object_to_association: Ein unbekannter Nutzer hat zwischen „%{data_object}“ und „%{association}“ eine Zuordnung vorgenommen.
+        an_unknown_user_associated_it_to_an_unknown_association: Ein unbekannter Nutzer hat zu einer unbekannten Seite eine Zuordnung vorgenommen.
+        an_unknown_user_associated_it_to_association: Ein unbekannter Nutzer hat zu „%{association}“ eine Zuordnung vorgenommen.
+        user_associated_an_older_data_object_to_an_unknown_association: <strong>%{user}</strong> hat zwischen einer älterer Version von „%{data_object}“ und einer unbekannten Seite eine Zuordnung vorgenommen.
+        user_associated_an_older_data_object_to_association: <strong>%{user}</strong> hat zwischen einer älteren Version von „%{data_object}“ und „%{association}“ eine Zuordnung vorgenommen.
+        user_associated_an_unknown_data_object_to_an_unknown_association: <strong>%{user}</strong> hat eine unbekannte Zuordnung vorgenommen.
+        user_associated_an_unknown_data_object_to_association: <strong>%{user}</strong> hat zwischen einem unbekannten Datenobjekt und „%{association}“ eine Zuordnung vorgenommen.
+        user_associated_data_object_to_an_unknown_association: <strong>%{user}</strong> hat zwischen „%{data_object}“ und einer unbekannten Seite eine Zuordnung vorgenommen.
+        user_associated_data_object_to_association: <strong>%{user}</strong> hat zwischen „%{data_object}“ und „%{association}“ eine Zuordnung vorgenommen.
+        user_associated_it_to_an_unknown_association: <strong>%{user}</strong> hat auf einer unbekannten Seite eine Zuordnung vorgenommen.
+        user_associated_it_to_association: <strong>%{user}</strong> hat zu „%{association}“ eine Zuordnung vorgenommen.
+      hide: 
+        an_unknown_user_hid_an_older_data_object_on_an_unknown_association: Ein unbekannter Nutzer markierte eine ältere Version von „%{data_object}“ in einem unbekannten Zusammenhang als nicht sichtbar.
+        an_unknown_user_hid_an_older_data_object_on_association: Ein unbekannter Nutzer markierte eine ältere Version von „%{data_object}“ auf der Seite „%{association}“ als nicht sichtbar.
+        an_unknown_user_hid_an_unknown_data_object_on_an_unknown_association: Ein unbekannter Nutzer markierte ein unbekanntes Datenobjekt in einem unbekannten Zusammenhang als nicht sichtbar.
+        an_unknown_user_hid_an_unknown_data_object_on_association: Ein unbekannter Nutzer markierte ein unbekanntes Datenobjekt auf der Seite „%{association}“ als nicht sichtbar.
+        an_unknown_user_hid_data_object_on_an_unknown_association: Ein unbekannter Nutzer markierte „%{data_object}“ in einem unbekannten Zusammenhang als nicht sichtbar.
+        an_unknown_user_hid_data_object_on_association: Ein unbekannter Nutzer markierte „%{data_object}“ auf der Seite „%{association}“ als nicht sichtbar.
+        an_unknown_user_hid_it_on_an_unknown_association: Ein unbekannter Nutzer markierte es in einem unbekannten Zusammenhang als nicht sichtbar.
+        an_unknown_user_hid_it_on_association: Ein unbekannter Nutzer markierte es auf der Seite „%{association}“ als nicht sichtbar.
+        user_hid_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong> markierte eine ältere Version von „%{data_object}“ in einem unbekannten Zusammenhang als nicht sichtbar.
+        user_hid_an_older_data_object_on_association: <strong>%{user}</strong> markierte eine ältere Version von „%{data_object}“ auf der Seite „%{association}“ als nicht sichtbar.
+        user_hid_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong> markierte ein unbekanntes Datenobjekt in einem unbekannten Zusammenhang als nicht sichtbar.
+        user_hid_an_unknown_data_object_on_association: <strong>%{user}</strong> markierte ein unbekanntes Datenobjekt auf der Seite „%{association}“ als nicht sichtbar.
+        user_hid_data_object_on_an_unknown_association: <strong>%{user}</strong> markierte „%{data_object}“ in einem unbekannten Zusammenhang als nicht sichtbar.
+        user_hid_data_object_on_association: <strong>%{user}</strong> markierte „%{data_object}“ auf der Seite „%{association}“ als nicht sichtbar.
+        user_hid_it_on_an_unknown_association: <strong>%{user}</strong> markierte es in einem unbekannten Zusammenhang als nicht sichtbar.
+        user_hid_it_on_association: <strong>%{user}</strong> markierte es auf der Seite „%{association}“ als nicht sichtbar.
+      other_actions: 
+        an_unknown_user_curated_an_older_data_object: Ein unbekannter Nutzer kuratierte eine ältere Version von „%{data_object}“.
+        an_unknown_user_curated_an_unknown_data_object: Ein unbekannter Nutzer kuratierte ein unbekanntes Datenobjekt.
+        an_unknown_user_curated_data_object: Ein unbekannter Nutzer kuratierte „%{data_object}“
       reasons_to_hide: "Gründe für das Verbergen: %{reasons}"
       reasons_to_untrust: "Gründe für die Einstufung als nicht vertrauenswürdig: %{reasons}"
+      remove_association: 
+        an_unknown_user_disassociated_an_older_data_object_from_an_unknown_taxon: Ein unbekannter Nutzer hat von einer älteren Version von „%{data_object}“ eine Zuordnung entfernt.
+        an_unknown_user_disassociated_an_older_data_object_from_taxon: Ein unbekannter Nutzer hat zwischen „%{data_object}“ und „%{taxon}“ eine Zuordnung entfernt.
+        an_unknown_user_disassociated_an_unknown_data_object_from_an_unknown_taxon: Ein unbekannter Nutzer hat eine unbekannte Zuordnung entfernt.
+        an_unknown_user_disassociated_an_unknown_data_object_from_taxon: Ein unbekannter Nutzer hat zwischen einem unbekannten Datenobjekt und „%{taxon}“ eine Zuordnung entfernt.
+      show: 
+        an_unknown_user_showed_an_older_data_object_on_an_unknown_association: Ein unbekannter Nutzer markierte eine ältere Version von „%{data_object}“ in einem unbekannten Zusammenhang als sichtbar.
+        an_unknown_user_showed_an_older_data_object_on_association: Ein unbekannter Nutzer markierte eine ältere Version von „%{data_object}“ auf der Seite „%{association}“ als sichtbar.
+        an_unknown_user_showed_an_unknown_data_object_on_an_unknown_association: Ein unbekannter Nutzer markierte ein unbekanntes Datenobjekt in einem unbekannten Zusammenhang als sichtbar.
+        an_unknown_user_showed_an_unknown_data_object_on_association: Ein unbekannter Nutzer markierte ein unbekanntes Datenobjekt auf der Seite „%{association}“ als sichtbar.
+        an_unknown_user_showed_data_object_on_an_unknown_association: Ein unbekannter Nutzer markierte „%{data_object}“ in einem unbekannten Zusammenhang als sichtbar.
+        an_unknown_user_showed_data_object_on_association: Ein unbekannter Nutzer markierte „%{data_object}“ auf der Seite „%{association}“ als sichtbar.
+        an_unknown_user_showed_it_on_an_unknown_association: Ein unbekannter Nutzer markierte es in einem unbekannten Zusammenhang als sichtbar.
+        an_unknown_user_showed_it_on_association: Ein unbekannter Nutzer markierte es auf der Seite „%{association}“ als sichtbar.
+        user_showed_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong> markierte eine ältere Version von „%{data_object}“ in einem unbekannten Zusammenhang als sichtbar.
+        user_showed_an_older_data_object_on_association: <strong>%{user}</strong> markierte eine ältere Version von „%{data_object}“ auf der Seite „%{association}“ als sichtbar.
+        user_showed_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong> markierte ein unbekanntes Datenobjekt in einem unbekannten Zusammenhang als sichtbar.
+        user_showed_an_unknown_data_object_on_association: <strong>%{user}</strong> markierte ein unbekanntes Datenobjekt auf der Seite „%{association}“ als sichtbar.
+        user_showed_data_object_on_an_unknown_association: <strong>%{user}</strong> markierte „%{data_object}“ in einem unbekannten Zusammenhang als sichtbar.
+        user_showed_data_object_on_association: <strong>%{user}</strong> markierte „%{data_object}“ auf der Seite „%{association}“ als sichtbar.
+        user_showed_it_on_an_unknown_association: <strong>%{user}</strong> markierte es in einem unbekannten Zusammenhang als sichtbar.
+        user_showed_it_on_association: <strong>%{user}</strong> markierte es auf der Seite „%{association}“ als sichtbar.
       trusted: 
         an_unknown_user_trusted_an_older_data_object_on_an_unknown_association: Ein unbekannter Nutzer markierte eine ältere Version von „%{data_object}“ in einem unbekannten Zusammenhang als vertrauenswürdig.
         an_unknown_user_trusted_an_older_data_object_on_association: Ein unbekannter Nutzer markierte eine ältere Version von „%{data_object}“ auf der Seite „%{association}“ als vertrauenswürdig.
@@ -393,10 +453,50 @@ de:
         an_unknown_user_trusted_an_unknown_data_object_on_association: Ein unbekannter Nutzer markierte ein unbekanntes Datenobjekt auf der Seite „%{association}“ als vertrauenswürdig.
         an_unknown_user_trusted_data_object_on_an_unknown_association: Ein unbekannter Nutzer markierte „%{data_object}“ in einem unbekannten Zusammenhang als vertrauenswürdig.
         an_unknown_user_trusted_data_object_on_association: Ein unbekannter Nutzer markierte „%{data_object}“ auf der Seite „%{association}“ als vertrauenswürdig.
+        an_unknown_user_trusted_it_on_an_unknown_association: Ein unbekannter Nutzer markierte es in einem unbekannten Zusammenhang als vertrauenswürdig.
+        an_unknown_user_trusted_it_on_association: Ein unbekannter Nutzer markierte es auf der Seite „%{association}“ als vertrauenswürdig.
         user_trusted_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong> markierte eine ältere Version von „%{data_object}“ in einem unbekannten Zusammenhang als vertrauenswürdig.
         user_trusted_an_older_data_object_on_association: <strong>%{user}</strong> markierte eine ältere Version von „%{data_object}“ auf der Seite „%{association}“ als vertrauenswürdig.
         user_trusted_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong> markierte ein unbekanntes Datenobjekt in einem unbekannten Zusammenhang als vertrauenswürdig.
         user_trusted_an_unknown_data_object_on_association: <strong>%{user}</strong> markierte ein unbekanntes Datenobjekt auf der Seite „%{association}“ als vertrauenswürdig.
+        user_trusted_data_object_on_an_unknown_association: <strong>%{user}</strong> markierte „%{data_object}“ in einem unbekannten Zusammenhang als vertrauenswürdig.
+        user_trusted_data_object_on_association: <strong>%{user}</strong> markierte „%{data_object}“ auf der Seite „%{association}“ als vertrauenswürdig.
+        user_trusted_it_on_an_unknown_association: <strong>%{user}</strong> markierte es in einem unbekannten Zusammenhang als vertrauenswürdig.
+        user_trusted_it_on_association: <strong>%{user}</strong> markierte es auf der Seite „%{association}“ als vertrauenswürdig.
+      unreviewed: 
+        an_unknown_user_unreviewed_an_older_data_object_on_an_unknown_association: Ein unbekannter Nutzer markierte eine ältere Version von „%{data_object}“ in einem unbekannten Zusammenhang als nicht überprüft.
+        an_unknown_user_unreviewed_an_older_data_object_on_association: Ein unbekannter Nutzer markierte eine ältere Version von „%{data_object}“ auf der Seite „%{association}“ als nicht überprüft.
+        an_unknown_user_unreviewed_an_unknown_data_object_on_an_unknown_association: Ein unbekannter Nutzer markierte ein unbekanntes Datenobjekt in einem unbekannten Zusammenhang als nicht überprüft.
+        an_unknown_user_unreviewed_an_unknown_data_object_on_association: Ein unbekannter Nutzer markierte ein unbekanntes Datenobjekt auf der Seite „%{association}“ als nicht überprüft.
+        an_unknown_user_unreviewed_data_object_on_an_unknown_association: Ein unbekannter Nutzer markierte „%{data_object}“ in einem unbekannten Zusammenhang als nicht überprüft.
+        an_unknown_user_unreviewed_data_object_on_association: Ein unbekannter Nutzer markierte „%{data_object}“ auf der Seite „%{association}“ als nicht überprüft.
+        an_unknown_user_unreviewed_it_on_an_unknown_association: Ein unbekannter Nutzer markierte es in einem unbekannten Zusammenhang als nicht überprüft.
+        an_unknown_user_unreviewed_it_on_association: Ein unbekannter Nutzer markierte es auf der Seite „%{association}“ als nicht überprüft.
+        user_unreviewed_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong> markierte eine ältere Version von „%{data_object}“ in einem unbekannten Zusammenhang als nicht überprüft.
+        user_unreviewed_an_older_data_object_on_association: <strong>%{user}</strong> markierte eine ältere Version von „%{data_object}“ auf der Seite „%{association}“ als nicht überprüft.
+        user_unreviewed_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong> markierte ein unbekanntes Datenobjekt in einem unbekannten Zusammenhang als nicht überprüft.
+        user_unreviewed_an_unknown_data_object_on_association: <strong>%{user}</strong> markierte ein unbekanntes Datenobjekt auf der Seite „%{association}“ als nicht überprüft.
+        user_unreviewed_data_object_on_an_unknown_association: <strong>%{user}</strong> markierte „%{data_object}“ in einem unbekannten Zusammenhang als nicht überprüft.
+        user_unreviewed_data_object_on_association: <strong>%{user}</strong> markierte „%{data_object}“ auf der Seite „%{association}“ als nicht überprüft.
+        user_unreviewed_it_on_an_unknown_association: <strong>%{user}</strong> markierte es in einem unbekannten Zusammenhang als nicht überprüft.
+        user_unreviewed_it_on_association: <strong>%{user}</strong> markierte es auf der Seite „%{association}“ als nicht überprüft.
+      untrusted: 
+        an_unknown_user_untrusted_an_older_data_object_on_an_unknown_association: Ein unbekannter Nutzer markierte eine ältere Version von „%{data_object}“ in einem unbekannten Zusammenhang als nicht vertrauenswürdig.
+        an_unknown_user_untrusted_an_older_data_object_on_association: Ein unbekannter Nutzer markierte eine ältere Version von „%{data_object}“ auf der Seite „%{association}“ als nicht vertrauenswürdig.
+        an_unknown_user_untrusted_an_unknown_data_object_on_an_unknown_association: Ein unbekannter Nutzer markierte ein unbekanntes Datenobjekt in einem unbekannten Zusammenhang als nicht vertrauenswürdig.
+        an_unknown_user_untrusted_an_unknown_data_object_on_association: Ein unbekannter Nutzer markierte ein unbekanntes Datenobjekt auf der Seite „%{association}“ als nicht vertrauenswürdig.
+        an_unknown_user_untrusted_data_object_on_an_unknown_association: Ein unbekannter Nutzer markierte „%{data_object}“ in einem unbekannten Zusammenhang als nicht vertrauenswürdig.
+        an_unknown_user_untrusted_data_object_on_association: Ein unbekannter Nutzer markierte „%{data_object}“ auf der Seite „%{association}“ als nicht vertrauenswürdig.
+        an_unknown_user_untrusted_it_on_an_unknown_association: Ein unbekannter Nutzer markierte es in einem unbekannten Zusammenhang als nicht vertrauenswürdig.
+        an_unknown_user_untrusted_it_on_association: Ein unbekannter Nutzer markierte es auf der Seite „%{association}“ als nicht vertrauenswürdig.
+        user_untrusted_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong> markierte eine ältere Version von „%{data_object}“ in einem unbekannten Zusammenhang als nicht vertrauenswürdig.
+        user_untrusted_an_older_data_object_on_association: <strong>%{user}</strong> markierte eine ältere Version von „%{data_object}“ auf der Seite „%{association}“ als nicht vertrauenswürdig.
+        user_untrusted_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong> markierte ein unbekanntes Datenobjekt in einem unbekannten Zusammenhang als nicht vertrauenswürdig.
+        user_untrusted_an_unknown_data_object_on_association: <strong>%{user}</strong> markierte ein unbekanntes Datenobjekt auf der Seite „%{association}“ als nicht vertrauenswürdig.
+        user_untrusted_data_object_on_an_unknown_association: <strong>%{user}</strong> markierte „%{data_object}“ in einem unbekannten Zusammenhang als nicht vertrauenswürdig.
+        user_untrusted_data_object_on_association: <strong>%{user}</strong> markierte „%{data_object}“ auf der Seite „%{association}“ als nicht vertrauenswürdig.
+        user_untrusted_it_on_an_unknown_association: <strong>%{user}</strong> markierte es in einem unbekannten Zusammenhang als nicht vertrauenswürdig.
+        user_untrusted_it_on_association: <strong>%{user}</strong> markierte es auf der Seite „%{association}“ als nicht vertrauenswürdig.
   activity_user_created_text: <strong>%{user}</strong> fügte dem Objekt „%{object_name}“ bei „%{taxon_concept}“ Text hinzu.
   activity_user_updated_text: <strong>%{user}</strong> änderte am Objekt „%{object_name}“ bei „%{taxon_concept}“ den Text.
   add: Hinzufügen
@@ -795,7 +895,7 @@ de:
     one: Eine Gemeinschaft
     other: "%{count} Gemeinschaften"
   community: Gemeinschaft
-  community_activity: Aktivität der Gemeinschaft
+  community_activity: Aktivitäten der Gemeinschaft
   community_can_now_manage_this_collection: Die Gemeinschaft „%{community}“ ist jetzt berechtigt, diese Sammlung zu verwalten.
   community_contributions_with_count: 
     one: Ein Mitwirkender
@@ -848,6 +948,7 @@ de:
       meta_description: Die Enzyklopädie des Lebens (EOL) stellt ein bislang noch nie dagewesenes Bemühen dar, wissenschaftliche Erkenntnisse zum gesamten tierischen und pflanzlichen Leben zu sammeln. In ihr sollen Bilder, Informationen, Fakten und mehr zu allen Lebewesen in den Pflanzen- und Tierreichen vorhanden sein.
       meta_keywords: Tiere, Tierfotos, Informationen zu Tieren, Pflanzen, Pflanzenfotos, Informationen zu Pflanzen, Flora, Fauna
       meta_title: Tiere - Pflanzen - Bilder und Informationen
+      see_all_recent_activites: weitere <span class="assistive">Aktivitäten während der letzten Woche</span> ansehen
   content_has_been_updated: Der Inhalt wurde aktualisiert.
   content_notes_not_shown_to_us: "Anmerkungen zum Inhalt (werden Nutzern nicht angezeigt):"
   content_partner: Inhaltspartner
@@ -1238,6 +1339,7 @@ de:
   email_colon: "E-Mail-Adresse:"
   email_error_notification_activ: Fehlerbenachrichtigung per E-Mail aktiv
   email_recipients: E-Mail-Empfänger
+  email_updates_for_eol_addicts: Neuigkeiten für EOL-Enthusiasten.
   encyclopedia_of_life: Enzyklopädie des Lebens
   endorsed_by: Präsentiert von
   endorsed_collections: Empfohlene Sammlungen
@@ -2225,6 +2327,12 @@ de:
   rating_not_added_error: Es ist leider ein Fehler aufgetreten, so dass die Bewertung nicht hinzugefügt werden konnte.
   recaptcha: Geben Sie bitte die beiden Wörter ein, die Sie unten sehen.
   recaptcha_incorrect_error_with_anchor: Das eingegebene <a href="#%{recaptcha_anchor}">CAPTCHA</a> stimmte nicht mit der Vorgabe überein. Versuchen Sie es bitte noch einmal.
+  recent_activities: 
+    index: 
+      list_header: Während der letzten sieben Tage
+      meta_keywords: Aktivitäten der Gemeinschaft auf EOL, kürzlich zurückliegende Aktivitäten, Aktivitäten in der Enzyklopädie des Lebens
+      meta_title: Aktivitäten der Gemeinschaft auf EOL
+      page_title: Aktivitäten der Gemeinschaft auf EOL
   recent_activity: 
     bulk_collection_activity_with_count: 
       one: Es gab eine Aktualisierung zu %{to}.
@@ -3024,7 +3132,14 @@ de:
         meta_title: Inhaltspartner von %{user_full_name}
         tweet_text: Inhaltspartner von %{user_full_name}
     newsfeeds: 
+      activity: 
+        meta_title: Aktivitätenfeed von %{user_full_name}
+        tweet_text: Aktivitätenfeed von %{user_full_name}
       activity_link: Aktivitäten
+      comments: 
+        meta_description: Kommentarfeed für %{user_full_name}.
+        meta_title: Kommentarfeed von %{user_full_name}
+        tweet_text: Kommentarfeed von %{user_full_name}
       comments_link: Kommentare
       newsfeed_link: Neuigkeitenfeed
       show: 

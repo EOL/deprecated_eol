@@ -150,8 +150,24 @@ nl:
       name: 
         string: Naam
       notification: 
+        changes_to_my_watched_collection: Wijzigingen in verzamelingen op uw volglijst
+        changes_to_my_watched_community: Wijzigingen in gemeenschappen op uw volglijst
+        comment_on_my_collection: Een reactie op een verzameling die u beheert
+        comment_on_my_community: Een reactie in een van uw gemeenschappen
         comment_on_my_contribution: Een reactie of een conservatoire handeling op een bijdrage die u hebt gemaakt
         comment_on_my_profile: Een reactie op uw profiel
+        comment_on_my_watched_item: Reacties op objecten, taxa, verzamelingen of gemeenschappen op uw volglijst
+        curation_on_my_watched_item: Conservatorhandelingen op objecten, taxa, verzamelingen of gemeenschappen op uw volglijst
+        eol_newsletter: Stuur me ieder kwartaal de nieuwsbrief van EOL
+        i_am_being_watched: U bent toegevoegd aan de volglijst van een ander lid
+        invitation_to_community: Uitnodiging om lid te worden van een gemeenschap
+        made_me_a_manager: U bent verzameling- of gemeenschapsbeheerder gemaakt
+        member_joined_my_community: Een gemeenschap die u beheert heeft een nieuw lid
+        member_joined_my_watched_community: Er zijn nieuwe leden in een gemeenschap waar u ook lid van bent
+        member_left_my_community: Er zijn leden weggegaan uit een gemeenschap die u beheert
+        new_data_on_my_watched_item: Nieuwe bijdragen aan taxa op uw volglijst
+        new_manager_in_my_community: Een ander lid is beheerder geworden van een gemeenschap die u beheert
+        reply_to_comment: Een antwoord op een reactie die u hebt gemaakt
       resource: 
         accesspoint_url: URL dataset
         auto_publish: Automatisch publiceren
@@ -183,6 +199,7 @@ nl:
         credentials: Gebruikersgegevens
         curator_level: Conservatorniveau
         curator_scope: Conservatiegebied
+        disable_email_notifications: Stuur me GEEN e-mail
         email: "E-mailadres:"
         entered_password: Wachtwoord
         entered_password_confirmation: Herhaling wachtwoord <small>(ter bevestiging)</small>
@@ -592,7 +609,11 @@ nl:
         meta_keywords: Verzamelingen van %{community_name}
         meta_title: Verzamelingen van %{community_name}
         tweet_text: Verzamelingen van %{community_name}
+    newsfeeds: 
+      show: 
+        meta_keywords: "%{community_name}, Encyclopedia of Life-gemeenschap, nieuwsoverzicht van %{community_name}, reacties in %{community_name}, activiteit in %{community_name}"
     show: 
+      meta_description: De Encyclopedia of Life-gemeenschap %{community_name} is verwijderd door de beheerder
       meta_title: "%{community_name} Verwijderd door eigenaar"
   communities_filter: Gemeenschappen
   communities_index_empty: Er zijn geen actieve gemeenschappen.
@@ -646,6 +667,12 @@ nl:
   contact_us_topics: Onderwerpen voor "Neem contact met ons op"
   contacts: Contactpersonen
   containing_value: met %{value}.
+  content: 
+    index: 
+      meta_description: De Encyclopedia of Life is een ongeëvenaarde inspaning om wetenschappelijke kennis te vergaren over al het dieren- en plantenleven, in beeld, gegevens, feiten en meer.
+      meta_keywords: Dieren, direnafbeeldingen, dierengegevens, planten, plantenleven, plantenafbeeldingen, plantengegevens, flora, fauna
+      meta_title: Dieren - Planten - Afbeeldingen en gegevens
+      see_all_recent_activites: meer <span class="assistive">activiteiten in de afgelopen week</span> bekijken
   content_has_been_updated: De inhoud is bijgewerkt
   content_notes_not_shown_to_us: "Opmerkingen over inhoud (niet zichtbaar voor gebruiker):"
   content_partner: Contentpartner
@@ -789,13 +816,18 @@ nl:
     edit: 
       meta_title: "%{partner_name} bewerken"
     index: 
+      meta_description: Lijst van gegevensleveranciers en contentpartners van Encyclopedia of Life.
+      meta_keywords: Content partners van Encyclopedia of Life, gegevensleveranciers van Encyclopedia of Life
       meta_title: Contentpartners
     show: 
       meta_description: "%{partner_name}. %{partner_description}"
       meta_keywords: "%{partner_name}, contentpartner van Encyclopedia of Life"
     statistics: 
       show: 
+        meta_description: Gebruiksstatistieken voor gegevens van %{partner_name}
+        meta_keywords: Statistieken voor %{partner_name} Statistics, webgebruik voor %{partner_name}
         meta_title: "%{partner_name}-statistieken"
+        tweet_text: Gebruiksstatistoeken voor %{partner_name}
   content_partners_empty: Geen contentpartners gevonden.
   content_partners_page_description: Contentpartners van Encyclopedia of Life hebben grote hoeveelheden gegevens over biodiversiteit op hun eigen websites of in hun databases, die zij ook delen via EOL-paginas. Wij zijn hen zeer dankbaar voor hun belangrijke bijdragen aan de missie van EOL en moedigen u aan hen beter te leren kennen. Lees meer over <a href="%{more_url}">een contentpartner worden</a>.
   content_partners_page_title: Contentpartners
@@ -1250,12 +1282,15 @@ nl:
         curator_scope: Conservatiegebied
         curator_scope_more: "Geef uw expertise aan. Bijvoorbeeld: \"knaagdieren van Borneo\", \"tri-trofische interacties\" of \"instandhoudingskwesties met betrekking tot vissen\". Hiermee wordt u niet beperkt in wat u kunt beheren, maar het informeert de EOL-gemeenschap."
         email_reports_frequency_hours: Hoe vaak wilt u e-mailberichten ontvangen over activiteiten binnen uw bijdragen?
+        email_settings_submit: E-mailinstellingen
         entered_password: Wachtwoord <small>(4 - 16 tekens)</small>
         generate_api_key: API-sleutel aanvragen
         generate_api_key_more: Als u geïnteresseerd bent in het gebruik van de EOL-API, kunt u een API-sleutel aanmaken om uw toepassing te identificeren. Lees meer over het <a href="%{api_docs_url}">toevoegen van een sleutel voor uw API-verzoeken</a>.
         logo: Nieuwe afbeelding uploaden
         new_password: Nieuw wachtwoord <small>(4 - 16 tekens)</small>
         new_password_confirmation: Nieuw wachtwoord <small>(te bevestigen)</small>
+        notification_settings: Instellingen voor berichten
+        notification_settings_more: Uw instellingen voor berichten maken.
         requested_curator_level: Uw verzoek om %{curator_level_with_indefinite_article} te worden is in behandeling.
         requested_curator_level_id_more: Kies <em>assistentconservator</em> als u nog geen referenties hebt. Kies <em>volledig conservator</em> als u een professionele wetenschapper of afgestudeerde student met referenties bent. Kies <em>meesterconservator</em> als u een ervaren EOL-conservator bent en meer verantwoordelijkheden op zich wilt nemen.
         tag_line: Titel <small>(bijvoorbeeld "vogelliefhebber")</small>
@@ -1317,6 +1352,7 @@ nl:
         curation_privileges: Aanvraag verzenden
         forgot_password: E-mail verzenden
         generate_api_key: Sleutel aanmaken
+        notification_settings: Instellingen voor berichten
         update: Profielgegevens opslaan
       wikipedia_queue: 
         create: Aanvraag verzenden
@@ -1658,6 +1694,7 @@ nl:
     user_message: 
       subject: Een bericht van de Encyclopedia of Life
     user_reset_password: 
+      message: "Encyclopedia of Life (www.eol.org) heeft een verzoek ontvangen om uw wachtwoord opnieuw in te stellen. Als u dit verzoek niet hebt gemaakt, negeer deze e-mail dan.\n\nVia de volgende verwijzing kunt u uw wachtwoord opnieuw instellen:\n\n%{password_reset_url}\n\nLet op: deze verwijzing verloopt na 24 uur. Daarna moet u opnieuw een verzoek maken."
       subject: Stel uw wachtwoord voor Encyclopedia of Life opnieuw in
     user_updated_email_preferences: 
       message: "Dit is een automatisch bericht van het EOL-berichtensysteem. De gebruiker %{user_full_name} (%{user_profile_url}) heeft zijn e-mailadres of e-mailvoorkeuren aangepast.\n\nVorige voorkeuren:\nE-mailadres: %{previous_email}\nMailinglijstvoorkeuren: %{previous_mailing_list_preference}\n\nBijgewerkt naar:\nE-mailadres: %{updated_email}\nMailinglijstvoorkeuren: %{updated_mailing_list_preference}\nBijgewerkt: %{updated_at}"
@@ -1777,6 +1814,54 @@ nl:
   rating_added_notice: De beoordeling is toegevoegd.
   rating_not_added_error: Er is een fout opgetreden. De beoordeling is niet toegevoegd.
   recaptcha: Voer de twee weergegeven woorden in
+  recent_activities: 
+    index: 
+      list_header: Afgelopen 7 dagen
+      meta_keywords: Activiteit in de EOL-gemeenschap, recente EOL-activiteit, activiteiten in encyclopedia of life
+      meta_title: Activiteit in de EOL-gemeenschap
+      page_title: Activiteit in de EOL-gemeenschap
+  recent_activity: 
+    bulk_collection_activity_with_count: 
+      one: Er is een wijziging gemaakt aan %{to}
+      other: Er zijn %{count} wijzigingen gemaakt aan %{to}
+    bulk_comments_on_you_with_count: 
+      one: Er is een nieuwe reactie op uw profiel
+      other: Er zijn %{count} nieuwe reacties op uw profiel
+    bulk_comments_with_count: 
+      one: Er is een nieuwe reactie op %{on}
+      other: Er zijn %{count} nieuwe reacties op %{on}
+    bulk_community_activity_with_count: 
+      one: Er is een wijziging gemaakt aan %{to}
+      other: Er zijn %{count} wijzigingen gemaakt aan %{to}
+    bulk_community_joins_with_count: 
+      one: "%{community} heeft een nieuw lid"
+      other: "%{community} heeft %{count} nieuwe leden"
+    bulk_curation_with_count: 
+      one: Een conservator heeft een verbetering gemaakt aan %{to}
+      other: Conservatoren hebben %{count} verbeteringen gemaakt aan %{to}
+    collection_activity_by_user: <b>%{user_name}</b> heeft de handeling %{activity_name} uitgevoerd op de verzameling <b>%{collection_name}</b>.
+    collection_activity_log_title: "%{who} heeft een verzameling aangepast"
+    collection_activity_user_added_item: "<b>%{user_name}</b> heeft %{collected_item_type} #%{collected_item_id} toegevoegd aan <b>%{collection_name}</b>."
+    collection_activity_user_watching_recipient: <b>%{user_name}</b> volgt u nu.
+    comment_body_brief: "%{body} - %{author}"
+    comment_link: Reactie op EOL bekijken
+    comment_title: "%{who} heeft gereageerd op %{what}"
+    comment_title_your_newsfeed: "%{who} heeft gereageerd op uw nieuwsoverzicht"
+    community_activity_by_user: <b>%{user_name}</b> heeft de handeling %{activity_name} uitgevoerd op de gemeenschap <b>%{community_name}</b>.
+    community_activity_log_title: "%{who} heeft een gemeenschap aangepast"
+    community_activity_user_joined: De gebruiker <b>%{user_name}</b> is lid geworden van de gemeenschap <b>%{community_name}</b>.
+    community_activity_user_left: De gebruiker <b>%{user_name}</b> heeft de gemeenschap <b>%{community_name}</b> verlaten.
+    community_activity_user_made_member_a_manager: De gebruiker <b>%{user_name}</b> heeft <b>%{member_name}</b> beheerder van de gemeenschap <b>%{community_name}</b> gemaakt.
+    curator_activity_log_title: "%{who} heeft iets geconserveerd"
+    curator_activity_on_data_object_by_user: "<b>%{user_name}</b> heeft de handeling %{activity_name} uitgevoerd op <b>%{dato_title}</b> (%{dato_type} #%{dato_id})."
+    curator_activity_on_taxon_concept_by_user: <b>%{user_name}</b> heeft de handeling %{activity_name} uitgevoerd op <b>%{taxon_concept}</b> (%{taxon_overview_url}).
+    data_object_activity_article_added_by_user: <b>%{user_name}</b> heeft een artikel met de naam %{dato_title} toegevoegd aan <b>%{taxon_concept}</b> (%{taxon_details_url}).
+    data_object_title: "%{who} heeft nieuwe inhoud toegevoegd aan EOL"
+    default_subject: Recente activiteit op EOL
+    intro: Hier is uw samenvatting van EOL-activiteit voor %{time}
+    see_all_activity: U kunt al uw activiteiten bekijken op de <a href='%{activity_url}' style='color:#195184'>pagina met uw nieuwsoverzicht</a>.
+    someone_commented_on_something: <b>%{who}</b> heeft gereageerd op <b>%{what}</b>.
+    unsubscribe: Wijzig uw e-mailinstellingen of schrijf u uit via de <a href='%{email_prefs_url}' style='color:#195184'>pagina met uw voorkeuren voor berichten</a>.
   recent_updates: Recente updates
   recently_visited: Onlangs bezocht
   recipients: Ontvangers
@@ -1970,6 +2055,12 @@ nl:
           meta_title: Conservatoren van %{scientific_name} als ingedeeld door %{hierarchy_provider}
           meta_title_with_common_name: Experts van %{preferred_common_name} (%{scientific_name} als ingedeeld door %{hierarchy_provider})
           tweet_text: Conservatoren van %{scientific_name} als ingedeeld door %{hierarchy_provider}
+        meta_description_with_common_name: Experts op het gebied van %{preferred_common_name} (ook bekend als expers op het gebied van %{scientific_name}) die gegevens over dit onderwerp in Encyclopedia of Life in de gaten houden.
+        meta_keywords: Experts op het gebied van %{scientific_name}, conservatoren van %{scientific_name}
+        meta_keywords_with_common_name: Experts op het gebied van %{preferred_common_name}, conservatoren van %{preferred_common_name}, experts op het gebied van %{scientific_name}, conservatoren van %{scientific_name}
+        meta_title: Conservatoren van %{scientific_name}
+        meta_title_with_common_name: Experts op het gebied van %{preferred_common_name} (%{scientific_name})
+        tweet_text: Conservatoren van %{scientific_name}
       index: 
         hierarchy_entry: 
           meta_description: Deel informatie en expertise over %{scientific_name} als ingedeeld door %{hierarchy_provider}.
@@ -1985,6 +2076,23 @@ nl:
         meta_title: Mensen die geïnteresseerd zijn in %{scientific_name}
         meta_title_with_common_name: Mensen die geïnteresseerd zijn in %{preferred_common_name} (%{scientific_name})
         tweet_text: Mensen die geïnteresseerd zijn in %{scientific_name}
+    details: 
+      index: 
+        hierarchy_entry: 
+          meta_description: Gegevens over %{scientific_name} als geclassificeerd door %{hierarchy_provider} in Encyclopedia of Life
+          meta_description_with_chapter_list: Gegevens over %{scientific_name} als geclassificeerd door %{hierarchy_provider} in Encyclopedia of Life. Bevat %{chapter_list}gegevens voor %{scientific_name}.
+          meta_description_with_common_name: Gegevens over %{preferred_common_name}, wetenschappelijk bekend als %{scientific_name} als geclassificeerd door %{hierarchy_provider} in Encyclopedia of Life.
+          meta_description_with_common_name_with_chapter_list: Gegevens over %{preferred_common_name}, wetenschappelijk bekend als %{scientific_name} als geclassificeerd door %{hierarchy_provider} in Encyclopedia of Life. Bevat %{chapter_list}gegevens voor %{scientific_name}.
+          meta_title: egevens over %{scientific_name} als geclassificeerd door %{hierarchy_provider}
+          meta_title_with_common_name: Gegevens over %{preferred_common_name} (%{scientific_name} als geclassificeerd door %{hierarchy_provider})
+          tweet_text: Gegevens over %{scientific_name} als geclassificeerd door %{hierarchy_provider}
+        meta_description: Gegevens over %{scientific_name} in Encyclopedia of Life
+        meta_description_with_chapter_list: Gegevens over %{scientific_name} in Encyclopedia of Life. Bevat %{chapter_list}gegevens voor %{scientific_name}.
+        meta_description_with_common_name: Gegevens over %{preferred_common_name}, wetenschappelijk bekend als %{scientific_name} in Encyclopedia of Life.
+        meta_description_with_common_name_with_chapter_list: Gegevens over %{preferred_common_name}, wetenschappelijk bekend als %{scientific_name} in Encyclopedia of Life. Bevat %{chapter_list}gegevens voor %{scientific_name}.
+        meta_title: Gegevens over %{scientific_name}
+        meta_title_with_common_name: Feiten over %{preferred_common_name} (%{scientific_name})
+        tweet_text: Gegevens over %{scientific_name}
     literature: 
       bhl: 
         tweet_text: "Literatuur van #BHL over %{scientific_name}"

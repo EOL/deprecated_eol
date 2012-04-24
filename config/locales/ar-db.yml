@@ -1,11 +1,12 @@
 # Messages for Arabic (العربية)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
+# Author: DRIHEM
 # Author: Ghada.nabeel
 # Author: OsamaK
 # Author: ترجمان05
 ar: 
-  translated_activities-name-activity_id-19: المعلومات الشخصية
+  translated_activities-name-activity_id-19: الملف الشخصي
   translated_activities-name-activity_id-50: غير موثوق فيه
   translated_activities-name-activity_id-51: عرض
   translated_activities-name-activity_id-52: اصنع
@@ -19,23 +20,23 @@ ar:
   translated_activities-name-activity_id-63: جمع
   translated_activities-name-activity_id-64: حذف
   translated_agent_roles-label-agent_role_id-1: رسام رسوم متحركة
-  translated_agent_roles-label-agent_role_id-10: مشروع
-  translated_agent_roles-label-agent_role_id-11: ناشر
-  translated_agent_roles-label-agent_role_id-12: مسجل
-  translated_agent_roles-label-agent_role_id-13: مصدر
-  translated_agent_roles-label-agent_role_id-14: قاعدة بيانات المصادر
+  translated_agent_roles-label-agent_role_id-10: المشروع
+  translated_agent_roles-label-agent_role_id-11: الناشر
+  translated_agent_roles-label-agent_role_id-12: المسجل
+  translated_agent_roles-label-agent_role_id-13: المصدر
+  translated_agent_roles-label-agent_role_id-14: قاعدة بيانات المصدر
   translated_agent_roles-label-agent_role_id-15: المسئول
   translated_agent_roles-label-agent_role_id-16: المساهِم
-  translated_agent_roles-label-agent_role_id-2: كاتب
+  translated_agent_roles-label-agent_role_id-2: المؤلف
   translated_agent_roles-label-agent_role_id-21: مقدم المحتوى
   translated_agent_roles-label-agent_role_id-22: المترجم
-  translated_agent_roles-label-agent_role_id-23: المراجع علمي
+  translated_agent_roles-label-agent_role_id-23: المراجع العلمي
   translated_agent_roles-label-agent_role_id-24: المراجع اللغوي
   translated_agent_roles-label-agent_role_id-3: المترجم أو المُصَّرف
-  translated_agent_roles-label-agent_role_id-4: مؤلف
+  translated_agent_roles-label-agent_role_id-4: المؤلف
   translated_agent_roles-label-agent_role_id-5: الصانع
-  translated_agent_roles-label-agent_role_id-6: مدير
-  translated_agent_roles-label-agent_role_id-7: محرر
+  translated_agent_roles-label-agent_role_id-6: المدير
+  translated_agent_roles-label-agent_role_id-7: المحرر
   translated_agent_roles-label-agent_role_id-8: المصور
   translated_agent_roles-label-agent_role_id-9: المصور الفوتوغرافي
   translated_audiences-label-audience_id-1: مستخدمون متمرسون

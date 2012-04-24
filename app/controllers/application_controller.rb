@@ -1,8 +1,9 @@
 require 'uri'
 begin
   require 'ruby-prof'
+  puts "** Ruby Profiler loaded.  You can profile requests, now."
 rescue MissingSourceFile
-  puts "!! WARNING: ruby-prof missing.  Ignoring."
+  # Do nothing, we don't care and we don't want anyone to freak out from a warning..
 end
 ContentPage # TODO - figure out why this fails to autoload.  Look at http://kballcodes.com/2009/09/05/rails-memcached-a-better-solution-to-the-undefined-classmodule-problem/
 

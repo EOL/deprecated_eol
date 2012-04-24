@@ -12,6 +12,10 @@ group :development, :test do
   gem 'ruby-prof'
 end
 
+group :worker do
+  gem 'system_timer'
+end
+
 gem 'composite_primary_keys'
 gem 'email_spec', '0.6.2'
 gem 'escape'

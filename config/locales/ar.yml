@@ -3,6 +3,7 @@
 # Export driver: syck-pecl
 # Author: AWikitranslator
 # Author: AwamerT
+# Author: DRIHEM
 # Author: Ghada.nabeel
 # Author: Malhargan
 # Author: Meno25
@@ -153,6 +154,15 @@ ar:
         request_publish: طلب النشر
       name: 
         string: الاسم
+      notification: 
+        comment_on_my_collection: تعليق على مجموعة تديرها
+        comment_on_my_community: تعليق في أحد المجتمعات المحلية التي تنتمي إليها
+        comment_on_my_contribution: تعليق و/أو إجراء رقابي لمساهمة قمت بها
+        comment_on_my_profile: تعليق على صفحتك الشخصية
+        invitation_to_community: دعوة للانضمام إلى مجتمع
+        made_me_a_manager: تم تعيينك مجمع أو منسق مجتمع
+        member_joined_my_community: انضم عضو جديد إلى المجتمع الذي تديره
+        reply_to_comment: الرد على تعليق أدليت به
       resource: 
         accesspoint_url: عنوان إلكتروني لمجموعة بيانات
         auto_publish: نشر - آلي
@@ -694,6 +704,7 @@ ar:
       meta_description: تمثل موسوعة الحياة جهد غير مسبوق لجمع المعلومات العلمية عن حياة الحيوانات والنباتات حيث توفر الصور، والمعلومات، والحقائق، والمزيد عن جميع الكائنات الحية في ممالك النباتات والحيوانات.
       meta_keywords: الحيوانات، صور الحيوانات، معلومات عن الحيوانات، النباتات، حياة النباتات، صور النباتات، المعلومات عن النباتات، النباتات، الحيوانات
       meta_title: الحيوانات - النباتات - صور ومعلومات
+      see_all_recent_activites: طالع المزيد من <span class="assistive">الأنشطة للأسبوع الماضي</span>
   content_has_been_updated: تم تحديث المحتوى.
   content_notes_not_shown_to_us: "ملاحظات خاصة بالمحتوى (لا تظهر للمستخدم):"
   content_partner: شريك في المحتوى
@@ -1356,18 +1367,21 @@ ar:
         credentials_more_professional: عضو بمجتمع احترافي
         credentials_more_referral: إحالة من المشرف الحالي.
         credentials_more_successful_assistant_curator: تاريخ النجاح كمشرف مساعد
-        curation_application: التحول إلى مشرف
+        curation_application: كن مشرفًا
         curation_application_more: إذا كنت ترغب في تعديل امتيازات الإشراف الخاصة بك، قم بتقديم طلب وسوف نقيم أهليتك.
         curator_level: أنت الأن %{curator_level_with_indefinite_article}.
         curator_scope: نطاق الإشراف
         curator_scope_more: يرجى توضيح مجال خبراتك. على سبيل المثال؛ ''قوارض بورنيو''، أو ''تفاعلات المستويات الغذائية الثلاثية''، أو ''قضايا حفظ الأسماك''. لن يحد ذلك من قدرتك على الأشراف، ولكن سوف يخطر موسوعة الحياة.
         email_reports_frequency_hours: كم عدد المرات التي ترغب فيها بتلقي أخطارات عن طريق البريد الإلكتروني عن النشاط حول مساهماتك؟
+        email_settings_submit: إعدادات البريد الإلكتروني
         entered_password: كلمة السر <small>(4-16 حرف)</small>
-        generate_api_key: طلب مفتاح واجهة برمجة التطبيقات
+        generate_api_key: أطلب مفتاح واجهة برمجة التطبيقات
         generate_api_key_more: إذا كنت ترغب في استخدام واجهة برمجة التطبيقات الخاصة بموسوعة الحياة، يمكنك توليد مقتاح واجهة التطبيقات لتحديد طلبك. إقرأ المزيد عن <a href='%{api_docs_url}'>إضافة مفتاح إلى واجهة برمجة التطبيقات</a> .
         logo: رفع صورة جديدة
         new_password: كلمة سر جديدة <small>(4-16 حرف)</small>
         new_password_confirmation: كلمة سر جديدة <small>(للتأكيد)</small>
+        notification_settings: إعدادات الإعلام
+        notification_settings_more: كون إعدادات التنبيه الخاصة بك.
         requested_curator_level: إن طلبك لتصبح %{curator_level_with_indefinite_article} معلق.
         requested_curator_level_id_more: اختر <em>ممشرف مساعد</em> إذا لم تكن لديك أية شهادات معتمدة بعد. اختر <em>مشرف</em> إذا كنت عالمًا محترفًا أو طالب دراسات عليا لديه شهادات معتمدة اختر  <em>مشرف أول</em>  إذا كنت مشرفًا ذا خبرة بموسوعة الحياة وترغب في تحمل مسئوليات جديدة.
         tag_line: الشعار او العنوان <small>مثال "مولع بالطيور"</small>
@@ -1859,13 +1873,13 @@ ar:
     user_message: 
       subject: رسالة من موسوعة الحياة
     user_reset_password: 
-      message: "تلقت موسوعة الحياة (www.eol.org) طلب لإعادة ضبط كلمة السر الخاصة بك. إذا كنت لم تقم بتقديم ذلك الطلب، يرجى تجاهل هذه الرسالة.\n\nسوف يقدم لك الرابط التالي فرصة واحدة لإعادة ضبط كلمة السر:\n\n%{password_reset_url}\n\nأتبع ذلك الرابط (\"أنقر\" على الرابط أو أنسخه وألصقه في شريط العناوين بالمتصفح وقم بتحميله) لتصل إلى الصفحة حيث يمكنك أن تدخل كلمة سر جديدة. يرجى الانتباه إلى أنه في حال انتهاء مدة صلاحية الرابط، سوف يطلب منك إدخال اسم المستخدم أو البريد الإلكتروني مرة أخرى لتتلقى رسالة أخرى لإعادة ضبط كلمة السر تتضمن رابط جديد."
+      message: "تلقت موسوعة الحياة (www.eol.org) طلب لإعادة ضبط كلمة السر الخاصة بك. إذا لم تقدم على هذا الطلب، فيرجى منك تجاهل هذه الرسالة.\n\nسيقوم الرابط التالي بإعادة ضبط كلمة السر:\n\n%{password_reset_url}\n\nليكن في علمك أنه بعد مضي 24 ساعة من تقديمك لهذا الطلب، سيلغى الرابط وسيتوجب عليك تقديم طلب جديد."
       subject: إعادة ضبط كلمة السر الخاصة بحسابك بموسوعة الحياة
     user_updated_email_preferences: 
       message: "هذا نظام إشعار آلي من موسوعة الحياة. قام المستخدم %{user_full_name} (%{user_profile_url}) بتحديث بريده الإلكتروني أو قائمة تفضيلات المراسلة. \n\nالتفضيلات السابقة: \nالبريد الإلكتروني: %{previous_email}\n\nقائمة تفضيلات المراسلة: %{previous_mailing_list_preference}\n\nتم التحديث إلى: \nالبريد الإلكتروني: %{updated_email}\nقائمة تفضيلات المراسلة: %{updated_mailing_list_preference}\nالتحديث: %{updated_at}"
       subject: قام مستخدم موسوعة الحياة %{user_full_name} بتغيير العنوان الإلكتروني أو تفضيلات قائمة المراسلة
     user_verification: 
-      message: "شكرًا للتسجيل بموسوعة الحياة. سوف يؤكد الرابط التالي رغبتك في إتمام عملية التسجيل:\n\n%{verification_url}\n\nأتبع ذلك الرابط (\"أنقر\" على الرابط أو أنسخه وألصقه في شريط العناوين بالمتصفح وقم بتحميله) لتفعيل حسابك. حالما يتم تفعيل حسابك، سوف تتلقى رسالة تأكيد عبر البريد الإلكتروني."
+      message: "شكرًا لتسجيلكم بموسوعة الحياة. سوف يؤكد الرابط التالي رغبتك في إتمام عملية التسجيل وتنشيط حسابكم:\n\n%{verification_url}\n\nحالما يتم تفعيل حسابك، سوف تتلقى رسالة تأكيد عبر البريد الإلكتروني."
       subject: يرجى تأكيد طلب إنشاء حساب بموسوعة الحياة
   nucleotide_sequences: تسلسلات النيوكليوتيدات
   nucleotide_sequences_ncbi_database: تضم قاعدة بيانات  <a href="%{ncbi_taxonomy_link}"> المركز الوطني لمعلومات التكنولوجيا الحيوية NCBI Taxonomy </a>  اسماء جميع الكائنات الحية الممثلة في قواعد البيانات الوراثية عن طريق تسلسل نيوكليوتيدات أو بروتينات واحد على الأقل.
@@ -2033,6 +2047,22 @@ ar:
   rating_not_added_error: عفوًا، حدث خطأ، تعذر إضافة التقييم
   recaptcha: أكتب الكلمتين التاليتين اللتين تراهما فى الصورة أدناه
   recaptcha_incorrect_error_with_anchor: لم تتطابق رموز نظام <a href="#%{recaptcha_anchor}">ريكابتشا</a>، يرجى المحاولة مرة أخرى.
+  recent_activity: 
+    bulk_collection_activity_with_count: 
+      one: وقع تحديث لـ %{to}
+      other: حصلت %{count} تحديثات لـ %{to}
+    bulk_comments_on_you_with_count: 
+      one: لديك تعليق جديد على صفحتك الشخصية
+      other: لديك %{count} تعليقات جديدة على صفحتك الشخصية
+    bulk_comments_with_count: 
+      one: هناك تعليق جديد على%{on}
+      other: هناك%{count} تعليقات جديدة على%{on}
+    bulk_curation_with_count: 
+      one: قام المشرف بتحسين %{to}
+      other: قام المشرفون %{count} بتحسين %{to}
+    intro: إليك خلاصة نشاط موسوعة الحياة المتعلق بك لـ %{time}
+    see_all_activity: طالع جميع أنشطتك السابقة على<a href='%{activity_url}' style='color:#195184'>صفحة أخبار المستخدم الخاصة بك</a>.
+    unsubscribe: قم بتغيير إعدادات بريدك الإلكتروني أو ألغي اشتراكك في<a href='%{email_prefs_url}' style='color:#195184'>صفحة تفضيلات الإخطار الخاصة بك</a>.
   recent_updates: آخر التحديثات
   recently_visited: Recently visited
   recipients: المرسل إليهم

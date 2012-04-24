@@ -27,12 +27,9 @@ class UsersController < ApplicationController
     @inaturalist_observations_widget_url = "http://www.inaturalist.org/observations/#{@inaturalist_username}.widget?layout=large&limit=5&order=desc&order_by=observed_on"
     @more_inaturalist_observations = I18n.t('helpers.label.user.more_inaturalist_observations', :name => @inaturalist_username)
     if (false) # THIS BLOCK IS BEING USED BY JRICE TO TEST NOTIFICATIONS QUICKLY.  You can remove it, if you're annoyed.
-      @notes = PendingNotification.unsent
-      puts "%" * 400
-      @notes = @notes.select {|n| n.user_id == @user.id }
-      puts "$" * 400
-      @notes = @notes.map(&:target)
+      @notes = PendingNotification.unsent.select {|n| n.user_id == @user.id }.map(&:target)
       unless @notes.empty?
+        @frequency = :immediately
         render('recent_activity_mailer/recent_activity', :layout => 'v2/email')
         return(true)
       end

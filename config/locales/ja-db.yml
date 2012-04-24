@@ -68,6 +68,11 @@ ja:
   translated_contact_roles-label-contact_role_id-1: 主な連絡先
   translated_contact_roles-label-contact_role_id-2: 管理者の連絡先
   translated_contact_roles-label-contact_role_id-3: 技術的な連絡先
+  translated_contact_subjects-title-contact_subject_id-24: メンバーシップと登録
+  translated_contact_subjects-title-contact_subject_id-25: 利用規約とライセンス
+  translated_contact_subjects-title-contact_subject_id-26: 学習と教育
+  translated_contact_subjects-title-contact_subject_id-27: コンテンツパートナーになる
+  translated_contact_subjects-title-contact_subject_id-28: コンテンツパートナーのサポート
   translated_contact_subjects-title-contact_subject_id-31: 画像、ビデオ、それか音に貢献する。
   translated_content_partner_statuses-label-content_partner_status_id-1: ペンディング
   translated_content_partner_statuses-label-content_partner_status_id-2: アクティブ
@@ -150,6 +155,7 @@ ja:
   translated_service_types-label-service_type_id-1: EOL 転送スキーマ
   translated_service_types-label-service_type_id-2: その他
   translated_sort_styles-name-sort_style_id-1: 最近の追加
+  translated_sort_styles-name-sort_style_id-2: 最古
   translated_sort_styles-name-sort_style_id-3: アルファベット順
   translated_sort_styles-name-sort_style_id-4: 逆アルファベット順
   translated_sort_styles-name-sort_style_id-6: 評価

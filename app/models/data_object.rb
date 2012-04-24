@@ -830,6 +830,10 @@ class DataObject < ActiveRecord::Base
     @all_assoc ||= (published_entries + unpublished_entries + [users_data_object]).compact
   end
 
+  def all_published_associations
+    @all_pub_assoc ||= (published_entries + [users_data_object]).compact
+  end
+
   def first_concept_name
     first_hierarchy_entry.name.string rescue nil
   end

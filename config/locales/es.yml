@@ -1047,6 +1047,7 @@ es:
       meta_description: La Encyclopedia of Life es un esfuerzo sin precedentes para recopilar conocimientos científicos acerca de toda la vida animal y vegetal donde están disponibles fotos, información, datos y más datos sobre todos los seres vivos de nuestros reinos vegetal y animal.
       meta_keywords: Animales, Fotos de animales, Información de animales, Plantas, Vida vegetal, Fotografías de plantas, Información de plantas, Flora, Fauna
       meta_title: Animales - Plantes - Imágenes e Información
+      see_all_recent_activites: Ver más <span class="assistive">actividades de la última semana</span>
   content_has_been_updated: Se ha actualizado el contenido.
   content_notes_not_shown_to_us: "Notas de contenido (no se muestran al usuario):"
   content_partner: Socio de Contenido
@@ -1437,6 +1438,8 @@ es:
   email_colon: "Correo electrónico:"
   email_error_notification_activ: Notificación activa de errores por correo electrónico
   email_recipients: Destinatarios del correo electrónico
+  email_updates_for_eol_addicts: Actualizaciones para los adictos a EOL.
+  email_updates_for_eol_members: Actualizaciones que querrán tener la mayoría de los miembros de EOL.
   encyclopedia_of_life: Enciclopedia de la Vida
   endorsed_by: Presentado por
   endorsed_collections: Colecciones destacadas
@@ -1972,6 +1975,7 @@ es:
   limits_the_number_of_returned_text_objects: limita el número de objetos de texto retornados
   limits_the_number_of_returned_video_objects: limita el número de objetos de vídeo retornados
   link_name: Nombre del enlace
+  list_newsletter_emails: enumerar los correos electrónicos de lalista
   list_of_activity_combinations: Lista de combinaciones de actividad en un intervalo de 5 min.
   listing_collections: Listado de las colecciones
   lists_the_identifiers_for_all_hierarchies: lista los identificadores de todas las jerarquías proveídas por socios de contenido
@@ -2154,7 +2158,7 @@ es:
   newsfeed_help_for_collection: El suministro de noticias para esta colección reúne EOL cambios asociados con los elementos que pertenecen a la misma, incluidas las actividades de su propietario y los comentarios de otros usuarios de EOL.
   newsfeed_help_for_community: El suministro de noticias para esta Comunidad de EOL reúne actualizaciones asociadas con los elementos que pertenecen a las Colecciones Administradas, incluyendo las actividades de sus miembros y los comentarios de otros usuarios de EOL.
   newsfeed_help_for_focus_list: El suministro de noticias recopia la Lista de Enfoque a las actualizaciones relacionadas con los elementos que pertenecen a la lista de una Comunidad EOL es objetivo principal, incluidas las actividades de sus directivos y los comentarios de otros usuarios de EOL.
-  newsfeed_help_for_profile: El perfil EOL suministro de noticias contiene los mensajes dejados por su propietario por otros miembros, invitaciones EOL Comunidad, y recoge las actualizaciones relacionadas con los elementos de la Watch EOL lista.
+  newsfeed_help_for_profile: El canal de noticias del perfil de EOL contiene los comentarios dejados para su propietario por otros miembros, invitaciones de la Comunidad EOL, y recoge las actualizaciones relacionadas con los elementos de la lista de seguimiento EOL del propietario.
   newsfeed_help_for_taxon: El suministro de noticias de esta página Taxón EOL recoge cambios asociados con elementos que aparecen en ella, incluyendo las acciones de comisario y los comentarios de los usuarios de EOL.
   newsfeed_help_for_watchlist: La lista Watch EOL Newsfeed reúne actualizaciones asociadas con los elementos en la lista del propietario Watch EOL, incluidas las actividades de su propietario.
   next: Siguiente
@@ -2190,6 +2194,13 @@ es:
   note_that_you_can_reference_im: Observe que puede hacer referencia a imágenes con la etiqueta de HTML &lt;img&gt;, pero debe estar en una dirección URL, como en el sitio Web de origen o en un sitio como Flickr.  No existe ningún servicio para subir imágenes que se usen directamente en la noticia.
   notes: Notas de proyecto
   notes_not_shown_to_user: "Notas (no se muestran al usuario):"
+  notification_frequency_daily_digest: Resumen diario
+  notification_frequency_never: Nunca
+  notification_frequency_newsfeed_only: Sólo noticias
+  notification_frequency_send_immediately: Enviar inmediatamente
+  notification_frequency_weekly: Semanalmente
+  notifications_and_messages_review_notice: Por favor, revise las notificaciones que se le enviarán por correo electrónico.
+  notifications_tab_name: Notificaciones
   notifier: 
     activity_log_empty: No hay acciones recientes por parte de los supervisores.
     activity_on_content_partner_content: 
@@ -2416,6 +2427,12 @@ es:
   rating_not_added_error: Lo sentimos, ha ocurrido un error, el puntaje no se pudo agregar.
   recaptcha: Escriba las dos palabras que ve abajo
   recaptcha_incorrect_error_with_anchor: Los caracteres <a href="#%{recaptcha_anchor}"></a> no coinciden, por favor, vuelva a intentarlo.
+  recent_activities: 
+    index: 
+      list_header: Últimos 7 días
+      meta_keywords: actividad de la comunidad EOL, actividad reciente EOL, enciclopedia de las actividades de la vida
+      meta_title: Actividad de la comunidad EOL
+      page_title: Actividad de la Comunidad EOL
   recent_activity: 
     bulk_collection_activity_with_count: 
       one: Hubo una actualización de %{to}
@@ -2509,6 +2526,7 @@ es:
   save: Guardar
   save_comment_lowercase: guardar el comentario
   save_curated_association_submit_button: Guardar asociación
+  save_email_settings: Guardar configuración de correo electrónico
   sci_name_avg_table_head: Media del nombre científico
   scientific_name: Nombre científico
   search: Buscar
@@ -3169,6 +3187,7 @@ es:
   user_commented_on_something_colon: "<strong>%{user}</strong> comentó sobre %{what}:"
   user_commented_on_themself: "<strong>%{user_with_link}</strong> ha comentado sobre la <a href='%{link}'>fuente web de %{username}</a>:"
   user_comments: Comentarios del usuario
+  user_full_name_with_curator: "%{user} (%{curator_level})"
   user_id: Identificador de usuario
   user_index_intro: Abajo se muestran todos los usuarios del web registrados en el sistema, ordenados inversamente por el tiempo de registro. Note que la fecha de registro para usuarios anteriores a 5 de enero, 2009, no están disponibles. Haga clic en un nombre de usuario para editar ese usuario.
   user_joined_community_on_date: "%{username} se unió a esta comunidad en fecha %{date}."
@@ -3176,6 +3195,14 @@ es:
   user_left_comment_on_date: "%{username} dejó un comentario en fecha %{date}."
   user_no_longer_active_message: Este usuario ya no está activo
   user_no_longer_has_manager_access_to_collection: "%{user} ya no tiene acceso de administrador en \"%{collection}\"."
+  user_pending_notifications_assitive: <span class="assistive">notificaciones</span>
+  user_pending_notifications_comments_assistive: <span class="assistive">Comentarios</span>
+  user_pending_notifications_comments_with_count_assistive: 
+    one: "%{count}<span class=\"assistive\"> comentario</span>"
+    other: "%{count}<span class=\"assistive\"> comentarios</span>"
+  user_pending_notifications_with_count_assitive: 
+    one: "%{count}<span class=\"assistive\"> notificación</span>"
+    other: "%{count}<span class=\"assistive\"> notificaciones</span>"
   user_response: Respuesta del usuario
   user_says_colon: "%{users_name} dice:"
   user_submitted_text: Texto enviado por el usuario
@@ -3207,7 +3234,14 @@ es:
         meta_title: socios de contenido de %{user_full_name}
         tweet_text: socios de contenido de %{user_full_name}
     newsfeeds: 
+      activity: 
+        meta_title: canal web de actividad de %{user_full_name}
+        tweet_text: Canal web de actividad de %{user_full_name}
       activity_link: actividad
+      comments: 
+        meta_description: Canal web de noticias de %{user_full_name}.
+        meta_title: canal web de noticias de %{user_full_name}
+        tweet_text: Canal web de noticias de %{user_full_name}
       comments_link: comentarios
       newsfeed_link: página de noticias
       show: 

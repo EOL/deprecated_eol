@@ -6,7 +6,7 @@ namespace :eol do
     if ENV['repo']
       puts "Checking out files from repository..."
       FileUtils::rm_rf site_dir if FileTest.exists? site_dir
-      sh "svn co #{ENV['repo']} '#{site_dir}'"
+      sh "git clone #{ENV['repo']} '#{site_dir}'"
     else
       puts <<HELP_MSG
 
@@ -28,6 +28,7 @@ HELP_MSG
   task :site_specific => :checkout_repository do
     puts "Adding links to site-specific files..."
     Dir.glob(site_dir + "/**/*").each do |file|
+      next if file =~ /README/
       if FileTest::file? file
         file_link = RAILS_ROOT + file.gsub(site_dir,'')
         dir =  File.dirname file_link

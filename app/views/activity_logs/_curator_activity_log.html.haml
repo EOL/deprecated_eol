@@ -28,14 +28,13 @@
 - else
   - translation_vars[:language] = item.synonym.language.label
 - association_type = 'association'
-- if (item.hierarchy_entry.nil? || item.hierarchy_entry.name.nil?) && !item.data_object.added_by_user?
+- if item.unknown_association?
   - association_type = 'an_unknown_association'
 - else
   - if !item.hierarchy_entry_id.nil?
     - translation_vars[:association] = link_to(h(item.hierarchy_entry.name.string),
       taxon_url(item.hierarchy_entry.taxon_concept), :style => link_style)
   - else
-    - debugger
     - translation_vars[:association] = link_to(h(item.taxon_concept.title),
       taxon_url(item.taxon_concept), :style => link_style)
 - name_type = 'name'
@@ -49,7 +48,7 @@
 - else
   - translation_vars[:taxon] = link_to(item.taxon_concept.quick_scientific_name, taxon_url(item.taxon_concept),
     :style => link_style)
-%p{:style => bulk ? 'padding: 0 3em;' : nil}
+%p
   - case item.activity_id
   - when Activity.trusted.id
     = I18n.t("trusted.#{user_type}_trusted_#{data_object_type}_on_#{association_type}", translation_vars)

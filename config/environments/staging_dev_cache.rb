@@ -16,7 +16,7 @@ config.cache_store = :mem_cache_store
 config.action_mailer.raise_delivery_errors = false
 
 config.log_level = :debug # :error
-if ENV['RAILS_ENV'] == 'v2staging_dev_cache'
+if ENV['RAILS_ENV'] == 'staging_dev_cache'
   ActiveRecord::Base.logger = Logger.new(STDOUT)
   ActionController::Base.logger = Logger.new(STDOUT)
   ActiveSupport::Cache::MemCacheStore.logger = Logger.new(STDOUT)
@@ -34,7 +34,7 @@ $SKIP_URL_VALIDATIONS = true
 
 # Override some values and add new ones with private information included
 begin
-  require File.join(File.dirname(__FILE__), 'v2staging_dev_private')
+  require File.join(File.dirname(__FILE__), 'staging_dev_private')
 rescue LoadError
-  puts '*************WARNING: COULD NOT LOAD v2staging_dev_private FILE***********************'
+  puts '*************WARNING: COULD NOT LOAD staging_dev_private FILE***********************'
 end

@@ -2,11 +2,23 @@
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Bluemamelati
+# Author: Danielsouzat
 # Author: Giro720
 # Author: Luigipiccoli
 # Author: Pedroca cerebral
 pt-BR: 
+  translated_activities-name-activity_id-19: perfil
+  translated_activities-name-activity_id-50: não confiável
+  translated_activities-name-activity_id-51: exibir
+  translated_activities-name-activity_id-52: criar
+  translated_activities-name-activity_id-53: ocultar
+  translated_activities-name-activity_id-54: atualizar
+  translated_activities-name-activity_id-55: inadequado
+  translated_activities-name-activity_id-56: apagar
+  translated_activities-name-activity_id-58: confiável
+  translated_activities-name-activity_id-64: remover
   translated_agent_roles-label-agent_role_id-1: Animador
+  translated_agent_roles-label-agent_role_id-10: Projeto
   translated_agent_roles-label-agent_role_id-16: Colaborador
   translated_agent_roles-label-agent_role_id-2: Autor
   translated_agent_roles-label-agent_role_id-3: Compilador

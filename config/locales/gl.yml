@@ -185,6 +185,7 @@ gl:
         credentials: Credenciais
         curator_level: Nivel de conservador
         curator_scope: Alcance da conservación
+        disable_email_notifications: Non me enviedes NINGUNHA actualización por correo electrónico
         email: Enderezo de correo electrónico
         entered_password: Contrasinal
         entered_password_confirmation: Repetir o contrasinal <small>(para confirmalo)</small>
@@ -396,6 +397,7 @@ gl:
   all_communities: Todas as comunidades
   all_count: Todos (%{count})
   all_errors: TODOS os erros
+  all_filter: todos
   all_harvesting_logs: TODOS os rexistros de colleita
   all_images: Todas as imaxes
   all_information: Toda a información
@@ -510,6 +512,7 @@ gl:
   cannot_be_empty: non pode quedar baleiro.
   cannot_create_collection_item_from_class_error: Non podemos crear un elemento de colección a partir de %{klass}
   cannot_create_community_from_watch_collection_error: Non podes crear unha comunidade a partir dunha lista de vixilancia.
+  cannot_curate_association_in_preview_mode: A asociación a %{name} non se pode conservar porque se está vendo a súa vista previa despois dunha colleita.
   cannot_expand_children: non se poden expandir as dependencias
   cannot_find_member: Non se pode atopar un membro con ese identificador.
   cannot_index_collection_item_type_error: Non podemos indexar un elemento de colección a partir de %{type}
@@ -701,6 +704,7 @@ gl:
       meta_description: A Enciclopedia da vida é un esforzo sen precedentes por colleitar coñecementos científicos sobre toda a vida animal e vexetal, en forma de imaxes, información, feitos e máis cousas acerca de todo organismo nos reinos animal e vexetal.
       meta_keywords: Animais, imaxes de animais, información sobre animais, plantas, vida vexetal, imaxes de plantas, información sobre plantas, flora, fauna
       meta_title: Animais, plantas, imaxes e información
+      see_all_recent_activites: ollar máis <span class="assistive">actividades da última semana</span>
   content_has_been_updated: Actualizáronse os contidos.
   content_notes_not_shown_to_us: "Notas dos contidos (non se mostran ao usuario):"
   content_partner: Socio de contidos
@@ -1029,6 +1033,7 @@ gl:
   details_title: Detalles
   development_version_name: EOL V2 Beta
   did_you_mean: "Quizais quixeches dicir: %{suggestions}"
+  disable_email_notifications_colon: "Correos electrónicos desactivados:"
   disabled_for_now: DESACTIVADO POLO DE AGORA
   discover_link: Descubrir
   displaying_numerical_range: Mostrando do %{start_number} ao %{end_number}, dun todal de %{total}
@@ -1088,6 +1093,8 @@ gl:
   email_colon: "Correo electrónico:"
   email_error_notification_activ: Notificación por correo activa de erros
   email_recipients: Destinatarios do correo electrónico
+  email_updates_for_eol_addicts: Actualizacións para os adictos á EOL.
+  email_updates_for_eol_members: Actualizacións que a maioría dos membros da EOL quererían obter.
   encyclopedia_of_life: Enciclopedia da vida
   endorsed_by: Destacado por
   endorsed_collections: Coleccións destacadas
@@ -1169,16 +1176,21 @@ gl:
     one: Todos os tipos (%{count})
     other: Todos os tipos (%{count})
   filter_by_type_collection_option: Coleccións
+  filter_by_type_comment_option: Comentarios
   filter_by_type_community_option: Comunidades
+  filter_by_type_content_page_option: Acerca da EOL
   filter_by_type_image_option: Imaxes
   filter_by_type_image_option_with_count: 
     one: Imaxes (%{count})
     other: Imaxes (%{count})
+  filter_by_type_name_option: Nomes
+  filter_by_type_object_curated_option: Obxectos conservados
   filter_by_type_photosynth_option: Fotosíntese
   filter_by_type_sound_option: Sons
   filter_by_type_sound_option_with_count: 
     one: Sons (%{count})
     other: Sons (%{count})
+  filter_by_type_taxa_comment_option: Comentarios dos taxons
   filter_by_type_taxon_concept_option: Taxons
   filter_by_type_text_option: Artigos
   filter_by_type_user_option: Xente
@@ -1187,6 +1199,12 @@ gl:
     one: Vídeos (%{count})
     other: Vídeos (%{count})
   filter_media: filtrar os ficheiros multimedia
+  filter_newsfeed_option_all: Todos
+  filter_newsfeed_option_collections: Coleccións
+  filter_newsfeed_option_community: Comunidade
+  filter_newsfeed_option_curation: Conservación
+  filter_newsfeed_option_messages: Comentarios
+  filter_newsfeed_option_watchlist: Lista de vixilancia
   filtered_information: Información filtrada
   find_taxa_submit_button: atopar os taxons
   flash_notice_redirected_from_search_html: Chegaches ata aquí procurando <em>%{search_string}</em>. <a href="%{more_results_url}">Preme aquí para volver á páxina de procura.</a>
@@ -1206,6 +1224,7 @@ gl:
   forgot_password_form_choose_username_instructions: Hai varias contas rexistradas co enderezo de correo electrónico <em>%{email}</em>. Selecciona a conta para a que queres restablecer o contrasinal.
   forgot_password_form_choose_username_legend: Escolle unha conta
   forgot_password_form_header: Restablecer o teu contrasinal
+  forgot_password_form_helper: Ten en conta que os correos electrónicos de restablecemento do contrasinal rematan <em>a miúdo</em> no cartafol de correo lixo. Comproba ese cartafol se non recibes a mensaxe na vindeira hora.
   forgot_password_form_username_or_email_blank_error: Escribe o teu nome de usuario ou enderezo de correo electrónico para restablecer o teu contrasinal.
   form_validation_errors_for_attribute_assistive: Hai un erro de validación neste elemento
   fragment_caching_enabled: A caché dos fragmentos está activada
@@ -1373,12 +1392,15 @@ gl:
         curator_scope: Alcance da conservación
         curator_scope_more: "Indica o alcance da túa experiencia. Por exemplo: \"Roedores de Borneo\", \"Interaccións tritróficas\" ou \"Problemas de conservación do peixe\". Isto non limitará as túas capacidades de conservación, pero informará á comunidade da EOL."
         email_reports_frequency_hours: Con que frecuencia queres recibir alertas por correo electrónico sobre a actividade das túas contribucións?
+        email_settings_submit: configuración do correo electrónico
         entered_password: Contrasinal <small>(entre 4 e 16 caracteres)</small>
         generate_api_key: Solicitar unha clave API
         generate_api_key_more: Se estás interesado en utilizar a API da EOL, podes xerar unha clave API para identificar a túa aplicación. Podes ler máis información sobre <a href="%{api_docs_url}">engadir claves ás chamadas á API</a>.
         logo: Cargar unha nova foto
         new_password: Novo contrasinal <small>(entre 4 e 16 caracteres)</small>
         new_password_confirmation: Novo contrasinal <small>(para confirmar)</small>
+        notification_settings: Configuración das notificacións
+        notification_settings_more: Configurar as opcións de notificación.
         requested_curator_level: A túa solicitude de converterte en %{curator_level_with_indefinite_article} está pendente.
         requested_curator_level_id_more: Selecciona <em>Conservador axudante</em> se aínda non tes credenciais. Elixe <em>Conservador completo</em> se es un científico profesional ou un estudante graduado con credenciais. Escolle <em>Mestre conservador</em> se es un conservador experto da EOL e queres asumir máis responsabilidades.
         tag_line: "Slogan ou título <small>exemplo: \"Apaixonado dos paxaros\"</small>"
@@ -1440,6 +1462,7 @@ gl:
         curation_privileges: Enviar a solicitude
         forgot_password: Enviar un correo electrónico
         generate_api_key: Xerar unha clave
+        notification_settings: Configuración das notificacións
         update: Gardar a información de perfil
       wikipedia_queue: 
         create: Enviar a solicitude
@@ -1607,6 +1630,7 @@ gl:
   limits_the_number_of_returned_text_objects: limita o número de obxectos de texto devoltos
   limits_the_number_of_returned_video_objects: limita o número de obxectos de vídeo devoltos
   link_name: Nome da ligazón
+  list_newsletter_emails: listar os correos electrónicos con boletíns
   list_of_activity_combinations: Lista de combinacións de actividade nunha duración de 5 minutos
   listing_collections: Lista de coleccións
   lists_the_identifiers_for_all_hierarchies: lista os identificadores de todas as xerarquías proporcionadas polos socios de contidos
@@ -1825,6 +1849,13 @@ gl:
   note_that_you_can_reference_im: Ten en conta que podes facer referencia a algunha imaxe mediante a etiqueta HTML &lt;img&gt;, pero a imaxe debe existir nun enderezo URL, como desde a páxina web de orixe ou desde un sitio como Flickr. Non hai posibilidade ningunha de cargar imaxes para usalas directamente nas novas.
   notes: Notas
   notes_not_shown_to_user: "Notas (non se mostran ao usuario):"
+  notification_frequency_daily_digest: Resumo diario
+  notification_frequency_never: Nunca
+  notification_frequency_newsfeed_only: Boletín só
+  notification_frequency_send_immediately: Enviar inmediatamente
+  notification_frequency_weekly: Semanalmente
+  notifications_and_messages_review_notice: Por favor, revisa as notificacións que recibirás por correo electrónico.
+  notifications_tab_name: Notificacións
   notifier: 
     activity_log_empty: Os conservadores non levaron a cabo ningunha acción recentemente.
     activity_on_content_partner_content: 
@@ -2102,6 +2133,7 @@ gl:
   save: Gardar
   save_comment_lowercase: gardar o comentario
   save_curated_association_submit_button: Gardar a asociación
+  save_email_settings: gardar a configuración do correo electrónico
   sci_name_avg_table_head: Media do nome científico
   scientific_name: Nome científico
   search: Procurar
@@ -2762,6 +2794,7 @@ gl:
   user_commented_on_something_colon: "<strong>%{user}</strong> comentou en \"%{what}\":"
   user_commented_on_themself: "<strong>%{user_with_link}</strong> comentou na <a href='%{link}'>fonte de novas de %{username}</a>:"
   user_comments: Comentarios do usuario
+  user_full_name_with_curator: "%{user} (%{curator_level})"
   user_id: ID do usuario
   user_index_intro: A continuación, móstranse todos os usuarios da web rexistrados no sistema, ordenados pola data de rexistro á inversa. Ten en conta que as datas de rexistro anteriores á EOL V2 (5 de xaneiro de 2009) non están dispoñibles. Preme nun nome de usuario para editar ese usuario.
   user_joined_community_on_date: "%{username} uniuse a esta comunidade o %{date}."
@@ -2769,6 +2802,14 @@ gl:
   user_left_comment_on_date: "%{username} deixou un comentario o %{date}."
   user_no_longer_active_message: Este usuario xa non está activo
   user_no_longer_has_manager_access_to_collection: "%{user} xa non ten acceso de administrador en \"%{collection}\"."
+  user_pending_notifications_assitive: <span class="assistive">notificacións</span>
+  user_pending_notifications_comments_assistive: <span class="assistive">comentarios</span>
+  user_pending_notifications_comments_with_count_assistive: 
+    one: "%{count}<span class=\"assistive\"> comentario</span>"
+    other: "%{count}<span class=\"assistive\"> comentarios</span>"
+  user_pending_notifications_with_count_assitive: 
+    one: "%{count}<span class=\"assistive\"> notificación</span>"
+    other: "%{count}<span class=\"assistive\"> notificacións</span>"
   user_response: Resposta do usuario
   user_says_colon: "%{users_name} di:"
   user_submitted_text: Texto enviado polo usuario
@@ -2800,10 +2841,23 @@ gl:
         meta_title: Socios de contidos de %{user_full_name}
         tweet_text: Socios de contidos de %{user_full_name}
     newsfeeds: 
+      activity: 
+        meta_title: Fonte de novas das actividade de %{user_full_name}
+        tweet_text: Fonte de novas das actividade de %{user_full_name}
+      activity_link: actividade
+      comments: 
+        meta_description: Fonte de novas dos comentarios de %{user_full_name}.
+        meta_title: Fonte de novas dos comentarios de %{user_full_name}
+        tweet_text: Fonte de novas dos comentarios de %{user_full_name}
+      comments_link: comentarios
+      newsfeed_link: fonte de novas
       show: 
         meta_description: Novas, actualizacións e comentarios de %{user_full_name}.
-        meta_title: Fonde de novas de %{user_full_name}
-        tweet_text: Fonde de novas de %{user_full_name}
+        meta_title: Fonte de novas de %{user_full_name}
+        tweet_text: Fonte de novas de %{user_full_name}
+    notifications: 
+      edit: 
+        page_title: Configuración das notificacións
     show: 
       meta_description: Perfil de %{user_full_name} na Enciclopedia da vida.
       meta_description_curator: Perfil do %{curator_level} %{user_full_name} na Enciclopedia da vida.
@@ -2822,6 +2876,7 @@ gl:
     one: Membro de %{count} comunidade
     other: Membro de %{count} comunidades
   users_my_info_header: A miña información
+  users_pending_activation_helper: Ten en conta que os correos electrónicos de activación da conta rematan <em>a miúdo</em> no cartafol de correo lixo. Comproba ese cartafol se non recibes a mensaxe na vindeira hora.
   users_pending_activation_message: Enviouse unha mensaxe de confirmación ao enderezo de correo electrónico que proporcionaches. Para completar o proceso de rexistro e pasar a ser membro da EOL, preme na ligazón incluída nesa mensaxe. Grazas!
   users_that_can_edit_this_collection: Usuarios que poden xestionar esta colección
   using_the_site: Utilización do sitio

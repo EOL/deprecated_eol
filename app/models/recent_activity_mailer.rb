@@ -7,12 +7,13 @@ class RecentActivityMailer < ActionMailer::Base
   def recent_activity(user, notes, fqz) # :immediately, :daily, :weekly are the only values allowed.
     @user = user # for the layout
     supress_activity_email = SiteConfigurationOption.find_by_parameter('supress_activity_email').value rescue nil
-    puts "++ #{supress_activity_email}"
+    puts "++ ACTIVITY EMAIL SUPRESSED."
+    puts "++ #{Time.now.strftime("%F %T")} - Sending #{notes.count} messages to: #{supress_activity_email || user.email}"
     set_locale(user)
     subject      I18n.t(:default_subject, :scope => [:recent_activity])
     recipients   supress_activity_email || user.email
     from         $SUPPORT_EMAIL_ADDRESS
-    body         :notes => notes, :user => user
+    body         :notes => notes, :user => user, :frequency => fqz
     content_type 'text/html'
   end
 

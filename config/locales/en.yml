@@ -407,6 +407,7 @@ en:
     select:
       prompt: "Please select"
     submit:
+      cancel: "Cancel"
       create: "Create %{model}"
       update: "Update %{model}"
       submit: 'Save %{model}'
@@ -443,6 +444,8 @@ en:
       name:
         create: "Add name"
         update: "Update name"
+      open_authentication:
+        destroy: "Disconnect"
       resource:
         create: "Add resource"
         update: "Update resource"
@@ -463,6 +466,7 @@ en:
         curation_privileges: "Submit request"
         forgot_password: "Send email"
         generate_api_key: "Generate a key"
+        recover_account: "Send email"
         sign_up_with_facebook: "Sign up with Facebook"
         sign_up_with_google: "Sign up with Google"
         sign_up_with_twitter: "Sign up with Twitter"
@@ -592,6 +596,7 @@ en:
         curator_scope: "Curation scope"
         curator_scope_more: 'Please indicate the scope of your expertise. For example: "Rodents of Borneo", "Tri-trophic interactions", or "Conservation issues in fish". This will not limit your ability to curate, but will inform the EOL community.'
         email_reports_frequency_hours: "How often would you like to receive email alerts about activity on your contributions?"
+        email: "Email address"
         entered_password: "Password <small>(4 - 16 characters)</small>"
         generate_api_key: "Requesting an API key"
         generate_api_key_more: "If you are interested in using the EOL API you can generate an API key to identify your application. Read more about <a href=\"%{api_docs_url}\">adding a key to your API calls</a>."
@@ -789,7 +794,13 @@ en:
       message: "Thanks for registering with the Encyclopedia of Life. The following link will verify that you wish to complete your registration and activate your account:\n\n%{verification_url}\n\nOnce your account has been activated you will receive a confirmation email message."
   sessions:
     new:
+      login_with_facebook_assistive: "Login to EOL using your Facebook credentials."
+      login_with_google_assistive: "Login to EOL using your Google credentials."
+      login_with_twitter_assistive: "Login to EOL using your Twitter credentials."
+      login_with_yahoo_assistive: "Login to EOL using your Yahoo credentials."
+      login_with_open_authentication_header: "Or<span class=\"assistive\"> log in to EOL with open authentication</span>:"
       meta_title: "Login"
+      recover_account_link: "Problems signing in with a connected account?"
   taxa:
     communities:
       index:
@@ -1091,13 +1102,6 @@ en:
         meta_title: "Richness of %{scientific_name}"
         meta_title_with_common_name: "Richness of %{preferred_common_name} (%{scientific_name})"
         tweet_text: "Richness score for %{scientific_name}"
-  sessions:
-    new:
-      login_with_facebook_assistive: "Login to EOL using your Facebook credentials."
-      login_with_google_assistive: "Login to EOL using your Google credentials."
-      login_with_twitter_assistive: "Login to EOL using your Twitter credentials."
-      login_with_yahoo_assistive: "Login to EOL using your Yahoo credentials."
-      login_with_open_authentication_header: "Or<span class=\"assistive\"> log in to EOL with open authentication</span>:"
   users:
     activities:
       show:
@@ -1136,6 +1140,7 @@ en:
       create_user_header_twitter: "Confirm your Twitter details and sign up"
       create_user_header_yahoo: "Confirm your Yahoo details and sign up"
       create_user_with_open_authentication_header: "Or<span class=\"assistive\"> sign up with open authentication</span>:"
+      meta_title: "Join EOL"
       sign_up_with_facebook_assistive: "Sign up to EOL using your Facebook credentials."
       sign_up_with_google_assistive: "Sign up to EOL using your Google credentials."
       sign_up_with_twitter_assistive: "Sign up to EOL using your Twitter credentials."
@@ -1149,22 +1154,34 @@ en:
     open_authentications:
       errors:
         authorize_uri_missing: "Sorry, an error occurred, we are unable to initiate authentication at this time."
-        authorized_user_not_found: "Sorry, we couldn't find your EOL user account."
+        missing_attributes: "Sorry, there was a problem accessing your third-party account details."
         not_authorized_to_add_authentication: "Sorry, we don't have authorization to connect that account."
         not_authorized_to_signup: "Sorry, we are not authorized to sign you up to EOL with that account."
+        not_connected: "Sorry, we couldn't find a connection to an EOL account."
         facebook:
-          authorized_user_not_found: "Sorry, we couldn't find an EOL user account connected with your Facebook account."
-          not_authorized: "Sorry, we don't have authorization to connect your Facebook account."
-          signup_failed_account_already_connected: "Sorry, we can't sign you up to EOL with the Facebook account you are logged into, because the Facebook account you are logged into is already connected to an <a href=\"%{existing_eol_account_url}\">existing EOL account</a>. Did you mean to <a href=\"%{login_url}\">log in</a>?"
+          missing_attributes: "Sorry, there was a problem accessing your Facebook details."
+          not_authorized_to_add_authentication: "Sorry, we don't have authorization to connect your Facebook account."
+          not_authorized_to_signup: "Sorry, we are not authorized to sign you up to EOL using your Facebook account."
+          not_connected: "Sorry, we couldn't find a connection between your Facebook account and EOL."
+          signup_failed_account_already_connected: "Sorry, we can't sign you up for a new EOL account with your Facebook account, it is already connected to an <a href=\"%{existing_eol_account_url}\">EOL user account</a>. Did you mean to <a href=\"%{login_url}\">log in</a> instead?"
         google:
-          authorized_user_not_found: "Sorry, we couldn't find an EOL user account connected with your Google account."
-          not_authorized: "Sorry, we don't have authorization to connect your Google account."
+          missing_attributes: "Sorry, there was a problem accessing your Google details."
+          not_authorized_to_add_authentication: "Sorry, we don't have authorization to connect your Google account."
+          not_authorized_to_signup: "Sorry, we are not authorized to sign you up to EOL using your Google account."
+          not_connected: "Sorry, we couldn't find a connection between your Google account and EOL."
+          signup_failed_account_already_connected: "Sorry, we can't sign you up for a new EOL account with your Google account, it is already connected to an <a href=\"%{existing_eol_account_url}\">EOL user account</a>. Did you mean to <a href=\"%{login_url}\">log in</a> instead?"
         twitter:
-          authorized_user_not_found: "Sorry, we couldn't find an EOL user account connected with your Twitter account."
-          not_authorized: "Sorry, we don't have authorization to connect your Twitter account."
+          missing_attributes: "Sorry, there was a problem accessing your Twitter details."
+          not_authorized_to_add_authentication: "Sorry, we don't have authorization to connect your Twitter account."
+          not_authorized_to_signup: "Sorry, we are not authorized to sign you up to EOL using your Twitter account."
+          not_connected: "Sorry, we couldn't find a connection between your Twitter account and EOL."
+          signup_failed_account_already_connected: "Sorry, we can't sign you up for a new EOL account with your Twitter account, it is already connected to an <a href=\"%{existing_eol_account_url}\">EOL user account</a>. Did you mean to <a href=\"%{login_url}\">log in</a> instead?"
         yahoo:
-          authorized_user_not_found: "Sorry, we couldn't find an EOL user account connected with your Yahoo! account."
-          not_authorized: "Sorry, we don't have authorization to connect your Yahoo! account."
+          missing_attributes: "Sorry, there was a problem accessing your Yahoo! details."
+          not_authorized_to_add_authentication: "Sorry, we don't have authorization to connect your Yahoo! account."
+          not_authorized_to_signup: "Sorry, we are not authorized to sign you up to EOL using your Yahoo! account."
+          not_connected: "Sorry, we couldn't find a connection between your Yahoo! account and EOL."
+          signup_failed_account_already_connected: "Sorry, we can't sign you up for a new EOL account with your Yahoo! account, it is already connected to an <a href=\"%{existing_eol_account_url}\">EOL user account</a>. Did you mean to <a href=\"%{login_url}\">log in</a> instead?"
       facebook: Facebook
       google: Google
       index:
@@ -1183,6 +1200,17 @@ en:
           new_authentication_added: "Yahoo! authentication has been added to your account."
       twitter: Twitter
       yahoo: Yahoo!
+    recover_account:
+      errors:
+        user_not_found_by_email_address: "An EOL account with that email address could not be found."
+      form_header: "Recover account"
+      form_tip: "To recover your EOL account, enter the email address associated with that account. Please check your spam folder if you do not receive an account recovery email within an hour."
+      notices:
+        recovery_email_sent: "Account recovery email has been sent with further instructions. Please check your spam filter if you do not receive the email with an hour."
+    recover_account_choose_account:
+      form_header: "Recover account"
+      form_tip: "There are several accounts registered with the email address <em>%{email}</em>, please select which account you would like to recover access to."
+      legend_choose_account: "Choose an account"
     show:
       meta_description: "Member profile for %{user_full_name} on the Encyclopedia of Life."
       meta_description_curator: "Member profile for %{curator_level} %{user_full_name} on the Encyclopedia of Life."
@@ -2120,6 +2148,11 @@ en:
   every_method_can_also_return_json_response: "Every method can also return a JSON response by adding a .json extension"
   example_colon: "Example:"
   exception: "Exception"
+  exceptions:
+    security_violations:
+      default: "Sorry, you are not allowed to perform that action."
+      hidden_user_login: "Sorry, login is disabled for that account."
+      inactive_user_login: "Sorry, login is disabled for that account."
   expand_all_children: "expand all children"
   explore: "Explore"
   explore_what_we_know_about_taxon: "Explore what EOL knows about %{taxon}."

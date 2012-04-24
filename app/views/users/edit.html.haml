@@ -84,17 +84,12 @@
             = I18n.t('helpers.label.user.open_authentications')
           %dd.copy
             %p= I18n.t('helpers.label.user.open_authentications_more', :open_authentications_url => user_open_authentications_url(@user))
-            - connected_oauth_providers = @user.open_authentications.collect{ |oa| oa.provider }
             %ul
-              - $ENABLED_SOCIAL_PLUGINS.sort_by{|provider_sym| provider_sym.to_s}.each do |oauth_provider|
-                %li{:class => oauth_provider}
-                  = I18n.t(oauth_provider, :scope => [:users, :open_authentications])
+              - @user.open_authentications.each do |open_authentication|
+                %li{:class => open_authentication.provider}
+                  = I18n.t(open_authentication.provider, :scope => [:users, :open_authentications])
                   %small
-                    - if connected_oauth_providers.include?(oauth_provider.to_s)
-                      = I18n.t('helpers.label.open_authentication.connected')
-                    - else
-                      = link_to I18n.t('helpers.label.open_authentication.connect'),
-                        new_user_open_authentication_url(@user, :oauth_provider => oauth_provider)
+                    = I18n.t('helpers.label.open_authentication.connected')
           %dt.required
             = user_form.label :language_abbr
             %small.assistive= I18n.t(:required_form_element)

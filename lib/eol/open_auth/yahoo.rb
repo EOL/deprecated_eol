@@ -11,8 +11,7 @@ module EOL
       end
 
       def user_attributes
-        @user_attributes ||= { :username => basic_info['profile']['ims'][0].collect{|k,v| v if k == "handle"}.compact[0],
-                               :given_name => basic_info['profile']['givenName'],
+        @user_attributes ||= { :given_name => basic_info['profile']['givenName'],
                                :family_name => basic_info['profile']['familyName']}
       end
 

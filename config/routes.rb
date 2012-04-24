@@ -77,17 +77,21 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users, :path_names => { :new => :register },
                 :member => { :terms_agreement => [ :get, :post ], :pending => :get, :activated => :get,
                              :curation_privileges => [ :get ], :make_editor => :put, :revoke_editor => :get },
-                :collection => { :forgot_password => :get, :usernames => :get, :verify_open_authentication => :get } do |user|
+                :collection => { :forgot_password => :get, :usernames => :get, :recover_account_connections => :get,
+                                 :verify_open_authentication => :get } do |user|
     user.resource :newsfeed, :only => [:show], :controller => "users/newsfeeds"
     user.resource :activity, :only => [:show], :controller => "users/activities"
     user.resources :collections, :only => [:index], :controller => "users/collections"
     user.resources :communities, :only => [:index], :controller => "users/communities"
     user.resources :content_partners, :only => [:index], :namespace => "users/"
-    user.resources :open_authentications, :only => [:index, :create, :new], :namespace => "users/" # OAuth for existing users
+    user.resources :open_authentications, :only => [:index, :create, :new, :destroy], :namespace => "users/" # OAuth for existing users
   end
   map.verify_user '/users/:user_id/verify/:validation_code', :controller => 'users', :action => 'verify'
-  # can't add dynamic segment to a member in rails 2.3 so we have to specify named route:
-  map.reset_password_user 'users/:user_id/reset_password/:password_reset_token', :controller => 'users', :action => 'reset_password'
+  # can't add dynamic segment to a member in rails 2.3 so we have to specify named routes for password and account resets:
+  map.reset_password_user 'users/:user_id/reset_password/:password_reset_token',
+                          :controller => 'users', :action => 'reset_password'
+  map.reset_account_connections_user 'user/:user_id/reset_account_connections/:account_connections_reset_token',
+                                     :controller => 'users', :action => 'reset_account_connections'
 
   # sessions
   map.resources :sessions, :only => [:new, :create, :destroy]

@@ -3,13 +3,15 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe UsersController do
 
   before(:all) do
-    truncate_all_tables
-    Language.create_english
-    SpecialCollection.gen(:name => 'Watch')
-    CuratorLevel.create_defaults
-    UserIdentity.create_defaults
-    @user = User.gen
-    cot = ChangeableObjectType.gen(:ch_object_type => 'synonym')
+    unless @user = User.find_by_username('users_controller_spec')
+      truncate_all_tables
+      Language.create_english
+      SpecialCollection.gen(:name => 'Watch')
+      CuratorLevel.create_defaults
+      UserIdentity.create_defaults
+      @user = User.gen(:username => 'users_controller_spec')
+      cot = ChangeableObjectType.gen(:ch_object_type => 'synonym')
+    end
   end
 
   describe 'GET new' do
@@ -17,30 +19,83 @@ describe UsersController do
       get :new
       response.rendered[:template].should == 'users/new.html.haml'
       response.redirected_to.should be_blank
+      assigns[:user].open_authentications.should be_blank
       get :new, nil, { :user => @user, :user_id => @user.id }
       response.rendered[:template].should_not == 'users/new.html.haml'
       response.redirected_to.should == @user
     end
 
-    it 'should be extended when registration is with open authentication' do
-      false
+    context 'extended for open authentication' do
+      before :each do
+        stub_oauth_requests
+      end
+
+      it 'should clear session data when user cancels sign up at confirmation page' do
+        get :new, nil, {:oauth_token_yahoo_1234 => 'atoken', :oauth_secret_yahoo_1234 => 'asecret'}
+        session[:oauth_token_yahoo_1234].should be_nil
+        session[:oauth_secret_yahoo_1234].should be_nil
+      end
+
+      it 'should render confirmation page when user signs up with Facebook' do
+        params_data, session_data = oauth_request_data(:facebook, 2)
+        get :new, params_data, session_data
+        assigns[:open_auth].should be_a(EOL::OpenAuth::Facebook)
+        assigns[:user].new_record?.should be_true
+        assigns[:user].open_authentications.first.provider.should == 'facebook'
+        assigns[:user].open_authentications.first.guid.should == 'facebookuserguid'
+        assigns[:user].open_authentications.length.should == 1
+        assigns[:user].given_name.should == 'FacebookGiven'
+        assigns[:user].family_name.should == 'FacebookFamily'
+      end
+
+      it 'should redirect to new user URL and flash error if user denies access during OAuth1 sign up' do
+        oauth1_consumer = OAuth::Consumer.new("key", "secret", {
+          :site => "http://fake.oauth1.provider",
+          :request_token_path => "/example/request_token",
+          :access_token_path => "/example/access_token_denied",
+          :authorize_path => "/example/authorize" })
+        OAuth::Consumer.should_receive(:new).and_return(oauth1_consumer)
+        get :new, {:denied => "key",
+                   :oauth_provider => 'twitter'},
+                  { "twitter_request_token_token" => 'key',
+                    "twitter_request_token_secret" => 'secret' }
+        assigns[:open_auth].should be_a(EOL::OpenAuth::Twitter)
+        response.redirected_to.should == new_user_url
+        flash[:error].should match /Sorry, we are not authorized.+?Twitter/
+      end
     end
   end
 
   describe 'POST create' do
-    it 'should be extended when registration is with open authentication' do
-      false
+    context 'extended for open authentication' do
+      it 'should redirect to authorize uri when log in is with Facebook' do
+        post :create, { :oauth_provider => 'facebook' }
+        response.redirected_to.should =~ /^https:\/\/graph.facebook.com\/oauth\/authorize/
+      end
+      it 'should redirect to authorize uri when log in is with Google' do
+        post :create, { :oauth_provider => 'google' }
+        response.redirected_to.should =~ /^https:\/\/accounts.google.com\/o\/oauth2\/auth/
+      end
+      it 'should redirect to authorize uri when log in is with Twitter' do
+        stub_oauth_requests
+        post :create, { :oauth_provider => 'twitter' }
+        response.redirected_to.should =~ /http:\/\/api.twitter.com\/oauth\/authenticate/
+      end
+      it 'should redirect to authorize uri when log in is with Yahoo' do
+        stub_oauth_requests
+        post :create, { :oauth_provider => 'yahoo' }
+        response.redirected_to.should =~ /https:\/\/api.login.yahoo.com\/oauth\/v2\/request_auth/
+      end
+
+      it 'should create a new EOL account connected to a Facebook account, send welcome email and log in user'
+      it 'should create a new EOL account connected to a Google account, send welcome email and log in user'
+      it 'should create a new EOL account connected to a Twitter account, send welcome email and log in user'
+      it 'should create a new EOL account connected to a Yahoo! account, send welcome email and log in user'
+      it 'should not create an EOL account is third-party account is already connected to an EOL user'
     end
-    it "should redirect to authorize URI for new open authentications" do
-      false
-    end
-    it "shouldn't create user if open authentication account already connected to a user" do
-      false
-    end
-    it 'should rerender new on validation errors'
-    it 'should redirect on success'
-    it 'should send verify email notification'
-    it 'should create agent record for a user during account creation'
+
+    it 'should create a new EOL user and send verification email if registration is valid'
+    it 'should not create a new user if registration is invalid'
   end
 
   describe 'GET show' do
@@ -234,7 +289,7 @@ describe UsersController do
       User.find(@disagreeable_user).agreed_with_terms.should be_false
       post :terms_agreement, { :id => @disagreeable_user.id, :commit_agreed => 'I Agree' }, { :user => @disagreeable_user, :user_id => @disagreeable_user.id }
       User.find(@disagreeable_user).agreed_with_terms.should be_true
-      response.redirected_to.should == user_path(@disagreeable_user)
+      response.redirected_to.should == user_url(@disagreeable_user)
     end
 
     it 'should not allow users to agree to terms for another user' do

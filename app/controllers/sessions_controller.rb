@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
   before_filter :check_user_agreed_with_terms, :except => [:destroy]
   before_filter :extend_for_open_authentication, :only => [:new, :create]
 
-  rescue_from EOL::Exceptions::OpenAuthMissingAuthorizeUri, :with => :oauth_missing_authorize_uri
+  rescue_from EOL::Exceptions::OpenAuthMissingAuthorizeUri, :with => :oauth_missing_authorize_uri_rescue
 
   # GET /sessions/new or named route /login
   def new
@@ -18,22 +18,20 @@ class SessionsController < ApplicationController
   # POST /sessions
   def create
     success, user = User.authenticate(params[:session][:username_or_email], params[:session][:password])
-    if success && user.is_a?(User) # authentication successful
-      if user.is_hidden?
-        flash[:error] = I18n.t(:login_hidden_user_message, :given_name => user.given_name)
-        redirect_to root_url(:protocol => "http"), :status => :moved_permanently
-      else
-        log_in user
-        unless params[:session][:return_to].blank? || params[:session][:return_to] == root_url
-          store_location(params[:session][:return_to])
-        end
-        redirect_back_or_default(user_newsfeed_path(current_user))
+    if success && user.is_a?(User)
+      # credentials good but user may still be inactive or hidden, we'll check during log_in
+      log_in user
+      unless params[:session][:return_to].blank? || params[:session][:return_to] == root_url
+        store_location(params[:session][:return_to])
       end
-    else # authentication unsuccessful
-      # On failure user is actually an Array
+      redirect_back_or_default(user_newsfeed_path(current_user))
+    else
+      # bad credentials or user missing
+      # on failure user is actually an Array
       if user.blank? && User.active_on_master?(params[:session][:username_or_email])
         flash[:notice] = I18n.t(:account_registered_but_not_ready_try_later)
       else
+        # bad credentials
         flash[:error] = I18n.t(:sign_in_unsuccessful_error)
         redirect_to login_path
       end
@@ -58,12 +56,13 @@ private
   end
 
   def extend_for_open_authentication
-    self.extend(EOL::OpenAuth::ExtendUsersController) if params[:oauth_provider]
+    self.extend(EOL::OpenAuth::ExtendSessionsController) if params[:oauth_provider]
   end
 
-  def oauth_missing_authorize_uri
+  def oauth_missing_authorize_uri_rescue
     flash[:error] = I18n.t(:authorize_uri_missing, :scope => [:users, :open_authentications, :errors])
     redirect_to login_url
   end
 
 end
+

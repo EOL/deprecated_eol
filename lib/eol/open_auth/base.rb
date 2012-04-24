@@ -3,7 +3,7 @@ module EOL
     # Base class for Open Authentications shared attributes and methods for use with both OAuth 1.0 and OAuth 2.0 protocols.
     class Base
 
-      attr_accessor :config, :callback, :client, :authorize_uri, :provider
+      attr_accessor :config, :callback, :client, :authorize_uri, :provider, :taken
       attr_writer :access_token, :basic_info, :user_attributes, :authentication_attributes, :guid
 
       def initialize(provider, config, callback)
@@ -16,13 +16,22 @@ module EOL
         @guid ||= authentication_attributes[:guid]
       end
 
+      def open_authentication
+        @open_authentication ||= OpenAuthentication.find_by_provider_and_guid(provider, guid)
+      end
+
       def prepare_for_authorization
-        raise EOL::Exceptions::OpenAuthMissingAuthorizeUri, 
+        raise EOL::Exceptions::OpenAuthMissingAuthorizeUri,
           "Authorize URI cannot be blank for #{provider} authentication." if authorize_uri.blank?
       end
 
-      def authorized?
-        !user_attributes.nil? && !authentication_attributes.nil?
+      def have_attributes?
+        !user_attributes.nil? && !authentication_attributes.nil? &&
+        !authentication_attributes[:guid].blank? && !authentication_attributes[:provider].blank?
+      end
+
+      def is_connected?
+        !open_authentication.nil?
       end
 
       def get_data(uri)

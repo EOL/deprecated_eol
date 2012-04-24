@@ -11,8 +11,7 @@ module EOL
       end
 
       def user_attributes
-        @user_attributes ||= { :username => basic_info['screen_name']
-          }.merge(Hash[ [:given_name, :family_name].zip(basic_info['name'].split(/\s+/,2)) ])
+        @user_attributes ||= Hash[ [:given_name, :family_name].zip(basic_info['name'].split(/\s+/,2)) ]
       end
 
       def authentication_attributes

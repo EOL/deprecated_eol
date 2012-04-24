@@ -28,4 +28,5 @@
         = hidden_field_tag :oauth_provider, provider
         %fieldset.actions
           = f.submit I18n.t("helpers.submit.session.sign_in_with_#{provider}"), :id => "session_submit_#{provider}"
-        -#= image_submit_tag image_path("v2/oauth_signup_#{provider}.gif"), :title => t(".login_with_#{provider}_assistive")
+    %p= link_to t(".recover_account_connections_link"), recover_account_connections_users_path
+

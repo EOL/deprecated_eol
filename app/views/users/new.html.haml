@@ -1,7 +1,5 @@
 #sign_up
   - form_for @user, :builder => ApplicationHelper::EolFormBuilder do |f|
-    - # TODO: check for and add hidden authentication attributes
-    - # TODO: if authentication attributes exist we may want to remove username and password fields
     - f.fields_for :open_authentications, @user.open_authentications do |oaf|
       = oaf.hidden_field :guid
       = oaf.hidden_field :provider
@@ -59,7 +57,10 @@
             = recaptcha_tags
     %fieldset.actions
       = f.submit I18n.t('helpers.submit.user.create')
-      = link_to I18n.t(:already_a_member_question), login_path
+      - if @user.eol_authentication?
+        = link_to I18n.t(:already_a_member_question), login_path
+      - else
+        = link_to I18n.t('helpers.submit.cancel'), new_user_path
 
   - if @user.eol_authentication? # only show open authentications if open authentication have not already been chosen
     .open_authentications

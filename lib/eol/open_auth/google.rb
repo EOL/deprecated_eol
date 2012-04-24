@@ -11,8 +11,7 @@ module EOL
       end
 
       def user_attributes
-        @user_attributes ||= { :username => basic_info['email'].split('@').first,
-                               :given_name => basic_info['given_name'],
+        @user_attributes ||= { :given_name => basic_info['given_name'],
                                :family_name => basic_info['family_name'],
                                :email => basic_info['email']}
       end

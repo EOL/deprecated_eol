@@ -11,8 +11,7 @@ module EOL
       end
 
       def user_attributes
-        @user_attributes ||= { :username => basic_info['username'],
-                               :given_name => basic_info['first_name'],
+        @user_attributes ||= { :given_name => basic_info['first_name'],
                                :family_name => basic_info['last_name'],
                                :email => basic_info['email']}
       end

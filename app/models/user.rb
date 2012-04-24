@@ -101,8 +101,8 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def self.authenticate(username_or_email, password)
-    user = self.find_by_username_and_active(username_or_email, true)
-    users = user.blank? ? self.find_all_by_email_and_active(username_or_email, true) : [user]
+    user = self.find_by_username(username_or_email)
+    users = user.blank? ? self.find_all_by_email(username_or_email) : [user]
     users.each do |u|
       if u.hashed_password == self.hash_password(password)
         u.reset_login_attempts
@@ -124,7 +124,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     User.with_master do
       user = User.find_by_username_and_active(username_or_email, true)
       user ||= User.find_by_email_and_active(username_or_email, true)
-      user.nil? ? false : true  # Just cleaning up the nil, is all.  False is less likely to annoy.
+      user.nil? ? false : true
     end
   end
 

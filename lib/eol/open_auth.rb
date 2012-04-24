@@ -1,4 +1,5 @@
 module EOL
+  # Wrapper for initializing Open Authentication instances for different providers
   module OpenAuth
 
     def self.config_file

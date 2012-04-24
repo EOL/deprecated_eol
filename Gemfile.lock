@@ -24,6 +24,7 @@ GEM
     columnize (0.3.6)
     composite_primary_keys (2.3.5.1)
       activerecord (>= 2.3.5)
+    crack (0.3.1)
     culerity (0.2.15)
     daemons (1.1.8)
     email_spec (0.6.2)
@@ -120,6 +121,9 @@ GEM
       macaddr (~> 1.0)
     vegas (0.1.11)
       rack (>= 1.0.0)
+    webmock (1.8.6)
+      addressable (>= 2.2.7)
+      crack (>= 0.1.7)
     will_paginate (2.3.16)
 
 PLATFORMS
@@ -160,4 +164,5 @@ DEPENDENCIES
   sass (= 3.1.1)
   unicorn (= 4.1.1)
   uuid (= 2.3.3)
+  webmock
   will_paginate (= 2.3.16)

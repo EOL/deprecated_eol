@@ -10,10 +10,10 @@ class ApplicationController < ActionController::Base
 
   # Map custom exceptions to default response codes
   ActionController::Base.rescue_responses.update(
-    'EOL::Exceptions::MustBeLoggedIn'             => :unauthorized,
-    'EOL::Exceptions::SecurityViolation'          => :forbidden,
-    'EOL::Exceptions::Pending'                    => :not_implemented,
-    'OpenURI::HTTPError'                          => :bad_request
+    'EOL::Exceptions::MustBeLoggedIn'                     => :unauthorized,
+    'EOL::Exceptions::Pending'                            => :not_implemented,
+    'EOL::Exceptions::SecurityViolation'                  => :forbidden,
+    'OpenURI::HTTPError'                                  => :bad_request
   )
 
   filter_parameter_logging :password
@@ -138,8 +138,8 @@ class ApplicationController < ActionController::Base
     session[:return_to]
   end
 
-  def valid_return_to_url
-    return_to_url != nil && return_to_url != login_url && return_to_url != new_user_url && return_to_url != logout_url && !url_for(:controller => 'content_partner', :action => 'login', :only_path => true).include?(return_to_url)
+  def referred_url
+    request.referer
   end
 
   def current_url(remove_querystring = true)
@@ -150,22 +150,27 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def referred_url
-    request.referer
-  end
-
   # Redirect to the URL stored by the most recent store_location call or to the passed default.
-  def redirect_back_or_default(default = root_url(:protocol => "http"))
-    # be sure we aren't returning the login, register or logout page
-    if valid_return_to_url
-      url = CGI.unescape(return_to_url)
-      url = {:controller => url, :protocol => "http"} unless  url.match("://")
-      redirect_to(url)
-    else
-      redirect_to(default)
-    end
+  def redirect_back_or_default(default_uri_or_active_record_instance = nil)
+    back_uri = return_to_url || default_uri_or_active_record_instance
     store_location(nil)
-    return false
+    # If we've passed in an instance of active record, e.g. @user, we can redirect straight to it
+    return redirect_to back_uri if back_uri.is_a?(ActiveRecord::Base)
+    back_uri = URI.parse(back_uri) rescue nil
+    if back_uri.is_a?(URI::Generic) && back_uri.scheme.nil?
+      # Assume it's a path and not a full URL, so make a full URL.
+      back_uri = URI.parse("#{request.protocol}#{request.host_with_port}#{back_uri.to_s}")
+    end
+    # be sure we aren't returning to the login, register or logout page when logged in, or causing a loop
+    if ! back_uri.nil? && %w( http ).include?(back_uri.scheme) &&
+      (! logged_in? || [logout_url, login_url, new_user_url].select{|url| back_uri.to_s.include?(url)}.blank?)
+      back_uri.query = nil if back_uri.query =~ /oauth_provider/i
+      back_uri = back_uri.to_s
+      back_uri = CGI.unescape(back_uri)
+    else
+      back_uri = root_url(:protocol => 'http')
+    end
+    redirect_to back_uri
   end
 
   # send user to the SSL version of the page (used in the account controller, can be used elsewhere)
@@ -351,25 +356,16 @@ class ApplicationController < ActionController::Base
   end
 
   # A user is not authorized for the particular controller/action:
-  def access_denied
-    unless logged_in?
-      return redirect_to root_url
-    end
-    store_location(request.referer) unless session[:return_to] || request.referer.blank?
-    flash_and_redirect_back(I18n.t(:you_are_not_authorized_to_perform_this_action), 403)
+  def access_denied(exception = nil)
+    flash[:error] = exception.flash_error if exception.respond_to?(:flash_error)
+    flash[:error] ||= I18n.t('exceptions.security_violations.default')
+    store_location(referred_url) if referred_url && ! return_to_url
+    redirect_back_or_default
   end
 
   def not_yet_implemented
     flash[:warning] =  I18n.t(:not_yet_implemented_error)
     redirect_to request.referer ? :back : :default
-  end
-
-  def flash_and_redirect_back(msg, status_code)
-    flash[:error] = msg
-    respond_to do |format|
-      format.html { redirect_back_or_default }
-      format.js { render :text => warning, :status => status_code }
-    end
   end
 
   def set_language
@@ -501,7 +497,7 @@ protected
     when :unauthorized
       logged_in? ? access_denied : must_be_logged_in
     when :forbidden
-      access_denied
+      access_denied(exception)
     when :not_implemented
       not_yet_implemented
     else

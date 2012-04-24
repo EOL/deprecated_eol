@@ -7,10 +7,10 @@ class UsersController < ApplicationController
   before_filter :redirect_if_already_logged_in, :only => [:new, :create, :verify, :pending, :activated,
                                                           :forgot_password, :reset_password]
   before_filter :check_user_agreed_with_terms, :except => [:terms_agreement, :reset_password, :usernames]
-  before_filter :extend_for_open_authentication, :only => [:new, :create, :authenticate]
+  before_filter :extend_for_open_authentication, :only => [:new, :create]
 
-  rescue_from EOL::Exceptions::OpenAuthMissingAuthorizeUri, :with => :oauth_missing_authorize_uri
-  rescue_from OAuth::Unauthorized, :with => :oauth_not_authorized
+  rescue_from EOL::Exceptions::OpenAuthMissingAuthorizeUri, :with => :oauth_missing_authorize_uri_rescue
+  rescue_from OAuth::Unauthorized, :with => :oauth_unauthorized_rescue
 
   @@objects_per_page = 20
 
@@ -19,6 +19,10 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     preload_user_associations
     redirect_if_user_is_inactive
+    # TODO: User inactive versus user hidden is confusing.
+    # TODO: Why are we continuing with show if user is inactive?
+    # TODO: Why are we not redirecting if user is hidden?
+    # TODO: Why are we showing no longer active message for hidden user? Rather than hidden message? Are they they same thing? If so why do we have both?
     if @user.is_hidden?
       flash[:notice] = I18n.t(:user_no_longer_active_message)
     end
@@ -123,6 +127,8 @@ class UsersController < ApplicationController
   # GET /users/register
   # Extended by EOL::OpenAuth::ExtendUsersController
   def new
+    # Clear OAuth tokens from session for new signups
+    session.delete_if{|k,v| k.to_s.match /^oauth_(token|secret)/}
     @user = User.new
   end
 
@@ -151,24 +157,6 @@ class UsersController < ApplicationController
       redirect_to pending_user_path(@user), :status => :moved_permanently
     else
       failed_to_create_user and return
-    end
-  end
-
-  # GET /users/verify_open_authentication
-  # Authentication callback for adding open authentications to existing users
-  def verify_open_authentication
-    oauth_provider = params.delete(:oauth_provider)
-    open_auth = EOL::OpenAuth.init(oauth_provider, verify_open_authentication_users_url(:oauth_provider => oauth_provider),
-                                   params.merge({:request_token_token => session.delete("#{oauth_provider}_request_token_token"),
-                                                 :request_token_secret => session.delete("#{oauth_provider}_request_token_secret")}))
-    if open_auth.authorized?
-      session["oauth_token_#{open_auth.provider}_#{open_auth.guid}"] = open_auth.authentication_attributes[:token]
-      session["oauth_secret_#{open_auth.provider}_#{open_auth.guid}"] = open_auth.authentication_attributes[:secret]
-      redirect_to new_user_open_authentication_url(current_user, :open_authentication => {:guid => open_auth.guid,
-                                                                                     :provider => open_auth.provider})
-    else
-      flash[:error] = I18n.t(:not_authorized, :scope => [:users, :open_authentications, :errors, oauth_provider.to_sym])
-      redirect_to user_open_authentications_url(current_user)
     end
   end
 
@@ -234,7 +222,7 @@ class UsersController < ApplicationController
     end
   end
 
-  # GET and POST for named route /users/forgot_password
+  # GET and POST for :collection route /users/forgot_password
   def forgot_password
     if request.post?
       if params[:user][:username_or_email].blank?
@@ -290,6 +278,56 @@ class UsersController < ApplicationController
     render :text => usernames.to_json
   end
 
+  # GET /users/verify_open_authentication
+  # Authentication callback for adding open authentications to existing users
+  def verify_open_authentication
+    oauth_provider = params.delete(:oauth_provider)
+    @open_auth = EOL::OpenAuth.init(oauth_provider,
+                  verify_open_authentication_users_url(:oauth_provider => oauth_provider),
+                  params.merge({:request_token_token => session.delete("#{oauth_provider}_request_token_token"),
+                                :request_token_secret => session.delete("#{oauth_provider}_request_token_secret")}))
+    if @open_auth.have_attributes?
+      if @open_auth.is_connected?
+        flash[:error] = "Account already connected"
+      else
+        session["oauth_token_#{@open_auth.provider}_#{@open_auth.guid}"] = @open_auth.authentication_attributes[:token]
+        session["oauth_secret_#{@open_auth.provider}_#{@open_auth.guid}"] = @open_auth.authentication_attributes[:secret]
+        redirect_to new_user_open_authentication_url(current_user, :open_authentication => {:guid => @open_auth.guid,
+                                                                                     :provider => @open_auth.provider})
+      end
+    else
+      flash.now[:error] = I18n.t(:missing_attributes, :scope => [:users, :open_authentications,
+                                                                 :errors, @open_auth.provider])
+
+      redirect_to user_open_authentications_url(current_user)
+    end
+  end
+
+  # GET and POST for :collection route /users/recover_account
+  def recover_account
+    debugger
+    if request.post?
+      email_address = params[:user][:email].strip
+      if @users = User.find_all_by_email(params[:user][:email].strip)
+        if @users.size > 1
+          # TODO: choose account
+          render :action => 'recover_account_choose_account' # TODO: share this with forgot password?
+        else
+          user = @users[0]
+          # TODO: generate and send reset account token to user
+          flash[:notice] = I18n.t('users.recover_account.notices.recovery_email_sent')
+          redirect_to login_path
+        end
+      else
+        flash[:error] = I18n.t('users.recover_account.errors.user_not_found_by_email_address')
+      end
+    end
+  end
+
+  # GET for named route /users/:user_id/reset_account/:reset_account_token
+  def reset_account
+  end
+
 protected
 
   def scoped_variables_for_translations
@@ -319,24 +357,28 @@ private
       (! params[:user].nil? && ! params[:user][:open_authentications_attributes].blank?)
   end
 
-  def oauth_missing_authorize_uri
-    flash[:error] = I18n.t(:authorize_uri_missing, :scope => [:users, :open_authentications, :errors])
+  def oauth_missing_authorize_uri_rescue
+    error_scope = [:users, :open_authentications, :errors]
+    error_scope << @open_auth.provider if !@open_auth.nil? && !@open_auth.provider.nil?
+    flash[:error] = I18n.t(:authorize_uri_missing, :scope => error_scope)
     redirect_to new_user_url
   end
 
-  def oauth_not_authorized
+  def oauth_unauthorized_rescue
+    error_scope = [:users, :open_authentications, :errors]
+    error_scope << @open_auth.provider if !@open_auth.nil? && !@open_auth.provider.nil?
     if logged_in?
-      flash[:error] = I18n.t(:not_authorized_to_add_authentication, :scope => [:users, :open_authentications, :errors])
+      flash[:error] = I18n.t(:not_authorized_to_add_authentication, :scope => error_scope)
       redirect_to user_open_authentications_url(current_user)
     else
-      flash[:error] = I18n.t(:not_authorized_to_signup, :scope => [:users, :open_authentications, :errors])
+      flash[:error] = I18n.t(:not_authorized_to_signup, :scope => error_scope)
       redirect_to new_user_url
     end
   end
 
   def users_layout # choose an appropriate views layout for an action
     case action_name
-    when 'forgot_password', 'terms_agreement', 'new', 'pending', 'activated'
+    when 'forgot_password', 'terms_agreement', 'new', 'pending', 'activated', 'recover_account_connections'
       'v2/sessions'
     when 'curation_privileges'
       'v2/basic'

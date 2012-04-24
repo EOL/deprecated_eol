@@ -38,7 +38,8 @@ class Users::OpenAuthenticationsController < UsersController
   # POST /users/:user_id/open_authentications
   def create
     oauth_provider = params[:open_authentication][:provider]
-    if request.post? && params[:action] == 'create'
+
+    if request.post? && params[:action] == 'create' # action could be also be :new
       @user = User.find(params[:user_id])
       raise EOL::Exceptions::SecurityViolation,
         "User with ID=#{current_user.id} does not have permission to add open authentications"\
@@ -47,6 +48,7 @@ class Users::OpenAuthenticationsController < UsersController
       open_auth.prepare_for_authorization
       session.merge!(open_auth.session_data) if defined?(open_auth.request_token)
       return redirect_to open_auth.authorize_uri
+
     elsif request.get? && params[:action] == 'new'
       guid = params[:open_authentication][:guid]
       params[:open_authentication][:token] = session.delete("oauth_token_#{oauth_provider}_#{guid}")
@@ -62,5 +64,23 @@ class Users::OpenAuthenticationsController < UsersController
     redirect_to user_open_authentications_url(@user)
   end
 
+  def destroy
+   debugger
+   @user = User.find(params[:user_id], :include => :open_authentications)
+   open_authentication = OpenAuthentication.find(params[:id])
+   raise EOL::Exceptions::SecurityViolation,
+         "User with ID=#{current_user.id} does not have permission to remove OpenAuthentication"\
+         " with ID=#{open_authentication.id} connected to User with ID=#{@user.id}"
+         unless current_user.can_delete?(open_authentication)
+   if @user.open_authentications.count < 2
+   #TODO: Check if this is the last open auth connection and give warning - user will be unable to login if they do not have a username and password or another connected account.
+   if @user.open_authentications.delete(open_authentication)
+     flash.now[:warning] = "You no longer have any connected accounts, you will not be able to log back into EOL unless you add a connected account or add an EOL username or password." if @user.open_authentications.blank? && @user.hashed_password.blank?
+     flash.now[:notice] = "Successfully removed connection. EOL will still be authorized to access your info until you deauthorize the EOL app in your provider."
+   else
+     flash.now[:error] = "Unable to remove connection."
+   end
+   render :index
+  end
 end
 

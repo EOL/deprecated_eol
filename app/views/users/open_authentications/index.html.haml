@@ -10,6 +10,11 @@
                 = I18n.t('helpers.label.open_authentication.connected')
                 - unless connected_oauth_provider.verified_at.nil?
                   = t('.last_verified', :time_passed => time_ago_in_words(connected_oauth_provider.verified_at))
+                - form_for [@user, connected_oauth_provider], 
+                  :html => { :method => :delete, :class => 'button_to',
+                  :id => "delete_open_authentication_#{connected_oauth_provider.id}" } do |delete_form|
+                  %div
+                    = delete_form.submit I18n.t('helpers.submit.open_authentication.destroy'), :class => 'delete'
             - else
               - form_for [@user, @user.open_authentications.build(:provider => oauth_provider)], :html => { :id => "new_open_authentication_#{oauth_provider}" } do |f|
                 = f.hidden_field :provider
@@ -17,3 +22,4 @@
                   = f.submit I18n.t('helpers.label.open_authentication.connect')
 
       = link_to t('.return_link'), edit_user_url(@user)
+

@@ -79,7 +79,7 @@ module EOL
 
       def self.add_taxon_concept!(docs, options = {})
         return if docs.empty?
-        includes = [ { :taxon_concept_preferred_entry => 
+        includes = [ { :preferred_entry => 
           { :hierarchy_entry => [ { :flattened_ancestors => { :ancestor => :name } },
             { :name => :canonical_form } , :hierarchy, :vetted ] } },
           { :taxon_concept_exemplar_image => :data_object } ]

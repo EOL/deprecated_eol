@@ -96,7 +96,7 @@ module EOL
 
       def self.add_taxon_concept!(docs)
         includes = [
-          { :taxon_concept_preferred_entry => 
+          { :preferred_entry => 
             { :hierarchy_entry => [ { :flattened_ancestors => { :ancestor => :name } },
               { :name => :canonical_form } , :hierarchy, :vetted ] } },
           { :preferred_common_names => [ :name, :language ] },

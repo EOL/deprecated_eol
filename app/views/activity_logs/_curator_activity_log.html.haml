@@ -28,7 +28,7 @@
 - else
   - translation_vars[:language] = item.synonym.language.label
 - association_type = 'association'
-- if (item.hierarchy_entry.nil? || item.hierarchy_entry.name.nil?) && !item.data_object.added_by_user?
+- if item.unknown_association?
   - association_type = 'an_unknown_association'
 - else
   - if !item.hierarchy_entry_id.nil?

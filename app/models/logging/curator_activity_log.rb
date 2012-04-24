@@ -178,6 +178,10 @@ class CuratorActivityLog < LoggingModel
     @notification_recipients
   end
 
+  def unknown_association?
+    (hierarchy_entry.nil? || hierarchy_entry.name.nil?) && (data_object.nil? || !data_object.added_by_user?)
+  end
+
 private
 
   def add_recipient_user_taking_action(recipients)

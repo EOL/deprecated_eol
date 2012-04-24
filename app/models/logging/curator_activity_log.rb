@@ -207,9 +207,9 @@ private
   def add_recipient_affected_by_object_curation(recipients)
     if object_is_data_object?
       recipients << self.data_object
-      self.data_object.curated_hierarchy_entries.each do |he|
-        recipients << he.taxon_concept
-        recipients << { :ancestor_ids => he.taxon_concept.flattened_ancestor_ids }
+      self.data_object.all_published_associations.each do |assoc|
+        recipients << assoc.taxon_concept
+        recipients << { :ancestor_ids => assoc.taxon_concept.flattened_ancestor_ids }
       end
       Collection.which_contain(self.data_object).each do |c|
         recipients << c

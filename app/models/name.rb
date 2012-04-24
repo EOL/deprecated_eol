@@ -114,7 +114,8 @@ class Name < ActiveRecord::Base
                        'ß', 'str', 'biovar', 'type', 'strain', 'serotype', 'hybrid',
                        'cultivar', 'x', '×', 'pop', 'group', 'environmental', 'sample',
                        'endosymbiont', 'species', 'complex',
-                       'unassigned', 'n', 'gen', 'auct', 'non', 'aff']
+                       'unassigned', 'n', 'gen', 'auct', 'non', 'aff',
+                       'mixed', 'library', 'genomic', 'unidentified', 'parasite', 'synthetic' ]
     return true if string.match(/(^|[^\w])(#{red_flag_words.join('|')})([^\w]|$)/i)
     return true if string.match(/ [abcd] /i)
     return true if string.match(/(_|'|")/i)

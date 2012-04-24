@@ -24,7 +24,7 @@
                   •
                   = link_to(I18n.t(:in_community), community_url(community), :class => 'close_and_go')
               - else
-                one_available = true
+                - one_available = true
       %fieldset.actions
         = link_to(I18n.t(:see_all_of_your_communities), user_communities_path(current_user), :class => 'other_actions close_and_go')
         - if one_available

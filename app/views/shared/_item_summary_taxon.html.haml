@@ -28,5 +28,5 @@
       - unless subtitle.blank?
         %br
       %strong
-        = search_result['keyword_type'].titleize + ": "
+        = I18n.t("search_field_" + search_result['keyword_type'].underscore) + ": "
       = search_result['best_keyword_match'].firstcap

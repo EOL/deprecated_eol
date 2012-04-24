@@ -18,9 +18,7 @@ config/environments/integration_local.rb
 config/environments/labs1.rb
 config/environments/staging_test.rb
 config/environments/local.*
-config/environments/v2demo*
-config/environments/v2prelaunch*
-config/environments/v2staging_dev_private.rb
+config/environments/staging_dev_private.rb
 config/remi-deploy.rb
 config/resque.yml
 config/systems/

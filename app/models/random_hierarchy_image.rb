@@ -71,7 +71,7 @@ class RandomHierarchyImage < ActiveRecord::Base
     RandomHierarchyImage.preload_associations(random_image_result,
       [ :data_object,
         { :taxon_concept => [
-          { :taxon_concept_preferred_entry => { :hierarchy_entry => [ :hierarchy, { :name => [ :canonical_form, :ranked_canonical_form ] } ] } },
+          { :preferred_entry => { :hierarchy_entry => [ :hierarchy, { :name => [ :canonical_form, :ranked_canonical_form ] } ] } },
           { :taxon_concept_exemplar_image => :data_object } ] } ],
       :select => {
         :data_objects => [ :id, :object_cache_url, :data_type_id, :guid ],

@@ -346,7 +346,7 @@ describe TaxonConcept do
                                 :vetted_id => Vetted.trusted.id,
                                 :published => 1)
     concept = TaxonConcept.find(concept.id) # cheating so I can flush all the instance variables
-    concept.taxon_concept_preferred_entry = nil
+    concept.preferred_entry = nil
     concept.entry.id.should == he_vetted.id
     concept.entry.name.string.should == vetted_name.string
 

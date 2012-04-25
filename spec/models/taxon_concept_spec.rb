@@ -621,6 +621,27 @@ describe TaxonConcept do
     tc.title.should == he1.name.string
   end
 
+  it 'should have a smart #entry' do
+    tc = TaxonConcept.gen
+    he = HierarchyEntry.last
+    xpect 'which does NOT accept arguments other than a Hierarchy'
+    lambda { tc.entry(he) }.should raise_error
+    xpect 'which uses preferred entry if available'
+    TaxonConceptPreferredEntry.create(:taxon_concept_id => tc.id, :hierarchy_entry_id => he.id)
+    tcpe = TaxonConceptPreferredEntry.last
+    tc.entry.should == he
+    xpect 'which is a singleton'
+    TaxonConceptPreferredEntry.delete(tcpe)
+    tc.entry.should == he
+    # TODO - there's much more going on here, but I don't have the energy:
+    # xpect 'which uses published hierarchy entries first'
+    # xpect 'which uses unpublished hierarchy entries if no published entries exist'
+    # xpect 'which uses an HE in the specified hierarchy if available'
+    # xpect 'which uses the first availble HE if the specified hierarchy has no entry availble.'
+    # xpect 'which does NOT use an expired preferred_entry'
+    # xpect 'which creates a preferred entry if one did not exist'
+  end
+
   #
   # I'm all for pending tests, but in this case, they run SLOWLY, so it's best to comment them out:
   #

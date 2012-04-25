@@ -1,6 +1,5 @@
 class Administrator::TableOfContentsController < AdminController
 
-  helper_method :current_agent, :agent_logged_in?
   layout :admin_unless_ajax
 
   before_filter :restrict_to_admins

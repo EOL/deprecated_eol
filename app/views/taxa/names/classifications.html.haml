@@ -19,11 +19,19 @@
             %th= I18n.t(:classifications_rank_column_header)
             %th= I18n.t(:classifications_hierarchy_column_header)
         %tbody
+          - can_curate = current_user.min_curator_level?(:full)
           - @hierarchy_entries.each do |hierarchy_entry|
             %tr
-              %td{:class => 'preferred_entry_selector'}
-                - preferred = @taxon_concept.preferred_entry.id == hierarchy_entry.id
-                = radio_button_tag 'preferred_name_id', hierarchy_entry.id, preferred ? TRUE : FALSE
+              - preferred_cell_class = name.preferred ? 'preferred' : nil
+              - preferred_cell_class = 'preferred_entry_selector' if can_curate
+              - preferred_label = name.preferred ? I18n.t(:name_preferred_for_language_yes) : nil
+              %td{:class => preferred_cell_class
+                :title => preferred_label}
+                - if can_curate
+                  - preferred = @taxon_concept.preferred_entry.id == hierarchy_entry.id
+                  = radio_button_tag 'preferred_name_id', hierarchy_entry.id, preferred ? TRUE : FALSE
+                - else
+                  = preferred_label
               %td
                 - recognized_by = hierarchy_entry.recognized_by_agents.map(&:full_name).to_sentence
                 - if hierarchy_entry.has_source_database?

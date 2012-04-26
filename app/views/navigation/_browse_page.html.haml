@@ -1,25 +1,19 @@
 = javascript_include_merged 'taxa-navigation'
-
 - @include_common_names = false
-- if @hierarchy_entry.blank?
-  - @hierarchy_entry = @taxon_concept.find_ancestor_in_hierarchy(@selected_hierarchy_entry.hierarchy)
-  - @in_hierarchy = @taxon_concept.in_hierarchy?(@selected_hierarchy_entry.hierarchy)
-- else
-  - @in_hierarchy = true
-- @hierarchy = @hierarchy_entry.blank? ? @session_hierarchy : @hierarchy_entry.hierarchy
-
-- entry_kingdom = @hierarchy_entry.blank? ? nil : @hierarchy_entry.kingdom
-
+- in_hierarchy  = true
+- hierarchy     = current_node.hierarchy
+- entry_kingdom = current_node.kingdom
+- expand ||= false
 %ul
-  - kingdoms = @hierarchy.kingdoms(:include_common_names => @include_common_names, :common_name_language => current_language)
+  - kingdoms = hierarchy.kingdoms(:include_common_names => @include_common_names, :common_name_language => current_language)
   - for kingdom in kingdoms
     - if entry_kingdom && entry_kingdom.id == kingdom.id
-      - ancestors = @hierarchy_entry.ancestors(:include_common_names => @include_common_names, :common_name_language => current_language)
+      - ancestors = current_node.ancestors(:include_common_names => @include_common_names, :common_name_language => current_language)
       - hierarchy_entry = ancestors.pop
-      = render(:partial => 'navigation/node_with_ancestry_page', :locals => { :ancestors => ancestors, :hierarchy_entry => hierarchy_entry, :open => 'open' })
+      = render(:partial => 'navigation/node_with_ancestry_page', :locals => { :expand => expand, :in_hierarchy => in_hierarchy, :current_node => current_node, :ancestors => ancestors, :hierarchy_entry => hierarchy_entry, :open => 'open' })
     - else
       %li
         = render(:partial => 'navigation/node_name_page', :locals => { :hierarchy_entry => kingdom })
   - if entry_kingdom.blank?
     %li.message
-      =I18n.t("name_not_in_select_an_alternate", :hierarchy => @hierarchy.label)
+      =I18n.t("name_not_in_select_an_alternate", :hierarchy => hierarchy.label)

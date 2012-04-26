@@ -1,0 +1,6 @@
+- if ancestors = hierarchy_entry.ancestors
+  - ancestor = ancestors.pop
+  = render(:partial => 'navigation/node_with_ancestry_page', :locals => { :ancestors => ancestors, :hierarchy_entry => ancestor })
+- else
+  %li
+    = render(:partial => 'navigation/node_name_page', :locals => { :hierarchy_entry => hierarchy_entry })

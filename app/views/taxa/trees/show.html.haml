@@ -1,7 +1,2 @@
 = javascript_include_merged 'taxa-navigation'
-- if ancestors = @hierarchy_entry.ancestors
-  - hierarchy_entry = ancestors.pop
-  = render(:partial => 'navigation/node_with_ancestry_page', :locals => { :ancestors => ancestors, :hierarchy_entry => hierarchy_entry })
-- else
-  %li
-    = render(:partial => 'navigation/node_name_page', :locals => { :hierarchy_entry => @hierarchy_entry })
+= render :partial => "show", :locals => {:hierarchy_entry => @hierarchy_entry}

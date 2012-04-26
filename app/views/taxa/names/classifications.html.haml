@@ -11,36 +11,35 @@
       .empty
         %p= I18n.t(:not_recognized_by_available_hierarchies)
     - else
+      %p.help_text
+        = I18n.t(:classification_preferred_for_taxon_help_tip,
+          :icon => image_tag("/images/v2/icon_required.png", :alt => I18n.t(:name_preferred_for_language_yes), :class => 'indicator'))
+      - can_curate = current_user.min_curator_level?(:full)
       %table.standard.classifications
         %thead
           %tr
-            %th= I18n.t(:classifications_preferred_column_header)
+            - if can_curate
+              %th= I18n.t(:classifications_preferred_column_header)
             %th= I18n.t(:classifications_recognized_by_column_header)
             %th= I18n.t(:classifications_rank_column_header)
             %th= I18n.t(:classifications_hierarchy_column_header)
         %tbody
-          - can_curate = current_user.min_curator_level?(:full)
           - @hierarchy_entries.each do |hierarchy_entry|
+            - preferred = @taxon_concept.preferred_entry.id == hierarchy_entry.id
             %tr
-              - preferred_cell_class = name.preferred ? 'preferred' : nil
-              - preferred_cell_class = 'preferred_entry_selector' if can_curate
-              - preferred_label = name.preferred ? I18n.t(:name_preferred_for_language_yes) : nil
-              %td{:class => preferred_cell_class
-                :title => preferred_label}
-                - if can_curate
-                  - preferred = @taxon_concept.preferred_entry.id == hierarchy_entry.id
+              - preferred_label = preferred ? I18n.t(:classification_preferred_for_taxon) : nil
+              - if can_curate
+                %td{:class => "preferred_entry_selector", :title => preferred_label}
                   = radio_button_tag 'preferred_name_id', hierarchy_entry.id, preferred ? TRUE : FALSE
-                - else
-                  = preferred_label
-              %td
+              %td{:class => preferred ? 'preferred' : nil}
                 - recognized_by = hierarchy_entry.recognized_by_agents.map(&:full_name).to_sentence
                 - if hierarchy_entry.has_source_database?
                   = I18n.t(:recognized_by_from_source, :recognized_by => recognized_by, :source => hierarchy_entry.hierarchy.agent.full_name)
                 - else
                   = recognized_by
+                %br
+                = link_to(I18n.t(:view_in_classification), taxon_hierarchy_entry_overview_path(@taxon_concept, hierarchy_entry))
               %td.rank
                 = hierarchy_entry.rank_label
               %td.classifications
-                - @hierarchy = hierarchy_entry.hierarchy # Grrr: the next partial NEEDS this variable.
-                - @hierarchy_entry = hierarchy_entry # Grrr: the next partial NEEDS this variable.
-                = render :partial => 'navigation/browse_page'
+                = render(:partial => 'taxa/trees/show', :locals => {:hierarchy_entry => hierarchy_entry})

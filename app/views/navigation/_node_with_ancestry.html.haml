@@ -1,4 +1,5 @@
 - ancestors ||= nil
+- expand ||= false
 - if ancestors.blank?
   - node_class = ancestors.nil? ? nil : 'current'
   %li.node
@@ -7,8 +8,8 @@
     - unless children.blank?
       %ul.branch
         - for child in children
-          - if @expand && !child.is_leaf?
-            = render(:partial => 'navigation/node_with_ancestry', :locals => { :hierarchy_entry => child, :expanded => true })
+          - if expand && !child.is_leaf?
+            = render(:partial => 'navigation/node_with_ancestry', :locals => { :expand => expand, :hierarchy_entry => child, :expanded => true })
           - else
             %li.node
               = render(:partial => 'navigation/node_name', :locals => { :hierarchy_entry => child })
@@ -17,4 +18,4 @@
   %li.node
     = render(:partial => 'navigation/node_name', :locals => { :hierarchy_entry => ancestor })
     %ul.branch
-      = render(:partial => 'navigation/node_with_ancestry', :locals => { :ancestors => ancestors, :hierarchy_entry => hierarchy_entry })
+      = render(:partial => 'navigation/node_with_ancestry', :locals => { :expand => expand, :ancestors => ancestors, :hierarchy_entry => hierarchy_entry })

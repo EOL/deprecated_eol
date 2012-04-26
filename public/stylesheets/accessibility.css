@@ -1054,6 +1054,8 @@ body#prelaunch #footer ul.social_media {
 .highlight {
   background-color: #f3f7fa; }
 
+#taxon_names .main_container table.classifications td.preferred {
+  background: url("/images/v2/icon_required.png") 7px 45% no-repeat; }
 #taxon_names .main_container table.classifications td.preferred_entry_selector {
   width: 8%; }
 #taxon_names .main_container table.classifications td.rank {

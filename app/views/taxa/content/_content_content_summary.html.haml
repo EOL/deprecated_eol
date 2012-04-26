@@ -1,8 +1,4 @@
 %p= I18n.t(:content_summary_introduction_html, :glossary_term_trusted => define_term(I18n.t(:trusted)), :glossary_term_unreviewed => define_term(I18n.t(:unreviewed)))
-- # sorting the results to put the stats for preferred hierarchy first
-- # selected_hierarchy_stat_entries = content[:items].select{ |he| he.hierarchy_id == @session_hierarchy.id }
-- # content[:items] -= selected_hierarchy_stat_entries
-- # selected_hierarchy_stat_entries.each{ |he| content[:items].unshift(he) }
 - for hierarchy_entry in content[:items]
   %table.standard{:summary =>  I18n.t(:content_summary_table_summary)}
     %caption= I18n.t(:content_summary_table_caption, :taxon_name => hh(@taxon_concept.title), :hierarchy_label => hierarchy_entry.hierarchy.label)

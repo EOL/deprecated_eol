@@ -1,3 +1,4 @@
+- expand ||= false
 = javascript_include_merged 'taxa-navigation'
 %div#hierarchy_browser
   %ul#hierarchy_browser_list.branch
@@ -6,10 +7,10 @@
         =I18n.t("browsing_branch_colon")
       - ancestors = @hierarchy_entry.ancestors
       - hierarchy_entry = ancestors.pop
-      = render(:partial => 'navigation/node_with_ancestry', :locals => { :ancestors => ancestors, :hierarchy_entry => hierarchy_entry })
+      = render(:partial => 'navigation/node_with_ancestry', :locals => { :expand => expand, :ancestors => ancestors, :hierarchy_entry => hierarchy_entry })
     %br
     %b
       =I18n.t("hierarchy_roots_colon")
-    - for kingdom in @hierarchy.kingdoms
+    - for kingdom in @hierarchy_entry.hierarchy.kingdoms
       %li.node
         = render(:partial => 'navigation/node_name', :locals => { :hierarchy_entry => kingdom })

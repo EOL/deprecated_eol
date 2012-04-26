@@ -1,12 +1,12 @@
 %li
-  = render(:partial => 'navigation/node_name_page', :locals => { :hierarchy_entry => hierarchy_entry, :open => 'open' })
+  = render(:partial => 'navigation/node_name_page', :locals => { :current_node => hierarchy_entry, :hierarchy_entry => hierarchy_entry, :open => 'open' })
   - he_children = HierarchyEntry.sort_by_name(hierarchy_entry.children)
   - if he_children && ! he_children.empty?
     %ul.branch
       - he_children[0..2].each do |child|
-        %li= render(:partial => 'navigation/node_name_page', :locals => { :hierarchy_entry => child })
+        %li= render(:partial => 'navigation/node_name_page', :locals => { :current_node => hierarchy_entry, :hierarchy_entry => child })
       - if he_children.length == 4
-        %li= render(:partial => 'navigation/node_name_page', :locals => { :hierarchy_entry => he_children[3] })
+        %li= render(:partial => 'navigation/node_name_page', :locals => { :current_node => hierarchy_entry, :hierarchy_entry => he_children[3] })
       - if he_children.length > 4
         %li.show_tree_count
           = I18n.t(:more_children_with_count, :count => he_children.length - 3)

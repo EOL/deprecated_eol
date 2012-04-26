@@ -1,3 +1,4 @@
+- expand ||= false
 %div#hierarchy_browser
   %ul#hierarchy_browser_list.branch
     %table
@@ -8,11 +9,11 @@
               =I18n.t("browsing_branch_colon")
             - ancestors = @hierarchy_entry.ancestors(:include_stats => true)
             - hierarchy_entry = ancestors.pop
-            = render(:partial => 'navigation/node_with_ancestry_stats', :locals => { :ancestors => ancestors, :hierarchy_entry => hierarchy_entry })
+            = render(:partial => 'navigation/node_with_ancestry_stats', :locals => { :expand => expand, :ancestors => ancestors, :hierarchy_entry => hierarchy_entry })
           %br
           %b
             =I18n.t("hierarchy_roots_colon")
-          - for kingdom in @hierarchy.kingdoms
+          - for kingdom in @hierarchy_entry.hierarchy.kingdoms
             %li.node.bold
               = render(:partial => 'navigation/node_name_stats', :locals => { :hierarchy_entry => kingdom })
           - unless @hierarchy_entry.nil?

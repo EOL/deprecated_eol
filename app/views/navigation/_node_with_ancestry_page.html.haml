@@ -7,7 +7,7 @@
   %li
     = render(:partial => 'navigation/node_name_page', :locals => { :link_to_taxa => link_to_taxa, :in_hierarchy => in_hierarchy, :current_node => current_node, :hierarchy_entry => hierarchy_entry })
     - if in_hierarchy
-      - children = hierarchy_entry.children(:include_common_names => @include_common_names, :common_name_language => current_language)
+      - children = hierarchy_entry.children(:common_name_language => current_language)
       - unless children.blank?
         %ul.branch
           - children.each do |child|
@@ -22,8 +22,7 @@
                 -# This is cheating here - I copied some code of out a partial and uesd it here. This is where children
                 -# taxa are rendered and it was much faster to keep the logic in this one partial rather than
                 -# rendering another one potentially thousands of times (saved 25 seconds locally for 5240)
-                - name_string = @include_common_names ? child.common_name_in_language(current_language).firstcap : child.italicized_name.firstcap
-                = link_to(name_string, link)
+                = link_to(child.italicized_name.firstcap, link)
                 - unless (in_hierarchy && child.id == current_node.id) || child.number_of_descendants == 0
                   = link_to('+', link, :class => 'show_tree', :data_url => data_link)
     - else

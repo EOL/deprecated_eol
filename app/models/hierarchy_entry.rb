@@ -127,20 +127,15 @@ class HierarchyEntry < ActiveRecord::Base
     return Rank.italicized_ids.include?(rank_id)
   end
 
-  def ancestors(params = {}, cross_reference_hierarchy = nil)
+  def ancestors(opts = {}, cross_reference_hierarchy = nil)
     return @ancestors unless @ancestors.nil?
     # TODO: reimplement completing a partial hierarchy with another curated hierarchy
     add_include = [ :taxon_concept ]
     add_select = { :taxon_concepts => '*' }
-    unless params[:include_stats].blank?
+    unless opts[:include_stats].blank?
       add_include << :hierarchy_entry_stat
       add_select[:hierarchy_entry_stats] = '*'
     end
-    if params[:include_common_names]
-      add_include << {:taxon_concept => {:preferred_common_names => :name}}
-      add_select[:taxon_concept_names] = :language_id
-    end
-
     ancestor_ids = flattened_ancestors.collect{ |f| f.ancestor_id }
     ancestor_ids << self.id
     ancestors = HierarchyEntry.core_relationships(:add_include => add_include, :add_select => add_select).find_all_by_id(ancestor_ids)
@@ -151,25 +146,16 @@ class HierarchyEntry < ActiveRecord::Base
     ancestors.collect{ |he| he.name.string }.join(delimiter)
   end
 
-  def children(params = {})
+  def children(opts = {})
     add_include = [ :taxon_concept ]
     add_select = { :taxon_concepts => '*' }
-    unless params[:include_stats].blank?
+    unless opts[:include_stats].blank?
       add_include << :hierarchy_entry_stat
       add_select[:hierarchy_entry_stats] = '*'
     end
-    if params[:include_common_names]
-      add_include << {:taxon_concept => {:preferred_common_names => :name}}
-      add_select[:taxon_concept_names] = :language_id
-    end
-
     vis = [Visibility.visible.id, Visibility.preview.id]
     c = HierarchyEntry.core_relationships(:add_include => add_include, :add_select => add_select).find_all_by_hierarchy_id_and_parent_id_and_visibility_id(hierarchy_id, id, vis)
-    if params[:include_common_names]
-      return HierarchyEntry.sort_by_common_name(c, params[:common_name_language])
-    else
-      return HierarchyEntry.sort_by_name(c)
-    end
+    return HierarchyEntry.sort_by_name(c)
   end
 
   def kingdom(hierarchy = nil)

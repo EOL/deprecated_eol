@@ -1,13 +1,12 @@
 = javascript_include_merged 'taxa-navigation'
-- @include_common_names = false
 - in_hierarchy  = true
 - hierarchy     = current_node.hierarchy
 - entry_kingdom = current_node.kingdom
 %ul
-  - kingdoms = hierarchy.kingdoms(:include_common_names => @include_common_names, :common_name_language => current_language)
+  - kingdoms = hierarchy.kingdoms(:common_name_language => current_language)
   - for kingdom in kingdoms
     - if entry_kingdom && entry_kingdom.id == kingdom.id
-      - ancestors = current_node.ancestors(:include_common_names => @include_common_names, :common_name_language => current_language)
+      - ancestors = current_node.ancestors(:common_name_language => current_language)
       - hierarchy_entry = ancestors.pop
       = render(:partial => 'navigation/node_with_ancestry_page', :locals => { :in_hierarchy => in_hierarchy, :current_node => current_node, :ancestors => ancestors, :hierarchy_entry => hierarchy_entry, :open => 'open' })
     - else

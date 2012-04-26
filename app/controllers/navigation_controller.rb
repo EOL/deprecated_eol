@@ -8,7 +8,7 @@ class NavigationController < ApplicationController
     @session_hierarchy = @selected_hierarchy_entry.hierarchy
 
     load_taxon_for_tree_view
-    render :layout => false, :partial => 'browse_page', :locals => {:current_node => @selected_hierarchy_entry}
+    render :layout => false, :partial => 'browse_page', :locals => { :current_node => @selected_hierarchy_entry }
   end
   
   def show_tree_view_for_selection
@@ -24,7 +24,7 @@ class NavigationController < ApplicationController
     end
     @hierarchy = @hierarchy_entry.hierarchy
     current_user.log_activity(:browsing_for_hierarchy_entry_id, :value => params[:id])
-    render :layout => false, :partial => 'browse', :locals => {:expand => expand}
+    render :layout => false, :partial => 'browse', :locals => { :expand => expand }
   end
   
   def browse_stats
@@ -34,7 +34,7 @@ class NavigationController < ApplicationController
       return
     end
     @hierarchy = @hierarchy_entry.hierarchy
-    render :partial => 'browse_stats', :layout => false, :locals => {:expand => expand}
+    render :partial => 'browse_stats', :layout => false, :locals => { :expand => expand }
   end
   
   

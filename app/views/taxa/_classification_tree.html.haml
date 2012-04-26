@@ -8,5 +8,5 @@
       - else
         - link_url = taxon_names_path(@taxon_concept)
       = link_to(I18n.t(:see_all_classifications_with_count_html, :count => count), link_url)
-  #classification_browser.browsable.classifications
-    = render :partial => 'navigation/root_nodes'
+  #classification_browser
+    = render :partial => 'navigation/browse_page', :locals => {:expand => expand, :current_node => @hierarchy_entry}

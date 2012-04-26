@@ -75,21 +75,13 @@ function update_browser_stats(hierarchy_entry_id, expand) {
   });
 }
 
+// Expand the mini-tree on the taxon overview:
 $(document).ready(function() {
-  // Expand the mini-tree on the taxon overview:
-  $('#classifications_summary a.show_tree').unbind('click').click(function() {
-    var $update = $(this).closest('#classifications_summary > ul > li > ul');
+  $('.browsable.classifications a.show_tree').unbind('click').click(function() {
+    var $update = $(this).closest('.browsable.classifications > ul > li');
     EOL.ajax_submit($(this), {update: $update, type: 'GET'});
     return(false);
   });
-  // TODO: this is silly to repeat the method, but this whole file needs to be rewritten
-  // so I'm just laying on the hacks for right now
-  $('#classification_browser a.show_tree').unbind('click').click(function() {
-    var $update = $(this).closest('#classification_browser > ul > li');
-    EOL.ajax_submit($(this), {update: $update, type: 'GET'});
-    return(false);
-  });
-
   EOL.expand_clade_behavior();
 });
 

@@ -120,6 +120,7 @@ ActionController::Routing::Routes.draw do |map|
       entries.resource :updates, :only => [:show], :controller => "taxa/updates",
         :member => { :statistics => :get }
     end
+    taxa.resource :tree, :only => [:show], :controller => "taxa/trees"
     taxa.resource :overview, :only => [:show], :controller => "taxa/overviews"
     taxa.resources :media, :only => [:index], :controller => "taxa/media",
                            :collection => { :set_as_exemplar => [:get, :post] }

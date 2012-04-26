@@ -3,13 +3,16 @@
 - in_hierarchy ||= false
 - name_string = include_common_names ? hierarchy_entry.common_name_in_language(current_language).firstcap : hierarchy_entry.italicized_name.firstcap
 - open ||= nil
+- link_to_taxa ||= false # Only when a preferred classification is being rendered.
+- link = link_to_taxa ? taxon_overview_path(hierarchy_entry.taxon_concept_id) : taxon_hierarchy_entry_overview_path(hierarchy_entry.taxon_concept_id, hierarchy_entry.id)
 - if selected_hierarchy_entry && selected_hierarchy_entry.id == hierarchy_entry.id
   - if open
     %span.open= name_string
   - else
     = name_string
 - else
-  = link_to name_string, taxon_hierarchy_entry_overview_path(hierarchy_entry.taxon_concept_id, hierarchy_entry.id), :class => open
+  = link_to name_string, link, :class => open
 - if current_node
+  - open_tree_path = link_to_taxa ? taxon_tree_path(hierarchy_entry.taxon_concept) : taxon_hierarchy_entry_tree_path(hierarchy_entry.taxon_concept, hierarchy_entry)
   - unless (in_hierarchy && hierarchy_entry.id == current_node.id) || hierarchy_entry.number_of_descendants == 0
-    = link_to('+', taxon_hierarchy_entry_overview_path(hierarchy_entry.taxon_concept, hierarchy_entry), :class => 'show_tree', :data_url => taxon_hierarchy_entry_tree_path(hierarchy_entry.taxon_concept, hierarchy_entry))
+    = link_to('+', link, :class => 'show_tree', :data_url => open_tree_path)

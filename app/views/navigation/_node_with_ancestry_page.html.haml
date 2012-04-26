@@ -2,21 +2,20 @@
 - ancestors = ancestors.compact
 - in_hierarchy ||= false
 - expand ||= false
+- link_to_taxa ||= false # Only when a preferred classification is being rendered.
 - if ancestors.blank?
   %li
-    = render(:partial => 'navigation/node_name_page', :locals => { :in_hierarchy => in_hierarchy, :current_node => current_node,
-      :hierarchy_entry => hierarchy_entry })
-    - unless in_hierarchy
-      %span.message= I18n.t("name_not_in_select_an_alternate", :hierarchy => @session_hierarchy.nil? ? I18n.t(:unknown_hierarchy) : @session_hierarchy.label)
-    - else
+    = render(:partial => 'navigation/node_name_page', :locals => { :link_to_taxa => link_to_taxa, :in_hierarchy => in_hierarchy, :current_node => current_node, :hierarchy_entry => hierarchy_entry })
+    - if in_hierarchy
       - children = hierarchy_entry.children(:include_common_names => @include_common_names, :common_name_language => current_language)
       - unless children.blank?
         %ul.branch
           - children.each do |child|
             - if expand && !child.is_leaf?
-              = render(:partial => 'navigation/node_with_ancestry_page', :locals => { :expand => expand, :in_hierarchy => in_hierarchy, 
-                :current_node => current_node, :hierarchy_entry => child, :expanded => true })
+              = render(:partial => 'navigation/node_with_ancestry_page', :locals => { :link_to_taxa => link_to_taxa, :expand => expand, :in_hierarchy => in_hierarchy, :current_node => current_node, :hierarchy_entry => child, :expanded => true })
             - else
+              - link = link_to_taxa ? taxon_overview_path(child.taxon_concept_id) : taxon_hierarchy_entry_overview_path(child.taxon_concept_id, child)
+              - data_link = link_to_taxa ? taxon_tree_path(child.taxon_concept_id) : taxon_hierarchy_entry_tree_path(child.taxon_concept_id, child)
               %li
                 -# TODO - generalize this on a model, sheesh!
                 -# = render(:partial => 'navigation/node_name_page', :locals => { :hierarchy_entry => child })
@@ -24,15 +23,14 @@
                 -# taxa are rendered and it was much faster to keep the logic in this one partial rather than
                 -# rendering another one potentially thousands of times (saved 25 seconds locally for 5240)
                 - name_string = @include_common_names ? child.common_name_in_language(current_language).firstcap : child.italicized_name.firstcap
-                = link_to(name_string, taxon_hierarchy_entry_overview_path(child.taxon_concept_id, child.id))
+                = link_to(name_string, link)
                 - unless (in_hierarchy && child.id == current_node.id) || child.number_of_descendants == 0
-                  = link_to('+', taxon_hierarchy_entry_overview_path(child.taxon_concept, child), :class => 'show_tree', 
-                    :data_url => taxon_hierarchy_entry_tree_path(child.taxon_concept, child))
+                  = link_to('+', link, :class => 'show_tree', :data_url => data_link)
+    - else
+      %span.message= I18n.t("name_not_in_select_an_alternate", :hierarchy => @session_hierarchy.nil? ? I18n.t(:unknown_hierarchy) : @session_hierarchy.label)
 - else
   - ancestor = ancestors.shift
   %li
-    = render(:partial => 'navigation/node_name_page', :locals => { :in_hierarchy => in_hierarchy, :current_node => current_node, 
-      :hierarchy_entry => ancestor})
+    = render(:partial => 'navigation/node_name_page', :locals => { :link_to_taxa => link_to_taxa, :in_hierarchy => in_hierarchy, :current_node => current_node, :hierarchy_entry => ancestor})
     %ul.branch
-      = render(:partial => 'navigation/node_with_ancestry_page', :locals => { :expand => expand, :in_hierarchy => in_hierarchy, 
-        :current_node => current_node, :ancestors => ancestors, :hierarchy_entry => hierarchy_entry })
+      = render(:partial => 'navigation/node_with_ancestry_page', :locals => { :link_to_taxa => link_to_taxa, :expand => expand, :in_hierarchy => in_hierarchy, :current_node => current_node, :ancestors => ancestors, :hierarchy_entry => hierarchy_entry })

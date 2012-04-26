@@ -1,11 +1,9 @@
-- include_common_names ||= @include_common_names
-- selected_hierarchy_entry ||= @selected_hierarchy_entry
 - in_hierarchy ||= false
-- name_string = include_common_names ? hierarchy_entry.common_name_in_language(current_language).firstcap : hierarchy_entry.italicized_name.firstcap
+- name_string = hierarchy_entry.italicized_name.firstcap
 - open ||= nil
 - link_to_taxa ||= false # Only when a preferred classification is being rendered.
 - link = link_to_taxa ? taxon_overview_path(hierarchy_entry.taxon_concept_id) : taxon_hierarchy_entry_overview_path(hierarchy_entry.taxon_concept_id, hierarchy_entry.id)
-- if selected_hierarchy_entry && selected_hierarchy_entry.id == hierarchy_entry.id
+- if @selected_hierarchy_entry && @selected_hierarchy_entry.id == hierarchy_entry.id # ...is this the current node?
   - if open
     %span.open= name_string
   - else

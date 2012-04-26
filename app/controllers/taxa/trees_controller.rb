@@ -3,9 +3,10 @@ class Taxa::TreesController < TaxaController
 
   def show
     @include_common_names = false
-    @hierarchy_entry = @taxon_concept.find_ancestor_in_hierarchy(@selected_hierarchy_entry.hierarchy)
+    @hierarchy_entry = @selected_hierarchy_entry ? 
+      @taxon_concept.find_ancestor_in_hierarchy(@selected_hierarchy_entry.hierarchy) :
+      @taxon_concept.entry 
     # TODO - an error if the hierarchy_entry is blank
-    @hierarchy = @hierarchy_entry.hierarchy
     render :layout => false
   end
 

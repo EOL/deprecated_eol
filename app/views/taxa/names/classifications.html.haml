@@ -41,5 +41,6 @@
                 = link_to(I18n.t(:view_in_classification), taxon_hierarchy_entry_overview_path(@taxon_concept, hierarchy_entry))
               %td.rank
                 = hierarchy_entry.rank_label
-              %td.classifications
-                = render(:partial => 'taxa/trees/show', :locals => {:hierarchy_entry => hierarchy_entry})
+              %td.browsable.classifications
+                %ul
+                  = render(:partial => 'taxa/trees/show', :locals => {:in_hierarchy => true, :hierarchy_entry => hierarchy_entry, :link_to_taxa => true})

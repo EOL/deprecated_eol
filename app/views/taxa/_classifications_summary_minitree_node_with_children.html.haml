@@ -1,6 +1,7 @@
--# This partial's hierarchy_entry is *always* the current_node.  Don't call this partial if it's not.
+-# There is no "current_node" here because the hierarchy_entry is *always* the current_node if we're rendering the
+-# children as this view does.
 %li
-  = render(:partial => 'navigation/node_name_page', :locals => { :current_node => hierarchy_entry, :hierarchy_entry => hierarchy_entry, :open => 'open' })
+  = render(:partial => 'navigation/node_name_page', :locals => { :in_hierarchy => true, :current_node => hierarchy_entry, :hierarchy_entry => hierarchy_entry, :open => 'open' })
   - he_children = HierarchyEntry.sort_by_name(hierarchy_entry.children)
   - if he_children && ! he_children.empty?
     %ul.branch

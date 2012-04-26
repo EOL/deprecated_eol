@@ -104,7 +104,7 @@ class Hierarchy < ActiveRecord::Base
     return citable_agent
   end
 
-  def kingdoms(params = {})
+  def kingdoms(opts = {})
     # this is very hacky - another case where reading from the cache in development mode throws an error
     # becuase several classes have not been loaded yet. The only fix is to somehow load them before reading
     # from the cache
@@ -115,22 +115,14 @@ class Hierarchy < ActiveRecord::Base
     Hierarchy.cached("kingdoms_for_#{id}") do
       add_include = [ :taxon_concept ]
       add_select = { :taxon_concepts => '*' }
-      unless params[:include_stats].blank?
+      unless opts[:include_stats].blank?
         add_include << :hierarchy_entry_stat
         add_select[:hierarchy_entry_stats] = '*'
-      end
-      if params[:include_common_names]
-        add_include << {:taxon_concept => {:preferred_common_names => :name}}
-        add_select[:taxon_concept_names] = :language_id
       end
 
       vis = [Visibility.visible.id, Visibility.preview.id]
       k = HierarchyEntry.core_relationships(:add_include => add_include, :add_select => add_select).find_all_by_hierarchy_id_and_parent_id_and_visibility_id(id, 0, vis)
-      if params[:include_common_names]
-        HierarchyEntry.sort_by_common_name(k, params[:common_name_language])
-      else
-        HierarchyEntry.sort_by_name(k)
-      end
+      HierarchyEntry.sort_by_name(k)
     end
   end
 

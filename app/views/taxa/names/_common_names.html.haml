@@ -7,7 +7,6 @@
   %p.help_text
     = I18n.t(:name_preferred_for_language_help_tip,
       :icon => image_tag("/images/v2/icon_required.png", :alt => I18n.t(:name_preferred_for_language_yes), :class => 'indicator'))
-
   - names_by_language.each_with_index do |language_names_pair, index|
     - language = language_names_pair[0]
     - names = language_names_pair[1]

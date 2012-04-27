@@ -155,7 +155,7 @@ class ApplicationController < ActionController::Base
     back_uri = return_to_url || default_uri_or_active_record_instance
     store_location(nil)
     # If we've passed in an instance of active record, e.g. @user, we can redirect straight to it
-    return redirect_to back_uri if back_uri.is_a?(ActiveRecord::Base)
+    redirect_to back_uri and return if back_uri.is_a?(ActiveRecord::Base)
     back_uri = URI.parse(back_uri) rescue nil
     if back_uri.is_a?(URI::Generic) && back_uri.scheme.nil?
       # Assume it's a path and not a full URL, so make a full URL.
@@ -357,9 +357,11 @@ class ApplicationController < ActionController::Base
 
   # A user is not authorized for the particular controller/action:
   def access_denied(exception = nil)
-    flash[:error] = exception.flash_error if exception.respond_to?(:flash_error)
+    flash[:error] << exception.flash_error if exception.respond_to?(:flash_error)
     flash[:error] ||= I18n.t('exceptions.security_violations.default')
-    store_location(referred_url) if referred_url && ! return_to_url
+    # Beware of redirect loops! Check we are not redirecting back to current URL that user can't access
+    store_location(nil) if return_to_url && return_to_url.include?(current_url)
+    store_location(referred_url) if referred_url && !return_to_url && !referred_url.include?(current_url)
     redirect_back_or_default
   end
 
@@ -532,24 +534,14 @@ protected
   end
 
   def meta_data(title = meta_title, description = meta_description, keywords = meta_keywords)
-    return @meta_data if @meta_data
-    @meta_data =  { :title => [
-                      title.presence,
+    @meta_data ||=  { :title => [
+                      @home_page ? I18n.t(:meta_title_site_name) : title.presence,
                       @rel_canonical_href_page_number ? I18n.t(:pagination_page_number, :number => @rel_canonical_href_page_number) : nil,
+                      @home_page ? title.presence : I18n.t(:meta_title_site_name)
                     ].compact.join(" - ").strip,
                   :description => description,
                   :keywords => keywords
                 }.delete_if{ |k, v| v.nil? }
-    if @meta_data[:title]
-      if @home_page
-        # Encyclopedia of Life - $TITLE
-        @meta_data[:title] = I18n.t(:meta_title_site_name) + " - " + @meta_data[:title]
-      else
-        # $TITLE - Encyclopedia of Life
-        @meta_data[:title] += " - "  + I18n.t(:meta_title_site_name)
-      end
-    end
-    @meta_data
   end
   helper_method :meta_data
 

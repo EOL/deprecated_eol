@@ -66,8 +66,18 @@
         %p.tip
           = @user.eol_authentication? ? t(".form_tip_account", translation_vars) : t(".form_tip_account_oauth", translation_vars)
         %dl
-          - if @user.eol_authentication?
-            %dt.required
+          %dt
+            = I18n.t('helpers.label.user.open_authentications')
+          %dd.copy
+            %p= I18n.t('helpers.label.user.open_authentications_more', :open_authentications_url => user_open_authentications_url(@user))
+            %ul
+              - @user.open_authentications.each do |open_authentication|
+                %li{:class => open_authentication.provider}
+                  = I18n.t(open_authentication.provider, :scope => [:users, :open_authentications])
+                  %small
+                    = I18n.t('helpers.label.open_authentication.connected')
+          - if @user.eol_authentication? || !@user.username.blank?
+            %dt
               = user_form.label :username
               %small.assistive= I18n.t(:required_form_element)
             %dd
@@ -80,16 +90,6 @@
               = user_form.label :entered_password_confirmation, I18n.t('helpers.label.user.new_password_confirmation')
             %dd
               = user_form.password_field :entered_password_confirmation, { :maxlength => 16 }
-          %dt
-            = I18n.t('helpers.label.user.open_authentications')
-          %dd.copy
-            %p= I18n.t('helpers.label.user.open_authentications_more', :open_authentications_url => user_open_authentications_url(@user))
-            %ul
-              - @user.open_authentications.each do |open_authentication|
-                %li{:class => open_authentication.provider}
-                  = I18n.t(open_authentication.provider, :scope => [:users, :open_authentications])
-                  %small
-                    = I18n.t('helpers.label.open_authentication.connected')
           %dt.required
             = user_form.label :language_abbr
             %small.assistive= I18n.t(:required_form_element)

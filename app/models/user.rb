@@ -43,6 +43,8 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   after_save :update_watch_collection_name
   after_save :clear_cache
 
+  after_create :add_agent
+
   before_destroy :destroy_comments
   # TODO: before_destroy :destroy_data_objects
 
@@ -224,7 +226,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     begin
       ($CACHE.fetch("users/#{id}") { User.find(id, :include => :agent) }).dup # #dup avoids frozen hashes!
     rescue
-      nil 
+      nil
     end
   end
 
@@ -270,7 +272,9 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def activate
-    self.update_attributes(:active => true, :validation_code => nil)
+    # Using update_attribute instead of updates_attributes to by pass validation errors.
+    self.update_attribute(:active, true)
+    self.update_attribute(:validation_code, nil)
     build_watch_collection
   end
 
@@ -801,7 +805,15 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
       data_object.update_solr_index
     end
   end
-  
+
+  def recover_account_token_valid?(token)
+    recover_account_token =~ /^[a-f0-9]{40}/ && recover_account_token == token && !recover_account_token_expired?
+  end
+
+  def recover_account_token_expired?
+    recover_account_token_expires_at.blank? || Time.now > recover_account_token_expires_at
+  end
+
   # An eol authentication indicates a user that has no open authentications, i.e. only has eol credentials
   def eol_authentication?
     open_authentications.blank?
@@ -882,6 +894,17 @@ private
     unless collection.blank?
       collection.name = I18n.t(:default_watch_collection_name, :username => self.full_name.titleize)
       collection.save!
+    end
+  end
+
+  # Callback after_create
+  def add_agent
+    return unless agent_id.blank?
+    begin
+      # TODO: User may not have a full_name on creation so passing it here is possibly redundant.
+      self.update_attribute(:agent_id, Agent.create_agent_from_user(full_name).id)
+    rescue ActiveRecord::StatementInvalid
+      # Interestingly, we are getting users who already have agents attached to them.  I'm not sure why, but it's causing registration to fail (or seem to; the user is created), and this is bad.
     end
   end
 

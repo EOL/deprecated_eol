@@ -2,7 +2,7 @@ class OpenAuthentication < ActiveRecord::Base
 
   belongs_to :user
 
-  validates_presence_of :user_id
+  validates_presence_of :user_id, :on => :update
   validates_presence_of :provider
   validates_presence_of :guid
 

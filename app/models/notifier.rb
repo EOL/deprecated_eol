@@ -14,7 +14,7 @@ class Notifier < ActionMailer::Base
     contact_subject = ContactSubject.find(contact.contact_subject_id)
     contact_from = contact_subject.recipients
     contact_from = contact_from.split(',').map { |c| c.strip }
-    
+
     subject     I18n.t(:subject, :title => contact_subject.title, :scope => [:notifier, :contact_us_auto_response])
     recipients  contact.email
     from        contact_from
@@ -105,11 +105,18 @@ class Notifier < ActionMailer::Base
     body        :user => user
   end
 
-  def user_reset_password(user, url)
-    subject     I18n.t(:subject, :scope => [:notifier, :user_reset_password])
+  def user_activated_with_open_authentication(user, oauth_provider)
+    subject     I18n.t(:subject, :scope => [:notifier, :user_activated_with_open_authentication])
     recipients  user.email
     from        $SUPPORT_EMAIL_ADDRESS
-    body        :user => user, :password_reset_url => url
+    body        :user => user, :oauth_provider => oauth_provider
+  end
+
+  def user_recover_account(user, temporary_login_url)
+    subject     I18n.t(:subject, :scope => [:notifier, :user_recover_account])
+    recipients  user.email
+    from        $SUPPORT_EMAIL_ADDRESS
+    body        :user => user, :temporary_login_url => temporary_login_url
   end
 
   def user_updated_email_preferences(user_before_update, user_after_update, recipient)

@@ -33,10 +33,10 @@ module EOL
       # POST /users handling open authentication form submissions
       def create
         if oauth_provider = params.delete(:oauth_provider)
-          open_auth = EOL::OpenAuth.init(oauth_provider, new_user_url(:oauth_provider => oauth_provider))
-          open_auth.prepare_for_authorization
-          session.merge!(open_auth.session_data) if defined?(open_auth.request_token)
-          return redirect_to open_auth.authorize_uri
+          @open_auth = EOL::OpenAuth.init(oauth_provider, new_user_url(:oauth_provider => oauth_provider))
+          @open_auth.prepare_for_authorization
+          session.merge!(@open_auth.session_data) if defined?(@open_auth.request_token)
+          return redirect_to @open_auth.authorize_uri
         end
 
         guid = params[:user][:open_authentications_attributes]["0"][:guid]
@@ -46,8 +46,11 @@ module EOL
 
         @user = User.new(params[:user].reverse_merge(:language => current_language,
                                                      :active => true,
-                                                     :remote_ip => request.remote_ip))
+                                                     :remote_ip => request.remote_ip,
+                                                     :open_authentications_attributes => [{:verified_at => Time.now}]))
         if @user.save # note no recaptcha for oauth signups
+          Notifier.deliver_user_activated_with_open_authentication(@user,
+            I18n.t(provider.to_sym, :scope => [:users, :open_authentications]))
           EOL::GlobalStatistics.increment('users')
           session.delete("oauth_token_#{provider}_#{guid}")
           session.delete("oauth_secret_#{provider}_#{guid}")

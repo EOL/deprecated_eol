@@ -5,31 +5,47 @@ class RedirectsController < ApplicationController
 
   def show
     if params[:url]
-      redirect_to params[:url], :status => :moved_permanently and return
+      to_url = params[:url]
+
     elsif params[:cms_page_id]
-      redirect_to cms_page_path(params[:cms_page_id]), :status => :moved_permanently and return
+      to_url = cms_page_path(params[:cms_page_id])
+
     elsif params[:taxon_id]
-      redirect_to taxon_overview_path(params[:taxon_id]), :status => :moved_permanently and return
-    elsif params[:taxon_id_media]
-      redirect_to taxon_media_path(params[:taxon_id_media]), :status => :moved_permanently and return
-    elsif params[:taxon_id_maps]
-      redirect_to taxon_maps_path(params[:taxon_id_maps]), :status => :moved_permanently and return
-    elsif params[:taxon_id_community_curators]
-      redirect_to curators_taxon_communities_path(params[:taxon_id_community_curators]), :status => :moved_permanently and return
+      case params[:sub_tab]
+      when 'curators'
+        to_url = curators_taxon_communities_path(params[:taxon_id])
+      when 'maps'
+        to_url = taxon_maps_path(params[:taxon_id])
+      when 'media'
+        to_url = taxon_media_path(params[:taxon_id])
+      else
+        to_url = taxon_overview_path(params[:taxon_id])
+      end
+
     elsif params[:user_id]
-      redirect_to user_path(params[:user_id]), :status => :moved_permanently and return
-    elsif params[:conditional_redirect_id] == 'exemplars'
-      collection_ids = {
-        :en => 34,
-        :ar => 7745,
-        :es => 6496
-      }
-      redirect_to collection_path(collection_ids[I18n.locale] || collection_ids[:en]), :status => :moved_permanently and return
+      if params[:recover_account_token]
+        to_url = temporary_login_user_url(params[:user_id], params[:recover_account_token])
+      else
+        to_url = user_path(params[:user_id])
+      end
+
+    elsif params[:conditional_redirect_id]
+      case params[:conditional_redirect_id]
+      when 'recover_account'
+        to_url = recover_account_users_url
+      when 'exemplars'
+        collection_ids = {
+          :en => 34,
+          :ar => 7745,
+          :es => 6496 }
+        to_url = collection_path(collection_ids[I18n.locale] || collection_ids[:en])
+      end
+
     elsif params[:collection_id]
-      redirect_to collection_path(params[:collection_id]), :status => :moved_permanently and return
-    else
-      redirect_to :root, :status => :moved_permanently
+      to_url = collection_path(params[:collection_id])
     end
+
+    redirect_to to_url || :root, :status => :moved_permanently
   end
 
 end

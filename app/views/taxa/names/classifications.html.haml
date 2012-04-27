@@ -43,4 +43,4 @@
                 = hierarchy_entry.rank_label
               %td.browsable.classifications
                 %ul
-                  = render(:partial => 'taxa/trees/show', :locals => {:in_hierarchy => true, :hierarchy_entry => hierarchy_entry, :link_to_taxa => true})
+                  = render(:partial => 'taxa/trees/show', :locals => {:in_hierarchy => true, :hierarchy_entry => hierarchy_entry, :link_to_taxa => true, :show_siblings => true})

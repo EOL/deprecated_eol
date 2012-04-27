@@ -1,9 +1,10 @@
 -# This is always a top-level view, and the hierarchy entry that you're rendering is the current node.
 - in_hierarchy ||= true # Not an entirely safe assumption, but more often than not, will be the case for this one.
 - link_to_taxa ||= false # Only when a preferred classification is being rendered.
+- show_siblings ||= false
 - if ancestors = hierarchy_entry.ancestors
   - ancestor = ancestors.pop
-  = render(:partial => 'navigation/node', :locals => { :link_to_taxa => link_to_taxa, :in_hierarchy => in_hierarchy, :ancestors => ancestors, :hierarchy_entry => ancestor })
+  = render(:partial => 'navigation/node', :locals => { :link_to_taxa => link_to_taxa, :in_hierarchy => in_hierarchy, :ancestors => ancestors, :hierarchy_entry => ancestor, :show_siblings => show_siblings })
 - else # NOTE - this is a weird border case where ancestors ends up nil.  I'm not sure it's even possible.
   - link = link_to_taxa ?  taxon_overview_path(hierarchy_entry.taxon_concept_id) : taxon_hierarchy_entry_overview_path(hierarchy_entry.taxon_concept_id, hierarchy_entry.id)
   %li= link_to(hierarchy_entry.italicized_name.firstcap, link)

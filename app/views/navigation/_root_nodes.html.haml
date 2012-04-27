@@ -1,0 +1,15 @@
+= javascript_include_merged 'taxa-navigation'
+- hierarchy    = @selected_hierarchy_entry.hierarchy
+- entry_root   = @selected_hierarchy_entry.kingdom
+%ul
+  - roots = hierarchy.kingdoms(:common_name_language => current_language)
+  - for root in roots
+    - if entry_root && entry_root.id == root.id
+      - ancestors = @selected_hierarchy_entry.ancestors(:common_name_language => current_language)
+      - hierarchy_entry = ancestors.pop
+      = render(:partial => 'navigation/node', :locals => { :ancestors => ancestors, :hierarchy_entry => hierarchy_entry, :open => 'open' })
+    - else
+      %li
+        - link = taxon_hierarchy_entry_overview_path(root.taxon_concept_id, root.id)
+        = link_to root.italicized_name.firstcap, link
+        = link_to('+', link, :class => 'show_tree', :data_url => taxon_hierarchy_entry_tree_path(root.taxon_concept, root))

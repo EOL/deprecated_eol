@@ -1,0 +1,40 @@
+-# This is cheating, avoiding rendering a view for each node, so there's a little redundancy. Sorry! Saves a LOT of time.
+-# NOTE - this LOOKS like it's doing a lot... and if you allow it to, it will.  But if you're just trying to render a
+-# simple node, you're _probably_ much better off just rendering an %li yourself, like so:
+-#   %li= link_to(he.italicized_name.firstcap, taxon_hierarchy_entry_overview_path(he.taxon_concept_id, he))
+-# Think about doing so before you use this (somewhat expensive) partial.
+- ancestors ||= []
+- ancestors = ancestors.compact
+- is_current_node ||= ancestors.blank?
+- show_children ||= is_current_node
+- expand ||= false
+- link_to_taxa ||= false # Only when a preferred classification is being rendered.
+%li
+  - if is_current_node
+    = hierarchy_entry.italicized_name.firstcap
+    - if show_children
+      - children = hierarchy_entry.children
+      - unless children.blank?
+        %ul.branch
+          - children.each do |child|
+            - if expand && !child.is_leaf?
+              = render(:partial => 'navigation/node', :locals => { :link_to_taxa => link_to_taxa, :expand => expand, :is_current_node => false, :hierarchy_entry => child, :expand => expand })
+            - else
+              - link = link_to_taxa ? taxon_overview_path(child.taxon_concept_id) : taxon_hierarchy_entry_overview_path(child.taxon_concept_id, child)
+              - data_link = link_to_taxa ? taxon_tree_path(child.taxon_concept_id) : taxon_hierarchy_entry_tree_path(child.taxon_concept_id, child)
+              %li
+                = link_to(child.italicized_name.firstcap, link)
+                - unless child.number_of_descendants == 0
+                  = link_to('+', link, :class => 'show_tree', :data_url => data_link)
+    - elsif hierarchy_entry.number_of_descendants == 0
+      - open_tree_path = link_to_taxa ? taxon_tree_path(hierarchy_entry.taxon_concept) : taxon_hierarchy_entry_tree_path(hierarchy_entry.taxon_concept, hierarchy_entry)
+      - link = link_to_taxa ? taxon_overview_path(hierarchy_entry.taxon_concept_id) : taxon_hierarchy_entry_overview_path(hierarchy_entry.taxon_concept_id, hierarchy_entry.id)
+      = link_to('+', link, :class => 'show_tree', :data_url => open_tree_path)
+  - else
+    - ancestor = ancestors.shift
+    - link = link_to_taxa ? taxon_overview_path(ancestor.taxon_concept_id) : taxon_hierarchy_entry_overview_path(ancestor.taxon_concept_id, ancestor.id)
+    = link_to ancestor.italicized_name.firstcap, link
+    - open_tree_path = link_to_taxa ? taxon_tree_path(ancestor.taxon_concept) : taxon_hierarchy_entry_tree_path(ancestor.taxon_concept, ancestor)
+    = link_to('+', link, :class => 'show_tree', :data_url => open_tree_path)
+    %ul.branch
+      = render(:partial => 'navigation/node', :locals => { :link_to_taxa => link_to_taxa, :expand => expand, :ancestors => ancestors, :hierarchy_entry => hierarchy_entry })

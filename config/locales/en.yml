@@ -2774,6 +2774,9 @@ en:
   more_children_with_count:
     one: "%{count} more..."
     other: "%{count} more..."
+  more_siblings_with_count:
+    one: "%{count} more siblings..."
+    other: "%{count} more siblings..."
   most_active_members: "Most active members"
   move: "Move"
   move_down: "Move down"

@@ -22,7 +22,7 @@
           %ul
             - if hierarchy_entry.has_parent?
               %li
-                = render(:partial => 'navigation/node_name_page', :locals => { :current_node => hierarchy_entry, :hierarchy_entry => hierarchy_entry.parent })
+                = link_to  hierarchy_entry.parent.italicized_name.firstcap, taxon_hierarchy_entry_overview_path(hierarchy_entry.parent.taxon_concept_id, hierarchy_entry.parent.id)
                 %ul.branch
                   = render(:partial => 'taxa/classifications_summary_minitree_node_with_children', :locals => {:hierarchy_entry => hierarchy_entry})
             - else # No ancestor, start with this node:

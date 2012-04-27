@@ -7,6 +7,7 @@
 - ancestors = ancestors.compact
 - is_current_node ||= ancestors.blank?
 - show_children ||= is_current_node
+- show_siblings ||= false
 - expand ||= false
 - link_to_taxa ||= false # Only when a preferred classification is being rendered.
 %li
@@ -18,7 +19,7 @@
         %ul.branch
           - children.each do |child|
             - if expand && !child.is_leaf?
-              = render(:partial => 'navigation/node', :locals => { :link_to_taxa => link_to_taxa, :expand => expand, :is_current_node => false, :hierarchy_entry => child, :expand => expand })
+              = render(:partial => 'navigation/node', :locals => { :link_to_taxa => link_to_taxa, :expand => expand, :is_current_node => false, :hierarchy_entry => child, :expand => expand, :show_siblings => show_siblings })
             - else
               - link = link_to_taxa ? taxon_overview_path(child.taxon_concept_id) : taxon_hierarchy_entry_overview_path(child.taxon_concept_id, child)
               - data_link = link_to_taxa ? taxon_tree_path(child.taxon_concept_id) : taxon_hierarchy_entry_tree_path(child.taxon_concept_id, child)
@@ -33,8 +34,23 @@
   - else
     - ancestor = ancestors.shift
     - link = link_to_taxa ? taxon_overview_path(ancestor.taxon_concept_id) : taxon_hierarchy_entry_overview_path(ancestor.taxon_concept_id, ancestor.id)
-    = link_to ancestor.italicized_name.firstcap, link
-    - open_tree_path = link_to_taxa ? taxon_tree_path(ancestor.taxon_concept) : taxon_hierarchy_entry_tree_path(ancestor.taxon_concept, ancestor)
-    = link_to('+', link, :class => 'show_tree', :data_url => open_tree_path)
-    %ul.branch
-      = render(:partial => 'navigation/node', :locals => { :link_to_taxa => link_to_taxa, :expand => expand, :ancestors => ancestors, :hierarchy_entry => hierarchy_entry })
+    - if show_siblings && ancestors.empty?
+      - siblings = ancestor.children
+      %ul.branch
+        - siblings.each do |sister|
+          - if sister == hierarchy_entry
+            = render(:partial => 'navigation/node', :locals => { :link_to_taxa => link_to_taxa, :expand => expand, :ancestors => ancestors, :hierarchy_entry => sister, :show_siblings => false, :show_children => true })
+          - else
+            - link = link_to_taxa ? taxon_overview_path(sister.taxon_concept_id) : taxon_hierarchy_entry_overview_path(sister.taxon_concept_id, sister)
+            - data_link = link_to_taxa ? taxon_tree_path(sister.taxon_concept_id) : taxon_hierarchy_entry_tree_path(sister.taxon_concept_id, sister)
+            %li
+              = link_to(sister.italicized_name.firstcap, link)
+              - unless sister.number_of_descendants == 0
+                = link_to('+', link, :class => 'show_tree', :data_url => data_link)
+
+    - else
+      = link_to ancestor.italicized_name.firstcap, link
+      - open_tree_path = link_to_taxa ? taxon_tree_path(ancestor.taxon_concept) : taxon_hierarchy_entry_tree_path(ancestor.taxon_concept, ancestor)
+      = link_to('+', link, :class => 'show_tree', :data_url => open_tree_path)
+      %ul.branch
+        = render(:partial => 'navigation/node', :locals => { :link_to_taxa => link_to_taxa, :expand => expand, :ancestors => ancestors, :hierarchy_entry => hierarchy_entry, :show_siblings => show_siblings })

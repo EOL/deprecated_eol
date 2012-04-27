@@ -5,7 +5,7 @@ class Taxa::TreesController < TaxaController
     @hierarchy_entry = @selected_hierarchy_entry ? 
       @taxon_concept.find_ancestor_in_hierarchy(@selected_hierarchy_entry.hierarchy) :
       @taxon_concept.entry 
-    # TODO - an error if the hierarchy_entry is blank
+    @max_children = params[:full] ? 20000 : nil
     render :layout => false
   end
 

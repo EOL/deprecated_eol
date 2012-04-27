@@ -472,4 +472,18 @@ module ApplicationHelper
     end
   end
 
+  def render_navigation_node(hierarchy_entry, opts = {})
+    link = opts[:link_to_taxa] ?
+      taxon_overview_path(hierarchy_entry.taxon_concept_id) :
+      taxon_hierarchy_entry_overview_path(hierarchy_entry.taxon_concept_id, hierarchy_entry)
+    node = link_to(hierarchy_entry.italicized_name.firstcap, link)
+    unless hierarchy_entry.number_of_descendants == 0
+      data_link = opts[:link_to_taxa] ?
+        taxon_tree_path(hierarchy_entry.taxon_concept_id) :
+        taxon_hierarchy_entry_tree_path(hierarchy_entry.taxon_concept_id, hierarchy_entry)
+      node << link_to('+', data_link)
+    end
+    node
+  end
+
 end

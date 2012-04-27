@@ -17,11 +17,7 @@
               - link = link_to_taxa ? taxon_overview_path(child.taxon_concept_id) : taxon_hierarchy_entry_overview_path(child.taxon_concept_id, child)
               - data_link = link_to_taxa ? taxon_tree_path(child.taxon_concept_id) : taxon_hierarchy_entry_tree_path(child.taxon_concept_id, child)
               %li
-                -# TODO - generalize this on a model, sheesh!
-                -# = render(:partial => 'navigation/node_name_page', :locals => { :hierarchy_entry => child })
-                -# This is cheating here - I copied some code of out a partial and uesd it here. This is where children
-                -# taxa are rendered and it was much faster to keep the logic in this one partial rather than
-                -# rendering another one potentially thousands of times (saved 25 seconds locally for 5240)
+                -# This is cheating, avoiding rendering navigation/node_name_page. saved 25 seconds locally for 5240!
                 = link_to(child.italicized_name.firstcap, link)
                 - unless (in_hierarchy && child.id == current_node.id) || child.number_of_descendants == 0
                   = link_to('+', link, :class => 'show_tree', :data_url => data_link)

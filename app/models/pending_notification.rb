@@ -24,7 +24,7 @@ class PendingNotification < ActiveRecord::Base
     unless sent_note_ids.empty?
       # Bulk update cuts down on queries (and thus time):
       PendingNotification.connection.execute("UPDATE #{PendingNotification.table_name}
-        SET sent_at='#{Time.now.mysql_timestamp}'
+        SET sent_at=UTC_TIMESTAMP()
         WHERE id IN (#{sent_note_ids.flatten.join(', ')})")
     end
     sent_note_ids.flatten.count # A semi-helpul return value.

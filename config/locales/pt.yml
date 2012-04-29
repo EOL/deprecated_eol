@@ -4,6 +4,7 @@
 # Author: Giro720
 # Author: GoEThe
 # Author: Hamilton Abreu
+# Author: Malafaya
 # Author: McDutchie
 pt: 
   0_1_or_2: 0, 1 ou 2
@@ -891,14 +892,14 @@ pt:
         credentials_more_professional: Membro de uma sociedade profissional.
         credentials_more_referral: Referência do curador actual.
         credentials_more_successful_assistant_curator: História de sucesso como curador assistente.
-        curation_application: Tornar-se um curador
+        curation_application: Torne-se um curador
         curation_application_more: Se gostaria de modificar os seus privilégios de curadoria, basta apresentar um pedido e reveremos a sua elegibilidade.
         curator_level: É actualmente %{curator_level_with_indefinite_article}.
         curator_scope: Âmbito de curadoria
         curator_scope_more: "Por favor indique o âmbito da sua competência. Por exemplo: \"Roedores de Bornéu\", \"Interacções tri-tróficas\" ou \"Problemas de conservação nos peixes\". Isto não irá limitar a sua capacidade de curadoria, mas será informativo para a comunidade EOL."
         email_reports_frequency_hours: Com que frequência deseja receber alertas de e-mail sobre actividade nas suas contribuições?
         entered_password: Senha <small>(4 - 16 caracteres)</small>
-        generate_api_key: Solicitar uma chave API
+        generate_api_key: Solicite uma chave de API
         generate_api_key_more: Se estiver interessado em usar a API da EOL pode gerar uma chave de API para identificar a sua aplicação. Leia mais sobre como <a href="%{api_docs_url}">adicionar uma chave para as chamadas de API</a>.
         logo: Carregar uma foto nova
         new_password: Nova senha <small>(4 - 16 caracteres)</small>

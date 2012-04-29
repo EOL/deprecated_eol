@@ -155,13 +155,23 @@ ar:
       name: 
         string: الاسم
       notification: 
+        changes_to_my_watched_collection: تغييرات على المجموعات في قائمة المراقبة الخاصة بك
+        changes_to_my_watched_community: تغييرات على المجتمعات في قائمة المراقبة الخاصة بك
         comment_on_my_collection: تعليق على مجموعة تديرها
         comment_on_my_community: تعليق في أحد المجتمعات المحلية التي تنتمي إليها
         comment_on_my_contribution: تعليق و/أو إجراء رقابي لمساهمة قمت بها
         comment_on_my_profile: تعليق على صفحتك الشخصية
+        comment_on_my_watched_item: تعليقات على الكائنات أوالأصنوفات أوالمجموعات أو المجتمعات في قائمة المراقبة الخاصة بك.
+        curation_on_my_watched_item: عمليات إشرافية على الكائنات أوالأصنوفات أو المجموعات أو المجتمعات في قائمة المراقبة الخاصة بك
+        eol_newsletter: ارسل لي النشرة الإخبارية الفصلية
+        i_am_being_watched: تمت إضافتك لقائمة مراقبة خاصة بعضو آخر.
         invitation_to_community: دعوة للانضمام إلى مجتمع
         made_me_a_manager: تم تعيينك مجمع أو منسق مجتمع
         member_joined_my_community: انضم عضو جديد إلى المجتمع الذي تديره
+        member_joined_my_watched_community: انضم أعضاء جدد لمجتمع أنت عضو فيه
+        member_left_my_community: قام أعضاء بمغادرة مجتمع تقوم انت بإدارته
+        new_data_on_my_watched_item: إسهامات جديدة للأصنوفات في قائمة المراقبة الخاصة بك
+        new_manager_in_my_community: أصبح عضوًا آخرًا مديرًا لمجتمع تقوم أنت بإدارته
         reply_to_comment: الرد على تعليق أدليت به
       resource: 
         accesspoint_url: عنوان إلكتروني لمجموعة بيانات
@@ -194,6 +204,7 @@ ar:
         credentials: الاعتمادات
         curator_level: مستوى المشرف
         curator_scope: نطاق الإشراف
+        disable_email_notifications: لا ترسل لي أي تحديثات بالبريد الإلكتروني
         email: البريد الإلكتروني
         entered_password: كلمة السر
         entered_password_confirmation: أعد كتابة كلمة السر <small>(للتأكيد)</small>
@@ -267,6 +278,132 @@ ar:
   activity: نشاط
   activity_log_empty: لم يتم إضافة تحديثات بعد.
   activity_log_empty_learn_more_link: تعرف على كيفية المشاركة
+  activity_logs: 
+    collection_activity_log: 
+      add_editor: 
+        an_unknown_user_of_an_unknown_collection: تمت إضافة مستخدم غير معروف كمدير لمجموعة غير معروفة.
+        an_unknown_user_of_collection: تمت إضافة مستخدم غير معروف كمدير للمجموعة "%{collection}".
+        an_unknown_user_of_it: تمت إضافة مستخدم غير معروف كمدير.
+        user_of_an_unknown_collection: تمت إضافة <strong>%{user}</strong> كمدير لمجموعة غير معروفة.
+        user_of_collection: تمت إضافة <strong>%{user}</strong> كمدير للمجموعة "%{collection}".
+        user_of_it: تمت إضافة <strong>%{user}</strong> كمدير
+      collect: 
+        an_unknown_user_added_an_unknown_item_to_an_unknown_collection: قام مستخدم غير معروف بإضافة عنصرًا غير معروف إلى مجموعة غير معروفة.
+        an_unknown_user_added_an_unknown_item_to_collection: قام مستخدم غير معروف بإضافة عنصرًا غير معروف إلى مجموعة "%{collection}".
+        an_unknown_user_added_an_unknown_item_to_it: قام مستخدم غير معروف بإضافة عنصرًا غير معروف.
+        an_unknown_user_added_item_to_an_unknown_collection: أضاف مستخدم غير معروف "%{item}" إلى مجموعة غير معروفة.
+        an_unknown_user_added_item_to_collection: أضاف مستخدم غير معروف "%{item}" لمجموعة "%{collection}".
+        an_unknown_user_added_item_to_it: قام مستخدم غير معروف بإضافة "%{item}".
+        user_added_an_unknown_item_to_an_unknown_collection: أضاف <strong>%{user}</strong> عنصرًا غير معروفًا لمجموعة غير معروفة.
+        user_added_an_unknown_item_to_collection: أضاف <strong>%{user}</strong> عنصرًا غير معروفًا لمجموعة "%{collection}".
+        user_added_an_unknown_item_to_it: أضاف <strong>%{user}</strong> عنصرًا غير معروفًا
+        user_added_item_to_an_unknown_collection: قام <strong>%{user}</strong> بإضافة "%{item}" لمجموعة غير معروفة.
+        user_added_item_to_collection: قام <strong>%{user}</strong> بإضافة "%{item}" لمجموعة "%{collection}".
+        user_added_item_to_it: قام <strong>%{user}</strong> بإضافة "%{item}".
+      create: 
+        an_unknown_user_created_an_unknown_collection: قام مستخدم غير معروف بإنشاء مجموعة غير معروفة.
+        an_unknown_user_created_collection: قام مستخدم غير معروف بإنشاء المجموعة "%{collection}".
+        an_unknown_user_created_it: قام مستخدم غير معروف بإنشاءها.
+        user_created_an_unknown_collection: قام المستخدم <strong>%{user}</strong> بإنشاء مجموعة غير معروفة.
+        user_created_collection: قام المستخدم <strong>%{user}</strong> بإنشاء المجموعة "%{collection}".
+        user_created_it: قام المستخدم <strong>%{user}</strong> بإنشاءها.
+      other_actions: 
+        an_unknown_user_modified_an_unknown_collection: قام مستخدم غير معروف بتعديل مجموعة غير معروفة.
+        an_unknown_user_modified_collection: قام مستخدم غير معروف بتعديل مجموعة "%{collection}".
+        an_unknown_user_modified_it: قام مستخدم غير معروف بتعديلها وفُقِد التغيير نفسه.
+        user_modified_an_unknown_collection: قام <strong>%{user}</strong> بتعديل مجموعة غير معروفة.
+        user_modified_collection: قام <strong>%{user}</strong> بتعديل مجموعة "%{collection}".
+        user_modified_it: قام <strong>%{user}</strong> بتعديله ولكن التغيير فُقِد.
+      remove: 
+        an_unknown_user_removed_an_unknown_item_from_an_unknown_collection: قام مستخدم غير معروف بمسح عنصر غير معروف من مجموعة غير معروفة.
+        an_unknown_user_removed_an_unknown_item_from_collection: قام مستخدم غير معروف بمسح عنصر غير معروف من المجموعة "%{collection}".
+        an_unknown_user_removed_an_unknown_item_from_it: قام مستخدم غير معروف بمسح عنصر غير معروف.
+        an_unknown_user_removed_item_from_an_unknown_collection: قام مستخدم غير معروف بمسح "%{item}" من مجموعة غير معروفة.
+        an_unknown_user_removed_item_from_collection: قام مستخدم غير معروف بمسح "%{item}" من المجموعة "%{collection}".
+        an_unknown_user_removed_item_from_it: قام مستخدم غير معروف بمسح "%{item}".
+        user_removed_an_unknown_item_from_an_unknown_collection: قام <strong>%{user}</strong> بمسح عنصر غير معروف من مجموعة غير معروفة.
+        user_removed_an_unknown_item_from_collection: قام <strong>%{user}</strong> بمسح عنصر غير معروف من المجموعة "%{collection}".
+        user_removed_an_unknown_item_from_it: قام <strong>%{user}</strong> بمسح عنصر غير معروف.
+        user_removed_item_from_an_unknown_collection: قام <strong>%{user}</strong> بمسح "%{item}"  من مجموعة غير معروفة.
+        user_removed_item_from_collection: قام <strong>%{user}</strong> بمسح "%{item}" من مجموعة "%{collection}".
+        user_removed_item_from_it: قام <strong>%{user}</strong> بمسح "%{item}".
+      remove_all: 
+        an_unknown_user_cleared_an_unknown_collection: قام مستخدم غير معروف بمسح كل العناصر من مجموعة غير معروفة.
+        an_unknown_user_cleared_collection: قام مستخدم غير معروف بمسح كل العناصر من المجموعة "%{collection}".
+        an_unknown_user_cleared_it: قام مستخدم غير معروف بمسح كل العناصر
+        user_cleared_an_unknown_collection: قام المستخدم <strong>%{user}</strong> بمسح كل العناصر من مجموعة غير معروفة.
+        user_cleared_collection: قام المستحدم <strong>%{user}</strong> بمسح كل العناصر من المجموعة "%{collection}".
+        user_cleared_it: قام <strong>%{user}</strong> بمسح كل العناصر
+    community_activity_log: 
+      add_manager: 
+        an_unknown_user_added_an_unknown_manager_to_an_unknown_community: قام مستخدم غير معروف بإضافة مدير غير معروف لمجتمع غير معروف.
+        an_unknown_user_added_an_unknown_manager_to_community: أضاف مستخدم غير معروف مديرًا غير معروفًا لمجتمع "%{community}".
+        an_unknown_user_added_manager_to_an_unknown_community: قام مستخدم غير معروف بإضافة  "%{manager}" كمدير لمجتمع غير معروف.
+        an_unknown_user_added_manager_to_community: قام مستخدم غير معروف بإضافة "%{manager}" كمدير لمجتمع "%{community}".
+        user_added_an_unknown_manager_to_an_unknown_community: قام <strong>%{user}</strong> بإضافة مدير غير معروف لمجتمع غير معروف.
+        user_added_an_unknown_manager_to_community: قام <strong>%{user}</strong> بإضافة مدير غير معروف لمجتمع "%{community}".
+        user_added_manager_to_an_unknown_community: قام <strong>%{user}</strong> بإضافة "%{manager}" لمجتمع غير معروف.
+        user_added_manager_to_community: قام <strong>%{user}</strong> بإضافة "%{manager}" كمدير لمجتمع "%{community}".
+      change_description: 
+        an_unknown_user_changed_the_description_of_an_unknown_community: قام مستخدم غير معروف بتغيير وصف مجتمع غير معروف.
+        an_unknown_user_changed_the_description_of_community: قام مستخدم غير معروف بتغيير وصف مجتمع "%{community}".
+        user_changed_the_description_of_an_unknown_community: قام <strong>%{user}</strong> بتغيير وصف مجتمع غير معروف.
+        user_changed_the_description_of_community: قام <strong>%{user}</strong> بتغيير وصف مجتمع "%{community}".
+      change_icon: 
+        an_unknown_user_changed_the_icon_of_an_unknown_community: قام مستخدم غير معروف بتغيير شعار مجتمع غير معروف.
+        an_unknown_user_changed_the_icon_of_community: قام مستخدم غير معروف بتغيير شعار مجتمع "%{community}".
+        user_changed_the_icon_of_an_unknown_community: قام <strong>%{user}</strong> بتغيير شعار مجتمع غير معروف.
+        user_changed_the_icon_of_community: قام <strong>%{user}</strong> بتغيير شعار مجتمع "%{community}".
+      change_name: 
+        an_unknown_user_changed_the_name_of_an_unknown_community: قام مستخدم غير معروف بتغيير اسم مجتمع غير معروف.
+        an_unknown_user_changed_the_name_of_community: قام مستخدم غير معروف بتغيير اسم مجتمع "%{community}".
+        user_changed_the_name_of_an_unknown_community: قام <strong>%{user}</strong> بتغيير اسم مجتمع غير معروف.
+        user_changed_the_name_of_community: قام <strong>%{user}</strong> بتغيير اسم مجتمع "%{community}".
+      create: 
+        an_unknown_user_created_an_unknown_community: قام مستخدم غير معروف بإنشاء مجتمع غير معروف.
+        an_unknown_user_created_community: قام مستخدم غير معروف بإنشاء مجتمع "%{community}".
+        user_created_an_unknown_community: قام <strong>%{user}</strong> بإنشاء مجتمع غير معروف.
+        user_created_community: قام <strong>%{user}</strong> بإنشاء مجتمع "%{community}".
+      join: 
+        an_unknown_user_joined_an_unknown_community: انضم مستخدم غير معروف إلى مجتمع غير معروف.
+        an_unknown_user_joined_community: انضم مستخدم غير معروف إلى مجتمع "%{community}".
+        user_joined_an_unknown_community: انضم <strong>%{user}</strong> لمجتمع غير معروف.
+        user_joined_community: انضم <strong>%{user}</strong> لمجتمع "%{community}".
+      leave: 
+        an_unknown_user_left_an_unknown_community: قام مستخدم غير معروف بمغادرة مجتمعًا غير معروفًا
+        an_unknown_user_left_community: قام مستخدم غير معروف بمغادرة مجتمع "%{community}".
+        user_left_an_unknown_community: قام <strong>%{user}</strong> بمغادرة مجتمعًا غير معروفًا.
+        user_left_community: غادر <strong>%{user}</strong> مجتمع "%{community}".
+      other_actions: 
+        an_unknown_user_modified_an_unknown_community: قام مستخدم غير معروف بتعديل مجتمع غير معروف.
+        an_unknown_user_modified_community: قام مستخدم غير معروف بتعديل مجتمع "%{community}".
+        user_modified_an_unknown_community: قام <strong>%{user}</strong> بتعديل مجتمع غير معروف.
+        user_modified_community: قام <strong>%{user}</strong> بتعديل مجتمع "%{community}".
+    curator_activity_log: 
+      reasons_to_hide: "أسباب الإخفاء: %{reasons}"
+      reasons_to_untrust: "أسباب عدم الوثوق: %{reasons}"
+      trusted: 
+        an_unknown_user_trusted_an_older_data_object_on_an_unknown_association: قام مستخدم غير معروف باعتبار النسخة الأقدم من "%{data_object}" موثوقًا بها في سياق غير معروف.
+        an_unknown_user_trusted_an_older_data_object_on_association: قام مستخدم غير معروف باعتبار نسخة أقدم من "%{data_object}" موثوقًا بها على صفحة "%{association}" .
+        an_unknown_user_trusted_an_unknown_data_object_on_an_unknown_association: قام مستخدم غير معروف باعتبار كائن بيانات غير معروف موثوقًا به في سياق غير معروف.
+        an_unknown_user_trusted_it_on_association: قام مستخدم غير معروف باعتبارها موثوقًا بها على صفحة "%{association}".
+      untrusted: 
+        an_unknown_user_untrusted_an_older_data_object_on_an_unknown_association: قام مستخدم غير معروف باعتبار نسخة أقدم من "%{data_object}" غير موثوقًا بها في سياق غير معروف.
+        an_unknown_user_untrusted_an_older_data_object_on_association: قام مستخدم غير معروف باعتبار نسخة أقدم من "%{data_object}" غير موثوقًا بها على صفحة "%{association}".
+        an_unknown_user_untrusted_an_unknown_data_object_on_an_unknown_association: قام مستخدم غير معروف باعتبار كائن بيانات غير معروف غير موثوقًا به في سياق غير معروف.
+        an_unknown_user_untrusted_an_unknown_data_object_on_association: قام مستخدم غير معروف باعتبار كائن بيانات غير معروف "غير موثوقًا به" على صفحة "%{association}".
+        an_unknown_user_untrusted_data_object_on_an_unknown_association: قام مستخدم غير معروف باعتبار "%{data_object}" غير موثوقًا به في سياق غير معروف.
+        an_unknown_user_untrusted_data_object_on_association: قام مستخدم غير معروف باعتبار "%{data_object}" غير موثوقًا به في صفحة "%{association}".
+        an_unknown_user_untrusted_it_on_an_unknown_association: قام مستخدم غير معروف باعتبارها "غير موثوق بها" في سياق غير معروف.
+        an_unknown_user_untrusted_it_on_association: قام مستخدم غير معروف باعتبارها "غير موثوق بها" على صفحة "%{association}".
+        user_untrusted_an_older_data_object_on_an_unknown_association: اعتبر المستخدم <strong>%{user}</strong> نسخة أقدم من "%{data_object}" غير موثوقًا بها في سياق غير معروف.
+        user_untrusted_an_older_data_object_on_association: اعتبر <strong>%{user}</strong> نسخة أقدم من "%{data_object}" غير موثوقًا بها في صفحة "%{association}".
+        user_untrusted_an_unknown_data_object_on_an_unknown_association: اعتبر <strong>%{user}</strong> كائن بيانات غير معروف "غير موثوق به" في سياق غير معروف.
+        user_untrusted_an_unknown_data_object_on_association: اعتبر <strong>%{user}</strong> كائن بيانات غير معروف "غير موثوق به" على صفحة "%{association}".
+        user_untrusted_data_object_on_an_unknown_association: اعتبر <strong>%{user}</strong> أن "%{data_object}" غير موثوق به في سياق غير معروف.
+        user_untrusted_data_object_on_association: اعتبر <strong>%{user}</strong> أن "%{data_object}" غير موثوق به في صفحة "%{association}".
+        user_untrusted_it_on_an_unknown_association: اعتبرها <strong>%{user}</strong> "غير موثوق بها" في سياق غير معروف.
+        user_untrusted_it_on_association: اعتبرها <strong>%{user}</strong> غير موثوق بها على صفحة "%{association}".
   activity_user_created_text: <strong>%{user}</strong> أضاف نص إلى "%{object_name}" في "%{taxon_concept}".
   activity_user_updated_text: <strong>%{user}</strong> حدث نص "%{object_name}" في "%{taxon_concept}" .
   add: أضف
@@ -405,6 +542,7 @@ ar:
   all_communities: " جميع المجتمعات"
   all_count: الكل (%{count})
   all_errors: جميع الأخطاء
+  all_filter: الكل
   all_harvesting_logs: كل سجلات الجمع
   all_images: جميع الصور
   all_information: جميع المعلومات
@@ -1089,6 +1227,8 @@ ar:
   email_colon: "البريد الإلكتروني:"
   email_error_notification_activ: إن إشعار الخطأ بالبريد الإلكتروني نشط
   email_recipients: المرسل إليهم البريد الإلكتروني
+  email_updates_for_eol_addicts: تحديثات لعشاق موسوعة الحياة.
+  email_updates_for_eol_members: تحديثات سيرغب أغلب أعضاء موسوعة الحياة في الحصول عليها.
   encyclopedia_of_life: موسوعة الحياة
   endorsed_by: معروضة من قبل
   endorsed_collections: المجموعات المعروضة
@@ -1170,16 +1310,21 @@ ar:
     one: كل اﻷنواع (%{count})
     other: كل اﻷنواع (%{count})
   filter_by_type_collection_option: المجموعات
+  filter_by_type_comment_option: التعليقات
   filter_by_type_community_option: المجتمعات
+  filter_by_type_content_page_option: حول موسوعة الحياة
   filter_by_type_image_option: الصور
   filter_by_type_image_option_with_count: 
     one: الصور (%{count})
     other: الصور (%{count})
+  filter_by_type_name_option: الأسماء
+  filter_by_type_object_curated_option: كائنات تم الإشراف عليها
   filter_by_type_photosynth_option: تطبيق فوتوسينث
   filter_by_type_sound_option: الأصوات
   filter_by_type_sound_option_with_count: 
     one: الصوتيات (%{count})
     other: الصوتيات (%{count})
+  filter_by_type_taxa_comment_option: تعليقات الأصنوفات
   filter_by_type_taxon_concept_option: الأصنوفات
   filter_by_type_text_option: المقالات
   filter_by_type_user_option: الأشخاص
@@ -1188,6 +1333,11 @@ ar:
     one: الفيديوهات (%{count})
     other: الفيديوهات (%{count})
   filter_media: تصفية الوسائط
+  filter_newsfeed_option_all: الكل
+  filter_newsfeed_option_collections: المجموعات
+  filter_newsfeed_option_community: المجتمع
+  filter_newsfeed_option_curation: الإشراف
+  filter_newsfeed_option_messages: التعليقات
   filtered_information: المعلومات المصفاه
   find_taxa_submit_button: البحث عن أصنوفة
   flash_notice_redirected_from_search_html: لقد وصلت إلى تلك الصفحة من خلال البحث عن  <em>%{search_string}</em>. <a href="%{more_results_url}">أضغط هنا للرجوع إلى صفحة البحث</a>.
@@ -1300,6 +1450,7 @@ ar:
         object_title: عنوان
         refs: المراجع <small>( أضف كل مرجع في سطر جديد)</small>
         rights_holder: صاحب حقوق الملكية
+        rights_holder_more: حدد شخص أو منظمة تملك أو تدير حقوق هذه البيانات. لو تركت هذه الخانة خالية سيُفترض أنك أنت الحامل لكل رخص الملكية باستثناء الملك العام. رخص الملك العام لا تتطلب حامل لحقوق الملكية
         rights_statement: إقرار الحقوق
         source_url: العنوان الإلكتروني الخاص بعنصر البيانات الأصلي
         toc_item: فصل فرعي
@@ -1314,6 +1465,7 @@ ar:
       harvest_event: 
         began_at: بدأ
         completed_at: انتهى
+        first_published_at: نشر للمرة الأولى
         publish_more: الأعلام تحصي الأحداث استعدادًا للنشر، ولن يُنشر المحتوى على الفور
         published_at: نشر
         published_status: وضع
@@ -1443,6 +1595,7 @@ ar:
         curation_privileges: تقديم الطلب
         forgot_password: ارسل بريد إلكتروني
         generate_api_key: إضافة مفتاح
+        notification_settings: إعدادات الإخطارات
         update: حفظ المعلومات الشخصية
       wikipedia_queue: 
         create: تقديم الطلب
@@ -1691,6 +1844,7 @@ ar:
   message_colon: "رسالة:"
   meta_description_colon: "الأوصاف الفوقية:"
   meta_keywords_colon: "كلمات مفتاحية فوقية:"
+  meta_title_site_name: موسوعة الحياة
   method: طريقة
   method_to_get_metadata_about_the_hierarchy: عند تقديم معرف تسلسل هرمي، تعرض تلك الطريقة بيانات فوقية عن التسلسل الهرمي وتعدد الأصناف الأساسية
   methods: طرق
@@ -1821,6 +1975,12 @@ ar:
   note_that_you_can_reference_im: لاحظ أنه يمكنك إضافة مراجع للصور ذات رمز HTML &lt;img&gt; ولكن يجب أن يكن لهم عنوان URL كأن يكون عنوان الموقع الأصلي أو موقع مثل فليكر. ولا توجد وسيلة لتحميل الصور داخل عنصر الخبر يمكن استخدامها بصورة مباشرة.
   notes: ملاحظات
   notes_not_shown_to_user: "ملحوظات (لا تظهر للمستخدم):"
+  notification_frequency_never: أبدًا
+  notification_frequency_newsfeed_only: الأخبار فقط
+  notification_frequency_send_immediately: ارسل فورًا
+  notification_frequency_weekly: أسبوعيًّا
+  notifications_and_messages_review_notice: الرجاء مراجعة الإخطارات التي سيتم إرسالها إليك عبر البريد الإلكتروني.
+  notifications_tab_name: إخطارات
   notifier: 
     activity_log_empty: No recent actions by curators.
     activity_on_content_partner_content: 
@@ -2047,6 +2207,12 @@ ar:
   rating_not_added_error: عفوًا، حدث خطأ، تعذر إضافة التقييم
   recaptcha: أكتب الكلمتين التاليتين اللتين تراهما فى الصورة أدناه
   recaptcha_incorrect_error_with_anchor: لم تتطابق رموز نظام <a href="#%{recaptcha_anchor}">ريكابتشا</a>، يرجى المحاولة مرة أخرى.
+  recent_activities: 
+    index: 
+      list_header: الأيام السبعة الأخيرة
+      meta_keywords: نشاط مجتمع موسوعة الحياة، آخر الأنشطة بموسوعة الحياة، أنشطة موسوعة الحياة
+      meta_title: نشاط مجتمع موسوعة الحياة
+      page_title: نشاط مجتمع موسوعة الحياة
   recent_activity: 
     bulk_collection_activity_with_count: 
       one: وقع تحديث لـ %{to}
@@ -2057,11 +2223,34 @@ ar:
     bulk_comments_with_count: 
       one: هناك تعليق جديد على%{on}
       other: هناك%{count} تعليقات جديدة على%{on}
+    bulk_community_activity_with_count: 
+      one: There was an update to %{to}
+      other: There were %{count} updates to %{to}
     bulk_curation_with_count: 
       one: قام المشرف بتحسين %{to}
       other: قام المشرفون %{count} بتحسين %{to}
+    collection_activity_by_user: قام <b>%{user_name}</b> بـ %{activity_name} على المجموعة <b>%{collection_name}</b>
+    collection_activity_log_title: قام %{who} بتعديل مجموعة
+    collection_activity_user_added_item: "قام <b>%{user_name}</b> بإضافة %{collected_item_type} #%{collected_item_id} إلى <b>%{collection_name}</b>."
+    collection_activity_user_watching_recipient: يقوم <b>%{user_name}</b> بمراقبتك.
+    comment_body_brief: "%{body} - %{author}"
+    comment_link: عرض التعليق على موسوعة الحياة
+    comment_title: قام %{who} بالتعليق على %{what}
+    comment_title_your_newsfeed: قام %{who} بالتعليق على أحد أخبارك
+    community_activity_by_user: قام <b>%{user_name}</b> بـ %{activity_name} على مجتمع <b>%{community_name}</b>.
+    community_activity_log_title: قام %{who} بتعديل مجتمعًا
+    community_activity_user_joined: انضم المستخدم <b>%{user_name}</b> إلى المجتمع <b>%{community_name}</b>.
+    community_activity_user_left: ترك المستخدم <b>%{user_name}</b> مجتمع <b>%{community_name}</b>.
+    community_activity_user_made_member_a_manager: قام المستخدم <b>%{user_name}</b> بجعل العضو <b>%{member_name}</b> مديرًا لمجتمع <b>%{community_name}</b>.
+    curator_activity_log_title: قام %{who} بالإشراف على شيئ
+    curator_activity_on_data_object_by_user: "قام <b>%{user_name}</b> بـ %{activity_name} على <b>%{dato_title}</b> (%{dato_type} #%{dato_id})."
+    curator_activity_on_taxon_concept_by_user: قام <b>%{user_name}</b>  بـ %{activity_name} على <b>%{taxon_concept}</b> (%{taxon_overview_url}).
+    data_object_activity_article_added_by_user: أضاف <b>%{user_name}</b> مقال عنوانه %{dato_title} إلى <b>%{taxon_concept}</b> (%{taxon_details_url}).
+    data_object_title: قام %{who} بإضافة محتوى جديد لموسوعة الحياة
+    default_subject: أحدث نشاط في موقع موسوعة الحياة
     intro: إليك خلاصة نشاط موسوعة الحياة المتعلق بك لـ %{time}
     see_all_activity: طالع جميع أنشطتك السابقة على<a href='%{activity_url}' style='color:#195184'>صفحة أخبار المستخدم الخاصة بك</a>.
+    someone_commented_on_something: قام <b>%{who}</b> بالتعليق على <b>%{what}</b>.
     unsubscribe: قم بتغيير إعدادات بريدك الإلكتروني أو ألغي اشتراكك في<a href='%{email_prefs_url}' style='color:#195184'>صفحة تفضيلات الإخطار الخاصة بك</a>.
   recent_updates: آخر التحديثات
   recently_visited: Recently visited
@@ -2114,6 +2303,7 @@ ar:
   save: حفظ
   save_comment_lowercase: احفظ التعليق
   save_curated_association_submit_button: حفظ الارتباط
+  save_email_settings: حفظ إعدادات البريد الإلكتروني
   sci_name_avg_table_head: متوسط الأسماء العلمية
   scientific_name: اسم علمي
   search: بحث
@@ -2667,6 +2857,7 @@ ar:
     other: "%{count} عنصر"
   total_searches: "مجموع عمليات البحث:"
   translation_deleted: تم حذف الترجمة
+  translation_information_header: معلومات الترجمة
   translation_saved: تم حفظ الترجمة
   translations_submit: عرض الترجمة
   trigger_search_term_entered_by: تنبيه مصطلح بحث أدخله مستخدم
@@ -2675,6 +2866,7 @@ ar:
   truncated_comment_omission_linkless: ...
   trusted: موثوق به
   trusted_images: صور موثوق بها
+  trusted_maps: خرائط موثوق بها
   trusted_text_objects: مقاﻻت موثوق بها
   tumblr: منصة تدوين تمبلر
   twitter: موقع تويتر
@@ -2687,6 +2879,7 @@ ar:
   unpublished: لم يتم نشره
   unreviewed: لم تتم مراجعته
   unreviewed_images: صور غير مراجعة
+  unreviewed_maps: خرائط غير مراجَعة
   unreviewed_text_objects: مقالات لم تتم مراجعتها
   untrusted: غير موثوق به
   update: تحديث
@@ -2743,6 +2936,7 @@ ar:
   user_commented_on_something_colon: "<strong>%{user}</strong> علق على %{what}:"
   user_commented_on_themself: "قام <strong>%{user_with_link}</strong> بالتعليق على الخبر <a href='%{link}'>%{username}'s newsfeed</a>:"
   user_comments: User Comments
+  user_full_name_with_curator: "%{user} (%{curator_level})"
   user_id: مُعرِّف المستخدم
   user_index_intro: فيما يلي جميع مستخدمي الويب المسجلين في النظام مرتبين عكسيًا وفقًا لتاريخ التسجيل. لاحظ أن تواريخ تسجيل المستخدمين في الفترة ما قبل النسخة الثانية من موسوعة الحياة (5 يناير،2009) غير متاحة. انقر على اسم المستخدم لتعديل ذلك المستخدم.
   user_joined_community_on_date: "%{username} انضم إلى ذلك المجتمع في %{date}."
@@ -2750,6 +2944,14 @@ ar:
   user_left_comment_on_date: "%{username} أضاف تعليق في %{date}."
   user_no_longer_active_message: هذا المستخدم غير نشط
   user_no_longer_has_manager_access_to_collection: لا يمكن للمستخدم %{user} الدخول على "%{collection}" كمدير.
+  user_pending_notifications_assitive: <span class="assistive">notifications</span>
+  user_pending_notifications_comments_assistive: <span class="assistive">comments</span>
+  user_pending_notifications_comments_with_count_assistive: 
+    one: "%{count}<span class=\"assistive\"> comments</span>"
+    other: "%{count}<span class=\"assistive\"> comments</span>"
+  user_pending_notifications_with_count_assitive: 
+    one: "%{count}<span class=\"assistive\"> notification</span>"
+    other: "%{count}<span class=\"assistive\"> notifications</span>"
   user_response: رد المستخدم
   user_says_colon: "%{users_name} يقول:"
   user_submitted_text: نص قدمه مستخدم
@@ -2781,10 +2983,19 @@ ar:
         meta_title: شركاء المحتوى الذي يرتبط بهم%{user_full_name}
         tweet_text: شركاء المحتوى الذي يرتبط بهم %{user_full_name}
     newsfeeds: 
+      activity_link: نشاط
+      comments: 
+        meta_description: إخبارية عن تعليقات للمستخدم %{user_full_name}.
+        meta_title: تعليقات المستخدم %{user_full_name}
+      comments_link: تعليقات
+      newsfeed_link: رسائل إخبارية سريعة
       show: 
         meta_description: أخبار، وتحديثات نشاطات، وتعليقات%{user_full_name}.
         meta_title: تحديثات أخبار%{user_full_name}
         tweet_text: تحديثات أخبار%{user_full_name}
+    notifications: 
+      edit: 
+        page_title: إعدادات الإخطارات
     show: 
       meta_description: الصفحة الشخصية للعضو %{user_full_name} بموسوعة الحياة.
       meta_description_curator: الصفحة الشخصية للعضو %{curator_level} %{user_full_name} بموسوعة الحياة.
@@ -2803,6 +3014,7 @@ ar:
     one: عضو في %{count} مجتمع
     other: عضو في %{count} مجتمع
   users_my_info_header: معلومات عني
+  users_pending_activation_helper: لاحظ أن خاصية فلترة الرسائل "email filters" تصِف رسائل تفعيل الحساب الإلكترونية <em>frequently</em> برسائل "مزعجة" أو "spam". رجاء فحص ملف الرسائل المزعجة "spam" الخاص بك إن لم تصلك الرسالة الإلكترونية خلال ساعة.
   users_pending_activation_message: تم إرسال رسالة تأكيد إلى البريد الإلكتروني الذي أضفته. لاستكمال عملية التسجيل لتصبح عضو بموسوعة الحياة، يرجى الضغط على الرابط المتضمن في تلك الرسالة. شكرًا لك!
   users_that_can_edit_this_collection: المستخدمين الذين يمكنهم إدارة هذه المجموعة
   using_the_site: استخدام الموقع
@@ -2844,6 +3056,7 @@ ar:
   view_map_source: عرض مصدر الخريطة
   view_only_pages_with_at_least_a_picture_or_piece_of_text: عرض الصفحات التي تضم صورة أو جزء من نص
   view_sound_source: عرض مصدر المقطع الصوتي
+  view_source: عرض المصدر
   view_this_hierarchy: عرض التسلسل الهرمي هذا
   view_translation_source_link: عرض مصدر الترجمة
   view_user_activity: عرض نشاط المستخدم

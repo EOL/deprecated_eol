@@ -43,9 +43,13 @@ te:
   translated_collection_types-label-collection_type_id-11: లంకెలు
   translated_collection_types-label-collection_type_id-12: సాహిత్యం
   translated_collection_types-label-collection_type_id-13: వర్గీకరణ
+  translated_collection_types-label-collection_type_id-14: అణురేఖా సంకేతాలు
   translated_collection_types-label-collection_type_id-15: వివరణ
   translated_collection_types-label-collection_type_id-16: బొమ్మలు
   translated_collection_types-label-collection_type_id-17: పంపిణీ
+  translated_collection_types-label-collection_type_id-18: సంభాషణా స్థితి
+  translated_collection_types-label-collection_type_id-19: పేరు సమాచారం
+  translated_collection_types-label-collection_type_id-2: అణు రేఖా సంకేతాలు
   translated_collection_types-label-collection_type_id-20: అణు సమాచారం
   translated_collection_types-label-collection_type_id-21: నామకరణ పద్దతి
   translated_collection_types-label-collection_type_id-22: శబ్దాలు
@@ -54,10 +58,13 @@ te:
   translated_collection_types-label-collection_type_id-3: వివరణ
   translated_collection_types-label-collection_type_id-4: బొమ్మలు
   translated_collection_types-label-collection_type_id-5: పంపిణీ
+  translated_collection_types-label-collection_type_id-6: సంభాషణా స్థితి
+  translated_collection_types-label-collection_type_id-7: పేరు సమాచారం
   translated_collection_types-label-collection_type_id-8: అణువుల సమాచారం
   translated_collection_types-label-collection_type_id-9: నామకరణ పద్దతి
   translated_contact_roles-label-contact_role_id-1: ప్రాధమిక సంబంధం
   translated_contact_roles-label-contact_role_id-2: అధీకృత సంబంధం
+  translated_contact_roles-label-contact_role_id-3: సాంకేతిక సంప్రదింపు
   translated_contact_subjects-title-contact_subject_id-24: సభ్యత్వం మరియు నమోదు
   translated_contact_subjects-title-contact_subject_id-25: వాడకం షరతులు మరియు అనుమతి
   translated_contact_subjects-title-contact_subject_id-26: నేర్చుకోవటం మరియు విద్య
@@ -69,6 +76,7 @@ te:
   translated_contact_subjects-title-contact_subject_id-32: సమాచార అభ్యర్ధనలు (ప్రశ్నోత్తరాలు, పత్రికా విచారణ, సంకేత అభ్యర్ధనలు)
   translated_contact_subjects-title-contact_subject_id-33: ఆర్ధిక సాయం చేయండి
   translated_contact_subjects-title-contact_subject_id-34: సాంకేతిక ప్రశ్నలు (వెతకటంలో సమస్యలు, అంతర్జాల పనితీరు)
+  translated_contact_subjects-title-contact_subject_id-35: సాధారణ అభిప్రాయం
   translated_content_partner_statuses-label-content_partner_status_id-1: వేచివున్నవి
   translated_content_partner_statuses-label-content_partner_status_id-2: క్రియాశీలం
   translated_content_partner_statuses-label-content_partner_status_id-3: అటకెక్కించడం
@@ -89,6 +97,7 @@ te:
   translated_licenses-description-license_id-3: కొన్ని హక్కులు రక్షితం
   translated_licenses-description-license_id-30: కొన్ని హక్కులు రక్షితం
   translated_licenses-description-license_id-31: కొన్ని హక్కులు రక్షితం
+  translated_licenses-description-license_id-32: కొన్ని హక్కులు రక్షితం
   translated_licenses-description-license_id-33: కొన్ని హక్కులు రక్షితం
   translated_licenses-description-license_id-34: అందరి ప్రదేశం
   translated_licenses-description-license_id-35: అందరి ప్రదేశం
@@ -104,6 +113,7 @@ te:
   translated_licenses-description-license_id-7: కొన్ని హక్కులు రక్షితం
   translated_licenses-description-license_id-8: కొన్ని హక్కులు రక్షితం
   translated_licenses-description-license_id-9: కొన్ని హక్కులు రక్షితం
+  translated_ranks-label-rank_id-106: పత్రము
   translated_ranks-label-rank_id-112: సమాచారం
   translated_ranks-label-rank_id-175: నిమ్న జాతులు
   translated_ranks-label-rank_id-183: రాజ్యం
@@ -190,5 +200,54 @@ te:
   translated_table_of_contents-label-table_of_contents_id-304: సంబంధిత పేర్లు
   translated_table_of_contents-label-table_of_contents_id-305: సమానార్థాలు
   translated_table_of_contents-label-table_of_contents_id-306: పుట గణాంకాలు
+  translated_table_of_contents-label-table_of_contents_id-309: పంపిణీ
+  translated_table_of_contents-label-table_of_contents_id-310: అభివృధ్ది
+  translated_table_of_contents-label-table_of_contents_id-311: గుర్తించు వనరులు
+  translated_table_of_contents-label-table_of_contents_id-312: వలస
+  translated_table_of_contents-label-table_of_contents_id-313: వ్యాధులు మరియు పరాన్నజీవులు
+  translated_table_of_contents-label-table_of_contents_id-314: జనాభా జీవశాస్త్రం
+  translated_table_of_contents-label-table_of_contents_id-315: జీవిత చరిత్ర మరియు ప్రవర్తన
+  translated_table_of_contents-label-table_of_contents_id-316: ప్రవర్తన
+  translated_table_of_contents-label-table_of_contents_id-317: చక్రకరణము
+  translated_table_of_contents-label-table_of_contents_id-318: జీవిత చక్రం
+  translated_table_of_contents-label-table_of_contents_id-319: జీవిత కాలము
+  translated_table_of_contents-label-table_of_contents_id-320: ప్రత్యుత్పత్తి
+  translated_table_of_contents-label-table_of_contents_id-321: పెరుగుదల
+  translated_table_of_contents-label-table_of_contents_id-322: శిలాజ చరిత్ర
+  translated_table_of_contents-label-table_of_contents_id-323: జీవశాస్త్ర నామకరణ విధానము లేదా ఆవిర్భావ అధ్యయనం
+  translated_table_of_contents-label-table_of_contents_id-328: కణ జీవ శాస్త్రము
   translated_table_of_contents-label-table_of_contents_id-33: ధోరణులు
+  translated_table_of_contents-label-table_of_contents_id-333: అణు జీవశాస్త్రము
+  translated_table_of_contents-label-table_of_contents_id-334: ప్రమాదాలు
+  translated_table_of_contents-label-table_of_contents_id-335: శాసనవ్యవస్థ
+  translated_table_of_contents-label-table_of_contents_id-337: విద్య
+  translated_table_of_contents-label-table_of_contents_id-338: విద్య లంకెలు
+  translated_table_of_contents-label-table_of_contents_id-339: విద్యా వనరులు
   translated_table_of_contents-label-table_of_contents_id-34: వ్యాఖ్యలు
+  translated_table_of_contents-label-table_of_contents_id-340: ఉన్నత పాఠశాల పరిశోధన శ్రేణులు
+  translated_table_of_contents-label-table_of_contents_id-341: పౌర విజ్గ్నాన శాస్త్రం
+  translated_table_of_contents-label-table_of_contents_id-343: జీవవైవిద్య వారసత్వ గ్రంధాలయం
+  translated_table_of_contents-label-table_of_contents_id-344: సమాచారం
+  translated_table_of_contents-label-table_of_contents_id-345: సమాచార వనరు
+  translated_table_of_contents-label-table_of_contents_id-347: వర్గీకరణ
+  translated_table_of_contents-label-table_of_contents_id-348: ఆరకమైన సమాచారం
+  translated_table_of_contents-label-table_of_contents_id-4: జీవావరణం
+  translated_table_of_contents-label-table_of_contents_id-41: నివశించేవారు
+  translated_untrust_reasons-label-untrust_reason_id-3: తక్కువ నాణ్యత
+  translated_untrust_reasons-label-untrust_reason_id-4: నకిలీ
+  translated_untrust_reasons-label-untrust_reason_id-5: ఇతర
+  translated_user_identities-label-user_identity_id-1: ఒక ఔత్సాహికుడు
+  translated_user_identities-label-user_identity_id-2: ఒక విద్యార్థి
+  translated_user_identities-label-user_identity_id-3: ఒక విద్యావేత్త
+  translated_user_identities-label-user_identity_id-4: ఒక పౌర శాస్త్రవేత్త
+  translated_user_identities-label-user_identity_id-5: ఒక నిపుణుడైన శాస్త్రవేత్త
+  translated_vetted-label-vetted_id-0: తెలియని
+  translated_vetted-label-vetted_id-4: నమ్మలేనిది
+  translated_vetted-label-vetted_id-5: నమ్మదగిన
+  translated_vetted-label-vetted_id-6: సరికానిది
+  translated_view_styles-name-view_style_id-1: జాబితా
+  translated_view_styles-name-view_style_id-2: ప్రదర్శనప్రదేశం
+  translated_view_styles-name-view_style_id-3: వివరణ జతపరిచిన
+  translated_visibilities-label-visibility_id-0: అదృశ్యం
+  translated_visibilities-label-visibility_id-1: చూడదగిన
+  translated_visibilities-label-visibility_id-2: సమీక్షించు

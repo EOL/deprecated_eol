@@ -6,6 +6,5 @@
 - if ancestors = hierarchy_entry.ancestors
   - ancestor = ancestors.pop
   = render(:partial => 'navigation/node', :locals => { :link_to_taxa => link_to_taxa, :in_hierarchy => in_hierarchy, :ancestors => ancestors, :hierarchy_entry => ancestor, :show_siblings => show_siblings, :max_children => max_children })
-- else # NOTE - this is a weird border case where ancestors ends up nil.  I'm not sure it's even possible.
-  - link = link_to_taxa ?  taxon_overview_path(hierarchy_entry.taxon_concept_id) : taxon_hierarchy_entry_overview_path(hierarchy_entry.taxon_concept_id, hierarchy_entry.id)
-  %li= link_to(hierarchy_entry.italicized_name.firstcap, link)
+- else # NOTE - this is a weird border case where ancestors ends up nil. I'm not sure it's even possible.
+  %li= navigation_node(hierarchy_entry, :link_to_taxa => false)

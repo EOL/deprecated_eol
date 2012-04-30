@@ -309,7 +309,7 @@ private
                    100
                  end
     percent_annotated = annotated <= 0 ? 0 : (items / annotated.to_f)
-    score = ((item_score / 2) + (percent_annotated * (item_score / 2)).to_i)
+    score = ((item_score / 2) + (percent_annotated / 2)).to_i
     return 0 if score <= 0
     return 100 if score >= 100
     return score.to_i

@@ -115,7 +115,7 @@ class String
     text = self.clone
     ['b', 'i', 'div', 'p'].each do |tag|
       # this will match <T_, <T>, </_T>, </T>
-      open_and_close_tags = text.scan(/\<(#{tag}[\> ]|\/ *#{tag}\>)/)
+      open_and_close_tags = text.scan(/\<(#{tag}[\> ]|\/ *#{tag}\>)/i)
       number_of_opening_tags_needed = 0
       total_open = 0
       total_closed = 0
@@ -148,7 +148,7 @@ class String
         text += "</#{tag}>" * difference
       end
     end
-    return text.gsub(/<em\/>/, '')
+    return text.gsub(/<em\/>/i, '')
   end
 
   def truncate(length)

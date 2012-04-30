@@ -303,8 +303,6 @@ class DataObject < ActiveRecord::Base
     end
   end
 
-  #----- end of user submitted text --------
-
   def rate(user, new_rating)
     existing_ratings = UsersDataObjectsRating.find_all_by_data_object_guid(guid)
     users_current_ratings, other_ratings = existing_ratings.partition { |r| r.user_id == user.id }
@@ -356,7 +354,7 @@ class DataObject < ActiveRecord::Base
     if rating <= @@minimum_rating
       logger.error "** ERROR: data object #{self.id} had a *calculated* rating of #{rating}."
       return @@minimum_rating
-    elsif rating >= @@maximum_rating
+    elsif rating > @@maximum_rating
       logger.error "** ERROR: data object #{self.id} had a *calculated* rating of #{rating}."
       return @@maximum_rating
     else

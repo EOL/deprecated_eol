@@ -248,10 +248,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def expire_data_object(data_object_id)
-    # TODO: re-implement caching and review caching practices
-  end
-
   # NOTE: If you want to expire it's ancestors, too, use #expire_taxa.
   def expire_taxon_concept(taxon_concept_id, params = {})
     # TODO: re-implement caching and review caching practices

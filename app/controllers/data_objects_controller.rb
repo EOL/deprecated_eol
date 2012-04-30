@@ -130,7 +130,6 @@ class DataObjectsController < ApplicationController
 
     if stars.to_i > 0
       rated_successfully = @data_object.rate(current_user, stars.to_i)
-      expire_data_object(@data_object.id)
       current_user.log_activity(:rated_data_object_id, :value => @data_object.id)
     end
 

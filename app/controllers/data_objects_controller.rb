@@ -54,6 +54,7 @@ class DataObjectsController < ApplicationController
         :object => @data_object,
         :collection => current_user.watch_collection
       )
+      current_user.watch_collection.touch
       CollectionActivityLog.create(:collection => current_user.watch_collection, :user => current_user,
                                    :activity => Activity.collect, :collection_item => collection_item)
       @data_object.log_activity_in_solr(:keyword => 'create', :user => current_user, :taxon_concept => @taxon_concept)

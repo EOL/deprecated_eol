@@ -81,7 +81,6 @@ class UsersController < ApplicationController
         # NOTE this is dangerous!  If I go and add EVERYONE to my
         # collection as an editor, I'm essentially spamming them:
         @user.watch_collection.add(collection)
-        collection.touch
         CollectionActivityLog.create(:collection => collection, :user => @user,
                                      :activity => Activity.add_editor)
         @notices << I18n.t(:user_was_added_as_editor_of_collection,

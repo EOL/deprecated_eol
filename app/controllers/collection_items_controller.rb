@@ -138,7 +138,6 @@ private
       @notices << I18n.t(:item_not_added_to_itself_notice,
                                :collection_name => @collection_item.collection.name)
     elsif @collection_item.save
-      @collection_item.collection.touch
       CollectionActivityLog.create(:collection => @collection_item.collection, :user => current_user,
                                    :activity => Activity.collect, :collection_item => @collection_item)
       @collection_item.collection.updated_at = Time.now.to_s

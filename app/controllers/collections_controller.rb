@@ -82,7 +82,6 @@ class CollectionsController < ApplicationController
       flash[:notice] = I18n.t(:collection_updated_notice, :collection_name => @collection.name) if
         params[:collection] # NOTE - when we sort, we don't *actually* update params...
       redirect_to params.merge!(:action => 'show').except(*unnecessary_keys_for_redirect), :status => :moved_permanently
-      @collection.touch
       CollectionActivityLog.create({ :collection => @collection, :user => current_user, :activity => Activity.change_name }) if name_change
       CollectionActivityLog.create({ :collection => @collection, :user => current_user, :activity => Activity.change_description }) if description_change
     else
@@ -600,7 +599,6 @@ private
   end
 
   def log_activity(options = {})
-    @collection.touch
     CollectionActivityLog.create(options.reverse_merge(:collection => @collection, :user => current_user))
   end
 

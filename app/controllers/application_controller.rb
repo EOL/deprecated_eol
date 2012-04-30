@@ -406,7 +406,6 @@ class ApplicationController < ActionController::Base
                                  :collection_name => self.class.helpers.link_to(watchlist.name,
                                                                                 collection_path(watchlist)),
                                  :item_name => what.summary_name)
-        watchlist.touch
         CollectionActivityLog.create(:collection => watchlist, :user => current_user,
                              :activity => Activity.collect, :collection_item => collection_item)
       end

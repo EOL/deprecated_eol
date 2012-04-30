@@ -113,7 +113,6 @@ private
 
   def log_action(act, opts = {})
     community = @community || opts.delete(community)
-    @community.touch
     CommunityActivityLog.create(
       {:community => community, :user => current_user, :member => @member, :activity => Activity.send(act)}.merge(opts)
     )

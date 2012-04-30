@@ -93,7 +93,11 @@ class Collection < ActiveRecord::Base
   end
 
   def special?
-    special_collection_id
+    return true if special_collection_id
+    communities.each do |community|
+      return true if community.collections.count == 1 # It's special if any of its communities has ONLY this collection
+    end
+    return false
   end
 
   def editable_by?(whom)

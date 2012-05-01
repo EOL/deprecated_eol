@@ -22,10 +22,6 @@ class UsersController < ApplicationController
     @common_names_removed = User.total_objects_curated_by_action_and_user(Activity.remove_common_name.id, @user.id, [ChangeableObjectType.synonym.id])
     @common_names_curated = User.total_objects_curated_by_action_and_user([Activity.trust_common_name.id, Activity.untrust_common_name.id, Activity.unreview_common_name.id, Activity.inappropriate_common_name.id], @user.id, [ChangeableObjectType.synonym.id])
     @rel_canonical_href = user_url(@user)
-    @inaturalist_username = @user.inaturalist_username
-    @inaturalist_observations_url = "http://www.inaturalist.org/observations/#{@inaturalist_username}"
-    @inaturalist_observations_widget_url = "http://www.inaturalist.org/observations/#{@inaturalist_username}.widget?layout=large&limit=5&order=desc&order_by=observed_on"
-    @more_inaturalist_observations = I18n.t('helpers.label.user.more_inaturalist_observations', :name => @inaturalist_username)
     if (false) # THIS BLOCK IS BEING USED BY JRICE TO TEST NOTIFICATIONS QUICKLY.  You can remove it, if you're annoyed.
       @notes = PendingNotification.unsent.select {|n| n.user_id == @user.id }.map(&:target)
       unless @notes.empty?

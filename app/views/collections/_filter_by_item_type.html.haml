@@ -6,6 +6,7 @@
   %li{:class => 'newsfeed' + (@filter == 'newsfeed' ? ' active' : '')}= link_to(newsfeed_label, "/collections/#{@collection.id}/newsfeed")
   - unless @collection.watch_collection?
     %li{:class => 'editors' + (@filter == 'editors' ? ' active' : '')}= link_to(I18n.t(:editors_tab_label), "/collections/#{@collection.id}/editors")
+  - #TODO Check if the collection has an iNaturalist project created on iNaturalist site
   - unless @collection.inaturalist_url.blank?
     %li{:class => 'inaturalist' + (@filter == 'inaturalist' ? ' active' : '')}= link_to(I18n.t(:inaturalist_tab_label), "/collections/#{@collection.id}/inaturalist")
   %li{:class => 'total' + (@filter.nil? ? ' active' : '')}

@@ -120,16 +120,6 @@
             = user_form.text_area :curator_scope
             %p= user_form.allowed_html_help_tip
 
-    %fieldset.inaturalist
-      .header
-        %h3= I18n.t('helpers.label.user.inaturalist_observations_header')
-      %p.tip= I18n.t('helpers.label.user.inaturalist_username_more')
-      %dl
-        %dt
-          = user_form.label :inaturalist_username
-        %dd
-          = user_form.text_field :inaturalist_username, :value => @user.inaturalist_username
-
     %fieldset.actions
       = user_form.submit I18n.t('helpers.submit.user.update')
       = link_to I18n.t(:cancel), @user

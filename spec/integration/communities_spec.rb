@@ -18,20 +18,6 @@ describe "Communities" do
 
   shared_examples_for 'communities all users' do
 
-#    context 'visiting index' do
-#      before(:all) { visit communities_path }
-#      subject { body }
-#      # WARNING: Regarding use of subject, if you are using with_tag you must specify body.should... due to bug.
-#      # @see https://rspec.lighthouseapp.com/projects/5645/tickets/878-problem-using-with_tag
-#      it 'should list all communities by name' do
-#        should have_tag('ul#communities_index li a', /#{@test_data[:community].name}/)
-#        should have_tag('ul#communities_index li a', /#{@test_data[:empty_community].name}/)
-#      end
-#      it 'should show a link to create a new community' do
-#        should have_tag("a[href=?]", /#{new_community_path}.*/)
-#      end
-#    end
-
     context 'visiting show community' do
       before(:all) { visit community_path(@test_data[:community]) }
       subject { body }

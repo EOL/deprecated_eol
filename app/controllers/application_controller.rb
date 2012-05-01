@@ -282,11 +282,11 @@ class ApplicationController < ActionController::Base
                       elsif cookies[:user_auth_token]    # Try loading from cookie
                         load_user_from_cookie            #   Again, nil if there was a problem...
                       end
-    # If the user didn't have a session, didn't have a cookie, OR if there was a problem, they are anonymous:
-    if @current_user.nil?
+    if @current_user.nil?  # If the user didn't have a session, didn't have a cookie, OR if there was a problem:
       clear_any_logged_in_session
       @current_user = EOL::AnonymousUser.new(current_language)
     end
+    @current_user
   end
 
   def recently_visited_collections(collection_id = nil)

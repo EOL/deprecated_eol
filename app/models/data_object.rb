@@ -165,7 +165,7 @@ class DataObject < ActiveRecord::Base
         visibility_ids << Visibility.invisible.id
       end
       # the only scenario to see ONLY TRUSTED objects
-      if options[:user].vetted == true && !options[:user].is_admin?
+      if !options[:user].is_admin?
         vetted_ids = [Vetted.trusted.id]
       end
     end

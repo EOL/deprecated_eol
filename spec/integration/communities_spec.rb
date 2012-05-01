@@ -87,7 +87,6 @@ describe "Communities" do
         fill_in('community_name', :with => new_name)
         fill_in('community_description', :with => 'This is a long description.')
         click_button('Create community')
-        debugger
         new_comm = Community.last
         new_comm.name.should == new_name
         new_comm.description.should == 'This is a long description.'

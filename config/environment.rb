@@ -110,10 +110,6 @@ Rails::Initializer.run do |config|
 
   $SHOW_DATA_QUALITY = false # if set to true, we will show data quality next to text content blocks
 
-  # TAXONOMIC BROWSER CONFIGURATION
-  $MAX_TREE_LEVELS = 12 # maximum number of tree levels to show in text-based taxonomic browser
-  $DEFAULT_TAXONOMIC_BROWSER = "text" # can be either text or flash
-
   # Note that you can override this in the environment-specific file, too, if you want to.
   $DEFAULT_HIERARCHY_NAME = "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2010"
 

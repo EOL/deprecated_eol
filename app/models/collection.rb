@@ -93,7 +93,11 @@ class Collection < ActiveRecord::Base
   end
 
   def special?
-    special_collection_id
+    return true if special_collection_id
+    communities.each do |community|
+      return true if community.collections.count == 1 # It's special if any of its communities has ONLY this collection
+    end
+    return false
   end
 
   def editable_by?(whom)
@@ -309,7 +313,7 @@ private
                    100
                  end
     percent_annotated = annotated <= 0 ? 0 : (items / annotated.to_f)
-    score = ((item_score / 2) + (percent_annotated * (item_score / 2)).to_i)
+    score = ((item_score / 2) + (percent_annotated / 2)).to_i
     return 0 if score <= 0
     return 100 if score >= 100
     return score.to_i

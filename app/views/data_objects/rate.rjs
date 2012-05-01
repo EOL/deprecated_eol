@@ -1,1 +1,1 @@
-page.call 'EOL.Rating.update_average_rating', @data_object.id, @data_object.data_rating
+page.call 'EOL.Rating.update_average_rating', @data_object.id, @data_object.safe_rating

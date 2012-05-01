@@ -43,6 +43,7 @@ sv:
   translated_collection_types-label-collection_type_id-14: Molekylära streckkoder
   translated_collection_types-label-collection_type_id-15: Beskrivning
   translated_collection_types-label-collection_type_id-16: Bilder
+  translated_collection_types-label-collection_type_id-17: Fördelning
   translated_collection_types-label-collection_type_id-19: Namninformation
   translated_collection_types-label-collection_type_id-2: Molekylära streckkoder
   translated_collection_types-label-collection_type_id-20: Molekylär data
@@ -54,9 +55,22 @@ sv:
   translated_collection_types-label-collection_type_id-5: Erkännande
   translated_collection_types-label-collection_type_id-7: Namninformation
   translated_collection_types-label-collection_type_id-8: Molekylär data
+  translated_collection_types-label-collection_type_id-9: Nomenklatur
   translated_contact_roles-label-contact_role_id-1: Primär kontakt
   translated_contact_roles-label-contact_role_id-2: Administrativ kontakt
   translated_contact_roles-label-contact_role_id-3: Teknisk kontakt
+  translated_contact_subjects-title-contact_subject_id-24: Medlemskap och registrering
+  translated_contact_subjects-title-contact_subject_id-25: Användningsvillkor och licensiering
+  translated_contact_subjects-title-contact_subject_id-26: Lärande och utbildning
+  translated_contact_subjects-title-contact_subject_id-27: Bli en innehållspartner
+  translated_contact_subjects-title-contact_subject_id-28: Support för innehållspartner
+  translated_contact_subjects-title-contact_subject_id-29: Support för kurator
+  translated_contact_subjects-title-contact_subject_id-30: Gör en korrigering (stavning och grammatik, bilder, information)
+  translated_contact_subjects-title-contact_subject_id-31: Bidra bilder, videoklipp eller ljud
+  translated_contact_subjects-title-contact_subject_id-32: Efterfrågning av media (intervjuer, pressfrågor, begäran av logotyp)
+  translated_contact_subjects-title-contact_subject_id-33: Gör en finansiell donation
+  translated_contact_subjects-title-contact_subject_id-34: Tekniska frågor (sökningsproblem, webbplatsens funktionalitet)
+  translated_contact_subjects-title-contact_subject_id-35: Allmän feedback
   translated_content_partner_statuses-label-content_partner_status_id-1: Väntande
   translated_content_partner_statuses-label-content_partner_status_id-2: Aktiv
   translated_content_partner_statuses-label-content_partner_status_id-3: Arkiverad
@@ -170,6 +184,7 @@ sv:
   translated_synonym_relations-label-synonym_relation_id-57: stavningsalternativ
   translated_synonym_relations-label-synonym_relation_id-6: motsvarande namn
   translated_synonym_relations-label-synonym_relation_id-63: inte accepterad
+  translated_synonym_relations-label-synonym_relation_id-64: ogiltig
   translated_table_of_contents-label-table_of_contents_id-1: Översikt
   translated_table_of_contents-label-table_of_contents_id-13: Vanliga namn
   translated_table_of_contents-label-table_of_contents_id-14: IUCN
@@ -187,6 +202,7 @@ sv:
   translated_table_of_contents-label-table_of_contents_id-251: Fördelar
   translated_table_of_contents-label-table_of_contents_id-267: Morfologi
   translated_table_of_contents-label-table_of_contents_id-278: Bibliografi
+  translated_table_of_contents-label-table_of_contents_id-285: Föreningar
   translated_table_of_contents-label-table_of_contents_id-286: Bevarandestatus
   translated_table_of_contents-label-table_of_contents_id-289: Evolution
   translated_table_of_contents-label-table_of_contents_id-292: Dubbelgångare
@@ -258,6 +274,8 @@ sv:
   translated_vetted-label-vetted_id-4: Opålitlig
   translated_vetted-label-vetted_id-5: Pålitlig
   translated_vetted-label-vetted_id-6: Olämplig
+  translated_view_styles-name-view_style_id-1: Lista
+  translated_view_styles-name-view_style_id-2: Galleri
   translated_visibilities-label-visibility_id-0: Osynlig
   translated_visibilities-label-visibility_id-1: Synlig
   translated_visibilities-label-visibility_id-2: Förhandsgranska

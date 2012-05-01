@@ -1348,7 +1348,7 @@ mk:
   dato_edit_text_title: Уреди статија
   dato_new_edit_user_text_fieldset_content_header: Содржина на статијата
   dato_new_edit_user_text_fieldset_information_header: Информации за статијата
-  dato_new_edit_user_text_form_tip: Вашата статија ќе биде означена како „непроверена“ додека не ја прегледа кустос. Ако сте кустос, статијата ќе биде објавена непосредно на таксонската страница. Полето за текст означено со точка (%{required_icon}) е задолжително.
+  dato_new_edit_user_text_form_tip: Вашата готова стати ќе биде објавена на страницата на таксонот. Доколку не сте кустос, таа ќе стои означена како „непроверена“ додека не ја провери кустос. Подглавата, текстот, јазикот и лиценцата се задолжителни (%{required_icon}), а сите други полиња се по избор. Ако ја изберете лиценцата CC-BY (НаведиИзвор), тогаш наведете го имателот на правата или оставете го полето празно за да стои вашето полно име. Лиценците за јавна сопственост не бараат наведување на имател. <a href="%{add_article_help_url}">Повеќе помош со додавање на статии</a>.
   dato_new_text_for_taxon_page_title: Додај статија во таксонот <i>%{taxon}</i>
   dato_new_text_page_description: Ви благодариме што придонесувате на EOL. Статија ќе биде ставена на вашиот Список на набљудувања за да можете да ги следите разговорите за неа (ако ги има), а и да го проверувате нејзиниот статус.
   dato_update_user_text_error: Нажалост, се појави грешка. Не можев да ја подновам статијата.
@@ -1657,7 +1657,9 @@ mk:
         object_title: Наслов
         refs: Наводи <small>(секој во нов ред)</small>
         rights_holder: Сопственик на правата
+        rights_holder_more: Укажете го лицето или организацијата што ги поседува правата на овие податоци. Ако го оставите полето празно, ќе претпоставиме дека вие сте имател на правата (за сите лиценци освен јавносопственичката). Кај лиценците за јавна сопственост не се бара наведување на имател.
         rights_statement: Изјава за правата
+        rights_statement_more: Изјава за правата на употреба, која се бара за лиценците Криејтив комонс НаведиИзвор (CC-BY). Наведувањето треба да го извршите <q cite="http://creativecommons.org/licenses/by/3.0/deed.mk">на начинот укажан од авторот или лицензорот</q>.
         source_url: URL до изворниот податочен објект
         toc_item: Подглава
       eol_statistic: 
@@ -2466,6 +2468,8 @@ mk:
     data_object_title: "%{who} додаде нови содржини на EOL"
     default_subject: Скорешни активности на EOL
     intro: Еве го вашиот преглед на активностите на EOL за %{time}
+    intro_immediately: Здраво, %{name} —
+    intro_weekly: Еве преглед на активностите на EOL за неделата што завршува на %{ending}
     see_all_activity: Сите претходни активности ќе ги најдете на <a href='%{activity_url}' style='color:#195184'>вашата страница за актуелности</a>.
     someone_commented_on_something: <b>%{who}</b> коментираше на <b>%{what}</b>.
     unsubscribe: Сменете си ги нагодувањата за е-пошта или откажете ја претплатата на <a href='%{email_prefs_url}' style='color:#195184'>вашата страница за нагодување на известувањата</a>.
@@ -2526,7 +2530,12 @@ mk:
   search: Пребарај
   search_by_provider_method_description: добивање на назнаки на страници на EOL ако е зададен hierarchy_id and и единствената назнака на добавувачот
   search_by_term_page_title: "Пребарување: %{term}"
+  search_field_common_name: Тривијално име
   search_field_label: Пребарување по EOL
+  search_field_preferred_common_name: Претпочитано тривијално име
+  search_field_preferred_scientific: Претпочитано научно име
+  search_field_surrogate: Сурогат
+  search_field_synonym: Синоним
   search_for_comments_containing_the_text: "Пребарај коментари што го содржат текстот:"
   search_for_curators_containing: "Пребарај кустоси што содржат:"
   search_for_items_containing: "Пребарај експонати што содржат:"
@@ -2602,7 +2611,7 @@ mk:
   show_status_message: Прик. статусна порака
   show_tasks: прикажи задачи
   show_warning_message: Прикажи предупредување
-  showing: Приказ
+  showing: Приказ на
   showing_errors_the_error_log_f: "Приказ на грешки од дневникот за:"
   showing_procs_from: "Приказ на постапки од:"
   shown_to_the_user_parens: (се прикажува на корисникот)
@@ -2622,6 +2631,8 @@ mk:
   social_sharing_twitter_follow_eol_button: Следи го @eol
   social_sharing_twitter_tweet_button: Објави на Twitter
   some_required_fields_were_not_entered: Немате пополнето некои задолжителни полиња (мора да внесете наслов и содржина ИЛИ URL-адреса).
+  sorry_no_collections_are_available_to_share: Нажалост, нема збирки што можат да се споделуваат со оваа заедница.
+  sorry_no_communities_are_available_to_share: Нажалост, нема заедници со кои би ја споделиле збиркава.
   sort_by: Подреди по
   sort_by_alphabetical_option: Азбучно
   sort_by_button: Подреди

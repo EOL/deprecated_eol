@@ -40,16 +40,18 @@ body > #header form input[type="submit"]:hover {background-color: #dae3eb; filte
 body > #header form input[type="submit"]:active {background-color: #ccd2d7; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#fefeff, endColorstr=#ccd2d7); background-image: -moz-linear-gradient(100% 100% 90deg, #ccd2d7, #fefeff); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fefeff), to(#ccd2d7))}
 body > #footer {overflow: hidden; padding: 0 0 30px 0; background: #394651}
 body > #footer .section {padding: 0}
-body > #footer .copyright {float: left; padding: 20px 0 0 0}
+body > #footer .copyright {float: left; padding: 20px 0 0 0; text-align: center}
 body > #footer .copyright h6 {padding: 0 0 5px 0}
 body > #footer .copyright h6 a {display: block; width: 41px; height: 18px; text-indent: -8685px; overflow: hidden; background: transparent url("/images/v2/logo_footer.png") 0 0 no-repeat}
 body > #footer .copyright p {font-size: 0.83em; font-weight: bold; color: #6f7e8b}
 body > #footer .disclaimer {color: white; background: #566572; padding: 10px 20px; font-size: 0.92em; color: #f0f4f7; line-height: 140%; text-align: center}
-body > #footer ul.nav {float: right; padding: 20px 0 20px 0}
-body > #footer ul.nav li {display: inline; padding: 0 0 0 7px; text-transform: uppercase}
-body > #footer ul.nav li:before {padding: 0 7px 0 0; font-size: 1.33em; vertical-align: -2px; content: "•"; list-style: disc; color: #6f7e8b}
-body > #footer ul.nav li:first-of-type:before {display: none}
-body > #footer ul.nav li a {color: white; text-decoration: none}
+body > #footer .global_navigation {margin-left: 50px; clear: none; padding: 20px 0}
+body > #footer .global_navigation ul.nav {line-height: 160%; float: right}
+body > #footer .global_navigation ul.nav li {display: inline; padding: 0 0 0 7px; text-transform: uppercase}
+body > #footer .global_navigation ul.nav li:before {padding: 0 7px 0 0; font-size: 1.33em; vertical-align: -2px; content: "•"; list-style: disc; color: #6f7e8b}
+body > #footer .global_navigation ul.nav li:first-of-type {padding-left: 0}
+body > #footer .global_navigation ul.nav li:first-of-type:before {display: none}
+body > #footer .global_navigation ul.nav li a {color: white; text-decoration: none}
 body > #footer ul.social_media {clear: both; float: right}
 body > #footer ul.social_media li {float: left; padding: 0 0 0 10px}
 body > #footer ul.social_media li a {display: block; width: 25px; height: 25px; text-indent: -8685px; overflow: hidden; background: transparent url("/images/v2/icon_social-media.png") 0 0 no-repeat; border: 1px solid #28323a}
@@ -77,7 +79,10 @@ body > #footer ul.social_media li a.youtube {background-position: 0 -125px}
 .pagination a {text-decoration: none; background: #f3f7fa}
 .pagination a:hover {border-color: #394651}
 .pagination a.prev_page:hover, .pagination a.next_page:hover {text-decoration: underline}
-.pagination span.disabled, .pagination span.prev_page, .pagination span.next_page {color: #616e7a}
+.pagination span.prev_page, .pagination span.next_page {color: #616e7a}
+.pagination span.disabled {font-weight: normal; color: #cad3db}
+.pagination + ul {border-top: 1px solid #d4dce2; margin-top: 12px}
+ul + .pagination {border-top: 1px solid #d4dce2; padding: 12px 0 0 0; margin: 0}
 a.button, input[type="submit"].button {padding: 5px 10px 6px 10px; overflow: visible; font: bold 1.08em Helvetica, Arial, sans-serif; color: #394651; text-transform: lowercase; text-decoration: none; border: 1px solid #c6ccd0; -moz-border-radius: 3px; border-radius: 3px; background-color: #d7dde1; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=white, endColorstr=#d7dde1); background-image: -moz-linear-gradient(100% 100% 90deg, #d7dde1, white); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#d7dde1)); cursor: pointer}
 a.button:hover, input[type="submit"].button:hover {background-color: #e6eef4; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=white, endColorstr=#e6eef4); background-image: -moz-linear-gradient(100% 100% 90deg, #e6eef4, white); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#e6eef4))}
 a.button:active, input[type="submit"].button:active {background-color: #d7dde1; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=white, endColorstr=#d7dde1); background-image: -moz-linear-gradient(100% 100% 90deg, #d7dde1, white); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#d7dde1))}
@@ -109,7 +114,6 @@ form fieldset.actions input[type="submit"]:active, form fieldset.actions button:
 form fieldset.actions input[type="submit"].delete, form fieldset.actions button.delete, form div input[type="submit"].delete, form div button.delete {border-color: #cd331e; background-color: #cd331e; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#e07f71, endColorstr=#cd331e); background-image: -moz-linear-gradient(100% 100% 90deg, #cd331e, #e07f71); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#e07f71), to(#cd331e)); color: white}
 form fieldset.actions input[type="submit"].delete:hover, form fieldset.actions button.delete:hover, form div input[type="submit"].delete:hover, form div button.delete:hover {background-color: #ea3b23; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f88b7b, endColorstr=#ea3b23); background-image: -moz-linear-gradient(100% 100% 90deg, #ea3b23, #f88b7b); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f88b7b), to(#ea3b23))}
 form fieldset.actions input[type="submit"].delete:active, form fieldset.actions button.delete:active, form div input[type="submit"].delete:active, form div button.delete:active {background-color: #cd331e; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#e07f71, endColorstr=#cd331e); background-image: -moz-linear-gradient(100% 100% 90deg, #cd331e, #e07f71); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#e07f71), to(#cd331e))}
-.heading form.filter {float: right}
 .heading form.filter label {text-transform: uppercase; color: #828d33}
 .heading form.filter dl {display: inline}
 .heading form.filter dl dt {display: inline; padding: 0 5px 0 0}
@@ -119,14 +123,23 @@ form fieldset.actions input[type="submit"].delete:active, form fieldset.actions 
 .heading form.filter input[type="submit"]:hover {background-color: #e6eef4; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=white, endColorstr=#e6eef4); background-image: -moz-linear-gradient(100% 100% 90deg, #e6eef4, white); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#e6eef4))}
 .heading form.filter input[type="submit"]:active {background-color: #d7dde1; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=white, endColorstr=#d7dde1); background-image: -moz-linear-gradient(100% 100% 90deg, #d7dde1, white); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#d7dde1))}
 .main_container {overflow: hidden; position: relative; left: -1px; z-index: 1; padding: 0 20px; border: 1px solid #93a4b0; border-width: 0 1px}
-.main_container .heading {padding: 6px 10px 5px 10px; border-bottom: 1px solid #ccd399; background: #f1f4dc}
+.main_container .heading {position: relative; text-align: left; overflow: hidden; padding: 8px 10px 7px 10px; border-bottom: 1px solid #ccd399; background: #f1f4dc}
 .main_container .heading h3, .main_container .heading label {font-weight: bold; text-transform: uppercase; color: #828d33}
-form.comment {padding: 0 20px; margin: 0 0 35px 0}
+.main_container .heading h3 + form, .main_container .heading h3 + a, .main_container .heading.subnav ul + form, .main_container .heading.subnav ul + a {position: absolute; right: 10px; top: 6px}
+.main_container .heading label {font-size: 0.92em}
+.main_container .heading fieldset {display: inline}
+.main_container .heading.subnav ul {overflow: hidden; font-weight: bold; float: left}
+.main_container .heading.subnav ul li {float: left; margin: 0 10px 0 0; padding: 0}
+.main_container .heading.subnav ul li.active a {background: white}
+.main_container .heading.subnav ul li.active a, .main_container .heading.subnav ul li a:hover {border: 1px solid #828d33; color: #394651}
+.main_container .heading.subnav ul li a {padding: 5px; display: block; text-decoration: none; color: #828d33; background: #f5f7e7; border: 1px solid #cfd5a9}
+.main_container .heading.subnav form {padding-top: 5px}
+form.comment {padding: 0 20px; margin: 0 0 20px 0}
 form.comment fieldset {overflow: hidden; padding: 0 0 10px 0}
 form.comment img {float: left; margin: 0 10px 0 0; border: 1px solid #394651}
 form.comment img + div {float: left; margin: 0}
 form.comment textarea {width: 370px; padding: 8px; font: normal 1em Helvetica, Arial, sans-serif; color: #394651; border: 1px solid #cad3db; background-color: white; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white); background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white))}
-form.comment fieldset.actions {clear: both; padding: 0 0 0 62px}
+form.comment fieldset.actions {clear: both; padding: 0 0 0 62px; margin: 0 0 10px 0}
 form.comment fieldset.actions label {float: right}
 form.comment fieldset.actions input[type="submit"] {margin: 0 10px 0 0}
 form.comment fieldset.actions a {font-weight: bold}
@@ -184,19 +197,29 @@ table.standard tbody tr td {padding: 5px 20px}
 .article .meta img {float: left; margin: 0 10px 0 0}
 .article .meta p {float: left; margin: 0; line-height: 120%}
 .article .meta p + p {display: list-item; margin: 0 0 0 25px; list-style: disc}
-.article.list > ul > li {overflow: hidden; padding: 0 0 10px 0}
-.article.list > ul > li img {float: left; margin: 0 10px 0 0; border: 1px solid #394651}
-.article.list > ul > li .details {padding: 5px 0 0 0; overflow: hidden}
+.article.list > ul > li {overflow: hidden; padding: 0 0 10px 0; line-height: 160%}
+.article.list > ul > li + li {border-top: 1px solid #d7dadc}
+.article.list > ul > li > a > img, .article.list > ul > li > img, .article.list > ul > li > .editable > a > img {float: left; margin: 15px 10px 0 15px; border: 1px solid #394651; max-width: 48px; max-height: 48px; width: expression(this.width > 48 ? "48px" : true); height: expression(this.height > 48 ? "48px" : true)}
+.article.list > ul > li .details {margin: 15px 15px 0 0; padding: 0; overflow: hidden}
+.article.list > ul > li .details img {max-width: 400px; margin: 5px 0}
+.article.list > ul > li .details p.meta {color: #62707d; padding: 0}
+.article.list > ul > li .editable {margin: 15px 15px 0}
+.article.list > ul > li .editable > a > img {margin: 0 10px 0 0}
+.article.list > ul > li .editable .details {margin: 0}
+.article.list.half > ul > li + li {border: none}
+.article.list.half > ul > li > a > img {margin: 0 10px 0 0}
+.article.list.half > ul > li .details {margin: 0}
+.article.updates {padding: 0}
 .article.updates blockquote, .article.updates p {line-height: 140%; padding: 0 0 8px 0}
 .article.updates blockquote.meta, .article.updates p.meta {font-size: 0.75em; font-weight: bold; text-transform: uppercase; color: #62707d; padding: 0}
-.article.updates ul.actions li {display: inline-block; font-size: 0.9em; font-weight: bold; text-transform: lowercase}
-.article.updates ul.actions li a {padding: 3px 5px 3px 0; margin: 0 5px 0 0}
-.article.updates ul.actions li input[type="submit"] {background: none; border: none; font-weight: bold; color: #195184; text-decoration: underline; cursor: pointer; padding: 3px 5px 3px 0; margin: 0 5px 0 0}
-.article.updates li > a > img, .article.updates li .editable > a > img {max-width: 48px; max-height: 48px; width: expression(this.width > 48 ? "48px" : true); height: expression(this.height > 48 ? "48px" : true)}
+.article.updates ul.actions li {display: inline; font-size: 0.9em; font-weight: bold; text-transform: lowercase}
+.article.updates ul.actions li a {display: inline-block; padding: 5px 0; margin: 0 5px 0 0}
+.article.updates ul.actions li form {margin: 0; padding: 0; display: inline}
+.article.updates ul.actions li form input[type="submit"] {display: inline-block; overflow: visible; background: none; border: 0; font-size: 1em; line-height: 100%; color: #195184; text-decoration: underline; cursor: pointer; padding: 0; margin: 0; font-weight: bold; padding: 5px 0; margin: 0 5px 0 0}
+.article.updates ul.actions li form input[type="submit"]::-moz-focus-inner {padding: 0; margin: 0}
 .article.updates li form.edit_comment {margin-top: 10px}
 .article.updates li form.edit_comment label {display: block; font-weight: bold}
 .article.updates li form.edit_comment textarea {margin: 3px 0; width: 430px; height: 60px; padding: 8px; font: normal 1em Helvetica, Arial, sans-serif; color: #394651; border: 1px solid #cad3db; background-color: white; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white); background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white))}
-.article.updates ul.feed + .pagination {margin-top: 12px}
 .empty, .copy .empty {padding: 15px 15px 10px 15px; margin: 10px 0; font-size: 1.16em; text-align: center; border: 1px solid #cad3db; background: #f3f7fa}
 .empty p, .copy .empty p {margin: 0; padding: 0 0 5px 0; line-height: 150%}
 .empty a.button, .empty input[type="submit"], .copy .empty a.button, .copy .empty input[type="submit"] {font-size: 0.78em; display: inline-block; margin-bottom: 5px}
@@ -238,7 +261,7 @@ table.standard tbody tr td {padding: 5px 20px}
 .collection span.icon {background: #f3f7fa url("/images/v2/icon_collections_tabs.png") 50% 50% no-repeat}
 .article span.icon {background: #f3f7fa url("/images/v2/icon_articles_tabs.png") 50% 50% no-repeat}
 .sound span.icon {background: #f3f7fa url("/images/v2/icon_sound_tabs.png") 50% 50% no-repeat}
-ul.object_list + .footer {border-top: 1px solid #394651; padding-top: 12px}
+ul.object_list + .footer {border-top: 1px solid #394651; padding-top: 12px; margin: 0}
 ul.object_list li {padding: 10px; overflow: hidden; line-height: 160%; color: #5f6c76}
 ul.object_list li + li {border-top: 1px solid #d7dadc}
 ul.object_list li .annotation {clear: both; padding-top: 5px}
@@ -250,17 +273,13 @@ ul.object_list li h4 a:hover {text-decoration: underline}
 ul.object_list li img {float: right; border: 1px solid #394651}
 ul.object_list li.taxon small {font-weight: bold; display: block; margin-top: 8px}
 ul.object_list li.taxon h4 {margin: 0}
-#taxon_names .article.recognized ul span {margin: 0 10px}
-#taxon_names .article.recognized ul a.view {font-size: 0.9em}
-#taxon_names .main_container h4 {font-size: 1.2em; margin: 0 0 10px 20px}
-#taxon_names table.standard tr td {position: relative; width: 33%}
-#taxon_names table.standard tr td a {font-weight: bold}
-#taxon_names table.standard tr td.preferred {background: url("/images/v2/icon_required.png") 7px 50% no-repeat}
 form.select_content_partner {padding: 5px 0; text-align: center; color: #394651; border: 1px solid #c7d471; background: #edf6b2}
 form.select_content_partner p {display: inline; font-size: 1.16em; font-weight: bold}
 form.select_content_partner input[type="submit"] {padding: 5px 10px 6px 10px; overflow: visible; font: bold 1.08em Helvetica, Arial, sans-serif; color: #394651; text-transform: lowercase; text-decoration: none; border: 1px solid #c6ccd0; -moz-border-radius: 3px; border-radius: 3px; background-color: #d7dde1; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=white, endColorstr=#d7dde1); background-image: -moz-linear-gradient(100% 100% 90deg, #d7dde1, white); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#d7dde1)); cursor: pointer; padding: 3px 10px; font-size: 0.92em}
 form.select_content_partner input[type="submit"]:hover {background-color: #e6eef4; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=white, endColorstr=#e6eef4); background-image: -moz-linear-gradient(100% 100% 90deg, #e6eef4, white); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#e6eef4))}
 form.select_content_partner input[type="submit"]:active {background-color: #d7dde1; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=white, endColorstr=#d7dde1); background-image: -moz-linear-gradient(100% 100% 90deg, #d7dde1, white); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#d7dde1))}
+.disclaimer {clear: both; border-top: 1px solid #cad3db; padding-top: 10px; margin-top: 40px}
+.disclaimer p {text-align: center; font-size: 0.9em; color: #394651; margin: 0}
 body > #header {background: #394651}
 body > #header .section {height: 113px}
 body > #header .section ul.nav li:before {color: #6f7e8b}
@@ -271,6 +290,11 @@ body > #header .section .actions .language, body > #header .section .actions p.p
 body > #header .section .actions .language ul, body > #header .section .actions p.print ul {background: #394651}
 body > #header .section .actions .language ul li, body > #header .section .actions p.print ul li {border-color: #616b74}
 body > #header .section .session {position: absolute; width: 100%; right: 0; top: 32px; z-index: 1}
+body > #header .section .session ul {float: right; overflow: hidden; margin-left: 1px; font-weight: bold; font-size: 0.9em}
+body > #header .section .session ul li a {display: block; height: 25px; line-height: 25px; text-decoration: none; background: url("/images/v2/icon_header_messages.png") 6px 45% no-repeat #566572; padding: 0 5px 0 24px}
+body > #header .section .session ul li a:hover {background-color: #667d91}
+body > #header .section .session ul li + li {margin-top: 1px}
+body > #header .section .session ul li + li a {background-image: url("/images/v2/icon_header_notifications.png"); background-position: 9px 50%}
 body > #header .section .session img {float: right; margin: 0 0 0 10px; border: 1px solid #cad3db}
 body > #header .section .session .details, body > #header .section .session .sign_in {overflow: hidden; padding: 5px 0 0 0; font-size: 0.92em; line-height: 130%; text-align: right; color: white}
 body > #header .section .session .details strong, body > #header .section .session .sign_in strong {font-size: 1.09em}
@@ -363,67 +387,47 @@ body > #header .section .session .sign_in a {color: #acd7ff}
 #sidebar.filters.small dd, #sidebar .filters.small dd {margin: 0}
 #sidebar.filters.small fieldset.actions, #sidebar .filters.small fieldset.actions {margin: 0}
 #sidebar.filters.small fieldset.actions input, #sidebar .filters.small fieldset.actions input {margin: 0 5px 5px 0}
-#collections .heading {font-size: 0.92em; text-align: center}
-#collections .heading a {font-weight: bold}
-#collections .article.list.updates {padding-top: 15px; margin: 0 -10px}
-#collections .article.list.updates > form {padding: 5px 15px 20px 15px; margin: 0; border-bottom: 1px solid #d4dce2}
-#collections .article.list.updates > form textarea {width: 390px}
-#collections .article.list.updates > form fieldset {margin: 0}
-#collections .article.list.updates > form fieldset.actions input[type="submit"] {padding: 7px 10px; font-size: 1em}
-#collections .article.list.updates > ul > li {padding: 15px 15px; border-bottom: 1px solid #d4dce2}
-#collections .article.list.updates > ul > li img {margin-bottom: 5px}
-#collections ul.object_list li img {margin-right: -1px}
-#collections ul.object_list li .checkbox {float: right; border: 1px solid #cad3db; height: 68px; line-height: 68px; padding: 0 3px}
-#collections ul.object_list li .editable {clear: both; margin: 0}
-#collections ul.object_list li .annotation {clear: both; margin: 0}
-#collections ul.object_list li .references {clear: both; font-size: 0.9em; margin: 0}
-#collections ul.object_list li .references p + p {margin-top: 10px}
-#collections ul.object_list li .references + p.sort_value {padding-top: 10px}
-#collections ul.object_list li p.sort_value {clear: both; font-size: 0.9em}
-#collections ul.object_list li p.edit {clear: both; font-size: 0.9em}
-#collections ul.object_list li .collection_item_form {margin: 10px 0 0 0}
-#collections ul.object_list li .collection_item_form textarea {display: block; clear: both; padding: 8px; font: normal 1em Helvetica, Arial, sans-serif; color: #394651; border: 1px solid #cad3db; background-color: white; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white); background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white)); width: 460px; height: 50px}
-#collections ul.object_list li .collection_item_form label {font-weight: bold; margin: 10px 0 0 0; display: block}
-#collections ul.object_list li .collection_item_form label small {display: inline}
-#collections ul.object_list li .collection_item_form input[type="text"] {width: 308px; height: 22px; padding: 2px 5px; font: normal 1em Helvetica, Arial, sans-serif; border: 1px solid #cad3db; background-color: white; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white); background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white))}
-#collections ul.collection_gallery li {float: left; width: 88px; margin: 0 0 20px 14px; position: relative; padding: 0}
-#collections ul.collection_gallery li img {position: absolute; left: 0; top: 0; max-width: 88px; max-height: 88px; width: expression(this.width > 88 ? "88px" : true); height: expression(this.height > 88 ? "88px" : true); z-index: 2}
-#collections ul.collection_gallery li h4 {margin-top: 90px}
-#collections ul.collection_gallery li h4 a {text-decoration: none; color: #394651}
-#collections ul.collection_gallery li span.icon {position: absolute; left: 0; top: 0; padding: 0; width: 86px; height: 86px; border: 1px solid #cad3db; margin: 0; display: block; z-index: 1}
-#collections ul.collection_gallery li.first {margin-left: 0; clear: both}
-#collections ul.collection_gallery li .checkbox {position: absolute; border: 1px solid #cad3db; top: 0; left: 0; padding: 8px; margin: 0; background: white; z-index: 3}
-#collections ul.collection_names {padding-bottom: 12px}
-#collections ul.collection_names li {border-bottom: 1px solid #cad3db; overflow: hidden; padding: 5px 10px}
-#collections ul.collection_names li .checkbox {float: right; margin: 0}
-#collections ul.collection_names li h4 small {font-weight: bold; color: #5f6c76}
+#collection .heading {padding: 1px 10px 4px 10px; text-align: center}
+#collection ul.object_list li img {margin-right: -1px}
+#collection ul.object_list li .checkbox {float: right; border: 1px solid #cad3db; height: 68px; line-height: 68px; padding: 0 3px}
+#collection ul.object_list li .editable {clear: both; margin: 0}
+#collection ul.object_list li .annotation {clear: both; margin: 0}
+#collection ul.object_list li .references {clear: both; font-size: 0.9em; margin: 0}
+#collection ul.object_list li .references p + p {margin-top: 10px}
+#collection ul.object_list li .references + p.sort_value {padding-top: 10px}
+#collection ul.object_list li p.sort_value {clear: both; font-size: 0.9em}
+#collection ul.object_list li p.edit {clear: both; font-size: 0.9em}
+#collection ul.object_list li .collection_item_form {margin: 10px 0 0 0}
+#collection ul.object_list li .collection_item_form textarea {display: block; clear: both; padding: 8px; font: normal 1em Helvetica, Arial, sans-serif; color: #394651; border: 1px solid #cad3db; background-color: white; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white); background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white)); width: 460px; height: 50px}
+#collection ul.object_list li .collection_item_form label {font-weight: bold; margin: 10px 0 0 0; display: block}
+#collection ul.object_list li .collection_item_form label small {display: inline}
+#collection ul.object_list li .collection_item_form input[type="text"] {width: 308px; height: 22px; padding: 2px 5px; font: normal 1em Helvetica, Arial, sans-serif; border: 1px solid #cad3db; background-color: white; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white); background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white))}
+#collection ul.collection_gallery {padding-top: 20px}
+#collection ul.collection_gallery li {float: left; position: relative; width: 88px; min-height: 88px; margin: 0 0 20px 14px; padding: 0}
+#collection ul.collection_gallery li img {position: absolute; left: 0; top: 0; max-width: 88px; max-height: 88px; width: expression(this.width > 88 ? "88px" : true); height: expression(this.height > 88 ? "88px" : true); z-index: 2}
+#collection ul.collection_gallery li h4 {position: absolute; left: -999em}
+#collection ul.collection_gallery li h4 a {text-decoration: none; color: #394651}
+#collection ul.collection_gallery li h4.balloon {font-weight: normal; overflow: hidden; position: absolute; top: 0; left: -10px; z-index: 3; margin: 68px 0 0; width: 102px; padding: 3px; background-color: #394651; background: rgba(57, 70, 81, 0.9); color: white}
+#collection ul.collection_gallery li h4.balloon a {color: white}
+#collection ul.collection_gallery li span.icon {position: absolute; left: 0; top: 0; padding: 0; width: 86px; height: 86px; border: 1px solid #cad3db; margin: 0; display: block; z-index: 1}
+#collection ul.collection_gallery li.first {margin-left: 0; clear: both}
+#collection ul.collection_gallery li .checkbox {position: absolute; border: 1px solid #cad3db; top: 0; left: 0; padding: 8px; margin: 0; background: white; z-index: 3}
+#collection ul.collection_names {padding-bottom: 12px}
+#collection ul.collection_names li {border-bottom: 1px solid #cad3db; overflow: hidden; padding: 5px 10px}
+#collection ul.collection_names li .checkbox {float: right; margin: 0}
+#collection ul.collection_names li h4 small {font-weight: bold; color: #5f6c76}
 #collections_edit, #collection_items_edit {width: 500px; margin: 0 auto}
 #collections_edit h2, #collection_items_edit h2 {margin: 0 0 20px 0}
 #collections_edit input[type="text"], #collection_items_edit input[type="text"] {width: 488px; height: 22px; padding: 2px 5px; font: normal 1em Helvetica, Arial, sans-serif; border: 1px solid #cad3db; background-color: white; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white); background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white))}
 #collections_edit textarea, #collection_items_edit textarea {width: 482px; height: 60px}
 #collections_edit fieldset.actions, #collection_items_edit fieldset.actions {padding: 20px 0}
 #collections_edit fieldset.actions input[type="submit"], #collection_items_edit fieldset.actions input[type="submit"] {padding: 7px 10px; font-size: 1em}
-#collections_tab ul.object_list img {float: left; margin: 0 20px 0 0}
-#collections_tab ul.object_list + .heading {margin-top: 40px}
-#collections_tab .heading {position: relative; text-align: left}
-#collections_tab .heading form, #collections_tab .heading a {position: absolute; right: 10px; top: 4px}
-#collections_tab .updates {padding: 20px 0 0 0}
-#collections_tab .updates form.comment {padding-right: 0}
-#collections_tab .updates form.comment textarea {width: 580px}
-#collections_tab .updates ul.feed {margin: 0 0 20px 0}
-#collections_tab .updates ul.feed > li {padding: 20px; border-bottom: 1px solid #d4dce2}
-#collections_tab .updates p.more {font-size: 1.16em; font-weight: bold; text-align: center}
-#profile_collections .heading, #profile_communities .heading, #profile_newsfeed .heading, #profile_activity .heading {overflow: hidden}
-#profile_collections .heading h3, #profile_collections .heading a, #profile_communities .heading h3, #profile_communities .heading a, #profile_newsfeed .heading h3, #profile_newsfeed .heading a, #profile_activity .heading h3, #profile_activity .heading a {line-height: 170%}
-#profile_collections .heading h3, #profile_communities .heading h3, #profile_newsfeed .heading h3, #profile_activity .heading h3 {float: left}
-#profile_collections .heading h3 + a, #profile_communities .heading h3 + a, #profile_newsfeed .heading h3 + a, #profile_activity .heading h3 + a {float: right}
-#profile_collections ul.object_list img, #profile_communities ul.object_list img {float: left; margin: 0 20px 0 0}
-#profile_collections ul.object_list + .heading, #profile_communities ul.object_list + .heading {margin-top: 40px}
+#community_collections ul.object_list img, #profile_collections ul.object_list img, #profile_communities ul.object_list img {float: left; margin: 0 20px 0 0}
+#community_collections ul.object_list + .heading, #profile_collections ul.object_list + .heading, #profile_communities ul.object_list + .heading {margin-top: 40px}
 #profile_newsfeed form.comment {padding: 5px 0 20px 15px; margin: 0; border-bottom: 1px solid #d4dce2}
 #profile_newsfeed form.comment fieldset {margin: 0}
 #profile_newsfeed form.comment textarea {width: 580px; height: 100px}
 #profile_newsfeed form.comment input[type="submit"] {font-size: 1em; padding: 7px 10px}
-#profile_newsfeed ul.feed > li, #profile_activity ul.feed > li {padding: 15px 15px; border-bottom: 1px solid #d4dce2}
 #profile_newsfeed ul.feed > li form.edit_comment textarea, #profile_activity ul.feed > li form.edit_comment textarea {width: 580px}
 #profile_info {padding: 40px}
 #profile_info .section.half {float: left; width: 299px; margin-right: 20px}
@@ -433,7 +437,6 @@ body > #header .section .session .sign_in a {color: #acd7ff}
 #profile_info .section.half dl dd {margin: 0 0 5px 20px}
 #profile_info .section.half dl.activity {overflow: hidden; text-align: right}
 #profile_info .section.half dl.activity dt {float: left}
-#profile_curator_info fieldset label {font-size: 16px}
 #profile_curator_info, #profile_content_partner {width: 640px}
 #profile_curator_info fieldset, #profile_content_partner fieldset {padding-top: 10px}
 #profile_curator_info fieldset dt, #profile_content_partner fieldset dt {margin: 0}
@@ -442,6 +445,13 @@ body > #header .section .session .sign_in a {color: #acd7ff}
 #profile_curator_info fieldset dd input[type="text"], #profile_content_partner fieldset dd input[type="text"] {width: 308px; height: 22px; padding: 2px 5px; font: normal 1em Helvetica, Arial, sans-serif; border: 1px solid #cad3db; background-color: white; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white); background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white))}
 #profile_curator_info fieldset dd textarea, #profile_content_partner fieldset dd textarea {width: 600px; height: 60px}
 #profile_curator_info fieldset input[type="submit"], #profile_content_partner fieldset input[type="submit"] {padding: 7px 10px; font-size: 1em}
+#profile_curator_info fieldset label {font-size: 1.2em}
+#profile_notifications {width: 680px}
+#profile_notifications .copy form fieldset {padding: 20px}
+#profile_notifications .copy form fieldset dt {width: 360px; clear: both; float: left}
+#profile_notifications .copy form fieldset dt label {font-weight: normal}
+#profile_notifications .copy form fieldset dd {width: 200px; float: right; text-align: right}
+#profile_notifications .copy form fieldset.actions {border-top: 1px solid #cad3db}
 #profile_content_connections {padding: 40px}
 #profile_content_connections ul {margin: 0 0 30px 0}
 #profile_content_connections ul li {overflow: hidden; margin: 0 0 10px 0}
@@ -455,6 +465,10 @@ body > #header .section .session .sign_in a {color: #acd7ff}
 #content_partner fieldset textarea {width: 622px; height: 60px}
 #content_partner fieldset input[type="submit"] {padding: 7px 10px; margin: 0 10px 0 0; font-size: 1em}
 #content_partner.contact {padding: 0; width: 640px}
+#new_content_partner_agreement dl, form.edit_content_partner_agreement dl {clear: both}
+#new_content_partner_agreement dl dd, form.edit_content_partner_agreement dl dd {margin: 0 0 10px 0}
+#new_content_partner_agreement dl dd input[type="text"], form.edit_content_partner_agreement dl dd input[type="text"] {width: 308px; height: 22px; padding: 2px 5px; font: normal 1em Helvetica, Arial, sans-serif; border: 1px solid #cad3db; background-color: white; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white); background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white))}
+#new_content_partner_agreement dl dd textarea, form.edit_content_partner_agreement dl dd textarea {width: 700px; height: 22px; padding: 2px 5px; font: normal 1em Helvetica, Arial, sans-serif; border: 1px solid #cad3db; background-color: white; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white); background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white)); height: 400px}
 #content_partner_show #sidebar {width: 240px; padding-left: 40px; padding-bottom: 20px}
 #content_partner_show #sidebar ul li {margin: 0 0 20px 0}
 #content_partner_show #sidebar ul li h4 b {font-size: 0.9em; color: #616e7a}
@@ -470,8 +484,27 @@ body > #header .section .session .sign_in a {color: #acd7ff}
 #content_partner_show .main_container table.standard tbody tr td.actions {white-space: nowrap}
 #content_partner_show .main_container table.standard tbody tr td.actions a {margin: 0 5px 0 0}
 #content_partner_show .main_container table.standard tbody tr td.actions a + a {margin: 0}
+#content_partner_show .main_container#resources_show .section.half {float: left; width: 299px; margin-right: 20px}
+#content_partner_show .main_container#resources_show .section dl {line-height: 140%; margin: 0 0 40px 0}
+#content_partner_show .main_container#resources_show .section dl dt {font-weight: bold}
+#content_partner_show .main_container#resources_show .section dl dd {margin: 0 0 5px 20px}
+#content_partner_show .main_container#resources_show .section.processing_status {clear: both}
+#content_partner_show .empty {font-size: 1em}
+#content_partner_show .agreement address {display: block; width: 40%; line-height: 170%}
+#content_partner_show .agreement address.partner {float: left}
+#content_partner_show .agreement address.eol {float: right}
+#content_partner_show dl.agreement {margin: 0 0 15px 0; line-height: 140%}
+#content_partner_show dl.agreement dd {margin-bottom: 5px}
 #content_partner_show p.resource_status {border: 1px solid #cad3db; background: #f1f4f7; padding: 20px; margin: 0 0 10px; font-size: 1.66em; font-weight: bold; text-align: center}
 #content_partner_show p.resource_status.upload_failed, #content_partner_show p.resource_status.processing_failed, #content_partner_show p.resource_status.validation_failed {background: #ffeae6; border-color: #f2d2cc}
+#content_partner_edit.site_column, body > #header #content_partner_edit.section, body > #footer #content_partner_edit.section, .thumbnails ul#content_partner_edit, #content_partner_new.site_column, body > #header #content_partner_new.section, body > #footer #content_partner_new.section, .thumbnails ul#content_partner_new {width: 640px}
+ul.content_partner_contacts li {margin: 0 0 20px 0}
+#content_partner_statistics .main_container {border: none; padding: 0}
+#content_partner_statistics .header {border-top: 1px solid #cad3db; padding-top: 1em; margin-top: 40px}
+#content_partner_statistics .heading {text-align: center}
+#content_partner_statistics .heading fieldset, #content_partner_statistics .heading input[type="submit"] {display: inline; margin: 0}
+#content_partner_statistics table {margin-top: 20px}
+#content_partner_statistics table caption {line-height: 170%; font-size: 1.08em; font-weight: bold}
 #content_partner_resources {width: 600px}
 #content_partner_resources fieldset {padding-top: 10px}
 #content_partner_resources fieldset dl dt {margin: 0}
@@ -485,17 +518,7 @@ body > #header .section .session .sign_in a {color: #acd7ff}
 #content_partner_resources fieldset dl.resources > dd input[type="text"] {width: 448px}
 #content_partner_resources fieldset dl.resources > dd input[type="file"] {margin: 0}
 #content_partner_resources fieldset input[type="submit"] {padding: 7px 10px; font-size: 1em}
-#community {padding: 20px}
-#community ul.feed + .pagination {margin-top: 20px}
-#community .heading {overflow: hidden; border-width: 0}
-#community .heading h3 {float: left; padding: 5px 0 0 0}
-#community .article.list {padding: 0 0 40px 0}
-#community .article.list .heading {border-bottom-width: 1px}
-#community .article.list > ul > li {padding: 10px 20px; border-bottom: 1px solid #d4dce2}
-#community .article.list > ul > li .meta {padding: 0}
-#community .article.updates {padding: 0 0 25px 0}
-#community .article.updates > ul > li {overflow: hidden; padding: 20px}
-#community .article.updates > ul > li .details img {margin: 0 8px 0 0; border: 1px solid #394651}
+#community {padding: 0 20px}
 #community_new .copy {width: 300px; float: right; margin: 0 0 0 40px}
 #community_new form {float: right; width: 600px}
 #community_new form dt p {margin: 0}
@@ -508,7 +531,12 @@ body > #header .section .session .sign_in a {color: #acd7ff}
 #community_new form dd.invite ul.spotlite-results li:hover {background-color: #f3f7fa}
 #community_new form fieldset.actions {clear: both; width: 100%}
 #community_new form fieldset.actions input[type="submit"] {font-size: 1em; padding: 7px 20px; margin: 10px 20px 10px 0}
-#taxon_literature .main_container {padding: 20px}
+#taxon_names .article.recognized ul span {margin: 0 10px}
+#taxon_names .article.recognized ul a.view {font-size: 0.9em}
+#taxon_names .main_container h4 {font-size: 1.2em; margin: 0 0 10px 20px}
+#taxon_names table.standard tr td {position: relative; width: 33%}
+#taxon_names table.standard tr td a {font-weight: bold}
+#taxon_names table.standard tr td.preferred {background: url("/images/v2/icon_required.png") 7px 50% no-repeat}
 #taxon_literature .main_container .bhl_description {overflow: hidden; margin: 0 0 20px 0}
 #taxon_literature .main_container .bhl_description p {margin: 5px 20px 10px 220px}
 #taxon_literature .main_container .bhl_description a {font-weight: bold; text-decoration: none}
@@ -546,7 +574,7 @@ body > #header .section .session .sign_in a {color: #acd7ff}
 #taxon .article.overview .meta.learn_more p.last:after, #taxon .article.overview .meta.learn_more form.last:after {content: ""}
 #taxon .article.half {float: left; width: 260px}
 #taxon .article.half.clear {clear: both; margin: 0 20px 0 0}
-#taxon + #sidebar {width: 340px; padding: 0}
+#taxon + #sidebar {width: 340px; padding: 0; margin-bottom: 20px}
 #taxon + #sidebar h3 {padding: 0 10px 3px 10px; font-size: 1.16em}
 #taxon + #sidebar .classifications a.current {font-weight: bold}
 #taxon + #sidebar .classifications > ul {line-height: 160%; font-size: 0.9em}
@@ -554,13 +582,20 @@ body > #header .section .session .sign_in a {color: #acd7ff}
 #taxon + #sidebar .classifications > ul > li h4 {font-weight: normal}
 #taxon + #sidebar .classifications > ul > li h4 a {font-weight: bold}
 #taxon + #sidebar .classifications > ul > li ul {margin-left: 10px}
-#taxon + #sidebar .updates > ul {border-bottom: 1px solid #d7dadc}
-#taxon + #sidebar .updates form.comment {padding: 20px 10px 0 10px; margin: 0 -10px}
-#taxon + #sidebar .updates form.comment img {border: 1px solid #394651}
-#taxon + #sidebar .updates form.comment textarea {width: 240px}
-#taxon + #sidebar .updates form.comment fieldset.actions {padding: 0 0 0 60px}
-#taxon + #sidebar .updates form.comment fieldset.actions input[type="submit"] {padding: 6px 15px}
-#taxon + #sidebar .updates form.edit_comment textarea {width: 300px}
+#taxon + #sidebar .article.list > ul > li + li {border: none}
+#taxon + #sidebar .article.list > ul > li > a > img {margin: 10px 10px 0 0}
+#taxon + #sidebar .article.list > ul > li .details {margin: 10px 0 0 0}
+#taxon + #sidebar .article.list > ul > li .editable {margin: 10px 0 0 0}
+#taxon + #sidebar .article.list > ul > li .editable > a > img {margin: 0 10px 0 0}
+#taxon + #sidebar .article.list > ul > li .editable .details {margin: 0}
+#taxon + #sidebar .article.updates {padding: 0 10px 25px 10px}
+#taxon + #sidebar .article.updates > ul {border-bottom: 1px solid #d7dadc}
+#taxon + #sidebar .article.updates form.comment {padding: 20px 10px 0 10px; margin: 0 -10px}
+#taxon + #sidebar .article.updates form.comment img {border: 1px solid #394651}
+#taxon + #sidebar .article.updates form.comment textarea {width: 240px}
+#taxon + #sidebar .article.updates form.comment fieldset.actions {padding: 0 0 0 60px}
+#taxon + #sidebar .article.updates form.comment fieldset.actions input[type="submit"] {padding: 6px 15px}
+#taxon + #sidebar .article.updates form.edit_comment textarea {width: 300px}
 #taxon_detail #sidebar {float: left; width: 220px; padding: 0 20px 20px 20px; margin: 0 20px 0 0; border-bottom: 1px solid #ccd399; background: #f1f4dc}
 #taxon_detail #sidebar img {display: block; margin: 0 -20px 20px -20px}
 #taxon_detail #sidebar h4 {padding: 0 0 8px 0; font-size: 0.83em; text-transform: uppercase; color: #667309}
@@ -591,16 +626,21 @@ body > #header .section .session .sign_in a {color: #acd7ff}
 #taxon_detail #main > .section > form.comment textarea {width: 522px}
 #taxon_detail #main > .section > form.comment input[type="submit"] {padding: 7px 20px}
 #taxon_detail #main > .section > form.comment a.cancel {display: none}
-#taxon_resources .main_container {padding: 40px}
 #taxon_resources .main_container table.standard img {display: block}
 #text_object_new_edit fieldset {width: 640px; float: left}
-#text_object_new_edit fieldset.content + fieldset {width: 300px}
-#text_object_new_edit fieldset.content + fieldset input[type="text"] {width: 288px}
-#text_object_new_edit fieldset.content + fieldset textarea {width: 282px}
+#text_object_new_edit fieldset dl {margin: 0}
 #text_object_new_edit fieldset input[type="text"] {width: 308px; height: 22px; padding: 2px 5px; font: normal 1em Helvetica, Arial, sans-serif; border: 1px solid #cad3db; background-color: white; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white); background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white))}
 #text_object_new_edit fieldset textarea {width: 580px; height: 200px}
+#text_object_new_edit fieldset textarea#data_object_description {height: 300px}
+#text_object_new_edit fieldset.content + fieldset {width: 300px}
+#text_object_new_edit fieldset.content + fieldset input[type="text"] {width: 288px}
+#text_object_new_edit fieldset.content + fieldset textarea {width: 282px; height: 100px}
 #text_object_new_edit fieldset.actions {clear: both; width: 100%}
 #text_object_new_edit fieldset.actions input[type="submit"] {font-size: 1em; padding: 7px 20px; margin: 10px 20px 10px 0}
+#permalink .article.list.updates {padding: 0 10px}
+#permalink .article.list.updates > ul > li .editable {margin: 0}
+#permalink .article.list.updates > ul > li > a > img {margin: 15px 10px 0 0}
+#permalink .article.list.updates > ul > li .details {margin: 15px 0 0 0}
 #permalink .ratings h5 {float: left; padding: 0 0 5px 0; font-size: 1.16em}
 #permalink .ratings > .rating, #permalink .ratings .average_rating {overflow: hidden; padding: 10px 15px 11px 15px; margin: 0 0 20px 0; font-size: 1em; border: 3px solid #cad3db}
 #permalink .ratings > .rating > p, #permalink .ratings .average_rating > p {float: left; font-size: 1.1em; margin-top: 2px}
@@ -615,6 +655,7 @@ body > #header .section .session .sign_in a {color: #acd7ff}
 #permalink .ratings > .rating ul {width: 100px}
 #permalink .media {float: left; width: 540px; padding: 19px; margin: 0 0 40px 0; border: 1px solid #cad3db}
 #permalink .media img {display: block; margin: 0 auto}
+#permalink.image #main .article .copy {line-height: 170%; word-wrap: break-word}
 #permalink.text #main .article.copy {overflow: hidden; padding: 40px; margin: 0 0 40px 0; border: 1px solid #cad3db}
 #permalink.text #main .article.copy .references {margin: 20px 0 0 0; padding: 20px 0 0 0; border-top: 1px solid #cad3db}
 #permalink #main {clear: both; float: left; width: 580px}
@@ -622,6 +663,7 @@ body > #header .section .session .sign_in a {color: #acd7ff}
 #permalink #main form.comment textarea {width: 480px; height: 100px}
 #permalink #main form.edit_comment textarea {width: 540px}
 #permalink #sidebar {width: 340px; padding: 0}
+#permalink #sidebar .article.list > ul > li + li {border-top: none}
 #permalink #sidebar h3 {padding: 0 10px 3px 10px; font-size: 1.16em}
 #permalink #sidebar ul.review_status p {float: right; padding: 1px 2px; font-size: 0.75em; text-transform: uppercase; color: white}
 #permalink #sidebar ul.review_status p.trusted {border: 1px solid #6b7910; background: #849513}
@@ -665,6 +707,9 @@ body > #header .section .session .sign_in a {color: #acd7ff}
 #worklist .filters fieldset.actions {margin: 10px 0 0 0}
 #worklist .filters fieldset.actions input[type="submit"] {float: left; margin: 0 20px 0 0}
 #worklist .filters fieldset.actions p {display: inline; font-weight: bold; line-height: 170%; color: #667309}
+#worklist form.comment {padding: 20px 10px 0 10px; margin: 10px -10px 0 -10px; border-top: 1px solid #d7dadc}
+#worklist form.comment textarea {width: 420px; height: 100px}
+#worklist form.edit_comment textarea {width: 450px}
 #worklist #tasks {float: left; width: 380px}
 #worklist #tasks ul {float: left; width: 360px; margin: 0 20px 25px 0; border: 1px solid #93a4b0; border-top: none; border-bottom: none}
 #worklist #tasks ul li {clear: both; float: left; position: relative; width: 340px; padding: 10px; cursor: pointer; background: #f3f7fa; border-top: 1px solid #93a4b0}
@@ -688,6 +733,10 @@ body > #header .section .session .sign_in a {color: #acd7ff}
 #worklist #tasks p.more a {display: inline-block}
 #worklist #task {overflow: hidden; padding: 19px; border: 1px solid #93a4b0}
 #worklist #task #sidebar h3 {padding: 0 10px 3px 10px; font-size: 1.16em}
+#worklist #task .article.list.updates {padding: 0 10px}
+#worklist #task .article.list.updates > ul > li .editable {margin: 0}
+#worklist #task .article.list.updates > ul > li > a > img {margin: 15px 10px 0 0}
+#worklist #task .article.list.updates > ul > li .details {margin: 15px 0 0 0}
 #worklist #task .media {margin: 0 0 20px 0}
 #worklist #task .ratings {overflow: hidden}
 #worklist #task .rating, #worklist #task .average_rating {float: left; overflow: hidden; padding: 10px; margin: 0 0 20px 0; font-size: 1em; border: 3px solid #cad3db}
@@ -749,19 +798,7 @@ body > #header .section .session .sign_in a {color: #acd7ff}
 #collections_endorse li p {padding: 6px 0 0 0; font-weight: bold; line-height: 160%; color: #5f6c76}
 #collections_endorse li h4 {padding: 15px 0 0 0}
 #collections_endorse li a {display: block; font-size: 1.16em; text-decoration: none; color: #28323a}
-#taxon_community {padding: 0; border: none}
-#taxon_community .column {float: left; padding: 0 0 40px 0; margin: 0 20px 0 0}
-#taxon_community .column .summary {padding: 10px; border-left: 2px solid #cad3db}
-#taxon_community .column .summary h3 {padding: 0 0 5px 0; font-size: 1.33em}
-#taxon_community .column .summary p {line-height: 200%}
-#taxon_community .column .article {padding: 0 0 25px 0}
-#taxon_community .column .article ul {padding: 10px 0 0 10px}
-#taxon_community .column .article p.more {padding: 0 0 0 10px; font-weight: bold}
-#taxon_community .column .header {margin: 0}
-#taxon_community .column .heading form {float: none}
-#taxon_community .column.curators {clear: both; width: 220px}
-#taxon_community .column.collections {width: 340px}
-#taxon_community .column.communities {width: 340px; margin: 0}
+#taxon_community .article.list > ul > li + li {border: none}
 #taxon_maps #map p {margin: 10px}
 #taxon_maps #media_list {padding: 30px 0}
 #taxon_maps #media_list ul.media {padding: 0 30px}
@@ -778,7 +815,6 @@ body > #header .section .session .sign_in a {color: #acd7ff}
 #taxon_updates .page_statistics .copy {float: left; width: 380px; margin-top: 30px; background: #f3f7fa; border: 1px solid #cad3db; padding: 20px 20px 0 20px}
 #taxon_updates .update_feed form.comment textarea {width: 580px}
 #taxon_updates .update_feed .article.updates {padding: 0}
-#taxon_updates .update_feed .article.updates > ul > li {padding: 20px; border-bottom: 1px solid #d4dce2}
 #taxon_updates .update_feed .article.updates > ul > li form.comment {padding: 0; margin-bottom: 10px}
 #taxon_updates .update_feed .article.updates > ul > li form.edit_comment textarea {width: 650px}
 #comment_edit textarea {width: 600px; padding: 8px; font: normal 1em Helvetica, Arial, sans-serif; color: #394651; border: 1px solid #cad3db; background-color: white; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white); background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white))}
@@ -806,7 +842,7 @@ body > #header .section .session .sign_in a {color: #acd7ff}
 #profile_edit fieldset.profile dd img {display: block; margin: 0 0 15px 0; border: 1px solid #394651}
 #profile_edit fieldset.profile textarea {width: 282px; height: 120px}
 #profile_edit fieldset.account input[type="checkbox"], #profile_edit fieldset.account select {margin-left: 10px}
-#profile_edit fieldset.requests {width: 218px; margin: 0; padding: 0}
+#profile_edit fieldset.requests {float: right; width: 218px; margin: 0; padding: 0}
 #profile_edit fieldset.requests dl {padding: 20px 20px 10px 20px; margin-top: 20px; background: #f3f7fa; border: 1px solid #cad3db}
 #profile_edit fieldset.requests p {font-size: 0.9em; padding-top: 5px; font-weight: normal; line-height: 150%}
 #profile_edit fieldset.requests textarea {padding: 8px; font: normal 1em Helvetica, Arial, sans-serif; color: #394651; border: 1px solid #cad3db; background-color: white; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white); background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white)); width: 158px}
@@ -829,8 +865,9 @@ ul.spotlite-matches li.spotlite-selected {background: #f1f4dc}
 #modal #choose_collections ul li a, #modal #choose_collections ul li span, #modal #choose_communities ul li a, #modal #choose_communities ul li span {font-size: 0.95em}
 #modal #choose_collections ul li + li, #modal #choose_communities ul li + li {border-top: 1px solid #cad3db}
 #modal_layer {display: none; z-index: 998; position: fixed; background: #28323a; opacity: 0.8; filter: alpha(opacity=80); top: 0; left: 0; width: 100%; height: 100%}
-#social_sharing {margin: 0 0 10px 0; width: 100%}
-#social_sharing > div {display: inline-block; vertical-align: top}
+#social_sharing {margin: 5px 0; min-height: 20px}
+#social_sharing > div {position: absolute}
+#social_sharing > div.facebook {margin-left: 90px}
 .assistive, #header .assistive {position: absolute; left: -999em}
 body.home > #header {background: transparent url("/images/v2/bg_home_earth.jpg") 50% 100% no-repeat}
 html.busy, html.busy *, .busy {cursor: wait}
@@ -870,6 +907,7 @@ form#switch_hierarchy_entry fieldset {display: inline}
 .meta.learn_more p {text-transform: lowercase}
 .meta.learn_more p:first-child:before {content: ""; margin: 0 !important}
 #content.session form.terms_agreement {padding: 75px 69px; width: 500px}
+#content.session p {padding-bottom: 2em}
 #content.session .pending {width: 320px; min-height: 225px; padding: 75px 159px; margin: 0 auto; border: 1px solid #cad3db; background: #f0f4f7 url("/images/v2/bg_sign-in.gif") 0 0 no-repeat}
 #new_user iframe {width: 320px; overflow: auto}
 #content.cms_page .header {border-bottom: 1px solid #394651; text-align: center}
@@ -908,28 +946,6 @@ form#switch_hierarchy_entry fieldset {display: inline}
 .donate fieldset.actions {margin-bottom: 40px}
 .donate em {font-weight: bold}
 .cms_page #content_partners #sidebar input[type="text"] {width: 118px}
-#new_content_partner_agreement dl, form.edit_content_partner_agreement dl {clear: both}
-#new_content_partner_agreement dl dd, form.edit_content_partner_agreement dl dd {margin: 0 0 10px 0}
-#new_content_partner_agreement dl dd input[type="text"], form.edit_content_partner_agreement dl dd input[type="text"] {width: 308px; height: 22px; padding: 2px 5px; font: normal 1em Helvetica, Arial, sans-serif; border: 1px solid #cad3db; background-color: white; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white); background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white))}
-#new_content_partner_agreement dl dd textarea, form.edit_content_partner_agreement dl dd textarea {width: 700px; height: 22px; padding: 2px 5px; font: normal 1em Helvetica, Arial, sans-serif; border: 1px solid #cad3db; background-color: white; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white); background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white)); height: 400px}
-#content_partner_show .empty {font-size: 1em}
-#content_partner_show .agreement address {display: block; width: 40%; line-height: 170%}
-#content_partner_show .agreement address.partner {float: left}
-#content_partner_show .agreement address.eol {float: right}
-#content_partner_show dl.agreement {margin: 0 0 15px 0; line-height: 140%}
-#content_partner_show dl.agreement dd {margin-bottom: 5px}
-#content_partner_show #resources_show .section.half {float: left; width: 299px; margin-right: 20px}
-#content_partner_show #resources_show .section dl {line-height: 140%; margin: 0 0 40px 0}
-#content_partner_show #resources_show .section dl dt {font-weight: bold}
-#content_partner_show #resources_show .section dl dd {margin: 0 0 5px 20px}
-#content_partner_edit.site_column, #content_partner_new.site_column {width: 640px}
-ul.content_partner_contacts li {margin: 0 0 20px 0}
-#content_partner_statistics .main_container {border: none; padding: 0}
-#content_partner_statistics .header {border-top: 1px solid #cad3db; padding-top: 1em; margin-top: 40px}
-#content_partner_statistics .heading {text-align: center}
-#content_partner_statistics .heading fieldset, #content_partner_statistics .heading input[type="submit"] {display: inline; margin: 0}
-#content_partner_statistics table {margin-top: 20px}
-#content_partner_statistics table caption {line-height: 170%; font-size: 1.08em; font-weight: bold}
 p.status.error {border: 1px solid #f2d2cc; background: #ffeae6}
 .home #content {padding-bottom: 20px}
 .home p.status.notice, .home p.status.error, .home p.status.warning {clear: both; padding: 7px 10px; margin: 0; line-height: 140%; font-size: 1.08em; font-weight: bold; text-align: center; color: #394651; border: 1px solid #c7d471; background: #edf6b2}
@@ -996,8 +1012,6 @@ body > #header .section .session.join a {color: #90bce4}
 #iucn_status.positive {border-color: #c7d471; background: #edf6b2}
 #iucn_status.positive a {color: #809203}
 #iucn_status.negative {border-color: #f2d2cc; background: #ffeae6}
-.disclaimer {clear: both; border-top: 1px solid #cad3db; padding-top: 10px}
-.disclaimer p {text-align: center; font-size: 0.9em; color: #394651; margin: 0}
 #classification_browser {border: 1px solid #d7dadc; overflow-x: auto; padding: 10px 15px; margin: 0 -10px 20px -10px}
 #classification_browser > ul {line-height: 160%; font-size: 0.9em}
 #classification_browser > ul li {white-space: nowrap}
@@ -1027,7 +1041,6 @@ body > #header .section .session.join a {color: #90bce4}
 #text_summary.article .copy {margin: 0 0 15px 0; line-height: 170%}
 #taxon_community .main_container .article .header h4 {float: left; padding: 0 10px 3px 10px; font-size: 1.16em; border-bottom: 3px solid #394651}
 #taxon_community .main_container .list img {max-width: 68px; max-height: 68px; width: expression(this.width > 68 ? "68px" : true); height: expression(this.height > 68 ? "68px" : true)}
-#taxon_literature .main_container, #taxon_community .main_container, #taxon_resources .main_container {padding: 20px}
 #taxon_literature h3, #taxon_community h3, #taxon_resources h3 {font-size: 2em}
 #taxon_resources table.standard tbody > tr > td > a > img {max-width: 90px}
 #taxon_resources #taxon_detail > #main > h3 {padding: 0 20px 20px 0; font-size: 2em}
@@ -1047,15 +1060,13 @@ body > #header .section .session.join a {color: #90bce4}
 #wikipedia_queue form dd input[type="text"] {width: 308px; height: 22px; padding: 2px 5px; font: normal 1em Helvetica, Arial, sans-serif; border: 1px solid #cad3db; background-color: white; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white); background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white)); width: 540px}
 #wikipedia_queue form input[type="submit"] {padding: 7px 10px; font-size: 1em}
 .object_list div.checkbox {margin: 0}
-#collections .heading fieldset {display: inline; margin: 0}
 #map_image {height: 350px}
 #media_summary .image > a img {max-width: 430px; max-height: 310px; width: expression(this.width > 430 ? "430px" : true); height: expression(this.height > 310 ? "310px" : true)}
 #header .session img {max-width: 48px; max-height: 48px; width: expression(this.width > 48 ? "48px" : true); height: expression(this.height > 48 ? "48px" : true)}
 #collections_summary ul li > a > img, #communities_summary ul li > a > img, #curators_summary ul li > a > img {max-width: 48px; max-height: 48px; width: expression(this.width > 48 ? "48px" : true); height: expression(this.height > 48 ? "48px" : true)}
-#collections .collections .article > .header > a > img {max-width: 48px; max-height: 48px; width: expression(this.width > 48 ? "48px" : true); height: expression(this.height > 48 ? "48px" : true)}
-#community .article.list img {max-width: 48px; max-height: 48px; width: expression(this.width > 48 ? "48px" : true); height: expression(this.height > 48 ? "48px" : true)}
+#collection.main_container .taxon > img {max-width: 88px; max-height: 88px; width: expression(this.width > 88 ? "88px" : true); height: expression(this.height > 88 ? "88px" : true)}
+#collection .collections .article > .header > a > img {max-width: 48px; max-height: 48px; width: expression(this.width > 48 ? "48px" : true); height: expression(this.height > 48 ? "48px" : true)}
 #page_heading.with_image img, #page_heading.profile img {max-width: 88px; max-height: 88px; width: expression(this.width > 88 ? "88px" : true); height: expression(this.height > 88 ? "88px" : true)}
-#collections.main_container .taxon > img {max-width: 88px; max-height: 88px; width: expression(this.width > 88 ? "88px" : true); height: expression(this.height > 88 ? "88px" : true)}
 #sidebar .collection_list img, #sidebar .collection_contributors img, #sidebar .content_partner_managers img {max-width: 35px; max-height: 35px; width: expression(this.width > 35 ? "35px" : true); height: expression(this.height > 35 ? "35px" : true)}
 #text_summary p.flag {float: left}
 #text_summary .attribution {clear: none}
@@ -1117,6 +1128,7 @@ a.other_actions {float: right; margin-top: 1em}
 .site_column > #choose_collections ul li span, .site_column > #choose_communities ul li span {font-size: 0.95em}
 .site_column > #choose_collections ul li + li, .site_column > #choose_communities ul li + li {border-top: 1px solid #cad3db}
 #search_results ul.object_list li {white-space: nowrap}
+.cms_page span.icon {background: #f3f7fa url("/images/v2/icon_info_tabs.png") 50% 50% no-repeat}
 #taxon_maps #media_list {padding: 0}
 #taxon_detail #sidebar {padding: 0; padding-bottom: 20px; width: 260px}
 #taxon_detail #sidebar #toc {margin: 0px 20px}
@@ -1126,8 +1138,6 @@ a.other_actions {float: right; margin-top: 1em}
 ul li.newsfeed a {padding: 7px 10px 6px !important; font-size: 12px !important}
 ul li.total {margin-top: 20px}
 ul li.editors a {padding: 7px 10px 6px !important; font-size: 12px !important}
-div.newsfeed_heading {padding: 6px 10px 5px; text-align: left; font-weight: bold; text-transform: uppercase; background: none repeat scroll 0 0 #f1f4dc; border-bottom: 1px solid #ccd399}
-div.newsfeed_heading h3 {color: #828d33; font-weight: bold; text-transform: uppercase; font-size: 1em}
 ul.media li .overlay {height: auto !important}
 body#prelaunch p.status {clear: both; padding: 7px 10px; font-size: 1.16em; font-weight: bold; text-align: center; color: #394651; border: 2px solid #c7d471; background: #edf6b2}
 body#prelaunch #footer ul.social_media {margin-top: 20px}

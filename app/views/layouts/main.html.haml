@@ -114,7 +114,7 @@
             %span.quote
               "Imagine an electronic page for each species of organism on Earth..."
             \- Edward O. Wilson
-          - if logged_in? && $ALLOW_USER_LOGINS && !agent_logged_in?
+          - if logged_in? && $ALLOW_USER_LOGINS
             .desc-personal
               %p
                 %strong
@@ -131,7 +131,7 @@
                 = link_to( I18n.t(:your_preferences) , {:controller => '/account', :action => 'profile'}, {:class => 'return_to'})
                 |
                 = link_to( I18n.t(:logout) , logout_url, {:class => 'return_to'})
-          - elsif $ALLOW_USER_LOGINS && !agent_logged_in?
+          - elsif $ALLOW_USER_LOGINS
             %p
               = link_to( I18n.t(:login) , {:controller => '/account', :action => 'login'}, {:class => 'return_to'})
               |
@@ -139,15 +139,6 @@
           - elsif $ALLOW_USER_LOGINS == false && @home_page.nil?
             %p
               =  I18n.t(:user_system_down)
-          - elsif agent_logged_in?
-            .desc-personal
-              %p
-                %strong
-                  =  I18n.t(:hello_user , :user => current_agent.full_name)
-                = @home_page.nil? ? "</p><p>" : " | "
-                = link_to( I18n.t(:dashboard) ,:controller => '/content_partner',:action => 'index')
-                |
-                = link_to( I18n.t(:logout) , {:controller => '/content_partner',:action => 'logout'},  {:class => 'return_to'})
           %hr
         #quick-search
           = render :partial => "/layouts/search_field"

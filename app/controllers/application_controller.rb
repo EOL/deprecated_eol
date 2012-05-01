@@ -3,11 +3,13 @@ begin
   require 'ruby-prof'
   puts "** Ruby Profiler loaded.  You can profile requests, now."
 rescue MissingSourceFile
-  # Do nothing, we don't care and we don't want anyone to freak out from a warning..
+  # Do nothing, we don't care and we don't want anyone to freak out from a warning.
 end
-ContentPage # TODO - figure out why this fails to autoload.  Look at http://kballcodes.com/2009/09/05/rails-memcached-a-better-solution-to-the-undefined-classmodule-problem/
+ContentPage # This fails to auto-load.  Could be a memcached thing, but easy enough to fix here.
 
 class ApplicationController < ActionController::Base
+
+  include ImageManipulation
 
   # Map custom exceptions to default response codes
   ActionController::Base.rescue_responses.update(
@@ -18,8 +20,22 @@ class ApplicationController < ActionController::Base
   )
 
   filter_parameter_logging :password
-  include ContentPartnerAuthenticationModule # TODO -seriously?!?  You want all that cruft available to ALL controllers?!
-  include ImageManipulation
+
+  around_filter :profile
+
+  before_filter :original_request_params # store unmodified copy of request params
+  before_filter :global_warning
+  before_filter :check_if_mobile if $ENABLE_MOBILE
+  before_filter :clear_any_logged_in_session unless $ALLOW_USER_LOGINS
+  before_filter :check_user_agreed_with_terms, :except => :error
+  before_filter :set_locale
+
+  prepend_before_filter :redirect_to_http_if_https
+  prepend_before_filter :keep_home_page_fresh
+
+  helper :all
+
+  helper_method :logged_in?, :current_url, :current_user, :current_language, :return_to_url, :link_to_item
 
   # If recaptcha is not enabled, then override the method to always return true
   unless $ENABLE_RECAPTCHA
@@ -27,24 +43,6 @@ class ApplicationController < ActionController::Base
       true
     end
   end
-
-  before_filter :original_request_params # store unmodified copy of request params
-  before_filter :global_warning
-  before_filter :check_if_mobile if $ENABLE_MOBILE
-
-  prepend_before_filter :redirect_to_http_if_https
-  prepend_before_filter :keep_home_page_fresh
-  before_filter :clear_any_logged_in_session unless $ALLOW_USER_LOGINS
-  before_filter :check_user_agreed_with_terms, :except => :error
-
-  helper :all
-
-  helper_method :logged_in?, :current_url, :current_user, :current_language, :return_to_url, :current_agent,
-    :agent_logged_in?, :allow_page_to_be_cached?, :link_to_item
-
-  before_filter :set_locale
-
-  around_filter :profile
 
   def profile
     return yield if params[:profile].nil?
@@ -117,11 +115,6 @@ class ApplicationController < ActionController::Base
     include TaxaHelper
     include ApplicationHelper
     include ActionView::Helpers::SanitizeHelper
-  end
-
-  # this method determines if the main taxa page is allowed to be cached or not
-  def allow_page_to_be_cached?
-    return !(agent_logged_in? or current_user.is_admin?)
   end
 
   # store a given URL (defaults to current) in case we need to redirect back later
@@ -255,10 +248,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def expire_data_object(data_object_id)
-    # TODO: re-implement caching and review caching practices
-  end
-
   # NOTE: If you want to expire it's ancestors, too, use #expire_taxa.
   def expire_taxon_concept(taxon_concept_id, params = {})
     # TODO: re-implement caching and review caching practices
@@ -307,7 +296,6 @@ class ApplicationController < ActionController::Base
   # Boot all users out when we don't want logins (note: preserves language):
   def clear_any_logged_in_session
     session[:user_id] = nil
-    current_agent = nil
   end
 
   def logged_in?

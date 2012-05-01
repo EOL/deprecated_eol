@@ -70,7 +70,7 @@
         = render :partial => "/layouts/v2/search"
         - if logged_in?
           = render :partial => 'sessions/session_summary'
-        - elsif $ALLOW_USER_LOGINS && !agent_logged_in?
+        - elsif $ALLOW_USER_LOGINS
           = render :partial => 'shared/join_eol', :locals => {:join_style => @home_page ? 'button' : nil}
         - elsif $ALLOW_USER_LOGINS == false && @home_page.nil?
           .session

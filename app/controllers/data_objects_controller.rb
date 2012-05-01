@@ -101,9 +101,9 @@ class DataObjectsController < ApplicationController
     # Note: replicate doesn't actually update, it creates a new data_object
     toc_ids = params[:data_object].delete(:toc_items)[:id].to_a
     @data_object = @data_object.replicate(params[:data_object], :toc_id => toc_ids)
-    @selected_toc_item_id = @data_object.toc_items.first.id unless @data_object.nil? rescue nil
 
     if @data_object.nil? || @data_object.errors.any?
+      @selected_toc_item_id = toc_ids.first.to_i rescue nil
       # TODO: this is unpleasant, we are using update to create a new data object so @data_object.new_record?
       # is now true. The edit action expects a data_object id, but we need the new values.
       failed_to_update_data_object and return
@@ -130,7 +130,6 @@ class DataObjectsController < ApplicationController
 
     if stars.to_i > 0
       rated_successfully = @data_object.rate(current_user, stars.to_i)
-      expire_data_object(@data_object.id)
       current_user.log_activity(:rated_data_object_id, :value => @data_object.id)
     end
 

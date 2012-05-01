@@ -1,9 +1,4 @@
 - hide  = "display:none"
-- style = dato.published? ? hide : nil
-%li.unpublished_icon.status_icon{:title => "Unpublished", :style => style} 
-- style = (dato.published? && agent_logged_in? && !dato.data_supplier_agent.nil? && current_agent.id == dato.data_supplier_agent.id) ? nil : hide
-%li.published_icon.status_icon{:title => "Published", :style => style}
-- style = dato.inappropriate? ? nil : hide
-%li.inappropriate_icon.status_icon{:title => "Inappropriate", :style => style}
-- style = dato.invisible? ? nil : hide
-%li.invisible_icon.status_icon{:title => "Hidden", :style => style}
+%li.unpublished_icon.status_icon{:title => "Unpublished", :style => dato.published? ? hide : nil} 
+%li.inappropriate_icon.status_icon{:title => "Inappropriate", :style => dato.inappropriate? ? nil : hide}
+%li.invisible_icon.status_icon{:title => "Hidden", :style => dato.invisible? ? nil : hide}

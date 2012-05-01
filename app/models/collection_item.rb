@@ -88,7 +88,7 @@ class CollectionItem < ActiveRecord::Base
       params['title'] = self.object.username
     when "DataObject"
       params['title'] = self.object.best_title
-      params['data_rating'] = self.object.data_rating || 0
+      params['data_rating'] = self.object.safe_rating
     when "Community"
       params['title'] = self.object.name
     when "Collection"

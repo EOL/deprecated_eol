@@ -256,6 +256,11 @@ de:
         wrong_length: hat die falsche Länge (sollte %{count} Zeichen lang sein)
         wrong_type: hat den falschen Typ
       models: 
+        data_object: 
+          attributes: 
+            rights_holder: 
+              blank: darf im Fall einer CC-BY-Lizenz nicht leer sein
+              inclusion: muss im Fall der Gemeinfreiheit leer sein
         harvest_event: 
           attributes: 
             publish: 
@@ -393,7 +398,7 @@ de:
         an_unknown_user_associated_data_object_to_association: Ein unbekannter Nutzer hat zwischen „%{data_object}“ und „%{association}“ eine Zuordnung vorgenommen.
         an_unknown_user_associated_it_to_an_unknown_association: Ein unbekannter Nutzer hat zu einer unbekannten Seite eine Zuordnung vorgenommen.
         an_unknown_user_associated_it_to_association: Ein unbekannter Nutzer hat zu „%{association}“ eine Zuordnung vorgenommen.
-        user_associated_an_older_data_object_to_an_unknown_association: <strong>%{user}</strong> hat zwischen einer älterer Version von „%{data_object}“ und einer unbekannten Seite eine Zuordnung vorgenommen.
+        user_associated_an_older_data_object_to_an_unknown_association: <strong>%{user}</strong> hat zwischen einer älteren Version von „%{data_object}“ und einer unbekannten Seite eine Zuordnung vorgenommen.
         user_associated_an_older_data_object_to_association: <strong>%{user}</strong> hat zwischen einer älteren Version von „%{data_object}“ und „%{association}“ eine Zuordnung vorgenommen.
         user_associated_an_unknown_data_object_to_an_unknown_association: <strong>%{user}</strong> hat eine unbekannte Zuordnung vorgenommen.
         user_associated_an_unknown_data_object_to_association: <strong>%{user}</strong> hat zwischen einem unbekannten Datenobjekt und „%{association}“ eine Zuordnung vorgenommen.
@@ -401,6 +406,36 @@ de:
         user_associated_data_object_to_association: <strong>%{user}</strong> hat zwischen „%{data_object}“ und „%{association}“ eine Zuordnung vorgenommen.
         user_associated_it_to_an_unknown_association: <strong>%{user}</strong> hat auf einer unbekannten Seite eine Zuordnung vorgenommen.
         user_associated_it_to_association: <strong>%{user}</strong> hat zu „%{association}“ eine Zuordnung vorgenommen.
+      add_common_name: 
+        an_unknown_user_added_an_unknown_name_to_an_unknown_taxon: Ein unbekannter Nutzer hat einer unbekannten Seite einen unbekannten gebräuchlichen Name zugeordnet.
+        an_unknown_user_added_an_unknown_name_to_it: Ein unbekannter Nutzer hat einen unbekannten gebräuchlichen Namen zugeordnet.
+        an_unknown_user_added_an_unknown_name_to_taxon: Ein unbekannter Nutzer hat „%{taxon}“ einen unbekannten gebräuchlichen Name zugeordnet.
+        an_unknown_user_added_name_to_an_unknown_taxon: Ein unbekannter Nutzer hat einer unbekannten Seite den gebräuchlichen Namen „%{name}“ zugeordnet.
+        an_unknown_user_added_name_to_it: Ein unbekannter Nutzer hat den gebräuchlichen Namen „%{name}“ zugeordnet.
+        an_unknown_user_added_name_to_taxon: Ein unbekannter Nutzer hat „%{taxon}“ den gebräuchlichen Namen „%{name}“ zugeordnet.
+        user_added_an_unknown_name_to_an_unknown_taxon: <strong>%{user}</strong> hat einer unbekannten Seite einen unbekannten gebräuchlichen Namen zugeordnet.
+        user_added_an_unknown_name_to_it: <strong>%{user}</strong> hat einen unbekannten gebräuchlichen Namen zugeordnet.
+        user_added_an_unknown_name_to_taxon: <strong>%{user}</strong> hat „%{taxon}“ einen unbekannten gebräuchlichen Namen zugeordnet.
+        user_added_name_to_an_unknown_taxon: <strong>%{user}</strong> hat einer unbekannten Seite den gebräuchlichen Namen „%{name}“ zugeordnet.
+        user_added_name_to_it: <strong>%{user}</strong> hat den gebräuchlichen Namen „%{name}“ zugeordnet.
+        user_added_name_to_taxon: <strong>%{user}</strong> hat „%{taxon}“ den gebräuchlichen Namen „%{name}“ zugeordnet.
+      choose_exemplar: 
+        an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: Ein unbekannter Nutzer legte eine ältere Version von „%{data_object}“ auf einer unbekannten Seite als beispielhaft fest.
+        an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: Ein unbekannter Nutzer legte „%{data_object}“ als beispielhaft für „%{taxon}“ fest.
+        an_unknown_user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: Ein unbekannter Nutzer legte ein unbekanntes Bild als beispielhaft fest.
+        an_unknown_user_chose_exemplar_an_unknown_data_object_on_taxon: Ein unbekannter Nutzer legte ein unbekanntes Datenobjekt als beispielhaft für „%{taxon}“ fest.
+        an_unknown_user_chose_exemplar_data_object_on_an_unknown_taxon: Ein unbekannter Nutzer legte „%{data_object}“ auf einer unbekannten Seite als beispielhaft fest.
+        an_unknown_user_chose_exemplar_data_object_on_taxon: Ein unbekannter Nutzer legte „%{data_object}“ als beispielhaft für „%{taxon}“ fest.
+        an_unknown_user_chose_exemplar_it_on_an_unknown_taxon: Ein unbekannter Nutzer legte es auf einer unbekannten Seite als beispielhaft fest.
+        an_unknown_user_chose_exemplar_it_on_taxon: Ein unbekannter Nutzer legte es als beispielhaft für „%{taxon}“ fest.
+        user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: <strong>%{user}</strong> legte eine ältere Version von „%{data_object}“ auf einer unbekannten Seite als beispielhaft fest.
+        user_chose_exemplar_an_older_data_object_on_taxon: <strong>%{user}</strong> legte eine ältere Version von „%{data_object}“ als beispielhaft für „%{taxon}“ fest.
+        user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: <strong>%{user}</strong> legte ein unbekanntes Bild als beispielhaft fest.
+        user_chose_exemplar_an_unknown_data_object_on_taxon: <strong>%{user}</strong> legte ein unbekanntes Datenobjekt als beispielhaft für „%{taxon}“ fest.
+        user_chose_exemplar_data_object_on_an_unknown_taxon: <strong>%{user}</strong> legte „%{data_object}“ auf einer unbekannten Seite als beispielhaft fest.
+        user_chose_exemplar_data_object_on_taxon: <strong>%{user}</strong> legte „%{data_object}“ als beispielhaft für „%{taxon}“ fest.
+        user_chose_exemplar_it_on_an_unknown_taxon: <strong>%{user}</strong> legte es auf einer unbekannten Seite als beispielhaft fest.
+        user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> legte es als beispielhaft für „%{taxon}“ fest.
       hide: 
         an_unknown_user_hid_an_older_data_object_on_an_unknown_association: Ein unbekannter Nutzer markierte eine ältere Version von „%{data_object}“ in einem unbekannten Zusammenhang als nicht sichtbar.
         an_unknown_user_hid_an_older_data_object_on_association: Ein unbekannter Nutzer markierte eine ältere Version von „%{data_object}“ auf der Seite „%{association}“ als nicht sichtbar.
@@ -429,6 +464,25 @@ de:
         an_unknown_user_disassociated_an_older_data_object_from_taxon: Ein unbekannter Nutzer hat zwischen „%{data_object}“ und „%{taxon}“ eine Zuordnung entfernt.
         an_unknown_user_disassociated_an_unknown_data_object_from_an_unknown_taxon: Ein unbekannter Nutzer hat eine unbekannte Zuordnung entfernt.
         an_unknown_user_disassociated_an_unknown_data_object_from_taxon: Ein unbekannter Nutzer hat zwischen einem unbekannten Datenobjekt und „%{taxon}“ eine Zuordnung entfernt.
+        an_unknown_user_disassociated_data_object_from_an_unknown_taxon: Ein unbekannter Nutzer hat eine Zuordnung zwischen „%{data_object}“ und einer unbekannten Seite entfernt.
+        an_unknown_user_disassociated_data_object_from_taxon: Ein unbekannter Nutzer hat eine Zuordnung zwischen „%{data_object}“ und „%{taxon}“ entfernt.
+        an_unknown_user_disassociated_it_from_an_unknown_taxon: Ein unbekannter Nutzer hat eine Zuordnung zu einer unbekannten Seite entfernt.
+        an_unknown_user_disassociated_it_from_taxon: Ein unbekannter Nutzer hat eine Zuordnung zu „%{association}“ entfernt.
+        user_disassociated_an_older_data_object_from_an_unknown_taxon: <strong>%{user}</strong> hat eine Zuordnung zwischen einer älteren Version von „%{data_object}“ und einer unbekannten Seite entfernt.
+        user_disassociated_an_older_data_object_from_taxon: <strong>%{user}</strong> hat eine Zuordnung zwischen einer älteren Version von „%{data_object}“ und „%{taxon}“ entfernt.
+        user_disassociated_an_unknown_data_object_from_an_unknown_taxon: <strong>%{user}</strong> hat eine unbekannte Zuordnung entfernt.
+        user_disassociated_an_unknown_data_object_from_taxon: <strong>%{user}</strong> hat eine Zuordnung zwischen einem unbekannten Datenobjekt und „%{taxon}“ entfernt.
+        user_disassociated_data_object_from_an_unknown_taxon: <strong>%{user}</strong> hat eine Zuordnung zwischen „%{data_object}“ und einer unbekannten Seite entfernt.
+        user_disassociated_data_object_from_taxon: <strong>%{user}</strong> hat eine Zuordnung zwischen „%{data_object}“ und „%{taxon}“ entfernt.
+        user_disassociated_it_from_an_unknown_taxon: <strong>%{user}</strong> hat eine Zuordnung zu einer unbekannten Seite entfernt.
+        user_disassociated_it_from_taxon: <strong>%{user}</strong> hat eine Zuordnung zu „%{association}“ entfernt.
+      remove_common_name: 
+        an_unknown_user_removed_name_from_an_unknown_taxon: Ein unbekannter Nutzer hat von einer unbekannten Seite einen gebräuchlichen Namen entfernt.
+        an_unknown_user_removed_name_from_it: Ein unbekannter Nutzer hat einen gebräuchlichen Namen entfernt.
+        an_unknown_user_removed_name_from_taxon: Ein unbekannter Nutzer hat von „%{taxon}“ einen gebräuchlichen Namen entfernt.
+        user_removed_name_from_an_unknown_taxon: <strong>%{user}</strong> hat von einer unbekannten Seite einen gebräuchlichen Namen entfernt.
+        user_removed_name_from_it: <strong>%{user}</strong> hat einen gebräuchlichen Namen entfernt.
+        user_removed_name_from_taxon: <strong>%{user}</strong> hat von „%{taxon}“ einen gebräuchlichen Namen entfernt.
       show: 
         an_unknown_user_showed_an_older_data_object_on_an_unknown_association: Ein unbekannter Nutzer markierte eine ältere Version von „%{data_object}“ in einem unbekannten Zusammenhang als sichtbar.
         an_unknown_user_showed_an_older_data_object_on_association: Ein unbekannter Nutzer markierte eine ältere Version von „%{data_object}“ auf der Seite „%{association}“ als sichtbar.
@@ -571,7 +625,7 @@ de:
   admin_information: Dies ist die neue Administrationskonsole von EOL V2. Wir sind gerade dabei die Administrationsfunktionen von EOL V1 hierher zu übertragen. Sofern der Administrationsbereich, den Sie suchen, hier nicht aufgeführt ist, bitten wir Sie, die <a href="/administrator">Administrationskonsole von EOL V1</a> aufzurufen.
   admin_link: Übersicht
   admin_login_confirmation: Sind Sie sicher, dass Sie sich zur Registrierung von Inhaltspartnern als %{name} anmelden möchten? Sofern Sie dies tun, werden Sie als Administrator von der Website abgemeldet.
-  admin_notes_not_visible_to_user: "Anmerkungen für Administratoren (für Benutzer nicht sichtbar):"
+  admin_notes_not_visible_to_user: "Anmerkungen für Administratoren (für Nutzer nicht sichtbar):"
   admin_page_title: "Verwaltung: Übersicht"
   admin_spam_delete: Spam löschen
   admin_statistics_link: Statistiken
@@ -864,7 +918,7 @@ de:
   common_names_with_count: 
     one: Ein gebräuchlicher Name
     other: "%{count} gebräuchliche Namen"
-  common_user_activity_page_title: Allgemeine Benutzeraktivität
+  common_user_activity_page_title: Allgemeine Nutzeraktivität
   communities: 
     collections: 
       index: 
@@ -1301,7 +1355,7 @@ de:
   donation_sponsorship_infrastructure_title: Infrastruktur
   donation_sponsorship_preamble: Sofern Sie mehr über verfügbare spezifischen Förderprogramme erfahren oder regelmäßig Spenden möchten, bitten wir Sie das Sekretariat der Enzyklopädie des Lebens (EOL) per <a href="mailto:%{email_address}">E-Mail</a> zu kontaktieren.
   done_already: Bereits erledigt
-  dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Unbekannte Registrierungsdaten nicht anzeigen (v1.0-Benutzer, alle vor dem 5. Januar 2009)
+  dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Unbekannte Registrierungsdaten nicht anzeigen (v1.0-Nutzer, alle vor dem 5. Januar 2009)
   download_wav_file: WAV-Datei herunterladen
   dublin_core: Dublin Core
   duplicate_items_were_ignored: Dubletten wurden ignoriert.
@@ -1340,6 +1394,7 @@ de:
   email_error_notification_activ: Fehlerbenachrichtigung per E-Mail aktiv
   email_recipients: E-Mail-Empfänger
   email_updates_for_eol_addicts: Neuigkeiten für EOL-Enthusiasten.
+  email_updates_for_eol_members: Nachrichten, welche die allermeisten EOL-Mitglieder erhalten möchten.
   encyclopedia_of_life: Enzyklopädie des Lebens
   endorsed_by: Präsentiert von
   endorsed_collections: Empfohlene Sammlungen
@@ -1406,7 +1461,7 @@ de:
   file: Datei
   file_id: Dateikennung
   file_size: Dateigröße
-  fill_in_a_message_below_to_send_email_to_user: "Verfassen Sie hier eine Nachricht, die an diesen Benutzer der Website geschickt werden soll. Die Nachricht wird nach dem Speichern dieses Formulars versandt:"
+  fill_in_a_message_below_to_send_email_to_user: "Verfassen Sie hier eine Nachricht, die an diesen Nutzer der Website geschickt werden soll. Die Nachricht wird nach dem Speichern dieses Formulars versandt:"
   filter_button: Filtern
   filter_by_day: Nach Tag filtern
   filter_by_status: Nach Status filtern
@@ -1489,7 +1544,7 @@ de:
   get_help_choosing_a_subchapter: Holen Sie sich Hilfe zur Auswahl eines Unterkapitels
   get_more_tasks: weitere Aufgaben abrufen
   given_name_colon: "Vorname:"
-  given_the_vast_number: Angesichts der Vielzahl an wissenschaftlichen und gebräuchlichen Namen (fast 20 Millionen insgesamt) ist es eine schwierige Aufgabe, einem Benutzer genau die Art anzuzeigen, die er zu finden hofft. Es gibt beispielsweise im Englischen mehrere Vogel- und Fischarten mit Namen ''Robin'' sowie einen Wissenschaftler gleichen Namens, der etlichen Arten beschrieben hat. Es gibt daher der Parameter „exakt“, der nur diejenigen Ergebnisse zurückgibt, die mit dem Suchbegriff identisch sind. Dennoch kann nicht sichergestellt werden, dass die ermittelten Taxa dem Gesuchten entsprechen. Wir sind ständig dabei, die Relevanz der Suchergebnisse zu verbessern. In naher Zukunft sind z. B. Verbesserungen bei der Sortierung der Suchergebnisse zu erwarten.
+  given_the_vast_number: Angesichts der Vielzahl an wissenschaftlichen und gebräuchlichen Namen (fast 20 Millionen insgesamt) ist es eine schwierige Aufgabe, einem Nutzer genau die Art anzuzeigen, die er zu finden hofft. Es gibt beispielsweise im Englischen mehrere Vogel- und Fischarten mit Namen ''Robin'' sowie einen Wissenschaftler gleichen Namens, der etlichen Arten beschrieben hat. Es gibt daher der Parameter „exakt“, der nur diejenigen Ergebnisse zurückgibt, die mit dem Suchbegriff identisch sind. Dennoch kann nicht sichergestellt werden, dass die ermittelten Taxa dem Gesuchten entsprechen. Wir sind ständig dabei, die Relevanz der Suchergebnisse zu verbessern. In naher Zukunft sind z. B. Verbesserungen bei der Sortierung der Suchergebnisse zu erwarten.
   gives_access_to_a_single_hierarchy_indexed_by_eol: ermöglicht den Zugriff auf eine einzelne von EOL indizierte Hierarchie und seine internen Beziehungen
   global_access_tagline: Globaler Zugang zum Wissen über das Leben auf der Erde.
   global_navigation: Globale Navigation
@@ -1557,6 +1612,7 @@ de:
         email_reports_frequency_hours_more: E-Mail-Berichte werden nur dann versandt, sofern es Kommentare oder Aktionen von Kuratoren zu Ihren Daten oder den Seiten zu Taxa gab, die für Ihre Daten relevant waren.
       data_object: 
         bibliographic_citation: Bibliographische Zitierung
+        bibliographic_citation_more: Eine empfohlene Zitierform für diese Daten in Form eines einen bibliographischen Verweises enthält ausreichende Einzelheiten, um die Daten so eindeutig wie möglich identifizieren zu können.
         description: Text <small>(HTML-Code ist zulässig)</small>
         license_id: Lizenz
         license_id_more: Lesen Sie die <a href="%{policy_url}">Lizenzbestimmungen von EOL</a>
@@ -2372,6 +2428,8 @@ de:
     data_object_title: "%{who} hat der EOL neue Inhalte hinzugefügt"
     default_subject: Kürzliche Aktivitäten auf EOL
     intro: Ihre Zusammenfassung zu Aktivitäten auf EOL für %{time}
+    intro_immediately: Hallo %{name} —
+    intro_weekly: Nun erhalten Sie die Übersicht zu Ihren Aktivitäten auf der EOL, für zu zum %{ending} endende Woche
     see_all_activity: Alle bisherigen Aktivitäten auf <a href='%{activity_url}' style='color:#195184'>der Seite mit Ihrem Neuigkeitenfeed</a>.
     someone_commented_on_something: <b>%{who}</b> hat <b>%{what}</b> kommentiert.
     unsubscribe: Ändern Sie bitte Ihre E-Mail-Einstellungen oder beenden Sie Ihr Abonnement der Benachrichtigungen <a href='%{email_prefs_url}'>auf der Seite mit den Benachrichtigungseinstellungen</a>.
@@ -2432,7 +2490,12 @@ de:
   search: Suche
   search_by_provider_method_description: die Seitenkennungen bei EOL zu einer Hierarchiekennung und einer eindeutigen Kennung des Anbieters abrufen
   search_by_term_page_title: "Suche: %{term}"
+  search_field_common_name: Gebräuchlicher Name
   search_field_label: EOL durchsuchen
+  search_field_preferred_common_name: Bevorzugter gebräuchlicher Name
+  search_field_preferred_scientific: Bevorzugter wissenschaftlicher Name
+  search_field_surrogate: Surrogat
+  search_field_synonym: Synonym
   search_for_comments_containing_the_text: "Kommentare suchen, die folgenden Text enthalten:"
   search_for_curators_containing: "Suche nach Kuratoren, die Folgendes enthalten:"
   search_for_items_containing: "Suche nach Objekten, die Folgendes enthalten:"
@@ -2528,6 +2591,8 @@ de:
   social_sharing_twitter_follow_eol_button: Folgen Sie @eol
   social_sharing_twitter_tweet_button: Tweet
   some_required_fields_were_not_entered: Einige der erforderlichen Felder wurden nicht ausgefüllt (Sie müssen entweder einen Titel sowie Inhalt oder eine URL eingeben).
+  sorry_no_collections_are_available_to_share: Es sind leider keine Sammlungen vorhanden, die man mit dieser Gemeinschaft teilen kann.
+  sorry_no_communities_are_available_to_share: Es sind leider keine Gemeinschaften vorhanden, die man mit diese Sammlung teilen kann.
   sort_by: Sortieren nach
   sort_by_alphabetical_option: Alphabetisch
   sort_by_button: Sortieren
@@ -2928,7 +2993,7 @@ de:
   the_suggested_page_to_direct_users_to_link: die vorgeschlagene Seite, zu der die Nutzer geleitet werden sollen
   the_topic_was_updated: Das Thema wurde aktualisiert.
   the_user_was_updated: Der Nutzer wurde aktualisiert.
-  the_user_who_performed_this_action_was_removed: Der Benutzer, der diese Aktion durchführte, wurde entfernt.
+  the_user_who_performed_this_action_was_removed: Der Nutzer, der diese Aktion durchführte, wurde entfernt.
   the_xml_search_response_implements: "Die XML-Antwort zur Suche nutzt das OpenSearch-Antwortformat unter Verwendung von Atom 1.0. Unter folgenden Link finden Sie die vollständige OpenSearch-Spezifikation: %{link}"
   there_are_currently_no_members_in_this_community: Diese Gemeinschaft hat momentan keine Mitglieder.
   there_is_no_singular_eol: Bei der Enzyklopädie des Lebens (EOL) gibt es keine einzelne taxonomische Hierarchie. Tatsächlich indexiert EOL viele Hierarchien und vergleicht sie miteinander, um zu ermitteln welche Knotenpunkte auf die selben Taxa verweisen. Diese Taxonelemente sind die Hierarchieknotenpunkte. Das ist der Grund warum möglicherweise mehrere von ihnen für eine bestimmte EOL-Seite vorhanden sind. Bitte lesen Sie die Dokumentation zur %{link}-API um mehr hierzu zu erfahren.
@@ -3089,7 +3154,7 @@ de:
   user_commented_on_themself: "<strong>%{user_with_link}</strong> kommentierte <a href='%{link}'>%{username}s Neuigkeitenfeed</a>:"
   user_comments: Nutzerkommentare
   user_full_name_with_curator: "%{user} (%{curator_level})"
-  user_id: Benutzerkennung
+  user_id: Nutzerkennung
   user_index_intro: Alle registrierten Nutzer werden unten, in umgekehrter Reihenfolge des Registrierungszeitpunkts, angezeigt. Bitte beachten Sie, das die Registrierungsdaten von Nutzern, die sich von Einführung von EOL V2 am 5. Januar 2009 registriert haben, nicht verfügbar sind. Klicken Sie auf einen Nutzernamen, um diesen Nutzer zu bearbeiten.
   user_joined_community_on_date: "%{username} trat dieser Gemeinschaft am %{date} bei."
   user_joined_when: „%{user}“ registrierte sich %{when}
@@ -3098,6 +3163,9 @@ de:
   user_no_longer_has_manager_access_to_collection: Der Nutzer „%{user}“ kann die Sammlung „%{collection}“ nicht länger verwalten.
   user_pending_notifications_assitive: <span class="assistive">Benachrichtigungen</span>
   user_pending_notifications_comments_assistive: <span class="assistive">Kommentare</span>
+  user_pending_notifications_comments_with_count_assistive: 
+    one: Ein <span class="assistive">Kommentar</span>
+    other: "%{count}<span class=\"assistive\">Kommentare</span>"
   user_pending_notifications_with_count_assitive: 
     one: Eine <span class="assistive">Benachrichtigung</span>
     other: "%{count}<span class=\"assistive\">Benachrichtigungen</span>"
@@ -3214,7 +3282,7 @@ de:
   view_source: Quelltext anzeigen
   view_this_hierarchy: diese Hierarchie ansehen
   view_translation_source_link: Übersetzungsquelltext anzeigen
-  view_user_activity: Benutzeraktivität anzeigen
+  view_user_activity: Nutzeraktivität anzeigen
   view_user_comments: Nutzerkommentare anzeigen
   view_verb: Ansehen
   view_video_source: Quelle der Videodatei anzeigen

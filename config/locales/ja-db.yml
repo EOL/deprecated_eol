@@ -5,7 +5,7 @@
 # Author: Schu
 # Author: Shirayuki
 ja: 
-  translated_activities-name-activity_id-19: プロファイル
+  translated_activities-name-activity_id-19: プロフィール
   translated_activities-name-activity_id-50: 信頼できない
   translated_activities-name-activity_id-51: 表示
   translated_activities-name-activity_id-52: 作成
@@ -28,7 +28,7 @@ ja:
   translated_agent_roles-label-agent_role_id-16: 投稿者
   translated_agent_roles-label-agent_role_id-2: 著者
   translated_agent_roles-label-agent_role_id-21: プロバイダー
-  translated_agent_roles-label-agent_role_id-22: 翻訳家
+  translated_agent_roles-label-agent_role_id-22: 翻訳者
   translated_agent_roles-label-agent_role_id-23: 科学レビューアー
   translated_agent_roles-label-agent_role_id-24: 言語レビューアー
   translated_agent_roles-label-agent_role_id-3: コンパイラ
@@ -58,7 +58,7 @@ ja:
   translated_collection_types-label-collection_type_id-22: 音声
   translated_collection_types-label-collection_type_id-23: リンク
   translated_collection_types-label-collection_type_id-24: 文学
-  translated_collection_types-label-collection_type_id-3: 概要
+  translated_collection_types-label-collection_type_id-3: 説明
   translated_collection_types-label-collection_type_id-4: 画像
   translated_collection_types-label-collection_type_id-5: ディストリビューション
   translated_collection_types-label-collection_type_id-6: 保全の状況

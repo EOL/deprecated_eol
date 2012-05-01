@@ -40,16 +40,18 @@ body > #header form input[type="submit"]:hover {background-color: #dae3eb; filte
 body > #header form input[type="submit"]:active {background-color: #ccd2d7; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#fefeff, endColorstr=#ccd2d7); background-image: -moz-linear-gradient(100% 100% 90deg, #ccd2d7, #fefeff); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fefeff), to(#ccd2d7))}
 body > #footer {overflow: hidden; padding: 0 0 30px 0; background: #394651}
 body > #footer .section {padding: 0}
-body > #footer .copyright {float: left; padding: 20px 0 0 0}
+body > #footer .copyright {float: left; padding: 20px 0 0 0; text-align: center}
 body > #footer .copyright h6 {padding: 0 0 5px 0}
 body > #footer .copyright h6 a {display: block; width: 41px; height: 18px; text-indent: -8685px; overflow: hidden; background: transparent url("/images/v2/logo_footer.png") 0 0 no-repeat}
 body > #footer .copyright p {font-size: 0.83em; font-weight: bold; color: #6f7e8b}
 body > #footer .disclaimer {color: white; background: #566572; padding: 10px 20px; font-size: 0.92em; color: #f0f4f7; line-height: 140%; text-align: center}
-body > #footer ul.nav {float: right; padding: 20px 0 20px 0}
-body > #footer ul.nav li {display: inline; padding: 0 0 0 7px; text-transform: uppercase}
-body > #footer ul.nav li:before {padding: 0 7px 0 0; font-size: 1.33em; vertical-align: -2px; content: "•"; list-style: disc; color: #6f7e8b}
-body > #footer ul.nav li:first-of-type:before {display: none}
-body > #footer ul.nav li a {color: white; text-decoration: none}
+body > #footer .global_navigation {margin-left: 50px; clear: none; padding: 20px 0}
+body > #footer .global_navigation ul.nav {line-height: 160%; float: right}
+body > #footer .global_navigation ul.nav li {display: inline; padding: 0 0 0 7px; text-transform: uppercase}
+body > #footer .global_navigation ul.nav li:before {padding: 0 7px 0 0; font-size: 1.33em; vertical-align: -2px; content: "•"; list-style: disc; color: #6f7e8b}
+body > #footer .global_navigation ul.nav li:first-of-type {padding-left: 0}
+body > #footer .global_navigation ul.nav li:first-of-type:before {display: none}
+body > #footer .global_navigation ul.nav li a {color: white; text-decoration: none}
 body > #footer ul.social_media {clear: both; float: right}
 body > #footer ul.social_media li {float: left; padding: 0 0 0 10px}
 body > #footer ul.social_media li a {display: block; width: 25px; height: 25px; text-indent: -8685px; overflow: hidden; background: transparent url("/images/v2/icon_social-media.png") 0 0 no-repeat; border: 1px solid #28323a}
@@ -77,7 +79,10 @@ body > #footer ul.social_media li a.youtube {background-position: 0 -125px}
 .pagination a {text-decoration: none; background: #f3f7fa}
 .pagination a:hover {border-color: #394651}
 .pagination a.prev_page:hover, .pagination a.next_page:hover {text-decoration: underline}
-.pagination span.disabled, .pagination span.prev_page, .pagination span.next_page {color: #616e7a}
+.pagination span.prev_page, .pagination span.next_page {color: #616e7a}
+.pagination span.disabled {font-weight: normal; color: #cad3db}
+.pagination + ul {border-top: 1px solid #d4dce2; margin-top: 12px}
+ul + .pagination {border-top: 1px solid #d4dce2; padding: 12px 0 0 0; margin: 0}
 .session.join {font-weight: bold; text-align: center}
 .session.join p {padding: 0 0 5px 0}
 .session.join p.button {padding: 15px 0 20px 0}
@@ -90,12 +95,17 @@ body > #header {position: relative; height: 563px; color: white; border-top: 1px
 body > #header .section {position: relative; height: 268px; padding: 295px 0 0 0}
 body > #header h1 {left: 40px; top: 40px}
 body > #header h1 a {width: 157px; height: 99px; background-image: url("/images/v2/logo_index.png")}
-body > #header h2 {position: absolute; left: 0; top: 180px; z-index: 1; width: 100%; font-size: 3.25em; font-weight: 200; text-align: center}
+body > #header h2 {position: absolute; left: 0; top: 180px; z-index: 1; width: 100%; font-size: 3.12em; font-weight: 200; text-align: center}
 body > #header form {width: 380px; padding: 4px; -moz-border-radius: 180px; border-radius: 180px; background: rgba(255, 255, 255, 0.5)}
 body > #header form .text {margin: 0 5px 0 0; -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.6); -moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.6); box-shadow: 0 0 4px rgba(0, 0, 0, 0.6)}
 body > #header form input[type="text"] {width: 274px; height: 28px; font-size: 1.5em; line-height: 28px; background-image: url("/images/v2/icon_search_home.png"); float: left}
 body > #header form input[type="submit"] {min-width: 40px; min-height: 40px; font-size: 1.08em; line-height: 38px; -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.6); -moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.6); box-shadow: 0 0 4px rgba(0, 0, 0, 0.6); float: right; padding: 0 4px}
 body > #header .session {position: absolute; right: 30px; top: 30px; z-index: 2; background-color: #080f13; background-color: rgba(8, 15, 19, 0.6); padding: 10px}
+body > #header .session.signed_in ul {float: right; overflow: hidden; margin-left: 1px; font-weight: bold; font-size: 0.9em}
+body > #header .session.signed_in ul li a {display: block; height: 25px; line-height: 25px; text-decoration: none; background: url("/images/v2/icon_header_messages.png") 6px 45% no-repeat #566572; padding: 0 5px 0 24px}
+body > #header .session.signed_in ul li a:hover {background-color: #667d91}
+body > #header .session.signed_in ul li + li {margin-top: 1px}
+body > #header .session.signed_in ul li + li a {background-image: url("/images/v2/icon_header_notifications.png"); background-position: 9px 50%}
 body > #header .session.signed_in img {float: right; margin: 0 0 0 10px; border: 1px solid #cad3db}
 body > #header .session.signed_in .details {float: right; padding: 5px 0 0 0; font-size: 0.92em; line-height: 130%; text-align: right; color: white}
 body > #header .session.signed_in .details strong {font-size: 1.09em}
@@ -119,7 +129,8 @@ body > #header .thumbnails .term {border-bottom-color: white}
 #content .section .stats li.partners dl {background-image: url("/images/v2/icon_partners.png")}
 #content .section .stats li.communities dl {background-image: url("/images/v2/icon_community.png")}
 #content .section .community {float: right; width: 380px; margin: 0 0 20px 0}
-#content .section .community h3 {border-bottom: 1px solid #e5e8eb}
+#content .section .community h3 {position: relative; border-bottom: 1px solid #e5e8eb}
+#content .section .community h3 > small {position: absolute; right: 10px; top: 1px}
 #content .section .community > ul {padding: 20px 0 10px 40px; border-bottom: 1px solid #e5e8eb}
 #content .section .community > ul > li {overflow: hidden; padding: 0 0 10px 0}
 #content .section .community > ul > li img {float: left; margin: 0 10px 0 0; max-width: 48px; max-height: 48px; width: expression(this.width > 48 ? "48px" : true); height: expression(this.height > 48 ? "48px" : true)}
@@ -195,6 +206,7 @@ form#switch_hierarchy_entry fieldset {display: inline}
 .meta.learn_more p {text-transform: lowercase}
 .meta.learn_more p:first-child:before {content: ""; margin: 0 !important}
 #content.session form.terms_agreement {padding: 75px 69px; width: 500px}
+#content.session p {padding-bottom: 2em}
 #content.session .pending {width: 320px; min-height: 225px; padding: 75px 159px; margin: 0 auto; border: 1px solid #cad3db; background: #f0f4f7 url("/images/v2/bg_sign-in.gif") 0 0 no-repeat}
 #new_user iframe {width: 320px; overflow: auto}
 #content.cms_page .header {border-bottom: 1px solid #394651; text-align: center}
@@ -233,28 +245,6 @@ form#switch_hierarchy_entry fieldset {display: inline}
 .donate fieldset.actions {margin-bottom: 40px}
 .donate em {font-weight: bold}
 .cms_page #content_partners #sidebar input[type="text"] {width: 118px}
-#new_content_partner_agreement dl, form.edit_content_partner_agreement dl {clear: both}
-#new_content_partner_agreement dl dd, form.edit_content_partner_agreement dl dd {margin: 0 0 10px 0}
-#new_content_partner_agreement dl dd input[type="text"], form.edit_content_partner_agreement dl dd input[type="text"] {width: 308px; height: 22px; padding: 2px 5px; font: normal 1em Helvetica, Arial, sans-serif; border: 1px solid #cad3db; background-color: white; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white); background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white))}
-#new_content_partner_agreement dl dd textarea, form.edit_content_partner_agreement dl dd textarea {width: 700px; height: 22px; padding: 2px 5px; font: normal 1em Helvetica, Arial, sans-serif; border: 1px solid #cad3db; background-color: white; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white); background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white)); height: 400px}
-#content_partner_show .empty {font-size: 1em}
-#content_partner_show .agreement address {display: block; width: 40%; line-height: 170%}
-#content_partner_show .agreement address.partner {float: left}
-#content_partner_show .agreement address.eol {float: right}
-#content_partner_show dl.agreement {margin: 0 0 15px 0; line-height: 140%}
-#content_partner_show dl.agreement dd {margin-bottom: 5px}
-#content_partner_show #resources_show .section.half {float: left; width: 299px; margin-right: 20px}
-#content_partner_show #resources_show .section dl {line-height: 140%; margin: 0 0 40px 0}
-#content_partner_show #resources_show .section dl dt {font-weight: bold}
-#content_partner_show #resources_show .section dl dd {margin: 0 0 5px 20px}
-#content_partner_edit.site_column, #content_partner_new.site_column {width: 640px}
-ul.content_partner_contacts li {margin: 0 0 20px 0}
-#content_partner_statistics .main_container {border: none; padding: 0}
-#content_partner_statistics .header {border-top: 1px solid #cad3db; padding-top: 1em; margin-top: 40px}
-#content_partner_statistics .heading {text-align: center}
-#content_partner_statistics .heading fieldset, #content_partner_statistics .heading input[type="submit"] {display: inline; margin: 0}
-#content_partner_statistics table {margin-top: 20px}
-#content_partner_statistics table caption {line-height: 170%; font-size: 1.08em; font-weight: bold}
 p.status.error {border: 1px solid #f2d2cc; background: #ffeae6}
 .home #content {padding-bottom: 20px}
 .home p.status.notice, .home p.status.error, .home p.status.warning {clear: both; padding: 7px 10px; margin: 0; line-height: 140%; font-size: 1.08em; font-weight: bold; text-align: center; color: #394651; border: 1px solid #c7d471; background: #edf6b2}
@@ -321,8 +311,6 @@ body > #header .section .session.join a {color: #90bce4}
 #iucn_status.positive {border-color: #c7d471; background: #edf6b2}
 #iucn_status.positive a {color: #809203}
 #iucn_status.negative {border-color: #f2d2cc; background: #ffeae6}
-.disclaimer {clear: both; border-top: 1px solid #cad3db; padding-top: 10px}
-.disclaimer p {text-align: center; font-size: 0.9em; color: #394651; margin: 0}
 #classification_browser {border: 1px solid #d7dadc; overflow-x: auto; padding: 10px 15px; margin: 0 -10px 20px -10px}
 #classification_browser > ul {line-height: 160%; font-size: 0.9em}
 #classification_browser > ul li {white-space: nowrap}
@@ -352,7 +340,6 @@ body > #header .section .session.join a {color: #90bce4}
 #text_summary.article .copy {margin: 0 0 15px 0; line-height: 170%}
 #taxon_community .main_container .article .header h4 {float: left; padding: 0 10px 3px 10px; font-size: 1.16em; border-bottom: 3px solid #394651}
 #taxon_community .main_container .list img {max-width: 68px; max-height: 68px; width: expression(this.width > 68 ? "68px" : true); height: expression(this.height > 68 ? "68px" : true)}
-#taxon_literature .main_container, #taxon_community .main_container, #taxon_resources .main_container {padding: 20px}
 #taxon_literature h3, #taxon_community h3, #taxon_resources h3 {font-size: 2em}
 #taxon_resources table.standard tbody > tr > td > a > img {max-width: 90px}
 #taxon_resources #taxon_detail > #main > h3 {padding: 0 20px 20px 0; font-size: 2em}
@@ -372,15 +359,13 @@ body > #header .section .session.join a {color: #90bce4}
 #wikipedia_queue form dd input[type="text"] {width: 308px; height: 22px; padding: 2px 5px; font: normal 1em Helvetica, Arial, sans-serif; border: 1px solid #cad3db; background-color: white; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white); background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white)); width: 540px}
 #wikipedia_queue form input[type="submit"] {padding: 7px 10px; font-size: 1em}
 .object_list div.checkbox {margin: 0}
-#collections .heading fieldset {display: inline; margin: 0}
 #map_image {height: 350px}
 #media_summary .image > a img {max-width: 430px; max-height: 310px; width: expression(this.width > 430 ? "430px" : true); height: expression(this.height > 310 ? "310px" : true)}
 #header .session img {max-width: 48px; max-height: 48px; width: expression(this.width > 48 ? "48px" : true); height: expression(this.height > 48 ? "48px" : true)}
 #collections_summary ul li > a > img, #communities_summary ul li > a > img, #curators_summary ul li > a > img {max-width: 48px; max-height: 48px; width: expression(this.width > 48 ? "48px" : true); height: expression(this.height > 48 ? "48px" : true)}
-#collections .collections .article > .header > a > img {max-width: 48px; max-height: 48px; width: expression(this.width > 48 ? "48px" : true); height: expression(this.height > 48 ? "48px" : true)}
-#community .article.list img {max-width: 48px; max-height: 48px; width: expression(this.width > 48 ? "48px" : true); height: expression(this.height > 48 ? "48px" : true)}
+#collection.main_container .taxon > img {max-width: 88px; max-height: 88px; width: expression(this.width > 88 ? "88px" : true); height: expression(this.height > 88 ? "88px" : true)}
+#collection .collections .article > .header > a > img {max-width: 48px; max-height: 48px; width: expression(this.width > 48 ? "48px" : true); height: expression(this.height > 48 ? "48px" : true)}
 #page_heading.with_image img, #page_heading.profile img {max-width: 88px; max-height: 88px; width: expression(this.width > 88 ? "88px" : true); height: expression(this.height > 88 ? "88px" : true)}
-#collections.main_container .taxon > img {max-width: 88px; max-height: 88px; width: expression(this.width > 88 ? "88px" : true); height: expression(this.height > 88 ? "88px" : true)}
 #sidebar .collection_list img, #sidebar .collection_contributors img, #sidebar .content_partner_managers img {max-width: 35px; max-height: 35px; width: expression(this.width > 35 ? "35px" : true); height: expression(this.height > 35 ? "35px" : true)}
 #text_summary p.flag {float: left}
 #text_summary .attribution {clear: none}
@@ -442,6 +427,7 @@ a.other_actions {float: right; margin-top: 1em}
 .site_column > #choose_collections ul li span, .site_column > #choose_communities ul li span {font-size: 0.95em}
 .site_column > #choose_collections ul li + li, .site_column > #choose_communities ul li + li {border-top: 1px solid #cad3db}
 #search_results ul.object_list li {white-space: nowrap}
+.cms_page span.icon {background: #f3f7fa url("/images/v2/icon_info_tabs.png") 50% 50% no-repeat}
 #taxon_maps #media_list {padding: 0}
 #taxon_detail #sidebar {padding: 0; padding-bottom: 20px; width: 260px}
 #taxon_detail #sidebar #toc {margin: 0px 20px}
@@ -451,8 +437,6 @@ a.other_actions {float: right; margin-top: 1em}
 ul li.newsfeed a {padding: 7px 10px 6px !important; font-size: 12px !important}
 ul li.total {margin-top: 20px}
 ul li.editors a {padding: 7px 10px 6px !important; font-size: 12px !important}
-div.newsfeed_heading {padding: 6px 10px 5px; text-align: left; font-weight: bold; text-transform: uppercase; background: none repeat scroll 0 0 #f1f4dc; border-bottom: 1px solid #ccd399}
-div.newsfeed_heading h3 {color: #828d33; font-weight: bold; text-transform: uppercase; font-size: 1em}
 ul.media li .overlay {height: auto !important}
 body#prelaunch p.status {clear: both; padding: 7px 10px; font-size: 1.16em; font-weight: bold; text-align: center; color: #394651; border: 2px solid #c7d471; background: #edf6b2}
 body#prelaunch #footer ul.social_media {margin-top: 20px}

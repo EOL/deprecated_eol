@@ -7,6 +7,7 @@
 # Author: Eduardoescdel
 # Author: Erick mata
 # Author: Fitoschido
+# Author: Invadinado
 # Author: McDutchie
 # Author: Mor
 # Author: Rbcastroc
@@ -262,6 +263,11 @@ es:
         wrong_length: es longitud mal (debe ser %{count} caracteres)
         wrong_type: es tipo incorecto
       models: 
+        data_object: 
+          attributes: 
+            rights_holder: 
+              blank: No puede estar vacío para una licencia CC-BY
+              inclusion: debe estar en blanco si la licencia es de Dominio Público
         harvest_event: 
           attributes: 
             publish: 
@@ -1355,7 +1361,7 @@ es:
   dato_edit_text_title: Editar artículo
   dato_new_edit_user_text_fieldset_content_header: Contenido del artículo
   dato_new_edit_user_text_fieldset_information_header: Información de artículo
-  dato_new_edit_user_text_form_tip: Su artículo será marcado como "sin revisar" hasta que un supervisor lo revise. Si usted es un supervisor, su artículo se publicará directamente a la página del taxón. El campo de texto marcado con un punto (%{required_icon}) es obligatorio.
+  dato_new_edit_user_text_form_tip: Tu artículo terminado será publicado en la página del taxón. Si no eres supervisor, será marcado como "no revisado" hasta que un supervisor lo revise. Los campos subcapítulo, texto, idioma y licencia son obligatorios (%{required_icon}), todos los demás campos son opcionales. Si seleccionas una licencia CC-BY (Atribución) por favor incluye un titular de los derechos o déjalo en blanco para utilizar tu nombre completo. Las licencias de dominio público no requieren un titular de derechos. Para obtener más ayuda consulta <a href="%{add_article_help_url}">Agregar artículo de ayuda</a>.
   dato_new_text_for_taxon_page_title: Agregar un artículo a <i>%{taxon}</i>
   dato_new_text_page_description: ¡Gracias por contribuir a la EOL! Su artículo será añadido a su lista de vigilancia para que pueda seguir las conversaciones relacionadas con él y comprobar su estado de preservación.
   dato_update_user_text_error: Lo sentimos, ha ocurrido un error, el artículo no se pudo actualizar.
@@ -1657,13 +1663,16 @@ es:
         email_reports_frequency_hours_more: Los informes de correo electrónico se envían sólo si hubo comentarios o acciones de supervisión sobre sus datos o en las páginas del taxón correspondiente a su conjunto de datos.
       data_object: 
         bibliographic_citation: Cita bibliográfica
+        bibliographic_citation_more: Se recomienda una cita para estos datos en forma de referencia bibliográfica, incluye suficientes detalles para identificar los datos con la menor ambigüedad posible.
         description: Texto <small>(algunas marcas se permite código HTML)</small>
         license_id: Licencia
         license_id_more: Lea la <a href="%{policy_url}">licencia política de EOL</a>
         object_title: Título
         refs: Referencias <small>(ponga cada referencia en una nueva línea)</small>
         rights_holder: Posesor de los derechos
+        rights_holder_more: Especifica una persona u organización que sea propietaria o administre los derechos de autor de estos datos. Si dejas el campo en blanco, asumiremos que eres el poseedor de los derechos para todas las licencias excepto la de Dominio Público. Las licencias de Dominio Público no requieren un poseedor de los derechos de autor.
         rights_statement: Declaración de los derechos
+        rights_statement_more: Declaración de los derechos de uso según es requerido por las licencias  Creative Commons Attribution (CC-BY), por favor declare la atribución <q cite="http://creativecommons.org/licenses/by/3.0"> del modo especificado por el autor o licenciatario</q>.
         source_url: URL a el original objeto de datos
         toc_item: Subcapítulo
       eol_statistic: 
@@ -2472,6 +2481,8 @@ es:
     data_object_title: "%{who} ha añadido nuevos contenidos a EOL"
     default_subject: Actividad reciente en EOL
     intro: Este es su resumen de actividad en EOL de %{time}
+    intro_immediately: Hola, %{name} —
+    intro_weekly: Aquí está el resumen de tu actividad en EOL para la semana pasada %{ending}
     see_all_activity: Ver toda la actividad anterior en <a href='%{activity_url}' style='color:#195184'>su página de noticias de usuario</a>.
     someone_commented_on_something: <b>%{who}</b> ha comentado sobre <b>%{what}</b>.
     unsubscribe: Cambie su configuración de correo electrónico o cancele la suscripción en <a href='%{email_prefs_url}' style='color:#195184'>su página de preferencias de notificación</a>.
@@ -2532,7 +2543,12 @@ es:
   search: Buscar
   search_by_provider_method_description: obtener los ID de página de EOL a partir de la hierarchy_id del proveedor y su identificador único
   search_by_term_page_title: "Buscar: %{term}"
+  search_field_common_name: Nombre común
   search_field_label: Buscar en EOL
+  search_field_preferred_common_name: Nombre común preferido
+  search_field_preferred_scientific: Científico preferido
+  search_field_surrogate: Sustituto
+  search_field_synonym: Sinónimo
   search_for_comments_containing_the_text: "Buscar comentarios que tienen el texto:"
   search_for_curators_containing: "Búsqueda de supervisores que contengan:"
   search_for_items_containing: "Búsqueda de elementos que contengan:"
@@ -2628,6 +2644,8 @@ es:
   social_sharing_twitter_follow_eol_button: Seguir a @eol
   social_sharing_twitter_tweet_button: Publicar en Twitter
   some_required_fields_were_not_entered: Algunos campos obligatorios no se introdujeron (debe introducir un título y el contenido o una URL).
+  sorry_no_collections_are_available_to_share: Lo sentimos, no hay colecciones disponibles para compartir con esta comunidad.
+  sorry_no_communities_are_available_to_share: Lo sentimos, no hay comunidades disponibles para compartir esta colección.
   sort_by: Ordenar por
   sort_by_alphabetical_option: Alfabético
   sort_by_button: Ordenar

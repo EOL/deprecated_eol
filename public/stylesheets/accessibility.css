@@ -510,28 +510,6 @@ p.flag, span.flag {
   #worklist #task .average_rating h5 {
     *width: 135px; }
 
-/*We don't want border on EOL abbr tags in the shared join partial */
-.join abbr {
-  border: none; }
-
-/*HR z-indexes were messed up in header, also we're putting session partial on home page for logged in users */
-body.home > #header .session.signed_in {
-  width: 400px; }
-body.home > #header .session.join {
-  text-align: center !important; }
-  body.home > #header .session.join a {
-    color: white !important; }
-body > #header .section .actions {
-  z-index: 5; }
-body > #header .section .session.join {
-  float: right;
-  text-align: right;
-  color: white; }
-  body > #header .section .session.join p {
-    line-height: 1.4em; }
-  body > #header .section .session.join a {
-    color: #90bce4; }
-
 /*IUCN styles, we use a h3 header instead of just a paragraph so its easier to find with screenreaders. */
 #iucn_status {
   border: 1px solid #cad3db;

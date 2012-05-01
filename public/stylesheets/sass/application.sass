@@ -639,6 +639,7 @@ body
         li:before
           color: #6f7e8b
       .actions
+        z-index: 5
         top: -25px
         p
           border-color: #616b74
@@ -652,57 +653,68 @@ body
               border-color: #616b74
       .session
         position: absolute
-        width: 100%
+        width: 320px
         right: 0
         top: 32px
         z-index: 1
-        ul
+        &.join
           float: right
-          overflow: hidden
-          margin-left: 1px
-          font-weight: bold
-          font-size: .9em
-          li
-            a
-              display: block
-              height: 25px
-              line-height: 25px
-              text-decoration: none
-              background: url("/images/v2/icon_header_messages.png") 6px 45% no-repeat #566572
-              padding: 0 5px 0 24px
-              &:hover
-                background-color: #667d91
-            + li
-              margin-top: 1px
-              a
-                background-image: url("/images/v2/icon_header_notifications.png")
-                background-position: 9px 50%
-        img
-          float: right
-          margin: 0 0 0 10px
-          border: 1px solid #cad3db
-        .details, .sign_in
-          overflow: hidden
-          padding: 5px 0 0 0
-          font-size: .92em
-          line-height: 130%
           text-align: right
-          color: #ffffff
-          strong
-            font-size: 1.09em
-          p.user_links
-            font-size: 9px
-            text-transform: uppercase
-            color: #62707d
-            a
-              color: #acd7ff
-              text-decoration: none
-        .sign_in
+          color: #fff
           p
-            font-weight: bold
             line-height: 150%
           a
-            color: #acd7ff
+            color: #90bce4
+        &.signed_in
+          ul
+            &.notifications
+              float: right
+              overflow: hidden
+              margin-left: 1px
+              font-weight: bold
+              font-size: .9em
+              li
+                a
+                  display: block
+                  height: 25px
+                  line-height: 25px
+                  text-decoration: none
+                  background: url("/images/v2/icon_header_messages.png") 6px 45% no-repeat #566572
+                  padding: 0 5px 0 24px
+                  &:hover
+                    background-color: #667d91
+                + li
+                  margin-top: 1px
+                  a
+                    background-image: url("/images/v2/icon_header_notifications.png")
+                    background-position: 9px 50%
+          img
+            float: right
+            margin: 0 0 0 10px
+            border: 1px solid #cad3db
+          .details
+            overflow: hidden
+            padding: 5px 0 0 0
+            font-size: .92em
+            line-height: 130%
+            text-align: right
+            color: #ffffff
+            strong
+              font-size: 1.09em
+            ul.user_links
+              font-size: 0.83em
+              text-transform: uppercase
+              text-align: right
+              color: #62707d
+              li
+                display: inline-block
+                &:before
+                  content: "\2022\0000a0"
+                &:first-child:before
+                  content: ""
+                a
+                  text-decoration: none
+                  color: #acd7ff
 
 #content
   overflow: hidden

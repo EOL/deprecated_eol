@@ -2,6 +2,11 @@ body > #header .section .actions {
   direction: ltr; }
   body > #header .section .actions .language p.ar, body > #header .section .actions .language li.ar a {
     direction: rtl; }
+body > #header .section .session.signed_in {
+  width: 450px; }
+  body > #header .section .session.signed_in ul.user_links li {
+    padding-right: 10px;
+    float: left; }
 
 #page_heading .site_column {
   direction: ltr; }

@@ -136,7 +136,7 @@ body > #header .section {
 body > #header form {
   position: relative;
   z-index: 2;
-  width: 268px;
+  width: 280px;
   margin: 0 auto;
   padding: 43px 0 0 0; }
   body > #header form label {
@@ -165,6 +165,7 @@ body > #header form {
     float: left;
     min-width: 30px;
     min-height: 30px;
+    padding: 0 4px;
     overflow: visible;
     font-size: 0.83em;
     line-height: 28px;

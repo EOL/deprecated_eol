@@ -144,7 +144,7 @@ body > #header .section {
 body > #header form {
   position: relative;
   z-index: 2;
-  width: 268px;
+  width: 280px;
   margin: 0 auto;
   padding: 43px 0 0 0; }
   body > #header form label {
@@ -173,6 +173,7 @@ body > #header form {
     float: right;
     min-width: 30px;
     min-height: 30px;
+    padding: 0 4px;
     overflow: visible;
     font-size: 0.83em;
     line-height: 28px;
@@ -1222,6 +1223,7 @@ body > #header {
     body > #header .section ul.nav li:before {
       color: #6f7e8b; }
     body > #header .section .actions {
+      z-index: 5;
       top: -25px; }
       body > #header .section .actions p {
         border-color: #616b74; }
@@ -1235,55 +1237,65 @@ body > #header {
             border-color: #616b74; }
     body > #header .section .session {
       position: absolute;
-      width: 100%;
+      width: 320px;
       left: 0;
       top: 32px;
       z-index: 1; }
-      body > #header .section .session ul {
+      body > #header .section .session.join {
+        float: left;
+        text-align: left;
+        color: white; }
+        body > #header .section .session.join p {
+          line-height: 150%; }
+        body > #header .section .session.join a {
+          color: #90bce4; }
+      body > #header .section .session.signed_in ul.notifications {
         float: left;
         overflow: hidden;
         margin-right: 1px;
         font-weight: bold;
         font-size: 0.9em; }
-        body > #header .section .session ul li a {
+        body > #header .section .session.signed_in ul.notifications li a {
           display: block;
           height: 25px;
           line-height: 25px;
           text-decoration: none;
           background: url("/images/v2/icon_header_messages.png") 18px 45% no-repeat #566572;
           padding: 0 24px 0 5px; }
-          body > #header .section .session ul li a:hover {
+          body > #header .section .session.signed_in ul.notifications li a:hover {
             background-color: #667d91; }
-        body > #header .section .session ul li + li {
+        body > #header .section .session.signed_in ul.notifications li + li {
           margin-top: 1px; }
-          body > #header .section .session ul li + li a {
+          body > #header .section .session.signed_in ul.notifications li + li a {
             background-image: url("/images/v2/icon_header_notifications.png");
             background-position: 22px 50%; }
-      body > #header .section .session img {
+      body > #header .section .session.signed_in img {
         float: left;
         margin: 0 10px 0 0;
         border: 1px solid #cad3db; }
-      body > #header .section .session .details, body > #header .section .session .sign_in {
+      body > #header .section .session.signed_in .details {
         overflow: hidden;
         padding: 5px 0 0 0;
         font-size: 0.92em;
         line-height: 130%;
         text-align: left;
         color: white; }
-        body > #header .section .session .details strong, body > #header .section .session .sign_in strong {
+        body > #header .section .session.signed_in .details strong {
           font-size: 1.09em; }
-        body > #header .section .session .details p.user_links, body > #header .section .session .sign_in p.user_links {
-          font-size: 9px;
+        body > #header .section .session.signed_in .details ul.user_links {
+          font-size: 1em;
           text-transform: uppercase;
+          text-align: left;
           color: #62707d; }
-          body > #header .section .session .details p.user_links a, body > #header .section .session .sign_in p.user_links a {
-            color: #acd7ff;
-            text-decoration: none; }
-      body > #header .section .session .sign_in p {
-        font-weight: bold;
-        line-height: 150%; }
-      body > #header .section .session .sign_in a {
-        color: #acd7ff; }
+          body > #header .section .session.signed_in .details ul.user_links li {
+            display: inline-block; }
+            body > #header .section .session.signed_in .details ul.user_links li:before {
+              content: "\2022\0000a0"; }
+            body > #header .section .session.signed_in .details ul.user_links li:first-child:before {
+              content: ""; }
+            body > #header .section .session.signed_in .details ul.user_links li a {
+              text-decoration: none;
+              color: #acd7ff; }
 
 #content {
   overflow: hidden;

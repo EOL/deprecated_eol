@@ -298,6 +298,7 @@ class ApplicationController < ActionController::Base
       clear_any_logged_in_session
       @current_user = EOL::AnonymousUser.new(current_language)
     end
+    @current_user
   end
 
   def recently_visited_collections(collection_id = nil)

@@ -3099,7 +3099,7 @@ en:
   search_field_label: "Search EOL"
   search_field_common_name: "Common Name"
   search_field_preferred_common_name: "Preferred Common Name"
-  search_field_preferred_scientific: "Preferred Scientific"
+  search_field_preferred_scientific: "Preferred Scientific Name"
   search_field_surrogate: "Surrogate"
   search_field_synonym: "Synonym"
   search_placeholder: "Search EOL ..."

@@ -1862,6 +1862,7 @@ en:
   change_rating_to_5_of_5: "Change rating to 5 of 5"
   choose_collection_header: "Choose collection"
   citing_link: "Citing"
+  classification_already_preferred: "ERROR: This classification has already been marked as preferred."
   classification_preferred_for_taxon: "Preferred"
   classification_preferred_for_taxon_help_tip: "%{icon} marks the preferred classification for this taxon."
   classification_tree_header: "Classification"
@@ -3169,6 +3170,9 @@ en:
   server_ip_address: "Server IP Address"
   set_as_exemplar: "Set as exemplar"
   share_a_collection: "Share a collection"
+  show_all_other_classifications_with_count:
+    one: "Show %{count} other non-browsable classification"
+    other: "Show %{count} other non-browsable classifications"
   show_email_message_area: "[show email message area]"
   show_data_from_all_content_partners: "Remove classification filter"
   show_full_tree: "show full tree..."

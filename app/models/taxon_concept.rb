@@ -28,16 +28,15 @@ class TaxonConcept < ActiveRecord::Base
     :finder_sql => 'SELECT he.id, he.rank_id, h.id hierarchy_id, h.label hierarchy_label
     FROM hierarchies h
     JOIN hierarchy_entries he ON h.id = he.hierarchy_id
-    WHERE he.taxon_concept_id = \'#{id}\' AND he.published = 1 and h.browsable = 1
+    WHERE he.taxon_concept_id = \'#{id}\' AND he.published = 1 AND h.browsable = 1
     ORDER BY h.label'
 
-  # Same as published_browsable_hierarchy_entries, but with more fields, so we can render a tree for each:
-  has_many :browsable_published_browsable_hierarchy_entries, :class_name => HierarchyEntry.to_s, :foreign_key => 'id',
+  has_many :deep_published_hierarchy_entries, :class_name => HierarchyEntry.to_s, :foreign_key => 'id',
     :finder_sql => 'SELECT he.id, he.rank_id, he.parent_id parent_id, he.name_id, he.taxon_concept_id,
-      h.id hierarchy_id, h.label hierarchy_label
+      h.id hierarchy_id, h.label hierarchy_label, h.browsable hierarchy_browsable
     FROM hierarchies h
     JOIN hierarchy_entries he ON h.id = he.hierarchy_id
-    WHERE he.taxon_concept_id = \'#{id}\' AND he.published = 1 and h.browsable = 1
+    WHERE he.taxon_concept_id = \'#{id}\' AND he.published = 1
     ORDER BY h.label'
 
   has_many :top_concept_images
@@ -1246,6 +1245,11 @@ class TaxonConcept < ActiveRecord::Base
       { :scientific_synonyms => { :name => :canonical_form } },
       { :common_names => [ :name, :language ] } ] } ] )
     add_to_index
+  end
+
+  def uses_preferred_entry?(he)
+    preferred_entry.hierarchy_entry_id == he.id &&
+    CuratedTaxonConceptPreferredEntry.find_by_hierarchy_entry_id_and_taxon_concept_id(he.id, self.id) 
   end
 
 private

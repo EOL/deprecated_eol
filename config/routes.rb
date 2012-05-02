@@ -9,6 +9,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :task_names
   map.resources :contacts
   map.resources :recent_activities, :only => [:index]
+  map.resources :curated_taxon_concept_preferred_entries, :only => [:create]
 
   map.placeholder 'placeholder', :action => 'not_yet_implemented', :controller => 'application'
 

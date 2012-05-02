@@ -1252,6 +1252,12 @@ class TaxonConcept < ActiveRecord::Base
     CuratedTaxonConceptPreferredEntry.find_by_hierarchy_entry_id_and_taxon_concept_id(he.id, self.id) 
   end
 
+  def curator_chosen_classification
+    CuratedTaxonConceptPreferredEntry.find_by_hierarchy_entry_id_and_taxon_concept_id(
+      preferred_entry.hierarchy_entry_id, self.id
+    ) 
+  end
+
 private
 
   def preferred_entry_usable?(hierarchy)

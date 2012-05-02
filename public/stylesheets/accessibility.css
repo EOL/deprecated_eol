@@ -1074,3 +1074,6 @@ body#prelaunch #footer ul.social_media {
         font-weight: bold; }
     #taxon_names .main_container table.classifications td.classifications > ul > li ul {
       margin-left: 10px; }
+
+.article .meta.curated {
+  padding-bottom: 10px; }

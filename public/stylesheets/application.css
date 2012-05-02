@@ -2282,22 +2282,22 @@ ul.content_partner_contacts li {
     #taxon + #sidebar h3 {
       padding: 0 10px 3px 10px;
       font-size: 1.16em; }
-    #taxon + #sidebar .classifications a.current {
+    #taxon + #sidebar #classifications_summary a.current {
       font-weight: bold; }
-    #taxon + #sidebar .classifications > ul {
+    #taxon + #sidebar #classifications_summary > ul {
       line-height: 160%;
       font-size: 0.9em; }
-      #taxon + #sidebar .classifications > ul > li {
+      #taxon + #sidebar #classifications_summary > ul > li {
         white-space: nowrap;
         overflow-x: auto;
         border: 1px solid #d7dadc;
         padding: 10px 15px;
         margin: 0 -10px 20px -10px; }
-        #taxon + #sidebar .classifications > ul > li h4 {
+        #taxon + #sidebar #classifications_summary > ul > li h4 {
           font-weight: normal; }
-          #taxon + #sidebar .classifications > ul > li h4 a {
+          #taxon + #sidebar #classifications_summary > ul > li h4 a {
             font-weight: bold; }
-        #taxon + #sidebar .classifications > ul > li ul {
+        #taxon + #sidebar #classifications_summary > ul > li ul {
           margin-left: 10px; }
     #taxon + #sidebar .article.list > ul > li + li {
       border: none; }

@@ -5,7 +5,7 @@ class Taxa::OverviewsController < TaxaController
   def show
     TaxonConcept.preload_associations(@taxon_concept, { :published_hierarchy_entries => :hierarchy })
     @browsable_hierarchy_entries ||= @taxon_concept.published_hierarchy_entries.select{ |he| he.hierarchy.browsable? }
-    @browsable_hierarchy_entries = [@selected_hierarchy_entry] if @browsable_hierarchy_entries.blank? # TODO: Check this - we are getting here with a hierarchy entry that has a hierarchy that is not browsable.
+    @browsable_hierarchy_entries = [@selected_hierarchy_entry] if @browsable_hierarchy_entries.blank?
     @browsable_hierarchy_entries.compact!
     @hierarchies = @browsable_hierarchy_entries.collect{|he| he.hierarchy }.uniq
     

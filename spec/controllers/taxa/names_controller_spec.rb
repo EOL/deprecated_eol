@@ -18,9 +18,9 @@ describe Taxa::NamesController do
   end
 
 
-  describe 'GET index' do # default related names
+  describe 'GET related_names' do # default related names
     before :each do
-      get :index, :taxon_id => @testy[:taxon_concept].id.to_i
+      get :related_names, :taxon_id => @testy[:taxon_concept].id.to_i
     end
     it_should_behave_like 'taxa/names controller'
     it 'should instantiate related names' do

@@ -243,6 +243,12 @@ class Collection < ActiveRecord::Base
     "Collection ##{id}: #{name}"
   end
 
+  def inaturalist_project_details
+    url = "http://www.inaturalist.org/projects.json?source=http://eol.org/collections/#{id}"
+    response = Net::HTTP.get(URI.parse(url))
+    JSON.parse(response)[0]
+  end
+
 private
 
   # This should set the relevance attribute score between 0 and 100.  Use this sparringly, it's expensive to calculate:

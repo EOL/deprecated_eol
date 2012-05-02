@@ -7,7 +7,7 @@ class Collections::InaturalistsController < CollectionsController
   layout 'v2/collections'
 
   def show
-    
+    @inaturalist_project_id = @collection.inaturalist_project_details['id']
   end
 
 private

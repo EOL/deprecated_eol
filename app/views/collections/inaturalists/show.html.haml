@@ -6,6 +6,8 @@
 #tabs_sidebar
   = render :partial => 'collections/filter_by_item_type'
 #sidebar
+  = javascript_include_tag "http://www.inaturalist.org/projects/#{@inaturalist_project_id}/contributors.widget"
   = render :partial => 'collections/recently_visited'
 #collection_newsfeed.main_container
-  = render :partial => 'shared/embed_external_page', :locals  => {:height => '800px', :width => '100%', :url => @inaturalist_url_for_iframe}
+  %iframe{:frameborder => "0", :height => "300", :marginheight => "0", :marginwidth => "0", :scrolling => "no", :src => "http://maps.google.com/?q=http://www.inaturalist.org/observations/project/#{@inaturalist_project_id}.kml&t=m&output=embed", :width => "500"}
+  = javascript_include_tag "http://www.inaturalist.org/observations/project/#{@inaturalist_project_id}.widget?layout=large&limit=5&order=desc&order_by=observed_on"

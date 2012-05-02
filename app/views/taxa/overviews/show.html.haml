@@ -7,12 +7,9 @@
   = render(:partial => 'taxa/collections_summary')
   = render(:partial => 'taxa/communities_summary')
 #sidebar
-  - if @selected_hierarchy_entry
-    = render(:partial => 'taxa/classification_tree')
-    = render(:partial => 'taxa/curators_summary', :locals => {:curators => @taxon_concept.data_object_curators})
-  - else
-    = render(:partial => 'taxa/classifications_summary')
-    = render(:partial => 'taxa/curators_summary', :locals => {:curators => @taxon_concept.data_object_curators})
+  = render(:partial => @selected_hierarchy_entry ? 'taxa/classification_tree' : 'taxa/classifications_summary')
+  = render(:partial => 'taxa/curators_summary', :locals => {:curators => @taxon_concept.data_object_curators})
+  - unless @selected_hierarchy_entry
     .article.list.updates
       - log = @taxon_concept.activity_log(:per_page => 5)
       .header

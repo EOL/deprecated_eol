@@ -477,7 +477,7 @@ module ApplicationHelper
       taxon_overview_path(hierarchy_entry.taxon_concept_id) :
       taxon_hierarchy_entry_overview_path(hierarchy_entry.taxon_concept_id, hierarchy_entry)
     node = link_to(hierarchy_entry.italicized_name.firstcap, link)
-    node << navigation_show_tree_link(hierarchy_entry, opts.merge {:link => link})
+    node << navigation_show_tree_link(hierarchy_entry, opts.reverse_merge(:link => link))
   end
 
   def navigation_show_tree_link(hierarchy_entry, opts = {})

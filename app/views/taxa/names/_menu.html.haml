@@ -6,7 +6,7 @@
       %li{:class => resource_is_active('taxa/names', 'index')}
         = link_to I18n.t(:classifications_with_count, :count => @browsable_hierarchy_entries.length), taxon_hierarchy_entry_names_path(@taxon_concept, @selected_hierarchy_entry)
       %li{:class => resource_is_active('taxa/names', 'related_names')}
-        = link_to I18n.t(:related_names_with_count, :count => @taxon_concept.related_names_count(related_names)), related_names_taxon_hierarchy_entry_names(@taxon_concept, @selected_hierarchy_entry)
+        = link_to I18n.t(:related_names_with_count, :count => @taxon_concept.related_names_count(related_names)), related_names_taxon_hierarchy_entry_names_path(@taxon_concept, @selected_hierarchy_entry)
       %li{:class => resource_is_active('taxa/names', 'common_names')}
         = link_to I18n.t(:common_names_with_count, :count => @common_names_count), common_names_taxon_hierarchy_entry_names_path(@taxon_concept, @selected_hierarchy_entry)
       %li{:class => resource_is_active('taxa/names', 'synonyms')}

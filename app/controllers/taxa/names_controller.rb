@@ -8,7 +8,17 @@ class Taxa::NamesController < TaxaController
   before_filter :count_browsable_hierarchies, :only => [:index, :related_names, :common_names, :synonyms]
 
   def index
-    @hierarchy_entries = @taxon_concept.browsable_published_browsable_hierarchy_entries
+    all_hierarchy_entries = @taxon_concept.deep_published_hierarchy_entries
+    if params[:all]
+      @hierarchy_entries = all_hierarchy_entries
+      @other_hierarchy_entries = []
+    else 
+      @hierarchy_entries = all_hierarchy_entries.dup
+      @hierarchy_entries.delete_if {|he| !he.hierarchy_browsable }
+      @other_hierarchy_entries = all_hierarchy_entries.dup
+      @other_hierarchy_entries.delete_if {|he| he.hierarchy_browsable }
+      @hierarchy_entries = @other_hierarchy_entries if @hierarchy_entries.empty?
+    end
     HierarchyEntry.preload_associations(@hierarchy_entries, [ { :agents_hierarchy_entries => :agent }, :rank, { :hierarchy => :agent } ], :select => {:hierarchy_entries => [:id, :parent_id, :taxon_concept_id]} )
     @assistive_section_header = I18n.t(:assistive_names_classifications_header)
     common_names_count
@@ -52,13 +62,12 @@ class Taxa::NamesController < TaxaController
   # PUT /pages/:taxon_id/names currently only used to update common_names
   def update
     if current_user.is_curator?
-      if !params[:preferred_name_id].nil?
+      if params[:preferred_name_id]
         name = Name.find(params[:preferred_name_id])
         language = Language.find(params[:language_id])
         @taxon_concept.add_common_name_synonym(name.string, :agent => current_user.agent, :language => language, :preferred => 1, :vetted => Vetted.trusted)
         expire_taxa([@taxon_concept.id])
       end
-
       current_user.log_activity(:updated_common_names, :taxon_concept_id => @taxon_concept.id)
     end
     if !params[:hierarchy_entry_id].blank?

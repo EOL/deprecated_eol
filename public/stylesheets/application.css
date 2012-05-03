@@ -3342,35 +3342,39 @@ ul.content_partner_contacts li {
     #profile_edit fieldset.actions a {
       font-weight: bold; }
 
-#profile_open_authentications ul {
-  margin: 20px 200px; }
-  #profile_open_authentications ul li {
-    border-bottom: 1px solid #cccccc;
-    font-size: 1.6em;
-    list-style: none;
-    margin: 0 0 15px 0;
-    padding: 3px 20px 8px 37px;
-    background: transparent url("/images/v2/icon_social_plugins.png") no-repeat -32px 0; }
-    #profile_open_authentications ul li small, #profile_open_authentications ul li form, #profile_open_authentications ul li fieldset.actions, #profile_open_authentications ul li input {
-      float: right;
-      display: inline;
-      margin: 0; }
-    #profile_open_authentications ul li input {
-      font-size: smaller; }
-    #profile_open_authentications ul li.facebook {
+#profile_open_authentications .article.list ul {
+  margin: 0 100px; }
+  #profile_open_authentications .article.list ul li {
+    position: relative;
+    padding-top: 20px; }
+    #profile_open_authentications .article.list ul li h3 {
+      font-size: 1.67em;
+      line-height: 150%;
+      background: transparent url("/images/v2/icon_social_plugins.png") no-repeat 0 0;
+      min-height: 31px; }
+    #profile_open_authentications .article.list ul li p, #profile_open_authentications .article.list ul li h3 {
+      padding-left: 40px; }
+    #profile_open_authentications .article.list ul li .buttons {
+      position: absolute;
+      top: 25px;
+      right: 0; }
+      #profile_open_authentications .article.list ul li .buttons form, #profile_open_authentications .article.list ul li .buttons fieldset, #profile_open_authentications .article.list ul li .buttons div, #profile_open_authentications .article.list ul li .buttons input {
+        display: inline;
+        margin: 0; }
+      #profile_open_authentications .article.list ul li .buttons form + form {
+        margin-left: 5px; }
+    #profile_open_authentications .article.list ul li.facebook h3 {
       background-position: 0 0; }
-    #profile_open_authentications ul li.google {
+    #profile_open_authentications .article.list ul li.google h3 {
       background-position: 0 -96px; }
-    #profile_open_authentications ul li.twitter {
+    #profile_open_authentications .article.list ul li.twitter h3 {
       background-position: 0 -32px; }
-    #profile_open_authentications ul li.yahoo {
+    #profile_open_authentications .article.list ul li.yahoo h3 {
       background-position: 0 -64px; }
-  #profile_open_authentications ul + a {
-    margin-top: 40px;
-    border-top: 1px solid #cad3db;
-    padding: 20px;
-    font-weight: bold;
-    display: block; }
+#profile_open_authentications > a {
+  display: block;
+  padding-top: 20px;
+  border-top: 1px solid #cad3db; }
 
 ul.spotlite-matches {
   background: white;

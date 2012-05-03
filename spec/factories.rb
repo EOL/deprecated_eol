@@ -1115,8 +1115,8 @@ Factory.define :user do |u|
   u.curator_verdict_by_id     nil
   u.curator_verdict_at        nil
   u.curator_scope             ''
-  u.password_reset_token      nil
-  u.password_reset_token_expires_at  nil
+  u.recover_account_token      nil
+  u.recover_account_token_expires_at  nil
   u.curator_level_id          nil
 end
 

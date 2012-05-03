@@ -68,6 +68,10 @@ class Users::OpenAuthenticationsController < UsersController
     redirect_to user_open_authentications_url(@user)
   end
 
+  def update
+    # TODO: verify a connected account - check we have access to basic info.
+  end
+
   def destroy
     @user = User.find(params[:user_id], :include => :open_authentications)
     open_authentication = OpenAuthentication.find(params[:id])

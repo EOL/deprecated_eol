@@ -12,24 +12,22 @@ describe Administrator::CuratorController do
   end
 
   it "should set @users when accessing GET /index" do
-    session[:user_id] = @admin.id
-    get :index
+    get :index, nil, { :user_id => @admin.id }
     assigns[:users].should_not be_nil
     assigns[:users].should include(@curator)
     assigns[:users].should include(@user_wants_to_be_curator)
   end
 
   it "should set @users when accessing GET /index for unapproved curators" do
-    session[:user_id] = @admin.id
-    get :index, { :only_unapproved => true }
+    get :index, { :only_unapproved => true }, { :user_id => @admin.id }
     assigns[:users].should_not be_nil
     assigns[:users].should_not include(@curator)
     assigns[:users].should include(@user_wants_to_be_curator)
   end
 
-  it "should not be accessible to non-admin users" do
-    session[:user_id] = @curator.id
-    lambda { get :index }.should raise_error(EOL::Exceptions::SecurityViolation)
+  it "should raise SecurityViolation for non-admin users" do
+    expect { get :index, nil, { :user_id => @curator.id } }.
+      to raise_error(EOL::Exceptions::SecurityViolation) {|e| e.flash_error_key.should == :administrators_only}
   end
 
 end

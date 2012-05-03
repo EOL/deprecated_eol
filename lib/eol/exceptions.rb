@@ -18,7 +18,7 @@ module EOL
     class SecurityViolation < StandardError
       attr_accessor :flash_error_key, :flash_error_scope
       attr_writer :flash_error
-      def initialize(msg, flash_error_key = :default, flash_error_scope = [:exceptions, :security_violations])
+      def initialize(msg = nil, flash_error_key = :default, flash_error_scope = [:exceptions, :security_violations])
         if msg.is_a?(Array)
           super(msg[0])
           @flash_error_key = msg[1]

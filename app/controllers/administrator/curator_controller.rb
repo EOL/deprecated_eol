@@ -7,7 +7,7 @@ class Administrator::CuratorController < AdminController
   before_filter :restrict_to_admins
 
   require 'csv'
-  
+
   def index
     @page_title = I18n.t("curators")
     @user_search_string = params[:user_search_string] || ''

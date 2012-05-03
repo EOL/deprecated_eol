@@ -429,76 +429,6 @@ en:
               inaccessible: "is inaccessible, the URL must be publicly accessible"
               invalid: "is invalid, it should point to a TAR.GZIP, TAR.GZ or TGZ file"
   helpers:
-    select:
-      prompt: "Please select"
-    submit:
-      cancel: "Cancel"
-      create: "Create %{model}"
-      update: "Update %{model}"
-      submit: 'Save %{model}'
-      filter_sort: "Filter and sort"
-      collection_item:
-        update: "Save"
-      content_page:
-        create: "Create page"
-        edit: "Edit"
-        preview: "Preview"
-        update: "Update page"
-      content_partner:
-        create: "Create content partner"
-        update: "Save content partner information"
-      content_partner_agreement:
-        create: "Create new agreement"
-        update: "Update agreement"
-        agree: "Agree to content partner terms"
-      content_partner_contact:
-        create: "Add contact"
-        update: "Update contact"
-        destroy: "Delete contact"
-      data_object:
-        create: "Add article"
-        create_text: "Add article"
-        update: "Save article"
-      eol_statistic:
-          download_csv: "Download as CSV"
-      harvest_event:
-        publish: "Publish"
-      hierarchy:
-        update: "Update hierarchy"
-        request_publish: "Request to promote hierarchy"
-      name:
-        create: "Add name"
-        update: "Update name"
-      open_authentication:
-        destroy: "Disconnect"
-      resource:
-        create: "Add resource"
-        update: "Update resource"
-        update_settings: "Update settings"
-        force_harvest: "Request force harvest"
-      session:
-        create: "Sign in"
-        sign_in_with_facebook: "Sign in with Facebook"
-        sign_in_with_google: "Sign in with Google"
-        sign_in_with_twitter: "Sign in with Twitter"
-        sign_in_with_yahoo: "Sign in with Yahoo"
-      translated_content_page:
-        create: "Add translation"
-        update: "Save changes to translation"
-      user:
-        create: "Create account"
-        curation_application: "Apply now"
-        curation_privileges: "Submit request"
-        forgot_password: "Send email"
-        generate_api_key: "Generate a key"
-        recover_account: "Send email"
-        sign_up_with_facebook: "Sign up with Facebook"
-        sign_up_with_google: "Sign up with Google"
-        sign_up_with_twitter: "Sign up with Twitter"
-        sign_up_with_yahoo: "Sign up with Yahoo"
-        update: "Save profile information"
-      wikipedia_queue:
-        create: "Submit request"
     label:
       collection:
         view_style_id: "Default view"
@@ -513,7 +443,7 @@ en:
         active: "Published"
         active_more: "Published pages will be publicly visible. Uncheck <em>published</em> if you want to prevent general users from viewing versions of this page in any language."
         page_name: "Unique name <small>(lowercase ISO basic Latin alphanumeric characters and underscores only)</small>"
-        page_name_more: "Enter a unique, self descriptive, meaningful and persistent identifier for this page. The name you enter here will be used to generate the URL for this page, e.g. the unique name <em>terms_of_use</em> is converted to the URL <em>http://www.eol.org/info/terms_of_use</em>."
+        page_name_more: "Enter a unique, self descriptive, meaningful and persistent identifier for this page. The name you enter here will be used to generate the URL for this page, e.g. the unique name <em>terms_of_use</em> is converted to the URL <em>http://eol.org/info/terms_of_use</em>."
         parent_content_page_id: "Parent"
         parent_content_page_id_more: "Optionally select a parent under which this page should be nested."
       content_partner:
@@ -649,7 +579,9 @@ en:
     select:
       prompt: "Please select"
     submit:
+      cancel: "Cancel"
       create: "Create %{model}"
+      filter_sort: "Filter and sort"
       update: "Update %{model}"
       submit: 'Save %{model}'
       collection_item:
@@ -674,6 +606,8 @@ en:
         create: "Add article"
         create_text: "Add article"
         update: "Save article"
+      eol_statistic:
+        download_csv: "Download as CSV"
       harvest_event:
         publish: "Publish"
       hierarchy:
@@ -682,6 +616,10 @@ en:
       name:
         create: "Add name"
         update: "Update name"
+      open_authentication:
+        create: "Connect"
+        destroy: "Disconnect"
+        update: "Verify connection"
       resource:
         create: "Add resource"
         update: "Update resource"
@@ -689,17 +627,25 @@ en:
         force_harvest: "Request force harvest"
       session:
         create: "Sign in"
+        sign_in_with_facebook: "Sign in with Facebook"
+        sign_in_with_google: "Sign in with Google"
+        sign_in_with_twitter: "Sign in with Twitter"
+        sign_in_with_yahoo: "Sign in with Yahoo"
       translated_content_page:
         create: "Add translation"
         update: "Save changes to translation"
       user:
         create: "Create account"
-        update: "Save profile information"
-        forgot_password: "Send email"
-        generate_api_key: "Generate a key"
         curation_application: "Apply now"
         curation_privileges: "Submit request"
+        generate_api_key: "Generate a key"
+        recover_account: "Send email"
         notification_settings: "Notification settings"
+        sign_up_with_facebook: "Sign up with Facebook"
+        sign_up_with_google: "Sign up with Google"
+        sign_up_with_twitter: "Sign up with Twitter"
+        sign_up_with_yahoo: "Sign up with Yahoo"
+        update: "Save profile information"
       wikipedia_queue:
         create: "Submit request"
   will_paginate:
@@ -863,13 +809,13 @@ en:
       message: "This is an automated e-mail reminder from the Encyclopedia of Life. Web usage statistics for data supplied to EOL by %{partner_full_name} for %{month} %{year} are now available at %{partner_statistics_url}."
     curator_approved:
       subject: "Your request for Encyclopedia of Life curator privilege %{curator_level} has been approved"
-      message: "Thank you for requesting curator privilege %{curator_level}. Your request has been approved.\n\nFor more information on curation and what functions are available to you, visit http://www.eol.org/curators."
+      message: "Thank you for requesting curator privilege %{curator_level}. Your request has been approved.\n\nFor more information on curation and what functions are available to you, visit http://eol.org/curators."
     user_activated:
       subject: "Your Encyclopedia of Life account has been activated"
-      message: "Welcome to the Encyclopedia of Life (EOL) and thank you for registering! Please note your username is %{username} and your profile URL is %{profile_url}. You can log in to your account at http://www.eol.org/login.\n\nTo learn more about how to use EOL, including how to create EOL Collections, participate in EOL Communities and contribute content, please visit our help pages at http://www.eol.org/help."
+      message: "Welcome to the Encyclopedia of Life (EOL) and thank you for registering! Please note your username is %{username} and your profile URL is %{profile_url}. You can log in to your account at http://eol.org/login.\n\nTo learn more about how to use EOL, including how to create EOL Collections, participate in EOL Communities and contribute content, please visit our help pages at http://eol.org/help."
     user_activated_with_open_authentication:
       subject: "Your Encyclopedia of Life account has been activated"
-      message: "Welcome to the Encyclopedia of Life (EOL) and thank you for registering! Please note you signed up using%{oauth_provider} giving EOL permission to access your basic information for authentication purposes. Your profile URL on EOL is %{profile_url}. You can sign in to your EOL account with %{oauth_provider} at http://www.eol.org/login.\n\nTo learn more about how to use EOL, including how to create EOL Collections, participate in EOL Communities and contribute content, please visit our help pages at http://www.eol.org/help."
+      message: "Welcome to the Encyclopedia of Life (EOL) and thank you for registering! Please note you signed up using %{oauth_provider} giving EOL permission to access your basic information for authentication purposes. Your profile URL on EOL is %{profile_url}. You can sign in to your EOL account with %{oauth_provider} at http://eol.org/login.\n\nTo learn more about how to use EOL, including how to create EOL Collections, participate in EOL Communities and contribute content, please visit our help pages at http://eol.org/help."
     user_message:
       subject: "A message from the Encyclopedia of Life"
     user_recover_account:
@@ -1340,7 +1286,9 @@ en:
       facebook: Facebook
       google: Google
       index:
-        last_verified: "Last verified %{time_passed} ago;"
+        connected_last_verified: "Connected; Last verified %{time_passed} ago;"
+        connected_unverified: "Connected; Not verified;"
+        not_connected: "Not connected;"
         page_title: "Connected accounts"
         page_description: "Manage connections to third-party accounts that you can use to log in to EOL."
         return_link: "Return to edit profile."
@@ -2540,11 +2488,13 @@ en:
   exception: "Exception"
   exceptions:
     security_violations:
+      administrators_only: "Sorry, access is restricted to EOL Administrators."
       default: "Access denied."
       hidden_user_login: "Sorry, login is disabled for that account."
       hidden_user_recover_account: "Sorry, account recovery is disabled for that account."
       hidden_user_temporary_login: "Sorry, account recovery and login are disabled for that account."
       inactive_user_login: "Sorry, that account is not yet active. If you did not receive a verification email when you signed up please follow the account recovery procedure to verify your email address and activate your account."
+      min_full_curators_only: "Sorry, access is restricted to EOL Curators with a minimum curator level of Full."
   expand_all_children: "expand all children"
   explore: "Explore"
   explore_what_we_know_about_taxon: "Explore what EOL knows about %{taxon}."

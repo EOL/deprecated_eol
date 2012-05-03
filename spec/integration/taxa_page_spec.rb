@@ -517,7 +517,7 @@ describe 'Taxa page' do
       referrer = current_url
       visit taxon_details_path(@testy[:unpublished_taxon_concept].id)
       current_url.should == referrer
-      body.should include('You are not authorized to perform this action')
+      body.should include('Access denied')
     end
   end
 

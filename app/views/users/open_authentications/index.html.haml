@@ -1,25 +1,36 @@
 #content
   #profile_open_authentications.site_column
-    .copy
+    .article.list
       %ul
         - $ENABLED_SOCIAL_PLUGINS.sort_by{|provider_sym| provider_sym.to_s}.each do |oauth_provider|
           %li{:class => oauth_provider}
-            = I18n.t(oauth_provider, :scope => [:users, :open_authentications])
-            - if connected_oauth_provider = @user.open_authentications.select{|oa| oa.provider == oauth_provider.to_s}.first
-              %small
-                = I18n.t('helpers.label.open_authentication.connected')
-                - unless connected_oauth_provider.verified_at.nil?
-                  = t('.last_verified', :time_passed => time_ago_in_words(connected_oauth_provider.verified_at))
-                - form_for [@user, connected_oauth_provider], 
+            %h3= I18n.t(oauth_provider, :scope => [:users, :open_authentications])
+            - if connected_open_authentication = @user.open_authentications.select{|oa| oa.provider == oauth_provider.to_s}.first
+              %p
+                - if connected_open_authentication.verified_at.nil?
+                  = t('.connected_unverified')
+                - else
+                  = t('.connected_last_verified', 
+                    :time_passed => time_ago_in_words(connected_open_authentication.verified_at))
+              .buttons
+                - # TODO: check we still have access to a connected account
+                -#- form_for [@user, connected_open_authentication] do |form_update|
+                -#  = form_update.hidden_field :provider
+                -#  = form_update.hidden_field :guid
+                -#  %fieldset.actions
+                -#    = form_update.submit I18n.t('helpers.submit.open_authentication.update')
+                - form_for [@user, connected_open_authentication],
                   :html => { :method => :delete, :class => 'button_to',
-                  :id => "delete_open_authentication_#{connected_oauth_provider.id}" } do |delete_form|
+                  :id => "delete_open_authentication_#{connected_open_authentication.id}" } do |form_destroy|
                   %div
-                    = delete_form.submit I18n.t('helpers.submit.open_authentication.destroy'), :class => 'delete'
+                    = form_destroy.submit I18n.t('helpers.submit.open_authentication.destroy'), :class => 'delete'
             - else
-              - form_for [@user, @user.open_authentications.build(:provider => oauth_provider)], :html => { :id => "new_open_authentication_#{oauth_provider}" } do |f|
-                = f.hidden_field :provider
-                %fieldset.actions
-                  = f.submit I18n.t('helpers.label.open_authentication.connect')
-
-      = link_to t('.return_link'), edit_user_url(@user)
+              %p= t('.not_connected')
+              .buttons
+                - form_for [@user, @user.open_authentications.build(:provider => oauth_provider)], 
+                  :html => { :id => "new_open_authentication_#{oauth_provider}" } do |form_create|
+                  = form_create.hidden_field :provider
+                  %fieldset.actions
+                    = form_create.submit I18n.t('helpers.submit.open_authentication.create')
+    = link_to t('.return_link'), edit_user_url(@user)
 

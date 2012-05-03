@@ -13,10 +13,10 @@ class ApplicationController < ActionController::Base
 
   # Map custom exceptions to default response codes
   ActionController::Base.rescue_responses.update(
-    'EOL::Exceptions::MustBeLoggedIn'                     => :unauthorized,
-    'EOL::Exceptions::Pending'                            => :not_implemented,
-    'EOL::Exceptions::SecurityViolation'                  => :forbidden,
-    'OpenURI::HTTPError'                                  => :bad_request
+    'EOL::Exceptions::MustBeLoggedIn'     => :unauthorized,
+    'EOL::Exceptions::Pending'            => :not_implemented,
+    'EOL::Exceptions::SecurityViolation'  => :forbidden,
+    'OpenURI::HTTPError'                  => :bad_request
   )
 
   filter_parameter_logging :password
@@ -336,16 +336,24 @@ class ApplicationController < ActionController::Base
   end
 
   def restrict_to_admins
-    raise EOL::Exceptions::SecurityViolation unless current_user.is_admin?
+    raise EOL::Exceptions::SecurityViolation.new(
+      "User with ID=#{current_user.id} attempted to access an area (#{current_url}) or perform an action"\
+      " that is restricted to EOL Administrators, and was disallowed.",
+      :administrators_only) unless current_user.is_admin?
   end
 
   def restrict_to_curators
-    raise EOL::Exceptions::SecurityViolation unless current_user.min_curator_level?(:full)
+    raise EOL::Exceptions::SecurityViolation.new(
+      "User with ID=#{current_user.id} attempted to access an area (#{current_url}) or perform an action"\
+      " that is restricted to EOL Full Curators and above, and was disallowed.",
+      :min_full_curators_only) unless current_user.min_curator_level?(:full)
   end
 
   # A user is not authorized for the particular controller/action:
   def access_denied(exception = nil)
-    flash[:error] << exception.flash_error if exception.respond_to?(:flash_error)
+    if exception.respond_to?(:flash_error)
+      flash[:error] = [flash[:error], exception.flash_error].compact.join(' ').strip
+    end
     flash[:error] ||= I18n.t('exceptions.security_violations.default')
     # Beware of redirect loops! Check we are not redirecting back to current URL that user can't access
     store_location(nil) if return_to_url && return_to_url.include?(current_url)

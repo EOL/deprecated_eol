@@ -2678,35 +2678,45 @@ ul.content_partner_contacts
       a
         font-weight: bold
 #profile_open_authentications
-  ul
-    margin: 20px 200px
-    li
-      border-bottom: 1px solid #ccc
-      font-size: 1.6em
-      list-style: none
-      margin: 0 0 15px 0
-      padding: 3px 20px 8px 37px
-      background: transparent url('/images/v2/icon_social_plugins.png') no-repeat -32px 0
-      small, form, fieldset.actions, input
-        float: right
-        display: inline
-        margin: 0
-      input
-        font-size: smaller
-      &.facebook
-        background-position: 0 0
-      &.google
-        background-position: 0 -96px
-      &.twitter
-        background-position: 0 -32px
-      &.yahoo
-        background-position: 0 -64px
-    + a
-      margin-top: 40px
-      border-top: 1px solid #CAD3DB
-      padding: 20px
-      font-weight: bold
-      display: block
+  .article.list
+    ul
+      margin: 0 100px
+      li
+        position: relative
+        padding-top: 20px
+        h3
+          font-size: 1.67em
+          line-height: 150%
+          background: transparent url('/images/v2/icon_social_plugins.png') no-repeat 0 0
+          min-height: 31px
+        p, h3
+          padding-left: 40px
+        .buttons
+          position: absolute
+          top: 25px
+          right: 0
+          form, fieldset, div, input
+            display: inline
+            margin: 0
+          form + form
+            margin-left: 5px
+        &.facebook
+          h3
+            background-position: 0 0
+        &.google
+          h3
+            background-position: 0 -96px
+        &.twitter
+          h3
+            background-position: 0 -32px
+        &.yahoo
+          h3
+            background-position: 0 -64px
+  > a
+    display: block
+    padding-top: 20px
+    border-top: 1px solid #cad3db
+
 ul.spotlite-matches
   background: #fff
   border: 1px solid #d4dce2

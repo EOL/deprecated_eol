@@ -331,20 +331,15 @@ describe UsersController do
     end
 
     it "should find user by email or flash error if it can't find user by email" do
-      post :recover_account
-      assigns[:users].should be_blank
-      response.rendered[:template].should == 'users/recover_account.html.haml'
-      flash[:error].should_not be_blank
-      response.redirected_to.should be_blank
       post :recover_account, { :user => { :email => '' } }
+      response.flash[:error].should_not be_blank
       assigns[:users].should be_blank
       response.rendered[:template].should == 'users/recover_account.html.haml'
-      flash[:error].should_not be_blank
       response.redirected_to.should be_blank
       post :recover_account, { :user => { :email => 'userdoesnotexist' } }
       assigns[:users].should be_blank
       response.rendered[:template].should == 'users/recover_account.html.haml'
-      flash[:error].should_not be_blank
+      response.flash[:error].should_not be_blank
       response.redirected_to.should be_blank
     end
     it 'should raise exception if user is hidden' do
@@ -358,9 +353,9 @@ describe UsersController do
       Notifier.should_receive(:deliver_user_recover_account).
         with(@recover_user, /users\/#{@recover_user.id}\/temporary_login\/[a-f0-9]{40}$/i)
       post :recover_account, :user => { :email => @recover_user.email }
-      @recover_user.reload!
+      @recover_user.reload
       @recover_user.recover_account_token.should =~ /^[0-9a-f]{40}$/i
-      response.redirected_to.should == login_url
+      response.redirected_to.should == login_path
       flash[:notice].should =~ /further instructions/i
     end
     it 'should render choose account first if multiple accounts found' do
@@ -370,14 +365,15 @@ describe UsersController do
       user3 = User.gen(:email => shared_email_address)
       post :recover_account, :user => {:email => shared_email_address}
       assigns[:users].size.should == 3
-      assigns[:users].all?{|u| u.password_reset_token.blank? }.should be_true
+      assigns[:users].all?{|u| u.recover_account_token.blank? }.should be_true
       response.rendered[:template].should == 'users/recover_account_choose_account.html.haml'
       Notifier.should_receive(:deliver_user_recover_account).
-        with(user1, /users\/#{user1.id}\/temporary_login\/[a-f0-9]{40}$/i)
-      post :recover_account, :user => {:email => shared_email_address, :id => user1.id}
-      user1.reload!
-      user1.recover_account_token.should =~ /^[0-9a-f]{40}$/i
-      response.redirected_to.should == login_url
+        with(user1, /users\/#{user1.id}\/temporary_login\/[a-f0-9]{40}$/)
+      post :recover_account, { :commit_choose_account => 'Send email',
+                               :user => { :email => shared_email_address, :id => user1.id } }
+      user1.reload
+      user1.recover_account_token.should =~ /^[0-9a-f]{40}$/
+      response.redirected_to.should == login_path
       flash[:notice].should =~ /further instructions/i
     end
     it 'should ignore validation errors on user model' do
@@ -386,9 +382,9 @@ describe UsersController do
       Notifier.should_receive(:deliver_user_recover_account).
         with(@recover_user, /users\/#{@recover_user.id}\/temporary_login\/[a-f0-9]{40}$/i)
       post :recover_account, :user => { :email => @recover_user.email }
-      @recover_user.reload!
+      @recover_user.reload
       @recover_user.recover_account_token.should =~ /^[0-9a-f]{40}$/i
-      response.redirected_to.should == login_url
+      response.redirected_to.should == login_path
       flash[:notice].should =~ /further instructions/i
       @recover_user.update_attribute(:agreed_with_terms, true)
     end

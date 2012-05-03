@@ -1,6 +1,6 @@
 #======================================================================
-#                     v2staging.rb
-# Environment specific settings for the V2Staging environment
+#                     staging.rb
+# Environment specific settings for the Staging environment
 #
 # Settings specified here will override those in config/environment.rb.
 # Configuration files are loaded in the following order with the settings

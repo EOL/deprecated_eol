@@ -14,11 +14,15 @@ class Taxa::NamesController < TaxaController
       @other_hierarchy_entries = []
     else 
       @hierarchy_entries = all_hierarchy_entries.dup
-      @hierarchy_entries.delete_if {|he| !he.hierarchy_browsable }
+      @hierarchy_entries.delete_if {|he| @taxon_concept.entry.id != he.id && he.hierarchy_browsable.to_i == 0 }
       @other_hierarchy_entries = all_hierarchy_entries.dup
-      @other_hierarchy_entries.delete_if {|he| he.hierarchy_browsable }
-      @hierarchy_entries = @other_hierarchy_entries if @hierarchy_entries.empty?
+      @other_hierarchy_entries.delete_if {|he| he.hierarchy_browsable.to_i == 1 || @taxon_concept.entry.id == he.id }
+      @hierarchy_entries += @other_hierarchy_entries if
+        @hierarchy_entries.count == 1 && @hierarchy_entries.first.id == @taxon_concept.entry.id &&
+          @hierarchy_entries.first.hierarchy_browsable.to_i == 0
     end
+    # This puts the currently-preferred entry at the top of the list:
+    @hierarchy_entries.sort! {|a,b| a.id == @taxon_concept.entry.id ? -1 : b.id == @taxon_concept.entry.id ? 1 : 0}
     HierarchyEntry.preload_associations(@hierarchy_entries, [ { :agents_hierarchy_entries => :agent }, :rank, { :hierarchy => :agent } ], :select => {:hierarchy_entries => [:id, :parent_id, :taxon_concept_id]} )
     @assistive_section_header = I18n.t(:assistive_names_classifications_header)
     common_names_count

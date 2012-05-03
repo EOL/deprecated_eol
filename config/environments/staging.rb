@@ -43,6 +43,8 @@ config.log_level = :debug # :error
 # set to true to force users to use SSL for the login and signup pages 
 $USE_SSL_FOR_LOGIN = false
 
+$ENABLED_SOCIAL_PLUGINS = [:facebook, :twitter, :google, :yahoo] # Enable social sharing on the site e.g. Facebook Like button, and login with Facebook
+
 #This part of the code should stay at the bottom to ensure that www.eol.org - related settings override everything
 begin
   require File.join(File.dirname(__FILE__), 'staging_eol_org')

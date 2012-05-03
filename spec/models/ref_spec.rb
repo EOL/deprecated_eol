@@ -53,7 +53,6 @@ describe Ref do
     Ref.find_refs_for(tc.id).size.should == 1
   end
 
-  # WEB-2542
   it "should not have literature references when the reference is unpublished"  do
       tc = Factory(:taxon_concept)
       he = Factory(:hierarchy_entry, :taxon_concept => tc)
@@ -66,7 +65,6 @@ describe Ref do
       Ref.find_refs_for(tc.id).size.should == 0
     end
 
-  # WEB-2542
   it "should not have literature references when the reference is invisible" do
       tc = Factory(:taxon_concept)
       he = Factory(:hierarchy_entry, :taxon_concept => tc)
@@ -79,7 +77,6 @@ describe Ref do
       Ref.find_refs_for(tc.id).size.should == 0
     end
 
-  # WEB-2542
   it "should not have a literature review when there are no data objects"  do
       tc = Factory(:taxon_concept)
       Ref.literature_references_for?(tc.id).should_not be_true
@@ -93,7 +90,6 @@ describe Ref do
     Ref.find_refs_for(@tc_taxa_refs.id).size.should == 6
   end
 
-  # WEB-2542
   it "should not have a literature review" do
       tc = Factory(:taxon_concept)
       Ref.literature_references_for?(tc.id).should_not be_true

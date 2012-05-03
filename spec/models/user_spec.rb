@@ -191,19 +191,17 @@ describe User do
     @user.all_submitted_dato_descriptions.sort.should == @descriptions
   end
 
-  # TODO - This test should be modified/rewritten while working on WEB-2542
-  it 'convenience methods should be able to mark all data objects invisible and unvetted' # do
-   #    rebuild_convenience_method_data
-   #    Vetted.gen_if_not_exists(:label => 'Untrusted') unless Vetted.find_by_translated(:label, 'Untrusted')
-   #    Visibility.gen_if_not_exists(:label => 'Invisible') unless Visibility.find_by_translated(:label, 'Invisible')
-   #    @user.hide_all_submitted_datos
-   #    @datos.each do |stored_dato|
-   #
-   #      new_dato = DataObject.find(stored_dato.id) # we changed the values, so must re-load them.
-   #      new_dato.vetted.should == Vetted.untrusted
-   #      new_dato.visibility.should == Visibility.invisible
-   #    end
-   #  end
+  it 'convenience methods should be able to mark all data objects invisible and unvetted' do
+    rebuild_convenience_method_data
+    Vetted.gen_if_not_exists(:label => 'Untrusted') unless Vetted.find_by_translated(:label, 'Untrusted')
+    Visibility.gen_if_not_exists(:label => 'Invisible') unless Visibility.find_by_translated(:label, 'Invisible')
+    @user.hide_all_submitted_datos
+    @datos.each do |stored_dato|
+      new_dato = DataObject.find(stored_dato.id) # we changed the values, so must re-load them.
+      new_dato.users_data_object.vetted.should == Vetted.untrusted
+      new_dato.users_data_object.visibility.should == Visibility.invisible
+    end
+  end
 
   it 'should set the active boolean' do
     inactive_user = User.gen(:active => false)

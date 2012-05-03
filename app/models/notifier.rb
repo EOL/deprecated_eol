@@ -107,7 +107,7 @@ class Notifier < ActionMailer::Base
     subject     I18n.t(:subject, :scope => [:notifier, :user_activated_with_open_authentication])
     recipients  user.email
     from        $SUPPORT_EMAIL_ADDRESS
-    body        :user => user, :oauth_provider => oauth_provider
+    body        :user => user, :translated_oauth_provider => I18n.t("users.open_authentications.#{oauth_provider}")
   end
 
   def user_recover_account(user, temporary_login_url)

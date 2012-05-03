@@ -9,7 +9,7 @@ ActionMailer::Base.smtp_settings = {
 :domain => "eol.org",
 }
 
-# OAuth API keys for EOL Development Applications
+# OAuth API keys for EOL Development Applications linked to http://localhost:3000
 $FACEBOOK_APP_ID = "336932289696842"
 $FACEBOOK_CONSUMER_KEY = $FACEBOOK_APP_ID
 $FACEBOOK_CONSUMER_SECRET = "b9b40823a05488d192f1e7b10f773f6c"

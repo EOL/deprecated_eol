@@ -828,8 +828,8 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     end
   end
 
-  def recover_account_token_valid?(token)
-    recover_account_token =~ /^[a-f0-9]{40}/ && recover_account_token == token && !recover_account_token_expired?
+  def recover_account_token_matches?(token)
+    (recover_account_token =~ /^[a-f0-9]{40}/) && (recover_account_token == token)
   end
 
   def recover_account_token_expired?

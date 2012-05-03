@@ -18,6 +18,8 @@ class RedirectsController < ApplicationController
         to_url = taxon_maps_path(params[:taxon_id])
       when 'media'
         to_url = taxon_media_path(params[:taxon_id])
+      when 'names'
+        to_url = taxon_names_path(params[:taxon_id])
       else
         to_url = taxon_overview_path(params[:taxon_id])
       end

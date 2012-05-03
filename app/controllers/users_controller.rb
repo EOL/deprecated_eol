@@ -236,6 +236,7 @@ class UsersController < ApplicationController
                   verify_open_authentication_users_url(:oauth_provider => oauth_provider),
                   params.merge({:request_token_token => session.delete("#{oauth_provider}_request_token_token"),
                                 :request_token_secret => session.delete("#{oauth_provider}_request_token_secret")}))
+    return oauth_unauthorized_rescue if params[:error] == "access_denied"
     if @open_auth.have_attributes?
       if @open_auth.is_connected?
         if @open_auth.open_authentication.user_id == current_user.id
@@ -271,7 +272,8 @@ class UsersController < ApplicationController
       else
         @users = User.find_all_by_email(params[:user][:email].strip)
         if @users.blank?
-          return flash.now[:error] = I18n.t('users.recover_account.errors.user_not_found_by_email_address')
+          flash.now[:error] = I18n.t('users.recover_account.errors.user_not_found_by_email_address')
+          return
         elsif @users.size > 1
           render :action => 'recover_account_choose_account' and return
         end
@@ -287,7 +289,7 @@ class UsersController < ApplicationController
       user.recover_account_token = User.generate_key
       user.recover_account_token_expires_at = 24.hours.from_now
       user.save(false)
-      user.reload # Just to ensure everything is dandy
+      user.reload # Just to ensure everything is dandy in the database (TODO: will slave cause problems?)
       if user.recover_account_token =~ /^[a-f0-9]{40}$/ && !user.recover_account_token_expired?
         Notifier.deliver_user_recover_account(user, temporary_login_user_url(user, user.recover_account_token))
         flash[:notice] = I18n.t('users.recover_account.notices.recovery_email_sent')
@@ -309,7 +311,7 @@ class UsersController < ApplicationController
           "Hidden User with ID=#{user.id} attempted to use a temporary login link and was disallowed.",
           :hidden_user_temporary_login)
       end
-      if user.recover_account_token_valid?(params[:recover_account_token])
+      if user.recover_account_token_matches?(params[:recover_account_token]) && !user.recover_account_token_expired?
         user.recover_account_token = nil
         user.recover_account_token_expires_at = nil
         user.save(false)
@@ -321,7 +323,12 @@ class UsersController < ApplicationController
         log_in(user)
         flash[:notice] = I18n.t('users.recover_account.notices.temporarily_logged_in_update_authentication_details')
         redirect_to edit_user_path(user), :status => :moved_permanently and return
-     else
+      else
+        if user.recover_account_token_expired?
+          user.recover_account_token = nil
+          user.recover_account_token_expires_at = nil
+          user.save(false)
+        end
         flash[:error] =  I18n.t('users.recover_account.errors.token_expired_or_invalid')
       end
     end

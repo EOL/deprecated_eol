@@ -444,7 +444,7 @@ describe "Preview Collections" do
     referrer = current_path
     visit collection_path(@collection)
     current_path.should == referrer
-    body.should include('You are not authorized')
+    body.should include('Access denied.')
     visit logout_path
 
     admin = User.gen(:admin => true)

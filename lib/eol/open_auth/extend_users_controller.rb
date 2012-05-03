@@ -11,6 +11,7 @@ module EOL
         @open_auth = EOL::OpenAuth.init(oauth_provider, new_user_url(:oauth_provider => oauth_provider),
                       params.merge({:request_token_token => session.delete("#{oauth_provider}_request_token_token"),
                                     :request_token_secret => session.delete("#{oauth_provider}_request_token_secret")}))
+        return oauth_unauthorized_rescue if params[:error] == "access_denied"
         if @open_auth.have_attributes?
           if @open_auth.is_connected?
             flash.now[:error] = I18n.t(:signup_failed_account_already_connected,
@@ -25,7 +26,8 @@ module EOL
                                                                  :provider => @open_auth.provider }]}))
           end
         else
-          flash.now[:error] = I18n.t(:missing_attributes, :scope => [:users, :open_authentications, :errors, @open_auth.provider])
+          flash.now[:error] = I18n.t(:missing_attributes,
+                                     :scope => [:users, :open_authentications, :errors, @open_auth.provider])
         end
         @user ||= User.new
       end
@@ -43,11 +45,10 @@ module EOL
         provider = params[:user][:open_authentications_attributes]["0"][:provider]
         params[:user][:open_authentications_attributes]["0"][:token] = session["oauth_token_#{provider}_#{guid}"]
         params[:user][:open_authentications_attributes]["0"][:secret] = session["oauth_secret_#{provider}_#{guid}"]
-
+        params[:user][:open_authentications_attributes]["0"][:verified_at] = Time.now
         @user = User.new(params[:user].reverse_merge(:language => current_language,
                                                      :active => true,
-                                                     :remote_ip => request.remote_ip,
-                                                     :open_authentications_attributes => [{:verified_at => Time.now}]))
+                                                     :remote_ip => request.remote_ip))
         if @user.save # note no recaptcha for oauth signups
           Notifier.deliver_user_activated_with_open_authentication(@user,
             I18n.t(provider.to_sym, :scope => [:users, :open_authentications]))

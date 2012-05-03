@@ -500,6 +500,19 @@ de:
         user_showed_data_object_on_association: <strong>%{user}</strong> markierte „%{data_object}“ auf der Seite „%{association}“ als sichtbar.
         user_showed_it_on_an_unknown_association: <strong>%{user}</strong> markierte es in einem unbekannten Zusammenhang als sichtbar.
         user_showed_it_on_association: <strong>%{user}</strong> markierte es auf der Seite „%{association}“ als sichtbar.
+      trust_common_name: 
+        an_unknown_user_trusted_an_unknown_name_on_an_unknown_taxon: Ein unbekannter Nutzer markierte einen unbekannten gebräuchlichen Namen auf einer unbekannten Seite als vertrauenswürdig.
+        an_unknown_user_trusted_an_unknown_name_on_it: Ein unbekannter Nutzer markierte einen unbekannten gebräuchlichen Namen als vertrauenswürdig.
+        an_unknown_user_trusted_an_unknown_name_on_taxon: Ein unbekannter Nutzer markierte einen unbekannten gebräuchlichen Namen zu „%{taxon}“ als vertrauenswürdig.
+        an_unknown_user_trusted_name_on_an_unknown_taxon: Ein unbekannter Nutzer markierte den gebräuchlichen Namen „%{name}“ zu einer unbekannten Seite als vertrauenswürdig.
+        an_unknown_user_trusted_name_on_it: Ein unbekannter Nutzer markierte den Namen „%{name}“ als vertrauenswürdig.
+        an_unknown_user_trusted_name_on_taxon: Ein unbekannter Nutzer markierte den gebräuchlichen Namen „%{name}“ zu „%{taxon}“ als vertrauenswürdig.
+        user_trusted_an_unknown_name_on_an_unknown_taxon: <strong>%{user}</strong> markierte einen unbekannten gebräuchlichen Namen auf einer unbekannten Seite als vertrauenswürdig.
+        user_trusted_an_unknown_name_on_it: <strong>%{user}</strong> markierte einen unbekannten gebräuchlichen Namen als vertrauenswürdig.
+        user_trusted_an_unknown_name_on_taxon: <strong>%{user}</strong> markierte einen unbekannten gebräuchlichen Namen zu „%{taxon}“ als vertrauenswürdig.
+        user_trusted_name_on_an_unknown_taxon: <strong>%{user}</strong> markierte den gebräuchlichen Namen „%{name}“ zu einer unbekannten Seite als vertrauenswürdig.
+        user_trusted_name_on_it: <strong>%{user}</strong> markierte den Namen „%{name}“ als vertrauenswürdig.
+        user_trusted_name_on_taxon: <strong>%{user}</strong> markierte den gebräuchlichen Namen „%{name}“ zu „%{taxon}“ als vertrauenswürdig.
       trusted: 
         an_unknown_user_trusted_an_older_data_object_on_an_unknown_association: Ein unbekannter Nutzer markierte eine ältere Version von „%{data_object}“ in einem unbekannten Zusammenhang als vertrauenswürdig.
         an_unknown_user_trusted_an_older_data_object_on_association: Ein unbekannter Nutzer markierte eine ältere Version von „%{data_object}“ auf der Seite „%{association}“ als vertrauenswürdig.
@@ -534,6 +547,19 @@ de:
         user_unreviewed_data_object_on_association: <strong>%{user}</strong> markierte „%{data_object}“ auf der Seite „%{association}“ als nicht überprüft.
         user_unreviewed_it_on_an_unknown_association: <strong>%{user}</strong> markierte es in einem unbekannten Zusammenhang als nicht überprüft.
         user_unreviewed_it_on_association: <strong>%{user}</strong> markierte es auf der Seite „%{association}“ als nicht überprüft.
+      untrust_common_name: 
+        an_unknown_user_untrusted_an_unknown_name_on_an_unknown_taxon: Ein unbekannter Nutzer markierte einen unbekannten gebräuchlichen Namen auf einer unbekannten Seite als nicht vertrauenswürdig.
+        an_unknown_user_untrusted_an_unknown_name_on_it: Ein unbekannter Nutzer markierte einen unbekannten gebräuchlichen Namen als nicht vertrauenswürdig.
+        an_unknown_user_untrusted_an_unknown_name_on_taxon: Ein unbekannter Nutzer markierte einen unbekannten gebräuchlichen Namen zu „%{taxon}“ als nicht vertrauenswürdig.
+        an_unknown_user_untrusted_name_on_an_unknown_taxon: Ein unbekannter Nutzer markierte den gebräuchlichen Namen „%{name}“ zu einer unbekannten Seite als nicht vertrauenswürdig.
+        an_unknown_user_untrusted_name_on_it: Ein unbekannter Nutzer markierte den Namen „%{name}“ als nicht vertrauenswürdig.
+        an_unknown_user_untrusted_name_on_taxon: Ein unbekannter Nutzer markierte den gebräuchlichen Namen „%{name}“ zu „%{taxon}“ als nicht vertrauenswürdig.
+        user_untrusted_an_unknown_name_on_an_unknown_taxon: <strong>%{user}</strong> markierte einen unbekannten gebräuchlichen Namen auf einer unbekannten Seite als nicht vertrauenswürdig.
+        user_untrusted_an_unknown_name_on_it: <strong>%{user}</strong> markierte einen unbekannten gebräuchlichen Namen als nicht vertrauenswürdig.
+        user_untrusted_an_unknown_name_on_taxon: <strong>%{user}</strong> markierte einen unbekannten gebräuchlichen Namen zu „%{taxon}“ als nicht vertrauenswürdig.
+        user_untrusted_name_on_an_unknown_taxon: <strong>%{user}</strong> markierte den gebräuchlichen Namen „%{name}“ zu einer unbekannten Seite als nicht vertrauenswürdig.
+        user_untrusted_name_on_it: <strong>%{user}</strong> markierte den Namen „%{name}“ als nicht vertrauenswürdig.
+        user_untrusted_name_on_taxon: <strong>%{user}</strong> markierte den gebräuchlichen Namen „%{name}“ zu „%{taxon}“ als nicht vertrauenswürdig.
       untrusted: 
         an_unknown_user_untrusted_an_older_data_object_on_an_unknown_association: Ein unbekannter Nutzer markierte eine ältere Version von „%{data_object}“ in einem unbekannten Zusammenhang als nicht vertrauenswürdig.
         an_unknown_user_untrusted_an_older_data_object_on_association: Ein unbekannter Nutzer markierte eine ältere Version von „%{data_object}“ auf der Seite „%{association}“ als nicht vertrauenswürdig.

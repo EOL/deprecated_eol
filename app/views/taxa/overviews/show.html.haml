@@ -17,8 +17,17 @@
         .meta.curated
           %p= I18n.t(:classification_selected_by_curator, :curator => link_to(preferred_classification.user.full_name, user_path(preferred_classification.user_id)))
         #classification_browser.browsable.classifications
+          - hierarchy_entry = preferred_classification.hierarchy_entry
+          - taxon_rank = hierarchy_entry.rank_label
+          - if hierarchy_entry.hierarchy.agent.user && !hierarchy_entry.hierarchy.agent.user.content_partners.blank?
+            - agent = link_to(hierarchy_entry.hierarchy.agent.full_name, content_partner_path(hierarchy_entry.hierarchy.agent.user.content_partners.first))
+          - elsif hierarchy_entry.hierarchy.resource && hierarchy_entry.hierarchy.resource.content_partner
+            - agent = link_to(hierarchy_entry.hierarchy.agent.full_name, content_partner_path(hierarchy_entry.hierarchy.resource.content_partner))
+          - else
+            - agent = hierarchy_entry.hierarchy.agent.full_name
+          %h4= I18n.t(:rank_recognized_by_agent_colon, :rank => taxon_rank, :agent => agent)
           %ul
-            = render(:partial => 'taxa/trees/show', :locals => {:in_hierarchy => true, :hierarchy_entry => preferred_classification.hierarchy_entry, :link_to_taxa => true, :show_siblings => true})
+            = render(:partial => 'taxa/trees/show', :locals => {:in_hierarchy => true, :hierarchy_entry => hierarchy_entry, :link_to_taxa => true, :show_siblings => true})
     - else
       = render(:partial => 'taxa/classifications_summary')
   = render(:partial => 'taxa/curators_summary', :locals => {:curators => @taxon_concept.data_object_curators})

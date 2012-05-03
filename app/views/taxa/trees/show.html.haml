@@ -1,2 +1,2 @@
 = javascript_include_merged 'taxa-navigation'
-= render :partial => "show", :locals => {:hierarchy_entry => @hierarchy_entry, :in_hierarchy => true, :link_to_taxa => @selected_hierarchy_entry.nil?, :max_children => @max_children}
+= render :partial => "show", :locals => {:hierarchy_entry => @hierarchy_entry, :in_hierarchy => true, :link_to_taxa => @link_to_taxa, :max_children => @max_children, :show_siblings => @show_siblings}

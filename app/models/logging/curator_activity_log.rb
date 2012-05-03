@@ -135,17 +135,19 @@ class CuratorActivityLog < LoggingModel
   end
 
   def log_activity_in_solr
-    curation_activities = [ Activity.trusted.id, Activity.untrusted.id, Activity.unreviewed.id, Activity.show.id, Activity.hide.id ]
+    curation_activities = [ Activity.trusted.id, Activity.untrusted.id, Activity.unreviewed.id,
+      Activity.show.id, Activity.hide.id ]
     loggable_activities = {
-      ChangeableObjectType.data_object.id => [ Activity.show.id, Activity.trusted.id, Activity.unreviewed.id, Activity.untrusted.id,
-                                               Activity.choose_exemplar.id ],
+      ChangeableObjectType.data_object.id => [ Activity.show.id, Activity.trusted.id, Activity.unreviewed.id,
+                                               Activity.untrusted.id, Activity.choose_exemplar.id ],
       ChangeableObjectType.synonym.id => [ Activity.add_common_name.id, Activity.remove_common_name.id,
                                            Activity.trust_common_name.id, Activity.unreview_common_name.id,
                                            Activity.untrust_common_name.id, Activity.inappropriate_common_name.id],
       ChangeableObjectType.data_objects_hierarchy_entry.id => curation_activities,
-      ChangeableObjectType.curated_data_objects_hierarchy_entry.id => curation_activities + [ Activity.add_association.id,
-                                                                                              Activity.remove_association.id ],
-      ChangeableObjectType.users_data_object.id => curation_activities
+      ChangeableObjectType.curated_data_objects_hierarchy_entry.id => curation_activities +
+        [ Activity.add_association.id, Activity.remove_association.id ],
+      ChangeableObjectType.users_data_object.id => curation_activities,
+      ChangeableObjectType.curated_taxon_concept_preferred_entry.id => [Activity.preferred_classification.id]
     }
     return unless self.activity
     return unless loggable_activities[self.changeable_object_type_id]
@@ -171,7 +173,7 @@ class CuratorActivityLog < LoggingModel
     return @notification_recipients if @notification_recipients
     @notification_recipients = []
     add_recipient_user_taking_action(@notification_recipients)
-    add_recipient_affected_by_common_name(@notification_recipients)
+    add_recipient_taxon_concepts(@notification_recipients)
     add_recipient_affected_by_object_curation(@notification_recipients)
     add_recipient_users_watching(@notification_recipients)
     add_recipient_author_of_curated_text(@notification_recipients)
@@ -190,8 +192,10 @@ private
                     :frequency => NotificationFrequency.never }
   end
 
-  def add_recipient_affected_by_common_name(recipients)
-    if self.changeable_object_type_id == ChangeableObjectType.synonym.id
+  # There are a few types of CuratorActivityLogs that only notify their taxon concepts:
+  def add_recipient_taxon_concepts(recipients)
+    if self.changeable_object_type_id == ChangeableObjectType.synonym.id ||
+       self.changeable_object_type_id == ChangeableObjectType.curated_taxon_concept_preferred_entry.id
       unless self.taxon_concept.blank?
         recipients << self.taxon_concept
         recipients << { :ancestor_ids => self.taxon_concept.flattened_ancestor_ids }

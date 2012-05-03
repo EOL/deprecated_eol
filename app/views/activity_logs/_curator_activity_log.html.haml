@@ -86,7 +86,7 @@
     - provider = item.hierarchy_entry.recognized_by_agents.map(&:full_name).to_sentence
     - if item.hierarchy_entry.has_source_database?
       - provider = I18n.t(:recognized_by_from_source, :recognized_by => provider, :source => item.hierarchy_entry.hierarchy.agent.full_name)
-    - translation_vars.reverse_merge(:provider => provider)
+    - translation_vars.reverse_merge!(:provider => provider)
     = I18n.t("preferred_classification.#{user_type}_preferred_classification_on_#{taxon_type}", translation_vars)
   - else
     = I18n.t("other_actions.#{user_type}_curated_#{data_object_type}", translation_vars)

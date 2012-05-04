@@ -6,8 +6,22 @@
 #tabs_sidebar
   = render :partial => 'collections/filter_by_item_type'
 #sidebar
-  = javascript_include_tag "http://www.inaturalist.org/projects/#{@inaturalist_project_id}/contributors.widget"
+  .inat_top_contributors
+    %h3= t('.top_contributors')
+    = javascript_include_tag "http://www.inaturalist.org/projects/#{@inaturalist_project_id}/contributors.widget"
   = render :partial => 'collections/recently_visited'
-#collection_newsfeed.main_container
-  %iframe{:frameborder => "0", :height => "300", :marginheight => "0", :marginwidth => "0", :scrolling => "no", :src => "http://maps.google.com/?q=http://www.inaturalist.org/observations/project/#{@inaturalist_project_id}.kml&t=m&output=embed", :width => "500"}
-  = javascript_include_tag "http://www.inaturalist.org/observations/project/#{@inaturalist_project_id}.widget?layout=large&limit=5&order=desc&order_by=observed_on"
+#inat_observations.main_container
+  .inat_observations_header
+    = link_to t('.add_observations'), "http://www.inaturalist.org/observations/new?project_id=#{@inaturalist_project_id}", :class => 'button'
+    %span= t('.taxa_observed', :observed_taxa_count => @inaturalist_observed_taxa_count)
+    %a{:href => "http://www.inaturalist.org/"}
+      %img{:src => "http://inaturalist.org/images/logo-small.gif"}
+  .inat_observations_map
+    %iframe{:src => "http://maps.google.com/?q=http://www.inaturalist.org/observations/project/#{@inaturalist_project_id}.kml&t=p&output=embed", :frameborder => "0", 
+            :height => "300", :marginheight => "0", :marginwidth => "0", :scrolling => "no", :width => "500"}
+  .heading
+    %h3= t('.recent_observations')
+  .recent_observations
+    = javascript_include_tag "http://www.inaturalist.org/observations/project/#{@inaturalist_project_id}.widget?layout=large&limit=20&order=desc&order_by=observed_on"
+    %br
+      %h3= link_to t('.view_more_observations_on_inaturalist', :project_title => @inaturalist_project_title), "http://www.inaturalist.org/observations/project/#{@inaturalist_project_id}"

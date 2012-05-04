@@ -733,10 +733,15 @@ en:
         tweet_text: "%{collection_name} News"
     inaturalists:
       show:
+        add_observations: "Add Observations"
         meta_description: "iNaturalist Observations for the Enyclopedia of Life collection %{collection_name}."
         meta_keywords: "%{collection_name} iNaturalist Observations"
         meta_title: "%{collection_name} iNaturalist Observations"
+        recent_observations: "Recent Observations"
+        taxa_observed: "%{observed_taxa_count} taxa observed"
+        top_contributors: "Top Contributors"
         tweet_text: "%{collection_name} iNaturalist Observations"
+        view_more_observations_on_inaturalist: "View more observations from %{project_title} on iNaturalist »"
   communities:
     collections:
       index:

@@ -837,6 +837,32 @@ body
         >a
           >img
             +max_dimensions($logo_size_secondary, $logo_size_secondary)
+#inat_observations
+  &.main_container
+    .inat_observations_header
+      padding: 10px 0 10px 0
+      span
+        margin-left: 60px
+      img
+        float: right
+        vertical-align: middle
+    .inat_observations_map
+      padding: 10px 0 10px 0
+    .recent_observations
+      table
+        tbody
+          tr
+            line-height: 125%
+            td
+              padding-top: 10px
+              img
+                width: 68px
+                height: 68px
+                border: 1px solid #cad3db
+                float: left
+                margin: 0 20px 0 0
+              a
+                font-weight: bold
 #page_heading
   &.with_image, &.profile
     img
@@ -845,6 +871,24 @@ body
   .collection_list, .collection_contributors, .content_partner_managers
     img
       +max_dimensions($logo_size_tertiary, $logo_size_tertiary)
+  .inat_top_contributors
+    margin: 0 0 20px 0
+    table
+      tbody
+        tr
+          td
+            line-height: 150%
+            padding-bottom: 8px
+            img
+              margin: 0 10px 0 0
+              border: 1px solid #394651
+              +max_dimensions($logo_size_tertiary, $logo_size_tertiary)
+            a
+              float: left
+              font-weight: bold
+            span
+              b
+                margin-left: -10px
 /** we share attribution across multiple pages so we need some overrides of HR here **/
 #text_summary
   p.flag

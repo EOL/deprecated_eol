@@ -8,6 +8,8 @@ class Collections::InaturalistsController < CollectionsController
 
   def show
     @inaturalist_project_id = @collection.inaturalist_project_details['id']
+    @inaturalist_project_title = @collection.inaturalist_project_details['title']
+    @inaturalist_observed_taxa_count = @collection.inaturalist_project_details['observed_taxa_count']
   end
 
 private

@@ -76,21 +76,6 @@ namespace :solr do
     puts "Complete\n\n"
   end
 
-  desc 'Rebuild a site_search resource type'
-  task :rebuild_site_search_resource_type, [:resource_type] => :environment do |t, args|
-    # if args[:resource_type].blank?
-    #       puts "\n\n    rake solr:rebuild_site_search_resource_type[ClassName]"
-    #       return
-    #     end
-    
-    # TODO: I have added an extra check here to rebuild only content_pages.
-    # This method should be reverted back to whatever it was after next deploy to prod
-    if (klass = args[:resource_type].constantize) && klass == ContentPage
-      solr_api = EOL::Solr::SiteSearchCoreRebuilder.connect
-      EOL::Solr::SiteSearchCoreRebuilder.reindex_model(klass, solr_api)
-    end
-  end
-
   desc 'Rebuild the collection_items index'
   task :rebuild_collection_items => :environment do
     EOL::Solr::CollectionItemsCoreRebuilder.begin_rebuild

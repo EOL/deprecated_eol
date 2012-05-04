@@ -12,7 +12,7 @@ class CuratedTaxonConceptPreferredEntriesController < ApplicationController
       if tcpe
         tcpe.update_attribute(:hierarchy_entry_id, @hierarchy_entry.id)
       else 
-        TaxonConceptPreferredEntry.create(:taxon_concept_id => @taxon_concept.id,
+        TaxonConceptPreferredEntry.create(:taxon_concept_id   => @taxon_concept.id,
                                           :hierarchy_entry_id => @hierarchy_entry.id)
       end
       auto_collect(@taxon_concept) # SPG asks for all curation to add the item to their watchlist.

@@ -221,6 +221,9 @@ TocItem.gen_if_not_exists(:label => 'Content Summary', :view_order => 58, :paren
 #--
 TocItem.gen_if_not_exists(:label => 'Biodiversity Heritage Library', :view_order => 61)
 ref_and_info = TocItem.gen_if_not_exists(:label => 'References and More Information', :view_order => 62)
+#--
+citizen_science = TocItem.gen_if_not_exists(:label => 'Citizen Science', :view_order => 70)
+TocItem.gen_if_not_exists(:label => 'Citizen Science Links', :view_order => 71, :parent_id => citizen_science.id)
 
 
 # Note that in all these "children", the view_order resets.  ...That reflects the real DB.

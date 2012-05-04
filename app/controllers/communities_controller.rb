@@ -36,7 +36,7 @@ class CommunitiesController < ApplicationController
 
   def create
     # accepts_nested_attributes_for doesn't fully work on create... it'll work on update, though, so we deal w/ it:
-    if @collection.special?
+    if @collection.watch_collection?
       flash[:error] = I18n.t(:cannot_create_community_from_watch_collection_error)
       return redirect_to @collection
     end

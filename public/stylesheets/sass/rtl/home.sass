@@ -55,7 +55,7 @@ body
       font-weight: 200
       text-align: center
     form
-      width: 368px
+      width: 390px
       padding: 4px
       +border-radius(180px)
       background: rgba(255, 255, 255, .5)
@@ -68,7 +68,6 @@ body
         font-size: 1.5em
         line-height: 28px
         background: transparent url("/images/v2/icon_search_home.png") 286px 50% no-repeat
-        
       input[type="submit"]
         min-width: 40px
         min-height: 40px
@@ -86,26 +85,27 @@ body
       padding: 10px
       &.signed_in
         ul
-          float: left
-          overflow: hidden
-          margin-left: 1px
-          font-weight: bold
-          font-size: .9em
-          li
-            a
-              display: block
-              height: 25px
-              line-height: 25px
-              text-decoration: none
-              background: url("/images/v2/icon_header_messages.png") 18px 45% no-repeat #566572
-              padding: 0 24px 0 5px
-              &:hover
-                background-color: #667d91
-            + li
-              margin-top: 1px
+          &.notifications
+            float: left
+            overflow: hidden
+            margin-right: 1px
+            font-weight: bold
+            font-size: .9em
+            li
               a
-                background-image: url("/images/v2/icon_header_notifications.png")
-                background-position: 22px 50%
+                display: block
+                height: 25px
+                line-height: 25px
+                text-decoration: none
+                background: url("/images/v2/icon_header_messages.png") 18px 45% no-repeat #566572
+                padding: 0 24px 0 5px
+                &:hover
+                  background-color: #667d91
+              + li
+                margin-top: 1px
+                a
+                  background-image: url("/images/v2/icon_header_notifications.png")
+                  background-position: 22px 50%
         img
           float: left
           margin: 0 10px 0 0
@@ -119,13 +119,20 @@ body
           color: #ffffff
           strong
             font-size: 1.09em
-          p.user_links
-            font-size: .83em
+          ul.user_links
+            font-size: 1em
             text-transform: uppercase
+            text-align: left
             color: #62707d
-            a
-              color: #acd7ff
-              text-decoration: none
+            li
+              display: inline-block
+              &:before
+                content: "\2022\0000a0"
+              &:first-child:before
+                content: ""
+              a
+                color: #acd7ff
+                text-decoration: none
     .thumbnails
       position: absolute
       right: 0

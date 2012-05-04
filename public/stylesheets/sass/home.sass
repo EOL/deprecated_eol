@@ -1,6 +1,8 @@
 @import "common"
 
 .session.join
+  abbr
+    border: none
   font-weight: bold
   text-align: center
   p
@@ -55,7 +57,7 @@ body
       font-weight: 200
       text-align: center
     form
-      width: 380px
+      width: 390px
       padding: 4px
       +border-radius(180px)
       background: rgba(255, 255, 255, .5)
@@ -87,26 +89,27 @@ body
       padding: 10px
       &.signed_in
         ul
-          float: right
-          overflow: hidden
-          margin-left: 1px
-          font-weight: bold
-          font-size: .9em
-          li
-            a
-              display: block
-              height: 25px
-              line-height: 25px
-              text-decoration: none
-              background: url("/images/v2/icon_header_messages.png") 6px 45% no-repeat #566572
-              padding: 0 5px 0 24px
-              &:hover
-                background-color: #667d91
-            + li
-              margin-top: 1px
+          &.notifications
+            float: right
+            overflow: hidden
+            margin-left: 1px
+            font-weight: bold
+            font-size: .9em
+            li
               a
-                background-image: url("/images/v2/icon_header_notifications.png")
-                background-position: 9px 50%
+                display: block
+                height: 25px
+                line-height: 25px
+                text-decoration: none
+                background: url("/images/v2/icon_header_messages.png") 6px 45% no-repeat #566572
+                padding: 0 5px 0 24px
+                &:hover
+                  background-color: #667d91
+              + li
+                margin-top: 1px
+                a
+                  background-image: url("/images/v2/icon_header_notifications.png")
+                  background-position: 9px 50%
         img
           float: right
           margin: 0 0 0 10px
@@ -120,13 +123,20 @@ body
           color: #ffffff
           strong
             font-size: 1.09em
-          p.user_links
+          ul.user_links
             font-size: .83em
             text-transform: uppercase
+            text-align: right
             color: #62707d
-            a
-              color: #acd7ff
-              text-decoration: none
+            li
+              display: inline-block
+              &:before
+                content: "\2022\0000a0"
+              &:first-child:before
+                content: ""
+              a
+                color: #acd7ff
+                text-decoration: none
     .thumbnails
       position: absolute
       left: 0

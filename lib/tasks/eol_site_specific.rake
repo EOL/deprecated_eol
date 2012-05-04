@@ -14,7 +14,7 @@ namespace :eol do
           Dir.glob(site_dir + "/config/**/*").each do |file|
             if FileTest::file? file
               file_name = file.gsub("#{site_dir}/", '')
-              file_link = RAILS_ROOT + file_name
+              file_link = "#{RAILS_ROOT}/#{file_name}"
               if FileTest.exists?(file_link)
                 puts "   #{file_name}"
                 FileUtils::rm file_link
@@ -45,7 +45,7 @@ namespace :eol do
     Dir.glob(site_dir + "/config/**/*").each do |file|
       if FileTest::file? file
         file_name = file.gsub("#{site_dir}/", '')
-        file_link = RAILS_ROOT + file_name
+        file_link = "#{RAILS_ROOT}/#{file_name}"
         dir =  File.dirname file_link
         FileUtils::mkdir_p(dir) unless FileTest.exists?(dir)
         FileUtils::rm file_link if FileTest.exists?(file_link)
@@ -66,7 +66,7 @@ namespace :eol do
     if FileTest.exists? site_dir
       Dir.glob(site_dir + "/config/**/*").each do |file|
         if FileTest::file? file
-          file_link = RAILS_ROOT + file.gsub("#{site_dir}/", '')
+          file_link = "#{RAILS_ROOT}/#{file.gsub("#{site_dir}/", '')}"
           begin
             FileUtils::rm file_link
           rescue SystemCallError

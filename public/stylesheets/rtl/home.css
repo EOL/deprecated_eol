@@ -144,7 +144,7 @@ body > #header .section {
 body > #header form {
   position: relative;
   z-index: 2;
-  width: 268px;
+  width: 280px;
   margin: 0 auto;
   padding: 43px 0 0 0; }
   body > #header form label {
@@ -173,6 +173,7 @@ body > #header form {
     float: right;
     min-width: 30px;
     min-height: 30px;
+    padding: 0 4px;
     overflow: visible;
     font-size: 0.83em;
     line-height: 28px;
@@ -425,7 +426,7 @@ body {
       font-weight: 200;
       text-align: center; }
     body > #header form {
-      width: 368px;
+      width: 390px;
       padding: 4px;
       -moz-border-radius: 180px;
       border-radius: 180px;
@@ -458,24 +459,24 @@ body {
       background-color: #080f13;
       background-color: rgba(8, 15, 19, 0.6);
       padding: 10px; }
-      body > #header .session.signed_in ul {
+      body > #header .session.signed_in ul.notifications {
         float: left;
         overflow: hidden;
-        margin-left: 1px;
+        margin-right: 1px;
         font-weight: bold;
         font-size: 0.9em; }
-        body > #header .session.signed_in ul li a {
+        body > #header .session.signed_in ul.notifications li a {
           display: block;
           height: 25px;
           line-height: 25px;
           text-decoration: none;
           background: url("/images/v2/icon_header_messages.png") 18px 45% no-repeat #566572;
           padding: 0 24px 0 5px; }
-          body > #header .session.signed_in ul li a:hover {
+          body > #header .session.signed_in ul.notifications li a:hover {
             background-color: #667d91; }
-        body > #header .session.signed_in ul li + li {
+        body > #header .session.signed_in ul.notifications li + li {
           margin-top: 1px; }
-          body > #header .session.signed_in ul li + li a {
+          body > #header .session.signed_in ul.notifications li + li a {
             background-image: url("/images/v2/icon_header_notifications.png");
             background-position: 22px 50%; }
       body > #header .session.signed_in img {
@@ -491,13 +492,20 @@ body {
         color: white; }
         body > #header .session.signed_in .details strong {
           font-size: 1.09em; }
-        body > #header .session.signed_in .details p.user_links {
-          font-size: 0.83em;
+        body > #header .session.signed_in .details ul.user_links {
+          font-size: 1em;
           text-transform: uppercase;
+          text-align: left;
           color: #62707d; }
-          body > #header .session.signed_in .details p.user_links a {
-            color: #acd7ff;
-            text-decoration: none; }
+          body > #header .session.signed_in .details ul.user_links li {
+            display: inline-block; }
+            body > #header .session.signed_in .details ul.user_links li:before {
+              content: "\2022\0000a0"; }
+            body > #header .session.signed_in .details ul.user_links li:first-child:before {
+              content: ""; }
+            body > #header .session.signed_in .details ul.user_links li a {
+              color: #acd7ff;
+              text-decoration: none; }
     body > #header .thumbnails {
       position: absolute;
       right: 0;

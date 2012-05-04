@@ -1,2 +1,8 @@
+.session.signed_in {
+  width: 450px; }
+  .session.signed_in ul.user_links li {
+    padding-left: 10px;
+    float: right; }
+
 #profile_notifications .copy form fieldset dd {
   float: none; }

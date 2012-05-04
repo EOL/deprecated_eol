@@ -380,13 +380,195 @@ ar:
         user_modified_an_unknown_community: قام <strong>%{user}</strong> بتعديل مجتمع غير معروف.
         user_modified_community: قام <strong>%{user}</strong> بتعديل مجتمع "%{community}".
     curator_activity_log: 
+      add_association: 
+        an_unknown_user_associated_an_older_data_object_to_an_unknown_association: قام مستخدم غير معروف بإضافة ارتباط بين نسخة أقدم من "%{data_object}" وصفحة غير معروفة.
+        an_unknown_user_associated_an_older_data_object_to_association: قام مستخدم غير معروف بإضافة ارتباط بين نسخة أقدم من "%{data_object}" و "%{association}".
+        an_unknown_user_associated_an_unknown_data_object_to_an_unknown_association: قام مستخدم غير معروف بإضافة ارتباط غير معروف.
+        an_unknown_user_associated_an_unknown_data_object_to_association: قام مستخدم غير معروف بإضافة ارتباط بين كائن بيانات غير معروف و "%{association}".
+        an_unknown_user_associated_data_object_to_an_unknown_association: قام كائن غير معروف بإضافة ارتباط بين "%{data_object}"  وصفحة غير معروفة.
+        an_unknown_user_associated_data_object_to_association: قام مستخدم غير معروف بإضافة ارتباط بين "%{data_object}" و"%{association}".
+        an_unknown_user_associated_it_to_an_unknown_association: قام مستخدم غير معروف بإضافة ارتباط بصفحة غير معروفة.
+        an_unknown_user_associated_it_to_association: قام مستخدم غير معروف بإضافة ارتباط إلى "%{association}".
+        user_associated_an_older_data_object_to_an_unknown_association: قام <strong>%{user}</strong> بإضافة ارتباط بين نسخة أقدم من "%{data_object}" وصفحة غير معروفة.
+        user_associated_an_older_data_object_to_association: قام <strong>%{user}</strong> بإضافة ارتباط بين نسخة أقدم من "%{data_object}" وبين "%{association}".
+        user_associated_an_unknown_data_object_to_an_unknown_association: قام <strong>%{user}</strong> بإضافة ارتباط غير معروف.
+        user_associated_an_unknown_data_object_to_association: قام <strong>%{user}</strong> بإضافة ارتباط بين كائن بيانات غير معروف و"%{association}".
+        user_associated_data_object_to_an_unknown_association: قام <strong>%{user}</strong> بإضافة ارتباط بين "%{data_object}" وصفحة غير معروفة.
+        user_associated_data_object_to_association: قام <strong>%{user}</strong> بإضافة ارتباط بين "%{data_object}" و "%{association}".
+        user_associated_it_to_an_unknown_association: قام <strong>%{user}</strong> بإضافة ارتباط بصفحة غير معروفة.
+        user_associated_it_to_association: قام <strong>%{user}</strong> بإضافة ارتباط إلى "%{association}".
+      add_common_name: 
+        an_unknown_user_added_an_unknown_name_to_an_unknown_taxon: قام مستخدم غير معروف بإضافة اسم شائع غير معروف لصفحة غير معروفة.
+        an_unknown_user_added_an_unknown_name_to_it: قام مستخدم غير معروف بإضافة اسم شائع غير معروف.
+        an_unknown_user_added_an_unknown_name_to_taxon: قام مستخدم غير معروف بإضافة اسم شائع غير معروف إلى "%{taxon}".
+        an_unknown_user_added_name_to_an_unknown_taxon: قام مستخدم غير معروف بإضافة الاسم الشائع "%{name}" إلى صفحة غير معروفة.
+        an_unknown_user_added_name_to_it: قام مستخدم غير معروف بإضافة الاسم الشائع "%{name}".
+        an_unknown_user_added_name_to_taxon: قام مستخدم غير معروف بإضافة الاسم الشائع "%{name}" إلى "%{taxon}".
+        user_added_an_unknown_name_to_an_unknown_taxon: قام <strong>%{user}</strong> بإضافة اسم شائع غير معروف إلى صفحة غير معروفة.
+        user_added_an_unknown_name_to_it: قام <strong>%{user}</strong> بإضافة اسم شائع غير معروف.
+        user_added_an_unknown_name_to_taxon: قام <strong>%{user}</strong> بإضافة اسم شائع غير معروف إلى "%{taxon}".
+        user_added_name_to_an_unknown_taxon: قام <strong>%{user}</strong> بإضافة الاسم الشائع "%{name}" إلى صفحة غير معروفة.
+        user_added_name_to_it: قام <strong>%{user}</strong> بإضافة الاسم الشائع "%{name}".
+        user_added_name_to_taxon: قام <strong>%{user}</strong> بإضافة الاسم الشائع "%{name}" إلى "%{taxon}".
+      choose_exemplar: 
+        an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: قام مستخدم غير معروف بوضع نسخة أقدم من "%{data_object}" كنموذج على صفحة غير معروفة.
+        an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: قام مستخدم غير معروف بوضع "%{data_object}"  كنموذج على "%{taxon}".
+        an_unknown_user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: قام مستخدم غير معروف بوضع صورة نموذج غير معروف.
+        an_unknown_user_chose_exemplar_an_unknown_data_object_on_taxon: قام مستخدم غير معروف بوضع كائن بيانات غير معروف كنموذج عن "%{taxon}".
+        an_unknown_user_chose_exemplar_data_object_on_an_unknown_taxon: قام مستخدم غير معروف بوضع "%{data_object}" كنموذج على صفحة غير معروفة.
+        an_unknown_user_chose_exemplar_data_object_on_taxon: قام مستخدم غير معروف بوضع "%{data_object}" كنموذج على "%{taxon}".
+        an_unknown_user_chose_exemplar_it_on_an_unknown_taxon: قام مستخدم غير معروف بوضعها كنموذج على صفحة غير معروفة.
+        an_unknown_user_chose_exemplar_it_on_taxon: قام مستخدم غير معروف بوضعها كنموذج على "%{taxon}".
+        user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: قام <strong>%{user}</strong> بوضع نسخة أقدم من "%{data_object}" كنموذج على صفحة غير معروفة.
+        user_chose_exemplar_an_older_data_object_on_taxon: قام <strong>%{user}</strong> بوضع نسخة أقدم من "%{data_object}" كنموذج على "%{taxon}".
+        user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: قام <strong>%{user}</strong> بوضع صورة نموذج غير معروف.
+        user_chose_exemplar_an_unknown_data_object_on_taxon: قام <strong>%{user}</strong> بوضع كائن بيانات غير معروف كنموذج على "%{taxon}".
+        user_chose_exemplar_data_object_on_an_unknown_taxon: قام <strong>%{user}</strong> بوضع "%{data_object}" كنموذج على صفحة غير معروفة.
+        user_chose_exemplar_data_object_on_taxon: قام <strong>%{user}</strong> بوضع "%{data_object}" كنموذج على"%{taxon}".
+        user_chose_exemplar_it_on_an_unknown_taxon: قام <strong>%{user}</strong> بوضعها كنموذج على صفحة غير معروفة.
+        user_chose_exemplar_it_on_taxon: قام <strong>%{user}</strong> بوضعها كنموذج على "%{taxon}".
+      hide: 
+        an_unknown_user_hid_an_older_data_object_on_an_unknown_association: قام مستخدم غير معروف بوضع علامة "مخفي" على نسخة أقدم من "%{data_object}" في سياق غير معروف.
+        an_unknown_user_hid_an_older_data_object_on_association: قام مستخدم غير معروف بوضع علامة "مخفي" على نسخة أقدم من "%{data_object}" في صفحة "%{association}".
+        an_unknown_user_hid_an_unknown_data_object_on_an_unknown_association: قام مستخدم غير معروف بوضع علامة "مخفِّي" على كائن بيانات غير معروف في سياق غير معروف.
+        an_unknown_user_hid_an_unknown_data_object_on_association: قام مستخدم غير معروف بوضع علامة "مخفِّي" على كائن بيانات غير معروف في صفحة "%{association}".
+        an_unknown_user_hid_data_object_on_an_unknown_association: قام مستخدم غير معروف بوضع علامة "مخفِّي" على "%{data_object}" في سياق غير معروف.
+        an_unknown_user_hid_data_object_on_association: قام مستخدم غير معروف بوضع علامة "مخفِّي" على "%{data_object}" في صفحة "%{association}".
+        an_unknown_user_hid_it_on_an_unknown_association: قام مستخدم غير معروف بوضع علامة "مخفّي" عليها في سياق غير معروف.
+        an_unknown_user_hid_it_on_association: قام مستخدم غير معروف بوضع علامة "مخفّي" عليها في صفحة "%{association}".
+        user_hid_an_older_data_object_on_an_unknown_association: قام <strong>%{user}</strong> بوضع علامة "مخفِّي" على نسخة أقدم من "%{data_object}" في سياق غير معروف.
+        user_hid_an_older_data_object_on_association: قام <strong>%{user}</strong> بوضع علامة "مخفِّي" على نسخة أقدم من "%{data_object}" في صفحة "%{association}".
+        user_hid_an_unknown_data_object_on_an_unknown_association: قام <strong>%{user}</strong> بوضع علامة "مخفِّي" على كائن بيانات غير معروف في سياق غير معروف.
+        user_hid_an_unknown_data_object_on_association: قام <strong>%{user}</strong> بوضع علامة "مخفِّي" على كائن بيانات غير معروف في صفحة "%{association}".
+        user_hid_data_object_on_an_unknown_association: قام <strong>%{user}</strong> بوضع علامة "مخفِّي" على "%{data_object}" في سياق غير معروف.
+        user_hid_data_object_on_association: قام <strong>%{user}</strong> بوضع علامة "مخفّي"على "%{data_object}"  في صفحة "%{association}".
+        user_hid_it_on_an_unknown_association: قام <strong>%{user}</strong> بوضع علامة "مخفّي" عليها في سياق غير معروف.
+        user_hid_it_on_association: قام <strong>%{user}</strong> بوضع علامة "مخفّي" عليها في صفحة "%{association}".
+      other_actions: 
+        an_unknown_user_curated_an_older_data_object: قام مستخدم غير معروف بالإشراف على نسخة أقدم من "%{data_object}".
+        an_unknown_user_curated_an_unknown_data_object: قام مستخدم غير معروف بالإشراف على كائن بيانات غير معروف.
+        an_unknown_user_curated_data_object: قام مستخدم غير معروف بالإشراف على "%{data_object}".
+        an_unknown_user_curated_it: قام مستخدم غير معروف بالإشراف عليها، إلا أن الإجراء الذي تم بالتفصيل قد فٌقِد.
+        user_curated_an_older_data_object: قام <strong>%{user}</strong> بالإشراف على نسخة أقدم من "%{data_object}".
+        user_curated_an_unknown_data_object: قام <strong>%{user}</strong> بالإشراف على كائن بيانات غير معروف.
+        user_curated_data_object: قام <strong>%{user}</strong> بالإشراف على "%{data_object}".
+        user_curated_it: قام <strong>%{user}</strong> بالإشراف عليها، إلا أن الإجراء الذي تم بالتفصيل قد فُقِد.
       reasons_to_hide: "أسباب الإخفاء: %{reasons}"
       reasons_to_untrust: "أسباب عدم الوثوق: %{reasons}"
+      remove_association: 
+        an_unknown_user_disassociated_an_older_data_object_from_an_unknown_taxon: قام مستخدم غير معروف بمسح ارتباط من نسخة أقدم من "%{data_object}".
+        an_unknown_user_disassociated_an_older_data_object_from_taxon: قام مستخدم غير معروف بمسح ارتباط بين "%{data_object}" و "%{taxon}".
+        an_unknown_user_disassociated_an_unknown_data_object_from_an_unknown_taxon: قام مستخدم غير معروف بمسح ارتباط غير معروف.
+        an_unknown_user_disassociated_an_unknown_data_object_from_taxon: قام مستخدم غير معروف بمسح ارتباط بين كائن بيانات غير معروف و"%{taxon}".
+        an_unknown_user_disassociated_data_object_from_an_unknown_taxon: قام مستخدم غير معروف بمسح ارتباط بين "%{data_object}" وصفحة غير معروفة.
+        an_unknown_user_disassociated_data_object_from_taxon: قام مستخدم غير معروف بمسح ارتباط بين "%{data_object}" و "%{taxon}".
+        an_unknown_user_disassociated_it_from_an_unknown_taxon: قام مستخدم غير معروف بإزالة ارتباط بصفحة غير معروفة.
+        an_unknown_user_disassociated_it_from_taxon: قام مستخدم غير معروف بإزالة ارتباط بـ"%{association}".
+        user_disassociated_an_older_data_object_from_an_unknown_taxon: قام <strong>%{user}</strong> بمسح ارتباط بين نسخة أقدم من "%{data_object}" وصفحة غير معروفة.
+        user_disassociated_an_older_data_object_from_taxon: قام <strong>%{user}</strong> بمسح ارتباط بين نسخة أقدم من "%{data_object}" و "%{taxon}".
+        user_disassociated_an_unknown_data_object_from_an_unknown_taxon: قام <strong>%{user}</strong> بمسح ارتباط غير معروف.
+        user_disassociated_an_unknown_data_object_from_taxon: قام <strong>%{user}</strong> بإزالة ارتباط بين كائن بيانات غير معروف و"%{taxon}".
+        user_disassociated_data_object_from_an_unknown_taxon: قام <strong>%{user}</strong> بإزالة ارتباط بين "%{data_object}" وصفحة غير معروفة.
+        user_disassociated_data_object_from_taxon: قام <strong>%{user}</strong> بإزالة ارتباط بين "%{data_object}" و"%{taxon}".
+        user_disassociated_it_from_an_unknown_taxon: قام <strong>%{user}</strong> بإزالة ارتباط بصفحة غير معروفة.
+        user_disassociated_it_from_taxon: قام <strong>%{user}</strong> بإزالة ارتباط بـ"%{association}".
+      remove_common_name: 
+        an_unknown_user_removed_name_from_an_unknown_taxon: قام مستخدم غير معروف بمسح اسم شائع من صفحة غير معروفة.
+        an_unknown_user_removed_name_from_it: قام مستخدم غير معروف بمسح اسم شائع.
+        an_unknown_user_removed_name_from_taxon: قام مستخدم غير معروف بمسح اسم شائع من "%{taxon}".
+        user_removed_name_from_an_unknown_taxon: قام <strong>%{user}</strong> بمسح اسم شائع من صفحة غير معروفة.
+        user_removed_name_from_it: قام <strong>%{user}</strong> بمسح اسم شائع.
+        user_removed_name_from_taxon: قام <strong>%{user}</strong> بمسح اسم شائع من "%{taxon}".
+      show: 
+        an_unknown_user_showed_an_older_data_object_on_an_unknown_association: قام مستخدم غير معروف بوضع علامة "مرئي" على نسخة أقدم من "%{data_object}" في سياق غير معروف.
+        an_unknown_user_showed_an_older_data_object_on_association: قام مستخدم غير معروف بوضع علامة "مرئي" على نسخة أقدم من "%{data_object}" على صفحة "%{association}".
+        an_unknown_user_showed_an_unknown_data_object_on_an_unknown_association: قام مستخدم غير معروف بوضع علامة "مرئي" على كائن بيانات غير معروف في سياق غير معروف.
+        an_unknown_user_showed_an_unknown_data_object_on_association: قام مستخدم غير معروف بوضع علامة "مرئي" على كائن بيانات غير معروف في صفحة "%{association}".
+        an_unknown_user_showed_data_object_on_an_unknown_association: قام مستخدم غير معروف بوضع علامة "مرئي" على "%{data_object}" في سياق غير معروف.
+        an_unknown_user_showed_data_object_on_association: قام مستخدم غير معروف بوضع علامة "مرئي" على "%{data_object}" في صفحة "%{association}".
+        an_unknown_user_showed_it_on_an_unknown_association: قام مستخدم غير معروف بوضع علامة "مرئي" عليها في سياق غير معروف.
+        an_unknown_user_showed_it_on_association: قام مستخدم غير معروف بوضع علامة "مرئي" عليها في صفحة "%{association}".
+        user_showed_an_older_data_object_on_an_unknown_association: قام <strong>%{user}</strong> بوضع علامة "مرئي" على نسخة أقدم من "%{data_object}" في سياق غير معروف.
+        user_showed_an_older_data_object_on_association: قام <strong>%{user}</strong> بوضع علامة "مرئي" على نسخة أقدم من "%{data_object}" في صفحة "%{association}".
+        user_showed_an_unknown_data_object_on_an_unknown_association: قام <strong>%{user}</strong> بوضع علامة "مرئي" على كائن بيانات غير معروف في سياق غير معروف.
+        user_showed_an_unknown_data_object_on_association: قام <strong>%{user}</strong> بوضع علامة "مرئي" على كائن بيانات غير معروف في صفحة "%{association}".
+        user_showed_data_object_on_an_unknown_association: قام <strong>%{user}</strong> بوضع علامة "مرئي" على "%{data_object}" في سياق غير معروف.
+        user_showed_data_object_on_association: قام <strong>%{user}</strong> بوضع علامة "مرئي" على "%{data_object}"  في صفحة "%{association}".
+        user_showed_it_on_an_unknown_association: قام <strong>%{user}</strong> بوضع علامة "مرئي" عليها في سياق غير معروف.
+        user_showed_it_on_association: قام <strong>%{user}</strong> بوضع علامة "مرئي" عليها في صفحة "%{association}".
+      trust_common_name: 
+        an_unknown_user_trusted_an_unknown_name_on_an_unknown_taxon: قام مستخدم غير معروف بوضع علامة "موثوق به" على اسم شائع غير معروف من صفحة غير معروفة.
+        an_unknown_user_trusted_an_unknown_name_on_it: مستخدم غير معروف وضع علامة "موثوق به" على اسم شائع غير معروف.
+        an_unknown_user_trusted_an_unknown_name_on_taxon: قام مستخدم غير معروف بوضع علامة "موثوق به" على اسم شائع غير معروف من "%{taxon}".
+        an_unknown_user_trusted_name_on_an_unknown_taxon: قام مستخدم غير معروف بوضع علامة "موثوق به" على الاسم الشائع "%{name}" من صفحة غير معروفة.
+        an_unknown_user_trusted_name_on_it: وضع مستخدم غير معروف علامة "موثوق به" على الاسم الشائع "%{name}".
+        an_unknown_user_trusted_name_on_taxon: قام مستخدم غير معروف بوضع علامة "موثوق به" على الاسم الشائع "%{name}" من "%{taxon}".
+        user_trusted_an_unknown_name_on_an_unknown_taxon: قام <strong>%{user}</strong> بوضع علامة "موثوق به" على اسم شائع غير معروف من صفحة غير معروفة.
+        user_trusted_an_unknown_name_on_it: وضع <strong>%{user}</strong> علامة "موثوق به" على اسم شائع غير معروف.
+        user_trusted_an_unknown_name_on_taxon: قام <strong>%{user}</strong> بوضع علامة "موثوق به" على اسم شائع غير معروف من "%{taxon}".
+        user_trusted_name_on_an_unknown_taxon: قام <strong>%{user}</strong> بوضع علامة "موثوق به" على الاسم الشائع "%{name}" من صفحة غير معروفة.
+        user_trusted_name_on_it: وضع <strong>%{user}</strong> علامة "موثوق به" على الاسم الشائع "%{name}".
+        user_trusted_name_on_taxon: قام <strong>%{user}</strong> بوضع علامة "موثوق به" على الاسم الشائع "%{name}" من "%{taxon}".
       trusted: 
         an_unknown_user_trusted_an_older_data_object_on_an_unknown_association: قام مستخدم غير معروف باعتبار النسخة الأقدم من "%{data_object}" موثوقًا بها في سياق غير معروف.
         an_unknown_user_trusted_an_older_data_object_on_association: قام مستخدم غير معروف باعتبار نسخة أقدم من "%{data_object}" موثوقًا بها على صفحة "%{association}" .
         an_unknown_user_trusted_an_unknown_data_object_on_an_unknown_association: قام مستخدم غير معروف باعتبار كائن بيانات غير معروف موثوقًا به في سياق غير معروف.
+        an_unknown_user_trusted_an_unknown_data_object_on_association: قام مستخدم غير معروف بوضع علامة "موثوق به" على كائن بيانات غير معروف في صفحة "%{association}".
+        an_unknown_user_trusted_data_object_on_an_unknown_association: قام مستخدم غير معروف بوضع علامة "موثوق به" على "%{data_object}" في سياق غير معروف.
+        an_unknown_user_trusted_data_object_on_association: قام مستخدم غير معروف بوضع علامة "موثوق به" على "%{data_object}" في صفحة "%{association}".
+        an_unknown_user_trusted_it_on_an_unknown_association: قام مستخدم غير معروف بوضع علامة "موثوق به" عليها في سياق غير معروف.
         an_unknown_user_trusted_it_on_association: قام مستخدم غير معروف باعتبارها موثوقًا بها على صفحة "%{association}".
+        user_trusted_an_older_data_object_on_an_unknown_association: قام <strong>%{user}</strong> بوضع علامة "موثوق به" على نسخة أقدم من "%{data_object}" في سياق غير معروف.
+        user_trusted_an_older_data_object_on_association: قام <strong>%{user}</strong> بوضع علامة "موثوق به" على نسخة أقدم من "%{data_object}" في صفحة "%{association}".
+        user_trusted_an_unknown_data_object_on_an_unknown_association: قام <strong>%{user}</strong> بوضع علامة "موثوق به" على كائن بيانات غير معروف في سياق غير معروف.
+        user_trusted_an_unknown_data_object_on_association: قام <strong>%{user}</strong> بوضع علامة "موثوق به" على كائن بيانات غير معروف في صفحة "%{association}".
+        user_trusted_data_object_on_an_unknown_association: قام <strong>%{user}</strong> بوضع علامة "موثوق به" على "%{data_object}" في سياق غير معروف.
+        user_trusted_data_object_on_association: قام <strong>%{user}</strong> بوضع علامة "موثوق به" على "%{data_object}" في صفحة "%{association}".
+        user_trusted_it_on_an_unknown_association: قام <strong>%{user}</strong> بوضع علامة "موثوق به" عليها في سياق غير معروف.
+        user_trusted_it_on_association: قام <strong>%{user}</strong> بوضع علامة "موثوق به" عليها في صفحة "%{association}".
+      unreview_common_name: 
+        an_unknown_user_unreviewed_an_unknown_name_on_an_unknown_taxon: قام مستخدم غير معروف بوضع علامة "غير مُراجع" على اسم شائع غير معروف من صفحة غير معروفة.
+        an_unknown_user_unreviewed_an_unknown_name_on_it: قام مستخدم غير معروف بوضع علامة "غير مُراجع" على اسم شائع غير معروف.
+        an_unknown_user_unreviewed_an_unknown_name_on_taxon: قام مستخدم غير معروف بوضع علامة "غير مُراجع" على اسم شائع غير معروف من "%{taxon}".
+        an_unknown_user_unreviewed_name_on_an_unknown_taxon: قام مستخدم غير معروف بوضع علامة "غير مُراجع" على الاسم الشائع "%{name}" من صفحة غير معروفة.
+        an_unknown_user_unreviewed_name_on_it: قام مستخدم غير معروف بوضع علامة "غير مُراجع" على الاسم الشائع "%{name}".
+        an_unknown_user_unreviewed_name_on_taxon: قام مستخدم غير معروف بوضع علامة "غير مُراجع" على الاسم الشائع "%{name}" من "%{taxon}".
+        user_unreviewed_an_unknown_name_on_an_unknown_taxon: قام <strong>%{user}</strong> بوضع علامة "غير مُراجع" على اسم شائع غير معروف من صفحة غير معروفة.
+        user_unreviewed_an_unknown_name_on_it: قام <strong>%{user}</strong> بوضع علامة "غير مُراجع" على اسم شائع غير معروف.
+        user_unreviewed_an_unknown_name_on_taxon: قام <strong>%{user}</strong> بوضع علامة "غير مُراجع" على اسم شائع غير معروف من "%{taxon}".
+        user_unreviewed_name_on_an_unknown_taxon: قام <strong>%{user}</strong> بوضع علامة "غير مُراجع" على الاسم الشائع "%{name}" من صفحة غير معروفة.
+        user_unreviewed_name_on_it: قام <strong>%{user}</strong> بوضع علامة "غير مُراجع" على الاسم الشائع "%{name}".
+        user_unreviewed_name_on_taxon: قام <strong>%{user}</strong> بوضع علامة "غير مُراجع" على الاسم الشائع "%{name}" من "%{taxon}".
+      unreviewed: 
+        an_unknown_user_unreviewed_an_older_data_object_on_an_unknown_association: قام مستخدم غير معروف بوضع علامة "لم تُراجع" على نسخة أقدم من "%{data_object}" في سياق غير معروف.
+        an_unknown_user_unreviewed_an_older_data_object_on_association: قام مستخدم غير معروف بوضع علامة "لم تُراجع" على نسخة أقدم من "%{data_object}" في صفحة "%{association}".
+        an_unknown_user_unreviewed_an_unknown_data_object_on_an_unknown_association: قام مستخدم غير معروف بوضع علامة "لم تُراجع" على كائن بيانات غير معروف في سياق غير معروف.
+        an_unknown_user_unreviewed_an_unknown_data_object_on_association: قام مستخدم غير معروف بوضع علامة "لم تُراجع"على كائن بيانات غير معروف في صفحة "%{association}".
+        an_unknown_user_unreviewed_data_object_on_an_unknown_association: قام مستخدم غير معروف بوضع علامة "لم تُراجع" على "%{data_object}" في سياق غير معروف.
+        an_unknown_user_unreviewed_data_object_on_association: قام مستخدم غير معروف بوضع علامة "لم تُراجع"على "%{data_object}" في صفحة "%{association}".
+        an_unknown_user_unreviewed_it_on_an_unknown_association: قام مستخدم غير معروف بوضع علامة "لم تُراجع" عليها في سياق غير معروف.
+        an_unknown_user_unreviewed_it_on_association: قام مستخدم غير معروف بوضع علامة "لم تُراجع" عليها في صفحة "%{association}".
+        user_unreviewed_an_older_data_object_on_an_unknown_association: قام <strong>%{user}</strong> بوضع علامة "لم تُراجع" على نسخة أقدم من "%{data_object}" في سياق غير معروف.
+        user_unreviewed_an_older_data_object_on_association: قام <strong>%{user}</strong> بوضع علامة "لم تُراجع" على نسخة أقدم من "%{data_object}" في صفحة "%{association}".
+        user_unreviewed_an_unknown_data_object_on_an_unknown_association: قام <strong>%{user}</strong> بوضع علامة "لم تُراجع" على كائن بيانات غير معروف في سياق غير معروف.
+        user_unreviewed_an_unknown_data_object_on_association: قام <strong>%{user}</strong> بوضع علامة "لم تُراجع" على كائن بيانات غير معروف في صفحة "%{association}".
+        user_unreviewed_data_object_on_an_unknown_association: قام <strong>%{user}</strong> بوضع علامة "لم تُراجع" على "%{data_object}" في سياق غير معروف.
+        user_unreviewed_data_object_on_association: قام <strong>%{user}</strong> بوضع علامة "لم تُراجع" على "%{data_object}"  في صفحة "%{association}".
+        user_unreviewed_it_on_an_unknown_association: قام <strong>%{user}</strong> بوضع علامة "لم تُراجع" عليها في سياق غير معروف.
+        user_unreviewed_it_on_association: قام <strong>%{user}</strong> بوضع علامة "لم تُراجع" عليها في صفحة "%{association}".
+      untrust_common_name: 
+        an_unknown_user_untrusted_an_unknown_name_on_an_unknown_taxon: وضع مستخدم غير معروف علامة "غير موثوق به" على اسم شائع غير معروف من صفحة غير معروفة.
+        an_unknown_user_untrusted_an_unknown_name_on_it: قام مستخدم غير معروف بوضع علامة "غير موثوق به" على اسم شائع غير معروف.
+        an_unknown_user_untrusted_an_unknown_name_on_taxon: وضع مستخدم غير معروف علامة "غير موثوق به" على اسم شائع غير معروف من "%{taxon}".
+        an_unknown_user_untrusted_name_on_an_unknown_taxon: وضع مستخدم غير معروف علامة "غير موثوق به" على الاسم الشائع "%{name}" من صفحة غير معروفة.
+        an_unknown_user_untrusted_name_on_it: قام مستخدم غير معروف بوضع علامة "غير موثوق به" على الاسم الشائع "%{name}".
+        an_unknown_user_untrusted_name_on_taxon: قام مستخدم غير معروف بوضع علامة "غير موثوق به" على الاسم الشائع "%{name}" من "%{taxon}".
+        user_untrusted_an_unknown_name_on_an_unknown_taxon: قام <strong>%{user}</strong> بوضع علامة "غير موثوق به" على اسم شائع غير معروف من صفحة غير معروفة.
+        user_untrusted_an_unknown_name_on_it: قام <strong>%{user}</strong> بوضع علامة "موثوق به" على اسم شائع غير معروف.
+        user_untrusted_an_unknown_name_on_taxon: قام <strong>%{user}</strong> بوضع علامة "غير موثوق به" على اسم شائع غير معروف من "%{taxon}".
+        user_untrusted_name_on_an_unknown_taxon: قام <strong>%{user}</strong> بوضع علامة "غير موثوق به" على الاسم الشائع "%{name}" من صفحة غير معروفة.
+        user_untrusted_name_on_it: قام <strong>%{user}</strong> بوضع علامة "غير موثوق به" على الاسم الشائع "%{name}".
+        user_untrusted_name_on_taxon: قام <strong>%{user}</strong> بوضع علامة "غير موثوق به" على الاسم الشائع "%{name}" من "%{taxon}".
       untrusted: 
         an_unknown_user_untrusted_an_older_data_object_on_an_unknown_association: قام مستخدم غير معروف باعتبار نسخة أقدم من "%{data_object}" غير موثوقًا بها في سياق غير معروف.
         an_unknown_user_untrusted_an_older_data_object_on_association: قام مستخدم غير معروف باعتبار نسخة أقدم من "%{data_object}" غير موثوقًا بها على صفحة "%{association}".
@@ -566,6 +748,9 @@ ar:
   and: و
   and_between_form_items: و
   annotation_cabs_colon: "حاشية:"
+  anonymous_user_full_name: مستخدم مجهول الاسم
+  anonymous_user_given_name: مجهول الاسم
+  anonymous_user_tag_line: لم يتم تسجيل الدخول
   any_integer: أي عدد صحيح
   api_docs_collections_description: عند إدخال معرف مجموعة ما، سوف تعرض واجهة برمجة التطبيقات جميع البيانات الفوقية المتعلقة بالمجموعة والعناصر التي تتضمنها. يمكن تصفية قائمة العناصر وفقًا للنوع، وترتيبها وفقًا للسمات المذكورة أعلاه.
   application_version_advisory_information: نسخة التطبيق
@@ -651,6 +836,7 @@ ar:
   cannot_be_empty: لا يمكن أن يكون خاليًا
   cannot_create_collection_item_from_class_error: لا يمكن إنشاء عنصر من %{klass}
   cannot_create_community_from_watch_collection_error: لا يمكنك إنشاء مجتمع من قائمة المشاهدة.
+  cannot_curate_association_in_preview_mode: لا يمكن الإشراف على الارتباط بـ%{name} إذ يتم الآن عرضه بعد عملية جمع.
   cannot_expand_children: تعذر تمديد النسل
   cannot_find_member: لم يتم العثور على مستخدم بذلك التعريف.
   cannot_index_collection_item_type_error: لا يمكن فهرسة عنصر بمجموعة عن طريق %{type}
@@ -1047,7 +1233,7 @@ ar:
   copyright: "حقوق ملكية:"
   correct_donation_message: إذا كانت تلك المعلومات صحيحة، يرجى %{go_back_link} لإضافة تعديلات
   could_not_find_collection_error: عفوًا، لم يتم العثور على تلك المجموعة.
-  could_not_find_user: لم يتم العثور على عضو لهذا المستخدم
+  could_not_find_user: لست عضوًا في هذا المجتمع.
   count: العدد
   count_results_for_search_term: 
     one: "%{count} نتيجة لـ <em>%{search_term}</em>"
@@ -1168,6 +1354,7 @@ ar:
   details_title: التفاصيل
   development_version_name: نموذج النسخة الثانية من موقع موسوعة الحياة
   did_you_mean: "هل تقصد: %{suggestions}؟"
+  disable_email_notifications_colon: "رسائل إلكترونية مُعطلة:"
   disabled_for_now: معطل حاليًّا
   discover_link: استكشف
   displaying_numerical_range: عرض %{start_number} &mdash; %{end_number} من %{total}
@@ -1338,6 +1525,7 @@ ar:
   filter_newsfeed_option_community: المجتمع
   filter_newsfeed_option_curation: الإشراف
   filter_newsfeed_option_messages: التعليقات
+  filter_newsfeed_option_watchlist: قائمة المراقبة
   filtered_information: المعلومات المصفاه
   find_taxa_submit_button: البحث عن أصنوفة
   flash_notice_redirected_from_search_html: لقد وصلت إلى تلك الصفحة من خلال البحث عن  <em>%{search_string}</em>. <a href="%{more_results_url}">أضغط هنا للرجوع إلى صفحة البحث</a>.
@@ -1761,6 +1949,7 @@ ar:
   limits_the_number_of_returned_text_objects: يحد من عدد العناصر النصية المعروضة
   limits_the_number_of_returned_video_objects: يحد من عدد عناصر مقاطع الفيديو المعروضة
   link_name: اسم الرابط
+  list_newsletter_emails: ادرج رسائل النشرات الإخبارية الإلكترونية.
   list_of_activity_combinations: قائمة بتركيبات النشاط خلال خمس دقائق
   listing_collections: عرض المجموعات
   lists_the_identifiers_for_all_hierarchies: يعدد المعرفات الخاصة بجميع التسلسلات الهرمية المقدمة من شركاء المحتوى
@@ -2226,6 +2415,7 @@ ar:
     bulk_community_activity_with_count: 
       one: There was an update to %{to}
       other: There were %{count} updates to %{to}
+    bulk_community_joins_with_count: انضم %{count} عضو إلى %{community}.
     bulk_curation_with_count: 
       one: قام المشرف بتحسين %{to}
       other: قام المشرفون %{count} بتحسين %{to}
@@ -2249,6 +2439,7 @@ ar:
     data_object_title: قام %{who} بإضافة محتوى جديد لموسوعة الحياة
     default_subject: أحدث نشاط في موقع موسوعة الحياة
     intro: إليك خلاصة نشاط موسوعة الحياة المتعلق بك لـ %{time}
+    intro_immediately: أهلاً %{name} -
     see_all_activity: طالع جميع أنشطتك السابقة على<a href='%{activity_url}' style='color:#195184'>صفحة أخبار المستخدم الخاصة بك</a>.
     someone_commented_on_something: قام <b>%{who}</b> بالتعليق على <b>%{what}</b>.
     unsubscribe: قم بتغيير إعدادات بريدك الإلكتروني أو ألغي اشتراكك في<a href='%{email_prefs_url}' style='color:#195184'>صفحة تفضيلات الإخطار الخاصة بك</a>.
@@ -2309,7 +2500,12 @@ ar:
   search: بحث
   search_by_provider_method_description: أحصل على معرفات صفحة موسوعة الحياة عند إدخال معرف_تسلسل هرمي خاص بأحد مقدمي المحتوى والمعرف المميز الخاص بمقدم المحتوى.
   search_by_term_page_title: "البحث: %{term}"
+  search_field_common_name: الاسم الشائع
   search_field_label: البحث في موسوعة الحياة
+  search_field_preferred_common_name: الاسم الشائع المفضل
+  search_field_preferred_scientific: العلمي المفضل
+  search_field_surrogate: بديل
+  search_field_synonym: المرادف
   search_for_comments_containing_the_text: "البحث عن تعليقات تحتوى على النص:"
   search_for_curators_containing: "ابحث عن مشرفين ذوي:"
   search_for_items_containing: "ابحث عن عناصر بها:"
@@ -2401,6 +2597,8 @@ ar:
   social_sharing_twitter_follow_eol_button: اتبعنا على @eol
   social_sharing_twitter_tweet_button: رسالة على تويتر
   some_required_fields_were_not_entered: هناك خانات إلزامية لم تُملأ (يجب أن تضيف عنوانًا، ومحتوى أو عنوانًا إلكترونيًّا).
+  sorry_no_collections_are_available_to_share: للأسف لا توجد مجموعات متوفرة لمشاركتها مع هذا المجتمع.
+  sorry_no_communities_are_available_to_share: للأسف، لا توجد مجتمعات متوفرة لنشاركها هذه المجموعة.
   sort_by: رتب وفقًا لـ
   sort_by_alphabetical_option: أبجديًّا
   sort_by_button: ترتيب

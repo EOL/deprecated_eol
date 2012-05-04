@@ -662,9 +662,9 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   # No return value; will raise exceptions if things fail.
   def hide_all_submitted_datos
     all_submitted_datos.each do |dato|
-      dato.vetted = Vetted.untrusted
-      dato.visibility = Visibility.invisible
-      dato.save!
+      dato.users_data_object.vetted = Vetted.untrusted
+      dato.users_data_object.visibility = Visibility.invisible
+      dato.users_data_object.save!
     end
   end
 

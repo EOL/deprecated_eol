@@ -857,7 +857,7 @@ nl:
   copyright: "Auteursrechten:"
   correct_donation_message: Als deze gegevens niet correct zijn, ga dan %{go_back_link} om wijzigingen te maken
   could_not_find_collection_error: Die verzameling kon niet gevonden worden.
-  could_not_find_user: Er is geen lidmaatschap voor deze gebruiker gevonden
+  could_not_find_user: U bent geen lid van deze gemeenschap.
   count: Aantal
   count_results_for_search_term: 
     one: Eén resultaat voor <em>%{search_term}</em>
@@ -949,7 +949,7 @@ nl:
   dato_edit_text_title: Artikel bewerken
   dato_new_edit_user_text_fieldset_content_header: Artikelinhoud
   dato_new_edit_user_text_fieldset_information_header: Artikelgegevens
-  dato_new_edit_user_text_form_tip: Uw pagina wordt gemarkeerd als "niet-beoordeeld" totdat een conservator ernaar kijkt. Als u conservator bent, wordt uw pagina direct zichtbaar op de taxonpagina. Het tekstveld is verplicht %{required_icon}.
+  dato_new_edit_user_text_form_tip: Uw afgeronde artikel wordt geplaatst op de taxonpagina. Als u geen conservator bent, wordt het gemarkeerd als "niet-beoordeeld" totdat het wordt beoordeeld door een conservator. Hoofdstuk, tekst, taal en licentie zijn vereist (%{required_icon}), alle andere velden zijn optioneel. Als u een CC BY-licentie (Naamsvermelding) selecteert, neem dan een rechthebbende op of laat het veld leeft om uw eigen volledige naam te gebruiken. Voor Publiek domeinlicenties is geen rechthebbende nodig. Lees voor meer informatie de <a href="%{add_article_help_url}">hulppagina voor artikel toevoegen</a>.
   dato_new_text_for_taxon_page_title: Een pagina toevoegen aan <i>%{taxon}</i>
   dato_update_user_text_error: Er is een fout opgetreden. Het artikel kon niet worden bijgewerkt.
   dato_update_users_text_not_owner_exception: Alleen de oorspronkelijke auteur van dit tekstobject mag het bewerken.
@@ -1078,7 +1078,7 @@ nl:
   filter_by_status_all_option: alle statussen
   filter_by_status_inappropriate_option: ongepast
   filter_by_status_trusted_option: vertrouwd
-  filter_by_status_unreviewed_option: niet-beoordeeld
+  filter_by_status_unreviewed_option: Niet-beoordeeld
   filter_by_status_untrusted_option: niet-vertrouwd
   filter_by_type: Op type filteren
   filter_by_type_all_option: alle typen

@@ -21,7 +21,16 @@
             :height => "300", :marginheight => "0", :marginwidth => "0", :scrolling => "no", :width => "500"}
   .heading
     %h3= t('.recent_observations')
-  .recent_observations
-    = javascript_include_tag "http://www.inaturalist.org/observations/project/#{@inaturalist_project_id}.widget?layout=large&limit=20&order=desc&order_by=observed_on"
-    %br
-      %h3= link_to t('.view_more_observations_on_inaturalist', :project_title => @inaturalist_project_title), "http://www.inaturalist.org/observations/project/#{@inaturalist_project_id}"
+  %ul.object_list
+    - for observation in @inaturalist_project_observations
+      %li
+        %a{:href => "http://www.inaturalist.org/observations/#{observation['id']}"}
+          %img{:src => observation['photos'][0]['square_url']}
+        - species = observation['species_guess'].blank? ? t('.some_taxon') : observation['species_guess']
+        %h4= link_to species, "http://www.inaturalist.org/observations/#{observation['id']}"
+        - observer_link = link_to observation['user_login'], "http://www.inaturalist.org/observations/#{observation['user_login']}"
+        .small= t('.observer_with_link', :observer_link => observer_link)
+        .small= t('.observation_date', :observed_on => observation['observed_on_string'])
+        = t('.observation_place', :place => observation['place_guess'])
+  %br
+  %h3= link_to t('.view_more_observations_on_inaturalist', :project_title => @inaturalist_project_title), "http://www.inaturalist.org/observations/project/#{@inaturalist_project_id}"

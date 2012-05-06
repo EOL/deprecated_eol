@@ -758,18 +758,8 @@ p.flag, span.flag {
     vertical-align: middle; }
 #inat_observations.main_container .inat_observations_map {
   padding: 10px 0 10px 0; }
-#inat_observations.main_container .recent_observations table tbody tr {
-  line-height: 125%; }
-  #inat_observations.main_container .recent_observations table tbody tr td {
-    padding-top: 10px; }
-    #inat_observations.main_container .recent_observations table tbody tr td img {
-      width: 68px;
-      height: 68px;
-      border: 1px solid #cad3db;
-      float: left;
-      margin: 0 20px 0 0; }
-    #inat_observations.main_container .recent_observations table tbody tr td a {
-      font-weight: bold; }
+#inat_observations.main_container .object_list h4 {
+  margin-top: 0; }
 
 #page_heading.with_image img, #page_heading.profile img {
   max-width: 88px;

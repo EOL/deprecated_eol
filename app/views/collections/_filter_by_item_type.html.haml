@@ -6,7 +6,7 @@
   %li{:class => 'newsfeed' + (@filter == 'newsfeed' ? ' active' : '')}= link_to(newsfeed_label, "/collections/#{@collection.id}/newsfeed")
   - unless @collection.watch_collection?
     %li{:class => 'editors' + (@filter == 'editors' ? ' active' : '')}= link_to(I18n.t(:editors_tab_label), "/collections/#{@collection.id}/editors")
-  - unless @collection.inaturalist_project_details.blank?
+  - unless @collection.inaturalist_project_info.blank?
     %li{:class => 'inaturalist' + (@filter == 'inaturalist' ? ' active' : '')}= link_to(I18n.t(:inaturalist_tab_label), "/collections/#{@collection.id}/inaturalist")
   %li{:class => 'total' + (@filter.nil? ? ' active' : '')}
     = link_to I18n.t(:total_items_with_count, :count => @facet_counts['All'] || 0), collection_path(@collection, :params => {:sort_by => @sort_by, :view_as => @view_as})

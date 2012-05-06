@@ -289,5 +289,9 @@ DataObjectsHierarchyEntry.gen(:data_object => d, :hierarchy_entry => he, :vetted
 $CACHE = old_cache_value.clone if old_cache_value
 $CACHE.clear
 
-$INDEX_RECORDS_IN_SOLR_ON_SAVE = original_index_records_on_save_value
+# Create a collection with a EOL collection id which already has a project on iNaturalist.
+c = Collection.gen(:id => 22761, :name => 'Harvard Yard')
+c.users = [User.gen]
+c.add(d)
 
+$INDEX_RECORDS_IN_SOLR_ON_SAVE = original_index_records_on_save_value

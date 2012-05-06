@@ -243,7 +243,7 @@ class Collection < ActiveRecord::Base
     "Collection ##{id}: #{name}"
   end
 
-  def inaturalist_project_details
+  def inaturalist_project_info
     url = "http://www.inaturalist.org/projects.json?source=http://eol.org/collections/#{id}"
     response = Net::HTTP.get(URI.parse(url))
     JSON.parse(response)[0]

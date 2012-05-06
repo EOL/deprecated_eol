@@ -457,6 +457,11 @@ de:
         an_unknown_user_curated_an_older_data_object: Ein unbekannter Nutzer kuratierte eine ältere Version von „%{data_object}“.
         an_unknown_user_curated_an_unknown_data_object: Ein unbekannter Nutzer kuratierte ein unbekanntes Datenobjekt.
         an_unknown_user_curated_data_object: Ein unbekannter Nutzer kuratierte „%{data_object}“
+        an_unknown_user_curated_it: Ein unbekannter Nutzer kuratiert es, aber die vorgenommene Aktion ist nicht mehr bekannt.
+        user_curated_an_older_data_object: <strong>%{user}</strong> kuratiert eine ältere Version von „%{data_object}“.
+        user_curated_an_unknown_data_object: <strong>%{user}</strong> kuratierte ein unbekanntes Datenobjekt.
+        user_curated_data_object: <strong>%{user}</strong> kuratierte „%{data_object}“.
+        user_curated_it: <strong>%{user}</strong> kuratiert es, aber die vorgenommene Aktion ist nicht mehr bekannt.
       reasons_to_hide: "Gründe für das Verbergen: %{reasons}"
       reasons_to_untrust: "Gründe für die Einstufung als nicht vertrauenswürdig: %{reasons}"
       remove_association: 
@@ -530,6 +535,19 @@ de:
         user_trusted_data_object_on_association: <strong>%{user}</strong> markierte „%{data_object}“ auf der Seite „%{association}“ als vertrauenswürdig.
         user_trusted_it_on_an_unknown_association: <strong>%{user}</strong> markierte es in einem unbekannten Zusammenhang als vertrauenswürdig.
         user_trusted_it_on_association: <strong>%{user}</strong> markierte es auf der Seite „%{association}“ als vertrauenswürdig.
+      unreview_common_name: 
+        an_unknown_user_unreviewed_an_unknown_name_on_an_unknown_taxon: Ein unbekannter Nutzer markierte einen unbekannten gebräuchlichen Namen auf einer unbekannten Seite als nicht geprüft.
+        an_unknown_user_unreviewed_an_unknown_name_on_it: Ein unbekannter Nutzer markierte einen unbekannten gebräuchlichen Namen als nicht geprüft.
+        an_unknown_user_unreviewed_an_unknown_name_on_taxon: Ein unbekannter Nutzer markierte einen unbekannten gebräuchlichen Namen zu „%{taxon}“ als nicht geprüft.
+        an_unknown_user_unreviewed_name_on_an_unknown_taxon: Ein unbekannter Nutzer markierte den gebräuchlichen Namen „%{name}“ zu einer unbekannten Seite als nicht geprüft.
+        an_unknown_user_unreviewed_name_on_it: Ein unbekannter Nutzer markierte den Namen „%{name}“ als nicht geprüft.
+        an_unknown_user_unreviewed_name_on_taxon: Ein unbekannter Nutzer markierte den gebräuchlichen Namen „%{name}“ zu „%{taxon}“ als nicht geprüft.
+        user_unreviewed_an_unknown_name_on_an_unknown_taxon: <strong>%{user}</strong> markierte einen unbekannten gebräuchlichen Namen auf einer unbekannten Seite als nicht geprüft.
+        user_unreviewed_an_unknown_name_on_it: <strong>%{user}</strong> markierte einen unbekannten gebräuchlichen Namen als nicht geprüft.
+        user_unreviewed_an_unknown_name_on_taxon: <strong>%{user}</strong> markierte einen unbekannten gebräuchlichen Namen zu „%{taxon}“ als nicht geprüft.
+        user_unreviewed_name_on_an_unknown_taxon: <strong>%{user}</strong> markierte den gebräuchlichen Namen „%{name}“ zu einer unbekannten Seite als nicht geprüft.
+        user_unreviewed_name_on_it: <strong>%{user}</strong> markierte den Namen „%{name}“ als nicht geprüft.
+        user_unreviewed_name_on_taxon: <strong>%{user}</strong> markierte den gebräuchlichen Namen „%{name}“ zu „%{taxon}“ als nicht geprüft.
       unreviewed: 
         an_unknown_user_unreviewed_an_older_data_object_on_an_unknown_association: Ein unbekannter Nutzer markierte eine ältere Version von „%{data_object}“ in einem unbekannten Zusammenhang als nicht überprüft.
         an_unknown_user_unreviewed_an_older_data_object_on_association: Ein unbekannter Nutzer markierte eine ältere Version von „%{data_object}“ auf der Seite „%{association}“ als nicht überprüft.

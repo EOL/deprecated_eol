@@ -1,0 +1,23 @@
+%h1
+  =I18n.t(:translation_log)
+  
+= will_paginate @translation_logs
+%table.results_table{:width => "700px", :cellspacing => "0"}
+  %tr
+    %th
+      =I18n.t(:key)
+    %th
+      =I18n.t(:value)
+    %th
+      =I18n.t(:count)
+  - for translation_log in @translation_logs
+  - column_class=cycle('odd','even')
+    %tr{:valign => "top"}
+      %td{:class => column_class}
+        = translation_log.key
+      %td{:class => column_class}
+        = I18n.t(translation_log.key)
+      %td{:class => column_class}
+        = translation_log.count
+        
+= will_paginate @translation_logs

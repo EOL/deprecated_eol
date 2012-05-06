@@ -69,7 +69,8 @@
     = link_to I18n.t("spm_category_objects_count"), {:controller => 'administrator/stats', :action => 'SPM_objects_count'}, {:class=>'toc_item active'}
   %li
     = link_to I18n.t("spm_category_partner_count"), {:controller => 'administrator/stats', :action => 'SPM_partners_count'}, {:class=>'toc_item active'}
-
+  %li
+    = link_to I18n.t(:translation_log), {:controller => 'administrator/translation_log', :action => 'index'}, {:class=>'toc_item active'}
   %h3
     =I18n.t("data_usage_reports")
   %li

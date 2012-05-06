@@ -747,6 +747,30 @@ p.flag, span.flag {
   width: expression(this.width > 48 ? "48px" : true);
   height: expression(this.height > 48 ? "48px" : true); }
 
+#inat_observations.main_container .inat_observations_header {
+  padding: 10px 0 10px 0; }
+  #inat_observations.main_container .inat_observations_header a.button {
+    float: right; }
+  #inat_observations.main_container .inat_observations_header span {
+    margin-right: 80px; }
+  #inat_observations.main_container .inat_observations_header img {
+    float: left;
+    vertical-align: middle; }
+#inat_observations.main_container .inat_observations_map {
+  padding: 10px 0 10px 0; }
+#inat_observations.main_container .recent_observations table tbody tr {
+  line-height: 125%; }
+  #inat_observations.main_container .recent_observations table tbody tr td {
+    padding-top: 10px; }
+    #inat_observations.main_container .recent_observations table tbody tr td img {
+      width: 68px;
+      height: 68px;
+      border: 1px solid #cad3db;
+      float: left;
+      margin: 0 20px 0 0; }
+    #inat_observations.main_container .recent_observations table tbody tr td a {
+      font-weight: bold; }
+
 #page_heading.with_image img, #page_heading.profile img {
   max-width: 88px;
   max-height: 88px;
@@ -758,6 +782,23 @@ p.flag, span.flag {
   max-height: 35px;
   width: expression(this.width > 35 ? "35px" : true);
   height: expression(this.height > 35 ? "35px" : true); }
+
+#sidebar .inat_top_contributors {
+  margin: 0 0 20px 0; }
+  #sidebar .inat_top_contributors table tbody tr td {
+    line-height: 150%;
+    padding-bottom: 8px; }
+    #sidebar .inat_top_contributors table tbody tr td img {
+      border: 1px solid #394651;
+      max-width: 35px;
+      max-height: 35px;
+      width: expression(this.width > 35 ? "35px" : true);
+      height: expression(this.height > 35 ? "35px" : true); }
+    #sidebar .inat_top_contributors table tbody tr td a {
+      float: right;
+      font-weight: bold; }
+    #sidebar .inat_top_contributors table tbody tr td span b {
+      margin-right: -5px; }
 
 /*we share attribution across multiple pages so we need some overrides of HR here */
 #text_summary p.flag {
@@ -1040,6 +1081,10 @@ ul li.editors a {
 
 ul.media li .overlay {
   height: auto !important; }
+
+ul li.inaturalist a {
+  padding: 7px 10px 6px !important;
+  font-size: 12px !important; }
 
 body#prelaunch p.status {
   clear: both;

@@ -115,7 +115,8 @@ ActionController::Routing::Routes.draw do |map|
       entries.resource :literature, :only => [:show], :controller => "taxa/literature",
         :member => { :bhl => :get }
       entries.resource :resources, :only => [:show], :controller => "taxa/resources",
-        :member => { :identification_resources => :get, :education => :get , :nucleotide_sequences => :get, :biomedical_terms => :get }
+        :member => { :identification_resources => :get, :education => :get , :nucleotide_sequences => :get, :biomedical_terms => :get,
+          :citizen_science => :get }
       entries.resource :maps, :only => [:show], :controller => "taxa/maps"
       entries.resource :updates, :only => [:show], :controller => "taxa/updates",
         :member => { :statistics => :get }
@@ -130,7 +131,8 @@ ActionController::Routing::Routes.draw do |map|
     taxa.resource :literature, :only => [:show], :controller => "taxa/literature",
       :member => { :bhl => :get }
     taxa.resource :resources, :only => [:show], :controller => "taxa/resources",
-      :member => { :identification_resources => :get, :education => :get , :nucleotide_sequences => :get , :biomedical_terms => :get }
+      :member => { :identification_resources => :get, :education => :get , :nucleotide_sequences => :get , :biomedical_terms => :get,
+        :citizen_science => :get }
     taxa.resources :communities, :as => :community, :only => [:index], :controller => "taxa/communities",
        :collection => { :collections => :get, :curators => :get }
     taxa.resource :maps, :only => [:show], :controller => "taxa/maps"

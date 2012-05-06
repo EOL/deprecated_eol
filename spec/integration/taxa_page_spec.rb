@@ -150,6 +150,9 @@ describe 'Taxa page' do
     it 'should include Partner Links' do
       body.should include('Partner links')
     end
+    it 'should include Citizen science links' do
+      body.should include('Citizen science links')
+    end
   end
 
   shared_examples_for 'taxon community tab' do

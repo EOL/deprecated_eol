@@ -1112,7 +1112,7 @@ class TaxonConcept < ActiveRecord::Base
   def overview_text_for_user(the_user)
     overview_toc_item_ids = [TocItem.brief_summary, TocItem.comprehensive_description, TocItem.distribution].collect{ |toc_item| toc_item.id }
     overview_text_objects = self.text_for_user(the_user, {
-      :per_page => 20,
+      :per_page => 30,
       :language_ids => [ the_user.language.id ],
       :allow_nil_languages => (the_user.language.id == Language.default.id),
       :toc_ids => overview_toc_item_ids })

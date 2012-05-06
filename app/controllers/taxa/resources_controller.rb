@@ -23,6 +23,20 @@ class Taxa::ResourcesController < TaxaController
     current_user.log_activity(:viewed_taxon_concept_resources, :taxon_concept_id => @taxon_concept.id)
   end
 
+  def citizen_science
+    @assistive_section_header = I18n.t(:citizen_science)
+    @rel_canonical_href = @selected_hierarchy_entry ?
+      citizen_science_taxon_hierarchy_entry_resources_url(@taxon_concept, @selected_hierarchy_entry) :
+      citizen_science_taxon_resources_url(@taxon_concept)
+
+    citizen_science = TocItem.cached_find_translated(:label, 'Citizen Science', 'en')
+    citizen_science_links = TocItem.cached_find_translated(:label, 'Citizen Science links', 'en')
+    @contents = @taxon_concept.text_for_user(current_user, {
+      :language_ids => [ current_language.id ],
+      :toc_ids => [ citizen_science.id, citizen_science_links.id ] })
+    current_user.log_activity(:viewed_taxon_concept_resources_citizen_science, :taxon_concept_id => @taxon_concept.id)
+  end
+
   def education
     @assistive_section_header = I18n.t(:resources)
     @rel_canonical_href = @selected_hierarchy_entry ?

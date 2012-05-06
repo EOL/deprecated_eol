@@ -7,6 +7,8 @@
         = link_to I18n.t(:taxon_education_link), education_taxon_hierarchy_entry_resources_path(@taxon_concept, @selected_hierarchy_entry)
         - if Resource.ligercat.nil?
           Hello
+      %li{:class => resource_is_active('taxa/resources', 'citizen_science')}
+        = link_to I18n.t(:taxon_citizen_science_link), citizen_science_taxon_hierarchy_entry_resources_path(@taxon_concept, @selected_hierarchy_entry)
       - if !Resource.ligercat.nil? && HierarchyEntry.find_by_hierarchy_id_and_taxon_concept_id(Resource.ligercat.hierarchy.id, @taxon_concept.id)
         %li{:class => resource_is_active('taxa/resources', 'biomedical_terms')}
           = link_to I18n.t(:taxon_biomedical_terms_link), biomedical_terms_taxon_hierarchy_entry_resources_path(@taxon_concept, @selected_hierarchy_entry)
@@ -20,6 +22,8 @@
         = link_to I18n.t(:taxon_partner_links_link), taxon_resources_path(@taxon_concept)
       %li{:class => resource_is_active('taxa/resources', 'education')}
         = link_to I18n.t(:taxon_education_link), education_taxon_resources_path(@taxon_concept)
+      %li{:class => resource_is_active('taxa/resources', 'citizen_science')}
+        = link_to I18n.t(:taxon_citizen_science_link), citizen_science_taxon_resources_path(@taxon_concept)
       - if Resource.ligercat && HierarchyEntry.find_by_hierarchy_id_and_taxon_concept_id(Resource.ligercat.hierarchy.id, @taxon_concept.id)
         %li{:class => resource_is_active('taxa/resources', 'biomedical_terms')}
           = link_to I18n.t(:taxon_biomedical_terms_link), biomedical_terms_taxon_resources_path(@taxon_concept)

@@ -140,6 +140,9 @@ class TocItem < ActiveRecord::Base
       temp = temp | ["Content Summary"] # to Updates tab
       # Resources:
       temp = temp | ["Content Partners"] # to Resource tab
+      # Citizen Science - to Resource tab
+      temp = temp | ["Citizen Science"]
+      temp = temp | ["Citizen Science links"]
       temp.collect{ |label| TocItem.cached_find_translated(:label, label, 'en', :find_all => true) }.flatten.compact
     end
   end

@@ -612,6 +612,11 @@ Comment.connection.execute("UPDATE comments SET updated_at = DATE_SUB(NOW(), INT
   GoogleAnalyticsPartnerTaxon.gen(:year => year, :month => month, :taxon_concept => tc30, :user => Agent.catalogue_of_life.user )
 end
 
+# Create a collection with a EOL collection id which already has a project on iNaturalist.
+c = Collection.gen(:id => 5709, :name => 'Cape Cod')
+c.users = [User.gen]
+c.add(DataObject.gen)
+
 EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
 EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild
 EOL::Solr::CollectionItemsCoreRebuilder.begin_rebuild

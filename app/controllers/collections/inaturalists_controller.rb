@@ -10,7 +10,9 @@ class Collections::InaturalistsController < CollectionsController
     @inaturalist_project_id = @collection.inaturalist_project_info['id']
     @inaturalist_project_title = @collection.inaturalist_project_info['title']
     @inaturalist_observed_taxa_count = @collection.inaturalist_project_info['observed_taxa_count']
-    @inaturalist_project_observations = inaturalist_project_observations(@inaturalist_project_id)
+    if @inaturalist_project_id
+      @inaturalist_project_observations = inaturalist_project_observations(@inaturalist_project_id)
+    end
   end
 
 private

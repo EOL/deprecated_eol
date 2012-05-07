@@ -222,6 +222,9 @@ nl:
         equal_to: moet gelijk zijn aan %{count}
         even: moet even getal zijn
         exclusion: is gereserveerd
+        greater_than: 
+          one: moet groter zijn dan %{count}
+          other: moet groter zijn dan %{count} zijn
         greater_than_or_equal_to: moet groter dan of gelijk zijn aan %{count}
         inaccessible: is niet toegankelijk
         inclusion: wordt niet opgenomen in de lijst
@@ -244,6 +247,10 @@ nl:
         wrong_length: heeft de verkeerde lengte (moet %{count} tekens zijn)
         wrong_type: is van het verkeerde type
       models: 
+        data_object: 
+          attributes: 
+            rights_holder: 
+              blank: mag niet leeg zijn voor een CC BY-licentie
         harvest_event: 
           attributes: 
             publish: 
@@ -1859,6 +1866,7 @@ nl:
     data_object_title: "%{who} heeft nieuwe inhoud toegevoegd aan EOL"
     default_subject: Recente activiteit op EOL
     intro: Hier is uw samenvatting van EOL-activiteit voor %{time}
+    intro_immediately: Hallo, %{name} —
     see_all_activity: U kunt al uw activiteiten bekijken op de <a href='%{activity_url}' style='color:#195184'>pagina met uw nieuwsoverzicht</a>.
     someone_commented_on_something: <b>%{who}</b> heeft gereageerd op <b>%{what}</b>.
     unsubscribe: Wijzig uw e-mailinstellingen of schrijf u uit via de <a href='%{email_prefs_url}' style='color:#195184'>pagina met uw voorkeuren voor berichten</a>.
@@ -2138,7 +2146,57 @@ nl:
         tweet_text: Overzicht van %{scientific_name}
     resources: 
       biomedical_terms: 
-        tweet_text: Biomedische termen %{scientific_name}
+        hierarchy_entry: 
+          tweet_text: Biomedische termen voor %{scientific_name} als ingedeeld door %{hierarchy_provider}.
+        meta_title: Biomedische termen voor %{scientific_name}
+        meta_title_with_common_name: Biomedische termen voor %{preferred_common_name} (%{scientific_name})
+        tweet_text: Biomedische termen voor %{scientific_name}
+      education: 
+        hierarchy_entry: 
+          meta_title: Leermiddelen voor %{scientific_name} als ingedeeld door %{hierarchy_provider}.
+          meta_title_with_common_name: Leermiddelen voor %{preferred_common_name} (%{scientific_name} als ingedeeld door %{hierarchy_provider}).
+          tweet_text: Leermiddelen voor %{scientific_name} als ingedeeld door %{hierarchy_provider}.
+        meta_title: Educatieve bronnen voor %{scientific_name}
+        meta_title_with_common_name: Educatieve bronnen voor %{preferred_common_name} (%{scientific_name})
+        tweet_text: Educatieve bronnen voor %{scientific_name}
+      identification_resources: 
+        hierarchy_entry: 
+          tweet_text: Identificatiebronnen voor %{scientific_name} als geclassificeerd %{hierarchy_provider}
+        meta_title: Identificatiebronnen voor %{scientific_name}
+        meta_title_with_common_name: Identificatiebronnen voor %{preferred_common_name} (%{scientific_name})
+      nucleotide_sequences: 
+        hierarchy_entry: 
+          tweet_text: Nucleotidesequenties voor %{scientific_name} als ingedeeld door %{hierarchy_provider}.
+        meta_title: Nucleotidesequenties voor %{scientific_name}
+        meta_title_with_common_name: Nucleotidesequenties voor %{preferred_common_name} (%{scientific_name})
+        tweet_text: Nucleotidesequenties voor %{scientific_name}
+      show: 
+        hierarchy_entry: 
+          meta_title: Gegevensproviders voor %{scientific_name} als ingedeeld door %{hierarchy_provider}.
+          meta_title_with_common_name: Gegevensproviders voor %{preferred_common_name} als geclassificeerd door %{hierarchy_provider}
+          tweet_text: Gegevensproviders voor %{scientific_name} als ingedeeld door %{hierarchy_provider}.
+        meta_title: Inhoudelijke bronnen voor %{scientific_name}
+        meta_title_with_common_name: Inhoudelijke bronnen voor %{preferred_common_name} (%{scientific_name})
+        tweet_text: Inhoudelijke bronnen voor %{scientific_name}
+    updates: 
+      show: 
+        hierarchy_entry: 
+          meta_title: Updates voor %{scientific_name} als ingedeeld door %{hierarchy_provider}.
+          meta_title_with_common_name: Updates voor %{preferred_common_name} (%{scientific_name} als ingedeeld door %{hierarchy_provider}).
+          tweet_text: Updates voor %{scientific_name} als ingedeeld door %{hierarchy_provider}.
+        meta_description: Nieuws en updates over %{scientific_name}.
+        meta_description_with_common_name: Nieuws over %{preferred_common_name} en updates over %{scientific_name}.
+        meta_keywords: nieuws over %{scientific_name}, updates over %{scientific_name}
+        meta_keywords_with_common_name: nieuws over %{preferred_common_name}, updates over %{preferred_common_name}, updates over %{scientific_name}
+        meta_title: Reacties op %{scientific_name}
+        meta_title_with_common_name: Reacties op %{preferred_common_name} (%{scientific_name})
+        tweet_text: Reacties op %{scientific_name}
+      statistics: 
+        hierarchy_entry: 
+          meta_title: Statistieken voor %{scientific_name} als ingedeeld door %{hierarchy_provider}.
+          meta_title_with_common_name: Statistieken voor %{preferred_common_name} (%{scientific_name} als ingedeeld door %{hierarchy_provider}).
+        meta_description: Statistieken en gegevens voor %{scientific_name} bij Encyclopedia of Life.
+        meta_description_with_common_name: Statistieken en gegevens voor %{preferred_common_name}, ook bekend als %{scientific_name}, bij Encyclopedia of Life.
   taxa_with_count: 
     one: Eén taxon
     other: "%{count} taxa"

@@ -9,6 +9,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :task_names
   map.resources :contacts
   map.resources :recent_activities, :only => [:index]
+  map.resources :curated_taxon_concept_preferred_entries, :only => [:create]
 
   map.placeholder 'placeholder', :action => 'not_yet_implemented', :controller => 'application'
 
@@ -110,7 +111,7 @@ ActionController::Routing::Routes.draw do |map|
       entries.resources :communities, :as => :community, :only => [:index], :controller => "taxa/communities",
         :collection => { :collections => :get, :curators => :get }
       entries.resources :names, :only => [:index, :create, :update], :controller => "taxa/names",
-                                :collection => { :common_names => :get, :synonyms => :get },
+                                :collection => { :common_names => :get, :related_names => :get, :synonyms => :get },
                                 :member => { :vet_common_name => :get }
       entries.resource :literature, :only => [:show], :controller => "taxa/literature",
         :member => { :bhl => :get }
@@ -121,12 +122,14 @@ ActionController::Routing::Routes.draw do |map|
       entries.resource :updates, :only => [:show], :controller => "taxa/updates",
         :member => { :statistics => :get }
     end
+    taxa.resource :tree, :only => [:show], :controller => "taxa/trees"
     taxa.resource :overview, :only => [:show], :controller => "taxa/overviews"
     taxa.resources :media, :only => [:index], :controller => "taxa/media",
                            :collection => { :set_as_exemplar => [:get, :post] }
     taxa.resources :details, :except => [:show], :controller => "taxa/details"
     taxa.resources :names, :only => [:index, :create, :update], :controller => "taxa/names",
-                          :collection => { :common_names => :get, :synonyms => :get, :delete => :get },
+                          :collection => { :common_names => :get, :related_names => :get,
+                                           :synonyms => :get, :delete => :get },
                           :member => { :vet_common_name => :get }
     taxa.resource :literature, :only => [:show], :controller => "taxa/literature",
       :member => { :bhl => :get }

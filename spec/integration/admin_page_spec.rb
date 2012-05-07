@@ -93,12 +93,6 @@ describe 'Admin Pages' do
     body.should include(@hierarchy.description)
   end
 
-  it 'should be able to view a hierarchy' do
-    login_as(@user)
-    visit("/administrator/hierarchy/browse/#{@hierarchy.id}")
-    body.should include(@hierarchy.label)
-  end
-
   it 'should load an empty glossary page' do
     login_as(@user)
     visit('/administrator/glossary')

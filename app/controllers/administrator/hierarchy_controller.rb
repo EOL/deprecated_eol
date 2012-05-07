@@ -1,5 +1,11 @@
 class Administrator::HierarchyController < AdminController
 
+  # TODO - this doesn't appear to be used anywhere.  So:
+  # Check all translations, remove i18n keys from config/locales/en.yml if they are unused
+  # Check methods called; if they are not used elsewhere, delete.
+  # Check views; if unused elsewhere, delete.
+  # Delete this controller.
+
   layout 'left_menu'
 
   helper :resources

@@ -331,7 +331,7 @@ describe TaxonConcept do
                                 :vetted_id => Vetted.trusted.id,
                                 :published => 1)
     concept = TaxonConcept.find(concept.id) # cheating so I can flush all the instance variables
-    concept.taxon_concept_preferred_entry = nil
+    concept.preferred_entry = nil
     concept.entry.id.should == he_vetted.id
     concept.entry.name.string.should == vetted_name.string
 
@@ -619,6 +619,27 @@ describe TaxonConcept do
     # now checking the default again to make sure we get the original value
     tc.entry.should == he1
     tc.title.should == he1.name.string
+  end
+
+  it 'should have a smart #entry' do
+    tc = TaxonConcept.gen
+    he = HierarchyEntry.last
+    xpect 'which does NOT accept arguments other than a Hierarchy'
+    lambda { tc.entry(he) }.should raise_error
+    xpect 'which uses preferred entry if available'
+    TaxonConceptPreferredEntry.create(:taxon_concept_id => tc.id, :hierarchy_entry_id => he.id)
+    tcpe = TaxonConceptPreferredEntry.last
+    tc.entry.should == he
+    xpect 'which is a singleton'
+    TaxonConceptPreferredEntry.delete(tcpe)
+    tc.entry.should == he
+    # TODO - there's much more going on here, but I don't have the energy:
+    # xpect 'which uses published hierarchy entries first'
+    # xpect 'which uses unpublished hierarchy entries if no published entries exist'
+    # xpect 'which uses an HE in the specified hierarchy if available'
+    # xpect 'which uses the first availble HE if the specified hierarchy has no entry availble.'
+    # xpect 'which does NOT use an expired preferred_entry'
+    # xpect 'which creates a preferred entry if one did not exist'
   end
 
   #

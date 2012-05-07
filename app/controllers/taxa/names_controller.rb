@@ -4,11 +4,34 @@ class Taxa::NamesController < TaxaController
   before_filter :add_page_view_log_entry
   before_filter :set_vet_options, :only => [:common_names, :vet_common_name]
   before_filter :authentication_for_names, :only => [ :create, :update ]
-  before_filter :preload_core_relationships_for_names, :only => [ :index, :common_names, :synonyms ]
+  before_filter :preload_core_relationships_for_names, :only => [ :related_names, :common_names, :synonyms ]
+  before_filter :count_browsable_hierarchies, :only => [:index, :related_names, :common_names, :synonyms]
+
+  def index
+    all_hierarchy_entries = @taxon_concept.deep_published_hierarchy_entries
+    if params[:all]
+      @hierarchy_entries = all_hierarchy_entries
+      @other_hierarchy_entries = []
+    else 
+      @hierarchy_entries = all_hierarchy_entries.dup
+      @hierarchy_entries.delete_if {|he| @taxon_concept.entry.id != he.id && he.hierarchy_browsable.to_i == 0 }
+      @other_hierarchy_entries = all_hierarchy_entries.dup
+      @other_hierarchy_entries.delete_if {|he| he.hierarchy_browsable.to_i == 1 || @taxon_concept.entry.id == he.id }
+      @hierarchy_entries += @other_hierarchy_entries if
+        @hierarchy_entries.count == 1 && @hierarchy_entries.first.id == @taxon_concept.entry.id &&
+          @hierarchy_entries.first.hierarchy_browsable.to_i == 0
+    end
+    # This puts the currently-preferred entry at the top of the list:
+    @hierarchy_entries.sort! {|a,b| a.id == @taxon_concept.entry.id ? -1 : b.id == @taxon_concept.entry.id ? 1 : 0}
+    HierarchyEntry.preload_associations(@hierarchy_entries, [ { :agents_hierarchy_entries => :agent }, :rank, { :hierarchy => :agent } ], :select => {:hierarchy_entries => [:id, :parent_id, :taxon_concept_id]} )
+    @assistive_section_header = I18n.t(:assistive_names_classifications_header)
+    common_names_count
+    render :action => 'classifications'
+  end
 
   # GET /pages/:taxon_id/names
   # related names default tab
-  def index
+  def related_names
     if @selected_hierarchy_entry
       @related_names = TaxonConcept.related_names(:hierarchy_entry_id => @selected_hierarchy_entry_id)
       @rel_canonical_href = taxon_hierarchy_entry_names_url(@taxon_concept, @selected_hierarchy_entry)
@@ -18,8 +41,6 @@ class Taxa::NamesController < TaxaController
     end
     @assistive_section_header = I18n.t(:assistive_names_related_header)
     current_user.log_activity(:viewed_taxon_concept_names_related_names, :taxon_concept_id => @taxon_concept.id)
-
-    # for common names count
     common_names_count
   end
 
@@ -45,13 +66,12 @@ class Taxa::NamesController < TaxaController
   # PUT /pages/:taxon_id/names currently only used to update common_names
   def update
     if current_user.is_curator?
-      if !params[:preferred_name_id].nil?
+      if params[:preferred_name_id]
         name = Name.find(params[:preferred_name_id])
         language = Language.find(params[:language_id])
         @taxon_concept.add_common_name_synonym(name.string, :agent => current_user.agent, :language => language, :preferred => 1, :vetted => Vetted.trusted)
         expire_taxa([@taxon_concept.id])
       end
-
       current_user.log_activity(:updated_common_names, :taxon_concept_id => @taxon_concept.id)
     end
     if !params[:hierarchy_entry_id].blank?
@@ -91,8 +111,6 @@ class Taxa::NamesController < TaxaController
       synonyms_taxon_hierarchy_entry_names_url(@taxon_concept, @selected_hierarchy_entry) :
       synonyms_taxon_names_url(@taxon_concept)
     current_user.log_activity(:viewed_taxon_concept_names_synonyms, :taxon_concept_id => @taxon_concept.id)
-
-    # for common names count
     common_names_count
   end
 
@@ -163,7 +181,6 @@ private
 
   def common_names_count
     @common_names_count = get_common_names.collect{|cn| [cn.name.id,cn.language.id]}.uniq.count if @common_names_count.nil?
-    @common_names_count
   end
 
   def set_vet_options
@@ -171,13 +188,10 @@ private
   end
 
   def preload_core_relationships_for_names
-    if @selected_hierarchy_entry.blank?
-      @hierarchy_entries = @taxon_concept.published_browsable_hierarchy_entries
-    else
-      @hierarchy_entries =
-        @taxon_concept.published_browsable_hierarchy_entries.select {|he| he.id == @selected_hierarchy_entry.id}
-    end
-    HierarchyEntry.preload_associations(@hierarchy_entries, [ { :agents_hierarchy_entries => :agent }, :rank, { :hierarchy => :agent } ] )
+    @hierarchy_entries = @taxon_concept.published_browsable_hierarchy_entries
+    @hierarchy_entries = @hierarchy_entries.select {|he| he.id == @selected_hierarchy_entry.id} if
+      @selected_hierarchy_entry
+    HierarchyEntry.preload_associations(@hierarchy_entries, [ { :agents_hierarchy_entries => :agent }, :rank, { :hierarchy => :agent } ], :select => {:hierarchy_entries => [:id, :parent_id, :taxon_concept_id]} )
   end
 
   def authentication_for_names
@@ -188,4 +202,9 @@ private
     end
   end
 
+  # NOTE - #||= because instantiate_taxon_concept could have set it.  Confusing but true.  We should refactor this.
+  def count_browsable_hierarchies
+    @browsable_hierarchy_entries ||= @taxon_concept.published_hierarchy_entries.select{ |he| he.hierarchy.browsable? }
+    @browsable_hierarchy_entries = [@selected_hierarchy_entry] if @browsable_hierarchy_entries.blank? # TODO: Check this - we are getting here with a hierarchy entry that has a hierarchy that is not browsable.
+  end
 end

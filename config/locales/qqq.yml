@@ -120,3 +120,4 @@ qqq:
   filter_newsfeed_option_collections: "This will be a value in a drop-down to allow users to show certain newsfeed item types.  In this case, it allows the users to see messages related to: Collections"
   filter_newsfeed_option_watchlist: "This will be a value in a drop-down to allow users to show certain newsfeed item types.  In this case, it allows the users to see messages related to: Watchlist"
   filter_newsfeed_option_curation: "This will be a value in a drop-down to allow users to show certain newsfeed item types.  In this case, it allows the users to see messages related to: Curation"
+  unknown_hierarchy: "This simply indicates that a particular hierarchy (classification, tree of life) is missing.  It's a rare message, grammar not critical here."

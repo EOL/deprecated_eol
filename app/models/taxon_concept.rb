@@ -28,7 +28,15 @@ class TaxonConcept < ActiveRecord::Base
     :finder_sql => 'SELECT he.id, he.rank_id, h.id hierarchy_id, h.label hierarchy_label
     FROM hierarchies h
     JOIN hierarchy_entries he ON h.id = he.hierarchy_id
-    WHERE he.taxon_concept_id = \'#{id}\' AND he.published = 1 and h.browsable = 1
+    WHERE he.taxon_concept_id = \'#{id}\' AND he.published = 1 AND h.browsable = 1
+    ORDER BY h.label'
+
+  has_many :deep_published_hierarchy_entries, :class_name => HierarchyEntry.to_s, :foreign_key => 'id',
+    :finder_sql => 'SELECT he.id, he.rank_id, he.parent_id parent_id, he.name_id, he.taxon_concept_id,
+      h.id hierarchy_id, h.label hierarchy_label, h.browsable hierarchy_browsable
+    FROM hierarchies h
+    JOIN hierarchy_entries he ON h.id = he.hierarchy_id
+    WHERE he.taxon_concept_id = \'#{id}\' AND he.published = 1
     ORDER BY h.label'
 
   has_many :top_concept_images
@@ -73,7 +81,7 @@ class TaxonConcept < ActiveRecord::Base
 
   has_one :taxon_concept_metric
   has_one :taxon_concept_exemplar_image
-  has_one :taxon_concept_preferred_entry
+  has_one :preferred_entry, :class_name => 'TaxonConceptPreferredEntry'
 
   has_and_belongs_to_many :data_objects
 
@@ -332,35 +340,19 @@ class TaxonConcept < ActiveRecord::Base
     end
   end
 
-  # Singleton method to fetch the Hierarchy Entry, used for taxonomic relationships
+  # Singleton method to fetch the "best available" Hierarchy Entry and store that value.
   def entry(hierarchy = nil)
     @cached_entry ||= {}
-    return @cached_entry[hierarchy] if @cached_entry && @cached_entry[hierarchy]
+    return @cached_entry[hierarchy] if @cached_entry[hierarchy]
     raise "Cannot find a HierarchyEntry with anything but a Hierarchy" if hierarchy && !hierarchy.is_a?(Hierarchy)
-    
-    # return the cached one unless it is expired
-    unless hierarchy
-      if taxon_concept_preferred_entry && taxon_concept_preferred_entry.hierarchy_entry &&
-          !taxon_concept_preferred_entry.expired?
-        return taxon_concept_preferred_entry.hierarchy_entry
-      end
-    end
-    
+    return preferred_entry.hierarchy_entry if preferred_entry_usable?(hierarchy)
     TaxonConcept.preload_associations(self, :published_hierarchy_entries => [ :vetted, :hierarchy ])
     @all_entries ||= HierarchyEntry.sort_by_vetted(published_hierarchy_entries)
-    if @all_entries.blank?
-      @all_entries = HierarchyEntry.sort_by_vetted(hierarchy_entries)
-    end
-    
-    if hierarchy
-      best_entry = @all_entries.detect{ |he| he.hierarchy_id == hierarchy.id }
-    end
-    best_entry ||= @all_entries[0]
-    
-    if best_entry && !hierarchy
-      taxon_concept_preferred_entry.delete if taxon_concept_preferred_entry
-      TaxonConceptPreferredEntry.create(:taxon_concept_id => self.id, :hierarchy_entry_id => best_entry.id)
-    end
+    @all_entries = HierarchyEntry.sort_by_vetted(hierarchy_entries) if @all_entries.blank?
+    best_entry = hierarchy ? 
+      @all_entries.detect {|he| he.hierarchy_id == hierarchy.id } || @all_entries.first :
+      @all_entries.first
+    create_preferred_entry(best_entry) if hierarchy.nil?
     @cached_entry[hierarchy] = best_entry
   end
 
@@ -1255,7 +1247,36 @@ class TaxonConcept < ActiveRecord::Base
     add_to_index
   end
 
+  def uses_preferred_entry?(he)
+    preferred_entry.hierarchy_entry_id == he.id &&
+    CuratedTaxonConceptPreferredEntry.find_by_hierarchy_entry_id_and_taxon_concept_id(he.id, self.id) 
+  end
+
+  def curator_chosen_classification
+    CuratedTaxonConceptPreferredEntry.find_by_hierarchy_entry_id_and_taxon_concept_id(
+      preferred_entry.hierarchy_entry_id, self.id
+    ) 
+  end
+
 private
+
+  def preferred_entry_usable?(hierarchy)
+    if preferred_entry && preferred_entry.hierarchy_entry && !preferred_entry.expired?
+      if hierarchy
+        preferred_entry.hierarchy_entry.hierarchy_id == hierarchy.id
+      else
+        true
+      end
+    else 
+      false
+    end
+  end
+
+  def create_preferred_entry(entry)
+    return if entry.nil?
+    preferred_entry = 
+      TaxonConceptPreferredEntry.create(:taxon_concept_id => self.id, :hierarchy_entry_id => entry.id)
+  end
 
   def vet_taxon_concept_names(options = {})
     raise "Missing :language_id" unless options[:language_id]

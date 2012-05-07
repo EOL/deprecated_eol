@@ -381,6 +381,12 @@ $(function() {
     }).not(":checked").closest("dt").next("dd").hide();
   })($("#content_partner_resources"));
 
+  // This may warrant its own JS, but it's tiny, so it was easy enough to stick here:
+  $('td.preferred_entry_selector input[type="radio"]').click(function() {
+    var form = $(this).closest('form');
+    form.submit();
+  });
+
 });
 
 (function($) {

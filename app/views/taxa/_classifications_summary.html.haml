@@ -1,4 +1,4 @@
-#classifications_summary.article.classifications
+#classifications_summary.article.browsable.classifications
   - count = @browsable_hierarchy_entries.length
   .header
     %h3= I18n.t(:classifications_summary_header_with_count, :count => count)
@@ -11,7 +11,7 @@
     %ul
       - @browsable_hierarchy_entries.shuffle[0..1].each do |hierarchy_entry|
         %li
-          - taxon_rank = (hierarchy_entry.rank.blank? || hierarchy_entry.rank.label.blank?) ? I18n.t(:taxon).firstcap : hierarchy_entry.rank.label.firstcap
+          - taxon_rank = hierarchy_entry.rank_label
           - if hierarchy_entry.hierarchy.agent.user && !hierarchy_entry.hierarchy.agent.user.content_partners.blank?
             - agent = link_to(hierarchy_entry.hierarchy.agent.full_name, content_partner_path(hierarchy_entry.hierarchy.agent.user.content_partners.first))
           - elsif hierarchy_entry.hierarchy.resource && hierarchy_entry.hierarchy.resource.content_partner
@@ -22,7 +22,7 @@
           %ul
             - if hierarchy_entry.has_parent?
               %li
-                = render(:partial => 'navigation/node_name_page', :locals => { :hierarchy_entry => hierarchy_entry.parent })
+                = link_to  hierarchy_entry.parent.italicized_name.firstcap, taxon_hierarchy_entry_overview_path(hierarchy_entry.parent.taxon_concept_id, hierarchy_entry.parent.id)
                 %ul.branch
                   = render(:partial => 'taxa/classifications_summary_minitree_node_with_children', :locals => {:hierarchy_entry => hierarchy_entry})
             - else # No ancestor, start with this node:

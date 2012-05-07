@@ -171,18 +171,14 @@ describe 'Taxa page' do
     it 'should list the classifications that recognise the taxon' do
       visit logout_url
       visit taxon_names_path(@taxon_concept)
-      body.should have_tag('.article h3', /recognized by/i)
-      body.should have_tag('.article ul li', /catalogue of life/i)
-      visit common_names_taxon_names_path(@taxon_concept)
-      body.should have_tag('.article h3', /recognized by/i)
-      body.should have_tag('.article ul li', /catalogue of life/i)
-      visit synonyms_taxon_names_path(@taxon_concept)
-      body.should have_tag('.article h3', /recognized by/i)
-      body.should have_tag('.article ul li', /catalogue of life/i)
+      body.should have_tag('table.standard.classifications') do
+        with_tag('a', :href => taxon_hierarchy_entry_overview_path(@taxon_concept, @taxon_concept.entry))
+        with_tag('td', /catalogue of life/i)
+      end
     end
 
     it 'should show related names and their sources' do
-      visit taxon_names_path(@taxon_concept)
+      visit related_names_taxon_names_path(@taxon_concept)
       # parents
       body.should have_tag('table:first-of-type') do
         with_tag('th:first-of-type', /parent/i)
@@ -293,13 +289,13 @@ describe 'Taxa page' do
 
   shared_examples_for 'taxon name - taxon_concept page' do
     it 'should show the concepts preferred name style and ' do
-      body.should have_tag('#page_heading h1', /#{@taxon_concept.entry.name.ranked_canonical_form.string}\n/i)
+      body.should have_tag('#page_heading h1', /#{@taxon_concept.entry.name.ranked_canonical_form.string}/i)
     end
   end
 
   shared_examples_for 'taxon name - hierarchy_entry page' do
-    it 'should show the concepts preferred name style and ' do
-      body.should have_tag('#page_heading h1', /#{@taxon_concept.quick_scientific_name(:normal)}\n/i)
+    it 'should show the concepts preferred name in the heading' do
+      body.should have_tag('#page_heading h1', /#{@taxon_concept.quick_scientific_name(:normal)}/i)
     end
   end
 

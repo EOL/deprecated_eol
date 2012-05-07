@@ -1297,6 +1297,7 @@ private
 
   # Put the currently-preferred entry at the top of the list and load associations:
   def sort_and_preload_deeply_browsable_entries(set) 
+    current_entry_id = entry.id # Don't want to call #entry so many times...
     set.sort! {|a,b| a.id == current_entry_id ? -1 : b.id == current_entry_id ? 1 : 0}
     HierarchyEntry.preload_deeply_browsable(set)
   end

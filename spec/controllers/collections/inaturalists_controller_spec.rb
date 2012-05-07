@@ -3,6 +3,8 @@ require File.dirname(__FILE__) + '/../../spec_helper'
 describe Collections::InaturalistsController do
 
   before(:all) do
+    truncate_all_tables
+    load_foundation_cache
     # Create a collection with a EOL collection id which already has a project on iNaturalist.
     @inat_collection = Collection.gen(:id => 5709, :name => 'Cape Cod')
     @inat_collection.users = [User.gen]
@@ -12,7 +14,7 @@ describe Collections::InaturalistsController do
   end
 
   describe 'GET show' do
-    it "should not show iNaturalists observations sub-tab if inaturalist project doesn't exist for the collection" do
+    it "should instantiate the collection and other inaturalist project related variables" do
       get :show, :collection_id => @inat_collection.id.to_i
       assigns[:collection].should be_a(Collection)
       assigns[:collection].id.should == @inat_collection.id

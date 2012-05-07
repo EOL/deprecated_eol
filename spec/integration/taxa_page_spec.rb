@@ -174,7 +174,6 @@ describe 'Taxa page' do
       body.should have_tag('table.standard.classifications') do
         with_tag('a', :href => taxon_hierarchy_entry_overview_path(@taxon_concept, @taxon_concept.entry))
         with_tag('td', /catalogue of life/i)
-        with_tag('td', /taxon/i)
       end
     end
 

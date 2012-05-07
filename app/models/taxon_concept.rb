@@ -1,4 +1,4 @@
-# Represents a group of HierearchyEntry instances that we consider "the same".  This amounts to a vague idea
+# Represents a group of HierarchyEntry instances that we consider "the same".  This amounts to a vague idea
 # of a taxon, which we serve as a single page.
 #
 # We get different interpretations of taxa from our partners (ContentPartner), often differing slightly
@@ -1258,7 +1258,48 @@ class TaxonConcept < ActiveRecord::Base
     ) 
   end
 
+  # Avoid re-loading the deep_published_hierarchy_entries from the DB:
+  def cached_deep_published_hierarchy_entries
+    @cached_deep_published_hierarchy_entries ||= deep_published_hierarchy_entries
+  end
+
+  # Since the normal deep_published_hierarchy_entries association won't be sorted or pre-loaded:
+  def deep_published_sorted_hierarchy_entries
+    sort_and_preload_deeply_browsable_entries(cached_deep_published_hierarchy_entries)
+  end
+
+  # By default, we generally only want to expose *browsable* classifications.  This method finds those... unless a
+  # curator has marked a non-browsable classification as the default (or there are no browsable classifications), in
+  # which case we kind of have to show them all:
+  def deep_published_browsable_hierarchy_entries
+    return @deep_browsables if @deep_browsables
+    current_entry_id = entry.id # Don't want to call #entry so many times...
+    @deep_browsables = cached_deep_published_hierarchy_entries.dup
+    @deep_browsables.delete_if {|he| current_entry_id != he.id && he.hierarchy_browsable.to_i == 0 }
+    @deep_browsables += deep_published_browsable_hierarchy_entries if
+      @deep_browsables.count == 1 && @deep_browsables.first.id == current_entry_id &&
+        @deep_browsables.first.hierarchy_browsable.to_i == 0
+    sort_and_preload_deeply_browsable_entries(@deep_browsables)
+  end
+
+  # Analog to #deep_published_browsable_hierarchy_entries, this simply grabs the non-browsable hierarchies... mostly
+  # so we can count them, really... but there is no additional "cost" to loading them all, since we already have
+  # them.
+  def deep_published_nonbrowsable_hierarchy_entries
+    return @deep_nonbrowsables if @deep_nonbrowsables
+    current_entry_id = entry.id # Don't want to call #entry so many times...
+    @deep_nonbrowsables = cached_deep_published_hierarchy_entries.dup
+    @deep_nonbrowsables.delete_if {|he| he.hierarchy_browsable.to_i == 1 || current_entry_id == he.id }
+    HierarchyEntry.preload_deeply_browsable(@deep_nonbrowsables)
+  end
+
 private
+
+  # Put the currently-preferred entry at the top of the list and load associations:
+  def sort_and_preload_deeply_browsable_entries(set) 
+    set.sort! {|a,b| a.id == current_entry_id ? -1 : b.id == current_entry_id ? 1 : 0}
+    HierarchyEntry.preload_deeply_browsable(set)
+  end
 
   def preferred_entry_usable?(hierarchy)
     if preferred_entry && preferred_entry.hierarchy_entry && !preferred_entry.expired?

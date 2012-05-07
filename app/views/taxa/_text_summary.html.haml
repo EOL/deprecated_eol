@@ -14,11 +14,9 @@
         %p= I18n.t(:explore_what_we_know_about_taxon, :taxon => link_to(taxon, link))
       = link_to I18n.t(:add_brief_summary_to_page_link_button), new_taxon_data_object_path(@taxon_concept), :class => 'button'
   - else
-    - item_vetted = @summary_text.vetted_by_taxon_concept(@taxon_concept, :find_best => true)
-    - item_vetted_id = item_vetted.id unless item_vetted.nil?
-    - item_vetted_label = item_vetted.label unless item_vetted.nil?
+    - item_status_class, item_status_label = @summary_text.status_class_and_label_by_taxon_concept(@taxon_concept)
     - unless @summary_text.description.empty? || @summary_text.description.nil?
-      %div{:class => vetted_id_class(item_vetted_id), :data => { :text_id =>  @summary_text.id } }
+      %div{:class => item_status_class, :data => { :text_id =>  @summary_text.id } }
         .header
           %h3= h @summary_text.toc_items[0].label
           = link_to(I18n.t(:text_summary_more_link), link)
@@ -31,6 +29,6 @@
             = Sanitize.clean(@summary_text.description.balance_tags, Sanitize::Config::RELAXED).allow_some_html
           - else
             = @summary_text.description.balance_tags
-        %p.flag{:class => vetted_id_class(item_vetted_id)}= item_vetted_label == Vetted.unknown.label ? I18n.t(:unreviewed) : item_vetted_label
+        %p.flag{:class => item_status_class}= item_status_label
         .meta.attribution
           = render :partial => 'data_objects/attribution_minimal', :locals => { :data_object => @summary_text }

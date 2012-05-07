@@ -9,7 +9,7 @@
           - if @selected_hierarchy_entry
             = hh(@scientific_name)
           - else
-            %i= hh(@scientific_name)
+            = hh(@scientific_name)
           - unless @assistive_section_header.blank?
             %span.assistive= " &mdash; #{@assistive_section_header}"
         - unless @preferred_common_name.blank?

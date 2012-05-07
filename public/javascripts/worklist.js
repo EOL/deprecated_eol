@@ -105,6 +105,10 @@ function init_comments() {
   if (EOL.init_comment_behaviours != undefined) {
     // This ends up getting called twice on page-load, but we really do need it here for when a new task is loaded.
     EOL.init_comment_behaviours();
+    // Added on 4.30.12 to fix #WEB-3551
+    $('ul.feed').ajaxSuccess(function() {
+      EOL.init_comment_behaviours();
+    });
   }
 }
 function init_curation() {

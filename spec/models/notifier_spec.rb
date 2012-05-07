@@ -36,7 +36,7 @@ describe Notifier do
     end
 
     it "should contain a more information url" do
-      @email.should have_text(/http:\/\/www.eol.org\/curators/i)
+      @email.should have_text(/http:\/\/eol.org\/curators/i)
     end
 
     it "should contain a basic signature" do
@@ -142,7 +142,6 @@ describe Notifier do
     end
   end
 
-
   describe 'user_activated' do
     before(:all) do
       @email = Notifier.create_user_activated(@user)
@@ -161,7 +160,7 @@ describe Notifier do
     end
 
     it "should contain the user's username, profile, login and help urls" do
-      @email.should have_text(/your username is #{@user.username} and your profile URL.+?\/users\/#{@user.id}.+?http:\/\/www.eol.org\/login.+?http:\/\/www.eol.org\/help/im)
+      @email.should have_text(/your username is #{@user.username} and your profile URL.+?\/users\/#{@user.id}.+?http:\/\/eol.org\/login.+?http:\/\/eol.org\/help/im)
     end
 
     it "should contain a basic signature" do
@@ -169,11 +168,9 @@ describe Notifier do
     end
   end
 
-  describe 'user_reset_password' do
+  describe '#user_activated_with_open_authentication' do
     before(:all) do
-      @user.update_attributes(:password_reset_token => User.generate_key)
-      @reset_password_url = "http://www.eol.org/users/#{@user.id}/reset_password/#{@user.password_reset_token}"
-      @email = Notifier.create_user_reset_password(@user, @reset_password_url)
+      @email = Notifier.create_user_activated_with_open_authentication(@user, 'facebook')
     end
 
     it "should be set to be delivered to the user" do
@@ -181,15 +178,43 @@ describe Notifier do
     end
 
     it "should have a relevant subject" do
-      @email.should have_subject('Reset your Encyclopedia of Life account password')
+      @email.should have_subject('Your Encyclopedia of Life account has been activated')
     end
 
     it "should contain greeting with user's name" do
       @email.should have_text(/Dear #{@user.full_name}/)
     end
 
-    it "should contain a reset password url" do
-      @email.should have_text(/#{@reset_password_url}/)
+    it "should contain the user's open authentication provider, profile, login and help urls" do
+      @email.should have_text(/you signed up using Facebook.+?your profile URL on eol is .+?\/users\/#{@user.id}.+?http:\/\/eol.org\/login.+?http:\/\/eol.org\/help/im)
+    end
+
+    it "should contain a basic signature" do
+      @email.should have_text(/The Encyclopedia of Life Team/)
+    end
+  end
+
+  describe '#user_recover_account' do
+    before(:all) do
+      @user.update_attribute(:recover_account_token, User.generate_key)
+      @temporary_login_url = "http://www.eol.org/users/#{@user.id}/temporary_login/#{@user.recover_account_token}"
+      @email = Notifier.create_user_recover_account(@user, @temporary_login_url)
+    end
+
+    it "should be set to be delivered to the user" do
+      @email.should deliver_to(@user.email)
+    end
+
+    it "should have a relevant subject" do
+      @email.should have_subject('Recover your Encyclopedia of Life account')
+    end
+
+    it "should contain greeting with user's name" do
+      @email.should have_text(/Dear #{@user.full_name}/)
+    end
+
+    it "should contain a temporary login url" do
+      @email.should have_text(/#{@temporary_login_url}/)
     end
 
     it "should contain a signature with support contact" do

@@ -11,8 +11,30 @@ module EOL
     class NoCollectionsApply < StandardError; end
     class ObjectNotFound < StandardError; end
     class OnlyUsersCanCreateCommunitiesFromCollections < StandardError; end
+    class OpenAuthBadResponse < StandardError; end
+    class OpenAuthMissingAuthorizeUri < StandardError; end
+    class OpenAuthMissingConnectedUser < StandardError; end
     class Pending < StandardError; end
-    class SecurityViolation < StandardError; end
+    class SecurityViolation < StandardError
+      attr_accessor :flash_error_key, :flash_error_scope
+      attr_writer :flash_error
+      def initialize(msg = nil, flash_error_key = :default, flash_error_scope = [:exceptions, :security_violations])
+        if msg.is_a?(Array)
+          super(msg[0])
+          @flash_error_key = msg[1]
+          @flash_error_scope = msg[2]
+        else
+          super(msg)
+        end
+        @flash_error_key ||= flash_error_key
+        @flash_error_scope ||= flash_error_scope
+      end
+
+      def flash_error
+        @flash_error ||= I18n.t(flash_error_key, :scope => flash_error_scope,
+                                :default => I18n.t('exceptions.security_violations.default'))
+      end
+    end
     class UnknownFeedType < StandardError; end
     class WrongCurator < StandardError; end
   end

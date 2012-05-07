@@ -12,6 +12,10 @@ group :development, :test do
   gem 'ruby-prof'
 end
 
+group :test do
+  gem 'webmock'
+end
+
 group :worker do
   gem 'system_timer'
 end
@@ -30,6 +34,8 @@ gem 'macaddr'
 gem 'memcache'
 gem 'mysql'
 gem 'newrelic_rpm'
+gem 'oauth'
+gem 'oauth2'
 gem 'rack', '1.1.0'
 gem 'rails', '2.3.8'
 gem 'rdoc'
@@ -38,6 +44,5 @@ gem 'ruby-debug'
 gem 'sanitize','2.0.1'
 gem 'sass', '3.1.1'
 gem 'unicorn', '4.1.1'
-gem 'graylog2_exceptions', '1.3.0'
 gem 'uuid', '2.3.3'
 gem 'will_paginate', '2.3.16'

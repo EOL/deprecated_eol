@@ -129,19 +129,45 @@ describe User do
     @user.password.should == pass
   end
 
+  it 'should require password for a user with eol authentication'
+  it 'should require username for a user with eol authentication'
+  it 'should require email for a user with eol authentication'
+
+  it 'should not require username or password for open authenticated user' do
+    user = User.new(:given_name => "Oauth", :email => 'email@example.com',
+                    :open_authentications_attributes => [ { :guid => 1234, :provider => 'facebook' }])
+    user.valid?.should be_true
+  end
+
+  it 'should require given name for open authenticated user' do
+    user = User.new(:open_authentications_attributes => [ { :guid => 1234, :provider => 'facebook' }])
+    user.valid?.should be_false
+    user.errors.on(:given_name).should =~ /can't be blank/
+    user.given_name = "Oauth"
+    user.valid? # run validations again - will still fail due to other errors but we're just checking given name
+    user.errors.on(:given_name).should be_nil
+  end
+
   it 'should fail validation if the email is in the wrong format' do
     user = User.new(:email => 'wrong(at)format(dot)com')
-    user.valid?.should_not be_true
+    user.valid?.should be_false
+    user.errors.on(:email).should =~ /is invalid/
   end
 
-  it 'should fail validation if a curator requests a new account without credentials' do
-    user = User.new(:curator_request => true, :credentials => '')
-    user.valid?.should_not be_true
-  end
-
-  it 'should fail validation if a curator requests a new account without either a scope or a clade' do
-    user = User.new(:curator_request => true, :curator_scope => nil)
-    user.valid?.should_not be_true
+  it 'should fail validation if master or full curator does not provide credentials or scope' do
+    [CuratorLevel.master.id, CuratorLevel.full.id].each do |curator_level_id|
+      user1 = User.new(:requested_curator_level_id => curator_level_id)
+      user2 = User.new(:curator_level_id => curator_level_id)
+      [user1, user2].each do |user|
+        user.valid?.should be_false
+        user.errors.on(:credentials).should =~ /can't be blank/
+        user.errors.on(:curator_scope).should =~ /can't be blank/
+      end
+    end
+    user = User.new(:curator_level_id => CuratorLevel.assistant.id)
+    user.valid?
+    user.errors.on(:credentials).should be_nil
+    user.errors.on(:curator_scope).should be_nil
   end
 
   it '#full_name should resort to username if a given name is all they provided' do
@@ -168,7 +194,9 @@ describe User do
   end
 
   it 'should not allow you to add a user that already exists' do
-    User.new( :username => @user.username ).save.should be_false
+    user = User.new(:username => @user.username)
+    user.save.should be_false
+    user.errors.on(:username).should =~ /taken/
   end
 
   it '(curator user) should allow curator rights to be revoked' do

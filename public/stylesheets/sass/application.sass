@@ -2515,39 +2515,86 @@ ul.content_partner_contacts
     +textarea
 #content.session
   background: #e2e9ef
-  form
-    width: 320px
+  #sign_up, #sign_in, #recover_account
+    overflow: hidden
+    width: 640px
     min-height: 295px
-    padding: 75px 159px 20px 159px
     margin: 0 auto
     border: 1px solid #cad3db
     background: #f0f4f7 url("/images/v2/bg_sign-in.gif") 0 0 no-repeat
-    h1
-      padding: 0 0 25px 0
-      font-size: 2em
-      font-weight: normal
-    label
-      font-size: 1.08em
-    input[type="text"], input[type="password"]
-      +input
-    input[type="submit"]
-      padding: 7px 10px
-      margin: 0 10px 0 0
-      font-size: 1em
-    dl.captcha
-      margin: 20px 0 20px -65px
-    a
-      font-weight: bold
-    label.checkbox
-      padding: 0 0 15px 0
+    > form
+      padding: 75px 159px 20px 159px
+      width: 320px
+      h1
+        padding: 0 0 25px 0
+        font-size: 2em
+        font-weight: normal
+      label
+        font-size: 1.08em
+      input[type="text"], input[type="password"]
+        +input
+      input[type="submit"]
+        padding: 7px 10px
+        margin: 0 10px 0 0
+        font-size: 1em
+      dl.captcha
+        margin: 20px 0 20px -65px
+      a
+        font-weight: bold
+      label.checkbox
+        padding: 0 0 15px 0
+        &.required
+          padding-left: 10px
+          background-position-y: 3px
+    .open_authentications
+      overflow: hidden
+      width: 400px
+      padding: 25px 100px 20px 140px
+      h2
+        text-align: center
+        padding: 0 0 25px 0
+        font-size: 2em
+        font-weight: normal
+      form
+        float: left
+        margin-bottom: 20px
+        fieldset.actions
+          padding-left: 32px
+          height: 31px
+          margin: 0
+          input[type="submit"]
+            padding: 7px 10px 8px
+            margin: 0 10px 0 0
+            font-size: 1em
+            min-width: 155px
+        &#new_user_facebook, &#new_session_facebook
+          fieldset.actions
+            background: transparent url("/images/v2/icon_social_plugins.png") 0 0 no-repeat
+        &#new_user_twitter, &#new_session_twitter
+          fieldset.actions
+            background: transparent url("/images/v2/icon_social_plugins.png") 0 -32px no-repeat
+        &#new_user_yahoo, &#new_session_yahoo
+          fieldset.actions
+            background: transparent url("/images/v2/icon_social_plugins.png") 0 -64px no-repeat
+        &#new_user_google, &#new_session_google
+          fieldset.actions
+            background: transparent url("/images/v2/icon_social_plugins.png") 0 -96px no-repeat
 
 #profile_edit
+  p.tip
+    margin: 0 10px 20px 10px
   input[type="text"], input[type="password"]
     +input(248px)
   .header
     margin: 0 0 20px 0
-  fieldset
+  .fieldsets
     float: left
+    overflow: hidden
+    margin: 0
+    padding: 0
+    button
+      display: block
+  fieldset
     padding: 0 40px 20px 0
     dl
       padding: 0 10px
@@ -2556,12 +2603,6 @@ ul.content_partner_contacts
       font-weight: bold
     button
       +button
-    ul
-      overflow: hidden
-      li
-        float: left
-        padding: 0 10px 5px 0
-        font-weight: bold
     &.profile,
     &.account
       width: 320px
@@ -2578,10 +2619,35 @@ ul.content_partner_contacts
       textarea
         width: 282px
         height: 120px
+      ul
+      overflow: hidden
+      li
+        float: left
+        padding: 0 10px 5px 0
+        font-weight: bold
     &.account
       input[type="checkbox"],
       select
         margin-left: 10px
+      ul
+        margin: 0 20px 0
+        li
+          list-style: none
+          margin: 0 0 5px 0
+          padding: 0 0 0 20px
+          background: transparent url('/images/v2/icon_social_plugins.png') no-repeat -16px 0
+          background-size: 16px
+          line-height: 140%
+          small
+            float: right
+          &.facebook
+            background-position: 0 0
+          &.google
+            background-position: 0 -49px
+          &.twitter
+            background-position: 0 -16px
+          &.yahoo
+            background-position: 0 -33px
     &.requests
       float: right
       width: 218px
@@ -2611,6 +2677,45 @@ ul.content_partner_contacts
         font-size: 1em
       a
         font-weight: bold
+#profile_open_authentications
+  .article.list
+    ul
+      margin: 0 100px
+      li
+        position: relative
+        padding-top: 20px
+        h3
+          font-size: 1.67em
+          line-height: 150%
+          background: transparent url('/images/v2/icon_social_plugins.png') no-repeat 0 0
+          min-height: 31px
+        p, h3
+          padding-left: 40px
+        .buttons
+          position: absolute
+          top: 25px
+          right: 0
+          form, fieldset, div, input
+            display: inline
+            margin: 0
+          form + form
+            margin-left: 5px
+        &.facebook
+          h3
+            background-position: 0 0
+        &.google
+          h3
+            background-position: 0 -96px
+        &.twitter
+          h3
+            background-position: 0 -32px
+        &.yahoo
+          h3
+            background-position: 0 -64px
+  > a
+    display: block
+    padding-top: 20px
+    border-top: 1px solid #cad3db
 
 ul.spotlite-matches
   background: #fff

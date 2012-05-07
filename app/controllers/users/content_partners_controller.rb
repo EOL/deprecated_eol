@@ -1,5 +1,7 @@
 class Users::ContentPartnersController < UsersController
 
+  skip_before_filter :extend_for_open_authentication
+
   # GET /users/:user_id/content_partners
   def index
     @user = User.find(params[:user_id], :include => [:content_partners])

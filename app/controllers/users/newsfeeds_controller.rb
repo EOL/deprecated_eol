@@ -1,5 +1,7 @@
 class Users::NewsfeedsController < UsersController
 
+  skip_before_filter :extend_for_open_authentication
+
   # GET /users/:user_id/newsfeed
   def show
     @user = user

@@ -27,6 +27,7 @@ end
 describe "Collections and collecting:" do
 
   before(:all) do
+    WebMock.allow_net_connect!
     # so this part of the before :all runs only once
     unless User.find_by_username('collections_scenario')
       truncate_all_tables
@@ -45,6 +46,7 @@ describe "Collections and collecting:" do
   end
 
   after(:all) do
+    WebMock.disable_net_connect!(:allow_localhost => true)
   end
 
   shared_examples_for 'collections all users' do
@@ -123,7 +125,9 @@ describe "Collections and collecting:" do
   end
 
   describe 'anonymous users' do
-    before(:all) { visit logout_url }
+    before(:all) do
+      visit logout_url
+    end
     subject { body }
     it_should_behave_like 'collections all users'
     # it_should_behave_like 'collecting all users'
@@ -150,10 +154,10 @@ describe "Collections and collecting:" do
   end
 
   describe 'user without privileges' do
-    before(:all) {
+    before(:all) do
       @user = @under_privileged_user
       login_as @user
-    }
+    end
     after(:all) { @user = nil }
     it_should_behave_like 'collections all users'
     it_should_behave_like 'collecting all users'
@@ -170,10 +174,10 @@ describe "Collections and collecting:" do
   end
 
   describe 'user with privileges' do
-    before(:all) {
+    before(:all) do
       @user = @collection_owner
       login_as @user
-    }
+    end
     after(:all) { @user = nil }
     it_should_behave_like 'collections all users'
     it_should_behave_like 'collecting all users'
@@ -314,41 +318,29 @@ describe "Collections and collecting:" do
     # there should be exactly 2 pages when we have a max_items_per_page of 4
     body.should match(/href="\/collections\/#{collection.id}\?page=2/)
     body.should_not match(/href="\/collections\/#{collection.id}\?page=3/)
-    
+
     # now testing the next/previous links show only when necessary
     body.should_not include "Previous"
     body.should include "Next"
-    
+
     visit collection_path(collection_owner.watch_collection, :page => 2)
     body.should include "Previous"
     body.should_not include "Next"
-    
+
     $INDEX_RECORDS_IN_SOLR_ON_SAVE = @original_index_records_on_save_value
   end
 
-
-  it 'collection newsfeed should have rel canonical link tag' do
-    false
-  end
-  it 'collection newsfeed should have prev and next link tags if relevant' do
-    false
-  end
-  it 'collection newsfeed should append page number to head title if relevant' do
-    false
-  end
-  it 'collection editors should have rel canonical link tag' do
-    false
-  end
-  it 'collection editors should not have prev and next link tags' do
-    false
-  end
+  it 'collection newsfeed should have rel canonical link tag'
+  it 'collection newsfeed should have prev and next link tags if relevant'
+  it 'collection newsfeed should append page number to head title if relevant'
+  it 'collection editors should have rel canonical link tag'
+  it 'collection editors should not have prev and next link tags'
 
 end
 
-
-
 describe "Preview Collections" do
   before(:all) do
+    WebMock.allow_net_connect!
     module Paperclip
       class Attachment
         def save
@@ -373,6 +365,10 @@ describe "Preview Collections" do
     @taxon = @test_data[:taxon_concept_1]
     @collection.add(@taxon)
     EOL::Solr::CollectionItemsCoreRebuilder.begin_rebuild
+  end
+
+  after(:all) do
+    WebMock.disable_net_connect!(:allow_localhost => true)
   end
 
   it 'should show collections on the taxon page' do

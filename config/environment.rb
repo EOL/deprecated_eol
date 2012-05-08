@@ -229,7 +229,7 @@ Rails::Initializer.run do |config|
   # back and forth from Memcached
   $USE_LOCAL_CACHE_CLASSES = true
 
-  $ENABLE_TRANSLATION_LOGS = true # This is expensive; DON'T do it by default!
+  $ENABLE_TRANSLATION_LOGS = false # This is expensive; DON'T do it by default!
 
   # If this is false, mail errors are silently ignored.  That doesn't make us happy:
   config.action_mailer.raise_delivery_errors = true

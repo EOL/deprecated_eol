@@ -1,0 +1,16 @@
+#recover_account
+  - form_for :user, :action => :recover_account_connections, :method => :post do |f|
+    = f.hidden_field :email, :value => @users[0].email
+    %fieldset
+      %h1= t(".form_header")
+      %p= t(".form_tip", :email => @users[0].email)
+    %fieldset.radio
+      %legend= t(".legend_choose_account")
+      - @users.each_with_index do |user, i|
+        %label{:for => "user_id_#{user.id}"}
+          = f.radio_button :id, user.id
+          = link_to user.full_name, user
+    %fieldset.actions
+      = f.submit I18n.t('helpers.submit.user.recover_account'), :name => :commit_choose_account
+      = link_to  I18n.t('helpers.submit.cancel'), recover_account_users_url
+

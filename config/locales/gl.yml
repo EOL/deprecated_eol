@@ -929,7 +929,6 @@ gl:
   create_community_around_this_collection_header: Crear unha comunidade ao redor desta colección
   create_community_button: Crear a comunidade
   create_community_unsuccessful_error: Sentímolo, houbo un erro. Non se creou a túa comunidade. Asegúrate de que completaches todos os campos correctamente.
-  create_user_form_header: Crea unha nova conta na <abbr title="Enciclopedia da vida">EOL</abbr>
   create_user_unsuccessful_error: Sentímolo, houbo un erro. Non se creou a túa nova conta. Asegúrate de que completaches todos os campos correctamente.
   created: Creado
   created_at: Creado o
@@ -2840,6 +2839,8 @@ gl:
         meta_description: Asociacións de socios de contidos de %{user_full_name}.
         meta_title: Socios de contidos de %{user_full_name}
         tweet_text: Socios de contidos de %{user_full_name}
+    new:
+      create_user_header: Crea unha nova conta na <abbr title="Enciclopedia da vida">EOL</abbr>
     newsfeeds: 
       activity: 
         meta_title: Fonte de novas das actividade de %{user_full_name}

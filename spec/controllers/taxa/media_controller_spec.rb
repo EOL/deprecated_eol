@@ -32,7 +32,7 @@ describe Taxa::MediaController do
         item_vetted = item.vetted_by_taxon_concept(@taxon_concept)
         item_vetted.id == Vetted.trusted.id
       }.count
-      
+
       @media = @taxon_concept.data_objects_from_solr(taxon_media_parameters).sort_by{|m| m.id}
       @newest_media = @media.last(10).reverse
       @oldest_media = @media.first(3)
@@ -245,7 +245,7 @@ describe Taxa::MediaController do
       put :set_as_exemplar, :taxon_id => @taxon_concept.id, :taxon_concept_exemplar_image => { :data_object_id => exemplar_image.id }
       @taxon_concept.reload
       @taxon_concept.taxon_concept_exemplar_image.data_object_id.should == exemplar_image.id
-      response.redirected_to.should == taxon_media_path(@taxon_concept)
+      response.redirected_to.should == taxon_media_url(@taxon_concept)
     end
   end
 end

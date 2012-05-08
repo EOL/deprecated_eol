@@ -62,6 +62,12 @@ class HierarchyEntry < ActiveRecord::Base
     end
   end
 
+  # If you want to make a browsable tree of HEs, this might be a helpful method:
+  def self.preload_deeply_browsable(set)
+    HierarchyEntry.preload_associations(set, [ { :agents_hierarchy_entries => :agent }, :rank, { :hierarchy => :agent } ], :select => {:hierarchy_entries => [:id, :parent_id, :taxon_concept_id]} )
+    set
+  end
+
   def has_parent?
     self.parent_id && self.parent_id > 0
   end

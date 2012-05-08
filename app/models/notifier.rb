@@ -103,11 +103,18 @@ class Notifier < ActionMailer::Base
     body        :user => user
   end
 
-  def user_reset_password(user, url)
-    subject     I18n.t(:subject, :scope => [:notifier, :user_reset_password])
+  def user_activated_with_open_authentication(user, oauth_provider)
+    subject     I18n.t(:subject, :scope => [:notifier, :user_activated_with_open_authentication])
     recipients  user.email
     from        $SUPPORT_EMAIL_ADDRESS
-    body        :user => user, :password_reset_url => url
+    body        :user => user, :translated_oauth_provider => I18n.t("users.open_authentications.#{oauth_provider}")
+  end
+
+  def user_recover_account(user, temporary_login_url)
+    subject     I18n.t(:subject, :scope => [:notifier, :user_recover_account])
+    recipients  user.email
+    from        $SUPPORT_EMAIL_ADDRESS
+    body        :user => user, :temporary_login_url => temporary_login_url
   end
 
   def user_verification(user, url)

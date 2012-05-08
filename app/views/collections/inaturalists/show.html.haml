@@ -29,8 +29,7 @@
         - species = observation['species_guess'].blank? ? t('.some_taxon') : observation['species_guess']
         %h4= link_to species, "http://www.inaturalist.org/observations/#{observation['id']}"
         - observer_link = link_to observation['user_login'], "http://www.inaturalist.org/observations/#{observation['user_login']}"
-        .small= t('.observer_with_link', :observer_link => observer_link)
-        .small= t('.observation_date', :observed_on => observation['observed_on_string'])
-        = t('.observation_place', :place => observation['place_guess'])
-  %br
-  %h3= link_to t('.view_more_observations_on_inaturalist', :project_title => @inaturalist_project_title), "http://www.inaturalist.org/observations/project/#{@inaturalist_project_id}"
+        %p= t('.observer_with_link', :observer_link => observer_link)
+        %p= t('.observation_date', :observed_on => observation['observed_on_string'])
+        %p= t('.observation_place', :place => observation['place_guess'])
+  %strong= link_to t('.view_more_observations_on_inaturalist', :project_title => @inaturalist_project_title), "http://www.inaturalist.org/observations/project/#{@inaturalist_project_id}"

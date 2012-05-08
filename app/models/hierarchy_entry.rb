@@ -124,7 +124,11 @@ class HierarchyEntry < ActiveRecord::Base
   end
 
   def rank_label
-    rank.nil? ? I18n.t(:taxon) : rank.label
+    if rank.blank? || rank.label.blank?
+      I18n.t(:taxon).firstcap
+    else
+      rank.label.firstcap
+    end
   end
 
   # wrapper function used in options_from_collection_for_select

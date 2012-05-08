@@ -43,97 +43,6 @@ module TaxaHelper
     end
   end
 
-  def citables_to_string(citables, params={})
-    return '' if citables.nil? or citables.blank? or citables.class == String
-    params[:linked] = true if params[:linked].nil?
-    params[:only_first] ||= false
-    citable_entities = citables.clone # so we can be destructive.
-    citable_entities = [citable_entities] unless citable_entities.class == Array # Allows us to pass in a single agent, if needed.
-    citable_entities = [citable_entities[0]] if params[:only_first]
-    display_strings = citable_entities.collect do |citable|
-      if citable.user
-        link_to_url = user_path(citable.user)
-      else
-        link_to_url = params[:url] || citable.link_to_url
-      end
-
-      params[:linked] ? link_to(allow_some_html(citable.display_string), link_to_url) :
-                        allow_some_html(citable.display_string)
-    end
-    final_string = display_strings.join(', ')
-    final_string = I18n.t(:names_et_al, :names => final_string) if params[:only_first] && citables.length > 1
-    return final_string
-  end
-
-  def citables_to_icons(original_citables, params={})
-    return '' if original_citables.nil? or original_citables.blank? or original_citables.class == String
-    params[:linked] = true if params[:linked].nil?
-    params[:show_text_if_no_icon] ||= false
-    params[:only_show_col_icon] ||= false
-    params[:normal_icon] ||= false
-    params[:separator] ||= "&nbsp;"
-    params[:last_separator] ||= params[:separator]
-    params[:taxon_concept] ||= false
-
-    is_default_col = false
-
-    citables = original_citables.clone # so we can be destructive.
-    citables = [citables] unless citables.class == Array # Allows us to pass in a single agent, if needed.
-
-    output_html = []
-
-    citables.each do |citable|
-      url = ''
-      url = citable.link_to_url.strip unless citable.link_to_url.blank?
-      # if the agent is has an outlink for this taxon...
-      if params[:taxon_concept]
-        agent_entry = params[:taxon_concept].entry_for_agent(citable.agent_id)
-        if agent_entry && outlink = agent_entry.outlink
-          url = outlink[:outlink_url]
-        end
-      end
-
-      logo_size = (citable.agent_id == Agent.catalogue_of_life.id ? "large" : "small") # CoL gets their logo big
-      if citable.logo_cache_url.blank? && citable.logo_path.blank?
-        params[:url] = url
-        output_html << citables_to_string(citable) if params[:show_text_if_no_icon]
-      else
-        if params[:only_show_col_icon] && !is_default_col # if we are only asked to show the logo if it's COL and the current agent is *not* COL, then show text
-          params[:url] = url
-          output_html << citables_to_string(citable, params)
-        else
-          if params[:linked] and not url.blank?
-            text = citable_logo(citable, logo_size, params)
-            output_html << external_link_to(text, url, {:show_link_icon => false})
-          else
-            output_html << citable_logo(citable, logo_size, params)
-          end
-        end
-      end
-    end
-    if output_html.size > 1 && params[:last_separator] != params[:separator]
-      # stich the last two elements together with the "last separator" column before joining if there is more than 1 element and the last separator is different
-      output_html[output_html.size-2] = output_html[output_html.size-2] + params[:last_separator] + output_html.pop
-    end
-    return output_html.compact.join(params[:separator])
-  end
-
-  def citable_logo(citable, size = "large", params={})
-    src = nil
-    if !citable.logo_cache_url.blank?
-      src = Agent.logo_url_from_cache_url(citable.logo_cache_url, size)
-    elsif !citable.logo_path.blank?
-      src = citable.logo_path
-    end
-    return src if src.blank?
-    project_name = hh(sanitize(citable.display_string))
-    capture_haml do
-      haml_tag :img, {:width => params[:width], :height => params[:height],
-                      :src => src,  :border => 0, :alt => project_name,
-                      :title => project_name, :class => "agent_logo"}
-    end
-  end
-
   def reformat_specialist_projects(projects)
     max_columns = 2
     num_mappings = projects.size
@@ -153,16 +62,61 @@ module TaxaHelper
     hierarchy.collection_types.uniq.each do |collection_type|
       links << collection_type.materialized_path_labels
     end
-    partner_label = hierarchy_or_resource_name(hierarchy)
+    partner_label = hierarchy.display_title
     links.empty? ? partner_label : links.join(', ')
   end
-
-  def hierarchy_or_resource_name(hierarchy)
-    if(hierarchy.resource)
-      partner_label = hierarchy.resource.title
-    else
-      partner_label = hierarchy.label
+  
+  def hierarchy_display_title(hierarchy, options={})
+    options[:show_link] = true if !options.has_key?(:show_link)
+    hierarchy_label = hierarchy.display_title
+    if options[:show_link] && cp = hierarchy.content_partner
+      hierarchy_label = link_to(hierarchy_label, cp)
     end
+    return hierarchy_label
+  end
+  
+  def hierarchy_entry_display_attribution(hierarchy_entry, options={})
+    # on the overview page we show he rank first (Species recognized by ...)
+    # otherwise we show the rank last (... as a Species)
+    options[:show_rank_first] ||= false
+    hierarchy_title = hierarchy_display_title(hierarchy_entry.hierarchy, options)
+    
+    if hierarchy_entry.has_source_database?
+      recognized_by = hierarchy_entry.recognized_by_agents.map(&:full_name).to_sentence
+      # recognized_by = hierarchy_entry.recognized_by_agents.map {|a| (a.respond_to?(:user) && a.user && a.user.respond_to?(:content_partners) && !a.user.content_partners.blank?) ? link_to(a.full_name, content_partner_path(a.user.content_partners.first)) : a.full_name }.to_sentence
+      if options[:show_rank_first]
+        return I18n.t(:rank_recognized_by_from_source, :agent => recognized_by, :source => hierarchy_title, :rank => hierarchy_entry.rank_label)
+      elsif options[:show_rank] == false
+        return I18n.t(:recognized_by_from_source, :agent => recognized_by, :source => hierarchy_title)
+      else
+        return I18n.t(:recognized_by_from_source_as_a_rank, :recognized_by => recognized_by, :source => hierarchy_title, :taxon_rank => hierarchy_entry.rank_label)
+      end
+    else
+      if options[:show_rank_first]
+        return I18n.t(:rank_recognized_by_agent, :agent => hierarchy_title, :rank => hierarchy_entry.rank_label)
+      elsif options[:show_rank] == false
+        return hierarchy_title
+      else
+        return I18n.t(:recognized_by_as_a_rank, :recognized_by => hierarchy_title, :taxon_rank => hierarchy_entry.rank_label)
+      end
+    end
+  end
+  
+  def common_name_display_attribution(common_name_display)
+    agent_names = common_name_display.agents.map do |a|
+      if a.user
+        link_to a.user.full_name(:ignore_empty_family_name => true), a.user
+      else
+        a.full_name
+      end
+    end
+    hierarchy_labels = common_name_display.hierarchies.map { |h| hierarchy_display_title(h, :show_link => false) }
+    
+    all_attribution = (agent_names + hierarchy_labels).compact.uniq.sort.join(', ')
+    # This is *kind of* a hack.  Long, long ago, we kinda mangled our data by not having synonym IDs
+    # for uBio names, so uBio became the 'default' common name provider
+    all_attribution = "uBio" if all_attribution.blank?
+    all_attribution
   end
 
   # TODO - move this to CommonNameDisplay

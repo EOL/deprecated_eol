@@ -40,14 +40,6 @@ def build_name(string, agent, language, options = {})
   return EOL::CommonNameDisplay.new(tcn)
 end
 
-def expected_hash_from_name(name)
-  {:string     => name.string,
-   :synonym_ids => name.synonym_ids,
-   :preferred  => name.preferred == '1',
-   :id         => name.id,
-   :sources    => name.sources}
-end
-
 describe TaxaHelper do
 
   before(:all) do

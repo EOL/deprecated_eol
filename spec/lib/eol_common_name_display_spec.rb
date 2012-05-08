@@ -34,8 +34,8 @@ describe EOL::CommonNameDisplay do
   end
   
   it 'should merge sources on duplicates' do
-    sources = @cnd.sources
-    EOL::CommonNameDisplay.group_by_name([@cnd, @cnd]).first.sources.length.should == sources.length * 2
+    agents = @cnd.agents
+    EOL::CommonNameDisplay.group_by_name([@cnd, @cnd]).first.agents.length.should == agents.length * 2
   end
 
 end

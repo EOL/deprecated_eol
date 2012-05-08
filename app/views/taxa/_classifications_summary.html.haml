@@ -11,14 +11,8 @@
     %ul
       - @browsable_hierarchy_entries.shuffle[0..1].each do |hierarchy_entry|
         %li
-          - taxon_rank = hierarchy_entry.rank_label
-          - if hierarchy_entry.hierarchy.agent.user && !hierarchy_entry.hierarchy.agent.user.content_partners.blank?
-            - agent = link_to(hierarchy_entry.hierarchy.agent.full_name, content_partner_path(hierarchy_entry.hierarchy.agent.user.content_partners.first))
-          - elsif hierarchy_entry.hierarchy.resource && hierarchy_entry.hierarchy.resource.content_partner
-            - agent = link_to(hierarchy_entry.hierarchy.agent.full_name, content_partner_path(hierarchy_entry.hierarchy.resource.content_partner))
-          - else
-            - agent = hierarchy_entry.hierarchy.agent.full_name
-          %h4= I18n.t(:rank_recognized_by_agent_colon, :rank => taxon_rank, :agent => agent)
+          - hierarchy_label = hierarchy_display_title(hierarchy_entry.hierarchy)
+          %h4= I18n.t(:rank_recognized_by_agent_colon, :rank => hierarchy_entry.rank_label, :agent => hierarchy_label)
           %ul
             - if hierarchy_entry.has_parent?
               %li

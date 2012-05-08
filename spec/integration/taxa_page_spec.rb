@@ -207,7 +207,7 @@ describe 'Taxa page' do
         with_tag('thead tr th:nth-of-type(3)', /status/i)
         with_tag('tbody tr:first-of-type td:first-of-type', :attribute => {:class => 'preferred'})
         with_tag('tbody tr:first-of-type td:first-of-type', /#{@common_names.first.name_string}/i)
-        with_tag('tbody tr:first-of-type td:nth-of-type(2)', /#{@common_names.first.sources.first.full_name}/i)
+        with_tag('tbody tr:first-of-type td:nth-of-type(2)', /#{@common_names.first.agents.first.full_name}/i)
         with_tag('tbody tr:first-of-type td:nth-of-type(3)', /#{Vetted.find_by_id(@common_names.first.vetted.id).label}/i)
       end
     end
@@ -233,7 +233,7 @@ describe 'Taxa page' do
       visit logout_url
       visit synonyms_taxon_names_path(@taxon_concept)
       @synonyms = @taxon_concept.published_hierarchy_entries.first.scientific_synonyms
-      body.should have_tag('h4', /#{@taxon_concept.published_hierarchy_entries.first.hierarchy.label}/)
+      body.should have_tag('h4', /#{@taxon_concept.published_hierarchy_entries.first.hierarchy.display_title}/)
       body.should have_tag('table') do
         with_tag('thead th:first-of-type', /name/i)
         with_tag('thead th:nth-of-type(2)', /relationship/i)

@@ -26,8 +26,14 @@
                 %tr
                   %td
                     - logo = image_tag(outlink[:hierarchy].resource.content_partner.logo_url, :alt => "") rescue agent_logo(outlink[:hierarchy].agent, "small")
-                    = link_to logo, outlink[:hierarchy].url
+                    - if outlink[:hierarchy].url.blank?
+                      - if cp = outlink[:hierarchy].content_partner
+                        = link_to logo, cp
+                      - else
+                        = logo
+                    - else
+                      = link_to logo, outlink[:hierarchy].url
                   %td
-                    = hierarchy_or_resource_name(outlink[:hierarchy])
+                    = outlink[:hierarchy].display_title
                   %td
                     = link_to hierarchy_outlink_collection_types(outlink[:hierarchy]), outlink[:outlink_url], :rel => :nofollow

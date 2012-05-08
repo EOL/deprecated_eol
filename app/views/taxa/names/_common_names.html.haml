@@ -24,6 +24,6 @@
               :title => name.preferred ? I18n.t(:name_preferred_for_language_yes) : nil}
               = name.name_string
             %td
-              = name.agent_names
+              = common_name_display_attribution(name)
             %td
               = name.vetted.label

@@ -7,7 +7,8 @@ module EOL
     attr_accessor :name_string
     attr_accessor :language
     attr_accessor :language_label
-    attr_accessor :sources
+    attr_accessor :agents
+    attr_accessor :hierarchies
     attr_accessor :agent_synonyms
     attr_accessor :preferred
     attr_accessor :duplicate
@@ -57,9 +58,10 @@ module EOL
       @synonyms           = [ tcn.synonym ]
       @preferred          = tcn.preferred?
       @vetted             = tcn.vetted
-      @sources            = tcn.sources
+      @agents             = tcn.agents
+      @hierarchies        = tcn.hierarchies
       @agent_synonyms     = {}
-      tcn.sources.each{ |a| @agent_synonyms[a.id] = tcn.synonym_id }
+      tcn.agents.each{ |a| @agent_synonyms[a.id] = tcn.synonym_id }
       # TODO - the methods that set these are in taxa_helper.  Move the methods here.  (Or, better, to an Enumerable for CNDs.)
       @duplicate              = false
       @duplicate_with_curator = false
@@ -83,10 +85,6 @@ module EOL
       new_names
     end
 
-    def added_by_user?(user)
-      @sources.select{ |s| s.id == user.agent.id }.size > 0
-    end
-
     def synonym_id_for_user(user)
       @agent_synonyms[user.agent.id] rescue nil
     end
@@ -96,16 +94,11 @@ module EOL
       "name-#{@language.id}-#{@taxon_concept_name.name.id}"
     end
 
-    def agent_names
-      names = @sources.map {|a| a.user ? a.user.full_name(:ignore_empty_family_name => true) : a.full_name }.compact.uniq.sort.join(', ')
-      names = "Unknown" if names.blank?
-      names
-    end
-
     def merge!(other)
       @preferred = (@preferred || other.preferred)
       @vetted = other.vetted if other.vetted && other.vetted.view_order < @vetted.view_order
-      @sources += other.sources
+      @agents += other.agents
+      @hierarchies += other.hierarchies
       other.agent_synonyms.each do |agent_id, synonym_id|
         @agent_synonyms[agent_id] = synonym_id
       end

@@ -608,6 +608,12 @@ class TaxonConcept < ActiveRecord::Base
     @title_canonical = entry(hierarchy).title_canonical
   end
 
+  def title_canonical_italicized(hierarchy = nil)
+    return @title_canonical_italicized unless @title_canonical_italicized.nil?
+    return '' if entry(hierarchy).nil?
+    @title_canonical_italicized = entry(hierarchy).title_canonical_italicized
+  end
+
   def to_s
     "TaxonConcept ##{id}: #{title}"
   end
@@ -782,7 +788,7 @@ class TaxonConcept < ActiveRecord::Base
     map_objects = []
     if options[:maps].to_i > 0
       map_objects = self.data_objects_from_solr(solr_search_params.merge({
-        :per_page => options[:sounds].to_i,
+        :per_page => options[:maps].to_i,
         :data_type_ids => DataType.image_type_ids,
         :data_subtype_ids => DataType.map_type_ids
       }))
@@ -1062,6 +1068,8 @@ class TaxonConcept < ActiveRecord::Base
     cache_key = "best_image_#{self.id}"
     cache_key += "_#{selected_hierarchy_entry.id}" if selected_hierarchy_entry && selected_hierarchy_entry.class == HierarchyEntry
     TaxonConcept.prepare_cache_classes
+    Vetted
+    Hierarchy
     @best_image ||= $CACHE.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 1.days) do
       if published_exemplar = self.published_exemplar_image
         published_exemplar

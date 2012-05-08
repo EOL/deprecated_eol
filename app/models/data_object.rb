@@ -723,31 +723,59 @@ class DataObject < ActiveRecord::Base
 
   # To retrieve the vetted status of an association by using given taxon concept
   def vetted_by_taxon_concept(taxon_concept, options={})
-    if options[:find_best] == true && association = association_with_best_vetted_status
+    if association = association_with_exact_or_best_vetted_status(taxon_concept, options)
       return association.vetted
     end
-    association = association_for_taxon_concept(taxon_concept)
-    return association.vetted unless association.blank?
     return nil
   end
 
   # To retrieve an exact association(if exists) for the given taxon concept,
   # otherwise retrieve an association with best vetted status.
-  def association_with_exact_or_best_vetted_status(taxon_concept)
+  # when :find_best is used, we want to prefer the best vetted status
+  def association_with_exact_or_best_vetted_status(taxon_concept, options={})
+    if options[:find_best] == true && association = association_with_best_vetted_status
+      return association
+    end
     association = association_for_taxon_concept(taxon_concept)
     return association unless association.blank?
-    association = association_with_best_vetted_status
-    return association
+    if !options[:find_best]
+      association = association_with_best_vetted_status
+      return association
+    end
+    return nil
   end
 
   # To retrieve the visibility status of an association by using taxon concept
   def visibility_by_taxon_concept(taxon_concept, options={})
-    association = association_for_taxon_concept(taxon_concept)
-    return association.visibility unless association.blank?
-    if options[:find_best] == true && association = association_with_best_vetted_status
+    if association = association_with_exact_or_best_vetted_status(taxon_concept, options)
       return association.visibility
     end
     return nil
+  end
+  
+  # will return the class name and label used to generate the colored box showing
+  # this object's curation status: Green/Trusted, Gray/Unreviewed, Red/Untrusted, Red/Hidden
+  # or if none available: nil, nil
+  def status_class_and_label_by_taxon_concept(taxon_concept)
+    if best_association = association_with_exact_or_best_vetted_status(taxon_concept, :find_best => true)
+      if best_association.visibility == Visibility.invisible
+        return 'untrusted', I18n.t(:hidden)
+      else
+        status_class = case best_association.vetted
+          when Vetted.unknown       then 'unknown'
+          when Vetted.untrusted     then 'untrusted'
+          when Vetted.trusted       then 'trusted'
+          when Vetted.inappropriate then 'inappropriate'
+          else nil
+        end
+        status_label = case best_association.vetted
+          when Vetted.unknown then I18n.t(:unreviewed)
+          else best_association.vetted.label
+        end
+        return status_class, status_label
+      end
+    end
+    return nil, nil
   end
 
   # To retrieve the reasons provided while untrusting or hiding an association

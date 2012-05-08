@@ -1,7 +1,5 @@
 - content.each do |dato|
-  - dato_vetted = dato.vetted_by_taxon_concept(@taxon_concept, :find_best => true)
-  - dato_vetted_id = dato_vetted.id unless dato_vetted.nil?
-  - dato_vetted_label = dato_vetted.label unless dato_vetted.nil?
+  - item_status_class, item_status_label = dato.status_class_and_label_by_taxon_concept(@taxon_concept)
   %div{:id => "data_object_#{dato.id}", :class => 'article'}
     - unless dato.object_title.blank?
       %h4= dato.object_title
@@ -10,7 +8,7 @@
     = render :partial => 'data_objects/data_object_article', :locals => { :data_object => dato , :show_view_source => 'false'}
     .meta.attribution
       = render :partial => 'data_objects/attribution_minimal', :locals => { :data_object => dato }
-    %p.flag{:class => vetted_id_class(dato_vetted_id)}= dato_vetted_label == Vetted.unknown.label ? I18n.t(:unreviewed) : dato_vetted_label
+    %p.flag{:class => item_status_class }= item_status_label
     = render :partial => 'data_objects/rating', :locals => { :data_object => dato, :hide_user_rating => true }
     %div.actions
       - if dato.comments.length > 0

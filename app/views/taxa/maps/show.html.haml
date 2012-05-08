@@ -16,15 +16,13 @@
       #main
         %ul.media
           - @maps.each_with_index do |item, index|
-            - item_vetted = item.vetted_by_taxon_concept(@taxon_concept, :find_best => true)
-            - item_vetted_id = item_vetted.id unless item_vetted.nil?
-            - item_vetted_label = item_vetted.label unless item_vetted.nil?
-            %li{:class => "#{index.modulo(4) == 0 ? 'first' : nil} #{vetted_id_class(item_vetted_id)}"}
+            - item_status_class, item_status_label = item.status_class_and_label_by_taxon_concept(@taxon_concept)
+            %li{:class => "#{index.modulo(4) == 0 ? 'first' : nil} #{item_status_class}"}
               = item.best_title
               .figure
-                %a{ :data => { :data_object_id => item.id }, :class => vetted_id_class(item_vetted_id), :href => data_object_path(item) }
+                %a{ :data => { :data_object_id => item.id }, :class => item_status_class, :href => data_object_path(item) }
                   = render :partial => "data_objects/data_object_image",
                     :locals => { :data_object => item, :thumbnail => true, :size => '260_190' }
               = render :partial => 'data_objects/rating', :locals => { :data_object => item, :minimal => true }
-              %p.flag{:class => vetted_id_class(item_vetted_id)}= item_vetted_label == Vetted.unknown.label ? I18n.t(:unreviewed) : item_vetted_label
+              %p.flag{:class => item_status_class }= item_status_label
               = render :partial => 'shared/add_to_my_collection', :locals => { :item => item, :my_collection => @watch_collection }

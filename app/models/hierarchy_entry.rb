@@ -72,6 +72,8 @@ class HierarchyEntry < ActiveRecord::Base
     self.parent_id && self.parent_id > 0
   end
 
+  # this method will return either the original name string, or if the rank of the taxon
+  # is one to be italicized, the italicized form of the original name string
   def italicized_name
     if name.is_surrogate_or_hybrid?
       name.string
@@ -80,6 +82,8 @@ class HierarchyEntry < ActiveRecord::Base
     end
   end
 
+  # this method is probably unnecessary and just returns the canonical_form of
+  # the original name string - which might very well be nil
   def canonical_form
     return name.canonical_form
   end
@@ -98,10 +102,33 @@ class HierarchyEntry < ActiveRecord::Base
     else
       @title_canonical = name.string.firstcap
     end
+    @title_canonical
+  end
+
+  # takes the result of the above and adds italics tags around it if the 
+  # taxon is of a rank which should be italicized
+  def title_canonical_italicized
+    return @title_canonical_italicized unless @title_canonical_italicized.nil?
+    @title_canonical_italicized = title_canonical
+    # used the ranked version first
+    if name.is_surrogate_or_hybrid?
+      # do nothing
+    elsif name.ranked_canonical_form && !name.ranked_canonical_form.string.blank?
+      @title_canonical_italicized = "<i>#{@title_canonical_italicized}</i>" if (species_or_below? || @title_canonical_italicized.match(/ /))
+    elsif name.canonical_form && !name.canonical_form.string.blank?
+      @title_canonical_italicized = "<i>#{@title_canonical_italicized}</i>" if (species_or_below? || @title_canonical_italicized.match(/ /))
+    else
+      # do nothing
+    end
+    @title_canonical_italicized
   end
 
   def rank_label
-    rank.nil? ? I18n.t(:taxon) : rank.label
+    if rank.blank? || rank.label.blank?
+      I18n.t(:taxon).firstcap
+    else
+      rank.label.firstcap
+    end
   end
 
   # wrapper function used in options_from_collection_for_select

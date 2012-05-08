@@ -1,10 +1,9 @@
 #taxa_overview_summary
   - unless @summary_text.nil?
     - @summary_text.each do |item|
-      - item_vetted = item.vetted_by_taxon_concept(@taxon_concept, :find_best => true)
-      - item_vetted_id = item_vetted.id unless item_vetted.nil?
+      - item_status_class, item_status_label = item.status_class_and_label_by_taxon_concept(@taxon_concept)
       - unless item.description.empty? || item.description.nil?
-        %div{:class => vetted_id_class(item_vetted_id), :data => { :text_id =>  item.id } }
+        %div{:class => item_status_class, :data => { :text_id =>  item.id } }
           .header
             %h3= h item.toc_items[0].label
           = sanitize item.description.balance_tags

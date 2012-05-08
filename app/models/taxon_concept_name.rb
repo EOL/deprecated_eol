@@ -35,25 +35,25 @@ class TaxonConceptName < ActiveRecord::Base
     }, val, self[:name_id], self[:taxon_concept_id], self[:source_hierarchy_entry_id]]))
   end
 
-  def sources
-    all_sources = []
+  def agents
+    all_agents = []
     if synonym
-      all_sources += synonym.agents
-      all_sources << synonym.hierarchy.agent
+      all_agents += synonym.agents
     elsif source_hierarcy_entry
-      all_sources += source_hierarcy_entry.agents
-      all_sources << source_hierarcy_entry.hierarchy.agent
+      all_agents += source_hierarcy_entry.agents
     end
-    all_sources.delete(Hierarchy.eol_contributors.agent)
-    all_sources.uniq!
-    all_sources.compact!
+    all_agents.delete(Hierarchy.eol_contributors.agent)
+    all_agents.uniq.compact
+  end
 
-    # This is *kind of* a hack.  Long, long ago, we kinda mangled our data by not having synonym IDs
-    # for uBio names, so uBio became the 'default' common name provider
-    if all_sources.blank?
-      all_sources << Agent.find($AGENT_ID_OF_DEFAULT_COMMON_NAME_SOURCE) rescue nil
+  def hierarchies
+    all_hierarchies = []
+    if synonym
+      all_hierarchies << synonym.hierarchy unless synonym.hierarchy == Hierarchy.eol_contributors
+    elsif source_hierarcy_entry
+      all_hierarchies << source_hierarcy_entry.hierarchy unless synonym.hierarchy == Hierarchy.eol_contributors
     end
-    all_sources
+    all_hierarchies.uniq.compact
   end
 
 end

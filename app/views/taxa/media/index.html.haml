@@ -30,9 +30,7 @@
         - @media.each_with_index do |item, index|
           - if item.translations.length > 0
             - item = item.translations[0].data_object
-          - item_vetted = item.vetted_by_taxon_concept(@taxon_concept, :find_best => true)
-          - item_vetted_id = item_vetted.id unless item_vetted.nil?
-          - item_vetted_label = item_vetted.label unless item_vetted.nil?
+          - item_status_class, item_status_label = item.status_class_and_label_by_taxon_concept(@taxon_concept)
           - en_type = en_type(item)
           %li{:class => "#{index.modulo(4) == 0 ? 'first' : nil} #{en_type}".strip}
             .figure
@@ -53,7 +51,7 @@
                     - if @selected_hierarchy_entry.nil?
                       = f.submit I18n.t(:set_as_exemplar)
             = render :partial => 'data_objects/rating', :locals => { :data_object => item, :minimal => true }
-            %p.flag{:class => vetted_id_class(item_vetted_id)}= item_vetted_label == Vetted.unknown.label ? I18n.t(:unreviewed) : item_vetted_label
+            %p.flag{:class => item_status_class}= item_status_label
             = render :partial => 'shared/add_to_my_collection', :locals => { :item => item, :my_collection => @watch_collection }
       .footer
         = will_paginate @media, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next),

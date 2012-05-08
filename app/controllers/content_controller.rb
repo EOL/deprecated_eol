@@ -285,7 +285,10 @@ private
 
   def periodically_recalculate_homepage_parts
     $CACHE.fetch('homepage/activity_logs_expiration', :expires_in => $HOMEPAGE_ACTIVITY_LOG_CACHE_TIME.minutes) do
-      expire_fragment(:action => 'index', :action_suffix => "activity_#{current_language.iso_639_1}")
+      # expire acivity log caches for ALL languages at the same time
+      Language.approved_languages.each do |language|
+        expire_fragment(:action => 'index', :action_suffix => "activity_#{language.iso_639_1}")
+      end
     end
     $CACHE.fetch('homepage/march_of_life_expiration', :expires_in => 120.seconds) do
       expire_fragment(:action => 'index', :action_suffix => 'march_of_life')

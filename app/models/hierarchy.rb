@@ -16,6 +16,7 @@ class Hierarchy < ActiveRecord::Base
   belongs_to :agent           # This is the attribution.
   has_and_belongs_to_many :collection_types
   has_one :resource
+  has_one :dwc_resource, :class_name => Resource.to_s, :foreign_key => :dwc_hierarchy_id
   has_many :hierarchy_entries
 
   validates_presence_of :label
@@ -125,6 +126,19 @@ class Hierarchy < ActiveRecord::Base
       HierarchyEntry.sort_by_name(k)
     end
   end
+  
+  def content_partner
+    # the resource has a content partner
+    if resource && resource.content_partner
+      resource.content_partner
+    # there is an archive resource, which has a content_partner
+    elsif dwc_resource && dwc_resource.content_partner
+      dwc_resource.content_partner
+    # the hierarchy has no resource, but it has an agent which has a user which has content partners
+    elsif agent.user && !agent.user.content_partners.blank?
+      agent.user.content_partners.first
+    end
+  end
 
   def user_or_agent
     if resource && resource.content_partner && resource.content_partner.user
@@ -146,6 +160,16 @@ class Hierarchy < ActiveRecord::Base
 
   def request_to_publish_can_be_made?
     !self.browsable? && !request_publish
+  end
+  
+  def display_title
+    if resource
+      resource.title
+    elsif dwc_resource
+      dwc_resource.title
+    else
+      user_or_agent_or_label_name
+    end
   end
 
 private

@@ -33,6 +33,12 @@ EOL.init_curation_behaviours = function() {
       }
     }).trigger("change");
 
+    $form.find("fieldset").each(function() {
+      if ($(this).find('select').length == 0) {
+        $(this).find('ul').hide();
+      }
+    })
+
   })($("form.review_status"));
 
 }

@@ -486,6 +486,8 @@ describe 'Data Object Page' do
     visit("/data_objects/#{@image.id}")
     body.should have_tag("a[href=http://#{agent.homepage}]", :text => agent.full_name)
   end
-  
-  
+
+  it "should not show curation controls if the only association data object has is in preview mode"
+  it "should not curate a data object association in preview mode while curating other associations for same data object"  
+
 end

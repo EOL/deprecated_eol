@@ -1,4 +1,5 @@
 - data_object ||= @data_object
+- show_curation_submit = false
 - unless data_object.blank?
   - entries = data_object.filtered_associations(:invisible => current_user.is_admin? || current_user.is_curator?)
   - if entries.blank?
@@ -17,6 +18,7 @@
             %legend= I18n.t(:cannot_curate_association_in_preview_mode,
               :name => link_to(entry.italicized_name, taxon_overview_path(entry.taxon_concept_id)))
           - else
+            - show_curation_submit = true
             %legend= link_to entry.italicized_name, taxon_overview_path(entry.taxon_concept_id)
             - if entry.can_be_deleted_by?(current_user)
               %p
@@ -40,29 +42,31 @@
             - if visibility_selected == Visibility.invisible.id.to_i
               - dato_hide_reasons = data_object.hide_reasons(entry)
               - untrusted_reasons = dato_hide_reasons.blank? ? [] : dato_hide_reasons
-          %ul.untrusted
-            %li
-              = check_box_tag "untrust_reasons_#{entry.id}[]", UntrustReason.misidentified.id.to_s, untrusted_reasons.include?(UntrustReason.misidentified.id), {:id => "#{entry.id}_untrust_reason_misidentified"}
-              %label{ :for => "#{entry.id}_untrust_reason_misidentified" }
-                = UntrustReason.misidentified.label
-              = check_box_tag "untrust_reasons_#{entry.id}[]", UntrustReason.incorrect.id.to_s, untrusted_reasons.include?(UntrustReason.incorrect.id), {:id => "#{entry.id}_untrust_reason_incorrect"}
-              %label{ :for => "#{entry.id}_untrust_reason_incorrect" }
-                = UntrustReason.incorrect.label
-          %ul.hidden
-            %li
-              = check_box_tag "hide_reasons_#{entry.id}[]", UntrustReason.duplicate.id.to_s, untrusted_reasons.include?(UntrustReason.duplicate.id), {:id => "#{entry.id}_untrust_reason_duplicate"}
-              %label{ :for => "#{entry.id}_untrust_reason_duplicate" }
-                = UntrustReason.duplicate.label
-            %li
-              = check_box_tag "hide_reasons_#{entry.id}[]", UntrustReason.poor.id.to_s, untrusted_reasons.include?(UntrustReason.poor.id), {:id => "#{entry.id}_untrust_reason_poor"}
-              %label{ :for => "#{entry.id}_untrust_reason_poor" }
-                = UntrustReason.poor.label
-          -# Note: this curation comment box is always available in the interface even if the data object is being
-          -# curated as trusted/unreviewed and visible
-          %dl
-            %dt
-              %label.assistive{:for => "curation_comment_#{entry.id}"}= I18n.t(:curation_comment)
-            %dd
-              = text_area_tag "curation_comment_#{entry.id}", nil, :rows => 4, :cols => 60, :placeholder => I18n.t(:curation_reason_placeholder)
-      %fieldset.actions
-        = submit_tag I18n.t(:curated_association_update_button)
+          - unless entry.visibility_id == Visibility.preview.id
+            %ul.untrusted
+              %li
+                = check_box_tag "untrust_reasons_#{entry.id}[]", UntrustReason.misidentified.id.to_s, untrusted_reasons.include?(UntrustReason.misidentified.id), {:id => "#{entry.id}_untrust_reason_misidentified"}
+                %label{ :for => "#{entry.id}_untrust_reason_misidentified" }
+                  = UntrustReason.misidentified.label
+                = check_box_tag "untrust_reasons_#{entry.id}[]", UntrustReason.incorrect.id.to_s, untrusted_reasons.include?(UntrustReason.incorrect.id), {:id => "#{entry.id}_untrust_reason_incorrect"}
+                %label{ :for => "#{entry.id}_untrust_reason_incorrect" }
+                  = UntrustReason.incorrect.label
+            %ul.hidden
+              %li
+                = check_box_tag "hide_reasons_#{entry.id}[]", UntrustReason.duplicate.id.to_s, untrusted_reasons.include?(UntrustReason.duplicate.id), {:id => "#{entry.id}_untrust_reason_duplicate"}
+                %label{ :for => "#{entry.id}_untrust_reason_duplicate" }
+                  = UntrustReason.duplicate.label
+              %li
+                = check_box_tag "hide_reasons_#{entry.id}[]", UntrustReason.poor.id.to_s, untrusted_reasons.include?(UntrustReason.poor.id), {:id => "#{entry.id}_untrust_reason_poor"}
+                %label{ :for => "#{entry.id}_untrust_reason_poor" }
+                  = UntrustReason.poor.label
+            -# Note: this curation comment box is always available in the interface even if the data object is being
+            -# curated as trusted/unreviewed and visible
+            %dl
+              %dt
+                %label.assistive{:for => "curation_comment_#{entry.id}"}= I18n.t(:curation_comment)
+              %dd
+                = text_area_tag "curation_comment_#{entry.id}", nil, :rows => 4, :cols => 60, :placeholder => I18n.t(:curation_reason_placeholder)
+      - if show_curation_submit
+        %fieldset.actions
+          = submit_tag I18n.t(:curated_association_update_button)

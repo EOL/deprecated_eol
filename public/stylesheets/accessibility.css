@@ -1111,5 +1111,5 @@ body#prelaunch #footer ul.social_media {
 #classification_browser h4 {
   font-weight: normal; }
 
-#classification_browser li.current {
+.browsable.classifications span.current {
   font-weight: bold; }

@@ -13,7 +13,8 @@
 - max_children ||= 10    # NOTE - this ALSO applies to siblings, not just children.
 %li{:class => is_current_node ? 'current' : nil}
   - if is_current_node
-    = hierarchy_entry.italicized_name.firstcap
+    %span.current
+      = hierarchy_entry.italicized_name.firstcap
     - if show_children
       - children = hierarchy_entry.children
       - unless children.blank?

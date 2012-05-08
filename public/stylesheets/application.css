@@ -2139,8 +2139,6 @@ ul.content_partner_contacts li {
   width: 33%; }
   #taxon_names table.standard tr td.preferred {
     background: url("/images/v2/icon_required.png") 7px 50% no-repeat; }
-  #taxon_names table.standard tr td li.current {
-    font-weight: bold; }
 
 #taxon_literature .main_container .bhl_description {
   overflow: hidden;

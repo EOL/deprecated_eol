@@ -415,6 +415,7 @@ private
   def curate_association(user, hierarchy_entry, opts)
     if something_needs_curation?(opts)
       curated_object = get_curated_object(@data_object, hierarchy_entry)
+      return if curated_object.visibility_id == Visibility.preview.id
       handle_curation(curated_object, user, opts).each do |action|
         log = log_action(curated_object, action)
         # Saves untrust reasons, if any

@@ -33,26 +33,6 @@ if (!EOL.expand_clade_behavior) {
   };
 }
 
-// Alias to display a node when it's not for a selection:
-function displayNode(id) {
-  displayNode(id, false);
-}
-
-// call remote function to show the selected node in the text-based navigational tree view
-function displayNode(id, for_selection, selected_hierarchy_entry_id) {
-  url = '/navigation/show_tree_view';
-  if(for_selection) {
-    url = '/navigation/show_tree_view_for_selection';
-  }
-  $.ajax({
-    url: url,
-    type: 'POST',
-    success: function(response){$('#classification_browser').html(response);},
-    error: function(){ $('#classification_browser').html("<p>Sorry, there was an error.</p>"); },
-    data: {id: id, selected_hierarchy_entry_id: selected_hierarchy_entry_id}
-  });
-}
-
 // call remote function to show the selected node in the text-based navigational tree view
 function update_browser(hierarchy_entry_id, expand) {
   $.ajax({
@@ -79,7 +59,7 @@ function update_browser_stats(hierarchy_entry_id, expand) {
 $(document).ready(function() {
   $('.browsable.classifications a.show_tree').unbind('click').click(function() {
     var $update = $(this).closest('.browsable.classifications > ul > li');
-    EOL.ajax_submit($(this), {update: $update, type: 'GET'});
+    EOL.ajax_submit($(this), {update: $update, type: 'GET', data: ''}); // 'data' required to avoid reading nearst form
     return(false);
   });
   EOL.expand_clade_behavior();

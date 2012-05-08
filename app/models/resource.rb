@@ -32,7 +32,7 @@ class Resource < ActiveRecord::Base
   validates_presence_of :refresh_period_hours, :if => :accesspoint_url_provided?
   validates_presence_of :accesspoint_url, :unless => :dataset_file_provided?
   validates_format_of :accesspoint_url, :allow_blank => true, :allow_nil => true,
-                      :with => /\.xml(\.gz|\.gzip)?/
+                      :with => /(\.xml(\.gz|\.gzip)|.tgz|\.tar\.(gz|gzip))?/
   validates_format_of :dwc_archive_url, :allow_blank => true, :allow_nil => true,
                       :with => /(\.tar\.(gz|gzip)|.tgz)/
   validates_length_of :title, :maximum => 255
@@ -176,7 +176,7 @@ class Resource < ActiveRecord::Base
       self.resource_status = response_message
     else
       if response_message
-        notes = response_message
+        self.notes = response_message
         self.resource_status = ResourceStatus.validation_failed
       else
         self.resource_status = ResourceStatus.upload_failed

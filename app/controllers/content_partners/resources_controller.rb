@@ -33,11 +33,15 @@ class ContentPartners::ResourcesController < ContentPartnersController
     if @resource.save
       @resource.resource_status = @resource.upload_resource_to_content_master!(request.port.to_s)
       unless [ResourceStatus.uploaded.id, ResourceStatus.validated.id].include?(@resource.resource_status_id)
-        flash[:error] = I18n.t(:content_partner_resource_upload_unsuccessful_error, :resource_status => @resource.status_label)
+        if @resource.resource_status_id = ResourceStatus.validation_failed.id
+          flash[:error] = I18n.t(:content_partner_resource_validation_unsuccessful_error)
+        else
+          flash[:error] = I18n.t(:content_partner_resource_upload_unsuccessful_error, :resource_status => @resource.status_label)
+        end
       end
       Notifier.deliver_content_partner_resource_created(@partner, @resource, current_user)
       flash[:notice] = I18n.t(:content_partner_resource_create_successful_notice,
-                              :resource_status => @resource.status_label)
+                              :resource_status => @resource.status_label) unless flash[:error]
       redirect_to content_partner_resources_path(@partner), :status => :moved_permanently
     else
       set_new_resource_options
@@ -73,11 +77,15 @@ class ContentPartners::ResourcesController < ContentPartnersController
       if upload_required
         @resource.upload_resource_to_content_master!(request.port.to_s)
         unless [ResourceStatus.uploaded.id, ResourceStatus.validated.id].include?(@resource.resource_status_id)
-          flash[:error] = I18n.t(:content_partner_resource_upload_unsuccessful_error, :resource_status => @resource.status_label)
+          if @resource.resource_status_id = ResourceStatus.validation_failed.id
+            flash[:error] = I18n.t(:content_partner_resource_validation_unsuccessful_error)
+          else
+            flash[:error] = I18n.t(:content_partner_resource_upload_unsuccessful_error, :resource_status => @resource.status_label)
+          end
         end
       end
       flash[:notice] = I18n.t(:content_partner_resource_update_successful_notice,
-                              :resource_status => @resource.status_label)
+                              :resource_status => @resource.status_label) unless flash[:error]
       store_location(params[:return_to]) unless params[:return_to].blank?
       redirect_back_or_default content_partner_resource_path(@partner, @resource)
     else

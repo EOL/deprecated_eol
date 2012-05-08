@@ -507,7 +507,7 @@ en:
         connect: Add
       resource:
         administration_settings: "Administration settings <small>(only visible to EOL administrators)</small>"
-        accesspoint_url: "Dataset URL <small>(XML, XML.GZIP or XML.GZ only)</small>"
+        accesspoint_url: "Dataset URL"
         accesspoint_url_existing_remove: "This resource is currently being loaded from the URL ending <em>%{accesspoint_url}</em>. Upload a file if you would like to remove the existing URL and load the resource from a file instead (not recommended)."
         dataset: "Dataset"
         dataset_existing_replace: "The file <em>%{file_name}</em> is currently associated with this resource. Upload a new file to replace the existing <em>%{file_name}</em> file."
@@ -2246,6 +2246,7 @@ en:
   content_partner_resource_update_unsuccessful_error: "Sorry, an error occurred, the resource details were not updated."
   content_partner_resource_upload_unsuccessful_error: "Sorry, an error occurred, the resource details were updated but the resource itself was not uploaded: %{resource_status}."
   content_partner_resource_url_or_dataset_not_both_error: "Dataset URL or file per resource, not both. Please decide whether you want to provide a URL or upload a file for this described resource. Additional resources can be added later."
+  content_partner_resource_validation_unsuccessful_error: "Sorry, the resource details were updated but the resource failed to validate. See the processing notes below."
   content_partner_resource_vetted_true: "Yes"
   content_partner_resource_vetted_false: "No"
   content_partner_resource_view_link: "View"

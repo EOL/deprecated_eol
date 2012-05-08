@@ -176,7 +176,7 @@ module EOL
       comments.each do |comment|
         comment[:body]  ||= "This is a witty comment on the #{@canon} taxon concept. Any resemblance to comments real " +
                             'or imagined is coincidental.'
-        comment[:user] ||= User.count == 0 ? User.gen : User.all.rand
+        comment[:user] ||= User.count == 0 ? User.gen : User.all.random_element
         Comment.gen(:parent => @tc, :parent_type => 'taxon_concept', :body => comment[:body], :user => comment[:user])
       end
     end
@@ -244,7 +244,7 @@ module EOL
     def add_toc
       puts "** Enter: add_toc" if @debugging
       @toc.each do |toc_item|
-        toc_item[:toc_item]    ||= TocItem.all.rand
+        toc_item[:toc_item]    ||= TocItem.all.random_element
         toc_item[:description] ||= Faker::Lorem.paragraph
         toc_item[:vetted] ||= Vetted.trusted
         toc_item[:license] ||= License.cc

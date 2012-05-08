@@ -715,6 +715,7 @@ en:
         meta_description: "iNaturalist Observations for the Enyclopedia of Life collection %{collection_name}."
         meta_keywords: "%{collection_name} iNaturalist Observations"
         meta_title: "%{collection_name} iNaturalist Observations"
+        no_observations_added_to_this_project_yet: "No observations have been added to this project yet." 
         observer_with_link: "Observer: %{observer_link}"
         observation_date: "Date: %{observed_on}"
         observation_place: "Place: %{place}"
@@ -725,6 +726,7 @@ en:
         tweet_text: "%{collection_name} iNaturalist Observations"
         view_all_observations_on_inaturalist: "View all observations from %{project_title} on iNaturalist"
         view_more_observations_on_inaturalist: "View more observations from %{project_title} on iNaturalist"
+        view_project_on_inaturalist: "View %{project_title} on iNaturalist"
   communities:
     collections:
       index:

@@ -6,13 +6,15 @@
 #tabs_sidebar
   = render :partial => 'collections/filter_by_item_type'
 #sidebar
-  .inat_top_contributors
-    %h3= t('.top_contributors')
-    = javascript_include_tag "http://www.inaturalist.org/projects/#{@inaturalist_project_id}/contributors.widget"
+  - unless @inaturalist_project_observations.blank?
+    .inat_top_contributors
+      %h3= t('.top_contributors')
+      = javascript_include_tag "http://www.inaturalist.org/projects/#{@inaturalist_project_id}/contributors.widget"
   = render :partial => 'collections/recently_visited'
 #inat_observations.main_container
   .inat_observations_header
-    = link_to t('.add_observations'), "http://www.inaturalist.org/observations/new?project_id=#{@inaturalist_project_id}", :class => 'button'
+    = link_to(t('.add_observations'), 
+              "http://www.inaturalist.org/observations/new?project_id=#{@inaturalist_project_id}", :class => 'button')
     %span= t('.taxa_observed', :observed_taxa_count => @inaturalist_observed_taxa_count)
     %a{:href => "http://www.inaturalist.org/"}
       %img{:src => "http://inaturalist.org/images/logo-small.gif"}
@@ -21,7 +23,9 @@
             :height => "300", :marginheight => "0", :marginwidth => "0", :scrolling => "no", :width => "500"}
   .copy
     %p
-      %strong= link_to t('.view_all_observations_on_inaturalist', :project_title => @inaturalist_project_title), "http://www.inaturalist.org/observations/project/#{@inaturalist_project_id}"
+      - link = @inaturalist_project_observations.blank? ? '.view_project_on_inaturalist' : '.view_all_observations_on_inaturalist'
+      %strong= link_to(t(link, :project_title => @inaturalist_project_title), 
+                        "http://www.inaturalist.org/observations/project/#{@inaturalist_project_id}")
   .heading
     %h3= t('.recent_observations')
   %ul.object_list
@@ -30,9 +34,15 @@
         %a{:href => "http://www.inaturalist.org/observations/#{observation['id']}"}
           %img{:src => observation['photos'][0]['square_url']}
         - species = observation['species_guess'].blank? ? t('.some_taxon') : observation['species_guess']
-        %h4= link_to species, "http://www.inaturalist.org/observations/#{observation['id']}"
-        - observer_link = link_to observation['user_login'], "http://www.inaturalist.org/observations/#{observation['user_login']}"
+        %h4= link_to(species, "http://www.inaturalist.org/observations/#{observation['id']}")
+        - observer_link = link_to(observation['user_login'], 
+                                  "http://www.inaturalist.org/observations/#{observation['user_login']}")
         %p= t('.observer_with_link', :observer_link => observer_link)
         %p= t('.observation_date', :observed_on => observation['observed_on_string'])
         %p= t('.observation_place', :place => observation['place_guess'])
-  %strong= link_to t('.view_more_observations_on_inaturalist', :project_title => @inaturalist_project_title), "http://www.inaturalist.org/observations/project/#{@inaturalist_project_id}"
+  - if @inaturalist_project_observations.blank?
+    .copy
+      %p= t('.no_observations_added_to_this_project_yet')
+  - else
+    %strong= link_to(t('.view_more_observations_on_inaturalist', :project_title => @inaturalist_project_title), 
+                      "http://www.inaturalist.org/observations/project/#{@inaturalist_project_id}")

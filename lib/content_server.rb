@@ -93,24 +93,24 @@ class ContentServer
       ErrorLog.create(:url  => $WEB_SERVICE_BASE_URL, :exception_name  => "content provider dataset service timed out") if $ERROR_LOGGING
     else
       response = Hash.from_xml(response)
-      # response is an error
-      if response["response"].key? "error"
-        error = response["response"]["error"]
-        ErrorLog.create(:url=>$WEB_SERVICE_BASE_URL,:exception_name=>"content partner dataset service failed", :backtrace=>parameters) if $ERROR_LOGGING
-        return ['error', nil]
-      # else set status to response - we've validated the resource
-      elsif response["response"].key? "status"
+      # set status to response - we've validated the resource
+      if response["response"].key? "status"
         status = response["response"]["status"]
         resource_status = ResourceStatus.send(status.downcase.gsub(" ","_"))
         # validation failed
         if response["response"].key? "error"
           error = response["response"]["error"]
           ErrorLog.create(:url=>$WEB_SERVICE_BASE_URL,:exception_name=>"content partner dataset service failed", :backtrace=>parameters) if $ERROR_LOGGING
-          return ['error', error]
+          return [resource_status, error]
         # validation succeeded
         else
           return ['success', resource_status]
         end
+      # response is an error
+      elsif response["response"].key? "error"
+        error = response["response"]["error"]
+        ErrorLog.create(:url=>$WEB_SERVICE_BASE_URL,:exception_name=>"content partner dataset service failed", :backtrace=>parameters) if $ERROR_LOGGING
+        return ['error', nil]
       end
     end
     ['error', nil]

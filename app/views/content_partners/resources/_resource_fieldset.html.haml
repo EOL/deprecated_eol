@@ -42,10 +42,6 @@
               %p= I18n.t('helpers.label.resource.accesspoint_url_existing_remove', :accesspoint_url => @resource.accesspoint_url.sub(/^.*\//, ''))
             = resource_form.file_field :dataset
   %dl
-    %dt
-      = resource_form.label :dwc_archive_url
-    %dd
-      = resource_form.text_field :dwc_archive_url, :maxlength => 255
     %dt.required
       = resource_form.label :license_id
     %dd

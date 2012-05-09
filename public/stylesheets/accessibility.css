@@ -1090,22 +1090,20 @@ body#prelaunch #footer ul.social_media {
   width: 8%; }
 #taxon_names .main_container table.classifications td.rank {
   width: 8%; }
-#taxon_names .main_container table.classifications td.classifications {
-  width: 340px; }
-  #taxon_names .main_container table.classifications td.classifications > ul {
-    line-height: 160%;
-    font-size: 0.9em; }
-    #taxon_names .main_container table.classifications td.classifications > ul > li {
-      white-space: nowrap;
-      overflow-x: auto;
-      padding: 10px 15px;
-      margin: 0 -10px 20px -10px; }
-      #taxon_names .main_container table.classifications td.classifications > ul > li h4 {
-        font-weight: normal; }
-        #taxon_names .main_container table.classifications td.classifications > ul > li h4 a {
-          font-weight: bold; }
-      #taxon_names .main_container table.classifications td.classifications > ul > li ul {
-        margin-left: 10px; }
+#taxon_names .main_container table.classifications td.classifications > ul {
+  line-height: 160%;
+  font-size: 0.9em; }
+  #taxon_names .main_container table.classifications td.classifications > ul > li {
+    width: 340px;
+    white-space: nowrap;
+    overflow-x: auto;
+    margin: 0 -10px 20px -10px; }
+    #taxon_names .main_container table.classifications td.classifications > ul > li h4 {
+      font-weight: normal; }
+      #taxon_names .main_container table.classifications td.classifications > ul > li h4 a {
+        font-weight: bold; }
+    #taxon_names .main_container table.classifications td.classifications > ul > li ul {
+      margin-left: 10px; }
 
 .article .meta.curated {
   padding-bottom: 10px; }

@@ -102,6 +102,10 @@ class TocItem < ActiveRecord::Base
     InfoItem
     cached_find_translated(:label, 'Nucleotide Sequences', :include => [ :info_items, { :parent => :info_items } ])
   end
+  def self.citizen_science_links
+    InfoItem
+    cached_find_translated(:label, 'Citizen Science links', :include => [ :info_items, { :parent => :info_items } ])
+  end
   def self.wikipedia
     InfoItem
     cached_find_translated(:label, 'Wikipedia', :include => [ :info_items, { :parent => :info_items } ])

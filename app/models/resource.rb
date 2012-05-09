@@ -25,16 +25,17 @@ class Resource < ActiveRecord::Base
   before_save :convert_nulls_to_blank # TODO: Make migration to allow null on subject or remove it altogether if its no longer needed
 
   validates_attachment_content_type :dataset,
-      :content_type => ['application/x-gzip','application/x-tar','text/xml'],
+      :content_type => ['application/x-gzip', 'application/x-tar', 'text/xml', 'application/vnd.ms-excel',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],
       :message => I18n.t('activerecord.errors.models.resource.attributes.dataset.wrong_type')
 
   validates_presence_of :title, :license_id
   validates_presence_of :refresh_period_hours, :if => :accesspoint_url_provided?
   validates_presence_of :accesspoint_url, :unless => :dataset_file_provided?
   validates_format_of :accesspoint_url, :allow_blank => true, :allow_nil => true,
-                      :with => /(\.xml(\.gz|\.gzip)|.tgz|\.tar\.(gz|gzip))?/
+                      :with => /(\.xml(\.gz|\.gzip)|\.tgz|\.xls|\.xlsx|\.tar\.(gz|gzip))?/
   validates_format_of :dwc_archive_url, :allow_blank => true, :allow_nil => true,
-                      :with => /(\.tar\.(gz|gzip)|.tgz)/
+                      :with => /(\.tar\.(gz|gzip)|\.tgz)/
   validates_length_of :title, :maximum => 255
   validates_length_of :accesspoint_url, :allow_blank => true, :allow_nil => true, :maximum => 255
   validates_length_of :dwc_archive_url, :allow_blank => true, :allow_nil => true, :maximum => 255

@@ -13,6 +13,7 @@ class Taxa::ResourcesController < TaxaController
 
   def identification_resources
     @assistive_section_header = I18n.t(:resources)
+    @add_article_toc_id = TocItem.identification_resources ? TocItem.identification_resources.id : nil
     @rel_canonical_href = @selected_hierarchy_entry ?
       identification_resources_taxon_hierarchy_entry_resources_url(@taxon_concept, @selected_hierarchy_entry) :
       identification_resources_taxon_resources_url(@taxon_concept)
@@ -25,6 +26,7 @@ class Taxa::ResourcesController < TaxaController
 
   def citizen_science
     @assistive_section_header = I18n.t(:citizen_science)
+    @add_article_toc_id = TocItem.citizen_science_links ? TocItem.citizen_science_links.id : nil
     @rel_canonical_href = @selected_hierarchy_entry ?
       citizen_science_taxon_hierarchy_entry_resources_url(@taxon_concept, @selected_hierarchy_entry) :
       citizen_science_taxon_resources_url(@taxon_concept)
@@ -39,6 +41,7 @@ class Taxa::ResourcesController < TaxaController
 
   def education
     @assistive_section_header = I18n.t(:resources)
+    @add_article_toc_id = TocItem.education_resources ? TocItem.education_resources.id : nil
     @rel_canonical_href = @selected_hierarchy_entry ?
       education_taxon_hierarchy_entry_resources_url(@taxon_concept, @selected_hierarchy_entry) :
       education_taxon_resources_url(@taxon_concept)

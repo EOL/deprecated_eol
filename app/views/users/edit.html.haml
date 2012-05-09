@@ -7,7 +7,7 @@
         .header
           %h3= I18n.t(:users_form_profile_info_header)
         %p.tip
-          = @user.eol_authentication? ? t(".form_tip_profile", translation_vars) : t(".form_tip_profile_oauth", translation_vars)
+          = @user.eol_authentication? ? t(".form_tip_profile", translation_vars.dup) : t(".form_tip_profile_oauth", translation_vars.dup)
         %dl
           %dt
             = user_form.label :bio
@@ -47,7 +47,7 @@
         %fieldset.curation
           .header
             %h3= I18n.t(:users_form_curation_header)
-          %p.tip= t(".form_tip_curation", translation_vars)
+          %p.tip= t(".form_tip_curation", translation_vars.dup)
           %dl
             %dt
               = user_form.label :credentials
@@ -64,7 +64,7 @@
         .header
           %h3= I18n.t(:users_form_account_header)
         %p.tip
-          = @user.eol_authentication? ? t(".form_tip_account", translation_vars) : t(".form_tip_account_oauth", translation_vars)
+          = @user.eol_authentication? ? t(".form_tip_account", translation_vars.dup) : t(".form_tip_account_oauth", translation_vars.dup)
         %dl
           %dt
             = I18n.t('helpers.label.user.open_authentications')

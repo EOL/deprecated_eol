@@ -2,7 +2,7 @@
 #sign_in
   %h1= I18n.t(:login_header)
   .open_authentications
-    - [:facebook, :twitter, :google, :yahoo].each do |provider|
+    - $ENABLED_SOCIAL_PLUGINS.each do |provider|
       - form_for :session, :url => sessions_path, :html => { :id => "new_session_#{provider}" } do |f|
         = hidden_field_tag :oauth_provider, provider
         %fieldset.actions

@@ -1,13 +1,9 @@
 class Logging::TranslationLog < LoggingModel
   def self.inc(which)
     if $ENABLE_TRANSLATION_LOGS
-      val = Logging::TranslationLog.find_by_key(which.to_s)
-      if val
-        val.count += 1
-        val.save
-      else
-        Logging::TranslationLog.create(:key => which.to_s, :count => 1)
-      end
+      Logging::TranslationLog.connection.execute(
+        "INSERT INTO translation_logs (`key`, count) VALUES ('#{which}', 1) ON DUPLICATE KEY UPDATE count = count+1"
+      )
     end
   end
 end

@@ -901,10 +901,10 @@ en:
       login_with_google_assistive: "Login to EOL using your Google credentials."
       login_with_twitter_assistive: "Login to EOL using your Twitter credentials."
       login_with_yahoo_assistive: "Login to EOL using your Yahoo credentials."
-      login_with_open_authentication_header: "Or<span class=\"assistive\"> log in to EOL with open authentication</span>:"
+      login_with_eol_authentication_header: "Or sign in with your EOL credentials:"
       meta_title: "Login"
       problems_signing_in_with_connected_accounts: "Problems signing in with your connected accounts?"
-      problems_signing_in_with_eol_authentication: "Problems signing in?"
+      problems_signing_in_with_eol_authentication: "Forgot password?"
   taxa:
     communities:
       index:
@@ -1238,12 +1238,9 @@ en:
       form_tip_profile_oauth: "First name is required, other items marked as required %{required_icon} are optional for general users but required for curators."
       form_tip_curation: "Credentials and curation scope are optional for Assistant Curators but required %{required_icon} for Full and Master Curators"
     new:
+      complete_registration_header: "Complete your EOL registration"
       create_user_header: "Create a new <abbr title=\"Encyclopedia of Life\">EOL</abbr> account"
-      create_user_header_facebook: "Confirm your Facebook details and sign up"
-      create_user_header_google: "Confirm your Google details and sign up"
-      create_user_header_twitter: "Confirm your Twitter details and sign up"
-      create_user_header_yahoo: "Confirm your Yahoo details and sign up"
-      create_user_with_open_authentication_header: "Or<span class=\"assistive\"> sign up with open authentication</span>:"
+      create_user_with_eol_authentication_header: "Or provide new credentials:"
       meta_title: "Join EOL"
       sign_up_with_facebook_assistive: "Sign up to EOL using your Facebook credentials."
       sign_up_with_google_assistive: "Sign up to EOL using your Google credentials."
@@ -1276,9 +1273,11 @@ en:
         not_authorized_to_add_authentication: "Sorry, we don't have authorization to connect that account."
         not_authorized_to_signup: "Sorry, we are not authorized to sign you up to EOL with that account."
         not_connected: "Sorry, we couldn't find a connection to an EOL account."
+        remove_connection_failed: "Sorry, an error occurred, we were unable to remove the connection."
         facebook:
           add_connection_failed_account_already_connected: "Sorry, we can't connect your Facebook account to your EOL account, your Facebook account is already connected to an <a href=\"%{existing_eol_account_url}\">EOL account</a>."
           missing_attributes: "Sorry, there was a problem accessing your Facebook details."
+          new_authentication_not_added: "Sorry, an error occurred, we could not connect your Facebook account."
           not_authorized_to_add_authentication: "Sorry, we don't have authorization to connect your Facebook account."
           not_authorized_to_signup: "Sorry, we are not authorized to sign you up to EOL using your Facebook account."
           not_connected: "Sorry, we couldn't find a connection between your Facebook account and EOL."
@@ -1286,6 +1285,7 @@ en:
         google:
           add_connection_failed_account_already_connected: "Sorry, we can't connect your Google account to your EOL account, your Google account is already connected to an <a href=\"%{existing_eol_account_url}\">EOL account</a>."
           missing_attributes: "Sorry, there was a problem accessing your Google details."
+          new_authentication_not_added: "Sorry, an error occurred, we could not connect your Google account."
           not_authorized_to_add_authentication: "Sorry, we don't have authorization to connect your Google account."
           not_authorized_to_signup: "Sorry, we are not authorized to sign you up to EOL using your Google account."
           not_connected: "Sorry, we couldn't find a connection between your Google account and EOL."
@@ -1293,6 +1293,7 @@ en:
         twitter:
           add_connection_failed_account_already_connected: "Sorry, we can't connect your Twitter account to your EOL account, your Twitter account is already connected to an <a href=\"%{existing_eol_account_url}\">EOL account</a>."
           missing_attributes: "Sorry, there was a problem accessing your Twitter details."
+          new_authentication_not_added: "Sorry, an error occurred, we could not connect your Twitter account."
           not_authorized_to_add_authentication: "Sorry, we don't have authorization to connect your Twitter account."
           not_authorized_to_signup: "Sorry, we are not authorized to sign you up to EOL using your Twitter account."
           not_connected: "Sorry, we couldn't find a connection between your Twitter account and EOL."
@@ -1300,6 +1301,7 @@ en:
         yahoo:
           add_connection_failed_account_already_connected: "Sorry, we can't connect your Yahoo! account to your EOL account, your Yahoo! account is already connected to an <a href=\"%{existing_eol_account_url}\">EOL account</a>."
           missing_attributes: "Sorry, there was a problem accessing your Yahoo! details."
+          new_authentication_not_added: "Sorry, an error occurred, we could not connect your Yahoo! account."
           not_authorized_to_add_authentication: "Sorry, we don't have authorization to connect your Yahoo! account."
           not_authorized_to_signup: "Sorry, we are not authorized to sign you up to EOL using your Yahoo! account."
           not_connected: "Sorry, we couldn't find a connection between your Yahoo! account and EOL."
@@ -1316,13 +1318,19 @@ en:
       notices:
         facebook:
           new_authentication_added: "Facebook authentication has been added to your account."
+          removed_connection: "We have successfully removed the EOL connection to your Facebook account. To fully deauthorize future interactions between your Facebook account and EOL you must go to Facebook and edit your account settings."
         google:
           new_authentication_added: "Google authentication has been added to your account."
+          removed_connection: "We have successfully removed the EOL connection to your Google account. To fully deauthorize future interactions between your Google account and EOL you must go to Google and edit your account settings."
         twitter:
           new_authentication_added: "Twitter authentication has been added to your account."
+          removed_connection: "We have successfully removed the EOL connection to your Twitter account. To fully deauthorize future interactions between your Twitter account and EOL you must go to Twitter and edit your account settings."
         yahoo:
           new_authentication_added: "Yahoo! authentication has been added to your account."
+          removed_connection: "We have successfully removed the EOL connection to your Yahoo! account. To fully deauthorize future interactions between your Yahoo! account and EOL you must go to Yahoo! and edit your account settings."
       twitter: Twitter
+      warnings:
+        no_way_to_login: "You no longer have any connected accounts, you will not be able to log back into EOL unless you add a connected account or add an EOL username and password."
       yahoo: Yahoo!
     recover_account:
       errors:

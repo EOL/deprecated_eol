@@ -87,7 +87,7 @@ module TaxaHelper
       if options[:show_rank_first]
         return I18n.t(:rank_recognized_by_from_source, :agent => recognized_by, :source => hierarchy_title, :rank => hierarchy_entry.rank_label)
       elsif options[:show_rank] == false
-        return I18n.t(:recognized_by_from_source, :agent => recognized_by, :source => hierarchy_title)
+        return I18n.t(:recognized_by_from_source, :recognized_by => recognized_by, :source => hierarchy_title)
       else
         return I18n.t(:recognized_by_from_source_as_a_rank, :recognized_by => recognized_by, :source => hierarchy_title, :taxon_rank => hierarchy_entry.rank_label)
       end

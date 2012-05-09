@@ -41,6 +41,7 @@ module EOL
           :agent => nil,
           :agreed_with_terms => false,
           :all_collections => [],
+          :assistant_curator? => false,
           :blank? => true,
           :can_create? => false,
           :can_delete? => false,

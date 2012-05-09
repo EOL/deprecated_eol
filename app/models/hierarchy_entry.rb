@@ -137,7 +137,7 @@ class HierarchyEntry < ActiveRecord::Base
   end
 
   # Returns true IFF this HE was included in a set of HEs because a curator added the association.  See
-  # DataObject.published_entries
+  # DataObject.curated_hierarchy_entries
   def by_curated_association?
     @associated_by_curator
   end

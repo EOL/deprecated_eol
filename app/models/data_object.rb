@@ -906,9 +906,10 @@ class DataObject < ActiveRecord::Base
   end
 
   def add_curated_association(user, hierarchy_entry)
+    vetted_id = user.min_curator_level?(:full) ? Vetted.trusted.id : Vetted.unknown.id
     cdohe = CuratedDataObjectsHierarchyEntry.create(:hierarchy_entry_id => hierarchy_entry.id,
                                                     :data_object_id => self.id, :user_id => user.id,
-                                                    :vetted_id => Vetted.trusted.id,
+                                                    :vetted_id => vetted_id,
                                                     :visibility_id => Visibility.visible.id)
     if self.data_type == DataType.image
       TopImage.find_or_create_by_hierarchy_entry_id_and_data_object_id(hierarchy_entry.id, self.id, :view_order => 1)

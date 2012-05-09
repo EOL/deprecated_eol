@@ -3,20 +3,22 @@
   .header
     %h3= I18n.t("associated_with_#{en_type}_header")
     - if data_object.published
-      - if current_user.min_curator_level?(:full)
+      - if current_user.min_curator_level?(:assistant) || current_user == data_object.user
         = link_to I18n.t(:add_new_association_link), add_association_path(data_object, :return_to => current_url(false))
 
   - if data_object.published?
     - if current_user.min_curator_level?(:full)
-      = render :partial => 'data_objects/associations_curation', :locals => { :data_object => data_object }
+      = render :partial => 'data_objects/curatable_removable_associations_index', :locals => { :data_object => data_object }
+    - elsif current_user.assistant_curator? || current_user == data_object.user
+      = render :partial => 'data_objects/removable_associations_index', :locals => { :data_object => data_object }
     - else
-      = render :partial => 'data_objects/associations_index', :locals => { :data_object => data_object, :en_type => en_type }
+      = render :partial => 'data_objects/readonly_associations_index', :locals => { :data_object => data_object, :en_type => en_type }
       - unless for_worklist
         = link_to I18n.t(:view_current_version_link), data_object_path(@latest_published_revision) unless @latest_published_revision.id == data_object.id
   - else
     = render :partial => 'data_objects/associations_index', :locals => { :data_object => data_object, :en_type => en_type }
     .copy
-      - unless current_user.min_curator_level?(:full)
+      - unless current_user.min_curator_level?(:assistant) || current_user == data_object.user
         %p= I18n.t("this_#{en_type}_is_unpublished")
       - else
         %p= I18n.t("this_#{en_type}_cannot_be_curated_because_unpublished")

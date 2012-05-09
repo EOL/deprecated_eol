@@ -1,0 +1,18 @@
+- data_object ||= @data_object
+- unless data_object.blank?
+  - entries = data_object.filtered_associations
+  - if entries.blank?
+    %p= I18n.t(:data_object_not_associated_with_any_hierarchies)
+  - else
+    %ul.review_status
+      - entries.each do |entry|
+        - next if entry.nil?
+        - en_status = entry.vetted.label('en').downcase
+        - status = entry.vetted.curation_label
+        %li
+          %p{:class => en_status}= status
+          %legend= link_to entry.italicized_name, taxon_overview_path(entry.taxon_concept_id)
+          - if entry.can_be_deleted_by?(current_user)
+            = link_to I18n.t(:remove_data_object_association),
+                remove_association_path(:id => data_object.id, :hierarchy_entry_id => entry.id),
+                :id => "remove_association_#{entry.id}", :confirm => I18n.t(:are_you_sure)

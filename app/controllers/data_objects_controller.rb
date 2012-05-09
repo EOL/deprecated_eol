@@ -6,7 +6,7 @@ class DataObjectsController < ApplicationController
   before_filter :load_data_object, :except => [:index, :new, :create ]
   before_filter :authentication_own_user_added_text_objects_only, :only => [:edit, :update]
   before_filter :allow_login_then_submit, :only => [:rate]
-  before_filter :full_or_master_curators_only, :only => [:curate_associations, :add_association, :remove_association]
+  before_filter :curators_and_owners_only, :only => [:add_association, :remove_association]
 
   # GET /pages/:taxon_id/data_objects/new
   # We're only creating new user data objects in the context of a taxon concept so we need taxon_id to be provided in route
@@ -237,43 +237,47 @@ class DataObjectsController < ApplicationController
   end
 
   def curate_associations
-    return_to = params[:return_to] unless params[:return_to].blank?
-    store_location(return_to)
-    begin
-      entries = []
-      entries = @data_object.all_associations
+    if current_user.min_curator_level?(:full)
+      return_to = params[:return_to] unless params[:return_to].blank?
+      store_location(return_to)
+      begin
+        entries = []
+        entries = @data_object.all_associations
 
-      entries.each do |phe|
-        comment = curation_comment(params["curation_comment_#{phe.id}"])
-        vetted_id = params["vetted_id_#{phe.id}"].to_i
+        entries.each do |phe|
+          comment = curation_comment(params["curation_comment_#{phe.id}"])
+          vetted_id = params["vetted_id_#{phe.id}"].to_i
 
-        # make visibility hidden if curated as Inappropriate or Untrusted
-        visibility_id = (vetted_id == Vetted.inappropriate.id || vetted_id == Vetted.untrusted.id) ? Visibility.invisible.id : params["visibility_id_#{phe.id}"].to_i
+          # make visibility hidden if curated as Inappropriate or Untrusted
+          visibility_id = (vetted_id == Vetted.inappropriate.id || vetted_id == Vetted.untrusted.id) ? Visibility.invisible.id : params["visibility_id_#{phe.id}"].to_i
 
-        # check if the visibility has been changed
-        visibility_changed = visibility_id.blank? ? false : (phe.visibility_id != visibility_id)
+          # check if the visibility has been changed
+          visibility_changed = visibility_id.blank? ? false : (phe.visibility_id != visibility_id)
 
-        # explicitly mark visibility as changed if it is already hidden and marked as trusted or unreviewed from untrusted.
-        # this is required as we don't ask for hide reasons while marking an association as untrusted
-        # if we don't do this, code will grab the last hide reason for that association if it was marked as hidden in the past.
-        # if you are here to refactor the code(and about to remove the following line) then please make sure the hiding of the association works properly
-        visibility_changed = (phe.visibility_id == Visibility.invisible.id && (vetted_id == Vetted.trusted.id || vetted_id == Vetted.unknown.id)) ? true : false unless visibility_changed == true
-        all_params = { :vetted_id => vetted_id,
-                       :visibility_id => visibility_id,
-                       :curation_comment => comment,
-                       :untrust_reason_ids => params["untrust_reasons_#{phe.id}"],
-                       :hide_reason_ids => params["hide_reasons_#{phe.id}"],
-                       :untrust_reasons_comment => params["untrust_reasons_comment_#{phe.id}"],
-                       :vet? => vetted_id.blank? ? false : (phe.vetted_id != vetted_id),
-                       :visibility? => visibility_changed,
-                       :comment? => !comment.nil?,
-                     }
-        curate_association(current_user, phe, all_params)
+          # explicitly mark visibility as changed if it is already hidden and marked as trusted or unreviewed from untrusted.
+          # this is required as we don't ask for hide reasons while marking an association as untrusted
+          # if we don't do this, code will grab the last hide reason for that association if it was marked as hidden in the past.
+          # if you are here to refactor the code(and about to remove the following line) then please make sure the hiding of the association works properly
+          visibility_changed = (phe.visibility_id == Visibility.invisible.id && (vetted_id == Vetted.trusted.id || vetted_id == Vetted.unknown.id)) ? true : false unless visibility_changed == true
+          all_params = { :vetted_id => vetted_id,
+                         :visibility_id => visibility_id,
+                         :curation_comment => comment,
+                         :untrust_reason_ids => params["untrust_reasons_#{phe.id}"],
+                         :hide_reason_ids => params["hide_reasons_#{phe.id}"],
+                         :untrust_reasons_comment => params["untrust_reasons_comment_#{phe.id}"],
+                         :vet? => vetted_id.blank? ? false : (phe.vetted_id != vetted_id),
+                         :visibility? => visibility_changed,
+                         :comment? => !comment.nil?,
+                       }
+          curate_association(current_user, phe, all_params)
+        end
+        @data_object.reload # This reload is necessary. Please do not remove.
+        @data_object.update_solr_index
+      rescue => e
+        flash[:error] = e.message
       end
-      @data_object.reload # This reload is necessary. Please do not remove.
-      @data_object.update_solr_index
-    rescue => e
-      flash[:error] = e.message
+    else
+      access_denied
     end
     redirect_back_or_default
   end
@@ -329,8 +333,8 @@ private
     end
   end
 
-  def full_or_master_curators_only
-    unless current_user.min_curator_level?(:full)
+  def curators_and_owners_only
+    unless current_user.min_curator_level?(:assistant) || current_user == @data_object.user
       access_denied
     end
   end

@@ -7,7 +7,7 @@
       = t(".complete_registration_header")
   - if @user.eol_authentication?
     .open_authentications
-      - [:facebook, :twitter, :google, :yahoo].each do |provider|
+      - $ENABLED_SOCIAL_PLUGINS.each do |provider|
         - form_for User.new, :html => { :id => "new_user_#{provider}" } do |f|
           = hidden_field_tag :oauth_provider, provider
           %fieldset.actions

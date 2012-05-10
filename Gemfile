@@ -10,6 +10,7 @@ group :development, :test do
   gem 'daemons'
   gem 'optiflag'
   gem 'ruby-prof'
+  gem 'capistrano-unicorn'
 end
 
 group :test do

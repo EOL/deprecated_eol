@@ -68,7 +68,7 @@ describe 'Users' do
       tc = TaxonConcept.gen()
       user = build_curator(tc)
       # User added an article
-      udo = UsersDataObject.gen(:user_id => user.id, :taxon_concept => tc, :vetted_id => Visibility.visible.id)
+      udo = UsersDataObject.gen(:user_id => user.id, :taxon_concept => tc, :visibility_id => Visibility.visible.id)
       user_submitted_text_count = UsersDataObject.count(:conditions => ['user_id = ?', user.id])
       # Curator activity log
       object = DataObject.gen

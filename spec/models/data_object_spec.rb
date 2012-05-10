@@ -19,7 +19,6 @@ describe DataObject do
 
     @hierarchy_entry = HierarchyEntry.gen
     @image_dato      = @taxon_concept.images_from_solr(100).last
-    @image_dato.add_curated_association(@curator, @hierarchy_entry)
 
     @big_int = 20081014234567
     @image_cache_path = %r/2008\/10\/14\/23\/4567/
@@ -29,7 +28,8 @@ describe DataObject do
     @flash_dato = DataObject.gen(:data_type => DataType.find_by_translated(:label, 'flash'), :object_cache_url => @big_int)
 
     # add user submitted text
-    @user_submitted_text = @taxon_concept.add_user_submitted_text(:user => @curator)
+    @user = User.gen
+    @user_submitted_text = @taxon_concept.add_user_submitted_text(:user => @user)
   end
 
   it 'should be able to replace wikipedia articles' do
@@ -69,12 +69,11 @@ describe DataObject do
    UsersDataObjectsRating.count.should eql(0)
 
    d = DataObject.gen
-   u = User.gen
-   d.rate(u,5)
+   d.rate(@user,5)
 
    UsersDataObjectsRating.count.should eql(1)
    d.data_rating.should eql(5.0)
-   r = UsersDataObjectsRating.find_by_user_id_and_data_object_guid(u.id, d.guid)
+   r = UsersDataObjectsRating.find_by_user_id_and_data_object_guid(@user.id, d.guid)
    r.rating.should eql(5)
  end
 
@@ -283,8 +282,14 @@ describe DataObject do
     dato.short_title.should == "Image"
   end
 
-  # TODO - we need to find a proper solution for the data object index in Solr.
-  it 'should update the Solr record when the object is curated'
+  it 'should update the Solr record when the object is curated' do
+    solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE)
+    solr_connection.delete_all_documents
+    solr_connection.get_results("data_type_id:#{DataType.text.id}")['numFound'].should == 0
+    @user_submitted_text = @taxon_concept.add_user_submitted_text(:user => @user)
+    solr_connection.get_results("data_type_id:#{DataType.text.id}")['numFound'].should > 0
+    solr_connection.get_results("data_object_id:#{@user_submitted_text.id}")['numFound'] == 1
+  end
 
   it 'should have an activity_log' do
     dato = DataObject.gen
@@ -292,21 +297,42 @@ describe DataObject do
     dato.activity_log.should be_a WillPaginate::Collection
   end
 
-  it 'should add an entry in curated_data_objects_hierarchy_entries when a curator adds an association' do
+  it 'should add an entry in curated_data_objects_hierarchy_entries when an association is added' do
+    CuratedDataObjectsHierarchyEntry.delete_all
+    @image_dato.add_curated_association(@user, @hierarchy_entry)
     cdohe = CuratedDataObjectsHierarchyEntry.find_by_hierarchy_entry_id_and_data_object_id(@hierarchy_entry.id,
                                                                                            @image_dato.id)
     cdohe.should_not == nil
   end
 
-  it 'should trust associations added by curators' do
+  it '#add_curated_association should add a trusted association if added by full/master curator' do
+    CuratedDataObjectsHierarchyEntry.delete_all
+    @image_dato.add_curated_association(@curator, @hierarchy_entry)
     cdohe = CuratedDataObjectsHierarchyEntry.find_by_hierarchy_entry_id_and_data_object_id(@hierarchy_entry.id,
                                                                                            @image_dato.id)
     cdohe.trusted?.should eql(true)
   end
 
-  it 'should remove the entry in curated_data_objects_hierarchy_entries when a curator removes their association' do
+  it '#add_curated_association should add a unreviewed association if added by assistant curator or data object owner' do
+    CuratedDataObjectsHierarchyEntry.delete_all
+    @image_dato.add_curated_association(@user, @hierarchy_entry)
+    cdohe = CuratedDataObjectsHierarchyEntry.find_by_hierarchy_entry_id_and_data_object_id(@hierarchy_entry.id,
+                                                                                           @image_dato.id)
+    cdohe.unreviewed?.should eql(true)
+  end
+
+  it '#remove_curated_association should raise an exception if a user try to remove an association added by another user' do
+    CuratedDataObjectsHierarchyEntry.delete_all
+    @image_dato.add_curated_association(@curator, @hierarchy_entry)
+    expect { @image_dato.remove_curated_association(@another_curator, @hierarchy_entry) }.to
+      raise_exception(EOL::Exceptions::WrongCurator)
+  end
+
+  it '#remove_curated_association should remove the entry in curated_data_objects_hierarchy_entries when a user/curator removes their association' do
+    CuratedDataObjectsHierarchyEntry.delete_all
+    @image_dato.add_curated_association(@curator, @hierarchy_entry)
     cdohe_count = CuratedDataObjectsHierarchyEntry.count(:conditions => "hierarchy_entry_id = #{@hierarchy_entry.id}")
-    @image_dato.remove_curated_association(@another_curator, @hierarchy_entry)
+    @image_dato.remove_curated_association(@curator, @hierarchy_entry)
     CuratedDataObjectsHierarchyEntry.count(:conditions => "hierarchy_entry_id = #{@hierarchy_entry.id}").should ==
         cdohe_count - 1
     cdohe = CuratedDataObjectsHierarchyEntry.find_by_hierarchy_entry_id_and_data_object_id(@hierarchy_entry.id,
@@ -314,9 +340,22 @@ describe DataObject do
     cdohe.should == nil
   end
 
-  it '#untrust_reasons should return the untrust reasons'
-
-  it '#curate_association should curate the given association'
+  it '#untrust_reasons should return the untrust reasons' do
+    CuratedDataObjectsHierarchyEntry.delete_all
+    @image_dato.add_curated_association(@curator, @hierarchy_entry)
+    cdohe = CuratedDataObjectsHierarchyEntry.find_by_hierarchy_entry_id_and_data_object_id(@hierarchy_entry.id,
+                                                                                           @image_dato.id)
+    cdohe.vetted_id = Vetted.untrusted.id
+    cdohe.visibility_id = Visibility.invisible.id
+    cal = CuratorActivityLog.create(:object_id => @image_dato.id,
+                              :changeable_object_type_id => ChangeableObjectType.curated_data_objects_hierarchy_entry.id,
+                              :activity_id => Activity.untrusted.id,
+                              :hierarchy_entry_id => @hierarchy_entry.id,
+                              :user_id => @curator.id,
+                              :created_at => 0.seconds.from_now)
+    cal_untrusted_reason = CuratorActivityLogsUntrustReason.create(:curator_activity_log_id => cal.id, :untrust_reason_id => UntrustReason.misidentified.id)
+    @image_dato.untrust_reasons(@image_dato.all_associations.last).should == [UntrustReason.misidentified.id]
+  end
 
   it '#published_entries should read data_objects_hierarchy_entries' do
     @user_submitted_text.hierarchy_entries == []

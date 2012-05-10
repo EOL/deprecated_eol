@@ -71,8 +71,6 @@ describe 'Data Object Page' do
 
   it "should show pagination if there are more than 10 comments (waiting on feed items adjustments)"
 
-  it "should show associations in preview mode, but not be able to curate them"
-
   # TODO - change this to open the data object page, NOT the overview page!
   it "should have a taxon_concept link for untrusted image, but following the link should show a warning" # do
     # visit("/data_objects/#{@dato_untrusted.id}")
@@ -100,28 +98,18 @@ describe 'Data Object Page' do
     page.body.should_not include(page_link)
   end
 
-  # NOTE - I wanted to see how it "felt" to write longer individual tests.  These run faster, but how does it
-  # actually work in practice?  This is an experiment.
-  # The first thing I have to say about it is that the name is obnoxiously long.
-  it 'should allow a curator to add an association' # do
-#    login_as @full_curator
-#    visit("/data_objects/#{@image.id}")
-#    xpect 'the page does not yet have our association'
-#    page.body.should_not have_tag('a', :text => @single_name)
-#    fill_in 'add_association', :with => @single_name
-#    click_button 'add new association'
-#    remove_path = remove_association_path(:id => @image.id, :hierarchy_entry_id => @singular_he.id)
-#    xpect 'the page now has our association'
-#    page.body.should have_tag('a', :text => @single_name)
-#    xpect 'the page has a link to remove the association'
-#    # NOTE: this wasn't working when we used :href as an argument to #have_tag, so we're using XPath-y syntax:
-#    page.body.should have_tag('a[href=?]', remove_path)
-#    visit('/logout')
-#    login_as @another_curator
-#    visit("/data_objects/#{@image.id}")
-#    xpect 'the page does NOT have a link to remove the association after logging out'
-#    page.body.should_not have_tag('a[href=?]', remove_path)
-#  end
+  it 'should allow a curator to add an association' do
+    login_as @full_curator
+    visit("/data_objects/#{@dato_no_comments.id}")
+    page.body.should have_tag('#sidebar .header a', :text => 'Add new association')
+    page.body.should_not have_tag('form.review_status a', :text => 'Remove association')
+    click_link("Add new association")
+    fill_in 'name', :with => 'animalia'
+    click_button "find taxa"
+    click_button "add association"
+    page.body.should have_tag('form.review_status a', :text => 'Remove association')
+    visit('/logout')
+  end
 
   it 'should show proper vetted & visibility statuses of associations to the anonymous users' do
     visit("/data_objects/#{@image.id}")
@@ -189,6 +177,7 @@ describe 'Data Object Page' do
       without_tag("input[id=?][checked]", "#{taid}_untrust_reason_misidentified")
       without_tag("input[id=?][checked]", "#{taid}_untrust_reason_incorrect")
     end
+    visit('/logout')
   end
 
   it 'should be able curate a CDOHE association as Unreviewed, Untrusted and Trusted' do
@@ -247,6 +236,7 @@ describe 'Data Object Page' do
       without_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_misidentified")
       without_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_incorrect")
     end
+    visit('/logout')
   end
 
   it 'should be able curate a UDO association as Unreviewed, Untrusted and Trusted' do
@@ -305,6 +295,7 @@ describe 'Data Object Page' do
       without_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_misidentified")
       without_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_incorrect")
     end
+    visit('/logout')
   end
 
   it 'should not allow assistant curators to remove curated associations' do
@@ -323,6 +314,7 @@ describe 'Data Object Page' do
     page.body.should have_tag('form.review_status a', :text => @another_name)
     click_link "remove_association_#{@extra_he.id}"
     page.body.should_not have_tag('form.review_status a', :text => @another_name)
+    visit('/logout')
   end
 
   it 'should allow a master curators to remove curated associations' do
@@ -398,6 +390,7 @@ describe 'Data Object Page' do
     click_link("Edit this article")
     # When we try to edit the old udo we should actually end up at the new udo edit path
     current_path.should == edit_data_object_path(new_udo_revision)
+    visit('/logout')
   end
 
   # This probably belongs in taxa_page_spec but shares expected behaviours with editing articles spec.
@@ -464,7 +457,7 @@ describe 'Data Object Page' do
       visit('/logout')
     end
   end
-  
+
   it "should not show copyright symbol for public domain objects" do
     @image.license = License.public_domain
     @image.rights_holder = ""
@@ -477,7 +470,7 @@ describe 'Data Object Page' do
     visit("/data_objects/#{@image.id}")
     body.should match('&copy;')
   end
-  
+
   it "should link agents to their homepage, and add http if the link does not include it" do
     agent = Agent.new(:full_name => 'doesnt matter', :homepage => 'www.somesite.com')
     agent.send(:create_without_callbacks)
@@ -487,7 +480,41 @@ describe 'Data Object Page' do
     body.should have_tag("a[href=http://#{agent.homepage}]", :text => agent.full_name)
   end
 
-  it "should not show curation controls if the only association data object has is in preview mode"
-  it "should not curate a data object association in preview mode while curating other associations for same data object"  
+  it "should allow assistant curators to add and/or remove associations, but not to curate them" do
+    @image.add_curated_association(@assistant_curator, @extra_he)
+    login_as @assistant_curator
+    visit("/data_objects/#{@image.id}")
+    page.body.should_not have_tag('ul.review_status select')
+    page.body.should have_tag('#sidebar .header a', :text => 'Add new association')
+    page.body.should have_tag('.review_status li a', :text => 'Remove association')
+    page.body.should have_tag('.review_status li a', :text => @another_name)
+    click_link "remove_association_#{@extra_he.id}"
+    page.body.should_not have_tag('.review_status li a', :text => @another_name)
+    visit('/logout')
+  end
+
+  it "should allow data object owners to add and/or remove associations, but not to curate them" do
+    user_submitted_text = @tc.add_user_submitted_text(:user => @user)
+    user_submitted_text.add_curated_association(@user, @extra_he)
+    login_as @user
+    visit("/data_objects/#{user_submitted_text.id}")
+    page.body.should_not have_tag('ul.review_status select')
+    page.body.should have_tag('#sidebar .header a', :text => 'Add new association')
+    page.body.should have_tag('.review_status li a', :text => 'Remove association')
+    page.body.should have_tag('.review_status li a', :text => @another_name)
+    click_link "remove_association_#{@extra_he.id}"
+    page.body.should_not have_tag('.review_status li a', :text => @another_name)
+    visit('/logout')
+  end
+
+  it "should show associations in preview mode, but not be able to curate them" do
+    dohe = DataObjectsHierarchyEntry.find_by_data_object_id(@image.id)
+    dohe.visibility_id = Visibility.preview.id
+    dohe.save!
+    login_as @full_curator
+    visit("/data_objects/#{@image.id}")
+    body.should include("cannot be curated because it is being previewed after a harvest.")
+    visit('/logout')
+  end
 
 end

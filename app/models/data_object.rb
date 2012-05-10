@@ -921,7 +921,7 @@ class DataObject < ActiveRecord::Base
   def remove_curated_association(user, hierarchy_entry)
     cdohe = CuratedDataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(id, hierarchy_entry.id)
     raise EOL::Exceptions::ObjectNotFound if cdohe.nil?
-    raise EOL::Exceptions::WrongCurator.new("user did not create this association") unless cdohe.user_id = user.id
+    raise EOL::Exceptions::WrongCurator.new("user did not create this association") unless cdohe.user_id == user.id
     cdohe.destroy
     if self.data_type == DataType.image
       tci_exists = TopConceptImage.find_by_taxon_concept_id_and_data_object_id(hierarchy_entry.taxon_concept.id, self.id)

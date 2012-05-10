@@ -34,7 +34,7 @@ describe Comment do
   end
 
   it "should return false if visible_at date is in the future" do
-    [1.second.from_now, 1.day.from_now, 1.year.from_now].each do |timestamp|
+    [1.minute.from_now, 1.day.from_now, 1.year.from_now].each do |timestamp|
       @tc_comment.visible_at = timestamp
       @tc_comment.save
       @tc_comment.reload.visible?.should be_false

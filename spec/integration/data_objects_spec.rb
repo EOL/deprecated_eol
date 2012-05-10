@@ -44,6 +44,7 @@ describe 'Data Object Page' do
     :visibility => Visibility.invisible)
     @user_submitted_text = @tc.add_user_submitted_text(:user => @full_curator)
     @user = User.gen
+    EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild
   end
 
   it "should render" do
@@ -104,7 +105,7 @@ describe 'Data Object Page' do
     page.body.should have_tag('#sidebar .header a', :text => 'Add new association')
     page.body.should_not have_tag('form.review_status a', :text => 'Remove association')
     click_link("Add new association")
-    fill_in 'name', :with => 'animalia'
+    fill_in 'name', :with => @another_name
     click_button "find taxa"
     click_button "add association"
     page.body.should have_tag('form.review_status a', :text => 'Remove association')

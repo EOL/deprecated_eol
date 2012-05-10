@@ -2520,12 +2520,18 @@ ul.content_partner_contacts
     margin: 0 auto
     border: 1px solid #cad3db
     background: #f0f4f7 url("/images/v2/bg_sign-in.gif") 0 0 no-repeat
+    h1
+      font-size: 2em
+      font-weight: normal
+      text-align: center
+      padding: 75px 0 0 0
     > form
-      padding: 75px 159px 20px 159px
+      padding: 25px 159px 20px 159px
       width: 320px
-      h1
+      h2
+        text-align: center
         padding: 0 0 25px 0
-        font-size: 2em
+        font-size: 1.2em
         font-weight: normal
       label
         font-size: 1.08em
@@ -2541,18 +2547,10 @@ ul.content_partner_contacts
         font-weight: bold
       label.checkbox
         padding: 0 0 15px 0
-        &.required
-          padding-left: 10px
-          background-position-y: 3px
     .open_authentications
       overflow: hidden
       width: 400px
       padding: 25px 100px 20px 140px
-      h2
-        text-align: center
-        padding: 0 0 25px 0
-        font-size: 2em
-        font-weight: normal
       form
         float: left
         margin-bottom: 20px
@@ -2570,13 +2568,13 @@ ul.content_partner_contacts
             background: transparent url("/images/v2/icon_social_plugins.png") 0 0 no-repeat
         &#new_user_twitter, &#new_session_twitter
           fieldset.actions
-            background: transparent url("/images/v2/icon_social_plugins.png") 0 -32px no-repeat
+            background: transparent url("/images/v2/icon_social_plugins.png") 0 -34px no-repeat
         &#new_user_yahoo, &#new_session_yahoo
           fieldset.actions
-            background: transparent url("/images/v2/icon_social_plugins.png") 0 -64px no-repeat
+            background: transparent url("/images/v2/icon_social_plugins.png") 0 -68px no-repeat
         &#new_user_google, &#new_session_google
           fieldset.actions
-            background: transparent url("/images/v2/icon_social_plugins.png") 0 -96px no-repeat
+            background: transparent url("/images/v2/icon_social_plugins.png") 0 -102px no-repeat
 
 #profile_edit
   p.tip
@@ -2618,11 +2616,11 @@ ul.content_partner_contacts
         width: 282px
         height: 120px
       ul
-      overflow: hidden
-      li
-        float: left
-        padding: 0 10px 5px 0
-        font-weight: bold
+        overflow: hidden
+        li
+          float: left
+          padding: 0 10px 5px 0
+          font-weight: bold
     &.account
       input[type="checkbox"],
       select
@@ -2632,8 +2630,9 @@ ul.content_partner_contacts
         li
           list-style: none
           margin: 0 0 5px 0
-          padding: 0 0 0 20px
-          background: transparent url('/images/v2/icon_social_plugins.png') no-repeat -16px 0
+          padding: 0 20px 0
+          background: transparent url('/images/v2/icon_social_plugins.png') no-repeat 0 0
+          background: none\9
           background-size: 16px
           line-height: 140%
           small
@@ -2641,11 +2640,11 @@ ul.content_partner_contacts
           &.facebook
             background-position: 0 0
           &.google
-            background-position: 0 -49px
+            background-position: 0 -53px
           &.twitter
-            background-position: 0 -16px
+            background-position: 0 -17px
           &.yahoo
-            background-position: 0 -33px
+            background-position: 0 -35px
     &.requests
       float: right
       width: 218px
@@ -2703,13 +2702,13 @@ ul.content_partner_contacts
             background-position: 0 0
         &.google
           h3
-            background-position: 0 -96px
+            background-position: 0 -102px
         &.twitter
           h3
-            background-position: 0 -32px
+            background-position: 0 -34px
         &.yahoo
           h3
-            background-position: 0 -64px
+            background-position: 0 -68px
   > a
     display: block
     padding-top: 20px

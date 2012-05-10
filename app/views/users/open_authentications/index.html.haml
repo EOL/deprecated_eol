@@ -32,5 +32,6 @@
                   = form_create.hidden_field :provider
                   %fieldset.actions
                     = form_create.submit I18n.t('helpers.submit.open_authentication.create')
+    - # TODO: would be nicer if this was in the page header area
     = link_to t('.return_link'), edit_user_url(@user)
 

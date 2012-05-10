@@ -11,8 +11,8 @@ class Users::OpenAuthenticationsController < UsersController
     raise EOL::Exceptions::SecurityViolation,
       "User with ID=#{current_user.id} does not have permission to view open authentications"\
       " for User with ID=#{@user.id}" unless current_user.can_update?(@user)
-    @page_title = I18n.t(:page_title, :scope => controller_action_scope)
-    @page_description = I18n.t(:page_description, :scope => controller_action_scope)
+    page_title
+    page_description
   end
 
   # GET /users/:user_id/open_authentications/new
@@ -79,12 +79,30 @@ class Users::OpenAuthenticationsController < UsersController
          "User with ID=#{current_user.id} does not have permission to remove OpenAuthentication"\
          " with ID=#{open_authentication.id} connected to User with ID=#{@user.id}" unless current_user.can_delete?(open_authentication)
     if @user.open_authentications.delete(open_authentication)
-      flash.now[:warning] = "You no longer have any connected accounts, you will not be able to log back into EOL unless you add a connected account or add an EOL username and password." if @user.open_authentications.blank? && @user.hashed_password.blank?
-      flash.now[:notice] = "Successfully removed connection. EOL will still be authorized to access your info until you deauthorize the EOL app in your provider."
+      if @user.open_authentications.blank? && @user.hashed_password.blank?
+        flash.now[:warning] = I18n.t(:no_way_to_login,
+                                     :scope => [:users, :open_authentications, :warnings])
+      end
+      flash.now[:notice] = I18n.t(:removed_connection,
+                                  :scope => [:users, :open_authentications, :notices,
+                                             open_authentication.provider.to_sym])
     else
-      flash.now[:error] = "Unable to remove connection."
+      flash.now[:error] = I18n.t(:remove_connection_failed,
+                                 :scope => [:users, :open_authentications, :errors])
     end
+    page_title([:users, :open_authentications, :index])
+    page_description([:users, :open_authentications, :index])
     render :index
+  end
+
+private
+
+  # TODO: these are generic we should be able to make them helper methods for the whole site
+  def page_title(scope = controller_action_scope)
+    @page_title ||= I18n.t(:page_title, :scope => scope)
+  end
+  def page_description(scope = controller_action_scope)
+    @page_description ||= I18n.t(:page_description, :scope => scope)
   end
 
 end

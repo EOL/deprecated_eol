@@ -1,10 +1,20 @@
 - # Note: shared with user activated
 #sign_in
+  %h1= I18n.t(:login_header)
+  .open_authentications
+    - $ENABLED_SOCIAL_PLUGINS.each do |provider|
+      - form_for :session, :url => sessions_path, :html => { :id => "new_session_#{provider}" } do |f|
+        = hidden_field_tag :oauth_provider, provider
+        %fieldset.actions
+          = f.submit I18n.t("helpers.submit.session.sign_in_with_#{provider}"), :id => "session_submit_#{provider}"
+    %p
+      %strong= link_to t(".problems_signing_in_with_connected_accounts"), recover_account_users_path
+
   - form_for :session, :url => sessions_path, :builder => ApplicationHelper::EolFormBuilder do |f|
     - unless params[:return_to].blank?
       = f.hidden_field :return_to, :value => params[:return_to]
     %fieldset
-      %h1= I18n.t(:login_header)
+      %h2= t(".login_with_eol_authentication_header")
       %dl
         %dt
           = f.label :username_or_email
@@ -20,14 +30,4 @@
     %fieldset.actions
       = f.submit I18n.t("helpers.submit.session.create")
       = link_to t(".problems_signing_in_with_eol_authentication"), recover_account_users_path
-
-  .open_authentications
-    %h2= t(".login_with_open_authentication_header")
-    - [:facebook, :twitter, :google, :yahoo].each do |provider|
-      - form_for :session, :url => sessions_path, :html => { :id => "new_session_#{provider}" } do |f|
-        = hidden_field_tag :oauth_provider, provider
-        %fieldset.actions
-          = f.submit I18n.t("helpers.submit.session.sign_in_with_#{provider}"), :id => "session_submit_#{provider}"
-    %p
-      %strong= link_to t(".problems_signing_in_with_connected_accounts"), recover_account_users_path
 

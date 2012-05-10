@@ -1,8 +1,8 @@
 #recover_account
+  %h1= t(".form_header")
   - form_for :user, :action => :recover_account_connections, :method => :post do |f|
     = f.hidden_field :email, :value => @users[0].email
     %fieldset
-      %h1= t(".form_header")
       %p= t(".form_tip", :email => @users[0].email)
     %fieldset.radio
       %legend= t(".legend_choose_account")

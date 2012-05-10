@@ -1627,7 +1627,7 @@ body > #header {
   clear: both;
   font-size: 0.9em; }
 #collection ul.object_list li .collection_item_form {
-  margin: 10px 0 0 0; }
+  margin: 1.5em 0 0 0; }
   #collection ul.object_list li .collection_item_form textarea {
     display: block;
     clear: both;
@@ -2138,7 +2138,7 @@ ul.content_partner_contacts li {
   position: relative;
   width: 33%; }
   #taxon_names table.standard tr td.preferred {
-    background: url("/images/v2/icon_required.png") 7px 50% no-repeat; }
+    background: url("/images/v2/icon_required.png") 7px 1em no-repeat; }
 
 #taxon_literature .main_container .bhl_description {
   overflow: hidden;

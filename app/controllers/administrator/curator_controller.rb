@@ -29,15 +29,15 @@ class Administrator::CuratorController < AdminController
   end
 
   def export
-    user_curated_objects_counts = User.total_objects_curated_by_action_and_user(Activity.raw_curator_action_ids)
-    user_curated_taxa_counts = User.taxon_concept_ids_curated
+    user_curated_objects_counts = EOL::Curator.total_objects_curated_by_action_and_user(Activity.raw_curator_action_ids)
+    user_curated_taxa_counts = EOL::Curator.taxon_concept_ids_curated
     user_comment_curations = User.comment_curation_actions
-    user_show_counts = User.total_objects_curated_by_action_and_user(Activity.show.id)
-    user_hide_counts = User.total_objects_curated_by_action_and_user(Activity.hide.id)
-    user_inappropriate_counts = User.total_objects_curated_by_action_and_user(Activity.inappropriate.id)
+    user_show_counts = EOL::Curator.total_objects_curated_by_action_and_user(Activity.show.id)
+    user_hide_counts = EOL::Curator.total_objects_curated_by_action_and_user(Activity.hide.id)
+    user_inappropriate_counts = EOL::Curator.total_objects_curated_by_action_and_user(Activity.inappropriate.id)
     user_submitted_counts = User.count_submitted_datos
     user_wikipedia_counts = User.count_user_rows(WikipediaQueue)
-    user_association_counts = User.total_objects_curated_by_action_and_user(Activity.add_association.id, nil,
+    user_association_counts = EOL::Curator.total_objects_curated_by_action_and_user(Activity.add_association.id, nil,
       [ChangeableObjectType.hierarchy_entry.id, ChangeableObjectType.curated_data_objects_hierarchy_entry.id])
     
     @users = User.find(:all, :include => :curator_level, :conditions => ['curator_level_id > 0'])

@@ -110,6 +110,10 @@ class CommunitiesController < ApplicationController
       redirect_to(community_newsfeed_path(@community), :notice => I18n.t(:already_member_of_community) , :status => :moved_permanently)
     else
       member = @community.add_member(current_user)
+      if @community.is_curator_community? && ! current_user.is_curator?
+        flash[:notice] = I18n.t(:would_you_like_to_become_a_curator_notice,
+                                :url => curation_privileges_user_url(current_user))
+      end
       log_action(:join, :community => @community, :member_id => member.id)
       auto_collect(@community, :annotation => I18n.t(:user_joined_community_on_date, :date => I18n.l(Date.today),
                                                      :username => current_user.full_name))

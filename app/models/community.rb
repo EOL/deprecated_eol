@@ -113,4 +113,8 @@ class Community < ActiveRecord::Base
     members.managers.map {|m| m.user }
   end
 
+  def is_curator_community?
+    self.id == CuratorCommunity.get.id
+  end
+
 end

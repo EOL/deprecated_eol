@@ -8,7 +8,7 @@ describe EOL::Login do
 
     it 'should raise EOL::Exceptions::SecurityViolation if user is inactive' do
       return_to = '/users/recover_account'
-      self.should_receive(:recover_account_user_url).once.and_return(return_to)
+      self.should_receive(:recover_account_users_url).once.and_return(return_to)
       self.should_receive(:store_location).once.with(return_to)
       expect { log_in(User.new(:active => false)) }.to raise_error(EOL::Exceptions::SecurityViolation)
     end

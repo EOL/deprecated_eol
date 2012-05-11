@@ -8,7 +8,7 @@ module EOL
           :hidden_user_login)
       end
       unless user.active?
-        store_location(recover_account_user_url)
+        store_location(recover_account_users_url)
         raise EOL::Exceptions::SecurityViolation.new(
           "Inactive User with ID=#{user.id} attempted to log in and was disallowed.",
           :inactive_user_login)

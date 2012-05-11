@@ -191,7 +191,8 @@ class Administrator::UserController  < AdminController
     redirect_to referred_url, :status => :moved_permanently
   end
 
-  # TODO - why are these here and not in curator?
+  # NOTE - these are here for convenience; when an admin is looking at the users view, they want to quickly be able to
+  # grant or remove curatorship.  The curator controller is more detailed.
   def grant_curator
     @user = User.find(params[:id])
     @user.grant_curator(:full, :by => current_user)

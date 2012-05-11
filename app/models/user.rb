@@ -475,7 +475,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     self.reload
   end
 
-  def member_of?(community)
+  def is_member_of?(community)
     reload_if_stale
     self.members.map {|m| m.community_id}.include?(community.id)
   end

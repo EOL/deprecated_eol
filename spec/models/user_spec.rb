@@ -214,21 +214,21 @@ describe User do
     @user.members.map {|m| m.community_id}.should include(community.id)
   end
 
-  it 'community membership should be able to answer member_of?' do
+  it 'community membership should be able to answer is_member_of?' do
     community = Community.gen
-    @user.member_of?(community).should_not be_true
+    @user.is_member_of?(community).should_not be_true
     another_user = User.gen
     community.add_member(@user)
-    @user.member_of?(community).should be_true
-    another_user.member_of?(community).should_not be_true
+    @user.is_member_of?(community).should be_true
+    another_user.is_member_of?(community).should_not be_true
   end
 
   it 'community membership should be able to leave a community' do
     community = Community.gen
     community.add_member(@user)
-    @user.member_of?(community).should be_true
+    @user.is_member_of?(community).should be_true
     @user.leave_community(community)
-    @user.member_of?(community).should_not be_true
+    @user.is_member_of?(community).should_not be_true
   end
 
   it 'should have an activity log' do

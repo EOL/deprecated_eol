@@ -61,7 +61,7 @@ end
 
 def create_curator
   curator = User.gen(:username => 'curator_for_tc', :password => 'password', :credentials => 'Curator', :curator_scope => 'very scoped')
-  curator.approve_to_curate
+  curator.grant_curator
   curator.save!
   return curator
 end

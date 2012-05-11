@@ -39,7 +39,7 @@ describe 'Curator' do
 
   it '(curator user) should allow curator rights to be revoked' do
     Role.gen(:title => 'Curator') rescue nil
-    @curator.approve_to_curate
+    @curator.grant_curator
     @curator.save!
     @curator.curator_level_id.nil?.should_not be_true
     @curator.revoke_curator
@@ -105,4 +105,23 @@ describe 'Curator' do
     temp_count.should > temp_count2
   end
 
+  it 'should add a user to the curator community when they become a curator' do
+    user = User.gen(:curator_level_id => nil)
+    user.is_member_of?(CuratorCommunity.get).should_not be_true
+    user.grant_curator(:assistant)
+    user.is_member_of?(CuratorCommunity.get).should be_true
+    xpect 'It should also work when instantly self-approved'
+    user = User.gen(:curator_level_id => nil)
+    user.is_member_of?(CuratorCommunity.get).should_not be_true
+    user.update_attributes(:requested_curator_level_id => CuratorLevel.assistant.id)
+    user.is_member_of?(CuratorCommunity.get).should be_true
+  end
+
+  it 'should remove a user from the curator community when they lose curator status' do
+    user = User.gen(:curator_level_id => CuratorLevel.assistant.id)
+    user.is_member_of?(CuratorCommunity.get).should be_true
+    user.revoke_curator
+    user.is_member_of?(CuratorCommunity.get).should_not be_true
+  end
+  
 end

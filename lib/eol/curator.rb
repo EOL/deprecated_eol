@@ -18,13 +18,16 @@ module EOL
                  :conditions =>
                    "curator_activity_logs.changeable_object_type_id = #{ChangeableObjectType.raw_data_object_id}"
 
-        before_save :instantly_approve_curator_level, :if => :curator_level_can_be_instantly_approved?
+        before_save :instantly_approve_curator_level_if_possible
+        after_create :join_curator_community_if_curator
 
         validates_presence_of :curator_verdict_at, :if => Proc.new { |obj| !obj.curator_verdict_by.blank? }
         validates_presence_of :credentials, :if => :curator_attributes_required?
         validates_presence_of :curator_scope, :if => :curator_attributes_required?
 
         attr_accessor :curator_request
+
+        named_scope :curators, :conditions => 'curator_level_id is not null'
 
       end
     end
@@ -107,6 +110,30 @@ module EOL
       return_hash
     end
 
+    # TODO - This is only used in the admin console; should be removed
+    def self.comment_curation_actions(user_id = nil)
+      query = "SELECT DISTINCT cal.user_id, cal.object_id
+        FROM #{CuratorActivityLog.full_table_name} cal
+        JOIN #{Activity.full_table_name} acts ON (cal.activity_id = acts.id) WHERE "
+      if user_id.class == Fixnum
+        query += "cal.user_id = #{user_id} AND "
+      elsif user_id.class == Array
+        query += "cal.user_id IN (#{user_id.join(',')}) AND "
+      end
+      query += " cal.changeable_object_type_id = #{ChangeableObjectType.comment.id}
+        AND acts.id != #{Activity.create.id}"
+      results = User.connection.execute(query).all_hashes
+      return_hash = {}
+      results.each do |r|
+        return_hash[r['user_id'].to_i] ||= []
+        return_hash[r['user_id'].to_i] << r['object_id'].to_i
+      end
+      if user_id.class == Fixnum
+        return return_hash[user_id] || []
+      end
+      return_hash
+    end
+
     def curator_request
       return true unless is_curator? || (curator_scope.blank? && credentials.blank?)
     end
@@ -129,6 +156,7 @@ module EOL
       unless curator_level_id == nil
         self.update_attributes(:curator_level_id => nil)
       end
+      self.leave_community(CuratorCommunity.get) if self.is_member_of?(CuratorCommunity.get)
       self.update_attributes(:curator_verdict_by => nil,
                              :curator_verdict_at => nil,
                              :requested_curator_level_id => nil,
@@ -138,23 +166,39 @@ module EOL
     end
     alias revoke_curatorship revoke_curator
 
+    # this is run before_save. It doesn't have a level symbol, it doesn't send notification, and it doesn't set
+    # curator_verdict_by or curator_approved, so it's quite different from #grant_curator
+    def instantly_approve_curator_level_if_possible
+      if self.requested_curator_level_id == CuratorLevel.assistant_curator.id
+        unless self.curator_level_id == self.requested_curator_level_id
+          was_curator = self.is_curator?
+          self.curator_level_id = self.requested_curator_level_id
+          join_curator_community_if_curator unless was_curator
+          self.curator_verdict_at = Time.now
+        end
+        self.requested_curator_level_id = nil
+      end
+    end
+
+    # NOTE - default level implies that user.grant_curator means that they're supposed to be a full curator.  Makes
+    # sense to me.  :P
     def grant_curator(level = :full, options = {})
-      # TODO: Seems a little odd to have a default level here. Also there are no checks on these update_attributes calls
-      # to see if they were successful or not - also why are we calling update_attributes 3 times instead of just once?
-      # Can't we just define the parameters to be updated first then just call update_attributes once?
       level = CuratorLevel.send(level)
       unless curator_level_id == level.id
-        self.update_attributes(:curator_level_id => level.id)
-        Notifier.deliver_curator_approved(self) if $PRODUCTION_MODE
+        was_curator = self.is_curator?
+        self.curator_level_id = level.id
         if options[:by]
-          self.update_attributes(:curator_verdict_by => options[:by],
-                                 :curator_verdict_at => Time.now,
-                                 :curator_approved => 1)
+          self.curator_verdict_by = options[:by]
+          self.curator_verdict_at = Time.now
+          self.curator_approved   = 1
         end
+        self.save
+        Notifier.deliver_curator_approved(self)
+        join_curator_community_if_curator unless was_curator
       end
-      self.update_attributes(:requested_curator_level_id => nil)
+      self.update_attribute(:requested_curator_level_id, nil) # Not using validations; don't care if user is valid
+      self
     end
-    alias approve_to_curate grant_curator
 
     # NOTE: Careful!  This one means "any kind of curator"... which may not be what you want.  For example, an
     # assistant curator can't see vetting controls, so don't use this; use #min_curator_level?(:full) or the like.
@@ -202,7 +246,6 @@ module EOL
 
     # validation condition for required curator attributes
     def curator_attributes_required?
-      return false unless self.class.column_names.include?('requested_curator_level_id')
       (!self.requested_curator_level_id.nil? && !self.requested_curator_level_id.zero? &&
         self.requested_curator_level_id != CuratorLevel.assistant_curator.id) ||
       (!self.curator_level_id.nil? && !self.curator_level_id.zero? &&
@@ -210,51 +253,12 @@ module EOL
     end
 
     def first_last_names_required?
-      return false unless self.class.column_names.include?('requested_curator_level_id')
       (!self.requested_curator_level_id.nil? && !self.requested_curator_level_id.zero?) ||
       (!self.curator_level_id.nil? && !self.curator_level_id.zero?)
     end
 
-    # before_save TODO - could replace this with actual method that does all approvals however that is going to work
-    def instantly_approve_curator_level
-      unless self.requested_curator_level_id.nil? || self.requested_curator_level_id.zero?
-        unless self.curator_level_id == self.requested_curator_level_id
-          self.curator_level_id = self.requested_curator_level_id
-          self.curator_verdict_at = Time.now
-        end
-        self.requested_curator_level_id = nil
-      end
-    end
-
-    # conditional for before_save
-    def curator_level_can_be_instantly_approved?
-      return false unless self.class.column_names.include?('requested_curator_level_id')
-      self.requested_curator_level_id == CuratorLevel.assistant_curator.id ||
-      self.requested_curator_level_id == self.curator_level_id
-    end
-
-    # TODO - This is only used in the admin console; should be removed
-    def self.comment_curation_actions(user_id = nil)
-      query = "SELECT DISTINCT cal.user_id, cal.object_id
-        FROM #{CuratorActivityLog.full_table_name} cal
-        JOIN #{Activity.full_table_name} acts ON (cal.activity_id = acts.id) WHERE "
-      if user_id.class == Fixnum
-        query += "cal.user_id = #{user_id} AND "
-      elsif user_id.class == Array
-        query += "cal.user_id IN (#{user_id.join(',')}) AND "
-      end
-      query += " cal.changeable_object_type_id = #{ChangeableObjectType.comment.id}
-        AND acts.id != #{Activity.create.id}"
-      results = User.connection.execute(query).all_hashes
-      return_hash = {}
-      results.each do |r|
-        return_hash[r['user_id'].to_i] ||= []
-        return_hash[r['user_id'].to_i] << r['object_id'].to_i
-      end
-      if user_id.class == Fixnum
-        return return_hash[user_id] || []
-      end
-      return_hash
+    def join_curator_community_if_curator
+      self.join_community(CuratorCommunity.get) if self.is_curator?
     end
 
   end

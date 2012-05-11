@@ -314,6 +314,9 @@ $EOL_TUMBLR_ACCOUNT   = "http://blog.eol.org"
 $EOL_FLICKR_ACCOUNT   = "http://www.flickr.com/groups/encyclopedia_of_life/"
 $EOL_YOUTUBE_ACCOUNT  = "http://www.youtube.com/user/EncyclopediaOfLife/"
 
+$CURATOR_COMMUNITY_NAME = 'EOL Curators'
+$CURATOR_COMMUNITY_DESC = 'This is a special community intended for EOL curators to discuss matters related to curation on the Encylopedia of Life.'
+
 # load the system configuration
 require File.dirname(__FILE__) + '/system' if File.file?(File.dirname(__FILE__) + '/system.rb')
 NewRelic::Agent.after_fork(:force_reconnect => true)

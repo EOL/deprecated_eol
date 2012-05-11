@@ -136,14 +136,14 @@ describe "Communities" do
         should_not have_tag("a[href=#{community_path(@test_data[:community])}]", :text => /delete/i)
       end
       it 'should allow user to join community' do
-        @test_data[:user_non_member].member_of?(@test_data[:community]).should_not be_true
+        @test_data[:user_non_member].is_member_of?(@test_data[:community]).should_not be_true
         should have_tag("a[href=?]", /#{join_community_path(@test_data[:community].id)}.*/)
         visit(join_community_path(@test_data[:community].id))
         @test_data[:user_non_member].reload
-        @test_data[:user_non_member].member_of?(@test_data[:community]).should be_true
+        @test_data[:user_non_member].is_member_of?(@test_data[:community]).should be_true
         # Clean up - we have tested that a non member can join, we now make them leave
         @test_data[:user_non_member].leave_community(@test_data[:community])
-        @test_data[:user_non_member].member_of?(@test_data[:community]).should_not be_true
+        @test_data[:user_non_member].is_member_of?(@test_data[:community]).should_not be_true
       end
     end
     context 'visiting edit community' do
@@ -174,13 +174,13 @@ describe "Communities" do
         should_not have_tag("a[href=#{community_member_path(@test_data[:community], @test_data[:community_member])}]", :text => /remove/i)
       end
       it 'should allow member to leave community and return to show community' do
-        @test_data[:user_community_member].member_of?(@test_data[:community]).should be_true
+        @test_data[:user_community_member].is_member_of?(@test_data[:community]).should be_true
         visit(leave_community_path(@test_data[:community].id))
         @test_data[:user_community_member].reload
-        @test_data[:user_community_member].member_of?(@test_data[:community]).should_not be_true
+        @test_data[:user_community_member].is_member_of?(@test_data[:community]).should_not be_true
         # Clean up - we have tested that a member can leave a community, now we make them join back
         @test_data[:user_community_member].join_community(@test_data[:community])
-        @test_data[:user_community_member].member_of?(@test_data[:community]).should be_true
+        @test_data[:user_community_member].is_member_of?(@test_data[:community]).should be_true
       end
     end
   end

@@ -721,7 +721,9 @@ en:
         observation_place: "Place: %{place}"
         recent_observations: "Recent Observations"
         some_taxon: "Something"
-        taxa_observed: "%{observed_taxa_count} taxa observed"
+        taxa_observed:
+          one: "%{count} taxon observed"
+          other: "%{count} taxa observed"
         top_contributors: "Top iNaturalist Contributors"
         tweet_text: "%{collection_name} iNaturalist Observations"
         view_all_observations_on_inaturalist: "View all observations from %{project_title} on iNaturalist"

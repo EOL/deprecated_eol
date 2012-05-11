@@ -15,7 +15,7 @@
   .inat_observations_header
     = link_to(t('.add_observations'), 
               "http://www.inaturalist.org/observations/new?project_id=#{@inaturalist_project_id}", :class => 'button')
-    %span= t('.taxa_observed', :observed_taxa_count => @inaturalist_observed_taxa_count)
+    %span= t('.taxa_observed', :count => @inaturalist_observed_taxa_count)
     %a{:href => "http://www.inaturalist.org/"}
       %img{:src => "http://inaturalist.org/images/logo-small.gif"}
   .inat_observations_map

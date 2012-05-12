@@ -524,6 +524,8 @@ sr:
   classifications_summary_header_with_count: 
     one: Пронађено у %{count} класификацији
     other: Пронађено у %{count} класификације
+  classifications_with_count: 
+    other: једна=%{count} класификација
   clear_all_non_species_pages: Очисти све странице које немају врсте
   clear_entire_cache_store: Очисти цело складиште кеша
   clear_species_page: Очисти страницу за врсте
@@ -1318,7 +1320,7 @@ sr:
         request_publish: Објави захтевано
         request_publish_more: Означава да ли на чекању постоји захтев хијерархије да се она унапреди у једну од главних прегледљивих хијерархија.
       resource: 
-        accesspoint_url: Адреса скупа података <small>(само XML, XML.GZIP или XML.GZ)</small>
+        accesspoint_url: Адреса скупа података
         accesspoint_url_existing_remove: Ресурс се тренутно учитава из адресе са завршетком <em>%{accesspoint_url}</em>. Отпремите датотеку ако желите да уклоните постојећу адресу и учитате ресурс из те датотеке (не препоручује се).
         administration_settings: Административне поставке <small>(видљиво само за администраторе EOL-а)</small>
         dataset: Скуп података
@@ -1407,6 +1409,9 @@ sr:
         create: Додај чланак
         create_text: Додај чланак
         update: Сачувај чланак
+      eol_statistic: 
+        download_csv: Преузми као CSV
+      filter_sort: Филтрирај и поређај
       harvest_event: 
         publish: Објави
       hierarchy: 
@@ -1431,7 +1436,6 @@ sr:
         create: Отвори налог
         curation_application: Поднеси захтев
         curation_privileges: Поднеси захтев
-        forgot_password: Пошаљи поруку
         generate_api_key: Створи кључ
         update: Сачувај податке на профилу
       wikipedia_queue: 
@@ -1862,9 +1866,6 @@ sr:
     user_commented_on_something_date_body: "%{curator_level} %{users_name} (%{users_url}) прокоментариса на:\n%{commented_on_name} (%{commented_on_url})\n%{comment_date}:\n%{comment_body}"
     user_message: 
       subject: Порука од Енциклопедије живота
-    user_reset_password: 
-      message: "Енциклопедија живота (www.eol.org) је примила захтев за обнављање ваше лозинке. Ако нисте поднели овај захтев, занемарите ову поруку.\n\nСледећа веза вам даје једнократну прилику за поставите нову лозинку:\n\n%{password_reset_url}\n\nПратите ову везу (кликните на њу или је умножите у навигациону траку вашег прегледача) да дођете до странице на којој можете да промените лозинку. Имајте на уму да, ако је веза истекла, тада ћете морати поново да унесете корисничко име или е-адресу како бисте добили нову поруку за промену лозинке и нову везу."
-      subject: Обнављање лозинке за налог на Енциклопедији живота
     user_updated_email_preferences: 
       message: "Ово је системско самообавештење. %{user_full_name} (%{user_profile_url}) промени своју е-адресу или поставке за дописну листу.\n\nПретходне поставке:\nЕ-адреса: %{previous_email}\nПоставка дописне листе: %{previous_mailing_list_preference}\n\nАжуриране поставке:\nЕ-адреса: %{updated_email}\nПоставка дописне листе: %{updated_mailing_list_preference}\nАжурирано: %{updated_at}"
       subject: "%{user_full_name} промени своју е-адресу или поставке за дописну листу"
@@ -2392,7 +2393,6 @@ sr:
   taxon_partner_links_link: Везе партнера
   taxon_rating: Оцена таксона
   taxon_recognized_by: Таксон је признат од %{whom}
-  taxon_recognized_by_header: Препознао/ла
   taxon_selected_from_search_res: Изабран таксон из резултата
   taxon_suggested: Предложени таксон
   taxonomic_summary_of_content: таксономски преглед садржаја
@@ -2617,8 +2617,8 @@ sr:
   username: Корисничко име
   username_colon: "Корисничко име:"
   username_taken: "%{name} је заузето"
-  users:
-    new:
+  users: 
+    new: 
       create_user_header: Отварање новог налога на <abbr title="Encyclopedia of Life">EOL-у</abbr>
   users_about_me_header: О мени
   users_content_partners_header: Партнери за садржај

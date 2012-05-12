@@ -991,7 +991,7 @@ ia:
         request_publish: Publication requestate
         request_publish_more: Indica si il ha un requesta pendente a promover iste hierarchia pro devenir un del primari hierarchias navigabile in EOL.
       resource: 
-        accesspoint_url: URL del collection de datos <small>(XML, XML.GZIP o XML.GZ solmente)</small>
+        accesspoint_url: URL del collection de datos
         accesspoint_url_existing_remove: Iste ressource es actualmente in curso de cargamento ab le URL terminante in <em>%{accesspoint_url}</em>. Incarga un file si tu vole remover le URL existente e cargar le ressource ex un file in su loco (non recommendate).
         administration_settings: Configurationes de administration <small>(solmente visibile pro administratores de EOL)</small>
         dataset: Collection de datos
@@ -1083,6 +1083,9 @@ ia:
         create: Adder articulo
         create_text: Adder articulo
         update: Salveguardar articulo
+      eol_statistic: 
+        download_csv: Discargar como CSV
+      filter_sort: Filtrar e ordinar
       harvest_event: 
         publish: Publicar
       hierarchy: 
@@ -1107,7 +1110,6 @@ ia:
         create: Crear conto
         curation_application: Sollicitar ora
         curation_privileges: Submitter requesta
-        forgot_password: Inviar e-mail
         generate_api_key: Generar un clave
         notification_settings: Configuration de notificationes
         update: Salveguardar information de profilo
@@ -1258,9 +1260,6 @@ ia:
     user_commented_on_something_date_body: "Le %{curator_level} %{users_name} (%{users_url}) commentava:\n%{commented_on_name} (%{commented_on_url})\n%{comment_date}:\n%{comment_body}"
     user_message: 
       subject: Un message del Encyclopedia del Vita
-    user_reset_password: 
-      message: "Le Encyclopedia del Vita (www.eol.org) ha recipite un requesta de reinitialisar tu contrasigno. Si tu non ha facite iste requesta, per favor ignora iste e-mail.\n\nLe sequente ligamine face reinitialisar tu contrasigno:\n\n%{password_reset_url}\n\nNota ben que le ligamine expirara post 24 horas e in tal caso tu debera facer un altere requesta de reinitialisation."
-      subject: Reinitialisar le contrasigno de tu conto del Encyclopedia del Vita
     user_updated_email_preferences: 
       message: "Isto es un notification automatic del systema de EOL. Le usator %{user_full_name} (%{user_profile_url}) ha actualisate su adresse de e-mail o preferentias de lista de diffusion.\n\nPreferentias previe:\nE-mail: %{previous_email}\nLista de diffusion: %{previous_mailing_list_preference}\n\nPreferentias actual:\nE-mail: %{updated_email}\nLista de diffusion: %{updated_mailing_list_preference}\nActualisate a: %{updated_at}"
       subject: Le usator de EOL %{user_full_name} cambiava su adresse de e-mail o preferentias de lista de diffusion

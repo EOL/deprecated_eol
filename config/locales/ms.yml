@@ -457,6 +457,7 @@ ms:
   classification_tree_header: Pengelasan
   classifications_empty: Halaman ini tiada dalam sebarang klasifikasi yang boleh dilayari di EOL.
   classifications_summary_header_with_count: Dijumpai dalam %{count} pengelasan
+  classifications_with_count: "%{count} Pengelasan"
   clear_all_non_species_pages: Padamkan semua halaman bukan spesies
   clear_entire_cache_store: Padamkan seluruh stor cache
   clear_species_page: Padamkan halaman spesies
@@ -1039,7 +1040,7 @@ ms:
         request_publish: Penerbitan dipohon
         request_publish_more: Menunjukkan sama ada terdapat permohonan yang tergantung untuk mempromosikan hierarki ini sebagai salah satu hierarki utama yang boleh dilayari di EOL.
       resource: 
-        accesspoint_url: URL set data <small>(XML, XML.GZIP atau XML.GZ sahaja)</small>
+        accesspoint_url: URL set data
         accesspoint_url_existing_remove: Sumber ini sedang dimuatkan dari URL yang berakhir dengan <em>%{accesspoint_url}</em>. Ataupun, anda boleh memuat naik satu fail jika anda ingin menggugurkan URL sedia ada dan memuatkan sumber daripada fail (tetapi ini tidak digalakkan).
         administration_settings: Tetapan pentadbiran <small>(untuk tatapan pentadbir EOL sahaja)</small>
         dataset: Set data
@@ -1128,6 +1129,9 @@ ms:
         create: Buat rencana
         create_text: Buat rencana
         update: Simpan rencana
+      eol_statistic: 
+        download_csv: Muat turun dalam bentuk CSV
+      filter_sort: Tapis dan isih
       harvest_event: 
         publish: Terbitkan
       hierarchy: 
@@ -1152,7 +1156,6 @@ ms:
         create: Buka akaun
         curation_application: Pohonlah sekarang
         curation_privileges: Serahkan permohonan
-        forgot_password: Hantar e-mel
         generate_api_key: Jana kunci
         update: Simpan maklumat profil
       wikipedia_queue: 
@@ -1469,9 +1472,6 @@ ms:
     user_commented_on_something_date_body: "%{users_name} (%{users_url}) mengulas:\n%{commented_on_name} (%{commented_on_url})\n%{comment_date}:\n%{comment_body}"
     user_message: 
       subject: Pesanan daripada Encyclopedia of Life
-    user_reset_password: 
-      message: "Encyclopedia of Life (www.eol.org) telah menerima permohonan untuk mengeset semula kata laluan anda. Sekiranya bukan anda yang membuat permintaan ini, sila abaikan e-mel ini.\n\nPautan yang berikut akan memberi anda peluang sekali sahaja untuk mengeset semula kata laluan anda:\n\n%{password_reset_url}\n\nIkut pautan ini (klik sahaja pautan tersebut, atau salin dan tampalkan seluruh pautan kepada ruangan alamat pelayar Web anda dan muatkannya) untuk mengakses laman ini untuk membuat kata laluan baru. Sila ambil perhatian: jika pautan itu luput, anda akan diminta untuk menaipkan alamat e-mel anda sekali lagi untuk menerima pesanan e-mel dan pautan yang baru untuk mengeset semula kata laluan."
-      subject: Set semua kata laluan akaun Encyclopedia of Life anda
     user_updated_email_preferences: 
       message: "Ini merupakan pemberitahuan sistem EOL yang dihasilkan secara automatik. Pengguna %{user_full_name} (%{user_profile_url}) mengemaskinikan alamat e-mel atau keutamaan senarai melnya.\n\nKeutamaan terdahulu:\nE-mel: %{previous_email}\nKeutamaan senarai mel: %{previous_mailing_list_preference}\n\nKeutamaan terkini:\nE-mel: %{updated_email}\nKeutamaan senarai mel: %{updated_mailing_list_preference}\nDikemaskinikan pada: %{updated_at}"
       subject: Pengguna EOL, %{user_full_name} menukar alamat e-mel atau keutamaan senarai melnya
@@ -1761,7 +1761,6 @@ ms:
   taxon_partner_links_intro: Berikut ialah senarai rakan kongsi, termasuk rakan kongsi kandungan, dengan maklumat pada halaman ini. Di mana boleh, pautan itu akan membawa anda ke kandungan yang berpadanan pada tapak web rakan kongsi tersebut. Pengenal pasti unik untuk takson ini yang digunakan oleh setiap rakan kongsi dibenamkan dalam pautan-pautan ini, dan pengenal pasti ini juga boleh diakses melalui <a href="%{eol_api_link}">EOL API</a>
   taxon_partner_links_link: Pautan rakan kongsi
   taxon_rating: Penilaian takson
-  taxon_recognized_by_header: Diiktiraf oleh
   taxonomic_summary_of_content: ringkasan taksonomi kandungan
   technical_functions: Fungsi Teknikal
   term_is_already_def_error: "'%{term}' sudah ditakrifkan"
@@ -1872,8 +1871,8 @@ ms:
   username: Nama pengguna
   username_colon: "Nama pengguna:"
   username_taken: "%{name} sudah diambil"
-  users:
-    new:
+  users: 
+    new: 
       create_user_header: Buka akaun <abbr title="Encyclopedia of Life">EOL</abbr> baru
   users_about_me_header: Perihal saya
   users_content_partners_header: Rakan kongsi kandungan

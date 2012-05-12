@@ -184,6 +184,15 @@ es:
         new_data_on_my_watched_item: Nuevas contribuciones a taxones de su lista de seguimiento
         new_manager_in_my_community: Otro miembro se ha convertido en administrador de una comunidad que usted administra
         reply_to_comment: Una respuesta a un comentario que hizo
+      open_authentication: 
+        created_at: Creado
+        guid: GUID
+        provider: Proveedor externo
+        secret: Secreto
+        token: Símbolo (token)
+        updated_at: Última actualización
+        user_id: Identificador de usuario
+        verified_at: Última verificación
       resource: 
         accesspoint_url: Conjunto de datos URL
         auto_publish: Publicar automáticamente
@@ -217,6 +226,7 @@ es:
         curator_scope: Alcance del curación
         disable_email_notifications: No enviarme NINGUNA actualización por correo electrónico
         email: Dirección de correo electrónico
+        email_confirmation: Escriba de nuevo la dirección de correo electrónico <small>(para confirmar)</small>
         entered_password: Contraseña
         entered_password_confirmation: Contraseña otra ves <small>(a confirmar)</small>
         family_name: Apellido
@@ -272,6 +282,9 @@ es:
           attributes: 
             publish: 
               inclusion: sólo permitido para el último evento de recogida y sólo si ese evento ya no está publicado
+        open_authentications: 
+          guid_provider_must_be_unique: la cuenta externa ya está conectada con una cuenta de EOL
+          provider_user_id_must_be_unique: sólo puede conectarse una cuenta de cada proveedor externo a una cuenta de EOL
         resource: 
           attributes: 
             accesspoint_url: 
@@ -469,6 +482,13 @@ es:
         user_curated_an_unknown_data_object: <strong>%{user}</strong> ha supervisado un objecto de datos desconocido.
         user_curated_data_object: <strong>%{user}</strong> ha supervisado "%{data_object}".
         user_curated_it: <strong>%{user}</strong> lo ha supervisado, pero se ha perdido el cambio exacto.
+      preferred_classification: 
+        an_unknown_user_preferred_classification_on_an_unknown_taxon: Un usuario desconocido marcó la clasificación de "%{provider}" como preferida para un taxón desconocido.
+        an_unknown_user_preferred_classification_on_it: Un usuario desconocido marcó la clasificación de "%{provider}" como preferida.
+        an_unknown_user_preferred_classification_on_taxon: Un usuario desconocido marcó la clasificación de "%{provider}" como preferida para "%{taxon}".
+        user_preferred_classification_on_an_unknown_taxon: <strong>%{user}</strong> marcó la clasificación de "%{provider}" como preferida para un taxón desconocido.
+        user_preferred_classification_on_it: <strong>%{user}</strong> marcó la clasificación de "%{provider}" como preferida.
+        user_preferred_classification_on_taxon: <strong>%{user}</strong> marcó la clasificación de "%{provider}" como preferida para "%{taxon}".
       reasons_to_hide: "Razones para ocultar: %{reasons}"
       reasons_to_untrust: "Razones para definir como no fiable: %{reasons}"
       remove_association: 
@@ -620,6 +640,7 @@ es:
   add_article_to_page_link_button: Añadir un artículo a esta página
   add_association_submit_button: añadir asociación
   add_brief_summary_to_page_link_button: Añadir un breve resumen a esta página
+  add_citizen_science_resources_to_page_link_button: Agregar un vínculo de ciencia ciudadana a esta página
   add_collection_to_a_new_community: Añadir "%{collection}" a una nueva comunidad
   add_collection_to_community: Añadir colección a la comunidad
   add_education_resources_to_page_link_button: Agregar recursos educativos a esta página
@@ -795,6 +816,7 @@ es:
   assistive_literature_header: Literatura
   assistive_maps_header: Mapas
   assistive_media_header: Medios
+  assistive_names_classifictions_header: Clasificaciones
   assistive_names_common_header: Nombres comunes
   assistive_names_related_header: Nombres relacionados
   assistive_names_synonyms_header: Sinónimos
@@ -870,11 +892,23 @@ es:
   citation: Citación
   citation_example: Fisher, Brian. "Pogonomyrmex anergismus Cole, 1954." Encyclopedia of Life, disponible en <a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>. Consultado 15 Jan 2009.
   citing_link: Citando
+  classification_already_preferred: "ERROR: Esta clasificación ya se ha marcado como preferida."
+  classification_from_agent_chosen_by_curator: Clasificación de %{agent} seleccionado por %{curator}.
+  classification_preferred_for_taxon: Preferido
+  classification_preferred_for_taxon_help_tip: "%{icon} marca la clasificación preferida para este taxón."
+  classification_summary_section_header: Clasificación
   classification_tree_header: Clasificación
   classifications_empty: Esta página no está incluida en ninguna de las clasificaciones que se pueden examinar en EOL.
+  classifications_hierarchy_column_header: Clasificación
+  classifications_preferred_column_header: Preferido
+  classifications_rank_column_header: Posición
+  classifications_recognized_by_column_header: Reconocido por
   classifications_summary_header_with_count: 
     one: "Encontrado en %{count} clasificación "
     other: Encontrado en %{count} clasificaciones
+  classifications_with_count: 
+    one: "%{count} clasificación}"
+    other: "%{count} clasificaciones}"
   clear_all_non_species_pages: Borrar todas las páginas que no son de especies
   clear_entire_cache_store: Limpiar todo lo almacenado en la memoria caché
   clear_species_page: Borrar la página de la especie
@@ -918,6 +952,24 @@ es:
         meta_keywords: Administradores de %{collection_name}
         meta_title: Administradores de %{collection_name}
         tweet_text: Administradores de %{collection_name}
+    inaturalists: 
+      show: 
+        add_observations: Añadir observaciones
+        meta_description: Observaciones iNaturalistas para la colección %{collection_name} de Enyclopedia of Life.
+        meta_keywords: Observaciones iNaturalistas de %{collection_name}
+        meta_title: Observaciones iNaturalistas de %{collection_name}
+        no_observations_added_to_this_project_yet: Todavía no se agregaron observaciones a este proyecto.
+        observation_date: "Fecha: %{observed_on}"
+        observation_place: "Lugar: %{place}"
+        observer_with_link: "Observador: %{observer_link}"
+        recent_observations: Observaciones recientes
+        some_taxon: Algo
+        taxa_observed: taxones observados %{observed_taxa_count}
+        top_contributors: Principales contribuyentes a iNaturalist
+        tweet_text: Observaciones iNaturalistas de %{collection_name}
+        view_all_observations_on_inaturalist: Ver todas las observaciones de %{project_title} en iNaturalist
+        view_more_observations_on_inaturalist: Ver más observaciones de %{project_title} en iNaturalista
+        view_project_on_inaturalist: Ver %{project_title} en iNaturalist
     newsfeeds: 
       show: 
         meta_description: Noticias, comentarios y actividad de los miembros de la colección Enciclopedia de la Vida %{collection_name}.
@@ -1184,6 +1236,7 @@ es:
   content_partner_resource_update_unsuccessful_error: Lo sentimos, ha ocurrido un error, los detalles de los recursos no se han actualizado.
   content_partner_resource_upload_unsuccessful_error: "Lo sentimos, ha ocurrido un error, los detalles de los recursos se han actualizado, pero el recurso en sí mismo no fue subido: %{resource_status}."
   content_partner_resource_url_or_dataset_not_both_error: URL de conjunto de datos o archivo para cada recurso, pero no ambos. Por favor, decida si desea proporcionar una dirección URL o subir un archivo de este recurso descrito. Recursos adicionales se pueden agregar más adelante.
+  content_partner_resource_validation_unsuccessful_error: Lo sentimos, se actualizaron los datos de recursos pero no se pudo validar el recurso. Consulta las notas de procesamiento más abajo.
   content_partner_resource_vetted_false: 'No'
   content_partner_resource_vetted_true: Sí
   content_partner_resource_view_link: Ver
@@ -1491,6 +1544,15 @@ es:
   every_method_can_also_return_json_response: Todo método puede devolver una respuesta JSON agregando la Exporte esta lista como CSV
   example_colon: Ejemplo
   exception: Excepción
+  exceptions: 
+    security_violations: 
+      administrators_only: Lo sentimos, el acceso está restringido a los administradores de EOL.
+      default: Acceso denegado.
+      hidden_user_login: Lo sentimos, el inicio de sesión está deshabilitado para esa cuenta.
+      hidden_user_recover_account: Lo sentimos, la recuperación de cuenta está deshabilitada para esa cuenta.
+      hidden_user_temporary_login: Lo sentimos, el inicio de sesión y la recuperación de cuenta están desactivados para esa cuenta.
+      inactive_user_login: Lo sentimos, esa cuenta aún no está activa. Si no recibiste un correo electrónico de verificación cuando te registraste, por favor, sigue el procedimiento de recuperación de cuenta para verificar tu dirección de correo electrónico y activar tu cuenta.
+      min_full_curators_only: El acceso está restringido a los supervisores de EOL con un nivel mínimo de supervisor "Full".
   expand_all_children: expandir todas las dependencias
   explore: Explorar
   explore_what_we_know_about_taxon: Explorar qué sabe EOL de %{taxon}.
@@ -1696,8 +1758,11 @@ es:
         complete_more: "Una jerarquía de supervisión asume que cada entrada está destinada a ser única, es decir, las cadenas que coinciden en el nombre serán tratadas como homónimas. <strong>Advertencia: no cambie este atributo a menos que esté seguro de la condición de homónimos en la jerarquía, haciéndolo así que podría poner en peligro la integridad de los datos.</strong>"
         request_publish: Publicar lo solicitado
         request_publish_more: Indica si existe una solicitud pendiente para promover esta jerarquía hasta convertirla en una de las principales jerarquías navegables en EOL.
+      open_authentication: 
+        connect: Añadir
+        connected: Conectado
       resource: 
-        accesspoint_url: Conjunto de datos URL <small>(XML, XML.GZIP o XML.GZ solamente)</small>
+        accesspoint_url: Conjunto de datos URL
         accesspoint_url_existing_remove: Actualmente este recurso se está cargando desde la URL que termina por <em>%{accesspoint_url}</em>. Sube un archivo si desea eliminar la dirección URL existente y cargar el recurso de un archivo en su lugar (no recomendado).
         administration_settings: Opciones de administración <small>(sólo visible para los administradores de EOL)</small>
         dataset: Conjunto de datos
@@ -1744,6 +1809,7 @@ es:
         curator_level: Actualmente estás %{curator_level_with_indefinite_article}.
         curator_scope: Alcance de Curación
         curator_scope_more: "Por favor, indique el alcance de su experiencia. Por ejemplo: \"Los roedores de Borneo\", \"Tri-tróficos interacciones\", o \"Problemas de conservación de los peces\". Esto no limitará su capacidad de cura, sino que informar a la comunidad EOL."
+        email: Dirección de correo electrónico
         email_reports_frequency_hours: ¿Con qué frecuencia desea recibir alertas por correo electrónico acerca de la actividad de sus contribuciones?
         email_settings_submit: configuración de correo electrónico
         entered_password: Contraseña <small>(4-16 caracteres)</small>
@@ -1754,6 +1820,9 @@ es:
         new_password_confirmation: Nueva contraseña <small>(por confirmar)</small>
         notification_settings: Configuración de notificaciones
         notification_settings_more: Configure las opciones de notificación.
+        open_authentications: Cuentas conectadas
+        open_authentications_connected_accounts: Tus cuentas conectadas
+        open_authentications_more: Administrar conexiones a cuentas externas que se pueden utilizar para iniciar sesión en EOL. <a href="%{open_authentications_url}">Editar cuentas conectadas</a>.
         requested_curator_level: Su solicitud para convertirse en %{curator_level_with_indefinite_article} está pendiente.
         requested_curator_level_id_more: Seleccione <em>Curador Asistente</em> si usted todavía no tiene credenciales.  Seleccione <em>Curador Pleno</em> si un científico professional o estudiante de postgrado con credenciales. Seleccione <em>Curador Master</em> si usted es un curador experimentado y quiere asumir más responsabilidades.
         tag_line: "Lema o título <small>ejemplo: \"Entusiasta de ave\"</small>"
@@ -1766,6 +1835,7 @@ es:
     select: 
       prompt: Por favor seleccione
     submit: 
+      cancel: Cancelar
       collection_item: 
         update: Guardar
       content_page: 
@@ -1789,6 +1859,9 @@ es:
         create: Agregar artículo
         create_text: Agregar artículo
         update: Guardar artículo
+      eol_statistic: 
+        download_csv: Descargar como CSV
+      filter_sort: Filtrar y ordenar
       harvest_event: 
         publish: Publicar
       hierarchy: 
@@ -1797,6 +1870,10 @@ es:
       name: 
         create: Agregar nombre
         update: Actualizar el nombre
+      open_authentication: 
+        create: Conectar
+        destroy: Desconectar
+        update: Comprobar la conexión
       resource: 
         create: Agregar recurso
         force_harvest: Solicitud de forzar la recogida
@@ -1804,6 +1881,10 @@ es:
         update_settings: Actualizar la configuración
       session: 
         create: Iniciar sesión
+        sign_in_with_facebook: Iniciar sesión con Facebook
+        sign_in_with_google: Inicia sesión con Google
+        sign_in_with_twitter: Iniciar sesión con Twitter
+        sign_in_with_yahoo: Iniciar sesión con Yahoo
       submit: Guardar %{model}
       translated_content_page: 
         create: Agregar traducción
@@ -1813,9 +1894,13 @@ es:
         create: Crear cuenta
         curation_application: Solicitar ahora
         curation_privileges: Enviar solicitud
-        forgot_password: Enviar correo electrónico
         generate_api_key: Generar una clave
         notification_settings: Configuración de notificaciones
+        recover_account: Enviar correo electrónico
+        sign_up_with_facebook: Regístrate con Facebook
+        sign_up_with_google: Regístrate con Google
+        sign_up_with_twitter: Regístrate con Twitter
+        sign_up_with_yahoo: Regístrate con Yahoo
         update: Guardar información del perfil
       wikipedia_queue: 
         create: Enviar solicitud
@@ -1872,6 +1957,7 @@ es:
   in_providing_its_content_to_eo: Proporciona su contenido a EOL,
   in_this_data_type: "en este %{data_type}:"
   inappropriate: Inapropiado
+  inaturalist_tab_label: Observaciones iNaturalistas
   include_all_metadata: incluir todos los metadatos para objetos de datos
   indexed: Indexado
   info_item: Elemento de información
@@ -2106,6 +2192,9 @@ es:
     one: "%{count} más..."
     other: "%{count} más..."
   more_information_on_the_various_licenses: licencias. Visite su sitio para más información sobre las licencias que ofrecen
+  more_siblings_with_count: 
+    one: "%{count} hermano más..."
+    other: "%{count} hermanos más..."
   most_active_members: Miembros más activos
   move: Trasladar
   move_down: Mover hacia abajo
@@ -2257,12 +2346,15 @@ es:
     user_activated: 
       message: "¡Bienvenido a Encyclopedia of Life (EOL) y gracias por registrarse! Recuerde que su nombre de usuario es %{username} y la dirección URL de su perfil que es %{profile_url}. Puede iniciar sesión en su cuenta en http://www.eol.org/login.\n\nPara obtener más información acerca de cómo utilizar EOL, incluyendo cómo crear colecciones de EOL, participar en las comunidades de EOL y contribuir con contenido, visite nuestras páginas de ayuda en http://www.eol.org/help."
       subject: Tu cuenta de la Enciclopedia de la vida se ha sido activada
+    user_activated_with_open_authentication: 
+      message: "¡Bienvenido a Encyclopedia of Life (EOL) y gracias por registrarse! Recuerda que te has registrado usando %{oauth_provider} dando permiso a EOL para acceder a tu información básica con fines de autenticación. Tu perfil URL en EOL es %{profile_url}. Puedes iniciar sesión en tu cuenta EOL con %{oauth_provider} en http://eol.org/login.\n\nPara obtener más información acerca de cómo utilizar EOL, incluyendo cómo crear colecciones de EOL, participar en comunidades de EOL y contribuir con contenidos, visita nuestras páginas de ayuda en http://eol.org/help."
+      subject: Tu cuenta de Encyclopedia of Life ha sido activada
     user_commented_on_something_date_body: "%{curator_level} %{users_name} (%{users_url}) ha comentado en:\n%{commented_on_name} (%{commented_on_url})\n%{comment_date}:\n%{comment_body}"
     user_message: 
       subject: Un mensaje de la Enciclopedia de la vida
-    user_reset_password: 
-      message: "Encyclopedia of Life (www.eol.org) recibió una solicitud para restablecer su contraseña. Si no hizo esta solicitud, ignore este mensaje.\n\nEl siguiente enlace le permitirá restablecer su contraseña:\n\n%{password_reset_url}\n\nTenga en cuenta que después de 24 horas, el enlace expira y tendrá que hacer una nueva solicitud de restablecimiento."
-      subject: Restablecer la contraseña de la cuenta de Encyclopedia of Life
+    user_recover_account: 
+      message: "Encyclopedia of Life (http://eol.org) recibió una solicitud para recuperar tu cuenta. Si no hiciste esta solicitud, ignora este mensaje.\n\nEl siguiente enlace suministra un inicio de sesión temporal que te permite cambiar tu contraseña, o agregar una nueva cuenta conectada que puedes utilizar para iniciar sesión en el futuro con:\n\n%{temporary_login_url}\n\nTen en cuenta que este enlace caduca en un plazo de 24 horas; después de ese tiempo puede visitar %{recover_account_url} para solicitar un nuevo enlace de inicio de sesión temporal si sigues teniendo problemas para acceder a tu cuenta."
+      subject: Recuperar tu cuenta de Encyclopedia of Life
     user_updated_email_preferences: 
       message: "Esta es una notificación automática del sistema de EOL. El usuario %{user_full_name} (%{user_profile_url}) actualizó su dirección de correo electrónico o sus preferencias de la lista de correo.\n\nPreferencias anteriores:\nCorreo electrónico: %{previous_email}\nLista de correo: %{previous_mailing_list_preference}\n\nPreferencias actuales:\nCorreo electrónico: %{updated_email}\nLista de correo: %{updated_mailing_list_preference}\nActualizado el: %{updated_at}"
       subject: El usuario de EOL %{user_full_name} ha cambiado dirección de correo electrónico o sus preferencias de la lista de correo
@@ -2490,6 +2582,7 @@ es:
   recipients: Destinatarios
   recognized_by: Reconocido por
   recognized_by_as_a_rank: "%{recognized_by} como un %{taxon_rank}"
+  recognized_by_from_source: "%{recognized_by} en %{source}"
   recognized_by_from_source_as_a_rank: "%{recognized_by} en %{source} como un %{taxon_rank}"
   record_not_found: "[no se encontró el registro]"
   references_cabs_colon: "Referencias:"
@@ -2613,10 +2706,20 @@ es:
   server_ip_address: Dirección IP del servidor
   sessions: 
     new: 
+      login_with_eol_authentication_header: "O iniciar sesión con sus credenciales de EOL:"
+      login_with_facebook_assistive: Iniciar sesión en EOL utilizando tus credenciales de Facebook.
+      login_with_google_assistive: Iniciar sesión en EOL utilizando tus credenciales de Google.
+      login_with_twitter_assistive: Iniciar sesión en EOL utilizando tus credenciales de Twitter.
+      login_with_yahoo_assistive: Iniciar sesión en EOL utilizando tus credenciales de Yahoo.
       meta_title: Iniciar sesión
+      problems_signing_in_with_connected_accounts: ¿Problemas para iniciar sesión con tus cuentas conectadas?
+      problems_signing_in_with_eol_authentication: ¿Has olvidado tu contraseña?
   set_as_exemplar: Establecer como ejemplar
   share_a_collection: Compartir una colección
   show: Mostrar
+  show_all_other_classifications_with_count: 
+    one: Mostrar otra clasificación no navegable
+    other: Mostrar otras %{count} clasificaciones no navegables
   show_data_from_all_content_partners: Eliminar filtro de clasificación
   show_email_message_area: "[mostrar el área de mensajes de correo electrónico]"
   show_full_tree: Mostra el árbol completo
@@ -2969,6 +3072,9 @@ es:
     other: "%{count} taxones"
   taxon: taxón
   taxon_biomedical_terms_link: Términos biomédicos
+  taxon_citizen_science_header: Enlaces de Ciencia Ciudadana
+  taxon_citizen_science_link: Enlaces de ciencia ciudadana
+  taxon_citizen_science_resources_empty: Nadie ha contribuido aún con un enlace de ciencia ciudadana a esta página.
   taxon_concept_stats: Estadísticas de concepto taxonómico
   taxon_details_empty: Nadie ha contribuido aún con algún detalle sobre este taxón.
   taxon_education_empty: Nadie ha contribuido aún con un recurso educativo para esta página.
@@ -2992,7 +3098,6 @@ es:
   taxon_partner_links_link: Vínculos de socio
   taxon_rating: Evaluación del taxón
   taxon_recognized_by: Taxón reconocido por %{whom}
-  taxon_recognized_by_header: Reconocido por
   taxon_selected_from_search_res: Taxón seleccionado a partir de los resultados de búsqueda
   taxon_suggested: Taxón sugerido
   taxonomic_summary_of_content: Resumen taxonómico de contenido
@@ -3104,6 +3209,7 @@ es:
   total_searches: "Búsquedas totales:"
   translation_deleted: Se ha eliminado la traducción
   translation_information_header: Información de la traducción
+  translation_log: Histograma de frecuencia clave i18n
   translation_saved: Se ha guardado la traducción
   translations_submit: Mira la traducción
   trigger_search_term_entered_by: ejecutar el término de búsqueda introducido por el usuario
@@ -3121,6 +3227,7 @@ es:
   unable_to_invite_users_to_community_error: No se pudo enviar invitaciones a %{users}.
   unique_page_views_th: Visitas únicas de página
   unknown: Desconocido
+  unknown_hierarchy: Jerarquía desconocida
   unknown_type_not_associated_with_any_published_entries: Estos datos no están asociados con ninguno de los taxones publicados.
   unpublished: Sin publicar
   unreviewed: Sin revisar
@@ -3250,8 +3357,21 @@ es:
         meta_description: asociaciones de socios de contenido de %{user_full_name}.
         meta_title: socios de contenido de %{user_full_name}
         tweet_text: socios de contenido de %{user_full_name}
-    new:
+    edit: 
+      form_tip_account: Para iniciar sesión en EOL necesitas un nombre de usuario y una contraseña de EOL, o puedes conectarte a una cuenta externa. El nombre de usuario y la contraseña son necesarios si no tienes una cuenta conectada, sin embargo introduce una nueva contraseña aquí sólo si te gustaría cambiar la existente. Especificar la dirección de correo electrónico y el idioma de preferencia es necesario (%{required_icon}) para todos los usuarios.
+      form_tip_account_oauth: Es necesario especificar la dirección de correo electrónico y el idioma de preferencia %{required_icon} para todos los usuarios.
+      form_tip_curation: Las credenciales y el grado de supervisión son opcionales para los supervisores ayudantes pero obligatorios %{required_icon} para supervisores Full y Master
+      form_tip_profile: Los elementos marcados como necesarios %{required_icon} son opcionales para los usuarios generales pero obligatorios para los supervisores.
+      form_tip_profile_oauth: El nombre es obligatorio, otros elementos marcados como requeridos %{required_icon} son opcionales para los usuarios generales pero obligatorios para los supervisores.
+    new: 
+      complete_registration_header: Completar tu registro en EOL
       create_user_header: Crear una nueva cuenta <abbr title="Encyclopedia of Life">EOL</abbr>
+      create_user_with_eol_authentication_header: "O proporcionar nuevas credenciales:"
+      meta_title: Únete a EOL
+      sign_up_with_facebook_assistive: Suscríbete a EOL utilizando tus credenciales de Facebook.
+      sign_up_with_google_assistive: Suscríbete a EOL utilizando tus credenciales de Google
+      sign_up_with_twitter_assistive: Suscríbete a EOL utilizando tus credenciales de Twitter
+      sign_up_with_yahoo_assistive: Suscríbete a EOL utilizando tus credenciales de Yahoo.
     newsfeeds: 
       activity: 
         meta_title: canal web de actividad de %{user_full_name}
@@ -3271,6 +3391,90 @@ es:
       edit: 
         page_description: Todas las actualizaciones que se enumeran a continuación (excepto para el boletín de EOL) están disponibles para usted en su <a href="%{user_newsfeed_link}">página de noticias de EOL</a>, pero a mucha gente también le gustaría recibir alertas por correo electrónico sobre ciertos tipos de actividades que ellos encuentran particularmente interesantes. Puede utilizar los botones siguientes para definir la frecuencia de los correos electrónicos de EOL que satisfagan sus preferencias
         page_title: Configuración de notificaciones
+    open_authentications: 
+      errors: 
+        authorize_uri_missing: Lo sentimos, ha ocurrido un error, somos incapaces de iniciar la autenticación en este momento.
+        facebook: 
+          add_connection_failed_account_already_connected: Lo sentimos, no podemos conectar tu cuenta de Facebook a tu cuenta de EOL, tu cuenta de Facebook ya está conectada a una <a href="%{existing_eol_account_url}">cuenta de EOL</a>.
+          missing_attributes: Lo sentimos, hubo un problema de acceso a tus datos de Facebook.
+          new_authentication_not_added: Lo sentimos, ha ocurrido un error, no pudimos conectar tu cuenta de Facebook.
+          not_authorized_to_add_authentication: Lo sentimos, no tenemos autorización para conectar a tu cuenta de Facebook.
+          not_authorized_to_signup: Lo sentimos, no estamos autorizados para suscribirte a EOL utilizando tu cuenta de Facebook.
+          not_connected: Lo sentimos, no hemos podido encontrar una conexión entre tu cuenta de Facebook y EOL.
+          signup_failed_account_already_connected: Lo sentimos, no podemos suscribirte a una nueva cuenta de EOL con tu cuenta de Facebook, ya estás conectado a una <a href="%{existing_eol_account_url}">cuenta de usuario de EOL</a>. En lugar de eso ¿quisiste <a href="%{login_url}">iniciar sesión</a> ?
+        google: 
+          add_connection_failed_account_already_connected: Lo sentimos, no podemos conectar tu cuenta de Google a tu cuenta de EOL, tu cuenta de Google ya está conectada a una <a href="%{existing_eol_account_url}">cuenta de EOL</a>.
+          missing_attributes: Lo sentimos, hubo un problema de acceso a tus datos de Google.
+          new_authentication_not_added: Lo sentimos, ha ocurrido un error, no pudimos conectar tu cuenta de Google.
+          not_authorized_to_add_authentication: Lo sentimos, no tenemos autorización para conectar a tu cuenta de Google.
+          not_authorized_to_signup: Lo sentimos, no estamos autorizados para suscribirte a EOL utilizando tu cuenta de Google.
+          not_connected: Lo sentimos, no hemos podido encontrar una conexión entre tu cuenta de Google y EOL.
+          signup_failed_account_already_connected: Lo sentimos, no podemos suscribirte a una nueva cuenta de EOL con tu cuenta de Google, ya estás conectado a una <a href="%{existing_eol_account_url}">cuenta de usuario de EOL</a>. En lugar de eso ¿quisiste <a href="%{login_url}">iniciar sesión</a> ?
+        missing_attributes: Lo sentimos, hubo un problema de acceso a los datos de tu cuenta externa.
+        not_authorized_to_add_authentication: Lo sentimos, no tenemos autorización para conectar esa cuenta.
+        not_authorized_to_signup: Lo sentimos, no estamos autorizados para iniciar sesión en EOL con esa cuenta.
+        not_connected: Lo sentimos, no hemos podido encontrar una conexión con una cuenta de EOL.
+        remove_connection_failed: Lo sentimos, ha ocurrido un error, no hemos podido eliminar la conexión.
+        twitter: 
+          add_connection_failed_account_already_connected: Lo sentimos, no podemos conectar tu cuenta de Twitter a tu cuenta de EOL, tu cuenta de Twitter ya está conectada a una <a href="%{existing_eol_account_url}">cuenta de EOL</a>.
+          missing_attributes: Lo sentimos, hubo un problema de acceso a tus datos de Twitter.
+          new_authentication_not_added: Lo sentimos, ha ocurrido un error, no pudimos conectar tu cuenta de Twitter.
+          not_authorized_to_add_authentication: Lo sentimos, no tenemos autorización para conectar a tu cuenta de Twitter.
+          not_authorized_to_signup: Lo sentimos, no estamos autorizados para suscribirte a EOL utilizando tu cuenta de Twitter.
+          not_connected: Lo sentimos, no hemos podido encontrar una conexión entre tu cuenta de Twitter y EOL.
+          signup_failed_account_already_connected: Lo sentimos, no podemos suscribirte a una nueva cuenta de EOL con tu cuenta de Twitter, ya estás conectado a una <a href="%{existing_eol_account_url}">cuenta de usuario de EOL</a>. En lugar de eso ¿quisiste <a href="%{login_url}">iniciar sesión</a> ?
+        yahoo: 
+          add_connection_failed_account_already_connected: Lo sentimos, no podemos conectar tu cuenta de Yahoo a tu cuenta de EOL, tu cuenta de Yahoo ya está conectada a una <a href="%{existing_eol_account_url}">cuenta de EOL</a>.
+          missing_attributes: Lo sentimos, hubo un problema de acceso a tus datos de Yahoo!.
+          new_authentication_not_added: Lo sentimos, ha ocurrido un error, no pudimos conectar tu cuenta de Yahoo!.
+          not_authorized_to_add_authentication: Lo sentimos, no tenemos autorización para conectar a tu cuenta de Yahoo!.
+          not_authorized_to_signup: Lo sentimos, no estamos autorizados para suscribirte a EOL utilizando tu cuenta de Yahoo!.
+          not_connected: Lo sentimos, no hemos podido encontrar una conexión entre tu cuenta de Yahoo! y EOL.
+          signup_failed_account_already_connected: Lo sentimos, no podemos suscribirte a una nueva cuenta de EOL con tu cuenta de Yahoo!, ya estás conectado a una <a href="%{existing_eol_account_url}">cuenta de usuario de EOL</a>. En lugar de eso ¿quisiste <a href="%{login_url}">iniciar sesión</a> ?
+      facebook: Facebook
+      google: Google
+      index: 
+        connected_last_verified: Conectado; Última  verificación hace %{time_passed};
+        connected_unverified: Conectado; No verificado;
+        not_connected: No conectado;
+        page_description: Administrar conexiones a cuentas externas que se pueden utilizar para iniciar sesión en EOL.
+        page_title: Cuentas conectadas
+        return_link: Regresar a Editar perfil.
+      notices: 
+        facebook: 
+          new_authentication_added: La autenticación vía Facebook se ha agregado a su cuenta.
+          removed_connection: Hemos eliminado correctamente la conexión de EOL con tu cuenta de Facebook. Para desautorizar completamente las futuras interacciones entre tu cuenta de Facebook y EOL debes ir a Facebook y editar la configuración de tu cuenta.
+        google: 
+          new_authentication_added: La autenticación mediante Google se ha agregado a su cuenta.
+          removed_connection: Hemos eliminado correctamente la conexión de EOL a tu cuenta de Google. Para desautorizar completamente las futuras interacciones entre tu cuenta de Google y EOL debes ir a Google y editar la configuración de tu cuenta.
+        twitter: 
+          new_authentication_added: La autenticación mediante Twitter se ha agregado a su cuenta.
+          removed_connection: Hemos eliminado correctamente la conexión de EOL con tu cuenta de Twitter. Para desautorizar completamente las futuras interacciones entre tu cuenta de Twitter y EOL debes ir a Twitter y editar la configuración de tu cuenta.
+        yahoo: 
+          new_authentication_added: La autenticación mediante Yahoo! se ha agregado a su cuenta.
+          removed_connection: Hemos eliminado correctamente la conexión de EOL con tu cuenta de Yahoo!. Para desautorizar completamente las futuras interacciones entre tu cuenta de Yahoo! y EOL debes ir a Yahoo! y editar la configuración de tu cuenta.
+      twitter: Twitter
+      warnings: 
+        no_way_to_login: Ya no tienes ninguna cuenta conectada, no podrás iniciar sesión en EOL a menos que agregues una cuenta conectada o agregues un usuario de EOL y contraseña.
+      yahoo: Yahoo!
+    recover_account: 
+      errors: 
+        temporary_login_user_not_found: Lo sentimos, no se ha podido encontrar la cuenta de EOL que estás tratando de recuperar, por favor solicita un nuevo correo electrónico para recuperar tu cuenta.
+        token_expired_or_invalid: Lo sentimos, el enlace temporal de inicio de sesión ha caducado o no es válido, solicita un nuevo correo electrónico para recuperar tu cuenta.
+        unable_to_update_token: Lo sentimos, ha ocurrido un error y el mensaje no fue enviado, vuelve a intentarlo.
+        user_not_found_by_email_address: No se pudo encontrar una cuenta de EOL con esa dirección de correo electrónico.
+      form_header: Recuperar cuenta
+      form_tip: Para recuperar tu cuenta de EOL, escribe la dirección de correo electrónico asociada a esa cuenta. Comprueba tu carpeta de spam si no recibes un correo electrónico de recuperación de cuenta dentro de una hora.
+      meta_title: Recuperar cuenta
+      notices: 
+        recovery_email_sent: Se ha enviado un correo electrónico de recuperación de cuenta con instrucciones adicionales. Comprueba tu filtro de spam si no recibes el correo electrónico en una hora.
+        temporarily_logged_in_update_authentication_details: Estás conectado temporalmente  para permitir la recuperación de tu cuenta, cambiar tu contraseña o actualizar tus cuentas conectadas para asegurar que puedes iniciar sesión correctamente.
+    recover_account_choose_account: 
+      errors: 
+        user_not_found_choose_again: Lo sentimos, ha ocurrido un error y el mensaje no fue enviado, por favor, selecciona la cuenta de la que te gustaría recuperar el acceso a e inténtalo de nuevo.
+      form_header: Recuperar cuenta
+      form_tip: Hay varias cuentas registradas con la dirección de correo <em>%{email}</em>, por favor, selecciona la cuenta para la que te gustaría recuperar el acceso.
+      legend_choose_account: Elige una cuenta
     show: 
       meta_description: Perfil de miembro de %{user_full_name} en la Encyclopedia of Life.
       meta_description_curator: Perfil de miembro del %{curator_level} %{user_full_name} en la Encyclopedia of Life.

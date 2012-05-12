@@ -4,6 +4,7 @@
 # Author: Cekli829
 # Author: Emperyan
 # Author: Incelemeelemani
+# Author: Karduelis
 # Author: Ugcan
 # Author: Zafertorun
 tr: 
@@ -17,9 +18,11 @@ tr:
   translated_activities-name-activity_id-56: sil
   translated_activities-name-activity_id-57: oran
   translated_activities-name-activity_id-58: güvenilir
+  translated_activities-name-activity_id-64: kaldır
   translated_agent_roles-label-agent_role_id-1: Canlandırıcı
   translated_agent_roles-label-agent_role_id-10: Proje
   translated_agent_roles-label-agent_role_id-11: Yayımcı
+  translated_agent_roles-label-agent_role_id-12: Kaydedici
   translated_agent_roles-label-agent_role_id-13: Kaynak
   translated_agent_roles-label-agent_role_id-14: Kaynak Veritabanı
   translated_agent_roles-label-agent_role_id-2: Yazar
@@ -27,15 +30,23 @@ tr:
   translated_agent_roles-label-agent_role_id-5: Oluşturan
   translated_agent_roles-label-agent_role_id-6: Yönetmen
   translated_agent_roles-label-agent_role_id-7: Editör
+  translated_agent_roles-label-agent_role_id-9: Fotoğrafçı
+  translated_audiences-label-audience_id-1: Uzman kullanıcılar
   translated_audiences-label-audience_id-2: Genel kamu
   translated_audiences-label-audience_id-3: Çocuklar
   translated_collection_types-label-collection_type_id-1: Taksonomi
   translated_collection_types-label-collection_type_id-10: Sesler
   translated_collection_types-label-collection_type_id-11: Bağlantılar
   translated_collection_types-label-collection_type_id-13: Taksonomi
+  translated_collection_types-label-collection_type_id-15: Açıklama
+  translated_collection_types-label-collection_type_id-16: Resimler
   translated_collection_types-label-collection_type_id-22: Sesler
   translated_collection_types-label-collection_type_id-23: Bağlantılar
+  translated_collection_types-label-collection_type_id-24: Literatür
   translated_collection_types-label-collection_type_id-4: Resimler
+  translated_collection_types-label-collection_type_id-6: Korunma durumu
+  translated_collection_types-label-collection_type_id-8: Moleküler veri
+  translated_collection_types-label-collection_type_id-9: Adlandırma
   translated_contact_roles-label-contact_role_id-1: Birincil İletişim
   translated_contact_roles-label-contact_role_id-2: Yönetimsel İletişim
   translated_contact_roles-label-contact_role_id-3: Teknik İletişim
@@ -81,24 +92,49 @@ tr:
   translated_licenses-description-license_id-7: Bazı hakları saklıdır
   translated_licenses-description-license_id-8: Bazı hakları saklıdır
   translated_licenses-description-license_id-9: Bazı hakları saklıdır
+  translated_ranks-label-rank_id-106: form
+  translated_ranks-label-rank_id-107: forma
   translated_ranks-label-rank_id-118: cins
+  translated_ranks-label-rank_id-169: infra takım
+  translated_ranks-label-rank_id-175: infra türler
   translated_ranks-label-rank_id-183: âlem
   translated_ranks-label-rank_id-266: takım
   translated_ranks-label-rank_id-280: şube
+  translated_ranks-label-rank_id-317: seksiyon
+  translated_ranks-label-rank_id-324: seri
   translated_ranks-label-rank_id-335: türler
   translated_ranks-label-rank_id-352: alt familya
   translated_ranks-label-rank_id-370: alt sınıf
+  translated_ranks-label-rank_id-375: alt bölüm
   translated_ranks-label-rank_id-383: alt familya
   translated_ranks-label-rank_id-394: alt cins
   translated_ranks-label-rank_id-396: alt âlem
   translated_ranks-label-rank_id-399: alt takım
   translated_ranks-label-rank_id-401: alt şube
+  translated_ranks-label-rank_id-408: alt seksiyon
+  translated_ranks-label-rank_id-411: alt seri
+  translated_ranks-label-rank_id-414: subsp.
   translated_ranks-label-rank_id-415: alt tür
+  translated_ranks-label-rank_id-422: alt oymak
+  translated_ranks-label-rank_id-463: üst familya
+  translated_ranks-label-rank_id-494: oymak
   translated_ranks-label-rank_id-51: sınıf
+  translated_ranks-label-rank_id-512: var
+  translated_ranks-label-rank_id-513: var.
+  translated_ranks-label-rank_id-517: varyeteler
+  translated_ranks-label-rank_id-518: varyete
+  translated_ranks-label-rank_id-74: bölüm
+  translated_ranks-label-rank_id-85: "\nf"
   translated_ranks-label-rank_id-99: aile
   translated_resource_statuses-label-resource_status_id-1: Yükleniyor
   translated_resource_statuses-label-resource_status_id-2: Yüklendi
   translated_resource_statuses-label-resource_status_id-3: Yükleme Başarısız
+  translated_sort_styles-name-sort_style_id-6: Derecelendirme
+  translated_synonym_relations-label-synonym_relation_id-1: sinonim
+  translated_synonym_relations-label-synonym_relation_id-49: geçerli adı
+  translated_synonym_relations-label-synonym_relation_id-51: onaylandı
+  translated_synonym_relations-label-synonym_relation_id-63: onaylanmadı
+  translated_synonym_relations-label-synonym_relation_id-64: Geçersiz
   translated_table_of_contents-label-table_of_contents_id-1: Genel Bakış
   translated_table_of_contents-label-table_of_contents_id-13: Genel adlar
   translated_table_of_contents-label-table_of_contents_id-14: Dünya Doğa ve Doğal Kaynakları Koruma Birliği (IUCN)
@@ -128,6 +164,7 @@ tr:
   translated_table_of_contents-label-table_of_contents_id-327: Fizyoloji
   translated_table_of_contents-label-table_of_contents_id-328: Hücre Biyolojisi
   translated_table_of_contents-label-table_of_contents_id-33: Trendler
+  translated_table_of_contents-label-table_of_contents_id-333: Moleküler Biyoloji
   translated_table_of_contents-label-table_of_contents_id-336: Notlar
   translated_table_of_contents-label-table_of_contents_id-337: Eğitim
   translated_table_of_contents-label-table_of_contents_id-338: Eğitim Bağlantıları

@@ -849,7 +849,7 @@ pt:
         request_publish: Foi pedida a publicação
         request_publish_more: Indica se há uma solicitação pendente para promover esta hierarquia para se tornar uma das hierarquias navegáveis primárias na EOL.
       resource: 
-        accesspoint_url: URL do conjunto de dados <small>(apenas XML, XML.GZIP ou XML.GZ)</small>
+        accesspoint_url: URL do conjunto de dados
         accesspoint_url_existing_remove: Este recurso está actualmente a ser carregado da URL terminada em <em>%{accesspoint_url}</em>. Carregar um ficheiro se gostaria de remover a URL existente e carregar o recurso de um ficheiro em vez disso (não recomendado).
         administration_settings: Configurações de administração <small>(visível apenas para administradores EOL)</small>
         dataset: Conjunto de dados
@@ -962,7 +962,6 @@ pt:
         create: Criar conta
         curation_application: Concorra agora
         curation_privileges: Submeter pedido
-        forgot_password: Enviar correio electrónico
         generate_api_key: Gerar uma chave
         update: Guardar informação do perfil
       wikipedia_queue: 
@@ -1308,8 +1307,8 @@ pt:
   user_activity_stats_header: Actividade
   user_activity_stats_objects_curated: Objectos curados
   user_activity_stats_taxa_curated: Taxa curados
-  users:
-    new:
+  users: 
+    new: 
       create_user_header: Criar uma nova conta <abbr title="Encyclopedia of Life">EOL</abbr>
   will_paginate: 
     next_label: Próximo &#8594;

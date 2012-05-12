@@ -9,6 +9,7 @@
 # Author: Meno25
 # Author: Rana El Deeb
 # Author: Sara.elshobaky
+# Author: ترجمان05
 ar: 
   0_1_or_2: 0، 1 أو 2
   0_or_1: 0، أو 1
@@ -19,6 +20,8 @@ ar:
   a_total_of_comment_were_found_matching_your_criteria: 
     one: تم إيجاد %{count} تعليقًا يوافق المعيار الذي تم إدخاله
     other: تم إيجاد %{count} تعليقًا يوافق المعيار الذي تم إدخاله
+  a_total_of_items_were_found_matching_your_criteria: وجدنا %{count} عنصر متماشيًا مع معاييرك.
+  a_total_of_terms_were_found_matching_your: وجدنا %{count} مصطلحًا متماشيًا مع معاييرك.
   about_eol: عن موسوعة الحياة
   account_information: بيانات الحساب
   account_information_menu: المعلومات الخاصة بالحساب
@@ -173,6 +176,11 @@ ar:
         new_data_on_my_watched_item: إسهامات جديدة للأصنوفات في قائمة المراقبة الخاصة بك
         new_manager_in_my_community: أصبح عضوًا آخرًا مديرًا لمجتمع تقوم أنت بإدارته
         reply_to_comment: الرد على تعليق أدليت به
+      open_authentication: 
+        created_at: أنشئت
+        updated_at: آخر تحديث
+        user_id: مُعرِّف المستخدم
+        verified_at: آخر تحقق
       resource: 
         accesspoint_url: عنوان إلكتروني لمجموعة بيانات
         auto_publish: نشر - آلي
@@ -252,6 +260,11 @@ ar:
         wrong_length: عدد الحروف خاطئ (يجب أن يكون %{count} حرف)
         wrong_type: صيغة خاطئة
       models: 
+        data_object: 
+          attributes: 
+            rights_holder: 
+              blank: لا يمكن تركها خالية لرخصة CC-BY.
+              inclusion: يجب أن تظل خالية لرخصة ملك عام.
         harvest_event: 
           attributes: 
             publish: 
@@ -604,6 +617,7 @@ ar:
   add_article_to_page_link_button: أضف مقال إلى تلك الصفحة
   add_association_submit_button: اضافة رابط
   add_brief_summary_to_page_link_button: أضف نبذة مختصرة إلى تلك الصفحة
+  add_citizen_science_resources_to_page_link_button: أضف رابط مواطن العلم لهذه الصفحة
   add_collection_to_a_new_community: أضف "%{collection}"  لمجتمع جديد
   add_collection_to_community: أضف المجموعة للمجتمع
   add_education_resources_to_page_link_button: اضف مصادر  تعليمية إلى هذه الصفحة
@@ -662,7 +676,7 @@ ar:
   admin_login_confirmation: هل أنت متأكد من رغبتك في الدخول في سجل شريك المحتوى كـ %{name} ؟ في هذه الحالة، سيتم تسجيل خروجك من الموقع كإداري.
   admin_notes_not_visible_to_user: "ملاحظات المشرف (غير ظاهرة للمستخدم):"
   admin_page_title: "الإدارة: نبذة عامة."
-  admin_spam_delete: Delete Spam
+  admin_spam_delete: حذف الرسائل المزعجة
   admin_statistics_link: الإحصائيات
   admin_translated_content_page_create_successful_notice: تمت إضافة الترجمة إلى  <a href="#%{anchor}"><em>%{page_name}</em></a>
   admin_translated_content_page_create_unsuccessful_error: عفوًا، حدث خطأ، تعذر إضافة الترجمة.
@@ -772,10 +786,12 @@ ar:
   articles_with_count: 
     one: "%{count} مقالة"
     other: "%{count} مقالة"
+  as_of_time_there_were_unique_visitors: من %{time} وجدنا %{count} زائرًا متفردًا.
   assistive_details_header: التفاصيل
   assistive_literature_header: المواد المطبوعة
   assistive_maps_header: الخرائط
   assistive_media_header: الوسائط
+  assistive_names_classifictions_header: تصنيفات
   assistive_names_common_header: الأسماء الشائعة
   assistive_names_related_header: الأسماء ذات الصلة
   assistive_names_synonyms_header: المترادفات
@@ -853,9 +869,13 @@ ar:
   citing_link: اقتباس
   classification_tree_header: تصنيف
   classifications_empty: لم يتم إضافة تلك الصفحة إلى أي من التصنيفات القابلة للتصفح بموسوعة الحياة.
+  classifications_hierarchy_column_header: تصنيف
   classifications_summary_header_with_count: 
     one: وجدت في %{count} تصنيف
     other: وجدت في %{count} تصنيف
+  classifications_with_count: 
+    one: "%{count} تصنيف"
+    other: "%{count} التصنيفات"
   clear_all_non_species_pages: مسح كل الصفحات التي لا تتناول الأنواع
   clear_entire_cache_store: مسح كل مخزن الذاكرة المخبأة
   clear_species_page: مسح صفحة الأنواع
@@ -1229,6 +1249,7 @@ ar:
     one: تم نسخ %{count} عنصر من %{name}.
     other: تم نسخ %{count} عنصر من %{name}.
   copy: نسخ
+  copy_items_to_a_new_collection_with_count: قم بنسخ %{count} عنصرًا لمجموعة جديدة.
   copy_of_name: نسخة من %{name}
   copyright: "حقوق ملكية:"
   correct_donation_message: إذا كانت تلك المعلومات صحيحة، يرجى %{go_back_link} لإضافة تعديلات
@@ -1330,7 +1351,7 @@ ar:
   dato_edit_text_title: تعديل المقال
   dato_new_edit_user_text_fieldset_content_header: محتوى المقال
   dato_new_edit_user_text_fieldset_information_header: معلومات المقال
-  dato_new_edit_user_text_form_tip: سوف يتم تصنيف مقالتك كـ"غير مراجعة" حتى يقوم أحد المشرفيين بمراجعتها. إذا كنت مشرف، سوف يتم نشر مقالتك مباشرة في صفحة الإصنوفة. يجب  (%{required_icon}) ملء الخانة التي يوجد بجانبها نقطة.
+  dato_new_edit_user_text_form_tip: سيتم عرض مقالك المكتمل على صفحة الأصنوفات. إن لم تكن مشرفًا، ستوضع عليها علامة "غير مُراجع" حتى يقوم مشرف بمراجعتها. مطلوب الفصل الفرعي والنص واللغة والرخصة (%{required_icon})، أما باقي الخانات فهي اختيارية. إذا قمت باختيار رخصة CC-BY - Attribution رجاء تضمين صاحب حق الملكية أو اترك المكان خاليًا لنستخدم اسمك كاملاً. لا تتطلب رخص الملك العام صاحب حق ملكية. لمزيد من المساعدة اقرأ <a href="%{add_article_help_url}">add article help</a>.
   dato_new_text_for_taxon_page_title: أضف مقال إلى <i>%{taxon}</i>
   dato_new_text_page_description: نشكرك على المساهمة في  موسوعة الحياة. ستضاف مساهمتك فى قائمة المشاهدة الخاصة بك حتى تتمكن من متابعة أي مداخلات متعلقة بها ووضعها من حيث اﻹشراف.
   dato_update_user_text_error: عفوًا، حدث خطأ، تعذر تحديث المقال.
@@ -1461,6 +1482,9 @@ ar:
   every_method_can_also_return_json_response: يمكن لكل طريقة أن تقدم استجابة بصيغة جسون عن طريق إضافة امتداد (.json)
   example_colon: "مثال:"
   exception: استثناء
+  exceptions: 
+    security_violations: 
+      default: رفض الدخول.
   expand_all_children: تمديد كل النسل
   explore: استكشف
   explore_what_we_know_about_taxon: استكشف ماذا تعرف موسوعة الحياة عن %{taxon}
@@ -1471,7 +1495,7 @@ ar:
   external_link_icon_alt_text: رابط خارجي.
   external_report_click_url_to_proceed: تقرير خارجي. انقر على العنوان للمضي قدمًا
   external_report_click_year_to_proceed: تقرير خارجي. انقر على "السنة" للمضي قدمًا.
-  facebook: موقع فايسبوك
+  facebook: فيس بوك
   faculty_staff_or_grad_student_credential_option: حالة أساتذة أو عاملون أو طلبة دراسات عليا في قسم بجامعة أو كلية ذات صلة
   failed_login_attempts_with_count: 
     one: "(%{count} محاولة تسجيل دخول فاشلة - يجب وضع العلامة حتى يتمكن المستخدم من الدخول "
@@ -1544,6 +1568,7 @@ ar:
   forgot_password_form_choose_username_instructions: هنالك عدة حسابات مسجلة بالعنوان الإلكتروني <em>%{email}</em>، يرجى اختيار حساب واحد لإعادة ضبط كلمة السر.
   forgot_password_form_choose_username_legend: يرجى اختيار حساب
   forgot_password_form_header: أعد ضبط كلمة السر
+  forgot_password_form_helper: لاحظ أن خاصية فلترة الرسائل "email filters" تصِف رسائل تفعيل الحساب الإلكترونية <em>frequently</em> برسائل "مزعجة" أو "spam". رجاء فحص ملف الرسائل المزعجة "spam" الخاص بك إن لم تصلك الرسالة الإلكترونية خلال ساعة.
   forgot_password_form_username_or_email_blank_error: يرجى إدخال أسم المستخدم أو البريد الإلكتروني لإعادة ضبط كلمة السر.
   form_validation_errors_for_attribute_assistive: هنالك خطأ في التحقق بذلك العنصر
   fragment_caching_enabled: تفعيل التحكم في الذاكرة لفترة معينة
@@ -1631,6 +1656,7 @@ ar:
         email_reports_frequency_hours_more: يتم إرسال تقارير البريد الإلكتروني فقط إذا كانت هناك تعليقات أو إجراءات من مشرف على البيانات الخاصة بك أو على صفحات الأصنوفات ذات الصلة بمجموعة البيانات الخاصة بك.
       data_object: 
         bibliographic_citation: الإقتباس الببليوغرافي
+        bibliographic_citation_more: هذه صيغة اقتباس موصى بها لهذه البيانات في صورة مرجع ببليوجرافي، يُرجى ذكر تفاصيل كافية لتعريف هذه البيانات بأقصى دقة ممكنة.
         description: النص <small>(some HTML markup is allowed)</small>
         license_id: الرخصة
         license_id_more: قراءة <a href="%{policy_url}">  سياسة ترخيص موسوعة الحياة  </a>
@@ -1639,6 +1665,7 @@ ar:
         rights_holder: صاحب حقوق الملكية
         rights_holder_more: حدد شخص أو منظمة تملك أو تدير حقوق هذه البيانات. لو تركت هذه الخانة خالية سيُفترض أنك أنت الحامل لكل رخص الملكية باستثناء الملك العام. رخص الملك العام لا تتطلب حامل لحقوق الملكية
         rights_statement: إقرار الحقوق
+        rights_statement_more: يرجى ذكر بيان حق الاستخدام حسب رخص المشاع الإبداعي(Attribution (CC-BY ، وذكر النسبة <q cite="http://creativecommons.org/licenses/by/3.0"> بالطريقة التي حددها صاحب العمل أو مُقدم الرخصة </q>.
         source_url: العنوان الإلكتروني الخاص بعنصر البيانات الأصلي
         toc_item: فصل فرعي
       eol_statistic: 
@@ -1663,8 +1690,11 @@ ar:
         complete_more: "يفترض التسلسل الهرمي المختار فردية كل مدخل، أي أنه سوف يتم التعامل مع التسلسلات ذات الاسماء المتطابقة كجناس.  <strong> تحذير:  لا تغير هذه الخاصية إلا إذا كنت متأكد من حالة الجناس في التسلسل الهرمي، حيث أن هذا من شأنه تعريض سلامة البيانات إلى الخطر. </strong>"
         request_publish: تم طلب النشر
         request_publish_more: يشير إلى ما إذا كان هناك طلب معلق لتطوير هذا التسلسل الهرمي ليصبح أحد التسلسلات الهرمية الرئيسية القابلة للتصفح بموسوعة الحياة.
+      open_authentication: 
+        connect: أضف
+        connected: متصل
       resource: 
-        accesspoint_url: العنوان الإلكتروني لمجموعة البيانات <small>(XML, XML.GZIP or XML.GZ only)</small>
+        accesspoint_url: العنوان الإلكتروني لمجموعة البيانات
         accesspoint_url_existing_remove: يتم تحميل ذلك المصدر حاليًا من العنوان الإلكتروني الذي ينتهي بـ <em>%{accesspoint_url}</em>. قم بتحميل ملف إذا كنت ترغب في حذف العنوان الإلكتروني الحالي وتحميل المصدر من ملف عوضًا عن ذلك (لا ينصح بذلك)
         administration_settings: إعدادات الإدارة <small> (ظاهرة إلى مشرفي موسوعة الحياة فقط)<small>
         dataset: مجموعة بيانات
@@ -1711,6 +1741,7 @@ ar:
         curator_level: أنت الأن %{curator_level_with_indefinite_article}.
         curator_scope: نطاق الإشراف
         curator_scope_more: يرجى توضيح مجال خبراتك. على سبيل المثال؛ ''قوارض بورنيو''، أو ''تفاعلات المستويات الغذائية الثلاثية''، أو ''قضايا حفظ الأسماك''. لن يحد ذلك من قدرتك على الأشراف، ولكن سوف يخطر موسوعة الحياة.
+        email: عنوان البريد الإلكتروني
         email_reports_frequency_hours: كم عدد المرات التي ترغب فيها بتلقي أخطارات عن طريق البريد الإلكتروني عن النشاط حول مساهماتك؟
         email_settings_submit: إعدادات البريد الإلكتروني
         entered_password: كلمة السر <small>(4-16 حرف)</small>
@@ -1721,6 +1752,8 @@ ar:
         new_password_confirmation: كلمة سر جديدة <small>(للتأكيد)</small>
         notification_settings: إعدادات الإعلام
         notification_settings_more: كون إعدادات التنبيه الخاصة بك.
+        open_authentications: الحسابات المتصلة
+        open_authentications_connected_accounts: حساباتك المتصلة
         requested_curator_level: إن طلبك لتصبح %{curator_level_with_indefinite_article} معلق.
         requested_curator_level_id_more: اختر <em>ممشرف مساعد</em> إذا لم تكن لديك أية شهادات معتمدة بعد. اختر <em>مشرف</em> إذا كنت عالمًا محترفًا أو طالب دراسات عليا لديه شهادات معتمدة اختر  <em>مشرف أول</em>  إذا كنت مشرفًا ذا خبرة بموسوعة الحياة وترغب في تحمل مسئوليات جديدة.
         tag_line: الشعار او العنوان <small>مثال "مولع بالطيور"</small>
@@ -1733,6 +1766,7 @@ ar:
     select: 
       prompt: يرجى الاختيار
     submit: 
+      cancel: ألغي
       collection_item: 
         update: احفظ
       content_page: 
@@ -1756,6 +1790,9 @@ ar:
         create: أضف مقال
         create_text: أضف مقال
         update: حفظ المقال
+      eol_statistic: 
+        download_csv: تحميل بصيغة (CSV)
+      filter_sort: تنقية وترتيب
       harvest_event: 
         publish: انشر
       hierarchy: 
@@ -1764,6 +1801,10 @@ ar:
       name: 
         create: أضف أسم
         update: تحديث أسم
+      open_authentication: 
+        create: اربط
+        destroy: اقطع التوصيل
+        update: تحقق من الرّبط
       resource: 
         create: إضافة مصدر
         force_harvest: طلب التجميع الإجباري للبيانات
@@ -1780,7 +1821,6 @@ ar:
         create: إنشاء حساب
         curation_application: قدم الطلب الأن
         curation_privileges: تقديم الطلب
-        forgot_password: ارسل بريد إلكتروني
         generate_api_key: إضافة مفتاح
         notification_settings: إعدادات الإخطارات
         update: حفظ المعلومات الشخصية
@@ -2127,7 +2167,7 @@ ar:
   newsfeed_help_for_collection: تجمع تحديثات أخبار مجموعة موسوعة الحياة تلك تحديثات مرتبطة بالعناصر التي تنتمي إليها، بما في ذلك نشاطات مالكها وتعليقات مستخدمو موسوعة الحياة الأخرون.
   newsfeed_help_for_community: تجمع تحديثات أخبار مجموعة موسوعة الحياة تلك تحديثات مرتبطة بالعناصر التي تنتمي إلى المجموعة التي تمثل مجال الاهتمام، بما في ذلك نشاطات أعضائها وتعليقات مستخدمو موسوعة الحياة الأخرون.
   newsfeed_help_for_focus_list: تجمع تحديثات أخبار قائمة مجالات الاهتمام تحديثات مرتبطة بالعناصر التي تنتمي إلى قائمة الاهتمام الرئيسية بالمجموعة، بما في ذلك نشاطات مديريها وتعليقات مستخدمو موسوعة الحياة الأخرون.
-  newsfeed_help_for_profile: تضم تحديثات أخبار الصفحة الشخصية بموسوعة الحياة رسائل مرسلة إلى مالكها من أعضاء أخرون، ودعوات من مجموعات بموسوعة الحياة، كما تجمع تحديثات مرتبطة بعناصر في قائمة المراقبة الخاصة بمالكها بموسوعة الحياة.
+  newsfeed_help_for_profile: تضم تحديثات أخبار الصفحة الشخصية بموسوعة الحياة تعليقات مرسلة إلى مالكها من أعضاء أخرون، ودعوات من مجموعات بموسوعة الحياة، كما تجمع تحديثات مرتبطة بعناصر في قائمة المراقبة الخاصة بمالكها بموسوعة الحياة.
   newsfeed_help_for_taxon: تجمع تحديثات أخبار صفحة الإصنوفة تلك بموسوعة الحياة تحديثات مرتبطة بالعناصر المعروضة بها، بما في ذلك الخطوات التي  يتخذها المشرفون، وتعليقات مستخدمو موسوعة الحياة الأخرون.
   newsfeed_help_for_watchlist: تجمع تحديثات أخبار قائمة المراقبة بموسوعة الحياة تحديثات مرتبطة بالعناصر المتضمنة في قائمة المراقبة الخاصة بالمالك، بما في ذلك نشاطاته.
   next: التالي
@@ -2163,6 +2203,7 @@ ar:
   note_that_you_can_reference_im: لاحظ أنه يمكنك إضافة مراجع للصور ذات رمز HTML &lt;img&gt; ولكن يجب أن يكن لهم عنوان URL كأن يكون عنوان الموقع الأصلي أو موقع مثل فليكر. ولا توجد وسيلة لتحميل الصور داخل عنصر الخبر يمكن استخدامها بصورة مباشرة.
   notes: ملاحظات
   notes_not_shown_to_user: "ملحوظات (لا تظهر للمستخدم):"
+  notification_frequency_daily_digest: الموجز اليومي
   notification_frequency_never: أبدًا
   notification_frequency_newsfeed_only: الأخبار فقط
   notification_frequency_send_immediately: ارسل فورًا
@@ -2220,9 +2261,6 @@ ar:
     user_commented_on_something_date_body: "قام %{curator_level} %{users_name} (%{users_url}) بالتعليق على: \n%{commented_on_name} (%{commented_on_url})\n%{comment_date}:\n%{comment_body}"
     user_message: 
       subject: رسالة من موسوعة الحياة
-    user_reset_password: 
-      message: "تلقت موسوعة الحياة (www.eol.org) طلب لإعادة ضبط كلمة السر الخاصة بك. إذا لم تقدم على هذا الطلب، فيرجى منك تجاهل هذه الرسالة.\n\nسيقوم الرابط التالي بإعادة ضبط كلمة السر:\n\n%{password_reset_url}\n\nليكن في علمك أنه بعد مضي 24 ساعة من تقديمك لهذا الطلب، سيلغى الرابط وسيتوجب عليك تقديم طلب جديد."
-      subject: إعادة ضبط كلمة السر الخاصة بحسابك بموسوعة الحياة
     user_updated_email_preferences: 
       message: "هذا نظام إشعار آلي من موسوعة الحياة. قام المستخدم %{user_full_name} (%{user_profile_url}) بتحديث بريده الإلكتروني أو قائمة تفضيلات المراسلة. \n\nالتفضيلات السابقة: \nالبريد الإلكتروني: %{previous_email}\n\nقائمة تفضيلات المراسلة: %{previous_mailing_list_preference}\n\nتم التحديث إلى: \nالبريد الإلكتروني: %{updated_email}\nقائمة تفضيلات المراسلة: %{updated_mailing_list_preference}\nالتحديث: %{updated_at}"
       subject: قام مستخدم موسوعة الحياة %{user_full_name} بتغيير العنوان الإلكتروني أو تفضيلات قائمة المراسلة
@@ -2250,12 +2288,12 @@ ar:
   object_type: نوع الموضوع
   object_type_all_option: الكل
   object_type_collection_option: Collection
-  object_type_community_option: Community
+  object_type_community_option: المجتمع
   object_type_image_option: صورة
   object_type_sound_option: الصوت
   object_type_taxon_concept_option: Taxon Concept
   object_type_text_option: نص
-  object_type_user_option: User
+  object_type_user_option: المستخدم
   object_type_video_option: مقطع فيديو
   object_visibility: إمكانية رؤية الكائن
   object_visibility_all_option: الكل
@@ -2439,6 +2477,7 @@ ar:
     default_subject: أحدث نشاط في موقع موسوعة الحياة
     intro: إليك خلاصة نشاط موسوعة الحياة المتعلق بك لـ %{time}
     intro_immediately: أهلاً %{name} -
+    intro_weekly: هذا موجز أنشطتك على موسوعة الحياة للأسبوع المنتهي في %{ending}.
     see_all_activity: طالع جميع أنشطتك السابقة على<a href='%{activity_url}' style='color:#195184'>صفحة أخبار المستخدم الخاصة بك</a>.
     someone_commented_on_something: قام <b>%{who}</b> بالتعليق على <b>%{what}</b>.
     unsubscribe: قم بتغيير إعدادات بريدك الإلكتروني أو ألغي اشتراكك في<a href='%{email_prefs_url}' style='color:#195184'>صفحة تفضيلات الإخطار الخاصة بك</a>.
@@ -2922,6 +2961,9 @@ ar:
     other: "%{count} أصنوفة"
   taxon: أصنوفة
   taxon_biomedical_terms_link: مصطلحات بيولوجية طبية
+  taxon_citizen_science_header: روابط لمواطن العلم
+  taxon_citizen_science_link: روابط لمواطن العلم
+  taxon_citizen_science_resources_empty: لم يقم أحد بالإسهام بأي روابط لمواطن العلم على هذه الصفحة بعد.
   taxon_concept_stats: إحصاءات مفهوم الأصنوفة
   taxon_details_empty: لم تتم إضافة أي معلومات إلى تلك الصفحة إلى الأن.
   taxon_education_empty: لم تتم إضافة أي مصادر عن التعليم إلى تلك الصفحة إلى الأن.
@@ -2945,7 +2987,6 @@ ar:
   taxon_partner_links_link: روابط الشركاء
   taxon_rating: تقييم الأصنوفة
   taxon_recognized_by: أصنوفة اعترف بها %{whom}
-  taxon_recognized_by_header: معترف بها بواسطة
   taxon_selected_from_search_res: أصنوفة تم اختيارها من نتائج البحث
   taxon_suggested: الأصنوفة المقترحة
   taxonomic_summary_of_content: الملخص التصنيفي للمحتوى
@@ -3072,12 +3113,13 @@ ar:
   unable_to_invite_users_to_community_error: تعذر إرسال الدعوات إلى  %{users}.
   unique_page_views_th: مشاهدات متفردة للصفحة
   unknown: غير معروف
+  unknown_hierarchy: نسلسل هرمي غير معروف
   unknown_type_not_associated_with_any_published_entries: هذه البيانات غير مرتبطة بأي أصنوفات منشورة.
-  unpublished: لم يتم نشره
-  unreviewed: لم تتم مراجعته
+  unpublished: غير منشور
+  unreviewed: غير مُراجع
   unreviewed_images: صور غير مراجعة
   unreviewed_maps: خرائط غير مراجَعة
-  unreviewed_text_objects: مقالات لم تتم مراجعتها
+  unreviewed_text_objects: مقالات غير مُراجعة
   untrusted: غير موثوق به
   update: تحديث
   update_collection_submit_button: تحديث معلومات المجموعة
@@ -3132,7 +3174,7 @@ ar:
   user_commented_on_older_data_object_colon: "<strong>%{user}</strong> أضاف تعليق على %{what}:"
   user_commented_on_something_colon: "<strong>%{user}</strong> علق على %{what}:"
   user_commented_on_themself: "قام <strong>%{user_with_link}</strong> بالتعليق على الخبر <a href='%{link}'>%{username}'s newsfeed</a>:"
-  user_comments: User Comments
+  user_comments: تعليقات المستخدم
   user_full_name_with_curator: "%{user} (%{curator_level})"
   user_id: مُعرِّف المستخدم
   user_index_intro: فيما يلي جميع مستخدمي الويب المسجلين في النظام مرتبين عكسيًا وفقًا لتاريخ التسجيل. لاحظ أن تواريخ تسجيل المستخدمين في الفترة ما قبل النسخة الثانية من موسوعة الحياة (5 يناير،2009) غير متاحة. انقر على اسم المستخدم لتعديل ذلك المستخدم.
@@ -3179,13 +3221,17 @@ ar:
         meta_description: ارتباطات %{user_full_name} بشركاء المحتوى.
         meta_title: شركاء المحتوى الذي يرتبط بهم%{user_full_name}
         tweet_text: شركاء المحتوى الذي يرتبط بهم %{user_full_name}
-    new:
+    new: 
       create_user_header: إنشاء حساب جديد  <abbr title="Encyclopedia of Life">بموسوعة الحياة</abbr>
     newsfeeds: 
+      activity: 
+        meta_title: أخبار النشاط الخاص بالمستخدم %{user_full_name}
+        tweet_text: أخبار عن أنشطة %{user_full_name}
       activity_link: نشاط
       comments: 
         meta_description: إخبارية عن تعليقات للمستخدم %{user_full_name}.
         meta_title: تعليقات المستخدم %{user_full_name}
+        tweet_text: أخبار التعليقات الخاصة بالمستخدم %{user_full_name}
       comments_link: تعليقات
       newsfeed_link: رسائل إخبارية سريعة
       show: 
@@ -3194,7 +3240,11 @@ ar:
         tweet_text: تحديثات أخبار%{user_full_name}
     notifications: 
       edit: 
+        page_description: كافة التحديثات المدرجة أدناه (عدا نشرة موسوعة الحياة الإخبارية) متوفرة لك في <a href="%{user_newsfeed_link}">EOL newsfeed</a>. حيث أن العديد من الناس يرغب أيضًا في أن يتم تنبيههم بالبريد الإلكتروني حول بعض الأنشطة محط اهتمامهم، يمكنك استخدام الأزرار الموجودة أدناه لتحديد مدى تكرار رسائل موسوعة الحياة الإلكترونية كما يناسبك.
         page_title: إعدادات الإخطارات
+    open_authentications: 
+      facebook: فيس بوك
+      google: جوجل
     show: 
       meta_description: الصفحة الشخصية للعضو %{user_full_name} بموسوعة الحياة.
       meta_description_curator: الصفحة الشخصية للعضو %{curator_level} %{user_full_name} بموسوعة الحياة.

@@ -1269,7 +1269,7 @@ fr:
         request_publish: Publication demandée
         request_publish_more: Indique si une hiérarchie est en demande de promotion pour qu’elle devienne l’une des principales hiérarchies navigables sur EOL.
       resource: 
-        accesspoint_url: URL du dataset <small>(XML, XML.GZIP ou XML.GZ seulement)</small>
+        accesspoint_url: URL du dataset
         accesspoint_url_existing_remove: Cette ressource est actuellement en cours de chargement depuis l'URL terminant <em>%{accesspoint_url}</em>. Chargez un fichier si vous voulez supprimer l'URL existante et charger la ressource depuis un fichier à la place (non recommandé).
         administration_settings: Paramètres d'administration <small>(visibles seulement par les administrateurs d'EOL)</small>
         dataset: Jeu de données
@@ -1361,6 +1361,9 @@ fr:
         create: Ajouter l’article
         create_text: Ajouter l’article
         update: Enregistrer l’article
+      eol_statistic: 
+        download_csv: Télécharger comme fichier CSV
+      filter_sort: Filtrer et trier
       harvest_event: 
         publish: Publier
       hierarchy: 
@@ -1385,7 +1388,6 @@ fr:
         create: Créer un compte
         curation_application: Appliquer maintenant
         curation_privileges: Soumettre la demande
-        forgot_password: Envoyer un courriel
         generate_api_key: Générer une clé
         notification_settings: Paramètres de notification
         update: Enregistrer les informations de profil
@@ -1816,9 +1818,6 @@ fr:
     user_commented_on_something_date_body: "Le %{curator_level} %{users_name} (%{users_url}) a commenté :\n%{commented_on_name} (%{commented_on_url})\n%{comment_date} :\n%{comment_body}"
     user_message: 
       subject: Un message de l’''Encyclopédie de la vie'' (EOL)
-    user_reset_password: 
-      message: "L’''Encyclopédie de la vie'' (www.eol.org) a reçu une demande de réinitialisation de votre mot de passe. Si vous n’avez pas effectué cette demande, veuillez ignorer ce courriel.\n\nLe lien suivant réinitialisera votre mot de passe :\n\n%{password_reset_url}\n\nVeuillez noter qu'après 24 heures, le lien expire et qu'il vous faudra faire une nouvelle demande de réinitialisation."
-      subject: Réinitialiser le mot de passe de votre compte utilisateur sur l’''Encyclopédie de la vie'' (EOL)
     user_updated_email_preferences: 
       message: "Ceci est une notification automatique du système EOL. L'utilisateur %{user_full_name} (%{user_profile_url}) a mis à jour son adresse courriel ou ses préférences pour les listes de diffusion.\n\nPréférences précédentes :\nCourriel : %{previous_email}\nPréférence pour les listes de diffusion : %{previous_mailing_list_preference}\n\nPréférences actuelles : \nCourriel : %{updated_email}\nPréférence pour les listes de diffusion : %{updated_mailing_list_preference}\nMise à jour du : %{updated_at}"
       subject: L’utilisateur d’EOL %{user_full_name} a modifié son adresse courriel ou ses préférences pour les listes de diffusion
@@ -2365,7 +2364,6 @@ fr:
   taxon_partner_links_link: Liens vers un partenaire
   taxon_rating: Évaluation du taxon
   taxon_recognized_by: Taxon reconnu par %{whom}
-  taxon_recognized_by_header: Reconnu par
   taxon_selected_from_search_res: Taxon sélectionné à partir des résultats de la recherche
   taxon_suggested: Taxon suggéré
   taxonomic_summary_of_content: Résumé taxonomique du contenu
@@ -2591,8 +2589,8 @@ fr:
   username: Nom d'utilisateur
   username_colon: "Nom d’utilisateur :"
   username_taken: "%{name} est déjà pris"
-  users:
-    new:
+  users: 
+    new: 
       create_user_header: Créer un nouveau compte <abbr title="Encyclopédie de la vie">EOL</abbr>
   users_about_me_header: À mon sujet
   users_content_partners_header: Partenaires de contenu

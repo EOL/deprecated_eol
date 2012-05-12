@@ -173,6 +173,15 @@ mk:
         new_data_on_my_watched_item: Нови придонеси кон таксоните на вашиот список на набљудувања
         new_manager_in_my_community: Заедница со која раководите доби уште еден раководител
         reply_to_comment: Одговор на ваш коментар
+      open_authentication: 
+        created_at: Создадена
+        guid: GUID
+        provider: Надворешен добавувач
+        secret: Тајна
+        token: Жетон
+        updated_at: Последна поднова
+        user_id: Корисничка назнака
+        verified_at: Последна заверка
       resource: 
         accesspoint_url: URL на податочниот збир
         auto_publish: Автообјави
@@ -206,6 +215,7 @@ mk:
         curator_scope: Опсег на згрижувањето
         disable_email_notifications: Не сакам да добивам НИКАКВИ актуелности по е-пошта
         email: Е-пошта
+        email_confirmation: Повторно е-поштата <small>(за потврда)</small>
         entered_password: Лозинка
         entered_password_confirmation: Повторно лозинката <small>(за да потврдите)</small>
         family_name: Презиме
@@ -261,6 +271,9 @@ mk:
           attributes: 
             publish: 
               inclusion: е допуштено само за најновото преземање и само ако не е веќе објавено
+        open_authentications: 
+          guid_provider_must_be_unique: сметката на надворешниот добавувач е веќе поврзана со сметка на EOL
+          provider_user_id_must_be_unique: секој надворешен добавувач може да поврзе само по една негова сметка со сметка на EOL
         resource: 
           attributes: 
             accesspoint_url: 
@@ -458,6 +471,13 @@ mk:
         user_curated_an_unknown_data_object: <strong>%{user}</strong> згрижи непознат податочен објект.
         user_curated_data_object: <strong>%{user}</strong> го згрижи „%{data_object}“.
         user_curated_it: Го згрижи <strong>%{user}</strong>, но точната постапка е загубена.
+      preferred_classification: 
+        an_unknown_user_preferred_classification_on_an_unknown_taxon: Непознат корисник ја означи класификацијата од „%{provider}“ како претпочитана за непознат таксон.
+        an_unknown_user_preferred_classification_on_it: Непознат корисник ја означи класификацијата од „%{provider}“ како претпочитана.
+        an_unknown_user_preferred_classification_on_taxon: Непознат корисник ја означи класификацијата од „%{provider}“ како претпочитана за непознат „%{taxon}“.
+        user_preferred_classification_on_an_unknown_taxon: <strong>%{user}</strong> ја означи класификацијата од „%{provider}“ како претпочитана за непознат таксон.
+        user_preferred_classification_on_it: <strong>%{user}</strong> ја означи класификацијата од „%{provider}“ како претпочитана.
+        user_preferred_classification_on_taxon: <strong>%{user}</strong> ја означи класификацијата од „%{provider}“ како претпочитана за „%{taxon}“.
       reasons_to_hide: "Причини за скривањето: %{reasons}"
       reasons_to_untrust: "Причини за недоверливост: %{reasons}"
       remove_association: 
@@ -609,6 +629,7 @@ mk:
   add_article_to_page_link_button: Стави статија на страницата
   add_association_submit_button: додај поврзаност
   add_brief_summary_to_page_link_button: Додај краток опис на страницата
+  add_citizen_science_resources_to_page_link_button: Додај врска за граѓанска наука
   add_collection_to_a_new_community: Додај ја збирката „%{collection}“ во нова заедница
   add_collection_to_community: Додај збирка во заедница
   add_education_resources_to_page_link_button: Додај образовни ресурси во страницава
@@ -784,6 +805,7 @@ mk:
   assistive_literature_header: Литература
   assistive_maps_header: Карти
   assistive_media_header: Медиуми
+  assistive_names_classifictions_header: Класификации
   assistive_names_common_header: Тривијални имиња
   assistive_names_related_header: Поврзани имиња
   assistive_names_synonyms_header: Синоними
@@ -859,11 +881,23 @@ mk:
   citation: Наведување
   citation_example: Fisher, Brian. "Pogonomyrmex anergismus Cole, 1954." Encyclopedia of Life, достапно на <a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>. Проверено на 15 јануари 2009.
   citing_link: Наведување
+  classification_already_preferred: "ГРЕШКА: Оваа класификација е веќе означена како претпочитана."
+  classification_from_agent_chosen_by_curator: Класификација од %{agent} по избор на %{curator}.
+  classification_preferred_for_taxon: Претпочитана
+  classification_preferred_for_taxon_help_tip: "%{icon} ја означува претпочитаната класификација за овој таксон."
+  classification_summary_section_header: Класификација
   classification_tree_header: Класификација
   classifications_empty: Оваа страница не фигурира во ниедна класификација што може да се најде на EOL.
+  classifications_hierarchy_column_header: Класификација
+  classifications_preferred_column_header: Претпочитано
+  classifications_rank_column_header: Ранг
+  classifications_recognized_by_column_header: Признаено од
   classifications_summary_header_with_count: 
     one: Пронајдено во %{count} класификација
     other: Пронајдено во %{count} класификации
+  classifications_with_count: 
+    one: "%{count} Класификација"
+    other: "%{count} Класификации"
   clear_all_non_species_pages: Исчисти ги сите страници што не се за видови
   clear_entire_cache_store: Исчисти го сето складиште на кеш
   clear_species_page: Исчисти ја страницата за вид
@@ -907,6 +941,24 @@ mk:
         meta_keywords: Раководители на %{collection_name}
         meta_title: Раководители на %{collection_name}
         tweet_text: Раководители на %{collection_name}
+    inaturalists: 
+      show: 
+        add_observations: Додај набљудувања
+        meta_description: Набљудувања од iNaturalist за збирката %{collection_name} на Енциклопедијата на живиот свет.
+        meta_keywords: Набњудувања од iNaturalist за %{collection_name}
+        meta_title: Набњудувања од iNaturalist за %{collection_name}
+        no_observations_added_to_this_project_yet: Во проектов сè уште нема додадено набљудувања.
+        observation_date: "Датум: %{observed_on}"
+        observation_place: "Место: %{place}"
+        observer_with_link: "Набљудувач: %{observer_link}"
+        recent_observations: Скорешни набљудувања
+        some_taxon: Нешто
+        taxa_observed: Се набљудуваат %{observed_taxa_count} таксони
+        top_contributors: Најактивни учесници на iNaturalist
+        tweet_text: Набњудувања од iNaturalist за %{collection_name}
+        view_all_observations_on_inaturalist: Погл. сите набљудувања од %{project_title} на iNaturalist
+        view_more_observations_on_inaturalist: Повеќе набљудувања од %{project_title} на iNaturalist
+        view_project_on_inaturalist: Погл. %{project_title} на iNaturalist
     newsfeeds: 
       show: 
         meta_description: Новости, коментари и активности на членовите за збирката %{collection_name} на Енциклопедијата на живиот свет.
@@ -1171,6 +1223,7 @@ mk:
   content_partner_resource_update_unsuccessful_error: Нажалост, се појави грешка. Не можев да го подновам ресурсот.
   content_partner_resource_upload_unsuccessful_error: "Нажалост, се појави грешка. Податоците за реусрсот се подновени, но самиот ресурс не е подигнат: %{resource_status}."
   content_partner_resource_url_or_dataset_not_both_error: URL-асдреса на податочниот збир или податотека по ресурс, но не обете. Одлучете дали сакате да наведете URL-адреса или да подигнете податотека за овој опишан ресурс. Подоцна може да додавате и други ресурси.
+  content_partner_resource_validation_unsuccessful_error: Нажалост, податоците за ресурсот се изменети, но не успеавме да го завериме самиот ресурс. Погледајте ги забелешките од обработката подолу.
   content_partner_resource_vetted_false: не
   content_partner_resource_vetted_true: да
   content_partner_resource_view_link: Прегл.
@@ -1478,6 +1531,15 @@ mk:
   every_method_can_also_return_json_response: Секој метод може да даде и JSON-одговор ако се додаде наставката .json
   example_colon: "Пример:"
   exception: Исклучок
+  exceptions: 
+    security_violations: 
+      administrators_only: Нажалост, овде имаат пристап само администратори.
+      default: Пристапот е одбиен.
+      hidden_user_login: Нажалост, на таа сметка ѝ е оневозможено најавување.
+      hidden_user_recover_account: Нажалост, на таа сметка ѝ е оневозможен повраток.
+      hidden_user_temporary_login: Нажалост, на таа сметка ѝ е оневозможено најавување и повраток.
+      inactive_user_login: Нажалост, таа сметка сè уште не е активна. Доколку не добивте порака за заверка кога се пријавивте, тогаш проследете ја постапката за повраток на сметката за да ја потврдите вашата е-пошта и така да ја активирате сметката.
+      min_full_curators_only: Нажалост, пристапот е ограничен само на полни Кустоси.
   expand_all_children: отвори ги сите поттаксони
   explore: Истражете
   explore_what_we_know_about_taxon: Истражете што сè знае EOL за таксонот %{taxon}.
@@ -1683,8 +1745,11 @@ mk:
         complete_more: "Згрижената хиерархија работи под претпоставка дека секој запис е засебен, т.е. исти низи во имињата се сметаат за синонимни. <strong>ПРЕДУПРЕДУВАЊЕ: Не менувајте го овој атрибут доколку не сте сигурни за статусот на хомонимите во хиерархијата. Во спротивно можете да ја расипете целовидноста на податоците.</strong>"
         request_publish: Објавувањето е побарано
         request_publish_more: Укажува дали во исчекување има барање хиерархијата да се унапреди во една од главните прелистливи хиерархии на EOL.
+      open_authentication: 
+        connect: Додај
+        connected: Поврзано
       resource: 
-        accesspoint_url: URL-адреса на податочниот збир <small>(само XML, XML.GZIP или XML.GZ)</small>
+        accesspoint_url: URL-адреса на податочниот збир
         accesspoint_url_existing_remove: Ресурсот во моментов се вчитува од URL-адресата со завршеток <em>%{accesspoint_url}</em>. Ако сакате да ја отстраните постоечката URL-адреса, подигнете податотека и вчитајте го ресурсот од неа (не се препорачува).
         administration_settings: Административни нагодувања <small>(видливи само за администратори на EOL)</small>
         dataset: Податочен збир
@@ -1731,6 +1796,7 @@ mk:
         curator_level: Моментално сте %{curator_level_with_indefinite_article}.
         curator_scope: Опсег на згрижувањето
         curator_scope_more: "Наведете го опфатот на вашата стручност. На пример: „Глодари на Борнео“, „Три-трофични заемодејства“ или „Заштитни прашања кај рибите“. Ова нема да биде никакво ограничување во вашите кустоски задачи, туку служи само како информација за заедницата на EOL."
+        email: Е-пошта
         email_reports_frequency_hours: Колку често би сакале на е-пошта да добивате известувања за активности поврзани со вашите придонеси?
         email_settings_submit: нагодувања за е-пошта
         entered_password: Лозинка <small>(4 - 16 знаци)</small>
@@ -1741,6 +1807,9 @@ mk:
         new_password_confirmation: Нова лозинка <small>(за потврда)</small>
         notification_settings: Нагодувања за известувањата
         notification_settings_more: Наместете ги поставките за известувањата.
+        open_authentications: Поврзани сметки
+        open_authentications_connected_accounts: Ваши поврзани сметки
+        open_authentications_more: Раководете со врските до сметки од надворешни места со кои можете да се најавите на EOL. <a href="%{open_authentications_url}">Уреди поврзани сметки</a>.
         requested_curator_level: Вашето барање да станете %{curator_level_with_indefinite_article} чека на решение.
         requested_curator_level_id_more: Изберете <em>Помошник-кустос</em> ако немате работно искуство.  Одберете <em>Кустос</em> ако сте научен работник или дипломец со искуство. Одберете <em>Виш кустос</em> ако сте искусен кустос на EOL и сакате да преземете повеќе одговорности.
         tag_line: "Гесло или наслов <small>example: „Љубители на птиците“</small>"
@@ -1753,6 +1822,7 @@ mk:
     select: 
       prompt: Одберете
     submit: 
+      cancel: Откажи
       collection_item: 
         update: Зачувај
       content_page: 
@@ -1776,6 +1846,9 @@ mk:
         create: Додај статија
         create_text: Додај статија
         update: Зачувај статија
+      eol_statistic: 
+        download_csv: Преземи како CSV
+      filter_sort: Филтрирај и подреди
       harvest_event: 
         publish: Објави
       hierarchy: 
@@ -1784,6 +1857,10 @@ mk:
       name: 
         create: Додај име
         update: Поднови име
+      open_authentication: 
+        create: Поврзи
+        destroy: Прекрати
+        update: Заверката на врската
       resource: 
         create: Додај ресурс
         force_harvest: Побарај наметнато преземање
@@ -1791,6 +1868,10 @@ mk:
         update_settings: Поднови нагодувања
       session: 
         create: Најава
+        sign_in_with_facebook: Најава со Facebook
+        sign_in_with_google: Најава со Google
+        sign_in_with_twitter: Најава со Twitter
+        sign_in_with_yahoo: Најава со Yahoo
       submit: Зачувај %{model}
       translated_content_page: 
         create: Додај превод
@@ -1800,9 +1881,13 @@ mk:
         create: Направи сметка
         curation_application: Поднеси пријава
         curation_privileges: Поднеси барање
-        forgot_password: Испрати е-пошта
         generate_api_key: Создај клуч
         notification_settings: Нагодувања за известувањата
+        recover_account: Испрати е-пошта
+        sign_up_with_facebook: Пријава со Facebook
+        sign_up_with_google: Пријава со Google
+        sign_up_with_twitter: Пријава со Twitter
+        sign_up_with_yahoo: Пријава со Yahoo
         update: Зачувај профилни информации
       wikipedia_queue: 
         create: Поднеси барање
@@ -1859,6 +1944,7 @@ mk:
   in_providing_its_content_to_eo: Доставувајќи ја оваа содржина на EOL,
   in_this_data_type: "во оваа %{data_type}:"
   inappropriate: Несоодветни
+  inaturalist_tab_label: Набњудувања од iNaturalist
   include_all_metadata: вклучи ги сите метаподатоци за податочните објекти
   indexed: Индексирано
   info_item: Инфообјект
@@ -2093,6 +2179,9 @@ mk:
     one: Уште %{count}...
     other: Уште %{count}...
   more_information_on_the_various_licenses: лиценци. Посетете ги нивните мрежни места за да добиете повеќе информации за лиценците што ги нудат
+  more_siblings_with_count: 
+    one: Уште %{count} сродник...
+    other: Уште %{count} сродници...
   most_active_members: Најактивни учесници
   move: Премести
   move_down: Премести надолу
@@ -2244,12 +2333,15 @@ mk:
     user_activated: 
       message: "Добредојдовте на Енциклопедијата на живиот свет (EOL) и ви благодариме што се регистриравте! Вашето корисничко име е %{username}, а профилот ќе си го најдете на адресата %{profile_url}. Можете да се најавите на http://www.eol.org/login.\n\nЗа да дознаете како да ја користите EOL, како да правите збирки, како да учествувате во заедниците и како да придонесувате со содржини, посетете ги страниците за помош на http://www.eol.org/help."
       subject: Вашата сметка на Енциклопедијата на живиот свет е активирана
+    user_activated_with_open_authentication: 
+      message: "Добредојдовте во Енциклопедијата на живиот свет (EOL) и ви благодариме што се пријавивте! Пријавувањето го направивте со %{oauth_provider}, овластувајќи ја EOL да пристапи до вашите основни податоци за заверка. URL-адресата на вашиот профил на EOL е %{profile_url}. Можете да се најавите на сметката на EOL со %{oauth_provider} на http://eol.org/login.\n\nЗа да дознаете повеќе за тоа како се користи EOL, како да создавате збирки, како да учествувате во заедниците и како да придонесувате со содржини, посетете ги страниците за помош на http://eol.org/help."
+      subject: Вашата сметка на Енциклопедијата на живиот свет е активирана
     user_commented_on_something_date_body: "%{curator_level} %{users_name} (%{users_url}) коментираше на:\n%{commented_on_name} (%{commented_on_url})\n%{comment_date}:\n%{comment_body}"
     user_message: 
       subject: Порака од Енциклопедијата на живиот свет
-    user_reset_password: 
-      message: "Енциклопедијата на живиот свет (www.eol.org) прими барање за промена на вашата лозинка. Доколку немате поднесено вакво барање, тогаш занемарете ја поракава.\n\nСледнава врска ви дава еднократна можност да ставите нова лозинка:\n\n%{password_reset_url}\n\nИмајте на ум дека врската истекува за 24 часа, а потоа ќе треба одново да го поставите барањето."
-      subject: Задавање на нова лозинка на сметката на Енциклопедијата на живиот свет
+    user_recover_account: 
+      message: "Енциклопедијата на живиот свет (http://eol.org) доби барање за да ви ја поврати сметката. Доколку не сте го поднеле ова барање, тогаш занемарете го писмово.\n\nСледнава врска ќе ве одведе на еднократна најава, каде ќе можете да си ја смените лозинката или да додадете нова поврзана сметка со која би се пријавувале во иднина:\n\n%{temporary_login_url}\n\nИмајте предвид дека оваа врска истекува во рок од 24 часа. По истекот, можете да поднесете ново барање за привремена најава на %{recover_account_url}."
+      subject: Повраток на сметката на Енциклопедијата на живиот свет
     user_updated_email_preferences: 
       message: "Ова е автоматско известување од системот на EOL. Корисникот %{user_full_name} (%{user_profile_url}) ја смени неговата е-пошта или нагодувања за поштенскиот список.\n\nПретходни нагодувања:\nЕ-пошта: %{previous_email}\nНагодување на поштенски список: %{previous_mailing_list_preference}\n\nИзменети нагодувања:\nЕ-пошта: %{updated_email}\nНагодување на поштенски список: %{updated_mailing_list_preference}\nИзменето: %{updated_at}"
       subject: Корисникот %{user_full_name} на EOL ја смени неговата лозинка или нагодувања за поштенскиот список
@@ -2477,6 +2569,7 @@ mk:
   recipients: Примачи
   recognized_by: Признаен од
   recognized_by_as_a_rank: "%{recognized_by} како %{taxon_rank}"
+  recognized_by_from_source: "%{recognized_by} во %{source}"
   recognized_by_from_source_as_a_rank: "%{recognized_by} во %{source} како %{taxon_rank}"
   record_not_found: "[записот не е пронајден]"
   references_cabs_colon: "Наводи:"
@@ -2600,10 +2693,20 @@ mk:
   server_ip_address: IP-адреса на опслужувачот
   sessions: 
     new: 
+      login_with_eol_authentication_header: "Или пак најавете се со сметката на EOL:"
+      login_with_facebook_assistive: Најава на EOL со сметка на Facebook.
+      login_with_google_assistive: Најава на EOL со сметка на Google.
+      login_with_twitter_assistive: Најава на EOL со сметка на Twitter.
+      login_with_yahoo_assistive: Најава на EOL со сметка на Yahoo.
       meta_title: Најава
+      problems_signing_in_with_connected_accounts: Имате проблем при најавата со поврзаните сметки?
+      problems_signing_in_with_eol_authentication: Ја заборавивте лозинката?
   set_as_exemplar: Стави како урнек
   share_a_collection: Сподели збирка
   show: Прикажи
+  show_all_other_classifications_with_count: 
+    one: Прикажи уште %{count} непрелистлива класификација
+    other: Прикажи уште %{count} непрелистливи класификации
   show_data_from_all_content_partners: Отстрани го филтерот за класификација
   show_email_message_area: "[прикажи поле за е-пошта]"
   show_full_tree: прикажи цело дрво
@@ -2957,6 +3060,9 @@ mk:
     other: "%{count} таксони"
   taxon: таксон
   taxon_biomedical_terms_link: Биомедицински поими
+  taxon_citizen_science_header: Врски за граѓанска наука
+  taxon_citizen_science_link: Врски за граѓанска наука
+  taxon_citizen_science_resources_empty: Досега никој нема ставено врски за граѓанска наука.
   taxon_concept_stats: Статистики за таксонски концепти
   taxon_details_empty: Сè уште никој нема внесено податоци за овој таксон.
   taxon_education_empty: Досега никој нема ставено образовни ресурси на оваа страница.
@@ -2980,7 +3086,6 @@ mk:
   taxon_partner_links_link: Врски на соучесниците
   taxon_rating: Оценка на таксонот
   taxon_recognized_by: Таксонот е признаен од %{whom}
-  taxon_recognized_by_header: Признаено од
   taxon_selected_from_search_res: Избран таксон од резултатите
   taxon_suggested: Предложен таксон
   taxonomic_summary_of_content: таксономски преглед на содржините
@@ -3092,6 +3197,7 @@ mk:
   total_searches: "Вкупно пребарувања:"
   translation_deleted: Преводот е избришан
   translation_information_header: Информации за преводот
+  translation_log: Хистограм на честотата на I18n-клучеви
   translation_saved: Преводот е зачуван
   translations_submit: Погл. превод
   trigger_search_term_entered_by: повикувачки поим што го внел корисникот
@@ -3109,6 +3215,7 @@ mk:
   unable_to_invite_users_to_community_error: Не можев да испратам покани до %{users}.
   unique_page_views_th: Засебни посети
   unknown: Непознат
+  unknown_hierarchy: Непозната хиерархија
   unknown_type_not_associated_with_any_published_entries: Овие податоци не се поврзани со ниеден објавен таксон.
   unpublished: Необјавено
   unreviewed: Непроверено
@@ -3238,8 +3345,21 @@ mk:
         meta_description: Врски со соучесници во содржините на %{user_full_name}
         meta_title: Соучесници во содржините на %{user_full_name}
         tweet_text: Соучесници во содржините на %{user_full_name}
-    new:
+    edit: 
+      form_tip_account: За да се најавите на EOL ќе ви треба корисничко име и лозинка на самата EOL, или пак со поврзување на надворешна сметка. Корисничкото име и лозинката се бараат само ако немате поврзана надворешна сметка, но тука нова лозинка треба да внесете само ако сакате да ја смените постоечката. Сите корисници мора (%{required_icon}) да наведат е-пошта и претпочитан јазик.
+      form_tip_account_oauth: Сите корисници мора %{required_icon} да наведат е-пошта и претпочитан јазик.
+      form_tip_curation: Полномоштвата и опсегот на згрижување се незадолжителни за Помошниците-кустоси, но задолжителни %{required_icon} за полните Кустоси и Вишите кустоси
+      form_tip_profile: Ставките обележани како задолжителни %{required_icon} се незадолжителни за обичните корисници, но задолжителни за кустосите.
+      form_tip_profile_oauth: Името е задолжително за сите корисници. Другите експонати означени како задолжителни %{required_icon} не се задолжителни за обичните корисници, туку само за кустосите.
+    new: 
+      complete_registration_header: Довршете ја регистрацијата на EOL
       create_user_header: Создајте нова сметка на <abbr title="Encyclopedia of Life">EOL</abbr>
+      create_user_with_eol_authentication_header: "Или наведете нови податоци:"
+      meta_title: Зачленете се на EOL
+      sign_up_with_facebook_assistive: Пријава на EOL со сметка на Facebook.
+      sign_up_with_google_assistive: Пријава на EOL со сметка на Google.
+      sign_up_with_twitter_assistive: Пријава на EOL со сметка на Twitter.
+      sign_up_with_yahoo_assistive: Пријава на EOL со сметка на Yahoo.
     newsfeeds: 
       activity: 
         meta_title: Канал со активности на %{user_full_name}
@@ -3259,6 +3379,90 @@ mk:
       edit: 
         page_description: Сите долунаведени актуелности (освен билтенот на EOL) ви се на располагање во вашиот канал <a href="%{user_newsfeed_link}"> Актуелности на EOL</a>, но многумина сакаат да добиваат известија за определени активности што ги интересираат по е-пошта. На копчињата подолу можете да ја зададете саканата честота на пораките по е-пошта
         page_title: Нагодувања за известувањата
+    open_authentications: 
+      errors: 
+        authorize_uri_missing: Нажалост, се појави грешка, па затоа не можевме да ја започнеме заверката.
+        facebook: 
+          add_connection_failed_account_already_connected: Нажалост, не можеме да ви ја поврземе сметката на Facebook со вашата сметка на EOL бидејќи е веќе поврзана со <a href="%{existing_eol_account_url}">постоечка сметка на EOL</a>.
+          missing_attributes: Нажалост, не можевме да дојдеме до вашите податоци на Facebook.
+          new_authentication_not_added: Нажалост, се појави грешка. Не можеме да ве поврземе со сметката на Facebook.
+          not_authorized_to_add_authentication: Нажалост, немаме овластување за да ви ја поврземе сметката на Facebook.
+          not_authorized_to_signup: Нажалост, немаме овластување да ве пријавиме на EOL со вашата сметка на Facebook.
+          not_connected: Нажалост, не востановивме врска помеѓу вашата сметка на Facebook и EOL.
+          signup_failed_account_already_connected: Нажалост, не можеме да ве пријавиме за нова сметка на EOL со вашата сметка на Facebook бидејќи е веќе поврзана со <a href="%{existing_eol_account_url}">постоечка сметка на EOL</a>. Да не сакавте впрочем да се <a href="%{login_url}">најавите</a>?
+        google: 
+          add_connection_failed_account_already_connected: Нажалост, не можеме да ви ја поврземе сметката на Google со вашата сметка на EOL бидејќи е веќе поврзана со <a href="%{existing_eol_account_url}">постоечка сметка на EOL</a>.
+          missing_attributes: Нажалост, не можевме да дојдеме до вашите податоци на Google.
+          new_authentication_not_added: Нажалост, се појави грешка. Не можеме да ве поврземе со сметката на Google.
+          not_authorized_to_add_authentication: Нажалост, немаме овластување за да ви ја поврземе сметката на Google.
+          not_authorized_to_signup: Нажалост, немаме овластување да ве пријавиме на EOL со вашата сметка на Google.
+          not_connected: Нажалост, не востановивме врска помеѓу вашата сметка на Google и EOL.
+          signup_failed_account_already_connected: Нажалост, не можеме да ве пријавиме за нова сметка на EOL со вашата сметка на Google бидејќи е веќе поврзана со <a href="%{existing_eol_account_url}">постоечка сметка на EOL</a>. Да не сакавте впрочем да се <a href="%{login_url}">најавите</a>?
+        missing_attributes: Нажалост, се појави проблем при пристапот на податоците во вашата сметка на надворешен добавувач.
+        not_authorized_to_add_authentication: Нажалост, немаме овластување за да ви ја поврземе сметката.
+        not_authorized_to_signup: Нажалост, немаме овластување да ве пријавиме на EOL со таа сметка.
+        not_connected: Нажалост, не можевме да востановиме врска со сметка на EOL.
+        remove_connection_failed: Нажалост, се појави грешка. Не можеме да ја отстраниме врската.
+        twitter: 
+          add_connection_failed_account_already_connected: Нажалост, не можеме да ви ја поврземе сметката на Twitter со вашата сметка на EOL бидејќи е веќе поврзана со <a href="%{existing_eol_account_url}">постоечка сметка на EOL</a>.
+          missing_attributes: Нажалост, не можевме да дојдеме до вашите податоци на Twitter.
+          new_authentication_not_added: Нажалост, се појави грешка. Не можеме да ве поврземе со сметката на Twitter.
+          not_authorized_to_add_authentication: Нажалост, немаме овластување за да ви ја поврземе сметката на Twitter.
+          not_authorized_to_signup: Нажалост, немаме овластување да ве пријавиме на EOL со вашата сметка на Twitter.
+          not_connected: Нажалост, не востановивме врска помеѓу вашата сметка на Twitter и EOL.
+          signup_failed_account_already_connected: Нажалост, не можеме да ве пријавиме за нова сметка на EOL со вашата сметка на Twitter бидејќи е веќе поврзана со <a href="%{existing_eol_account_url}">постоечка сметка на EOL</a>. Да не сакавте впрочем да се <a href="%{login_url}">најавите</a>?
+        yahoo: 
+          add_connection_failed_account_already_connected: Нажалост, не можеме да ви ја поврземе сметката на Yahoo! со вашата сметка на EOL бидејќи е веќе поврзана со <a href="%{existing_eol_account_url}">постоечка сметка на EOL</a>.
+          missing_attributes: Нажалост, не можевме да дојдеме до вашите податоци на Yahoo!.
+          new_authentication_not_added: Нажалост, се појави грешка. Не можеме да ве поврземе со сметката на Yahoo!.
+          not_authorized_to_add_authentication: Нажалост, немаме овластување за да ви ја поврземе сметката на Yahoo!.
+          not_authorized_to_signup: Нажалост, немаме овластување да ве пријавиме на EOL со вашата сметка на Yahoo!.
+          not_connected: Нажалост, не востановивме врска помеѓу вашата сметка на Yahoo! и EOL.
+          signup_failed_account_already_connected: Нажалост, не можеме да ве пријавиме за нова сметка на EOL со вашата сметка на Yahoo! бидејќи е веќе поврзана со <a href="%{existing_eol_account_url}">постоечка сметка на EOL</a>. Да не сакавте впрочем да се <a href="%{login_url}">најавите</a>?
+      facebook: Facebook
+      google: Google
+      index: 
+        connected_last_verified: Поврзана; Последната заверка е направена пред %{time_passed};
+        connected_unverified: Поврзана; Незаверена;
+        not_connected: Неповрзана;
+        page_description: Раководење со надворешни сметки за најава на EOL.
+        page_title: Поврзани сметки
+        return_link: Назад кон уредувањето на профилот.
+      notices: 
+        facebook: 
+          new_authentication_added: На сметката ви е додадена заверка со Facebook.
+          removed_connection: Успешно ја отстранивме врската со EOL од вашата сметка на Facebook. Ако сакате наполно да ги прекратите сите идни дејства помеѓу сметката на Facebook и EOL, ова ќе мора да го сторите преку поставките на вашата сметка на Facebook.
+        google: 
+          new_authentication_added: На сметката ви е додадена заверка со Google.
+          removed_connection: Успешно ја отстранивме врската со EOL од вашата сметка на Google. Ако сакате наполно да ги прекратите сите идни дејства помеѓу сметката на Facebook и EOL, ова ќе мора да го сторите преку поставките на вашата сметка на Google.
+        twitter: 
+          new_authentication_added: На сметката ви е додадена заверка со Twitter.
+          removed_connection: Успешно ја отстранивме врската со EOL од вашата сметка на Twitter. Ако сакате наполно да ги прекратите сите идни дејства помеѓу сметката на Facebook и EOL, ова ќе мора да го сторите преку поставките на вашата сметка на Twitter.
+        yahoo: 
+          new_authentication_added: На сметката ви е додадена заверка со Yahoo!.
+          removed_connection: Успешно ја отстранивме врската со EOL од вашата сметка на Yahoo!. Ако сакате наполно да ги прекратите сите идни дејства помеѓу сметката на Facebook и EOL, ова ќе мора да го сторите преку поставките на вашата сметка на Yahoo!.
+      twitter: Twitter
+      warnings: 
+        no_way_to_login: Повеќе немате поврзани сметки. Нема да можете да се најавите на EOL доколку не поставите нова врска или направите корисничко име и лозинка на EOL.
+      yahoo: Yahoo!
+    recover_account: 
+      errors: 
+        temporary_login_user_not_found: Нажалост, не можев да ја пронајдам сметката на EOL што сакавте да ја повртатите. Поднесете ново барање за повраток.
+        token_expired_or_invalid: Нажалост, привремената најава е истечена или неважечка. Поднесете ново барање за повраток.
+        unable_to_update_token: Нажалост, се појави грешка, па затоа пораката не е исправена. Обидете се повторно.
+        user_not_found_by_email_address: Не можев да најдам сметка на EOL со таа е-пошта.
+      form_header: Поврати сметка
+      form_tip: За да си ја повратите сметката на EOL, внесете ја е-поштата што сте ја навеле при нејзиното создавање. Доколку не добиете порака за повраток вои рок од еден час, проверете го сандачето за спам.
+      meta_title: Повраток на сметка
+      notices: 
+        recovery_email_sent: Испратена е порака за повраток на сметката со понатамошни напатствија. Доколку не ја добиете во рок од еден час, проверете во сандачето за спам.
+        temporarily_logged_in_update_authentication_details: Сега сте привремено најавени, колку да можете да си ја повратите сметката. Сменете ја лозинката или поврзаните сметки за да можете да се најавувате успешно.
+    recover_account_choose_account: 
+      errors: 
+        user_not_found_choose_again: Нажалост, се појави грешка, па затоа пораката не е испратена. Одберете ја сметката што сакате да ја повратите и обидете се повторно.
+      form_header: Повраток на сметка
+      form_tip: Адресата <em>%{email}</em> фигурира на повеќе сметки. Одберете која од нив сакате да ја повратите.
+      legend_choose_account: Одберете сметка
     show: 
       meta_description: Членски профил на %{user_full_name} во Енциклопедијата на живиот свет.
       meta_description_curator: Членски профил на %{curator_level} %{user_full_name} во Енциклопедијата на живиот свет.
@@ -3362,7 +3566,7 @@ mk:
     previous_label: "&#8592; Претходна"
   worklist: Работен список
   xml_response: XML-одговор
-  yahoo: Yahoo
+  yahoo: Yahoo!
   yahoo_images: Yahoo Слики
   year: Година
   yes_answer: Да

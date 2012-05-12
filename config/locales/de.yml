@@ -177,6 +177,15 @@ de:
         new_data_on_my_watched_item: Neue Beiträge zur Taxa auf Ihrer Beobachtungsliste.
         new_manager_in_my_community: Ein anderes Mitglied wurde zum Verwalter einer Gemeinschaft, die auch Sie verwalten.
         reply_to_comment: Eine Antwort auf einen Ihrer Kommentare
+      open_authentication: 
+        created_at: Erstellt
+        guid: GUID
+        provider: Authentifizierer (Drittanbieter)
+        secret: Geheim
+        token: Token
+        updated_at: Zuletzt aktualisiert
+        user_id: Nutzerkennung
+        verified_at: Zuletzt verifiziert
       resource: 
         accesspoint_url: Dataset-URL
         auto_publish: Automatisch veröffentlichen
@@ -210,6 +219,7 @@ de:
         curator_scope: Kuratierungsbereich
         disable_email_notifications: Senden Sie mir keinerlei Benachrichtigungen per E-Mail
         email: E-Mail-Adresse
+        email_confirmation: E-Mail-Adresse erneut angeben <small>(zur Bestätigung)</small>
         entered_password: Passwort
         entered_password_confirmation: Passwortwiederholung <small>(zur Bestätigung)</small>
         family_name: Nachname
@@ -265,6 +275,9 @@ de:
           attributes: 
             publish: 
               inclusion: ist nur für den letzten Datenabruf zulässig und auch nur, sofern dieser Datenabruf noch nicht veröffentlicht wurde
+        open_authentications: 
+          guid_provider_must_be_unique: das Drittanbieterkonto ist bereits mit einem EOL-Konto verbunden.
+          provider_user_id_must_be_unique: es kann nur je ein Konto pro Drittanbieter mit dem EOL-Konto verbunden werden
         resource: 
           attributes: 
             accesspoint_url: 
@@ -613,6 +626,7 @@ de:
   add_article_to_page_link_button: Fügen Sie dieser Seite einen Artikel hinzu
   add_association_submit_button: Zuordnung hinzufügen
   add_brief_summary_to_page_link_button: Fügen Sie dieser Seite eine kurze Zusammenfassung hinzu
+  add_citizen_science_resources_to_page_link_button: Füge auf dieser Seite einen Link zu „Wissenschaft für Bürger“ hinzu
   add_collection_to_a_new_community: Die Sammlung „%{collection}“ einer neuen Gemeinschaft hinzufügen
   add_collection_to_community: Die Sammlung der Gemeinschaft hinzufügen
   add_education_resources_to_page_link_button: Fügen Sie dieser Seite Bildungsmittel hinzu
@@ -788,6 +802,7 @@ de:
   assistive_literature_header: Literatur
   assistive_maps_header: Karten
   assistive_media_header: Medien
+  assistive_names_classifictions_header: Klassifikationen
   assistive_names_common_header: Gebräuchliche Namen
   assistive_names_related_header: Ähnliche Namen
   assistive_names_synonyms_header: Synonyme
@@ -863,11 +878,23 @@ de:
   citation: Zitierung
   citation_example: "Fisher, Brian: „Pogonomyrmex anergismus Cole, 1954.“ Enzyklopädie des Lebens, von <a href=\"http://eol.org/pages/460427\" target=\"_blank\">http://eol.org/pages/460427</a>. Abgerufen am 15. Jan. 2009."
   citing_link: Zitieren
+  classification_already_preferred: Diese Klassifikation wurde bereits als bevorzugt markiert.
+  classification_from_agent_chosen_by_curator: Klassifikation von %{agent} wurde von %{curator} ausgewählt.
+  classification_preferred_for_taxon: Bevorzugt
+  classification_preferred_for_taxon_help_tip: "%{icon} markiert die bevorzugte Klassifikation zu diesem Taxon."
+  classification_summary_section_header: Klassifikation
   classification_tree_header: Klassifikation
   classifications_empty: Diese Seite ist in keiner der Klassifikationen enthalten, die auf EOL durchsuchbar sind.
+  classifications_hierarchy_column_header: Klassifikation
+  classifications_preferred_column_header: Bevorzugt
+  classifications_rank_column_header: Rang
+  classifications_recognized_by_column_header: Anerkannt von
   classifications_summary_header_with_count: 
     one: In einer Klassifikation gefunden
     other: In %{count} Klassifikationen gefunden
+  classifications_with_count: 
+    one: "%{count} Klassifikation"
+    other: "%{count} Klassifikationen"
   clear_all_non_species_pages: Alle Seiten entfernen, die sich nicht auf Arten beziehen
   clear_entire_cache_store: Den gesamten Cachespeicher leeren
   clear_species_page: Alle Seiten entfernen, die sich auf Arten beziehen
@@ -911,6 +938,24 @@ de:
         meta_keywords: Verwalter von %{collection_name}
         meta_title: Verwalter von %{collection_name}
         tweet_text: Verwalter von %{collection_name}
+    inaturalists: 
+      show: 
+        add_observations: Beobachtungen hinzufügen
+        meta_description: Beobachtungen von iNaturalist zur Sammlung %{collection_name} in der Enzyklopädie des Lebens (EOL).
+        meta_keywords: Beobachtungen von iNaturalist zur Sammlung %{collection_name}
+        meta_title: Beobachtungen von iNaturalist zur Sammlung %{collection_name}
+        no_observations_added_to_this_project_yet: Bislang wurden diesem Projekt noch keine Beobachtungen hinzugefügt.
+        observation_date: "Datum: %{observed_on}"
+        observation_place: "Ort: %{place}"
+        observer_with_link: "Beobachter: %{observer_link}"
+        recent_observations: Aktuelle Beobachtungen
+        some_taxon: Etwas
+        taxa_observed: "%{observed_taxa_count} beobachtete Taxa"
+        top_contributors: Die aktivsten Mitwirkenden bei iNaturalist
+        tweet_text: Beobachtungen von iNaturalist zur Sammlung %{collection_name}
+        view_all_observations_on_inaturalist: Alle Beobachtungen von %{project_title} bei iNaturalist ansehen
+        view_more_observations_on_inaturalist: Weitere Beobachtungen von %{project_title} bei iNaturalist ansehen
+        view_project_on_inaturalist: "%{project_title} auf iNaturalist ansehen"
     newsfeeds: 
       show: 
         meta_description: Nachrichten, Kommentare und Mitgliederaktivitäten zur Sammlung %{collection_name} in der Enzyklopädie des Lebens (EOL).
@@ -1273,7 +1318,6 @@ de:
   create_community_around_this_collection_header: Gründen Sie eine Gemeinschaft zu dieser Sammlung
   create_community_button: Gemeinschaft gründen
   create_community_unsuccessful_error: Es ist leider ein Fehler aufgetreten, so dass Ihre Gemeinschaft nicht gegründet werden konnte. Bitte stellen Sie sicher, dass alle Felder richtig ausgefüllt wurden.
-  create_user_form_header: Erstellen Sie eine neues Konto bei <abbr title="Enzyklopädie des Lebens">EOL</abbr>.
   create_user_unsuccessful_error: Es ist leider ein Fehler aufgetreten, so dass Ihr neues Konto nicht erstellt werden konnte. Bitte stellen Sie sicher, dass alle Felder richtig ausgefüllt wurden.
   created: Erstellt
   created_at: Erstellt am
@@ -1485,6 +1529,13 @@ de:
   every_method_can_also_return_json_response: Jede Methode kann auch eine Antwort in JSON zurückgeben, indem man die Dateiendung .json anhängt.
   example_colon: "Beispiel:"
   exception: Ausnahme
+  exceptions: 
+    security_violations: 
+      administrators_only: Der Zugriff ist auf Administratoren bei der EOL beschränkt.
+      default: Zugriff verweigert.
+      hidden_user_login: Das Anmelden wurde für dieses Konto deaktiviert.
+      hidden_user_recover_account: Das Bergen wurde für dieses Konto deaktiviert.
+      hidden_user_temporary_login: Sowohl das Bergen wie das Anmelden wurden für dieses Konto deaktiviert.
   expand_all_children: alle untergeordneten Objekte expandieren
   explore: Entdecken
   explore_what_we_know_about_taxon: Erkunden Sie was EOL zu %{taxon} verfügbar hat.
@@ -1664,6 +1715,7 @@ de:
         refs: Quellen <small>(setzen Sie jede Quellenangabe in jeweils eine neue Zeile)</small>
         rights_holder: Rechteinhaber
         rights_statement: Urheberrechtserklärung
+        rights_statement_more: Angabe der Nutzungsrechte entsprechend dem Erfordernis der Creativ-Commons-Lizenzen „Namensnennung“ (CC BY). Bitte geben Sie den Hinweis auf die Nutzungsrechte <q cite="http://creativecommons.org/licenses/by/3.0">in der vom Autor oder Lizenzgeber vorgegebenen Art und Weise</q> an.
         source_url: URL zum ursprünglichen Datenobjekt
         toc_item: Unterkapitel
       eol_statistic: 
@@ -1688,8 +1740,11 @@ de:
         complete_more: "Bei einer kuratierten Hierarchie wird davon ausgegangen, dass jeder Eintrag eindeutig ist, d. h. übereinstimmende Zeichenfolgen bei Namen werden als Homonyme angesehen. <strong>WARNUNG: Ändern Sie dieses Attribut nicht, es sei denn Sie sind sich über den Status der Homonyme in der Hierarchie im Klaren. Eine Änderung könnte die Datenintegrität gefährden.</strong>"
         request_publish: Veröffentlichung angefragt
         request_publish_more: Gibt an, ob es eine unbearbeitete Anforderung gibt, diese Hierarchie zu einer der primär zu durchsuchenden Hierarchien auf EOL zu machen.
+      open_authentication: 
+        connect: Hinzufügen
+        connected: Verknüpft
       resource: 
-        accesspoint_url: Dataset-URL <small>(nur XML, XML.GZIP oder XML.GZ)</small>
+        accesspoint_url: Dataset-URL
         accesspoint_url_existing_remove: Diese Quelle wird aktuell über die URL <em>%{accesspoint_url}</em> eingebunden. Laden Sie eine Datei hoch, sofern Sie die vorhandene URL ersetzen wollen und die Quelle direkt als Datei eingebunden werden soll (nicht empfohlen).
         administration_settings: Administrationseinstellungen <small>(wird ausschließlich Administratoren auf EOL angezeigt)</small>
         dataset: Dataset
@@ -1736,6 +1791,7 @@ de:
         curator_level: Derzeit sind Sie %{curator_level_with_indefinite_article}.
         curator_scope: Kuratierungsbereich
         curator_scope_more: Bitte machen Sie Angaben zur Ihrer Expertise, bspw. „Nagetiere von Borneo“, „Tritrophische Interaktionen“ oder „Konservierungsprobleme bei Fischpräparaten“. Dies wird nicht Ihre Möglichkeiten beim Kuratieren einschränken, sondern dient dazu die Gemeinschaft von EOL zu informieren.
+        email: E-Mail-Adresse
         email_reports_frequency_hours: Wie oft möchten Sie E-Mail-Benachrichtigungen bezüglich der Aktivitäten bei Ihren Beiträgen erhalten?
         email_settings_submit: E-Mail-Einstellungen
         entered_password: Passwort <small>(4 bis 16 Zeichen)</small>
@@ -1746,6 +1802,9 @@ de:
         new_password_confirmation: Neues Passwort <small>(zur Bestätigung)</small>
         notification_settings: Benachrichtigungseinstellungen
         notification_settings_more: Konfigurieren Sie Ihre Benachrichtigungseinstellungen.
+        open_authentications: Verknüpfte Konten
+        open_authentications_connected_accounts: Ihre verbundenen Konten
+        open_authentications_more: Verknüpfungen mit Drittanbieterkonten verwalten, die Sie zum Anmelden bei EOL nutzen können. <a href="%{open_authentications_url}">Verknüpfte Konten bearbeiten</a>.
         requested_curator_level: Ihre Anfrage ein %{curator_level_with_indefinite_article} zu werden, wird noch überprüft.
         requested_curator_level_id_more: Wählen Sie <em>Prokurator</em> sofern Sie noch nicht über entsprechende Qualifikationen verfügen. Wählen Sie <em>Kurator</em>, sofern Sie ein Berufswissenschaftler oder Doktorand mit entsprechenden Qualifikationen sind. Wählen Sie <em>Hauptkurator</em>, sofern Sie ein erfahrener Kurator bei EOL sind und mehr Verantwortung übernehmen wollen.
         tag_line: Eine Bezeichnung oder ein Stichwort <small>z. B. „Vogelliebhaber“</small>
@@ -1758,6 +1817,7 @@ de:
     select: 
       prompt: Bitte wählen Sie
     submit: 
+      cancel: Abbrechen
       collection_item: 
         update: Speichern
       content_page: 
@@ -1781,6 +1841,9 @@ de:
         create: Artikel hinzufügen
         create_text: Artikel hinzufügen
         update: Artikel speichern
+      eol_statistic: 
+        download_csv: Als CSV-Datei herunterladen
+      filter_sort: Filtern und Sortieren
       harvest_event: 
         publish: Veröffentlichen
       hierarchy: 
@@ -1789,6 +1852,10 @@ de:
       name: 
         create: Namen hinzufügen
         update: Namen aktualisieren
+      open_authentication: 
+        create: Verknüpfen
+        destroy: Endknüpfen
+        update: Verknüpfung bestätigen
       resource: 
         create: Quelle hinzufügen
         force_harvest: Abruf anfragen
@@ -1796,6 +1863,10 @@ de:
         update_settings: Einstellungen aktualisieren
       session: 
         create: Anmelden
+        sign_in_with_facebook: Mit Facebook anmelden
+        sign_in_with_google: Mit Google anmelden
+        sign_in_with_twitter: Mit Twitter anmelden
+        sign_in_with_yahoo: Mit Yahoo anmelden
       submit: "%{model} speichern"
       translated_content_page: 
         create: Übersetzung hinzufügen
@@ -1805,9 +1876,13 @@ de:
         create: Konto erstellen
         curation_application: Bewerben Sie sich jetzt
         curation_privileges: Anfrage abschicken
-        forgot_password: E-Mail senden
         generate_api_key: Einen Schlüssel generieren
         notification_settings: Benachrichtigungseinstellungen
+        recover_account: E-Mail senden
+        sign_up_with_facebook: Über Facebook registrieren
+        sign_up_with_google: Über Google registrieren
+        sign_up_with_twitter: Über Twitter registrieren
+        sign_up_with_yahoo: Über Yahoo registrieren
         update: Profilinformationen speichern
       wikipedia_queue: 
         create: Anfrage abschicken
@@ -1864,6 +1939,7 @@ de:
   in_providing_its_content_to_eo: Mit dem Zurverfügungstellen der Inhalte bei EOL,
   in_this_data_type: "in diese %{data_type}:"
   inappropriate: Ungeeignet
+  inaturalist_tab_label: Beobachtungen von iNaturalist
   include_all_metadata: alle Metadaten zu Datenobjekten einbeziehen
   indexed: Indiziert
   info_item: Information
@@ -2098,6 +2174,9 @@ de:
     one: "%{count} mehr …"
     other: "%{count} mehr …"
   more_information_on_the_various_licenses: Lizenzen. Besuchen Sie deren Website für weitere Informationen bezüglich der verschiedenen Lizenzen, die sie anbieten.
+  more_siblings_with_count: 
+    one: Ein weiteres Geschwister ...
+    other: "%{count} weitere Geschwister ..."
   most_active_members: Aktivste Mitglieder
   move: Verschieben
   move_down: Nach unten verschieben
@@ -2249,12 +2328,13 @@ de:
     user_activated: 
       message: "Willkommen bei der Enzyklopädie des Lebens (EOL) und viele Dank für Ihre Anmeldung. Bitte merken Sie sich Ihren Nutzernamen %{username}. Die URL Ihres Profils bei der EOL lautet %{profile_url}. Mit Ihrem Konto können Sie sich unter der URL http://www.eol.org/login anmelden.\n\nWeitere Informationen zur Nutzung der EOL, einschließlich der Anleitung, wie sie eine Sammlung erstellen, wie Sie in Nutzergemeinschaften mitwirken oder zu den Inhalten beitragen können, finden Sie auf unseren Hilfeseiten unter der URL http://www.eol.org/help."
       subject: Ihr Konto bei der Enzyklopädie des Lebens (EOL) wurde aktiviert
+    user_activated_with_open_authentication: 
+      subject: Ihr Konto bei der Enzyklopädie des Lebens (EOL) wurde aktiviert
     user_commented_on_something_date_body: "%{curator_level} %{users_name} (%{users_url}) kommentierte Folgendes:\n%{commented_on_name} (%{commented_on_url})\n%{comment_date}:\n%{comment_body}"
     user_message: 
       subject: Eine Nachricht von der Enzyklopädie des Lebens (EOL)
-    user_reset_password: 
-      message: "Es wurde eine Anforderung zum Zurücksetzen Ihres Passwortes an die Enzyklopädie des Lebens (EOL) gerichtet. Sofern diese Anforderung nicht von Ihnen stammt, sollten Sie diese E-Mail-Nachricht ignorieren.\n\nDer folgende Link setzt Ihr Passwort zurück:\n\n%{password_reset_url}\n\nBitte beachten Sie, dass der Link nach 24 Stunden abläuft und Sie danach einen Neuen zum Zurücksetzen anfordern müssen."
-      subject: Setzen Sie das Passwort Ihres Kontos bei der Enzyklopädie des Lebens (EOL) zurück
+    user_recover_account: 
+      subject: Bergen Sie Ihr Konto bei der Enzyklopädie des Lebens (EOL)
     user_updated_email_preferences: 
       message: "Dies ist eine automatische E-Mail-Nachricht von der Enzyklopädie des Lebens (EOL). Nutzer %{user_full_name} (%{user_profile_url}) hat seine E-Mail-Adresse oder seine Einstellung zur Mailingliste aktualisiert.\n\nUrsprüngliche Einstellungen:\nE-Mail: %{previous_email}\nEinstellung zur Mailingliste: %{previous_mailing_list_preference}\n\nAktualisiert zu:\nE-Mail: %{updated_email}\nEinstellung zur Mailingliste: %{updated_mailing_list_preference}\nAktualisiert am: %{updated_at}"
       subject: EOL-Nutzer %{user_full_name} änderte seine E-Mail-Adresse oder seine Einstellungen zur Mailingliste
@@ -2482,6 +2562,7 @@ de:
   recipients: Empfänger
   recognized_by: Anerkannt von
   recognized_by_as_a_rank: von %{recognized_by} als %{taxon_rank} anerkannt
+  recognized_by_from_source: "%{recognized_by} in %{source}"
   recognized_by_from_source_as_a_rank: von %{recognized_by} auf %{source} als %{taxon_rank} anerkannt
   record_not_found: "[Datensatz wurde nicht gefunden]"
   references_cabs_colon: "Quellennachweise:"
@@ -2605,10 +2686,20 @@ de:
   server_ip_address: IP-Adresse des Servers
   sessions: 
     new: 
+      login_with_eol_authentication_header: "Oder melden Sie sich mit Ihren Anmeldedaten bei der EOL an:"
+      login_with_facebook_assistive: Melden Sie sich bei der EOL mit Ihren Anmeldedaten bei Facebook an.
+      login_with_google_assistive: Melden Sie sich bei der EOL mit Ihren Anmeldedaten bei Google an.
+      login_with_twitter_assistive: Melden Sie sich bei der EOL mit Ihren Anmeldedaten bei Twitter an.
+      login_with_yahoo_assistive: Melden Sie sich bei der EOL mit Ihren Anmeldedaten bei Yahoo an.
       meta_title: Anmelden
+      problems_signing_in_with_connected_accounts: Probleme beim Anmelden mit den verbundenen Nutzerkonten?
+      problems_signing_in_with_eol_authentication: Passwort vergessen?
   set_as_exemplar: Als Beispiel festlegen
   share_a_collection: Eine Sammlung mit anderen teilen
   show: Zeige
+  show_all_other_classifications_with_count: 
+    one: Zeige eine weitere nicht durchsuchbare Klassifikation
+    other: Zeige %{count} weitere nicht durchsuchbare Klassifikationen
   show_data_from_all_content_partners: Klassifikationenfilter entfernen
   show_email_message_area: "[Textbereich der E-Mail anzeigen]"
   show_full_tree: Die gesamte Gliederung anzeigen …
@@ -2962,6 +3053,9 @@ de:
     other: "%{count} Taxa"
   taxon: Taxon
   taxon_biomedical_terms_link: Biomedizinsiche Begriffe
+  taxon_citizen_science_header: Links zu „Wissenschaft für Bürger“
+  taxon_citizen_science_link: Links zu „Wissenschaft für Bürger“
+  taxon_citizen_science_resources_empty: Bislang wurden auf dieser Seite noch keine Links zu „Wissenschaft für Bürger“ hinzugefügt.
   taxon_concept_stats: Statistiken zum Taxonkonzept
   taxon_details_empty: Bislang hat noch niemand Einzelheiten für diese Seite zur Verfügung gestellt.
   taxon_education_empty: Bislang hat noch niemand Bildungsmittel für diese Seite zur Verfügung gestellt.
@@ -2985,7 +3079,6 @@ de:
   taxon_partner_links_link: Links von Inhaltspartnern
   taxon_rating: Taxonbewertung
   taxon_recognized_by: Taxon wurde von %{whom} anerkannt
-  taxon_recognized_by_header: Anerkannt von
   taxon_selected_from_search_res: Aus Suchergebnissen ausgewähltes Taxon
   taxon_suggested: Vorgeschlagenes Taxon
   taxonomic_summary_of_content: taxonomische Zusammenfassung des Inhalts
@@ -3097,6 +3190,7 @@ de:
   total_searches: "Gesamtzahl der Suchen:"
   translation_deleted: Die Übersetzung wurde gelöscht
   translation_information_header: Übersetzungsinformationen
+  translation_log: I18N-Haufigkeitsdiagramm
   translation_saved: Die Übersetzung wurde gespeichert
   translations_submit: Übersetzung anzeigen
   trigger_search_term_entered_by: den vom Nutzer eingegebenen Suchbegriff ansteuern
@@ -3114,6 +3208,7 @@ de:
   unable_to_invite_users_to_community_error: Die Einladungen konnten nicht zu %{users} gesendet werden.
   unique_page_views_th: Eindeutige Seitenzugriffe
   unknown: Unbekannt
+  unknown_hierarchy: Unbekannte Hierarchie
   unknown_type_not_associated_with_any_published_entries: Diese Daten sind keinen veröffentlichten Taxa zugeordnet.
   unpublished: Unveröffentlicht
   unreviewed: Nicht geprüft
@@ -3243,8 +3338,19 @@ de:
         meta_description: Inhaltspartner mit denen %{user_full_name} in Verbindung steht.
         meta_title: Inhaltspartner von %{user_full_name}
         tweet_text: Inhaltspartner von %{user_full_name}
-    new:
+    edit: 
+      form_tip_account_oauth: Die E-Mail-Adresse und die bevorzugte Sprache müssen %{required_icon} von allen Nutzern angegeben werden.
+      form_tip_profile: Als erforderlich %{required_icon} markierte Felder sind für den regulären Nutzer optional, müssen allerdings von Kuratoren ausgefüllt werden.
+      form_tip_profile_oauth: Der Vorname muss angegeben werden. Andere als erforderlich markierte Felder %{required_icon} sind für den regulären Nutzer optional, müssen allerdings von Kuratoren ausgefüllt werden.
+    new: 
+      complete_registration_header: Schließen Sie Ihre Registrierung bei der EOL ab
       create_user_header: Erstellen Sie eine neues Konto bei <abbr title="Enzyklopädie des Lebens">EOL</abbr>
+      create_user_with_eol_authentication_header: "Ober geben Sie neue Anmeldedaten an:"
+      meta_title: Bei EOL mitmachen
+      sign_up_with_facebook_assistive: Registrieren Sie sich bei der EOL mit Ihren Anmeldedaten bei Yahoo.
+      sign_up_with_google_assistive: Registrieren Sie sich bei der EOL mit Ihren Anmeldedaten bei Google.
+      sign_up_with_twitter_assistive: Registrieren Sie sich bei der EOL mit Ihren Anmeldedaten bei Twitter.
+      sign_up_with_yahoo_assistive: Registrieren Sie sich bei der EOL mit Ihren Anmeldedaten bei Yahoo.
     newsfeeds: 
       activity: 
         meta_title: Aktivitätenfeed von %{user_full_name}
@@ -3263,6 +3369,72 @@ de:
     notifications: 
       edit: 
         page_title: Benachrichtigungseinstellungen
+    open_authentications: 
+      errors: 
+        authorize_uri_missing: Es ist leider ein Fehler aufgetreten, so dass wir die Authentifizierung aktuell nicht starten können.
+        facebook: 
+          add_connection_failed_account_already_connected: Wir können Ihr Konto bei Facebook nicht mit Ihrem Konto bei der EOL verknüpfen, da Ihr Konto bei Facebook bereits mit einem <a href="%{existing_eol_account_url}">Konto bei der EOL</a> verknüpft ist.
+          missing_attributes: Es ist leider ein Problem beim Zugreifen auf Ihre Daten bei Facebook aufgetreten.
+          new_authentication_not_added: Es ist leider ein Fehler aufgetreten, so dass wir Ihr Konto bei Facebook nicht verknüpfen konnten.
+          not_authorized_to_add_authentication: Wir sind leider nicht berechtigt auf Ihr Konto bei Facebook zuzugreifen.
+          not_authorized_to_signup: Wir sind leider nicht berechtigt Sie über Ihr Konto bei Facebook bei der EOL zu registrieren.
+          not_connected: Wir konnten leider keine Verknüpfung zwischen Ihrem Konto bei Facebook und der EOL ermitteln.
+          signup_failed_account_already_connected: Wir können für Sie kein neues Konto bei der EOL mit Ihrem Konto bei Facebook registrieren, da letzteres bereits mit einem <a href="%{existing_eol_account_url}">Konto bei der EOL</a> verknüpft ist. Möchten Sie sich stattdessen <a href="%{login_url}">anmelden</a>?
+        google: 
+          add_connection_failed_account_already_connected: Wir können Ihr Konto bei Google nicht mit Ihrem Konto bei der EOL verknüpfen, da Ihr Konto bei Google bereits mit einem <a href="%{existing_eol_account_url}">Konto bei der EOL</a> verknüpft ist.
+          missing_attributes: Es ist leider ein Problem beim Zugreifen auf Ihre Daten bei Google aufgetreten.
+          new_authentication_not_added: Es ist leider ein Fehler aufgetreten, so dass wir Ihr Konto bei Google nicht verknüpfen konnten.
+          not_authorized_to_add_authentication: Wir sind leider nicht berechtigt auf Ihr Konto bei Google zuzugreifen.
+          not_authorized_to_signup: Wir sind leider nicht berechtigt Sie über Ihr Konto bei Google bei der EOL zu registrieren.
+          not_connected: Wir konnten leider keine Verknüpfung zwischen Ihrem Konto bei Google und der EOL ermitteln.
+          signup_failed_account_already_connected: Wir können für Sie kein neues Konto bei der EOL mit Ihrem Konto bei Google registrieren, da letzteres bereits mit einem <a href="%{existing_eol_account_url}">Konto bei der EOL</a> verknüpft ist. Möchten Sie sich stattdessen <a href="%{login_url}">anmelden</a>?
+        missing_attributes: Es ist leider ein Problem beim Zugriff auf Ihre Daten beim Drittanbieter aufgetreten.
+        not_authorized_to_add_authentication: Wir sind leider nicht berechtigt dieses Konto zu verknüpfen.
+        not_authorized_to_signup: Wir sind leider nicht berechtigt Sie mit diesem Konto bei der EOL zu registrieren.
+        not_connected: Wir konnten leider keine Verknüpfung zu einem Konto bei der EOL ermitteln.
+        remove_connection_failed: Es ist leider ein Fehler aufgetreten, so dass wir die Verknüpfung nicht entfernen konnten.
+        twitter: 
+          add_connection_failed_account_already_connected: Wir können Ihr Konto bei Twitter nicht mit Ihrem Konto bei der EOL verknüpfen, da Ihr Konto bei Twitter bereits mit einem <a href="%{existing_eol_account_url}">Konto bei der EOL</a> verknüpft ist.
+          missing_attributes: Es ist leider ein Problem beim Zugreifen auf Ihre Daten bei Twitter aufgetreten.
+          new_authentication_not_added: Es ist leider ein Fehler aufgetreten, so dass wir Ihr Konto bei Twitter nicht verknüpfen konnten.
+          not_authorized_to_add_authentication: Wir sind leider nicht berechtigt auf Ihr Konto bei Twitter zuzugreifen.
+          not_authorized_to_signup: Wir sind leider nicht berechtigt Sie über Ihr Konto bei Twitter bei der EOL zu registrieren.
+          not_connected: Wir konnten leider keine Verknüpfung zwischen Ihrem Konto bei Twitter und der EOL ermitteln.
+          signup_failed_account_already_connected: Wir können für Sie kein neues Konto bei der EOL mit Ihrem Konto bei Twitter registrieren, da letzteres bereits mit einem <a href="%{existing_eol_account_url}">Konto bei der EOL</a> verknüpft ist. Möchten Sie sich stattdessen <a href="%{login_url}">anmelden</a>?
+        yahoo: 
+          add_connection_failed_account_already_connected: Wir können Ihr Konto bei Yahoo! nicht mit Ihrem Konto bei der EOL verknüpfen, da Ihr Konto bei Yahoo! bereits mit einem <a href="%{existing_eol_account_url}">Konto bei der EOL</a> verknüpft ist.
+          missing_attributes: Es ist leider ein Problem beim Zugreifen auf Ihre Daten bei Yahoo! aufgetreten.
+          new_authentication_not_added: Es ist leider ein Fehler aufgetreten, so dass wir Ihr Konto bei Yahoo! nicht verknüpfen konnten.
+          not_authorized_to_add_authentication: Wir sind leider nicht berechtigt auf Ihr Konto bei Yahoo! zuzugreifen.
+          not_authorized_to_signup: Wir sind leider nicht berechtigt Sie über Ihr Konto bei Yahoo! bei der EOL zu registrieren.
+          not_connected: Wir konnten leider keine Verknüpfung zwischen Ihrem Konto bei Yahoo! und der EOL ermitteln.
+          signup_failed_account_already_connected: Wir können für Sie kein neues Konto bei der EOL mit Ihrem Konto bei Yahoo! registrieren, da letzteres bereits mit einem <a href="%{existing_eol_account_url}">Konto bei der EOL</a> verknüpft ist. Möchten Sie sich stattdessen <a href="%{login_url}">anmelden</a>?
+      facebook: Facebook
+      google: Google
+      index: 
+        connected_last_verified: Verknüpft; Zuletzt vor %{time_passed} bestätigt;
+        connected_unverified: Verknüpft; Nicht bestätigt;
+        not_connected: Nicht verknüpft;
+        page_description: Verwalten Sie die Verknüpfungen mit Konten von Drittanbietern, die Sie zum Anmelden bei der EOL nutzen können.
+        page_title: Verknüpfte Konten
+        return_link: Zurück zum Bearbeiten des Profils.
+      notices: 
+        facebook: 
+          new_authentication_added: Die Authentifizierung mit Facebook wurde Ihrem Konto hinzugefügt.
+        google: 
+          new_authentication_added: Die Authentifizierung mit Google wurde Ihrem Konto hinzugefügt.
+        twitter: 
+          new_authentication_added: Die Authentifizierung mit Twitter wurde Ihrem Konto hinzugefügt.
+        yahoo: 
+          new_authentication_added: Die Authentifizierung mit Yahoo! wurde Ihrem Konto hinzugefügt.
+      twitter: Twitter
+      yahoo: Yahoo!
+    recover_account: 
+      form_header: Konto bergen
+      meta_title: Konto bergen
+    recover_account_choose_account: 
+      form_header: Konto bergen
+      legend_choose_account: Ein Nutzerkonto auswählen
     show: 
       meta_description: Mitgliedsprofil von %{user_full_name} auf der Enzyklopädie des Lebens (EOL).
       meta_description_curator: Mitgliedsprofil von %{curator_level} %{user_full_name} auf der Enzyklopädie des Lebens (EOL).

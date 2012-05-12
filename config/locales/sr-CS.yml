@@ -423,6 +423,8 @@ sr-CS:
   classifications_summary_header_with_count: 
     one: Pronađeno u %{count} klasifikaciji
     other: Pronađeno u %{count} klasifikacije
+  classifications_with_count: 
+    other: jedna=%{count} klasifikacija
   clear_all_non_species_pages: Očisti sve stranice koje nemaju vrste
   clear_entire_cache_store: Očisti celo skladište keša
   clear_species_page: Očisti stranicu za vrste
@@ -1150,7 +1152,7 @@ sr-CS:
         request_publish: Objavi zahtevano
         request_publish_more: Označava da li na čekanju postoji zahtev hijerarhije da se ona unapredi u jednu od glavnih pregledljivih hijerarhija.
       resource: 
-        accesspoint_url: Adresa skupa podataka <small>(samo XML, XML.GZIP ili XML.GZ)</small>
+        accesspoint_url: Adresa skupa podataka
         accesspoint_url_existing_remove: Resurs se trenutno učitava iz adrese sa završetkom <em>%{accesspoint_url}</em>. Otpremite datoteku ako želite da uklonite postojeću adresu i učitate resurs iz te datoteke (ne preporučuje se).
         administration_settings: Administrativne postavke <small>(vidljivo samo za administratore EOL-a)</small>
         dataset: Skup podataka
@@ -1263,7 +1265,6 @@ sr-CS:
         create: Otvori nalog
         curation_application: Podnesi zahtev
         curation_privileges: Podnesi zahtev
-        forgot_password: Pošalji poruku
         generate_api_key: Stvori ključ
         update: Sačuvaj podatke na profilu
       wikipedia_queue: 
@@ -1679,9 +1680,6 @@ sr-CS:
     user_commented_on_something_date_body: "%{curator_level} %{users_name} (%{users_url}) prokomentarisa na:\n%{commented_on_name} (%{commented_on_url})\n%{comment_date}:\n%{comment_body}"
     user_message: 
       subject: Poruka od Enciklopedije života
-    user_reset_password: 
-      message: "Enciklopedija života (www.eol.org) je primila zahtev za obnavljanje vaše lozinke. Ako niste podneli ovaj zahtev, zanemarite ovu poruku.\n\nSledeća veza vam daje jednokratnu priliku za postavite novu lozinku:\n\n%{password_reset_url}\n\nPratite ovu vezu (kliknite na nju ili je umnožite u navigacionu traku vašeg pregledača) da dođete do stranice na kojoj možete da promenite lozinku. Imajte na umu da, ako je veza istekla, tada ćete morati ponovo da unesete korisničko ime ili e-adresu kako biste dobili novu poruku za promenu lozinke i novu vezu."
-      subject: Obnavljanje lozinke za nalog na Enciklopediji života
     user_updated_email_preferences: 
       message: "Ovo je sistemsko samoobaveštenje. %{user_full_name} (%{user_profile_url}) promeni svoju e-adresu ili postavke za dopisnu listu.\n\nPrethodne postavke:\nE-adresa: %{previous_email}\nPostavka dopisne liste: %{previous_mailing_list_preference}\n\nAžurirane postavke:\nE-adresa: %{updated_email}\nPostavka dopisne liste: %{updated_mailing_list_preference}\nAžurirano: %{updated_at}"
       subject: "%{user_full_name} promeni svoju e-adresu ili postavke za dopisnu listu"
@@ -2099,7 +2097,6 @@ sr-CS:
   taxon_partner_links_link: Veze partnera
   taxon_rating: Ocena taksona
   taxon_recognized_by: Takson je priznat od %{whom}
-  taxon_recognized_by_header: Prepoznao/la
   taxon_selected_from_search_res: Izabran takson iz rezultata
   taxon_suggested: Predloženi takson
   taxonomic_summary_of_content: taksonomski pregled sadržaja
@@ -2316,8 +2313,8 @@ sr-CS:
   username: Korisničko ime
   username_colon: "Korisničko ime:"
   username_taken: "%{name} je zauzeto"
-  users:
-    new:
+  users: 
+    new: 
       create_user_header: Otvaranje novog naloga na <abbr title="Encyclopedia of Life">EOL-u</abbr>
   users_about_me_header: O meni
   users_content_partners_header: Partneri za sadržaj

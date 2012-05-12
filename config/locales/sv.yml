@@ -568,7 +568,6 @@ sv:
   create_community_about_heading: Om att skapa en gemenskap
   create_community_around_this_collection_header: Skapa en gemenskap runt denna samling
   create_community_button: Skapa gemenskap
-  create_user_form_header: Skapa ett nytt <abbr title="Encyclopedia of Life">EOL</abbr>-konto
   create_user_unsuccessful_error: Tyvärr, ett fel uppstod. Ditt nya konto skapades inte. Var god försäkra dig om att alla fält är korrekt ifyllda.
   created: Skapad
   created_at: Skapades den
@@ -857,6 +856,9 @@ sv:
         create: Lägg till artikel
         create_text: Lägg till artikel
         update: Spara artikel
+      eol_statistic: 
+        download_csv: Ladda ned som CSV.
+      filter_sort: Filtrera och sortera
       harvest_event: 
         publish: Publicera
       hierarchy: 
@@ -879,7 +881,6 @@ sv:
         create: Skapa konto
         curation_application: Ansök nu
         curation_privileges: Skicka begäran
-        forgot_password: Skicka e-post
         generate_api_key: Generera en nyckel
         update: Spara profilinformation
       wikipedia_queue: 
@@ -1090,9 +1091,6 @@ sv:
     user_commented_on_something_date_body: "%{curator_level} %{users_name} (%{users_url}) kommenterade på:\n%{commented_on_name} (%{commented_on_url})\n%{comment_date}:\n%{comment_body}"
     user_message: 
       subject: Ett meddelande från Encyclopedia of Life
-    user_reset_password: 
-      message: "Encyclopedia of Life (www.eol.org) fick en begäran om att återställa ditt lösenord. Om du inte gjorde denna begäran, ignorera detta e-postmeddelande.\n\nFöljande länk kommer att återställa ditt lösenord:\n\n%{password_reset_url}\n\nVar god observera att efter 24 timmar kommer länken löpa ut och du måste göra en ny återställningsbegäran."
-      subject: Återställ lösenordet för ditt Encyclopedia of Life-konto
     user_updated_email_preferences: 
       message: "Detta är en automatiskt systemmeddelande från EOL. Användaren %{user_full_name} (%{user_profile_url}) uppdaterade sin e-postadress eller inställningarna för e-postlistan.\n\nFöregående inställningar:\nE-post: %{previous_email}\nE-postlistans inställningar: %{previous_mailing_list_preference}\n\nUppdaterades till:\nE-post: %{updated_email}\nE-postlistans inställningar: %{updated_mailing_list_preference}\nUppdaterades: %{updated_at}"
     user_verification: 
@@ -1475,8 +1473,8 @@ sv:
   username: Användarnamn
   username_colon: "Användarnamn:"
   username_taken: "%{name} är upptaget"
-  users:
-    new:
+  users: 
+    new: 
       create_user_header: Skapa ett nytt <abbr title="Encyclopedia of Life">EOL</abbr>-konto
   users_about_me_header: Om mig
   users_content_partners_header: Innehållspartners

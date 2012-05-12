@@ -532,6 +532,9 @@ gl:
   classifications_summary_header_with_count: 
     one: Atopado en %{count} clasificación
     other: Atopado en %{count} clasificacións
+  classifications_with_count: 
+    one: "%{count} clasificación"
+    other: "%{count} clasificacións"
   clear_all_non_species_pages: Limpar todas as páxinas que non son de especies
   clear_entire_cache_store: Limpar todo o almacenado na caché
   clear_species_page: Limpar a páxina da especie
@@ -1343,7 +1346,7 @@ gl:
         request_publish: Publicación solicitada
         request_publish_more: Indica se hai algunha solicitude pendente para promover esta xerarquía para converterse nunha das primarias da EOL.
       resource: 
-        accesspoint_url: URL do conxunto de datos <small>(XML, XML.GZIP ou XML.GZ soamente)</small>
+        accesspoint_url: URL do conxunto de datos
         accesspoint_url_existing_remove: Este recurso cárgase desde o enderezo URL <em>%{accesspoint_url}</em>. Carga un ficheiro se queres eliminar o URL actual e cargar o recurso desde ese ficheiro (non recomendado).
         administration_settings: Opcións de administración <small>(visibles unicamente para os administradores da EOL)</small>
         dataset: Conxunto de datos
@@ -1435,6 +1438,9 @@ gl:
         create: Engadir o artigo
         create_text: Engadir o artigo
         update: Gardar o artigo
+      eol_statistic: 
+        download_csv: Descargar como CSV
+      filter_sort: Filtrar e ordenar
       harvest_event: 
         publish: Publicar
       hierarchy: 
@@ -1459,7 +1465,6 @@ gl:
         create: Crear unha conta
         curation_application: Solicitar agora
         curation_privileges: Enviar a solicitude
-        forgot_password: Enviar un correo electrónico
         generate_api_key: Xerar unha clave
         notification_settings: Configuración das notificacións
         update: Gardar a información de perfil
@@ -1906,9 +1911,6 @@ gl:
     user_commented_on_something_date_body: "O %{curator_level} %{users_name} (%{users_url}) comentou en:\n%{commented_on_name} (%{commented_on_url})\n%{comment_date}:\n%{comment_body}"
     user_message: 
       subject: Unha mensaxe da Enciclopedia da vida
-    user_reset_password: 
-      message: "A Enciclopedia da vida (www.eol.org) recibiu unha solicitude para restablecer o teu contrasinal. Se non fixeches esta solicitude, ignora este correo.\n\nA seguinte ligazón ha restablecer o contrasinal:\n\n%{password_reset_url}\n\nTen en conta que a ligazón caduca despois de 24 horas. Transcorrido este tempo, terás que realizar outra solicitude de restablecemento."
-      subject: Restablecer o teu contrasinal na Enciclopedia da vida
     user_updated_email_preferences: 
       message: "Esta é unha notificación automática do sistema da EOL. O usuario %{user_full_name} (%{user_profile_url}) actualizou o seu enderezo de correo electrónico ou as súas preferencias da lista de correo.\n\nPreferencias antigas:\nCorreo electrónico: %{previous_email}\nLista de correo: %{previous_mailing_list_preference}\n\nPreferencias actuais:\nCorreo electrónico: %{updated_email}\nLista de correo: %{updated_mailing_list_preference}\nActualizado o: %{updated_at}"
       subject: O usuario %{user_full_name} da EOL cambiou o seu enderezo de correo electrónico ou as súas preferencias da lista de correo
@@ -2581,7 +2583,6 @@ gl:
   taxon_partner_links_link: Ligazóns asociadas
   taxon_rating: Avaliación do taxon
   taxon_recognized_by: Taxon recoñecido por %{whom}
-  taxon_recognized_by_header: Recoñecido por
   taxon_selected_from_search_res: Taxon seleccionado dos resultados da procura
   taxon_suggested: Taxon suxerido
   taxonomic_summary_of_content: resumo taxonómico dos contidos
@@ -2839,7 +2840,7 @@ gl:
         meta_description: Asociacións de socios de contidos de %{user_full_name}.
         meta_title: Socios de contidos de %{user_full_name}
         tweet_text: Socios de contidos de %{user_full_name}
-    new:
+    new: 
       create_user_header: Crea unha nova conta na <abbr title="Enciclopedia da vida">EOL</abbr>
     newsfeeds: 
       activity: 

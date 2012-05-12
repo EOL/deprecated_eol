@@ -168,6 +168,15 @@ nl:
         new_data_on_my_watched_item: Nieuwe bijdragen aan taxa op uw volglijst
         new_manager_in_my_community: Een ander lid is beheerder geworden van een gemeenschap die u beheert
         reply_to_comment: Een antwoord op een reactie die u hebt gemaakt
+      open_authentication: 
+        created_at: Aangemaakt
+        guid: GUID
+        provider: Gegevensprovider
+        secret: Geheim
+        token: Token
+        updated_at: Laatst bijgewerkt
+        user_id: Gebruikers-ID
+        verified_at: Laatst gecontroleerd
       resource: 
         accesspoint_url: URL dataset
         auto_publish: Automatisch publiceren
@@ -201,6 +210,7 @@ nl:
         curator_scope: Conservatiegebied
         disable_email_notifications: Stuur me GEEN e-mail
         email: "E-mailadres:"
+        email_confirmation: E-mailadres opnieuw <small>(ter bevestiging)</small>
         entered_password: Wachtwoord
         entered_password_confirmation: Herhaling wachtwoord <small>(ter bevestiging)</small>
         family_name: Achternaam
@@ -251,10 +261,14 @@ nl:
           attributes: 
             rights_holder: 
               blank: mag niet leeg zijn voor een CC BY-licentie
+              inclusion: moet leeg blijven voor Publiek Domein
         harvest_event: 
           attributes: 
             publish: 
               inclusion: is alleen toegestaan voor de laatste oogst en alleen als die gebeurtenis niet al is gepubliceerd.
+        open_authentications: 
+          guid_provider_must_be_unique: de externe gebruiker is al gekoppeld met een EOL-gebruiker
+          provider_user_id_must_be_unique: er kan slechts één externe gebruiker gekoppeld zijn aan een EOL-gebruiker
         resource: 
           attributes: 
             accesspoint_url: 
@@ -532,6 +546,9 @@ nl:
   classifications_summary_header_with_count: 
     one: Gevonden in één goedgekeurde classificatie
     other: Gevonden in %{count} classificaties
+  classifications_with_count: 
+    one: "%{count} classificatie"
+    other: "%{count} classificaties"
   clear_all_non_species_pages: Alle niet-soortenpagina's legen
   clear_entire_cache_store: Volledige cache-opslag legen
   clear_species_page: Soortenpagina legen
@@ -565,6 +582,15 @@ nl:
         meta_keywords: "%{collection_name}-beheerders"
         meta_title: "%{collection_name}-beheerders"
         tweet_text: "%{collection_name}-beheerders"
+    inaturalists: 
+      show: 
+        observation_date: "Datum: %{observed_on}"
+        observation_place: "Plaats: %{place}"
+        observer_with_link: "Waarnemer: %{observer_link}"
+        recent_observations: Recente waarnemingen
+        some_taxon: Iets
+        taxa_observed: "%{observed_taxa_count} taxa waargenomen"
+        view_project_on_inaturalist: "%{project_title} op iNaturalist bekijken"
     newsfeeds: 
       show: 
         meta_description: Nieuws, opmerkingen en ledenactiviteit voor de Enyclopedia of Life-verzameling %{collection_name}.
@@ -1239,8 +1265,11 @@ nl:
         complete_more: "Een geconserveerde hiërarchie neemt aan dat elke invoer uniek is, ofwel overeenkomende namen worden beschouwd als homoniem. <strong>Waarschuwing: wijzig deze eigenschap niet, tenzij u zekerheid hebt over de status van homoniemen in de hiërarchie; een verandering kan de integriteit van de gegevens in gevaar brengen.</strong>"
         request_publish: Publicatie aangevraagd.
         request_publish_more: Geeft aan of er een aanvraag opstaat om deze hiërarchie te bevorderen tot één van de primaire bladerbare hiërarchieën op EOL.
+      open_authentication: 
+        connect: Toevoegen
+        connected: Gekoppeld
       resource: 
-        accesspoint_url: Dataset-URL <small>(alleen XML, XML.GZIP of XML.GZ)</small>
+        accesspoint_url: Dataset-URL
         accesspoint_url_existing_remove: Deze bron wordt geladen vanuit de URL die eindigt op <em>%{accesspoint_url}</em>. Upload een bestand als u de bestaande URL wilt verwijderen en de bron uit een bestand wilt laden (niet aanbevolen).
         administration_settings: Beheerinstellingen <small>(alleen zichtbaar voor EOL-beheerders)</small>.
         dataset: Dataset
@@ -1287,6 +1316,7 @@ nl:
         curator_level: U bent momenteel %{curator_level_with_indefinite_article}.
         curator_scope: Conservatiegebied
         curator_scope_more: "Geef uw expertise aan. Bijvoorbeeld: \"knaagdieren van Borneo\", \"tri-trofische interacties\" of \"instandhoudingskwesties met betrekking tot vissen\". Hiermee wordt u niet beperkt in wat u kunt beheren, maar het informeert de EOL-gemeenschap."
+        email: E-mailadres
         email_reports_frequency_hours: Hoe vaak wilt u e-mailberichten ontvangen over activiteiten binnen uw bijdragen?
         email_settings_submit: E-mailinstellingen
         entered_password: Wachtwoord <small>(4 - 16 tekens)</small>
@@ -1297,6 +1327,7 @@ nl:
         new_password_confirmation: Nieuw wachtwoord <small>(te bevestigen)</small>
         notification_settings: Instellingen voor berichten
         notification_settings_more: Uw instellingen voor berichten maken.
+        open_authentications: Gekoppelde gebruikers
         requested_curator_level: Uw verzoek om %{curator_level_with_indefinite_article} te worden is in behandeling.
         requested_curator_level_id_more: Kies <em>assistentconservator</em> als u nog geen referenties hebt. Kies <em>volledig conservator</em> als u een professionele wetenschapper of afgestudeerde student met referenties bent. Kies <em>meesterconservator</em> als u een ervaren EOL-conservator bent en meer verantwoordelijkheden op zich wilt nemen.
         tag_line: Titel <small>(bijvoorbeeld "vogelliefhebber")</small>
@@ -1309,6 +1340,7 @@ nl:
     select: 
       prompt: Maak een keuze
     submit: 
+      cancel: Annuleren
       collection_item: 
         update: Opslaan
       content_page: 
@@ -1332,6 +1364,9 @@ nl:
         create: Artikel toevoegen
         create_text: Artikel toevoegen
         update: Artikel opslaan
+      eol_statistic: 
+        download_csv: Downloaden als CSV
+      filter_sort: Filteren en sorteren
       harvest_event: 
         publish: Publiceren
       hierarchy: 
@@ -1340,6 +1375,10 @@ nl:
       name: 
         create: Naam toevoegen
         update: Naam bijwerken
+      open_authentication: 
+        create: Koppelen
+        destroy: Loskoppelen
+        update: Koppeling controleren
       resource: 
         create: Bron toevoegen
         force_harvest: Verzoek geforceerd ophalen
@@ -1347,6 +1386,10 @@ nl:
         update_settings: Instellingen bijwerken
       session: 
         create: Aanmelden
+        sign_in_with_facebook: Aanmelden met Facebook
+        sign_in_with_google: Aanmelden met Google
+        sign_in_with_twitter: Aanmelden met Twitter
+        sign_in_with_yahoo: Aanmelden met Yahoo!
       submit: "%{model} opslaan"
       translated_content_page: 
         create: Vertaling toevoegen
@@ -1356,9 +1399,13 @@ nl:
         create: Gebruiker aanmaken
         curation_application: Meld u nu aan
         curation_privileges: Aanvraag verzenden
-        forgot_password: E-mail verzenden
         generate_api_key: Sleutel aanmaken
         notification_settings: Instellingen voor berichten
+        recover_account: E-mail verzenden
+        sign_up_with_facebook: Registreren met Facebook
+        sign_up_with_google: Registreren met Google
+        sign_up_with_twitter: Registreren met Twitter
+        sign_up_with_yahoo: Registreren met Yahoo!
         update: Profielgegevens opslaan
       wikipedia_queue: 
         create: Aanvraag verzenden
@@ -1699,9 +1746,6 @@ nl:
     user_commented_on_something_date_body: "%{curator_level} %{users_name} (%{users_url}) heeft een opmerking geplaatst bij:\n%{commented_on_name} (%{commented_on_url})\n%{comment_date}:\n%{comment_body}"
     user_message: 
       subject: Een bericht van de Encyclopedia of Life
-    user_reset_password: 
-      message: "Encyclopedia of Life (www.eol.org) heeft een verzoek ontvangen om uw wachtwoord opnieuw in te stellen. Als u dit verzoek niet hebt gemaakt, negeer deze e-mail dan.\n\nVia de volgende verwijzing kunt u uw wachtwoord opnieuw instellen:\n\n%{password_reset_url}\n\nLet op: deze verwijzing verloopt na 24 uur. Daarna moet u opnieuw een verzoek maken."
-      subject: Stel uw wachtwoord voor Encyclopedia of Life opnieuw in
     user_updated_email_preferences: 
       message: "Dit is een automatisch bericht van het EOL-berichtensysteem. De gebruiker %{user_full_name} (%{user_profile_url}) heeft zijn e-mailadres of e-mailvoorkeuren aangepast.\n\nVorige voorkeuren:\nE-mailadres: %{previous_email}\nMailinglijstvoorkeuren: %{previous_mailing_list_preference}\n\nBijgewerkt naar:\nE-mailadres: %{updated_email}\nMailinglijstvoorkeuren: %{updated_mailing_list_preference}\nBijgewerkt: %{updated_at}"
       subject: EOL-gebruiker %{user_full_name} heeft e-mailadres of de mailinglijstvoorkeuren gewijzigd
@@ -1942,7 +1986,14 @@ nl:
   server_ip_address: IP-adres server
   sessions: 
     new: 
+      login_with_eol_authentication_header: "Of aanmelden met uw EOL-gebruiker:"
+      login_with_facebook_assistive: Aanmelden bij EOL met uw Facebookgebruiker.
+      login_with_google_assistive: Aanmelden bij EOL met uw Googlegebruiker.
+      login_with_twitter_assistive: Aanmelden bij EOL met uw Twittergebruiker.
+      login_with_yahoo_assistive: Aanmelden bij EOL met uw Yahoo!-gebruiker.
       meta_title: Aanmelden
+      problems_signing_in_with_connected_accounts: Problemen bij het aanmelden met uw gekoppelde gebruikers?
+      problems_signing_in_with_eol_authentication: Wachtwoord vergeten?
   set_as_exemplar: Als voorbeeld instellen
   share_a_collection: Verzameling delen
   show: Weergeven
@@ -2141,6 +2192,8 @@ nl:
         tweet_text: Synoniemen van %{scientific_name}
     overviews: 
       show: 
+        meta_keywords: "%{scientific_name} erkend door %{hierarchy_provider}"
+        meta_keywords_with_common_name: "%{scientific_name} erkend door %{hierarchy_provider}"
         meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})"
         tweet_text: Overzicht van %{scientific_name}
     resources: 
@@ -2171,6 +2224,7 @@ nl:
         tweet_text: Nucleotidesequenties voor %{scientific_name}
       show: 
         hierarchy_entry: 
+          meta_description: Lijst van leveranciers en brongegevens voor %{scientific_name} als ingedeeld door %{hierarchy_provider}.
           meta_title: Gegevensproviders voor %{scientific_name} als ingedeeld door %{hierarchy_provider}.
           meta_title_with_common_name: Gegevensproviders voor %{preferred_common_name} als geclassificeerd door %{hierarchy_provider}
           tweet_text: Gegevensproviders voor %{scientific_name} als ingedeeld door %{hierarchy_provider}.
@@ -2194,8 +2248,13 @@ nl:
         hierarchy_entry: 
           meta_title: Statistieken voor %{scientific_name} als ingedeeld door %{hierarchy_provider}.
           meta_title_with_common_name: Statistieken voor %{preferred_common_name} (%{scientific_name} als ingedeeld door %{hierarchy_provider}).
+          tweet_text: Rijkdomscore voor %{scientific_name} als ingedeeld door %{hierarchy_provider}
         meta_description: Statistieken en gegevens voor %{scientific_name} bij Encyclopedia of Life.
         meta_description_with_common_name: Statistieken en gegevens voor %{preferred_common_name}, ook bekend als %{scientific_name}, bij Encyclopedia of Life.
+        meta_keywords: statistieken over %{scientific_name}, statistieken over %{scientific_name}, gegevens over %{scientific_name}
+        meta_keywords_with_common_name: statistieken over %{preferred_common_name}, statistieken over %{preferred_common_name}, gegevens over %{preferred_common_name}
+        meta_title: Rijkdom van %{scientific_name}
+        meta_title_with_common_name: Rijkdom van %{preferred_common_name} (%{scientific_name})
   taxa_with_count: 
     one: Eén taxon
     other: "%{count} taxa"
@@ -2220,7 +2279,6 @@ nl:
   taxon_partner_links_header: Partnerverwijzingen
   taxon_partner_links_link: Partnerverwijzingen
   taxon_rating: Taxonwaardering
-  taxon_recognized_by_header: Herkend door
   taxon_suggested: Taxonsuggestie
   technical_functions: Technische functies
   term_is_already_def_error: "\"%{term}\" is al gedefinieerd"
@@ -2362,7 +2420,7 @@ nl:
         meta_description: Gemeenschappen waar %{user_full_name} lid van is.
         meta_title: Gemeenschappen van %{user_full_name}
         tweet_text: gemeenschappen van %{user_full_name}
-    new:
+    new: 
       create_user_header: Nieuwe <abbr title="Encyclopedia of Life">EOL</abbr>-gebruiker aanmaken
   users_about_me_header: Over mij
   users_content_partners_header: Contentpartners

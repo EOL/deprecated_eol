@@ -8,6 +8,8 @@
         - form_for :session, :url => new_session_path,
           :html => { :id => "new_session_#{provider}", :method => :get } do |f|
           = hidden_field_tag :oauth_provider, provider
+          - unless params[:return_to].blank?
+            = hidden_field_tag :return_to, params[:return_to]
           %fieldset.actions
             = f.submit I18n.t("helpers.submit.session.sign_in_with_#{provider}"), :id => "session_submit_#{provider}"
       %p

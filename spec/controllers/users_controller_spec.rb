@@ -27,8 +27,23 @@ describe UsersController do
     end
 
     context 'extended for open authentication' do
-      before :each do
+      it 'should redirect to authorize uri when log in is with Facebook' do
+        get :new, { :oauth_provider => 'facebook' }
+        response.redirected_to.should =~ /^https:\/\/graph.facebook.com\/oauth\/authorize/
+      end
+      it 'should redirect to authorize uri when log in is with Google' do
+        get :new, { :oauth_provider => 'google' }
+        response.redirected_to.should =~ /^https:\/\/accounts.google.com\/o\/oauth2\/auth/
+      end
+      it 'should redirect to authorize uri when log in is with Twitter' do
         stub_oauth_requests
+        get :new, { :oauth_provider => 'twitter' }
+        response.redirected_to.should =~ /http:\/\/api.twitter.com\/oauth\/authenticate/
+      end
+      it 'should redirect to authorize uri when log in is with Yahoo' do
+        stub_oauth_requests
+        get :new, { :oauth_provider => 'yahoo' }
+        response.redirected_to.should =~ /https:\/\/api.login.yahoo.com\/oauth\/v2\/request_auth/
       end
 
       it 'should clear session data when user cancels sign up at confirmation page' do
@@ -38,6 +53,7 @@ describe UsersController do
       end
 
       it 'should render confirmation page when user signs up with Facebook' do
+        stub_oauth_requests
         params_data, session_data = oauth_request_data(:facebook, 2)
         get :new, params_data, session_data
         assigns[:open_auth].should be_a(EOL::OpenAuth::Facebook)
@@ -49,45 +65,41 @@ describe UsersController do
         assigns[:user].family_name.should == 'FacebookFamily'
       end
 
-      it 'should redirect to new user URL and flash error if user denies access during OAuth1 sign up' do
+      it 'should redirect to new user URL and flash error if user denies access during Twitter sign up' do
         oauth1_consumer = OAuth::Consumer.new("key", "secret", {
           :site => "http://fake.oauth1.provider",
           :request_token_path => "/example/request_token",
           :access_token_path => "/example/access_token_denied",
           :authorize_path => "/example/authorize" })
         OAuth::Consumer.should_receive(:new).and_return(oauth1_consumer)
-        get :new, {:denied => "key",
-                   :oauth_provider => 'twitter'},
+        get :new, { :denied => "key",
+                    :oauth_provider => 'twitter'},
                   { "twitter_request_token_token" => 'key',
                     "twitter_request_token_secret" => 'secret' }
         assigns[:open_auth].should be_a(EOL::OpenAuth::Twitter)
         response.redirected_to.should == new_user_url
         flash[:error].should match /Sorry, we are not authorized.+?Twitter/
       end
+
+      it 'should redirect to new user URL and flash error if user denies access during Facebook sign up' do
+        get :new, {:error => "access_denied", :oauth_provider => "facebook"}
+        assigns[:open_auth].should be_a(EOL::OpenAuth::Facebook)
+        response.redirected_to.should == new_user_url
+        flash[:error].should match /Sorry, we are not authorized.+?Facebook/
+      end
+
+      it 'should redirect to new user URL and flash error if user denies access during Google sign up' do
+        get :new, {:error => "access_denied", :oauth_provider => "google"}
+        assigns[:open_auth].should be_a(EOL::OpenAuth::Google)
+        response.redirected_to.should == new_user_url
+        flash[:error].should match /Sorry, we are not authorized.+?Google/
+      end
+
     end
   end
 
   describe 'POST create' do
     context 'extended for open authentication' do
-      it 'should redirect to authorize uri when log in is with Facebook' do
-        post :create, { :oauth_provider => 'facebook' }
-        response.redirected_to.should =~ /^https:\/\/graph.facebook.com\/oauth\/authorize/
-      end
-      it 'should redirect to authorize uri when log in is with Google' do
-        post :create, { :oauth_provider => 'google' }
-        response.redirected_to.should =~ /^https:\/\/accounts.google.com\/o\/oauth2\/auth/
-      end
-      it 'should redirect to authorize uri when log in is with Twitter' do
-        stub_oauth_requests
-        post :create, { :oauth_provider => 'twitter' }
-        response.redirected_to.should =~ /http:\/\/api.twitter.com\/oauth\/authenticate/
-      end
-      it 'should redirect to authorize uri when log in is with Yahoo' do
-        stub_oauth_requests
-        post :create, { :oauth_provider => 'yahoo' }
-        response.redirected_to.should =~ /https:\/\/api.login.yahoo.com\/oauth\/v2\/request_auth/
-      end
-
       it 'should create a new EOL account connected to a Facebook account, send welcome email and log in user'
       it 'should create a new EOL account connected to a Google account, send welcome email and log in user'
       it 'should create a new EOL account connected to a Twitter account, send welcome email and log in user'
@@ -128,13 +140,15 @@ describe UsersController do
 
     it 'should raise error if not logged in' do
       hashed_password = User.find(@user).hashed_password
-      expect{ put :update, { :id => @user.id, :user => { :id => @user.id, :entered_password => 'newpassword', :entered_password_confirmation => 'newpassword' } } }.should raise_error(EOL::Exceptions::SecurityViolation)
+      expect{ put :update, { :id => @user.id, :user => { :id => @user.id, :entered_password => 'newpassword', 
+        :entered_password_confirmation => 'newpassword' } } }.should raise_error(EOL::Exceptions::SecurityViolation)
     end
     it 'should update and render show if updating self' do
       hashed_password = User.find(@user).hashed_password
       session[:user_id] = @user.id
       User.find(@user).hashed_password.should == hashed_password
-      put :update, { :id => @user.id, :user => { :id => @user.id, :entered_password => 'newpassword', :entered_password_confirmation => 'newpassword' } }
+      put :update, { :id => @user.id, :user => { :id => @user.id, :entered_password => 'newpassword',
+                                                 :entered_password_confirmation => 'newpassword' } }
       user = User.find(@user)
       user.hashed_password.should_not == hashed_password
       user.hashed_password.should == User.hash_password('newpassword')
@@ -144,7 +158,8 @@ describe UsersController do
     it 'should render edit on validation errors' do
       hashed_password = User.find(@user).hashed_password
       session[:user_id] = @user.id
-      put :update, { :id => @user.id, :user => { :id => @user.id, :entered_password => 'abc', :entered_password_confirmation => 'abc' } }
+      put :update, { :id => @user.id, :user => { :id => @user.id, :entered_password => 'abc',
+                                                 :entered_password_confirmation => 'abc' } }
       User.find(@user).hashed_password.should == hashed_password
       response.rendered[:template].should == 'users/edit.html.haml'
     end
@@ -154,7 +169,8 @@ describe UsersController do
       hashed_password = user.hashed_password
       username = user.username
       bio = user.bio
-      put :update, { :id => user.id, :user => { :id => user.id, :entered_password => 'secret', :entered_password_confirmation => '',
+      put :update, { :id => user.id, :user => { :id => user.id, :entered_password => 'secret',
+                                                :entered_password_confirmation => '',
                                                 :username => 'myusername', :bio => 'My bio' } },
                    { :user => user, :user_id => user.id }
       user = User.find(user)
@@ -269,7 +285,8 @@ describe UsersController do
       TranslatedContentPage.gen(:content_page => ContentPage.gen(:page_name => 'terms_of_use'),
                                 :active_translation => 1,
                                 :language => Language.english)
-      get :terms_agreement, { :id => @disagreeable_user.id }, { :user => @disagreeable_user, :user_id => @disagreeable_user.id }
+      get :terms_agreement, { :id => @disagreeable_user.id }, 
+                            { :user => @disagreeable_user, :user_id => @disagreeable_user.id }
       assigns[:user].should == @disagreeable_user
       assigns[:terms].should be_a(TranslatedContentPage)
       response.rendered[:template].should == 'users/terms_agreement.html.haml'
@@ -277,16 +294,20 @@ describe UsersController do
 
     it 'should force users to agree to terms before viewing other pages' do
       User.find(@disagreeable_user).agreed_with_terms.should be_false
-      get :show, { :id => @disagreeable_user.id }, { :user => @disagreeable_user, :user_id => @disagreeable_user.id }
+      get :show, { :id => @disagreeable_user.id }, 
+                 { :user => @disagreeable_user, :user_id => @disagreeable_user.id }
       response.redirected_to.should == terms_agreement_user_path(@disagreeable_user)
-      get :edit, { :id => @disagreeable_user.id }, { :user => @disagreeable_user, :user_id => @disagreeable_user.id }
+      get :edit, { :id => @disagreeable_user.id },
+                 { :user => @disagreeable_user, :user_id => @disagreeable_user.id }
       response.redirected_to.should == terms_agreement_user_path(@disagreeable_user)
     end
 
     it 'should not allow users to render terms for another user' do
       User.find(@disagreeable_user).agreed_with_terms.should be_false
-      expect{ get :terms_agreement, { :id => @disagreeable_user.id } }.should raise_error(EOL::Exceptions::SecurityViolation) # anonymous user trying to access user terms
-      expect{ get :terms_agreement, { :id => @disagreeable_user.id }, { :user => @user, :user_id => @user.id } }.should raise_error(EOL::Exceptions::SecurityViolation)
+      expect{ get :terms_agreement, { :id => @disagreeable_user.id } }.should 
+        raise_error(EOL::Exceptions::SecurityViolation) # anonymous user trying to access user terms
+      expect{ get :terms_agreement, { :id => @disagreeable_user.id },
+              { :user => @user, :user_id => @user.id } }.should raise_error(EOL::Exceptions::SecurityViolation)
     end
   end
 
@@ -402,7 +423,6 @@ describe UsersController do
       user.recover_account_token_expires_at.should be_nil
       session[:user_id].should == user.id
     end
-    it 'should not log in hidden users'
     it 'should not log in users with invalid token' do
       user = User.gen(:recover_account_token => User.generate_key,
                       :recover_account_token_expires_at => 24.hours.from_now)
@@ -416,6 +436,22 @@ describe UsersController do
       get :temporary_login, :user_id => user.id, :recover_account_token => user.recover_account_token
       session[:user_id].should_not == user.id
       response.redirected_to.should == recover_account_users_path
+    end
+    it 'should not log in hidden users' do
+       user = User.gen(:recover_account_token => User.generate_key,
+                       :recover_account_token_expires_at => 24.hours.from_now,
+                       :hidden => true)
+      expect { get :temporary_login, :user_id => user.id, :recover_account_token => user.recover_account_token}.to
+             raise_error(EOL::Exceptions::SecurityViolation)
+    end
+  end
+
+  describe 'GET verify_open_authentication' do
+    it 'should redirect to new open authentication if user is logged' do
+      expect { get :verify_open_authentication }.to raise_error(EOL::Exceptions::SecurityViolation)
+      params_to_redirect = { :some_param => 'some param' }
+      get :verify_open_authentication, params_to_redirect, {:user_id => 1}
+      response.redirected_to.should == new_user_open_authentication_url(params_to_redirect.merge({:user_id => 1}))
     end
   end
 end

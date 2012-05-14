@@ -9,8 +9,8 @@ class UsersController < ApplicationController
   before_filter :check_user_agreed_with_terms, :except => [:terms_agreement, :temporary_login, :usernames]
   before_filter :extend_for_open_authentication, :only => [:new, :create]
 
-  rescue_from EOL::Exceptions::OpenAuthMissingAuthorizeUri, :with => :oauth_missing_authorize_uri_rescue
   rescue_from OAuth::Unauthorized, :with => :oauth_unauthorized_rescue
+  rescue_from EOL::Exceptions::OpenAuthUnauthorized, :with => :oauth_unauthorized_rescue
 
   @@objects_per_page = 20
 
@@ -127,7 +127,7 @@ class UsersController < ApplicationController
   # GET /users/register
   # Extended by EOL::OpenAuth::ExtendUsersController
   def new
-    # Clear OAuth tokens from session for new signups
+    # Clear open authentication tokens from when users cancels the complete registration form.
     session.delete_if{|k,v| k.to_s.match /^oauth_(token|secret)/}
     @user = User.new
   end
@@ -153,7 +153,8 @@ class UsersController < ApplicationController
     end
   end
 
-  # GET named route /users/:user_id/verify/:validation_code users come here from the activation email they receive after registering
+  # GET named route /users/:user_id/verify/:validation_code
+  # users come here from the activation email they receive after registering with EOL credentials
   def verify
     user_id = params[:user_id] || 0
     User.with_master do
@@ -229,34 +230,14 @@ class UsersController < ApplicationController
   end
 
   # GET /users/verify_open_authentication
-  # Authentication callback for adding open authentications to existing users
+  # Third-party apps redirect here from authorization screens, when existing users request to add connected accounts
   def verify_open_authentication
-    oauth_provider = params.delete(:oauth_provider)
-    @open_auth = EOL::OpenAuth.init(oauth_provider,
-                  verify_open_authentication_users_url(:oauth_provider => oauth_provider),
-                  params.merge({:request_token_token => session.delete("#{oauth_provider}_request_token_token"),
-                                :request_token_secret => session.delete("#{oauth_provider}_request_token_secret")}))
-    return oauth_unauthorized_rescue if params[:error] == "access_denied"
-    if @open_auth.have_attributes?
-      if @open_auth.is_connected?
-        if @open_auth.open_authentication.user_id == current_user.id
-          @open_auth.open_authentication.connection_established
-        else
-          flash[:error] = I18n.t(:add_connection_failed_account_already_connected,
-                                 :existing_eol_account_url => user_url(@open_auth.open_authentication.user_id),
-                                 :scope => [:users, :open_authentications, :errors, @open_auth.provider])
-        end
-      else
-        session["oauth_token_#{@open_auth.provider}_#{@open_auth.guid}"] = @open_auth.authentication_attributes[:token]
-        session["oauth_secret_#{@open_auth.provider}_#{@open_auth.guid}"] = @open_auth.authentication_attributes[:secret]
-        redirect_to new_user_open_authentication_url(current_user, :open_authentication => {
-          :guid => @open_auth.guid, :provider => @open_auth.provider}) and return
-      end
-    else
-      flash[:error] = I18n.t(:missing_attributes, :scope => [:users, :open_authentications,
-                                                             :errors, @open_auth.provider])
-    end
-    redirect_to user_open_authentications_url(current_user)
+    raise EOL::Exceptions::SecurityViolation,
+      "We got an authorization callback from a third-party app to add a connected account,"\
+      "but we don't have a current user account to add it to, as no one is logged in." unless logged_in?
+    params.delete(:controller)
+    params.delete(:actions)
+    redirect_to new_user_open_authentication_url(params.merge({:user_id => current_user.id}))
   end
 
   # GET and POST for :collection route /users/recover_account
@@ -362,13 +343,6 @@ private
   def extend_for_open_authentication
     self.extend(EOL::OpenAuth::ExtendUsersController) if params[:oauth_provider] ||
       (! params[:user].nil? && ! params[:user][:open_authentications_attributes].blank?)
-  end
-
-  def oauth_missing_authorize_uri_rescue
-    error_scope = [:users, :open_authentications, :errors]
-    error_scope << @open_auth.provider if !@open_auth.nil? && !@open_auth.provider.nil?
-    flash[:error] = I18n.t(:authorize_uri_missing, :scope => error_scope)
-    redirect_to new_user_url
   end
 
   def oauth_unauthorized_rescue

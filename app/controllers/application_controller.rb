@@ -137,7 +137,9 @@ class ApplicationController < ActionController::Base
 
   def current_url(remove_querystring = true)
     if remove_querystring
-      current_url = URI.parse(request.url).path
+      current_url = URI.parse(request.url)
+      current_url.query = nil
+      current_url.to_s
     else
       request.url
     end
@@ -645,6 +647,34 @@ protected
     end
   end
 private
+
+  # Currently only used by collections and content controllers to log in users coming from iNaturalist
+  # TODO: Allow for all URLs except be sure not to interfere with EOL registration or login
+  def login_with_open_authentication
+    # TODO we want to check for authorization behind the scenes without making the user do anything,
+    # but it looks like that is not possible from the server-side - at least not with Facebook... 
+    # might be possible with AJAX.
+    return unless params[:oauth_provider]
+    unless logged_in?
+      if current_url == return_to_url
+        # FIXME: since we are redirecting the current page e.g. collections show is not stored in browser
+        # history so if a user tries to use their back button during authorization, then they will skip the
+        # collection page and go back to the referring page e.g. iNat. So the problem is the user would not
+        # be able to view the collection page. This is more likely with Yahoo! as they don't have a cancel
+        # button on their authorization screen. Band-aid fix is to compare the current_url with the session
+        # return_to_url, if they are the same then don't redirect to login - they will be the same the second
+        # time a user clicks on the link from the referrer. Alternative solution might be to do all this on
+        # the client side with AJAX... but first things first.
+        session.delete_if{|k,v| k.to_s.match /^[a-z]+(_request_token_(token|secret)|_oauth_state)$/i}
+        store_location(nil)
+      else
+        store_location(current_url)
+        redirect_to login_url(:oauth_provider => params[:oauth_provider].downcase) and return
+      end
+    end
+    redirect_to current_url # redirecting to remove oauth parameters from the URL
+    # TODO: check inat not sending us params other than oauth_provider
+  end
 
   def find_ancestor_ids(taxa_ids)
     taxa_ids = taxa_ids.map do |taxon_concept_id|

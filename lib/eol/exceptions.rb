@@ -12,8 +12,8 @@ module EOL
     class ObjectNotFound < StandardError; end
     class OnlyUsersCanCreateCommunitiesFromCollections < StandardError; end
     class OpenAuthBadResponse < StandardError; end
-    class OpenAuthMissingAuthorizeUri < StandardError; end
     class OpenAuthMissingConnectedUser < StandardError; end
+    class OpenAuthUnauthorized < StandardError; end
     class Pending < StandardError; end
     class SecurityViolation < StandardError
       attr_accessor :flash_error_key, :flash_error_scope

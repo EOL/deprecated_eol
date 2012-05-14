@@ -2,8 +2,8 @@ module EOL
   module OpenAuth
     class Google < EOL::OpenAuth::Protocol2
 
-      def initialize(callback, code = nil)
-        super('google', EOL::OpenAuth.config_file['google'], callback, code)
+      def initialize(callback, code = nil, state = nil, stored_state = nil, error = nil)
+        super('google', EOL::OpenAuth.config_file['google'], callback, code, state, stored_state, error)
       end
 
       def basic_info

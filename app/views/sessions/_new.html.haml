@@ -3,7 +3,8 @@
   %h1= I18n.t(:login_header)
   .open_authentications
     - $ENABLED_SOCIAL_PLUGINS.each do |provider|
-      - form_for :session, :url => sessions_path, :html => { :id => "new_session_#{provider}" } do |f|
+      - form_for :session, :url => new_session_path,
+        :html => { :id => "new_session_#{provider}", :method => :get } do |f|
         = hidden_field_tag :oauth_provider, provider
         %fieldset.actions
           = f.submit I18n.t("helpers.submit.session.sign_in_with_#{provider}"), :id => "session_submit_#{provider}"
@@ -30,4 +31,3 @@
     %fieldset.actions
       = f.submit I18n.t("helpers.submit.session.create")
       = link_to t(".problems_signing_in_with_eol_authentication"), recover_account_users_path
-

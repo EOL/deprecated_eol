@@ -2,8 +2,8 @@ module EOL
   module OpenAuth
     class Facebook < EOL::OpenAuth::Protocol2
 
-      def initialize(callback, code = nil)
-        super('facebook', EOL::OpenAuth.config_file['facebook'], callback, code)
+      def initialize(callback, code = nil, state = nil, stored_state = nil, error = nil)
+        super('facebook', EOL::OpenAuth.config_file['facebook'], callback, code, state, stored_state, error)
       end
 
       def basic_info

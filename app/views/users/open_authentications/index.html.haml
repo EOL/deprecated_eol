@@ -27,9 +27,11 @@
             - else
               %p= t('.not_connected')
               .buttons
-                - form_for [@user, @user.open_authentications.build(:provider => oauth_provider)], 
-                  :html => { :id => "new_open_authentication_#{oauth_provider}" } do |form_create|
-                  = form_create.hidden_field :provider
+                - form_for [@user, @user.open_authentications.build(:provider => oauth_provider)],
+                  :url => new_user_open_authentication_path(@user),
+                  :html => {:id => "new_open_authentication_#{oauth_provider}",
+                  :method => :get } do |form_create|
+                  = hidden_field_tag :oauth_provider, oauth_provider
                   %fieldset.actions
                     = form_create.submit I18n.t('helpers.submit.open_authentication.create')
     - # TODO: would be nicer if this was in the page header area

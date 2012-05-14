@@ -7,8 +7,10 @@ class ContentController < ApplicationController
   layout 'v2/basic'
 
   prepend_before_filter :redirect_back_to_http if $USE_SSL_FOR_LOGIN
+
+  before_filter :login_with_open_authentication, :only => :index
   before_filter :check_user_agreed_with_terms, :except => [:show, :random_homepage_images]
-  
+
   skip_before_filter :original_request_params, :only => :random_homepage_images
   skip_before_filter :global_warning, :only => :random_homepage_images
   skip_before_filter :redirect_to_http_if_https, :only => :random_homepage_images
@@ -24,7 +26,7 @@ class ContentController < ApplicationController
     current_user.log_activity(:viewed_home_page)
     periodically_recalculate_homepage_parts
   end
-  
+
   def random_homepage_images
     begin
       number_of_images = (params[:count] && params[:count].is_numeric?) ? params[:count].to_i : 1

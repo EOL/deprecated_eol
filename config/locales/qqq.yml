@@ -123,3 +123,5 @@ qqq:
   unknown_hierarchy: "This simply indicates that a particular hierarchy (classification, tree of life) is missing.  It's a rare message, grammar not critical here."
   hierarchy_node_missing: "When showing a so-called 'tree of life', sometimes the data for a particular branch of
   that tree has been lost from the database, and this error is shown."
+  recent_activity:
+    intro_weekly: "'ending' in this case will be a date, in the 'long' format."

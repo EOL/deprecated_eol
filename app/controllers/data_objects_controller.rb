@@ -31,7 +31,7 @@ class DataObjectsController < ApplicationController
   def create
     @taxon_concept = TaxonConcept.find(params[:taxon_id])
     unless params[:data_object]
-      failed_to_create_data_object
+      create_failed
       return
     end
 
@@ -39,11 +39,11 @@ class DataObjectsController < ApplicationController
     raise I18n.t(:dato_create_user_text_missing_user_exception) if current_user.nil?
     raise I18n.t(:dato_create_user_text_missing_taxon_id_exception) if @taxon_concept.blank?
     @data_object = DataObject.create_user_text(params[:data_object], :user => current_user,
-                                               :taxon_concept => @taxon_concept, :toc_id => toc_ids)
+                                               :taxon_concept => @taxon_concept, :toc_id => toc_id)
 
     if @data_object.nil? || @data_object.errors.any?
-      @selected_toc_item_id = toc_ids.first.to_i rescue nil
-      failed_to_create_data_object && return
+      @selected_toc_item_id = toc_id
+      create_failed && return
     else
       add_references
       current_user.log_activity(:created_data_object_id, :value => @data_object.id,
@@ -105,12 +105,15 @@ class DataObjectsController < ApplicationController
   def update
     @references = params[:references]
     if @data_object.users_data_object.user_id != current_user.id
-      failed_to_update_data_object(I18n.t(:dato_update_users_text_not_owner_exception)) and return
+      update_failed(I18n.t(:dato_update_users_text_not_owner_exception)) and return
     end
     # Note: replicate doesn't actually update, it creates a new data_object
-    new_data_object = @data_object.replicate(params[:data_object], :toc_id => toc_ids)
-    if new_data_object.nil? || new_data_object.errors.any?
-      failed_to_update_data_object(I18n.t(:dato_update_user_text_error)) and return
+    new_data_object = @data_object.replicate(params[:data_object], :toc_id => toc_id)
+    if new_data_object.nil?
+      update_failed(I18n.t(:dato_update_user_text_error)) and return
+    elsif new_data_object.errors.any?
+      @data_object = new_data_object # We want to show the errors...
+      update_failed(I18n.t(:dato_update_user_text_error)) and return
     else
       add_references
       current_user.log_activity(:updated_data_object_id, :value => new_data_object.id,
@@ -373,7 +376,7 @@ private
     @licenses = License.find_all_by_show_to_content_partners(1)
   end
 
-  def failed_to_create_data_object
+  def create_failed
     if params[:data_object]
       flash.now[:error] = I18n.t(:dato_create_user_text_error)
       set_text_data_object_options
@@ -387,16 +390,15 @@ private
     end
   end
 
-  def failed_to_update_data_object(err)
+  def update_failed(err)
     flash[:error] = err
     if params[:data_object]
       # We have new data object values so we re-render edit form with an error message.
       set_text_data_object_options
-      @selected_toc_item_id = toc_ids.first.to_i rescue nil
+      @selected_toc_item_id = toc_id
       @page_title = I18n.t(:dato_edit_text_title)
       @page_description = I18n.t(:dato_edit_text_page_description)
       # Be kind, rewind:
-      tocs = params[:data_object][:toc_items]
       @data_object.attributes = params[:data_object] # Sets them, doesn't save them.
       render :action => 'edit', :layout => 'v2/basic'
     else
@@ -610,8 +612,9 @@ private
     end
   end
 
-  def toc_ids
-    params[:data_object].delete(:toc_items)[:id].to_a
+  def toc_id
+    @ti ||= params[:data_object].delete(:toc_items)[:id].to_a
+    @ti.empty? ? nil : @ti.first.to_i
   end
 
 end

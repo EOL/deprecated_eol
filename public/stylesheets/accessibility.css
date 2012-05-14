@@ -981,6 +981,9 @@ a.other_actions {
     background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
     background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white));
     margin: 0 10px 0 0; }
+  .site_column > #choose_collections fieldset.new_collection .collection_name_error, .site_column > #choose_communities fieldset.new_collection .collection_name_error {
+    display: none;
+    color: #e84226; }
 .site_column > #choose_collections input[type="submit"], .site_column > #choose_communities input[type="submit"] {
   padding-left: 20px;
   padding-right: 20px;
@@ -1111,3 +1114,7 @@ body#prelaunch #footer ul.social_media {
 
 #taxon_names table.standard tr td {
   vertical-align: top; }
+
+#modal #choose_collections fieldset.new_collection .collection_name_error {
+  display: none;
+  color: #e84226; }

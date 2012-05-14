@@ -233,7 +233,19 @@ $(function() {
   $('a.collect').modal({
     beforeSend: function() { $('a.collect').fadeTo(225, 0.3); },
     beforeShow: function() {
-      $('#choose_collections form :submit').click(function() {
+      $('form#new_collection :submit').click(function() {
+        if($('#collection_name').val() == ""){
+          $('.collection_name_error').show();
+          return(false);
+        }
+        if($('#flashes')[0] == undefined) {
+          $('#page_heading div.page_actions').after('<div id="flashes" style="clear: both; width: 100%;"></div>');
+        }
+        EOL.ajax_submit($(this), { update: $('#flashes') });
+        $('#choose_collections a.close').click();
+        return(false);
+      });
+      $('form#new_collection_item :submit').click(function() {
         if($('#flashes')[0] == undefined) {
           $('#page_heading div.page_actions').after('<div id="flashes" style="clear: both; width: 100%;"></div>');
         }

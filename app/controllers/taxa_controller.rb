@@ -135,10 +135,6 @@ private
 
   def instantiate_preferred_names
     @preferred_common_name = @selected_hierarchy_entry ? @selected_hierarchy_entry.taxon_concept.preferred_common_name_in_language(current_language) : @taxon_concept.preferred_common_name_in_language(current_language)
-    # This is only safe in English:
-    if I18n.locale == 'en' || I18n.locale == :en && ! @preferred_common_name.blank?
-      @preferred_common_name = @preferred_common_name.split(/ /).map {|w| w.firstcap }.join(' ')
-    end
     @scientific_name = @selected_hierarchy_entry ? @selected_hierarchy_entry.italicized_name : @taxon_concept.title_canonical_italicized
   end
 

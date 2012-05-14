@@ -240,7 +240,7 @@ class DataObject < ActiveRecord::Base
     end
     dato = DataObject.new(params.reverse_merge!({:published => true}))
     if dato.save
-      dato.toc_items = TocItem.find(options[:toc_id])
+      dato.toc_items = Array(TocItem.find(options[:toc_id]))
       dato.build_relationship_to_taxon_concept_by_user(options[:taxon_concept], options[:user])
       dato.update_solr_index
     end
@@ -275,7 +275,7 @@ class DataObject < ActiveRecord::Base
   def replicate(params, options)
     new_dato = DataObject.new(params.reverse_merge!(:guid => self.guid, :published => 1))
     if new_dato.save
-      new_dato.toc_items = TocItem.find(options[:toc_id])
+      new_dato.toc_items = Array(TocItem.find(options[:toc_id]))
       new_dato.unpublish_previous_revisions
       self.replicate_associations(new_dato)
       new_dato.update_solr_index

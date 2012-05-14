@@ -143,7 +143,10 @@ class TaxonConcept < ActiveRecord::Base
     best_name_in_language = preferred_common_names.detect do |preferred_common_name|
       preferred_common_name.language_id == language.id
     end
-    best_name_in_language.name.string if best_name_in_language
+    if best_name_in_language
+      return best_name_in_language.name.string.capitalize_all_words_if_using_english
+    end
+    nil
   end
 
   # TODO - this will now be called on ALL taxon pages.  Eep!  Make this more efficient:

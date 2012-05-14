@@ -21,4 +21,4 @@
       %tbody
         - names.each do |name|
           %tr
-            = render :partial => 'common_names_edit_row', :locals => {:name => name }
+            = render :partial => 'common_names_edit_row', :locals => { :name => name, :language => language }

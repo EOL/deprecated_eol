@@ -32,7 +32,7 @@ describe 'Taxa page' do
       body.should have_tag('#page_heading h1', /\n.*#{@section}/i)
     end
     it 'should show the preferred common name titlized properly when site language is English' do
-      body.should have_tag('#page_heading h2', /^#{@testy[:common_name].split(/ /).map {|w| w.firstcap }.join(' ')}/)
+      body.should have_tag('#page_heading h2', /^#{@testy[:common_name].capitalize_all_words}/)
     end
   end
 
@@ -223,7 +223,7 @@ describe 'Taxa page' do
       fill_in 'Name', :with => new_name
       select('English', :from => "Language")
       click_button 'Add name'
-      body.should have_tag('td', new_name)
+      body.should have_tag('td', new_name.capitalize_all_words)
     end
 
     it 'should allow curators to choose a preferred common name for each language'

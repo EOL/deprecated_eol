@@ -29,6 +29,24 @@ class String
     string = self.clone
     string.gsub(@@non_word_chars_regex, '_').gsub(@@dup_underscores_regex, '_')
   end
+  
+  def capitalize_all_words_if_using_english
+    if I18n.locale == 'en' || I18n.locale == :en
+      # This is only safe in English:
+      capitalize_all_words
+    else
+      self
+    end
+  end
+  
+  def capitalize_all_words
+    string = self.clone
+    unless string.blank?
+      string = string.split(/ /).map {|w| w.firstcap }.join(' ')
+    end
+    string
+  end
+  
 end
 
 module ActiveRecord

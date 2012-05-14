@@ -721,7 +721,9 @@ en:
         observation_place: "Place: %{place}"
         recent_observations: "Recent Observations"
         some_taxon: "Something"
-        taxa_observed: "%{observed_taxa_count} taxa observed"
+        taxa_observed:
+          one: "%{count} taxon observed"
+          other: "%{count} taxa observed"
         top_contributors: "Top iNaturalist Contributors"
         tweet_text: "%{collection_name} iNaturalist Observations"
         view_all_observations_on_inaturalist: "View all observations from %{project_title} on iNaturalist"
@@ -905,6 +907,7 @@ en:
       meta_title: "Login"
       problems_signing_in_with_connected_accounts: "Problems signing in with your connected accounts?"
       problems_signing_in_with_eol_authentication: "Forgot password?"
+      tip: "Existing user? Connect your EOL account with Facebook, Google and more in your profile settings. Once your accounts are connected you can use them to log in to EOL."
   taxa:
     communities:
       index:
@@ -1334,6 +1337,10 @@ en:
       warnings:
         no_way_to_login: "You no longer have any connected accounts, you will not be able to log back into EOL unless you add a connected account or add an EOL username and password."
       yahoo: Yahoo!
+    pending:
+      header: "Thanks for registering!"
+      verify_email_instructions: "<strong>Please verify your email address</strong>. A confirmation message has been sent to the email address you have provided. To complete the registration process and become an EOL member, please click on the link included in that email. Thank you!"
+      verify_email_tip: "Please note that account activation emails <em>frequently</em> get flagged as 'Spam' by email filters. Please check your spam folder if you do not receive your email within an hour."
     recover_account:
       errors:
         temporary_login_user_not_found: "Sorry, the EOL account you were trying to recover could not be found, please request a new email to recover your account."
@@ -2682,11 +2689,12 @@ en:
   hidden: "Hidden"
   hidden_comment: "hidden comment"
   hide: "hide"
-  hierarchies_title: "Hierarchies"
-  hierarchy_entry_switch_missing_id_error: "Sorry, the hierarchy entry page you selected could not be found due to a missing identifier."
   hierarchy: "Hierarchy"
+  hierarchy_entry_switch_missing_id_error: "Sorry, the hierarchy entry page you selected could not be found due to a missing identifier."
+  hierarchy_node_missing: "Sorry, the data for this node is missing."
   hierarchy_roots_colon: "Hierarchy Roots:"
   hierarchy_updated: "Hierarchy updated"
+  hierarchies_title: "Hierarchies"
   home: "Home"
   home_page_cache_last_cleared_on: "Home page cache last cleared on %{date}"
   home_page_link_advisory_information: "This link will take you to the home page of the Encyclopedia of Life Web site"
@@ -3665,8 +3673,6 @@ en:
     one: "Member of %{count} community"
     other: "Member of %{count} communities"
   users_my_info_header: "My info"
-  users_pending_activation_helper: "Please note that account activation emails <em>frequently</em> get flagged as 'Spam' by email filters. Please check your spam folder if you do not receive your email within an hour."
-  users_pending_activation_message: "A confirmation message has been sent to the email address you have provided. To complete the registration process and become an EOL member, please click on the link included in that email. Thank you!"
   users_that_can_edit_this_collection: "Users that can manage this collection"
   using_the_site: "Using The Site"
   validation_error: "Validation Error"

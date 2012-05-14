@@ -4,12 +4,16 @@ class Users::NotificationsController < UsersController
 
   # GET /users/:user_id/notification/edit
   def edit
+    @user = User.find(params[:user_id])
+    return access_denied unless current_user.can_update?(@user)
     instantiate_variables_for_notifications_settings
   end
 
   # PUT /users/:user_id/notification
   def update
+    @user = User.find(params[:user_id])
     convert_notification_frequencies_ids_to_objects
+    return access_denied unless current_user.can_update?(@user)
     if @user.update_attributes(params[:user])
       flash[:notice] = "Notification settings successfully updated."
       redirect_back_or_default edit_user_path(@user)

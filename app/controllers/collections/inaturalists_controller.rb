@@ -14,6 +14,9 @@ class Collections::InaturalistsController < CollectionsController
     end
     # This aids in the views and in the methods from the parent controller:
     @filter = params[:filter] = 'inaturalist'
+    if logged_in? && (authentications = current_user.open_authentications)
+      @embed_auth_provider = "auth_provider=#{authentications.first.provider}" unless authentications.blank?
+    end
   end
 
 private

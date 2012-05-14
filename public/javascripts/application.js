@@ -370,6 +370,16 @@ $(function() {
     }
   });
 
+  
+  (function($inat_link) {
+    $inat_link.attr('href', function() { 
+      auth_provider = $('.inat_observations_header a.button').attr('href').split("&")[1];
+      if (typeof auth_provider != "undefined") {
+        return this.href + '?' + auth_provider;
+      }
+    });
+  })($(".inat_top_contributors a"));
+
   (function($content_partner_resources) {
     var $radios = $content_partner_resources.find("dl.resources :radio");
     $radios.change(function() {

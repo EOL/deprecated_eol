@@ -1,3 +1,7 @@
+- inat_observations_url = "http://www.inaturalist.org/observations"
+- if @embed_auth_provider
+  - auth_provider_question = "?#{@embed_auth_provider}"
+  - auth_provider_ampersand = "&#{@embed_auth_provider}"
 - content_for :social_sharing do
   = render :partial => 'shared/social_sharing'
 - editable = @collection.editable_by?(current_user)
@@ -14,30 +18,31 @@
 #inat_observations.main_container
   .inat_observations_header
     = link_to(t('.add_observations'), 
-              "http://www.inaturalist.org/observations/new?project_id=#{@inaturalist_project_id}", :class => 'button')
+              "#{inat_observations_url}/new?project_id=#{@inaturalist_project_id}#{auth_provider_ampersand}", :class => 'button')
     %span= t('.taxa_observed', :count => @inaturalist_observed_taxa_count)
-    %a{:href => "http://www.inaturalist.org/"}
+    %a{:href => "http://www.inaturalist.org/#{auth_provider_question}"}
       %img{:src => "http://inaturalist.org/images/logo-small.gif"}
   .inat_observations_map
-    %iframe{:src => "http://maps.google.com/?q=http://www.inaturalist.org/observations/project/#{@inaturalist_project_id}.kml&t=p&output=embed", :frameborder => "0", 
+    %iframe{:src => "http://maps.google.com/?q=#{inat_observations_url}/project/#{@inaturalist_project_id}.kml&t=p&output=embed", :frameborder => "0", 
             :height => "300", :marginheight => "0", :marginwidth => "0", :scrolling => "no", :width => "500"}
   .copy
     %p
       - link = @inaturalist_project_observations.blank? ? '.view_project_on_inaturalist' : '.view_all_observations_on_inaturalist'
       %strong= link_to(t(link, :project_title => @inaturalist_project_title), 
-                        "http://www.inaturalist.org/observations/project/#{@inaturalist_project_id}")
+                        "#{inat_observations_url}/project/#{@inaturalist_project_id}#{auth_provider_question}")
   .heading
     %h3= t('.recent_observations')
   %ul.object_list
     - for observation in @inaturalist_project_observations
       %li
-        %a{:href => "http://www.inaturalist.org/observations/#{observation['id']}"}
-          %img{:src => observation['photos'][0]['square_url']}
+        - if observation['photos'][0]
+          %a{:href => "#{inat_observations_url}/#{observation['id']}#{auth_provider_question}"}
+            %img{:src => observation['photos'][0]['square_url']}
         - species = observation['species_guess'].blank? ? t('.some_taxon') : observation['species_guess']
-        %h4= link_to(species, "http://www.inaturalist.org/observations/#{observation['id']}")
+        %h4= link_to(species, "#{inat_observations_url}/#{observation['id']}#{auth_provider_question}")
         - observer_link = link_to(observation['user_login'], 
-                                  "http://www.inaturalist.org/observations/#{observation['user_login']}")
-        %p= t('.observer_with_link', :observer_link => observer_link)
+                                  "#{inat_observations_url}/#{observation['user_login']}#{auth_provider_question}")
+        %p= t('.observer_with_link', :observer_link => "#{observer_link}")
         %p= t('.observation_date', :observed_on => observation['observed_on_string'])
         %p= t('.observation_place', :place => observation['place_guess'])
   - if @inaturalist_project_observations.blank?
@@ -45,4 +50,4 @@
       %p= t('.no_observations_added_to_this_project_yet')
   - else
     %strong= link_to(t('.view_more_observations_on_inaturalist', :project_title => @inaturalist_project_title), 
-                      "http://www.inaturalist.org/observations/project/#{@inaturalist_project_id}")
+                      "#{inat_observations_url}/project/#{@inaturalist_project_id}#{auth_provider_question}")

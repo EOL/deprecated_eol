@@ -2,8 +2,9 @@ module EOL
   module OpenAuth
     class Yahoo < EOL::OpenAuth::Protocol1
 
-      def initialize(callback, request_token_token = nil, request_token_secret = nil, verifier = nil)
-        super('yahoo', EOL::OpenAuth.config_file['yahoo'], callback, request_token_token, request_token_secret, verifier)
+      def initialize(callback, request_token_token = nil, request_token_secret = nil, verifier = nil, denied = nil)
+        super('yahoo', EOL::OpenAuth.config_file['yahoo'], callback, request_token_token, request_token_secret,
+              verifier, denied)
       end
 
       def basic_info

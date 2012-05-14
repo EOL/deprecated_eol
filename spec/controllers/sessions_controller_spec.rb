@@ -34,55 +34,59 @@ describe SessionsController do
     end
 
     context 'extended for open authentication' do
-
-      before :each do
-        stub_oauth_requests
-      end
-
-      it 'should log in user with Facebook' do
-        params_data, session_data = oauth_request_data(:facebook, 2)
-        get :new, params_data, session_data
-        assigns[:open_auth].should be_a(EOL::OpenAuth::Facebook)
-        session[:user_id].should == @connected_user.id
-        session[:language_id].should == @connected_user.language_id
-        response.redirected_to.should == user_newsfeed_url(@connected_user)
-      end
-      it 'should log in user with Google' do
-        params_data, session_data = oauth_request_data(:google, 2)
-        get :new, params_data, session_data
-        assigns[:open_auth].should be_a(EOL::OpenAuth::Google)
-        session[:user_id].should == @connected_user.id
-        session[:language_id].should == @connected_user.language_id
-        response.redirected_to.should == user_newsfeed_url(@connected_user)
-      end
-      it 'should log in user with Twitter' do
+      it 'should clear obsolete session data from different provider' do
         params_data, session_data = oauth_request_data(:twitter)
-        get :new, params_data, session_data
+        get :new, { :oauth_provider => 'facebook' }, session_data
+        session_data.each{|k,v| session.include?(k).should be_false}
+      end
+      it 'should redirect to authorize uri before log in with Facebook' do
+        get :new, { :oauth_provider => 'facebook' }
+        response.redirected_to.should =~ /^https:\/\/graph.facebook.com\/oauth\/authorize/
+      end
+      it 'should redirect to authorize uri before log in with Google' do
+        post :new, { :oauth_provider => 'google' }
+        response.redirected_to.should =~ /^https:\/\/accounts.google.com\/o\/oauth2\/auth/
+      end
+      it 'should redirect to authorize uri before log in with Twitter' do
+        stub_oauth_requests
+        post :new, { :oauth_provider => 'twitter' }
+        response.redirected_to.should =~ /http:\/\/api.twitter.com\/oauth\/authenticate/
+      end
+      it 'should redirect to authorize uri before log with Yahoo' do
+        stub_oauth_requests
+        post :new, { :oauth_provider => 'yahoo' }
+        response.redirected_to.should =~ /https:\/\/api.login.yahoo.com\/oauth\/v2\/request_auth/
+      end
+      it 'should redirect and flash error if user denies access when logging in with Twitter' do
+        oauth1_consumer = OAuth::Consumer.new("key", "secret", {
+          :site => "http://fake.oauth1.provider",
+          :request_token_path => "/example/request_token",
+          :access_token_path => "/example/access_token_denied",
+          :authorize_path => "/example/authorize" })
+        OAuth::Consumer.should_receive(:new).and_return(oauth1_consumer)
+        get :new, {:denied => "key",
+                   :oauth_provider => 'twitter'},
+                  { "twitter_request_token_token" => 'key',
+                    "twitter_request_token_secret" => 'secret',
+                    "return_to" => collection_url(1) }
         assigns[:open_auth].should be_a(EOL::OpenAuth::Twitter)
-        session[:user_id].should == @connected_user.id
-        session[:language_id].should == @connected_user.language_id
-        response.redirected_to.should == user_newsfeed_url(@connected_user)
+        response.redirected_to.should == collection_url(1)
+        flash[:error].should match /Sorry, we are not authorized.+?Twitter/
       end
-      it 'should log in user with Yahoo' do
-        params_data, session_data = oauth_request_data(:yahoo)
-        get :new, params_data, session_data
-        assigns[:open_auth].should be_a(EOL::OpenAuth::Yahoo)
-        session[:user_id].should == @connected_user.id
-        session[:language_id].should == @connected_user.language_id
-        response.redirected_to.should == user_newsfeed_url(@connected_user)
+      it 'should redirect and flash error if user denies access when logging in with Facebook' do
+        get :new, { :error => "access_denied", :oauth_provider => 'facebook' }, { :return_to => collection_url(1) }
+        assigns[:open_auth].should be_a(EOL::OpenAuth::Facebook)
+        response.redirected_to.should == collection_url(1)
+        flash[:error].should match /Sorry, we are not authorized.+?Facebook/
       end
-
-      it 'should redirect user to return_to url after log in' do
-        params_data, session_data = oauth_request_data(:yahoo)
-        get :new, params_data, session_data.merge(:return_to => taxon_url(1))
-        assigns[:open_auth].should be_a(EOL::OpenAuth::Yahoo)
-        session[:user_id].should == @connected_user.id
-        session[:language_id].should == @connected_user.language_id
-        response.redirected_to.should == taxon_url(1)
-        flash[:notice].should =~ /login successful/i
+      it 'should redirect and flash error if user denies access when logging in with Google' do
+        get :new, { :error => "access_denied", :oauth_provider => 'google' }, { :return_to => collection_url(1) }
+        assigns[:open_auth].should be_a(EOL::OpenAuth::Google)
+        response.redirected_to.should == collection_url(1)
+        flash[:error].should match /Sorry, we are not authorized.+?Google/
       end
-
       it 'should prevent log in, render new and flash error if oauth account is not connected to an EOL user' do
+        stub_oauth_requests
         open_authentication = @connected_user.open_authentications.select{|oa| oa.provider == 'facebook'}.first
         open_authentication.update_attributes(:provider => 'tempchange')
         params_data, session_data = oauth_request_data(:facebook, 2)
@@ -93,6 +97,53 @@ describe SessionsController do
         response.redirected_to.should == login_url
         flash[:error].should =~ /couldn't find a connection between your Facebook account and EOL/
         open_authentication.update_attributes(:provider => 'facebook')
+     end
+     it 'should log in user with Facebook' do
+        stub_oauth_requests
+        params_data, session_data = oauth_request_data(:facebook, 2)
+        get :new, params_data, session_data
+        assigns[:open_auth].should be_a(EOL::OpenAuth::Facebook)
+        session[:user_id].should == @connected_user.id
+        session[:language_id].should == @connected_user.language_id
+        response.redirected_to.should == user_newsfeed_url(@connected_user)
+      end
+      it 'should log in user with Google' do
+        stub_oauth_requests
+        params_data, session_data = oauth_request_data(:google, 2)
+        get :new, params_data, session_data
+        assigns[:open_auth].should be_a(EOL::OpenAuth::Google)
+        session[:user_id].should == @connected_user.id
+        session[:language_id].should == @connected_user.language_id
+        response.redirected_to.should == user_newsfeed_url(@connected_user)
+      end
+      it 'should log in user with Twitter' do
+        stub_oauth_requests
+        params_data, session_data = oauth_request_data(:twitter)
+        get :new, params_data, session_data
+        assigns[:open_auth].should be_a(EOL::OpenAuth::Twitter)
+        session[:user_id].should == @connected_user.id
+        session[:language_id].should == @connected_user.language_id
+        response.redirected_to.should == user_newsfeed_url(@connected_user)
+      end
+      it 'should log in user with Yahoo' do
+        stub_oauth_requests
+        params_data, session_data = oauth_request_data(:yahoo)
+        get :new, params_data, session_data
+        assigns[:open_auth].should be_a(EOL::OpenAuth::Yahoo)
+        session[:user_id].should == @connected_user.id
+        session[:language_id].should == @connected_user.language_id
+        response.redirected_to.should == user_newsfeed_url(@connected_user)
+      end
+
+      it 'should redirect user to return to url after log in' do
+        stub_oauth_requests
+        params_data, session_data = oauth_request_data(:yahoo)
+        get :new, params_data, session_data.merge(:return_to => taxon_url(1))
+        assigns[:open_auth].should be_a(EOL::OpenAuth::Yahoo)
+        session[:user_id].should == @connected_user.id
+        session[:language_id].should == @connected_user.language_id
+        response.redirected_to.should == taxon_url(1)
+        flash[:notice].should =~ /login successful/i
       end
 
     end
@@ -119,26 +170,6 @@ describe SessionsController do
       flash[:notice].should =~ /login successful/i
     end
 
-    context 'extended for open authentication' do
-      it 'should redirect to authorize uri when log in is with Facebook' do
-        post :create, { :oauth_provider => 'facebook' }
-        response.redirected_to.should =~ /^https:\/\/graph.facebook.com\/oauth\/authorize/
-      end
-      it 'should redirect to authorize uri when log in is with Google' do
-        post :create, { :oauth_provider => 'google' }
-        response.redirected_to.should =~ /^https:\/\/accounts.google.com\/o\/oauth2\/auth/
-      end
-      it 'should redirect to authorize uri when log in is with Twitter' do
-        stub_oauth_requests
-        post :create, { :oauth_provider => 'twitter' }
-        response.redirected_to.should =~ /http:\/\/api.twitter.com\/oauth\/authenticate/
-      end
-      it 'should redirect to authorize uri when log in is with Yahoo' do
-        stub_oauth_requests
-        post :create, { :oauth_provider => 'yahoo' }
-        response.redirected_to.should =~ /https:\/\/api.login.yahoo.com\/oauth\/v2\/request_auth/
-      end
-    end
   end
 
 end

@@ -1268,43 +1268,45 @@ en:
         page_title: Notification settings
     open_authentications:
       errors:
-        authorize_uri_missing: "Sorry, an error occurred, we are unable to initiate authentication at this time."
         missing_attributes: "Sorry, there was a problem accessing your third-party account details."
         not_authorized_to_add_authentication: "Sorry, we don't have authorization to connect that account."
-        not_authorized_to_signup: "Sorry, we are not authorized to sign you up to EOL with that account."
-        not_connected: "Sorry, we couldn't find a connection to an EOL account."
+        not_authorized_to_login: "Sorry, we are not authorized to log you in to EOL with that account."
         remove_connection_failed: "Sorry, an error occurred, we were unable to remove the connection."
         facebook:
           add_connection_failed_account_already_connected: "Sorry, we can't connect your Facebook account to your EOL account, your Facebook account is already connected to an <a href=\"%{existing_eol_account_url}\">EOL account</a>."
+          login_failed_not_connected: "Sorry, we couldn't find a connection between your Facebook account and EOL. If you already have an EOL account please <a href=\"%{login_url}\">log in to EOL</a> using other credentials, then connect your Facebook account in your EOL profile settings. If you do not yet have an EOL account please <a href=\"%{register_url}\">complete your EOL registration</a> to create one."
           missing_attributes: "Sorry, there was a problem accessing your Facebook details."
           new_authentication_not_added: "Sorry, an error occurred, we could not connect your Facebook account."
           not_authorized_to_add_authentication: "Sorry, we don't have authorization to connect your Facebook account."
+          not_authorized_to_login: "Sorry, we are not authorized to log you in to EOL using your Facebook account."
           not_authorized_to_signup: "Sorry, we are not authorized to sign you up to EOL using your Facebook account."
-          not_connected: "Sorry, we couldn't find a connection between your Facebook account and EOL."
           signup_failed_account_already_connected: "Sorry, we can't sign you up for a new EOL account with your Facebook account, it is already connected to an <a href=\"%{existing_eol_account_url}\">EOL user account</a>. Did you mean to <a href=\"%{login_url}\">log in</a> instead?"
         google:
           add_connection_failed_account_already_connected: "Sorry, we can't connect your Google account to your EOL account, your Google account is already connected to an <a href=\"%{existing_eol_account_url}\">EOL account</a>."
+          login_failed_not_connected: "Sorry, we couldn't find a connection between your Google account and EOL. If you already have an EOL account please <a href=\"%{login_url}\">log in to EOL</a> using other credentials, then connect your Google account in your EOL profile settings. If you do not yet have an EOL account please <a href=\"%{register_url}\">complete your EOL registration</a> to create one."
           missing_attributes: "Sorry, there was a problem accessing your Google details."
           new_authentication_not_added: "Sorry, an error occurred, we could not connect your Google account."
           not_authorized_to_add_authentication: "Sorry, we don't have authorization to connect your Google account."
+          not_authorized_to_login: "Sorry, we are not authorized to log you in to EOL using your Google account."
           not_authorized_to_signup: "Sorry, we are not authorized to sign you up to EOL using your Google account."
-          not_connected: "Sorry, we couldn't find a connection between your Google account and EOL."
           signup_failed_account_already_connected: "Sorry, we can't sign you up for a new EOL account with your Google account, it is already connected to an <a href=\"%{existing_eol_account_url}\">EOL user account</a>. Did you mean to <a href=\"%{login_url}\">log in</a> instead?"
         twitter:
           add_connection_failed_account_already_connected: "Sorry, we can't connect your Twitter account to your EOL account, your Twitter account is already connected to an <a href=\"%{existing_eol_account_url}\">EOL account</a>."
+          login_failed_not_connected: "Sorry, we couldn't find a connection between your Twitter account and EOL. If you already have an EOL account please <a href=\"%{login_url}\">log in to EOL</a> using other credentials, then connect your Twitter account in your EOL profile settings. If you do not yet have an EOL account please <a href=\"%{register_url}\">complete your EOL registration</a> to create one."
           missing_attributes: "Sorry, there was a problem accessing your Twitter details."
           new_authentication_not_added: "Sorry, an error occurred, we could not connect your Twitter account."
           not_authorized_to_add_authentication: "Sorry, we don't have authorization to connect your Twitter account."
+          not_authorized_to_login: "Sorry, we are not authorized to log you in to EOL using your Twitter account."
           not_authorized_to_signup: "Sorry, we are not authorized to sign you up to EOL using your Twitter account."
-          not_connected: "Sorry, we couldn't find a connection between your Twitter account and EOL."
           signup_failed_account_already_connected: "Sorry, we can't sign you up for a new EOL account with your Twitter account, it is already connected to an <a href=\"%{existing_eol_account_url}\">EOL user account</a>. Did you mean to <a href=\"%{login_url}\">log in</a> instead?"
         yahoo:
           add_connection_failed_account_already_connected: "Sorry, we can't connect your Yahoo! account to your EOL account, your Yahoo! account is already connected to an <a href=\"%{existing_eol_account_url}\">EOL account</a>."
+          login_failed_not_connected: "Sorry, we couldn't find a connection between your Yahoo! account and EOL. If you already have an EOL account please <a href=\"%{login_url}\">log in to EOL</a> using other credentials, then connect your Yahoo! account in your EOL profile settings. If you do not yet have an EOL account please <a href=\"%{register_url}\">complete your EOL registration</a> to create one."
           missing_attributes: "Sorry, there was a problem accessing your Yahoo! details."
           new_authentication_not_added: "Sorry, an error occurred, we could not connect your Yahoo! account."
           not_authorized_to_add_authentication: "Sorry, we don't have authorization to connect your Yahoo! account."
+          not_authorized_to_login: "Sorry, we are not authorized to log you in to EOL using your Yahoo! account."
           not_authorized_to_signup: "Sorry, we are not authorized to sign you up to EOL using your Yahoo! account."
-          not_connected: "Sorry, we couldn't find a connection between your Yahoo! account and EOL."
           signup_failed_account_already_connected: "Sorry, we can't sign you up for a new EOL account with your Yahoo! account, it is already connected to an <a href=\"%{existing_eol_account_url}\">EOL user account</a>. Did you mean to <a href=\"%{login_url}\">log in</a> instead?"
       facebook: Facebook
       google: Google

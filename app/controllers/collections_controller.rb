@@ -1,6 +1,7 @@
 # NOTE - we use these commit_* button names because we don't want to parse the I18n of the button name (hard).
 class CollectionsController < ApplicationController
 
+  before_filter :login_with_open_authentication, :only => :show
   before_filter :modal, :only => [:choose_editor_target, :choose_collect_target]
   before_filter :find_collection, :except => [:new, :create, :choose_editor_target, :choose_collect_target]
   before_filter :prepare_show, :only => [:show]

@@ -4,9 +4,10 @@ describe CollectionsController do
 
   before(:all) do
     # so this part of the before :all runs only once
-    unless User.find_by_username('collections_scenario')
+    unless @user = User.find_by_username('collections_scenario')
       truncate_all_tables
       load_scenario_with_caching(:collections)
+      @user = User.find_by_username('collections_scenario')
     end
     @test_data  = EOL::TestInfo.load('collections')
     @collection = @test_data[:collection]
@@ -20,6 +21,31 @@ describe CollectionsController do
       assigns[:view_as_options].should == [ViewStyle.list, ViewStyle.gallery, ViewStyle.annotated]
       get :show, :id => @collection.id, :view_as => ViewStyle.gallery.id
       assigns[:view_as].should == ViewStyle.gallery
+    end
+    describe '#login_with_open_authentication' do
+      it 'should do nothing unless oauth_provider param is present' do
+        get :show, :id => @collection.id
+        response.redirected_to.should be_nil
+        response.rendered[:template].should == 'collections/show.html.haml'
+      end
+      it 'should redirect to login unless user already logged in' do
+        provider = 'aprovider'
+        get :show, { :id => @collection.id, :oauth_provider => provider }
+        session[:return_to].should == collection_url(@collection)
+        response.redirected_to.should == login_url(:oauth_provider => provider)
+        get :show, { :id => @collection.id, :oauth_provider => provider }, { :user_id => @user.id }
+        response.redirected_to.should_not == login_url(:oauth_provider => provider)
+      end
+      it 'should redirect to current url if it matches the session return to url and clear obsolete session data' do
+        obsolete_oauth_session_data = {:provider_request_token_token => 'token',
+                                       :provider_request_token_secret => 'secret',
+                                       :provider_oauth_state => 'state'}
+        return_to_url = collection_url(@collection)
+        get :show, { :id => @collection.id, :oauth_provider => 'provider' },
+                   obsolete_oauth_session_data.merge({ :return_to => return_to_url })
+        obsolete_oauth_session_data.each{|k,v| session.has_key?(k.to_s).should be_false}
+        response.redirected_to.should == return_to_url
+      end
     end
   end
 

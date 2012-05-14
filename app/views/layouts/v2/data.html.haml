@@ -20,15 +20,14 @@
         %ul
           %li
             = render :partial => 'shared/add_to_my_collection', :locals => { :item => @data_object, :my_collection => @watch_collection } if @latest_published_revision && @latest_published_revision.id == @data_object.id
-          - if @data_object.users_data_object && @data_object.users_data_object.user.id == current_user.id
-            - unless @latest_published_revision.nil?
-              %li
-                = link_to I18n.t(:dato_edit_text_link_button), edit_data_object_path(@latest_published_revision), :class => 'button'
-
+          - if @data_object.users_data_object && @data_object.users_data_object.user_id == current_user.id && @latest_published_revision
+            %li= link_to I18n.t(:dato_edit_text_link_button), edit_data_object_path(@latest_published_revision), :class => 'button'
+          - if @data_object.users_data_object && @data_object.users_data_object.user_id
+            -# I'm putting this here to help debug some problems in production. Please leave until Oct 2012.
+            /
+              = "User ID: #{@data_object.users_data_object.user_id}, latest revision: #{@latest_published_revision}"
       = render :partial => 'shared/flash_messages'
-
   #content
     .site_column
       = yield
-
 = render :file => 'layouts/v2/application'

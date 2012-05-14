@@ -3175,12 +3175,13 @@ ul.content_partner_contacts li {
     min-height: 295px;
     margin: 0 auto;
     border: 1px solid #cad3db;
-    background: #f0f4f7 url("/images/v2/bg_sign-in.gif") 0 0 no-repeat; }
+    background: #f0f4f7 url("/images/v2/bg_sign-in.gif") 0 0 no-repeat;
+    padding-bottom: 40px; }
     #content.session #sign_up h1, #content.session #sign_in h1, #content.session #recover_account h1 {
       font-size: 2em;
       font-weight: normal;
       text-align: center;
-      padding: 75px 0 0 0; }
+      padding: 75px 40px 0; }
     #content.session #sign_up > form, #content.session #sign_in > form, #content.session #recover_account > form {
       padding: 25px 159px 20px 159px;
       width: 320px; }
@@ -3211,30 +3212,38 @@ ul.content_partner_contacts li {
         font-weight: bold; }
       #content.session #sign_up > form label.checkbox, #content.session #sign_in > form label.checkbox, #content.session #recover_account > form label.checkbox {
         padding: 0 0 15px 0; }
-    #content.session #sign_up .open_authentications, #content.session #sign_in .open_authentications, #content.session #recover_account .open_authentications {
+      #content.session #sign_up > form.terms_agreement, #content.session #sign_in > form.terms_agreement, #content.session #recover_account > form.terms_agreement {
+        padding: 25px 100px;
+        width: 440px; }
+        #content.session #sign_up > form.terms_agreement h2, #content.session #sign_in > form.terms_agreement h2, #content.session #recover_account > form.terms_agreement h2 {
+          text-align: right;
+          padding-bottom: 0; }
+    #content.session #sign_up .open_authentications, #content.session #sign_up .pending, #content.session #sign_in .open_authentications, #content.session #sign_in .pending, #content.session #recover_account .open_authentications, #content.session #recover_account .pending {
       overflow: hidden;
       width: 400px;
       padding: 25px 100px 20px 140px; }
-      #content.session #sign_up .open_authentications form, #content.session #sign_in .open_authentications form, #content.session #recover_account .open_authentications form {
+      #content.session #sign_up .open_authentications form, #content.session #sign_up .pending form, #content.session #sign_in .open_authentications form, #content.session #sign_in .pending form, #content.session #recover_account .open_authentications form, #content.session #recover_account .pending form {
         float: left;
         margin-bottom: 20px; }
-        #content.session #sign_up .open_authentications form fieldset.actions, #content.session #sign_in .open_authentications form fieldset.actions, #content.session #recover_account .open_authentications form fieldset.actions {
+        #content.session #sign_up .open_authentications form fieldset.actions, #content.session #sign_up .pending form fieldset.actions, #content.session #sign_in .open_authentications form fieldset.actions, #content.session #sign_in .pending form fieldset.actions, #content.session #recover_account .open_authentications form fieldset.actions, #content.session #recover_account .pending form fieldset.actions {
           padding-left: 32px;
           height: 31px;
           margin: 0; }
-          #content.session #sign_up .open_authentications form fieldset.actions input[type="submit"], #content.session #sign_in .open_authentications form fieldset.actions input[type="submit"], #content.session #recover_account .open_authentications form fieldset.actions input[type="submit"] {
+          #content.session #sign_up .open_authentications form fieldset.actions input[type="submit"], #content.session #sign_up .pending form fieldset.actions input[type="submit"], #content.session #sign_in .open_authentications form fieldset.actions input[type="submit"], #content.session #sign_in .pending form fieldset.actions input[type="submit"], #content.session #recover_account .open_authentications form fieldset.actions input[type="submit"], #content.session #recover_account .pending form fieldset.actions input[type="submit"] {
             padding: 7px 10px 8px;
             margin: 0 10px 0 0;
             font-size: 1em;
             min-width: 155px; }
-        #content.session #sign_up .open_authentications form#new_user_facebook fieldset.actions, #content.session #sign_up .open_authentications form#new_session_facebook fieldset.actions, #content.session #sign_in .open_authentications form#new_user_facebook fieldset.actions, #content.session #sign_in .open_authentications form#new_session_facebook fieldset.actions, #content.session #recover_account .open_authentications form#new_user_facebook fieldset.actions, #content.session #recover_account .open_authentications form#new_session_facebook fieldset.actions {
+        #content.session #sign_up .open_authentications form#new_user_facebook fieldset.actions, #content.session #sign_up .open_authentications form#new_session_facebook fieldset.actions, #content.session #sign_up .pending form#new_user_facebook fieldset.actions, #content.session #sign_up .pending form#new_session_facebook fieldset.actions, #content.session #sign_in .open_authentications form#new_user_facebook fieldset.actions, #content.session #sign_in .open_authentications form#new_session_facebook fieldset.actions, #content.session #sign_in .pending form#new_user_facebook fieldset.actions, #content.session #sign_in .pending form#new_session_facebook fieldset.actions, #content.session #recover_account .open_authentications form#new_user_facebook fieldset.actions, #content.session #recover_account .open_authentications form#new_session_facebook fieldset.actions, #content.session #recover_account .pending form#new_user_facebook fieldset.actions, #content.session #recover_account .pending form#new_session_facebook fieldset.actions {
           background: transparent url("/images/v2/icon_social_plugins.png") 0 0 no-repeat; }
-        #content.session #sign_up .open_authentications form#new_user_twitter fieldset.actions, #content.session #sign_up .open_authentications form#new_session_twitter fieldset.actions, #content.session #sign_in .open_authentications form#new_user_twitter fieldset.actions, #content.session #sign_in .open_authentications form#new_session_twitter fieldset.actions, #content.session #recover_account .open_authentications form#new_user_twitter fieldset.actions, #content.session #recover_account .open_authentications form#new_session_twitter fieldset.actions {
+        #content.session #sign_up .open_authentications form#new_user_twitter fieldset.actions, #content.session #sign_up .open_authentications form#new_session_twitter fieldset.actions, #content.session #sign_up .pending form#new_user_twitter fieldset.actions, #content.session #sign_up .pending form#new_session_twitter fieldset.actions, #content.session #sign_in .open_authentications form#new_user_twitter fieldset.actions, #content.session #sign_in .open_authentications form#new_session_twitter fieldset.actions, #content.session #sign_in .pending form#new_user_twitter fieldset.actions, #content.session #sign_in .pending form#new_session_twitter fieldset.actions, #content.session #recover_account .open_authentications form#new_user_twitter fieldset.actions, #content.session #recover_account .open_authentications form#new_session_twitter fieldset.actions, #content.session #recover_account .pending form#new_user_twitter fieldset.actions, #content.session #recover_account .pending form#new_session_twitter fieldset.actions {
           background: transparent url("/images/v2/icon_social_plugins.png") 0 -34px no-repeat; }
-        #content.session #sign_up .open_authentications form#new_user_yahoo fieldset.actions, #content.session #sign_up .open_authentications form#new_session_yahoo fieldset.actions, #content.session #sign_in .open_authentications form#new_user_yahoo fieldset.actions, #content.session #sign_in .open_authentications form#new_session_yahoo fieldset.actions, #content.session #recover_account .open_authentications form#new_user_yahoo fieldset.actions, #content.session #recover_account .open_authentications form#new_session_yahoo fieldset.actions {
+        #content.session #sign_up .open_authentications form#new_user_yahoo fieldset.actions, #content.session #sign_up .open_authentications form#new_session_yahoo fieldset.actions, #content.session #sign_up .pending form#new_user_yahoo fieldset.actions, #content.session #sign_up .pending form#new_session_yahoo fieldset.actions, #content.session #sign_in .open_authentications form#new_user_yahoo fieldset.actions, #content.session #sign_in .open_authentications form#new_session_yahoo fieldset.actions, #content.session #sign_in .pending form#new_user_yahoo fieldset.actions, #content.session #sign_in .pending form#new_session_yahoo fieldset.actions, #content.session #recover_account .open_authentications form#new_user_yahoo fieldset.actions, #content.session #recover_account .open_authentications form#new_session_yahoo fieldset.actions, #content.session #recover_account .pending form#new_user_yahoo fieldset.actions, #content.session #recover_account .pending form#new_session_yahoo fieldset.actions {
           background: transparent url("/images/v2/icon_social_plugins.png") 0 -68px no-repeat; }
-        #content.session #sign_up .open_authentications form#new_user_google fieldset.actions, #content.session #sign_up .open_authentications form#new_session_google fieldset.actions, #content.session #sign_in .open_authentications form#new_user_google fieldset.actions, #content.session #sign_in .open_authentications form#new_session_google fieldset.actions, #content.session #recover_account .open_authentications form#new_user_google fieldset.actions, #content.session #recover_account .open_authentications form#new_session_google fieldset.actions {
+        #content.session #sign_up .open_authentications form#new_user_google fieldset.actions, #content.session #sign_up .open_authentications form#new_session_google fieldset.actions, #content.session #sign_up .pending form#new_user_google fieldset.actions, #content.session #sign_up .pending form#new_session_google fieldset.actions, #content.session #sign_in .open_authentications form#new_user_google fieldset.actions, #content.session #sign_in .open_authentications form#new_session_google fieldset.actions, #content.session #sign_in .pending form#new_user_google fieldset.actions, #content.session #sign_in .pending form#new_session_google fieldset.actions, #content.session #recover_account .open_authentications form#new_user_google fieldset.actions, #content.session #recover_account .open_authentications form#new_session_google fieldset.actions, #content.session #recover_account .pending form#new_user_google fieldset.actions, #content.session #recover_account .pending form#new_session_google fieldset.actions {
           background: transparent url("/images/v2/icon_social_plugins.png") 0 -102px no-repeat; }
+      #content.session #sign_up .open_authentications + p, #content.session #sign_up .pending + p, #content.session #sign_in .open_authentications + p, #content.session #sign_in .pending + p, #content.session #recover_account .open_authentications + p, #content.session #recover_account .pending + p {
+        clear: both; }
 
 #profile_edit p.tip {
   margin: 0 10px 20px 10px; }

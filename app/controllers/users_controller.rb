@@ -192,7 +192,7 @@ class UsersController < ApplicationController
 
   # GET for member /users/:id/activated
   def activated
-    @user = User.find(params[:id])
+    @user = User.find(params[:id], :include => :open_authentications)
     flash.now[:notice] = I18n.t(:user_activation_successful_notice, :username => @user.username)
   end
 
@@ -236,7 +236,7 @@ class UsersController < ApplicationController
       "We got an authorization callback from a third-party app to add a connected account,"\
       "but we don't have a current user account to add it to, as no one is logged in." unless logged_in?
     params.delete(:controller)
-    params.delete(:actions)
+    params.delete(:action)
     redirect_to new_user_open_authentication_url(params.merge({:user_id => current_user.id}))
   end
 

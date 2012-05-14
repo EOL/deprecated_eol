@@ -1,4 +1,6 @@
 #sign_up
+  %h1= t(".header")
   .pending
     .copy
-      %p= I18n.t(:users_pending_activation_message)      %p= I18n.t(:users_pending_activation_helper)
+      %p= t(".verify_email_instructions")
+      %p= t(".verify_email_tip")

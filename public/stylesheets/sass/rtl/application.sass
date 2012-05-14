@@ -2531,11 +2531,12 @@ ul.content_partner_contacts
     margin: 0 auto
     border: 1px solid #cad3db
     background: #f0f4f7 url("/images/v2/bg_sign-in.gif") 0 0 no-repeat
+    padding-bottom: 40px
     h1
       font-size: 2em
       font-weight: normal
       text-align: center
-      padding: 75px 0 0 0
+      padding: 75px 40px 0
     > form
       padding: 25px 159px 20px 159px
       width: 320px
@@ -2558,7 +2559,13 @@ ul.content_partner_contacts
         font-weight: bold
       label.checkbox
         padding: 0 0 15px 0
-    .open_authentications
+      &.terms_agreement
+        padding: 25px 100px
+        width: 440px
+        h2
+          text-align: right
+          padding-bottom: 0
+    .open_authentications, .pending
       overflow: hidden
       width: 400px
       padding: 25px 100px 20px 140px
@@ -2586,6 +2593,8 @@ ul.content_partner_contacts
         &#new_user_google, &#new_session_google
           fieldset.actions
             background: transparent url("/images/v2/icon_social_plugins.png") 0 -102px no-repeat
+      & + p
+        clear: both
 
 #profile_edit
   p.tip

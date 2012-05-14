@@ -1,8 +1,5 @@
 class Users::NotificationsController < UsersController
 
-  # NOTE - @user instantiated by authentication before filter and matched to current user
-  before_filter :authentication_only_allow_editing_of_self, :only => [:edit, :update]
-
   layout 'v2/basic'
 
   # GET /users/:user_id/notification/edit

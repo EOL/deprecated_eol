@@ -3721,6 +3721,7 @@ en:
   wants_colon: "Wants:"
   watch_list: "Watch list"
   watch_list_newsfeed: "Watch List Newsfeed"
+  warning_you_are_editing_as_admin: "WARNING: you are only allowed to edit this page because you are an admin."
   web_service_base_url: "Web service base URL"
   web_users: "Web Users"
   weekly: "Weekly"

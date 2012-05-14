@@ -130,9 +130,9 @@ describe 'Curation' do
     first_trusted_name =
       @taxon_concept.common_names.select {|n| n.vetted_id == Vetted.trusted.id}.map {|n| n.name.string}.sort[0]
     @cname_page.should have_tag(".main_container .update_common_names") do
-      with_tag('td:nth-child(2)', :text => first_trusted_name)
-      with_tag('td:nth-child(2)', :text => @unreviewed_name)
-      with_tag('td:nth-child(2)', :text => @untrusted_name)
+      with_tag('td:nth-child(2)', :text => first_trusted_name.capitalize_all_words)
+      with_tag('td:nth-child(2)', :text => @unreviewed_name.capitalize_all_words)
+      with_tag('td:nth-child(2)', :text => @untrusted_name.capitalize_all_words)
     end
   end
 

@@ -4,7 +4,7 @@ class DataObjectsController < ApplicationController
   @@results_per_page = 20
   before_filter :check_authentication, :only => [:new, :create, :edit, :update, :ignore] # checks login only
   before_filter :load_data_object, :except => [:index, :new, :create ]
-  before_filter :authentication_own_user_added_text_objects_only, :only => [:edit, :update]
+  before_filter :authentication_own_user_added_text_objects_only, :only => [:edit] # update handled separately
   before_filter :allow_login_then_submit, :only => [:rate]
   before_filter :curators_and_owners_only, :only => [:add_association, :remove_association]
 
@@ -38,7 +38,6 @@ class DataObjectsController < ApplicationController
     @references = params[:references] # we'll need these if validation fails and we re-render new
     raise I18n.t(:dato_create_user_text_missing_user_exception) if current_user.nil?
     raise I18n.t(:dato_create_user_text_missing_taxon_id_exception) if @taxon_concept.blank?
-    toc_ids = params[:data_object].delete(:toc_items)[:id].to_a
     @data_object = DataObject.create_user_text(params[:data_object], :user => current_user,
                                                :taxon_concept => @taxon_concept, :toc_id => toc_ids)
 
@@ -46,7 +45,7 @@ class DataObjectsController < ApplicationController
       @selected_toc_item_id = toc_ids.first.to_i rescue nil
       failed_to_create_data_object && return
     else
-      add_references(params[:references].split("\n")) unless params[:references].blank?
+      add_references
       current_user.log_activity(:created_data_object_id, :value => @data_object.id,
                                 :taxon_concept_id => @taxon_concept.id)
       # add this new object to the user's watch collection
@@ -62,21 +61,28 @@ class DataObjectsController < ApplicationController
       subchapter = @data_object.toc_items.first.label.downcase
       subchapter = 'literature' if subchapter == 'literature references'
       subchapter.gsub!(/ /, "_" )
-      temp = ["education", "education_resources", "identification_resources", "nucleotide_sequences", "biomedical_terms", "citizen_science_links"] # to Resources tab
+      temp = ["education", "education_resources", "identification_resources", "nucleotide_sequences",
+        "biomedical_terms", "citizen_science_links"] # to Resources tab
       if temp.include?(subchapter)
         return redirect_to education_taxon_resources_path(@taxon_concept,
-                             :anchor => "data_object_#{@data_object.id}"), :status => :moved_permanently if ['education', 'education_resources'].include?(subchapter)
+                             :anchor => "data_object_#{@data_object.id}"), :status => :moved_permanently if
+          ['education', 'education_resources'].include?(subchapter)
         return redirect_to identification_resources_taxon_resources_path(@taxon_concept,
-                             :anchor => "data_object_#{@data_object.id}"), :status => :moved_permanently if subchapter == 'identification_resources'
+                             :anchor => "data_object_#{@data_object.id}"), :status => :moved_permanently if
+          subchapter == 'identification_resources'
         return redirect_to nucleotide_sequences_taxon_resources_path(@taxon_concept,
-                             :anchor => "data_object_#{@data_object.id}"), :status => :moved_permanently if subchapter == 'nucleotide_sequences'
+                             :anchor => "data_object_#{@data_object.id}"), :status => :moved_permanently if
+          subchapter == 'nucleotide_sequences'
         return redirect_to biomedical_terms_taxon_resources_path(@taxon_concept,
-                             :anchor => "data_object_#{@data_object.id}"), :status => :moved_permanently if subchapter == 'biomedical_terms'
+                             :anchor => "data_object_#{@data_object.id}"), :status => :moved_permanently if
+          subchapter == 'biomedical_terms'
         return redirect_to citizen_science_taxon_resources_path(@taxon_concept,
-                             :anchor => "data_object_#{@data_object.id}"), :status => :moved_permanently if subchapter == 'citizen_science_links'
+                             :anchor => "data_object_#{@data_object.id}"), :status => :moved_permanently if
+          subchapter == 'citizen_science_links'
       elsif ["literature"].include?(subchapter)
         return redirect_to literature_taxon_literature_path(@taxon_concept,
-                             :anchor => "data_object_#{@data_object.id}"), :status => :moved_permanently if subchapter == 'literature'
+                             :anchor => "data_object_#{@data_object.id}"), :status => :moved_permanently if
+          subchapter == 'literature'
       end
 
       redirect_to taxon_details_path(@taxon_concept, :anchor => "data_object_#{@data_object.id}"), :status => :moved_permanently
@@ -94,26 +100,22 @@ class DataObjectsController < ApplicationController
   end
 
   # PUT /data_objects/:id
+  # NOTE we don't actually edit the data object we create a new one and unpublish the old one.
+  # old @data_object is loaded in before_filter :load_data_object
   def update
-    # Note: We don't actually edit the data object we create a new one and unpublish the old one.
-    # old @data_object is loaded in before_filter :load_data_object
-    return failed_to_update_data_object unless params[:data_object]
     @references = params[:references]
-    raise I18n.t(:dato_update_users_text_not_owner_exception) unless @data_object.user.id == current_user.id
+    if @data_object.users_data_object.user_id != current_user.id
+      failed_to_update_data_object(I18n.t(:dato_update_users_text_not_owner_exception)) and return
+    end
     # Note: replicate doesn't actually update, it creates a new data_object
-    toc_ids = params[:data_object].delete(:toc_items)[:id].to_a
-    @data_object = @data_object.replicate(params[:data_object], :toc_id => toc_ids)
-
-    if @data_object.nil? || @data_object.errors.any?
-      @selected_toc_item_id = toc_ids.first.to_i rescue nil
-      # TODO: this is unpleasant, we are using update to create a new data object so @data_object.new_record?
-      # is now true. The edit action expects a data_object id, but we need the new values.
-      failed_to_update_data_object and return
+    new_data_object = @data_object.replicate(params[:data_object], :toc_id => toc_ids)
+    if new_data_object.nil? || new_data_object.errors.any?
+      failed_to_update_data_object(I18n.t(:dato_update_user_text_error)) and return
     else
-      add_references(params[:references].split("\n")) unless params[:references].blank?
-      current_user.log_activity(:updated_data_object_id, :value => @data_object.id,
-                                :taxon_concept_id => @data_object.taxon_concept_for_users_text.id)
-      redirect_to data_object_path(@data_object), :status => :moved_permanently
+      add_references
+      current_user.log_activity(:updated_data_object_id, :value => new_data_object.id,
+                                :taxon_concept_id => new_data_object.taxon_concept_for_users_text.id)
+      redirect_to data_object_path(new_data_object), :status => :moved_permanently
     end
   end
 
@@ -375,7 +377,8 @@ private
     if params[:data_object]
       flash.now[:error] = I18n.t(:dato_create_user_text_error)
       set_text_data_object_options
-      @page_title = I18n.t(:dato_new_text_for_taxon_page_title, :taxon => Sanitize.clean(@taxon_concept.title_canonical))
+      @page_title = I18n.t(:dato_new_text_for_taxon_page_title,
+                           :taxon => Sanitize.clean(@taxon_concept.title_canonical))
       @page_description = I18n.t(:dato_new_text_page_description)
       render :action => 'new', :layout => 'v2/basic'
     else
@@ -384,20 +387,20 @@ private
     end
   end
 
-  def failed_to_update_data_object
+  def failed_to_update_data_object(err)
+    flash[:error] = err
     if params[:data_object]
       # We have new data object values so we re-render edit form with an error message.
-      # We'll get here if there was an error trying to create the new dato. @data_object will be the new dato with id = nil
-      flash.now[:error] = I18n.t(:dato_update_user_text_error)
       set_text_data_object_options
+      @selected_toc_item_id = toc_ids.first.to_i rescue nil
       @page_title = I18n.t(:dato_edit_text_title)
       @page_description = I18n.t(:dato_edit_text_page_description)
+      # Be kind, rewind:
+      tocs = params[:data_object][:toc_items]
+      @data_object.attributes = params[:data_object] # Sets them, doesn't save them.
       render :action => 'edit', :layout => 'v2/basic'
     else
-      # We don't have new data object values so we redirect to the edit page of whatever @data_object we were trying to update.
-      # TODO: Not sure how we would ever get here... i.e. why params[:data_object] would ever be nil.
-      # Also, what if dato id was nil as would be the case for a new dato error?
-      flash[:error] = I18n.t(:dato_update_user_text_error)
+      # Someone PUT directly to /data_objects/NNN with no params.  (Which is... weird.  But hey.)
       redirect_to edit_data_object_path(@data_object)
     end
   end
@@ -594,7 +597,9 @@ private
     end
   end
 
-  def add_references(references)
+  def add_references
+    return if params[:references].blank?
+    references = params[:references].split("\n")
     unless references.blank?
       references.each do |reference|
         if reference.strip != ''
@@ -603,6 +608,10 @@ private
         end
       end
     end
+  end
+
+  def toc_ids
+    params[:data_object].delete(:toc_items)[:id].to_a
   end
 
 end

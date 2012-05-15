@@ -68,14 +68,14 @@ describe 'Search' do
     body.should have_tag('li', /#{@tiger_name}/) do
       with_tag('a[href*=?]', %r{/pages/#{@tiger.id}})
     end
-    body.should have_tag('li', /#{@tiger_lilly_name}/) do
+    body.should have_tag('li', /#{@tiger_lilly_name.capitalize_all_words}/) do
       with_tag('a[href*=?]', %r{/pages/#{@tiger_lilly.id}})
     end
   end
 
   it 'should be able to return suggested results for "bacteria"' do
     visit("/search?q=#{@tricky_search_suggestion}&search_type=text")
-    body.should have_tag("#main li", /#{@suggested_taxon_name}/)
+    body.should have_tag("#main li", /#{@suggested_taxon_name.capitalize_all_words}/)
   end
 
   it 'should treat empty string search gracefully when javascript is switched off' do
@@ -99,7 +99,7 @@ describe 'Search' do
 
   it 'should place suggested search results at the top of the list' do
     visit("/search?q=#{@tricky_search_suggestion}&search_type=text")
-    body.should have_tag("#search_results li", /#{@suggested_taxon_name}/)
+    body.should have_tag("#search_results li", /#{@suggested_taxon_name.capitalize_all_words}/)
   end
 
   it 'should sort by score by default' do

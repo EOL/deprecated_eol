@@ -8,7 +8,7 @@
 %td{:class => 'preferred_name_selector'}
   = radio_button_tag 'preferred_name_id', name.name.id, name.preferred ? TRUE : FALSE
 %td
-  = name.name_string
+  = (defined?(language) && language == 'English') ? name.name_string.capitalize_all_words : name.name_string
 %td
   = common_name_display_attribution(name)
 %td{:class => 'vet_common_name'}

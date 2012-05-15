@@ -22,6 +22,8 @@
         %label= I18n.t(:invite_members_label)
         %p= I18n.t(:invite_members_help_text)
       %dd.invite
+        - # NOTE: We need both of the following form fields for spotlite jquery.
+        - # TODO: Refactor this. This is not accessible.
         = text_area_tag :invitations
         = text_field_tag :invitations
   %fieldset.actions

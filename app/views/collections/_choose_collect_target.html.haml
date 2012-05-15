@@ -16,7 +16,8 @@
       = hidden_field_tag :item_id, @item.id
       = hidden_field_tag :item_type, @item.class.name
     %fieldset.new_collection
-      .collection_name_error= I18n.t(:collection_name_cannot_be_blank)
+      - # TODO: Refactor this. This is not accessible and also not using the activerecord error handling.
+      %p.collection_name_error= I18n.t(:collection_name_cannot_be_blank)
       = collection_form.label :name, I18n.t(:collection_name_label), {:class => 'assistive'}
       = collection_form.text_field :name
       = submit_tag I18n.t(:create_collection_button), :class => 'button'

@@ -69,7 +69,7 @@ class HierarchyEntry < ActiveRecord::Base
   end
 
   def has_parent?
-    self.parent_id && self.parent_id > 0
+    self.parent_id && self.parent_id.to_i > 0
   end
 
   # this method will return either the original name string, or if the rank of the taxon

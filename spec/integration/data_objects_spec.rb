@@ -472,6 +472,17 @@ describe 'Data Object Page' do
     body.should match('&copy;')
   end
 
+  it 'should save owner as rights holder(if not specified) while editing an article' do
+    user_submitted_text = @tc.add_user_submitted_text(:user => @user)
+    login_as @user
+    visit("/data_objects/#{user_submitted_text.id}")
+    body.should_not have_tag(".article.list ul li a[href=/data_objects/#{user_submitted_text.id}]")
+    click_link "Edit this article"
+    fill_in 'data_object_rights_holder', :with => ""
+    click_button "Save article"
+    body.should have_tag(".article.list ul li a[href=/data_objects/#{user_submitted_text.id}]")
+  end
+
   it "should link agents to their homepage, and add http if the link does not include it" do
     agent = Agent.new(:full_name => 'doesnt matter', :homepage => 'www.somesite.com')
     agent.send(:create_without_callbacks)

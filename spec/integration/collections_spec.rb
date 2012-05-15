@@ -1,5 +1,125 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
+describe "Preview Collections" do
+  before(:all) do
+    WebMock.allow_net_connect!
+    module Paperclip
+      class Attachment
+        def save
+          # don't do anything. Paperclip was throwing an error
+          true
+        end
+      end
+    end
+
+    unless User.find_by_username('collections_scenario')
+      truncate_all_tables
+      load_scenario_with_caching(:collections)
+    end
+    Capybara.reset_sessions!
+    @test_data = EOL::TestInfo.load('collections')
+    @collectable_collection = Collection.gen
+    @collection = @test_data[:collection]
+    @collection_owner = @test_data[:user]
+    @user = nil
+    @under_privileged_user = User.gen
+    @anon_user = User.gen(:password => 'password')
+    @taxon = @test_data[:taxon_concept_1]
+    @collection.add(@taxon)
+    EOL::Solr::CollectionItemsCoreRebuilder.begin_rebuild
+  end
+
+  after(:all) do
+    WebMock.disable_net_connect!(:allow_localhost => true)
+  end
+
+  it 'should show collections on the taxon page' do
+    visit taxon_path(@taxon)
+    body.should have_tag('#collections_summary') do
+      with_tag('h3', :text => "Present in 1 collection")
+    end
+  end
+
+  it 'should not show preview collections on the taxon page' do
+    @collection.update_attribute(:published, false)
+    visit taxon_path(@taxon)
+    body.should have_tag('#collections_summary') do
+      with_tag('h3', :text => "Present in 0 collections")
+    end
+    @collection.update_attribute(:published, true)
+  end
+
+  it 'should not show preview collections on the user profile page to normal users' do
+    visit user_collections_path(@collection.users.first)
+    body.should have_tag('li.active') do
+      with_tag('a', :text => "3 collections")
+    end
+    body.should have_tag('h3', :text => "2 collections")
+    @collection.update_attribute(:published, false)
+    visit user_collections_path(@collection.users.first)
+    body.should have_tag('li.active') do
+      with_tag('a', :text => "2 collections")
+    end
+    body.should have_tag('div.heading') do
+      with_tag('h3', :text => "1 collection")
+    end
+    @collection.update_attribute(:published, true)
+  end
+
+  it 'should show resource preview collections on the user profile page to the owner' do
+    @collection.update_attribute(:published, false)
+    @collection.update_attribute(:view_style_id, nil)
+    @resource = Resource.gen
+    @resource.preview_collection = @collection
+    @resource.save
+    login_as @collection.users.first
+    visit user_collections_path(@collection.users.first)
+    body.should have_tag('li.active') do
+      with_tag('a', :text => "3 collections")
+    end
+    body.should have_tag('div.heading') do
+      with_tag('h3', :text => "2 collections")
+    end
+    visit('/logout')
+    @collection.update_attribute(:published, true)
+  end
+
+  it 'should allow EOL administrators and owners to view unpublished collections' do
+    @collection.update_attribute(:published, false)
+    @collection.update_attribute(:view_style_id, ViewStyle.annotated.id)
+    if @collection.resource_preview.blank?
+      @resource = Resource.gen
+      @resource.preview_collection = @collection
+      @resource.save
+    end
+    @collection.reload
+    visit logout_path
+    visit collection_path(@collection)
+    current_path.should == login_path
+    body.should include('You must be logged in to perform this action')
+    user = User.gen(:admin => false)
+    login_as user
+    referrer = current_path
+    visit collection_path(@collection)
+    current_path.should == referrer
+    body.should include('Access denied.')
+    visit logout_path
+
+    admin = User.gen(:admin => true)
+    login_as admin
+    visit collection_path(@collection)
+    body.should have_tag('h1', /#{@collection.name}/)
+    body.should have_tag('ul.object_list li', /#{@collection.collection_items.first.object.best_title}/)
+    visit logout_path
+
+    login_as @collection.users.first
+    visit collection_path(@collection)
+    body.should have_tag('h1', /#{@collection.name}/)
+    body.should have_tag('ul.object_list li', /#{@collection.collection_items.first.object.best_title}/)
+    @collection.update_attribute(:published, true)
+  end
+end
+
 def it_should_collect_item(collectable_item_path, collectable_item)
   visit collectable_item_path
   click_link 'Add to a collection'
@@ -22,6 +142,29 @@ def continue_collect(user, url)
   # current_url.should match /#{url}/
   # body.should include('added to collection')
   # user.watch_collection.items.map {|li| li.object }.include?(collectable_item).should be_true
+end
+
+def it_should_create_and_collect_item(collectable_item_path, collectable_item)
+  visit collectable_item_path
+  click_link 'Add to a collection'
+  if current_url.match /#{login_url}/
+    page.fill_in 'session_username_or_email', :with => @anon_user.username
+    page.fill_in 'session_password', :with => 'password'
+    click_button 'Sign in'
+    continue_create_and_collect(@anon_user, collectable_item_path)
+    visit logout_url
+  else
+    continue_create_and_collect(@user, collectable_item_path)
+  end
+end
+
+def continue_create_and_collect(user, url)
+  current_url.should match /#{choose_collect_target_collections_path}/
+  click_button 'Create collection'
+  body.should have_tag(".collection_name_error", :text => "Collection name can't be blank")
+  fill_in 'collection_name', :with => "#{user.username}'s new collection"
+  click_button 'Create collection'
+  body.should_not have_tag(".collection_name_error", :text => "Collection name can't be blank")
 end
 
 describe "Collections and collecting:" do
@@ -95,10 +238,38 @@ describe "Collections and collecting:" do
     end
   end
 
+  shared_examples_for 'creating collection and collecting all users' do
+    describe "should be able to create collection and collect" do
+      it 'taxa' do
+        it_should_create_and_collect_item(taxon_overview_path(@taxon), @taxon)
+      end
+      it 'data objects' do
+        latest_revision_of_dato = @taxon.data_objects.first.latest_published_revision
+        it_should_create_and_collect_item(data_object_path(latest_revision_of_dato), latest_revision_of_dato)
+      end
+      it 'communities' do
+        new_community = Community.gen
+        it_should_create_and_collect_item(community_path(new_community), new_community)
+      end
+      it 'collections, unless its their watch collection' do
+        it_should_create_and_collect_item(collection_path(@collectable_collection), @collectable_collection)
+        unless @user.nil?
+          visit collection_path(@user.watch_collection)
+          body.should_not have_tag('a.collect')
+        end
+      end
+      it 'users' do
+        new_user = User.gen
+        it_should_create_and_collect_item(user_path(new_user), new_user)
+      end
+    end
+  end
+
   # Make sure you are logged in prior to calling this shared example group
-  shared_examples_for 'collections and collecting logged in user' do
+  shared_examples_for 'collection and collecting logged in user' do
     it_should_behave_like 'collections all users'
     it_should_behave_like 'collecting all users'
+    it_should_behave_like 'creating collection and collecting all users'
 
     it 'should be able to select all collection items on the page' do
       visit collection_path(@collection)
@@ -130,7 +301,6 @@ describe "Collections and collecting:" do
     end
     subject { body }
     it_should_behave_like 'collections all users'
-    # it_should_behave_like 'collecting all users'
     it 'should not be able to select collection items' do
       visit collection_path(@collection)
       should_not have_tag("input#collection_item_#{@collection.collection_items.first.id}")
@@ -161,6 +331,7 @@ describe "Collections and collecting:" do
     after(:all) { @user = nil }
     it_should_behave_like 'collections all users'
     it_should_behave_like 'collecting all users'
+    it_should_behave_like 'creating collection and collecting all users'
     it 'should not be able to move collection items' do
       visit collection_path(@collection)
       should_not have_tag("input#collection_item_#{@collection.collection_items.first.id}")
@@ -181,6 +352,7 @@ describe "Collections and collecting:" do
     after(:all) { @user = nil }
     it_should_behave_like 'collections all users'
     it_should_behave_like 'collecting all users'
+    it_should_behave_like 'creating collection and collecting all users'
     it 'should be able to move collection items'
     it 'should be able to remove collection items'
     it 'should be able to edit ordinary collection' do
@@ -336,126 +508,6 @@ describe "Collections and collecting:" do
   it 'collection editors should have rel canonical link tag'
   it 'collection editors should not have prev and next link tags'
 
-end
-
-describe "Preview Collections" do
-  before(:all) do
-    WebMock.allow_net_connect!
-    module Paperclip
-      class Attachment
-        def save
-          # don't do anything. Paperclip was throwing an error
-          true
-        end
-      end
-    end
-
-    unless User.find_by_username('collections_scenario')
-      truncate_all_tables
-      load_scenario_with_caching(:collections)
-    end
-    Capybara.reset_sessions!
-    @test_data = EOL::TestInfo.load('collections')
-    @collectable_collection = Collection.gen
-    @collection = @test_data[:collection]
-    @collection_owner = @test_data[:user]
-    @user = nil
-    @under_privileged_user = User.gen
-    @anon_user = User.gen(:password => 'password')
-    @taxon = @test_data[:taxon_concept_1]
-    @collection.add(@taxon)
-    EOL::Solr::CollectionItemsCoreRebuilder.begin_rebuild
-  end
-
-  after(:all) do
-    WebMock.disable_net_connect!(:allow_localhost => true)
-  end
-
-  it 'should show collections on the taxon page' do
-    visit taxon_path(@taxon)
-    body.should have_tag('#collections_summary') do
-      with_tag('h3', :text => "Present in 1 collection")
-    end
-  end
-
-  it 'should not show preview collections on the taxon page' do
-    @collection.update_attribute(:published, false)
-    visit taxon_path(@taxon)
-    body.should have_tag('#collections_summary') do
-      with_tag('h3', :text => "Present in 0 collections")
-    end
-    @collection.update_attribute(:published, true)
-  end
-
-  it 'should not show preview collections on the user profile page to normal users' do
-    visit user_collections_path(@collection.users.first)
-    body.should have_tag('li.active') do
-      with_tag('a', :text => "3 collections")
-    end
-    body.should have_tag('h3', :text => "2 collections")
-    @collection.update_attribute(:published, false)
-    visit user_collections_path(@collection.users.first)
-    body.should have_tag('li.active') do
-      with_tag('a', :text => "2 collections")
-    end
-    body.should have_tag('div.heading') do
-      with_tag('h3', :text => "1 collection")
-    end
-    @collection.update_attribute(:published, true)
-  end
-
-  it 'should show resource preview collections on the user profile page to the owner' do
-    @collection.update_attribute(:published, false)
-    @collection.update_attribute(:view_style_id, nil)
-    @resource = Resource.gen
-    @resource.preview_collection = @collection
-    @resource.save
-    login_as @collection.users.first
-    visit user_collections_path(@collection.users.first)
-    body.should have_tag('li.active') do
-      with_tag('a', :text => "3 collections")
-    end
-    body.should have_tag('div.heading') do
-      with_tag('h3', :text => "2 collections")
-    end
-    visit('/logout')
-    @collection.update_attribute(:published, true)
-  end
-
-  it 'should allow EOL administrators and owners to view unpublished collections' do
-    @collection.update_attribute(:published, false)
-    @collection.update_attribute(:view_style_id, ViewStyle.annotated.id)
-    if @collection.resource_preview.blank?
-      @resource = Resource.gen
-      @resource.preview_collection = @collection
-      @resource.save
-    end
-    @collection.reload
-    visit logout_path
-    visit collection_path(@collection)
-    current_path.should == login_path
-    body.should include('You must be logged in to perform this action')
-    user = User.gen(:admin => false)
-    login_as user
-    referrer = current_path
-    visit collection_path(@collection)
-    current_path.should == referrer
-    body.should include('Access denied.')
-    visit logout_path
-
-    admin = User.gen(:admin => true)
-    login_as admin
-    visit collection_path(@collection)
-    body.should have_tag('h1', /#{@collection.name}/)
-    body.should have_tag('ul.object_list li', /#{@collection.collection_items.first.object.best_title}/)
-    visit logout_path
-
-    login_as @collection.users.first
-    visit collection_path(@collection)
-    body.should have_tag('h1', /#{@collection.name}/)
-    body.should have_tag('ul.object_list li', /#{@collection.collection_items.first.object.best_title}/)
-    @collection.update_attribute(:published, true)
-  end
 end
 
 #TODO: test connection with Solr: filter, sort, total results, paging, etc

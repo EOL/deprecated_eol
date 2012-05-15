@@ -213,6 +213,16 @@ describe "Communities" do
         should have_tag("input#community_name")
         should have_tag("textarea#community_description")
       end
+      it 'should allow inviting non-members to join community' do
+        non_member = @test_data[:user_non_member]
+        should have_tag(".edit_community fieldset") do
+          with_tag("dt label", :text => "Invite Members")
+          with_tag("input#invitations")
+          fill_in 'invitations', :with => non_member.username
+          click_button "save"
+          should include("Community was successfully updated. An invitation was sent to")
+        end
+      end
     end
   end
 

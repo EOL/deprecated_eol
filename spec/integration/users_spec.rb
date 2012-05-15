@@ -138,6 +138,8 @@ describe 'Users' do
       body.should include('comment could not be added')
       visit logout_url
     end
+    it 'should auto submit comment, posted before login, after user then logs in with Facebook'
+    # TODO: Tried to do this but Web mock wasn't stubbing request and redirects weren't being followed!?
   end
 
   it 'should not show a newsfeed, info, activity, collections, communities, content partners of a deactivated user' do

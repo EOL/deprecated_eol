@@ -1042,6 +1042,9 @@ a.other_actions
         float: left
         +input(210px)
         margin: 0 10px 0 0
+      .collection_name_error
+        display: none
+        color: #e84226
   input[type="submit"]
     padding-left: 20px
     padding-right: 20px
@@ -1176,3 +1179,10 @@ body#prelaunch #footer ul.social_media
     font-weight: bold
 #taxon_names table.standard tr td
   vertical-align: top
+#modal
+  #choose_collections
+    fieldset
+      &.new_collection
+        .collection_name_error
+          display: none
+          color: #e84226

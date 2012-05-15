@@ -108,7 +108,7 @@ class DataObjectsController < ApplicationController
       update_failed(I18n.t(:dato_update_users_text_not_owner_exception)) and return
     end
     # Note: replicate doesn't actually update, it creates a new data_object
-    new_data_object = @data_object.replicate(params[:data_object], :toc_id => toc_id)
+    new_data_object = @data_object.replicate(params[:data_object], :user => current_user, :toc_id => toc_id)
     if new_data_object.nil?
       update_failed(I18n.t(:dato_update_user_text_error)) and return
     elsif new_data_object.errors.any?

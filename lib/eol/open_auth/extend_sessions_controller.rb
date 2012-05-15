@@ -37,6 +37,11 @@ module EOL
           session.merge!(@open_auth.session_data)
           redirect_to @open_auth.authorize_uri and return
         end
+        # If we get here we have an error, and user was not logged in.
+        # If we have data to submit then return to is probably the form action, we can't go there.
+        redirect_to login_url and return if session[:submitted_data]
+        # A return to here could be an external referral (e.g. iNat).
+        # Lets try to go there, even though we couldn't log the user in.
         redirect_back_or_default login_url
       end
 

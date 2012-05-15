@@ -2027,6 +2027,7 @@ en:
   collection_item_edit_page_title: "Edit item in collection <em>%{collection_name}</em>"
   collection_item_not_found_error: "That collection item could not be found."
   collection_item_edit_by_javascript_not_authorized_error: "Sorry, you do not have permission to edit this collection item. If you are the collection owner or editor please reload the page and check that you are logged in."
+  collection_name_cannot_be_blank: "Collection name can't be blank"
   collection_name_label: "Collection name"
   collection_newsfeed: "Collection newsfeed"
   collection_not_created_error: "Sorry, an error occurred, the collection <em>%{collection_name}</em> could not be created."

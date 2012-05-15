@@ -102,7 +102,7 @@ class DataObjectsController < ApplicationController
     raise I18n.t(:dato_update_users_text_not_owner_exception) unless @data_object.user.id == current_user.id
     # Note: replicate doesn't actually update, it creates a new data_object
     toc_ids = params[:data_object].delete(:toc_items)[:id].to_a
-    @data_object = @data_object.replicate(params[:data_object], :toc_id => toc_ids)
+    @data_object = @data_object.replicate(params[:data_object], :user => current_user, :toc_id => toc_ids)
 
     if @data_object.nil? || @data_object.errors.any?
       @selected_toc_item_id = toc_ids.first.to_i rescue nil

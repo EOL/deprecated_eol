@@ -273,6 +273,9 @@ class DataObject < ActiveRecord::Base
 
   # NOTE - you probably want to check that the user performing this has rights to do so, before calling this.
   def replicate(params, options)
+    unless params[:license_id].to_i == License.public_domain.id || ! params[:rights_holder].blank?
+      params[:rights_holder] = options[:user].full_name
+    end
     new_dato = DataObject.new(params.reverse_merge!(:guid => self.guid, :published => 1))
     if new_dato.save
       new_dato.toc_items = TocItem.find(options[:toc_id])
@@ -656,7 +659,7 @@ class DataObject < ActiveRecord::Base
     self.update_attribute(:published, 1)
   end
 
-  def visible_references(options = {})
+  def visible_references
     @all_refs ||= refs.delete_if {|r| r.published != 1 || r.visibility_id != Visibility.visible.id}
   end
 

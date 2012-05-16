@@ -240,9 +240,15 @@ class DataObject < ActiveRecord::Base
     end
     dato = DataObject.new(params.reverse_merge!({:published => true}))
     if dato.save
-      dato.toc_items = Array(TocItem.find(options[:toc_id]))
-      dato.build_relationship_to_taxon_concept_by_user(options[:taxon_concept], options[:user])
-      dato.update_solr_index
+      begin
+        dato.toc_items = Array(TocItem.find(options[:toc_id]))
+        dato.build_relationship_to_taxon_concept_by_user(options[:taxon_concept], options[:user])
+      rescue => e
+        dato.update_attribute(:published, false)
+        raise e
+      ensure
+        dato.update_solr_index
+      end
     end
     dato
   end
@@ -278,10 +284,16 @@ class DataObject < ActiveRecord::Base
     end
     new_dato = DataObject.new(params.reverse_merge!(:guid => self.guid, :published => 1))
     if new_dato.save
-      new_dato.toc_items = Array(TocItem.find(options[:toc_id]))
-      new_dato.unpublish_previous_revisions
-      self.replicate_associations(new_dato)
-      new_dato.update_solr_index
+      begin
+        new_dato.toc_items = Array(TocItem.find(options[:toc_id]))
+        new_dato.unpublish_previous_revisions
+        self.replicate_associations(new_dato)
+      rescue => e
+        dato.update_attribute(:published, false)
+        raise e
+      ensure
+        new_dato.update_solr_index
+      end
     end
     new_dato
   end

@@ -91,14 +91,13 @@
             - if @resource.status_can_be_changed_to?(ResourceStatus.force_harvest)
               = button_to I18n.t('helpers.submit.resource.force_harvest'), force_harvest_content_partner_resource_path(@partner, @resource),
                 :confirm => I18n.t(:content_partner_resource_confirm_force_harvest, :resource_title => h(@resource.title))
-          - if current_user.is_admin?
-            %dt
-              = I18n.t('activerecord.attributes.resource.notes')
-            %dd
-              - if @resource.notes.blank?
-                = I18n.t(:value_empty)
-              - else
-                = @resource.notes.truncate(100000)
+          %dt
+            = I18n.t('activerecord.attributes.resource.notes')
+          %dd
+            - if @resource.notes.blank?
+              = I18n.t(:value_empty)
+            - else
+              = @resource.notes.truncate(100000)
           %dt
             = I18n.t('helpers.label.resource.refresh_period_hours')
           %dd

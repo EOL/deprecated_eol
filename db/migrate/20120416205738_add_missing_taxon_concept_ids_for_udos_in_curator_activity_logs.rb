@@ -2,6 +2,7 @@ class AddMissingTaxonConceptIdsForUdosInCuratorActivityLogs < ActiveRecord::Migr
   def self.up
     db_populated = begin
                      Activity.trusted
+                     Activity.inappropriate
                    rescue
                      false
                    end
@@ -18,6 +19,7 @@ class AddMissingTaxonConceptIdsForUdosInCuratorActivityLogs < ActiveRecord::Migr
   def self.down
     db_populated = begin
                      Activity.trusted
+                     Activity.inappropriate
                    rescue
                      false
                    end

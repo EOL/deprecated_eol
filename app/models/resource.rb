@@ -24,11 +24,9 @@ class Resource < ActiveRecord::Base
   before_validation :strip_urls
   before_save :convert_nulls_to_blank # TODO: Make migration to allow null on subject or remove it altogether if its no longer needed
 
-  validates_attachment_content_type :dataset,
-      :content_type => ['application/x-gzip', 'application/x-tar', 'text/xml', 'application/vnd.ms-excel',
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],
-      :message => I18n.t('activerecord.errors.models.resource.attributes.dataset.wrong_type')
-
+  VALID_RESOURCE_CONTENT_TYPES = ['application/x-gzip', 'application/x-tar', 'text/xml', 'application/vnd.ms-excel',
+                                  'application/xml', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet']
+  validate :validate_dataset_mime_type
   validates_presence_of :title, :license_id
   validates_presence_of :refresh_period_hours, :if => :accesspoint_url_provided?
   validates_presence_of :accesspoint_url, :unless => :dataset_file_provided?
@@ -174,12 +172,14 @@ class Resource < ActiveRecord::Base
     end
     status, response_message = ContentServer.upload_resource(file_url, self.id)
     if status == 'success'
+      self.notes = nil  # reset the notes which may contain previous validation failures
       self.resource_status = response_message
     else
       if response_message
         self.notes = response_message
         self.resource_status = ResourceStatus.validation_failed
       else
+        self.notes = nil  # reset the notes which may contain previous validation failures
         self.resource_status = ResourceStatus.upload_failed
       end
     end
@@ -199,7 +199,17 @@ private
       errors.add_to_base I18n.t('content_partner_resource_url_or_dataset_not_both_error')
     end
   end
-
+  
+  def validate_dataset_mime_type
+    return true if dataset.blank? || dataset.original_filename.blank?
+    require 'mime/types'
+    mime_types = MIME::Types.type_for(dataset.original_filename)
+    if first_type = mime_types.first
+      return true if VALID_RESOURCE_CONTENT_TYPES.include? first_type.to_s
+    end
+    errors.add_to_base I18n.t('activerecord.errors.models.resource.attributes.dataset.wrong_type')
+  end
+  
   def accesspoint_url_provided?
     !accesspoint_url.blank?
   end

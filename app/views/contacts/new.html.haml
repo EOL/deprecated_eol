@@ -1,0 +1,38 @@
+#content
+  #contact_us.site_column
+    .article.copy
+      - form_for @contact, :builder => ApplicationHelper::EolFormBuilder do |f|
+        = f.hidden_field :ip_address unless @contact.ip_address.blank?
+        = f.hidden_field :referred_page unless @contact.referred_page.blank?
+        = f.hidden_field :user_id unless @contact.user_id.blank?
+        %fieldset
+          = validation_errors_for(@contact)
+          %dl
+            %dt.required
+              = f.label :name
+            %dd
+              = f.text_field :name, { :maxlength => 255 }
+            %dt.required
+              = f.label :email
+            %dd
+              = f.text_field :email, { :maxlength => 255 }
+            %dt.required
+              = f.label :contact_subject_id
+            %dd
+              = f.select :contact_subject_id, options_from_collection_for_select(contact_subjects, :id, :title, @contact.contact_subject_id)
+            %dt.required
+              = f.label :comments
+            %dd
+              = f.text_area :comments, { :maxlength => 5000 }
+        - if $ENABLE_RECAPTCHA
+          %fieldset
+            :javascript
+              var RecaptchaOptions = { theme : 'clean'};
+            %dl
+              %dt
+                %label{ :for => "recaptcha" }
+                  = I18n.t(:recaptcha)
+              %dd
+                = recaptcha_tags
+        %fieldset.actions
+          = f.submit I18n.t('helpers.submit.contact.new')

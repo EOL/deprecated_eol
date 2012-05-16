@@ -14,8 +14,6 @@ class Users::OpenAuthenticationsController < UsersController
 
     # Clean up session from previous incomplete authorizations, e.g. when users use browser back button
     session.delete_if{|k,v| k.to_s.match /^[a-z]+(?:_request_token_(?:token|secret)|_oauth_state)$/i}
-    page_title
-    page_description
   end
 
   # GET /users/:user_id/open_authentications/new
@@ -106,16 +104,6 @@ class Users::OpenAuthenticationsController < UsersController
     page_title([:users, :open_authentications, :index])
     page_description([:users, :open_authentications, :index])
     render :index
-  end
-
-private
-
-  # TODO: these are generic we should be able to make them helper methods for the whole site
-  def page_title(scope = controller_action_scope)
-    @page_title ||= I18n.t(:page_title, :scope => scope)
-  end
-  def page_description(scope = controller_action_scope)
-    @page_description ||= I18n.t(:page_description, :scope => scope)
   end
 
 end

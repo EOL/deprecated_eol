@@ -177,6 +177,11 @@ en:
         name: Community name
         description: Community description
         logo: Upload a logo
+      contact:
+        comments: "Message"
+        contact_subject_id: "Contact subject"
+        email: "Email"
+        name: "Name"
       content_page:
         page_name: "Unique name"
         sort_order: "Sort order"
@@ -439,6 +444,11 @@ en:
         sort_field_show: "Sort value:"
       comment:
         body_edit: "Edit comment"
+      contact:
+        comments: "Your message"
+        contact_subject_id: "Subject"
+        email: "Your email address"
+        name: "Your name"
       content_page:
         active: "Published"
         active_more: "Published pages will be publicly visible. Uncheck <em>published</em> if you want to prevent general users from viewing versions of this page in any language."
@@ -586,6 +596,8 @@ en:
       submit: 'Save %{model}'
       collection_item:
         update: "Save"
+      contact:
+        new: "Send feedback"
       content_page:
         create: "Create page"
         edit: "Edit"
@@ -691,6 +703,13 @@ en:
       user_added_data:
         page_header: "User-Submitted Text Statistics"
         page_title: "Administration: User-Submitted Text Statistics"
+  contacts:
+    errors:
+      message_not_sent: "Sorry, an error occurred, your message has not been sent."
+    notices:
+      message_sent: "Thanks for your feedback, your message has been sent to the appropriate group."
+    new:
+      page_title: "Please leave your feedback"
   collections:
     show:
       meta_description: "%{collection_description}"
@@ -2128,7 +2147,6 @@ en:
   confirm_password_colon: "Confirm Password:"
   contact: "Contact"
   contact_information: "Contact information"
-  contacts: "Contacts"
   contact_updated: "Contact updated"
   contact_us: "contact us"
   contact_us_link: "Contact us"
@@ -3837,11 +3855,6 @@ en:
   user_no_longer_active_message: "This user is no longer active"
   no_answer: "No"
   allowed_html_tags: "Allowed HTML: %{comma_separated_tags}"
-  contact_us_request_sent: "Request Sent Successfully"
-  contact_us_request_failed: "An error occurred while attempting to send this request, sorry."
-  please_leave_your_feedback: "Please leave your feedback"
-  send_feedback: "Send feedback"
-  contact_us_request_received: "Contact us request received"
   references_cabs_colon: "References:"
   annotation_cabs_colon: "Annotation:"
   translation_log: "I18n key frequency histogram"

@@ -37,6 +37,8 @@ form
       padding: 0 0 10px 0
       input[type="text"], input[type="password"], textarea, select
         margin: 0 0 5px 0
+      input[type="text"], input[type="password"]
+        +input
       input[type="file"]
         margin: 0 0 10px 0
       textarea
@@ -2731,6 +2733,16 @@ ul.content_partner_contacts
     display: block
     padding-top: 20px
     border-top: 1px solid #cad3db
+
+#contact_us
+  width: 640px
+  dd
+    input[type="text"], textarea
+      width: 500px
+    select
+      max-width: 500px
+  input[type="submit"]
+    font-size: 1.2em
 
 ul.spotlite-matches
   background: #fff

@@ -1020,7 +1020,7 @@ en:
         meta_keywords: "information on %{scientific_name}, literature for %{scientific_name}, articles for %{scientific_name}"
         meta_keywords_with_common_name: "information on %{preferred_common_name}, literature for %{preferred_common_name}, articles for %{scientific_name}"
         meta_title: "Literature on %{scientific_name}"
-        meta_title_with_common_name: "Books on %{preferred_common_name} (%{scientific_name})"
+        meta_title_with_common_name: "Articles and books on %{preferred_common_name} (%{scientific_name})"
         tweet_text: "Literature on %{scientific_name}"
     maps:
       show:
@@ -1035,8 +1035,8 @@ en:
         meta_description_with_common_name: "Where are %{preferred_common_name} found and where do they live? Geographic information about %{scientific_name} where they live and where they are indigenous to in the world."
         meta_keywords: "%{scientific_name} habitat, indigenous, where do %{scientific_name} live"
         meta_keywords_with_common_name: "%{preferred_common_name} habitat, indigenous, where do %{preferred_common_name} live"
-        meta_title: "Habitat for %{scientific_name}"
-        meta_title_with_common_name: "Habitat for %{preferred_common_name} (%{scientific_name})"
+        meta_title: "Maps for %{scientific_name}"
+        meta_title_with_common_name: "Maps for %{preferred_common_name} (%{scientific_name})"
         tweet_text: "Maps of %{scientific_name}"
     media:
       index:

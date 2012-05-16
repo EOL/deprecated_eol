@@ -1290,6 +1290,7 @@ class TaxonConcept < ActiveRecord::Base
     @deep_browsables += deep_published_browsable_hierarchy_entries if
       @deep_browsables.count == 1 && @deep_browsables.first.id == current_entry_id &&
         @deep_browsables.first.hierarchy_browsable.to_i == 0
+    @deep_browsables.uniq!
     sort_and_preload_deeply_browsable_entries(@deep_browsables)
   end
 

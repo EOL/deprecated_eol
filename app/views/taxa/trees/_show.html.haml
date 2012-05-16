@@ -3,7 +3,8 @@
 - link_to_taxa ||= false # Only when a preferred classification is being rendered.
 - show_siblings ||= false
 - max_children  ||= nil
-- if ancestors = hierarchy_entry.ancestors
+- ancestors = hierarchy_entry.ancestors
+- if !ancestors.blank?
   - ancestor = ancestors.pop
   = render(:partial => 'navigation/node', :locals => { :link_to_taxa => link_to_taxa, :in_hierarchy => in_hierarchy, :ancestors => ancestors, :hierarchy_entry => ancestor, :show_siblings => show_siblings, :max_children => max_children })
 - else # NOTE - this is a weird border case where ancestors ends up nil. I'm not sure it's even possible.

@@ -1,52 +1,51 @@
 class ContactsController < ApplicationController
-  helper :application 
-  layout 'v2/sessions'
 
-  def index
+  layout 'v2/basic'
+
+  # GET /contacts/new and named route /contact_us
+  def new
     @contact = Contact.new
+    @contact.ip_address = request.remote_ip
+    @contact.referred_page = params[:referred_page]
     if logged_in?
-      @contact.name = current_user.username
+      @contact.user_id = current_user.id
+      @contact.name = current_user.full_name
       @contact.email = current_user.email
     end
-    @list = load_areas
   end
 
+  # POST /contacts
   def create
     @contact = Contact.new(params[:contact])
-    failed_to_create_request and return unless @contact.valid? && verify_recaptcha    
-    if logged_in?
-      @contact.comments = @contact.comments + "\n" + request.env["HTTP_HOST"] + user_path(current_user)
-    end
+
+    failed_to_create_contact and return unless @contact.valid? && verify_recaptcha
+
+    @contact.comments << "\n\n#{user_url(current_user)}" if logged_in?
     if @contact.save
+      # Note: Contact message is emailed to recipients on after_create, see Contact model
       Notifier.deliver_contact_us_auto_response(@contact)
-      @list = load_areas
-      @contact = Contact.new
-      flash.now[:notice] = I18n.t(:contact_us_request_sent)
-      render :action => :index, :layout => 'v2/sessions'
+      flash[:notice] = I18n.t('contacts.notices.message_sent')
+      redirect_to contact_us_path
     else
-      failed_to_create_request and return
+      # Unlikely we'll get here since we already checked validation above, but just in case.
+      failed_to_create_contact
     end
   end
 
-  def load_areas
-    areas = ContactSubject.find(:all)
-    list = []
-    areas.each {|r| list.concat([[r.title,r.id]])}
-    list
+private
+
+  def failed_to_create_contact
+    flash.now[:error] = I18n.t('contacts.errors.message_not_sent')
+    flash.now[:error] << I18n.t(:recaptcha_incorrect_error_with_anchor,
+                                :recaptcha_anchor => 'recaptcha_widget_div') unless verify_recaptcha
+    page_title([:contacts, :new])
+    render :new
   end
 
-  def failed_to_create_request
-    flash.now[:error] = I18n.t(:contact_us_request_failed)
-    @list = load_areas
-    render :action => :index, :layout => 'v2/sessions'
+  def contact_subjects
+    @contact_subjects ||= ContactSubject.find_all_by_active(true)
   end
-
-  def send_verification_email
-    if logged_in?
-      @contact.comments = @contact.comments + "\n" + request.env["HTTP_HOST"] + user_path(current_user)
-    end
-    Notifier.deliver_contact_us_message(@contact)
-  end
+  helper_method :contact_subjects
 
 end
 

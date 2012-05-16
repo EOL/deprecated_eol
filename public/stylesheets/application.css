@@ -441,6 +441,16 @@ form dl dd {
   padding: 0 0 10px 0; }
   form dl dd input[type="text"], form dl dd input[type="password"], form dl dd textarea, form dl dd select {
     margin: 0 0 5px 0; }
+  form dl dd input[type="text"], form dl dd input[type="password"] {
+    width: 308px;
+    height: 22px;
+    padding: 2px 5px;
+    font: normal 1em Helvetica, Arial, sans-serif;
+    border: 1px solid #cad3db;
+    background-color: white;
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
+    background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white)); }
   form dl dd input[type="file"] {
     margin: 0 0 10px 0; }
   form dl dd textarea {
@@ -3381,6 +3391,15 @@ ul.content_partner_contacts li {
   display: block;
   padding-top: 20px;
   border-top: 1px solid #cad3db; }
+
+#contact_us {
+  width: 640px; }
+  #contact_us dd input[type="text"], #contact_us dd textarea {
+    width: 500px; }
+  #contact_us dd select {
+    max-width: 500px; }
+  #contact_us input[type="submit"] {
+    font-size: 1.2em; }
 
 ul.spotlite-matches {
   background: white;

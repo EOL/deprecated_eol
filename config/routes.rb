@@ -29,15 +29,17 @@ ActionController::Routing::Routes.draw do |map|
   map.find_feed '/activity_logs/find/:id', :controller => 'feeds', :action => 'find'
   map.preview '/preview', :controller => 'content', :action => 'preview'
 
-  map.resources :contacts
   map.resources :tasks
   map.resources :task_states
   map.resources :task_names
-  map.resources :contacts
   map.resources :recent_activities, :only => [:index]
   map.resources :curated_taxon_concept_preferred_entries, :only => [:create]
 
   map.placeholder 'placeholder', :action => 'not_yet_implemented', :controller => 'application'
+
+
+  map.resources :contacts, :only => [:create, :new]
+  map.contact_us '/contact_us', :controller => 'contacts', :action => 'new'
 
   map.resources :feed_items
   # Communities nested resources

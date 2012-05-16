@@ -608,10 +608,14 @@ protected
     @original_request_params ||= params.clone.freeze # frozen because we don't want @original_request_params to be modified
   end
 
-  def page_title
-    @page_title ||= t(".page_title", :scope => controller_action_scope)
+  def page_title(scope = controller_action_scope)
+    @page_title ||= I18n.t(:page_title, :scope => scope, :default => '')
   end
   helper_method :page_title
+  def page_description(scope = controller_action_scope)
+    @page_description ||= I18n.t(:page_description, :scope => scope, :default => '')
+  end
+  helper_method :page_description
 
   # NOTE - these two are TOTALLY DUPLICATED from application_helper, because I CAN'T GET COLLECTIONS TO WORK.  WTF?!?
   def link_to_item(item, options = {})

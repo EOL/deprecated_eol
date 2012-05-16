@@ -22,4 +22,4 @@
     -# Keep this OUT of the cache call, please: the referred page needs to be dynamic.
     - if position == :footer
       %li
-        = link_to I18n.t(:contact_us_link), contacts_path(:referred_page => current_url(false))
+        = link_to I18n.t(:contact_us_link), contact_us_path(:referred_page => current_url(false))

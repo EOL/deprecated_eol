@@ -76,7 +76,10 @@
             %td{ :class => column_class }
               = h user.id
             %td{ :class => column_class }
-              = link_to(user.username,:action=>'edit',:id=>user.id)
+              - if user.username.nil?
+                = link_to "N/A", :action => 'edit', :id => user.id
+              - else
+                = link_to user.username, :action => 'edit', :id => user.id
             %td{ :class => column_class }
               = h user.email
             %td{ :class => column_class }

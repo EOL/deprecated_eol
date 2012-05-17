@@ -40,6 +40,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   before_save :check_credentials
   before_save :encrypt_password
+  before_save :remove_blank_username, :unless => :eol_authentication?
   before_save :instantly_approve_curator_level, :if => :curator_level_can_be_instantly_approved?
   after_save :update_watch_collection_name
   after_save :clear_cache
@@ -943,6 +944,13 @@ private
     return false unless self.class.column_names.include?('requested_curator_level_id')
     self.requested_curator_level_id == CuratorLevel.assistant_curator.id ||
     self.requested_curator_level_id == self.curator_level_id
+  end
+
+  # Callback before_save MySQL has unique constraint on username but allows nil because username
+  # is only required when open authentications are blank. We need to make sure we are not
+  # sending blank strings to MySQL when username is not required
+  def remove_blank_username
+    self.username = nil if self.username.blank?
   end
 
   # Callback after_save

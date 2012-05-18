@@ -11,8 +11,13 @@
   </xsl:template>
   <xsl:template match="owl:Ontology">
     <h2>Ontology: <xsl:value-of select="rdfs:label"/></h2>
-    Comment: <xsl:value-of select="rdfs:comment"/><br/>
-    <hr/>
+    <xsl:if test="dc:title">
+      title: <xsl:value-of select="dc:title"/><br/>
+    </xsl:if>
+    <xsl:if test="rdfs:comment">
+      Comment: <xsl:value-of select="rdfs:comment"/><br/>
+    </xsl:if>
+    <br/><br/>
   </xsl:template>
   <xsl:template match="owl:Class">
     <xsl:variable name="currentClass">
@@ -23,12 +28,14 @@
         <xsl:value-of select="@rdf:ID"/>
       </xsl:attribute>
     </a>
-    <h2>Class: <xsl:value-of select="@rdf:ID"/>
-    </h2>
+    <h3>Class: <xsl:value-of select="@rdf:ID"/></h3>
     <xsl:if test="count(//rdf:RDF/owl:*[rdfs:domain/@rdf:resource = $currentClass]) &gt; 0">
       <blockquote>
         <xsl:apply-templates select="//rdf:RDF/owl:*[rdfs:domain/@rdf:resource = $currentClass]"/>
       </blockquote>
+    </xsl:if>
+    <xsl:if test="dc:description">
+      Description: <xsl:value-of select="dc:description"/><br/>
     </xsl:if>
     <hr/>
   </xsl:template>

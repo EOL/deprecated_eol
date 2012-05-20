@@ -154,6 +154,34 @@ gl:
         request_publish: Solicitar a publicación
       name: 
         string: Nome
+      notification: 
+        changes_to_my_watched_collection: Cambios en coleccións da túa lista de vixilancia
+        changes_to_my_watched_community: Cambios en comunidades da túa lista de vixilancia
+        comment_on_my_collection: Un comentario nunha colección que administras
+        comment_on_my_community: Un comentario nunha das túas comunidades
+        comment_on_my_contribution: Un comentario e/ou acción de conservación nunha contribución que fixeches
+        comment_on_my_profile: Un comentario no teu perfil
+        comment_on_my_watched_item: Comentarios en obxectos, taxons, coleccións ou comunidades da túa lista de vixilancia
+        curation_on_my_watched_item: Accións de conservación en obxectos, taxons, coleccións ou comunidades da túa lista de vixilancia
+        eol_newsletter: Enviádeme o boletín trimestral da EOL
+        i_am_being_watched: Fuches engadido á lista de vixilancia doutro membro
+        invitation_to_community: Invitación para unirse a unha comunidade
+        made_me_a_manager: Fixéronte administrador dunha colección ou comunidade
+        member_joined_my_community: Un novo membro uniuse a unha das comunidades que administras
+        member_joined_my_watched_community: Novos membros uníronse a unha comunidade á que pertences
+        member_left_my_community: Algún membro deixou unha comunidade que administras
+        new_data_on_my_watched_item: Novas contribucións en taxons da túa lista de vixilancia
+        new_manager_in_my_community: Outro membro converteuse en administrador dunha comunidade que administras
+        reply_to_comment: Unha resposta a un comentario que deixaches
+      open_authentication: 
+        created_at: Creado
+        guid: GUID
+        provider: Provedor externo
+        secret: Frase secreta
+        token: Pase
+        updated_at: Última actualización
+        user_id: ID do usuario
+        verified_at: Última verificación
       resource: 
         accesspoint_url: URL do conxunto de datos
         auto_publish: Publicar automaticamente
@@ -187,6 +215,7 @@ gl:
         curator_scope: Alcance da conservación
         disable_email_notifications: Non me enviedes NINGUNHA actualización por correo electrónico
         email: Enderezo de correo electrónico
+        email_confirmation: Repetir o enderezo de correo electrónico <small>(para confirmalo)</small>
         entered_password: Contrasinal
         entered_password_confirmation: Repetir o contrasinal <small>(para confirmalo)</small>
         family_name: Apelidos
@@ -233,10 +262,18 @@ gl:
         wrong_length: ten unha lonxitude incorrecta (debe ser de %{count} caracteres)
         wrong_type: é de tipo incorrecto
       models: 
+        data_object: 
+          attributes: 
+            rights_holder: 
+              blank: non pode estar baleiro para unha licenza CC-BY
+              inclusion: debe estar baleiro para unha licenza do dominio público
         harvest_event: 
           attributes: 
             publish: 
               inclusion: só está permitido para o último rexistro de colleita e unicamente se ese rexistro non foi publicado aínda
+        open_authentications: 
+          guid_provider_must_be_unique: a conta externa xa está conectada cunha conta da EOL
+          provider_user_id_must_be_unique: unicamente unha conta de cada provedor externo pode conectarse cunha conta da EOL
         resource: 
           attributes: 
             accesspoint_url: 
@@ -452,6 +489,7 @@ gl:
   assistive_literature_header: Literatura
   assistive_maps_header: Mapas
   assistive_media_header: Ficheiros multimedia
+  assistive_names_classifictions_header: Clasificacións
   assistive_names_common_header: Nomes comúns
   assistive_names_related_header: Nomes relacionados
   assistive_names_synonyms_header: Sinónimos
@@ -527,8 +565,14 @@ gl:
   citation: Cita
   citation_example: Fisher, Brian. "Pogonomyrmex anergismus Cole, 1954." Enciclopedia da vida, dispoñible en <a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>. Consultado o 15 de xaneiro de 2009.
   citing_link: Citando
+  classification_preferred_for_taxon: Preferido
+  classification_summary_section_header: Clasificación
   classification_tree_header: Clasificación
   classifications_empty: Esta páxina non está incluída en ningunha das clasificacións que se poden explorar na EOL.
+  classifications_hierarchy_column_header: Clasificación
+  classifications_preferred_column_header: Preferido
+  classifications_rank_column_header: Clasificación
+  classifications_recognized_by_column_header: Recoñecido por
   classifications_summary_header_with_count: 
     one: Atopado en %{count} clasificación
     other: Atopado en %{count} clasificacións
@@ -578,6 +622,12 @@ gl:
         meta_keywords: Administradores de %{collection_name}
         meta_title: Administradores de %{collection_name}
         tweet_text: Administradores de %{collection_name}
+    inaturalists: 
+      show: 
+        add_observations: Engadir observacións
+        taxa_observed: 
+          one: "%{count} taxon observado"
+          other: "%{count} taxons observados"
     newsfeeds: 
       show: 
         meta_description: Novas, comentarios e actividade comunitaria da colección %{collection_name} da Enciclopedia da vida.
@@ -695,12 +745,8 @@ gl:
   contact_us: contacta con nós
   contact_us_functions: Funcións de contacto
   contact_us_link: Contacta con nós
-  contact_us_request_failed: Sentímolo, houbo un erro ao intentar enviar a solicitude.
-  contact_us_request_received: Recibiuse a solicitude de contacto
-  contact_us_request_sent: A solicitude enviouse correctamente
   contact_us_submissions: Envíos de contacto
   contact_us_topics: Temas de contacto
-  contacts: Contactos
   containing_value: que conteña %{value}.
   content: 
     index: 
@@ -1143,6 +1189,9 @@ gl:
   every_method_can_also_return_json_response: Cada método pode devolver tamén unha resposta JSON engadindo a extensión .json
   example_colon: "Exemplo:"
   exception: Excepción
+  exceptions: 
+    security_violations: 
+      default: Acceso rexeitado.
   expand_all_children: expandir todas as dependencias
   explore: Explorar
   explore_what_we_know_about_taxon: Explorar o que a EOL sabe acerca de %{taxon}.
@@ -1345,6 +1394,9 @@ gl:
         complete_more: "Unha xerarquía conservada asume que cada entrada pretende ser única, é dicir, as cadeas de nomes que coincidan trataranse como homónimos. <strong>ATENCIÓN: Non cambies este atributo a menos que esteas seguro do estado de homónimos na xerarquía, dado que facelo pode comprometer a integridade dos datos.</strong>"
         request_publish: Publicación solicitada
         request_publish_more: Indica se hai algunha solicitude pendente para promover esta xerarquía para converterse nunha das primarias da EOL.
+      open_authentication: 
+        connect: Engadir
+        connected: Conectado
       resource: 
         accesspoint_url: URL do conxunto de datos
         accesspoint_url_existing_remove: Este recurso cárgase desde o enderezo URL <em>%{accesspoint_url}</em>. Carga un ficheiro se queres eliminar o URL actual e cargar o recurso desde ese ficheiro (non recomendado).
@@ -1393,6 +1445,7 @@ gl:
         curator_level: Actualmente ti es %{curator_level_with_indefinite_article}.
         curator_scope: Alcance da conservación
         curator_scope_more: "Indica o alcance da túa experiencia. Por exemplo: \"Roedores de Borneo\", \"Interaccións tritróficas\" ou \"Problemas de conservación do peixe\". Isto non limitará as túas capacidades de conservación, pero informará á comunidade da EOL."
+        email: Enderezo de correo electrónico
         email_reports_frequency_hours: Con que frecuencia queres recibir alertas por correo electrónico sobre a actividade das túas contribucións?
         email_settings_submit: configuración do correo electrónico
         entered_password: Contrasinal <small>(entre 4 e 16 caracteres)</small>
@@ -1403,6 +1456,8 @@ gl:
         new_password_confirmation: Novo contrasinal <small>(para confirmar)</small>
         notification_settings: Configuración das notificacións
         notification_settings_more: Configurar as opcións de notificación.
+        open_authentications: Contas conectadas
+        open_authentications_connected_accounts: As túas contas conectadas
         requested_curator_level: A túa solicitude de converterte en %{curator_level_with_indefinite_article} está pendente.
         requested_curator_level_id_more: Selecciona <em>Conservador axudante</em> se aínda non tes credenciais. Elixe <em>Conservador completo</em> se es un científico profesional ou un estudante graduado con credenciais. Escolle <em>Mestre conservador</em> se es un conservador experto da EOL e queres asumir máis responsabilidades.
         tag_line: "Slogan ou título <small>exemplo: \"Apaixonado dos paxaros\"</small>"
@@ -1415,6 +1470,7 @@ gl:
     select: 
       prompt: Por favor, selecciona
     submit: 
+      cancel: Cancelar
       collection_item: 
         update: Gardar
       content_page: 
@@ -1449,6 +1505,10 @@ gl:
       name: 
         create: Engadir o nome
         update: Actualizar o nome
+      open_authentication: 
+        create: Conectar
+        destroy: Desconectarse
+        update: Comprobar a conexión
       resource: 
         create: Engadir un recurso
         force_harvest: Solicitar a colleita forzada
@@ -1456,6 +1516,10 @@ gl:
         update_settings: Actualizar a configuración
       session: 
         create: Acceder
+        sign_in_with_facebook: Accede co Facebook
+        sign_in_with_google: Accede co Google
+        sign_in_with_twitter: Accede co Twitter
+        sign_in_with_yahoo: Accede co Yahoo
       submit: Gardar %{model}
       translated_content_page: 
         create: Engadir a tradución
@@ -1467,6 +1531,11 @@ gl:
         curation_privileges: Enviar a solicitude
         generate_api_key: Xerar unha clave
         notification_settings: Configuración das notificacións
+        recover_account: Enviar un correo electrónico
+        sign_up_with_facebook: Rexístrate co Facebook
+        sign_up_with_google: Rexístrate co Google
+        sign_up_with_twitter: Rexístrate co Twitter
+        sign_up_with_yahoo: Rexístrate co Yahoo
         update: Gardar a información de perfil
       wikipedia_queue: 
         create: Enviar a solicitude
@@ -1479,6 +1548,7 @@ gl:
   hierarchies_title: Xerarquías
   hierarchy: Xerarquía
   hierarchy_entry_switch_missing_id_error: Sentímolo, non se puido atopar a páxina de entrada da xerarquía que seleccionaches porque falta un identificador.
+  hierarchy_node_missing: Sentímolo, faltan os datos deste nodo.
   hierarchy_roots_colon: "Raíces da xerarquía:"
   hierarchy_selector_drop_down_list_label: Esta é a etiqueta que aparecerá na lista despregable para seleccionar a xerarquía
   hierarchy_updated: Xerarquía actualizada
@@ -1908,6 +1978,8 @@ gl:
     user_activated: 
       message: "Benvido á Enciclopedia da vida (EOL) e grazas por te rexistrares! Ten en conta que o teu nome de usuario é %{username} e o enderezo URL do teu perfil é %{profile_url}. Podes acceder á túa conta en http://www.eol.org/login.\n\nPara obter máis información sobre como usar a EOL (como crear coleccións, participar nas comunidades ou achegar contidos) visita a nosa páxina de axuda no enderezo http://www.eol.org/help."
       subject: Activouse a túa conta na Enciclopedia da vida
+    user_activated_with_open_authentication: 
+      subject: Activouse a túa conta na Enciclopedia da vida
     user_commented_on_something_date_body: "O %{curator_level} %{users_name} (%{users_url}) comentou en:\n%{commented_on_name} (%{commented_on_url})\n%{comment_date}:\n%{comment_body}"
     user_message: 
       subject: Unha mensaxe da Enciclopedia da vida
@@ -2032,7 +2104,6 @@ gl:
   please_ask_big_before_changing_toc: Fala cun membro do grupo informático da biodiversidade antes de editar a táboa de contidos. Os nomes dalgúns capítulos non se poden cambiar debido a que o código procura algúns capítulos por etiquetas. Os elementos de información non se poden integrar nesta interface; cómpre facelo de xeito manual na base de datos.
   please_confirm_your_donation_details: Confirma os detalles da túa doazón
   please_indicate_curation_reason: "Selecciona un motivo e/ou, opcionalmente, deixa un comentario de conservación:"
-  please_leave_your_feedback: Deixa os teus comentarios
   please_note_that_some_of_these: Ten en conta que algunhas destas ferramentas están en probas e que poden cambiar co tempo ou conter algúns erros.
   please_note_wiki_etc_are_not_spm: "*Ten en conta que a Wikipedia, a educación e os códigos de barras son temas internos da EOL e non forman parte do SPM."
   please_publish_this_resource_notice: "*** <strong>AVISO:</strong> Por favor, <strong>%{publish_link}</strong> este recurso aquí ***"
@@ -2088,6 +2159,7 @@ gl:
   recipients: Destinatarios
   recognized_by: Recoñecido por
   recognized_by_as_a_rank: "%{recognized_by} como un %{taxon_rank}"
+  recognized_by_from_source: "%{recognized_by} en %{source}"
   recognized_by_from_source_as_a_rank: "%{recognized_by} en %{source} como un %{taxon_rank}"
   record_not_found: "[non se atopou o rexistro]"
   references_cabs_colon: "Referencias:"
@@ -2140,7 +2212,12 @@ gl:
   search: Procurar
   search_by_provider_method_description: obter os identificadores das páxinas da EOL a partir dun hierarchy_id e o identificador único do provedor
   search_by_term_page_title: "Procurar: %{term}"
+  search_field_common_name: Nome común
   search_field_label: Procurar na EOL
+  search_field_preferred_common_name: Nome común preferido
+  search_field_preferred_scientific: Nome científico preferido
+  search_field_surrogate: Substituto
+  search_field_synonym: Sinónimo
   search_for_comments_containing_the_text: "Procurar comentarios que conteñan o texto:"
   search_for_curators_containing: "Procurar conservadores que conteñan:"
   search_for_items_containing: "Procurar elementos que conteñan:"
@@ -2198,7 +2275,6 @@ gl:
   send: Enviar
   send_contact_email: Enviar o correo de contacto
   send_email_colon: "Enviar o correo electrónico:"
-  send_feedback: Enviar os comentarios
   sent_invitations_to_users: 
     one: O convite enviouse a %{users}.
     other: Os convites enviáronse a %{users}.
@@ -2207,6 +2283,8 @@ gl:
   sessions: 
     new: 
       meta_title: Rexistro
+      problems_signing_in_with_connected_accounts: Tes problemas para iniciar sesión coas túas contas conectadas?
+      problems_signing_in_with_eol_authentication: Esqueciches o teu contrasinal?
   set_as_exemplar: Establecer como exemplar
   share_a_collection: Compartir unha colección
   show: Mostrar
@@ -2236,6 +2314,8 @@ gl:
   social_sharing_twitter_follow_eol_button: Sigue a @eol
   social_sharing_twitter_tweet_button: Chiar
   some_required_fields_were_not_entered: Non completaches algúns campos obrigatorios (debes introducir un título e contido ou un enderezo URL).
+  sorry_no_collections_are_available_to_share: Sentímolo, non hai dispoñible ningunha colección para compartila con esta comunidade.
+  sorry_no_communities_are_available_to_share: Sentímolo, non hai dispoñible ningunha comunidade coa que compartir esta colección.
   sort_by: Ordenar por
   sort_by_alphabetical_option: Alfabética
   sort_by_button: Ordenar
@@ -2295,7 +2375,7 @@ gl:
   supplier_colon: "Provedor:"
   survey_link: Enche a nosa enquisa
   switch_language_advisory_information: Cambiar a lingua do sitio a %{language_label}
-  synonym: Sinónimos
+  synonym: Sinónimo
   synonyms_with_count: 
     one: "%{count} sinónimo"
     other: "%{count} sinónimos"
@@ -2393,7 +2473,7 @@ gl:
         meta_keywords: información sobre %{scientific_name}, literatura sobre %{scientific_name}, artigos sobre %{scientific_name}
         meta_keywords_with_common_name: información sobre %{preferred_common_name}, literatura sobre %{preferred_common_name}, artigos sobre %{scientific_name}
         meta_title: Literatura sobre %{scientific_name}
-        meta_title_with_common_name: Libros sobre %{preferred_common_name} (%{scientific_name})
+        meta_title_with_common_name: Artigos e libros sobre %{preferred_common_name} (%{scientific_name})
         tweet_text: Literatura sobre %{scientific_name}
     maps: 
       show: 
@@ -2407,8 +2487,8 @@ gl:
         meta_description_with_common_name: Onde atopamos %{preferred_common_name} e onde viven? Información xeográfica sobre %{scientific_name}, onde vive e de onde é orixinario.
         meta_keywords: hábitat de %{scientific_name}, autóctono, onde vive %{scientific_name}
         meta_keywords_with_common_name: hábitat de %{preferred_common_name}, autóctono, onde vive %{preferred_common_name}
-        meta_title: Hábitat de %{scientific_name}
-        meta_title_with_common_name: Hábitat de %{preferred_common_name} (%{scientific_name})
+        meta_title: Mapas de %{scientific_name}
+        meta_title_with_common_name: Mapas de %{preferred_common_name} (%{scientific_name})
         tweet_text: Mapas de %{scientific_name}
     media: 
       index: 
@@ -2711,6 +2791,7 @@ gl:
   unable_to_invite_users_to_community_error: Non se puideron enviar os convites a %{users}.
   unique_page_views_th: Visitas por páxina únicas
   unknown: Descoñecido
+  unknown_hierarchy: Xerarquía descoñecida
   unknown_type_not_associated_with_any_published_entries: Estes datos non están asociados a ningún taxon publicado.
   unpublished: Sen publicar
   unreviewed: Sen revisar
@@ -2842,6 +2923,7 @@ gl:
         tweet_text: Socios de contidos de %{user_full_name}
     new: 
       create_user_header: Crea unha nova conta na <abbr title="Enciclopedia da vida">EOL</abbr>
+      meta_title: Únete á EOL
     newsfeeds: 
       activity: 
         meta_title: Fonte de novas das actividade de %{user_full_name}
@@ -2860,6 +2942,11 @@ gl:
     notifications: 
       edit: 
         page_title: Configuración das notificacións
+    open_authentications: 
+      facebook: Facebook
+      google: Google
+      twitter: Twitter
+      yahoo: Yahoo!
     show: 
       meta_description: Perfil de %{user_full_name} na Enciclopedia da vida.
       meta_description_curator: Perfil do %{curator_level} %{user_full_name} na Enciclopedia da vida.
@@ -2878,8 +2965,6 @@ gl:
     one: Membro de %{count} comunidade
     other: Membro de %{count} comunidades
   users_my_info_header: A miña información
-  users_pending_activation_helper: Ten en conta que os correos electrónicos de activación da conta rematan <em>a miúdo</em> no cartafol de correo lixo. Comproba ese cartafol se non recibes a mensaxe na vindeira hora.
-  users_pending_activation_message: Enviouse unha mensaxe de confirmación ao enderezo de correo electrónico que proporcionaches. Para completar o proceso de rexistro e pasar a ser membro da EOL, preme na ligazón incluída nesa mensaxe. Grazas!
   users_that_can_edit_this_collection: Usuarios que poden xestionar esta colección
   using_the_site: Utilización do sitio
   validation_error: Erro de validación

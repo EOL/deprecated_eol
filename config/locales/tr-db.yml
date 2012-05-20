@@ -1,6 +1,7 @@
 # Messages for Turkish (Türkçe)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
+# Author: BetelgeuSeginus
 # Author: Cekli829
 # Author: Emperyan
 # Author: Incelemeelemani
@@ -18,6 +19,7 @@ tr:
   translated_activities-name-activity_id-56: sil
   translated_activities-name-activity_id-57: oran
   translated_activities-name-activity_id-58: güvenilir
+  translated_activities-name-activity_id-59: incelenmemiş
   translated_activities-name-activity_id-64: kaldır
   translated_agent_roles-label-agent_role_id-1: Canlandırıcı
   translated_agent_roles-label-agent_role_id-10: Proje
@@ -25,11 +27,18 @@ tr:
   translated_agent_roles-label-agent_role_id-12: Kaydedici
   translated_agent_roles-label-agent_role_id-13: Kaynak
   translated_agent_roles-label-agent_role_id-14: Kaynak Veritabanı
+  translated_agent_roles-label-agent_role_id-15: İlgili kişi
+  translated_agent_roles-label-agent_role_id-16: Katılımcı
   translated_agent_roles-label-agent_role_id-2: Yazar
+  translated_agent_roles-label-agent_role_id-21: sağlayıcı
   translated_agent_roles-label-agent_role_id-22: Çevirmen
+  translated_agent_roles-label-agent_role_id-23: Bilimsel incelemeci
+  translated_agent_roles-label-agent_role_id-24: Dilsel incelemeci
+  translated_agent_roles-label-agent_role_id-3: Derleyici
   translated_agent_roles-label-agent_role_id-5: Oluşturan
   translated_agent_roles-label-agent_role_id-6: Yönetmen
   translated_agent_roles-label-agent_role_id-7: Editör
+  translated_agent_roles-label-agent_role_id-8: Çizer
   translated_agent_roles-label-agent_role_id-9: Fotoğrafçı
   translated_audiences-label-audience_id-1: Uzman kullanıcılar
   translated_audiences-label-audience_id-2: Genel kamu
@@ -37,13 +46,21 @@ tr:
   translated_collection_types-label-collection_type_id-1: Taksonomi
   translated_collection_types-label-collection_type_id-10: Sesler
   translated_collection_types-label-collection_type_id-11: Bağlantılar
+  translated_collection_types-label-collection_type_id-12: Literatür
   translated_collection_types-label-collection_type_id-13: Taksonomi
   translated_collection_types-label-collection_type_id-15: Açıklama
   translated_collection_types-label-collection_type_id-16: Resimler
+  translated_collection_types-label-collection_type_id-17: Dağıtım
+  translated_collection_types-label-collection_type_id-18: Korunma durumu
+  translated_collection_types-label-collection_type_id-19: Ad bilgisi
+  translated_collection_types-label-collection_type_id-20: Moleküler veri
+  translated_collection_types-label-collection_type_id-21: Adlandırma
   translated_collection_types-label-collection_type_id-22: Sesler
   translated_collection_types-label-collection_type_id-23: Bağlantılar
   translated_collection_types-label-collection_type_id-24: Literatür
+  translated_collection_types-label-collection_type_id-3: Açıklama
   translated_collection_types-label-collection_type_id-4: Resimler
+  translated_collection_types-label-collection_type_id-5: Dağıtım
   translated_collection_types-label-collection_type_id-6: Korunma durumu
   translated_collection_types-label-collection_type_id-8: Moleküler veri
   translated_collection_types-label-collection_type_id-9: Adlandırma

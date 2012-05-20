@@ -551,7 +551,6 @@ ms:
   contact_us: hubungi kami
   contact_us_functions: Fungsi Hubungi Kami
   contact_us_link: Hubungi kami
-  contacts: Hubungan
   content_has_been_updated: Kandungan telah dikemas kini.
   content_partner: Rakan Kongsi Kandungan
   content_partner_about_header: Perihal %{partner_name}
@@ -1887,7 +1886,6 @@ ms:
   users_form_tip: Semua pengguna dikehendaki mempunyai nama pengguna. Butir-butir lain yang ditandai sebagai dikehendaki %{required_icon} adalah pilihan untuk pengguna am tetapi dikehendaki untuk kurator.
   users_member_of_count_communities: Ahli %{count} komuniti
   users_my_info_header: Maklumat saya
-  users_pending_activation_message: Pesanan pengesahan telah dihantar ke alamat e-mel yang anda berikan. Untuk melengkapkan proses pendaftaran dan menjadi ahli EOL, sila klik pada pautan yang diberikan dalam e-mel itu. Terima kasih!
   using_the_site: Penggunaan Laman Ini
   validation_error: Ralat Pengesahan
   validation_following_fields: "Ruangan-ruangan berikut ada masalah:"

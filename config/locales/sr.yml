@@ -525,7 +525,8 @@ sr:
     one: Пронађено у %{count} класификацији
     other: Пронађено у %{count} класификације
   classifications_with_count: 
-    other: једна=%{count} класификација
+    one: "%{count} класификација"
+    other: "%{count} класификација"
   clear_all_non_species_pages: Очисти све странице које немају врсте
   clear_entire_cache_store: Очисти цело складиште кеша
   clear_species_page: Очисти страницу за врсте
@@ -686,12 +687,8 @@ sr:
   contact_us: контактирајте с нама
   contact_us_functions: Контакт
   contact_us_link: Контакт
-  contact_us_request_failed: Дошло је до грешке при слању захтева.
-  contact_us_request_received: Захтев за контактирање је примљен
-  contact_us_request_sent: Захтев је послат
   contact_us_submissions: Послато на „Контактирајте с нама“
   contact_us_topics: Теме у „Контактирајте с нама“
-  contacts: Контакти
   containing_value: садржи %{value}.
   content: 
     index: 
@@ -1987,7 +1984,6 @@ sr:
   please_ask_big_before_changing_toc: Консултујте се с чланом групе Биоразноврсна информатика пре уређивања прегледа садржаја. Неки називи поглавља не могу да се мењају будући да су повезани са самим кодом. Инфообјекти не могу да се пресликају на ово сучеље – то мора да се уради ручно у бази.
   please_confirm_your_donation_details: Потврдите податке о прилогу
   please_indicate_curation_reason: "Изаберите разлог или напишите кустоски коментар:"
-  please_leave_your_feedback: Пошаљите повратну информацију
   please_note_that_some_of_these: Неке од ових алатки су у бета фази и зато се могу изменити током времена, а могу садржати и грешке.
   please_note_wiki_etc_are_not_spm: "*Имајте на уму да су Википедија, Образовање и Бар-код унутрашњи субјекти EOL-а и као такви нису део SPM-а."
   please_publish_this_resource_notice: "*** <strong>Напомена:</strong> овај ресурс треба да се <strong>%{publish_link}</strong> овде ***"
@@ -2151,7 +2147,6 @@ sr:
   send: Пошаљи
   send_contact_email: Пошаљи е-пошту за контакт
   send_email_colon: "Пошаљите е-поруку:"
-  send_feedback: Пошаљи повратну информацију
   sent_invitations_to_users: 
     one: Порука је послата на %{users}.
     other: Поруке су послате на %{users}.
@@ -2635,7 +2630,6 @@ sr:
     one: Члан %{count} заједнице
     other: Члан %{count} заједнице
   users_my_info_header: Моји подаци
-  users_pending_activation_message: Потврдна порука је послата на наведену е-адресу. Кликните на везу која се налази у поруци да бисте завршили поступак за упис. Хвала вам!
   users_that_can_edit_this_collection: Корисници који руководе с овом збирком
   using_the_site: Употреба
   validation_error: Грешка при провери

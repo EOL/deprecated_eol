@@ -1,7 +1,7 @@
 class CreateEol < ActiveRecord::Migration
 
   def self.up
-    ActiveRecord::Migration.not_okay_in_production
+    ActiveRecord::Migration.raise_error_if_in_production
     
     # Basically, I want to throw an error if we're not using MySQL, while at the same time providing the framework
     # for adding other DB support in the future...
@@ -21,7 +21,7 @@ class CreateEol < ActiveRecord::Migration
   end
 
   def self.down
-    ActiveRecord::Migration.not_okay_in_production
+    ActiveRecord::Migration.raise_error_if_in_production
     drop_table "agent_roles"
     drop_table "agents"
     drop_table "agents_data_objects"

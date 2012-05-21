@@ -2,14 +2,13 @@ class CollectionActivityLog < LoggingModel
 
   include EOL::ActivityLogItem
 
-  belongs_to :collection
+  belongs_to :collection, :touch => true
   belongs_to :collection_item # ONLY if it affected one
   belongs_to :user # Who took the action
   belongs_to :activity # What happened
 
   after_create :log_activity_in_solr
   after_create :queue_notifications
-  after_create :touch_collection
 
   alias :link_to :collection # Needed for rendering links; we need to know which association to make the link to
 
@@ -84,8 +83,4 @@ private
     activity.id == Activity.collect.id && collection_item.object_type == 'User'
   end
 
-  # This keeps the "Updated at" current with any logged activity.  Neat!
-  def touch_collection
-    collection.touch
-  end
 end

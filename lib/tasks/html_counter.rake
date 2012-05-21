@@ -93,9 +93,25 @@ task :html_counter => :environment do
     field_hash.keys.each do |klass|
       print "\nCounting #{klass.name.pluralize}"
       counter = 0
+      # NOTE = this never takes published into account.  I figure that's fine: we get a historical account.
+      all = case klass
+            when Name
+              Name.find_by_sql("
+                SELECT names.id, #{field_hash[klass].map {|sy| "names.#{sy}"}.join(', ')}
+                  FROM names
+                    JOIN synonyms ON (names.id = synonyms.name_id)
+                    JOIN agents_synonyms ON (agents_synonyms.synonym_id = synonyms.id)
+                    JOIN users ON (agents_synonyms.agent_id = users.agent_id)
+                    WHERE synonyms.synonym_relation_id = #{relation.id} AND users.curator_level_id > 0")
+            when DataObject
+              # This will load too many fields from the datos, but... hey. There aren't THAT many.
+              UsersDataObject.all(:select => 'id, data_object_id', :join => 'data_object').map {|udo| udo.data_object}
+            else
+              klass.send(:all, :select => field_hash[klass].map {|sy| sy.to_s}.join(', '))
+            end
       # TODO - if klass == Name, then don't use :all, just find user-submitted names.
       # TODO - if klass == DataObject, then don't use :all, just find user-submitted text.
-      klass.send(:all, :select => field_hash[klass].map {|sy| sy.to_s}.join(', ')).each do |instance|
+      all.each do |instance|
         if counter % 100 == 0 
           print "."
         end

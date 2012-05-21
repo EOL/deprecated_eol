@@ -19,7 +19,10 @@
         = link_to(I18n.t(:see_all_of_your_collections), user_collections_path(current_user),
           :class => 'other_actions close_and_go')
         - if one_available
-          = submit_tag(I18n.t(:make_an_editor))
+          - if @user 
+            = submit_tag(I18n.t(:make_an_editor))
+          - else
+            = submit_tag(I18n.t(:share_a_collection))
         - else
           %p
             %strong= I18n.t(:sorry_no_collections_are_available_to_share)

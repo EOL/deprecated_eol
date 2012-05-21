@@ -132,6 +132,7 @@ class CollectionsController < ApplicationController
     @page_title = I18n.t(:choose_collection_header)
   end
 
+  # Either a user is passed in and we're making her a manager, or a community is passed in and we're "featuring" it.
   def choose_editor_target
     return must_be_logged_in unless logged_in?
     @user = User.find(params[:user_id]) rescue nil
@@ -143,11 +144,10 @@ class CollectionsController < ApplicationController
     raise EOL::Exceptions::NoCollectionsApply if @collections.blank?
     @page_title = I18n.t(:make_user_an_editor_title, :user => @item.summary_name)
     respond_to do |format|
-      format.html {  render :partial => 'choose_editor_target', :layout => 'v2/users' }
-      format.js { render :partial => 'choose_editor_target' }
+      format.html { render :partial => 'choose_editor_target', :layout => 'v2/users' }
+      format.js   { render :partial => 'choose_editor_target' }
     end
   end
-
 
   def choose_collect_target
     return must_be_logged_in unless logged_in?

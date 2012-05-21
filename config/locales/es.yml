@@ -58,6 +58,10 @@ es:
         description: Descripción de la comunidad
         logo: Subir un logotipo
         name: Nombre de la comunidad
+      contact: 
+        comments: Mensaje
+        email: Correo electrónico
+        name: Nombre
       content_page: 
         active: Publicado
         page_name: Nombre único
@@ -907,8 +911,8 @@ es:
     one: "Encontrado en %{count} clasificación "
     other: Encontrado en %{count} clasificaciones
   classifications_with_count: 
-    one: "%{count} clasificación}"
-    other: "%{count} clasificaciones}"
+    one: "%{count} clasificación"
+    other: "%{count} clasificaciones"
   clear_all_non_species_pages: Borrar todas las páginas que no son de especies
   clear_entire_cache_store: Limpiar todo lo almacenado en la memoria caché
   clear_species_page: Borrar la página de la especie
@@ -964,7 +968,9 @@ es:
         observer_with_link: "Observador: %{observer_link}"
         recent_observations: Observaciones recientes
         some_taxon: Algo
-        taxa_observed: taxones observados %{observed_taxa_count}
+        taxa_observed: 
+          one: "%{count} taxón observado"
+          other: "%{count} taxones observados"
         top_contributors: Principales contribuyentes a iNaturalist
         tweet_text: Observaciones iNaturalistas de %{collection_name}
         view_all_observations_on_inaturalist: Ver todas las observaciones de %{project_title} en iNaturalist
@@ -1093,12 +1099,11 @@ es:
   contact_us: Contáctenos
   contact_us_functions: Contáctenos Funciones
   contact_us_link: Contáctenos
-  contact_us_request_failed: Se produjo un error al intentar enviar esta solicitud, lo sentimos.
-  contact_us_request_received: Se ha recibido la solicitud de contacto
-  contact_us_request_sent: Solicitud enviada correctamente
   contact_us_submissions: Envíos de contacto
   contact_us_topics: Temas de contacto
-  contacts: Contactos
+  contacts: 
+    errors: 
+      message_not_sent: Lo sentimos. Se ha producido un error, y el mensaje no se ha enviado.
   containing_value: que contenga %{value}.
   content: 
     index: 
@@ -1695,6 +1700,11 @@ es:
         sort_field_show: "Valor de tipo:"
       comment: 
         body_edit: Editar comentario
+      contact: 
+        comments: Tu mensaje
+        contact_subject_id: Asunto
+        email: Tu dirección de correo electrónico
+        name: Tu nombre
       content_page: 
         active: Publicado
         active_more: Páginas publicadas será visible para el público. Desmarque <em>published</em> si desea evitar que los usuarios en general puedan ver las versiones de esta página en cualquier idioma.
@@ -1913,6 +1923,7 @@ es:
   hierarchies_title: Jerarquías
   hierarchy: Jerarquía
   hierarchy_entry_switch_missing_id_error: Lo sentimos, la página de entrada de la jerarquía que ha seleccionado no se pudo encontrar debido a la falta de un identificador.
+  hierarchy_node_missing: Faltan los datos de este nodo.
   hierarchy_roots_colon: "Raíces de la jerarquía:"
   hierarchy_selector_drop_down_list_label: Esta es la etiqueta que aparecerá en el menú desplegable de selección de jerarquía
   hierarchy_updated: Jerarquía actualizada
@@ -2476,7 +2487,6 @@ es:
   please_ask_big_before_changing_toc: Consulte con un miembro del grupo de Informática de la Biodiversidad antes de editar la tabla de contenido. Algunos nombres de capítulos no pueden modificarse porque el código apunta a ciertos capítulos por etiqueta. Los elementos de información InfoItems no se pueden asignar en esta interfaz - se debe hacer manualmente en la base de datos.
   please_confirm_your_donation_details: Por favor confirmar los detalles de su donación
   please_indicate_curation_reason: "Por favor, seleccione un motivo y, opcionalmente, deje un comentario de curación:"
-  please_leave_your_feedback: Por favor deje sus comentarios
   please_note_that_some_of_these: Tenga en cuenta que algunas de estas herramientas están en versión beta y pueden cambiar con el tiempo o tener errores.
   please_note_wiki_etc_are_not_spm: "* Tenga en cuenta que Wikipedia, Educación y Código de barras son temas internos de EOL y no forman parte de la SPM."
   please_publish_this_resource_notice: "*** <strong>AVISO:</strong> Por favor, <strong>%{publish_link}</strong> este recurso aquí ***"
@@ -2698,7 +2708,6 @@ es:
   send: Enviar
   send_contact_email: Enviar correo electrónico de contacto
   send_email_colon: "Enviar correo electrónico:"
-  send_feedback: Enviar comentarios
   sent_invitations_to_users: 
     one: una invitación fue enviada a %{users}.
     other: Se enviaron invitaciones a %{users}.
@@ -2905,7 +2914,7 @@ es:
         meta_keywords: información sobre %{scientific_name}, literatura sobre %{scientific_name}, artículos sobre %{scientific_name}
         meta_keywords_with_common_name: información sobre %{preferred_common_name}, literatura sobre %{preferred_common_name}, artículos sobre %{scientific_name}
         meta_title: Literatura sobre %{scientific_name}
-        meta_title_with_common_name: Libros sobre %{preferred_common_name} (%{scientific_name})
+        meta_title_with_common_name: Artículos y ibros sobre %{preferred_common_name} (%{scientific_name})
         tweet_text: Literatura sobre %{scientific_name}
     maps: 
       show: 
@@ -2919,8 +2928,8 @@ es:
         meta_description_with_common_name: "¿Dónde se encuentra %{preferred_common_name} y dónde vive? Información geográfica sobre %{scientific_name}:  dónde viven y de dónde son autóctonos en el mundo."
         meta_keywords: hábitat de %{scientific_name} , de dónde es autóctono, dónde vive %{scientific_name}
         meta_keywords_with_common_name: hábitat de %{preferred_common_name}, de dónde es autóctono, dónde vive %{preferred_common_name}
-        meta_title: Hábitat de %{scientific_name}
-        meta_title_with_common_name: Hábitat de %{preferred_common_name} (%{scientific_name})
+        meta_title: Mapas de %{scientific_name}
+        meta_title_with_common_name: Mapas de %{preferred_common_name} (%{scientific_name})
         tweet_text: Mapas de %{scientific_name}
     media: 
       index: 
@@ -3393,14 +3402,12 @@ es:
         page_title: Configuración de notificaciones
     open_authentications: 
       errors: 
-        authorize_uri_missing: Lo sentimos, ha ocurrido un error, somos incapaces de iniciar la autenticación en este momento.
         facebook: 
           add_connection_failed_account_already_connected: Lo sentimos, no podemos conectar tu cuenta de Facebook a tu cuenta de EOL, tu cuenta de Facebook ya está conectada a una <a href="%{existing_eol_account_url}">cuenta de EOL</a>.
           missing_attributes: Lo sentimos, hubo un problema de acceso a tus datos de Facebook.
           new_authentication_not_added: Lo sentimos, ha ocurrido un error, no pudimos conectar tu cuenta de Facebook.
           not_authorized_to_add_authentication: Lo sentimos, no tenemos autorización para conectar a tu cuenta de Facebook.
           not_authorized_to_signup: Lo sentimos, no estamos autorizados para suscribirte a EOL utilizando tu cuenta de Facebook.
-          not_connected: Lo sentimos, no hemos podido encontrar una conexión entre tu cuenta de Facebook y EOL.
           signup_failed_account_already_connected: Lo sentimos, no podemos suscribirte a una nueva cuenta de EOL con tu cuenta de Facebook, ya estás conectado a una <a href="%{existing_eol_account_url}">cuenta de usuario de EOL</a>. En lugar de eso ¿quisiste <a href="%{login_url}">iniciar sesión</a> ?
         google: 
           add_connection_failed_account_already_connected: Lo sentimos, no podemos conectar tu cuenta de Google a tu cuenta de EOL, tu cuenta de Google ya está conectada a una <a href="%{existing_eol_account_url}">cuenta de EOL</a>.
@@ -3408,12 +3415,9 @@ es:
           new_authentication_not_added: Lo sentimos, ha ocurrido un error, no pudimos conectar tu cuenta de Google.
           not_authorized_to_add_authentication: Lo sentimos, no tenemos autorización para conectar a tu cuenta de Google.
           not_authorized_to_signup: Lo sentimos, no estamos autorizados para suscribirte a EOL utilizando tu cuenta de Google.
-          not_connected: Lo sentimos, no hemos podido encontrar una conexión entre tu cuenta de Google y EOL.
           signup_failed_account_already_connected: Lo sentimos, no podemos suscribirte a una nueva cuenta de EOL con tu cuenta de Google, ya estás conectado a una <a href="%{existing_eol_account_url}">cuenta de usuario de EOL</a>. En lugar de eso ¿quisiste <a href="%{login_url}">iniciar sesión</a> ?
         missing_attributes: Lo sentimos, hubo un problema de acceso a los datos de tu cuenta externa.
         not_authorized_to_add_authentication: Lo sentimos, no tenemos autorización para conectar esa cuenta.
-        not_authorized_to_signup: Lo sentimos, no estamos autorizados para iniciar sesión en EOL con esa cuenta.
-        not_connected: Lo sentimos, no hemos podido encontrar una conexión con una cuenta de EOL.
         remove_connection_failed: Lo sentimos, ha ocurrido un error, no hemos podido eliminar la conexión.
         twitter: 
           add_connection_failed_account_already_connected: Lo sentimos, no podemos conectar tu cuenta de Twitter a tu cuenta de EOL, tu cuenta de Twitter ya está conectada a una <a href="%{existing_eol_account_url}">cuenta de EOL</a>.
@@ -3421,7 +3425,6 @@ es:
           new_authentication_not_added: Lo sentimos, ha ocurrido un error, no pudimos conectar tu cuenta de Twitter.
           not_authorized_to_add_authentication: Lo sentimos, no tenemos autorización para conectar a tu cuenta de Twitter.
           not_authorized_to_signup: Lo sentimos, no estamos autorizados para suscribirte a EOL utilizando tu cuenta de Twitter.
-          not_connected: Lo sentimos, no hemos podido encontrar una conexión entre tu cuenta de Twitter y EOL.
           signup_failed_account_already_connected: Lo sentimos, no podemos suscribirte a una nueva cuenta de EOL con tu cuenta de Twitter, ya estás conectado a una <a href="%{existing_eol_account_url}">cuenta de usuario de EOL</a>. En lugar de eso ¿quisiste <a href="%{login_url}">iniciar sesión</a> ?
         yahoo: 
           add_connection_failed_account_already_connected: Lo sentimos, no podemos conectar tu cuenta de Yahoo a tu cuenta de EOL, tu cuenta de Yahoo ya está conectada a una <a href="%{existing_eol_account_url}">cuenta de EOL</a>.
@@ -3429,7 +3432,6 @@ es:
           new_authentication_not_added: Lo sentimos, ha ocurrido un error, no pudimos conectar tu cuenta de Yahoo!.
           not_authorized_to_add_authentication: Lo sentimos, no tenemos autorización para conectar a tu cuenta de Yahoo!.
           not_authorized_to_signup: Lo sentimos, no estamos autorizados para suscribirte a EOL utilizando tu cuenta de Yahoo!.
-          not_connected: Lo sentimos, no hemos podido encontrar una conexión entre tu cuenta de Yahoo! y EOL.
           signup_failed_account_already_connected: Lo sentimos, no podemos suscribirte a una nueva cuenta de EOL con tu cuenta de Yahoo!, ya estás conectado a una <a href="%{existing_eol_account_url}">cuenta de usuario de EOL</a>. En lugar de eso ¿quisiste <a href="%{login_url}">iniciar sesión</a> ?
       facebook: Facebook
       google: Google
@@ -3457,6 +3459,9 @@ es:
       warnings: 
         no_way_to_login: Ya no tienes ninguna cuenta conectada, no podrás iniciar sesión en EOL a menos que agregues una cuenta conectada o agregues un usuario de EOL y contraseña.
       yahoo: Yahoo!
+    pending: 
+      header: ¡Gracias por registrarte!
+      verify_email_instructions: <strong>Por favor, verifica tu dirección de correo electrónico</strong>. Se te ha enviado un mensaje de confirmación a la dirección que has proporcionado. Para completar el proceso de registro y convertirte en un miembro de EOL, por favor, haz clic en el enlace que se incluye en dicho mensaje. ¡Gracias!
     recover_account: 
       errors: 
         temporary_login_user_not_found: Lo sentimos, no se ha podido encontrar la cuenta de EOL que estás tratando de recuperar, por favor solicita un nuevo correo electrónico para recuperar tu cuenta.
@@ -3493,8 +3498,6 @@ es:
     one: "Pertenece a %{count} comunidad "
     other: Pertenece a %{count} comunidades
   users_my_info_header: Mi información
-  users_pending_activation_helper: Tenga en cuenta que los mensajes de correo electrónico de activación de la cuenta son marcados <em>con frecuencia</em> como 'Spam' por los filtros de correo electrónico. Compruebe su carpeta de Spam si no recibe el correo electrónico dentro de una hora.
-  users_pending_activation_message: Se ha enviado un mensaje de confirmación a la dirección de correo electrónico proporcionada. Para completar el proceso de registro y convertirse en miembro de EOL, haga clic en el enlace incluido en ese correo electrónico. ¡Gracias!
   users_that_can_edit_this_collection: Usuarios que pueden administrar esta colección
   using_the_site: Uso del sitio
   validation_error: Error de validación
@@ -3547,6 +3550,7 @@ es:
   visitors: Visitantes
   vivisimo: Vivisimo
   wants_colon: "Quiere:"
+  warning_you_are_editing_as_admin: "AVISO: solo estás autorizado a editar esta página porque eres administrador."
   watch_list: Lista de Vigilancia
   watch_list_newsfeed: Suministro de Noticias de la Lista de Vigilancia
   web_service_base_url: URL base del servicio Web

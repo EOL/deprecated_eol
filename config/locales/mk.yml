@@ -47,6 +47,11 @@ mk:
         description: Опис на заедницата
         logo: Подигни лого
         name: Име на заедницата
+      contact: 
+        comments: Порака
+        contact_subject_id: Наслов
+        email: Е-пошта
+        name: Име
       content_page: 
         active: Објавено
         page_name: Единствено име
@@ -791,10 +796,10 @@ mk:
   article_rating: Оценка на статијата
   articles_in_languages_with_count: 
     one: "Статиите на страницава се достапни на %{count} јазик:"
-    other: "Статиите на страницава се достапни на %{count} јазици:"
+    other: "Статиите на страницава се достапни на %{count} јазика:"
   articles_in_other_languages_with_count: 
     one: "Статиите на страницава се достапни на уште %{count} јазик:"
-    other: "Статиите на страницава се достапни на уште %{count} јазици:"
+    other: "Статиите на страницава се достапни на уште %{count} јазика:"
   articles_with_count: 
     one: "%{count} статија"
     other: "%{count} статии"
@@ -924,6 +929,7 @@ mk:
   collection_item_edit_by_javascript_not_authorized_error: Нажалост, немате дозвола да го уредувате овој експонат во збирката. Доколку сте сопственик или уредник на збирката, превчитајте ја страницата и проверете дали сте најавени.
   collection_item_edit_page_title: Уреди експонат во збирката <em>%{collection_name}</em>
   collection_item_not_found_error: Експонатот не е пронајден.
+  collection_name_cannot_be_blank: Збирката мора да има име. Не може да стои празно.
   collection_name_label: Име на збирката
   collection_newsfeed: Канал на збирката
   collection_not_created_error: Нажалост, се појави грешка, Не можам да ја создадам збирката <em>%{collection_name}</em>.
@@ -953,7 +959,9 @@ mk:
         observer_with_link: "Набљудувач: %{observer_link}"
         recent_observations: Скорешни набљудувања
         some_taxon: Нешто
-        taxa_observed: Се набљудуваат %{observed_taxa_count} таксони
+        taxa_observed: 
+          one: Се набљудува %{count} таксон
+          other: Се набљудуваат %{count} таксони
         top_contributors: Најактивни учесници на iNaturalist
         tweet_text: Набњудувања од iNaturalist за %{collection_name}
         view_all_observations_on_inaturalist: Погл. сите набљудувања од %{project_title} на iNaturalist
@@ -1080,12 +1088,15 @@ mk:
   contact_us: контактирајте нè
   contact_us_functions: Функции за контактирање
   contact_us_link: Контактирајте нè
-  contact_us_request_failed: Се појави грешка при обидот да го испратам барањето.
-  contact_us_request_received: Барањето за контактирање е примено
-  contact_us_request_sent: Барањето е успешно испратено
   contact_us_submissions: Поднесено на „Контактирајте нè“
   contact_us_topics: Теми на „Контактирајте нè“
-  contacts: Контакти
+  contacts: 
+    errors: 
+      message_not_sent: Нажалост, се појави грешка. Пораката не е испратена.
+    new: 
+      page_title: Внесете мислење
+    notices: 
+      message_sent: Ви благодариме за искажаното мислење. Пораката е испратена на соодветната група.
   containing_value: содржи %{value}.
   content: 
     index: 
@@ -1682,6 +1693,11 @@ mk:
         sort_field_show: "Вредност за подредување:"
       comment: 
         body_edit: Уреди коментар
+      contact: 
+        comments: Вашата порака
+        contact_subject_id: Наслов
+        email: Вашата е-пошта
+        name: Ваше име
       content_page: 
         active: Објавено
         active_more: Објавените страници ќе бидат јавно истакнати. Отштиклирајте го <em>објавено</em> ако сакате верзиите на страницава да не бидат видливи за општото корисништво на било кој јазик.
@@ -1710,7 +1726,7 @@ mk:
       content_partner_contact: 
         email_reports_frequency_hours_more: Извештаите по е-пошта се испраќаат само ако има коментари или кустоски постапки за/на вашите податоци или таксонски страници што се однесуваат на нив.
       data_object: 
-        bibliographic_citation: Библиоградско наведување
+        bibliographic_citation: Библиографски навод (врска)
         bibliographic_citation_more: Препорачан вид на наведување за овие податоци во облик на библиографски наводи, со достатно подробни информации за што понедвосмислено распознавање на податоците.
         description: Текст <small>(допуштено извесно HTML-форматирање)</small>
         license_id: Лиценца
@@ -1812,7 +1828,7 @@ mk:
         open_authentications_more: Раководете со врските до сметки од надворешни места со кои можете да се најавите на EOL. <a href="%{open_authentications_url}">Уреди поврзани сметки</a>.
         requested_curator_level: Вашето барање да станете %{curator_level_with_indefinite_article} чека на решение.
         requested_curator_level_id_more: Изберете <em>Помошник-кустос</em> ако немате работно искуство.  Одберете <em>Кустос</em> ако сте научен работник или дипломец со искуство. Одберете <em>Виш кустос</em> ако сте искусен кустос на EOL и сакате да преземете повеќе одговорности.
-        tag_line: "Гесло или наслов <small>example: „Љубители на птиците“</small>"
+        tag_line: "Гесло или наслов <small>пример: „Љубители на птиците“</small>"
         user_identities: Јас сум
         username: Корисничко име <small>(4 - 32 знаци)</small>
         username_or_email: Корисничко име или е-пошта
@@ -1825,6 +1841,8 @@ mk:
       cancel: Откажи
       collection_item: 
         update: Зачувај
+      contact: 
+        new: Испрати мислење
       content_page: 
         create: Создај страница
         edit: Уреди
@@ -1900,6 +1918,7 @@ mk:
   hierarchies_title: Хиерархии
   hierarchy: Хиерархија
   hierarchy_entry_switch_missing_id_error: Нажалост, не можев да ја пронајдам страницата во хиерархискиот запис бидејќи недостасува назнаката.
+  hierarchy_node_missing: Нажалост, недостасуваат податоците за овој јазол.
   hierarchy_roots_colon: "Основи на хиерархијата:"
   hierarchy_selector_drop_down_list_label: Ова е натписот што ќе фигурира во паѓачкиот список за избирање на хиерархијата
   hierarchy_updated: Хиерархијата е подновена
@@ -2463,7 +2482,6 @@ mk:
   please_ask_big_before_changing_toc: Консултирајте член на групата Биоразновидносна информатика пред да го уредувате прегледот на содржини. Некои имиња на главите не можат да се менуваат бидејќи се врзани со самиот код. Инфообјектите не можат да се пресликаат на овој посредник - тоа мора да се изврши рачно во базата.
   please_confirm_your_donation_details: Потврдете ги податоците за прилогот
   please_indicate_curation_reason: Одберете причина и/или напишете кустоски коментар.
-  please_leave_your_feedback: Ве молиме дајте ваше мислење
   please_note_that_some_of_these: Имајте предвид дека некои од алаткиве се во бета и затоа може да се изменат со текот на времето или да содржат грешки.
   please_note_wiki_etc_are_not_spm: "*Имајте на ум дека Википедија, Образование и Линиски код се внатрешни предметни определници на EOL и како такви не се дел од SPM."
   please_publish_this_resource_notice: "*** <strong>НАПОМЕНА:</strong> Овој ресурс треба да се <strong>%{publish_link}</strong> тука ***"
@@ -2685,7 +2703,6 @@ mk:
   send: Испрати
   send_contact_email: Испрати контактна е-пошта
   send_email_colon: "Испрати е-пошта:"
-  send_feedback: Испрати мислење
   sent_invitations_to_users: 
     one: Испратена е покана на %{users}.
     other: Испратени се покани на %{users}.
@@ -2701,6 +2718,7 @@ mk:
       meta_title: Најава
       problems_signing_in_with_connected_accounts: Имате проблем при најавата со поврзаните сметки?
       problems_signing_in_with_eol_authentication: Ја заборавивте лозинката?
+      tip: Веќе членувате? Во профилните нагодувања поврзете ја вашата сметка на EOL со Facebook, Google и сл. Така ќе можете преку нив да се најавувате на EOL.
   set_as_exemplar: Стави како урнек
   share_a_collection: Сподели збирка
   show: Прикажи
@@ -2892,7 +2910,7 @@ mk:
         meta_keywords: информации за %{scientific_name}, литература за %{scientific_name}, статии за %{scientific_name}
         meta_keywords_with_common_name: информации за %{preferred_common_name}, литература за %{preferred_common_name}, статии за %{scientific_name}
         meta_title: Литература за %{scientific_name}
-        meta_title_with_common_name: Книги за %{preferred_common_name} (%{scientific_name})
+        meta_title_with_common_name: Статии и книги за %{preferred_common_name} (%{scientific_name})
         tweet_text: Литература за %{scientific_name}
     maps: 
       show: 
@@ -2906,8 +2924,8 @@ mk:
         meta_description_with_common_name: Каде се среќаваат %{preferred_common_name} и каде живеат? Географски информации за %{scientific_name} каде живеат и во кои делови на светот се автохтони.
         meta_keywords: живеалиште на %{scientific_name}, автохтони, каде живеат %{scientific_name}
         meta_keywords_with_common_name: живеалиште на %{preferred_common_name}, автохтони, каде живеат %{preferred_common_name}
-        meta_title: Живеалиште на %{scientific_name}
-        meta_title_with_common_name: Живеалиште на %{preferred_common_name} (%{scientific_name})
+        meta_title: Карти за %{scientific_name}
+        meta_title_with_common_name: Карти за %{preferred_common_name} (%{scientific_name})
         tweet_text: Карти на %{scientific_name}
     media: 
       index: 
@@ -3225,7 +3243,7 @@ mk:
   untrusted: Недоверливи
   update: Поднови
   update_collection_submit_button: Измени подробности за збирката
-  update_language: Поднови јазик
+  update_language: Измени јазик
   update_page: Поднови страница
   update_user_successful_notice: Сметката е успешно подновена.
   update_user_unsuccessful_error: Нажалост, се појави грешка, па затоа вашата сметка не е подновена. Проверете дали исправно сте ги пополниле сите полиња.
@@ -3381,43 +3399,45 @@ mk:
         page_title: Нагодувања за известувањата
     open_authentications: 
       errors: 
-        authorize_uri_missing: Нажалост, се појави грешка, па затоа не можевме да ја започнеме заверката.
         facebook: 
           add_connection_failed_account_already_connected: Нажалост, не можеме да ви ја поврземе сметката на Facebook со вашата сметка на EOL бидејќи е веќе поврзана со <a href="%{existing_eol_account_url}">постоечка сметка на EOL</a>.
+          login_failed_not_connected: Нажалост, не можевме да утврдиме врска помеѓу вашата сметка на Facebook и EOL. Доколку веќе имате сметка на EOL. тогаш <a href="%{login_url}">најавете се на EOL</a> со други податоци, а потоа поврзете ја сметката на Facebook во профилните нагодувања на EOL. Доколку немате сметка на EOL, тогаш <a href="%{register_url}">регистрирајте се</a> за да ја направите.
           missing_attributes: Нажалост, не можевме да дојдеме до вашите податоци на Facebook.
           new_authentication_not_added: Нажалост, се појави грешка. Не можеме да ве поврземе со сметката на Facebook.
           not_authorized_to_add_authentication: Нажалост, немаме овластување за да ви ја поврземе сметката на Facebook.
+          not_authorized_to_login: Нажалост, немаме овластување да ве пријавиме на EOL со вашата сметка на Facebook.
           not_authorized_to_signup: Нажалост, немаме овластување да ве пријавиме на EOL со вашата сметка на Facebook.
-          not_connected: Нажалост, не востановивме врска помеѓу вашата сметка на Facebook и EOL.
           signup_failed_account_already_connected: Нажалост, не можеме да ве пријавиме за нова сметка на EOL со вашата сметка на Facebook бидејќи е веќе поврзана со <a href="%{existing_eol_account_url}">постоечка сметка на EOL</a>. Да не сакавте впрочем да се <a href="%{login_url}">најавите</a>?
         google: 
           add_connection_failed_account_already_connected: Нажалост, не можеме да ви ја поврземе сметката на Google со вашата сметка на EOL бидејќи е веќе поврзана со <a href="%{existing_eol_account_url}">постоечка сметка на EOL</a>.
+          login_failed_not_connected: Нажалост, не можевме да утврдиме врска помеѓу вашата сметка на Google и EOL. Доколку веќе имате сметка на EOL. тогаш <a href="%{login_url}">најавете се на EOL</a> со други податоци, а потоа поврзете ја сметката на Google во профилните нагодувања на EOL. Доколку немате сметка на EOL, тогаш <a href="%{register_url}">регистрирајте се</a> за да ја направите.
           missing_attributes: Нажалост, не можевме да дојдеме до вашите податоци на Google.
           new_authentication_not_added: Нажалост, се појави грешка. Не можеме да ве поврземе со сметката на Google.
           not_authorized_to_add_authentication: Нажалост, немаме овластување за да ви ја поврземе сметката на Google.
+          not_authorized_to_login: Нажалост, немаме овластување да ве пријавиме на EOL со вашата сметка на Google.
           not_authorized_to_signup: Нажалост, немаме овластување да ве пријавиме на EOL со вашата сметка на Google.
-          not_connected: Нажалост, не востановивме врска помеѓу вашата сметка на Google и EOL.
           signup_failed_account_already_connected: Нажалост, не можеме да ве пријавиме за нова сметка на EOL со вашата сметка на Google бидејќи е веќе поврзана со <a href="%{existing_eol_account_url}">постоечка сметка на EOL</a>. Да не сакавте впрочем да се <a href="%{login_url}">најавите</a>?
         missing_attributes: Нажалост, се појави проблем при пристапот на податоците во вашата сметка на надворешен добавувач.
         not_authorized_to_add_authentication: Нажалост, немаме овластување за да ви ја поврземе сметката.
-        not_authorized_to_signup: Нажалост, немаме овластување да ве пријавиме на EOL со таа сметка.
-        not_connected: Нажалост, не можевме да востановиме врска со сметка на EOL.
+        not_authorized_to_login: Нажалост, немаме овластување да ве пријавиме на EOL со таа сметка.
         remove_connection_failed: Нажалост, се појави грешка. Не можеме да ја отстраниме врската.
         twitter: 
           add_connection_failed_account_already_connected: Нажалост, не можеме да ви ја поврземе сметката на Twitter со вашата сметка на EOL бидејќи е веќе поврзана со <a href="%{existing_eol_account_url}">постоечка сметка на EOL</a>.
+          login_failed_not_connected: Нажалост, не можевме да утврдиме врска помеѓу вашата сметка на Twitter и EOL. Доколку веќе имате сметка на EOL. тогаш <a href="%{login_url}">најавете се на EOL</a> со други податоци, а потоа поврзете ја сметката на Twitter во профилните нагодувања на EOL. Доколку немате сметка на EOL, тогаш <a href="%{register_url}">регистрирајте се</a> за да ја направите.
           missing_attributes: Нажалост, не можевме да дојдеме до вашите податоци на Twitter.
           new_authentication_not_added: Нажалост, се појави грешка. Не можеме да ве поврземе со сметката на Twitter.
           not_authorized_to_add_authentication: Нажалост, немаме овластување за да ви ја поврземе сметката на Twitter.
+          not_authorized_to_login: Нажалост, немаме овластување да ве пријавиме на EOL со вашата сметка на Twitter.
           not_authorized_to_signup: Нажалост, немаме овластување да ве пријавиме на EOL со вашата сметка на Twitter.
-          not_connected: Нажалост, не востановивме врска помеѓу вашата сметка на Twitter и EOL.
           signup_failed_account_already_connected: Нажалост, не можеме да ве пријавиме за нова сметка на EOL со вашата сметка на Twitter бидејќи е веќе поврзана со <a href="%{existing_eol_account_url}">постоечка сметка на EOL</a>. Да не сакавте впрочем да се <a href="%{login_url}">најавите</a>?
         yahoo: 
           add_connection_failed_account_already_connected: Нажалост, не можеме да ви ја поврземе сметката на Yahoo! со вашата сметка на EOL бидејќи е веќе поврзана со <a href="%{existing_eol_account_url}">постоечка сметка на EOL</a>.
+          login_failed_not_connected: Нажалост, не можевме да утврдиме врска помеѓу вашата сметка на Yahoo! и EOL. Доколку веќе имате сметка на EOL. тогаш <a href="%{login_url}">најавете се на EOL</a> со други податоци, а потоа поврзете ја сметката на Yahoo! во профилните нагодувања на EOL. Доколку немате сметка на EOL, тогаш <a href="%{register_url}">регистрирајте се</a> за да ја направите.
           missing_attributes: Нажалост, не можевме да дојдеме до вашите податоци на Yahoo!.
           new_authentication_not_added: Нажалост, се појави грешка. Не можеме да ве поврземе со сметката на Yahoo!.
           not_authorized_to_add_authentication: Нажалост, немаме овластување за да ви ја поврземе сметката на Yahoo!.
+          not_authorized_to_login: Нажалост, немаме овластување да ве пријавиме на EOL со вашата сметка на Yahoo!.
           not_authorized_to_signup: Нажалост, немаме овластување да ве пријавиме на EOL со вашата сметка на Yahoo!.
-          not_connected: Нажалост, не востановивме врска помеѓу вашата сметка на Yahoo! и EOL.
           signup_failed_account_already_connected: Нажалост, не можеме да ве пријавиме за нова сметка на EOL со вашата сметка на Yahoo! бидејќи е веќе поврзана со <a href="%{existing_eol_account_url}">постоечка сметка на EOL</a>. Да не сакавте впрочем да се <a href="%{login_url}">најавите</a>?
       facebook: Facebook
       google: Google
@@ -3445,6 +3465,10 @@ mk:
       warnings: 
         no_way_to_login: Повеќе немате поврзани сметки. Нема да можете да се најавите на EOL доколку не поставите нова врска или направите корисничко име и лозинка на EOL.
       yahoo: Yahoo!
+    pending: 
+      header: Ви благодариме што се регистриравте!
+      verify_email_instructions: <strong>Потврдете ја вашата е-пошта</strong>. На адресата што ја укажавте ви испративме порака со потврда. За да завршите со регистрацијата, стиснете на врската наведена во пораката. Ви благодариме!
+      verify_email_tip: Имајте предвид дека <em>често</em> се случува филтрите да ги означат пораките за активирање на сметки како „Спам“. Доколку не ја добиете пораката во рок од еден час, проверете ја папката за спам.
     recover_account: 
       errors: 
         temporary_login_user_not_found: Нажалост, не можев да ја пронајдам сметката на EOL што сакавте да ја повртатите. Поднесете ново барање за повраток.
@@ -3483,8 +3507,6 @@ mk:
     one: Член на %{count} заедница
     other: Член на %{count} заедници
   users_my_info_header: Мое инфо
-  users_pending_activation_helper: Имајте предвид дека <em>често</em> се случува филтрите да ги означат пораките за активирање на сметки како „Спам“. Доколку не ја добиете пораката во рок од еден час, проверете ја папката за спам.
-  users_pending_activation_message: Ви испративне потврдна порака на адресата што ја наведовте. За да ја довршите регистрацијата и со тоа да станете член на EOL, стиснете на врската укажана во пораката. Ви благодариме!
   users_that_can_edit_this_collection: Корисници што можат да раководат со збиркава
   using_the_site: Употреба
   validation_error: Грешка при проверката
@@ -3537,6 +3559,7 @@ mk:
   visitors: Посетители
   vivisimo: Vivisimo
   wants_colon: "Бара:"
+  warning_you_are_editing_as_admin: "ПРЕДУПРЕДУВАЊЕ: дозволено ви е да ја уредувате оваа страница единствено бидејќи сте администратор."
   watch_list: Список на набљудувања
   watch_list_newsfeed: Канал на списокот на набљудувања
   web_service_base_url: Основна URL-адреса на мреж. служб.

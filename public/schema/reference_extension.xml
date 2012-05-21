@@ -10,7 +10,7 @@
             rowType="http://eol.org/schema/reference/Reference">
 <property name="identifier" namespace="http://purl.org/dc/terms/" qualName="http://purl.org/dc/terms/identifier" dc:description="An identifier for a resource that is referenced, cited, or otherwise pointed to by a taxon or media resource." required="true"/>
 <property name="publicationType" namespace="http://eol.org/schema/reference/" qualName="http://eol.org/schema/reference/publicationType" dc:description="book, journal, journal article, webpage, etc"/>
-<property name="fullReference" namespace="http://eol.org/schema/reference/" qualName="http://eol.org/schema/reference/fullReference" dc:description="A complete bibliographic citation describing the resource. Use of this field will cause the more specific fields here to be ignored."/>
+<property name="full_reference" namespace="http://eol.org/schema/reference/" qualName="http://eol.org/schema/reference/full_reference" dc:description="A complete bibliographic citation describing the resource. Use of this field will cause the more specific fields here to be ignored."/>
 <property name="primaryTitle" namespace="http://eol.org/schema/reference/" qualName="http://eol.org/schema/reference/primaryTitle" dc:description="Used to describe the title of a bibliographic resource."/>
 <property name="title" namespace="http://purl.org/dc/terms/" qualName="http://purl.org/dc/terms/title" dc:description="Used to describe the title of an artlcle or chapter"/>
 <property name="pages" namespace="http://purl.org/ontology/bibo/" qualName="http://purl.org/ontology/bibo/pages" dc:description="A string of non-contiguous page spans that locate a Document within a Collection. Example: 23-25, 34, 54-56. For continuous page ranges, use the pageStart and pageEnd properties."/>
@@ -21,7 +21,7 @@
 <property name="publisher" namespace="http://purl.org/dc/terms/" qualName="http://purl.org/dc/terms/publisher" dc:description="Used to link a bibliographic item to its publisher."/>
 <property name="authorList" namespace="http://purl.org/ontology/bibo/" qualName="http://purl.org/ontology/bibo/authorList" dc:description="An ordered list of authors. Normally, this list is seen as a priority list that order authors by importance. Last name, first"/>
 <property name="editorList" namespace="http://purl.org/ontology/bibo/" qualName="http://purl.org/ontology/bibo/editorList" dc:description="An ordered list of editors. Normally, this list is seen as a priority list that order editors by importance."/>
-<property name="created" namespace="http://purl.org/dc/terms/" qualName="http://purl.org/dc/terms/created" dc:description="The date of the creation for the original resource from which the digital media was derived or created."/>
+<property name="created" namespace="http://purl.org/dc/terms/" qualName="http://purl.org/dc/terms/created" dc:description="The date of the creation for the original resource from which the digital media was derived or created." examples="2012-03-08T10:49:15"/>
 <property name="language" namespace="http://purl.org/dc/terms/" qualName="http://purl.org/dc/terms/language" dc:description="Language of resource itself represented in ISO639-1 or ISO639-3."/>
 <property name="uri" namespace="http://purl.org/ontology/bibo/" qualName="http://purl.org/ontology/bibo/uri" dc:description="Universal Resource Identifier of a document."/>
 <property name="doi" namespace="http://purl.org/ontology/bibo/" qualName="http://purl.org/ontology/bibo/doi" dc:description="Digital Object Identifier (DOI) for identifying the resource."/>

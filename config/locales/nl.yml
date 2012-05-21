@@ -42,6 +42,11 @@ nl:
         description: Beschrijving van de gemeenschap
         logo: Upload een logo
         name: Communitynaam
+      contact: 
+        comments: Bericht
+        contact_subject_id: Onderwerp
+        email: E-mailadres
+        name: Naam
       content_page: 
         active: Gepubliceerd
         page_name: Unieke naam
@@ -584,12 +589,23 @@ nl:
         tweet_text: "%{collection_name}-beheerders"
     inaturalists: 
       show: 
+        add_observations: Waarnemingen toevoegen
+        meta_description: Waarnemingen van iNaturalist voor de verzameling %{collection_name} van Enyclopedia of Life.
+        meta_keywords: Waarnemingen van iNaturalist voor %{collection_name}
+        meta_title: Waarnemingen van iNaturalist voor %{collection_name}
+        no_observations_added_to_this_project_yet: Er zijn nog geen waarnemingen aan dit project toegevoegd.
         observation_date: "Datum: %{observed_on}"
         observation_place: "Plaats: %{place}"
         observer_with_link: "Waarnemer: %{observer_link}"
         recent_observations: Recente waarnemingen
         some_taxon: Iets
-        taxa_observed: "%{observed_taxa_count} taxa waargenomen"
+        taxa_observed: 
+          one: één taxon waargenomen
+          other: "%{count} taxa waargenomen"
+        top_contributors: Meest actieve waarnamers van iNaturalist
+        tweet_text: Waarnemingen van iNaturalist voor %{collection_name}
+        view_all_observations_on_inaturalist: Alle waarnemingen van %{project_title} op iNaturalist bekijken
+        view_more_observations_on_inaturalist: Meer waarnemingen van %{project_title} op iNaturalist bekijken
         view_project_on_inaturalist: "%{project_title} op iNaturalist bekijken"
     newsfeeds: 
       show: 
@@ -694,11 +710,14 @@ nl:
   contact_us: contact opnemen
   contact_us_functions: "\"Neem contact met ons op\"-functies"
   contact_us_link: Contact opnemen
-  contact_us_request_failed: Er is een fout opgetreden tijdens het verzenden van deze rapportage.
-  contact_us_request_received: Contactverzoek ontvangen
-  contact_us_request_sent: Aanvraag verzonden
   contact_us_topics: Onderwerpen voor "Neem contact met ons op"
-  contacts: Contactpersonen
+  contacts: 
+    errors: 
+      message_not_sent: Er is een fout opgetreden. Uw bericht is niet verzonden.
+    new: 
+      page_title: Geef uw terugkoppeling
+    notices: 
+      message_sent: Bedankt voor uw terugkoppeling. Uw bericht is verstuurd naar de juiste groep.
   containing_value: met %{value}.
   content: 
     index: 
@@ -1205,6 +1224,11 @@ nl:
         sort_field_show: "Sorteerwaarde:"
       comment: 
         body_edit: Opmerking bewerken
+      contact: 
+        comments: Uw bericht
+        contact_subject_id: Onderwerp
+        email: Uw e-mailadres
+        name: Uw naam
       content_page: 
         active: Gepubliceerd
         active_more: Gepubliceerde pagina's zijn publiekelijk zichtbaar. Haal het vinkje <em>gepubliceerd</em> weg als u wilt dat gewone gebruikers de pagina in een taal zien.
@@ -1234,13 +1258,16 @@ nl:
         email_reports_frequency_hours_more: E-mailrapporten worden alleen verzonden als er opmerkingen geplaatst zijn bij  of conserveringshandelingen zijn uitgevoerd op uw gegevens of op taxonpagina's die relevant zijn voor uw gegevens.
       data_object: 
         bibliographic_citation: Bibliografische bronvermelding
+        bibliographic_citation_more: Een aanbevolen citaat voor deze gegevens in de vorm van een bibliografische referentie, omvat voldoende details om de gegevens zo ondubbelzinnig mogelijk identificeren.
         description: Tekst <small>(sommige HTML-opmaak is toegestaan)</small>
         license_id: Licentie
         license_id_more: Lees het <a href="%{policy_url}">EOL-licentiebeleid</a>
         object_title: Naam
         refs: Verwijzingen <small>(zet elke verwijzing op een nieuwe regel)</small>
         rights_holder: Rechthebbende
+        rights_holder_more: Geef een persoon of organisatie op die de rechten voor deze gegevens bezit of beheert. Als u dit veld leeg laat, nemen we aan dat u de rechthebbende bent voor alle licenties, met uitzondering van Publiek Domein. Publiek Domein-licenties vereisen geen rechthebbende.
         rights_statement: Rechtenverklaring
+        rights_statement_more: Verklaring van gebruiksrechten zoals vereist door de licentie Creative Commons Naamsvermelding (CC-BY). Pas naamsvermelding alstublieft toe <q cite="http://creativecommons.org/licenses/by/3.0">op de wijze die is aangegeven door de auteur of de licentiehouder</q>.
         source_url: URL naar het oorspronkelijke gegevensobject
         toc_item: Subhoofdstuk
       eol_statistic: 
@@ -1328,6 +1355,8 @@ nl:
         notification_settings: Instellingen voor berichten
         notification_settings_more: Uw instellingen voor berichten maken.
         open_authentications: Gekoppelde gebruikers
+        open_authentications_connected_accounts: Uw gekoppelde gebruikers
+        open_authentications_more: Koppelingen met gebruikers beheren van andere partijen om aan te melden bij EOL. <a href="%{open_authentications_url}">Gekoppelde gebruikers beheren</a>.
         requested_curator_level: Uw verzoek om %{curator_level_with_indefinite_article} te worden is in behandeling.
         requested_curator_level_id_more: Kies <em>assistentconservator</em> als u nog geen referenties hebt. Kies <em>volledig conservator</em> als u een professionele wetenschapper of afgestudeerde student met referenties bent. Kies <em>meesterconservator</em> als u een ervaren EOL-conservator bent en meer verantwoordelijkheden op zich wilt nemen.
         tag_line: Titel <small>(bijvoorbeeld "vogelliefhebber")</small>
@@ -1343,6 +1372,8 @@ nl:
       cancel: Annuleren
       collection_item: 
         update: Opslaan
+      contact: 
+        new: Terugkoppeling verzenden
       content_page: 
         create: Pagina aanmaken
         edit: Bewerken
@@ -1677,7 +1708,7 @@ nl:
   news_item_is_visible_on_websit: "Het nieuwsbericht is zichtbaar op de website na deze tijd:"
   news_item_title: Nieuwsbericht
   news_items: Nieuwsberichten
-  newsfeed: Nieuwsfeed
+  newsfeed: Nieuwsoverzicht
   next: Volgende
   no_active_members: Er is nog niet genoeg activiteit geweest.
   no_answer: Nee
@@ -1743,9 +1774,15 @@ nl:
     user_activated: 
       message: "Welkom bij Encyclopedia of Life (EOL) en dank u wel voor het registreren! Uw gebruikersnaam is %{username} en de URL voor uw profiel is %{profile_url}. U kunt hier aanmelden: http://www.eol.org/login.\n\nVia onze hulppagina's op http://www.eol.org/help kunt u leren hoe u EOL kunt gebruiken, zoals het aanmaken van EOL-verzamelingen, deelnemen in EOL-gemeenschappen en inhoud bijdragen."
       subject: Uw gebruiker bij Encyclopedia of Life is geactiveerd
+    user_activated_with_open_authentication: 
+      message: "Welkom bij Encyclopedia of Life (EOL) en bedankt voor uw registratie! U bent aangemeld via %{oauth_provider}, en hierdoor heeft EOL het recht om uw basisgegevens te raadplegen voor authenticatie. De URL van uw profiel bij EOL is %{profile_url}. U kunt aanmelden bij EOL met %{oauth_provider} via http://eol.org/login. \n\nBezoek onze help-pagina's op http://eol.org/help voor meer informatie over het gebruik van EOL, zoals het maken van EOL-verzamelingen, deelnemen in EOL-gemeenschappen deelnemen en bijdragen van inhoud."
+      subject: Uw gebruiker bij Encyclopedia of Life is geactiveerd
     user_commented_on_something_date_body: "%{curator_level} %{users_name} (%{users_url}) heeft een opmerking geplaatst bij:\n%{commented_on_name} (%{commented_on_url})\n%{comment_date}:\n%{comment_body}"
     user_message: 
       subject: Een bericht van de Encyclopedia of Life
+    user_recover_account: 
+      message: "Encyclopedia of Life (http://eol.org) heeft een verzoek ontvangen om uw gebruiker te herstellen. Als u dit verzoek niet heeft gemaakt, negeer deze e-mail dan.\n\nMet de volgende verwijzing kunt u eenmalig aanmelden om uw wachtwoord te wijzigen, of om uw gebruiker te koppelen met die van een andere website, waar u dan in het vervolg mee kunt aanmelden: \n\n%{temporary_login_url}\n\nDeze verwijzing verloopt na 24 uur. Daarna kunt u via %{recover_account_url} opnieuw een eenmalige verwijzing om aan te melden aanvragen als u nog steeds niet kunt aanmelden met uw gebruiker."
+      subject: Uw Encyclopedia of Life-gebruiker herstellen
     user_updated_email_preferences: 
       message: "Dit is een automatisch bericht van het EOL-berichtensysteem. De gebruiker %{user_full_name} (%{user_profile_url}) heeft zijn e-mailadres of e-mailvoorkeuren aangepast.\n\nVorige voorkeuren:\nE-mailadres: %{previous_email}\nMailinglijstvoorkeuren: %{previous_mailing_list_preference}\n\nBijgewerkt naar:\nE-mailadres: %{updated_email}\nMailinglijstvoorkeuren: %{updated_mailing_list_preference}\nBijgewerkt: %{updated_at}"
       subject: EOL-gebruiker %{user_full_name} heeft e-mailadres of de mailinglijstvoorkeuren gewijzigd
@@ -1820,7 +1857,6 @@ nl:
   please: Gelieve
   please_confirm_your_donation_details: Bevestig uw donatiegegevens
   please_indicate_curation_reason: "Selecteer een reden en laat eventueel een opmerking achter:"
-  please_leave_your_feedback: Geef uw terugkoppeling
   please_note_wiki_etc_are_not_spm: "* Wikipedia, Onderwijs en Barcode zijn interne onderwerpen in EOL, en zij zijn geen onderdeel van het SPM (soortenprofielmodel)."
   please_refresh: Ververs de pagina in uw browser om de laatste versie van de EOL-website te bekijken
   please_return_to_eol_homepage: Ga alstublieft terug naar de introductiepagina van EOL
@@ -1910,6 +1946,7 @@ nl:
     default_subject: Recente activiteit op EOL
     intro: Hier is uw samenvatting van EOL-activiteit voor %{time}
     intro_immediately: Hallo, %{name} —
+    intro_weekly: Hier is uw EOL-activiteitensamenvatting voor de week die eindigt op %{ending}
     see_all_activity: U kunt al uw activiteiten bekijken op de <a href='%{activity_url}' style='color:#195184'>pagina met uw nieuwsoverzicht</a>.
     someone_commented_on_something: <b>%{who}</b> heeft gereageerd op <b>%{what}</b>.
     unsubscribe: Wijzig uw e-mailinstellingen of schrijf u uit via de <a href='%{email_prefs_url}' style='color:#195184'>pagina met uw voorkeuren voor berichten</a>.
@@ -1979,7 +2016,6 @@ nl:
   send: Verzenden
   send_contact_email: Contacte-mail verzenden
   send_email_colon: "E-mail verzenden:"
-  send_feedback: Terugkoppeling verzenden
   sent_invitations_to_users: 
     one: Er is een uitnodiging verzonden naar %{users}.
     other: Er zijn uitnodigingen verzonden naar %{users}.
@@ -1994,6 +2030,7 @@ nl:
       meta_title: Aanmelden
       problems_signing_in_with_connected_accounts: Problemen bij het aanmelden met uw gekoppelde gebruikers?
       problems_signing_in_with_eol_authentication: Wachtwoord vergeten?
+      tip: Bestaande gebruiker? Koppel uw EOL-gebruiker met Facebook, Google en meer in uw profielinstellingen. Als uw gebruikers zijn gekoppeld, kunt u een gebruiker van een andere site gebruiken om aan te melden bij EOL.
   set_as_exemplar: Als voorbeeld instellen
   share_a_collection: Verzameling delen
   show: Weergeven
@@ -2153,20 +2190,58 @@ nl:
         tweet_text: Gegevens over %{scientific_name}
     literature: 
       bhl: 
+        hierarchy_entry: 
+          meta_description: Literatuur en gegevens over %{scientific_name} als ingedeeld door %{hierarchy_provider} in Encyclopedia of Life. Lees artikelen over %{scientific_name} in de Encyclopedia of Life.
+          meta_description_with_common_name: Literatuur en gegevens over %{preferred_common_name}, ook bekend als %{scientific_name} als ingedeeld door %{hierarchy_provider} in Encyclopedia of Life. Lees artikelen over %{scientific_name} in de Encyclopedia of Life.
+          meta_title: BHL-literatuur over %{scientific_name} als ingedeeld door %{hierarchy_provider}
+          meta_title_with_common_name: BHL-literatuur over %{preferred_common_name} (%{scientific_name} als ingedeeld door %{hierarchy_provider})
+          tweet_text: "Literatuur van #BHL over %{scientific_name} als ingedeeld door %{hierarchy_provider}"
+        meta_title: BHL-referenties voor %{scientific_name}
+        meta_title_with_common_name: BHL-referenties voor %{preferred_common_name} (%{scientific_name})
         tweet_text: "Literatuur van #BHL over %{scientific_name}"
       show: 
+        hierarchy_entry: 
+          meta_title: Literatuur over %{scientific_name} als ingedeeld door %{hierarchy_provider}
+          meta_title_with_common_name: Boeken over %{preferred_common_name} (%{scientific_name} als ingedeeld door %{hierarchy_provider})
+          tweet_text: Literatuur over %{scientific_name} als ingedeeld door %{hierarchy_provider}
+        meta_description: Literatuur en gegevens over %{scientific_name} in Encyclopedia of Life. Lees artikelen over %{scientific_name} in de Encyclopedia of Life.
+        meta_description_with_common_name: Literatuur en gegevens over %{preferred_common_name}, ook bekend als %{scientific_name} in Encyclopedia of Life. Lees artikelen over %{preferred_common_name} in de Encyclopedia of Life.
         meta_keywords: informatie over %{scientific_name}, literatuur voor %{scientific_name}, artikelen voor %{scientific_name}
+        meta_keywords_with_common_name: informatie over %{preferred_common_name}, literatuur over %{preferred_common_name}, artikelen over %{scientific_name}
         meta_title: Literatuur over %{scientific_name}
-        meta_title_with_common_name: Boeken over %{preferred_common_name} (%{scientific_name})
+        meta_title_with_common_name: Artikelen en boeken over %{preferred_common_name} (%{scientific_name})
         tweet_text: Literatuur over %{scientific_name}
     maps: 
       show: 
-        meta_title: Habitat voor %{scientific_name}
-        meta_title_with_common_name: Habitat voor %{preferred_common_name} (%{scientific_name})
+        hierarchy_entry: 
+          meta_description: Geografische gegevens over %{scientific_name} als ingedeeld door %{hierarchy_provider}, waar %{scientific_name} leeft, en waar %{scientific_name} van nature voorkomt.
+          meta_description_with_common_name: Waar wordt %{preferred_common_name} aangetroffen en waar leeft %{preferred_common_name}? Geografische gegevens over %{scientific_name} als ingedeeld door %{hierarchy_provider}, waar %{scientific_name} leeft, en waar %{scientific_name} van nature voorkomt.
+          meta_title: Kaarten van %{scientific_name} als ingedeeld door %{hierarchy_provider}
+          meta_title_with_common_name: Kaarten van %{preferred_common_name} (%{scientific_name} als ingedeeld door %{hierarchy_provider})
+          tweet_text: Kaarten van %{scientific_name} als ingedeeld door %{hierarchy_provider}
+        meta_description: Geografische gegevens over %{scientific_name} , waar %{scientific_name} leeft, en waar %{scientific_name} van nature voorkomt.
+        meta_description_with_common_name: Waar wordt %{preferred_common_name} aangetroffen en waar leeft %{preferred_common_name}? Geografische gegevens over %{scientific_name}, waar %{scientific_name} leeft, en waar %{scientific_name} van nature voorkomt.
+        meta_keywords: habitat %{scientific_name}, inheems, waar leeft %{scientific_name}
+        meta_keywords_with_common_name: habitat %{preferred_common_name}, inheems, waar leeft %{preferred_common_name}
+        meta_title: Kaarten voor %{scientific_name}
+        meta_title_with_common_name: Kaarten voor %{preferred_common_name} (%{scientific_name})
         tweet_text: Kaarten van %{scientific_name}
     media: 
       index: 
+        hierarchy_entry: 
+          meta_description: Foto's en video's van %{scientific_name} als ingedeeld door %{hierarchy_provider}.
+          meta_description_with_common_name: Foto's video's en audio van %{preferred_common_name}, ook bekend als %{scientific_name} als ingedeeld door %{hierarchy_provider}.
+          meta_keywords: foto's van %{scientific_name}, films van %{scientific_name}, geluid van %{scientific_name}, audio van %{scientific_name}
+          meta_keywords_with_common_name: foto's van %{preferred_common_name}, films van %{preferred_common_name}, geluiden van %{preferred_common_name}, audio van %{preferred_common_name}, foto's van %{scientific_name}, films van %{scientific_name}, geluiden van %{scientific_name}, audio van %{scientific_name}
+          meta_title: Audio, film en foto's van %{scientific_name} als ingedeeld door %{hierarchy_provider}
+          meta_title_with_common_name: Audio, film en foto's van %{preferred_common_name} (%{scientific_name} als ingedeeld door %{hierarchy_provider}).
+          tweet_text: Media van %{scientific_name} als ingedeeld door %{hierarchy_provider}
         meta_description: Foto's en video's van %{scientific_name}.
+        meta_description_with_common_name: Afbeeldingen en video's van %{preferred_common_name}, ook bekend als %{scientific_name}
+        meta_keywords: afbeeldingen van %{scientific_name}, video's van %{scientific_name}, foto's van %{scientific_name}, video van %{scientific_name}, media
+        meta_keywords_with_common_name: foto's van %{preferred_common_name}, video's van %{preferred_common_name}, afbeeldingen van %{preferred_common_name}, video van %{preferred_common_name}, media
+        meta_title: Afbeeldingen en video van %{preferred_common_name} (%{scientific_name})
+        meta_title_with_common_name: Afbeeldingen en video van %{preferred_common_name} (%{scientific_name})
         tweet_text: Media van %{scientific_name}
     names: 
       common_names: 
@@ -2176,6 +2251,12 @@ nl:
         meta_title_with_common_name: Gemeenschappelijke namen voor %{preferred_common_name} (%{scientific_name})
         tweet_text: Gemeenschappelijke namen voor %{scientific_name}
       index: 
+        hierarchy_entry: 
+          meta_description: Taxonomie, classificatiehiërarchieën en aanverwante wetenschappelijke namen voor %{scientific_name} als ingedeeld door %{hierarchy_provider}.
+          meta_description_with_common_name: Taxonomie, classificatiehiërarchieën en wetenschappelijke namen voor %{preferred_common_name}, ook bekend als %{scientific_name} als ingedeeld door %{hierarchy_provider}.
+          tweet_text: Namen gerelateerd aan %{scientific_name} als ingedeeld door %{hierarchy_provider}
+        meta_description: Taxonomieclassificatie en wetenschappelijke namen voor %{scientific_name}.
+        meta_description_with_common_name: Taxonomieclassificatie en wetenschappelijke namen voor %{preferred_common_name}, ook bekend als %{scientific_name}.
         meta_title: Namen gerelateerd aan %{scientific_name}
         meta_title_with_common_name: Namen gerelateerd aan %{preferred_common_name} (%{scientific_name})
         tweet_text: Namen gerelateerd aan %{scientific_name}
@@ -2422,6 +2503,54 @@ nl:
         tweet_text: gemeenschappen van %{user_full_name}
     new: 
       create_user_header: Nieuwe <abbr title="Encyclopedia of Life">EOL</abbr>-gebruiker aanmaken
+    newsfeeds: 
+      activity: 
+        meta_title: Activiteitenoverzicht voor %{user_full_name}
+        tweet_text: Activiteitenoverzicht voor %{user_full_name}
+      activity_link: activiteit
+      comments: 
+        meta_description: Reactiesoverzicht voor %{user_full_name}
+        meta_title: Reactiesoverzicht voor %{user_full_name}
+        tweet_text: Reactiesoverzicht voor %{user_full_name}
+      comments_link: opmerkingen
+      newsfeed_link: nieuwsoverzicht
+      show: 
+        meta_description: Nieuws, activiteitenupdates en reacties voor %{user_full_name}.
+        meta_title: Nieuwsoverzicht van %{user_full_name}
+        tweet_text: nieuwsoverzicht van %{user_full_name}
+    notifications: 
+      edit: 
+        page_description: Alle onderstaande updates (behalve die voor de nieuwsbrief van EOL) zijn voor u beschikbaar in uw <a href="%{user_newsfeed_link}">EOL-nieuwsoverzicht</a>, maar veel mensen willen ook per e-mail op de hoogte gehouden worden over bepaalde activiteiten die ze in het bijzonder interessant vinden. U kunt de onderstaande knoppen gebruiken om de frequentie van e-mails die EOL u stuurt aan te passen aan uw behoeften.
+        page_title: Instellingen voor berichten
+    open_authentications: 
+      facebook: Facebook
+      google: Google
+      index: 
+        connected_last_verified: Gekoppeld. Laatst gecontroleerd %{time_passed} geleden
+        connected_unverified: Gekoppeld; niet gecontroleerd.
+        not_connected: Niet gekoppeld.
+        page_description: Koppelingen met gebruikers van andere sites beheren waarmee u kunt aanmelden bij EOL.
+        page_title: Gekoppelde gebruikers
+        return_link: Terug naar profiel bewerken.
+      notices: 
+        facebook: 
+          new_authentication_added: Facebookauthenticatie is toegevoegd aan uw gebruiker.
+          removed_connection: Uw EOL-gebruiker is is niet langer gekoppeld aan uw Facebookgebruiker. Om alle toekomstige interacties tussen uw Facebookgebruiker en EOL te voorkomen, moet u naar Facebook gaan en uw gebruikersinstellingen aanpassen.
+        google: 
+          new_authentication_added: Google-authenticatie is toegevoegd aan uw gebruiker.
+          removed_connection: Uw EOL-gebruiker is is niet langer gekoppeld aan uw Google-gebruiker. Om alle toekomstige interacties tussen uw Google-gebruiker en EOL te voorkomen, moet u naar Google gaan en uw gebruikersinstellingen aanpassen.
+        twitter: 
+          new_authentication_added: Twitterauthenticatie is toegevoegd aan uw gebruiker.
+          removed_connection: Uw EOL-gebruiker is is niet langer gekoppeld aan uw Twittergebruiker. Om alle toekomstige interacties tussen uw Twittergebruiker en EOL te voorkomen, moet u naar Twitter gaan en uw gebruikersinstellingen aanpassen.
+        yahoo: 
+          new_authentication_added: Yahoo!-authenticatie is toegevoegd aan uw gebruiker.
+          removed_connection: Uw EOL-gebruiker is is niet langer gekoppeld aan uw Yahoo!-gebruiker. Om alle toekomstige interacties tussen uw Yahoo!-gebruiker en EOL te voorkomen, moet u naar Yahoo! gaan en uw gebruikersinstellingen aanpassen.
+      twitter: Twitter
+      warnings: 
+        no_way_to_login: U hebt niet langer gekoppelde gebruikers, dus u kunt niet aanmelden bij EOL tenzij u een gebruiker koppelt of een EOL-gebruikersnaam en -wachtwoord toevoegt.
+      yahoo: Yahoo!
+    pending: 
+      header: Bedankt voor het registreren!
   users_about_me_header: Over mij
   users_content_partners_header: Contentpartners
   users_form_account_header: Uw gebruiker

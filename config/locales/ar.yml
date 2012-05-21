@@ -1036,12 +1036,8 @@ ar:
   contact_us: اتصل بنا
   contact_us_functions: وظائف الاتصال بنا
   contact_us_link: اتصل بنا
-  contact_us_request_failed: عذرًا، وقع خطأ أثناء محاولة إرسال هذا الطلب!
-  contact_us_request_received: تم استلام طلب "اتصل بنا"
-  contact_us_request_sent: تم إرسال الطلب بنجاح
   contact_us_submissions: طلبات خاصة برابط اتصل بنا
   contact_us_topics: موضوعات متعلقة برابط اتصل بنا
-  contacts: جهات الاتصال
   containing_value: يحتوي على %{value}.
   content: 
     index: 
@@ -2382,7 +2378,6 @@ ar:
   please_ask_big_before_changing_toc: رجاء التأكد مع أحد أعضاء معلوماتية التنوع الحيوي قبل تحرير جدول المحتويات. فبعض أسماء الفصول لا يمكن تغييرها إذ يبحث الكود عن بعض الفصول بعنوانهم. لا يمكن رسم خرائط عناصر المعلومات في واجهة المستخدم هذه، إذ يجب أن يتم هذا يدويًا في قاعدة البيانات.
   please_confirm_your_donation_details: يرجى تأكيد تفاصيل التبرع
   please_indicate_curation_reason: "يرجى اختيار سبب، و/أو أضف تعليق تقييمي اختياريًّا:"
-  please_leave_your_feedback: رجاءً اترك تعليقك
   please_note_that_some_of_these: لاحظ ان بعض هذه الأدوات في مرحلة beta تجريبية وقد تتغير مع الوقت أو تتعرض لخلل.
   please_note_wiki_etc_are_not_spm: لاحظ أن ويكيبيديا والتعليم والباركود موضوعات داخلية خاصة بموسوعة الحياة وليست جزءًا من برنامج SPM.
   please_publish_this_resource_notice: "*** <strong>NOTICE:</strong> رجاء <strong>%{publish_link}</strong> هذا المورد هنا ***"
@@ -2599,7 +2594,6 @@ ar:
   send: ارسل
   send_contact_email: ارسل بريد إلكتروني لجهة اتصال
   send_email_colon: "إرسال بريد إلكتروني:"
-  send_feedback: ارسل تعليق
   sent_invitations_to_users: تم إرسال دعوة لـ %{users}.
   sep_emails_with_commas_note: (افصل بين عناوين البريد الإلكتروني بفاصلة)
   server_ip_address: عنوان الآي بي الخاص بالخادم
@@ -3263,8 +3257,6 @@ ar:
     one: عضو في %{count} مجتمع
     other: عضو في %{count} مجتمع
   users_my_info_header: معلومات عني
-  users_pending_activation_helper: لاحظ أن خاصية فلترة الرسائل "email filters" تصِف رسائل تفعيل الحساب الإلكترونية <em>frequently</em> برسائل "مزعجة" أو "spam". رجاء فحص ملف الرسائل المزعجة "spam" الخاص بك إن لم تصلك الرسالة الإلكترونية خلال ساعة.
-  users_pending_activation_message: تم إرسال رسالة تأكيد إلى البريد الإلكتروني الذي أضفته. لاستكمال عملية التسجيل لتصبح عضو بموسوعة الحياة، يرجى الضغط على الرابط المتضمن في تلك الرسالة. شكرًا لك!
   users_that_can_edit_this_collection: المستخدمين الذين يمكنهم إدارة هذه المجموعة
   using_the_site: استخدام الموقع
   validation_error: خطأ في التحقق

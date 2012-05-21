@@ -454,7 +454,6 @@ sv:
   confirm_password_colon: "Bekräfta lösenord:"
   contact_information: Kontaktinformation
   contact_us_link: Kontakta oss
-  contact_us_request_failed: Ett fel uppstod när denna begäran försökte skickas, beklagar.
   content: 
     index: 
       meta_title: Djur - Växter - Bilder och Information
@@ -1175,7 +1174,6 @@ sv:
   please: Var god
   please_confirm_your_donation_details: Var god bekräfta din donationsdetaljer
   please_indicate_curation_reason: "Var god välj en anledning och/eller alternativ lämna en kuratorkommentar:"
-  please_leave_your_feedback: Var god lämna din feedback.
   please_return_to_eol_homepage: Var god gå tillbaka till EOL:s hemsida
   please_wait: Var god vänta …
   post_comment: Skicka kommentar
@@ -1284,7 +1282,6 @@ sv:
   selected_language_advisory_information: Detta är det valda språket.
   send: Skicka
   send_email_colon: "Skicka e-post:"
-  send_feedback: Skicka feedback
   sent_invitations_to_users: 
     one: En inbjudning skickades till %{users}.
     other: Inbjudningar skickades till %{users}.

@@ -424,7 +424,8 @@ sr-CS:
     one: Pronađeno u %{count} klasifikaciji
     other: Pronađeno u %{count} klasifikacije
   classifications_with_count: 
-    other: jedna=%{count} klasifikacija
+    one: "%{count} klasifikacija"
+    other: "%{count} klasifikacija"
   clear_all_non_species_pages: Očisti sve stranice koje nemaju vrste
   clear_entire_cache_store: Očisti celo skladište keša
   clear_species_page: Očisti stranicu za vrste
@@ -554,12 +555,8 @@ sr-CS:
   contact_us: kontaktirajte s nama
   contact_us_functions: Kontakt
   contact_us_link: Kontakt
-  contact_us_request_failed: Došlo je do greške.
-  contact_us_request_received: Zahtev za kontaktiranje je primljen
-  contact_us_request_sent: Zahtev je poslat
   contact_us_submissions: Poslato na „Kontaktirajte s nama“
   contact_us_topics: Teme u „Kontaktirajte s nama“
-  contacts: Kontakti
   containing_value: sadrži %{value}.
   content_has_been_updated: Sadržaj je ažuriran.
   content_notes_not_shown_to_us: "Beleške za sadržaj (nevidljivo za korisnika):"
@@ -1797,7 +1794,6 @@ sr-CS:
   please_ask_big_before_changing_toc: Konsultujte se s članom grupe Bioraznovrsna informatika pre uređivanja pregleda sadržaja. Neki nazivi poglavlja ne mogu da se menjaju budući da su povezani sa samim kodom. Infoobjekti ne mogu da se preslikaju na ovo sučelje – to mora da se uradi ručno u bazi.
   please_confirm_your_donation_details: Potvrdite podatke o prilogu
   please_indicate_curation_reason: "Izaberite razlog ili napišite kustoski komentar:"
-  please_leave_your_feedback: Pošaljite povratnu informaciju
   please_note_that_some_of_these: Neke od ovih alatki su u beta fazi i zato se mogu izmeniti tokom vremena, a mogu sadržati i greške.
   please_note_wiki_etc_are_not_spm: "*Imajte na umu da su Vikipedija, Obrazovanje i Bar-kod unutrašnji subjekti EOL-a i kao takvi nisu deo SPM-a."
   please_refresh: Osvežite pregledač da biste videli poslednje izdanje EOL-a
@@ -1959,7 +1955,6 @@ sr-CS:
   send: Pošalji
   send_contact_email: Pošalji e-poštu za kontakt
   send_email_colon: "Pošaljite e-poruku:"
-  send_feedback: Pošalji povratnu informaciju
   sent_invitations_to_users: 
     one: Poruka je poslata na %{users}.
     other: Poruke su poslate na %{users}.
@@ -2331,7 +2326,6 @@ sr-CS:
     one: Član %{count} zajednice
     other: Član %{count} zajednice
   users_my_info_header: Moji podaci
-  users_pending_activation_message: Potvrdna poruka je poslata na navedenu e-adresu. Kliknite na vezu koja se nalazi u poruci da biste završili postupak za upis. Hvala vam!
   users_that_can_edit_this_collection: Korisnici koji rukovode s ovom zbirkom
   using_the_site: Upotreba
   validation_error: Greška pri proveri

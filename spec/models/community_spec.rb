@@ -5,7 +5,6 @@ describe Community do
   before(:all) do
     @name = "valid community name"
     @description = "Valid description"
-    SpecialCollection.create_all
     load_foundation_cache # Needs data_type info.
   end
 
@@ -24,9 +23,9 @@ describe Community do
     c = Community.gen
     c.members.should be_blank
     u = User.gen
-    u.member_of?(c).should be_false
+    u.is_member_of?(c).should be_false
     c.add_member(u)
-    u.member_of?(c).should be_true
+    u.is_member_of?(c).should be_true
   end
 
   it "should create a new instance given valid attributes" do

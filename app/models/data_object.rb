@@ -1082,11 +1082,9 @@ private
 
   def add_recipient_user_making_object_modification(recipients, options = {})
     if options[:user]
-      # TODO: this is a new notification type - probably for ACTIVITY only
       recipients << { :user => options[:user], :notification_type => :i_created_something,
                       :frequency => NotificationFrequency.never }
-      # watch collection of user
-      recipients << self.user.watch_collection if self.user.watch_collection
+      recipients << options[:user].watch_collection if options[:user].watch_collection
     end
   end
   

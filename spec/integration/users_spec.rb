@@ -77,7 +77,7 @@ describe 'Users' do
       visit(user_path(user))
       body.should have_tag("h3", :text => "Activity")
       body.should have_tag("h3", :text => "Curator qualifications")
-      body.should have_tag("a[href=" + user_activity_path(user, :filter => "data_object_curation") + "]", :text => I18n.t(:user_activity_stats_objects_curated, :count => User.total_objects_curated_by_action_and_user(nil, user.id)))
+      body.should have_tag("a[href=" + user_activity_path(user, :filter => "data_object_curation") + "]", :text => I18n.t(:user_activity_stats_objects_curated, :count => EOL::Curator.total_objects_curated_by_action_and_user(nil, user.id)))
       body.should have_tag("a[href=" + user_activity_path(user, :filter => "added_data_objects") + "]", :text => I18n.t(:user_activity_stats_articles_added, :count => user_submitted_text_count))
       body.should include I18n.t(:user_activity_stats_taxa_curated, :count => user.total_species_curated)
     end

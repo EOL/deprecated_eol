@@ -5,20 +5,16 @@
 class User < $PARENT_CLASS_MUST_USE_MASTER
 
   include EOL::ActivityLoggable
+  include EOL::Curator # NOTE -this loads a bunch of other relationships and validations.
+                       # Also worth noting that #full_name (and the methods that count on it) need to know about
+                       # curators, so you will see references to curator methods, there. They didn't seem worth moving.
 
-  belongs_to :curator_verdict_by, :class_name => "User", :foreign_key => :curator_verdict_by_id
   belongs_to :language
   belongs_to :agent
-  belongs_to :curator_level
-  belongs_to :requested_curator_level, :class_name => CuratorLevel.to_s, :foreign_key => :requested_curator_level_id
 
-  has_many :curators_evaluated, :class_name => "User", :foreign_key => :curator_verdict_by_id
   has_many :users_data_objects_ratings
   has_many :members
   has_many :comments
-  has_many :curator_activity_logs
-  has_many :curator_activity_logs_on_data_objects, :class_name => CuratorActivityLog.to_s,
-             :conditions => "curator_activity_logs.changeable_object_type_id = #{ChangeableObjectType.raw_data_object_id}"
   has_many :users_data_objects
   has_many :collection_items, :as => :object
   has_many :containing_collections, :through => :collection_items, :source => :collection
@@ -58,9 +54,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   validate :ensure_unique_username_against_master, :if => :eol_authentication?
 
-  validates_presence_of :curator_verdict_at, :if => Proc.new { |obj| !obj.curator_verdict_by.blank? }
-  validates_presence_of :credentials, :if => :curator_attributes_required?
-  validates_presence_of :curator_scope, :if => :curator_attributes_required?
   validates_presence_of :given_name, :if => :given_name_required?
   validates_presence_of :family_name, :if => :first_last_names_required?
   validates_presence_of :username, :if => :eol_authentication?
@@ -91,7 +84,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   index_with_solr :keywords => [:username, :full_name]
 
-  attr_accessor :entered_password, :entered_password_confirmation, :email_confirmation, :curator_request
+  attr_accessor :entered_password, :entered_password_confirmation, :email_confirmation
 
   # Aaaaactually, this also preps the icon and tagline, since that's commonly shown with the title.
   def self.load_for_title_only(load_these)
@@ -146,63 +139,14 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     return rset
   end
 
-  # TODO - test
+  # TODO - This is only used in the admin controller, and can probably be removed.
   def self.users_with_activity_log
     sql = "SELECT distinct u.id , u.given_name, u.family_name
       FROM users u
         JOIN #{UserActivityLog.full_table_name} al ON u.id = al.user_id
       ORDER BY u.family_name, u.given_name"
-
     User.with_master do
       User.find_by_sql([sql])
-    end
-  end
-
-  # TODO - test
-  def self.curated_data_object_ids(arr_dataobject_ids, year, month, agent_id)
-    obj_ids = []
-    user_ids = []
-
-    sql = "SELECT cal.object_id data_object_id, cal.user_id
-      FROM #{LoggingModel.database_name}.activities acts
-        JOIN #{LoggingModel.database_name}.curator_activity_logs cal ON cal.activity_id = acts.id
-        JOIN changeable_object_types cot ON cal.changeable_object_type_id = cot.id
-        JOIN users u ON cal.user_id = u.id
-      WHERE cot.ch_object_type = 'data_object' "
-    if(arr_dataobject_ids.length > 0) then
-      sql += " AND cal.object_id IN (" + arr_dataobject_ids * "," + ")"
-    end
-    if(year.to_i > 0) then sql += " AND year(cal.updated_at) = #{year} AND month(cal.updated_at) = #{month} "
-    end
-    rset = User.find_by_sql([sql])
-    rset.each do |post|
-      obj_ids << post.data_object_id
-      user_ids << post.user_id
-    end
-
-    arr = [obj_ids, user_ids]
-    return arr
-  end
-
-  # TODO - test
-  def self.curated_data_objects(arr_dataobject_ids, year, month, page, report_type)
-    page = 1 if page == 0
-    sql = "SELECT cal.object_id data_object_id, cot.ch_object_type,
-        acts.id activity_id, u.given_name, u.family_name, cal.updated_at, cal.user_id
-      FROM #{LoggingModel.database_name}.activities acts
-        JOIN #{LoggingModel.database_name}.curator_activity_logs cal ON cal.activity_id = acts.id
-        JOIN changeable_object_types cot ON cal.changeable_object_type_id = cot.id
-        JOIN users u ON cal.user_id = u.id
-      WHERE cot.ch_object_type = 'data_object'
-        AND cal.object_id IN (" + arr_dataobject_ids * "," + ")"
-    if(year.to_i > 0) then sql += " AND year(cal.updated_at) = #{year} AND month(cal.updated_at) = #{month} "
-    end
-    sql += " AND acts.id in (#{Activity.trusted.id}, #{Activity.untrusted.id}, #{Activity.inappropriate.id}, #{Activity.delete.id}) "
-    sql += " ORDER BY cal.id Desc"
-    if(report_type == "rss feed")
-      self.find_by_sql [sql]
-    else
-      self.paginate_by_sql [sql], :per_page => 30, :page => page
     end
   end
 
@@ -218,13 +162,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
       else
         User.count(:conditions => ['username = ? AND id <> ?', username, id]) == 0
       end
-    end
-  end
-
-  # returns true or false indicating if email is unique
-  def self.unique_email?(email)
-    User.with_master do
-      User.count(:conditions => ['email = ?', email]) == 0
     end
   end
 
@@ -286,10 +223,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     user_wanting_access.id == id || user_wanting_access.is_admin?
   end
 
-  def curator_request
-    return true unless is_curator? || (curator_scope.blank? && credentials.blank?)
-  end
-
   def activate
     # Using update_attribute instead of updates_attributes to by pass validation errors.
     self.update_attribute(:active, true)
@@ -309,82 +242,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   def password
     self.entered_password
-  end
-
-  # TODO
-  # NOTE - this is currently ONLY used in an exported (CSV) report for admins... so... LOW priority.
-  # get the total objects curated for a particular curator activity type
-  def self.total_objects_curated_by_action_and_user(action_id = nil, user_id = nil, changeable_object_type_ids = nil, return_type = 'count', created_at = false)
-    action_id ||= Activity.raw_curator_action_ids
-    changeable_object_type_ids ||= ChangeableObjectType.data_object_scope
-    if return_type == 'count'
-      query = "SELECT cal.user_id, COUNT(DISTINCT cal.object_id) as count "
-    elsif return_type == 'hash'
-      query = "SELECT cal.* "
-    end
-    query += "FROM #{CuratorActivityLog.full_table_name} cal JOIN #{Activity.full_table_name} acts ON (cal.activity_id = acts.id) WHERE "
-    if user_id.class == Fixnum
-      query += "cal.user_id = #{user_id} AND "
-    elsif user_id.class == Array
-      query += "cal.user_id IN (#{user_id.join(',')}) AND "
-    end
-    if action_id.class == Fixnum
-      query += "acts.id = #{action_id} AND "
-    elsif action_id.class == Array
-      query += "acts.id IN (#{action_id.join(',')}) AND "
-    end
-    if created_at
-      query += "cal.created_at >= '#{created_at}' AND "
-    end
-    query += " cal.changeable_object_type_id IN (#{changeable_object_type_ids.join(",")}) "
-    if return_type == 'count'
-      query += " GROUP BY cal.user_id"
-    end
-    results = User.connection.execute(query).all_hashes
-    if return_type == 'hash'
-      return results
-    end
-    return_hash = {}
-    results.each do |r|
-      return_hash[r['user_id'].to_i] = r['count'].to_i
-    end
-    if user_id.class == Fixnum
-      return return_hash[user_id] || 0
-    end
-    return_hash
-  end
-
-  def self.taxon_concept_ids_curated(user_id = nil)
-    query = "SELECT DISTINCT cal.user_id, dotc.taxon_concept_id
-      FROM #{CuratorActivityLog.full_table_name} cal
-      JOIN #{Activity.full_table_name} acts ON (cal.activity_id = acts.id)
-      JOIN #{DataObjectsTaxonConcept.full_table_name} dotc ON (cal.object_id = dotc.data_object_id) WHERE "
-    if user_id.class == Fixnum
-      query += "cal.user_id = #{user_id} AND "
-    elsif user_id.class == Array
-      query += "cal.user_id IN (#{user_id.join(',')}) AND "
-    end
-    query += " cal.changeable_object_type_id IN (#{ChangeableObjectType.data_object_scope.join(",")})
-      AND acts.id != #{Activity.rate.id} "
-    results = User.connection.execute(query).all_hashes
-    return_hash = {}
-    results.each do |r|
-      return_hash[r['user_id'].to_i] ||= []
-      return_hash[r['user_id'].to_i] << r['taxon_concept_id'].to_i
-    end
-    if user_id.class == Fixnum
-      taxon_concept_ids = []
-      if return_hash[user_id]
-        taxon_concept_ids += return_hash[user_id]
-      end
-      taxon_concept_ids += User.taxa_synonyms_curated(user_id)
-      return taxon_concept_ids.uniq
-    end
-    return_hash
-  end
-
-  def total_species_curated
-    User.taxon_concept_ids_curated(self.id).length
   end
 
   def taxa_commented
@@ -409,49 +266,12 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     taxa.compact.uniq
   end
 
-  def self.taxa_synonyms_curated(user_id = nil)
-    # list of taxa where user added, removed, curated (trust, untrust, inappropriate, unreview) a common name
-    query = "activity_log_type:CuratorActivityLog AND feed_type_affected:Synonym AND user_id:#{user_id}"
-    results = EOL::Solr::ActivityLog.search_with_pagination(query, {:filter=>"names", :per_page=>999999, :page=>1})
-    taxa = results.collect{|r| r['instance']['taxon_concept_id']}.uniq
-  end
-
   def total_comment_submitted
     return comments.count
   end
 
   def total_wikipedia_nominated
     return WikipediaQueue.find_all_by_user_id(self.id).count
-  end
-
-  # Not sure yet its status in V2, commented temporarily
-  # TODO - test
-  def self.comment_curation_actions(user_id = nil)
-    query = "SELECT DISTINCT cal.user_id, cal.object_id
-      FROM #{CuratorActivityLog.full_table_name} cal
-      JOIN #{Activity.full_table_name} acts ON (cal.activity_id = acts.id) WHERE "
-    if user_id.class == Fixnum
-      query += "cal.user_id = #{user_id} AND "
-    elsif user_id.class == Array
-      query += "cal.user_id IN (#{user_id.join(',')}) AND "
-    end
-    query += " cal.changeable_object_type_id = #{ChangeableObjectType.comment.id}
-      AND acts.id != #{Activity.create.id}"
-    results = User.connection.execute(query).all_hashes
-    return_hash = {}
-    results.each do |r|
-      return_hash[r['user_id'].to_i] ||= []
-      return_hash[r['user_id'].to_i] << r['object_id'].to_i
-    end
-    if user_id.class == Fixnum
-      return return_hash[user_id] || []
-    end
-    return_hash
-  end
-
-  # TODO - test
-  def total_comments_curated
-    User.comment_curation_actions(self.id).length
   end
 
   def can_create?(resource)
@@ -475,50 +295,9 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     self.update_attributes(:admin => true)
   end
 
-  def grant_curator(level = :full, options = {})
-    # TODO: Seems a little odd to have a default level here. Also there are no checks on these update_attributes calls
-    # to see if they were successful or not - also why are we calling update_attributes 3 times instead of just once?
-    # Can't we just define the parameters to be updated first then just call update_attributes once?
-    level = CuratorLevel.send(level)
-    unless curator_level_id == level.id
-      self.update_attributes(:curator_level_id => level.id)
-      Notifier.deliver_curator_approved(self) if $PRODUCTION_MODE
-      if options[:by]
-        self.update_attributes(:curator_verdict_by => options[:by],
-                               :curator_verdict_at => Time.now,
-                               :curator_approved => 1)
-      end
-    end
-    self.update_attributes(:requested_curator_level_id => nil)
-  end
-  alias approve_to_curate grant_curator
-
-  def revoke_curator
-    # TODO: This is weird, if we are revoking the curator access why not call update_attributes once and
-    # add if-else loop to check if it successfully updated the attributes.
-    unless curator_level_id == nil
-      self.update_attributes(:curator_level_id => nil)
-    end
-    self.update_attributes(:curator_verdict_by => nil,
-                           :curator_verdict_at => nil,
-                           :requested_curator_level_id => nil,
-                           :credentials => nil,
-                           :curator_scope => nil,
-                           :curator_approved => nil)
-  end
-  alias revoke_curatorship revoke_curator
-
   def clear_entered_password
     self.entered_password = ''
     self.entered_password_confirmation = ''
-  end
-
-  def vet object
-    object.vet(self) if object and object.respond_to? :vet and can_curate? object
-  end
-
-  def unvet object
-    object.unvet(self) if object and object.respond_to? :unvet and can_curate? object
   end
 
   def reset_login_attempts
@@ -558,46 +337,12 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     return language.nil? ? Language.english.iso_639_1 : language.iso_639_1
   end
 
-  # NOTE: Careful!  This one means "any kind of curator"... which may not be what you want.  For example, an
-  # assistant curator can't see vetting controls, so don't use this; use #min_curator_level?(:full) or the like.
-  def is_curator?
-    self.curator_level_id
-  end
-
-  # NOTE: Careful!  The next three methods are for checking the EXACT curator level.  See also #min_curator_level?.
-  def master_curator?
-    self.curator_level_id == CuratorLevel.master.id
-  end
-
-  def full_curator?
-    self.curator_level_id == CuratorLevel.full.id
-  end
-
-  def assistant_curator?
-    self.curator_level_id == CuratorLevel.assistant.id
-  end
-
-  def min_curator_level?(level)
-    case level
-    when :assistant
-      return is_curator?
-    when :full
-      return master_curator? || full_curator?
-    when :master
-      return master_curator?
-    end
-  end
-
   def is_admin?
     self.admin.nil? ? false : self.admin # return false for anonymous users
   end
 
   def is_content_partner?
     content_partners.blank? ? false : true
-  end
-
-  def is_pending_curator?
-    !requested_curator_level.nil? && !requested_curator_level.id.zero?
   end
 
   def can_manage_community?(community)
@@ -614,20 +359,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
       return true if can_manage_community?(community)
     end
     false # She's not a manager
-  end
-
-  def last_curator_activity
-    last = CuratorActivityLog.find_by_user_id(id, :order => 'created_at DESC', :limit => 1)
-    return nil if last.nil?
-    return last.created_at
-  end
-
-  def show_unvetted?
-    return !vetted
-  end
-
-  def check_credentials
-    credentials = '' if credentials.nil?
   end
 
   # Returns an array of data objects submitted by this user.  NOT USED ANYWHERE.  This is a convenience method for
@@ -658,8 +389,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     end
     return_hash
   end
-
-
 
   # Returns an array of descriptions from all of the data objects submitted by this user.  NOT USED ANYWHERE.  This
   # is a convenience method for developers to use.
@@ -746,7 +475,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     self.reload
   end
 
-  def member_of?(community)
+  def is_member_of?(community)
     reload_if_stale
     self.members.map {|m| m.community_id}.include?(community.id)
   end
@@ -907,15 +636,6 @@ private
 
   def email_confirmation_required?
     self.new_record? # TODO: require email confirmation if user changes their email on edit
-  end
-
-  # validation condition for required curator attributes
-  def curator_attributes_required?
-    return false unless self.class.column_names.include?('requested_curator_level_id')
-    (!self.requested_curator_level_id.nil? && !self.requested_curator_level_id.zero? &&
-      self.requested_curator_level_id != CuratorLevel.assistant_curator.id) ||
-    (!self.curator_level_id.nil? && !self.curator_level_id.zero? &&
-      self.curator_level_id != CuratorLevel.assistant_curator.id)
   end
 
   def given_name_required?

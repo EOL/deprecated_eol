@@ -72,7 +72,7 @@ class Community < ActiveRecord::Base
       user_or_member
     raise EOL::Exceptions::ObjectNotFound unless member
     member.destroy
-    self.reload
+    self.members.delete(member)
   end
 
   # Careful!  This doesn't mean a given USER can edit the collection, just that managers of this community can.
@@ -111,6 +111,10 @@ class Community < ActiveRecord::Base
 
   def managers_as_users
     members.managers.map {|m| m.user }
+  end
+
+  def is_curator_community?
+    self.id == CuratorCommunity.get.id
   end
 
 end

@@ -1751,6 +1751,12 @@ en:
         user_unreviewed_an_unknown_name_on_it: "<strong>%{user}</strong> marked an unknown common name as unreviewed."
         user_unreviewed_name_on_it: "<strong>%{user}</strong> marked the common name \"%{name}\" as unreviewed."
       preferred_classification:
+        an_unknown_user_preferred_unknown_classification_on_an_unknown_taxon: "An unknown user marked an unknown        classification as preferred for an unknown taxon."
+        an_unknown_user_preferred_unknown_classification_on_it: "An unknown user marked an unknown classification as    preferred."
+        an_unknown_user_preferred_unknown_classification_on_taxon: "An unknown user marked an unknown classification as preferred for \"%{taxon}\"."
+        user_preferred_unknown_classification_on_an_unknown_taxon: "<strong>%{user}</strong> marked an unknown          classification as preferred for an unknown taxon."
+        user_preferred_unknown_classification_on_it: "<strong>%{user}</strong> marked an unknown classification as      preferred."
+        user_preferred_unknown_classification_on_taxon: "<strong>%{user}</strong> marked an unknown classification as   preferred for \"%{taxon}\"."
         an_unknown_user_preferred_classification_on_an_unknown_taxon: "An unknown user marked the classification from \"%{provider}\" as preferred for an unknown taxon."
         an_unknown_user_preferred_classification_on_it: "An unknown user marked the classification from \"%{provider}\" as preferred."
         an_unknown_user_preferred_classification_on_taxon: "An unknown user marked the classification from \"%{provider}\" as preferred for \"%{taxon}\"."

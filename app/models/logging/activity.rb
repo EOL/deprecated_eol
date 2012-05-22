@@ -44,6 +44,7 @@ class Activity < LazyLoggingModel
 
     # Collection:
     Activity.find_or_create('add_editor')
+    Activity.find_or_create('bulk_add')
     Activity.find_or_create('create')
     Activity.find_or_create('collect')
     Activity.find_or_create('remove')

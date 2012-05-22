@@ -19,16 +19,29 @@ module EOL
         solr_api.optimize if options[:optimize]
       end
 
+      def self.reindex_collection_items_by_ids(ids)
+        return if ids.empty?
+        solr_api = self.connect
+        max_id = CollectionItem.last.id rescue 0
+        objects_to_send = self.lookup_collection_items(ids);
+        objects_to_send.each do |o|
+          o['title'] = SolrAPI.text_filter(o['title']) if o['title']
+          o['annotation'] = SolrAPI.text_filter(o['annotation']) if o['annotation']
+        end
+        unless objects_to_send.blank?
+          solr_api.create(objects_to_send)
+        end
+      end
+
       def self.start_to_index_collection_items(solr_api)
         start = CollectionItem.first.id rescue 0
         max_id = CollectionItem.last.id rescue 0
         return if max_id == 0
         limit = 500
         i = start
-        objects_to_send = []
         while i <= max_id
           objects_to_send = []
-          objects_to_send += self.lookup_collection_items(i, limit);
+          objects_to_send += self.lookup_collection_items((i..limit).to_a);
           objects_to_send.each do |o|
             o['title'] = SolrAPI.text_filter(o['title']) if o['title']
             o['annotation'] = SolrAPI.text_filter(o['annotation']) if o['annotation']
@@ -40,16 +53,16 @@ module EOL
         end
       end
 
-      def self.lookup_collection_items(start, limit)
-        max = start + limit
+      def self.lookup_collection_items(ids)
         objects_to_send = []
-        collection_items = CollectionItem.find(:all, :conditions => "id BETWEEN #{start} AND #{max}")
+        collection_items = CollectionItem.find(:all, :conditions => "id IN (#{ids.join(',')})")
         self.preload_concepts_and_objects!(collection_items)
         collection_items.each do |i|
           begin
             hash = i.solr_index_hash
             objects_to_send << hash
           rescue EOL::Exceptions::InvalidCollectionItemType => e
+            logger.error "** EOL::Solr::CollectionItemsCoreRebuilder: #{e.message}"
             puts "** #{e.message}"
           end
         end

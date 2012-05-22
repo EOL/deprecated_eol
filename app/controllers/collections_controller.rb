@@ -281,60 +281,101 @@ private
   end
 
   def copy_items_and_redirect(source, destinations, options = {})
-    copied = {}
-    @copied_to = []
-    all_items = []
-    # TODO - seriously bad. We shouldn't need to load ALL items for the destination collection (what if it had 10,000+ items?)
-    # Unfortunately this will require a bit more of a refactor than I have time for now
-    Collection.preload_associations(destinations, :collection_items)
-    params[:collection_items] = CollectionItem.find(params[:collection_items], :include => :object) if params[:collection_items]
-    Collection.preload_associations(source, :users)
-    destinations.each do |destination|
-      begin
-        items = copy_items(:from => source, :to => destination, :items => params[:collection_items],
-                           :scope => params[:scope])
-        copied[link_to_name(destination)] = items.count
-        all_items += items
-        # TODO - this rescue can cause SOME work to get done and others not.  It should be moved.
-      rescue EOL::Exceptions::MaxCollectionItemsExceeded
-        flash[:error] = I18n.t(:max_collection_items_error, :max => $MAX_COLLECTION_ITEMS_TO_MANIPULATE)
-        return redirect_to collection_path(@collection)
+    if params[:scope] == 'all_items'
+      return quick_copy_entire_collection_and_redirect(source, destinations, options)
+    else
+      copied = {}
+      @copied_to = []
+      all_items = []
+      Collection.preload_associations(destinations, :collection_items)
+      params[:collection_items] = CollectionItem.find(params[:collection_items], :include => :object) if params[:collection_items]
+      Collection.preload_associations(source, :users)
+      destinations.each do |destination|
+        begin
+          items = copy_items(:from => source, :to => destination, :items => params[:collection_items],
+                             :scope => params[:scope])
+          copied[link_to_name(destination)] = items.count
+          all_items += items
+          # TODO - this rescue can cause SOME work to get done and others not.  It should be moved.
+        rescue EOL::Exceptions::MaxCollectionItemsExceeded
+          flash[:error] = I18n.t(:max_collection_items_error, :max => $MAX_COLLECTION_ITEMS_TO_MANIPULATE)
+          return redirect_to collection_path(@collection)
+        end
+      end
+      all_items.compact!#.why_am_i_shouting!?
+      flash_i18n_name = :copied_items_to_collections_with_count_notice
+      if all_items.count > 0
+        if options[:move]
+          # Not handling any weird errors here, to simplify flash notice handling.
+          remove_items(:items => all_items)
+          @collection_items.delete_if {|ci| params['collection_items'].include?(ci.id.to_s) } if @collection_items && params['collection_items']
+          if destinations.length == 1
+            flash[:notice] = I18n.t(:moved_items_from_collection_with_count_notice, :count => all_items.count,
+                                    :name => link_to_name(source))
+            flash[:notice] += " #{I18n.t(:duplicate_items_were_ignored)}" if @duplicates
+            return redirect_to collection_path(destinations.first), :status => :moved_permanently
+          else
+            flash_i18n_name = :moved_items_to_collections_with_count_notice
+          end
+        else
+          if destinations.length == 1
+            flash[:notice] = I18n.t(:copied_items_from_collection_with_count_notice, :count => all_items.count,
+                                    :name => link_to_name(source))
+            flash[:notice] += " #{I18n.t(:duplicate_items_were_ignored)}" if @duplicates
+            return redirect_to collection_path(destinations.first), :status => :moved_permanently
+          end
+        end
+        flash[:notice] = I18n.t(flash_i18n_name,
+                                :count => all_items.count,
+                                :names => copied.keys.map {|c| "#{c} (#{copied[c]})"}.to_sentence)
+        flash[:notice] += " #{I18n.t(:duplicate_items_were_ignored)}" if @duplicates
+        return redirect_to collection_path(source), :status => :moved_permanently
+      elsif all_items.count == 0
+        flash[:error] = I18n.t(:no_items_were_copied_to_collections_error, :names => @no_items_to_collections.to_sentence)
+        flash[:error] += " #{I18n.t(:duplicate_items_were_ignored)}" if @duplicates
+        return redirect_to collection_path(source), :status => :moved_permanently
+      else
+        # Assume the flash message was set by #copy_items
+        return redirect_to collection_path(source), :status => :moved_permanently
       end
     end
-    all_items.compact!#.why_am_i_shouting!?
-    flash_i18n_name = :copied_items_to_collections_with_count_notice
-    if all_items.count > 0
-      if options[:move]
-        # Not handling any weird errors here, to simplify flash notice handling.
-        remove_items(:items => all_items)
-        @collection_items.delete_if {|ci| params['collection_items'].include?(ci.id.to_s) } if @collection_items && params['collection_items']
-        if destinations.length == 1
-          flash[:notice] = I18n.t(:moved_items_from_collection_with_count_notice, :count => all_items.count,
-                                  :name => link_to_name(source))
-          flash[:notice] += " #{I18n.t(:duplicate_items_were_ignored)}" if @duplicates
-          return redirect_to collection_path(destinations.first), :status => :moved_permanently
-        else
-          flash_i18n_name = :moved_items_to_collections_with_count_notice
-        end
+  end
+
+  def quick_copy_entire_collection_and_redirect(source, destinations, options)
+    last_collection_item = CollectionItem.last(:select => 'id') # Sloppy, but...
+    destinations.each do |destination|
+      CollectionItem.connection.execute(
+        "INSERT IGNORE INTO collection_items
+          (object_type, object_id, collection_id, created_at, updated_at, added_by_user_id)
+          (SELECT object_type, object_id, #{destination.id}, NOW(), NOW(), #{current_user.id}
+            FROM collection_items WHERE collection_id = #{source.id})"
+      )
+      # TODO - we should actually count the items and store that in the collection activity log. Lots of work:
+      log_activity(:collection_id => destination.id, :activity => Activity.bulk_add)
+    end
+    ids = CollectionItem.connection.execute(
+      "SELECT id FROM collection_items
+       WHERE id > #{last_collection_item.id} AND collection_id IN (#{destinations.map {|d| d.id}.join(',')})"
+    ).all_hashes.map {|h| h["id"] }
+    EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection_items_by_ids(ids)
+    # NOTE - this is pretty brutal. The older method preserves objects that didn't actually move (ie: if they were
+    # duplicates), but I figure that's not entirely desirable, anyway...
+    action = options[:move] ? 'moved' : 'copied'
+    if options[:move] 
+      if destinations.include?(source)
+        action = 'copied' # Undo the "move"... we can't blow away the items in a source if it's a destination!
       else
-        if destinations.length == 1
-          flash[:notice] = I18n.t(:copied_items_from_collection_with_count_notice, :count => all_items.count,
-                                  :name => link_to_name(source))
-          flash[:notice] += " #{I18n.t(:duplicate_items_were_ignored)}" if @duplicates
-          return redirect_to collection_path(destinations.first), :status => :moved_permanently
-        end
+        source.collection_items.each { |item| item.destroy }
+        log_activity(:activity => Activity.remove_all)
       end
-      flash[:notice] = I18n.t(flash_i18n_name,
-                              :count => all_items.count,
-                              :names => copied.keys.map {|c| "#{c} (#{copied[c]})"}.to_sentence)
-      flash[:notice] += " #{I18n.t(:duplicate_items_were_ignored)}" if @duplicates
-      return redirect_to collection_path(source), :status => :moved_permanently
-    elsif all_items.count == 0
-      flash[:error] = I18n.t(:no_items_were_copied_to_collections_error, :names => @no_items_to_collections.to_sentence)
-      flash[:error] += " #{I18n.t(:duplicate_items_were_ignored)}" if @duplicates
-      return redirect_to collection_path(source), :status => :moved_permanently
+    end
+    if destinations.count == 1
+      flash[:notice] = I18n.t("#{action}_all_items_from_collection",
+                              :from => link_to_name(source))
+      return redirect_to collection_path(destinations.first), :status => :moved_permanently
     else
-      # Assume the flash message was set by #copy_items
+      flash[:notice] = I18n.t("#{action}_all_items_to_collections",
+                              :count => destinations.count, :name => link_to_name(source))
       return redirect_to collection_path(source), :status => :moved_permanently
     end
   end
@@ -498,7 +539,7 @@ private
 
   def set_sort_options
     @sort_options = [ SortStyle.newest, SortStyle.oldest, SortStyle.alphabetical, SortStyle.reverse_alphabetical,
-                     SortStyle.richness, SortStyle.rating, SortStyle.sort_field, SortStyle.reverse_sort_field ]
+                      SortStyle.richness, SortStyle.rating, SortStyle.sort_field, SortStyle.reverse_sort_field ]
   end
 
   def set_view_as_options

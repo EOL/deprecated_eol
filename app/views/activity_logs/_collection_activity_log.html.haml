@@ -30,6 +30,8 @@
   - case item.activity_id
   - when Activity.add_editor.id
     = I18n.t("add_editor.#{user_type}_of_#{collection_type}", translation_vars)
+  - when Activity.bulk_add.id
+    = I18n.t("bulk_add.#{user_type}_added_bulk_items_to_#{collection_type}", translation_vars)
   - when Activity.create.id
     = I18n.t("create.#{user_type}_created_#{collection_type}", translation_vars)
   - when Activity.remove_all.id

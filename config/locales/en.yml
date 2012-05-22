@@ -2340,7 +2340,9 @@ en:
   content_summary_table_type_unreviewed_text_row: "Number of unreviewed text items"
   content_type: "Content Type"
   contribute: "Contribute"
-  copied_all_items_from_collection: "Copied all items from %{from} to this collection."
+  copied_all_items_from_collection_with_count:
+    one: "Copied one item from %{from} to this collection."
+    other: "Copied all %{count} items from %{from} to this collection."
   copied_all_items_to_collections:
     one: "Copied all items from %{name} to %{count} collection."
     other: "Copied all items from %{name} to %{count} collections."
@@ -2954,7 +2956,9 @@ en:
   move_items_to_a_new_collection_with_count:
     one: "Move %{count} item to a new collection"
     other: "Move %{count} items to a new collection"
-  moved_all_items_from_collection: "Moved all items from %{from} to this collection."
+  moved_all_items_from_collection_with_count:
+    one: "Moved #{count} item from %{from} to this collection."
+    other: "Moved all #{count} items from %{from} to this collection."
   moved_all_items_to_collections:
     one: "Moved all items from %{name} to %{count} collection."
     other: "Moved all items from %{name} to %{count} collections."

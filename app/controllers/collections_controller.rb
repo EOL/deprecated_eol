@@ -370,12 +370,12 @@ private
       end
     end
     if destinations.count == 1
-      flash[:notice] = I18n.t("#{action}_all_items_from_collection",
+      flash[:notice] = I18n.t("#{action}_all_items_from_collection_with_count", :count => ids.count,
                               :from => link_to_name(source))
       return redirect_to collection_path(destinations.first), :status => :moved_permanently
     else
-      flash[:notice] = I18n.t("#{action}_all_items_to_collections",
-                              :count => destinations.count, :name => link_to_name(source))
+      flash[:notice] = I18n.t("#{action}_all_items_to_collections", :count => destinations.count,
+                              :name => link_to_name(source))
       return redirect_to collection_path(source), :status => :moved_permanently
     end
   end

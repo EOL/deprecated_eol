@@ -462,6 +462,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def join_community(community)
+    return unless community
     member = Member.find_by_community_id_and_user_id(community.id, id)
     unless member
       member = Member.create!(:user_id => id, :community_id => community.id)

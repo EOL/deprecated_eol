@@ -136,14 +136,14 @@ describe "Communities" do
         should_not have_tag("a[href=#{community_path(@test_data[:community])}]", :text => /delete/i)
       end
       it 'should allow user to join community' do
-        @test_data[:user_non_member].member_of?(@test_data[:community]).should_not be_true
+        @test_data[:user_non_member].is_member_of?(@test_data[:community]).should_not be_true
         should have_tag("a[href=?]", /#{join_community_path(@test_data[:community].id)}.*/)
         visit(join_community_path(@test_data[:community].id))
         @test_data[:user_non_member].reload
-        @test_data[:user_non_member].member_of?(@test_data[:community]).should be_true
+        @test_data[:user_non_member].is_member_of?(@test_data[:community]).should be_true
         # Clean up - we have tested that a non member can join, we now make them leave
         @test_data[:user_non_member].leave_community(@test_data[:community])
-        @test_data[:user_non_member].member_of?(@test_data[:community]).should_not be_true
+        @test_data[:user_non_member].is_member_of?(@test_data[:community]).should_not be_true
       end
     end
     context 'visiting edit community' do
@@ -174,13 +174,13 @@ describe "Communities" do
         should_not have_tag("a[href=#{community_member_path(@test_data[:community], @test_data[:community_member])}]", :text => /remove/i)
       end
       it 'should allow member to leave community and return to show community' do
-        @test_data[:user_community_member].member_of?(@test_data[:community]).should be_true
+        @test_data[:user_community_member].is_member_of?(@test_data[:community]).should be_true
         visit(leave_community_path(@test_data[:community].id))
         @test_data[:user_community_member].reload
-        @test_data[:user_community_member].member_of?(@test_data[:community]).should_not be_true
+        @test_data[:user_community_member].is_member_of?(@test_data[:community]).should_not be_true
         # Clean up - we have tested that a member can leave a community, now we make them join back
         @test_data[:user_community_member].join_community(@test_data[:community])
-        @test_data[:user_community_member].member_of?(@test_data[:community]).should be_true
+        @test_data[:user_community_member].is_member_of?(@test_data[:community]).should be_true
       end
     end
   end
@@ -192,19 +192,7 @@ describe "Communities" do
     context 'visiting show community' do
       before(:all) { visit community_path(@test_data[:community]) }
       subject { body }
-      # Setting to pending until we know what actions will be available on default show tab
-      it 'should show an edit community link'
-#        should have_tag("a[href=#{edit_community_path(@test_data[:community])}]")
-#      end
-      it 'should show delete community link'
-#        should have_tag("a[href=#{community_path(@test_data[:community])}]", :text => /delete/i)
-#      end
-      it 'should show edit membership links'
-#        should have_tag("a[href=#{community_member_path(@test_data[:community], @test_data[:community_member])}]", :text => /edit/i)
-#      end
-      it 'should show remove membership links'
-#        should have_tag("a[href=#{community_member_path(@test_data[:community], @test_data[:community_member])}]", :text => /remove/i)
-#      end
+      # TODO - we could test a few things here.
     end
     context 'visiting edit community' do
       before(:all) { visit edit_community_path(@test_data[:community]) }
@@ -224,6 +212,21 @@ describe "Communities" do
         end
       end
     end
+  end
+
+  it 'should flash a link to become a curator, when a non-curator joins the curator community' do
+    user = User.gen(:curator_level_id => nil)
+    login_as user
+    visit(join_community_url(CuratorCommunity.get))
+    body.should have_tag("a[href=#{curation_privileges_user_url(user)}]")
+  end
+
+  it 'should not allow editing the name of the curator community' do
+    katja = User.gen
+    manager = Member.create(:user_id => katja.id, :community_id => CuratorCommunity.get, :manager => true)
+    login_as katja
+    visit(edit_community_url(CuratorCommunity.get))
+    page.body.should have_tag("input#community_name[disabled=disabled]")
   end
 
 end

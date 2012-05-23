@@ -41,7 +41,7 @@ module EOL
         i = start
         while i <= max_id
           objects_to_send = []
-          objects_to_send += self.lookup_collection_items((i..limit).to_a);
+          objects_to_send += self.lookup_collection_items(i, limit);
           objects_to_send.each do |o|
             o['title'] = SolrAPI.text_filter(o['title']) if o['title']
             o['annotation'] = SolrAPI.text_filter(o['annotation']) if o['annotation']
@@ -53,9 +53,10 @@ module EOL
         end
       end
 
-      def self.lookup_collection_items(ids)
+      def self.lookup_collection_items(start, limit)
+        max = start + limit
         objects_to_send = []
-        collection_items = CollectionItem.find(:all, :conditions => "id IN (#{ids.join(',')})")
+        collection_items = CollectionItem.find(:all, :conditions => "id BETWEEN #{start} AND #{max}")
         self.preload_concepts_and_objects!(collection_items)
         collection_items.each do |i|
           begin

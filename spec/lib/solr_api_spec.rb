@@ -121,10 +121,12 @@ describe 'Solr API' do
       @solr.get_results("*:*")['numFound'].should == 0
     end
     
+    # NOTE - these numbers are based on the foundation scenario.  If these two specs are failing, and you changed
+    # that scenaio file, it is OKAY (and recommended) to update these tests to the correct numbers.
     it 'should rebuild the core' do
       EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild
       # names for preferred name, synonym, surrogate and common names
-      @solr.get_results("*:*")['numFound'].should == 27
+      @solr.get_results("*:*")['numFound'].should == 29
       @solr.get_results("resource_id:#{@test_taxon_concept.id}")['numFound'].should == 4
       @solr.get_results("keyword:#{URI.escape(@scientific_name)}")['numFound'].should == 2
       @solr.get_results("keyword:#{URI.escape(@common_name)}")['numFound'].should == 1
@@ -133,7 +135,7 @@ describe 'Solr API' do
     
     it 'should reindex given model' do
       EOL::Solr::SiteSearchCoreRebuilder.reindex_model(TaxonConcept, @solr)
-      @solr.get_results("*:*")['numFound'].should == 27
+      @solr.get_results("*:*")['numFound'].should == 29
       @solr.get_results("resource_id:#{@test_taxon_concept.id}")['numFound'].should == 4
       @solr.get_results("keyword:#{URI.escape(@scientific_name)}")['numFound'].should == 2
       @solr.get_results("keyword:#{URI.escape(@common_name)}")['numFound'].should == 1

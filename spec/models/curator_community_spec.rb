@@ -23,7 +23,7 @@ describe CuratorCommunity do
     community.should_not be_nil
     community.name.should == $CURATOR_COMMUNITY_NAME
     community.description.should == $CURATOR_COMMUNITY_DESC
-    curator.member_of?(community).should be_true
+    curator.is_member_of?(community).should be_true
     community.members.each do |member|
       member.user.is_curator?.should be_true
     end

@@ -29,7 +29,7 @@ body {
   font-family: Helvetica, Arial, sans-serif;
   font-size: 75%;
   color: #394651;
-  border-top: 32px solid #28323a;
+  border-top: 2.7em solid #28323a;
   min-width: 940px; }
 
 body, html {
@@ -59,7 +59,7 @@ body > #header p.status {
 body > #header h1 {
   position: absolute;
   left: 0;
-  top: 20px;
+  top: 1.7em;
   z-index: 2; }
   body > #header h1 a {
     display: block;
@@ -70,30 +70,31 @@ body > #header h1 {
     background: transparent url("/images/v2/logo.png") 0 0 no-repeat; }
 body > #header .section {
   position: relative; }
-  body > #header .section ul.nav {
+  body > #header .section .global_navigation {
     position: absolute;
     right: 0;
-    top: -25px;
-    z-index: 1; }
-    body > #header .section ul.nav li {
+    top: -2.1em;
+    z-index: 1;
+    margin-left: 9.6em; }
+    body > #header .section .global_navigation ul.nav li {
       display: inline;
       padding: 0 0 0 7px;
       text-transform: uppercase; }
-      body > #header .section ul.nav li:before {
+      body > #header .section .global_navigation ul.nav li:before {
         padding: 0 7px 0 0;
         font-size: 1.33em;
         vertical-align: -2px;
         content: "•";
         list-style: disc;
         color: #4c5155; }
-      body > #header .section ul.nav li:first-of-type:before {
+      body > #header .section .global_navigation ul.nav li:first-of-type:before {
         display: none; }
-      body > #header .section ul.nav li a {
+      body > #header .section .global_navigation ul.nav li a {
         text-decoration: none; }
   body > #header .section .actions {
     position: absolute;
     left: 0;
-    top: -27px;
+    top: -2.4em;
     z-index: 3;
     font-size: 0.92em;
     text-transform: uppercase; }
@@ -153,7 +154,7 @@ body > #header form {
     background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ccd2d7), to(#fefeff)); }
   body > #header form input[type="text"] {
     width: 175px;
-    height: 18px;
+    height: 1.5em;
     padding: 6px 5px 6px 38px;
     font-size: 1.16em;
     line-height: 140%;

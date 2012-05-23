@@ -49,6 +49,13 @@
   %body{:class => @home_page ? 'home' : nil}
     %ul#controls.assistive
       %li= link_to I18n.t(:skip_to_content), '#main'
+
+    - unless @home_page
+      - # For accessibility and SEO on pages other than home page we want content to appear first in the markup.
+      #central
+        .section{ :role => "main" }
+          = yield :main
+
     #header
       .section
         %h1= link_to I18n.t(:encyclopedia_of_life), root_url, { :title => I18n.t(:home_page_link_advisory_information) }
@@ -92,10 +99,10 @@
                 %p
                   -# the non-breaking space here gives the march of life name bar some height on page load
                   &nbsp;
-
-    #central
-      .section{ :role => "main" }
-        = yield :main
+    - if @home_page
+      #central
+        .section{ :role => "main" }
+          = yield :main
 
     #footer{ :role => "contentinfo" }
       .section

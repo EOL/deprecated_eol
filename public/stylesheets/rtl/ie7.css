@@ -1,3 +1,5 @@
+body > #header .section .global_navigation {
+  margin-right: 0; }
 body > #header .section .actions {
   direction: ltr; }
   body > #header .section .actions .language p.ar, body > #header .section .actions .language li.ar a {

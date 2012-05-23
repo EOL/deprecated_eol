@@ -5,7 +5,7 @@ body
   font-family: Helvetica, Arial, sans-serif
   font-size: 75%
   color: #394651
-  border-top: 32px solid #28323a
+  border-top: $global_nav_height solid #28323a
   min-width: 940px
   direction: rtl
 body, html
@@ -40,7 +40,7 @@ body
     h1
       position: absolute
       right: 0
-      top: 13px
+      top: 0.9em
       z-index: 2
       a
         display: block
@@ -53,31 +53,34 @@ body
     .section
       position: relative
       @extend .site_column
-      ul.nav
+      .global_navigation
         position: absolute
         left: 0
-        top: -25px
+        top: -2.1em
         z-index: 1
-        li
-          display: inline
-          padding: 0 7px 0 0
-          text-transform: uppercase
-          &:before
-            padding: 0 0 0 7px
-            font-size: 1.33em
-            vertical-align: -2px
-            content: "•"
-            list-style: disc
-            color: #4c5155
-          &:first-of-type
+        margin-right: 9.6em
+        text-align: left
+        ul.nav
+          li
+            display: inline
+            padding: 0 7px 0 0
+            text-transform: uppercase
             &:before
-              display: none
-          a
-            text-decoration: none
+              padding: 0 0 0 7px
+              font-size: 1.33em
+              vertical-align: -2px
+              content: "•"
+              list-style: disc
+              color: #4c5155
+            &:first-of-type
+              &:before
+                display: none
+            a
+              text-decoration: none
       .actions
         position: absolute
         right: 0
-        top: -27px
+        top: -2.4em
         z-index: 3
         font-size: .92em
         text-transform: uppercase
@@ -136,7 +139,7 @@ body
         +gradient-bg(#ccd2d7, #fefeff)
       input[type="text"]
         width: 175px
-        height: 18px
+        height: 1.5em
         padding: 6px 38px 6px 5px
         font-size: 1.16em
         line-height: 140%

@@ -637,16 +637,24 @@ form.select_content_partner
     margin: 0
 
 body
+  > #central
+    margin-top: 9.4em
   > #header
+    position: absolute
+    top: $global_nav_height
+    right: 0
+    width: 100%
     background: #394651
     .section
-      height: 113px
-      ul.nav
-        li:before
-          color: #6f7e8b
+      height: 9.4em
+      .global_navigation
+        top: -2em
+        ul.nav
+          li:before
+            color: #6f7e8b
       .actions
         z-index: 5
-        top: -25px
+        top: -2.3em
         p
           border-color: #616b74
           a span

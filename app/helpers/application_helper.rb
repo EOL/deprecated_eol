@@ -114,7 +114,7 @@ module ApplicationHelper
   end
 
   # Used to provide a stable English type label for CSS and I18n keys
-  def en_type(object)
+  def self.en_type(object)
     if object.class == CollectionItem
       en_type(object.object)
     elsif object.class == DataObject
@@ -135,6 +135,9 @@ module ApplicationHelper
     elsif object.class == ContentPage
       'cms_page'
     end
+  end
+  def en_type(object)
+    return ApplicationHelper.en_type(object)
   end
 
   # Prefixes image paths with http://www.eol.org/images, so use image_url instead of image_path.

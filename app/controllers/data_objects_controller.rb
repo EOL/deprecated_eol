@@ -308,12 +308,26 @@ protected
     elsif (@data_object && @data_object.content_partner)
       supplier = @data_object.content_partner.name
     else
-      supplier = nil
+      supplier = I18n.t('data_objects.show.meta_supplier_default')
     end
     @scoped_variables_for_translations = super.dup.merge({
       :dato_title => @data_object ? @data_object.best_title.presence : nil,
-      :supplier => supplier ? supplier.presence : nil
+      :dato_description => @data_object ? @data_object.description.presence : nil,
+      :supplier => supplier,
     }).freeze
+  end
+
+  def meta_description
+    return @meta_description if defined?(@meta_description)
+    i18n_key = 'meta_description'
+    @meta_description = t(".#{i18n_key}", scoped_variables_for_translations.dup)
+    if @data_object && @meta_description.blank?
+      en_type = ApplicationHelper.en_type(@data_object)
+      i18n_key << '_default' unless @data_object.description.presence
+      i18n_key << "_#{en_type}" unless en_type.nil?
+      @meta_description = t(".#{i18n_key}", scoped_variables_for_translations.dup)
+    end
+    @meta_description
   end
 
   def meta_open_graph_image_url

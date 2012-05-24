@@ -35,7 +35,7 @@ describe EOL::ActivityLog do
     @curator.activity_log[0]['instance'].class.should == CommunityActivityLog
   end
 
-  it 'should work with Community comments, and community activity' do
+  it 'should work with Community comments, focus list activity, and community activity' do
     community = Community.gen
     Comment.gen(:parent => community, :created_at => 4.seconds.ago)
     # This proves that any activity logged on the focus list of the community is something that shows up in the

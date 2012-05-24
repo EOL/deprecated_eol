@@ -152,7 +152,9 @@ function add_drag_events_to_selector(input) {
       if(typeof dropped_div == "undefined") { alert('fail'); return; }
       
       // same concept
-      if(dropped_div.attr('hierarchy_entry_id') == previously_dragged_div.attr('hierarchy_entry_id')) { return; }
+      if(dropped_div.attr('hierarchy_entry_id') == previously_dragged_div.attr('hierarchy_entry_id')) {
+        alert('Cannot drop - same concept');
+      }
       else if(dropped_div.attr('taxon_concept_id') == previously_dragged_div.attr('taxon_concept_id')) {
         alert('Cannot drop - same concept');
       } else {

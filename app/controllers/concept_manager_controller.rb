@@ -24,7 +24,8 @@ class ConceptManagerController < ApplicationController
     raise 'Invalid id1' if id1.blank? || !id1.is_int? || id1.to_i == 0
     raise 'Invalid id2' if id2.blank? || !id2.is_int? || id2.to_i == 0
     
-    success = TaxonConcept.supercede_by_ids(id1.to_i, id2.to_i)
+    # success = TaxonConcept.supercede_by_ids(id1.to_i, id2.to_i)
+    success = false
     if success
       render :text => 'success'
     else
@@ -43,8 +44,8 @@ class ConceptManagerController < ApplicationController
     end
     
     
-    new_taxon_concept = hierarchy_entry.split_from_concept
-    #success = false
+    # new_taxon_concept = hierarchy_entry.split_from_concept
+    success = false
     if new_taxon_concept
       render :text => new_taxon_concept.id
     else

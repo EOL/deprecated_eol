@@ -10,9 +10,9 @@
       = "hierarchy_entry_id: #{he.id}"
     %br
     - indent = ''
-    - ancestors = he.ancestor_details
+    - ancestors = he.ancestors
     - for ancestor in ancestors
-      = indent + ancestor['name_string']
+      = indent + ancestor.name.string
       - indent << "&nbsp;&nbsp;"
       %br
     
@@ -22,8 +22,8 @@
     %br
     
     .children
-      - children = he.children_details
+      - children = he.children
       - for child in children
-        = indent + child['name_string']
+        = indent + child.name.string
         %br
   %br

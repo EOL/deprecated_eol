@@ -66,7 +66,7 @@ module EOL
           results << g['doclist']['docs'][0]
         end
 
-        add_resource_instances!(results)
+        add_resource_instances!(results) unless options[:skip_loading_instances]
         results = WillPaginate::Collection.create(options[:page], options[:per_page], total_results) do |pager|
            pager.replace(results)
         end

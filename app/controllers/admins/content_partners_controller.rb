@@ -20,7 +20,7 @@ class Admins::ContentPartnersController < AdminsController
       'content_partners.full_name'
     end
     include = [ { :resources => [ :resource_status, :hierarchy, :dwc_hierarchy ] },
-                :content_partner_status, :content_partner_contacts ]
+                :content_partner_status, :content_partner_contacts, :content_partner_agreements ]
     conditions = []
     conditions_replacements = {}
     unless @name.blank?

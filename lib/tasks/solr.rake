@@ -94,5 +94,9 @@ namespace :solr do
     EOL::Solr::ActivityLog.rebuild_comments_logs
   end
 
+  desc 'Remove watch collection logs from activity_logs index'
+  task :remove_watch_collection_activity_logs => :environment do
+    EOL::Solr::ActivityLog.remove_watch_collection_logs
+  end
 
 end

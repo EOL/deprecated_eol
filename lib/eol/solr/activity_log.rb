@@ -218,6 +218,26 @@ module EOL
 
       end
 
+      def self.remove_watch_collection_logs
+        # Retrieve collection activity logs which doesn't belongs to watch collection.
+        collection_activity_logs = CollectionActivityLog.find(:all, :select => 'collection_activity_logs.id',
+          :joins => "JOIN #{Collection.full_table_name} c ON (collection_activity_logs.collection_id=c.id)",
+          :conditions => "c.special_collection_id = #{SpecialCollection.watch.id}")
+        return if collection_activity_logs.nil?
+        collection_activity_log_ids = collection_activity_logs.collect{|cal| cal.id}.in_groups_of(10000)
+        begin
+          solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_ACTIVITY_LOGS_CORE)
+          collection_activity_log_ids.each do |cali|
+            solr_connection.delete_by_query("activity_log_type:CollectionActivityLog AND
+                                             activity_log_id:(#{cali.compact.join(' OR ')})")
+          end
+        rescue Errno::ECONNREFUSED => e
+          puts "** WARNING: Solr connection failed."
+          return nil
+        end
+
+      end
+
     end
   end
 end

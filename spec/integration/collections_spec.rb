@@ -508,6 +508,40 @@ describe "Collections and collecting:" do
   it 'collection editors should have rel canonical link tag'
   it 'collection editors should not have prev and next link tags'
 
+  it 'should not index activity log in SOLR if the collection is watch collection' do
+    user = User.gen
+    data_object = DataObject.gen
+    new_collection = Collection.gen
+    new_collection.users = [user]
+    login_as user
+    
+    visit data_object_path(data_object)
+    click_link 'Add to a collection'
+    find(:css, "#collection_id_[value='#{user.watch_collection.id}']").set(true)
+    click_button 'Collect item'
+    body.should include('added to collection')
+    user.watch_collection.items.map {|li| li.object }.include?(data_object).should be_true
+    visit user_activity_path(user)
+    body.should_not have_tag('ul.feed li')
+    body.should_not include("Profile picture of #{user.full_name} who took this action.")
+    visit collection_newsfeed_path(new_collection)
+    body.should_not have_tag('ul.feed li')
+    body.should_not include("Profile picture of #{user.full_name} who took this action.")
+    
+    visit data_object_path(data_object)
+    click_link 'Add to a collection'
+    find(:css, "#collection_id_[value='#{new_collection.id}']").set(true)
+    click_button 'Collect item'
+    body.should include('added to collection')
+    user.watch_collection.items.map {|li| li.object }.include?(data_object).should be_true
+    visit user_activity_path(user)
+    body.should have_tag('ul.feed li')
+    body.should include("Profile picture of #{user.full_name} who took this action.")
+    visit collection_newsfeed_path(new_collection)
+    body.should have_tag('ul.feed li')
+    body.should include("Profile picture of #{user.full_name} who took this action.")
+  end
+
 end
 
 #TODO: test connection with Solr: filter, sort, total results, paging, etc

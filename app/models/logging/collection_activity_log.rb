@@ -13,6 +13,8 @@ class CollectionActivityLog < LoggingModel
   alias :link_to :collection # Needed for rendering links; we need to know which association to make the link to
 
   def log_activity_in_solr
+    return nil if self.collection_item.blank? || self.collection_item.collection.blank?
+    return if self.collection_item.collection.watch_collection?
     keyword = self.collection_item.object_type rescue nil
     base_index_hash = {
       'activity_log_unique_key' => "CollectionActivityLog_#{id}",

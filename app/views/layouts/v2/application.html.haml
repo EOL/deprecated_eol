@@ -14,7 +14,7 @@
     - # Prevents generation of links to "smart tags"
     %meta{ :name => "MSSmartTagsPreventParsing", :content => "true" }
     - unless @meta_data[:description].blank?
-      %meta{ :name => "description", :content => h(strip_tags(@meta_data[:description])) }
+      %meta{ :name => "description", :content => h(strip_tags(@meta_data[:description]).truncate(160)) }
     - unless @meta_data[:keywords].blank?
       %meta{ :name => "keywords", :content => h(strip_tags(@meta_data[:keywords])) }
     - if $ENABLED_SOCIAL_PLUGINS && $ENABLED_SOCIAL_PLUGINS.include?(:facebook) && $FACEBOOK_APP_ID
@@ -47,9 +47,6 @@
 
     = yield :head
   %body{:class => @home_page ? 'home' : nil}
-    %ul#controls.assistive
-      %li= link_to I18n.t(:skip_to_content), '#main'
-
     - unless @home_page
       - # For accessibility and SEO on pages other than home page we want content to appear first in the markup.
       #central
@@ -78,7 +75,7 @@
         - if logged_in?
           = render :partial => 'sessions/session_summary'
         - elsif $ALLOW_USER_LOGINS
-          = render :partial => 'shared/join_eol', :locals => {:join_style => @home_page ? 'button' : nil}
+          = render :partial => 'shared/join_eol'
         - elsif $ALLOW_USER_LOGINS == false && @home_page.nil?
           .session
             %p= I18n.t(:user_system_down)

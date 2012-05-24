@@ -713,6 +713,9 @@ en:
   collections:
     show:
       meta_description: "%{collection_description}"
+      meta_description_default: "An Encyclopedia of Life collection titled %{collection_name}."
+      meta_description_default_focus_collection: "An Encyclopedia of Life focus collection titled %{collection_name}."
+      meta_description_default_watch_collection: "An Encyclopedia of Life watch list: %{collection_name}."
       meta_keywords: "%{collection_name}, Encyclopedia of Life Collection"
       meta_title: "%{collection_name}"
       tweet_text: "%{collection_name}"
@@ -2052,7 +2055,6 @@ en:
     one: "Collection <em>%{collection_name}</em> successfully created with %{count} collection item."
     other: "Collection <em>%{collection_name}</em> successfully created with %{count} collection items."
   collection_delete_link: "Permanently delete this collection"
-  collection_description_default: "An Encyclopedia of Life collection."
   collection_destroyed: "The collection was deleted."
   collection_image: "Collection image"
   collection_is_empty: "This collection is currently empty."

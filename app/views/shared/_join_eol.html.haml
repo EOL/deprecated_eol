@@ -1,8 +1,7 @@
-- join_style ||= nil
 .session.join
   %h3.assistive= I18n.t(:login_or_create_account)
   %p= I18n.t(:join_eol_community_html)
-  %p{:class => join_style}= link_to I18n.t(:join_eol_button_html), new_user_path
+  %p{:class => @home_page ? 'button' : nil}= link_to I18n.t(:join_eol_button_html), new_user_path
   %p
     = I18n.t(:already_a_member_question)
     - return_to = current_url(false).gsub(/return_to=.*?&/, '')

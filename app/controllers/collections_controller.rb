@@ -185,11 +185,29 @@ class CollectionsController < ApplicationController
 protected
 
   def scoped_variables_for_translations
-    @scoped_variables_for_translations ||= super.dup.merge({
-      :collection_name => @collection ? @collection.name : nil,
-      :collection_description => (@collection && description = @collection.description.presence) ?
-        description : I18n.t(:collection_description_default)
-    }).freeze
+    return @scoped_variables_for_translations if defined?(@scoped_variables_for_translations)
+    @scoped_variables_for_translations = super.dup
+    @scoped_variables_for_translations[:collection_name] = @collection ? @collection.name : nil
+    if @collection
+      if description = @collection.description.presence
+        @scoped_variables_for_translations[:collection_description] = description
+      else
+        translation_vars_for_default_description = { :collection_name => @collection.name,
+                                                     :scope => controller_action_scope,
+                                                     :default => '' }
+        @scoped_variables_for_translations[:collection_description] = case @collection.special_collection_id
+        when SpecialCollection.focus.id
+          t(".meta_description_default_focus_collection", translation_vars_for_default_description.dup)
+        when SpecialCollection.watch.id
+          t(".meta_description_default_watch_collection", translation_vars_for_default_description.dup)
+        else
+          t(".meta_description_default", translation_vars_for_default_description.dup)
+        end
+      end
+    else
+      @scoped_variables_for_translations[:collection_description] = ''
+    end
+    @scoped_variables_for_translations.freeze
   end
 
   def meta_open_graph_image_url

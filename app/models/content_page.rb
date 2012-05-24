@@ -67,7 +67,20 @@ class ContentPage < $PARENT_CLASS_MUST_USE_MASTER
 
   def self.find_top_level
     # get pages where parent is null
-    ContentPage.find_all_by_parent_content_page_id(nil, :order => 'sort_order', :include => [ :translations, :children ])
+    ContentPage.find_all_by_parent_content_page_id(nil, :order => 'sort_order',
+    :select => {
+      :content_pages => '*',
+      :translated_content_pages => [ :id, :content_page_id, :language_id, :title, :created_at, :updated_at, :active_translation ],
+      :languages => '*'
+    },
+    :include => [ { :translations => :language },
+      { :children => [ { :translations => :language },
+        { :children => [ { :translations => :language },
+          { :children => [ { :translations => :language },
+            { :children => { :translations => :language } }
+          ] }
+        ] }
+      ] } ] )
   end
 
   def self.max_view_order_by_parent_id(parent_id)

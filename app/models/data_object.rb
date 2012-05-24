@@ -772,7 +772,7 @@ class DataObject < ActiveRecord::Base
   # this object's curation status: Green/Trusted, Gray/Unreviewed, Red/Untrusted, Red/Hidden
   # or if none available: nil, nil
   def status_class_and_label_by_taxon_concept(taxon_concept)
-    if best_association = association_with_exact_or_best_vetted_status(taxon_concept, :find_best => true)
+    if best_association = association_with_exact_or_best_vetted_status(taxon_concept)
       if best_association.visibility == Visibility.invisible
         return 'untrusted', I18n.t(:hidden)
       else

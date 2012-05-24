@@ -45,7 +45,7 @@ class DataObjectsController < ApplicationController
       @selected_toc_item_id = toc_id
       create_failed && return
     else
-      add_references
+      add_references(@data_object)
       current_user.log_activity(:created_data_object_id, :value => @data_object.id,
                                 :taxon_concept_id => @taxon_concept.id)
       # add this new object to the user's watch collection
@@ -115,7 +115,7 @@ class DataObjectsController < ApplicationController
       @data_object = new_data_object # We want to show the errors...
       update_failed(I18n.t(:dato_update_user_text_error)) and return
     else
-      add_references
+      add_references(new_data_object)
       current_user.log_activity(:updated_data_object_id, :value => new_data_object.id,
                                 :taxon_concept_id => new_data_object.taxon_concept_for_users_text.id)
       redirect_to data_object_path(new_data_object), :status => :moved_permanently
@@ -599,13 +599,13 @@ private
     end
   end
 
-  def add_references
+  def add_references(dato)
     return if params[:references].blank?
     references = params[:references].split("\n")
     unless references.blank?
       references.each do |reference|
         if reference.strip != ''
-          @data_object.refs << Ref.new(:full_reference => reference, :user_submitted => true, :published => 1,
+          dato.refs << Ref.new(:full_reference => reference, :user_submitted => true, :published => 1,
                                        :visibility => Visibility.visible)
         end
       end

@@ -895,7 +895,6 @@ ar:
     one: تم إنشاء مجموعة %{collection_name}</em>  بنجاح  بعنصر واحد
     other: "تم إنشاء مجموعة %{collection_name}</em>  بنجاح بـ %{count} عنصر "
   collection_delete_link: حذف تلك المجموعة نهائيًا
-  collection_description_default: أحدى مجموعات موسوعة الحياة.
   collection_destroyed: تم حذف المجموعة
   collection_image: صورة المجموعة
   collection_is_empty: المجموعة خالية حاليًا

@@ -60,6 +60,7 @@ es:
         name: Nombre de la comunidad
       contact: 
         comments: Mensaje
+        contact_subject_id: Tema de contacto
         email: Correo electrónico
         name: Nombre
       content_page: 
@@ -320,6 +321,13 @@ es:
         user_of_an_unknown_collection: <strong>%{user}</strong> fue añadido como administrador de una colección desconocida.
         user_of_collection: <strong>%{user}</strong> fue añadido como administrador a la colección "%{collection}".
         user_of_it: <strong>%{user}</strong> fue agregado como administrador.
+      bulk_add: 
+        an_unknown_user_added_bulk_items_to_an_unknown_collection: Un usuario desconocido ha añadido elementos desconocidos a una colección desconocida.
+        an_unknown_user_added_bulk_items_to_collection: Un usuario desconocido ha añadido elementos desconocidos a la colección "%{collection}".
+        an_unknown_user_added_bulk_items_to_it: Un usuario desconocido añadió elementos en grandes cantidades.
+        user_added_bulk_items_to_an_unknown_collection: <strong>%{user}</strong> añadió elementos en grandes cantidades a una colección desconocida.
+        user_added_bulk_items_to_collection: <strong>%{user}</strong> añadió elementos en grandes cantidades a la colección  "%{collection}".
+        user_of_it: <strong>%{user}</strong> añadió elementos en grandes cantidades.
       collect: 
         an_unknown_user_added_an_unknown_item_to_an_unknown_collection: Un usuario desconocido ha añadido un elemento desconocido a una colección desconocida.
         an_unknown_user_added_an_unknown_item_to_collection: Un usuario desconocido ha añadido un elemento desconocido a la colección "%{collection}".
@@ -490,9 +498,15 @@ es:
         an_unknown_user_preferred_classification_on_an_unknown_taxon: Un usuario desconocido marcó la clasificación de "%{provider}" como preferida para un taxón desconocido.
         an_unknown_user_preferred_classification_on_it: Un usuario desconocido marcó la clasificación de "%{provider}" como preferida.
         an_unknown_user_preferred_classification_on_taxon: Un usuario desconocido marcó la clasificación de "%{provider}" como preferida para "%{taxon}".
+        an_unknown_user_preferred_unknown_classification_on_an_unknown_taxon: Un usuario desconocido marcó una clasificación desconocida como preferida para un taxón desconocido.
+        an_unknown_user_preferred_unknown_classification_on_it: Un usuario desconocido marcó una clasificación desconocida como preferida.
+        an_unknown_user_preferred_unknown_classification_on_taxon: Un usuario desconocido marcó una clasificación desconocida como preferida para "%{taxon}".
         user_preferred_classification_on_an_unknown_taxon: <strong>%{user}</strong> marcó la clasificación de "%{provider}" como preferida para un taxón desconocido.
         user_preferred_classification_on_it: <strong>%{user}</strong> marcó la clasificación de "%{provider}" como preferida.
         user_preferred_classification_on_taxon: <strong>%{user}</strong> marcó la clasificación de "%{provider}" como preferida para "%{taxon}".
+        user_preferred_unknown_classification_on_an_unknown_taxon: <strong>%{user}</strong> marcó una clasificación desconocida como preferida para un taxón desconocido.
+        user_preferred_unknown_classification_on_it: <strong>%{user}</strong> marcó una clasificación desconocida como preferida.
+        user_preferred_unknown_classification_on_taxon: <strong>%{user}</strong> marcó una clasificación desconocida como preferida para "%{taxon}".
       reasons_to_hide: "Razones para ocultar: %{reasons}"
       reasons_to_untrust: "Razones para definir como no fiable: %{reasons}"
       remove_association: 
@@ -932,13 +946,13 @@ es:
     one: Colección <em>%{collection_name}</em> creado correctamente con %{count} elemento de la colección.
     other: Colección <em>%{collection_name}</em> creado correctamente con %{count} elemento de la colección.
   collection_delete_link: Elimina permanentemente esta colección
-  collection_description_default: Una colección de la Encyclopedia of Life.
   collection_destroyed: La colección fue eliminada.
   collection_image: Imagen de colección
   collection_is_empty: Esta colección está vacía.
   collection_item_edit_by_javascript_not_authorized_error: No tiene permiso para modificar este elemento de la colección. Si usted es propietario o editor de la colección, por favor, vuelva a cargar la página y compruebe que ha iniciado sesión.
   collection_item_edit_page_title: Editar elemento de la colección <em>%{collection_name}</em>
   collection_item_not_found_error: No se encontró ese elemento de la colección.
+  collection_name_cannot_be_blank: El nombre de la colección no puede estar vacío
   collection_name_label: Nombre de la colección
   collection_newsfeed: Newsfeed de Colección
   collection_not_created_error: Lo sentimos, ha ocurrido un error, la colección <em>%{collection_name}</em> no se pudo crear.
@@ -1104,6 +1118,10 @@ es:
   contacts: 
     errors: 
       message_not_sent: Lo sentimos. Se ha producido un error, y el mensaje no se ha enviado.
+    new: 
+      page_title: Por favor deja tu comentario
+    notices: 
+      message_sent: Gracias por tu comentario, tu mensaje ha sido enviado al grupo apropiado.
   containing_value: que contenga %{value}.
   content: 
     index: 
@@ -1310,6 +1328,12 @@ es:
   content_upload_restrictions_note: (debe ser menor de 10 MB; el archivo se almacenará como cargado, es decir, sin llevar a cabo ningún redimensionamiento de las imágenes)
   content_upload_url: http://%{domain}%{upload_attachment}
   contribute: Contribuir
+  copied_all_items_from_collection_with_count: 
+    one: Copia un elemento de %{from} a esta colección.
+    other: Copia todos los %{count} elementos de %{from} a esta colección.
+  copied_all_items_to_collections: 
+    one: Copia todos los elementos de %{name} a %{count} colección.
+    other: Copia todos los elementos de %{name} a %{count} colecciones.
   copied_items_from_collection_with_count_notice: 
     one: Copió %{count} elemento de %{name}.
     other: Copió %{count} elementos de %{name}.
@@ -1848,6 +1872,8 @@ es:
       cancel: Cancelar
       collection_item: 
         update: Guardar
+      contact: 
+        new: Enviar comentario
       content_page: 
         create: Crear página
         edit: Editar
@@ -2215,6 +2241,12 @@ es:
   move_to_bottom: Mover al final
   move_to_top: Mover al principio
   move_up: Mover hacia arriba
+  moved_all_items_from_collection_with_count: 
+    one: "Mueve #{count} elemento de %{from} a esta colección."
+    other: "Mueve todos los #{count} elementos de %{from} a esta colección."
+  moved_all_items_to_collections: 
+    one: Mueve todos los elementos de %{name} a %{count} colección.
+    other: Mueve todos los elementos de %{name} a %{count} colecciones.
   moved_items_from_collection_with_count_notice: 
     one: Trasladó %{count} elemento de %{name}.
     other: Trasladó %{count} elementos de %{name}.
@@ -2723,6 +2755,7 @@ es:
       meta_title: Iniciar sesión
       problems_signing_in_with_connected_accounts: ¿Problemas para iniciar sesión con tus cuentas conectadas?
       problems_signing_in_with_eol_authentication: ¿Has olvidado tu contraseña?
+      tip: ¿Usuario existente? Conecta tu cuenta de EOL con Facebook, Google y otras en la configuración de tu perfil. Una vez que tus cuentas estén conectadas se pueden utilizar para iniciar sesión en EOL.
   set_as_exemplar: Establecer como ejemplar
   share_a_collection: Compartir una colección
   show: Mostrar
@@ -3404,33 +3437,42 @@ es:
       errors: 
         facebook: 
           add_connection_failed_account_already_connected: Lo sentimos, no podemos conectar tu cuenta de Facebook a tu cuenta de EOL, tu cuenta de Facebook ya está conectada a una <a href="%{existing_eol_account_url}">cuenta de EOL</a>.
+          login_failed_not_connected: Lo sentimos, no hemos podido encontrar una conexión entre tu cuenta de Facebook y EOL. Si ya tienes una cuenta de EOL por favor, <a href="%{login_url}">inicia sesión en EOL</a> utilizando otras credenciales, a continuación, conecta tu cuenta de Facebook en la configuración de tu perfil de EOL. Si aún no tienes una cuenta de EOL por favor <a href="%{register_url}">completa tu registro en EOL</a> para crear una.
           missing_attributes: Lo sentimos, hubo un problema de acceso a tus datos de Facebook.
           new_authentication_not_added: Lo sentimos, ha ocurrido un error, no pudimos conectar tu cuenta de Facebook.
           not_authorized_to_add_authentication: Lo sentimos, no tenemos autorización para conectar a tu cuenta de Facebook.
+          not_authorized_to_login: Lo sentimos, no estamos autorizados para que inicies sesión en EOL utilizando tu cuenta de Facebook.
           not_authorized_to_signup: Lo sentimos, no estamos autorizados para suscribirte a EOL utilizando tu cuenta de Facebook.
           signup_failed_account_already_connected: Lo sentimos, no podemos suscribirte a una nueva cuenta de EOL con tu cuenta de Facebook, ya estás conectado a una <a href="%{existing_eol_account_url}">cuenta de usuario de EOL</a>. En lugar de eso ¿quisiste <a href="%{login_url}">iniciar sesión</a> ?
         google: 
           add_connection_failed_account_already_connected: Lo sentimos, no podemos conectar tu cuenta de Google a tu cuenta de EOL, tu cuenta de Google ya está conectada a una <a href="%{existing_eol_account_url}">cuenta de EOL</a>.
+          login_failed_not_connected: Lo sentimos, no hemos podido encontrar una conexión entre tu cuenta de Google y EOL. Si ya tienes una cuenta de EOL por favor, <a href="%{login_url}">inicia sesión en EOL</a> utilizando otras credenciales, a continuación, conecta tu cuenta de Google en la configuración de tu perfil de EOL. Si aún no tienes una cuenta de EOL por favor <a href="%{register_url}">completa tu registro en EOL</a> para crear una.
           missing_attributes: Lo sentimos, hubo un problema de acceso a tus datos de Google.
           new_authentication_not_added: Lo sentimos, ha ocurrido un error, no pudimos conectar tu cuenta de Google.
           not_authorized_to_add_authentication: Lo sentimos, no tenemos autorización para conectar a tu cuenta de Google.
+          not_authorized_to_login: Lo sentimos, no estamos autorizados para que inicies sesión en EOL utilizando tu cuenta de Google.
           not_authorized_to_signup: Lo sentimos, no estamos autorizados para suscribirte a EOL utilizando tu cuenta de Google.
           signup_failed_account_already_connected: Lo sentimos, no podemos suscribirte a una nueva cuenta de EOL con tu cuenta de Google, ya estás conectado a una <a href="%{existing_eol_account_url}">cuenta de usuario de EOL</a>. En lugar de eso ¿quisiste <a href="%{login_url}">iniciar sesión</a> ?
         missing_attributes: Lo sentimos, hubo un problema de acceso a los datos de tu cuenta externa.
         not_authorized_to_add_authentication: Lo sentimos, no tenemos autorización para conectar esa cuenta.
+        not_authorized_to_login: Lo sentimos, no estamos autorizados para iniciar sesión en EOL con esa cuenta.
         remove_connection_failed: Lo sentimos, ha ocurrido un error, no hemos podido eliminar la conexión.
         twitter: 
           add_connection_failed_account_already_connected: Lo sentimos, no podemos conectar tu cuenta de Twitter a tu cuenta de EOL, tu cuenta de Twitter ya está conectada a una <a href="%{existing_eol_account_url}">cuenta de EOL</a>.
+          login_failed_not_connected: Lo sentimos, no hemos podido encontrar una conexión entre tu cuenta de Twitter y EOL. Si ya tienes una cuenta de EOL por favor, <a href="%{login_url}">inicia sesión en EOL</a> utilizando otras credenciales, a continuación, conecta tu cuenta de Twitter en la configuración de tu perfil de EOL. Si aún no tienes una cuenta de EOL por favor <a href="%{register_url}">completa tu registro en EOL</a> para crear una.
           missing_attributes: Lo sentimos, hubo un problema de acceso a tus datos de Twitter.
           new_authentication_not_added: Lo sentimos, ha ocurrido un error, no pudimos conectar tu cuenta de Twitter.
           not_authorized_to_add_authentication: Lo sentimos, no tenemos autorización para conectar a tu cuenta de Twitter.
+          not_authorized_to_login: Lo sentimos, no estamos autorizados para que inicies sesión en EOL utilizando tu cuenta de Twitter.
           not_authorized_to_signup: Lo sentimos, no estamos autorizados para suscribirte a EOL utilizando tu cuenta de Twitter.
           signup_failed_account_already_connected: Lo sentimos, no podemos suscribirte a una nueva cuenta de EOL con tu cuenta de Twitter, ya estás conectado a una <a href="%{existing_eol_account_url}">cuenta de usuario de EOL</a>. En lugar de eso ¿quisiste <a href="%{login_url}">iniciar sesión</a> ?
         yahoo: 
           add_connection_failed_account_already_connected: Lo sentimos, no podemos conectar tu cuenta de Yahoo a tu cuenta de EOL, tu cuenta de Yahoo ya está conectada a una <a href="%{existing_eol_account_url}">cuenta de EOL</a>.
+          login_failed_not_connected: Lo sentimos, no hemos podido encontrar una conexión entre tu cuenta de Yahoo! y EOL. Si ya tienes una cuenta de EOL por favor, <a href="%{login_url}">inicia sesión en EOL</a> utilizando otras credenciales, a continuación, conecta tu cuenta de Yahoo! en la configuración de tu perfil de EOL. Si aún no tienes una cuenta de EOL por favor <a href="%{register_url}">completa tu registro en EOL</a> para crear una.
           missing_attributes: Lo sentimos, hubo un problema de acceso a tus datos de Yahoo!.
           new_authentication_not_added: Lo sentimos, ha ocurrido un error, no pudimos conectar tu cuenta de Yahoo!.
           not_authorized_to_add_authentication: Lo sentimos, no tenemos autorización para conectar a tu cuenta de Yahoo!.
+          not_authorized_to_login: Lo sentimos, no estamos autorizados para que inicies sesión en EOL utilizando tu cuenta de Yahoo!.
           not_authorized_to_signup: Lo sentimos, no estamos autorizados para suscribirte a EOL utilizando tu cuenta de Yahoo!.
           signup_failed_account_already_connected: Lo sentimos, no podemos suscribirte a una nueva cuenta de EOL con tu cuenta de Yahoo!, ya estás conectado a una <a href="%{existing_eol_account_url}">cuenta de usuario de EOL</a>. En lugar de eso ¿quisiste <a href="%{login_url}">iniciar sesión</a> ?
       facebook: Facebook
@@ -3462,6 +3504,7 @@ es:
     pending: 
       header: ¡Gracias por registrarte!
       verify_email_instructions: <strong>Por favor, verifica tu dirección de correo electrónico</strong>. Se te ha enviado un mensaje de confirmación a la dirección que has proporcionado. Para completar el proceso de registro y convertirte en un miembro de EOL, por favor, haz clic en el enlace que se incluye en dicho mensaje. ¡Gracias!
+      verify_email_tip: Ten en cuenta que los mensajes de correo electrónico de activación de la cuenta son marcados <em>con frecuencia</em> como 'Spam' por los filtros de correo electrónico. Comprueba tu carpeta de Spam si no recibes el correo electrónico dentro de una hora.
     recover_account: 
       errors: 
         temporary_login_user_not_found: Lo sentimos, no se ha podido encontrar la cuenta de EOL que estás tratando de recuperar, por favor solicita un nuevo correo electrónico para recuperar tu cuenta.
@@ -3579,6 +3622,7 @@ es:
     page_gap: "&hellip;"
     previous_label: "&#8592; Anterior"
   worklist: Lista de trabajo
+  would_you_like_to_become_a_curator_notice: ¿Te gustaría convertirte en un conservador/a? Puedes solicitar acceso a <a href='%{url}'>tu página de perfil</a>.
   xml_response: Respuesta XML
   yahoo: Yahoo
   yahoo_images: Imágenes de Yahoo

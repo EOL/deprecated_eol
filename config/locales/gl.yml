@@ -47,6 +47,11 @@ gl:
         description: Descrición da comunidade
         logo: Cargar un logotipo
         name: Nome da comunidade
+      contact: 
+        comments: Mensaxe
+        contact_subject_id: Asunto
+        email: Correo electrónico
+        name: Nome
       content_page: 
         active: Publicado
         page_name: Nome único
@@ -296,6 +301,44 @@ gl:
   activity: Actividade
   activity_log_empty: Ninguén proporcionou actualización ningunha aínda.
   activity_log_empty_learn_more_link: Descubre como contribuír
+  activity_logs: 
+    collection_activity_log: 
+      collect: 
+        user_added_item_to_it: <strong>%{user}</strong> engadiu "%{item}".
+      other_actions: 
+        user_modified_collection: <strong>%{user}</strong> modificou a colección "%{collection}".
+    community_activity_log: 
+      add_manager: 
+        user_added_an_unknown_manager_to_an_unknown_community: <strong>%{user}</strong> engadiu un administrador descoñecido a un obxecto descoñecido.
+        user_added_an_unknown_manager_to_community: <strong>%{user}</strong> engadiu un administrador descoñecido á comunidade "%{community}".
+        user_added_manager_to_an_unknown_community: <strong>%{user}</strong> engadiu a "%{manager}" a unha comunidade descoñecida.
+        user_added_manager_to_community: <strong>%{user}</strong> engadiu a "%{manager}" como administrador da comunidade "%{community}".
+      change_description: 
+        user_changed_the_description_of_community: <strong>%{user}</strong> cambiou a descrición da comunidade "%{community}".
+      change_icon: 
+        user_changed_the_icon_of_an_unknown_community: <strong>%{user}</strong> cambiou o logotipo dunha comunidade descoñecida.
+        user_changed_the_icon_of_community: <strong>%{user}</strong> cambiou o logotipo da comunidade "%{community}".
+      change_name: 
+        user_changed_the_name_of_an_unknown_community: <strong>%{user}</strong> cambiou o nome dunha comunidade descoñecida.
+        user_changed_the_name_of_community: <strong>%{user}</strong> cambiou o nome da comunidade "%{community}".
+      create: 
+        user_created_an_unknown_community: <strong>%{user}</strong> creou unha comunidade descoñecida.
+        user_created_community: <strong>%{user}</strong> creou a comunidade "%{community}".
+      join: 
+        user_joined_an_unknown_community: <strong>%{user}</strong> uniuse a unha comunidade descoñecida.
+        user_joined_community: <strong>%{user}</strong> uniuse á comunidade "%{community}".
+      leave: 
+        user_left_an_unknown_community: <strong>%{user}</strong> deixou unha comunidade descoñecida.
+        user_left_community: <strong>%{user}</strong> deixou a comunidade "%{community}".
+      other_actions: 
+        user_modified_an_unknown_community: <strong>%{user}</strong> modificou unha comunidade descoñecida.
+        user_modified_community: <strong>%{user}</strong> modificou a comunidade "%{community}".
+    curator_activity_log: 
+      other_actions: 
+        user_curated_an_unknown_data_object: <strong>%{user}</strong> conservou un obxecto de datos descoñecido.
+        user_curated_data_object: <strong>%{user}</strong> conservou "%{data_object}".
+      reasons_to_hide: "Motivos para agochar: %{reasons}"
+      reasons_to_untrust: "Motivos para deixar de confiar: %{reasons}"
   activity_user_created_text: <strong>%{user}</strong> engadiu texto a "%{object_name}" en "%{taxon_concept}".
   activity_user_updated_text: <strong>%{user}</strong> actualizou texto de "%{object_name}" en "%{taxon_concept}".
   add: Engadir
@@ -565,7 +608,10 @@ gl:
   citation: Cita
   citation_example: Fisher, Brian. "Pogonomyrmex anergismus Cole, 1954." Enciclopedia da vida, dispoñible en <a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>. Consultado o 15 de xaneiro de 2009.
   citing_link: Citando
+  classification_already_preferred: "ERRO: Esta clasificación xa está marcada como preferida."
+  classification_from_agent_chosen_by_curator: Clasificación de %{agent} seleccionada por %{curator}.
   classification_preferred_for_taxon: Preferido
+  classification_preferred_for_taxon_help_tip: "%{icon} sinala a clasificación preferida para este taxon."
   classification_summary_section_header: Clasificación
   classification_tree_header: Clasificación
   classifications_empty: Esta páxina non está incluída en ningunha das clasificacións que se poden explorar na EOL.
@@ -598,13 +644,13 @@ gl:
     one: Creouse a colección <em>%{collection_name}</em> con %{count} elemento.
     other: Creouse a colección <em>%{collection_name}</em> con %{count} elementos.
   collection_delete_link: Borrar permanentemente esta colección
-  collection_description_default: Unha colección da Enciclopedia da vida.
   collection_destroyed: Borrouse a colección.
   collection_image: Imaxe da colección
   collection_is_empty: Esta colección está baleira.
   collection_item_edit_by_javascript_not_authorized_error: Sentímolo, non tes os permisos necesarios para editar este elemento de colección. Se ti es o propietario ou editor da colección, volve cargar a páxina e comproba que accediches ao sistema.
   collection_item_edit_page_title: Editar o elemento da colección <em>%{collection_name}</em>
   collection_item_not_found_error: Non se puido atopar o elemento da colección.
+  collection_name_cannot_be_blank: O nome da colección non pode estar baleiro
   collection_name_label: Nome da colección
   collection_newsfeed: Fonte de novas da colección
   collection_not_created_error: Sentímolo, houbo un erro. Non se creou a colección <em>%{collection_name}</em>.
@@ -625,6 +671,12 @@ gl:
     inaturalists: 
       show: 
         add_observations: Engadir observacións
+        no_observations_added_to_this_project_yet: Aínda non se engadiron observacións ao proxecto.
+        observation_date: "Data: %{observed_on}"
+        observation_place: "Lugar: %{place}"
+        observer_with_link: "Observador: %{observer_link}"
+        recent_observations: Observacións recentes
+        some_taxon: Algo
         taxa_observed: 
           one: "%{count} taxon observado"
           other: "%{count} taxons observados"
@@ -747,6 +799,13 @@ gl:
   contact_us_link: Contacta con nós
   contact_us_submissions: Envíos de contacto
   contact_us_topics: Temas de contacto
+  contacts: 
+    errors: 
+      message_not_sent: Sentímolo, houbo un erro. Non se enviou a túa mensaxe.
+    new: 
+      page_title: Deixa os teus comentarios
+    notices: 
+      message_sent: Grazas polos teus comentarios. A túa mensaxe enviouse ao grupo apropiado.
   containing_value: que conteña %{value}.
   content: 
     index: 
@@ -884,6 +943,7 @@ gl:
   content_partner_resource_update_unsuccessful_error: Sentímolo, houbo un erro. Non se actualizaron os detalles do recurso.
   content_partner_resource_upload_unsuccessful_error: "Sentímolo, houbo un erro. Actualizáronse os detalles do recurso, pero non se cargou o recurso en si: %{resource_status}."
   content_partner_resource_url_or_dataset_not_both_error: URL do conxunto de datos ou ficheiro por recurso, pero non ambos. Decide se queres proporcionar un enderezo URL ou cargar un ficheiro para o recurso descrito. Pódense engadir recursos adicionais máis adiante.
+  content_partner_resource_validation_unsuccessful_error: Sentímolo, actualizáronse os detalles do recurso pero non se puido validar o recurso. Bota un ollo ás notas de procesamento.
   content_partner_resource_vetted_false: Non
   content_partner_resource_vetted_true: Si
   content_partner_resource_view_link: Ver
@@ -950,6 +1010,12 @@ gl:
   content_upload_restrictions_note: (debe ser de menos de 10 MB; o ficheiro almacénase como cargado, é dicir, non se levará a cabo ningún redimensionado das imaxes)
   content_upload_url: http://%{domain}%{upload_attachment}
   contribute: Contribuír
+  copied_all_items_from_collection_with_count: 
+    one: Copiou un elemento de "%{from}" a esta colección.
+    other: Copiou os %{count} elementos de "%{from}" a esta colección.
+  copied_all_items_to_collections: 
+    one: Copiou todos os elementos de "%{name}" a %{count} colección.
+    other: Copiou todos os elementos de "%{name}" a %{count} coleccións.
   copied_items_from_collection_with_count_notice: 
     one: Copiou %{count} elemento de "%{name}".
     other: Copiou %{count} elementos de "%{name}".
@@ -1058,7 +1124,7 @@ gl:
   dato_edit_text_title: Editar un artigo
   dato_new_edit_user_text_fieldset_content_header: Contidos do artigo
   dato_new_edit_user_text_fieldset_information_header: Información do artigo
-  dato_new_edit_user_text_form_tip: O teu artigo será marcado como "sen revisar" ata que un conservador lle bote unha ollada. Se es un conservador, o teu artigo publicarase directamente na páxina do taxon. (%{required_icon}) Cómpre encher o campo de texto marcado cun punto.
+  dato_new_edit_user_text_form_tip: O teu artigo terminado hase publicar na páxina do taxon. Se non es un conservador, será marcado como "sen revisar" ata que un conservador lle bote unha ollada. O subcapítulo, o texto, a lingua e a licenza son obrigatorios (%{required_icon}), o resto de campos son opcionais. Se seleccionas unha licenza CC-BY (recoñecemento), inclúe o titular dos dereitos ou déixao en branco para usar o teu nome completo. As licenzas de dominio público non necesitan un titular dos dereitos. Se necesitas máis axuda podes consultar o <a href="%{add_article_help_url}">artigo de axuda</a>.
   dato_new_text_for_taxon_page_title: Engadir un artigo a <i>%{taxon}</i>
   dato_new_text_page_description: Grazas por contribuíres na EOL. O artigo engadirase á túa lista de vixilancia para que poidas seguir calquera conversa relacionada con el e comprobar o seu estado de conservación.
   dato_update_user_text_error: Sentímolo, houbo un erro. Non se actualizou o artigo.
@@ -1191,7 +1257,11 @@ gl:
   exception: Excepción
   exceptions: 
     security_violations: 
+      administrators_only: Sentímolo, o acceso está restrinxido aos administradores da EOL.
       default: Acceso rexeitado.
+      hidden_user_login: Sentímolo, o inicio de sesión está desactivado para esa conta.
+      hidden_user_recover_account: Sentímolo, a recuperación da conta está desactivada para esa conta.
+      hidden_user_temporary_login: Sentímolo, a recuperación da conta e o inicio de sesión están desactivados para esa conta.
   expand_all_children: expandir todas as dependencias
   explore: Explorar
   explore_what_we_know_about_taxon: Explorar o que a EOL sabe acerca de %{taxon}.
@@ -1334,6 +1404,11 @@ gl:
         sort_field_show: "Valor de ordenación:"
       comment: 
         body_edit: Editar o comentario
+      contact: 
+        comments: A túa mensaxe
+        contact_subject_id: Asunto
+        email: O teu enderezo de correo electrónico
+        name: O teu nome
       content_page: 
         active: Publicado
         active_more: As páxinas publicadas serán visibles para o público. Desmarca <em>publicado</em> se queres evitar que os usuarios vexan versións desta páxina en calquera lingua.
@@ -1473,6 +1548,8 @@ gl:
       cancel: Cancelar
       collection_item: 
         update: Gardar
+      contact: 
+        new: Enviar os comentarios
       content_page: 
         create: Crear a páxina
         edit: Editar
@@ -1827,6 +1904,9 @@ gl:
     one: "%{count} máis..."
     other: "%{count} máis..."
   more_information_on_the_various_licenses: licenzas. Visita o seu sitio para obter máis información sobre as licenzas que ofrecen
+  more_siblings_with_count: 
+    one: "%{count} irmán máis..."
+    other: "%{count} irmáns máis..."
   most_active_members: Membros máis activos
   move: Mover
   move_down: Mover abaixo
@@ -1983,6 +2063,8 @@ gl:
     user_commented_on_something_date_body: "O %{curator_level} %{users_name} (%{users_url}) comentou en:\n%{commented_on_name} (%{commented_on_url})\n%{comment_date}:\n%{comment_body}"
     user_message: 
       subject: Unha mensaxe da Enciclopedia da vida
+    user_recover_account: 
+      subject: Recuperación a túa conta da Enciclopedia da vida
     user_updated_email_preferences: 
       message: "Esta é unha notificación automática do sistema da EOL. O usuario %{user_full_name} (%{user_profile_url}) actualizou o seu enderezo de correo electrónico ou as súas preferencias da lista de correo.\n\nPreferencias antigas:\nCorreo electrónico: %{previous_email}\nLista de correo: %{previous_mailing_list_preference}\n\nPreferencias actuais:\nCorreo electrónico: %{updated_email}\nLista de correo: %{updated_mailing_list_preference}\nActualizado o: %{updated_at}"
       subject: O usuario %{user_full_name} da EOL cambiou o seu enderezo de correo electrónico ou as súas preferencias da lista de correo
@@ -2154,6 +2236,23 @@ gl:
   rating_not_added_error: Sentímolo, houbo un erro. Non se engadiu a avaliación.
   recaptcha: Escribe as dúas palabras que vexas a continuación
   recaptcha_incorrect_error_with_anchor: Os <a href="#%{recaptcha_anchor}">caracteres do reCaptcha</a> non coinciden. Inténtao de novo.
+  recent_activities: 
+    index: 
+      list_header: Últimos 7 días
+      meta_keywords: actividade comunitaria da eol, acitivade recente na eol, actividades na enciclopedia da vida
+      meta_title: Actividade comunitaria da EOL
+      page_title: Actividade comunitaria da EOL
+  recent_activity: 
+    collection_activity_log_title: "%{who} modificou unha colección"
+    comment_body_brief: "%{body} - %{author}"
+    comment_title: "%{who} deixou un comentario en \"%{what}\""
+    comment_title_your_newsfeed: "%{who} deixou un comentario na túa fonte de novas"
+    community_activity_log_title: "%{who} modificou unha comunidade"
+    curator_activity_log_title: "%{who} conservou algo"
+    data_object_title: "%{who} engadiu novos contidos á EOL"
+    default_subject: Actividade recente na EOL
+    intro_immediately: Boas, %{name} —
+    someone_commented_on_something: <b>%{who}</b> deixou un comentario en "<b>%{what}</b>".
   recent_updates: Actualizacións recentes
   recently_visited: Visitados recentemente
   recipients: Destinatarios
@@ -2282,9 +2381,15 @@ gl:
   server_ip_address: Servidor do enderezo IP
   sessions: 
     new: 
+      login_with_eol_authentication_header: "Ou accede coas túas credenciais da EOL:"
+      login_with_facebook_assistive: Accede á EOL mediante as túas credenciais do Facebook.
+      login_with_google_assistive: Accede á EOL mediante as túas credenciais do Google.
+      login_with_twitter_assistive: Accede á EOL mediante as túas credenciais do Twitter.
+      login_with_yahoo_assistive: Accede á EOL mediante as túas credenciais do Yahoo.
       meta_title: Rexistro
       problems_signing_in_with_connected_accounts: Tes problemas para iniciar sesión coas túas contas conectadas?
       problems_signing_in_with_eol_authentication: Esqueciches o teu contrasinal?
+      tip: Xa es usuario? Conecta a túa conta da EOL co Facebook, Google e outros servizos desde a configuración do teu perfil. Unha vez que as túas contas estean conectadas, podes empregalas para iniciar sesión na EOL.
   set_as_exemplar: Establecer como exemplar
   share_a_collection: Compartir unha colección
   show: Mostrar
@@ -2774,6 +2879,7 @@ gl:
   total_searches: "Procuras totais:"
   translation_deleted: Borrouse a tradución
   translation_information_header: Información sobre a tradución
+  translation_log: Histograma de frecuencias de claves de i18n
   translation_saved: Gardouse a tradución
   translations_submit: Ollar a tradución
   trigger_search_term_entered_by: executar o termo de procura inserido polo usuario
@@ -2922,8 +3028,14 @@ gl:
         meta_title: Socios de contidos de %{user_full_name}
         tweet_text: Socios de contidos de %{user_full_name}
     new: 
+      complete_registration_header: Completa o teu rexistro na EOL
       create_user_header: Crea unha nova conta na <abbr title="Enciclopedia da vida">EOL</abbr>
+      create_user_with_eol_authentication_header: "Ou dá unhas novas credenciais:"
       meta_title: Únete á EOL
+      sign_up_with_facebook_assistive: Únete á EOL mediante as túas credenciais do Facebook.
+      sign_up_with_google_assistive: Únete á EOL mediante as túas credenciais do Google.
+      sign_up_with_twitter_assistive: Únete á EOL mediante as túas credenciais do Twitter.
+      sign_up_with_yahoo_assistive: Únete á EOL mediante as túas credenciais do Yahoo.
     newsfeeds: 
       activity: 
         meta_title: Fonte de novas das actividade de %{user_full_name}
@@ -2947,6 +3059,8 @@ gl:
       google: Google
       twitter: Twitter
       yahoo: Yahoo!
+    pending: 
+      header: Grazas por te rexistrares!
     show: 
       meta_description: Perfil de %{user_full_name} na Enciclopedia da vida.
       meta_description_curator: Perfil do %{curator_level} %{user_full_name} na Enciclopedia da vida.
@@ -3017,6 +3131,7 @@ gl:
   visitors: Visitantes
   vivisimo: Vivisimo
   wants_colon: "Quere:"
+  warning_you_are_editing_as_admin: "AVISO: Non podes editar esta páxina porque non es administrador."
   watch_list: Lista de vixilancia
   watch_list_newsfeed: Fonte de novas da lista de vixilancia
   web_service_base_url: URL de base do servizo web
@@ -3045,6 +3160,7 @@ gl:
     page_gap: "&hellip;"
     previous_label: "&#8592; Anterior"
   worklist: Lista de traballo
+  would_you_like_to_become_a_curator_notice: Queres converterte nun conservador? Podes solicitar acceso na <a href='%{url}'>páxina do teu perfil</a>.
   xml_response: Resposta XML
   yahoo: Yahoo
   yahoo_images: Yahoo Imaxes

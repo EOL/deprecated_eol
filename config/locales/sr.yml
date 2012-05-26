@@ -546,7 +546,6 @@ sr:
     one: Збирка <em>%{collection_name}</em> је направљена са %{count} ставком.
     other: Збирка <em>%{collection_name}</em> је направљена са %{count} ставке.
   collection_delete_link: Трајно обриши ову збирку
-  collection_description_default: Збирка на Енциклопедији живота.
   collection_destroyed: Збирка је обрисана.
   collection_image: Слика збирке
   collection_is_empty: Ова збирка је тренутно празна.

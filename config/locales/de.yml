@@ -314,6 +314,13 @@ de:
         user_of_an_unknown_collection: <strong>%{user}</strong> wurde zum Verwalter einer unbekannten Sammlung gemacht.
         user_of_collection: <strong>%{user}</strong> wurde zum Verwalter der Sammlung „%{collection}“ gemacht.
         user_of_it: <strong>%{user}</strong> wurde zum Verwalter gemacht.
+      bulk_add: 
+        an_unknown_user_added_bulk_items_to_an_unknown_collection: Ein unbekannter Nutzer fügte massenhaft Objekte einer unbekannten Sammlung hinzu.
+        an_unknown_user_added_bulk_items_to_collection: Ein unbekannter Nutzer fügte massenhaft Objekte der Sammlung „%{collection}“ hinzu.
+        an_unknown_user_added_bulk_items_to_it: Ein unbekannter Nutzer fügte massenhaft Objekte hinzu.
+        user_added_bulk_items_to_an_unknown_collection: <strong>%{user}</strong> fügte massenhaft Objekte einer unbekannten Sammlung hinzu.
+        user_added_bulk_items_to_collection: <strong>%{user}</strong> fügte massenhaft Objekte der Sammlung „%{collection}“ hinzu.
+        user_of_it: <strong>%{user}</strong> fügte massenhaft Objekte hinzu.
       collect: 
         an_unknown_user_added_an_unknown_item_to_an_unknown_collection: Ein unbekannter Nutzer fügte ein unbekanntes Objekte einer unbekannten Sammlung hinzu.
         an_unknown_user_added_an_unknown_item_to_collection: Ein unbekannter Nutzer fügte ein unbekanntes Objekt der Sammlung „%{collection}“ hinzu.
@@ -926,7 +933,6 @@ de:
     one: Die Sammlung <em>%{collection_name}</em> wurde erfolgreich mit einem Sammlungsobjekt erstellt.
     other: Die Sammlung <em>%{collection_name}</em> wurde erfolgreich mit %{count} Sammlungsobjekten erstellt.
   collection_delete_link: Diese Sammlung dauerhaft löschen
-  collection_description_default: Eine Sammlung der Enzyklopädie des Lebens (EOL).
   collection_destroyed: Die Sammlung wurde gelöscht.
   collection_image: Bild der Sammlung
   collection_is_empty: Diese Sammlung enthält derzeit nichts.
@@ -2584,7 +2590,7 @@ de:
     default_subject: Kürzliche Aktivitäten auf EOL
     intro: Ihre Zusammenfassung zu Aktivitäten auf EOL für %{time}
     intro_immediately: Hallo %{name} —
-    intro_weekly: Nun erhalten Sie die Übersicht zu Ihren Aktivitäten auf der EOL, für zu zum %{ending} endende Woche
+    intro_weekly: Nun erhalten Sie die Übersicht zu Ihren Aktivitäten auf der EOL, für die zum %{ending} endende Woche.
     see_all_activity: Alle bisherigen Aktivitäten auf <a href='%{activity_url}' style='color:#195184'>der Seite mit Ihrem Neuigkeitenfeed</a>.
     someone_commented_on_something: <b>%{who}</b> hat <b>%{what}</b> kommentiert.
     unsubscribe: Ändern Sie bitte Ihre E-Mail-Einstellungen oder beenden Sie Ihr Abonnement der Benachrichtigungen <a href='%{email_prefs_url}'>auf der Seite mit den Benachrichtigungseinstellungen</a>.
@@ -3594,6 +3600,7 @@ de:
     page_gap: "&hellip;"
     previous_label: "&#8592; Zurück"
   worklist: Arbeitsliste
+  would_you_like_to_become_a_curator_notice: Möchten Sie gerne ein Kurator werden? Sie können diese Berechtigung über <a href='%{url}'>Ihre Profilseite</a> beantragen.
   xml_response: XML-Antwort
   yahoo: Yahoo
   yahoo_images: Yahoo Images

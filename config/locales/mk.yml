@@ -310,6 +310,13 @@ mk:
         user_of_an_unknown_collection: <strong>%{user}</strong> е додаден како раководител на непозната збирка.
         user_of_collection: <strong>%{user}</strong> е додаден како раководител на збирката „%{collection}“.
         user_of_it: Корисникот <strong>%{user}</strong> е додаден како раководител.
+      bulk_add: 
+        an_unknown_user_added_bulk_items_to_an_unknown_collection: Непознат корисник додаде експонати на ангро во непозната збирка.
+        an_unknown_user_added_bulk_items_to_collection: Непознат корисник додаде експонати на ангро во збирката „%{collection}“.
+        an_unknown_user_added_bulk_items_to_it: Непознат корисник додаде експонати на ангро.
+        user_added_bulk_items_to_an_unknown_collection: <strong>%{user}</strong> додаде експонати на ангро во непозната збирка.
+        user_added_bulk_items_to_collection: <strong>%{user}</strong> додаде експонати на ангро во збирката „%{collection}“.
+        user_of_it: <strong>%{user}</strong> додаде експонати на ангро.
       collect: 
         an_unknown_user_added_an_unknown_item_to_an_unknown_collection: Непознат корисник додаде непознат експонат во непозната збирка.
         an_unknown_user_added_an_unknown_item_to_collection: Непознат корисник додаде непознат експонат во збирката „%{collection}“.
@@ -480,9 +487,15 @@ mk:
         an_unknown_user_preferred_classification_on_an_unknown_taxon: Непознат корисник ја означи класификацијата од „%{provider}“ како претпочитана за непознат таксон.
         an_unknown_user_preferred_classification_on_it: Непознат корисник ја означи класификацијата од „%{provider}“ како претпочитана.
         an_unknown_user_preferred_classification_on_taxon: Непознат корисник ја означи класификацијата од „%{provider}“ како претпочитана за непознат „%{taxon}“.
+        an_unknown_user_preferred_unknown_classification_on_an_unknown_taxon: Непознат корисник означи непозната класификација како претпочитана за непознат таксон.
+        an_unknown_user_preferred_unknown_classification_on_it: Непознат корисник означи непозната класификација како претпочитана.
+        an_unknown_user_preferred_unknown_classification_on_taxon: Непознат корисник означи непозната класификација како претпочитана за „%{taxon}“.
         user_preferred_classification_on_an_unknown_taxon: <strong>%{user}</strong> ја означи класификацијата од „%{provider}“ како претпочитана за непознат таксон.
         user_preferred_classification_on_it: <strong>%{user}</strong> ја означи класификацијата од „%{provider}“ како претпочитана.
         user_preferred_classification_on_taxon: <strong>%{user}</strong> ја означи класификацијата од „%{provider}“ како претпочитана за „%{taxon}“.
+        user_preferred_unknown_classification_on_an_unknown_taxon: <strong>%{user}</strong> означи непозната класификација како претпочитана за непознат таксон.
+        user_preferred_unknown_classification_on_it: <strong>%{user}</strong> означи непозната класификација како претпочитана.
+        user_preferred_unknown_classification_on_taxon: <strong>%{user}</strong> означи непозната класификација како претпочитана за „%{taxon}“.
       reasons_to_hide: "Причини за скривањето: %{reasons}"
       reasons_to_untrust: "Причини за недоверливост: %{reasons}"
       remove_association: 
@@ -922,7 +935,6 @@ mk:
     one: Збирката <em>%{collection_name}</em> е успешно создадена со %{count} експонат.
     other: Збирката <em>%{collection_name}</em> е успешно создадена со %{count} експонати.
   collection_delete_link: Трајно избриши ја збиркава
-  collection_description_default: Збирка на Енциклопедијата на живиот свет.
   collection_destroyed: Збирката е избришена.
   collection_image: Слика за збирката
   collection_is_empty: Оваа збирка е моментално празна.
@@ -1303,6 +1315,12 @@ mk:
   content_upload_restrictions_note: (не смее да биде поголема од 10 МБ; податотеката ќе биде зачувана каква што е при подигањето, т.е. нема да се менуваат димензиите)
   content_upload_url: http://%{domain}%{upload_attachment}
   contribute: Учествувајте
+  copied_all_items_from_collection_with_count: 
+    one: Прекопиран еден експонат од %{from} во оваа збирка.
+    other: Прекопирани сите експонати %{count} од %{from} во оваа збирка.
+  copied_all_items_to_collections: 
+    one: Преместени сите експонати од %{name} во %{count} збирка.
+    other: Преместени сите експонати од %{name} во %{count} збирки.
   copied_items_from_collection_with_count_notice: 
     one: Ископиран е %{count} експонат од %{name}.
     other: Ископирани се %{count} експонати од %{name}.
@@ -1431,7 +1449,7 @@ mk:
   destroy: Уништи
   detail: Подробно
   details: Подробно
-  details_title: Подробности
+  details_title: Подробно
   development_version_name: EOL вер.2 Бета
   did_you_mean: "Дали мислевте на: %{suggestions} ?"
   disable_email_notifications_colon: "Оневозможени адреси:"
@@ -2179,7 +2197,7 @@ mk:
       suggestions: Предлози
     taxa: 
       community: Заедница
-      details: Подробности
+      details: Подробно
       images: Слики
       literature: Литература
       maps: Карти
@@ -2210,6 +2228,12 @@ mk:
   move_to_bottom: премести најдолу
   move_to_top: премести најгоре
   move_up: Премести нагоре
+  moved_all_items_from_collection_with_count: 
+    one: "Преместен #{count} експонат од %{from} во оваа збирка."
+    other: "Преместени сите #{count} експонати од %{from} во оваа збирка."
+  moved_all_items_to_collections: 
+    one: Преместени сите експонати од %{name} во %{count} збирка.
+    other: Преместени сите експонати од %{name} во %{count} збирки.
   moved_items_from_collection_with_count_notice: 
     one: Преместен %{count} експонат од %{name}.
     other: Преместени %{count} експонати од %{name}.
@@ -3588,6 +3612,7 @@ mk:
     page_gap: "&hellip;"
     previous_label: "&#8592; Претходна"
   worklist: Работен список
+  would_you_like_to_become_a_curator_notice: Дали би сакале да станете кустос? Кустоски пристап може да побарате на <a href='%{url}'>вашата профилна страница</a>.
   xml_response: XML-одговор
   yahoo: Yahoo!
   yahoo_images: Yahoo Слики

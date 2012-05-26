@@ -34,7 +34,7 @@ nl:
         sort_style_id: Standaard sorteerrichting
       collection_item: 
         annotation: Annotatie
-        refs: Verwijzingen
+        refs: Referenties
         sort_field: Sorteren op
       comment: 
         body: Opmerking
@@ -296,6 +296,32 @@ nl:
   activity: Activiteit
   activity_log_empty: Niemand heeft de gegevens nog bijgewerkt.
   activity_log_empty_learn_more_link: Hoe u kunt bijdragen
+  activity_logs: 
+    collection_activity_log: 
+      collect: 
+        an_unknown_user_added_an_unknown_item_to_an_unknown_collection: Een onbekende gebruiker heeft een onbekend item toegevoegd aan een onbekende verzameling.
+        an_unknown_user_added_an_unknown_item_to_collection: Een onbekende gebruiker heeft een onbekend item toegevoegd aan de verzameling "%{collection}".
+        an_unknown_user_added_item_to_an_unknown_collection: Een onbekende gebruiker heeft "%{item}" toegevoegd aan een onbekende verzameling.
+      remove: 
+        an_unknown_user_removed_an_unknown_item_from_an_unknown_collection: Een onbekende gebruiker heeft een onbekend item uit een onbekende verzameling verwijderd.
+        an_unknown_user_removed_an_unknown_item_from_collection: Een onbekende gebruiker heeft een onbekend item uit de verzameling "%{collection}" verwijderd.
+        an_unknown_user_removed_an_unknown_item_from_it: Een onbekende gebruiker heeft een onbekend item verwijderd.
+        an_unknown_user_removed_item_from_an_unknown_collection: Een onbekende gebruiker heeft "%{item}" uit een onbekende verzameling verwijderd.
+        an_unknown_user_removed_item_from_collection: Een onbekende gebruiker heeft "%{item}" uit de verzameling "%{collection}" verwijderd.
+        an_unknown_user_removed_item_from_it: Een onbekende gebruiker heeft "%{item}" verwijderd.
+        user_removed_an_unknown_item_from_an_unknown_collection: <strong>%{user}</strong> heeft een onbekend item uit een onbekende verzameling verwijderd.
+        user_removed_an_unknown_item_from_collection: <strong>%{user}</strong> heeft een onbekend item verwijderd uit de verzameling "%{collection}".
+        user_removed_an_unknown_item_from_it: <strong>%{user}</strong> heeft een onbekend item verwijderd.
+        user_removed_item_from_an_unknown_collection: <strong>%{user}</strong> heeft "%{item}" uit een onbekende verzameling verwijderd.
+        user_removed_item_from_collection: <strong>%{user}</strong> heeft "%{item}" uit de verzameling "%{collection}" verwijderd.
+        user_removed_item_from_it: <strong>%{user}</strong> heeft "%{item}" verwijderd.
+      remove_all: 
+        an_unknown_user_cleared_an_unknown_collection: Een onbekende gebruiker heeft alle items uit een onbekende verzameling verwijderd.
+        an_unknown_user_cleared_collection: Een onbekende gebruiker heeft alle items uit de verzameling "%{collection}" verwijderd.
+        an_unknown_user_cleared_it: Een onbekende gebruiker heeft alle items verwijderd.
+        user_cleared_an_unknown_collection: <strong>%{user}</strong> heeft alle items uit een onbekende verzameling verwijderd.
+        user_cleared_collection: <strong>%{user}</strong> heeft alle items uit de verzameling "%{collection}" verwijderd.
+        user_cleared_it: <strong>%{user}</strong> heeft alle items verwijderd.
   activity_user_created_text: <strong>%{user}</strong> heeft tekst toegevoegd aan "%{object_name}" in "%{taxon_concept}".
   activity_user_updated_text: <strong>%{user}</strong> heeft tekst gewijzigd van "%{object_name}" in "%{taxon_concept}".
   add: Toevoegen
@@ -411,6 +437,10 @@ nl:
         page_header: LifeDesksstatistieken
         page_title: "Beheer: LifeDesksstatistieken"
       lifedesk_link: LifeDesks
+      marine: 
+        page_header: Zeelevendekking in EOL
+        page_title: "Beheer: Statistieken zeeleven"
+      marine_link: Statistieken zeeleven
       page_richness: 
         page_header: Rijke paginastatistieken
         page_title: "Beheer: Rijke paginastatistieken"
@@ -475,7 +505,7 @@ nl:
   articles_with_count: 
     one: één artikel
     other: "%{count} artikelen"
-  assistive_details_header: Gegevens
+  assistive_details_header: Details
   assistive_literature_header: Literatuur
   assistive_maps_header: Kaarten
   assistive_media_header: Media
@@ -1955,7 +1985,7 @@ nl:
   recipients: Ontvangers
   recognized_by: Herkend door
   record_not_found: "[record niet gevonden]"
-  references_cabs_colon: "Verwijzingen:"
+  references_cabs_colon: "Referenties:"
   remove: Verwijderen
   remove_curatorship_colon: "Conservatorschap verwijderen:"
   remove_data_object_association: Koppeling verwijderen
@@ -2245,11 +2275,21 @@ nl:
         tweet_text: Media van %{scientific_name}
     names: 
       common_names: 
-        meta_keywords: Gemeenschappelijke namen voor %{scientific_name}
+        hierarchy_entry: 
+          meta_description: Vernaculaire namen die gekoppeld zijn aan %{scientific_name} als ingedeeld door %{hierarchy_provider}.
+          meta_description_with_common_name: Een vernaculaire naam voor %{scientific_name} is %{preferred_common_name}. Ontdek welke andere vernaculaire namen gekoppeld zijn met %{scientific_name} als ingedeeld door %{hierarchy_provider}.
+          meta_keywords: Vernaculaire namen voor %{scientific_name}
+          meta_keywords_with_common_name: Wetenschappelijke naam voor %{preferred_common_name}, vernaculaire namen voor %{scientific_name}
+          meta_title: Vernaculaire namen voor %{scientific_name} als ingedeeld door %{hierarchy_provider}.
+          meta_title_with_common_name: Vernaculaire namen voor %{preferred_common_name} (%{scientific_name} als ingedeeld door %{hierarchy_provider}).
+          tweet_text: Volksnamen voor %{scientific_name} als ingedeeld door %{hierarchy_provider}.
+        meta_description: Volksnamen voor %{scientific_name}
+        meta_description_with_common_name: De wetenschappelijke naam voor %{preferred_common_name} is %{scientific_name}. Ontdek welke andere algemene namen gekoppeld zijn met %{scientific_name}.
+        meta_keywords: Volksnamen voor %{scientific_name}
         meta_keywords_with_common_name: Gemeenschappelijke namen voor %{scientific_name}, de wetenschappelijke naam voor %{preferred_common_name}
-        meta_title: Gemeenschappelijke namen voor %{scientific_name}
+        meta_title: Volksnamen voor %{scientific_name}
         meta_title_with_common_name: Gemeenschappelijke namen voor %{preferred_common_name} (%{scientific_name})
-        tweet_text: Gemeenschappelijke namen voor %{scientific_name}
+        tweet_text: Volksnamen voor %{scientific_name}
       index: 
         hierarchy_entry: 
           meta_description: Taxonomie, classificatiehiërarchieën en aanverwante wetenschappelijke namen voor %{scientific_name} als ingedeeld door %{hierarchy_provider}.
@@ -2263,7 +2303,12 @@ nl:
       synonyms: 
         hierarchy_entry: 
           meta_description: Synoniemen die gekoppeld zijn aan %{scientific_name} als ingedeeld door %{hierarchy_provider}.
+          meta_description_with_common_name: Synoniemen die gekoppeld zijn aan %{scientific_name} als ingedeeld door %{hierarchy_provider}, algemeen bekend als %{preferred_common_name}.
           meta_keywords: Synoniemen voor %{scientific_name}
+          meta_keywords_with_common_name: Synoniemen voor %{preferred_common_name}, synoniemen voor %{scientific_name}
+          meta_title: synoniemen voor %{scientific_name} als ingedeeld door %{hierarchy_provider}
+          meta_title_with_common_name: Synoniemen voor %{preferred_common_name} (%{scientific_name} als ingedeeld door %{hierarchy_provider})
+          tweet_text: Synoniemen voor %{scientific_name} als ingedeeld door %{hierarchy_provider}
         meta_description: Synoniemen van %{scientific_name}.
         meta_description_with_common_name: Synoniemen van %{preferred_common_name}, wetenschappelijk bekend als %{scientific_name}.
         meta_keywords: Synoniemen van %{scientific_name}
@@ -2273,6 +2318,16 @@ nl:
         tweet_text: Synoniemen van %{scientific_name}
     overviews: 
       show: 
+        hierarchy_entry: 
+          meta_description: Een samenvatting van de gegevens over %{scientific_name} als erkend door %{hierarchy_provider} in Encyclopedia of Life.
+          meta_description_with_common_name: Een samenvatting van de gegevens over %{preferred_common_name}, ook bekend als %{scientific_name} als erkend door %{hierarchy_provider} in Encyclopedia of Life.
+          meta_keywords: "%{scientific_name} erkend door %{hierarchy_provider}, %{scientific_name} ingedeeld door %{hierarchy_provider}"
+          meta_keywords_with_common_name: "%{scientific_name} erkend door %{hierarchy_provider}, %{scientific_name} ingedeeld door %{hierarchy_provider}"
+          meta_title: "%{scientific_name} ingedeeld door %{hierarchy_provider}"
+          meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} als ingedeeld door %{hierarchy_provider})"
+          tweet_text: Overzicht van %{scientific_name} als ingedeeld door %{hierarchy_provider}
+        meta_description: Een overzicht van %{scientific_name} in Encyclopedia of Life.
+        meta_description_with_common_name: Een overzicht van %{preferred_common_name}, wetenschappelijk bekend als %{scientific_name} in Encyclopedia of Life.
         meta_keywords: "%{scientific_name} erkend door %{hierarchy_provider}"
         meta_keywords_with_common_name: "%{scientific_name} erkend door %{hierarchy_provider}"
         meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})"
@@ -2297,6 +2352,7 @@ nl:
           tweet_text: Identificatiebronnen voor %{scientific_name} als geclassificeerd %{hierarchy_provider}
         meta_title: Identificatiebronnen voor %{scientific_name}
         meta_title_with_common_name: Identificatiebronnen voor %{preferred_common_name} (%{scientific_name})
+        tweet_text: Identificatiebronnen voor %{scientific_name}
       nucleotide_sequences: 
         hierarchy_entry: 
           tweet_text: Nucleotidesequenties voor %{scientific_name} als ingedeeld door %{hierarchy_provider}.
@@ -2306,9 +2362,13 @@ nl:
       show: 
         hierarchy_entry: 
           meta_description: Lijst van leveranciers en brongegevens voor %{scientific_name} als ingedeeld door %{hierarchy_provider}.
+          meta_description_with_common_name: Lijst van leveranciers en brongegevens voor %{preferred_common_name} (%{scientific_name}) als ingedeeld door %{hierarchy_provider}.
+          meta_keywords: Gegevensleveranciers voor %{scientific_name}, brongegevens voor %{scientific_name}
+          meta_keywords_with_common_name: Gegevensleveranciers voor %{preferred_common_name}, brongegevens voor %{preferred_common_name}, gegevensleveranciers voor %{scientific_name}, brongegevens voor %{scientific_name}
           meta_title: Gegevensproviders voor %{scientific_name} als ingedeeld door %{hierarchy_provider}.
           meta_title_with_common_name: Gegevensproviders voor %{preferred_common_name} als geclassificeerd door %{hierarchy_provider}
           tweet_text: Gegevensproviders voor %{scientific_name} als ingedeeld door %{hierarchy_provider}.
+        meta_description: Bronnen en partnercitaten voor %{scientific_name}
         meta_title: Inhoudelijke bronnen voor %{scientific_name}
         meta_title_with_common_name: Inhoudelijke bronnen voor %{preferred_common_name} (%{scientific_name})
         tweet_text: Inhoudelijke bronnen voor %{scientific_name}
@@ -2336,6 +2396,7 @@ nl:
         meta_keywords_with_common_name: statistieken over %{preferred_common_name}, statistieken over %{preferred_common_name}, gegevens over %{preferred_common_name}
         meta_title: Rijkdom van %{scientific_name}
         meta_title_with_common_name: Rijkdom van %{preferred_common_name} (%{scientific_name})
+        tweet_text: Rijkdomscore voor %{scientific_name}
   taxa_with_count: 
     one: Eén taxon
     other: "%{count} taxa"
@@ -2503,6 +2564,11 @@ nl:
         tweet_text: gemeenschappen van %{user_full_name}
     new: 
       create_user_header: Nieuwe <abbr title="Encyclopedia of Life">EOL</abbr>-gebruiker aanmaken
+      meta_title: Wordt lid van EOL
+      sign_up_with_facebook_assistive: Meld aan bij EOL met uw Facebookgebruiker.
+      sign_up_with_google_assistive: Meld aan bij EOL met uw Googlegebruiker.
+      sign_up_with_twitter_assistive: Meld aan bij EOL met uw Twittergebruiker.
+      sign_up_with_yahoo_assistive: Meld aan bij EOL met uw Yahoo!-gebruiker.
     newsfeeds: 
       activity: 
         meta_title: Activiteitenoverzicht voor %{user_full_name}
@@ -2523,6 +2589,43 @@ nl:
         page_description: Alle onderstaande updates (behalve die voor de nieuwsbrief van EOL) zijn voor u beschikbaar in uw <a href="%{user_newsfeed_link}">EOL-nieuwsoverzicht</a>, maar veel mensen willen ook per e-mail op de hoogte gehouden worden over bepaalde activiteiten die ze in het bijzonder interessant vinden. U kunt de onderstaande knoppen gebruiken om de frequentie van e-mails die EOL u stuurt aan te passen aan uw behoeften.
         page_title: Instellingen voor berichten
     open_authentications: 
+      errors: 
+        facebook: 
+          add_connection_failed_account_already_connected: Het is niet mogelijk uw EOL-gebruiker te koppelen met uw Facebookgebruiker, omdat uw Facebookgebruiker al aan een <a href="%{existing_eol_account_url}">EOL-gebruiker</a> is gekoppeld.
+          missing_attributes: Er is een probleem opgetreden tijdens het raadplegen van uw Facebookgegevens.
+          new_authentication_not_added: Er is een probleem opgetreden. Het was niet mogelijk uw Facebookgebruiker te koppelen.
+          not_authorized_to_add_authentication: Er is geen toestemming om te koppelen met uw Facebookgebruiker.
+          not_authorized_to_login: Er is geen toestemming om u aan te melden bij EOL met uw Facebookgebruiker.
+          not_authorized_to_signup: Er is geen toestemming om u te registreren bij EOL met uw Facebookgebruiker.
+          signup_failed_account_already_connected: Het is niet mogelijk een nieuwe EOL-gebruiker te registeren met uw Facebookgebruiker, omdat uw Facebookgebruiker al aan een <a href="%{existing_eol_account_url}">EOL-gebruiker</a> is gekoppeld. Wilde u wellicht <a href="%{login_url}">aanmelden</a>?
+        google: 
+          add_connection_failed_account_already_connected: Het is niet mogelijk uw EOL-gebruiker te koppelen met uw Googlegebruiker, omdat uw Googlegebruiker al aan een <a href="%{existing_eol_account_url}">EOL-gebruiker</a> is gekoppeld.
+          missing_attributes: Er is een probleem opgetreden tijdens het raadplegen van uw Googlegegevens.
+          new_authentication_not_added: Er is een probleem opgetreden. Het was niet mogelijk uw Googlegebruiker te koppelen.
+          not_authorized_to_add_authentication: Er is geen toestemming om te koppelen met uw Googlegebruiker.
+          not_authorized_to_login: Er is geen toestemming om u aan te melden bij EOL met uw Googlegebruiker.
+          not_authorized_to_signup: Er is geen toestemming om u te registreren bij EOL met uw Googlegebruiker.
+          signup_failed_account_already_connected: Het is niet mogelijk een nieuwe EOL-gebruiker te registeren met uw Googlegebruiker, omdat uw Googlegebruiker al aan een <a href="%{existing_eol_account_url}">EOL-gebruiker</a> is gekoppeld. Wilde u wellicht <a href="%{login_url}">aanmelden</a>?
+        missing_attributes: Er is een probleem opgetreden tijdens het raadplegen van uw gebruikersgegevens bij de andere website.
+        not_authorized_to_add_authentication: Er is geen toestemming om te koppelen met die gebruiker.
+        not_authorized_to_login: Er is geen toestemming om u aan te melden bij EOL met die gebruiker.
+        remove_connection_failed: Er is een fout opgetreden. Het was niet mogelijk om de koppeling te verwijderen.
+        twitter: 
+          add_connection_failed_account_already_connected: Het is niet mogelijk uw EOL-gebruiker te koppelen met uw Twittergebruiker, omdat uw Twittergebruiker al aan een <a href="%{existing_eol_account_url}">EOL-gebruiker</a> is gekoppeld.
+          missing_attributes: Er is een probleem opgetreden tijdens het raadplegen van uw Twittergegevens.
+          new_authentication_not_added: Er is een probleem opgetreden. Het was niet mogelijk uw Twittergebruiker te koppelen.
+          not_authorized_to_add_authentication: Er is geen toestemming om te koppelen met uw Twittergebruiker.
+          not_authorized_to_login: Er is geen toestemming om u aan te melden bij EOL met uw Twittergebruiker.
+          not_authorized_to_signup: Er is geen toestemming om u te registreren bij EOL met uw Twittergebruiker.
+          signup_failed_account_already_connected: Het is niet mogelijk een nieuwe EOL-gebruiker te registeren met uw Twittergebruiker, omdat uw Twittergebruiker al aan een <a href="%{existing_eol_account_url}">EOL-gebruiker</a> is gekoppeld. Wilde u wellicht <a href="%{login_url}">aanmelden</a>?
+        yahoo: 
+          add_connection_failed_account_already_connected: Het is niet mogelijk uw EOL-gebruiker te koppelen met uw Yahoo!-gebruiker, omdat uw Yahoo!-gebruiker al aan een <a href="%{existing_eol_account_url}">EOL-gebruiker</a> is gekoppeld.
+          missing_attributes: Er is een probleem opgetreden tijdens het raadplegen van uw Yahoo!-gegevens.
+          new_authentication_not_added: Er is een probleem opgetreden. Het was niet mogelijk uw Yahoo!-gebruiker te koppelen.
+          not_authorized_to_add_authentication: Er is geen toestemming om te koppelen met uw Yahoo!-gebruiker.
+          not_authorized_to_login: Er is geen toestemming om u aan te melden bij EOL met uw Yahoo!-gebruiker.
+          not_authorized_to_signup: Er is geen toestemming om u te registreren bij EOL met uw Yahoo!-gebruiker.
+          signup_failed_account_already_connected: Het is niet mogelijk een nieuwe EOL-gebruiker te registeren met uw Yahoo!-gebruiker, omdat uw Yahoo!-gebruiker al aan een <a href="%{existing_eol_account_url}">EOL-gebruiker</a> is gekoppeld. Wilde u wellicht <a href="%{login_url}">aanmelden</a>?
       facebook: Facebook
       google: Google
       index: 

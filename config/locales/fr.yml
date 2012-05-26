@@ -55,6 +55,10 @@ fr:
         description: Description de la communauté
         logo: Téléverser un logo
         name: Nom de la communauté
+      contact: 
+        comments: Message
+        email: Courriel
+        name: Nom
       content_page: 
         active: Publié
         page_name: Nom unique
@@ -557,7 +561,6 @@ fr:
   collect_items: éléments de collecte
   collection_created_notice: La collection <em>%{collection_name}</em> a été créée avec succès.
   collection_delete_link: Supprimer définitivement cette collection.
-  collection_description_default: Une collection de l’Encyclopédie de la Vie
   collection_destroyed: La collection a été supprimée.
   collection_image: Image de la collection
   collection_is_empty: Cette collection est actuellement vide.
@@ -709,6 +712,13 @@ fr:
   contact_us_link: Nous contacter
   contact_us_submissions: Soumissions pour nous contacter
   contact_us_topics: Sujets pour nous contacter
+  contacts: 
+    errors: 
+      message_not_sent: Désolé, une erreur est survenue, votre message n'a pas été envoyé.
+    new: 
+      page_title: Veuillez entrer vos commentaires
+    notices: 
+      message_sent: Merci pour vos commentaires, votre message a été envoyé dans le groupe approprié.
   containing_value: " contenant %{value}."
   content: 
     index: 
@@ -1247,6 +1257,11 @@ fr:
         sort_field_show: "Valeur de tri :"
       comment: 
         body_edit: Modifier le commentaire
+      contact: 
+        comments: Your message
+        contact_subject_id: Objet
+        email: Votre adresse de courriel
+        name: Votre nom
       content_page: 
         active: Publié
         active_more: Les pages publiées seront visibles par le public. Décochez <em>publié</em> si vous voulez éviter qu’un utilisateur quelconque puisse voir les versions de cette page dans n’importe quelle langue.
@@ -1390,6 +1405,8 @@ fr:
       cancel: Annuler
       collection_item: 
         update: Enregistrer
+      contact: 
+        new: Envoyer vos commentaires
       content_page: 
         create: Créer la page
         edit: Modifier
@@ -1739,7 +1756,8 @@ fr:
   more_children_with_count: "%{count} de plus…"
   more_information_on_the_various_licenses: licences. Visitez leur site pour plus d'informations sur les différentes licences qu'ils offrent
   more_siblings_with_count: 
-    other: "%{count} frèreone= de plus…"
+    one: "%{count} frère de plus…"
+    other: "%{count} frères de plus…"
   most_active_members: Membres les plus actifs
   move: Déplacer
   move_down: Faire descendre
@@ -2062,9 +2080,44 @@ fr:
   rating_not_added_error: Désolé, une erreur est survenue ; l’évaluation n’a pas pu être ajoutée.
   recaptcha: Tapez les deux mots que vous voyez ci-dessous
   recaptcha_incorrect_error_with_anchor: Les <a href="#%{recaptcha_anchor}">caractères du reCaptcha</a> ne correspondent pas, veuillez essayer de nouveau.
+  recent_activities: 
+    index: 
+      meta_title: Activité de la communauté EOL
+      page_title: Activité de la communauté EOL
   recent_activity: 
+    bulk_collection_activity_with_count: 
+      one: Il y a eu une mise à jour de %{to}
+      other: Il y a eu %{count} mises à jour de %{to}
+    bulk_comments_on_you_with_count: 
+      one: Il y a un nouveau commentaire sur <a href='%{url}' style='color:#195184'>votre profil</a>
+      other: Il y a %{count} nouveaux commentaires sur <a href='%{url}' style='color:#195184'>votre profil</a>
+    bulk_comments_with_count: 
+      one: Il y a un nouveau commentaire sur %{on}
+      other: Il y a %{count} nouveaux commentaires sur %{on}
+    bulk_community_activity_with_count: 
+      one: Il y a eu une mise à jour de %{to}
+      other: Il y a eu %{count} mises à jour de %{to}
+    bulk_community_joins_with_count: 
+      one: Un nouveau membre a rejoint %{community}
+      other: "%{count} nouveaux membres ont rejoint %{community}"
+    bulk_curation_with_count: 
+      one: Les conservateurs ont apporté une amélioration à %{to}
+      other: Les conservateurs ont apporté %{count} améliorations à %{to}
+    collection_activity_by_user: <b>%{user_name}</b> a effectué %{activity_name} sur la collection de <b>%{collection_name}</b>.
+    collection_activity_log_title: "%{who} a modifié une collection"
+    comment_body_brief: "%{body} - %{author}"
+    comment_link: Voir les commentaires sur EOL
+    comment_title: "%{who} a commenté sur %{what}"
+    community_activity_log_title: "%{who} a modifié une communauté"
+    curator_activity_log_title: "%{who} a organisé quelque chose"
+    data_object_title: "%{who} a ajouté un nouveau contenu à EOL"
+    default_subject: Activité récente sur EOL
     intro: Voici votre condensé d’activité EdlV pour %{time}
     intro_immediately: Bonjour, %{name} —
+    intro_weekly: Voici le résumé de votre activité EOL pour la semaine se terminant le %{ending}
+    see_all_activity: Voyez toutes vos activités précédentes sur votre page d'utilisateur <a href='%{activity_url}' style='color:#195184'></a>.
+    someone_commented_on_something: <b>%{who}</b> a commenté sur <b>%{what}</b>.
+    unsubscribe: Modifiez vos paramètres de courriel ou désabonnez-vous en modifiant <a href='%{email_prefs_url}' style='color:#195184'>votre page de préférences de notification</a>.
   recent_updates: Mises à jour récentes
   recently_visited: Visité récemment
   recipients: Destinataires
@@ -2192,7 +2245,15 @@ fr:
   server_ip_address: Adresse IP du serveur
   sessions: 
     new: 
+      login_with_eol_authentication_header: "Ou vous connecter avec vos informations d'identification de l'EOL :"
+      login_with_facebook_assistive: Connexion à EOL en utilisant vos informations d'identification de Facebook.
+      login_with_google_assistive: Connexion à EOL en utilisant vos informations d'identification de Google.
+      login_with_twitter_assistive: Connexion à EOL en utilisant vos informations d'identification de Twitter.
+      login_with_yahoo_assistive: Connexion à EOL en utilisant vos informations d'identification de Yahoo.
       meta_title: Connexion
+      problems_signing_in_with_connected_accounts: Problèmes de connexion avec vos comptes connectés ?
+      problems_signing_in_with_eol_authentication: Mot de passe oublié ?
+      tip: Utilisateur existant ? Connectez votre compte EOL avec Facebook, Google et plus dans les paramètres de votre profil. Une fois que vos comptes sont connectés vous pouvez les utiliser pour ouvrir une session à EOL.
   set_as_exemplar: Définir comme modèle
   share_a_collection: Partager une collection
   show: Afficher
@@ -2380,7 +2441,7 @@ fr:
         meta_keywords: informations sur %{scientific_name}, littérature sur %{scientific_name}, articles pour %{scientific_name}
         meta_keywords_with_common_name: informations sur %{preferred_common_name}, littérature sur %{preferred_common_name}, articles sur %{scientific_name}
         meta_title: Littérature sur %{scientific_name}
-        meta_title_with_common_name: Livres sur %{preferred_common_name} (%{scientific_name})
+        meta_title_with_common_name: Articles et livres sur %{preferred_common_name} (%{scientific_name})
         tweet_text: Littérature sur %{scientific_name}
     maps: 
       show: 
@@ -2394,8 +2455,8 @@ fr:
         meta_description_with_common_name: Où trouve-t-on des %{preferred_common_name} et où vivent-ils? Informations géographiques sur %{scientific_name}, l'endroit où ils vivent et d'où ils sont originaires, dans le monde.
         meta_keywords: habitat de %{scientific_name}, origine, où vit %{scientific_name}
         meta_keywords_with_common_name: habitat de %{preferred_common_name}, origine, où vit %{preferred_common_name}
-        meta_title: Habitat de %{scientific_name}
-        meta_title_with_common_name: Habitat de %{preferred_common_name} (%{scientific_name})
+        meta_title: Cartes de %{scientific_name}
+        meta_title_with_common_name: Cartes pour %{preferred_common_name} (%{scientific_name})
         tweet_text: Cartes de %{scientific_name}
     media: 
       index: 
@@ -2415,6 +2476,22 @@ fr:
         meta_title_with_common_name: Images & Vidéos de %{preferred_common_name} (%{scientific_name})
         tweet_text: Média de %{scientific_name}
     names: 
+      common_names: 
+        hierarchy_entry: 
+          meta_description: Noms vernaculaires associées à %{scientific_name} classés par %{hierarchy_provider}.
+          meta_description_with_common_name: Le nom vernaculaire de %{scientific_name} est %{preferred_common_name}. Découvrez les autres noms vernaculaires associés à %{scientific_name} classés par %{hierarchy_provider}.
+          meta_keywords: Noms vernaculaires pour %{scientific_name}
+          meta_keywords_with_common_name: Nom scientifique pour %{preferred_common_name}, noms vernaculaires pour %{scientific_name}
+      index: 
+        hierarchy_entry: 
+          meta_description: Taxonomie, hiérarchies de classification et les noms scientifiques connexes à %{scientific_name} classés par %{hierarchy_provider}.
+          meta_description_with_common_name: Taxonomie, hiérarchies de classification et noms scientifiques pour les %{preferred_common_name}, appelée aussi %{scientific_name} tels que classée par %{hierarchy_provider}.
+          tweet_text: Noms liés à %{scientific_name} comme classés par %{hierarchy_provider}
+        meta_description: Classification taxonomique et noms scientifiques de %{scientific_name}.
+        meta_description_with_common_name: Classification taxonomique et noms scientifiques pour le %{preferred_common_name}, également appelé %{scientific_name}.
+        meta_title: Noms reliés à %{scientific_name}
+        meta_title_with_common_name: Noms connexes à %{preferred_common_name} (%{scientific_name})
+        tweet_text: Noms connexes à %{scientific_name}
       synonyms: 
         meta_description: Synonymes de %{scientific_name}.
         meta_keywords: Synonymes de %{scientific_name}
@@ -2681,6 +2758,12 @@ fr:
   users: 
     new: 
       create_user_header: Créer un nouveau compte <abbr title="Encyclopédie de la vie">EdlV</abbr>
+    newsfeeds: 
+      activity: 
+        meta_title: Contributions de %{user_full_name}
+        tweet_text: Activités de %{user_full_name}
+      comments: 
+        tweet_text: Commentaires de %{user_full_name}
   users_about_me_header: À mon sujet
   users_content_partners_header: Partenaires de contenu
   users_content_partners_information: Les partenaires de contenu EOL sont des individus ou des organisations qui partagent leurs données sur la biodiversité avec tout le monde via EOL. Pour en savoir plus sur les <a href="%{more_url}">Partenaires de contenu EOL</a>.

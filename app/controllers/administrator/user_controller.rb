@@ -149,6 +149,7 @@ class Administrator::UserController  < AdminController
           @user.update_attributes(:curator_verdict_by => current_user,
                                   :curator_verdict_at => Time.now,
                                   :curator_approved => 1)
+          @user.join_curator_community_if_curator
         end
       end
       @user.add_to_index

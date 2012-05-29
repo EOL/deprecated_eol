@@ -11,6 +11,10 @@ class Users::NewsfeedsController < UsersController
     @filters = ['all', 'messages', 'community', 'collections', 'curation'] # TODO = 'watchlist' (can't do it now)
     respond_to do |format|
       format.html {
+        conversion_code = session.delete(:conversion_code)
+        if (params[:success] == conversion_code) && (conversion_code =~ /^[0-9a-f]{40}$/)
+          @conversion = EOL::GoogleAdWords.create_signup_conversion
+        end
         @page = params[:page] || 1
         @parent = @user # for new comment form
         @user_activity_log = @user.activity_log(:news => true, :page => @page, :filter => @filter)

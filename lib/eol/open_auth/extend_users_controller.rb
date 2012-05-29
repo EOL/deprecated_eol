@@ -58,7 +58,8 @@ module EOL
           session.delete("oauth_token_#{provider}_#{guid}")
           session.delete("oauth_secret_#{provider}_#{guid}")
           log_in(@user)
-          redirect_to user_newsfeed_path(@user)
+          session[:conversion_code] = User.generate_key
+          redirect_to user_newsfeed_path(@user, :success => session[:conversion_code])
         else
           flash.now[:error] = I18n.t(:create_user_unsuccessful_error)
           render :action => :new, :layout => 'v2/sessions'

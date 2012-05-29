@@ -880,6 +880,9 @@ class DataObject < ActiveRecord::Base
   end
 
   def first_taxon_concept
+    if created_by_user?
+      return users_data_object.taxon_concept
+    end
     first_hierarchy_entry.taxon_concept rescue nil
   end
 

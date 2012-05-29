@@ -81,6 +81,9 @@ module ApiHelper
     return_hash['bibliographicCitation']  = data_object.bibliographic_citation unless data_object.bibliographic_citation.blank?
     return_hash['source']                 = data_object.source_url unless data_object.source_url.blank?
     return_hash['subject']                = data_object.info_items[0].schema_value unless data_object.info_items.blank?
+    if return_hash['subject'].blank? && data_object.users_data_object
+      return_hash['subject']              = data_object.toc_items[0].info_items[0].schema_value
+    end
     return_hash['description']            = data_object.description unless data_object.description.blank?
     return_hash['mediaURL']               = data_object.object_url unless data_object.object_url.blank?
     if data_object.is_image?
@@ -112,6 +115,16 @@ module ApiHelper
           'role'      => ado.agent_role.label.downcase
         }
       end
+    end
+    return_hash['supplier'] = data_object.content_partner.name if data_object.content_partner
+    
+    if udo = data_object.users_data_object
+      return_hash['agents'] << {
+        'full_name' => data_object.user.full_name,
+        'homepage'  => "",
+        'role'      => AgentRole.author.label.downcase
+      }
+      return_hash['supplier'] = data_object.users_data_object.user.full_name
     end
     
     return_hash['references'] = []

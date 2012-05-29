@@ -235,7 +235,8 @@ describe UsersController do
       get :verify, { :user_id => user.id, :validation_code => user.validation_code }
       user.reload
       user.active.should be_true
-      response.redirected_to.should == activated_user_path(user)
+      session[:conversion_code].should =~ /^[0-9a-f]{40}$/
+      response.redirected_to.should == activated_user_path(user, :success => session[:conversion_code])
     end
     it 'should not activate user with invalid verification code' do
       inactive_user = User.gen(:active => false, :validation_code => User.generate_key)
@@ -252,7 +253,7 @@ describe UsersController do
       get :verify, { :user_id => user.id, :validation_code => user.validation_code }
       user.reload
       user.active.should be_true
-      response.redirected_to.should == activated_user_path(user)
+      response.redirected_to.should == activated_user_path(user, :success => session[:conversion_code])
     end
   end
 
@@ -269,6 +270,18 @@ describe UsersController do
       get :activated, { :id => @user.id }
       assigns[:user].should == @user
       response.rendered[:template].should == 'users/activated.html.haml'
+    end
+    it 'should know whether its a valid conversion for tracking' do
+      get :activated, { :id => @user.id }
+      assigns[:conversion].should be_nil
+      conversion_code = User.generate_key
+      get :activated, { :id => @user.id, :success => conversion_code }
+      assigns[:conversion].should be_nil
+      get :activated, { :id => @user.id }, { :success => conversion_code }
+      assigns[:conversion].should be_nil
+      get :activated, { :id => @user.id, :success => conversion_code },
+                      { :conversion_code => conversion_code }
+      assigns[:conversion].should be_a(EOL::GoogleAdWords::Conversion)
     end
   end
 

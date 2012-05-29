@@ -174,7 +174,9 @@ class UsersController < ApplicationController
     elsif @user && @user.validation_code == params[:validation_code] && !params[:validation_code].blank?
       @user.activate
       Notifier.deliver_user_activated(@user)
-      redirect_to activated_user_path(@user), :status => :moved_permanently
+      flash[:notice] = I18n.t(:user_activation_successful_notice, :username => @user.username)
+      session[:conversion_code] = User.generate_key
+      redirect_to activated_user_path(@user, :success => session[:conversion_code]), :status => :moved_permanently
     elsif @user
       @user.validation_code = User.generate_key if @user.validation_code.blank?
       send_verification_email
@@ -193,8 +195,11 @@ class UsersController < ApplicationController
 
   # GET for member /users/:id/activated
   def activated
+    conversion_code = session.delete(:conversion_code)
+    if (params[:success] == conversion_code) && (conversion_code =~ /^[0-9a-f]{40}$/)
+      @conversion = EOL::GoogleAdWords.create_signup_conversion
+    end
     @user = User.find(params[:id], :include => :open_authentications)
-    flash.now[:notice] = I18n.t(:user_activation_successful_notice, :username => @user.username)
   end
 
   # GET and POST for member /users/:id/terms_agreement

@@ -39,6 +39,8 @@ describe CuratorCommunity do
     comm.save
     clear_curator_community_cache
     CuratorCommunity.get.name.should == $CURATOR_COMMUNITY_NAME
+    CuratorCommunity.get.destroy
+    clear_curator_community_cache
   end
 
 end

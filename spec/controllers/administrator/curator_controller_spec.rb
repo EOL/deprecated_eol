@@ -13,6 +13,10 @@ describe Administrator::CuratorController do
     @admin.grant_admin
   end
 
+  after(:all) do
+    CuratorCommunity.get.destroy
+  end
+
   it "should set @users when accessing GET /index" do
     get :index, nil, { :user_id => @admin.id }
     assigns[:users].should_not be_nil

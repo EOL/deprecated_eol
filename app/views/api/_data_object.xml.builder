@@ -6,10 +6,16 @@ unless data_object.blank?
     unless minimal
       xml.mimeType data_object.mime_type.label unless data_object.mime_type.blank?
       
-      for ado in data_object.agents_data_objects
-        if ado.agent
-          xml.agent ado.agent.full_name, :homepage => ado.agent.homepage, :role => ado.agent_role.label.downcase
+      if udo = data_object.users_data_object
+        xml.agent data_object.user.full_name, :homepage => "", :role => AgentRole.author.label.downcase
+        xml.agent data_object.user.full_name, :homepage => "", :role => AgentRole.provider.label.downcase
+      else
+        for ado in data_object.agents_data_objects
+          if ado.agent
+            xml.agent ado.agent.full_name, :homepage => ado.agent.homepage, :role => ado.agent_role.label.downcase
+          end
         end
+        xml.agent data_object.content_partner.name, :homepage => data_object.content_partner.homepage, :role => AgentRole.provider.label.downcase
       end
       
       xml.dcterms :created, data_object.object_created_at unless data_object.object_created_at.blank?
@@ -24,8 +30,18 @@ unless data_object.blank?
       xml.dc :source, data_object.source_url unless data_object.source_url.blank?
     end
     
-    data_object.info_items.each do |ii|
-      xml.subject ii.schema_value unless ii.schema_value.blank?
+    if data_object.is_text?
+      if data_object.created_by_user?
+        data_object.toc_items.each do |toci|
+          toci.info_items.each do |ii|
+            xml.subject ii.schema_value unless ii.schema_value.blank?
+          end
+        end
+      else
+        data_object.info_items.each do |ii|
+          xml.subject ii.schema_value unless ii.schema_value.blank?
+        end
+      end
     end
     
     unless minimal

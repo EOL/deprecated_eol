@@ -80,9 +80,12 @@ module ApiHelper
     return_hash['rightsHolder']           = data_object.rights_holder unless data_object.rights_holder.blank?
     return_hash['bibliographicCitation']  = data_object.bibliographic_citation unless data_object.bibliographic_citation.blank?
     return_hash['source']                 = data_object.source_url unless data_object.source_url.blank?
-    return_hash['subject']                = data_object.info_items[0].schema_value unless data_object.info_items.blank?
-    if return_hash['subject'].blank? && data_object.users_data_object
-      return_hash['subject']              = data_object.toc_items[0].info_items[0].schema_value
+    if data_object.is_text?
+      if data_object.created_by_user? && !data_object.toc_items.blank?
+        return_hash['subject']            = data_object.toc_items[0].info_items[0].schema_value unless data_object.toc_items[0].info_items.blank?
+      else
+        return_hash['subject']            = data_object.info_items[0].schema_value unless data_object.info_items.blank?
+      end
     end
     return_hash['description']            = data_object.description unless data_object.description.blank?
     return_hash['mediaURL']               = data_object.object_url unless data_object.object_url.blank?
@@ -107,16 +110,6 @@ module ApiHelper
     end
     
     return_hash['agents'] = []
-    for ado in data_object.agents_data_objects
-      if ado.agent
-        return_hash['agents'] << {
-          'full_name' => ado.agent.full_name,
-          'homepage'  => ado.agent.homepage,
-          'role'      => ado.agent_role.label.downcase
-        }
-      end
-    end
-    return_hash['supplier'] = data_object.content_partner.name if data_object.content_partner
     
     if udo = data_object.users_data_object
       return_hash['agents'] << {
@@ -124,7 +117,26 @@ module ApiHelper
         'homepage'  => "",
         'role'      => AgentRole.author.label.downcase
       }
-      return_hash['supplier'] = data_object.users_data_object.user.full_name
+      return_hash['agents'] << {
+        'full_name' => data_object.user.full_name,
+        'homepage'  => "",
+        'role'      => AgentRole.provider.label.downcase
+      }
+    else
+      for ado in data_object.agents_data_objects
+        if ado.agent
+          return_hash['agents'] << {
+            'full_name' => ado.agent.full_name,
+            'homepage'  => ado.agent.homepage,
+            'role'      => ado.agent_role.label.downcase
+          }
+        end
+      end
+      return_hash['agents'] << {
+        'full_name' => data_object.content_partner.name,
+        'homepage'  => data_object.content_partner.homepage,
+        'role'      => AgentRole.provider.label.downcase
+      }
     end
     
     return_hash['references'] = []

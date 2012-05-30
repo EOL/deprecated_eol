@@ -115,12 +115,12 @@ module ApiHelper
       return_hash['agents'] << {
         'full_name' => data_object.user.full_name,
         'homepage'  => "",
-        'role'      => AgentRole.author.label.downcase
+        'role'      => (AgentRole.author.label.downcase rescue nil)
       }
       return_hash['agents'] << {
         'full_name' => data_object.user.full_name,
         'homepage'  => "",
-        'role'      => AgentRole.provider.label.downcase
+        'role'      => (AgentRole.provider.label.downcase rescue nil)
       }
     else
       for ado in data_object.agents_data_objects
@@ -128,15 +128,17 @@ module ApiHelper
           return_hash['agents'] << {
             'full_name' => ado.agent.full_name,
             'homepage'  => ado.agent.homepage,
-            'role'      => ado.agent_role.label.downcase
+            'role'      => (ado.agent_role.label.downcase rescue nil)
           }
         end
       end
-      return_hash['agents'] << {
-        'full_name' => data_object.content_partner.name,
-        'homepage'  => data_object.content_partner.homepage,
-        'role'      => AgentRole.provider.label.downcase
-      }
+      if data_object.content_partner
+        return_hash['agents'] << {
+          'full_name' => data_object.content_partner.name,
+          'homepage'  => data_object.content_partner.homepage,
+          'role'      => (AgentRole.provider.label.downcase rescue nil)
+        }
+      end
     end
     
     return_hash['references'] = []

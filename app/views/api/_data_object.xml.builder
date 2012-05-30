@@ -7,15 +7,15 @@ unless data_object.blank?
       xml.mimeType data_object.mime_type.label unless data_object.mime_type.blank?
       
       if udo = data_object.users_data_object
-        xml.agent data_object.user.full_name, :homepage => "", :role => AgentRole.author.label.downcase
-        xml.agent data_object.user.full_name, :homepage => "", :role => AgentRole.provider.label.downcase
+        xml.agent data_object.user.full_name, :homepage => "", :role => (AgentRole.author.label.downcase rescue nil)
+        xml.agent data_object.user.full_name, :homepage => "", :role => (AgentRole.provider.label.downcase rescue nil)
       else
         for ado in data_object.agents_data_objects
           if ado.agent
-            xml.agent ado.agent.full_name, :homepage => ado.agent.homepage, :role => ado.agent_role.label.downcase
+            xml.agent ado.agent.full_name, :homepage => ado.agent.homepage, :role => (ado.agent_role.label.downcase rescue nil)
           end
         end
-        xml.agent data_object.content_partner.name, :homepage => data_object.content_partner.homepage, :role => AgentRole.provider.label.downcase
+        xml.agent data_object.content_partner.name, :homepage => data_object.content_partner.homepage, :role => (AgentRole.provider.label.downcase rescue nil) if data_object.content_partner
       end
       
       xml.dcterms :created, data_object.object_created_at unless data_object.object_created_at.blank?

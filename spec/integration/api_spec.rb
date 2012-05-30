@@ -196,7 +196,6 @@ describe 'EOL APIs' do
   it 'pages should be able to take a | delimited list of subjects' do
     visit("/api/pages/0.4/#{@taxon_concept.id}?images=0&text=1&subjects=GeneralDescription&details=1")
     xml_response = Nokogiri.XML(body)
-    debugger
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 1
   
     visit("/api/pages/0.4/#{@taxon_concept.id}?images=0&text=3&subjects=Distribution&details=1")

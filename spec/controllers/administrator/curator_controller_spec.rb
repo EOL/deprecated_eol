@@ -5,6 +5,8 @@ describe Administrator::CuratorController do
     truncate_all_tables
     Language.create_english
     CuratorLevel.create_defaults
+    # create curator community if it doesn't exist
+    Community.find_or_create_by_description_and_name($CURATOR_COMMUNITY_DESC, $CURATOR_COMMUNITY_NAME)
     @curator = User.gen(:curator_level => CuratorLevel.full_curator, :credentials => 'Blah', :curator_scope => 'More blah')
     @user_wants_to_be_curator = User.gen(:requested_curator_level_id => CuratorLevel.full_curator.id, :credentials => 'Blah', :curator_scope => 'More blah')
     @admin = User.gen(:username => "admin", :password => "admin")

@@ -18,12 +18,16 @@ describe CuratorCommunity do
   it 'should be able to build the community' do
     CuratorCommunity.get.destroy
     clear_curator_community_cache
-    curator = User.gen(:curator_level_id => 1, :credentials => 'dfg', :curator_scope => 'dfg')
+    curator = User.gen
+    curator.curator_level_id = 1
+    curator.credentials = 'dfg'
+    curator.curator_scope = 'dfg'
+    curator.save!
     community = CuratorCommunity.build
     community.should_not be_nil
     community.name.should == $CURATOR_COMMUNITY_NAME
     community.description.should == $CURATOR_COMMUNITY_DESC
-    curator.member_of?(community).should be_true
+    curator.is_member_of?(community).should be_true
     community.members.each do |member|
       member.user.is_curator?.should be_true
     end

@@ -193,6 +193,8 @@ describe UsersController do
 
     it 'should allow instant approval for assistant curators without requirements' do
       user = User.gen
+      # create curator community if it doesn't exist
+      Community.find_or_create_by_description_and_name($CURATOR_COMMUNITY_DESC, $CURATOR_COMMUNITY_NAME)
       put :update, { :id => user.id, :commit_curation_privileges_put => 'Curation application',
                      :user => { :id => user.id, :username => user.username, :credentials => '',
                                 :requested_curator_level_id => CuratorLevel.assistant_curator.id } },

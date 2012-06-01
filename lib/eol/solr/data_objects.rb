@@ -116,7 +116,6 @@ module EOL
           url << CGI.escape(" NOT (toc_id:#{options[:toc_ids_to_ignore].join(' OR toc_id:')})")
         end
         
-        
         if options[:filter_hierarchy_entry] && options[:filter_hierarchy_entry].class == HierarchyEntry
           field_suffix = "ancestor_he_id"
           search_id = options[:filter_hierarchy_entry].id
@@ -128,6 +127,7 @@ module EOL
           field_suffix = "ancestor_id"
           search_id = taxon_concept_id
           unless options[:return_hierarchically_aggregated_objects]
+            field_suffix = "taxon_concept_id"
             url << CGI.escape(" AND taxon_concept_id:#{search_id}")
           end
         end

@@ -134,6 +134,8 @@ module EOL
             hash['hierarchy_entry_id'] << he.id
           end
           field_prefixes.each do |prefix|
+            hash[prefix + '_taxon_concept_id'] ||= []
+            hash[prefix + '_taxon_concept_id'] << he.taxon_concept_id
             hash[prefix + '_ancestor_id'] ||= []
             hash[prefix + '_ancestor_id'] << he.taxon_concept_id
           end

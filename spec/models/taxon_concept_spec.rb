@@ -186,10 +186,72 @@ describe TaxonConcept do
     @taxon_concept.images_from_solr(100).map(&:object_cache_url).should include(@image_unknown_trust)
   end
 
-  it 'should be able to get an overview' do
-    overview = @taxon_concept.overview_text_for_user(User.gen)
-    overview.class.should == DataObject
-    overview.description.should == @brief_summary_text
+  describe '#overview_text_for_user' do
+    before :all do
+      if @user_for_overview_text = User.find_by_username('overview_text_for_user')
+        @overview_text_for_user = @taxon_concept.overview_text_for_user(@user_for_overview_text)
+      else
+        flatten_hierarchies
+        @user_for_overview_text = User.gen(:username => 'overview_text_for_user')
+        @overview_text_for_user = @taxon_concept.overview_text_for_user(@user_for_overview_text)
+        parent_he = @taxon_concept.published_hierarchy_entries.first.parent
+        CuratedDataObjectsHierarchyEntry.new(:data_object => @overview_text_for_user,
+                                             :hierarchy_entry => parent_he,
+                                             :visibility => Visibility.invisible,
+                                             :vetted => Vetted.untrusted,
+                                             :user_id => 1).save
+        @overview_text_for_user.update_solr_index
+      end
+    end
+    it 'should return single text object' do
+      @overview_text_for_user.should be_a(DataObject)
+      @overview_text_for_user.is_text?.should be_true
+    end
+    it 'should only return data object with TocItem.brief_summary, TocItem.comprehensive_description, or TocItem.distribution' do
+      @overview_text_for_user.toc_items.first.should == TocItem.brief_summary
+      @overview_text_for_user.description.should == @brief_summary_text
+
+      dato_id = @overview_text_for_user.id
+      @overview_text_for_user.toc_items = [TocItem.comprehensive_description]
+      @overview_text_for_user.save
+      @overview_text_for_user.update_solr_index
+      @overview_text_for_user = @taxon_concept.overview_text_for_user(@user_for_overview_text)
+      @overview_text_for_user.id.should == dato_id
+      @overview_text_for_user.toc_items.first.should == TocItem.comprehensive_description
+
+      @overview_text_for_user.toc_items = [TocItem.distribution]
+      @overview_text_for_user.save
+      @overview_text_for_user.update_solr_index
+      @overview_text_for_user = @taxon_concept.overview_text_for_user(@user_for_overview_text)
+      @overview_text_for_user.id.should == dato_id
+      @overview_text_for_user.toc_items.first.should == TocItem.distribution
+
+      @overview_text_for_user.toc_items = [TocItem.overview]
+      @overview_text_for_user.save
+      @overview_text_for_user.update_solr_index
+      @overview_text_for_user = @taxon_concept.overview_text_for_user(@user_for_overview_text)
+      @overview_text_for_user.should be_nil
+
+      @overview_text_for_user = DataObject.find(dato_id, :include => :toc_items)
+      @overview_text_for_user.toc_items = [TocItem.brief_summary]
+      @overview_text_for_user.save
+      @overview_text_for_user.update_solr_index
+      @overview_text_for_user = @taxon_concept.overview_text_for_user(@user_for_overview_text)
+      @overview_text_for_user.id.should == dato_id
+      @overview_text_for_user.toc_items.first.should == TocItem.brief_summary
+    end
+    it 'should not return data objects of descendants' do
+      parent_tc = @taxon_concept.published_hierarchy_entries.first.parent.taxon_concept
+      overview = parent_tc.overview_text_for_user(@user_for_overview_text)
+      overview.should be_nil
+    end
+    it 'should not return data objects with hidden associations to taxon concept unless user is a curator' do
+      tc = @taxon_concept.published_hierarchy_entries.first.parent.taxon_concept
+      overview = tc.overview_text_for_user(@user_for_overview_text)
+      overview.should be_nil
+      overview = tc.overview_text_for_user(@curator)
+      overview.should == @overview_text_for_user
+    end
   end
 
   it 'should return available text objects for given toc items in order of preference and rating' do

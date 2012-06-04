@@ -47,6 +47,10 @@
         <field name="resource_id" type="int" indexed="true" stored="true" required="false"/>
         <field name="toc_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
         <!-- vetted states -->
+        <field name="trusted_taxon_concept_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="unreviewed_taxon_concept_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="untrusted_taxon_concept_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="inappropriate_taxon_concept_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
         <field name="trusted_ancestor_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
         <field name="unreviewed_ancestor_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
         <field name="untrusted_ancestor_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
@@ -58,6 +62,9 @@
         <field name="inappropriate_ancestor_he_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
         <field name="max_vetted_weight" type="int" indexed="true" stored="true" required="false"/>
         <!-- visibility states -->
+        <field name="invisible_taxon_concept_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="visible_taxon_concept_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="preview_taxon_concept_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
         <field name="invisible_ancestor_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
         <field name="visible_ancestor_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
         <field name="preview_ancestor_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>

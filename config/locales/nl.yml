@@ -298,10 +298,47 @@ nl:
   activity_log_empty_learn_more_link: Hoe u kunt bijdragen
   activity_logs: 
     collection_activity_log: 
+      add_editor: 
+        an_unknown_user_of_an_unknown_collection: Een onbekende gebruiker is toegevoegd als beheerder van een onbekende verzameling.
+        an_unknown_user_of_collection: Een onbekende gebruiker is toegevoegd als beheerder van de verzameling "%{collection}".
+        an_unknown_user_of_it: Een onbekende gebruiker is beheerder gemaakt.
+        user_of_an_unknown_collection: <strong>%{user}</strong> is beheerder gemaakt van een onbekende verzameling.
+        user_of_collection: <strong>%{user}</strong> is beheerder gemaakt van de verzameling "%{collection}".
+        user_of_it: <strong>%{user}</strong> is toegevoegd als beheerder.
+      bulk_add: 
+        an_unknown_user_added_bulk_items_to_an_unknown_collection: Een onbekende gebruiker heeft items in bulk toegevoegd aan een onbekende verzameling.
+        an_unknown_user_added_bulk_items_to_collection: Een onbekende gebruiker heeft item in bulk toegevoegd aan de verzameling "%{collection}".
+        an_unknown_user_added_bulk_items_to_it: Een onbekende gebruiker heeft items in bulk toegevoegd.
+        user_added_bulk_items_to_an_unknown_collection: <strong>%{user}</strong> heeft items in bulk toegevoegd aan een onbekende verzameling.
+        user_added_bulk_items_to_collection: <strong>%{user}</strong> heeft een beheerder toegevoegd aan de verzameling "%{collection}".
+        user_of_it: <strong>%{user}</strong> heeft items in bulk toegevoegd.
       collect: 
         an_unknown_user_added_an_unknown_item_to_an_unknown_collection: Een onbekende gebruiker heeft een onbekend item toegevoegd aan een onbekende verzameling.
         an_unknown_user_added_an_unknown_item_to_collection: Een onbekende gebruiker heeft een onbekend item toegevoegd aan de verzameling "%{collection}".
+        an_unknown_user_added_an_unknown_item_to_it: Een onbekende gebruiker heeft een onbekend item toegevoegd.
         an_unknown_user_added_item_to_an_unknown_collection: Een onbekende gebruiker heeft "%{item}" toegevoegd aan een onbekende verzameling.
+        an_unknown_user_added_item_to_collection: Een onbekende gebruiker heeft "%{item}" aan de verzameling "%{collection}" toegevoegd.
+        an_unknown_user_added_item_to_it: Een onbekende gebruiker heeft "%{item}" toegevoegd.
+        user_added_an_unknown_item_to_an_unknown_collection: <strong>%{user}</strong> heeft een onbekend item toegevoegd aan een onbekende verzameling.
+        user_added_an_unknown_item_to_collection: <strong>%{user}</strong> heeft een onbekend object toegevoegd aan de verzameling "%{collection}".
+        user_added_an_unknown_item_to_it: <strong>%{user}</strong> heeft een onbekend item toegevoegd.
+        user_added_item_to_an_unknown_collection: <strong>%{user}</strong> heeft "%{item}" toegevoegd aan een onbekende verzameling.
+        user_added_item_to_collection: <strong>%{user}</strong> heeft "%{item}" toegevoegd aan de verzameling "%{collection}".
+        user_added_item_to_it: <strong>%{user}</strong> heeft "%{item}" toegevoegd.
+      create: 
+        an_unknown_user_created_an_unknown_collection: Een onbekende gebruiker heeft een onbekende verzameling aangemaakt.
+        an_unknown_user_created_collection: Een onbekende gebruiker heeft de verzameling "%{collection}" aangemaakt.
+        an_unknown_user_created_it: Aangemaakt door een onbekende gebruiker.
+        user_created_an_unknown_collection: <strong>%{user}</strong> heeft een onbekende verzameling aangemaakt.
+        user_created_collection: <strong>%{user}</strong> heeft de verzameling "%{collection}" aangemaakt.
+        user_created_it: Aangemaakt door <strong>%{user}</strong>.
+      other_actions: 
+        an_unknown_user_modified_an_unknown_collection: Een onbekende gebruiker heeft een onbekende verzameling gewijzigd.
+        an_unknown_user_modified_collection: Een onbekende gebruiker heeft de verzameling "%{collection}" gewijzigd.
+        an_unknown_user_modified_it: Aangepast door een onbekende gebruiker. De precieze wijziging is niet langer beschikbaar.
+        user_modified_an_unknown_collection: <strong>%{user}</strong> heeft een onbekende verzameling gewijzigd.
+        user_modified_collection: <strong>%{user}</strong> heeft de verzameling "%{collection}" gewijzigd.
+        user_modified_it: Aangepast door <strong>%{user}</strong>. De precieze wijziging is niet langer beschikbaar.
       remove: 
         an_unknown_user_removed_an_unknown_item_from_an_unknown_collection: Een onbekende gebruiker heeft een onbekend item uit een onbekende verzameling verwijderd.
         an_unknown_user_removed_an_unknown_item_from_collection: Een onbekende gebruiker heeft een onbekend item uit de verzameling "%{collection}" verwijderd.
@@ -322,6 +359,161 @@ nl:
         user_cleared_an_unknown_collection: <strong>%{user}</strong> heeft alle items uit een onbekende verzameling verwijderd.
         user_cleared_collection: <strong>%{user}</strong> heeft alle items uit de verzameling "%{collection}" verwijderd.
         user_cleared_it: <strong>%{user}</strong> heeft alle items verwijderd.
+    community_activity_log: 
+      add_manager: 
+        an_unknown_user_added_an_unknown_manager_to_an_unknown_community: Een onbekende gebruiker heeft een onbekende beheerder toegevoegd aan een onbekende gemeenschap.
+        an_unknown_user_added_an_unknown_manager_to_community: Een onbekende gebruiker heeft een onbekende beheerder toegevoegd aan de gemeenschap "%{community}".
+        an_unknown_user_added_manager_to_an_unknown_community: Een onbekende gebruiker heeft "%{manager}" als beheerder van een onbekende gemeenschap toegevoegd.
+        an_unknown_user_added_manager_to_community: Een onbekende gebruiker heeft "%{manager}" als beheerder van de gemeenschap "%{community}" toegevoegd.
+        user_added_an_unknown_manager_to_an_unknown_community: <strong>%{user}</strong> heeft een onbekende beheerder toegevoegd aan een onbekende gemeenschap.
+        user_added_an_unknown_manager_to_community: <strong>%{user}</strong> heeft een onbekende beheerder toegevoegd aan de gemeenschap "%{community}".
+        user_added_manager_to_an_unknown_community: <strong>%{user}</strong> heeft "%{manager}" toegevoegd aan een onbekende gemeenschap.
+        user_added_manager_to_community: <strong>%{user}</strong> heeft %{manager} als beheerder toegevoegd van de gemeenschap "%{community}".
+      change_description: 
+        an_unknown_user_changed_the_description_of_an_unknown_community: Een onbekende gebruiker heeft de beschrijving van een onbekende gemeenschap gewijzigd.
+        an_unknown_user_changed_the_description_of_community: Een onbekende gebruiker heeft de beschrijving van de gemeenschap "%{community}" gewijzigd.
+        user_changed_the_description_of_an_unknown_community: <strong>%{user}</strong> heeft de beschrijving van een onbekende gemeenschap gewijzigd.
+        user_changed_the_description_of_community: <strong>%{user}</strong> heeft de beschijving van de gemeenschap "%{community}" gewijzigd.
+      change_icon: 
+        an_unknown_user_changed_the_icon_of_an_unknown_community: Een onbekende gebruiker heeft het logo van een onbekende gemeenschap gewijzigd.
+        an_unknown_user_changed_the_icon_of_community: Een onbekende gebruiker heeft het logo van de gemeenschap "%{community}" gewijzigd.
+        user_changed_the_icon_of_an_unknown_community: <strong>%{user}</strong> heeft het logo van een onbekende gemeenschap gewijzigd.
+        user_changed_the_icon_of_community: <strong>%{user}</strong> heeft het logo van de gemeenschap "%{community}" gewijzigd.
+      change_name: 
+        an_unknown_user_changed_the_name_of_an_unknown_community: Een onbekende gebruiker heeft de naam van een onbekende gemeenschap gewijzigd.
+        an_unknown_user_changed_the_name_of_community: Een onbekende gebruiker heeft de naam van de gemeenschap "%{community}" gewijzigd.
+        user_changed_the_name_of_an_unknown_community: <strong>%{user}</strong> heeft de naam van een onbekende gemeenschap gewijzigd.
+        user_changed_the_name_of_community: <strong>%{user}</strong> heeft de naam van de gemeenschap "%{community}" gewijzigd.
+      create: 
+        an_unknown_user_created_an_unknown_community: Een onbekende gebruiker heeft een onbekende gemeenschap aangemaakt.
+        an_unknown_user_created_community: Een onbekende gebruiker heeft de gemeenschap "%{community}" aangemaakt.
+        user_created_an_unknown_community: <strong>%{user}</strong> heeft een onbekende gemeenschap aangemaakt.
+        user_created_community: <strong>%{user}</strong> heeft de gemeenschap "%{community}" aangemaakt.
+      join: 
+        an_unknown_user_joined_an_unknown_community: Een onbekende gebruiker is lid geworden van een onbekende gemeenschap.
+        an_unknown_user_joined_community: Een onbekende gebruiker is lid geworden van de gemeenschap "%{community}".
+        user_joined_an_unknown_community: <strong>%{user}</strong> is lid geworden van een onbekende gemeenschap.
+        user_joined_community: <strong>%{user}</strong> is lid geworden van de gemeenschap "%{community}".
+      leave: 
+        an_unknown_user_left_an_unknown_community: Een onbekende gebruiker heeft een onbekende gemeenschap verlaten.
+        an_unknown_user_left_community: Een onbekende gebruiker heeft de gemeenschap "%{community}" verlaten.
+        user_left_an_unknown_community: <strong>%{user}</strong> heeft een onbekende gemeenschap verlaten.
+        user_left_community: <strong>%{user}</strong> heeft de gemeenschap "%{community}" verlaten.
+      other_actions: 
+        an_unknown_user_modified_an_unknown_community: Een onbekende gebruiker heeft een onbekende gemeenschap aangepast.
+        an_unknown_user_modified_community: Een onbekende gebruiker heeft de gemeenschap "%{community}" aangepast.
+        user_modified_an_unknown_community: <strong>%{user}</strong> heeft een onbekende gemeenschap aangepast.
+        user_modified_community: <strong>%{user}</strong> heeft de gemeenschap "%{community}" aangepast.
+    curator_activity_log: 
+      add_association: 
+        an_unknown_user_associated_an_older_data_object_to_an_unknown_association: Een onbekende gebruiker heeft een koppeling gemaakt tussen een oudere versie van "%{data_object}" en een onbekende pagina.
+        an_unknown_user_associated_an_older_data_object_to_association: Een onbekende gebruiker heeft een koppeling gemaakt tussen een oudere versie van "%{data_object}" en "%{association}".
+        an_unknown_user_associated_an_unknown_data_object_to_an_unknown_association: Een onbekende gebruiker heeft een onbekende koppeling toegevoegd.
+        an_unknown_user_associated_an_unknown_data_object_to_association: Een onbekende gebruiker heeft een koppeling gemaakt tussen een onbekend gegevensobject en "%{association}".
+        an_unknown_user_associated_data_object_to_an_unknown_association: Een onbekende gebruiker heeft een koppeling gemaakt tussen "%{data_object}" en een onbekende pagina.
+        an_unknown_user_associated_data_object_to_association: Een onbekende gebruiker heeft een koppeling gemaakt tussen "%{data_object}" en "%{association}".
+        an_unknown_user_associated_it_to_an_unknown_association: Een onbekende gebruiker geeft een koppeling gemaakt met een onbekende pagina.
+        an_unknown_user_associated_it_to_association: Een onbekende gebruiker heeft een koppeling gemaakt met "%{association}".
+        user_associated_an_older_data_object_to_an_unknown_association: <strong>%{user}</strong> heeft een koppeling gemaakt tussen een oudere versie van "%{data_object}" en een onbekende pagina.
+        user_associated_an_older_data_object_to_association: <strong>%{user}</strong> heeft een koppeling gemaakt tussen een oudere versie van "%{data_object}" en "%{association}".
+        user_associated_an_unknown_data_object_to_an_unknown_association: <strong>%{user}</strong> heeft een onbekende koppeling toegevoegd.
+        user_associated_an_unknown_data_object_to_association: <strong>%{user}</strong> heeft een koppeling tussen een onbekend object en "%{association}" toegevoegd.
+        user_associated_data_object_to_an_unknown_association: <strong>%{user}</strong> heeft een koppeling gemaakt tussen "%{data_object}" en een onbekende pagina.
+        user_associated_data_object_to_association: <strong>%{user}</strong> heeft een koppeling gemaakt tussen "%{data_object}" en "%{association}".
+        user_associated_it_to_an_unknown_association: <strong>%{user}</strong> heeft een koppeling toegevoegd aan een onbekend object.
+        user_associated_it_to_association: <strong>%{user}</strong> heeft een koppeling toegevoegd aan "%{association}".
+      hide: 
+        an_unknown_user_hid_an_older_data_object_on_an_unknown_association: Een onbekende gebruiker heeft een oudere versie van "%{data_object}" als verborgen gemarkeerd in een onbekende context.
+        an_unknown_user_hid_an_older_data_object_on_association: Een onbekende gebruiker heeft een oudere versie van "%{data_object}" als verborgen gemarkeerd op de pagina "%{association}".
+        an_unknown_user_hid_an_unknown_data_object_on_an_unknown_association: Een onbekende gebruiker heeft een onbekend gegevensobject als verborgen gemarkeerd in een onbekende context.
+        an_unknown_user_hid_an_unknown_data_object_on_association: Een onbekende gebruiker heeft een onbekend gegevensobject als verborgen gemarkeerd op de pagina "%{association}".
+        an_unknown_user_hid_data_object_on_an_unknown_association: Een onbekende gebruiker heeft "%{data_object}" als verborgen gemarkeerd in een onbekende context.
+        an_unknown_user_hid_data_object_on_association: Een onbekende gebruiker heeft "%{data_object}" als verborgen gemarkeerd op de pagina "%{association}".
+        an_unknown_user_hid_it_on_an_unknown_association: Een onbekende gebruiker heeft het als verborgen gemarkeerd in een onbekende context.
+        an_unknown_user_hid_it_on_association: Een onbekende gebruiker heeft het als verborgen gemarkeerd op de pagina "%{association}".
+        user_hid_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong> heeft een oudere versie van "%{data_object}" als verborgen gemarkeerd in een onbekende context.
+        user_hid_an_older_data_object_on_association: <strong>%{user}</strong> heeft een oudere versie van "%{data_object}" als verborgen gemarkeerd op de pagina "%{association}".
+        user_hid_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong> heeft een onbekend gegevensobject als verborgen gemarkeerd in een onbekende context.
+        user_hid_an_unknown_data_object_on_association: <strong>%{user}</strong> heeft een onbekend gegevensobject als verborgen gemarkeerd op de pagina "%{association}".
+        user_hid_data_object_on_an_unknown_association: <strong>%{user}</strong> heeft "%{data_object}" als verborgen gemarkeerd in een onbekende context.
+        user_hid_data_object_on_association: <strong>%{user}</strong> heeft "%{data_object}" als verborgen gemarkeerd op de pagina "%{association}".
+        user_hid_it_on_an_unknown_association: <strong>%{user}</strong> heeft het als verborgen gemarkeerd in een onbekende context.
+        user_hid_it_on_association: <strong>%{user}</strong> heeft het als verborgen gemarkeerd op de pagina "%{association}".
+      reasons_to_hide: "Reden voor verbergen: %{reasons}"
+      reasons_to_untrust: "Reden voor niet vertrouwen: %{reasons}"
+      remove_association: 
+        an_unknown_user_disassociated_an_older_data_object_from_an_unknown_taxon: Een onbekende gebruiker heeft een koppeling verwijderd van een oudere versie van "%{data_object}".
+        an_unknown_user_disassociated_an_older_data_object_from_taxon: Een onbekende gebruiker heeft een koppeling verwijderd tussen "%{data_object}" en "%{taxon}".
+        an_unknown_user_disassociated_an_unknown_data_object_from_an_unknown_taxon: Een onbekende gebruiker heeft een onbekende koppeling verwijderd.
+        an_unknown_user_disassociated_an_unknown_data_object_from_taxon: Een onbekende gebruiker heeft een koppeling verwijderd tussen een onbekend gegevensobject en "%{taxon}".
+      show: 
+        an_unknown_user_showed_an_older_data_object_on_an_unknown_association: Een onbekende gebruiker heeft een oudere versie van "%{data_object}" als zichtbaar gemarkeerd in een onbekende context.
+        an_unknown_user_showed_an_older_data_object_on_association: Een onbekende gebruiker heeft een oudere versie van "%{data_object}" als zichtbaar gemarkeerd op de pagina "%{association}".
+        an_unknown_user_showed_an_unknown_data_object_on_an_unknown_association: Een onbekende gebruiker heeft een onbekend gegevensobject als zichtbaar gemarkeerd in een onbekende context.
+        an_unknown_user_showed_an_unknown_data_object_on_association: Een onbekende gebruiker heeft een onbekend gegevensobject als zichtbaar gemarkeerd op de pagina "%{association}".
+        an_unknown_user_showed_data_object_on_an_unknown_association: Een onbekende gebruiker heeft "%{data_object}" als zichtbaar gemarkeerd in een onbekende context.
+        an_unknown_user_showed_data_object_on_association: Een onbekende gebruiker heeft "%{data_object}" als zichtbaar gemarkeerd op de pagina "%{association}".
+        an_unknown_user_showed_it_on_an_unknown_association: Een onbekende gebruiker heeft het als zichtbaar gemarkeerd in een onbekende context.
+        an_unknown_user_showed_it_on_association: Een onbekende gebruiker heeft het als zichtbaar gemarkeerd op de pagina "%{association}".
+        user_showed_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong> heeft een oudere versie van "%{data_object}" als zichtbaar gemarkeerd in een onbekende context.
+        user_showed_an_older_data_object_on_association: <strong>%{user}</strong> heeft een oudere versie van "%{data_object}" als zichtbaar gemarkeerd op de pagina "%{association}".
+        user_showed_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong> heeft een onbekend gegevensobject als zichtbaar gemarkeerd in een onbekende context.
+        user_showed_an_unknown_data_object_on_association: <strong>%{user}</strong> heeft een onbekend gegevensobject als zichtbaar gemarkeerd op de pagina "%{association}".
+        user_showed_data_object_on_an_unknown_association: <strong>%{user}</strong> heeft "%{data_object}" als zichtbaar gemarkeerd in een onbekende context.
+        user_showed_data_object_on_association: <strong>%{user}</strong> heeft "%{data_object}" als zichtbaar gemarkeerd op de pagina "%{association}".
+        user_showed_it_on_an_unknown_association: <strong>%{user}</strong> heeft het als zichtbaar gemarkeerd in een onbekende context.
+        user_showed_it_on_association: <strong>%{user}</strong> heeft het als zichtbaar gemarkeerd op de pagina "%{association}".
+      trusted: 
+        an_unknown_user_trusted_an_older_data_object_on_an_unknown_association: Een onbekende gebruiker heeft een oudere versie van "%{data_object}" als vertrouwd gemarkeerd in een onbekende context.
+        an_unknown_user_trusted_an_older_data_object_on_association: Een onbekende gebruiker heeft een oudere versie van "%{data_object}" als vertrouwd gemarkeerd op de pagina "%{association}".
+        an_unknown_user_trusted_an_unknown_data_object_on_an_unknown_association: Een onbekende gebruiker heeft een onbekend gegevensobject als vertrouwd gemarkeerd in een onbekende context.
+        an_unknown_user_trusted_an_unknown_data_object_on_association: Een onbekende gebruiker heeft een onbekend gegevensobject als vertrouwd gemarkeerd op de pagina "%{association}".
+        an_unknown_user_trusted_data_object_on_an_unknown_association: Een onbekende gebruiker heeft "%{data_object}" als vertrouwd gemarkeerd in een onbekende context.
+        an_unknown_user_trusted_data_object_on_association: Een onbekende gebruiker heeft "%{data_object}" als vertrouwd gemarkeerd op de pagina "%{association}".
+        an_unknown_user_trusted_it_on_an_unknown_association: Een onbekende gebruiker heeft het als vertrouwd gemarkeerd in een onbekende context.
+        an_unknown_user_trusted_it_on_association: Een onbekende gebruiker heeft het als vertrouwd gemarkeerd op de pagina "%{association}".
+        user_trusted_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong> heeft een oudere versie van "%{data_object}" als vertrouwd gemarkeerd in een onbekende context.
+        user_trusted_an_older_data_object_on_association: <strong>%{user}</strong> heeft een oudere versie van "%{data_object}" als vertrouwd gemarkeerd op de pagina "%{association}".
+        user_trusted_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong> heeft een onbekend gegevensobject als vertrouwd gemarkeerd in een onbekende context.
+        user_trusted_an_unknown_data_object_on_association: <strong>%{user}</strong> heeft een onbekend gegevensobject als vertrouwd gemarkeerd op de pagina "%{association}".
+        user_trusted_data_object_on_an_unknown_association: <strong>%{user}</strong> heeft "%{data_object}" als vertrouwd gemarkeerd in een onbekende context.
+        user_trusted_data_object_on_association: <strong>%{user}</strong> heeft "%{data_object}" als vertrouwd gemarkeerd op de pagina "%{association}".
+        user_trusted_it_on_an_unknown_association: <strong>%{user}</strong> heeft het als vertrouwd gemarkeerd in een onbekende context.
+        user_trusted_it_on_association: <strong>%{user}</strong> heeft het als vertrouwd gemarkeerd op de pagina "%{association}".
+      unreviewed: 
+        an_unknown_user_unreviewed_an_older_data_object_on_an_unknown_association: Een onbekende gebruiker heeft een oudere versie van "%{data_object}" als ongecontroleerd gemarkeerd in een onbekende context.
+        an_unknown_user_unreviewed_an_older_data_object_on_association: Een onbekende gebruiker heeft een oudere versie van "%{data_object}" als ongecontroleerd gemarkeerd op de pagina "%{association}".
+        an_unknown_user_unreviewed_an_unknown_data_object_on_an_unknown_association: Een onbekende gebruiker heeft een onbekend gegevensobject als ongecontroleerd gemarkeerd in een onbekende context.
+        an_unknown_user_unreviewed_an_unknown_data_object_on_association: Een onbekende gebruiker heeft een onbekend gegevensobject als ongecontroleerd gemarkeerd op de pagina "%{association}".
+        an_unknown_user_unreviewed_data_object_on_an_unknown_association: Een onbekende gebruiker heeft "%{data_object}" als ongecontroleerd gemarkeerd in een onbekende context.
+        an_unknown_user_unreviewed_data_object_on_association: Een onbekende gebruiker heeft "%{data_object}" als ongecontroleerd gemarkeerd op de pagina "%{association}".
+        an_unknown_user_unreviewed_it_on_an_unknown_association: Een onbekende gebruiker heeft het als ongecontroleerd gemarkeerd in een onbekende context.
+        an_unknown_user_unreviewed_it_on_association: Een onbekende gebruiker heeft het als ongecontroleerd gemarkeerd op de pagina "%{association}".
+        user_unreviewed_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong> heeft een oudere versie van "%{data_object}" als ongecontroleerd gemarkeerd in een onbekende context.
+        user_unreviewed_an_older_data_object_on_association: <strong>%{user}</strong> heeft een oudere versie van "%{data_object}" als ongecontroleerd gemarkeerd op de pagina "%{association}".
+        user_unreviewed_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong> heeft een onbekend gegevensobject als ongecontroleerd gemarkeerd in een onbekende context.
+        user_unreviewed_an_unknown_data_object_on_association: <strong>%{user}</strong> heeft een onbekend gegevensobject als ongecontroleerd gemarkeerd op de pagina "%{association}".
+        user_unreviewed_data_object_on_an_unknown_association: <strong>%{user}</strong> heeft "%{data_object}" als ongecontroleerd gemarkeerd in een onbekende context.
+        user_unreviewed_data_object_on_association: <strong>%{user}</strong> heeft "%{data_object}" als ongecontroleerd gemarkeerd op de pagina "%{association}".
+        user_unreviewed_it_on_an_unknown_association: <strong>%{user}</strong> heeft het als ongecontroleerd gemarkeerd in een onbekende context.
+        user_unreviewed_it_on_association: <strong>%{user}</strong> heeft het als ongecontroleerd gemarkeerd op de pagina "%{association}".
+      untrusted: 
+        an_unknown_user_untrusted_an_older_data_object_on_an_unknown_association: Een onbekende gebruiker heeft een oudere versie van "%{data_object}" als niet-vertrouwd gemarkeerd in een onbekende context.
+        an_unknown_user_untrusted_an_older_data_object_on_association: Een onbekende gebruiker heeft een oudere versie van "%{data_object}" als niet-vertrouwd gemarkeerd op de pagina "%{association}".
+        an_unknown_user_untrusted_an_unknown_data_object_on_an_unknown_association: Een onbekende gebruiker heeft een onbekend gegevensobject als niet-vertrouwd gemarkeerd in een onbekende context.
+        an_unknown_user_untrusted_an_unknown_data_object_on_association: Een onbekende gebruiker heeft een onbekend gegevensobject als niet-vertrouwd gemarkeerd op de pagina "%{association}".
+        an_unknown_user_untrusted_data_object_on_an_unknown_association: Een onbekende gebruiker heeft "%{data_object}" als niet-vertrouwd gemarkeerd in een onbekende context.
+        an_unknown_user_untrusted_data_object_on_association: Een onbekende gebruiker heeft "%{data_object}" als niet-vertrouwd gemarkeerd op de pagina "%{association}".
+        an_unknown_user_untrusted_it_on_an_unknown_association: Een onbekende gebruiker heeft het als niet-vertrouwd gemarkeerd in een onbekende context.
+        an_unknown_user_untrusted_it_on_association: Een onbekende gebruiker heeft het als niet-vertrouwd gemarkeerd op de pagina "%{association}".
+        user_untrusted_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong> heeft een oudere versie van "%{data_object}" als niet-vertrouwd gemarkeerd in een onbekende context.
+        user_untrusted_an_older_data_object_on_association: <strong>%{user}</strong> heeft een oudere versie van "%{data_object}" als niet-vertrouwd gemarkeerd op de pagina "%{association}".
+        user_untrusted_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong> heeft een onbekend gegevensobject als niet-vertrouwd gemarkeerd in een onbekende context.
+        user_untrusted_an_unknown_data_object_on_association: <strong>%{user}</strong> heeft een onbekend gegevensobject als niet-vertrouwd gemarkeerd op de pagina "%{association}".
+        user_untrusted_data_object_on_an_unknown_association: <strong>%{user}</strong> heeft "%{data_object}" als niet-vertrouwd gemarkeerd in een onbekende context.
+        user_untrusted_data_object_on_association: <strong>%{user}</strong> heeft "%{data_object}" als niet-vertrouwd gemarkeerd op de pagina "%{association}".
+        user_untrusted_it_on_an_unknown_association: <strong>%{user}</strong> heeft het als niet-vertrouwd gemarkeerd in een onbekende context.
+        user_untrusted_it_on_association: <strong>%{user}</strong> heeft het als niet-vertrouwd gemarkeerd op de pagina "%{association}".
   activity_user_created_text: <strong>%{user}</strong> heeft tekst toegevoegd aan "%{object_name}" in "%{taxon_concept}".
   activity_user_updated_text: <strong>%{user}</strong> heeft tekst gewijzigd van "%{object_name}" in "%{taxon_concept}".
   add: Toevoegen
@@ -459,6 +651,7 @@ nl:
   all_communities: Alle gemeenschappen
   all_count: Alle (%{count})
   all_errors: ALLE foutmeldingen
+  all_filter: alle
   all_harvesting_logs: ALLE importlogboeken
   all_images: Alle afbeeldingen
   all_information: Alle gegevens
@@ -509,6 +702,7 @@ nl:
   assistive_literature_header: Literatuur
   assistive_maps_header: Kaarten
   assistive_media_header: Media
+  assistive_names_classifictions_header: Classificaties
   assistive_names_common_header: Gewone namen
   assistive_names_related_header: Gerelateerde namen
   assistive_names_synonyms_header: Synoniemen
@@ -577,7 +771,13 @@ nl:
   choose_collection_header: Kies een verzameling
   citation: Referentie
   citing_link: Citeren
+  classification_preferred_for_taxon: Voorkeur
+  classification_summary_section_header: Classificatie
   classification_tree_header: Classificatie
+  classifications_hierarchy_column_header: Classificatie
+  classifications_preferred_column_header: Voorkeur
+  classifications_rank_column_header: Positie
+  classifications_recognized_by_column_header: Erkend door
   classifications_summary_header_with_count: 
     one: Gevonden in één goedgekeurde classificatie
     other: Gevonden in %{count} classificaties
@@ -644,6 +844,9 @@ nl:
         meta_title: Nieuws over %{collection_name}
         tweet_text: Nieuws over %{collection_name}
     show: 
+      meta_description_default: Een Encyclopedia of Life-verzameling met de naam %{collection_name}.
+      meta_description_default_focus_collection: Een Encyclopedia of Life-focusverzameling met de naam %{collection_name}.
+      meta_description_default_watch_collection: "Een Encyclopedia of Life-volglijst: %{collection_name}."
       meta_keywords: "%{collection_name}, Encyclopedia of Life-verzameling"
   collections_filter: Verzamelingen
   collections_link: Verzamelingen
@@ -1014,6 +1217,20 @@ nl:
   data_object_undo_ignore: uit de negeerlijst verwijderen
   data_objects: 
     show: 
+      meta_description_article: Artikel - %{dato_description}
+      meta_description_default: "%{dato_title} van %{supplier}."
+      meta_description_default_article: Artikel - %{dato_title} van %{supplier}.
+      meta_description_default_image: Afbeelding - %{dato_title} van %{supplier}.
+      meta_description_default_image_map: Kaart - %{dato_title} van %{supplier}
+      meta_description_default_map: Kaart - %{dato_title} van %{supplier}.
+      meta_description_default_sound: Geluid - %{dato_title} van %{supplier}.
+      meta_description_default_video: Video - %{dato_title} van %{supplier}
+      meta_description_image: Afbeelding - %{dato_description}
+      meta_description_image_map: Kaart - %{dato_description}
+      meta_description_map: Kaart - %{dato_description}
+      meta_description_sound: Geluid - %{dato_description}
+      meta_description_video: Video - %{dato_description}
+      meta_supplier_default: een bijdrager
       meta_title: "%{dato_title} van %{supplier}"
       tweet_text: "%{dato_title} van %{supplier}"
   data_usage_reports: Gegevensgebruikrapportages
@@ -1167,16 +1384,21 @@ nl:
     one: Alle typen (%{count})
     other: Alle typen (%{count})
   filter_by_type_collection_option: Verzamelingen
+  filter_by_type_comment_option: Reacties
   filter_by_type_community_option: Gemeenschappen
+  filter_by_type_content_page_option: Over EOL
   filter_by_type_image_option: Afbeeldingen
   filter_by_type_image_option_with_count: 
     one: Afbeelding (%{count})
     other: Afbeeldingen (%{count})
+  filter_by_type_name_option: Namen
+  filter_by_type_object_curated_option: Geconserveerde objecten
   filter_by_type_photosynth_option: Photosynths
   filter_by_type_sound_option: Geluiden
   filter_by_type_sound_option_with_count: 
     one: Geluidsbestand (%{count})
     other: Geluidsbestanden (%{count})
+  filter_by_type_taxa_comment_option: Reacties bij taxa
   filter_by_type_taxon_concept_option: Taxa
   filter_by_type_text_option: Artikelen
   filter_by_type_user_option: Mensen
@@ -1185,6 +1407,12 @@ nl:
     one: Video (%{count})
     other: Video's (%{count})
   filter_media: media filteren
+  filter_newsfeed_option_all: Alle
+  filter_newsfeed_option_collections: Verzamelingen
+  filter_newsfeed_option_community: Gemeenschap
+  filter_newsfeed_option_curation: Conservering
+  filter_newsfeed_option_messages: Reacties
+  filter_newsfeed_option_watchlist: Volglijst
   filtered_information: Gefilterde gegevens
   find_taxa_submit_button: taxa zoeken
   flash_notice_redirected_from_search_html: U bent hier aangekomen door te zoeken naar <em>%{search_string}</em>. <a href="%{more_results_url}">Klik hier om terug te keren naar de zoekpagina.</a>
@@ -1507,6 +1735,7 @@ nl:
   in_collection: in verzameling
   in_this_data_type: "in deze %{data_type}:"
   inappropriate: Ongepast
+  inaturalist_tab_label: Waarmeningen van iNaturalist
   include_all_metadata: alle metadata voor gegevensobjecten opnemen
   indexed: Geïndexeerd
   info_item: Informatiebericht
@@ -1664,6 +1893,7 @@ nl:
   message_colon: "Bericht:"
   meta_description_colon: "Metabeschrijving:"
   meta_keywords_colon: "Metatrefwoorden:"
+  meta_title_site_name: Encyclopedia of Life
   method: Methode
   methods: Methoden
   minimal_page: Minimale pagina
@@ -1756,6 +1986,11 @@ nl:
   note: "Notitie:"
   notes: Notities
   notes_not_shown_to_user: "Notities (niet zichtbaar voor de gebruiker):"
+  notification_frequency_daily_digest: Dagelijks overzicht
+  notification_frequency_never: Nooit
+  notification_frequency_newsfeed_only: Alleen nieuwsoverzicht
+  notification_frequency_send_immediately: Onmiddellijk verzenden
+  notification_frequency_weekly: Wekelijks
   notifier: 
     activity_log_empty: Geen recente handelingen door conservatoren.
     activity_on_content_partner_content: 
@@ -2013,6 +2248,8 @@ nl:
   search: Zoeken
   search_by_term_page_title: "Zoeken: %{term}"
   search_field_label: EOL doorzoeken
+  search_field_surrogate: Surrogaat
+  search_field_synonym: Synoniem
   search_for_messages_containing: "Zoeken naar berichten die de volgende tekst bevatten:"
   search_for_terms_containing: "Zoeken naar termen die bevatten:"
   search_input_advisory_information: Voer de triviale of of wetenschappelijke namen van levende organismen in waar u meer over wilt weten. U kunt ook zoeken naar EOL-leden, verzamelingen en gemeenschappen.
@@ -2215,14 +2452,14 @@ nl:
         meta_description_with_chapter_list: Gegevens over %{scientific_name} in Encyclopedia of Life. Bevat %{chapter_list}gegevens voor %{scientific_name}.
         meta_description_with_common_name: Gegevens over %{preferred_common_name}, wetenschappelijk bekend als %{scientific_name} in Encyclopedia of Life.
         meta_description_with_common_name_with_chapter_list: Gegevens over %{preferred_common_name}, wetenschappelijk bekend als %{scientific_name} in Encyclopedia of Life. Bevat %{chapter_list}gegevens voor %{scientific_name}.
-        meta_title: Gegevens over %{scientific_name}
+        meta_title: Feiten over %{scientific_name}
         meta_title_with_common_name: Feiten over %{preferred_common_name} (%{scientific_name})
         tweet_text: Gegevens over %{scientific_name}
     literature: 
       bhl: 
         hierarchy_entry: 
-          meta_description: Literatuur en gegevens over %{scientific_name} als ingedeeld door %{hierarchy_provider} in Encyclopedia of Life. Lees artikelen over %{scientific_name} in de Encyclopedia of Life.
-          meta_description_with_common_name: Literatuur en gegevens over %{preferred_common_name}, ook bekend als %{scientific_name} als ingedeeld door %{hierarchy_provider} in Encyclopedia of Life. Lees artikelen over %{scientific_name} in de Encyclopedia of Life.
+          meta_description: BHL-literatuur en gegevens over %{scientific_name} als ingedeeld door %{hierarchy_provider} in Encyclopedia of Life. Lees artikelen van de Biodiversity Heritage Library (BHL) over %{scientific_name} in de Encyclopedia of Life.
+          meta_description_with_common_name: BHL-literatuur en gegevens over %{preferred_common_name}, ook bekend als %{scientific_name} als ingedeeld door %{hierarchy_provider} in Encyclopedia of Life. Lees artikelen van de Biodiversity Heritage Library (BHL) over %{scientific_name} in de Encyclopedia of Life.
           meta_title: BHL-literatuur over %{scientific_name} als ingedeeld door %{hierarchy_provider}
           meta_title_with_common_name: BHL-literatuur over %{preferred_common_name} (%{scientific_name} als ingedeeld door %{hierarchy_provider})
           tweet_text: "Literatuur van #BHL over %{scientific_name} als ingedeeld door %{hierarchy_provider}"
@@ -2270,7 +2507,7 @@ nl:
         meta_description_with_common_name: Afbeeldingen en video's van %{preferred_common_name}, ook bekend als %{scientific_name}
         meta_keywords: afbeeldingen van %{scientific_name}, video's van %{scientific_name}, foto's van %{scientific_name}, video van %{scientific_name}, media
         meta_keywords_with_common_name: foto's van %{preferred_common_name}, video's van %{preferred_common_name}, afbeeldingen van %{preferred_common_name}, video van %{preferred_common_name}, media
-        meta_title: Afbeeldingen en video van %{preferred_common_name} (%{scientific_name})
+        meta_title: Afbeeldingen en video van %{scientific_name}
         meta_title_with_common_name: Afbeeldingen en video van %{preferred_common_name} (%{scientific_name})
         tweet_text: Media van %{scientific_name}
     names: 
@@ -2369,6 +2606,9 @@ nl:
           meta_title_with_common_name: Gegevensproviders voor %{preferred_common_name} als geclassificeerd door %{hierarchy_provider}
           tweet_text: Gegevensproviders voor %{scientific_name} als ingedeeld door %{hierarchy_provider}.
         meta_description: Bronnen en partnercitaten voor %{scientific_name}
+        meta_description_with_common_name: Bronnen over %{preferred_common_name} en partnercitaten voor %{scientific_name}.
+        meta_keywords: bronnen over %{scientific_name}, gegevensleveranciers voor %{scientific_name}
+        meta_keywords_with_common_name: bronnen over %{preferred_common_name}, gegevensleveranciers voor %{preferred_common_name}, bronnen over %{scientific_name}, gegevensleveranciers voor %{scientific_name}
         meta_title: Inhoudelijke bronnen voor %{scientific_name}
         meta_title_with_common_name: Inhoudelijke bronnen voor %{preferred_common_name} (%{scientific_name})
         tweet_text: Inhoudelijke bronnen voor %{scientific_name}
@@ -2487,6 +2727,7 @@ nl:
     other: "%{count} items totaal"
   total_searches: "Totaal aantal zoekopdrachten:"
   translation_deleted: De vertaling is verwijderd
+  translation_information_header: Vertalingsinformatie
   translation_saved: De vertaling is opgeslagen
   translations_submit: Vertaling bekijken
   true_label: Waar
@@ -2494,15 +2735,19 @@ nl:
   truncated_comment_omission_linkless: ...
   trusted: Vertrouwd
   trusted_images: Vertrouwde afbeeldingen
+  trusted_maps: Vertrouwde kaarten
   trusted_text_objects: Vertrouwde artikelen
   tumblr: Tumblr
   twitter: Twitter
   type: Type
+  unique_page_views_th: Unieke bekeken pagina's
   unknown: Onbekend
+  unknown_hierarchy: Onbekende hiërarchie
   unknown_type_not_associated_with_any_published_entries: Deze gegevens zijn niet gekoppeld met gepubliceerde taxa.
   unpublished: Ongepubliceerd
   unreviewed: Niet-beoordeeld
   unreviewed_images: Ongecontroleerde afbeeldingen
+  unreviewed_maps: Ongecontroleerde kaarten
   unreviewed_text_objects: Ongecontroleerde artikelen
   untrusted: Niet-vertrouwd
   update: Bijwerken
@@ -2535,7 +2780,7 @@ nl:
   user_activity_stats_articles_added_dropdown: Artikelen toegevoegd
   user_activity_stats_header: Activiteit
   user_activity_stats_objects_curated_dropdown: Geconserveerde objecten
-  user_activity_stats_taxa_comments_dropdown: Opmerkingen bij taxa
+  user_activity_stats_taxa_comments_dropdown: Reacties bij taxa
   user_agent: Gebruikersagent
   user_already_active_notice: Uw gebruiker is al actief. Meld u aan.
   user_comment: Opmerking van gebruiker
@@ -2551,10 +2796,12 @@ nl:
   users: 
     activities: 
       show: 
+        meta_description: Conservatieactiviteit en opmerkingen van %{user_full_name}
         meta_title: Activiteit van %{user_full_name}
         tweet_text: activiteit van %{user_full_name}
     collections: 
       index: 
+        meta_description: Verzamelingen beheerd door %{user_full_name}.
         meta_title: Verzamelingen van %{user_full_name}
         tweet_text: verzamelingen van %{user_full_name}
     communities: 
@@ -2562,8 +2809,21 @@ nl:
         meta_description: Gemeenschappen waar %{user_full_name} lid van is.
         meta_title: Gemeenschappen van %{user_full_name}
         tweet_text: gemeenschappen van %{user_full_name}
+    content_partners: 
+      index: 
+        meta_description: Contentpartnerrelaties van %{user_full_name}
+        meta_title: Contentpartners van %{user_full_name}
+        tweet_text: Contentpartners van %{user_full_name}
+    edit: 
+      form_tip_account: Om bij EOL aan te melden heeft u een gebruikernaam en wachtwoord van EOL nodig, of u kunt aanmelden met een gebruiker van een derde partij. Gebruikersnaam en wachtwoord zijn nodig als u geen gekoppelde gebruiker hebt. Voer hier alleen een nieuw wachtwoord in als u uw bestaande wachtwoord wilt wijzigen. E-mailadres en voorkeurstaal zijn verplicht (%{required_icon}) voor alle gebruikers.
+      form_tip_account_oauth: E-mailadres en voorkeurstaal zijn verplicht (%{required_icon}) voor alle gebruikers.
+      form_tip_curation: Referenties en conservatiescope zijn optioneel voor assistentconservatoren maar verplicht %{required_icon} voor volwaardige en meesterconservatoren
+      form_tip_profile: Velden gemarkeerde als verplicht %{required_icon} zijn optioneel voor algemene gebruikers, maar verplicht voor conservatoren.
+      form_tip_profile_oauth: Voornaam is verplicht, andere velden die gemarkeerd zijn als verplicht %{required_icon} zijn optioneel voor algemene gebruikers, maar verplicht voor conservatoren.
     new: 
+      complete_registration_header: EOL-inschrijving voltooien
       create_user_header: Nieuwe <abbr title="Encyclopedia of Life">EOL</abbr>-gebruiker aanmaken
+      create_user_with_eol_authentication_header: "Of geef nieuwe referenties op:"
       meta_title: Wordt lid van EOL
       sign_up_with_facebook_assistive: Meld aan bij EOL met uw Facebookgebruiker.
       sign_up_with_google_assistive: Meld aan bij EOL met uw Googlegebruiker.
@@ -2592,6 +2852,7 @@ nl:
       errors: 
         facebook: 
           add_connection_failed_account_already_connected: Het is niet mogelijk uw EOL-gebruiker te koppelen met uw Facebookgebruiker, omdat uw Facebookgebruiker al aan een <a href="%{existing_eol_account_url}">EOL-gebruiker</a> is gekoppeld.
+          login_failed_not_connected: We hebben geen koppeling kunnen vinden tussen uw Facebookgebruiker en EOL. Als u al een EOL-gebruiker heeft, <a href="%{login_url}">meld dan aan bij EOL</a> met andere gebruikersgegevens en koppel dan met uw Facebookgebruiker in uw EOL-voorkeuren. Als u nog geen EOL-gebruiker hebt, <a href="%{register_url}">rond dan uw EOL-inschrijving af</a> om er een aan te maken.
           missing_attributes: Er is een probleem opgetreden tijdens het raadplegen van uw Facebookgegevens.
           new_authentication_not_added: Er is een probleem opgetreden. Het was niet mogelijk uw Facebookgebruiker te koppelen.
           not_authorized_to_add_authentication: Er is geen toestemming om te koppelen met uw Facebookgebruiker.
@@ -2600,6 +2861,7 @@ nl:
           signup_failed_account_already_connected: Het is niet mogelijk een nieuwe EOL-gebruiker te registeren met uw Facebookgebruiker, omdat uw Facebookgebruiker al aan een <a href="%{existing_eol_account_url}">EOL-gebruiker</a> is gekoppeld. Wilde u wellicht <a href="%{login_url}">aanmelden</a>?
         google: 
           add_connection_failed_account_already_connected: Het is niet mogelijk uw EOL-gebruiker te koppelen met uw Googlegebruiker, omdat uw Googlegebruiker al aan een <a href="%{existing_eol_account_url}">EOL-gebruiker</a> is gekoppeld.
+          login_failed_not_connected: We hebben geen koppeling kunnen vinden tussen uw Googlegebruiker en EOL. Als u al een EOL-gebruiker heeft, <a href="%{login_url}">meld dan aan bij EOL</a> met andere gebruikersgegevens en koppel dan met uw Googlegebruiker in uw EOL-voorkeuren. Als u nog geen EOL-gebruiker hebt, <a href="%{register_url}">rond dan uw EOL-inschrijving af</a> om er een aan te maken.
           missing_attributes: Er is een probleem opgetreden tijdens het raadplegen van uw Googlegegevens.
           new_authentication_not_added: Er is een probleem opgetreden. Het was niet mogelijk uw Googlegebruiker te koppelen.
           not_authorized_to_add_authentication: Er is geen toestemming om te koppelen met uw Googlegebruiker.
@@ -2612,6 +2874,7 @@ nl:
         remove_connection_failed: Er is een fout opgetreden. Het was niet mogelijk om de koppeling te verwijderen.
         twitter: 
           add_connection_failed_account_already_connected: Het is niet mogelijk uw EOL-gebruiker te koppelen met uw Twittergebruiker, omdat uw Twittergebruiker al aan een <a href="%{existing_eol_account_url}">EOL-gebruiker</a> is gekoppeld.
+          login_failed_not_connected: We hebben geen koppeling kunnen vinden tussen uw Twittergebruiker en EOL. Als u al een EOL-gebruiker heeft, <a href="%{login_url}">meld dan aan bij EOL</a> met andere gebruikersgegevens en koppel dan met uw Twittergebruiker in uw EOL-voorkeuren. Als u nog geen EOL-gebruiker hebt, <a href="%{register_url}">rond dan uw EOL-inschrijving af</a> om er een aan te maken.
           missing_attributes: Er is een probleem opgetreden tijdens het raadplegen van uw Twittergegevens.
           new_authentication_not_added: Er is een probleem opgetreden. Het was niet mogelijk uw Twittergebruiker te koppelen.
           not_authorized_to_add_authentication: Er is geen toestemming om te koppelen met uw Twittergebruiker.
@@ -2620,6 +2883,7 @@ nl:
           signup_failed_account_already_connected: Het is niet mogelijk een nieuwe EOL-gebruiker te registeren met uw Twittergebruiker, omdat uw Twittergebruiker al aan een <a href="%{existing_eol_account_url}">EOL-gebruiker</a> is gekoppeld. Wilde u wellicht <a href="%{login_url}">aanmelden</a>?
         yahoo: 
           add_connection_failed_account_already_connected: Het is niet mogelijk uw EOL-gebruiker te koppelen met uw Yahoo!-gebruiker, omdat uw Yahoo!-gebruiker al aan een <a href="%{existing_eol_account_url}">EOL-gebruiker</a> is gekoppeld.
+          login_failed_not_connected: We hebben geen koppeling kunnen vinden tussen uw Yahoo!-gebruiker en EOL. Als u al een EOL-gebruiker heeft, <a href="%{login_url}">meld dan aan bij EOL</a> met andere gebruikersgegevens en koppel dan met uw Yahoo!-gebruiker in uw EOL-voorkeuren. Als u nog geen EOL-gebruiker hebt, <a href="%{register_url}">rond dan uw EOL-inschrijving af</a> om er een aan te maken.
           missing_attributes: Er is een probleem opgetreden tijdens het raadplegen van uw Yahoo!-gegevens.
           new_authentication_not_added: Er is een probleem opgetreden. Het was niet mogelijk uw Yahoo!-gebruiker te koppelen.
           not_authorized_to_add_authentication: Er is geen toestemming om te koppelen met uw Yahoo!-gebruiker.
@@ -2654,19 +2918,49 @@ nl:
       yahoo: Yahoo!
     pending: 
       header: Bedankt voor het registreren!
+      verify_email_instructions: <strong>Bevestig uw e-mailadres</strong>. Er is een bevestigingsbericht verzonden aan het e-mailadres dat u hebt opgegeven. Klik op de verwijzing in die e-mail om het inschrijvingsproces te voltooien en lid te worden van EOL. Dank u wel!
+      verify_email_tip: Denk eraan dat bevestigingse-mails <em>vaak</em> als "spam" gemarkeerd worden door e-mailfilters. Controleer alstublieft uw spammap als u binnen een uur geen e-mail ontvangt.
+    recover_account: 
+      errors: 
+        temporary_login_user_not_found: De EOL-gebruiker waar u toegang toe probeert te krijgen is niet aangetroffen. Vraag alstublieft een nieuwe e-mail voor een volgende poging om toegang te krijgen tot uw gebruiker.
+        token_expired_or_invalid: De mogelijkheid om tijdelijk aan te melden is verlopen of ongeldig. Vraag alstublieft een nieuwe e-mail voor een volgende poging om toegang te krijgen tot uw gebruiker.
+        unable_to_update_token: Er is een fout opgetreden en de e-mail is niet verzonden. Probeer het opnieuw.
+        user_not_found_by_email_address: Er is geen EOL-gebruiker met dat e-mailadres bekend.
+      form_header: Wachtwoord vergeten
+      form_tip: Voer een e-mailadres in dat gekoppeld is aan een gebruiker om weer toegang te krijgen tot uw EOL-gebruiker. Kijk ook in uw spammap als u binnen een uur geen e-mail van ons ontvangt.
+      meta_title: Wachtwoord vergeten
+      notices: 
+        recovery_email_sent: Er is een e-mail aan uw verzonden met instructies over hoe u weer toegang kunt krijgen tot uw gebruiker. Kijk ook in uw spammap als u binnen een uur geen bericht van ons hebt ontvangen.
+        temporarily_logged_in_update_authentication_details: U bent nu tijdelijk aangemeld om weer toegang te krijgen tot uw gebruiker. Wijzig alstublieft uw wachtwoord of werk uw gekoppelde gebruikers bij om ervoor te zorgen dat u vanaf nu weer kunt aanmelden.
+    recover_account_choose_account: 
+      errors: 
+        user_not_found_choose_again: Er is een fout opgetreden en de e-mail is niet verzonden. Selecteer de gebruiker waar u weer toegang toe wilt krijgen en probeer het opnieuw.
+      form_header: Wachtwoord vergeten
+      form_tip: Er zijn meerdere gebruikers ingeschreven met het e-mailadres <em>%{email}</em>. Selecteer de gebruiker waar u weer toegang toe wilt krijgen.
+      legend_choose_account: Kies een gebruiker
+    show: 
+      meta_description: Gebruikersprofiel voor %{user_full_name} bij Encyclopedia of Life.
+      meta_description_curator: Gebruikersprofiel voor %{curator_level} %{user_full_name} bij Encyclopedia of Life.
   users_about_me_header: Over mij
   users_content_partners_header: Contentpartners
+  users_curation_header: Conservatorkwalificaties
   users_form_account_header: Uw gebruiker
+  users_form_curation_header: Conservatorkwalificaties
+  users_form_profile_info_header: Openbare profielgegevens
+  users_form_tip: Gebruikersnaam is verplicht, andere velden die gemarkeerd zijn als verplicht %{required_icon} zijn optioneel voor algemene gebruikers, maar verplicht voor conservatoren.
   users_member_of_count_communities: 
     one: Lid van één gemeenschap
     other: Lid van %{count} gemeenschappen
   users_my_info_header: Mijn gegevens
+  users_that_can_edit_this_collection: Gebruikers die deze verzameling kunnen beheren
   using_the_site: De site gebruiken
   validation_error: Validatiefout
+  validation_following_fields: "Er was een probleem met de volgende velden:"
   value: Waarde
   value_default: (standaard)
   value_empty: (leeg)
   values: Waarden
+  version_1_0_uses_fields_from_the_latest_version: versie 1.0 gebruikt velden van de laatste versie van het %{link}-schema
   vetted: Doorgelicht
   video_alt_text: "Deze video hoort bij %{taxon_name} (status: %{vetted_status})"
   video_from: video van
@@ -2698,6 +2992,7 @@ nl:
   view_map_source: Kaartbron weergeven
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Alleen pagina's bekijken met tenminste een afbeelding of tekst
   view_sound_source: Audiobron weergeven
+  view_source: Bron weergeven
   view_this_hierarchy: hiërarchie weergeven
   view_translation_source_link: Vertalingsbron weergeven
   view_user_activity: Gebruikersactiviteit bekijken

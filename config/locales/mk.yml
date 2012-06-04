@@ -1,4 +1,4 @@
-# Messages for Macedonian (Македонски)
+# Messages for Macedonian (македонски)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Bjankuloski06
@@ -924,7 +924,7 @@ mk:
   click_on_a_username_to_view_the_users_detailed_profile: Стиснете на корисничко име за да го погледнете подробниот профил на корисникот. Стиснете на тип на податок за да го погледате искоментираниот објект (тука можете да се вратите со копчето „назад“ на прелистувачот). Стиснете на „уреди“ за да го преуредите коментарот или на „избриши“ за да го избришете трајно.
   click_on_an_activity_to_see_th: Стиснете на активност за да ги погледате другите активности што се случиле во времетраење од 5 минути.
   clicked_time: Време на стисокот
-  close_this_window_to_return_to_edit_window: ЗАТВОРЕТЕ ГО ПРОЗОРЕЦОВ ЗА ДА СЕ ВРАТИТЕ НА ПРОЗОРЕЦОТ ЗА УРЕДУВАЊЕ
+  close_this_window_to_return_to_edit_window: ЗАТВОРЕТЕ ГО ПРОЗОРЕЦОВ ЗА ДА СЕ ВРАТИТЕ НА УРЕДУВАЊЕТО
   cms_available_in_languages: "Оваа страница е достапна на:"
   cms_missing_content_message: Нажалост, страницата не е достапна на избраниот јазик (%{selected_language}).
   cms_missing_content_title: Недостасува превод
@@ -987,6 +987,9 @@ mk:
         tweet_text: Новости за %{collection_name}
     show: 
       meta_description: "%{collection_description}"
+      meta_description_default: Збирка на Енциклопедијата на живиот свет насловена како %{collection_name}.
+      meta_description_default_focus_collection: Тематска збирка на Енциклопедијата на живиот свет насловена како %{collection_name}.
+      meta_description_default_watch_collection: "Список на набљудувања на Енциклопедијата на живиот свет: %{collection_name}."
       meta_keywords: "%{collection_name}, Збирка од Енциклопедијата на живиот свет"
       meta_title: "%{collection_name}"
       tweet_text: "%{collection_name}"
@@ -1413,6 +1416,20 @@ mk:
   data_object_undo_ignore: отстрани од занемарени
   data_objects: 
     show: 
+      meta_description_article: Статија - %{dato_description}
+      meta_description_default: "%{dato_title} од %{supplier}."
+      meta_description_default_article: Статија - %{dato_title} од %{supplier}.
+      meta_description_default_image: Слика - %{dato_title} од %{supplier}.
+      meta_description_default_image_map: Карта - %{dato_title} од %{supplier}.
+      meta_description_default_map: Карта - %{dato_title} од %{supplier}.
+      meta_description_default_sound: Звук - %{dato_title} од %{supplier}.
+      meta_description_default_video: Видео - %{dato_title} од %{supplier}.
+      meta_description_image: Слика - %{dato_description}
+      meta_description_image_map: Карта - %{dato_description}
+      meta_description_map: Карта - %{dato_description}
+      meta_description_sound: Звук - %{dato_description}
+      meta_description_video: Видео - %{dato_description}
+      meta_supplier_default: учесник
       meta_title: "%{dato_title} од %{supplier}"
       tweet_text: "%{dato_title} од %{supplier}"
   data_usage_reports: Извештаи за користење на податоци
@@ -1635,7 +1652,7 @@ mk:
   filter_newsfeed_option_watchlist: Набљудувања
   filtered_information: Филтрирани информации
   find_taxa_submit_button: најди таксони
-  flash_notice_redirected_from_search_html: Стигнавте тука бараќи го поимот <em>%{search_string}</em>. <a href="%{more_results_url}">Стиснете тука за да се вратите на страницата за пребарување.</a>
+  flash_notice_redirected_from_search_html: Стигнавте тука барајќи го поимот <em>%{search_string}</em>. <a href="%{more_results_url}">Стиснете тука за да се вратите на страницата за пребарување.</a>
   flash_notice_redirected_from_search_html_more_results: Стигнавте тука бараќи го поимот <em>%{search_string}</em>. <a href="%{more_results_url}">Стиснете тука за да погледате други резултати.</a>
   flash_video: Flash видео
   flickr: Flickr
@@ -2192,7 +2209,7 @@ mk:
       species: Вид
       taxa: Таксони
     search: 
-      no_results_found: Нема пронајдено резултати
+      no_results_found: Не пронајдов ништо
       results: Резултати
       suggestions: Предлози
     taxa: 
@@ -2910,14 +2927,14 @@ mk:
         meta_description_with_chapter_list: Информации за %{scientific_name} во Енциклопедијата на живиот свет. Содржи информации за %{chapter_list}.
         meta_description_with_common_name: "Информации за %{preferred_common_name}, научно: %{scientific_name} во Енциклопедијата на живиот свет."
         meta_description_with_common_name_with_chapter_list: "Информации за %{preferred_common_name}, научно: %{scientific_name} во Енциклопедијата на живиот свет. Содржи информации за %{chapter_list}."
-        meta_title: Информации за %{scientific_name}
+        meta_title: Факти за %{scientific_name}
         meta_title_with_common_name: Факти за %{preferred_common_name} (%{scientific_name})
         tweet_text: Информации за %{scientific_name}
     literature: 
       bhl: 
         hierarchy_entry: 
-          meta_description: Литератира и информации за %{scientific_name} според класификацијата на %{hierarchy_provider} во Енциклопедијата на живиот свет. Прочитајте статии за %{scientific_name} во Енциклопедијата на живиот свет.
-          meta_description_with_common_name: Литератира и информации за %{preferred_common_name} (%{scientific_name}) според класификацијата на %{hierarchy_provider} во Енциклопедијата на живиот свет. Прочитајте статии за %{preferred_common_name} во Енциклопедијата на живиот свет.
+          meta_description: Литератира и информации од BHL за %{scientific_name} според класификацијата на %{hierarchy_provider} во Енциклопедијата на живиот свет. Прочитајте статии од Библиотеката на биоразновидносно наследство (BHL) за %{scientific_name} во Енциклопедијата на живиот свет.
+          meta_description_with_common_name: Литература и информации од BHL за %{preferred_common_name} (%{scientific_name}) според класификацијата на %{hierarchy_provider} во Енциклопедијата на живиот свет. Прочитајте статии од Библиотеката на биоразновидносно наследство (BHL) за %{preferred_common_name} во Енциклопедијата на живиот свет.
           meta_title: Литература од BHL за %{scientific_name} според класификацијата на %{hierarchy_provider}
           meta_title_with_common_name: Литература од BHL за %{preferred_common_name} (%{scientific_name} според класификацијата на %{hierarchy_provider})
           tweet_text: "Литература од #BHL за %{scientific_name} според класификацијата на %{hierarchy_provider}"
@@ -2965,7 +2982,7 @@ mk:
         meta_description_with_common_name: Слики и видеоснимки од %{preferred_common_name} (%{scientific_name}).
         meta_keywords: слики од %{scientific_name}, видеоснимки од %{scientific_name}, слики од %{scientific_name}, видеа од %{scientific_name}, слики од %{scientific_name}, снимки
         meta_keywords_with_common_name: слики од %{preferred_common_name}, видеоснимки од %{preferred_common_name}, слики од %{preferred_common_name}, видеа од %{preferred_common_name}, слики од %{preferred_common_name}, снимки
-        meta_title: Слики и видео од %{preferred_common_name} (%{scientific_name})
+        meta_title: Слики и видео од %{scientific_name}
         meta_title_with_common_name: Слики и видео од %{preferred_common_name} (%{scientific_name})
         tweet_text: Слики и снимки од %{scientific_name}
     names: 

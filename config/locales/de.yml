@@ -1,6 +1,7 @@
 # Messages for German (Deutsch)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
+# Author: DeeKay
 # Author: Exit91
 # Author: Geitost
 # Author: George Animal
@@ -491,9 +492,15 @@ de:
         an_unknown_user_preferred_classification_on_an_unknown_taxon: Ein unbekannter Nutzer markierte die Klassifikation von „%{provider}“ für ein unbekanntes Taxon als bevorzugt.
         an_unknown_user_preferred_classification_on_it: Ein unbekannter Nutzer markierte die Klassifikation von „%{provider}“ als bevorzugt.
         an_unknown_user_preferred_classification_on_taxon: Ein unbekannter Nutzer markierte die Klassifikation von „%{provider}“ für „%{taxon}“ als bevorzugt.
+        an_unknown_user_preferred_unknown_classification_on_an_unknown_taxon: Ein unbekannter Nutzer markierte eine unbekannte Klassifikation für ein unbekanntes Taxon als bevorzugt.
+        an_unknown_user_preferred_unknown_classification_on_it: Ein unbekannter Nutzer markiert eine unbekannte Klassifikation als bevorzugt.
+        an_unknown_user_preferred_unknown_classification_on_taxon: Ein unbekannter Nutzer markierte eine unbekannte Klassifikation für „%{taxon}“ als bevorzugt.
         user_preferred_classification_on_an_unknown_taxon: <strong>%{user}</strong> markierte die Klassifikation von „%{provider}“ für ein unbekanntes Taxon als bevorzugt.
         user_preferred_classification_on_it: <strong>%{user}</strong> markierte die Klassifikation von „%{provider}“ als bevorzugt.
         user_preferred_classification_on_taxon: <strong>%{user}</strong> markierte die Klassifikation von „%{provider}“ für „%{taxon}“ als bevorzugt.
+        user_preferred_unknown_classification_on_an_unknown_taxon: <strong>%{user}</strong> markierte eine unbekannte Klassifikation für ein unbekanntes Taxon als bevorzugt.
+        user_preferred_unknown_classification_on_it: <strong>%{user}</strong> markiert eine unbekannte Klassifikation als bevorzugt.
+        user_preferred_unknown_classification_on_taxon: <strong>%{user}</strong> markierte eine unbekannte Klassifikation für „%{taxon}“ als bevorzugt.
       reasons_to_hide: "Gründe für das Verbergen: %{reasons}"
       reasons_to_untrust: "Gründe für die Einstufung als nicht vertrauenswürdig: %{reasons}"
       remove_association: 
@@ -985,6 +992,9 @@ de:
         tweet_text: Neuigkeiten zu %{collection_name}
     show: 
       meta_description: "%{collection_description}"
+      meta_description_default: Eine Sammlung der Enzyklopädie des Lebens (EOL) namens %{collection_name}.
+      meta_description_default_focus_collection: Eine Schwerpunktsammlung der Enzyklopädie des Lebens (EOL) namens %{collection_name}.
+      meta_description_default_watch_collection: "Eine Beobachtungsliste der Enzyklopädie des Lebens (EOL): %{collection_name}."
       meta_keywords: "%{collection_name}, Sammlung der Enzyklopädie des Lebens (EOL)"
       meta_title: "%{collection_name}"
       tweet_text: "%{collection_name}"
@@ -1315,6 +1325,12 @@ de:
   content_upload_restrictions_note: (muss kleiner als 10 MB sein. Die Datei wird hochladen gespeichert, d. h. es wird bei Bildern keine Größenänderung vorgenommen)
   content_upload_url: http://%{domain}%{upload_attachment}
   contribute: Mitmachen
+  copied_all_items_from_collection_with_count: 
+    one: Kopierte ein Objekt aus %{from} in diese Sammlung.
+    other: Kopierte alle %{count} Objekte aus %{from} in diese Sammlung.
+  copied_all_items_to_collections: 
+    one: Kopierte alle Objekte aus %{name} in eine Sammlung.
+    other: Kopierte alle Objekte aus %{name} in %{count} Sammlungen.
   copied_items_from_collection_with_count_notice: 
     one: Ein Objekt von %{name} kopiert.
     other: "%{count} Objekte von %{name} kopiert."
@@ -1407,6 +1423,20 @@ de:
   data_object_undo_ignore: Von der Liste der zu ignorierenden Objekte entfernen
   data_objects: 
     show: 
+      meta_description_article: Artikel - %{dato_description}
+      meta_description_default: "%{dato_title} von %{supplier}."
+      meta_description_default_article: Artikel - %{dato_title} von %{supplier}.
+      meta_description_default_image: Bild - %{dato_title} from %{supplier}.
+      meta_description_default_image_map: Karte - %{dato_title} von %{supplier}.
+      meta_description_default_map: Karte - %{dato_title} from %{supplier}.
+      meta_description_default_sound: Ton - %{dato_title} from %{supplier}.
+      meta_description_default_video: Video - %{dato_title} from %{supplier}.
+      meta_description_image: Bild - %{dato_description}
+      meta_description_image_map: Karte - %{dato_description}
+      meta_description_map: Karte - %{dato_description}
+      meta_description_sound: Ton - %{dato_description}
+      meta_description_video: Video - %{dato_description}
+      meta_supplier_default: ein Mitwirkender
       meta_title: "%{dato_title} von %{supplier}"
       tweet_text: "%{dato_title} von %{supplier}"
   data_usage_reports: Datennutzungsbericht
@@ -2222,6 +2252,12 @@ de:
   move_to_bottom: an das Ende verschieben
   move_to_top: an den Anfang verschieben
   move_up: Nach oben verschieben
+  moved_all_items_from_collection_with_count: 
+    one: Verschob ein Objekt aus %{from} in diese Sammlung.
+    other: Verschob alle %{count} Objekte aus %{from} in diese Sammlung.
+  moved_all_items_to_collections: 
+    one: Verschob alle Objekte aus %{name} in eine Sammlung.
+    other: Verschob alle Objekte aus %{name} in %{count} Sammlungen.
   moved_items_from_collection_with_count_notice: 
     one: Ein Objekt von %{name} verschoben.
     other: "%{count} Objekte von %{name} verschoben."
@@ -2898,14 +2934,14 @@ de:
         meta_description_with_chapter_list: Informationen zu %{scientific_name} in der Enzyklopädie des Lebens (EOL). Enthält Informationen zu %{chapter_list}.
         meta_description_with_common_name: Informationen zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}, in der Enzyklopädie des Lebens (EOL).
         meta_description_with_common_name_with_chapter_list: Informationen zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}, in der Enzyklopädie des Lebens (EOL). Enthält auch Informationen zu %{chapter_list}.
-        meta_title: Informationen zu %{scientific_name}
+        meta_title: Fakten zu %{scientific_name}
         meta_title_with_common_name: Fakten zu %{preferred_common_name} (%{scientific_name})
         tweet_text: Informationen zu %{scientific_name}
     literature: 
       bhl: 
         hierarchy_entry: 
-          meta_description: Literatur und Informationen zu %{scientific_name}, entsprechend der Klassifizierung in der Enzyklopädie des Lebens (EOL) durch %{hierarchy_provider}. Lesen Sie Artikel zu %{scientific_name} in der Enzyklopädie des Lebens.
-          meta_description_with_common_name: Literatur und Informationen zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}, entsprechend der Klassifizierung in der Enzyklopädie des Lebens (EOL) durch %{hierarchy_provider}. Lesen Sie Artikel zu %{preferred_common_name} in der Enzyklopädie des Lebens.
+          meta_description: Literatur aus der BHL und Informationen zu %{scientific_name}, entsprechend der Klassifizierung in der Enzyklopädie des Lebens (EOL) durch %{hierarchy_provider}. Lesen Sie Artikel aus der Biodiversity Heritage Library (BHL) zu %{scientific_name} in der Enzyklopädie des Lebens.
+          meta_description_with_common_name: Literatur aus der BHL und Informationen zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}, entsprechend der Klassifizierung in der Enzyklopädie des Lebens (EOL) durch %{hierarchy_provider}. Lesen Sie Artikel aus der Biodiversity Heritage Library (BHL) zu %{preferred_common_name} in der Enzyklopädie des Lebens.
           meta_title: Literatur in der BHL zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
           meta_title_with_common_name: Literatur in der BHL zu %{preferred_common_name} (%{scientific_name}), entsprechend der Klassifizierung durch %{hierarchy_provider}.
           tweet_text: "Literatur in der #BHL zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}."
@@ -2953,7 +2989,7 @@ de:
         meta_description_with_common_name: Bilder und Videos zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}.
         meta_keywords: Fotos zu %{scientific_name}, Videos zu %{scientific_name}, Bilder zu %{scientific_name}, Mediendateien
         meta_keywords_with_common_name: Fotos zu %{preferred_common_name}, Videos zu %{preferred_common_name}, Bilder zu %{preferred_common_name}, Mediendateien
-        meta_title: Bilder und Videos zu %{preferred_common_name} (%{scientific_name})
+        meta_title: Bilder und Videos zu %{scientific_name}
         meta_title_with_common_name: Bilder und Videos zu %{preferred_common_name} (%{scientific_name})
         tweet_text: Medien zu %{scientific_name}
     names: 

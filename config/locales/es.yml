@@ -1,4 +1,4 @@
-# Messages for Spanish (Español)
+# Messages for Spanish (español)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Armando-Martin
@@ -322,8 +322,8 @@ es:
         user_of_collection: <strong>%{user}</strong> fue añadido como administrador a la colección "%{collection}".
         user_of_it: <strong>%{user}</strong> fue agregado como administrador.
       bulk_add: 
-        an_unknown_user_added_bulk_items_to_an_unknown_collection: Un usuario desconocido ha añadido elementos desconocidos a una colección desconocida.
-        an_unknown_user_added_bulk_items_to_collection: Un usuario desconocido ha añadido elementos desconocidos a la colección "%{collection}".
+        an_unknown_user_added_bulk_items_to_an_unknown_collection: Un usuario desconocido ha añadido elementos en grandes cantidades a una colección desconocida.
+        an_unknown_user_added_bulk_items_to_collection: Un usuario desconocido ha añadido elementos en grandes cantidades a la colección "%{collection}".
         an_unknown_user_added_bulk_items_to_it: Un usuario desconocido añadió elementos en grandes cantidades.
         user_added_bulk_items_to_an_unknown_collection: <strong>%{user}</strong> añadió elementos en grandes cantidades a una colección desconocida.
         user_added_bulk_items_to_collection: <strong>%{user}</strong> añadió elementos en grandes cantidades a la colección  "%{collection}".
@@ -998,6 +998,9 @@ es:
         tweet_text: Noticias de %{collection_name}
     show: 
       meta_description: "%{collection_description}"
+      meta_description_default: Una colección de Encyclopedia of Life titulada %{collection_name}.
+      meta_description_default_focus_collection: Una colección de enfoque de Encyclopedia of Life titulada %{collection_name}.
+      meta_description_default_watch_collection: "Una lista de vigilancia de Encyclopedia of Life: %{collection_name}."
       meta_keywords: "%{collection_name}, Colección Enciclopedia de la Vida"
       meta_title: "%{collection_name}"
       tweet_text: "%{collection_name}"
@@ -1426,6 +1429,20 @@ es:
   data_object_undo_ignore: eliminar de la lista de ignorados
   data_objects: 
     show: 
+      meta_description_article: Artículo - %{dato_description}
+      meta_description_default: "%{dato_title} de %{supplier}."
+      meta_description_default_article: Artículo - %{dato_title} de %{supplier}.
+      meta_description_default_image: Imagen - %{dato_title} de %{supplier}.
+      meta_description_default_image_map: Mapa - %{dato_title} de %{supplier}.
+      meta_description_default_map: Mapa - %{dato_title} de %{supplier}.
+      meta_description_default_sound: Sonido - %{dato_title} de %{supplier}.
+      meta_description_default_video: Vídeo - %{dato_title} de %{supplier}.
+      meta_description_image: Imagen - %{dato_description}
+      meta_description_image_map: Mapa - %{dato_description}
+      meta_description_map: Mapa - %{dato_description}
+      meta_description_sound: Sonido - %{dato_description}
+      meta_description_video: Vídeo - %{dato_description}
+      meta_supplier_default: un colaborador
       meta_title: "%{dato_title} de %{supplier}"
       tweet_text: "%{dato_title} de %{supplier}"
   data_usage_reports: Informes de uso de datos
@@ -2923,14 +2940,14 @@ es:
         meta_description_with_chapter_list: Información acerca de %{scientific_name} en la Encyclopedia of Life. Incluye información sobre %{chapter_list}.
         meta_description_with_common_name: Información sobre %{preferred_common_name}, conocido científicamente como %{scientific_name} en la Encyclopedia of Life.
         meta_description_with_common_name_with_chapter_list: Información sobre %{preferred_common_name}, conocido científicamente como %{scientific_name} en la Encyclopedia of Life. Incluye información sobre %{chapter_list}.
-        meta_title: Información acerca de %{scientific_name}
+        meta_title: Datos sobre %{scientific_name}
         meta_title_with_common_name: Hechos acerca de %{preferred_common_name} (%{scientific_name})
         tweet_text: Información sobre %{scientific_name}
     literature: 
       bhl: 
         hierarchy_entry: 
-          meta_description: Literatura e información sobre %{scientific_name}tal como fue clasificado por %{hierarchy_provider} en la Encyclopedia of Life. Lea artículos sobre %{scientific_name} en la Encyclopedia of Life.
-          meta_description_with_common_name: Literatura e información sobre %{preferred_common_name} también conocido como %{scientific_name} tal como fue clasificado por %{hierarchy_provider} en la Encyclopedia of Life. Lea artículos sobre %{preferred_common_name} en la Encyclopedia of Life.
+          meta_description: Bibliografía en BHL e información sobre %{scientific_name} tal como fue clasificado por %{hierarchy_provider} en la Encyclopedia of Life. Lee artículos de Biodiversity Heritage Library (BHL) sobre %{scientific_name} en la Encyclopedia of Life.
+          meta_description_with_common_name: Bibliografía en BHL e información sobre %{preferred_common_name} también conocido como %{scientific_name} tal como fue clasificado por %{hierarchy_provider} en la Encyclopedia of Life. Lee artículos de Biodiversity Heritage Library (BHL) sobre %{preferred_common_name} en la Encyclopedia of Life.
           meta_title: Literatura en BHL sobre %{scientific_name} tal como fue clasificado por %{hierarchy_provider}
           meta_title_with_common_name: Libros en BHL sobre %{preferred_common_name} (%{scientific_name} tal como fue clasificado por %{hierarchy_provider})
           tweet_text: "Libros en #BHL sobre %{scientific_name} tal como fue clasificado por %{hierarchy_provider}"
@@ -2978,7 +2995,7 @@ es:
         meta_description_with_common_name: Imágenes y vídeos de %{preferred_common_name} también conocido como %{scientific_name}.
         meta_keywords: Fotografías de %{scientific_name}, videos de %{scientific_name}, imágenes de %{scientific_name}, cortos de %{scientific_name}, fotos of %{scientific_name}, multimedia
         meta_keywords_with_common_name: Fotos de %{preferred_common_name}, videos de %{preferred_common_name}, imágenes de %{preferred_common_name}, videos de %{preferred_common_name}, fotos de % {preferred_common_name}, medios de comunicación
-        meta_title: Fotos & Video de %{preferred_common_name} (%{scientific_name})
+        meta_title: Imágenes & Vídeo de %{scientific_name}
         meta_title_with_common_name: Fotos & Video de %{preferred_common_name} (%{scientific_name})
         tweet_text: Medios de %{scientific_name}
     names: 

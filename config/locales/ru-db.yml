@@ -1,8 +1,9 @@
-# Messages for Russian (Русский)
+# Messages for Russian (русский)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Adata80
 # Author: Eleferen
+# Author: Haffman
 # Author: Lvova
 # Author: Meddoc13
 ru: 
@@ -43,6 +44,8 @@ ru:
   translated_collection_types-label-collection_type_id-6: Природоохранный статус
   translated_collection_types-label-collection_type_id-9: Номенклатура
   translated_contact_roles-label-contact_role_id-1: Основное контактное лицо
+  translated_contact_subjects-title-contact_subject_id-33: Сделать денежное пожертвование
+  translated_contact_subjects-title-contact_subject_id-34: Технические вопросы (проблемы с поиском, с функционалом сайта)
   translated_content_partner_statuses-label-content_partner_status_id-1: На рассмотрении
   translated_content_partner_statuses-label-content_partner_status_id-3: Архивировано
   translated_content_tables-label-content_table_id-1: Детали

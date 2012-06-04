@@ -1,4 +1,4 @@
-# Messages for Catalan (Català)
+# Messages for Catalan (català)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Allman
@@ -14,7 +14,7 @@ ca:
   translated_activities-name-activity_id-55: inadequat
   translated_activities-name-activity_id-56: elimina
   translated_activities-name-activity_id-57: taxa
-  translated_activities-name-activity_id-58: de confiança
+  translated_activities-name-activity_id-58: fiable
   translated_activities-name-activity_id-59: no revisat
   translated_activities-name-activity_id-64: elimina
   translated_agent_roles-label-agent_role_id-1: Animador
@@ -157,9 +157,10 @@ ca:
   translated_ranks-label-rank_id-513: var.
   translated_ranks-label-rank_id-74: Divisió
   translated_ranks-label-rank_id-99: família
+  translated_synonym_relations-label-synonym_relation_id-19: nom acceptat
   translated_table_of_contents-label-table_of_contents_id-1: Visió de conjunt
   translated_table_of_contents-label-table_of_contents_id-13: Noms comuns
-  translated_table_of_contents-label-table_of_contents_id-14: PÈRDUA D'HÀBITAT
+  translated_table_of_contents-label-table_of_contents_id-14: UICN
   translated_table_of_contents-label-table_of_contents_id-17: Referències bibliogràfiques
   translated_table_of_contents-label-table_of_contents_id-194: Mida
   translated_table_of_contents-label-table_of_contents_id-2: Breu resum
@@ -184,7 +185,7 @@ ca:
   translated_table_of_contents-label-table_of_contents_id-299: L'educació
   translated_table_of_contents-label-table_of_contents_id-3: Descripció física
   translated_table_of_contents-label-table_of_contents_id-300: Viquipèdia
-  translated_table_of_contents-label-table_of_contents_id-303: Nom i taxonomia
+  translated_table_of_contents-label-table_of_contents_id-303: Noms i taxonomia
   translated_table_of_contents-label-table_of_contents_id-304: Noms relacionats
   translated_table_of_contents-label-table_of_contents_id-305: Sinònims
   translated_table_of_contents-label-table_of_contents_id-306: Estadístiques de pàgina
@@ -244,6 +245,6 @@ ca:
   translated_user_identities-label-user_identity_id-4: un científic
   translated_user_identities-label-user_identity_id-5: un científic professional
   translated_vetted-label-vetted_id-0: Desconegut
-  translated_vetted-label-vetted_id-4: Quals s'inconfiava
+  translated_vetted-label-vetted_id-4: No fiable
   translated_vetted-label-vetted_id-5: En què es confia
   translated_vetted-label-vetted_id-6: Inadequat

@@ -1,4 +1,4 @@
-# Messages for Breton (Brezhoneg)
+# Messages for Breton (brezhoneg)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Fulup
@@ -261,6 +261,8 @@ br:
   translated_vetted-label-vetted_id-4: Diasur
   translated_vetted-label-vetted_id-5: Asur
   translated_vetted-label-vetted_id-6: Na glot ket
+  translated_view_styles-name-view_style_id-1: Roll
+  translated_view_styles-name-view_style_id-2: Skeudennaoueg
   translated_visibilities-label-visibility_id-0: Diwelus
   translated_visibilities-label-visibility_id-1: Gwelus
   translated_visibilities-label-visibility_id-2: Rakwelet

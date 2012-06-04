@@ -42,4 +42,9 @@ class AgentRole < ActiveRecord::Base
   def self.editor
     cached_find_translated(:label, 'Editor')
   end
+
+  # Find the Provider
+  def self.provider
+    cached_find_translated(:label, 'provider')
+  end
 end

@@ -1108,6 +1108,20 @@ gl:
   data_object_undo_ignore: eliminar da lista de ignorados
   data_objects: 
     show: 
+      meta_description_article: Artigo - %{dato_description}
+      meta_description_default: "%{dato_title} de %{supplier}."
+      meta_description_default_article: Artigo - %{dato_title} de %{supplier}.
+      meta_description_default_image: Imaxe - %{dato_title} de %{supplier}.
+      meta_description_default_image_map: Mapa - %{dato_title} de %{supplier}.
+      meta_description_default_map: Mapa - %{dato_title} de %{supplier}.
+      meta_description_default_sound: Son - %{dato_title} de %{supplier}.
+      meta_description_default_video: Vídeo - %{dato_title} de %{supplier}.
+      meta_description_image: Imaxe - %{dato_description}
+      meta_description_image_map: Mapa - %{dato_description}
+      meta_description_map: Mapa - %{dato_description}
+      meta_description_sound: Son - %{dato_description}
+      meta_description_video: Vídeo - %{dato_description}
+      meta_supplier_default: un colaborador
       meta_title: "%{dato_title} de %{supplier}"
       tweet_text: "%{dato_title} de %{supplier}"
   data_usage_reports: Informes de uso dos datos
@@ -2554,14 +2568,14 @@ gl:
         meta_description_with_chapter_list: Información sobre %{scientific_name} na Enciclopedia da vida. Inclúe información en %{chapter_list}.
         meta_description_with_common_name: Información sobre %{preferred_common_name}, cientificamente coñecido como %{scientific_name}, na Enciclopedia da vida.
         meta_description_with_common_name_with_chapter_list: Información sobre %{preferred_common_name}, cientificamente coñecido como %{scientific_name}, na Enciclopedia da vida. Inclúe información en %{chapter_list}.
-        meta_title: Información sobre %{scientific_name}
+        meta_title: Feitos sobre %{scientific_name}
         meta_title_with_common_name: Feitos sobre %{preferred_common_name} (%{scientific_name})
         tweet_text: Información sobre %{scientific_name}
     literature: 
       bhl: 
         hierarchy_entry: 
-          meta_description: Literatura e información sobre %{scientific_name}, segundo a clasificou %{hierarchy_provider}, na Enciclopedia da vida. Le artigos sobre %{scientific_name} na Enciclopedia da vida.
-          meta_description_with_common_name: Literatura e información sobre %{preferred_common_name}, tamén coñecido como %{scientific_name}, segundo a clasificou %{hierarchy_provider}, na Enciclopedia da vida. Le artigos sobre %{preferred_common_name} na Enciclopedia da vida.
+          meta_description: Literatura de BHL e información sobre %{scientific_name}, segundo a clasificou %{hierarchy_provider}, na Enciclopedia da vida. Le artigos da Biodiversity Heritage Library (BHL) sobre %{scientific_name} na Enciclopedia da vida.
+          meta_description_with_common_name: Literatura de BHL e información sobre %{preferred_common_name}, tamén coñecido como %{scientific_name}, segundo a clasificou %{hierarchy_provider}, na Enciclopedia da vida. Le artigos da Biodiversity Heritage Library (BHL) sobre %{preferred_common_name} na Enciclopedia da vida.
           meta_title: Literatura de BHL sobre %{scientific_name}, segundo a clasificou %{hierarchy_provider}
           meta_title_with_common_name: Literatura de BHL sobre %{preferred_common_name} (%{scientific_name}, segundo a clasificou %{hierarchy_provider})
           tweet_text: "Literatura de #BHL sobre %{scientific_name}, segundo a clasificou %{hierarchy_provider}"
@@ -2609,7 +2623,7 @@ gl:
         meta_description_with_common_name: Fotografías e vídeos sobre %{preferred_common_name}, tamén coñecido como %{scientific_name}.
         meta_keywords: fotografías de %{scientific_name}, vídeos de %{scientific_name}, imaxes de %{scientific_name}, vídeos de %{scientific_name}, fotos de %{scientific_name}, ficheiros multimedia
         meta_keywords_with_common_name: fotografías de %{preferred_common_name}, vídeos de %{preferred_common_name}, imaxes de %{preferred_common_name}, vídeos de %{preferred_common_name}, fotos de %{preferred_common_name}, ficheiros multimedia
-        meta_title: Imaxes e vídeos de %{preferred_common_name} (%{scientific_name})
+        meta_title: Imaxes e vídeos de %{scientific_name}
         meta_title_with_common_name: Imaxes e vídeos de %{preferred_common_name} (%{scientific_name})
         tweet_text: Ficheiros multimedia de %{scientific_name}
     names: 

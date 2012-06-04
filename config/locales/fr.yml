@@ -1,4 +1,4 @@
-# Messages for French (Français)
+# Messages for French (français)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Boniface
@@ -27,7 +27,7 @@ fr:
   a_pipe_delimited_list_of_licenses: une liste de licences séparées par des traits verticaux « | » ou « all » pour obtenir les objets fournis sous n’importe quelle licence. Les licences abrégées avec cc- sont toutes
   a_pipe_delimited_list_of_spm_info_item_subject_names: une liste de noms de sujet d’Élément d’information SPM délimitée par des traits verticaux « | » ou « all » pour obtenir des textes portant sur un sujet quelconque
   a_taxon: un taxon
-  about_eol: À propos de l’EOL
+  about_eol: À propos de l’EdlV
   account_information: Informations du compte
   account_information_menu: Informations du compte
   account_registered_but_not_ready_try_later: Votre compte est inscrit mais vous ne pouvez pas encore y accéder. Veuillez réessayer dans cinq minutes.
@@ -57,6 +57,7 @@ fr:
         name: Nom de la communauté
       contact: 
         comments: Message
+        contact_subject_id: Sujet du contact
         email: Courriel
         name: Nom
       content_page: 
@@ -104,23 +105,23 @@ fr:
         curator_actions_in_the_last_30_days: Actions de conservateurs dans les 30 derniers jours
         curators: Conservateurs
         curators_assistant: Conservateurs adjoints
-        curators_full: Conservateurs à parts entières
+        curators_full: Conservateurs à part entière
         curators_master: Conservateurs maîtres
         data_objects: Objets de données
         data_objects_images: Objets image
         data_objects_maps: Objets cartographiques
         data_objects_sounds: Objets sonores
-        data_objects_texts: Objets texte
+        data_objects_texts: Objets textuels
         data_objects_trusted: Objets de données fiables
-        data_objects_trusted_or_unreviewed_but_hidden: Fiable ou non revu mais masqué
-        data_objects_unreviewed: Objets de données non revus
+        data_objects_trusted_or_unreviewed_but_hidden: Fiable ou non révisé mais masqué
+        data_objects_unreviewed: Objets de données non révisés
         data_objects_untrusted: Objets de données non fiables
         data_objects_videos: Objets vidéo
         hotlist_pages: Pages favorites
         lifedesk_data_objects: Objets de données LifeDesks
         lifedesk_taxa: Taxons LifeDesks
         marine_pages: Pages marines
-        marine_pages_in_col: Pages marines trouvées dans CoL
+        marine_pages_in_col: Pages marines trouvées dans le CdlV
         marine_pages_with_objects: Pages marines avec des objets de données
         marine_pages_with_objects_vetted: Pages marines avec des objets de données fiables
         members_count: Membres
@@ -147,19 +148,19 @@ fr:
         pages_without_text: Pages sans texte
         published_resources: Ressources publiées
         published_trusted_resources: Ressources fiables publiées
-        published_unreviewed_resources: Ressources non revues publiées
+        published_unreviewed_resources: Ressources publiées mais non révisées
         redhotlist_pages: Pages très favorites
         rich_hotlist_pages: Pages favorites riches
         rich_pages: Pages riches
         rich_redhotlist_pages: Pages riches très favorites
         udo_published: Texte soumis par l’utilisateur
-        udo_published_by_curators: Texte soumis à un conservateur
-        udo_published_by_non_curators: Texte soumis à un non-conservateur
+        udo_published_by_curators: Texte soumis par un conservateur
+        udo_published_by_non_curators: Texte soumis par un non-conservateur
       harvest_event: 
         resource: Ressource
       hierarchy: 
         browsable: Navigable
-        complete: Complet
+        complete: Complète
         description: Description
         descriptive_label: Libellé descriptif
         label: Libellé
@@ -178,7 +179,7 @@ fr:
         eol_newsletter: Envoyez-moi le bulletin d’information trimestriel EdlV
         i_am_being_watched: Vous avez été ajouté à la liste de suivi d’un autre membre
         invitation_to_community: Invitation à se joindre à une communauté
-        made_me_a_manager: Vous avez été fait responsable d’une collection ou d’une communauté
+        made_me_a_manager: Vous avez été désigné responsable d’une collection ou d’une communauté
         member_joined_my_community: Un nouveau membre s’est joint à une communauté que vous gérez
         member_joined_my_watched_community: De nouveaux membres ont rejoint une communauté dont vous êtes membre
         member_left_my_community: Des membres ont quitté une communauté que vous gérez
@@ -200,8 +201,8 @@ fr:
         bibliographic_citation: Citation bibliographique
         dataset: Fichier du jeu de données
         description: Description de la ressource
-        dwc_archive_url: URL de l’archive principale Darwin
-        harvest_events: Récolter les évènements
+        dwc_archive_url: URL de l’archive Darwin Core
+        harvest_events: Récolter les événements
         hierarchy: Hiérarchie
         language_id: Langue par défaut
         license_id: Licence par défaut
@@ -220,22 +221,22 @@ fr:
         title: Titre
       user: 
         agreed_with_terms: Conditions de l’accord d’utilisation
-        api_key: Clé de l’API
+        api_key: Clé de l’IPA
         bio: Biographie
         credentials: Certifications
         curator_level: Niveau de supervision
         curator_scope: Étendue de conservation
         disable_email_notifications: Ne m’envoyez AUCUNE mise à jour par courriel
         email: Adresse électronique
-        email_confirmation: Adresse de courriel <small>(à confirmer)</small> de nouveau
+        email_confirmation: Répétez le courriel <small>(pour confirmation)</small>
         entered_password: Mot de passe
-        entered_password_confirmation: Répéter le mot de passe <small>(pour confirmation)</small>
+        entered_password_confirmation: Répétez le mot de passe <small>(pour confirmation)</small>
         family_name: Nom de famille
         full_name: Nom complet
         given_name: Prénom
         language_abbr: Langue préférée
         requested_curator_level_id: Niveau souhaité de supervision
-        tag_line: Slogan
+        tag_line: Titre d’appel
         username: Nom d’utilisateur
     errors: 
       format: "%{attribute} %{message}"
@@ -271,7 +272,7 @@ fr:
         harvest_event: 
           attributes: 
             publish: 
-              inclusion: n’est autorisé que pour le dernier évènement de récolte et seulement si cet évènement n’est pas encore publié
+              inclusion: n’est autorisé que pour le dernier événement de récolte et seulement si cet événement n’est pas encore publié
         open_authentications: 
           guid_provider_must_be_unique: le compte tiers est déjà connecté avec un compte EdlV
           provider_user_id_must_be_unique: un seul compte de chaque fournisseur tiers peut être connecté à un compte EdlV
@@ -280,13 +281,13 @@ fr:
             accesspoint_url: 
               blank: ne peut être laissé vide, sauf si vous téléversez un fichier ressource à la place
               inaccessible: est inaccessible, l’URL doit être accessible au public
-              invalid: est non valide, cela doit pointer vers un fichier XML, XML.GZIP ou XML.GZ.
+              invalid: est invalide, devrait pointer vers un fichier XML, XML.GZIP ou XML.GZ.
             dataset: 
               blank: ne peut pas être vide, sauf si vous fournissez à la place l’URL d’un jeu de données
-              wrong_type: n’a pas le format requis, cela doit être un fichier GZIP, TAR ou XML.
+              wrong_type: n’a pas le format requis, devrait être un fichier GZIP, TAR ou XML.
             dwc_archive_url: 
               inaccessible: est inaccessible, l’URL doit être accessible au public
-              invalid: est invalide, cela doit pointer vers un fichier TAR.GZIP, TAR.GZ ou TGZ.
+              invalid: est invalide, devrait pointer vers un fichier TAR.GZIP, TAR.GZ ou TGZ.
       template: 
         body: "Les champs suivants n’ont pas été validés :"
     models: 
@@ -343,7 +344,7 @@ fr:
   admin_content_page_update_successful_notice: La page <a href="#%{anchor}"><em>%{page_name}</em></a> a été mise à jour avec succès.
   admin_content_page_update_unsuccessful_error: Désolé, une erreur est survenue ; la page n’a pas pu être mise à jour.
   admin_content_pages_empty: Aucune page de contenu n’a été trouvée.
-  admin_content_pages_index_information: La liste suivante comprend toutes les pages statiques actuellement disponibles sur le site web EOL. Chaque page comporte une ou plusieurs traductions. Lorsque vous créez une nouvelle page, il vous sera demandé d’ajouter une traduction. Les traductions publiées sont publiquement accessibles.
+  admin_content_pages_index_information: La liste suivante comprend toutes les pages statiques actuellement disponibles sur le site Web de l’EdlV. Chaque page comporte une ou plusieurs traductions. Lorsque vous créez une nouvelle page, il vous sera demandé d’ajouter une traduction. Les traductions publiées sont publiquement accessibles.
   admin_content_pages_link: Gestion du contenu
   admin_content_pages_page_title: "Administration : gestion du contenu"
   admin_content_partners_index_header: Partenaires de contenu
@@ -351,7 +352,7 @@ fr:
   admin_content_partners_notifications_link: Notifications
   admin_content_partners_notifications_page_title: "Administration :  notifications au partenaire de contenu"
   admin_content_partners_notifications_sent_to_recipients_header: "Des notifications ont été envoyées à :"
-  admin_content_partners_notifications_statistics_reminder_description: "Envoie un courriel à tous les contacts des partenaires de contenu pour les informer qu’ils peuvent maintenant consulter les statistiques d’utilisation sur le web de leurs données dans EOL lors du dernier mois. Note : le déclenchement manuel de cette notification par courriel est une solution temporaire qui devrait être retirée dès qu’une solution automatisée sera en place."
+  admin_content_partners_notifications_statistics_reminder_description: "Envoie un courriel à tous les contacts des partenaires de contenu pour les informer qu’ils peuvent maintenant consulter les statistiques d’utilisation sur le Web de leurs données dans l’EdlV lors du dernier mois. Note : le déclenchement manuel de cette notification par courriel est une solution temporaire qui devrait être retirée dès qu’une solution automatisée sera en place."
   admin_content_partners_notifications_statistics_reminder_header: Rappel des statistiques d’utilisation sur le web
   admin_content_partners_notifications_statistics_reminder_send_confirmation: Êtes-vous certain de vouloir envoyer un courriel de rappel des statistiques d’utilisation sur le web à tous les partenaires de contenu ?
   admin_content_partners_notifications_statistics_reminder_send_submit: Envoyer un rappel
@@ -365,7 +366,7 @@ fr:
   admin_content_partners_statistics_link: Statistiques
   admin_content_partners_statistics_page_title: "Administration : statistiques de partenaire de contenu"
   admin_home: accueil d’administration
-  admin_information: Ceci est la nouvelle console d’administration d’EOL v2. Nous sommes en train de transférer les fonctionnalités de la version 1. Si la section d’administration que vous cherchez ne s’y trouve pas, veuillez vous rendre sur la <a href="/administrator">console d’administration v1</a>.
+  admin_information: Ceci est la nouvelle console d’administration de l’EdlV v2. Nous sommes en train de transférer les fonctionnalités de la version 1. Si la section d’administration que vous cherchez ne s’y trouve pas, veuillez vous rendre sur la <a href="/administrator">console d’administration v1</a>.
   admin_link: Vue d’ensemble
   admin_login_confirmation: Êtes-vous sûr de vouloir vous identifier sur le registre du partenaire de contenu en tant que %{name} ? Si vous le faites, vous serez déconnecté du site web en tant qu’administrateur.
   admin_notes_not_visible_to_user: "Notes d’administration (non visibles par l’utilisateur) :"
@@ -420,11 +421,11 @@ fr:
       page_richness_link: Pages riches
       user_added_data: 
         page_header: Statistiques sur le texte soumis par l’utilisateur
-        page_title: "Administration : Statistiques de texte publié par l’utilisateur"
+        page_title: "Administration : Statistiques de texte soumis par l’utilisateur"
       user_added_data_link: Texte soumis par l’utilisateur
   agent: Agent
   all: tout
-  all_apis_return_by_default_an_xml_response: "Toutes les API d’EOL retournent par défaut une réponse XML. Les méthodes de l’API peuvent être appelées sans préciser une extension de format pour obtenir la réponse XML et l’ajout d’une extension XML produira une réponse identique :"
+  all_apis_return_by_default_an_xml_response: "Toutes les IPA de l’EdlV retournent par défaut une réponse XML. Les méthodes de l’IPA peuvent être appelées sans préciser une extension de format pour obtenir la réponse XML et l’ajout d’une extension XML produira une réponse identique :"
   all_articles: Tous les articles
   all_changes: Toutes les modifications
   all_collections: Toutes les collections
@@ -458,7 +459,7 @@ fr:
   annotation_cabs_colon: "Annotation :"
   anonymous_user_given_name: Anonyme
   any_integer: un entier quelconque
-  api_docs_collections_description: Étant donné l’identifiant d’une collection, cette API retournera toutes les métadonnées à propos de la collection et des éléments qu’elle contient. La liste des éléments peut être filtrée par type d’élément et triée selon les attributs listés ci-dessus.
+  api_docs_collections_description: Étant donné l’identifiant d’une collection, cette IPA retournera toutes les métadonnées à propos de la collection et des éléments qu’elle contient. La liste des éléments peut être filtrée par type d’élément et triée selon les attributs listés ci-dessus.
   application_version_advisory_information: Version de l’application
   are_you_sure: Êtes-vous sûr ?
   are_you_sure_this_action_cannot_be_undone: Êtes-vous sûr ? Cette action est irréversible.
@@ -538,13 +539,13 @@ fr:
   change_rating_to_3_of_5: Changer la cote d’évaluation à 3 sur 5
   change_rating_to_4_of_5: Changer la cote d’évaluation à 4 sur 5
   change_rating_to_5_of_5: Changer la cote d’évaluation à 5 sur 5
-  check_this_to_browse_eol_by_the_hierarchy: si cette case est cochée, la hiérarchie sera une option de navigation pour les utilisateurs dans EOL
+  check_this_to_browse_eol_by_the_hierarchy: si cette case est cochée, la hiérarchie sera une option de navigation pour les utilisateurs dans l’EdlV
   choose_collection_header: Choisir une collection
   citation: Citation
   citation_example: Fisher, Brian. « Pogonomyrmex anergismus Cole, 1954. » Encyclopédie de la vie, disponible sur <a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>. Accédé le 15 janvier 2009.
   citing_link: Citation
   classification_tree_header: Classification
-  classifications_empty: Cette page ne fait pas partie d’aucune des classifications qui peuvent être parcourues sur EOL.
+  classifications_empty: Cette page ne fait partie d’aucune des classifications qui peuvent être parcourues sur l’EdlV.
   clear_all_non_species_pages: Effacer toutes les pages non relatives aux espèces
   clear_entire_cache_store: Effacer le stockage entier du cache
   clear_species_page: Effacer la page des espèces
@@ -580,7 +581,7 @@ fr:
   collections: 
     editors: 
       show: 
-        meta_description: Gestionnaires de la collection de l’Encyclopédie de la Vie %{collection_name}.
+        meta_description: Gestionnaires de la collection %{collection_name} de l’Encyclopédie de la Vie.
         meta_keywords: Gestionnaires de %{collection_name}
         meta_title: Gestionnaires de %{collection_name}
         tweet_text: Gestionnaires de %{collection_name}
@@ -601,18 +602,21 @@ fr:
           other: "%{count} taxons observés"
         top_contributors: Meilleurs contributeurs iNaturalist
         tweet_text: Observations iNaturalist de %{collection_name}
-        view_all_observations_on_inaturalist: Voir toutes les observations sur %{project_title} sur iNaturalist
-        view_more_observations_on_inaturalist: Voir davantage d'observations concernant %{project_title} sur iNaturalist
-        view_project_on_inaturalist: Afficher %{project_title} dans iNaturalist
+        view_all_observations_on_inaturalist: Voir toutes les observations du projet %{project_title} sur iNaturalist
+        view_more_observations_on_inaturalist: Voir davantage d’observations concernant le projet %{project_title} sur iNaturalist
+        view_project_on_inaturalist: Afficher le projet %{project_title} dans iNaturalist
     newsfeeds: 
       show: 
-        meta_description: Activité nouvelles, commentaires et activité des membres de la collection de l’Encyclopédie de la Vie %{collection_name}.
+        meta_description: Nouvelles, commentaires et activités des membres de la collection %{collection_name} de l’Encyclopédie de la Vie.
         meta_keywords: Nouvelles de %{collection_name}
         meta_title: Nouvelles de %{collection_name}
         tweet_text: Nouvelles de %{collection_name}
     show: 
       meta_description: "%{collection_description}"
-      meta_keywords: "%{collection_name}, Collection Encyclopédie de la Vie"
+      meta_description_default: Une collection de l’Encyclopédie de la Vie intitulée %{collection_name}.
+      meta_description_default_focus_collection: Une collection ciblée de l’Encyclopédie de la Vie intitulée %{collection_name}.
+      meta_description_default_watch_collection: Une liste de suivi de la collection %{collection_name} de l’Encyclopédie de la Vie
+      meta_keywords: "%{collection_name}, Collection de l’Encyclopédie de la Vie"
       meta_title: "%{collection_name}"
       tweet_text: "%{collection_name}"
   collections_filter: Collections
@@ -633,7 +637,7 @@ fr:
   comment_not_updated_error: Désolé, une erreur est survenue, le commentaire n’a pas pu être mis à jour.
   comment_or_rate_on_this_article: Commenter ou noter cet article
   comment_show_posters_image_alt: Image de profil de %{posters_name}, qui a ajouté ce commentaire.
-  commented_on_your_image: " a commenté votre image sur le <a href=\"%{data_object_link}\">site de l’''Encyclopédie de la vie'' (EOL)</a> :\n%{comment_body}"
+  commented_on_your_image: " a commenté votre image sur le <a href=\"%{data_object_link}\">site de l’Encyclopédie de la Vie (EdlV)</a> :\n%{comment_body}"
   comments: Commentaires
   comments_and_tags: Commentaires et balises
   comments_filter: Commentaires
@@ -647,24 +651,24 @@ fr:
   common_name_avg: Moyenne de noms usuels
   common_name_exists: Le nom usuel <em>%{name_string}</em> existe déjà
   common_names_with_count: 
-    one: "%{count} nom commun"
-    other: "%{count} noms communs"
+    one: "%{count} nom vulgaire"
+    other: "%{count} noms vulgaires"
   common_user_activity_page_title: Activité commune de l’utilisateur
   communities: 
     collections: 
       index: 
-        meta_description: Collections communautaires réunies par %{community_name}, une communauté de l'Encyclopédie de la Vie.
+        meta_description: Collections communautaires réunies par %{community_name}, une communauté de l’Encyclopédie de la Vie.
         meta_keywords: Collections de %{community_name}
         meta_title: Collections de %{community_name}
         tweet_text: Collections de %{community_name}
     newsfeeds: 
       show: 
         meta_description: "%{community_description}"
-        meta_keywords: "%{community_name}, communauté de l'Encyclopédie de la Vie, fil de nouvelles de %{community_name}, commentaires de %{community_name}, activité de %{community_name}"
+        meta_keywords: "%{community_name}, communauté de l’Encyclopédie de la Vie, fil de nouvelles de %{community_name}, commentaires de %{community_name}, activités de %{community_name}"
         meta_title: "%{community_name}"
         tweet_text: "%{community_name}"
     show: 
-      meta_description: La communauté de l'Encyclopédie de la Vie %{community_name} a été supprimée par son propriétaire
+      meta_description: La communauté %{community_name} de l’Encyclopédie de la Vie a été supprimée par son propriétaire
       meta_title: "%{community_name} supprimée par son propriétaire"
   communities_filter: Communautés
   communities_index_empty: Il n'y a pas de communautés actives.
@@ -697,16 +701,16 @@ fr:
   community_not_destroyed_error: Désolé, un problème est survenu ; la communauté n'a pas pu être supprimée.
   community_rating: Évaluation par la communauté
   community_removed_by_owner: Cette communauté a été retirée par son propriétaire.
-  community_tab_collections_description: Les collections sont créées par les utilisateurs d’EOL pour rassembler des espèces, des documents multimédia, des articles ou même des données numériques qui ont quelque chose en commun, tel que la géographie, l’écologie ou une signification personnelle. Les communautés peuvent « soutenir » des collections qui leur sont de valeur ou d’intérêt particulier.
-  community_tab_communities_description: Les communautés sont des groupes d’utilisateurs d’EOL qui se réunissent pour partager leurs intérêts et leur expertise. Les communautés EOL s’organisent autour d’une ou plusieurs collections EOL et offrent à leurs membres un moyen de se concentrer sur des sujets de préoccupation commune. Davantage d’informations sur les communautés EOL, y compris les instructions pour créer la vôtre, sont disponibles sur la <a href='/info/communities'>page d’aide</a>.
-  community_tab_curators_description: Les conservateurs sont des utilisateurs d’EOL ayant une expertise en biologie et qui consacrent une part de leur temps pour superviser les contenus de l’EOL afin de s’assurer que ce que vous voyez est exact et de haute qualité.
+  community_tab_collections_description: Les collections sont créées par les utilisateurs de l’EdlV pour rassembler des espèces, des documents multimédia, des articles ou même des données numériques qui ont quelque chose en commun, tel que la géographie, l’écologie ou une signification personnelle. Les communautés peuvent « soutenir » des collections qui leur sont de valeur ou d’intérêt particulier.
+  community_tab_communities_description: Les communautés sont des groupes d’utilisateurs de l’EdlV qui se réunissent pour partager leurs intérêts et leur expertise. Les communautés EdlV s’organisent autour d’une ou plusieurs collections EdlV et offrent à leurs membres un moyen de se concentrer sur des sujets de préoccupation commune. Davantage d’informations sur les communautés EdlV, y compris les instructions pour créer la vôtre, sont disponibles sur la <a href='/info/communities'>page d’aide</a>.
+  community_tab_curators_description: Les conservateurs sont des utilisateurs de l’EdlV ayant une expertise en biologie et qui consacrent une part de leur temps pour superviser les contenus de l’EdlV afin de s’assurer que ce que vous voyez soit exact et de haute qualité.
   completed: Terminé
   confirm_delete_community: Êtes-vous sûr de vouloir supprimer cette communauté ? Les membres restants pourront toujours la voir et le flux de nouveautés sera maintenu, mais elle ne s’affichera pas dans les recherches ou sur les pages de taxinomie, et ne sera plus modifiable.
   confirm_leave: Êtes-vous sûr de vouloir quitter cette communauté ?
   confirm_password_colon: "Confirmez le mot de passe :"
   contact: Contact
   contact_information: Informations de contact
-  contact_updated: Contact mise à jour
+  contact_updated: Contact mis à jour
   contact_us: Contactez-nous
   contact_us_functions: Fonctions pour nous contacter
   contact_us_link: Nous contacter
@@ -714,18 +718,18 @@ fr:
   contact_us_topics: Sujets pour nous contacter
   contacts: 
     errors: 
-      message_not_sent: Désolé, une erreur est survenue, votre message n'a pas été envoyé.
+      message_not_sent: Désolé, une erreur est survenue, votre message n’a pas été envoyé.
     new: 
       page_title: Veuillez entrer vos commentaires
     notices: 
-      message_sent: Merci pour vos commentaires, votre message a été envoyé dans le groupe approprié.
+      message_sent: Merci pour vos commentaires, votre message a été envoyé au groupe approprié.
   containing_value: " contenant %{value}."
   content: 
     index: 
-      meta_description: L'Encyclopédie de la Vie est un effort sans précédent pour collecter les connaissances scientifiques au sujet de toute vie animale et végétale, où les images, informations, faits et autres sont disponibles pour toutes les choses vivantes dans nos règnes animal et végétal.
-      meta_keywords: Animaux, Images d'Animaux, Information sur les Animaux, Plantes, Vie des Plantes, Images de Plantes, Information sur les Plantes, Flore, Faune
+      meta_description: L’Encyclopédie de la Vie est un effort sans précédent pour rassembler les connaissances scientifiques au sujet de toute vie animale et végétale, où les images, informations, faits et autres sont disponibles pour toutes les choses vivantes dans nos règnes animal et végétal.
+      meta_keywords: Animaux, Images d’animaux, Information sur les animaux, Plantes, Vie des plantes, Images de plantes, Information sur les plantes, Flore, Faune
       meta_title: Animaux - Plantes - Images & Informations
-      see_all_recent_activites: voyez plus d'activités <span class="assistive"> de la semaine dernière</span>
+      see_all_recent_activites: voyez plus <span class="assistive">d’activités de la semaine dernière</span>
   content_has_been_updated: Le contenu a été mis à jour.
   content_notes_not_shown_to_us: "Notes sur le contenu (non montrées à l’utilisateur) :"
   content_partner: Partenaire de contenu
@@ -734,14 +738,14 @@ fr:
   content_partner_administration_notes_empty: Il n’y a aucune note d’administration.
   content_partner_administration_notes_header: Notes d’administration
   content_partner_administration_settings_header: Paramètres d’administration
-  content_partner_administration_settings_introduction: Les champs d'administration suivants sont visibles et éditables uniquement pour les administrateurs de l'EOL.
+  content_partner_administration_settings_introduction: Les champs d’administration suivants sont visibles et éditables uniquement pour les administrateurs de l’EdlV.
   content_partner_agreement_cancel_edit_agreement_link: Annuler
   content_partner_agreement_cancel_new_agreement_link: Annuler
   content_partner_agreement_cancel_sign_agreement_link: Annuler
   content_partner_agreement_create_successful_notice: Vous avez accepté les conditions du partenaire de contenu. Vous pouvez maintenant ajouter des données.
-  content_partner_agreement_create_unsuccessful_error: Une erreur s'est produite. L'accord avec le partenaire de contenu semble avoir un problème technique. Veuillez réessayer. Si le problème persiste, veuillez le signaler à EOL.
+  content_partner_agreement_create_unsuccessful_error: Une erreur s’est produite. L’accord avec le partenaire de contenu semble avoir un problème technique. Veuillez réessayer. Si le problème persiste, veuillez le signaler à l’EdlV.
   content_partner_agreement_signed_successful_notice: Vous avez accepté avec succès les conditions de l’accord de partenaire, vous pouvez maintenant ajouter des ressources de données.
-  content_partner_agreement_signed_unsuccessful_error: Désolé une erreur est survenue ; il semble y avoir un problème technique avec les accords de partenaire de contenus. Veuillez essayer à nouveau et si le problème veuillez en avertir EOL.
+  content_partner_agreement_signed_unsuccessful_error: Désolé, une erreur est survenue ; il semble y avoir un problème technique avec les accords de partenaires de contenus. Veuillez essayer à nouveau ; si le problème persiste, veuillez en avertir l’EdlV.
   content_partner_agreement_subheader: Accord de partenaire de contenu
   content_partner_agreement_update_successful_notice: L'accord sur les termes de partenariat de contenu a été mis à jour avec succès.
   content_partner_agreement_update_unsuccessful_error: Désolé, une erreur s'est produite, l'accord sur les termes du partenariat de contenu n'a pas été mis à jour.
@@ -792,7 +796,7 @@ fr:
   content_partner_new_page_subheader: Ajouter un nouveau partenaire de contenu
   content_partner_notes_empty: Il n'y a pas de remarques annexes pour ce projet.
   content_partner_notes_header: Notes du projet
-  content_partner_oldest_published_harvest_event_time_ago: Première publication sur l'EOL il y a %{time_passed}
+  content_partner_oldest_published_harvest_event_time_ago: Première publication sur l’EdlV il y a %{time_passed}
   content_partner_overview_agreement_header: Accord de partenaire
   content_partner_overview_agreement_link: Afficher l’actuel accord
   content_partner_overview_link: Vue d’ensemble du partenaire
@@ -830,7 +834,7 @@ fr:
   content_partner_resource_hierarchy_browsable: Navigable
   content_partner_resource_hierarchy_complete_false: Cette hiérarchie n'est pas définie comme supervisée. Les entrées correspondantes peuvent être traitées comme un même concept.
   content_partner_resource_hierarchy_complete_true: Cette hiérarchie est définie comme <strong>organisée</strong>. Une hiérarchie supervisée suppose que chaque entrée est destinée à être unique, c'est-à-dire que les chaînes de noms correspondantes seront traitées comme des homonymes.
-  content_partner_resource_hierarchy_confirm_request_publish: Êtes-vous sûr de vouloir déposer une demande pour promouvoir votre hiérarchie afin qu'elle soit consultable sur EOL?
+  content_partner_resource_hierarchy_confirm_request_publish: Êtes-vous sûr de vouloir déposer une demande pour promouvoir votre hiérarchie afin qu’elle soit consultable sur EdlV ?
   content_partner_resource_hierarchy_edit_link: Modifier
   content_partner_resource_hierarchy_edit_subheader: Modifier la hiérarchie pour la ressource <em>%{resource_title}</em>
   content_partner_resource_hierarchy_not_browsable: Non navigable
@@ -839,7 +843,7 @@ fr:
   content_partner_resource_hierarchy_update_successful_notice: Hiérarchie mise à jour avec succès.
   content_partner_resource_hierarchy_update_unsuccessful_error: Désolé, une erreur s'est produite, la hiérarchie n'a pas été mise à jour.
   content_partner_resource_licensing_details_header: Droits et attributions
-  content_partner_resource_new_edit_form_tip: Entrer les informations à propos de votre ressource. Assurez-vous de fournir un nom à la ressource, et d'indiquer l'adresse URL publique de votre fichier ou de le téléverser au format GZIP, TAR ou XML. Si vous indiquez une adresse URL, vous pouvez préciser à quelle fréquence vous souhaitez que vos données soient recueillies par l'EOL. Merci de vous assurez que votre fichier est dans un format compatible avec l'EOL. <a href="%{more_url}">En savoir plus sur la compatibilité des formats.</a>.
+  content_partner_resource_new_edit_form_tip: Entrez les informations à propos de votre ressource. Assurez-vous de fournir un nom à la ressource, et d’indiquer l’adresse URL publique de votre fichier ou de le téléverser au format GZIP, TAR ou XML. Si vous indiquez une adresse URL, vous pouvez préciser à quelle fréquence vous souhaitez que vos données soient recueillies par l’EdlV. Merci de vous assurer que votre fichier soit dans un format compatible avec l’EdlV. <a href="%{more_url}">En savoir plus sur la compatibilité des formats.</a>.
   content_partner_resource_new_link: Ajouter une nouvelle ressource
   content_partner_resource_new_subheader: Ajouter une nouvelle ressource
   content_partner_resource_preview_collection_header: Prévisualiser la collection
@@ -859,7 +863,7 @@ fr:
   content_partner_resource_vetted_true: Oui
   content_partner_resource_view_link: Afficher
   content_partner_resources_header: Ressources
-  content_partner_resources_information: Les ressources sont des fichiers de données disponibles pour être recueillis par l'EOL. Les données recueillies sont intégrées dans la base de données de l'EOL et fournies au public grâce au site internet de l'EOL et l'interface de programmation. Les ressources peuvent être téléversées directement dans l'EOL ; si votre fichier est disponible publiquement sur internet, l'EOL peut aussi l'extraire automatiquement à des intervalles réguliers que vous pouvez définir. Chaque ressource doit être au format du <a href="%{eol_transfer_schema_url}">système de transfert de l'EOL</a>
+  content_partner_resources_information: Les ressources sont des fichiers de données disponibles pour être recueillis par l’EdlV. Les données recueillies sont intégrées dans la base de données de l’EdlV et fournies au public grâce au site Internet de l’EdlV et l’interface de programmation. Les ressources peuvent être téléversées directement dans l’EdlV ; si votre fichier est disponible publiquement sur Internet, l’EdlV peut aussi l’extraire automatiquement à des intervalles réguliers que vous pouvez définir. Chaque ressource doit être au format du <a href="%{eol_transfer_schema_url}">système de transfert de l’EdlV</a>
   content_partner_resources_link: Ressources et contacts
   content_partner_resources_link_back_to: retourner à ressources &amp; contacts
   content_partner_resources_policy_information: Avant d'ajouter vos ressources de données, veuillez examiner et accepter les termes de la convention d'utilisation en tant que partenaire de contenu.
@@ -885,26 +889,26 @@ fr:
     edit: 
       meta_title: Modifier %{partner_name}
     index: 
-      meta_description: Liste des fournisseurs de données et des partenaires de contenu de l'Encyclopédie de la Vie.
-      meta_keywords: Partenaires de contenu de l'Encyclopédie de la Vie, fournisseurs de données de l'Encyclopédie de la Vie
+      meta_description: Liste des fournisseurs de données et des partenaires de contenu de l’Encyclopédie de la Vie.
+      meta_keywords: Partenaires de contenu de l’Encyclopédie de la Vie, fournisseurs de données de l’Encyclopédie de la Vie
       meta_title: Partenaires de contenu
     show: 
       meta_description: "%{partner_name}. %{partner_description}"
-      meta_keywords: "%{partner_name}, partenaire de contenu de l'Encyclopédie de la Vie"
+      meta_keywords: "%{partner_name}, partenaire de contenu de l’Encyclopédie de la Vie"
     statistics: 
       show: 
-        meta_description: Statistiques d'utilisation des données pour %{partner_name}
-        meta_keywords: Statistiques de %{partner_name}, utilisation web de %{partner_name}
+        meta_description: Statistiques d’utilisation des données pour %{partner_name}.
+        meta_keywords: Statistiques de %{partner_name}, utilisation Web de %{partner_name}
         meta_title: Statistiques de %{partner_name}
-        tweet_text: statistiques d'utilisation de %{partner_name}
+        tweet_text: statistiques d’utilisation de %{partner_name}
   content_partners_empty: Aucun partenaire n'a été trouvé.
   content_partners_link: Partenaires de contenu
-  content_partners_page_description: Les partenaires de l'Encyclopedia of Life possèdent une grande quantité d'information concernant la biodiversité sur leurs propres sites internet ou dans leurs bases de données, qu'ils partagent aussi avec l'EOL. Nous apprécions vivement leurs apports critiques à la mission de l'EOL et nous vous encourageons à en apprendre plus sur eux. En savoir plus sur <a href="%{more_url}">les partenaires de contenu</a>.
+  content_partners_page_description: Les partenaires de l’Encyclopédie de la Vie possèdent une grande quantité d’information concernant la biodiversité sur leurs propres sites Internet ou dans leurs bases de données, qu’ils partagent aussi avec l’EdlV. Nous apprécions vivement leurs apports critiques à la mission de l’EdlV et nous vous encourageons à en apprendre plus sur eux. En savoir plus sur <a href="%{more_url}">les partenaires de contenu</a>.
   content_partners_page_title: Partenaires de contenu
   content_server_full_url: URL complète du serveur de contenu
   content_servers: Serveurs de contenu
   content_setting_colon: "Paramètres de contenu :"
-  content_summary_introduction_html: Les valeurs suivantes représentent la somme des différents types de contenu pour ce taxon et tous ses descendants dans la taxinomie. Le contenu de %{glossary_term_trusted} a soit été approuvé par un superviseur de l’EdlV ou provient d’un fournisseur de confiance. Le contenu de %{glossary_term_unreviewed} n’a pas encore été évalué par un superviseur de l’EdlV. Chaque hiérarchie taxinomique est unique, donc chaque hiérarchie navigable est listée à titre de comparaison.
+  content_summary_introduction_html: Les valeurs suivantes représentent la somme des différents types de contenu pour ce taxon et tous ses descendants dans la taxinomie. Le contenu de %{glossary_term_trusted} a soit été approuvé par un conservateur de l’EdlV ou provient d’un fournisseur de confiance. Le contenu de %{glossary_term_unreviewed} n’a pas encore été évalué par un conservateur de l’EdlV. Chaque hiérarchie taxinomique est unique, donc chaque hiérarchie navigable est listée à titre de comparaison.
   content_summary_table_caption: Résumé du contenu associé à %{taxon_name} et ses descendants dans %{hierarchy_label}
   content_summary_table_count_column_header: Nombre
   content_summary_table_summary: Ce tableau contient les décomptes des différents types de contenus séparés selon leur état.
@@ -950,7 +954,7 @@ fr:
   curated_objects_of: objets conservés de %{name}
   curated_species_of: espèces conservées de %{name}
   curation_comment: Commentaire de conservation
-  curation_privileges_page_description: Sélectionnez votre niveau de supervision désiré en tant que conservateur assistant, complet ou maître. Les candidatures de conservateurs complets et maîtres doivent inclure l’étendue et les certifications, vous recevrez une notification par courriel lorsque vos détails auront été contrôlés et acceptés. Les candidatures de conservateurs assistants ne sont pas modérées et seront instantanément approuvées. En savoir davantage sur la façon de <a href="%{curators_url}">devenir conservateur</a>.
+  curation_privileges_page_description: Sélectionnez votre niveau de supervision désiré en tant que conservateur adjoint, à part entière ou maître. Les candidatures de conservateurs à part entière et maîtres doivent inclure l’étendue et les certifications. Vous recevrez une notification par courriel lorsque vos détails auront été contrôlés et acceptés. Les candidatures de conservateurs adjoints ne sont pas modérées et seront instantanément approuvées. En savoir davantage sur la façon de <a href="%{curators_url}">devenir conservateur</a>.
   curation_privileges_page_title: Devenir un conservateur
   curation_reason_placeholder: détails supplémentaires (facultatifs)
   curation_scope: Étendue de conservation
@@ -961,25 +965,25 @@ fr:
   curator_level_application_pending_notice: Merci pour votre candidature à devenir un conservateur. Nous vous aviserons par courriel lorsque nous avons examiné votre demande.
   curator_level_assistant_approved_notice: Félicitations ! Vous êtes maintenant un <em>conservateur adjoint</em>. <a href="%{more_url}">En savoir plus sur le rôle de conservateur adjoint</a>.
   curator_level_assistant_curator: Conservateur adjoint
-  curator_level_full_curator: Conservateur complet
-  curator_level_full_pending_notice: Merci pour votre candidature à devenir un <em>conservateur  complet</em>. Nous vous aviserons par courriel lorsque nous avons examiné votre demande.
+  curator_level_full_curator: Conservateur à part entière
+  curator_level_full_pending_notice: Merci pour votre candidature à devenir un <em>conservateur à part entière</em>. Nous vous aviserons par courriel lorsque nous avons examiné votre demande.
   curator_level_master_curator: Maître conservateur
   curator_level_master_pending_notice: Merci pour votre candidature à devenir un <em>maître conservateur</em>. Nous vous aviserons par courriel lorsque nous avons examiné votre demande.
   curator_level_with_indefinite_article_assistant_curator: un <strong>conservateur adjoint</strong>
-  curator_level_with_indefinite_article_full_curator: un <strong>conservateur complet</strong>
+  curator_level_with_indefinite_article_full_curator: un <strong>conservateur à part entière</strong>
   curator_level_with_indefinite_article_master_curator: un <strong>maître conservateur</strong>
   curator_profile: profil du conservateur
   curator_profile_menu: Profil du conservateur
   curator_profile_of: profil du conservateur de %{name}
   curator_question: Conservateur ?
   curator_scope_colon: "Étendue de conservation :"
-  curator_signup_message: Pour demander des privilèges de superviseur, vous devez indiquer l'étendue de vos références ci-dessous. Vous serez informé par courriel si votre demande de privilèges de superviseur a été acceptée.
+  curator_signup_message: Pour demander des privilèges de conservateur, vous devez indiquer l'étendue de vos références ci-dessous. Vous serez informé par courriel si votre demande de privilèges de conservateur a été acceptée.
   curator_status_changed_by: Statut de conservateur modifié par %{user} le %{date}
   curators: Conservateurs
   curators_empty: Nos conservateurs n’ont encore pris aucune action concernant cette page.
   curators_summary_learn_more_link: Apprenez comment conserver
   current_language: "Langue : %{iso_code}"
-  currently_in_eol: Actuellement dans l’''Encyclopédie de la vie'' (EOL)
+  currently_in_eol: Actuellement dans l’Encyclopédie de la Vie (EdlV)
   currently_published: publié actuellement
   daily: Quotidien
   darwin_core: Darwin Core
@@ -988,13 +992,27 @@ fr:
   data_logging_active: Journalisation des données active
   data_master_database_colon: "Données maîtresses :"
   data_object: Objet de données
-  data_object_api_description: À partir de l'identifiant d'un objet de données, cette API renverra toutes les métadonnées sur l'objet tel que soumis à EOL par le partenaire contribuant au contenu. Le partenaire de contenu est cité comme le premier élément des acteurs et a le rôle de 'partenaire'.
+  data_object_api_description: À partir de l’identifiant d’un objet de données, cette IPA renverra toutes les métadonnées sur l’objet tel que soumis à l’EdlV par le partenaire de contenu. Le partenaire de contenu est cité comme le premier élément des acteurs et a le rôle de 'partenaire'.
   data_object_ignore: ignorer cet élément
   data_object_not_associated_with_any_hierarchies: Cet objet de données n’est associé à aucune hiérarchie.
   data_object_reference: Référence de l’objet de données
   data_object_undo_ignore: retirer de la liste à ignorer
   data_objects: 
     show: 
+      meta_description_article: Article - %{dato_description}
+      meta_description_default: "%{dato_title} de %{supplier}."
+      meta_description_default_article: Article - %{dato_title} de %{supplier}.
+      meta_description_default_image: Image - %{dato_title} de %{supplier}.
+      meta_description_default_image_map: Carte - %{dato_title} de %{supplier}.
+      meta_description_default_map: Carte - %{dato_title} de %{supplier}.
+      meta_description_default_sound: Son - %{dato_title} de %{supplier}.
+      meta_description_default_video: Vidéo - %{dato_title} de %{supplier}.
+      meta_description_image: Image - %{dato_description}
+      meta_description_image_map: Carte - %{dato_description}
+      meta_description_map: Carte - %{dato_description}
+      meta_description_sound: Son - %{dato_description}
+      meta_description_video: Vidéo - %{dato_description}
+      meta_supplier_default: un contributeur
       meta_title: "%{dato_title} de %{supplier}"
       tweet_text: "%{dato_title} de %{supplier}"
   data_usage_reports: Rapports d’utilisation des données
@@ -1007,13 +1025,13 @@ fr:
   dato_create_user_text_validation_error: Veuillez vous assurer d’avoir renseigné le formulaire correctement.
   dato_edit_cancel: Annuler
   dato_edit_text_link_button: Modifier cet article
-  dato_edit_text_page_description: Merci pour votre contribution à l'expertise sur EOL. L'article relu s'ajoutera à votre liste de suivi, donc vous pourrez suivre des conversations s'y rapportant et vérifier son statut de supervision.
+  dato_edit_text_page_description: Merci pour votre contribution à l’expertise de l’EdlV. L’article révisé s’ajoutera à votre liste de suivi, donc vous pourrez suivre des conversations s’y rapportant et vérifier son statut de supervision.
   dato_edit_text_title: Modifier l’article
   dato_new_edit_user_text_fieldset_content_header: Contenu de l’article
   dato_new_edit_user_text_fieldset_information_header: Informations sur l’article
-  dato_new_edit_user_text_form_tip: Votre article sera marqué comme «non rélu» jusqu'à ce qu'un conservateur l'examine. Si vous êtes un superviseur, votre article sera publié directement sur la page du taxon. Le champ texte marqué par un point (%{required_icon}) est obligatoire.
+  dato_new_edit_user_text_form_tip: Votre article sera associé à la page du taxon, marqué comme « non révisé » jusqu’à ce qu’un conservateur l’ait examiné. Si vous êtes un conservateur, votre article sera publié directement. Les éléments marqués par (%{required_icon}) sont obligatoires. Si vous choisissez une licence CC-BY (Attribution), veuillez inclure un détenteur de droits (ou laisser le champ blanc pour vous arroger ces droits). Les licences du domaine public n’ont pas besoin de détenteur de droits. Pour plus d’aide, consultez <a href="%{add_article_help_url}">l’aide</a>.
   dato_new_text_for_taxon_page_title: Ajouter un article à <i>%{taxon}</i>
-  dato_new_text_page_description: Merci pour votre contribution à EOL. Votre article sera ajouté à votre liste de suivi, donc vous pourrez suivre les conversations s'y rapportant et vérifier son statut de supervision.
+  dato_new_text_page_description: Merci pour votre contribution à l’EdlV. Votre article sera ajouté à votre liste de suivi, donc vous pourrez suivre les conversations s'y rapportant et vérifier son statut de supervision.
   dato_update_user_text_error: Désolé, une erreur est survenue ; l’article n’a pas pu être mis à jour.
   dato_update_users_text_not_owner_exception: Seul l'auteur d'origine de cet objet texte peut le modifier.
   default: Par défaut
@@ -1032,7 +1050,7 @@ fr:
   detail: Détails
   details: Détails
   details_title: Détails
-  development_version_name: EOL v2 Beta
+  development_version_name: EdlV v2 Bêta
   did_you_mean: "Vouliez-vous dire : %{suggestions} ?"
   disabled_for_now: DÉSACTIVÉ POUR L’INSTANT
   discover_link: Découvrir
@@ -1044,14 +1062,14 @@ fr:
   donation_confirmation: Confirmation de don
   donation_error_no_amount: Veuillez sélectionner un montant de don.
   donation_error_only_numbers: Veuillez entrer un montant en utilisant uniquement des chiffres.
-  donation_introduction_paragraph_one: EOL grandit tous les jours. Nous vous encourageons à l'explorer et à profiter de tout ce qu'il a à offrir. Nous vous demandons de nous aider à garder la dynamique de croissance grâce à vos contributions en terme de contenu, d'expertise et de soutien financier.
+  donation_introduction_paragraph_one: L’EdlV grandit tous les jours. Nous vous encourageons à l’explorer et à profiter de tout ce qu’il a à offrir. Nous vous demandons de nous aider à garder la dynamique de croissance grâce à vos contributions en terme de contenu, d’expertise et de soutien financier.
   donation_introduction_paragraph_two: Votre don généreux à l'Encyclopédie de la Vie soutient notre travail pour fournir un accès mondial aux connaissances sur la vie sur Terre.
   donation_privacy_notice: <em>Notice sur la vie privée et la sécurité :</em> veuillez noter que cette page et la page suivante de confirmation ne recueillent aucun renseignement personnel ou numéro de carte de crédit et ne sont donc pas chiffrées. Après avoir confirmé le montant que vous souhaitez donner, vous serez dirigé vers une page sécurisée pour saisir vos informations de paiement. Aucun frais ne sera porté à votre carte bancaire ou de crédit tant que vous ne soumettrez pas la page sécurisée comportant vos informations personnelles.
-  donation_sponsorship_content_description: Les donateurs intéressés par des branches particulières de l’arbre de la vie peuvent parrainer des efforts visant à trouver et acquérir de nouveaux contenus pour EOL. Les cadeaux peuvent couvrir la création de collections de pages d’espèces aussi vastes que tous les mammifères d’Amérique du Nord ou les oiseaux du Brésil, ou  aussi spécifiques que les lions de mer dans la Baie de San Francisco ou les « aliments du nouveau monde ».
+  donation_sponsorship_content_description: Les donateurs intéressés par des branches particulières de l’arbre de la vie peuvent parrainer des efforts visant à trouver et acquérir de nouveaux contenus pour l’EdlV. Les cadeaux peuvent couvrir la création de collections de pages d’espèces aussi vastes que tous les mammifères d’Amérique du Nord ou tous les oiseaux du Brésil, ou  aussi spécifiques que les lions de mer de la Baie de San Francisco ou les « aliments du Nouveau Monde ».
   donation_sponsorship_content_title: Parrainage de contenu
-  donation_sponsorship_fellowships_description: Le partage de connaissance avec les communautés éducatives du monde est l’essence même d’EOL. L’<em>Encyclopédie de la vie</em> recherche des donateurs intéressés dans l’octroi de bourses d’études qui fourniront les moyens permettant d’incorporer dans EOL des recherches scientifiques importantes et actuelles.
+  donation_sponsorship_fellowships_description: Le partage de connaissance avec les communautés éducatives du monde est l’essence même de l’EdlV. L’<em>Encyclopédie de la Vie</em> recherche des donateurs intéressés dans l’octroi de bourses d’études qui fourniront les moyens permettant d’incorporer dans l’EdlV des recherches scientifiques importantes et actuelles.
   donation_sponsorship_fellowships_title: Bourses
-  donation_sponsorship_infrastructure_description: Afin de mettre la puissance d’EOL entre les mains des personnes à travers le monde, des cadeaux de toutes tailles sont les bienvenus pour soutenir les coûts de l’infrastructure et des opérations de base de l’initiative.
+  donation_sponsorship_infrastructure_description: Afin de mettre la puissance de l’EdlV entre les mains des personnes à travers le monde, des cadeaux de toutes tailles sont les bienvenus pour défrayer les coûts de l’infrastructure et des opérations de base de l’initiative.
   donation_sponsorship_infrastructure_title: Infrastructures de base
   donation_sponsorship_preamble: "Si vous désirez en savoir davantage sur les programmes spécifiques disponibles pour le parrainage, ou souhaitez faire un don récurrent, veuillez contacter le Secrétariat de l’Encyclopédie de la Vie par <a href=\"mailto:%{email_address}\">courriel</a> ou par téléphone au 1 (202) 633-8730 (aux États-Unis). Les occasions pour des dons ciblés comprennent :"
   done_already: Déjà effectué
@@ -1059,7 +1077,7 @@ fr:
   download_wav_file: Télécharger le fichier WAV
   dublin_core: Dublin Core
   duplicate_items_were_ignored: Les éléments en double ont été ignorés.
-  e_g_search_for_the_eol_page: "(par exemple rechercher l’identifiant de page EOL pour le TSN 180542 d’ITIS  :"
+  e_g_search_for_the_eol_page: "(par exemple rechercher l’identifiant de page EdlV pour le TSN 180542 d’ITIS  :"
   each_method_documentation_page_has_formatted_responses: Chaque page de documentation de méthode comprend un exemple des deux réponses formatées en XML et JSON.
   edit: Modifier
   edit_collection_details: modifier les détails de la collection
@@ -1069,7 +1087,7 @@ fr:
   edit_community: Modifier la communauté
   edit_contact_us_topic: "Modifier le sujet : Nous contacter"
   edit_contact_us_topics: "modifier les sujets : nous contacter"
-  edit_eol_glossary: modifier le glossaire d’EOL
+  edit_eol_glossary: modifier le glossaire de l’EdlV
   edit_glossary_term: Modifier un terme du glossaire
   edit_hierarchy: modifier la hiérarchie
   edit_my_profile: Modifier mon profil
@@ -1093,27 +1111,27 @@ fr:
   email_colon: "Courriel :"
   email_error_notification_activ: Notification d’erreur par courriel active
   email_recipients: Destinataires du courriel
-  encyclopedia_of_life: Encyclopédie de la vie
+  encyclopedia_of_life: Encyclopédie de la Vie
   endorsed_by: Présenté par
   endorsed_collections: Collections en vedette
-  enter_in_a_search_term_users_a: Saisissez un terme de recherche que les utilisateurs recherchent et, ensuite, l'ID du taxon/page cible vers lequel ils devraient être dirigés comme suggestion pour cette recherche. L'ID du taxon/page se trouve dans l'URL de la page vers laquelle vous souhaitez les diriger (par ex. www.eol.org/pages/5 a un ID de taxon/page de 5). Le nom de la page et la première image seront récupérés s'ils sont disponibles et stockés avec le résultat.
-  eol_administration_console: Console d’administration d’EOL
-  eol_api: API EOL
-  eol_api_collections: "API d’EOL : collections"
-  eol_api_colon: "API d’EOL :"
-  eol_api_data_objects: "API d’EOL : objets de données"
-  eol_api_hierarchies: "API d’EOL :  hiérarchies"
-  eol_api_hierarchy_entries: "API d’EOL : entrées de hiérarchie"
-  eol_api_pages: "API d’EOL : pages"
-  eol_api_ping: "API d’EOL : ping"
-  eol_api_provider_hierarchies: "API d’EOL : hiérarchies de fournisseur"
-  eol_api_search: "API d’EOL : recherche"
-  eol_api_search_by_provider: "API d’EOL : recherche par fournisseur"
-  eol_colon: "EOL :"
-  eol_curator_activity_email_message: Le superviseur de l'Encyclopédie de la Vie <a href='%{profile_url}'>%{curator_full_name}</a> %{action} sur le <a href='%{data_object_url}'>site de EOL</a>%{comment}
-  eol_flickr_group: Groupe EOL sur Flickr
-  eol_glossary: Glossaire d’EOL
-  eol_news: Actualités EOL
+  enter_in_a_search_term_users_a: Saisissez un terme de recherche que les utilisateurs recherchent et, ensuite, l’identifiant du taxon/page cible vers lequel ils devraient être dirigés comme suggestion pour cette recherche. L’identifiant du taxon/page se trouve dans l’URL de la page vers laquelle vous souhaitez les diriger (par ex. www.eol.org/pages/5 a un identifiant de taxon/page de 5). Le nom de la page et la première image seront récupérés s’ils sont disponibles et stockés avec le résultat.
+  eol_administration_console: Console d’administration de l’EdlV
+  eol_api: IPA de l’EdlV
+  eol_api_collections: "IPA de l’EdlV : collections"
+  eol_api_colon: "IPA de l’EdlV :"
+  eol_api_data_objects: "IPA de l’EdlV : objets de données"
+  eol_api_hierarchies: "IPA de l’EdlV : hiérarchies"
+  eol_api_hierarchy_entries: "IPA de l’EdlV : entrées de hiérarchie"
+  eol_api_pages: "IPA de l’EdlV : pages"
+  eol_api_ping: "IPA de l’EdlV : ping"
+  eol_api_provider_hierarchies: "IPA de l’EdlV : hiérarchies de fournisseurs"
+  eol_api_search: "IPA de l’EdlV : recherche"
+  eol_api_search_by_provider: "IPA de l’EdlV : recherche par fournisseur"
+  eol_colon: "EdlV :"
+  eol_curator_activity_email_message: Le conservateur de l’Encyclopédie de la Vie <a href='%{profile_url}'>%{curator_full_name}</a> %{action} sur le <a href='%{data_object_url}'>site de l’EdlV</a>%{comment}
+  eol_flickr_group: Groupe EdlV sur Flickr
+  eol_glossary: Glossaire de l’EdlV
+  eol_news: Actualités EdlV
   eol_pages: Pages
   error_401_description: Désolé, vous n’êtes pas autorisé à accéder à cette URL.
   error_401_page_title: Non autorisé
@@ -1138,9 +1156,9 @@ fr:
   exception: Exception
   expand_all_children: Développer tous les enfants
   explore: à découvrir
-  explore_what_we_know_about_taxon: Découvrez ce que EOL sait de %{taxon}.
+  explore_what_we_know_about_taxon: Découvrez ce que l’EdlV sait de %{taxon}.
   export_all_of_the_entries_as_a: exporter toutes les entrées dans un fichier CSV
-  export_curator_csv_link: "[exporter tous les superviseurs en CSV]"
+  export_curator_csv_link: "[exporter tous les conservateurs en CSV]"
   export_this_list_as_csv: Exporter cette liste en CSV
   external_link_header: Lien externe
   external_link_icon_alt_text: Lien externe.
@@ -1188,7 +1206,7 @@ fr:
   flickr: Flickr
   focus_collection_edit: Vous pouvez modifier les collections de cette communauté directement sur la page de modification de chaque collection.
   focus_list_newsfeed: Alimentation des nouvelles de la liste des sujets principaux
-  for_example_for_the_taxon_element_for_a_node: Par exemple, pour l'élément taxon pour un nœud dans la hiérarchie ITIS, le dc:identifier sera le TSN ITIS. L'élément dwct:taxonId contient l'<i>identifiant EOL</i> à utiliser dans l'API %{link}.
+  for_example_for_the_taxon_element_for_a_node: Par exemple, pour l’élément taxon pour un nœud dans la hiérarchie ITIS, le dc:identifier sera le TSN ITIS. L’élément dwct:taxonId contient l’<i>identifiant EdlV</i> à utiliser dans l’IPA %{link}.
   for_images_to_reference_parens: (pour les images à référencer)
   for_pdfs_and_docs_parens: (pour les PDF et documents)
   for_terms_or_definitions_conta: "pour les termes ou définitions contenant :"
@@ -1218,8 +1236,8 @@ fr:
   get_help_choosing_a_subchapter: Obtenir de l'aide pour choisir un sous-chapitre.
   get_more_tasks: obtenir davantage de tâches
   given_name_colon: "Prénom :"
-  given_the_vast_number: Étant donné le grand nombre de noms communs et scientifiques (près de 20 millions au total), c’est une tâche difficile de fournir exactement aux utilisateurs les espèces qu’ils espèrent trouver. Par exemple, il y a plusieurs espèces d’oiseaux nommées Robin en anglais (Merle d’Amérique, Miro montagnard, Miro ombré) et plusieurs espèces de poissons appelés Robin (toujours en anglais), et un taxinomiste nommé Robin qui a donné son nom à des dizaines d’espèces. Nous avons inclus un paramètre 'exact' pour renvoyer uniquement les résultats dont le nom correspond au terme de la recherche dans son intégralité, mais nous ne pouvons garantir que les taxons renvoyés sont les taxons que vous désiriez trouver. Nous essayons constamment d’améliorer la pertinence de nos résultats de recherche, donc attendez-vous à quelques améliorations à l’ordre de la recherche dans un proche avenir.
-  gives_access_to_a_single_hierarchy_indexed_by_eol: donne accès à une seule hiérarchie indexée par EOL et à ses relations internes
+  given_the_vast_number: Étant donné le grand nombre de noms vulgaires et scientifiques (près de 20 millions au total), c’est une tâche difficile de fournir aux utilisateurs exactement les espèces qu’ils espèrent trouver. Par exemple, il y a plusieurs espèces d’oiseaux nommées Robin en anglais (Merle d’Amérique, Miro montagnard, Miro ombré) et plusieurs espèces de poissons appelés Robin (toujours en anglais), et un taxinomiste nommé Robin qui a donné son nom à des dizaines d’espèces. Nous avons inclus un paramètre 'exact' pour renvoyer uniquement les résultats dont le nom correspond au terme de la recherche dans son intégralité, mais nous ne pouvons garantir que les taxons renvoyés sont les taxons que vous désiriez trouver. Nous essayons constamment d’améliorer la pertinence de nos résultats de recherche, donc attendez-vous à quelques améliorations à l’ordre de la recherche dans un proche avenir.
+  gives_access_to_a_single_hierarchy_indexed_by_eol: donne accès à une seule hiérarchie indexée par l’EdlV et à ses relations internes
   global_access_tagline: Accès global à la connaissance sur la vie sur Terre.
   global_navigation: Navigation globale
   glossary_is_empty: (le glossaire est vide)
@@ -1249,7 +1267,7 @@ fr:
   helpers: 
     label: 
       collection: 
-        view_style_id: Vue par défaut
+        view_style_id: Affichage par défaut
       collection_item: 
         annotation: Annotation
         refs: Références <small>(placez chaque référence sur une nouvelle ligne)</small>
@@ -1258,15 +1276,15 @@ fr:
       comment: 
         body_edit: Modifier le commentaire
       contact: 
-        comments: Your message
+        comments: Votre message
         contact_subject_id: Objet
         email: Votre adresse de courriel
         name: Votre nom
       content_page: 
         active: Publié
         active_more: Les pages publiées seront visibles par le public. Décochez <em>publié</em> si vous voulez éviter qu’un utilisateur quelconque puisse voir les versions de cette page dans n’importe quelle langue.
-        page_name: Nom unique <small>(uniquement des chiffres ou lettres ISO latines minuscules de base ou des soulignés)</small>
-        page_name_more: Entrez un identifiant unique, auto-descriptif, significatif et persistant pour cette page. Le nom que vous entrez ici sera utilisé pour générer l’URL de cette page, c.-à-d. que le nom unique <em>conditions_d_utilisation</em> est converti dans l’URL <em>http://www.eol.org/info/conditions_d_utilisation</em>.
+        page_name: Nom unique <small>(uniquement des chiffres, des soulignés ou des lettres ISO latines minuscules de base)</small>
+        page_name_more: Entrez un identifiant unique, auto-descriptif, significatif et persistant pour cette page. Le nom que vous entrez ici sera utilisé pour générer l’URL de cette page (par ex., le nom unique <em>conditions_d_utilisation</em> serait converti dans l’URL <em>http://www.eol.org/info/conditions_d_utilisation</em>).
         parent_content_page_id: Parent
         parent_content_page_id_more: Sélectionnez une éventuelle page parente sous laquelle cette page sera imbriquée.
       content_partner: 
@@ -1282,11 +1300,11 @@ fr:
         logo_new: "Téléverser un nouveau logo :"
         notes: Notes du projet <small>(privées)</small>
         oldest_published_harvest_event: Publié en premier
-        public_more: Les profils de partenaires de contenu public sont visibles par tout le monde et les informations des partenaires sont incluses dans les listes de partenaires de contenu. Décochez la case pour exclure les détails sur les partenaires de contenu des listes et pour restreindre l’accès au profil complet au seul utilisateur ayant créé le partenaire de contenu et aux administrateurs de EdlV.
+        public_more: Les profils de partenaires de contenu public sont visibles par tout le monde et les informations des partenaires sont incluses dans les listes de partenaires de contenu. Décochez la case pour exclure les détails sur les partenaires de contenu des listes et pour restreindre l’accès au profil complet au seul utilisateur ayant créé le partenaire de contenu et aux administrateurs de l’EdlV.
         user_id: Détails du partenaire de contenu géré par
       content_partner_agreement: 
         mou_url: URL du fichier de l’accord <small>(alternative facultative)</small>
-        mou_url_more: Entrez une éventuelle URL vers le fichier contenant l’accord de ce partenaire. Ce fichier remplacera tout autre texte d’accord. Si vous désirez enregistrer ce fichier (par exemple un fichier PDF) sur les serveurs de contenu d’EdlV, veuillez d’abord <a href="%{upload_content_url}">téléverser ce fichier</a> pour en obtenir l’URL.
+        mou_url_more: Entrez une éventuelle URL vers le fichier contenant l’accord de ce partenaire. Ce fichier remplacera tout autre texte d’accord. Si vous désirez enregistrer ce fichier (par exemple un fichier PDF) sur les serveurs de contenu de l’EdlV, veuillez d’abord <a href="%{upload_content_url}">téléverser ce fichier</a> pour en obtenir l’URL.
       content_partner_contact: 
         email_reports_frequency_hours_more: Les rapports par courriel sont envoyés uniquement s’il y a eu des commentaires ou des actions de supervision sur vos données ou sur les pages de taxinomie liées à votre jeu de données.
       data_object: 
@@ -1294,7 +1312,7 @@ fr:
         bibliographic_citation_more: Une citation recommandée pour ces données sous la forme d’une référence bibliographique, incluant suffisamment de détails pour identifier les données aussi clairement que possible.
         description: Texte <small>(certaines balises de formatage HTML sont autorisées)</small>
         license_id: Licence
-        license_id_more: Lire la <a href="%{policy_url}">Politique de licences EOL</a>
+        license_id_more: Lire la <a href="%{policy_url}">Politique de licences EdlV</a>
         object_title: Titre
         refs: Références <small>(placez chaque référence sur une nouvelle ligne)</small>
         rights_holder: Détenteur des droits
@@ -1304,7 +1322,7 @@ fr:
         source_url: URL vers l’objet de données d’origine
         toc_item: Sous-chapitre
       eol_statistic: 
-        download_all: Tous <small>(y compris les enregistrements de toutes les pages)</small>
+        download_all: Toutes <small>(inclure les enregistrements de toutes les pages)</small>
       google_analytics_partner_summaries: 
         page_views: Pages vues <small>(nombre de visites des pages)</small>
         taxa_pages: Pages <small>(nombre de pages)</small>
@@ -1315,11 +1333,11 @@ fr:
         began_at: Démarré
         completed_at: Terminé
         first_published_at: Publié en premier
-        publish_more: Drapeaux d’évènement de collecte pour la publication, le contenu ne sera pas rendu public immédiatement.
+        publish_more: Marque l’événement de récolte pour la publication (le contenu ne sera pas rendu public immédiatement).
         published_at: Publié
         published_status: État
       hierarchy: 
-        browsable_more: Vérifiez la navigabilité de cette hiérarchie pour la promouvoir en hiérarchie principale navigable sur l’EdlV.
+        browsable_more: Cochez <em>navigable</em> pour promouvoir cette hiérarchie parmi les principales hiérarchies navigables de l’EdlV.
         browsable_status_with_colon: "État de navigabilité :"
         complete: Conservé
         complete_more: "Une hiérarchie supervisée suppose que chaque entrée est unique, c’est-à-dire que les chaînes de nom correspondantes seront traitées comme des homonymes. <strong>AVERTISSEMENT : ne modifiez pas cet attribut sauf si vous êtes certain de la cohérence des homonymes dans la hiérarchie car cela pourrait compromettre l’intégrité des données.</strong>"
@@ -1334,8 +1352,8 @@ fr:
         administration_settings: Paramètres d’administration <small>(visibles seulement par les administrateurs de l’EdlV)</small>
         dataset: Jeu de données
         dataset_existing_remove: Le fichier <em>%{file_name}</em> est actuellement associé à cette ressource. Entrez une URL si vous voulez remplacer le fichier <em>%{file_name}</em> existant et charger la ressource depuis l’URL à la place (recommandé).
-        dataset_existing_replace: Le fichier <em>%{file_name}</em> est actuellement associé avec cette ressource. Charger un nouveau fichier pour remplacer le fichier <em>%{file_name}</em> existant.
-        dwc_archive_url: "S’il y a une archive principale Darwin associée avec cette ressource, entrez son URL ici <small>(TAR.GZIP, TAR.GZ ou TGZ uniquement)</small> :"
+        dataset_existing_replace: Le fichier <em>%{file_name}</em> est actuellement associé avec cette ressource. Téléversez un nouveau fichier pour remplacer le fichier <em>%{file_name}</em> existant.
+        dwc_archive_url: "S’il y a une archive Darwin Core associée avec cette ressource, entrez son URL ici <small>(TAR.GZIP, TAR.GZ ou TGZ uniquement)</small> :"
         hierarchy: Hiérarchie
         latest_harvest_event: Dernière récolte
         latest_published_harvest_event: Dernière publication
@@ -1357,22 +1375,22 @@ fr:
         language_id: Langue
         left_content_more: "Ajoutez une éventuelle liste non ordonnée de liens afin d’inclure une colonne de navigation dans la page. Les liens vers une ancre doivent être ajoutés manuellement en sélectionnant <em>Source</em> et en modifiant l’attribut HTML <em>href</em> des liens. Par exemple, pour créer un lien vers une ancre appelée <em>politique_de_licences</em> dans la zone de contenu <em>Corps</em>, l’attribut <em>href</em> de l’élément de lien de votre liste devra avoir la valeur  « #politique_de_licences »"
         main_content_more: "Saisissez le contenu de la page principale dans la zone Corps. Utilisez la liste déroulante <em>Format</em> pour choisir les éléments de texte sémantique appropriés ; par exemple choisissez <em>Heading 2</em> pour un titre de second niveau. Note : le titre de la page est le titre de premier niveau, veuillez démarrez vos titres au second niveau dans la zone Corps avec le format <em>Heading 2</em>."
-        meta_description_more: Fournissez une courte description résumant les concepts clés du contenu de la page. Cette description est quelquefois utilisée par les moteurs de recherche du web à la fois pour vérifier la pertinence et pour compléter les listes de résultats du moteur de recherche.
+        meta_description_more: Fournissez une courte description résumant les concepts clés du contenu de la page. Cette description est quelquefois utilisée par les moteurs de recherche du Web à la fois pour vérifier la pertinence et pour compléter les listes de résultats du moteur de recherche.
         meta_keywords_more: Entrez une liste de mots et de courtes expressions séparés par des virgules qui reflètent le mieux le contenu de la page. Ces expressions et mots-clés sont parfois utilisés par les moteurs de recherche de la toile Internet afin d’améliorer la pertinence de la page au regard des critères de recherche.
         title_more: Le titre de ce contenu apparaîtra dans la zone d’entête de la page. Le titre devrait inclure les mots-clés les plus appropriés au contenu.
       user: 
         agreed_with_terms: J’accepte les <a href="%{terms_url}">conditions d’utilisation</a>
-        api_key_more: Lisez en plus au sujet de <a href="%{api_docs_url}">l’ajout d’une clé pour vos appels à l’API</a>.
+        api_key_more: Lisez en plus au sujet de <a href="%{api_docs_url}">l’ajout d’une clé pour vos appels à l’IPA</a>.
         bio: À mon sujet
         credentials: Certifications
-        credentials_more: "Merci d’indiquer au moins un certificat spécifique pour cette liste :"
+        credentials_more: "Merci d’indiquer au moins un certificat spécifique tiré de cette liste :"
         credentials_more_academic: Statut de faculté, de personnel ou d’étudiant diplômé dans un département approprié d’université ou de collège.
         credentials_more_author: Paternité d’une publication relue par un pair (fournir la référence).
         credentials_more_professional: Membre d’une société professionnelle.
-        credentials_more_referral: Renvoi depuis le conservateur actuel.
+        credentials_more_referral: Recommandation du conservateur actuel.
         credentials_more_successful_assistant_curator: Historique de réussite en tant que conservateur adjoint.
         curation_application: Devenez conservateur
-        curation_application_more: Si vous désirez modifier vos privilèges de conservateur, soumettez simplement une demande d’adhésion et nous examinerons votre éligibilité.
+        curation_application_more: Si vous désirez modifier vos privilèges de conservateur, soumettez simplement une demande d’adhésion et nous déterminerons votre éligibilité.
         curator_level: Vous êtes actuellement %{curator_level_with_indefinite_article}.
         curator_scope: Étendue de conservation
         curator_scope_more: "Veuillez indiquer l’étendue de votre expertise. Par exemple : « Rongeurs de Bornéo », « Interactions tri-trophiques », ou « Problèmes de préservation des ressources halieutiques ». Cela ne limitera pas votre capacité de supervision en tant que conservateur, mais informera la communauté EdlV."
@@ -1389,10 +1407,10 @@ fr:
         notification_settings_more: Configurez vos paramètres de notification.
         open_authentications: Comptes connectés
         open_authentications_connected_accounts: Vos comptes connectés
-        open_authentications_more: Gérer les connexions aux comptes de tiers que vous pouvez utiliser pour vous connecter à l’EdlV. <a href="%{open_authentications_url}">Modifier les comptes liés</a>.
+        open_authentications_more: Gérer les connexions aux comptes tiers que vous pouvez utiliser pour vous connecter à l’EdlV. <a href="%{open_authentications_url}">Modifier les comptes liés</a>.
         requested_curator_level: Votre demande pour devenir %{curator_level_with_indefinite_article} est en attente.
-        requested_curator_level_id_more: Choisissez <em>Conservateur adjoint</em> si vous n’avez pas encore de certificats. Choisissez <em>Conservateur</em> si vous êtes un chercheur professionnel ou un étudiant diplômé avec des certificats. Choisissez <em>Maître conservateur</em> si vous êtes un conservateur EdlV expérimenté et voulez assumer davantage de responsabilités.
-        tag_line: "Slogan ou titre <small>(exemple : « Passionné sur les oiseaux »)</small>"
+        requested_curator_level_id_more: Choisissez <em>Conservateur adjoint</em> si vous n’avez pas encore de certification. Choisissez <em>Conservateur</em> si vous êtes un chercheur professionnel ou un étudiant diplômé avec des certifications. Choisissez <em>Maître conservateur</em> si vous êtes un conservateur EdlV expérimenté et voulez assumer davantage de responsabilités.
+        tag_line: "Titre ou titre d’appel <small>(exemple : « Passionné des oiseaux »)</small>"
         user_identities: Je suis
         username: Nom d’utilisateur <small>(4 à 32 caractères)</small>
         username_or_email: Nom d’utilisateur ou adresse courriel
@@ -1418,11 +1436,11 @@ fr:
       content_partner_agreement: 
         agree: En accord avec les conditions du partenaire de contenu
         create: Créer un nouvel accord
-        update: Accord de mise à jour
+        update: Mettre à jour l’accord
       content_partner_contact: 
         create: Ajouter un contact
         destroy: Supprimer le contact
-        update: Contact de mise à jour
+        update: Mettre à jour le contact
       create: Créer %{model}
       data_object: 
         create: Ajouter l’article
@@ -1447,7 +1465,7 @@ fr:
         create: Ajouter une ressource
         force_harvest: Demander de forcer la récolte
         update: Mettre à jour la ressource
-        update_settings: Paramètres de mise à jour
+        update_settings: Mettre à jour les paramètres
       session: 
         create: S’identifier
         sign_in_with_facebook: Connectez-vous avec Facebook
@@ -1466,10 +1484,10 @@ fr:
         generate_api_key: Générer une clé
         notification_settings: Paramètres de notification
         recover_account: Envoyer un courriel
-        sign_up_with_facebook: S’identifier avec Facebook
-        sign_up_with_google: S’inscrire avec Google
-        sign_up_with_twitter: S’inscrire avec Twitter
-        sign_up_with_yahoo: S’inscrire avec Yahoo
+        sign_up_with_facebook: S’inscrire à Facebook
+        sign_up_with_google: S’inscrire à Google
+        sign_up_with_twitter: S’inscrire à Twitter
+        sign_up_with_yahoo: S’inscrire à Yahoo
         update: Enregistrer les informations de profil
       wikipedia_queue: 
         create: Soumettre la demande
@@ -1490,9 +1508,9 @@ fr:
   home_page_link_advisory_information: Ce lien vous mènera à la page d'accueil du site de l'Encyclopédie de la vie
   html_format: (format HTML)
   html_format_with_left_col: (FORMAT HTML, à saisir seulement si vous souhaitez avoir une colonne à gauche sur la page, sinon à laisser blanc)
-  icon_near_the_table_of_content: icône près de la table des matières sur le côté gauche de la page. Vous pouvez aussi envoyer des <a href=''>commentaires</a> sur cette espèce directement sur le site d'EOL à l'aide de l'onglet "Commentaires" à côté des images.
+  icon_near_the_table_of_content: icône près de la table des matières sur le côté gauche de la page. Vous pouvez aussi envoyer des <a href=''>commentaires</a> sur cette espèce directement sur le site de l’EdlV à l’aide de l'onglet « Commentaires » à côté des images.
   id: Identifiant
-  if_checked_and_user_is_saved: Si vous cochez et que l'utilisateur est enregistré, alors ses informations d'identification, de portée, d'approbation et d'embranchement sélectionné sont supprimés et l'utilisateur n'apparaîtra plus comme superviseur. Vous devriez ajouter une note ci-dessous pour en indiquer la raison. Aucune information n'est envoyée à l'utilisateur.
+  if_checked_and_user_is_saved: Si vous cochez et que l’utilisateur est enregistré, alors ses informations d’identification, d’étendue, de certification et d’embranchement sélectionné sont supprimés et l’utilisateur n’apparaîtra plus comme conservateur. Vous devriez ajouter une note ci-dessous pour en indiquer la raison. Aucune information n’est envoyée à l’utilisateur.
   if_the_details_parameter_is_not_set: Si le paramètre détails n'est pas positionné, alors seul l'identifiant de l'objet de données, le type de la donnée et, dans le cas d'articles, le sujet, seront renvoyés. Le type de donnée sera une valeur du vocabulaire de type de ressource %{linka}. Le sujet texte sera une valeur de l'ontologie %{linkb} des éléments d'information.
   image: Image
   image_alt_text: "Cette image %{vetted_status} porte sur : %{taxon_name}"
@@ -1508,18 +1526,18 @@ fr:
   image_not_associated_with_any_published_entries: Cette image n’est associée à aucune des taxinomies publiées.
   image_not_found: Image introuvable
   image_object: Objet image
-  image_objects_will_contain_two_mediaurl_elements: Les objets image contiennent deux éléments mediaURL - le premier étant l'URL de l'image sur le site web du fournisseur et le second l'URL de la version en cache du média hébergé sur un serveur EOL. La version EOL de l'image aura été redimensionnée (en conservant le ratio de dimension) si l'image d'origine est plus grande que 460 pixels de large ou 345 pixels de hauteur.
+  image_objects_will_contain_two_mediaurl_elements: Les objets image contiennent deux éléments mediaURL - le premier étant l’URL de l’image sur le site Web du fournisseur et le second l’URL de la version en cache du média hébergé sur un serveur EdlV. La version EdlV de l’image aura été redimensionnée (en conservant le rapport de dimension) si l’image d’origine est plus grande que 460 pixels de large ou 345 pixels de hauteur.
   image_of: Image de
   image_rating: Évaluation de l’image
   images: Images
   images_in_red_are_not_trusted: Les images en rouge ne sont pas fiables.
   images_in_yellow_are_not_reviewed: Les images en jaune n'ont pas été revues.
   images_sort_worklist_note: 
-    one: Les images sont triées par date d'importation dans EOL, avec les éléments les plus récents affichés en premier. Il y a %{count} images dans cette liste d'œuvres.
-    other: Les images sont triées par date d'importation dans EOL, avec les éléments les plus récents affichés en premier. Il y a %{count} images dans cette liste d'œuvres.
+    one: Les images sont triées par date d’importation dans l’EdlV, avec les éléments les plus récents affichés en premier. Il y a une seule image dans cette liste d'œuvres.
+    other: Les images sont triées par date d’importation dans l’EdlV, avec les éléments les plus récents affichés en premier. Il y a %{count} images dans cette liste d'œuvres.
   import_once: Importer une fois
   in_collection: dans la collection
-  in_providing_its_content_to_eo: En fournissant son contenu à EOL,
+  in_providing_its_content_to_eo: En fournissant son contenu à l’EdlV,
   in_this_data_type: "dans ce %{data_type} :"
   inappropriate: Inapproprié
   inaturalist_tab_label: Observations iNaturalist
@@ -1534,7 +1552,7 @@ fr:
   insufficient_privileges_to_curate_names: Désolé, vous n’avez pas les privilèges suffisants pour conserver des noms.
   internal_ip_address: adresse IP interne
   inverse_sort: Tri inversé
-  invite_members_help_text: Ajoutez quelques utilisateurs d’EOL ici et ils recevront une invitation à votre nouvelle communauté !
+  invite_members_help_text: Ajoutez quelques utilisateurs de l’EdlV ici et ils recevront une invitation à votre nouvelle communauté !
   invite_members_label: Inviter des membres
   ip: IP
   ip_address: Adresse IP
@@ -1575,7 +1593,7 @@ fr:
   iucn_red_list_status_advisory_information: Ce lien vous mènera sur le site web de l'Union internationale pour la Conservation de la Nature (UICN) où vous pourrez trouver plus d'informations sur la liste rouge des espèces menacées de l'UICN.
   join_community_button: Rejoindre cette communauté
   join_eol_button_html: Rejoignez <abbr title="Encyclopedia of Life">EOL</abbr> maintenant
-  join_eol_community_html: Faire partie de la communauté <abbr title="Encyclopedia of Life">EOL</abbr>!
+  join_eol_community_html: Faire partie de la communauté <abbr title="Encyclopédie de la Vie">EdlV</abbr> !
   joined_mailing_list: Uniquement ceux qui ont rejoint la liste de diffusion.
   joined_time_ago: Rejoint il y a %{time_passed}
   json_response: Réponse JSON
@@ -1592,7 +1610,7 @@ fr:
   learn_about_communities: Comment puis-je participer ?
   learn_about_content_partners: Comment puis-je devenir l’un d’eux ?
   learn_about_contributing: Comment puis-je contribuer ?
-  learn_about_eol: Comment puis-je utiliser EOL ?
+  learn_about_eol: Comment puis-je utiliser l’EdlV ?
   learn_about_joining: Comment puis-je me joindre ?
   learn_more_about_communities_link: En savoir plus sur les communautés
   learn_more_about_names_for_this_taxon: en savoir plus sur les noms pour ce taxon
@@ -1648,7 +1666,7 @@ fr:
   location_colon: "Emplacement :"
   logging_database_colon: "Journalisation :"
   login: connexion
-  login_header: Connectez-vous à votre compte <abbr title="Encyclopédie de la vie">EOL</abbr>
+  login_header: Connectez-vous à votre compte <abbr title="Encyclopédie de la Vie">EdlV</abbr>
   login_hidden_user_message: Le compte %{given_name} n'est plus actif
   login_or_create_account: Créer un compte ou se connecter
   login_required_button: Connexion nécessaire
@@ -1678,7 +1696,7 @@ fr:
   map_of_taxon: Carte de %{taxon_name}
   map_rating: Évaluation de la carte
   maps_empty: Personne n'a encore contribué à une carte sur cette page.
-  maps_empty_contribute_instructions: Apprenez comment contribuer aux cartes de EOL.
+  maps_empty_contribute_instructions: Apprenez comment contribuer aux cartes de l’EdlV.
   maps_image_maps_header: Média marqué comme 'carte'
   maps_with_count: 
     one: "%{count} carte"
@@ -1689,10 +1707,10 @@ fr:
   max_collection_items_error: Désolé, votre demande dépasse la limite de %{max} éléments de la collection.
   media: Média
   media_list_empty: Personne n'a encore contribué à un support sur cette page.
-  media_list_empty_contribute_instructions: Apprenez comment contribuer aux supports de EOL.
+  media_list_empty_contribute_instructions: Apprenez comment contribuer aux médias de l’EdlV.
   media_list_empty_search: Aucun support disponible ne correspond à vos critères de recherche.
   media_summary_empty: Personne n'a encore contribué à une image sur cette page.
-  media_summary_empty_contribute_instructions: Apprenez comment contribuer aux images de EOL.
+  media_summary_empty_contribute_instructions: Apprenez comment contribuer aux images de l’EdlV.
   media_with_count: 
     one: "%{count} support"
     other: "%{count} supports"
@@ -1700,12 +1718,12 @@ fr:
   member_of_professional_society_credential_option: membre d’une société professionnelle
   members: 
     index: 
-      meta_description: Membres de %{community_name}, une communauté de l'Encyclopédie de la Vie.
+      meta_description: Membres de %{community_name}, une communauté de l’Encyclopédie de la Vie.
       meta_keywords: Membres de %{community_name}
       meta_title: Membres de %{community_name}
       tweet_text: Membres de %{community_name}
     show: 
-      meta_description: "%{member_name} est un membre de %{community_name}, une communauté de l'Encyclopédie de la Vie."
+      meta_description: "%{member_name} est un membre de %{community_name}, une communauté de l’Encyclopédie de la Vie."
       meta_keywords: Membre de la communauté %{member_name}
       meta_title: "%{member_name} Membre de %{community_name}"
       tweet_text: "%{member_name} membre de %{community_name}"
@@ -1727,7 +1745,7 @@ fr:
   minimal_page: Page minimale
   mobile: 
     contents: 
-      explore_eol: Explorez EOL
+      explore_eol: Explorez l’EdlV
       full_site: Site complet
       home: Accueil
       species: Espèces
@@ -1787,11 +1805,11 @@ fr:
   name_preferred_taxonomically_for_source_yes: Préféré
   names: Noms
   names_children_column_header: Enfants
-  names_common_empty: Aucun nom commun n'a encore été associé à ce taxon
-  names_common_list_by_language_assistive_header: Noms communs listés par langue
-  names_curation_column_header: Supervision
+  names_common_empty: Aucun nom vulgaire n’a encore été associé à ce taxon
+  names_common_list_by_language_assistive_header: Noms vulgaires listés par langue
+  names_curation_column_header: Conservation
   names_et_al: "%{names}, et cie"
-  names_explanation: Les scientifiques ont pour but de décrire un unique "arbre de vie" qui reflète les relations d'évolution entre êtres vivants. Cependant, les relations d'évolution sont une matière toujours en cours de découverte, et il y a des opinions différentes sur comment regrouper et nommer les êtres vivants. EOL reflète ces différences en supportant plusieurs 'classifications' scientifiques différentes. Certaines espèces ont été nommées plus d'une fois. Ces doublons sont répertoriés sous synonymes. EOL fournit également un support pour des noms communs qui peuvent varier selon les régions et les langues.
+  names_explanation: Les scientifiques ont pour but de décrire un unique « arbre de vie » qui reflète les relations d’évolution entre êtres vivants. Cependant, les relations d’évolution sont une matière toujours en cours de découverte, et il y a des opinions différentes sur comment regrouper et nommer les êtres vivants. L’EdlV reflète ces différences en prenant en charge plusieurs 'classifications' scientifiques différentes. Certaines espèces ont été nommées plus d’une fois. Ces doublons sont répertoriés comme synonymes. L’EdlV prend également en charge les noms vulgaires qui peuvent varier selon les régions et les langues.
   names_filter: Noms
   names_name_column_header: Nom
   names_parents_column_header: Parents
@@ -1815,12 +1833,12 @@ fr:
   news_item_title: Élément Nouvelles
   news_items: Éléments Nouvelles
   newsfeed: Fil de nouvelles
-  newsfeed_help_for_collection: Le fil de nouvelles pour cette collection EOL collecte les mises à jour associées avec les éléments lui appartenant, y compris les activités de son propriétaire et les commentaires des autres utilisateurs de EOL.
-  newsfeed_help_for_community: Le fil de nouvelles pour cette communauté EOL collecte les mises à jour associées avec les éléments appartenant aux collections qu'elle gère, y compris les activités de ses membres et les commentaires des autres utilisateurs de EOL.
-  newsfeed_help_for_focus_list: Le fil de nouvelles Liste ciblées collecte les mises à jour associées avec les éléments appartenant à la liste des cibles prioritaires de la communauté EOL, y compris les activités de ses gestionnaires et les commentaires des autres utilisateurs de EOL.
-  newsfeed_help_for_profile: L'alimentation de nouvelles du profil EOL contient les messages laissés à son propriétaire par les autres membres, les invitations de la communauté EOL, et collecte les mises à jour associées avec les éléments dans la liste de suivi EOL du propriétaire.
-  newsfeed_help_for_taxon: Le fil de nouvelles pour cette page de taxon de EOL collecte les mises à jour associées avec les éléments qui y sont affichés, y compris les actions de supervision et les commentaires des utilisateurs de EOL.
-  newsfeed_help_for_watchlist: Le fil des nouvelles de la liste de suivi de EOL collecte les mises à jour associées avec les éléments de la liste de suivi EOL du propriétaire, y compris les activités de son propre propriétaire.
+  newsfeed_help_for_collection: Le fil de nouvelles pour cette collection EdlV regroupe les mises à jour associées aux éléments lui appartenant, y compris les activités de son propriétaire et les commentaires des autres utilisateurs de l’EdlV.
+  newsfeed_help_for_community: Le fil de nouvelles pour cette communauté EdlV regroupe les mises à jour associées aux éléments appartenant aux collections qu’elle gère, y compris les activités de ses membres et les commentaires des autres utilisateurs de l’EdlV.
+  newsfeed_help_for_focus_list: Le fil de nouvelles « Liste ciblées » regroupe les mises à jour associées aux éléments appartenant à la liste des cibles prioritaires d’une communauté EdlV, y compris les activités de ses gestionnaires et les commentaires des autres utilisateurs de l’EdlV.
+  newsfeed_help_for_profile: Le fil de nouvelles Profil EdlV regroupe les messages laissés à son propriétaire par les autres membres, les invitations des communautés EdlV, et les mises à jour associées aux éléments de la liste de suivi EdlV du propriétaire.
+  newsfeed_help_for_taxon: Le fil de nouvelles pour cette page de taxon de l’EdlV regroupe les mises à jour associées aux éléments qui y sont affichés, y compris les actions de conservation et les commentaires des utilisateurs de l’EdlV.
+  newsfeed_help_for_watchlist: Le fil de nouvelles de la liste de suivi EdlV regroupe les mises à jour associées aux éléments de la liste de suivi EdlV du propriétaire, y compris les activités du propriétaire.
   next: Suivant
   no_active_members: L'activité n'est pas encore suffisante.
   no_answer: Non
@@ -1857,11 +1875,11 @@ fr:
   notifier: 
     activity_log_empty: Aucune action récente par les conservateurs.
     activity_on_content_partner_content: 
-      message: "Ceci est un courrier automatique envoyé par l’''Encyclopédie de la vie'' (EOL). Il résume les commentaires récents et les actions de conservation prises concernant le contenu fourni à EOL par le partenaire de contenu %{partner_full_name} (%{partner_profile_url}). Vous recevez ce message car vous êtes inscrit comme contact pour %{partner_full_name}.\n\nSi vous avez des questions ou avez besoin d’aide pour accéder à votre compte de membre EOL, veuillez contacter %{species_pages_group_email}.\n\nActions de conservation :\n%{curator_activity_log}\n\nCommentaires sur les données :\n%{data_object_comments}\n\nCommentaires sur les pages avec lesquelles vos données sont associées :\n%{page_comments}"
-      subject: Résumé de l’activité récente sur le contenu fourni à l’''Encyclopédie de la vie'' par le partenaire %{partner_full_name}
+      message: "Ceci est un courriel automatique envoyé par l’Encyclopédie de la Vie (EdlV). Il résume les commentaires récents et les actions de conservation prises concernant le contenu fourni à l’EdlV par le partenaire de contenu %{partner_full_name} (%{partner_profile_url}). Vous recevez ce message car vous êtes inscrit comme contact pour %{partner_full_name}.\n\nSi vous avez des questions ou avez besoin d’aide pour accéder à votre compte de membre EdlV, veuillez contacter %{species_pages_group_email}.\n\nActions de conservation :\n%{curator_activity_log}\n\nCommentaires sur les données :\n%{data_object_comments}\n\nCommentaires sur les pages auxquelles vos données sont associées :\n%{page_comments}"
+      subject: Résumé de l’activité récente sur le contenu fourni à l’Encyclopédie de la Vie par le partenaire %{partner_full_name}
     activity_on_user_content: 
-      message: "Ceci est un courrier automatique de l’''Encyclopédie de la vie'' (EOL). Il résume les commentaires récents et les actions de conservation prises concernant le contenu que vous avez ajouté à l’EOL avec votre compte utilisateur %{members_username}.\n\nSi vous avez des questions ou avez besoin d’aide pour accéder à votre compte de membre EOL, veuillez contacter %{species_pages_group_email}.\n\nActions de conservation :\n%{curator_activity_log}\n\nCommentaires sur les données :\n%{data_object_comments}\n\nCommentaires sur les pages avec lesquelles vos données sont associées :\n%{page_comments}"
-      subject: Résumé des activités récentes sur le contenu que vous avez ajouté à l'Encyclopedia of Life
+      message: "Ceci est un courriel automatique de l’Encyclopédie de la Vie (EdlV). Il résume les commentaires récents et les actions de conservation prises concernant le contenu que vous avez ajouté à l’EdlV avec votre compte utilisateur %{members_username}.\n\nSi vous avez des questions ou avez besoin d’aide pour accéder à votre compte de membre EdlV, veuillez contacter %{species_pages_group_email}.\n\nActions de conservation :\n%{curator_activity_log}\n\nCommentaires sur les données :\n%{data_object_comments}\n\nCommentaires sur les pages auxquelles vos données sont associées :\n%{page_comments}"
+      subject: Résumé des activités récentes sur le contenu que vous avez ajouté à l’Encyclopédie de la Vie
     activity_user_added_association_for_taxon_on_date: "Le %{curator_level} %{users_name} (%{users_url}) a ajouté l’association :\n%{taxon_name} (%{taxon_url}) pour %{object_name} (%{object_url})\n%{action_date}."
     activity_user_added_association_on_date: "Le %{curator_level} %{users_name} (%{users_url}) a ajouté une association inconnue pour %{object_name} (%{object_url})\n%{action_date}."
     activity_user_marked_data_object_as_inappropriate_on_date: "Le %{curator_level} %{users_name} (%{users_url}) a marqué comme inapproprié :\n%{object_name} (%{object_url})\n%{action_date}."
@@ -1872,51 +1890,51 @@ fr:
     activity_user_removed_association_on_date: "Le %{curator_level} %{users_name} (%{users_url}) a supprimé une association inconnue pour %{object_name} (%{object_url})\n%{action_date}."
     comments_empty: Aucun commentaire récent.
     contact_us_auto_response: 
-      message: "Merci d’avoir contacté le projet ''Encyclopédie de la vie'' (EOL). Vos commentaires ont été envoyés au groupe approprié.\n\nNous apprécions votre avis."
-      subject: Merci d’avoir contacté l’''Encyclopédie de la vie'' (EOL)
+      message: "Merci d’avoir contacté le projet Encyclopédie de la Vie (EdlV). Vos commentaires ont été envoyés au groupe approprié.\n\nNous apprécions votre avis."
+      subject: Merci d’avoir contacté l’Encyclopédie de la Vie (EdlV)
     contact_us_message: 
-      message: "Le message suivant a été soumis à l’EdlV par son formulaire de contact :\nDe : %{from_name}\nCourriel : %{from_email}\nSujet : %{subject}\n\n%{message}"
+      message: "Le message suivant a été soumis à l’EdlV à l’aide de son formulaire de contact :\nDe : %{from_name}\nCourriel : %{from_email}\nSujet : %{subject}\n\n%{message}"
       subject: "Un message à l’EdlV : %{title}"
     content_partner_created: 
-      message: "Ceci est une notification automatique du système EOL pour le groupe des pages des espèces. L’utilisateur %{user_full_name} a créé un partenaire de contenu %{partner_full_name} ; en voici les détails :\n \nUtilisateur : %{user_full_name}\nCourriel : %{user_email}\nURL du profil : %{user_profile_url}\n\nPartenaire : %{partner_full_name}\nURL du profil du partenaire : %{partner_profile_url}\nCréé le : %{partner_created_at_date}"
-      subject: L’utilisateur d’EOL %{user_full_name} a inscrit le partenaire de contenu %{partner_full_name}
+      message: "Ceci est une notification automatique du système EdlV pour le groupe des pages des espèces. L’utilisateur %{user_full_name} a créé un partenaire de contenu %{partner_full_name} ; en voici les détails :\n \nUtilisateur : %{user_full_name}\nCourriel : %{user_email}\nURL du profil : %{user_profile_url}\n\nPartenaire : %{partner_full_name}\nURL du profil du partenaire : %{partner_profile_url}\nCréé le : %{partner_created_at_date}"
+      subject: L’utilisateur d’EdlV %{user_full_name} a inscrit le partenaire de contenu %{partner_full_name}
     content_partner_resource_created: 
-      message: "Ceci est une notification automatique du système EOL pour le groupe de pages des espèces. L’utilisateur %{user_full_name} a ajouté une nouvelle ressource %{resource_title} au partenaire de contenu %{partner_full_name} ; en voici les détails :\n\nUtilisateur : %{user_full_name}\nCourriel : %{user_email}\nURL du profil : %{user_profile_url}\n\nPartenaire : %{partner_full_name}\nURL des ressources du partenaire : %{partner_resources_url}\n\nRessource : %{resource_title}\nURL de la ressource : %{resource_url}\nCréée le : %{resource_created_at_date}\nÉtat : %{resource_status}"
-      subject: L’utilisateur d’EOL %{user_full_name} a ajouté une nouvelle ressource %{resource_title} au partenaire de contenu %{partner_full_name}
+      message: "Ceci est une notification automatique du système EdlV pour le groupe de pages des espèces. L’utilisateur %{user_full_name} a ajouté une nouvelle ressource %{resource_title} au partenaire de contenu %{partner_full_name} ; en voici les détails :\n\nUtilisateur : %{user_full_name}\nCourriel : %{user_email}\nURL du profil : %{user_profile_url}\n\nPartenaire : %{partner_full_name}\nURL des ressources du partenaire : %{partner_resources_url}\n\nRessource : %{resource_title}\nURL de la ressource : %{resource_url}\nCréée le : %{resource_created_at_date}\nÉtat : %{resource_status}"
+      subject: L’utilisateur de l’EdlV %{user_full_name} a ajouté une nouvelle ressource %{resource_title} au partenaire de contenu %{partner_full_name}
     content_partner_resource_force_harvest_request: 
-      message: "Ceci est une notification automatique du système EOL pour le groupe de pages des espèces. L’utilisateur %{user_full_name} a demandé une récolte forcée pour la ressource %{resource_title} appartenant au partenaire de contenu %{partner_full_name} ; en voici les détails  :\n\nUtilisateur : %{user_full_name}\nCourriel : %{user_email}\nURL du profil : %{user_profile_url}\n\nPartenaire : %{partner_full_name}\nURL des ressources du partenaire : %{partner_resources_url}\n\nRessource : %{resource_title}\nURL de la ressource : %{resource_url}\nMise à jour le : %{resource_updated_at_date}\nÉtat : %{resource_status}"
-      subject: L’utilisateur d’EOL %{user_full_name} a demandé une récolte forcée pour la ressource %{resource_title} appartenant au partenaire de contenu %{partner_full_name}
+      message: "Ceci est une notification automatique du système EdlV pour le groupe de pages des espèces. L’utilisateur %{user_full_name} a demandé une récolte forcée pour la ressource %{resource_title} appartenant au partenaire de contenu %{partner_full_name} ; en voici les détails :\n\nUtilisateur : %{user_full_name}\nCourriel : %{user_email}\nURL du profil : %{user_profile_url}\n\nPartenaire : %{partner_full_name}\nURL des ressources du partenaire : %{partner_resources_url}\n\nRessource : %{resource_title}\nURL de la ressource : %{resource_url}\nMise à jour le : %{resource_updated_at_date}\nÉtat : %{resource_status}"
+      subject: L’utilisateur de l’EdlV %{user_full_name} a demandé une récolte forcée pour la ressource %{resource_title} appartenant au partenaire de contenu %{partner_full_name}
     content_partner_resource_hierarchy_publish_request: 
-      message: "Ceci est une notification automatique du système EOL pour le groupe de pages des espèces. L’utilisateur %{user_full_name} a demandé à ce que la ressource %{resource_title} appartenant au partenaire de contenu %{partner_full_name} soit promue (publiée) comme hiérarchie navigable sur EOL ; en voici les détails :\n\nUtilisateur : %{user_full_name}\nCourriel : %{user_email}\nURL du profil : %{user_profile_url}\n\nPartenaire : %{partner_full_name}\nURL des ressources du partenaire : %{partner_resources_url}\n\nRessource : %{resource_title}\nURL de la ressource : %{resource_url}\nURL pour modifier la hiérarchie : %{hierarchy_edit_url}"
-      subject: L’utilisateur d’EOL %{user_full_name} a demandé une promotion de hiérarchie pour la ressource %{resource_title} appartenant au partenaire de contenu %{partner_full_name}
+      message: "Ceci est une notification automatique du système EdlV pour le groupe de pages des espèces. L’utilisateur %{user_full_name} a demandé à ce que la ressource %{resource_title} appartenant au partenaire de contenu %{partner_full_name} soit promue (publiée) comme hiérarchie navigable sur l’EdlV ; en voici les détails :\n\nUtilisateur : %{user_full_name}\nCourriel : %{user_email}\nURL du profil : %{user_profile_url}\n\nPartenaire : %{partner_full_name}\nURL des ressources du partenaire : %{partner_resources_url}\n\nRessource : %{resource_title}\nURL de la ressource : %{resource_url}\nURL pour modifier la hiérarchie : %{hierarchy_edit_url}"
+      subject: L’utilisateur de l’EdlV %{user_full_name} a demandé une promotion de hiérarchie pour la ressource %{resource_title} appartenant au partenaire de contenu %{partner_full_name}
     content_partner_statistics_reminder: 
-      message: Ceci est un rappel automatique envoyé par l’''Encyclopédie de la vie'' (EOL). Les statistiques d’utilisation sur le web pour les données fournies à l’EOL par %{partner_full_name} en %{month} %{year} sont maintenant disponibles à l’adresse %{partner_statistics_url} .
-      subject: Rappel des statistiques d’utilisation de l’''Encyclopédie de la vie'' (EOL) par le partenaire %{partner_full_name} en %{month} %{year}
+      message: Ceci est un rappel automatique envoyé par l’Encyclopédie de la Vie (EdlV). Les statistiques d’utilisation sur le Web pour les données fournies à l’EdlV par %{partner_full_name} en %{month} %{year} sont maintenant disponibles à l’adresse %{partner_statistics_url}.
+      subject: Rappel des statistiques d’utilisation de l’Encyclopédie de la Vie (EdlV) par le partenaire %{partner_full_name} en %{month} %{year}
     curator_approved: 
-      message: "Merci d’avoir demandé le privilège de supervision sur l’''Encyclopédie de la vie'' (EOL) en tant que %{curator_level}. Votre demande a été approuvée.\n\nPour plus d’informations sur la supervision et les fonctions qui sont à votre disposition, visitez http://www.eol.org/curators ."
-      subject: Votre demande pour un privilège de supervision sur l’''Encyclopédie de la vie'' (EOL) en tant que %{curator_level} a été approuvée
+      message: "Merci d’avoir demandé le privilège de supervision de l’Encyclopédie de la Vie (EdlV) en tant que %{curator_level}. Votre demande a été approuvée.\n\nPour plus d’informations sur la supervision et les fonctions qui sont à votre disposition, visitez http://www.eol.org/curators."
+      subject: Votre demande pour un privilège de supervision de l’Encyclopédie de la Vie (EdlV) en tant que %{curator_level} a été approuvée
     greeting_dear_name_with_comma: "{{GENDER:%{name}}}|Cher|Chère}} %{name},"
-    signature_basic: L’équipe de l’''Encyclopédie de la vie''
-    signature_with_species_pages_group_contact: "Si vous avez des questions, vous pouvez nous contacter à l’adresse %{species_pages_group_email}.\n\nL’équipe de l’''Encyclopédie de la vie''"
-    signature_with_support_contact: "Si vous rencontrez des problèmes, vous pouvez nous contacter à l’adresse %{support_email}.\n\nL’équipe de l’''Encyclopédie de la vie''"
+    signature_basic: L’équipe de l’Encyclopédie de la Vie
+    signature_with_species_pages_group_contact: "Si vous avez des questions, vous pouvez nous contacter à l’adresse %{species_pages_group_email}.\n\nL’équipe de l’Encyclopédie de la Vie"
+    signature_with_support_contact: "Si vous rencontrez des problèmes, vous pouvez nous contacter à l’adresse %{support_email}.\n\nL’équipe de l’Encyclopédie de la Vie"
     user_activated: 
-      message: "Bienvenue sur l’''Encyclopédie de la vie'' (EOL) et merci pour votre inscription ! Votre nom d’utilisateur est %{username} et l’adresse de votre profil est %{profile_url}. Vous pouvez vous connecter à votre compte à l’adresse http://www.eol.org/login .\n\nPour en savoir plus sur l’utilisation de l’EOL, notamment comment créer des collections, participer aux communautés et contribuer au contenu, vous pouvez lire les pages d’aide à l’adresse http://www.eol.org/help ."
-      subject: Votre compte sur l’''Encyclopédie de la vie'' (EOL) a été activé
+      message: "Bienvenue sur l’Encyclopédie de la Vie (EdlV) et merci pour votre inscription ! Votre nom d’utilisateur est %{username} et l’adresse de votre profil est %{profile_url}. Vous pouvez vous connecter à votre compte à l’adresse http://www.eol.org/login.\n\nPour en savoir plus sur l’utilisation de l’EdlV, notamment comment créer des collections, participer aux communautés et contribuer au contenu, vous pouvez lire les pages d’aide à l’adresse http://www.eol.org/help."
+      subject: Votre compte de l’Encyclopédie de la Vie (EdlV) a été activé
     user_activated_with_open_authentication: 
-      message: "Bienvenue sur l’Encyclopédie de la vie (EdlV) et merci de vous être enregistré ! Veuillez noter que vous vous êtes authentifié à l’aide de %{oauth_provider}, accordant à l’EdlV l’accès à vos informations d’authentification. L’adresse de votre profil sur l’EdlV est %{profile_url}. Vous pouvez vous connecter à votre compte EdlV %{oauth_provider} à http://eol.org/login.\n\nPour en savoir plus sur l’utilisation de l’EdlV, y compris la façon de créer des Collections, de participer aux communautés EdlV et de contribuer du contenu, veuillez visiter nos pages d’aide à http://eol.org/help."
-      subject: Votre compte de l’Encyclopédie de la vie a été activé
+      message: "Bienvenue sur l’Encyclopédie de la Vie (EdlV) et merci de vous être inscrit ! Veuillez noter que vous vous êtes authentifié à l’aide de %{oauth_provider}, accordant à l’EdlV l’accès à vos informations d’authentification. L’adresse de votre profil sur l’EdlV est %{profile_url}. Vous pouvez vous connecter à votre compte EdlV %{oauth_provider} à http://eol.org/login.\n\nPour en savoir plus sur l’utilisation de l’EdlV, y compris la façon de créer des Collections, de participer aux communautés EdlV et de contribuer du contenu, veuillez visiter nos pages d’aide à http://eol.org/help."
+      subject: Votre compte de l’Encyclopédie de la Vie a été activé
     user_commented_on_something_date_body: "Le %{curator_level} %{users_name} (%{users_url}) a commenté :\n%{commented_on_name} (%{commented_on_url})\n%{comment_date} :\n%{comment_body}"
     user_message: 
-      subject: Un message de l’''Encyclopédie de la vie'' (EOL)
+      subject: Un message de l’Encyclopédie de la Vie (EdlV)
     user_recover_account: 
-      message: "L’Encyclopédie de la vie (http://eol.org) a reçu une demande de récupération de votre compte. Si vous n'avez pas fait cette demande, veuillez ignorer ce message.\n\nLe lien ci-dessous est à usage unique et vous permettra de changer votre mot de passe ou de joindre un autre compte à votre compte EdlV (vous permettant de vous connecter à l’EdlV à partir de cet autre compte).\n\n%{temporary_login_url}\n\nVeuillez noter que ce lien expirera dans 24 heures.  Une fois ce délai écoulé, vous pourrez visiter %{recover_account_url} pour répéter la procédure de connexion temporaire (si vous avez toujours des problèmes d’accès à votre compte, par exemple)."
-      subject: Récupérer votre compte de l’Encyclopédie de la vie
+      message: "L’Encyclopédie de la Vie (http://eol.org) a reçu une demande de récupération de votre compte. Si vous n'avez pas fait cette demande, veuillez ignorer ce message.\n\nLe lien ci-dessous est à usage unique et vous permettra de changer votre mot de passe ou de joindre un autre compte à votre compte EdlV (vous permettant de vous connecter à l’EdlV à partir de cet autre compte).\n\n%{temporary_login_url}\n\nVeuillez noter que ce lien expirera dans 24 heures.  Une fois ce délai écoulé, vous pourrez visiter %{recover_account_url} pour répéter la procédure de connexion temporaire (si vous avez toujours des problèmes d’accès à votre compte, par exemple)."
+      subject: Récupérer votre compte de l’Encyclopédie de la Vie
     user_updated_email_preferences: 
-      message: "Ceci est une notification automatique du système EOL. L'utilisateur %{user_full_name} (%{user_profile_url}) a mis à jour son adresse courriel ou ses préférences pour les listes de diffusion.\n\nPréférences précédentes :\nCourriel : %{previous_email}\nPréférence pour les listes de diffusion : %{previous_mailing_list_preference}\n\nPréférences actuelles : \nCourriel : %{updated_email}\nPréférence pour les listes de diffusion : %{updated_mailing_list_preference}\nMise à jour du : %{updated_at}"
-      subject: L’utilisateur d’EOL %{user_full_name} a modifié son adresse courriel ou ses préférences pour les listes de diffusion
+      message: "Ceci est une notification automatique du système EdlV. L’utilisateur %{user_full_name} (%{user_profile_url}) a mis à jour son adresse courriel ou ses préférences pour les listes de diffusion.\n\nPréférences précédentes :\nCourriel : %{previous_email}\nPréférence pour les listes de diffusion : %{previous_mailing_list_preference}\n\nPréférences actuelles : \nCourriel : %{updated_email}\nPréférence pour les listes de diffusion : %{updated_mailing_list_preference}\nMise à jour du : %{updated_at}"
+      subject: L’utilisateur de l’EdlV %{user_full_name} a modifié son adresse courriel ou ses préférences pour les listes de diffusion
     user_verification: 
-      message: "Merci pour votre inscription sur l’''Encyclopédie de la vie'' (EOL). Le lien suivant permettra de vérifier que vous souhaitez terminer votre inscription et activer votre compte :\n\n%{verification_url}\n\nUne fois que votre compte aura été activé, vous recevrez un message de courrier électronique de confirmation."
-      subject: Veuillez vérifier votre demande de compte sur l’''Encyclopédie de la vie'' (EOL)
+      message: "Merci de vous être inscrit à l’Encyclopédie de la Vie (EdlV). Le lien suivant permettra de vérifier que vous souhaitez compléter votre inscription et activer votre compte :\n\n%{verification_url}\n\nUne fois que votre compte aura été activé, vous recevrez un courrier électronique de confirmation."
+      subject: Veuillez vérifier votre demande de compte sur l’Encyclopédie de la Vie (EdlV)
   nucleotide_sequences: Séquences nucléotides
   nucleotide_sequences_ncbi_database: La base de données de <a href="%{ncbi_taxonomy_link}">taxinomie NCBI</a> contient les noms de tous les organismes qui sont représentés dans les bases de données génétiques avec au moins une séquence nucléotidique ou protéinique.
   nucleotide_sequences_ncbi_mission: La mission du <a href="%{ncbi_link}">Centre National pour l'Information Biotechnologique</a> est de développer les nouvelles technologies de l'information pour aider à la compréhension des processus fondamentaux moléculaires et génétiques qui contrôlent la santé et la maladie.
@@ -1929,7 +1947,7 @@ fr:
   number_of_unreviewed_images_at_this_entry: nb d'images non révisées à cette entrée
   number_of_unreviewed_text_objects_at_this_entry: nb d'objets texte non revus à cette entrée
   object: Objet
-  object_curation: Supervision de l'objet
+  object_curation: Conservation de l'objet
   object_status: État de l'objet
   object_status_all_option: Tous
   object_status_trusted_option: Fiable
@@ -1949,11 +1967,11 @@ fr:
   object_visibility_all_option: Tous
   object_visibility_invisible_option: Masqué
   object_visibility_visible_option: Visible
-  objects_curated: Objets supervisés
+  objects_curated: Objets conservés
   on_time_col_header: activé
   only_multi_search_suggestions: (uniquement s'il y a plusieurs suggestions pour le même critère de recherche, le tri est croissant)
   only_show_authoritative_conten: "N’afficher que le contenu qui fait autorité :"
-  only_show_unapproved_curators: N'afficher que les superviseurs non homologués
+  only_show_unapproved_curators: N'afficher que les conservateurs non homologués
   option_please_select: Veuillez sélectionner
   or_add_it_to_an_existing_collection: ou l'ajouter à une collection existante
   or_add_it_to_an_existing_community: ou l'ajouter à une communauté existante
@@ -1976,7 +1994,7 @@ fr:
   overview: Vue d’ensemble
   page: Page
   page_linked_to: Page liée à
-  page_method_description: Cette méthode prend en entrée un identifiant de page EOL et renvoie le nom scientifique pour cette page, et éventuellement les informations sur les noms communs, les supports (texte, images et vidéos) et les références aux hiérarchies qui reconnaissent le taxon décrit dans cette page
+  page_method_description: Cette méthode prend en entrée un identifiant de page EdlV et renvoie le nom scientifique pour cette page, et éventuellement les informations sur les noms vulgaires, les médias (textes, images et vidéos) et les références aux hiérarchies qui reconnaissent le taxon décrit par cette page
   page_name: Nom de la page
   page_navigation: Navigation dans la page
   page_not_found: Page non trouvée
@@ -1984,13 +2002,13 @@ fr:
   page_results_avg: moyenne des résultats de page
   page_statistics: Statistiques de la page
   page_statistics_and_tools: statistiques de la page et outils
-  page_statistics_explanation: <p>EdlV calcule automatiquement des statistiques sur ses pages. Ces statistiques sont recalculées tous les un ou deux jours.</p><h5>Indicateur de richesse</h5><p>L’indicateur de richesse est une composition de plusieurs facteurs :<ul><li>la quantité de texte que contient une page</li><li>combien de fichiers multimédia ou cartographiques sont disponibles</li><li>combien de sujets différents sont couverts</li><li>combien de sources différentes fournissent des informations</li><li>si les informations ont été revues ou non</li></ul></p><p>Si une page a déjà beaucoup de multimédia ou de texte, en ajouter davantage n’augmentera pas son indicateur de richesse.</p><p>L’indicateur de richesse va de 0 à 100. Ne vous inquiétez pas, des différences de quelques points ne sont pas très importantes. Au fil du temps, nous pouvons changer la façon dont nous calculons ce pointage pour mieux refléter votre expérience avec le site. Dites-nous ce que vous en pensez en laissant un commentaire sur les pages que vous pensez mal évaluées.</p><h5>Images dignes de confiance</h5><p>Inclut toutes les images fiables pour cette page et les pages qui apparaissent dans une classification en bas de cette page. Cela inclut à la fois les images provenant de partenaires de confiance et les images provenant de partenaires tels que Flickr ou Wikimedia Commons qui ont été approuvés par un superviseur EdlV.</p><h5>Images non revues</h5><p>Inclut toutes les images non revues de cette page et des pages qui apparaissent dans une classification en bas de cette page. Certains partenaires de l’EdlV fournissent de nombreuses images de haute qualité qui n’ont pas encore été examinées. Cela n’inclut pas les images qui ont été marquées non fiables par un superviseur de l’EdlV.</p><h5>Articles fiables</h5><p>Comprend tous les articles textuels fiables de l’onglet Détails et plusieurs articles de l’onglet Ressources. Cela comprend des articles textuels de partenaires dignes de confiance. Cela comprend également des articles contribués directement sur l’EdlV par ses membres, ou depuis Wikipédia, qui ont été approuvés par un superviseur de l’EdlV. Cela ne comprend pas les articles sur les pages qui apparaissent dans une classification en bas de cette page.</p><h5>Articles non revus</h5><p>Comprend tous les articles textuels non révisés de l’onglet Détails de cette page et plusieurs articles de l’onglet Ressources. Cela comprend des articles textuels contribués directement par les membres de l’EdlV, ou depuis Wikipédia, et qui sont en attente de relecture par un superviseur de l’EdlV. Cela ne comprend pas les articles sur les pages qui apparaissent dans une classification en bas de cette page.</p>
+  page_statistics_explanation: <p>EdlV calcule automatiquement des statistiques sur ses pages. Ces statistiques sont recalculées tous les un ou deux jours.</p><h5>Indicateur de richesse</h5><p>L’indicateur de richesse est une composition de plusieurs facteurs :<ul><li>la quantité de texte que contient une page</li><li>combien de fichiers multimédia ou cartographiques sont disponibles</li><li>combien de sujets différents sont couverts</li><li>combien de sources différentes fournissent des informations</li><li>si les informations ont été révisées ou non</li></ul></p><p>Si une page a déjà beaucoup de multimédia ou de texte, en ajouter davantage n’augmentera pas son indicateur de richesse.</p><p>L’indicateur de richesse va de 0 à 100. Ne vous inquiétez pas, des différences de quelques points ne sont pas très importantes. Au fil du temps, nous pouvons changer la façon dont nous calculons ce pointage pour mieux refléter votre expérience avec le site. Dites-nous ce que vous en pensez en laissant un commentaire sur les pages que vous pensez mal évaluées.</p><h5>Images dignes de confiance</h5><p>Inclut toutes les images fiables pour cette page et les pages qui apparaissent dans une classification en bas de cette page. Cela inclut à la fois les images provenant de partenaires de confiance et les images provenant de partenaires tels que Flickr ou Wikimedia Commons qui ont été approuvés par un conservateur EdlV.</p><h5>Images non révisées</h5><p>Inclut toutes les images non révisées de cette page et des pages qui apparaissent dans une classification en bas de cette page. Certains partenaires de l’EdlV fournissent de nombreuses images de haute qualité qui n’ont pas encore été examinées. Cela n’inclut pas les images qui ont été marquées non fiables par un conservateur de l’EdlV.</p><h5>Articles fiables</h5><p>Comprend tous les articles textuels fiables de l’onglet Détails et plusieurs articles de l’onglet Ressources. Cela comprend des articles textuels de partenaires dignes de confiance. Cela comprend également des articles contribués directement sur l’EdlV par ses membres, ou depuis Wikipédia, qui ont été approuvés par un conservateur de l’EdlV. Cela ne comprend pas les articles sur les pages qui apparaissent dans une classification en bas de cette page.</p><h5>Articles non révisés</h5><p>Comprend tous les articles textuels non révisés de l’onglet Détails de cette page et plusieurs articles de l’onglet Ressources. Cela comprend des articles textuels contribués directement par les membres de l’EdlV, ou depuis Wikipédia, et qui sont en attente de relecture par un conservateur de l’EdlV. Cela ne comprend pas les articles sur les pages qui apparaissent dans une classification en bas de cette page.</p>
   page_urls: "URL(s) de la page :"
   page_views_th: Pages vues
   pages: pages.
   pages_admin_section_link: Administrateurs
   pages_curator_section_link: Conservateurs
-  pages_method_description: prend en entrée un identifiant de page EOL et renvoie le nom scientifique pour cette page, et éventuellement renvoie des informations sur les noms communs, les supports (texte, images et vidéos), et les références aux hiérarchies qui reconnaissent le taxon décrit dedans
+  pages_method_description: prend en entrée un identifiant de page EdlV et renvoie le nom scientifique pour cette page, et éventuellement renvoie des informations sur les noms vulgaires, les médias (textes, images et vidéos), et les références aux hiérarchies qui reconnaissent le taxon décrit par cette page
   pages_title: Références
   pages_with_count: 
     one: "%{count}"
@@ -2025,20 +2043,20 @@ fr:
   person_rating: Évaluation de la personne
   personal_profile_menu: Profil personnel
   personal_space: Espace personnel
-  ping_method_description: Cette méthode va échouer (auquel cas la page d'erreur de EOL sera probablement renvoyée) ou renvoyer un message de réussite. Il n'y pas d'autre message possible
+  ping_method_description: Cette méthode va échouer (auquel cas la page d’erreur de l’EdlV sera probablement renvoyée) ou renvoyer un message de réussite. Il n’y pas d’autre message possible
   please: Veuillez
   please_ask_big_before_changing_toc: Veuillez vérifier avec un membre du groupe Informatique de la biodiversité avant de modifier la table des matières. Certains noms de chapitre ne peuvent pas être modifiés car le code recherche certains chapitres par leur libellé. Des éléments d'information ne peuvent pas être intégrés dans cette interface - cela doit être fait manuellement dans la base de données.
   please_confirm_your_donation_details: Veuillez confirmer les détails de votre don
   please_indicate_curation_reason: "Veuillez sélectionner un motif ou laisser un commentaire de conservation :"
   please_note_that_some_of_these: Veuillez noter que certains de ces outils sont en version bêta et peuvent changer avec le temps ou avoir des bogues.
-  please_note_wiki_etc_are_not_spm: "*Veuillez prendre note que les sujets Wikipédia, éducation et codes barre sont des sujets internes de EOL et ne font pas partie de la SPM."
+  please_note_wiki_etc_are_not_spm: "*Veuillez prendre note que les sujets « Wikipédia », « éducation » et « codes barre » sont des sujets internes à l’EdlV et ne font pas partie de la SPM."
   please_publish_this_resource_notice: "*** <strong>NOTICE :</strong> Veuillez <strong>%{publish_link}</strong> cette ressource ici ***"
-  please_refresh: Veuillez rafraîchir votre navigateur pour voir la dernière version du site web de EOL
-  please_return_to_eol_homepage: Veuillez retourner à la page d'accueil de EOL
+  please_refresh: Veuillez rafraîchir votre navigateur pour voir la dernière version du site Web de l’EdlV
+  please_return_to_eol_homepage: Veuillez retourner à la page d’accueil de l’EdlV
   please_state_one_credential: "Veuillez indiquer au moins un certificat spécifique de cette liste :"
   please_wait: Veuillez patienter...
   post_comment: Envoyer un commentaire
-  preferred_common_name_advisory_information: Nom commun préféré pour ce taxon
+  preferred_common_name_advisory_information: Nom vulgaire préféré pour ce taxon
   press_room: Salle de presse
   preview: aperçu
   preview_changes: Prévisualiser les changements
@@ -2048,13 +2066,13 @@ fr:
   process_name: Nom du processus
   profile: Profil
   profile_colon: "Profil :"
-  profile_image_alt_text_curator: Photo du profil pour le superviseur %{user_full_name}
+  profile_image_alt_text_curator: Photo du profil pour le conservateur %{user_full_name}
   profile_image_alt_text_member: Photo du profil pour le membre %{user_full_name}
   profile_newsfeed: Mon fil de nouvelles
   profile_picture: Photo du profil
   project: Projet
   provider: Fournisseur
-  provider_hierarchies_method_description: Cette méthode renverra les références à toutes les hiérarchies fournis par les partenaires de contenu de EOL. La réponse comprendra le libellé de la hiérarchie et l'ID unique de EOL qui représente la hiérarchie
+  provider_hierarchies_method_description: Cette méthode renverra les références à toutes les hiérarchies fournies par les partenaires de contenu de l’EdlV. La réponse comprendra le libellé de la hiérarchie et l’identifiant unique EdlV qui représente la hiérarchie
   providers: Fournisseurs
   public: Publique
   public_domain: domaine public
@@ -2082,8 +2100,10 @@ fr:
   recaptcha_incorrect_error_with_anchor: Les <a href="#%{recaptcha_anchor}">caractères du reCaptcha</a> ne correspondent pas, veuillez essayer de nouveau.
   recent_activities: 
     index: 
-      meta_title: Activité de la communauté EOL
-      page_title: Activité de la communauté EOL
+      list_header: Les 7 derniers jours
+      meta_keywords: activité communauté edlv, activité récente edlv, activités encyclopédie de la vie
+      meta_title: Activité de la communauté EdlV
+      page_title: Activité de la communauté EdlV
   recent_activity: 
     bulk_collection_activity_with_count: 
       one: Il y a eu une mise à jour de %{to}
@@ -2105,18 +2125,28 @@ fr:
       other: Les conservateurs ont apporté %{count} améliorations à %{to}
     collection_activity_by_user: <b>%{user_name}</b> a effectué %{activity_name} sur la collection de <b>%{collection_name}</b>.
     collection_activity_log_title: "%{who} a modifié une collection"
+    collection_activity_user_added_item: "<b>%{user_name}</b> a ajouté %{collected_item_type} #%{collected_item_id} à <b>%{collection_name}</b>."
+    collection_activity_user_watching_recipient: <b>%{user_name}</b> vous suit.
     comment_body_brief: "%{body} - %{author}"
-    comment_link: Voir les commentaires sur EOL
-    comment_title: "%{who} a commenté sur %{what}"
+    comment_link: Voir les commentaires sur l’EdlV
+    comment_title: "%{who} a commenté %{what}"
+    comment_title_your_newsfeed: "%{who} a commenté votre fil de nouvelles"
+    community_activity_by_user: <b>%{user_name}</b> a effectué %{activity_name} sur la communauté <b>%{community_name}</b>.
     community_activity_log_title: "%{who} a modifié une communauté"
+    community_activity_user_joined: L’utilisateur <b>%{user_name}</b> s’est joint à la communauté <b>%{community_name}</b>.
+    community_activity_user_left: L’utilisateur <b>%{user_name}</b> a quitté la communauté <b>%{community_name}</b>.
+    community_activity_user_made_member_a_manager: L’utilisateur <b>%{user_name}</b> a désigné <b>%{member_name}</b> comme gestionnaire de la communauté <b>%{community_name}</b>.
     curator_activity_log_title: "%{who} a organisé quelque chose"
-    data_object_title: "%{who} a ajouté un nouveau contenu à EOL"
-    default_subject: Activité récente sur EOL
+    curator_activity_on_data_object_by_user: "<b>%{user_name}</b> a effectué %{activity_name} sur <b>%{dato_title}</b> (%{dato_type} #%{dato_id})."
+    curator_activity_on_taxon_concept_by_user: <b>%{user_name}</b> a effectué %{activity_name} sur <b>%{taxon_concept}</b> (%{taxon_overview_url}).
+    data_object_activity_article_added_by_user: <b>%{user_name}</b> a ajouté un article intitulé %{dato_title} à <b>%{taxon_concept}</b> (%{taxon_details_url}).
+    data_object_title: "%{who} a ajouté un nouveau contenu à l’EdlV"
+    default_subject: Activité récente sur l’EdlV
     intro: Voici votre condensé d’activité EdlV pour %{time}
     intro_immediately: Bonjour, %{name} —
-    intro_weekly: Voici le résumé de votre activité EOL pour la semaine se terminant le %{ending}
-    see_all_activity: Voyez toutes vos activités précédentes sur votre page d'utilisateur <a href='%{activity_url}' style='color:#195184'></a>.
-    someone_commented_on_something: <b>%{who}</b> a commenté sur <b>%{what}</b>.
+    intro_weekly: Voici le résumé de votre activité EdlV pour la semaine se terminant le %{ending}
+    see_all_activity: Voyez toutes vos activités précédentes sur votre page d’utilisateur <a href='%{activity_url}' style='color:#195184'></a>.
+    someone_commented_on_something: <b>%{who}</b> a commenté <b>%{what}</b>.
     unsubscribe: Modifiez vos paramètres de courriel ou désabonnez-vous en modifiant <a href='%{email_prefs_url}' style='color:#195184'>votre page de préférences de notification</a>.
   recent_updates: Mises à jour récentes
   recently_visited: Visité récemment
@@ -2130,7 +2160,7 @@ fr:
     one: "%{count} nom lié"
     other: "%{count} noms liés"
   remove: Supprimer
-  remove_curatorship_colon: "Supprimer la supervision :"
+  remove_curatorship_colon: "Supprimer la conservation :"
   remove_data_object_association: Supprimer l'association
   remove_membership: Supprimer l'adhésion
   removed_count_items_from_collection_notice: 
@@ -2151,13 +2181,13 @@ fr:
   results_offset: Résultats %{from} - %{to} sur %{total} pour <em>%{for}</em>
   results_per_page: "Résultats par page :"
   return: retour
-  return_all_common_names_for_this_taxon: renvoie tous les noms communs pour ce taxon
+  return_all_common_names_for_this_taxon: renvoie tous les noms vulgaires pour ce taxon
   return_all_synonyms_for_this_taxon: renvoie tous les synonymes pour ce taxon
-  return_common_names_for_the_page_taxon: retourne tous les noms communs pour le taxon de la page
+  return_common_names_for_the_page_taxon: retourne tous les noms vulgaires pour le taxon de la page
   return_content_by_vettedness: Si vetted = 1, alors seul le contenu fiable sera renvoyé. Si vetted = 2, alors seul le contenu fiable et non relu est renvoyé (le contenu non fiable n'est pas renvoyé). La valeur par défaut est de retourner tout le contenu
-  returns_all_metadata_about_a_particular_collection: renvoie toutes les métadonnées relatives à une collection particulière et les éléments qu'elle contient, indexés par EOL
-  returns_all_metadata_about_a_particular_data_object: renvoie toutes les métadonnées sur un objet de données particulier (texte, image ou vidéo) indexé par EOL
-  returns_either_a_positive_or_negative_response: renvoie soit une réponse positive (indiquant les APIs qui sont fonctionnelles), soit une réponse négative, ou rien du tout (indiquant que les APIs ne sont pas fonctionnelles pour le moment).
+  returns_all_metadata_about_a_particular_collection: renvoie toutes les métadonnées relatives à une collection particulière et les éléments qu’elle contient, indexés par l’EdlV
+  returns_all_metadata_about_a_particular_data_object: renvoie toutes les métadonnées sur un objet de données particulier (texte, image ou vidéo) indexé par l’EdlV
+  returns_either_a_positive_or_negative_response: renvoie soit une réponse positive (indiquant les IPAs qui sont fonctionnelles), soit une réponse négative, ou rien du tout (indiquant que les IPAs ne sont pas fonctionnelles pour le moment).
   revisions: Révisions
   revoke_full_curator_link: Révoquer
   revoke_manager_link: Révoquer le rôle de gestionnaire
@@ -2173,25 +2203,25 @@ fr:
   sci_name_avg_table_head: Nom scientifique moyen
   scientific_name: Nom scientifique
   search: Rechercher
-  search_by_provider_method_description: obtenir les IDs de page EOL à partir d'un hierarchy_id du fournisseur et de l'identifiant unique du fournisseur
+  search_by_provider_method_description: obtenir les identifiants de pages EdlV à partir d’un hierarchy_id du fournisseur et de l’identifiant unique du fournisseur
   search_by_term_page_title: "Rechercher : %{term}"
   search_field_common_name: Nom vulgaire
-  search_field_label: Recherche sur EOL
+  search_field_label: Recherche sur l’EdlV
   search_field_preferred_common_name: Nom vulgaire préféré
   search_field_preferred_scientific: Nom scientifique préféré
   search_field_surrogate: Substitut
   search_field_synonym: Synonyme
   search_for_comments_containing_the_text: "Rechercher les commentaires contenant le texte :"
-  search_for_curators_containing: "Recherche les superviseurs contenant :"
+  search_for_curators_containing: "Recherche les conservateurs contenant :"
   search_for_items_containing: "Recherche les éléments contenant :"
   search_for_messages_containing: "Recherche les messages contenant :"
   search_for_terms_containing: "Recherche les termes contenant :"
   search_for_users_containing_this_in_their_username_name_or_email_address: Rechercher les utilisateurs contenant ceci dans leur nom d'utilisateur, leur nom ou leur adresse de courriel.
-  search_input_advisory_information: Entrez le nom commun ou le nom scientifique d'une créature vivante sur laquelle vous désireriez en savoir plus. Vous pouvez aussi rechercher des membres EOL, des collections et des communautés.
+  search_input_advisory_information: Entrez le nom vulgaire ou le nom scientifique d’une créature vivante sur laquelle vous désireriez en savoir plus. Vous pouvez aussi rechercher des membres EdlV, des collections et des communautés.
   search_log_report_intro: Cette zone affiche les termes de recherche utilisateur les plus courants, le nombre de fois que cette recherche a été exécutée, et quelques informations sur le nombre de résultats renvoyés pour ce critère de recherche. Cliquez sur les colonnes pour trier selon cette colonne. Cliquez sur un critère de recherche pour voir les informations sur le résultat sur lequel les utilisateurs ont cliqué (le cas échéant) après une recherche.
-  search_method_description: étant donnée une valeur d'un élément spécifique (par ex. nom scientifique = Homo sapiens), envoie une liste paginée des pages EOL contenant le critère de recherche
+  search_method_description: étant donnée une valeur d’un élément spécifique (par ex. nom scientifique = Homo sapiens), envoie une liste paginée des pages EdlV contenant le critère de recherche
   search_next_label: Suivant
-  search_placeholder: Recherche sur EOL...
+  search_placeholder: Recherche sur l’EdlV…
   search_previous_label: Précédent
   search_results: Résultats de recherche
   search_suggestion_admin_intro: Cette zone est utilisée pour générer des suggestions de recherche pour les utilisateurs en spécifiant un critère que les utilisateurs recherchent et une page vers laquelle ils doivent être dirigés à titre de suggestion. Les résultats suggérés apparaissent toujours avant les autres résultats. Vous pouvez avoir plusieurs suggestions pour un critère de recherche donné.
@@ -2245,15 +2275,15 @@ fr:
   server_ip_address: Adresse IP du serveur
   sessions: 
     new: 
-      login_with_eol_authentication_header: "Ou vous connecter avec vos informations d'identification de l'EOL :"
-      login_with_facebook_assistive: Connexion à EOL en utilisant vos informations d'identification de Facebook.
-      login_with_google_assistive: Connexion à EOL en utilisant vos informations d'identification de Google.
-      login_with_twitter_assistive: Connexion à EOL en utilisant vos informations d'identification de Twitter.
-      login_with_yahoo_assistive: Connexion à EOL en utilisant vos informations d'identification de Yahoo.
+      login_with_eol_authentication_header: "Ou vous connecter avec vos informations d’identification de l’EdlV :"
+      login_with_facebook_assistive: Connexion à l’EdlV en utilisant vos informations d’identification de Facebook.
+      login_with_google_assistive: Connexion à l’EdlV en utilisant vos informations d’identification de Google.
+      login_with_twitter_assistive: Connexion à l’EdlV en utilisant vos informations d’identification de Twitter.
+      login_with_yahoo_assistive: Connexion à l’EdlV en utilisant vos informations d’identification de Yahoo.
       meta_title: Connexion
       problems_signing_in_with_connected_accounts: Problèmes de connexion avec vos comptes connectés ?
       problems_signing_in_with_eol_authentication: Mot de passe oublié ?
-      tip: Utilisateur existant ? Connectez votre compte EOL avec Facebook, Google et plus dans les paramètres de votre profil. Une fois que vos comptes sont connectés vous pouvez les utiliser pour ouvrir une session à EOL.
+      tip: Utilisateur existant ? Connectez votre compte EdlV avec Facebook, Google et plus dans les paramètres de votre profil. Une fois que vos comptes sont connectés, vous pouvez les utiliser pour ouvrir une session à l’EdlV.
   set_as_exemplar: Définir comme modèle
   share_a_collection: Partager une collection
   show: Afficher
@@ -2382,7 +2412,7 @@ fr:
           meta_title: Conservateurs de %{scientific_name} tel que classé par %{hierarchy_provider}
           meta_title_with_common_name: Experts sur %{preferred_common_name} (%{scientific_name} tel que classé par %{hierarchy_provider})
           tweet_text: Conservateurs de %{scientific_name} tel que classé par %{hierarchy_provider}
-        meta_description_with_common_name: experts de %{preferred_common_name} (appelés aussi experts de %{scientific_name}) qui surveillent ses données dans l'Encyclopédie de la Vie.
+        meta_description_with_common_name: experts de %{preferred_common_name} (appelés aussi experts de %{scientific_name}) qui surveillent ses données dans l’Encyclopédie de la Vie.
         meta_keywords: Experts de %{scientific_name}, Conservateurs de %{scientific_name}
         meta_keywords_with_common_name: Experts de %{preferred_common_name}, Conservateurs de %{preferred_common_name}, Experts de %{scientific_name}, Conservateurs de %{scientific_name}
         meta_title: Conservateurs de %{scientific_name}
@@ -2390,14 +2420,14 @@ fr:
         tweet_text: Conservateurs de %{scientific_name}
       index: 
         hierarchy_entry: 
-          meta_description: Partager l'information et l'expertise sur %{scientific_name} tel que classé par %{hierarchy_provider}.
-          meta_description_with_common_name: Partager l'information et l'expertise sur %{preferred_common_name} (%{scientific_name}), tel que classé par %{hierarchy_provider}.
+          meta_description: Partager l’information et l’expertise sur %{scientific_name} tel que classé par %{hierarchy_provider}.
+          meta_description_with_common_name: Partager l’information et l’expertise sur %{preferred_common_name} (%{scientific_name}), tel que classé par %{hierarchy_provider}.
           meta_keywords: communauté %{scientific_name}, %{hierarchy_provider}
           meta_title: Les gens intéressés par %{scientific_name} tel que classé par %{hierarchy_provider}
           meta_title_with_common_name: Personnes intéressées par %{preferred_common_name} (%{scientific_name} tel que classé par %{hierarchy_provider})
           tweet_text: Personnes intéressées par %{scientific_name} tel que classé par %{hierarchy_provider}
-        meta_description: Intéressé par %{scientific_name}? Rejoignez les experts de %{scientific_name} et partagez vos propres observations sur %{scientific_name} dans l'Encyclopédie de la Vie.
-        meta_description_with_common_name: Intéressé par %{preferred_common_name} (%{scientific_name})? Rejoignez les experts de %{preferred_common_name} et partagez vos propres observations sur %{preferred_common_name} sur l'Encyclopédie de la Vie.
+        meta_description: Intéressé par %{scientific_name} ? Rejoignez les experts de %{scientific_name} et partagez vos propres observations sur %{scientific_name} dans l’Encyclopédie de la Vie.
+        meta_description_with_common_name: Intéressé par %{preferred_common_name} (%{scientific_name}) ? Rejoignez les experts de %{preferred_common_name} et partagez vos propres observations sur %{preferred_common_name} sur l’Encyclopédie de la Vie.
         meta_keywords: communauté %{scientific_name}
         meta_keywords_with_common_name: communauté %{preferred_common_name}, communauté %{scientific_name}
         meta_title: Personnes intéressées par %{scientific_name}
@@ -2406,53 +2436,53 @@ fr:
     details: 
       index: 
         hierarchy_entry: 
-          meta_description: Information sur %{scientific_name} tel que classé par %{hierarchy_provider} dans l'Encyclopédie de la Vie
-          meta_description_with_chapter_list: Information sur %{scientific_name} tel que classé par %{hierarchy_provider} dans l'Encyclopédie de la Vie. Inclut les informations %{chapter_list} pour %{scientific_name}.
-          meta_description_with_common_name: Information sur le %{preferred_common_name}, scientifiquement appelé %{scientific_name} tel que classé par %{hierarchy_provider} dans l'Encyclopédie de la Vie.
-          meta_description_with_common_name_with_chapter_list: Information sur le %{preferred_common_name}, scientifiquement appelé %{scientific_name} tel que classé par %{hierarchy_provider} dans l'Encyclopédie de la Vie. Comprend des informations sur %{chapter_list}.
+          meta_description: Information sur %{scientific_name} tel que classé par %{hierarchy_provider} dans l’Encyclopédie de la Vie
+          meta_description_with_chapter_list: Information sur %{scientific_name} tel que classé par %{hierarchy_provider} dans l’Encyclopédie de la Vie. Inclut les informations %{chapter_list} pour %{scientific_name}.
+          meta_description_with_common_name: Information sur le %{preferred_common_name}, scientifiquement appelé %{scientific_name} tel que classé par %{hierarchy_provider} dans l’Encyclopédie de la Vie.
+          meta_description_with_common_name_with_chapter_list: Information sur le(la) %{preferred_common_name}, scientifiquement appelé(e) %{scientific_name} tel que classé par %{hierarchy_provider} dans l’Encyclopédie de la Vie. Comprend des informations sur %{chapter_list}.
           meta_title: Information sur %{scientific_name} tel que classé par %{hierarchy_provider}
           meta_title_with_common_name: Information sur le %{preferred_common_name} (%{scientific_name} tel que classé par %{hierarchy_provider})
           tweet_text: Information sur %{scientific_name} tel que classé par %{hierarchy_provider}
-        meta_description: Information sur %{scientific_name} dans l'Encyclopédie de la Vie
-        meta_description_with_chapter_list: Information sur %{scientific_name} dans l'Encyclopédie de la Vie. Comprend des informations sur %{chapter_list}.
-        meta_description_with_common_name: Information sur %{preferred_common_name}, scientifiquement appelé %{scientific_name} dans l'Encyclopédie de la Vie.
-        meta_description_with_common_name_with_chapter_list: Information sur %{preferred_common_name}, scientifiquement appelé %{scientific_name} dans l'Encyclopédie de la Vie. Comprend des informations sur %{chapter_list}.
-        meta_title: Information sur %{scientific_name}
+        meta_description: Information sur %{scientific_name} dans l’Encyclopédie de la Vie
+        meta_description_with_chapter_list: Information sur %{scientific_name} dans l’Encyclopédie de la Vie. Comprend des informations sur %{chapter_list}.
+        meta_description_with_common_name: Information sur %{preferred_common_name}, scientifiquement appelé %{scientific_name} dans l’Encyclopédie de la Vie.
+        meta_description_with_common_name_with_chapter_list: Information sur %{preferred_common_name}, scientifiquement appelé %{scientific_name} dans l’Encyclopédie de la Vie. Comprend des informations sur %{chapter_list}.
+        meta_title: Faits concernant %{scientific_name}
         meta_title_with_common_name: Faits concernant %{preferred_common_name} (%{scientific_name})
-        tweet_text: Informations sur %{scientific_name}
+        tweet_text: Informations concernant %{scientific_name}
     literature: 
       bhl: 
         hierarchy_entry: 
-          meta_description: Littérature et informations sur %{scientific_name} tel que classé par %{hierarchy_provider} dans l'Encyclopédie de la Vie. Lisez les articles sur %{scientific_name} dans l'Encyclopédie de la Vie.
-          meta_description_with_common_name: Littérature et informations sur %{preferred_common_name}, appelé aussi %{scientific_name} tel que classé par %{hierarchy_provider} dans l'Encyclopédie de la Vie. Lisez les articles sur %{preferred_common_name} dans l'Encyclopédie de la Vie.
-          meta_title: Littérature BHL sur %{scientific_name} tel que classé par %{hierarchy_provider}
-          meta_title_with_common_name: Littérature BHL sur %{preferred_common_name} (%{scientific_name} tel que classé par %{hierarchy_provider})
-          tweet_text: "Littérature de #BHL sur %{scientific_name} tel que classé par %{hierarchy_provider}"
+          meta_description: Littérature et informations BHL concernant %{scientific_name} tel que classé par %{hierarchy_provider} dans l’Encyclopédie de la Vie. Lisez les articles BHL concernant %{scientific_name} dans l’Encyclopédie de la Vie.
+          meta_description_with_common_name: Littérature et informations BHL concernant %{preferred_common_name}, appelé aussi %{scientific_name} tel que classé par %{hierarchy_provider} dans l’Encyclopédie de la Vie. Lisez les articles BHL concernant %{preferred_common_name} dans l’Encyclopédie de la Vie.
+          meta_title: Littérature BHL concernant %{scientific_name} tel que classé par %{hierarchy_provider}
+          meta_title_with_common_name: Littérature BHL concernant %{preferred_common_name} (%{scientific_name} tel que classé par %{hierarchy_provider})
+          tweet_text: "Littérature de #BHL concernant %{scientific_name} tel que classé par %{hierarchy_provider}"
         meta_title: Citations BHL pour %{scientific_name}
         meta_title_with_common_name: Références BHL pour %{preferred_common_name} (%{scientific_name})
-        tweet_text: "Littérature de #BHL sur %{scientific_name}"
+        tweet_text: "Littérature de #BHL concernant %{scientific_name}"
       show: 
         hierarchy_entry: 
-          meta_title: Littérature sur %{scientific_name} tel que classé par %{hierarchy_provider}
-          meta_title_with_common_name: Livres sur %{preferred_common_name} (%{scientific_name} tel que classé par %{hierarchy_provider})
-          tweet_text: Littérature sur %{scientific_name} tel que classé par %{hierarchy_provider}
-        meta_description: Bibliographie et informations sur %{scientific_name} sur l'Encyclopédie la Vie. Lire les articles sur %{scientific_name} sur l'Encyclopédie de la Vie.
-        meta_description_with_common_name: Bibliographie et informations sur %{preferred_common_name}, appelé aussi %{scientific_name} sur l'Encyclopédie de la Vie. Lire les articles sur %{preferred_common_name} sur l'Encyclopédie de la Vie.
-        meta_keywords: informations sur %{scientific_name}, littérature sur %{scientific_name}, articles pour %{scientific_name}
-        meta_keywords_with_common_name: informations sur %{preferred_common_name}, littérature sur %{preferred_common_name}, articles sur %{scientific_name}
-        meta_title: Littérature sur %{scientific_name}
-        meta_title_with_common_name: Articles et livres sur %{preferred_common_name} (%{scientific_name})
-        tweet_text: Littérature sur %{scientific_name}
+          meta_title: Littérature concernant %{scientific_name} tel que classé par %{hierarchy_provider}
+          meta_title_with_common_name: Livres concernant %{preferred_common_name} (%{scientific_name} tel que classé par %{hierarchy_provider})
+          tweet_text: Littérature concernant %{scientific_name} tel que classé par %{hierarchy_provider}
+        meta_description: Bibliographie et informations concernant %{scientific_name} sur l’Encyclopédie la Vie. Lire les articles concernant %{scientific_name} sur l’Encyclopédie de la Vie.
+        meta_description_with_common_name: Bibliographie et informations concernant %{preferred_common_name}, appelé aussi %{scientific_name} sur l’Encyclopédie de la Vie. Lire les articles concernant %{preferred_common_name} sur l’Encyclopédie de la Vie.
+        meta_keywords: informations concernant %{scientific_name}, littérature concernant %{scientific_name}, articles concernant %{scientific_name}
+        meta_keywords_with_common_name: informations concernant %{preferred_common_name}, littérature concernant %{preferred_common_name}, articles concernant %{scientific_name}
+        meta_title: Littérature concernant %{scientific_name}
+        meta_title_with_common_name: Articles et livres concernant %{preferred_common_name} (%{scientific_name})
+        tweet_text: Littérature concernant %{scientific_name}
     maps: 
       show: 
         hierarchy_entry: 
-          meta_description: Information géographique sur %{scientific_name} tel que classé par %{hierarchy_provider} selon la région où ils vivent et où ils sont indigènes dans le monde.
-          meta_description_with_common_name: Où trouve-t-on des %{preferred_common_name} et où vivent-ils? Information géographique concernant %{scientific_name} tel que classé par %{hierarchy_provider}, la région où ils vivent et où ils sont indigènes, dans le monde.
+          meta_description: "Information géographique concernant %{scientific_name} tel que classé par %{hierarchy_provider} : où vit-il et d’où provient-il ?"
+          meta_description_with_common_name: Où trouve-t-on des %{preferred_common_name} et d’où proviennent-ils? Information géographique concernant %{scientific_name} tel que classé par %{hierarchy_provider}, les régions du monde où ils vivent et où ils sont indigènes.
           meta_title: Cartes de %{scientific_name} tel que classé par %{hierarchy_provider}
           meta_title_with_common_name: Cartes de %{preferred_common_name} (%{scientific_name} tel que classé par %{hierarchy_provider})
           tweet_text: Cartes de %{scientific_name} tel que classé par %{hierarchy_provider}
-        meta_description: Informations géographiques sur %{scientific_name}, l'endroit où ils vivent et d'où ils proviennent, dans le monde.
-        meta_description_with_common_name: Où trouve-t-on des %{preferred_common_name} et où vivent-ils? Informations géographiques sur %{scientific_name}, l'endroit où ils vivent et d'où ils sont originaires, dans le monde.
+        meta_description: Informations géographiques sur %{scientific_name}, les endroits du monde où ils vivent et d’où ils proviennent.
+        meta_description_with_common_name: Où trouve-t-on des %{preferred_common_name} et d’où proviennent-ils ? Informations géographiques sur %{scientific_name}, les endroits du monde où ils vivent et d’où ils sont originaires.
         meta_keywords: habitat de %{scientific_name}, origine, où vit %{scientific_name}
         meta_keywords_with_common_name: habitat de %{preferred_common_name}, origine, où vit %{preferred_common_name}
         meta_title: Cartes de %{scientific_name}
@@ -2465,16 +2495,16 @@ fr:
           meta_description_with_common_name: Photographies, films et sons de %{preferred_common_name}, appelé aussi %{scientific_name} tel que classé par %{hierarchy_provider}.
           meta_keywords: photographies de %{scientific_name}, films sur %{scientific_name}, sons de %{scientific_name}, audios sur %{scientific_name}
           meta_keywords_with_common_name: photographies de %{preferred_common_name}, films sur %{preferred_common_name}, sons de %{preferred_common_name}, audios sur %{preferred_common_name}, photographies de %{scientific_name}, films sur %{scientific_name}, sons de %{scientific_name}, audios sur %{scientific_name}
-          meta_title: Audio, Film & Photographies sur %{scientific_name} tel que classé par %{hierarchy_provider}
-          meta_title_with_common_name: Audio, Film & Images sur %{preferred_common_name} (%{scientific_name} tel que classé par %{hierarchy_provider})
-          tweet_text: Les supports de %{scientific_name} tels que classés par %{hierarchy_provider}
+          meta_title: Enregistrements sonores, films et photographies de %{scientific_name} tel que classé par %{hierarchy_provider}
+          meta_title_with_common_name: Enregistrements sonores, films et images de %{preferred_common_name} (%{scientific_name} tel que classé par %{hierarchy_provider})
+          tweet_text: Médias de %{scientific_name} tels que classés par %{hierarchy_provider}
         meta_description: Images et vidéos de %{scientific_name}.
         meta_description_with_common_name: Images et vidéos de %{preferred_common_name} appelé aussi %{scientific_name}.
-        meta_keywords: images de %{scientific_name}, vidéos de %{scientific_name}, images de %{scientific_name}, vids de %{scientific_name}, pics de %{scientific_name}, support
-        meta_keywords_with_common_name: images de %{preferred_common_name}, vidéos sur %{preferred_common_name}, images de %{preferred_common_name}, vids de %{preferred_common_name}, pics de %{preferred_common_name}, support
-        meta_title: Images & Vidéos de %{preferred_common_name} (%{scientific_name})
-        meta_title_with_common_name: Images & Vidéos de %{preferred_common_name} (%{scientific_name})
-        tweet_text: Média de %{scientific_name}
+        meta_keywords: images de %{scientific_name}, vidéos de %{scientific_name}, images de %{scientific_name}, vids de %{scientific_name}, pics de %{scientific_name}, médias
+        meta_keywords_with_common_name: images de %{preferred_common_name}, vidéos sur %{preferred_common_name}, images de %{preferred_common_name}, vids de %{preferred_common_name}, pics de %{preferred_common_name}, médias
+        meta_title: Images et vidéos de %{scientific_name}
+        meta_title_with_common_name: Images & vidéos de %{preferred_common_name} (%{scientific_name})
+        tweet_text: Médias de %{scientific_name}
     names: 
       common_names: 
         hierarchy_entry: 
@@ -2482,21 +2512,45 @@ fr:
           meta_description_with_common_name: Le nom vernaculaire de %{scientific_name} est %{preferred_common_name}. Découvrez les autres noms vernaculaires associés à %{scientific_name} classés par %{hierarchy_provider}.
           meta_keywords: Noms vernaculaires pour %{scientific_name}
           meta_keywords_with_common_name: Nom scientifique pour %{preferred_common_name}, noms vernaculaires pour %{scientific_name}
+          meta_title: Noms vernaculaires de %{scientific_name} classé par %{hierarchy_provider}
+          meta_title_with_common_name: Noms vernaculaires du (de la) %{preferred_common_name} (%{scientific_name} classé par %{hierarchy_provider})
+          tweet_text: Noms vulgaires de %{scientific_name} classé par %{hierarchy_provider}
+        meta_description: Noms vulgaires de %{scientific_name}.
+        meta_description_with_common_name: Le nom scientifique du (de la) %{preferred_common_name} est %{scientific_name}. Découvrez ses autres noms vulgaires.
+        meta_keywords: Noms vulgaires de %{scientific_name}
+        meta_keywords_with_common_name: Noms vulgaires de %{scientific_name}, nom scientifique du (de la) %{preferred_common_name}
+        meta_title: Noms vulgaires de %{scientific_name}
+        meta_title_with_common_name: Noms vulgaires du (de la) %{preferred_common_name} (%{scientific_name})
+        tweet_text: Noms vulgaires de %{scientific_name}
       index: 
         hierarchy_entry: 
-          meta_description: Taxonomie, hiérarchies de classification et les noms scientifiques connexes à %{scientific_name} classés par %{hierarchy_provider}.
-          meta_description_with_common_name: Taxonomie, hiérarchies de classification et noms scientifiques pour les %{preferred_common_name}, appelée aussi %{scientific_name} tels que classée par %{hierarchy_provider}.
-          tweet_text: Noms liés à %{scientific_name} comme classés par %{hierarchy_provider}
-        meta_description: Classification taxonomique et noms scientifiques de %{scientific_name}.
-        meta_description_with_common_name: Classification taxonomique et noms scientifiques pour le %{preferred_common_name}, également appelé %{scientific_name}.
+          meta_description: Taxinomie, hiérarchies de classification et noms scientifiques connexes à %{scientific_name} classés par %{hierarchy_provider}.
+          meta_description_with_common_name: Taxinomie, hiérarchies de classification et noms scientifiques pour les %{preferred_common_name}, appelé aussi %{scientific_name} tel que classé par %{hierarchy_provider}.
+          tweet_text: Noms liés à %{scientific_name} tels que classés par %{hierarchy_provider}
+        meta_description: Classification taxinomique et noms scientifiques de %{scientific_name}.
+        meta_description_with_common_name: Classification taxinomique et noms scientifiques pour le %{preferred_common_name}, également appelé %{scientific_name}.
         meta_title: Noms reliés à %{scientific_name}
         meta_title_with_common_name: Noms connexes à %{preferred_common_name} (%{scientific_name})
         tweet_text: Noms connexes à %{scientific_name}
       synonyms: 
+        hierarchy_entry: 
+          meta_description: Synonymes associés à %{scientific_name} classé par %{hierarchy_provider}.
+          meta_description_with_common_name: Synonymes associés à %{scientific_name} classé par %{hierarchy_provider}, vulgairement appelé %{preferred_common_name}.
+          meta_keywords: Synonymes de %{scientific_name}
+          meta_keywords_with_common_name: Synonymes de %{preferred_common_name}, Synonymes de %{scientific_name}
+          meta_title: Synonymes de %{scientific_name} classé par %{hierarchy_provider}
+          meta_title_with_common_name: Synonymes de %{preferred_common_name} (%{scientific_name} classé par %{hierarchy_provider})
+          tweet_text: Synonymes de %{scientific_name} classé par %{hierarchy_provider}
         meta_description: Synonymes de %{scientific_name}.
+        meta_description_with_common_name: Synonymes du (de la) %{preferred_common_name}, scientifiquement appelé %{scientific_name}.
         meta_keywords: Synonymes de %{scientific_name}
+        meta_keywords_with_common_name: Synonymes du (de la) %{preferred_common_name}, Synonymes de %{scientific_name}
         meta_title: Synonymes de %{scientific_name}
+        meta_title_with_common_name: Synonymes du (de la) %{preferred_common_name} (%{scientific_name})
         tweet_text: Synonymes de %{scientific_name}
+    overviews: 
+      show: 
+        tweet_text: Vue d'ensemble de %{scientific_name}
     resources: 
       biomedical_terms: 
         meta_title: Termes biomédicales pour %{scientific_name}
@@ -2516,13 +2570,13 @@ fr:
   taxon_newsfeed: Fil de nouvelles du taxon
   taxon_not_found_error: "\"%{taxon}\" non trouvé"
   taxon_nucleotide_sequences_link: Séquences de nucléotides
-  taxon_page_content_disclaimer: Le contenu de EOL est collecté automatiquement depuis de nombreux fournisseurs de contenu différents. Par conséquent, de temps en temps, vous pouvez trouver des pages sur EOL qui sont source de confusion.
+  taxon_page_content_disclaimer: Le contenu de l’EdlV est accumulé automatiquement depuis de nombreux fournisseurs de contenu différents. Par conséquent, de temps en temps, vous pouvez trouver des pages sur l’EdlV qui soient source de confusion.
   taxon_page_content_disclaimer_header: Désistement
   taxon_page_content_disclaimer_suggest_improvement: Pour demander une amélioration, veuillez laisser un commentaire sur la page. Merci!
   taxon_partner_links_empty: Les partenaires de contenu n'ont pas encore fourni de liens source pour cette page.
   taxon_partner_links_empty_learn_more_link: Découvrez comment devenir un partenaire de contenu
   taxon_partner_links_header: Liens vers un partenaire
-  taxon_partner_links_intro: Ci-dessous une liste de partenaires, y compris les partenaires de contenu, avec des informations sur cette page. Lorsque c'est possible, les liens vous mèneront au contenu correspondant sur le site web du partenaire concerné. L'identifiant unique pour ce taxon utilisé par chaque partenaire fait partie intégrante de ces liens, et ces identifiants sont également accessibles via l'<a href="%{eol_api_link}">API EOL</a>
+  taxon_partner_links_intro: Ci-dessous se trouve une liste de partenaires, y compris les partenaires de contenu, avec des informations sur cette page. Lorsque c’est possible, les liens vous mèneront au contenu correspondant sur le site Web du partenaire concerné. L’identifiant unique pour ce taxon utilisé par chaque partenaire fait partie intégrante de ces liens, et ces identifiants sont également accessibles via l’<a href="%{eol_api_link}">IPA EdlV</a>
   taxon_partner_links_link: Liens vers un partenaire
   taxon_rating: Évaluation du taxon
   taxon_recognized_by: Taxon reconnu par %{whom}
@@ -2558,7 +2612,7 @@ fr:
   the_content_was_updated: Le contenu a été mis à jour.
   the_count_represents_the_total: Le nombre représente le nombre total d'objets de données publiés sous la catégorie de sujet SPM respective.
   the_cp_count_info: Le nombre représente le nombre total de partenaires de contenu qui ont fourni des objets de données dans la catégorie de sujet SPM respective.
-  the_darwin_core_taxon_elements: Les éléments de taxon du cœur de Darwin (dwct:Taxon) sous additionalInformation comprennent les identifiants des nœuds dans les hiérarchies que EOL indexe. Ils contiennent un dc:identifier qui est l'ID unique pour le taxon <i>dans la base de données du fournisseur.</i>
+  the_darwin_core_taxon_elements: Les éléments de taxon Darwin Core (dwct:Taxon) comprennent les identifiants des nœuds dans les hiérarchies que l’EdlV indexe sous additionalInformation. Ils contiennent un dc:identifier qui est l’identifiant unique pour le taxon <i>dans la base de données du fournisseur.</i>
   the_file_was_uploaded: Le fichier a été téléversé.
   the_following_bibliography: La bibliographie suivante a été générée en réunissant toutes les références fournies par nos partenaires de contenu. Il peut y avoir des doublons.
   the_following_users_were_prese: "Les utilisateurs suivants ont vu la fenêtre contextuelle du sondage et ont répondu à l’invitation à répondre au sondage tel qu’affiché ci-dessous :"
@@ -2566,8 +2620,8 @@ fr:
   the_id_of_provider_hierarchy_you_are_searching: l'ID de la hiérarchie du fournisseur dans laquelle vous faites la recherche. Vérifiez %{link} pour les ID valides
   the_image_from_this_source_has_not_been_reviewed: L'image de cette source n'a pas été examinée.
   the_image_from_this_source_is_not_trusted: L'image de cette source n'est pas fiable.
-  the_info_highlighted_is_reviewed: L'information mise en évidence en rouge ci-dessous a été revue par un superviseur et est marquée comme non fiable.
-  the_information_highlighted_in: L'information mise en évidence en jaune ci-dessous n'a pas été revue.
+  the_info_highlighted_is_reviewed: L'information mise en évidence en rouge ci-dessous a été révisée par un conservateur et est marquée comme non fiable.
+  the_information_highlighted_in: L'information mise en évidence en jaune ci-dessous n'a pas été révisée.
   the_json_response_for_this_method: La réponse JSON pour cette méthode renvoie plus d’informations que la réponse XML. La réponse JSON comprend plusieurs statistiques sur ce nœud et ses descendants taxinomiques. Par exemple, il y a un champ "total_descendants" renvoyé, qui liste le nombre de nœuds qui sont des descendants du nœud donné, d’après cette hiérarchie ; "total_trusted_text" comprend le nombre total d’objets de données textuels uniques liés à cette page ou à un de ses descendants.
   the_message_was_sent: Le message a été envoyé.
   the_new_topic_was_created: La nouvelle rubrique a été créée.
@@ -2603,7 +2657,7 @@ fr:
   this_map_is_unpublished: Cette carte n’est pas publiée.
   this_method_takes_an_integer_or_string: Cette méthode prend un nombre entier ou une chaîne qui correspond à l’identifiant unique d’un taxon dans la base de données d’un des fournisseurs, et un hierarchy_id qui représente le fournisseur, et renvoie l’identifiant de la page EdlV pour ce taxon. Par exemple, en utilisant l’IPA %{link_provider}, je peux voir que le hierarchy_id de l’EdlV pour le Système d’information taxinomique intégré (ITIS) est %{itis_id}. Je peux alors rechercher dans l’EdlV pour le numéro de série taxinomique ITIS (TSN) 180542, <i>Ursus maritimus</i>, en appelant %{link_url}
   this_page_shows_information_ab: Cette page affiche les informations sur un critère de recherche spécifique et sur quels résultats ont cliqué les utilisateurs après avoir exécuté la recherche.
-  this_resource_unpublished_notice: Cette ressource n'est pas définie comme publié par l'administrateur, pour l'instant.
+  this_resource_unpublished_notice: Cette ressource n’est pas définie comme publiée par l’administrateur, pour l’instant.
   this_section_is_used_to_create: Cette section est utilisée pour créer de nouveaux éléments. Les articles de nouvelles sont affichés sur la partie droite de la page d'accueil, ainsi que dans un %{rss_link} et dans la page de %{news_archive}.
   this_sound_cannot_be_curated_because_unpublished: Cet enregistrement sonore ne peut pas être supervisé parce qu’il n’est pas publié.
   this_sound_is_unpublished: Cet enregistrement sonore n’est pas publié.
@@ -2619,7 +2673,7 @@ fr:
   to_see_all_activity_combinatio: pour voir toutes les combinaisons d'activité dans une durée de 5 min {3-4 min.}.
   to_send_email_enter_text: Pour envoyer cet utilisateur un courriel, entrez le texte ci-dessous et cliquez sur « Envoyer ».
   to_submit_a_species_photograph_for: Pour envoyer une photo de l'espèce %{taxon}, veuillez envoyer les photos sur %{flickr_link} et suivez les instructions figurant sur la page d'accueil de ce groupe.
-  to_submit_text_content_for_taxon_please_be_sure_you_are_logged: Pour soumettre du contenu texte pour %{taxon}, veuillez vous assurez que vous êtes connecté à EOL, puis cliquez sur
+  to_submit_text_content_for_taxon_please_be_sure_you_are_logged: Pour soumettre du contenu texte pour %{taxon}, veuillez vous assurez que vous êtes connecté à l’EdlV, puis cliquez sur
   toc: TABLE DES MATIÈRES
   toc_entry_col_header: Entrée de la table des matières
   toc_no_longer_available: Information de la table des matières n'est plus disponible
@@ -2658,7 +2712,7 @@ fr:
   unknown_hierarchy: Hiérarchie inconnue
   unknown_type_not_associated_with_any_published_entries: Ces données ne sont associées à aucune des taxinomies publiées.
   unpublished: Non publié
-  unreviewed: Non supervisé
+  unreviewed: Non révisé
   unreviewed_images: Images non revues
   unreviewed_maps: Cartes non revues
   unreviewed_text_objects: Articles non revus
@@ -2702,19 +2756,19 @@ fr:
     one: "%{count} commentaire envoyé"
     other: "%{count} commentaires envoyés"
   user_activity_stats_common_names_added: 
-    one: "%{count} nom commun ajouté"
-    other: "%{count} noms communs ajoutés"
+    one: "%{count} nom vulgaire ajouté"
+    other: "%{count} noms vulgaires ajoutés"
   user_activity_stats_common_names_curated: 
-    one: "%{count} nom commun supervisé"
-    other: "%{count} noms communs supervisés"
+    one: "%{count} nom vulgaire conservé"
+    other: "%{count} noms vulgaires conservés"
   user_activity_stats_common_names_removed: 
-    one: "%{count} nom commun supprimé"
-    other: "%{count} noms communs supprimés"
+    one: "%{count} nom vulgaire supprimé"
+    other: "%{count} noms vulgaires supprimés"
   user_activity_stats_header: Activité
   user_activity_stats_objects_curated: 
-    one: "%{count} objet supervisé"
-    other: "%{count} objets supervisés"
-  user_activity_stats_objects_curated_dropdown: Objets supervisés
+    one: "%{count} objet conservé"
+    other: "%{count} objets conservés"
+  user_activity_stats_objects_curated_dropdown: Objets conservés
   user_activity_stats_set_exemplar: 
     one: "%{count} image définie comme modèle"
     other: "%{count} images définies comme modèle"
@@ -2726,8 +2780,8 @@ fr:
     other: "%{count} commentaires de taxon"
   user_activity_stats_taxa_comments_dropdown: Commentaires des taxons
   user_activity_stats_taxa_curated: 
-    one: "%{count} taxon supervisé"
-    other: "%{count} taxons supervisés"
+    one: "%{count} taxon conservé"
+    other: "%{count} taxons conservés"
   user_activity_stats_wikipedia_nominated: 
     one: "%{count} article de Wikipédia nominé"
     other: "%{count} articles de Wikipédia nominés"
@@ -2740,7 +2794,7 @@ fr:
   user_commented_on_themself: "<strong>%{user_with_link}</strong> a fait un commentaire sur le <a href='%{link}'>fil d'informations de %{username}</a> :"
   user_comments: Commentaires utilisateur
   user_id: ID de l’utilisateur
-  user_index_intro: Tous les utilisateurs web inscrits dans le système sont affichés ci-dessous, triés par horaire d'inscription inverse. Notez que les dates d'inscription pour les utilisateurs avant EOL V2 (5 janvier 2009) ne sont pas disponibles. Cliquez sur un nom d'utilisateur pour modifier cet utilisateur.
+  user_index_intro: Tous les utilisateurs Web inscrits dans le système sont affichés ci-dessous, triés par ordre d’inscription inverse. Notez que les dates d’inscription pour les utilisateurs avant EdlV V2 (5 janvier 2009) ne sont pas disponibles. Cliquez sur un nom d’utilisateur pour modifier ce dernier.
   user_joined_community_on_date: "%{username} a rejoint cette communauté le %{date}."
   user_joined_when: "\"%{user}\" a rejoint %{when}"
   user_left_comment_on_date: "%{username} a laissé un commentaire le %{date}."
@@ -2756,6 +2810,10 @@ fr:
   username_colon: "Nom d’utilisateur :"
   username_taken: "%{name} est déjà pris"
   users: 
+    edit: 
+      form_tip_curation: La Certification et l’Étendue de conservation sont optionnelles pour les Conservateurs adjoints mais exigés %{required_icon} pour les Conservateurs et Maîtres conservateurs
+      form_tip_profile: Les éléments marqués « requis » %{required_icon} sont optionnels pour les utilisateurs ordinaires mais exigés des conservateurs.
+      form_tip_profile_oauth: Un prénom est requis ; les autres éléments marqués « requis » %{required_icon} sont optionnels pour les utilisateurs ordinaires mais exigés des conservateurs.
     new: 
       create_user_header: Créer un nouveau compte <abbr title="Encyclopédie de la vie">EdlV</abbr>
     newsfeeds: 
@@ -2766,11 +2824,11 @@ fr:
         tweet_text: Commentaires de %{user_full_name}
   users_about_me_header: À mon sujet
   users_content_partners_header: Partenaires de contenu
-  users_content_partners_information: Les partenaires de contenu EOL sont des individus ou des organisations qui partagent leurs données sur la biodiversité avec tout le monde via EOL. Pour en savoir plus sur les <a href="%{more_url}">Partenaires de contenu EOL</a>.
+  users_content_partners_information: Les partenaires de contenu EdlV sont des individus ou des organisations qui partagent leurs données sur la biodiversité avec tout le monde via l’EdlV. Pour en savoir plus sur les <a href="%{more_url}">Partenaires de contenu EdlV</a>.
   users_content_partners_with_count: 
     one: "%{count} partenaire de contenu actuel"
     other: "%{count} partenaires de contenu actuels"
-  users_curation_header: Diplômes de superviseur
+  users_curation_header: Qualifications de conservateur
   users_form_account_header: Votre compte
   users_form_curation_header: Diplômes de superviseur
   users_form_profile_info_header: Informations du profil public
@@ -2831,23 +2889,23 @@ fr:
   web_users: Utilisateurs du web
   weekly: Hebdomadaire
   welcome: Bienvenue
-  welcome_and_you_were_logged_out: Bienvenue sur le nouveau EOL! Il y a eu un problème avec votre ancienne connexion, nous vous avons donc déconnecté. Les informations de votre ancienne connexion devraient toutefois fonctionner à nouveau. Désolé!
-  welcome_to_the_eol_administrat: Bienvenue à la Console d'Administration EOL.  Veuillez sélectionner une fonction dans le navigateur de gauche.
+  welcome_and_you_were_logged_out: Bienvenue sur la nouvelle EdlV ! Il y a eu un problème avec votre ancienne connexion, nous vous avons donc déconnecté. Les informations de votre ancienne connexion devraient toutefois fonctionner à nouveau. Désolé !
+  welcome_to_the_eol_administrat: Bienvenue à la Console d’administration EdlV. Veuillez sélectionner une fonction dans le navigateur de gauche.
   what_do_these_numbers_mean: Que signifient ces chiffres ?
-  what_is_eol: Qu'est-ce que l’EOL ?
+  what_is_eol: Qu’est-ce que l’EdlV ?
   what_is_this_question: Qu’est-ce que ceci ?
   who_registered_before: vers
-  who_registered_from: qui s'est inscrit depuis
-  wikipedia_queue_create_successful_notice: La modification %{rev} de l'article %{article} de Wikipédia a été mise en attente pour l'importation.
-  wikipedia_queue_create_unsuccessful_error: Désolé, une erreur s'est produite, l'article de Wikipédia n'a pas été mis en file d'attente pour l'importation.<br>L'URL de la modification doit correspondre à http://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*
+  who_registered_from: qui s’est inscrit depuis
+  wikipedia_queue_create_successful_notice: La modification %{rev} de l’article %{article} de Wikipédia a été mise en attente pour l’importation.
+  wikipedia_queue_create_unsuccessful_error: Désolé, une erreur s’est produite, l’article de Wikipédia n’a pas été mis en file d’attente pour l’importation.<br>L’URL de la modification doit correspondre à http://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*
   wikipedia_queue_new_instructions_intro: "Pour trouver l’URL de la révision d’un article de Wikipédia :"
   wikipedia_queue_new_instructions_step_four: Copiez l'URL de la révision depuis votre navigateur et collez-la dans le formulaire de demande d'importation Wikipedia affiché ici; l'URL de la révision doit resssembler à <a href="http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069">http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>
   wikipedia_queue_new_instructions_step_one: Aller à la page de l'article sur Wikipédia, par exemple <a href="http://en.wikipedia.org/w/index.php?title=Giraffe">http://en.wikipedia.org/w/index.php?title=Giraffe</a>
   wikipedia_queue_new_instructions_step_three: Suivre l'élément de menu 'Lien Permanent'. C'est l'URL de la révision actuelle et elle vous amènera à la version actuelle de l'article, depuis laquelle vous pourrez accéder aux versions précédentes.
   wikipedia_queue_new_instructions_step_two: Développer le menu 'boîte à outils' figurant dans la colonne de navigation, et à l'intérieur, vous devriez y voir l'élément de menu 'Lien Permanent'.
-  wikipedia_queue_new_intro: Soumettre la révision d'un article de Wikipédia pour être intégrée dans EOL comme un objet de texte approuvé.
+  wikipedia_queue_new_intro: Soumettre la révision d’un article de Wikipédia pour être intégrée dans l’EdlV comme un objet textuel approuvé.
   wikipedia_queue_new_page_title: Demander l'importation d'un article de Wikipédia
-  will_find_taxon_pages_matching_the_search_term: trouvera les pages de taxon si le nom préféré ou un synonyme ou son nom commun correspond exactement au critère de recherche
+  will_find_taxon_pages_matching_the_search_term: trouvera les pages de taxon si le nom préféré ou un synonyme ou son nom vulgaire correspond exactement au critère de recherche
   will_paginate: 
     next_label: Suivant →
     page_gap: ...

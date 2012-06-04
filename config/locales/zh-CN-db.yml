@@ -1,4 +1,4 @@
-# Messages for Simplified Chinese (‪中文(简体)‬)
+# Messages for Simplified Chinese (‪中文（简体）‬)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Dimension
@@ -23,12 +23,14 @@ zh-CN:
   translated_activities-name-activity_id-64: 删除
   translated_agent_roles-label-agent_role_id-10: 项目
   translated_agent_roles-label-agent_role_id-11: 发布者
+  translated_agent_roles-label-agent_role_id-22: 译者
   translated_audiences-label-audience_id-1: 专家级用户
   translated_audiences-label-audience_id-2: 公众
   translated_audiences-label-audience_id-3: 少年儿童
   translated_collection_types-label-collection_type_id-1: 分类法
   translated_collection_types-label-collection_type_id-10: 声音
   translated_collection_types-label-collection_type_id-11: 链接
+  translated_collection_types-label-collection_type_id-16: 图像
   translated_collection_types-label-collection_type_id-2: 分子条码
   translated_collection_types-label-collection_type_id-23: 链接
   translated_collection_types-label-collection_type_id-3: 描述
@@ -41,6 +43,8 @@ zh-CN:
   translated_content_partner_statuses-label-content_partner_status_id-1: 等待中
   translated_content_partner_statuses-label-content_partner_status_id-3: 已存档
   translated_content_tables-label-content_table_id-1: 详细信息
+  translated_data_types-label-data_type_id-10: 地图
+  translated_data_types-label-data_type_id-8: YouTube
   translated_licenses-description-license_id-1: 不保留任何权利
   translated_licenses-description-license_id-2: "&#169; 保留所有权利"
   translated_licenses-description-license_id-29: 保留部分权利

@@ -1,4 +1,4 @@
-# Messages for Finnish (Suomi)
+# Messages for Finnish (suomi)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Centerlink
@@ -39,7 +39,7 @@ fi:
   translated_agent_roles-label-agent_role_id-8: Kuvittaja
   translated_agent_roles-label-agent_role_id-9: Valokuvaaja
   translated_audiences-label-audience_id-1: Kokeneet käyttäjät
-  translated_audiences-label-audience_id-2: Suurelle yleisölle
+  translated_audiences-label-audience_id-2: Suuri yleisö
   translated_audiences-label-audience_id-3: Lapset
   translated_collection_types-label-collection_type_id-1: Taksonomia
   translated_collection_types-label-collection_type_id-10: Äänet

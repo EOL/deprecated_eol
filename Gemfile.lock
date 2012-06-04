@@ -168,6 +168,7 @@ DEPENDENCIES
   json (= 1.5.3)
   macaddr
   memcache
+  mime-types
   mysql
   newrelic_rpm
   oauth

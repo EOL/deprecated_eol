@@ -2,6 +2,7 @@
 - unless conversion.nil?
   :javascript
     var google_conversion_id = #{conversion.id};
+    var google_conversion_format = #{conversion.format};
     var google_conversion_label = "#{conversion.label}";
     var google_conversion_value = #{conversion.value};
   = javascript_include_merged "http://www.googleadservices.com/pagead/conversion.js"

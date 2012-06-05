@@ -704,6 +704,12 @@ describe TaxonConcept do
     # xpect 'which creates a preferred entry if one did not exist'
   end
 
+  it 'should not give an error when there is no preferred_entry' do
+    tc = build_taxon_concept
+    lambda { tc.curator_chosen_classification }.should_not raise_error
+    lambda { tc.preferred_entry.hierarchy_entry_id }.should raise_error
+  end
+
   #
   # I'm all for pending tests, but in this case, they run SLOWLY, so it's best to comment them out:
   #

@@ -224,7 +224,7 @@ module EOL
           :joins => "JOIN #{Collection.full_table_name} c ON (collection_activity_logs.collection_id=c.id)",
           :conditions => "c.special_collection_id = #{SpecialCollection.watch.id}")
         return if collection_activity_logs.nil?
-        collection_activity_log_ids = collection_activity_logs.collect{|cal| cal.id}.in_groups_of(10000)
+        collection_activity_log_ids = collection_activity_logs.collect{|cal| cal.id}.in_groups_of(1000)
         begin
           solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_ACTIVITY_LOGS_CORE)
           collection_activity_log_ids.each do |cali|

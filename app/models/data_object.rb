@@ -30,6 +30,7 @@ class DataObject < ActiveRecord::Base
   has_many :data_objects_hierarchy_entries
   has_many :data_objects_taxon_concepts
   has_many :curated_data_objects_hierarchy_entries
+  has_many :all_curated_data_objects_hierarchy_entries, :class_name => CuratedDataObjectsHierarchyEntry.to_s, :source => :curated_data_objects_hierarchy_entries, :foreign_key => :data_object_guid, :primary_key => :guid
   has_many :comments, :as => :parent
   has_many :data_objects_harvest_events
   has_many :harvest_events, :through => :data_objects_harvest_events
@@ -287,7 +288,9 @@ class DataObject < ActiveRecord::Base
       begin
         new_dato.toc_items = Array(TocItem.find(options[:toc_id]))
         new_dato.unpublish_previous_revisions
-        self.replicate_associations(new_dato)
+
+        new_dato.users_data_object = users_data_object.replicate(new_dato)
+        DataObjectsTaxonConcept.find_or_create_by_taxon_concept_id_and_data_object_id(users_data_object.taxon_concept_id, new_dato.id)
       rescue => e
         new_dato.update_attribute(:published, false)
         raise e
@@ -712,7 +715,7 @@ class DataObject < ActiveRecord::Base
   def association_for_hierarchy_entry(hierarchy_entry)
     association = data_objects_hierarchy_entries.detect{ |dohe| dohe.hierarchy_entry_id == hierarchy_entry.id }
     if association.blank?
-      association = curated_data_objects_hierarchy_entries.detect{ |dohe| dohe.hierarchy_entry_id == hierarchy_entry.id }
+      association = all_curated_data_objects_hierarchy_entries.detect{ |dohe| dohe.hierarchy_entry_id == hierarchy_entry.id }
     end
     association
   end
@@ -721,7 +724,7 @@ class DataObject < ActiveRecord::Base
   def association_for_taxon_concept(taxon_concept)
     association = data_objects_hierarchy_entries.detect{ |dohe| dohe.hierarchy_entry.taxon_concept_id == taxon_concept.id }
     if association.blank?
-      association = curated_data_objects_hierarchy_entries.detect{ |dohe| dohe.hierarchy_entry.taxon_concept_id == taxon_concept.id }
+      association = all_curated_data_objects_hierarchy_entries.detect{ |dohe| dohe.hierarchy_entry.taxon_concept_id == taxon_concept.id }
     end
     if association.blank?
       association = users_data_object if users_data_object && users_data_object.taxon_concept_id == taxon_concept.id
@@ -731,7 +734,7 @@ class DataObject < ActiveRecord::Base
 
   # To retrieve an association for the data object if taxon concept and hierarchy entry are unknown
   def association_with_best_vetted_status
-    associations = (data_objects_hierarchy_entries + curated_data_objects_hierarchy_entries + [users_data_object]).compact
+    associations = (data_objects_hierarchy_entries + all_curated_data_objects_hierarchy_entries + [users_data_object]).compact
     return if associations.empty?
     associations.sort_by{ |a| a.vetted.view_order }.first
   end
@@ -845,7 +848,7 @@ class DataObject < ActiveRecord::Base
       end
       he
     }.compact
-    cdohes = curated_data_objects_hierarchy_entries.compact.map { |cdohe|
+    cdohes = all_curated_data_objects_hierarchy_entries.compact.map { |cdohe|
       if cdohe.hierarchy_entry && he = cdohe.hierarchy_entry.dup
         he.associated_by_curator = cdohe.user
         he.vetted = cdohe.vetted
@@ -934,6 +937,7 @@ class DataObject < ActiveRecord::Base
     vetted_id = user.min_curator_level?(:full) ? Vetted.trusted.id : Vetted.unknown.id
     cdohe = CuratedDataObjectsHierarchyEntry.create(:hierarchy_entry_id => hierarchy_entry.id,
                                                     :data_object_id => self.id, :user_id => user.id,
+                                                    :data_object_guid => self.guid,
                                                     :vetted_id => vetted_id,
                                                     :visibility_id => Visibility.visible.id)
     if self.data_type == DataType.image
@@ -944,7 +948,7 @@ class DataObject < ActiveRecord::Base
   end
 
   def remove_curated_association(user, hierarchy_entry)
-    cdohe = CuratedDataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(id, hierarchy_entry.id)
+    cdohe = CuratedDataObjectsHierarchyEntry.find_by_data_object_guid_and_hierarchy_entry_id(guid, hierarchy_entry.id)
     raise EOL::Exceptions::ObjectNotFound if cdohe.nil?
     raise EOL::Exceptions::WrongCurator.new("user did not create this association") unless cdohe.user_id == user.id
     cdohe.destroy
@@ -1047,14 +1051,6 @@ class DataObject < ActiveRecord::Base
       users_data_object.user
     elsif content_partner && content_partner.user
       content_partner.user
-    end
-  end
-
-  def replicate_associations(new_dato)
-    new_dato.users_data_object = users_data_object.replicate(new_dato)
-    DataObjectsTaxonConcept.find_or_create_by_taxon_concept_id_and_data_object_id(users_data_object.taxon_concept_id, new_dato.id)
-    curated_data_objects_hierarchy_entries.each do |cdohe|
-      cdohe.replicate(new_dato)
     end
   end
 

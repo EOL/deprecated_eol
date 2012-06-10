@@ -3,6 +3,7 @@
 # Export driver: syck-pecl
 # Author: Armando-Martin
 # Author: Erick mata
+# Author: Maumau
 # Author: Sampalahnuk
 es: 
   translated_activities-name-activity_id-19: perfil
@@ -12,8 +13,8 @@ es:
   translated_activities-name-activity_id-53: esconder
   translated_activities-name-activity_id-54: actualización
   translated_activities-name-activity_id-55: inapropiado
-  translated_activities-name-activity_id-56: borra
-  translated_activities-name-activity_id-57: tasa
+  translated_activities-name-activity_id-56: borrar
+  translated_activities-name-activity_id-57: califica
   translated_activities-name-activity_id-58: De confianza
   translated_activities-name-activity_id-59: Sin revisar
   translated_activities-name-activity_id-63: recopilar
@@ -73,7 +74,7 @@ es:
   translated_contact_subjects-title-contact_subject_id-26: Aprendizaje y educación
   translated_contact_subjects-title-contact_subject_id-27: Hágase socio de contenido
   translated_contact_subjects-title-contact_subject_id-28: Soporte para los socios de contenido
-  translated_contact_subjects-title-contact_subject_id-29: Soporte de los conservadores
+  translated_contact_subjects-title-contact_subject_id-29: Soporte para curadores
   translated_contact_subjects-title-contact_subject_id-30: Hacer una corrección (ortografía y gramática, imágenes, información)
   translated_contact_subjects-title-contact_subject_id-31: Contribuir con imágenes, vídeos o sonidos
   translated_contact_subjects-title-contact_subject_id-32: Solicitudes de prensa (entrevistas, preguntas, solicitudes de logotipos)

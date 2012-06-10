@@ -2550,10 +2550,21 @@ fr:
         tweet_text: Synonymes de %{scientific_name}
     overviews: 
       show: 
-        tweet_text: Vue d'ensemble de %{scientific_name}
+        hierarchy_entry: 
+          meta_description: Un résumé des informations concernant %{scientific_name}, tel que classé par %{hierarchy_provider}, dans l’Encyclopédie de la Vie.
+          meta_description_with_common_name: Un résumé des informations concernant %{preferred_common_name}, scientifiquement appelé %{scientific_name}, tel que classé par %{hierarchy_provider}, dans l’Encyclopédie de la Vie.
+          meta_keywords: "%{scientific_name} tel que reconnu par %{hierarchy_provider}, %{scientific_name} tel que classé par %{hierarchy_provider}"
+          meta_keywords_with_common_name: "%{scientific_name} reconnu par %{hierarchy_provider}, %{scientific_name} classé par %{hierarchy_provider}"
+          meta_title: "%{scientific_name} Classé par %{hierarchy_provider}"
+          meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} Classé par %{hierarchy_provider})"
+          tweet_text: Vue d’ensemble de %{scientific_name}, tel que classé par %{hierarchy_provider}
+        meta_description: Vue d’ensemble de %{scientific_name} dans l’Encyclopédie de la Vie.
+        meta_description_with_common_name: Vue d’ensemble de %{preferred_common_name}, scientifiquement appelé %{scientific_name}, dans l’Encyclopédie de la Vie.
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})"
+        tweet_text: Vue d’ensemble de %{scientific_name}
     resources: 
       biomedical_terms: 
-        meta_title: Termes biomédicales pour %{scientific_name}
+        meta_title: Termes biomédicaux pour %{scientific_name}
   taxa_column_header: Taxons
   taxon: taxon
   taxon_biomedical_terms_link: Termes biomédicaux

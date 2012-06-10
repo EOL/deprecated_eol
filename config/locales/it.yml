@@ -229,15 +229,15 @@ it:
         even: deve essere pari
         exclusion: è riservato
         greater_than: 
-          one: deve essere maggiore di %{count}}
-          other: devono essere maggiori di %{count}}
+          one: deve essere maggiore di %{count}
+          other: devono essere maggiori di %{count}
         greater_than_or_equal_to: deve essere maggiore o uguale a %{count}
         inaccessible: è inaccessibile
         inclusion: non è incluso nella lista
         invalid: non è valido
         less_than: 
-          one: deve essere minore di %{count}}
-          other: devono essere minori di %{count}}
+          one: deve essere minore di %{count}
+          other: devono essere minori di %{count}
         less_than_or_equal_to: deve essere minore o uguale a %{count}
         not_a_number: non è un numero
         not_an_integer: deve essere un numero intero
@@ -958,9 +958,9 @@ it:
       meta_keywords: Animali, immagini di animali, informazioni sugli animali, piante, vita delle piante, immagini di piante, informazioni sulle piante, flora, fauna
       meta_title: Animali - piante - immagini e informazioni
       see_all_recent_activites: vedi altre <span class="assistive">attività nell'ultima settimana</span>
-  content_partner_agreement_cancel_edit_agreement_link: Cancella
-  content_partner_agreement_cancel_new_agreement_link: Cancella
-  content_partner_agreement_cancel_sign_agreement_link: Cancella
+  content_partner_agreement_cancel_edit_agreement_link: Annulla
+  content_partner_agreement_cancel_new_agreement_link: Annulla
+  content_partner_agreement_cancel_sign_agreement_link: Annulla
   content_partner_contact_edit_link: Modifica contatto
   content_partner_contact_edit_page_subheader: Modifica contatto
   content_partner_contact_new_link: Aggiungi nuovo contatto
@@ -1050,8 +1050,8 @@ it:
       meta_supplier_default: un contributore
       meta_title: "%{dato_title} da %{supplier}"
       tweet_text: "%{dato_title} da %{supplier}"
-  dato_create_cancel: Cancella
-  dato_edit_cancel: Cancella
+  dato_create_cancel: Annulla
+  dato_edit_cancel: Annulla
   delete_community: Elimina questa comunità
   detail: Dettagli
   development_version_name: EOL V2 Beta
@@ -1321,9 +1321,19 @@ it:
   jsonp_by_adding_a_callback_parameter: ... e JSONP con l'aggiunta di un parametro di callback
   just_pages_with_pictures_and_text: Solo quelle pagine con immagini e testo
   language: "Lingua:"
+  language_with_count: "%{language} (%{count})"
+  last_updated: Ultimo aggiornamento
   last_updated_time_ago: Ultimo aggiornamento %{time_passed} fa
-  learn_about_content_partners: Informazioni su chi collabora alla raccolta di contenuti
+  learn_about_collections: Come posso crearne uno?
+  learn_about_communities: Come posso partecipare?
+  learn_about_content_partners: Come si fa a diventarlo?
+  learn_about_contributing: Come posso contribuire?
+  learn_about_eol: Come posso usare EOL?
+  learn_about_joining: Come posso farne parte?
+  learn_more_link: (%{learn_more})
+  learn_more_lowercase: per saperne di più
   leave_a_comment: Lascia un commento
+  leave_community_button: Lascia questa comunità
   license: Licenza
   license_all_rights_reserved: Tutti i diritti riservati.
   license_cc_by: Creative Commons Attribuzione (CC BY)

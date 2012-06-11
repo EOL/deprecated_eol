@@ -764,6 +764,15 @@ class TaxonConcept < ActiveRecord::Base
         :data_type_ids => DataType.image_type_ids,
         :return_hierarchically_aggregated_objects => true
       }))
+      if exemplar = published_exemplar_image
+        original_length = image_objects.length
+        # remove the exemplar if it is already in the list
+        image_objects.delete_if{ |d| d.guid == exemplar.guid }
+        # prepend the exemplar if it exists
+        image_objects.unshift(exemplar)
+        # if the exemplar increased the size of our image array, remove the last one
+        image_objects.pop if image_objects.length > original_length
+      end
     end
     
     # GET THE VIDEOS

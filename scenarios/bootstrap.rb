@@ -10,6 +10,8 @@
 #dependencies: [ :foundation ]
 #arbitrary_variable: arbitrary value
 
+$LOADING_BOOTSTRAP = true
+
 # We turn off Solr and reindex the whole lot at the end - its faster that way
 original_index_records_on_save_value = $INDEX_RECORDS_IN_SOLR_ON_SAVE
 $INDEX_RECORDS_IN_SOLR_ON_SAVE = false
@@ -623,3 +625,5 @@ EOL::Solr::CollectionItemsCoreRebuilder.begin_rebuild
 
 $INDEX_RECORDS_IN_SOLR_ON_SAVE = original_index_records_on_save_value
 $SKIP_CREATING_ACTIVITY_LOGS_FOR_COMMENTS = false
+
+$LOADING_BOOTSTRAP = false

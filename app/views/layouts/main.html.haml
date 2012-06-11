@@ -124,7 +124,7 @@
                     =  I18n.t(:hello_user , :user => current_user.given_name)
 
                 = @home_page.nil? ? "</p><p>" : " | "
-                = link_to( I18n.t(:admin) ,{:controller => '/admin',:action => 'index'}) + " | " if current_user.is_admin?
+                = link_to( I18n.t(:pages_admin_section_link) ,{:controller => '/admin',:action => 'index'}) + " | " if current_user.is_admin?
                 - if current_user.is_curator?
                   = link_to("curators", {:controller => '/content', :action => 'page', :id => 'curator_central'})
                   |

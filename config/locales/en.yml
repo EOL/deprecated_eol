@@ -310,7 +310,7 @@ en:
         comment_on_my_profile: A comment on your profile
         comment_on_my_contribution: A comment and/or curatorial action on a contribution you made
         comment_on_my_collection: A comment on a collection you manage
-        comment_on_my_community: A comment in one of your communities
+        comment_on_my_community: A comment in one of the communities you are a member of
         invitation_to_community: Invitation to join a community
         made_me_a_manager: You have been made a collection or community manager
         member_joined_my_community: A new member has joined a community that you manage
@@ -1457,7 +1457,6 @@ en:
   map_rating: "Map rating"
   0_or_1: "0 or 1"
   0_1_or_2: "0, 1 or 2"
-  1st_view: "1st View"
   about_eol: "About EOL"
   account_information: "Account Information"
   account_information_menu: "Account Information"
@@ -1667,7 +1666,7 @@ en:
       add_association:
         an_unknown_user_associated_an_older_data_object_to_an_unknown_association: "An unknown user added an association between an older version of \"%{data_object}\" and an unknown page."
         an_unknown_user_associated_an_older_data_object_to_association: "An unknown user added an association between an older version of \"%{data_object}\" and \"%{association}\"."
-        an_unknown_user_associated_an_unknown_data_object_to_an_unknown_association: "An unknown user added an unknown assoication."
+        an_unknown_user_associated_an_unknown_data_object_to_an_unknown_association: "An unknown user added an unknown association."
         an_unknown_user_associated_an_unknown_data_object_to_association: "An unknown user added an association between an unknown data object and \"%{association}\"."
         an_unknown_user_associated_data_object_to_an_unknown_association: "An unknown user added an association between \"%{data_object}\" and an unknown page."
         an_unknown_user_associated_data_object_to_association: "An unknown user added an association between \"%{data_object}\" and \"%{association}\"."
@@ -1776,12 +1775,12 @@ en:
         user_unreviewed_an_unknown_name_on_it: "<strong>%{user}</strong> marked an unknown common name as unreviewed."
         user_unreviewed_name_on_it: "<strong>%{user}</strong> marked the common name \"%{name}\" as unreviewed."
       preferred_classification:
-        an_unknown_user_preferred_unknown_classification_on_an_unknown_taxon: "An unknown user marked an unknown        classification as preferred for an unknown taxon."
-        an_unknown_user_preferred_unknown_classification_on_it: "An unknown user marked an unknown classification as    preferred."
+        an_unknown_user_preferred_unknown_classification_on_an_unknown_taxon: "An unknown user marked an unknown classification as preferred for an unknown taxon."
+        an_unknown_user_preferred_unknown_classification_on_it: "An unknown user marked an unknown classification as preferred."
         an_unknown_user_preferred_unknown_classification_on_taxon: "An unknown user marked an unknown classification as preferred for \"%{taxon}\"."
-        user_preferred_unknown_classification_on_an_unknown_taxon: "<strong>%{user}</strong> marked an unknown          classification as preferred for an unknown taxon."
-        user_preferred_unknown_classification_on_it: "<strong>%{user}</strong> marked an unknown classification as      preferred."
-        user_preferred_unknown_classification_on_taxon: "<strong>%{user}</strong> marked an unknown classification as   preferred for \"%{taxon}\"."
+        user_preferred_unknown_classification_on_an_unknown_taxon: "<strong>%{user}</strong> marked an unknown classification as preferred for an unknown taxon."
+        user_preferred_unknown_classification_on_it: "<strong>%{user}</strong> marked an unknown classification as preferred."
+        user_preferred_unknown_classification_on_taxon: "<strong>%{user}</strong> marked an unknown classification as preferred for \"%{taxon}\"."
         an_unknown_user_preferred_classification_on_an_unknown_taxon: "An unknown user marked the classification from \"%{provider}\" as preferred for an unknown taxon."
         an_unknown_user_preferred_classification_on_it: "An unknown user marked the classification from \"%{provider}\" as preferred."
         an_unknown_user_preferred_classification_on_taxon: "An unknown user marked the classification from \"%{provider}\" as preferred for \"%{taxon}\"."
@@ -1830,7 +1829,6 @@ en:
   add_sub_chapter: "Add sub-chapter"
   add_to_a_community: "Add to a community"
   add_to_my_collection_button: "Add to a collection"
-  admin: "admin"
   admin_content_page_active: "Published"
   admin_content_page_not_active: "Unpublished"
   admin_content_page_child_new_link: "Create child page"
@@ -1904,7 +1902,6 @@ en:
   all_information: "All information"
   all_items: All items
   all_news: "all news"
-  all_pages: "All pages"
   all_people: All people
   all_sounds: All sounds
   all_sources: "All sources"
@@ -2011,7 +2008,6 @@ en:
   browse_hierarchy: "browse hierarchy"
   browsing_branch_colon: "Browsing Branch:"
   build_communities: "Build communities"
-  by: "by"
   by_caps: "By"
   by_scientific_name_table_header: "by Scientific Name"
   cache_store: "Cache Store"
@@ -2034,7 +2030,9 @@ en:
   choose_collection_header: "Choose collection"
   citing_link: "Citing"
   classification_already_preferred: "ERROR: This classification has already been marked as preferred."
+  classification_from_agent: "Classification from %{agent}."
   classification_from_agent_chosen_by_curator: "Classification from %{agent} selected by %{curator}."
+  classification_from_agent_chosen_by_curator_see_more: "Classification from %{agent} selected by %{curator} - <a href=\"%{more_link}\">see more</a>."
   classification_preferred_for_taxon: "Preferred"
   classification_preferred_for_taxon_help_tip: "%{icon} marks the preferred classification for this taxon."
   classification_summary_section_header: "Classification"
@@ -2045,6 +2043,7 @@ en:
   classifications_rank_column_header: "Rank"
   classifications_hierarchy_column_header: "Classification"
   classifications_summary_header_with_count:
+    zero: "Classification not normally visible on EOL"
     one: "Found in %{count} classification"
     other: "Found in %{count} classifications"
   classifications_with_count:
@@ -2498,7 +2497,7 @@ en:
   disable_email_notifications_colon: "Disabled emails:"
   disabled_for_now: "DISABLED FOR NOW"
   discover_link: "Discover"
-  displaying_numerical_range: "Displaying %{start_number} &mdash; %{end_number} of %{total}"
+  displaying_numerical_range: "Displaying %{start_number} &ndash; %{end_number} of %{total}"
   donate: "Donate"
   donation_amount_legend: "Choose the amount you would like to donate"
   donation_amount_other_label: "Other"
@@ -3151,7 +3150,6 @@ en:
   page: "Page"
   page_results_avg: "Page Results avg"
   page_urls: "Page URL(s):"
-  pages: "pages."
   pages_title: "References"
   pages_with_count:
     one: "%{count}"
@@ -3248,7 +3246,6 @@ en:
   recognized_by_from_source: '%{recognized_by} in %{source}'
   recognized_by_as_a_rank: '%{recognized_by} as a %{taxon_rank}'
   recognized_by_from_source_as_a_rank: '%{recognized_by} in %{source} as a %{taxon_rank}'
-  recognized_by: "Recognized by"
   record_not_found: "[record not found]"
   related_names_with_count:
     one: "%{count} related name"
@@ -3371,7 +3368,7 @@ en:
   show_email_message_area: "[show email message area]"
   show_data_from_all_content_partners: "Remove classification filter"
   show_full_tree: "show full tree..."
-  showing_errors_the_error_log_f: "Showing errors the error log for:"
+  showing_errors_the_error_log_f: "Showing errors logged on:"
   showing_procs_from: "Showing processes from:"
   showing: "Showing"
   shown_to_the_user_parens: "(shown to the user)"

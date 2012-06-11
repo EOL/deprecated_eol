@@ -238,7 +238,7 @@ class Comment < ActiveRecord::Base
     add_recipient_collections_containing_object_getting_commented_on(@notification_recipients)
     add_recipient_replied_to_user(@notification_recipients)
     add_recipient_collection_managers(@notification_recipients)
-    add_recipient_community_managers(@notification_recipients)
+    add_recipient_community_members(@notification_recipients)
     add_recipient_users_watching(@notification_recipients)
     add_recipient_author_of_commented_on_text(@notification_recipients)
     @notification_recipients
@@ -308,10 +308,10 @@ private
     end
   end
 
-  def add_recipient_community_managers(recipients)
+  def add_recipient_community_members(recipients)
     if self.parent_type == 'Community'
-      self.parent.managers_as_users.each do |manager|
-        manager.add_as_recipient_if_listening_to(:comment_on_my_community, recipients)
+      self.parent.users.each do |usr|
+        usr.add_as_recipient_if_listening_to(:comment_on_my_community, recipients)
       end
     end
   end

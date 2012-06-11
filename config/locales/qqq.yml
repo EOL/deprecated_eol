@@ -125,3 +125,7 @@ qqq:
   that tree has been lost from the database, and this error is shown."
   recent_activity:
     intro_weekly: "'ending' in this case will be a date, in the 'long' format."
+  users:
+    content_partners:
+      index:
+        meta_title: "The meaning here is *intended* to be genitive / possessive... but for search optimization, should probably NOT grammatically modify the user_full_name. Additionally, user_full_name should come first."

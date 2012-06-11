@@ -289,7 +289,7 @@ class DataObject < ActiveRecord::Base
         new_dato.unpublish_previous_revisions
         self.replicate_associations(new_dato)
       rescue => e
-        dato.update_attribute(:published, false)
+        new_dato.update_attribute(:published, false)
         raise e
       ensure
         new_dato.update_solr_index

@@ -1,7 +1,11 @@
 class ContactsController < ApplicationController
 
   layout 'v2/basic'
-
+  
+  def index
+    redirect_to contact_us_path
+  end
+  
   # GET /contacts/new and named route /contact_us
   def new
     @contact = Contact.new

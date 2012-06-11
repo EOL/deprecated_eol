@@ -52,7 +52,8 @@
           - if siblings.length == max_children
             - sister = siblings[max_children-1]
             - sister = siblings[max_children] if sister == hierarchy_entry
-            %li= navigation_node(sister, :link_to_taxa => link_to_taxa, :show_siblings => show_siblings)
+            - unless sister.nil?
+              %li= navigation_node(sister, :link_to_taxa => link_to_taxa, :show_siblings => show_siblings)
           - if siblings.length > max_children
             %li.show_tree_count
               = I18n.t(:more_siblings_with_count, :count => siblings.length - max_children)

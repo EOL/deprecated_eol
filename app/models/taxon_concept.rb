@@ -1264,6 +1264,7 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def curator_chosen_classification
+    return nil if preferred_entry.nil?
     CuratedTaxonConceptPreferredEntry.find_by_hierarchy_entry_id_and_taxon_concept_id(
       preferred_entry.hierarchy_entry_id, self.id
     ) 

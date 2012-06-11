@@ -38,7 +38,7 @@ ActionController::Routing::Routes.draw do |map|
   map.placeholder 'placeholder', :action => 'not_yet_implemented', :controller => 'application'
 
 
-  map.resources :contacts, :only => [:create, :new]
+  map.resources :contacts, :only => [:index, :create, :new]
   map.contact_us '/contact_us', :controller => 'contacts', :action => 'new'
 
   map.resources :feed_items

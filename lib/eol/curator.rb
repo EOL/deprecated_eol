@@ -193,7 +193,7 @@ module EOL
           self.curator_approved   = 1
         end
         self.save
-        Notifier.deliver_curator_approved(self)
+        Notifier.deliver_curator_approved(self) unless $LOADING_BOOTSTRAP
         join_curator_community_if_curator unless was_curator
       end
       self.update_attribute(:requested_curator_level_id, nil) # Not using validations; don't care if user is valid

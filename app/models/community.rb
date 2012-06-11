@@ -5,6 +5,7 @@ class Community < ActiveRecord::Base
   has_and_belongs_to_many :collections, :uniq => true
 
   has_many :members
+  has_many :users, :through => :members
   has_many :collection_items, :as => :object # THIS IS COLLECTION ITEMS POINTING AT THIS COLLECTION!
   has_many :collected_items, :class_name => 'CollectionItem',
            :finder_sql => 'SELECT ci.* FROM collection_items ci JOIN collections c ON (ci.collection_id = c.id) ' +

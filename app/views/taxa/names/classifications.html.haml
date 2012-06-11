@@ -34,7 +34,7 @@
                   %td{:class => "preferred_entry_selector", :title => preferred_label}
                     = radio_button_tag 'hierarchy_entry_id', hierarchy_entry.id, preferred ? TRUE : FALSE
                 %td{:class => preferred && !can_curate ? 'preferred' : nil}
-                  = hierarchy_entry_display_attribution(hierarchy_entry, :show_rank => false, :show_link => false)
+                  = hierarchy_entry_display_attribution(hierarchy_entry, :show_rank => false, :show_link => true)
                   - if hierarchy_entry.hierarchy.browsable.to_i == 1
                     %br
                     = link_to(I18n.t(:view_in_classification), taxon_hierarchy_entry_overview_path(@taxon_concept, hierarchy_entry))

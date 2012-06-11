@@ -15,16 +15,22 @@
   - else
     #classifications_tree.article
       .header
+        -# NOTE that there is an exceptional value for :classifications_summary_header_with_count when the count is
+        -# zero.  ...See the translation file for specifics, but it basically says that there is no *browsable*
+        -# classification available.
         %h3= I18n.t(:classifications_summary_header_with_count, :count => classifications_count)
         - if classifications_count > 1
           - if @selected_hierarchy_entry
             = link_to(I18n.t(:see_all_classifications_with_count_html, :count => classifications_count), taxon_hierarchy_entry_names_path(@taxon_concept, @selected_hierarchy_entry))
           - else
             = link_to(I18n.t(:see_all_classifications_with_count_html, :count => classifications_count), taxon_names_path(@taxon_concept))
-      - if classifications_count > 0
+      - if classifications_count > 0 || @taxon_concept.deep_published_nonbrowsable_hierarchy_entries.count > 0 || @taxon_concept.entry
         #classification_browser.browsable.classifications
           %ul
             - hierarchy_entry = @browsable_hierarchy_entries.shuffle.first
+            -# Please note that #deep_published_nonbrowsable_hierarchy_entries IS cached, so not really called twice.
+            - hierarchy_entry ||= @taxon_concept.deep_published_nonbrowsable_hierarchy_entries.shuffle.first
+            - hierarchy_entry ||= @taxon_concept.entry
             %li
               - hierarchy_label = hierarchy_display_title(hierarchy_entry.hierarchy)
               %h4= I18n.t(:rank_recognized_by_agent_colon, :rank => hierarchy_entry.rank_label, :agent => hierarchy_label)

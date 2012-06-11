@@ -2041,6 +2041,7 @@ en:
   classifications_rank_column_header: "Rank"
   classifications_hierarchy_column_header: "Classification"
   classifications_summary_header_with_count:
+    zero: "Classification not normally visible on EOL"
     one: "Found in %{count} classification"
     other: "Found in %{count} classifications"
   classifications_with_count:

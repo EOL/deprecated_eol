@@ -12,7 +12,7 @@
         %ul
           = render(:partial => 'taxa/trees/show', :locals => {:in_hierarchy => true, :hierarchy_entry => hierarchy_entry, :link_to_taxa => true, :show_siblings => true})
   - else
-    #classifications_summary.article.browsable.classifications
+    #classifications_summary.article
       - count = @browsable_hierarchy_entries.length
       .header
         %h3= I18n.t(:classifications_summary_header_with_count, :count => count)
@@ -24,7 +24,7 @@
       - if count > 0
         %ul
           - @browsable_hierarchy_entries.shuffle[0..1].each do |hierarchy_entry|
-            %li
+            %li.browsable.classifications
               - hierarchy_label = hierarchy_display_title(hierarchy_entry.hierarchy)
               %h4= I18n.t(:rank_recognized_by_agent_colon, :rank => hierarchy_entry.rank_label, :agent => hierarchy_label)
               %ul

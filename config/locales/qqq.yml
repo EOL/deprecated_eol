@@ -129,3 +129,4 @@ qqq:
     content_partners:
       index:
         meta_title: "The meaning here is *intended* to be genitive / possessive... but for search optimization, should probably NOT grammatically modify the user_full_name. Additionally, user_full_name should come first."
+  classifications_summary_header_with_count: "Please note that there is an exceptional value for zero, here, which does not display the actual count, but instead a brief message explaining that the page the user is viewing is not easily availble on EOL (the user was likely directed here with a specific link) and that there are no *browsable* classifications for this page.  The notion here is that there are some classifications (trees of life) that are stored in EOL's databases, but the user cannot view them (browse them) by default. Note this is used as a header, so punctuation is not (generally) appropriate."

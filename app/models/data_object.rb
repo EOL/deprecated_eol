@@ -807,17 +807,17 @@ class DataObject < ActiveRecord::Base
   def reasons(hierarchy_entry, activity)
     if hierarchy_entry.class == UsersDataObject
       log = CuratorActivityLog.find_all_by_object_id_and_changeable_object_type_id_and_activity_id(
-        id, ChangeableObjectType.users_data_object.id, activity.id
+        latest_published_revision.id, ChangeableObjectType.users_data_object.id, activity.id
       ).last
       log ? log.untrust_reasons.collect{|ur| ur.untrust_reason_id} : []
     elsif hierarchy_entry.associated_by_curator
       log = CuratorActivityLog.find_all_by_object_id_and_changeable_object_type_id_and_activity_id_and_hierarchy_entry_id(
-        id, ChangeableObjectType.curated_data_objects_hierarchy_entry.id, activity.id, hierarchy_entry.id
+        latest_published_revision.id, ChangeableObjectType.curated_data_objects_hierarchy_entry.id, activity.id, hierarchy_entry.id
       ).last
       log ? log.untrust_reasons.collect{|ur| ur.untrust_reason_id} : []
     else
       log = CuratorActivityLog.find_all_by_object_id_and_changeable_object_type_id_and_activity_id_and_hierarchy_entry_id(
-        id, ChangeableObjectType.data_objects_hierarchy_entry.id, activity.id, hierarchy_entry.id
+        latest_published_revision.id, ChangeableObjectType.data_objects_hierarchy_entry.id, activity.id, hierarchy_entry.id
       ).last
       log ? log.untrust_reasons.collect{|ur| ur.untrust_reason_id} : []
     end
@@ -841,7 +841,7 @@ class DataObject < ActiveRecord::Base
   end
 
   def curated_hierarchy_entries
-    dohes = data_objects_hierarchy_entries.compact.map { |dohe|
+    dohes = latest_published_revision.data_objects_hierarchy_entries.compact.map { |dohe|
       if dohe.hierarchy_entry && he = dohe.hierarchy_entry.dup
         he.vetted = dohe.vetted
         he.visibility = dohe.visibility
@@ -878,11 +878,11 @@ class DataObject < ActiveRecord::Base
   end
 
   def all_associations
-    @all_assoc ||= (published_entries + unpublished_entries + [users_data_object]).compact
+    @all_assoc ||= (published_entries + unpublished_entries + [latest_published_revision.users_data_object]).compact
   end
 
   def all_published_associations
-    @all_pub_assoc ||= (published_entries + [users_data_object]).compact
+    @all_pub_assoc ||= (published_entries + [latest_published_revision.users_data_object]).compact
   end
 
   def first_concept_name

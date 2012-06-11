@@ -2029,6 +2029,7 @@ en:
   choose_collection_header: "Choose collection"
   citing_link: "Citing"
   classification_already_preferred: "ERROR: This classification has already been marked as preferred."
+  classification_from_agent: "Classification from %{agent}."
   classification_from_agent_chosen_by_curator: "Classification from %{agent} selected by %{curator}."
   classification_preferred_for_taxon: "Preferred"
   classification_preferred_for_taxon_help_tip: "%{icon} marks the preferred classification for this taxon."

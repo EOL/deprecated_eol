@@ -2031,6 +2031,7 @@ en:
   classification_already_preferred: "ERROR: This classification has already been marked as preferred."
   classification_from_agent: "Classification from %{agent}."
   classification_from_agent_chosen_by_curator: "Classification from %{agent} selected by %{curator}."
+  classification_from_agent_chosen_by_curator_see_more: "Classification from %{agent} selected by %{curator} - <a href=\"%{more_link}\">see more</a>."
   classification_preferred_for_taxon: "Preferred"
   classification_preferred_for_taxon_help_tip: "%{icon} marks the preferred classification for this taxon."
   classification_summary_section_header: "Classification"

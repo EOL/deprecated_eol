@@ -1456,7 +1456,6 @@ en:
   map_rating: "Map rating"
   0_or_1: "0 or 1"
   0_1_or_2: "0, 1 or 2"
-  1st_view: "1st View"
   about_eol: "About EOL"
   account_information: "Account Information"
   account_information_menu: "Account Information"
@@ -1829,7 +1828,6 @@ en:
   add_sub_chapter: "Add sub-chapter"
   add_to_a_community: "Add to a community"
   add_to_my_collection_button: "Add to a collection"
-  admin: "admin"
   admin_content_page_active: "Published"
   admin_content_page_not_active: "Unpublished"
   admin_content_page_child_new_link: "Create child page"
@@ -1903,7 +1901,6 @@ en:
   all_information: "All information"
   all_items: All items
   all_news: "all news"
-  all_pages: "All pages"
   all_people: All people
   all_sounds: All sounds
   all_sources: "All sources"
@@ -2010,7 +2007,6 @@ en:
   browse_hierarchy: "browse hierarchy"
   browsing_branch_colon: "Browsing Branch:"
   build_communities: "Build communities"
-  by: "by"
   by_caps: "By"
   by_scientific_name_table_header: "by Scientific Name"
   cache_store: "Cache Store"
@@ -3150,7 +3146,6 @@ en:
   page: "Page"
   page_results_avg: "Page Results avg"
   page_urls: "Page URL(s):"
-  pages: "pages."
   pages_title: "References"
   pages_with_count:
     one: "%{count}"
@@ -3247,7 +3242,6 @@ en:
   recognized_by_from_source: '%{recognized_by} in %{source}'
   recognized_by_as_a_rank: '%{recognized_by} as a %{taxon_rank}'
   recognized_by_from_source_as_a_rank: '%{recognized_by} in %{source} as a %{taxon_rank}'
-  recognized_by: "Recognized by"
   record_not_found: "[record not found]"
   related_names_with_count:
     one: "%{count} related name"
@@ -3370,7 +3364,7 @@ en:
   show_email_message_area: "[show email message area]"
   show_data_from_all_content_partners: "Remove classification filter"
   show_full_tree: "show full tree..."
-  showing_errors_the_error_log_f: "Showing errors the error log for:"
+  showing_errors_the_error_log_f: "Showing errors logged on:"
   showing_procs_from: "Showing processes from:"
   showing: "Showing"
   shown_to_the_user_parens: "(shown to the user)"

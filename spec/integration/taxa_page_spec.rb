@@ -1,6 +1,9 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 require 'nokogiri'
 
+# WARNING: Regarding use of subject in this spec, if you are using with_tag you must specify body.should
+# due to bug @see https://rspec.lighthouseapp.com/projects/5645/tickets/878-problem-using-with_tag
+
 class TaxonConcept
   def self.missing_id
     missing_id = TaxonConcept.last.id + 1
@@ -72,7 +75,7 @@ describe 'Taxa page' do
     end
 
     it 'should show actions for text objects' do
-      body.should have_tag('div.actions') do # note this should be a div.actions and not the p.actions defined in HR markup
+      body.should have_tag('div.actions') do
         with_tag('p')
       end
     end
@@ -243,48 +246,12 @@ describe 'Taxa page' do
   end
 
   shared_examples_for 'taxon literature tab' do
-    # it 'should NOT show references for the overview text when there aren\'t any' do
-    #   Ref.delete_all
-    #   visit("/pages/#{@id}")
-    #   body.should_not have_tag('div.references')
-    # end
-    #
-    # it 'should show references for the overview text (with URL and DOI identifiers ONLY) when present' do
-    #   full_ref = 'This is the reference text that should show up'
-    #   # TODO - When we add "helper" methods to Rails classes for testing, then "add_reference" could be
-    #   # extracted to do this:
-    #   url_identifier = 'some/url.html'
-    #   doi_identifier = '10.12355/foo/bar.baz.230'
-    #   bad_identifier = 'you should not see this identifier'
-    #   @taxon_concept.overview[0].refs << ref = Ref.gen(:full_reference => full_ref, :published => 1, :visibility => Visibility.visible)
-    #   # I heard you like RSpec, so we put a lot of tests in your test so you could spec while you're
-    #   # speccing.There are actually a lot of 'tests' in this test. For one, we're testing that URLs will have http://
-    #   # added to them if they are blank. We're also testing the regex that pulls DOIs out of potentially
-    #   # messy DOI identifiers:
-    #   ref.add_identifier('url', url_identifier)
-    #   ref.add_identifier('doi', "doi: #{doi_identifier}")
-    #   ref.add_identifier('bad', bad_identifier)
-    #   visit("/pages/#{@id}")
-    #   body.should have_tag('div.references')
-    #   body.should include(full_ref)
-    #   body.should have_tag("a[href=http://#{url_identifier}]")
-    #   body.should_not include(bad_identifier)
-    #   body.should have_tag("a[href=http://dx.doi.org/#{doi_identifier}]")
-    # end
-    #
-    # it 'should NOT show references for the overview text when reference is invisible' do
-    #   full_ref = 'This is the reference text that should show up'
-    #   @taxon_concept.overview[0].refs << ref = Ref.gen(:full_reference => full_ref, :published => 1, :visibility => Visibility.invisible)
-    #   visit("/pages/#{@id}")
-    #   body.should_not have_tag('div.references')
-    # end
-    #
-    # it 'should NOT show references for the overview text when reference is unpublished' do
-    #   full_ref = 'This is the reference text that should show up'
-    #   @taxon_concept.overview[0].refs << ref = Ref.gen(:full_reference => full_ref, :published => 0, :visibility => Visibility.visible)
-    #   visit("/pages/#{@id}")
-    #   body.should_not have_tag('div.references')
-    # end
+    it 'should show some references' do
+      refs = @taxon_concept.data_objects.collect{|dato| dato.refs.collect{|ref| ref.full_reference}.compact}.flatten.compact
+      body.should have_tag('.ref_list') do
+        refs.each { |ref| with_tag('li', /ref/) }
+      end
+    end
   end
 
   shared_examples_for 'taxon name - taxon_concept page' do
@@ -316,8 +283,6 @@ describe 'Taxa page' do
       @section = 'overview'
     end
     subject { body }
-    # WARNING: Regarding use of subject, if you are using with_tag you must specify body.should... due to bug.
-    # @see https://rspec.lighthouseapp.com/projects/5645/tickets/878-problem-using-with_tag
     it_should_behave_like 'taxon name - taxon_concept page'
     it_should_behave_like 'taxon pages with all expected data'
     it_should_behave_like 'taxon overview tab'
@@ -345,8 +310,6 @@ describe 'Taxa page' do
       @section = 'overview'
     end
     subject { body }
-    # WARNING: Regarding use of subject, if you are using with_tag you must specify body.should... due to bug.
-    # @see https://rspec.lighthouseapp.com/projects/5645/tickets/878-problem-using-with_tag
     it_should_behave_like 'taxon name - hierarchy_entry page'
     it_should_behave_like 'taxon pages with all expected data'
     it_should_behave_like 'taxon overview tab'
@@ -359,8 +322,6 @@ describe 'Taxa page' do
       @section = 'resources'
     end
     subject { body }
-    # WARNING: Regarding use of subject, if you are using with_tag you must specify body.should... due to bug.
-    # @see https://rspec.lighthouseapp.com/projects/5645/tickets/878-problem-using-with_tag
     it_should_behave_like 'taxon name - taxon_concept page'
     it_should_behave_like 'taxon pages with all expected data'
     it_should_behave_like 'taxon resources tab'
@@ -373,8 +334,6 @@ describe 'Taxa page' do
       @section = 'resources'
     end
     subject { body }
-    # WARNING: Regarding use of subject, if you are using with_tag you must specify body.should... due to bug.
-    # @see https://rspec.lighthouseapp.com/projects/5645/tickets/878-problem-using-with_tag
     it_should_behave_like 'taxon name - hierarchy_entry page'
     it_should_behave_like 'taxon pages with all expected data'
     it_should_behave_like 'taxon resources tab'
@@ -477,14 +436,13 @@ describe 'Taxa page' do
   end
 
 
-#  context 'when taxon does not have any common names'
-# TODO: figure out if this should be true and fix/remove as appropriate
-#    before(:all) { visit("/pages/#{@testy[:taxon_concept_with_no_common_names].id}") }
-#    subject { body }
-#    it 'should show common name count as 0' do
-#      should have_tag('#page_heading h2 small', /^(#{@testy[:taxon_concept_with_no_common_names].common_names.count})/)
-#    end
-
+  context 'when taxon does not have any common names' do
+    before(:all) { visit taxon_overview_path @testy[:taxon_concept_with_no_common_names] }
+    subject { body }
+    it 'should not show a common name' do
+      should_not have_tag('#page_heading h2')
+    end
+  end
 
   # @see 'should render when an object has no agents' in old taxa page spec
   context 'when taxon image does not have an agent' do
@@ -492,15 +450,27 @@ describe 'Taxa page' do
   end
 
   context 'when taxon does not have any data' do
-    it 'details should show what???'
+    it 'details should show empty text' do
+      t = TaxonConcept.gen(:published => 1)
+      visit taxon_details_path t
+      body.should have_tag('#taxon_detail #main .empty', /No one has contributed any details to this page yet/)
+      body.should_not have_tag('#toc')
+    end
   end
 
   context 'when taxon supercedes another concept' do
     it 'should use supercedure to find taxon if user visits the other concept' do
-      visit("/pages/#{@testy[:superceded_taxon_concept].id}")
-      current_path.should match /\/pages\/#{@testy[:id]}/
-      visit("/pages/#{@testy[:superceded_taxon_concept].id}/details")
-      current_path.should match /\/pages\/#{@testy[:id]}\/details/
+      visit taxon_overview_path @testy[:superceded_taxon_concept]
+      current_path.should match taxon_overview_path @testy[:id]
+      visit taxon_details_path @testy[:superceded_taxon_concept]
+      current_path.should match taxon_details_path @testy[:id]
+    end
+    it 'should show comments from superceded taxa' do
+      comment = Comment.gen(:parent_type => "TaxonConcept", :parent_id => @testy[:superceded_taxon_concept].id,
+                            :body => "Comment on superceded taxon.",
+                            :user => User.first)
+      visit taxon_overview_path @testy[:id]
+      body.should include("Comment on superceded taxon.")
     end
   end
 

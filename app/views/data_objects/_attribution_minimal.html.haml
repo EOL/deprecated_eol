@@ -4,6 +4,7 @@
 -# routines.  ...So we're going to try this out for articles for a while... it should speed up some of the common
 -# text-heavy details tabs and overviews.  That said, there is one caveat:
 -# if the dato gets more associations, it will not show them.  TODO - attempt to set up an observer to handle those.
+- # TODO: Refactor attribution partials to make better use of model and/or helper methods as they have all gone a little wild.
 - cache "article/attribution/#{I18n.locale}/#{data_object.id}" do
   = render :partial => 'data_objects/license', :locals => { :data_object => data_object }
   .copy

@@ -1,6 +1,9 @@
+- # TODO: This partial has gone crazy, we should refactor and use model and/or helper methods to get supplier
+- # for different contexts.
 - association_supplied_by_user ||= nil
 - minimal = false unless defined?(minimal)
 - translation = false unless defined?(translation)
+- rel = controller_name == 'data_objects' ? :nofollow : nil
 %p
   - if association_supplied_by_user
     = I18n.t(:supplier_colon)
@@ -12,14 +15,14 @@
     - if !data_object.source_url.blank?
       - if minimal
         = I18n.t(:source_colon)
-        = link_to data_object.content_partner.name, data_object.source_url, :rel => :nofollow rescue nil
+        = link_to data_object.content_partner.name, data_object.source_url, :rel => rel rescue nil
         %br
       - elsif !translation
-        = link_to I18n.t(:view_source), data_object.source_url, :rel => :nofollow rescue nil
+        = link_to I18n.t(:view_source), data_object.source_url, :rel => rel rescue nil
         %br
     - elsif !data_object.content_partner.homepage.blank?
       = I18n.t(:supplier_colon)
-      = link_to data_object.content_partner.name, data_object.content_partner.homepage, :rel => :nofollow rescue nil
+      = link_to data_object.content_partner.name, data_object.content_partner.homepage, :rel => rel rescue nil
       %br
     - if (data_object.source_url.blank? && data_object.content_partner.homepage.blank?) || !minimal
       = I18n.t(:supplier_colon)

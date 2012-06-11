@@ -52,7 +52,7 @@ class DataObject < ActiveRecord::Base
   # the select_with_include library doesn't allow to grab do.* one time, then do.id later on. So in order
   # to use this with preloading I highly recommend doing DataObject.preload_associations(data_objects, :all_versions) on an array
   # of data_objects which already has everything else preloaded
-  has_many :all_versions, :class_name => DataObject.to_s, :foreign_key => :guid, :primary_key => :guid, :select => 'id, guid'
+  has_many :all_versions, :class_name => DataObject.to_s, :foreign_key => :guid, :primary_key => :guid, :select => 'id, guid, language_id'
   has_many :all_published_versions, :class_name => DataObject.to_s, :foreign_key => :guid, :primary_key => :guid, :order => "id desc",
     :conditions => 'published = 1'
 
@@ -685,14 +685,21 @@ class DataObject < ActiveRecord::Base
   # a language == English, but other revisions have a language_id of 0. That explains some
   # of the complicated logic in this method
   def latest_published_version_in_same_language
-    return nil if all_published_versions.blank?
-    all_published_versions_in_language = all_published_versions.dup
+    latest_version_in_same_language(:check_only_published => true)
+  end
+  
+  def latest_version_in_same_language(params = {})
+    params[:check_only_published] = true unless params.has_key?(:check_only_published)
+    versions_to_look_at = params[:check_only_published] ? all_published_versions : all_versions
+    
+    return nil if versions_to_look_at.blank?
+    versions_to_look_at_in_language = versions_to_look_at.dup
     # if this object has a language, and its different from the revision language,
     # except when this is English and the other has no language
-    all_published_versions_in_language.delete_if{ |d| self.language && (d.language_id != self.language.id && !(d.language_id == 0 && self.language == Language.english)) }
+    versions_to_look_at_in_language.delete_if{ |d| self.language && (d.language_id != self.language.id && !(d.language_id == 0 && self.language == Language.english)) }
     # if this object has no language, and the revision does have a language other than English
-    all_published_versions_in_language.delete_if{ |d| !self.language && d.language && d.language != Language.english }
-    all_published_versions_in_language.sort_by{ |d| d.id }.reverse.first
+    versions_to_look_at_in_language.delete_if{ |d| !self.language && d.language && d.language != Language.english }
+    versions_to_look_at_in_language.sort_by{ |d| d.id }.reverse.first
   end
   
   def is_latest_published_version_in_same_language?

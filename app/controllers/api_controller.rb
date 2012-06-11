@@ -77,10 +77,15 @@ class ApiController < ApplicationController
     params[:details] = true
 
     begin
-      data_object = DataObject.latest_published_version_of_guid(data_object_guid)
+      d = DataObject.find_by_guid(data_object_guid)
+      data_object = d.latest_version_in_same_language(:check_only_published => true)
+      if data_object.blank?
+        data_object = d.latest_version_in_same_language(:check_only_published => false)
+      end
+      raise if data_object.blank?
       data_object = DataObject.core_relationships.find_by_id(data_object.id)
       raise if data_object.blank?
-      taxon_concept = data_object.first_taxon_concept
+      taxon_concept = data_object.all_associations.first.taxon_concept
     rescue
       render_error("Unknown identifier #{data_object_guid}")
       return

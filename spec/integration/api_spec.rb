@@ -350,13 +350,12 @@ describe 'EOL APIs' do
   
   # DataObjects
   
-  it "data objects shouldn't show invisible or unpublished objects" do
+  it "data objects should show unpublished objects" do
     @object.update_attribute(:published, 0)
-  
     visit("/api/data_objects/#{@object.guid}")
-    body.should include('<error>')
-    body.should include('</response>')
-  
+    xml_response = Nokogiri.XML(body)
+    xml_response.xpath('/').inner_html.should_not == ""
+    xml_response.xpath('//xmlns:dataObject/dc:identifier').inner_text.should == @object.guid
     @object.update_attribute(:published, 1)
   end
   

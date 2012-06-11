@@ -327,6 +327,26 @@ describe 'EOL APIs' do
     check_api_key("/api/pages/#{@taxon_concept.id}.json?key=#{@user.api_key}", @user)
   end
   
+  it 'pages should return exemplar images first' do
+    # debugger
+    @taxon_concept.taxon_concept_exemplar_image.should be_nil
+    first_image = @taxon_concept.images_from_solr.first
+    visit("/api/pages/1.0/#{@taxon_concept.id}.json?details=1&text=0&images=2&videos=0")
+    response_object = JSON.parse(body)
+    response_object['dataObjects'].first['identifier'].should == first_image.guid
+    
+    all_images = @taxon_concept.images_from_solr
+    next_exemplar = all_images.last
+    first_image.guid.should_not == next_exemplar.guid
+    TaxonConceptExemplarImage.set_exemplar(@taxon_concept, next_exemplar.id)
+    
+    @taxon_concept = TaxonConcept.find(@taxon_concept.id)
+    @taxon_concept.taxon_concept_exemplar_image.data_object.guid.should == next_exemplar.guid
+    visit("/api/pages/1.0/#{@taxon_concept.id}.json?details=1&text=0&images=2&videos=0")
+    response_object = JSON.parse(body)
+    response_object['dataObjects'].first['identifier'].should == next_exemplar.guid
+    response_object['dataObjects'][1]['identifier'].should == first_image.guid
+  end
   
   # DataObjects
   

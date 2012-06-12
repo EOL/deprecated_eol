@@ -10,8 +10,10 @@ class Taxa::MediaController < TaxaController
     @sort_by = params[:sort_by] ||= 'status'
     @type = params[:type] ||= ['all']
     @type = ['all'] if @type.include?('all')
+    @type = @type.values if @type.is_a?(Hash)
     @status = params[:status] ||= ['all']
     @status = ['all'] if @status.include?('all')
+    @status = @status.values if @status.is_a?(Hash)
     @exemplar_image = @taxon_concept.exemplar_or_best_image_from_solr(@selected_hierarchy_entry)
 
     data_type_ids = []

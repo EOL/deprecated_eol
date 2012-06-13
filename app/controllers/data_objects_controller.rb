@@ -284,7 +284,7 @@ class DataObjectsController < ApplicationController
     else
       access_denied
     end
-    redirect_back_or_default
+    redirect_back_or_default data_object_path(@data_object.latest_published_revision)
   end
 
   def ignore
@@ -546,7 +546,7 @@ private
       :changeable_object_type => changeable_object_type,
       :object_id => object_id,
       :activity => Activity.send(method),
-      :data_object => @data_object,
+      :data_object_guid => @data_object.guid,
       :hierarchy_entry => he,
       :created_at => 0.seconds.from_now
     }

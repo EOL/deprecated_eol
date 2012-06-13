@@ -21,7 +21,6 @@
 - else
   - translation_vars[:data_object] = link_to(item.data_object.summary_name, data_object_url(item.data_object),
     :style => link_style)
-  - data_object_type = 'an_older_data_object' unless item.data_object.is_latest_published_version_in_same_language?
 - language_type = 'language'
 - if item.synonym.nil? || item.synonym.language.nil?
   - language_type = 'an_unknown_language'

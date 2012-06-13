@@ -1,6 +1,8 @@
 - content_for :social_sharing do
   = render :partial => 'shared/social_sharing'
 - can_curate = current_user.min_curator_level?(:full)
+- if can_curate
+  = javascript_include_merged 'curation'
 #taxon_names
   .article
     .copy
@@ -17,6 +19,10 @@
             :icon => image_tag("/images/v2/icon_required.png", :alt => I18n.t(:name_preferred_for_language_yes), :class => 'indicator'))
       - form_tag curated_taxon_concept_preferred_entries_path do
         = hidden_field_tag 'taxon_concept_id', @taxon_concept.id
+        = hidden_field_tag 'split_hierarchy_entry_id', nil
+        - if can_curate
+          #split_instructions
+            = I18n.t(:split_classification_instructions)
         %table.standard.classifications
           %thead
             %tr
@@ -34,10 +40,17 @@
                   %td{:class => "preferred_entry_selector", :title => preferred_label}
                     = radio_button_tag 'hierarchy_entry_id', hierarchy_entry.id, preferred ? TRUE : FALSE
                 %td{:class => preferred && !can_curate ? 'preferred' : nil}
-                  = hierarchy_entry_display_attribution(hierarchy_entry, :show_rank => false, :show_link => true)
+                  %strong
+                    = hierarchy_entry_display_attribution(hierarchy_entry, :show_rank => false, :show_link => true)
                   - if hierarchy_entry.hierarchy.browsable.to_i == 1
                     %br
                     = link_to(I18n.t(:view_in_classification), taxon_hierarchy_entry_overview_path(@taxon_concept, hierarchy_entry))
+                  - if can_curate
+                    %br
+                    - unless preferred
+                      = link_to(I18n.t(:split_into_new_concept).downcase, '#split_instructions', :class => 'split')
+                      = submit_tag(I18n.t(:cancel).downcase, :class => 'cancel')
+                    = submit_tag(I18n.t(:keep_split_entry_from_this_entry).downcase, :class => 'keep')
                 %td.rank
                   - if hierarchy_entry.rank
                     = hierarchy_entry.rank_label

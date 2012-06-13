@@ -131,4 +131,21 @@ $(document).ready(function() {
   $('div.text_curation_close a.close-button').click(function() {
     $(this).parent().parent().parent().slideUp();
   });
+  // Curation of classifications:
+  $('table.classifications input.cancel').click(function(e) {
+    $('#split_instructions').hide();
+    $('table.classifications input').hide();
+    $('table.classifications a.split').show();
+    $('#split_hierarchy_entry_id').val('');
+    return(false);
+  });
+  $('table.classifications a.split').click(function(e) {
+    $('#split_instructions').show();
+    var $clicked = $(e.target);
+    $clicked.hide();
+    $clicked.parent().find('input.cancel').show();
+    $links = $('table.classifications a.split').hide().parent().find('input.keep').show();
+    $clicked.parent().find('input.keep').hide(); // We don't want THIS one... they're removing it.
+    $('#split_hierarchy_entry_id').val($clicked.parent().parent().find('input').val());
+  });
 });

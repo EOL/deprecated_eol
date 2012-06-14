@@ -24,7 +24,7 @@
     %p.all
       = link_to I18n.t(:see_all_media_link), taxon_hierarchy_entry_media_path(@taxon_concept.id, @selected_hierarchy_entry)
       %br/
-      = link_to I18n.t(:see_all_maps_link), taxon_hierarchy_entry_maps_path(@taxon_concept.id, @selected_hierarchy_entry)
+      = link_to I18n.t(:see_all_maps_link), taxon_hierarchy_entry_maps_path(@taxon_concept.id, @selected_hierarchy_entry) unless @map.blank?
   - else
     %p.all
       = link_to I18n.t(:see_all_media_link), taxon_media_path(@taxon_concept.id)

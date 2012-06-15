@@ -11,6 +11,21 @@ describe Notifier do
     end
   end
 
+  shared_examples_for 'email_to_user' do
+    it "should be set to be delivered to the user" do
+      @email.should deliver_to(@user.email)
+    end
+    it "should contain a greeting with user's name" do
+      @email.should have_text(/Dear #{@user.full_name},/)
+    end
+    it "should contain 'The Encyclopedia of Life Team' signature" do
+      @email.should have_text(/The Encyclopedia of Life Team/)
+    end
+    it "should contain a contact us link" do
+      @email.should have_text(/If you experience any problems, please contact us at http.*?contact_us/)
+    end
+  end
+
   describe 'curator_approved' do
     before(:all) do
       @curator_level = CuratorLevel.full
@@ -19,16 +34,10 @@ describe Notifier do
       @email = Notifier.create_curator_approved(@user)
     end
 
-    it "should be set to be delivered to the user" do
-      @email.should deliver_to(@user.email)
-    end
+    it_should_behave_like 'email_to_user'
 
     it "should have a relevant subject" do
       @email.should have_subject(/Encyclopedia of Life.+?#{@curator_level.label}.+?approved/i)
-    end
-
-    it "should contain a greeting with user's name" do
-      @email.should have_text(/Dear #{@user.full_name},/)
     end
 
     it "should tell the user their curator level request has been approved" do
@@ -39,9 +48,6 @@ describe Notifier do
       @email.should have_text(/http:\/\/eol.org\/curators/i)
     end
 
-    it "should contain a basic signature" do
-      @email.should have_text(/The Encyclopedia of Life Team/)
-    end
   end
 
   describe 'content_partner_statistics_reminder' do
@@ -147,25 +153,16 @@ describe Notifier do
       @email = Notifier.create_user_activated(@user)
     end
 
-    it "should be set to be delivered to the user" do
-      @email.should deliver_to(@user.email)
-    end
+    it_should_behave_like 'email_to_user'
 
     it "should have a relevant subject" do
       @email.should have_subject('Your Encyclopedia of Life account has been activated')
-    end
-
-    it "should contain greeting with user's name" do
-      @email.should have_text(/Dear #{@user.full_name}/)
     end
 
     it "should contain the user's username, profile, login and help urls" do
       @email.should have_text(/your username is #{@user.username} and your profile URL.+?\/users\/#{@user.id}.+?http:\/\/eol.org\/login.+?http:\/\/eol.org\/help/im)
     end
 
-    it "should contain a basic signature" do
-      @email.should have_text(/The Encyclopedia of Life Team/)
-    end
   end
 
   describe '#user_activated_with_open_authentication' do
@@ -173,25 +170,16 @@ describe Notifier do
       @email = Notifier.create_user_activated_with_open_authentication(@user, 'facebook')
     end
 
-    it "should be set to be delivered to the user" do
-      @email.should deliver_to(@user.email)
-    end
+    it_should_behave_like 'email_to_user'
 
     it "should have a relevant subject" do
       @email.should have_subject('Your Encyclopedia of Life account has been activated')
-    end
-
-    it "should contain greeting with user's name" do
-      @email.should have_text(/Dear #{@user.full_name}/)
     end
 
     it "should contain the user's open authentication provider, profile, login and help urls" do
       @email.should have_text(/you signed up using Facebook.+?your profile URL on eol is .+?\/users\/#{@user.id}.+?http:\/\/eol.org\/login.+?http:\/\/eol.org\/help/im)
     end
 
-    it "should contain a basic signature" do
-      @email.should have_text(/The Encyclopedia of Life Team/)
-    end
   end
 
   describe '#user_recover_account' do
@@ -201,25 +189,35 @@ describe Notifier do
       @email = Notifier.create_user_recover_account(@user, @temporary_login_url)
     end
 
-    it "should be set to be delivered to the user" do
-      @email.should deliver_to(@user.email)
-    end
+    it_should_behave_like 'email_to_user'
 
     it "should have a relevant subject" do
       @email.should have_subject('Recover your Encyclopedia of Life account')
-    end
-
-    it "should contain greeting with user's name" do
-      @email.should have_text(/Dear #{@user.full_name}/)
     end
 
     it "should contain a temporary login url" do
       @email.should have_text(/#{@temporary_login_url}/)
     end
 
-    it "should contain a signature with support contact" do
-      @email.should have_text(/#{$SUPPORT_EMAIL_ADDRESS}.+?The Encyclopedia of Life Team/im)
+  end
+
+  describe '#user_verification' do
+    before(:all) do
+      @user.update_attribute(:validation_code, User.generate_key)
+      @verify_user_url = "http://www.eol.org/users/#{@user.id}/verify/#{@user.validation_code}"
+      @email = Notifier.create_user_verification(@user, @verify_user_url)
     end
+
+    it_should_behave_like 'email_to_user'
+
+    it "should have a relevant subject" do
+      @email.should have_subject(/verify.*?Encyclopedia of Life account/i)
+    end
+
+    it "should contain a verification url" do
+      @email.should have_text(/#{@verify_user_url}/)
+    end
+
   end
 
 end

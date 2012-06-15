@@ -833,7 +833,7 @@ en:
     comments_empty: "No recent comments."
     greeting_dear_name_with_comma: "Dear %{name},"
     signature_basic: "The Encyclopedia of Life Team"
-    signature_with_support_contact: "If you experience any problems, please contact us at %{support_email}.\n\nThe Encyclopedia of Life Team"
+    signature_with_contact_us_link: "If you experience any problems, please contact us at %{url}.\n\nThe Encyclopedia of Life Team"
     signature_with_species_pages_group_contact: "If you have any questions, please contact us at %{species_pages_group_email}.\n\nThe Encyclopedia of Life Team"
     user_commented_on_something_date_body: "%{curator_level} %{users_name} (%{users_url}) commented on:\n%{commented_on_name} (%{commented_on_url})\n%{comment_date}:\n%{comment_body}\n"
     activity_on_content_partner_content:

@@ -909,6 +909,7 @@ en:
       other: "%{count} new members joined %{community}"
     default_subject: "Recent activity on EOL"
     comment_body_brief: "%{body} - %{author}"
+    reply_to_comment_body_brief: "%{reply_to_author} %{body} - %{author}"
     comment_title: "%{who} has commented on %{what}"
     comment_title_your_newsfeed: "%{who} has commented on your newsfeed"
     collection_activity_log_title: "%{who} has modified a collection"
@@ -3346,6 +3347,7 @@ en:
     one: "See all <span class=\"assistive\">%{count} updates for this page.</span>"
     other: "See all <span class=\"assistive\">%{count} updates for this page.</span>"
   see_all_media_link: "See all media"
+  see_all_maps_link: "See all maps"
   see_all_editors_with_count:
     one: "See the %{count} manager"
     other: "See all %{count} managers"

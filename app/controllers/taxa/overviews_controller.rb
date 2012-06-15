@@ -11,7 +11,19 @@ class Taxa::OverviewsController < TaxaController
     
     @summary_text = @taxon_concept.overview_text_for_user(current_user)
     
-    @media = promote_exemplar(@taxon_concept.images_from_solr(4, @selected_hierarchy_entry, true))
+    @map = @taxon_concept.data_objects_from_solr({
+      :page => 1,
+      :per_page => 1,
+      :data_type_ids => DataType.image_type_ids,
+      :data_subtype_ids => DataType.map_type_ids,
+      :vetted_types => ['trusted', 'unreviewed'],
+      :visibility_types => ['visible'],
+      :ignore_translations => true
+    })
+    limit = @map.blank? ? 4 : 3
+    media = promote_exemplar(@taxon_concept.images_from_solr(limit, @selected_hierarchy_entry, true))
+    @media = @map.blank? ? media : media + @map
+    
     DataObject.preload_associations(@media, :translations , :conditions => "data_object_translations.language_id=#{current_language.id}")
     DataObject.preload_associations(@media, 
       [ :users_data_object, :license,

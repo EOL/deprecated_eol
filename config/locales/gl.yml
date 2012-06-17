@@ -6,7 +6,6 @@
 gl: 
   0_1_or_2: 0, 1 ou 2
   0_or_1: 0 ou 1
-  1st_view: Primeira vista
   a_pipe_delimited_list_of_licenses: unha lista de licenzas separadas por unha barra vertical "|" ou ben "all" para obter os obxectos baixo calquera licenza. As licenzas abreviadas con "cc-" son todas
   a_pipe_delimited_list_of_spm_info_item_subject_names: unha lista de nomes de elementos informativos SPM separados por unha barra vertical "|" ou ben "all" para obter o texto en calquera asunto
   a_taxon: un taxon
@@ -369,7 +368,6 @@ gl:
   add_sub_chapter: Engadir o subcapítulo
   add_to_a_community: Engadir a unha comunidade
   add_to_my_collection_button: Engadir á miña colección
-  admin: administrador
   admin_content_page_active: Publicado
   admin_content_page_child_new_link: Crear a páxina secundaria
   admin_content_page_create_successful_notice: A páxina <a href="#%{anchor}"><em>%{page_name}</em></a> creouse correctamente.
@@ -483,7 +481,6 @@ gl:
   all_information: Toda a información
   all_items: Todos os elementos
   all_news: todas as novas
-  all_pages: Todas as páxinas
   all_people: Todas as persoas
   all_sounds: Todos os sons
   all_sources: Todas as fontes
@@ -583,7 +580,6 @@ gl:
   browse_hierarchy: explorar a xerarquía
   browsing_branch_colon: "Rama de exploración:"
   build_communities: Construír comunidades
-  by: por
   by_caps: Por
   by_scientific_name_table_header: por nome científico
   cache_store: Almacenamento da caché
@@ -2068,7 +2064,6 @@ gl:
     greeting_dear_name_with_comma: "Estimado %{name}:"
     signature_basic: O equipo da Enciclopedia da vida
     signature_with_species_pages_group_contact: "Se tes algunha pregunta, ponte en contacto con nós no enderezo %{species_pages_group_email}.\n\nO equipo da Enciclopedia da vida"
-    signature_with_support_contact: "Se tes algún problema, ponte en contacto con nós no enderezo %{support_email}.\n\nO equipo da Enciclopedia da vida"
     user_activated: 
       message: "Benvido á Enciclopedia da vida (EOL) e grazas por te rexistrares! Ten en conta que o teu nome de usuario é %{username} e o enderezo URL do teu perfil é %{profile_url}. Podes acceder á túa conta en http://www.eol.org/login.\n\nPara obter máis información sobre como usar a EOL (como crear coleccións, participar nas comunidades ou achegar contidos) visita a nosa páxina de axuda no enderezo http://www.eol.org/help."
       subject: Activouse a túa conta na Enciclopedia da vida
@@ -2157,7 +2152,6 @@ gl:
   page_statistics_explanation: <p>A EOL calcula automaticamente algunhas estatísticas sobre as súas páxinas. Estas estatísticas recalcúlanse cada un ou dous días.</p><h5>Puntuación de riqueza</h5><p>A puntuación de riqueza é unha combinación de moitos factores:<ul><li>a cantidade de texto que ten unha páxina</li><li>a cantidade de ficheiros multimedia ou de mapa dispoñibles</li><li>a cantidade de temas diferentes tratados</li><li>a cantidade de fontes que achegan información</li><li>se a información pasou por unha revisión ou non</li></ul></p><p>Se unha páxina xa ten unha chea de ficheiros multimedia ou texto, non incrementará a puntuación de riqueza ao engadir máis.</p><p>A puntuación de riqueza vai de 0 a 100. Non te preocupes, as diferenzas nuns poucos puntos non son importantes. Ao longo do tempo podemos cambiar o xeito de calcularmos esta puntuación para reflectir mellor a túa experiencia co sitio. Déixanos comentarios sobre o que pensas nas páxinas que cres que están mal avaliadas.</p><h5>Imaxes de confianza</h5><p>Inclúe todas as imaxes de confianza desta páxina e das páxinas que aparecen nunha clasificación por debaixo desta páxina. Inclúe tanto as imaxes que veñen de socios de confianza como as imaxes que veñen de socios como o Flickr ou a Wikimedia Commons que foron aprobadas por un dos conservadores da EOL.</p><h5>Imaxes sen revisar</h5><p>Inclúe todas as imaxes sen revisar desta páxina e das páxinas que aparecen nunha clasificación por debaixo desta páxina. Algúns socios da EOL achegan imaxes de moita calidade que aínda non foron revisadas. Non inclúe aquelas imaxes marcadas como de non confianza por un dos conservadores da EOL.</p><h5>Artigos de confianza</h5><p>Inclúe todos os artigos de texto de confianza na lapela de detalles e varios artigos na lapela de recursos. Inclúe artigos de texto dos socios de confianza. Tamén inclúe os artigos presentes na EOL achegados directamente polos membros da EOL ou que veñen da Wikipedia e que foron aprobados por un dos conservadores da EOL. Non inclúe os artigos en páxinas que aparecen nunha clasificación por debaixo desta páxina.</p><h5>Artigos sen revisar</h5><p>Inclúe todos os artigos de texto sen revisar na lapela de detalles desta páxina e varios artigos na lapela de recursos. Inclúe os artigos de texto presentes na EOL achegados directamente polos membros da EOL ou que veñen da Wikipedia e que agardan por unha revisión por parte dun dos conservadores da EOL. Non inclúe os artigos en páxinas que aparecen nunha clasificación por debaixo desta páxina.</p>
   page_urls: "Enderezo(s) URL da páxina:"
   page_views_th: Visitas de páxinas
-  pages: páxinas.
   pages_admin_section_link: Administradores
   pages_curator_section_link: Conservadores
   pages_method_description: colle o identificador dunha páxina da EOL e devolve o nome científico desa páxina e, opcionalmente, achega información acerca dos nomes comúns, os ficheiros multimedia (texto, imaxes e vídeos) e as referencias ás xerarquías que recoñecen o taxon descrito no
@@ -2270,7 +2264,6 @@ gl:
   recent_updates: Actualizacións recentes
   recently_visited: Visitados recentemente
   recipients: Destinatarios
-  recognized_by: Recoñecido por
   recognized_by_as_a_rank: "%{recognized_by} como un %{taxon_rank}"
   recognized_by_from_source: "%{recognized_by} en %{source}"
   recognized_by_from_source_as_a_rank: "%{recognized_by} en %{source} como un %{taxon_rank}"

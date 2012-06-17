@@ -7,7 +7,6 @@
 sv: 
   0_1_or_2: 0, 1 eller 2
   0_or_1: 0 eller 1
-  1st_view: Första visning
   a_taxon: ett taxon
   about_eol: Om EOL
   account_information: Kontoinformation
@@ -264,7 +263,6 @@ sv:
   add_language: Lägg till språk
   add_page: Lägg till sida
   add_to_my_collection_button: Lägg till i min samling
-  admin: administratör
   admin_content_page_child_new_link: Skapa underordnad sida
   admin_content_page_create_successful_notice: Sidan <a href="#%{anchor}"><em>%{page_name}</em></a> har skapats.
   admin_content_page_create_unsuccessful_error: Tyvärr, ett fel uppstod, sidan skapades inte.
@@ -311,7 +309,6 @@ sv:
   all_images: Alla bilder
   all_information: All information
   all_items: Alla objekt
-  all_pages: Alla sidor
   all_people: Alla människor
   all_sounds: Alla ljud
   all_taxa: Alla taxa
@@ -1199,7 +1196,6 @@ sv:
     greeting_dear_name_with_comma: Kära %{name},
     signature_basic: Encyclopedia of Life-teamet
     signature_with_species_pages_group_contact: "Om du har några frågor, kontakta oss på %{species_pages_group_email}.\n\nEncyclopedia of Life-teamet"
-    signature_with_support_contact: "Om du har några problem, var god kontakta oss på %{support_email}.\n\nEncyclopedia of Life-teamet"
     user_activated: 
       subject: Ditt Encyclopedia of Life-konto har aktiverats
     user_activated_with_open_authentication: 
@@ -1259,7 +1255,6 @@ sv:
   page_statistics_and_tools: sidstatistik och verktyg
   page_urls: "Sid-URL(:er):"
   page_views_th: Sidvisningar
-  pages: sidor.
   pages_admin_section_link: Administratörer
   pages_curator_section_link: Kuratorer
   pages_title: Sidor

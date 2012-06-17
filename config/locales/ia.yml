@@ -5,7 +5,6 @@
 ia: 
   0_1_or_2: 0, 1 o 2
   0_or_1: 0 o 1
-  1st_view: Prime vista
   a_taxon: un taxon
   a_total_of_comment_were_found_matching_your_criteria: 
     one: Un sol commento corresponde a tu criterios.
@@ -369,7 +368,6 @@ ia:
   add_sub_chapter: Adder sub-capitulo
   add_to_a_community: Adder a un communitate
   add_to_my_collection_button: Adder a mi collection
-  admin: admin
   admin_content_page_active: Publicate
   admin_content_page_child_new_link: Crear subpagina
   admin_content_page_create_successful_notice: Le pagina <a href="#%{anchor}"><em>%{page_name}</em></a> ha essite create con successo.
@@ -477,7 +475,6 @@ ia:
   all_information: Tote le informationes
   all_items: Tote le elementos
   all_news: tote le novas
-  all_pages: Tote le paginas
   all_people: Tote le personas
   all_sounds: Tote le sonos
   all_sources: Tote le fontes
@@ -571,7 +568,6 @@ ia:
   browse_hierarchy: percurrer hierarchia
   browsing_branch_colon: "Branca:"
   build_communities: Construer communitates
-  by: per
   by_caps: Per
   by_scientific_name_table_header: per nomine scientific
   cache_store: Immagazinage del cache
@@ -1252,7 +1248,6 @@ ia:
     greeting_dear_name_with_comma: Car %{name},
     signature_basic: Le equipa del Encyclopedia del Vita
     signature_with_species_pages_group_contact: "Si tu ha alcun question, per favor contacta nos a %{species_pages_group_email}.\n\nLe equipa del Encyclopedia del Vita"
-    signature_with_support_contact: "Si tu incontra alcun problema, per favor contacta nos a %{support_email}.\n\nLe equipa del Encyclopedia del Vita"
     user_activated: 
       message: "Benvenite al Encyclopedia del Vita (EOL) e gratias pro inscriber te! Per favor nota que tu nomine de usator es %{username} e le adrese URL de tu profilo es %{profile_url}. Tu pote aperir session in tu conto a http://www.eol.org/login.\n\nPro saper plus sur le uso de EOL, per exemplo, como crear collectiones, participar in communitates e contribuer contento, per favor visita nostre paginas de adjuta a http://www.eol.org/help."
       subject: Tu conto in le Encyclopedia del Vita ha essite activate

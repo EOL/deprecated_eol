@@ -2957,6 +2957,9 @@ en:
   members_with_count_semi_colon:
     one: "%{count} member;"
     other: "%{count} members;"
+  merge_concept_to_another: "Merge this taxon page into another on EOL"
+  merge_concept_instructions: "You have marked this taxon concept for merge into another. To complete the merge into another taxon, use search or navigate to the names tab of the taxon where you believe this content should be be added."
+  merge_concept_ready: "You have marked %{taxon_name} for merge. If you believe the following content belongs here, use the button below to complete the merge."
   merge_concepts: "merge concepts"
   message_colon: "Message:"
   meta_title_site_name: "Encyclopedia of Life"
@@ -3436,6 +3439,7 @@ en:
   species: "Species"
   split_into_new_concept: "split into new concept"
   split_classification_instructions: "To remove this hierarchy entry from this EOL page, you must next select the hierarchy entry that best represents what SHOULD be on this page, so that future harvests will always keep these two hiearchy entries separate."
+  split_only_possible_with_all_classifications: "Though you have the right to split classifications, you must display all classifications before the action is allowed."
   spm_category_objects_count: "SPM category - objects count"
   spm_category_partner_count: "SPM category - partner count"
   spm_category: "SPM Category"

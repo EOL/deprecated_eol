@@ -1126,3 +1126,6 @@ table.classifications input.keep {
   background: #ffeae6;
   padding: 10px;
   display: none; }
+
+.classification_actions p {
+  margin-bottom: 1em; }

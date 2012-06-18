@@ -322,6 +322,12 @@ class UsersController < ApplicationController
     redirect_to recover_account_users_path
   end
 
+  def merge_concept
+    # TODO - how is this stored?
+    session[:curation_hierarchy_entries] = params[:curation_hierarchy_entries]
+    redirect_to taxon_names_path(params[:taxon_concept_id])
+  end
+
 protected
 
   def scoped_variables_for_translations
@@ -344,6 +350,7 @@ protected
       view_helper_methods.image_url(@user.logo_url('large', $SINGLE_DOMAIN_CONTENT_SERVER)) : nil
   end
 
+# NOTE - there are a few "protected" methods above, be careful.
 private
 
   def extend_for_open_authentication

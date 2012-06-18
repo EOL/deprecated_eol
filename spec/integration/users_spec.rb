@@ -63,23 +63,44 @@ describe 'Users' do
         body.should_not have_tag("h3", :text => "Curator qualifications")
       end
     end
-    it "should see Activity section only if user is curator" do
-      # Create a user which is a curator to enable Activity section
-      tc = TaxonConcept.gen()
-      user = build_curator(tc)
-      # User added an article
-      udo = UsersDataObject.gen(:user_id => user.id, :taxon_concept => tc, :visibility_id => Visibility.visible.id)
-      user_submitted_text_count = UsersDataObject.count(:conditions => ['user_id = ?', user.id])
+    it "should not see curation activities in the Activity section if user is not curator" do
+      user = User.gen(:curator_level_id => nil)
+      visit(user_path(user))
+      body.should_not have_tag("a[href=" + user_activity_path(user, :filter => "data_object_curation") + "]")
+      body.should_not include("preferred classification")
+      body.should_not have_tag("a[href=" + user_activity_path(user, :filter => "names") + "]")
+      body.should have_tag("a[href=" + user_activity_path(user, :filter => "taxa_comments") + "]")
+      body.should have_tag("a[href=" + user_activity_path(user, :filter => "comments") + "]")
+      body.should have_tag("a[href=" + user_activity_path(user, :filter => "added_data_objects") + "]")
+    end
+    it "should see curation activities in the Activity section only if user is curator" do
+      tc = TaxonConcept.gen(:hierarchy_entries => [HierarchyEntry.last])
+      curator = build_curator(tc)
+      # curator added an article
+      udo = UsersDataObject.gen(:user_id => curator.id, :taxon_concept => tc, :visibility_id => Visibility.visible.id)
+      user_submitted_text_count = UsersDataObject.count(:conditions => ['user_id = ?', curator.id])
       # Curator activity log
       object = DataObject.gen
-      cal = CuratorActivityLog.gen(:user_id => user.id, :taxon_concept => tc, :object_id => object.id, :activity_id => Activity.trusted.id, :changeable_object_type_id => ChangeableObjectType.find_by_ch_object_type('data_object').id)
+      cal = CuratorActivityLog.gen(:user_id => curator.id, :taxon_concept => tc, :object_id => object.id, :activity_id => Activity.trusted.id, :changeable_object_type_id => ChangeableObjectType.find_by_ch_object_type('data_object').id)
       dotc = DataObjectsTaxonConcept.gen(:data_object => object, :taxon_concept => tc)
-      visit(user_path(user))
+      
+      ctcpe = CuratedTaxonConceptPreferredEntry.create(:taxon_concept_id => tc.id, :hierarchy_entry_id => tc.entry.id, :user_id => curator.id)
+      cot = ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'CuratedTaxonConceptPreferredEntry')
+      CuratorActivityLog.create(:user => curator, :changeable_object_type => cot,
+        :object_id => ctcpe.id, :hierarchy_entry_id => tc.entry.id, :taxon_concept_id => tc.id,
+        :activity => Activity.preferred_classification, :created_at => 0.seconds.from_now)
+      visit(user_path(curator))
       body.should have_tag("h3", :text => "Activity")
       body.should have_tag("h3", :text => "Curator qualifications")
-      body.should have_tag("a[href=" + user_activity_path(user, :filter => "data_object_curation") + "]", :text => I18n.t(:user_activity_stats_objects_curated, :count => EOL::Curator.total_objects_curated_by_action_and_user(nil, user.id)))
-      body.should have_tag("a[href=" + user_activity_path(user, :filter => "added_data_objects") + "]", :text => I18n.t(:user_activity_stats_articles_added, :count => user_submitted_text_count))
-      body.should include I18n.t(:user_activity_stats_taxa_curated, :count => user.total_species_curated)
+      body.should have_tag("a[href=" + user_activity_path(curator, :filter => "data_object_curation") + "]", :text => I18n.t(:user_activity_stats_objects_curated, :count => EOL::Curator.total_objects_curated_by_action_and_user(nil, curator.id)))
+      body.should include(I18n.t(:user_activity_stats_preferred_classifications_selected, 
+        :count => EOL::Curator.total_objects_curated_by_action_and_user(Activity.preferred_classification.id, 
+        curator.id, [ChangeableObjectType.curated_taxon_concept_preferred_entry.id])))
+      body.should include I18n.t(:user_activity_stats_taxa_curated, :count => curator.total_species_curated)
+      body.should have_tag("a[href=" + user_activity_path(curator, :filter => "names") + "]")
+      body.should have_tag("a[href=" + user_activity_path(curator, :filter => "taxa_comments") + "]")
+      body.should have_tag("a[href=" + user_activity_path(curator, :filter => "comments") + "]")
+      body.should have_tag("a[href=" + user_activity_path(curator, :filter => "added_data_objects") + "]", :text => I18n.t(:user_activity_stats_articles_added, :count => user_submitted_text_count))
     end
   end
 

@@ -126,7 +126,8 @@ private
       if @selected_hierarchy_entry.hierarchy.browsable?
         # TODO: Eager load hierarchy entry agents?
         TaxonConcept.preload_associations(@taxon_concept, { :published_hierarchy_entries => :hierarchy })
-        @browsable_hierarchy_entries = @taxon_concept.published_hierarchy_entries.select{ |he| he.hierarchy.browsable? }
+        @published_hierarchy_entries = @taxon_concept.published_hierarchy_entries
+        @browsable_hierarchy_entries = @published_hierarchy_entries.select{ |he| he.hierarchy.browsable? }
       else
         @selected_hierarchy_entry = nil
       end

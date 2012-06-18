@@ -195,7 +195,8 @@ private
 
   # NOTE - #||= because instantiate_taxon_concept could have set it.  Confusing but true.  We should refactor this.
   def count_browsable_hierarchies
-    @browsable_hierarchy_entries ||= @taxon_concept.published_hierarchy_entries.select{ |he| he.hierarchy.browsable? }
+    @published_hierarchy_entries ||= @taxon_concept.published_hierarchy_entries
+    @browsable_hierarchy_entries ||= @published_hierarchy_entries.select{ |he| he.hierarchy.browsable? }
     @browsable_hierarchy_entries = [@selected_hierarchy_entry] if @browsable_hierarchy_entries.blank? # TODO: Check this - we are getting here with a hierarchy entry that has a hierarchy that is not browsable.
   end
 end

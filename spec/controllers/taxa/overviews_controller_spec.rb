@@ -43,6 +43,15 @@ describe Taxa::OverviewsController do
       overviews_do_show
       assigns[:assistive_section_header].should be_a(String)
     end
+    it 'should instantiate summary media to include image map if exists' do
+      image_map = DataObject.gen(:data_type_id => DataType.image.id, :data_subtype_id => DataType.map.id)
+      overviews_do_show
+      assigns[:media].last.should_not == image_map
+      image_map.add_curated_association(@testy[:curator], @testy[:taxon_concept].entry)
+      EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
+      overviews_do_show
+      assigns[:media].last.should == image_map
+    end
 
   end
 

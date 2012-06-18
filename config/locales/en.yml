@@ -3341,6 +3341,7 @@ en:
     one: "See all <span class=\"assistive\">%{count} updates for this page.</span>"
     other: "See all <span class=\"assistive\">%{count} updates for this page.</span>"
   see_all_media_link: "See all media"
+  see_all_maps_link: "See all maps"
   see_all_editors_with_count:
     one: "See the %{count} manager"
     other: "See all %{count} managers"

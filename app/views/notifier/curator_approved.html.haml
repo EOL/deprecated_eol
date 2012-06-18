@@ -2,4 +2,4 @@
 :plain
 = t('.message', :curator_level => @user.curator_level.label)
 :plain
-= I18n.t(:signature_basic, :scope => :notifier)
+= I18n.t(:signature_with_contact_us_link, :url => contact_us_url(:host => $SITE_DOMAIN_OR_IP), :scope => :notifier)

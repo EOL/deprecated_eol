@@ -3,4 +3,4 @@
 = t('.message', :temporary_login_url => @temporary_login_url,
   :recover_account_url => recover_account_users_url(:host => $SITE_DOMAIN_OR_IP))
 :plain
-= I18n.t(:signature_with_support_contact, :support_email => $SUPPORT_EMAIL_ADDRESS, :scope => :notifier)
+= I18n.t(:signature_with_contact_us_link, :url => contact_us_url(:host => $SITE_DOMAIN_OR_IP), :scope => :notifier)

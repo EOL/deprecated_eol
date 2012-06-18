@@ -17,7 +17,6 @@
 es: 
   0_1_or_2: 0, 1 o 2
   0_or_1: 0 o 1
-  1st_view: Primera vista
   a_pipe_delimited_list_of_licenses: una lista de licencias delimitada por barras verticales | o bien, 'todo' para obtener objetos bajo cualquier licencia. Licencias abreviadas cc- son todas
   a_pipe_delimited_list_of_spm_info_item_subject_names: una lista de nombres de temas de elementos de información SPM delimitada por barras verticales | o 'todo' para obtener texto sobre cualquier tema
   a_taxon: un taxón
@@ -671,7 +670,6 @@ es:
   add_sub_chapter: Añadir subcapítulo
   add_to_a_community: Añadir a una comunidad
   add_to_my_collection_button: Añadir a colección
-  admin: admin
   admin_content_page_active: Publicado
   admin_content_page_child_new_link: Crear página secundaria
   admin_content_page_create_successful_notice: Página <a href="#%{anchor}"><em>%{page_name}</em></a> creada correctamente.
@@ -785,7 +783,6 @@ es:
   all_information: Toda la información
   all_items: Todos los elementos
   all_news: todas las noticias
-  all_pages: Todas las páginas
   all_people: Todas las personas
   all_sounds: Todos los sonidos
   all_sources: Todas las fuentes
@@ -885,7 +882,6 @@ es:
   browse_hierarchy: navegar por la jerarquía
   browsing_branch_colon: "Rama de exploración:"
   build_communities: Construir comunidades
-  by: por
   by_caps: Por
   by_scientific_name_table_header: por nombre científico
   cache_store: Almacenamiento de la memoria caché
@@ -2402,7 +2398,6 @@ es:
     greeting_dear_name_with_comma: Querido %{name},
     signature_basic: El Equipo de The Encyclopedia of Life
     signature_with_species_pages_group_contact: "Si tienes alguna pregunta, póngase en contacto con nosotros en %{species_pages_group_email}.\nEl Equipo de The Encyclopedia of Life"
-    signature_with_support_contact: "Si experimenta algún problema, póngase en contacto con nosotros en %{support_email}.\nEl Equipo de The Encyclopedia of Life"
     user_activated: 
       message: "¡Bienvenido a Encyclopedia of Life (EOL) y gracias por registrarse! Recuerde que su nombre de usuario es %{username} y la dirección URL de su perfil que es %{profile_url}. Puede iniciar sesión en su cuenta en http://www.eol.org/login.\n\nPara obtener más información acerca de cómo utilizar EOL, incluyendo cómo crear colecciones de EOL, participar en las comunidades de EOL y contribuir con contenido, visite nuestras páginas de ayuda en http://www.eol.org/help."
       subject: Tu cuenta de la Enciclopedia de la vida se ha sido activada
@@ -2493,7 +2488,6 @@ es:
   page_statistics_explanation: <p>EOL calcula automáticamente algunas estadísticas sobre sus páginas. Estas estadísticas se recalculan cada uno o dos días.</p><h5>Puntuación de Riqueza</h5><p>Puntuación de Riqueza es una combinación de muchos factores como:<ul><li>¿Cuánto texto tiene una página</li><li>¿Cuántos multimedia o archivos de mapas están disponibles</li><li>¿Cuántos temas diferentes están cubiertos</li><li>¿Cuántas diferentes fuentes aportan información</li></ul></p><p>Además, consideramos si se ha revisado la información o no. Si una página tiene ya un mucho texto o multimedia, no aumentar la puntuación de riqueza al agregar más.</p><p>La puntuación de riqueza oscila entre 0 y 100, donde las páginas más ricas tienen las puntuaciones más altas. No te preocupes, probablemente no son muy importantes las diferencias en las puntuaciones de riqueza de unos pocos puntos. Con el tiempo podemos cambiar la manera calculamos esta puntuación para reflejar mejor su experiencia en el sitio. Asegúrese de hacernos saber qué piensa dejando un comentario en las páginas que crea que hemos juzgado mal.</p><h5>Imágenes de confianza</h5><p>Incluye todas las imágenes de confianza para esta página y las páginas que aparecen en una clasificación por debajo de esta página. Este número incluye imágenes que proveinen de socios confiables, así como imágenes procedentes de socios como Flickr o Wikimedia Commons que han sido declaradas de confianza por un curador EOL.</p><h5>Imágenes no revisadas</h5><p>Incluye todas las imágenes no revisadas para esta página y las páginas que aparecen en una clasificación por debajo de esta página. Algunos de nuestros socios ofrecen gran cantidad de imágenes de alta calidad que pueden ser mejores que las que son de confianza, pero simplemente no han sido revisadas aún. No incluye imágenes que han sido declaradas de no confianza por un curador EOL.</p><h5>Artículos de confianza</h5><p>Incluye todos los artículos de texto confianza en la pestaña Detalles de esta página y varios artículos de la pestaña de recursos. Este número incluye artículos de texto que provienen de socios de confianza. También incluye artículos contribuidos directamente a EOL por sus miembros o de Wikipedia que han sido confiados por un curador de EOL. No incluye artículos sobre las páginas que aparecen en una clasificación por debajo de esta página.</p><h5>Artículos no revisados</h5><p>Incluye todos los artículos de texto no revisados en la pestaña Detalles de esta página y varios artículos de la pestaña de recursos. Este número incluye artículos de texto contribuidos directamente a EOL por sus miembros o de Wikipedia que están esperando la revisión de un curador EOL. No incluye artículos sobre las páginas que aparecen en una clasificación por debajo de esta página.</p>
   page_urls: "Dirección(es) URL de la página:"
   page_views_th: Vistas de página
-  pages: páginas.
   pages_admin_section_link: Administradores
   pages_curator_section_link: Curadores
   pages_method_description: toma un identificador de página de EOL y retorna el nombre científico para esa página, y, opcionalmente, información sobre nombres comunes, medios (texto, imágenes y vídeos), y referencias a las jerarquías que reconocen el taxón descrito en el
@@ -2639,7 +2633,6 @@ es:
   recent_updates: Actualizaciones recientes
   recently_visited: Visitados recientemente
   recipients: Destinatarios
-  recognized_by: Reconocido por
   recognized_by_as_a_rank: "%{recognized_by} como un %{taxon_rank}"
   recognized_by_from_source: "%{recognized_by} en %{source}"
   recognized_by_from_source_as_a_rank: "%{recognized_by} en %{source} como un %{taxon_rank}"

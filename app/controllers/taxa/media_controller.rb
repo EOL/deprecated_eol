@@ -103,4 +103,9 @@ class Taxa::MediaController < TaxaController
     redirect_back_or_default taxon_media_path params[:taxon_concept_id]
   end
 
+protected
+  def meta_description
+    @meta_description ||= t(".meta_description#{scoped_variables_for_translations[:preferred_common_name] ? '_with_common_name' : ''}#{@media.blank? ? '_no_data' : ''}", scoped_variables_for_translations.dup)
+  end
+
 end

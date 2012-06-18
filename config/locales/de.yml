@@ -11,7 +11,6 @@
 de: 
   0_1_or_2: 0, 1 oder 2
   0_or_1: 0 oder 1
-  1st_view: Erste Ansicht
   a_pipe_delimited_list_of_licenses: eine mit senkrechten Strichen „|“ voneinander getrennte Liste der Lizenzen oder „all“, um die Objekt zu allen Lizenzen zuzuordnen. Mit cc- abgekürzte Listen sind allesamt
   a_pipe_delimited_list_of_spm_info_item_subject_names: eine mit senkrechten Strichen „|“ voneinander getrennte Liste der SPM-Informationsobjekte zu Themen oder „all“, um Texte zu jedem Thema zu erhalten
   a_taxon: ein Taxon
@@ -665,7 +664,6 @@ de:
   add_sub_chapter: Unterkapitel hinzufügen
   add_to_a_community: Einer Gemeinschaft hinzufügen
   add_to_my_collection_button: Zu meiner Sammlung hinzufügen
-  admin: Administrator
   admin_content_page_active: Veröffentlicht
   admin_content_page_child_new_link: Untergeordnete Seite erstellen
   admin_content_page_create_successful_notice: Die Seite <a href="#%{anchor}"><em>%{page_name}</em></a> wurde erfolgreich erstellt.
@@ -779,7 +777,6 @@ de:
   all_information: Alle Informationen
   all_items: Alle Objekte
   all_news: Alle Nachrichten
-  all_pages: Alle Seiten
   all_people: Alle Menschen
   all_sounds: Alle Geräusche
   all_sources: Alle Quellen
@@ -879,7 +876,6 @@ de:
   browse_hierarchy: Hierarchie durchsuchen
   browsing_branch_colon: "Zweig durchsuchen:"
   build_communities: Gemeinschaften aufbauen
-  by: von
   by_caps: Nach
   by_scientific_name_table_header: nach wissenschaftlichem Namen
   cache_store: Cachespeicher
@@ -2254,7 +2250,7 @@ de:
   move_up: Nach oben verschieben
   moved_all_items_from_collection_with_count: 
     one: Verschob ein Objekt aus %{from} in diese Sammlung.
-    other: Verschob alle %{count} Objekte aus %{from} in diese Sammlung.
+    other: Verschob alle Objekte aus %{from} in diese Sammlung.
   moved_all_items_to_collections: 
     one: Verschob alle Objekte aus %{name} in eine Sammlung.
     other: Verschob alle Objekte aus %{name} in %{count} Sammlungen.
@@ -2396,7 +2392,6 @@ de:
     greeting_dear_name_with_comma: Hallo %{name},
     signature_basic: Das Team der Enzyklopädie des Lebens (EOL)
     signature_with_species_pages_group_contact: "Sofern Sie Fragen haben, kontaktieren Sie uns bitte unter der E-Mail-Adresse %{species_pages_group_email}.\n\nDas Team der Enzyklopädie des Lebens (EOL)"
-    signature_with_support_contact: "Sofern Sie Probleme haben, kontaktieren Sie uns bitte unter der E-Mail-Adresse %{support_email}.\n\nDas Team der Enzyklopädie des Lebens (EOL)"
     user_activated: 
       message: "Willkommen bei der Enzyklopädie des Lebens (EOL) und viele Dank für Ihre Anmeldung. Bitte merken Sie sich Ihren Nutzernamen %{username}. Die URL Ihres Profils bei der EOL lautet %{profile_url}. Mit Ihrem Konto können Sie sich unter der URL http://www.eol.org/login anmelden.\n\nWeitere Informationen zur Nutzung der EOL, einschließlich der Anleitung, wie sie eine Sammlung erstellen, wie Sie in Nutzergemeinschaften mitwirken oder zu den Inhalten beitragen können, finden Sie auf unseren Hilfeseiten unter der URL http://www.eol.org/help."
       subject: Ihr Konto bei der Enzyklopädie des Lebens (EOL) wurde aktiviert
@@ -2487,7 +2482,6 @@ de:
   page_statistics_explanation: <p>EOL berechnet automatisch einige Statistiken zu den in ihr enthaltenen Seiten. Diese Statistiken werden entweder jeden oder alle zweit Tage neu berechnet.</p><h5>Reichhaltigkeitswert</h5><p>Der Reichhaltigkeitswert setzt sich auch vielen verschiedenen Faktoren zusammen:<ul><li>wie umfangreich der Text einer Seite ist,</li><li>wie viele Multimedia- oder Kartendateien zur Verfügung stehen,</li><li>wie viele verschiedene Themen abgedeckt werden,</li><li>wie viele unterschiedliche Quellen zu den Informationen vorhanden sind und</li><li>ob die Informationen überprüft wurden oder nicht.</li></ul></p><p>Sofern eine Seite bereits eine Menge an Multimediadateien enthält oder über einen umfangreichen Text verfügt, kann dadurch der Reichhaltigkeitswert nicht weiter erhöht werden.</p><p>Der Reichhaltigkeitswert kann zwischen 0 und 100 liegen. Unterschiede von ein paar Punkte spielen dabei keine große Rolle. Im Laufe der Zeit kann sich die Berechnungsmethode ändern, um Ihre Erfahrungen mit der Website besser darstellen zu können. Lassen Sie es uns bitte durch Sie einen Kommentar auf den entsprechenden Seiten wissen, sofern Sie denken, dass wir deren Inhalt falsch eingeschätzt haben.</p><h5>Vertrauenswürdige Bilder</h5><p>Diese Statistik enthält alle vertrauenswürdigen Bilder einer Seite sowie von Seiten, die in einer ihr untergeordneten Klassifikation angezeigt werden. Dies beinhaltet Bilder, die von vertrauenswürdigen Partnern stammen, sowie Bilder von Partnern wie Flickr oder Wikimedia Commons, die von einem EOL-Kurator als vertrauenswürdig eingestuft wurden.</p><h5>Ungeprüfte Bilder</h5><p>In dieser Statistik sind alle nicht geprüften Bilder einer Seite sowie von Seiten enthalten, die in einer ihr untergeordneten Klassifikation angezeigt werden. Einige EOL-Partner bieten viele Bilder hoher Qualität, die noch noch nicht geprüft wurde. Bilder die von einem EOL-Kurator als nicht vertrauenswürdig eingestuft wurden, sind nicht enthalten.</p><h5>Vertrauenswürdige Artikel</h5><p>Die Statistik umfasst alle vertrauenswürdigen Artikel unter dem Reiter Einzelheiten sowie etliche Artikel unter dem Reiter Quellen. Sie enthält auch Artikel von vertrauenswürdigen Partnern. Enthalten sind zudem Artikel, die direkt in der EOL von Mitwirkenden erstellt wurden, oder Artikel der Wikipedia, die in der EOL enthalten sind, und denen bereits von einem EOL-Kurator vertraut wurde. Alle Artikel auf Seiten einer der Seite untergeordneten Klassifikation sind allerdings nicht enthalten.</p><h5>Ungeprüfte Artikel</h5><p>Die Statistik umfasst alle nicht geprüften Artikel unter dem Reiter Einzelheiten sowie etliche Artikel unter dem Reiter Quellen. Enthalten sind Artikel, die direkt in der EOL von Mitwirkenden erstellt wurden, oder Artikel der Wikipedia, die in der EOL enthalten sind, und die noch nicht durch einen EOL-Kurator überprüft wurden. Alle Artikel auf Seiten einer der Seite untergeordneten Klassifikation sind allerdings nicht enthalten.</p>
   page_urls: "Seiten-URL(s):"
   page_views_th: Seitenaufrufe
-  pages: Seiten.
   pages_admin_section_link: Administratoren
   pages_curator_section_link: Kuratoren
   pages_method_description: nimmt eine EOL-Seitenkennung auf und gibt den wissenschaftlichen Namen auf der Seite aus. Optional werden die Informationen zu gebräuchlichen Namen, Medien (Texte, Bilder und Videos) sowie die Quellen zu den Hierarchien ausgegeben, die das der Seite beschriebenen Taxon enthalten.
@@ -2633,7 +2627,6 @@ de:
   recent_updates: Letzte Aktualisierungen
   recently_visited: Kürzlich besucht
   recipients: Empfänger
-  recognized_by: Anerkannt von
   recognized_by_as_a_rank: von %{recognized_by} als %{taxon_rank} anerkannt
   recognized_by_from_source: "%{recognized_by} in %{source}"
   recognized_by_from_source_as_a_rank: von %{recognized_by} auf %{source} als %{taxon_rank} anerkannt

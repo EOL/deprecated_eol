@@ -2,4 +2,4 @@
 :plain
 = t('.message', :oauth_provider => @translated_oauth_provider, :profile_url => user_url(@user, :host => $SITE_DOMAIN_OR_IP))
 :plain
-= I18n.t(:signature_basic, :scope => :notifier)
+= I18n.t(:signature_with_contact_us_link, :url => contact_us_url(:host => $SITE_DOMAIN_OR_IP), :scope => :notifier)

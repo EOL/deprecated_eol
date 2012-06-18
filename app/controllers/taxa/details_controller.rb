@@ -32,11 +32,11 @@ class Taxa::DetailsController < TaxaController
 
 protected
   def meta_description
-    chapter_list = @toc.collect{|i| i.label}.uniq.compact.join("; ") unless @toc.blank?
+    chapter_list = @toc_items_to_show.collect{|i| i.label}.uniq.compact.join("; ") unless @toc_items_to_show.blank?
     translation_vars = scoped_variables_for_translations.dup
     translation_vars[:chapter_list] = chapter_list unless chapter_list.blank?
     I18n.t("meta_description#{translation_vars[:preferred_common_name] ? '_with_common_name' :
-           ''}#{translation_vars[:chapter_list] ? '_with_chapter_list' : ''}",
+           ''}#{translation_vars[:chapter_list] ? '_with_chapter_list' : '_no_data'}",
            translation_vars)
   end
   def meta_keywords

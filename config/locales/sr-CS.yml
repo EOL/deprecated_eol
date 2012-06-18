@@ -5,7 +5,6 @@
 sr-CS: 
   0_1_or_2: 0, 1 ili 2
   0_or_1: 0 ili 1
-  1st_view: Prvi pregled
   a_pipe_delimited_list_of_licenses: Spisak licenci koje su razdvojene uspravnom crtom | ili „all“ da dobavite objekte pod svim licencama. Sve licence su skraćene sa cc-
   a_pipe_delimited_list_of_spm_info_item_subject_names: Spisak naziva predmeta SPM stavki odvojeni uspravnom crtom | ili „all“ da dobavite tekst iz svakog predmeta
   a_taxon: takson
@@ -224,7 +223,6 @@ sr-CS:
   add_sub_chapter: Dodaj potpoglavlje
   add_to_a_community: Dodaj u zajednicu
   add_to_my_collection_button: Dodaj u zbirku
-  admin: administrator
   admin_content_page_active: Objavljeno
   admin_content_page_child_new_link: Napravi podstranicu
   admin_content_page_create_successful_notice: Stranica <a href="#%{anchor}"><em>%{page_name}</em></a> je napravljena.
@@ -301,7 +299,6 @@ sr-CS:
   all_information: Svi podaci
   all_items: Sve stavke
   all_news: sve novosti
-  all_pages: Sve stranice
   all_people: Svi ljudi
   all_sounds: Svi zvukovi
   all_sources: Svi izvori
@@ -394,7 +391,6 @@ sr-CS:
   browse_hierarchy: pregledaj hijerarhiju
   browsing_branch_colon: "Pregledanje grane:"
   build_communities: Izgradnja zajednice
-  by: po
   by_caps: Od
   by_scientific_name_table_header: po naučnom nazivu
   cache_store: Skladište keša
@@ -1670,7 +1666,6 @@ sr-CS:
     greeting_dear_name_with_comma: Dragi %{name},
     signature_basic: Ekipa Enciklopedije života
     signature_with_species_pages_group_contact: "Ako imate pitanja, obratite se na %{species_pages_group_email}.\n\nEkipe Enciklopedije života"
-    signature_with_support_contact: "Ako naiđete na problem, obratite se na %{support_email}.\n\nEkipa Enciklopedije života"
     user_activated: 
       message: "Dobro došli na Enciklopediju života (EOL) i hvala vam što ste otvorili nalog! Vaše korisničko ime je %{username}, a profil se nalazi na adresi %{profile_url}. Možete da se prijavite na http://www.eol.org/login.\n\nAko želite da saznate više o tome kako da koristite EOL, kako da pravite zbirke, učestvujete u zajednici i doprinesete sa sadržajem, posetite stranice za pomoć na http://www.eol.org/help."
       subject: Vaš nalog na Enciklopediji života je aktiviran
@@ -1752,7 +1747,6 @@ sr-CS:
   page_statistics_and_tools: statistike stranice i alatke
   page_statistics_explanation: <p>EOL samostalno proračunava neke statističke podatke o stranicama. Ovi podaci se obnavljaju svaki dan ili dva.</p><h5>Ocena sadržajnosti</h5><p>Ocena sadržajnosti se sastoji od više različitih faktora:<ul><li>koliko teksta ima stranica</li><li>koliko je slika, snimaka i mapa dostupno</li><li>koliko je različitih tema pokriveno</li><li>koliko različitih izvora ima na stranici</li></ul></p><p>Pored ovoga, ulogu igra i faktor da li su podaci pregledani. Ako jedna stranica već ima mnogo multimedijalnog sadržaja i teksta, dodavanje više takvih sadržaja može smanjiti ocenu sadržajnosti.</p><p>Ocena se kreće od 0 do 100. Ne brinite, razlike u nekoliko bodova nisu bitne. S vremenom možemo promeniti način izračunavanja ocene da bolje održava vaše iskustvo na sajtu. Recite nam šta mislite tako što ćete napisati komentar na stranicama za koje mislite da smo pogrešno procenili.</p><h5>Poverljive slike</h5><p>Sadrži sve poverljive slike za stranice koje se pojavljuju u klasifikaciji ispod ove stranice. Uključuje i slike koje su došle od poverljivih partnera, i one koje je poverio naš kustos s Flikra ili Vikimedijine ostave.</p><h5>Nepregledane slike</h5><p>Sadrži sve nepregledane slike za stranice koje se pojavljuju u klasifikaciji ispod ove stranice. Neki naši partneri pružaju razne visokokvalitetne slike koje još nisu pregledane. Ne uključuje slike koje nisu poverljive.</p><h5>Poverljivi članci</h5><p>Sadrži sve poverljive članke koji se nalaze na jezičku za detalje i neke članke na jezičku za resurse. Sadrži sve članke proverenih partnera, kao i one koje su poslali naši korisnici i korisnici s Vikipedije koji su odobreni od strane kustosa. Ne uključuje članke na stranicama koje se pojavljuju u klasifikaciji ispod ove stranice.</p><h5>Nepregledani članci</h5><p>Sadrži sve nepregledane članke na jezičku za detalje i neke članke na jezičku za resurse. Sadrži članke koje su poslali naši korisnici i korisnici s Vikipedije koji čekaju na pregled od strane kustosa. Ne uključuje članke na stranicama koje se pojavljuju u klasifikaciji ispod ove stranice.</p>
   page_urls: "Adresa stranice:"
-  pages: stranice.
   pages_admin_section_link: Administratori
   pages_curator_section_link: Kustosi
   pages_method_description: uzima naznaku stranice na EOL-u i prikazuje naučno ime te stranice. Može da prikaže i podatke o trivijalnim imenima, datotekama (tekst, slike i video-snimci) i navodima hijerarhija koje prepoznaju takson opisan na
@@ -1844,7 +1838,6 @@ sr-CS:
   recent_updates: Poslednja ažuriranja
   recently_visited: Nedavno posećeno
   recipients: Primaoci
-  recognized_by: Prepoznao/la
   recognized_by_as_a_rank: "%{recognized_by} kao %{taxon_rank}"
   recognized_by_from_source_as_a_rank: "%{recognized_by} u %{source} kao %{taxon_rank}"
   record_not_found: (zapis nije pronađen)

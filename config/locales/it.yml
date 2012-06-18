@@ -640,7 +640,6 @@ it:
   add_sub_chapter: Aggiungi sottocapitolo
   add_to_a_community: Aggiungi a una comunità
   add_to_my_collection_button: Aggiungi alla mia collezione
-  admin: Amministratore
   admin_content_page_active: Pubblicato
   admin_content_page_child_new_link: Crea pagina figlio
   admin_content_page_create_successful_notice: Pagina <a href="#%{anchor}"><em>%{page_name}</em></a> creata correttamente.
@@ -738,7 +737,6 @@ it:
   all_information: Tutte le informazioni
   all_items: Tutti gli elementi
   all_news: tutte le notizie
-  all_pages: Tutte le pagine
   all_people: Tutte le persone
   all_sounds: Tutti i suoni
   all_sources: Tutte le fonti
@@ -827,7 +825,6 @@ it:
   browsable_hierarchies: Gerarchie navigabili
   browse_hierarchy: naviga nella gerarchia
   build_communities: Costruisci comunità
-  by: da
   by_caps: Di
   by_scientific_name_table_header: per nome scientifico
   calculate_averages_slow: Calcola le medie (lento)
@@ -1457,7 +1454,6 @@ it:
     greeting_dear_name_with_comma: Ciao %{name},
     signature_basic: Lo staff di Encyclopedia of Life
     signature_with_species_pages_group_contact: "Se avete qualsiasi domanda, vi preghiamo di contattarci a %{species_pages_group_email}.\n\nLo staff di Encyclopedia of Life"
-    signature_with_support_contact: "Se si verificano problemi, vi preghiamo di contattarci a %{support_email}.\n\nLo staff di Encyclopedia of Life"
     user_activated: 
       message: "Benvenuto in Encyclopedia of Life (EOL) e grazie per esserti registrato! Il tuo nome utente è %{username} e l'URL del tuo profilo è %{profile_url}. Puoi accedere al tuo account da http://eol.org/login.\n\nPer avere ulteriori informazioni su come usare EOL, incluso come creare collezioni, partecipare alle comunità e contribuire al contenuto, visita le nostre pagine di aiuto su http://eol.org/help."
       subject: Il tuo account Encyclopedia of Life è stato attivato

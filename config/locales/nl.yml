@@ -12,7 +12,6 @@
 nl: 
   0_1_or_2: 0, 1 of 2
   0_or_1: 0 of 1
-  1st_view: Eerste weergave
   a_taxon: een taxon
   about_eol: Over EOL
   account_information: Gebruikersgegevens
@@ -544,7 +543,6 @@ nl:
   add_sub_chapter: Onderdeel toevoegen
   add_to_a_community: Aan gemeenschap toevoegen
   add_to_my_collection_button: Aan een verzameling toevoegen
-  admin: beheer
   admin_content_page_active: Gepubliceerd
   admin_content_page_child_new_link: Onderliggende pagina aanmaken
   admin_content_page_create_successful_notice: De pagina <a href="#%{anchor}"><em>%{page_name}</em></a> is aangemaakt.
@@ -657,7 +655,6 @@ nl:
   all_information: Alle gegevens
   all_items: Alle items
   all_news: Alle nieuwsberichten
-  all_pages: Alle pagina's
   all_people: Alle mensen
   all_sounds: Alle geluiden
   all_sources: Alle bronnen
@@ -750,7 +747,6 @@ nl:
   browse_hierarchy: bladerhiërarchie
   browsing_branch_colon: "Tak:"
   build_communities: Bouw gemeenschappen
-  by: door
   by_caps: Door
   by_scientific_name_table_header: door wetenschappelijke naam
   cache_store: Cache-opslag
@@ -2035,7 +2031,6 @@ nl:
     greeting_dear_name_with_comma: Beste %{name},
     signature_basic: Het team van Encyclopedia of Life
     signature_with_species_pages_group_contact: "Als u vragen hebt, neem dan contact met ons op via %{species_pages_group_email}.\n\nHet team van Encyclopedia of Life"
-    signature_with_support_contact: "Als u een probleem tegenkoment, neem dan contact met ons op via %{support_email}.\n\nHet team van Encyclopedia of Life"
     user_activated: 
       message: "Welkom bij Encyclopedia of Life (EOL) en dank u wel voor het registreren! Uw gebruikersnaam is %{username} en de URL voor uw profiel is %{profile_url}. U kunt hier aanmelden: http://www.eol.org/login.\n\nVia onze hulppagina's op http://www.eol.org/help kunt u leren hoe u EOL kunt gebruiken, zoals het aanmaken van EOL-verzamelingen, deelnemen in EOL-gemeenschappen en inhoud bijdragen."
       subject: Uw gebruiker bij Encyclopedia of Life is geactiveerd
@@ -2097,7 +2092,6 @@ nl:
   page_not_found: Pagina niet gevonden
   page_statistics: Paginastatistieken
   page_urls: "Pagina-URL's:"
-  pages: pagina's.
   pages_admin_section_link: Beheerders
   pages_curator_section_link: Conservatoren
   pages_title: Referenties
@@ -2218,7 +2212,6 @@ nl:
   recent_updates: Recente updates
   recently_visited: Onlangs bezocht
   recipients: Ontvangers
-  recognized_by: Herkend door
   record_not_found: "[record niet gevonden]"
   references_cabs_colon: "Referenties:"
   remove: Verwijderen

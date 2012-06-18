@@ -134,7 +134,8 @@ $(document).ready(function() {
   // Curation of classifications:
   $('table.classifications input.cancel').click(function(e) {
     $('#split_instructions').hide();
-    $('table.classifications input').hide();
+    $('table.classifications input.keep').hide();  // Separate because there are radio buttons in here, too.
+    $('table.classifications input.cancel').hide();// Separate because there are radio buttons in here, too.
     $('table.classifications a.split').show();
     $('#split_hierarchy_entry_id').val('');
     return(false);

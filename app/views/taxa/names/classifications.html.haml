@@ -1,6 +1,7 @@
 - content_for :social_sharing do
   = render :partial => 'shared/social_sharing'
 - can_curate = current_user.min_curator_level?(:full)
+- master_curator = current_user.min_curator_level?(:master)
 - if can_curate
   = javascript_include_merged 'curation'
 #taxon_names
@@ -19,8 +20,12 @@
             :icon => image_tag("/images/v2/icon_required.png", :alt => I18n.t(:name_preferred_for_language_yes), :class => 'indicator'))
       - form_tag curated_taxon_concept_preferred_entries_path do
         = hidden_field_tag 'taxon_concept_id', @taxon_concept.id
-        = hidden_field_tag 'split_hierarchy_entry_id', nil
-        - if can_curate
+        - if master_curator
+          - unless @other_hierarchy_entries.empty?
+            #split_warning
+              = I18n.t(:split_only_possible_with_all_classifications)
+              %br
+              = link_to(I18n.t(:show_all_other_classifications_with_count, :count => @other_hierarchy_entries.count), link)
           #split_instructions
             = I18n.t(:split_classification_instructions)
         %table.standard.classifications
@@ -45,7 +50,7 @@
                   - if hierarchy_entry.hierarchy.browsable.to_i == 1
                     %br
                     = link_to(I18n.t(:view_in_classification), taxon_hierarchy_entry_overview_path(@taxon_concept, hierarchy_entry))
-                  - if can_curate
+                  - if master_curator
                     %br
                     - unless preferred
                       = link_to(I18n.t(:split_into_new_concept).downcase, '#split_instructions', :class => 'split')
@@ -59,4 +64,21 @@
                     = render(:partial => 'taxa/trees/show', :locals => {:in_hierarchy => true, :hierarchy_entry => hierarchy_entry, :link_to_taxa => true, :show_siblings => true})
       - unless @other_hierarchy_entries.empty?
         - link = @selected_hierarchy_entry ? taxon_hierarchy_entry_names_path(@taxon_concept, @selected_hierarchy_entry, :all => '1') : taxon_names_path(@taxon_concept, :all => '1')
-        %p= link_to(I18n.t(:show_all_other_classifications_with_count, :count => @other_hierarchy_entries.count), link)
+        .classification_actions
+          %p= link_to(I18n.t(:show_all_other_classifications_with_count, :count => @other_hierarchy_entries.count), link)
+          - if master_curator
+            %p
+              - if session[:curation_hierarchy_entries]
+                - if session[:curation_hierarchy_entries].to_i == @taxon_concept.id
+                  = I18n.t(:merge_concept_instructions)
+                  = "TODO - cancel merge"
+                - else
+                  -# TODO - SQL load of name only needed here
+                  = I18n.t(:merge_concept_ready, :taxon_name => HierarchyEntry.find(session[:curation_hierarchy_entries]).map {|he| he.title_canonical_italicized}.to_sentence)
+                  %br
+                  = "TODO - cancel merge (note this removes the stored merge entirely)"
+              - else
+                = link_to(I18n.t(:merge_concept_to_another), merge_concept_user_path(current_user, :curation_hierarchy_entries => @taxon_concept.id))
+
+
+                -# TODO - notifications, locking, multiple selection, undo-ability, also must show the "other" classifications before they can do this. ...Start with move... just make the split an option for the move (creating a new taxon page).

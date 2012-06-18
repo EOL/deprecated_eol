@@ -31,4 +31,9 @@ class Taxa::MapsController < TaxaController
     current_user.log_activity(:viewed_taxon_concept_maps, :taxon_concept_id => @taxon_concept.id)
   end
 
+protected
+  def meta_description
+    @meta_description ||= t(".meta_description#{scoped_variables_for_translations[:preferred_common_name] ? '_with_common_name' : ''}#{@maps.blank? ? '_no_data' : ''}", scoped_variables_for_translations.dup)
+  end
+
 end

@@ -41,7 +41,7 @@ class Notifier < ActionMailer::Base
     subject       I18n.t(:subject, :partner_full_name => partner.full_name, :user_full_name => user.full_name,
                          :scope => [:notifier, :content_partner_created])
     recipients    $SPECIES_PAGES_GROUP_EMAIL_ADDRESS
-    from          $SUPPORT_EMAIL_ADDRESS
+    from          $NO_REPLY_EMAIL_ADDRESS
     body          :partner => partner, :user => user
   end
 
@@ -49,7 +49,7 @@ class Notifier < ActionMailer::Base
     subject       I18n.t(:subject, :partner_full_name => partner.full_name, :resource_title => resource.title,
                          :user_full_name => user.full_name, :scope => [:notifier, :content_partner_resource_created])
     recipients    $SPECIES_PAGES_GROUP_EMAIL_ADDRESS
-    from          $SUPPORT_EMAIL_ADDRESS
+    from          $NO_REPLY_EMAIL_ADDRESS
     body          :partner => partner, :resource => resource, :user => user
   end
 
@@ -57,7 +57,7 @@ class Notifier < ActionMailer::Base
     subject       I18n.t(:subject, :partner_full_name => partner.full_name, :resource_title => resource.title,
                          :user_full_name => user.full_name, :scope => [:notifier, :content_partner_resource_force_harvest_request])
     recipients    $SPECIES_PAGES_GROUP_EMAIL_ADDRESS
-    from          $SUPPORT_EMAIL_ADDRESS
+    from          $NO_REPLY_EMAIL_ADDRESS
     body          :partner => partner, :resource => resource, :user => user
   end
 
@@ -65,7 +65,7 @@ class Notifier < ActionMailer::Base
     subject       I18n.t(:subject, :partner_full_name => partner.full_name, :resource_title => resource.title,
                          :user_full_name => user.full_name, :scope => [:notifier, :content_partner_resource_hierarchy_publish_request])
     recipients    $SPECIES_PAGES_GROUP_EMAIL_ADDRESS
-    from          $SUPPORT_EMAIL_ADDRESS
+    from          $NO_REPLY_EMAIL_ADDRESS
     body          :partner => partner, :resource => resource, :hierarchy => hierarchy, :user => user
   end
 
@@ -97,28 +97,28 @@ class Notifier < ActionMailer::Base
   def user_activated(user)
     subject     I18n.t(:subject, :scope => [:notifier, :user_activated])
     recipients  user.email
-    from        $SUPPORT_EMAIL_ADDRESS
+    from        $NO_REPLY_EMAIL_ADDRESS
     body        :user => user
   end
 
   def user_activated_with_open_authentication(user, translated_oauth_provider)
     subject     I18n.t(:subject, :scope => [:notifier, :user_activated_with_open_authentication])
     recipients  user.email
-    from        $SUPPORT_EMAIL_ADDRESS
+    from        $NO_REPLY_EMAIL_ADDRESS
     body        :user => user, :translated_oauth_provider => translated_oauth_provider
   end
 
   def user_recover_account(user, temporary_login_url)
     subject     I18n.t(:subject, :scope => [:notifier, :user_recover_account])
     recipients  user.email
-    from        $SUPPORT_EMAIL_ADDRESS
+    from        $NO_REPLY_EMAIL_ADDRESS
     body        :user => user, :temporary_login_url => temporary_login_url
   end
 
   def user_verification(user, url)
     subject     I18n.t(:subject, :scope => [:notifier, :user_verification])
     recipients  user.email
-    from        $SUPPORT_EMAIL_ADDRESS
+    from        $NO_REPLY_EMAIL_ADDRESS
     body        :user => user, :verify_user_url => url
   end
 
@@ -126,7 +126,7 @@ class Notifier < ActionMailer::Base
     subject     I18n.t(:subject, :scope => [:notifier, :user_message])
     recipients  email
     cc          $SPECIES_PAGES_GROUP_EMAIL_ADDRESS
-    from        $SUPPORT_EMAIL_ADDRESS
+    from        $NO_REPLY_EMAIL_ADDRESS
     body        :name => name, :message => message
   end
 

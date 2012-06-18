@@ -218,7 +218,6 @@ pt:
   add_new_association_link: Adicionar nova associação
   add_page: Adicionar Página
   add_to_my_collection_button: Adicionar a uma coleção
-  admin: admin
   admin_content_page_active: Publicado
   admin_content_page_child_new_link: Criar página secundária
   admin_content_page_create_successful_notice: Página <a href="#%{anchor}"><em>%{page_name}</em></a>  criada com sucesso.
@@ -281,7 +280,6 @@ pt:
   all_images: Todas as imagens
   all_information: Toda a informação
   all_items: Todos os itens
-  all_pages: Todas as páginas
   all_people: Todas as pessoas
   all_sounds: Todos os sons
   all_taxa: Todos os taxa
@@ -1168,7 +1166,6 @@ pt:
     greeting_dear_name_with_comma: Caro %{name},
     signature_basic: A Equipa da Enciclopédia da Vida
     signature_with_species_pages_group_contact: "Se você tiver alguma questão, entre em contacto conosco em %{species_pages_group_email}.\n\nA Equipa da Enciclopédia da Vida"
-    signature_with_support_contact: "Se tiver algum problema, entre em contato conosco em %{support_email}.\n\nA Equipa da Enciclopédia da Vida"
     user_activated: 
       subject: A sua conta na Encyclopedia of Life foi activada
     user_commented_on_something_date_body: "%{users_name} (%{users_url}) comentou sobre:\n%{commented_on_name} (%{commented_on_url})\n%{comment_date}:\n%{comment_body}"

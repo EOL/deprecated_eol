@@ -21,7 +21,6 @@
 - else
   - translation_vars[:data_object] = link_to(item.data_object.summary_name, data_object_url(item.data_object),
     :style => link_style)
-  - data_object_type = 'an_older_data_object' unless item.data_object.is_latest_published_version_in_same_language?
 - language_type = 'language'
 - if item.synonym.nil? || item.synonym.language.nil?
   - language_type = 'an_unknown_language'
@@ -69,7 +68,7 @@
   - when Activity.add_association.id
     = I18n.t("add_association.#{user_type}_associated_#{data_object_type}_to_#{association_type}", translation_vars)
   - when Activity.remove_association.id
-    = I18n.t("remove_association.#{user_type}_disassociated_#{data_object_type}_from_#{taxon_type}", translation_vars)
+    = I18n.t("remove_association.#{user_type}_disassociated_#{data_object_type}_from_#{association_type}", translation_vars)
   - when Activity.choose_exemplar.id
     = I18n.t("choose_exemplar.#{user_type}_chose_exemplar_#{data_object_type}_on_#{taxon_type}", translation_vars)
   - when Activity.add_common_name.id

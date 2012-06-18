@@ -30,6 +30,7 @@ class DataObject < ActiveRecord::Base
   has_many :data_objects_hierarchy_entries
   has_many :data_objects_taxon_concepts
   has_many :curated_data_objects_hierarchy_entries
+  has_many :all_curated_data_objects_hierarchy_entries, :class_name => CuratedDataObjectsHierarchyEntry.to_s, :source => :curated_data_objects_hierarchy_entries, :foreign_key => :data_object_guid, :primary_key => :guid
   has_many :comments, :as => :parent
   has_many :data_objects_harvest_events
   has_many :harvest_events, :through => :data_objects_harvest_events
@@ -287,7 +288,9 @@ class DataObject < ActiveRecord::Base
       begin
         new_dato.toc_items = Array(TocItem.find(options[:toc_id]))
         new_dato.unpublish_previous_revisions
-        self.replicate_associations(new_dato)
+
+        new_dato.users_data_object = users_data_object.replicate(new_dato)
+        DataObjectsTaxonConcept.find_or_create_by_taxon_concept_id_and_data_object_id(users_data_object.taxon_concept_id, new_dato.id)
       rescue => e
         new_dato.update_attribute(:published, false)
         raise e
@@ -637,8 +640,9 @@ class DataObject < ActiveRecord::Base
         self.class.uncached do
           # creating another instance to remove any change of this instance not
           # matching the database and indexing stale or changed information
-          object_to_index = DataObject.find(self.id)
-          EOL::Solr::DataObjectsCoreRebuilder.reindex_single_object(object_to_index)
+          revisions_by_date.each do |object_to_index|
+            EOL::Solr::DataObjectsCoreRebuilder.reindex_single_object(object_to_index)
+          end
         end
       end
     else
@@ -712,7 +716,7 @@ class DataObject < ActiveRecord::Base
   def association_for_hierarchy_entry(hierarchy_entry)
     association = data_objects_hierarchy_entries.detect{ |dohe| dohe.hierarchy_entry_id == hierarchy_entry.id }
     if association.blank?
-      association = curated_data_objects_hierarchy_entries.detect{ |dohe| dohe.hierarchy_entry_id == hierarchy_entry.id }
+      association = all_curated_data_objects_hierarchy_entries.detect{ |dohe| dohe.hierarchy_entry_id == hierarchy_entry.id }
     end
     association
   end
@@ -721,7 +725,7 @@ class DataObject < ActiveRecord::Base
   def association_for_taxon_concept(taxon_concept)
     association = data_objects_hierarchy_entries.detect{ |dohe| dohe.hierarchy_entry.taxon_concept_id == taxon_concept.id }
     if association.blank?
-      association = curated_data_objects_hierarchy_entries.detect{ |dohe| dohe.hierarchy_entry.taxon_concept_id == taxon_concept.id }
+      association = all_curated_data_objects_hierarchy_entries.detect{ |dohe| dohe.hierarchy_entry.taxon_concept_id == taxon_concept.id }
     end
     if association.blank?
       association = users_data_object if users_data_object && users_data_object.taxon_concept_id == taxon_concept.id
@@ -731,7 +735,7 @@ class DataObject < ActiveRecord::Base
 
   # To retrieve an association for the data object if taxon concept and hierarchy entry are unknown
   def association_with_best_vetted_status
-    associations = (data_objects_hierarchy_entries + curated_data_objects_hierarchy_entries + [users_data_object]).compact
+    associations = (data_objects_hierarchy_entries + all_curated_data_objects_hierarchy_entries + [users_data_object]).compact
     return if associations.empty?
     associations.sort_by{ |a| a.vetted.view_order }.first
   end
@@ -803,18 +807,18 @@ class DataObject < ActiveRecord::Base
   # To retrieve the reasons provided while untrusting or hiding an association
   def reasons(hierarchy_entry, activity)
     if hierarchy_entry.class == UsersDataObject
-      log = CuratorActivityLog.find_all_by_object_id_and_changeable_object_type_id_and_activity_id(
-        id, ChangeableObjectType.users_data_object.id, activity.id
+      log = CuratorActivityLog.find_all_by_data_object_guid_and_changeable_object_type_id_and_activity_id(
+        guid, ChangeableObjectType.users_data_object.id, activity.id
       ).last
       log ? log.untrust_reasons.collect{|ur| ur.untrust_reason_id} : []
     elsif hierarchy_entry.associated_by_curator
-      log = CuratorActivityLog.find_all_by_object_id_and_changeable_object_type_id_and_activity_id_and_hierarchy_entry_id(
-        id, ChangeableObjectType.curated_data_objects_hierarchy_entry.id, activity.id, hierarchy_entry.id
+      log = CuratorActivityLog.find_all_by_data_object_guid_and_changeable_object_type_id_and_activity_id_and_hierarchy_entry_id(
+        guid, ChangeableObjectType.curated_data_objects_hierarchy_entry.id, activity.id, hierarchy_entry.id
       ).last
       log ? log.untrust_reasons.collect{|ur| ur.untrust_reason_id} : []
     else
-      log = CuratorActivityLog.find_all_by_object_id_and_changeable_object_type_id_and_activity_id_and_hierarchy_entry_id(
-        id, ChangeableObjectType.data_objects_hierarchy_entry.id, activity.id, hierarchy_entry.id
+      log = CuratorActivityLog.find_all_by_data_object_guid_and_changeable_object_type_id_and_activity_id_and_hierarchy_entry_id(
+        guid, ChangeableObjectType.data_objects_hierarchy_entry.id, activity.id, hierarchy_entry.id
       ).last
       log ? log.untrust_reasons.collect{|ur| ur.untrust_reason_id} : []
     end
@@ -838,14 +842,18 @@ class DataObject < ActiveRecord::Base
   end
 
   def curated_hierarchy_entries
-    dohes = data_objects_hierarchy_entries.compact.map { |dohe|
-      if dohe.hierarchy_entry && he = dohe.hierarchy_entry.dup
-        he.vetted = dohe.vetted
-        he.visibility = dohe.visibility
-      end
-      he
-    }.compact
-    cdohes = curated_data_objects_hierarchy_entries.compact.map { |cdohe|
+    dohes = []
+    latest_revision = latest_published_revision.nil? ? revisions_by_date.first : latest_published_revision
+    if latest_revision
+      dohes = latest_revision.data_objects_hierarchy_entries.compact.map { |dohe|
+        if dohe.hierarchy_entry && he = dohe.hierarchy_entry.dup
+          he.vetted = dohe.vetted
+          he.visibility = dohe.visibility
+        end
+        he
+      }.compact
+    end
+    cdohes = all_curated_data_objects_hierarchy_entries.compact.map { |cdohe|
       if cdohe.hierarchy_entry && he = cdohe.hierarchy_entry.dup
         he.associated_by_curator = cdohe.user
         he.vetted = cdohe.vetted
@@ -875,11 +883,15 @@ class DataObject < ActiveRecord::Base
   end
 
   def all_associations
-    @all_assoc ||= (published_entries + unpublished_entries + [users_data_object]).compact
+    @all_assoc ||= (published_entries + unpublished_entries + [latest_published_users_data_object]).compact
   end
 
   def all_published_associations
-    @all_pub_assoc ||= (published_entries + [users_data_object]).compact
+    @all_pub_assoc ||= (published_entries + [latest_published_users_data_object]).compact
+  end
+
+  def latest_published_users_data_object
+    latest_published_revision.users_data_object if users_data_object
   end
 
   def first_concept_name
@@ -931,31 +943,55 @@ class DataObject < ActiveRecord::Base
   end
 
   def add_curated_association(user, hierarchy_entry)
+    taxon_concept_id = hierarchy_entry.taxon_concept.id
     vetted_id = user.min_curator_level?(:full) ? Vetted.trusted.id : Vetted.unknown.id
     cdohe = CuratedDataObjectsHierarchyEntry.create(:hierarchy_entry_id => hierarchy_entry.id,
                                                     :data_object_id => self.id, :user_id => user.id,
+                                                    :data_object_guid => self.guid,
                                                     :vetted_id => vetted_id,
                                                     :visibility_id => Visibility.visible.id)
     if self.data_type == DataType.image
       TopImage.find_or_create_by_hierarchy_entry_id_and_data_object_id(hierarchy_entry.id, self.id, :view_order => 1)
-      TopConceptImage.find_or_create_by_taxon_concept_id_and_data_object_id(hierarchy_entry.taxon_concept.id, self.id, :view_order => 1)
+      TopConceptImage.find_or_create_by_taxon_concept_id_and_data_object_id(taxon_concept_id, self.id, :view_order => 1)
     end
-    DataObjectsTaxonConcept.find_or_create_by_taxon_concept_id_and_data_object_id(hierarchy_entry.taxon_concept.id, self.id)
+    DataObjectsTaxonConcept.find_or_create_by_taxon_concept_id_and_data_object_id(taxon_concept_id, self.id)
+    revisions_by_date.each do |revision|
+      if revision.id != self.id
+        dotc_exists = DataObjectsTaxonConcept.find_by_taxon_concept_id_and_data_object_id(taxon_concept_id, revision.id)
+        dotc_exists.destroy unless dotc_exists.nil?
+      end
+    end
   end
 
   def remove_curated_association(user, hierarchy_entry)
-    cdohe = CuratedDataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(id, hierarchy_entry.id)
+    taxon_concept_id = hierarchy_entry.taxon_concept.id
+    cdohe = CuratedDataObjectsHierarchyEntry.find_by_data_object_guid_and_hierarchy_entry_id(guid, hierarchy_entry.id)
     raise EOL::Exceptions::ObjectNotFound if cdohe.nil?
     raise EOL::Exceptions::WrongCurator.new("user did not create this association") unless cdohe.user_id == user.id
     cdohe.destroy
     if self.data_type == DataType.image
-      tci_exists = TopConceptImage.find_by_taxon_concept_id_and_data_object_id(hierarchy_entry.taxon_concept.id, self.id)
+      tci_exists = TopConceptImage.find_by_taxon_concept_id_and_data_object_id(taxon_concept_id, self.id)
       tci_exists.destroy unless tci_exists.nil?
       ti_exists = TopImage.find_by_hierarchy_entry_id_and_data_object_id(hierarchy_entry.id, self.id)
       ti_exists.destroy unless ti_exists.nil?
     end
-    dotc_exists = DataObjectsTaxonConcept.find_by_taxon_concept_id_and_data_object_id(hierarchy_entry.taxon_concept.id, self.id)
-    dotc_exists.destroy unless dotc_exists.nil?
+    unless still_associated_with_taxon_concept?(taxon_concept_id)
+      revisions_by_date.each do |revision|
+        dotc_exists = DataObjectsTaxonConcept.find_by_taxon_concept_id_and_data_object_id(taxon_concept_id, revision.id)
+        dotc_exists.destroy unless dotc_exists.nil?
+      end
+    end
+  end
+
+  def still_associated_with_taxon_concept?(taxon_concept_id)
+    all_associations.each do |association|
+      if association.class == UsersDataObject
+        return true if association.taxon_concept_id == taxon_concept_id
+      else
+        return true if association.taxon_concept.id == taxon_concept_id
+      end
+    end
+    return false
   end
 
   def translated_from
@@ -1047,14 +1083,6 @@ class DataObject < ActiveRecord::Base
       users_data_object.user
     elsif content_partner && content_partner.user
       content_partner.user
-    end
-  end
-
-  def replicate_associations(new_dato)
-    new_dato.users_data_object = users_data_object.replicate(new_dato)
-    DataObjectsTaxonConcept.find_or_create_by_taxon_concept_id_and_data_object_id(users_data_object.taxon_concept_id, new_dato.id)
-    curated_data_objects_hierarchy_entries.each do |cdohe|
-      cdohe.replicate(new_dato)
     end
   end
 

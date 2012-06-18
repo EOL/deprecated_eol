@@ -5,7 +5,6 @@
 ms: 
   0_1_or_2: 0, 1 atau 2
   0_or_1: 0 atau 1
-  1st_view: Pandangan Pertama
   a_pipe_delimited_list_of_licenses: senarai lesen terasing tanda paip | atau 'all' untuk mendapatkan objek-objek di bawah sebarang lesen. Lesen-lesen yang bersingkatan cc- adalah 'all'
   a_pipe_delimited_list_of_spm_info_item_subject_names: senarai nama-nama subjek perkara info MPS berbatas tanda paip | atau 'semua' unuk mendapatkan teks dalam sebarang subjek
   a_taxon: satu takson
@@ -265,7 +264,6 @@ ms:
   add_sub_chapter: Tambahkan bab kecil
   add_to_a_community: Tambahkan ke dalam komuniti
   add_to_my_collection_button: Tambahkan ke dalam himpunan saya
-  admin: pentadbir
   admin_content_page_active: Diterbitkan
   admin_content_page_child_new_link: Buat halaman anak
   admin_content_page_create_successful_notice: Halaman <a href="#%{anchor}"><em>%{page_name}</em></a> berjaya dibuat.
@@ -348,7 +346,6 @@ ms:
   all_information: Semua maklumat
   all_items: Semua perkara
   all_news: semua berita
-  all_pages: Semua halaman
   all_people: Semua ahli
   all_sounds: Semua bunyi
   all_sources: Semua sumber
@@ -430,7 +427,6 @@ ms:
   browse_hierarchy: semak imbas hierarki
   browsing_branch_colon: "Cabang Semak Imbas:"
   build_communities: Wujudkan komuniti
-  by: mengikut
   by_caps: Mengikut
   by_scientific_name_table_header: mengikut Nama Saintifik
   cache_store: Stor Cache
@@ -1464,7 +1460,6 @@ ms:
     greeting_dear_name_with_comma: "%{name},"
     signature_basic: Pasukan Encyclopedia of Life
     signature_with_species_pages_group_contact: "Jika anda ada sebarang persoalan, sila hubungi kami di %{species_pages_group_email}.\n\nPasukan Encyclopedia of Life"
-    signature_with_support_contact: "Jika anda menghadapi sebarang masalah, sila hubungi kami di %{support_email}.\n\nPasukan Encyclopedia of Life"
     user_activated: 
       message: "Selamat datang ke Encyclopedia of Life (EOL) dan terima kasih kerana mendaftar! Sila ambil perhatian bahawa nama pengguna anda ialah %{username} dan URL profil anda ialah %{profile_url}. Anda boleh log masuk ke dalam akaun anda di http://www.eol.org/login.\n\nUntuk mengetahui lebih lanjut tentang penggunaan EOL, termasuklah cara-cara mencipta Himpunan EOL, menyertai Komuniti EOL dan menyumbangkan kandungan, sila kunjungi halaman-halaman bantuan kami di http://www.eol.org/help."
       subject: Akaun Encyclopedia of Life anda telah diaktifkan
@@ -1585,7 +1580,6 @@ ms:
   recaptcha_incorrect_error_with_anchor: Tidak sepadan dengan <a href="#%{recaptcha_anchor}">kata-kata reCaptcha</a>, sila cuba lagi.
   recent_updates: Kemas kini terkini
   recently_visited: Kunjungan terkini
-  recognized_by: Diiktiraf oleh
   recognized_by_as_a_rank: "%{recognized_by} sebagai %{taxon_rank}"
   recognized_by_from_source_as_a_rank: "%{recognized_by} dalam %{source} sebagai %{taxon_rank}"
   record_not_found: "[rekod tidak dijumpai]"

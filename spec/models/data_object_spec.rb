@@ -340,7 +340,7 @@ describe DataObject do
     cdohe.should == nil
   end
 
-  it '#untrust_reasons should return the untrust reasons' do
+  it '#untrust_reasons should return the same untrust reasons for all versions of the data object' do
     CuratedDataObjectsHierarchyEntry.delete_all
     @image_dato.add_curated_association(@curator, @hierarchy_entry)
     cdohe = CuratedDataObjectsHierarchyEntry.find_by_hierarchy_entry_id_and_data_object_id(@hierarchy_entry.id,
@@ -351,10 +351,35 @@ describe DataObject do
                               :changeable_object_type_id => ChangeableObjectType.curated_data_objects_hierarchy_entry.id,
                               :activity_id => Activity.untrusted.id,
                               :hierarchy_entry_id => @hierarchy_entry.id,
+                              :data_object_guid => @image_dato.guid,
                               :user_id => @curator.id,
                               :created_at => 0.seconds.from_now)
-    cal_untrusted_reason = CuratorActivityLogsUntrustReason.create(:curator_activity_log_id => cal.id, :untrust_reason_id => UntrustReason.misidentified.id)
+    CuratorActivityLogsUntrustReason.create(:curator_activity_log_id => cal.id, :untrust_reason_id => UntrustReason.misidentified.id)
+    @image_dato.reload
     @image_dato.untrust_reasons(@image_dato.all_associations.last).should == [UntrustReason.misidentified.id]
+    new_image_dato = DataObject.gen(:guid => @image_dato.guid, :created_at => Time.now)
+    new_image_dato.untrust_reasons(new_image_dato.all_associations.last).should == [UntrustReason.misidentified.id]
+  end
+  
+  it '#hide_reasons should return the same hide reasons for all versions of the data object' do
+    CuratedDataObjectsHierarchyEntry.delete_all
+    @image_dato.add_curated_association(@curator, @hierarchy_entry)
+    cdohe = CuratedDataObjectsHierarchyEntry.find_by_hierarchy_entry_id_and_data_object_id(@hierarchy_entry.id,
+                                                                                           @image_dato.id)
+    cdohe.vetted_id = Vetted.unknown.id
+    cdohe.visibility_id = Visibility.invisible.id
+    cal = CuratorActivityLog.create(:object_id => @image_dato.id,
+                              :changeable_object_type_id => ChangeableObjectType.curated_data_objects_hierarchy_entry.id,
+                              :activity_id => Activity.hide.id,
+                              :hierarchy_entry_id => @hierarchy_entry.id,
+                              :data_object_guid => @image_dato.guid,
+                              :user_id => @curator.id,
+                              :created_at => 0.seconds.from_now)
+    CuratorActivityLogsUntrustReason.create(:curator_activity_log_id => cal.id, :untrust_reason_id => UntrustReason.poor.id)
+    @image_dato.reload
+    @image_dato.hide_reasons(@image_dato.all_associations.last).should == [UntrustReason.poor.id]
+    new_image_dato = DataObject.gen(:guid => @image_dato.guid, :created_at => Time.now)
+    new_image_dato.hide_reasons(new_image_dato.all_associations.last).should == [UntrustReason.poor.id]
   end
 
   it '#published_entries should read data_objects_hierarchy_entries' do
@@ -370,7 +395,7 @@ describe DataObject do
   it '#all_associations should return all associations for the data object' do
     all_associations_count_for_udo = @user_submitted_text.all_associations.count
     CuratedDataObjectsHierarchyEntry.find_or_create_by_hierarchy_entry_id_and_data_object_id( @hierarchy_entry.id,
-        @user_submitted_text.id, :vetted => Vetted.trusted, :visibility => Visibility.visible, :user => @curator)
+        @user_submitted_text.id, :data_object_guid => @user_submitted_text.guid, :vetted => Vetted.trusted, :visibility => Visibility.visible, :user => @curator)
     @user_submitted_text.reload
     @user_submitted_text.all_associations.count.should == all_associations_count_for_udo + 1
   end

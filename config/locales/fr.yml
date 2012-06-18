@@ -23,7 +23,6 @@
 fr: 
   0_1_or_2: 0, 1 ou 2
   0_or_1: 0 ou 1
-  1st_view: Première vue
   a_pipe_delimited_list_of_licenses: une liste de licences séparées par des traits verticaux « | » ou « all » pour obtenir les objets fournis sous n’importe quelle licence. Les licences abrégées avec cc- sont toutes
   a_pipe_delimited_list_of_spm_info_item_subject_names: une liste de noms de sujet d’Élément d’information SPM délimitée par des traits verticaux « | » ou « all » pour obtenir des textes portant sur un sujet quelconque
   a_taxon: un taxon
@@ -325,7 +324,6 @@ fr:
   add_sub_chapter: Ajouter un sous-chapitre
   add_to_a_community: Ajouter à une communauté
   add_to_my_collection_button: Ajouter à une collection
-  admin: administrateur
   admin_content_page_active: Publié
   admin_content_page_child_new_link: Créer une sous-page
   admin_content_page_create_successful_notice: La page <a href="#%{anchor}"><em>%{page_name}</em></a> a été créée avec succès.
@@ -439,7 +437,6 @@ fr:
   all_information: Toutes les informations
   all_items: Tous les éléments
   all_news: Toutes les actualités
-  all_pages: Toutes les pages
   all_people: Toutes les personnes
   all_sounds: Tous les enregistrements sonores
   all_sources: Toutes les sources
@@ -520,7 +517,6 @@ fr:
   browse_hierarchy: parcourir la hiérarchie
   browsing_branch_colon: "Branche parcourue :"
   build_communities: Construire des communautés
-  by: par
   by_caps: Par
   by_scientific_name_table_header: par nom scientifique
   cache_store: Stockage du cache
@@ -1916,7 +1912,6 @@ fr:
     greeting_dear_name_with_comma: "{{GENDER:%{name}}}|Cher|Chère}} %{name},"
     signature_basic: L’équipe de l’Encyclopédie de la Vie
     signature_with_species_pages_group_contact: "Si vous avez des questions, vous pouvez nous contacter à l’adresse %{species_pages_group_email}.\n\nL’équipe de l’Encyclopédie de la Vie"
-    signature_with_support_contact: "Si vous rencontrez des problèmes, vous pouvez nous contacter à l’adresse %{support_email}.\n\nL’équipe de l’Encyclopédie de la Vie"
     user_activated: 
       message: "Bienvenue sur l’Encyclopédie de la Vie (EdlV) et merci pour votre inscription ! Votre nom d’utilisateur est %{username} et l’adresse de votre profil est %{profile_url}. Vous pouvez vous connecter à votre compte à l’adresse http://www.eol.org/login.\n\nPour en savoir plus sur l’utilisation de l’EdlV, notamment comment créer des collections, participer aux communautés et contribuer au contenu, vous pouvez lire les pages d’aide à l’adresse http://www.eol.org/help."
       subject: Votre compte de l’Encyclopédie de la Vie (EdlV) a été activé
@@ -2005,7 +2000,6 @@ fr:
   page_statistics_explanation: <p>EdlV calcule automatiquement des statistiques sur ses pages. Ces statistiques sont recalculées tous les un ou deux jours.</p><h5>Indicateur de richesse</h5><p>L’indicateur de richesse est une composition de plusieurs facteurs :<ul><li>la quantité de texte que contient une page</li><li>combien de fichiers multimédia ou cartographiques sont disponibles</li><li>combien de sujets différents sont couverts</li><li>combien de sources différentes fournissent des informations</li><li>si les informations ont été révisées ou non</li></ul></p><p>Si une page a déjà beaucoup de multimédia ou de texte, en ajouter davantage n’augmentera pas son indicateur de richesse.</p><p>L’indicateur de richesse va de 0 à 100. Ne vous inquiétez pas, des différences de quelques points ne sont pas très importantes. Au fil du temps, nous pouvons changer la façon dont nous calculons ce pointage pour mieux refléter votre expérience avec le site. Dites-nous ce que vous en pensez en laissant un commentaire sur les pages que vous pensez mal évaluées.</p><h5>Images dignes de confiance</h5><p>Inclut toutes les images fiables pour cette page et les pages qui apparaissent dans une classification en bas de cette page. Cela inclut à la fois les images provenant de partenaires de confiance et les images provenant de partenaires tels que Flickr ou Wikimedia Commons qui ont été approuvés par un conservateur EdlV.</p><h5>Images non révisées</h5><p>Inclut toutes les images non révisées de cette page et des pages qui apparaissent dans une classification en bas de cette page. Certains partenaires de l’EdlV fournissent de nombreuses images de haute qualité qui n’ont pas encore été examinées. Cela n’inclut pas les images qui ont été marquées non fiables par un conservateur de l’EdlV.</p><h5>Articles fiables</h5><p>Comprend tous les articles textuels fiables de l’onglet Détails et plusieurs articles de l’onglet Ressources. Cela comprend des articles textuels de partenaires dignes de confiance. Cela comprend également des articles contribués directement sur l’EdlV par ses membres, ou depuis Wikipédia, qui ont été approuvés par un conservateur de l’EdlV. Cela ne comprend pas les articles sur les pages qui apparaissent dans une classification en bas de cette page.</p><h5>Articles non révisés</h5><p>Comprend tous les articles textuels non révisés de l’onglet Détails de cette page et plusieurs articles de l’onglet Ressources. Cela comprend des articles textuels contribués directement par les membres de l’EdlV, ou depuis Wikipédia, et qui sont en attente de relecture par un conservateur de l’EdlV. Cela ne comprend pas les articles sur les pages qui apparaissent dans une classification en bas de cette page.</p>
   page_urls: "URL(s) de la page :"
   page_views_th: Pages vues
-  pages: pages.
   pages_admin_section_link: Administrateurs
   pages_curator_section_link: Conservateurs
   pages_method_description: prend en entrée un identifiant de page EdlV et renvoie le nom scientifique pour cette page, et éventuellement renvoie des informations sur les noms vulgaires, les médias (textes, images et vidéos), et les références aux hiérarchies qui reconnaissent le taxon décrit par cette page
@@ -2151,7 +2145,6 @@ fr:
   recent_updates: Mises à jour récentes
   recently_visited: Visité récemment
   recipients: Destinataires
-  recognized_by: Reconnu par
   recognized_by_as_a_rank: "%{recognized_by} comme un %{taxon_rank}"
   recognized_by_from_source_as_a_rank: "%{recognized_by} dans %{source} comme un %{taxon_rank}"
   record_not_found: "[enregistrement non trouvé]"

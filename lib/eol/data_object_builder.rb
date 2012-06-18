@@ -103,7 +103,7 @@ module EOL
       if @association == "DOHE"
         DataObjectsHierarchyEntry.gen(:data_object => @dato, :hierarchy_entry => @he, :vetted => @vetted, :visibility => @visibility)
       elsif @association == "CDOHE"
-        CuratedDataObjectsHierarchyEntry.gen(:data_object => @dato, :hierarchy_entry => @he, :vetted => @vetted, :visibility => @visibility, :user => @user)
+        CuratedDataObjectsHierarchyEntry.gen(:data_object_id => @dato.id, :data_object_guid => @dato.guid, :hierarchy_entry => @he, :vetted => @vetted, :visibility => @visibility, :user => @user)
       else
         raise 'Please specify association as "DOHE" or "CDOHE"'
       end

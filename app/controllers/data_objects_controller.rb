@@ -284,7 +284,7 @@ class DataObjectsController < ApplicationController
     else
       access_denied
     end
-    redirect_back_or_default
+    redirect_back_or_default data_object_path(@data_object.latest_published_revision)
   end
 
   def ignore
@@ -437,7 +437,7 @@ private
   # Aborts if nothing changed. Otherwise, decides what to curate, handles that, and logs the changes:
   def curate_association(user, hierarchy_entry, opts)
     if something_needs_curation?(opts)
-      curated_object = get_curated_object(@data_object, hierarchy_entry)
+      curated_object = get_curated_object(hierarchy_entry)
       return if curated_object.visibility_id == Visibility.preview.id
       handle_curation(curated_object, user, opts).each do |action|
         log = log_action(curated_object, action)
@@ -457,13 +457,13 @@ private
     opts[:vet?] || opts[:visibility?]
   end
 
-  def get_curated_object(dato, he)
-    if he.class == UsersDataObject
-      curated_object = UsersDataObject.find_by_data_object_id(dato.id)
-    elsif he.associated_by_curator
-      curated_object = CuratedDataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(dato.id, he.id)
+  def get_curated_object(hierarchy_entry)
+    if hierarchy_entry.class == UsersDataObject
+      curated_object = UsersDataObject.find_by_data_object_id(@data_object.latest_published_revision.id)
+    elsif hierarchy_entry.associated_by_curator
+      curated_object = CuratedDataObjectsHierarchyEntry.find_by_data_object_guid_and_hierarchy_entry_id(@data_object.guid, hierarchy_entry.id)
     else
-      curated_object = DataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(dato.id, he.id)
+      curated_object = DataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(@data_object.latest_published_revision.id, hierarchy_entry.id)
     end
   end
 
@@ -547,6 +547,7 @@ private
       :object_id => object_id,
       :activity => Activity.send(method),
       :data_object => @data_object,
+      :data_object_guid => @data_object.guid,
       :hierarchy_entry => he,
       :created_at => 0.seconds.from_now
     }

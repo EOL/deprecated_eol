@@ -529,4 +529,25 @@ describe 'Data Object Page' do
     visit('/logout')
   end
 
+  it 'should not allow a curator to add an association which already exists' do
+    login_as @full_curator
+    visit("/data_objects/#{@user_submitted_text.id}")
+    page.body.should have_tag('#sidebar .header a', :text => 'Add new association')
+    page.body.should_not have_tag('form.review_status a', :text => 'Remove association')
+    click_link("Add new association")
+    fill_in 'name', :with => @another_name
+    click_button "find taxa"
+    page.body.should include('add association')
+    page.body.should_not include('associated')
+    click_button "add association"
+    page.body.should have_tag('form.review_status a', :text => 'Remove association')
+    page.body.should have_tag('#sidebar .header a', :text => 'Add new association')
+    click_link("Add new association")
+    fill_in 'name', :with => @another_name
+    click_button "find taxa"
+    page.body.should_not include('add association')
+    page.body.should include('associated')
+    visit('/logout')
+  end
+
 end

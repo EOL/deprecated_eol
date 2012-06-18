@@ -195,7 +195,8 @@ describe TaxonConcept do
         @user_for_overview_text = User.gen(:username => 'overview_text_for_user')
         @overview_text_for_user = @taxon_concept.overview_text_for_user(@user_for_overview_text)
         parent_he = @taxon_concept.published_hierarchy_entries.first.parent
-        CuratedDataObjectsHierarchyEntry.new(:data_object => @overview_text_for_user,
+        CuratedDataObjectsHierarchyEntry.new(:data_object_id => @overview_text_for_user.id,
+                                             :data_object_guid => @overview_text_for_user.guid,
                                              :hierarchy_entry => parent_he,
                                              :visibility => Visibility.invisible,
                                              :vetted => Vetted.untrusted,

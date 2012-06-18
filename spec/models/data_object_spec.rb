@@ -355,6 +355,7 @@ describe DataObject do
                               :user_id => @curator.id,
                               :created_at => 0.seconds.from_now)
     CuratorActivityLogsUntrustReason.create(:curator_activity_log_id => cal.id, :untrust_reason_id => UntrustReason.misidentified.id)
+    @image_dato.reload
     @image_dato.untrust_reasons(@image_dato.all_associations.last).should == [UntrustReason.misidentified.id]
     new_image_dato = DataObject.gen(:guid => @image_dato.guid, :created_at => Time.now)
     new_image_dato.untrust_reasons(new_image_dato.all_associations.last).should == [UntrustReason.misidentified.id]
@@ -375,6 +376,7 @@ describe DataObject do
                               :user_id => @curator.id,
                               :created_at => 0.seconds.from_now)
     CuratorActivityLogsUntrustReason.create(:curator_activity_log_id => cal.id, :untrust_reason_id => UntrustReason.poor.id)
+    @image_dato.reload
     @image_dato.hide_reasons(@image_dato.all_associations.last).should == [UntrustReason.poor.id]
     new_image_dato = DataObject.gen(:guid => @image_dato.guid, :created_at => Time.now)
     new_image_dato.hide_reasons(new_image_dato.all_associations.last).should == [UntrustReason.poor.id]

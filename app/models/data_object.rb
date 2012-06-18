@@ -640,8 +640,9 @@ class DataObject < ActiveRecord::Base
         self.class.uncached do
           # creating another instance to remove any change of this instance not
           # matching the database and indexing stale or changed information
-          object_to_index = DataObject.find(self.id)
-          EOL::Solr::DataObjectsCoreRebuilder.reindex_single_object(object_to_index)
+          revisions_by_date.each do |object_to_index|
+            EOL::Solr::DataObjectsCoreRebuilder.reindex_single_object(object_to_index)
+          end
         end
       end
     else
@@ -882,11 +883,15 @@ class DataObject < ActiveRecord::Base
   end
 
   def all_associations
-    @all_assoc ||= (published_entries + unpublished_entries + [users_data_object]).compact
+    @all_assoc ||= (published_entries + unpublished_entries + [latest_published_users_data_object]).compact
   end
 
   def all_published_associations
-    @all_pub_assoc ||= (published_entries + [users_data_object]).compact
+    @all_pub_assoc ||= (published_entries + [latest_published_users_data_object]).compact
+  end
+
+  def latest_published_users_data_object
+    latest_published_revision.users_data_object if users_data_object
   end
 
   def first_concept_name
@@ -938,6 +943,7 @@ class DataObject < ActiveRecord::Base
   end
 
   def add_curated_association(user, hierarchy_entry)
+    taxon_concept_id = hierarchy_entry.taxon_concept.id
     vetted_id = user.min_curator_level?(:full) ? Vetted.trusted.id : Vetted.unknown.id
     cdohe = CuratedDataObjectsHierarchyEntry.create(:hierarchy_entry_id => hierarchy_entry.id,
                                                     :data_object_id => self.id, :user_id => user.id,
@@ -946,24 +952,46 @@ class DataObject < ActiveRecord::Base
                                                     :visibility_id => Visibility.visible.id)
     if self.data_type == DataType.image
       TopImage.find_or_create_by_hierarchy_entry_id_and_data_object_id(hierarchy_entry.id, self.id, :view_order => 1)
-      TopConceptImage.find_or_create_by_taxon_concept_id_and_data_object_id(hierarchy_entry.taxon_concept.id, self.id, :view_order => 1)
+      TopConceptImage.find_or_create_by_taxon_concept_id_and_data_object_id(taxon_concept_id, self.id, :view_order => 1)
     end
-    DataObjectsTaxonConcept.find_or_create_by_taxon_concept_id_and_data_object_id(hierarchy_entry.taxon_concept.id, self.id)
+    DataObjectsTaxonConcept.find_or_create_by_taxon_concept_id_and_data_object_id(taxon_concept_id, self.id)
+    revisions_by_date.each do |revision|
+      if revision.id != self.id
+        dotc_exists = DataObjectsTaxonConcept.find_by_taxon_concept_id_and_data_object_id(taxon_concept_id, revision.id)
+        dotc_exists.destroy unless dotc_exists.nil?
+      end
+    end
   end
 
   def remove_curated_association(user, hierarchy_entry)
+    taxon_concept_id = hierarchy_entry.taxon_concept.id
     cdohe = CuratedDataObjectsHierarchyEntry.find_by_data_object_guid_and_hierarchy_entry_id(guid, hierarchy_entry.id)
     raise EOL::Exceptions::ObjectNotFound if cdohe.nil?
     raise EOL::Exceptions::WrongCurator.new("user did not create this association") unless cdohe.user_id == user.id
     cdohe.destroy
     if self.data_type == DataType.image
-      tci_exists = TopConceptImage.find_by_taxon_concept_id_and_data_object_id(hierarchy_entry.taxon_concept.id, self.id)
+      tci_exists = TopConceptImage.find_by_taxon_concept_id_and_data_object_id(taxon_concept_id, self.id)
       tci_exists.destroy unless tci_exists.nil?
       ti_exists = TopImage.find_by_hierarchy_entry_id_and_data_object_id(hierarchy_entry.id, self.id)
       ti_exists.destroy unless ti_exists.nil?
     end
-    dotc_exists = DataObjectsTaxonConcept.find_by_taxon_concept_id_and_data_object_id(hierarchy_entry.taxon_concept.id, self.id)
-    dotc_exists.destroy unless dotc_exists.nil?
+    unless still_associated_with_taxon_concept?(taxon_concept_id)
+      revisions_by_date.each do |revision|
+        dotc_exists = DataObjectsTaxonConcept.find_by_taxon_concept_id_and_data_object_id(taxon_concept_id, revision.id)
+        dotc_exists.destroy unless dotc_exists.nil?
+      end
+    end
+  end
+
+  def still_associated_with_taxon_concept?(taxon_concept_id)
+    all_associations.each do |association|
+      if association.class == UsersDataObject
+        return true if association.taxon_concept_id == taxon_concept_id
+      else
+        return true if association.taxon_concept.id == taxon_concept_id
+      end
+    end
+    return false
   end
 
   def translated_from

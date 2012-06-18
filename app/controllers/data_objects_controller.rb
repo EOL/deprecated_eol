@@ -546,6 +546,7 @@ private
       :changeable_object_type => changeable_object_type,
       :object_id => object_id,
       :activity => Activity.send(method),
+      :data_object => @data_object,
       :data_object_guid => @data_object.guid,
       :hierarchy_entry => he,
       :created_at => 0.seconds.from_now

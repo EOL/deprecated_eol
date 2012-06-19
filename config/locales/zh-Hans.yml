@@ -6,7 +6,7 @@
 # Author: Shuai Yuan
 # Author: Jinkui Cheng
 # Author: Yan Han msgstr ""
-en:
+zh-Hans:
   date:
     formats:
       default: "%Y-%m-%d"

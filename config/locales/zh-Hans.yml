@@ -246,6 +246,7 @@ zh-Hans:
       storage_units:
         units:
           byte:
+            one: "字节"
             other: "字节"
   number:
     human:
@@ -307,46 +308,57 @@ zh-Hans:
   datetime:
     distance_in_words:
       less_than_x_seconds:
+        one: "不到 %{count}秒"
         other: "不到 %{count}秒"
   datetime:
     distance_in_words:
       x_seconds:
+        one: "%{count} 秒"
         other: "%{count} 秒"
   datetime:
     distance_in_words:
       less_than_x_minutes:
+        one: "不到 %{count} 分钟"
         other: "不到 %{count} 分钟"
   datetime:
     distance_in_words:
       x_minutes:
+        one: "%{count} 分"
         other: "%{count} 分"
   datetime:
     distance_in_words:
       about_x_hours:
+        one: "大约%{count} 小时"
         other: "大约%{count} 小时"
   datetime:
     distance_in_words:
       x_days:
+        one: "%{count} 天"
         other: "%{count} 天"
   datetime:
     distance_in_words:
       about_x_months:
+        one: "大约%{count} 个月"
         other: "大约%{count} 个月"
   datetime:
     distance_in_words:
       x_months:
+        one: "%{count} 月"
         other: "%{count} 月"
   datetime:
     distance_in_words:
       about_x_years:
+        one: "大约%{count} 年"
         other: "大约%{count} 年"
   datetime:
     distance_in_words:
       over_x_years:
+        one: "超过%{count} 年"
         other: "超过%{count} 年"
   datetime:
     distance_in_words:
       almost_x_years:
+        one: "将近%{count}年"
         other: "将近%{count}年"
   datetime:
     prompts:
@@ -1084,6 +1096,7 @@ zh-Hans:
     errors:
       template:
         header:
+          one: "发现%{count} 次验证错误"
           other: "发现%{count} 次验证错误"
   activerecord:
     errors:
@@ -1129,11 +1142,13 @@ zh-Hans:
     errors:
       messages:
         too_long:
+          one: "过长 (最多 %{count} 个字符)"
           other: "过长 (最多 %{count} 个字符)"
   activerecord:
     errors:
       messages:
         too_short:
+          one: "太短 (最少 %{count} 个字符)"
           other: "太短 (最少 %{count} 个字符)"
   activerecord:
     errors:
@@ -1151,6 +1166,7 @@ zh-Hans:
     errors:
       messages:
         greater_than:
+          one: "必须大于 %{count}  "
           other: "必须大于 %{count}  "
   activerecord:
     errors:
@@ -1164,6 +1180,7 @@ zh-Hans:
     errors:
       messages:
         less_than:
+          one: "必须小于 %{count} "
           other: "必须小于 %{count} "
   activerecord:
     errors:
@@ -3448,21 +3465,27 @@ zh-Hans:
     see_all_activity: "在<a href='%{activity_url}' style='color:#195184'>您的个人消息页面</a>中查看之前的所有消息。"
   recent_activity:
     bulk_comments_with_count:
+      one: "有%{count}条关于%{on}的新评论"
       other: "有%{count}条关于%{on}的新评论"
   recent_activity:
     bulk_comments_on_you_with_count:
+      one: "有 %{count}条关于<a href='%{url}' style='color:#195184'>个人信息</a>的新评论 "
       other: "有 %{count}条关于<a href='%{url}' style='color:#195184'>个人信息</a>的新评论 "
   recent_activity:
     bulk_curation_with_count:
+      one: "管理员对%{to}进行了 %{count}项改进 "
       other: "管理员对%{to}进行了 %{count}项改进 "
   recent_activity:
     bulk_collection_activity_with_count:
+      one: "有 %{count}条关于%{to}的更新"
       other: "有 %{count}条关于%{to}的更新"
   recent_activity:
     bulk_community_activity_with_count:
+      one: "有 %{count}条关于%{to}的更新"
       other: "有 %{count}条关于%{to}的更新"
   recent_activity:
     bulk_community_joins_with_count:
+      one: "%{count} 个新会员加入 %{community}"
       other: "%{count} 个新会员加入 %{community}"
   recent_activity:
     default_subject: "最近在EOL上的活动"
@@ -6460,18 +6483,25 @@ zh-Hans:
   article_from: "文章来自"
   article_more_about: "深入了解这篇文章的详细信息"
   articles_with_count:
+    one: "%{count}篇文章"
     other: "%{count}篇文章"
   articles_in_languages_with_count:
+    one: "本页的文章有 %{count} 种语言版本："
     other: "本页的文章有 %{count} 种语言版本："
   articles_in_other_languages_with_count:
+    one: "本页的文章还有 %{count} 种其他语言版本："
     other: "本页的文章还有 %{count} 种其他语言版本："
   as_of_time_there_were_unique_visitors:
+    one: "截止到%{time}，有 %{count} 位唯一身份访问者"
     other: "截止到%{time}，有 %{count} 位唯一身份访问者"
   a_total_of_comment_were_found_matching_your_criteria:
+    one: "总共 %{count}条评论与您的标准匹配。"
     other: "总共 %{count}条评论与您的标准匹配。"
   a_total_of_items_were_found_matching_your_criteria:
+    one: "总共 %{count}项与您的标准匹配。"
     other: "总共 %{count}项与您的标准匹配。"
   a_total_of_terms_were_found_matching_your:
+    one: "总共 %{count}条术语与您的标准匹配。"
     other: "总共 %{count}条术语与您的标准匹配。"
   assistive_overview_header: "概述"
   assistive_media_header: "媒体"
@@ -6514,6 +6544,7 @@ zh-Hans:
   back_to_profile: "返回到信息页"
   began: "开始"
   belongs_in_count_communities:
+    one: "属于 %{count}个社区"
     other: "属于 %{count}个社区"
   bhl_publication: "网络生命大百科发布物"
   bi_monthly: "双月的"
@@ -6562,8 +6593,10 @@ zh-Hans:
   classifications_rank_column_header: "等级"
   classifications_hierarchy_column_header: "分类"
   classifications_summary_header_with_count:
+    one: "在 %{count}个分类系统中发现 "
     other: "在 %{count}个分类系统中发现 "
   classifications_with_count:
+    one: "%{count} 个分类系统"
     other: "%{count} 个分类系统"
   clear_all_non_species_pages: "清除所有的非物种页"
   clear_entire_cache_store: "清除整个缓存"
@@ -6582,6 +6615,7 @@ zh-Hans:
   collect_item: "收藏条目"
   collect_items: "收藏条目"
   collection_created_with_count_notice:
+    one: "成功创建了 <em>%{collection_name}</em>收藏，包含 %{count} 项内容。"
     other: "成功创建了 <em>%{collection_name}</em>收藏，包含 %{count} 项内容。"
   collection_delete_link: "永久删除此收藏"
   collection_description_default: "网络生命大百科的一个收藏。"
@@ -6607,8 +6641,10 @@ zh-Hans:
   collections_page_title: "收藏"
   collections_summary_empty: "该页面还不属于任何收藏。"
   collections_summary_header_with_count:
+    one: "出现在 %{count}个收藏中"
     other: "出现在 %{count}个收藏中"
   collections_with_count:
+    one: "%{count}个收藏"
     other: "%{count}个收藏"
   comment: "评论"
   comment_added_notice: "成功增加了评论。"
@@ -6630,15 +6666,18 @@ zh-Hans:
   comments_moderated: "修改后的评论"
   comments_on: "评论"
   comments_with_count:
+    one: "%{count}条评论"
     other: "%{count}条评论"
   common_activities_by_logged_in: "登录用户的常见活动。"
   common_name_avg: "俗名平均"
   common_name: "俗名"
   common_name_exists: "该俗名<em>%{name_string}</em>已经存在"
   common_names_with_count:
+    one: "%{count}个俗名"
     other: "%{count}个俗名"
   common_user_activity_page_title: "常见用户活动"
   communities_with_count:
+    one: "%{count} 个社区"
     other: "%{count} 个社区"
   communities_filter: "社区"
   communities_link: "社区"
@@ -6649,19 +6688,23 @@ zh-Hans:
   community: "社区"
   community_activity: "社区活动"
   community_contributions_with_count:
+    one: "%{count}个贡献"
     other: "%{count}个贡献"
   community_destroyed: "您已删除该社区。它将不再出现在物种页面或搜索中。"
   community_description_default: "网络生命大百科的一个社区。"
   community_empty_notice: "该社区没有会员。"
   community_focus: "已管理的收藏"
   community_focus_items_with_count:
+    one: "%{count}项"
     other: "%{count}项"
   community_invitation_comment: "我希望邀请您加入\"%{community}\"。"
   community_logo_alt_text: " %{community_name}社区的Logo"
   community_managers_with_count:
+    one: "%{count} 个社区管理员"
     other: "%{count} 个社区管理员"
   community_members: "社区会员"
   community_members_with_count:
+    one: "%{count} 个社区会员"
     other: "%{count} 个社区会员"
   community_name_label: "社区名称"
   community_newsfeed: "社区动态"
@@ -6674,6 +6717,7 @@ zh-Hans:
   community_removed_by_owner: "这个社区被所有者移除。"
   communities_summary_empty: "这个类群还没有被任何社区关注。"
   communities_summary_header_with_count:
+    one: "属于 %{count}个社区"
     other: "属于 %{count}个社区"
   completed: "已完成"
   confirm_delete_community: "您确认要删除这个社区？社区的其他会员还可以浏览该社区的内容，但是该社区的内容已经不能进行查询和显示在物种页面，也无法在进行编辑。"
@@ -6851,6 +6895,7 @@ zh-Hans:
   content_partners_page_title: "内容合作伙伴"
   content_partners_page_description: "网络生命大百科的内容合作伙伴在自己的网站或数据库中，拥有大量关于生物多样性的信息，同时他们也通过EOL页面来分享这些信息。我们非常感谢内容合作伙伴对EOL的重要贡献，并鼓励您更多的去了解他们。了解更多<a href=\"%{more_url}\">成为一个内容合作伙伴</a>。"
   content_partners_with_count:
+    one: "%{count}位内容合作伙伴"
     other: "%{count}位内容合作伙伴"
   content_server_full_url: "内容服务器完整URL"
   content_servers: "内容服务器"
@@ -6868,10 +6913,12 @@ zh-Hans:
   content_type: "内容类型"
   contribute: "贡献"
   copied_items_from_collection_with_count_notice:
+    one: " 从%{name}中拷贝%{count}项。"
     other: " 从%{name}中拷贝%{count}项。"
   copy: "副本"
   copy_of_name: "%{name}的副本"
   copy_items_to_a_new_collection_with_count:
+    one: " 拷贝%{count}项到一个新的收藏中"
     other: " 拷贝%{count}项到一个新的收藏中"
   copyright: "版权所有："
   correct_donation_message: "如果此信息不正确，请点击%{go_back_link}修改"
@@ -6879,6 +6926,7 @@ zh-Hans:
   could_not_find_user: "您不是这个社区的会员。"
   count: "数目"
   count_results_for_search_term:
+    one: "为<em>%{search_term}</em>找到%{count}个结果"
     other: "为<em>%{search_term}</em>找到%{count}个结果"
   create_account: "创建一个帐户"
   create_community_unsuccessful_error: "抱歉，出现了一个错误，您的社区未能建立。请检查所有必填项是否正确。"
@@ -6926,9 +6974,11 @@ zh-Hans:
   curators: "管理员"
   curators_empty: "我们的管理员暂未对该页进行管理。"
   curators_summary_header_with_count:
+    one: "由%{count}个管理员审核"
     other: "由%{count}个管理员审核"
   curators_summary_learn_more_link: "了解如何管理"
   curators_with_count:
+    one: "%{count}个管理员"
     other: "%{count}个管理员"
   your_current_rating_0_of_5: "您当前的评级： 0/5"
   your_current_rating_1_of_5: "您当前的评级： 1/5"
@@ -7053,6 +7103,7 @@ zh-Hans:
   endorsed_by: "关注者"
   endorsed_collections: "关注的收藏"
   endorsed_collections_with_count:
+    one: "%{count}个关注的收藏"
     other: "%{count}个关注的收藏"
   enter_in_a_search_term_users_a: "输入用户正在搜索的词，然后物种阶元或物种/页的ID将被搜索到，最后用户将被转到这个页面。这个物种阶元或物种/页的ID可以在这个网页的地址中找到（例如www.eol.org/pages/5 的物种/页的ID是5）。如果可行，这个物种页的名字和第一张图片将被收集，并与搜索结果保存在一起。"
   eol_administration_console: "EOL 管理控制台"
@@ -7126,6 +7177,7 @@ zh-Hans:
   facebook: "Facebook"
   faculty_staff_or_grad_student_credential_option: "在相关学院或大学教研室的教师、 工作人员或研究生身份"
   failed_login_attempts_with_count:
+    one: "(%{count} 次登录失败)- 请检查用户登录信息"
     other: "(%{count} 次登录失败)- 请检查用户登录信息"
   family_name_colon: "科名："
   feedback: "反馈"
@@ -7144,22 +7196,26 @@ zh-Hans:
   filter_by_type: "按类型筛选"
   filter_by_type_all_option: "所有类型"
   filter_by_type_all_option_with_count:
+    one: "全部(%{count})"
     other: "全部(%{count})"
   filter_by_type_collection_option: "收藏"
   filter_by_type_community_option: "社区"
   filter_by_type_content_page_option: "关于EOL"
   filter_by_type_image_option: "图像"
   filter_by_type_image_option_with_count:
+    one: " 图像(%{count})"
     other: " 图像(%{count})"
   filter_by_type_text_option: "文章"
   filter_by_type_user_option: "用户"
   filter_by_type_photosynth_option: "全景图"
   filter_by_type_sound_option: "音频"
   filter_by_type_sound_option_with_count:
+    one: "声音(%{count})"
     other: "声音(%{count})"
   filter_by_type_taxon_concept_option: "分类单元"
   filter_by_type_video_option: "视频"
   filter_by_type_video_option_with_count:
+    one: "视频(%{count})"
     other: "视频(%{count})"
   filter_by_type_comment_option: "评论"
   filter_by_type_object_curated_option: "已管理的数据项"
@@ -7268,8 +7324,10 @@ zh-Hans:
   images_in_red_are_not_trusted: "红色标记图像是不可信的。"
   images_in_yellow_are_not_reviewed: "黄色标记图像是未经审核的。"
   images_sort_worklist_note:
+    one: "图像按EOL导入时间排序，最新的项目最先展示。在工作列表中有%{count}幅图像。"
     other: "图像按EOL导入时间排序，最新的项目最先展示。在工作列表中有%{count}幅图像。"
   images_with_count:
+    one: "%{count}张图像"
     other: "%{count}张图像"
   import_once: "一次性导入"
   inappropriate: "不恰当"
@@ -7324,6 +7382,7 @@ zh-Hans:
   items_no_move_none_selected_warning: "没有选中项,因此无法移动。请先勾选列表中项,然后再移动所选项。"
   items_no_remove_none_selected_warning: "没有选中项目,因此无法删除。请先勾选列表中项目,然后再删除所选项。"
   items_with_count_semi_colon:
+    one: "%{count}项;"
     other: "%{count}项;"
   iucn_red_list_status_advisory_information: "该链接将把您带到国际自然保护联盟(IUCN)的网站，您可以在IUCN濒危物种红色目录中找到更多信息。"
   join_community_button: "加入此社区"
@@ -7415,17 +7474,20 @@ zh-Hans:
   manage_your_profile: "管理您的信息"
   managed_by: "管理员"
   managed_collections_with_count:
+    one: "%{count} 个在管收藏"
     other: "%{count} 个在管收藏"
   manager_endorse_collections_suggestion: "在本社区的页面关注一个收藏，添加关注的收藏到任何社区所管理的收藏集。"
   manager_parens: "(管理员)"
   map_from: "地图来自"
   image_map_from: "地图来自"
   maps_with_count:
+    one: "%{count} 幅地图"
     other: "%{count} 幅地图"
   maps_empty: "本物种页暂无人提供地图。"
   maps_empty_contribute_instructions: "了解如何向EOL提供地图。"
   maps_image_maps_header: "标记为'地图'的媒体文件"
   matching_users_found_with_count:
+    one: "总共 %{count}个用户与您的标准匹配。"
     other: "总共 %{count}个用户与您的标准匹配。"
   max_collection_items_error: "抱歉，您的请求超出了%{max}个收藏条目的最大限制。"
   media: "媒体"
@@ -7433,6 +7495,7 @@ zh-Hans:
   media_list_empty_search: "没有检索到符合您检索条件的媒体。"
   media_list_empty_contribute_instructions: "了解如何向EOL提供媒体文件。"
   media_with_count:
+    one: "%{count}条媒体记录"
     other: "%{count}条媒体记录"
   media_summary_empty: "本物种页暂无人提供图像。"
   media_summary_empty_contribute_instructions: "了解如果向EOL提供图像。"
@@ -7440,8 +7503,10 @@ zh-Hans:
   member_of: "会员属于"
   members_like_you: "注册会员"
   members_with_count:
+    one: "%{count}名会员"
     other: "%{count}名会员"
   members_with_count_semi_colon:
+    one: "%{count}名会员;"
     other: "%{count}名会员;"
   merge_concepts: "合并概念"
   message_colon: "消息:"
@@ -7451,18 +7516,22 @@ zh-Hans:
   minimal_page: "最小的页面"
   monthly: "每月"
   more_children_with_count:
+    one: "还有%{count}..."
     other: "还有%{count}..."
   more_siblings_with_count:
+    one: "还有%{count}个同级的..."
     other: "还有%{count}个同级的..."
   most_active_members: "最活跃的会员"
   move: "移动"
   move_down: "向下移"
   move_items_to_a_new_collection_with_count:
+    one: "将%{count}项移动到一个新收藏"
     other: "将%{count}项移动到一个新收藏"
   move_to_bottom: "移到底"
   move_to_top: "移到顶"
   move_up: "向上移"
   moved_items_from_collection_with_count_notice:
+    one: "从%{name}移来%{count}项。"
     other: "从%{name}移来%{count}项。"
   must_be_associated_with_either_a_user_or_a_community: "必须与一个用户或社区关联"
   must_provide_search_term_error: "必须输入一个查询词。"
@@ -7608,10 +7677,13 @@ zh-Hans:
   original: "原始："
   other_us_dollars_amount: "其它：US$"
   other_collection_items_with_count:
+    one: "%{count}个其它项"
     other: "%{count}个其它项"
   other_community_items_with_count:
+    one: "%{count}个其它项"
     other: "%{count}个其它项"
   other_taxa_with_count:
+    one: "%{count}个其它分类单元"
     other: "%{count}个其它分类单元"
   outlink: "观点"
   overview: "概述"
@@ -7626,6 +7698,7 @@ zh-Hans:
   pages: "页面。"
   pages_title: "参考文献"
   pages_with_count:
+    one: "%{count}"
     other: "%{count}"
   page_statistics_and_tools: "页面统计和工具"
   pages_with_pictures_and_text: "有图片和文本的页面"
@@ -7639,9 +7712,11 @@ zh-Hans:
   pagination_page_number: "第%{number}页"
   pagination_next: "下一页"
   pagination_next_with_count:
+    one: "查看下%{count}页"
     other: "查看下%{count}页"
   pagination_previous: "上一页"
   pagination_previous_with_count:
+    one: "查看上%{count}页"
     other: "查看上%{count}页"
   parameters: "参数"
   partner_information: "合作伙伴信息"
@@ -7652,6 +7727,7 @@ zh-Hans:
   password_colon: "密码："
   pause: "暂停"
   people_with_count:
+    one: "%{count}个人"
     other: "%{count}个人"
   percentage_of_descendants_with_images: "带图像的子节点的百分比"
   percentage_of_descendants_with_text: "带文本的子节点的百分比"
@@ -7704,6 +7780,7 @@ zh-Hans:
   rank_recognized_by_from_source: "在 %{source}中，%{rank}被 %{agent}确定"
   rank_recognized_by_agent_colon: "<b>%{rank}</b> 被 %{agent}确认:"
   rated_by_count_people:
+    one: "来自%{count}个人"
     other: "来自%{count}个人"
   rating_added_notice: "已成功添加评级。"
   rating_not_added_error: "抱歉, 出现了一个错误, 评级无法添加。"
@@ -7718,6 +7795,7 @@ zh-Hans:
   recognized_by: ""
   record_not_found: "[未找到记录]"
   related_names_with_count:
+    one: "%{count}个相关名称"
     other: "%{count}个相关名称"
   remove_curatorship_colon: "删除管理者职务："
   remove_data_object_association: "删除关联"
@@ -7727,6 +7805,7 @@ zh-Hans:
   revoke_full_curator_link: "撤销"
   revoke_manager_link: "撤销管理者角色"
   removed_count_items_from_collection_notice:
+    one: "%{count}项已从收藏中移除。"
     other: "%{count}项已从收藏中移除。"
   request_mailing_list_colon: "请求邮件列表；"
   request: "请求"
@@ -7791,19 +7870,26 @@ zh-Hans:
   see_all_of_your_collections: "查看您的所有收藏"
   see_all_of_your_communities: "查看您的所有社区"
   see_all_classifications_with_count_html:
+    one: "查看<span class=\"assistive\">%{count}个出现该分类单元的已被认可的分类系统</span>"
     other: "查看<span class=\"assistive\">%{count}个出现该分类单元的已被认可的分类系统</span>"
   see_all_collections_with_count_html:
+    one: "查看<span class=\"assistive\">%{count}个出现该页面的收藏</span>"
     other: "查看<span class=\"assistive\">%{count}个出现该页面的收藏</span>"
   see_all_comments_with_count_for_text_or_rate:
+    one: "查看本文章的%{count}条评论或给本文章评分"
     other: "查看本文章的%{count}条评论或给本文章评分"
   see_all_communities_with_count_html:
+    one: "查看<span class=\"assistive\">关注这个物种页的%{count}社群</span>"
     other: "查看<span class=\"assistive\">关注这个物种页的%{count}社群</span>"
   see_all_featured_collections_with_count:
+    one: "查看%{count}个关注的收藏"
     other: "查看%{count}个关注的收藏"
   see_all_updates_with_count_html:
+    one: "查看<span class=\"assistive\">该页面的所有%{count}个更新</span>"
     other: "查看<span class=\"assistive\">该页面的所有%{count}个更新</span>"
   see_all_media_link: "查看所有媒体"
   see_all_editors_with_count:
+    one: "查看%{count}个管理员"
     other: "查看%{count}个管理员"
   see_notes: "查看注释"
   select_a_hierarchy_around_whic: "选择一个分类树用以组织内容概要："
@@ -7817,12 +7903,14 @@ zh-Hans:
   send_email_colon: "发送邮件："
   send: "发送"
   sent_invitations_to_users:
+    one: "邀请已发送到 %{users}"
     other: "邀请已发送到 %{users}"
   sep_emails_with_commas_note: "（用逗号分隔的多个邮件地址）"
   server_ip_address: "服务器IP地址"
   set_as_exemplar: "设置为范例"
   share_a_collection: "分享一个收藏"
   show_all_other_classifications_with_count:
+    one: "显示其他%{count}个不可浏览的分类系统"
     other: "显示其他%{count}个不可浏览的分类系统"
   show_email_message_area: "[显示邮件消息区域]"
   show_data_from_all_content_partners: "删除分类系统过滤器"
@@ -7875,6 +7963,7 @@ zh-Hans:
   sound_from: "音频来自"
   sound_object: "声音对象"
   sounds_with_count:
+    one: "%{count}个声音"
     other: "%{count}个声音"
   source_information_header: "来源信息"
   source_and_additional_information: "来源和附属信息"
@@ -7905,6 +7994,7 @@ zh-Hans:
   switch_language_advisory_information: "切换网站语言到 %{language_label}"
   synonym: "异名"
   synonyms_with_count:
+    one: "%{count}个异名"
     other: "%{count}个异名"
   table_column_header_actions: "活动"
   table_of_contents_breakdown: "目录细分"
@@ -7917,9 +8007,11 @@ zh-Hans:
   task_status_curated_option: "已管理"
   task_status_ignored_option: "忽略"
   tasks_with_count:
+    one: "发现%{count}个任务"
     other: "发现%{count}个任务"
   taxa_column_header: "分类单元"
   taxa_with_count:
+    one: "%{count}个分类单元"
     other: "%{count}个分类单元"
   taxon: "类群"
   taxon_biomedical_terms_link: "生物医学术语"
@@ -7965,6 +8057,7 @@ zh-Hans:
   text_summary_empty_header: "简介"
   text_summary_more_link: "阅读完整的条目"
   text_with_count:
+    one: "%{count}篇文章"
     other: "%{count}篇文章"
   thanks_for_donation: "感谢您对生命大百科的支持，您的信息已经被提交并将处理。"
   thanks_for_your_time: "感谢您花费时间，"
@@ -8037,9 +8130,11 @@ zh-Hans:
   to_send_email_enter_text: "要发送给该用户一封邮件，在下方输入文本并点击发送。"
   to_submit_text_content_for_taxon_please_be_sure_you_are_logged: "为了提交%{taxon}的文本内容，请先确认您已经登录EOL在点击提交。"
   total_comments_have_been_submitted:
+    one: "%{string}中的%{count}个评论已提交"
     other: "%{string}中的%{count}个评论已提交"
   total_distinct_searches: "全部不重复搜索结果："
   total_items_with_count:
+    one: "总计%{count}项"
     other: "总计%{count}项"
   total_searches: "全部搜索次数："
   total: "全部"
@@ -8096,30 +8191,41 @@ zh-Hans:
   user_activity_report_intro: "用户活动报告。选择一个明确的用户查看它的活动，按照创建时间逆序排列。选择'全部'查看多有的用户活动。点击'搜索'继续(使用浏览器后退按钮返回)。"
   user_activity_page_title: "用户活动"
   user_activity_stats_articles_added:
+    one: "已添加%{count}篇文章"
     other: "已添加%{count}篇文章"
   user_activity_stats_articles_added_dropdown: "新增的文章"
   user_activity_stats_comment_submitted:
+    one: "已添加%{count}个评论"
     other: "已添加%{count}个评论"
   user_activity_stats_common_names_added:
+    one: "已添加%{count}个俗名"
     other: "已添加%{count}个俗名"
   user_activity_stats_common_names_curated:
+    one: "已审核%{count}个俗名"
     other: "已审核%{count}个俗名"
   user_activity_stats_common_names_removed:
+    one: "已删除%{count}个俗名"
     other: "已删除%{count}个俗名"
   user_activity_stats_header: "活动统计"
   user_activity_stats_objects_curated:
+    one: "已管理%{count}个对象"
     other: "已管理%{count}个对象"
   user_activity_stats_objects_curated_dropdown: "已管理的数据项"
   user_activity_stats_set_exemplar:
+    one: "%{count}个图像集范例"
     other: "%{count}个图像集范例"
   user_activity_stats_taxa_commented:
+    one: "%{count}个分类单元被评论"
     other: "%{count}个分类单元被评论"
   user_activity_stats_taxa_comments:
+    one: "%{count}个分类单元的评论"
     other: "%{count}个分类单元的评论"
   user_activity_stats_taxa_comments_dropdown: "分类单元评论"
   user_activity_stats_taxa_curated:
+    one: "%{count}个分类单元被管理"
     other: "%{count}个分类单元被管理"
   user_activity_stats_wikipedia_nominated:
+    one: "提名了%{count}篇维基百科的文章"
     other: "提名了%{count}篇维基百科的文章"
   user_agent: "用户代理"
   user_already_active_notice: "您的帐户已激活，请登录。"
@@ -8138,9 +8244,11 @@ zh-Hans:
   user_no_longer_has_manager_access_to_collection: "%{user} 不再拥有对 \"%{collection}\"的管理权限。"
   user_pending_notifications_assitive: "<span class=\"assistive\">提示</span>"
   user_pending_notifications_with_count_assitive:
+    one: "%{count}<span class=\"assistive\"> 条提示</span>"
     other: "%{count}<span class=\"assistive\"> 条提示</span>"
   user_pending_notifications_comments_assistive: "<span class=\"assistive\">评论</span>"
   user_pending_notifications_comments_with_count_assistive:
+    one: "%{count}<span class=\"assistive\">条评论</span>"
     other: "%{count}<span class=\"assistive\">条评论</span>"
   user_was_added_as_editor_of_collection: "该用户已被添加为\"%{collection}\"收藏的管理员。"
   username_taken: "%{name}名字已存在"
@@ -8156,6 +8264,7 @@ zh-Hans:
   users_content_partners_header: "内容合作伙伴"
   users_content_partners_information: "EOL内容合作伙伴为个人或者组织，它们通过EOL与全世界分享它们的生物多样性数据。了解更多关于<a href=\"%{more_url}\">EOL内容合作伙伴</a>。"
   users_content_partners_with_count:
+    one: "%{count}内容合作伙伴"
     other: "%{count}内容合作伙伴"
   users_curation_header: "管理员资格"
   users_form_account_header: "您的帐户"
@@ -8163,6 +8272,7 @@ zh-Hans:
   users_form_profile_info_header: "公开的简介信息"
   users_form_tip: "用户名对所有用户都是必须的，其它要求填写的项目对一般用户是可选的，但是对与管理员是必须的。"
   users_member_of_count_communities:
+    one: " %{count}个社区的会员"
     other: " %{count}个社区的会员"
   users_my_info_header: "我的信息"
   users_pending_activation_helper: "帐户激活邮件<em>经常</em>被邮件过滤器视为垃圾邮件，如果您在1小时之内没有收到激活邮件，请检查垃圾邮件箱。"
@@ -8181,6 +8291,7 @@ zh-Hans:
   video_object: "视频数据"
   video_title_not_available_in_language: "%{language}标题不可用"
   videos_with_count:
+    one: "%{count}个视频"
     other: "%{count}个视频"
   view_verb: "查看"
   view_added_text: "查看新增文本"

@@ -1116,10 +1116,18 @@ body#prelaunch #footer ul.social_media {
   display: none;
   color: #e84226; }
 
+#please_wait {
+  display: none; }
+
 table.classifications input.cancel {
   display: none; }
 table.classifications input.keep {
   display: none; }
+
+#split_warning {
+  border: 1px solid #f2d2cc;
+  background: #ffeae6;
+  padding: 10px; }
 
 #split_instructions {
   border: 1px solid #f2d2cc;
@@ -1129,3 +1137,9 @@ table.classifications input.keep {
 
 .classification_actions p {
   margin-bottom: 1em; }
+
+ul#classification_actions li {
+  margin-bottom: 1em; }
+
+li table.classifications {
+  margin-top: 1em; }

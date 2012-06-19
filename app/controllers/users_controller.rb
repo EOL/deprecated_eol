@@ -322,12 +322,6 @@ class UsersController < ApplicationController
     redirect_to recover_account_users_path
   end
 
-  def merge_concept
-    # TODO - how is this stored?
-    session[:curation_hierarchy_entries] = params[:curation_hierarchy_entries]
-    redirect_to taxon_names_path(params[:taxon_concept_id])
-  end
-
 protected
 
   def scoped_variables_for_translations

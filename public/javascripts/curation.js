@@ -132,21 +132,9 @@ $(document).ready(function() {
     $(this).parent().parent().parent().slideUp();
   });
   // Curation of classifications:
-  $('table.classifications input.cancel').click(function(e) {
-    $('#split_instructions').hide();
-    $('table.classifications input.keep').hide();  // Separate because there are radio buttons in here, too.
-    $('table.classifications input.cancel').hide();// Separate because there are radio buttons in here, too.
-    $('table.classifications a.split').show();
-    $('#split_hierarchy_entry_id').val('');
-    return(false);
-  });
-  $('table.classifications a.split').click(function(e) {
-    $('#split_instructions').show();
-    var $clicked = $(e.target);
-    $clicked.hide();
-    $clicked.parent().find('input.cancel').show();
-    $links = $('table.classifications a.split').hide().parent().find('input.keep').show();
-    $clicked.parent().find('input.keep').hide(); // We don't want THIS one... they're removing it.
-    $('#split_hierarchy_entry_id').val($clicked.parent().parent().find('input').val());
+  $('td.show_all input').click(function(e) {
+    var $show_all_link = $('#show_other_classifications');
+    window.location = $show_all_link.attr('href') + "&split_hierarchy_entry_id[]=" + $(e.target).val();
+    $('div.main_container').children().fadeOut(function() {$('#please_wait').fadeIn();});
   });
 });

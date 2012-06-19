@@ -2,6 +2,11 @@
   = render :partial => 'shared/social_sharing'
 - can_curate = current_user.min_curator_level?(:full)
 - master_curator = current_user.min_curator_level?(:master)
+- allow_more_splits = master_curator
+-# This is a bit cryptic, but what it's checking is whether we're on the TC page for the selected hierarchy entries
+-# stored in the session... because if we are, we allow them to add more entries. If we're on another page, they
+-# cannot add more.  If there are none stored, then of course they can add.
+- allow_more_splits = false if session[:split_hierarchy_entry_id] && !@hierarchy_entries.map {|h| h.id.to_s}.include? (Array(session[:split_hierarchy_entry_id]).first.to_s)
 - if can_curate
   = javascript_include_merged 'curation'
 #taxon_names
@@ -10,22 +15,21 @@
       %p= I18n.t(:names_explanation)
   = render :partial => 'menu'
   .main_container
+    #please_wait
+      = I18n.t(:please_wait)
     - if @hierarchy_entries.blank?
       .empty
         %p= I18n.t(:not_recognized_by_available_hierarchies)
     - else
       - unless can_curate
         %p.help_text
-          = I18n.t(:classification_preferred_for_taxon_help_tip,
-            :icon => image_tag("/images/v2/icon_required.png", :alt => I18n.t(:name_preferred_for_language_yes), :class => 'indicator'))
+          = I18n.t(:classification_preferred_for_taxon_help_tip, :icon => image_tag("/images/v2/icon_required.png", :alt => I18n.t(:name_preferred_for_language_yes), :class => 'indicator'))
       - form_tag curated_taxon_concept_preferred_entries_path do
         = hidden_field_tag 'taxon_concept_id', @taxon_concept.id
-        - if master_curator
+        - if allow_more_splits
           - unless @other_hierarchy_entries.empty?
             #split_warning
-              = I18n.t(:split_only_possible_with_all_classifications)
-              %br
-              = link_to(I18n.t(:show_all_other_classifications_with_count, :count => @other_hierarchy_entries.count), link)
+              = I18n.t(:split_only_possible_with_all_classifications, :link => @selected_hierarchy_entry ? taxon_hierarchy_entry_names_path(@taxon_concept, @selected_hierarchy_entry, :all => '1') : taxon_names_path(@taxon_concept, :all => '1'))
           #split_instructions
             = I18n.t(:split_classification_instructions)
         %table.standard.classifications
@@ -33,59 +37,78 @@
             %tr
               - if can_curate
                 %th= I18n.t(:classifications_preferred_column_header)
+              - if allow_more_splits
+                %th= I18n.t(:classifications_split_column_header)
               %th= I18n.t(:classifications_recognized_by_column_header)
               %th= I18n.t(:classifications_rank_column_header)
               %th= I18n.t(:classifications_hierarchy_column_header)
           %tbody
             - @hierarchy_entries.each do |hierarchy_entry|
-              %tr
-                - preferred = @taxon_concept.uses_preferred_entry?(hierarchy_entry)
-                - preferred_label = preferred ? I18n.t(:classification_preferred_for_taxon) : nil
-                - if can_curate
-                  %td{:class => "preferred_entry_selector", :title => preferred_label}
-                    = radio_button_tag 'hierarchy_entry_id', hierarchy_entry.id, preferred ? TRUE : FALSE
-                %td{:class => preferred && !can_curate ? 'preferred' : nil}
-                  %strong
-                    = hierarchy_entry_display_attribution(hierarchy_entry, :show_rank => false, :show_link => true)
-                  - if hierarchy_entry.hierarchy.browsable.to_i == 1
-                    %br
-                    = link_to(I18n.t(:view_in_classification), taxon_hierarchy_entry_overview_path(@taxon_concept, hierarchy_entry))
-                  - if master_curator
-                    %br
-                    - unless preferred
-                      = link_to(I18n.t(:split_into_new_concept).downcase, '#split_instructions', :class => 'split')
-                      = submit_tag(I18n.t(:cancel).downcase, :class => 'cancel')
-                    = submit_tag(I18n.t(:keep_split_entry_from_this_entry).downcase, :class => 'keep')
-                %td.rank
-                  - if hierarchy_entry.rank
-                    = hierarchy_entry.rank_label
-                %td.browsable.classifications
-                  %ul
-                    = render(:partial => 'taxa/trees/show', :locals => {:in_hierarchy => true, :hierarchy_entry => hierarchy_entry, :link_to_taxa => true, :show_siblings => true})
-      - unless @other_hierarchy_entries.empty?
-        - link = @selected_hierarchy_entry ? taxon_hierarchy_entry_names_path(@taxon_concept, @selected_hierarchy_entry, :all => '1') : taxon_names_path(@taxon_concept, :all => '1')
-        .classification_actions
-          %p= link_to(I18n.t(:show_all_other_classifications_with_count, :count => @other_hierarchy_entries.count), link)
+              - splitting = false
+              - if allow_more_splits
+                - if session[:split_hierarchy_entry_id] && session[:split_hierarchy_entry_id].include?(hierarchy_entry.id.to_s)
+                  - splitting = true
+              - unless splitting
+                %tr
+                  - preferred = @taxon_concept.uses_preferred_entry?(hierarchy_entry)
+                  - preferred_label = preferred ? I18n.t(:classification_preferred_for_taxon) : nil
+                  - if can_curate
+                    %td{:class => "preferred_entry_selector", :title => preferred_label }
+                      = radio_button_tag('hierarchy_entry_id', hierarchy_entry.id, preferred ? TRUE : FALSE)
+                  - if allow_more_splits
+                    %td{:class => "split_entry_selector#{@other_hierarchy_entries.empty? ? '' : " show_all"}" }
+                      = check_box_tag('split_hierarchy_entry_id[]', hierarchy_entry.id, splitting)
+                  %td{:class => preferred && !can_curate ? 'preferred' : nil }
+                    %strong
+                      = hierarchy_entry_display_attribution(hierarchy_entry, :show_rank => false, :show_link => true)
+                    - if hierarchy_entry.hierarchy.browsable.to_i == 1
+                      %br
+                      = link_to(I18n.t(:view_in_classification), taxon_hierarchy_entry_overview_path(@taxon_concept, hierarchy_entry))
+                  %td.rank
+                    - if hierarchy_entry.rank
+                      = hierarchy_entry.rank_label
+                  %td.browsable.classifications
+                    %ul= render(:partial => 'taxa/trees/show', :locals => {:in_hierarchy => true, :hierarchy_entry => hierarchy_entry, :link_to_taxa => true, :show_siblings => true})
+        - if @other_hierarchy_entries.empty?
           - if master_curator
-            %p
-              - if session[:curation_hierarchy_entries]
-                - if session[:curation_hierarchy_entries].to_i == @taxon_concept.id
-                  = I18n.t(:merge_concept_instructions)
-                  = "TODO - cancel merge"
-                - else
-                  -# TODO - SQL load of name only needed here
-                  = I18n.t(:merge_concept_ready, :taxon_name => HierarchyEntry.find(session[:curation_hierarchy_entries]).map {|he| he.title_canonical_italicized}.to_sentence)
-                  %br
-                  = "TODO - cancel merge (note this removes the stored merge entirely)"
-              - else
-                = link_to(I18n.t(:merge_concept_to_another), merge_concept_user_path(current_user, :curation_hierarchy_entries => @taxon_concept.id))
+            %ul#classification_actions
+              - if allow_more_splits
+                %li= submit_tag(I18n.t(:move_data).downcase, :name => 'move')
+              - if session[:split_hierarchy_entry_id] && !session[:split_hierarchy_entry_id].blank?
+                %li
+                  = I18n.t(:merge_data_ready)
+                  %table.standard.classifications
+                    %thead
+                      %tr
+                        %th= I18n.t(:classifications_recognized_by_column_header)
+                        %th= I18n.t(:classifications_rank_column_header)
+                        %th= I18n.t(:classifications_hierarchy_column_header)
+                        %th= I18n.t(:remove)
+                    %tbody
+                      - Array(session[:split_hierarchy_entry_id]).each do |he_id_s|
+                        - hierarchy_entry = HierarchyEntry.find(he_id_s) # TODO - load data properly
+                        %tr 
+                          %td
+                            %strong
+                              = hierarchy_entry_display_attribution(hierarchy_entry, :show_rank => false, :show_link => true)
+                          %td.rank
+                            - if hierarchy_entry.rank
+                              = hierarchy_entry.rank_label
+                          %td.browsable.classifications
+                            %ul= render(:partial => 'taxa/trees/show', :locals => {:in_hierarchy => true, :hierarchy_entry => hierarchy_entry, :link_to_taxa => true, :show_siblings => true})
+                          %td
+                            = submit_tag(I18n.t(:remove).downcase, :name => "remove_#{hierarchy_entry.id}")
+                %li= submit_tag(I18n.t(:merge_data).downcase, :name => 'merge')
+                %li= submit_tag(I18n.t(:cancel_split).downcase, :name => 'cancel_split')
+              %li= submit_tag(I18n.t(:split_into_new_concept).downcase, :name => 'split')
+        - else 
+          - link = @selected_hierarchy_entry ? taxon_hierarchy_entry_names_path(@taxon_concept, @selected_hierarchy_entry, :all => '1') : taxon_names_path(@taxon_concept, :all => '1')
+          .classification_actions
+            %p= link_to(I18n.t(:show_all_other_classifications_with_count, :count => @other_hierarchy_entries.count), link, :id => 'show_other_classifications')
 
-
-                -#
-                  TODO 
-                  - multiple selection
-                  - must show the "other" classifications before they can do this.
-                  - locking
-                  - notifications
-                  - ...Start with move... just make the split an option for the move (creating a new taxon page).
-                  - undo-ability
+-#
+  TODO 
+  - locking
+  - notifications
+  - ...Start with move... just make the split an option for the move (creating a new taxon page).
+  - undo-ability

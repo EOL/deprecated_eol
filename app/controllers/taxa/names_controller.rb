@@ -8,6 +8,8 @@ class Taxa::NamesController < TaxaController
   before_filter :count_browsable_hierarchies, :only => [:index, :related_names, :common_names, :synonyms]
 
   def index
+    session[:split_hierarchy_entry_id] = params[:split_hierarchy_entry_id] if params[:split_hierarchy_entry_id]
+    params[:all] = 1 if session[:split_hierarchy_entry_id] && !session[:split_hierarchy_entry_id].blank?
     if params[:all]
       @hierarchy_entries = @taxon_concept.deep_published_sorted_hierarchy_entries
       @other_hierarchy_entries = []

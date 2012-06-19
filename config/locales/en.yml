@@ -3674,6 +3674,9 @@ en:
     one: "%{count} object curated"
     other: "%{count} objects curated"
   user_activity_stats_objects_curated_dropdown: "Objects curated"
+  user_activity_stats_preferred_classifications_selected:
+    one: "%{count} preferred classification selected"
+    other: "%{count} preferred classifications selected"
   user_activity_stats_set_exemplar:
     one: "%{count} image set as exemplar"
     other: "%{count} images set as exemplar"

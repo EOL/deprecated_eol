@@ -305,15 +305,15 @@ private
   end
 
   def link_to_user(who)
-    self.class.helpers.link_to(who.username, user_path(who))
+    self.class.helpers.link_to(who.username, user_url(who))
   end
 
   def link_to_name(community)
-    self.class.helpers.link_to(community.name, community_path(community))
+    self.class.helpers.link_to(community.name, community_url(community))
   end
 
   def link_to_collection(collection)
-   self.class.helpers.link_to(collection.name, collection_path(collection))
+   self.class.helpers.link_to(collection.name, collection_url(collection))
   end
 
 end

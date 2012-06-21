@@ -374,6 +374,7 @@ describe 'Data Object Page' do
     fill_in 'data_object_description', :with => ''
     click_button("Save article")
     current_path.should == "/data_objects/#{udo_dato.id}"
+    debugger
     body.should have_tag('fieldset#errors') do
       with_tag("li", "Description can't be blank")
     end
@@ -549,5 +550,8 @@ describe 'Data Object Page' do
     page.body.should include('associated')
     visit('/logout')
   end
+
+  it 'should change vetted to unreviewed and visibility to visible when self added article is edited by assistant curator/normal user'
+  it 'should change vetted to trusted and visibility to visible when self added article is edited by full/master curator or admin'
 
 end

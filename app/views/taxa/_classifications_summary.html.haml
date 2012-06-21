@@ -14,10 +14,10 @@
           = link_to(I18n.t(:see_all_classifications_with_count_html, :count => classifications_count), taxon_hierarchy_entry_names_path(@taxon_concept, @selected_hierarchy_entry))
         - else
           = link_to(I18n.t(:see_all_classifications_with_count_html, :count => classifications_count), taxon_names_path(@taxon_concept))
-      - if preferred_classification
-        - hierarchy_entry = preferred_classification.hierarchy_entry
-        .meta.curated
-          = I18n.t(:classification_from_agent_chosen_by_curator, :agent => hierarchy_display_title(hierarchy_entry.hierarchy), :curator => link_to(preferred_classification.user.full_name, user_path(preferred_classification.user_id)))
+    - if preferred_classification
+      - hierarchy_entry = preferred_classification.hierarchy_entry
+      .meta.curated
+        = I18n.t(:classification_from_agent_chosen_by_curator, :agent => hierarchy_display_title(hierarchy_entry.hierarchy), :curator => link_to(preferred_classification.user.full_name, user_path(preferred_classification.user_id)))
     - if preferred_classification
       - hierarchy_entry = preferred_classification.hierarchy_entry
       #classification_browser.browsable.classifications

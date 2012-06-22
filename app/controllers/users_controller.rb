@@ -38,8 +38,8 @@ class UsersController < ApplicationController
     @user = User.find(params[:id], :include => :open_authentications)
     raise EOL::Exceptions::SecurityViolation,
       "User with ID=#{current_user.id} does not have edit access to User with ID=#{@user.id}" unless current_user.can_update?(@user)
-    flash[:notice] = I18n.t(:warning_you_are_editing_as_admin) if current_user.id != @user.id
     redirect_if_user_is_inactive
+    flash.now[:notice] = I18n.t(:warning_you_are_editing_as_admin) if current_user.id != @user.id
     instantiate_variables_for_edit
   end
 

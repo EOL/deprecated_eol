@@ -79,6 +79,7 @@ class TaxonConcept < ActiveRecord::Base
 
   has_many :superceded_taxon_concepts, :class_name => TaxonConcept.to_s, :foreign_key => "supercedure_id"
 
+  has_one :taxon_classifications_lock
   has_one :taxon_concept_metric
   has_one :taxon_concept_exemplar_image
   has_one :taxon_concept_exemplar_article
@@ -1356,6 +1357,37 @@ class TaxonConcept < ActiveRecord::Base
     @deep_nonbrowsables = cached_deep_published_hierarchy_entries.dup
     @deep_nonbrowsables.delete_if {|he| he.hierarchy_browsable.to_i == 1 || current_entry_id == he.id }
     HierarchyEntry.preload_deeply_browsable(@deep_nonbrowsables)
+  end
+
+  def lock_classifications
+    TaxonClassificationsLock.create(:taxon_concept_id => self.id)
+  end
+
+  # Self-healing... nothing can be locked for more than 24 hours.
+  def classifications_locked?
+    if taxon_classifications_lock
+      if taxon_classifications_lock.created_at <= 1.day.ago
+        taxon_classifications_lock.destroy
+        return false
+      end
+      return true
+    else
+      return false
+    end
+  end
+
+  def split_classification(hierarchy_entry_ids)
+    raise EOL::Exceptions::ClassificationsLocked if
+      classifications_locked?
+    lock_classifications
+  end
+
+  def merge_classifications(hierarchy_entry_ids, options)
+    target_taxon_concept = options[:with]
+    raise EOL::Exceptions::ClassificationsLocked if
+      classifications_locked? || target_taxon_concept.classifications_locked?
+    lock_classifications
+    target_taxon_concept.lock_classifications
   end
 
 private

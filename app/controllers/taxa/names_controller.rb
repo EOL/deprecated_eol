@@ -8,6 +8,8 @@ class Taxa::NamesController < TaxaController
   before_filter :count_browsable_hierarchies, :only => [:index, :related_names, :common_names, :synonyms]
 
   def index
+    @confirm_split_or_merge = params[:confirm] # NOTE - this is pulled from curated_taxon_concept_preferred_entries
+    @pending = true if params[:pending]
     session[:split_hierarchy_entry_id] = params[:split_hierarchy_entry_id] if params[:split_hierarchy_entry_id]
     params[:all] = 1 if session[:split_hierarchy_entry_id] && !session[:split_hierarchy_entry_id].blank?
     if params[:all]

@@ -4,6 +4,7 @@
 # them than it is to use return values that signify success and failure and parse them.
 module EOL
   module Exceptions
+    class ClassificationsLocked < StandardError; end
     class FailedToCreateTag < StandardError; end
     class InvalidCollectionItemType < StandardError; end
     class MaxCollectionItemsExceeded < StandardError; end

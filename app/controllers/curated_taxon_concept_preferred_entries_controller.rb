@@ -13,7 +13,9 @@ class CuratedTaxonConceptPreferredEntriesController < ApplicationController
     elsif current_user.min_curator_level?(:master) && params[:move]
       move
     elsif current_user.min_curator_level?(:master) && which = params_to_remove
-      remove
+      remove(which)
+    elsif current_user.min_curator_level?(:master) && which = params_exemplar
+      exemplar(which)
     elsif current_user.min_curator_level?(:full) && params[:hierarchy_entry_id]
       prefer
     end
@@ -27,14 +29,20 @@ class CuratedTaxonConceptPreferredEntriesController < ApplicationController
 private
 
   # They have a list of HEs they want split into a new taxon concept.
+  # TODO - make sure there are HEs!
   def split
+    # They may have (and often have) selected more to move...
+    add_entries_to_session if params[:split_hierarchy_entry_id]
+    @target_params[:confirm] = 'split' # hard-coded string, no need to translate.
     @target_params[:all] = 1
   end
 
   # They have a list of HEs they want to merge into this taxon concept.
+  # TODO - make sure there are HEs!
   def merge
-    hierarchy_entries = Array(HierarchyEntry.find(params[:split_hierarchy_entry_id]))
-    @taxon_concept = hierarchy_entries.first.taxon_concept # This will redirect them to the right names tab.
+    @target_params[:confirm] = 'merge' # hard-coded string, no need to translate.
+    # TODO - cancel if the merge is on the same page as the HEs.
+    @taxon_concept = taxon_concept_from_session
     @target_params[:all] = 1
   end
 
@@ -47,18 +55,47 @@ private
   # They want to store selected HEs for later move...
   def move
     if params[:split_hierarchy_entry_id]
-      hierarchies = Array(session[:split_hierarchy_entry_id]) + Array(params[:split_hierarchy_entry_id])
-      session[:split_hierarchy_entry_id] = hierarchies.uniq
+      add_entries_to_session
       flash[:notice] = I18n.t(:move_entries_ready)
     else
+      # TODO - generalize this check/error with #split and #merge
       flash[:notice] = I18n.t(:no_classificaitons_selected)
     end
     @target_params[:all] = 1
   end
 
-  def remove
+  def remove(which)
     session[:split_hierarchy_entry_id].delete_if {|id| id.to_s == which.to_s } if session[:split_hierarchy_entry_id]
     @target_params[:all] = 1
+  end
+
+  def exemplar(which)
+    done = false
+    taxon_to_log = @taxon_concept
+    begin
+      if params[:confirm] == 'split'
+        @taxon_concept.split_classifications(session[:split_hierarchy_entry_id])
+        flash[:warning] = I18n.t(:split_pending)
+        done = true
+      elsif params[:confirm] == 'merge'
+        target_taxon_concept = taxon_concept_from_session
+        @taxon_concept.merge_classifications(session[:split_hierarchy_entry_id], :with => target_taxon_concept)
+        taxon_to_log = target_taxon_concept
+        flash[:warning] = I18n.t(:merge_pending)
+        done = true
+      else
+        # TODO - error, we don't have a split or merge in params... (low priority; unlikely)
+      end
+    rescue EOL::Exceptions::ClassificationsLocked
+      flash[:error] = I18n.t(:classifications_edit_cancelled_busy)
+    end
+    if done
+      Array(session[:split_hierarchy_entry_id]).each do |entry|
+        log_activity(:taxon_concept => taxon_to_log, :entry => entry, :type => params[:confirm])
+      end
+      session[:split_hierarchy_entry_id] = nil
+      @target_params[:pending] = 1
+    end
   end
 
   # They have selected a hierarchy entry to represent the best classification for this page.
@@ -87,10 +124,38 @@ private
     )
   end
 
+  def params_exemplar
+    params.keys.each do |key|
+      return $1 if key =~ /^exemplar_(\d+)$/
+    end
+    return nil
+  end
+
   def params_to_remove
     params.keys.each do |key|
       return $1 if key =~ /^remove_(\d+)$/
     end
+    return nil
+  end
+
+  def add_entries_to_session
+    hierarchies = Array(session[:split_hierarchy_entry_id]) + Array(params[:split_hierarchy_entry_id])
+    session[:split_hierarchy_entry_id] = hierarchies.uniq
+  end
+
+  def taxon_concept_from_session
+    hierarchy_entries = Array(HierarchyEntry.find(session[:split_hierarchy_entry_id]))
+    return hierarchy_entries.first.taxon_concept # This will redirect them to the right names tab.
+  end
+
+  def log_activity(options)
+    CuratorActivityLog.create(
+      :user => current_user,
+      :hierarchy_entry_id => options[:entry].id,
+      :taxon_concept_id => options[:taxon_concept].id,
+      :activity => Activity.send(options[:type].to_sym),
+      :created_at => 0.seconds.from_now
+    )
   end
 
 end

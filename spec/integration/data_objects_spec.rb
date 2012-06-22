@@ -374,7 +374,6 @@ describe 'Data Object Page' do
     fill_in 'data_object_description', :with => ''
     click_button("Save article")
     current_path.should == "/data_objects/#{udo_dato.id}"
-    debugger
     body.should have_tag('fieldset#errors') do
       with_tag("li", "Description can't be blank")
     end

@@ -128,7 +128,7 @@ zh-CN:
         pages_with_map: 有地图的页面
         pages_with_score_10_to_39: 评分在10-39的页面
         pages_with_score_less_than_10: 评分低于10的页面
-        pages_with_sound: 有音频的页面
+        pages_with_sound: 有声音的页面
         pages_with_text: 有文字描述的页面
         pages_with_text_no_image: 有文字描述但是没有图像的页面
         pages_with_video: 有视频的页面
@@ -193,7 +193,7 @@ zh-CN:
         harvest_events: 采集事件
         hierarchy: 分类系统
         language_id: 默认语言
-        license_id: 默认许可证
+        license_id: 默认许可协议
         notes: 任务说明
         resource_status_id: 资源状态
         rights_holder: 默认权利持有人
@@ -476,23 +476,6 @@ zh-CN:
         user_preferred_classification_on_taxon: <strong>%{user}</strong> 将 “%{provider}”提供的分类系统标为 “%{taxon}”的首选系统。
       reasons_to_hide: 隐藏的原因： %{reasons}
       reasons_to_untrust: 不信任的原因： %{reasons}
-      remove_association: 
-        an_unknown_user_disassociated_an_older_data_object_from_an_unknown_taxon: 一个未知用户删除了一个旧版本的“%{data_object}”的一个关联。
-        an_unknown_user_disassociated_an_older_data_object_from_taxon: 一个未知用户删除了“%{data_object}” 和 “%{taxon}” 之间的一个关联。
-        an_unknown_user_disassociated_an_unknown_data_object_from_an_unknown_taxon: 一个未知用户删除了一个未知的关联。
-        an_unknown_user_disassociated_an_unknown_data_object_from_taxon: 一个未知用户删除了一个未知数据项和 “%{taxon}” 之间的一个关联。
-        an_unknown_user_disassociated_data_object_from_an_unknown_taxon: 一个未知用户删除了“%{data_object}” 和一个未知页面之间的一个关联。
-        an_unknown_user_disassociated_data_object_from_taxon: 一个未知用户删除了“%{data_object}” 和 “%{taxon}” 之间的一个关联。
-        an_unknown_user_disassociated_it_from_an_unknown_taxon: 一个未知用户删除了一个未知页面的一个关联。
-        an_unknown_user_disassociated_it_from_taxon: 一个未知用户删除了 “%{association}”的一个关联。
-        user_disassociated_an_older_data_object_from_an_unknown_taxon: <strong>%{user}</strong> 删除了旧版本的“%{data_object}”和未知页面之间的关联。
-        user_disassociated_an_older_data_object_from_taxon: <strong>%{user}</strong> 删除了旧版本的“%{data_object}”和“%{taxon}”之间的关联。
-        user_disassociated_an_unknown_data_object_from_an_unknown_taxon: <strong>%{user}</strong> 删除一个未知关联。
-        user_disassociated_an_unknown_data_object_from_taxon: <strong>%{user}</strong> 删除了未知数据项和“%{taxon}”之间的关联。
-        user_disassociated_data_object_from_an_unknown_taxon: <strong>%{user}</strong> 删除了“%{data_object}”和未知页面之间的关联。
-        user_disassociated_data_object_from_taxon: <strong>%{user}</strong> 删除了“%{data_object}”和“%{taxon}”之间的关联。
-        user_disassociated_it_from_an_unknown_taxon: <strong>%{user}</strong> 删除了一个与未知页面相关的关联。
-        user_disassociated_it_from_taxon: <strong>%{user}</strong> 删除了一个与“%{association}”相关的关联。
       remove_common_name: 
         an_unknown_user_removed_name_from_an_unknown_taxon: 一个未知用户删除了未知页面的一个俗名。
         an_unknown_user_removed_name_from_it: 一个未知用户删除了一个俗名。
@@ -945,7 +928,7 @@ zh-CN:
         view_project_on_inaturalist: 查看来自iNaturalist的%{project_title}
     newsfeeds: 
       show: 
-        meta_description: 网络生命大百科新闻，评论和相关活动。
+        meta_description: 生命百科新闻，评论和相关活动。
         meta_keywords: "%{collection_name} 新闻"
         meta_title: "%{collection_name} 新闻"
         tweet_text: "%{collection_name} 新闻"
@@ -994,18 +977,18 @@ zh-CN:
   communities: 
     collections: 
       index: 
-        meta_description: 网络生命大百科社区%{community_name}收集的社区收藏。
+        meta_description: 生命百科社区%{community_name}收集的社区收藏。
         meta_keywords: "%{community_name} 收藏"
         meta_title: "%{community_name} 收藏"
         tweet_text: "%{community_name} 收藏"
     newsfeeds: 
       show: 
         meta_description: "%{community_description} \\"
-        meta_keywords: "\"%{community_name}, 网络生命大百科社区, %{community_name} 动态, %{community_name} 评论, %{community_name} 活动\""
+        meta_keywords: "\"%{community_name}，生命百科社区，%{community_name}动态，%{community_name}评论，%{community_name}活动"
         meta_title: "%{community_name}"
         tweet_text: "%{community_name}"
     show: 
-      meta_description: 网络生命大百科的社区 %{community_name}被它的建立者删除
+      meta_description: 生命百科小组 %{community_name}被它的建立者删除
       meta_title: "%{community_name}被管理者删除"
   communities_filter: 社区
   communities_index_empty: 没有活跃的社区。
@@ -2160,11 +2143,11 @@ zh-CN:
         sign_in_with_google: 使用Google账号登录
         sign_in_with_twitter: 使用Twitter账号登录
         sign_in_with_yahoo: 使用Yahoo账号登录
-      submit: 保存 %{model}
+      submit: 保存%{model}
       translated_content_page: 
         create: 添加翻译
         update: 保存对翻译的更改
-      update: 更新 %{model}
+      update: 更新%{model}
       user: 
         create: 创建帐户
         curation_application: 立即申请
@@ -2403,10 +2386,10 @@ zh-CN:
   member_of_professional_society_credential_option: 一个专业社区的会员
   members: 
     index: 
-      meta_description: 网络生命大百科%{community_name}社区的会员。
-      meta_keywords: "%{community_name} 会员"
-      meta_title: "%{community_name} 会员"
-      tweet_text: "%{community_name} 会员"
+      meta_description: 生命百科小组%{community_name}成员。
+      meta_keywords: "%{community_name}成员"
+      meta_title: "%{community_name}成员"
+      tweet_text: "%{community_name}成员"
     show: 
       meta_description: "%{member_name} 是网络生命大百科%{community_name}社区的一名会员 。"
       meta_keywords: "%{member_name} 社区会员"

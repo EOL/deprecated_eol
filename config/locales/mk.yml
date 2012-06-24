@@ -162,7 +162,7 @@ mk:
         changes_to_my_watched_collection: Измени во збирките на вашиот список на набљудувања
         changes_to_my_watched_community: Измени во заедниците на вашиот список на набљудувања
         comment_on_my_collection: Коментар на збирка со која раководите
-        comment_on_my_community: Коментар на една од вашите заедници
+        comment_on_my_community: Коментар во една од заедниците кајшто членувате
         comment_on_my_contribution: Коментар и/или кустоска постапка врз ваш придонес
         comment_on_my_profile: Коментар на вашиот профил
         comment_on_my_watched_item: Коментари на експонатите, таксоните, збирките и заедниците на вашиот список на набљудувања
@@ -498,22 +498,22 @@ mk:
       reasons_to_hide: "Причини за скривањето: %{reasons}"
       reasons_to_untrust: "Причини за недоверливост: %{reasons}"
       remove_association: 
-        an_unknown_user_disassociated_an_older_data_object_from_an_unknown_taxon: Непознат корисник отстрани поврзаност од постара верзија на „%{data_object}“.
-        an_unknown_user_disassociated_an_older_data_object_from_taxon: Непознат корисник отстрани поврзаност помеѓу „%{data_object}“ и „%{taxon}“.
-        an_unknown_user_disassociated_an_unknown_data_object_from_an_unknown_taxon: Непознат корисник отстрани непозната поврзаност.
-        an_unknown_user_disassociated_an_unknown_data_object_from_taxon: Непознат корисник отстрани поврзаност помеѓу непознат податочен објект и „%{taxon}“.
-        an_unknown_user_disassociated_data_object_from_an_unknown_taxon: Непознат корисник отстрани поврзаност помеѓу „%{data_object}“ и непозната страница.
-        an_unknown_user_disassociated_data_object_from_taxon: Непознат корисник отстрани поврзаност помеѓу „%{data_object}“ и „%{taxon}“.
-        an_unknown_user_disassociated_it_from_an_unknown_taxon: Непознат корисник отстрани поврзаност со непозната страница.
-        an_unknown_user_disassociated_it_from_taxon: Непознат корисник отстрани поврзаност со „%{association}“.
-        user_disassociated_an_older_data_object_from_an_unknown_taxon: <strong>%{user}</strong> отстрани поврзаност помеѓу постара верзија на „%{data_object}“ и непозната страница.
-        user_disassociated_an_older_data_object_from_taxon: <strong>%{user}</strong> отстрани поврзаност помеѓу постара верзија на „%{data_object}“ и „%{taxon}“.
-        user_disassociated_an_unknown_data_object_from_an_unknown_taxon: <strong>%{user}</strong> отстрани непозната поврзаност.
-        user_disassociated_an_unknown_data_object_from_taxon: <strong>%{user}</strong> отстрани поврзаност помеѓу непознат податочен објект и „%{taxon}“.
-        user_disassociated_data_object_from_an_unknown_taxon: <strong>%{user}</strong> отстрани поврзаност помеѓу „%{data_object}“ и непозната страница.
-        user_disassociated_data_object_from_taxon: <strong>%{user}</strong> отстрани поврзаност помеѓу „%{data_object}“ и „%{taxon}“.
-        user_disassociated_it_from_an_unknown_taxon: <strong>%{user}</strong> отстрани поврзаност од непозната страница.
-        user_disassociated_it_from_taxon: <strong>%{user}</strong> отстрани поврзаност со „%{association}“.
+        an_unknown_user_disassociated_an_older_data_object_from_an_unknown_association: Непознат корисник отстрани поврзаност од постара верзија на „%{data_object}“.
+        an_unknown_user_disassociated_an_older_data_object_from_association: Непознат корисник отстрани поврзаност помеѓу „%{data_object}“ и „%{association}“.
+        an_unknown_user_disassociated_an_unknown_data_object_from_an_unknown_association: Непознат корисник отстрани непозната поврзаност.
+        an_unknown_user_disassociated_an_unknown_data_object_from_association: Непознат корисник отстрани поврзаност помеѓу непознат податочен објект и „%{association}“.
+        an_unknown_user_disassociated_data_object_from_an_unknown_association: Непознат корисник отстрани поврзаност помеѓу „%{data_object}“ и непозната страница.
+        an_unknown_user_disassociated_data_object_from_association: "!!Непознат корисник отстрани поврзаност помеѓу „%{data_object}“ и „%{association}“."
+        an_unknown_user_disassociated_it_from_an_unknown_association: Непознат корисник отстрани поврзаност со непозната страница.
+        an_unknown_user_disassociated_it_from_association: Непознат корисник отстрани поврзаност со „%{association}“.
+        user_disassociated_an_older_data_object_from_an_unknown_association: <strong>%{user}</strong> отстрани поврзаност помеѓу постара верзија на „%{data_object}“ и непозната страница.
+        user_disassociated_an_older_data_object_from_association: <strong>%{user}</strong> отстрани поврзаност помеѓу постара верзија на „%{data_object}“ и „%{association}“.
+        user_disassociated_an_unknown_data_object_from_an_unknown_association: <strong>%{user}</strong> отстрани непозната поврзаност.
+        user_disassociated_an_unknown_data_object_from_association: <strong>%{user}</strong> отстрани поврзаност помеѓу непознат податочен објект и „%{association}“.
+        user_disassociated_data_object_from_an_unknown_association: <strong>%{user}</strong> отстрани поврзаност помеѓу „%{data_object}“ и непозната страница.
+        user_disassociated_data_object_from_association: <strong>%{user}</strong> отстрани поврзаност помеѓу „%{data_object}“ и „%{association}“.
+        user_disassociated_it_from_an_unknown_association: <strong>%{user}</strong> отстрани поврзаност од непозната страница.
+        user_disassociated_it_from_association: <strong>%{user}</strong> отстрани поврзаност со „%{association}“.
       remove_common_name: 
         an_unknown_user_removed_name_from_an_unknown_taxon: Непознат корисник отстрани тривијално име од непозната страница.
         an_unknown_user_removed_name_from_it: Непознат корисник отстрани тривијално име.
@@ -829,13 +829,13 @@ mk:
   assistive_updates_header: Актуелности
   assistive_updates_statistics_header: Статистики за страници
   associated_submit_button: поврзано
-  associated_with_article_header: Во статијава
+  associated_with_article_header: Во најновата статија
   associated_with_header: Поврзано со
-  associated_with_image_header: На сликава
-  associated_with_image_map_header: На картава
-  associated_with_map_header: На картава
-  associated_with_sound_header: На оваа аудиоснимка
-  associated_with_video_header: На оваа видеоснимка
+  associated_with_image_header: На најновата слика
+  associated_with_image_map_header: На најновата карта
+  associated_with_map_header: На најновата карта
+  associated_with_sound_header: На најновата аудиоснимка
+  associated_with_video_header: На најновата видеоснимка
   associations_more_link: уште <span class="assistive">таксонски поврзаности</span>
   attribute: Заслуга
   audio_current_time_assistive: Ако имате овозможено Javascript, ова ќе ви ја покажува тековната положба на снимката во минути и секунди.
@@ -2581,8 +2581,8 @@ mk:
       one: Има измена во %{to}
       other: Има %{count} измени во %{to}
     bulk_comments_on_you_with_count: 
-      one: Имате нов коментар на вашиот профил
-      other: Имате %{count} нови коментари на вашиот профил
+      one: Имате нов коментар на <a href='%{url}' style='color:#195184'>вашиот профил</a>
+      other: Имате %{count} нови коментари на <a href='%{url}' style='color:#195184'>вашиот профил</a>
     bulk_comments_with_count: 
       one: Има еден нов коментар на %{on}
       other: Има %{count} коментари на %{on}
@@ -2724,6 +2724,7 @@ mk:
   see_all_featured_collections_with_count: 
     one: Погледајте ја истакнатата збирка.
     other: Погледајте ги сите %{count} истакнати збирки.
+  see_all_maps_link: Сите карти
   see_all_media_link: Сите медиуми
   see_all_of_your_collections: Погл. сите ваши збирки
   see_all_of_your_communities: Погл. сите ваши заедници
@@ -2770,7 +2771,7 @@ mk:
   show_tasks: прикажи задачи
   show_warning_message: Прикажи предупредување
   showing: Приказ на
-  showing_errors_the_error_log_f: "Приказ на грешки од дневникот за:"
+  showing_errors_the_error_log_f: "Приказ на грешки заведени на:"
   showing_procs_from: "Приказ на постапки од:"
   shown_to_the_user_parens: (се прикажува на корисникот)
   shown_to_user_as_the_title_of_page: се прикажува на корисникот како наслов на страницата
@@ -2914,15 +2915,19 @@ mk:
       index: 
         hierarchy_entry: 
           meta_description: Информации за %{scientific_name} според класификацијата на %{hierarchy_provider} во Енциклопедијата на живиот свет
+          meta_description_no_data: Енциклопедијата на живиот свет нема факти на располагање за %{scientific_name} според класификацијата на %{hierarchy_provider}. EOL ве поканува да учествувате за %{scientific_name} како негова заштита, ареал, екологија, живеалиште, морфологија и други информации.
           meta_description_with_chapter_list: Информации за %{scientific_name} според класификацијата на %{hierarchy_provider} во Енциклопедијата на живиот свет. Содржи информации од %{chapter_list} за %{scientific_name}.
           meta_description_with_common_name: "Информации за %{preferred_common_name}, научно: %{scientific_name} според класификацијата на %{hierarchy_provider} во Енциклопедијата на живиот свет."
+          meta_description_with_common_name_no_data: Енциклопедијата на живиот свет нема факти на располагање за %{preferred_common_name} (%{scientific_name}) според класификацијата на %{hierarchy_provider}. EOL ве поканува да учествувате со факти за %{preferred_common_name} (%{scientific_name}) како неговата заштита, ареал, екологија, живеалиште, морфологија и други информации.
           meta_description_with_common_name_with_chapter_list: "Информации за %{preferred_common_name}, научно: %{scientific_name} според класификацијата на %{hierarchy_provider} во Енциклопедијата на живиот свет. Содржи информации за %{chapter_list}."
           meta_title: Информации за %{scientific_name} според класификацијата на %{hierarchy_provider}
           meta_title_with_common_name: Информации за %{preferred_common_name} (%{scientific_name} според класификацијата на %{hierarchy_provider})
           tweet_text: Информации за %{scientific_name} според класификацијата на %{hierarchy_provider}
         meta_description: Информации за %{scientific_name} во Енциклопедијата на живиот свет
+        meta_description_no_data: Немаме факти на располагање за %{scientific_name}. EOL ве поканува да учествувате со факти за %{scientific_name} како неговата заштита, ареал, екологија, живеалиште, морфологија и други информации.
         meta_description_with_chapter_list: Информации за %{scientific_name} во Енциклопедијата на живиот свет. Содржи информации за %{chapter_list}.
         meta_description_with_common_name: "Информации за %{preferred_common_name}, научно: %{scientific_name} во Енциклопедијата на живиот свет."
+        meta_description_with_common_name_no_data: Немаме факти на располагање за %{preferred_common_name} (%{scientific_name}). EOL ве поканува да учествувате со факти за %{preferred_common_name} (%{scientific_name}) како негова заштита, ареал, екологија, живеалиште, морфологија и други информации.
         meta_description_with_common_name_with_chapter_list: "Информации за %{preferred_common_name}, научно: %{scientific_name} во Енциклопедијата на живиот свет. Содржи информации за %{chapter_list}."
         meta_title: Факти за %{scientific_name}
         meta_title_with_common_name: Факти за %{preferred_common_name} (%{scientific_name})
@@ -2943,13 +2948,13 @@ mk:
           meta_title: Литература за %{scientific_name} според класификацијата на %{hierarchy_provider}
           meta_title_with_common_name: Книги за %{preferred_common_name} (%{scientific_name} според класификацијата на %{hierarchy_provider})
           tweet_text: Литература за %{scientific_name} според класификацијата на %{hierarchy_provider}
-        meta_description: Литература и информации за %{scientific_name} во Енциклопедијата на живиот свет. Прочитајте статии за %{scientific_name} во Енциклопедијата на живиот свет.
-        meta_description_with_common_name: Литература и информации за %{preferred_common_name} (%{scientific_name}) во Енциклопедијата на живиот свет. Прочитајте статии за %{preferred_common_name} во Енциклопедијата на живиот свет.
-        meta_keywords: информации за %{scientific_name}, литература за %{scientific_name}, статии за %{scientific_name}
-        meta_keywords_with_common_name: информации за %{preferred_common_name}, литература за %{preferred_common_name}, статии за %{scientific_name}
-        meta_title: Литература за %{scientific_name}
+        meta_description: Книги, статии и библиографии за %{scientific_name} во Енциклопедијата на живиот свет. Прочитајте литература за %{scientific_name} во Енциклопедијата на живиот свет.
+        meta_description_with_common_name: Книги, статии и библиографии за %{preferred_common_name} (%{scientific_name}) во Енциклопедијата на живиот свет. Прочитајте литература за %{preferred_common_name} во Енциклопедијата на живиот свет.
+        meta_keywords: статии за %{scientific_name}, книги за %{scientific_name}, библиографии за %{scientific_name}, литература за %{scientific_name}
+        meta_keywords_with_common_name: статии за %{preferred_common_name}, книги за %{preferred_common_name}, литература за %{preferred_common_name}, статии за %{scientific_name},книги за %{scientific_name}, библиографии за %{scientific_name}, литература за %{scientific_name}
+        meta_title: Статии и книги за %{scientific_name}
         meta_title_with_common_name: Статии и книги за %{preferred_common_name} (%{scientific_name})
-        tweet_text: Литература за %{scientific_name}
+        tweet_text: Статии и книги за %{scientific_name}
     maps: 
       show: 
         hierarchy_entry: 
@@ -2958,10 +2963,12 @@ mk:
           meta_title: Карти на %{scientific_name} според класификацијата на %{hierarchy_provider}
           meta_title_with_common_name: Карти за %{preferred_common_name} (%{scientific_name} според класификацијата на %{hierarchy_provider})
           tweet_text: Карти за %{scientific_name} според класификацијата на %{hierarchy_provider}
-        meta_description: Географски информации за %{scientific_name} каде живеат и во кои делови од светот се автохтони.
-        meta_description_with_common_name: Каде се среќаваат %{preferred_common_name} и каде живеат? Географски информации за %{scientific_name} каде живеат и во кои делови на светот се автохтони.
-        meta_keywords: живеалиште на %{scientific_name}, автохтони, каде живеат %{scientific_name}
-        meta_keywords_with_common_name: живеалиште на %{preferred_common_name}, автохтони, каде живеат %{preferred_common_name}
+        meta_description: Географски информации за %{scientific_name}. Каде сè живеат во светот.
+        meta_description_no_data: Немаме географски информации за %{scientific_name}. EOL ве поканува да учествувате со карти на %{scientific_name}.
+        meta_description_with_common_name: Каде се среќаваат %{preferred_common_name} и каде живеат? Географски информации за %{scientific_name}. Каде сè живеат во светот.
+        meta_description_with_common_name_no_data: Ненаме карти од %{preferred_common_name} (%{scientific_name}). EOL ве поканува да учествувате со карти од %{preferred_common_name} (%{scientific_name}).
+        meta_keywords: живеалиште на %{scientific_name}, каде живеат %{scientific_name}
+        meta_keywords_with_common_name: живеалиште на %{preferred_common_name}, каде живеат %{preferred_common_name}
         meta_title: Карти за %{scientific_name}
         meta_title_with_common_name: Карти за %{preferred_common_name} (%{scientific_name})
         tweet_text: Карти на %{scientific_name}
@@ -2975,13 +2982,15 @@ mk:
           meta_title: Аудио, филм и слики од %{scientific_name} според класификацијата на %{hierarchy_provider}
           meta_title_with_common_name: Аудио, филм и слики од %{preferred_common_name} (%{scientific_name} според класификацијата на %{hierarchy_provider})
           tweet_text: Снимки и слики од %{scientific_name} според класификацијата на %{hierarchy_provider}
-        meta_description: Слики и видеа од %{scientific_name}.
-        meta_description_with_common_name: Слики и видеоснимки од %{preferred_common_name} (%{scientific_name}).
+        meta_description: Слики, видеа и аудио од %{scientific_name}. Пронајдете слики, филмови и звуци од %{scientific_name} на Енциклопедијата на живиот свет.
+        meta_description_no_data: Ненаме слики и снимки од %{scientific_name}. EOL ве поканува да учествувате со ваши слики, видеа или звуци од %{scientific_name}.
+        meta_description_with_common_name: Слики, видеа и аудио од %{preferred_common_name} (%{scientific_name}). Пронајдете слики, фотографии, филмови и звуци од %{preferred_common_name} (%{scientific_name}) на Енциклопедијата на живиот свет.
+        meta_description_with_common_name_no_data: Ненаме слики и снимки од %{preferred_common_name} (%{scientific_name}). EOL ве поканува да учествувате со ваши слики, видеа или звуци од %{preferred_common_name} (%{scientific_name}).
         meta_keywords: слики од %{scientific_name}, видеоснимки од %{scientific_name}, слики од %{scientific_name}, видеа од %{scientific_name}, слики од %{scientific_name}, снимки
         meta_keywords_with_common_name: слики од %{preferred_common_name}, видеоснимки од %{preferred_common_name}, слики од %{preferred_common_name}, видеа од %{preferred_common_name}, слики од %{preferred_common_name}, снимки
-        meta_title: Слики и видео од %{scientific_name}
-        meta_title_with_common_name: Слики и видео од %{preferred_common_name} (%{scientific_name})
-        tweet_text: Слики и снимки од %{scientific_name}
+        meta_title: Слики, видео и аудио од %{scientific_name} - Слики, фотографии, филмови и звуци од %{scientific_name}
+        meta_title_with_common_name: Слики, видео и аудио од %{preferred_common_name} (%{scientific_name}) - Слики, фотографии, филмови и звуци од %{preferred_common_name} (%{scientific_name})
+        tweet_text: Слики, видеа и аудио од %{scientific_name}
     names: 
       common_names: 
         hierarchy_entry: 
@@ -3001,14 +3010,14 @@ mk:
         tweet_text: Тривијални имиња на %{scientific_name}
       index: 
         hierarchy_entry: 
-          meta_description: Таксономија, класификациски хиерархии и поврзани научни имиња за %{scientific_name} според класификацијата на %{hierarchy_provider}.
-          meta_description_with_common_name: Таксономија, класификациски хиерархии и поврзани научни имиња за %{preferred_common_name} (%{scientific_name}) според класификацијата на  %{hierarchy_provider}.
+          meta_description: Таксономии и научни имиња за %{scientific_name} според класификацијата на %{hierarchy_provider}.
+          meta_description_with_common_name: Таксономија и научни имиња за %{preferred_common_name} (%{scientific_name}) според класификацијата на %{hierarchy_provider}.
           tweet_text: Имиња поврзани со %{scientific_name} според класификацијата на %{hierarchy_provider}
-        meta_description: Таксономска класификација и научни имиња на %{scientific_name}.
-        meta_description_with_common_name: Таксономска класификација и научни имиња на %{preferred_common_name} (%{scientific_name}).
-        meta_title: Имиња поврзани со %{scientific_name}
-        meta_title_with_common_name: Имиња поврзани со %{preferred_common_name} (%{scientific_name})
-        tweet_text: Имиња поврзани со %{scientific_name}
+        meta_description: Таксономии и научни имиња на %{scientific_name}. Биолошки класификации и имиња поврзани со %{scientific_name}.
+        meta_description_with_common_name: Таксономии, биолошка класификација и научни имиња на %{preferred_common_name} (%{scientific_name}). Биолошка класификација и имиња поврзани со %{preferred_common_name}.
+        meta_title: Таксономски информации за %{scientific_name} - Биолошки класификации и имиња
+        meta_title_with_common_name: Таксономски информации за %{preferred_common_name} (%{scientific_name}) - Биолошки класификации и имиња
+        tweet_text: Таксономски информации за %{scientific_name}
       synonyms: 
         hierarchy_entry: 
           meta_description: Синоними поврзани со %{scientific_name} според класификацијата на %{hierarchy_provider}.
@@ -3035,13 +3044,13 @@ mk:
           meta_title: "%{scientific_name} според класификацијата на %{hierarchy_provider}"
           meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} според класификацијата на %{hierarchy_provider})"
           tweet_text: Преглед на %{scientific_name} според класификацијата на %{hierarchy_provider}
-        meta_description: Преглед на %{scientific_name} во Енциклопедијата на живиот свет.
-        meta_description_with_common_name: "Преглед на %{preferred_common_name}, научно: %{scientific_name} во Енциклопедијата на живиот свет."
+        meta_description: Информации за %{scientific_name} во Енциклопедијата на живиот свет.
+        meta_description_with_common_name: "Информации за %{preferred_common_name}, научно: %{scientific_name} во Енциклопедијата на живиот свет."
         meta_keywords: "%{scientific_name} признаено од %{hierarchy_provider}"
         meta_keywords_with_common_name: "%{scientific_name} признаено од %{hierarchy_provider}"
         meta_title: "%{scientific_name}"
-        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})"
-        tweet_text: Преглед на %{scientific_name}
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Информации за %{preferred_common_name}"
+        tweet_text: Информации за %{scientific_name}
     resources: 
       biomedical_terms: 
         hierarchy_entry: 
@@ -3331,6 +3340,9 @@ mk:
     one: "%{count} згрижен објект"
     other: "%{count} згрижени објекти"
   user_activity_stats_objects_curated_dropdown: Згрижени објекти
+  user_activity_stats_preferred_classifications_selected: 
+    one: Избрана е %{count} претпочитана класификација
+    other: Избрани се %{count} претпочитани класификации
   user_activity_stats_set_exemplar: 
     one: Поставена %{count} слика како пример
     other: Поставени %{count} слики како пример

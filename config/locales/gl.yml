@@ -1,4 +1,4 @@
-# Messages for Galician (Galego)
+# Messages for Galician (galego)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: McDutchie
@@ -162,7 +162,7 @@ gl:
         changes_to_my_watched_collection: Cambios en coleccións da túa lista de vixilancia
         changes_to_my_watched_community: Cambios en comunidades da túa lista de vixilancia
         comment_on_my_collection: Un comentario nunha colección que administras
-        comment_on_my_community: Un comentario nunha das túas comunidades
+        comment_on_my_community: Un comentario nunha das comunidades ás que pertences
         comment_on_my_contribution: Un comentario e/ou acción de conservación nunha contribución que fixeches
         comment_on_my_profile: Un comentario no teu perfil
         comment_on_my_watched_item: Comentarios en obxectos, taxons, coleccións ou comunidades da túa lista de vixilancia
@@ -538,13 +538,13 @@ gl:
   assistive_updates_header: Actualizacións
   assistive_updates_statistics_header: Estatísticas das páxinas
   associated_submit_button: asociado
-  associated_with_article_header: Neste artigo
+  associated_with_article_header: No último artigo
   associated_with_header: Asociado con
-  associated_with_image_header: Nesta imaxe
-  associated_with_image_map_header: Neste mapa
-  associated_with_map_header: Neste mapa
-  associated_with_sound_header: Neste son
-  associated_with_video_header: Neste vídeo
+  associated_with_image_header: Na última imaxe
+  associated_with_image_map_header: No último mapa
+  associated_with_map_header: No último mapa
+  associated_with_sound_header: No último son
+  associated_with_video_header: No último vídeo
   associations_more_link: máis <span class="assistive">asociacións de taxon</span>
   attribute: Atributo
   audio_current_time_assistive: Co JavaScript activado, isto indicará a posición actual de reprodución do ficheiro de son en minutos e segundos.
@@ -605,7 +605,9 @@ gl:
   citation_example: Fisher, Brian. "Pogonomyrmex anergismus Cole, 1954." Enciclopedia da vida, dispoñible en <a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>. Consultado o 15 de xaneiro de 2009.
   citing_link: Citando
   classification_already_preferred: "ERRO: Esta clasificación xa está marcada como preferida."
+  classification_from_agent: Clasificación de %{agent}.
   classification_from_agent_chosen_by_curator: Clasificación de %{agent} seleccionada por %{curator}.
+  classification_from_agent_chosen_by_curator_see_more: Clasificación de %{agent} seleccionada por %{curator} - <a href="%{more_link}">ollar máis</a>.
   classification_preferred_for_taxon: Preferido
   classification_preferred_for_taxon_help_tip: "%{icon} sinala a clasificación preferida para este taxon."
   classification_summary_section_header: Clasificación
@@ -667,6 +669,9 @@ gl:
     inaturalists: 
       show: 
         add_observations: Engadir observacións
+        meta_description: Observacións de iNaturalist para a colección %{collection_name} da Enciclopedia da vida.
+        meta_keywords: Observacións de iNaturalist sobre %{collection_name}
+        meta_title: Observacións de iNaturalist sobre %{collection_name}
         no_observations_added_to_this_project_yet: Aínda non se engadiron observacións ao proxecto.
         observation_date: "Data: %{observed_on}"
         observation_place: "Lugar: %{place}"
@@ -676,6 +681,11 @@ gl:
         taxa_observed: 
           one: "%{count} taxon observado"
           other: "%{count} taxons observados"
+        top_contributors: Principais colaboradores de iNaturalist
+        tweet_text: Observacións de iNaturalist sobre %{collection_name}
+        view_all_observations_on_inaturalist: Ollar todas as observacións de %{project_title} en iNaturalist
+        view_more_observations_on_inaturalist: Ollar máis observacións de %{project_title} en iNaturalist
+        view_project_on_inaturalist: Ollar %{project_title} en iNaturalist
     newsfeeds: 
       show: 
         meta_description: Novas, comentarios e actividade comunitaria da colección %{collection_name} da Enciclopedia da vida.
@@ -683,6 +693,9 @@ gl:
         meta_title: Novas de %{collection_name}
         tweet_text: Novas de %{collection_name}
     show: 
+      meta_description_default: Unha colección da Enciclopedia da vida titulada %{collection_name}.
+      meta_description_default_focus_collection: Unha colección de atención da Enciclopedia da vida titulada %{collection_name}.
+      meta_description_default_watch_collection: "Unha lista de vixilancia da Enciclopedia da vida: %{collection_name}."
       meta_keywords: "%{collection_name}, colección da Enciclopedia da vida"
   collections_filter: Coleccións
   collections_link: Coleccións
@@ -1448,13 +1461,16 @@ gl:
         email_reports_frequency_hours_more: Os informes por correo envíanse unicamente se houbo comentarios ou accións de conservación nos teus datos ou nas páxinas de taxon relevantes para o teu conxunto de datos.
       data_object: 
         bibliographic_citation: Cita bibliográfica
+        bibliographic_citation_more: Recoméndase unha cita para estes datos en forma de referencia bibliográfica. Inclúe tantos detalles como sexa posible para identificar os datos coa menor ambigüidade posible.
         description: Texto <small>(está permitido algo de formato HTML)</small>
         license_id: Licenza
         license_id_more: Le a <a href="%{policy_url}">política de licenzas da EOL</a>
         object_title: Título
         refs: Referencias <small>(pon cada referencia nunha nova liña)</small>
         rights_holder: Titular dos dereitos
+        rights_holder_more: Especifica a persoa ou organización que sexa a propietaria ou administre os dereitos destes datos. Se deixas en branco este campo asumiremos que ti es o titular dos dereitos para todas as licenzas agás para a de dominio público. As licenzas de dominio público non necesitan ter un titular dos dereitos.
         rights_statement: Declaración dos dereitos
+        rights_statement_more: Declaración dos dereitos de uso segundo o requiren as licenzas Creative Commons recoñecemento (CC-BY). Por favor, declara o recoñecemento <q cite="http://creativecommons.org/licenses/by/3.0">do xeito especificado polo autor ou posuidor dos dereitos</q>.
         source_url: URL do obxecto de datos orixinal
         toc_item: Subcapítulo
       eol_statistic: 
@@ -1543,6 +1559,7 @@ gl:
         notification_settings_more: Configurar as opcións de notificación.
         open_authentications: Contas conectadas
         open_authentications_connected_accounts: As túas contas conectadas
+        open_authentications_more: Administrar as conexións con contas de terceiros que podes usar para acceder á EOL. <a href="%{open_authentications_url}">Editar as contas conectadas</a>.
         requested_curator_level: A túa solicitude de converterte en %{curator_level_with_indefinite_article} está pendente.
         requested_curator_level_id_more: Selecciona <em>Conservador axudante</em> se aínda non tes credenciais. Elixe <em>Conservador completo</em> se es un científico profesional ou un estudante graduado con credenciais. Escolle <em>Mestre conservador</em> se es un conservador experto da EOL e queres asumir máis responsabilidades.
         tag_line: "Slogan ou título <small>exemplo: \"Apaixonado dos paxaros\"</small>"
@@ -1680,6 +1697,7 @@ gl:
   in_providing_its_content_to_eo: Proporciona os seus contidos á EOL,
   in_this_data_type: "neste %{data_type}:"
   inappropriate: Inadecuado
+  inaturalist_tab_label: Observacións de iNaturalist
   include_all_metadata: incluír todos os metadatos dos obxectos de datos
   indexed: Indexado
   info_item: Elemento de información
@@ -2063,6 +2081,7 @@ gl:
       subject: Aprobouse a túa solicitude de privilexios de conservador %{curator_level} na Enciclopedia da vida
     greeting_dear_name_with_comma: "Estimado %{name}:"
     signature_basic: O equipo da Enciclopedia da vida
+    signature_with_contact_us_link: "Se tes algún problema, ponte en contacto con nós no enderezo %{url}.\n\nO equipo da Enciclopedia da vida"
     signature_with_species_pages_group_contact: "Se tes algunha pregunta, ponte en contacto con nós no enderezo %{species_pages_group_email}.\n\nO equipo da Enciclopedia da vida"
     user_activated: 
       message: "Benvido á Enciclopedia da vida (EOL) e grazas por te rexistrares! Ten en conta que o teu nome de usuario é %{username} e o enderezo URL do teu perfil é %{profile_url}. Podes acceder á túa conta en http://www.eol.org/login.\n\nPara obter máis información sobre como usar a EOL (como crear coleccións, participar nas comunidades ou achegar contidos) visita a nosa páxina de axuda no enderezo http://www.eol.org/help."
@@ -2253,6 +2272,7 @@ gl:
   recent_activity: 
     collection_activity_log_title: "%{who} modificou unha colección"
     comment_body_brief: "%{body} - %{author}"
+    comment_link: Ollar o comentario na EOL
     comment_title: "%{who} deixou un comentario en \"%{what}\""
     comment_title_your_newsfeed: "%{who} deixou un comentario na túa fonte de novas"
     community_activity_log_title: "%{who} modificou unha comunidade"
@@ -2260,6 +2280,7 @@ gl:
     data_object_title: "%{who} engadiu novos contidos á EOL"
     default_subject: Actividade recente na EOL
     intro_immediately: Boas, %{name} —
+    reply_to_comment_body_brief: "%{reply_to_author} %{body} - %{author}"
     someone_commented_on_something: <b>%{who}</b> deixou un comentario en "<b>%{what}</b>".
   recent_updates: Actualizacións recentes
   recently_visited: Visitados recentemente
@@ -2364,6 +2385,7 @@ gl:
   see_all_featured_collections_with_count: 
     one: Ollar %{count} colección destacada.
     other: Ollar as %{count} coleccións destacadas.
+  see_all_maps_link: Ollar todos os mapas
   see_all_media_link: Ollar todos os ficheiros multimedia
   see_all_of_your_collections: Ollar todas as túas coleccións
   see_all_of_your_communities: Ollar todas as túas comunidades
@@ -2407,7 +2429,7 @@ gl:
   show_tasks: mostrar as tarefas
   show_warning_message: Mostrar a mensaxe de advertencia
   showing: Mostrar
-  showing_errors_the_error_log_f: "Mostrar os erros do rexistro de erros de:"
+  showing_errors_the_error_log_f: "Mostrar os erros rexistrados:"
   showing_procs_from: "Mostrar os procesos de:"
   shown_to_the_user_parens: (móstrase ao usuario)
   shown_to_user_as_the_title_of_page: móstrase ao usuario como título da páxina
@@ -2580,13 +2602,13 @@ gl:
           meta_title: Literatura sobre %{scientific_name}, segundo a clasificou %{hierarchy_provider}
           meta_title_with_common_name: Libros sobre %{preferred_common_name} (%{scientific_name} segundo os clasificou %{hierarchy_provider})
           tweet_text: Literatura sobre %{scientific_name}, segundo a clasificou %{hierarchy_provider}
-        meta_description: Literatura e información sobre %{scientific_name} na Enciclopedia da vida. Le artigos sobre %{scientific_name} na Enciclopedia da vida.
-        meta_description_with_common_name: Literatura e información sobre %{preferred_common_name}, tamén coñecido como %{scientific_name}, na Enciclopedia da vida. Le artigos sobre %{preferred_common_name} na Enciclopedia da vida.
-        meta_keywords: información sobre %{scientific_name}, literatura sobre %{scientific_name}, artigos sobre %{scientific_name}
-        meta_keywords_with_common_name: información sobre %{preferred_common_name}, literatura sobre %{preferred_common_name}, artigos sobre %{scientific_name}
-        meta_title: Literatura sobre %{scientific_name}
+        meta_description: Libros, artigos e bibliografía sobre %{scientific_name} na Enciclopedia da vida. Le literatura sobre %{scientific_name} na Enciclopedia da vida.
+        meta_description_with_common_name: Libros artigos e bibliografía sobre %{preferred_common_name}, tamén coñecido como %{scientific_name}, na Enciclopedia da vida. Le literatura sobre %{preferred_common_name} na Enciclopedia da vida.
+        meta_keywords: artigos sobre %{scientific_name}, libros sobre %{scientific_name}, bibliografía sobre %{scientific_name}, literatura sobre %{scientific_name}
+        meta_keywords_with_common_name: artigos sobre %{preferred_common_name}, libros sobre %{preferred_common_name}, literatura sobre %{preferred_common_name}, artigos sobre %{scientific_name}, libros sobre %{scientific_name}, bibliografía sobre %{scientific_name}, literatura sobre %{scientific_name}
+        meta_title: Artigos e libros sobre %{scientific_name}
         meta_title_with_common_name: Artigos e libros sobre %{preferred_common_name} (%{scientific_name})
-        tweet_text: Literatura sobre %{scientific_name}
+        tweet_text: Artigos e libros sobre %{scientific_name}
     maps: 
       show: 
         hierarchy_entry: 
@@ -2594,14 +2616,16 @@ gl:
           meta_description_with_common_name: Onde atopamos %{preferred_common_name} e onde viven? Información xeográfica sobre %{scientific_name}, segundo a clasificou %{hierarchy_provider}, onde vive e de onde é orixinario.
           meta_title: Mapas de %{scientific_name}, segundo os clasificou %{hierarchy_provider}
           meta_title_with_common_name: Mapas de %{preferred_common_name} (%{scientific_name}, segundo os clasificou %{hierarchy_provider})
-          tweet_text: Mapas de %{scientific_name}, segundo os clasificou %{hierarchy_provider}
-        meta_description: Información xeográfica sobre %{scientific_name}, onde vive e de onde é orixinario.
-        meta_description_with_common_name: Onde atopamos %{preferred_common_name} e onde viven? Información xeográfica sobre %{scientific_name}, onde vive e de onde é orixinario.
-        meta_keywords: hábitat de %{scientific_name}, autóctono, onde vive %{scientific_name}
-        meta_keywords_with_common_name: hábitat de %{preferred_common_name}, autóctono, onde vive %{preferred_common_name}
+          tweet_text: Mapas sobre %{scientific_name}, segundo os clasificou %{hierarchy_provider}
+        meta_description: Información xeográfica sobre %{scientific_name}. Sitúa onde viven no mundo.
+        meta_description_no_data: Non hai información xeográfica dispoñible sobre %{scientific_name} na Enciclopedia da vida. EOL invítate a achegar mapas relacionados con %{scientific_name}.
+        meta_description_with_common_name: Onde atopamos %{preferred_common_name} e onde viven? Información xeográfica sobre %{scientific_name}. Sitúa onde viven no mundo.
+        meta_description_with_common_name_no_data: Non hai información xeográfica dispoñible sobre %{preferred_common_name}, tamén coñecido como %{scientific_name}, na Enciclopedia da vida. EOL invítate a achegar mapas relacionados con %{preferred_common_name} (%{scientific_name}).
+        meta_keywords: hábitat de %{scientific_name}, onde vive %{scientific_name}
+        meta_keywords_with_common_name: hábitat de %{preferred_common_name}, onde vive %{preferred_common_name}
         meta_title: Mapas de %{scientific_name}
         meta_title_with_common_name: Mapas de %{preferred_common_name} (%{scientific_name})
-        tweet_text: Mapas de %{scientific_name}
+        tweet_text: Mapas sobre %{scientific_name}
     media: 
       index: 
         hierarchy_entry: 
@@ -2612,13 +2636,15 @@ gl:
           meta_title: Son, filme e fotografías de %{scientific_name}, segundo os clasificou %{hierarchy_provider}
           meta_title_with_common_name: Son, filme e imaxes de %{preferred_common_name} (%{scientific_name}, segundo os clasificou %{hierarchy_provider})
           tweet_text: Ficheiros multimedia de %{scientific_name}, segundo os clasificou %{hierarchy_provider}
-        meta_description: Fotografías e vídeos sobre %{scientific_name}.
-        meta_description_with_common_name: Fotografías e vídeos sobre %{preferred_common_name}, tamén coñecido como %{scientific_name}.
+        meta_description: Fotografías, vídeos e sons sobre %{scientific_name}. Atopa imaxes, fotos, películas e sons sobre %{scientific_name} na Enciclopedia da vida.
+        meta_description_no_data: Non hai ficheiros multimedia dispoñibles sobre %{scientific_name} na Enciclopedia da vida. EOL invítate a achegar imaxes, vídeos ou sons relacionados con %{scientific_name}.
+        meta_description_with_common_name: Fotografías, vídeos e sons sobre %{preferred_common_name}, tamén coñecido como %{scientific_name}. Atopa imaxes, fotos, películas e sons sobre %{preferred_common_name} (%{scientific_name}) na Enciclopedia da vida.
+        meta_description_with_common_name_no_data: Non hai ficheiros multimedia dispoñibles sobre %{preferred_common_name}, tamén coñecido como %{scientific_name}, na Enciclopedia da vida. EOL invítate a achegar imaxes, vídeos ou sons relacionados con %{preferred_common_name} (%{scientific_name}).
         meta_keywords: fotografías de %{scientific_name}, vídeos de %{scientific_name}, imaxes de %{scientific_name}, vídeos de %{scientific_name}, fotos de %{scientific_name}, ficheiros multimedia
         meta_keywords_with_common_name: fotografías de %{preferred_common_name}, vídeos de %{preferred_common_name}, imaxes de %{preferred_common_name}, vídeos de %{preferred_common_name}, fotos de %{preferred_common_name}, ficheiros multimedia
-        meta_title: Imaxes e vídeos de %{scientific_name}
-        meta_title_with_common_name: Imaxes e vídeos de %{preferred_common_name} (%{scientific_name})
-        tweet_text: Ficheiros multimedia de %{scientific_name}
+        meta_title: Fotografías, vídeos e sons de %{scientific_name} - Imaxes, fotos, películas e sons de %{scientific_name}
+        meta_title_with_common_name: Fotografías, vídeos e sons de %{preferred_common_name} (%{scientific_name}) - Imaxes, fotos, películas e sons de %{preferred_common_name} (%{scientific_name})
+        tweet_text: Fotografías, vídeos e sons de %{scientific_name}
     names: 
       common_names: 
         hierarchy_entry: 
@@ -2638,14 +2664,14 @@ gl:
         tweet_text: Nomes comúns de %{scientific_name}
       index: 
         hierarchy_entry: 
-          meta_description: Taxonomía, xerarquías de clasificación e nomes científicos relacionados de %{scientific_name}, segundo os clasificou %{hierarchy_provider}.
-          meta_description_with_common_name: Taxonomía, xerarquías de clasificación e nomes científicos relacionados de %{preferred_common_name}, tamén coñecido como %{scientific_name}, segundo os clasificou %{hierarchy_provider}.
+          meta_description: Taxonomías e nomes científicos de %{scientific_name}, segundo os clasificou %{hierarchy_provider}.
+          meta_description_with_common_name: Taxonomías e nomes científicos de %{preferred_common_name}, tamén coñecido como %{scientific_name}, segundo os clasificou %{hierarchy_provider}.
           tweet_text: Nomes relacionados con %{scientific_name}, segundo os clasificou %{hierarchy_provider}
-        meta_description: Clasificación taxonómica e nomes científicos de %{scientific_name}.
-        meta_description_with_common_name: Clasificación taxonómica e nomes científicos de %{preferred_common_name}, tamén chamado %{scientific_name}.
-        meta_title: Nomes relacionados con %{scientific_name}
-        meta_title_with_common_name: Nomes relacionados con %{preferred_common_name} (%{scientific_name})
-        tweet_text: Nomes relacionados con %{scientific_name}
+        meta_description: Taxonomías e nomes científicos de %{scientific_name}. Clasificacións biolóxicas e nomes relacionados con %{scientific_name}.
+        meta_description_with_common_name: Taxonomías, clasificacións biolóxicas e nomes científicos de %{preferred_common_name}, tamén chamado %{scientific_name}. Clasificacións biolóxicas e nomes relacionados con %{preferred_common_name}.
+        meta_title: Información taxonómica sobre %{scientific_name} - Clasificacións biolóxicas e nomes
+        meta_title_with_common_name: Información taxonómica sobre %{preferred_common_name} (%{scientific_name}) - Clasificacións biolóxicas e nomes
+        tweet_text: Información taxonómica sobre %{scientific_name}
       synonyms: 
         hierarchy_entry: 
           meta_description: Sinónimos asociados a %{scientific_name}, segundo os clasificou %{hierarchy_provider}.
@@ -2672,12 +2698,12 @@ gl:
           meta_title: "%{scientific_name} clasificado por %{hierarchy_provider}"
           meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} clasificado por %{hierarchy_provider})"
           tweet_text: Vista xeral de %{scientific_name}, segundo o clasificou %{hierarchy_provider}
-        meta_description: Unha vista xeral de %{scientific_name} na Enciclopedia da vida.
-        meta_description_with_common_name: Unha vista xeral de %{preferred_common_name}, cientificamente coñecido como %{scientific_name}, na Enciclopedia da vida.
+        meta_description: Información sobre %{scientific_name} na Enciclopedia da vida
+        meta_description_with_common_name: Información sobre %{preferred_common_name}, cientificamente coñecido como %{scientific_name}, na Enciclopedia da vida.
         meta_keywords: "%{scientific_name} recoñecido por %{hierarchy_provider}"
         meta_keywords_with_common_name: "%{scientific_name} recoñecido por %{hierarchy_provider}"
-        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})"
-        tweet_text: Vista xeral de %{scientific_name}
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Información sobre %{preferred_common_name}"
+        tweet_text: Información sobre %{scientific_name}
     resources: 
       biomedical_terms: 
         hierarchy_entry: 
@@ -2964,6 +2990,9 @@ gl:
     one: "%{count} obxecto conservado"
     other: "%{count} obxectos conservados"
   user_activity_stats_objects_curated_dropdown: Obxectos conservados
+  user_activity_stats_preferred_classifications_selected: 
+    one: "%{count} clasificación preferida seleccionada"
+    other: "%{count} clasificacións preferidas seleccionadas"
   user_activity_stats_set_exemplar: 
     one: "%{count} imaxe definida como exemplar"
     other: "%{count} imaxes definidas como exemplares"

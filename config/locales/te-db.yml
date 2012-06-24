@@ -1,6 +1,7 @@
 # Messages for Telugu (తెలుగు)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
+# Author: Jprmvnvijay5
 # Author: Suryavnk
 # Author: Veeven
 te: 
@@ -127,6 +128,7 @@ te:
   translated_ranks-label-rank_id-370: ఉప వర్గం
   translated_ranks-label-rank_id-383: ఉప కుటుంబం
   translated_ranks-label-rank_id-396: ఉపరాజ్యం
+  translated_ranks-label-rank_id-494: తెగ
   translated_ranks-label-rank_id-51: తరగతి
   translated_ranks-label-rank_id-518: ప్రత్యేక రకము
   translated_ranks-label-rank_id-74: విభజన
@@ -170,11 +172,18 @@ te:
   translated_synonym_relations-label-synonym_relation_id-24: తిరస్కరించబడిన పేరు
   translated_synonym_relations-label-synonym_relation_id-25: ఒకేరకంగా పలుకు రెండు భిన్నమైన పదాలు (అక్రమం)
   translated_synonym_relations-label-synonym_relation_id-27: అనవసరమైన పునర్ నామకరణం
+  translated_synonym_relations-label-synonym_relation_id-3: పొట్టిపొడ
   translated_synonym_relations-label-synonym_relation_id-30: అందుబాటులో లేని, సమాచార నిధి పరికరం
   translated_synonym_relations-label-synonym_relation_id-31: అనవసరమైన పునర్ నియామకం
   translated_synonym_relations-label-synonym_relation_id-32: తర్వాత పేరు/జతకలిసిన
   translated_synonym_relations-label-synonym_relation_id-33: అందుబాటులోలేని, సాహిత్య అచ్చుతప్పు
+  translated_synonym_relations-label-synonym_relation_id-34: తొలి పేరు/కలబోత
+  translated_synonym_relations-label-synonym_relation_id-48: దొరకని పేరు
+  translated_synonym_relations-label-synonym_relation_id-52: పెత్తనము
+  translated_synonym_relations-label-synonym_relation_id-64: చెల్లని
+  translated_synonym_relations-label-synonym_relation_id-68: మొక్కలపెంపకపు
   translated_table_of_contents-label-table_of_contents_id-1: అవలోకనం
+  translated_table_of_contents-label-table_of_contents_id-13: ఉమ్మడి పేరు
   translated_table_of_contents-label-table_of_contents_id-194: పరిమాణం
   translated_table_of_contents-label-table_of_contents_id-2: క్లుప్త సారాంశం
   translated_table_of_contents-label-table_of_contents_id-221: ప్రమాదాలు
@@ -200,6 +209,7 @@ te:
   translated_table_of_contents-label-table_of_contents_id-304: సంబంధిత పేర్లు
   translated_table_of_contents-label-table_of_contents_id-305: సమానార్థాలు
   translated_table_of_contents-label-table_of_contents_id-306: పుట గణాంకాలు
+  translated_table_of_contents-label-table_of_contents_id-307: ముచ్చట్ల సారము
   translated_table_of_contents-label-table_of_contents_id-309: పంపిణీ
   translated_table_of_contents-label-table_of_contents_id-310: అభివృధ్ది
   translated_table_of_contents-label-table_of_contents_id-311: గుర్తించు వనరులు
@@ -217,6 +227,7 @@ te:
   translated_table_of_contents-label-table_of_contents_id-323: జీవశాస్త్ర నామకరణ విధానము లేదా ఆవిర్భావ అధ్యయనం
   translated_table_of_contents-label-table_of_contents_id-328: కణ జీవ శాస్త్రము
   translated_table_of_contents-label-table_of_contents_id-33: ధోరణులు
+  translated_table_of_contents-label-table_of_contents_id-331: గీతల మరుగు మాట
   translated_table_of_contents-label-table_of_contents_id-333: అణు జీవశాస్త్రము
   translated_table_of_contents-label-table_of_contents_id-334: ప్రమాదాలు
   translated_table_of_contents-label-table_of_contents_id-335: శాసనవ్యవస్థ

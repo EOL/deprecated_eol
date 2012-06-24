@@ -157,7 +157,7 @@ nl:
         changes_to_my_watched_collection: Wijzigingen in verzamelingen op uw volglijst
         changes_to_my_watched_community: Wijzigingen in gemeenschappen op uw volglijst
         comment_on_my_collection: Een reactie op een verzameling die u beheert
-        comment_on_my_community: Een reactie in een van uw gemeenschappen
+        comment_on_my_community: Een reactie in een van de gemeenschappen waar u lid van bent
         comment_on_my_contribution: Een reactie of een conservatoire handeling op een bijdrage die u hebt gemaakt
         comment_on_my_profile: Een reactie op uw profiel
         comment_on_my_watched_item: Reacties op objecten, taxa, verzamelingen of gemeenschappen op uw volglijst
@@ -440,11 +440,6 @@ nl:
         user_hid_it_on_association: <strong>%{user}</strong> heeft het als verborgen gemarkeerd op de pagina "%{association}".
       reasons_to_hide: "Reden voor verbergen: %{reasons}"
       reasons_to_untrust: "Reden voor niet vertrouwen: %{reasons}"
-      remove_association: 
-        an_unknown_user_disassociated_an_older_data_object_from_an_unknown_taxon: Een onbekende gebruiker heeft een koppeling verwijderd van een oudere versie van "%{data_object}".
-        an_unknown_user_disassociated_an_older_data_object_from_taxon: Een onbekende gebruiker heeft een koppeling verwijderd tussen "%{data_object}" en "%{taxon}".
-        an_unknown_user_disassociated_an_unknown_data_object_from_an_unknown_taxon: Een onbekende gebruiker heeft een onbekende koppeling verwijderd.
-        an_unknown_user_disassociated_an_unknown_data_object_from_taxon: Een onbekende gebruiker heeft een koppeling verwijderd tussen een onbekend gegevensobject en "%{taxon}".
       show: 
         an_unknown_user_showed_an_older_data_object_on_an_unknown_association: Een onbekende gebruiker heeft een oudere versie van "%{data_object}" als zichtbaar gemarkeerd in een onbekende context.
         an_unknown_user_showed_an_older_data_object_on_association: Een onbekende gebruiker heeft een oudere versie van "%{data_object}" als zichtbaar gemarkeerd op de pagina "%{association}".
@@ -566,7 +561,7 @@ nl:
   admin_content_pages_page_title: "Beheer: contentbeheer"
   admin_content_partners_index_header: Contentpartners
   admin_content_partners_link: Contentpartners
-  admin_content_partners_notifications_link: Kennisgevingen
+  admin_content_partners_notifications_link: Meldingen
   admin_content_partners_notifications_page_title: "Beheer: meldingen voor contentpartners"
   admin_content_partners_notifications_sent_to_recipients_header: "Meldingen zijn verzonden naar:"
   admin_content_partners_notifications_statistics_reminder_description: "Stuurt een e-mail naar alle contactpersonen van contentpartners met de melding dat ze nu de webgebruiksstatistieken van hun gegevens in EOL van de afgelopen maand kunnen bekijken. Let op: het handmatig uitvoeren van deze taak is een tijdelijke oplossing en deze moet verwijderd worden als er een automatische oplossing beschikbaar is."
@@ -2030,6 +2025,7 @@ nl:
       subject: Uw verzoek voor de conservatorrol %{curator_level} is goedgekeurd
     greeting_dear_name_with_comma: Beste %{name},
     signature_basic: Het team van Encyclopedia of Life
+    signature_with_contact_us_link: "Als u een probleem tegenkoment, neem dan contact met ons op via %{url}.\n\nHet team van Encyclopedia of Life"
     signature_with_species_pages_group_contact: "Als u vragen hebt, neem dan contact met ons op via %{species_pages_group_email}.\n\nHet team van Encyclopedia of Life"
     user_activated: 
       message: "Welkom bij Encyclopedia of Life (EOL) en dank u wel voor het registreren! Uw gebruikersnaam is %{username} en de URL voor uw profiel is %{profile_url}. U kunt hier aanmelden: http://www.eol.org/login.\n\nVia onze hulppagina's op http://www.eol.org/help kunt u leren hoe u EOL kunt gebruiken, zoals het aanmaken van EOL-verzamelingen, deelnemen in EOL-gemeenschappen en inhoud bijdragen."
@@ -2206,6 +2202,7 @@ nl:
     intro: Hier is uw samenvatting van EOL-activiteit voor %{time}
     intro_immediately: Hallo, %{name} —
     intro_weekly: Hier is uw EOL-activiteitensamenvatting voor de week die eindigt op %{ending}
+    reply_to_comment_body_brief: "%{reply_to_author} %{body} - %{author}"
     see_all_activity: U kunt al uw activiteiten bekijken op de <a href='%{activity_url}' style='color:#195184'>pagina met uw nieuwsoverzicht</a>.
     someone_commented_on_something: <b>%{who}</b> heeft gereageerd op <b>%{what}</b>.
     unsubscribe: Wijzig uw e-mailinstellingen of schrijf u uit via de <a href='%{email_prefs_url}' style='color:#195184'>pagina met uw voorkeuren voor berichten</a>.
@@ -2435,15 +2432,19 @@ nl:
       index: 
         hierarchy_entry: 
           meta_description: Gegevens over %{scientific_name} als geclassificeerd door %{hierarchy_provider} in Encyclopedia of Life
+          meta_description_no_data: Er zijn geen feiten beschikbaar over %{scientific_name} als ingedeeld door %{hierarchy_provider} in de Encyclopedia of Life. EOL nodigt u uit om feiten bij te dragen over conservatie, distributie, ecologie, habitat, morfologie en meer.
           meta_description_with_chapter_list: Gegevens over %{scientific_name} als geclassificeerd door %{hierarchy_provider} in Encyclopedia of Life. Bevat %{chapter_list}gegevens voor %{scientific_name}.
           meta_description_with_common_name: Gegevens over %{preferred_common_name}, wetenschappelijk bekend als %{scientific_name} als geclassificeerd door %{hierarchy_provider} in Encyclopedia of Life.
+          meta_description_with_common_name_no_data: Er zijn geen feiten beschikbaar over %{preferred_common_name}, ook bekend als %{scientific_name} als ingedeeld door %{hierarchy_provider} in de Encyclopedia of Life. EOL nodigt u uit om feiten bij te dragen over conservatie, distributie, ecologie, habitat, morfologie en meer.
           meta_description_with_common_name_with_chapter_list: Gegevens over %{preferred_common_name}, wetenschappelijk bekend als %{scientific_name} als geclassificeerd door %{hierarchy_provider} in Encyclopedia of Life. Bevat %{chapter_list}gegevens voor %{scientific_name}.
           meta_title: egevens over %{scientific_name} als geclassificeerd door %{hierarchy_provider}
           meta_title_with_common_name: Gegevens over %{preferred_common_name} (%{scientific_name} als geclassificeerd door %{hierarchy_provider})
           tweet_text: Gegevens over %{scientific_name} als geclassificeerd door %{hierarchy_provider}
         meta_description: Gegevens over %{scientific_name} in Encyclopedia of Life
+        meta_description_no_data: Er zijn geen feiten beschikbaar over %{scientific_name} in de Encyclopedia of Life. EOL nodigt u uit om feiten bij te dragen over conservatie, distributie, ecologie, habitat, morfologie en meer.
         meta_description_with_chapter_list: Gegevens over %{scientific_name} in Encyclopedia of Life. Bevat %{chapter_list}gegevens voor %{scientific_name}.
         meta_description_with_common_name: Gegevens over %{preferred_common_name}, wetenschappelijk bekend als %{scientific_name} in Encyclopedia of Life.
+        meta_description_with_common_name_no_data: Er zijn geen feiten beschikbaar over %{preferred_common_name}, ook bekend als %{scientific_name} in de Encyclopedia of Life. EOL nodigt u uit om feiten bij te dragen over conservatie, distributie, ecologie, habitat, morfologie en meer.
         meta_description_with_common_name_with_chapter_list: Gegevens over %{preferred_common_name}, wetenschappelijk bekend als %{scientific_name} in Encyclopedia of Life. Bevat %{chapter_list}gegevens voor %{scientific_name}.
         meta_title: Feiten over %{scientific_name}
         meta_title_with_common_name: Feiten over %{preferred_common_name} (%{scientific_name})
@@ -2496,7 +2497,7 @@ nl:
           meta_title: Audio, film en foto's van %{scientific_name} als ingedeeld door %{hierarchy_provider}
           meta_title_with_common_name: Audio, film en foto's van %{preferred_common_name} (%{scientific_name} als ingedeeld door %{hierarchy_provider}).
           tweet_text: Media van %{scientific_name} als ingedeeld door %{hierarchy_provider}
-        meta_description: Foto's en video's van %{scientific_name}.
+        meta_description: Afbeeldingen en video's van %{scientific_name}. Zoek afbeeldingen, foto's en geluiden van %{scientific_name} bij de Encyclopedia of Life.
         meta_description_with_common_name: Afbeeldingen en video's van %{preferred_common_name}, ook bekend als %{scientific_name}
         meta_keywords: afbeeldingen van %{scientific_name}, video's van %{scientific_name}, foto's van %{scientific_name}, video van %{scientific_name}, media
         meta_keywords_with_common_name: foto's van %{preferred_common_name}, video's van %{preferred_common_name}, afbeeldingen van %{preferred_common_name}, video van %{preferred_common_name}, media

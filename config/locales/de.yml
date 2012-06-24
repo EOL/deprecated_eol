@@ -5,6 +5,7 @@
 # Author: Exit91
 # Author: Geitost
 # Author: George Animal
+# Author: Kebap
 # Author: Kghbln
 # Author: McDutchie
 # Author: Purodha
@@ -167,7 +168,7 @@ de:
         changes_to_my_watched_collection: Änderungen an Sammlungen, die sich auf Ihrer Beobachtungsliste befinden.
         changes_to_my_watched_community: Änderungen an Gemeinschaften, die sich auf Ihrer Beobachtungsliste befinden.
         comment_on_my_collection: Ein Kommentar zu einer von Ihnen verwalteten Sammlung
-        comment_on_my_community: Ein Kommentar in einer Ihrer Gemeinschaften
+        comment_on_my_community: Ein Kommentar in einer der Gemeinschaften, in denen Sie Mitglied sind
         comment_on_my_contribution: Ein Kommentar / eine Aktion eines Kurators zu einem Ihrer Beiträge
         comment_on_my_profile: Ein Kommentar zu Ihrem Profil
         comment_on_my_watched_item: Kommentare zu Objekten, Taxa, Sammlungen oder Gemeinschaften auf Ihrer Beobachtungsliste.
@@ -503,22 +504,22 @@ de:
       reasons_to_hide: "Gründe für das Verbergen: %{reasons}"
       reasons_to_untrust: "Gründe für die Einstufung als nicht vertrauenswürdig: %{reasons}"
       remove_association: 
-        an_unknown_user_disassociated_an_older_data_object_from_an_unknown_taxon: Ein unbekannter Nutzer hat von einer älteren Version von „%{data_object}“ eine Zuordnung entfernt.
-        an_unknown_user_disassociated_an_older_data_object_from_taxon: Ein unbekannter Nutzer hat zwischen „%{data_object}“ und „%{taxon}“ eine Zuordnung entfernt.
-        an_unknown_user_disassociated_an_unknown_data_object_from_an_unknown_taxon: Ein unbekannter Nutzer hat eine unbekannte Zuordnung entfernt.
-        an_unknown_user_disassociated_an_unknown_data_object_from_taxon: Ein unbekannter Nutzer hat zwischen einem unbekannten Datenobjekt und „%{taxon}“ eine Zuordnung entfernt.
-        an_unknown_user_disassociated_data_object_from_an_unknown_taxon: Ein unbekannter Nutzer hat eine Zuordnung zwischen „%{data_object}“ und einer unbekannten Seite entfernt.
-        an_unknown_user_disassociated_data_object_from_taxon: Ein unbekannter Nutzer hat eine Zuordnung zwischen „%{data_object}“ und „%{taxon}“ entfernt.
-        an_unknown_user_disassociated_it_from_an_unknown_taxon: Ein unbekannter Nutzer hat eine Zuordnung zu einer unbekannten Seite entfernt.
-        an_unknown_user_disassociated_it_from_taxon: Ein unbekannter Nutzer hat eine Zuordnung zu „%{association}“ entfernt.
-        user_disassociated_an_older_data_object_from_an_unknown_taxon: <strong>%{user}</strong> hat eine Zuordnung zwischen einer älteren Version von „%{data_object}“ und einer unbekannten Seite entfernt.
-        user_disassociated_an_older_data_object_from_taxon: <strong>%{user}</strong> hat eine Zuordnung zwischen einer älteren Version von „%{data_object}“ und „%{taxon}“ entfernt.
-        user_disassociated_an_unknown_data_object_from_an_unknown_taxon: <strong>%{user}</strong> hat eine unbekannte Zuordnung entfernt.
-        user_disassociated_an_unknown_data_object_from_taxon: <strong>%{user}</strong> hat eine Zuordnung zwischen einem unbekannten Datenobjekt und „%{taxon}“ entfernt.
-        user_disassociated_data_object_from_an_unknown_taxon: <strong>%{user}</strong> hat eine Zuordnung zwischen „%{data_object}“ und einer unbekannten Seite entfernt.
-        user_disassociated_data_object_from_taxon: <strong>%{user}</strong> hat eine Zuordnung zwischen „%{data_object}“ und „%{taxon}“ entfernt.
-        user_disassociated_it_from_an_unknown_taxon: <strong>%{user}</strong> hat eine Zuordnung zu einer unbekannten Seite entfernt.
-        user_disassociated_it_from_taxon: <strong>%{user}</strong> hat eine Zuordnung zu „%{association}“ entfernt.
+        an_unknown_user_disassociated_an_older_data_object_from_an_unknown_association: Ein unbekannter Nutzer hat von einer älteren Version von „%{data_object}“ eine Zuordnung entfernt.
+        an_unknown_user_disassociated_an_older_data_object_from_association: Ein unbekannter Nutzer hat zwischen „%{data_object}“ und „%{association}“ eine Zuordnung entfernt.
+        an_unknown_user_disassociated_an_unknown_data_object_from_an_unknown_association: Ein unbekannter Nutzer hat eine unbekannte Zuordnung entfernt.
+        an_unknown_user_disassociated_an_unknown_data_object_from_association: Ein unbekannter Nutzer hat zwischen einem unbekannten Datenobjekt und „%{association}“ eine Zuordnung entfernt.
+        an_unknown_user_disassociated_data_object_from_an_unknown_association: Ein unbekannter Nutzer hat eine Zuordnung zwischen „%{data_object}“ und einer unbekannten Seite entfernt.
+        an_unknown_user_disassociated_data_object_from_association: Ein unbekannter Nutzer hat zwischen „%{data_object}“ und „%{association}“ eine Zuordnung entfernt.
+        an_unknown_user_disassociated_it_from_an_unknown_association: Ein unbekannter Nutzer hat eine Zuordnung zu einer unbekannten Seite entfernt.
+        an_unknown_user_disassociated_it_from_association: Ein unbekannter Nutzer hat eine Zuordnung zu „%{association}“ entfernt.
+        user_disassociated_an_older_data_object_from_an_unknown_association: <strong>%{user}</strong> hat eine Zuordnung zwischen einer älteren Version von „%{data_object}“ und einer unbekannten Seite entfernt.
+        user_disassociated_an_older_data_object_from_association: <strong>%{user}</strong> hat zwischen einer älteren Version von „%{data_object}“ und „%{association}“ eine Zuordnung entfernt.
+        user_disassociated_an_unknown_data_object_from_an_unknown_association: <strong>%{user}</strong> hat eine unbekannte Zuordnung entfernt.
+        user_disassociated_an_unknown_data_object_from_association: <strong>%{user}</strong> hat zwischen einem unbekannten Datenobjekt und „%{association}“ eine Zuordnung entfernt.
+        user_disassociated_data_object_from_an_unknown_association: <strong>%{user}</strong> hat eine Zuordnung zwischen „%{data_object}“ und einer unbekannten Seite entfernt.
+        user_disassociated_data_object_from_association: <strong>%{user}</strong> hat zwischen „%{data_object}“ und „%{association}“ eine Zuordnung entfernt.
+        user_disassociated_it_from_an_unknown_association: <strong>%{user}</strong> hat eine Zuordnung zu einer unbekannten Seite entfernt.
+        user_disassociated_it_from_association: <strong>%{user}</strong> hat eine Zuordnung zu „%{association}“ entfernt.
       remove_common_name: 
         an_unknown_user_removed_name_from_an_unknown_taxon: Ein unbekannter Nutzer hat von einer unbekannten Seite einen gebräuchlichen Namen entfernt.
         an_unknown_user_removed_name_from_it: Ein unbekannter Nutzer hat einen gebräuchlichen Namen entfernt.
@@ -834,13 +835,13 @@ de:
   assistive_updates_header: Aktualisierungen
   assistive_updates_statistics_header: Seitenstatistiken
   associated_submit_button: verbunden
-  associated_with_article_header: In diesem Artikel
+  associated_with_article_header: Im aktuellsten Artikel
   associated_with_header: Verbunden mit
-  associated_with_image_header: Auf diesem Bild
-  associated_with_image_map_header: Auf dieser Karte
-  associated_with_map_header: Auf dieser Karte
-  associated_with_sound_header: In dieser Audiodatei
-  associated_with_video_header: In diesem Video
+  associated_with_image_header: Auf dem aktuellsten Bild
+  associated_with_image_map_header: Auf der aktuellsten Karte
+  associated_with_map_header: Auf der aktuellsten Karte
+  associated_with_sound_header: In der aktuellsten Audiodatei
+  associated_with_video_header: Im aktuellsten Video
   associations_more_link: mehr <span class="assistive">Taxonverbünde</span>
   attribute: Eigenschaft
   audio_current_time_assistive: Mit aktiviertem JavaScript ermöglicht dies die Ausgabe der aktuellen Wiedergabeposition der Audiodatei in Minuten und Sekunden.
@@ -901,7 +902,9 @@ de:
   citation_example: "Fisher, Brian: „Pogonomyrmex anergismus Cole, 1954.“ Enzyklopädie des Lebens, von <a href=\"http://eol.org/pages/460427\" target=\"_blank\">http://eol.org/pages/460427</a>. Abgerufen am 15. Jan. 2009."
   citing_link: Zitieren
   classification_already_preferred: Diese Klassifikation wurde bereits als bevorzugt markiert.
+  classification_from_agent: Klassifizierung von %{agent}.
   classification_from_agent_chosen_by_curator: Klassifikation von %{agent} wurde von %{curator} ausgewählt.
+  classification_from_agent_chosen_by_curator_see_more: Klassifizierung von %{agent}, ausgewählt durch %{curator} - <a href="%{more_link}">mehr dazu</a>.
   classification_preferred_for_taxon: Bevorzugt
   classification_preferred_for_taxon_help_tip: "%{icon} markiert die bevorzugte Klassifikation zu diesem Taxon."
   classification_summary_section_header: Klassifikation
@@ -2391,6 +2394,7 @@ de:
       subject: Ihrem Antrag, bei der Enzyklopädie des Lebens (EOL) die Berechtigungen eines %{curator_level} zu erhalten, wurde stattgegeben
     greeting_dear_name_with_comma: Hallo %{name},
     signature_basic: Das Team der Enzyklopädie des Lebens (EOL)
+    signature_with_contact_us_link: "Sollten Sie irgendwelche Probleme bemerken, kontaktieren Sie uns bitte unter %{url}.\n\nDas Team der Enzyklopädie des Lebens (EOL)"
     signature_with_species_pages_group_contact: "Sofern Sie Fragen haben, kontaktieren Sie uns bitte unter der E-Mail-Adresse %{species_pages_group_email}.\n\nDas Team der Enzyklopädie des Lebens (EOL)"
     user_activated: 
       message: "Willkommen bei der Enzyklopädie des Lebens (EOL) und viele Dank für Ihre Anmeldung. Bitte merken Sie sich Ihren Nutzernamen %{username}. Die URL Ihres Profils bei der EOL lautet %{profile_url}. Mit Ihrem Konto können Sie sich unter der URL http://www.eol.org/login anmelden.\n\nWeitere Informationen zur Nutzung der EOL, einschließlich der Anleitung, wie sie eine Sammlung erstellen, wie Sie in Nutzergemeinschaften mitwirken oder zu den Inhalten beitragen können, finden Sie auf unseren Hilfeseiten unter der URL http://www.eol.org/help."
@@ -2585,8 +2589,8 @@ de:
       one: Es gab eine Aktualisierung zu %{to}.
       other: Es gab %{count} Aktualisierunen zu %{to}.
     bulk_comments_on_you_with_count: 
-      one: Es ist ein neuer Kommentar auf der Seite mit Ihrem Profil vorhanden.
-      other: Es sind %{count} neue Kommentare auf der Seite mit Ihrem Profil vorhanden.
+      one: Es ist ein neuer Kommentar auf <a href='%{url}' style='color:#195184'>der Seite mit Ihrem Profil</a> vorhanden.
+      other: Es sind %{count} neue Kommentare auf <a href='%{url}' style='color:#195184'>der Seite mit Ihrem Profil</a> vorhanden.
     bulk_comments_with_count: 
       one: Es ist ein neuer Kommenar zu %{on} vorhanden.
       other: Es sind %{count} neue Kommentare zu %{on}vorhanden.
@@ -2621,6 +2625,7 @@ de:
     intro: Ihre Zusammenfassung zu Aktivitäten auf EOL für %{time}
     intro_immediately: Hallo %{name} —
     intro_weekly: Nun erhalten Sie die Übersicht zu Ihren Aktivitäten auf der EOL, für die zum %{ending} endende Woche.
+    reply_to_comment_body_brief: "%{reply_to_author} %{body} - %{author}"
     see_all_activity: Alle bisherigen Aktivitäten auf <a href='%{activity_url}' style='color:#195184'>der Seite mit Ihrem Neuigkeitenfeed</a>.
     someone_commented_on_something: <b>%{who}</b> hat <b>%{what}</b> kommentiert.
     unsubscribe: Ändern Sie bitte Ihre E-Mail-Einstellungen oder beenden Sie Ihr Abonnement der Benachrichtigungen <a href='%{email_prefs_url}'>auf der Seite mit den Benachrichtigungseinstellungen</a>.
@@ -2727,6 +2732,7 @@ de:
   see_all_featured_collections_with_count: 
     one: Die präsentierte Sammlung anzeigen.
     other: Die %{count} präsentierten Sammlungen anzeigen.
+  see_all_maps_link: Alle Karten ansehen
   see_all_media_link: Alle Medien ansehen
   see_all_of_your_collections: Alle unsere Sammlungen anzeigen.
   see_all_of_your_communities: Alle unsere Gemeinschaften ansehen
@@ -2773,7 +2779,7 @@ de:
   show_tasks: Aufgaben anzeigen
   show_warning_message: Warnmeldung anzeigen
   showing: Anzeige
-  showing_errors_the_error_log_f: "Anzeige der Fehler im Fehlerprotokoll für:"
+  showing_errors_the_error_log_f: "Anzeige der protokollierten Fehler zu:"
   showing_procs_from: "Anzeige der Prozesse ab:"
   shown_to_the_user_parens: (dem Nutzer anzeigen)
   shown_to_user_as_the_title_of_page: dem Nutzer als Seitenname anzeigen
@@ -2917,15 +2923,19 @@ de:
       index: 
         hierarchy_entry: 
           meta_description: Informationen zu %{scientific_name} in der Enzyklopädie des Lebens (EOL), entsprechend der Klassifizierung durch %{hierarchy_provider}.
+          meta_description_no_data: Es sind keine Fakten zu %{scientific_name}, wie von %{hierarchy_provider} in der Enzyklopädie des Lebens (EOL) klassifiziert, verfügbar. EOL lädt Sie ein, weitere Fakten zu %{scientific_name} bezüglich Erhaltung, Verbreitung, Ökologie, Lebensraum, Morphologie und mehr beizutragen.
           meta_description_with_chapter_list: Informationen zu %{scientific_name}, entsprechend der Klassifizierung in der Enzyklopädie des Lebens (EOL) durch %{hierarchy_provider}. Enthält auch Informationen zu %{chapter_list} über %{scientific_name}.
           meta_description_with_common_name: Informationen zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}, in der Enzyklopädie des Lebens (EOL), entsprechend der Klassifizierung durch %{hierarchy_provider}.
+          meta_description_with_common_name_no_data: Es sind keine Fakten zu %{preferred_common_name} verfügbar, auch bekannt als %{scientific_name}, wie von %{hierarchy_provider} in der Enzyklopädie des Lebens (EOL) eingestuft. EOL lädt Sie ein, weitere Fakten zu %{preferred_common_name} (%{scientific_name}) bezüglich Erhaltung, Verbreitung, Ökologie, Lebensraum, Morphologie und mehr beizutragen.
           meta_description_with_common_name_with_chapter_list: Informationen zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}, entsprechend der Klassifizierung in der Enzyklopädie des Lebens (EOL) durch %{hierarchy_provider}. Enthält auch Informationen zu %{chapter_list}.
           meta_title: Informationen zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
           meta_title_with_common_name: Informationen zu %{preferred_common_name} (%{scientific_name}), entsprechend der Klassifizierung durch %{hierarchy_provider}.
           tweet_text: Informationen zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
         meta_description: Informationen zu %{scientific_name} in der Enzyklopädie des Lebens (EOL).
+        meta_description_no_data: Es sind keine Fakten zu %{scientific_name} in der Enzyklopädie des Lebens (EOL) verfügbar. EOL lädt Sie ein, weitere Fakten zu %{scientific_name} bezüglich Erhaltung, Verbreitung, Ökologie, Lebensraum, Morphologie und mehr beizutragen.
         meta_description_with_chapter_list: Informationen zu %{scientific_name} in der Enzyklopädie des Lebens (EOL). Enthält Informationen zu %{chapter_list}.
         meta_description_with_common_name: Informationen zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}, in der Enzyklopädie des Lebens (EOL).
+        meta_description_with_common_name_no_data: Es sind keine Fakten zu %{preferred_common_name}, auch bekannt als %{scientific_name}, in der Enzyklopädie des Lebens (EOL) verfügbar. EOL lädt Sie ein, weitere Fakten zu %{preferred_common_name} (%{scientific_name}) bezüglich Erhaltung, Verbreitung, Ökologie, Lebensraum, Morphologie und mehr beizutragen.
         meta_description_with_common_name_with_chapter_list: Informationen zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}, in der Enzyklopädie des Lebens (EOL). Enthält auch Informationen zu %{chapter_list}.
         meta_title: Fakten zu %{scientific_name}
         meta_title_with_common_name: Fakten zu %{preferred_common_name} (%{scientific_name})
@@ -2946,13 +2956,13 @@ de:
           meta_title: Literatur zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
           meta_title_with_common_name: Bücher zu %{preferred_common_name} (%{scientific_name}), entsprechend der Klassifizierung durch %{hierarchy_provider}.
           tweet_text: Literatur zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
-        meta_description: Literatur und Informationen zu %{scientific_name} in der Enzyklopädie des Lebens (EOL). Lesen Sie Artikel zu %{scientific_name} in der Enzyklopädie des Lebens.
-        meta_description_with_common_name: Literatur und Informationen zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}, in der Enzyklopädie des Lebens (EOL). Lesen Sie Artikel zu %{preferred_common_name} in der Enzyklopädie des Lebens.
-        meta_keywords: Informationen zu %{scientific_name}, Literatur zu %{scientific_name}, Artikel zu %{scientific_name}
-        meta_keywords_with_common_name: Informationen zu %{preferred_common_name}, Literatur zu %{preferred_common_name}, Artikel zu %{scientific_name}
-        meta_title: Literatur zu %{scientific_name}
+        meta_description: Bücher, Artikel und Bibliografien zu %{scientific_name} in der Enzyklopädie des Lebens (EOL). Lesen Sie Literatur zu %{scientific_name} in der Enzyklopädie des Lebens (EOL).
+        meta_description_with_common_name: Bücher, Artikel und Bibliografien zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}, in der Enzyklopädie des Lebens (EOL). Lesen Sie Literatur zu %{preferred_common_name} in der Enzyklopädie des Lebens (EOL).
+        meta_keywords: Artikel zu %{scientific_name}, Bücher zu %{scientific_name}, Bibliografien zu %{scientific_name}
+        meta_keywords_with_common_name: Artikel zu %{preferred_common_name}, Bücher zu %{preferred_common_name}, Literatur zu %{preferred_common_name}, Artikel zu %{scientific_name}, Bücher zu %{scientific_name}, Bibliografien zu %{scientific_name}, Literatur zu %{scientific_name}
+        meta_title: Artikel und Bücher zu %{scientific_name}
         meta_title_with_common_name: Artikel und Bücher zu %{preferred_common_name} (%{scientific_name})
-        tweet_text: Literatur zu %{scientific_name}
+        tweet_text: Artikel und Bücher zu %{scientific_name}
     maps: 
       show: 
         hierarchy_entry: 
@@ -2961,10 +2971,12 @@ de:
           meta_title: Karten zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
           meta_title_with_common_name: Karten zu %{preferred_common_name} (%{scientific_name}), entsprechend der Klassifizierung durch %{hierarchy_provider}.
           tweet_text: Karten zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
-        meta_description: Geografische Informationen zum Verbreitungsgebiet und dem heimischen Lebensraum zu %{scientific_name}.
-        meta_description_with_common_name: Wo können %{preferred_common_name} beobachtet werden und wo leben sie? Geografische Informationen zum Verbreitungsgebiet und dem heimischen Lebensraum zu %{scientific_name}.
-        meta_keywords: Verbreitungsgebiet von %{scientific_name}, heimischer Lebensraum, wo lebt %{scientific_name}
-        meta_keywords_with_common_name: Verbreitungsgebiet von %{preferred_common_name}, heimischer Lebensraum, wo lebt %{preferred_common_name}
+        meta_description: Geografische Informationen zu %{scientific_name}. Orte an denen sie auf der Welt leben.
+        meta_description_no_data: Es sind keine geografische Informationen zu %{scientific_name} in der Enzyklopädie des Lebens (EOL) vorhanden. EOL lädt Sie ein, Karten zu %{scientific_name} beizusteuern.
+        meta_description_with_common_name: Wo können %{preferred_common_name} beobachtet werden und wo leben sie? Geografische Informationen zu %{scientific_name}. Orte an denen sie auf der Welt leben.
+        meta_description_with_common_name_no_data: Es sind keine geografischen Informationen zu %{preferred_common_name}, auch bekannt als %{scientific_name}, in der Enzyklopädie des Lebens (EOL) verfübar. EOL lädt Sie ein, Karten zu %{preferred_common_name} (%{scientific_name}) beizutragen.
+        meta_keywords: Verbreitungsgebiet von %{scientific_name}, wo lebt %{scientific_name}
+        meta_keywords_with_common_name: Verbreitungsgebiet von %{preferred_common_name}, wo lebt %{preferred_common_name}
         meta_title: Karten zu %{scientific_name}
         meta_title_with_common_name: Karten zu %{preferred_common_name} (%{scientific_name})
         tweet_text: Karten zu %{scientific_name}
@@ -2978,13 +2990,15 @@ de:
           meta_title: Audiodateien, Filme und Fotos zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}
           meta_title_with_common_name: Audiodateien, Filme und Bilder zu %{preferred_common_name} (%{scientific_name}), entsprechend der Klassifizierung durch %{hierarchy_provider}
           tweet_text: Medien zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
-        meta_description: Bilder und Videos zu %{scientific_name}.
-        meta_description_with_common_name: Bilder und Videos zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}.
+        meta_description: Grafiken, Videos und Audio zu %{scientific_name}. Finden Sie Bilder, Fotos, Filme und Geräusche zu %{scientific_name} in der Enzyklopädie des Lebens.
+        meta_description_no_data: Es sind keine Multimediainhalte zu %{scientific_name} in der Enzyklopädie des Lebens (EOL) verfügbar. EOL lädt Sie ein, Bilder, Videos oder Geräusche zu %{scientific_name} beizutragen.
+        meta_description_with_common_name: Grafik, Videos und Audio zu %{preferred_common_name}, auch bekannt als %{scientific_name}. Finden Sie Bilder, Fotos, Filme und Sounds zu %{preferred_common_name} (%{scientific_name}) in der Enzyklopädie des Lebens (EOL).
+        meta_description_with_common_name_no_data: Es sind keine Multimediainhalte zu %{preferred_common_name}, auch bekannt als %{scientific_name}, in der Enzyklopädie des Lebens (EOL) verfübar. EOL lädt Sie ein, Bilder, Videos oder Geräusche zu %{preferred_common_name} (%{scientific_name}) beizutragen.
         meta_keywords: Fotos zu %{scientific_name}, Videos zu %{scientific_name}, Bilder zu %{scientific_name}, Mediendateien
         meta_keywords_with_common_name: Fotos zu %{preferred_common_name}, Videos zu %{preferred_common_name}, Bilder zu %{preferred_common_name}, Mediendateien
-        meta_title: Bilder und Videos zu %{scientific_name}
-        meta_title_with_common_name: Bilder und Videos zu %{preferred_common_name} (%{scientific_name})
-        tweet_text: Medien zu %{scientific_name}
+        meta_title: Grafiken, Video und Audio zu %{scientific_name} – Bilder, Fotos, Filme und Geräusche zu %{scientific_name}
+        meta_title_with_common_name: Grafiken, Videos und Audio zu %{preferred_common_name} (%{scientific_name}) - Bilder, Fotos, Filme und Geräusche zu %{preferred_common_name} (%{scientific_name})
+        tweet_text: Bilder, Videos und Audiodateien zu %{scientific_name}
     names: 
       common_names: 
         hierarchy_entry: 
@@ -3004,14 +3018,14 @@ de:
         tweet_text: Gebräuchliche Namen für %{scientific_name}.
       index: 
         hierarchy_entry: 
-          meta_description: Taxonomie, Hierarchieklassifizierungen und wissenschaftliche Namen zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
-          meta_description_with_common_name: Taxonomie, Hierarchieklassifizierungen und wissenschaftliche Namen zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
+          meta_description: Taxonomien und wissenschaftliche Namen zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
+          meta_description_with_common_name: Taxonomien und wissenschaftliche Namen zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
           tweet_text: Namen im Zusammenhang mit %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
-        meta_description: Taxonomische Klassifizierung und wissenschaftliche Namen zu %{scientific_name}.
-        meta_description_with_common_name: Taxonomische Klassifizierung und wissenschaftliche Namen zu %{preferred_common_name}, auch bekannt als %{scientific_name}.
-        meta_title: Namen mit Bezug zu %{scientific_name}
-        meta_title_with_common_name: Namen mit Bezug zu %{preferred_common_name} (%{scientific_name})
-        tweet_text: Namen mit Bezug zu %{scientific_name}
+        meta_description: Taxonomien und wissenschaftliche Namen zu %{scientific_name}. Biologische Klassifizierungen und Namen zu %{scientific_name}.
+        meta_description_with_common_name: Taxonomien und wissenschaftliche Namen zu %{preferred_common_name}, auch bekannt als %{scientific_name}. Biologische Klassifizierungen und Namen zu %{preferred_common_name}.
+        meta_title: Taxonomische Informationen zu %{scientific_name} – Biologische Klassifikationen und Namen
+        meta_title_with_common_name: Taxonomische Informationen zu %{preferred_common_name} (%{scientific_name}) – Biologische Klassifikationen und Namen
+        tweet_text: Taxonomische Informationen zu %{scientific_name}
       synonyms: 
         hierarchy_entry: 
           meta_description: "%{scientific_name} zugeordnete Synonyme, entsprechend der Klassifizierung durch %{hierarchy_provider}."
@@ -3038,13 +3052,13 @@ de:
           meta_title: "%{scientific_name} - entsprechend der Klassifizierung durch %{hierarchy_provider}"
           meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}), entsprechend der Klassifizierung durch %{hierarchy_provider}."
           tweet_text: Überblick zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
-        meta_description: Eine Übersicht zu %{scientific_name} in der Enzyklopädie des Lebens (EOL).
-        meta_description_with_common_name: Eine Übersicht zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}, in der Enzyklopädie des Lebens (EOL).
+        meta_description: Informationen zu %{scientific_name} in der Enzyklopädie des Lebens (EOL).
+        meta_description_with_common_name: Informationen zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}, in der Enzyklopädie des Lebens (EOL).
         meta_keywords: "%{scientific_name} anerkannt durch %{hierarchy_provider}"
         meta_keywords_with_common_name: "%{scientific_name} anerkannt durch %{hierarchy_provider}"
         meta_title: "%{scientific_name}"
-        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})"
-        tweet_text: Überblick zu %{scientific_name}
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Informationen zu %{preferred_common_name}"
+        tweet_text: Informationen zu %{scientific_name}
     resources: 
       biomedical_terms: 
         hierarchy_entry: 
@@ -3334,6 +3348,9 @@ de:
     one: Ein Objekt kuratiert
     other: "%{count} Objekt kuratiert"
   user_activity_stats_objects_curated_dropdown: Kuratierte Objekte
+  user_activity_stats_preferred_classifications_selected: 
+    one: Eine bevorzugte Klassifizierung ausgewählt
+    other: "%{count} bevorzugte Klassifizierungen ausgewählt"
   user_activity_stats_set_exemplar: 
     one: Ein Bild als exemplarisch festgelegt
     other: "%{count} Bilder als exemplarisch festgelegt"

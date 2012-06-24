@@ -1,6 +1,7 @@
 # Messages for Serbian (Cyrillic script) (‪српски (ћирилица)‬)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
+# Author: Arabesque46
 # Author: Rancher
 sr: 
   0_1_or_2: 0, 1 или 2
@@ -684,6 +685,9 @@ sr:
   contact_us_link: Контакт
   contact_us_submissions: Послато на „Контактирајте с нама“
   contact_us_topics: Теме у „Контактирајте с нама“
+  contacts: 
+    errors: 
+      message_not_sent: Извините, дошло је до грешке, Ваша порука није послата.
   containing_value: садржи %{value}.
   content: 
     index: 
@@ -1419,6 +1423,8 @@ sr:
         update_settings: Ажурирај поставке
       session: 
         create: Пријава
+        sign_in_with_google: Пријава преко Гугла
+        sign_in_with_yahoo: Пријава преко Yahoo-а
       submit: Сачувај %{model}
       translated_content_page: 
         create: Додај превод
@@ -1429,6 +1435,7 @@ sr:
         curation_application: Поднеси захтев
         curation_privileges: Поднеси захтев
         generate_api_key: Створи кључ
+        notification_settings: Подешавања обавештења
         update: Сачувај податке на профилу
       wikipedia_queue: 
         create: Поднеси захтев

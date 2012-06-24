@@ -479,23 +479,6 @@ it:
         user_preferred_unknown_classification_on_taxon: <strong>%{user}</strong> ha contrassegnato una classificazione sconosciuta come preferenziale per "%{taxon}".
       reasons_to_hide: "Motivazione per nascondere: %{reasons}"
       reasons_to_untrust: "Motivazione per non attendibilità: %{reasons}"
-      remove_association: 
-        an_unknown_user_disassociated_an_older_data_object_from_an_unknown_taxon: Un utente sconosciuto ha rimosso un'associazione da una vecchia versione di "%{data_object}".
-        an_unknown_user_disassociated_an_older_data_object_from_taxon: Un utente sconosciuto ha rimosso un'associazione tra "%{data_object}" e "%{taxon}".
-        an_unknown_user_disassociated_an_unknown_data_object_from_an_unknown_taxon: Un utente sconosciuto ha rimosso un'associazione sconosciuta.
-        an_unknown_user_disassociated_an_unknown_data_object_from_taxon: Un utente sconosciuto ha rimosso un'associazione tra un oggetto dati sconosciuto e "%{taxon}".
-        an_unknown_user_disassociated_data_object_from_an_unknown_taxon: Un utente sconosciuto ha rimosso un'associazione tra "%{data_object}" e una pagina sconosciuta.
-        an_unknown_user_disassociated_data_object_from_taxon: Un utente sconosciuto ha rimosso un'associazione tra "%{data_object}" e "%{taxon}".
-        an_unknown_user_disassociated_it_from_an_unknown_taxon: Un utente sconosciuto ha rimosso un'associazione da una pagina sconosciuta.
-        an_unknown_user_disassociated_it_from_taxon: Un utente sconosciuto ha rimosso un'associazione da "%{association}".
-        user_disassociated_an_older_data_object_from_an_unknown_taxon: <strong>%{user}</strong> ha rimosso un'associazione tra una vecchia versione di "%{data_object}" e una pagina sconosciuta.
-        user_disassociated_an_older_data_object_from_taxon: <strong>%{user}</strong> ha rimosso un'associazione tra una vecchia versione di "%{data_object}" e "%{taxon}".
-        user_disassociated_an_unknown_data_object_from_an_unknown_taxon: <strong>%{user}</strong> ha rimosso un'associazione sconosciuta.
-        user_disassociated_an_unknown_data_object_from_taxon: <strong>%{user}</strong> ha rimosso un'associazione tra un oggetto dati sconosciuto e "%{taxon}".
-        user_disassociated_data_object_from_an_unknown_taxon: <strong>%{user}</strong> ha rimosso un'associazione tra "%{data_object}" e una pagina sconosciuta.
-        user_disassociated_data_object_from_taxon: <strong>%{user}</strong> ha rimosso un'associazione tra "%{data_object}" e "%{taxon}".
-        user_disassociated_it_from_an_unknown_taxon: <strong>%{user}</strong> ha rimosso un'associazione da una pagina sconosciuta.
-        user_disassociated_it_from_taxon: <strong>%{user}</strong> ha rimosso un'associazione da "%{association}".
       remove_common_name: 
         an_unknown_user_removed_name_from_an_unknown_taxon: Un utente sconosciuto ha rimosso un nome comune da una pagina sconosciuta.
         an_unknown_user_removed_name_from_it: Un utente sconosciuto ha rimosso un nome comune.

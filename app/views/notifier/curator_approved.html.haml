@@ -1,5 +1,5 @@
 = I18n.t(:greeting_dear_name_with_comma, :name => @user.full_name, :scope => :notifier)
 :plain
-= t('.message', :curator_level => @user.curator_level.label)
+= t('.message', :curator_level => @user.curator_level.translated_label)
 :plain
 = I18n.t(:signature_with_contact_us_link, :url => contact_us_url(:host => $SITE_DOMAIN_OR_IP), :scope => :notifier)

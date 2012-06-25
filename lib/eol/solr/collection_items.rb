@@ -82,11 +82,12 @@ module EOL
         includes = [ { :preferred_entry => 
           { :hierarchy_entry => [ { :flattened_ancestors => { :ancestor => :name } },
             { :name => :canonical_form } , :hierarchy, :vetted ] } },
-          { :taxon_concept_exemplar_image => :data_object } ]
+          { :taxon_concept_exemplar_image => :data_object }, :taxon_concept_metric ]
         selects = {
           :taxon_concepts => '*',
           :taxon_concept_preferred_entries => '*',
           :taxon_concept_exemplar_images => '*',
+          :taxon_concept_metrics => [ :taxon_concept_id, :richness_score ],
           :hierarchy_entries => [ :id, :rank_id, :identifier, :hierarchy_id, :parent_id, :published, :visibility_id, :lft, :rgt, :taxon_concept_id, :source_url ],
           :names => [ :string, :italicized, :canonical_form_id ],
           :canonical_forms => [ :string ],

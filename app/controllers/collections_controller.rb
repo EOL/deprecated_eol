@@ -22,6 +22,7 @@ class CollectionsController < ApplicationController
       @rel_canonical_href = collection_url(@collection, :page => rel_canonical_href_page_number(@collection_results))
       @rel_prev_href = rel_prev_href_params(@collection_results) ? collection_url(@rel_prev_href_params) : nil
       @rel_next_href = rel_next_href_params(@collection_results) ? collection_url(@rel_next_href_params) : nil
+      reindex_items_if_necessary(@collection_results)
     else
       @rel_canonical_href = collection_url(@collection)
     end
@@ -665,6 +666,23 @@ private
 
   def log_activity(options = {})
     CollectionActivityLog.create(options.reverse_merge(:collection => @collection, :user => current_user))
+  end
+  
+  def reindex_items_if_necessary(collection_results)
+    collection_item_ids_to_reindex = []
+    collection_results.each do |result|
+      if result['object_type'] == 'TaxonConcept'
+        if result['title'] != result['instance'].object.entry.name.canonical_form.string ||
+          result['richness_score'] != result['instance'].object.taxon_concept_metric.richness_score
+          collection_item_ids_to_reindex << result['instance'].id
+        end
+      elsif ['Text', 'Image', 'DataObject', 'Video', 'Sound'].include?(result['object_type'])
+        if result['data_rating'] != result['instance'].object.data_rating
+          collection_item_ids_to_reindex << result['instance'].id
+        end
+      end
+    end
+    EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection_items_by_ids(collection_item_ids_to_reindex)
   end
 
 end

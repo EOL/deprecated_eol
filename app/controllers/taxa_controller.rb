@@ -110,7 +110,12 @@ protected
 private
 
   def instantiate_taxon_concept
-    @taxon_concept = TaxonConcept.find(params[:taxon_concept_id] || params[:taxon_id] || params[:id])
+    tc_id = params[:taxon_concept_id] || params[:taxon_id] || params[:id]
+    # we had cases of app servers not properly getting the page ID from parameters and throwing 404
+    # errors instead of 500. This may cause site crawlers to think pages don't exist. So throw errors instead
+    raise if tc_id.blank? || tc_id == 0
+    # add params to error logging
+    @taxon_concept = TaxonConcept.find(tc_id)
     unless @taxon_concept.published?
       if logged_in?
         raise EOL::Exceptions::SecurityViolation, "User with ID=#{current_user.id} does not have access to TaxonConcept with id=#{@taxon_concept.id}"

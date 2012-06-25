@@ -451,34 +451,38 @@ private
   end
 
   def annotate
-    if @collection.update_attributes(params[:collection])
-      if @collection.show_references
-        @collection_item = CollectionItem.find(params[:collection][:collection_items_attributes].keys.map {|i|
-              params[:collection][:collection_items_attributes][i][:id] }.first)
-        @collection_item.refs.clear
-        unless params[:references].blank?
-          params[:references].split("\n").each do |original_ref|
-            reference = original_ref.strip
-            unless reference.blank?
-              ref = Ref.find_or_create_by_full_reference_and_user_submitted_and_published_and_visibility_id(reference, 1, 1, Visibility.visible.id)
-              @collection_item.refs << ref
-              @collection_item.save!
+    Collection.with_master do
+      Collection.uncached do
+        if @collection.update_attributes(params[:collection])
+          if @collection.show_references
+            @collection_item = CollectionItem.find(params[:collection][:collection_items_attributes].keys.map {|i|
+                  params[:collection][:collection_items_attributes][i][:id] }.first)
+            @collection_item.refs.clear
+            unless params[:references].blank?
+              params[:references].split("\n").each do |original_ref|
+                reference = original_ref.strip
+                unless reference.blank?
+                  ref = Ref.find_or_create_by_full_reference_and_user_submitted_and_published_and_visibility_id(reference, 1, 1, Visibility.visible.id)
+                  @collection_item.refs << ref
+                  @collection_item.save!
+                end
+              end
             end
           end
-        end
-      end
-      respond_to do |format|
-        format.js do
-          render :partial => 'collection_items/show_editable_attributes',
-            :locals => { :collection_item => @collection_item, :item_editable => true }
-        end
-      end
-    else
-      respond_to do |format|
-        format.js { render :text => I18n.t(:item_not_updated_in_collection_error) }
-        format.html do
-          flash[:error] = I18n.t(:item_not_updated_in_collection_error)
-          redirect_to @collection
+          respond_to do |format|
+            format.js do
+              render :partial => 'collection_items/show_editable_attributes',
+                :locals => { :collection_item => @collection_item, :item_editable => true }
+            end
+          end
+        else
+          respond_to do |format|
+            format.js { render :text => I18n.t(:item_not_updated_in_collection_error) }
+            format.html do
+              flash[:error] = I18n.t(:item_not_updated_in_collection_error)
+              redirect_to @collection
+            end
+          end
         end
       end
     end

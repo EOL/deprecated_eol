@@ -552,6 +552,7 @@ en:
         api_key_more: "Read more about <a href=\"%{api_docs_url}\">adding a key to your API calls</a>."
         bio: "About me"
         credentials: "Credentials"
+        curation_priveleges_credentials: "Credentials <small>(full & master curators only)</small>"
         credentials_more: "Please state at least one specific credential from this list:"
         credentials_more_academic: "Faculty, staff, or graduate student status in a relevant university or college department."
         credentials_more_author: "Authorship of a peer-reviewed publication (provide reference)."

@@ -35,7 +35,7 @@
             %dd
               = f.text_area :curator_scope
             %dt
-              = f.label :credentials
+              = f.label :credentials, I18n.t('helpers.label.user.curation_priveleges_credentials')
               %p= I18n.t('helpers.label.user.credentials_more')
               %ol
                 %li= I18n.t('helpers.label.user.credentials_more_academic')

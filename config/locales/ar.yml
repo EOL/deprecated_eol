@@ -501,23 +501,6 @@ ar:
         user_preferred_unknown_classification_on_taxon: <strong>%{user}</strong> قام بتعليم تنصيف مجهول   كمفضل من أجل "%{taxon}".
       reasons_to_hide: "أسباب الإخفاء: %{reasons}"
       reasons_to_untrust: "أسباب عدم الوثوق: %{reasons}"
-      remove_association: 
-        an_unknown_user_disassociated_an_older_data_object_from_an_unknown_taxon: قام مستخدم غير معروف بمسح ارتباط من نسخة أقدم من "%{data_object}".
-        an_unknown_user_disassociated_an_older_data_object_from_taxon: قام مستخدم غير معروف بمسح ارتباط بين "%{data_object}" و "%{taxon}".
-        an_unknown_user_disassociated_an_unknown_data_object_from_an_unknown_taxon: قام مستخدم غير معروف بمسح ارتباط غير معروف.
-        an_unknown_user_disassociated_an_unknown_data_object_from_taxon: قام مستخدم غير معروف بمسح ارتباط بين كائن بيانات غير معروف و"%{taxon}".
-        an_unknown_user_disassociated_data_object_from_an_unknown_taxon: قام مستخدم غير معروف بمسح ارتباط بين "%{data_object}" وصفحة غير معروفة.
-        an_unknown_user_disassociated_data_object_from_taxon: قام مستخدم غير معروف بمسح ارتباط بين "%{data_object}" و "%{taxon}".
-        an_unknown_user_disassociated_it_from_an_unknown_taxon: قام مستخدم غير معروف بإزالة ارتباط بصفحة غير معروفة.
-        an_unknown_user_disassociated_it_from_taxon: قام مستخدم غير معروف بإزالة ارتباط بـ"%{association}".
-        user_disassociated_an_older_data_object_from_an_unknown_taxon: قام <strong>%{user}</strong> بمسح ارتباط بين نسخة أقدم من "%{data_object}" وصفحة غير معروفة.
-        user_disassociated_an_older_data_object_from_taxon: قام <strong>%{user}</strong> بمسح ارتباط بين نسخة أقدم من "%{data_object}" و "%{taxon}".
-        user_disassociated_an_unknown_data_object_from_an_unknown_taxon: قام <strong>%{user}</strong> بمسح ارتباط غير معروف.
-        user_disassociated_an_unknown_data_object_from_taxon: قام <strong>%{user}</strong> بإزالة ارتباط بين كائن بيانات غير معروف و"%{taxon}".
-        user_disassociated_data_object_from_an_unknown_taxon: قام <strong>%{user}</strong> بإزالة ارتباط بين "%{data_object}" وصفحة غير معروفة.
-        user_disassociated_data_object_from_taxon: قام <strong>%{user}</strong> بإزالة ارتباط بين "%{data_object}" و"%{taxon}".
-        user_disassociated_it_from_an_unknown_taxon: قام <strong>%{user}</strong> بإزالة ارتباط بصفحة غير معروفة.
-        user_disassociated_it_from_taxon: قام <strong>%{user}</strong> بإزالة ارتباط بـ"%{association}".
       remove_common_name: 
         an_unknown_user_removed_name_from_an_unknown_taxon: قام مستخدم غير معروف بمسح اسم شائع من صفحة غير معروفة.
         an_unknown_user_removed_name_from_it: قام مستخدم غير معروف بمسح اسم شائع.

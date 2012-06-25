@@ -51,21 +51,11 @@ class UsersDataObject < ActiveRecord::Base
   end
 
 private
-  # TODO: If we are auto vetting the data object association from users_data_objects table, we should do the same for CDOHE
-  # entries associated with the UDO.
   
   # DataObject#create_user_text and #replicate count on this working, so if you change this, check those!
   def auto_vet
-    if user.is_curator? || user.is_admin?
-      if user.assistant_curator? # Assistant curators get to keep the vetted value as-is (if it's there)...
-        self.vetted_id = Vetted.unknown.id unless self.vetted_id
-      else # ...other curators and admins get to have it auto-trusted:
-        self.vetted_id = Vetted.trusted.id
-      end
-    else
-      # ...and other users have it automatically unknown:
-      self.vetted_id = Vetted.unknown.id
-    end
+    # full curators and admins get to have it auto-trusted and other users get to have it auto-unreviewed
+    self.vetted_id = (user.min_curator_level?(:full) || user.is_admin?) ? Vetted.trusted.id : Vetted.unknown.id
     self.visibility_id = Visibility.visible.id # should be visible if a new revision is created by anyone.
   end
 

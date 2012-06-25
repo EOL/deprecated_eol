@@ -550,4 +550,7 @@ describe 'Data Object Page' do
     visit('/logout')
   end
 
+  it 'should change vetted to unreviewed and visibility to visible when self added article is edited by assistant curator/normal user'
+  it 'should change vetted to trusted and visibility to visible when self added article is edited by full/master curator or admin'
+
 end

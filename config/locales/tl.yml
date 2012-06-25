@@ -2,24 +2,406 @@
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: AnakngAraw
-tl:
+tl: 
+  a_taxon: isang takson
   about_eol: Tungkol sa EOL
   account_information: Kabatiran sa Akawnt
   account_registered_but_not_ready_try_later: Nakatala ang akawnt mo ngunit hindi pa handa upang mapuntahan mo. Mangyaring subukan muli sa loob ng limang mga minuto.
+  activerecord: 
+    attributes: 
+      collection: 
+        additional_annotation_fields: Karagdagang mga hanay ng paliwanag
+        description: Paglalarawang pangkalipunan
+        logo: Larawan ng pangunahing kalipunan
+        name: Pangalan sa kalipunan
+        show_references: Mga sanggunian (Teksto o URL)
+        sort_style_id: Likas na katakdaan sa pagsasama
+      collection_item: 
+        annotation: Paliwanag
+        refs: Talasanggunian
+        sort_field: Ayusin ayon sa
+      comment: 
+        body: Puna
+      community: 
+        description: Paglalarawan ng pamayanan
+        logo: Magkarga ng isang logo
+        name: Pangalan ng pamayanan
+      contact: 
+        comments: Mensahe
+        contact_subject_id: Makipag-ugnayan sa paksa
+        email: E-liham
+        name: Pangalan
+      content_page: 
+        active: Nailathala na
+        page_name: Pangalang natatangi
+        sort_order: Pagkakasunud-sunod ng pagkakaayos
+      content_partner: 
+        acronym: Daglat ng proyekto
+        admin_notes: Mga tala ng pangangasiwa
+        auto_publish: Kusang ilathala
+        content_partner_status: Katayuan ng proyekto
+        created_at: Nalikha na
+        description: Paglalarawan ng proyekto
+        display_name: Ipakita ang pangalan
+        full_name: Pangalan ng proyekto
+        homepage: URL ng proyekto
+        id: ID
+        notes: Mga tala sa proyekto
+        public: Pangmadla
+        resources: Mga napagkunan
+        user_id: Pinamamahalaan ng
+        vetted: Nabistay na
+      content_partner_agreement: 
+        created_at: Nalikha sa
+        signed_by: Nilagdaan ni
+        signed_on_date: Nilagdaan noong petsa
+      content_partner_contact: 
+        email_reports_frequency_hours: Kadalasan ng mga ulat ng e-liham
+      data_object: 
+        bibliographic_citation: Pagbanggit na pangtalaaklatan
+        description: Paglalarawan
+        object_title: Pamagat
+        rights_holder: Tagapaghawak ng mga karapatan
+        rights_statement: Pahayag ng mga karapatan
+        source_url: Pinagmulang URL
+      eol_statistic: 
+        active_curators: Masisiglang mga kurador
+        base_pages: Mga punong-pahina
+        collections_count: Mga kalipunan
+        communities_count: Mga pamayanan
+        content_partners: Mga kawaksi sa nilalaman
+        content_partners_with_published_resources: Mayroong mga napagkunang nalathala na
+        content_partners_with_published_trusted_resources: Mayroong pinagkakatiwalaang mga napagkunang nalathala na
+        created_at: Nalikha sa
+        curator_actions_in_the_last_30_days: Mga kilos ng kurador sa loob ng huling 30 mga araw
+        curators: Mga kurador
+        curators_assistant: Katulong na mga kurador
+        curators_full: Lubos na tagapangasiwa
+        curators_master: Dalubhasang kurador
+        data_objects: Mga bagay na dato
+        data_objects_images: Mga bagay na larawan
+        data_objects_maps: Mga bagay na mapa
+        data_objects_sounds: Mga bagay na tunog
+        data_objects_texts: Mga bagay na teksto
+        data_objects_trusted: Pinagkakatiwalaang mga bagay na dato
+        data_objects_trusted_or_unreviewed_but_hidden: Pinagkakatiwalaan o hindi nasuri ngunit nakakubli
+        data_objects_unreviewed: Hindi nasuring mga bagay na dato
+        data_objects_untrusted: Hindi pinagkakatiwalaang mga bagay na dato
+        data_objects_videos: Mga bagay na bidyo
+        hotlist_pages: Mga pahinang Maalab
+        lifedesk_data_objects: Mga bagay na pangdato ng LifeDesks
+        lifedesk_taxa: Taksa ng LifeDesks
+        marine_pages: Mga pahinang pandagat
+        marine_pages_in_col: Mga pahinang pandagat na natagpuan sa CoL
+        marine_pages_with_objects: Mga pahinang pandagat na may mga bagay na pangdato
+        marine_pages_with_objects_vetted: Mga pahinang pandagat na may pinagkakatiwalaang mga bagay na pangdato
+        members_count: Mga kasapi
+        newly_published_resources_in_the_last_30_days: Mga bagong nalathala sa loob ng huling buwan
+        objects_curated_in_the_last_30_days: Mga bagay na pinangasiwaan sa loob ng uling 30 mga araw
+        pages_count: Kabuoan ng mga pahina
+        pages_curated_by_active_curators: Mga pahinang pinangangasiwaan ng masisiglang mga kurador
+        pages_with_BHL_links: Mga pahinang may mga kawing na BHL
+        pages_with_BHL_links_no_text: Mga pahinang may mga kawing na BHL ngunit walang teksto
+        pages_with_BHL_links_only: Mga pahinang may mga kawing na BHL lamang
+        pages_with_at_least_a_curatorial_action: Mga pahinang may galaw ng pangangasiwa
+        pages_with_at_least_a_trusted_object: Mga pahinang may pinagkakatiwalaang bagay
+        pages_with_content: Mga pahinang may laman
+        pages_with_image: Mga pahinang may larawan
+        pages_with_image_no_text: Mga pahinang may larawan ngunit walang teksto
+        pages_with_map: Mga pahinang may mapa
+        pages_with_score_10_to_39: Mga pahinang may puntos na 10-39
+        pages_with_score_less_than_10: Mga pahinang may puntos na mababa kaysa sa 10
+        pages_with_sound: Mga pahinang may tunog
+        pages_with_text: Mga pahinang may teksto
+        pages_with_text_no_image: Mga pahinang may teksto ngunit walang larawan
+        pages_with_video: Mga pahinang may bidyo
+        pages_without_image: Mga pahinang walang larawan
+        pages_without_text: Mga pahinang walang teksto
+        published_resources: Mga napagkunang nalathala na
+        published_trusted_resources: Pinagkakatiwalaang mga napagkunang nalathala na
+        published_unreviewed_resources: Nalathalang mga napagkunan na hindi pa nasuri
+        redhotlist_pages: Pulang mga pahinang Maaalab
+        rich_hotlist_pages: Mayayamang mga pahinang Maalab
+        rich_pages: Mayayamang mga pahina
+        rich_redhotlist_pages: Mapulang Mayayamang mga pahinang Maalab
+        udo_published: Tekstong ipinasa ng tagagamit
+        udo_published_by_curators: Tekstong ipinasa ng tagapangasiwa
+        udo_published_by_non_curators: Tekstong hindi ipinasa ng tagapangasiwa
+      harvest_event: 
+        resource: Pinagkunan
+      hierarchy: 
+        browsable: Matitingnan-tingnan
+        complete: Buo na
+        description: Paglalarawan
+        descriptive_label: Mapaglarawang tatak
+        label: Tatak
+        request_publish: Hilingin ang paglathala
+      name: 
+        string: Pangalan
+      notification: 
+        changes_to_my_watched_collection: Mga pagbago sa mga kalipunang nasa bantayan mo
+        changes_to_my_watched_community: Mga pagbago sa mga pamayanang nasa bantayan mo
+        comment_on_my_collection: Isang puna sa isang kalipunang pinamamahalaan mo
+        comment_on_my_community: Isang puna sa loob ng isa sa mga pamayanan na kinasasapian mo
+        comment_on_my_contribution: Isang puna at/o kilos na pangtagapangasiwa hinggil sa isang ambag na ginawa mo
+        comment_on_my_profile: Isang puna sa balangkas mo
+        comment_on_my_watched_item: Mga puna sa mga bagay, mga taksa, mga kalipunan, o mga pamayanan na nasa bantayan mo
+        curation_on_my_watched_item: Mga galaw ng tagapangasiwa hinggil sa mga bagay, mga taksa, mga kalipunan, o mga pamayanang nasa bantayan mo
+        eol_newsletter: Padalhan ako ng pahayagang-palihan ng EOL na pangtatluhang-buwan ang paglabas
+        i_am_being_watched: Idinagdag ka sa isa pang bantayan ng ibang kasapi
+        invitation_to_community: Paanyaya na sumali sa isang pamayanan
+        made_me_a_manager: Ikaw ay naging isang tagapamahala ng isang kalipunan o pamayanan
+        member_joined_my_community: Isang bagong kasapi ang sumali sa isang pamayanang pinamamahalaan mo
+        member_joined_my_watched_community: May mga bagong kasapi na sumali sa isang pamayanan kung saan kasapi ka
+        member_left_my_community: Umalis ang mga kasapi mula sa isang pamayanang pinamamahalaan mo
+        new_data_on_my_watched_item: Mga bagong pag-ambag sa takson na nasa bantayan mo
+        new_manager_in_my_community: Isa pang kasapi ang naging isang tagapamahala sa isang pamayanang pinamamahalaan mo
+        reply_to_comment: Isang tugon sa isang punang ginawa mo
+      open_authentication: 
+        created_at: Nalikha na
+        guid: Pangglobong natatanging pangkilala (GUID)
+        provider: Tagapagbigay na ikatlong partido
+        secret: Lihim
+        token: Kahalip
+        updated_at: Huling pagsasapanahon
+        user_id: ID ng tagagamit
+        verified_at: Huling paniniyak
+      resource: 
+        accesspoint_url: URL ng pangkat ng dato
+        auto_publish: Kusang ilathala
+        bibliographic_citation: Pagbanggit na pangtalaaklatan
+        dataset: Talaksan ng pangkat ng dato
+        description: Paglalarawan ng pinagkunan
+        dwc_archive_url: URL ng Pangkaibuturang Sinupan ni Darwin
+        harvest_events: Mga kaganapan ng Pag-ani
+        hierarchy: Hanay-Pamunuan
+        language_id: Likas na nakatakdang wika
+        license_id: Likas na nakatakdang lisensiya
+        notes: Pinupruseso ang mga tala
+        resource_status_id: Katayuan ng pinagkunan
+        rights_holder: Likas na katakdaan ng tagahawak ng mga karapatan
+        rights_statement: Likas na nakatakdang pahayag ng mga karapatan
+        title: Pangalan ng pinagkunan
+        vetted: Nabistay na
+      translated_content_page: 
+        active_translation: Nalathala na
+        left_content: Paglilibot
+        main_content: Katawan
+        meta_description: Paglalarawan ng metadato
+        meta_keywords: Mga susing salita ng metadato
+        title: Pamagat
+      user: 
+        agreed_with_terms: Mga hinihingi sa kasunduan
+        api_key: Susi ng API
+        bio: Talambuhay
+        credentials: Mga katangian
+        curator_level: Antas ng tagapangasiwa
+        curator_scope: Saklaw ng pangangasiwa
+        disable_email_notifications: Huwag akong padalhan ng ANUMANG mga pagsasapanahon sa pamamagitan ng e-liham
+        email: Tirahang e-liham
+        email_confirmation: Tirahan ulit ng e-liham <small>(upang makatiyak)</small>
+        entered_password: Hudyat
+        entered_password_confirmation: Hudyat uli <small>(upang makatiyak)</small>
+        family_name: Apelyido
+        full_name: Buong pangalan
+        given_name: Unang pangalan
+        language_abbr: Nais na wika
+        requested_curator_level_id: Nais na antas ng pagkakurador
+        tag_line: Tatak na pananalita
+        username: Pangalan ng tagagamit
+    errors: 
+      format: "%{attribute} %{message}"
+      full_messages: 
+        format: "%{attribute} %{message}"
+      messages: 
+        accepted: dapat tanggapin
+        blank: hindi maaaring walang nakasulat
+        confirmation: ay hindi tumutugma sa pagpapatibay
+        empty: hindi maaaring walang laman
+        equal_to: dapat na katumbas ng %{count}
+        even: dapat na may kabiyak
+        exclusion: ay nakareserba
+        greater_than: 
+          one: dapat na mas mahigit kaysa sa %{count}
+          other: dapat na mas mahigit kaysa sa %{count}
+        greater_than_or_equal_to: dapat na mas mahigit kaysa sa o katumbas ng %{count}
+        inaccessible: ay hindi mararating
+        inclusion: ay hindi kabilang sa listahan
+        invalid: ay hindi katanggap-tanggap
+        less_than: 
+          one: dapat na mas mababa kaysa sa %{count}
+          other: dapat na mas mababa kaysa sa %{count}
+        less_than_or_equal_to: dapat na mas mababa kaysa sa o katumbas ng %{count}
+        not_a_number: ay hindi isang bilang
+        not_an_integer: dapat na isang buumbilang
+        odd: dapat na walang kabiyak
+        record_invalid: "Nabigo ang pagpapatunay: %{errors}"
+        taken: ay mayroon nang nakakuha
+        too_long: 
+          one: ay napakahaba (ang pinakamataas ay %{count} panitik)
+          other: ay napakahaba (ang pinaka mataas ay %{count} mga panitik)
+        too_short: 
+          one: ay napakaikli (ang pinakamababa ay %{count} panitik)
+          other: ay napakaikli (ang pinaka mababa ay %{count} mga panitik)
+        wrong_length: ay ang maling haba (dapat na %{count} mga panitik)
+        wrong_type: ay ang maling uri
+      models: 
+        data_object: 
+          attributes: 
+            rights_holder: 
+              blank: ay hindi maaaring walang nakasulat para sa isang lisensiyang CC-BY
+              inclusion: dapat na walang nakasulat para sa isang lisensiyang Saklaw ng Madla
+        harvest_event: 
+          attributes: 
+            publish: 
+              inclusion: ay pinapahintulutan lamang para sa pinakahuling kaganapan ng pag-ani at kapag ang pangyayaring iyon ay hindi pa nailalathala
+        open_authentications: 
+          guid_provider_must_be_unique: ang akawnt ng pangatlong partido ay nakakabit na sa isang akawnt ng EOL
+          provider_user_id_must_be_unique: isang akawnt lang mula sa bawat isang tagapagbigay na pangatlong partido ay maaaring ikabit sa isang akawnt ng EOL
+        resource: 
+          attributes: 
+            accesspoint_url: 
+              blank: hindi maaaring walang laman, maliban na lang sa halip kapag nagkarga kang paitaas ng isang talaksan ng pinagkunan
+              inaccessible: ay hindi mapupuntahan, ang URL ay dapat na mapupuntahan ng madla
+              invalid: ay hindi katanggap-tanggap, dapat itong tumuro sa isang talaksang XML, XML.GZIP o XML.GZ
+            dataset: 
+              blank: hindi maaaring walang laman maliban na lamang kapag nagbigay ka sa halip ng isang URL ng pangkat ng dato
+              wrong_type: ay ang maling uri, dapat itong isang talaksang GZIP, TAR o XML
+            dwc_archive_url: 
+              inaccessible: ay hindi mapupuntahan, ang URL ay dapat na mapupuntahan ng madla
+              invalid: ay hindi katanggap-tanggap, dapat itong tumuro papunta sa isang talaksang TAR.GZIP, TAR.GZ o TGZ
+      template: 
+        body: "Nabigo sa pagpapatunay ang sumusunod na mga kahanayan:"
+        header: 
+          one: "%{count} natagpuang kamalian sa pagpapatunay"
+          other: "%{count} natagpuang mga kamalian sa pagpapatunay"
+    models: 
+      user: akawnt
   add_to_my_collection_button: Idagdag sa aking kalipunan
-  admin: tagapangasiwa
+  admin_information: Ito ang bagong kaha ng pangangasiwa para sa EOL V2. Nasa proseso kami ng paglilipat ng katungkulan ng pangasiwaan magmula sa V1. Kung ang hinahanap mong bahagi ng pangangasiwa ay hindi nakalista mangyaring dalawin ang <a href="/administrator">Kaha ng Pangasiwaan ng V1</a>.
+  admin_spam_delete: Burahin ang Basura
+  admin_user_delete_successful_notice: Nabura na ang tagagamit
+  admin_user_hide_successful_notice: Naitago na ang tagagamit
+  admin_user_unhide_successful_notice: Hindi na ikinubli ang tagagamit
+  admins: 
+    statistics: 
+      content_partner: 
+        page_header: Estadistika ng Kawaksi sa Nilalaman
+        page_title: "Pangangasiwa: Estadistika ng Kawaksi sa Nilalaman"
+      content_partner_link: Mga kawaksi sa nilalaman
+      curator: 
+        page_header: Estadistika sa Tagapangasiwa
+        page_title: "Pangangasiwa: Estadistika sa Kurador"
+      curator_link: Estadistika sa kurador
+      data_object: 
+        page_header: Estadistika ng Bagay na Pangdato
+        page_title: "Pangangasiwa: Estadistika ng Bagay na Pangdato"
+      data_object_link: Mga bagay na dato
+      index: 
+        page_header: Estadistikang Pangkabuoan
+        page_title: "Pangangasiwa: Estadistikang Pangkabuoan"
+        table_caption: Nilikha ang pangkalahatang estadistika ng pook noong %{created_at_time}
+      index_link: Pangkabuoang estadistika
+      lifedesk: 
+        page_header: Estadistika ng LifeDesks
+        page_title: "Pangangasiwa: Estadistika ng LifeDesks"
+      lifedesk_link: LifeDesks
+      marine: 
+        page_header: Kasaklawang Pandagat sa EOL
+        page_title: "Pangangasiwa: Estadistikang Pandagat"
+      marine_link: Estadistikang pangdagat
+      page_richness: 
+        page_header: Mayayamang Pahina ng Estadistika
+        page_title: "Pangangasiwa: Estadistika ng Mayayamang mga Pahina"
+      page_richness_link: Mayayamang mga pahina
+      user_added_data: 
+        page_header: Estadistika sa Tekstong Ipinasa ng Tagagamit
+        page_title: "Pangangasiwa: Estadistika sa Tekstong Ipinasa ng Tagagamit"
+      user_added_data_link: Tekstong ipinasa ng tagagamit
+  all: lahat
+  all_articles: Lahat ng mga artikulo
+  all_changes: Lahat ng mga pagbabago
+  all_collections: Lahat ng mga kalipunan
+  all_communities: Lahat ng mga pamayanan
+  all_count: Lahat (%{count})
+  all_errors: LAHAT ng mga kamalian
+  all_filter: lahat
+  all_harvesting_logs: LAHAT ng mga talaan ng pag-ani
+  all_images: Lahat ng mga larawan
   all_information: Lahat ng kabatiran
-  all_pages: Lahat ng mga pahina
+  all_items: Lahat ng mga bagay
+  all_news: lahat ng mga balita
+  all_people: Lahat ng mga tao
+  all_sounds: Lahat ng mga tunog
+  all_sources: Lahat ng mga pinagmulan
+  all_taxa: Lahat ng taksa
+  all_title: Lahat
+  all_videos: Lahat ng mga bidyo
+  allow_user_logins: Pahintulutan ang mga paglagdang papasok ng tagagamit
+  allowed_html_tags: "Pinapahintulutang HTML: %{comma_separated_tags}"
   already_a_member_question: Isa ka nang kasapi?
   already_member_of_community: Isa ka nang kasapi sa pamayanang ito.
   alternate_classification: Kahaliling kaurian
+  amount: Dami
+  an_unknown_user: Isang hindi nakikilalang tagagamit
+  and: at
+  and_between_form_items: at
+  annotation_cabs_colon: "Paliwanag:"
+  anonymous_user_full_name: Hindi Nagpapakilalang Tagagamit
+  anonymous_user_given_name: Hindi Nagpapakilala
+  anonymous_user_tag_line: Hindi Nakalagda
+  any_integer: anumang buumbilang
   application_version_advisory_information: Bersyon ng aplikasyon
   are_you_sure: Nakatitiyak ka ba?
+  article_from_supplier: Artikulo mula kay %{whom}
+  article_of: Artikulo ng
   assistive_details_header: Mga detalye
+  assistive_literature_header: Panitikan
+  assistive_maps_header: Mga mapa
   assistive_media_header: Midya
+  assistive_names_classifictions_header: Mga klasipikasyon
+  assistive_names_common_header: Karaniwang mga pangalan
+  assistive_names_related_header: Kaugnay na mga pangalan
+  assistive_names_synonyms_header: Mga singkahulugan
   assistive_overview_header: Malawakang pananaw
+  assistive_taxon_community_header: Pamayanan
+  assistive_updates_header: Mga pagsasapanahon
+  assistive_updates_statistics_header: Estadistika ng pahina
+  associated_submit_button: kaugnay
+  associated_with_article_header: Sa loob ng pinakahuling artikulo
+  associated_with_header: May kaugnayan sa
+  associated_with_image_header: Sa loob ng pinakahuling larawan
+  associated_with_image_map_header: Sa ibabaw ng pinakahuling mapa
+  associated_with_map_header: Sa ibabaw ng pinakahuling mapa
+  associated_with_sound_header: Sa loob ng pinakahuling tunog
+  associated_with_video_header: Sa loob ng pinakahuling bidyo
+  associations_more_link: mas marami pang <span class="assistive">mga ugnayan ng takson</span>
+  attribute: Katangian
+  audio_mute: walang tunog
+  audio_stop: huminto
+  audio_unmute: patunugin
+  author_of_peer_reviewed_publication_credential_option: pag-akda sa isang isang lathalaing nasuri ng mga kasamahan (magbigay ng sanggunian).
   authoritative_information: kabatirang may kapangyarihan
+  available: makukuha
   average_rating_value_of_total: "Pangkaraniwang antas: %{rating} ng %{total}"
+  back: Bumalik
+  back_to_profile: Bumalik sa balangkas
+  began: Sinimulan
+  belongs_in_count_communities: 
+    one: Kasama sa %{count} Pamayanan
+    other: Kasama sa %{count} Mga pamayanan
+  bhl_publication: Lathalain ng Biodiversity Heritage Library (BHL)
+  bi_monthly: Tuwing Ikalawang Buwan
+  biodiversity_heritage_library: Aklatan ng Pamana ng Biyodibersidad
+  biomedical_terms: Mga katagang biyomediko
+  body: "Katawan:"
+  browsable: Matitingnan-tingnan
+  browsable_hierarchies: Mga Hirarkiyang Matitingnan-tingnan
+  browse_hierarchy: tumingin-tingin sa hirarkiya
+  browsing_branch_colon: "Tinitingnan-tingnang Sangay:"
+  build_communities: Magtayo ng mga pamayanan
+  by_caps: Ayon sa
+  by_scientific_name_table_header: ayon sa Pangalang Pang-agham
   cancel: Huwag ituloy
   cannot_be_associated_with_both_a_user_and_a_community: Hindi maaaring may kaugnayan kapwa sa isang tagagamit at sa isang pamayanan
   cannot_be_empty: hindi maaaring walang laman.
@@ -29,34 +411,268 @@ tl:
   change_rating_to_4_of_5: Baguhin ang kaantasan upang maging 4 ng 5
   change_rating_to_5_of_5: Baguhin ang kaantasan upang maging 5 ng 5
   citation: Pagbanggit
-  classifications_summary_header_with_count:
-    one: Bahagi ng %{count} pinayagang kaurian
-    other: Bahagi ng %{count} pinayagang mga kaurian
-  collections: Mga kalipunan
-  collections_summary_header_with_count:
+  classifications_summary_header_with_count: 
+    one: Natagpuan sa %{count} klasipikasyon
+    other: Natagpuan sa %{count} mga klasipikasyon
+    zero: Klasipikasyon na hindi karaniwang nakikita sa EOL
+  classifications_with_count: 
+    one: "%{count} Kaurian"
+    other: "%{count} Mga kaurian"
+  cms_available_in_languages: "Makukuha ang pahinang ito doon sa:"
+  cms_missing_content_message: Paumahin, hindi makuha ang pahinang ito para sa napiling wika %{selected_language}.
+  cms_missing_content_title: Nawawalang salinwika
+  collections: 
+    editors: 
+      show: 
+        meta_description: Mga tagapamahala ng kalipunan ng Ensiklopedya ng Buhay na %{collection_name}.
+        meta_keywords: Mga tagapamahala ng %{collection_name}
+        meta_title: Mga tagapamahala ng %{collection_name}
+        tweet_text: Mga tagapamahala ng %{collection_name}
+    inaturalists: 
+      show: 
+        add_observations: Magdagdag ng mga Obserbasyon
+        meta_description: Mga Obserbasyon ng iNaturalist para sa kalipunan ng Ensiklopedya ng Buhay na %{collection_name}.
+        meta_keywords: "%{collection_name} Mga Obserbasyon ng iNaturalist"
+        meta_title: "%{collection_name} Mga Obserbasyon ng iNaturalist"
+        no_observations_added_to_this_project_yet: Wala pang mga obserbasyong naidagdag sa proyektong ito.
+        observation_date: "Petsa: %{observed_on}"
+        observation_place: "Lugar: %{place}"
+        observer_with_link: "Tagapagmasid: %{observer_link}"
+        recent_observations: Kamakailang mga Obserbasyon
+        some_taxon: Isang bagay
+        taxa_observed: 
+          one: "%{count} napagmatyagang takson"
+          other: "%{count} napagmatyagang taksa"
+        top_contributors: Nangungunang mga Tapag-ambag ng iNaturalist
+        tweet_text: "%{collection_name} Mga Obserbasyon ng iNaturalist"
+        view_all_observations_on_inaturalist: Tingnan ang lahat ng mga obserbasyon mula sa %{project_title} na nasa iNaturalist
+        view_more_observations_on_inaturalist: Tumingin ng mas marami pang mga obserbasyon mula sa %{project_title}  na nasa iNaturalist
+        view_project_on_inaturalist: Tingnan ang %{project_title} na nasa iNaturalist
+    newsfeeds: 
+      show: 
+        meta_description: Balita, mga kumento at galaw ng kasapi para sa kalipunang %{collection_name} ng Ensiklopedya ng Buhay.
+        meta_keywords: "%{collection_name} Balita"
+        meta_title: "%{collection_name} Balita"
+        tweet_text: "%{collection_name} Balita"
+    show: 
+      meta_description_default: Isang kalipunan sa Ensiklopedya ng Buhay na pinamagatang %{collection_name}.
+      meta_description_default_focus_collection: Isang kalipunan ng pagtuon ng Ensiklopedya ng Buhay na pinamagatang %{collection_name}.
+      meta_description_default_watch_collection: "Isang tala ng mga binabantayan sa Ensiklopedya ng Buhay: %{collection_name}."
+      meta_keywords: "%{collection_name}, Kalipunan ng Ensiklopedya ng Buhay"
+  collections_summary_header_with_count: 
     one: Nasa loob ng %{count} kalipunan
     other: Nasa loob ng %{count} mga kalipunan
-  collections_with_count:
+  collections_with_count: 
     one: "%{count} Kalipunan"
     other: "%{count} Mga kalipunan"
-  common_names_with_count:
+  comment_new_posters_image_advisory_info: Ang iyong larawan sa balangkas-katangian at pangalan ay lilitaw na katabi ng puna mo sa loob ng mga kalistahan.
+  comment_new_posters_image_alt: Ang larawan mo sa balangkas-katangian, kung nagbigay ka ng isa.
+  comment_new_title: Magdagdag ng isang bagong puna
+  comment_or_rate_on_this_article: Punahin o antasan ang artikulong ito
+  comment_show_posters_image_alt: Larawan sa balangkas-katangian ni %{posters_name} na nagsagawa ng kilos na ito.
+  comments: Mga Puna
+  comments_and_tags: Mga Pagpuna at mga Tatak
+  comments_filter: Mga Puna
+  comments_moderated: Mga Pagpunang May Namamagitan
+  comments_on: Mga Puna Ukol Sa
+  comments_with_count: 
+    one: "%{count} Puna"
+    other: "%{count} Mga puna"
+  common_activities_by_logged_in: Karaniwang mga gawain ng nakalagdang mga tagagamit.
+  common_name: Karaniwang Pangalan
+  common_name_avg: Pamantungan ng Karaniwang Pangalan
+  common_name_exists: Ang karaniwang pangalan na <em>%{name_string}</em> ay umiiral na
+  common_names_with_count: 
     one: "%{count} pangkaraniwang pangalan"
     other: "%{count} pangkaraniwang mga pangalan"
-  communities: Mga pamayanan
-  communities_summary_header_with_count:
+  common_user_activity_page_title: Gawain ng Karaniwang Tagagamit
+  communities: 
+    collections: 
+      index: 
+        meta_description: Mga kalipunan ng pamayanan na pinagsama-sama ng %{community_name}, isang pamayanan ng Ensiklopedya ng Buhay.
+        meta_keywords: Mga Kalipunan ng %{community_name}
+        meta_title: Mga Kalipunan ng %{community_name}
+        tweet_text: Mga Kalipunan ng %{community_name}
+    newsfeeds: 
+      show: 
+        meta_keywords: "%{community_name}, Pamayanan sa Ensiklopedya ng Buhay, pakaing balita ng %{community_name}, mga pagpuna ng %{community_name}, gawain ng %{community_name}"
+    show: 
+      meta_description: Ang pamayanang %{community_name} ng Ensiklopedya ng Buhay ay tinanggal ng may-ari nito
+      meta_title: Tinanggal Ng May-ari Ang %{community_name}
+  communities_filter: Mga pamayanan
+  communities_index_empty: Walang masisiglang mga pamayanan.
+  communities_index_header: Masisiglang mga pamayanan
+  communities_link: Mga pamayanan
+  communities_page_title: Mga pamayanan
+  communities_summary_empty: Ang takson na ito ay hindi pa naitatampok sa anumang mga pamayanan.
+  communities_summary_header_with_count: 
     one: Kasama sa %{count} pamayanan
     other: Kasama sa %{count} mga pamayanan
-  communities_with_count:
+  communities_that_can_edit_this_collection: Mga pamayanang maaaring mamahala ng kalipunang ito
+  communities_with_count: 
     one: "%{count} Community"
     other: "%{count} Mga pamayanan"
   community: Pamayanan
   community_activity: Galaw ng Pamayanan
-  community_focus: Tuon ng pamayanan
+  community_contributions_with_count: 
+    one: "%{count} Ambag"
+    other: "%{count} Mga ambag"
+  community_description_default: Isang pamayanan sa Ensiklopedya ng Buhay.
+  community_destroyed: Binura mo ang pamayanang ito. Hindi na ito lilitaw sa mga pahina ng takson o sa mga paghahanap.
+  community_empty_notice: Walang mga kasapi sa pamayanang ito.
+  community_focus: Mga kalipunang pinamamahalaan
+  community_focus_items_with_count: 
+    one: "%{count} bagay"
+    other: "%{count} mga bagay"
+  community_invitation_comment: Nais kong anyayahan ka na sumali sa "%{community}".
+  community_logo_alt_text: Logo para sa pamayanang %{community_name}
+  community_managers_with_count: 
+    one: "%{count} Tagapamahala ng Pamayanan"
+    other: "%{count} Mga Tagapamahala ng Pamayanan"
   community_members: Mga kasapi sa pamayanan
+  community_members_with_count: 
+    one: "%{count} Kasapi ng Pamayanan"
+    other: "%{count} Mga Kasapi ng Pamayanan"
+  community_name_label: Pangalan ng pamayanan
+  community_newsfeed: Pakaing balita ng pamayanan
+  community_no_longer_has_manager_access_to_collection: "\"Ang %{community}\" ay hindi na nakakapuntang namamahala sa \"%{collection}\"."
+  community_not_destroyed_error: Paumanhin, nagkaroon ng isang suliranin at ang pamayanan ay hindi nabura.
+  community_removed_by_owner: Ang pamayanang ito ay binura ng may-ari nito.
+  community_tab_collections_header: Mga kalipunan
+  community_tab_curators_description: Ang mga kurador ay mga tagagamit ng EOL na mayroong kadalubhasaang pambiyolohiya na nagbibigay ng kanilang panahon upang suriin ang nilalaman sa EOL, na tumitiyak na ang nakikita mo ay tumpak at may mataas na uri.
+  completed: Buo na
+  confirm_delete_community: Nakakatiyak ka bang nais mong burahin ang pamayanang ito? Ang nalalabing mga kasapi ay may kakayanan pa ring makita ito at ang pakaing balita ay pananatilihin, subalit hindi ito lilitaw sa mga paghahanap o sa mga pahina ng takson, at hindi na maaaring pamatnugutan.
+  confirm_password_colon: "Tiyakin ang Hudyat:"
+  contact: Kaugnayan
+  contact_information: Kabatiran sa pakikipag-ugnayan
+  contact_updated: Naisapanahon ang kaugnayan
+  contact_us: makipag-ugnayan sa amin
+  contact_us_functions: Mga Katungkulan sa Pakikipag-ugnayan sa Amin
   contact_us_link: Makipag-ugnayan sa amin
-  content_partners: Mga Kawaksi sa Nilalaman
+  contact_us_submissions: Mga Pagpapasa sa Pakikipag-ugnayan sa Amin
+  contact_us_topics: Mga Paksa sa Pakikipag-ugnayan sa Amin
+  contacts: 
+    errors: 
+      message_not_sent: Paumanhin, naganap ang isang kamalian, hindi naipadala ang mensahe mo.
+    new: 
+      page_title: Mangyaring mag-iwan ng tugon mo
+    notices: 
+      message_sent: Salamat sa tugon mo, naipadala na ang mensahe mo sa naaangkop na pangkat.
+  containing_value: naglalaman ng %{value}.
+  content: 
+    index: 
+      meta_description: Ang Ensiklopedya ng Buhay ay isang ulirang pagpupunyagi upang makatipon ng makaagham na kaalaman tungkulo sa lahat ng mga buhay na hayop at halaman kung saan makakakuha ng mga larawan, kabatiran, mga katunayan, at marami pa para sa lahat ng mga bagay na nabubuhay sa ating mga kaharian ng halaman at hayop.
+      meta_keywords: Mga Hayop, Mga Larawan ng Hayop, Kabatiran sa Hayop, Mga Halaman, Buhay ng Halaman, Mga Larawan ng Halaman, Kabatiran sa Halaman, Sangkahalamanan, Sangkahayupan
+      meta_title: Mga Hayop - Mga Halamanan - Mga Larawan at Kabatiran
+      see_all_recent_activites: tumingin ng masa marami pang <span class="assistive">mga gawain sa loob ng huling linggo</span>
+  content_has_been_updated: Naisapanahon na ang nilalaman.
+  content_notes_not_shown_to_us: "Mga Tala sa Nilalaman (hindi ipinapakita sa tagagamit):"
+  content_partner: Kawaksi sa Nilalaman
+  content_partner_about_header: Patungkol kay %{partner_name}
+  content_partner_admin_index_link_back_to: magbalik sa pamamahala ng mga kawaksi
+  content_partner_administration_notes_empty: Walang mga tala ng pangangasiwa.
+  content_partner_administration_notes_header: Mga tala ng pangangasiwa
+  content_partner_administration_settings_header: Mga katakdaan ng pangasiwaan
+  content_partner_administration_settings_introduction: Ang sumusunod na kahanayang pamapangasiwaan ay makikita at mapapatnugutan lamang ng mga tagapangasiwa ng EOL.
+  content_partner_agreement_cancel_edit_agreement_link: Huwag ituloy
+  content_partner_agreement_cancel_new_agreement_link: Huwag ituloy
+  content_partner_agreement_cancel_sign_agreement_link: Huwag ipagpatuloy
+  content_partner_agreement_signed_successful_notice: Matagumpay kang sumang-ayon sa mga hinihingi ng kawaksi sa nilalaman, maaari ka nang magdagdag ng mga napagkukunan ng dato.
+  content_partner_agreement_subheader: Kasunduan ng Kawaksi sa Nilalaman
+  content_partner_column_header_partner: Kawaksi
+  content_partner_contact_new_edit_form_header: Kabatiran sa pakikipag-ugnayan sa kawaksi ng nilalaman
+  content_partner_contact_new_edit_form_tip: Ang unang pangalan, apelyido at e-liham ay %{required_icon} kailangan.
+  content_partner_contact_new_page_subheader: Magdagdag ng isang kaugnayan
+  content_partner_contact_update_successful_notice: Matagumpay na naisapanahon ang kaugnayan.
+  content_partner_contact_update_unsuccessful_error: Paumanhin, naganap ang isang kamalian, hindi naisapanahon ang kaugnayan.
+  content_partner_contacts_header: Mga kaugnayan
+  content_partner_create_successful_notice: Matagumpay na nalikha ang kawaksi sa nilalaman.
+  content_partner_create_unsuccessful_error: Paumanhin, naganap ang isang kamalian, hindi nalikha ang kawaksi sa nilalaman.
+  content_partner_current_agreement_create_link: Lumikha ng bago
+  content_partner_current_agreement_edit_link: Baguhin
+  content_partner_current_agreement_empty: Walang kasunduan
+  content_partner_current_agreement_not_accepted: Hindi pa tinatanggap
+  content_partner_current_agreement_signed_on_with_date: Nilagdaan noong %{date}
+  content_partner_current_agreement_view_link: Tingnan
+  content_partner_data_description_empty: Walang nagdagdag ng isang paglalarawan ng ibinigay na dato.
+  content_partner_data_description_header: Paglalarawan ng dato
+  content_partner_default_description: Isang kawaksi sa nilalaman ng Ensiklopedya ng Buhay.
+  content_partner_edit_link: Baguhin ang kawaksi sa nilalaman
+  content_partner_new_edit_form_profile_header: Kabatiran sa kabatiran na pambalangkas-katangian ng kawaksi ng nilalaman
+  content_partner_new_edit_form_tip: Ilan sa kabatirang ipapasok mo rito ay magiging nakikita ng madla. Ang pangalan at paglalarawan ay %{required_icon} kailangan.
+  content_partner_new_link: Magdagdag ng bagong kawaksi sa nilalaman
+  content_partner_new_page_subheader: Magdagdag ng isang bagong kawaksi sa nilalaman
+  content_partner_notes_empty: Wala nang ano pa mang dagdag na mga tala para sa proyektong ito.
+  content_partner_notes_header: Mga tala sa proyekto
+  content_partner_oldest_published_harvest_event_time_ago: Unang nailathala sa EOL %{time_passed} na ang nakakalipas;
+  content_partner_overview_agreement_header: Kasunduan sa kawaksi
+  content_partner_overview_agreement_link: Tingnan ang pangkasalukuyang kasunduan
+  content_partner_overview_link: Malawakang Paglalarawan sa Kawaksi
+  content_partner_overview_link_back_to: bumalik sa malawakang paglalarawan ng kawaksi
+  content_partner_profile_menu: Balangkas ng Katangian ng Kawaksi sa Nilalaman
+  content_partner_public_false: Pribado
+  content_partner_public_true: Pangmadla
+  content_partner_registered_time_ago: Nagparehistro noong %{time_passed} na ang nakalilipas;
+  content_partner_reports: Mga Ulat sa Kawaksi sa Nilalaman
+  content_partner_resource_about_header: Patungkol sa pinagkunan
+  content_partner_resource_auto_publish_false: Hindi
+  content_partner_resource_auto_publish_true: Oo
+  content_partner_resource_hierarchy_unknown: Hindi alam
+  content_partner_resource_new_link: Magdagdag ng isang bagong napagkunan
+  content_partner_resource_new_subheader: Magdagdag ng isang bagong napagkunan
+  content_partner_resource_preview_collection_header: Paunang pagtingin sa kalipunan
+  content_partner_resource_preview_collection_show_link: Tanawin ang unang pagtingin sa kalipunan
+  content_partner_resource_processing_header: Pinupruseso ang katayuan at mga katakdaan
+  content_partner_resource_resource_status_new: Nalikha na
+  content_partner_resource_show_link_back_to: magbalik sa napagkunan
+  content_partner_resource_show_subheader: Mga detalye para sa pinagkunan na <em>%{resource_title}</em>
+  content_partner_resource_vetted_false: Hindi
+  content_partner_resource_vetted_true: Oo
+  content_partner_resource_view_link: Tingnan
+  content_partner_resources_header: Mga pinagkunan
+  content_partner_statistics_column_header_provider_proportion: Kabahagdanan ng tagapagbigay
+  content_partner_statistics_column_header_taxa_page_page_views: Mga Pagtingin sa Pahina
+  content_partner_statistics_column_header_taxa_page_time_on_page_seconds: Panahon Na Nasa Pahina (mga segundo)
+  content_partner_statistics_column_header_taxa_page_unique_page_views: Natatanging mga Pagtingin sa Pahina
+  content_partner_statistics_column_header_total_count: Lahat ng mga pahina
+  content_partner_statistics_empty: Walang estadistikang natagpuan para sa %{month_name} %{year}.
+  content_partner_statistics_link: Estadistika ng Paggamit
+  content_partner_statistics_month_label: Buwan
+  content_partner_statistics_summary_caption: Buod ng estadistika ng paggamit para sa mga pahina ng takson na naglalaman ng nilalaman na ibinigay ng %{partner_name} na may kaugnayan sa kabuuang paggamit ng pook na Lambatan ng EOL.
+  content_partner_statistics_taxa_page_caption: Nakadetalyeng estadistika ng paggamit para sa mga pahina ng takson na naglalaman ng nilalaman na ibinigay ng %{partner_name}.
+  content_partner_statistics_year_label: Taon
+  content_partner_status_empty: Hindi alam na katayuan
+  content_partner_update_successful_notice: Matagumpay na naisapanahon ang mga detalye ng kawaksi.
+  content_partner_update_unsuccessful_error: Paumanhin, naganap ang isang kamalian, hindi naisapanahon ang mga detalye ng kawaksi.
+  content_partner_vetted_false: Hindi pa nasusuri
+  content_partner_vetted_true: Nabistay na
+  content_partners: 
+    edit: 
+      meta_title: Baguhin ang %{partner_name}
+    index: 
+      meta_description: Lista ng mga tagapagbigay ng dato at mga kawaksi sa nilalaman ng Ensiklopedya ng Buhay.
+      meta_keywords: Mga Kawaksi sa Nilalaman ng Ensiklopedya ng Buhay, Mga Tagapagbigay ng Dato ng Ensiklopedya ng Buhay
+      meta_title: Mga Kawaksi sa Nilalaman
+    show: 
+      meta_description: "%{partner_name}. %{partner_description}"
+      meta_keywords: "%{partner_name}, Kawaksi sa Nilalaman ng Ensiklopedya ng Buhay"
+    statistics: 
+      show: 
+        meta_description: Estadistika ng paggamit para sa dato na %{partner_name}.
+        meta_keywords: Estadistika ng %{partner_name}, Paggamit ng Sangkalambatan %{partner_name}
+        meta_title: Estadistika ng %{partner_name}
+        tweet_text: Estadistika sa paggamit ng %{partner_name}
+  content_partners_empty: Walang natagpuang mga kawaksi sa nilalaman.
+  content_partners_link: Mga Kawaksi sa Nilalaman
+  content_partners_page_title: Mga Kawaksi sa Nilalaman
+  content_partners_with_count: 
+    one: "%{count} kawaksi sa nilalaman"
+    other: "%{count} mga kawaksi sa nilalaman"
+  content_server_full_url: Buong URL ng Tagapaghain ng Nilalaman
+  content_servers: Mga Tagapaghain ng Nilalaman
+  content_setting_colon: "Katakdaan ng Nilalaman:"
   content_summary_introduction_html: Ang sumusunod na mga halaga ay kumakatawan sa kabuuan ng iba't ibang uri ng nilalaman para sa takson na ito at lahat ng mga kaapu-apuhan pangtaksonomiya nito. Ang %{glossary_term_trusted} nilalaman ay maaaring pinayagan na ng katiwala ng EOL o nagbuhat mula sa isang pinagkakatiwalaang tagapagbigay. Ang %{glossary_term_unreviewed} nilalaman ay hindi pa nasusuri ng isang katiwala ng EOL. Bawat hirarkiyang pangtaksonomiya ay natatangi, kaya't bawat isang matitingnan-tingnang hirarkiya ay nakatala upang mapaghambing.
-  content_summary_table_caption: Isang buod ng nilalaman na may kaugnayan sa %{taxon_name} at mga kaapu-apuhan nito sa loob ng %{hierarchy_label}
+  content_summary_table_caption: Isang buod ng nilalaman na may kaugnayan sa %{taxon_name} at sa mga kaapu-apuhan nito na nasa loob ng %{hierarchy_label}
   content_summary_table_count_column_header: Bilang
   content_summary_table_summary: Ang talahanayang ito ay naglalaman ng mga bilang ng iba't ibang mga uri ng nilalaman na pinaghihiwa-hiwalay ng katayuan ng nilalaman.
   content_summary_table_type_descendants_row: Bilang ng mga kaapu-apuhan
@@ -65,35 +681,216 @@ tl:
   content_summary_table_type_trusted_text_row: Bilang ng pinagkakatiwalaang mga bagay ng teksto
   content_summary_table_type_unreviewed_images_row: Bilang ng hindi pa nasusuring mga larawan
   content_summary_table_type_unreviewed_text_row: Bilang ng hindi pa nasusuring mga bagay ng teksto
-  could_not_find_user: Hindi makahanap ng isang kasapi para sa tagagamit na ito
+  content_type: Uri ng Nilalaman
+  contribute: Mag-ambag
+  copy: Kopyahin
+  copy_items_to_a_new_collection_with_count: 
+    one: Kopyahin ang %{count} bagay papunta sa isang bagong kalipunan
+    other: Kopyahin ang %{count} mga bagay papunta sa isang bagong kalipunan
+  copy_of_name: Kopya ng %{name}
+  copyright: "KARAPATANG MAGPALATHALA:"
+  could_not_find_user: Hindi ka isang kasapi sa pamayanang ito.
+  count: Bilang
   create_a_collection: Lumikha ng isang kalipunan
   create_a_community: Lumikha ng isang pamayanan
+  create_a_community_login_advisory: Hihilinging lumagda ka bago likhain ang pamayanan mo
   create_account: lumikha ng isang akawnt
-  created_community: Matagumpay na nalikha ang pamayanan.
-  curators_summary_header_with_count:
-    one: "%{count} Katiwala"
-    other: "%{count} Mga katiwala"
+  create_child_page: Lumikha ng supling na pahina
+  create_collection_button: Likhain ang kalipunan
+  create_community: Likhain ang pamayanan
+  create_community_about_heading: Patungkol sa paglikha ng isang pamayanan
+  create_community_around_this_collection_header: Lumikha ng isang pamayanan sa palibot ng kalipunang ito
+  create_community_button: Likhain ang pamayanan
+  create_community_unsuccessful_error: Paumanhin, naganap ang isang pagkakamali, hindi nalikha ang pamayanan mo. Pakitiyak na tama ang pagkakabuo sa lahat ng mga kahanayan.
+  create_user_unsuccessful_error: Paumanhin, naganap ang isang pagkakamali, hindi nalikha ang bagong akawnt mo. Pakitiyak na tama ang pagkakapuno ng lahat ng mga kahanayan.
+  created: Nalikha na
+  created_at: Nalikha sa
+  created_by: Nilikha ni
+  created_colon: "Nalikha:"
+  created_community: Matagumpay ang pagkakalikha sa pamayanan.
+  creative_commons: Malikhaing mga Pangkaraniwan
+  credentials: Mga kredensiyal
+  curated: Napangasiwaan
+  curated_association_update_button: Sagipin ang mga pagbabago
+  curated_objects_of: napangasiwaang mga bagay ng %{name}
+  curated_species_of: napangasiwaang mga espesye ng %{name}
+  curation_comment: Puna sa Pangangasiwa
+  curation_privileges_page_title: Maging isang kurador
+  curation_reason_placeholder: karagdagang mga detalye (maaaring wala nito)
+  curation_scope: Saklaw ng Pangangasiwa
+  curator: kurador
+  curator_level_assistant_curator: Katulong na Kurador
+  curator_level_full_curator: Lubos na Tagapangasiwa
+  curator_level_master_curator: Punong Katiwala
+  curator_profile: balangkas-katangian ng kurador
+  curator_profile_menu: Balangkas-Katangian ng Katiwala
+  curator_profile_of: balangkas-katangian ng katiwalang si %{name}
+  curator_question: Kurador?
+  curator_scope_colon: "Sakop ng pangangasiwa:"
+  curators: Mga katiwala
+  curators_summary_header_with_count: 
+    one: Nasuri ng %{count} katiwala
+    other: Nasuri ng %{count} mga katiwala
+  curators_summary_learn_more_link: Matuto kung paano mangasiwa
+  curators_with_count: 
+    one: "%{count} Kurador"
+    other: "%{count} Mga Kurador"
+  current_language: "Wika: %{iso_code}"
   currently_in_eol: Pangkasalukuyang nasa Ensiklopedya ng Buhay
+  currently_published: kasalukuyang nakalathala
+  daily: Araw-araw
+  darwin_core: Kaibuturan ni Darwin
   dashboard: Kabitang-pisara
+  data_database_colon: "Dato:"
+  data_logging_active: Masigla ang Pagtatala ng Dato
+  data_master_database_colon: "Panginoong Dato:"
+  data_object: Bagay ng Dato
+  data_object_ignore: huwag pansinin ang bagay na ito
+  data_object_reference: Sanggunian ng bagay ng dato
+  data_object_undo_ignore: alisin mula sa tala ng hindi pinapansin
+  data_objects: 
+    show: 
+      meta_description_article: Artikulo - %{dato_description}
+      meta_description_default: "%{dato_title} mula sa %{supplier}."
+      meta_description_default_article: Artikulo - %{dato_title} mula sa %{supplier}.
+      meta_description_default_image: Larawan - %{dato_title} mula sa %{supplier}.
+      meta_description_default_image_map: Mapa - %{dato_title} mula sa %{supplier}.
+      meta_description_default_map: Mapa - %{dato_title} mula sa %{supplier}.
+      meta_description_default_sound: Tunog - %{dato_title} mula sa %{supplier}.
+      meta_description_default_video: Bidyo - %{dato_title} mula sa %{supplier}.
+      meta_description_image: Larawan - %{dato_description}
+      meta_description_image_map: Mapa - %{dato_description}
+      meta_description_map: Mapa - %{dato_description}
+      meta_description_sound: Tunog - %{dato_description}
+      meta_description_video: Bidyo - %{dato_description}
+      meta_supplier_default: isang tagapag-ambag
+      meta_title: "%{dato_title} mula sa %{supplier}"
+      tweet_text: "%{dato_title} mula sa %{supplier}"
+  data_usage_reports: Mga Ulat sa Paggamit ng Dato
+  date_caps: Petsa
+  date_uploaded: Petsa noong ikarga nang paitaas
+  dato_create_cancel: Huwag ituloy
+  dato_create_user_text_error: Paumanhin, naganap ang isang kamalian, hindi maidagdag ang artikulo.
+  dato_create_user_text_missing_taxon_id_exception: Hindi magagawang makayari ng isang tekstong DataObject o UsersDataObject kung ang ID ng takson ay wala.
+  dato_create_user_text_missing_user_exception: Hindi magagawang makayari ng isang tekstong DataObject o UsersDataObject kung ang ID ng takson ay wala.
+  dato_create_user_text_validation_error: Pakitiyak na nabuo mo nang tama ang pormularyo.
+  dato_edit_cancel: Huwag ituloy
+  dato_edit_text_link_button: Baguhin ang artikulong ito
+  dato_edit_text_page_description: Salamat sa pag-aambag mo ng iyong kadalubhasaan sa EOL. Ang binagong artikulo ay idaragdag sa Bantayan mo upang masundan mo ang anumang mga usapan na may kaugnayan diyan at suriin ang katayuan ng pangangasiwa niyan.
+  dato_edit_text_title: Baguhin ang artikulo
+  dato_new_edit_user_text_fieldset_content_header: Nilalaman ng artikulo
+  dato_new_edit_user_text_fieldset_information_header: Kabatiran sa artikulo
+  dato_new_text_for_taxon_page_title: Magdagdag ng isang artikulo sa <i>%{taxon}</i>
+  dato_update_user_text_error: Paumanhin, naganap ang isang kamalian, hindi maisapanahon ang artikulo.
+  dato_update_users_text_not_owner_exception: Tanging ang orihinal na may-akda lamang ng bagay ng tekstong ito ang maaaring bumago nito.
+  default: Likas na katakdaan
+  default_focus_collection_name_from_community: Pinagtutuonan ni %{name}
+  default_watch_collection_name: Bantayan ni %{username}
+  definition: Kahulugan
+  delete: burahin
   delete_community: Burahin ang pamayanang ito
+  delete_firstcap: Burahin
+  deleted_colon: "nabura na:"
+  description: Paglalarawan
+  description_of: Paglalarawan ng
+  descriptive_label: Mapaglarawang Tatak
+  destination_inappropriate_for_logged_in_users: Ikaw ay nakalagda.
+  destroy: Wasakin
   detail: Detalye
-  development_version_name: BERSYONG V2 NG PAGPAPAUNLAD - hindi para sa paggamit ng madla
+  details: Mga detalye
+  details_title: Mga detalye
+  development_version_name: EOL V2 Beta
+  did_you_mean: "Ibig mo bang sabihin: %{suggestions} ?"
+  disable_email_notifications_colon: "Hindi pinagaganang mga e-liham:"
+  disabled_for_now: HINDI PINAGAGANA SA NGAYON
+  discover_link: Tumuklas
   displaying_numerical_range: Ipinapakita ang %{start_number} &mdash; %{end_number}
+  do_you_want_to_be_a_curator: Nais mo bang maging isang kurador
   donate: Mag-abuloy
+  donation_amount_legend: Piliin ang kabuuang halaga na nais mong iabuloy
+  donation_amount_other_label: Iba pa
+  donation_confirmation: Pagpapatunay ng Ambag
   donation_error_no_amount: Mangyaring pumili ng isang halaga ng abuloy.
   donation_error_only_numbers: Mangyaring magpasok ng isang halaga na ginagamit lamang ang mga bilang.
+  donation_sponsorship_fellowships_title: Pagsasamahang pangkapatiran
+  done_already: Nagawa na
+  duplicate_items_were_ignored: Binalewala ang mga bagay na kapareho.
+  edit: Baguhin
+  edit_collection_details: Baguhin ang mga detalye ng kalipunan
+  edit_collection_details_header: Baguhin ang mga detalye ng kalipunan
+  edit_comment: Baguhin ang puna
+  edit_comment_lowercase: baguhin ang puna
   edit_community: Baguhin ang pamayanan
+  edit_contact_us_topic: Baguhin ang Paksa ng Makipag-ugnayan sa Amin
+  edit_contact_us_topics: baguhin ang paksa ng makipag-ugnayan sa amin
+  edit_eol_glossary: baguhin ang talahuluganan ng EOL
+  edit_glossary_term: Baguhin ang Kataga sa Talahuluganan
+  edit_hierarchy: baguhin ang hirarkiya
   edit_my_profile: Baguhin ang balangkas ko
+  edit_news_item: Baguhin ang Bagay na Pambalita
+  edit_news_items: baguhin ang mga bagay na pambalita
+  edit_page_contents: baguhin ang mga nilalaman ng pahina
+  edit_search_suggestion: Baguhin ang Mungkahi sa Paghahanap
+  edit_search_suggestions: baguhin ang mga mungkahi sa paghahanap
+  edit_table_of_contents: baguhin ang talaan ng mga nilalaman
+  edit_tag_suggestions: baguhin ang mga mungkahing tatak
+  edit_the_user_s_comment_below: Baguhin ang pagpuna ng tagagamit na nasa ibaba.
+  edit_upload: Baguhin ang Ikinargang Paitaas
+  edit_username: Baguhin ang %{username}
+  edit_web_users: baguhin ang mga tagagamit ng sangkalambatan
+  edited_colon: "nabago na:"
+  editors_tab_label: Mga tagapamahala
+  email: E-liham
+  email_colon: "E-liham:"
   encyclopedia_of_life: Ensiklopedya ng Buhay
-  endorsed_collections: Tinataguyod na mga kalipunan
-  endorsed_collections_with_count:
-    one: "%{count} Itinataguyod na kalipunan"
-    other: "%{count} Itinataguyod na mga kalipunan"
+  endorsed_collections: Tampok na mga kalipunan
+  endorsed_collections_with_count: 
+    one: "%{count} Tampok na kalipunan"
+    other: "%{count} Tampok na mga kalipunan"
+  eol_administration_console: Kaha ng Pangasiwaan ng EOL
+  eol_api: API ng EOL
+  eol_api_colon: "API ng EOL:"
+  eol_api_data_objects: "API ng EOL: Mga Bagay ng Dato"
+  eol_api_hierarchies: "API ng EOL: Mga Hirarkiya"
+  eol_api_hierarchy_entries: "API ng EOL: Mga Lahok sa Hirarkiya"
+  eol_colon: "EOL:"
+  eol_flickr_group: Pangkat na Flickr ng EOL
   eol_glossary: Glosaryo ng EOL
   eol_news: Balitang EOL
+  eol_pages: Mga pahina
+  error_401_description: Paumanhin, wala kang karapatang puntahan ang URL na iyan.
+  error_401_page_title: Walang karapatan
+  error_403_description: Paumanhin, wala kang karapatang puntahan ang URL na iyan.
+  error_403_page_title: Ipinagbabawal
+  error_404_description: Ipagpaumanhin mo kami, hindi namin matagpuan ang isang pahina diyan sa URL na iyan.
+  error_404_page_title: Hindi natagpuan
+  error_500_page_title: Hay naku.
+  error_default_page_title: Hay naku.
+  error_log: Talaan ng Kamalian
+  error_log_detail: Detalye ng Talaan ng Kamalian
+  error_logging_active: Masigla ang Pagtatala ng Kamalian
   esc_key_hides_this_message: (ikinukubli ng susing esc ang mensaheng ito)
+  example_colon: "Halimbawa:"
+  exception: Hindi kasali
+  exceptions: 
+    security_violations: 
+      administrators_only: Paumanhin, ang pagpunta ay nakahangga para sa mga Tagapangasiwa ng EOL lamang.
+      default: Tinanggihan ang pagpunta.
+  expand_all_children: palawigin ang lahat ng mga anak
   explore: Galugarin
+  explore_what_we_know_about_taxon: Galugarin kung ano ang nalalaman ng EOL patungkol sa %{taxon}.
+  export_all_of_the_entries_as_a: iluwas ang lahat ng mga lahok bilang isang talaksang CSV
+  export_curator_csv_link: "[iluwas ang lahat ng mga kurador bilang CSV]"
+  export_this_list_as_csv: Iluwas ang listahang ito bilang CSV
+  external_link_header: Kawing Panlabas
+  external_link_icon_alt_text: Kawing panlabas.
+  family_name_colon: "Apelido:"
   feedback: Tugon
+  file: Talaksan
+  file_id: ID ng Talaksan
+  file_size: Sukat ng Talaksan
+  filter_button: Pansala
+  filter_by_day: Salain ayon sa araw
   filter_by_status: Salain ayon sa katayuan
   filter_by_status_all_option: lahat ng mga katayuan
   filter_by_status_inappropriate_option: hindi naaangkop
@@ -104,25 +901,281 @@ tl:
   filter_by_type_all_option: lahat ng mga uri
   filter_media: midyang pangsala
   filtered_information: Sinalang kabatiran
+  flash_video: Bidyong kisap
+  flickr: Flickr
+  gbif_occurrence_learn_more_link: Puntahan ang datong ito sa pamamagitan ng Portada ng GBIF.
   global_access_tagline: Pandaigdigang pagpunta sa kaalaman hinggil sa buhay sa Daigdig.
   global_navigation: Pandaigdigang Paglilibot
   go: Gawin
   has_already_been_taken: ay may nakakuha na.
   hello_user: Kumusta %{user}
   help: Tulong
+  helpers: 
+    label: 
+      collection: 
+        view_style_id: Likas na nakatakdang tanawin
+      collection_item: 
+        annotation: Anotasyon
+        refs: Mga sanggunian <small>(ilagay ang bawat isang sanggunian sa isang bagong guhit)</small>
+        sort_field: Pagsama-samahin ayon sa <small>(petsa TTTT.BB.AA, bilang, o teksto)</small>
+        sort_field_show: "Halaga ng pagkakasama-sama:"
+      comment: 
+        body_edit: Baguhin ang puna
+      contact: 
+        comments: Mensahe mo
+        contact_subject_id: Paksa
+        email: Tirahan ng e-liham mo
+        name: Pangalan mo
+      content_page: 
+        active: Nailathala na
+        active_more: Ang mga pahinang nailathala ay magiging makikita ng madla. Huwag tsekan ang <em>nailathala na</em> kung nais mong maiwasan ang pangkalahatang mga tagagamit na makita ang mga bersiyon ng pahinang ito na nasa anumang wika.
+        page_name: Natatanging pangalan <small>(may maliliit na titik na mga panitik at mga salungguhit na alpanumerikong payak na Latin ng ISO lamang)</small>
+        page_name_more: Magpasok ng isang natatangi, mapaglarawan ng sarili, makahulugan at walang kapuknatang pampakilala para sa pahinang ito. Ang pangalang ipapasok mo rito ay gagamitin upang likhain ang URL para sa pahinang ito, halimbawa na ang natatanging pangalan na <em>mga_kasunduan_sa_paggamit</em> ay gagawing URL na <em>http://eol.org/info/mga_kasunduan_sa_paggamit</em>.
+        parent_content_page_id: Magulang
+        parent_content_page_id_more: Opsiyonal na pumili ng isang magulang kung saan dapat na ipugad ang pahinang ito.
+      content_partner: 
+        created_at: Nakapagpatala na
+        current_agreement: Kasalukuyang kasunduan
+        description_of_data: Paglalarawan ng dato <small>(pribado)</small>
+        description_of_data_more: Pakibigyan kami ng isang paglalarawan ng uri ng kabatirang mayroon ka, ilang mga bagay ang makukuha, anong mga organismo ang kaugnay sa mga ito, at kung tinipon o sinuri ba ang mga ito ng naaangkop na mga dalubhasa o ng isang pamayanang may kaalaman.
+        display_name: Ipakita ang pangalan <small>(maaaring wala nito)</small>
+        display_name_more: Magbigay ng isang panghaliling pangalan na makikita ng madla na gagamitin sa halip na <em>Pangalan ng proyekto</em> mo.
+        last_action: Huling kilos
+        latest_published_harvest_event: Huling paglalathala
+        logo_current: "Kasalukuyang logo:"
+        logo_new: "Magkarga ng isang bagong logo:"
+        notes: Mga tala sa proyekto <small>(pribado)</small>
+        oldest_published_harvest_event: Unang nalathala
+        public_more: Ang pangmadlang mga balangkas ng katangian ng kawaksi sa nilalaman ay nakikita ng lahat at kabilang ang kabatiran ng kawaksi sa loob ng mga paglilista ng kawaksi sa nilalaman. Huwag tsekan upang huwag maisama ang mga detalye ng kawaksi sa nilalaman mula sa mga paglilista at ilaan lamang ang pagpunta sa balangkas ng katangian sa tagagamit na lumikha ng kawaksi sa nilalaman at mga tagapangasiwa ng EOL.
+        user_id: Ang mga detalye ng kawaksi sa nilalaman ay pinamamahalaan ni
+      content_partner_agreement: 
+        mou_url: URL ng talaksan ng kasunduan <small>(pampalit na maaaring wala naman)</small>
+        mou_url_more: Opsiyonal na magpasok ng isang URL sa talaksan na naglalaman ng kasunduang pangkawaksing ito. Masasapawan ng talaksang ito ang anumang iba pang teksto ng kasunduan. Kung nais mong iimbak ang talaksan (halimbawa na ang isang talaksang PDF) sa mga tagapaghain ng nilalaman ng EOL kung gayon <a href="%{upload_content_url}">ikargang paitaas muna ang talaksan</a>, upang makuha ang URL.
+      content_partner_contact: 
+        email_reports_frequency_hours_more: Ipinadadala lang ang mga ulat kapag nagkaroon ng mga kumento o mga kilos ng kurador sa dato mo o sa mga pahina ng takson na may kaugnayan sa pangkat mo ng dato.
+      data_object: 
+        bibliographic_citation: Pagbanggit na pangtalaaklatan
+        bibliographic_citation_more: Isang iminumungkahing pagbanggit para sa datong ito na nasa anyo ng isang sangguniang pangtalaaklatan, magsama ng sapat na detalye upang makilala ang dato upang maging maliwanag hangga't maaari.
+        description: Teksto <small>(pinahihintulutan ang ilang pagmamarka ng HTML)</small>
+        license_id: Lisensiya
+        license_id_more: Basahin ang <a href="%{policy_url}">Patakaran sa Paglilisensiya ng EOL</a>
+        object_title: Pamagat
+        refs: Mga sanggunian <small>(ilagay ang bawat isang sanggunian sa isang bagong guhit)</small>
+        rights_holder: Tagapaghawak ng mga karapatan
+        rights_holder_more: Tumukoy ng isang tao o isang samahan na nagmamay-ari o namamahala ng mga karapatan sa datong ito. Kapag iniwan mong walang laman ang hanay na ito ipagpapalagay namin na ikaw ang may hawak ng karapatan para sa lahat ng mga lisensiya maliban sa Nasasakop ng Madla. Ang mga lisensiyang Nasasakop ng Madla ay hindi nangangailangan ng isang tagapaghawak ng mga karapatan.
+        rights_statement: Pahayag ng mga karapatan
+        rights_statement_more: Pagpapahayag ng mga karapatan sa paggamit ayon sa hinihingi ng mga lisensiyang Creative Commons Attribution (CC-BY), mangyaring ipahayag ang pagbanggit <q cite="http://creativecommons.org/licenses/by/3.0"> batay sa pamamaraan na tinukoy ng may-akda o ng tagapaglisensiya</q>.
+        source_url: URL papunta sa orihinal na bagay na pangdato
+        toc_item: Kabahaging kabanata
+      eol_statistic: 
+        download_all: Lahat <small>(isama ang mga rekord mula sa lahat ng mga pahina)</small>
+      google_analytics_partner_summaries: 
+        page_views: Mga pagtingin sa pahina <small>(bilang ng mga pagdalaw sa mga pahina)</small>
+        taxa_pages: Mga pahina <small>(bilang ng mga pahina)</small>
+        taxa_pages_viewed: Mga pahinang tiningnan <small>(bilang ng mga pahinang tiningnan ng mga panauhin)</small>
+        time_on_page: Kabuuang panahon na iginugol sa mga pahina <small>(mga oras)</small>
+        unique_page_views: Natatanging mga pagtingin sa pahina <small>(bilang ng mga panauhin na tumingin sa mga pahina)</small>
+      harvest_event: 
+        began_at: Sinimulan
+        completed_at: Nabuo
+        first_published_at: Unang paglalathala
+        publish_more: Nagbabandila ng kaganapan ng pag-ani na ilalathala, ang nilalaman ay hindi kaagad na gagawing pangmadla.
+        published_at: Nalathala na
+        published_status: Katayuan
+      hierarchy: 
+        browsable_more: Tsekan ang makapagtitingin-tingin upang maitaguyod ang hirarkiyang ito upang maging isa sa pangunahing mga hirarkiyang matitingnan-tingnan sa EOL.
+        browsable_status_with_colon: "Matitingnan-tingnang katayuan:"
+        complete: Napangasiwaan
+        complete_more: "Ang napangasiwaang hirarkiya ay nagpapalagay na ang bawat pagpapasok ay nilalayong maging natatangi, iyong ang tumutugmang mga bagting ng pangalan ay ituturing bilang mga kasingtunog na salita. <strong>BABALA: Huwag baguhin ang katangiang ito maliban na lamang kung natitiyak mo ang katayuan ng mga salitang kasingtunog na nasa loob ng hirarkiya, ang pagsasagawa nito ay maaaring maglagay sa panganib ng kabuuan ng dato.</strong>"
+        request_publish: Hiniling ang paglalathala
+        request_publish_more: Nagpapahimatong kung mayroong isang nakabinbing kahilingan na itaguyod ang hirarkiyang ito upang maging isa sa pangunahing matitingnan-tingnan na mga hirarkiya sa EOL.
+      open_authentication: 
+        connect: Idagdag
+        connected: Nakakabit
+      resource: 
+        accesspoint_url: URL ng pangkat ng dato
+        accesspoint_url_existing_remove: Ang napagkunang ito ay kasalukuyang ikinakarga mula sa URL na nagtatapos sa <em>%{accesspoint_url}</em>. Magkargang paitaas ng isang talaksan kung nais mong tanggalin ang umiiral na URL at ikarga sa halip ang pinagkunan mula sa isang talaksan (hindi iminumungkahi).
+        administration_settings: Mga katakdaan ng pangasiwaan <small>(mga tagapangasiwa lamang ng EOL ang nakakakita)</small>
+        dataset: Pangkat ng dato
+        dataset_existing_remove: Ang talaksang <em>%{file_name}</em> ay kasalukuyang kaugnay ng napagkunang ito. Magpasok ng isang URL kung nais mong palitan ang umiiral na talaksan at ikarga  sa halip ang pinagkunan mula sa isang URL (iminumungkahi).
+        dataset_existing_replace: Ang talaksang <em>%{file_name}</em> ay kasalukuyang kaugnay ng napagkunang ito. Magkarang paitaas ng isang bagong talaksan upang mapalitan ang umiiral na <em>%{file_name}</em> talaksan.
+        dwc_archive_url: "Kapag mayroong isang Sinupan ng Kaibuturan ni Darwin na kaugnay ng napagkunang ito, ipasok dito ang URL <small>(TAR.GZIP, TAR.GZ o TGZ lang)</small>:"
+        hierarchy: Hanay-Pamunuan
+        latest_harvest_event: Huling pag-ani
+        latest_published_harvest_event: Huling nailathala
+        oldest_published_harvest_event: Unang nailathala
+        refresh_period_hours: Dalas
+        resource_status: Katayuan
+        resource_status_id: Katayuan
+        resource_url_or_file: Dato ng pinagkunan <small>(pumili kung ipapasok ang URL o kung ikakargang paitaas ang isang talaksan)</small>
+        resource_url_or_file_upload: Ikargang paitaas ang talaksan ng napagkunan
+        resource_url_or_file_url: Ikarga ang pinagkunan mula sa URL
+        title: Pangalan ng napagkunan
+      session: 
+        password: Hudyat
+        remember_me: Panatilihing nakalagda ako sa loob ng 2 mga linggo
+        username_or_email: Pangalan ng tagagamit o tirahan ng e-liham
+      translated_content_page: 
+        active_translation: Nalathala na
+        active_translation_more: Ang nalathalang mga salinwika ay magiging nakikita ng madla, maliban na lamang kung ang pahina mismo ay hindi pa nalalathala. Huwag tsekan ang <em>nalathala na</em> kung nais mong iwasan na makita ng pangkalahatan ng mga tagagamit ang bersiyong ito ng pahina.
+        language_id: Wika
+        title_more: Ang pamagat ng nilalamang ito ay lilitaw sa pook ng paulo ng pahina. Ang pamagat ay dapat na magsama ng mga susing salita na pinaka may kaugnayan sa nilalaman.
+      user: 
+        agreed_with_terms: Sumasang-ayon ako sa <a href="%{terms_url}">mga kasunduan sa paggamit</a>
+        api_key_more: Magbasa pa ng marami patungkol sa <a href="%{api_docs_url}">pagdaragdag ng isang susi sa mga pagtawag ng API mo</a>.
+        bio: Patungkol sa akin
+        credentials: Mga kredensiyal
+        credentials_more: "Paki magbanggit ng kahit na isang tiyak na katangian mula sa talaang ito:"
+        credentials_more_academic: Katayuang guro, kawani, estudyanteng nagtapos na mula sa isang nauugnay na kagawaran ng pamantasan o dalubhasaan.
+        credentials_more_author: Pag-akda sa isang isang lathalaing nasuri ng mga kasamahan (magbigay ng sanggunian).
+        credentials_more_professional: Kasapi sa samahang pamprupesyon.
+        credentials_more_referral: Pagsangguni mula sa pangkasalukuyang kurador.
+        credentials_more_successful_assistant_curator: Kasaysayan ng tagumpay bilang isang katuwang na kurador.
+        curation_application: Maging isang kurador
+        curation_application_more: Kung nais mong baguhin ang mga pribilehiyo mo ng pangangasiwa, magpasa lamang ng isang aplikasyon at susuriin namin ang iyong pagiging karapat-dapat.
+        curator_level: Ikaw ay pangkasalukuyang %{curator_level_with_indefinite_article}.
+        curator_scope: Sakop ng pangangasiwa
+        email: Tirahan ng e-liham
+        email_reports_frequency_hours: Gaano mo kadalas nais na makatanggap ng mga babala ng e-liham hinggil sa gawain sa mga naiambag mo?
+        email_settings_submit: mga katakdaan ng e-liham
+        entered_password: Hudyat <small>(4 - 16 mga panitik)</small>
+        generate_api_key: Humiling ng isang susi ng API
+        logo: Magkarga ng isang bagong larawan
+        new_password: Bagong hudyat <small>(4 - 16 mga panitik)</small>
+        new_password_confirmation: Bagong hudyat <small>(titiyakin)</small>
+        notification_settings: Mga Katakdaan sa Pagpapabatid
+        notification_settings_more: Isaayos ang katakdaan mo ng pagpapabatid.
+        open_authentications: Nakakabit na mga akawnt
+        open_authentications_connected_accounts: Nakakabit na mga akawnt mo
+        requested_curator_level: Nakabinbin ang kahilingan mong maging isang %{curator_level_with_indefinite_article}.
+        tag_line: "Salitang tatak o pamagat <small>halimbawa: \"Mahilig sa ibon\"</small>"
+        user_identities: Ako ay si
+        username: Bansag <small>(4 - 32 mga panitik)</small>
+        username_or_email: Pangalan ng tagagamit o tirahan ng e-liham
+      wikipedia_queue: 
+        revision_url: URL ng rebisyon <small>(halimbawa na ang http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)</small>
+    select: 
+      prompt: Pumili po lamang
+    submit: 
+      cancel: Huwag ituloy
+      collection_item: 
+        update: Sagipin
+      contact: 
+        new: Magpadala ng tugon
+      content_page: 
+        create: Likhain ang pahina
+        edit: Baguhin
+        preview: Paunang tingin
+        update: Isapanahon ang pahina
+      content_partner: 
+        create: Likhain ang kawaksi sa nilalaman
+        update: Sagipin ang kabatiran sa kawaksi sa nilalaman
+      content_partner_agreement: 
+        agree: Pumayag sa mga kahilingan ng kawaksi sa nilalaman
+        create: Lumikha ng bagong kasunduan
+        update: Isapanahon ang kasunduan
+      content_partner_contact: 
+        create: Magdagdag ng kaugnayan
+        destroy: Burahin ang kaugnayan
+        update: Isapanahon ang kaugnayan
+      create: Lumikha ng %{model}
+      data_object: 
+        create: Idagdag ang artikulo
+        create_text: Idagdag ang artikulo
+        update: Sagipin ang artikulo
+      eol_statistic: 
+        download_csv: Ikargang-pakuha bilang CSV
+      filter_sort: Salain at pagsama-samahin
+      harvest_event: 
+        publish: Ilathala
+      hierarchy: 
+        request_publish: Hilinging itaas ang hirarkiya
+        update: Isapanahon ang hirarkiya
+      name: 
+        create: Magdagdag ng pangalan
+        update: Isapanahon ang pangalan
+      open_authentication: 
+        create: Umugnay
+        destroy: Kumalas
+        update: Tiyakin ang pagkakakabit
+      resource: 
+        create: Magdagdag ng napagkunan
+        force_harvest: Hilingin ang sapilitang pag-ani
+        update: Isapanahon ang pinagkukunan
+        update_settings: Isapanahon ang mga katakdaan
+      session: 
+        create: Lumagda't pumasok
+        sign_in_with_facebook: Lumagda sa pamamagitan ng Facebook
+        sign_in_with_google: Lumagda sa pamamagitan ng Google
+        sign_in_with_twitter: Lumagda sa pamamagitan ng Twitter
+        sign_in_with_yahoo: Lumagda sa pamamagitan ng Yahoo
+      submit: Sagipin ang %{model}
+      translated_content_page: 
+        create: Idagdag ang salinwika
+        update: Sagipin ang mga binago sa salinwika
+      update: Isapanahon ang %{model}
+      user: 
+        create: Lumikha ng akawnt
+        curation_application: Hilingin na ngayon
+        curation_privileges: Ipasa ang kahilingan
+        generate_api_key: Lumikha ng isang susi
+        notification_settings: Mga katakdaan sa pagpapabatid
+        recover_account: Magpadala ng e-liham
+        sign_up_with_facebook: Magpatala sa pamamagitan ng Facebook
+        sign_up_with_google: Magpatala sa pamamagitan ng Google
+        sign_up_with_twitter: Magpatala sa pamamagitan ng Twitter
+        sign_up_with_yahoo: Magpatala sa pamamagitan ng Yahoo
+        update: Sagipin ang kabatirang pangkatangian
+      wikipedia_queue: 
+        create: Ipasa ang kahilingan
+  hierarchy_selector_drop_down_list_label: Ito ang tatak na lilitaw sa naihuhulog pababa na listahan ng tagapili ng hirarkiya
   home: Tahanan
   home_page_link_advisory_information: Ang kawing na ito ay magdadala sa iyo papunta sa bahay-pahina ng Pook-sapot ng Ensiklopedya ng Buhay
+  image_from_supplier: Larawan mula kay %{whom}
   image_is_no_longer_available: Hindi na makukuha pa ang larawan
+  image_map_from_supplier: Mapa mula kay %{whom}
+  image_map_of: Mapa ng
   image_not_found: Hindi natagpuan ang larawan
+  image_of: Larawan ng
   images: Mga larawan
-  images_with_count:
+  images_with_count: 
     one: "%{count} larawan"
     other: "%{count} mga larawan"
   indexed: Nakataluntunan
+  ip: IP
+  ip_address: Tirahan ng IP
+  item_added_to_collection_notice: May bagay na idinagdag sa kalipunan ng <em>%{collection_name}</em>
+  item_added_to_watch_collection_notice: Naidagdag ang "%{item_name}" sa %{collection_name}.
+  item_details_missing: Paumanhin, may nangyaring kamalian, hindi mabawi ang mga detalye ng bagay.
+  item_not_added_already_in_collection: Naidagdag na sa kalipunan ang bagay na ito.
+  item_not_added_to_collection_error: Paumahin, may nangyaring kamalian, ang napiling bagay ay hindi maidagdag sa kalipunan.
+  item_not_added_to_itself_notice: Paumahin, hindi mo maidaragdag ang kalipunang <em>%{collection_name}</em> sa sarili nito.
+  item_not_updated_in_collection_error: Paumanhin, naganap ang isang kamalian, hindi maisapanahon ang bagay na pangkalipunan.
+  item_type_article: Artikulo
+  item_type_article_assistive: Isang artikulo ang bagay na ito
+  item_type_collection: Kalipunan
+  item_type_collection_assistive: Isang kalipunan ang bagay na ito
+  item_type_community: Pamayanan
+  item_type_community_assistive: Isang pamayanan ang bagay na ito
+  item_type_image: Larawan
+  item_type_image_assistive: Isang larawan ang bagay na ito
+  item_type_image_map: Mapa
+  item_type_image_map_assistive: Isang larawan ng isang mapa ang bagay na ito
+  item_type_map: Mapa
+  item_type_map_assistive: Isang mapa ang bagay na ito
+  item_type_person: Tao
+  item_type_person_assistive: Isang tao ang bagay na ito
+  item_type_sound: Tunog
+  item_type_sound_assistive: Isang tunog ang bagay na ito
+  item_type_taxon: Takson
+  item_type_taxon_assistive: Isang takson ang bagay na ito
+  item_type_video: Bidyo
+  item_type_video_assistive: Isang bidyo ang bagay na ito
   iucn_red_list_status_advisory_information: Ang kawing na ito ay magdadala sa iyo sa pook-sapot ng Pandaigdigang Kaisahan para sa Pagpapanatili ng Kalikasan (International Union for Conservation of Nature, IUCN) kung saan ka makakatagpo ng mas marami pang mga kabatiran tungkol sa Pulang Talaan ng Nanganganib na mga Uri ng IUCN (IUCN Red List of Threatened Species).
   join_community_button: Sumali sa pamayanang ito
   join_eol_button_html: Sumali na sa <abbr title="Encyclopedia of Life">EOL</abbr> ngayon
   join_eol_community_html: Maging bahagi ng pamayanan ng <abbr title="Encyclopedia of Life">EOL</abbr>!
+  jsonp_by_adding_a_callback_parameter: ... at ang JSONP sa pamamagitan ng pagdaragdag ng isang parametro ng pagtawag na pabalik
   just_pages_with_pictures_and_text: Tanging iyong mga pahinang may mga larawan at teksto lamang
   language: "Wika:"
   last_updated_time_ago: Huling naisapanahon noong %{time_passed} na ang nakalipas
@@ -153,41 +1206,116 @@ tl:
   license_not_applicable: Hindi angkop ang lisensiya
   license_public_domain: Nasasakupan ng Madla
   literature: Panitikan
+  location: Kinalalagyan
   login: lumagda
+  login_hidden_user_message: Hindi na masigla ang %{given_name} ng akawnt
   login_or_create_account: Lumagda o Lumikha ng Akawnt
+  logo_header: Logo
   logout: Umalis sa pagkalagda
-  maps_with_count:
+  map_from_supplier: Mapa mula kay %{whom}
+  map_of: Mapa ng
+  maps_with_count: 
     one: "%{count} Mapa"
     other: "%{count} Mga mapa"
   media: Midya
-  media_with_count:
+  media_with_count: 
     one: "%{count} Midya"
     other: "%{count} Mga midya"
-  members_with_count:
+  members: 
+    index: 
+      meta_description: Mga kasapi sa %{community_name}, isang pamayanan sa Ensiklopedya ng Buhay.
+      meta_keywords: Mga kasapi sa %{community_name}
+      meta_title: Mga kasapi sa %{community_name}
+      tweet_text: Mga kasapi sa %{community_name}
+    show: 
+      meta_description: Si %{member_name} ay isang kasapi sa %{community_name}, isang pamayanan sa Ensiklopedya ng Buhay.
+      meta_keywords: Kasapi sa Pamayanan na si %{member_name}
+      meta_title: "%{member_name} Kasapi sa %{community_name}"
+      tweet_text: "%{member_name} kasapi sa %{community_name}"
+  members_with_count: 
     one: "%{count} kasapi"
     other: "%{count} mga kasapi"
+  meta_description_colon: "Paglalarawan ng meta:"
+  meta_keywords_colon: "Mga susing-salita ng meta:"
   minimal_page: Pahinang Pangpinakamaliit
+  mobile: 
+    contents: 
+      explore_eol: Galugarin ang EOL
+      full_site: Buong pook
+      home: Tahanan
+      species: Espesye
+      taxa: Mga takson
+    search: 
+      no_results_found: Walang natagpuang mga resulta
+      results: Mga resulta
+      suggestions: Mga mungkahi
+    taxa: 
+      community: Pamayanan
+      details: Mga detalye
+      images: Mga larawan
+      literature: Panitikan
+      maps: Mga mapa
+      media: Midya
+      nomenclature: Katawagan
+      overview: Pagtalakay na naglalarawan
+      resources: Mga pinagkunan
+      sounds: Mga tunog
+      taxon_details: Mga Detalye ng mga Taksa
+      taxon_media: Midya ng mga Taksa
+      taxon_overview: Pagtalakay na may Paglalarawan ng Takson
+      videos: Mga bidyo
   most_active_members: Pinaka masisiglang mga kasapi
   must_be_associated_with_either_a_user_or_a_community: Kailangang may kaugnayan sa isang tagagamit o kaya sa isang pamayanan
   must_be_less_than_128_characters_long: dapat na mas mababa kaysa sa 128 mga panitik ang haba.
   must_be_logged_in: Dapat na nakalagda ka upang maisagawa ang galaw na ito.
   my_activity: Mga galaw ko
   my_info: Kabatiran ko
-  newsfeed: Pakaing balita
+  news_archive_page: pahinang sinupan ng balita
+  newsfeed: Balitang pakain
+  no_answer: Hindi
   not_evaluated: Hindi pa nasusuri
-  other_collection_items_with_count:
+  notifier: 
+    activity_log_empty: Walang kamakailang kilos ng mga tagapangasiwa.
+    activity_on_content_partner_content: 
+      subject: Buod ng kamakailang gawain hinggil sa nilalamang ibinigay sa Ensiklopedya ng Buhay ng kawaksi sa nilalamang si %{partner_full_name}
+    activity_on_user_content: 
+      subject: Buod na kamakailang gawain ukol sa nilalaman na idinagdag mo sa Ensiklopedya ng Buhay
+    activity_user_added_association_for_taxon_on_date: "Si %{curator_level} %{users_name} (%{users_url}) ay nagdagdag ng kaugnayan na:\n%{taxon_name} (%{taxon_url}) for %{object_name} (%{object_url})\n%{action_date}."
+    activity_user_added_association_on_date: "Si %{curator_level} %{users_name} (%{users_url}) ay nagdagdag ng hindi nakikilalang kaugnayan para sa %{object_name} (%{object_url})\n%{action_date}."
+    activity_user_removed_association_on_date: "Si %{curator_level} %{users_name} (%{users_url}) ay nagtanggal ng hindi nakikilalang kaugnayan mula sa %{object_name} (%{object_url})\n%{action_date}."
+    comments_empty: Walang kamakailang mga pagpuna.
+    contact_us_auto_response: 
+      message: "Salamat sa iyong pakikipag-ugnayan sa proyekto ng Ensiklopedya ng Buhay. Ang mga puna ay ipinadala na sa naaangkop na pangkat.\n\nPinahahalagahan namin ang pagtugon mo."
+      subject: Salamat sa pakikipag-ugnayan sa Ensiklopedya ng Buhay
+    contact_us_message: 
+      subject: "Isang mensahe sa EOL: %{title}"
+    content_partner_created: 
+      subject: Ang tagagamit ng EOL na si %{user_full_name} ay lumikha ng kawaksi sa nilalaman na si %{partner_full_name}
+    greeting_dear_name_with_comma: Minamahal na %{name},
+    signature_basic: Ang Pangkat ng Ensiklopedya ng Buhay
+    signature_with_contact_us_link: "Kapag nakaranas ka ng anumang mga suliranin, mangyaring makipag-ugnayan sa amin doon sa %{url}.\n\nAng Pangkat ng Ensiklopedya ng Buhay"
+    signature_with_species_pages_group_contact: "Kung mayroong kang anumang mga katanungan, mangyaring makipag-ugnayan sa amin doon sa %{species_pages_group_email}.\n\nAng Pangkat ng Ensiklopedya ng Buhay"
+    user_activated_with_open_authentication: 
+      subject: Binuhay na ang iyong akawnt ng Ensiklopedya ng Buhay
+    user_commented_on_something_date_body: "Si %{curator_level} %{users_name} (%{users_url}) ay nagbigay ng puna hinggil sa:\n%{commented_on_name} (%{commented_on_url})\n%{comment_date}:\n%{comment_body}"
+    user_message: 
+      subject: Isang mensahe mula sa Ensiklopedya ng Buhay
+    user_recover_account: 
+      subject: Bawiin ang iyong akawnt ng Ensiklopedya ng Buhay
+  other_collection_items_with_count: 
     one: "%{count} iba pang bagay"
     other: "%{count} iba pang mga bagay"
-  other_community_items_with_count:
+  other_community_items_with_count: 
     one: "%{count} iba pang bagay"
     other: "%{count} iba pang mga bagay"
   overview: Malawakang pananaw
   pages_with_pictures_and_text: Mga pahinang may mga larawan at teksto
   pages_with_pictures_or_text: Mga pahinang may mga larawan o teksto
-  people_with_count:
+  people_with_count: 
     one: "%{count} tao"
     other: "%{count} mga tao"
   personal_space: Pansariling Puwang
+  please_return_to_eol_homepage: Mangyaring bumalik sa tahanang pahina ng EOL
   post_comment: Magpaskil ng Puna
   preferred_common_name_advisory_information: Ito ang ninanais na pangkaraniwang pangalan para sa takson na ito.
   press_room: Silid ng Pamamahayag
@@ -195,31 +1323,75 @@ tl:
   profile_image_alt_text_curator: Larawang pambalangkas para sa katiwalang si %{user_full_name}
   profile_image_alt_text_member: Larawang pambalangkas para sa kasaping si %{user_full_name}
   punctuation_comma: ","
-  rated_by_count_people:
+  rated_by_count_people: 
     one: mula sa %{count} tao
     other: mula sa %{count} mga tao
+  recent_activities: 
+    index: 
+      list_header: Huling 7 Mga Araw
+      meta_keywords: gawain ng pamayanan ng eol, kamakailang gawain sa eol, mga gawain sa ensiklopedya ng buhay
+      meta_title: Galaw ng Pamayanan ng EOL
+      page_title: Galaw ng Pamayanan ng EOL
+  recent_activity: 
+    collection_activity_by_user: Si <b>%{user_name}</b> ay nagsagawa ng isang %{activity_name} doon sa kalipunang <b>%{collection_name}</b>.
+    collection_activity_log_title: May binago si %{who} sa isang kalipunan
+    comment_body_brief: "%{body} - %{author}"
+    comment_link: Tingnan ang puna sa EOL
+    comment_title: Nagbigay ng puna si %{who} hinggil sa %{what}
+    comment_title_your_newsfeed: Nagbigay ng puna si %{who} sa pakaing balita mo
+    community_activity_log_title: May binago si %{who} sa isang pamayanan
+    curator_activity_log_title: May isang bagay na pinangasiwaan si %{who}
+    data_object_activity_article_added_by_user: Nagdagdag si <b>%{user_name}</b> ng isang artikulong tinatawag na %{dato_title} sa <b>%{taxon_concept}</b> (%{taxon_details_url}).
+    data_object_title: Nagdagdag si %{who} ng bagong nilalaman sa EOL
+    default_subject: Kamakailang gawain sa EOL
+    intro_immediately: Kumusta, %{name} —
+    reply_to_comment_body_brief: "%{reply_to_author} %{body} - %{author}"
+    someone_commented_on_something: Nagbigay ng puna si <b>%{who}</b> hinggil sa <b>%{what}</b>.
   recent_updates: Kamakailang mga pagsasapanahon
+  references_cabs_colon: "Talasanggunian:"
   remove_membership: Alisin ang pagkakasapi
   resources: Mga mapagkukunan
   rights: Mga karapatan
-  rights_holder: Tagapaghawak ng mga Karapatan
-  search_by_term_page_title: "Paghahanap sa EOL: %{term}"
+  rights_holder: Tagapaghawak ng mga karapatan
+  rights_statement: Pahayag ng mga karapatan
+  search_by_term_page_title: "Paghahanap: %{term}"
+  search_field_common_name: Karaniwang Pangalan
   search_field_label: Hanapin sa EOL
-  search_input_advisory_information: Magpasok ng pangkaraniwan o pang-agham na mga pangalan ng mga organismong nabubuhay na nais mong makaalam ng marami pa, halimbawa subukang ipasok ang kamatis.
+  search_field_preferred_common_name: Mas Nais na Karaniwang Pangalan
+  search_field_preferred_scientific: Mas Nais na Pangalang Pang-agham
+  search_field_surrogate: Kahalili
+  search_field_synonym: Singkahulugan
+  search_input_advisory_information: Magpasok ng isang pangalang pangkaraniwan o isang pangalang pang-agham ng isang nilikhang nabubuhay na nais mong alamin nang marami pa. Maaari ka ring maghanap ng mga kasapi ng EOL, mga kalipunan at mga pamayanan.
+  search_next_label: Kasunod
   search_placeholder: Hanapin sa EOL ...
+  search_previous_label: Nakaraan
+  search_results: Mga Kinalabasan ng Paghahanap
+  search_suggestions: Mga Mungkahi sa Paghahanap
+  search_term_detail_report: Ulat sa Detalye ng Katagang Panghanap
   search_the_site: Maghanap sa sityo
-  see_all_classifications_with_count_html:
+  see_all_classifications_with_count_html: 
     one: Tingnan ang <span class="assistive">%{count} pinayagang kaurian kung saan lumilitaw ang taksong ito.</span>
     other: Tingnan ang lahat ng <span class="assistive">%{count} pinayagang mga kaurian kung saan lumilitaw ang taksong ito.</span>
-  see_all_collections_with_count_html:
+  see_all_collections_with_count_html: 
     one: Tingnan ang <span class="assistive">%{count} kalipunan kung saan lumilitaw ang taksong ito.</span>
     other: Tingnan ang lahat ng <span class="assistive">%{count} mga kalipunan kung saan lumilitaw ang taksong ito.</span>
-  see_all_communities_with_count_html:
+  see_all_communities_with_count_html: 
     one: Tingnan ang <span class="assistive">%{count} pamayanang nakatuon sa taksong ito.</span>
     other: Tingnan ang lahat ng <span class="assistive">%{count} mga pamayanang nakatuon sa taksong ito.</span>
   see_all_media_link: Tingnan ang lahat ng midya
   select_topic: Mangyaring pumili ng isang lugar ng paksa
   selected_language_advisory_information: Ito ang pangkasalukuyang napiling wika.
+  sessions: 
+    new: 
+      login_with_eol_authentication_header: "O lumagdang papasok sa pamamagitan ng mga kredensiyal mong nasa EOL:"
+      login_with_facebook_assistive: Lumagdang papasok sa EOL na ginagamit ang mga kredensiyal mong nasa Facebook.
+      login_with_google_assistive: Lumagdang papasok sa EOL na ginagamit ang mga kredensiyal mong nasa Google.
+      login_with_twitter_assistive: Lumagdang papasok sa EOL na ginagamit ang mga kredensiyal mong nasa Twitter.
+      login_with_yahoo_assistive: Lumagdang papasok sa EOL na ginagamit ang mga kredensiyal mong nasa Yahoo.
+      meta_title: Lumagda
+      problems_signing_in_with_connected_accounts: Mayroong mga suliranin sa paglagda sa pamamagitan ng nakakabit mong mga akawnt?
+      problems_signing_in_with_eol_authentication: Nalimutan ang hudyat?
+      tip: Umiiral na tagagamit? Iugnay ang akawnt mo ng EOL sa Facebook, Google at marami pa sa loob ng mga katakdaan mo sa balangkas ng katangian. Kapag naiugnay na ang mga akawnt mo maaari mo nang gamitin ang mga ito upang lumagdang papasok sa EOL.
   set_as_exemplar: Itakda bilang halimbawa
   show_status_message: Ipakita ang mensahe ng katayuan
   show_warning_message: Ipakita ang mensahe ng babala
@@ -235,51 +1407,233 @@ tl:
   sort_by_newest_option: Pinakabago
   sort_by_oldest_option: Pinakaluma
   sort_by_rating_option: Kaantasan
-  sounds_with_count:
+  sound_from_supplier: Tunog mula kay %{whom}
+  sound_of: Tunog ng
+  sounds_with_count: 
     one: "%{count} Tunog"
     other: "%{count} Mga tunog"
   source_url: Pinagmulang URL
+  supplier: Tagapagtustos
   switch_language_advisory_information: Palitan ang wika ng sityo upang maging %{language_label}
   table_of_contents: Talahanayan ng mga Nilalaman
-  taxa: Mga takson
-  taxa_with_count:
+  taxa: 
+    communities: 
+      collections: 
+        hierarchy_entry: 
+          meta_description: Mga kalipunang naglalaman ng %{scientific_name} ayon sa pagkakauri ni %{hierarchy_provider}.
+          meta_description_with_common_name: Mga kalipunang naglalaman ng %{preferred_common_name} (%{scientific_name} ayon sa pag-uuri ni %{hierarchy_provider}).
+          meta_keywords: Mga Kalipunan ng %{scientific_name}, Mga Obserbasyon sa %{scientific_name}, Mga Kalipunan ng %{hierarchy_provider}, Mga Obserbasyon ni %{hierarchy_provider}, Mga Ispesimen ni %{hierarchy_provider}
+          meta_title: Mga kalipunan ng %{scientific_name} ayon sa pagkakauri ni %{hierarchy_provider}.
+        meta_description: Mga kalipunang naglalaman ng %{scientific_name}.
+        meta_description_with_common_name: Mga kalipunang naglalaman ng %{preferred_common_name} (%{scientific_name}).
+        meta_keywords: "%{scientific_name} Collections, %{scientific_name} Mga obserbasyon"
+        meta_keywords_with_common_name: "%{preferred_common_name} Mga kalipunan, %{preferred_common_name} Mga obserbasyon, %{scientific_name} Mga kalipunan, %{scientific_name} Mga obserbasyon"
+        meta_title: Mga kalipunan ng %{scientific_name}
+        meta_title_with_common_name: Mga kalipunan ng %{preferred_common_name} (%{scientific_name})
+        tweet_text: Mga kalipunan ng %{scientific_name}
+      index: 
+        meta_keywords: Pamayanan ng %{scientific_name}
+        meta_keywords_with_common_name: Pamayanan ng %{preferred_common_name}, pamayanan ng %{scientific_name}
+        meta_title: Mga taong gumigiliw sa %{scientific_name}
+        meta_title_with_common_name: Mga taong gumigiliw sa %{preferred_common_name} (%{scientific_name})
+        tweet_text: Mga taong gumigiliw sa %{scientific_name}
+    details: 
+      index: 
+        meta_description_with_common_name_with_chapter_list: Mga katotohanan patungkol sa %{preferred_common_name}, na nakikilala sa agham bilang %{scientific_name} sa Ensiklopedya ng Buhay. Nagsasama ng mga katotohanan ukol sa %{chapter_list}.
+        meta_title: Mga katotohanan patungkol sa %{scientific_name}
+        meta_title_with_common_name: Mga katotohanan patungkol sa %{preferred_common_name} (%{scientific_name})
+        tweet_text: Mga katotohanan patungkol sa %{scientific_name}
+    literature: 
+      show: 
+        hierarchy_entry: 
+          meta_title: Panulatan hinggil sa %{scientific_name} na ayon sa pagkakauri ni %{hierarchy_provider}
+          tweet_text: Panulatan hinggil sa %{scientific_name} na ayon sa pagkakauri ni %{hierarchy_provider}
+        meta_title: Mga Artikulo at mga Aklat patungkol sa %{scientific_name}
+        meta_title_with_common_name: Mga Artikulo at mga Aklat patungkol sa %{preferred_common_name} (%{scientific_name})
+        tweet_text: Mga Artikulo at mga Aklat patungkol sa %{scientific_name}
+    maps: 
+      show: 
+        meta_title: Mga mapa para sa %{scientific_name}
+        meta_title_with_common_name: Mga mapa para sa %{preferred_common_name} (%{scientific_name})
+        tweet_text: Mga mapa para sa %{scientific_name}
+    media: 
+      index: 
+        hierarchy_entry: 
+          meta_description: Mga larawan at mga bidyo ng %{scientific_name} ayon sa pagkakauri ni %{hierarchy_provider}.
+          meta_description_with_common_name: Mga larawan, pelikula at tunog ng %{preferred_common_name} na nakikilala rin bilang %{scientific_name} ayon sa pag-uuri ni %{hierarchy_provider}.
+    overviews: 
+      show: 
+        tweet_text: Kabatiran ukol sa %{scientific_name}
+  taxa_with_count: 
     one: "%{count} takson"
     other: "%{count} mga takson"
   taxon: takson
+  term_is_already_def_error: May kahulugan na ang '%{term}'
   text_summary_more_link: Basahin ang buong ipinasok
-  text_with_count:
+  text_with_count: 
     one: "%{count} Artikulo"
     other: "%{count} Mga artikulo"
+  the_new_topic_was_created: Nalikha ang isang bagong paksa.
+  the_new_user_was_created: Nalikha ang bagong tagagamit.
+  the_news_item_created: Matagumpay na nalikha ang bagay na pambalita.
+  the_news_item_updated: Matagumpay na naisapanahon ang bagay na pambalita.
+  the_suggested_page_to_direct_users_to_link: ang iminungkahing pahina na papupuntahan sa mga tagagamit
+  the_topic_was_updated: Naisapanahon na ang paksa.
+  the_user_was_updated: Naisapanahon na ang tagagamit.
+  the_user_who_performed_this_action_was_removed: Natanggal ang tagagamit na nagsagawa ng kilos na ito.
   there_are_currently_no_members_in_this_community: Pangkasalukuyang walang mga kasapi sa loob ng pamayanang ito.
+  this_cannot_be_undone_are_you_sure: Hindi na ito maipanunumbalik; nakatitiyak ka ba?
+  this_collection_has_no_managers: Walang mga tagapamahala ang kalipunang ito.
+  this_comment_was_deleted: Nabura ang punang ito.
+  this_community_has_no_endorsed_collections: Ang pamayanang ito ay hindi pa nakapagtatampok ng anumang mga kalipunan.
   this_community_has_no_focus_list: Ang pamayanang ito ay walang talaan ng pinagtutuunan.
-  threat_status_header_colon: "Katayuan ng nagbabadyang panganib mula sa IUCN:"
+  this_community_was_deleted: Ang pamayanang ito ay binura ng may-ari nito.
+  this_is_a_flat_list_of_10_million_strings: Isa itong patag na lista ng 10 milyong mga bagting - hindi ka papayagang tumingin-tingin nito
+  this_is_a_focus_collection_for_community: Ito ang pinagtutuonan ng %{community}.
+  this_is_the_breakdown_of_chapt: Ito ang kahatian ng mga kabanata, kabahaging mga kabanata at katugma nitong kategorya ng Huwaran ng Balangkas-Katangian ng Espesye.
+  this_is_the_label_that_will_be_used_for_attribution: Ito ang tatak na gagamitin para sa pagbabanggit
+  threat_status_header_colon: "Katayuan ng nagbabadyang panganib mula sa <abbr title=\"International Union for Conservation of Nature\">IUCN</abbr>:"
+  thumbnail_page_colon: "pahina ng kagyat:"
   time_ago: "%{time_passed} na ang nakalipas"
-  total_items_with_count:
+  total_items_with_count: 
     one: "%{count} bagay"
     other: "%{count} kabuuang mga bagay"
+  translation_deleted: Nabura na ang salinwika
+  translation_log: Histogram ng susi ng dalas ng I18n
+  translation_saved: Nasagip na ang salinwika
   trusted: Pinagkakatiwalaan
   twitter: Twitter
   unknown: Hindi nalalaman
   unreviewed: Hindi pa nasusuri
-  updated_community: Matagumpay na naisapanahon ang pamayanan.
+  update_language: Isapanahon ang wika
+  update_page: Isapanahon ang pahina
+  updated_community: Matagumpay ang pagsasapanahon ng pamayanan.
+  user: Tagagamit
   user_comment: Puna ng Tagagamit
+  user_no_longer_active_message: Hindi na masigla ang tagagamit na ito
+  user_submitted_text: Tekstong ipinasa ng tagagamit
   user_system_down: Humihingi kami ng paumanhin, sapagkat ang sistema ng pagpapatala ng tagagamit ay pangkasalukuyang hindi makukuha. Mangyaring subukan ulit mamaya.
+  users: 
+    new: 
+      create_user_with_eol_authentication_header: "O magbigay ng bagong mga kredensiyal:"
+      meta_title: Sumali sa EOL
+      sign_up_with_facebook_assistive: Magpatala sa EOL na ginagamit ang mga kredensiyal mong nasa Facebook.
+      sign_up_with_google_assistive: Magpatala sa EOL na ginagamit ang mga kredensiyal mong nasa Google.
+      sign_up_with_twitter_assistive: Magpatala sa EOL na ginagamit ang mga kredensiyal mong nasa Twitter.
+      sign_up_with_yahoo_assistive: Magpatala sa EOL na ginagamit ang mga kredensiyal mong nasa Yahoo.
+    newsfeeds: 
+      activity_link: gawain
+      comments: 
+        meta_description: Pakaing mga puna para sa %{user_full_name}.
+        meta_title: "%{user_full_name} Pakaing mga Puna"
+      comments_link: mga puna
+      newsfeed_link: balitang pakain
+      show: 
+        meta_description: Balita, pagsasapanahon ng gawain at mga pagpuna para sa %{user_full_name}.
+        meta_title: "%{user_full_name} Pakaing balita"
+        tweet_text: "%{user_full_name} pakaing balita"
+  users_about_me_header: Patungkol sa akin
+  users_content_partners_header: Mga kawaksi sa nilalaman
+  users_curation_header: Pagkamarapat ng tagapangasiwa
+  users_form_account_header: Akawnt mo
+  users_form_curation_header: Pagkamarapat ng tagapangasiwa
+  users_form_profile_info_header: Kabatiran sa pangmadlang balangkas-katangian
+  users_form_tip: Kailangan ang pangalan ng tagagamit para sa lahat ng mga tagagamit, ang ibang mga bagay na minarkahan bilang kailangan %{required_icon} ay maaaring maging wala para sa pangkalahatang mga tagagamit subalit kailangan para sa mga kurador.
+  users_my_info_header: Kabatiran ko
+  users_that_can_edit_this_collection: Mga tagagamit na maaaring mamahala ng kalipunang ito
   using_the_site: Paggamit Ng Sityo
-  videos_with_count:
+  validation_error: Kamalian sa Pagpapatunay
+  validation_following_fields: "Mayroong mga suliranin sa sumusunod na mga kahanayan:"
+  value: Halaga
+  value_default: (likas na katakdaan)
+  value_empty: (walang laman)
+  values: Mga halaga
+  version_1_0_uses_fields_from_the_latest_version: ang bersiyong 1.0 ay gumagamit ng mga kahanayan mula sa pinakahuling bersiyon ng pamamaraan ng %{link}
+  vetted: Nabistay na
+  video_from: bidyo mula sa
+  video_from_supplier: Bidyo mula kay %{whom}
+  video_object: Bagay ng bidyo
+  video_of: Bidyo ng
+  video_title_not_available_in_language: Hindi makukuha ang pamagat na nasa %{language}
+  videos_with_count: 
     one: "%{count} bidyo"
     other: "%{count} mga bidyo"
+  view_added_text: tingnan ang nadagdag na teksto
+  view_article_source: Tingnan ang pinagmulan ng artikulo
+  view_as_button: Baguhin ang pagtanaw
+  view_as_label: Tingnan bilang
+  view_common_activities: tingnan ang karaniwang mga gawain
+  view_common_activities_link: Tingnan ang tala ng pinaka pangkaraniwang mga gawain.
+  view_contact_us_submissions: tingnan ang mga pagpapasa sa makipag-ugnayan sa amin
+  view_curators: tingnan ang mga kurador
+  view_current_version_link: Tingnan ang pangkasalukuyang bersiyon
+  view_error_log: tingnan ang talaan ng kamalian
+  view_full_size_image: Tingnan ang larawan na buo ang sukat
+  view_harvesting_log: tingnan ang talaan ng pag-ani
+  view_image_map_source: Tingnan ang pinagmulan ng mapa
+  view_image_source: Tingnan ang pinagmulan ng larawan
+  view_in_classification: tingnan sa loob ng pag-uuri
+  view_map_source: Tingnan ang pinagmulan ng mapa
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Tingnan lamang ang mga pahinang may kahit na isang larawan o piraso ng teksto
+  view_sound_source: Tingnan ang pinagmulan ng tunog
+  view_source: Tingnan ang pinagmulan
+  view_this_hierarchy: tingnan ang hirarkiyang ito
+  view_translation_source_link: Tingnan ang pinagmulan ng salinwika
+  view_user_activity: tingnan ang gawain ng tagagamit
+  view_user_comments: tingnan ang mga pagpuna ng tagagamit
+  view_verb: Tingnan
+  view_video_source: Tingnan ang pinagmulan ng bidyo
+  view_your_curator_profile: Tingnan ang iyong balangkas-katangian ng kurador
+  visible_title: Nakikita
+  visitors: Mga panauhin
+  vivisimo: Vivisimo
+  wants_colon: "Mga nais:"
+  warning_you_are_editing_as_admin: "BABALA: ikaw ay pinapahintulutan lamang na mabago ang pahinang ito dahil sa isa kang tagapangasiwa."
+  watch_list: Bantayan ko
+  watch_list_newsfeed: Pakaing Balita ng Tala ng Binabantayan
+  web_service_base_url: Punong URl ng palingkuran ng sangkalambatan
+  web_users: Mga Tagagamit ng Sangkalambatan
+  weekly: Lingguhan
+  welcome: Maligayang pagdating
+  welcome_and_you_were_logged_out: Maligayang pagdating sa bagong EOL! Nagkaroon ng isang suliranin sa iyong lumang panglagda, kaya't inilabas ka namin. Subalit, ang dati mong kabatirang panglagda ay dapat na gumana nang muli. Paumanhin!
+  welcome_to_the_eol_administrat: Maligayang pagdating sa Kaha ng Pangasiwaan ng EOL. Pakipili ang isang tungkulin mula sa panglibot na nasa gawing kaliwa.
+  what_do_these_numbers_mean: Ano ba ang kahulugan ng mga bilang na ito?
   what_is_eol: Ano ba ang EOL?
   what_is_this_question: Ano ba ito?
+  who_registered_before: hanggang sa
+  who_registered_from: na nagparehistor mula
+  wikipedia_queue_create_successful_notice: Ang artikulong %{article} ng Wikipedia na may rebisyong %{rev}  ay ipinila para sa pagaangkat.
+  wikipedia_queue_new_page_title: Humiling ng isang pag-angkat ng isang artikulo ng Wikipedia
+  will_paginate: 
+    next_label: Kasunod &#8594;
+    page_gap: "&hellip;"
+    previous_label: "&#8592; Dati"
+  worklist: Tala ng gawain
+  xml_response: Tugon ng XML
+  yahoo: Yahoo
+  yahoo_images: Mga Larawan ng Yahoo
+  year: Taon
+  yes_answer: Oo
   you_are_an_admin_so_i_will_show_you_that_the_error_was: "Isa kang tagapangasiwa. Kaya, ipapakita ko sa iyo na ang kamalian ay ang:"
   you_are_not_authorized_to_perform_this_action: Wala kang pahintulot na isagawa ang galaw na ito.
+  you_are_viewing_this_rank_as_classified_by: "Tinitingnan mo ang this %{rank} na ito ayon sa pagkakauri ni:"
+  you_can_edit_those_later_if_ne: Mababago mo ito mamaya kung kinakailangan.
+  you_can_identify_yourself_to_eol: "Maipapakilala mo ang iyong sarili sa EOL sa pamamagitan ng pagdaragdag ng susi ng API sa mga kahilingan mo (lumagdang papasok at lumikha ng iyong susi sa loob ng iyong pahina ng mga nais):"
+  you_have_been_logged_in_as_username: Nailagda ka bilang si %{username}
+  you_have_been_logged_out: Naalis ka na sa pagkakalagda.
   you_joined_community: Matagumpay kang nakasali sa pamayanang ito.
   you_left_community: Matagumpay mong nalisan ang pamayanang ito.
+  you_removed_the_member_from_the_community: Matagumpay mong natanggal ang kasaping ito mula sa pamayanan.
   your_current_rating_0_of_5: "Ang pangkasalukuyan mong kaantasan: 0 ng 5"
   your_current_rating_1_of_5: "Ang pangkasalukuyan mong kaantasan: 1 ng 5"
   your_current_rating_2_of_5: "Ang pangkasalukuyan mong kaantasan: 2 ng 5"
   your_current_rating_3_of_5: "Ang pangkasalukuyan mong kaantasan: 3 ng 5"
   your_current_rating_4_of_5: "Ang pangkasalukuyan mong kaantasan: 4 ng 5"
   your_current_rating_5_of_5: "Ang pangkasalukuyan mong kaantasan: 5 ng 5"
+  your_email_address: Tirahan ng e-liham mo
+  your_ip_address: Ang tirahan mo ng IP
   your_preferences: Mga Nais Mo
   your_rating: Kaantasan mo
+  your_watch_collection: bantayan mo
+  youtube: YouTube
+  youtube_video: Bidyo ng YouTube

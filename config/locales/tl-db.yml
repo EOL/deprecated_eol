@@ -117,7 +117,7 @@ tl:
   translated_ranks-label-rank_id-106: porma
   translated_ranks-label-rank_id-107: porma
   translated_ranks-label-rank_id-112: sari
-  translated_ranks-label-rank_id-113: sari
+  translated_ranks-label-rank_id-113: sar.
   translated_ranks-label-rank_id-118: sari
   translated_ranks-label-rank_id-169: inpraorden
   translated_ranks-label-rank_id-175: inpraespesye
@@ -152,7 +152,19 @@ tl:
   translated_ranks-label-rank_id-494: tribo
   translated_ranks-label-rank_id-503: hindi nakaranggo
   translated_ranks-label-rank_id-51: klase
+  translated_ranks-label-rank_id-512: kasari
+  translated_ranks-label-rank_id-513: bar.
+  translated_ranks-label-rank_id-517: baryetas
+  translated_ranks-label-rank_id-518: kasari
+  translated_ranks-label-rank_id-562: notohenus
+  translated_ranks-label-rank_id-563: notoespesye
+  translated_ranks-label-rank_id-564: notosubespesye
+  translated_ranks-label-rank_id-565: notobaryedad
   translated_ranks-label-rank_id-74: kahatian
+  translated_ranks-label-rank_id-85: pamilya
+  translated_ranks-label-rank_id-86: p.
+  translated_ranks-label-rank_id-91: pamilya
+  translated_ranks-label-rank_id-92: pam.
   translated_ranks-label-rank_id-99: pamilya
   translated_resource_statuses-label-resource_status_id-1: Ikinakarga
   translated_resource_statuses-label-resource_status_id-10: Nailathala na
@@ -197,28 +209,56 @@ tl:
   translated_synonym_relations-label-synonym_relation_id-23: maling paglalapat
   translated_synonym_relations-label-synonym_relation_id-24: tinanggihang pangalan
   translated_synonym_relations-label-synonym_relation_id-25: kasingtunog (hindi marapat)
+  translated_synonym_relations-label-synonym_relation_id-26: para sa bahagi (''pro parte'')
   translated_synonym_relations-label-synonym_relation_id-27: labis na muling pagpapangalan (hindi marapat)
+  translated_synonym_relations-label-synonym_relation_id-28: nakalimutang pangalan (''nomen oblitum'')
+  translated_synonym_relations-label-synonym_relation_id-29: singkahulugang nakababata (''junior synonym'')
+  translated_synonym_relations-label-synonym_relation_id-3: akronimo
   translated_synonym_relations-label-synonym_relation_id-30: hindi makuha, artipakto ng kalipunan ng dato
   translated_synonym_relations-label-synonym_relation_id-31: hindi kailangang kapalit
   translated_synonym_relations-label-synonym_relation_id-32: kasunod na pangalan/pagsasama
   translated_synonym_relations-label-synonym_relation_id-33: hindi makuha, maling baybay ng panitikan
   translated_synonym_relations-label-synonym_relation_id-34: orihinal na pangalan/pagsasama
   translated_synonym_relations-label-synonym_relation_id-35: hindi makukuha, maling orihinal na pagbabaybay
+  translated_synonym_relations-label-synonym_relation_id-36: kabigkas na nakababata (''junior homonym'')
+  translated_synonym_relations-label-synonym_relation_id-37: homonimo at sinonimong nakababata
+  translated_synonym_relations-label-synonym_relation_id-38: hindi makukuha, pinigilan ng kapasyahan
+  translated_synonym_relations-label-synonym_relation_id-39: hindi makatuwirang pagwawasto
+  translated_synonym_relations-label-synonym_relation_id-4: anamorpo
   translated_synonym_relations-label-synonym_relation_id-40: hindi makukuha, iba pa
+  translated_synonym_relations-label-synonym_relation_id-41: hindi makukuha, hubad na pangalan (''nomen nudum'')
+  translated_synonym_relations-label-synonym_relation_id-42: pinagdududahang pangalan (''nomen dubium'')
   translated_synonym_relations-label-synonym_relation_id-43: hindi katanggap-tanggap ang pagkakalathala, iba pa
+  translated_synonym_relations-label-synonym_relation_id-44: hindi katanggap-tanggap ang pagkakalathala, pangalang hubad (''nomen nudum'')
+  translated_synonym_relations-label-synonym_relation_id-45: basyonimo (batayang pangalan, ''basionym'')
+  translated_synonym_relations-label-synonym_relation_id-46: singkahulugang heterotipiko
+  translated_synonym_relations-label-synonym_relation_id-47: singkahulugang homotipiko
   translated_synonym_relations-label-synonym_relation_id-48: pangalang hindi makuha
   translated_synonym_relations-label-synonym_relation_id-49: katanggap-tanggap na pangalan
+  translated_synonym_relations-label-synonym_relation_id-5: pangalan sa BLAST
   translated_synonym_relations-label-synonym_relation_id-50: katanggap-tanggap
   translated_synonym_relations-label-synonym_relation_id-51: tinanggap
   translated_synonym_relations-label-synonym_relation_id-52: awtoridad
   translated_synonym_relations-label-synonym_relation_id-53: hindi pa nalalathalang pangalan
+  translated_synonym_relations-label-synonym_relation_id-54: singkahulugang subhektibo
   translated_synonym_relations-label-synonym_relation_id-55: maling kabatiran sa awtoridad
   translated_synonym_relations-label-synonym_relation_id-56: maling pagbabaybay
+  translated_synonym_relations-label-synonym_relation_id-57: panghaliling pagbabaybay
+  translated_synonym_relations-label-synonym_relation_id-58: baryanteng leksikal
+  translated_synonym_relations-label-synonym_relation_id-59: singkahulugan (obhektibo = homotipiko)
   translated_synonym_relations-label-synonym_relation_id-6: katumbas na pangalan
+  translated_synonym_relations-label-synonym_relation_id-60: singkahulugan (obhektibo = heterotipiko)
+  translated_synonym_relations-label-synonym_relation_id-61: singkahulugang malayunin
+  translated_synonym_relations-label-synonym_relation_id-62: singkahulugang nakatatanda (''senior synonym'')
   translated_synonym_relations-label-synonym_relation_id-63: hindi tanggap
   translated_synonym_relations-label-synonym_relation_id-64: hindi katanggap-tanggap
+  translated_synonym_relations-label-synonym_relation_id-65: singkahulugan ng sari
   translated_synonym_relations-label-synonym_relation_id-66: kahaliling pagkakinatawan
+  translated_synonym_relations-label-synonym_relation_id-67: espesyeng sisiyasatin (''species inquirenda'')
   translated_synonym_relations-label-synonym_relation_id-68: panghortikultura
+  translated_synonym_relations-label-synonym_relation_id-7: akronimo sa GenBank
+  translated_synonym_relations-label-synonym_relation_id-8: anamorpo sa GenBank
+  translated_synonym_relations-label-synonym_relation_id-9: karaniwang pangalan sa GenBank
   translated_table_of_contents-label-table_of_contents_id-1: Pagtalakay na naglalarawan
   translated_table_of_contents-label-table_of_contents_id-13: Karaniwang mga Pangalan
   translated_table_of_contents-label-table_of_contents_id-14: IUCN
@@ -274,6 +314,7 @@ tl:
   translated_table_of_contents-label-table_of_contents_id-328: Biyolohiya ng Sihay
   translated_table_of_contents-label-table_of_contents_id-329: Henetika
   translated_table_of_contents-label-table_of_contents_id-33: Mga Kalakaran
+  translated_table_of_contents-label-table_of_contents_id-330: Mga Pangunahing Kayarian ng Nukleyotido
   translated_table_of_contents-label-table_of_contents_id-331: Baretang Kodigo
   translated_table_of_contents-label-table_of_contents_id-332: Henoma
   translated_table_of_contents-label-table_of_contents_id-333: Biyolohiyang Pangmolekula
@@ -287,6 +328,7 @@ tl:
   translated_table_of_contents-label-table_of_contents_id-340: Seryeng Panglaboratoryo sa Mataas na Paaralan
   translated_table_of_contents-label-table_of_contents_id-341: Agham ng Mamamayan
   translated_table_of_contents-label-table_of_contents_id-342: Mga kawing sa Agham ng Mamamayan
+  translated_table_of_contents-label-table_of_contents_id-343: Aklatan ng Pamana ng Biyodibersidad
   translated_table_of_contents-label-table_of_contents_id-344: Dato
   translated_table_of_contents-label-table_of_contents_id-345: Mga Pinagkukunan ng Dato
   translated_table_of_contents-label-table_of_contents_id-346: Mga Katagang Biyomediko

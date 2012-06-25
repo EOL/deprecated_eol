@@ -328,7 +328,6 @@ describe 'EOL APIs' do
   end
   
   it 'pages should return exemplar images first' do
-    # debugger
     @taxon_concept.taxon_concept_exemplar_image.should be_nil
     first_image = @taxon_concept.images_from_solr.first
     visit("/api/pages/1.0/#{@taxon_concept.id}.json?details=1&text=0&images=2&videos=0")

@@ -290,6 +290,10 @@ class DataObject < ActiveRecord::Base
         new_dato.unpublish_previous_revisions
 
         new_dato.users_data_object = users_data_object.replicate(new_dato)
+        new_vetted_id_for_cdohes = (user.min_curator_level?(:full) || user.is_admin?) ? Vetted.trusted.id : Vetted.unknown.id
+        if all_cdohe_associations = new_dato.all_curated_data_objects_hierarchy_entries
+          all_cdohe_associations.each {|cdohe_assoc| cdohe_assoc.replicate(new_vetted_id_for_cdohes)} unless all_cdohe_associations.blank?
+        end
         DataObjectsTaxonConcept.find_or_create_by_taxon_concept_id_and_data_object_id(users_data_object.taxon_concept_id, new_dato.id)
       rescue => e
         new_dato.update_attribute(:published, false)

@@ -2810,7 +2810,7 @@ fr:
   user_submitted_text_found: "Texte soumis par l'utilisateur trouvé :"
   user_system_down: Nous sommes désolés, mais le système d’enregistrement des utilisateurs n’est pas disponible actuellement.  Veuillez réessayer plus tard.
   user_was_added_as_editor_of_collection: Cet utilisiateur a été ajouté comme gestionnaire de "%{collection}".
-  username: Nom d'utilisateur
+  username: Nom d’utilisateur
   username_colon: "Nom d’utilisateur :"
   username_taken: "%{name} est déjà pris"
   users: 

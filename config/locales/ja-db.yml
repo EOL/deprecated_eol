@@ -73,7 +73,9 @@ ja:
   translated_contact_subjects-title-contact_subject_id-26: 学習と教育
   translated_contact_subjects-title-contact_subject_id-27: コンテンツパートナーになる
   translated_contact_subjects-title-contact_subject_id-28: コンテンツパートナーのサポート
+  translated_contact_subjects-title-contact_subject_id-29: キュレーターの支援
   translated_contact_subjects-title-contact_subject_id-31: 画像、ビデオ、それか音に貢献する。
+  translated_contact_subjects-title-contact_subject_id-35: 全般的なフィードバック
   translated_content_partner_statuses-label-content_partner_status_id-1: ペンディング
   translated_content_partner_statuses-label-content_partner_status_id-2: アクティブ
   translated_content_partner_statuses-label-content_partner_status_id-3: アーカイブ
@@ -120,6 +122,7 @@ ja:
   translated_ranks-label-rank_id-375: 下位区分
   translated_ranks-label-rank_id-383: 亜科
   translated_ranks-label-rank_id-390: 亜属
+  translated_ranks-label-rank_id-391: 亜属
   translated_ranks-label-rank_id-394: 亜属
   translated_ranks-label-rank_id-396: 亜界
   translated_ranks-label-rank_id-399: 亜目
@@ -267,7 +270,7 @@ ja:
   translated_table_of_contents-label-table_of_contents_id-5: 進化と系統
   translated_table_of_contents-label-table_of_contents_id-6: 人間と生態系との関連性
   translated_table_of_contents-label-table_of_contents_id-7: 参考文献および詳細情報
-  translated_table_of_contents-label-table_of_contents_id-8: 会話
+  translated_table_of_contents-label-table_of_contents_id-8: 保全
   translated_untrust_reasons-label-untrust_reason_id-1: 誤認
   translated_untrust_reasons-label-untrust_reason_id-3: 低品質
   translated_untrust_reasons-label-untrust_reason_id-4: 複製

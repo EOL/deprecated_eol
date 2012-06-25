@@ -14,7 +14,7 @@
     :style => link_style)
   - if display_curator && item.user.is_curator?
     - translation_vars[:user] = I18n.t(:user_full_name_with_curator, :user => translation_vars[:user],
-      :curator_level => item.user.curator_level.label)
+      :curator_level => item.user.curator_level.translated_label)
 - data_object_type = data_object ? 'it' : 'data_object'
 - if item.data_object.nil?
   - data_object_type = 'an_unknown_data_object'

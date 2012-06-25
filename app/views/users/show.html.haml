@@ -22,7 +22,7 @@
 
         - if @user.curator_level
           %dt= I18n.t('activerecord.attributes.user.curator_level')
-          %dd= @user.curator_level.label
+          %dd= @user.curator_level.translated_label
   .section.half
     .article
       .header

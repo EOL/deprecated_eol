@@ -325,7 +325,7 @@ private
       if all_items.count > 0
         if options[:move]
           # Not handling any weird errors here, to simplify flash notice handling.
-          remove_items(:items => all_items)
+          remove_items(:from => source, :items => all_items)
           @collection_items.delete_if {|ci| params['collection_items'].include?(ci.id.to_s) } if @collection_items && params['collection_items']
           if destinations.length == 1
             flash[:notice] = I18n.t(:moved_items_from_collection_with_count_notice, :count => all_items.count,
@@ -488,10 +488,8 @@ private
     collection_items = options[:items] || collection_items_with_scope(options.merge(:allow_all => true))
     bulk_log = params[:scope] == 'all_items'
     count = 0
-    removed_from_id = 0
     collection_items.each do |item|
       item = CollectionItem.find(item) # Sometimes, this is just an id.
-      removed_from_id = item.collection_id
       if item.update_attributes(:collection_id => nil) # Not actually destroyed, so that we can talk about it in feeds.
         item.remove_collection_item_from_solr # TODO - needed?  Or does the #after_save method handle this?
         count += 1
@@ -504,8 +502,7 @@ private
     if bulk_log
       log_activity(:activity => Activity.remove_all)
     end
-    # Recalculate the collection's relevance (quietly):
-    (col = Collection.find(removed_from_id)) && col.set_relevance
+    options[:from].set_relevance if options[:from]
     return count
   end
 

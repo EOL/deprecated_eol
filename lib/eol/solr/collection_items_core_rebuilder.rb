@@ -22,7 +22,6 @@ module EOL
       def self.reindex_collection_items_by_ids(ids)
         return if ids.empty?
         solr_api = self.connect
-        max_id = CollectionItem.last.id rescue 0
         objects_to_send = self.lookup_collection_items(ids);
         objects_to_send.each do |o|
           o['title'] = SolrAPI.text_filter(o['title']) if o['title']
@@ -53,10 +52,14 @@ module EOL
         end
       end
 
-      def self.lookup_collection_items(start, limit)
-        max = start + limit
+      def self.lookup_collection_items(start, limit = 500)
         objects_to_send = []
-        collection_items = CollectionItem.find(:all, :conditions => "id BETWEEN #{start} AND #{max}")
+        if start.class == Array
+          collection_items = CollectionItem.find_all_by_id(start)
+        else
+          max = start + limit
+          collection_items = CollectionItem.find(:all, :conditions => "id BETWEEN #{start} AND #{max}")
+        end
         self.preload_concepts_and_objects!(collection_items)
         collection_items.each do |i|
           begin
@@ -86,12 +89,15 @@ module EOL
       def self.preload_taxon_concepts!(collection_items)
         return if collection_items.blank?
         includes = { :object => [ :taxon_concept_metric,
-          { :published_hierarchy_entries => { :name => :canonical_form } } ] }
+          { :published_hierarchy_entries => { :name => :canonical_form } },
+          { :preferred_entry => 
+            { :hierarchy_entry => { :name => :canonical_form } } } ] }
         selects = {
           :taxon_concepts => 'id',
           :taxon_concept_metrics => [ :taxon_concept_id, :richness_score ],
+          :taxon_concept_preferred_entries => '*',
           :hierarchy_entries => [ :id, :name_id, :taxon_concept_id, :published, :vetted_id, :hierarchy_id ],
-          :names => [ :id, :canonical_form_id ],
+          :names => [ :id, :string, :italicized, :canonical_form_id ],
           :canonical_forms => [ :id, :string ]
         }
         CollectionItem.preload_associations(collection_items, includes, :select => selects)

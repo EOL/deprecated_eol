@@ -2078,6 +2078,7 @@ en:
     other: "Collection <em>%{collection_name}</em> successfully created with %{count} collection items."
   collection_delete_link: "Permanently delete this collection"
   collection_destroyed: "The collection was deleted."
+  collection_error_no_items_selected: "Error: no items selected, no actions were taken."
   collection_image: "Collection image"
   collection_is_empty: "This collection is currently empty."
   collection_item_edit_page_title: "Edit item in collection <em>%{collection_name}</em>"

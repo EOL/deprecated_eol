@@ -9,6 +9,7 @@ module EOL
     class MaxCollectionItemsExceeded < StandardError; end
     class MustBeLoggedIn < StandardError; end
     class NoCollectionsApply < StandardError; end
+    class NoItemsSelected < StandardError; end
     class ObjectNotFound < StandardError; end
     class OnlyUsersCanCreateCommunitiesFromCollections < StandardError; end
     class OpenAuthBadResponse < StandardError; end

@@ -442,6 +442,9 @@ private
   def remove_and_redirect
     begin
       count = remove_items(:from => @collection, :items => params[:collection_items], :scope => params[:scope])
+    rescue EOL::Exceptions::NoItemsSelected
+      flash[:error] = I18n.t(:collection_error_no_items_selected)
+      return redirect_to collection_path(@collection), :status => :moved_permanently
     rescue EOL::Exceptions::MaxCollectionItemsExceeded
       flash[:error] = I18n.t(:max_collection_items_error, :max => $MAX_COLLECTION_ITEMS_TO_MANIPULATE)
       return redirect_to collection_path(@collection), :status => :moved_permanently
@@ -492,6 +495,7 @@ private
     collection_items = options[:items] || collection_items_with_scope(options.merge(:allow_all => true))
     bulk_log = params[:scope] == 'all_items'
     count = 0
+    raise EOL::Exceptions::NoItemsSelected if collection_items.blank?
     collection_items.each do |item|
       item = CollectionItem.find(item) # Sometimes, this is just an id.
       if item.update_attributes(:collection_id => nil) # Not actually destroyed, so that we can talk about it in feeds.

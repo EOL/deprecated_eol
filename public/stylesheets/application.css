@@ -1308,14 +1308,18 @@ body > #header {
     width: 240px; }
     #content.cms_page .nav ul li a {
       border: 1px solid #cad3db;
-      margin: 0 0 1px 0; }
-    #content.cms_page .nav ul li a {
+      margin: 0 0 1px 0;
       display: block;
       font-weight: bold;
       padding: 7px 10px 6px 10px;
-      text-decoration: none; }
+      text-decoration: none;
+      color: #616e7a; }
       #content.cms_page .nav ul li a:hover {
         border-color: #93a4b0; }
+    #content.cms_page .nav ul li.active a {
+      border-color: #93a4b0;
+      background: #e2e9ef;
+      color: #394651; }
   #content.cms_page .copy {
     overflow: hidden;
     padding: 40px 40px 25px 40px;

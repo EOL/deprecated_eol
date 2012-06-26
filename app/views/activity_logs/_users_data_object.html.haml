@@ -8,7 +8,7 @@
 - if display_curator && item.user.is_curator?
   - user = I18n.t(:user_full_name_with_curator, :user => user, :curator_level => item.user.curator_level.label)
 %p= I18n.t(:activity_user_created_text, :user => user,
-  :object_name => link_to(item.summary_name, data_object_url(item.data_object), :style => link_style),
+  :object_name => link_to(item.summary_name, data_object_url(item.data_object.latest_published_revision), :style => link_style),
   :taxon_concept => link_to(item.taxon_concept.summary_name, taxon_overview_url(item.taxon_concept),
   :style => link_style))
 %blockquote{:cite => h(item.user.full_name)}

@@ -550,6 +550,11 @@ describe 'Data Object Page' do
     visit('/logout')
   end
 
+  it 'should link image on the image data object page to it\'s original version' do
+    visit("/data_objects/#{@image.id}")
+    page.body.should have_tag(".media a[href=#{@image.thumb_or_object(:orig)}]")
+  end
+
   it 'should change vetted to unreviewed and visibility to visible when self added article is edited by assistant curator/normal user'
   it 'should change vetted to trusted and visibility to visible when self added article is edited by full/master curator or admin'
 

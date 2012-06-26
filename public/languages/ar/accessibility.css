@@ -324,7 +324,7 @@ p.status.error {
   #permalink.article {
     padding: 0; }
   #permalink #sidebar .remove_association a {
-      font-size: 0.92em; }
+    font-size: 0.92em; }
   #permalink #sidebar ul.review_status p.unknown {
     border: 1px solid #677682;
     background: #8695a1; }
@@ -333,9 +333,9 @@ p.status.error {
     background: #ffeae6;
     color: #677682; }
   #permalink #sidebar ul.review_status legend {
-      font-weight: bold; }
-      #permalink #sidebar ul.review_status legend a {
-        font-size: 1.16em; }
+    font-weight: bold; }
+    #permalink #sidebar ul.review_status legend a {
+      font-size: 1.16em; }
   #permalink .media {
     float: none; }
     #permalink .media .jp-audio {
@@ -1017,9 +1017,6 @@ a.other_actions {
       font-size: 0.95em; }
     .site_column > #choose_collections ul li + li, .site_column > #choose_communities ul li + li {
       border-top: 1px solid #cad3db; }
-
-#search_results ul.object_list li {
-  white-space: nowrap; }
 
 .cms_page span.icon {
   background: #f3f7fa url("/images/v2/icon_info_tabs.png") 50% 50% no-repeat; }

@@ -11,6 +11,7 @@ class Resource < ActiveRecord::Base
   belongs_to :dwc_hierarchy, :foreign_key => 'dwc_hierarchy_id', :class_name => "Hierarchy"
   belongs_to :collection
   belongs_to :preview_collection, :class_name => Collection.to_s, :foreign_key => :preview_collection_id
+  belongs_to :peer_site
 
   has_many :harvest_events
 

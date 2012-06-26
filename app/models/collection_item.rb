@@ -5,6 +5,7 @@ class CollectionItem < ActiveRecord::Base
   belongs_to :collection, :touch => true
   belongs_to :object, :polymorphic => true
   belongs_to :added_by_user, :class_name => User.to_s, :foreign_key => :added_by_user_id
+  belongs_to :peer_site
   has_and_belongs_to_many :refs
 
   named_scope :collections, :conditions => {:object_type => 'Collection'}

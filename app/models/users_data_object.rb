@@ -11,6 +11,7 @@ class UsersDataObject < ActiveRecord::Base
   belongs_to :taxon_concept
   belongs_to :vetted
   belongs_to :visibility
+  belongs_to :peer_site
 
   delegate :created_at, :summary_name, :description_teaser, :to => :data_object
 

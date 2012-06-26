@@ -17,6 +17,7 @@ class DataObject < ActiveRecord::Base
   belongs_to :language
   belongs_to :license
   belongs_to :mime_type
+  belongs_to :peer_site
 
   # this is the DataObjectTranslation record which links this translated object
   # to the original data object
@@ -56,6 +57,7 @@ class DataObject < ActiveRecord::Base
   has_many :all_versions, :class_name => DataObject.to_s, :foreign_key => :guid, :primary_key => :guid, :select => 'id, guid, language_id'
   has_many :all_published_versions, :class_name => DataObject.to_s, :foreign_key => :guid, :primary_key => :guid, :order => "id desc",
     :conditions => 'published = 1'
+  has_many :media_download_statuses, :as => :target_row
 
   has_and_belongs_to_many :hierarchy_entries
   has_and_belongs_to_many :audiences

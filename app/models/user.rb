@@ -11,6 +11,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   belongs_to :language
   belongs_to :agent
+  belongs_to :peer_site
 
   has_many :users_data_objects_ratings
   has_many :members
@@ -29,6 +30,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   has_many :worklist_ignored_data_objects
   has_many :pending_notifications
   has_many :open_authentications, :dependent => :destroy
+  has_many :media_download_statuses, :as => :target_row
 
   has_many :content_partners
   has_one :user_info

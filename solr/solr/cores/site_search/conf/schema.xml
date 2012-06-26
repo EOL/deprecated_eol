@@ -34,6 +34,19 @@
             </analyzer>
         </fieldType>
         
+        <fieldType name="text_ar" class="solr.TextField" positionIncrementGap="100">
+            <analyzer type="index">
+                <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+                <filter class="solr.ArabicNormalizationFilterFactory"/>
+                <filter class="solr.ArabicStemFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+                <filter class="solr.ArabicNormalizationFilterFactory"/>
+                <filter class="solr.ArabicStemFilterFactory"/>
+            </analyzer>
+        </fieldType>
+        
         <!-- This is our *exact* text field, with limited tokenizers.
           Thought about whitespace tokenizer, but I think that would defeat the purpose! "Felis familiaris" would match on
           "felis", I think. Downside is, "felis familaris" won't match "felis     familiaris". -->
@@ -58,6 +71,7 @@
             <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
           </analyzer>
         </fieldType>
+        
     </types>
     
     <!-- begin schema -->
@@ -69,6 +83,8 @@
         <field name="resource_unique_key" type="string" indexed="true" stored="true" required="true"/>
         <field name="keyword_type" type="string" indexed="true" stored="true" required="true"/>
         <field name="keyword" type="text" indexed="true" stored="true" required="true" multiValued="true"/>
+        <field name="keyword_ar" type="text_ar" indexed="true" stored="true" required="true" multiValued="true"/>
+        <copyField source="keyword" dest="keyword_ar"/>
         <field name="keyword_exact" type="textExact" indexed="true" stored="false" required="true" multiValued="true"/>
         <copyField source="keyword" dest="keyword_exact"/>
         <field name="autocomplete" type="textSpell" indexed="true" stored="false" required="false" multiValued="true" />

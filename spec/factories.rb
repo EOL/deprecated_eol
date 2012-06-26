@@ -369,6 +369,7 @@ Factory.define :collection do |c|
   c.published             true
   c.special_collection_id nil
   c.association           :sort_style
+  c.peer_site_id          { $PEER_SITE_ID }
 end
 
 Factory.define :collection_activity_log do |cal|
@@ -379,9 +380,10 @@ Factory.define :collection_activity_log do |cal|
 end
 
 Factory.define :collection_item do |ci|
-  ci.association :collection
-  ci.association :object, :factory => :data_object
-  ci.created_at  { 5.minutes.ago }
+  ci.association  :collection
+  ci.association  :object, :factory => :data_object
+  ci.created_at   { 5.minutes.ago }
+  ci.peer_site_id { $PEER_SITE_ID }
 end
 
 Factory.define :collection_type do |ct|
@@ -398,18 +400,20 @@ end
 # NOTE - the Comment model has some validations on it (create/update/etc) that will fail if you don't have a loaded
 # database, so don't expect this factory to work in all situations.
 Factory.define :comment do |x|
-  x.association  :parent, :factory => :data_object
-  x.parent_type  'data_object'
-  x.body         { Faker::Lorem.paragraph }
-  x.association  :user
-  x.from_curator false
+  x.association   :parent, :factory => :data_object
+  x.parent_type   'data_object'
+  x.body          { Faker::Lorem.paragraph }
+  x.association   :user
+  x.from_curator  false
+  x.peer_site_id  { $PEER_SITE_ID }
 end
 
 Factory.define :community do |c|
-  c.name        { (Faker::Lorem.words << Factory.next(:string)).join(' ').titleize }
-  c.description { Faker::Lorem.paragraph }
-  c.published   true
-  c.after_create { |com| com.collections << Factory(:collection) }
+  c.name          { (Faker::Lorem.words << Factory.next(:string)).join(' ').titleize }
+  c.description   { Faker::Lorem.paragraph }
+  c.published     true
+  c.after_create  { |com| com.collections << Factory(:collection) }
+  c.peer_site_id  { $PEER_SITE_ID }
 end
 
 Factory.define :community_activity_log do |cal|
@@ -462,14 +466,15 @@ Factory.define :translated_topic_area do |tta|
 end
 
 Factory.define :content_partner do |cp|
-  cp.full_name                           { Factory.next(:string) }
-  cp.association                         :user
-  cp.description                         'Our Testing Content Partner'
-  cp.description_of_data                 'Civil Protection!'
-  cp.created_at                          { 5.days.ago }
-  cp.public                              true
-  cp.content_partner_status              { ContentPartnerStatus.find_by_translated(:label, 'Active') ||
-                                           ContentPartnerStatus.gen_if_not_exists(:label => 'Active') }
+  cp.full_name                            { Factory.next(:string) }
+  cp.association                          :user
+  cp.description                          'Our Testing Content Partner'
+  cp.description_of_data                  'Civil Protection!'
+  cp.created_at                           { 5.days.ago }
+  cp.public                               true
+  cp.content_partner_status               { ContentPartnerStatus.find_by_translated(:label, 'Active') ||
+                                            ContentPartnerStatus.gen_if_not_exists(:label => 'Active') }
+  cp.peer_site_id                         { $PEER_SITE_ID }
 end
 
 Factory.define :content_partner_agreement do |cpa|
@@ -540,6 +545,7 @@ Factory.define :data_object do |dato|
   dato.updated_at             { 3.days.ago }
   dato.data_rating            2.5
   dato.published              true
+  dato.peer_site_id           { $PEER_SITE_ID }
 end
 
 Factory.define :data_object_tag do |x|
@@ -727,8 +733,9 @@ Factory.define :license do |l|
 end
 
 Factory.define :member do |m|
-  m.association :user
-  m.association :community
+  m.association   :user
+  m.association   :community
+  m.peer_site_id  { $PEER_SITE_ID }
 end
 
 Factory.define :mime_type do |mt|
@@ -752,6 +759,7 @@ Factory.define :news_item do |ni|
   ni.activated_on { 2.days.ago }
   ni.association  :user
   ni.active       1
+  ni.peer_site_id { $PEER_SITE_ID }
 end
 
 Factory.define :changeable_object_type do |ot|
@@ -814,20 +822,21 @@ Factory.define :ref_identifier_type do |rit|
 end
 
 Factory.define :resource do |r|
-  r.auto_publish    false
-  r.title           'Testing Resource'
-  r.subject         'Test Resource Subject'
-  r.license         { License.find_by_title('cc-by 3.0') ||
-                      License.gen_if_not_exists(:title => 'cc-by 3.0',
+  r.auto_publish          false
+  r.title                 'Testing Resource'
+  r.subject               'Test Resource Subject'
+  r.license               { License.find_by_title('cc-by 3.0') ||
+                            License.gen_if_not_exists(:title => 'cc-by 3.0',
                                         :description => 'Some rights reserved',
                                         :source_url => 'http://creativecommons.org/licenses/by/3.0/',
                                         :logo_url => '/images/licenses/cc_by_small.png') }
-  r.resource_status { ResourceStatus.processed || ResourceStatus.gen_if_not_exists(:label => 'Processed') }
-  r.accesspoint_url 'http://services.eol.org/eol_php_code/tests/fixtures/files/test_resource.xml' # Won't work without a real, live URL for an XML file
-  r.refresh_period_hours 0
-  r.resource_created_at 48.hours.ago
-  r.association :hierarchy
-  r.association :content_partner
+  r.resource_status       { ResourceStatus.processed || ResourceStatus.gen_if_not_exists(:label => 'Processed') }
+  r.accesspoint_url       'http://services.eol.org/eol_php_code/tests/fixtures/files/test_resource.xml' # Won't work without a real, live URL for an XML file
+  r.refresh_period_hours  0
+  r.resource_created_at   48.hours.ago
+  r.association           :hierarchy
+  r.association           :content_partner
+  r.peer_site_id          { $PEER_SITE_ID }
 end
 
 Factory.define :resource_status do |rs|
@@ -1118,6 +1127,7 @@ Factory.define :user do |u|
   u.recover_account_token      nil
   u.recover_account_token_expires_at  nil
   u.curator_level_id          nil
+  u.peer_site_id              { $PEER_SITE_ID }
 end
 
 Factory.define :user_activity_log do |al|
@@ -1129,8 +1139,9 @@ Factory.define :user_activity_log do |al|
 end
 
 Factory.define :users_data_object do |u|
-  u.association :data_object
-  u.association :user
+  u.association   :data_object
+  u.association   :user
+  u.peer_site_id  { $PEER_SITE_ID }
 end
 
 Factory.define :user_info do |ui|

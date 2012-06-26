@@ -32,7 +32,7 @@
             - item = item.translations[0].data_object
           - item_status_class, item_status_label = item.status_class_and_label_by_taxon_concept(@taxon_concept)
           - en_type = en_type(item)
-          %li{:class => "#{index.modulo(4) == 0 ? 'first' : nil} #{en_type}".strip}
+          %li{:class => [index.modulo(4) == 0 ? 'first' : nil, en_type, item.has_thumbnail? ? nil : 'no_thumbnail'].compact.join(' ')}
             .figure
               - if en_type == 'image_map' # dato is image map and so uses image partial
                 = render :partial => "data_objects/data_object_image",

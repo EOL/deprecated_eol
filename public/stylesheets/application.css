@@ -2980,6 +2980,8 @@ ul.content_partner_contacts li {
       padding: 10px;
       font-weight: bold;
       background: transparent url("/images/v2/bg_exemplar.png") repeat; }
+  #media_list ul.media > li.no_thumbnail .figure {
+    cursor: default; }
   #media_list ul.media > li.inappropriate .figure .overlay {
     background: transparent url("/images/v2/bg_media-inappropriate.png") 50% 0 no-repeat; }
   #media_list ul.media > li.inappropriate .figure img {

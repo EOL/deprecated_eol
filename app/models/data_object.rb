@@ -564,6 +564,10 @@ class DataObject < ActiveRecord::Base
     false
   end
 
+  def has_thumbnail?
+    ((is_video? || is_sound?) && thumbnail_cache_url?) || (is_image? && object_cache_url?)
+  end
+
   def thumb_or_object(size = '580_360', specified_content_host = nil)
     if self.is_video? || self.is_sound?
       return DataObject.image_cache_path(thumbnail_cache_url, size, specified_content_host)

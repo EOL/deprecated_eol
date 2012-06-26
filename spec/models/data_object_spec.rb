@@ -165,13 +165,52 @@ describe DataObject do
   end
 
   it 'should return true if this is an image' do
-    @dato = DataObject.gen(:data_type_id => DataType.image_type_ids.first)
-    @dato.image?.should be_true
+    dato = DataObject.gen(:data_type_id => DataType.image_type_ids.first)
+    dato.image?.should be_true
   end
 
   it 'should return false if this is NOT an image' do
-    @dato = DataObject.gen(:data_type_id => DataType.image_type_ids.sort.last + 1) # Clever girl...
-    @dato.image?.should_not be_true
+    dato = DataObject.gen(:data_type_id => DataType.image_type_ids.sort.last + 1) # Clever girl...
+    dato.image?.should_not be_true
+  end
+
+  describe '#has_thumbnail?' do
+    it 'should return true when an image, video or sound object has a thumbnail image' do
+      dato = @dato.dup
+      [DataType.sound, DataType.video].each do |type|
+        dato.data_type = type
+        dato.object_cache_url = 0
+        dato.thumbnail_cache_url = 123
+        dato.has_thumbnail?.should be_true
+      end
+      [DataType.image].each do |type|
+        dato.data_type = type
+        dato.object_cache_url = 123
+        dato.thumbnail_cache_url = 0
+        dato.has_thumbnail?.should be_true
+      end
+    end
+    it 'should return false when an image, video or sound object does not have a thumbnail image' do
+      dato = @dato.dup
+      [DataType.sound, DataType.video].each do |type|
+        dato.data_type = type
+        dato.object_cache_url = 123
+        dato.thumbnail_cache_url = 0
+        dato.has_thumbnail?.should be_false
+      end
+
+      dato.data_type = DataType.image
+      dato.object_cache_url = 0
+      dato.thumbnail_cache_url = 123
+      dato.has_thumbnail?.should be_false
+    end
+    it 'should return false when the object is text' do
+      dato = @dato.dup
+      dato.data_type = DataType.text
+      dato.object_cache_url = 123
+      dato.thumbnail_cache_url = 123
+      dato.has_thumbnail?.should be_false
+    end
   end
 
   it 'should use object_url if non-flash' do

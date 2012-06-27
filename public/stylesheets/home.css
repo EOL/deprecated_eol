@@ -510,7 +510,19 @@ body {
       background: transparent url("/images/v2/bg_home_thumbnails.png") repeat;
       background: rgba(255, 255, 255, 0.5); }
       body > #header .thumbnails .term {
-        border-bottom-color: white; }
+        border-bottom-color: white;
+        padding: 0px; }
+        body > #header .thumbnails .term .site_column, body > #header .thumbnails .term .section, body > #header .thumbnails .term body > #footer .section, body > #footer body > #header .thumbnails .term .section, body > #header .thumbnails .term ul, body > #header .thumbnails .term #content .section, #content body > #header .thumbnails .term .section {
+          height: 25px; }
+        body > #header .thumbnails .term p .scientific {
+          display: block;
+          font-weight: normal;
+          font-style: italic;
+          letter-spacing: 0.8px; }
+        body > #header .thumbnails .term p .common {
+          display: block;
+          font-weight: bold;
+          letter-spacing: 0.4px; }
 
 #content {
   overflow: hidden;

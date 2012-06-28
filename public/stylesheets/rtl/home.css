@@ -42,7 +42,7 @@ html {
 a {
   color: #195184; }
 
-.site_column, body > #header .section, body > #footer .section, .thumbnails ul, #content .section {
+.site_column, body > #header .section, body > #footer .section .wrapper, .thumbnails ul, #content .section {
   width: 940px;
   margin: 0 auto; }
 
@@ -200,86 +200,105 @@ body > #header form {
       background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fefeff), to(#ccd2d7)); }
 body > #footer {
   overflow: hidden;
-  padding: 0 0 30px 0;
-  background: #394651; }
+  padding: 30px 0;
+  background: #28333c; }
   body > #footer .section {
-    padding: 0; }
-  body > #footer .copyright {
-    float: right;
-    padding: 20px 0 0 0;
-    text-align: center; }
-    body > #footer .copyright h6 {
-      padding: 0 0 5px 0; }
-      body > #footer .copyright h6 a {
-        display: block;
-        width: 41px;
-        height: 18px;
-        text-indent: -8685px;
-        text-decoration: none;
-        overflow: hidden;
-        background: transparent url("/images/v2/logo_footer.png") 0 0 no-repeat; }
-    body > #footer .copyright p {
-      font-size: 0.83em;
-      font-weight: bold;
-      color: #6f7e8b; }
-  body > #footer .disclaimer {
-    color: white;
-    background: #566572;
-    padding: 10px 20px;
-    font-size: 0.92em;
-    color: #f0f4f7;
-    line-height: 140%;
-    text-align: center; }
-  body > #footer .global_navigation {
-    margin-right: 50px;
-    clear: none;
-    padding: 20px; }
-    body > #footer .global_navigation ul.nav {
-      line-height: 160%;
-      float: left; }
-      body > #footer .global_navigation ul.nav li {
-        display: inline;
-        padding: 0 7px 0 0;
-        text-transform: uppercase; }
-        body > #footer .global_navigation ul.nav li:before {
-          padding: 0 0 0 7px;
-          font-size: 1.33em;
-          vertical-align: -2px;
-          content: "•";
-          list-style: disc;
-          color: #6f7e8b; }
-        body > #footer .global_navigation ul.nav li:first-of-type {
-          padding-right: 0; }
-          body > #footer .global_navigation ul.nav li:first-of-type:before {
-            display: none; }
-        body > #footer .global_navigation ul.nav li a {
+    background: #394651;
+    border-top: 1px solid #3e4b56;
+    border-bottom: 1px solid #3e4b56;
+    width: 100%;
+    float: right; }
+    body > #footer .section .wrapper {
+      padding: 0;
+      margin-top: -30px; }
+      body > #footer .section .wrapper > div {
+        float: right;
+        margin: 0 0 20px 0; }
+        body > #footer .section .wrapper > div > h6 {
           color: white;
-          text-decoration: none; }
-  body > #footer ul.social_media {
-    clear: both;
-    float: left; }
-    body > #footer ul.social_media li {
-      float: left;
-      padding: 0 10px 0 0; }
-      body > #footer ul.social_media li a {
-        display: block;
-        width: 25px;
-        height: 25px;
-        text-indent: -8685px;
-        text-decoration: none;
-        overflow: hidden;
-        background: transparent url("/images/v2/icon_social-media.png") 0 0 no-repeat;
-        border: 1px solid #28323a; }
-        body > #footer ul.social_media li a.rss {
-          background-position: right -25px; }
-        body > #footer ul.social_media li a.facebook {
-          background-position: right -50px; }
-        body > #footer ul.social_media li a.tumblr {
-          background-position: right -75px; }
-        body > #footer ul.social_media li a.flickr {
-          background-position: right -100px; }
-        body > #footer ul.social_media li a.youtube {
-          background-position: right -125px; }
+          text-transform: uppercase;
+          margin: 0 20px 0 0;
+          line-height: 30px; }
+        body > #footer .section .wrapper > div > ul {
+          border: 1px solid #414c55;
+          background: #323f49;
+          padding: 10px 20px;
+          border-top: none;
+          margin-left: 10px; }
+          body > #footer .section .wrapper > div > ul > li a {
+            font-weight: bold;
+            text-decoration: none;
+            color: #b2c1cf;
+            display: block;
+            line-height: 20px; }
+            body > #footer .section .wrapper > div > ul > li a:hover {
+              color: white;
+              text-decoration: underline; }
+        body > #footer .section .wrapper > div.learn_more {
+          margin-left: 10px; }
+          body > #footer .section .wrapper > div.learn_more > ul {
+            overflow: hidden;
+            margin: 0 0 10px 0; }
+            body > #footer .section .wrapper > div.learn_more > ul > li {
+              float: right; }
+              body > #footer .section .wrapper > div.learn_more > ul > li a {
+                color: #e79689; }
+              body > #footer .section .wrapper > div.learn_more > ul > li + li {
+                margin-right: 30px; }
+                body > #footer .section .wrapper > div.learn_more > ul > li + li a {
+                  color: #e9e86f; }
+                body > #footer .section .wrapper > div.learn_more > ul > li + li + li a {
+                  color: #b1e19c; }
+                body > #footer .section .wrapper > div.learn_more > ul > li + li + li + li a {
+                  color: #7bb6e9; }
+          body > #footer .section .wrapper > div.learn_more .version {
+            clear: both;
+            border: 1px solid #414c55;
+            background: #323f49;
+            padding: 10px 20px;
+            font-weight: bold;
+            font-size: 10px;
+            color: #6f7e8b;
+            line-height: 18px; }
+            body > #footer .section .wrapper > div.learn_more .version a {
+              display: block;
+              float: right;
+              width: 41px;
+              height: 18px;
+              text-indent: 8685px;
+              overflow: hidden;
+              background: transparent url("/images/v2/logo_footer.png") 0 0 no-repeat;
+              margin: 0 0 0 30px; }
+        body > #footer .section .wrapper > div.questions {
+          float: none;
+          overflow: hidden; }
+          body > #footer .section .wrapper > div.questions ul {
+            overflow: hidden; }
+          body > #footer .section .wrapper > div.questions ul.social_media {
+            float: left;
+            margin: 0;
+            padding: 10px 10px 0 0;
+            background: none;
+            border: none; }
+            body > #footer .section .wrapper > div.questions ul.social_media li a {
+              display: block;
+              width: 25px;
+              height: 25px;
+              margin: 0 0 10px 0;
+              text-indent: -8685px;
+              overflow: hidden;
+              background: transparent url("/images/v2/icon_social-media.png") 0 0 no-repeat;
+              border: 1px solid #28323a; }
+              body > #footer .section .wrapper > div.questions ul.social_media li a.rss {
+                background-position: right -25px; }
+              body > #footer .section .wrapper > div.questions ul.social_media li a.facebook {
+                background-position: right -50px; }
+              body > #footer .section .wrapper > div.questions ul.social_media li a.tumblr {
+                background-position: right -75px; }
+              body > #footer .section .wrapper > div.questions ul.social_media li a.flickr {
+                background-position: right -100px; }
+              body > #footer .section .wrapper > div.questions ul.social_media li a.youtube {
+                background-position: right -125px; }
 
 .thumbnails {
   padding: 10px 0 0 0;
@@ -314,7 +333,7 @@ body > #footer {
     border-top: 1px solid white;
     border-bottom: 1px solid #93a4b0;
     background: #e5e8eb; }
-    .thumbnails .term .site_column, .thumbnails .term body > #header .section, body > #header .thumbnails .term .section, .thumbnails .term body > #footer .section, body > #footer .thumbnails .term .section, .thumbnails .term ul, .thumbnails .term #content .section, #content .thumbnails .term .section {
+    .thumbnails .term .site_column, .thumbnails .term body > #header .section, body > #header .thumbnails .term .section, .thumbnails .term body > #footer .section .wrapper, body > #footer .section .thumbnails .term .wrapper, .thumbnails .term ul, .thumbnails .term #content .section, #content .thumbnails .term .section {
       width: 960px;
       padding: 0; }
     .thumbnails .term p {
@@ -523,140 +542,157 @@ body {
   overflow: hidden;
   background: white; }
   #content .section {
-    padding: 30px 0 0 10px; }
+    padding: 30px 10px; }
     #content .section h3 {
-      padding: 0 40px 15px 0;
+      padding: 0 20px 15px 0;
       font-size: 1.33em; }
-    #content .section .stats {
-      float: right;
-      width: 520px;
-      padding: 0 0 0 40px; }
-      #content .section .stats li {
-        clear: both;
-        overflow: hidden;
-        padding: 10px 40px 10px 20px;
-        border-top: 1px solid #e5e8eb; }
-        #content .section .stats li > a {
-          float: right;
-          margin: 20px 0 0 0; }
-        #content .section .stats li dl {
-          float: right;
-          width: 175px;
-          padding: 3px 100px 3px 10px;
-          background: right 50% no-repeat transparent; }
-        #content .section .stats li dd {
-          font-size: 2.5em; }
-        #content .section .stats li dt {
-          font-size: 1.1em;
-          font-weight: bold;
-          color: #394651; }
-        #content .section .stats li.taxon dl {
-          background-image: url("/images/v2/icon_taxon.png"); }
-        #content .section .stats li.users dl {
-          background-image: url("/images/v2/icon_user.png"); }
-        #content .section .stats li.collections dl {
-          background-image: url("/images/v2/icon_collections.png"); }
-        #content .section .stats li.images dl {
-          background-image: url("/images/v2/icon_images.png"); }
-        #content .section .stats li.partners dl {
-          background-image: url("/images/v2/icon_partners.png"); }
-        #content .section .stats li.communities dl {
-          background-image: url("/images/v2/icon_community.png"); }
+    #content .section .news,
     #content .section .community {
-      float: left;
-      width: 380px;
       margin: 0 0 20px 0; }
+      #content .section .news h3,
       #content .section .community h3 {
         position: relative;
         border-bottom: 1px solid #e5e8eb; }
+        #content .section .news h3 > small,
         #content .section .community h3 > small {
           position: absolute;
           left: 10px;
           top: 1px; }
+      #content .section .news > ul,
       #content .section .community > ul {
-        padding: 20px 40px 10px 0;
-        border-bottom: 1px solid #e5e8eb; }
+        padding: 20px 20px 10px 20px; }
+        #content .section .news > ul > li,
         #content .section .community > ul > li {
-          overflow: hidden;
-          padding: 0 0 10px 0; }
-          #content .section .community > ul > li img {
-            float: right;
-            margin: 0 0 0 10px;
-            max-width: 48px;
-            max-height: 48px;
-            width: expression(this.width > 48 ? "48px" : true);
-            height: expression(this.height > 48 ? "48px" : true); }
-          #content .section .community > ul > li .details {
-            overflow: hidden;
-            padding: 3px 0 0 0; }
+          margin: 0 0 15px 0; }
+          #content .section .news > ul > li p,
           #content .section .community > ul > li p {
             line-height: 140%; }
+            #content .section .news > ul > li p.meta,
             #content .section .community > ul > li p.meta {
               font-size: 0.83em;
               font-weight: bold;
               text-transform: uppercase;
               color: #82919e; }
-          #content .section .community > ul > li ul.actions li {
-            display: inline-block;
-            font-size: 0.9em;
+    #content .section .news {
+      float: right;
+      width: 520px; }
+      #content .section .news ul li a {
+        color: inherit;
+        text-decoration: none; }
+        #content .section .news ul li a:hover {
+          color: #195184;
+          text-decoration: underline; }
+    #content .section .stats {
+      clear: both; }
+      #content .section .stats ul {
+        border-top: 1px solid #e5e8eb;
+        border-bottom: 1px solid #e5e8eb;
+        overflow: hidden; }
+        #content .section .stats ul li {
+          float: right;
+          width: 155px;
+          padding: 10px 0;
+          margin: 5px 0;
+          text-align: center; }
+          #content .section .stats ul li + li {
+            border-right: 1px solid #e5e8eb; }
+          #content .section .stats ul li dl {
+            padding-top: 65px;
+            background-repeat: no-repeat;
+            background-position: top center; }
+            #content .section .stats ul li dl dt {
+              font-size: 0.92em; }
+            #content .section .stats ul li dl dd {
+              font-size: 1.16em; }
+          #content .section .stats ul li.taxon dl {
+            background-image: url("/images/v2/icon_taxon.png"); }
+          #content .section .stats ul li.users dl {
+            background-image: url("/images/v2/icon_user.png"); }
+          #content .section .stats ul li.collections dl {
+            background-image: url("/images/v2/icon_collections.png"); }
+          #content .section .stats ul li.images dl {
+            background-image: url("/images/v2/icon_images.png"); }
+          #content .section .stats ul li.partners dl {
+            background-image: url("/images/v2/icon_partners.png"); }
+          #content .section .stats ul li.communities dl {
+            background-image: url("/images/v2/icon_community.png"); }
+    #content .section .community {
+      float: left;
+      width: 380px; }
+      #content .section .community > ul > li {
+        overflow: hidden;
+        margin: 0 0 10px 0; }
+        #content .section .community > ul > li img {
+          float: right;
+          margin: 0 0 0 10px;
+          max-width: 48px;
+          max-height: 48px;
+          width: expression(this.width > 48 ? "48px" : true);
+          height: expression(this.height > 48 ? "48px" : true); }
+        #content .section .community > ul > li .details {
+          overflow: hidden;
+          padding: 3px 0 0 0; }
+        #content .section .community > ul > li ul.actions li {
+          display: inline-block;
+          font-size: 0.9em;
+          font-weight: bold;
+          text-transform: lowercase; }
+          #content .section .community > ul > li ul.actions li a {
+            padding: 3px 0 3px 5px;
+            margin: 0 0 0 5px; }
+          #content .section .community > ul > li ul.actions li input[type="submit"] {
+            background: none;
+            border: none;
             font-weight: bold;
-            text-transform: lowercase; }
-            #content .section .community > ul > li ul.actions li a {
-              padding: 3px 0 3px 5px;
-              margin: 0 0 0 5px; }
-            #content .section .community > ul > li ul.actions li input[type="submit"] {
-              background: none;
-              border: none;
-              font-weight: bold;
-              color: #195184;
-              text-decoration: underline;
-              cursor: pointer;
-              padding: 3px 0 3px 5px;
-              margin: 0 0 0 5px; }
-          #content .section .community > ul > li form.edit_comment {
-            margin: 10px 0; }
-            #content .section .community > ul > li form.edit_comment label {
-              display: block;
-              font-weight: bold; }
-            #content .section .community > ul > li form.edit_comment textarea {
-              width: 300px;
-              height: 60px;
-              padding: 8px;
-              font: normal 1em Helvetica, Arial, sans-serif;
-              color: #394651;
-              border: 1px solid #cad3db;
-              background-color: white;
-              filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
-              background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
-              background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white));
-              margin: 3px 0 5px 0; }
-            #content .section .community > ul > li form.edit_comment input[type="submit"] {
-              padding: 5px 10px 6px 10px;
-              overflow: visible;
-              font: bold 1.08em Helvetica, Arial, sans-serif;
-              color: #394651;
-              text-transform: lowercase;
-              text-decoration: none;
-              border: 1px solid #c6ccd0;
-              -moz-border-radius: 3px;
-              border-radius: 3px;
+            color: #195184;
+            text-decoration: underline;
+            cursor: pointer;
+            padding: 3px 0 3px 5px;
+            margin: 0 0 0 5px; }
+        #content .section .community > ul > li form.edit_comment {
+          margin: 10px 0; }
+          #content .section .community > ul > li form.edit_comment label {
+            display: block;
+            font-weight: bold; }
+          #content .section .community > ul > li form.edit_comment textarea {
+            width: 300px;
+            height: 60px;
+            padding: 8px;
+            font: normal 1em Helvetica, Arial, sans-serif;
+            color: #394651;
+            border: 1px solid #cad3db;
+            background-color: white;
+            filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
+            background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
+            background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white));
+            margin: 3px 0 5px 0; }
+          #content .section .community > ul > li form.edit_comment input[type="submit"] {
+            padding: 5px 10px 6px 10px;
+            overflow: visible;
+            font: bold 1.08em Helvetica, Arial, sans-serif;
+            color: #394651;
+            text-transform: lowercase;
+            text-decoration: none;
+            border: 1px solid #c6ccd0;
+            -moz-border-radius: 3px;
+            border-radius: 3px;
+            background-color: #d7dde1;
+            filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=white, endColorstr=#d7dde1);
+            background-image: -moz-linear-gradient(100% 100% 90deg, #d7dde1, white);
+            background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#d7dde1));
+            cursor: pointer;
+            font-size: 0.9em;
+            margin-left: 10px; }
+            #content .section .community > ul > li form.edit_comment input[type="submit"]:hover {
+              background-color: #e6eef4;
+              filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=white, endColorstr=#e6eef4);
+              background-image: -moz-linear-gradient(100% 100% 90deg, #e6eef4, white);
+              background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#e6eef4)); }
+            #content .section .community > ul > li form.edit_comment input[type="submit"]:active {
               background-color: #d7dde1;
               filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=white, endColorstr=#d7dde1);
               background-image: -moz-linear-gradient(100% 100% 90deg, #d7dde1, white);
-              background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#d7dde1));
-              cursor: pointer;
-              font-size: 0.9em;
-              margin-right: 10px; }
-              #content .section .community > ul > li form.edit_comment input[type="submit"]:hover {
-                background-color: #e6eef4;
-                filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=white, endColorstr=#e6eef4);
-                background-image: -moz-linear-gradient(100% 100% 90deg, #e6eef4, white);
-                background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#e6eef4)); }
-              #content .section .community > ul > li form.edit_comment input[type="submit"]:active {
-                background-color: #d7dde1;
-                filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=white, endColorstr=#d7dde1);
-                background-image: -moz-linear-gradient(100% 100% 90deg, #d7dde1, white);
-                background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#d7dde1)); }
+              background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#d7dde1)); }
     #content .section .session {
       float: left;
       clear: left;

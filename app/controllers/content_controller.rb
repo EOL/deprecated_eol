@@ -23,6 +23,10 @@ class ContentController < ApplicationController
     @home_page = true
     @explore_taxa = safely_shuffle(RandomHierarchyImage.random_set_cached)
     @rich_pages_path = language_dependent_collection_path
+    # FIXME: Faked news for integrating new view, it should be rewritten properly
+    # e.g. should be latest news, active news, optimized query, know about translations
+    # i.e. NewsItem versus TranslateNewsitem etc
+    @news = TranslatedNewsItem.find_all_by_language_id(current_language.id, :order => 'id DESC', :limit => 10)
     current_user.log_activity(:viewed_home_page)
     periodically_recalculate_homepage_parts
   end

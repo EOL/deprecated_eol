@@ -102,22 +102,7 @@
           = yield :main
 
     #footer{ :role => "contentinfo" }
-      .section
-        %h2.assistive= I18n.t(:site_information)
-        .copyright
-          %h6= link_to I18n.t(:encyclopedia_of_life), root_url
-          - full_version = ENV["APP_VERSION"].blank? ? I18n.t(:development_version_name) : ENV["APP_VERSION"]
-          %p{ :title => I18n.t(:application_version_advisory_information), :data_data => full_version }
-            v. 2.0
-        = render :partial => '/layouts/v2/global_navigation', :locals => { :position => :footer }
-        %ul.social_media
-          - # TODO: add rss ?
-          %li= link_to I18n.t(:twitter), $EOL_TWITTER_ACCOUNT, :class => "twitter", :rel => :nofollow
-          %li= link_to I18n.t(:facebook), $EOL_FACEBOOK_ACCOUNT, :class => "facebook", :rel => :nofollow
-          %li= link_to I18n.t(:tumblr), $EOL_TUMBLR_ACCOUNT, :class => "tumblr", :rel => :nofollow
-          %li= link_to I18n.t(:flickr), $EOL_FLICKR_ACCOUNT, :class => "flickr", :rel => :nofollow
-          %li= link_to I18n.t(:youtube), $EOL_YOUTUBE_ACCOUNT, :class => "youtube", :rel => :nofollow
-
+      = render :partial => '/layouts/v2/footer'
       = yield :footer
     = javascript_include_merged 'head.load.min'
     - if $GOOGLE_ANALYTICS_ID && $ENABLE_ANALYTICS

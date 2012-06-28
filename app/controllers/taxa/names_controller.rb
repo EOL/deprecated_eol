@@ -9,12 +9,7 @@ class Taxa::NamesController < TaxaController
 
   def index
     @confirm_split_or_merge = params[:confirm] # NOTE - this is pulled from curated_taxon_concept_preferred_entries
-    # NOTE - the following are all params passed from the CuratedTaxonConceptPreferredEntriesController. Yeesh.
     @pending = true if params[:pending]
-    @providers_match = params[:providers_match]
-    @exemplar = params[:exemplar]
-    @additional_confirm = params[:additional_confirm]
-    @move_to = params[:move_to]
     session[:split_hierarchy_entry_id] = params[:split_hierarchy_entry_id] if params[:split_hierarchy_entry_id]
     params[:all] = 1 if session[:split_hierarchy_entry_id] && !session[:split_hierarchy_entry_id].blank?
     if params[:all]
@@ -72,6 +67,11 @@ class Taxa::NamesController < TaxaController
         @taxon_concept.add_common_name_synonym(name.string, :agent => current_user.agent, :language => language, :preferred => 1, :vetted => Vetted.trusted)
         expire_taxa([@taxon_concept.id])
       end
+      current_user.log_activity(:updated_common_names, :taxon_concept_id => @taxon_concept.id)
+    end
+    if !params[:hierarchy_entry_id].blank?
+      redirect_to common_names_taxon_hierarchy_entry_names_path(@taxon_concept, params[:hierarchy_entry_id]), :status => :moved_permanently
+    else
       current_user.log_activity(:updated_common_names, :taxon_concept_id => @taxon_concept.id)
     end
     if !params[:hierarchy_entry_id].blank?
@@ -151,11 +151,6 @@ class Taxa::NamesController < TaxaController
     end
 
     respond_to do |format|
-      format.html do
-        if !params[:hierarchy_entry_id].blank?
-          redirect_to common_names_taxon_hierarchy_entry_names_path(@taxon_concept, params[:hierarchy_entry_id]), :status => :moved_permanently
-        else
-          redirect_to common_names_taxon_names_path(@taxon_concept), :status => :moved_permanently
         end
       end
       format.js do

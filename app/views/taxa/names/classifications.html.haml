@@ -35,9 +35,25 @@
           %p= I18n.t(:classification_split_warning)
           %p= I18n.t(:classification_button_help)
       - form_tag curated_taxon_concept_preferred_entries_path do
-        = hidden_field_tag 'taxon_concept_id', @taxon_concept.id
+        = hidden_field_tag 'taxon_concept_id', @move_to || @taxon_concept.id
         - if @confirm_split_or_merge
           = hidden_field_tag 'confirm', @confirm_split_or_merge
+        - if @additional_confirm # NOTE = grr, this is getting ugly. :| But they have already confirmed partner merge:
+          = hidden_field_tag('additional_confirm', 1)
+        - if @providers_match
+          %div.help_text.warning
+            %p
+              = I18n.t(:classifications_merge_providers_match_warning, :provider => hierarchy_entry_display_attribution(HierarchyEntry.find(@providers_match), :show_rank => false, :show_link => false))
+            - if @exemplar # NOTE - this means they (somehow) got past the first step... give them buttons:
+              = hidden_field_tag('additional_confirm', 1)
+              = hidden_field_tag("exemplar_#{@exemplar}", 1) # NOTE - simulates re-pressing that button...
+            - else # NOTE - they were stopped just after pressing 'merge'... give them a checkbox.
+              %p
+                = check_box_tag('additional_confirm', 'additional_confirm', false)
+                = I18n.t(:classifications_merge_providers_match_confirm)
+            %ul
+              %li= submit_tag(I18n.t(:merge_data).downcase, :name => 'merge')
+              %li= submit_tag(I18n.t(:cancel_split).downcase, :name => 'cancel_split')
         - if allow_more_splits
           - unless @other_hierarchy_entries.empty?
             #split_warning
@@ -50,22 +66,6 @@
               - if can_curate && ! @confirm_split_or_merge
                 %th= I18n.t(:classifications_preferred_column_header)
               - if @confirm_split_or_merge
-                %th= I18n.t(:classifications_exemplar_column_header)
-              - elsif allow_more_splits
-                %th{:class => 'check_all'}= I18n.t(:classifications_split_column_header)
-              %th= I18n.t(:classifications_recognized_by_column_header)
-              %th= I18n.t(:classifications_rank_column_header)
-              %th= I18n.t(:classifications_hierarchy_column_header)
-          %tbody
-            - @hierarchy_entries.each do |hierarchy_entry|
-              - splitting = false
-              - if allow_more_splits
-                - if session[:split_hierarchy_entry_id] && session[:split_hierarchy_entry_id].include?(hierarchy_entry.id.to_s)
-                  - splitting = true
-                  - stored_entries_on_this_page = true
-              - unless splitting
-                %tr
-                  - preferred = @taxon_concept.uses_preferred_entry?(hierarchy_entry)
                 %th= I18n.t(:classifications_exemplar_column_header)
               - elsif allow_more_splits
                 %th{:class => 'check_all'}= I18n.t(:classifications_split_column_header)
@@ -123,6 +123,22 @@
                         %th= I18n.t(:remove)
                     %tbody
                       - Array(session[:split_hierarchy_entry_id]).each do |he_id_s|
+                        - hierarchy_entry = HierarchyEntry.find(he_id_s) # TODO - load data properly
+                        %tr 
+                          %td
+                            %strong
+                              = hierarchy_entry_display_attribution(hierarchy_entry, :show_rank => false, :show_link => true)
+                          %td.rank
+                            - if hierarchy_entry.rank
+                              = hierarchy_entry.rank_label
+                          %td.browsable.classifications
+                            %ul= render(:partial => 'taxa/trees/show', :locals => {:in_hierarchy => true, :hierarchy_entry => hierarchy_entry, :link_to_taxa => true, :show_siblings => true})
+                          %td
+                            = submit_tag(I18n.t(:remove).downcase, :name => "remove_#{hierarchy_entry.id}")
+                - unless @confirm_split_or_merge || stored_entries_on_this_page
+                  %li= submit_tag(I18n.t(:merge_data).downcase, :name => 'merge')
+                %li= submit_tag(I18n.t(:cancel_split).downcase, :name => 'cancel_split')
+              - unless @confirm_split_or_merge
                 %li= submit_tag(I18n.t(:split_into_new_concept).downcase, :name => 'split')
         - else 
           - link = @selected_hierarchy_entry ? taxon_hierarchy_entry_names_path(@taxon_concept, @selected_hierarchy_entry, :all => '1') : taxon_names_path(@taxon_concept, :all => '1')
@@ -132,5 +148,4 @@
 -#
   TODO 
   - tie into PHP
-  - warning if providers match on merge
   - undo-ability

@@ -35,9 +35,25 @@
           %p= I18n.t(:classification_split_warning)
           %p= I18n.t(:classification_button_help)
       - form_tag curated_taxon_concept_preferred_entries_path do
-        = hidden_field_tag 'taxon_concept_id', @taxon_concept.id
+        = hidden_field_tag 'taxon_concept_id', @move_to || @taxon_concept.id
         - if @confirm_split_or_merge
           = hidden_field_tag 'confirm', @confirm_split_or_merge
+        - if @additional_confirm # NOTE = grr, this is getting ugly. :| But they have already confirmed partner merge:
+          = hidden_field_tag('additional_confirm', 1)
+        - if @providers_match
+          %div.help_text.warning
+            %p
+              = I18n.t(:classifications_merge_providers_match_warning, :provider => hierarchy_entry_display_attribution(HierarchyEntry.find(@providers_match), :show_rank => false, :show_link => false))
+            - if @exemplar # NOTE - this means they (somehow) got past the first step... give them buttons:
+              = hidden_field_tag('additional_confirm', 1)
+              = hidden_field_tag("exemplar_#{@exemplar}", 1) # NOTE - simulates re-pressing that button...
+            - else # NOTE - they were stopped just after pressing 'merge'... give them a checkbox.
+              %p
+                = check_box_tag('additional_confirm', 'additional_confirm', false)
+                = I18n.t(:classifications_merge_providers_match_confirm)
+            %ul
+              %li= submit_tag(I18n.t(:merge_data).downcase, :name => 'merge')
+              %li= submit_tag(I18n.t(:cancel_split).downcase, :name => 'cancel_split')
         - if allow_more_splits
           - unless @other_hierarchy_entries.empty?
             #split_warning
@@ -131,7 +147,5 @@
 
 -#
   TODO 
-  - "select all" checkbox in the table header... (JS only)
   - tie into PHP
-  - warning if providers match on merge
   - undo-ability

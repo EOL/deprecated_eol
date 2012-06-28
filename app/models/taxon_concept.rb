@@ -1360,6 +1360,8 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def lock_classifications
+    puts "*" * 80 
+    puts "** Classificaiton Locked on #{id}"
     TaxonClassificationsLock.create(:taxon_concept_id => self.id)
   end
 
@@ -1386,8 +1388,22 @@ class TaxonConcept < ActiveRecord::Base
     target_taxon_concept = options[:with]
     raise EOL::Exceptions::ClassificationsLocked if
       classifications_locked? || target_taxon_concept.classifications_locked?
+    if (!options[:additional_confirm]) && he_id = providers_match_on_merge(hierarchy_entry_ids)
+      raise EOL::Exceptions::ProvidersMatchOnMerge.new(he_id)
+    end
+    raise EOL::Exceptions::CannotMergeClassificationsToSelf if self.id == target_taxon_concept.id
     lock_classifications
     target_taxon_concept.lock_classifications
+  end
+
+  def providers_match_on_merge(hierarchy_entry_ids)
+    hierarchy_entry_ids.each do |he_id|
+      hierarchy_id = HierarchyEntry.find(he_id, :select => 'hierarchy_id').hierarchy_id
+      hierarchy_entries.each do |my_he| # NOTE this is selecting the HEs ALREADY on this TC!
+        return my_he.id if my_he.hierarchy_id == hierarchy_id # NOTE - error needs ENTRY id, not hierarchy id.
+      end
+    end
+    return false
   end
 
 private

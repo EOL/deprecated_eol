@@ -4,6 +4,7 @@
 # them than it is to use return values that signify success and failure and parse them.
 module EOL
   module Exceptions
+    class CannotMergeClassificationsToSelf < StandardError; end
     class ClassificationsLocked < StandardError; end
     class FailedToCreateTag < StandardError; end
     class InvalidCollectionItemType < StandardError; end
@@ -17,6 +18,7 @@ module EOL
     class OpenAuthMissingConnectedUser < StandardError; end
     class OpenAuthUnauthorized < StandardError; end
     class Pending < StandardError; end
+    class ProvidersMatchOnMerge < StandardError; end
     class SecurityViolation < StandardError
       attr_accessor :flash_error_key, :flash_error_scope
       attr_writer :flash_error

@@ -755,6 +755,24 @@ class TaxonConcept < ActiveRecord::Base
         :filter_by_subtype => false
       }))
       DataObject.preload_associations(text_objects, [ { :info_items => :translations } ] )
+      if exemplar = published_visible_exemplar_article
+        include_exemplar = nil
+        unless options[:text_subjects].nil?
+          include_toc_ids = options[:text_subjects].collect{|text_subject| text_subject.toc_id}
+          exemplar.toc_items.each do |toc_item|
+            include_exemplar = include_toc_ids.include?(toc_item.id)
+          end
+        end
+        if options[:text_subjects].nil? || include_exemplar
+          original_length = text_objects.length
+          # remove the exemplar if it is already in the list
+          text_objects.delete_if{ |d| d.guid == exemplar.guid }
+          # prepend the exemplar if it exists
+          text_objects.unshift(exemplar)
+          # if the exemplar increased the size of our image array, remove the last one
+          text_objects.pop if text_objects.length > original_length
+        end
+      end
     end
     
     # GET THE IMAGES

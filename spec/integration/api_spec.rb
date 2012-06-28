@@ -347,6 +347,26 @@ describe 'EOL APIs' do
     response_object['dataObjects'][1]['identifier'].should == first_image.guid
   end
   
+  it 'pages should return exemplar articles first' do
+    @taxon_concept.taxon_concept_exemplar_article.should be_nil
+    all_texts = @taxon_concept.text_for_user
+    first_text = all_texts.first
+    visit("/api/pages/1.0/#{@taxon_concept.id}.json?subjects=all&details=1&text=5&images=0&videos=0")
+    response_object = JSON.parse(body)
+    response_object['dataObjects'].first['identifier'].should == first_text.guid
+    
+    next_exemplar = all_texts.last
+    first_text.guid.should_not == next_exemplar.guid
+    TaxonConceptExemplarArticle.set_exemplar(@taxon_concept.id, next_exemplar.id)
+    
+    @taxon_concept = TaxonConcept.find(@taxon_concept.id)
+    @taxon_concept.taxon_concept_exemplar_article.data_object.guid.should == next_exemplar.guid
+    visit("/api/pages/1.0/#{@taxon_concept.id}.json?subjects=all&details=1&text=5&images=0&videos=0")
+    response_object = JSON.parse(body)
+    response_object['dataObjects'].first['identifier'].should == next_exemplar.guid
+    response_object['dataObjects'][1]['identifier'].should == first_text.guid
+  end
+  
   # DataObjects
   
   it "data objects should show unpublished objects" do

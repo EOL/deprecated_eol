@@ -40,9 +40,16 @@ private
   # They have a list of HEs they want to merge into this taxon concept.
   # TODO - make sure there are HEs!
   def merge
-    @target_params[:confirm] = 'merge' # hard-coded string, no need to translate.
-    # TODO - cancel if the merge is on the same page as the HEs.
-    @taxon_concept = taxon_concept_from_session
+    if (!params[:additional_confirm]) &&
+      he_id = @taxon_concept.providers_match_on_merge(Array(HierarchyEntry.find(session[:split_hierarchy_entry_id])))
+      flash[:warn] = I18n.t(:classifications_merge_additional_confirm_required)
+      @target_params[:providers_match] = he_id
+    else
+      @target_params[:additional_confirm] = 1 if params[:additional_confirm] # They have already confirmed this, don't do it again.
+      @target_params[:move_to] = @taxon_concept.id
+      @target_params[:confirm] = 'merge' # hard-coded string, no need to translate.
+      @taxon_concept = taxon_concept_from_session
+    end
     @target_params[:all] = 1
   end
 
@@ -79,15 +86,22 @@ private
         done = true
       elsif params[:confirm] == 'merge'
         target_taxon_concept = taxon_concept_from_session
-        @taxon_concept.merge_classifications(session[:split_hierarchy_entry_id], :with => target_taxon_concept)
+        @taxon_concept.merge_classifications(session[:split_hierarchy_entry_id], :with => target_taxon_concept,
+                                             :additional_confirm => params[:additional_confirm])
         taxon_to_log = target_taxon_concept
         flash[:warning] = I18n.t(:merge_pending)
         done = true
       else
         # TODO - error, we don't have a split or merge in params... (low priority; unlikely)
       end
+    rescue EOL::Exceptions::CannotMergeClassificationsToSelf
+      flash[:error] = I18n.t(:classifications_edit_cancelled_merge_to_self)
     rescue EOL::Exceptions::ClassificationsLocked
       flash[:error] = I18n.t(:classifications_edit_cancelled_busy)
+    rescue EOL::Exceptions::ProvidersMatchOnMerge => e
+      flash[:warn] = I18n.t(:classifications_merge_additional_confirm_required)
+      @target_params[:providers_match] = e.message # NOTE - a little wonky to pass the ID in the message.  :|
+      @target_params[:exemplar] = which
     end
     if done
       Array(session[:split_hierarchy_entry_id]).each do |entry|

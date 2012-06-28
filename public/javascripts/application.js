@@ -332,9 +332,9 @@ $(function() {
       if($e.is($(".thumbnails li:last"))) {
         right_pos = right_pos - 15;
       }
-      var line_height = '';
+      var line_height = 'inherit';
       if($(this).attr("data-common_name") == null || $(this).attr("data-common_name") == '') {
-        line_height = '25px';
+        line_height = $thumbs.find(".term .site_column").css("height");
       }
       var name_html = '<span class="scientific">' + $(this).attr("data-scientific_name") + '</span>';
       if($(this).attr("data-common_name") != null && $(this).attr("data-common_name") != '') {

@@ -38,4 +38,26 @@ describe Taxa::DetailsController do
 
   end
 
+  describe 'GET set_article_as_exemplar' do
+
+    it 'should throw error if user is not logged in' do
+      expect{ get :set_article_as_exemplar, {:taxon_id => @testy[:taxon_concept].id.to_i, 
+                  :data_object_id => @testy[:overview].id.to_i} }.to raise_error(EOL::Exceptions::SecurityViolation)
+    end
+
+    it 'should throw error if user is not curator' do
+      session[:user_id] = @testy[:user].id
+      expect{ get :set_article_as_exemplar, {:taxon_id => @testy[:taxon_concept].id.to_i, 
+                  :data_object_id => @testy[:overview].id.to_i} }.to raise_error(EOL::Exceptions::SecurityViolation)
+    end
+
+    it 'should instantiate the taxon concept and the data object' do
+      session[:user_id] = @testy[:curator].id
+      get :set_article_as_exemplar, :taxon_id => @testy[:taxon_concept].id.to_i, :data_object_id => @testy[:overview].id.to_i
+      assigns[:taxon_concept].should be_a(TaxonConcept)
+      assigns[:data_object].should be_a(DataObject)
+    end
+
+  end
+
 end

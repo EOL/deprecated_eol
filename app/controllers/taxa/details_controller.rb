@@ -21,13 +21,30 @@ class Taxa::DetailsController < TaxaController
       @details_count_by_language[obj.language] ||= 0
       @details_count_by_language[obj.language] += 1
     end
-    
+    @summary_text = @taxon_concept.overview_text_for_user(current_user)
     @exemplar_image = @taxon_concept.exemplar_or_best_image_from_solr(@selected_hierarchy_entry)
     @assistive_section_header = I18n.t(:assistive_details_header)
     @rel_canonical_href = @selected_hierarchy_entry ?
       taxon_hierarchy_entry_details_url(@taxon_concept, @selected_hierarchy_entry) :
       taxon_details_url(@taxon_concept)
     current_user.log_activity(:viewed_taxon_concept_details, :taxon_concept_id => @taxon_concept.id)
+  end
+
+  def set_article_as_exemplar
+    unless current_user && current_user.min_curator_level?(:assistant)
+      raise EOL::Exceptions::SecurityViolation, "User does not have set_article_as_exemplar privileges"
+      return
+    end
+    @taxon_concept = TaxonConcept.find(params[:taxon_id].to_i) rescue nil
+    @data_object = DataObject.find_by_id(params[:data_object_id].to_i) rescue nil
+
+    if @taxon_concept && @data_object
+      TaxonConceptExemplarArticle.set_exemplar(@taxon_concept.id, @data_object.id)
+      log_action(@taxon_concept, @data_object, :choose_exemplar)
+    end
+
+    store_location(params[:return_to] || request.referer)
+    redirect_back_or_default taxon_details_path @taxon_concept.id
   end
 
 protected

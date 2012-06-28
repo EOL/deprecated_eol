@@ -3893,7 +3893,8 @@ en:
   nucleotide_sequences: Nucleotide Sequences
   logo_header: "Logo"
   external_link_header: "External Link"
-  comment_or_rate_on_this_article: "Comment on or rate this article"
+  comment_or_rate_on_this_article: "comment on or rate this article"
+  set_this_article_as_an_exemplar: "set this article as an exemplar"
   admin_user_delete_successful_notice: "User has been deleted"
   admin_spam_delete: "Delete Spam"
   admin_user_hide_successful_notice: "User has been hidden"

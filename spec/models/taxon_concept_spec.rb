@@ -711,6 +711,22 @@ describe TaxonConcept do
     lambda { tc.preferred_entry.hierarchy_entry_id }.should raise_error
   end
 
+  it '#published_visible_exemplar_article should return published and visible exemplar article if there is one' do
+    published_visible_exemplar_article = @taxon_concept.published_visible_exemplar_article
+    if published_visible_exemplar_article
+      published_visible_exemplar_article.class.should == DataObject
+    end
+    data_object = DataObject.gen(:data_type_id => DataType.text.id, :published => 1)
+    data_object.taxon_concepts = [@taxon_concept]
+    DataObjectsHierarchyEntry.create(:hierarchy_entry_id => @taxon_concept.entry.id, :data_object_id => data_object.id,
+                                     :vetted_id => Vetted.trusted.id, :visibility_id => Visibility.visible.id)
+    TaxonConceptExemplarArticle.set_exemplar(@taxon_concept.id, data_object.id)
+    @taxon_concept.reload
+    published_visible_exemplar_article = @taxon_concept.published_visible_exemplar_article
+    published_visible_exemplar_article.class.should == DataObject
+    published_visible_exemplar_article.id.should == data_object.id
+  end
+
   #
   # I'm all for pending tests, but in this case, they run SLOWLY, so it's best to comment them out:
   #

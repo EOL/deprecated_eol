@@ -80,6 +80,12 @@ describe 'Taxa page' do
       end
     end
 
+    it 'should show action to set article as an exemplar' do
+      body.should have_tag('div.actions p') do
+        with_tag("a", :href => "set this article as an exemplar")
+      end
+    end
+
     it 'should allow user to rate a text object first then login to complete the action' # do
 #      visit logout_url
 #      visit taxon_details_path(@taxon_concept)
@@ -506,12 +512,6 @@ describe 'Taxa page' do
     end
     subject { body }
     it_should_behave_like 'taxon updates tab'
-    it 'should allow logged in users to post comment' do
-      visit logout_url
-      login_as @user
-      visit taxon_updates_path(@taxon_concept)
-
-    end
     it 'should allow logged in users to post comment' do
       visit logout_url
       login_as @user

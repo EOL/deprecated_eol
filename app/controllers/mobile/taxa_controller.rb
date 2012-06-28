@@ -44,7 +44,7 @@ class Mobile::TaxaController < Mobile::MobileController
       @recognized_by = recognized_by
     end
 
-    @media = promote_exemplar(@taxon_concept.media({}, @selected_hierarchy_entry))
+    @media = promote_exemplar_image(@taxon_concept.media({}, @selected_hierarchy_entry))
     @watch_collection = logged_in? ? current_user.watch_collection : nil
     @assistive_section_header = I18n.t(:assistive_overview_header)
 

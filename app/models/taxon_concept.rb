@@ -738,10 +738,10 @@ class TaxonConcept < ActiveRecord::Base
     # GET THE TEXT
     text_objects = []
     if options[:text].to_i > 0
-      options[:subjects] ||= 'TaxonBiology|GeneralDescription|Description'
+      options[:subjects] ||= ""
       options[:text_subjects] = options[:subjects].split("|")
       options[:text_subjects] << 'Uses' if options[:text_subjects].include?('Use')
-      if options[:text_subjects].include?('all')
+      if options[:subjects].blank? || options[:text_subjects].include?('all')
         options[:text_subjects] = nil
       else
         options[:text_subjects] = options[:text_subjects].map{ |l| InfoItem.cached_find_translated(:label, l, 'en', :find_all => true) }.flatten.compact

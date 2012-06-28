@@ -1926,7 +1926,7 @@ en:
   any_integer: "any integer"
   api_docs_collections_description: "Given the identifier for a collection this API will return all metadata about the collection and the items it contains. The item list can be filtered by item type, and sorted on the above listed attributes."
   a_pipe_delimited_list_of_licenses: "a pipe | delimited list of licenses or 'all' to get objects under any license. Licenses abbreviated cc- are all"
-  a_pipe_delimited_list_of_spm_info_item_subject_names: "a pipe | delimited list of SPM Info Item subject names or 'all' to get text in any subject"
+  a_pipe_delimited_list_of_spm_info_item_subject_names: "a pipe | delimited list of SPM Info Item subject names or 'all' to get text in any subject. Returns overview article as a first item by default(i.e. when subject = all) or if it's subject is included in the given subject names list"
   application_version_advisory_information: "Application version"
   are_you_sure: "Are you sure?"
   are_you_sure_this_action_cannot_be_undone: "Are you sure?  This action cannot be undone."

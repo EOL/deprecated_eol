@@ -499,7 +499,6 @@ ia:
   article_from_supplier: Articulo de %{whom}
   article_more_about: Leger plus a proposito de iste articulo
   article_not_associated_with_any_published_entries: Iste articulo non es associate a alcun taxon publicate.
-  article_of: Articulo de
   article_of_taxon: Articulo de %{taxon_name}
   article_rating: Evalutation del articulo
   articles_in_languages_with_count: 
@@ -1117,11 +1116,9 @@ ia:
   image_map_alt_text: Iste carta %{vetted_status} es de %{taxon_name}
   image_map_from_supplier: Carta de %{whom}
   image_map_not_associated_with_any_published_entries: Iste carta non es associate a alcun taxon publicate.
-  image_map_of: Carta de
   image_map_of_taxon: Carta de %{taxon_name}
   image_map_rating: Evalutation del carta
   image_not_associated_with_any_published_entries: Iste imagine non es associate a alcun taxon publicate.
-  image_of: Imagine de
   image_of_taxon: Imagine de %{taxon_name}
   image_rating: Evalutation del imagine
   images: Imagines
@@ -1171,7 +1168,6 @@ ia:
   map_alt_text: Iste carta %{vetted_status} es de %{taxon_name}
   map_from_supplier: Carta de %{whom}
   map_not_associated_with_any_published_entries: Iste carta non es associate a alcun taxon publicate.
-  map_of: Carta de
   map_of_taxon: Carta de %{taxon_name}
   map_rating: Evalutation del carta
   maps_with_count: 
@@ -1708,7 +1704,6 @@ ia:
   video_alt_text: Iste video %{vetted_status} es de %{taxon_name}
   video_from_supplier: Video de %{whom}
   video_not_associated_with_any_published_entries: Iste video non es associate a alcun taxon publicate.
-  video_of: Video de
   video_of_taxon: Video de %{taxon_name}
   video_rating: Evalutation del video
   videos_with_count: 

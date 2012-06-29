@@ -1,6 +1,7 @@
 # Messages for Persian (فارسی)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
+# Author: Hooshmand.hasannia
 # Author: Omnia
 # Author: Surena
 fa: 
@@ -197,6 +198,7 @@ fa:
   translated_table_of_contents-label-table_of_contents_id-225: در وب
   translated_table_of_contents-label-table_of_contents_id-227: جستجو در وب
   translated_table_of_contents-label-table_of_contents_id-251: مزایا
+  translated_table_of_contents-label-table_of_contents_id-267: ریخت‌شناسی
   translated_table_of_contents-label-table_of_contents_id-278: کتاب شناسی
   translated_table_of_contents-label-table_of_contents_id-286: وضعيت حفاظت
   translated_table_of_contents-label-table_of_contents_id-289: تکامل

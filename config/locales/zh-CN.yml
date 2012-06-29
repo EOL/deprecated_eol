@@ -763,7 +763,6 @@ zh-CN:
   article_from_supplier: 来自%{whom}的文章
   article_more_about: 深入了解这篇文章的详细信息
   article_not_associated_with_any_published_entries: 该文章未与任何已发布的分类单元相关联。
-  article_of: 文章关于
   article_of_taxon: "%{taxon_name}的文章"
   article_rating: 文章评级
   articles_in_languages_with_count: 
@@ -904,7 +903,7 @@ zh-CN:
   collections: 
     editors: 
       show: 
-        meta_description: 网络生命大百科%{collection_name}收藏的管理员。
+        meta_description: 生命百科收藏%{collection_name}的管理员。
         meta_keywords: "%{collection_name}管理者"
         meta_title: "%{collection_name}管理者"
         tweet_text: "%{collection_name}管理者"
@@ -934,7 +933,7 @@ zh-CN:
         tweet_text: "%{collection_name} 新闻"
     show: 
       meta_description: "%{collection_description}"
-      meta_keywords: "\"%{collection_name}, 网络生命大百科收藏\""
+      meta_keywords: 生命百科收藏%{collection_name}
       meta_title: "%{collection_name}"
       tweet_text: "%{collection_name}"
   collections_filter: 收藏
@@ -977,7 +976,7 @@ zh-CN:
   communities: 
     collections: 
       index: 
-        meta_description: 生命百科社区%{community_name}收集的社区收藏。
+        meta_description: 生命百科小组%{community_name}收集的小组收藏。
         meta_keywords: "%{community_name} 收藏"
         meta_title: "%{community_name} 收藏"
         tweet_text: "%{community_name} 收藏"
@@ -2156,9 +2155,9 @@ zh-CN:
         notification_settings: 通知设置
         recover_account: 发送邮件
         sign_up_with_facebook: 使用Facebook账号登录
-        sign_up_with_google: 使用Google账号登录
+        sign_up_with_google: 使用Google帐户登录
         sign_up_with_twitter: 使用Twitter账号登录
-        sign_up_with_yahoo: 使用Yahoo账号登录
+        sign_up_with_yahoo: 使用雅虎帐号登录
         update: 保存简介信息
       wikipedia_queue: 
         create: 提交请求
@@ -2191,14 +2190,12 @@ zh-CN:
   image_map_from: 地图来自
   image_map_from_supplier: 来自于%{whom}的地图
   image_map_not_associated_with_any_published_entries: 此地图未与任何已发布的类群相关联。
-  image_map_of: 地图关于
   image_map_of_taxon: "%{taxon_name}的地图"
   image_map_rating: 地图评级
   image_not_associated_with_any_published_entries: 此图片未与任何已发布的类群相关联。
   image_not_found: 找不到图像
   image_object: 图像
   image_objects_will_contain_two_mediaurl_elements: 图片对象将含有两个mediaURL元素 - 一个是原始数据提供者的网站的URL，另一个是保存EOL缓存版本媒体的服务器的URL。这些图像的EOL缓存版本经过调整以适于网站展示，尺寸被限制在460像素宽度和345像素高度以内。
-  image_of: 图像关于
   image_of_taxon: " %{taxon_name}的图片"
   image_rating: 图像评级
   images: 图像
@@ -2363,7 +2360,6 @@ zh-CN:
   map_from: 地图来自
   map_from_supplier: 来自于%{whom}的地图
   map_not_associated_with_any_published_entries: 此地图未与任何已发布的类群相关联。
-  map_of: 地图关于
   map_of_taxon: "%{taxon_name}的地图"
   map_rating: 地图评级
   maps_empty: 本页暂无人提供地图。
@@ -2391,10 +2387,10 @@ zh-CN:
       meta_title: "%{community_name}成员"
       tweet_text: "%{community_name}成员"
     show: 
-      meta_description: "%{member_name} 是网络生命大百科%{community_name}社区的一名会员 。"
-      meta_keywords: "%{member_name} 社区会员"
-      meta_title: "%{member_name}  %{community_name}的会员"
-      tweet_text: "%{member_name}  %{community_name}的会员"
+      meta_description: "%{member_name}是生命百科小组%{community_name}成员。"
+      meta_keywords: "%{member_name} 小组成员"
+      meta_title: "%{member_name} %{community_name}成员"
+      tweet_text: "%{member_name} %{community_name}成员"
   members_like_you: 和您身份相同的会员
   members_with_count: 
     other: "%{count}名会员"
@@ -2958,9 +2954,9 @@ zh-CN:
     new: 
       login_with_eol_authentication_header: 或者使用您的EOL证书登录：
       login_with_facebook_assistive: 使用您的Facebook账号登录网络生命大百科系统。
-      login_with_google_assistive: 使用您的谷歌账号登录网络生命大百科系统。
+      login_with_google_assistive: 使用你的Google帐户登录生命百科。
       login_with_twitter_assistive: 使用您的Twitter账号登录网络生命大百科系统。
-      login_with_yahoo_assistive: 使用您的Yahoo账号登录网络生命大百科系统。
+      login_with_yahoo_assistive: 使用你的雅虎帐号登录生命百科。
       meta_title: 登录
       problems_signing_in_with_connected_accounts: 与您关联账户的登录问题？
       problems_signing_in_with_eol_authentication: 忘记密码？
@@ -3746,7 +3742,6 @@ zh-CN:
   video_from_supplier: 来自于%{whom}的视频
   video_not_associated_with_any_published_entries: 该视频未与任何已发表类群相关联。
   video_object: 视频数据
-  video_of: 视频关于
   video_of_taxon: "%{taxon_name}的视频"
   video_rating: 视频评级
   video_title_not_available_in_language: "%{language}标题不可用"

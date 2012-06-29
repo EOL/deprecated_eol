@@ -302,40 +302,112 @@ gl:
   activity_log_empty_learn_more_link: Descubre como contribuír
   activity_logs: 
     collection_activity_log: 
+      add_editor: 
+        an_unknown_user_of_an_unknown_collection: Un usuario descoñecido foi engadido como administrador dunha colección descoñecida.
+        an_unknown_user_of_collection: Un usuario descoñecido foi engadido como administrador da colección "%{collection}".
+        an_unknown_user_of_it: Un usuario descoñecido foi engadido como administrador.
+        user_of_an_unknown_collection: <strong>%{user}</strong> foi engadido como administrador dunha colección descoñecida.
+        user_of_collection: <strong>%{user}</strong> foi engadido como administrador da colección "%{collection}".
+        user_of_it: <strong>%{user}</strong> foi engadido como administrador.
       collect: 
+        an_unknown_user_added_an_unknown_item_to_an_unknown_collection: Un usuario descoñecido engadiu un elemento descoñecido a unha colección descoñecida.
+        an_unknown_user_added_an_unknown_item_to_collection: Un usuario descoñecido engadiu un elemento descoñecido á colección "%{collection}".
+        an_unknown_user_added_an_unknown_item_to_it: Un usuario descoñecido engadiu un elemento descoñecido.
+        an_unknown_user_added_item_to_an_unknown_collection: Un usuario descoñecido engadiu "%{item}" a unha colección descoñecida.
+        an_unknown_user_added_item_to_collection: Un usuario descoñecido engadiu "%{item}" á colección "%{collection}".
+        an_unknown_user_added_item_to_it: Un usuario descoñecido engadiu "%{item}".
+        user_added_an_unknown_item_to_an_unknown_collection: <strong>%{user}</strong> engadiu un elemento descoñecido a unha colección descoñecida.
+        user_added_an_unknown_item_to_collection: <strong>%{user}</strong> engadiu un elemento descoñecido á colección "%{collection}".
+        user_added_an_unknown_item_to_it: <strong>%{user}</strong> engadiu un elemento descoñecido.
+        user_added_item_to_an_unknown_collection: <strong>%{user}</strong> engadiu "%{item}" a unha colección descoñecida.
+        user_added_item_to_collection: <strong>%{user}</strong> engadiu "%{item}" á colección "%{collection}".
         user_added_item_to_it: <strong>%{user}</strong> engadiu "%{item}".
+      create: 
+        an_unknown_user_created_an_unknown_collection: Un usuario descoñecido creou unha colección descoñecida.
+        an_unknown_user_created_collection: Un usuario descoñecido creou a colección "%{collection}".
+        an_unknown_user_created_it: Un usuario descoñecido creouno.
+        user_created_an_unknown_collection: <strong>%{user}</strong> creou unha colección descoñecida.
+        user_created_collection: <strong>%{user}</strong> creou a colección "%{collection}".
+        user_created_it: <strong>%{user}</strong> creouno.
       other_actions: 
+        an_unknown_user_modified_an_unknown_collection: Un usuario descoñecido modificou unha colección descoñecida.
+        an_unknown_user_modified_collection: Un usuario descoñecido modificou a colección "%{collection}".
+        an_unknown_user_modified_it: Un usuario descoñecido modificouno, pero o cambio perdeuse.
+        user_modified_an_unknown_collection: <strong>%{user}</strong> modificou unha colección descoñecida.
         user_modified_collection: <strong>%{user}</strong> modificou a colección "%{collection}".
+        user_modified_it: <strong>%{user}</strong> modificouno, pero o cambio perdeuse.
+      remove: 
+        an_unknown_user_removed_an_unknown_item_from_an_unknown_collection: Un usuario descoñecido eliminou un elemento descoñecido dunha colección descoñecida.
+        an_unknown_user_removed_an_unknown_item_from_collection: Un usuario descoñecido eliminou un elemento descoñecido da colección "%{collection}".
+        an_unknown_user_removed_an_unknown_item_from_it: Un usuario descoñecido eliminou un elemento descoñecido.
+        an_unknown_user_removed_item_from_an_unknown_collection: Un usuario descoñecido eliminou "%{item}" dunha colección descoñecida.
+        an_unknown_user_removed_item_from_collection: Un usuario descoñecido eliminou "%{item}" da colección "%{collection}".
+        an_unknown_user_removed_item_from_it: Un usuario descoñecido eliminou "%{item}".
+        user_removed_an_unknown_item_from_an_unknown_collection: <strong>%{user}</strong> eliminou un elemento descoñecido dunha colección descoñecida.
+        user_removed_an_unknown_item_from_collection: <strong>%{user}</strong> eliminou un elemento descoñecido da colección "%{collection}".
+        user_removed_an_unknown_item_from_it: <strong>%{user}</strong> eliminou un elemento descoñecido.
+        user_removed_item_from_an_unknown_collection: <strong>%{user}</strong> eliminou "%{item}" dunha colección descoñecida.
+        user_removed_item_from_collection: <strong>%{user}</strong> eliminou "%{item}" da colección "%{collection}".
+        user_removed_item_from_it: <strong>%{user}</strong> eliminou "%{item}".
+      remove_all: 
+        an_unknown_user_cleared_an_unknown_collection: Un usuario descoñecido eliminou todos os elementos dunha colección descoñecida.
+        an_unknown_user_cleared_collection: Un usuario descoñecido eliminou todos os elementos da colección "%{collection}".
+        an_unknown_user_cleared_it: Un usuario descoñecido eliminou todos os elementos.
+        user_cleared_an_unknown_collection: <strong>%{user}</strong> eliminou todos os elementos dunha colección descoñecida.
+        user_cleared_collection: <strong>%{user}</strong> eliminou todos os elementos da colección "%{collection}".
+        user_cleared_it: <strong>%{user}</strong> eliminou todos os elementos.
     community_activity_log: 
       add_manager: 
-        user_added_an_unknown_manager_to_an_unknown_community: <strong>%{user}</strong> engadiu un administrador descoñecido a un obxecto descoñecido.
+        an_unknown_user_added_an_unknown_manager_to_an_unknown_community: Un usuario descoñecido engadiu un administrador descoñecido a unha comunidade descoñecida.
+        an_unknown_user_added_an_unknown_manager_to_community: Un usuario descoñecido engadiu un administrador descoñecido á comunidade "%{community}".
+        an_unknown_user_added_manager_to_an_unknown_community: Un usuario descoñecido engadiu a "%{manager}" como administrador dunha comunidade descoñecida.
+        an_unknown_user_added_manager_to_community: Un usuario descoñecido engadiu a "%{manager}" como administrador da comunidade "%{community}".
+        user_added_an_unknown_manager_to_an_unknown_community: <strong>%{user}</strong> engadiu un administrador descoñecido a unha comunidade descoñecida.
         user_added_an_unknown_manager_to_community: <strong>%{user}</strong> engadiu un administrador descoñecido á comunidade "%{community}".
         user_added_manager_to_an_unknown_community: <strong>%{user}</strong> engadiu a "%{manager}" a unha comunidade descoñecida.
         user_added_manager_to_community: <strong>%{user}</strong> engadiu a "%{manager}" como administrador da comunidade "%{community}".
       change_description: 
+        an_unknown_user_changed_the_description_of_an_unknown_community: Un usuario descoñecido cambiou a descrición dunha comunidade descoñecida.
+        an_unknown_user_changed_the_description_of_community: Un usuario descoñecido cambiou a descrición da comunidade "%{community}".
+        user_changed_the_description_of_an_unknown_community: <strong>%{user}</strong> cambiou a descrición dunha comunidade descoñecida.
         user_changed_the_description_of_community: <strong>%{user}</strong> cambiou a descrición da comunidade "%{community}".
       change_icon: 
+        an_unknown_user_changed_the_icon_of_an_unknown_community: Un usuario descoñecido cambiou o logotipo dunha comunidade descoñecida.
+        an_unknown_user_changed_the_icon_of_community: Un usuario descoñecido cambiou o logotipo da comunidade "%{community}".
         user_changed_the_icon_of_an_unknown_community: <strong>%{user}</strong> cambiou o logotipo dunha comunidade descoñecida.
         user_changed_the_icon_of_community: <strong>%{user}</strong> cambiou o logotipo da comunidade "%{community}".
       change_name: 
+        an_unknown_user_changed_the_name_of_an_unknown_community: Un usuario descoñecido cambiou o nome dunha comunidade descoñecida.
+        an_unknown_user_changed_the_name_of_community: Un usuario descoñecido cambiou o nome da comunidade "%{community}".
         user_changed_the_name_of_an_unknown_community: <strong>%{user}</strong> cambiou o nome dunha comunidade descoñecida.
         user_changed_the_name_of_community: <strong>%{user}</strong> cambiou o nome da comunidade "%{community}".
       create: 
+        an_unknown_user_created_an_unknown_community: Un usuario descoñecido creou unha comunidade descoñecida.
+        an_unknown_user_created_community: Un usuario descoñecido creou a comunidade "%{community}".
         user_created_an_unknown_community: <strong>%{user}</strong> creou unha comunidade descoñecida.
         user_created_community: <strong>%{user}</strong> creou a comunidade "%{community}".
       join: 
+        an_unknown_user_joined_an_unknown_community: Un usuario descoñecido uniuse a unha comunidade descoñecida.
+        an_unknown_user_joined_community: Un usuario descoñecido uniuse á comunidade "%{community}".
         user_joined_an_unknown_community: <strong>%{user}</strong> uniuse a unha comunidade descoñecida.
         user_joined_community: <strong>%{user}</strong> uniuse á comunidade "%{community}".
       leave: 
+        an_unknown_user_left_an_unknown_community: Un usuario descoñecido deixou unha comunidade descoñecida.
+        an_unknown_user_left_community: Un usuario descoñecido deixou a comunidade "%{community}".
         user_left_an_unknown_community: <strong>%{user}</strong> deixou unha comunidade descoñecida.
         user_left_community: <strong>%{user}</strong> deixou a comunidade "%{community}".
       other_actions: 
+        an_unknown_user_modified_an_unknown_community: Un usuario descoñecido modificou unha comunidade descoñecida.
+        an_unknown_user_modified_community: Un usuario descoñecido modificou a comunidade "%{community}".
         user_modified_an_unknown_community: <strong>%{user}</strong> modificou unha comunidade descoñecida.
         user_modified_community: <strong>%{user}</strong> modificou a comunidade "%{community}".
     curator_activity_log: 
       other_actions: 
+        an_unknown_user_curated_data_object: Un usuario descoñecido conservou "%{data_object}".
+        an_unknown_user_curated_it: Un usuario descoñecido conservouno, pero a acción levada a cabo perdeuse.
         user_curated_an_unknown_data_object: <strong>%{user}</strong> conservou un obxecto de datos descoñecido.
         user_curated_data_object: <strong>%{user}</strong> conservou "%{data_object}".
+        user_curated_it: <strong>%{user}</strong> conservouno, pero a acción levada a cabo perdeuse.
       reasons_to_hide: "Motivos para agochar: %{reasons}"
       reasons_to_untrust: "Motivos para deixar de confiar: %{reasons}"
   activity_user_created_text: <strong>%{user}</strong> engadiu texto a "%{object_name}" en "%{taxon_concept}".
@@ -356,6 +428,7 @@ gl:
   add_article_to_page_link_button: Engadir un artigo a esta páxina
   add_association_submit_button: engadir a asociación
   add_brief_summary_to_page_link_button: Engadir un breve resumo a esta páxina
+  add_citizen_science_resources_to_page_link_button: Engadir unha ligazón de ciencia cidadá a esta páxina
   add_collection_to_a_new_community: Engadir "%{collection}" a unha nova comunidade
   add_collection_to_community: Engadir a colección á comunidade
   add_education_resources_to_page_link_button: Engadir recursos educativos a esta páxina
@@ -510,7 +583,6 @@ gl:
   article_from_supplier: Artigo de %{whom}
   article_more_about: Máis información sobre este artigo
   article_not_associated_with_any_published_entries: Este artigo non está asociado a ningún taxon publicado.
-  article_of: Artigo de
   article_of_taxon: Artigo de %{taxon_name}
   article_rating: Avaliación do artigo
   articles_in_languages_with_count: 
@@ -1285,6 +1357,8 @@ gl:
       hidden_user_login: Sentímolo, o inicio de sesión está desactivado para esa conta.
       hidden_user_recover_account: Sentímolo, a recuperación da conta está desactivada para esa conta.
       hidden_user_temporary_login: Sentímolo, a recuperación da conta e o inicio de sesión están desactivados para esa conta.
+      inactive_user_login: Sentímolo, a conta aínda non está activa. Se non recibiches o correo electrónico de verificación cando te rexistraches, sigue o procedemento de recuperación de contas para verificar o teu enderezo de correo electrónico e activar a conta.
+      min_full_curators_only: Sentímolo, o acceso está restrinxido aos conservadores da EOL cun nivel mínimo de conservación de "Completo".
   expand_all_children: expandir todas as dependencias
   explore: Explorar
   explore_what_we_know_about_taxon: Explorar o que a EOL sabe acerca de %{taxon}.
@@ -1673,14 +1747,12 @@ gl:
   image_map_from: mapa de
   image_map_from_supplier: Mapa de %{whom}
   image_map_not_associated_with_any_published_entries: Este mapa non está asociado a ningún taxon publicado.
-  image_map_of: Mapa de
   image_map_of_taxon: Mapa de %{taxon_name}
   image_map_rating: Avaliación do mapa
   image_not_associated_with_any_published_entries: Esta imaxe non está asociada a ningún taxon publicado.
   image_not_found: Non se atopou a imaxe
   image_object: Obxecto de imaxe
   image_objects_will_contain_two_mediaurl_elements: Os obxectos de imaxe conterán dous elementos do tipo mediaURL. O primeiro é o enderezo URL da imaxe no sitio web do provedor e o segundo é o enderezo URL da versión gardada na memoria caché do ficheiro multimedia aloxado nun dos servidores da EOL. A versión da imaxe presente na EOL será redimensionada (conservando as dimensións proporcionalmente) se a orixinal é maior que 460 píxeles de largo ou 345 píxeles de alto.
-  image_of: Imaxe de
   image_of_taxon: Imaxe de %{taxon_name}
   image_rating: Avaliación da imaxe
   images: Imaxes
@@ -1849,7 +1921,6 @@ gl:
   map_from: mapa de
   map_from_supplier: Mapa de %{whom}
   map_not_associated_with_any_published_entries: Este mapa non está asociado a ningún taxon publicado.
-  map_of: Mapa de
   map_of_taxon: Mapa de %{taxon_name}
   map_rating: Avaliación do mapa
   maps_empty: Polo de agora, ninguén achegou mapas a esta páxina.
@@ -1944,6 +2015,12 @@ gl:
   move_to_bottom: ir ao final
   move_to_top: ir ao inicio
   move_up: Mover arriba
+  moved_all_items_from_collection_with_count: 
+    one: "Moveu #{count} elemento de \"%{from}\" a esta colección."
+    other: "Moveu os #{count} elementos de \"%{from}\" a esta colección."
+  moved_all_items_to_collections: 
+    one: Moveu todos os elementos de "%{name}" a %{count} colección.
+    other: Moveu todos os elementos de "%{name}" a %{count} coleccións.
   moved_items_from_collection_with_count_notice: 
     one: Moveu %{count} elemento de "%{name}".
     other: Moveu %{count} elementos de "%{name}".
@@ -2084,14 +2161,16 @@ gl:
     signature_with_contact_us_link: "Se tes algún problema, ponte en contacto con nós no enderezo %{url}.\n\nO equipo da Enciclopedia da vida"
     signature_with_species_pages_group_contact: "Se tes algunha pregunta, ponte en contacto con nós no enderezo %{species_pages_group_email}.\n\nO equipo da Enciclopedia da vida"
     user_activated: 
-      message: "Benvido á Enciclopedia da vida (EOL) e grazas por te rexistrares! Ten en conta que o teu nome de usuario é %{username} e o enderezo URL do teu perfil é %{profile_url}. Podes acceder á túa conta en http://www.eol.org/login.\n\nPara obter máis información sobre como usar a EOL (como crear coleccións, participar nas comunidades ou achegar contidos) visita a nosa páxina de axuda no enderezo http://www.eol.org/help."
+      message: "Benvido á Enciclopedia da vida (EOL) e grazas por te rexistrares! Ten en conta que o teu nome de usuario é %{username} e o enderezo URL do teu perfil é %{profile_url}. Podes acceder á túa conta en http://eol.org/login.\n\nPara obter máis información sobre como usar a EOL (como crear coleccións, participar nas comunidades ou achegar contidos) visita a nosa páxina de axuda no enderezo http://eol.org/help."
       subject: Activouse a túa conta na Enciclopedia da vida
     user_activated_with_open_authentication: 
+      message: "Benvido á Enciclopedia da vida (EOL) e grazas por te rexistrares! Ten en conta que te rexistraches mediante %{oauth_provider}, dando á EOL permiso para acceder á túa información básica con fins de autenticación. O enderezo URL do teu perfil na EOL é %{profile_url}. Podes acceder á túa conta da EOL con %{oauth_provider} en http://eol.org/login.\n\nPara obter máis información sobre como usar a EOL (como crear coleccións, participar nas comunidades ou achegar contidos) visita a nosa páxina de axuda no enderezo http://eol.org/help."
       subject: Activouse a túa conta na Enciclopedia da vida
     user_commented_on_something_date_body: "O %{curator_level} %{users_name} (%{users_url}) comentou en:\n%{commented_on_name} (%{commented_on_url})\n%{comment_date}:\n%{comment_body}"
     user_message: 
       subject: Unha mensaxe da Enciclopedia da vida
     user_recover_account: 
+      message: "A Enciclopedia da vida (http://eol.org) recibiu unha solicitude de recuperación da túa conta. Se non fixeches esta petición, ignora esta mensaxe.\n\nA seguinte ligazón proporciona un único rexistro para permitirche cambiar o contrasinal ou para engadir unha nova conta conectada que podes empregar para acceder ao sistema no futuro:\n\n%{temporary_login_url}\n\nTen en conta que esta ligazón caduca ás 24 horas. Unha vez transcorrido ese período de tempo terás que visitar %{recover_account_url} para solicitar unha nova ligazón de rexistro temporal se aínda tes problemas para acceder á túa conta."
       subject: Recuperación a túa conta da Enciclopedia da vida
     user_updated_email_preferences: 
       message: "Esta é unha notificación automática do sistema da EOL. O usuario %{user_full_name} (%{user_profile_url}) actualizou o seu enderezo de correo electrónico ou as súas preferencias da lista de correo.\n\nPreferencias antigas:\nCorreo electrónico: %{previous_email}\nLista de correo: %{previous_mailing_list_preference}\n\nPreferencias actuais:\nCorreo electrónico: %{updated_email}\nLista de correo: %{updated_mailing_list_preference}\nActualizado o: %{updated_at}"
@@ -2270,18 +2349,50 @@ gl:
       meta_title: Actividade comunitaria da EOL
       page_title: Actividade comunitaria da EOL
   recent_activity: 
+    bulk_collection_activity_with_count: 
+      one: Houbo unha actualización en %{to}
+      other: Houbo %{count} actualizacións en %{to}
+    bulk_comments_on_you_with_count: 
+      one: Hai un novo comentario no <a href='%{url}' style='color:#195184'>teu perfil</a>
+      other: Hai %{count} novos comentarios no <a href='%{url}' style='color:#195184'>teu perfil</a>
+    bulk_comments_with_count: 
+      one: Hai un novo comentario en %{on}
+      other: Hai %{count} novos comentarios en %{on}
+    bulk_community_activity_with_count: 
+      one: Houbo unha actualización en %{to}
+      other: Houbo %{count} actualizacións en %{to}
+    bulk_community_joins_with_count: 
+      one: Un novo membro uniuse a %{community}
+      other: "%{count} novos membros uníronse a %{community}"
+    bulk_curation_with_count: 
+      one: Os conservadores fixeron unha mellora en %{to}
+      other: Os conservadores fixeron %{count} melloras en %{to}
+    collection_activity_by_user: <b>%{user_name}</b> realizou un %{activity_name} na colección <b>%{collection_name}</b>.
     collection_activity_log_title: "%{who} modificou unha colección"
+    collection_activity_user_added_item: "<b>%{user_name}</b> engadiu %{collected_item_type} #%{collected_item_id} a <b>%{collection_name}</b>."
+    collection_activity_user_watching_recipient: <b>%{user_name}</b> segue as súas actualizacións.
     comment_body_brief: "%{body} - %{author}"
     comment_link: Ollar o comentario na EOL
     comment_title: "%{who} deixou un comentario en \"%{what}\""
     comment_title_your_newsfeed: "%{who} deixou un comentario na túa fonte de novas"
+    community_activity_by_user: <b>%{user_name}</b> realizou un %{activity_name} na comunidade <b>%{community_name}</b>.
     community_activity_log_title: "%{who} modificou unha comunidade"
+    community_activity_user_joined: O usuario <b>%{user_name}</b> uniuse á comunidade <b>%{community_name}</b>.
+    community_activity_user_left: O usuario <b>%{user_name}</b> deixou a comunidade <b>%{community_name}</b>.
+    community_activity_user_made_member_a_manager: O usuario <b>%{user_name}</b> converteu a <b>%{member_name}</b> en administrador da comunidade <b>%{community_name}</b>.
     curator_activity_log_title: "%{who} conservou algo"
+    curator_activity_on_data_object_by_user: "<b>%{user_name}</b> realizou unha acción de %{activity_name} en <b>%{dato_title}</b> (%{dato_type} #%{dato_id})."
+    curator_activity_on_taxon_concept_by_user: <b>%{user_name}</b> realizou unha acción de %{activity_name} en <b>%{taxon_concept}</b> (%{taxon_overview_url}).
+    data_object_activity_article_added_by_user: <b>%{user_name}</b> engadiu un artigo chamado %{dato_title} a <b>%{taxon_concept}</b> (%{taxon_details_url}).
     data_object_title: "%{who} engadiu novos contidos á EOL"
     default_subject: Actividade recente na EOL
+    intro: Aquí está o resumo coa túa actividade na EOL durante %{time}
     intro_immediately: Boas, %{name} —
+    intro_weekly: Aquí está o resumo coa túa actividade na EOL durante a semana que rematou o %{ending}
     reply_to_comment_body_brief: "%{reply_to_author} %{body} - %{author}"
+    see_all_activity: Bota un ollo a toda a actividade previa na túa <a href='%{activity_url}' style='color:#195184'>páxina de fonte de novas de usuario</a>.
     someone_commented_on_something: <b>%{who}</b> deixou un comentario en "<b>%{what}</b>".
+    unsubscribe: Cambia a túa configuración do correo electrónico ou cancela a subscrición na <a href='%{email_prefs_url}' style='color:#195184'>páxina das túas preferencias de notificación</a>.
   recent_updates: Actualizacións recentes
   recently_visited: Visitados recentemente
   recipients: Destinatarios
@@ -2422,6 +2533,9 @@ gl:
   set_as_exemplar: Establecer como exemplar
   share_a_collection: Compartir unha colección
   show: Mostrar
+  show_all_other_classifications_with_count: 
+    one: Mostrar outra clasificación non explorable
+    other: Mostrar outras %{count} clasificacións non explorables
   show_data_from_all_content_partners: Eliminar o filtro de clasificación
   show_email_message_area: "[mostrar a zona de mensaxes de correo electrónico]"
   show_full_tree: mostrar a árbore completa...
@@ -2573,15 +2687,19 @@ gl:
       index: 
         hierarchy_entry: 
           meta_description: Información sobre %{scientific_name}, segundo a clasificou %{hierarchy_provider}, na Enciclopedia da vida.
+          meta_description_no_data: Non hai información dispoñible sobre %{scientific_name}, segundo a clasificou %{hierarchy_provider}, na Enciclopedia da vida. A EOL convídate a achegar datos sobre %{scientific_name}, como a conservación, a distribución, a ecoloxía, o hábitat, a morfoloxía e outros.
           meta_description_with_chapter_list: Información sobre %{scientific_name}, segundo a clasificou %{hierarchy_provider}, na Enciclopedia da vida. Inclúe información en %{chapter_list} sobre %{scientific_name}.
           meta_description_with_common_name: Información sobre %{preferred_common_name}, cientificamente coñecido como %{scientific_name}, segundo a clasificou %{hierarchy_provider}, na Enciclopedia da vida.
+          meta_description_with_common_name_no_data: Non hai información dispoñible sobre %{preferred_common_name}, tamén coñecido como %{scientific_name}, segundo a clasificou %{hierarchy_provider}, na Enciclopedia da vida. A EOL convídate a achegar datos sobre %{preferred_common_name} (%{scientific_name}), como a conservación, a distribución, a ecoloxía, o hábitat, a morfoloxía e outros.
           meta_description_with_common_name_with_chapter_list: Información sobre %{preferred_common_name}, cientificamente coñecido como %{scientific_name}, segundo a clasificou %{hierarchy_provider}, na Enciclopedia da vida. Inclúe información en %{chapter_list}.
           meta_title: Información sobre %{scientific_name}, segundo a clasificou %{hierarchy_provider}
           meta_title_with_common_name: Información sobre %{preferred_common_name} (%{scientific_name}, segundo a clasificou %{hierarchy_provider})
           tweet_text: Información sobre %{scientific_name}, segundo a clasificou %{hierarchy_provider}
         meta_description: Información sobre %{scientific_name} na Enciclopedia da vida
+        meta_description_no_data: Non hai información dispoñible sobre %{scientific_name} na Enciclopedia da vida. A EOL convídate a achegar datos sobre %{scientific_name}, como a conservación, a distribución, a ecoloxía, o hábitat, a morfoloxía e outros.
         meta_description_with_chapter_list: Información sobre %{scientific_name} na Enciclopedia da vida. Inclúe información en %{chapter_list}.
         meta_description_with_common_name: Información sobre %{preferred_common_name}, cientificamente coñecido como %{scientific_name}, na Enciclopedia da vida.
+        meta_description_with_common_name_no_data: Non hai información dispoñible sobre %{preferred_common_name}, tamén coñecido como %{scientific_name}, na Enciclopedia da vida. A EOL convídate a achegar datos sobre %{preferred_common_name} (%{scientific_name}), como a conservación, a distribución, a ecoloxía, o hábitat, a morfoloxía e outros.
         meta_description_with_common_name_with_chapter_list: Información sobre %{preferred_common_name}, cientificamente coñecido como %{scientific_name}, na Enciclopedia da vida. Inclúe información en %{chapter_list}.
         meta_title: Feitos sobre %{scientific_name}
         meta_title_with_common_name: Feitos sobre %{preferred_common_name} (%{scientific_name})
@@ -2778,6 +2896,9 @@ gl:
     other: "%{count} taxons"
   taxon: taxon
   taxon_biomedical_terms_link: Termos biomédicos
+  taxon_citizen_science_header: Ligazóns de ciencia cidadá
+  taxon_citizen_science_link: Ligazóns de ciencia cidadá
+  taxon_citizen_science_resources_empty: Polo de agora, ninguén achegou ligazóns de ciencia cidadá a esta páxina.
   taxon_concept_stats: Estatísticas do concepto taxonómico
   taxon_details_empty: Polo de agora, ninguén achegou detalles a esta páxina.
   taxon_education_empty: Polo de agora, ninguén achegou recursos educativos a esta páxina.
@@ -3130,7 +3251,6 @@ gl:
   video_from_supplier: Vídeo de %{whom}
   video_not_associated_with_any_published_entries: Este vídeo non está asociado a ningún taxon publicado.
   video_object: Obxecto de vídeo
-  video_of: Vídeo de
   video_of_taxon: Vídeo de %{taxon_name}
   video_rating: Avaliación do vídeo
   video_title_not_available_in_language: O título non está dispoñible en %{language}

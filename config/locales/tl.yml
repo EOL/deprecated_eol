@@ -4,7 +4,7 @@
 # Author: AnakngAraw
 tl: 
   a_taxon: isang takson
-  about_eol: Tungkol sa EOL
+  about_eol: Patungkol sa EOL
   account_information: Kabatiran sa Akawnt
   account_registered_but_not_ready_try_later: Nakatala ang akawnt mo ngunit hindi pa handa upang mapuntahan mo. Mangyaring subukan muli sa loob ng limang mga minuto.
   activerecord: 
@@ -354,7 +354,6 @@ tl:
   application_version_advisory_information: Bersyon ng aplikasyon
   are_you_sure: Nakatitiyak ka ba?
   article_from_supplier: Artikulo mula kay %{whom}
-  article_of: Artikulo ng
   assistive_details_header: Mga detalye
   assistive_literature_header: Panitikan
   assistive_maps_header: Mga mapa
@@ -411,6 +410,7 @@ tl:
   change_rating_to_4_of_5: Baguhin ang kaantasan upang maging 4 ng 5
   change_rating_to_5_of_5: Baguhin ang kaantasan upang maging 5 ng 5
   citation: Pagbanggit
+  citation_example: Fisher, Brian. "Pogonomyrmex anergismus Cole, 1954." Ensiklopedya ng Buhay, makukuha mula sa <a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>. Napuntahan noong 15 Enero 2009.
   classifications_summary_header_with_count: 
     one: Natagpuan sa %{count} klasipikasyon
     other: Natagpuan sa %{count} mga klasipikasyon
@@ -884,6 +884,8 @@ tl:
   export_this_list_as_csv: Iluwas ang listahang ito bilang CSV
   external_link_header: Kawing Panlabas
   external_link_icon_alt_text: Kawing panlabas.
+  facebook: Facebook
+  faculty_staff_or_grad_student_credential_option: katayuang guro, kawani, katayuan ng estudyanteng nagtapos na mula sa isang nauugnay na kagawaran ng pamantasan o dalubhasaan
   family_name_colon: "Apelido:"
   feedback: Tugon
   file: Talaksan
@@ -899,15 +901,95 @@ tl:
   filter_by_status_untrusted_option: hindi pinagkakatiwalaan
   filter_by_type: Salain ayon sa uri
   filter_by_type_all_option: lahat ng mga uri
+  filter_by_type_all_option_with_count: 
+    one: Lahat ng mga uri (%{count})
+    other: Lahat ng mga uri (%{count})
+  filter_by_type_collection_option: Mga kalipunan
+  filter_by_type_comment_option: Mga puna
+  filter_by_type_community_option: Mga pamayanan
+  filter_by_type_content_page_option: Patungkol sa EOL
+  filter_by_type_image_option: Mga larawan
+  filter_by_type_image_option_with_count: 
+    one: Mga larawan (%{count})
+    other: Mga larawan (%{count})
+  filter_by_type_name_option: Mga pangalan
+  filter_by_type_object_curated_option: Napangasiwaang mga bagay
+  filter_by_type_photosynth_option: Mga Photosynth
+  filter_by_type_sound_option: Mga tunog
+  filter_by_type_sound_option_with_count: 
+    one: Mga tunog (%{count})
+    other: Mga tunog (%{count})
+  filter_by_type_taxa_comment_option: Mga puna sa taksa
+  filter_by_type_taxon_concept_option: Taksa
+  filter_by_type_text_option: Mga artikulo
+  filter_by_type_user_option: Mga tao
+  filter_by_type_video_option: Mga bidyo
+  filter_by_type_video_option_with_count: 
+    one: Mga bidyo (%{count})
+    other: Mga bidyo (%{count})
   filter_media: midyang pangsala
+  filter_newsfeed_option_all: Lahat
+  filter_newsfeed_option_collections: Mga kalipunan
+  filter_newsfeed_option_community: Pamayanan
+  filter_newsfeed_option_curation: Pangangasiwa
+  filter_newsfeed_option_messages: Mga puna
+  filter_newsfeed_option_watchlist: Bantayan ko
   filtered_information: Sinalang kabatiran
+  find_taxa_submit_button: hanapin ang taksa
+  flash_notice_redirected_from_search_html: Nakarating ka rito sa pamamagitan ng paghanap sa <em>%{search_string}</em>. <a href="%{more_results_url}">Pindutin dito upang makabalik sa pahina ng paghahanap.</a>
   flash_video: Bidyong kisap
   flickr: Flickr
+  for_images_to_reference_parens: (para sa mga larawan sa sanggunian)
+  for_pdfs_and_docs_parens: (para sa mga PDF at mga kasulatan)
+  for_terms_or_definitions_conta: "para sa mga kataga o mga kahulugan na naglalaman ng:"
+  forgot_password: Nakalimutan ang hudyat
+  forgot_password_cannot_find_user_from_username_or_email_error: Paumanhin, walang mga akawnt ng tagagamit na may ganiyang ibinigay na pangalan ng tagagamit o e-liham <em>%{username_or_email}</em>.
+  forgot_password_form_cancel: Huwag ituloy
+  forgot_password_form_choose_username_blank_error: Paki piliin ang akawnt na nais mong muling itakda ang hudyat.
+  forgot_password_form_choose_username_legend: Pumili ng isang akawnt
+  forgot_password_form_header: Itakdang muli ang hudyat mo
+  forgot_password_form_username_or_email_blank_error: Pakipasok ang iyong pangalan ng tagagamit o tirahan ng e-liham upang muling itakda ang hudyat mo.
+  form_validation_errors_for_attribute_assistive: Mayroong isang kamalian sa pagpapatunay sa elementong ito
+  fragment_caching_enabled: Pinagagana ang pagtatago ng kaputol
+  frequency: Kadalasan
+  frequency_daily: Araw-araw
+  frequency_monthly: Buwanan
+  frequency_never: Hindi kailan man
+  frequency_weekly: Lingguhan
+  friendly_url: Palakaibigang URL
+  from_communities: "mula sa mga pamayanan: %{communities}"
+  from_community: mula sa pamayanang %{community}
+  full_content_url: Buong URL ng Nilalaman
+  gbif_map: mapa ng GBIF
   gbif_occurrence_learn_more_link: Puntahan ang datong ito sa pamamagitan ng Portada ng GBIF.
+  general_site_admin: pangkalahatang tagapangasiwa ng pook
+  get_help_choosing_a_subchapter: Kumuha ng tulong sa pagpili ng isang kabahaging kabanata
+  get_more_tasks: kumuha ng mas marami pang mga gawain
+  given_name_colon: "Ibinigay na Pangalan:"
   global_access_tagline: Pandaigdigang pagpunta sa kaalaman hinggil sa buhay sa Daigdig.
   global_navigation: Pandaigdigang Paglilibot
+  glossary_is_empty: (walang laman ang talahuluganan)
+  glossary_term: kataga
+  glossary_terms: Mga Kataga sa Talahuluganan
   go: Gawin
+  go_back: bumalik
+  google: Google
+  google_analytic_results: mga resulta ng Google Analytics
+  google_analytics_active: masigla ang Google Analytics
+  google_analytics_google_account_and_access_required: Google Analytics (kailangang ang akawnt at pagpunta sa Google)
+  google_images: Google Images
+  google_scholar: Google Scholar
+  grant_full_curator_link: Ipagkaloob
+  grant_manager_link: Pagkalooban ng gampaning tagapamahala
+  harvest_id: ID ng pag-ani
+  harvesting_processes_log: Talaan ng mga Pagpoproseso ng Pag-ani
+  harvests_for: Mga pag-ani para sa %{resource}
   has_already_been_taken: ay may nakakuha na.
+  has_colon: "Nagtulot:"
+  has_curated_your_image: nangasiwa ng larawan mo
+  has_hidden_your_image: nagkubli ng larawan mo
+  has_trusted_your_image: nagtiwala sa larawan mo
+  has_untrusted_your_image: hindi pinagkatiwalaan ang larawan mo
   hello_user: Kumusta %{user}
   help: Tulong
   helpers: 
@@ -1019,6 +1101,9 @@ tl:
         active_translation: Nalathala na
         active_translation_more: Ang nalathalang mga salinwika ay magiging nakikita ng madla, maliban na lamang kung ang pahina mismo ay hindi pa nalalathala. Huwag tsekan ang <em>nalathala na</em> kung nais mong iwasan na makita ng pangkalahatan ng mga tagagamit ang bersiyong ito ng pahina.
         language_id: Wika
+        left_content_more: Maaaring magdagdag o hindi magdagdag ng isang hindi nakaayos na listahan ng mga kawing upang makapagsama ng isang haliging panglibot sa loob ng pahina. Kailangan ang kinakamay na pagdaragdag ng mga kawing na pang-angkla sa pamamagitan ng pagpili ng <em>Pinagmulan</em> at ang pagbago sa katangiang  <em>href</em> ng HTML ng mga kawing. Bilang halimbawa, upang maikawing ang isang angklang tinatawag na <em>patakaran_sa_paglilisensiya</em> sa loob ng pook ng nilalaman ng <em>Katawan</em> ang iyong kawing sa bagay ng lista na katangian ng <em>href</em> ay dapat na magkaroon ng halagang "#patakaran_sa_paglilisensiya"
+        main_content_more: "Ipasok ang nilalaman ng pangunahing pahina sa loob ng pook ng katawan. Gamitin ang panghulog na paibaba na <em>Kaayusan</em> upang piliin ang naaangkop na mga elemento ng tekstong semantiko, bilang halimbawa piliin ang <em>Pamuhatan 2</em> para sa isang pampangalawang antas na pamuhatan. Paunawa: ang pamagat ng pahina ay ang pang-unang antas na pamuhatan kaya't simulan ang mga pamuhatan mo sa loob ng pook ng katawan na mayroong <em>Pamuhatan 2</em>."
+        meta_description_more: Magbigay ng isang maiksing paglalarawan, na binubuod ang susing mga diwa ng nilalaman ng pahina. Ang paglalarawang ito paminsan-minsang ginagamit ng mga akinang panghanap ng Web kapwa para sa pagsusuri ng kahalagan at para sa paglilista sa mga resulta ng mga makinang panghanap.
         title_more: Ang pamagat ng nilalamang ito ay lilitaw sa pook ng paulo ng pahina. Ang pamagat ay dapat na magsama ng mga susing salita na pinaka may kaugnayan sa nilalaman.
       user: 
         agreed_with_terms: Sumasang-ayon ako sa <a href="%{terms_url}">mga kasunduan sa paggamit</a>
@@ -1026,7 +1111,7 @@ tl:
         bio: Patungkol sa akin
         credentials: Mga kredensiyal
         credentials_more: "Paki magbanggit ng kahit na isang tiyak na katangian mula sa talaang ito:"
-        credentials_more_academic: Katayuang guro, kawani, estudyanteng nagtapos na mula sa isang nauugnay na kagawaran ng pamantasan o dalubhasaan.
+        credentials_more_academic: Katayuang guro, kawani, katayuan ng estudyanteng nagtapos na mula sa isang nauugnay na kagawaran ng pamantasan o dalubhasaan.
         credentials_more_author: Pag-akda sa isang isang lathalaing nasuri ng mga kasamahan (magbigay ng sanggunian).
         credentials_more_professional: Kasapi sa samahang pamprupesyon.
         credentials_more_referral: Pagsangguni mula sa pangkasalukuyang kurador.
@@ -1128,15 +1213,18 @@ tl:
         update: Sagipin ang kabatirang pangkatangian
       wikipedia_queue: 
         create: Ipasa ang kahilingan
+  here: dito
+  hidden: Nakatago
+  hidden_comment: nakatagong puna
+  hide: itago
+  hierarchy: Hanay-Pamunuan
   hierarchy_selector_drop_down_list_label: Ito ang tatak na lilitaw sa naihuhulog pababa na listahan ng tagapili ng hirarkiya
   home: Tahanan
   home_page_link_advisory_information: Ang kawing na ito ay magdadala sa iyo papunta sa bahay-pahina ng Pook-sapot ng Ensiklopedya ng Buhay
   image_from_supplier: Larawan mula kay %{whom}
   image_is_no_longer_available: Hindi na makukuha pa ang larawan
   image_map_from_supplier: Mapa mula kay %{whom}
-  image_map_of: Mapa ng
   image_not_found: Hindi natagpuan ang larawan
-  image_of: Larawan ng
   images: Mga larawan
   images_with_count: 
     one: "%{count} larawan"
@@ -1213,7 +1301,6 @@ tl:
   logo_header: Logo
   logout: Umalis sa pagkalagda
   map_from_supplier: Mapa mula kay %{whom}
-  map_of: Mapa ng
   maps_with_count: 
     one: "%{count} Mapa"
     other: "%{count} Mga mapa"
@@ -1302,6 +1389,7 @@ tl:
       subject: Isang mensahe mula sa Ensiklopedya ng Buhay
     user_recover_account: 
       subject: Bawiin ang iyong akawnt ng Ensiklopedya ng Buhay
+  nucleotide_sequences: Mga Pangunahing Kayarian ng Nukleyotido
   other_collection_items_with_count: 
     one: "%{count} iba pang bagay"
     other: "%{count} iba pang mga bagay"
@@ -1444,6 +1532,8 @@ tl:
         meta_title_with_common_name: Mga katotohanan patungkol sa %{preferred_common_name} (%{scientific_name})
         tweet_text: Mga katotohanan patungkol sa %{scientific_name}
     literature: 
+      bhl: 
+        tweet_text: "Panulatan mula sa #BHL hinggil sa %{scientific_name}"
       show: 
         hierarchy_entry: 
           meta_title: Panulatan hinggil sa %{scientific_name} na ayon sa pagkakauri ni %{hierarchy_provider}
@@ -1511,8 +1601,14 @@ tl:
   user: Tagagamit
   user_comment: Puna ng Tagagamit
   user_no_longer_active_message: Hindi na masigla ang tagagamit na ito
+  user_response: Tugon ng Tagagamit
+  user_says_colon: "Nagsasabi si %{users_name} ng:"
   user_submitted_text: Tekstong ipinasa ng tagagamit
+  user_submitted_text_found: "Natagpuang tekstong ipinasa ng tagagamit:"
   user_system_down: Humihingi kami ng paumanhin, sapagkat ang sistema ng pagpapatala ng tagagamit ay pangkasalukuyang hindi makukuha. Mangyaring subukan ulit mamaya.
+  username: Pangalan ng tagagamit
+  username_colon: "Pangalan ng tagagamit:"
+  username_taken: May nakakuha na ng %{name}
   users: 
     new: 
       create_user_with_eol_authentication_header: "O magbigay ng bagong mga kredensiyal:"
@@ -1534,11 +1630,17 @@ tl:
         tweet_text: "%{user_full_name} pakaing balita"
   users_about_me_header: Patungkol sa akin
   users_content_partners_header: Mga kawaksi sa nilalaman
+  users_content_partners_with_count: 
+    one: "%{count} kasalukuyang kawaksi sa nilalaman"
+    other: "%{count} kasalukuyang mga kawaksi sa nilalaman"
   users_curation_header: Pagkamarapat ng tagapangasiwa
   users_form_account_header: Akawnt mo
   users_form_curation_header: Pagkamarapat ng tagapangasiwa
   users_form_profile_info_header: Kabatiran sa pangmadlang balangkas-katangian
   users_form_tip: Kailangan ang pangalan ng tagagamit para sa lahat ng mga tagagamit, ang ibang mga bagay na minarkahan bilang kailangan %{required_icon} ay maaaring maging wala para sa pangkalahatang mga tagagamit subalit kailangan para sa mga kurador.
+  users_member_of_count_communities: 
+    one: Kasapi sa %{count} pamayanan
+    other: Kasapi sa %{count} mga pamayanan
   users_my_info_header: Kabatiran ko
   users_that_can_edit_this_collection: Mga tagagamit na maaaring mamahala ng kalipunang ito
   using_the_site: Paggamit Ng Sityo
@@ -1553,7 +1655,6 @@ tl:
   video_from: bidyo mula sa
   video_from_supplier: Bidyo mula kay %{whom}
   video_object: Bagay ng bidyo
-  video_of: Bidyo ng
   video_title_not_available_in_language: Hindi makukuha ang pamagat na nasa %{language}
   videos_with_count: 
     one: "%{count} bidyo"
@@ -1603,6 +1704,8 @@ tl:
   who_registered_before: hanggang sa
   who_registered_from: na nagparehistor mula
   wikipedia_queue_create_successful_notice: Ang artikulong %{article} ng Wikipedia na may rebisyong %{rev}  ay ipinila para sa pagaangkat.
+  wikipedia_queue_new_instructions_intro: "Upang matagpuan ang URL ng pagbabago ng isang artikulo ng Wikipedia:"
+  wikipedia_queue_new_intro: Magpasa ng isang pagbabago ng isang artikulo ng Wikipedia na lulunukin papaloob sa EOL bilang isang nabistay nang bagay ng teksto.
   wikipedia_queue_new_page_title: Humiling ng isang pag-angkat ng isang artikulo ng Wikipedia
   will_paginate: 
     next_label: Kasunod &#8594;

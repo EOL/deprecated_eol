@@ -2279,6 +2279,9 @@ ul.content_partner_contacts li {
     text-align: center; }
   #taxon .article.overview {
     margin: 35px 0 0 0; }
+    #taxon .article.overview .copy {
+      margin: 0 0 15px 0;
+      line-height: 170%; }
     #taxon .article.overview .meta.learn_more {
       padding: 0 0 10px 0; }
       #taxon .article.overview .meta.learn_more p, #taxon .article.overview .meta.learn_more form {
@@ -2404,8 +2407,19 @@ ul.content_partner_contacts li {
     #taxon_detail #main > .section > .article > .copy {
       border-top: 1px solid #cad3db;
       border-bottom: 1px solid #cad3db;
-      padding: 20px 10px 0 10px;
-      margin: 0 -10px 20px -10px; }
+      padding: 20px 10px 15px 10px;
+      margin: 0 -10px 20px -10px;
+      line-height: 170%; }
+    #taxon_detail #main > .section > .article > .references {
+      border-bottom: 1px solid #cad3db;
+      padding: 0 10px;
+      margin: 0 -10px 20px -10px;
+      line-height: 170%; }
+      #taxon_detail #main > .section > .article > .references ul {
+        margin: 0 40px 15px 40px; }
+        #taxon_detail #main > .section > .article > .references ul li {
+          list-style-type: disc;
+          margin: 0 0 10px 0; }
     #taxon_detail #main > .section > .article > .meta {
       padding: 0 0 10px 0; }
       #taxon_detail #main > .section > .article > .meta.learn_more {

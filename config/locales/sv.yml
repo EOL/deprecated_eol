@@ -343,7 +343,6 @@ sv:
   article_from: artikel från
   article_from_supplier: Artikel från %{whom}
   article_more_about: Lär dig mer om denna artikel
-  article_of: Artikel för
   article_of_taxon: Artikel för %{taxon_name}
   article_rating: Artikelbetyg
   articles_in_languages_with_count: 
@@ -1010,11 +1009,9 @@ sv:
   image_is_no_longer_available: Bilden är inte längre tillgänglig
   image_map_from: karta från
   image_map_from_supplier: Karta från %{whom}
-  image_map_of: Karta för
   image_map_of_taxon: Karta över %{taxon_name}
   image_map_rating: Kartbetyg
   image_not_found: Bilden hittades inte
-  image_of: Bilden för
   image_of_taxon: Bild för %{taxon_name}
   image_rating: Bildbetyg
   images: Bilder
@@ -1120,7 +1117,6 @@ sv:
   manager_parens: (ledare)
   map_from: karta från
   map_from_supplier: Karta från %{whom}
-  map_of: Karta för
   map_of_taxon: Karta över %{taxon_name}
   map_rating: Kartbetyg
   maps_empty: Ingen har bidragit några kartor till denna sida ännu.
@@ -1716,7 +1712,6 @@ sv:
   video_from: videoklipp från
   video_from_supplier: Videoklipp från %{whom}
   video_object: Videoobjekt
-  video_of: Video för
   video_of_taxon: Video för %{taxon_name}
   video_rating: Videobetyg
   video_title_not_available_in_language: Titel är inte tillgänglig på %{language}

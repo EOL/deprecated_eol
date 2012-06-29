@@ -72,13 +72,15 @@ class RandomHierarchyImage < ActiveRecord::Base
       [ :data_object,
         { :taxon_concept => [
           { :preferred_entry => { :hierarchy_entry => [ :hierarchy, { :name => [ :canonical_form, :ranked_canonical_form ] } ] } },
-          { :taxon_concept_exemplar_image => :data_object } ] } ],
+          { :taxon_concept_exemplar_image => :data_object },
+          { :preferred_common_names => :name } ] } ],
       :select => {
         :data_objects => [ :id, :object_cache_url, :data_type_id, :guid ],
         :names => [ :id, :italicized, :string, :canonical_form_id, :ranked_canonical_form_id ],
         :canonical_forms => [ :id, :string ],
         :taxon_concepts => [ :id ],
-        :hierarchies => '*' })
+        :hierarchies => '*',
+        :taxon_concept_names => '*' })
 
     random_images = self.random_set(limit, Hierarchy.default, :size => options[:size]) if random_images.blank? && hierarchy.id != Hierarchy.default.id
     #raise "Found no Random Taxa in the database (#{starting_id}, #{limit})" if random_images.blank?

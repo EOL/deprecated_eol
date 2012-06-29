@@ -807,7 +807,6 @@ de:
   article_from_supplier: Artikel von %{whom}
   article_more_about: Erfahren Sie mehr zu diesem Artikel
   article_not_associated_with_any_published_entries: Dieser Artikel ist keinen veröffentlichten Taxa zugeordnet.
-  article_of: Artikel zu
   article_of_taxon: Artikel zu %{taxon_name}
   article_rating: Artikelbewertung
   articles_in_languages_with_count: 
@@ -1980,14 +1979,12 @@ de:
   image_map_from: Karte von
   image_map_from_supplier: Karte von %{whom}
   image_map_not_associated_with_any_published_entries: Diese Karte ist keinen veröffentlichten Taxa zugeordnet.
-  image_map_of: Karte zu
   image_map_of_taxon: Karte zu %{taxon_name}
   image_map_rating: Kartenbewertung
   image_not_associated_with_any_published_entries: Dieses Bild ist keinen veröffentlichten Taxa zugeordnet.
   image_not_found: Das Bild wurde nicht gefunden.
   image_object: Bildobjekt
   image_objects_will_contain_two_mediaurl_elements: Bildobjekte werden zwei Elemente zur URL (mediaURL) enthalten. Das erste wird die URL des Bildes auf der Website des Bildanbieters und die zweite die gecachte Version des Bildes auf dem EOL-Server sein. Die Version des Bildes bei EOL wird unter Beibehaltung des Seitenverhältnisses verkleinert worden sein, sofern das Originalbild größer als 460 x 345 Pixel war.
-  image_of: Bild zu
   image_of_taxon: Bild zu %{taxon_name}
   image_rating: Bildbewertung
   images: Bilder
@@ -2156,7 +2153,6 @@ de:
   map_from: Karte von
   map_from_supplier: Karte von %{whom}
   map_not_associated_with_any_published_entries: Diese Karte ist keinen veröffentlichten Taxa zugeordnet.
-  map_of: Karte zu
   map_of_taxon: Karte zu %{taxon_name}
   map_rating: Kartenbewertung
   maps_empty: Bislang hat noch niemand Karten für diese Seite zur Verfügung gestellt.
@@ -3580,7 +3576,6 @@ de:
   video_from_supplier: Video von %{whom}
   video_not_associated_with_any_published_entries: Dieses Video ist keinen veröffentlichten Taxa zugeordnet.
   video_object: Videoobjekt
-  video_of: Video zu
   video_of_taxon: Video zu %{taxon_name}
   video_rating: Videobewertung
   video_title_not_available_in_language: Der Titel ist nicht auf %{language} vorhanden.

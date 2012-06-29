@@ -801,7 +801,6 @@ mk:
   article_from_supplier: Статија од %{whom}
   article_more_about: Повеќе за статијава
   article_not_associated_with_any_published_entries: Оваа статија не е поврзана со ниеден објавен таксон.
-  article_of: Статија на
   article_of_taxon: Статија за %{taxon_name}
   article_rating: Оценка на статијата
   articles_in_languages_with_count: 
@@ -1972,14 +1971,12 @@ mk:
   image_map_from: карта од
   image_map_from_supplier: Карта од %{whom}
   image_map_not_associated_with_any_published_entries: Оваа карта не е поврзана со ниеден објавен таксон.
-  image_map_of: Карта на
   image_map_of_taxon: Карта на %{taxon_name}
   image_map_rating: Оценка на картата
   image_not_associated_with_any_published_entries: Оваа слика не е поврзана со ниеден објавен таксон.
   image_not_found: Сликата не е пронајдена
   image_object: Сликовен објект
   image_objects_will_contain_two_mediaurl_elements: Објектите кои се слики ќе содржат два елемента mediaURL - првиот е URL-адреса на сликата на мрежното место на добавувачот, а вториот е URL-адреса на кешираната верзија вдомена на опслужувачот на EOL. Верзијата на EOL ќе биде со изменета големина (запазувајќи ја сразмерноста) ако изворната слика е поголема од 460 пиксели во ширина и 345 пиксели во висина.
-  image_of: Слика од
   image_of_taxon: Слика од %{taxon_name}
   image_rating: Оценка на сликата
   images: Слики
@@ -2148,7 +2145,6 @@ mk:
   map_from: карта од
   map_from_supplier: Карта од %{whom}
   map_not_associated_with_any_published_entries: Оваа карта не е поврзана со ниеден објавен таксон.
-  map_of: Карта на
   map_of_taxon: Карта на %{taxon_name}
   map_rating: Оценка на картата
   maps_empty: Досега никој нема поставено карти на оваа страница.
@@ -3572,7 +3568,6 @@ mk:
   video_from_supplier: Видео од %{whom}
   video_not_associated_with_any_published_entries: Оваа видеоснимка не е поврзана со ниеден објавен таксон.
   video_object: Видео објект
-  video_of: Видео од
   video_of_taxon: Видеоснимка од %{taxon_name}
   video_rating: Оценка на видеото
   video_title_not_available_in_language: Насловот не е достапен на %{language}

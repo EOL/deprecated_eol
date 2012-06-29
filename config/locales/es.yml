@@ -795,7 +795,6 @@ es:
   article_from_supplier: Artículo de %{whom}
   article_more_about: Apreda más sobre este artículo
   article_not_associated_with_any_published_entries: Este artículo no está asociado con ninguno de los taxones publicados.
-  article_of: Artículo de
   article_of_taxon: Artículo de %{taxon_name}
   article_rating: Calificación del artículo
   articles_in_languages_with_count: 
@@ -1968,14 +1967,12 @@ es:
   image_map_from: mapa de
   image_map_from_supplier: Mapa de %{whom}
   image_map_not_associated_with_any_published_entries: Este mapa no está asociado con ninguno de los taxones publicados.
-  image_map_of: Mapa de
   image_map_of_taxon: Mapa de %{taxon_name}
   image_map_rating: Evaluación del mapa
   image_not_associated_with_any_published_entries: Esta imagen no está asociada con ninguno de los taxones publicados.
   image_not_found: Imagen no encontrada
   image_object: Objeto de imagen
   image_objects_will_contain_two_mediaurl_elements: Los objetos de Imagen tendrán dos elementos tipo mediaURL - el primero es el URL de la imagen en el sitio web del proveedor, y el segundo, el URL de la versión en cache del medio en hospedado en un servidor de EOL. La versión EOL de la imagen estará proporcionalmente escalada si la imagen original tiene un tamaño superior a 460 pixels de ancho por 345 pixeles de alto.
-  image_of: Imagen de
   image_of_taxon: Imagen de %{taxon_name}
   image_rating: Evaluación de la imagen
   images: Imágenes
@@ -2144,7 +2141,6 @@ es:
   map_from: mapa de
   map_from_supplier: Mapa de %{whom}
   map_not_associated_with_any_published_entries: Este mapa no está asociado con ninguno de los taxones publicados.
-  map_of: Mapa de
   map_of_taxon: Mapa de %{taxon_name}
   map_rating: Evaluación del mapa
   maps_empty: Nadie ha contribuido todavía con algún mapa a esta página.
@@ -3560,7 +3556,6 @@ es:
   video_from_supplier: Vídeo de %{whom}
   video_not_associated_with_any_published_entries: Este vídeo no está asociado con ninguno de los taxones publicados.
   video_object: Objeto de vídeo
-  video_of: Vídeo de
   video_of_taxon: Vídeo de %{taxon_name}
   video_rating: Evaluación del vídeo
   video_title_not_available_in_language: Título no disponible en %{language}

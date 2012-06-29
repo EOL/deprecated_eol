@@ -411,12 +411,12 @@ nl:
         an_unknown_user_associated_an_unknown_data_object_to_association: Een onbekende gebruiker heeft een koppeling gemaakt tussen een onbekend gegevensobject en "%{association}".
         an_unknown_user_associated_data_object_to_an_unknown_association: Een onbekende gebruiker heeft een koppeling gemaakt tussen "%{data_object}" en een onbekende pagina.
         an_unknown_user_associated_data_object_to_association: Een onbekende gebruiker heeft een koppeling gemaakt tussen "%{data_object}" en "%{association}".
-        an_unknown_user_associated_it_to_an_unknown_association: Een onbekende gebruiker geeft een koppeling gemaakt met een onbekende pagina.
+        an_unknown_user_associated_it_to_an_unknown_association: Een onbekende gebruiker heeft een koppeling gemaakt met een onbekende pagina.
         an_unknown_user_associated_it_to_association: Een onbekende gebruiker heeft een koppeling gemaakt met "%{association}".
         user_associated_an_older_data_object_to_an_unknown_association: <strong>%{user}</strong> heeft een koppeling gemaakt tussen een oudere versie van "%{data_object}" en een onbekende pagina.
         user_associated_an_older_data_object_to_association: <strong>%{user}</strong> heeft een koppeling gemaakt tussen een oudere versie van "%{data_object}" en "%{association}".
         user_associated_an_unknown_data_object_to_an_unknown_association: <strong>%{user}</strong> heeft een onbekende koppeling toegevoegd.
-        user_associated_an_unknown_data_object_to_association: <strong>%{user}</strong> heeft een koppeling tussen een onbekend object en "%{association}" toegevoegd.
+        user_associated_an_unknown_data_object_to_association: <strong>%{user}</strong> heeft een koppeling toegevoegd tussen een onbekend object en "%{association}".
         user_associated_data_object_to_an_unknown_association: <strong>%{user}</strong> heeft een koppeling gemaakt tussen "%{data_object}" en een onbekende pagina.
         user_associated_data_object_to_association: <strong>%{user}</strong> heeft een koppeling gemaakt tussen "%{data_object}" en "%{association}".
         user_associated_it_to_an_unknown_association: <strong>%{user}</strong> heeft een koppeling toegevoegd aan een onbekend object.
@@ -440,6 +440,23 @@ nl:
         user_hid_it_on_association: <strong>%{user}</strong> heeft het als verborgen gemarkeerd op de pagina "%{association}".
       reasons_to_hide: "Reden voor verbergen: %{reasons}"
       reasons_to_untrust: "Reden voor niet vertrouwen: %{reasons}"
+      remove_association: 
+        an_unknown_user_disassociated_an_older_data_object_from_an_unknown_association: Een onbekende gebruiker heeft een koppeling verwijderd van een oudere versie van "%{data_object}".
+        an_unknown_user_disassociated_an_older_data_object_from_association: Een onbekende gebruiker heeft een koppeling verwijderd tussen "%{data_object}" en "%{association}".
+        an_unknown_user_disassociated_an_unknown_data_object_from_an_unknown_association: Een onbekende gebruiker heeft een onbekende koppeling verwijderd.
+        an_unknown_user_disassociated_an_unknown_data_object_from_association: Een onbekende gebruiker heeft een koppeling verwijderd tussen een onbekend gegevensobject en "%{association}".
+        an_unknown_user_disassociated_data_object_from_an_unknown_association: Een onbekende gebruiker heeft een koppeling verwijderd tussen "%{data_object}" en een onbekende pagina.
+        an_unknown_user_disassociated_data_object_from_association: Een onbekende gebruiker heeft een koppeling verwijderd tussen "%{data_object}" en "%{association}".
+        an_unknown_user_disassociated_it_from_an_unknown_association: Een onbekende gebruiker heeft een koppeling verwijderd met een onbekende pagina.
+        an_unknown_user_disassociated_it_from_association: Een onbekende gebruiker heeft een koppeling verwijderd met "%{association}".
+        user_disassociated_an_older_data_object_from_an_unknown_association: <strong>%{user}</strong> heeft een koppeling verwijderd tussen een oudere versie van "%{data_object}" en een onbekende pagina.
+        user_disassociated_an_older_data_object_from_association: <strong>%{user}</strong> heeft een koppeling verwijderd tussen een oudere versie van "%{data_object}" en "%{association}".
+        user_disassociated_an_unknown_data_object_from_an_unknown_association: <strong>%{user}</strong> heeft een onbekende koppeling verwijderd.
+        user_disassociated_an_unknown_data_object_from_association: <strong>%{user}</strong> heeft een koppeling verwijderd tussen een onbekend object en "%{association}".
+        user_disassociated_data_object_from_an_unknown_association: <strong>%{user}</strong> heeft een koppeling verwijderd tussen "%{data_object}" en een onbekende pagina.
+        user_disassociated_data_object_from_association: <strong>%{user}</strong> heeft een koppeling verwijderd tussen "%{data_object}" en "%{association}".
+        user_disassociated_it_from_an_unknown_association: <strong>%{user}</strong> heeft een koppeling verwijderd met een onbekend object.
+        user_disassociated_it_from_association: <strong>%{user}</strong> heeft een koppeling verwijderd met "%{association}".
       show: 
         an_unknown_user_showed_an_older_data_object_on_an_unknown_association: Een onbekende gebruiker heeft een oudere versie van "%{data_object}" als zichtbaar gemarkeerd in een onbekende context.
         an_unknown_user_showed_an_older_data_object_on_association: Een onbekende gebruiker heeft een oudere versie van "%{data_object}" als zichtbaar gemarkeerd op de pagina "%{association}".
@@ -678,7 +695,6 @@ nl:
   article_from_supplier: Artikel van %{whom}
   article_more_about: Meer informatie over deze pagina
   article_not_associated_with_any_published_entries: Dit artikel is niet gekoppeld met gepubliceerde taxa.
-  article_of: Artikel van
   article_of_taxon: Artikel over %{taxon_name}
   article_rating: Artikelwaardering
   articles_in_languages_with_count: 
@@ -705,11 +721,11 @@ nl:
   associated_submit_button: gekoppeld
   associated_with_article_header: In dit artikel
   associated_with_header: Gekoppeld met
-  associated_with_image_header: In deze afbeelding
-  associated_with_image_map_header: Op deze kaart
-  associated_with_map_header: Op deze kaart
-  associated_with_sound_header: In dit geluidsbestand
-  associated_with_video_header: In deze video
+  associated_with_image_header: In de laatste afbeelding
+  associated_with_image_map_header: Op de laatste kaart
+  associated_with_map_header: Op de laatste kaart
+  associated_with_sound_header: In het laatste geluidsbestand
+  associated_with_video_header: In de laatste video
   associations_more_link: meer <span class="assistive">taxonassociaties</span>
   attribute: Eigenschap
   audio_current_time_assistive: Met Javascript ingeschakeld wordt de huidige weergavepositie van het audio-bestand in minuten en seconden aangeven.
@@ -1571,8 +1587,8 @@ nl:
         active_translation: Gepubliceerd
         active_translation_more: Gepubliceerde vertalingen zijn openbaar te zien tenzij de pagina zelf niet openbaar is. Vink <em>gepubliceerd</em> uit als u wilt voorkomen dat iedereen deze versie van de pagina te zien krijgt.
         language_id: Taal
-        left_content_more: Voeg optioneel een ongesorteerde lijst met verwijzingen toe om een navigatiekolom als bijlage in de pagina op te nemen. Voeg ankerkoppelingen handmatig toe door <em>Bron</em>  te selecteren en het HTML-attribuut <em>href</em> te bewerken. Om bijvoorbeeld een ankerkoppeling met de naam <em>licentie_beleid</em> te maken in het inhoudsgebied <em>Body</em>, moet moet het attribuut <em>href</em>  van uw lijstverwijzing de waarde "#licentie_beleid" hebben.
-        main_content_more: Voer de hoofdinhoud voor de pagina in in het tekstvak. Gebruik de dropdown <em>Vormgeving</em> om de toepasselijke semantische tekstelementen te selecteren; kies bijvoorbeeld <em>Koptekst 2</em> voor een tweede niveau koptekst. De paginanaam is een koptekst op het eerste niveau, dus begin uw koppen in het tekstvak met <em>Koptekst 2</em>.
+        left_content_more: "(optioneel) Voeg een ongesorteerde lijst toe met navigatieerwijzingen. Gebruik de klassenaam <code>active</code> om de verwijzing voor de huidige pagina uit te lichten, bijvoorbeeld <code>&lt;li class=\"active\"&gt;&lt;a href=\"/info/:id\"&gt;:title&lt;/a&gt;&lt;/li&gt;</code> waar <code>:id</code> is het ID of de unieke naam van de huidige pagina en <code>:title</code> is de beschrijvende titel van de pagina. Let op: alle verwijzingen naar pagina's uit het EOL CMS moeten beginnen met een slash (/): <code>/info/:id</code>.</strong> U moet de HTML-broncode direct bewerken om deze wijzigingen te maken. Doe dit door <em>Broncode</em> te selecteren in de werkbalk van de tekstverwerker."
+        main_content_more: "Voer de hoofdinhoud voor de pagina in in het tekstvak. Gebruik de dropdown <em>Vormgeving</em> om de toepasselijke semantische tekstelementen te selecteren; kies bijvoorbeeld <em>Koptekst 2</em> voor een tweede niveau koptekst. Let op: <em>Koptekst 1</em> is gereserveerd voor de paginanaam, dus kopteksten in de body beginnen met <em>Koptekst 2</em>. Selecteer <em>Broncode</em> om om te schakelen naar bewerken in broncodemodus, zodat u handmatig HTML kunt toevoegen en aanpassen."
         meta_description_more: Geef een korte beschrijving, waarin de belangrijkste concepten van depagina verkort worden weergegeven. Deze beschrijving wordt soms gebruikt door zoekmachines, zowel voor het controleren van relevantie als voor opname in zoekmachineresultaten.
         meta_keywords_more: Voer een kommagescheiden lijst van woorden en korte zinnen in die het best de inhoud van de pagina weergeven. Deze trefwoorden en -lzinnen worden soms gebruikt door zoekmachines om de relevantie van de pagina te beoordelen ten opzichte van zoektermen.
         title_more: De paginanaam wordt opgenomen in de kopregel van de pagina. De paginanaam hoort trefwoorden te bevatten die het meest relevant zijn voor de inhoud.
@@ -1707,13 +1723,11 @@ nl:
   image_map_from: kaart van
   image_map_from_supplier: Kaart van %{whom}
   image_map_not_associated_with_any_published_entries: Deze kaart is niet gekoppeld met gepubliceerde taxa.
-  image_map_of: Kaart van
   image_map_of_taxon: Kaart van %{taxon_name}
   image_map_rating: Kaartwaardering
   image_not_associated_with_any_published_entries: Deze afbeelding is niet gekoppeld met gepubliceerde taxa.
   image_not_found: Afbeelding niet gevonden
   image_object: Afbeeldingsobject
-  image_of: Afbeelding van
   image_of_taxon: Afbeelding van %{taxon_name}
   image_rating: Afbeeldingswaardering
   images: Afbeeldingen
@@ -1847,7 +1861,6 @@ nl:
   map_from: kaart van
   map_from_supplier: Kaart van %{whom}
   map_not_associated_with_any_published_entries: Deze kaart is niet gekoppeld met gepubliceerde taxa.
-  map_of: Kaart van
   map_of_taxon: Kaart van %{taxon_name}
   map_rating: Kaartwaardering
   maps_empty: Niemand heeft nog kaarten aan deze pagina bijgedragen.
@@ -2166,8 +2179,8 @@ nl:
       one: Er is een wijziging gemaakt aan %{to}
       other: Er zijn %{count} wijzigingen gemaakt aan %{to}
     bulk_comments_on_you_with_count: 
-      one: Er is een nieuwe reactie op uw profiel
-      other: Er zijn %{count} nieuwe reacties op uw profiel
+      one: Er is een nieuwe reactie op <a href='%{url}' style='color:#195184'>uw profiel</a>
+      other: Er zijn %{count} nieuwe reacties op <a href='%{url}' style='color:#195184'>uw profiel</a>
     bulk_comments_with_count: 
       one: Er is een nieuwe reactie op %{on}
       other: Er zijn %{count} nieuwe reacties op %{on}
@@ -2432,19 +2445,19 @@ nl:
       index: 
         hierarchy_entry: 
           meta_description: Gegevens over %{scientific_name} als geclassificeerd door %{hierarchy_provider} in Encyclopedia of Life
-          meta_description_no_data: Er zijn geen feiten beschikbaar over %{scientific_name} als ingedeeld door %{hierarchy_provider} in de Encyclopedia of Life. EOL nodigt u uit om feiten bij te dragen over conservatie, distributie, ecologie, habitat, morfologie en meer.
+          meta_description_no_data: Er zijn geen feiten beschikbaar over %{scientific_name} als ingedeeld door %{hierarchy_provider} in de Encyclopedia of Life. EOL nodigt u uit om feiten bij te dragen over %{scientific_name} zoals conservatie, distributie, ecologie, habitat, morfologie en meer.
           meta_description_with_chapter_list: Gegevens over %{scientific_name} als geclassificeerd door %{hierarchy_provider} in Encyclopedia of Life. Bevat %{chapter_list}gegevens voor %{scientific_name}.
           meta_description_with_common_name: Gegevens over %{preferred_common_name}, wetenschappelijk bekend als %{scientific_name} als geclassificeerd door %{hierarchy_provider} in Encyclopedia of Life.
-          meta_description_with_common_name_no_data: Er zijn geen feiten beschikbaar over %{preferred_common_name}, ook bekend als %{scientific_name} als ingedeeld door %{hierarchy_provider} in de Encyclopedia of Life. EOL nodigt u uit om feiten bij te dragen over conservatie, distributie, ecologie, habitat, morfologie en meer.
+          meta_description_with_common_name_no_data: Er zijn geen feiten beschikbaar over %{preferred_common_name}, ook bekend als %{scientific_name} als ingedeeld door %{hierarchy_provider} in de Encyclopedia of Life. EOL nodigt u uit om feiten bij te dragen over %{preferred_common_name} (%{scientific_name}) zoals conservatie, distributie, ecologie, habitat, morfologie en meer.
           meta_description_with_common_name_with_chapter_list: Gegevens over %{preferred_common_name}, wetenschappelijk bekend als %{scientific_name} als geclassificeerd door %{hierarchy_provider} in Encyclopedia of Life. Bevat %{chapter_list}gegevens voor %{scientific_name}.
           meta_title: egevens over %{scientific_name} als geclassificeerd door %{hierarchy_provider}
           meta_title_with_common_name: Gegevens over %{preferred_common_name} (%{scientific_name} als geclassificeerd door %{hierarchy_provider})
           tweet_text: Gegevens over %{scientific_name} als geclassificeerd door %{hierarchy_provider}
         meta_description: Gegevens over %{scientific_name} in Encyclopedia of Life
-        meta_description_no_data: Er zijn geen feiten beschikbaar over %{scientific_name} in de Encyclopedia of Life. EOL nodigt u uit om feiten bij te dragen over conservatie, distributie, ecologie, habitat, morfologie en meer.
+        meta_description_no_data: Er zijn geen feiten beschikbaar over %{scientific_name} in de Encyclopedia of Life. EOL nodigt u uit om feiten bij te dragen over %{scientific_name} zoals conservatie, distributie, ecologie, habitat, morfologie en meer.
         meta_description_with_chapter_list: Gegevens over %{scientific_name} in Encyclopedia of Life. Bevat %{chapter_list}gegevens voor %{scientific_name}.
         meta_description_with_common_name: Gegevens over %{preferred_common_name}, wetenschappelijk bekend als %{scientific_name} in Encyclopedia of Life.
-        meta_description_with_common_name_no_data: Er zijn geen feiten beschikbaar over %{preferred_common_name}, ook bekend als %{scientific_name} in de Encyclopedia of Life. EOL nodigt u uit om feiten bij te dragen over conservatie, distributie, ecologie, habitat, morfologie en meer.
+        meta_description_with_common_name_no_data: Er zijn geen feiten beschikbaar over %{preferred_common_name}, ook bekend als %{scientific_name} in de Encyclopedia of Life. EOL nodigt u uit om feiten bij te dragen over %{preferred_common_name} (%{scientific_name}) zoals conservatie, distributie, ecologie, habitat, morfologie en meer.
         meta_description_with_common_name_with_chapter_list: Gegevens over %{preferred_common_name}, wetenschappelijk bekend als %{scientific_name} in Encyclopedia of Life. Bevat %{chapter_list}gegevens voor %{scientific_name}.
         meta_title: Feiten over %{scientific_name}
         meta_title_with_common_name: Feiten over %{preferred_common_name} (%{scientific_name})
@@ -2465,13 +2478,13 @@ nl:
           meta_title: Literatuur over %{scientific_name} als ingedeeld door %{hierarchy_provider}
           meta_title_with_common_name: Boeken over %{preferred_common_name} (%{scientific_name} als ingedeeld door %{hierarchy_provider})
           tweet_text: Literatuur over %{scientific_name} als ingedeeld door %{hierarchy_provider}
-        meta_description: Literatuur en gegevens over %{scientific_name} in Encyclopedia of Life. Lees artikelen over %{scientific_name} in de Encyclopedia of Life.
-        meta_description_with_common_name: Literatuur en gegevens over %{preferred_common_name}, ook bekend als %{scientific_name} in Encyclopedia of Life. Lees artikelen over %{preferred_common_name} in de Encyclopedia of Life.
-        meta_keywords: informatie over %{scientific_name}, literatuur voor %{scientific_name}, artikelen voor %{scientific_name}
-        meta_keywords_with_common_name: informatie over %{preferred_common_name}, literatuur over %{preferred_common_name}, artikelen over %{scientific_name}
-        meta_title: Literatuur over %{scientific_name}
+        meta_description: Boeken, artikelen en bibliografieën over %{scientific_name} in Encyclopedia of Life. Lees literatuur over %{scientific_name} in de Encyclopedia of Life.
+        meta_description_with_common_name: Boeken, artikelen en bibliografieën over %{preferred_common_name}, ook bekend als %{scientific_name} in Encyclopedia of Life. Lees literatuur over %{preferred_common_name} in de Encyclopedia of Life.
+        meta_keywords: Artikelen over %{scientific_name}, boeken over %{scientific_name}, bibliografieën over %{scientific_name}, literatuur over %{scientific_name}
+        meta_keywords_with_common_name: Artikelen over %{preferred_common_name},boeken over %{preferred_common_name},literatuur %{preferred_common_name},artikelen over %{scientific_name},boeken over %{scientific_name},%bibliografieën over {scientific_name},literatuur over %{scientific_name}
+        meta_title: Artikelen en boeken over %{scientific_name}
         meta_title_with_common_name: Artikelen en boeken over %{preferred_common_name} (%{scientific_name})
-        tweet_text: Literatuur over %{scientific_name}
+        tweet_text: Artikelen en boeken over %{scientific_name}
     maps: 
       show: 
         hierarchy_entry: 
@@ -2479,14 +2492,16 @@ nl:
           meta_description_with_common_name: Waar wordt %{preferred_common_name} aangetroffen en waar leeft %{preferred_common_name}? Geografische gegevens over %{scientific_name} als ingedeeld door %{hierarchy_provider}, waar %{scientific_name} leeft, en waar %{scientific_name} van nature voorkomt.
           meta_title: Kaarten van %{scientific_name} als ingedeeld door %{hierarchy_provider}
           meta_title_with_common_name: Kaarten van %{preferred_common_name} (%{scientific_name} als ingedeeld door %{hierarchy_provider})
-          tweet_text: Kaarten van %{scientific_name} als ingedeeld door %{hierarchy_provider}
-        meta_description: Geografische gegevens over %{scientific_name} , waar %{scientific_name} leeft, en waar %{scientific_name} van nature voorkomt.
-        meta_description_with_common_name: Waar wordt %{preferred_common_name} aangetroffen en waar leeft %{preferred_common_name}? Geografische gegevens over %{scientific_name}, waar %{scientific_name} leeft, en waar %{scientific_name} van nature voorkomt.
-        meta_keywords: habitat %{scientific_name}, inheems, waar leeft %{scientific_name}
-        meta_keywords_with_common_name: habitat %{preferred_common_name}, inheems, waar leeft %{preferred_common_name}
+          tweet_text: Kaarten voor %{scientific_name} als ingedeeld door %{hierarchy_provider}
+        meta_description: Geografische gegevens over %{scientific_name}. Plaatsen waar ze leven in de wereld.
+        meta_description_no_data: Er zijn geen geografische gegevens beschikbaar voor %{scientific_name} in de Encyclopedia of Life. EOL nodigt u uit kaarten bij te dragen voor %{scientific_name}.
+        meta_description_with_common_name: Waar wordt %{preferred_common_name} aangetroffen en waar leeft %{preferred_common_name}? Geografische gegevens over %{scientific_name}. Plaatsen waar %{scientific_name} leven in de wereld.
+        meta_description_with_common_name_no_data: Er zijn geen geografische gegevens beschikbaar voor %{preferred_common_name}, ook bekend als %{scientific_name} in de Encyclopedia of Life. EOL nodigt u uit kaarten bij te dragen voor %{preferred_common_name} (%{scientific_name}).
+        meta_keywords: habitat %{scientific_name}, waar leeft %{scientific_name}
+        meta_keywords_with_common_name: habitat %{preferred_common_name}, waar leeft %{preferred_common_name}
         meta_title: Kaarten voor %{scientific_name}
         meta_title_with_common_name: Kaarten voor %{preferred_common_name} (%{scientific_name})
-        tweet_text: Kaarten van %{scientific_name}
+        tweet_text: Kaarten voor %{scientific_name}
     media: 
       index: 
         hierarchy_entry: 
@@ -2498,12 +2513,14 @@ nl:
           meta_title_with_common_name: Audio, film en foto's van %{preferred_common_name} (%{scientific_name} als ingedeeld door %{hierarchy_provider}).
           tweet_text: Media van %{scientific_name} als ingedeeld door %{hierarchy_provider}
         meta_description: Afbeeldingen en video's van %{scientific_name}. Zoek afbeeldingen, foto's en geluiden van %{scientific_name} bij de Encyclopedia of Life.
-        meta_description_with_common_name: Afbeeldingen en video's van %{preferred_common_name}, ook bekend als %{scientific_name}
+        meta_description_no_data: Er is geen multimedia beschikbaar voor %{scientific_name} in de Encyclopedia of Life. EOL nodigt u uit afbeeldingen, video of geluiden bij te dragen voor %{scientific_name}.
+        meta_description_with_common_name: Afbeeldingen video en audio voor %{preferred_common_name}, ook bekend als %{scientific_name}. Vind afbeeldingen, foto's, filmpjes en geluiden voor %{preferred_common_name} (%{scientific_name}) in de Encyclopedia of Life.
+        meta_description_with_common_name_no_data: Er is geen multimedia beschikbaar voor %{preferred_common_name}, ook bekend als %{scientific_name} in de Encyclopedia of Life. EOL nodigt u uit afbeeldingen, video en geluiden bij te dragen voor %{preferred_common_name} (%{scientific_name}).
         meta_keywords: afbeeldingen van %{scientific_name}, video's van %{scientific_name}, foto's van %{scientific_name}, video van %{scientific_name}, media
         meta_keywords_with_common_name: foto's van %{preferred_common_name}, video's van %{preferred_common_name}, afbeeldingen van %{preferred_common_name}, video van %{preferred_common_name}, media
-        meta_title: Afbeeldingen en video van %{scientific_name}
-        meta_title_with_common_name: Afbeeldingen en video van %{preferred_common_name} (%{scientific_name})
-        tweet_text: Media van %{scientific_name}
+        meta_title: Afbeeldingen en video van %{scientific_name} - Afbeeldingen, foto's, filmpjes en geluiden voor %{scientific_name}
+        meta_title_with_common_name: Afbeeldingen, video en audio van %{preferred_common_name} (%{scientific_name}) - - Afbeeldingen, foto's, filmpjes en geluiden voor van %{preferred_common_name} (%{scientific_name})
+        tweet_text: Afbeeldingen, video en audio van %{scientific_name}
     names: 
       common_names: 
         hierarchy_entry: 
@@ -2523,14 +2540,14 @@ nl:
         tweet_text: Volksnamen voor %{scientific_name}
       index: 
         hierarchy_entry: 
-          meta_description: Taxonomie, classificatiehiërarchieën en aanverwante wetenschappelijke namen voor %{scientific_name} als ingedeeld door %{hierarchy_provider}.
-          meta_description_with_common_name: Taxonomie, classificatiehiërarchieën en wetenschappelijke namen voor %{preferred_common_name}, ook bekend als %{scientific_name} als ingedeeld door %{hierarchy_provider}.
+          meta_description: Taxonomieën en wetenschappelijke namen voor %{scientific_name} als ingedeeld door %{hierarchy_provider}.
+          meta_description_with_common_name: Taxonomieën en wetenschappelijke namen voor %{preferred_common_name}, ook bekend als %{scientific_name} als ingedeeld door %{hierarchy_provider}.
           tweet_text: Namen gerelateerd aan %{scientific_name} als ingedeeld door %{hierarchy_provider}
-        meta_description: Taxonomieclassificatie en wetenschappelijke namen voor %{scientific_name}.
-        meta_description_with_common_name: Taxonomieclassificatie en wetenschappelijke namen voor %{preferred_common_name}, ook bekend als %{scientific_name}.
-        meta_title: Namen gerelateerd aan %{scientific_name}
-        meta_title_with_common_name: Namen gerelateerd aan %{preferred_common_name} (%{scientific_name})
-        tweet_text: Namen gerelateerd aan %{scientific_name}
+        meta_description: Taxonomieën en wetenschappelijke namen voor %{scientific_name}. Biologische classificaties en namen gerelateerd aan %{scientific_name}.
+        meta_description_with_common_name: Taxonomieën, biologische classificaties en wetenschappelijke namen voor %{preferred_common_name}, ook bekend als %{scientific_name}. Biologische classificaties en namen gerelateerd aan %{preferred_common_name}.
+        meta_title: Taxonomische gegevens voor %{scientific_name} - Biologische classificaties en namen
+        meta_title_with_common_name: Taxonomische gegevens voor %{preferred_common_name} (%{scientific_name}) - Biologische classificaties en namen
+        tweet_text: Taxonomische gegevens voor %{scientific_name}
       synonyms: 
         hierarchy_entry: 
           meta_description: Synoniemen die gekoppeld zijn aan %{scientific_name} als ingedeeld door %{hierarchy_provider}.
@@ -2557,12 +2574,12 @@ nl:
           meta_title: "%{scientific_name} ingedeeld door %{hierarchy_provider}"
           meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} als ingedeeld door %{hierarchy_provider})"
           tweet_text: Overzicht van %{scientific_name} als ingedeeld door %{hierarchy_provider}
-        meta_description: Een overzicht van %{scientific_name} in Encyclopedia of Life.
-        meta_description_with_common_name: Een overzicht van %{preferred_common_name}, wetenschappelijk bekend als %{scientific_name} in Encyclopedia of Life.
+        meta_description: Gegevens over %{scientific_name} in Encyclopedia of Life.
+        meta_description_with_common_name: Informatie over %{preferred_common_name}, wetenschappelijk bekend als %{scientific_name} in Encyclopedia of Life.
         meta_keywords: "%{scientific_name} erkend door %{hierarchy_provider}"
         meta_keywords_with_common_name: "%{scientific_name} erkend door %{hierarchy_provider}"
-        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})"
-        tweet_text: Overzicht van %{scientific_name}
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Informatie over %{preferred_common_name}"
+        tweet_text: Informatie over %{scientific_name}
     resources: 
       biomedical_terms: 
         hierarchy_entry: 
@@ -2961,7 +2978,6 @@ nl:
   video_from_supplier: Video van %{whom}
   video_not_associated_with_any_published_entries: Deze video is niet gekoppeld met gepubliceerde taxa.
   video_object: Video-object
-  video_of: Video van
   video_of_taxon: Video van %{taxon_name}
   video_rating: Videowaardering
   video_title_not_available_in_language: Titel niet beschikbaar in %{language}

@@ -81,7 +81,7 @@
             %p= I18n.t(:user_system_down)
 
       - if @home_page
-        - cache(:action => 'index', :action_suffix => 'march_of_life') do
+        - cache(:action => 'index', :action_suffix => "march_of_life_#{current_language.iso_639_1}") do
           %h3.assistive= I18n.t(:explore)
           .thumbnails
             %ul

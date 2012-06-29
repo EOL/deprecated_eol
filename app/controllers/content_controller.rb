@@ -33,7 +33,8 @@ class ContentController < ApplicationController
       number_of_images = 1 if number_of_images < 1 || number_of_images > 10
       random_images = RandomHierarchyImage.random_set(number_of_images).map do |random_image|
         { :image_url => random_image.taxon_concept.exemplar_or_best_image_from_solr.thumb_or_object('130_130'),
-          :taxon_name => random_image.taxon_concept.title_canonical,
+          :taxon_scientific_name => random_image.taxon_concept.title_canonical,
+          :taxon_common_name => random_image.taxon_concept.preferred_common_name_in_language(current_language),
           :taxon_page_path => taxon_overview_path(random_image.taxon_concept_id) }
       end
       render :json => random_images, :callback => params[:callback]
@@ -286,14 +287,11 @@ class ContentController < ApplicationController
 private
 
   def periodically_recalculate_homepage_parts
-    $CACHE.fetch('homepage/activity_logs_expiration', :expires_in => $HOMEPAGE_ACTIVITY_LOG_CACHE_TIME.minutes) do
-      # expire acivity log caches for ALL languages at the same time
-      Language.approved_languages.each do |language|
-        expire_fragment(:action => 'index', :action_suffix => "activity_#{language.iso_639_1}")
-      end
+    $CACHE.fetch('homepage/activity_logs_expiration/' + current_language.iso_639_1, :expires_in => $HOMEPAGE_ACTIVITY_LOG_CACHE_TIME.minutes) do
+      expire_fragment(:action => 'index', :action_suffix => "activity_#{current_language.iso_639_1}")
     end
-    $CACHE.fetch('homepage/march_of_life_expiration', :expires_in => 120.seconds) do
-      expire_fragment(:action => 'index', :action_suffix => 'march_of_life')
+    $CACHE.fetch('homepage/march_of_life_expiration/' + current_language.iso_639_1, :expires_in => 120.seconds) do
+      expire_fragment(:action => 'index', :action_suffix => "march_of_life_#{current_language.iso_639_1}")
     end
   end
 

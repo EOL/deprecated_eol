@@ -2,7 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Rancher
-sr-CS: 
+sr-Latn: 
   0_1_or_2: 0, 1 ili 2
   0_or_1: 0 ili 1
   a_pipe_delimited_list_of_licenses: Spisak licenci koje su razdvojene uspravnom crtom | ili „all“ da dobavite objekte pod svim licencama. Sve licence su skraćene sa cc-
@@ -324,7 +324,6 @@ sr-CS:
   article_from_supplier: Članak iz %{whom}
   article_more_about: Više o članku
   article_not_associated_with_any_published_entries: Ovaj članak nije povezan ni s jednim objavljenim taksonom.
-  article_of: Članak
   article_rating: Ocena članka
   articles_in_languages_with_count: 
     one: "Članci na stranici su dostupni na %{count} jeziku:"
@@ -1291,13 +1290,11 @@ sr-CS:
   image_map_from: karta od
   image_map_from_supplier: Mapa iz %{whom}
   image_map_not_associated_with_any_published_entries: Ova karta nije povezana ni s jednim objavljenim taksonom.
-  image_map_of: Mapa
   image_map_rating: Ocena mape
   image_not_associated_with_any_published_entries: Ova slika nije povezana ni s jednim objavljenim taksonom.
   image_not_found: Ne mogu da pronađem sliku
   image_object: Slikovni objekat
   image_objects_will_contain_two_mediaurl_elements: Objekti slika će sadržati dva elementa mediaURL. Prvi je adresa slike na sajtu dobavljača, a drugi je adresa privremeno memorisanog izdanja datoteke koju pokreće server EOL-a. Naše izdanje slike će biti smanjeno (razmera će biti očuvana) ako je izvorna slika veća od 460 × 345 piksela.
-  image_of: Slika
   image_rating: Ocena slike
   images: Slike
   images_in_red_are_not_trusted: Slike crvene boje su nepoverljive.
@@ -1456,7 +1453,6 @@ sr-CS:
   map_from: karta od
   map_from_supplier: Mapa iz %{whom}
   map_not_associated_with_any_published_entries: Ova karta nije povezana ni s jednim objavljenim taksonom.
-  map_of: Mapa
   map_rating: Ocena mape
   maps_empty: Još niko nije dodao nijednu mapu na ovu stranicu.
   maps_empty_contribute_instructions: Saznajte kako da doprinesete EOL-u s mapama.
@@ -2334,7 +2330,6 @@ sr-CS:
   video_from_supplier: Video iz %{whom}
   video_not_associated_with_any_published_entries: Ovaj video-snimak nije povezan ni s jednim objavljenim taksonom.
   video_object: Video-objekat
-  video_of: Video
   video_rating: Ocena video-snimka
   video_title_not_available_in_language: Naslov nije dostupan na %{language}
   videos_with_count: 

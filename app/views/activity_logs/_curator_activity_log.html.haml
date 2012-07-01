@@ -79,7 +79,7 @@
     = I18n.t("trust_common_name.#{user_type}_trusted_#{name_type}_on_#{taxon_type}", translation_vars)
   - when Activity.untrust_common_name.id
     = I18n.t("untrust_common_name.#{user_type}_untrusted_#{name_type}_on_#{taxon_type}", translation_vars)
-  - when Activity.split.id
+  - when Activity.split_classifications.id
     - if item.hierarchy_entry
       - provider = item.hierarchy_entry.recognized_by_agents.map(&:full_name).to_sentence
       - if item.hierarchy_entry.has_source_database?
@@ -88,7 +88,7 @@
       = I18n.t("split.#{user_type}_split_entry_from_#{taxon_type}", translation_vars)
     - else
       = I18n.t("split.#{user_type}_split_unknown_entry_from_#{taxon_type}", translation_vars)
-  - when Activity.merge.id
+  - when Activity.merge_classifications.id
     - if item.hierarchy_entry
       - provider = item.hierarchy_entry.recognized_by_agents.map(&:full_name).to_sentence
       - if item.hierarchy_entry.has_source_database?

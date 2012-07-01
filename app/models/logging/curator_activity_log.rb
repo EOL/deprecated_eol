@@ -147,7 +147,8 @@ class CuratorActivityLog < LoggingModel
       ChangeableObjectType.curated_data_objects_hierarchy_entry.id => curation_activities +
         [ Activity.add_association.id, Activity.remove_association.id ],
       ChangeableObjectType.users_data_object.id => curation_activities,
-      ChangeableObjectType.curated_taxon_concept_preferred_entry.id => [Activity.preferred_classification.id]
+      ChangeableObjectType.curated_taxon_concept_preferred_entry.id => [Activity.preferred_classification.id],
+      ChangeableObjectType.taxon_concept.id => [Activity.split_classifications.id, Activity.merge_classifications.id]
     }
     return unless self.activity
     return unless loggable_activities[self.changeable_object_type_id]
@@ -195,7 +196,8 @@ private
   # There are a few types of CuratorActivityLogs that only notify their taxon concepts:
   def add_recipient_taxon_concepts(recipients)
     if self.changeable_object_type_id == ChangeableObjectType.synonym.id ||
-       self.changeable_object_type_id == ChangeableObjectType.curated_taxon_concept_preferred_entry.id
+       self.changeable_object_type_id == ChangeableObjectType.curated_taxon_concept_preferred_entry.id ||
+       self.changeable_object_type_id == ChangeableObjectType.taxon_concept.id
       unless self.taxon_concept.blank?
         recipients << self.taxon_concept
         recipients << { :ancestor_ids => self.taxon_concept.flattened_ancestor_ids }

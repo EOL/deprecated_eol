@@ -1378,10 +1378,11 @@ class TaxonConcept < ActiveRecord::Base
     end
   end
 
-  def split_classification(hierarchy_entry_ids)
+  def split_classifications(hierarchy_entry_ids)
     raise EOL::Exceptions::ClassificationsLocked if
       classifications_locked?
     lock_classifications
+    # TODO - call the resque command
   end
 
   def merge_classifications(hierarchy_entry_ids, options)
@@ -1394,13 +1395,20 @@ class TaxonConcept < ActiveRecord::Base
     raise EOL::Exceptions::CannotMergeClassificationsToSelf if self.id == target_taxon_concept.id
     lock_classifications
     target_taxon_concept.lock_classifications
+    if hierarchy_entry_ids.sort == deep_published_hierarchy_entries.map {|he| he.id}.sort
+      # TODO - call the resque merge taxa command
+    else
+      # TODO - call the resque move classifications command
+    end
   end
 
   def providers_match_on_merge(hierarchy_entry_ids)
-    hierarchy_entry_ids.each do |he_id|
-      hierarchy_id = HierarchyEntry.find(he_id, :select => 'hierarchy_id').hierarchy_id
+    HierarchyEntry.find(hierarchy_entry_ids, :select => 'id, hierarchy_id, hierarchies.complete',
+                        :join => 'hierarchy').each do |he|
+      break unless he.hierarchy.complete?
       hierarchy_entries.each do |my_he| # NOTE this is selecting the HEs ALREADY on this TC!
-        return my_he.id if my_he.hierarchy_id == hierarchy_id # NOTE - error needs ENTRY id, not hierarchy id.
+        # NOTE - error needs ENTRY id, not hierarchy id:
+        return my_he.id if my_he.hierarchy_id == hierarchy_id && my_he.hierarchy.complete?
       end
     end
     return false

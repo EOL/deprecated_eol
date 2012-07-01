@@ -35,8 +35,8 @@ class Activity < LazyLoggingModel
     Activity.find_or_create('add_common_name')
     Activity.find_or_create('remove_common_name')
     Activity.find_or_create('preferred_classification')
-    Activity.find_or_create('split')
-    Activity.find_or_create('merge')
+    Activity.find_or_create('split_classifications')
+    Activity.find_or_create('merge_classifications')
     Activity.find_or_create('trust_common_name')
     Activity.find_or_create('untrust_common_name')
     Activity.find_or_create('inappropriate_common_name')
@@ -58,18 +58,19 @@ class Activity < LazyLoggingModel
     Activity.find_or_create('change_name')
     Activity.find_or_create('change_icon')
     Activity.find_or_create('add_manager')
+    Activity.count
   end
 
   def self.find_or_create(key_sym)
     key = key_sym.to_s
     act = Activity.cached_find_translated(:name, key)
     unless act
-      # Doing this with raw sql to override the LoggingModel's default of using INSERT DELAYED
       act = Activity.new()
       act.save! # NOTE: #create wasn't working; the ID wasn't being set correctly.
       if transact = TranslatedActivity.find_by_language_id_and_name(Language.english.id, key)
         transact.update_attributes(:activity_id => act.id)
       else
+        # Doing this with raw sql to override the LoggingModel's default of using INSERT DELAYED
         TranslatedActivity.connection.execute(ActiveRecord::Base.sanitize_sql_array(
           ['INSERT INTO translated_activities (name, activity_id, language_id) VALUES (?, ?, ?)',
             key, act.id, Language.english.id]
@@ -90,7 +91,7 @@ class Activity < LazyLoggingModel
   def self.method_missing(name, *args, &block)
     @@activity_local_cache ||= {}
     @@activity_local_cache[name] ||= cached("activity_method_missing_#{name}") do
-      # TODO - this should be cached, but since we're in method_missing, that's a little tricky.
+      # TODO - this should be cached, but since we're in method_missing, that's tricky.
       transact = TranslatedActivity.find(:first, :conditions => ["name = ? AND language_id = ?", name.to_s,
                                     Language.english.id])
       if transact

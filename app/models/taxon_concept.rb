@@ -1378,11 +1378,14 @@ class TaxonConcept < ActiveRecord::Base
     end
   end
 
-  def split_classifications(hierarchy_entry_ids)
+  def split_classifications(hierarchy_entry_ids, exemplar_id)
     raise EOL::Exceptions::ClassificationsLocked if
       classifications_locked?
     lock_classifications
-    # TODO - call the resque command
+    hierarchy_entry_ids.each do |he_id|
+      CodeBridge.split_classifications(:from_taxon_concept_id => id, :hierarchy_entry_id => he_id,
+                                       :bad_match_hierarchy_entry_id => exemplar_id)
+    end
   end
 
   def merge_classifications(hierarchy_entry_ids, options)

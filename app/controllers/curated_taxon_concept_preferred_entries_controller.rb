@@ -83,7 +83,7 @@ private
     taxon_to_log = @taxon_concept
     begin
       if type == 'split'
-        @taxon_concept.split_classifications(session[:split_hierarchy_entry_id])
+        @taxon_concept.split_classifications(session[:split_hierarchy_entry_id], which)
         flash[:warning] = I18n.t(:split_pending)
         done = true
       elsif type == 'merge'

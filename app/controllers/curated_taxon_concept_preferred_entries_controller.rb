@@ -1,6 +1,10 @@
 class CuratedTaxonConceptPreferredEntriesController < ApplicationController
 
-  # Sorry, another Beast of a method that handles many different things... because there's necessarily only one form.
+  # TODO
+  # - If ALL of the classifications for the taxon are selected, make the command a merge taxa (so the supercedure is set)
+  # - merge doesn't need to ask for examplar, DUH,
+
+  # Sorry, another beast of a method that handles many different things... because there's necessarily only one form.
   def create
     @taxon_concept = TaxonConcept.find(params[:taxon_concept_id])
     @target_params = {}
@@ -10,12 +14,12 @@ class CuratedTaxonConceptPreferredEntriesController < ApplicationController
       merge
     elsif current_user.min_curator_level?(:master) && params[:cancel_split]
       cancel_split
-    elsif current_user.min_curator_level?(:master) && params[:move]
-      move
+    elsif current_user.min_curator_level?(:master) && params[:add]
+      add
     elsif current_user.min_curator_level?(:master) && which = params_to_remove
       remove(which)
     elsif current_user.min_curator_level?(:master) && which = params_exemplar
-      exemplar(which)
+      exemplar(params[:confirm], which)
     elsif current_user.min_curator_level?(:full) && params[:hierarchy_entry_id]
       prefer
     end
@@ -47,8 +51,7 @@ private
     else
       @target_params[:additional_confirm] = 1 if params[:additional_confirm] # They have already confirmed this, don't do it again.
       @target_params[:move_to] = @taxon_concept.id
-      @target_params[:confirm] = 'merge' # hard-coded string, no need to translate.
-      @taxon_concept = taxon_concept_from_session
+      exemplar('merge', nil)
     end
     @target_params[:all] = 1
   end
@@ -59,11 +62,10 @@ private
     @target_params[:all] = 1
   end
 
-  # They want to store selected HEs for later move...
-  def move
+  def add
     if params[:split_hierarchy_entry_id]
       add_entries_to_session
-      flash[:notice] = I18n.t(:move_entries_ready)
+      flash[:notice] = I18n.t(:added_classifications_ready)
     else
       # TODO - generalize this check/error with #split and #merge
       flash[:notice] = I18n.t(:no_classificaitons_selected)
@@ -76,15 +78,15 @@ private
     @target_params[:all] = 1
   end
 
-  def exemplar(which)
+  def exemplar(type, which)
     done = false
     taxon_to_log = @taxon_concept
     begin
-      if params[:confirm] == 'split'
+      if type == 'split'
         @taxon_concept.split_classifications(session[:split_hierarchy_entry_id])
         flash[:warning] = I18n.t(:split_pending)
         done = true
-      elsif params[:confirm] == 'merge'
+      elsif type == 'merge'
         target_taxon_concept = taxon_concept_from_session
         @taxon_concept.merge_classifications(session[:split_hierarchy_entry_id], :with => target_taxon_concept,
                                              :additional_confirm => params[:additional_confirm])
@@ -104,8 +106,9 @@ private
       @target_params[:exemplar] = which
     end
     if done
-      Array(session[:split_hierarchy_entry_id]).each do |entry|
-        log_activity(:taxon_concept => taxon_to_log, :entry => entry, :type => params[:confirm])
+      add_entries_to_session.each do |entry|
+        auto_collect(taxon_to_log)
+        log_activity(:taxon_concept => taxon_to_log, :entry => entry, :type => "#{type}_classifications")
       end
       session[:split_hierarchy_entry_id] = nil
       @target_params[:pending] = 1
@@ -152,13 +155,17 @@ private
     return nil
   end
 
+  # Sorry this is slightly obfuscated, but it's mostly just forcing everything into an array, putting that array in
+  # the session, and then (usefully) returning an array of objects to be manipulated or queried. It's okay to call
+  # this multiple times (though it could be *slightly* expensive)...
   def add_entries_to_session
-    hierarchies = Array(session[:split_hierarchy_entry_id]) + Array(params[:split_hierarchy_entry_id])
-    session[:split_hierarchy_entry_id] = hierarchies.uniq
+    session[:split_hierarchy_entry_id] = [Array(session[:split_hierarchy_entry_id]) +
+      Array(params[:split_hierarchy_entry_id])].flatten.compact.uniq
+    Array(HierarchyEntry.find(session[:split_hierarchy_entry_id]))
   end
 
   def taxon_concept_from_session
-    hierarchy_entries = Array(HierarchyEntry.find(session[:split_hierarchy_entry_id]))
+    hierarchy_entries = add_entries_to_session
     return hierarchy_entries.first.taxon_concept # This will redirect them to the right names tab.
   end
 
@@ -167,6 +174,8 @@ private
       :user => current_user,
       :hierarchy_entry_id => options[:entry].id,
       :taxon_concept_id => options[:taxon_concept].id,
+      :changeable_object_type => ChangeableObjectType.taxon_concept,
+      :object_id => options[:taxon_concept].id,
       :activity => Activity.send(options[:type].to_sym),
       :created_at => 0.seconds.from_now
     )

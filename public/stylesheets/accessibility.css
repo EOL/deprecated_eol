@@ -1138,7 +1138,7 @@ table.classifications input.keep {
 .classification_actions p {
   margin-bottom: 1em; }
 
-ul#classification_actions li {
+ul#classification_actions > li {
   margin-bottom: 1em; }
 
 li table.classifications {
@@ -1149,6 +1149,6 @@ li table.classifications {
   border-color: #f2d2cc; }
 
 .help_text p {
-  margin-bottom: 1em; }
+  margin: 0.5em; }
 .help_text li {
   margin-bottom: 1em; }

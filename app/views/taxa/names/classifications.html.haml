@@ -9,7 +9,7 @@
 - stored_classifications = Array(session[:split_hierarchy_entry_id]).compact
 - stored_classifications = false if stored_classifications.blank?
 - stored_entries_on_this_page = false # When true, disables the "merge" button for the page (can't merge to yourself)
-- allow_more_splits = false if stored_classifications && !@hierarchy_entries.map {|h| h.id.to_s}.include? (stored_classifications.first.to_s)
+- allow_more_splits = false if stored_classifications && !@hierarchy_entries.map {|h| h.id.to_s}.include?(stored_classifications.first.to_s)
 - allow_more_splits = false if @taxon_concept.classifications_locked?
 - if can_curate
   = javascript_include_merged 'curation'

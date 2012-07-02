@@ -2068,15 +2068,13 @@ en:
   classification_summary_section_header: "Classification"
   classification_split_help: "<b>You are about to split classifications from this page.</b> To proceed, you must let us know which of the existing classifications you feel <i>best</i> represents the existing page. This will help us keep the classifications you have selected separated from this page in the future."
   classification_merge_help: "<b>You are about to move classifications from this page.</b> To proceed, you must let us know which of the existing classifications you feel <i>best</i> represents the taxon page you are moving the classifications from. This will help us keep the classifications you have selected separated from this page in the future."
-  classification_split_warning: "<b>Take a moment to ensure you have <i>all</i> of the classifications selected that
-  match the target page.</b> For example, if you are splitting or moving an amanita classification from a raccoon page, you must select all of the amanita classifications for this operation. If you miss any, fixing them later can be difficult."
+  classification_split_warning: "<b>Take a moment to ensure you have <i>all</i> of the classifications selected that match the target page.</b> For example, if you are splitting or moving an amanita classification from a raccoon page, you must select all of the amanita classifications for this operation. If you miss any, fixing them later can be difficult."
   classification_button_help: "Please select the classification that best represents the existing page below, and click the corresponding \"use as exemplar\". To cancel the operation entirely, click \"cancel\"."
   classification_tree_header: "Classification"
   classifications_edit_cancelled_merge_to_self: "Your source and target are the same page; nothing to move."
   classifications_edit_cancelled_busy: "Sorry, your request to edit the classifications cannot be processed at this time; one or more of the taxon pages is locked. An existing request to edit these classifications is being processed."
   classifications_empty: "This page is not included in any of the classifications that are browsable in EOL."
-  classifications_locked: "The classifications on this page cannot be edited at this time. Another request to edit
-  these classifications is being processed."
+  classifications_locked: "The classifications on this page cannot be edited at this time. Another request to edit these classifications is being processed."
   classifications_preferred_column_header: "Preferred"
   classifications_exemplar_column_header: "Exemplar"
   classifications_hierarchy_column_header: "Classification"

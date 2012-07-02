@@ -143,7 +143,7 @@ private
     @scientific_name = @selected_hierarchy_entry ? @selected_hierarchy_entry.italicized_name : @taxon_concept.title_canonical_italicized
   end
 
-  def promote_exemplar(data_objects)
+  def promote_exemplar_image(data_objects)
     # TODO: a comment may be needed. If the concept is blank, why would there be images to promote?
     # we should just return
     if @taxon_concept.blank? || @taxon_concept.published_exemplar_image.blank?

@@ -109,8 +109,7 @@ DataType.gen_if_not_exists(:label => 'Flash',     :schema_value => 'Flash')
 DataType.gen_if_not_exists(:label => 'YouTube',   :schema_value => 'YouTube')
 DataType.gen_if_not_exists(:label => 'Map',   :schema_value => 'Map')
 
-Hierarchy.gen_if_not_exists(:agent => Agent.catalogue_of_life, :label => $DEFAULT_HIERARCHY_NAME, :browsable => 1)
-default_hierarchy = Hierarchy.gen_if_not_exists(:agent => Agent.catalogue_of_life, :label => "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2010", :browsable => 1)
+default_hierarchy = Hierarchy.gen_if_not_exists(:agent => Agent.catalogue_of_life, :label => $DEFAULT_HIERARCHY_NAME, :browsable => 1)
 Hierarchy.gen_if_not_exists(:agent => Agent.catalogue_of_life, :label =>  "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2007", :browsable => 0)
 Hierarchy.gen_if_not_exists(:label => "Encyclopedia of Life Contributors")
 first_ncbi = Hierarchy.gen_if_not_exists(:agent => Agent.ncbi, :label => "NCBI Taxonomy", :browsable => 1)
@@ -184,6 +183,7 @@ ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'curated_data_objects_
 ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'data_objects_hierarchy_entry')
 ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'users_submitted_text')
 ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'curated_taxon_concept_preferred_entry')
+ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'taxon_concept')
 
 RefIdentifierType.gen_if_not_exists(:label => 'url')
 
@@ -223,11 +223,12 @@ TocItem.gen_if_not_exists(:label => 'Citizen Science Links', :view_order => 71, 
 
 
 # Note that in all these "children", the view_order resets.  ...That reflects the real DB.
-TocItem.gen_if_not_exists(:label => 'Literature References', :view_order => 64, :parent_id => ref_and_info.id)
-TocItem.gen_if_not_exists(:label => 'Content Partners',      :view_order => 65, :parent_id => ref_and_info.id)
-TocItem.gen_if_not_exists(:label => 'Biomedical Terms',      :view_order => 66, :parent_id => ref_and_info.id)
-TocItem.gen_if_not_exists(:label => 'Search the Web',        :view_order => 67, :parent_id => ref_and_info.id)
-education = TocItem.gen_if_not_exists(:label => 'Education',             :view_order => 68, :parent_id => ref_and_info.id)
+TocItem.gen_if_not_exists(:label => 'Literature References',  :view_order => 64, :parent_id => ref_and_info.id)
+TocItem.gen_if_not_exists(:label => 'Content Partners',       :view_order => 65, :parent_id => ref_and_info.id)
+TocItem.gen_if_not_exists(:label => 'Biomedical Terms',       :view_order => 66, :parent_id => ref_and_info.id)
+TocItem.gen_if_not_exists(:label => 'Search the Web',         :view_order => 67, :parent_id => ref_and_info.id)
+education = TocItem.gen_if_not_exists(:label => 'Education',  :view_order => 68)
+TocItem.gen_if_not_exists(:label => 'Education Links',        :view_order => 69, :parent_id => education.id)
 
 InfoItem.gen_if_not_exists(:schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#TaxonBiology',
   :label => 'TaxonBiology', :toc_item => TocItem.overview)

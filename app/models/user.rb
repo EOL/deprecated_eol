@@ -517,7 +517,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     # I changed this to m.manager? instead of using the named scope as I couldn't see
     # how to preload named scopes, but members could be preloaded
     editable_collections += members.select{ |m| m.manager? }.map {|m| m.community && m.community.collections }.flatten.compact
-    editable_collections = [watch_collection] + editable_collections.sort_by(&:name).uniq
+    editable_collections = [watch_collection] + editable_collections.sort_by{ |c| c.name.downcase }.uniq
     editable_collections.compact
   end
 

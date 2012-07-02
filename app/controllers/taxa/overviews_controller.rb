@@ -21,7 +21,7 @@ class Taxa::OverviewsController < TaxaController
       :ignore_translations => true
     })
     limit = @map.blank? ? 4 : 3
-    media = promote_exemplar(@taxon_concept.images_from_solr(limit, @selected_hierarchy_entry, true))
+    media = promote_exemplar_image(@taxon_concept.images_from_solr(limit, @selected_hierarchy_entry, true))
     @media = @map.blank? ? media : media[0..2] + @map
     
     DataObject.preload_associations(@media, :translations , :conditions => "data_object_translations.language_id=#{current_language.id}")

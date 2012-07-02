@@ -28,6 +28,8 @@ testy[:overview]        = TocItem.overview
 testy[:overview_text]   = 'This is a test Overview, in all its glory'
 testy[:brief_summary]   = TocItem.brief_summary
 testy[:brief_summary_text] = 'This is a test brief summary.'
+testy[:education]       = TocItem.education
+testy[:education_text]  = 'This is a test education.'
 testy[:toc_item_2]      = TocItem.gen_if_not_exists(:view_order => 2, :label => "test toc item 2")
 testy[:toc_item_3]      = TocItem.gen_if_not_exists(:view_order => 3, :label => "test toc item 3")
 testy[:toc_item_4]      = TocItem.gen_if_not_exists(:view_order => 4, :label => "test toc item 4")
@@ -78,6 +80,7 @@ tc = build_taxon_concept(
                        {}, {}, {}, {}, {}, {}], # We want more than 10 images, to test pagination, but the details don't mattr
   :toc             => [{:toc_item => testy[:overview], :description => testy[:overview_text]},
                        {:toc_item => testy[:brief_summary], :description => testy[:brief_summary_text]},
+                       {:toc_item => testy[:education], :description => testy[:education_text]},
                        {:toc_item => testy[:toc_item_2]}, {:toc_item => testy[:toc_item_3]}, {:toc_item => testy[:toc_item_3]}]
 )
 testy[:id]            = tc.id

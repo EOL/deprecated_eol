@@ -18,6 +18,7 @@ sv:
   translated_activities-name-activity_id-59: ogranskad
   translated_activities-name-activity_id-63: samla in
   translated_activities-name-activity_id-64: ta bort
+  translated_agent_roles-label-agent_role_id-1: Animatör
   translated_agent_roles-label-agent_role_id-10: Projekt
   translated_agent_roles-label-agent_role_id-11: Utgivare
   translated_agent_roles-label-agent_role_id-13: Källa
@@ -27,6 +28,7 @@ sv:
   translated_agent_roles-label-agent_role_id-2: Författare
   translated_agent_roles-label-agent_role_id-21: leverantör
   translated_agent_roles-label-agent_role_id-22: Översättare
+  translated_agent_roles-label-agent_role_id-23: Vetenskaplig granskare
   translated_agent_roles-label-agent_role_id-4: Kompositör
   translated_agent_roles-label-agent_role_id-5: Skapare
   translated_agent_roles-label-agent_role_id-6: Direktör
@@ -164,25 +166,38 @@ sv:
   translated_synonym_relations-label-synonym_relation_id-1: synonym
   translated_synonym_relations-label-synonym_relation_id-12: inkluderar
   translated_synonym_relations-label-synonym_relation_id-14: felstavning
+  translated_synonym_relations-label-synonym_relation_id-15: teleomorf
   translated_synonym_relations-label-synonym_relation_id-18: preliminärt godkänt namn
   translated_synonym_relations-label-synonym_relation_id-19: accepterat namn
   translated_synonym_relations-label-synonym_relation_id-2: vanligt namn
+  translated_synonym_relations-label-synonym_relation_id-20: databasartefakt
   translated_synonym_relations-label-synonym_relation_id-21: andra, se kommentarer
   translated_synonym_relations-label-synonym_relation_id-22: ortografisk variant (felstavning)
   translated_synonym_relations-label-synonym_relation_id-24: avvisat namn
   translated_synonym_relations-label-synonym_relation_id-3: akronym
+  translated_synonym_relations-label-synonym_relation_id-30: otillgänglig, databasartefakt
+  translated_synonym_relations-label-synonym_relation_id-31: 'onödig ersättning'
   translated_synonym_relations-label-synonym_relation_id-33: otillgänglig, felstavad litteratur
   translated_synonym_relations-label-synonym_relation_id-34: ursprungligt namn/kombination
   translated_synonym_relations-label-synonym_relation_id-35: otillgänglig, felaktig originalstavning
+  translated_synonym_relations-label-synonym_relation_id-4: anamorf
   translated_synonym_relations-label-synonym_relation_id-40: otillgänglig, annat
+  translated_synonym_relations-label-synonym_relation_id-46: heterotypisk synonym
+  translated_synonym_relations-label-synonym_relation_id-47: homotypisk synonym
   translated_synonym_relations-label-synonym_relation_id-48: otillgängligt namn
   translated_synonym_relations-label-synonym_relation_id-49: giltigt namn
   translated_synonym_relations-label-synonym_relation_id-50: giltig
   translated_synonym_relations-label-synonym_relation_id-51: accepterat
+  translated_synonym_relations-label-synonym_relation_id-52: myndighet
   translated_synonym_relations-label-synonym_relation_id-53: opublicerat namn
+  translated_synonym_relations-label-synonym_relation_id-54: subjektiv synonym
+  translated_synonym_relations-label-synonym_relation_id-55: felaktig myndighetsinformation
   translated_synonym_relations-label-synonym_relation_id-56: felaktig stavning
   translated_synonym_relations-label-synonym_relation_id-57: stavningsalternativ
+  translated_synonym_relations-label-synonym_relation_id-59: synonym (objektiv = homotopisk)
   translated_synonym_relations-label-synonym_relation_id-6: motsvarande namn
+  translated_synonym_relations-label-synonym_relation_id-60: synonym (subjektiv = heterotypisk)
+  translated_synonym_relations-label-synonym_relation_id-61: objektiv synonym
   translated_synonym_relations-label-synonym_relation_id-63: inte accepterad
   translated_synonym_relations-label-synonym_relation_id-64: ogiltig
   translated_table_of_contents-label-table_of_contents_id-1: Översikt
@@ -245,11 +260,13 @@ sv:
   translated_table_of_contents-label-table_of_contents_id-332: Genom
   translated_table_of_contents-label-table_of_contents_id-333: Molekylärbiologi
   translated_table_of_contents-label-table_of_contents_id-334: Hot
+  translated_table_of_contents-label-table_of_contents_id-335: Lagstiftning
   translated_table_of_contents-label-table_of_contents_id-336: Anteckningar
   translated_table_of_contents-label-table_of_contents_id-337: Utbildning
   translated_table_of_contents-label-table_of_contents_id-338: Utbildningslänkar
   translated_table_of_contents-label-table_of_contents_id-339: Utbildningsresurser
   translated_table_of_contents-label-table_of_contents_id-34: Kommentarer
+  translated_table_of_contents-label-table_of_contents_id-340: Gymnasielabbserier
   translated_table_of_contents-label-table_of_contents_id-344: Data
   translated_table_of_contents-label-table_of_contents_id-345: Datakällor
   translated_table_of_contents-label-table_of_contents_id-346: Biomedicinska termer

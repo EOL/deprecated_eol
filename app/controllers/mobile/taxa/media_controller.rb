@@ -32,7 +32,7 @@ class Mobile::Taxa::MediaController < Mobile::TaxaController
 
     @media = @taxon_concept.media(sort_order)
 
-    @media = promote_exemplar(@media) if @exemplar_image && (@sort_by.blank? ||
+    @media = promote_exemplar_image(@media) if @exemplar_image && (@sort_by.blank? ||
       (@sort_by == 'status' && (@params_type.include?('all') || @params_type.include?('images'))))
 
     @sort_by ||= 'status'

@@ -79,8 +79,10 @@ class TaxonConcept < ActiveRecord::Base
 
   has_many :superceded_taxon_concepts, :class_name => TaxonConcept.to_s, :foreign_key => "supercedure_id"
 
+  has_one :taxon_classifications_lock
   has_one :taxon_concept_metric
   has_one :taxon_concept_exemplar_image
+  has_one :taxon_concept_exemplar_article
   has_one :preferred_entry, :class_name => 'TaxonConceptPreferredEntry'
 
   has_and_belongs_to_many :data_objects
@@ -737,10 +739,10 @@ class TaxonConcept < ActiveRecord::Base
     # GET THE TEXT
     text_objects = []
     if options[:text].to_i > 0
-      options[:subjects] ||= 'TaxonBiology|GeneralDescription|Description'
+      options[:subjects] ||= ""
       options[:text_subjects] = options[:subjects].split("|")
       options[:text_subjects] << 'Uses' if options[:text_subjects].include?('Use')
-      if options[:text_subjects].include?('all')
+      if options[:subjects].blank? || options[:text_subjects].include?('overview') || options[:text_subjects].include?('all')
         options[:text_subjects] = nil
       else
         options[:text_subjects] = options[:text_subjects].map{ |l| InfoItem.cached_find_translated(:label, l, 'en', :find_all => true) }.flatten.compact
@@ -754,6 +756,24 @@ class TaxonConcept < ActiveRecord::Base
         :filter_by_subtype => false
       }))
       DataObject.preload_associations(text_objects, [ { :info_items => :translations } ] )
+      if exemplar = published_visible_exemplar_article
+        include_exemplar = nil
+        unless options[:text_subjects].nil?
+          include_toc_ids = options[:text_subjects].collect{|text_subject| text_subject.toc_id}
+          exemplar.toc_items.each do |toc_item|
+            include_exemplar = include_toc_ids.include?(toc_item.id)
+          end
+        end
+        if options[:text_subjects].nil? || include_exemplar
+          original_length = text_objects.length
+          # remove the exemplar if it is already in the list
+          text_objects.delete_if{ |d| d.guid == exemplar.guid }
+          # prepend the exemplar if it exists
+          text_objects.unshift(exemplar)
+          # if the exemplar increased the size of our image array, remove the last one
+          text_objects.pop if text_objects.length > original_length
+        end
+      end
     end
     
     # GET THE IMAGES
@@ -1076,6 +1096,13 @@ class TaxonConcept < ActiveRecord::Base
     end
   end
 
+  # returns a DataObject, not a TaxonConceptExemplarArticle
+  def published_visible_exemplar_article
+    if taxon_concept_exemplar_article && (the_best_article = taxon_concept_exemplar_article.data_object.latest_published_version_in_same_language)
+      return the_best_article if the_best_article.visibility_by_taxon_concept(self).id == Visibility.visible.id
+    end
+  end
+
   def exemplar_or_best_image_from_solr(selected_hierarchy_entry = nil)
     cache_key = "best_image_#{self.id}"
     cache_key += "_#{selected_hierarchy_entry.id}" if selected_hierarchy_entry && selected_hierarchy_entry.class == HierarchyEntry
@@ -1122,20 +1149,37 @@ class TaxonConcept < ActiveRecord::Base
   end
   
   def overview_text_for_user(the_user)
+    cache_key = "best_article_#{self.id}"
     overview_toc_item_ids = [TocItem.brief_summary, TocItem.comprehensive_description, TocItem.distribution].collect{ |toc_item| toc_item.id }
-    overview_text_objects = self.text_for_user(the_user, {
-      :per_page => 30,
-      :language_ids => [ the_user.language.id ],
-      :allow_nil_languages => (the_user.language.id == Language.default.id),
-      :toc_ids => overview_toc_item_ids })
-    DataObject.preload_associations(overview_text_objects, { :data_objects_hierarchy_entries => [ :hierarchy_entry,
-      :vetted, :visibility ] },
-      :select => {
-        :data_objects_hierarchy_entries => '*',
-        :hierarchy_entries => '*'
-      })
-    overview_text_objects = DataObject.sort_by_rating(overview_text_objects, self)
-    overview_text_objects.first
+    
+    TaxonConcept.prepare_cache_classes
+    Vetted
+    Hierarchy
+    
+    @best_article ||= $CACHE.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 1.days) do
+      return @best_article if @best_article && DataObject.find(@best_article.id).published? 
+    end
+    
+    if published_exemplar = self.published_visible_exemplar_article
+      @best_article = published_exemplar
+    else
+      overview_text_objects = self.text_for_user(the_user, {
+        :per_page => 30,
+        :language_ids => [ the_user.language.id ],
+        :allow_nil_languages => (the_user.language.id == Language.default.id),
+        :toc_ids => overview_toc_item_ids })
+      DataObject.preload_associations(overview_text_objects, { :data_objects_hierarchy_entries => [ :hierarchy_entry,
+        :vetted, :visibility ] },
+        :select => {
+          :data_objects_hierarchy_entries => '*',
+          :hierarchy_entries => '*'
+        })
+      overview_text_objects = DataObject.sort_by_rating(overview_text_objects, self)
+      @best_article = (overview_text_objects.empty?) ? nil : overview_text_objects.first
+    end
+    
+    @best_article = nil if @best_article && @best_article.published == 0
+    @best_article
   end
   
   # this just gets the TOCitems and their parents for the text given, sorted by view_order
@@ -1313,6 +1357,66 @@ class TaxonConcept < ActiveRecord::Base
     @deep_nonbrowsables = cached_deep_published_hierarchy_entries.dup
     @deep_nonbrowsables.delete_if {|he| he.hierarchy_browsable.to_i == 1 || current_entry_id == he.id }
     HierarchyEntry.preload_deeply_browsable(@deep_nonbrowsables)
+  end
+
+  def lock_classifications
+    puts "*" * 80 
+    puts "** Classificaiton Locked on #{id}"
+    TaxonClassificationsLock.create(:taxon_concept_id => self.id)
+  end
+
+  # Self-healing... nothing can be locked for more than 24 hours.
+  def classifications_locked?
+    if taxon_classifications_lock
+      if taxon_classifications_lock.created_at <= 1.day.ago
+        taxon_classifications_lock.destroy
+        return false
+      end
+      return true
+    else
+      return false
+    end
+  end
+
+  def split_classifications(hierarchy_entry_ids, exemplar_id)
+    raise EOL::Exceptions::ClassificationsLocked if
+      classifications_locked?
+    lock_classifications
+    hierarchy_entry_ids.each do |he_id|
+      CodeBridge.split_entry(:hierarchy_entry_id => he_id, :exemplar_id => options[:exemplar_id])
+    end
+  end
+
+  def merge_classifications(hierarchy_entry_ids, options)
+    target_taxon_concept = options[:with]
+    raise EOL::Exceptions::ClassificationsLocked if
+      classifications_locked? || target_taxon_concept.classifications_locked?
+    if (!options[:additional_confirm]) && he_id = providers_match_on_merge(hierarchy_entry_ids)
+      raise EOL::Exceptions::ProvidersMatchOnMerge.new(he_id)
+    end
+    raise EOL::Exceptions::CannotMergeClassificationsToSelf if self.id == target_taxon_concept.id
+    lock_classifications
+    target_taxon_concept.lock_classifications
+    if hierarchy_entry_ids.sort == deep_published_hierarchy_entries.map {|he| he.id}.sort
+      CodeBridge.merge_taxa(id, target_taxon_concept.id)
+    else
+      hierarchy_entry_ids.each do |he_id|
+        CodeBridge.move_entry(:from_taxon_concept_id => id, :to_taxon_concept_id => target_taxon_concept.id,
+                              :hierarchy_entry_id => he_id, :exemplar_id => exemplar_id)
+      end
+    end
+  end
+
+  def providers_match_on_merge(hierarchy_entry_ids)
+    HierarchyEntry.find(hierarchy_entry_ids, :select => 'id, hierarchy_id, hierarchies.complete',
+                        :join => 'hierarchy').each do |he|
+      break unless he.hierarchy.complete?
+      hierarchy_entries.each do |my_he| # NOTE this is selecting the HEs ALREADY on this TC!
+        # NOTE - error needs ENTRY id, not hierarchy id:
+        return my_he.id if my_he.hierarchy_id == hierarchy_id && my_he.hierarchy.complete?
+      end
+    end
+    return false
   end
 
 private

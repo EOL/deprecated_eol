@@ -25,9 +25,9 @@
               = f.select :requested_curator_level_id, options_from_collection_for_select(@curator_levels, :id, :translated_label, @user.requested_curator_level_id || @user.curator_level_id)
               %p
                 - unless @user.curator_level.blank?
-                  = I18n.t('helpers.label.user.curator_level', :curator_level_with_indefinite_article => I18n.t("curator_level_with_indefinite_article_#{@user.curator_level.label.gsub(' ', '_').downcase}"))
+                  = I18n.t('helpers.label.user.curator_level', :curator_level_with_indefinite_article => I18n.t("curator_level_with_indefinite_article_#{@user.curator_level.translated_label.gsub(' ', '_').downcase}"))
                 - unless @user.requested_curator_level.blank? || @user.errors.any?
-                  = I18n.t('helpers.label.user.requested_curator_level', :curator_level_with_indefinite_article => I18n.t("curator_level_with_indefinite_article_#{@user.requested_curator_level.label.gsub(' ', '_').downcase}"))
+                  = I18n.t('helpers.label.user.requested_curator_level', :curator_level_with_indefinite_article => I18n.t("curator_level_with_indefinite_article_#{@user.requested_curator_level.translated_label.gsub(' ', '_').downcase}"))
               = f.hidden_field :curator_level_id, :value => @user.curator_level_id
             %dt
               = f.label :curator_scope

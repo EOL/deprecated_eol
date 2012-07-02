@@ -79,6 +79,7 @@ class TaxonConcept < ActiveRecord::Base
 
   has_many :superceded_taxon_concepts, :class_name => TaxonConcept.to_s, :foreign_key => "supercedure_id"
 
+  has_one :taxon_classifications_lock
   has_one :taxon_concept_metric
   has_one :taxon_concept_exemplar_image
   has_one :taxon_concept_exemplar_article
@@ -741,7 +742,7 @@ class TaxonConcept < ActiveRecord::Base
       options[:subjects] ||= ""
       options[:text_subjects] = options[:subjects].split("|")
       options[:text_subjects] << 'Uses' if options[:text_subjects].include?('Use')
-      if options[:subjects].blank? || options[:text_subjects].include?('all')
+      if options[:subjects].blank? || options[:text_subjects].include?('overview') || options[:text_subjects].include?('all')
         options[:text_subjects] = nil
       else
         options[:text_subjects] = options[:text_subjects].map{ |l| InfoItem.cached_find_translated(:label, l, 'en', :find_all => true) }.flatten.compact
@@ -1356,6 +1357,66 @@ class TaxonConcept < ActiveRecord::Base
     @deep_nonbrowsables = cached_deep_published_hierarchy_entries.dup
     @deep_nonbrowsables.delete_if {|he| he.hierarchy_browsable.to_i == 1 || current_entry_id == he.id }
     HierarchyEntry.preload_deeply_browsable(@deep_nonbrowsables)
+  end
+
+  def lock_classifications
+    puts "*" * 80 
+    puts "** Classificaiton Locked on #{id}"
+    TaxonClassificationsLock.create(:taxon_concept_id => self.id)
+  end
+
+  # Self-healing... nothing can be locked for more than 24 hours.
+  def classifications_locked?
+    if taxon_classifications_lock
+      if taxon_classifications_lock.created_at <= 1.day.ago
+        taxon_classifications_lock.destroy
+        return false
+      end
+      return true
+    else
+      return false
+    end
+  end
+
+  def split_classifications(hierarchy_entry_ids, exemplar_id)
+    raise EOL::Exceptions::ClassificationsLocked if
+      classifications_locked?
+    lock_classifications
+    hierarchy_entry_ids.each do |he_id|
+      CodeBridge.split_entry(:hierarchy_entry_id => he_id, :exemplar_id => options[:exemplar_id])
+    end
+  end
+
+  def merge_classifications(hierarchy_entry_ids, options)
+    target_taxon_concept = options[:with]
+    raise EOL::Exceptions::ClassificationsLocked if
+      classifications_locked? || target_taxon_concept.classifications_locked?
+    if (!options[:additional_confirm]) && he_id = providers_match_on_merge(hierarchy_entry_ids)
+      raise EOL::Exceptions::ProvidersMatchOnMerge.new(he_id)
+    end
+    raise EOL::Exceptions::CannotMergeClassificationsToSelf if self.id == target_taxon_concept.id
+    lock_classifications
+    target_taxon_concept.lock_classifications
+    if hierarchy_entry_ids.sort == deep_published_hierarchy_entries.map {|he| he.id}.sort
+      CodeBridge.merge_taxa(id, target_taxon_concept.id)
+    else
+      hierarchy_entry_ids.each do |he_id|
+        CodeBridge.move_entry(:from_taxon_concept_id => id, :to_taxon_concept_id => target_taxon_concept.id,
+                              :hierarchy_entry_id => he_id, :exemplar_id => exemplar_id)
+      end
+    end
+  end
+
+  def providers_match_on_merge(hierarchy_entry_ids)
+    HierarchyEntry.find(hierarchy_entry_ids, :select => 'id, hierarchy_id, hierarchies.complete',
+                        :join => 'hierarchy').each do |he|
+      break unless he.hierarchy.complete?
+      hierarchy_entries.each do |my_he| # NOTE this is selecting the HEs ALREADY on this TC!
+        # NOTE - error needs ENTRY id, not hierarchy id:
+        return my_he.id if my_he.hierarchy_id == hierarchy_id && my_he.hierarchy.complete?
+      end
+    end
+    return false
   end
 
 private

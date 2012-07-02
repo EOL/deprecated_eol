@@ -108,6 +108,7 @@ class RandomHierarchyImage < ActiveRecord::Base
   
 
   def self.hierarchy_count(hierarchy)
+    hierarchy ||= Hierarchy.default
     $CACHE.fetch("random_hierarchy_image/hierarchy_count_#{hierarchy.id}", :expires_in => 60.minutes) do
       self.connection.select_value("select count(*) count from random_hierarchy_images rhi WHERE rhi.hierarchy_id=#{hierarchy.id}").to_i
     end

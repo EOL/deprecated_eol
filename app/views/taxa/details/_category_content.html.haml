@@ -18,4 +18,4 @@
           = link_to I18n.t(:comment_or_rate_on_this_article), data_object_path(dato)
         - if current_user.min_curator_level?(:assistant) && dato.visibility_by_taxon_concept(@taxon_concept).id == Visibility.visible.id && dato != @summary_text
           &bull;
-          = link_to I18n.t(:set_this_article_as_an_exemplar), set_article_as_exemplar_path(:taxon_id => @taxon_concept.id, :data_object_id => dato.id)
+          = link_to I18n.t(:show_in_overview), set_article_as_exemplar_path(:taxon_id => @taxon_concept.id, :data_object_id => dato.id)

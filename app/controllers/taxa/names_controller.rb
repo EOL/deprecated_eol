@@ -8,6 +8,18 @@ class Taxa::NamesController < TaxaController
   before_filter :count_browsable_hierarchies, :only => [:index, :related_names, :common_names, :synonyms]
 
   def index
+
+    @confirm_split_or_merge = params[:confirm] # NOTE - this is pulled from curated_taxon_concept_preferred_entries
+
+    # NOTE - the following are all params passed from the CuratedTaxonConceptPreferredEntriesController. Yeesh.
+    @pending = true if params[:pending]
+    @providers_match = params[:providers_match]
+    @exemplar = params[:exemplar]
+    @additional_confirm = params[:additional_confirm]
+    @move_to = params[:move_to]
+
+    session[:split_hierarchy_entry_id] = params[:split_hierarchy_entry_id] if params[:split_hierarchy_entry_id]
+    params[:all] = 1 if session[:split_hierarchy_entry_id] && !session[:split_hierarchy_entry_id].blank?
     if params[:all]
       @hierarchy_entries = @taxon_concept.deep_published_sorted_hierarchy_entries
       @other_hierarchy_entries = []
@@ -20,6 +32,7 @@ class Taxa::NamesController < TaxaController
     @assistive_section_header = I18n.t(:assistive_names_classifications_header)
     common_names_count
     render :action => 'classifications'
+
   end
 
   # GET /pages/:taxon_id/names

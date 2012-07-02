@@ -14,7 +14,7 @@
     :style => link_style)
   - if display_curator && item.user.is_curator?
     - translation_vars[:user] = I18n.t(:user_full_name_with_curator, :user => translation_vars[:user],
-      :curator_level => item.user.curator_level.label)
+      :curator_level => item.user.curator_level.translated_label)
 - data_object_type = data_object ? 'it' : 'data_object'
 - if item.data_object.nil?
   - data_object_type = 'an_unknown_data_object'
@@ -69,7 +69,9 @@
     = I18n.t("add_association.#{user_type}_associated_#{data_object_type}_to_#{association_type}", translation_vars)
   - when Activity.remove_association.id
     = I18n.t("remove_association.#{user_type}_disassociated_#{data_object_type}_from_#{association_type}", translation_vars)
-  - when Activity.choose_exemplar.id
+  - when Activity.choose_exemplar_image.id
+    = I18n.t("choose_exemplar.#{user_type}_chose_exemplar_#{data_object_type}_on_#{taxon_type}", translation_vars)
+  - when Activity.choose_exemplar_article.id
     = I18n.t("choose_exemplar.#{user_type}_chose_exemplar_#{data_object_type}_on_#{taxon_type}", translation_vars)
   - when Activity.add_common_name.id
     = I18n.t("add_common_name.#{user_type}_added_#{name_type}_to_#{taxon_type}", translation_vars)
@@ -79,8 +81,24 @@
     = I18n.t("trust_common_name.#{user_type}_trusted_#{name_type}_on_#{taxon_type}", translation_vars)
   - when Activity.untrust_common_name.id
     = I18n.t("untrust_common_name.#{user_type}_untrusted_#{name_type}_on_#{taxon_type}", translation_vars)
-  - when Activity.unreview_common_name.id
-    = I18n.t("unreview_common_name.#{user_type}_unreviewed_#{name_type}_on_#{taxon_type}", translation_vars)
+  - when Activity.split_classifications.id
+    - if item.hierarchy_entry
+      - provider = item.hierarchy_entry.recognized_by_agents.map(&:full_name).to_sentence
+      - if item.hierarchy_entry.has_source_database?
+        - provider = I18n.t(:recognized_by_from_source, :recognized_by => provider, :source => item.hierarchy_entry.hierarchy.agent.full_name)
+      - translation_vars.reverse_merge!(:provider => provider)
+      = I18n.t("split.#{user_type}_split_entry_from_#{taxon_type}", translation_vars)
+    - else
+      = I18n.t("split.#{user_type}_split_unknown_entry_from_#{taxon_type}", translation_vars)
+  - when Activity.merge_classifications.id
+    - if item.hierarchy_entry
+      - provider = item.hierarchy_entry.recognized_by_agents.map(&:full_name).to_sentence
+      - if item.hierarchy_entry.has_source_database?
+        - provider = I18n.t(:recognized_by_from_source, :recognized_by => provider, :source => item.hierarchy_entry.hierarchy.agent.full_name)
+      - translation_vars.reverse_merge!(:provider => provider)
+      = I18n.t("merge.#{user_type}_merged_entry_to_#{taxon_type}", translation_vars)
+    - else
+      = I18n.t("merge.#{user_type}_merged_unknown_entry_to_#{taxon_type}", translation_vars)
   - when Activity.preferred_classification.id
     - if item.hierarchy_entry
       - provider = item.hierarchy_entry.recognized_by_agents.map(&:full_name).to_sentence

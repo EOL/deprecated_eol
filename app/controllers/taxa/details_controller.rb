@@ -40,7 +40,7 @@ class Taxa::DetailsController < TaxaController
 
     if @taxon_concept && @data_object
       TaxonConceptExemplarArticle.set_exemplar(@taxon_concept.id, @data_object.id)
-      log_action(@taxon_concept, @data_object, :choose_exemplar)
+      log_action(@taxon_concept, @data_object, :choose_exemplar_article)
     end
 
     store_location(params[:return_to] || request.referer)

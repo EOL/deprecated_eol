@@ -1,8 +1,9 @@
 class ContentPartner < ActiveRecord::Base
 
+  include EOL::PeerSites
+
   belongs_to :user
   belongs_to :content_partner_status
-  belongs_to :peer_site
 
   has_many :resources, :dependent => :destroy
   has_many :content_partner_contacts, :dependent => :destroy

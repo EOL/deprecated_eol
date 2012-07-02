@@ -8,10 +8,10 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   include EOL::Curator # NOTE -this loads a bunch of other relationships and validations.
                        # Also worth noting that #full_name (and the methods that count on it) need to know about
                        # curators, so you will see references to curator methods, there. They didn't seem worth moving.
+  include EOL::PeerSites
 
   belongs_to :language
   belongs_to :agent
-  belongs_to :peer_site
 
   has_many :users_data_objects_ratings
   has_many :members

@@ -11,13 +11,13 @@ class DataObject < ActiveRecord::Base
 
   include ModelQueryHelper
   include EOL::ActivityLoggable
+  include EOL::PeerSites
 
   belongs_to :data_type
   belongs_to :data_subtype, :class_name => DataType.to_s, :foreign_key => :data_subtype_id
   belongs_to :language
   belongs_to :license
   belongs_to :mime_type
-  belongs_to :peer_site
 
   # this is the DataObjectTranslation record which links this translated object
   # to the original data object

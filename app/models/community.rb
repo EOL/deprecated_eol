@@ -1,8 +1,7 @@
 class Community < ActiveRecord::Base
 
   include EOL::ActivityLoggable
-
-  belongs_to :peer_site
+  include EOL::PeerSites
 
   has_and_belongs_to_many :collections, :uniq => true
 

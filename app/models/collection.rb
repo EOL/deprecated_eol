@@ -1,11 +1,11 @@
 class Collection < ActiveRecord::Base
 
   include EOL::ActivityLoggable
+  include EOL::PeerSites
 
   belongs_to :user # This is the OWNER.  Use #users rather than #user... this basically only gets set once.
   belongs_to :sort_style
   belongs_to :view_style
-  belongs_to :peer_site
 
   has_many :collection_items
   accepts_nested_attributes_for :collection_items

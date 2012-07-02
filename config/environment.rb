@@ -234,8 +234,6 @@ Rails::Initializer.run do |config|
   # URLs are not handled correctly in email (IMO), but this fixes it:
   config.action_mailer.default_url_options = { :host => "eol.org" }
 
-  $PEER_SITE_ID = 1
-
   begin
     require 'config/environments/local.rb'
   rescue LoadError

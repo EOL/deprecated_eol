@@ -1,8 +1,9 @@
 class Member < ActiveRecord::Base
 
+  include EOL::PeerSites
+
   belongs_to :community
   belongs_to :user
-  belongs_to :peer_site
 
   named_scope :managers, :conditions => {:manager => true}
   named_scope :nonmanagers, :conditions => 'manager IS NULL or manager = 0'

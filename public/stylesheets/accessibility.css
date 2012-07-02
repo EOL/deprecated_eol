@@ -1100,3 +1100,40 @@ body#prelaunch #footer ul.social_media {
 #modal #choose_collections fieldset.new_collection .collection_name_error {
   display: none;
   color: #e84226; }
+
+#please_wait {
+  display: none; }
+
+table.classifications input.cancel {
+  display: none; }
+table.classifications input.keep {
+  display: none; }
+
+#split_warning {
+  border: 1px solid #f2d2cc;
+  background: #ffeae6;
+  padding: 10px; }
+
+#split_instructions {
+  border: 1px solid #f2d2cc;
+  background: #ffeae6;
+  padding: 10px;
+  display: none; }
+
+.classification_actions p {
+  margin-bottom: 1em; }
+
+ul#classification_actions > li {
+  margin-bottom: 1em; }
+
+li table.classifications {
+  margin-top: 1em; }
+
+.help_text.warning {
+  background-color: #ffeae6;
+  border-color: #f2d2cc; }
+
+.help_text p {
+  margin: 0.5em; }
+.help_text li {
+  margin-bottom: 1em; }

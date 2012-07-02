@@ -131,4 +131,15 @@ $(document).ready(function() {
   $('div.text_curation_close a.close-button').click(function() {
     $(this).parent().parent().parent().slideUp();
   });
+  // Curation of classifications: show all classifications if they start splitting / moving:
+  $('td.show_all input').click(function(e) {
+    var $show_all_link = $('#show_other_classifications');
+    window.location = $show_all_link.attr('href') + "&split_hierarchy_entry_id[]=" + $(e.target).val();
+    $('div.main_container').children().fadeOut(function() {$('#please_wait').fadeIn();});
+  });
+  // Check all checkboxes when you check the header:
+  $('th.check_all').append('<input class="chek_all_from_header" type="checkbox"/>');
+  $('input.chek_all_from_header').click(function(e) {
+    $(e.target).closest('table').find('td input[type=checkbox]').attr('checked', $(e.target).is(':checked'));
+  });
 });

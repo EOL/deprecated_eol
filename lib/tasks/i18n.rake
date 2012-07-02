@@ -579,13 +579,14 @@ namespace :i18n do
 
     en_keys = load_language_keys('en')
 
-    translated_languages = get_languages
+    translated_languages = ENV['LANGUAGE'] ? Array(ENV['LANGUAGE'].split(',')) : get_languages
 
     translated_languages.each do |lang|
       lang_id = get_lang_id_by_lang_abbr(lang)
       if (lang_id != 0)
-        puts "processing " + lang + " file"
+        print "processing " + lang + " file"
         lang_keys = load_language_keys(lang)
+        puts " (#{lang_keys.keys.count})"
         next if lang_keys.blank?
         lang_keys.each do |pair|
           (key, val) = pair

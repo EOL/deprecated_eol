@@ -11,7 +11,7 @@
     :style => link_style)
   - if display_curator && item.user.is_curator?
     - translation_vars[:user] = I18n.t(:user_full_name_with_curator, :user => translation_vars[:user],
-      :curator_level => item.user.curator_level.label)
+      :curator_level => item.user.curator_level.translated_label)
 - collection_type = 'collection'
 - if collection
   - collection_type = 'it'

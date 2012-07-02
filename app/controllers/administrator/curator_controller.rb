@@ -51,7 +51,7 @@ class Administrator::CuratorController < AdminController
           taxa_curated = user_curated_taxa_counts[u.id].length rescue 0
           user_credentials = u.credentials.gsub(/[\r\n\t]/,'; ')[0...5000]
           user_scope = u.curator_scope.gsub(/[\r\n\t]/,'; ')[0...5000]
-          title << [u.id, u.username, u.full_name, u.email, user_credentials, user_scope, u.curator_approved, u.curator_level.label,
+          title << [u.id, u.username, u.full_name, u.email, user_credentials, user_scope, u.curator_approved, u.curator_level.translated_label,
                     u.created_at, user_curated_objects_counts[u.id] || 0, comments_curated, taxa_curated, user_show_counts[u.id] || 0,
                     user_hide_counts[u.id] || 0, user_inappropriate_counts[u.id] || 0, user_submitted_counts[u.id] || 0,
                     user_association_counts[u.id] || 0, user_wikipedia_counts[u.id] || 0 ]

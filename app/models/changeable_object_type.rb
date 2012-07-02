@@ -12,6 +12,10 @@ class ChangeableObjectType < ActiveRecord::Base
     cot.id
   end
 
+  def self.taxon_concept
+    cached_find(:ch_object_type, 'taxon_concept')
+  end
+
   def self.comment
     cached_find(:ch_object_type, 'comment')
   end

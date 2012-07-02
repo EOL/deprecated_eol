@@ -10,11 +10,17 @@ module EOL
           [ Collection, Community, DataObject, TaxonConcept ].each do |klass|
             if klass_objects = notification_recipient_objects.select{ |o| o.class == klass }
               type_and_ids_to_send[klass.to_s] = klass_objects.collect{ |o| o.id }
+              klass_objects.each do |o| 
+                SolrLog.log_transaction($SOLR_ACTIVITY_LOGS_CORE, o.id, klass.to_s, 'update')
+              end
             end
           end
           # AncestorTaxonConcept
           if ancestor_taxon_concept_ids = notification_recipient_objects.select{ |o| o.class == Hash && o[:ancestor_ids] }
             type_and_ids_to_send['AncestorTaxonConcept'] = ancestor_taxon_concept_ids.collect{ |h| h[:ancestor_ids] }.flatten
+            ancestor_taxon_concept_ids.each do |h|
+              SolrLog.log_transaction($SOLR_ACTIVITY_LOGS_CORE, h, 'AncestorTaxonConcept', 'update')
+            end
           end
           # User ACTIVITY feeds
           activity_users = notification_recipient_objects.collect do |o|
@@ -22,6 +28,9 @@ module EOL
           end.compact
           if activity_users
             type_and_ids_to_send['User'] = activity_users.collect{ |c| c.id }
+            activity_users.each do |c|
+              SolrLog.log_transaction($SOLR_ACTIVITY_LOGS_CORE, c.id, 'User', 'update')
+            end
           end
           # User Newsfeeds
           users = notification_recipient_objects.collect do |o|
@@ -35,6 +44,9 @@ module EOL
           end.compact
           if users 
             type_and_ids_to_send['UserNews'] = users.collect{ |c| c.id }
+            users.each do |c|
+              SolrLog.log_transaction($SOLR_ACTIVITY_LOGS_CORE, c.id, 'UserNews', 'update')
+            end
           end
           
           solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_ACTIVITY_LOGS_CORE)
@@ -230,6 +242,7 @@ module EOL
           collection_activity_log_ids.each do |cali|
             solr_connection.delete_by_query("activity_log_type:CollectionActivityLog AND
                                              activity_log_id:(#{cali.compact.join(' OR ')})")
+            SolrLog.log_transaction($SOLR_ACTIVITY_LOGS_CORE, cali, 'CollectionActivityLog', 'delete')
           end
         rescue Errno::ECONNREFUSED => e
           puts "** WARNING: Solr connection failed."

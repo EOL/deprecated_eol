@@ -191,6 +191,7 @@ class Comment < ActiveRecord::Base
       return nil
     end
     solr_connection.delete_by_query("activity_log_unique_key:Comment_#{id}")
+    SolrLog.log_transaction($SOLR_ACTIVITY_LOGS_CORE, id, 'Comment', 'delete')
   end
 
   # aliases to satisfy curation
@@ -225,6 +226,7 @@ class Comment < ActiveRecord::Base
       'user_id' => self.user_id,
       'date_created' => self.created_at.solr_timestamp }
     EOL::Solr::ActivityLog.index_notifications(base_index_hash, notification_recipient_objects)
+    SolrLog.log_transaction($SOLR_ACTIVITY_LOGS_CORE, self.id, 'comment', 'update')
   end
 
   def queue_notifications

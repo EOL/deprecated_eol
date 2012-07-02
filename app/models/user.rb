@@ -709,6 +709,7 @@ private
       return nil
     end
     solr_connection.delete_by_query("user_id:#{self.id}")
+    SolrLog.log_transaction($SOLR_ACTIVITY_LOGS_CORE, self.id, 'user_id', 'delete')
 
     # remove comments from database
     comments = Comment.find_all_by_user_id(self.id)

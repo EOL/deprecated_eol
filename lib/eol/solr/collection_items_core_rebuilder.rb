@@ -9,12 +9,14 @@ module EOL
       def self.obliterate
         solr_api = self.connect
         solr_api.delete_all_documents
+        SolrLog.log_transaction($SOLR_COLLECTION_ITEMS_CORE, -1, 'CollectionItems', 'delete_all')
       end
 
       def self.begin_rebuild(options = {})
         options[:optimize] = true unless defined?(options[:optimize])
         solr_api = self.connect
         solr_api.delete_all_documents
+        SolrLog.log_transaction($SOLR_COLLECTION_ITEMS_CORE, -1, 'CollectionItems', 'delete_all')
         self.start_to_index_collection_items(solr_api)
         solr_api.optimize if options[:optimize]
       end
@@ -22,10 +24,11 @@ module EOL
       def self.reindex_collection_items_by_ids(ids)
         return if ids.empty?
         solr_api = self.connect
+        max_id = CollectionItem.last.id rescue 0
         objects_to_send = self.lookup_collection_items(ids);
         objects_to_send.each do |o|
           o['title'] = SolrAPI.text_filter(o['title']) if o['title']
-          o['annotation'] = SolrAPI.text_filter(o['annotation']) if o['annotation']
+          o['annotation'] = SolrAPI.text_filter(o['annotation']) if o['annotation']          
         end
         unless objects_to_send.blank?
           solr_api.create(objects_to_send)
@@ -41,9 +44,9 @@ module EOL
         while i <= max_id
           objects_to_send = []
           objects_to_send += self.lookup_collection_items(i, limit);
-          objects_to_send.each do |o|
+          objects_to_send.each do |o|            
             o['title'] = SolrAPI.text_filter(o['title']) if o['title']
-            o['annotation'] = SolrAPI.text_filter(o['annotation']) if o['annotation']
+            o['annotation'] = SolrAPI.text_filter(o['annotation']) if o['annotation']            
           end
           unless objects_to_send.blank?
             solr_api.create(objects_to_send)
@@ -52,19 +55,16 @@ module EOL
         end
       end
 
-      def self.lookup_collection_items(start, limit = 500)
+      def self.lookup_collection_items(start, limit)
+        max = start + limit
         objects_to_send = []
-        if start.class == Array
-          collection_items = CollectionItem.find_all_by_id(start)
-        else
-          max = start + limit
-          collection_items = CollectionItem.find(:all, :conditions => "id BETWEEN #{start} AND #{max}")
-        end
+        collection_items = CollectionItem.find(:all, :conditions => "id BETWEEN #{start} AND #{max}")
         self.preload_concepts_and_objects!(collection_items)
         collection_items.each do |i|
           begin
             hash = i.solr_index_hash
             objects_to_send << hash
+            SolrLog.log_transaction($SOLR_COLLECTION_ITEMS_CORE, i.id, 'CollectionItem', 'update')
           rescue EOL::Exceptions::InvalidCollectionItemType => e
             logger.error "** EOL::Solr::CollectionItemsCoreRebuilder: #{e.message}"
             puts "** #{e.message}"
@@ -89,15 +89,12 @@ module EOL
       def self.preload_taxon_concepts!(collection_items)
         return if collection_items.blank?
         includes = { :object => [ :taxon_concept_metric,
-          { :published_hierarchy_entries => { :name => :canonical_form } },
-          { :preferred_entry => 
-            { :hierarchy_entry => { :name => :canonical_form } } } ] }
+          { :published_hierarchy_entries => { :name => :canonical_form } } ] }
         selects = {
           :taxon_concepts => 'id',
           :taxon_concept_metrics => [ :taxon_concept_id, :richness_score ],
-          :taxon_concept_preferred_entries => '*',
           :hierarchy_entries => [ :id, :name_id, :taxon_concept_id, :published, :vetted_id, :hierarchy_id ],
-          :names => [ :id, :string, :italicized, :canonical_form_id ],
+          :names => [ :id, :canonical_form_id ],
           :canonical_forms => [ :id, :string ]
         }
         CollectionItem.preload_associations(collection_items, includes, :select => selects)

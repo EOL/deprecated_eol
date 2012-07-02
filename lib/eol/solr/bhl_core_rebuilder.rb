@@ -11,13 +11,19 @@ module EOL
       end
 
       def obliterate
+        delete_all
+      end
+      
+      def delete_all
         @solr_api.delete_all_documents
+        SolrLog.log_transaction($SOLR_BHL_CORE, -1, 'bhl', 'delete_all')
       end
 
       def begin_rebuild(optimize = true)
-        @solr_api.delete_all_documents
+        delete_all        
         lookup_and_cache_publication_titles
         start_to_index_bhl
+        SolrLog.log_transaction($SOLR_BHL_CORE, 0, 'bhl', 'rebuild')
         @solr_api.optimize if optimize
       end
 
@@ -79,7 +85,7 @@ module EOL
             fields['year'] = 0
           end
           fields['name_id'] = []
-          @objects_to_send[row['id']] = fields
+          @objects_to_send[row['id']] = fields          
         end
       end
       
@@ -90,7 +96,7 @@ module EOL
               FROM page_names pn
               WHERE pn.item_page_id BETWEEN #{start} AND #{max}").each do |row|
           next unless @objects_to_send[row['item_page_id']]
-          @objects_to_send[row['item_page_id']]['name_id'] << row['name_id']
+          @objects_to_send[row['item_page_id']]['name_id'] << row['name_id']          
         end
       end
       

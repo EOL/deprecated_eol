@@ -1383,8 +1383,7 @@ class TaxonConcept < ActiveRecord::Base
       classifications_locked?
     lock_classifications
     hierarchy_entry_ids.each do |he_id|
-      CodeBridge.split_classifications(:from_taxon_concept_id => id, :hierarchy_entry_id => he_id,
-                                       :bad_match_hierarchy_entry_id => exemplar_id)
+      CodeBridge.split_entry(:hierarchy_entry_id => he_id, :exemplar_id => options[:exemplar_id])
     end
   end
 
@@ -1399,9 +1398,12 @@ class TaxonConcept < ActiveRecord::Base
     lock_classifications
     target_taxon_concept.lock_classifications
     if hierarchy_entry_ids.sort == deep_published_hierarchy_entries.map {|he| he.id}.sort
-      # TODO - call the resque merge taxa command
+      CodeBridge.merge_taxa(id, target_taxon_concept.id)
     else
-      # TODO - call the resque move classifications command
+      hierarchy_entry_ids.each do |he_id|
+        CodeBridge.move_entry(:from_taxon_concept_id => id, :to_taxon_concept_id => target_taxon_concept.id,
+                              :hierarchy_entry_id => he_id, :exemplar_id => exemplar_id)
+      end
     end
   end
 

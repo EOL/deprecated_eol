@@ -31,7 +31,8 @@ class Activity < LazyLoggingModel
     Activity.find_or_create('unreviewed')
     Activity.find_or_create('add_association')
     Activity.find_or_create('remove_association')
-    Activity.find_or_create('choose_exemplar')
+    Activity.find_or_create('choose_exemplar_image')
+    Activity.find_or_create('choose_exemplar_article')
     Activity.find_or_create('add_common_name')
     Activity.find_or_create('remove_common_name')
 

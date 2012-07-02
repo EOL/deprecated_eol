@@ -1926,7 +1926,7 @@ en:
   any_integer: "any integer"
   api_docs_collections_description: "Given the identifier for a collection this API will return all metadata about the collection and the items it contains. The item list can be filtered by item type, and sorted on the above listed attributes."
   a_pipe_delimited_list_of_licenses: "a pipe | delimited list of licenses or 'all' to get objects under any license. Licenses abbreviated cc- are all"
-  a_pipe_delimited_list_of_spm_info_item_subject_names: "a pipe | delimited list of SPM Info Item subject names or 'all' to get text in any subject"
+  a_pipe_delimited_list_of_spm_info_item_subject_names: "a pipe | delimited list of SPM Info Item subject names or 'all' to get text in any subject. Returns overview article as a first item by default(i.e. when subject = all) or if it's subject is included in the given subject names list"
   application_version_advisory_information: "Application version"
   are_you_sure: "Are you sure?"
   are_you_sure_this_action_cannot_be_undone: "Are you sure?  This action cannot be undone."
@@ -3893,7 +3893,8 @@ en:
   nucleotide_sequences: Nucleotide Sequences
   logo_header: "Logo"
   external_link_header: "External Link"
-  comment_or_rate_on_this_article: "Comment on or rate this article"
+  comment_or_rate_on_this_article: "comment on or rate this article"
+  set_this_article_as_an_exemplar: "set this article as an exemplar"
   admin_user_delete_successful_notice: "User has been deleted"
   admin_spam_delete: "Delete Spam"
   admin_user_hide_successful_notice: "User has been hidden"

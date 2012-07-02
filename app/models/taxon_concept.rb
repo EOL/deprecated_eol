@@ -81,6 +81,7 @@ class TaxonConcept < ActiveRecord::Base
 
   has_one :taxon_concept_metric
   has_one :taxon_concept_exemplar_image
+  has_one :taxon_concept_exemplar_article
   has_one :preferred_entry, :class_name => 'TaxonConceptPreferredEntry'
 
   has_and_belongs_to_many :data_objects
@@ -737,10 +738,10 @@ class TaxonConcept < ActiveRecord::Base
     # GET THE TEXT
     text_objects = []
     if options[:text].to_i > 0
-      options[:subjects] ||= 'TaxonBiology|GeneralDescription|Description'
+      options[:subjects] ||= ""
       options[:text_subjects] = options[:subjects].split("|")
       options[:text_subjects] << 'Uses' if options[:text_subjects].include?('Use')
-      if options[:text_subjects].include?('all')
+      if options[:subjects].blank? || options[:text_subjects].include?('all')
         options[:text_subjects] = nil
       else
         options[:text_subjects] = options[:text_subjects].map{ |l| InfoItem.cached_find_translated(:label, l, 'en', :find_all => true) }.flatten.compact
@@ -754,6 +755,24 @@ class TaxonConcept < ActiveRecord::Base
         :filter_by_subtype => false
       }))
       DataObject.preload_associations(text_objects, [ { :info_items => :translations } ] )
+      if exemplar = published_visible_exemplar_article
+        include_exemplar = nil
+        unless options[:text_subjects].nil?
+          include_toc_ids = options[:text_subjects].collect{|text_subject| text_subject.toc_id}
+          exemplar.toc_items.each do |toc_item|
+            include_exemplar = include_toc_ids.include?(toc_item.id)
+          end
+        end
+        if options[:text_subjects].nil? || include_exemplar
+          original_length = text_objects.length
+          # remove the exemplar if it is already in the list
+          text_objects.delete_if{ |d| d.guid == exemplar.guid }
+          # prepend the exemplar if it exists
+          text_objects.unshift(exemplar)
+          # if the exemplar increased the size of our image array, remove the last one
+          text_objects.pop if text_objects.length > original_length
+        end
+      end
     end
     
     # GET THE IMAGES
@@ -1076,6 +1095,13 @@ class TaxonConcept < ActiveRecord::Base
     end
   end
 
+  # returns a DataObject, not a TaxonConceptExemplarArticle
+  def published_visible_exemplar_article
+    if taxon_concept_exemplar_article && (the_best_article = taxon_concept_exemplar_article.data_object.latest_published_version_in_same_language)
+      return the_best_article if the_best_article.visibility_by_taxon_concept(self).id == Visibility.visible.id
+    end
+  end
+
   def exemplar_or_best_image_from_solr(selected_hierarchy_entry = nil)
     cache_key = "best_image_#{self.id}"
     cache_key += "_#{selected_hierarchy_entry.id}" if selected_hierarchy_entry && selected_hierarchy_entry.class == HierarchyEntry
@@ -1122,20 +1148,37 @@ class TaxonConcept < ActiveRecord::Base
   end
   
   def overview_text_for_user(the_user)
+    cache_key = "best_article_#{self.id}"
     overview_toc_item_ids = [TocItem.brief_summary, TocItem.comprehensive_description, TocItem.distribution].collect{ |toc_item| toc_item.id }
-    overview_text_objects = self.text_for_user(the_user, {
-      :per_page => 30,
-      :language_ids => [ the_user.language.id ],
-      :allow_nil_languages => (the_user.language.id == Language.default.id),
-      :toc_ids => overview_toc_item_ids })
-    DataObject.preload_associations(overview_text_objects, { :data_objects_hierarchy_entries => [ :hierarchy_entry,
-      :vetted, :visibility ] },
-      :select => {
-        :data_objects_hierarchy_entries => '*',
-        :hierarchy_entries => '*'
-      })
-    overview_text_objects = DataObject.sort_by_rating(overview_text_objects, self)
-    overview_text_objects.first
+    
+    TaxonConcept.prepare_cache_classes
+    Vetted
+    Hierarchy
+    
+    @best_article ||= $CACHE.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 1.days) do
+      return @best_article if @best_article && DataObject.find(@best_article.id).published? 
+    end
+    
+    if published_exemplar = self.published_visible_exemplar_article
+      @best_article = published_exemplar
+    else
+      overview_text_objects = self.text_for_user(the_user, {
+        :per_page => 30,
+        :language_ids => [ the_user.language.id ],
+        :allow_nil_languages => (the_user.language.id == Language.default.id),
+        :toc_ids => overview_toc_item_ids })
+      DataObject.preload_associations(overview_text_objects, { :data_objects_hierarchy_entries => [ :hierarchy_entry,
+        :vetted, :visibility ] },
+        :select => {
+          :data_objects_hierarchy_entries => '*',
+          :hierarchy_entries => '*'
+        })
+      overview_text_objects = DataObject.sort_by_rating(overview_text_objects, self)
+      @best_article = (overview_text_objects.empty?) ? nil : overview_text_objects.first
+    end
+    
+    @best_article = nil if @best_article && @best_article.published == 0
+    @best_article
   end
   
   # this just gets the TOCitems and their parents for the text given, sorted by view_order

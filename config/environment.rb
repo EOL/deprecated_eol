@@ -109,7 +109,7 @@ Rails::Initializer.run do |config|
   $SHOW_DATA_QUALITY = false # if set to true, we will show data quality next to text content blocks
 
   # Note that you can override this in the environment-specific file, too, if you want to.
-  $DEFAULT_HIERARCHY_NAME = "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2010"
+  $DEFAULT_HIERARCHY_NAME = "Species 2000 & ITIS Catalogue of Life: May 2012"
 
   # TODO - Remove all references to "content levels" here and in the code --- this is all not required anymore
   ################
@@ -220,7 +220,7 @@ Rails::Initializer.run do |config|
   $HOMEPAGE_MARCH_RICHNESS_THRESHOLD = 0.5
 
   APPLICATION_DEFAULT_LANGUAGE_ISO = 'en'
-  APPROVED_LANGUAGES = ['en', 'es', 'ar', 'fr', 'gl', 'sr', 'sr-CS', 'de', 'mk']
+  APPROVED_LANGUAGES = ['en', 'es', 'ar', 'fr', 'gl', 'sr', 'sr-Latn', 'de', 'mk']
 
   # for those class that are using CACHE_ALL_ROWS, when the row is looked up in memcached, retain that value
   # in an array in a class variable. That way future lookups will read from local memory and will not require

@@ -807,7 +807,6 @@ de:
   article_from_supplier: Artikel von %{whom}
   article_more_about: Erfahren Sie mehr zu diesem Artikel
   article_not_associated_with_any_published_entries: Dieser Artikel ist keinen veröffentlichten Taxa zugeordnet.
-  article_of: Artikel zu
   article_of_taxon: Artikel zu %{taxon_name}
   article_rating: Artikelbewertung
   articles_in_languages_with_count: 
@@ -940,6 +939,7 @@ de:
     other: Die Sammlung <em>%{collection_name}</em> wurde erfolgreich mit %{count} Sammlungsobjekten erstellt.
   collection_delete_link: Diese Sammlung dauerhaft löschen
   collection_destroyed: Die Sammlung wurde gelöscht.
+  collection_error_no_items_selected: "Fehler: Es wurden keine Objekte ausgewählt, so dass keine Aktion ausgeführt werden konnte."
   collection_image: Bild der Sammlung
   collection_is_empty: Diese Sammlung enthält derzeit nichts.
   collection_item_edit_by_javascript_not_authorized_error: Sie verfügen leider nicht über die Berechtigung dieses Objekt in dieser Sammlung zu bearbeiten. Sofern Sie der Besitzer oder Bearbeiter dieser Sammlung sind, laden Sie bitte diese Seite erneut oder prüfen Sie, ob Sie angemeldet sind.
@@ -1832,8 +1832,8 @@ de:
         active_translation: Veröffentlicht
         active_translation_more: Publizierte Übersetzungen werden öffentlich sichtbar sein, es sei denn, die Seite an sich wurde noch nicht publiziert. Deaktivieren Sie <em>veröffentlicht</em>, sofern Sie verhindern möchten, dass alle Nutzer diese Version der Seite angezeigt bekommen.
         language_id: Sprache
-        left_content_more: Es ist optional möglich, eine unsortierte Liste von Links in den Navigationsbereich der Seite aufzunehmen. Anker-Links müssen dabei manuell hinzugefügt werden, indem Sie <em>Quelltext</em> auswählen und das HTML-Attribut <em>href</em> des Links bearbeiten. Um bspw. im HTML-Bereich <em>body</em> einen Link auf einen Anker mit Namen <em>lizenzierungsrichtlinie</em> zu setzen, muss der Link im HTML-Attribut <em>href</em> den Wert „#lizenzierungsrichtlinie“ erhalten.
-        main_content_more: "Geben Sie den Inhalt für den Textbereich der Hauptseite ein. Nutzen Sie das Ausklappmenü <em>Format</em>, um die entsprechenden semantischen Textelemente auszuwählen. Wählen Sie z. B. <em>Überschrift 2</em>, für eine Überschrift der zweiten Ebene. Hinweis: Der Seitentitel wird automatisch der Überschriftebene 1 zugeordnet. Daher müssen Sie bei der Gliederung des Textbereichs mit <em>Überschrift 2</em> beginnen."
+        left_content_more: "(Optional) Eine unsortierte Liste von Links zur Navigation hinzufügen. Nutzen Sie die Klassenbezeichnung <code>active</code>, um den aktuellen Seitenlink hervorzuheben, d. h. bei <code>&lt;li class=\"active\"&gt;&lt;a href=\"/info/:id\"&gt;:title&lt;/a&gt;&lt;/li&gt;</code> ist <code>:id</code> die aktuelle Seitenkennung, bzw. die aktuelle eindeutige Seitenbezeichnung und <code>:title</code> der beschreibende Seitenname. (<strong>Hinweis: Alle Links zu Seiten des EOL-CMS sollten mit einem Schrägstrich (/) anfangen: <code>/info/:id</code></strong>). Um diese Änderungen durchzuführen, muss der HTML-Quelltext direkt bearbeitet werden. Hierzu klickt man auf <em>Quelltext</em> in der Bearbeitungsleiste des Editors."
+        main_content_more: "Geben Sie den Inhalt für den Textbereich der Hauptseite ein. Nutzen Sie das Ausklappmenü <em>Format</em>, um die entsprechenden semantischen Textelemente auszuwählen. Wählen Sie z. B. <em>Überschrift 2</em>, für eine Überschrift der zweiten Ebene. Hinweise: Die <em>Überschrift 1</em> ist dem Seitennamen vorbehalten, so dass die Überschriften zur Gliederung des Textbereichs mit <em>Überschrift 2</em> beginnen. Klicken Sie auf <em>Quelltext</em>, um zum HTML-Quelltext der Seite zu wechseln, wo Sie das HTML direkt bearbeiten und ergänzen können."
         meta_description_more: Geben Sie eine Kurzbeschreibung an, mit der Sie die Hauptinhaltsbestandteile der Seite zusammenfassen. Im Internet wird diese Beschreibung von Suchmaschinen genutzt, um zum einen die Relevanz des Inhalts einzustufen sowie zum anderen eine Inhaltszusammenfassung bei der Ausgabe von Suchergebnissen anzuzeigen.
         meta_keywords_more: Geben Sie eine kommagetrennte Liste von Wörtern ein, die den Inhalt der Seite am besten widerspiegeln. Im Internet werden diese Stichwörter manchmal von Suchmaschinen genutzt, um die Relevanz des Inhalts in Bezug auf Suchbegriffe zu bewerten.
         title_more: Der Titel dieses Inhalts wird im Kopfbereich der Seite angezeigt werden. Der Titel sollte für den Inhalt relevante Stichwörter enthalten.
@@ -1850,6 +1850,7 @@ de:
         credentials_more_successful_assistant_curator: Erfolgreiche Tätigkeit als Prokurator.
         curation_application: Werden Sie ein Kurator
         curation_application_more: Sofern Sie Ihre Berechtigungen als Kurator ändern möchten, können Sie einfach einen entsprechenden Anfrage einreichen. Wir werden dann Ihre Eignung überprüfen.
+        curation_priveleges_credentials: Referenzen <small>(nur bei Haupt- und Oberkuratoren)</small>
         curator_level: Derzeit sind Sie %{curator_level_with_indefinite_article}.
         curator_scope: Kuratierungsbereich
         curator_scope_more: Bitte machen Sie Angaben zur Ihrer Expertise, bspw. „Nagetiere von Borneo“, „Tritrophische Interaktionen“ oder „Konservierungsprobleme bei Fischpräparaten“. Dies wird nicht Ihre Möglichkeiten beim Kuratieren einschränken, sondern dient dazu die Gemeinschaft von EOL zu informieren.
@@ -1980,14 +1981,12 @@ de:
   image_map_from: Karte von
   image_map_from_supplier: Karte von %{whom}
   image_map_not_associated_with_any_published_entries: Diese Karte ist keinen veröffentlichten Taxa zugeordnet.
-  image_map_of: Karte zu
   image_map_of_taxon: Karte zu %{taxon_name}
   image_map_rating: Kartenbewertung
   image_not_associated_with_any_published_entries: Dieses Bild ist keinen veröffentlichten Taxa zugeordnet.
   image_not_found: Das Bild wurde nicht gefunden.
   image_object: Bildobjekt
   image_objects_will_contain_two_mediaurl_elements: Bildobjekte werden zwei Elemente zur URL (mediaURL) enthalten. Das erste wird die URL des Bildes auf der Website des Bildanbieters und die zweite die gecachte Version des Bildes auf dem EOL-Server sein. Die Version des Bildes bei EOL wird unter Beibehaltung des Seitenverhältnisses verkleinert worden sein, sofern das Originalbild größer als 460 x 345 Pixel war.
-  image_of: Bild zu
   image_of_taxon: Bild zu %{taxon_name}
   image_rating: Bildbewertung
   images: Bilder
@@ -2156,7 +2155,6 @@ de:
   map_from: Karte von
   map_from_supplier: Karte von %{whom}
   map_not_associated_with_any_published_entries: Diese Karte ist keinen veröffentlichten Taxa zugeordnet.
-  map_of: Karte zu
   map_of_taxon: Karte zu %{taxon_name}
   map_rating: Kartenbewertung
   maps_empty: Bislang hat noch niemand Karten für diese Seite zur Verfügung gestellt.
@@ -3580,7 +3578,6 @@ de:
   video_from_supplier: Video von %{whom}
   video_not_associated_with_any_published_entries: Dieses Video ist keinen veröffentlichten Taxa zugeordnet.
   video_object: Videoobjekt
-  video_of: Video zu
   video_of_taxon: Video zu %{taxon_name}
   video_rating: Videobewertung
   video_title_not_available_in_language: Der Titel ist nicht auf %{language} vorhanden.

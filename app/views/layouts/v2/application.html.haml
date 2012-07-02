@@ -62,7 +62,7 @@
             %p{ :class => I18n.locale.to_s, :title => I18n.t(:selected_language_advisory_information) }
               - link_to language_path do
                 %span
-                  = I18n.t(:current_language, :iso_code => I18n.locale.to_s.upcase)
+                  = current_language.source_form
             %ul
               - Language.approved_languages.each do |language|
                 %li{:class => language.iso_639_1}
@@ -81,7 +81,7 @@
             %p= I18n.t(:user_system_down)
 
       - if @home_page
-        - cache(:action => 'index', :action_suffix => 'march_of_life') do
+        - cache(:action => 'index', :action_suffix => "march_of_life_#{current_language.iso_639_1}") do
           %h3.assistive= I18n.t(:explore)
           .thumbnails
             %ul

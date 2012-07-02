@@ -174,6 +174,7 @@ ActionController::Routing::Routes.draw do |map|
     taxa.resource :worklist, :only => [:show], :controller => "taxa/worklist"
     taxa.resources :data_objects, :only => [:create, :new], :controller => 'data_objects'
   end
+  map.set_article_as_exemplar 'pages/:taxon_id/details/:data_object_id/set_article_as_exemplar', :controller => 'taxa/details', :action => 'set_article_as_exemplar'
   map.bhl_title 'pages/:id/literature/bhl_title/:title_item_id', :controller => 'taxa/literature', :action => 'bhl_title'
   map.entry_bhl_title 'pages/:id/entries/:hierarchy_entry_id/literature/bhl_title/:title_item_id', :controller => 'taxa/literature', :action => 'bhl_title'
   map.taxon_worklist_data_object 'pages/:id/worklist/data_objects/:data_object_id', :controller => 'taxa/worklist', :action => 'data_objects'

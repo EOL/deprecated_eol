@@ -763,7 +763,6 @@ zh-CN:
   article_from_supplier: 来自%{whom}的文章
   article_more_about: 深入了解这篇文章的详细信息
   article_not_associated_with_any_published_entries: 该文章未与任何已发布的分类单元相关联。
-  article_of: 文章关于
   article_of_taxon: "%{taxon_name}的文章"
   article_rating: 文章评级
   articles_in_languages_with_count: 
@@ -904,7 +903,7 @@ zh-CN:
   collections: 
     editors: 
       show: 
-        meta_description: 网络生命大百科%{collection_name}收藏的管理员。
+        meta_description: 生命百科收藏%{collection_name}的管理员。
         meta_keywords: "%{collection_name}管理者"
         meta_title: "%{collection_name}管理者"
         tweet_text: "%{collection_name}管理者"
@@ -934,7 +933,7 @@ zh-CN:
         tweet_text: "%{collection_name} 新闻"
     show: 
       meta_description: "%{collection_description}"
-      meta_keywords: "\"%{collection_name}, 网络生命大百科收藏\""
+      meta_keywords: 生命百科收藏%{collection_name}
       meta_title: "%{collection_name}"
       tweet_text: "%{collection_name}"
   collections_filter: 收藏
@@ -977,7 +976,7 @@ zh-CN:
   communities: 
     collections: 
       index: 
-        meta_description: 生命百科社区%{community_name}收集的社区收藏。
+        meta_description: 生命百科小组%{community_name}收集的小组收藏。
         meta_keywords: "%{community_name} 收藏"
         meta_title: "%{community_name} 收藏"
         tweet_text: "%{community_name} 收藏"
@@ -1046,7 +1045,7 @@ zh-CN:
     index: 
       meta_description: 网络生命大百科是一个致力于收集所有动物和植物生命科学知识的史无前例的努力。动物界和植物界的所有生物的图片，信息，事实及更多资料在这里可以得到。
       meta_keywords: 动物，动物图片，动物信息，植物，植物物种，植物图片，植物信息，植物志，动物志
-      meta_title: 动物 - 植物 - 图片 和 信息
+      meta_title: 动物-植物-图片和信息
       see_all_recent_activites: 查看更多 <span class=ssistive>上周的活动</span>
   content_has_been_updated: 内容已经更新。
   content_notes_not_shown_to_us: 内容说明(对用户不可见)：
@@ -1336,26 +1335,26 @@ zh-CN:
   data_usage_reports: 数据使用报告
   date: 
     abbr_day_names: 
-      - 周日
-      - 周一
-      - 周二
-      - 周三
-      - 周四
-      - 星期五
-      - 周六
+      - 日
+      - 一
+      - 二
+      - 三
+      - 四
+      - 五
+      - 六
     abbr_month_names: 
-      1: 一月
-      10: 十月
-      11: 十一月
-      12: 十二月
-      2: 二月
-      3: 三月
-      4: 四月
-      5: 五月
-      6: 六月
-      7: 七月
-      8: 八月
-      9: 九月
+      1: 1月
+      10: 10月
+      11: 11月
+      12: 12月
+      2: 2月
+      3: 3月
+      4: 4月
+      5: 5月
+      6: 6月
+      7: 7月
+      8: 8月
+      9: 9月
     day_names: 
       - 星期日
       - 星期一
@@ -1399,7 +1398,8 @@ zh-CN:
         other: 将近%{count}年
       half_a_minute: 半分钟
       less_than_x_minutes: 
-        other: 不到 %{count} 分钟
+        one: 少于1分
+        other: 少于%{count}分
       less_than_x_seconds: 
         other: 不到 %{count}秒
       over_x_years: 
@@ -1415,7 +1415,7 @@ zh-CN:
     prompts: 
       day: 天
       hour: 小时
-      minute: 分钟
+      minute: 分
       month: 月
       second: 秒
       year: 年
@@ -2156,9 +2156,9 @@ zh-CN:
         notification_settings: 通知设置
         recover_account: 发送邮件
         sign_up_with_facebook: 使用Facebook账号登录
-        sign_up_with_google: 使用Google账号登录
+        sign_up_with_google: 使用Google帐户登录
         sign_up_with_twitter: 使用Twitter账号登录
-        sign_up_with_yahoo: 使用Yahoo账号登录
+        sign_up_with_yahoo: 使用雅虎帐号登录
         update: 保存简介信息
       wikipedia_queue: 
         create: 提交请求
@@ -2191,14 +2191,12 @@ zh-CN:
   image_map_from: 地图来自
   image_map_from_supplier: 来自于%{whom}的地图
   image_map_not_associated_with_any_published_entries: 此地图未与任何已发布的类群相关联。
-  image_map_of: 地图关于
   image_map_of_taxon: "%{taxon_name}的地图"
   image_map_rating: 地图评级
   image_not_associated_with_any_published_entries: 此图片未与任何已发布的类群相关联。
   image_not_found: 找不到图像
   image_object: 图像
   image_objects_will_contain_two_mediaurl_elements: 图片对象将含有两个mediaURL元素 - 一个是原始数据提供者的网站的URL，另一个是保存EOL缓存版本媒体的服务器的URL。这些图像的EOL缓存版本经过调整以适于网站展示，尺寸被限制在460像素宽度和345像素高度以内。
-  image_of: 图像关于
   image_of_taxon: " %{taxon_name}的图片"
   image_rating: 图像评级
   images: 图像
@@ -2363,7 +2361,6 @@ zh-CN:
   map_from: 地图来自
   map_from_supplier: 来自于%{whom}的地图
   map_not_associated_with_any_published_entries: 此地图未与任何已发布的类群相关联。
-  map_of: 地图关于
   map_of_taxon: "%{taxon_name}的地图"
   map_rating: 地图评级
   maps_empty: 本页暂无人提供地图。
@@ -2391,10 +2388,10 @@ zh-CN:
       meta_title: "%{community_name}成员"
       tweet_text: "%{community_name}成员"
     show: 
-      meta_description: "%{member_name} 是网络生命大百科%{community_name}社区的一名会员 。"
-      meta_keywords: "%{member_name} 社区会员"
-      meta_title: "%{member_name}  %{community_name}的会员"
-      tweet_text: "%{member_name}  %{community_name}的会员"
+      meta_description: "%{member_name}是生命百科小组%{community_name}成员。"
+      meta_keywords: "%{member_name} 小组成员"
+      meta_title: "%{member_name} %{community_name}成员"
+      tweet_text: "%{member_name} %{community_name}成员"
   members_like_you: 和您身份相同的会员
   members_with_count: 
     other: "%{count}名会员"
@@ -2958,9 +2955,9 @@ zh-CN:
     new: 
       login_with_eol_authentication_header: 或者使用您的EOL证书登录：
       login_with_facebook_assistive: 使用您的Facebook账号登录网络生命大百科系统。
-      login_with_google_assistive: 使用您的谷歌账号登录网络生命大百科系统。
+      login_with_google_assistive: 使用你的Google帐户登录生命百科。
       login_with_twitter_assistive: 使用您的Twitter账号登录网络生命大百科系统。
-      login_with_yahoo_assistive: 使用您的Yahoo账号登录网络生命大百科系统。
+      login_with_yahoo_assistive: 使用你的雅虎帐号登录生命百科。
       meta_title: 登录
       problems_signing_in_with_connected_accounts: 与您关联账户的登录问题？
       problems_signing_in_with_eol_authentication: 忘记密码？
@@ -3055,8 +3052,8 @@ zh-CN:
   supplier_colon: 提供者：
   support: 
     array: 
-      last_word_connector: "\", 和\""
-      two_words_connector: " 和"
+      last_word_connector: ，和
+      two_words_connector: 和
       words_connector: "\",\""
     select: 
       prompt: 请选择
@@ -3467,7 +3464,7 @@ zh-CN:
   total_searches: 全部搜索次数：
   translation_deleted: 翻译已删除
   translation_information_header: 翻译信息
-  translation_log: I18n关键词频率直方图
+  translation_log: 国际化关键频率分布直方图
   translation_saved: 翻译已保存
   translations_submit: 查看翻译
   trigger_search_term_entered_by: 触发由用户输入的搜索词汇
@@ -3746,7 +3743,6 @@ zh-CN:
   video_from_supplier: 来自于%{whom}的视频
   video_not_associated_with_any_published_entries: 该视频未与任何已发表类群相关联。
   video_object: 视频数据
-  video_of: 视频关于
   video_of_taxon: "%{taxon_name}的视频"
   video_rating: 视频评级
   video_title_not_available_in_language: "%{language}标题不可用"
@@ -3822,7 +3818,7 @@ zh-CN:
   you_can_identify_yourself_to_eol: 通过在您的请求中添加您的API密钥，您可以向EOL确认您自己的身份（登录后在偏好页面生成您的密钥）：
   you_have_been_logged_in_as_username: 您已经以用户名%{username}登录
   you_have_been_logged_out: 您已登出。
-  you_joined_community: 您已成功地加入这个社区。
+  you_joined_community: 你已经成功加入该小组。
   you_left_community: 您已成功地离开这个社区。
   you_may_upload_static_files_fo: 您可以在这里上载用于CMS的静态文件（例如PDF、word文档、图像等）。但是不应该在这里上载物种页面的内容，它仅用于非物种页面（例如招聘广告、通讯、备忘录等）。对于备忘录和通讯的PDF文件，如果您愿意，可以链接到“友好的URL”（它将自动定向到“完整的URL地址”）。对于嵌在页面中且加了 &lt;img&gt; 标签的图像文件，您必须使用“完整内容的URL”。刷新网页时，“完整内容的URL”可能显示不同的内容服务器编号（例如“content2.eol.org”，“content3.eol.org”等）。这是正常的，您可以在创建您的链接时使用任意一个，因为它们都是等同的。
   you_must_be_comfortable: 如果您打算创建超链接或者使用格式化功能，HTML将会非常适合。
@@ -3835,7 +3831,7 @@ zh-CN:
   your_current_rating_5_of_5: 您当前的评级： 5/5
   your_email_address: 您的电子邮件地址
   your_ip_address: 您的IP地址
-  your_preferences: 您的参数设置
+  your_preferences: 你的系统设置
   your_rating: 您的评级
   your_watch_collection: 您的关注列表
   youtube: YouTube

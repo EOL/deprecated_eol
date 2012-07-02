@@ -291,9 +291,9 @@ body > #footer {
         height: 130px; }
       .thumbnails ul li.last {
         margin: 0; }
-      .thumbnails ul li:hover {
+      .thumbnails ul li.hover {
         background: transparent url("/images/v2/icon_home-thumb_active.png") 50% 100% no-repeat; }
-        .thumbnails ul li:hover img {
+        .thumbnails ul li.hover img {
           background: rgba(255, 255, 255, 0.6); }
   .thumbnails .term {
     clear: both;

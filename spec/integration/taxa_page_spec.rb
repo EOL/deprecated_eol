@@ -67,7 +67,18 @@ describe 'Taxa page' do
     it 'should not show unpublished references' do
       should_not have_tag('.references', /An unpublished visible reference for testing./)
     end
-
+    it 'should show links to literature tab' do
+      body.should have_tag("#toc .section") do
+        with_tag("h4 a", :text => "Literature")
+        with_tag("ul li a", :text => "Biodiversity Heritage Library")
+      end
+    end
+    it 'should show links to resources tab' do
+      body.should have_tag("#toc .section") do
+        with_tag("h4 a", :text => "Resources")
+        with_tag("ul li a", :text => "Education resources")
+      end
+    end
     it 'should not show references container if references do not exist' do
       body.should have_tag('.section .article:nth-child(3)', /brief summary/) do
         without_tag('.references')
@@ -77,6 +88,12 @@ describe 'Taxa page' do
     it 'should show actions for text objects' do
       body.should have_tag('div.actions') do
         with_tag('p')
+      end
+    end
+
+    it 'should show action to set article as an exemplar' do
+      body.should have_tag('div.actions p') do
+        with_tag("a", :href => "set this article as an exemplar")
       end
     end
 
@@ -454,7 +471,10 @@ describe 'Taxa page' do
       t = TaxonConcept.gen(:published => 1)
       visit taxon_details_path t
       body.should have_tag('#taxon_detail #main .empty', /No one has contributed any details to this page yet/)
-      body.should_not have_tag('#toc')
+      body.should have_tag("#toc .section") do
+        with_tag("h4 a[href=#{taxon_literature_path t}]")
+        with_tag("ul li a[href=#{bhl_taxon_literature_path t}]")
+      end
     end
   end
 
@@ -506,12 +526,6 @@ describe 'Taxa page' do
     end
     subject { body }
     it_should_behave_like 'taxon updates tab'
-    it 'should allow logged in users to post comment' do
-      visit logout_url
-      login_as @user
-      visit taxon_updates_path(@taxon_concept)
-
-    end
     it 'should allow logged in users to post comment' do
       visit logout_url
       login_as @user

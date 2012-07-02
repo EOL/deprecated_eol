@@ -368,7 +368,6 @@ ms:
   article_from: rencana dari
   article_from_supplier: Rencana daripada %{whom}
   article_more_about: Ketahui lebih lanjut mengenai rencana ini
-  article_of: Rencana
   article_rating: Penilaian rencana
   articles_in_languages_with_count: "Rencana-rencana di halaman ini terdapat dalam %{count} bahasa:"
   articles_in_other_languages_with_count: "Rencana-rencana di halaman ini terdapat dalam %{count} bahasa lain:"
@@ -1181,12 +1180,10 @@ ms:
   image_map_alt_text: Peta %{vetted_status} ini mengenai %{taxon_name}
   image_map_from: peta dari
   image_map_from_supplier: Peta daripada %{whom}
-  image_map_of: Peta
   image_map_rating: Penilaian peta
   image_not_found: Gambar tidak dijumpai
   image_object: Objek gambar
   image_objects_will_contain_two_mediaurl_elements: Objek gambar akan mengandungi dua unsur mediaURL; yang pertama ialah URL gambar dalam tapak web pembekal, dan yang kedua ialah URL versi ter-<i>cache</i> bagi bahantara tersebut yang dihoskan dalam pelayan EOL. Versi EOL gambar itu akan diubah saiznya (sambil mengekalkan nisbah bidang) jika gambar asal melebihi lebar 460 piksel atau panjang 345 piksel.
-  image_of: Gambar
   image_rating: Penilaian gambar
   images: Gambar
   images_in_red_are_not_trusted: Gambar bertanda merah tidak dipercayai.
@@ -1316,7 +1313,6 @@ ms:
   map_alt_text: Peta %{vetted_status} ini mengenai %{taxon_name}
   map_from: peta dari
   map_from_supplier: Peta daripada %{whom}
-  map_of: Peta
   map_rating: Penilaian peta
   maps_empty: Halaman ini belum mendapat sebarang peta.
   maps_empty_contribute_instructions: Pelajari cara menyumbangkan peta kepada EOL.
@@ -1891,7 +1887,6 @@ ms:
   vetted: Disemak
   video_alt_text: Video %{vetted_status} ini mengenai %{taxon_name}
   video_from_supplier: Video daripada %{whom}
-  video_of: Video
   video_rating: Penilaian video
   video_title_not_available_in_language: Tajuk tidak terdapat dalam %{language}
   videos_with_count: "%{count} video"

@@ -253,27 +253,45 @@ describe 'EOL APIs' do
   end
   
   it 'pages should not filter vetted objects by default' do
-    visit("/api/pages/0.4/#{@taxon_concept.id}?images=0&text=10&videos=0&details=1")
-    xml_response = Nokogiri.XML(body)
-    last_guid = xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"][last()]/dc:identifier').inner_text
-    data_object = DataObject.find_by_guid(last_guid)
-    data_object.vetted_by_taxon_concept(@taxon_concept, :find_best => true).id.should == Vetted.untrusted.id
+    vetted_stasuses = []
+    visit("/api/pages/0.4/#{@taxon_concept.id}.json?images=0&text=10&videos=0&details=1")
+    response_object = JSON.parse(body)
+    response_object['dataObjects'].each do |data_object|
+      data_object = DataObject.find_by_guid(data_object['identifier'], :order => 'id desc')
+      vetted_stasuses << data_object.vetted_by_taxon_concept(@taxon_concept, :find_best => true).id
+    end
+    vetted_stasuses.uniq!
+    vetted_stasuses.include?(Vetted.unknown.id).should == true
+    vetted_stasuses.include?(Vetted.trusted.id).should == true
+    vetted_stasuses.include?(Vetted.untrusted.id).should == true
   end
   
   it 'pages should filter out all non-trusted objects' do
-    visit("/api/pages/0.4/#{@taxon_concept.id}?images=0&text=10&videos=0&details=1&vetted=1")
-    xml_response = Nokogiri.XML(body)
-    last_guid = xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"][last()]/dc:identifier').inner_text
-    data_object = DataObject.find_by_guid(last_guid)
-    data_object.vetted_by_taxon_concept(@taxon_concept, :find_best => true).id.should == Vetted.trusted.id
+    vetted_stasuses = []
+    visit("/api/pages/0.4/#{@taxon_concept.id}.json?images=0&text=10&videos=0&details=1&vetted=1")
+    response_object = JSON.parse(body)
+    response_object['dataObjects'].each do |data_object|
+      data_object = DataObject.find_by_guid(data_object['identifier'], :order => 'id desc')
+      vetted_stasuses << data_object.vetted_by_taxon_concept(@taxon_concept, :find_best => true).id
+    end
+    vetted_stasuses.uniq!
+    vetted_stasuses.include?(Vetted.unknown.id).should == false
+    vetted_stasuses.include?(Vetted.trusted.id).should == true
+    vetted_stasuses.include?(Vetted.untrusted.id).should == false
   end
   
   it 'pages should filter out untrusted objects' do
-    visit("/api/pages/0.4/#{@taxon_concept.id}?images=0&text=10&videos=0&details=1&vetted=2")
-    xml_response = Nokogiri.XML(body)
-    last_guid = xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"][last()]/dc:identifier').inner_text
-    data_object = DataObject.find_by_guid(last_guid, :order => 'id desc')
-    data_object.vetted_by_taxon_concept(@taxon_concept, :find_best => true).id.should == Vetted.unknown.id
+    vetted_stasuses = []
+    visit("/api/pages/0.4/#{@taxon_concept.id}.json?images=0&text=10&videos=0&details=1&vetted=2")
+    response_object = JSON.parse(body)
+    response_object['dataObjects'].each do |data_object|
+      data_object = DataObject.find_by_guid(data_object['identifier'], :order => 'id desc')
+      vetted_stasuses << data_object.vetted_by_taxon_concept(@taxon_concept, :find_best => true).id
+    end
+    vetted_stasuses.uniq!
+    vetted_stasuses.include?(Vetted.unknown.id).should == true
+    vetted_stasuses.include?(Vetted.trusted.id).should == true
+    vetted_stasuses.include?(Vetted.untrusted.id).should == false
   end
   
   it 'pages should be able to toggle common names' do
@@ -345,6 +363,26 @@ describe 'EOL APIs' do
     response_object = JSON.parse(body)
     response_object['dataObjects'].first['identifier'].should == next_exemplar.guid
     response_object['dataObjects'][1]['identifier'].should == first_image.guid
+  end
+  
+  it 'pages should return exemplar articles first' do
+    @taxon_concept.taxon_concept_exemplar_article.should be_nil
+    all_texts = @taxon_concept.text_for_user
+    first_text = all_texts.first
+    visit("/api/pages/1.0/#{@taxon_concept.id}.json?subjects=all&details=1&text=5&images=0&videos=0")
+    response_object = JSON.parse(body)
+    response_object['dataObjects'].first['identifier'].should == first_text.guid
+    
+    next_exemplar = all_texts.last
+    first_text.guid.should_not == next_exemplar.guid
+    TaxonConceptExemplarArticle.set_exemplar(@taxon_concept.id, next_exemplar.id)
+    
+    @taxon_concept = TaxonConcept.find(@taxon_concept.id)
+    @taxon_concept.taxon_concept_exemplar_article.data_object.guid.should == next_exemplar.guid
+    visit("/api/pages/1.0/#{@taxon_concept.id}.json?subjects=all&details=1&text=5&images=0&videos=0")
+    response_object = JSON.parse(body)
+    response_object['dataObjects'].first['identifier'].should == next_exemplar.guid
+    response_object['dataObjects'][1]['identifier'].should == first_text.guid
   end
   
   # DataObjects

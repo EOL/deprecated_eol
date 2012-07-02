@@ -1,7 +1,7 @@
 class Taxa::DetailsController < TaxaController
 
   before_filter :instantiate_taxon_concept, :redirect_if_superceded, :instantiate_preferred_names
-  before_filter :add_page_view_log_entry
+  before_filter :add_page_view_log_entry, :literatures_and_resources_links
 
   # GET /pages/:taxon_id/details
   def index
@@ -21,13 +21,30 @@ class Taxa::DetailsController < TaxaController
       @details_count_by_language[obj.language] ||= 0
       @details_count_by_language[obj.language] += 1
     end
-    
+    @summary_text = @taxon_concept.overview_text_for_user(current_user)
     @exemplar_image = @taxon_concept.exemplar_or_best_image_from_solr(@selected_hierarchy_entry)
     @assistive_section_header = I18n.t(:assistive_details_header)
     @rel_canonical_href = @selected_hierarchy_entry ?
       taxon_hierarchy_entry_details_url(@taxon_concept, @selected_hierarchy_entry) :
       taxon_details_url(@taxon_concept)
     current_user.log_activity(:viewed_taxon_concept_details, :taxon_concept_id => @taxon_concept.id)
+  end
+
+  def set_article_as_exemplar
+    unless current_user && current_user.min_curator_level?(:assistant)
+      raise EOL::Exceptions::SecurityViolation, "User does not have set_article_as_exemplar privileges"
+      return
+    end
+    @taxon_concept = TaxonConcept.find(params[:taxon_id].to_i) rescue nil
+    @data_object = DataObject.find_by_id(params[:data_object_id].to_i) rescue nil
+
+    if @taxon_concept && @data_object
+      TaxonConceptExemplarArticle.set_exemplar(@taxon_concept.id, @data_object.id)
+      log_action(@taxon_concept, @data_object, :choose_exemplar)
+    end
+
+    store_location(params[:return_to] || request.referer)
+    redirect_back_or_default taxon_details_path @taxon_concept.id
   end
 
 protected
@@ -43,5 +60,41 @@ protected
     keywords = super
     toc_subjects = @toc_items_to_show.collect{|i| i.label}.compact.join(", ")
     [keywords, toc_subjects].compact.join(', ')
+  end
+  
+private
+  def literatures_and_resources_links
+    $show_resources_links = []
+    $show_literature_references_link = false
+    
+    $show_resources_links << 'partner_links' unless @taxon_concept.content_partners_links.blank?
+    
+    @identification_resources_count = @taxon_concept.text_for_user(current_user, {
+      :language_ids => [ current_language.id ],
+      :toc_ids => [ TocItem.identification_resources.id ] })
+    $show_resources_links << 'identification_resources' unless @identification_resources_count.blank?
+    
+    citizen_science = TocItem.cached_find_translated(:label, 'Citizen Science', 'en')
+    citizen_science_links = TocItem.cached_find_translated(:label, 'Citizen Science links', 'en')
+    @citizen_science_contents_count = @taxon_concept.text_for_user(current_user, {
+      :language_ids => [ current_language.id ],
+      :toc_ids => [ citizen_science.id, citizen_science_links.id ] })
+    $show_resources_links << 'citizen_science' unless @citizen_science_contents_count.blank?
+    
+    # there are two education chapters - one is the parent of the other
+    education_root = TocItem.cached_find_translated(:label, 'Education', 'en', :find_all => true).detect{ |toc_item| toc_item.is_parent? }
+    education_chapters = [ education_root ] + education_root.children
+    @education_contents_count = @taxon_concept.text_for_user(current_user, {
+      :language_ids => [ current_language.id ],
+      :toc_ids => education_chapters.collect{ |toc_item| toc_item.id } })
+    $show_resources_links << 'education' unless @education_contents_count.blank?
+    
+    if !Resource.ligercat.nil? && HierarchyEntry.find_by_hierarchy_id_and_taxon_concept_id(Resource.ligercat.hierarchy.id, @taxon_concept.id)
+      $show_resources_links << 'biomedical_terms'
+    end
+
+    $show_resources_links << 'nucleotide_sequences' unless @taxon_concept.nucleotide_sequences_hierarchy_entry_for_taxon.nil?
+  
+    $show_literature_references_link = true if Ref.literature_references_for?(@taxon_concept.id)
   end
 end

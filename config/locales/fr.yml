@@ -464,7 +464,6 @@ fr:
   article_from_supplier: Article fourni par %{whom}
   article_more_about: En savoir plus à propos de cet article
   article_not_associated_with_any_published_entries: Cet article n’est associé à aucune des taxinomies publiées.
-  article_of: Article de
   article_rating: Évaluation de l’article
   assistive_details_header: Détails
   assistive_literature_header: Littérature
@@ -1516,14 +1515,12 @@ fr:
   image_map_from: carte de
   image_map_from_supplier: Carte fournie par %{whom}
   image_map_not_associated_with_any_published_entries: Cette carte n’est associée à aucune des taxinomies publiées.
-  image_map_of: Carte de
   image_map_of_taxon: Carte de %{taxon_name}
   image_map_rating: Évaluation de la carte
   image_not_associated_with_any_published_entries: Cette image n’est associée à aucune des taxinomies publiées.
   image_not_found: Image introuvable
   image_object: Objet image
   image_objects_will_contain_two_mediaurl_elements: Les objets image contiennent deux éléments mediaURL - le premier étant l’URL de l’image sur le site Web du fournisseur et le second l’URL de la version en cache du média hébergé sur un serveur EdlV. La version EdlV de l’image aura été redimensionnée (en conservant le rapport de dimension) si l’image d’origine est plus grande que 460 pixels de large ou 345 pixels de hauteur.
-  image_of: Image de
   image_rating: Évaluation de l’image
   images: Images
   images_in_red_are_not_trusted: Les images en rouge ne sont pas fiables.
@@ -1688,7 +1685,6 @@ fr:
   map_from: carte de
   map_from_supplier: Carte fournie par %{whom}
   map_not_associated_with_any_published_entries: Cette carte n’est associée à aucune des taxinomies publiées.
-  map_of: Carte de
   map_of_taxon: Carte de %{taxon_name}
   map_rating: Évaluation de la carte
   maps_empty: Personne n'a encore contribué à une carte sur cette page.
@@ -2856,7 +2852,6 @@ fr:
   video_from_supplier: Vidéo fournie par %{whom}
   video_not_associated_with_any_published_entries: Cette vidéo n’est associée à aucune des taxinomies publiées.
   video_object: Objet vidéo
-  video_of: Vidéo de
   video_rating: Évaluation de la vidéo
   video_title_not_available_in_language: Titre non disponible dans %{language}
   view_added_text: voir le texte ajouté

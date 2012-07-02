@@ -425,7 +425,6 @@ sr:
   article_from_supplier: Чланак из %{whom}
   article_more_about: Више о чланку
   article_not_associated_with_any_published_entries: Овај чланак није повезан ни с једним објављеним таксоном.
-  article_of: Чланак
   article_rating: Оцена чланка
   articles_in_languages_with_count: 
     one: "Чланци на страници су доступни на %{count} језику:"
@@ -1468,13 +1467,11 @@ sr:
   image_map_from: мапа од
   image_map_from_supplier: Мапа из %{whom}
   image_map_not_associated_with_any_published_entries: Ова мапа није повезана ни с једним објављеним таксоном.
-  image_map_of: Мапа
   image_map_rating: Оцена мапе
   image_not_associated_with_any_published_entries: Ова слика није повезана ни с једним објављеним таксоном.
   image_not_found: Не могу да пронађем слику
   image_object: Сликовни објекат
   image_objects_will_contain_two_mediaurl_elements: Објекти слика ће садржати два елемента mediaURL. Први је адреса слике на сајту добављача, а други је адреса привремено меморисаног издања датотеке коју покреће сервер EOL-а. Наше издање слике ће бити смањено (размера ће бити очувана) ако је изворна слика већа од 460 × 345 пиксела.
-  image_of: Слика
   image_rating: Оцена слике
   images: Слике
   images_in_red_are_not_trusted: Слике црвене боје су неповерљиве.
@@ -1637,7 +1634,6 @@ sr:
   map_from: мапа од
   map_from_supplier: Мапа из %{whom}
   map_not_associated_with_any_published_entries: Ова мапа није повезана ни с једним објављеним таксоном.
-  map_of: Мапа
   map_rating: Оцена мапе
   maps_empty: Још нико није додао ниједну мапу на ову страницу.
   maps_empty_contribute_instructions: Сазнајте како да допринесете EOL-у с мапама.
@@ -2644,7 +2640,6 @@ sr:
   video_from_supplier: Видео из %{whom}
   video_not_associated_with_any_published_entries: Овај видео-снимак није повезан ни с једним објављеним таксоном.
   video_object: Видео-објекат
-  video_of: Видео
   video_rating: Оцена видео-снимка
   video_title_not_available_in_language: Наслов није доступан на %{language}
   videos_with_count: 

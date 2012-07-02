@@ -65,7 +65,7 @@ describe 'Home page' do
     visit('/')
     active.each do |language|
       if language.iso_639_1 == I18n.locale.to_s
-        body.should have_tag('.language p a span', :text => /language.*#{language.iso_639_1}/i)
+        body.should have_tag('.language p a span', :text => language.source_form)
       else
         body.should have_tag('.language a[href*=?]', /set_language.*language=#{language.iso_639_1}/,
                               :text => language.source_form)

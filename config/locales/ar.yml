@@ -788,7 +788,6 @@ ar:
   article_from_supplier: المقال من %{whom}.
   article_more_about: تعرف على المزيد عن هذا المقال
   article_not_associated_with_any_published_entries: هذا المقال غير مرتبط بأي أصنوفات منشورة.
-  article_of: مقال لـ
   article_of_taxon: مقال عن%{taxon_name}
   article_rating: تقييم المقال
   articles_in_languages_with_count: 
@@ -1940,14 +1939,12 @@ ar:
   image_map_from: خريطة من
   image_map_from_supplier: الخريطة من %{whom}.
   image_map_not_associated_with_any_published_entries: هذه الخريطة غير مرتبطة بأي أصنوفات منشورة.
-  image_map_of: خريطة لـ
   image_map_of_taxon: خريطة لـ %{taxon_name}
   image_map_rating: تقييم الخريطة
   image_not_associated_with_any_published_entries: هذه الصورة غير مرتبطة بأي أصنوفات منشورة.
   image_not_found: لا توجد صورة
   image_object: كائن صورة
   image_objects_will_contain_two_mediaurl_elements: سوف تضم العناصر من الصور عنصرين من العناوين الإلكترونية للوسائط - الأول هو العنوان الإلكتروني للصورة بالموقع الإلكتروني الخاص بمقدمها، والثاني هو العنوان الإلكتروني الخاص بالنسخة المؤقتة للوسائط الموجودة بخادم موسوعة الحياة. إذا  كان حجم الصورة الأصلية يتعدى 460 ميجا بكسل من حيث العرض أو 345 من حيث الطول، سوف يكون قد تم تغيير حجم نسخة الصورة بموسوعة الحياة (مع  الاحتفاظ  نسبة الابعاد)  .
-  image_of: صورة
   image_of_taxon: صورة لـ %{taxon_name}
   image_rating: تقييم الصورة
   images: الصور
@@ -2114,7 +2111,6 @@ ar:
   map_from: خريطة من
   map_from_supplier: الخريطة من %{whom}.
   map_not_associated_with_any_published_entries: هذه الخريطة غير مرتبطة بأي أصنوفات منشورة.
-  map_of: خريطة لـ
   map_of_taxon: خريطة لـ %{taxon_name}
   map_rating: تقييم الخريطة
   maps_empty: لم تتم إضافة أية خريطة إلى تلك الصفحة حتى الأن.
@@ -3437,7 +3433,6 @@ ar:
   video_from_supplier: مقطع الفيديو من %{whom}.
   video_not_associated_with_any_published_entries: مقطع الفيديو هذا غير مرتبط بأي أصنوفات منشورة.
   video_object: كائن من الفيديو
-  video_of: مقطع فيديو لـ
   video_of_taxon: مقطع فيديو عن %{taxon_name}
   video_rating: تقييم الفيديو
   video_title_not_available_in_language: العنوان غير متاح باللغة %{language}

@@ -15,6 +15,8 @@ class Taxa::NamesController < TaxaController
       @hierarchy_entries = @taxon_concept.deep_published_browsable_hierarchy_entries
       @other_hierarchy_entries = @taxon_concept.deep_published_nonbrowsable_hierarchy_entries
     end
+    HierarchyEntry.preload_associations(@hierarchy_entries, [ { :hierarchy => [ { :resource => :content_partner }, :dwc_resource ] }, :flattened_ancestors, :rank ])
+    
     @assistive_section_header = I18n.t(:assistive_names_classifications_header)
     common_names_count
     render :action => 'classifications'

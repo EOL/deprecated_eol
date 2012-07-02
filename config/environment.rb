@@ -109,7 +109,7 @@ Rails::Initializer.run do |config|
   $SHOW_DATA_QUALITY = false # if set to true, we will show data quality next to text content blocks
 
   # Note that you can override this in the environment-specific file, too, if you want to.
-  $DEFAULT_HIERARCHY_NAME = "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2010"
+  $DEFAULT_HIERARCHY_NAME = "Species 2000 & ITIS Catalogue of Life: May 2012"
 
   # TODO - Remove all references to "content levels" here and in the code --- this is all not required anymore
   ################

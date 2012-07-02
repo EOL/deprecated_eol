@@ -411,16 +411,46 @@ nl:
         an_unknown_user_associated_an_unknown_data_object_to_association: Een onbekende gebruiker heeft een koppeling gemaakt tussen een onbekend gegevensobject en "%{association}".
         an_unknown_user_associated_data_object_to_an_unknown_association: Een onbekende gebruiker heeft een koppeling gemaakt tussen "%{data_object}" en een onbekende pagina.
         an_unknown_user_associated_data_object_to_association: Een onbekende gebruiker heeft een koppeling gemaakt tussen "%{data_object}" en "%{association}".
-        an_unknown_user_associated_it_to_an_unknown_association: Een onbekende gebruiker geeft een koppeling gemaakt met een onbekende pagina.
+        an_unknown_user_associated_it_to_an_unknown_association: Een onbekende gebruiker heeft een koppeling gemaakt met een onbekende pagina.
         an_unknown_user_associated_it_to_association: Een onbekende gebruiker heeft een koppeling gemaakt met "%{association}".
         user_associated_an_older_data_object_to_an_unknown_association: <strong>%{user}</strong> heeft een koppeling gemaakt tussen een oudere versie van "%{data_object}" en een onbekende pagina.
         user_associated_an_older_data_object_to_association: <strong>%{user}</strong> heeft een koppeling gemaakt tussen een oudere versie van "%{data_object}" en "%{association}".
         user_associated_an_unknown_data_object_to_an_unknown_association: <strong>%{user}</strong> heeft een onbekende koppeling toegevoegd.
-        user_associated_an_unknown_data_object_to_association: <strong>%{user}</strong> heeft een koppeling tussen een onbekend object en "%{association}" toegevoegd.
+        user_associated_an_unknown_data_object_to_association: <strong>%{user}</strong> heeft een koppeling toegevoegd tussen een onbekend object en "%{association}".
         user_associated_data_object_to_an_unknown_association: <strong>%{user}</strong> heeft een koppeling gemaakt tussen "%{data_object}" en een onbekende pagina.
         user_associated_data_object_to_association: <strong>%{user}</strong> heeft een koppeling gemaakt tussen "%{data_object}" en "%{association}".
         user_associated_it_to_an_unknown_association: <strong>%{user}</strong> heeft een koppeling toegevoegd aan een onbekend object.
         user_associated_it_to_association: <strong>%{user}</strong> heeft een koppeling toegevoegd aan "%{association}".
+      add_common_name: 
+        an_unknown_user_added_an_unknown_name_to_an_unknown_taxon: Een onbekende gebruiker heeft een onbekende gewone naam toegevoegd aan een onbekende pagina.
+        an_unknown_user_added_an_unknown_name_to_it: Een onbekende gebruiker heeft een onbekende gewone naam toegevoegd.
+        an_unknown_user_added_an_unknown_name_to_taxon: Een onbekende gebruiker heeft een onbekende gewone naam toegevoegd voor "%{taxon}".
+        an_unknown_user_added_name_to_an_unknown_taxon: Een onbekende gebruiker heeft de gewone naam "%{name}" toegevoegd aan een onbekende pagina.
+        an_unknown_user_added_name_to_it: Een onbekende gebruiker heeft de gewone naam "%{name}" toegevoegd.
+        an_unknown_user_added_name_to_taxon: Een onbekende gebruiker heeft de gewone naam "%{name}" toegevoegd voor "%{taxon}".
+        user_added_an_unknown_name_to_an_unknown_taxon: <strong>%{user}</strong> heeft een onbekende gewone naam toegevoegd aan een onbekende pagina.
+        user_added_an_unknown_name_to_it: <strong>%{user}</strong> heeft een onbekende gewone naam toegevoegd.
+        user_added_an_unknown_name_to_taxon: <strong>%{user}</strong> heeft een onbekende gewone naam toegevoegd aan "%{taxon}".
+        user_added_name_to_an_unknown_taxon: <strong>%{user}</strong> heeft de gewone naam "%{name}" toegevoegd aan een onbekende pagina.
+        user_added_name_to_it: <strong>%{user}</strong> heeft de gewone naam "%{name}" toegevoegd.
+        user_added_name_to_taxon: <strong>%{user}</strong> heeft de gewone naam "%{name}" toegevoegd aan "%{taxon}".
+      choose_exemplar: 
+        an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: Een onbekende gebruiker heeft een oudere versie van "%{data_object}" als exemplarisch gemarkeerd in een onbekende context.
+        an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: Een onbekende gebruiker heeft "%{data_object}" als exemplarisch gemarkeerd voor "%{taxon}".
+        an_unknown_user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: Een onbekende gebruiker heeft een onbekende afbeelding als exemplarisch gemarkeerd.
+        an_unknown_user_chose_exemplar_an_unknown_data_object_on_taxon: Een onbekende gebruiker heeft een onbekend gegevensobject als exemplarisch gemarkeerd voor "%{taxon}".
+        an_unknown_user_chose_exemplar_data_object_on_an_unknown_taxon: Een onbekende gebruiker heeft "%{data_object}" als exemplarisch gemarkeerd op een onbekende pagina.
+        an_unknown_user_chose_exemplar_data_object_on_taxon: Een onbekende gebruiker heeft "%{data_object}" als exemplarisch gemarkeerd voor "%{taxon}".
+        an_unknown_user_chose_exemplar_it_on_an_unknown_taxon: Een onbekende gebruiker heeft het als exemplarisch gemarkeerd op een onbekende pagina.
+        an_unknown_user_chose_exemplar_it_on_taxon: Een onbekende gebruiker heeft het als exemplarisch gemarkeerd voor "%{taxon}"
+        user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: <strong>%{user}</strong> heeft een oudere versie van "%{data_object}" als exemplarisch gemarkeerd op een onbekende pagina.
+        user_chose_exemplar_an_older_data_object_on_taxon: <strong>%{user}</strong> heeft een oudere versie van "%{data_object}" als exemplarisch gemarkeerd voor "%{taxon}".
+        user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: <strong>%{user}</strong> heeft een onbekende afbeelding als exemplarisch gemarkeerd.
+        user_chose_exemplar_an_unknown_data_object_on_taxon: <strong>%{user}</strong> heeft een onbekend gegevensobject als exemplarisch gemarkeerd voor "%{taxon}".
+        user_chose_exemplar_data_object_on_an_unknown_taxon: <strong>%{user}</strong> heeft "%{data_object}" als exemplarisch gemarkeerd op een onbekende pagina.
+        user_chose_exemplar_data_object_on_taxon: <strong>%{user}</strong> heeft "%{data_object}" als exemplarisch gemarkeerd voor "%{taxon}".
+        user_chose_exemplar_it_on_an_unknown_taxon: <strong>%{user}</strong> heeft het als exemplarisch gemarkeerd op een onbekende pagina.
+        user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> heeft het als exemplarisch gemarkeerd voor "%{taxon}".
       hide: 
         an_unknown_user_hid_an_older_data_object_on_an_unknown_association: Een onbekende gebruiker heeft een oudere versie van "%{data_object}" als verborgen gemarkeerd in een onbekende context.
         an_unknown_user_hid_an_older_data_object_on_association: Een onbekende gebruiker heeft een oudere versie van "%{data_object}" als verborgen gemarkeerd op de pagina "%{association}".
@@ -438,8 +468,54 @@ nl:
         user_hid_data_object_on_association: <strong>%{user}</strong> heeft "%{data_object}" als verborgen gemarkeerd op de pagina "%{association}".
         user_hid_it_on_an_unknown_association: <strong>%{user}</strong> heeft het als verborgen gemarkeerd in een onbekende context.
         user_hid_it_on_association: <strong>%{user}</strong> heeft het als verborgen gemarkeerd op de pagina "%{association}".
+      other_actions: 
+        an_unknown_user_curated_an_older_data_object: Een onbekende gebruiker heeft een oudere versie van "%{data_object}" beheerd.
+        an_unknown_user_curated_an_unknown_data_object: Een onbekende gebruiker heeft een onbekend object beheerd.
+        an_unknown_user_curated_data_object: Een onbekende gebruiker heeft "%{data_object}" beheerd.
+        an_unknown_user_curated_it: Een onbekende gebruiker heeft het beheerd, maar de precieze handeling is verloren gegaan.
+        user_curated_an_older_data_object: <strong>%{user}</strong> heeft een oudere versie van "%{data_object}" beheerd.
+        user_curated_an_unknown_data_object: <strong>%{user}</strong> heeft een onbekend gegevensobject beheerd.
+        user_curated_data_object: <strong>%{user}</strong> heeft "%{data_object}" beheerd.
+        user_curated_it: <strong>%{user}</strong> heeft het beheerd, maar de precieze handeling is verloren gegaan.
+      preferred_classification: 
+        an_unknown_user_preferred_classification_on_an_unknown_taxon: Een onbekende gebruiker heeft de classificatie van "%{provider}" als voorkeursclassificatie gemarkeerd voor een onbekend taxon.
+        an_unknown_user_preferred_classification_on_it: Een onbekende gebruiker heeft de classificatie van "%{provider}" als voorkeursclassificatie gemarkeerd.
+        an_unknown_user_preferred_classification_on_taxon: Een onbekende gebruiker heeft de classificatie van "%{provider}" als voorkeursclassificatie gemarkeerd voor "%{taxon}".
+        an_unknown_user_preferred_unknown_classification_on_an_unknown_taxon: Een onbekende gebruiker heeft een onbekende classificatie als voorkeursclassificatie gemarkeerd voor een onbekend taxon.
+        an_unknown_user_preferred_unknown_classification_on_it: Een onbekende gebruiker heeft een onbekende classificatie als voorkeursclassificatie gemarkeerd.
+        an_unknown_user_preferred_unknown_classification_on_taxon: Een onbekende gebruiker heeft een onbekende classificatie als voorkeursclassificatie gemarkeerd voor "%{taxon}".
+        user_preferred_classification_on_an_unknown_taxon: <strong>%{user}</strong> heeft de classificatie van "%{provider}" als voorkeursclassificatie gemarkeerd voor een onbekend taxon.
+        user_preferred_classification_on_it: <strong>%{user}</strong> heeft de classificatie van "%{provider}" als voorkeursclassificatie gemarkeerd.
+        user_preferred_classification_on_taxon: <strong>%{user}</strong> heeft de classificatie van "%{provider}" als voorkeursclassificatie gemarkeerd voor "%{taxon}".
+        user_preferred_unknown_classification_on_an_unknown_taxon: <strong>%{user}</strong> heeft een onbekende classificatie als voorkeursclassificatie gemarkeerd voor een onbekend taxon.
+        user_preferred_unknown_classification_on_it: <strong>%{user}</strong> heeft een onbekende classificatie als voorkeursclassificatie gemarkeerd.
+        user_preferred_unknown_classification_on_taxon: <strong>%{user}</strong> heeft een onbekende classificatie als voorkeursclassificatie gemarkeerd voor "%{taxon}".
       reasons_to_hide: "Reden voor verbergen: %{reasons}"
       reasons_to_untrust: "Reden voor niet vertrouwen: %{reasons}"
+      remove_association: 
+        an_unknown_user_disassociated_an_older_data_object_from_an_unknown_association: Een onbekende gebruiker heeft een koppeling verwijderd van een oudere versie van "%{data_object}".
+        an_unknown_user_disassociated_an_older_data_object_from_association: Een onbekende gebruiker heeft een koppeling verwijderd tussen "%{data_object}" en "%{association}".
+        an_unknown_user_disassociated_an_unknown_data_object_from_an_unknown_association: Een onbekende gebruiker heeft een onbekende koppeling verwijderd.
+        an_unknown_user_disassociated_an_unknown_data_object_from_association: Een onbekende gebruiker heeft een koppeling verwijderd tussen een onbekend gegevensobject en "%{association}".
+        an_unknown_user_disassociated_data_object_from_an_unknown_association: Een onbekende gebruiker heeft een koppeling verwijderd tussen "%{data_object}" en een onbekende pagina.
+        an_unknown_user_disassociated_data_object_from_association: Een onbekende gebruiker heeft een koppeling verwijderd tussen "%{data_object}" en "%{association}".
+        an_unknown_user_disassociated_it_from_an_unknown_association: Een onbekende gebruiker heeft een koppeling verwijderd met een onbekende pagina.
+        an_unknown_user_disassociated_it_from_association: Een onbekende gebruiker heeft een koppeling verwijderd met "%{association}".
+        user_disassociated_an_older_data_object_from_an_unknown_association: <strong>%{user}</strong> heeft een koppeling verwijderd tussen een oudere versie van "%{data_object}" en een onbekende pagina.
+        user_disassociated_an_older_data_object_from_association: <strong>%{user}</strong> heeft een koppeling verwijderd tussen een oudere versie van "%{data_object}" en "%{association}".
+        user_disassociated_an_unknown_data_object_from_an_unknown_association: <strong>%{user}</strong> heeft een onbekende koppeling verwijderd.
+        user_disassociated_an_unknown_data_object_from_association: <strong>%{user}</strong> heeft een koppeling verwijderd tussen een onbekend object en "%{association}".
+        user_disassociated_data_object_from_an_unknown_association: <strong>%{user}</strong> heeft een koppeling verwijderd tussen "%{data_object}" en een onbekende pagina.
+        user_disassociated_data_object_from_association: <strong>%{user}</strong> heeft een koppeling verwijderd tussen "%{data_object}" en "%{association}".
+        user_disassociated_it_from_an_unknown_association: <strong>%{user}</strong> heeft een koppeling verwijderd met een onbekend object.
+        user_disassociated_it_from_association: <strong>%{user}</strong> heeft een koppeling verwijderd met "%{association}".
+      remove_common_name: 
+        an_unknown_user_removed_name_from_an_unknown_taxon: Een onbekende gebruiker heeft een gewone naam verwijderd van een onbekende pagina.
+        an_unknown_user_removed_name_from_it: Een onbekende gebruiker heeft een gewone naam verwijderd.
+        an_unknown_user_removed_name_from_taxon: Een onbekende gebruiker heeft een gewone naam verwijderd van "%{taxon}".
+        user_removed_name_from_an_unknown_taxon: <strong>%{user}</strong> heeft een gewone naam van een onbekende pagina verwijderd.
+        user_removed_name_from_it: <strong>%{user}</strong> heeft een gewone naam verwijderd.
+        user_removed_name_from_taxon: <strong>%{user}</strong> heeft een gewone naam van "%{taxon}" verwijderd.
       show: 
         an_unknown_user_showed_an_older_data_object_on_an_unknown_association: Een onbekende gebruiker heeft een oudere versie van "%{data_object}" als zichtbaar gemarkeerd in een onbekende context.
         an_unknown_user_showed_an_older_data_object_on_association: Een onbekende gebruiker heeft een oudere versie van "%{data_object}" als zichtbaar gemarkeerd op de pagina "%{association}".
@@ -457,6 +533,19 @@ nl:
         user_showed_data_object_on_association: <strong>%{user}</strong> heeft "%{data_object}" als zichtbaar gemarkeerd op de pagina "%{association}".
         user_showed_it_on_an_unknown_association: <strong>%{user}</strong> heeft het als zichtbaar gemarkeerd in een onbekende context.
         user_showed_it_on_association: <strong>%{user}</strong> heeft het als zichtbaar gemarkeerd op de pagina "%{association}".
+      trust_common_name: 
+        an_unknown_user_trusted_an_unknown_name_on_an_unknown_taxon: Een onbekende gebruiker heeft een onbekende gewone naam van een onbekende pagina als vertrouwd gemarkeerd.
+        an_unknown_user_trusted_an_unknown_name_on_it: Een onbekende gebruiker heeft een onbekende gewone naam als vertrouwd gemarkeerd.
+        an_unknown_user_trusted_an_unknown_name_on_taxon: Een onbekende gebruiker heeft een onbekende gewone naam van "%{taxon}" als vertrouwd gemarkeerd.
+        an_unknown_user_trusted_name_on_an_unknown_taxon: Een onbekende gebruiker heeft de gewone naam "%{name}" van een onbekende pagina als vertrouwd gemarkeerd.
+        an_unknown_user_trusted_name_on_it: Een onbekende gebruiker heeft de gewone naam "%{name}" als vertrouwd gemarkeerd.
+        an_unknown_user_trusted_name_on_taxon: Een onbekende gebruiker heeft de gewone naam "%{name}" van "%{taxon}" als vertrouwd gemarkeerd.
+        user_trusted_an_unknown_name_on_an_unknown_taxon: <strong>%{user}</strong> heeft een onbekende gewone naam van een onbekende pagina als vertrouwd gemarkeerd.
+        user_trusted_an_unknown_name_on_it: <strong>%{user}</strong> heeft een onbekende gewone naam als vertrouwd gemarkeerd.
+        user_trusted_an_unknown_name_on_taxon: <strong>%{user}</strong> heeft een onbekende gewone naam van "%{taxon}" als vertrouwd gemarkeerd.
+        user_trusted_name_on_an_unknown_taxon: <strong>%{user}</strong> heeft de gewone naam "%{name}" van een onbekende pagina als vertrouwd gemarkeerd.
+        user_trusted_name_on_it: <strong>%{user}</strong> heeft de gewone naam "%{name}" als vertrouwd gemarkeerd.
+        user_trusted_name_on_taxon: <strong>%{user}</strong> heeft de gewone naam "%{name}" van "%{taxon}" als vertrouwd gemarkeerd.
       trusted: 
         an_unknown_user_trusted_an_older_data_object_on_an_unknown_association: Een onbekende gebruiker heeft een oudere versie van "%{data_object}" als vertrouwd gemarkeerd in een onbekende context.
         an_unknown_user_trusted_an_older_data_object_on_association: Een onbekende gebruiker heeft een oudere versie van "%{data_object}" als vertrouwd gemarkeerd op de pagina "%{association}".
@@ -474,6 +563,19 @@ nl:
         user_trusted_data_object_on_association: <strong>%{user}</strong> heeft "%{data_object}" als vertrouwd gemarkeerd op de pagina "%{association}".
         user_trusted_it_on_an_unknown_association: <strong>%{user}</strong> heeft het als vertrouwd gemarkeerd in een onbekende context.
         user_trusted_it_on_association: <strong>%{user}</strong> heeft het als vertrouwd gemarkeerd op de pagina "%{association}".
+      unreview_common_name: 
+        an_unknown_user_unreviewed_an_unknown_name_on_an_unknown_taxon: Een onbekende gebruiker heeft een onbekende gewone naam van een onbekende pagina als ongecontroleerd gemarkeerd.
+        an_unknown_user_unreviewed_an_unknown_name_on_it: Een onbekende gebruiker heeft een onbekende gewone naam als ongecontroleerd gemarkeerd.
+        an_unknown_user_unreviewed_an_unknown_name_on_taxon: Een onbekende gebruiker heeft een onbekende gewone naam van "%{taxon}" als ongecontroleerd gemarkeerd.
+        an_unknown_user_unreviewed_name_on_an_unknown_taxon: Een onbekende gebruiker heeft de gewone naam "%{name}" van een onbekende pagina als ongecontroleerd gemarkeerd.
+        an_unknown_user_unreviewed_name_on_it: Een onbekende gebruiker heeft de gewone naam "%{name}" als ongecontroleerd gemarkeerd.
+        an_unknown_user_unreviewed_name_on_taxon: Een onbekende gebruiker heeft de gewone naam "%{name}" van "%{taxon}" als ongecontroleerd gemarkeerd.
+        user_unreviewed_an_unknown_name_on_an_unknown_taxon: <strong>%{user}</strong> heeft een onbekende gewone naam van een onbekende pagina als ongecontroleerd gemarkeerd.
+        user_unreviewed_an_unknown_name_on_it: <strong>%{user}</strong> heeft een onbekende gewone naam als ongecontroleerd gemarkeerd.
+        user_unreviewed_an_unknown_name_on_taxon: <strong>%{user}</strong> heeft een onbekende gewone naam van "%{taxon}" als ongecontroleerd gemarkeerd.
+        user_unreviewed_name_on_an_unknown_taxon: <strong>%{user}</strong> heeft de gewone naam "%{name}" van een onbekende pagina als ongecontroleerd gemarkeerd.
+        user_unreviewed_name_on_it: <strong>%{user}</strong> heeft de gewone naam "%{name}" als ongecontroleerd gemarkeerd.
+        user_unreviewed_name_on_taxon: <strong>%{user}</strong> heeft de gewone naam "%{name}" van "%{taxon}" als ongecontroleerd gemarkeerd.
       unreviewed: 
         an_unknown_user_unreviewed_an_older_data_object_on_an_unknown_association: Een onbekende gebruiker heeft een oudere versie van "%{data_object}" als ongecontroleerd gemarkeerd in een onbekende context.
         an_unknown_user_unreviewed_an_older_data_object_on_association: Een onbekende gebruiker heeft een oudere versie van "%{data_object}" als ongecontroleerd gemarkeerd op de pagina "%{association}".
@@ -491,6 +593,19 @@ nl:
         user_unreviewed_data_object_on_association: <strong>%{user}</strong> heeft "%{data_object}" als ongecontroleerd gemarkeerd op de pagina "%{association}".
         user_unreviewed_it_on_an_unknown_association: <strong>%{user}</strong> heeft het als ongecontroleerd gemarkeerd in een onbekende context.
         user_unreviewed_it_on_association: <strong>%{user}</strong> heeft het als ongecontroleerd gemarkeerd op de pagina "%{association}".
+      untrust_common_name: 
+        an_unknown_user_untrusted_an_unknown_name_on_an_unknown_taxon: Een onbekende gebruiker heeft een onbekende gewone naam van een onbekende pagina als niet-vertrouwd gemarkeerd.
+        an_unknown_user_untrusted_an_unknown_name_on_it: Een onbekende gebruiker heeft een onbekende gewone naam als niet-vertrouwd gemarkeerd.
+        an_unknown_user_untrusted_an_unknown_name_on_taxon: Een onbekende gebruiker heeft een onbekende gewone naam van "%{taxon}" als niet-vertrouwd gemarkeerd.
+        an_unknown_user_untrusted_name_on_an_unknown_taxon: Een onbekende gebruiker heeft de gewone naam "%{name}" van een onbekende pagina als niet-vertrouwd gemarkeerd.
+        an_unknown_user_untrusted_name_on_it: Een onbekende gebruiker heeft de gewone naam "%{name}" als niet-vertrouwd gemarkeerd.
+        an_unknown_user_untrusted_name_on_taxon: Een onbekende gebruiker heeft de gewone naam "%{name}" van "%{taxon}" als niet-vertrouwd gemarkeerd.
+        user_untrusted_an_unknown_name_on_an_unknown_taxon: <strong>%{user}</strong> heeft een onbekende gewone naam van een onbekende pagina als niet-vertrouwd gemarkeerd.
+        user_untrusted_an_unknown_name_on_it: <strong>%{user}</strong> heeft een onbekende gewone naam als niet-vertrouwd gemarkeerd.
+        user_untrusted_an_unknown_name_on_taxon: <strong>%{user}</strong> heeft een onbekende gewone naam van "%{taxon}" als niet-vertrouwd gemarkeerd.
+        user_untrusted_name_on_an_unknown_taxon: <strong>%{user}</strong> heeft de gewone naam "%{name}" van een onbekende pagina als niet-vertrouwd gemarkeerd.
+        user_untrusted_name_on_it: <strong>%{user}</strong> heeft de gewone naam "%{name}" als niet-vertrouwd gemarkeerd.
+        user_untrusted_name_on_taxon: <strong>%{user}</strong> heeft de gewone naam "%{name}" van "%{taxon}" als niet-vertrouwd gemarkeerd.
       untrusted: 
         an_unknown_user_untrusted_an_older_data_object_on_an_unknown_association: Een onbekende gebruiker heeft een oudere versie van "%{data_object}" als niet-vertrouwd gemarkeerd in een onbekende context.
         an_unknown_user_untrusted_an_older_data_object_on_association: Een onbekende gebruiker heeft een oudere versie van "%{data_object}" als niet-vertrouwd gemarkeerd op de pagina "%{association}".
@@ -526,6 +641,7 @@ nl:
   add_article_to_page_link_button: Artikel aan deze pagina toevoegen
   add_association_submit_button: koppeling toevoegen
   add_brief_summary_to_page_link_button: Korte samenvatting aan deze pagina toevoegen
+  add_citizen_science_resources_to_page_link_button: Verwijzing naar burgerwetenschap aan deze pagina toevoegen
   add_collection_to_a_new_community: "\"%{collection}\" toevoegen aan een nieuwe gemeenschap"
   add_collection_to_community: Verzameling aan gemeenschap toevoegen
   add_education_resources_to_page_link_button: Educatieve bronnen toevoegen aan deze pagina
@@ -678,7 +794,6 @@ nl:
   article_from_supplier: Artikel van %{whom}
   article_more_about: Meer informatie over deze pagina
   article_not_associated_with_any_published_entries: Dit artikel is niet gekoppeld met gepubliceerde taxa.
-  article_of: Artikel van
   article_of_taxon: Artikel over %{taxon_name}
   article_rating: Artikelwaardering
   articles_in_languages_with_count: 
@@ -705,11 +820,11 @@ nl:
   associated_submit_button: gekoppeld
   associated_with_article_header: In dit artikel
   associated_with_header: Gekoppeld met
-  associated_with_image_header: In deze afbeelding
-  associated_with_image_map_header: Op deze kaart
-  associated_with_map_header: Op deze kaart
-  associated_with_sound_header: In dit geluidsbestand
-  associated_with_video_header: In deze video
+  associated_with_image_header: In de laatste afbeelding
+  associated_with_image_map_header: Op de laatste kaart
+  associated_with_map_header: Op de laatste kaart
+  associated_with_sound_header: In het laatste geluidsbestand
+  associated_with_video_header: In de laatste video
   associations_more_link: meer <span class="assistive">taxonassociaties</span>
   attribute: Eigenschap
   audio_current_time_assistive: Met Javascript ingeschakeld wordt de huidige weergavepositie van het audio-bestand in minuten en seconden aangeven.
@@ -1124,6 +1239,8 @@ nl:
   content_summary_table_type_unreviewed_images_row: Aantal niet-beoordeelde afbeeldingen
   content_summary_table_type_unreviewed_text_row: Aantal niet-beoordeelde tekstitems
   content_type: Type inhoud
+  content_upload_restrictions_note: (moet kleiner zijn dan 10MB. Het bestand wordt opgeslagen als zoals het is geüpload. De afbeelding wordt dus niet aangepast)
+  content_upload_url: http://%{domain}%{upload_attachment}
   contribute: Bijdragen
   copied_items_from_collection_with_count_notice: 
     one: Eén item van %{name} gekopieerd.
@@ -1202,6 +1319,7 @@ nl:
   data_logging_active: Er worden gegevens verzameld
   data_master_database_colon: "Gegevensmaster:"
   data_object: Gegevensobject
+  data_object_api_description: Als er een aanduiding voor een gegevensobject wordt opgegeven, geeft deze API alle metadata over het object terug zoals opgegeven aan EOL voor de bijdragende contentpartner. De contentpartner wordt aangegeven in het eerste agentelement en heeft de rol van "partner".
   data_object_ignore: dit item negeren
   data_object_not_associated_with_any_hierarchies: Dit gegevensobject is niet gekoppeld aan een hiërarchie.
   data_object_reference: Gegevensobjectverwijzing
@@ -1412,6 +1530,9 @@ nl:
   flickr: Flickr
   focus_list_newsfeed: Newsfeed voor focuslijsten
   for_example_for_the_taxon_element_for_a_node: Voor bijvoorbeeld het taxonelement van een node in de hiërarchie ITIS, is de dc:indentifier dat van ITIS TSN. Het element dwct:taxonID bevat de <i>EOL identifier</i> die wordt gebruikt in de %{link}-API.
+  for_images_to_reference_parens: (voor afbeeldingen als referentie)
+  for_pdfs_and_docs_parens: (voor PDF's en documenten)
+  for_terms_or_definitions_conta: "voor termen of definities die bevatten:"
   forgot_password: Wachtwoord vergeten
   forgot_password_cannot_find_user_from_username_or_email_error: Er zijn geen gebruikers met de opgegeven gebruikersnaam of e-mailadres <em>%{username_or_email}</em>.
   forgot_password_form_cancel: Annuleren
@@ -1430,6 +1551,7 @@ nl:
   from_communities: "van gemeenschappen: %{communities}"
   from_community: van gemeenschap %{community}
   full_content_url: URL voor volledige inhoud
+  gbif_map: GBIF-kaart
   gbif_occurrence_disclaimer: Deze kaart is gebaseerd op het voorkomen van records die beschikbaar zijn via het <a href='http://www.gbif.org/'>GBIF-netwerk</a> en deze kaart vertegenwoordigt mogelijk niet de volledige distributie.
   gbif_occurrence_learn_more_link: Deze gegevens via het GBIF-portaal raadplegen
   general_site_admin: algemene sitebeheerder
@@ -1454,6 +1576,8 @@ nl:
   grant_full_curator_link: Toekennen
   grant_manager_link: Managerrol toekennen
   harvest_id: Import-ID
+  harvesting_processes_log: Verwerkingslogboek voor oogsten
+  harvests_for: Oogsten voor %{resource}
   has_already_been_taken: bestaat al.
   has_colon: "Heeft:"
   has_curated_your_image: heeft uw afbeelding geconserveerd
@@ -1571,8 +1695,8 @@ nl:
         active_translation: Gepubliceerd
         active_translation_more: Gepubliceerde vertalingen zijn openbaar te zien tenzij de pagina zelf niet openbaar is. Vink <em>gepubliceerd</em> uit als u wilt voorkomen dat iedereen deze versie van de pagina te zien krijgt.
         language_id: Taal
-        left_content_more: Voeg optioneel een ongesorteerde lijst met verwijzingen toe om een navigatiekolom als bijlage in de pagina op te nemen. Voeg ankerkoppelingen handmatig toe door <em>Bron</em>  te selecteren en het HTML-attribuut <em>href</em> te bewerken. Om bijvoorbeeld een ankerkoppeling met de naam <em>licentie_beleid</em> te maken in het inhoudsgebied <em>Body</em>, moet moet het attribuut <em>href</em>  van uw lijstverwijzing de waarde "#licentie_beleid" hebben.
-        main_content_more: Voer de hoofdinhoud voor de pagina in in het tekstvak. Gebruik de dropdown <em>Vormgeving</em> om de toepasselijke semantische tekstelementen te selecteren; kies bijvoorbeeld <em>Koptekst 2</em> voor een tweede niveau koptekst. De paginanaam is een koptekst op het eerste niveau, dus begin uw koppen in het tekstvak met <em>Koptekst 2</em>.
+        left_content_more: "(optioneel) Voeg een ongesorteerde lijst toe met navigatieerwijzingen. Gebruik de klassenaam <code>active</code> om de verwijzing voor de huidige pagina uit te lichten, bijvoorbeeld <code>&lt;li class=\"active\"&gt;&lt;a href=\"/info/:id\"&gt;:title&lt;/a&gt;&lt;/li&gt;</code> waar <code>:id</code> is het ID of de unieke naam van de huidige pagina en <code>:title</code> is de beschrijvende titel van de pagina. Let op: alle verwijzingen naar pagina's uit het EOL CMS moeten beginnen met een slash (/): <code>/info/:id</code>.</strong> U moet de HTML-broncode direct bewerken om deze wijzigingen te maken. Doe dit door <em>Broncode</em> te selecteren in de werkbalk van de tekstverwerker."
+        main_content_more: "Voer de hoofdinhoud voor de pagina in in het tekstvak. Gebruik de dropdown <em>Vormgeving</em> om de toepasselijke semantische tekstelementen te selecteren; kies bijvoorbeeld <em>Koptekst 2</em> voor een tweede niveau koptekst. Let op: <em>Koptekst 1</em> is gereserveerd voor de paginanaam, dus kopteksten in de body beginnen met <em>Koptekst 2</em>. Selecteer <em>Broncode</em> om om te schakelen naar bewerken in broncodemodus, zodat u handmatig HTML kunt toevoegen en aanpassen."
         meta_description_more: Geef een korte beschrijving, waarin de belangrijkste concepten van depagina verkort worden weergegeven. Deze beschrijving wordt soms gebruikt door zoekmachines, zowel voor het controleren van relevantie als voor opname in zoekmachineresultaten.
         meta_keywords_more: Voer een kommagescheiden lijst van woorden en korte zinnen in die het best de inhoud van de pagina weergeven. Deze trefwoorden en -lzinnen worden soms gebruikt door zoekmachines om de relevantie van de pagina te beoordelen ten opzichte van zoektermen.
         title_more: De paginanaam wordt opgenomen in de kopregel van de pagina. De paginanaam hoort trefwoorden te bevatten die het meest relevant zijn voor de inhoud.
@@ -1589,6 +1713,7 @@ nl:
         credentials_more_successful_assistant_curator: Succesvol verleden als assistentconservator.
         curation_application: Conservator worden
         curation_application_more: Als u uw conservatorrechten wilt wijzigen, dien dan gewoon een aanvraag in en wij bekijken of u in aanmerking komt.
+        curation_priveleges_credentials: Referenties <small>(alleen voor volledige en meesterconservatoren)</small>
         curator_level: U bent momenteel %{curator_level_with_indefinite_article}.
         curator_scope: Conservatiegebied
         curator_scope_more: "Geef uw expertise aan. Bijvoorbeeld: \"knaagdieren van Borneo\", \"tri-trofische interacties\" of \"instandhoudingskwesties met betrekking tot vissen\". Hiermee wordt u niet beperkt in wat u kunt beheren, maar het informeert de EOL-gemeenschap."
@@ -1695,9 +1820,15 @@ nl:
   hide: verbergen
   hierarchies_title: Hiërarchieën
   hierarchy: Hiërarchie
-  home: Hoofdmenu
+  hierarchy_entry_switch_missing_id_error: De ingangspagina voor de hiërarchie die u hebt geselecteerd kon niet gevonden worden vanwege een missende aanduiding.
+  hierarchy_node_missing: De gegevens voor deze node missen.
+  hierarchy_roots_colon: "Hiërarchieroots:"
+  hierarchy_updated: De hiërarchie is bijgewerkt
+  home: Startpagina
+  home_page_cache_last_cleared_on: De cache voor de startpagina is voor het laatst geleegd op %{date}
   home_page_link_advisory_information: Via deze verwijzing komt u op de hoofdpagina van de website Encyclopedia of Life
   html_format: (HTML-indeling)
+  html_format_with_left_col: "{HTML-opmaak; alleen invoeren als u een linkerkolom op de pagina wilt hebben; anders leeg laten)"
   id: ID
   image: Afbeelding
   image_alt_text: "Deze afbeelding hoort bij %{taxon_name} (status: %{vetted_status})"
@@ -1707,13 +1838,11 @@ nl:
   image_map_from: kaart van
   image_map_from_supplier: Kaart van %{whom}
   image_map_not_associated_with_any_published_entries: Deze kaart is niet gekoppeld met gepubliceerde taxa.
-  image_map_of: Kaart van
   image_map_of_taxon: Kaart van %{taxon_name}
   image_map_rating: Kaartwaardering
   image_not_associated_with_any_published_entries: Deze afbeelding is niet gekoppeld met gepubliceerde taxa.
   image_not_found: Afbeelding niet gevonden
   image_object: Afbeeldingsobject
-  image_of: Afbeelding van
   image_of_taxon: Afbeelding van %{taxon_name}
   image_rating: Afbeeldingswaardering
   images: Afbeeldingen
@@ -1724,12 +1853,14 @@ nl:
     other: "%{count} afbeeldingen"
   import_once: Eenmalig importeren
   in_collection: in verzameling
+  in_providing_its_content_to_eo: Door inhoud bij te dragen aan EOL,
   in_this_data_type: "in deze %{data_type}:"
   inappropriate: Ongepast
   inaturalist_tab_label: Waarmeningen van iNaturalist
   include_all_metadata: alle metadata voor gegevensobjecten opnemen
   indexed: Geïndexeerd
   info_item: Informatiebericht
+  info_items_col_header: Informatieberichten
   information_for_any_audience: Informatie voor elk publiek
   information_intended_for_beginners: Informatie voor beginners
   information_intended_for_experts: Informatie voor deskundigen
@@ -1745,6 +1876,9 @@ nl:
   item_added_to_watch_collection_notice: "\"%{item_name}\" is toegevoegd aan %{collection_name}."
   item_details_missing: Er is een fout opgetreden. De itemgegevens konden niet worden opgehaald.
   item_not_added_already_in_collection: Dit object is al toegevoegd aan de verzameling.
+  item_not_added_to_collection_error: Er is een fout opgetreden. Het geselecteerde item kon niet worden toegevoegd aan de verzameling.
+  item_not_added_to_itself_notice: U kunt de verzameling <em>%{collection_name}</em> niet aan zichzelf toevoegen.
+  item_not_updated_in_collection_error: Er is een fout opgetreden. De verzameling kon niet worden bijgewerkt.
   item_type_article: Artikel
   item_type_article_assistive: Dit item is een artikel
   item_type_collection: Verzameling
@@ -1765,6 +1899,13 @@ nl:
   item_type_taxon_assistive: Dit item is een taxon
   item_type_video: Video
   item_type_video_assistive: Dit item is een video
+  item_updated_in_collection_notice: Het item is bijgewerkt in de verzameling <em>%{collection_name}</em>.
+  items_no_copy_none_selected_warning: Er zijn geen items gekopieerd omdat er geen geselecteerd waren. Selecteer eerst het aankruisvakje naast de items die u wilt kopiëren in de lijst om items naar een andere verzameling te kopiëren.
+  items_no_move_none_selected_warning: Er zijn geen items verplaatst omdat er geen geselecteerd waren. Selecteer eerst het aankruisvakje naast de items die u wilt verplaatsen in de lijst om items te verplaatsen.
+  items_no_remove_none_selected_warning: Er zijn geen items verwijderd omdat er geen geselecteerd waren. Selecteer eerst het aankruisvakje naast de items die u wilt verwijderen in de lijst.
+  items_with_count_semi_colon: 
+    one: één item;
+    other: "%{count} items;"
   iucn_red_list_status_advisory_information: Deze verwijzing brengt u naar de website van de Internationale Unie voor het Behoud van de Natuur (IUCN) waar u meer informatie kunt vinden over de Rode Lijst van Bedreigde Soorten van de IUCN.
   join_community_button: Lid worden van deze gemeenschap
   join_eol_button_html: Meld u nu aan bij <abbr title="Encyclopedia of Life">EOL</abbr>
@@ -1776,6 +1917,7 @@ nl:
   just_pages_with_pictures_and_text: Alleen de pagina's met afbeeldingen en tekst
   label: Label
   language: "Taal:"
+  language_selector_advisory_information: Hieronder staat een lijst met talen waarvan de inhoud van de website beschikbaar is. Selecteer een taal uit de lijst om de inhoud in die taal te bekijken.
   language_with_count: "%{language} (%{count})"
   languages: Talen
   last_updated: Laatst bijgewerkt
@@ -1820,13 +1962,22 @@ nl:
   license_public_domain: Publiek domein
   licensing: Licentie
   limits_the_number_of_returned_image_objects: beperkt het aantal afbeeldingsobjecten
+  limits_the_number_of_returned_iucn_objects: Statusobject voor Rode Lijst van IUCN opnemen
+  limits_the_number_of_returned_map_objects: beperkt het aantal teruggegeven kaartobjecten
+  limits_the_number_of_returned_sound_objects: beperkt het aantal teruggegeven geluidsobjecten
   limits_the_number_of_returned_text_objects: beperkt het aantal tekstobjecten
   limits_the_number_of_returned_video_objects: beperkt het aantal videoobjecten
   link_name: Beschrijving voor verwijzing
+  list_newsletter_emails: e-mailadressen voor nieuwbrief weergeven
+  list_of_activity_combinations: Lijst van handelingencombinaties gedurende 5 minuten
   listing_collections: Verzamelingen weergeven
+  lists_the_identifiers_for_all_hierarchies: geeft de aanduidingen weer voor alle hiërarchieën die door contentpartners zijn geleverd
   literature: Literatuur
+  literature_bhl_information: De volgende bibliografie is aangemaakt door een automatische dienst. BHL gebruikt taxonomische intelligentiehulpmiddelen om wetenschappelijke namen die in de tekst van iedere gedigitaliseerde pagina van de digitale collectie van BHL voorkomen te lokaliseren, controleren en vast te leggen.
+  literature_bhl_link: Bibliografie in BHL bekijken
   literature_empty: Geen referenties gevonden.
   literature_header: Referenties
+  literature_references: Literatuurreferenties
   location: Locatie
   location_colon: "Locatie:"
   logging_database_colon: "Logboekregistratie:"
@@ -1835,26 +1986,39 @@ nl:
   login_hidden_user_message: De gebruiker %{given_name} is niet langer actief
   login_or_create_account: Aanmelden of registreren
   login_required_button: Aanmelden verplicht
+  login_to_the_website_as: Aanmelden bij de website als %{username}
   logo_header: Logo
   logout: Afmelden
+  main_content_area: "Gebied voor hoofdinhoud:"
+  main_database_colon: "Hoofdinhoud:"
+  main_master_database_colon: "Primaire master:"
   main_species_page_link_with_spaces: " &nbsp;&nbsp;soortenpagina>>"
   maintained_by: onderhouden door
+  major_heading: Hoofdkop
   make_an_editor: beheerder maken
+  make_user_an_editor_title: "%{user} toestaan de volgende verzamelingen te beheren"
   manage_your_profile: Uw profiel beheren
   managed_by: Beheerd door
+  managed_collections_with_count: 
+    one: één beheerde verzameling
+    other: "%{count} beheerde verzamelingen"
+  manager_endorse_collections_suggestion: Voeg een uitgelichte verzameling toe aan door een gemeenschap beheerde verzamelingen om deze uit te lichten op de gemeenschapspagina.
   manager_parens: (beheerder)
   map_alt_text: "Deze kaart hoort bij %{taxon_name} (status: %{vetted_status})"
   map_from: kaart van
   map_from_supplier: Kaart van %{whom}
   map_not_associated_with_any_published_entries: Deze kaart is niet gekoppeld met gepubliceerde taxa.
-  map_of: Kaart van
   map_of_taxon: Kaart van %{taxon_name}
   map_rating: Kaartwaardering
   maps_empty: Niemand heeft nog kaarten aan deze pagina bijgedragen.
   maps_empty_contribute_instructions: Meer over kaarten bijdragen aan EOL.
+  maps_image_maps_header: Media die als "kaart" gemarkeerd zijn
   maps_with_count: 
     one: "%{count} kaart"
     other: "%{count} kaarten"
+  matching_users_found_with_count: 
+    one: Er is één gebruiker gevonden die aan uw zoekopdracht voldoet.
+    other: Er zijn %{count} gebruikers gevonden die aan uw zoekopdracht voldoen.
   media: Media
   media_summary_empty_contribute_instructions: Meer over afbeeldingen bijdragen aan EOL.
   media_with_count: 
@@ -1886,6 +2050,7 @@ nl:
   meta_keywords_colon: "Metatrefwoorden:"
   meta_title_site_name: Encyclopedia of Life
   method: Methode
+  method_to_get_metadata_about_the_hierarchy: als er een hiërarchieaanduiding wordt opgegeven, heeft deze methode metadata terug over de hiërarchie en de roottaxa
   methods: Methoden
   minimal_page: Minimale pagina
   mobile: 
@@ -1916,6 +2081,7 @@ nl:
       videos: Video's
   moderator_colon: "Moderator:"
   monthly: Maandelijks
+  more_information_on_the_various_licenses: licenties. Ga naar hun site voor meer informatie over de verschillende licenties die ze aanbieden
   most_active_members: Meest actieve leden
   move: Verplaatsen
   move_down: Naar onderen verplaatsen
@@ -2166,8 +2332,8 @@ nl:
       one: Er is een wijziging gemaakt aan %{to}
       other: Er zijn %{count} wijzigingen gemaakt aan %{to}
     bulk_comments_on_you_with_count: 
-      one: Er is een nieuwe reactie op uw profiel
-      other: Er zijn %{count} nieuwe reacties op uw profiel
+      one: Er is een nieuwe reactie op <a href='%{url}' style='color:#195184'>uw profiel</a>
+      other: Er zijn %{count} nieuwe reacties op <a href='%{url}' style='color:#195184'>uw profiel</a>
     bulk_comments_with_count: 
       one: Er is een nieuwe reactie op %{on}
       other: Er zijn %{count} nieuwe reacties op %{on}
@@ -2432,19 +2598,19 @@ nl:
       index: 
         hierarchy_entry: 
           meta_description: Gegevens over %{scientific_name} als geclassificeerd door %{hierarchy_provider} in Encyclopedia of Life
-          meta_description_no_data: Er zijn geen feiten beschikbaar over %{scientific_name} als ingedeeld door %{hierarchy_provider} in de Encyclopedia of Life. EOL nodigt u uit om feiten bij te dragen over conservatie, distributie, ecologie, habitat, morfologie en meer.
+          meta_description_no_data: Er zijn geen feiten beschikbaar over %{scientific_name} als ingedeeld door %{hierarchy_provider} in de Encyclopedia of Life. EOL nodigt u uit om feiten bij te dragen over %{scientific_name} zoals conservatie, distributie, ecologie, habitat, morfologie en meer.
           meta_description_with_chapter_list: Gegevens over %{scientific_name} als geclassificeerd door %{hierarchy_provider} in Encyclopedia of Life. Bevat %{chapter_list}gegevens voor %{scientific_name}.
           meta_description_with_common_name: Gegevens over %{preferred_common_name}, wetenschappelijk bekend als %{scientific_name} als geclassificeerd door %{hierarchy_provider} in Encyclopedia of Life.
-          meta_description_with_common_name_no_data: Er zijn geen feiten beschikbaar over %{preferred_common_name}, ook bekend als %{scientific_name} als ingedeeld door %{hierarchy_provider} in de Encyclopedia of Life. EOL nodigt u uit om feiten bij te dragen over conservatie, distributie, ecologie, habitat, morfologie en meer.
+          meta_description_with_common_name_no_data: Er zijn geen feiten beschikbaar over %{preferred_common_name}, ook bekend als %{scientific_name} als ingedeeld door %{hierarchy_provider} in de Encyclopedia of Life. EOL nodigt u uit om feiten bij te dragen over %{preferred_common_name} (%{scientific_name}) zoals conservatie, distributie, ecologie, habitat, morfologie en meer.
           meta_description_with_common_name_with_chapter_list: Gegevens over %{preferred_common_name}, wetenschappelijk bekend als %{scientific_name} als geclassificeerd door %{hierarchy_provider} in Encyclopedia of Life. Bevat %{chapter_list}gegevens voor %{scientific_name}.
-          meta_title: egevens over %{scientific_name} als geclassificeerd door %{hierarchy_provider}
+          meta_title: Gegevens over %{scientific_name} als geclassificeerd door %{hierarchy_provider}
           meta_title_with_common_name: Gegevens over %{preferred_common_name} (%{scientific_name} als geclassificeerd door %{hierarchy_provider})
           tweet_text: Gegevens over %{scientific_name} als geclassificeerd door %{hierarchy_provider}
         meta_description: Gegevens over %{scientific_name} in Encyclopedia of Life
-        meta_description_no_data: Er zijn geen feiten beschikbaar over %{scientific_name} in de Encyclopedia of Life. EOL nodigt u uit om feiten bij te dragen over conservatie, distributie, ecologie, habitat, morfologie en meer.
+        meta_description_no_data: Er zijn geen feiten beschikbaar over %{scientific_name} in de Encyclopedia of Life. EOL nodigt u uit om feiten bij te dragen over %{scientific_name} zoals conservatie, distributie, ecologie, habitat, morfologie en meer.
         meta_description_with_chapter_list: Gegevens over %{scientific_name} in Encyclopedia of Life. Bevat %{chapter_list}gegevens voor %{scientific_name}.
         meta_description_with_common_name: Gegevens over %{preferred_common_name}, wetenschappelijk bekend als %{scientific_name} in Encyclopedia of Life.
-        meta_description_with_common_name_no_data: Er zijn geen feiten beschikbaar over %{preferred_common_name}, ook bekend als %{scientific_name} in de Encyclopedia of Life. EOL nodigt u uit om feiten bij te dragen over conservatie, distributie, ecologie, habitat, morfologie en meer.
+        meta_description_with_common_name_no_data: Er zijn geen feiten beschikbaar over %{preferred_common_name}, ook bekend als %{scientific_name} in de Encyclopedia of Life. EOL nodigt u uit om feiten bij te dragen over %{preferred_common_name} (%{scientific_name}) zoals conservatie, distributie, ecologie, habitat, morfologie en meer.
         meta_description_with_common_name_with_chapter_list: Gegevens over %{preferred_common_name}, wetenschappelijk bekend als %{scientific_name} in Encyclopedia of Life. Bevat %{chapter_list}gegevens voor %{scientific_name}.
         meta_title: Feiten over %{scientific_name}
         meta_title_with_common_name: Feiten over %{preferred_common_name} (%{scientific_name})
@@ -2465,13 +2631,13 @@ nl:
           meta_title: Literatuur over %{scientific_name} als ingedeeld door %{hierarchy_provider}
           meta_title_with_common_name: Boeken over %{preferred_common_name} (%{scientific_name} als ingedeeld door %{hierarchy_provider})
           tweet_text: Literatuur over %{scientific_name} als ingedeeld door %{hierarchy_provider}
-        meta_description: Literatuur en gegevens over %{scientific_name} in Encyclopedia of Life. Lees artikelen over %{scientific_name} in de Encyclopedia of Life.
-        meta_description_with_common_name: Literatuur en gegevens over %{preferred_common_name}, ook bekend als %{scientific_name} in Encyclopedia of Life. Lees artikelen over %{preferred_common_name} in de Encyclopedia of Life.
-        meta_keywords: informatie over %{scientific_name}, literatuur voor %{scientific_name}, artikelen voor %{scientific_name}
-        meta_keywords_with_common_name: informatie over %{preferred_common_name}, literatuur over %{preferred_common_name}, artikelen over %{scientific_name}
-        meta_title: Literatuur over %{scientific_name}
+        meta_description: Boeken, artikelen en bibliografieën over %{scientific_name} in Encyclopedia of Life. Lees literatuur over %{scientific_name} in de Encyclopedia of Life.
+        meta_description_with_common_name: Boeken, artikelen en bibliografieën over %{preferred_common_name}, ook bekend als %{scientific_name} in Encyclopedia of Life. Lees literatuur over %{preferred_common_name} in de Encyclopedia of Life.
+        meta_keywords: Artikelen over %{scientific_name}, boeken over %{scientific_name}, bibliografieën over %{scientific_name}, literatuur over %{scientific_name}
+        meta_keywords_with_common_name: Artikelen over %{preferred_common_name},boeken over %{preferred_common_name},literatuur %{preferred_common_name},artikelen over %{scientific_name},boeken over %{scientific_name},%bibliografieën over {scientific_name},literatuur over %{scientific_name}
+        meta_title: Artikelen en boeken over %{scientific_name}
         meta_title_with_common_name: Artikelen en boeken over %{preferred_common_name} (%{scientific_name})
-        tweet_text: Literatuur over %{scientific_name}
+        tweet_text: Artikelen en boeken over %{scientific_name}
     maps: 
       show: 
         hierarchy_entry: 
@@ -2479,14 +2645,16 @@ nl:
           meta_description_with_common_name: Waar wordt %{preferred_common_name} aangetroffen en waar leeft %{preferred_common_name}? Geografische gegevens over %{scientific_name} als ingedeeld door %{hierarchy_provider}, waar %{scientific_name} leeft, en waar %{scientific_name} van nature voorkomt.
           meta_title: Kaarten van %{scientific_name} als ingedeeld door %{hierarchy_provider}
           meta_title_with_common_name: Kaarten van %{preferred_common_name} (%{scientific_name} als ingedeeld door %{hierarchy_provider})
-          tweet_text: Kaarten van %{scientific_name} als ingedeeld door %{hierarchy_provider}
-        meta_description: Geografische gegevens over %{scientific_name} , waar %{scientific_name} leeft, en waar %{scientific_name} van nature voorkomt.
-        meta_description_with_common_name: Waar wordt %{preferred_common_name} aangetroffen en waar leeft %{preferred_common_name}? Geografische gegevens over %{scientific_name}, waar %{scientific_name} leeft, en waar %{scientific_name} van nature voorkomt.
-        meta_keywords: habitat %{scientific_name}, inheems, waar leeft %{scientific_name}
-        meta_keywords_with_common_name: habitat %{preferred_common_name}, inheems, waar leeft %{preferred_common_name}
+          tweet_text: Kaarten voor %{scientific_name} als ingedeeld door %{hierarchy_provider}
+        meta_description: Geografische gegevens over %{scientific_name}. Plaatsen waar ze leven in de wereld.
+        meta_description_no_data: Er zijn geen geografische gegevens beschikbaar voor %{scientific_name} in de Encyclopedia of Life. EOL nodigt u uit kaarten bij te dragen voor %{scientific_name}.
+        meta_description_with_common_name: Waar wordt %{preferred_common_name} aangetroffen en waar leeft %{preferred_common_name}? Geografische gegevens over %{scientific_name}. Plaatsen waar %{scientific_name} leven in de wereld.
+        meta_description_with_common_name_no_data: Er zijn geen geografische gegevens beschikbaar voor %{preferred_common_name}, ook bekend als %{scientific_name} in de Encyclopedia of Life. EOL nodigt u uit kaarten bij te dragen voor %{preferred_common_name} (%{scientific_name}).
+        meta_keywords: habitat %{scientific_name}, waar leeft %{scientific_name}
+        meta_keywords_with_common_name: habitat %{preferred_common_name}, waar leeft %{preferred_common_name}
         meta_title: Kaarten voor %{scientific_name}
         meta_title_with_common_name: Kaarten voor %{preferred_common_name} (%{scientific_name})
-        tweet_text: Kaarten van %{scientific_name}
+        tweet_text: Kaarten voor %{scientific_name}
     media: 
       index: 
         hierarchy_entry: 
@@ -2498,12 +2666,14 @@ nl:
           meta_title_with_common_name: Audio, film en foto's van %{preferred_common_name} (%{scientific_name} als ingedeeld door %{hierarchy_provider}).
           tweet_text: Media van %{scientific_name} als ingedeeld door %{hierarchy_provider}
         meta_description: Afbeeldingen en video's van %{scientific_name}. Zoek afbeeldingen, foto's en geluiden van %{scientific_name} bij de Encyclopedia of Life.
-        meta_description_with_common_name: Afbeeldingen en video's van %{preferred_common_name}, ook bekend als %{scientific_name}
+        meta_description_no_data: Er is geen multimedia beschikbaar voor %{scientific_name} in de Encyclopedia of Life. EOL nodigt u uit afbeeldingen, video of geluiden bij te dragen voor %{scientific_name}.
+        meta_description_with_common_name: Afbeeldingen video en audio voor %{preferred_common_name}, ook bekend als %{scientific_name}. Vind afbeeldingen, foto's, filmpjes en geluiden voor %{preferred_common_name} (%{scientific_name}) in de Encyclopedia of Life.
+        meta_description_with_common_name_no_data: Er is geen multimedia beschikbaar voor %{preferred_common_name}, ook bekend als %{scientific_name} in de Encyclopedia of Life. EOL nodigt u uit afbeeldingen, video en geluiden bij te dragen voor %{preferred_common_name} (%{scientific_name}).
         meta_keywords: afbeeldingen van %{scientific_name}, video's van %{scientific_name}, foto's van %{scientific_name}, video van %{scientific_name}, media
         meta_keywords_with_common_name: foto's van %{preferred_common_name}, video's van %{preferred_common_name}, afbeeldingen van %{preferred_common_name}, video van %{preferred_common_name}, media
-        meta_title: Afbeeldingen en video van %{scientific_name}
-        meta_title_with_common_name: Afbeeldingen en video van %{preferred_common_name} (%{scientific_name})
-        tweet_text: Media van %{scientific_name}
+        meta_title: Afbeeldingen en video van %{scientific_name} - Afbeeldingen, foto's, filmpjes en geluiden voor %{scientific_name}
+        meta_title_with_common_name: Afbeeldingen, video en audio van %{preferred_common_name} (%{scientific_name}) - - Afbeeldingen, foto's, filmpjes en geluiden voor van %{preferred_common_name} (%{scientific_name})
+        tweet_text: Afbeeldingen, video en audio van %{scientific_name}
     names: 
       common_names: 
         hierarchy_entry: 
@@ -2523,14 +2693,14 @@ nl:
         tweet_text: Volksnamen voor %{scientific_name}
       index: 
         hierarchy_entry: 
-          meta_description: Taxonomie, classificatiehiërarchieën en aanverwante wetenschappelijke namen voor %{scientific_name} als ingedeeld door %{hierarchy_provider}.
-          meta_description_with_common_name: Taxonomie, classificatiehiërarchieën en wetenschappelijke namen voor %{preferred_common_name}, ook bekend als %{scientific_name} als ingedeeld door %{hierarchy_provider}.
+          meta_description: Taxonomieën en wetenschappelijke namen voor %{scientific_name} als ingedeeld door %{hierarchy_provider}.
+          meta_description_with_common_name: Taxonomieën en wetenschappelijke namen voor %{preferred_common_name}, ook bekend als %{scientific_name} als ingedeeld door %{hierarchy_provider}.
           tweet_text: Namen gerelateerd aan %{scientific_name} als ingedeeld door %{hierarchy_provider}
-        meta_description: Taxonomieclassificatie en wetenschappelijke namen voor %{scientific_name}.
-        meta_description_with_common_name: Taxonomieclassificatie en wetenschappelijke namen voor %{preferred_common_name}, ook bekend als %{scientific_name}.
-        meta_title: Namen gerelateerd aan %{scientific_name}
-        meta_title_with_common_name: Namen gerelateerd aan %{preferred_common_name} (%{scientific_name})
-        tweet_text: Namen gerelateerd aan %{scientific_name}
+        meta_description: Taxonomieën en wetenschappelijke namen voor %{scientific_name}. Biologische classificaties en namen gerelateerd aan %{scientific_name}.
+        meta_description_with_common_name: Taxonomieën, biologische classificaties en wetenschappelijke namen voor %{preferred_common_name}, ook bekend als %{scientific_name}. Biologische classificaties en namen gerelateerd aan %{preferred_common_name}.
+        meta_title: Taxonomische gegevens voor %{scientific_name} - Biologische classificaties en namen
+        meta_title_with_common_name: Taxonomische gegevens voor %{preferred_common_name} (%{scientific_name}) - Biologische classificaties en namen
+        tweet_text: Taxonomische gegevens voor %{scientific_name}
       synonyms: 
         hierarchy_entry: 
           meta_description: Synoniemen die gekoppeld zijn aan %{scientific_name} als ingedeeld door %{hierarchy_provider}.
@@ -2557,12 +2727,12 @@ nl:
           meta_title: "%{scientific_name} ingedeeld door %{hierarchy_provider}"
           meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} als ingedeeld door %{hierarchy_provider})"
           tweet_text: Overzicht van %{scientific_name} als ingedeeld door %{hierarchy_provider}
-        meta_description: Een overzicht van %{scientific_name} in Encyclopedia of Life.
-        meta_description_with_common_name: Een overzicht van %{preferred_common_name}, wetenschappelijk bekend als %{scientific_name} in Encyclopedia of Life.
+        meta_description: Gegevens over %{scientific_name} in Encyclopedia of Life.
+        meta_description_with_common_name: Informatie over %{preferred_common_name}, wetenschappelijk bekend als %{scientific_name} in Encyclopedia of Life.
         meta_keywords: "%{scientific_name} erkend door %{hierarchy_provider}"
         meta_keywords_with_common_name: "%{scientific_name} erkend door %{hierarchy_provider}"
-        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})"
-        tweet_text: Overzicht van %{scientific_name}
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Informatie over %{preferred_common_name}"
+        tweet_text: Informatie over %{scientific_name}
     resources: 
       biomedical_terms: 
         hierarchy_entry: 
@@ -2961,7 +3131,6 @@ nl:
   video_from_supplier: Video van %{whom}
   video_not_associated_with_any_published_entries: Deze video is niet gekoppeld met gepubliceerde taxa.
   video_object: Video-object
-  video_of: Video van
   video_of_taxon: Video van %{taxon_name}
   video_rating: Videowaardering
   video_title_not_available_in_language: Titel niet beschikbaar in %{language}

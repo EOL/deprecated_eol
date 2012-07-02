@@ -609,21 +609,6 @@ p.flag, span.flag {
   #taxon #collections_summary form fieldset.actions {
     margin-top: 0; }
 
-/*HR styles assume text descriptions are nicely wrapped in p tags - in reality they may or may not be so we add
- * extra div.description and assign styles to the div - check this, particularly line-height as we probably need
- * to remove some HR styles from nested p. Check latest HR and remove the table styles here if possible.
- * if we keep this we should DRY it out - same for whole file actually */
-#taxon_detail #main .article .copy, #taxon_detail #main .article .references {
-  margin: 0 40px 15px 40px;
-  line-height: 170%; }
-  #taxon_detail #main .article .copy li, #taxon_detail #main .article .references li {
-    margin: 0 0 10px 0;
-    list-style-type: disc; }
-
-#text_summary.article .copy {
-  margin: 0 0 15px 0;
-  line-height: 170%; }
-
 #taxon_community .main_container .article .header h4 {
   float: left;
   padding: 0 10px 3px 10px;

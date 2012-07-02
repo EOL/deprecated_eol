@@ -291,9 +291,9 @@ body > #footer {
         height: 130px; }
       .thumbnails ul li.last {
         margin: 0; }
-      .thumbnails ul li:hover {
+      .thumbnails ul li.hover {
         background: transparent url("/images/v2/icon_home-thumb_active.png") 50% 100% no-repeat; }
-        .thumbnails ul li:hover img {
+        .thumbnails ul li.hover img {
           background: rgba(255, 255, 255, 0.6); }
   .thumbnails .term {
     clear: both;
@@ -513,8 +513,8 @@ body {
         border-bottom-color: white;
         padding: 0px; }
         body > #header .thumbnails .term .site_column, body > #header .thumbnails .term .section, body > #header .thumbnails .term body > #footer .section, body > #footer body > #header .thumbnails .term .section, body > #header .thumbnails .term ul, body > #header .thumbnails .term #content .section, #content body > #header .thumbnails .term .section {
-          height: 30px;
-          line-height: 15px; }
+          height: 32px;
+          line-height: 16px; }
         body > #header .thumbnails .term p .scientific {
           display: block;
           font-weight: normal;

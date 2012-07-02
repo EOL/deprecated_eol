@@ -277,6 +277,8 @@ $(function() {
       speed: transition_time,
       before: loadMoreMarchOfLife
     });
+    var random_index = Math.floor(Math.random() * 6) + 1;
+    initiate_alt_text_for_march_of_life($(".thumbnails li:nth-child(" + random_index + ") img:first"));
   });
 
   // this method is used to grab more images for the march of life before callback
@@ -316,41 +318,43 @@ $(function() {
           }
         }
       });
+      if(cycle_list_item.hasClass("hover")) {
+        initiate_alt_text_for_march_of_life($(next).find("img"));
+      }
     }
   };
 
-  function enable_mouseover_alt_text_for_march_of_life()
-  {
+  function enable_mouseover_alt_text_for_march_of_life() {
     // properly shows the march of life name on mouseover
-    $(".thumbnails li img").unbind().mouseover(function() {
-      var $e = $(this).parent().parent();
-      $thumbs = $e.closest(".thumbnails");
-      // margin = $thumbs.find("li").eq(0).outerWidth(true) - $e.outerWidth();
-      var term_p = $thumbs.find(".term p");
-      var left_pos = $e.position().left - 100 + 5;
-      var right_pos = term_p.outerWidth(true) - $e.position().left - $e.outerWidth(true) - 100;
-      if($e.is($(".thumbnails li:last"))) {
-        right_pos = right_pos - 15;
-      }
-      var line_height = 'inherit';
-      if($(this).attr("data-common_name") == null || $(this).attr("data-common_name") == '') {
-        line_height = $thumbs.find(".term .site_column").css("height");
-      }
-      var name_html = '<span class="scientific">' + $(this).attr("data-scientific_name") + '</span>';
-      if($(this).attr("data-common_name") != null && $(this).attr("data-common_name") != '') {
-        name_html += '<span class="common">' + $(this).attr("data-common_name") + '</span>'
-      }
-      term_p.css({
-        textAlign: 'center'
-      }).css("margin-left", left_pos+"px").css("margin-right", right_pos+"px").css("line-height", line_height).html(name_html);
+    $(".thumbnails li img").unbind().mouseover(function() { 
+      initiate_alt_text_for_march_of_life($(this));
     });
   }
+  
+  function initiate_alt_text_for_march_of_life(img) {
+    var $e = img.parent().parent();
+    $thumbs = $e.closest(".thumbnails");
+    var term_p = $thumbs.find(".term p");
+    var left_pos = $e.position().left - 100 + 5;
+    var right_pos = term_p.outerWidth(true) - $e.position().left - $e.outerWidth(true) - 100;
+    if($e.is($(".thumbnails li:last"))) {
+      right_pos = right_pos - 15;
+    }
+    var line_height = 'inherit';
+    if(img.attr("data-common_name") == null || img.attr("data-common_name") == '') {
+      line_height = $thumbs.find(".term .site_column").css("height");
+    }
+    var name_html = '<span class="scientific">' + img.attr("data-scientific_name") + '</span>';
+    if(img.attr("data-common_name") != null && img.attr("data-common_name") != '') {
+      name_html += '<span class="common">' + img.attr("data-common_name") + '</span>'
+    }
+    term_p.css({
+      textAlign: 'center'
+    }).css("margin-left", left_pos+"px").css("margin-right", right_pos+"px").css("line-height", line_height).html(name_html);
+    $(".thumbnails li").removeClass("hover");
+    $e.addClass("hover");
+  }
   enable_mouseover_alt_text_for_march_of_life();
-
-  // removes the homepage march of life name on mouseout
-  $(".thumbnails li").mouseout(function() {
-    $(".thumbnails .term p").html("&nbsp;");
-  });
 
   // uncheck search filter All when other options are selected
   $("#main_search_type_filter input[type=checkbox][value!='all']").click(function() {

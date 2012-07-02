@@ -56,7 +56,7 @@ module EOL
               o[:keyword] = SolrAPI.text_filter(o[:keyword])
             elsif o[:keyword].class == Array
               o[:keyword].map!{ |k| SolrAPI.text_filter(k) }
-            end            
+            end
           end
           unless objects_to_send.blank?
             solr_api.create(objects_to_send)

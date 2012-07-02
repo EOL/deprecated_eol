@@ -741,7 +741,7 @@ class TaxonConcept < ActiveRecord::Base
       options[:subjects] ||= ""
       options[:text_subjects] = options[:subjects].split("|")
       options[:text_subjects] << 'Uses' if options[:text_subjects].include?('Use')
-      if options[:subjects].blank? || options[:text_subjects].include?('all')
+      if options[:subjects].blank? || options[:text_subjects].include?('overview') || options[:text_subjects].include?('all')
         options[:text_subjects] = nil
       else
         options[:text_subjects] = options[:text_subjects].map{ |l| InfoItem.cached_find_translated(:label, l, 'en', :find_all => true) }.flatten.compact

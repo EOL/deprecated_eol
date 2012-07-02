@@ -67,7 +67,7 @@
         <field name="richness_score" type="float" indexed="true" stored="true" required="false"/>
         <field name="date_created" type="date" indexed="true" stored="true" required="true"/>
         <field name="date_modified" type="date" indexed="true" stored="true" required="true"/>
-        <field name="sort_field" type="text_field" sortMissingLast="true" indexed="true" stored="true" required="false"/>
+        <field name="sort_field" type="textExact" sortMissingLast="true" indexed="true" stored="true" required="false"/>
     </fields>
     
     <!-- no unique key -->

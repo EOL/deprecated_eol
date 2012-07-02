@@ -670,15 +670,17 @@ private
   
   def reindex_items_if_necessary(collection_results)
     collection_item_ids_to_reindex = []
-    collection_results.each do |result|
-      if result['object_type'] == 'TaxonConcept'
-        if result['title'] != result['instance'].object.entry.name.canonical_form.string ||
-          result['richness_score'] != result['instance'].object.taxon_concept_metric.richness_score
-          collection_item_ids_to_reindex << result['instance'].id
+    collection_results.each do |r|
+      if r['object_type'] == 'TaxonConcept'
+        title = r['instance'].object.entry.name.canonical_form.string rescue nil
+        if title && r['title'] != title
+          collection_item_ids_to_reindex << r['instance'].id
+        elsif r['instance'].object.taxon_concept_metric && r['richness_score'] != r['instance'].object.taxon_concept_metric.richness_score
+          collection_item_ids_to_reindex << r['instance'].id
         end
-      elsif ['Text', 'Image', 'DataObject', 'Video', 'Sound'].include?(result['object_type'])
-        if result['data_rating'] != result['instance'].object.data_rating
-          collection_item_ids_to_reindex << result['instance'].id
+      elsif ['Text', 'Image', 'DataObject', 'Video', 'Sound'].include?(r['object_type'])
+        if r['data_rating'] != r['instance'].object.data_rating
+          collection_item_ids_to_reindex << r['instance'].id
         end
       end
     end

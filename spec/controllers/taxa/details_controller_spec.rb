@@ -29,6 +29,7 @@ describe Taxa::DetailsController do
       assigns[:toc_items_to_show].should be_a(Array)
       assigns[:toc_items_to_show].include?(@testy[:overview]).should be_true # TocItem with content should be included
       assigns[:toc_items_to_show].include?(@testy[:toc_item_4]).should be_false # TocItem without content should be excluded
+      assigns[:toc_items_to_show].include?(@testy[:education]).should be_false # TocItem from resources and literature tabs should be excluded
     end
     it 'should instantiate an exemplar image'
     it 'should instantiate an assistive header' do

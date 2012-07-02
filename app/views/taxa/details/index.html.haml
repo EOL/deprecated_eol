@@ -2,6 +2,20 @@
   = render :partial => 'shared/social_sharing'
 - roots = @toc_items_to_show.collect{ |toc_item| toc_item unless toc_item.is_child? }.compact
 #taxon_detail
+  #sidebar
+    - if @exemplar_image && img = @exemplar_image.thumb_or_object('260_190')
+      = image_tag(img)
+    #toc
+      %h3= I18n.t(:table_of_contents)
+      - for root in roots
+        .section
+          %h4= link_to root.label, url_for(:anchor => category_anchor(root))
+          - children = @toc_items_to_show.collect{ |toc_item| toc_item if toc_item.parent_id == root.id }.compact
+          - unless children.empty?
+            %ul
+              - for child in children
+                %li= link_to child.label, url_for(:anchor => category_anchor(child))
+      = render :partial => 'show_literatures_and_resources_links'
   - if roots.empty?
     #main
       - unless @details_count_by_language.blank?
@@ -13,19 +27,6 @@
         %p= I18n.t(:taxon_details_empty)
         %p= link_to I18n.t(:add_article_to_page_link_button), new_taxon_data_object_path(@taxon_concept), :class => 'button'
   - else
-    #sidebar
-      - if @exemplar_image && img = @exemplar_image.thumb_or_object('260_190')
-        = image_tag(img)
-      #toc
-        %h3= I18n.t(:table_of_contents)
-        - for root in roots
-          .section
-            %h4= link_to root.label, url_for(:anchor => category_anchor(root))
-            - children = @toc_items_to_show.collect{ |toc_item| toc_item if toc_item.parent_id == root.id }.compact
-            - unless children.empty?
-              %ul
-                - for child in children
-                  %li= link_to child.label, url_for(:anchor => category_anchor(child))
     #main
       - unless @details_count_by_language.blank?
         %p.languages

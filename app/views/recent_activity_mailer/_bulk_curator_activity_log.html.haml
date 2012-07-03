@@ -49,9 +49,9 @@
   - when Activity.remove_association.id
     = I18n.t("remove_association.#{user_type}_disassociated_it_from_#{taxon_type}", translation_vars)
   - when Activity.choose_exemplar_image.id
-    = I18n.t("choose_exemplar.#{user_type}_chose_exemplar_it_on_#{taxon_type}", translation_vars)
+    = I18n.t("choose_exemplar_image.#{user_type}_chose_exemplar_it_on_#{taxon_type}", translation_vars)
   - when Activity.choose_exemplar_article.id
-    = I18n.t("choose_exemplar.#{user_type}_chose_exemplar_it_on_#{taxon_type}", translation_vars)
+    = I18n.t("choose_exemplar_article.#{user_type}_chose_exemplar_it_on_#{taxon_type}", translation_vars)
   - when Activity.add_common_name.id
     = I18n.t("add_common_name.#{user_type}_added_#{name_type}_to_it", translation_vars)
   - when Activity.remove_common_name.id

@@ -1699,7 +1699,7 @@ en:
         an_unknown_user_disassociated_it_from_association: "An unknown user removed an association to \"%{association}\"."
         user_disassociated_it_from_an_unknown_association: "<strong>%{user}</strong> removed an association to an unknown page."
         user_disassociated_it_from_association: "<strong>%{user}</strong> removed an association to \"%{association}\"."
-      choose_exemplar:
+      choose_exemplar_image:
         an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: "An unknown user set an older version of \"%{data_object}\" as an exemplar on an unknown page."
         an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: "An unknown user set \"%{data_object}\" as an exemplar on \"%{taxon}\"."
         an_unknown_user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: "An unknown user set an unknown exemplar image."
@@ -1716,6 +1716,23 @@ en:
         an_unknown_user_chose_exemplar_it_on_taxon: "An unknown user set it as an exemplar on \"%{taxon}\"."
         user_chose_exemplar_it_on_an_unknown_taxon: "<strong>%{user}</strong> set it as an exemplar on an unknown page."
         user_chose_exemplar_it_on_taxon: "<strong>%{user}</strong> set it as an exemplar on \"%{taxon}\"."
+      choose_exemplar_article:
+        an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: "An unknown user selected an older version of \"%{data_object}\" to show in Overview on an unknown page."
+        an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: "An unknown user selected \"%{data_object}\" to show in Overview on \"%{taxon}\"."
+        an_unknown_user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: "An unknown user selected an unknown article to show in Overview on an unknown page."
+        an_unknown_user_chose_exemplar_an_unknown_data_object_on_taxon: "An unknown user selected an unknown article to show in Overview on \"%{taxon}\"."
+        an_unknown_user_chose_exemplar_data_object_on_an_unknown_taxon: "An unknown user selected \"%{data_object}\" to show in Overview on an unknown page."
+        an_unknown_user_chose_exemplar_data_object_on_taxon: "An unknown user selected \"%{data_object}\" to show in Overview on \"%{taxon}\"."
+        user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: "<strong>%{user}</strong> selected an older version of \"%{data_object}\" to show in Overview on an unknown page."
+        user_chose_exemplar_an_older_data_object_on_taxon: "<strong>%{user}</strong> selected an older version of \"%{data_object}\" to show in Overview on \"%{taxon}\"."
+        user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: "<strong>%{user}</strong> selected an unknown article to show in Overview on an unknown page."
+        user_chose_exemplar_an_unknown_data_object_on_taxon: "<strong>%{user}</strong> selected an unknown data object to show in Overview on \"%{taxon}\"."
+        user_chose_exemplar_data_object_on_an_unknown_taxon: "<strong>%{user}</strong> selected \"%{data_object}\" to show in Overview on an unknown page."
+        user_chose_exemplar_data_object_on_taxon: "<strong>%{user}</strong> selected \"%{data_object}\" to show in Overview on \"%{taxon}\"."
+        an_unknown_user_chose_exemplar_it_on_an_unknown_taxon: "An unknown user selected it to show in Overview on an unknown page."
+        an_unknown_user_chose_exemplar_it_on_taxon: "An unknown user selected it to show in Overview on \"%{taxon}\"."
+        user_chose_exemplar_it_on_an_unknown_taxon: "<strong>%{user}</strong> selected it to show in Overview on an unknown page."
+        user_chose_exemplar_it_on_taxon: "<strong>%{user}</strong> selected it to show in Overview on \"%{taxon}\"."
       add_common_name:
         an_unknown_user_added_an_unknown_name_to_an_unknown_taxon: "An unknown user added an unknown common name to an unknown page."
         an_unknown_user_added_an_unknown_name_to_taxon: "An unknown user added an unknown common name to \"%{taxon}\"."

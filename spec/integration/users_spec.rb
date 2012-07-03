@@ -85,7 +85,7 @@ describe 'Users' do
       dotc = DataObjectsTaxonConcept.gen(:data_object => object, :taxon_concept => tc)
       
       ctcpe = CuratedTaxonConceptPreferredEntry.create(:taxon_concept_id => tc.id, :hierarchy_entry_id => tc.entry.id, :user_id => curator.id)
-      cot = ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'CuratedTaxonConceptPreferredEntry')
+      cot = ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'curated_taxon_concept_preferred_entry')
       CuratorActivityLog.create(:user => curator, :changeable_object_type => cot,
         :object_id => ctcpe.id, :hierarchy_entry_id => tc.entry.id, :taxon_concept_id => tc.id,
         :activity => Activity.preferred_classification, :created_at => 0.seconds.from_now)

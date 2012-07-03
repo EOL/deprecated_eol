@@ -439,7 +439,7 @@ mk:
         user_added_name_to_an_unknown_taxon: <strong>%{user}</strong> го додаде тривијалното име „%{name}“ во непозната страница.
         user_added_name_to_it: <strong>%{user}</strong> го додаде тривијалното име „%{name}“.
         user_added_name_to_taxon: <strong>%{user}</strong> му го додаде тривијалното име „%{name}“ на таксонот „%{taxon}“.
-      choose_exemplar: 
+      choose_exemplar_image: 
         an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: Непознат корисник укажа постара верзија на „%{data_object}“ како урнек на непозната страница.
         an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: Непознат корисник го укажа „%{data_object}“ како урнек на „%{taxon}“.
         an_unknown_user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: Непознат корисник укажа непозната слика како урнек.

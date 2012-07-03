@@ -424,7 +424,7 @@ zh-CN:
         user_added_name_to_an_unknown_taxon: <strong>%{user}</strong> 添加了俗名 “%{name}” 到一个未知的页面。
         user_added_name_to_it: <strong>%{user}</strong> 添加了俗名 “%{name}”。
         user_added_name_to_taxon: <strong>%{user}</strong> 为“%{taxon}”添加了俗名 “%{name}” 。
-      choose_exemplar: 
+      choose_exemplar_image: 
         an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: 一个未知用户将一个旧版本的“%{data_object}”设为一个未知页面的范例。
         an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: 一个未知用户将“%{data_object}”设为“%{taxon}”的范例。
         an_unknown_user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: 一个未知用户设置了一个未知的范例图片。

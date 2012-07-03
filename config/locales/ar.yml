@@ -443,7 +443,7 @@ ar:
         user_added_name_to_an_unknown_taxon: قام <strong>%{user}</strong> بإضافة الاسم الشائع "%{name}" إلى صفحة غير معروفة.
         user_added_name_to_it: قام <strong>%{user}</strong> بإضافة الاسم الشائع "%{name}".
         user_added_name_to_taxon: قام <strong>%{user}</strong> بإضافة الاسم الشائع "%{name}" إلى "%{taxon}".
-      choose_exemplar: 
+      choose_exemplar_image: 
         an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: قام مستخدم غير معروف بوضع نسخة أقدم من "%{data_object}" كنموذج على صفحة غير معروفة.
         an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: قام مستخدم غير معروف بوضع "%{data_object}"  كنموذج على "%{taxon}".
         an_unknown_user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: قام مستخدم غير معروف بوضع صورة نموذج غير معروف.

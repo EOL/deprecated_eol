@@ -136,3 +136,8 @@ qqq:
   added_classifications_ready: "The curator has clicked on the 'move_data' button and now has a list of data saved; this instructs them on how to proceed with moving the data to another page."
   classifications_split_column_header: "Column header on table; the cells below this header will have a checkbox, allowing curators to select the row (which represents a classification) for either a split (separated into a new page) or move (merge the data from these classifications onto an existing page)."
   use_as_examplar_note_preferred: "This is a note to the curator that the classification in this row of the table is currently the preferred classification for the page, and thus they *probably* want to select it to complete the merge or split operation... but they don't *have* to."
+  fragment_caching_enabled: "Fragment caching is a method of storing in memory various PARTS of pages, in order to speed up page load times for users.  However, it can cause some problems in certain situations, so admins (only) are allowed to turn it on and off."
+  left_content_area: "In context where this is used, the left content area is the division of the page on the left
+  side. Curators are allowed to create or edit static pages on EOL for instructions or information, and those pages
+  have an area on the left where a 'table of contents' is usually provided, called the 'left content areleft content
+  areaa'."

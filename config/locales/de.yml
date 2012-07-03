@@ -445,7 +445,7 @@ de:
         user_added_name_to_an_unknown_taxon: <strong>%{user}</strong> hat einer unbekannten Seite den gebräuchlichen Namen „%{name}“ zugeordnet.
         user_added_name_to_it: <strong>%{user}</strong> hat den gebräuchlichen Namen „%{name}“ zugeordnet.
         user_added_name_to_taxon: <strong>%{user}</strong> hat „%{taxon}“ den gebräuchlichen Namen „%{name}“ zugeordnet.
-      choose_exemplar: 
+      choose_exemplar_image: 
         an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: Ein unbekannter Nutzer legte eine ältere Version von „%{data_object}“ auf einer unbekannten Seite als beispielhaft fest.
         an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: Ein unbekannter Nutzer legte „%{data_object}“ als beispielhaft für „%{taxon}“ fest.
         an_unknown_user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: Ein unbekannter Nutzer legte ein unbekanntes Bild als beispielhaft fest.

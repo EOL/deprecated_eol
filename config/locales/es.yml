@@ -450,7 +450,7 @@ es:
         user_added_name_to_an_unknown_taxon: <strong>%{user}</strong> agregó el nombre común "%{name}" a una página desconocida.
         user_added_name_to_it: <strong>%{user}</strong> agregó el nombre común "%{name}".
         user_added_name_to_taxon: <strong>%{user}</strong> agregó el nombre común "%{name}" a "%{taxon}".
-      choose_exemplar: 
+      choose_exemplar_image: 
         an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: Un usuario desconocido ha definido una versión anterior de "%{data_object}" como un ejemplar de una página desconocida.
         an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: Un usuario desconocido ha establecido "%{data_object}" como un ejemplar de "%{taxon}".
         an_unknown_user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: Un usuario desconocido ha establecido una imagen ejemplar desconocida.

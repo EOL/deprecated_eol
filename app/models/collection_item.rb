@@ -64,7 +64,7 @@ class CollectionItem < ActiveRecord::Base
         return nil
       end
       solr_connection.create(solr_index_hash)
-      SolrLog.log_transaction($SOLR_COLLECTION_ITEMS_CORE, self.id, 'collection_item', 'update')
+      SolrLog.log_transaction($SOLR_COLLECTION_ITEMS_CORE, self.id, 'CollectionItem', 'update')
     end
   end
 
@@ -120,7 +120,7 @@ class CollectionItem < ActiveRecord::Base
       return nil
     end
     solr_connection.delete_by_query("collection_item_id:#{self.id}")
-    SolrLog.log_transaction($SOLR_COLLECTION_ITEMS_CORE, self.id, 'collection_item', 'delete')
+    SolrLog.log_transaction($SOLR_COLLECTION_ITEMS_CORE, self.id, 'CollectionItem', 'delete')
   end
 
   # This is somewhat expensive (can take a second to run), so use sparringly.

@@ -226,7 +226,7 @@ class Comment < ActiveRecord::Base
       'user_id' => self.user_id,
       'date_created' => self.created_at.solr_timestamp }
     EOL::Solr::ActivityLog.index_notifications(base_index_hash, notification_recipient_objects)
-    SolrLog.log_transaction($SOLR_ACTIVITY_LOGS_CORE, self.id, 'comment', 'update')
+    SolrLog.log_transaction($SOLR_ACTIVITY_LOGS_CORE, self.id, 'Comment', 'update')
   end
 
   def queue_notifications

@@ -44,7 +44,7 @@ module EOL
         data_objects.each do |d|
           hash = self.solr_schema_data_hash(d)
           objects_to_send << hash
-          SolrLog.log_transaction($SOLR_DATA_OBJECTS_CORE, d.id, 'data_object', 'update')
+          SolrLog.log_transaction($SOLR_DATA_OBJECTS_CORE, d.id, 'DataObject', 'update')
         end
         objects_to_send
       end
@@ -66,7 +66,7 @@ module EOL
           solr_connection = self.connect
           solr_connection.delete_by_id(data_object.id)
           solr_connection.create(solr_schema_data_hash(data_object))
-          SolrLog.log_transaction($SOLR_DATA_OBJECTS_CORE, data_object.id, 'data_object', 'update')
+          SolrLog.log_transaction($SOLR_DATA_OBJECTS_CORE, data_object.id, 'DataObject', 'update')
           return true
         rescue
         end
@@ -76,7 +76,7 @@ module EOL
       def self.delete_single_object(data_object_id)
         solr_connection = self.connect
         solr_connection.delete_by_id(data_object_id)
-        SolrLog.log_transaction($SOLR_DATA_OBJECTS_CORE, data_object_id, 'data_object', 'delete')
+        SolrLog.log_transaction($SOLR_DATA_OBJECTS_CORE, data_object_id, 'DataObject', 'delete')
       end
       
       def self.solr_schema_data_hash(data_object)

@@ -7,6 +7,9 @@
 # is cited in the site. We can at some point remove this duplication.
 # TODO: when the User name is updated, is the agent name updated too?
 class Agent < ActiveRecord::Base
+
+  include EOL::PeerSites
+
   has_one :user
 
   # Because of the tables pluralization these may trip you up sometimes

@@ -310,6 +310,7 @@ Factory.define :agent do |agent|
   agent.created_at      { 5.days.ago }
   agent.homepage        ''
   agent.full_name       { Factory.next(:first_name) << ' ' << Factory.next(:last_name) }
+  agent.peer_site_id    { PEER_SITE_ID }
 end
 Factory.define :content_partner_contact do |cpc|
   cpc.association :content_partner
@@ -369,7 +370,7 @@ Factory.define :collection do |c|
   c.published             true
   c.special_collection_id nil
   c.association           :sort_style
-  c.peer_site_id          { $PEER_SITE_ID }
+  c.peer_site_id          { PEER_SITE_ID }
 end
 
 Factory.define :collection_activity_log do |cal|
@@ -383,7 +384,7 @@ Factory.define :collection_item do |ci|
   ci.association  :collection
   ci.association  :object, :factory => :data_object
   ci.created_at   { 5.minutes.ago }
-  ci.peer_site_id { $PEER_SITE_ID }
+  ci.peer_site_id { PEER_SITE_ID }
 end
 
 Factory.define :collection_type do |ct|
@@ -405,7 +406,7 @@ Factory.define :comment do |x|
   x.body          { Faker::Lorem.paragraph }
   x.association   :user
   x.from_curator  false
-  x.peer_site_id  { $PEER_SITE_ID }
+  x.peer_site_id  { PEER_SITE_ID }
 end
 
 Factory.define :community do |c|
@@ -413,7 +414,7 @@ Factory.define :community do |c|
   c.description   { Faker::Lorem.paragraph }
   c.published     true
   c.after_create  { |com| com.collections << Factory(:collection) }
-  c.peer_site_id  { $PEER_SITE_ID }
+  c.peer_site_id  { PEER_SITE_ID }
 end
 
 Factory.define :community_activity_log do |cal|
@@ -474,7 +475,7 @@ Factory.define :content_partner do |cp|
   cp.public                               true
   cp.content_partner_status               { ContentPartnerStatus.find_by_translated(:label, 'Active') ||
                                             ContentPartnerStatus.gen_if_not_exists(:label => 'Active') }
-  cp.peer_site_id                         { $PEER_SITE_ID }
+  cp.peer_site_id                         { PEER_SITE_ID }
 end
 
 Factory.define :content_partner_agreement do |cpa|
@@ -545,7 +546,7 @@ Factory.define :data_object do |dato|
   dato.updated_at             { 3.days.ago }
   dato.data_rating            2.5
   dato.published              true
-  dato.peer_site_id           { $PEER_SITE_ID }
+  dato.peer_site_id           { PEER_SITE_ID }
 end
 
 Factory.define :data_object_tag do |x|
@@ -735,7 +736,7 @@ end
 Factory.define :member do |m|
   m.association   :user
   m.association   :community
-  m.peer_site_id  { $PEER_SITE_ID }
+  m.peer_site_id  { PEER_SITE_ID }
 end
 
 Factory.define :mime_type do |mt|
@@ -759,7 +760,7 @@ Factory.define :news_item do |ni|
   ni.activated_on { 2.days.ago }
   ni.association  :user
   ni.active       1
-  ni.peer_site_id { $PEER_SITE_ID }
+  ni.peer_site_id { PEER_SITE_ID }
 end
 
 Factory.define :changeable_object_type do |ot|
@@ -836,7 +837,7 @@ Factory.define :resource do |r|
   r.resource_created_at   48.hours.ago
   r.association           :hierarchy
   r.association           :content_partner
-  r.peer_site_id          { $PEER_SITE_ID }
+  r.peer_site_id          { PEER_SITE_ID }
 end
 
 Factory.define :resource_status do |rs|
@@ -1127,7 +1128,7 @@ Factory.define :user do |u|
   u.recover_account_token      nil
   u.recover_account_token_expires_at  nil
   u.curator_level_id          nil
-  u.peer_site_id              { $PEER_SITE_ID }
+  u.peer_site_id              { PEER_SITE_ID }
 end
 
 Factory.define :user_activity_log do |al|
@@ -1141,7 +1142,7 @@ end
 Factory.define :users_data_object do |u|
   u.association   :data_object
   u.association   :user
-  u.peer_site_id  { $PEER_SITE_ID }
+  u.peer_site_id  { PEER_SITE_ID }
 end
 
 Factory.define :user_info do |ui|

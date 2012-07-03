@@ -9,7 +9,7 @@ class AddPeerSiteIds < ActiveRecord::Migration
     
     tables_which_need_peer_site_ids.each do |table_name|
       execute "ALTER TABLE #{table_name} ADD peer_site_id INT UNSIGNED NULL DEFAULT NULL AFTER id"
-      execute "UPDATE #{table_name} SET peer_site_id = #{$PEER_SITE_ID}"
+      execute "UPDATE #{table_name} SET peer_site_id = #{PEER_SITE_ID}"
     end
   end
 
@@ -21,7 +21,8 @@ class AddPeerSiteIds < ActiveRecord::Migration
   end
   
   def self.tables_which_need_peer_site_ids
-    [ 'collections',
+    [ 'agents',
+      'collections',
       'collection_items',
       'comments',
       'communities',

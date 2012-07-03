@@ -1383,7 +1383,7 @@ class TaxonConcept < ActiveRecord::Base
       classifications_locked?
     lock_classifications
     hierarchy_entry_ids.each do |he_id|
-      CodeBridge.split_entry(:hierarchy_entry_id => he_id, :exemplar_id => options[:exemplar_id])
+      CodeBridge.split_entry(:hierarchy_entry_id => he_id, :exemplar_id => exemplar_id)
     end
   end
 
@@ -1402,14 +1402,15 @@ class TaxonConcept < ActiveRecord::Base
     else
       hierarchy_entry_ids.each do |he_id|
         CodeBridge.move_entry(:from_taxon_concept_id => id, :to_taxon_concept_id => target_taxon_concept.id,
-                              :hierarchy_entry_id => he_id, :exemplar_id => exemplar_id)
+                              :hierarchy_entry_id => he_id, :exemplar_id => options[:exemplar_id])
       end
     end
   end
 
   def providers_match_on_merge(hierarchy_entry_ids)
     HierarchyEntry.find(hierarchy_entry_ids, :select => 'id, hierarchy_id, hierarchies.complete',
-                        :join => 'hierarchy').each do |he|
+                        :joins => 'INNER JOIN hierarchies ON ' +
+                                  '(hierarchy_entries.hierarchy_id = hierarchies.id)').each do |he|
       break unless he.hierarchy.complete?
       hierarchy_entries.each do |my_he| # NOTE this is selecting the HEs ALREADY on this TC!
         # NOTE - error needs ENTRY id, not hierarchy id:

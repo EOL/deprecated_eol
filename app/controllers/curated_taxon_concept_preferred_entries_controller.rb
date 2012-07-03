@@ -89,7 +89,7 @@ private
       elsif type == 'merge'
         target_taxon_concept = taxon_concept_from_session
         @taxon_concept.merge_classifications(session[:split_hierarchy_entry_id], :with => target_taxon_concept,
-                                             :additional_confirm => params[:additional_confirm])
+                                             :additional_confirm => params[:additional_confirm], :exemplar_id => which)
         taxon_to_log = target_taxon_concept
         flash[:warning] = I18n.t(:merge_pending)
         done = true

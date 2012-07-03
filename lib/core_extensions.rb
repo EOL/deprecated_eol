@@ -196,6 +196,12 @@ class String
     self.gsub(/[_]{20,}/, ' ')
   end
 
+  def add_missing_hyperlinks
+    # split on spaces, link any http which don't contain ,; and don't end in periods (end of sentences)
+    self.split.map do |w|
+      w.gsub(/^(https?[^,;]+[^\.,;])/i, '<a href="\1">\1</a>').gsub(/^(www\.[a-z-]+\.[^,;]+[^\.,;])/i, '<a href="http://\1">\1</a>')
+    end.join(' ')
+  end
 end
 
 class Array

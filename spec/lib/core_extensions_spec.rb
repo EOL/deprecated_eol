@@ -49,6 +49,27 @@ describe String do
       "___________________________________________________".cleanup_for_presentation.should == ' '
     end
   end
+  
+  describe "add_missing_hyperlinks" do
+    it "should add hyperlinks when the string is just a URL" do
+      'http://eol.org'.add_missing_hyperlinks.should == '<a href="http://eol.org">http://eol.org</a>'
+    end
+    
+    it "should recognize spaces and commas and not link them" do
+      'Some text http://eol.org, and http://eol.org.'.add_missing_hyperlinks.should ==
+        'Some text <a href="http://eol.org">http://eol.org</a>, and <a href="http://eol.org">http://eol.org</a>.'
+    end
+    
+    it "should link URLs with the https protocol" do
+      'Some text https://eol.org and https://google.com/something_crazy_long/ok.html.'.add_missing_hyperlinks.should ==
+        'Some text <a href="https://eol.org">https://eol.org</a> and <a href="https://google.com/something_crazy_long/ok.html">https://google.com/something_crazy_long/ok.html</a>.'
+    end
+    
+    it "should link URLs with with no protocol starting with www... just in case" do
+      'Some text www.eol.org, www.google.com/something_crazy_long/ok.html.'.add_missing_hyperlinks.should ==
+        'Some text <a href="http://www.eol.org">www.eol.org</a>, <a href="http://www.google.com/something_crazy_long/ok.html">www.google.com/something_crazy_long/ok.html</a>.'
+    end
+  end
 end
 
 

@@ -23,7 +23,7 @@ module EOL
         delete_all        
         lookup_and_cache_publication_titles
         start_to_index_bhl
-        SolrLog.log_transaction($SOLR_BHL_CORE, 0, 'bhl', 'rebuild')
+        SolrLog.log_transaction($SOLR_BHL_CORE, 0, 'bhl', 'index_all')
         @solr_api.optimize if optimize
       end
 

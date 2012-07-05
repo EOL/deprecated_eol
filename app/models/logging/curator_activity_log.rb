@@ -199,14 +199,20 @@ private
     if self.changeable_object_type_id == ChangeableObjectType.synonym.id ||
        self.changeable_object_type_id == ChangeableObjectType.curated_taxon_concept_preferred_entry.id ||
        self.changeable_object_type_id == ChangeableObjectType.taxon_concept.id
-      unless self.taxon_concept.blank?
-        recipients << self.taxon_concept
-        recipients << { :ancestor_ids => self.taxon_concept.flattened_ancestor_ids }
-        # TODO: Synonym log??? this can maybe go away
-        # logs_affected['Synonym'] = [ self.object_id ]
-        Collection.which_contain(self.taxon_concept).each do |c|
-          recipients << c
-        end
+      add_taxon_concept_recipients(self.taxon_concept, recipients)
+      add_taxon_concept_recipients(TaxonConcept.find(self.object_id), recipients) if
+        self.changeable_object_type_id == ChangeableObjectType.taxon_concept.id
+    end
+  end
+
+  def add_taxon_concept_recipients(taxon_concept, recipients)
+    unless taxon_concept.blank?
+      recipients << taxon_concept
+      recipients << { :ancestor_ids => taxon_concept.flattened_ancestor_ids }
+      # TODO: Synonym log??? this can maybe go away
+      # logs_affected['Synonym'] = [ self.object_id ]
+      Collection.which_contain(taxon_concept).each do |c|
+        recipients << c
       end
     end
   end

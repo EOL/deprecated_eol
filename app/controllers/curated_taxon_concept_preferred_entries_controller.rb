@@ -80,7 +80,7 @@ private
 
   def exemplar(type, which)
     done = false
-    taxon_to_log = @taxon_concept
+    target_taxon_concept = nil
     begin
       if type == 'split'
         @taxon_concept.split_classifications(session[:split_hierarchy_entry_id], which)
@@ -90,7 +90,6 @@ private
         target_taxon_concept = taxon_concept_from_session
         @taxon_concept.merge_classifications(session[:split_hierarchy_entry_id], :with => target_taxon_concept,
                                              :additional_confirm => params[:additional_confirm], :exemplar_id => which)
-        taxon_to_log = target_taxon_concept
         flash[:warning] = I18n.t(:merge_pending)
         done = true
       else
@@ -107,8 +106,10 @@ private
     end
     if done
       add_entries_to_session.each do |entry|
-        auto_collect(taxon_to_log)
-        log_activity(:taxon_concept => taxon_to_log, :entry => entry, :type => "#{type}_classifications")
+        auto_collect(@taxon_concept)
+        auto_collect(target_taxon_concept) if target_taxon_concept
+        log_activity(:target_taxon_concept_id => target_taxon_concept ? target_taxon_concept.id : nil,
+                     :entry => entry, :type => "#{type}_classifications")
       end
       session[:split_hierarchy_entry_id] = nil
       @target_params[:pending] = 1
@@ -173,9 +174,9 @@ private
     CuratorActivityLog.create(
       :user => current_user,
       :hierarchy_entry_id => options[:entry].id,
-      :taxon_concept_id => options[:taxon_concept].id,
+      :taxon_concept_id => @taxon_concept.id,
       :changeable_object_type => ChangeableObjectType.taxon_concept,
-      :object_id => options[:taxon_concept].id,
+      :object_id => options[:target_taxon_concept_id] || @taxon_concept.id,
       :activity => Activity.send(options[:type].to_sym),
       :created_at => 0.seconds.from_now
     )

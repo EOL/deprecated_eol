@@ -1408,13 +1408,13 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def providers_match_on_merge(hierarchy_entry_ids)
-    HierarchyEntry.find(hierarchy_entry_ids, :select => 'id, hierarchy_id, hierarchies.complete',
+    HierarchyEntry.find(hierarchy_entry_ids, :select => 'hierarchy_entries.id, hierarchy_id, hierarchies.complete',
                         :joins => 'INNER JOIN hierarchies ON ' +
                                   '(hierarchy_entries.hierarchy_id = hierarchies.id)').each do |he|
       break unless he.hierarchy.complete?
       hierarchy_entries.each do |my_he| # NOTE this is selecting the HEs ALREADY on this TC!
         # NOTE - error needs ENTRY id, not hierarchy id:
-        return my_he.id if my_he.hierarchy_id == hierarchy_id && my_he.hierarchy.complete?
+        return my_he.id if my_he.hierarchy_id == he.hierarchy_id && my_he.hierarchy.complete?
       end
     end
     return false

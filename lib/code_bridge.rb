@@ -20,11 +20,11 @@ class CodeBridge
   end
 
   def self.split_entry(options = {})
-    Resque.enqueue(CodeBridge, {'cmd'                    => 'split',
-                                'hierarchy_entry_id'     => options[:hierarchy_entry_id],
-                                'bad_hierarchy_entry_id' => options[:exemplar_id],
-                                'confirmed'              => 'confirmed',
-                                'reindex'                => 'reindex' })
+    Resque.enqueue(CodeBridge, {'cmd'                          => 'split',
+                                'hierarchy_entry_id'           => options[:hierarchy_entry_id],
+                                'bad_match_hierarchy_entry_id' => options[:exemplar_id],
+                                'confirmed'                    => 'confirmed',
+                                'reindex'                      => 'reindex' })
   end
 
   def self.merge_taxa(id1, id2)

@@ -47,6 +47,11 @@
 - else
   - translation_vars[:taxon] = link_to(item.taxon_concept.quick_scientific_name, taxon_url(item.taxon_concept),
     :style => link_style)
+-# NOTE the weird exception: merge_classifications uses the *object* taxon concept, not the source TC (for now):
+- if item.activity_id == Activity.merge_classifications.id && item.changeable_object_type_id == ChangeableObjectType.taxon_concept.id
+  - tc = TaxonConcept.find(item.object_id) rescue nil
+  - taxon_type = tc ? 'taxon' : 'an_unknown_taxon'
+  - translation_vars[:taxon] = link_to(tc.quick_scientific_name, taxon_url(tc), :style => link_style)
 %p
   - case item.activity_id
   - when Activity.trusted.id

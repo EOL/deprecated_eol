@@ -1397,7 +1397,7 @@ class TaxonConcept < ActiveRecord::Base
     raise EOL::Exceptions::CannotMergeClassificationsToSelf if self.id == target_taxon_concept.id
     lock_classifications
     target_taxon_concept.lock_classifications
-    if hierarchy_entry_ids.sort == deep_published_hierarchy_entries.map {|he| he.id}.sort
+    if all_published_entries?(hierarchy_entry_ids)
       CodeBridge.merge_taxa(id, target_taxon_concept.id)
     else
       hierarchy_entry_ids.each do |he_id|
@@ -1405,6 +1405,10 @@ class TaxonConcept < ActiveRecord::Base
                               :hierarchy_entry_id => he_id, :exemplar_id => options[:exemplar_id])
       end
     end
+  end
+
+  def all_published_entries?(hierarchy_entry_ids)
+    hierarchy_entry_ids.map {|he| he.is_a? HierarchyEntry ? he.id : he }.sort == deep_published_hierarchy_entries.map {|he| he.id}.sort
   end
 
   def providers_match_on_merge(hierarchy_entry_ids)

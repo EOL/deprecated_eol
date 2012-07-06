@@ -51,7 +51,8 @@ private
     else
       @target_params[:additional_confirm] = 1 if params[:additional_confirm] # They have already confirmed this, don't do it again.
       @target_params[:move_to] = @taxon_concept.id
-      exemplar('merge', nil)
+      # Just go ahead and do the merge without asking for an exemplar, if it's ALL the entries from that page:
+      exemplar('merge', nil) if taxon_concept_from_session.all_published_entries?(session[:split_hierarchy_entry_id])
     end
     @target_params[:all] = 1
   end

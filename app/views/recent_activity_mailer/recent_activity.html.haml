@@ -105,7 +105,7 @@
             :link_style => 'color: #195184' }),
             :created_at => item.created_at })
   - else # No further grouping required:
-    - grouped_notes[klass].each do |item|
+    - grouped_notes[klass].compact.each do |item|
       = render(:partial => 'recent_activity_mailer/iconed_activity', :locals => { :user => item.user,
         :action => render(:partial => "activity_logs/#{item.class.name.underscore}",
         :locals => { :item => item, :link_style => 'color: #195184' }),

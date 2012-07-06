@@ -888,7 +888,7 @@ en:
     intro: "Here is your EOL activity digest for %{time}"
     intro_immediately: "Hello, %{name} —"
     intro_weekly: "Here is your EOL activity digest for the week ending %{ending}"
-    unsubscribe: "Change your email settings or unsubscribe at <a href='%{email_prefs_url}' style='color:#195184'>your notification preferences page</a>."
+    unsubscribe: "Log in and change your email settings or unsubscribe at <a href='%{email_prefs_url}' style='color:#195184'>your notification preferences page</a>. If you experience any problems, please <a href='http://eol.org/contact_us'>contact us</a>."
     see_all_activity: "See all previous activity at <a href='%{activity_url}' style='color:#195184'>your user newsfeed page</a>."
     bulk_comments_with_count:
       one: "There is a new comment on %{on}"

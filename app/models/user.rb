@@ -575,16 +575,26 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   # This returns false unless the user wants an email notification for the given type, then it returns the
   # NotificationFrequency object.
   def listening_to?(type)
-    fqz = notification.send(type)
-    return false if fqz == NotificationFrequency.never
-    return fqz
+    if notification
+      fqz = notification.send(type)
+      return false if fqz == NotificationFrequency.never
+      return fqz
+    else
+      add_email_notification
+      return false
+    end
   end
 
   def unsent_notifications
-    if notification.last_notification_sent_at
-      pending_notifications.unsent.after(notification.last_notification_sent_at)
+    if notification
+      if notification.last_notification_sent_at
+        pending_notifications.unsent.after(notification.last_notification_sent_at)
+      else
+        pending_notifications.unsent
+      end
     else
-      pending_notifications.unsent
+      add_email_notification
+      return []
     end
   end
 

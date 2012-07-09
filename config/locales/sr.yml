@@ -2024,6 +2024,7 @@ sr:
   rank_recognized_by_agent_colon: "<b>%{rank}</b> препознао/ла %{agent}:"
   rank_recognized_by_from_source: "%{rank} препознао/ла %{agent} у %{source}"
   rated_by_count_people: 
+    one: једне=од %{count} особе
     other: једне=од %{count} особе
   rating_added_notice: Оцена је додата.
   rating_not_added_error: Нажалост, дошло је до грешке. Не могу да додам оцену.

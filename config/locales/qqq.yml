@@ -141,3 +141,11 @@ qqq:
   side. Curators are allowed to create or edit static pages on EOL for instructions or information, and those pages
   have an area on the left where a 'table of contents' is usually provided, called the 'left content areleft content
   areaa'."
+  copied_all_items_from_collection_with_count: "This is in the context of an update given to the user immediately
+  after taking action, not in a log."
+  copied_all_items_to_collections: "This is in the context of an update given to the user immediately after taking
+  action, not in a log."
+  copied_items_from_collection_with_count_notice: "This is in the context of an update given to the user immediately
+  after taking action, not in a log."
+  copy_items_to_a_new_collection_with_count: "This is in the context of an update given to the user immediately after
+  taking action, not in a log."

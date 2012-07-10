@@ -458,9 +458,9 @@ private
     Collection.with_master do
       Collection.uncached do
         if @collection.update_attributes(params[:collection])
+          @collection_item = CollectionItem.find(params[:collection][:collection_items_attributes].keys.map {|i|
+                params[:collection][:collection_items_attributes][i][:id] }.first)
           if @collection.show_references
-            @collection_item = CollectionItem.find(params[:collection][:collection_items_attributes].keys.map {|i|
-                  params[:collection][:collection_items_attributes][i][:id] }.first)
             @collection_item.refs.clear
             unless params[:references].blank?
               params[:references].split("\n").each do |original_ref|

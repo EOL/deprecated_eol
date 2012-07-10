@@ -163,7 +163,7 @@ class CuratorActivityLog < LoggingModel
       'user_id' => self.user_id,
       'date_created' => self.created_at.solr_timestamp }
     EOL::Solr::ActivityLog.index_notifications(base_index_hash, notification_recipient_objects)
-    SolrLog.log_transaction($SOLR_ACTIVITY_LOGS_CORE, self.id, 'curator_activity', 'update')
+    #SolrLog.log_transaction($SOLR_ACTIVITY_LOGS_CORE, self.id, 'curator_activity', 'update')
   end
 
   def queue_notifications

@@ -1069,7 +1069,7 @@ class DataObject < ActiveRecord::Base
       'date_created' => self.updated_at.solr_timestamp || self.created_at.solr_timestamp }
     base_index_hash[:user_id] = options[:user].id if options[:user]
     EOL::Solr::ActivityLog.index_notifications(base_index_hash, notification_recipient_objects(options))
-    SolrLog.log_transaction($SOLR_ACTIVITY_LOGS_CORE, id, 'data_object', 'update')
+    #SolrLog.log_transaction($SOLR_ACTIVITY_LOGS_CORE, id, 'data_object', 'update')
     queue_notifications
   end
 

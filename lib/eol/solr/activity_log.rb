@@ -9,9 +9,9 @@ module EOL
           type_and_ids_to_send = {}
           [ Collection, Community, DataObject, TaxonConcept ].each do |klass|
             if klass_objects = notification_recipient_objects.select{ |o| o.class == klass }
-              type_and_ids_to_send[klass.to_s] = klass_objects.collect{ |o| o.id }
-              klass_objects.each do |o| 
-                SolrLog.log_transaction($SOLR_ACTIVITY_LOGS_CORE, o.id, klass.to_s, 'update', base_index_hash['action_keyword'])
+              type_and_ids_to_send[klass.to_s] = klass_objects.collect{ |o| o.id }              
+              unless type_and_ids_to_send[klass.to_s].uniq.blank?
+                SolrLog.log_transaction($SOLR_ACTIVITY_LOGS_CORE, type_and_ids_to_send[klass.to_s].uniq.join(","), klass.to_s, 'update', base_index_hash)
               end
             end
           end
@@ -19,7 +19,7 @@ module EOL
           if ancestor_taxon_concept_ids = notification_recipient_objects.select{ |o| o.class == Hash && o[:ancestor_ids] }
             type_and_ids_to_send['AncestorTaxonConcept'] = ancestor_taxon_concept_ids.collect{ |h| h[:ancestor_ids] }.flatten
             ancestor_taxon_concept_ids.each do |a|              
-              SolrLog.log_transaction($SOLR_ACTIVITY_LOGS_CORE, a[:ancestor_ids].join(","), 'AncestorTaxonConcept', 'update', base_index_hash['action_keyword'])
+              SolrLog.log_transaction($SOLR_ACTIVITY_LOGS_CORE, a[:ancestor_ids].join(","), 'AncestorTaxonConcept', 'update', base_index_hash)
             end
             
           end
@@ -29,7 +29,7 @@ module EOL
           end.compact
           if activity_users
             type_and_ids_to_send['User'] = activity_users.collect{ |c| c.id }
-            SolrLog.log_transaction($SOLR_ACTIVITY_LOGS_CORE, activity_users.collect{ |c| c.id }.join(","), 'User', 'update', base_index_hash['action_keyword'])
+            SolrLog.log_transaction($SOLR_ACTIVITY_LOGS_CORE, activity_users.collect{ |c| c.id }.join(","), 'User', 'update', base_index_hash)
             #activity_users.each do |c|
             #  SolrLog.log_transaction($SOLR_ACTIVITY_LOGS_CORE, c.id, 'User', 'update')
             #end
@@ -46,7 +46,7 @@ module EOL
           end.compact
           if users 
             type_and_ids_to_send['UserNews'] = users.collect{ |c| c.id }
-            SolrLog.log_transaction($SOLR_ACTIVITY_LOGS_CORE, users.collect{ |c| c.id }.join(","), 'UserNews', 'update', base_index_hash['action_keyword'])
+            SolrLog.log_transaction($SOLR_ACTIVITY_LOGS_CORE, users.collect{ |c| c.id }.join(","), 'UserNews', 'update', base_index_hash)
             #users.each do |c|
             #  SolrLog.log_transaction($SOLR_ACTIVITY_LOGS_CORE, c.id, 'UserNews', 'update')
             #end

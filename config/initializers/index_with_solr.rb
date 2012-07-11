@@ -20,6 +20,7 @@ module ActiveRecord
             return nil
           end
           solr_connection.delete_by_query("resource_type:#{self.class.to_s} AND resource_id:#{self.id}")
+          SolrLog.log_transaction($SOLR_SITE_SEARCH_CORE, self.id, self.class.class_name, 'delete')
         end
 
         define_method(:add_to_index) do
@@ -35,6 +36,7 @@ module ActiveRecord
           self.keywords_to_send_to_solr_index.each do |params|
             solr_connection.create(params)
           end
+          SolrLog.log_transaction($SOLR_SITE_SEARCH_CORE, self.id, self.class.class_name, 'update')
         end
 
         define_method(:keywords_to_send_to_solr_index) do
@@ -161,7 +163,7 @@ module ActiveRecord
           resource_weight = 10
         elsif keyword[:resource_type].include? 'Collection'
           resource_weight = 20
-		elsif keyword[:resource_type].include? 'ContentPage'
+        elsif keyword[:resource_type].include? 'ContentPage'
           resource_weight = 25
         elsif keyword[:resource_type].include? 'User'
           resource_weight = 30

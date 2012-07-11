@@ -9,14 +9,12 @@ module EOL
       def self.obliterate
         solr_api = self.connect
         solr_api.delete_all_documents
-        SolrLog.log_transaction($SOLR_SITE_SEARCH_CORE, 0, '', 'delete_all')
       end
 
       def self.begin_rebuild(options = {})
         options[:optimize] = true unless defined?(options[:optimize])
         solr_api = self.connect
         solr_api.delete_all_documents
-        SolrLog.log_transaction($SOLR_SITE_SEARCH_CORE, 0, '', 'delete_all')
 
         self.reindex_model(Community, solr_api)
         self.reindex_model(Collection, solr_api)

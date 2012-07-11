@@ -684,8 +684,11 @@ private
   def update_watch_collection_name
     collection = self.watch_collection rescue nil
     unless collection.blank?
-      collection.name = I18n.t(:default_watch_collection_name, :username => self.full_name.titleize)
-      collection.save!
+      new_watch_collection_name = I18n.t(:default_watch_collection_name, :username => self.full_name.titleize)
+      if collection.name != new_watch_collection_name
+        collection.name = new_watch_collection_name
+        collection.save!
+      end
     end
   end
 

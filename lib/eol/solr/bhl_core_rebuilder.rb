@@ -16,14 +16,13 @@ module EOL
       
       def delete_all
         @solr_api.delete_all_documents
-        SolrLog.log_transaction($SOLR_BHL_CORE, 0, '', 'delete_all')
       end
 
       def begin_rebuild(optimize = true)
         delete_all        
         lookup_and_cache_publication_titles
         start_to_index_bhl
-        SolrLog.log_transaction($SOLR_BHL_CORE, 0, '', 'rebuild')
+        SolrLog.log_transaction($SOLR_BHL_CORE, nil, nil, 'rebuild')
         @solr_api.optimize if optimize
       end
 

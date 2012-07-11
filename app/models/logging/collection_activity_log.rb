@@ -13,8 +13,9 @@ class CollectionActivityLog < LoggingModel
   alias :link_to :collection # Needed for rendering links; we need to know which association to make the link to
 
   def log_activity_in_solr
-    return nil if self.collection_item.blank? || self.collection_item.collection.blank?
-    return if self.collection_item.collection.watch_collection?
+    if self.collection_item && self.collection_item.collection
+      return if self.collection_item.collection.watch_collection?
+    end
     keyword = self.collection_item.object_type rescue nil
     base_index_hash = {
       'activity_log_unique_key' => "CollectionActivityLog_#{id}",
@@ -24,7 +25,7 @@ class CollectionActivityLog < LoggingModel
       'user_id' => self.user_id,
       'date_created' => self.created_at.solr_timestamp }
     EOL::Solr::ActivityLog.index_notifications(base_index_hash, notification_recipient_objects)
-    SolrLog.log_transaction($SOLR_ACTIVITY_LOGS_CORE, self.id, 'Collection', 'update')
+    SolrLog.log_transaction($SOLR_ACTIVITY_LOGS_CORE, self.id, 'CollectionActivityLog', 'update')
   end
   
   def queue_notifications
@@ -83,7 +84,7 @@ private
   end
 
   def someone_is_being_watched?
-    activity.id == Activity.collect.id && collection_item.object_type == 'User'
+    activity.id == Activity.collect.id && collection_item && collection_item.object_type == 'User'
   end
 
 end

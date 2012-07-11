@@ -1383,7 +1383,8 @@ class TaxonConcept < ActiveRecord::Base
       classifications_locked?
     lock_classifications
     hierarchy_entry_ids.each do |he_id|
-      CodeBridge.split_entry(:hierarchy_entry_id => he_id, :exemplar_id => exemplar_id)
+      CodeBridge.split_entry(:hierarchy_entry_id => he_id, :exemplar_id => exemplar_id,
+                             :reindex => he_id == hierarchy_entry_ids.last)
     end
   end
 
@@ -1402,7 +1403,8 @@ class TaxonConcept < ActiveRecord::Base
     else
       hierarchy_entry_ids.each do |he_id|
         CodeBridge.move_entry(:from_taxon_concept_id => id, :to_taxon_concept_id => target_taxon_concept.id,
-                              :hierarchy_entry_id => he_id, :exemplar_id => options[:exemplar_id])
+                              :hierarchy_entry_id => he_id, :exemplar_id => options[:exemplar_id],
+                              :reindex => he_id == hierarchy_entry_ids.last)
       end
     end
   end

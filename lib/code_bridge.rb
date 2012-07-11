@@ -16,7 +16,7 @@ class CodeBridge
                                 'taxon_concept_id_to'          => options[:to_taxon_concept_id],
                                 'bad_match_hierarchy_entry_id' => options[:exemplar_id],
                                 'confirmed'                    => 'confirmed',
-                                'reindex'                      => 'reindex' })
+                                'reindex'                      => options[:reindex] ? 'reindex' : '' })
   end
 
   def self.split_entry(options = {})
@@ -24,15 +24,14 @@ class CodeBridge
                                 'hierarchy_entry_id'           => options[:hierarchy_entry_id],
                                 'bad_match_hierarchy_entry_id' => options[:exemplar_id],
                                 'confirmed'                    => 'confirmed',
-                                'reindex'                      => 'reindex' })
+                                'reindex'                      => options[:reindex] ? 'reindex' : '' })
   end
 
   def self.merge_taxa(id1, id2)
     Resque.enqueue(CodeBridge, {'cmd'       => 'merge',
                                 'id1'       => id1,
                                 'id2'       => id2,
-                                'confirmed' => 'confirmed',
-                                'reindex'   => 'reindex' })
+                                'confirmed' => 'confirmed'})
   end
 
 end

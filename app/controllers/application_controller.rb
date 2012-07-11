@@ -397,8 +397,6 @@ class ApplicationController < ActionController::Base
 
   # Ensure that the user has this in their watch_colleciton, so they will get replies in their newsfeed:
   def auto_collect(what, options = {})
-    options[:annotation] ||= I18n.t(:user_left_comment_on_date, :username => current_user.full_name,
-                                    :date => I18n.l(Time.now, :format => :long))
     watchlist = current_user.watch_collection
     collection_item = CollectionItem.find_by_collection_id_and_object_id_and_object_type(watchlist.id, what.id,
                                                                                          what.class.name)

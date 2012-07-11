@@ -869,6 +869,11 @@ en:
       meta_keywords: "%{member_name} Community Member"
       meta_title: "%{member_name} Member of %{community_name}"
       tweet_text: "%{member_name} member of %{community_name}"
+  news_items:
+    index:
+      page_title: "EOL News"
+      meta_title: "EOL News"
+      meta_keywords: "eol news, encyclopedia of life news"
   notifier:
     activity_log_empty: "No recent actions by curators."
     activity_user_added_association_on_date: "%{curator_level} %{users_name} (%{users_url}) added unknown association for %{object_name} (%{object_url})\n%{action_date}.\n"
@@ -983,11 +988,6 @@ en:
       page_title: "EOL Community Activity"
       meta_title: "EOL Community Activity"
       meta_keywords: "eol community activity, eol recent activity, encyclopedia of life activities"
-  news_items:
-    index:
-      page_title: "EOL News"
-      meta_title: "EOL News"
-      meta_keywords: "eol news, encyclopedia of life news"
   sessions:
     new:
       login_with_facebook_assistive: "Login to EOL using your Facebook credentials."

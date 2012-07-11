@@ -18,7 +18,7 @@ describe ContentPartners::ResourcesController do
   describe 'GET index' do
     it 'should render root if user not logged in' do
       get :index, { :content_partner_id => @content_partner.id }
-      response.redirected_to.should == root_url
+      response.redirected_to.should == login_url
     end
     it 'should ask for agreement if user can update content partner and agreement is NOT accepted' do
       session[:user_id] = @user.id
@@ -77,7 +77,7 @@ describe ContentPartners::ResourcesController do
   describe 'GET show' do
     it 'should render root if user not logged in' do
       get :show, { :content_partner_id => @content_partner.id, :id => @resource.id }
-      response.redirected_to.should == root_url
+      response.redirected_to.should == login_url
     end
     it 'should render resource show page if user can read content partner resources' do
       session[:user_id] = @user.id

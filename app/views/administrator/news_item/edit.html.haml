@@ -6,10 +6,4 @@
 %br
 - form_for :news_item,@news_item,:url => {:action=>'update', :id=>params[:id]},:html=>{:id=>'page_form'} do |f|
   %table{:width => '100%'}
-    = render :partial => 'small_form', :locals => {:f=>f}
-  %br
-  %br
-  = cancel_button_goes_back(return_to_url)
-  |
-  = f.submit
-
+    = render :partial => 'form', :locals => {:f=>f}

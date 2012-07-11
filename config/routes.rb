@@ -32,6 +32,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :tasks
   map.resources :task_states
   map.resources :task_names
+  map.resources :news_items
   map.resources :recent_activities, :only => [:index]
   map.resources :curated_taxon_concept_preferred_entries, :only => [:create]
 

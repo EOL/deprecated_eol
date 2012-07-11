@@ -1,0 +1,6 @@
+#content
+  .site_column
+    #recent_activities.main_container
+      .article.list.updates
+        %p.meta= I18n.l(@news_item.display_date, :format => :long)
+        %p= @news_item.description

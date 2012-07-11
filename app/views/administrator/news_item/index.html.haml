@@ -5,6 +5,7 @@
   - form_tag({:action=>'index'},:method=>'get') do
     =I18n.t(:search_for_items_containing)
     = text_field_tag(:term_search_string,@term_search_string)
+    = select_tag :search_language, options_from_collection_for_select(Language.find_active, "id", "source_form", @search_language.to_i)
     = submit_tag I18n.t("search")
     %br
     = link_to I18n.t("add_a_new_news_item"),:action=>'new'
@@ -19,15 +20,17 @@
           %th
             =I18n.t("id")
           %th
+            =I18n.t(:language)
+          %th
+            =I18n.t(:active)
+          %th
             =I18n.t(:publish_after_utc)
           %th
             =I18n.t(:news_date)
           %th
-            =I18n.t(:news_item_title)
+            =I18n.t(:title)
           %th
-            =I18n.t("language")
-          %th
-            =I18n.t("add_language")
+            =I18n.t(:abstract)
           %th
             =I18n.t("delete")
         - for news_item in @news_items
@@ -36,18 +39,17 @@
             %td{ :class => column_class }
               = link_to news_item.id,:action=>'edit',:id=>news_item.id
             %td{ :class => column_class }
+              = news_item.language.iso_639_1
+            %td{ :class => column_class }
+              = news_item.active
+            %td{ :class => column_class }
               = h format_date_time(news_item.activated_on,:format=>'short_no_tz')
-              %br
-              = h "#{I18n.t(:published_parens)}" if news_item.visible?
             %td{ :class => column_class }
-              = h format_date(news_item.display_date)
+              = h format_date_time(news_item.display_date,:format=>'short_no_tz')
             %td{ :class => column_class }
-              = news_item.summary
+              = news_item.title
             %td{ :class => column_class }
-              - for translated_news_item in TranslatedNewsItem.find_all_by_news_item_id(news_item.id)
-                = link_to translated_news_item.language.iso_639_1, :action=>'update_language', :id=>news_item.id, :language_id=>translated_news_item.language_id
-            %td{ :class => column_class }
-              = link_to I18n.t("add_language"), :action=>'add_language', :id=>news_item.id
+              = news_item.abstract
             %td{ :class => column_class }
               = link_to I18n.t("delete"), {:action=>'destroy',:id=>news_item.id}, :confirm => I18n.t("this_cannot_be_undone_are_you_sure"), :method => :delete
       %br

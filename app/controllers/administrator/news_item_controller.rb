@@ -12,22 +12,22 @@ class Administrator::NewsItemController < AdminController
     @page_title = I18n.t("news_items")
     @term_search_string=params[:term_search_string] || ''
     search_string_parameter='%' + @term_search_string + '%'
-    @news_items=NewsItem.paginate(:conditions=>['exists (select * from translated_news_items where body like ?)',search_string_parameter],:order=>'display_date desc',:page => params[:page])
-    @news_items_count=NewsItem.count(:conditions=>['exists (select * from translated_news_items where body like ?)',search_string_parameter])
+    @search_language = params[:search_language] || Language.english.id
+    @news_items=NewsItem.paginate(:conditions=>['language_id=? and (title like ? or abstract like ? or description like ?)',@search_language,search_string_parameter,search_string_parameter,search_string_parameter],:order=>'display_date desc',:page => params[:page])
+    @news_items_count=NewsItem.count(:conditions=>['language_id=? and (title like ? or abstract like ? or description like ?)',@search_language,search_string_parameter,search_string_parameter,search_string_parameter])
   end
 
   def new
     @page_title = I18n.t("new_news_item")
     store_location(referred_url) if request.get?
     @news_item = NewsItem.new
-    @news_item.set_translation_language(Language.english)
-    @news_item.translated_active_translation = true
     @news_item.display_date = DateTime.now
     @news_item.activated_on = DateTime.now
-    @news_item.current_translation_language = Language.english
-    @language_id = @news_item.current_translation_language.id
-    @news_item.translated_title = "News title"
-    @news_item.translated_body = "News details"
+    @news_item.active = true
+    @news_item.language = Language.english
+    @language_id = @news_item.language.id
+    @news_item.title = "News title"
+    @news_item.abstract = "News abstract"
   end
 
   def edit
@@ -39,13 +39,6 @@ class Administrator::NewsItemController < AdminController
   def create
     @news_item = NewsItem.new(params[:news_item])
     if @news_item.save
-      translated_news_item = TranslatedNewsItem.new
-      translated_news_item.news_item_id = @news_item.id
-      translated_news_item.title = params[:news_item][:translated_title]
-      translated_news_item.body = params[:news_item][:translated_body]
-      translated_news_item.language_id = params[:news_item][:current_translation_language]
-      translated_news_item.active_translation = params[:news_item][:translated_active_translation]
-      translated_news_item.save
       flash[:notice] = I18n.t(:the_news_item_created)
       expire_cache('Home')
       redirect_back_or_default(url_for(:action=>'index'))
@@ -65,61 +58,13 @@ class Administrator::NewsItemController < AdminController
     end
   end
 
-  def delete_translation
-    translation_news_item = TranslatedNewsItem.find_by_news_item_id_and_language_id(params[:id], params[:language_id])
-    translation_news_item.destroy
-    flash[:notice] = I18n.t("translation_deleted")
-    redirect_to :action => 'index', :status => :moved_permanently
-  end
-
   def destroy
     (redirect_to referred_url, :status => :moved_permanently;return) unless request.method == :delete
-    for translated_news_item in TranslatedNewsItem.find_all_by_news_item_id(params[:id])
-      translated_news_item.destroy
-    end
     @news_item = NewsItem.find(params[:id])
     @news_item.destroy
     expire_cache('Home')
     redirect_to referred_url, :status => :moved_permanently
   end
-
-  def add_language
-    @page_title = I18n.t("add_language")
-    @news_item = NewsItem.find(params[:id])
-  end
-
-  def update_language
-    @page_title = I18n.t("update_language")
-    @news_item = NewsItem.find(params[:id])
-    @language = Language.find(params[:language_id])
-    @news_item.set_translation_language(@language)
-
-  end
-
-  def save_translation
-   news_item = NewsItem.find(params[:id])
-   language = Language.find(params[:language_id]) rescue Language.find(params[:news_item][:current_translation_language])
-
-   if language.id == nil
-     language = Language.find(params[:news_item][:current_translation_language])
-   end
-
-   translated_news_item = TranslatedNewsItem.find_by_news_item_id_and_language_id(news_item.id, language.id)
-
-   translated_news_item = TranslatedNewsItem.new if translated_news_item.nil?
-
-   translated_news_item.news_item = news_item
-   translated_news_item.language_id = language.id
-   translated_news_item.active_translation = params[:news_item][:translated_active_translation]
-   translated_news_item.title = params[:news_item][:translated_title]
-   translated_news_item.body = params[:news_item][:translated_body]
-
-   translated_news_item.save
-
-   flash[:notice] = I18n.t("translation_saved")
-   redirect_to :action => 'index', :status => :moved_permanently
-
- end
 
 private
 

@@ -770,9 +770,11 @@ en:
       meta_title: "%{community_name} Removed By Owner"
   content:
     index:
+      header_news: EOL News
       meta_description: "The Encyclopedia of Life is an unprecedented effort to gather scientific knowledge about all animal and plant life where pictures, information, facts, and more are available for all things living in our plant and animal kingdoms."
       meta_keywords: "Animals, Animal Pictures, Animal Information, Plants, Plant Life, Plant Pictures, Plant Information, Flora, Fauna"
       meta_title: "Animals - Plants - Pictures & Information"
+      see_all_eol_news: "see more <span class=\"assistive\">eol news</span>"
       see_all_recent_activites: "see more <span class=\"assistive\">activities in the last week</span>"
   content_partners:
     statistics:
@@ -810,6 +812,52 @@ en:
       meta_supplier_default: "a contributor"
       meta_title: "%{dato_title} from %{supplier}"
       tweet_text: "%{dato_title} from %{supplier}"
+  layouts:
+    v2:
+      application:
+        header_about: About EOL
+        header_learn_more: Learn more about
+        header_questions: Tell me more
+        about_link_what_is_eol: What is EOL?
+        about_link_eol_blog: The EOL Blog
+        about_link_discover: Discover
+        about_link_statistics: Statistics
+        about_link_donate: Donate to EOL
+        about_link_citing: Citing EOL
+        about_link_help: Help
+        about_link_terms_of_use: Terms of Use
+        about_link_contact_us: Contact Us
+        learn_more_link_animals: Animals
+        learn_more_link_mammals: Mammals
+        learn_more_link_birds: Birds
+        learn_more_link_amphibians: Amphibians
+        learn_more_link_reptiles: Reptiles
+        learn_more_link_fish: Fish
+        learn_more_link_invertebrates: Invertebrates
+        learn_more_link_crustaceans: Crustaceans
+        learn_more_link_mollusks: Mollusks
+        learn_more_link_insects: Insects
+        learn_more_link_spiders: Spiders
+        learn_more_link_plants: Plants
+        learn_more_link_flowering_plants: Flowering Plants
+        learn_more_link_trees: Trees
+        learn_more_link_fungi: Fungi
+        learn_more_link_mushrooms: Mushrooms
+        learn_more_link_molds: Molds
+        learn_more_link_bacteria: Bacteria
+        learn_more_link_protists: Protists
+        learn_more_link_archaea: Archaea
+        learn_more_link_viruses: Viruses
+        questions_link_biodiversity: What is biodiversity?
+        questions_link_species: What is a species?
+        questions_link_discovering_species: How are species discovered?
+        questions_link_naming_species: How are species named?
+        questions_link_binomial_nomenclature: What is binomial nomenclature?
+        questions_link_biological_classification: What is a biological classification?
+        questions_link_invasive_species: What is an invasive species?
+        questions_link_indicator_species: What is an indicator species?
+        questions_link_model_organism: What is a model organism?
+        questions_link_contributing_to_research: How can I contribute to research?
   members:
     index:
       meta_description: "Members of %{community_name}, an Encyclopedia of Life community."
@@ -935,6 +983,11 @@ en:
       page_title: "EOL Community Activity"
       meta_title: "EOL Community Activity"
       meta_keywords: "eol community activity, eol recent activity, encyclopedia of life activities"
+  news_items:
+    index:
+      page_title: "EOL News"
+      meta_title: "EOL News"
+      meta_keywords: "eol news, encyclopedia of life news"
   sessions:
     new:
       login_with_facebook_assistive: "Login to EOL using your Facebook credentials."
@@ -3094,7 +3147,6 @@ en:
   news_item_is_visible_on_websit: "News Item is visible on website after this time:"
   news_item: "news item"
   news_item_title: "News Item"
-  news_items: "News Items"
   newsfeed: "Newsfeed"
   newsfeed_help_for_collection: "The Newsfeed for this EOL Collection gathers updates associated with the items belonging to it, including the activities of its owner and comments from other EOL users."
   newsfeed_help_for_community: "The Newsfeed for this EOL Community gathers updates associated with the items belonging to its Managed Collections, including activities of its members and comments from other EOL users."
@@ -3978,4 +4030,5 @@ en:
   allowed_html_tags: "Allowed HTML: %{comma_separated_tags}"
   references_cabs_colon: "References:"
   annotation_cabs_colon: "Annotation:"
+  abstract: "Abstract"
   translation_log: "I18n key frequency histogram"

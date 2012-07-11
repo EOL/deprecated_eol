@@ -1,0 +1,7 @@
+- content_for :social_sharing do
+  = render :partial => 'shared/social_sharing'
+#content
+  .site_column
+    #recent_activities.main_container
+      .article.list.updates
+        = render :partial => 'news_items/index', :locals => {:news_items => @news_items}

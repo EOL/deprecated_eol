@@ -16,11 +16,17 @@ function check_title_remaining () {
   preview_news_item();
 }
 
+function check_abstract_remaining () {
+  textCounter($('#news_item_abstract'),$('#abstract_remaining_length'),250);
+  preview_news_item();
+}
+
 function preview_news_item() {
  $('#previewed_news_item').html('<strong>'+todays_date+'</strong> - ' + $('#news_item_title').val() + ' - ' + $('#news_item_body').val());
 } 
 
 $(document).ready(function() {
   check_title_remaining();
-  check_body_remaining();
+  check_abstract_remaining();
+  //check_body_remaining();
 });

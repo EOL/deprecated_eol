@@ -1,0 +1,26 @@
+%fieldset
+  %dl
+    %dt.required
+      = news_item_form.label :page_name
+      %p= I18n.t('helpers.label.content_page.page_name_more')
+    %dd
+      = news_item_form.text_field :page_name, { :maxlength => 255 }
+      / %p
+      /   = external_link_to(news_item_url(@news_item.page_url), news_item_url(@news_item.page_url), :show_link_icon => false)
+      /   - if alternate = @news_item.alternate_page_url
+      /     %br/
+      /     = external_link_to(news_item_url(alternate), news_item_url(alternate), :show_link_icon => false)
+    %dt.required
+      =I18n.t("news_item_date_as_shown_to_use")
+    %dd
+      = news_item_form.datetime_select(:display_date, :order => [:day,:month,:year], :start_year => (Time.now.year - 10), :end_year => (Time.now.year + 1), :use_month_numbers => true)
+    %dt.required
+      =I18n.t("news_item_is_visible_on_websit")
+    %dd
+      = news_item_form.datetime_select(:activated_on, :order => [:day,:month,:year], :start_year => (Time.now.year - 10), :end_year => (Time.now.year + 1), :use_month_numbers => true)
+  %p=I18n.t(:note_all_times_utc)
+  %fieldset
+    - news_item_form.label :active, :class => 'checkbox' do
+      = news_item_form.check_box :active
+      = I18n.t('activerecord.attributes.content_page.active')
+      %p= I18n.t('helpers.label.content_page.active_more')

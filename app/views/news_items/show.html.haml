@@ -1,6 +1,8 @@
+- content_for :social_sharing do
+  = render :partial => 'shared/social_sharing'
 #content
   .site_column
     #recent_activities.main_container
       .article.list.updates
-        %p.meta= I18n.l(@news_item.display_date, :format => :long)
-        %p= @news_item.description
+        %p.meta= I18n.l(@translated_news_item.news_item.display_date, :format => :long)
+        %p= @translated_news_item.body

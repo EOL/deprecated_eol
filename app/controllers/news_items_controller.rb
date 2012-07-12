@@ -4,15 +4,21 @@ class NewsItemsController < ApplicationController
   
   def index
     @page_title = I18n.t(:page_title, :scope => [:news_items, :index])
-    @news_items=NewsItem.paginate(:conditions=>['language_id=? and active=1 and activated_on<=?',Language.from_iso(I18n.locale.to_s), DateTime.now],:order=>'display_date desc',:page => params[:page], :per_page => 25)
+    @translated_news_items = TranslatedNewsItem.paginate(
+      :conditions=>['translated_news_items.language_id = ? and translated_news_items.active_translation=1 and news_items.active=1 and news_items.activated_on<=?', Language.from_iso(current_language.iso_639_1), DateTime.now.utc],
+      :joins => "inner join news_items on news_items.id = translated_news_items.news_item_id",
+      :order=>'news_items.display_date desc', :page => params[:page], :per_page => 25)
+
     # @rel_canonical_href = recent_activities_url(:page => rel_canonical_href_page_number(@log))
     # @rel_prev_href = rel_prev_href_params(@log) ? recent_activities_url(@rel_prev_href_params) : nil
     # @rel_next_href = rel_next_href_params(@log) ? recent_activities_url(@rel_next_href_params) : nil
   end
   
   def show
-    @news_item = NewsItem.find_by_id(params[:id])
-    @page_title = @news_item.title
+    @selected_language = params[:language] ? Language.from_iso(params[:language]) :
+      Language.from_iso(current_language.iso_639_1)
+    @translated_news_item = TranslatedNewsItem.find_by_news_item_id_and_language_id(params[:id], @selected_language)
+    @page_title = @translated_news_item.title
   end
     
 end

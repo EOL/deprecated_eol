@@ -215,6 +215,9 @@ ActionController::Routing::Routes.draw do |map|
                                                  :user_added_data => [:get],
                                                  :lifedesk => [:get]},
                                        :only => [:index], :namespace => 'admins/'
+    admin.resources :news_items, :namespace => 'admins/' do |news_item|
+      news_item.resources :translated_news_items, :as => :translations, :except => [:show, :index], :controller => 'translated_news_items'
+    end
   end
 
   # Old V1 /admin and /administrator namespaces (controllers)

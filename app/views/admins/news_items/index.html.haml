@@ -1,0 +1,14 @@
+#cms_index.main_container
+  - if @news_items.blank?
+    .article
+      .empty
+        %p= I18n.t(:admin_news_items_empty)
+        = link_to I18n.t(:admin_news_item_new_link), new_admin_news_item_path, :class => 'button'
+  - else
+    .article.copy
+      %p= I18n.t(:admin_content_pages_index_information)
+      = link_to I18n.t(:admin_news_item_new_link), new_admin_news_item_path, :class => 'button'
+    %ul
+      - @news_items.each do |news_item|
+        = render :partial => 'item_summary',
+          :locals => { :news_item => news_item, :block_of_pages => @news_items }

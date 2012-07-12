@@ -1,13 +1,11 @@
 - for_homepage ||= false
-- if news_items.nil? == false && news_items.size > 0  
-  = will_paginate news_items unless for_homepage
+- if translated_news_items.nil? == false && translated_news_items.size > 0  
+  = will_paginate translated_news_items unless for_homepage
   %ul
-    - for news_item in news_items
+    - for translated_news_item in translated_news_items
       %li
         .details
-          %p= link_to news_item.title, news_item_path(news_item.id)
-          = news_item.abstract unless for_homepage
-          %p.meta= I18n.l(news_item.display_date, :format => :long)
+          %p= link_to translated_news_item.title, news_item_path(translated_news_item.news_item_id)
+          %p.meta= I18n.l(translated_news_item.news_item.display_date, :format => :long)
           - unless for_homepage
-            = link_to(I18n.t(:details), { :action => :show, :id => news_item.id }) if news_item.description != ''
-          
+            = link_to(I18n.t(:details), { :action => :show, :id => translated_news_item.news_item_id }) if translated_news_item.body != ''

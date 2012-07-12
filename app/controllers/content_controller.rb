@@ -23,7 +23,7 @@ class ContentController < ApplicationController
     @home_page = true
     @explore_taxa = safely_shuffle(RandomHierarchyImage.random_set_cached)
     @rich_pages_path = language_dependent_collection_path
-    @news_items = NewsItem.find_all_by_language_id(current_language.id, :order => 'id DESC', :limit => $NEWS_ON_HOME_PAGE)
+    @translated_news_items = TranslatedNewsItem.find(:all, :conditions=>['translated_news_items.language_id = ? and translated_news_items.active_translation=1 and news_items.active=1 and news_items.activated_on<=?', Language.from_iso(current_language.iso_639_1), DateTime.now.utc], :joins => "inner join news_items on news_items.id = translated_news_items.news_item_id", :order=>'news_items.display_date desc', :limit => $NEWS_ON_HOME_PAGE)
     current_user.log_activity(:viewed_home_page)
     periodically_recalculate_homepage_parts
   end

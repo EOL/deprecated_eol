@@ -10,7 +10,6 @@ class CodeBridge
   # These methods are here for actually enqueing the jobs. Thus, you call CodeBridge.split_classification(data),
   # and the data will be moved to PHP and handled there. These class methods are NOT called by Resque!
   def self.move_entry(options = {})
-    logger.warn "++ CodeBridge move (HE##{options[:hierarchy_entry_id]} -> TC##{options[:to_taxon_concept_id]}#{options[:reindex] ? ', reindex' : ''})"
     Resque.enqueue(CodeBridge, {'cmd'                          => 'move',
                                 'taxon_concept_id_from'        => options[:from_taxon_concept_id],
                                 'hierarchy_entry_id'           => options[:hierarchy_entry_id],
@@ -21,7 +20,6 @@ class CodeBridge
   end
 
   def self.split_entry(options = {})
-    logger.warn "++ CodeBridge split (HE##{options[:hierarchy_entry_id]} from HE##{options[:exemplar_id]}#{options[:reindex] ? ', reindex' : ''})"
     Resque.enqueue(CodeBridge, {'cmd'                          => 'split',
                                 'hierarchy_entry_id'           => options[:hierarchy_entry_id],
                                 'bad_match_hierarchy_entry_id' => options[:exemplar_id],
@@ -29,8 +27,7 @@ class CodeBridge
                                 'reindex'                      => options[:reindex] ? 'reindex' : '' })
   end
 
-  def self.merge_taxa(id1, id2)
-    logger.warn "++ CodeBridge merge (TC##{id1} & TC##{id2})"
+  def self.merge_taxa(id1, id2, options = {})
     Resque.enqueue(CodeBridge, {'cmd'       => 'merge',
                                 'id1'       => id1,
                                 'id2'       => id2,

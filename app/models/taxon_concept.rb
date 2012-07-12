@@ -1381,6 +1381,8 @@ class TaxonConcept < ActiveRecord::Base
       classifications_locked?
     lock_classifications
     hierarchy_entry_ids.each do |he_id|
+      logger.warn "++ CodeBridge split (HE##{he_id} from " +
+        "HE##{exemplar_id}#{he_id == hierarchy_entry_ids.last ? ', reindex' : ''})"
       CodeBridge.split_entry(:hierarchy_entry_id => he_id, :exemplar_id => exemplar_id,
                              :reindex => he_id == hierarchy_entry_ids.last)
     end
@@ -1397,9 +1399,12 @@ class TaxonConcept < ActiveRecord::Base
     lock_classifications
     target_taxon_concept.lock_classifications
     if all_published_entries?(hierarchy_entry_ids)
+      logger.warn "++ CodeBridge merge (TC##{id} & TC##{target_taxon_concept.id})"
       CodeBridge.merge_taxa(id, target_taxon_concept.id)
     else
       hierarchy_entry_ids.each do |he_id|
+        logger.warn "++ CodeBridge move (HE##{he_id} -> " +
+          "TC##{target_taxon_concept.id}#{he_id == hierarchy_entry_ids.last ? ', reindex' : ''})"
         CodeBridge.move_entry(:from_taxon_concept_id => id, :to_taxon_concept_id => target_taxon_concept.id,
                               :hierarchy_entry_id => he_id, :exemplar_id => options[:exemplar_id],
                               :reindex => he_id == hierarchy_entry_ids.last)

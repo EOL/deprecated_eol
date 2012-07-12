@@ -138,7 +138,7 @@ $(document).ready(function() {
     $('div.main_container').children().fadeOut(function() {$('#please_wait').fadeIn();});
   });
   // Check all checkboxes when you check the header:
-  $('th.check_all').append('<input class="chek_all_from_header" type="checkbox"/>');
+  $('th.check_all').append('<br/><input class="chek_all_from_header" type="checkbox"/>');
   $('input.chek_all_from_header').click(function(e) {
     $(e.target).closest('table').find('td input[type=checkbox]').attr('checked', $(e.target).is(':checked'));
   });

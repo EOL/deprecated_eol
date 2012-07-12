@@ -38,14 +38,14 @@ class Admins::TranslatedNewsItemsController < AdminsController
       @news_item = NewsItem.find(params[:news_item_id], :include => :translations)
       @news_item.last_update_user_id = current_user.id
       @news_item.save
-      flash[:notice] = I18n.t(:admin_translated_content_page_update_successful_notice,
+      flash[:notice] = I18n.t(:admin_translated_news_item_update_successful_notice,
                               :page_name => @news_item.page_name,
                               :language => @translated_news_item.language.label,
                               :anchor => @news_item.page_name.gsub(' ', '_').downcase)
       redirect_to admin_news_items_path(:anchor => @news_item.page_name.gsub(' ', '_').downcase)
     else
       @news_item = NewsItem.find(params[:news_item_id], :include => :translations)
-      flash.now[:error] = I18n.t(:admin_translated_content_page_update_unsuccessful_error)
+      flash.now[:error] = I18n.t(:admin_translated_news_item_update_unsuccessful_error)
       set_translated_news_item_edit_options
       render :edit
     end
@@ -59,7 +59,7 @@ class Admins::TranslatedNewsItemsController < AdminsController
     translated_news_item = TranslatedNewsItem.find(params[:id], :include => :language)
     language = translated_news_item.language
     translated_news_item.destroy
-    flash[:notice] = I18n.t(:admin_translated_content_page_delete_successful_notice,
+    flash[:notice] = I18n.t(:admin_translated_news_item_delete_successful_notice,
                             :page_name => page_name, :language => language.label)
     redirect_to admin_news_items_path, :status => :moved_permanently
   end
@@ -67,19 +67,19 @@ class Admins::TranslatedNewsItemsController < AdminsController
 private
 
   def set_translated_news_item_options
-    @page_title = I18n.t(:admin_content_pages_page_title)
+    @page_title = I18n.t(:admin_news_items_page_title)
   end
 
   def set_translated_news_item_new_options
     set_translated_news_item_options
     @languages = @news_item.not_available_in_languages(nil)
-    @page_subheader = I18n.t(:admin_translated_content_page_new_subheader,
+    @page_subheader = I18n.t(:admin_translated_news_item_new_subheader,
                              :page_name => @news_item.page_name)
   end
 
   def set_translated_news_item_edit_options
     set_translated_news_item_options
-    @page_subheader = I18n.t(:admin_translated_content_page_edit_subheader,
+    @page_subheader = I18n.t(:admin_translated_news_item_edit_subheader,
                              :page_name => @news_item.page_name,
                              :language => @translated_news_item.language.label.safe_downcase)
   end

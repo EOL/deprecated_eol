@@ -4,17 +4,17 @@
     %small
       &nbsp;
       [
-      = news_item.active? ? I18n.t(:admin_content_page_active) : I18n.t(:admin_content_page_not_active)
+      = news_item.active? ? I18n.t(:admin_news_item_active) : I18n.t(:admin_news_item_not_active)
       &bull;
       = link_to I18n.t(:edit), edit_admin_news_item_path(news_item)
       ]
   .actions
     = button_to I18n.t(:delete), { :action => 'destroy', :id => news_item.id },
-      { :confirm => I18n.t(:admin_content_page_delete_confirmation, :page_name => news_item.page_name), :method => 'delete', :class => 'delete' }
+      { :confirm => I18n.t(:admin_news_item_delete_confirmation, :page_name => news_item.page_name), :method => 'delete', :class => 'delete' }
   .translations
     %ul
       - news_item.translations.each do |translated_news_item|
         = render :partial => 'admins/translated_news_items/item_summary',
           :locals => { :translated_news_item => translated_news_item, :news_item => news_item }
-    = link_to I18n.t(:admin_translated_content_page_new_link),
+    = link_to I18n.t(:admin_translated_news_item_new_link),
       new_admin_news_item_translated_news_item_path(news_item)

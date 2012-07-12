@@ -5,7 +5,7 @@
     - for translated_news_item in translated_news_items
       %li
         .details
-          %p= link_to translated_news_item.title, news_item_path(translated_news_item.news_item_id)
+          %p
+            %b= link_to translated_news_item.title, news_item_path(translated_news_item.news_item_id)
+          %p= translated_news_item.content_teaser
           %p.meta= I18n.l(translated_news_item.news_item.display_date, :format => :long)
-          - unless for_homepage
-            = link_to(I18n.t(:details), { :action => :show, :id => translated_news_item.news_item_id }) if translated_news_item.body != ''

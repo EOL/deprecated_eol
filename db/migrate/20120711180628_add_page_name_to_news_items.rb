@@ -1,6 +1,6 @@
 class AddPageNameToNewsItems < ActiveRecord::Migration
   def self.up
-    add_column :news_items, :page_name, :string, :limit => 255
+    add_column :news_items, :page_name, :string, :after => :id
     rename_column :news_items, :user_id, :last_update_user_id
   end
 

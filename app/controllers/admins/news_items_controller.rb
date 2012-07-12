@@ -2,7 +2,7 @@ class Admins::NewsItemsController < AdminsController
 
   # GET /admin/news_items
   def index
-    @news_items = NewsItem.all
+    @news_items = NewsItem.paginate(:order=>'updated_at desc', :page => params[:page], :per_page => 25)
     set_news_items_options
   end
 
@@ -40,12 +40,12 @@ class Admins::NewsItemsController < AdminsController
   def update
     @news_item = NewsItem.find(params[:id])
     if @news_item.update_attributes(params[:news_item])
-      flash[:notice] = I18n.t(:admin_content_page_update_successful_notice,
+      flash[:notice] = I18n.t(:admin_news_item_update_successful_notice,
                               :page_name => @news_item.page_name,
                               :anchor => @news_item.page_name.gsub(' ', '_').downcase)
       redirect_to admin_news_items_path(:anchor => @news_item.page_name.gsub(' ', '_').downcase)
     else
-      flash.now[:error] = I18n.t(:admin_content_page_update_unsuccessful_error)
+      flash.now[:error] = I18n.t(:admin_news_item_update_successful_notice)
       set_news_item_edit_options
       render :edit
     end
@@ -58,7 +58,7 @@ class Admins::NewsItemsController < AdminsController
     page_name = news_item.page_name
     news_item.last_update_user_id = current_user.id
     news_item.destroy
-    flash[:notice] = I18n.t(:admin_content_page_delete_successful_notice, :page_name => page_name)
+    flash[:notice] = I18n.t(:admin_news_item_delete_successful_notice, :page_name => page_name)
     redirect_to :action => 'index', :status => :moved_permanently
   end
 
@@ -71,7 +71,7 @@ private
   def set_news_item_new_options
     set_news_items_options
     set_translated_news_item_new_options
-    @page_subheader = I18n.t(:admin_content_page_new_header)
+    @page_subheader = I18n.t(:admin_news_item_new_header)
   end
 
   def set_translated_news_item_new_options
@@ -80,6 +80,6 @@ private
 
   def set_news_item_edit_options
     set_news_items_options
-    @page_subheader = I18n.t(:admin_content_page_edit_header, :page_name => @news_item.page_name)
+    @page_subheader = I18n.t(:admin_news_item_edit_header, :page_name => @news_item.page_name)
   end
 end

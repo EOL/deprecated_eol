@@ -305,6 +305,10 @@ en:
         verified_at: "Last verified"
       name:
         string: "Name"
+      news_item:
+        page_name: "Unique name"
+        sort_order: "Sort order"
+        active: "Published"
       notification:
         reply_to_comment: A reply to a comment you made
         comment_on_my_profile: A comment on your profile
@@ -345,6 +349,12 @@ en:
         active_translation: "Published"
         left_content: "Navigation"
         main_content: "Body"
+        meta_keywords: "Metadata keywords"
+        meta_description: "Metadata description"
+        title: "Title"
+      translated_news_item:
+        active_translation: "Published"
+        body: "Body"
         meta_keywords: "Metadata keywords"
         meta_description: "Metadata description"
         title: "Title"
@@ -512,6 +522,11 @@ en:
         complete_more: "A curated hierarchy assumes that every entry is intended to be unique, i.e. matching name strings will be treated as homonyms. <strong>WARNING: Do not change this attribute unless you are certain of the status of homonyms in the hierarchy, doing so could jeopardize the integrity of the data.</strong>"
         request_publish: "Publish requested"
         request_publish_more: "Indicates whether there is a pending request to promote this hierarchy to become one of the primary browsable hierarchies on EOL."
+      news_item:
+        active: "Published"
+        active_more: "Published news items will be publicly visible on the selected date and time. Uncheck <em>published</em> if you want to prevent general users from viewing versions of this news item in any language."
+        page_name: "Unique name <small>(lowercase ISO basic Latin alphanumeric characters and underscores only)</small>"
+        page_name_more: "Enter a unique, self descriptive, meaningful and persistent identifier for this news item. The name you enter here will be used to generate the URL for this news item, e.g. the unique name <em>new_version_of_eol</em> is converted to the URL <em>http://eol.org/news/new_version_of_eol</em>."
       open_authentication:
         connected: Connected
         connect: Add
@@ -547,6 +562,14 @@ en:
         meta_description_more: "Provide a short description, summarising the key concepts of the page content. This description is sometimes used by Web search engines both for checking relevancy and for listing in search engine results."
         meta_keywords_more: "Enter a comma separated list of words and short phrases that best reflect the contents of the page. These keywords and keyphrases are sometimes used by Web search engines to assess the relevancy of the page against search terms."
         title_more: "The title of this content will appear in the header area of the page. The title should include keywords most relevant to the content."
+      translated_news_item:
+        active_translation: "Published"
+        active_translation_more: "Published translations will be publicly visible, unless the news item itself is unpublished. Uncheck <em>published</em> if you want to prevent general users from viewing this version of the news item."
+        language_id: "Language"
+        body_more: "Enter the news item content in the body area. Use the <em>Format</em> dropdown to select the appropriate semantic text elements, for example choose <em>Heading 2</em> for a second level heading. Note: <em>Heading 1</em> is reserved for the news item title, so headings in the body area start with <em>Heading 2</em>. Select <em>Source</em> to switch to the HTML source code view which allows you to manually insert and edit HTML."
+        meta_description_more: "Provide a short description, summarising the key concepts of the news item content. This description is sometimes used by Web search engines both for checking relevancy and for listing in search engine results."
+        meta_keywords_more: "Enter a comma separated list of words and short phrases that best reflect the contents of the news item. These keywords and keyphrases are sometimes used by Web search engines to assess the relevancy of the news item against search terms."
+        title_more: "The title of this news item will appear in the header area of the page. The title should include keywords most relevant to the content."
       user:
         agreed_with_terms: "I agree to the <a href=\"%{terms_url}\">terms of use</a>"
         api_key_more: "Read more about <a href=\"%{api_docs_url}\">adding a key to your API calls</a>."
@@ -629,6 +652,11 @@ en:
       name:
         create: "Add name"
         update: "Update name"
+      news_item:
+        create: "Create news item"
+        edit: "Edit"
+        preview: "Preview"
+        update: "Update news item"
       open_authentication:
         create: "Connect"
         destroy: "Disconnect"
@@ -645,6 +673,9 @@ en:
         sign_in_with_twitter: "Sign in with Twitter"
         sign_in_with_yahoo: "Sign in with Yahoo"
       translated_content_page:
+        create: "Add translation"
+        update: "Save changes to translation"
+      translated_news_item:
         create: "Add translation"
         update: "Save changes to translation"
       user:
@@ -1968,10 +1999,19 @@ en:
   admin_content_partners_statistics_link: "Statistics"
   admin_content_partners_statistics_page_title: "Administration: Content Partner Statistics"
   admin_home: "admin home"
+  admin_news_item_active: "Published"
   admin_news_item_create_successful_notice: "News item <a href=\"#%{anchor}\"><em>%{page_name}</em></a> created successfully."
   admin_news_item_create_unsuccessful_error: "Sorry, an error occurred, the news item was not created."
+  admin_news_item_delete_confirmation: 'Are you sure you want to delete "%{page_name}" and all translations. Delete actions cannot be undone.'
+  admin_news_item_delete_successful_notice: "News item %{page_name} and associated translations have been deleted."
+  admin_news_item_edit_header: "Update basic news item information for <em>%{page_name}</em>"
+  admin_news_item_edit_tip: "It is recommended that you do not edit the unique name of this news item unless you are fully aware of the consequences, including the impact on links to this page, or to named routes. Unique name is %{required_icon} required."
   admin_news_item_new_link: "Create news item"
+  admin_news_item_new_header: "Create a new news item"
   admin_news_item_new_tip: "Enter basic information about this page. Unique name is %{required_icon} required."
+  admin_news_item_not_active: "Unpublished"
+  admin_news_item_update_successful_notice: "News item <a href=\"#%{anchor}\"><em>%{page_name}</em></a> updated successfully."
+  admin_news_item_update_unsuccessful_error: "Sorry, an error occurred, the news item could not be updated."
   admin_news_items_empty: "No news items found."
   admin_news_items_index_information: "The following list includes all of the news items currently available on the EOL Website as well as future news items. Each page has one or more translations. When you create a news item you will be asked to add a translation. Published translations are publicly accessible."
   admin_news_items_page_title: "Administration: News"
@@ -1993,9 +2033,20 @@ en:
   admin_translated_content_page_new_subheader: "Add translation for <em>%{page_name}</em>"
   admin_translated_content_page_update_successful_notice: "%{language} translation for <a href=\"#%{anchor}\"><em>%{page_name}</em></a> has been updated."
   admin_translated_content_page_update_unsuccessful_error: "Sorry, an error occurred, the translation could not be updated."
+  admin_translated_news_item_active: "Published"
   admin_translated_news_item_create_successful_notice: "Translation has been added to <a href=\"#%{anchor}\"><em>%{page_name}</em></a>"
   admin_translated_news_item_create_unsuccessful_error: "Sorry, an error occurred, the translation could not be added."
+  admin_translated_news_item_delete_confirmation: 'Are you sure you want to delete the %{language} version of "%{page_name}". Delete action cannot be undone.'
+  admin_translated_news_item_delete_successful_notice: "%{language} translation of news item <em>%{page_name}</em> has been deleted."
+  admin_translated_news_item_edit_subheader: "Edit %{language} translation for <em>%{page_name}</em>"
+  admin_translated_news_item_edit_tip: "Title and body are %{required_icon} required."
   admin_translated_news_item_new_header: "Choose language and add content"
+  admin_translated_news_item_new_link: "Add translation"
+  admin_translated_news_item_new_subheader: "Add translation for <em>%{page_name}</em>"
+  admin_translated_news_item_new_tip: "Language, title and body are %{required_icon} required."
+  admin_translated_news_item_not_active: "Unpublished"
+  admin_translated_news_item_update_successful_notice: "%{language} translation for <a href=\"#%{anchor}\"><em>%{page_name}</em></a> has been updated."
+  admin_translated_news_item_update_unsuccessful_error: "Sorry, an error occurred, the translation could not be updated."
   agent: "Agent"
   all: "all"
   all_apis_return_by_default_an_xml_response: "All APIs return by default an XML response. The API methods may be called without a format extension to get the XML response, and adding an XML extension will give an identical response:"
@@ -3155,7 +3206,7 @@ en:
   news_date: "News Date"
   new_search_suggestion: "New Search Suggestion"
   news_item_date_as_shown_to_use: "News Item Date as shown to user (time only shown in RSS feed):"
-  news_item_is_visible_on_websit: "News Item is visible on website after this time:"
+  news_item_is_visible_on_website_after_this_time: "News Item is visible on website after this time:"
   news_item: "news item"
   news_item_title: "News Item"
   newsfeed: "Newsfeed"

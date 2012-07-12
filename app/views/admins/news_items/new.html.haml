@@ -16,5 +16,5 @@
         = render :partial => 'admins/translated_news_items/translated_news_item_fieldset'
 
       %fieldset.actions
-        = news_item_form.submit I18n.t('helpers.submit.content_page.create')
+        = news_item_form.submit I18n.t('helpers.submit.news_item.create')
         = link_to I18n.t(:cancel), admin_news_items_path

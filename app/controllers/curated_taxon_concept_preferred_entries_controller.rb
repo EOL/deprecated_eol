@@ -1,9 +1,5 @@
 class CuratedTaxonConceptPreferredEntriesController < ApplicationController
 
-  # TODO
-  # - If ALL of the classifications for the taxon are selected, make the command a merge taxa (so the supercedure is set)
-  # - merge doesn't need to ask for examplar, DUH,
-
   # Sorry, another beast of a method that handles many different things... because there's necessarily only one form.
   def create
     @taxon_concept = TaxonConcept.find(params[:taxon_concept_id])
@@ -52,7 +48,7 @@ private
       @target_params[:additional_confirm] = 1 if params[:additional_confirm] # They have already confirmed this, don't do it again.
       @target_params[:move_to] = @taxon_concept.id
       # Just go ahead and do the merge without asking for an exemplar, if it's ALL the entries from that page:
-      exemplar('merge', nil) if taxon_concept_from_session.all_published_entries?(session[:split_hierarchy_entry_id])
+      exemplar('merge', nil) if taxon_concept_from_session.all_published_entries?(Array(session[:split_hierarchy_entry_id]))
     end
     @target_params[:all] = 1
   end

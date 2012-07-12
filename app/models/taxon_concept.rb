@@ -1398,7 +1398,7 @@ class TaxonConcept < ActiveRecord::Base
     raise EOL::Exceptions::CannotMergeClassificationsToSelf if self.id == target_taxon_concept.id
     lock_classifications
     target_taxon_concept.lock_classifications
-    if all_published_entries?(hierarchy_entry_ids)
+    if all_published_entries?(hierarchy_entry_ids) || target_taxon_concept.all_published_entries?(hierarchy_entry_ids)
       logger.warn "++ CodeBridge merge (TC##{id} & TC##{target_taxon_concept.id})"
       CodeBridge.merge_taxa(id, target_taxon_concept.id)
     else

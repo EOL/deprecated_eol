@@ -1832,6 +1832,10 @@ en:
         user_merged_entry_to_an_unknown_taxon: "<strong>%{user}</strong> moved the classification by \"%{provider}\" to an unknown taxon."
         user_merged_entry_to_it: "<strong>%{user}</strong> added the classification by \"%{provider}\"."
         user_merged_entry_to_taxon: "<strong>%{user}</strong> moved the classification by \"%{provider}\" to \"%{taxon}\"."
+      unlock:
+        an_unknown_taxon_unlocked: "An unknown page has finished background curation processing."
+        it_unlocked: "Background curation processing finished."
+        taxon_unlocked: "\"%{taxon}\" finished background curation processing."
       other_actions:
         an_unknown_user_curated_an_older_data_object: "An unknown user curated an older version of \"%{data_object}\"."
         an_unknown_user_curated_an_unknown_data_object: "An unknown user curated an unknown data object."

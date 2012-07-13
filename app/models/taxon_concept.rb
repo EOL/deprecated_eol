@@ -1378,17 +1378,17 @@ class TaxonConcept < ActiveRecord::Base
     end
   end
 
-  def split_classifications(hierarchy_entry_ids, exemplar_id)
+  def split_classifications(hierarchy_entry_ids, options = {})
     raise EOL::Exceptions::ClassificationsLocked if
       classifications_locked?
     lock_classifications
     hierarchy_entry_ids.each do |he_id|
-      CodeBridge.split_entry(:hierarchy_entry_id => he_id, :exemplar_id => exemplar_id,
-                             :reindex => he_id == hierarchy_entry_ids.last)
+      CodeBridge.split_entry(:hierarchy_entry_id => he_id, :exemplar_id => options[:exemplar_id],
+                             :reindex => he_id == hierarchy_entry_ids.last, :notify => options[:notify])
     end
   end
 
-  def merge_classifications(hierarchy_entry_ids, options)
+  def merge_classifications(hierarchy_entry_ids, options = {})
     target_taxon_concept = options[:with]
     raise EOL::Exceptions::ClassificationsLocked if
       classifications_locked? || target_taxon_concept.classifications_locked?
@@ -1399,12 +1399,12 @@ class TaxonConcept < ActiveRecord::Base
     lock_classifications
     target_taxon_concept.lock_classifications
     if all_published_entries?(hierarchy_entry_ids)
-      CodeBridge.merge_taxa(id, target_taxon_concept.id)
+      CodeBridge.merge_taxa(id, target_taxon_concept.id, :notify => options[:notify])
     else
       hierarchy_entry_ids.each do |he_id|
         CodeBridge.move_entry(:from_taxon_concept_id => id, :to_taxon_concept_id => target_taxon_concept.id,
                               :hierarchy_entry_id => he_id, :exemplar_id => options[:exemplar_id],
-                              :reindex => he_id == hierarchy_entry_ids.last)
+                              :reindex => he_id == hierarchy_entry_ids.last, :notify => options[:notify])
       end
     end
   end

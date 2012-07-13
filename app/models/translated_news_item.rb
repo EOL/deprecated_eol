@@ -7,8 +7,6 @@ class TranslatedNewsItem < ActiveRecord::Base
 
   validates_length_of :title, :maximum => 255
 
-#  before_destroy :archive_self
-
   def can_be_read_by?(user_wanting_access)
     user_wanting_access.is_admin? || active_translation?
   end
@@ -43,11 +41,5 @@ class TranslatedNewsItem < ActiveRecord::Base
       truncated_teaser
     end
   end
-
-private
-
-  # def archive_self
-  #   TranslatedNewsItemArchive.backup(self)
-  # end
 
 end

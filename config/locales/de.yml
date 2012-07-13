@@ -2298,7 +2298,7 @@ de:
   news_archive_page: Seite des Neuigkeitenarchivs
   news_date: Datum der Nachricht
   news_item: Nachricht
-  news_item_date_as_shown_to_use: "Datum der Nachricht, wie es dem Nutzer angezeigt wird (nur im RSS-Feed mit Zeitangabe):"
+  news_item_date_as_shown_to_user: "Datum der Nachricht, wie es dem Nutzer angezeigt wird (nur im RSS-Feed mit Zeitangabe):"
   news_item_is_visible_on_websit: "Die Nachricht wird nach diesem Zeitpunkt auf der Website angezeigt:"
   news_item_title: Nachricht
   news_items: Neuigkeiten

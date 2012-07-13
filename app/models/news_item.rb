@@ -2,12 +2,11 @@ class NewsItem < ActiveRecord::Base
 
   uses_translations
 
-  # before_destroy :archive_self
-  before_destroy :destroy_translations # TODO: can we have :dependent => :destroy on translations rather than this custom callback?
-
   validates_presence_of :page_name
   validates_length_of :page_name, :maximum => 255
   validates_uniqueness_of :page_name, :scope => :id
+
+  before_destroy :destroy_translations # TODO: can we have :dependent => :destroy on translations rather than this custom callback?
 
   def can_be_read_by?(user_wanting_access)
     user_wanting_access.is_admin? || active?
@@ -58,10 +57,6 @@ class NewsItem < ActiveRecord::Base
   end
 
 private
-
-  # def archive_self
-  #   NewsItemArchive.backup(self)
-  # end
 
   def destroy_translations
     translations.each do |translated_news_item|

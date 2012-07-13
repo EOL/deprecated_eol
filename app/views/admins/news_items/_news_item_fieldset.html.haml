@@ -11,7 +11,7 @@
       /     %br/
       /     = external_link_to(news_item_url(alternate), news_item_url(alternate), :show_link_icon => false)
     %dt.required
-      =I18n.t("news_item_date_as_shown_to_use")
+      =I18n.t("news_item_date_as_shown_to_user")
     %dd
       = news_item_form.datetime_select(:display_date, :order => [:day,:month,:year], :start_year => (Time.now.year - 10), :end_year => (Time.now.year + 1), :use_month_numbers => true)
     %dt.required

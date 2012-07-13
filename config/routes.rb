@@ -282,6 +282,9 @@ ActionController::Routing::Routes.draw do |map|
   map.donate '/donate', :controller => 'content', :action => 'donate'
   map.language '/language', :controller => 'content', :action => 'language'
 
+  ## News items
+  map.news '/news/:id', :controller => 'news_items', :action => 'show'
+
   ## Curator tool to request import of wikipedia pages
   map.resources :wikipedia_queues, :as => :wikipedia_imports, :only => [:new, :create]
 

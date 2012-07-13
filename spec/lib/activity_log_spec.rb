@@ -28,10 +28,10 @@ describe EOL::ActivityLog do
 
   it 'should list all activity_log items for a user, sorted by time' do
     # TODO - some logs are triggered through the controller, not on the creation of particular objects
-    @curator.activity_log[1]['instance'].class.should == Comment
+    @curator.activity_log[2]['instance'].class.should == Comment
     # @curator.activity_log[3]['instance'].class.should == UsersDataObject
     # @curator.activity_log[2]['instance'].class.should == CuratorActivityLog
-    # @curator.activity_log[1]['instance'].class.should == CollectionActivityLog
+    @curator.activity_log[1]['instance'].class.should == CollectionActivityLog
     @curator.activity_log[0]['instance'].class.should == CommunityActivityLog
   end
 
@@ -43,8 +43,9 @@ describe EOL::ActivityLog do
     # something to the community's focus list, we expect to see that in the activity log of the community itself.
     CollectionActivityLog.gen(:collection => community.collections.first, :created_at => 3.seconds.ago)
     CommunityActivityLog.gen(:community => community, :created_at => 2.seconds.ago)
-    community.activity_log.length.should == 2
-    community.activity_log[1]['instance'].class.should == Comment
+    community.activity_log.length.should == 3
+    community.activity_log[2]['instance'].class.should == Comment
+    community.activity_log[1]['instance'].class.should == CollectionActivityLog
     community.activity_log[0]['instance'].class.should == CommunityActivityLog
   end
 

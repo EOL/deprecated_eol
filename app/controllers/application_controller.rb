@@ -363,7 +363,11 @@ class ApplicationController < ActionController::Base
     # Beware of redirect loops! Check we are not redirecting back to current URL that user can't access
     store_location(nil) if return_to_url && return_to_url.include?(current_url)
     store_location(referred_url) if referred_url && !return_to_url && !referred_url.include?(current_url)
-    redirect_back_or_default
+    if logged_in?
+      redirect_back_or_default
+    else
+      redirect_back_or_default(login_url)
+    end
   end
 
   def not_yet_implemented

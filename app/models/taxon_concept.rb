@@ -1383,7 +1383,8 @@ class TaxonConcept < ActiveRecord::Base
       classifications_locked?
     lock_classifications
     hierarchy_entry_ids.each do |he_id|
-      CodeBridge.split_entry(:hierarchy_entry_id => he_id, :exemplar_id => options[:exemplar_id])
+      CodeBridge.split_entry(:hierarchy_entry_id => he_id, :exemplar_id => exemplar_id,
+                             :reindex => he_id == hierarchy_entry_ids.last)
     end
   end
 
@@ -1397,23 +1398,29 @@ class TaxonConcept < ActiveRecord::Base
     raise EOL::Exceptions::CannotMergeClassificationsToSelf if self.id == target_taxon_concept.id
     lock_classifications
     target_taxon_concept.lock_classifications
-    if hierarchy_entry_ids.sort == deep_published_hierarchy_entries.map {|he| he.id}.sort
+    if all_published_entries?(hierarchy_entry_ids)
       CodeBridge.merge_taxa(id, target_taxon_concept.id)
     else
       hierarchy_entry_ids.each do |he_id|
         CodeBridge.move_entry(:from_taxon_concept_id => id, :to_taxon_concept_id => target_taxon_concept.id,
-                              :hierarchy_entry_id => he_id, :exemplar_id => exemplar_id)
+                              :hierarchy_entry_id => he_id, :exemplar_id => options[:exemplar_id],
+                              :reindex => he_id == hierarchy_entry_ids.last)
       end
     end
   end
 
+  def all_published_entries?(hierarchy_entry_ids)
+    hierarchy_entry_ids.map {|he| he.is_a? HierarchyEntry ? he.id : he }.sort == deep_published_hierarchy_entries.map {|he| he.id}.sort
+  end
+
   def providers_match_on_merge(hierarchy_entry_ids)
-    HierarchyEntry.find(hierarchy_entry_ids, :select => 'id, hierarchy_id, hierarchies.complete',
-                        :join => 'hierarchy').each do |he|
+    HierarchyEntry.find(hierarchy_entry_ids, :select => 'hierarchy_entries.id, hierarchy_id, hierarchies.complete',
+                        :joins => 'INNER JOIN hierarchies ON ' +
+                                  '(hierarchy_entries.hierarchy_id = hierarchies.id)').each do |he|
       break unless he.hierarchy.complete?
       hierarchy_entries.each do |my_he| # NOTE this is selecting the HEs ALREADY on this TC!
         # NOTE - error needs ENTRY id, not hierarchy id:
-        return my_he.id if my_he.hierarchy_id == hierarchy_id && my_he.hierarchy.complete?
+        return my_he.id if my_he.hierarchy_id == he.hierarchy_id && my_he.hierarchy.complete?
       end
     end
     return false

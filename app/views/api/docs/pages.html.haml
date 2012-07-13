@@ -99,9 +99,7 @@
             %td
               all
             %td
-              =I18n.t("a_pipe_delimited_list_of_licenses")
-              = link_to I18n.t("creative_commons"), "http://creativecommons.org/licenses/", :rel => :nofollow
-              =I18n.t("more_information_on_the_various_licenses")
+              =I18n.t("a_pipe_delimited_list_of_licenses", :creative_commons_link => link_to(I18n.t("creative_commons"), "http://creativecommons.org/licenses/", :rel => :nofollow))
           %tr
             %td
               details

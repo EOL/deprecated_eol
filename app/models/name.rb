@@ -32,8 +32,10 @@ class Name < ActiveRecord::Base
     return taxon_concept_names.collect {|tc_name| tc_name.taxon_concept}.flatten
   end
 
+  # TODO - deprecated.
   def canonical
-    return canonical_form.nil? ? 'not assigned' : canonical_form.string
+    logger.warn "** DEPRECATED: Name#canonical.  Use HierarchyEntry#title_canonical where possible."
+    return canonical_form.nil? ? string : canonical_form.string
   end
 
   def italicized_canonical

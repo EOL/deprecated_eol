@@ -42,6 +42,7 @@ class Activity < LazyLoggingModel
     Activity.find_or_create('untrust_common_name')
     Activity.find_or_create('inappropriate_common_name')
     Activity.find_or_create('unreview_common_name')
+    Activity.find_or_create('unlock') # ...when a backgrounded process finishes.
     # Collection:
     Activity.find_or_create('add_editor')
     Activity.find_or_create('bulk_add')

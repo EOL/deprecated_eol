@@ -51,9 +51,9 @@ class CollectionItem < ActiveRecord::Base
     return collection.community
   end
 
-  def index_collection_item_in_solr
+  def index_collection_item_in_solr(options={})
     return unless $INDEX_RECORDS_IN_SOLR_ON_SAVE
-    remove_collection_item_from_solr
+    remove_collection_item_from_solr(options)
     # If there is no collection associated with this collection item, it is meant for historical indexing only, and
     # there is no need to index this in solr.  ...In fact, it had better not be indexed!
     if collection_id
@@ -64,7 +64,7 @@ class CollectionItem < ActiveRecord::Base
         return nil
       end
       solr_connection.create(solr_index_hash)
-      SolrLog.log_transaction($SOLR_COLLECTION_ITEMS_CORE, self.id, 'CollectionItem', 'update')
+      SolrLog.log_transaction(options.merge(:core => $SOLR_COLLECTION_ITEMS_CORE, :object_id => self.id, :object_type => 'CollectionItem', :action => 'update'))
     end
   end
 
@@ -111,7 +111,7 @@ class CollectionItem < ActiveRecord::Base
     return params
   end
 
-  def remove_collection_item_from_solr
+  def remove_collection_item_from_solr(options={})
     return unless $INDEX_RECORDS_IN_SOLR_ON_SAVE
     begin
       solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_COLLECTION_ITEMS_CORE)
@@ -120,7 +120,7 @@ class CollectionItem < ActiveRecord::Base
       return nil
     end
     solr_connection.delete_by_query("collection_item_id:#{self.id}")
-    SolrLog.log_transaction($SOLR_COLLECTION_ITEMS_CORE, self.id, 'CollectionItem', 'delete')
+    SolrLog.log_transaction(options.merge(:core => $SOLR_COLLECTION_ITEMS_CORE, :object_id => self.id, :object_type => 'CollectionItem', :action => 'delete'))
   end
 
   # This is somewhat expensive (can take a second to run), so use sparringly.

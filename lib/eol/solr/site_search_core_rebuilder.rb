@@ -69,7 +69,7 @@ module EOL
         communities = Community.find(:all, :conditions => "id BETWEEN #{start} AND #{max}", :select => 'id, name, description, created_at, updated_at, published')
         communities.each do |c|
           objects_to_send += c.keywords_to_send_to_solr_index
-          SolrLog.log_transaction($SOLR_SITE_SEARCH_CORE, c.id, 'Community', 'update')
+          SolrLog.log_transaction(:core => $SOLR_SITE_SEARCH_CORE, :object_id => c.id, :object_type => 'Community', :action => 'update')
         end
         objects_to_send
       end
@@ -81,7 +81,7 @@ module EOL
         collections = Collection.find(:all, :conditions => "id BETWEEN #{start} AND #{max}", :select => 'id, name, description, created_at, updated_at, special_collection_id, published')
         collections.each do |c|
           objects_to_send += c.keywords_to_send_to_solr_index
-          SolrLog.log_transaction($SOLR_SITE_SEARCH_CORE, c.id, 'Collection', 'update')
+          SolrLog.log_transaction(:core => $SOLR_SITE_SEARCH_CORE, :object_id => c.id, :object_type => 'Collection', :action => 'update')
         end
         objects_to_send
       end
@@ -93,7 +93,7 @@ module EOL
         data_objects = DataObject.find(:all, :conditions => "id BETWEEN #{start} AND #{max} AND published=1", :select => 'id, object_title, description, data_type_id, created_at, updated_at')
         data_objects.each do |d|
           objects_to_send += d.keywords_to_send_to_solr_index
-          SolrLog.log_transaction($SOLR_SITE_SEARCH_CORE, d.id, 'DataObject', 'update')
+          SolrLog.log_transaction(:core => $SOLR_SITE_SEARCH_CORE, :object_id => d.id, :object_type => 'DataObject', :action => 'update')
         end
         objects_to_send
       end
@@ -104,7 +104,7 @@ module EOL
         users = User.find(:all, :conditions => "id BETWEEN #{start} AND #{max} AND active=1", :select => 'id, username, given_name, family_name, curator_level_id, created_at, updated_at, active, hidden')
         users.each do |u|
           objects_to_send += u.keywords_to_send_to_solr_index
-          SolrLog.log_transaction($SOLR_SITE_SEARCH_CORE, u.id, 'User', 'update')
+          SolrLog.log_transaction(:core => $SOLR_SITE_SEARCH_CORE, :object_id => u.id, :object_type => 'User', :action => 'update')
         end
         objects_to_send
       end
@@ -115,7 +115,7 @@ module EOL
         content_pages = ContentPage.find(:all, :conditions => "id BETWEEN #{start} AND #{max} AND active=1")
         content_pages.each do |cp|
           objects_to_send += cp.keywords_to_send_to_solr_index
-          SolrLog.log_transaction($SOLR_SITE_SEARCH_CORE, cp.id, 'ContentPage', 'update')
+          SolrLog.log_transaction(:core => $SOLR_SITE_SEARCH_CORE, :object_id => cp.id, :object_type => 'ContentPage', :action => 'update')
         end
         objects_to_send
       end
@@ -147,7 +147,7 @@ module EOL
             :taxon_concepts_flattened => '*', :hierarchy_entries => [ :published, :visibility_id ] })
         taxon_concepts.each do |t|
           objects_to_send += t.keywords_to_send_to_solr_index
-          SolrLog.log_transaction($SOLR_SITE_SEARCH_CORE, t.id, 'TaxonConcept', 'update')
+          SolrLog.log_transaction(:core => $SOLR_SITE_SEARCH_CORE, :object_id => t.id, :object_type => 'TaxonConcept', :action => 'update')
         end
         objects_to_send
       end

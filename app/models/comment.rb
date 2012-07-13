@@ -179,10 +179,12 @@ class Comment < ActiveRecord::Base
     log_activity_in_solr
   end
 
-  def hide(by)
-    self.vetted_by = by if by
-    self.update_attributes(:visible_at => nil)
-
+  def hide(by, options={})
+    unless options[:solr_log]
+      self.vetted_by = by if by
+      self.update_attributes(:visible_at => nil)
+    end
+    
     # remove comment from solr
     begin
       solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_ACTIVITY_LOGS_CORE)
@@ -191,7 +193,7 @@ class Comment < ActiveRecord::Base
       return nil
     end
     solr_connection.delete_by_query("activity_log_unique_key:Comment_#{id}")
-    SolrLog.log_transaction($SOLR_ACTIVITY_LOGS_CORE, id, 'Comment', 'delete')
+    SolrLog.log_transaction(options.merge(:core => $SOLR_ACTIVITY_LOGS_CORE, :object_id => id, :object_type => 'Comment', :action => 'delete'))
   end
 
   # aliases to satisfy curation
@@ -214,7 +216,7 @@ class Comment < ActiveRecord::Base
     return return_t_c
   end
 
-  def log_activity_in_solr
+  def log_activity_in_solr(options={})
     return if $SKIP_CREATING_ACTIVITY_LOGS_FOR_COMMENTS
     base_index_hash = {
       'activity_log_unique_key' => "Comment_#{id}",
@@ -226,7 +228,7 @@ class Comment < ActiveRecord::Base
       'user_id' => self.user_id,
       'date_created' => self.created_at.solr_timestamp }
     EOL::Solr::ActivityLog.index_notifications(base_index_hash, notification_recipient_objects)
-    SolrLog.log_transaction($SOLR_ACTIVITY_LOGS_CORE, self.id, 'Comment', 'update')
+    SolrLog.log_transaction(options.merge(:core => $SOLR_ACTIVITY_LOGS_CORE, :object_id => self.id, :object_type => 'Comment', :action => 'update'))
   end
 
   def queue_notifications

@@ -96,7 +96,7 @@ class SolrAPI
   
   def delete_all_documents
     post_xml('update', '<delete><query>*:*</query></delete>')
-    SolrLog.log_transaction(@core, nil, nil, 'delete_all')
+    SolrLog.log_transaction(:core => @core, :action => 'delete_all')
     commit
     optimize
   end

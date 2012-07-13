@@ -65,7 +65,7 @@ module EOL
           begin
             hash = i.solr_index_hash
             objects_to_send << hash
-            SolrLog.log_transaction($SOLR_COLLECTION_ITEMS_CORE, i.id, 'CollectionItem', 'update')
+            SolrLog.log_transaction(:core => $SOLR_COLLECTION_ITEMS_CORE, :object_id => i.id, :object_type => 'CollectionItem', :action => 'update')
           rescue EOL::Exceptions::InvalidCollectionItemType => e
             logger.error "** EOL::Solr::CollectionItemsCoreRebuilder: #{e.message}"
             puts "** #{e.message}"

@@ -12,7 +12,7 @@ class CollectionActivityLog < LoggingModel
 
   alias :link_to :collection # Needed for rendering links; we need to know which association to make the link to
 
-  def log_activity_in_solr
+  def log_activity_in_solr(options={})
     if self.collection_item && self.collection_item.collection
       return if self.collection_item.collection.watch_collection?
     end
@@ -25,7 +25,7 @@ class CollectionActivityLog < LoggingModel
       'user_id' => self.user_id,
       'date_created' => self.created_at.solr_timestamp }
     EOL::Solr::ActivityLog.index_notifications(base_index_hash, notification_recipient_objects)
-    SolrLog.log_transaction($SOLR_ACTIVITY_LOGS_CORE, self.id, 'CollectionActivityLog', 'update')
+    SolrLog.log_transaction(options.merge(:core => $SOLR_ACTIVITY_LOGS_CORE, :object_id => self.id, :object_type => 'CollectionActivityLog', :action => 'update'))
   end
   
   def queue_notifications

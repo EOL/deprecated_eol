@@ -11,7 +11,8 @@ module ActiveRecord
         options[:keywords] ||= []
         options[:full_text] ||= []
 
-        define_method(:remove_from_index) do
+        define_method(:remove_from_index) do |*args|
+          method_options = args[0] || {}
           return unless $INDEX_RECORDS_IN_SOLR_ON_SAVE
           begin
             solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_SITE_SEARCH_CORE)
@@ -20,12 +21,13 @@ module ActiveRecord
             return nil
           end
           solr_connection.delete_by_query("resource_type:#{self.class.to_s} AND resource_id:#{self.id}")
-          SolrLog.log_transaction($SOLR_SITE_SEARCH_CORE, self.id, self.class.class_name, 'delete')
+          SolrLog.log_transaction(method_options.merge(:core => $SOLR_SITE_SEARCH_CORE, :object_id => self.id, :object_type => self.class.class_name, :action => 'delete'))
         end
 
-        define_method(:add_to_index) do
+        define_method(:add_to_index) do |*args|
+          method_options = args[0] || {}
           return unless $INDEX_RECORDS_IN_SOLR_ON_SAVE
-          remove_from_index
+          remove_from_index(method_options)
           begin
             solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_SITE_SEARCH_CORE)
           rescue Errno::ECONNREFUSED => e
@@ -36,7 +38,7 @@ module ActiveRecord
           self.keywords_to_send_to_solr_index.each do |params|
             solr_connection.create(params)
           end
-          SolrLog.log_transaction($SOLR_SITE_SEARCH_CORE, self.id, self.class.class_name, 'update')
+          SolrLog.log_transaction(method_options.merge(:core => $SOLR_SITE_SEARCH_CORE, :object_id => self.id, :object_type => self.class.class_name, :action => 'update'))
         end
 
         define_method(:keywords_to_send_to_solr_index) do

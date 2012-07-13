@@ -44,7 +44,7 @@ module EOL
         data_objects.each do |d|
           hash = self.solr_schema_data_hash(d)
           objects_to_send << hash
-          SolrLog.log_transaction($SOLR_DATA_OBJECTS_CORE, d.id, 'DataObject', 'update')
+          SolrLog.log_transaction(:core => $SOLR_DATA_OBJECTS_CORE, :object_id => d.id, :object_type => 'DataObject', :action => 'update')
         end
         objects_to_send
       end
@@ -61,22 +61,22 @@ module EOL
             { :data_type => :translations } ])
       end
       
-      def self.reindex_single_object(data_object)
+      def self.reindex_single_object(data_object, options={})
         begin
           solr_connection = self.connect
           solr_connection.delete_by_id(data_object.id)
           solr_connection.create(solr_schema_data_hash(data_object))
-          SolrLog.log_transaction($SOLR_DATA_OBJECTS_CORE, data_object.id, 'DataObject', 'update')
+          SolrLog.log_transaction(options.merge(:core => $SOLR_DATA_OBJECTS_CORE, :object_id => data_object.id, :object_type => 'DataObject', :action => 'update'))
           return true
         rescue
         end
         return false
       end
       
-      def self.delete_single_object(data_object_id)
+      def self.delete_single_object(data_object_id, options={})
         solr_connection = self.connect
         solr_connection.delete_by_id(data_object_id)
-        SolrLog.log_transaction($SOLR_DATA_OBJECTS_CORE, data_object_id, 'DataObject', 'delete')
+        SolrLog.log_transaction(options.merge(:core => $SOLR_DATA_OBJECTS_CORE, :object_id => data_object_id, :object_type => 'DataObject', :action => 'delete'))
       end
       
       def self.solr_schema_data_hash(data_object)

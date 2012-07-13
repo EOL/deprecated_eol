@@ -1062,7 +1062,10 @@ class DataObject < ActiveRecord::Base
 
   end
 
-  def log_activity_in_solr(options)
+  def log_activity_in_solr(options={})
+    options[:keyword] = 'create'
+    options[:user] = self.users_data_object.user
+    options[:taxon_concept] = self.users_data_object.taxon_concept
     base_index_hash = {
       'activity_log_unique_key' => "UsersDataObject_#{id}",
       'activity_log_type' => 'UsersDataObject',
@@ -1071,8 +1074,10 @@ class DataObject < ActiveRecord::Base
       'date_created' => self.updated_at.solr_timestamp || self.created_at.solr_timestamp }
     base_index_hash[:user_id] = options[:user].id if options[:user]
     EOL::Solr::ActivityLog.index_notifications(base_index_hash, notification_recipient_objects(options))
-    SolrLog.log_transaction($SOLR_ACTIVITY_LOGS_CORE, id, 'DataObject', 'update')
-    queue_notifications
+    SolrLog.log_transaction(options.merge(:core => $SOLR_ACTIVITY_LOGS_CORE, :object_id => id, :object_type => 'DataObject', :action => 'update'))
+    unless options[:solr_log]
+      queue_notifications
+    end
   end
 
   def queue_notifications

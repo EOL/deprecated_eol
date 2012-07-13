@@ -134,7 +134,7 @@ class CuratorActivityLog < LoggingModel
     TaxonConcept.find(users_data_object.taxon_concept_id)
   end
 
-  def log_activity_in_solr
+  def log_activity_in_solr(options={})
     curation_activities = [ Activity.trusted.id, Activity.untrusted.id, Activity.unreviewed.id,
       Activity.show.id, Activity.hide.id ]
     loggable_activities = {
@@ -165,7 +165,7 @@ class CuratorActivityLog < LoggingModel
       'user_id' => self.user_id,
       'date_created' => self.created_at.solr_timestamp }
     EOL::Solr::ActivityLog.index_notifications(base_index_hash, notification_recipient_objects)
-    SolrLog.log_transaction($SOLR_ACTIVITY_LOGS_CORE, self.id, 'CuratorActivityLog', 'update')
+    SolrLog.log_transaction(options.merge(:core => $SOLR_ACTIVITY_LOGS_CORE, :object_id => self.id, :object_type => 'CuratorActivityLog', :action => 'update'))
   end
 
   def queue_notifications

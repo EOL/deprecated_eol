@@ -703,7 +703,7 @@ private
     end
   end
 
-  def destroy_comments
+  def destroy_comments(options={})
     # remove comments from solr first
     begin
       solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_ACTIVITY_LOGS_CORE)
@@ -712,12 +712,14 @@ private
       return nil
     end
     solr_connection.delete_by_query("user_id:#{self.id}")
-    SolrLog.log_transaction($SOLR_ACTIVITY_LOGS_CORE, self.id, 'User', 'delete')
-
-    # remove comments from database
-    comments = Comment.find_all_by_user_id(self.id)
-    comments.each do |comment|
-      comment.destroy
+    SolrLog.log_transaction(options.merge(:core => $SOLR_ACTIVITY_LOGS_CORE, :object_id => self.id, :object_type => 'User', :action => 'delete'))
+    
+    unless options[:solr_log]
+      # remove comments from database
+      comments = Comment.find_all_by_user_id(self.id)
+      comments.each do |comment|
+        comment.destroy
+      end
     end
   end
 

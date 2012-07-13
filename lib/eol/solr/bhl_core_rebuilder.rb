@@ -18,11 +18,11 @@ module EOL
         @solr_api.delete_all_documents
       end
 
-      def begin_rebuild(optimize = true)
-        delete_all        
+      def begin_rebuild(optimize = true, options={})
+        delete_all
         lookup_and_cache_publication_titles
         start_to_index_bhl
-        SolrLog.log_transaction($SOLR_BHL_CORE, nil, nil, 'rebuild')
+        SolrLog.log_transaction(options.merge(:core => $SOLR_BHL_CORE, :action => 'rebuild'))
         @solr_api.optimize if optimize
       end
 

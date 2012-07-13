@@ -55,7 +55,7 @@ class DataObjectsController < ApplicationController
       )
       CollectionActivityLog.create(:collection => current_user.watch_collection, :user => current_user,
                                    :activity => Activity.collect, :collection_item => collection_item)
-      @data_object.log_activity_in_solr(:keyword => 'create', :user => current_user, :taxon_concept => @taxon_concept)
+      @data_object.log_activity_in_solr
 
       # Will try to redirect to the appropriate tab/section after adding text
       subchapter = @data_object.toc_items.first.label.downcase

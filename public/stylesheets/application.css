@@ -3043,19 +3043,6 @@ ul.content_partner_contacts li {
     #media_list ul.media > li p.flag.unreviewed {
       border: 1px solid #677682;
       background: #8695a1; }
-  #media_list ul.media > li .balloon {
-    font-weight: normal;
-    overflow: hidden;
-    position: absolute;
-    z-index: 4;
-    margin: 15px 0;
-    padding: 3px;
-    width: 155px;
-    background-color: #394651;
-    background: rgba(57, 70, 81, 0.9);
-    color: white; }
-    #media_list ul.media > li .balloon a {
-      color: white; }
   #media_list ul.media > li a.button {
     clear: both;
     display: inline-block;

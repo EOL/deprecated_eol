@@ -270,12 +270,6 @@ class DataObject < ActiveRecord::Base
     return obj[0]
   end
 
-  def self.image_cache_path(cache_url, size = '580_360', specified_content_host = nil)
-    return if cache_url.blank? || cache_url == 0
-    size = size ? "_" + size.to_s : ''
-    ContentServer.cache_path(cache_url, specified_content_host) + "#{size}.#{$SPECIES_IMAGE_FORMAT}"
-  end
-
   def self.load_for_title_only(find_these)
     DataObject.find(find_these, :select => 'id, object_title', :include => [:toc_items, :data_type])
   end
@@ -570,11 +564,11 @@ class DataObject < ActiveRecord::Base
     ((is_video? || is_sound?) && thumbnail_cache_url?) || (is_image? && object_cache_url?)
   end
 
-  def thumb_or_object(size = '580_360', specified_content_host = nil)
+  def thumb_or_object(size = '580_360', options = {})
     if self.is_video? || self.is_sound?
-      return DataObject.image_cache_path(thumbnail_cache_url, size, specified_content_host)
+      return ContentServer.image_cache_path(thumbnail_cache_url, size, options)
     elsif has_object_cache_url?
-      return DataObject.image_cache_path(object_cache_url, size, specified_content_host)
+      return ContentServer.image_cache_path(object_cache_url, size, options)
     else
       return '#' # Really, this is an error, but we want to handle it pseudo-gracefully.
     end

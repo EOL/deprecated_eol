@@ -1,7 +1,7 @@
 - unless object_hash.blank?
   - if object_hash['data_type'] == 'http://purl.org/dc/dcmitype/StillImage'
     %p{:align => "center"}
-      %img{:src => DataObject.image_cache_path(object_hash["object_cache_url"], :large), :width => '300px'}
+      %img{:src => ContentServer.image_cache_path(object_hash["object_cache_url"], :large), :width => '300px'}
   - elsif object_hash['data_type'] == 'http://purl.org/dc/dcmitype/Text'
     %hr
     %p

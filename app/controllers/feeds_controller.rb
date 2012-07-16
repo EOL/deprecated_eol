@@ -194,7 +194,7 @@ private
     end
 
     if curator_activity_log.data_object.is_image?
-      content = "<img src='#{DataObject.image_cache_path(curator_activity_log.data_object.object_cache_url, 'small')}'/><br/>" + content
+      content = "<img src='#{ContentServer.image_cache_path(curator_activity_log.data_object.object_cache_url, 'small')}'/><br/>" + content
     end
 
     # Will insert a link to a Wikipedia article

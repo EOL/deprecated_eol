@@ -72,6 +72,7 @@ module EOL
       build_hierarchy_entry_relation
       build_type_specific_relations
       build_harvest_event_relation
+      build_media_download_status
       build_agent_relation
       add_comments
     end
@@ -90,6 +91,10 @@ module EOL
 
     def build_harvest_event_relation
       DataObjectsHarvestEvent.gen(:harvest_event => find_event, :data_object => @dato)
+    end
+
+    def build_media_download_status
+      MediaDownloadStatus.gen(:target_row_type => 'DataObject', :target_row_id => @dato.id, :peer_site_id => PEER_SITE_ID, :status_id => Status.download_succeeded.id)
     end
 
     def add_comments

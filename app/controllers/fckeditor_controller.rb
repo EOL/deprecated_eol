@@ -17,7 +17,7 @@ class FckeditorController < ActionController::Base
       load_file_from_params
       log @new_file
       if mime_types_ok(@ftype) && new_file_path = copy_tmp_file(@new_file)
-        final_file_path = DataObject.image_cache_path(new_file_path, :orig)
+        final_file_path = ContentServer.image_cache_path(new_file_path, :orig)
       else
         raise 'couldnt upload file'
       end

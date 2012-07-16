@@ -90,14 +90,14 @@ module ApiHelper
     return_hash['description']            = data_object.description unless data_object.description.blank?
     return_hash['mediaURL']               = data_object.object_url unless data_object.object_url.blank?
     if data_object.is_image?
-      return_hash['eolMediaURL']          = DataObject.image_cache_path(data_object.object_cache_url, :orig, $SINGLE_DOMAIN_CONTENT_SERVER) unless data_object.object_cache_url.blank?
-      return_hash['eolThumbnailURL']      = DataObject.image_cache_path(data_object.object_cache_url, '98_68', $SINGLE_DOMAIN_CONTENT_SERVER) unless data_object.object_cache_url.blank?
+      return_hash['eolMediaURL']          = ContentServer.image_cache_path(data_object.object_cache_url, :orig, :host => $SINGLE_DOMAIN_CONTENT_SERVER) unless data_object.object_cache_url.blank?
+      return_hash['eolThumbnailURL']      = ContentServer.image_cache_path(data_object.object_cache_url, '98_68', :host => $SINGLE_DOMAIN_CONTENT_SERVER) unless data_object.object_cache_url.blank?
     elsif data_object.is_video?
       return_hash['eolMediaURL']          = data_object.video_url unless data_object.video_url.blank? || data_object.video_url == data_object.object_url
-      return_hash['eolThumbnailURL']      = DataObject.image_cache_path(data_object.thumbnail_cache_url, '260_190', $SINGLE_DOMAIN_CONTENT_SERVER) unless data_object.thumbnail_cache_url.blank?
+      return_hash['eolThumbnailURL']      = ContentServer.image_cache_path(data_object.thumbnail_cache_url, '260_190', :host => $SINGLE_DOMAIN_CONTENT_SERVER) unless data_object.thumbnail_cache_url.blank?
     elsif data_object.is_sound?
       return_hash['eolMediaURL']          = data_object.sound_url unless data_object.sound_url.blank? || data_object.sound_url == data_object.object_url
-      return_hash['eolThumbnailURL']      = DataObject.image_cache_path(data_object.thumbnail_cache_url, '260_190', $SINGLE_DOMAIN_CONTENT_SERVER) unless data_object.thumbnail_cache_url.blank?
+      return_hash['eolThumbnailURL']      = ContentServer.image_cache_path(data_object.thumbnail_cache_url, '260_190', :host => $SINGLE_DOMAIN_CONTENT_SERVER) unless data_object.thumbnail_cache_url.blank?
     end
     
     

@@ -36,7 +36,7 @@ module EOL
             :licenses => '*' },
           :conditions => base_conditions + " AND id BETWEEN #{start} AND #{start + iteration_size - 1}", :include => :license)
         data_objects.each do |data_object|
-          image_metadata = { :loc => DataObject.image_cache_path(data_object.object_cache_url, '580_360', $SINGLE_DOMAIN_CONTENT_SERVER) }
+          image_metadata = { :loc => ContentServer.image_cache_path(data_object.object_cache_url, '580_360', :host => $SINGLE_DOMAIN_CONTENT_SERVER) }
           image_metadata[:title] = data_object.object_title unless data_object.object_title.blank?
           image_metadata[:caption] = data_object.description unless data_object.description.blank?
           image_metadata[:geo_location] = data_object.location unless data_object.location.blank?

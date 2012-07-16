@@ -49,7 +49,7 @@
             = dato.visibility.label
           %td{ :class => row_class + ' description' }
             - unless dato.object_cache_url.blank?
-              - url = DataObject.image_cache_path(dato.object_cache_url, :small)
+              - url = ContentServer.image_cache_path(dato.object_cache_url, :small)
               - img = '<img src="' + url + '">'
               = link_to img, { :controller => '/data_objects', :action => :show, :id => ah[:object_id] }
             = dato[:_description_teaser]

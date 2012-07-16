@@ -2,6 +2,7 @@ class Collection < ActiveRecord::Base
 
   include EOL::ActivityLoggable
   include EOL::PeerSites
+  include EOL::LogoCache
 
   belongs_to :user # This is the OWNER.  Use #users rather than #user... this basically only gets set once.
   belongs_to :sort_style
@@ -142,16 +143,6 @@ class Collection < ActiveRecord::Base
     end
     set_relevance # This is actually safe, because we don't use #add in bulk.
     what # Convenience.  Allows us to chain this command and continue using the object passed in.
-  end
-
-  def logo_url(size = 'large', specified_content_host = nil)
-    if logo_cache_url.blank?
-      return "v2/logos/collection_default.png"
-    elsif size.to_s == 'small'
-      DataObject.image_cache_path(logo_cache_url, '88_88', specified_content_host)
-    else
-      DataObject.image_cache_path(logo_cache_url, '130_130', specified_content_host)
-    end
   end
 
   def taxa

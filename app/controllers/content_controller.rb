@@ -76,8 +76,8 @@ class ContentController < ApplicationController
           :link => data_object_url(data_object.id),
           :permalink => data_object_url(data_object.id),
           :guid => data_object.guid,
-          :thumbnail => DataObject.image_cache_path(data_object.object_cache_url, '98_68'),
-          :image => DataObject.image_cache_path(data_object.object_cache_url, :orig),
+          :thumbnail => ContentServer.image_cache_path(data_object.object_cache_url, '98_68'),
+          :image => ContentServer.image_cache_path(data_object.object_cache_url, :orig),
         }
       end
       @items

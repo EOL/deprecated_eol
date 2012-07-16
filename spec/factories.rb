@@ -733,6 +733,14 @@ Factory.define :license do |l|
   l.show_to_content_partners true
 end
 
+Factory.define :media_download_status do |m|
+  m.association     :target_row, :factory => :data_object
+  m.target_row_type 'data_object'
+  m.peer_site_id    { PEER_SITE_ID }
+  m.status          { Status.download_succeeded }
+  m.last_attempted  { 24.hours.ago }
+end
+
 Factory.define :member do |m|
   m.association   :user
   m.association   :community
@@ -765,6 +773,11 @@ end
 
 Factory.define :changeable_object_type do |ot|
   ot.ch_object_type { Factory.next(:string) }
+end
+
+Factory.define :peer_site do |p|
+  p.label                     { Factory.next(:string) }
+  p.content_host_url_prefix   { $CONTENT_SERVERS[0] }
 end
 
 Factory.define :page_name do |pn|

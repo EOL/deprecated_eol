@@ -32,12 +32,31 @@ class ContentServer
     end
 
   end
-
-  def self.cache_path(cache_url, specified_content_host = nil)
-    if specified_content_host
-      (specified_content_host + $CONTENT_SERVER_CONTENT_PATH + self.cache_url_to_path(cache_url))
+  
+  def self.image_cache_path(cache_url, size = '580_360', options = {})
+    return if cache_url.blank? || cache_url == 0
+    size = size ? "_" + size.to_s : ''
+    self.cache_path(cache_url, options) + "#{size}.#{$SPECIES_IMAGE_FORMAT}"
+  end
+  
+  def self.cache_path(cache_url, options = {})
+    # In a Peer-Peer setup, its possible the item was downloaded at a peer but
+    # does not exist locally yet. This block should find out the best host for the object
+    # and use their content host prefix
+    if options[:source_object]
+      if !options[:source_object].media_exists_on_this_peer?
+        if host = options[:source_object].media_host
+          return (host + $CONTENT_SERVER_CONTENT_PATH + self.cache_url_to_path(cache_url))
+        else
+          return nil
+        end
+      end
+    end
+    
+    if options[:host]
+      return (options[:host] + $CONTENT_SERVER_CONTENT_PATH + self.cache_url_to_path(cache_url))
     else
-      (self.host_for(cache_url) + $CONTENT_SERVER_CONTENT_PATH + self.cache_url_to_path(cache_url))
+      return (self.host_for(cache_url) + $CONTENT_SERVER_CONTENT_PATH + self.cache_url_to_path(cache_url))
     end
   end
 

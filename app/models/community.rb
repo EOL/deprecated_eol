@@ -2,6 +2,7 @@ class Community < ActiveRecord::Base
 
   include EOL::ActivityLoggable
   include EOL::PeerSites
+  include EOL::LogoCache
 
   has_and_belongs_to_many :collections, :uniq => true
 
@@ -86,16 +87,6 @@ class Community < ActiveRecord::Base
 
   def has_member?(user)
     members.map {|m| m.user_id}.include?(user.id)
-  end
-
-  def logo_url(size = 'large', specified_content_host = nil)
-    if logo_cache_url.blank?
-      return "v2/logos/community_default.png"
-    elsif size.to_s == 'small'
-      DataObject.image_cache_path(logo_cache_url, '88_88', specified_content_host)
-    else
-      DataObject.image_cache_path(logo_cache_url, '130_130', specified_content_host)
-    end
   end
 
   def top_active_members

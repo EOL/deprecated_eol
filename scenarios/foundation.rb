@@ -254,6 +254,7 @@ ServiceType.gen_if_not_exists(:label => 'EOL Transfer Schema')
 Status.gen_if_not_exists(:label => 'Inserted')
 Status.gen_if_not_exists(:label => 'Unchanged')
 Status.gen_if_not_exists(:label => 'Updated')
+Status.gen_if_not_exists(:label => 'Download Succeeded')
 
 UntrustReason.gen_if_not_exists(:label => 'misidentified', :class_name => 'misidentified')
 UntrustReason.gen_if_not_exists(:label => 'incorrect/misleading', :class_name => 'incorrect')
@@ -277,6 +278,8 @@ Visibility.gen_if_not_exists(:label => 'Preview')
 ContentTable.create_details
 
 NotificationFrequency.create_defaults
+
+PeerSite.gen_if_not_exists(:label => 'Self', :content_host_url_prefix => $CONTENT_SERVERS[0])
 
 # The home-page doesn't render without random taxa.  Note that other scenarios, if they build legitimate RandomTaxa,
 # will need to DELETE these before they make their own!  But for foundation's purposes, this is required:

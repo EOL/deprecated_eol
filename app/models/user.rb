@@ -9,6 +9,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
                        # Also worth noting that #full_name (and the methods that count on it) need to know about
                        # curators, so you will see references to curator methods, there. They didn't seem worth moving.
   include EOL::PeerSites
+  include EOL::LogoCache
 
   belongs_to :language
   belongs_to :agent
@@ -486,21 +487,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   def member_of(community)
     reload_if_stale
     self.members.select {|m| m.community_id == community.id}.first
-  end
-
-  # override the logo_url column in the database to contruct the path on the content server
-  def logo_url(size = 'large', specified_content_host = nil, options = {})
-    if logo_cache_url.blank?
-      if options[:mail]
-        return "http://#{Rails.configuration.action_mailer.default_url_options[:host]}/images/v2/logos/user_default.png"
-      else
-        return "v2/logos/user_default.png"
-      end
-    elsif size.to_s == 'small'
-      DataObject.image_cache_path(logo_cache_url, '88_88', specified_content_host)
-    else
-      DataObject.image_cache_path(logo_cache_url, '130_130', specified_content_host)
-    end
   end
 
   # #collections is only a list of the collections the user *owns*.  This is a list that includes the collections the

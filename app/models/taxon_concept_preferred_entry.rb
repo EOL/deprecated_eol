@@ -14,7 +14,7 @@ class TaxonConceptPreferredEntry < ActiveRecord::Base
   end
   
   def self.expire_time
-    1.week
+    8.weeks
   end
   
   def expired?

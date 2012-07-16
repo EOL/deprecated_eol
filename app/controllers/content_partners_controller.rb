@@ -107,7 +107,7 @@ protected
 
   def meta_open_graph_image_url
     @meta_open_graph_image_url ||=  @partner ?
-      view_helper_methods.image_url(@partner.logo_url('large', $SINGLE_DOMAIN_CONTENT_SERVER)) : nil
+      view_helper_methods.image_url(@partner.logo_url('large', :host => $SINGLE_DOMAIN_CONTENT_SERVER)) : nil
   end
 
 private

@@ -104,7 +104,7 @@ protected
 
   def meta_open_graph_image_url
     @meta_open_graph_image_url ||= (@taxon_concept && dato = @taxon_concept.exemplar_or_best_image_from_solr) ?
-       dato.thumb_or_object('260_190', $SINGLE_DOMAIN_CONTENT_SERVER).presence : nil
+       dato.thumb_or_object('260_190', :host => $SINGLE_DOMAIN_CONTENT_SERVER).presence : nil
   end
 
 private

@@ -1,6 +1,7 @@
 class ContentPartner < ActiveRecord::Base
 
   include EOL::PeerSites
+  include EOL::LogoCache
 
   belongs_to :user
   belongs_to :content_partner_status
@@ -146,17 +147,6 @@ class ContentPartner < ActiveRecord::Base
     current_agreements = content_partner_agreements.select{ |cpa| cpa.is_current == true }.compact.sort_by{|cpa| cpa.created_at}.reverse
     return nil if current_agreements.empty?
     current_agreements[0]
-  end
-
-  # override the logo_url column in the database to construct the path on the content server
-  def logo_url(size = 'large', specified_content_host = nil)
-    if logo_cache_url.blank?
-      return "v2/logos/partner_default.png"
-    elsif size.to_s == 'small'
-      DataObject.image_cache_path(logo_cache_url, '88_88', specified_content_host)
-    else
-      DataObject.image_cache_path(logo_cache_url, '130_130', specified_content_host)
-    end
   end
 
   def name

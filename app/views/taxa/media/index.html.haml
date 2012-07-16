@@ -60,7 +60,7 @@
                   - taxon_concept_ancestors_for_association = association.taxon_concept.ancestors.collect{|ancestor| ancestor.id}
                   - if !taxon_concept_ancestors_for_association.blank? && taxon_concept_ancestors_for_association.include?(@taxon_concept.id)
                     - associated_with_taxa_names << association.italicized_name
-              = associated_with_taxa_names.join(" | ") if associated_with_taxa_names
+              = associated_with_taxa_names.join("<br />") if associated_with_taxa_names
             = render :partial => 'shared/add_to_my_collection', :locals => { :item => item, :my_collection => @watch_collection }
       .footer
         = will_paginate @media, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next),

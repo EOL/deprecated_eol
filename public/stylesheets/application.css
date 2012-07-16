@@ -2971,8 +2971,6 @@ ul.content_partner_contacts li {
   float: left;
   width: 160px;
   padding: 0 0 30px 20px; }
-  #media_list ul.media > li:hover .figure label {
-    display: block; }
   #media_list ul.media > li .figure {
     position: relative;
     background: white;
@@ -2994,6 +2992,8 @@ ul.content_partner_contacts li {
       padding: 10px;
       font-weight: bold;
       background: transparent url("/images/v2/bg_exemplar.png") repeat; }
+    #media_list ul.media > li .figure:hover label {
+      display: block; }
   #media_list ul.media > li.no_thumbnail .figure {
     cursor: default; }
   #media_list ul.media > li.inappropriate .figure .overlay {
@@ -3043,6 +3043,19 @@ ul.content_partner_contacts li {
     #media_list ul.media > li p.flag.unreviewed {
       border: 1px solid #677682;
       background: #8695a1; }
+  #media_list ul.media > li .balloon {
+    font-weight: normal;
+    overflow: hidden;
+    position: absolute;
+    z-index: 4;
+    margin: 15px 0;
+    padding: 3px;
+    width: 155px;
+    background-color: #394651;
+    background: rgba(57, 70, 81, 0.9);
+    color: white; }
+    #media_list ul.media > li .balloon a {
+      color: white; }
   #media_list ul.media > li a.button {
     clear: both;
     display: inline-block;

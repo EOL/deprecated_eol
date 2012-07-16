@@ -62,12 +62,13 @@
           %li= link_to I18n.t(:flickr), $EOL_FLICKR_ACCOUNT, :class => "flickr", :rel => :nofollow
           %li= link_to I18n.t(:youtube), $EOL_YOUTUBE_ACCOUNT, :class => "youtube", :rel => :nofollow
         %ul
-          %li= link_to t('questions_link_biodiversity', :scope => t_scope), placeholder_path
-          %li= link_to t('questions_link_species', :scope => t_scope), placeholder_path
-          %li= link_to t('questions_link_discovering_species', :scope => t_scope), placeholder_path
-          %li= link_to t('questions_link_naming_species', :scope => t_scope), placeholder_path
-          %li= link_to t('questions_link_binomial_nomenclature', :scope => t_scope), placeholder_path
-          %li= link_to t('questions_link_biological_classification', :scope => t_scope), placeholder_path
+          %li= link_to t('questions_link_biodiversity', :scope => t_scope), cms_page_path('about_biodiversity')
+          %li= link_to t('questions_link_species', :scope => t_scope),  cms_page_path('species_concepts')
+          %li= link_to t('questions_link_discovering_species', :scope => t_scope), cms_page_path('discovering_diversity')
+          %li= link_to t('questions_link_naming_species', :scope => t_scope), cms_page_path('naming_species')
+          - # FIXME: 2 links to naming species, should either point to different pages or one linke removed? WEB-3820
+          %li= link_to t('questions_link_binomial_nomenclature', :scope => t_scope), cms_page_path('naming_species')
+          %li= link_to t('questions_link_biological_classification', :scope => t_scope), cms_page_path('taxonomy_phylogenetics')
           %li= link_to t('questions_link_invasive_species', :scope => t_scope), placeholder_path
           %li= link_to t('questions_link_indicator_species', :scope => t_scope), placeholder_path
           %li= link_to t('questions_link_model_organism', :scope => t_scope), placeholder_path

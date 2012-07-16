@@ -29,7 +29,7 @@ class CodeBridge
                                 'reindex'                      => options[:reindex] ? 'reindex' : '' })
   end
 
-  def self.merge_taxa(id1, id2, options => {})
+  def self.merge_taxa(id1, id2, options = {})
     Resque.enqueue(CodeBridge, {'cmd'       => 'merge',
                                 'id1'       => id1,
                                 'id2'       => id2,

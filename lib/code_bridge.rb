@@ -6,20 +6,28 @@ class CodeBridge
 
   # This method is called when PHP talks to Ruby!
   def self.perform(args)
+    puts "++ CodeBridge"
     if args['cmd'] == 'unlock_notify'
+      puts "unlock notification"
 
-      cal = CuratorActivityLog.create(:user_id => args['user_id'],
-                                      :changeable_object_type_id => ChangeableObjectType.taxon_concept.id, 
-                                      :object_id => args['taxon_concept_id'],
-                                      :activity_id => Activity.unlock.id,
-                                      :taxon_concept_id => args['taxon_concept_id'])
-
-      # FORCE immediate notification.  Right now:
-      PendingNotification.create(:user_id => args['user_id'],
-                                 :notification_frequency_id => NotificationFrequency.immediately.id,
-                                 :target_id => cal.id,
-                                 :target_type => 'CuratorActivityLog',
-                                 :reason => 'auto_email_after_curation')
+      begin
+        cal = CuratorActivityLog.create!(:user_id => args['user_id'],
+                                         :changeable_object_type_id => ChangeableObjectType.taxon_concept.id, 
+                                         :object_id => args['taxon_concept_id'],
+                                         :activity_id => Activity.unlock.id,
+                                         :created_at => 0.seconds.from_now,
+                                         :taxon_concept_id => args['taxon_concept_id'])
+        puts "++ Created: CuratorActivityLog.find(#{cal.id})"
+        # FORCE immediate notification.  Right now:
+        PendingNotification.create!(:user_id => args['user_id'],
+                                    :notification_frequency_id => NotificationFrequency.immediately.id,
+                                    :target_id => cal.id,
+                                    :target_type => 'CuratorActivityLog',
+                                    :reason => 'auto_email_after_curation')
+        Resque.enqueue(PrepareAndSendNotifications)
+      rescue => e
+        puts "** ERROR: #{e.message}"
+      end
 
     else
       puts "** ERROR: NO command responds to #{args['cmd']}"

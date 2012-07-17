@@ -9,7 +9,7 @@ module EOL
     
     def self.all_connections
       connections = [ActiveRecord::Base, LoggingModel]
-      connections << [LoggingWriter] if RAILS_ENV == 'production'
+      connections << [LoggingWriter] if $PRODUCTION_MODE
       connections.map {|c| c.connection}
     end
 

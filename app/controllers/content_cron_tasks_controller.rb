@@ -23,7 +23,7 @@ class ContentCronTasksController < ApplicationController
       text = render_to_string(:template => "/content_cron_tasks/flickr_comment", :locals => {:comment => c})
       if text
         all_text += "#{c.visible_at} #{c.parent.flickr_photo_id}: #{text}\n\n<br\><br\>"
-        unless params[:dont_send] || RAILS_ENV != 'production'
+        unless params[:dont_send] || RAILS_ENV != 'production' # DO NOT USE $PRODUCTION_MODE HERE.
           @flickr_api.photos_add_comment(c.parent.flickr_photo_id, text)
         end
       end
@@ -42,7 +42,7 @@ class ContentCronTasksController < ApplicationController
                               {:curator_activity_log => ah})
       if text
         all_text += "#{ah.created_at} #{ah.data_object.flickr_photo_id}: #{text}\n\n<br\><br\>"
-        unless params[:dont_send] || RAILS_ENV != 'production'
+        unless params[:dont_send] || RAILS_ENV != 'production' # DO NOT USE $PRODUCTION_MODE HERE.
           @flickr_api.photos_add_comment(ah.data_object.flickr_photo_id, text)
         end
       end

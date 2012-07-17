@@ -88,7 +88,7 @@ Rails::Initializer.run do |config|
   # As of this writing, this is used for two things:
   #   1) Avoid harmful migrations in production using #raise_error_if_in_production, and
   #   2) Log errors to NewRelic if we're in production (or on staging).
-  $PRODUCTION_MODE = ENV['RAILS_ENV'] && ['production', 'staging'].include?(ENV['RAILS_ENV'].downcase)
+  $PRODUCTION_MODE = ENV['RAILS_ENV'] && ['production', 'staging', 'sync'].include?(ENV['RAILS_ENV'].downcase)
 
   # How many images we want to show, at maximum, for a given page.  This number should be lower than the maximum
   # number of images created in the cached_images tables.  (EOL presently sets cached_image limits at 500.)

@@ -54,6 +54,8 @@
             %p.flag{:class => item_status_class}= item_status_label
             - vetted_id = item.association_with_exact_or_best_vetted_status(@taxon_concept).vetted_id
             .associations
+              = I18n.t("#{item_status_label.downcase}_for_colon")
+              %br
               - associated_with_taxa_names = []
               - item.all_associations.each do |association|
                 - if association.vetted_id == vetted_id

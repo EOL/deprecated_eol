@@ -2,6 +2,8 @@ class NewsItem < ActiveRecord::Base
 
   uses_translations
 
+  belongs_to :user, :foreign_key => 'last_update_user_id'
+
   validates_presence_of :page_name
   validates_length_of :page_name, :maximum => 255
   validates_uniqueness_of :page_name, :scope => :id

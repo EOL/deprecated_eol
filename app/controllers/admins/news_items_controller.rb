@@ -45,7 +45,7 @@ class Admins::NewsItemsController < AdminsController
                               :anchor => @news_item.page_name.gsub(' ', '_').downcase)
       redirect_to admin_news_items_path(:anchor => @news_item.page_name.gsub(' ', '_').downcase)
     else
-      flash.now[:error] = I18n.t(:admin_news_item_update_successful_notice)
+      flash.now[:error] = I18n.t(:admin_news_item_update_unsuccessful_error)
       set_news_item_edit_options
       render :edit
     end

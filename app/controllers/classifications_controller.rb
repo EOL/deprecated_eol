@@ -4,17 +4,18 @@ class ClassificationsController < ApplicationController
   def create
     @taxon_concept = TaxonConcept.find(params[:taxon_concept_id])
     @target_params = {}
-    if current_user.min_curator_level?(:master) && params[:split]
+    master = current_user.min_curator_level?(:master)
+    if master && params[:split]
       split
-    elsif current_user.min_curator_level?(:master) && params[:merge]
+    elsif master && params[:merge]
       merge
-    elsif current_user.min_curator_level?(:master) && params[:cancel_split]
+    elsif master && params[:cancel_split]
       cancel_split
-    elsif current_user.min_curator_level?(:master) && params[:add]
+    elsif master && params[:add]
       add
-    elsif current_user.min_curator_level?(:master) && which = params_to_remove
+    elsif master && which = params_to_remove
       remove(which)
-    elsif current_user.min_curator_level?(:master) && which = params_exemplar
+    elsif master && which = params_exemplar
       exemplar(params[:confirm], which)
     elsif current_user.min_curator_level?(:full) && params[:hierarchy_entry_id]
       prefer
@@ -28,7 +29,7 @@ class ClassificationsController < ApplicationController
 
 private
 
-  # They have a list of HEs they want split into a new taxon concept.
+  # They have a list of classifications they want split into a new taxon concept.
   def split
     # They may have (and often have) selected more to move...
     add_entries_to_session if params[:split_hierarchy_entry_id]
@@ -36,7 +37,7 @@ private
     @target_params[:all] = 1
   end
 
-  # They have a list of HEs they want to merge into this taxon concept.
+  # They have a list of classifications they want to merge into this taxon concept.
   def merge
     if (!params[:additional_confirm]) &&
       he_id = @taxon_concept.providers_match_on_merge(Array(HierarchyEntry.find(session[:split_hierarchy_entry_id])))
@@ -48,6 +49,7 @@ private
       @target_params[:move_to] = @taxon_concept.id
       # Just go ahead and do the merge without asking for an exemplar, if it's ALL the entries from that page:
       return exemplar('merge', nil) if taxon_concept_from_session.all_published_entries?(session[:split_hierarchy_entry_id])
+      @target_params[:confirm] = 'merge' # hard-coded string, no need to translate.
     end
     @target_params[:all] = 1
   end

@@ -37,23 +37,5 @@ module EOL
       end
     end
 
-    def media_exists_on_this_peer?
-      MediaDownloadStatus.find(:all, :conditions =>
-        { :target_row_type => self.class.name,
-          :target_row_id => self.id,
-          :status_id => Status.download_succeeded.id,
-          :peer_site_id => PEER_SITE_ID }) != []
-    end
-
-    def media_host
-      all_statuses = MediaDownloadStatus.sort_by_peer(
-        MediaDownloadStatus.find(:all, :conditions =>
-          { :target_row_type => self.class.name,
-            :target_row_id => self.id,
-            :status_id => Status.download_succeeded.id }))
-      return nil if all_statuses.blank?
-      return all_statuses.first.peer_site.content_host_url_prefix
-    end
-
   end
 end

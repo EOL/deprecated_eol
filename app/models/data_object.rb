@@ -566,9 +566,9 @@ class DataObject < ActiveRecord::Base
 
   def thumb_or_object(size = '580_360', options = {})
     if self.is_video? || self.is_sound?
-      return ContentServer.image_cache_path(thumbnail_cache_url, size, options)
+      return ContentServer.image_cache_path(thumbnail_cache_url, size, options.merge({ :source_object => self }))
     elsif has_object_cache_url?
-      return ContentServer.image_cache_path(object_cache_url, size, options)
+      return ContentServer.image_cache_path(object_cache_url, size, options.merge({ :source_object => self }))
     else
       return '#' # Really, this is an error, but we want to handle it pseudo-gracefully.
     end
@@ -596,9 +596,9 @@ class DataObject < ActiveRecord::Base
   def sound_url
     if !object_cache_url.blank? && !object_url.blank?
       filename_extension = File.extname(object_url).downcase
-      return ContentServer.cache_path(object_cache_url) + filename_extension
+      return ContentServer.cache_path(object_cache_url, { :source_object => self }) + filename_extension
     elsif mime_type.label('en') == 'audio/mpeg'
-      return has_object_cache_url? ? ContentServer.cache_path(object_cache_url) + '.mp3' : ''
+      return has_object_cache_url? ? ContentServer.cache_path(object_cache_url, { :source_object => self }) + '.mp3' : ''
     else
       return object_url
     end
@@ -607,9 +607,9 @@ class DataObject < ActiveRecord::Base
   def video_url
     if !object_cache_url.blank? && !object_url.blank?
       filename_extension = File.extname(object_url)
-      return ContentServer.cache_path(object_cache_url) + filename_extension
+      return ContentServer.cache_path(object_cache_url, { :source_object => self }) + filename_extension
     elsif data_type.label('en') == 'Flash'
-      return has_object_cache_url? ? ContentServer.cache_path(object_cache_url) + '.flv' : ''
+      return has_object_cache_url? ? ContentServer.cache_path(object_cache_url, { :source_object => self }) + '.flv' : ''
     else
       return object_url
     end

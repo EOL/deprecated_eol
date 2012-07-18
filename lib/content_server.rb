@@ -20,7 +20,6 @@ class ContentServer
     # get the remainder of ASCII %(mod) LENGTH and use it as the array index
     $CONTENT_SERVERS[ (last_ascii_value % $CONTENT_SERVERS.length)]
   end
-  
 
   def self.logo_path(url, size = nil)
     return self.blank if url.blank?
@@ -30,13 +29,14 @@ class ContentServer
     else
       "#{self.next}#{$CONTENT_SERVER_AGENT_LOGOS_PATH}#{url}#{logo_size}"
     end
-
   end
   
   def self.image_cache_path(cache_url, size = '580_360', options = {})
     return if cache_url.blank? || cache_url == 0
     size = size ? "_" + size.to_s : ''
-    self.cache_path(cache_url, options) + "#{size}.#{$SPECIES_IMAGE_FORMAT}"
+    complete_cache_path = self.cache_path(cache_url, options)
+    return '#' if complete_cache_path.blank?
+    "#{complete_cache_path}#{size}.#{$SPECIES_IMAGE_FORMAT}"
   end
   
   def self.cache_path(cache_url, options = {})
@@ -44,9 +44,9 @@ class ContentServer
     # does not exist locally yet. This block should find out the best host for the object
     # and use their content host prefix
     if options[:source_object] && RAILS_ENV != 'test'
-      if !options[:source_object].media_exists_on_this_peer?
-        if host = options[:source_object].media_host
-          return (host + $CONTENT_SERVER_CONTENT_PATH + self.cache_url_to_path(cache_url))
+      if !MediaDownloadStatus.media_exists_on_this_peer?(options[:source_object])
+        if host = MediaDownloadStatus.media_host(options[:source_object])
+          return (host + self.cache_url_to_path(cache_url))
         else
           return nil
         end

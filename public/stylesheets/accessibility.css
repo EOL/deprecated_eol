@@ -158,51 +158,64 @@ form#switch_hierarchy_entry fieldset {
   width: 320px;
   overflow: auto; }
 
-/*cms page styles */
-#content.cms_page .header {
+/*cms page, news page styles */
+#content.cms_page .header,
+#content.news_page .header {
   border-bottom: 1px solid #394651;
   text-align: center; }
-#content.cms_page table {
+#content.cms_page table,
+#content.news_page table {
   border-collapse: collapse;
   width: 100%;
   margin: 0 0 15px 0;
   line-height: 170%; }
-  #content.cms_page table thead tr {
+  #content.cms_page table thead tr,
+  #content.news_page table thead tr {
     border: 1px solid #cad3db; }
-    #content.cms_page table thead tr th {
+    #content.cms_page table thead tr th,
+    #content.news_page table thead tr th {
       background: #eff2f4;
       padding: 5px 20px;
       font-weight: bold;
       text-align: left; }
-  #content.cms_page table tbody tr {
+  #content.cms_page table tbody tr,
+  #content.news_page table tbody tr {
     border: 1px solid #cad3db; }
-    #content.cms_page table tbody tr td {
+    #content.cms_page table tbody tr td,
+    #content.news_page table tbody tr td {
       padding: 5px 20px; }
-#content.cms_page a.pdf {
+#content.cms_page a.pdf,
+#content.news_page a.pdf {
   background: url("/images/v2/icon_pdf.png") right top no-repeat;
   padding: 0 20px 3px 0; }
-#content.cms_page ul.grid {
+#content.cms_page ul.grid,
+#content.news_page ul.grid {
   margin: 0 auto 40px;
   width: 598px;
   line-height: 100%; }
-  #content.cms_page ul.grid li {
+  #content.cms_page ul.grid li,
+  #content.news_page ul.grid li {
     margin: 0;
     padding: 0;
     list-style-type: none;
     display: inline-block;
     width: 116px; }
-    #content.cms_page ul.grid li img {
+    #content.cms_page ul.grid li img,
+    #content.news_page ul.grid li img {
       max-width: 100px;
       border: none;
       padding: 0;
       margin: 8px;
       float: none; }
-  #content.cms_page ul.grid.four li {
+  #content.cms_page ul.grid.four li,
+  #content.news_page ul.grid.four li {
     width: 146px; }
-    #content.cms_page ul.grid.four li img {
+    #content.cms_page ul.grid.four li img,
+    #content.news_page ul.grid.four li img {
       margin: 10px;
       max-width: 125px; }
-#content.cms_page ul.march {
+#content.cms_page ul.march,
+#content.news_page ul.march {
   width: 100%;
   margin: 0 0 40px;
   padding: 0;
@@ -210,50 +223,68 @@ form#switch_hierarchy_entry fieldset {
   overflow: hidden;
   line-height: 100%;
   height: 98px; }
-  #content.cms_page ul.march li {
+  #content.cms_page ul.march li,
+  #content.news_page ul.march li {
     margin: 0;
     padding: 0;
     list-style-type: none;
     display: inline-block; }
-    #content.cms_page ul.march li img {
+    #content.cms_page ul.march li img,
+    #content.news_page ul.march li img {
       border: none;
       float: none;
       margin: 0;
       padding: 0;
       max-height: 98px; }
-#content.cms_page ul.with_images li {
+#content.cms_page ul.with_images li,
+#content.news_page ul.with_images li {
   overflow: hidden;
   list-style-type: none;
   clear: both;
   border-bottom: 1px solid #cad3db;
   padding: 10px; }
-  #content.cms_page ul.with_images li img {
+  #content.cms_page ul.with_images li img,
+  #content.news_page ul.with_images li img {
     max-width: 88px;
     padding: 0;
     border: none;
     float: left;
     margin: 0 0 10px 0; }
-  #content.cms_page ul.with_images li h2, #content.cms_page ul.with_images li h3, #content.cms_page ul.with_images li h4, #content.cms_page ul.with_images li h5, #content.cms_page ul.with_images li p {
+  #content.cms_page ul.with_images li h2, #content.cms_page ul.with_images li h3, #content.cms_page ul.with_images li h4, #content.cms_page ul.with_images li h5, #content.cms_page ul.with_images li p,
+  #content.news_page ul.with_images li h2,
+  #content.news_page ul.with_images li h3,
+  #content.news_page ul.with_images li h4,
+  #content.news_page ul.with_images li h5,
+  #content.news_page ul.with_images li p {
     margin-left: 110px; }
-#content.cms_page ul.object_list {
+#content.cms_page ul.object_list,
+#content.news_page ul.object_list {
   list-style_type: none; }
-  #content.cms_page ul.object_list li img {
+  #content.cms_page ul.object_list li img,
+  #content.news_page ul.object_list li img {
     max-width: 68px; }
-  #content.cms_page ul.object_list li h4 {
+  #content.cms_page ul.object_list li h4,
+  #content.news_page ul.object_list li h4 {
     margin-bottom: 0.5em; }
-    #content.cms_page ul.object_list li h4 a {
+    #content.cms_page ul.object_list li h4 a,
+    #content.news_page ul.object_list li h4 a {
       color: #195184;
       text-decoration: underline; }
-  #content.cms_page ul.object_list li p {
+  #content.cms_page ul.object_list li p,
+  #content.news_page ul.object_list li p {
     clear: none; }
-#content.cms_page dl {
+#content.cms_page dl,
+#content.news_page dl {
   line-height: 140%;
   margin: 0 0 40px 0; }
-  #content.cms_page dl dt {
+  #content.cms_page dl dt,
+  #content.news_page dl dt {
     font-weight: bold; }
-  #content.cms_page dl dd {
+  #content.cms_page dl dd,
+  #content.news_page dl dd {
     margin: 0 0 5px 20px; }
-#content.cms_page code {
+#content.cms_page code,
+#content.news_page code {
   clear: both;
   display: block;
   font-family: "courier new", courier, monospace;
@@ -265,15 +296,20 @@ form#switch_hierarchy_entry fieldset {
   padding: 10px;
   white-space: pre;
   overflow-x: auto; }
-#content.cms_page #api_doc p {
+#content.cms_page #api_doc p,
+#content.news_page #api_doc p {
   margin-left: 40px; }
-#content.cms_page #api_doc table {
+#content.cms_page #api_doc table,
+#content.news_page #api_doc table {
   margin-bottom: 40px; }
-  #content.cms_page #api_doc table col.name {
+  #content.cms_page #api_doc table col.name,
+  #content.news_page #api_doc table col.name {
     font-weight: bold; }
-  #content.cms_page #api_doc table col.notes {
+  #content.cms_page #api_doc table col.notes,
+  #content.news_page #api_doc table col.notes {
     width: 25%; }
-#content.cms_page #sidebar dl {
+#content.cms_page #sidebar dl,
+#content.news_page #sidebar dl {
   margin-bottom: 10px; }
 
 .donate label.other {

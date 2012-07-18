@@ -11,7 +11,7 @@ class NewsItem < ActiveRecord::Base
   before_destroy :destroy_translations # TODO: can we have :dependent => :destroy on translations rather than this custom callback?
 
   def can_be_read_by?(user_wanting_access)
-    user_wanting_access.is_admin? || active?
+    user_wanting_access.is_admin? || visible?
   end
 
   def can_be_created_by?(user_wanting_access)
@@ -27,7 +27,7 @@ class NewsItem < ActiveRecord::Base
   end
 
   def visible?
-    self.activated_on <= Time.now && self.active
+    self.activated_on <= DateTime.now.utc && self.active
   end
 
   def not_available_in_languages(force_exist_language)

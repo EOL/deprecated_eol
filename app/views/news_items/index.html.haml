@@ -2,6 +2,6 @@
   = render :partial => 'shared/social_sharing'
 #content
   .site_column
-    #recent_activities.main_container
+    .main_container
       .article.list.updates
         = render :partial => 'news_items/index', :locals => {:translated_news_items => @translated_news_items}

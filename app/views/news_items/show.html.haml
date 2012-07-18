@@ -1,8 +1,18 @@
 - content_for :social_sharing do
   = render :partial => 'shared/social_sharing'
-#content
+#content.news_page
   .site_column
-    #recent_activities.main_container
-      .article.list.updates
-        %p.meta= I18n.l(@translated_news_item.news_item.display_date, :format => :long)
-        %p= @translated_news_item.body
+    - if @translated_news_item.nil?
+      .article.copy
+        %p= I18n.t(:news_missing_content_message, :selected_language => "#{@selected_language.source_form} #{@selected_language.iso_code.upcase}")
+        - unless @translated_news_items.nil?
+          = I18n.t(:news_available_in_languages)
+          %ul
+            - for translated_news_item in @translated_news_items
+              %li
+                = link_to translated_news_item.language.source_form, news_path(@page_id, :language => translated_news_item.language.iso_code)
+    - else
+      #recent_activities.main_container
+        .article.list.updates
+          %p.meta= I18n.l(@translated_news_item.news_item.display_date, :format => :long)
+          %p= @translated_news_item.body

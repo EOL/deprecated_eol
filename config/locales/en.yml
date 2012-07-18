@@ -305,6 +305,10 @@ en:
         verified_at: "Last verified"
       name:
         string: "Name"
+      news_item:
+        page_name: "Unique name"
+        sort_order: "Sort order"
+        active: "Published"
       notification:
         reply_to_comment: A reply to a comment you made
         comment_on_my_profile: A comment on your profile
@@ -345,6 +349,12 @@ en:
         active_translation: "Published"
         left_content: "Navigation"
         main_content: "Body"
+        meta_keywords: "Metadata keywords"
+        meta_description: "Metadata description"
+        title: "Title"
+      translated_news_item:
+        active_translation: "Published"
+        body: "Body"
         meta_keywords: "Metadata keywords"
         meta_description: "Metadata description"
         title: "Title"
@@ -512,6 +522,11 @@ en:
         complete_more: "A curated hierarchy assumes that every entry is intended to be unique, i.e. matching name strings will be treated as homonyms. <strong>Warning: Do not change this attribute unless you are certain of the status of homonyms in the hierarchy, doing so could jeopardize the integrity of the data.</strong>"
         request_publish: "Publish requested"
         request_publish_more: "Indicates whether there is a pending request to promote this hierarchy to become one of the primary browsable hierarchies on EOL."
+      news_item:
+        active: "Published"
+        active_more: "Published news items will be publicly visible on the selected date and time. Uncheck <em>published</em> if you want to prevent general users from viewing versions of this news item in any language."
+        page_name: "Unique name <small>(lowercase ISO basic Latin alphanumeric characters and underscores only)</small>"
+        page_name_more: "Enter a unique, self descriptive, meaningful and persistent identifier for this news item. The name you enter here will be used to generate the URL for this news item, e.g. the unique name <em>new_version_of_eol</em> is converted to the URL <em>http://eol.org/news/new_version_of_eol</em>."
       open_authentication:
         connected: Connected
         connect: Add
@@ -547,6 +562,14 @@ en:
         meta_description_more: "Provide a short description, summarising the key concepts of the page content. This description is sometimes used by Web search engines both for checking relevancy and for listing in search engine results."
         meta_keywords_more: "Enter a comma separated list of words and short phrases that best reflect the contents of the page. These keywords and keyphrases are sometimes used by Web search engines to assess the relevancy of the page against search terms."
         title_more: "The title of this content will appear in the header area of the page. The title should include keywords most relevant to the content."
+      translated_news_item:
+        active_translation: "Published"
+        active_translation_more: "Published translations will be publicly visible, unless the news item itself is unpublished. Uncheck <em>published</em> if you want to prevent general users from viewing this version of the news item."
+        language_id: "Language"
+        body_more: "Enter the news item content in the body area. Use the <em>Format</em> dropdown to select the appropriate semantic text elements, for example choose <em>Heading 2</em> for a second level heading. Note: <em>Heading 1</em> is reserved for the news item title, so headings in the body area start with <em>Heading 2</em>. Select <em>Source</em> to switch to the HTML source code view which allows you to manually insert and edit HTML."
+        meta_description_more: "Provide a short description, summarising the key concepts of the news item content. This description is sometimes used by Web search engines both for checking relevancy and for listing in search engine results."
+        meta_keywords_more: "Enter a comma separated list of words and short phrases that best reflect the contents of the news item. These keywords and keyphrases are sometimes used by Web search engines to assess the relevancy of the news item against search terms."
+        title_more: "The title of this news item will appear in the header area of the page. The title should include keywords most relevant to the content."
       user:
         agreed_with_terms: "I agree to the <a href=\"%{terms_url}\">terms of use</a>"
         api_key_more: "Read more about <a href=\"%{api_docs_url}\">adding a key to your API calls</a>."
@@ -573,6 +596,7 @@ en:
         logo: "Upload a new photo"
         new_password: "New password <small>(4 - 16 characters)</small>"
         new_password_confirmation: "New password <small>(to confirm)</small>"
+        news_in_preferred_language: "show news in preferred language"
         notification_settings: "Notification Settings"
         notification_settings_more: "Configure your notification settings."
         open_authentications: "Connected accounts"
@@ -629,6 +653,11 @@ en:
       name:
         create: "Add name"
         update: "Update name"
+      news_item:
+        create: "Create news item"
+        edit: "Edit"
+        preview: "Preview"
+        update: "Update news item"
       open_authentication:
         create: "Connect"
         destroy: "Disconnect"
@@ -645,6 +674,9 @@ en:
         sign_in_with_twitter: "Sign in with Twitter"
         sign_in_with_yahoo: "Sign in with Yahoo"
       translated_content_page:
+        create: "Add translation"
+        update: "Save changes to translation"
+      translated_news_item:
         create: "Add translation"
         update: "Save changes to translation"
       user:
@@ -770,9 +802,11 @@ en:
       meta_title: "%{community_name} Removed By Owner"
   content:
     index:
+      header_news: EOL News
       meta_description: "The Encyclopedia of Life is an unprecedented effort to gather scientific knowledge about all animal and plant life where pictures, information, facts, and more are available for all things living in our plant and animal kingdoms."
       meta_keywords: "Animals, Animal Pictures, Animal Information, Plants, Plant Life, Plant Pictures, Plant Information, Flora, Fauna"
       meta_title: "Animals - Plants - Pictures & Information"
+      see_all_eol_news: "see more <span class=\"assistive\">eol news</span>"
       see_all_recent_activites: "see more <span class=\"assistive\">activities in the last week</span>"
   content_partners:
     statistics:
@@ -810,6 +844,52 @@ en:
       meta_supplier_default: "a contributor"
       meta_title: "%{dato_title} from %{supplier}"
       tweet_text: "%{dato_title} from %{supplier}"
+  layouts:
+    v2:
+      application:
+        header_about: About EOL
+        header_learn_more: Learn more about
+        header_questions: Tell me more
+        about_link_what_is_eol: What is EOL?
+        about_link_eol_blog: The EOL Blog
+        about_link_discover: Discover
+        about_link_statistics: Statistics
+        about_link_donate: Donate to EOL
+        about_link_citing: Citing EOL
+        about_link_help: Help
+        about_link_terms_of_use: Terms of Use
+        about_link_contact_us: Contact Us
+        learn_more_link_animals: Animals
+        learn_more_link_mammals: Mammals
+        learn_more_link_birds: Birds
+        learn_more_link_amphibians: Amphibians
+        learn_more_link_reptiles: Reptiles
+        learn_more_link_fish: Fish
+        learn_more_link_invertebrates: Invertebrates
+        learn_more_link_crustaceans: Crustaceans
+        learn_more_link_mollusks: Mollusks
+        learn_more_link_insects: Insects
+        learn_more_link_spiders: Spiders
+        learn_more_link_plants: Plants
+        learn_more_link_flowering_plants: Flowering Plants
+        learn_more_link_trees: Trees
+        learn_more_link_fungi: Fungi
+        learn_more_link_mushrooms: Mushrooms
+        learn_more_link_molds: Molds
+        learn_more_link_bacteria: Bacteria
+        learn_more_link_protists: Protists
+        learn_more_link_archaea: Archaea
+        learn_more_link_viruses: Viruses
+        questions_link_biodiversity: What is biodiversity?
+        questions_link_species: What is a species?
+        questions_link_discovering_species: How are species discovered?
+        questions_link_naming_species: How are species named?
+        questions_link_binomial_nomenclature: What is binomial nomenclature?
+        questions_link_biological_classification: What is a biological classification?
+        questions_link_invasive_species: What is an invasive species?
+        questions_link_indicator_species: What is an indicator species?
+        questions_link_model_organism: What is a model organism?
+        questions_link_contributing_to_research: How can I contribute to research?
   members:
     index:
       meta_description: "Members of %{community_name}, an Encyclopedia of Life community."
@@ -821,6 +901,11 @@ en:
       meta_keywords: "%{member_name} Community Member"
       meta_title: "%{member_name} Member of %{community_name}"
       tweet_text: "%{member_name} member of %{community_name}"
+  news_items:
+    index:
+      page_title: "EOL News"
+      meta_title: "EOL News"
+      meta_keywords: "eol news, encyclopedia of life news"
   notifier:
     activity_log_empty: "No recent actions by curators."
     activity_user_added_association_on_date: "%{curator_level} %{users_name} (%{users_url}) added unknown association for %{object_name} (%{object_url})\n%{action_date}.\n"
@@ -1855,7 +1940,6 @@ en:
   add: "Add"
   add_a_new_common_name: "Add a new common name"
   add_a_new_file_brackets: "[add a new file]"
-  add_a_new_news_item: "Add a new news item"
   add_a_new_role: "Add a new role"
   add_a_new_search_suggestion: "Add a new search suggestion"
   add_a_new_term: "Add a new term"
@@ -1919,6 +2003,23 @@ en:
   admin_content_partners_statistics_link: "Statistics"
   admin_content_partners_statistics_page_title: "Administration: Content Partner Statistics"
   admin_home: "admin home"
+  admin_news_item_active: "Published"
+  admin_news_item_create_successful_notice: "News item <a href=\"#%{anchor}\"><em>%{page_name}</em></a> created successfully."
+  admin_news_item_create_unsuccessful_error: "Sorry, an error occurred, the news item was not created."
+  admin_news_item_delete_confirmation: 'Are you sure you want to delete "%{page_name}" and all translations. Delete actions cannot be undone.'
+  admin_news_item_delete_successful_notice: "News item %{page_name} and associated translations have been deleted."
+  admin_news_item_edit_header: "Update basic news item information for <em>%{page_name}</em>"
+  admin_news_item_edit_tip: "It is recommended that you do not edit the unique name of this news item unless you are fully aware of the consequences, including the impact on links to this page, or to named routes. Unique name is %{required_icon} required."
+  admin_news_item_new_link: "Create news item"
+  admin_news_item_new_header: "Create a new news item"
+  admin_news_item_new_tip: "Enter basic information about this page. Unique name is %{required_icon} required."
+  admin_news_item_not_active: "Unpublished"
+  admin_news_item_update_successful_notice: "News item <a href=\"#%{anchor}\"><em>%{page_name}</em></a> updated successfully."
+  admin_news_item_update_unsuccessful_error: "Sorry, an error occurred, the news item could not be updated."
+  admin_news_items_empty: "No news items found."
+  admin_news_items_index_information: "The following list includes all of the news items currently available on the EOL Website as well as future news items. Each page has one or more translations. When you create a news item you will be asked to add a translation. Published translations are publicly accessible."
+  admin_news_items_page_title: "Administration: News"
+  admin_news_link: "News"
   admin_notes_not_visible_to_user: "Admin notes (not visible to user):"
   admin_information: "This is the new administration console for EOL V2. We are in the process of transferring administration functionality from V1. If the administration section you are looking for is not listed please visit the <a href=\"/administrator\">V1 Administration Console</a>."
   admin_link: "Overview"
@@ -1936,6 +2037,20 @@ en:
   admin_translated_content_page_new_subheader: "Add translation for <em>%{page_name}</em>"
   admin_translated_content_page_update_successful_notice: "%{language} translation for <a href=\"#%{anchor}\"><em>%{page_name}</em></a> has been updated."
   admin_translated_content_page_update_unsuccessful_error: "Sorry, an error occurred, the translation could not be updated."
+  admin_translated_news_item_active: "Published"
+  admin_translated_news_item_create_successful_notice: "Translation has been added to <a href=\"#%{anchor}\"><em>%{page_name}</em></a>"
+  admin_translated_news_item_create_unsuccessful_error: "Sorry, an error occurred, the translation could not be added."
+  admin_translated_news_item_delete_confirmation: 'Are you sure you want to delete the %{language} version of "%{page_name}". Delete action cannot be undone.'
+  admin_translated_news_item_delete_successful_notice: "%{language} translation of news item <em>%{page_name}</em> has been deleted."
+  admin_translated_news_item_edit_subheader: "Edit %{language} translation for <em>%{page_name}</em>"
+  admin_translated_news_item_edit_tip: "Title and body are %{required_icon} required."
+  admin_translated_news_item_new_header: "Choose language and add content"
+  admin_translated_news_item_new_link: "Add translation"
+  admin_translated_news_item_new_subheader: "Add translation for <em>%{page_name}</em>"
+  admin_translated_news_item_new_tip: "Language, title and body are %{required_icon} required."
+  admin_translated_news_item_not_active: "Unpublished"
+  admin_translated_news_item_update_successful_notice: "%{language} translation for <a href=\"#%{anchor}\"><em>%{page_name}</em></a> has been updated."
+  admin_translated_news_item_update_unsuccessful_error: "Sorry, an error occurred, the translation could not be updated."
   agent: "Agent"
   all: "all"
   all_apis_return_by_default_an_xml_response: "All APIs return by default an XML response. The API methods may be called without a format extension to get the XML response, and adding an XML extension will give an identical response:"
@@ -2596,14 +2711,12 @@ en:
   edit_collection_details: "Edit collection details"
   edit_collection_details_header: "Edit collection details"
   edit_my_profile: "Edit my profile"
-  edit_news_item: "Edit News Item"
   edit_news_items: "edit news items"
   edit_page_contents: "edit page contents"
   edit_search_suggestion: "Edit Search Suggestion"
   edit_search_suggestions: "edit search suggestions"
   edit_table_of_contents: "edit table of contents"
   edit_tag_suggestions: "edit tag suggestions"
-  edit_news_item_instructions_with_link: "Edit the news item below. HTML is allowed in both fields, and *either* title or the body is required. For best results, just use the title and enter a short news item. When creating hyperlinks to other sites, you can use %{link} to create shorter URLs to conserve characters."
   edit_the_topic_area_intro: "Edit the topic area and email addresses below and check the active box to show to users on the contact us page of the website."
   edit_user_details_instructions: "Edit the user details below. You can send this user an email from the system by clicking 'show email message area' below and entering in the text of the email. Only enter a new password if you wish to change it, otherwise leave it blank."
   edit_the_user_s_comment_below: "Edit the user's comment below."
@@ -3090,14 +3203,14 @@ en:
   never: "Never"
   new_collection: "New collection"
   new_contact_us_topic: "New Contact Us Topic"
-  new_news_item: "New News Item"
-  news_date: "News Date"
   new_search_suggestion: "New Search Suggestion"
-  news_item_date_as_shown_to_use: "News Item Date as shown to user (time only shown in RSS feed):"
-  news_item_is_visible_on_websit: "News Item is visible on website after this time:"
+  news_available_in_languages: "This page is available in:"
+  news_item_date_as_shown_to_user: "News Item Date as shown to user (time only shown in RSS feed):"
+  news_item_is_visible_on_website_after_this_time: "News Item is visible on website after this time:"
   news_item: "news item"
   news_item_title: "News Item"
-  news_items: "News Items"
+  news_missing_content_title: "Missing translation"
+  news_missing_content_message: "Sorry, this page is not available for the selected language %{selected_language}."
   newsfeed: "Newsfeed"
   newsfeed_help_for_collection: "The Newsfeed for this EOL Collection gathers updates associated with the items belonging to it, including the activities of its owner and comments from other EOL users."
   newsfeed_help_for_community: "The Newsfeed for this EOL Community gathers updates associated with the items belonging to its Managed Collections, including activities of its members and comments from other EOL users."
@@ -3117,7 +3230,6 @@ en:
   no_harvesting_logs_for_this_da: "No harvesting logs for this date"
   no_items_were_copied_to_collections_error: "No items were copied to collections: %{names}."
   none: "none"
-  no_news_items_are_available_ma: "No news items are available matching your search criteria."
   no: "No"
   num_content_partners: "No. of content partners"
   num_data_objects: "No. of data objects"
@@ -3290,7 +3402,6 @@ en:
   publish_changes: "Publish Changes"
   published: "Published"
   published_parens: "(Published)"
-  publish_item_based_on_time_set: "Publish item based on time set above (uncheck to always hide)"
   publish: "publish"
   publish_requested: "Publish Requested"
   punctuation_comma: ","
@@ -3350,7 +3461,6 @@ en:
   returns_either_a_positive_or_negative_response: "returns either a positive response (indicating APIs are functional), or returns a negative response or nothing at all (indicating APIs are not functional at that time)."
   revisions: "Revisions"
   richness_score: "Richness Score"
-  rss_feed: "RSS feed"
   save_comment_lowercase: "save comment"
   save_curated_association_submit_button: "Save association"
   save_email_settings: "save email settings"
@@ -3362,7 +3472,6 @@ en:
   search_by_provider_method_description: "get the EOL page IDs given a provider's hierarchy_id and the provider's own unique identifier"
   search_for_comments_containing_the_text: "Search for comments containing the text:"
   search_for_curators_containing: "Search for curators containing:"
-  search_for_items_containing: "Search for items containing:"
   search_for_messages_containing: "Search for messages containing:"
   search_for_terms_containing: "Search for terms containing:"
   search_for_users_containing_this_in_their_username_name_or_email_address: "Search for users containing this in their username, name or email address."
@@ -3613,8 +3722,6 @@ en:
   the_information_highlighted_in: "The information highlighted in yellow below has not been reviewed."
   the_json_response_for_this_method: "The JSON response for this method returns more information than the XML response. The JSON response includes several statistics about this node and its taxonomic descendants. For example there is a returned field \"total_descendants\" which list the number of nodes which are descendants of the given node according to this hierarchy; \"total_trusted_text\" includes the total number of unique text data objects linked to this page or any of its descendants."
   the_message_was_sent: "The message was sent."
-  the_news_item_created: "The news item was successfully created."
-  the_news_item_updated: "The news item was successfully updated."
   the_new_topic_was_created: "The new topic was created."
   the_new_user_was_created: "The new user was created."
   there_are_currently_no_members_in_this_community: "There are currently no members in this community."
@@ -3646,7 +3753,6 @@ en:
   threat_status_header_colon: "<abbr title=\"International Union for Conservation of Nature\">IUCN</abbr> threat status:"
   thumbnail_page_colon: "thumbnail page:"
   time_ago: "%{time_passed} ago"
-  tinyurl: "TinyURL"
   title: "Title"
   toc_entry_col_header: "TOC Entry"
   toc_no_longer_available: "TOC information no longer available"
@@ -3674,6 +3780,7 @@ en:
   true_label: "True"
   truncated_comment_omission: "... <a href='%{link}'>more</a>"
   truncated_comment_omission_linkless: "..."
+  truncated_news_item_omission: "... <a href='%{link}'>more</a>"
   trusted: "Trusted"
   trusted_for_colon: "Trusted for:"
   trusted_images: "Trusted images"

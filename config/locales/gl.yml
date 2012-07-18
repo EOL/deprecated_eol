@@ -2064,7 +2064,7 @@ gl:
   news_archive_page: páxina de arquivo de novas
   news_date: Data da nova
   news_item: nova
-  news_item_date_as_shown_to_use: "Data da nova tal como se mostra ao usuario (a hora móstrase só na fonte de novas RSS):"
+  news_item_date_as_shown_to_user: "Data da nova tal como se mostra ao usuario (a hora móstrase só na fonte de novas RSS):"
   news_item_is_visible_on_websit: "A nova é visible no sitio web despois desta hora:"
   news_item_title: Nova
   news_items: Novas

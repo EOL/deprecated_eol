@@ -2489,7 +2489,7 @@ zh-CN:
   news_archive_page: 新闻存档页面
   news_date: 新闻时间
   news_item: 新闻项
-  news_item_date_as_shown_to_use: 对用户显示的新闻项时间(仅在Rss订阅中显示时间)：
+  news_item_date_as_shown_to_user: 对用户显示的新闻项时间(仅在Rss订阅中显示时间)：
   news_item_is_visible_on_websit: 在这个时间之后，新闻项将在网站可见：
   news_item_title: 新闻项
   news_items: 新闻项

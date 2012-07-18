@@ -2250,7 +2250,7 @@ ar:
   news_archive_page: صفحة أرشيف الأخبار
   news_date: تاريخ الخبر
   news_item: خبر
-  news_item_date_as_shown_to_use: "تاريخ خبر جديد كما يظهر للمستخدم (يظهر الوقت فقط في الخبر المباشر RSS) :"
+  news_item_date_as_shown_to_user: "تاريخ خبر جديد كما يظهر للمستخدم (يظهر الوقت فقط في الخبر المباشر RSS) :"
   news_item_is_visible_on_websit: يظهر الخبر على الموقع بعد
   news_item_title: خبر
   news_items: مواضيع جديدة

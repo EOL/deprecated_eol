@@ -32,6 +32,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :tasks
   map.resources :task_states
   map.resources :task_names
+  map.resources :news_items
   map.resources :recent_activities, :only => [:index]
   map.resources :curated_taxon_concept_preferred_entries, :only => [:create]
 
@@ -214,6 +215,9 @@ ActionController::Routing::Routes.draw do |map|
                                                  :user_added_data => [:get],
                                                  :lifedesk => [:get]},
                                        :only => [:index], :namespace => 'admins/'
+    admin.resources :news_items, :namespace => 'admins/' do |news_item|
+      news_item.resources :translated_news_items, :as => :translations, :except => [:show, :index], :controller => 'translated_news_items'
+    end
   end
 
   # Old V1 /admin and /administrator namespaces (controllers)
@@ -277,6 +281,9 @@ ActionController::Routing::Routes.draw do |map|
   end
   map.donate '/donate', :controller => 'content', :action => 'donate'
   map.language '/language', :controller => 'content', :action => 'language'
+
+  ## News items
+  map.news '/news/:id', :controller => 'news_items', :action => 'show'
 
   ## Curator tool to request import of wikipedia pages
   map.resources :wikipedia_queues, :as => :wikipedia_imports, :only => [:new, :create]

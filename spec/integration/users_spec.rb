@@ -35,6 +35,39 @@ describe 'Users' do
    end
  end
 
+ it 'should change preferred language' do
+  login_as @user
+  body.should have_tag(".language p.en", "English")
+  visit edit_user_path(@user)
+  select "Français", :from => "user_language_abbr"
+  click_button "Save profile information"
+  body.should have_tag(".language p.fr", "Français")
+  visit edit_user_path(@user)
+  select "English", :from => "user_language_abbr"
+  click_button "Enregistrer les informations de profil"
+  body.should have_tag(".language p.en", "English")
+end
+
+ it 'should toggle the checkbox to show news in preferred language' do
+  login_as @user
+  visit edit_user_path(@user)
+  body.should have_tag(".account .checkbox") do
+    without_tag("input[id=user_news_in_preferred_language][checked]")
+  end
+  check "user_news_in_preferred_language"
+  click_button "Save profile information"
+  visit edit_user_path(@user)
+  body.should have_tag(".account .checkbox") do
+    with_tag("input[id=user_news_in_preferred_language][checked]")
+  end
+  uncheck "user_news_in_preferred_language"
+  click_button "Save profile information"
+  visit edit_user_path(@user)
+  body.should have_tag(".account .checkbox") do
+    without_tag("input[id=user_news_in_preferred_language][checked]")
+  end
+end
+
   describe 'collections' do
     before(:each) do
       visit(user_collections_path(@user))

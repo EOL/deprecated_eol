@@ -1,8 +1,4 @@
-class CuratedTaxonConceptPreferredEntriesController < ApplicationController
-
-  # TODO
-  # - If ALL of the classifications for the taxon are selected, make the command a merge taxa (so the supercedure is set)
-  # - merge doesn't need to ask for examplar, DUH,
+class ClassificationsController < ApplicationController
 
   # Sorry, another beast of a method that handles many different things... because there's necessarily only one form.
   def create
@@ -33,7 +29,6 @@ class CuratedTaxonConceptPreferredEntriesController < ApplicationController
 private
 
   # They have a list of HEs they want split into a new taxon concept.
-  # TODO - make sure there are HEs!
   def split
     # They may have (and often have) selected more to move...
     add_entries_to_session if params[:split_hierarchy_entry_id]
@@ -42,17 +37,17 @@ private
   end
 
   # They have a list of HEs they want to merge into this taxon concept.
-  # TODO - make sure there are HEs!
   def merge
     if (!params[:additional_confirm]) &&
       he_id = @taxon_concept.providers_match_on_merge(Array(HierarchyEntry.find(session[:split_hierarchy_entry_id])))
       flash[:warn] = I18n.t(:classifications_merge_additional_confirm_required)
       @target_params[:providers_match] = he_id
     else
-      @target_params[:additional_confirm] = 1 if params[:additional_confirm] # They have already confirmed this, don't do it again.
+      # If they have already confirmed this, don't confirm it again:
+      @target_params[:additional_confirm] = 1 if params[:additional_confirm]
       @target_params[:move_to] = @taxon_concept.id
       # Just go ahead and do the merge without asking for an exemplar, if it's ALL the entries from that page:
-      exemplar('merge', nil) if taxon_concept_from_session.all_published_entries?(session[:split_hierarchy_entry_id])
+      return exemplar('merge', nil) if taxon_concept_from_session.all_published_entries?(session[:split_hierarchy_entry_id])
     end
     @target_params[:all] = 1
   end

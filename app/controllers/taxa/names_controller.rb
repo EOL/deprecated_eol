@@ -11,7 +11,7 @@ class Taxa::NamesController < TaxaController
 
     @confirm_split_or_merge = params[:confirm] # NOTE - this is pulled from curated_taxon_concept_preferred_entries
 
-    # NOTE - the following are all params passed from the CuratedTaxonConceptPreferredEntriesController. Yeesh.
+    # NOTE - the following are all params passed from the ClassificationsController. Yeesh.
     @pending = true if params[:pending]
     @providers_match = params[:providers_match]
     @exemplar = params[:exemplar]

@@ -1389,20 +1389,20 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def merge_classifications(hierarchy_entry_ids, options = {})
-    target_concept = options[:with]
+    source_concept = options[:with]
     raise EOL::Exceptions::ClassificationsLocked if
-      classifications_locked? || target_concept.classifications_locked?
+      classifications_locked? || source_concept.classifications_locked?
     if (!options[:additional_confirm]) && he_id = providers_match_on_merge(hierarchy_entry_ids)
       raise EOL::Exceptions::ProvidersMatchOnMerge.new(he_id)
     end
-    raise EOL::Exceptions::CannotMergeClassificationsToSelf if self.id == target_concept.id
+    raise EOL::Exceptions::CannotMergeClassificationsToSelf if self.id == source_concept.id
     lock_classifications
-    target_concept.lock_classifications
+    source_concept.lock_classifications
     if all_published_entries?(hierarchy_entry_ids)
-      CodeBridge.merge_taxa(id, target_concept.id, :notify => options[:notify])
+      CodeBridge.merge_taxa(source_concept.id, id, :notify => options[:notify])
     else
       hierarchy_entry_ids.each do |he_id|
-        CodeBridge.move_entry(:from_taxon_concept_id => id, :to_taxon_concept_id => target_concept.id,
+        CodeBridge.move_entry(:from_taxon_concept_id => source_concept.id, :to_taxon_concept_id => id,
                               :hierarchy_entry_id => he_id, :exemplar_id => options[:exemplar_id],
                               :reindex => he_id == hierarchy_entry_ids.last, :notify => options[:notify])
       end

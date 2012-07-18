@@ -596,6 +596,7 @@ en:
         logo: "Upload a new photo"
         new_password: "New password <small>(4 - 16 characters)</small>"
         new_password_confirmation: "New password <small>(to confirm)</small>"
+        news_in_preferred_language: "show news in preferred language"
         notification_settings: "Notification Settings"
         notification_settings_more: "Configure your notification settings."
         open_authentications: "Connected accounts"

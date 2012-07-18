@@ -14,7 +14,7 @@ config.action_view.debug_rjs = false
 config.cache_classes = true
 config.action_mailer.raise_delivery_errors = false
 
-config.log_level = :error
+config.log_level = :debug
 
 $PARENT_CLASS_MUST_USE_MASTER = ActiveRecord::Base
 $LOG_USER_ACTIVITY = true

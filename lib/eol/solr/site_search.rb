@@ -178,7 +178,7 @@ module EOL
           if options[:exact]
             lucene_query << "keyword_exact:\"#{query}\"^5"
           else
-            lucene_query << "(keyword_exact:\"#{query}\"^5 OR keyword:\"#{query}\"~10^2)"
+            lucene_query << "(keyword_exact:\"#{query}\"^5 OR #{self.keyword_field_for_term(query)}:\"#{query}\"~10^2)"
           end
         
           # add search suggestions and weight them way higher. Suggested searches are currently always TaxonConcepts
@@ -269,7 +269,7 @@ module EOL
           if options[:exact]
             url << CGI.escape("keyword_exact:\"#{query}\"")
           else
-            url << CGI.escape("(keyword_exact:\"#{query}\" OR keyword:\"#{query}\")")
+            url << CGI.escape("(keyword_exact:\"#{query}\" OR #{self.keyword_field_for_term(query)}:\"#{query}\")")
           end
           
           # add search suggestions and weight them way higher. Suggested searches are currently always TaxonConcepts
@@ -291,6 +291,12 @@ module EOL
         total_results = response['grouped']['resource_unique_key']['ngroups']
         facets['All'] = total_results
         facets
+      end
+      
+      def self.keyword_field_for_term(search_term)
+        return 'keyword_cn' if search_term.contains_chinese?
+        return 'keyword_ar' if search_term.contains_arabic?
+        'keyword'
       end
     end
   end

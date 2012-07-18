@@ -49,6 +49,7 @@ private
       @target_params[:move_to] = @taxon_concept.id
       # Just go ahead and do the merge without asking for an exemplar, if it's ALL the entries from that page:
       return exemplar('merge', nil) if taxon_concept_from_session.all_published_entries?(session[:split_hierarchy_entry_id])
+      @taxon_concept = taxon_concept_from_session # Send them back to the source...
       @target_params[:confirm] = 'merge' # hard-coded string, no need to translate.
     end
     @target_params[:all] = 1

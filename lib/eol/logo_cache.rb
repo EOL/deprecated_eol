@@ -2,6 +2,17 @@
 module EOL
   module LogoCache
 
+    def self.included(base)
+      base.before_save :create_media_download_status
+    end
+
+    def create_media_download_status
+      if self.logo_cache_url_changed? && MediaDownloadStatus.table_exists? && Status.download_succeeded
+        MediaDownloadStatus.delete_all(:target_row_type => self.class.name, :target_row_id => self.id)
+        MediaDownloadStatus.create(:target_row_type => self.class.name, :target_row_id => self.id, :status_id => Status.download_succeeded.id, :peer_site_id => PEER_SITE_ID, :last_attempted => Time.now)
+      end
+    end
+
     def logo_url(size = 'large', options = {})
       if logo_cache_url.blank?
         case self.class.name

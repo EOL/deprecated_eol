@@ -43,7 +43,7 @@ class ContentServer
     # In a Peer-Peer setup, its possible the item was downloaded at a peer but
     # does not exist locally yet. This block should find out the best host for the object
     # and use their content host prefix
-    if options[:source_object]
+    if options[:source_object] && RAILS_ENV != 'test'
       if !options[:source_object].media_exists_on_this_peer?
         if host = options[:source_object].media_host
           return (host + $CONTENT_SERVER_CONTENT_PATH + self.cache_url_to_path(cache_url))

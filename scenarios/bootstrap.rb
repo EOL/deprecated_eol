@@ -623,6 +623,9 @@ EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
 EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild
 EOL::Solr::CollectionItemsCoreRebuilder.begin_rebuild
 
+SolrLog.connection.execute('TRUNCATE TABLE media_download_statuses')
+SolrLog.connection.execute('TRUNCATE TABLE solr_logs')
+
 $INDEX_RECORDS_IN_SOLR_ON_SAVE = original_index_records_on_save_value
 $SKIP_CREATING_ACTIVITY_LOGS_FOR_COMMENTS = false
 

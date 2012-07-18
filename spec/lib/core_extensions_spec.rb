@@ -49,6 +49,46 @@ describe String do
       "___________________________________________________".cleanup_for_presentation.should == ' '
     end
   end
+  
+  describe "alphabet detection" do
+    before(:all) do
+      @english_phrases = [
+        "The Quick Brown Fox",
+        "a",
+        "animalia",
+        "This one doesn't contain only 小灰山椒鸟 chinese",
+        "This one doesn't contain only الرسمية arabic"
+      ]
+      @chinese_phrases = [
+        "了王(琼中)",
+        "灰燕鵙 叉尾太阳鸟 宾灰燕儿 小灰山椒鸟 - 褐背鹟",
+        "短嘴山椒鸟 23145",
+        "绿喉太阳鸟",
+        "钝翅(稻田)苇莺",
+        "棕尾褐鶲, 棕尾鹟",
+        "十"
+      ]
+      @arabic_phrases = [
+        "الرسمية",
+        "العربية هي",
+        "قاموس صموئيل جو,نسون، وهو من أوائل من وضع قاموس إنجليزي، ",
+        "الأسماء","الغربية (أي الآرامية والعبرية والكنعانية) هي أقرب",
+        "سنة 1462، والتي كُتبت"
+      ]
+    end
+    
+    it "should recognize chinese strings" do
+      @chinese_phrases.each{ |phrase| phrase.contains_chinese?.should == true }
+      @english_phrases.each{ |phrase| phrase.contains_chinese?.should == false }
+      @arabic_phrases.each{ |phrase| phrase.contains_chinese?.should == false }
+    end
+    
+    it "should recognize arabic strings" do
+      @arabic_phrases.each{ |phrase| phrase.contains_arabic?.should == true }
+      @english_phrases.each{ |phrase| phrase.contains_arabic?.should == false }
+      @chinese_phrases.each{ |phrase| phrase.contains_arabic?.should == false }
+    end
+  end
 end
 
 
@@ -62,6 +102,8 @@ describe Array do
   end
 
   it 'should group objects by an attribute' do
+    truncate_all_tables
+    load_scenario_with_caching(:foundation)
     obj = User.gen
     obj2 = obj.clone
     obj2.id = 99999

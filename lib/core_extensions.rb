@@ -195,7 +195,36 @@ class String
   def cleanup_for_presentation
     self.gsub(/[_]{20,}/, ' ')
   end
-
+  
+  def contains_chinese?
+    # sort of from http://stackoverflow.com/questions/2727804/how-to-determine-if-a-character-is-a-chinese-character
+    list_of_chars = self.prepare_for_alphabet_determination.unpack("U*")
+    list_of_chars.each do |char|
+      #main blocks
+      return false unless (char >= 0x4E00 && char <= 0x9FFF) ||
+      #extended block A
+      (char >= 0x3400 && char <= 0x4DBF) ||
+      #extended block B
+      (char >= 0x20000 && char <= 0x2A6DF) ||
+      #extended block C
+      (char >= 0x2A700 && char <= 0x2B73F)
+    end
+    return true
+  end
+  
+  def contains_arabic?
+    # sort of from http://stackoverflow.com/questions/7066137/how-to-determine-if-string-contains-arabic-symbols
+    list_of_chars = self.prepare_for_alphabet_determination.unpack("U*")
+    list_of_chars.each do |char|
+      #main blocks
+      return false unless (char >= 0x0606 && char <= 0x06FF)
+    end
+    return true
+  end
+  
+  def prepare_for_alphabet_determination
+    self.gsub(/( |,|\.|\(|\)|-|[0-9]|"|')/, '')
+  end
 end
 
 class Array

@@ -126,6 +126,7 @@ Language.gen_if_not_exists(:label => 'English', :iso_639_1 => 'en', :source_form
 Language.gen_if_not_exists(:label => 'French', :iso_639_1 => 'fr', :iso_639_2 => 'fre', :source_form => 'Français') # Bootstrap uses this, tests i18n
 Language.gen_if_not_exists(:label => 'Spanish', :iso_639_1 => 'es', :iso_639_2 => 'spa', :source_form => 'Español')
 Language.gen_if_not_exists(:label => 'Arabic', :iso_639_1 => 'ar', :source_form => 'العربية') # For testing Arabic, obviously.
+Language.gen_if_not_exists(:label => 'Chinese', :iso_639_1 => 'zh-hans', :source_form => '简体中文')
 sci_name = Language.gen_if_not_exists(:label => 'Scientific Name', :iso_639_1 => '', :source_form => 'Scientific Name')
 unknown  = Language.gen_if_not_exists(:label => 'Unknown', :iso_639_1 => '', :source_form => 'Unknown')
 

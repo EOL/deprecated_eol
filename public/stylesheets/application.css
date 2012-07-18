@@ -2992,8 +2992,6 @@ ul.content_partner_contacts li {
   float: left;
   width: 160px;
   padding: 0 0 30px 20px; }
-  #media_list ul.media > li:hover .figure label {
-    display: block; }
   #media_list ul.media > li .figure {
     position: relative;
     background: white;
@@ -3015,6 +3013,8 @@ ul.content_partner_contacts li {
       padding: 10px;
       font-weight: bold;
       background: transparent url("/images/v2/bg_exemplar.png") repeat; }
+    #media_list ul.media > li .figure:hover label {
+      display: block; }
   #media_list ul.media > li.no_thumbnail .figure {
     cursor: default; }
   #media_list ul.media > li.inappropriate .figure .overlay {

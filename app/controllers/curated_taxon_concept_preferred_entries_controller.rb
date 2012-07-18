@@ -84,13 +84,14 @@ private
     target_taxon_concept = nil
     begin
       if type == 'split'
-        @taxon_concept.split_classifications(session[:split_hierarchy_entry_id], which)
+        @taxon_concept.split_classifications(session[:split_hierarchy_entry_id], :exemplar_id => which, :notify => current_user.id)
         flash[:warning] = I18n.t(:split_pending)
         done = true
       elsif type == 'merge'
         target_taxon_concept = taxon_concept_from_session
         @taxon_concept.merge_classifications(session[:split_hierarchy_entry_id], :with => target_taxon_concept,
-                                             :additional_confirm => params[:additional_confirm], :exemplar_id => which)
+                                             :additional_confirm => params[:additional_confirm], :exemplar_id => which,
+                                             :notify => current_user.id)
         flash[:warning] = I18n.t(:merge_pending)
         done = true
       else

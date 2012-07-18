@@ -37,6 +37,15 @@ $(function() {
         $(this).jPlayer("pauseOthers");
       });
     });
+    $li = $media_list.find("li");
+    $li.find(".associations").hide();
+    $li.find(".flag").accessibleHover(
+      function() {
+        $(this).parent().find(".associations").addClass('balloon').show();
+      },
+      function() {
+        $(this).parent().find(".associations").hide().removeClass('balloon');
+    });
   })($("#media_list"));
 
 });

@@ -154,21 +154,8 @@ describe Name do
     end
   end
 
-  describe "#canonical" do
-
-    it "should return the canonical form if assigned" do
-      @name.canonical.should == "Some name"
-      @name.canonical_verified.should == 1
-    end
-
-    it "should not return the canonical form if not assigned" do
-      name = Name.gen(:string => "Test string")
-      name.canonical_form = nil
-      name.canonical_verified = 0
-      name.canonical.should == 'not assigned'
-    end
-
-  end
+  # "#canonical" deprecated. I removed it. You can check 69c7287da324903b0e1da43f90b15a2e3b480999 if you want to see
+  # how it looked.
 
   describe "#italicized_canonical" do
     it "should return the italicized canonical form" do

@@ -1062,13 +1062,28 @@ a.other_actions
   width: 260px
   #toc
     margin: 0px 20px
-#media_list #sidebar
-  padding: 0
-  padding-bottom: 20px
-  width: 220px
-  #filters
-    margin: 0px 20px
-
+#media_list 
+  #sidebar
+    padding: 0
+    padding-bottom: 20px
+    width: 220px
+    #filters
+      margin: 0px 20px
+  ul.media
+    > li
+      .balloon
+        font-weight: normal
+        overflow: hidden
+        position: absolute
+        z-index: 4
+        margin: 15px 0
+        padding: 3px
+        width: 155px
+        background-color: #394651
+        background: rgba(57, 70, 81, 0.9)
+        color: #fff
+      fieldset
+        margin: 0
 
 // New style for HE view:
 #page_heading p#citation

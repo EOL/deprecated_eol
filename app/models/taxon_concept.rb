@@ -1389,20 +1389,20 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def merge_classifications(hierarchy_entry_ids, options = {})
-    target_taxon_concept = options[:with]
+    source_concept = options[:with]
     raise EOL::Exceptions::ClassificationsLocked if
-      classifications_locked? || target_taxon_concept.classifications_locked?
+      classifications_locked? || source_concept.classifications_locked?
     if (!options[:additional_confirm]) && he_id = providers_match_on_merge(hierarchy_entry_ids)
       raise EOL::Exceptions::ProvidersMatchOnMerge.new(he_id)
     end
-    raise EOL::Exceptions::CannotMergeClassificationsToSelf if self.id == target_taxon_concept.id
+    raise EOL::Exceptions::CannotMergeClassificationsToSelf if self.id == source_concept.id
     lock_classifications
-    target_taxon_concept.lock_classifications
+    source_concept.lock_classifications
     if all_published_entries?(hierarchy_entry_ids)
-      CodeBridge.merge_taxa(id, target_taxon_concept.id, :notify => options[:notify])
+      CodeBridge.merge_taxa(source_concept.id, id, :notify => options[:notify])
     else
       hierarchy_entry_ids.each do |he_id|
-        CodeBridge.move_entry(:from_taxon_concept_id => id, :to_taxon_concept_id => target_taxon_concept.id,
+        CodeBridge.move_entry(:from_taxon_concept_id => source_concept.id, :to_taxon_concept_id => id,
                               :hierarchy_entry_id => he_id, :exemplar_id => options[:exemplar_id],
                               :reindex => he_id == hierarchy_entry_ids.last, :notify => options[:notify])
       end
@@ -1410,7 +1410,7 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def all_published_entries?(hierarchy_entry_ids)
-    hierarchy_entry_ids.map {|he| he.is_a? HierarchyEntry ? he.id : he }.sort == deep_published_hierarchy_entries.map {|he| he.id}.sort
+    hierarchy_entry_ids.map {|he| he.is_a?(HierarchyEntry) ? he.id : he }.sort == deep_published_hierarchy_entries.map {|he| he.id}.sort
   end
 
   def providers_match_on_merge(hierarchy_entry_ids)

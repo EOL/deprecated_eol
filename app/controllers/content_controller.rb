@@ -34,7 +34,7 @@ class ContentController < ApplicationController
         if translated_news_item = translations.detect{|tr| tr.language_id == current_language.id}
           @translated_news_items << translated_news_item
         else
-          @translated_news_items << translations.sort_by(&:created_at).first
+          @translated_news_items << translations.sort_by{ |t| t.created_at || 0 }.first
         end
       end
     end

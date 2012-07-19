@@ -31,10 +31,11 @@ class ContentController < ApplicationController
       @translated_news_items = []
       news_items.each do |news_item|
         translations = news_item.translations
-        if translated_news_item = translations.detect{|tr| tr.language_id == current_language.id}
+        if translated_news_item = translations.detect{|tr| tr.language_id == current_language.id && tr.active_translation == 1}
           @translated_news_items << translated_news_item
         else
-          @translated_news_items << translations.sort_by(&:created_at).first
+          active_translations = translations.collect{|tr| tr if tr.active_translation == 1}.compact
+          @translated_news_items << active_translations.sort_by(&:created_at).first unless active_translations.blank?
         end
       end
     end

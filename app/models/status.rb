@@ -16,19 +16,19 @@ class Status < ActiveRecord::Base
   end
 
   def self.download_pending
-    cached_find_translated(:label, 'Download Pending')
+    cached_find_translated(:label, 'Download Pending', 'en')
   end
 
   def self.download_in_progress
-    cached_find_translated(:label, 'Download In Progress')
+    cached_find_translated(:label, 'Download In Progress', 'en')
   end
 
   def self.download_succeeded
-    cached_find_translated(:label, 'Download Succeeded')
+    cached_find_translated(:label, 'Download Succeeded', 'en')
   end
 
   def self.download_failed
-    cached_find_translated(:label, 'Download Failed')
+    cached_find_translated(:label, 'Download Failed', 'en')
   end
 
 end

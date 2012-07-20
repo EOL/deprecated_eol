@@ -246,11 +246,19 @@ body > #footer {
               body > #footer .section .wrapper > div.learn_more > ul > li + li {
                 margin-right: 30px; }
                 body > #footer .section .wrapper > div.learn_more > ul > li + li a {
-                  color: #e9e86f; }
-                body > #footer .section .wrapper > div.learn_more > ul > li + li + li a {
+                  color: #e79689; }
+                body > #footer .section .wrapper > div.learn_more > ul > li + li + li ul a {
                   color: #b1e19c; }
-                body > #footer .section .wrapper > div.learn_more > ul > li + li + li + li a {
+                body > #footer .section .wrapper > div.learn_more > ul > li + li + li ul + ul a {
+                  color: #e9e86f; }
+                body > #footer .section .wrapper > div.learn_more > ul > li + li + li + li ul a {
                   color: #7bb6e9; }
+                body > #footer .section .wrapper > div.learn_more > ul > li + li + li + li ul + ul a {
+                  color: #e2c7e7; }
+                body > #footer .section .wrapper > div.learn_more > ul > li + li + li + li ul + ul + ul a {
+                  color: #e9cbac; }
+                body > #footer .section .wrapper > div.learn_more > ul > li + li + li + li ul + ul + ul + ul a {
+                  color: #b2c1cf; }
           body > #footer .section .wrapper > div.learn_more .version {
             clear: both;
             border: 1px solid #414c55;

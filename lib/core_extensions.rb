@@ -202,7 +202,7 @@ class String
       w.gsub(/^(https?[^,;]+[^\.,;])/i, '<a href="\1">\1</a>').gsub(/^(www\.[a-z-]+\.[^,;]+[^\.,;])/i, '<a href="http://\1">\1</a>')
     end.join(' ')
   end
-  
+
   def contains_chinese?
     # sort of from http://stackoverflow.com/questions/2727804/how-to-determine-if-a-character-is-a-chinese-character
     list_of_chars = self.prepare_for_alphabet_determination.unpack("U*")

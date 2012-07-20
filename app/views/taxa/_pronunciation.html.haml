@@ -12,7 +12,7 @@
     %ul
       %li
         .figure
-          .player{:id => "player_1"}
+          .player{:id => "player_1", :style => 'height:0px;' }
           .player_interface{:id => "player_interface_1"}
-            %a{:class => 'play', :title => I18n.t(:audio_play_assistive), :href => "#{CHINESE_PRONUNCIATION_API_PREFIX}#{chinese_name}", :data => { :mime_type => "audio/mpeg" } }
+            %a{:class => 'play', :title => I18n.t(:audio_play_assistive), :href => "#{CHINESE_PRONUNCIATION_API_PREFIX}#{URI::encode(chinese_name)}", :data => { :mime_type => "audio/mpeg" } }
               = I18n.t(:pronounce_this_name)

@@ -11,15 +11,15 @@ class Visibility < ActiveRecord::Base
   end
 
   def self.visible
-    cached_find_translated(:label, 'Visible')
+    cached_find_translated(:label, 'Visible', 'en')
   end
 
   def self.preview
-    cached_find_translated(:label, 'Preview')
+    cached_find_translated(:label, 'Preview', 'en')
   end
   
   def self.invisible
-    cached_find_translated(:label, 'Invisible')
+    cached_find_translated(:label, 'Invisible', 'en')
   end
 
   def self.for_curating_selects

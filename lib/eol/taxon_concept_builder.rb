@@ -158,7 +158,7 @@ module EOL
     def gen_other_names
       puts "** Enter: gen_other_names" if @debugging
       @common_names.each_with_index do |common_name, count|
-        language = (count != 0 && count == @common_names.size) ? Language.find_by_translated(:label, "French") : Language.english
+        language = (count != 0 && count == @common_names.size) ? Language.find_by_translated(:label, "French", 'en') : Language.english
         @tc.add_common_name_synonym(common_name, :agent => Agent.col, :language => language)
       end
       @tc.add_scientific_name_synonym(@sname.string, Agent.col) unless @sname.nil?

@@ -6,7 +6,7 @@ class CreateSortStyleReverseSortOrder < ActiveRecord::Migration
   end
 
   def self.down
-    reverse_sort_field = SortStyle.find_by_translated(:name, 'Reverse Sort Field')
+    reverse_sort_field = SortStyle.find_by_translated(:name, 'Reverse Sort Field', 'en')
     reverse_sort_field.translations.each{ |tr| tr.destroy }
     reverse_sort_field.destroy
   end

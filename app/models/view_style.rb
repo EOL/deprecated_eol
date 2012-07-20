@@ -18,15 +18,15 @@ class ViewStyle < ActiveRecord::Base
   end
 
   def self.list
-    cached_find_translated(:name, 'List')
+    cached_find_translated(:name, 'List', 'en')
   end
 
   def self.gallery
-    cached_find_translated(:name, 'Gallery')
+    cached_find_translated(:name, 'Gallery', 'en')
   end
 
   def self.annotated
-    cached_find_translated(:name, 'Annotated')
+    cached_find_translated(:name, 'Annotated', 'en')
   end
 
 end

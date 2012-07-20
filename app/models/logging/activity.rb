@@ -64,7 +64,7 @@ class Activity < LazyLoggingModel
 
   def self.find_or_create(key_sym)
     key = key_sym.to_s
-    act = Activity.cached_find_translated(:name, key)
+    act = Activity.cached_find_translated(:name, key, 'en')
     unless act
       act = Activity.new()
       act.save! # NOTE: #create wasn't working; the ID wasn't being set correctly.
@@ -77,7 +77,7 @@ class Activity < LazyLoggingModel
             key, act.id, Language.english.id]
         ))
       end
-      act = Activity.cached_find_translated(:name, key)
+      act = Activity.cached_find_translated(:name, key, 'en')
     end
     act
   end
@@ -105,17 +105,17 @@ class Activity < LazyLoggingModel
 
   # Since create is normally a reserved word, the method missing won't work for it (all the time):
   def self.create
-    act = self.cached_find_translated(:name, 'create')
+    act = self.cached_find_translated(:name, 'create', 'en')
   end
 
   # Since delete is normally a reserved word, the method missing won't work for it (all the time):
   def self.delete
-    act = self.cached_find_translated(:name, 'delete')
+    act = self.cached_find_translated(:name, 'delete', 'en')
   end
 
   # Since create is normally a reserved word, the method missing won't work for it (all the time):
   def self.update
-    act = self.cached_find_translated(:name, 'update')
+    act = self.cached_find_translated(:name, 'update', 'en')
   end
 
   # Helper to provide consistent calculation of curator actions when using curator_activity_logs_on_data_objects

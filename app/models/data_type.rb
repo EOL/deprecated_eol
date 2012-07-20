@@ -21,37 +21,37 @@ class DataType < ActiveRecord::Base
   end
 
   def self.text
-    cached_find_translated(:label, 'Text')
+    cached_find_translated(:label, 'Text', 'en')
   end
 
   def self.image
-    cached_find_translated(:label, 'Image')
+    cached_find_translated(:label, 'Image', 'en')
   end
 
   def self.sound
-    cached_find_translated(:label, 'Sound')
+    cached_find_translated(:label, 'Sound', 'en')
   end
 
   def self.video
-    cached_find_translated(:label, 'Video')
+    cached_find_translated(:label, 'Video', 'en')
   end
 
   # TODO -this is essentially "SWF" and could be handled as Video...
   def self.youtube
-    cached_find_translated(:label, 'YouTube')
+    cached_find_translated(:label, 'YouTube', 'en')
   end
 
   # TODO -this is essentially "SWF" and could be handled as Video...
   def self.flash
-    cached_find_translated(:label, 'Flash')
+    cached_find_translated(:label, 'Flash', 'en')
   end
 
   def self.iucn
-    cached_find_translated(:label, 'IUCN')
+    cached_find_translated(:label, 'IUCN', 'en')
   end
   
   def self.map
-    cached_find_translated(:label, 'Map')
+    cached_find_translated(:label, 'Map', 'en')
   end
   
 

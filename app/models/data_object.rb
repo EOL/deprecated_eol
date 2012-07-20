@@ -1165,7 +1165,7 @@ private
     self.guid ||= UUID.generate.gsub('-','')
     self.identifier ||= ''
     self.data_type_id ||= DataType.text.id
-    self.mime_type_id ||= MimeType.find_by_translated(:label, 'text/plain').id
+    self.mime_type_id ||= MimeType.find_by_translated(:label, 'text/plain', 'en').id
     self.location ||= ''
     self.latitude ||= 0
     self.longitude ||= 0

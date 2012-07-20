@@ -4,15 +4,15 @@ class Status < ActiveRecord::Base
   has_many :data_objects_harvest_events
   
   def self.inserted
-    cached_find_translated(:label, 'inserted')
+    cached_find_translated(:label, 'inserted', 'en')
   end
 
   def self.updated
-    cached_find_translated(:label, 'updated')
+    cached_find_translated(:label, 'updated', 'en')
   end
 
   def self.unchanged
-    cached_find_translated(:label, 'unchanged')
+    cached_find_translated(:label, 'unchanged', 'en')
   end
 
   def self.download_pending

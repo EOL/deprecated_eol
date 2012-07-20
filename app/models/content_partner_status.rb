@@ -4,10 +4,10 @@ class ContentPartnerStatus < ActiveRecord::Base
   has_many :content_partners
 
   def self.active
-    cached_find_translated(:label, 'Active')
+    cached_find_translated(:label, 'Active', 'en')
   end
 
   def self.inactive
-    cached_find_translated(:label, 'Inactive')
+    cached_find_translated(:label, 'Inactive', 'en')
   end
 end

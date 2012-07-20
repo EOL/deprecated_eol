@@ -5,6 +5,6 @@ class ContactRole < ActiveRecord::Base
   has_many :content_partner_contacts
   
   def self.primary
-    cached_find_translated(:label, 'Primary Contact')
+    cached_find_translated(:label, 'Primary Contact', 'en')
   end
 end

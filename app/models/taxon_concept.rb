@@ -869,7 +869,7 @@ class TaxonConcept < ActiveRecord::Base
     preferred = !!options[:preferred]
     language  = options[:language] || Language.unknown
     vetted    = options[:vetted] || Vetted.unknown
-    relation  = SynonymRelation.find_by_translated(:label, 'common name')
+    relation  = SynonymRelation.find_by_translated(:label, 'common name', 'en')
     name_obj  = Name.create_common_name(name_string)
     Synonym.generate_from_name(name_obj, :agent => agent, :preferred => preferred, :language => language,
                                :entry => entry, :relation => relation, :vetted => vetted)

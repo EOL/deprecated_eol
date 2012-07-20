@@ -19,35 +19,35 @@ class SortStyle < ActiveRecord::Base
   end
 
   def self.newest
-    cached_find_translated(:name, 'Recently Added')
+    cached_find_translated(:name, 'Recently Added', 'en')
   end
 
   def self.oldest
-    cached_find_translated(:name, 'Oldest')
+    cached_find_translated(:name, 'Oldest', 'en')
   end
 
   def self.alphabetical
-    cached_find_translated(:name, 'Alphabetical')
+    cached_find_translated(:name, 'Alphabetical', 'en')
   end
 
   def self.reverse_alphabetical
-    cached_find_translated(:name, 'Reverse Alphabetical')
+    cached_find_translated(:name, 'Reverse Alphabetical', 'en')
   end
 
   def self.richness
-    cached_find_translated(:name, 'Richness')
+    cached_find_translated(:name, 'Richness', 'en')
   end
 
   def self.rating
-    cached_find_translated(:name, 'Rating')
+    cached_find_translated(:name, 'Rating', 'en')
   end
   
   def self.sort_field
-    cached_find_translated(:name, 'Sort Field')
+    cached_find_translated(:name, 'Sort Field', 'en')
   end
   
   def self.reverse_sort_field
-    cached_find_translated(:name, 'Reverse Sort Field')
+    cached_find_translated(:name, 'Reverse Sort Field', 'en')
   end
   
 

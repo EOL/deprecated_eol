@@ -32,6 +32,6 @@ class ContentTable < ActiveRecord::Base
   end
 
   def self.details
-    cached_find_translated(:label, 'Details', :include => { :toc_items => :info_items })
+    cached_find_translated(:label, 'Details', 'en', :include => { :toc_items => :info_items })
   end
 end

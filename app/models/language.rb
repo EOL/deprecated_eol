@@ -23,7 +23,7 @@ class Language < ActiveRecord::Base
   end
 
   def self.scientific
-    cached_find_translated(:label, 'Scientific Name')
+    cached_find_translated(:label, 'Scientific Name', 'en')
   end
 
   def self.with_iso_639_1
@@ -67,22 +67,25 @@ class Language < ActiveRecord::Base
 
   def self.default
     cached('default') do
+      self.from_iso(APPLICATION_DEFAULT_LANGUAGE_ISO)
+    end
+  end
+
+  def self.english
+    cached('english') do
       self.english_for_migrations # Slightly weird, but... as it implies... needed for migrations.
     end
   end
-  class << self
-    alias english default
-  end
 
   def self.unknown
-    @@unknown_language ||= cached_find_translated(:label, "Unknown")
+    @@unknown_language ||= cached_find_translated(:label, "Unknown", 'en')
   end
   
   def self.all_unknowns
     @@all_unknown_languages ||= cached("unknown_languages") do
       unknown_languages = []
       ['unknown', 'unspecified', 'undetermined', 'common name', 'miscellaneous languages', 'multiple languages'].each do |l|
-        if lang = cached_find_translated(:label, l)
+        if lang = cached_find_translated(:label, l, 'en')
           unknown_languages << lang
         end
       end
@@ -92,7 +95,7 @@ class Language < ActiveRecord::Base
   
   
   def self.common_name
-    cached_find_translated(:label, "Common name")
+    cached_find_translated(:label, "Common name", 'en')
   end
 
   # this is only to be used, and should only work, in the test environment

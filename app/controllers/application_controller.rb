@@ -78,7 +78,7 @@ class ApplicationController < ActionController::Base
     begin
       I18n.locale = current_language.iso_639_1
     rescue
-      I18n.locale = 'en' # Yes, I am hard-coding that because I don't want an error from Language.  Ever.
+      I18n.locale = APPLICATION_DEFAULT_LANGUAGE_ISO
     end
   end
 

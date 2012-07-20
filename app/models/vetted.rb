@@ -8,19 +8,19 @@ class Vetted < ActiveRecord::Base
   has_many :users_data_objects
 
   def self.inappropriate
-    cached_find_translated(:label, 'Inappropriate')
+    cached_find_translated(:label, 'Inappropriate', 'en')
   end
 
   def self.untrusted
-    cached_find_translated(:label, 'Untrusted')
+    cached_find_translated(:label, 'Untrusted', 'en')
   end
 
   def self.trusted
-    cached_find_translated(:label, 'Trusted')
+    cached_find_translated(:label, 'Trusted', 'en')
   end
 
   def self.unknown
-    cached_find_translated(:label, 'Unknown')
+    cached_find_translated(:label, 'Unknown', 'en')
   end
 
   def self.trusted_ids

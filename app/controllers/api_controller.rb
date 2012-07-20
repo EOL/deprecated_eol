@@ -310,7 +310,7 @@ class ApiController < ApplicationController
     begin
       @collection = Collection.find_by_id(id, :include => [ :sort_style ])
       @sort_by = @collection.default_sort_style
-      if !params[:sort_by].blank? && params[:sort_by].class == String && ss = SortStyle.find_by_translated(:name, params[:sort_by].titleize)
+      if !params[:sort_by].blank? && params[:sort_by].class == String && ss = SortStyle.find_by_translated(:name, params[:sort_by].titleize, 'en')
         @sort_by = ss
       end
       @facet_counts = EOL::Solr::CollectionItems.get_facet_counts(@collection.id)

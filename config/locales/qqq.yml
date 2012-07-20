@@ -149,3 +149,4 @@ qqq:
   after taking action, not in a log."
   copy_items_to_a_new_collection_with_count: "This is in the context of an update given to the user immediately after
   taking action, not in a log."
+  a_pipe_delimited_list_of_spm_info_item_subject_names: "This is describing possible values for an input field (called 'overview') in the API. The 'overview' and 'all' values MUST be in English (untranslated), and the pipe must remain a literal pipe: |"

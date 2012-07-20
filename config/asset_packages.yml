@@ -64,6 +64,8 @@ stylesheets:
   - accessibility
 - ie7:
   - ie7
+- fonts:
+  - fonts
 - errors:
   - errors
   - accessibility

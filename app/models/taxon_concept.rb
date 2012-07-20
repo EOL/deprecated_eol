@@ -145,6 +145,20 @@ class TaxonConcept < ActiveRecord::Base
     best_name_in_language = preferred_common_names.detect do |preferred_common_name|
       preferred_common_name.language_id == language.id
     end
+    
+    if best_name_in_language.blank? && language == Language.find_by_iso_639_1('zh-hans')
+      alternate_codes = [ 'zh', 'cnm', 'zh-cn' ]
+      while best_name_in_language.blank?
+        if next_language_code = alternate_codes.shift
+          if best_name_in_alternate_language = self.preferred_common_name_in_language(Language.find_by_iso_639_1(next_language_code))
+            return best_name_in_alternate_language
+          end
+        else
+          break
+        end
+      end
+    end
+    
     if best_name_in_language
       return best_name_in_language.name.string.capitalize_all_words_if_using_english
     end

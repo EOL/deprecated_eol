@@ -35,7 +35,7 @@ class ContentController < ApplicationController
           @translated_news_items << translated_news_item
         else
           active_translations = translations.collect{|tr| tr if tr.active_translation == 1}.compact
-          @translated_news_items << active_translations.sort_by(&:created_at).first unless active_translations.blank?
+          @translated_news_items << active_translations.sort_by{ |t| t.created_at || 0 }.first unless active_translations.blank?
         end
       end
     end

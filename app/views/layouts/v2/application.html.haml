@@ -39,6 +39,8 @@
       = stylesheet_include_i18n_merged 'home', :media => "all"
     - else
       = stylesheet_include_i18n_merged 'application', :media => "all"
+    - if I18n.locale.to_s == "zh-Hans"
+      = stylesheet_include_i18n_merged 'fonts', :media => "all"
     /[if IE 7]
       = stylesheet_include_i18n_merged 'ie7', :media => "all"
     = javascript_include_merged :application

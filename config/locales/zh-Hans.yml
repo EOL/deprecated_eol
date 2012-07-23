@@ -1118,7 +1118,7 @@ zh-Hans:
     community_activity_log_title: "%{who} 修改了社区"
     curator_activity_log_title: "%{who} 管理了一些信息"
     data_object_title: "%{who} 向网络生命大百科添加了新内容"
-    someone_commented_on_something: "<b>%{who}</b>评论了 <b>%{what}</b>。"
+    someone_commented_on_something: "<b>%{who}</b> 评论了 <b>%{what}</b>。"
     comment_link: "查看EOL上的评论"
     collection_activity_by_user: "<b>%{user_name}</b>对<b>%{collection_name}</b> 收藏完成了 %{activity_name}。"
     collection_activity_user_added_item: "<b>%{user_name}</b>向<b>%{collection_name}</b>添加了编号为%{collected_item_id}的%{collected_item_type} "
@@ -3328,8 +3328,8 @@ zh-Hans:
   pagination_page_number: "第%{number}页"
   pagination_next: "下一页"
   pagination_next_with_count: 
-    one: "查看下%{count}页"
-    other: "查看下%{count}页"
+    one: "查看下%{count}条"
+    other: "查看下%{count}条"
   pagination_previous: "上一页"
   pagination_previous_with_count: 
     one: "查看上%{count}页"
@@ -3502,6 +3502,7 @@ zh-Hans:
   see_all_updates_with_count_html: 
     one: "查看<span class=\"assistive\">该页面的所有%{count}个更新</span>"
     other: "查看<span class=\"assistive\">该页面的所有%{count}个更新</span>"
+  see_all_maps_link: "查看所有地图"
   see_all_media_link: "查看所有媒体"
   see_all_editors_with_count: 
     one: "查看%{count}个管理员"
@@ -3669,7 +3670,7 @@ zh-Hans:
   text: "文本"
   text_capital: "文本"
   text_summary_empty: "本物种页暂无人提供简介信息。"
-  text_summary_empty_header: "简介"
+  text_summary_empty_header: "综合描述"
   text_summary_more_link: "阅读完整的条目"
   text_with_count: 
     one: "%{count}篇文章"
@@ -3697,7 +3698,7 @@ zh-Hans:
   the_image_from_this_source_is_not_trusted: "这个来源的图像是不可信的。"
   the_info_highlighted_is_reviewed: "下方高亮显示的红色信息已被管理者审核并标记为不可信。"
   the_information_highlighted_in: "下方高亮显示的黄色信息还未被审核。"
-  the_json_response_for_this_method: "该方法JSON比XML能返回更多信息。JSON的响应包括节点的一些统计信息及它的分类子节点。例如返回字段\"total_descendants\"列出了指定的分类系统节点的子节点的数目；\"total_trusted_text\"包括链接到这个页面的唯一的文本数据项或任何它的子节点的总数。"
+  the_json_response_for_this_method: "该方法JSON比XML能返回更多信息。JSON的响应包括节点的一些统计信息及它的分类子节点。例如返回字段 \"total_descendants\" 列出了指定的分类系统节点的子节点的数目； \"total_trusted_text\" 包括链接到这个页面的唯一的文本数据项或任何它的子节点的总数。"
   the_message_was_sent: "消息已发出。"
   the_news_item_created: "新条目建立成功。"
   the_news_item_updated: "新条目更新成功。"
@@ -3846,7 +3847,7 @@ zh-Hans:
   user_already_active_notice: "您的帐户已激活，请登录。"
   user_comments: "用户评论"
   user_comment: "用户评论"
-  user_commented_on_something_colon: "<strong>%{user}</strong> 对 %{what}做了评论:"
+  user_commented_on_something_colon: "<strong>%{user}</strong> 对 %{what} 做了评论:"
   user_commented_on_older_data_object_colon: "<strong>%{user}</strong> 对 %{what}做了评论:"
   user_commented_on_themself: "<strong>%{user_with_link}</strong> 对<a href='%{link}'>%{username}的动态</a>的评论:"
   user_commented_on_deleted_user: "<strong>%{user_with_link}</strong> 对已移除用户的页面的评论:"

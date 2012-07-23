@@ -126,8 +126,8 @@ body > #header .section {
         left: 0;
         top: 100%;
         z-index: 5;
-        width: 100%;
-        background: #0a0f13; }
+        background: #0a0f13;
+        border-top: 1px solid #444749; }
         body > #header .section .actions .language ul li {
           padding: 2px 5px;
           border: 1px solid #444749;

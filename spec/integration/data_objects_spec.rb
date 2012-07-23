@@ -319,6 +319,10 @@ describe 'Data Object Page' do
   end
 
   it 'should allow a master curators to remove curated associations' do
+    login_as @master_curator
+    visit("/data_objects/#{@image.id}")
+    page.body.should_not have_tag('form.review_status a', :text => 'Remove association')
+    visit('/logout')
     @image.add_curated_association(@full_curator, @extra_he)
     login_as @master_curator
     visit("/data_objects/#{@image.id}")

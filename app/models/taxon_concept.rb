@@ -756,15 +756,21 @@ class TaxonConcept < ActiveRecord::Base
         :filter_by_subtype => false
       }))
       DataObject.preload_associations(text_objects, [ { :info_items => :translations } ] )
-      if exemplar = published_visible_exemplar_article
+      text_objects = DataObject.sort_by_rating(text_objects, self)
+      current_user.language ||= Language.default
+      if exemplar = self.overview_text_for_user(current_user)
         include_exemplar = nil
-        unless options[:text_subjects].nil?
+        if options[:text_subjects].nil?
+          include_exemplar = true
+        else
           include_toc_ids = options[:text_subjects].collect{|text_subject| text_subject.toc_id}
           exemplar.toc_items.each do |toc_item|
-            include_exemplar = include_toc_ids.include?(toc_item.id)
+            unless include_exemplar == true
+              include_exemplar = include_toc_ids.include?(toc_item.id)
+            end
           end
         end
-        if options[:text_subjects].nil? || include_exemplar
+        if include_exemplar
           original_length = text_objects.length
           # remove the exemplar if it is already in the list
           text_objects.delete_if{ |d| d.guid == exemplar.guid }

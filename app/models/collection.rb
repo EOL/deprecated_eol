@@ -243,10 +243,13 @@ class Collection < ActiveRecord::Base
     "Collection ##{id}: #{name}"
   end
 
+  # TODO - we should only call this when the collection is "known" to be iNat-enabled, even if this is denormalized
+  # information.  As-is, we're pinging iNat every time we load a collection page, which is too often.
   def inaturalist_project_info
+    # TODO - move this to an environment variable:
     url = "http://www.inaturalist.org/projects.json?source=http://eol.org/collections/#{id}"
-    response = Net::HTTP.get(URI.parse(url))
     begin
+      response = Net::HTTP.get(URI.parse(url)) # TODO - add a VERY SHORT timeout, here.
       JSON.parse(response)[0]
     rescue => e
       nil

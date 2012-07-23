@@ -1395,7 +1395,7 @@ en:
       form_header: "Recover account"
       form_tip: "To recover your EOL account, enter the email address associated with that account. Please check your spam folder if you do not receive an account recovery email within an hour."
       notices:
-        recovery_email_sent: "Account recovery email has been sent with further instructions. Please check your spam filter if you do not receive the email with an hour."
+        recovery_email_sent: "Account recovery email has been sent with further instructions. Please add %{from_address} to your safe senders list and check your spam filter if you do not receive the email within an hour."
         temporarily_logged_in_update_authentication_details: "You are temporarily logged in to allow account recovery, please change your password or update your connected accounts to ensure you can sign in successfully."
       meta_title: "Recover account"
     recover_account_choose_account:

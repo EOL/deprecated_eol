@@ -279,7 +279,7 @@ class UsersController < ApplicationController
       user.reload # Just to ensure everything is dandy in the database (TODO: will slave cause problems?)
       if user.recover_account_token =~ /^[a-f0-9]{40}$/ && !user.recover_account_token_expired?
         Notifier.deliver_user_recover_account(user, temporary_login_user_url(user, user.recover_account_token))
-        flash[:notice] = I18n.t('users.recover_account.notices.recovery_email_sent')
+        flash[:notice] = I18n.t('users.recover_account.notices.recovery_email_sent', :from_address => $NO_REPLY_EMAIL_ADDRESS)
         redirect_to login_path and return
       else
         flash.now[:error] = I18n.t('users.recover_account.errors.unable_to_update_token')

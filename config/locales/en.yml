@@ -3156,6 +3156,7 @@ en:
   nucleotide_sequences_proteins_link: "View protein and nucleotide sequences in NCBI"
   object_curation: "Object Curation"
   object: "Object"
+  object_curated: "Object curated."
   objects_curated: "Objects Curated"
   object_status: "Object status"
   object_status_all_option: "All"

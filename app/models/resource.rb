@@ -67,7 +67,9 @@ class Resource < ActiveRecord::Base
     return false if resource_status == new_status
     case new_status
       when ResourceStatus.force_harvest
-        !resource_status.blank? && resource_status != ResourceStatus.being_processed
+        !resource_status.blank? &&
+        [ResourceStatus.processed, ResourceStatus.processing_failed, ResourceStatus.validated,
+         ResourceStatus.validation_failed, ResourceStatus.published].include?(resource_status)
       else
         true
     end

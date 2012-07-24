@@ -3541,3 +3541,10 @@ ul.spotlite-matches {
     position: absolute; }
     #social_sharing > div.facebook {
       margin-left: 90px; }
+    #social_sharing > div.virtuoso {
+      background: url("/images/v2/icon_virtuoso.png") no-repeat;
+      margin-left: 155px; }
+      #social_sharing > div.virtuoso a {
+        display: block;
+        width: 20px;
+        height: 20px; }

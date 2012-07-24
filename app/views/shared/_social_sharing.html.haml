@@ -21,3 +21,9 @@
     - if $ENABLED_SOCIAL_PLUGINS && $ENABLED_SOCIAL_PLUGINS.include?(:facebook)
       #fb-root.facebook
         %fb:like{:layout => "button_count", :send => "false", :show_faces => "false"}
+    - if params[:controller] =~ /^taxa($|\/)/ && @taxon_concept
+      .virtuoso
+        %a{ :href => "http://lod.eol.org:8890/describe/?url=http://lod.eol.org/txn/#{@taxon_concept.id}" }
+    - elsif params[:controller] == 'data_objects' && @data_object
+      .virtuoso
+        %a{ :href => "http://lod.eol.org:8890/describe/?url=http://lod.eol.org/dos/#{@data_object.guid}" }

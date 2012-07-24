@@ -211,6 +211,7 @@ Rails::Initializer.run do |config|
 
   $MAX_COLLECTION_ITEMS_TO_MANIPULATE = 1000
 
+  $BACKGROUND_TASK_USER_ID = 1 # The user ID which will be used for comments left by background jobs.
   $SPECIAL_COMMUNITY_NAME = 'EOL Curators and Admins'
   $RICH_PAGES_COLLECTION_ID = 34 # Please keep this variable around as a "reasonable default" for when lang keys are missing... though you should update the value as needed (probably with the value of :en in RICH_LANG_PAGES_COLLECTION_IDS)
   $RICH_LANG_PAGES_COLLECTION_IDS = {:en => 34, :es => 6496, :ar => 7745}

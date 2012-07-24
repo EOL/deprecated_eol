@@ -115,5 +115,7 @@
       = I18n.t("preferred_classification.#{user_type}_preferred_unknown_classification_on_#{taxon_type}", translation_vars)
   - when Activity.unlock.id
     = I18n.t("unlock.#{taxon_type}_unlocked", translation_vars)
+  - when Activity.unlock_with_error.id
+    = I18n.t("unlock_with_error.#{taxon_type}_unlocked_with_error", translation_vars, :error => item.affected_comment.body)
   - else
     = I18n.t("other_actions.#{user_type}_curated_#{data_object_type}", translation_vars)

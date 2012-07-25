@@ -34,13 +34,16 @@ class Users::NotificationsController < UsersController
   def convert_notification_frequencies_ids_to_objects
     new_params = {}
     params[:user][:notification_attributes].keys.each do |k|
-      next if k == 'id'
-      fqz = begin
-              NotificationFrequency.find(params[:user][:notification_attributes][k].to_i)
-            rescue ActiveRecord::RecordNotFound => e
-              nil
-            end
-      new_params[k] = fqz if fqz
+      if k == 'id' || k == 'eol_newsletter'
+        new_params[k] = params[:user][:notification_attributes][k].to_i
+      else
+        fqz = begin
+                NotificationFrequency.find(params[:user][:notification_attributes][k].to_i)
+              rescue ActiveRecord::RecordNotFound => e
+                nil
+              end
+        new_params[k] = fqz if fqz
+      end
     end
     params[:user][:notification_attributes] = new_params
   end

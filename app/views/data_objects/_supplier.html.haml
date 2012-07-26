@@ -21,7 +21,7 @@
         = link_to I18n.t(:view_source), data_object.source_url, :rel => rel rescue nil
         %br
     - elsif !data_object.content_partner.homepage.blank?
-      = I18n.t(:supplier_colon)
+      = I18n.t(:partner_web_site_colon)
       = link_to data_object.content_partner.name, data_object.content_partner.homepage, :rel => rel rescue nil
       %br
     - if (data_object.source_url.blank? && data_object.content_partner.homepage.blank?) || !minimal

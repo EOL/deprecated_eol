@@ -426,13 +426,13 @@ en:
             accesspoint_url:
               blank: "can't be blank, unless you upload a resource file instead"
               inaccessible: "is inaccessible, the URL must be publicly accessible"
-              invalid: "is invalid, it should point to a XML, XML.GZIP or XML.GZ file"
+              invalid: "is invalid, it should point to a XML, XML.GZIP, XML.GZ or ZIP file"
             dataset:
               blank: "can't be blank unless you provide a dataset URL instead"
-              wrong_type: "is the wrong type, it should be a GZIP, TAR or XML file"
+              wrong_type: "is the wrong type, it should be a GZIP, TAR, ZIP or XML file"
             dwc_archive_url:
               inaccessible: "is inaccessible, the URL must be publicly accessible"
-              invalid: "is invalid, it should point to a TAR.GZIP, TAR.GZ or TGZ file"
+              invalid: "is invalid, it should point to a TAR.GZIP, TAR.GZ, TGZ or ZIP file"
   helpers:
     label:
       collection:

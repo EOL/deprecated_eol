@@ -91,7 +91,7 @@
             :author => link_to(sanitize(comment.user.full_name), user_url(comment.user), :style => 'color: #195184')),
             :created_at => comment.created_at })
   - when 'CuratorActivityLog'
-    - grouped_notes[klass].group_by(&:link_to).each do |association, items_raw|
+    - grouped_notes[klass].group_by(&:link_to).uniq.each do |association, items_raw|
       - items = items_raw.compact
       - if association.class.name == 'TaxonConcept' or association.class.name == 'DataObject'
         - dato = association.class.name == 'DataObject' ? DataObject.load_for_title_only(association) : nil

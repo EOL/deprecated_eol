@@ -30,22 +30,25 @@ class DataObjectsController < ApplicationController
   # We're only creating new user data objects in the context of a taxon concept so we need taxon_id to be provided in route
   def create
     @taxon_concept = TaxonConcept.find(params[:taxon_id])
+
+    @references = params[:data_object].delete :references # we'll need these if validation fails and we re-render new
+
     unless params[:data_object]
       create_failed
       return
     end
 
-    @references = params[:references] # we'll need these if validation fails and we re-render new
     raise I18n.t(:dato_create_user_text_missing_user_exception) if current_user.nil?
     raise I18n.t(:dato_create_user_text_missing_taxon_id_exception) if @taxon_concept.blank?
     @data_object = DataObject.create_user_text(params[:data_object], :user => current_user,
                                                :taxon_concept => @taxon_concept, :toc_id => toc_id)
 
+    @data_object.references = @references
     if @data_object.nil? || @data_object.errors.any?
       @selected_toc_item_id = toc_id
       create_failed && return
     else
-      add_references(@data_object)
+      add_references(@data_object, @references)
       current_user.log_activity(:created_data_object_id, :value => @data_object.id,
                                 :taxon_concept_id => @taxon_concept.id)
       # add this new object to the user's watch collection
@@ -94,7 +97,6 @@ class DataObjectsController < ApplicationController
     # @data_object is loaded in before_filter :load_data_object
     set_text_data_object_options
     @selected_toc_item_id = @data_object.toc_items.first.id rescue nil
-    @references = @data_object.visible_references.map {|r| r.full_reference}.join("\n\n")
     @page_title = I18n.t(:dato_edit_text_title)
     @page_description = I18n.t(:dato_edit_text_page_description)
   end
@@ -103,7 +105,7 @@ class DataObjectsController < ApplicationController
   # NOTE we don't actually edit the data object we create a new one and unpublish the old one.
   # old @data_object is loaded in before_filter :load_data_object
   def update
-    @references = params[:references]
+    @references = params[:data_object].delete :references
     if @data_object.users_data_object.user_id != current_user.id
       update_failed(I18n.t(:dato_update_users_text_not_owner_exception)) and return
     end
@@ -111,6 +113,7 @@ class DataObjectsController < ApplicationController
     # Note: replicate doesn't actually update, it creates a new data_object
     new_data_object = @data_object.replicate(params[:data_object], :user => current_user, :toc_id => toc_id)
     new_cdohe_associations = new_data_object.all_curated_data_objects_hierarchy_entries
+    new_data_object.references = @references
     
     if new_data_object.nil?
       update_failed(I18n.t(:dato_update_user_text_error)) and return
@@ -118,7 +121,7 @@ class DataObjectsController < ApplicationController
       @data_object = new_data_object # We want to show the errors...
       update_failed(I18n.t(:dato_update_user_text_error)) and return
     else
-      add_references(new_data_object)
+      add_references(new_data_object, @references)
       vetted_action = (current_user.min_curator_level?(:full) || current_user.is_admin?) ? :trusted : :unreviewed
       visibility_action = :show
       # Activity logs for auto vetted UDOs
@@ -633,9 +636,9 @@ private
     end
   end
 
-  def add_references(dato)
-    return if params[:references].blank?
-    references = params[:references].split("\n")
+  def add_references(dato, references)
+    return if references.blank?
+    references = references.split("\n")
     unless references.blank?
       references.each do |reference|
         if reference.strip != ''

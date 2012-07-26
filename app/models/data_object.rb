@@ -687,6 +687,16 @@ class DataObject < ActiveRecord::Base
     @all_refs ||= refs.delete_if {|r| r.published != 1 || r.visibility_id != Visibility.visible.id}
   end
 
+  # Note: this method is required for fckeditor_textarea
+  def references
+    @references ||= visible_references.map {|r| r.full_reference}.join("\n\n")
+  end
+
+  # Note: this method is required to save the references for the data_object while adding/updating
+  def references=(new_val)
+    @references = new_val
+  end
+
   def to_s
     "[DataObject id:#{id}]"
   end

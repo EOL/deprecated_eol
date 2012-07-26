@@ -18,12 +18,12 @@
     %dt.required
       = f.label :description
     %dd
-      = f.text_area :description
+      = fckeditor_textarea(:data_object, :description, :toolbarSet => 'Article', :height => 250, :width => 580)
       -# TODO: uncomment when this is ready %p= f.allowed_html_help_tip(:all)
     %dt
       = f.label :refs
     %dd
-      = text_area_tag 'references', @references
+      = fckeditor_textarea(:data_object, :references, :toolbarSet => 'References', :height => 250, :width => 580)
 %fieldset.information
   %h3= I18n.t(:dato_new_edit_user_text_fieldset_information_header)
   %dl

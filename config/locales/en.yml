@@ -1733,7 +1733,7 @@ en:
         an_unknown_user_chose_exemplar_it_on_taxon: "An unknown user selected it to show in Overview on \"%{taxon}\"."
         user_chose_exemplar_it_on_an_unknown_taxon: "<strong>%{user}</strong> selected it to show in Overview on an unknown page."
         user_chose_exemplar_it_on_taxon: "<strong>%{user}</strong> selected it to show in Overview on \"%{taxon}\"."
-      add_common_name:        
+      add_common_name:
         an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: "An unknown user added an unknown common name in an unknown language to an unknown page."
         an_unknown_user_added_an_unknown_name_in_language_to_an_unknown_taxon: "An unknown user added an unknown common name in %{language} to an unknown page."
         an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_taxon: "An unknown user added an unknown common name in an unknown language to \"%{taxon}\"."

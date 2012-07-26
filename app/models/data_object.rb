@@ -533,6 +533,11 @@ class DataObject < ActiveRecord::Base
   end
   alias is_image_map? image_map?
 
+  def link?
+    self.is_text? && DataType.link_type_ids.include?(data_subtype_id)
+  end
+  alias is_link? link?
+
   def iucn?
     return data_type_id == DataType.iucn.id
   end

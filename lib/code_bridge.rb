@@ -8,15 +8,27 @@ class CodeBridge
   def self.perform(args)
     puts "++ CodeBridge"
     if args['cmd'] == 'unlock_notify'
-      puts "unlock notification"
+      puts "   unlock notification"
 
       begin
-        cal = CuratorActivityLog.create!(:user_id => args['user_id'],
-                                         :changeable_object_type_id => ChangeableObjectType.taxon_concept.id, 
-                                         :object_id => args['taxon_concept_id'],
-                                         :activity_id => Activity.unlock.id,
-                                         :created_at => 0.seconds.from_now,
-                                         :taxon_concept_id => args['taxon_concept_id'])
+        cal = if args['error'].blank?
+          CuratorActivityLog.create!(:user_id => args['user_id'],
+                                     :changeable_object_type_id => ChangeableObjectType.taxon_concept.id, 
+                                     :object_id => args['taxon_concept_id'],
+                                     :activity_id => Activity.unlock.id,
+                                     :created_at => 0.seconds.from_now,
+                                     :taxon_concept_id => args['taxon_concept_id'])
+              else
+          t = 0.seconds.from_now
+          comment = Comment.create!(:user_id => $BACKGROUND_TASK_USER_ID, :body => args['error'],
+                                    :parent_id => args['taxon_concept_id'], :parent_type => 'TaxonConcept')
+          CuratorActivityLog.create!(:user_id => args['user_id'],
+                                     :changeable_object_type_id => ChangeableObjectType.comment.id,
+                                     :object_id => comment.id,
+                                     :activity_id => Activity.unlock_with_error.id,
+                                     :created_at => t,
+                                     :taxon_concept_id => args['taxon_concept_id'])
+              end
         puts "++ Created: CuratorActivityLog.find(#{cal.id})"
         # FORCE immediate notification.  Right now:
         PendingNotification.create!(:user_id => args['user_id'],

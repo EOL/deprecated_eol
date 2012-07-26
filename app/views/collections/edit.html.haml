@@ -17,7 +17,7 @@
       %dt
         = f.label :description
       %dd
-        = f.text_area :description, :value => @collection.description, :rows => 3, :cols => 60
+        = f.text_area :description, :value => sanitize(@collection.description.balance_tags), :rows => 3, :cols => 60
         %p= f.allowed_html_help_tip
       %dt
         = f.label :additional_annotation_fields

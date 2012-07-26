@@ -280,7 +280,7 @@ en:
         rich_hotlist_pages: "Rich Hotlist pages"
         redhotlist_pages: "Red Hotlist pages"
         rich_redhotlist_pages: "Rich Red Hotlist pages"
-        pages_with_score_10_to_39: "Pages with score 10-39"
+        pages_with_score_10_to_39: "Pages with score 10-40"
         pages_with_score_less_than_10: "Pages with score less than 10"
         # lifedesk stats
         lifedesk_taxa: "LifeDesks taxa"
@@ -1889,6 +1889,10 @@ en:
         an_unknown_taxon_unlocked: "An unknown page has finished background curation processing."
         it_unlocked: "Background curation processing finished."
         taxon_unlocked: "\"%{taxon}\" finished background curation processing."
+      unlock_with_error:
+        an_unknown_taxon_unlocked: "An unknown page has <strong>failed</strong> background curation processing: %{error}."
+        it_unlocked: "Background curation processing<strong>failed</strong> : %{error}."
+        taxon_unlocked: "\"%{taxon}\" <strong>failed</strong> background curation processing: %{error}."
       other_actions:
         an_unknown_user_curated_an_older_data_object: "An unknown user curated an older version of \"%{data_object}\"."
         an_unknown_user_curated_an_unknown_data_object: "An unknown user curated an unknown data object."

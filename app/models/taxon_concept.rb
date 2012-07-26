@@ -1398,7 +1398,7 @@ class TaxonConcept < ActiveRecord::Base
     raise EOL::Exceptions::CannotMergeClassificationsToSelf if self.id == source_concept.id
     lock_classifications
     source_concept.lock_classifications
-    if all_published_entries?(hierarchy_entry_ids)
+    if source_concept.all_published_entries?(hierarchy_entry_ids)
       CodeBridge.merge_taxa(source_concept.id, id, :notify => options[:notify])
     else
       hierarchy_entry_ids.each do |he_id|

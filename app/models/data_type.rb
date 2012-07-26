@@ -54,6 +54,9 @@ class DataType < ActiveRecord::Base
     cached_find_translated(:label, 'Map')
   end
   
+  def self.link
+    cached_find_translated(:label, 'Link')
+  end
 
   def self.sound_type_ids
     @@sound_type_ids ||= [DataType.sound.id]
@@ -75,6 +78,9 @@ class DataType < ActiveRecord::Base
     @@map_type_ids ||= [DataType.map.id]
   end
   
+  def self.link_type_ids
+    @@link_type_ids ||= [DataType.link.id]
+  end
 
   # Not all unique data types DISPLAY with their label... translations come from the DB on the labels we know we
   # like:

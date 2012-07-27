@@ -3102,8 +3102,8 @@ en:
     one: "Move %{count} item to a new collection"
     other: "Move %{count} items to a new collection"
   moved_all_items_from_collection_with_count:
-    one: "Moved #{count} item from %{from} to this collection."
-    other: "Moved all #{count} items from %{from} to this collection."
+    one: "Moved %{count} item from %{from} to this collection."
+    other: "Moved all %{count} items from %{from} to this collection."
   moved_all_items_to_collections:
     one: "Moved all items from %{name} to %{count} collection."
     other: "Moved all items from %{name} to %{count} collections."

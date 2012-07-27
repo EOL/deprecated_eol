@@ -204,3 +204,5 @@ qqq:
       activity_link: "This is the title of a tab."
       comments_link: "This is the title of a tab. It does not need pluralization (meaning: it should always be plural)."
       newsfeed_link: "This is the title of a tab."
+  add_article_instead: "This is button text to be displayed in the header of a page where the user is adding a link.  Clicking this button will allow them to add an article instead of a link."
+  add_link_instead: "This is button text to be displayed in the header of a page where the user is adding an article.  Clicking this button will allow them to add a link instead of an article."

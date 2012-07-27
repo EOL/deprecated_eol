@@ -186,6 +186,16 @@ class TocItem < ActiveRecord::Base
     }
   end
 
+  def self.link_categories
+    InfoItem
+    cached("selectable_toc/#{I18n.locale}") {
+      excluded = TocItem.exclude_editable
+      all = TocItem.find(:all, :include => :info_items).select {|toc|
+        toc.allow_user_text?
+      }.sort_by { |toc| toc.label.to_s }
+    }
+  end
+
   def self.roots
     TocItem.find_all_by_parent_id(0, :order => 'view_order', :include => :info_items)
   end

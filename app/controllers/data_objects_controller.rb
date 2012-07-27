@@ -21,7 +21,14 @@ class DataObjectsController < ApplicationController
                         @toc_items.select{|ti| ti == TocItem.brief_summary}.first ||
                         @toc_items[0]
     @selected_toc_item_id = selected_toc_item.id
-    @page_title = I18n.t(:dato_new_text_for_taxon_page_title, :taxon => Sanitize.clean(@taxon_concept.title_canonical))
+    if params[:link] 
+      @toc_items = TocItem.link_categories
+      @add_link = true
+      @page_title = I18n.t(:dato_new_text_link_for_taxon_page_title, :taxon => Sanitize.clean(@taxon_concept.title_canonical))
+    else
+      @add_article = true
+      @page_title = I18n.t(:dato_new_text_for_taxon_page_title, :taxon => Sanitize.clean(@taxon_concept.title_canonical))
+    end
     @page_description = I18n.t(:dato_new_text_page_description)
     current_user.log_activity(:creating_new_data_object, :taxon_concept_id => @taxon_concept.id)
   end
@@ -360,7 +367,7 @@ private
     # No layout for Ajax calls.
     return false if request.xhr?
     case action_name
-    when 'new', 'create', 'update', 'edit'
+    when 'edit'
       'v2/basic'
     when 'add_association'
       'v2/association'

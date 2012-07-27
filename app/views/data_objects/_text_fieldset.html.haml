@@ -21,7 +21,7 @@
       = label_tag 'data_object[toc_items][id]', I18n.t("helpers.label.data_object#{'_link' if add_link}.toc_item")
     %dd
       = select_tag 'data_object[toc_items][id]', options_from_collection_for_select(@toc_items, :id, :label, @selected_toc_item_id)
-      %p= link_to I18n.t("get_help_choosing_a_#{add_link ? 'category' : 'subchapter'}"), cms_page_path('writing_eol_chapters')
+      %p= link_to I18n.t("get_help_choosing_a_#{add_link ? 'subject' : 'subchapter'}"), cms_page_path('writing_eol_chapters')
     %dt
       = f.label :object_title
     %dd
@@ -31,17 +31,16 @@
         = label_tag 'data_object[source_url]', I18n.t("helpers.label.data_object_link.source_url")
       %dd
         = f.text_field :source_url
+      %dt.required
+        = f.label :language_id
+      %dd
+        = f.select :language_id, options_from_collection_for_select(@languages, :id, :source_form, @data_object.language_id)
     %dt.required
       = label_tag 'data_object[description]', I18n.t("helpers.label.data_object#{'_link' if add_link}.description")
     %dd
       = f.cktext_area(:description, :toolbarSet => 'Article', :height => 250, :width => 580)
       -# TODO: uncomment when this is ready %p= f.allowed_html_help_tip(:all)
-    - if add_link
-      %dt.required
-        = f.label :language_id
-      %dd
-        = f.select :language_id, options_from_collection_for_select(@languages, :id, :source_form, @data_object.language_id)
-    - else
+    - unless add_link
       %dt
         = f.label :refs
       %dd

@@ -628,6 +628,9 @@ en:
         create: "Add article"
         create_text: "Add article"
         update: "Save article"
+      data_object_link:
+        create: "Add link"
+        update: "Save link"
       eol_statistic:
         change_date: "Get statistics for dates"
         download_csv: "Download as CSV"
@@ -2998,7 +3001,7 @@ en:
   full_content_url: "Full Content URL"
   gbif_map: "GBIF map"
   general_site_admin: "general site admin"
-  get_help_choosing_a_category: "Get help choosing a category"
+  get_help_choosing_a_subject: "Get help choosing a subject"
   get_help_choosing_a_subchapter: "Get help choosing a subchapter"
   get_more_tasks: "get more tasks"
   method_to_get_metadata_about_the_hierarchy: "given a hierarchy identifier, this method returns metadata about the hierarchy and lists the root taxa"

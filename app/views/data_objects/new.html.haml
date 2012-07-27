@@ -8,5 +8,5 @@
         :builder => ApplicationHelper::EolFormBuilder } do |f|
         = render :partial => 'text_fieldset', :locals => { :f => f, :add_link => @add_link }
         %fieldset.actions
-          = f.submit I18n.t('helpers.submit.data_object.create')
+          = f.submit I18n.t("helpers.submit.data_object#{'_link' if @add_link}.create")
           = link_to I18n.t(:dato_create_cancel), taxon_details_path(@taxon_concept)

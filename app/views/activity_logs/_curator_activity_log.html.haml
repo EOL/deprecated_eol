@@ -51,7 +51,7 @@
 - if item.activity_id == Activity.merge_classifications.id && item.changeable_object_type_id == ChangeableObjectType.taxon_concept.id
   - tc = TaxonConcept.find(item.object_id) rescue nil
   - taxon_type = tc ? 'taxon' : 'an_unknown_taxon'
-  - translation_vars[:taxon] = link_to(tc.quick_scientific_name, taxon_url(tc), :style => link_style)
+  - translation_vars[:taxon] = link_to(tc.quick_scientific_name, taxon_url(tc), :style => link_style) if tc
 %p
   - case item.activity_id
   - when Activity.trusted.id

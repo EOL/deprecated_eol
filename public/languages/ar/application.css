@@ -3023,8 +3023,8 @@ ul.content_partner_contacts li {
       padding: 10px;
       font-weight: bold;
       background: transparent url("/images/v2/bg_exemplar.png") repeat; }
-  #media_list ul.media > li .figure:hover label {
-        display: block; }
+    #media_list ul.media > li .figure:hover label {
+      display: block; }
   #media_list ul.media > li.no_thumbnail .figure {
     cursor: default; }
   #media_list ul.media > li.inappropriate .figure .overlay {
@@ -3195,6 +3195,98 @@ ul.content_partner_contacts li {
     margin-bottom: 10px; }
   #taxon_updates .update_feed .article.updates > ul > li form.edit_comment textarea {
     width: 650px; }
+
+#content.cms_page #statistics {
+  position: relative;
+  line-height: 2em;
+  padding-top: 40px; }
+  #content.cms_page #statistics .hide {
+    position: absolute;
+    left: -9327px; }
+  #content.cms_page #statistics h2 {
+    font-size: 1.3em;
+    text-align: center;
+    margin: 0 0 20px 0;
+    font-weight: bold;
+    text-transform: uppercase; }
+    #content.cms_page #statistics h2 + p {
+      font-size: 1.2em; }
+      #content.cms_page #statistics h2 + p span {
+        display: block;
+        position: absolute;
+        top: 40px;
+        font-weight: bold;
+        text-decoration: none;
+        color: #394651; }
+        #content.cms_page #statistics h2 + p span.date_one {
+          right: 30px;
+          padding-right: 30px; }
+        #content.cms_page #statistics h2 + p span.date_two {
+          left: 30px;
+          padding-left: 30px; }
+  #content.cms_page #statistics form label img {
+    position: absolute;
+    top: 43px;
+    right: 30px; }
+  #content.cms_page #statistics form label + label img {
+    right: auto;
+    left: 30px; }
+  #content.cms_page #statistics form.with_picker span, #content.cms_page #statistics form.with_picker select, #content.cms_page #statistics form.with_picker input[type="submit"] {
+    display: none; }
+  #content.cms_page #statistics dl {
+    position: relative;
+    border: 1px solid #93a4b0;
+    line-height: 2.2em;
+    background: #f6f8fa;
+    margin: 0 0 40px 0;
+    float: right;
+    width: 100%; }
+    #content.cms_page #statistics dl dt {
+      text-align: center;
+      background: #f6f8fa;
+      width: 248px;
+      margin: 0 auto;
+      position: relative;
+      font-weight: normal; }
+      #content.cms_page #statistics dl dt span {
+        display: block; }
+      #content.cms_page #statistics dl dt.emphasize span {
+        font-size: 130%; }
+      #content.cms_page #statistics dl dt.emphasize + dd span,
+      #content.cms_page #statistics dl dt.emphasize + dd + dd span {
+        font-size: 130%;
+        line-height: 140%; }
+    #content.cms_page #statistics dl dd {
+      margin: 0;
+      width: 160px;
+      border-right: 1px solid #93a4b0;
+      background: #e2e9ef;
+      float: right;
+      text-align: left;
+      position: relative;
+      margin-top: -2.2em;
+      height: 2.2em;
+      z-index: 10;
+      color: #7a838b; }
+      #content.cms_page #statistics dl dd + dd {
+        float: left;
+        text-align: right;
+        border-right: none;
+        border-left: 1px solid #93a4b0; }
+      #content.cms_page #statistics dl dd span {
+        display: block;
+        background: #e2e9ef;
+        padding: 1px 20px;
+        line-height: 1.9em;
+        margin: 1px 0; }
+      #content.cms_page #statistics dl dd.greater {
+        z-index: 11; }
+        #content.cms_page #statistics dl dd.greater span {
+          background: white;
+          padding: 0 22px;
+          border: 1px solid #93a4b0;
+          margin: 1px -3px;
+          color: #394651; }
 
 #comment_edit textarea {
   width: 600px;

@@ -179,6 +179,14 @@ ActionController::Routing::Routes.draw do |map|
   map.entry_bhl_title 'pages/:id/entries/:hierarchy_entry_id/literature/bhl_title/:title_item_id', :controller => 'taxa/literature', :action => 'bhl_title'
   map.taxon_worklist_data_object 'pages/:id/worklist/data_objects/:data_object_id', :controller => 'taxa/worklist', :action => 'data_objects'
 
+  map.resources :eol_statistics, :as => 'statistics', :only => [:index],
+                                 :collection => { :content_partners => [:get],
+                                                  :curators => [:get],
+                                                  :data_objects => [:get],
+                                                  :lifedesks => [:get],
+                                                  :marine => [:get],
+                                                  :page_richness => [:get],
+                                                  :users_data_objects => [:get] }
 
   # Named routes (are some of these obsolete?)
   map.set_language 'set_language', :controller => 'application', :action => 'set_language'

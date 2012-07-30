@@ -491,6 +491,8 @@ en:
         rights_statement_more: "Statement of usage rights as required by Creative Commons Attribution (CC-BY) licenses, please state attribution <q cite=\"http://creativecommons.org/licenses/by/3.0\">in the manner specified by the author or licensor</q>."
         source_url: "URL to original data object"
       eol_statistic:
+        date_one: "Date"
+        date_two: "Date"
         download_all: "All <small>(include records from all pages)</small>"
       google_analytics_partner_summaries:
         taxa_pages: "Pages <small>(number of pages)</small>"
@@ -620,6 +622,7 @@ en:
         create_text: "Add article"
         update: "Save article"
       eol_statistic:
+        change_date: "Get statistics for dates"
         download_csv: "Download as CSV"
       harvest_event:
         publish: "Publish"
@@ -810,6 +813,42 @@ en:
       meta_supplier_default: "a contributor"
       meta_title: "%{dato_title} from %{supplier}"
       tweet_text: "%{dato_title} from %{supplier}"
+  eol_statistics:
+    comparing_dates: "<span class=\"assistive\">Comparing</span> <span class=\"date_one\">%{date_one}</span> <span class=\"assistive\">and</span> <span class=\"date_two\">%{date_two}</span>"
+    warnings:
+      stats_unavailable_for_date: "Sorry, statistics are not avaliable for %{date}. Please select another date."
+    content_partners:
+      menu_link: "Content partners"
+      page_header: "Content Partners Statistics"
+      page_title: "Statistics"
+    curators:
+      menu_link: "Curator statistics"
+      page_header: "Curator Statistics"
+      page_title: "Statistics"
+    data_objects:
+      menu_link: "Data objects"
+      page_header: "Data Object Statistics"
+      page_title: "Statistics"
+    index:
+      menu_link: "Overall statistics"
+      page_header: "Overall Statistics"
+      page_title: "Statistics"
+    lifedesks:
+      menu_link: "LifeDesks"
+      page_header: "LifeDesks Statistics"
+      page_title: "Statistics"
+    marine:
+      menu_link: "Marine statistics"
+      page_header: "Marine Coverage in EOL"
+      page_title: "Statistics"
+    page_richness:
+      menu_link: "Rich pages"
+      page_header: "Rich Page Statistics"
+      page_title: "Statistics"
+    users_data_objects:
+      menu_link: "User-submitted text"
+      page_header: "User-Submitted Text Statistics"
+      page_title: "Statistics"
   members:
     index:
       meta_description: "Members of %{community_name}, an Encyclopedia of Life community."
@@ -3565,7 +3604,7 @@ en:
   spm_category_partner_count: "SPM category - partner count"
   spm_category: "SPM Category"
   started: "Started"
-  statistics: "Statistics"
+  stats: "Statistics"
   stat: "Stat"
   stored_classifications: "Please note that you have <a href='%{anchor}'>stored classifications, below</a>."
   sub_heading: "Sub heading"

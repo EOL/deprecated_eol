@@ -1,0 +1,19 @@
+- content_for :head do
+  = javascript_include_merged :statistics
+  %link{:href => "/javascripts/jquery-ui-1.8.22.datepicker/jquery-ui-1.8.22.datepicker.css", :media => "all", :rel => "stylesheet", :type => "text/css"}
+%p
+  = t(:comparing_dates, :date_one => @stats_one.created_at.strftime('%b %d, %Y'),
+    :date_two => @stats_two.created_at.strftime('%b %d, %Y'), :scope => [:eol_statistics])
+- form_tag({}, :method => :get) do
+  %fieldset
+    %label
+      %span= t('helpers.label.eol_statistic.date_one')
+      = select_date(@stats_one.created_at.to_date, :prefix => 'date_one', :order => [:day, :month, :year],
+        :start_year => Date.current.year, :end_year => 2012)
+    %label
+      %span= t('helpers.label.eol_statistic.date_two')
+      = select_date(@stats_two.created_at.to_date, :prefix => 'date_two', :order => [:day, :month, :year],
+        :start_year => Date.current.year, :end_year => 2012)
+  %fieldset.actions
+    = submit_tag t('helpers.submit.eol_statistic.change_date'), :name => nil
+

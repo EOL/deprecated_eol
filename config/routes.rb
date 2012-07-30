@@ -214,14 +214,15 @@ ActionController::Routing::Routes.draw do |map|
     end
     admin.resources :content_partners, :collection => {:notifications => [:get, :post], :statistics => [:get, :post]},
                                        :only => [:index], :namespace => 'admins/'
-    admin.resources :statistics, :collection => {:content_partner => [:get],
-                                                 :data_object => [:get],
+    admin.resources :eol_statistics, :as => 'admin/statistics', :only => [:index],
+                                     :collection => {:content_partners => [:get],
+                                                 :data_objects => [:get],
                                                  :marine => [:get],
-                                                 :curator => [:get],
+                                                 :curators => [:get],
                                                  :page_richness => [:get],
-                                                 :user_added_data => [:get],
-                                                 :lifedesk => [:get]},
-                                       :only => [:index], :namespace => 'admins/'
+                                                 :users_data_objects => [:get],
+                                                 :lifedesks => [:get]},
+                                     :namespace => 'admins/'
   end
 
   # Old V1 /admin and /administrator namespaces (controllers)

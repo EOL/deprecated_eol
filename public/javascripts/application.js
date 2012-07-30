@@ -446,7 +446,6 @@ $(function() {
         minDate: new Date(2012, 2 - 1, 17),
         defaultDate: new Date($label.find('select:eq(2)').val(), $label.find('select:eq(1)').val() - 1, $label.find('select:eq(0)').val()),
         onSelect: function(dateText, inst) {
-          $statistics.addClass('busy');
           // TODO: ARIA
           $label.find('option:selected').removeAttr('selected');
           $label.find('select:eq(0) option[value="' + inst.selectedDay + '"]').attr('selected', 'selected');

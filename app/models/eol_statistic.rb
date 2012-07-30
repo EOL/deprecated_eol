@@ -75,4 +75,16 @@ class EolStatistic < ActiveRecord::Base
     [eol_statistic_a.greatest, eol_statistic_b.greatest]
   end
 
+  def self.report_attributes
+    {'overall'         => [:members_count, :communities_count, :collections_count, :pages_count, :pages_with_content, :pages_with_text, :pages_with_image, :pages_with_map, :pages_with_video, :pages_with_sound, :pages_without_text, :pages_without_image, :pages_with_image_no_text, :pages_with_text_no_image, :base_pages, :pages_with_at_least_a_trusted_object, :pages_with_at_least_a_curatorial_action, :pages_with_BHL_links, :pages_with_BHL_links_no_text, :pages_with_BHL_links_only, :created_at],
+     'content_partners' => [:content_partners, :content_partners_with_published_resources, :content_partners_with_published_trusted_resources, :published_resources, :published_trusted_resources, :published_unreviewed_resources, :newly_published_resources_in_the_last_30_days, :created_at],
+     'page_richness'   => [:pages_count, :pages_with_content, :rich_pages, :hotlist_pages, :rich_hotlist_pages, :redhotlist_pages, :rich_redhotlist_pages, :pages_with_score_10_to_39, :pages_with_score_less_than_10, :created_at],
+     'curators'         => [:curators, :curators_assistant, :curators_full, :curators_master, :active_curators, :pages_curated_by_active_curators, :objects_curated_in_the_last_30_days, :curator_actions_in_the_last_30_days, :created_at],
+     'lifedesks'        => [:lifedesk_taxa, :lifedesk_data_objects, :created_at],
+     'marine'          => [:marine_pages, :marine_pages_in_col, :marine_pages_with_objects, :marine_pages_with_objects_vetted, :created_at],
+     'users_data_objects' => [:data_objects_texts, :udo_published, :udo_published_by_curators, :udo_published_by_non_curators, :created_at],
+     'data_objects'     => [:data_objects, :data_objects_texts, :data_objects_images, :data_objects_videos, :data_objects_sounds, :data_objects_maps, :data_objects_trusted, :data_objects_unreviewed, :data_objects_untrusted, :data_objects_trusted_or_unreviewed_but_hidden, :created_at]
+    }
+  end
+
 end

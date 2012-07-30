@@ -235,6 +235,16 @@ Rails::Initializer.run do |config|
   # URLs are not handled correctly in email (IMO), but this fixes it:
   config.action_mailer.default_url_options = { :host => "eol.org" }
 
+  # Default values for some footer elements:
+  $EOL_TWITTER_ACCOUNT  = "http://twitter.com/#!/EOL"
+  $EOL_FACEBOOK_ACCOUNT = "http://www.facebook.com/encyclopediaoflife"
+  $EOL_TUMBLR_ACCOUNT   = "http://blog.eol.org"
+  $EOL_FLICKR_ACCOUNT   = "http://www.flickr.com/groups/encyclopedia_of_life/"
+  $EOL_YOUTUBE_ACCOUNT  = "http://www.youtube.com/user/EncyclopediaOfLife/"
+
+  $CURATOR_COMMUNITY_NAME = 'EOL Curators'
+  $CURATOR_COMMUNITY_DESC = 'This is a special community intended for EOL curators to discuss matters related to curation on the Encylopedia of Life.'
+
 
   begin
     require 'config/environments/local.rb'
@@ -287,10 +297,6 @@ begin
 rescue LoadError
 end
 
-if ENV['BLEAK']
-  require 'bleak_house'
-end
-
 $CACHE = Rails.cache
 
 # Taken right from http://tinyurl.com/3xzen6z
@@ -305,16 +311,6 @@ if defined?(PhusionPassenger)
     end
   end
 end
-
-# Default values for some footer elements:
-$EOL_TWITTER_ACCOUNT  = "http://twitter.com/#!/EOL"
-$EOL_FACEBOOK_ACCOUNT = "http://www.facebook.com/encyclopediaoflife"
-$EOL_TUMBLR_ACCOUNT   = "http://blog.eol.org"
-$EOL_FLICKR_ACCOUNT   = "http://www.flickr.com/groups/encyclopedia_of_life/"
-$EOL_YOUTUBE_ACCOUNT  = "http://www.youtube.com/user/EncyclopediaOfLife/"
-
-$CURATOR_COMMUNITY_NAME = 'EOL Curators'
-$CURATOR_COMMUNITY_DESC = 'This is a special community intended for EOL curators to discuss matters related to curation on the Encylopedia of Life.'
 
 # load the system configuration
 require File.dirname(__FILE__) + '/system' if File.file?(File.dirname(__FILE__) + '/system.rb')

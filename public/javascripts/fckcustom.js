@@ -49,12 +49,7 @@ FCKConfig.ToolbarSets["Simple"] = [
 
 FCKConfig.ToolbarSets["Article"] = [
        ['Cut','Copy','Paste','PasteWord','-','SpellCheck','-','Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
-       ['Bold','Italic','-','Subscript','Superscript', '-', 'Link','Unlink','Anchor'], ['Image','Table'], ['Source']
-] ;
-
-FCKConfig.ToolbarSets["References"] = [
-       ['Cut','Copy','Paste','PasteWord','-','SpellCheck','-','Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
-       ['Bold','Italic','-','Subscript','Superscript', '-', 'Link','Unlink','Anchor'], ['Source']
+       ['Bold','Italic','-', 'Link','Unlink','Anchor'], ['Source']
 ] ;
 
 FCKConfig.ToolbarSets["CMSNavigation"] = [

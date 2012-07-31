@@ -152,3 +152,13 @@ qqq:
   a_pipe_delimited_list_of_spm_info_item_subject_names: "This is describing possible values for an input field (called 'overview') in the API. The 'overview' and 'all' values MUST be in English (untranslated), and the pipe must remain a literal pipe: |"
   object_curated: "The curator has just taken a curation action (trusting, untrusting, hiding, showing, and the like), and this message will be displayed on the next page load to indicate that it was successful."
   partner_web_site_colon: "A simple label used for DataObject attribution to identify the homepage of the partners website"
+  datepicker:
+    day_names: "A list of full names for the seven days of the week (e.g Sunday, Monday, Tuesday etc) for use in an interactive Gregorian calendar."
+    day_names_short: "A list of abbreviated names for the seven days of the week (e.g Sun, Mon, Tue etc) for use in an interactive Gregorian calendar."
+    day_names_min: "A list of very abbreviated names (one or two characters) for the seven days of the week, e.g Su, Mo, Tu etc. for use in an interactive Gregorian calendar."
+    close: "A label for a button or link that users will use to close a datepicker interactive calender overlay."
+    current: "A label for a button or link that users will use to go to the current day (i.e. today) in an interactive calender."
+    month_names: "A list of full names for the months of the year (e.g January, February etc) for use as headers in an interactive Gregorian calendar."
+    month_names_short: "A list of abbreviated names for months of the year (e.g Jan, Feb etc) for use as headers in an interactive Gregorian calendar."
+    next: "A label for a button or link that users will use to select the next panel in an interactive calender."
+    previous: "A label for a button or link that users will use to select the previous panel in an interactive calender."

@@ -214,7 +214,7 @@ ActionController::Routing::Routes.draw do |map|
     end
     admin.resources :content_partners, :collection => {:notifications => [:get, :post], :statistics => [:get, :post]},
                                        :only => [:index], :namespace => 'admins/'
-    admin.resources :eol_statistics, :as => 'admin/statistics', :only => [:index],
+    admin.resources :eol_statistics, :as => 'statistics', :only => [:index],
                                      :collection => {:content_partners => [:get],
                                                  :data_objects => [:get],
                                                  :marine => [:get],

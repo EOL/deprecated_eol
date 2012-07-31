@@ -2,65 +2,80 @@ require 'csv'
 class Admins::EolStatisticsController < AdminsController
 
   def index
-    @stats = get_stats(:overall)
-    csv_write(params, @stats)
+    stats
+    csv_write
   end
 
   def content_partners
-    @stats = get_stats(action_name)
-    csv_write(params, @stats)
+    stats
+    csv_write
   end
 
   def data_objects
-    @stats = get_stats(action_name)
-    csv_write(params, @stats)
+    stats
+    csv_write
   end
 
   def marine
-    @stats = get_stats(action_name)
-    csv_write(params, @stats)
+    stats
+    csv_write
   end
 
   def curators
-    @stats = get_stats(action_name)
-    csv_write(params, @stats)
+    stats
+    csv_write
   end
 
   def page_richness
-    @stats = get_stats(action_name)
-    csv_write(params, @stats)
+    stats
+    csv_write
   end
 
-  def user_ata_objects
-    @stats = get_stats(action_name)
-    csv_write(params, @stats)
+  def users_data_objects
+    stats
+    csv_write
   end
 
   def lifedesks
-    @stats = get_stats(action_name)
-    csv_write(params, @stats)
+    stats
+    csv_write
   end
 
   private
-  def get_stats(report)
-    EolStatistic.send(report) # FIXME: .paginate(:page => params[:page] ||= 1, :per_page => 30)
+  def stats
+    @stats ||= if params[:commit_download_csv] && params[:all_records]
+                 EolStatistic.send(report)
+               else
+                 EolStatistic.send(report).paginate(:page => params[:page] ||= 1, :per_page => 30)
+               end
   end
 
-  def csv_write(params, stats)
+  def report
+    @report ||= case action_name
+                when 'index'
+                  :overall
+                else
+                  action_name
+                end
+  end
+
+  def report_attributes
+    @report_attributes ||= EolStatistic.sorted_report_attributes(report)
+  end
+  helper_method :report_attributes
+
+  def csv_write
     if params[:commit_download_csv]
-      if params[:all_records].nil?
-        stats = @stats
-      end
-      report = StringIO.new
-      CSV::Writer.generate(report, ',') do |row|
+      data = StringIO.new
+      CSV::Writer.generate(data, ',') do |row|
         row << report_attributes.map {|attribute| I18n.t("activerecord.attributes.eol_statistic.#{attribute}")}
-        stats.each do |s|
+        @stats.each do |s|
           r = report_attributes.map {|attribute| s.send(attribute)}
           row << r
         end
       end
-      report.rewind
-      send_data(report.read, :type => 'text/csv; charset=iso-8859-1; header=present', :filename => params[:action] + "_#{Date.today.strftime('%Y-%m-%d')}.csv", :disposition => 'attachment', :encoding => 'utf8')
+      data.rewind
+      send_data(data.read, :type => 'text/csv; charset=iso-8859-1; header=present', :filename => params[:action] + "_#{Date.today.strftime('%Y-%m-%d')}.csv", :disposition => 'attachment', :encoding => 'utf8')
       return false
     end
   end

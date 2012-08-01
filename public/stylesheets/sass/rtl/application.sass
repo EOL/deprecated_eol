@@ -1507,8 +1507,6 @@ ul.content_partner_contacts
       td
         position: relative
         width: 33%
-        a
-          font-weight: bold
         &.preferred
           background: url("/images/v2/icon_required.png") 7px 50% no-repeat
 #taxon_literature
@@ -1540,6 +1538,7 @@ ul.content_partner_contacts
             font-size: .9em
             line-height: 120%
             color: #616E7A
+
 #taxon
   float: right
   width: 580px
@@ -1655,7 +1654,7 @@ ul.content_partner_contacts
     h3
       padding: 0 10px 3px 10px
       font-size: 1.16em
-    .classifications
+    #classifications_summary
       a.current
         font-weight: bold
       > ul
@@ -2549,7 +2548,6 @@ ul.content_partner_contacts
             &.edit_comment
               textarea
                 width: 650px
-
 #content.cms_page
   #statistics
     position: relative
@@ -2755,7 +2753,7 @@ ul.content_partner_contacts
     &.account
       width: 320px
       input[type="text"],
-      input[type="file"]
+      input[type="file"],
       input[type="password"]
         width: 288px
     &.profile
@@ -2838,6 +2836,8 @@ ul.content_partner_contacts
           line-height: 150%
           background: transparent url('/images/v2/icon_social_plugins.png') no-repeat 0 0
           min-height: 31px
+        p, h3
+          padding-right: 40px
         .buttons
           position: absolute
           top: 25px

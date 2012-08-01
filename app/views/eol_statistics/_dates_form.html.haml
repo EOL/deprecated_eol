@@ -14,6 +14,8 @@
       %span= t('helpers.label.eol_statistic.date_two')
       = select_date(@stats_two.created_at.to_date, {:prefix => 'date_two', :order => [:day, :month, :year],
         :start_year => Date.current.year, :end_year => 2012}, {:class => 'assistive'})
+  = hidden_field_tag :date_one_set, @stats_one.created_at.to_date
+  = hidden_field_tag :date_two_set, @stats_two.created_at.to_date
   %fieldset.actions.assistive
     = submit_tag t('helpers.submit.eol_statistic.change_date'), :name => nil
 

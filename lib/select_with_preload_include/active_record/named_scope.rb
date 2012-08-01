@@ -16,7 +16,16 @@ module ActiveRecord
                 proxy_scope.send(method, *args, &block)
               end
             else
-              proxy_scope.send(method, *args << proxy_options, &block)
+              # FIXME: Will paginate doesn't like appending proxy_options to args as it
+              # expects to be able to pop page args off the end of the args array.
+              # I've hacked a solution by ignoring the proxy_options but I'm unclear
+              # on the consequences for eager loading.
+              # See EolStatistic.overall.paginate in Admins::EolStatisticsController
+              if method == :paginate
+                proxy_scope.send(method, *args, &block)
+              else
+                proxy_scope.send(method, *args << proxy_options, &block)
+              end
             end
           end
         end

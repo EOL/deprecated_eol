@@ -35,11 +35,10 @@ describe DataObjectsController do
   describe 'POST create' do
     it 'should instantiate references' do
       TocItem.gen_if_not_exists(:label => 'overview')
-      post :create, { :taxon_id => 1,
+      post :create, { :taxon_id => 1, :references => "Test reference.",
                       :data_object => { :toc_items => { :id => TocItem.overview.id.to_s }, :data_type_id => DataType.text.id.to_s,
-                                        :references => "Test reference.", :object_title => "Test Article",
-                                        :description => "Test text", :license_id => License.public_domain.id.to_s,
-                                        :language_id => Language.english.id.to_s } },
+                                        :object_title => "Test Article", :language_id => Language.english.id.to_s,
+                                        :description => "Test text", :license_id => License.public_domain.id.to_s} },
                       { :user => @user, :user_id => @user.id }
       assigns[:references].should == "Test reference."
     end
@@ -81,7 +80,7 @@ describe DataObjectsController do
       put :update, { :id => @udo.id,
                      :data_object => { :rights_holder => @user.full_name, :source_url => "", :rights_statement => "",
                                        :toc_items => { :id => @udo.toc_items.first.id.to_s }, :bibliographic_citation => "",
-                                       :data_type_id => DataType.text.id.to_s, :references => "", :object_title =>"test_master",
+                                       :data_type_id => DataType.text.id.to_s, :object_title =>"test_master",
                                        :description => "", :license_id => License.public_domain.id.to_s },
                                        :language_id => Language.english.id.to_s },
                    { :user => @user, :user_id => @user.id }

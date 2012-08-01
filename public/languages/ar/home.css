@@ -134,7 +134,8 @@ body > #header .section {
         top: 100%;
         z-index: 5;
         width: 100%;
-        background: #0a0f13; }
+        background: #0a0f13;
+        border-top: 1px solid #444749; }
         body > #header .section .actions .language ul li {
           padding: 2px 5px;
           border: 1px solid #444749;
@@ -302,9 +303,9 @@ body > #footer {
         height: 130px; }
       .thumbnails ul li.last {
         margin: 0; }
-      .thumbnails ul li:hover {
+      .thumbnails ul li.hover {
         background: transparent url("/images/v2/icon_home-thumb_active.png") 50% 100% no-repeat; }
-        .thumbnails ul li:hover img {
+        .thumbnails ul li.hover img {
           background: rgba(255, 255, 255, 0.6); }
   .thumbnails .term {
     clear: both;
@@ -368,6 +369,8 @@ ul + .pagination {
 .session.join {
   font-weight: bold;
   text-align: center; }
+  .session.join abbr {
+    border: none; }
   .session.join p {
     padding: 0 0 5px 0; }
     .session.join p.button {
@@ -443,7 +446,9 @@ body {
         height: 28px;
         font-size: 1.5em;
         line-height: 28px;
-        background: transparent url("/images/v2/icon_search_home.png") 286px 50% no-repeat; }
+        background-image: url("/images/v2/icon_search_home.png");
+        background-position: 280px;
+        float: right; }
       body > #header form input[type="submit"] {
         min-width: 40px;
         min-height: 40px;
@@ -517,7 +522,20 @@ body {
       background: transparent url("/images/v2/bg_home_thumbnails.png") repeat;
       background: rgba(255, 255, 255, 0.5); }
       body > #header .thumbnails .term {
-        border-bottom-color: white; }
+        border-bottom-color: white;
+        padding: 0px; }
+        body > #header .thumbnails .term .site_column, body > #header .thumbnails .term .section, body > #header .thumbnails .term body > #footer .section, body > #footer body > #header .thumbnails .term .section, body > #header .thumbnails .term ul, body > #header .thumbnails .term #content .section, #content body > #header .thumbnails .term .section {
+          height: 32px;
+          line-height: 16px; }
+        body > #header .thumbnails .term p .scientific {
+          display: block;
+          font-weight: normal;
+          font-style: italic;
+          letter-spacing: 1px; }
+        body > #header .thumbnails .term p .common {
+          display: block;
+          font-weight: bold;
+          letter-spacing: 0.5px; }
 
 #content {
   overflow: hidden;

@@ -60,8 +60,11 @@ class EolStatisticsController < ApplicationController
       flash.now[:warning] = t('eol_statistics.warnings.stats_unavailable_for_date',
         :date => dates[:date_two].strftime('%b %d, %Y')) if @stats_two.nil?
     end
-    @stats_one ||= EolStatistic.send(report).earliest.first
-    @stats_two ||= EolStatistic.send(report).latest.first
+    @stats_two ||= EolStatistic.send(report).on_dates([Date.parse(params[:date_two_set])]).first if params[:date_two_set] # Fallback to the previously selected date if a newly selected date has no stats
+    @stats_two ||= EolStatistic.send(report).latest.first # Default to latest stats
+    @stats_one ||= EolStatistic.send(report).on_dates([Date.parse(params[:date_one_set])]).first if params[:date_one_set] # Fallback to the previously selected date if a newly selected date has no stats
+    @stats_one ||= EolStatistic.send(report).on_dates([(@stats_two.created_at.to_date - 1.week)]).first unless @stats_two.nil? # Try to default to 1 week prior to second stats
+    @stats_one ||= EolStatistic.send(report).earliest.first # Otherwise default to earliest
     EolStatistic.compare_and_set_greatest(@stats_one, @stats_two)
   end
 

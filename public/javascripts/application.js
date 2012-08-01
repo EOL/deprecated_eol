@@ -441,7 +441,8 @@ $(function() {
         showOn: "button",
         buttonImage: "/images/v2/icon_calendar.png",
         buttonImageOnly: true,
-        minDate: new Date(2012, 2 - 1, 17) }
+        minDate: new Date(2012, 2 - 1, 17),
+        maxDate: new Date() }
     );
 
     $date_form.addClass('with_picker');

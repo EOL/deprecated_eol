@@ -1,13 +1,13 @@
 - if collection_item.annotation && ! collection_item.annotation.blank?
   .annotation
-    %p= auto_link(collection_item.annotation)
+    %p= auto_link(collection_item.annotation, :urls)
 - if @collection.show_references
   %p.references
   - unless collection_item.refs.blank?
     %strong= I18n.t :references_cabs_colon
     - collection_item.refs.each do |ref|
       %br
-      = auto_link(ref.full_reference)
+      = auto_link(ref.full_reference, :urls)
 - unless collection_item.sort_field.blank?
   %p.sort_value
     %strong= I18n.t('helpers.label.collection_item.sort_field_show')

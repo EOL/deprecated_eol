@@ -15,7 +15,7 @@
         -# Submitted text is now being sanitized before being saved. 
         -# And once the migration to sanitize/balance_tags existing UDO is done then we don't need to run Sanitize/balance_tags here anymore
         -# We will only need: data_object.description.allow_some_html instead.
-        = Sanitize.clean(auto_link(data_object.description).balance_tags, Sanitize::Config::RELAXED).allow_some_html
+        = Sanitize.clean(auto_link(data_object.description, :urls).balance_tags, Sanitize::Config::RELAXED).allow_some_html
       - else
         = data_object.description.balance_tags
     - tr_source = data_object.translation_source
@@ -26,7 +26,7 @@
         %ul
           - data_object.published_refs.each do |ref|
             %li{ :ref_id => ref.id }
-              = auto_link(ref.full_reference).balance_tags
+              = auto_link(ref.full_reference, :urls).balance_tags
               - ref.ref_identifiers.each do |identifier|
                 - next unless identifier.display?
                 &emsp;

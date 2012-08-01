@@ -92,7 +92,7 @@
           - show_body = item.body
         - if item.reply? and item.reply_to.respond_to?(:user)
           - show_body = "@#{link_to(item.reply_to.user.full_name, "##{item.reply_to_type}-#{item.reply_to_id}")}: #{show_body}"
-        = sanitize auto_link(show_body).balance_tags
+        = sanitize auto_link(show_body, :urls).balance_tags
     %p.meta
       - if actual_date
         = I18n.l(item.created_at, :format => :long)

@@ -3115,6 +3115,7 @@ en:
   literature_header: "References"
   literature_references: "Literature references"
   location_colon: "Location:"
+  location_created_colon: "Location Created:"
   login_required_button: "Login required"
   logging_database_colon: "Logging:"
   login: "login"

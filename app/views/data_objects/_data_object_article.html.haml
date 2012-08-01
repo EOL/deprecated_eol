@@ -26,7 +26,7 @@
         %ul
           - data_object.published_refs.each do |ref|
             %li{ :ref_id => ref.id }
-              = ref.full_reference.balance_tags.add_missing_hyperlinks
+              = auto_link(ref.full_reference).balance_tags
               - ref.ref_identifiers.each do |identifier|
                 - next unless identifier.display?
                 &emsp;

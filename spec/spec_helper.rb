@@ -27,7 +27,7 @@ require File.expand_path(File.dirname(__FILE__) + "/eol_spec_helpers")
 require File.expand_path(File.dirname(__FILE__) + "/custom_matchers")
 
 require 'eol_scenarios'
-EolScenario.load_paths = [ File.join(RAILS_ROOT, 'scenarios') ]
+EolScenario.load_paths = [ Rails.root.join('scenarios') ]
 
 Spec::Runner.configure do |config|
   include EolScenario::Spec
@@ -54,7 +54,7 @@ Spec::Runner.configure do |config|
 end
 
 def reset_all_model_cached_instances
-  $ALL_MODELS ||= Dir.foreach("#{RAILS_ROOT}/app/models").map do |model_path|
+  $ALL_MODELS ||= Dir.foreach(Rails.root.join('app', 'models')).map do |model_path|
     if m = model_path.match(/^(([a-z]+_)*[a-z]+)\.rb$/)
       m[1].camelcase.constantize
     else
@@ -83,7 +83,7 @@ def wait_for_insert_delayed(&block)
 end
 
 def read_test_file(filename)
-  csv_obj = CSV.open(File.expand_path(RAILS_ROOT + "/spec/csv_files/" + filename), "r", "\t")
+  csv_obj = CSV.open(Rails.root.join("spec", "csv_files", filename), "r", "\t")
   field_names = []
   field_name = ''
   csv_obj.each_with_index do |fields, i|

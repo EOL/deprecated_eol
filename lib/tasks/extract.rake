@@ -6,8 +6,8 @@ desc 'Tasks useful for extracting raw text for internatiolization'
 
 namespace :i18n do
 
-  lang_dir = File.join([RAILS_ROOT, "config", "locales"])
-  en_yml = File.join([lang_dir, "en.yml"])
+  lang_dir = Rails.root.join("config", "locales")
+  en_yml = File.join(lang_dir, "en.yml")
 
   desc 'Extract row text from haml code'
   task :extract_text => :environment do
@@ -270,7 +270,7 @@ namespace :i18n do
 
 
     def modify_views(en_yml)
-      Dir.glob(File.join([RAILS_ROOT, "app", "views", "**", "*"])).each do |file|
+      Dir.glob(Rails.root.join("app", "views", "**", "*")).each do |file|
         #file = "/EOL/20110412/eol/app/views/taxa/videos.html.haml"
         if file.match(/(\.html.haml)$/)
           puts "\n## "+file

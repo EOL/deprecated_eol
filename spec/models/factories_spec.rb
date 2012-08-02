@@ -35,7 +35,7 @@ describe Factory do
 
   # returns the names of all of the factories defined in factories.rb
   def self.factories_defined
-    factories = File.read(File.join(RAILS_ROOT, 'spec', 'factories.rb')).grep(/^Factory.define :(.*) do/){ |x| $1.to_sym }
+    factories = File.read(Rails.root.join('spec', 'factories.rb')).grep(/^Factory.define :(.*) do/){ |x| $1.to_sym }
     puts factories.inspect
     factories.map {|name|
       begin

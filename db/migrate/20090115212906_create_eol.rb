@@ -10,7 +10,7 @@ class CreateEol < ActiveRecord::Migration
         ActiveRecord::Base.connection.class == ActiveReload::ConnectionProxy  # could be using ActiveReload (Masochism) as we are now in testing
       # I was having trouble running the whole thing at once, so I'll break it up by command:
       # Note that this assumes that the file has been DOS-ified.
-      IO.readlines("#{RAILS_ROOT}/db/eol.sql").to_s.split(/;\s*[\r\n]+/).each do |cmd|
+      IO.readlines(Rails.root.join('db', "eol.sql")).to_s.split(/;\s*[\r\n]+/).each do |cmd|
         if cmd =~ /\w/m # Only run commands with text in them.  :)  A few were "\n\n".
           execute cmd.strip
         end

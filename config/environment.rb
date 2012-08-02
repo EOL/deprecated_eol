@@ -22,9 +22,6 @@ Rails::Initializer.run do |config|
   # Only load the plugins named here, by default all plugins in vendor/plugins are loaded
   # config.plugins = %W( exception_notification ssl_requirement )
 
-  # Add additional load paths for your own custom dirs
-  # config.load_paths += %W( #{RAILS_ROOT}/extras )
-
   # Force all environments to use the same logger level
   # (by default production uses :info, the others :debug)
   # config.log_level = :debug
@@ -36,13 +33,8 @@ Rails::Initializer.run do |config|
     :secret => '9c973cddf1823632f3e42c5e25a18ecf'
   }
 
-  # #Load vendor'ed gems
-  # config.load_paths += Dir["#{RAILS_ROOT}/vendor/gems/**"].map do |dir|
-  #   File.directory?(lib = "#{dir}/lib") ? lib : dir
-  # end
-
   # Load models in subdirectories as well.
-  config.load_paths += Dir["#{RAILS_ROOT}/app/models/**"].map { |dir| dir }
+  config.load_paths += Dir[Rails.root.join('app', 'models', '{**}']
 
   # require gems - all gems that don't require native compilation should be unpacked in ./vendor/gems/
 
@@ -156,13 +148,13 @@ Rails::Initializer.run do |config|
 
   # CONTENT PARTNER REGISTRY CONFIGURATION
   $LOGO_UPLOAD_PATH = "/uploads/images/collection_icons/"  # directory to place uploaded content partner logos from CP registry, content server needs SFTP access to this folder (logos are not served out of this area)
-  $LOGO_UPLOAD_DIRECTORY = "#{RAILS_ROOT}/public/uploads/images/collection_icons/:class_:id.:extension"  # directory to place uploaded content partner logos from CP registry, content server needs SFTP access to this folder (logos are not server out of this area)
+  $LOGO_UPLOAD_DIRECTORY = "#{Rails.root.join(Rails.public_path, 'uploads', 'images', 'collection_icons')}/:class_:id.:extension"  # directory to place uploaded content partner logos from CP registry, content server needs SFTP access to this folder (logos are not server out of this area)
   $LOGO_UPLOAD_MAX_SIZE = 5242880 # 5 megabytes
   $DATASET_UPLOAD_PATH = "/uploads/datasets/"  # directory to place uploaded content partner datasets, content server needs SFTP access to this folder
-  $DATASET_UPLOAD_DIRECTORY = "#{RAILS_ROOT}/public/uploads/datasets/:id.:extension"  # directory to place uploaded content partner datasets, content server needs SFTP access to this folder
+  $DATASET_UPLOAD_DIRECTORY = "#{Rails.root.join(Rails.public_path, 'uploads', 'datasets')}/:id.:extension" # directory to place uploaded content partner datasets, content server needs SFTP access to this folder
 
   $CONTENT_UPLOAD_PATH = "/uploads/"  # directory to place uploaded content files, content server needs SFTP access to this folder
-  $CONTENT_UPLOAD_DIRECTORY = "#{RAILS_ROOT}/public/uploads/:id.:extension"  # directory to place uploaded content
+  $CONTENT_UPLOAD_DIRECTORY = "#{Rails.root.join(Rails.public_path, 'uploads')}/:id.:extension"  # directory to place uploaded content
 
   # NEWS ITEMS ON HOME PAGE CONFIGURATION
   $NEWS_ITEMS_HOMEPAGE_MAX_DISPLAY = 5 # the maximum number of news items to show on the home page at any time
@@ -180,7 +172,7 @@ Rails::Initializer.run do |config|
   $SOLR_COLLECTION_ITEMS_CORE = 'collection_items'
   $SOLR_ACTIVITY_LOGS_CORE = 'activity_logs'
   $SOLR_BHL_CORE = 'bhl'
-  $SOLR_DIR    = File.join(RAILS_ROOT, 'solr', 'solr')
+  $SOLR_DIR    = Rails.root.join('solr', 'solr')
   $INDEX_RECORDS_IN_SOLR_ON_SAVE = true
 
   ### These next few values are declared in the eol:site_configurations table. They are also declared here

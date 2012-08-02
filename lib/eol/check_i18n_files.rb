@@ -213,7 +213,7 @@ module EOL
   class CheckI18nFiles
 
     def initialize
-      @lang_dir = File.join([RAILS_ROOT, "config", "locales"])
+      @lang_dir = Rails.root.join("config", "locales")
       @en_yml = File.join([@lang_dir, "en.yml"])
       @failures = false
       puts "** CHECKING I18N FILES..."
@@ -254,7 +254,7 @@ module EOL
       end
 
       # logging data in log file
-      log_file = File.join([RAILS_ROOT, "log", "i18n_missing_keys.txt"]) # if keys are not found in the language files
+      log_file = Rails.root.join("log", "i18n_missing_keys.txt") # if keys are not found in the language files
       log_data = open(log_file, 'w')
       log_data.write missing_keys
       log_data.close
@@ -290,7 +290,7 @@ module EOL
         end
       end
       # logging data in log file
-      log_keys = File.join([RAILS_ROOT, "log", "i18n_inconsistent_parameters.txt"]) # for missing keys in en.yml files
+      log_keys = Rails.root.join("log", "i18n_inconsistent_parameters.txt") # for missing keys in en.yml files
       log_data = open(log_keys, 'w')
       log_data.write error_log
       log_data.close
@@ -301,8 +301,8 @@ module EOL
     end
 
     def check_hard_coded_controllers
-      log_file = File.join([RAILS_ROOT, "log", "hard_coded_controllers.txt"])
-      control_dir = File.join([RAILS_ROOT, "app", "controllers"])
+      log_file = Rails.root.join("log", "hard_coded_controllers.txt")
+      control_dir = Rails.root.join("app", "controllers")
       error_message = ''
       counter=0
       Dir.glob(File.join([control_dir, "**", "*"])).each do |file|
@@ -336,8 +336,8 @@ module EOL
     end
 
     def check_hard_coded_html_erb
-      log_file = File.join([RAILS_ROOT, "log", "hard_coded_html_erb.txt"])
-      control_dir = File.join([RAILS_ROOT, "app", "views"])
+      log_file = Rails.root.join("log", "hard_coded_html_erb.txt")
+      control_dir = Rails.root.join("app", "views")
       error_message = ''
       counter=0
       Dir.glob(File.join([control_dir, "**", "*"])).each do |file|
@@ -372,10 +372,10 @@ module EOL
     end
 
     def check_hard_coded_html_haml
-      log_file = File.join([RAILS_ROOT, "log", "hard_coded_html_haml.txt"])
+      log_file = Rails.root.join("log", "hard_coded_html_haml.txt")
       counter=0;
       error_message = ''
-      Dir.glob(File.join([RAILS_ROOT, "app", "views", "**", "*"])).each do |file|
+      Dir.glob(Rails.root.join("app", "views", "**", "*")).each do |file|
         if file.match(/(\.html.haml)$/)
           begin
             haml_engine = Haml::Engine.new(File.read(file))
@@ -446,7 +446,7 @@ module EOL
       end
 
       # logging data in log file
-      log_keys = File.join([RAILS_ROOT, "log", "i18n_missing_en_keys.txt"]) # for missing keys in en.yml files
+      log_keys = Rails.root.join("log", "i18n_missing_en_keys.txt") # for missing keys in en.yml files
       log_data = open(log_keys, 'w')
       log_data.write missing_log
       log_data.close
@@ -629,7 +629,7 @@ module EOL
     end
 
     def get_all_files_in_app
-      Dir.chdir(File.join([RAILS_ROOT, "app"]))
+      Dir.chdir(Rails.root.join("app"))
       return Dir.glob(File.join("**", "*.{rb,haml,erb}"))
     end
 

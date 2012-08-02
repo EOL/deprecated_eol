@@ -107,7 +107,7 @@ class FckeditorController < ActionController::Base
   def log_upload
     log "FCKEDITOR - #{params[:NewFile]}"
     # log "FCKEDITOR - UPLOAD_FOLDER: #{UPLOAD_FOLDER}"
-    # log "FCKEDITOR - #{File.expand_path(RAILS_ROOT)}/public#{UPLOAD_FOLDER}/" +
+    # log "FCKEDITOR - #{Rails.root.join(Rails.public_path)}#{UPLOAD_FOLDER}/" +
     #     "#{@new_file.original_filename}"
 
   end

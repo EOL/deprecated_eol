@@ -42,7 +42,7 @@ namespace :eol_reports do
     end
 
     output_file.close
-    puts "Complete - report file created in 'RAILS_ROOT/tmp/'."
+    puts "Complete - report file created in '#{Rails.root.join('tmp')}'."
         
   end
 

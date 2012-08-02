@@ -235,6 +235,37 @@ class UsersController < ApplicationController
     Periodically::Immediately.send_notifications
   end
 
+  # GET /users/:user_id/unsubscribe_notifications/:key
+  def unsubscribe_notifications
+    if @user = User.find(params[:user_id])
+      if params[:key] == @user.unsubscribe_key
+        begin
+          already_unsubscribed = true
+          User.find_all_by_email(@user.email).each do |u|
+            u.disable_email_notifications = true
+            if u.changed?
+              u.save
+              already_unsubscribed = false
+            end
+          end
+          if already_unsubscribed
+            flash[:notice] = I18n.t(:already_unsubscribed, :scope => [:users, :unsubscribe_notifications])
+          else
+            send_unsubscribed_to_notifications_email
+            flash[:notice] = I18n.t(:unsubscribed_notifications_successfully, :scope => [:users, :unsubscribe_notifications])
+          end
+        rescue
+          flash[:error] = I18n.t(:unsubscribe_notifications_failed, :scope => [:users, :unsubscribe_notifications])
+        end
+        return redirect_back_or_default
+      else
+        access_denied
+      end
+    else
+      access_denied
+    end
+  end
+
   # GET /users/verify_open_authentication
   # Third-party apps redirect here from authorization screens, when existing users request to add connected accounts
   def verify_open_authentication
@@ -404,6 +435,10 @@ private
 
   def send_verification_email
     Notifier.deliver_user_verification(@user, verify_user_url(@user.id, @user.validation_code))
+  end
+  
+  def send_unsubscribed_to_notifications_email
+    Notifier.deliver_unsubscribed_to_notifications(@user)
   end
 
   def generate_api_key

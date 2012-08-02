@@ -153,6 +153,10 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   def self.hash_password(raw)
     Digest::MD5.hexdigest(raw)
   end
+  
+  def unsubscribe_key
+    Digest::MD5.hexdigest(email + created_at.to_s + $UNSUBSCRIBE_NOTIFICATIONS_KEY)
+  end
 
   # returns true or false indicating if username is unique
   def self.unique_user?(username, id = nil)

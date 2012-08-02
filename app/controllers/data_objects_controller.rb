@@ -614,20 +614,20 @@ private
         txei_exists = TaxonConceptExemplarImage.find_by_taxon_concept_id_and_data_object_id(tc.id, @data_object.id)
         txei_exists.destroy unless txei_exists.nil?
 
-        cached_taxon_exemplar = $CACHE.fetch(TaxonConcept.cached_name_for("best_image_#{tc.id}"))
+        cached_taxon_exemplar = Rails.cache.fetch(TaxonConcept.cached_name_for("best_image_#{tc.id}"))
         unless cached_taxon_exemplar.nil? || cached_taxon_exemplar == "none"
-          $CACHE.delete(TaxonConcept.cached_name_for("best_image_#{tc.id}")) if cached_taxon_exemplar.guid == @data_object.guid
+          Rails.cache.delete(TaxonConcept.cached_name_for("best_image_#{tc.id}")) if cached_taxon_exemplar.guid == @data_object.guid
         end
-        $CACHE.delete(TaxonConcept.cached_name_for("media_count_#{tc.id}_curator"))
-        $CACHE.delete(TaxonConcept.cached_name_for("media_count_#{tc.id}"))
+        Rails.cache.delete(TaxonConcept.cached_name_for("media_count_#{tc.id}_curator"))
+        Rails.cache.delete(TaxonConcept.cached_name_for("media_count_#{tc.id}"))
 
         tc.published_browsable_hierarchy_entries.each do |pbhe|
-          cached_taxon_he_exemplar = $CACHE.fetch(TaxonConcept.cached_name_for("best_image_#{tc.id}_#{pbhe.id}"))
+          cached_taxon_he_exemplar = Rails.cache.fetch(TaxonConcept.cached_name_for("best_image_#{tc.id}_#{pbhe.id}"))
           unless cached_taxon_he_exemplar.nil? || cached_taxon_he_exemplar == "none"
-            $CACHE.delete(TaxonConcept.cached_name_for("best_image_#{tc.id}_#{pbhe.id}")) if cached_taxon_he_exemplar.guid == @data_object.guid
+            Rails.cache.delete(TaxonConcept.cached_name_for("best_image_#{tc.id}_#{pbhe.id}")) if cached_taxon_he_exemplar.guid == @data_object.guid
           end
-          $CACHE.delete(TaxonConcept.cached_name_for("media_count_#{tc.id}_#{pbhe.id}_curator"))
-          $CACHE.delete(TaxonConcept.cached_name_for("media_count_#{tc.id}_#{pbhe.id}"))
+          Rails.cache.delete(TaxonConcept.cached_name_for("media_count_#{tc.id}_#{pbhe.id}_curator"))
+          Rails.cache.delete(TaxonConcept.cached_name_for("media_count_#{tc.id}_#{pbhe.id}"))
         end
       end
     end

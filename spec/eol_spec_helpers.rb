@@ -71,7 +71,7 @@ module EOL
           end
           puts "-- Truncated #{count} tables in #{conn.instance_eval { @config[:database] }}." if options[:verbose]
         end
-        $CACHE.clear if $CACHE # ...These values are all now void, so...
+        Rails.cache.clear if Rails.cache # ...These values are all now void, so...
       end
 
       def truncate_table(conn, table, skip_if_empty)

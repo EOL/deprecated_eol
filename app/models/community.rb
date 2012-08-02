@@ -105,7 +105,7 @@ class Community < ActiveRecord::Base
   end
   
   def cached_count_members
-    $CACHE.fetch("communities/cached_count_members/#{self.id}", :expires_in => 10.minutes) do
+    Rails.cache.fetch("communities/cached_count_members/#{self.id}", :expires_in => 10.minutes) do
       members.count
     end
   end

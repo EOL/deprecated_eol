@@ -22,7 +22,7 @@ class ContentPartners::Resources::HierarchiesController < ContentPartners::Resou
     access_denied unless current_user.is_admin? && @resource.id == params[:resource_id].to_i &&
                          @partner.id == params[:content_partner_id].to_i
     if @hierarchy.update_attributes(params[:hierarchy])
-      $CACHE.delete('hierarchies/browsable_by_label')
+      Rails.cache.delete('hierarchies/browsable_by_label')
       Hierarchy.delete_cached('id', @hierarchy.id)
       flash[:notice] = I18n.t(:content_partner_resource_hierarchy_update_successful_notice)
       store_location params[:return_to]

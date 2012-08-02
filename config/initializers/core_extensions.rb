@@ -1,4 +1,4 @@
-$CACHE ||= Rails.cache
+Rails.cache.||= Rails.cache
 
 class String
 
@@ -86,14 +86,14 @@ module ActiveRecord
             TocItem
           end
         end
-        $CACHE.read(name)
+        Rails.cache.read(name)
       end
 
       def delete_cached(field, value)
         self.reset_cached_instances # TODO - we really DON'T want to do this (I don't think)... we would rather replace the single instance required...
         # TODO - I just don't understand where these variables are even being written to memcached... but whatever is
         # handling that should also handle this...  Sooooo... move this to where it belongs.
-        $CACHE.delete(self.cached_name_for("instance_#{field}_#{value}"))
+        Rails.cache.delete(self.cached_name_for("instance_#{field}_#{value}"))
       end
 
       def cached_with_local_cache(key, options = {}, &block)
@@ -107,8 +107,8 @@ module ActiveRecord
 
       def cached(key, options = {}, &block)
         name = cached_name_for(key)
-        if $CACHE # Sometimes during tests, cache has not yet been initialized.
-          $CACHE.fetch(name) do
+        if Rails.cache.# Sometimes during tests, cache has not yet been initialized.
+          Rails.cache.fetch(name) do
             yield
           end
         else

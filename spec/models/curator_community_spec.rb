@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 def clear_curator_community_cache
-  $CACHE.delete('test/communities/name/EOL_Curators')
+  Rails.cache.delete('test/communities/name/EOL_Curators')
   CuratorCommunity.reset_cached_instances
 end
 

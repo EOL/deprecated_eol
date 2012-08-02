@@ -1059,7 +1059,7 @@ class TaxonConcept < ActiveRecord::Base
       vetted_types << 'untrusted'
       visibility_types << 'invisible'
     end
-    @media_count ||= $CACHE.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 1.days) do
+    @media_count ||= Rails.cache.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 1.days) do
       best_images = self.data_objects_from_solr({
         :per_page => 1,
         :data_type_ids => DataType.image_type_ids + DataType.video_type_ids + DataType.sound_type_ids,
@@ -1073,7 +1073,7 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def maps_count()
-    @maps_count ||= $CACHE.fetch(TaxonConcept.cached_name_for("maps_count_#{self.id}"), :expires_in => 1.days) do
+    @maps_count ||= Rails.cache.fetch(TaxonConcept.cached_name_for("maps_count_#{self.id}"), :expires_in => 1.days) do
       count = self.data_objects_from_solr({
         :per_page => 1,
         :data_type_ids => DataType.image_type_ids,
@@ -1115,7 +1115,7 @@ class TaxonConcept < ActiveRecord::Base
     TaxonConcept.prepare_cache_classes
     Vetted
     Hierarchy
-    @best_image ||= $CACHE.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 1.days) do
+    @best_image ||= Rails.cache.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 1.days) do
       if published_exemplar = self.published_exemplar_image
         published_exemplar
       else
@@ -1162,7 +1162,7 @@ class TaxonConcept < ActiveRecord::Base
     Vetted
     Hierarchy
     
-    @best_article ||= $CACHE.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 1.days) do
+    @best_article ||= Rails.cache.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 1.days) do
       return @best_article if @best_article && DataObject.find(@best_article.id).published? 
     end
     

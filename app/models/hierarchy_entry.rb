@@ -321,7 +321,7 @@ class HierarchyEntry < ActiveRecord::Base
   end
 
   def preferred_classification_summary
-    $CACHE.fetch(HierarchyEntry.cached_name_for("preferred_classification_summary_for_#{self.id}"), :expires_in => 5.days) do
+    Rails.cache.fetch(HierarchyEntry.cached_name_for("preferred_classification_summary_for_#{self.id}"), :expires_in => 5.days) do
       HierarchyEntry.preload_associations(self, { :flattened_ancestors => :ancestor }, :select =>
         { :hierarchy_entries => [ :id, :name_id, :rank_id, :taxon_concept_id, :lft, :rgt ] })
       return '' if flattened_ancestors.blank?

@@ -172,7 +172,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   def self.cached(id)
     Agent
     begin
-      ($CACHE.fetch("users/#{id}") { User.find(id, :include => :agent) }).dup # #dup avoids frozen hashes!
+      (Rails.cache.fetch("users/#{id}") { User.find(id, :include => :agent) }).dup # #dup avoids frozen hashes!
     rescue
       nil
     end
@@ -637,7 +637,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def clear_cache
-    $CACHE.delete("users/#{self.id}") if $CACHE
+    Rails.cache.delete("users/#{self.id}") if $CACHE
   end
 
 private

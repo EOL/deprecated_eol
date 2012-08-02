@@ -67,7 +67,7 @@ class ApplicationController < ActionController::Base
     # NOTE (!) if you set this value and don't see it change in 10 minutes, CHECK YOUR SLAVE LAG. It reads from slaves.
     # NOTE: if there is no row for global_site_warning, or the value is nil, we will cache the integer 1 so prevent
     # future lookups (when we check the cache and find a value of nil, it makes it look like the lookup was not cached)
-    warning = $CACHE.fetch("application/global_site_warning", :expires_in => 10.minutes) do
+    warning = Rails.cache.fetch("application/global_site_warning", :expires_in => 10.minutes) do
       sco = SiteConfigurationOption.find_by_parameter('global_site_warning')
       (sco && sco.value) ? sco.value : 1
     end
@@ -225,15 +225,9 @@ class ApplicationController < ActionController::Base
 
   # just clear all fragment caches quickly
   def clear_all_caches
-    $CACHE.clear
     remove_cached_feeds
     remove_cached_list_of_taxon_concepts
-    if ActionController::Base.cache_store.class == ActiveSupport::Cache::MemCacheStore
-      ActionController::Base.cache_store.clear
-      return true
-    else
-      return false
-    end
+    Rails.cache.clear
   end
 
   def expire_non_species_caches
@@ -440,7 +434,7 @@ class ApplicationController < ActionController::Base
 
   # clear the cached activity logs on homepage
   def clear_cached_homepage_activity_logs
-    $CACHE.delete('homepage/activity_logs_expiration') if $CACHE
+    Rails.cache.delete('homepage/activity_logs_expiration') if $CACHE
   end
 
 protected

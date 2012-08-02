@@ -38,7 +38,7 @@ module EOL
         TaxonConcept.preload_associations(taxon_concepts, { :taxon_concept_exemplar_image => :data_object })
         taxon_concepts.each do |tc|
           TaxonConcept.prepare_cache_classes
-          next if $CACHE.read(TaxonConcept.cached_name_for("best_image_#{tc.id}"))
+          next if Rails.cache.read(TaxonConcept.cached_name_for("best_image_#{tc.id}"))
           if best_image = tc.published_exemplar_image
             all_best_images_for_concepts[tc.id] = best_image
           else
@@ -82,7 +82,7 @@ module EOL
           
           # set the cache value for all the best images that were just found
           all_best_images_for_concepts.each do |tc_id, d|
-            $CACHE.fetch(TaxonConcept.cached_name_for("best_image_#{tc_id}"), :expires_in => 1.days) do
+            Rails.cache.fetch(TaxonConcept.cached_name_for("best_image_#{tc_id}"), :expires_in => 1.days) do
               d || 'none'
             end
           end
@@ -90,7 +90,7 @@ module EOL
           # for a concept we searched for, then that concept has no best images, so record that fact
           if response['response']['docs'].length < number_of_images_to_return
             subset_of_taxon_concept_ids_to_lookup.each do |tc_id|
-              $CACHE.fetch(TaxonConcept.cached_name_for("best_image_#{tc_id}"), :expires_in => 1.days) do 
+              Rails.cache.fetch(TaxonConcept.cached_name_for("best_image_#{tc_id}"), :expires_in => 1.days) do 
                 'none'
               end
             end

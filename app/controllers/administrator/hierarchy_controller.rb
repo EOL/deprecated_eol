@@ -50,7 +50,7 @@ class Administrator::HierarchyController < AdminController
       end
       if @hierarchy.update_attributes(params[:hierarchy])
         # if there were changes to what was browsable we want those changes immediately visible
-        $CACHE.delete('hierarchies/browsable_by_label')
+        Rails.cache.delete('hierarchies/browsable_by_label')
         flash[:notice] = I18n.t("hierarchy_updated")
         redirect_to :action => 'index', :id => @hierarchy.id, :status => :moved_permanently
       end

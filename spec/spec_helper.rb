@@ -46,7 +46,7 @@ Spec::Runner.configure do |config|
   truncate_all_tables_once
 
   config.after(:each) do
-    $CACHE.clear if $CACHE
+    Rails.cache.clear if $CACHE
     # reset the class variables that cache certain instances
     reset_all_model_cached_instances
   end

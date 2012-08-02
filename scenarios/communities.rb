@@ -9,7 +9,7 @@
 #---
 #dependencies: [ :foundation ]
 
-$CACHE.clear # Not *positive* we need this, but...
+Rails.cache.clear # Not *positive* we need this, but...
 require 'spec/eol_spec_helpers'
 require 'spec/scenario_helpers'
 # This gives us the ability to build taxon concepts:

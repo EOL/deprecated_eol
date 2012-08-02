@@ -15,7 +15,7 @@ module ActiveRecord
           else
             # EOL: adding an ability to cache all rows of a class when looking up by ID
             records = nil
-            if defined?(self::CACHE_ALL_ROWS) && self::CACHE_ALL_ROWS && primary_key.class == String && $CACHE && !Rails.env.test?
+            if defined?(self::CACHE_ALL_ROWS) && self::CACHE_ALL_ROWS && primary_key.class == String && Rails.cache.&& !Rails.env.test?
               sql = construct_finder_sql(options).strip
               if m = sql.match(/SELECT .*? FROM #{quoted_table_name} WHERE (.*?)( *LIMIT ([0-9]+))?$/)
                 where_clause = m[1].strip

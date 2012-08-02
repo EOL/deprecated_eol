@@ -287,10 +287,10 @@ class ContentController < ApplicationController
 private
 
   def periodically_recalculate_homepage_parts
-    $CACHE.fetch('homepage/activity_logs_expiration/' + current_language.iso_639_1, :expires_in => $HOMEPAGE_ACTIVITY_LOG_CACHE_TIME.minutes) do
+    Rails.cache.fetch('homepage/activity_logs_expiration/' + current_language.iso_639_1, :expires_in => $HOMEPAGE_ACTIVITY_LOG_CACHE_TIME.minutes) do
       expire_fragment(:action => 'index', :action_suffix => "activity_#{current_language.iso_639_1}")
     end
-    $CACHE.fetch('homepage/march_of_life_expiration/' + current_language.iso_639_1, :expires_in => 120.seconds) do
+    Rails.cache.fetch('homepage/march_of_life_expiration/' + current_language.iso_639_1, :expires_in => 120.seconds) do
       expire_fragment(:action => 'index', :action_suffix => "march_of_life_#{current_language.iso_639_1}")
     end
   end

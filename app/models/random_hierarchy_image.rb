@@ -11,11 +11,11 @@ class RandomHierarchyImage < ActiveRecord::Base
   def self.random_set_cached
     begin
       RandomHierarchyImage.random_set_precache_class_loads
-      $CACHE.fetch('homepage/random_images', :expires_in => 30.minutes) do
+      Rails.cache.fetch('homepage/random_images', :expires_in => 30.minutes) do
         RandomHierarchyImage.random_set(12)
       end
     rescue TypeError => e
-      # TODO - FIXME  ... This appears to have to do with $CACHE.fetch (obviously)... not sure why, though.
+      # TODO - FIXME  ... This appears to have to do with Rails.cache.fetch (obviously)... not sure why, though.
       RandomHierarchyImage.random_set(12)
     end
   end
@@ -95,13 +95,13 @@ class RandomHierarchyImage < ActiveRecord::Base
   end
 
   def self.min_id()
-    $CACHE.fetch('random_hierarchy_image/min_id', :expires_in => 60.minutes) do
+    Rails.cache.fetch('random_hierarchy_image/min_id', :expires_in => 60.minutes) do
       self.connection.select_value("select min(id) min from random_hierarchy_images").to_i
     end
   end
   
   def self.max_id()
-    $CACHE.fetch('random_hierarchy_image/max_id', :expires_in => 60.minutes) do
+    Rails.cache.fetch('random_hierarchy_image/max_id', :expires_in => 60.minutes) do
       self.connection.select_value("select max(id) min from random_hierarchy_images").to_i
     end
   end
@@ -109,7 +109,7 @@ class RandomHierarchyImage < ActiveRecord::Base
 
   def self.hierarchy_count(hierarchy)
     hierarchy ||= Hierarchy.default
-    $CACHE.fetch("random_hierarchy_image/hierarchy_count_#{hierarchy.id}", :expires_in => 60.minutes) do
+    Rails.cache.fetch("random_hierarchy_image/hierarchy_count_#{hierarchy.id}", :expires_in => 60.minutes) do
       self.connection.select_value("select count(*) count from random_hierarchy_images rhi WHERE rhi.hierarchy_id=#{hierarchy.id}").to_i
     end
   end

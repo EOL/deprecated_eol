@@ -1,15 +1,16 @@
 source 'http://rubygems.org'
 
 group :development, :test do
-  gem 'faker'
-  gem 'eol_scenarios'
-  gem 'rspec-rails', "~>2.0"
-  gem 'factory_girl'
+  gem 'capistrano-unicorn'
   gem 'capybara'
   gem 'daemons'
+  gem 'debugger'
+  gem 'eol_scenarios'
+  gem 'factory_girl'
+  gem 'faker'
   gem 'optiflag'
+  gem 'rspec-rails', "~>2.0"
   gem 'ruby-prof'
-  gem 'capistrano-unicorn'
 end
 
 group :test do
@@ -22,10 +23,11 @@ end
 
 gem 'rails', '3.2.7'
 
-gem 'composite_primary_keys', '~>3.1.0'
+gem 'composite_primary_keys'
 gem 'email_spec'
 gem 'escape'
 gem 'ezcrypto'
+gem 'dalli'
 gem 'fastercsv'
 gem 'graylog2_exceptions'
 gem 'haml'
@@ -33,14 +35,12 @@ gem 'indifferent-variable-hash'
 gem 'invert'
 gem 'json'
 gem 'macaddr'
-gem 'memcache'
 gem 'mysql'
 gem 'newrelic_rpm'
 gem 'oauth'
 gem 'oauth2'
 gem 'rdoc'
 gem 'resque', :require => "resque/server"
-gem 'ruby-debug'
 gem 'sanitize'
 gem 'sass'
 gem 'unicorn'

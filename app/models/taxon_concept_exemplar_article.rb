@@ -6,6 +6,6 @@ class TaxonConceptExemplarArticle < ActiveRecord::Base
   def self.set_exemplar(taxon_concept_id, data_object_id)
     exemplar = self.find_or_create_by_taxon_concept_id(taxon_concept_id)
     exemplar.update_attributes(:data_object_id => data_object_id)
-    $CACHE.delete(TaxonConcept.cached_name_for("best_article_#{taxon_concept_id}"))
+    Rails.cache.delete(TaxonConcept.cached_name_for("best_article_#{taxon_concept_id}"))
   end
 end

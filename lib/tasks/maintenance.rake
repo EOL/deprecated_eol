@@ -44,7 +44,7 @@ end
 namespace :cache do
    desc 'Clear memcache'
    task :clear => :environment do
-     $CACHE.clear
+     Rails.cache.clear
      ActionController::Base.cache_store.clear
    end
 end

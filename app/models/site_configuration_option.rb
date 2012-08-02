@@ -17,7 +17,7 @@ class SiteConfigurationOption < ActiveRecord::Base
   end
 
   def clear_caches
-    $CACHE.fetch("application/#{self.parameter}") if self.parameter
+    Rails.cache.fetch("application/#{self.parameter}") if self.parameter
   end
 
 end

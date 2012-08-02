@@ -3,7 +3,7 @@
 # searches on (normal, vetted, visible, published) images. That table is referenced by
 # DataObject#cached_images_for_taxon().  That table is *built* using PHP, so you will not see any other ref to it.
 class TopImage < ActiveRecord::Base
-  set_primary_keys :hierarchy_entry_id, :data_object_id
+  self.primary_keys :hierarchy_entry_id, :data_object_id
   belongs_to :hierarchy_entry
   belongs_to :data_object
 end

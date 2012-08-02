@@ -1,7 +1,7 @@
 class DataObjectsInfoItem < ActiveRecord::Base
   belongs_to :data_object
   belongs_to :info_item
-  set_primary_keys :data_object_id, :info_item_id
+  self.primary_keys :data_object_id, :info_item_id
   # This is only here to help specs load things to the right database.  Ignore it.
 end
   # == Schema Info

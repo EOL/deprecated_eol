@@ -36,21 +36,6 @@ Rails::Initializer.run do |config|
   # Load models in subdirectories as well.
   config.load_paths += Dir[Rails.root.join('app', 'models', '{**}']
 
-  # require gems - all gems that don't require native compilation should be unpacked in ./vendor/gems/
-
-  config.gem 'will_paginate'
-  config.gem 'composite_primary_keys'
-  config.gem 'fastercsv'
-  config.gem 'haml', :version => '3.1.1'
-  config.gem 'macaddr'
-  config.gem 'uuid'
-  config.gem 'ezcrypto'
-  config.gem 'sanitize', :version => '2.0.1'
-  config.gem 'escape'
-  config.gem 'email_spec'
-  config.gem 'invert'
-  config.gem 'sass', :version => '3.1.1'
-
   # Use SQL instead of Active Record's schema dumper when creating the test database.
   # This is necessary if your schema can't be completely dumped by the schema dumper,
   # like if you have constraints or database-specific column types

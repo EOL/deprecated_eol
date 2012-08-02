@@ -1,7 +1,7 @@
 class PageName < ActiveRecord::Base
   belongs_to :item_page
   belongs_to :name
-  set_primary_keys :name_id, :item_page_id
+  self.primary_keys :name_id, :item_page_id
   
   def self.page_names_for?(taxon_concept_id)
     return PageName.count_by_sql(['SELECT 1 FROM taxon_concept_names tcn 

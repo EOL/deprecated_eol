@@ -14,7 +14,7 @@ class FckeditorSpellCheck
     
     # call aspell
     command = "\"#{aspell_program}\" -a --lang=#{language} --encoding=utf-8 -H 2>&1"
-    RAILS_DEFAULT_LOGGER.info("Running spell check: #{command}")
+    Rails.logger.info("Running spell check: #{command}")
     output = IO.popen(command, 'r+') {|io| io.puts(text); io.close_write; io.read }
 
     # return an array of results

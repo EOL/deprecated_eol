@@ -6,16 +6,16 @@
 
 class ActiveRecord::Base
   def self.establish_master_connection(database_name)
-    if RAILS_ENV == 'test'
+    if Rails.env.test?
       # we are now using a separate environment for testing called test_master
       # this is so we can test read/write splitting. It is not an actual replication
       # setup therefore not a real master
       master_database_name = "test_master_" + database_name.to_s
       raise "There is no entry for `#{master_database_name}` in /config/database.yml" if configurations[master_database_name].blank?
       self.establish_connection configurations[master_database_name]
-    elsif RAILS_ENV == 'development'
+    elsif Rails.env.development?
       # the development environment always uses the same databases for master and slave
-      master_database_name = RAILS_ENV + "_" + database_name.to_s
+      master_database_name = "#{Rails.env}_#{database_name}"
       self.establish_connection configurations[master_database_name]
     else
       # in all other cases raise an error if the master_*_database isn't configured

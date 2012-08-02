@@ -73,9 +73,6 @@ class FckeditorController < ActionController::Base
     mime_type_ok
   end
 
-  ##############################################################################
-  # Raise and exception, log the msg error and show msg
-  #
   def raise_mime_type_and_show_msg(ftype)
     msg = "#{ftype} is invalid MIME type"
     puts msg;
@@ -83,9 +80,6 @@ class FckeditorController < ActionController::Base
     log msg
   end
 
-  ##############################################################################
-  # Copy tmp file to current_directory_path/tmp_file.original_filename
-  #
   def copy_tmp_file(tmp_file)
     path = $LOGO_UPLOAD_PATH + tmp_file.original_filename
     File.open("public/" + path, "wb", 0664) do |fp|
@@ -94,27 +88,14 @@ class FckeditorController < ActionController::Base
     ContentServer.upload_content(path, request.port.to_s)
   end
 
-  ##############################################################################
-  # Puts a messgae info in the current log, only if RAILS_ENV is 'development'
-  #
   def log(str)
-    RAILS_DEFAULT_LOGGER.info str if RAILS_ENV == 'development'
+    Rails.logger.info(str) if Rails.env.development?
   end
 
-  ##############################################################################
-  # Puts some data in the current log
-  #
   def log_upload
     log "FCKEDITOR - #{params[:NewFile]}"
-    # log "FCKEDITOR - UPLOAD_FOLDER: #{UPLOAD_FOLDER}"
-    # log "FCKEDITOR - #{Rails.root.join(Rails.public_path)}#{UPLOAD_FOLDER}/" +
-    #     "#{@new_file.original_filename}"
-
   end
 
-  ##############################################################################
-  # check that the file is a tempfile object
-  #
   def check_file(file)
     log "FCKEDITOR ---- CLASS OF UPLOAD OBJECT: #{file.class}"
 

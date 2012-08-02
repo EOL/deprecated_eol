@@ -142,7 +142,7 @@ class SolrAPI
     # Currently I can't determine a reliable way to get a URL for the file for streaming.
     # If the app isn't running, there cannot be a URL as there is no web server to serve the file.
     # If the app is running, rake doesn't know about the request therefore it can't know the proper port
-    stream_file = false if RAILS_ENV == 'test'
+    stream_file = false if Rails.env.test?
     load_schema # make sure we know the fields. It will only be loaded once
     
     File.open(@csv_path, 'w') do |f|

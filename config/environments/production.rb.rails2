@@ -8,8 +8,8 @@
 # in each file overriding the settings in prior files
 #
 # 1) config/environment.rb
-# 2) config/environments/[RAILS_ENV].rb
-# 3) config/environments/[RAILS_ENV]_eol_org.rb
+# 2) config/environments/[Rails.env].rb
+# 3) config/environments/[Rails.env]_eol_org.rb
 # 4) config/environment_eol_org.rb
 #============================================================
 

@@ -326,7 +326,7 @@ describe 'Select with Preload Include' do
   end
 
   # # I disabled caching all classes in the test environment due to complications.
-  # # /lib/select_with_preload_include/active_record/base.rb says that caching only works if RAILS_ENV != 'test'
+  # # /lib/select_with_preload_include/active_record/base.rb says that caching only works if !Rails.env.test?
   # it 'should cache class instances' do
   #   Rank.delete(1)
   #   Rank::CACHE_ALL_ROWS = false

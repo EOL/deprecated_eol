@@ -14,7 +14,7 @@ require 'ruby-debug'
 config.cache_classes = true
 
 # Most directly emulate both development and production environments:
-# NOT WORKING: config.cache_store = :mem_cache_store
+# NOT WORKING: config.cache_store = :dalli_store
 
 # Log error messages when you accidentally call methods on nil.
 config.whiny_nils = true

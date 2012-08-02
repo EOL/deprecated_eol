@@ -396,7 +396,7 @@ mechanism (i.e. memcached) must be set as well.
 
 For memcached:
 
-  config.cache_store = :mem_cache_store, '10.0.0.1:11211', '10.0.0.2:11211'
+  config.cache_store = :dalli_store, '10.0.0.1:11211', '10.0.0.2:11211'
 
 To enable caching:
 

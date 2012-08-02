@@ -40,7 +40,7 @@ config.action_mailer.raise_delivery_errors = false
 
 # logging level
 config.log_level = :debug
-config.cache_store = :mem_cache_store
+config.cache_store = :dalli_store
 ActiveRecord::Base.logger = Logger.new(STDOUT)
 ActionController::Base.logger = Logger.new(STDOUT)
 ActiveSupport::Cache::MemCacheStore.logger = Logger.new(STDOUT)

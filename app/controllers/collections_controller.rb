@@ -671,7 +671,9 @@ private
   def reindex_items_if_necessary(collection_results)
     collection_item_ids_to_reindex = []
     collection_results.each do |r|
-      if r['object_type'] == 'TaxonConcept'
+      if r['sort_field'] != r['instance'].sort_field
+        collection_item_ids_to_reindex << r['instance'].id
+      elsif r['object_type'] == 'TaxonConcept'
         title = r['instance'].object.entry.name.canonical_form.string rescue nil
         if title && r['title'] != title
           collection_item_ids_to_reindex << r['instance'].id
@@ -684,7 +686,7 @@ private
         end
       end
     end
-    EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection_items_by_ids(collection_item_ids_to_reindex)
+    EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection_items_by_ids(collection_item_ids_to_reindex.uniq)
   end
 
 end

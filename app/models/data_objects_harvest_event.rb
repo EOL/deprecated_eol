@@ -1,5 +1,5 @@
 class DataObjectsHarvestEvent < ActiveRecord::Base
-  set_primary_keys :data_object_id, :harvest_event_id
+  self.primary_keys :data_object_id, :harvest_event_id
   
   belongs_to :harvest_event
   belongs_to :data_object

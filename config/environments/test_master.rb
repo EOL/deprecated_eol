@@ -47,10 +47,3 @@ $SOLR_DATA_OBJECTS_CORE = 'data_objects'
 $SOLR_SITE_SEARCH_CORE = 'site_search'
 
 $SOLR_DIR    = Rails.root.join('solr', 'solr')
-
-config.gem 'faker'
-config.gem "eol_scenarios", :lib => "eol_scenarios"
-config.gem "rspec", :lib => false
-config.gem "rspec-rails", :lib => false
-config.gem "factory_girl", :lib => false
-config.gem "capybara", :lib => false, :version => "0.3.9"

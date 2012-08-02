@@ -1,6 +1,6 @@
 class RefIdentifier < ActiveRecord::Base
 
-  set_primary_keys :ref_id, :ref_identifier_type_id
+  self.primary_keys :ref_id, :ref_identifier_type_id
 
   belongs_to :ref
   belongs_to :ref_identifier_type

@@ -144,19 +144,3 @@ master_logging_database:
   <<: *common
   <<: *remote
   database: eol_logging_production
-
-#######################
-cucumber:
-  <<: *common
-  <<: *remote
-  database: eol_integration
-
-cucumber_data:
-  <<: *common
-  <<: *remote
-  database: eol_data_integration
-
-cucumber_logging:
-  <<: *common
-  <<: *dev
-  database: eol_logging_development

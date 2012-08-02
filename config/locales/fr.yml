@@ -170,7 +170,7 @@ fr:
         changes_to_my_watched_collection: Changements dans les collections de votre liste de suivi
         changes_to_my_watched_community: Changements dans les communautés de votre liste de suivi
         comment_on_my_collection: Un commentaire sur une collection que vous gérez
-        comment_on_my_community: Un commentaire dans l’une de vos communautés
+        comment_on_my_community: Un commentaire dans l’une des communautés dont vous êtes membre
         comment_on_my_contribution: Un commentaire ou une action de conservation relative à une contribution que vous avez faite
         comment_on_my_profile: Un commentaire sur votre profil
         comment_on_my_watched_item: Commentaires sur les objets, les taxons, les collections ou les communautés de votre liste de suivi
@@ -386,41 +386,6 @@ fr:
   admin_user_delete_successful_notice: Utilisateur a été supprimé
   admin_user_hide_successful_notice: Utilisateur a été masqué
   admin_user_unhide_successful_notice: L’utilisateur n’est plus masqué
-  admins: 
-    statistics: 
-      content_partner: 
-        page_header: Statistiques du partenaire de contenu
-        page_title: "Administration : Statistiques du partenaire de contenu"
-      content_partner_link: Partenaires de contenu
-      curator: 
-        page_header: Statistiques du conservateur
-        page_title: "Administration : Statistiques du conservateur"
-      curator_link: Statistiques du conservateur
-      data_object: 
-        page_header: Statistiques de l’objet de données
-        page_title: "Administration : Statistiques de l’objet de données"
-      data_object_link: Objets de données
-      index: 
-        page_header: Statistiques globales
-        page_title: "Administration : Statistiques globales"
-        table_caption: Statistiques globales du site créées à %{created_at_time}
-      index_link: Statistiques globales
-      lifedesk: 
-        page_header: Statistiques de LifeDesks
-        page_title: "Administration : Statistiques de LifeDesks"
-      lifedesk_link: LifeDesks
-      marine: 
-        page_header: Couverture marine dans l’EdlV
-        page_title: "Administration : Statistiques marines"
-      marine_link: Statistiques marines
-      page_richness: 
-        page_header: Statistiques de pages riches
-        page_title: "Administration : Statistiques de pages riches"
-      page_richness_link: Pages riches
-      user_added_data: 
-        page_header: Statistiques sur le texte soumis par l’utilisateur
-        page_title: "Administration : Statistiques de texte soumis par l’utilisateur"
-      user_added_data_link: Texte soumis par l’utilisateur
   agent: Agent
   all: tout
   all_apis_return_by_default_an_xml_response: "Toutes les IPA de l’EdlV retournent par défaut une réponse XML. Les méthodes de l’IPA peuvent être appelées sans préciser une extension de format pour obtenir la réponse XML et l’ajout d’une extension XML produira une réponse identique :"
@@ -492,7 +457,6 @@ fr:
   audio_pause: pause
   audio_pause_assistive: Lorsque JavaScript est activé, ce lien vous permettra de mettre en pause un fichier sonore adjacent en cours de lecture, sinon veuillez ignorer ce lien.
   audio_play: lecture
-  audio_play_assistive: Lorsque JavaScript est activé, ce lien commencera à jouer le fichier sonore en gardant le visiteur sur la même fenêtre. Si JavaScript est désactivé, ce lien pointe vers un fichier sonore qui, si sélectionné, se comportera selon les réglages de votre appareil.
   audio_stop: arrêt
   audio_stop_assistive: Lorsque JavaScript est activé, ce lien vous permettra d’arrêter un fichier sonore adjacent en cours de lecture, sinon veuillez ignorer ce lien.
   audio_unmute: non muet
@@ -632,7 +596,6 @@ fr:
   comment_not_updated_error: Désolé, une erreur est survenue, le commentaire n’a pas pu être mis à jour.
   comment_or_rate_on_this_article: Commenter ou noter cet article
   comment_show_posters_image_alt: Image de profil de %{posters_name}, qui a ajouté ce commentaire.
-  commented_on_your_image: " a commenté votre image sur le <a href=\"%{data_object_link}\">site de l’Encyclopédie de la Vie (EdlV)</a> :\n%{comment_body}"
   comments: Commentaires
   comments_and_tags: Commentaires et balises
   comments_filter: Commentaires
@@ -1764,7 +1727,6 @@ fr:
   moderator_colon: "Modérateur :"
   monthly: Mensuel
   more_children_with_count: "%{count} de plus…"
-  more_information_on_the_various_licenses: licences. Visitez leur site pour plus d'informations sur les différentes licences qu'ils offrent
   more_siblings_with_count: 
     one: "%{count} frère de plus…"
     other: "%{count} frères de plus…"
@@ -1907,6 +1869,7 @@ fr:
       subject: Votre demande pour un privilège de supervision de l’Encyclopédie de la Vie (EdlV) en tant que %{curator_level} a été approuvée
     greeting_dear_name_with_comma: "{{GENDER:%{name}}}|Cher|Chère}} %{name},"
     signature_basic: L’équipe de l’Encyclopédie de la Vie
+    signature_with_contact_us_link: "Si vous rencontrez des problèmes, veuillez nous contacter à %{url}. \n\nL'équipe de l’Encyclopédie de la vie"
     signature_with_species_pages_group_contact: "Si vous avez des questions, vous pouvez nous contacter à l’adresse %{species_pages_group_email}.\n\nL’équipe de l’Encyclopédie de la Vie"
     user_activated: 
       message: "Bienvenue sur l’Encyclopédie de la Vie (EdlV) et merci pour votre inscription ! Votre nom d’utilisateur est %{username} et l’adresse de votre profil est %{profile_url}. Vous pouvez vous connecter à votre compte à l’adresse http://www.eol.org/login.\n\nPour en savoir plus sur l’utilisation de l’EdlV, notamment comment créer des collections, participer aux communautés et contribuer au contenu, vous pouvez lire les pages d’aide à l’adresse http://www.eol.org/help."
@@ -2135,6 +2098,7 @@ fr:
     intro: Voici votre condensé d’activité EdlV pour %{time}
     intro_immediately: Bonjour, %{name} —
     intro_weekly: Voici le résumé de votre activité EdlV pour la semaine se terminant le %{ending}
+    reply_to_comment_body_brief: "%{reply_to_author} %{body} - %{author}"
     see_all_activity: Voyez toutes vos activités précédentes sur votre page d’utilisateur <a href='%{activity_url}' style='color:#195184'></a>.
     someone_commented_on_something: <b>%{who}</b> a commenté <b>%{what}</b>.
     unsubscribe: Modifiez vos paramètres de courriel ou désabonnez-vous en modifiant <a href='%{email_prefs_url}' style='color:#195184'>votre page de préférences de notification</a>.
@@ -2350,7 +2314,6 @@ fr:
   spm_category_partner_count: Catégorie SPM - nombre de partenaires
   started: Démarré
   stat: Stat
-  statistics: Statistiques
   sub_heading: Sous-titrage
   subject: sujet
   submit: Valider
@@ -2455,12 +2418,12 @@ fr:
           meta_title: Littérature concernant %{scientific_name} tel que classé par %{hierarchy_provider}
           meta_title_with_common_name: Livres concernant %{preferred_common_name} (%{scientific_name} tel que classé par %{hierarchy_provider})
           tweet_text: Littérature concernant %{scientific_name} tel que classé par %{hierarchy_provider}
-        meta_description: Bibliographie et informations concernant %{scientific_name} sur l’Encyclopédie la Vie. Lire les articles concernant %{scientific_name} sur l’Encyclopédie de la Vie.
-        meta_description_with_common_name: Bibliographie et informations concernant %{preferred_common_name}, appelé aussi %{scientific_name} sur l’Encyclopédie de la Vie. Lire les articles concernant %{preferred_common_name} sur l’Encyclopédie de la Vie.
-        meta_keywords: informations concernant %{scientific_name}, littérature concernant %{scientific_name}, articles concernant %{scientific_name}
-        meta_keywords_with_common_name: informations concernant %{preferred_common_name}, littérature concernant %{preferred_common_name}, articles concernant %{scientific_name}
-        meta_title: Littérature concernant %{scientific_name}
-        meta_title_with_common_name: Articles et livres concernant %{preferred_common_name} (%{scientific_name})
+        meta_description: Livres, articles et bibliographies concernant %{scientific_name} sur l’Encyclopédie la Vie. Lire la littérature concernant %{scientific_name} sur l’Encyclopédie de la Vie.
+        meta_description_with_common_name: Livres, articles et bibliographies concernant %{preferred_common_name}, appelé aussi %{scientific_name} sur l’Encyclopédie de la Vie. Lire la littérature concernant %{preferred_common_name} sur l’Encyclopédie de la Vie.
+        meta_keywords: articles de %{scientific_name}, livres de %{scientific_name}, bibliographies de %{scientific_name}, littérature %{scientific_name}
+        meta_keywords_with_common_name: articles de %{preferred_common_name}, livres de %{preferred_common_name}, littérature de %{preferred_common_name}, articles de %{scientific_name}, livres de %{scientific_name}, bibliographies de %{scientific_name}, littérature de %{scientific_name}
+        meta_title: Articles & livres concernant %{scientific_name}
+        meta_title_with_common_name: Articles & livres concernant %{preferred_common_name} (%{scientific_name})
         tweet_text: Littérature concernant %{scientific_name}
     maps: 
       show: 
@@ -2476,7 +2439,7 @@ fr:
         meta_keywords_with_common_name: habitat de %{preferred_common_name}, origine, où vit %{preferred_common_name}
         meta_title: Cartes de %{scientific_name}
         meta_title_with_common_name: Cartes pour %{preferred_common_name} (%{scientific_name})
-        tweet_text: Cartes de %{scientific_name}
+        tweet_text: Cartes pour %{scientific_name}
     media: 
       index: 
         hierarchy_entry: 
@@ -2554,6 +2517,31 @@ fr:
     resources: 
       biomedical_terms: 
         meta_title: Termes biomédicaux pour %{scientific_name}
+        tweet_text: Termes biomédicaux pour %{scientific_name}
+      education: 
+        hierarchy_entry: 
+          meta_title: Outils d'apprentissage pour %{scientific_name} classé par %{hierarchy_provider}
+          meta_title_with_common_name: Outils d’apprentissage pour %{preferred_common_name} (%{scientific_name} classé par %{hierarchy_provider})
+          tweet_text: Outils d’apprentissage pour %{scientific_name} classé par %{hierarchy_provider}
+        meta_title_with_common_name: Ressources d’éducation pour %{preferred_common_name} (%{scientific_name})
+      nucleotide_sequences: 
+        hierarchy_entry: 
+          tweet_text: Séquences de nucléotides pour %{scientific_name} classés par %{hierarchy_provider}
+        meta_title_with_common_name: Séquences de nucléotides pour %{preferred_common_name} (%{scientific_name})
+      show: 
+        meta_title_with_common_name: Ressources de contenu pour %{preferred_common_name} (%{scientific_name})
+    updates: 
+      show: 
+        hierarchy_entry: 
+          meta_title: Mises à jour de %{scientific_name} classé par %{hierarchy_provider}
+          meta_title_with_common_name: Mises à jour de %{preferred_common_name} (%{scientific_name} classé par %{hierarchy_provider})
+          tweet_text: Mises à jour de %{scientific_name} classé par %{hierarchy_provider}
+        meta_keywords: Nouvelles de %{scientific_name}, mises à jour de %{scientific_name}
+        meta_title_with_common_name: Commentaires sur %{preferred_common_name} (%{scientific_name})
+      statistics: 
+        hierarchy_entry: 
+          meta_title: Statistiques pour %{scientific_name} classé par %{hierarchy_provider}
+          meta_title_with_common_name: Statistiques de %{preferred_common_name} (%{scientific_name} classé par %{hierarchy_provider})
   taxa_column_header: Taxons
   taxon: taxon
   taxon_biomedical_terms_link: Termes biomédicaux
@@ -2810,6 +2798,18 @@ fr:
   username_colon: "Nom d’utilisateur :"
   username_taken: "%{name} est déjà pris"
   users: 
+    activities: 
+      show: 
+        meta_title: Activités de %{user_full_name}
+        tweet_text: activité de %{user_full_name}
+    collections: 
+      index: 
+        meta_description: Collections gérées par %{user_full_name}.
+        meta_title: Collections de %{user_full_name}
+        tweet_text: collections de %{user_full_name}
+    communities: 
+      index: 
+        meta_description: Communautés dont %{user_full_name} est un membre.
     edit: 
       form_tip_curation: La Certification et l’Étendue de conservation sont optionnelles pour les Conservateurs adjoints mais exigés %{required_icon} pour les Conservateurs et Maîtres conservateurs
       form_tip_profile: Les éléments marqués « requis » %{required_icon} sont optionnels pour les utilisateurs ordinaires mais exigés des conservateurs.
@@ -2916,7 +2916,7 @@ fr:
   year: Année
   yes_answer: Oui
   you_are_an_admin_so_i_will_show_you_that_the_error_was: "Vous êtes un administrateur. Je vous montre donc que l'erreur était :"
-  you_are_not_authorized_to_perform_this_action: Vous n'êtes pas autorisé à effectuer cette action.
+  you_are_not_authorized_to_perform_this_action: Vous n’êtes pas autorisé à effectuer cette action.
   you_are_viewing_this_rank_as_classified_by: "Vous visualisez ce %{rank} tel que classé par :"
   you_can_edit_those_later_if_ne: Vous pourrez les modifier plus tard si nécessaire.
   you_can_identify_yourself_to_eol: "Vous pouvez vous identifier sur l’EdlV en ajoutant votre clé d’IPA à vos demandes (connectez-vous et générez votre clé dans votre page de préférences) :"

@@ -8,6 +8,7 @@
 # Author: Ghada.nabeel
 # Author: Malhargan
 # Author: Meno25
+# Author: OsamaK
 # Author: Rana El Deeb
 # Author: Sara.elshobaky
 # Author: ترجمان05
@@ -430,19 +431,6 @@ ar:
         user_associated_data_object_to_association: قام <strong>%{user}</strong> بإضافة ارتباط بين "%{data_object}" و "%{association}".
         user_associated_it_to_an_unknown_association: قام <strong>%{user}</strong> بإضافة ارتباط بصفحة غير معروفة.
         user_associated_it_to_association: قام <strong>%{user}</strong> بإضافة ارتباط إلى "%{association}".
-      add_common_name: 
-        an_unknown_user_added_an_unknown_name_to_an_unknown_taxon: قام مستخدم غير معروف بإضافة اسم شائع غير معروف لصفحة غير معروفة.
-        an_unknown_user_added_an_unknown_name_to_it: قام مستخدم غير معروف بإضافة اسم شائع غير معروف.
-        an_unknown_user_added_an_unknown_name_to_taxon: قام مستخدم غير معروف بإضافة اسم شائع غير معروف إلى "%{taxon}".
-        an_unknown_user_added_name_to_an_unknown_taxon: قام مستخدم غير معروف بإضافة الاسم الشائع "%{name}" إلى صفحة غير معروفة.
-        an_unknown_user_added_name_to_it: قام مستخدم غير معروف بإضافة الاسم الشائع "%{name}".
-        an_unknown_user_added_name_to_taxon: قام مستخدم غير معروف بإضافة الاسم الشائع "%{name}" إلى "%{taxon}".
-        user_added_an_unknown_name_to_an_unknown_taxon: قام <strong>%{user}</strong> بإضافة اسم شائع غير معروف إلى صفحة غير معروفة.
-        user_added_an_unknown_name_to_it: قام <strong>%{user}</strong> بإضافة اسم شائع غير معروف.
-        user_added_an_unknown_name_to_taxon: قام <strong>%{user}</strong> بإضافة اسم شائع غير معروف إلى "%{taxon}".
-        user_added_name_to_an_unknown_taxon: قام <strong>%{user}</strong> بإضافة الاسم الشائع "%{name}" إلى صفحة غير معروفة.
-        user_added_name_to_it: قام <strong>%{user}</strong> بإضافة الاسم الشائع "%{name}".
-        user_added_name_to_taxon: قام <strong>%{user}</strong> بإضافة الاسم الشائع "%{name}" إلى "%{taxon}".
       choose_exemplar_image: 
         an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: قام مستخدم غير معروف بوضع نسخة أقدم من "%{data_object}" كنموذج على صفحة غير معروفة.
         an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: قام مستخدم غير معروف بوضع "%{data_object}"  كنموذج على "%{taxon}".
@@ -501,13 +489,6 @@ ar:
         user_preferred_unknown_classification_on_taxon: <strong>%{user}</strong> قام بتعليم تنصيف مجهول   كمفضل من أجل "%{taxon}".
       reasons_to_hide: "أسباب الإخفاء: %{reasons}"
       reasons_to_untrust: "أسباب عدم الوثوق: %{reasons}"
-      remove_common_name: 
-        an_unknown_user_removed_name_from_an_unknown_taxon: قام مستخدم غير معروف بمسح اسم شائع من صفحة غير معروفة.
-        an_unknown_user_removed_name_from_it: قام مستخدم غير معروف بمسح اسم شائع.
-        an_unknown_user_removed_name_from_taxon: قام مستخدم غير معروف بمسح اسم شائع من "%{taxon}".
-        user_removed_name_from_an_unknown_taxon: قام <strong>%{user}</strong> بمسح اسم شائع من صفحة غير معروفة.
-        user_removed_name_from_it: قام <strong>%{user}</strong> بمسح اسم شائع.
-        user_removed_name_from_taxon: قام <strong>%{user}</strong> بمسح اسم شائع من "%{taxon}".
       show: 
         an_unknown_user_showed_an_older_data_object_on_an_unknown_association: قام مستخدم غير معروف بوضع علامة "مرئي" على نسخة أقدم من "%{data_object}" في سياق غير معروف.
         an_unknown_user_showed_an_older_data_object_on_association: قام مستخدم غير معروف بوضع علامة "مرئي" على نسخة أقدم من "%{data_object}" على صفحة "%{association}".
@@ -525,19 +506,6 @@ ar:
         user_showed_data_object_on_association: قام <strong>%{user}</strong> بوضع علامة "مرئي" على "%{data_object}"  في صفحة "%{association}".
         user_showed_it_on_an_unknown_association: قام <strong>%{user}</strong> بوضع علامة "مرئي" عليها في سياق غير معروف.
         user_showed_it_on_association: قام <strong>%{user}</strong> بوضع علامة "مرئي" عليها في صفحة "%{association}".
-      trust_common_name: 
-        an_unknown_user_trusted_an_unknown_name_on_an_unknown_taxon: قام مستخدم غير معروف بوضع علامة "موثوق به" على اسم شائع غير معروف من صفحة غير معروفة.
-        an_unknown_user_trusted_an_unknown_name_on_it: مستخدم غير معروف وضع علامة "موثوق به" على اسم شائع غير معروف.
-        an_unknown_user_trusted_an_unknown_name_on_taxon: قام مستخدم غير معروف بوضع علامة "موثوق به" على اسم شائع غير معروف من "%{taxon}".
-        an_unknown_user_trusted_name_on_an_unknown_taxon: قام مستخدم غير معروف بوضع علامة "موثوق به" على الاسم الشائع "%{name}" من صفحة غير معروفة.
-        an_unknown_user_trusted_name_on_it: وضع مستخدم غير معروف علامة "موثوق به" على الاسم الشائع "%{name}".
-        an_unknown_user_trusted_name_on_taxon: قام مستخدم غير معروف بوضع علامة "موثوق به" على الاسم الشائع "%{name}" من "%{taxon}".
-        user_trusted_an_unknown_name_on_an_unknown_taxon: قام <strong>%{user}</strong> بوضع علامة "موثوق به" على اسم شائع غير معروف من صفحة غير معروفة.
-        user_trusted_an_unknown_name_on_it: وضع <strong>%{user}</strong> علامة "موثوق به" على اسم شائع غير معروف.
-        user_trusted_an_unknown_name_on_taxon: قام <strong>%{user}</strong> بوضع علامة "موثوق به" على اسم شائع غير معروف من "%{taxon}".
-        user_trusted_name_on_an_unknown_taxon: قام <strong>%{user}</strong> بوضع علامة "موثوق به" على الاسم الشائع "%{name}" من صفحة غير معروفة.
-        user_trusted_name_on_it: وضع <strong>%{user}</strong> علامة "موثوق به" على الاسم الشائع "%{name}".
-        user_trusted_name_on_taxon: قام <strong>%{user}</strong> بوضع علامة "موثوق به" على الاسم الشائع "%{name}" من "%{taxon}".
       trusted: 
         an_unknown_user_trusted_an_older_data_object_on_an_unknown_association: قام مستخدم غير معروف باعتبار النسخة الأقدم من "%{data_object}" موثوقًا بها في سياق غير معروف.
         an_unknown_user_trusted_an_older_data_object_on_association: قام مستخدم غير معروف باعتبار نسخة أقدم من "%{data_object}" موثوقًا بها على صفحة "%{association}" .
@@ -555,19 +523,6 @@ ar:
         user_trusted_data_object_on_association: قام <strong>%{user}</strong> بوضع علامة "موثوق به" على "%{data_object}" في صفحة "%{association}".
         user_trusted_it_on_an_unknown_association: قام <strong>%{user}</strong> بوضع علامة "موثوق به" عليها في سياق غير معروف.
         user_trusted_it_on_association: قام <strong>%{user}</strong> بوضع علامة "موثوق به" عليها في صفحة "%{association}".
-      unreview_common_name: 
-        an_unknown_user_unreviewed_an_unknown_name_on_an_unknown_taxon: قام مستخدم غير معروف بوضع علامة "غير مُراجع" على اسم شائع غير معروف من صفحة غير معروفة.
-        an_unknown_user_unreviewed_an_unknown_name_on_it: قام مستخدم غير معروف بوضع علامة "غير مُراجع" على اسم شائع غير معروف.
-        an_unknown_user_unreviewed_an_unknown_name_on_taxon: قام مستخدم غير معروف بوضع علامة "غير مُراجع" على اسم شائع غير معروف من "%{taxon}".
-        an_unknown_user_unreviewed_name_on_an_unknown_taxon: قام مستخدم غير معروف بوضع علامة "غير مُراجع" على الاسم الشائع "%{name}" من صفحة غير معروفة.
-        an_unknown_user_unreviewed_name_on_it: قام مستخدم غير معروف بوضع علامة "غير مُراجع" على الاسم الشائع "%{name}".
-        an_unknown_user_unreviewed_name_on_taxon: قام مستخدم غير معروف بوضع علامة "غير مُراجع" على الاسم الشائع "%{name}" من "%{taxon}".
-        user_unreviewed_an_unknown_name_on_an_unknown_taxon: قام <strong>%{user}</strong> بوضع علامة "غير مُراجع" على اسم شائع غير معروف من صفحة غير معروفة.
-        user_unreviewed_an_unknown_name_on_it: قام <strong>%{user}</strong> بوضع علامة "غير مُراجع" على اسم شائع غير معروف.
-        user_unreviewed_an_unknown_name_on_taxon: قام <strong>%{user}</strong> بوضع علامة "غير مُراجع" على اسم شائع غير معروف من "%{taxon}".
-        user_unreviewed_name_on_an_unknown_taxon: قام <strong>%{user}</strong> بوضع علامة "غير مُراجع" على الاسم الشائع "%{name}" من صفحة غير معروفة.
-        user_unreviewed_name_on_it: قام <strong>%{user}</strong> بوضع علامة "غير مُراجع" على الاسم الشائع "%{name}".
-        user_unreviewed_name_on_taxon: قام <strong>%{user}</strong> بوضع علامة "غير مُراجع" على الاسم الشائع "%{name}" من "%{taxon}".
       unreviewed: 
         an_unknown_user_unreviewed_an_older_data_object_on_an_unknown_association: قام مستخدم غير معروف بوضع علامة "لم تُراجع" على نسخة أقدم من "%{data_object}" في سياق غير معروف.
         an_unknown_user_unreviewed_an_older_data_object_on_association: قام مستخدم غير معروف بوضع علامة "لم تُراجع" على نسخة أقدم من "%{data_object}" في صفحة "%{association}".
@@ -585,19 +540,6 @@ ar:
         user_unreviewed_data_object_on_association: قام <strong>%{user}</strong> بوضع علامة "لم تُراجع" على "%{data_object}"  في صفحة "%{association}".
         user_unreviewed_it_on_an_unknown_association: قام <strong>%{user}</strong> بوضع علامة "لم تُراجع" عليها في سياق غير معروف.
         user_unreviewed_it_on_association: قام <strong>%{user}</strong> بوضع علامة "لم تُراجع" عليها في صفحة "%{association}".
-      untrust_common_name: 
-        an_unknown_user_untrusted_an_unknown_name_on_an_unknown_taxon: وضع مستخدم غير معروف علامة "غير موثوق به" على اسم شائع غير معروف من صفحة غير معروفة.
-        an_unknown_user_untrusted_an_unknown_name_on_it: قام مستخدم غير معروف بوضع علامة "غير موثوق به" على اسم شائع غير معروف.
-        an_unknown_user_untrusted_an_unknown_name_on_taxon: وضع مستخدم غير معروف علامة "غير موثوق به" على اسم شائع غير معروف من "%{taxon}".
-        an_unknown_user_untrusted_name_on_an_unknown_taxon: وضع مستخدم غير معروف علامة "غير موثوق به" على الاسم الشائع "%{name}" من صفحة غير معروفة.
-        an_unknown_user_untrusted_name_on_it: قام مستخدم غير معروف بوضع علامة "غير موثوق به" على الاسم الشائع "%{name}".
-        an_unknown_user_untrusted_name_on_taxon: قام مستخدم غير معروف بوضع علامة "غير موثوق به" على الاسم الشائع "%{name}" من "%{taxon}".
-        user_untrusted_an_unknown_name_on_an_unknown_taxon: قام <strong>%{user}</strong> بوضع علامة "غير موثوق به" على اسم شائع غير معروف من صفحة غير معروفة.
-        user_untrusted_an_unknown_name_on_it: قام <strong>%{user}</strong> بوضع علامة "موثوق به" على اسم شائع غير معروف.
-        user_untrusted_an_unknown_name_on_taxon: قام <strong>%{user}</strong> بوضع علامة "غير موثوق به" على اسم شائع غير معروف من "%{taxon}".
-        user_untrusted_name_on_an_unknown_taxon: قام <strong>%{user}</strong> بوضع علامة "غير موثوق به" على الاسم الشائع "%{name}" من صفحة غير معروفة.
-        user_untrusted_name_on_it: قام <strong>%{user}</strong> بوضع علامة "غير موثوق به" على الاسم الشائع "%{name}".
-        user_untrusted_name_on_taxon: قام <strong>%{user}</strong> بوضع علامة "غير موثوق به" على الاسم الشائع "%{name}" من "%{taxon}".
       untrusted: 
         an_unknown_user_untrusted_an_older_data_object_on_an_unknown_association: قام مستخدم غير معروف باعتبار نسخة أقدم من "%{data_object}" غير موثوقًا بها في سياق غير معروف.
         an_unknown_user_untrusted_an_older_data_object_on_association: قام مستخدم غير معروف باعتبار نسخة أقدم من "%{data_object}" غير موثوقًا بها على صفحة "%{association}".
@@ -708,41 +650,6 @@ ar:
   admin_user_delete_successful_notice: تم حذف المستخدم
   admin_user_hide_successful_notice: تم إخفاء المستخدم
   admin_user_unhide_successful_notice: تم إظهار المستخدم
-  admins: 
-    statistics: 
-      content_partner: 
-        page_header: إحصائيات شريك المحتوى
-        page_title: "الإدارة: إحصائيات شركاء المحتوى"
-      content_partner_link: شركاء المحتوى
-      curator: 
-        page_header: إحصاءات المشرف
-        page_title: "الإدارة: إحصاءات المشرف"
-      curator_link: إحصائيات المشرف
-      data_object: 
-        page_header: إحصائيات عناصر البيانات
-        page_title: "الإدارة: إحصائيات عناصر البيانات"
-      data_object_link: عناصر البيانات
-      index: 
-        page_header: الإحصائيات الإجمالية
-        page_title: "الإدارة: الإحصائيات الإجمالية"
-        table_caption: تم إنشاء الإحصائيات الإجمالية للموقع في%{created_at_time}
-      index_link: الإحصائيات الإجمالية
-      lifedesk: 
-        page_header: إحصائيات مجموعات لايف ديسك
-        page_title: "الإدارة: إحصائيات مجموعات لايف ديسك"
-      lifedesk_link: مجموعات لايف ديسك
-      marine: 
-        page_header: تغطية الكائنات البحرية في موسوعة الحياة
-        page_title: "الإدارة: إحصائيات الصفحات البحرية"
-      marine_link: إحصائيات الصفحات البحرية
-      page_richness: 
-        page_header: إحصائيات الصفحات الغنية
-        page_title: "الإدارة: إحصائيات الصفحات الغنية"
-      page_richness_link: الصفحات الغنية
-      user_added_data: 
-        page_header: إحصائيات النص المقدم من المستخدم
-        page_title: "الإدارة: إحصائيات النص المقدم من المستخدم"
-      user_added_data_link: نص مقدم من المستخدم
   agent: وكيل
   all: الكل
   all_apis_return_by_default_an_xml_response: "تقدم جميع واجهات برمجة التطبيقات استجابة بصيغة لغة الترميز القابلة للامتداد (إكس إم إل)، يمكن تنفيذ طرق واجهة برمجة التطبيقات بدون إضافة امتداد يحدد الصيغة لعرض استجابة بصيغة لغة الترميز القابلة للامتداد (إكس إم إل)، وسوف يؤدي إضافة امتداد لغة الترميز القابلة للامتداد (.XML) إلى استجابة مماثلة:"
@@ -828,7 +735,6 @@ ar:
   audio_pause: إيقاف مؤقت
   audio_pause_assistive: عند تفعيل لغة جافا سكريبت، سوف يمكنك ذلك الرابط من إيقاف مقطع صوتي مجاور مشغل بصورة مؤقتة، يرجى تجاهل ذلك الرابط في غير تلك الحالة.
   audio_play: تشغيل
-  audio_play_assistive: عند تفعيل لغة جافا سكريبت، سوف يبدأ ذلك الرابط في تشغيل المقطع الصوتي مع البقاء في نفس الصفحة. إذا كانت لغة جافا سكريبت غير مفعلة، سوف يكون ذلك الرابط متصل بمقطع صوتي، وفي حال اختياره سيتصرف وفقًا لرغبتك.
   audio_stop: إيقاف
   audio_stop_assistive: عند تفعيل لغة جافا سكريبت، سوف يمكنك ذلك الرابط من إيقاف مقطع صوتي مجاور مشغل، يرجى تجاهل ذلك الرابط في غير تلك الحالة.
   audio_unmute: إلغاء كتم الصوت
@@ -859,7 +765,7 @@ ar:
   by_scientific_name_table_header: بالاسم العلمي
   cache_store: مخزن الذاكرة المخبأة
   calculate_averages_slow: احسب المتوسطات (بطيء)
-  cancel: إلغاء
+  cancel: ألغِ
   cannot_be_associated_with_both_a_user_and_a_community: لا يمكن أن يكون مرتبطًا بمستخدم ومجتمع
   cannot_be_empty: لا يمكن أن يكون خاليًا
   cannot_create_collection_item_from_class_error: لا يمكن إنشاء عنصر من %{klass}
@@ -987,7 +893,6 @@ ar:
   comment_not_updated_error: عذرا، حدث خطأ، لا يمكن تحديث التعليق.
   comment_or_rate_on_this_article: التعليق على هذه المقالة أو تقييمها
   comment_show_posters_image_alt: الصورة الشخصية لـ%{posters_name} الذي أضاف ذلك التعليق.
-  commented_on_your_image: "تم التعليق على صورتك الموجودة على <a href='%{data_object_link}'>Encyclopedia of Life site</a>:\n%{comment_body}."
   comments: التعليقات
   comments_and_tags: التعليقات والعلامات
   comments_filter: التعليقات
@@ -1097,9 +1002,9 @@ ar:
   content_partner_administration_notes_header: ملاحظات الإدارة
   content_partner_administration_settings_header: إعدادات الإدارة
   content_partner_administration_settings_introduction: تظهر الخانات الإدارية التالية إلى مشرفي موسوعة ويمكن تعديلها من قبلهم فقط.
-  content_partner_agreement_cancel_edit_agreement_link: إلغاء
-  content_partner_agreement_cancel_new_agreement_link: إلغاء
-  content_partner_agreement_cancel_sign_agreement_link: إلغاء
+  content_partner_agreement_cancel_edit_agreement_link: ألغِ
+  content_partner_agreement_cancel_new_agreement_link: ألغِ
+  content_partner_agreement_cancel_sign_agreement_link: ألغِ
   content_partner_agreement_create_successful_notice: تم إنشاء اتفاقية الشروط الخاصة بشريك المحتوى بنجاح.
   content_partner_agreement_create_unsuccessful_error: عفوًا، حدث خطأ، وتعذر إنشاء اتفاقية الشروط الخاصة بشريك المحتوى .
   content_partner_agreement_signed_successful_notice: لقد وافقت على شروط شريك المحتوى، يمكنك الأن إضافة مصادر البيانات.
@@ -1400,12 +1305,12 @@ ar:
   data_usage_reports: تقارير استخدام البيانات
   date_caps: التاريخ
   date_uploaded: تحميل التاريخ
-  dato_create_cancel: إلغاء
+  dato_create_cancel: ألغِ
   dato_create_user_text_error: عفوًا، حدث خطأ، تعذر إضافة المقال.
   dato_create_user_text_missing_taxon_id_exception: يتعذر تكوين عنصر بيانات نصي أو عنصر بيانات خاص بالمستخدمين إذا كانت الأصنوفة تساوي لا شيء.
   dato_create_user_text_missing_user_exception: يتعذر تكوين عنصر بيانات نصي أو عنصر بيانات خاص بالمستخدمين إذا كانت الأصنوفة تساوي لا شيء.
   dato_create_user_text_validation_error: نرجو التأكد من ملؤكم النموذج بصورة صحيحة.
-  dato_edit_cancel: إلغاء
+  dato_edit_cancel: ألغِ
   dato_edit_text_link_button: عدل  هذا المقال
   dato_edit_text_page_description: نشكرك على المساهمة في  موسوعة الحياة. ستضاف مساهمتك فى قائمة المشاهدة الخاصة بك حتى تتمكن من متابعة أي مداخلات متعلقة بها ووضعها من حيث اﻹشراف.
   dato_edit_text_title: تعديل المقال
@@ -1434,7 +1339,6 @@ ar:
   details_title: التفاصيل
   development_version_name: نموذج النسخة الثانية من موقع موسوعة الحياة
   did_you_mean: "هل تقصد: %{suggestions}؟"
-  disable_email_notifications_colon: "رسائل إلكترونية مُعطلة:"
   disabled_for_now: معطل حاليًّا
   discover_link: استكشف
   displaying_numerical_range: عرض %{start_number} &mdash; %{end_number} من %{total}
@@ -1629,7 +1533,7 @@ ar:
   for_terms_or_definitions_conta: "للمصطلحات أو التعريفات المحتوية على:"
   forgot_password: هل نسيت كلمة السر؟
   forgot_password_cannot_find_user_from_username_or_email_error: عفوًا، لا يوجد حسابات للمستخدمين بأسم المستخدم أو البريد الإلكتروني المدخلين <em>%{username_or_email}</em>.
-  forgot_password_form_cancel: إلغاء
+  forgot_password_form_cancel: ألغِ
   forgot_password_form_choose_username_blank_error: يرجى إختيار الحساب الذي ترغب في إعادة ضبط كلمة السر الخاصة به.
   forgot_password_form_choose_username_instructions: هنالك عدة حسابات مسجلة بالعنوان الإلكتروني <em>%{email}</em>، يرجى اختيار حساب واحد لإعادة ضبط كلمة السر.
   forgot_password_form_choose_username_legend: يرجى اختيار حساب
@@ -1661,7 +1565,7 @@ ar:
   glossary_is_empty: (المعجم خالي)
   glossary_term: مصطلح
   glossary_terms: مصطلحات المعجم
-  go: بحث
+  go: اذهب
   go_back: رجوع
   google: جوجل
   google_analytic_results: نتائج جوجل التحليلية
@@ -1838,7 +1742,7 @@ ar:
     select: 
       prompt: يرجى الاختيار
     submit: 
-      cancel: ألغي
+      cancel: ألغِ
       collection_item: 
         update: احفظ
       contact: 
@@ -2190,7 +2094,6 @@ ar:
   more_children_with_count: 
     one: "%{count} فرع إضافي"
     other: "%{count} فرع إضافي"
-  more_information_on_the_various_licenses: الرخص. قم  بزيارة   موقعهم الإلكتروني للتعرف على الرخص المتنوعة المتاحة
   more_siblings_with_count: 
     one: "%{count} مزيد من الأشقاء..."
     other: "%{count} مزيد من الأشقاء..."
@@ -2788,7 +2691,6 @@ ar:
   spm_category_partner_count: فئة التخطيط الإحصائي المتكرر - عدد المشاركين
   started: بدأ
   stat: إحصائية
-  statistics: الإحصائيات
   sub_heading: عنوان فرعي
   subject: الموضوع
   submit: إدخال

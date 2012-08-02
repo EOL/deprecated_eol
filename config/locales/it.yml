@@ -146,7 +146,7 @@ it:
       harvest_event: 
         resource: Fonte
       hierarchy: 
-        browsable: Sfogliabile
+        browsable: Navigabile
         complete: Completa
         description: Descrizione
         descriptive_label: Etichetta descrittiva
@@ -409,19 +409,6 @@ it:
         user_associated_data_object_to_association: <strong>%{user}</strong> ha aggiunto un'associazione tra "%{data_object}" e "%{association}".
         user_associated_it_to_an_unknown_association: <strong>%{user}</strong> ha aggiunto un'associazione ad una pagina sconosciuta.
         user_associated_it_to_association: <strong>%{user}</strong> ha aggiunto un'associazione a "%{association}".
-      add_common_name: 
-        an_unknown_user_added_an_unknown_name_to_an_unknown_taxon: Un utente sconosciuto ha aggiunto un nome comune sconosciuto ad una pagina sconosciuta.
-        an_unknown_user_added_an_unknown_name_to_it: Un utente sconosciuto ha aggiunto un nome comune sconosciuto.
-        an_unknown_user_added_an_unknown_name_to_taxon: Un utente sconosciuto ha aggiunto un nome comune sconosciuto a "%{taxon}".
-        an_unknown_user_added_name_to_an_unknown_taxon: Un utente sconosciuto ha aggiunto il nome comune "%{name}" ad una pagina sconosciuta.
-        an_unknown_user_added_name_to_it: Un utente sconosciuto ha aggiunto il nome comune "%{name}".
-        an_unknown_user_added_name_to_taxon: Un utente sconosciuto ha aggiunto il nome comune "%{name}" a "%{taxon}".
-        user_added_an_unknown_name_to_an_unknown_taxon: <strong>%{user}</strong> ha aggiunto un nome comune sconosciuto ad una pagina sconosciuta.
-        user_added_an_unknown_name_to_it: <strong>%{user}</strong> ha aggiunto un nome comune sconosciuto.
-        user_added_an_unknown_name_to_taxon: <strong>%{user}</strong> ha aggiunto un nome comune sconosciuto a "%{taxon}".
-        user_added_name_to_an_unknown_taxon: <strong>%{user}</strong> ha aggiunto il nome comune "%{name}" ad una pagina sconosciuta.
-        user_added_name_to_it: <strong>%{user}</strong> ha aggiunto il nome comune "%{name}".
-        user_added_name_to_taxon: <strong>%{user}</strong> ha aggiunto il nome comune "%{name}" a "%{taxon}".
       choose_exemplar_image: 
         an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: Un utente sconosciuto ha impostato una vecchia versione di "%{data_object}" come un esemplare di una pagina sconosciuta.
         an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: Un utente sconosciuto ha impostato "%{data_object}" come un esemplare di "%{taxon}".
@@ -497,13 +484,6 @@ it:
         user_disassociated_data_object_from_association: <strong>%{user}</strong> ha rimosso un'associazione tra "%{data_object}" e "%{association}".
         user_disassociated_it_from_an_unknown_association: <strong>%{user}</strong> ha rimosso un'associazione da una pagina sconosciuta.
         user_disassociated_it_from_association: <strong>%{user}</strong> ha rimosso un'associazione da "%{association}".
-      remove_common_name: 
-        an_unknown_user_removed_name_from_an_unknown_taxon: Un utente sconosciuto ha rimosso un nome comune da una pagina sconosciuta.
-        an_unknown_user_removed_name_from_it: Un utente sconosciuto ha rimosso un nome comune.
-        an_unknown_user_removed_name_from_taxon: Un utente sconosciuto ha rimosso un nome comune da "%{taxon}".
-        user_removed_name_from_an_unknown_taxon: <strong>%{user}</strong> ha rimosso un nome comune da una pagina sconosciuta.
-        user_removed_name_from_it: <strong>%{user}</strong> ha rimosso un nome comune.
-        user_removed_name_from_taxon: <strong>%{user}</strong> ha rimosso un nome comune da "%{taxon}".
       show: 
         an_unknown_user_showed_an_older_data_object_on_an_unknown_association: Un utente sconosciuto ha contrassegnato una vecchia versione di "%{data_object}" come visibile in un contesto sconosciuto.
         an_unknown_user_showed_an_older_data_object_on_association: Un utente sconosciuto ha contrassegnato una vecchia versione di "%{data_object}" come visibile nella pagina "%{association}".
@@ -521,19 +501,6 @@ it:
         user_showed_data_object_on_association: <strong>%{user}</strong> ha contrassegnato "%{data_object}" come visibile nella pagina "%{association}".
         user_showed_it_on_an_unknown_association: <strong>%{user}</strong> l'ha contrassegnato come visibile in un contesto sconosciuto.
         user_showed_it_on_association: <strong>%{user}</strong> l'ha contrassegnato come visibile nella pagina "%{association}".
-      trust_common_name: 
-        an_unknown_user_trusted_an_unknown_name_on_an_unknown_taxon: Un utente sconosciuto ha contrassegnato un nome comune sconosciuto da una pagina sconosciuta come attendibile.
-        an_unknown_user_trusted_an_unknown_name_on_it: Un utente sconosciuto ha contrassegnato un nome comune sconosciuto come attendibile.
-        an_unknown_user_trusted_an_unknown_name_on_taxon: Un utente sconosciuto ha contrassegnato un nome comune sconosciuto da "%{taxon}" come attendibile.
-        an_unknown_user_trusted_name_on_an_unknown_taxon: Un utente sconosciuto ha contrassegnato il nome comune "%{name}" da una pagina sconosciuta come attendibile.
-        an_unknown_user_trusted_name_on_it: Un utente sconosciuto ha contrassegnato il nome comune "%{name}" come attendibile.
-        an_unknown_user_trusted_name_on_taxon: Un utente sconosciuto ha contrassegnato il nome comune "%{name}" da "%{taxon}" come attendibile.
-        user_trusted_an_unknown_name_on_an_unknown_taxon: <strong>%{user}</strong> ha contrassegnato un nome comune sconosciuto da una pagina sconosciuta come attendibile.
-        user_trusted_an_unknown_name_on_it: <strong>%{user}</strong> ha contrassegnato un nome comune sconosciuto come attendibile.
-        user_trusted_an_unknown_name_on_taxon: <strong>%{user}</strong> ha contrassegnato un nome comune sconosciuto da "%{taxon}" come attendibile.
-        user_trusted_name_on_an_unknown_taxon: <strong>%{user}</strong> ha contrassegnato il nome comune "%{name}" da una pagina sconosciuta come attendibile.
-        user_trusted_name_on_it: <strong>%{user}</strong> ha contrassegnato il nome comune "%{name}" come attendibile.
-        user_trusted_name_on_taxon: <strong>%{user}</strong> ha contrassegnato il nome comune "%{name}" da "%{taxon}" come attendibile.
       trusted: 
         an_unknown_user_trusted_an_older_data_object_on_an_unknown_association: Un utente sconosciuto ha contrassegnato una vecchia versione di "%{data_object}" come attendibile in un contesto sconosciuto.
         an_unknown_user_trusted_an_older_data_object_on_association: Un utente sconosciuto ha contrassegnato una vecchia versione di "%{data_object}" come attendibile nella pagina "%{association}".
@@ -551,19 +518,6 @@ it:
         user_trusted_data_object_on_association: <strong>%{user}</strong> ha contrassegnato "%{data_object}" come attendibile nella pagina "%{association}".
         user_trusted_it_on_an_unknown_association: <strong>%{user}</strong> l'ha contrassegnato come attendibile in un contesto sconosciuto.
         user_trusted_it_on_association: <strong>%{user}</strong> l'ha contrassegnato come attendibile nella pagina "%{association}".
-      unreview_common_name: 
-        an_unknown_user_unreviewed_an_unknown_name_on_an_unknown_taxon: Un utente sconosciuto ha contrassegnato un nome comune sconosciuto da una pagina sconosciuta come non revisionato.
-        an_unknown_user_unreviewed_an_unknown_name_on_it: Un utente sconosciuto ha contrassegnato un nome comune sconosciuto come non revisionato.
-        an_unknown_user_unreviewed_an_unknown_name_on_taxon: Un utente sconosciuto ha contrassegnato un nome comune sconosciuto da "%{taxon}" come non revisionato.
-        an_unknown_user_unreviewed_name_on_an_unknown_taxon: Un utente sconosciuto ha contrassegnato il nome comune "%{name}" da una pagina sconosciuta come non revisionato.
-        an_unknown_user_unreviewed_name_on_it: Un utente sconosciuto ha contrassegnato il nome comune "%{name}" come non revisionato.
-        an_unknown_user_unreviewed_name_on_taxon: Un utente sconosciuto ha contrassegnato il nome comune "%{name}" da "%{taxon}" come non revisionato.
-        user_unreviewed_an_unknown_name_on_an_unknown_taxon: <strong>%{user}</strong> ha contrassegnato un nome comune sconosciuto da una pagina sconosciuta come non revisionato.
-        user_unreviewed_an_unknown_name_on_it: <strong>%{user}</strong> ha contrassegnato un nome comune sconosciuto come non revisionato.
-        user_unreviewed_an_unknown_name_on_taxon: <strong>%{user}</strong> ha contrassegnato un nome comune sconosciuto da "%{taxon}" come non revisionato.
-        user_unreviewed_name_on_an_unknown_taxon: <strong>%{user}</strong> ha contrassegnato il nome comune "%{name}" da una pagina sconosciuta come non revisionato.
-        user_unreviewed_name_on_it: <strong>%{user}</strong> ha contrassegnato il nome comune "%{name}" come non revisionato.
-        user_unreviewed_name_on_taxon: <strong>%{user}</strong> ha contrassegnato il nome comune "%{name}" da "%{taxon}" come non revisionato.
       unreviewed: 
         an_unknown_user_unreviewed_an_older_data_object_on_an_unknown_association: Un utente sconosciuto ha contrassegnato una vecchia versione di "%{data_object}" come non revisionata in un contesto sconosciuto.
         an_unknown_user_unreviewed_an_older_data_object_on_association: Un utente sconosciuto ha contrassegnato una vecchia versione di "%{data_object}" come non revisionata nella pagina "%{association}".
@@ -581,19 +535,6 @@ it:
         user_unreviewed_data_object_on_association: <strong>%{user}</strong> ha contrassegnato "%{data_object}" come non revisionato nella pagina "%{association}".
         user_unreviewed_it_on_an_unknown_association: <strong>%{user}</strong> l'ha contrassegnato come non revisionato in un contesto sconosciuto.
         user_unreviewed_it_on_association: <strong>%{user}</strong> l'ha contrassegnato come non revisionato nella pagina "%{association}".
-      untrust_common_name: 
-        an_unknown_user_untrusted_an_unknown_name_on_an_unknown_taxon: Un utente sconosciuto ha contrassegnato un nome comune sconosciuto da una pagina sconosciuta come non attendibile.
-        an_unknown_user_untrusted_an_unknown_name_on_it: Un utente sconosciuto ha contrassegnato un nome comune sconosciuto come non attendibile.
-        an_unknown_user_untrusted_an_unknown_name_on_taxon: Un utente sconosciuto ha contrassegnato un nome comune sconosciuto da "%{taxon}" come non attendibile.
-        an_unknown_user_untrusted_name_on_an_unknown_taxon: Un utente sconosciuto ha contrassegnato il nome comune "%{name}" da una pagina sconosciuta come non attendibile.
-        an_unknown_user_untrusted_name_on_it: Un utente sconosciuto ha contrassegnato il nome comune "%{name}" come non attendibile.
-        an_unknown_user_untrusted_name_on_taxon: Un utente sconosciuto ha contrassegnato il nome comune "%{name}" da "%{taxon}" come non attendibile.
-        user_untrusted_an_unknown_name_on_an_unknown_taxon: <strong>%{user}</strong> ha contrassegnato un nome comune sconosciuto da una pagina sconosciuta come non attendibile.
-        user_untrusted_an_unknown_name_on_it: <strong>%{user}</strong> ha contrassegnato un nome comune sconosciuto come non attendibile.
-        user_untrusted_an_unknown_name_on_taxon: <strong>%{user}</strong> ha contrassegnato un nome comune sconosciuto da "%{taxon}" come non attendibile.
-        user_untrusted_name_on_an_unknown_taxon: <strong>%{user}</strong> ha contrassegnato il nome comune "%{name}" da una pagina sconosciuta come non attendibile.
-        user_untrusted_name_on_it: <strong>%{user}</strong> ha contrassegnato il nome comune "%{name}" come non attendibile.
-        user_untrusted_name_on_taxon: <strong>%{user}</strong> ha contrassegnato il nome comune "%{name}" da "%{taxon}" come non attendibile.
       untrusted: 
         an_unknown_user_untrusted_an_older_data_object_on_an_unknown_association: Un utente sconosciuto ha contrassegnato una vecchia versione di "%{data_object}" come non attendibile in un contesto sconosciuto.
         an_unknown_user_untrusted_an_older_data_object_on_association: Un utente sconosciuto ha contrassegnato una vecchia versione di "%{data_object}" come non attendibile nella pagina "%{association}".
@@ -702,30 +643,6 @@ it:
   admin_translated_content_page_update_unsuccessful_error: Spiacenti, si è verificato un errore, la traduzione non è stata aggiornata.
   admin_user_delete_successful_notice: L'utente è stato cancellato
   admin_user_hide_successful_notice: L'utente è stato nascosto
-  admins: 
-    statistics: 
-      content_partner_link: Fornitori di contenuti
-      curator: 
-        page_header: Statistiche curatore
-        page_title: "Amministrazione: statistiche curatore"
-      curator_link: Statistiche curatore
-      data_object: 
-        page_header: Statistiche oggetti dati
-        page_title: "Amministrazione: statistiche oggetti dati"
-      data_object_link: Oggetti dati
-      index: 
-        page_header: Statistiche globali
-        page_title: "Amministrazione: statistiche globali"
-        table_caption: Statistiche globali del sito create alle %{created_at_time}
-      index_link: Statistiche globali
-      page_richness: 
-        page_header: Statistiche pagine ricche di contenuti
-        page_title: "Amministrazione: statistiche pagine ricche di contenuti"
-      page_richness_link: Pagine ricche di contenuti
-      user_added_data: 
-        page_header: Statistiche testi inviati da utenti
-        page_title: "Amministrazione: statistiche testi inviati da utenti"
-      user_added_data_link: Testo inviato da utenti
   agent: Agente
   all: tutto
   all_apis_return_by_default_an_xml_response: "Tutte le API restituiscono per default una risposta XML. I metodi delle API possono essere chiamati senza un'estensione di formato per ottenere la risposta XML e aggiungendo un'estensione XML darà una risposta identica:"
@@ -811,7 +728,6 @@ it:
   audio_pause: pausa
   audio_pause_assistive: Con JavaScript abilitato questo collegamento vi permetterà di mettere in pausa il file audio adiacente in riproduzione, in caso contrario si prega di ignorare questo link.
   audio_play: riproduci
-  audio_play_assistive: Con JavaScript abilitato questo collegamento inizierà la riproduzione del file audio nella stessa finestra. Se JavaScript è disattivato questo link punta ad un file audio e se selezionato si comporterà in base al dispositivo che stai utilizzando.
   audio_stop: ferma
   audio_stop_assistive: Con JavaScript abilitato questo collegamento vi permetterà di fermare il file audio adiacente in riproduzione, in caso contrario si prega di ignorare questo link.
   audio_unmute: riattivare
@@ -825,7 +741,7 @@ it:
   biomedical_terms: Termini biomedici
   biomedical_terms_provided_by: Termini forniti da <a rel="nofollow" href="%{supplier_url}">PubMed</a>.
   body: "Corpo:"
-  browsable: Sfogliabile
+  browsable: Navigabile
   browsable_hierarchies: Gerarchie navigabili
   browse_hierarchy: naviga nella gerarchia
   build_communities: Costruisci comunità
@@ -833,6 +749,7 @@ it:
   by_scientific_name_table_header: per nome scientifico
   calculate_averages_slow: Calcola le medie (lento)
   cancel: Annulla
+  cancel_split: Annulla
   cannot_be_associated_with_both_a_user_and_a_community: Non può essere associato sia con un utente e con una comunità
   cannot_be_empty: non può essere vuoto.
   change: Cambia
@@ -904,7 +821,6 @@ it:
   comment_not_added_error: Spiacenti, si è verificato un errore, il commento non è stato aggiunto.
   comment_not_deleted_error: Spiacenti, si è verificato un errore, il commento non è stato cancellato.
   comment_not_updated_error: Spiacenti, si è verificato un errore, il commento non è stato aggiornato.
-  commented_on_your_image: "commentato una tua immagine sul sito <a href='%{data_object_link}'>Encyclopedia of Life</a>:\n%{comment_body}"
   comments: Commenti
   comments_filter: Commenti
   comments_moderated: Commenti moderati
@@ -1009,10 +925,17 @@ it:
   content_partner_resource_auto_publish_false: 'No'
   content_partner_resource_auto_publish_true: Sì
   content_partner_resource_collections_header: Collezioni
+  content_partner_resource_description_empty: Non è stata fornita alcuna descrizione per questa risorsa.
   content_partner_resource_edit_link: Modifica
   content_partner_resource_edit_subheader: Modifica risorsa
   content_partner_resource_edit_with_type_link: Modifica risorsa
+  content_partner_resource_harvest_event_current_published: Attualmente pubblicato
+  content_partner_resource_harvest_event_not_published: Non pubblicato
+  content_partner_resource_harvest_event_previously_published: Pubblicato precedentemente
+  content_partner_resource_harvest_event_publish_pending: Pubblicazione in sospeso
+  content_partner_resource_hierarchy_browsable: Navigabile
   content_partner_resource_hierarchy_edit_link: Modifica
+  content_partner_resource_hierarchy_not_browsable: Non navigabile
   content_partner_resource_hierarchy_unknown: Sconosciuta
   content_partner_resource_new_link: Aggiungi una nuova risorsa
   content_partner_resource_new_subheader: Aggiungi una nuova risorsa
@@ -1023,11 +946,18 @@ it:
   content_partner_resource_vetted_true: Sì
   content_partner_resource_view_link: Visualizza
   content_partner_resources_header: Risorse
+  content_partner_statistics_column_header_taxa_page_time_on_page_seconds: Tempo sulla pagina (secondi)
   content_partner_statistics_column_header_total_count: Tutte le pagine
   content_partner_statistics_empty: Nessuna statistica trovata per %{month_name} %{year}.
+  content_partner_statistics_link: Statistiche utilizzo
   content_partner_statistics_month_label: Mese
+  content_partner_statistics_taxa_page_caption: Statistiche di utilizzo dettagliate per le pagine di taxon contenenti contenuti forniti da %{partner_name}.
   content_partner_statistics_year_label: Anno
   content_partner_status_empty: Stato sconosciuto
+  content_partner_update_successful_notice: Dettagli fornitore aggiornati correttamente.
+  content_partner_update_unsuccessful_error: Spiacenti, si è verificato un errore, i dettagli del fornitore è non sono stati aggiornati.
+  content_partner_vetted_false: Non revisionato
+  content_partner_vetted_true: Controllati
   content_partners: 
     edit: 
       meta_title: Modifica %{partner_name}
@@ -1044,10 +974,15 @@ it:
         meta_keywords: Statistiche %{partner_name}, utilizzo web %{partner_name}
         meta_title: Statistiche %{partner_name}
         tweet_text: Statistiche di utilizzo %{partner_name}
+  content_partners_empty: Nessun fornitore di contenuti trovato.
+  content_partners_link: Fornitori di contenuti
+  content_partners_page_title: Fornitori di contenuti
   content_summary_table_count_column_header: Conteggio
   content_summary_table_type_descendants_row: Numero di discendenti
   content_summary_table_type_trusted_images_row: Numero di immagini approvate
   content_summary_table_type_unreviewed_images_row: Numero di immagini non controllate
+  content_type: Tipo di contenuto
+  contribute: Contribuisci
   copy: Copia
   copy_of_name: Copia di %{name}
   copyright: "COPYRIGHT:"
@@ -1068,7 +1003,21 @@ it:
   credentials: Credenziali
   curated: A cura
   curated_association_update_button: Salva le modifiche
+  curation_privileges_page_title: Diventa un curatore
+  curation_reason_placeholder: dettagli aggiuntivi (opzionale)
+  curation_scope: Ambito curatore
+  curator: curatore
   curator_level: Livello curatore
+  curator_level_assistant_approved_notice: Complimenti! Ora sei un <em>assistente curatore</em>. <a href="%{more_url}">Ulteriori informazioni sul ruolo di assistente curatore</a>.
+  curator_level_assistant_curator: Assistente curatore
+  curator_level_full_curator: Curatore completo
+  curator_profile: profilo curatore
+  curator_profile_menu: Profilo curatore
+  curator_profile_of: Profilo curatore di %{name}
+  curator_question: Curatore?
+  curator_scope_colon: "Ambito curatore:"
+  curator_status_changed_by: Stato curatore modificato da %{user} il %{date}
+  curators: Curatori
   curators_summary_header_with_count: 
     one: Revisionato da %{count} curatore
     other: Revisionato da %{count} curatori
@@ -1077,7 +1026,10 @@ it:
     other: "%{count} curatori"
   current_language: "Lingua: %{iso_code}"
   currently_in_eol: Attualmente nell'Enciclopedia della vita
+  currently_published: attualmente pubblicato
   dashboard: Cruscotto
+  data_database_colon: "Dati:"
+  data_object_ignore: ignora questo elemento
   data_objects: 
     show: 
       meta_description_article: Articolo - %{dato_description}
@@ -1096,11 +1048,18 @@ it:
       meta_supplier_default: un contributore
       meta_title: "%{dato_title} da %{supplier}"
       tweet_text: "%{dato_title} da %{supplier}"
+  data_usage_reports: Report di utilizzo dei dati
+  date_caps: Data
+  date_uploaded: Data di caricamento
   dato_create_cancel: Annulla
+  dato_create_user_text_error: Spiacenti, si è verificato un errore, l'articolo non è stato aggiunto.
   dato_edit_cancel: Annulla
   dato_edit_text_link_button: Modifica questo articolo
   dato_edit_text_title: Modifica articolo
+  dato_new_edit_user_text_fieldset_content_header: Contenuto articolo
+  dato_new_edit_user_text_fieldset_information_header: Informazioni articolo
   dato_new_text_for_taxon_page_title: Aggiungi un articolo a <i>%{taxon}</i>
+  dato_update_user_text_error: Spiacenti, si è verificato un errore, l'articolo non è stato aggiornato.
   default: Predefinito
   definition: Definizione
   delete: cancella
@@ -1778,7 +1737,6 @@ it:
     other: "%{count} suoni"
   source_url: URL di origine
   species: Specie
-  statistics: Statistiche
   subject: oggetto
   submit: Invia
   supplier: Fornitore

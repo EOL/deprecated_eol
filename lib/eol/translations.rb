@@ -6,7 +6,7 @@ module EOL
       all_translated_models = {}
 
       # check all models in the first level of app/models
-      Dir.foreach("#{RAILS_ROOT}/app/models") do |model_path|
+      Dir.foreach(Rails.root.join('app', 'models')) do |model_path|
         if m = model_path.match(/^(([a-z]+_)*[a-z]+)\.rb$/)
           model_name = m[1]
           begin
@@ -57,7 +57,7 @@ module EOL
                            :License=>[:description],
                            :Audience=>[:label]}
 
-      dump_path = File.join(RAILS_ROOT, 'tmp', 'database_translations.tab')
+      dump_path = Rails.root.join('tmp', 'database_translations.tab')
       File.open(dump_path, 'w') do |f|
         f.write("Class Name\tID\tField\tValue\n")
         translated_models.each do |m, fields|

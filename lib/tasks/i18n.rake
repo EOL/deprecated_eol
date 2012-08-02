@@ -4,8 +4,8 @@ require 'haml'
 
 desc 'Tasks useful for internatiolization'
 namespace :i18n do
-  lang_dir = File.join([RAILS_ROOT, "config", "locales"])
-  gibberish_lang_dir = File.join([RAILS_ROOT, "lang"])
+  lang_dir = Rails.root.join("config", "locales")
+  gibberish_lang_dir = Rails.root.join("lang")
   en_file = "translation_template.yml"
   tmp_file = File.join([lang_dir, "tmp.yml"])
   en_yml = File.join([lang_dir, "en.yml"])
@@ -76,7 +76,7 @@ namespace :i18n do
     end
 
     #loop on each file in the app folder
-    Dir.glob(File.join([RAILS_ROOT, "app", "**", "*"])).each do |file|
+    Dir.glob(Rails.root.join("app", "**", "*")).each do |file|
       if file.match(/(erb|haml|rb)$/)
         tmp = open(tmp_file, 'w')
         puts "File: " + file + "\n"
@@ -334,7 +334,7 @@ namespace :i18n do
     end
 
     def get_all_files_in_app
-      Dir.chdir(File.join([RAILS_ROOT, "app"]))
+      Dir.chdir(Rails.root.join("app"))
       return Dir.glob(File.join("**", "*.{rb,haml,erb}"))
     end
 
@@ -427,7 +427,8 @@ namespace :i18n do
     en_strings = "en-db:\n"
     en_id = Language.english.id
 
-    all_models = Dir.foreach("#{RAILS_ROOT}/app/models").map do |model_path|
+    # TODO - this doesn't look for models in the nested directories (ie: logging)
+    all_models = Dir.foreach(Rails.root.join('app', 'models')).map do |model_path|
       if m = model_path.match(/translate/) && model_path.match(/^(([a-z]+_)*[a-z]+)\.rb$/)
         m[1].camelcase.constantize
       else
@@ -492,7 +493,7 @@ namespace :i18n do
     end
 
     puts "Writing to en-db.yml"
-    en_file = File.join([RAILS_ROOT, "config", "locales" , "en-db.yml"])
+    en_file = Rails.root.join("config", "locales" , "en-db.yml")
     en_data = open(en_file, 'w')
     en_data.write en_strings
     en_data.close
@@ -501,15 +502,15 @@ namespace :i18n do
   desc 'Task to import db translations in db'
   task (:import_db_translations => :environment) do
     def load_language_keys(lang_abbr)
-      filename = File.join([RAILS_ROOT, "config", "locales", lang_abbr + "-db.yml"])
+      filename = Rails.root.join("config", "locales", lang_abbr + "-db.yml")
       return nil unless File.exists?(filename)
-      temp_yml = YAML.load_file(File.join([RAILS_ROOT, "config", "locales", lang_abbr + "-db.yml"]))
+      temp_yml = YAML.load_file(Rails.root.join("config", "locales", lang_abbr + "-db.yml"))
       return temp_yml[lang_abbr] || temp_yml.values.last # this || fixes a bug with Arabic.  Not sure why.
     end
 
     def get_languages
       # returns array of language abbriviations for those a pattern of *-dt.yml
-      Dir.chdir(File.join([RAILS_ROOT, "config", "locales"]))
+      Dir.chdir(Rails.root.join("config", "locales"))
       files = Dir.glob(File.join("**", "*-db.yml"))
 
       return_lang = Array.new

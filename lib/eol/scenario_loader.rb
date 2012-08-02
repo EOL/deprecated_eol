@@ -39,14 +39,14 @@ module EOL
     end
 
     def cached_file_is_stale?(name, last_compile)
-      last_modified = File.mtime(File.join(RAILS_ROOT, 'scenarios', "#{name}.rb"))
+      last_modified = File.mtime(Rails.root.join('scenarios', "#{name}.rb"))
       return true if last_compile < last_modified
       return true if migrations_have_been_created_since_compile?
       return false
     end
 
     def migrations_have_been_created_since_compile?
-      !`find #{RAILS_ROOT}/db/migrate -type f -newer #{mysqldump_path_for_connection(@all_connections.first)}`.blank?
+      !`find #{Rails.root.join('db', 'migrate')} -type f -newer #{mysqldump_path_for_connection(@all_connections.first)}`.blank?
     end
 
     def load_and_cache
@@ -118,7 +118,7 @@ module EOL
     end
 
     def mysqldump_path_for_connection(conn)
-      mysqldump_path = File.join(RAILS_ROOT, 'tmp', "#{conn.config[:database]}_for_#{@name}_scenario.sql")
+      mysqldump_path = Rails.root.join('tmp', "#{conn.config[:database]}_for_#{@name}_scenario.sql")
     end
 
   end

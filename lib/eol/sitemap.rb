@@ -3,7 +3,7 @@ module EOL
     require 'builder' # for creating XML
     include ActionController::UrlWriter # for using user_url(id) type methods
     @@default_url_options = { :host => 'eol.org' } # need to explicitly set the host for the above
-    @@working_directory = File.join(RAILS_ROOT, 'public', 'sitemap')
+    @@working_directory = Rails.root.join('public', 'sitemap')
     @@lines_per_sitemap_file = 50000.0
     @@default_compression = true
     

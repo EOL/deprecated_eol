@@ -703,11 +703,11 @@ private
   end
 
   def remove_cached_feeds
-    FileUtils.rm_rf(Dir.glob("#{RAILS_ROOT}/public/feeds/*"))
+    FileUtils.rm_rf(Dir.glob(Rails.root.join(Rails.public_path, 'feeds', '*')))
   end
 
   def remove_cached_list_of_taxon_concepts
-    FileUtils.rm_rf("#{RAILS_ROOT}/public/content/tc_api/page")
+    FileUtils.rm_rf(Rails.root.join(Rails.public_path, 'content', 'tc_api', 'page'))
     expire_page( :controller => 'content', :action => 'tc_api' )
   end
 

@@ -8,7 +8,7 @@ namespace :fckeditor do
     require "config/environment"
     require 'fileutils'
 
-    directory = File.join(RAILS_ROOT, '/vendor/plugins/easy-fckeditor/')
+    directory = Rails.root.join('/vendor/plugins/easy-fckeditor/')
     require "#{directory}lib/fckeditor"
     require "#{directory}lib/fckeditor_version"
     require "#{directory}lib/fckeditor_file_utils"
@@ -60,7 +60,7 @@ namespace :fckeditor do
     puts "** Current FCKEditor version: #{installed_version}..."
     puts "** Downloading #{version} (1.2mb - please be patient)..."
 
-    rails_tmp_path = File.join(RAILS_ROOT, "/tmp/")
+    rails_tmp_path = Rails.root.join("/tmp/")
     tmp_zip_path = File.join(rails_tmp_path, "fckeditor_#{version}.zip")
 
     # Creating tmp dir if it doesn't exist
@@ -96,7 +96,7 @@ namespace :fckeditor do
     FckeditorFileUtils.backup_existing
 
     puts "** Shifting files to /public/javascripts/fckeditor"
-    FileUtils.cp_r File.join(RAILS_ROOT, "/tmp/fckeditor/"), File.join(RAILS_ROOT, "/public/javascripts/")
+    FileUtils.cp_r Rails.root.join("/tmp/fckeditor/"), Rails.root.join("/public/javascripts/")
 
     puts "** Clean up"
     FileUtils.remove_file(tmp_zip_path, true)

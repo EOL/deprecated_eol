@@ -48,7 +48,7 @@ describe 'Sitemaps' do
   it 'should be able to create txt sitemaps' do
     @rake['sitemap:destroy'].execute
     @rake['sitemap:build'].execute
-    sitemap_contents = Zlib::GzipReader.open(File.join(RAILS_ROOT, 'public', 'sitemap', 'sitemap_1.txt.gz')).read
+    sitemap_contents = Zlib::GzipReader.open(Rails.root.join('public', 'sitemap', 'sitemap_1.txt.gz')).read
     @objects_to_include.each do |obj|
       urls_for_object(obj).each do |url|
         sitemap_contents.should include(url)
@@ -65,15 +65,15 @@ describe 'Sitemaps' do
     @rake['sitemap:destroy'].execute
     @rake['sitemap:build'].execute
     # we only care about files with extensions - so ignore all directories
-    Dir.glob(File.join(RAILS_ROOT, 'public', 'sitemap', '*.*')).should_not be_empty
+    Dir.glob(Rails.root.join('public', 'sitemap', '*.*')).should_not be_empty
     @rake['sitemap:destroy'].execute
-    Dir.glob(File.join(RAILS_ROOT, 'public', 'sitemap', '*.*')).should be_empty
+    Dir.glob(Rails.root.join('public', 'sitemap', '*.*')).should be_empty
   end
   
   it 'should be able to create xml sitemaps' do
     @rake['sitemap:destroy'].execute
     @rake['sitemap:build_xml'].execute
-    sitemap_contents = Zlib::GzipReader.open(File.join(RAILS_ROOT, 'public', 'sitemap', 'sitemap_1.xml.gz')).read
+    sitemap_contents = Zlib::GzipReader.open(Rails.root.join('public', 'sitemap', 'sitemap_1.xml.gz')).read
     @objects_to_include.each do |obj|
       urls_for_object(obj).each do |url|
         sitemap_contents.should include(url)
@@ -90,7 +90,7 @@ describe 'Sitemaps' do
   it 'should be able to create xml image sitemaps' do
     @rake['sitemap:destroy_images'].execute
     @rake['sitemap:build_images_xml'].execute
-    sitemap_contents = Zlib::GzipReader.open(File.join(RAILS_ROOT, 'public', 'sitemap', 'images', 'sitemap_1.xml.gz')).read
+    sitemap_contents = Zlib::GzipReader.open(Rails.root.join('public', 'sitemap', 'images', 'sitemap_1.xml.gz')).read
     
     sitemap_contents.should include(DataObject.image_cache_path(@published_image_cc_license.object_cache_url, '580_360', $SINGLE_DOMAIN_CONTENT_SERVER))
     sitemap_contents.should include(@published_image_cc_license.license.source_url)
@@ -104,9 +104,9 @@ describe 'Sitemaps' do
     @rake['sitemap:destroy_images'].execute
     @rake['sitemap:build_images_xml'].execute
     # we only care about files with extensions - so ignore all directories
-    Dir.glob(File.join(RAILS_ROOT, 'public', 'sitemap', 'images', '*.*')).should_not be_empty
+    Dir.glob(Rails.root.join('public', 'sitemap', 'images', '*.*')).should_not be_empty
     @rake['sitemap:destroy_images'].execute
-    Dir.glob(File.join(RAILS_ROOT, 'public', 'sitemap', 'images', '*.*')).should be_empty
+    Dir.glob(Rails.root.join('public', 'sitemap', 'images', '*.*')).should be_empty
   end
   
   

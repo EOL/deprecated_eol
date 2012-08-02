@@ -41,7 +41,7 @@ module EOL
     end
 
     def self.file_for(name)
-      File.join(RAILS_ROOT, 'tmp', "#{name}_test_info.yml")
+      Rails.root.join('tmp', "#{name}_test_info.yml")
     end
 
   end

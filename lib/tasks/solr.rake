@@ -9,7 +9,7 @@ namespace :solr do
     end
     port = $SOLR_SERVER.gsub(/^.*:(\d+).*$/, '\\1')
     FileUtils.cd(File.join($SOLR_DIR)) do
-      command = ["#{RAILS_ROOT}/bin/solr", 'start', '--', '-p', port.to_s]
+      command = [Rails.root.join('bin', 'solr'), 'start', '--', '-p', port.to_s]
       if $SOLR_SERVER_RAM
         command << '-r'
       end
@@ -30,7 +30,7 @@ namespace :solr do
     # FileUtils.mkdir_p(data_path)
     port = $SOLR_SERVER
     port.gsub!(/^.*:(\d+).*$/, '\\1')
-    command = ["#{RAILS_ROOT}/bin/solr", 'run', '--', '-p', port.to_s]
+    command = [Rails.root.join('bin', 'solr'), 'run', '--', '-p', port.to_s]
     if $SOLR_SERVER_RAM
       command << '-r'
     end
@@ -44,7 +44,7 @@ namespace :solr do
   task :stop => :environment do
     puts "** Stopping Background Solr instance for EOL..."
     FileUtils.cd($SOLR_DIR) do
-      system(Escape.shell_command(["#{RAILS_ROOT}/bin/solr", 'stop']))
+      system(Escape.shell_command([Rails.root.join('bin', 'solr'), 'stop']))
     end
   end
 

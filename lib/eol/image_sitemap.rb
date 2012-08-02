@@ -1,6 +1,6 @@
 module EOL
   class ImageSitemap < EOL::Sitemap
-    @@working_directory = File.join(RAILS_ROOT, 'public', 'sitemap', 'images')
+    @@working_directory = Rails.root.join('public', 'sitemap', 'images')
     
     def initialize
       super

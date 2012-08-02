@@ -60,7 +60,7 @@ $SOLR_SERVER = 'http://localhost:8983/solr/'
 $SOLR_TAXON_CONCEPTS_CORE = 'taxon_concepts'
 $SOLR_DATA_OBJECTS_CORE = 'data_objects'
 $SOLR_SITE_SEARCH_CORE = 'site_search'
-$SOLR_DIR    = File.join(RAILS_ROOT, 'solr', 'solr')
+$SOLR_DIR    = Rails.root.join('solr', 'solr')
 $INDEX_RECORDS_IN_SOLR_ON_SAVE = false
 
 $SKIP_URL_VALIDATIONS = true

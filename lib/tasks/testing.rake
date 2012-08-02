@@ -2,7 +2,7 @@
 
 desc 'Truncates all tables'
 task :truncate => :environment do
-  if RAILS_ENV == 'test' || RAILS_ENV == 'development' || RAILS_ENV == 'test_master'
+  if Rails.env.test? || Rails.env.development? || Rails.env.test_master?
     require Rails.root.join('spec', 'eol_spec_helpers')
     include EOL::Spec::Helpers
     truncate_all_tables :verbose => true

@@ -6,7 +6,7 @@ module QueryReviewer
     
   def self.load_configuration
     CONFIGURATION.merge!(YAML.load(File.read(File.join(File.dirname(__FILE__), "..", "query_reviewer_defaults.yml")))["all"] || {})
-    CONFIGURATION.merge!(YAML.load(File.read(File.join(File.dirname(__FILE__), "..", "query_reviewer_defaults.yml")))[RAILS_ENV || "test"] || {})
+    CONFIGURATION.merge!(YAML.load(File.read(File.join(File.dirname(__FILE__), "..", "query_reviewer_defaults.yml")))[Rails.env || "test"] || {})
     
     app_config_file = File.join(RAILS_ROOT, "config", "query_reviewer.yml")
         

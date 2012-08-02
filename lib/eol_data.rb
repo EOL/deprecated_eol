@@ -20,8 +20,8 @@ module EOL
     end
 
     def self.create
-      arb_conf = ActiveRecord::Base.configurations[RAILS_ENV]
-      log_conf = LoggingModel.configurations[RAILS_ENV + '_logging']
+      arb_conf = ActiveRecord::Base.configurations[Rails.env.to_s]
+      log_conf = LoggingModel.configurations["#{Rails.env}_logging"]
       ActiveRecord::Base.establish_connection({'database' => ''}.reverse_merge!(arb_conf))
       ActiveRecord::Base.connection.create_database(arb_conf['database'], arb_conf.reverse_merge!(@@db_defaults))
       ActiveRecord::Base.establish_connection(arb_conf)
@@ -32,7 +32,7 @@ module EOL
 
     def self.drop
       raise "This action is ONLY available in the development, test, and test_master environments." unless
-        ['development', 'test', 'test_master'].include?(RAILS_ENV)
+        Rails.env.development? || Rails.env.test? || Rails.env.test_master?
       EOL::DB.all_connections.each do |connection|
         connection.drop_database connection.config[:database]
       end

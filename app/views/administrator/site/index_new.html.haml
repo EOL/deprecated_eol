@@ -25,22 +25,22 @@
     %td.odd
       =I18n.t("rails_environment")
     %td.odd
-      = ENV["RAILS_ENV"]
+      = Rails.env
   %tr
     %td.even
       =I18n.t("rails_databases")
     %td.even
       =I18n.t(:main_colon)
-      = @config.database_configuration[ENV["RAILS_ENV"]]["database"] + ' @ ' + @config.database_configuration[ENV["RAILS_ENV"]]["host"]
+      = @config.database_configuration[Rails.env.to_s]["database"] + ' @ ' + @config.database_configuration[Rails.env.to_s]["host"]
       %br
       =I18n.t(:data)
-      = @config.database_configuration[ENV["RAILS_ENV"]+'_data']["database"] + ' @ ' + @config.database_configuration[ENV["RAILS_ENV"]+'_data']["host"]
+      = @config.database_configuration["#{Rails.env}_data"]["database"] + ' @ ' + @config.database_configuration["#{Rails.env}_data"]["host"]
       %br
       =I18n.t(:logging)
-      = @config.database_configuration[ENV["RAILS_ENV"]+'_logging']["database"] + ' @ ' + @config.database_configuration[ENV["RAILS_ENV"]+'_logging']["host"]
+      = @config.database_configuration["#{Rails.env}_logging"]["database"] + ' @ ' + @config.database_configuration["#{Rails.env}_logging"]["host"]
       %br
       - unless @config.database_configuration['master_database'].nil?
-        =I18n.t("this_does_not_necessarily_mean", :env => ENV["RAILS_ENV"])
+        =I18n.t("this_does_not_necessarily_mean", :env => Rails.env)
         %br
         =I18n.t(:main_master_colon)
         = @config.database_configuration['master_database']["database"] + ' @ ' + @config.database_configuration['master_database']["host"]

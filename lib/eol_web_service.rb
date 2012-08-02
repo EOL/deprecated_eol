@@ -65,7 +65,7 @@ class EOLWebService
      logging_message='*** WEB SERVICE CALL (' + elapsedSeconds.to_s + 's'
      logging_message+=' TIMED OUT AFTER ' + timeout_seconds.to_s + ' s' if elapsedSeconds.to_f >= timeout_seconds.to_f
      logging_message+='): ' + base_url + parameters
-     RAILS_DEFAULT_LOGGER.info logging_message
+     Rails.logger.info logging_message
    else
      resp=self.web_service_call(params)
    end

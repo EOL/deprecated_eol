@@ -117,7 +117,7 @@ module ActiveRecord
       end
 
       def cached_name_for(key)
-        "#{RAILS_ENV}/#{self.table_name}/#{key.underscore_non_word_chars}"[0..249]
+        "#{Rails.env}/#{self.table_name}/#{key.underscore_non_word_chars}"[0..249]
       end
 
       def check_local_cache(key)

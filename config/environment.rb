@@ -1,8 +1,8 @@
 # Be sure to restart your web server when you modify this file.
 # This file is loaded FIRST and thus all other configuration files trump these settings.  Be careful.
 # 1) config/environment.rb
-# 2) config/environments/[RAILS_ENV].rb
-# 3) config/environments/[RAILS_ENV]_eol_org.rb
+# 2) config/environments/[Rails.env].rb
+# 3) config/environments/[Rails.env]_eol_org.rb
 # 4) config/environment_eol_org.rb
 
 # Bootstrap the Rails environment, frameworks, and default configuration
@@ -80,7 +80,7 @@ Rails::Initializer.run do |config|
   # As of this writing, this is used for two things:
   #   1) Avoid harmful migrations in production using #raise_error_if_in_production, and
   #   2) Log errors to NewRelic if we're in production (or on staging).
-  $PRODUCTION_MODE = ENV['RAILS_ENV'] && ['production', 'staging', 'sync'].include?(ENV['RAILS_ENV'].downcase)
+  $PRODUCTION_MODE = Rails.env.production? || Rails.env.staging? || Rails.env.sync?
 
   # How many images we want to show, at maximum, for a given page.  This number should be lower than the maximum
   # number of images created in the cached_images tables.  (EOL presently sets cached_image limits at 500.)

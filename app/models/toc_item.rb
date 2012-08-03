@@ -1,5 +1,5 @@
 class TocItem < ActiveRecord::Base
-  set_table_name 'table_of_contents'
+  self.table_name = 'table_of_contents'
   
   uses_translations(:foreign_key => 'table_of_contents_id')
   acts_as_tree :order => 'view_order'

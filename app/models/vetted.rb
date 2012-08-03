@@ -1,5 +1,5 @@
 class Vetted < ActiveRecord::Base
-  set_table_name "vetted"
+  self.table_name = "vetted"
   uses_translations
   has_many :taxon_concepts
   has_many :hierarchy_entries

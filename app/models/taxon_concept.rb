@@ -13,6 +13,9 @@
 #
 # See the comments at the top of the Taxon for more information on this.
 # I include there a basic biological definition of what a Taxon is.
+require 'model_query_helper'
+require 'eol/activity_loggable'
+
 class TaxonConcept < ActiveRecord::Base
   include ModelQueryHelper
   include EOL::ActivityLoggable
@@ -92,19 +95,6 @@ class TaxonConcept < ActiveRecord::Base
   attr_reader :has_media, :length_of_images, :length_of_videos, :length_of_sounds
 
   index_with_solr :keywords => [ :scientific_names_for_solr, :common_names_for_solr ]
-
-  define_core_relationships :select => {
-      :taxon_concepts => '*',
-      :hierarchy_entries => [ :id, :rank_id, :identifier, :hierarchy_id, :parent_id, :published, :visibility_id, :lft, :rgt, :taxon_concept_id, :source_url ],
-      :hierarchies => [ :agent_id, :browsable, :outlink_uri, :label ],
-      :names => :string,
-      :vetted => :view_order,
-      :canonical_forms => :string,
-      :data_objects => [ :id, :data_type_id, :published, :guid, :data_rating, :language_id, :object_cache_url ],
-      :licenses => :title,
-      :table_of_contents => '*' },
-    :include => [{ :published_hierarchy_entries => [ :name , :hierarchy, :vetted ] }, { :data_objects => [ { :toc_items => :info_items }, :license] },
-      { :users_data_objects => { :data_object => :toc_items } }]
 
   def self.prepare_cache_classes
     TaxonConceptExemplarImage

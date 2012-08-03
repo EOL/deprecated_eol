@@ -1,6 +1,6 @@
 class GoogleAnalyticsPartnerSummary < ActiveRecord::Base
   belongs_to :user
-  self.primary_keys :year, :month, :user_id
+  self.primary_keys = :year, :month, :user_id
   
   def time_on_page_in_hours
     time_on_page.to_f / 60.0 / 60.0

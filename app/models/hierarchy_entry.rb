@@ -31,12 +31,6 @@ class HierarchyEntry < ActiveRecord::Base
 
   has_one :hierarchy_entry_stat
 
-  define_core_relationships :select => {
-      :hierarchy_entries => [ :id, :identifier, :hierarchy_id, :parent_id, :lft, :rgt, :taxon_concept_id, :rank_id ],
-      :names => [ :string, :italicized ],
-      :canonical_forms => :string },
-    :include => [ :name ]
-
   def self.sort_by_lft(hierarchy_entries)
     hierarchy_entries.sort_by{ |he| he.lft }
   end

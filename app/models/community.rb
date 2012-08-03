@@ -1,3 +1,5 @@
+require 'eol/activity_loggable'
+
 class Community < ActiveRecord::Base
 
   include EOL::ActivityLoggable

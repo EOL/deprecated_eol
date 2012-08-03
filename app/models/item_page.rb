@@ -2,11 +2,6 @@ class ItemPage < ActiveRecord::Base
   has_many :page_names
   belongs_to :title_item
   
-  define_core_relationships :select => {
-      :item_pages => [:id, :year, :volume, :issue, :prefix, :number],
-      :publication_titles => [:id, :title, :details]},
-    :include => { :title_item => :publication_title }
-  
   def self.sort_by_title_year(item_pages)
     item_pages.sort_by do |item|
       [item.title_item.publication_title.title,

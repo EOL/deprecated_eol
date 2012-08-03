@@ -1,6 +1,6 @@
 class TaxonConceptName < ActiveRecord::Base
 
-  self.primary_keys :taxon_concept_id, :name_id, :source_hierarchy_entry_id, :language_id, :synonym_id
+  self.primary_keys = :taxon_concept_id, :name_id, :source_hierarchy_entry_id, :language_id, :synonym_id
 
   belongs_to :language
   belongs_to :name

@@ -92,9 +92,9 @@ describe 'Users' do
       visit(user_path(curator))
       body.should have_tag("h3", :text => "Activity")
       body.should have_tag("h3", :text => "Curator qualifications")
-      body.should have_tag("a[href=" + user_activity_path(curator, :filter => "data_object_curation") + "]", :text => I18n.t(:user_activity_stats_objects_curated, :count => EOL::Curator.total_objects_curated_by_action_and_user(nil, curator.id)))
+      body.should have_tag("a[href=" + user_activity_path(curator, :filter => "data_object_curation") + "]", :text => I18n.t(:user_activity_stats_objects_curated, :count => Curator.total_objects_curated_by_action_and_user(nil, curator.id)))
       body.should include(I18n.t(:user_activity_stats_preferred_classifications_selected, 
-        :count => EOL::Curator.total_objects_curated_by_action_and_user(Activity.preferred_classification.id, 
+        :count => Curator.total_objects_curated_by_action_and_user(Activity.preferred_classification.id, 
         curator.id, [ChangeableObjectType.curated_taxon_concept_preferred_entry.id])))
       body.should include I18n.t(:user_activity_stats_taxa_curated, :count => curator.total_species_curated)
       body.should have_tag("a[href=" + user_activity_path(curator, :filter => "names") + "]")

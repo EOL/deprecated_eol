@@ -1,6 +1,8 @@
 require 'set'
 require 'uuid'
 require 'erb'
+require 'model_query_helper'
+require 'eol/activity_loggable'
 
 # Represents any kind of object imported from a ContentPartner, eg. an image, article, video, etc.  This is one
 # of our primary models, and an awful lot of work occurs here.
@@ -81,21 +83,6 @@ class DataObject < ActiveRecord::Base
   after_create :clean_values
 
   index_with_solr :keywords => [ :object_title ], :fulltexts => [ :description ]
-
-  define_core_relationships :select => {
-      :data_objects => '*',
-      :agents => [:full_name, :homepage, :logo_cache_url],
-      :agents_data_objects => :view_order,
-      :names => :string,
-      :hierarchy_entries => [ :published, :visibility_id, :taxon_concept_id ],
-      :languages => :iso_639_1,
-      :info_items => :schema_value,
-      :data_types => :schema_value,
-      :vetted => :view_order,
-      :table_of_contents => '*',
-      :licenses => '*' },
-    :include => [:data_type, :mime_type, :language, :license, {:info_items => :toc_item},
-      {:hierarchy_entries => [:name, { :hierarchy => :agent }] }, {:agents_data_objects => [ { :agent => :user }, :agent_role]}]
 
   def self.maximum_rating
     @@maximum_rating

@@ -7,9 +7,51 @@
 # Ignore bundler config
 /.bundle
 
-# Ignore the default SQLite database.
-/db/*.sqlite3
-
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+# Older stuff:
+*.bundle
+*.o
+*.swo
+*.swp
+*eol_org.rb
+*~
+rdoc/
+eol-solr.pid
+mkmf.log
+extconf.h
+.DS_Store
+config/database.BKUP
+config/database.yml
+config/deploy
+config/deploy.rb
+config/environments/integration_local.rb
+config/environments/labs1.rb
+config/environments/staging_test.rb
+config/environments/local.*
+config/environments/staging_dev_private.rb
+config/remi-deploy.rb
+config/resque.yml
+config/systems/
+config/newrelic.yml
+db/*_structure.sql
+db/schema.rb
+doc/app
+lang/tmp.yml
+log/*.txt
+public/feeds
+public/files/solr_import_file_*.csv
+public/javascripts/*packaged.js
+public/opensearch.xml
+public/search.xml
+public/stylesheets/*packaged.css
+public/uploads/datasets/*
+public/uploads/Image/*
+public/uploads/images/collection_icons/*
+solr/logs/*.*
+solr/solr/data/*
+vendor/eol_org
+tags
+public/files/solr_import_file.csv

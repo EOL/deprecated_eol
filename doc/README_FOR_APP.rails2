@@ -134,7 +134,7 @@ To install memcached on OSX with MacPorts already on the system is quite easy:
      suggests, as the path may be different.
 
 That's it!  Memcached is now running and will work for development.  Be mindful of this--it may require periodic
-restarting or flushing (from a Rails console, you can just type "Rails.cache.clear").
+restarting or flushing (from a Rails console, you can just type "$CACHE.clear").
 
 Note that you do NOT need to install the "memcache" Ruby gem.
 
@@ -396,7 +396,7 @@ mechanism (i.e. memcached) must be set as well.
 
 For memcached:
 
-  config.cache_store = :dalli_store, '10.0.0.1:11211', '10.0.0.2:11211'
+  config.cache_store = :mem_cache_store, '10.0.0.1:11211', '10.0.0.2:11211'
 
 To enable caching:
 

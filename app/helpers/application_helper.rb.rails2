@@ -235,7 +235,7 @@ module ApplicationHelper
       code = ''
       @stylesheet_packages[stylesheet.to_s].each do |file|
         language_stylesheet = "/languages/#{I18n.locale}/#{file}.css"
-        if File.exists?(Rails.root.join(Rails.public_path, language_stylesheet))
+        if File.exists?(File.join(RAILS_ROOT, "public", language_stylesheet))
           code += stylesheet_link_tag(language_stylesheet, options)
         end
       end
@@ -244,7 +244,7 @@ module ApplicationHelper
   end
 
   def read_stylesheet_packages
-    array_of_hashes = YAML::load(File.open(Rails.root.join('config', 'asset_packages.yml')))['stylesheets']
+    array_of_hashes = YAML::load(File.open(File.join(RAILS_ROOT, 'config', 'asset_packages.yml')))['stylesheets']
     # Oddly, this gem requires the packages to be in array of hashes with a single key.  [shrug]  Clean up:
     @stylesheet_packages = {}
     array_of_hashes.each do |hsh|

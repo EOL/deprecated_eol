@@ -23,13 +23,13 @@
         = I18n.t('activerecord.attributes.translated_content_page.main_content')
       %p= I18n.t('helpers.label.translated_content_page.main_content_more')
     %dd
-      = fckeditor_textarea(:translated_content_page, :main_content, :toolbarSet => 'CMSBody', :height => 500, :width => 600)
+      = cktext_area_tag(:translated_content_page, :main_content, :toolbarSet => 'CMSBody', :height => 500, :width => 600)
     %dt
       %label{:for => 'translated_content_page__left_content_editor'}
         = I18n.t('activerecord.attributes.translated_content_page.left_content')
       %p= I18n.t('helpers.label.translated_content_page.left_content_more')
     %dd
-      = fckeditor_textarea(:translated_content_page, :left_content, :toolbarSet => 'CMSNavigation', :height => 200, :width => 600)
+      = cktext_area_tag(:translated_content_page, :left_content, :toolbarSet => 'CMSNavigation', :height => 200, :width => 600)
     %dt
       = translated_content_page_fields.label :meta_keywords
       %p= I18n.t('helpers.label.translated_content_page.meta_keywords_more')

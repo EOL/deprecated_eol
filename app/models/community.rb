@@ -15,7 +15,7 @@ class Community < ActiveRecord::Base
   has_many :containing_collections, :through => :collection_items, :source => :collection
   has_many :comments, :as => :parent
 
-  named_scope :published, :conditions => 'published = 1'
+  scope :published, :conditions => 'published = 1'
 
   # These are for will_paginate:
   cattr_reader :per_page

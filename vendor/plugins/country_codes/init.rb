@@ -1,2 +1,0 @@
-require 'country_codes'
-CountryCodes.load_countries_from_yaml

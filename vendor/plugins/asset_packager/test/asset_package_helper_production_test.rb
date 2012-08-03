@@ -10,7 +10,7 @@ require 'action_controller/test_process'
 ActionController::Base.logger = nil
 ActionController::Routing::Routes.reload rescue nil
 
-$asset_packages_yml = YAML.load_file("#{RAILS_ROOT}/vendor/plugins/asset_packager/test/asset_packages.yml")
+$asset_packages_yml = YAML.load_file("#{Rails.root}/vendor/plugins/asset_packager/test/asset_packages.yml")
 $asset_base_path = "#{RAILS_ROOT}/vendor/plugins/asset_packager/test/assets"
 
 class AssetPackageHelperProductionTest < Test::Unit::TestCase

@@ -63,14 +63,14 @@ module QueryReviewer
     end
 
     def relevant_trace
-      trace.collect(&:strip).select{|t| t.starts_with?(RAILS_ROOT) &&
-          (!t.starts_with?("#{RAILS_ROOT}/vendor") || QueryReviewer::CONFIGURATION["trace_includes_vendor"]) &&
-          (!t.starts_with?("#{RAILS_ROOT}/lib") || QueryReviewer::CONFIGURATION["trace_includes_lib"]) &&
-          !t.starts_with?("#{RAILS_ROOT}/vendor/plugins/query_reviewer") }
+      trace.collect(&:strip).select{|t| t.starts_with?(Rails.root.to_s) &&
+          (!t.starts_with?("#{Rails.root}/vendor") || QueryReviewer::CONFIGURATION["trace_includes_vendor"]) &&
+          (!t.starts_with?("#{Rails.root}/lib") || QueryReviewer::CONFIGURATION["trace_includes_lib"]) &&
+          !t.starts_with?("#{Rails.root}/vendor/plugins/query_reviewer") }
     end
 
     def full_trace
-      trace.collect(&:strip).select{|t| !t.starts_with?("#{RAILS_ROOT}/vendor/plugins/query_reviewer") }
+      trace.collect(&:strip).select{|t| !t.starts_with?("#{Rails.root}/vendor/plugins/query_reviewer") }
     end
 
     def get_trace

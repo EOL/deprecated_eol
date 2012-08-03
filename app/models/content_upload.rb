@@ -6,7 +6,7 @@ class ContentUpload < ActiveRecord::Base
   belongs_to :user
   validates_presence_of :link_name
   validates_presence_of :description
-  validates_format_of :link_name, :with => /^[A-Za-z\d_]+$/, :message => "can only be alphanumeric with no spaces"
+  validates_format_of :link_name, :with => /^[A-Za-z\d_]+$/, :message => I18n.t(:only_alphanum_with_no_spaces)
   validates_uniqueness_of :link_name
   
   has_attached_file :attachment,

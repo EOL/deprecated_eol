@@ -6,7 +6,7 @@
         =I18n.t("page_not_found")
       - else
         = details_hash['scientific_name'] || 'page not found'
-    = stylesheet_include_i18n_merged 'api'
+    = stylesheet_include_i18n 'api'
   %body
     - unless details_hash.blank?
       %h2{:align => "center"}

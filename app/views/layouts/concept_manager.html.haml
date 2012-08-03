@@ -2,8 +2,8 @@
 %html{ "xml:lang" => "en", :lang => "en", :xmlns => "http://www.w3.org/1999/xhtml" }
   %head
     %link{ :href => "/favicon.ico", :rel => "shortcut icon", :type => "image/x-icon" }
-    = stylesheet_include_i18n_merged 'jquery_ui_south_street'
-    = stylesheet_include_i18n_merged 'concept_manager'
-    = javascript_include_merged 'concept-manager'
+    = stylesheet_include_i18n 'jquery_ui_south_street'
+    = stylesheet_include_i18n 'concept_manager'
+    = javascript_include 'concept-manager'
   %body
     = yield(:content) or yield

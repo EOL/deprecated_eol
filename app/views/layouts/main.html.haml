@@ -35,9 +35,9 @@
 
     %link{ :href => "/favicon.ico", :rel => "shortcut icon", :type => "image/x-icon" }
     %link{ :href => "/opensearchdescription.xml", :title => "Encyclopedia of Life", :rel => "search", :type => "application/opensearchdescription+xml" }
-    = stylesheet_include_i18n_merged 'v1'
-    = stylesheet_include_i18n_merged 'buttons', :media => "all"
-    = javascript_include_merged 'application'
+    = stylesheet_include_i18n 'v1'
+    = stylesheet_include_i18n 'buttons', :media => "all"
+    = javascript_include 'application'
     /[if lt IE 7]
       %style{:type => "text/css", :media => "screen"}
         body { behavior: url(/javascripts/csshover.htc); }

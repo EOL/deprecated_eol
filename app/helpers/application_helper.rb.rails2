@@ -226,9 +226,9 @@ module ApplicationHelper
   # Link to a single stylesheet asset (which may be comprised of several individual files).
   # NOTE - Styles will only be cached for English. Sorry; impractical to maintain copies of all cached files for
   # every language.
-  def stylesheet_include_i18n_merged(stylesheet, options = {})
+  def stylesheet_include_i18n(stylesheet, options = {})
     if I18n.locale.to_s != 'ar' # Annoying that I have to check this, but c'est la vie. (See what I did there?)
-      return stylesheet_link_merged(*[stylesheet, options])
+      return stylesheet_link(*[stylesheet, options])
     else
       read_stylesheet_packages unless @stylesheet_packages
       raise "** UNKNOWN STYLESHEET LOADED: #{stylesheet}" unless @stylesheet_packages.has_key?(stylesheet.to_s)

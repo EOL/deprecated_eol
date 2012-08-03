@@ -5,7 +5,7 @@
     var google_conversion_format = #{conversion.format};
     var google_conversion_label = "#{conversion.label}";
     var google_conversion_value = #{conversion.value};
-  = javascript_include_merged "http://www.googleadservices.com/pagead/conversion.js"
+  = javascript_include "http://www.googleadservices.com/pagead/conversion.js"
   %noscript
     - # Using raw string otherwise & in src is escaped to &amp; which I'm guessing messes up the URL
     - img = "<img src='http://www.googleadservices.com/pagead/conversion/#{conversion.id}/?value=#{conversion.value}&label=#{conversion.label}&guid=ON&script=0' border='0' width='1' height='1' />"

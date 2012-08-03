@@ -3349,6 +3349,7 @@ en:
   number_of_trusted_text_objects_at_this_entry: "# of trusted text objects at this entry"
   number_of_unreviewed_images_at_this_entry: "# of unreviewed images at this entry"
   number_of_unreviewed_text_objects_at_this_entry: "# of unreviewed text objects at this entry"
+  only_alphanum_with_no_spaces: "can only be alphanumeric with no spaces"
   only_multi_search_suggestions: "(only if multiple suggestions for the same search term, sort is low-->high)"
   only_show_authoritative_conten: "Only show authoritative content:"
   only_show_unapproved_curators: "Only show unapproved curators"

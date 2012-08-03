@@ -162,3 +162,4 @@ qqq:
     month_names_short: "A list of abbreviated names for months of the year (e.g Jan, Feb etc) for use as headers in an interactive Gregorian calendar."
     next: "A label for a button or link that users will use to select the next panel in an interactive calender."
     previous: "A label for a button or link that users will use to select the previous panel in an interactive calender."
+  only_alphanum_with_no_spaces: "This is a message (a rails model message) telling the user that an uploaded file's field can only be letters or numbers and cannot have spaces."

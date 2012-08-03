@@ -1,6 +1,6 @@
 class Curator < $PARENT_CLASS_MUST_USE_MASTER
 
-  set_table_name "users"
+  self.table_name = "users"
 
   belongs_to :curator_verdict_by, :class_name => "User", :foreign_key => :curator_verdict_by_id
   belongs_to :curator_level

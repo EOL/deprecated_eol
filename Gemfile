@@ -18,7 +18,9 @@ group :test do
 end
 
 group :worker do
-  gem 'system_timer'
+  # TODO - try adding this again later; it doesn't appear to work with Ruby 1.9 ...we might not need it there,
+  # though.
+  #gem 'system_timer'
 end
 
 gem 'rails', '3.2.7'

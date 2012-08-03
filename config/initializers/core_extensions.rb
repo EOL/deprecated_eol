@@ -1,4 +1,4 @@
-Rails.cache.||= Rails.cache
+Rails.cache ||= Rails.cache
 
 class String
 
@@ -107,7 +107,7 @@ module ActiveRecord
 
       def cached(key, options = {}, &block)
         name = cached_name_for(key)
-        if Rails.cache.# Sometimes during tests, cache has not yet been initialized.
+        if Rails.cache # Sometimes during tests, cache has not yet been initialized.
           Rails.cache.fetch(name) do
             yield
           end

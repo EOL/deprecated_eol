@@ -25,6 +25,7 @@ end
 
 gem 'rails', '3.2.7'
 
+gem 'acts_as_tree_rails3'
 gem 'ckeditor'
 gem 'composite_primary_keys'
 gem 'dalli'

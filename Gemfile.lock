@@ -51,6 +51,7 @@ GEM
     ckeditor (3.7.1)
       mime-types
       orm_adapter
+    cocaine (0.2.1)
     columnize (0.3.6)
     composite_primary_keys (5.0.8)
       activerecord (~> 3.2.0)
@@ -126,6 +127,12 @@ GEM
       rack (~> 1.2)
     optiflag (0.7)
     orm_adapter (0.4.0)
+    paperclip (3.1.4)
+      activemodel (>= 3.0.0)
+      activerecord (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      cocaine (>= 0.0.2)
+      mime-types
     polyglot (0.3.3)
     rack (1.4.1)
     rack-cache (1.2)
@@ -246,6 +253,7 @@ DEPENDENCIES
   oauth
   oauth2
   optiflag
+  paperclip
   rails (= 3.2.7)
   rdoc
   resque

@@ -42,7 +42,7 @@ class DataObject < ActiveRecord::Base
   has_many :taxon_concept_exemplar_images
   has_many :worklist_ignored_data_objects
   has_many :collection_items, :as => :object
-  has_many :containing_collections, :through => :collection_items, :source => :collection
+  has_many :containing_collections, :through => :collection_items
   has_many :translations, :class_name => DataObjectTranslation.to_s, :foreign_key => :original_data_object_id
   has_many :curator_activity_logs, :foreign_key => :object_id, :conditions => 'changeable_object_type_id IN (#{ [ ChangeableObjectType.data_object.id, ChangeableObjectType.data_objects_hierarchy_entry.id,
     ChangeableObjectType.curated_data_objects_hierarchy_entry.id, ChangeableObjectType.users_data_object.id ].join(",") } )'
@@ -51,7 +51,7 @@ class DataObject < ActiveRecord::Base
   # TODO - I don't have time to make sure this fix isn't going to break or slow down other parts of the site, so
   # I'm calling this the 'better' method. DO NOT call this when using core relationships - it will not take just id and guid
   # from data_objects and you'll have way more data returned than you want
-  has_many :all_comments, :class_name => Comment.to_s, :through => :all_versions, :source => :comments, :primary_key => :guid
+  has_many :all_comments, :class_name => Comment.to_s, :through => :all_versions, :primary_key => :guid
   # the select_with_include library doesn't allow to grab do.* one time, then do.id later on. So in order
   # to use this with preloading I highly recommend doing DataObject.preload_associations(data_objects, :all_versions) on an array
   # of data_objects which already has everything else preloaded

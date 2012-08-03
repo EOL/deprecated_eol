@@ -11,7 +11,7 @@ class Collection < ActiveRecord::Base
   has_many :collection_items
   accepts_nested_attributes_for :collection_items
   has_many :others_collection_items, :class_name => CollectionItem.to_s, :as => :object
-  has_many :containing_collections, :through => :others_collection_items, :source => :collection
+  has_many :containing_collections, :through => :others_collection_items
 
   has_many :comments, :as => :parent
   # NOTE - You MUST use single-quotes here, lest the #{id} be interpolated at compile time. USE SINGLE QUOTES.

@@ -43,6 +43,7 @@ gem 'mysql2'
 gem 'newrelic_rpm'
 gem 'oauth'
 gem 'oauth2'
+gem 'paperclip'
 gem 'rdoc'
 gem 'resque', :require => "resque/server"
 gem 'sanitize'

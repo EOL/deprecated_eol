@@ -31,7 +31,7 @@
       =I18n.t(:left_content_area)
 %tr
   %td{:colspan => 2}
-    = fckeditor_textarea(:page, :translated_left_content, :toolbarSet => 'Simple', :width => '100%', :height => '400px')
+    = cktext_area_tag(:page, :translated_left_content, :toolbarSet => 'Simple', :width => '100%', :height => '400px')
     %br
     =I18n.t(:html_format_with_left_col)
 %tr
@@ -40,7 +40,7 @@
       =I18n.t(:main_content_area)
 %tr
   %td{:colspan => 2}
-    = fckeditor_textarea(:page, :translated_main_content, :toolbarSet => 'Simple', :width => '100%', :height => '400px')
+    = cktext_area_tag(:page, :translated_main_content, :toolbarSet => 'Simple', :width => '100%', :height => '400px')
     %br
     =I18n.t(:html_format)
 

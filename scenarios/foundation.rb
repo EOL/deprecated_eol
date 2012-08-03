@@ -286,7 +286,7 @@ he = HierarchyEntry.gen(:hierarchy => default_hierarchy)
 DataObjectsHierarchyEntry.gen(:data_object => d, :hierarchy_entry => he, :vetted => Vetted.trusted, :visibility => Visibility.visible)
 5.times { RandomHierarchyImage.gen(:hierarchy => default_hierarchy, :hierarchy_entry => he, :data_object => d) }
 
-Rails.cache.= old_cache_value.clone if old_cache_value
+Rails.cache = old_cache_value.clone if old_cache_value
 Rails.cache.clear
 
 $INDEX_RECORDS_IN_SOLR_ON_SAVE = original_index_records_on_save_value

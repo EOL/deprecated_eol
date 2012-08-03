@@ -5,7 +5,7 @@ require 'haml'
 desc 'Tasks useful for i18n updates'
 namespace :i18n_update do
   lang_dir = Rails.root.join("config", "locales")
-  gibberish_lang_dir = Rais.root.join("lang")
+  gibberish_lang_dir = Rails.root.join("lang")
   en_file = "translation_template.yml"
   tmp_file = File.join([lang_dir, "tmp.yml"])
   en_yml = File.join([lang_dir, "en.yml"])

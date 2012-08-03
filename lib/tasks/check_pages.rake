@@ -1,6 +1,6 @@
 namespace :eol do
   desc 'Check all content-level 4 pages (and a handfull of others), to ensure they are actually working.'
-  task (:check_pages => :environment)  do
+  task :check_pages => :environment  do
 
     require 'hpricot'
     require 'open-uri'

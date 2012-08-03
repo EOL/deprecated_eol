@@ -9,7 +9,7 @@ require 'cgi'
 
 namespace :i18n do
 
-  lang_dir = Rails.root.join("config", "locales"])
+  lang_dir = Rails.root.join("config", "locales")
   en_yml = File.join([lang_dir, "en.yml"])
 
   desc 'sending text to google for translation'

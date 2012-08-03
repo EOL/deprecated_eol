@@ -1,7 +1,7 @@
 
 namespace :search do
   
-  task (:convert_he_to_taxon_concept_ids => :environment) do 
+  task :convert_he_to_taxon_concept_ids => :environment do 
     desc 'Convert he_ids to taxon_concept_ids for search suggestions table'
     
     # find all search suggestions 
@@ -27,7 +27,7 @@ namespace :search do
     
   end
 
-  task (:convert_taxon_concept_to_he_ids => :environment) do 
+  task :convert_taxon_concept_to_he_ids => :environment do 
     desc 'Convert taxon_concept_ids to he_ids for search suggestions table'
     
     # find all search suggestions 

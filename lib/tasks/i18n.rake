@@ -423,7 +423,7 @@ namespace :i18n do
   end
 
   desc 'list db strings for translation by twiki'
-  task (:list_db_strings => :environment) do
+  task :list_db_strings => :environment do
     en_strings = "en-db:\n"
     en_id = Language.english.id
 
@@ -500,7 +500,7 @@ namespace :i18n do
   end
 
   desc 'Task to import db translations in db'
-  task (:import_db_translations => :environment) do
+  task :import_db_translations => :environment do
     def load_language_keys(lang_abbr)
       filename = Rails.root.join("config", "locales", lang_abbr + "-db.yml")
       return nil unless File.exists?(filename)

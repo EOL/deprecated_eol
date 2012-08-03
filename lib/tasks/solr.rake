@@ -37,7 +37,7 @@ namespace :solr do
     if $SOLR_DIR
       command << '-s' << $SOLR_DIR
     end
-    exec(Escape.shell_command(command))
+    exec(command.join(" "))
   end
 
   desc 'Stop the Solr instance'

@@ -3,7 +3,7 @@
     %title
       =I18n.t("eol_api_colon")
       = @details_hash['guid'] || I18n.t("page_not_found")
-    = stylesheet_include_i18n_merged 'api'
+    = stylesheet_include_i18n 'api'
   %body
     - unless @details_hash.blank?
       = render(:partial => 'data_object', :layout => false, :locals => { :object_hash => @details_hash } )

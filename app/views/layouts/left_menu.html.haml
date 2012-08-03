@@ -1,5 +1,5 @@
 - content_for :head do
-  = stylesheet_include_i18n_merged(@additional_stylesheet) if @additional_stylesheet
+  = stylesheet_include_i18n(@additional_stylesheet) if @additional_stylesheet
   = javascript_include_tag @additional_javascript if @additional_javascript
 - content_for :content do
   #content

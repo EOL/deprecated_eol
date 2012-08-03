@@ -6,8 +6,8 @@
     %meta{:name => "apple-mobile-web-app-capable", :content => "yes"}/
 
     %title= "Encyclopedia of Life for mobile devices"
-    = stylesheet_include_i18n_merged :mobile
-    = javascript_include_merged :mobile
+    = stylesheet_include_i18n :mobile
+    = javascript_include :mobile
   %body
     %div{"data-role" => "page", "data-theme"=>"a"}
       = yield

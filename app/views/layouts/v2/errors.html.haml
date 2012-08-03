@@ -5,8 +5,8 @@
     %title
       = @error_page_title
     %meta{ :charset => "utf-8" }
-    = stylesheet_include_i18n_merged 'errors'
-    = javascript_include_merged 'errors'
+    = stylesheet_include_i18n 'errors'
+    = javascript_include 'errors'
     = yield :head
     - if $GOOGLE_ANALYTICS_ID && $ENABLE_ANALYTICS != false # Weird, but in this case nil is okay: only false is bad.
       :javascript

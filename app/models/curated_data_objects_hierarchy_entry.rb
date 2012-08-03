@@ -1,3 +1,4 @@
+require 'eol/curatable_association'
 class CuratedDataObjectsHierarchyEntry < ActiveRecord::Base
 
   include EOL::CuratableAssociation

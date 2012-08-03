@@ -3,12 +3,12 @@ class PendingNotification < ActiveRecord::Base
   belongs_to :notification_frequency
   belongs_to :target, :polymorphic => true # For the record, these should ONLY be activity_loggable classes.
 
-  named_scope :unsent, :conditions => {:sent_at => nil}
-  named_scope :daily, lambda { {:conditions => ["notification_frequency_id = ?", NotificationFrequency.daily ] } }
-  named_scope :immediately,
+  scope :unsent, :conditions => {:sent_at => nil}
+  scope :daily, lambda { {:conditions => ["notification_frequency_id = ?", NotificationFrequency.daily ] } }
+  scope :immediately,
     lambda { {:conditions => ["notification_frequency_id = ?", NotificationFrequency.immediately ] } }
-  named_scope :weekly, lambda { {:conditions => ["notification_frequency_id = ?", NotificationFrequency.weekly ] } }
-  named_scope :by_user_id, lambda { |uid| {:conditions => ["user_id = ?", uid ] } }
+  scope :weekly, lambda { {:conditions => ["notification_frequency_id = ?", NotificationFrequency.weekly ] } }
+  scope :by_user_id, lambda { |uid| {:conditions => ["user_id = ?", uid ] } }
 
   def self.send_notifications(fqz) # :immediately, :daily, :weekly are the only values allowed.
     notes_by_user_id = self.send(fqz).unsent.group_by(&:user_id)

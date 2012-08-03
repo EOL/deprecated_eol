@@ -1,3 +1,5 @@
+require 'eol/activity_log_item'
+
 class CollectionActivityLog < LoggingModel
 
   include EOL::ActivityLogItem

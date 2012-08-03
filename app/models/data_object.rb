@@ -71,8 +71,8 @@ class DataObject < ActiveRecord::Base
 
   attr_accessor :vetted_by # who changed the state of this object? (not persisted on DataObject but required by observer)
 
-  named_scope :visible, lambda { { :conditions => { :visibility_id => Visibility.visible.id } }}
-  named_scope :preview, lambda { { :conditions => { :visibility_id => Visibility.preview.id } }}
+  scope :visible, lambda { { :conditions => { :visibility_id => Visibility.visible.id } }}
+  scope :preview, lambda { { :conditions => { :visibility_id => Visibility.preview.id } }}
 
   validates_presence_of :description, :if => :is_text?
   validates_presence_of :rights_holder, :if => :rights_required?

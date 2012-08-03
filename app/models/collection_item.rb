@@ -7,12 +7,12 @@ class CollectionItem < ActiveRecord::Base
   belongs_to :added_by_user, :class_name => User.to_s, :foreign_key => :added_by_user_id
   has_and_belongs_to_many :refs
 
-  named_scope :collections, :conditions => {:object_type => 'Collection'}
-  named_scope :communities, :conditions => {:object_type => 'Community'}
-  named_scope :data_objects, :conditions => {:object_type => 'DataObject'}
-  named_scope :taxa, :conditions => {:object_type => 'TaxonConcept'}
-  named_scope :users, :conditions => {:object_type => 'User'}
-  named_scope :annotated, :conditions => 'annotation IS NOT NULL AND annotation != ""'
+  scope :collections, :conditions => {:object_type => 'Collection'}
+  scope :communities, :conditions => {:object_type => 'Community'}
+  scope :data_objects, :conditions => {:object_type => 'DataObject'}
+  scope :taxa, :conditions => {:object_type => 'TaxonConcept'}
+  scope :users, :conditions => {:object_type => 'User'}
+  scope :annotated, :conditions => 'annotation IS NOT NULL AND annotation != ""'
 
   # Note that it doesn't validate the presence of collection.  A "removed" collection item still exists, so we have a
   # record of what it used to point to (see CollectionsController#destroy). (Hey, the alternative is to have a bunch

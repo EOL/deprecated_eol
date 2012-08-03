@@ -8,6 +8,8 @@
 # Concepts, Data Objects, Communities, Collections, and Users... but could be extended in the future.
 #
 # Note that we presently have no way to edit comments, and won't add this feature until it becomes important.
+require 'eol/activity_log_item'
+
 class Comment < ActiveRecord::Base
 
   include EOL::ActivityLogItem
@@ -19,7 +21,7 @@ class Comment < ActiveRecord::Base
   # relationship in the DB, so we can report on it to content partners.
 
   # I *do not* have any idea why Time.now wasn't working (I assume it was a time-zone thing), but this works:
-  named_scope :visible, lambda { { :conditions => ['visible_at <= ?', 0.seconds.from_now] } }
+  scope :visible, lambda { { :conditions => ['visible_at <= ?', 0.seconds.from_now] } }
 
   before_create :set_visible_at, :set_from_curator
   after_create :log_activity_in_solr

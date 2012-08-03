@@ -1,3 +1,5 @@
+require 'eol/activity_log_item'
+
 class UsersDataObject < ActiveRecord::Base
 
   include EOL::ActivityLogItem

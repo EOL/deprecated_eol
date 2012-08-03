@@ -1,3 +1,5 @@
+require 'eol/activity_loggable'
+
 class Collection < ActiveRecord::Base
 
   include EOL::ActivityLoggable
@@ -51,8 +53,6 @@ class Collection < ActiveRecord::Base
   validates_attachment_size :logo, :in => 0..$LOGO_UPLOAD_MAX_SIZE
 
   index_with_solr :keywords => [ :name ], :fulltexts => [ :description ]
-
-  define_core_relationships :select => '*'
 
   alias :items :collection_items
   alias_attribute :summary_name, :name

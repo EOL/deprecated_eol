@@ -2,12 +2,14 @@
 # NOTE this inherist from MASTER.  All queries against a user need to be up-to-date, since this contains config information
 # which can change quickly.  There is a similar clause in the execute() method in the connection proxy for masochism.
 
-class User < $PARENT_CLASS_MUST_USE_MASTER
+require 'eol/activity_loggable'
+
+# NOTE - Curator loads a bunch of other relationships and validations.
+# Also worth noting that #full_name (and the methods that count on it) need to know about
+# curators, so you will see references to curator methods, there. They didn't seem worth moving.
+class User < Curator
 
   include EOL::ActivityLoggable
-  include EOL::Curator # NOTE -this loads a bunch of other relationships and validations.
-                       # Also worth noting that #full_name (and the methods that count on it) need to know about
-                       # curators, so you will see references to curator methods, there. They didn't seem worth moving.
 
   belongs_to :language
   belongs_to :agent

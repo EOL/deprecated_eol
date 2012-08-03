@@ -3,7 +3,7 @@
 # searches on (normal, vetted, visible, published) images. That table is referenced by
 # DataObject#cached_images_for_taxon().  That table is *built* using PHP, so you will not see any other ref to it.
 class TopConceptImage < ActiveRecord::Base
-  self.primary_keys :taxon_concept_id, :data_object_id
+  self.primary_keys = :taxon_concept_id, :data_object_id
   belongs_to :taxon_concept
   belongs_to :data_object
 end

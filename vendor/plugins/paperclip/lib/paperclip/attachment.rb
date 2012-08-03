@@ -134,7 +134,7 @@ module Paperclip
     # necessary.
     def self.interpolations
       @interpolations ||= {
-        :rails_root   => lambda{|attachment,style| RAILS_ROOT },
+        :rails_root   => lambda{|attachment,style| Rails.root },
         :class        => lambda do |attachment,style|
                            attachment.instance.class.name.underscore.pluralize
                          end,

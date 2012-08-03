@@ -38,11 +38,6 @@ class ActsAsMappableTest < Test::Unit::TestCase #:nodoc: all
     
   LOCATION_A_IP = "217.10.83.5"  
     
-  #self.fixture_path = File.dirname(__FILE__) + '/fixtures'  
-  #self.fixture_path = RAILS_ROOT + '/test/fixtures/'
-  #puts "Rails Path #{RAILS_ROOT}"
-  #puts "Fixture Path: #{self.fixture_path}"
-  #self.fixture_path = ' /Users/bill_eisenhauer/Projects/geokit_test/test/fixtures/'
   fixtures :companies, :locations, :custom_locations, :stores
 
   def setup

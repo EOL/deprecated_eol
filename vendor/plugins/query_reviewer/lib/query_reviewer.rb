@@ -8,7 +8,7 @@ module QueryReviewer
     CONFIGURATION.merge!(YAML.load(File.read(File.join(File.dirname(__FILE__), "..", "query_reviewer_defaults.yml")))["all"] || {})
     CONFIGURATION.merge!(YAML.load(File.read(File.join(File.dirname(__FILE__), "..", "query_reviewer_defaults.yml")))[Rails.env || "test"] || {})
     
-    app_config_file = File.join(RAILS_ROOT, "config", "query_reviewer.yml")
+    app_config_file = Rails.root.join("config", "query_reviewer.yml")
         
     if File.exist?(app_config_file)
       CONFIGURATION.merge!(YAML.load(File.read(app_config_file))["all"] || {}) 

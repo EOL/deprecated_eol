@@ -48,6 +48,9 @@ GEM
       xpath (~> 0.1.4)
     childprocess (0.3.4)
       ffi (~> 1.0, >= 1.0.6)
+    ckeditor (3.7.1)
+      mime-types
+      orm_adapter
     columnize (0.3.6)
     composite_primary_keys (5.0.8)
       activerecord (~> 3.2.0)
@@ -104,7 +107,7 @@ GEM
     mime-types (1.19)
     multi_json (1.3.6)
     multipart-post (1.1.5)
-    mysql (2.8.1)
+    mysql2 (0.3.11)
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
     net-sftp (2.0.5)
@@ -122,6 +125,7 @@ GEM
       multi_json (~> 1.0)
       rack (~> 1.2)
     optiflag (0.7)
+    orm_adapter (0.4.0)
     polyglot (0.3.3)
     rack (1.4.1)
     rack-cache (1.2)
@@ -218,6 +222,7 @@ PLATFORMS
 DEPENDENCIES
   capistrano-unicorn
   capybara
+  ckeditor
   composite_primary_keys
   daemons
   dalli
@@ -236,7 +241,7 @@ DEPENDENCIES
   json
   macaddr
   mime-types
-  mysql
+  mysql2
   newrelic_rpm
   oauth
   oauth2

@@ -52,6 +52,11 @@
   - tc = TaxonConcept.find(item.object_id) rescue nil
   - taxon_type = tc ? 'taxon' : 'an_unknown_taxon'
   - translation_vars[:taxon] = link_to(tc.quick_scientific_name, taxon_url(tc), :style => link_style)
+- if item.activity_id == Activity.split_classifications.id || item.activity_id == Activity.merge_classifications.id || item.activity_id == Activity.preferred_classification.id
+  - provider = hierarchy_entry_display_attribution(HierarchyEntry.find(item.hierarchy_entry), :show_rank => false, :show_link => true)
+  - if item.hierarchy_entry.has_source_database?
+    - provider = I18n.t(:recognized_by_from_source, :recognized_by => provider, :source => item.hierarchy_entry.hierarchy.agent.full_name)
+  - translation_vars.reverse_merge!(:provider => provider)
 %p
   - case item.activity_id
   - when Activity.trusted.id
@@ -90,28 +95,16 @@
     = I18n.t("unreview_common_name.#{user_type}_unreviewed_#{name_type}_in_#{language_type}_on_#{taxon_type}", translation_vars)
   - when Activity.split_classifications.id
     - if item.hierarchy_entry
-      - provider = item.hierarchy_entry.recognized_by_agents.map(&:full_name).to_sentence
-      - if item.hierarchy_entry.has_source_database?
-        - provider = I18n.t(:recognized_by_from_source, :recognized_by => provider, :source => item.hierarchy_entry.hierarchy.agent.full_name)
-      - translation_vars.reverse_merge!(:provider => provider)
       = I18n.t("split.#{user_type}_split_entry_from_#{taxon_type}", translation_vars)
     - else
       = I18n.t("split.#{user_type}_split_unknown_entry_from_#{taxon_type}", translation_vars)
   - when Activity.merge_classifications.id
     - if item.hierarchy_entry
-      - provider = item.hierarchy_entry.recognized_by_agents.map(&:full_name).to_sentence
-      - if item.hierarchy_entry.has_source_database?
-        - provider = I18n.t(:recognized_by_from_source, :recognized_by => provider, :source => item.hierarchy_entry.hierarchy.agent.full_name)
-      - translation_vars.reverse_merge!(:provider => provider)
       = I18n.t("merge.#{user_type}_merged_entry_to_#{taxon_type}", translation_vars)
     - else
       = I18n.t("merge.#{user_type}_merged_unknown_entry_to_#{taxon_type}", translation_vars)
   - when Activity.preferred_classification.id
     - if item.hierarchy_entry
-      - provider = item.hierarchy_entry.recognized_by_agents.map(&:full_name).to_sentence
-      - if item.hierarchy_entry.has_source_database?
-        - provider = I18n.t(:recognized_by_from_source, :recognized_by => provider, :source => item.hierarchy_entry.hierarchy.agent.full_name)
-      - translation_vars.reverse_merge!(:provider => provider)
       = I18n.t("preferred_classification.#{user_type}_preferred_classification_on_#{taxon_type}", translation_vars)
     - else
       = I18n.t("preferred_classification.#{user_type}_preferred_unknown_classification_on_#{taxon_type}", translation_vars)

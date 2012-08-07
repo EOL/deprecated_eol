@@ -140,8 +140,9 @@ module TaxaHelper
     results
   end
 
-  def association_belongs_to_taxon_concept?(association, taxon_concept)
+  def association_belongs_to_taxon_concept_ancestors?(association, taxon_concept)
     taxon_concept_ancestors_for_association = association.taxon_concept.flattened_ancestors.collect{|ans| ans.ancestor_id}
+    taxon_concept_ancestors_for_association << association.taxon_concept.id if association.taxon_concept
     !taxon_concept_ancestors_for_association.blank? && taxon_concept_ancestors_for_association.include?(taxon_concept.id)
   end
 

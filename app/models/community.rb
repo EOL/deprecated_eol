@@ -10,8 +10,8 @@ class Community < ActiveRecord::Base
   has_many :users, :through => :members
   has_many :collection_items, :as => :object # THIS IS COLLECTION ITEMS POINTING AT THIS COLLECTION!
   has_many :collected_items, :class_name => 'CollectionItem',
-           :finder_sql => 'SELECT ci.* FROM collection_items ci JOIN collections c ON (ci.collection_id = c.id) ' +
-             'JOIN collections_communities cc ON (cc.collection_id = c.id) WHERE cc.community_id = #{self.id}'
+           :finder_sql => Proc.new { "SELECT ci.* FROM collection_items ci JOIN collections c ON (ci.collection_id = c.id)
+             JOIN collections_communities cc ON (cc.collection_id = c.id) WHERE cc.community_id = #{self.id}" }
   has_many :containing_collections, :through => :collection_items, :source => :collection
   has_many :comments, :as => :parent
 

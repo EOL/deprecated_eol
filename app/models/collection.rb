@@ -16,11 +16,11 @@ class Collection < ActiveRecord::Base
   has_many :comments, :as => :parent
   # NOTE - You MUST use single-quotes here, lest the #{id} be interpolated at compile time. USE SINGLE QUOTES.
   has_many :featuring_communities, :class_name => Community.to_s,
-    :finder_sql => 'SELECT cm.* FROM communities cm ' +
-      'JOIN collections_communities cc ON (cm.id = cc.community_id) ' +
-      'JOIN collections c ON (cc.collection_id = c.id) ' +
-      'JOIN collection_items ci ON (ci.collection_id = c.id) ' +
-      'WHERE ci.object_type = "Collection" AND ci.object_id = #{id} AND cm.published = 1'
+    :finder_sql => Proc.new { "SELECT cm.* FROM communities cm
+      JOIN collections_communities cc ON (cm.id = cc.community_id)
+      JOIN collections c ON (cc.collection_id = c.id)
+      JOIN collection_items ci ON (ci.collection_id = c.id)
+      WHERE ci.object_type = 'Collection' AND ci.object_id = #{id} AND cm.published = 1" }
 
   has_one :resource
   has_one :resource_preview, :class_name => Resource.to_s, :foreign_key => :preview_collection_id
@@ -43,14 +43,14 @@ class Collection < ActiveRecord::Base
 
   before_update :set_relevance_if_collection_items_changed
 
-  has_attached_file :logo,
-    :path => $LOGO_UPLOAD_DIRECTORY,
-    :url => $LOGO_UPLOAD_PATH,
-    :default_url => "/images/blank.gif"
-
-  validates_attachment_content_type :logo,
-    :content_type => ['image/pjpeg','image/jpeg','image/png','image/gif', 'image/x-png']
-  validates_attachment_size :logo, :in => 0..$LOGO_UPLOAD_MAX_SIZE
+  # has_attached_file :logo,
+  #   :path => $LOGO_UPLOAD_DIRECTORY,
+  #   :url => $LOGO_UPLOAD_PATH,
+  #   :default_url => "/images/blank.gif"
+  # 
+  # validates_attachment_content_type :logo,
+  #   :content_type => ['image/pjpeg','image/jpeg','image/png','image/gif', 'image/x-png']
+  # validates_attachment_size :logo, :in => 0..$LOGO_UPLOAD_MAX_SIZE
 
   index_with_solr :keywords => [ :name ], :fulltexts => [ :description ]
 

@@ -28,19 +28,19 @@ class TaxonConcept < ActiveRecord::Base
     :conditions => Proc.new { "hierarchy_entries.published=1 AND hierarchy_entries.visibility_id=#{Visibility.visible.id}" }
 
   has_many :published_browsable_hierarchy_entries, :class_name => HierarchyEntry.to_s, :foreign_key => 'id',
-    :finder_sql => 'SELECT he.id, he.rank_id, h.id hierarchy_id, h.label hierarchy_label
-    FROM hierarchies h
-    JOIN hierarchy_entries he ON h.id = he.hierarchy_id
-    WHERE he.taxon_concept_id = \'#{id}\' AND he.published = 1 AND h.browsable = 1
-    ORDER BY h.label'
+    :finder_sql => Proc.new { "SELECT he.id, he.rank_id, h.id hierarchy_id, h.label hierarchy_label
+      FROM hierarchies h
+      JOIN hierarchy_entries he ON h.id = he.hierarchy_id
+      WHERE he.taxon_concept_id = '#{id}' AND he.published = 1 AND h.browsable = 1
+      ORDER BY h.label" }
 
   has_many :deep_published_hierarchy_entries, :class_name => HierarchyEntry.to_s, :foreign_key => 'id',
-    :finder_sql => 'SELECT he.id, he.rank_id, he.parent_id parent_id, he.name_id, he.taxon_concept_id,
+    :finder_sql => Proc.new { "SELECT he.id, he.rank_id, he.parent_id parent_id, he.name_id, he.taxon_concept_id,
       h.id hierarchy_id, h.label hierarchy_label, h.browsable hierarchy_browsable
-    FROM hierarchies h
-    JOIN hierarchy_entries he ON h.id = he.hierarchy_id
-    WHERE he.taxon_concept_id = \'#{id}\' AND he.published = 1
-    ORDER BY h.label'
+      FROM hierarchies h
+      JOIN hierarchy_entries he ON h.id = he.hierarchy_id
+      WHERE he.taxon_concept_id = '#{id}' AND he.published = 1
+      ORDER BY h.label" }
 
   has_many :top_concept_images
   has_many :top_unpublished_concept_images
@@ -63,8 +63,8 @@ class TaxonConcept < ActiveRecord::Base
     :finder_sql => Proc.new { "SELECT s.* FROM #{Synonym.full_table_name} s JOIN #{HierarchyEntry.full_table_name} he ON (he.id = s.hierarchy_entry_id) JOIN #{Hierarchy.full_table_name} h ON (he.hierarchy_id=h.id) WHERE he.taxon_concept_id='#{id}' AND he.published=1 AND he.visibility_id=#{Visibility.visible.id} AND h.browsable=1 AND s.synonym_relation_id NOT IN (#{SynonymRelation.common_name_ids.join(',')})" }
   has_many :users_data_objects
   has_many :flattened_ancestors, :class_name => TaxonConceptsFlattened.to_s
-  has_many :all_data_objects, :class_name => DataObject.to_s, :finder_sql => '
-      (SELECT do.id, do.data_type_id, do.published, do.guid, do.data_rating, do.language_id
+  has_many :all_data_objects, :class_name => DataObject.to_s, :finder_sql => Proc.new {
+      "(SELECT do.id, do.data_type_id, do.published, do.guid, do.data_rating, do.language_id
         FROM data_objects_taxon_concepts dotc
         JOIN data_objects do ON (dotc.data_object_id=do.id)
           WHERE dotc.taxon_concept_id=#{id}
@@ -78,7 +78,7 @@ class TaxonConcept < ActiveRecord::Base
       (SELECT do.id, do.data_type_id, do.published, do.guid, do.data_rating, do.language_id
         FROM #{UsersDataObject.full_table_name} udo
         JOIN data_objects do ON (udo.data_object_id=do.id)
-          WHERE udo.taxon_concept_id=#{id})'
+          WHERE udo.taxon_concept_id=#{id})" }
 
   has_many :superceded_taxon_concepts, :class_name => TaxonConcept.to_s, :foreign_key => "supercedure_id"
 
@@ -583,7 +583,7 @@ class TaxonConcept < ActiveRecord::Base
 
   def classifications
     hierarchy_entries.map do |entry|
-      { :name => entry.hierarchy.agent.citable.display_string,
+      { :name => entry.hierarchy.display_title,
         :kingdom => entry.kingdom,
         :parent => entry.parent
       }

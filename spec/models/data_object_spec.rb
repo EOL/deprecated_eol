@@ -235,47 +235,6 @@ describe DataObject do
     @flash_dato.video_url.should match(@content_server_match)
   end
 
-  it 'should use store citable entities in an array' do
-    @dato.citable_entities.class.should == Array
-  end
-
-  it 'should add an attribution based on data_supplier_agent' do
-    supplier = Agent.gen
-    @dato.should_receive(:data_supplier_agent).at_least(1).times.and_return(supplier)
-    @dato.citable_entities.map {|c| c.display_string }.should include(supplier.full_name)
-  end
-
-  it 'should add an attribution based on license' do
-    license = License.gen()
-    @dato.should_receive(:license).at_least(1).times.and_return(license)
-    # Not so please with the hard-coded relationship between project_name and description, but can't think of a better way:
-    @dato.citable_entities.map {|c| c.display_string }.should include(license.description)
-  end
-
-  it 'should add an attribution based on rights statement (and license description)' do
-    rights = 'life, liberty, and the persuit of happiness'
-    @dato.should_receive(:rights_statement).at_least(1).times.and_return(rights)
-    @dato.citable_entities.map {|c| c.display_string }.should include(rights)
-  end
-
-  it 'should add an attribution based on location' do
-    location = 'life, liberty, and the persuit of happiness'
-    @dato.should_receive(:location).at_least(1).times.and_return(location)
-    @dato.citable_entities.map {|c| c.display_string }.should include(location)
-  end
-
-  it 'should add an attribution based on Source URL' do
-    source = 'http://some.biological.edu/with/good/data'
-    @dato.should_receive(:source_url).at_least(1).times.and_return(source)
-    @dato.citable_entities.map {|c| c.link_to_url }.should include(source) # Note HOMEPAGE, not project_name
-  end
-
-  it 'should add an attribution based on Citation' do
-    citation = 'http://some.biological.edu/with/good/data'
-    @dato.should_receive(:bibliographic_citation).at_least(1).times.and_return(citation)
-    @dato.citable_entities.map {|c| c.display_string }.should include(citation)
-  end
-
   # 'Gofas, S.; Le Renard, J.; Bouchet, P. (2001). Mollusca, <B><I>in</I></B>: Costello, M.J. <i>et al.</i> (Ed.) (2001). <i>European register of marine species: a check-list of the marine species in Europe and a bibliography of guides to their identification.'
 
   it 'should close tags in data_objects (incl. users)' do

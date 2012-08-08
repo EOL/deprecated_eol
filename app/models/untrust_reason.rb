@@ -5,7 +5,7 @@
 # well as the IDs on some HTML elements.
 class UntrustReason < ActiveRecord::Base
   uses_translations
-  has_and_belongs_to_many :curator_activity_logs, :join_table => "#{UntrustReason.configurations[Rails.env.to_s]['database']}.curator_activity_logs_untrust_reasons"
+  has_and_belongs_to_many :curator_activity_logs, :join_table => CuratorActivityLogsUntrustReason.full_table_name
 
   def self.misidentified
     cached_find(:class_name, 'misidentified')

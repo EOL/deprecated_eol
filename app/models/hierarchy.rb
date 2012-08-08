@@ -98,12 +98,6 @@ class Hierarchy < ActiveRecord::Base
     return label
   end
 
-  def attribution
-    citable_agent = agent.citable
-    citable_agent.display_string = label # To change the name from just "Catalogue of Life"
-    return citable_agent
-  end
-
   def kingdoms(opts = {})
     # this is very hacky - another case where reading from the cache in development mode throws an error
     # becuase several classes have not been loaded yet. The only fix is to somehow load them before reading

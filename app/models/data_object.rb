@@ -44,8 +44,9 @@ class DataObject < ActiveRecord::Base
   has_many :collection_items, :as => :object
   has_many :containing_collections, :through => :collection_items, :source => :collection
   has_many :translations, :class_name => DataObjectTranslation.to_s, :foreign_key => :original_data_object_id
-  has_many :curator_activity_logs, :foreign_key => :object_id, :conditions => 'changeable_object_type_id IN (#{ [ ChangeableObjectType.data_object.id, ChangeableObjectType.data_objects_hierarchy_entry.id,
-    ChangeableObjectType.curated_data_objects_hierarchy_entry.id, ChangeableObjectType.users_data_object.id ].join(",") } )'
+  has_many :curator_activity_logs, :foreign_key => :object_id,
+    :conditions => Proc.new { "changeable_object_type_id IN (#{ [ ChangeableObjectType.data_object.id, ChangeableObjectType.data_objects_hierarchy_entry.id,
+      ChangeableObjectType.curated_data_objects_hierarchy_entry.id, ChangeableObjectType.users_data_object.id ].join(',') } )" }
   has_many :users_data_objects_ratings, :foreign_key => 'data_object_guid', :primary_key => :guid
   has_many :all_comments, :class_name => Comment.to_s, :through => :all_versions, :primary_key => :guid, :source => :comments
   # the select_with_include library doesn't allow to grab do.* one time, then do.id later on. So in order
@@ -59,7 +60,7 @@ class DataObject < ActiveRecord::Base
   has_and_belongs_to_many :audiences
   has_and_belongs_to_many :refs
   has_and_belongs_to_many :published_refs, :class_name => Ref.to_s, :join_table => 'data_objects_refs',
-    :association_foreign_key => 'ref_id', :conditions => 'published=1 AND visibility_id=#{Visibility.visible.id}'
+    :association_foreign_key => 'ref_id', :conditions => Proc.new { "published=1 AND visibility_id=#{Visibility.visible.id}" }
 
   has_and_belongs_to_many :agents
   has_and_belongs_to_many :toc_items, :join_table => 'data_objects_table_of_contents', :association_foreign_key => 'toc_id'
@@ -385,73 +386,6 @@ class DataObject < ActiveRecord::Base
       end
     end
     return @data_supplier_agent
-  end
-
-  def citable_data_supplier
-    return nil if data_supplier_agent.blank?
-    EOL::Citable.new( :agent_id => data_supplier_agent.id,
-                                  :link_to_url => data_supplier_agent.homepage,
-                                  :display_string => data_supplier_agent.full_name,
-                                  :logo_cache_url => data_supplier_agent.logo_cache_url,
-                                  :type =>I18n.t(:supplier))
-  end
-
-  def citable_rights_holder
-    return nil if rights_holder.blank?
-    EOL::Citable.new( :display_string => rights_holder, :type => I18n.t("rights_holder"))
-  end
-
-  def citable_entities
-    citables = []
-
-    unless license.blank?
-      citables << EOL::Citable.new( :link_to_url => license.source_url,
-                                    :display_string => license.description,
-                                    :logo_path => license.logo_url,
-                                    :type => I18n.t("license"))
-    end
-
-    agents_data_objects.each do |ado|
-      if ado.agent_role && ado.agent
-        citables << ado.agent.citable(ado.agent_role.label)
-      end
-    end
-
-    unless data_supplier_agent.blank?
-      citables << citable_data_supplier
-    end
-
-    unless rights_statement.blank?
-      citables << EOL::Citable.new( :display_string => rights_statement,
-                                    :type => I18n.t("rights"))
-    end
-
-    unless rights_holder.blank?
-      citables << citable_rights_holder
-    end
-
-    unless location.blank?
-      citables << EOL::Citable.new( :display_string => location,
-                                    :type => I18n.t(:location))
-    end
-
-    unless source_url.blank?
-      citables << EOL::Citable.new( :link_to_url => source_url,
-                                    :display_string => 'View original data object',
-                                    :type => I18n.t("source_url"))
-    end
-
-    unless created_at.blank? || created_at == '0000-00-00 00:00:00'
-      citables << EOL::Citable.new( :display_string => created_at.strftime("%B %d, %Y"),
-                                    :type => I18n.t("indexed"))
-    end
-
-    unless bibliographic_citation.blank?
-      citables << EOL::Citable.new( :display_string => bibliographic_citation,
-                                    :type => I18n.t("citation"))
-    end
-
-    citables
   end
 
   # need supplier as content partner object, is this right ?

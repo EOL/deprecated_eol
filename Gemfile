@@ -9,7 +9,7 @@ group :development, :test do
   gem 'factory_girl'
   gem 'faker'
   gem 'optiflag'
-  gem 'rspec-rails', "~>2.0"
+  gem 'rspec-rails', '~>2.0'
   gem 'ruby-prof'
 end
 
@@ -47,8 +47,9 @@ gem 'newrelic_rpm'
 gem 'oauth'
 gem 'oauth2'
 gem 'paperclip'
+gem 'recaptcha', :require => 'recaptcha/rails'
+gem 'resque', :require => 'resque/server'
 gem 'rdoc'
-gem 'resque', :require => "resque/server"
 gem 'sanitize'
 gem 'sass'
 gem 'unicorn'

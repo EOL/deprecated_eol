@@ -125,6 +125,7 @@ ActionController::Routing::Routes.draw do |map|
   map.verify_user '/users/:user_id/verify/:validation_code', :controller => 'users', :action => 'verify'
   map.temporary_login_user 'users/:user_id/temporary_login/:recover_account_token',
                            :controller => 'users', :action => 'temporary_login'
+  map.unsubscribe_notifications '/users/:user_id/unsubscribe_notifications/:key', :controller => 'users', :action => 'unsubscribe_notifications'
 
   # sessions
   map.resources :sessions, :only => [:new, :create, :destroy]

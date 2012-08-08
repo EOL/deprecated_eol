@@ -961,6 +961,9 @@ en:
     curator_approved:
       subject: "Your request for Encyclopedia of Life curator privilege %{curator_level} has been approved"
       message: "Thank you for requesting curator privilege %{curator_level}. Your request has been approved.\n\nFor more information on curation and what functions are available to you, visit http://eol.org/curators."
+    unsubscribed_to_notifications:
+      subject: "Sorry to see you go..."
+      message: "You have successully unsubscribed to notifications from Encyclopedia of Life. You can change your email settings or subscribe to notifications at <a href='%{email_prefs_url}'>your notification preferences page</a>.\n\nTo learn more about how to use EOL, including how to create EOL Collections, participate in EOL Communities and contribute content, please visit our help pages at http://eol.org/help."
     user_activated:
       subject: "Your Encyclopedia of Life account has been activated"
       message: "Welcome to the Encyclopedia of Life (EOL) and thank you for registering! Please note your username is %{username} and your profile URL is %{profile_url}. You can log in to your account at http://eol.org/login.\n\nTo learn more about how to use EOL, including how to create EOL Collections, participate in EOL Communities and contribute content, please visit our help pages at http://eol.org/help."
@@ -982,7 +985,8 @@ en:
     intro: "Here is your EOL activity digest for %{time}"
     intro_immediately: "Hello, %{name} —"
     intro_weekly: "Here is your EOL activity digest for the week ending %{ending}"
-    unsubscribe: "Log in and change your email settings or unsubscribe at <a href='%{email_prefs_url}' style='color:#195184'>your notification preferences page</a>. If you experience any problems, please <a href='http://eol.org/contact_us'>contact us</a>."
+    unsubscribe: "Log in and change your email settings on <a href='%{email_prefs_url}' style='color:#195184'>your notification preferences page</a> or <a href='%{unsubscribe_url}' style='color:#195184'>unsubscribe from ALL automated EOL notifications without logging in</a>."
+    contact_us_link: "If you experience any problems, please <a href='http://eol.org/contact_us' style='color:#195184'>contact us</a>."
     see_all_activity: "See all previous activity at <a href='%{activity_url}' style='color:#195184'>your user newsfeed page</a>."
     bulk_comments_with_count:
       one: "There is a new comment on %{on}"
@@ -1408,6 +1412,9 @@ en:
       edit:
         page_description: "All of the updates listed below (except for the EOL newsletter) are available to you in your <a href=\"%{user_newsfeed_link}\">EOL newsfeed</a>, but many people would also like to be alerted by email about certain kinds of activities they find particularly interesting. You can use the buttons below to set the frequency of EOL emails to suit your preferences"
         page_title: Notification settings
+      update:
+        notification_settings_successfully_updated: "Notification settings successfully updated."
+        sorry_notification_settings_could_not_be_updated: "Sorry, notification settings could not be updated."
     open_authentications:
       errors:
         missing_attributes: "Sorry, there was a problem accessing your third-party account details."
@@ -1504,6 +1511,10 @@ en:
       meta_keywords: ""
       meta_title: "%{user_full_name}"
       tweet_text: "%{user_full_name}"
+    unsubscribe_notifications:
+      already_unsubscribed: "You are already unsubscribed to notifications."
+      unsubscribed_notifications_successfully: "You have successfully unsubscribed to notifications."
+      unsubscribe_notifications_failed: "Sorry, an error occurred, user could not be unsubscribed to notifications."
   # end of views scope
   this_article_cannot_be_curated_because_unpublished: "This article cannot be curated because it is unpublished."
   this_article_is_unpublished: "This article is unpublished."

@@ -113,7 +113,7 @@ class String
   # tags in the proper order (shouln't open one after closing one for example - that is not balanced)
   def balance_tags
     text = self.clone
-    ['a', 'b', 'i', 'div', 'p'].each do |tag|
+    ['a', 'b', 'i', 'div', 'p', 'em'].each do |tag|
       # this will match <T_, <T>, </_T>, </T>
       open_and_close_tags = text.scan(/\<(#{tag}[\> ]|\/ *#{tag}\>)/i)
       number_of_opening_tags_needed = 0
@@ -201,6 +201,36 @@ class String
     self.split.map do |w|
       w.gsub(/^(https?[^,;]+[^\.,;])/i, '<a href="\1">\1</a>').gsub(/^(www\.[a-z-]+\.[^,;]+[^\.,;])/i, '<a href="http://\1">\1</a>')
     end.join(' ')
+  end
+  
+  def contains_chinese?
+    # sort of from http://stackoverflow.com/questions/2727804/how-to-determine-if-a-character-is-a-chinese-character
+    list_of_chars = self.prepare_for_alphabet_determination.unpack("U*")
+    list_of_chars.each do |char|
+      #main blocks
+      return false unless (char >= 0x4E00 && char <= 0x9FFF) ||
+      #extended block A
+      (char >= 0x3400 && char <= 0x4DBF) ||
+      #extended block B
+      (char >= 0x20000 && char <= 0x2A6DF) ||
+      #extended block C
+      (char >= 0x2A700 && char <= 0x2B73F)
+    end
+    return true
+  end
+  
+  def contains_arabic?
+    # sort of from http://stackoverflow.com/questions/7066137/how-to-determine-if-string-contains-arabic-symbols
+    list_of_chars = self.prepare_for_alphabet_determination.unpack("U*")
+    list_of_chars.each do |char|
+      #main blocks
+      return false unless (char >= 0x0606 && char <= 0x06FF)
+    end
+    return true
+  end
+  
+  def prepare_for_alphabet_determination
+    self.gsub(/( |,|\.|\(|\)|-|[0-9]|"|')/, '')
   end
 end
 

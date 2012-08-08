@@ -1,3 +1,5 @@
+# Taken from https://github.com/technoweenie/masochism/ and modified for our purposes.
+
 module ActiveReload
   class MasterDatabase < ActiveRecord::Base
     self.abstract_class = true

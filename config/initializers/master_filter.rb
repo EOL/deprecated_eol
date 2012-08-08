@@ -1,3 +1,5 @@
+# Taken from https://github.com/technoweenie/masochism/ and modified for our purposes.
+
 module ActiveReload
   # MasterFilter should be used as an around filter in your controllers that require certain actions to use the Master DB for reads as well as writes
   class MasterFilter

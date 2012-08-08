@@ -1,5 +1,5 @@
 - unless @suggestions.blank?
-  = I18n.t(:did_you_mean, :suggestions => @suggestions[0..5].map{ |s| link_to s.firstcap, search_q_path(:q => s) }.join(", "))
+  = I18n.t(:did_you_mean, :suggestions => @suggestions[0..5].map{ |s| link_to s.firstcap, search_path(:q => s) }.join(", "))
 - unless @all_results.blank?
   - previous_label = (@all_results.current_page == 1) ? '' : I18n.t(:pagination_previous_with_count, :count => @all_results.per_page)
   - next_label = (@all_results.current_page == @all_results.total_pages) ? '' : I18n.t(:pagination_next_with_count, :count => @all_results.per_page)

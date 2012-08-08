@@ -12,7 +12,7 @@ class ContentPartner < ActiveRecord::Base
   has_many :google_analytics_partner_taxa
   has_many :content_partner_agreements
 
-  before_validation_on_create :set_default_content_partner_status
+  before_validation :set_default_content_partner_status, :on => :create
 
   validates_presence_of :full_name
   validates_presence_of :description

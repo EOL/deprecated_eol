@@ -231,7 +231,7 @@ class Collection < ActiveRecord::Base
         JOIN communities com ON ( cc.community_id = com.id )
       ) ON ( c.id = cc.collection_id )
       WHERE ( ci.object_id = #{self.id} AND ci.object_type = 'Collection') #{extra_condition}")
-    count_result.fetch_row.first
+    count_result.first.first
   end
 
   def can_be_read_by?(user)

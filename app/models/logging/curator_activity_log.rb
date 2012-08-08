@@ -41,15 +41,15 @@ class CuratorActivityLog < LoggingModel
   # Needed for rendering links; we need to know which association to make the link to
   def link_to
     case changeable_object_type_id
-      when ChangeableObjectType.comment.id:
+      when ChangeableObjectType.comment.id
         comment_object.parent
-      when ChangeableObjectType.synonym.id:
+      when ChangeableObjectType.synonym.id
         if synonym && synonym.hierarchy_entry
           synonym.hierarchy_entry.taxon_concept
         else
           taxon_concept # could be nil, be careful!
         end
-      when ChangeableObjectType.taxon_concept.id:
+      when ChangeableObjectType.taxon_concept.id
         taxon_concept
       else
         data_object
@@ -58,9 +58,9 @@ class CuratorActivityLog < LoggingModel
 
   def taxon_concept_name
     case changeable_object_type_id
-      when ChangeableObjectType.data_object.id:
+      when ChangeableObjectType.data_object.id
         data_object.get_taxon_concepts.first.entry.name.string
-      when ChangeableObjectType.comment.id:
+      when ChangeableObjectType.comment.id
         if comment_object.parent_type == 'TaxonConcept'
           comment_parent.scientific_name
         elsif comment_object.parent_type == 'DataObject'
@@ -70,9 +70,9 @@ class CuratorActivityLog < LoggingModel
             comment_parent.taxon_concept_for_users_text.name
           end
         end
-      when ChangeableObjectType.users_data_object.id:
+      when ChangeableObjectType.users_data_object.id
         udo_taxon_concept.entry.italicized_name
-      when ChangeableObjectType.synonym.id:
+      when ChangeableObjectType.synonym.id
         synonym.hierarchy_entry.taxon_concept.entry.italicized_name
       else
         raise "Don't know how to get taxon name from a changeable object type of id #{changeable_object_type_id}"
@@ -81,9 +81,9 @@ class CuratorActivityLog < LoggingModel
 
   def taxon_concept_id
     case changeable_object_type_id
-      when ChangeableObjectType.data_object.id:
+      when ChangeableObjectType.data_object.id
         data_object.get_taxon_concepts.first.id
-      when ChangeableObjectType.comment.id:
+      when ChangeableObjectType.comment.id
         if comment_object.parent_type == 'TaxonConcept'
           comment_parent.id
         else
@@ -93,13 +93,13 @@ class CuratorActivityLog < LoggingModel
             comment_parent.taxon_concept_for_users_text.id
           end
         end
-      when ChangeableObjectType.synonym.id:
+      when ChangeableObjectType.synonym.id
         begin
           synonym.hierarchy_entry.taxon_concept_id
         rescue
           puts "ERROR: [/app/models/logging/curator_activity_log.rb] Synonym #{object_id} does not have a HierarchyEntry"
         end
-      when ChangeableObjectType.users_data_object.id:
+      when ChangeableObjectType.users_data_object.id
         udo_taxon_concept.id
       else
         raise "Don't know how to get the taxon id from a changeable object type of id #{changeable_object_type_id}"

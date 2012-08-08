@@ -70,19 +70,20 @@ class User < Curator
 
   validates_acceptance_of :agreed_with_terms, :accept => true
 
-  # TODO: remove the :if condition after migrations are run in production
-  has_attached_file :logo,
-    :path => $LOGO_UPLOAD_DIRECTORY,
-    :url => $LOGO_UPLOAD_PATH,
-    :default_url => "/images/blank.gif",
-    :if => self.column_names.include?('logo_file_name')
-
-  validates_attachment_content_type :logo,
-    :content_type => ['image/pjpeg','image/jpeg','image/png','image/gif', 'image/x-png'],
-    :message => "image is not a valid image type",
-    :if => self.column_names.include?('logo_file_name')
-  validates_attachment_size :logo, :in => 0..$LOGO_UPLOAD_MAX_SIZE,
-    :if => self.column_names.include?('logo_file_name')
+  # TODO: need to reenable validating logos
+  # # TODO: remove the :if condition after migrations are run in production
+  # has_attached_file :logo,
+  #   :path => $LOGO_UPLOAD_DIRECTORY,
+  #   :url => $LOGO_UPLOAD_PATH,
+  #   :default_url => "/images/blank.gif",
+  #   :if => self.column_names.include?('logo_file_name')
+  # 
+  # validates_attachment_content_type :logo,
+  #   :content_type => ['image/pjpeg','image/jpeg','image/png','image/gif', 'image/x-png'],
+  #   :message => "image is not a valid image type",
+  #   :if => self.column_names.include?('logo_file_name')
+  # validates_attachment_size :logo, :in => 0..$LOGO_UPLOAD_MAX_SIZE,
+  #   :if => self.column_names.include?('logo_file_name')
 
   index_with_solr :keywords => [:username, :full_name]
 

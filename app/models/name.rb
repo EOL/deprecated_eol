@@ -1,3 +1,4 @@
+# encoding: utf-8
 # Name is used for storing different variations of names of species (TaxonConcept)
 #
 # These names are not "official."  If they have a CanonicalForm, the CanonicalForm is the "accepted" scientific name for the
@@ -23,10 +24,10 @@ class Name < ActiveRecord::Base
   validates_presence_of   :canonical_form
 
   validate :clean_name_must_be_unique
-  before_validation_on_create :set_default_values
-  before_validation_on_create :create_clean_name
-  before_validation_on_create :create_canonical_form
-  before_validation_on_create :create_italicized
+  before_validation :set_default_values, :on => :create
+  before_validation :create_clean_name, :on => :create
+  before_validation :create_canonical_form, :on => :create
+  before_validation :create_italicized, :on => :create
 
   def taxon_concepts
     return taxon_concept_names.collect {|tc_name| tc_name.taxon_concept}.flatten

@@ -21,7 +21,7 @@ class Curator < $PARENT_CLASS_MUST_USE_MASTER
 
   attr_accessor :curator_request
 
-  named_scope :curators, :conditions => 'curator_level_id is not null'
+  scope :curators, :conditions => 'curator_level_id is not null'
 
   def self.taxa_synonyms_curated(user_id = nil)
     # list of taxa where user added, removed, curated (trust, untrust, inappropriate, unreview) a common name

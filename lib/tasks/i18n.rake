@@ -527,7 +527,7 @@ namespace :i18n do
       if (results.nil? || results.num_rows== 0)
         return 0
       else
-        return results.fetch_row[0]
+        return results.first.first
       end
     end
 

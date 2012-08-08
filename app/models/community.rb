@@ -25,18 +25,19 @@ class Community < ActiveRecord::Base
   validates_length_of :name, :maximum => 127, :message => I18n.t(:must_be_less_than_128_characters_long)
   validates_uniqueness_of :name, :message => I18n.t(:has_already_been_taken), :if => Proc.new {|c| c.published? }
 
-  # TODO: remove the :if condition after migrations are run in production
-  has_attached_file :logo,
-    :path => $LOGO_UPLOAD_DIRECTORY,
-    :url => $LOGO_UPLOAD_PATH,
-    :default_url => "/images/blank.gif",
-    :if => self.column_names.include?('logo_file_name')
-
-  validates_attachment_content_type :logo,
-    :content_type => ['image/pjpeg','image/jpeg','image/png','image/gif', 'image/x-png'],
-    :if => self.column_names.include?('logo_file_name')
-  validates_attachment_size :logo, :in => 0..$LOGO_UPLOAD_MAX_SIZE,
-    :if => self.column_names.include?('logo_file_name')
+  # TODO: need to reenable validating logos
+  # # TODO: remove the :if condition after migrations are run in production
+  # has_attached_file :logo,
+  #   :path => $LOGO_UPLOAD_DIRECTORY,
+  #   :url => $LOGO_UPLOAD_PATH,
+  #   :default_url => "/images/blank.gif",
+  #   :if => self.column_names.include?('logo_file_name')
+  # 
+  # validates_attachment_content_type :logo,
+  #   :content_type => ['image/pjpeg','image/jpeg','image/png','image/gif', 'image/x-png'],
+  #   :if => self.column_names.include?('logo_file_name')
+  # validates_attachment_size :logo, :in => 0..$LOGO_UPLOAD_MAX_SIZE,
+  #   :if => self.column_names.include?('logo_file_name')
 
   index_with_solr :keywords => [ :name ], :fulltexts => [ :description ]
 

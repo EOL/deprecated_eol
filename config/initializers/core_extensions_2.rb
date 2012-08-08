@@ -308,7 +308,7 @@ module ActiveRecord
 
       # returns the name of the database for this ActiveRecord::Base
       def database_name
-        @database_name ||= self.connection.execute('select database()').fetch_row[0]
+        @database_name ||= self.connection.execute('select database()').first.first
       end
 
       def reload

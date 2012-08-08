@@ -1,4 +1,4 @@
-class WikipediaQueuesController < ApplicationController
+class WikipediaImportsController < ApplicationController
 
   layout 'v2/basic'
 

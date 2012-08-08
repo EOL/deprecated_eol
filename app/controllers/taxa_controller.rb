@@ -183,7 +183,7 @@ private
   end
 
   def do_the_search
-    redirect_to search_path(:id => params[:id])
+    redirect_to search_path(:q => params[:id])
   end
 
   def is_common_names?(category_id)

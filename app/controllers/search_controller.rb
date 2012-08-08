@@ -53,10 +53,10 @@ class SearchController < ApplicationController
     params.delete(:type) if params[:type] == ['all']
     params.delete(:sort_by) if params[:sort_by] == 'score'
 
-    @rel_canonical_href = search_q_url({:q => @querystring, :show_all => true,
+    @rel_canonical_href = search_url({:q => @querystring, :show_all => true,
       :page => rel_canonical_href_page_number(@all_results)})
-    @rel_prev_href = rel_prev_href_params(@all_results) ? search_q_url(@rel_prev_href_params) : nil
-    @rel_next_href = rel_next_href_params(@all_results) ? search_q_url(@rel_next_href_params) : nil
+    @rel_prev_href = rel_prev_href_params(@all_results) ? search_url(@rel_prev_href_params) : nil
+    @rel_next_href = rel_next_href_params(@all_results) ? search_url(@rel_next_href_params) : nil
   end
 
   # there are various object types which can be the only result. This method handles redirecting to all of them

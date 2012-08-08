@@ -229,7 +229,7 @@ module EOL
     
     def write_taxon_page_urls
       base_conditions = "published = 1 AND supercedure_id = 0 AND vetted_id = #{Vetted.trusted.id}"
-      min_id, max_id = TaxonConcept.connection.execute("SELECT MIN(id), MAX(id) FROM taxon_concepts WHERE #{base_conditions}").fetch_row
+      min_id, max_id = TaxonConcept.connection.execute("SELECT MIN(id), MAX(id) FROM taxon_concepts WHERE #{base_conditions}").first
       min_id = min_id.to_i
       max_id = max_id.to_i
       

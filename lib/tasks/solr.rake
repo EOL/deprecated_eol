@@ -99,4 +99,19 @@ namespace :solr do
     EOL::Solr::ActivityLog.remove_watch_collection_logs
   end
 
+  desc 'Destroy all indices'
+  task :destroy => :environment do
+    solr = SolrAPI.new($SOLR_SERVER, $SOLR_TAXON_CONCEPTS_CORE)
+    solr.obliterate
+    solr = SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE)
+    solr.obliterate
+    solr = SolrAPI.new($SOLR_SERVER, $SOLR_SITE_SEARCH_CORE)
+    solr.obliterate
+    solr = SolrAPI.new($SOLR_SERVER, $SOLR_COLLECTION_ITEMS_CORE)
+    solr.obliterate
+    solr = SolrAPI.new($SOLR_SERVER, $SOLR_ACTIVITY_LOGS_CORE)
+    solr.obliterate
+    solr = SolrAPI.new($SOLR_SERVER, $SOLR_BHL_CORE)
+    solr.obliterate
+  end
 end

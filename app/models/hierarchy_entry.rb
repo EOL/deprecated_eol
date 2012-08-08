@@ -12,22 +12,22 @@ class HierarchyEntry < ActiveRecord::Base
   belongs_to :visibility
 
   has_many :agents_hierarchy_entries
-  has_many :agents, :finder_sql => 'SELECT * FROM agents JOIN agents_hierarchy_entries ahe ON (agents.id = ahe.agent_id)
-                                      WHERE ahe.hierarchy_entry_id = #{id} ORDER BY ahe.view_order'
+  has_many :agents, :finder_sql => Proc.new { "SELECT * FROM agents JOIN agents_hierarchy_entries ahe ON (agents.id = ahe.agent_id)
+                                      WHERE ahe.hierarchy_entry_id = #{id} ORDER BY ahe.view_order" }
   has_many :top_images
   has_many :top_unpublished_images
   has_many :synonyms
   has_many :scientific_synonyms, :class_name => Synonym.to_s,
-      :conditions => 'synonyms.synonym_relation_id NOT IN (#{SynonymRelation.common_name_ids.join(",")})'
+      :conditions => Proc.new { "synonyms.synonym_relation_id NOT IN (#{SynonymRelation.common_name_ids.join(',')})" }
   has_many :common_names, :class_name => Synonym.to_s,
-      :conditions => 'synonyms.synonym_relation_id IN (#{SynonymRelation.common_name_ids.join(",")})'
+      :conditions => Proc.new { "synonyms.synonym_relation_id IN (#{SynonymRelation.common_name_ids.join(',')})" }
   has_many :flattened_ancestors, :class_name => HierarchyEntriesFlattened.to_s
   has_many :curator_activity_logs
 
   has_and_belongs_to_many :data_objects
   has_and_belongs_to_many :refs
   has_and_belongs_to_many :published_refs, :class_name => Ref.to_s, :join_table => 'hierarchy_entries_refs',
-    :association_foreign_key => 'ref_id', :conditions => 'published=1 AND visibility_id=#{Visibility.visible.id}'
+    :association_foreign_key => 'ref_id', :conditions => Proc.new { "published=1 AND visibility_id=#{Visibility.visible.id}" }
 
   has_one :hierarchy_entry_stat
 

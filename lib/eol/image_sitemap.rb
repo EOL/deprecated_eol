@@ -22,7 +22,7 @@ module EOL
     def write_image_urls
       base_conditions = "published = 1 AND data_type_id = #{DataType.image.id} AND data_subtype_id IS NULL"
       # base_conditions = "published = 1"
-      min_id, max_id = DataObject.connection.execute("SELECT MIN(id), MAX(id) FROM data_objects WHERE #{base_conditions}").fetch_row
+      min_id, max_id = DataObject.connection.execute("SELECT MIN(id), MAX(id) FROM data_objects WHERE #{base_conditions}").first
       min_id = min_id.to_i
       max_id = max_id.to_i
       

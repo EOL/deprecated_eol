@@ -323,14 +323,6 @@ ms:
   admin_translated_content_page_update_successful_notice: Terjemahan %{language} untuk <a href="#%{anchor}"><em>%{page_name}</em></a> telah dikemas kini.
   admin_translated_content_page_update_unsuccessful_error: Maaf, berlakunya ralat, terjemahan tidak dapat dikemaskinikan.
   admin_user_delete_successful_notice: Pengguna telah dihapuskan
-  admins: 
-    statistics: 
-      content_partner: 
-        page_header: Statistik Rakan Kongsi Kandungan
-      curator: 
-        page_header: Statistik Kurator
-      data_object_link: Objek data
-      index_link: Statistik keseluruhan
   agent: Ejen
   all: semua
   all_apis_return_by_default_an_xml_response: "Semua API memulangkan respons XML secara asali. Kaedah-kaedah API itu boleh dipanggil tanpa sambungan format untuk mendapatkan respons XML. Penambahan sambungan XML akan mendapatkan respons yang serupa:"
@@ -401,7 +393,6 @@ ms:
   audio_pause: jedakan
   audio_pause_assistive: Dengan menghidupkan Javascript, pautan ini akan membolehkan anda untuk menjedakan fail audio bersebelahan yang sedang bermain; jika tidak, sila abaikan pautan ini.
   audio_play: mainkan
-  audio_play_assistive: Dengan menghidupkan Javascript, pautan ini akan mula memainkan fail audio sambil mengekalkan anda dalam tetingkap yang sama. Jika Javascript dimatikan, pautan ini membawa kepada fail audio, dan jika dipilih, ia akan bertindak menurut kehendak peranti anda.
   audio_stop: hentikan
   audio_stop_assistive: Dengan menghidupkan Javascript, pautan ini akan membolehkan anda untuk menghentikan fail audio yang sedang bermain; jika tidak, sila abaikan pautan ini.
   audio_unmute: buka semula bunyi
@@ -502,7 +493,6 @@ ms:
   comment_not_added_error: Maaf, berlakunya ralat, komen tidak dapat diberikan.
   comment_or_rate_on_this_article: Ulas atau nilai rencana ini
   comment_show_posters_image_alt: Gambar profil %{posters_name} yang memberikan komen ini.
-  commented_on_your_image: " mengulas gambar anda di <a href='%{data_object_link}'>tapak Encyclopedia of Life</a>:\n%{comment_body}"
   comments: Komen
   comments_and_tags: Komen dan Tag
   comments_moderated: Komen yang Dikawal Selia
@@ -1354,7 +1344,6 @@ ms:
   moderator_colon: "Pengawal Selia:"
   monthly: Bulanan
   more_children_with_count: "%{count} lagi..."
-  more_information_on_the_various_licenses: lesen. Lawati tapak webnya untuk maklumat lanjut tentang lesen-lesen yang ditawarkan
   most_active_members: Ahli-ahli paling aktif
   move: Pindahkan
   move_down: Turunkan
@@ -1705,7 +1694,6 @@ ms:
   spm_category_objects_count: Kategori MPS - kiraan objek
   spm_category_partner_count: Kategori MPS - kiraan rakan kongsi
   stat: Stat
-  statistics: Statistik
   subject: subjek
   submit: Serahkan
   supplier: Pembekal

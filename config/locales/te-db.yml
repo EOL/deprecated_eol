@@ -179,13 +179,20 @@ te:
   translated_synonym_relations-label-synonym_relation_id-33: అందుబాటులోలేని, సాహిత్య అచ్చుతప్పు
   translated_synonym_relations-label-synonym_relation_id-34: తొలి పేరు/కలబోత
   translated_synonym_relations-label-synonym_relation_id-48: దొరకని పేరు
+  translated_synonym_relations-label-synonym_relation_id-50: సరియైనది
+  translated_synonym_relations-label-synonym_relation_id-51: ఒప్పుకొనబడినది
   translated_synonym_relations-label-synonym_relation_id-52: పెత్తనము
+  translated_synonym_relations-label-synonym_relation_id-53: ఎరుకపరచబడని పేరు
+  translated_synonym_relations-label-synonym_relation_id-56: తప్పుడు అక్షరవరుస
+  translated_synonym_relations-label-synonym_relation_id-57: వేరే అక్షరవరుస
+  translated_synonym_relations-label-synonym_relation_id-63: ఒప్పుకొనబడలేదు
   translated_synonym_relations-label-synonym_relation_id-64: చెల్లని
   translated_synonym_relations-label-synonym_relation_id-68: మొక్కలపెంపకపు
   translated_table_of_contents-label-table_of_contents_id-1: అవలోకనం
   translated_table_of_contents-label-table_of_contents_id-13: ఉమ్మడి పేరు
   translated_table_of_contents-label-table_of_contents_id-194: పరిమాణం
   translated_table_of_contents-label-table_of_contents_id-2: క్లుప్త సారాంశం
+  translated_table_of_contents-label-table_of_contents_id-218: చెదురు
   translated_table_of_contents-label-table_of_contents_id-221: ప్రమాదాలు
   translated_table_of_contents-label-table_of_contents_id-225: అంతర్జాలమునందు
   translated_table_of_contents-label-table_of_contents_id-226: సమాచార భాగస్వాములు
@@ -245,6 +252,8 @@ te:
   translated_table_of_contents-label-table_of_contents_id-348: ఆరకమైన సమాచారం
   translated_table_of_contents-label-table_of_contents_id-4: జీవావరణం
   translated_table_of_contents-label-table_of_contents_id-41: నివశించేవారు
+  translated_untrust_reasons-label-untrust_reason_id-1: తప్పుగా గుర్తించబడిన
+  translated_untrust_reasons-label-untrust_reason_id-2: తప్పుడు/తప్పుదోవ పట్టించు
   translated_untrust_reasons-label-untrust_reason_id-3: తక్కువ నాణ్యత
   translated_untrust_reasons-label-untrust_reason_id-4: నకిలీ
   translated_untrust_reasons-label-untrust_reason_id-5: ఇతర

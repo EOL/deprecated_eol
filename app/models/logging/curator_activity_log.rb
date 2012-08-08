@@ -47,6 +47,8 @@ class CuratorActivityLog < LoggingModel
         else
           taxon_concept # could be nil, be careful!
         end
+      when ChangeableObjectType.taxon_concept.id:
+        taxon_concept
       else
         data_object
     end

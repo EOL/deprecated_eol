@@ -4,8 +4,47 @@
 class CodeBridge
   @queue = 'php' # Anything in the php queue will be handled by php, DUH.
 
-  # Normally, there would be a #self.perform method here, but it would NEVER get called, as the class that does the
-  # work is in the PHP codebase
+  # This method is called when PHP talks to Ruby!
+  def self.perform(args)
+    puts "++ CodeBridge"
+    if args['cmd'] == 'unlock_notify'
+      puts "   unlock notification"
+
+      begin
+        cal = if args['error'].blank?
+          CuratorActivityLog.create!(:user_id => args['user_id'],
+                                     :changeable_object_type_id => ChangeableObjectType.taxon_concept.id, 
+                                     :object_id => args['taxon_concept_id'],
+                                     :activity_id => Activity.unlock.id,
+                                     :created_at => 0.seconds.from_now,
+                                     :taxon_concept_id => args['taxon_concept_id'])
+              else
+          t = 0.seconds.from_now
+          comment = Comment.create!(:user_id => $BACKGROUND_TASK_USER_ID, :body => args['error'],
+                                    :parent_id => args['taxon_concept_id'], :parent_type => 'TaxonConcept')
+          CuratorActivityLog.create!(:user_id => args['user_id'],
+                                     :changeable_object_type_id => ChangeableObjectType.comment.id,
+                                     :object_id => comment.id,
+                                     :activity_id => Activity.unlock_with_error.id,
+                                     :created_at => t,
+                                     :taxon_concept_id => args['taxon_concept_id'])
+              end
+        puts "++ Created: CuratorActivityLog.find(#{cal.id})"
+        # FORCE immediate notification.  Right now:
+        PendingNotification.create!(:user_id => args['user_id'],
+                                    :notification_frequency_id => NotificationFrequency.immediately.id,
+                                    :target_id => cal.id,
+                                    :target_type => 'CuratorActivityLog',
+                                    :reason => 'auto_email_after_curation')
+        Resque.enqueue(PrepareAndSendNotifications)
+      rescue => e
+        puts "** ERROR: #{e.message}"
+      end
+
+    else
+      puts "** ERROR: NO command responds to #{args['cmd']}"
+    end
+  end
 
   # These methods are here for actually enqueing the jobs. Thus, you call CodeBridge.split_classification(data),
   # and the data will be moved to PHP and handled there. These class methods are NOT called by Resque!
@@ -29,7 +68,7 @@ class CodeBridge
                                 'reindex'                      => options[:reindex] ? 'reindex' : '' })
   end
 
-  def self.merge_taxa(id1, id2, options => {})
+  def self.merge_taxa(id1, id2, options = {})
     Resque.enqueue(CodeBridge, {'cmd'       => 'merge',
                                 'id1'       => id1,
                                 'id2'       => id2,

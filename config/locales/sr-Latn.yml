@@ -363,7 +363,6 @@ sr-Latn:
   audio_pause: pauziraj
   audio_pause_assistive: Ako ste omogućili javaskript, ova veza će vam dopustiti da pauzirate susedni zvučni snimak. U suprotnom, zanemarite pomenutu vezu.
   audio_play: pusti
-  audio_play_assistive: Ako ste omogućili javaskript, ova veza će pustiti zvučni snimak bez otvaranja novog prozora. Ako je javaskript onemogućen, onda će veza voditi do snimka i ponašaće se u skladu s vašim uređajem.
   audio_stop: zaustavi
   audio_stop_assistive: Ako ste omogućili javaskript, ova veza će vam dopustiti da zaustavite susedni zvučni snimak. U suprotnom, zanemarite pomenutu vezu.
   audio_unmute: uklj. zvuk
@@ -480,7 +479,6 @@ sr-Latn:
   comment_not_updated_error: Nažalost, došlo je do greške. Ne mogu da ažuriram komentar.
   comment_or_rate_on_this_article: Prokomentarišite članak ili ga ocenite
   comment_show_posters_image_alt: Slika na profilu korisnika %{posters_name} koji napisa komentar.
-  commented_on_your_image: " prokomentarisa vašu sliku na <a href='%{data_object_link}'>Enciklopediji života</a>:\n%{comment_body}"
   comments: Komentari
   comments_and_tags: Komentari i oznake
   comments_filter: Komentari
@@ -1521,7 +1519,6 @@ sr-Latn:
   more_children_with_count: 
     one: "%{count} više…"
     other: "%{count} više…"
-  more_information_on_the_various_licenses: licence. Posetite njihov sajt za više informacija o raznim licencama koje pružaju
   most_active_members: Najaktivniji članovi
   move: Premesti
   move_down: Pomeri nadole
@@ -2023,7 +2020,6 @@ sr-Latn:
   spm_category_partner_count: SPM kategorija – broj partnera
   started: Započeto
   stat: Statistika
-  statistics: Statistike
   sub_heading: Podnaslov
   subject: predmet
   submit: Pošalji

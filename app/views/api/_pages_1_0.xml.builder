@@ -39,6 +39,7 @@ xml.response "xmlns" => "http://www.eol.org/transfer/content/1.0",
               xml.dwc :taxonID, entry.id
               xml.dwc :scientificName, entry.name.string
               xml.dwc :nameAccordingTo, entry.hierarchy.label
+              xml.dwc :taxonRank, entry.rank.label.firstcap unless entry.rank.blank?
             end
           end
         end

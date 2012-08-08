@@ -319,6 +319,10 @@ describe 'Data Object Page' do
   end
 
   it 'should allow a master curators to remove curated associations' do
+    login_as @master_curator
+    visit("/data_objects/#{@image.id}")
+    page.body.should_not have_tag('form.review_status a', :text => 'Remove association')
+    visit('/logout')
     @image.add_curated_association(@full_curator, @extra_he)
     login_as @master_curator
     visit("/data_objects/#{@image.id}")
@@ -359,104 +363,6 @@ describe 'Data Object Page' do
     visit("/data_objects/#{@image.id}")
     body.should have_tag("blockquote", :text => comment)
     visit('/logout')
-  end
-
-  it 'should allow authors of user added articles to edit the latest published version of the data object' do
-    udo_dato = @tc.add_user_submitted_text(:user => @user)
-    visit logout_path
-    visit data_object_path(udo_dato)
-    body.should_not have_tag("#page_heading .page_actions a.button[href=?]", /#{edit_data_object_path(udo_dato)}/ )
-    body.should_not include("Edit this article")
-    login_as @user
-    visit data_object_path(udo_dato)
-    click_link("Edit this article")
-    current_path.should == edit_data_object_path(udo_dato)
-    fill_in 'data_object_description', :with => ''
-    click_button("Save article")
-    current_path.should == "/data_objects/#{udo_dato.id}"
-    body.should have_tag('fieldset#errors') do
-      with_tag("li", "Description can't be blank")
-    end
-    body.should have_tag("select#data_object_toc_items_id") do
-      with_tag("option[value=?][selected=selected]", udo_dato.toc_items.first.id)
-      without_tag("option[value=?][selected=selected]", /[^#{udo_dato.toc_items.first.id}]/)
-    end
-    fill_in 'data_object_description', :with => udo_dato.description
-    click_button("Save article")
-    new_udo_revision = DataObject.latest_published_version_of(udo_dato.id)
-    current_path.should == data_object_path(new_udo_revision)
-    DataObject.find(udo_dato).published.should be_false
-    visit data_object_path(udo_dato)
-    current_path.should == data_object_path(udo_dato)
-    click_link("Edit this article")
-    # When we try to edit the old udo we should actually end up at the new udo edit path
-    current_path.should == edit_data_object_path(new_udo_revision)
-    visit('/logout')
-  end
-
-  # This probably belongs in taxa_page_spec but shares expected behaviours with editing articles spec.
-  it 'should allow logged in users and assistant curators to add text to EOL pages as Unreviewed' do
-    users = [@user, @assistant_curator]
-    users.each do |user|
-      login_as user
-      visit taxon_details_path(@tc)
-      click_link "Add an article to this page"
-      current_url.should match "/pages/#{@tc.id}/data_objects/new"
-      select "Overview", :from => "data_object_toc_items_id"
-      click_button("Add article")
-      current_path.should == "/pages/#{@tc.id}/data_objects"
-      body.should have_tag('fieldset#errors') do
-        with_tag("li", "Description can't be blank")
-      end
-      body.should have_tag("select#data_object_toc_items_id") do
-        with_tag("option[value=?][selected=selected]", TocItem.overview.id)
-        without_tag("option[value=?][selected=selected]", /[^#{TocItem.overview.id}]/)
-      end
-      fill_in 'data_object_object_title', :with => "Unicorns"
-      fill_in 'data_object_description', :with => "Unicorn is an imaginary animal."
-      fill_in 'references', :with => "Wikipedia"
-      select "public domain", :from => "data_object_license_id"
-      click_button("Add article")
-      body.should have_tag('fieldset#errors') do
-        with_tag("li", "Rights holder must be blank for a Public Domain license")
-      end
-      fill_in 'data_object_rights_holder', :with => ""
-      click_button("Add article")
-      dato_id = DataObject.last.id
-      body.should have_tag("#data_object_#{dato_id}") do
-        with_tag('h4', :text => "Unicorns")
-        with_tag('.copy', :text => "Unicorn is an imaginary animal.")
-        with_tag('.references li', :text => "Wikipedia")
-        with_tag('.attribution .copy p a', :text => "#{user.full_name}")
-        with_tag('.flag', :text => "Unreviewed")
-      end
-      visit('/logout')
-    end
-  end
-
-  # This probably belongs in taxa_page_spec but shares expected behaviours with editing articles spec.
-  it 'should allow logged in full/master curators and admins to add text to EOL pages as Trusted' do
-    [@full_curator, @master_curator, @admin].each do |user|
-      login_as user
-      visit taxon_details_path(@tc)
-      click_link "Add an article to this page"
-      current_url.should match "/pages/#{@tc.id}/data_objects/new"
-      select "Overview", :from => "data_object_toc_items_id"
-      fill_in 'data_object_object_title', :with => "Unicorns"
-      fill_in 'data_object_description', :with => "Unicorn is an imaginary animal."
-      fill_in 'references', :with => "Wikipedia"
-      select "public domain", :from => "data_object_license_id"
-      click_button "data_object_submit"
-      dato_id = DataObject.last.id
-      body.should have_tag("#data_object_#{dato_id}") do
-        with_tag('h4', :text => "Unicorns")
-        with_tag('.copy', :text => "Unicorn is an imaginary animal.")
-        with_tag('.references li', :text => "Wikipedia")
-        with_tag('.attribution .copy p a', :text => "#{user.full_name}")
-        with_tag('.flag', :text => "Trusted")
-      end
-      visit('/logout')
-    end
   end
 
   it "should not show copyright symbol for public domain objects" do

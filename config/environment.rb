@@ -211,6 +211,7 @@ Rails::Initializer.run do |config|
 
   $MAX_COLLECTION_ITEMS_TO_MANIPULATE = 1000
 
+  $BACKGROUND_TASK_USER_ID = 1 # The user ID which will be used for comments left by background jobs.
   $SPECIAL_COMMUNITY_NAME = 'EOL Curators and Admins'
   $RICH_PAGES_COLLECTION_ID = 34 # Please keep this variable around as a "reasonable default" for when lang keys are missing... though you should update the value as needed (probably with the value of :en in RICH_LANG_PAGES_COLLECTION_IDS)
   $RICH_LANG_PAGES_COLLECTION_IDS = {:en => 34, :es => 6496, :ar => 7745}
@@ -220,9 +221,7 @@ Rails::Initializer.run do |config|
   $HOMEPAGE_MARCH_RICHNESS_THRESHOLD = 0.5
 
   APPLICATION_DEFAULT_LANGUAGE_ISO = 'en'
-  APPROVED_LANGUAGES = ENV['RAILS_ENV'] == 'staging' ?
-    ['en', 'es', 'ar', 'fr', 'gl', 'sr', 'sr-Latn', 'de', 'mk', 'zh-Hans'] :
-    ['en', 'es', 'ar', 'fr', 'gl', 'sr', 'sr-Latn', 'de', 'mk']
+  APPROVED_LANGUAGES = ['en', 'es', 'ar', 'fr', 'gl', 'sr', 'sr-Latn', 'de', 'mk', 'zh-Hans']
 
   # for those class that are using CACHE_ALL_ROWS, when the row is looked up in memcached, retain that value
   # in an array in a class variable. That way future lookups will read from local memory and will not require
@@ -235,6 +234,16 @@ Rails::Initializer.run do |config|
   config.action_mailer.raise_delivery_errors = true
   # URLs are not handled correctly in email (IMO), but this fixes it:
   config.action_mailer.default_url_options = { :host => "eol.org" }
+
+  # Default values for some footer elements:
+  $EOL_TWITTER_ACCOUNT  = "http://twitter.com/#!/EOL"
+  $EOL_FACEBOOK_ACCOUNT = "http://www.facebook.com/encyclopediaoflife"
+  $EOL_TUMBLR_ACCOUNT   = "http://blog.eol.org"
+  $EOL_FLICKR_ACCOUNT   = "http://www.flickr.com/groups/encyclopedia_of_life/"
+  $EOL_YOUTUBE_ACCOUNT  = "http://www.youtube.com/user/EncyclopediaOfLife/"
+
+  $CURATOR_COMMUNITY_NAME = 'EOL Curators'
+  $CURATOR_COMMUNITY_DESC = 'This is a special community intended for EOL curators to discuss matters related to curation on the Encylopedia of Life.'
 
 
   begin
@@ -288,10 +297,6 @@ begin
 rescue LoadError
 end
 
-if ENV['BLEAK']
-  require 'bleak_house'
-end
-
 $CACHE = Rails.cache
 
 # Taken right from http://tinyurl.com/3xzen6z
@@ -306,16 +311,6 @@ if defined?(PhusionPassenger)
     end
   end
 end
-
-# Default values for some footer elements:
-$EOL_TWITTER_ACCOUNT  = "http://twitter.com/#!/EOL"
-$EOL_FACEBOOK_ACCOUNT = "http://www.facebook.com/encyclopediaoflife"
-$EOL_TUMBLR_ACCOUNT   = "http://blog.eol.org"
-$EOL_FLICKR_ACCOUNT   = "http://www.flickr.com/groups/encyclopedia_of_life/"
-$EOL_YOUTUBE_ACCOUNT  = "http://www.youtube.com/user/EncyclopediaOfLife/"
-
-$CURATOR_COMMUNITY_NAME = 'EOL Curators'
-$CURATOR_COMMUNITY_DESC = 'This is a special community intended for EOL curators to discuss matters related to curation on the Encylopedia of Life.'
 
 # load the system configuration
 require File.dirname(__FILE__) + '/system' if File.file?(File.dirname(__FILE__) + '/system.rb')

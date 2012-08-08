@@ -41,6 +41,11 @@ describe String do
       '<p></div></p>'.balance_tags.should == '<div><p></div></p>'
       '</p><p></div></p>'.balance_tags.should == '<p><div></p><p></div></p>'
     end
+
+    it 'should balance em tags' do
+      '<p><em></p>'.balance_tags.should == '<p><em></p></em>'
+    end
+    
   end
 
   describe "cleanup_for_presentation" do
@@ -74,6 +79,10 @@ end
 
 
 describe Array do
+  before(:all) do
+    load_foundation_cache
+  end
+  
   it 'should group hashes by an attribute' do
     arr = [{'id' => 2, 'value' => 'first'},
            {'id' => 1, 'value' => 'first'}]

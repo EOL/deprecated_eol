@@ -113,7 +113,7 @@ class String
   # tags in the proper order (shouln't open one after closing one for example - that is not balanced)
   def balance_tags
     text = self.clone
-    ['b', 'i', 'div', 'p'].each do |tag|
+    ['a', 'b', 'i', 'div', 'p', 'em'].each do |tag|
       # this will match <T_, <T>, </_T>, </T>
       open_and_close_tags = text.scan(/\<(#{tag}[\> ]|\/ *#{tag}\>)/i)
       number_of_opening_tags_needed = 0

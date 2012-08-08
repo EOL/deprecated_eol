@@ -153,6 +153,10 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   def self.hash_password(raw)
     Digest::MD5.hexdigest(raw)
   end
+  
+  def unsubscribe_key
+    Digest::MD5.hexdigest(email + created_at.to_s + $UNSUBSCRIBE_NOTIFICATIONS_KEY)
+  end
 
   # returns true or false indicating if username is unique
   def self.unique_user?(username, id = nil)
@@ -368,7 +372,12 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def self.count_submitted_datos(user_id = nil)
-    count_user_rows(UsersDataObject, user_id)
+    self.count_complex_query(UsersDataObject, 
+                             %Q{SELECT user_id, COUNT(DISTINCT data_objects.guid) AS count
+                                FROM users_data_objects
+                                JOIN data_objects ON (users_data_objects.data_object_id = data_objects.id)
+                                WHERE user_id #{user_id.is_a?(Array) ? "IN (#{user_id.join(',')})" : "= #{user_id}"}
+                                GROUP BY user_id}, user_id)
   end
 
   def self.count_user_rows(klass, user_id = nil)
@@ -379,7 +388,12 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
       query += "WHERE user_id IN (#{user_id.join(',')}) "
     end
     query += "GROUP BY user_id"
-    results = User.connection.execute(query).all_hashes rescue {}
+    self.count_complex_query(klass, query, user_id)
+  end
+
+
+  def self.count_complex_query(klass, query, user_id = nil)
+    results = klass.send(:connection).execute(query).all_hashes rescue {}
     return_hash = {}
     results.each do |r|
       return_hash[r['user_id'].to_i] = r['count'].to_i

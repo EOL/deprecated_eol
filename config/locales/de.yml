@@ -13,7 +13,7 @@ de:
   0_1_or_2: 0, 1 oder 2
   0_or_1: 0 oder 1
   a_pipe_delimited_list_of_licenses: eine mit senkrechten Strichen „|“ voneinander getrennte Liste der Lizenzen oder „all“, um die Objekt zu allen Lizenzen zuzuordnen. Mit cc- abgekürzte Listen sind allesamt
-  a_pipe_delimited_list_of_spm_info_item_subject_names: eine mit senkrechten Strichen „|“ voneinander getrennte Liste der SPM-Informationsobjekte zu Themen oder „all“, um Texte zu jedem Thema zu erhalten
+  a_pipe_delimited_list_of_spm_info_item_subject_names: „overview“, um den Übersichtstext auszugeben zu lassen (sofern vorhanden); eine mit senkrechten Strichen „|“ voneinander getrennte Liste der SPM-Informationsobjektthemen, um den Text zu den Namen der entsprechenden SPM-Informationsobjektthemen zu erhalten; „all“, um Texte zu jedem Thema zu erhalten. Gibt stets den Übersichtstext als erstes Ergebnis aus (sofern im betreffenden Kontext vorhanden).
   a_taxon: ein Taxon
   a_total_of_comment_were_found_matching_your_criteria: 
     one: Insgesamt wurde ein Kommentar gefunden, der zu Ihren Kriterien passt.
@@ -299,7 +299,7 @@ de:
       template: 
         body: "Die folgenden Felder konnten nicht geprüft werden:"
         header: 
-          one: Ein Fehler wurden bei der Überprüfung gefunden
+          one: "%{count} Fehler wurden bei der Überprüfung gefunden"
           other: "%{count} Fehler wurden bei der Überprüfung gefunden"
     models: 
       user: Konto
@@ -432,19 +432,23 @@ de:
         user_associated_data_object_to_association: <strong>%{user}</strong> hat zwischen „%{data_object}“ und „%{association}“ eine Zuordnung vorgenommen.
         user_associated_it_to_an_unknown_association: <strong>%{user}</strong> hat auf einer unbekannten Seite eine Zuordnung vorgenommen.
         user_associated_it_to_association: <strong>%{user}</strong> hat zu „%{association}“ eine Zuordnung vorgenommen.
-      add_common_name: 
-        an_unknown_user_added_an_unknown_name_to_an_unknown_taxon: Ein unbekannter Nutzer hat einer unbekannten Seite einen unbekannten gebräuchlichen Name zugeordnet.
-        an_unknown_user_added_an_unknown_name_to_it: Ein unbekannter Nutzer hat einen unbekannten gebräuchlichen Namen zugeordnet.
-        an_unknown_user_added_an_unknown_name_to_taxon: Ein unbekannter Nutzer hat „%{taxon}“ einen unbekannten gebräuchlichen Name zugeordnet.
-        an_unknown_user_added_name_to_an_unknown_taxon: Ein unbekannter Nutzer hat einer unbekannten Seite den gebräuchlichen Namen „%{name}“ zugeordnet.
-        an_unknown_user_added_name_to_it: Ein unbekannter Nutzer hat den gebräuchlichen Namen „%{name}“ zugeordnet.
-        an_unknown_user_added_name_to_taxon: Ein unbekannter Nutzer hat „%{taxon}“ den gebräuchlichen Namen „%{name}“ zugeordnet.
-        user_added_an_unknown_name_to_an_unknown_taxon: <strong>%{user}</strong> hat einer unbekannten Seite einen unbekannten gebräuchlichen Namen zugeordnet.
-        user_added_an_unknown_name_to_it: <strong>%{user}</strong> hat einen unbekannten gebräuchlichen Namen zugeordnet.
-        user_added_an_unknown_name_to_taxon: <strong>%{user}</strong> hat „%{taxon}“ einen unbekannten gebräuchlichen Namen zugeordnet.
-        user_added_name_to_an_unknown_taxon: <strong>%{user}</strong> hat einer unbekannten Seite den gebräuchlichen Namen „%{name}“ zugeordnet.
-        user_added_name_to_it: <strong>%{user}</strong> hat den gebräuchlichen Namen „%{name}“ zugeordnet.
-        user_added_name_to_taxon: <strong>%{user}</strong> hat „%{taxon}“ den gebräuchlichen Namen „%{name}“ zugeordnet.
+      choose_exemplar_article: 
+        an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: Ein unbekannter Nutzer wählte eine ältere Version von „%{data_object}“ zur Anzeige in der Übersicht auf einer unbekannten Seite aus.
+        an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: Ein unbekannter Nutzer wählte „%{data_object}“ zur Anzeige in der Übersicht auf „%{taxon}“ aus.
+        an_unknown_user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: Ein unbekannter Nutzer wählte einen unbekannten Artikel zur Anzeige in der Übersicht auf einer unbekannten Seite aus.
+        an_unknown_user_chose_exemplar_an_unknown_data_object_on_taxon: Ein unbekannter Nutzer wählte einen unbekannten Artikel zur Anzeige in der Übersicht auf „%{taxon}“ aus.
+        an_unknown_user_chose_exemplar_data_object_on_an_unknown_taxon: Ein unbekannter Nutzer wählte „%{data_object}“ zur Anzeige in der Übersicht auf einer unbekannten Seite aus.
+        an_unknown_user_chose_exemplar_data_object_on_taxon: Ein unbekannter Nutzer wählte „%{data_object}“ zur Anzeige in der Übersicht auf „%{taxon}“ aus.
+        an_unknown_user_chose_exemplar_it_on_an_unknown_taxon: Ein unbekannter Nutzer wählte es zur Anzeige in der Übersicht auf einer unbekannten Seite aus.
+        an_unknown_user_chose_exemplar_it_on_taxon: Ein unbekannter Nutzer wählte es zur Anzeige in der Übersicht auf „%{taxon}“ aus.
+        user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: <strong>%{user}</strong> wählte eine ältere Version von „%{data_object}“ zur Anzeige in der Übersicht auf einer unbekannten Seite aus.
+        user_chose_exemplar_an_older_data_object_on_taxon: <strong>%{user}</strong> wählte eine ältere Version von „%{data_object}“ zur Anzeige in der Übersicht auf „%{taxon}“ aus.
+        user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: <strong>%{user}</strong> wählte einen unbekannten Artikel zur Anzeige in der Übersicht auf einer unbekannten Seite aus.
+        user_chose_exemplar_an_unknown_data_object_on_taxon: <strong>%{user}</strong> wählte ein unbekanntes Datenobjekt zur Anzeige in der Übersicht auf „%{taxon}“ aus.
+        user_chose_exemplar_data_object_on_an_unknown_taxon: <strong>%{user}</strong> wählte „%{data_object}“ zur Anzeige in der Übersicht auf einer unbekannten Seite aus.
+        user_chose_exemplar_data_object_on_taxon: <strong>%{user}</strong> wählte „%{data_object}“ zur Anzeige in der Übersicht auf auf „%{taxon}“ aus.
+        user_chose_exemplar_it_on_an_unknown_taxon: <strong>%{user}</strong> wählte es zur Anzeige in der Übersicht auf einer unbekannten Seite aus.
+        user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> wählte es zur Anzeige in der Übersicht auf auf „%{taxon}“ aus.
       choose_exemplar_image: 
         an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: Ein unbekannter Nutzer legte eine ältere Version von „%{data_object}“ auf einer unbekannten Seite als beispielhaft fest.
         an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: Ein unbekannter Nutzer legte „%{data_object}“ als beispielhaft für „%{taxon}“ fest.
@@ -520,13 +524,6 @@ de:
         user_disassociated_data_object_from_association: <strong>%{user}</strong> hat zwischen „%{data_object}“ und „%{association}“ eine Zuordnung entfernt.
         user_disassociated_it_from_an_unknown_association: <strong>%{user}</strong> hat eine Zuordnung zu einer unbekannten Seite entfernt.
         user_disassociated_it_from_association: <strong>%{user}</strong> hat eine Zuordnung zu „%{association}“ entfernt.
-      remove_common_name: 
-        an_unknown_user_removed_name_from_an_unknown_taxon: Ein unbekannter Nutzer hat von einer unbekannten Seite einen gebräuchlichen Namen entfernt.
-        an_unknown_user_removed_name_from_it: Ein unbekannter Nutzer hat einen gebräuchlichen Namen entfernt.
-        an_unknown_user_removed_name_from_taxon: Ein unbekannter Nutzer hat von „%{taxon}“ einen gebräuchlichen Namen entfernt.
-        user_removed_name_from_an_unknown_taxon: <strong>%{user}</strong> hat von einer unbekannten Seite einen gebräuchlichen Namen entfernt.
-        user_removed_name_from_it: <strong>%{user}</strong> hat einen gebräuchlichen Namen entfernt.
-        user_removed_name_from_taxon: <strong>%{user}</strong> hat von „%{taxon}“ einen gebräuchlichen Namen entfernt.
       show: 
         an_unknown_user_showed_an_older_data_object_on_an_unknown_association: Ein unbekannter Nutzer markierte eine ältere Version von „%{data_object}“ in einem unbekannten Zusammenhang als sichtbar.
         an_unknown_user_showed_an_older_data_object_on_association: Ein unbekannter Nutzer markierte eine ältere Version von „%{data_object}“ auf der Seite „%{association}“ als sichtbar.
@@ -544,19 +541,19 @@ de:
         user_showed_data_object_on_association: <strong>%{user}</strong> markierte „%{data_object}“ auf der Seite „%{association}“ als sichtbar.
         user_showed_it_on_an_unknown_association: <strong>%{user}</strong> markierte es in einem unbekannten Zusammenhang als sichtbar.
         user_showed_it_on_association: <strong>%{user}</strong> markierte es auf der Seite „%{association}“ als sichtbar.
-      trust_common_name: 
-        an_unknown_user_trusted_an_unknown_name_on_an_unknown_taxon: Ein unbekannter Nutzer markierte einen unbekannten gebräuchlichen Namen auf einer unbekannten Seite als vertrauenswürdig.
-        an_unknown_user_trusted_an_unknown_name_on_it: Ein unbekannter Nutzer markierte einen unbekannten gebräuchlichen Namen als vertrauenswürdig.
-        an_unknown_user_trusted_an_unknown_name_on_taxon: Ein unbekannter Nutzer markierte einen unbekannten gebräuchlichen Namen zu „%{taxon}“ als vertrauenswürdig.
-        an_unknown_user_trusted_name_on_an_unknown_taxon: Ein unbekannter Nutzer markierte den gebräuchlichen Namen „%{name}“ zu einer unbekannten Seite als vertrauenswürdig.
-        an_unknown_user_trusted_name_on_it: Ein unbekannter Nutzer markierte den Namen „%{name}“ als vertrauenswürdig.
-        an_unknown_user_trusted_name_on_taxon: Ein unbekannter Nutzer markierte den gebräuchlichen Namen „%{name}“ zu „%{taxon}“ als vertrauenswürdig.
-        user_trusted_an_unknown_name_on_an_unknown_taxon: <strong>%{user}</strong> markierte einen unbekannten gebräuchlichen Namen auf einer unbekannten Seite als vertrauenswürdig.
-        user_trusted_an_unknown_name_on_it: <strong>%{user}</strong> markierte einen unbekannten gebräuchlichen Namen als vertrauenswürdig.
-        user_trusted_an_unknown_name_on_taxon: <strong>%{user}</strong> markierte einen unbekannten gebräuchlichen Namen zu „%{taxon}“ als vertrauenswürdig.
-        user_trusted_name_on_an_unknown_taxon: <strong>%{user}</strong> markierte den gebräuchlichen Namen „%{name}“ zu einer unbekannten Seite als vertrauenswürdig.
-        user_trusted_name_on_it: <strong>%{user}</strong> markierte den Namen „%{name}“ als vertrauenswürdig.
-        user_trusted_name_on_taxon: <strong>%{user}</strong> markierte den gebräuchlichen Namen „%{name}“ zu „%{taxon}“ als vertrauenswürdig.
+      split: 
+        an_unknown_user_split_entry_from_an_unknown_taxon: Ein unbekannter Nutzer trennte die Klassifikation von „%{provider}“ von einem unbekannten Taxon ab.
+        an_unknown_user_split_entry_from_it: Ein unbekannter Nutzer unterteilte die Klassifikation von „%{provider}“.
+        an_unknown_user_split_entry_from_taxon: Ein unbekannter Nutzer trennte die Klassifikation von „%{provider}“ von „%{taxon}“ ab.
+        an_unknown_user_split_unknown_entry_from_an_unknown_taxon: Ein unbekannter Nutzer trennte eine unbekannte Klassifikation von einem unbekannten Taxon ab.
+        an_unknown_user_split_unknown_entry_from_it: Ein unbekannter Nutzer unterteilte eine unbekannte Klassifikation.
+        an_unknown_user_split_unknown_entry_from_taxon: Ein unbekannter Nutzer trennte eine unbekannte Klassifikation von „%{taxon}“ ab.
+        user_split_entry_from_an_unknown_taxon: <strong>%{user}</strong> trennte die Klassifikation von „%{provider}“ von einem unbekannten Taxon ab.
+        user_split_entry_from_it: <strong>%{user}</strong> unterteilte die Klassifikation von „%{provider}“.
+        user_split_entry_from_taxon: <strong>%{user}</strong> trennte die Klassifikation von „%{provider}“ von „%{taxon}“ ab.
+        user_split_unknown_entry_from_an_unknown_taxon: <strong>%{user}</strong> trennte eine unbekannte Klassifikation von einem unbekannten Taxon ab.
+        user_split_unknown_entry_from_it: <strong>%{user}</strong> unterteilte eine unbekannte Klassifikation.
+        user_split_unknown_entry_from_taxon: <strong>%{user}</strong> trennte eine unbekannte Klassifikation von „%{taxon}“ ab.
       trusted: 
         an_unknown_user_trusted_an_older_data_object_on_an_unknown_association: Ein unbekannter Nutzer markierte eine ältere Version von „%{data_object}“ in einem unbekannten Zusammenhang als vertrauenswürdig.
         an_unknown_user_trusted_an_older_data_object_on_association: Ein unbekannter Nutzer markierte eine ältere Version von „%{data_object}“ auf der Seite „%{association}“ als vertrauenswürdig.
@@ -574,19 +571,6 @@ de:
         user_trusted_data_object_on_association: <strong>%{user}</strong> markierte „%{data_object}“ auf der Seite „%{association}“ als vertrauenswürdig.
         user_trusted_it_on_an_unknown_association: <strong>%{user}</strong> markierte es in einem unbekannten Zusammenhang als vertrauenswürdig.
         user_trusted_it_on_association: <strong>%{user}</strong> markierte es auf der Seite „%{association}“ als vertrauenswürdig.
-      unreview_common_name: 
-        an_unknown_user_unreviewed_an_unknown_name_on_an_unknown_taxon: Ein unbekannter Nutzer markierte einen unbekannten gebräuchlichen Namen auf einer unbekannten Seite als nicht geprüft.
-        an_unknown_user_unreviewed_an_unknown_name_on_it: Ein unbekannter Nutzer markierte einen unbekannten gebräuchlichen Namen als nicht geprüft.
-        an_unknown_user_unreviewed_an_unknown_name_on_taxon: Ein unbekannter Nutzer markierte einen unbekannten gebräuchlichen Namen zu „%{taxon}“ als nicht geprüft.
-        an_unknown_user_unreviewed_name_on_an_unknown_taxon: Ein unbekannter Nutzer markierte den gebräuchlichen Namen „%{name}“ zu einer unbekannten Seite als nicht geprüft.
-        an_unknown_user_unreviewed_name_on_it: Ein unbekannter Nutzer markierte den Namen „%{name}“ als nicht geprüft.
-        an_unknown_user_unreviewed_name_on_taxon: Ein unbekannter Nutzer markierte den gebräuchlichen Namen „%{name}“ zu „%{taxon}“ als nicht geprüft.
-        user_unreviewed_an_unknown_name_on_an_unknown_taxon: <strong>%{user}</strong> markierte einen unbekannten gebräuchlichen Namen auf einer unbekannten Seite als nicht geprüft.
-        user_unreviewed_an_unknown_name_on_it: <strong>%{user}</strong> markierte einen unbekannten gebräuchlichen Namen als nicht geprüft.
-        user_unreviewed_an_unknown_name_on_taxon: <strong>%{user}</strong> markierte einen unbekannten gebräuchlichen Namen zu „%{taxon}“ als nicht geprüft.
-        user_unreviewed_name_on_an_unknown_taxon: <strong>%{user}</strong> markierte den gebräuchlichen Namen „%{name}“ zu einer unbekannten Seite als nicht geprüft.
-        user_unreviewed_name_on_it: <strong>%{user}</strong> markierte den Namen „%{name}“ als nicht geprüft.
-        user_unreviewed_name_on_taxon: <strong>%{user}</strong> markierte den gebräuchlichen Namen „%{name}“ zu „%{taxon}“ als nicht geprüft.
       unreviewed: 
         an_unknown_user_unreviewed_an_older_data_object_on_an_unknown_association: Ein unbekannter Nutzer markierte eine ältere Version von „%{data_object}“ in einem unbekannten Zusammenhang als nicht überprüft.
         an_unknown_user_unreviewed_an_older_data_object_on_association: Ein unbekannter Nutzer markierte eine ältere Version von „%{data_object}“ auf der Seite „%{association}“ als nicht überprüft.
@@ -604,19 +588,6 @@ de:
         user_unreviewed_data_object_on_association: <strong>%{user}</strong> markierte „%{data_object}“ auf der Seite „%{association}“ als nicht überprüft.
         user_unreviewed_it_on_an_unknown_association: <strong>%{user}</strong> markierte es in einem unbekannten Zusammenhang als nicht überprüft.
         user_unreviewed_it_on_association: <strong>%{user}</strong> markierte es auf der Seite „%{association}“ als nicht überprüft.
-      untrust_common_name: 
-        an_unknown_user_untrusted_an_unknown_name_on_an_unknown_taxon: Ein unbekannter Nutzer markierte einen unbekannten gebräuchlichen Namen auf einer unbekannten Seite als nicht vertrauenswürdig.
-        an_unknown_user_untrusted_an_unknown_name_on_it: Ein unbekannter Nutzer markierte einen unbekannten gebräuchlichen Namen als nicht vertrauenswürdig.
-        an_unknown_user_untrusted_an_unknown_name_on_taxon: Ein unbekannter Nutzer markierte einen unbekannten gebräuchlichen Namen zu „%{taxon}“ als nicht vertrauenswürdig.
-        an_unknown_user_untrusted_name_on_an_unknown_taxon: Ein unbekannter Nutzer markierte den gebräuchlichen Namen „%{name}“ zu einer unbekannten Seite als nicht vertrauenswürdig.
-        an_unknown_user_untrusted_name_on_it: Ein unbekannter Nutzer markierte den Namen „%{name}“ als nicht vertrauenswürdig.
-        an_unknown_user_untrusted_name_on_taxon: Ein unbekannter Nutzer markierte den gebräuchlichen Namen „%{name}“ zu „%{taxon}“ als nicht vertrauenswürdig.
-        user_untrusted_an_unknown_name_on_an_unknown_taxon: <strong>%{user}</strong> markierte einen unbekannten gebräuchlichen Namen auf einer unbekannten Seite als nicht vertrauenswürdig.
-        user_untrusted_an_unknown_name_on_it: <strong>%{user}</strong> markierte einen unbekannten gebräuchlichen Namen als nicht vertrauenswürdig.
-        user_untrusted_an_unknown_name_on_taxon: <strong>%{user}</strong> markierte einen unbekannten gebräuchlichen Namen zu „%{taxon}“ als nicht vertrauenswürdig.
-        user_untrusted_name_on_an_unknown_taxon: <strong>%{user}</strong> markierte den gebräuchlichen Namen „%{name}“ zu einer unbekannten Seite als nicht vertrauenswürdig.
-        user_untrusted_name_on_it: <strong>%{user}</strong> markierte den Namen „%{name}“ als nicht vertrauenswürdig.
-        user_untrusted_name_on_taxon: <strong>%{user}</strong> markierte den gebräuchlichen Namen „%{name}“ zu „%{taxon}“ als nicht vertrauenswürdig.
       untrusted: 
         an_unknown_user_untrusted_an_older_data_object_on_an_unknown_association: Ein unbekannter Nutzer markierte eine ältere Version von „%{data_object}“ in einem unbekannten Zusammenhang als nicht vertrauenswürdig.
         an_unknown_user_untrusted_an_older_data_object_on_association: Ein unbekannter Nutzer markierte eine ältere Version von „%{data_object}“ auf der Seite „%{association}“ als nicht vertrauenswürdig.
@@ -653,6 +624,7 @@ de:
   add_association_submit_button: Zuordnung hinzufügen
   add_brief_summary_to_page_link_button: Fügen Sie dieser Seite eine kurze Zusammenfassung hinzu
   add_citizen_science_resources_to_page_link_button: Füge auf dieser Seite einen Link zu „Wissenschaft für Bürger“ hinzu
+  add_classifications: die ausgewählten Klassifikationen zum Verschieben hinzufügen
   add_collection_to_a_new_community: Die Sammlung „%{collection}“ einer neuen Gemeinschaft hinzufügen
   add_collection_to_community: Die Sammlung der Gemeinschaft hinzufügen
   add_education_resources_to_page_link_button: Fügen Sie dieser Seite Bildungsmittel hinzu
@@ -665,6 +637,7 @@ de:
   add_sub_chapter: Unterkapitel hinzufügen
   add_to_a_community: Einer Gemeinschaft hinzufügen
   add_to_my_collection_button: Zu meiner Sammlung hinzufügen
+  added_classifications_ready: Die Daten der ausgewählten Klassifikationen sind zum Verschieben auf eine andere Seite bereit. Um den Vorgang abzuschließen, klicken Sie entweder „auf eine neue Seite aufteilen“ an oder navigieren Sie zum Reiter „Namen“ auf der Seite, auf der die Daten hingehören, und wählen Sie dort „Klassifikationen zusammenführen“ aus.
   admin_content_page_active: Veröffentlicht
   admin_content_page_child_new_link: Untergeordnete Seite erstellen
   admin_content_page_create_successful_notice: Die Seite <a href="#%{anchor}"><em>%{page_name}</em></a> wurde erfolgreich erstellt.
@@ -727,41 +700,6 @@ de:
   admin_user_delete_successful_notice: Der Nutzer wurde gelöscht.
   admin_user_hide_successful_notice: Nutzer wurde verborgen
   admin_user_unhide_successful_notice: Nutzer wurde sichtbar gemacht
-  admins: 
-    statistics: 
-      content_partner: 
-        page_header: Statistiken zu Inhaltspartnern
-        page_title: "Verwaltung: Statistiken zu Inhaltspartnern"
-      content_partner_link: Inhaltspartner
-      curator: 
-        page_header: Statistiken zu Kuratoren
-        page_title: "Verwaltung: Statistiken zu Kuratoren"
-      curator_link: Statistiken zu Kuratoren
-      data_object: 
-        page_header: Statistiken zu Datenobjekten
-        page_title: "Verwaltung: Statistiken zu Datenobjekten"
-      data_object_link: Datenobjekte
-      index: 
-        page_header: Gesamtstatistiken
-        page_title: "Verwaltung: Gesamtstatistiken"
-        table_caption: Die Gesamtstatistiken der Website wurden am %{created_at_time} erstellt
-      index_link: Gesamtstatistiken
-      lifedesk: 
-        page_header: Statistiken zu LifeDesks
-        page_title: "Verwaltung: Statistiken zu LifeDesks"
-      lifedesk_link: LifeDesks
-      marine: 
-        page_header: Marines Leben in der EOL
-        page_title: "Verwaltung: Statistiken zu marinem Leben"
-      marine_link: Statistiken zu marinem Leben
-      page_richness: 
-        page_header: Statistiken zu reichhaltigen Seiten
-        page_title: "Verwaltung: Statistiken zu reichhaltigen Seiten"
-      page_richness_link: Reichhaltige Seiten
-      user_added_data: 
-        page_header: Statistiken zu von Nutzern erstellten Texten
-        page_title: "Verwaltung: Statistiken zu von Nutzern erstellten Texten"
-      user_added_data_link: Von Nutzern verfasster Text
   agent: Agent
   all: alle
   all_apis_return_by_default_an_xml_response: "Alle API-Aufrufe liefern standardmäßig eine XML-Antwort zurück. Die API-Methoden können auch ohne eine Formatangabe abgerufen werden, um eine XML-Antwort zu erhalten. Das Hinzufügen der Formatangabe XML führt also zu einer identischen Antwort:"
@@ -816,7 +754,7 @@ de:
     one: "Die Artikel auf dieser Seite sind in einer weiteren Sprache vorhanden:"
     other: "Die Artikel auf dieser Seite sind in den %{count} weiteren Sprachen vorhanden:"
   articles_with_count: 
-    one: Ein Artikel
+    one: "%{count} Artikel"
     other: "%{count} Artikel"
   as_of_time_there_were_unique_visitors: 
     one: Bis zum %{time} gab es einen eindeutigen Besucher
@@ -849,7 +787,6 @@ de:
   audio_pause: Pause
   audio_pause_assistive: Mit aktiviertem JavaScript ermöglicht dieser Link das Pausieren der Wiedergabe einer benachbarten Audiodatei. Ansonsten kann dieser Link ignoriert werden.
   audio_play: Abspielen
-  audio_play_assistive: Mit aktiviertem JavaScript ermöglicht dieser Link den Wiedergabestart der Audiodatei im gleichen Fenster. Sofern JavaScript deaktiviert ist, verweist dieser Link auf eine Audiodatei und wird nach dem Klicken die eingestellte Funktion Ihres Wiedergabegerätes ausführen.
   audio_stop: Stoppen
   audio_stop_assistive: Mit aktiviertem JavaScript ermöglicht dieser Link das Anhalten der Wiedergabe einer benachbarten Audiodatei. Ansonsten kann dieser Link ignoriert werden.
   audio_unmute: Ton an
@@ -881,6 +818,7 @@ de:
   cache_store: Cachespeicher
   calculate_averages_slow: Mittelwerte berechnen (langsam)
   cancel: Abbrechen
+  cancel_split: Abbrechen
   cannot_be_associated_with_both_a_user_and_a_community: Konnte weder einem Nutzer noch einer Gemeinschaft zugeordnet werden.
   cannot_be_empty: darf nicht leer sein.
   cannot_create_collection_item_from_class_error: Es kann kein Objekt für eine Sammlung aus einer %{klass} erstellt werden.
@@ -901,18 +839,30 @@ de:
   citation_example: "Fisher, Brian: „Pogonomyrmex anergismus Cole, 1954.“ Enzyklopädie des Lebens, von <a href=\"http://eol.org/pages/460427\" target=\"_blank\">http://eol.org/pages/460427</a>. Abgerufen am 15. Jan. 2009."
   citing_link: Zitieren
   classification_already_preferred: Diese Klassifikation wurde bereits als bevorzugt markiert.
+  classification_button_help: Bitte wählen Sie die Klassifikation aus, welche die vorhandene Seite unten am besten darstellt. Klicken Sie danach auf die entsprechende Schaltfläche „als beispielhaft verwenden“. Auf „Abbrechen“ klicken, um diese Aktion abzubrechen.
   classification_from_agent: Klassifizierung von %{agent}.
   classification_from_agent_chosen_by_curator: Klassifikation von %{agent} wurde von %{curator} ausgewählt.
   classification_from_agent_chosen_by_curator_see_more: Klassifizierung von %{agent}, ausgewählt durch %{curator} - <a href="%{more_link}">mehr dazu</a>.
+  classification_merge_help: <b>Sie sind gerade dabei eine Klassifikation von dieser Seite zu verschieben.</b> Um fortfahren zu können, müssen Sie uns mitteilen, welche der vorhandenen Klassifikationen, Ihrer Meinung nach, die Seite dieses Taxons am <i>besten</i> darstellt. Dies hilft uns dabei, die von Ihnen ausgewählte Klassifikation zukünftig von dieser Seiten getrennt zu halten.
   classification_preferred_for_taxon: Bevorzugt
   classification_preferred_for_taxon_help_tip: "%{icon} markiert die bevorzugte Klassifikation zu diesem Taxon."
+  classification_split_help: <b>Sie sind gerade dabei eine Klassifikation von dieser Seite zu trennen.</b> Um fortfahren zu können, müssen Sie uns mitteilen, welche der vorhandenen Klassifikationen, Ihrer Meinung nach, diese Seite am <i>besten</i> darstellt. Dies hilft uns dabei, die von Ihnen ausgewählte Klassifikation zukünftig von dieser Seiten getrennt zu halten.
+  classification_split_warning: <b>Nehmen Sie sich einen Moment Zeit, um sicherzustellen, dass <i>alle</i> der ausgewählten Klassifikationen zur Zielseite passen.</b> Sofern Sie bspw. eine Klassifikation zu einem Knollenblätterpilz von der Seiten zu einem Waschbären trennen oder verschieben, müssen Sie alle Klassifikationen zu Knollenblätterpilzen für diese Aktion auswählen. Für den Fall, dass Sie eine Klassifikation auslassen, wird es später schwierig werden, dies zu bereinigen.
   classification_summary_section_header: Klassifikation
   classification_tree_header: Klassifikation
+  classifications_edit_cancelled_busy: Ihre Anforderung zum Bearbeiten der Klassifikationen kann momentan leider nicht verarbeitet werden. Eine oder mehrere Seiten zu Taxa sind gesperrt. Eine vorhandene Anforderung zum Bearbeiten dieser Klassifikationen wird gerade bearbeitet.
+  classifications_edit_cancelled_merge_to_self: Die Ausgangs- und die Zielseite sind identisch. Es ist nichts zum Verschieben vorhanden.
   classifications_empty: Diese Seite ist in keiner der Klassifikationen enthalten, die auf EOL durchsuchbar sind.
+  classifications_exemplar_column_header: Beispielhaft
   classifications_hierarchy_column_header: Klassifikation
+  classifications_locked: Die Klassifikationen auf dieser Seite können aktuell nicht bearbeitet werden. Eine weitere Anforderung, diese Klassifikationen zu bearbeiten, wird verarbeitet.
+  classifications_merge_additional_confirm_required: Um diese Klassifikationen zusammenzuführen, ist die zusätzliche Bestätigung erforderlich.
+  classifications_merge_providers_match_confirm: Ich bestätige, mich über die Aussage des Inhaltspartners hinwegsetzen zu wollen, dass diese Daten getrennt sein sollten.
+  classifications_merge_providers_match_warning: Sie sind gerade dabei zwei Seiten zusammenzuführen, die nach Aussage von %{provider} voneinander getrennt vorhanden sein sollten. Bitte bestätigen Sie, sofern Sie sich über die Aussage des Inhaltspartners hinwegsetzen wollen und die Daten doch auf der selben Seite angezeigt werden sollen.
   classifications_preferred_column_header: Bevorzugt
   classifications_rank_column_header: Rang
   classifications_recognized_by_column_header: Anerkannt von
+  classifications_split_column_header: Aufteilen / Verschieben
   classifications_summary_header_with_count: 
     one: In einer Klassifikation gefunden
     other: In %{count} Klassifikationen gefunden
@@ -976,7 +926,7 @@ de:
         recent_observations: Aktuelle Beobachtungen
         some_taxon: Etwas
         taxa_observed: 
-          one: Ein beobachtetes Taxon
+          one: "%{count} beobachtetes Taxon"
           other: "%{count} beobachtete Taxa"
         top_contributors: Die aktivsten Mitwirkenden bei iNaturalist
         tweet_text: Beobachtungen von iNaturalist zur Sammlung %{collection_name}
@@ -1005,7 +955,7 @@ de:
     one: Bestandteil einer Sammlung
     other: Bestandteil von %{count} Sammlungen
   collections_with_count: 
-    one: Eine Sammlung
+    one: "%{count} Sammlung"
     other: "%{count} Sammlungen"
   comment: Kommentar
   comment_added_notice: Der Kommentar wurde erfolgreich hinzugefügt.
@@ -1021,21 +971,20 @@ de:
   comment_not_updated_error: Es ist leider ein Fehler aufgetreten, so dass der Kommentar nicht aktualisiert werden konnte.
   comment_or_rate_on_this_article: Diesen Artikel kommentierten oder bewerten
   comment_show_posters_image_alt: Das Profilbild von %{posters_name}, der diesen Kommentar hinterlassen hat.
-  commented_on_your_image: " kommentierte Ihr Bild auf der <a href='%{data_object_link}'>Seite in der Enzyklopädie des Lebens (EOL)</a>:\n%{comment_body}"
   comments: Kommentare
   comments_and_tags: Kommentare und Stichwörter
   comments_filter: Kommentare
   comments_moderated: Moderierte Kommentare
   comments_on: Kommentare zu
   comments_with_count: 
-    one: Ein Kommentar
+    one: "%{count} Kommentar"
     other: "%{count} Kommentare"
   common_activities_by_logged_in: Allgemeine Aktivitäten angemeldeter Nutzer.
   common_name: Gebräuchlicher Name
   common_name_avg: Durchschnittlich vorhandene gebräuchliche Namen
   common_name_exists: Der gebräuchliche Name <em>%{name_string}</em> ist bereits vorhanden.
   common_names_with_count: 
-    one: Ein gebräuchlicher Name
+    one: "%{count} gebräuchlicher Name"
     other: "%{count} gebräuchliche Namen"
   common_user_activity_page_title: Allgemeine Nutzeraktivität
   communities: 
@@ -1065,29 +1014,29 @@ de:
     other: Gehört zu %{count} Gemeinschaften
   communities_that_can_edit_this_collection: Gemeinschaften, die diese Sammlung verwalten können
   communities_with_count: 
-    one: Eine Gemeinschaft
+    one: "%{count} Gemeinschaft"
     other: "%{count} Gemeinschaften"
   community: Gemeinschaft
   community_activity: Aktivitäten der Gemeinschaft
   community_can_now_manage_this_collection: Die Gemeinschaft „%{community}“ ist jetzt berechtigt, diese Sammlung zu verwalten.
   community_contributions_with_count: 
-    one: Ein Mitwirkender
+    one: "%{count} Mitwirkender"
     other: "%{count} Mitwirkende"
   community_description_default: Eine Gemeinschaft der Enzyklopädie des Lebens (EOL).
   community_destroyed: Sie haben diese Gemeinschaft gelöscht. Sie wird nun nicht mehr auf den Seiten zu den Taxa oder bei Suchen angezeigt.
   community_empty_notice: Diese Gemeinschaft hat keine Mitglieder.
   community_focus: Verwaltete Sammlungen
   community_focus_items_with_count: 
-    one: Ein Objekt
+    one: "%{count} Objekt"
     other: "%{count} Objekte"
   community_invitation_comment: Ich möchte Sie dazu einladen der Gemeinschaft „%{community}“ beizutreten.
   community_logo_alt_text: Logo der Gemeinschaft %{community_name}
   community_managers_with_count: 
-    one: Ein Gemeinschaftsbetreuer
+    one: "%{count} Gemeinschaftsbetreuer"
     other: "%{count} Gemeinschaftsbetreuer"
   community_members: Mitglieder der Gemeinschaft
   community_members_with_count: 
-    one: Ein Gemeinschaftsmitglied
+    one: "%{count} Gemeinschaftsmitglied"
     other: "%{count} Gemeinschaftsmitglieder"
   community_name_label: Name der Gemeinschaft
   community_newsfeed: Neuigkeitenfeed der Gemeinschaft
@@ -1305,7 +1254,7 @@ de:
   content_partners_page_description: Inhaltspartner der Enzyklopädie des Lebens (EOL) verfügen, auf deren eigenen Websites oder in deren eigenen Datenbanken, über umfangreiche Informationen zur biologischen Vielfalt, die sie zudem über die Seiten von EOL verfügbar machen. Wir schätzen Ihre kritischen Beiträge zur Mission von EOL und ermutigen Sie mehr zu ihr in Erfahrung zu bringen. Informieren Sie sich darüber, wie Sie <a href="%{more_url}">ein Inhaltspartner werden können</a>.
   content_partners_page_title: Inhaltspartner
   content_partners_with_count: 
-    one: Ein Inhaltspartner
+    one: "%{count} Inhaltspartner"
     other: "%{count} Inhaltspartner"
   content_server_full_url: Vollständige URL des Servers mit den Inhalten
   content_servers: Server mit Inhalten
@@ -1331,11 +1280,11 @@ de:
     one: Kopierte alle Objekte aus %{name} in eine Sammlung.
     other: Kopierte alle Objekte aus %{name} in %{count} Sammlungen.
   copied_items_from_collection_with_count_notice: 
-    one: Ein Objekt von %{name} kopiert.
+    one: "%{count} Objekt von %{name} kopiert."
     other: "%{count} Objekte von %{name} kopiert."
   copy: Kopieren
   copy_items_to_a_new_collection_with_count: 
-    one: Ein Objekt in eine neue Sammlung kopieren
+    one: "%{count} Objekt in eine neue Sammlung kopieren"
     other: "%{count} Objekte in eine neue Sammlung kopieren"
   copy_of_name: Kopie von %{name}
   copyright: "Rechtlich geschützt für:"
@@ -1344,7 +1293,7 @@ de:
   could_not_find_user: Sie sind nicht Mitglied dieser Gemeinschaft.
   count: Anzahl
   count_results_for_search_term: 
-    one: Ein Ergebnis zu <em>%{search_term}</em>
+    one: "%{count} Ergebnis zu <em>%{search_term}</em>"
     other: "%{count} Ergebnisse zu <em>%{search_term}</em>"
   create_a_collection: Eine Sammlung erstellen
   create_a_community: Eine Gemeinschaft gründen
@@ -1403,7 +1352,7 @@ de:
     other: Geprüft von %{count} Kuratoren
   curators_summary_learn_more_link: Erfahren Sie, wie man kuratiert
   curators_with_count: 
-    one: Ein Kurator
+    one: "%{count} Kurator"
     other: "%{count} Kuratoren"
   current_language: "Sprache: %{iso_code}"
   currently_in_eol: "Derzeit in der Enzyklopädie des Lebens verzeichnet:"
@@ -1475,7 +1424,6 @@ de:
   details_title: Einzelheiten
   development_version_name: EOL V2 Beta
   did_you_mean: "Meinten Sie: %{suggestions}?"
-  disable_email_notifications_colon: "Deaktivierte E-Mail-Benachrichtigungen:"
   disabled_for_now: MOMENTAN DEAKTIVIERT
   discover_link: Entdecken
   displaying_numerical_range: Von %{start_number} bis %{end_number} von %{total} anzeigen
@@ -1541,7 +1489,7 @@ de:
   endorsed_by: Präsentiert von
   endorsed_collections: Empfohlene Sammlungen
   endorsed_collections_with_count: 
-    one: Eine empfohlene Sammlung
+    one: "%{count} empfohlene Sammlung"
     other: "%{count} empfohlene Sammlungen"
   enter_in_a_search_term_users_a: Geben Sie einen Suchbegriff ein, nach dem die Nutzer suchen, und dann die Seitenkennung des Taxons als Ziel einer entsprechenden Suche. Die Seitenkennung des Taxons ist aus der URL des Taxons ersichtlich, z. B. hat www.eol.org/pages/5 die Seitenkennung 5. Der Seitenname und das erste Bild werden, sofern sie verfügbar sind, automatisch hinzugefügt und mit dem angegebenen Ergebnis gespeichert.
   eol_administration_console: EOL-Verwaltungskonsole
@@ -1624,7 +1572,7 @@ de:
   filter_by_type: Nach Typ filtern
   filter_by_type_all_option: Alle Typen
   filter_by_type_all_option_with_count: 
-    one: Ein Typ
+    one: "%{count} Typ"
     other: Alle Typen (%{count})
   filter_by_type_collection_option: Sammlungen
   filter_by_type_comment_option: Kommentare
@@ -1632,14 +1580,14 @@ de:
   filter_by_type_content_page_option: EOL-Informationsseiten
   filter_by_type_image_option: Bilder
   filter_by_type_image_option_with_count: 
-    one: Ein Bild
+    one: "%{count} Bild"
     other: "%{count} Bilder"
   filter_by_type_name_option: Namen
   filter_by_type_object_curated_option: Kuratierte Objekte
   filter_by_type_photosynth_option: Photonsynthetisch aktive
   filter_by_type_sound_option: Geräusche
   filter_by_type_sound_option_with_count: 
-    one: Ein Geräusch
+    one: "%{count} Geräusch"
     other: "%{count} Geräusche"
   filter_by_type_taxa_comment_option: Kommentare zu Taxa
   filter_by_type_taxon_concept_option: Taxa
@@ -1647,7 +1595,7 @@ de:
   filter_by_type_user_option: Menschen
   filter_by_type_video_option: Videos
   filter_by_type_video_option_with_count: 
-    one: Ein Video
+    one: "%{count} Video"
     other: "%{count} Videos"
   filter_media: Medien filtern
   filter_newsfeed_option_all: Alle
@@ -1996,7 +1944,7 @@ de:
     one: Bilder werden absteigend nach deren Importdatum in EOL sortiert. Es befindet sich ein Bild in dieser Arbeitsliste.
     other: Bilder werden absteigend nach deren Importdatum in EOL sortiert. Es befinden sich %{count} Bilder in dieser Arbeitsliste.
   images_with_count: 
-    one: Ein Bild
+    one: "%{count} Bild"
     other: "%{count} Bilder"
   import_once: Einmal importieren
   in_collection: in der Sammlung
@@ -2051,7 +1999,7 @@ de:
   items_no_move_none_selected_warning: Da keine Objekte ausgewählt wurden, konnten auch keine verschoben werden. Um Objekte in eine andere Sammlung verschieben zu können, müssen Sie zunächst in der Liste der Objekte das Auswahlfeld neben den Objekten anklicken, die Sie verschieben möchten.
   items_no_remove_none_selected_warning: Da keine Objekte ausgewählt wurden, konnten auch keine entfernt werden. Um Objekte aus einer Sammlung entfernen zu können, müssen Sie zunächst in der Liste der Objekte das Auswahlfeld neben den Objekten anklicken, die Sie entfernen möchten.
   items_with_count_semi_colon: 
-    one: Ein Objekt;
+    one: "%{count} Objekt;"
     other: "%{count} Objekte;"
   iucn_red_list_status_advisory_information: Dieser Link führt zur Website der International Union for Conservation of Nature and Natural Resources (IUCN) auf der Sie weitere Informationen zur Roten Liste bedrohter Arten der IUCN finden können.
   join_community_button: Dieser Gemeinschaft beitreten
@@ -2062,6 +2010,7 @@ de:
   json_response: JSON-Antwort
   jsonp_by_adding_a_callback_parameter: … und JSNOP, indem Sie einen Parameter zum Rückruf hinzufügen
   just_pages_with_pictures_and_text: Nur Seiten mit Bildern und Texten
+  keep_split_entry_from_this_entry: Von diesem Eintrag getrennt vorhalten
   label: Bezeichnung
   language: "Sprache:"
   language_selector_advisory_information: Nachstehend folgt eine Liste der Sprachen, in denen die Inhalte der Website verfügbar sind. Um die aktuell genutzte Sprache zu ändern, wählen Sie bitte eine andere Sprache aus dieser Liste.
@@ -2147,7 +2096,7 @@ de:
   manage_your_profile: Verwalten Sie Ihr Profil
   managed_by: Verwaltet von
   managed_collections_with_count: 
-    one: Eine verwaltete Sammlung
+    one: "%{count} verwaltete Sammlung"
     other: "%{count} verwaltete Sammlungen"
   manager_endorse_collections_suggestion: Um eine Sammlung auf der Seite dieser Gemeinschaft präsentieren zu können, müssen Sie die zu präsentierende Sammlung den von dieser Gemeinschaft verwalteten Sammlungen hinzufügen.
   manager_parens: (Verwalter)
@@ -2191,12 +2140,15 @@ de:
       tweet_text: "%{member_name} Mitglied von %{community_name}"
   members_like_you: Mitglieder wie Sie
   members_with_count: 
-    one: Ein Mitglied
+    one: "%{count} Mitglied"
     other: "%{count} Mitglieder"
   members_with_count_semi_colon: 
-    one: Ein Mitglied;
+    one: "%{count} Mitglied;"
     other: "%{count} Mitglieder;"
   merge_concepts: Konzepte zusammenführen
+  merge_data: Klassifikationen zusammenführen
+  merge_data_ready: Sie sind nun entweder bereit die Daten der folgenden Klassifikationen mit dieser Seite zu einem Taxon zusammenzuführen oder sie zu einer gesonderten Seite abzutrennen. Bitte seien Sie sich <i>absolut</i> sicher, dass Sie alle Klassifikationen ausgewählt haben, die das Zieltaxon betreffen. Sofern Sie beispielsweise eine Motte von einer Seite zu einem Pilz entfernen, prüfen Sie unbedingt <i>alle</i> oben angezeigten Klassifikationen, um sicherzustellen, dass Sie alle zur (gleichen) Motte, ausgewählt haben.
+  merge_pending: Das Zusammenführen der Klassifikationen nimmt Zeit in Anspruch. Die Seiten mit den betroffenen Taxa werden nun für die Bearbeitung von Klassifikationen gesperrt, bis die Zusammenführung fertig durchgeführt wurde. Sie werden eine E-Mail mit der Information zur Fertigstellung der Zusammenführung erhalten. Zudem wird eine entsprechende Information im Neuigkeitenfeed der Seite angezeigt werden.
   message_colon: "Nachricht:"
   meta_description_colon: "Meta-Beschreibung:"
   meta_keywords_colon: "Meta-Keywords:"
@@ -2236,15 +2188,14 @@ de:
   more_children_with_count: 
     one: "%{count} mehr …"
     other: "%{count} mehr …"
-  more_information_on_the_various_licenses: Lizenzen. Besuchen Sie deren Website für weitere Informationen bezüglich der verschiedenen Lizenzen, die sie anbieten.
   more_siblings_with_count: 
-    one: Ein weiteres Geschwister ...
+    one: "%{count} weiteres Geschwister ..."
     other: "%{count} weitere Geschwister ..."
   most_active_members: Aktivste Mitglieder
   move: Verschieben
   move_down: Nach unten verschieben
   move_items_to_a_new_collection_with_count: 
-    one: Ein Objekt zu einer neuen Sammlung verschieben
+    one: "%{count} Objekt zu einer neuen Sammlung verschieben"
     other: "%{count} Objekte zu einer neuen Sammlung verschieben"
   move_to_bottom: an das Ende verschieben
   move_to_top: an den Anfang verschieben
@@ -2256,7 +2207,7 @@ de:
     one: Verschob alle Objekte aus %{name} in eine Sammlung.
     other: Verschob alle Objekte aus %{name} in %{count} Sammlungen.
   moved_items_from_collection_with_count_notice: 
-    one: Ein Objekt von %{name} verschoben.
+    one: "%{count} Objekt von %{name} verschoben."
     other: "%{count} Objekte von %{name} verschoben."
   must_be_associated_with_either_a_user_or_a_community: Muss entweder einem Nutzer oder einer Gemeinschaft zugeordnet sein.
   must_be_checked_in_to_show: "- muss selektiert sein, um es Nutzern anzuzeigen"
@@ -2265,7 +2216,7 @@ de:
   must_be_logged_in: Um diese Aktion ausführen zu können, muss man angemeldet sein.
   must_provide_search_term_error: Sie müssen einen Suchbegriff eingeben.
   my_activity: Meine Aktivitäten
-  my_info: Meine Informationen
+  my_info: Informationen zu mir
   name: Name
   name_colon: "Name:"
   name_not_in_select_an_alternate: Der Name befindet sich nicht in der Hierarchie %{hierarchy}. Wählen Sie eine andere Hierarchie aus der obigen Liste.
@@ -2312,6 +2263,7 @@ de:
   next: Nächste
   no_active_members: Bislang gab es noch keine ausreichenden Aktivitäten.
   no_answer: Nein
+  no_classificaitons_selected: Es wurde keine Klassifikation ausgewählt. Es ist nichts zum Verschieben vorhanden.
   no_collections_apply: Zu keiner Sammlung, zu der Sie Zugang haben, können Verwalter hinzugefügt werden.
   no_comments_are_available_for_subject: Zu %{subject} gibt es keine Kommentare
   no_comments_have_been_left_yet: Bislang wurden noch keine Kommentare hinterlassen.
@@ -2460,13 +2412,13 @@ de:
   original: "ORIGINAL:"
   original_object: Originalobjekt
   other_collection_items_with_count: 
-    one: Ein weiteres Objekt
+    one: "%{count} weiteres Objekt"
     other: "%{count} weitere Objekte"
   other_community_items_with_count: 
-    one: Ein weiteres Objekt
+    one: "%{count} weiteres Objekt"
     other: "%{count} weitere Objekte"
   other_taxa_with_count: 
-    one: Ein weiteres Taxon
+    one: "%{count} weiteres Taxon"
     other: "%{count} weitere Taxa"
   other_us_dollars_amount: "Anderer: USD"
   outlink: Externer Link
@@ -2511,7 +2463,7 @@ de:
   password_must_be_4to16_characters: Das Passwort muss zwischen vier und sechzehn Zeichen lang sein.
   pause: anhalten
   people_with_count: 
-    one: Eine Person
+    one: "%{count} Person"
     other: "%{count} Personen"
   percentage_of_children_with_images: Prozentsatz Untergeordneter mit Bildern
   percentage_of_children_with_text: Prozentsatz Untergeordneter mit Text
@@ -2596,7 +2548,7 @@ de:
       one: Es gab eine Aktualisierung zu %{to}.
       other: Es gab %{count} Aktualisierunen zu %{to}.
     bulk_community_joins_with_count: 
-      one: Ein neues Mitglied trat %{community} bei.
+      one: "%{count} neues Mitglied trat %{community} bei."
       other: "%{count} neue Mitglieder traten %{community} bei."
     bulk_curation_with_count: 
       one: Kuratoren haben eine Verbesserung an %{to} durchgeführt.
@@ -2636,14 +2588,14 @@ de:
   record_not_found: "[Datensatz wurde nicht gefunden]"
   references_cabs_colon: "Quellennachweise:"
   related_names_with_count: 
-    one: Ein ähnlicher Name
+    one: "%{count} ähnlicher Name"
     other: "%{count} ähnliche Namen"
   remove: Entfernen
   remove_curatorship_colon: "Kuratierung entfernen:"
   remove_data_object_association: Zuordnung entfernen
   remove_membership: Gemeinschaftszugehörigkeit beenden
   removed_count_items_from_collection_notice: 
-    one: Ein Objekt wurde aus dieser Sammlung entfernt.
+    one: "%{count} Objekt wurde aus dieser Sammlung entfernt."
     other: "%{count} Objekte wurden aus dieser Sammlung entfernt."
   reply: Antworten
   request: Anfrage
@@ -2670,7 +2622,7 @@ de:
   revisions: Versionen
   revoke_full_curator_link: Widerrufen
   revoke_manager_link: Verwalterrechte widerrufen
-  richness_score: Reichtumswert
+  richness_score: Reichhaltigkeitswert
   rights: Berechtigungen
   rights_holder: Rechteinhaber
   rights_statement: Urheberrechtserklärung
@@ -2764,7 +2716,7 @@ de:
       problems_signing_in_with_connected_accounts: Probleme beim Anmelden mit den verbundenen Nutzerkonten?
       problems_signing_in_with_eol_authentication: Passwort vergessen?
       tip: Bereits Nutzer? Verknüpfen Sie Ihr Konto bei der EOL mit Facebook, Google und anderen Diensten in Ihren Profileinstellungen. Sobald Ihre Konten verknüpft sind, können Sie sie dazu nutzen sich bei der EOL anzumelden.
-  set_as_exemplar: Als Beispiel festlegen
+  set_as_exemplar: Als beispielhaft festlegen
   share_a_collection: Eine Sammlung mit anderen teilen
   show: Zeige
   show_all_other_classifications_with_count: 
@@ -2773,6 +2725,7 @@ de:
   show_data_from_all_content_partners: Klassifikationenfilter entfernen
   show_email_message_area: "[Textbereich der E-Mail anzeigen]"
   show_full_tree: Die gesamte Gliederung anzeigen …
+  show_in_overview: in der Übersicht anzeigen
   show_status_message: Statusmeldung anzeigen
   show_tasks: Aufgaben anzeigen
   show_warning_message: Warnmeldung anzeigen
@@ -2826,7 +2779,7 @@ de:
   sound_of_taxon: Audiodatei zu %{taxon_name}
   sound_rating: Geräuschbewertung
   sounds_with_count: 
-    one: Eine Tonaufnahme
+    one: "%{count} Tonaufnahme"
     other: "%{count} Tonaufnahmen"
   source_and_additional_information: Quelle und weitere Informationen
   source_colon: "Quelle:"
@@ -2839,13 +2792,17 @@ de:
   species_profile_model: Artenbeschreibungsmodell (SPM)
   species_profile_model_cp_count_title: Artenprofilmodell - Inhaltspartnerzählung
   species_profile_model_dato_count_title: Artenprofilmodell - Datenobjektzählung
-  split_into_new_concept: in ein neues Konzept aufteilen
+  split_cancelled: Das Aufteilen wurde abgebrochen.
+  split_classification_instructions: Um den Hierarchieeintrag von dieser EOL-Seite zu entfernen, müssen Sie zunächst den Hierarchieeintrag auswählen, der am besten darstellt, was sich auf der Seite befinden SOLLTE. So werden zukünftige Datenabrufe die beiden Hierarchieeinträge voneinander getrennt halten.
+  split_into_new_concept: auf eine neue Seite aufteilen
+  split_only_possible_with_all_classifications: Obwohl Sie die Berechtigung zum Aufteilen von Klassifikationen besitzen, müssen Sie sich zunächst <a href='%{link}'>alle Klassifikationen anzeigen lassen</a>, bevor Sie diese Aktion durchführen können.
+  split_pending: Das Aufteilen der Klassifikationen nimmt Zeit in Anspruch. Diese Seite wird nun für die Bearbeitung von Klassifikationen gesperrt, bis die Aufteilung fertig durchgeführt wurde. Sie werden eine E-Mail mit der Information zur Fertigstellung des Aufteilens erhalten. Zudem wird eine entsprechende Information im Neuigkeitenfeed der Seite angezeigt werden.
   spm_category: SPM-Kategorie
   spm_category_objects_count: SPM-Kategorie - Objektanzahl
   spm_category_partner_count: SPM-Kategorie - Inhaltspartneranzahl
   started: Gestartet
   stat: Statistik
-  statistics: Statistiken
+  stored_classifications: Bitte beachten Sie, dass Sie <a href='%{anchor}'>unten Klassifikationen gespeichert haben</a>.
   sub_heading: Untergeordnete Überschrift
   subject: Betreff
   submit: Speichern
@@ -2859,7 +2816,7 @@ de:
   switch_language_advisory_information: Sprache der Website zu %{language_label} umschalten
   synonym: Synonym
   synonyms_with_count: 
-    one: Ein Synonym
+    one: "%{count} Synonym"
     other: "%{count} Synonyme"
   table_column_header_actions: Aktionen
   table_of_contents: Inhaltsverzeichnis
@@ -2872,7 +2829,7 @@ de:
   task_status_curated_option: Kuratiert
   task_status_ignored_option: Ignoriert
   tasks_with_count: 
-    one: Eine Aufgabe gefunden
+    one: "%{count} Aufgabe gefunden"
     other: "%{count} Aufgaben gefunden"
   taxa: 
     communities: 
@@ -3127,7 +3084,7 @@ de:
         tweet_text: Reichhaltigkeitswert für %{scientific_name}
   taxa_column_header: Taxa
   taxa_with_count: 
-    one: Ein Taxon
+    one: "%{count} Taxon"
     other: "%{count} Taxa"
   taxon: Taxon
   taxon_biomedical_terms_link: Biomedizinsiche Begriffe
@@ -3176,7 +3133,7 @@ de:
   text_summary_empty_header: Kurzzusammenfassung
   text_summary_more_link: Den vollständige Eintrag lesen
   text_with_count: 
-    one: Ein Artikel
+    one: "%{count} Artikel"
     other: "%{count} Artikel"
   thank_you: Vielen Dank
   thank_you_for_your_generous_support: Vielen Dank für Ihre großzügige Unterstützung
@@ -3259,7 +3216,7 @@ de:
   topics_avilable_to_contact_us_info: Die folgenden Themengebiete sind über die Kontaktseite verfügbar. Sie können Themengebiete, sowie die entsprechenden E-Mail-Adressen, hinzufügen oder bearbeiten. Alle Änderungen werden sofort wirksam.
   total: Insgesamt
   total_comments_have_been_submitted: 
-    one: Ein Kommentar wurde in %{string} abgegeben
+    one: "%{count} Kommentar wurde in %{string} abgegeben"
     other: "%{count} Kommentart wruden in %{string} abgegeben"
   total_distinct_searches: "Gesamtzahl unterschiedlicher Suchen:"
   total_items_with_count: 
@@ -3316,6 +3273,8 @@ de:
   us_dollars_100: 100 USD
   us_dollars_35: 35 USD
   us_dollars_50: 50 USD
+  use_as_examplar_button: als beispielhaft verwenden
+  use_as_examplar_note_preferred: "Hinweis: Diese Klassifikation ist eine bevorzugte. Wahrscheinlich möchte Sie sie verwenden."
   used_for_friendly_url_note: (wird verwendet, um nutzerfreundliche Links zu erzeugen; darf weder Leer- noch Sonderzeichen enthalten)
   used_for_urls_note: wird für URLs verwendet - sollte eindeutig sein (übersetzte Seiten ausgenommen); anderenfalls müssen URLs die Seitenkennung enthalten
   user: Nutzer
@@ -3326,44 +3285,47 @@ de:
   user_activity_page_title: Nutzeraktivität
   user_activity_report_intro: Aktivitätenbericht zu Nutzern. Wählen Sie einen einzelnen Nutzer aus, um dessen Aktivitäten einzusehen, die in umgekehrter zeitlicher Reihenfolge sortiert angezeigt werden. Wählen Sie „Alle“, um alle Aktivitäten des Nutzers angezeigt zu bekommen. Klicken Sie danach auf „Suchen“, um fortzufahren. Sie können die Schaltfläche „Zurück“ Ihres Browsers nutzen, um an diese Stellen zurückzukehren.
   user_activity_stats_articles_added: 
-    one: Ein hinzugefügter Artikel
+    one: "%{count} hinzugefügter Artikel"
     other: "%{count} hinzugefügte Artikel"
   user_activity_stats_articles_added_dropdown: Hinzugefügte Artikel
   user_activity_stats_comment_submitted: 
-    one: Ein hinterlassener Kommentar
+    one: "%{count} hinterlassener Kommentar"
     other: "%{count} hinterlassene Kommentare"
   user_activity_stats_common_names_added: 
-    one: Einen gebräuchlichen Namen hinzugefügt
+    one: "%{count} gebräuchlichen Namen hinzugefügt"
     other: "%{count} gebräuchliche Namen hinzugefügt"
   user_activity_stats_common_names_curated: 
-    one: Einen gebräuchlichen Namen kuratiert
+    one: "%{count} gebräuchlichen Namen kuratiert"
     other: "%{count} gebräuchliche Namen kuratiert"
   user_activity_stats_common_names_removed: 
-    one: Einen gebräuchlichen Namen entfernt
+    one: "%{count} gebräuchlichen Namen entfernt"
     other: "%{count} gebräuchliche Namen entfernt"
-  user_activity_stats_header: Aktivität
+  user_activity_stats_header: Meine Aktivitäten
   user_activity_stats_objects_curated: 
-    one: Ein Objekt kuratiert
+    one: "%{count} Objekt kuratiert"
     other: "%{count} Objekt kuratiert"
   user_activity_stats_objects_curated_dropdown: Kuratierte Objekte
   user_activity_stats_preferred_classifications_selected: 
-    one: Eine bevorzugte Klassifizierung ausgewählt
+    one: "%{count} bevorzugte Klassifizierung ausgewählt"
     other: "%{count} bevorzugte Klassifizierungen ausgewählt"
+  user_activity_stats_selected_articles_for_overview: 
+    one: "%{count} Artikel wurde für die Übersicht ausgewählt"
+    other: "%{count} Artikel wurden für die Übersicht ausgewählt"
   user_activity_stats_set_exemplar: 
-    one: Ein Bild als exemplarisch festgelegt
+    one: "%{count} Bild als exemplarisch festgelegt"
     other: "%{count} Bilder als exemplarisch festgelegt"
   user_activity_stats_taxa_commented: 
-    one: Ein Taxon kommentiert
+    one: "%{count} Taxon kommentiert"
     other: "%{count} Taxa kommentiert"
   user_activity_stats_taxa_comments: 
-    one: Einen Kommentar zu Taxa
+    one: "%{count} Kommentar zu Taxa"
     other: "%{count} Kommentare zu Taxa"
   user_activity_stats_taxa_comments_dropdown: Kommentare zu Taxa
   user_activity_stats_taxa_curated: 
-    one: Ein Taxon kuratiert
+    one: "%{count} Taxon kuratiert"
     other: "%{count} Taxa kuratiert"
   user_activity_stats_wikipedia_nominated: 
-    one: Einen Wikipedia-Artikel nominiert
+    one: "%{count} Wikipedia-Artikel nominiert"
     other: "%{count} Wikipedia-Artikel nominiert"
   user_agent: Browser
   user_already_active_notice: Ihr Konto ist bereits aktiv. Bitte melden Sie sich an.
@@ -3384,11 +3346,11 @@ de:
   user_pending_notifications_assitive: <span class="assistive">Benachrichtigungen</span>
   user_pending_notifications_comments_assistive: <span class="assistive">Kommentare</span>
   user_pending_notifications_comments_with_count_assistive: 
-    one: Ein <span class="assistive">Kommentar</span>
+    one: "%{count} <span class=\"assistive\">Kommentar</span>"
     other: "%{count}<span class=\"assistive\">Kommentare</span>"
   user_pending_notifications_with_count_assitive: 
-    one: Eine <span class="assistive">Benachrichtigung</span>
-    other: "%{count}<span class=\"assistive\">Benachrichtigungen</span>"
+    one: "%{count} <span class=\"assistive\">Benachrichtigung</span>"
+    other: "%{count} <span class=\"assistive\">Benachrichtigungen</span>"
   user_response: Nutzerantwort
   user_says_colon: "%{users_name} sagt:"
   user_submitted_text: Von Nutzern verfasster Text
@@ -3552,17 +3514,17 @@ de:
   users_content_partners_header: Inhaltspartner
   users_content_partners_information: Inhaltspartner von EOL sind Einzelpersonen oder Organisationen, die ihre Daten zur Biodiversität weltweit mit Hilfe von EOL zugänglich machen. Erfahren Sie mehr zu <a href="%{more_url}">Inhaltspartnern von EOL</a>.
   users_content_partners_with_count: 
-    one: Ein aktueller Inhaltspartner
+    one: "%{count} aktueller Inhaltspartner"
     other: "%{count} aktuelle Inhaltspartner"
-  users_curation_header: Qualifikationen von Kuratoren
+  users_curation_header: Meine Qualifikationen als Kurator
   users_form_account_header: Ihr Konto
-  users_form_curation_header: Qualifikationen von Kuratoren
+  users_form_curation_header: Meine Qualifikationen als Kurator
   users_form_profile_info_header: Öffentliche Profilinformationen
   users_form_tip: Ein Nutzername wird von allen Nutzern benötigt. Weitere, als erforderlich %{required_icon} gekennzeichnete Angaben sind optional für Nutzer, aber verpflichtend für Kuratoren.
   users_member_of_count_communities: 
     one: Mitglied einer Gemeinschaft
     other: Mitglied von %{count} Gemeinschaften
-  users_my_info_header: Meine Informationen
+  users_my_info_header: Informationen zu mir
   users_that_can_edit_this_collection: Nutzer, die diese Sammlung verwalten können
   using_the_site: Nutzung der Website
   validation_error: Überprüfungsfehler
@@ -3582,7 +3544,7 @@ de:
   video_rating: Videobewertung
   video_title_not_available_in_language: Der Titel ist nicht auf %{language} vorhanden.
   videos_with_count: 
-    one: Ein Video
+    one: "%{count} Video"
     other: "%{count} Videos"
   view_added_text: hinzugefügten Text anzeigen
   view_article_source: Artikelquelltext anzeigen
@@ -3602,7 +3564,7 @@ de:
   view_map_source: Quelle der Karte anzeigen
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Nur Seiten mit mindestens einem Bild oder Text anzeigen.
   view_sound_source: Quelle der Audiodatei anzeigen
-  view_source: Quelltext anzeigen
+  view_source: Quelle anzeigen
   view_this_hierarchy: diese Hierarchie ansehen
   view_translation_source_link: Übersetzungsquelltext anzeigen
   view_user_activity: Nutzeraktivität anzeigen

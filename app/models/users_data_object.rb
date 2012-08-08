@@ -47,7 +47,7 @@ class UsersDataObject < ActiveRecord::Base
   end
 
   def can_be_deleted_by?(requestor)
-    false # TODO - do we really want: user == requestor   ? ...seems so, but wasn't speced that way.
+    false # The original association with the taxon concept while creating the udo should not be removed(same like we don't remove the DOHE associations provided by CPs).
   end
 
 private

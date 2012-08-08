@@ -280,7 +280,7 @@ en:
         rich_hotlist_pages: "Rich Hotlist pages"
         redhotlist_pages: "Red Hotlist pages"
         rich_redhotlist_pages: "Rich Red Hotlist pages"
-        pages_with_score_10_to_39: "Pages with score 10-39"
+        pages_with_score_10_to_39: "Pages with score 10-40"
         pages_with_score_less_than_10: "Pages with score less than 10"
         # lifedesk stats
         lifedesk_taxa: "LifeDesks taxa"
@@ -426,13 +426,13 @@ en:
             accesspoint_url:
               blank: "can't be blank, unless you upload a resource file instead"
               inaccessible: "is inaccessible, the URL must be publicly accessible"
-              invalid: "is invalid, it should point to a XML, XML.GZIP or XML.GZ file"
+              invalid: "is invalid, it should point to a XML, XML.GZIP, XML.GZ or ZIP file"
             dataset:
               blank: "can't be blank unless you provide a dataset URL instead"
-              wrong_type: "is the wrong type, it should be a GZIP, TAR or XML file"
+              wrong_type: "is the wrong type, it should be a GZIP, TAR, ZIP or XML file"
             dwc_archive_url:
               inaccessible: "is inaccessible, the URL must be publicly accessible"
-              invalid: "is invalid, it should point to a TAR.GZIP, TAR.GZ or TGZ file"
+              invalid: "is invalid, it should point to a TAR.GZIP, TAR.GZ, TGZ or ZIP file"
   helpers:
     label:
       collection:
@@ -491,6 +491,8 @@ en:
         rights_statement_more: "Statement of usage rights as required by Creative Commons Attribution (CC-BY) licenses, please state attribution <q cite=\"http://creativecommons.org/licenses/by/3.0\">in the manner specified by the author or licensor</q>."
         source_url: "URL to original data object"
       eol_statistic:
+        date_one: "Date"
+        date_two: "Date"
         download_all: "All <small>(include records from all pages)</small>"
       google_analytics_partner_summaries:
         taxa_pages: "Pages <small>(number of pages)</small>"
@@ -620,6 +622,7 @@ en:
         create_text: "Add article"
         update: "Save article"
       eol_statistic:
+        change_date: "Get statistics for dates"
         download_csv: "Download as CSV"
       harvest_event:
         publish: "Publish"
@@ -668,40 +671,95 @@ en:
   faker:
     lorem:
       words: [alias, consequatur, aut, perferendis, sit, voluptatem, accusantium, doloremque, aperiam, eaque, ipsa, quae, ab, illo, inventore, veritatis, et, quasi, architecto, beatae, vitae, dicta, sunt, explicabo, aspernatur, aut, odit, aut, fugit, sed, quia, consequuntur, magni, dolores, eos, qui, ratione, voluptatem, sequi, nesciunt, neque, dolorem, ipsum, quia, dolor, sit, amet, consectetur, adipisci, velit, sed, quia, non, numquam, eius, modi, tempora, incidunt, ut, labore, et, dolore, magnam, aliquam, quaerat, voluptatem, ut, enim, ad, minima, veniam, quis, nostrum, exercitationem, ullam, corporis, nemo, enim, ipsam, voluptatem, quia, voluptas, sit, suscipit, laboriosam, nisi, ut, aliquid, ex, ea, commodi, consequatur, quis, autem, vel, eum, iure, reprehenderit, qui, in, ea, voluptate, velit, esse, quam, nihil, molestiae, et, iusto, odio, dignissimos, ducimus, qui, blanditiis, praesentium, laudantium, totam, rem, voluptatum, deleniti, atque, corrupti, quos, dolores, et, quas, molestias, excepturi, sint, occaecati, cupiditate, non, provident, sed, ut, perspiciatis, unde, omnis, iste, natus, error, similique, sunt, in, culpa, qui, officia, deserunt, mollitia, animi, id, est, laborum, et, dolorum, fuga, et, harum, quidem, rerum, facilis, est, et, expedita, distinctio, nam, libero, tempore, cum, soluta, nobis, est, eligendi, optio, cumque, nihil, impedit, quo, porro, quisquam, est, qui, minus, id, quod, maxime, placeat, facere, possimus, omnis, voluptas, assumenda, est, omnis, dolor, repellendus, temporibus, autem, quibusdam, et, aut, consequatur, vel, illum, qui, dolorem, eum, fugiat, quo, voluptas, nulla, pariatur, at, vero, eos, et, accusamus, officiis, debitis, aut, rerum, necessitatibus, saepe, eveniet, ut, et, voluptates, repudiandae, sint, et, molestiae, non, recusandae, itaque, earum, rerum, hic, tenetur, a, sapiente, delectus, ut, aut, reiciendis, voluptatibus, maiores, doloribus, asperiores, repellat]
+  datepicker:
+    day_names:
+      - Sunday
+      - Monday
+      - Tuesday
+      - Wednesday
+      - Thursday
+      - Friday
+      - Saturday
+    day_names_short:
+      - Sun
+      - Mon
+      - Tue
+      - Wed
+      - Thu
+      - Fri
+      - Sat
+    day_names_min:
+      - Su
+      - Mo
+      - Tu
+      - We
+      - Th
+      - Fr
+      - Sa
+    close: Close
+    current: Today
+    month_names:
+      - January
+      - February
+      - March
+      - April
+      - May
+      - June
+      - July
+      - August
+      - September
+      - October
+      - November
+      - December
+    month_names_short:
+      - Jan
+      - Feb
+      - Mar
+      - Apr
+      - May
+      - Jun
+      - Jul
+      - Aug
+      - Sep
+      - Oct
+      - Nov
+      - Dec
+    next: Next
+    previous: Previous
   # start of views scope
   admins:
-    statistics:
-      content_partner_link: "Content partners"
-      curator_link: "Curator statistics"
-      data_object_link: "Data objects"
-      index_link: "Overall statistics"
-      lifedesk_link: "LifeDesks"
-      marine_link: "Marine statistics"
-      page_richness_link: "Rich pages"
-      user_added_data_link: "User-submitted text"
-      content_partner:
+    eol_statistics:
+      content_partners:
+        menu_link: "Content partners"
         page_header: "Content Partner Statistics"
         page_title: "Administration: Content Partner Statistics"
-      curator:
+      curators:
+        menu_link: "Curator statistics"
         page_header: "Curator Statistics"
         page_title: "Administration: Curator Statistics"
-      data_object:
+      data_objects:
+        menu_link: "Data objects"
         page_header: "Data Object Statistics"
         page_title: "Administration: Data Object Statistics"
       index:
+        menu_link: "Overall statistics"
         page_header: "Overall Statistics"
         page_title: "Administration: Overall Statistics"
         table_caption: "Overall site statistics created at %{created_at_time}"
-      lifedesk:
+      lifedesks:
+        menu_link: "LifeDesks"
         page_header: "LifeDesks Statistics"
         page_title: "Administration: LifeDesks Statistics"
       marine:
+        menu_link: "Marine statistics"
         page_header: "Marine Coverage in EOL"
         page_title: "Administration: Marine Statistics"
       page_richness:
+        menu_link: "Rich pages"
         page_header: "Rich Page Statistics"
         page_title: "Administration: Rich Pages Statistics"
-      user_added_data:
+      users_data_objects:
+        menu_link: "User-submitted text"
         page_header: "User-Submitted Text Statistics"
         page_title: "Administration: User-Submitted Text Statistics"
   contacts:
@@ -810,6 +868,42 @@ en:
       meta_supplier_default: "a contributor"
       meta_title: "%{dato_title} from %{supplier}"
       tweet_text: "%{dato_title} from %{supplier}"
+  eol_statistics:
+    comparing_dates: "<span class=\"assistive\">Comparing</span> <span class=\"date_one\">%{date_one}</span> <span class=\"assistive\">and</span> <span class=\"date_two\">%{date_two}</span>"
+    warnings:
+      stats_unavailable_for_date: "Sorry, statistics are not avaliable for %{date}. Please select another date."
+    content_partners:
+      menu_link: "Content partners"
+      page_header: "Content Partners Statistics"
+      page_title: "Statistics"
+    curators:
+      menu_link: "Curator statistics"
+      page_header: "Curator Statistics"
+      page_title: "Statistics"
+    data_objects:
+      menu_link: "Data objects"
+      page_header: "Data Object Statistics"
+      page_title: "Statistics"
+    index:
+      menu_link: "Overall statistics"
+      page_header: "Overall Statistics"
+      page_title: "Statistics"
+    lifedesks:
+      menu_link: "LifeDesks"
+      page_header: "LifeDesks Statistics"
+      page_title: "Statistics"
+    marine:
+      menu_link: "Marine statistics"
+      page_header: "Marine Coverage in EOL"
+      page_title: "Statistics"
+    page_richness:
+      menu_link: "Rich pages"
+      page_header: "Rich Page Statistics"
+      page_title: "Statistics"
+    users_data_objects:
+      menu_link: "User-submitted text"
+      page_header: "User-Submitted Text Statistics"
+      page_title: "Statistics"
   members:
     index:
       meta_description: "Members of %{community_name}, an Encyclopedia of Life community."
@@ -867,6 +961,9 @@ en:
     curator_approved:
       subject: "Your request for Encyclopedia of Life curator privilege %{curator_level} has been approved"
       message: "Thank you for requesting curator privilege %{curator_level}. Your request has been approved.\n\nFor more information on curation and what functions are available to you, visit http://eol.org/curators."
+    unsubscribed_to_notifications:
+      subject: "Sorry to see you go..."
+      message: "You have successully unsubscribed to notifications from Encyclopedia of Life. You can change your email settings or subscribe to notifications at <a href='%{email_prefs_url}'>your notification preferences page</a>.\n\nTo learn more about how to use EOL, including how to create EOL Collections, participate in EOL Communities and contribute content, please visit our help pages at http://eol.org/help."
     user_activated:
       subject: "Your Encyclopedia of Life account has been activated"
       message: "Welcome to the Encyclopedia of Life (EOL) and thank you for registering! Please note your username is %{username} and your profile URL is %{profile_url}. You can log in to your account at http://eol.org/login.\n\nTo learn more about how to use EOL, including how to create EOL Collections, participate in EOL Communities and contribute content, please visit our help pages at http://eol.org/help."
@@ -888,7 +985,8 @@ en:
     intro: "Here is your EOL activity digest for %{time}"
     intro_immediately: "Hello, %{name} —"
     intro_weekly: "Here is your EOL activity digest for the week ending %{ending}"
-    unsubscribe: "Log in and change your email settings or unsubscribe at <a href='%{email_prefs_url}' style='color:#195184'>your notification preferences page</a>. If you experience any problems, please <a href='http://eol.org/contact_us'>contact us</a>."
+    unsubscribe: "Log in and change your email settings on <a href='%{email_prefs_url}' style='color:#195184'>your notification preferences page</a> or <a href='%{unsubscribe_url}' style='color:#195184'>unsubscribe from ALL automated EOL notifications without logging in</a>."
+    contact_us_link: "If you experience any problems, please <a href='http://eol.org/contact_us' style='color:#195184'>contact us</a>."
     see_all_activity: "See all previous activity at <a href='%{activity_url}' style='color:#195184'>your user newsfeed page</a>."
     bulk_comments_with_count:
       one: "There is a new comment on %{on}"
@@ -1314,6 +1412,9 @@ en:
       edit:
         page_description: "All of the updates listed below (except for the EOL newsletter) are available to you in your <a href=\"%{user_newsfeed_link}\">EOL newsfeed</a>, but many people would also like to be alerted by email about certain kinds of activities they find particularly interesting. You can use the buttons below to set the frequency of EOL emails to suit your preferences"
         page_title: Notification settings
+      update:
+        notification_settings_successfully_updated: "Notification settings successfully updated."
+        sorry_notification_settings_could_not_be_updated: "Sorry, notification settings could not be updated."
     open_authentications:
       errors:
         missing_attributes: "Sorry, there was a problem accessing your third-party account details."
@@ -1395,7 +1496,7 @@ en:
       form_header: "Recover account"
       form_tip: "To recover your EOL account, enter the email address associated with that account. Please check your spam folder if you do not receive an account recovery email within an hour."
       notices:
-        recovery_email_sent: "Account recovery email has been sent with further instructions. Please check your spam filter if you do not receive the email with an hour."
+        recovery_email_sent: "Account recovery email has been sent with further instructions. Please add %{from_address} to your safe senders list and check your spam filter if you do not receive the email within an hour."
         temporarily_logged_in_update_authentication_details: "You are temporarily logged in to allow account recovery, please change your password or update your connected accounts to ensure you can sign in successfully."
       meta_title: "Recover account"
     recover_account_choose_account:
@@ -1410,6 +1511,10 @@ en:
       meta_keywords: ""
       meta_title: "%{user_full_name}"
       tweet_text: "%{user_full_name}"
+    unsubscribe_notifications:
+      already_unsubscribed: "You are already unsubscribed to notifications."
+      unsubscribed_notifications_successfully: "You have successfully unsubscribed to notifications."
+      unsubscribe_notifications_failed: "Sorry, an error occurred, user could not be unsubscribed to notifications."
   # end of views scope
   this_article_cannot_be_curated_because_unpublished: "This article cannot be curated because it is unpublished."
   this_article_is_unpublished: "This article is unpublished."
@@ -1734,65 +1839,118 @@ en:
         user_chose_exemplar_it_on_an_unknown_taxon: "<strong>%{user}</strong> selected it to show in Overview on an unknown page."
         user_chose_exemplar_it_on_taxon: "<strong>%{user}</strong> selected it to show in Overview on \"%{taxon}\"."
       add_common_name:
-        an_unknown_user_added_an_unknown_name_to_an_unknown_taxon: "An unknown user added an unknown common name to an unknown page."
-        an_unknown_user_added_an_unknown_name_to_taxon: "An unknown user added an unknown common name to \"%{taxon}\"."
-        an_unknown_user_added_name_to_an_unknown_taxon: "An unknown user added the common name \"%{name}\" to an unknown page."
-        an_unknown_user_added_name_to_taxon: "An unknown user added the common name \"%{name}\" to \"%{taxon}\"."
-        user_added_an_unknown_name_to_an_unknown_taxon: "<strong>%{user}</strong> added an unknown common name to an unknown page."
-        user_added_an_unknown_name_to_taxon: "<strong>%{user}</strong> added an unknown common name to \"%{taxon}\"."
-        user_added_name_to_an_unknown_taxon: "<strong>%{user}</strong> added the common name \"%{name}\" to an unknown page."
-        user_added_name_to_taxon: "<strong>%{user}</strong> added the common name \"%{name}\" to \"%{taxon}\"."
-        an_unknown_user_added_an_unknown_name_to_it: "An unknown user added an unknown common name."
-        an_unknown_user_added_name_to_it: "An unknown user added the common name \"%{name}\"."
-        user_added_an_unknown_name_to_it: "<strong>%{user}</strong> added an unknown common name."
-        user_added_name_to_it: "<strong>%{user}</strong> added the common name \"%{name}\"."
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: "An unknown user added an unknown common name in an unknown language to an unknown page."
+        an_unknown_user_added_an_unknown_name_in_language_to_an_unknown_taxon: "An unknown user added an unknown common name in %{language} to an unknown page."
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_taxon: "An unknown user added an unknown common name in an unknown language to \"%{taxon}\"."
+        an_unknown_user_added_an_unknown_name_in_language_to_taxon: "An unknown user added an unknown common name in %{language} to \"%{taxon}\"."
+        an_unknown_user_added_name_in_an_unknown_language_to_an_unknown_taxon: "An unknown user added the common name \"%{name}\" in an unknown language to an unknown page."
+        an_unknown_user_added_name_in_language_to_an_unknown_taxon: "An unknown user added the %{language} common name \"%{name}\" to an unknown page."
+        an_unknown_user_added_name_in_an_unknown_language_to_taxon: "An unknown user added the common name \"%{name}\" in an unknown language to \"%{taxon}\"."
+        an_unknown_user_added_name_in_language_to_taxon: "An unknown user added the %{language} common name \"%{name}\" to \"%{taxon}\"."
+        user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: "<strong>%{user}</strong> added an unknown common name in an unknown language to an unknown page."
+        user_added_an_unknown_name_in_language_to_an_unknown_taxon: "<strong>%{user}</strong> added an unknown common name in %{language} to an unknown page."
+        user_added_an_unknown_name_in_an_unknown_language_to_taxon: "<strong>%{user}</strong> added an unknown common name in an unknown language to \"%{taxon}\"."
+        user_added_an_unknown_name_in_language_to_taxon: "<strong>%{user}</strong> added an unknown common name in %{language} to \"%{taxon}\"."
+        user_added_name_in_an_unknown_language_to_an_unknown_taxon: "<strong>%{user}</strong> added the common name \"%{name}\" in an unknown language to an unknown page."
+        user_added_name_in_language_to_an_unknown_taxon: "<strong>%{user}</strong> added the %{language} common name \"%{name}\" to an unknown page."
+        user_added_name_in_an_unknown_language_to_taxon: "<strong>%{user}</strong> added the common name \"%{name}\" in an unknown language to \"%{taxon}\"."
+        user_added_name_in_language_to_taxon: "<strong>%{user}</strong> added the %{language} common name \"%{name}\" to \"%{taxon}\"."
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_it: "An unknown user added an unknown common name in an unknown language."
+        an_unknown_user_added_an_unknown_name_in_language_to_it: "An unknown user added an unknown common name in %{language}."
+        an_unknown_user_added_name_in_an_unknown_language_to_it: "An unknown user added the common name \"%{name}\" in an unknown language."
+        an_unknown_user_added_name_in_language_to_it: "An unknown user added the %{language} common name \"%{name}\"."
+        user_added_an_unknown_name_in_an_unknown_language_to_it: "<strong>%{user}</strong> added an unknown common name in an unknown language."
+        user_added_an_unknown_name_in_language_to_it: "<strong>%{user}</strong> added an unknown common name in %{language}."
+        user_added_name_in_an_unknown_language_to_it: "<strong>%{user}</strong> added the common name \"%{name}\" in an unknown language."
+        user_added_name_in_language_to_it: "<strong>%{user}</strong> added the %{language} common name \"%{name}\"."
       remove_common_name:
-        an_unknown_user_removed_name_from_an_unknown_taxon: "An unknown user removed a common name from an unknown page."
-        an_unknown_user_removed_name_from_taxon: "An unknown user removed a common name from \"%{taxon}\"."
-        user_removed_name_from_an_unknown_taxon: "<strong>%{user}</strong> removed a common name from an unknown page."
-        user_removed_name_from_taxon: "<strong>%{user}</strong> removed a common name from \"%{taxon}\"."
-        an_unknown_user_removed_name_from_it: "An unknown user removed a common name."
-        user_removed_name_from_it: "<strong>%{user}</strong> removed a common name."
+        an_unknown_user_removed_name_in_an_unknown_language_from_an_unknown_taxon: "An unknown user removed common name in an unknown language from an unknown page."
+        an_unknown_user_removed_name_in_language_from_an_unknown_taxon: "An unknown user removed common name in %{language} from an unknown page."
+        an_unknown_user_removed_name_in_an_unknown_language_from_taxon: "An unknown user removed common name in an unknown language from \"%{taxon}\"."
+        an_unknown_user_removed_name_in_language_from_taxon: "An unknown user removed common name in %{language} from \"%{taxon}\"."
+        user_removed_name_in_an_unknown_language_from_an_unknown_taxon: "<strong>%{user}</strong> removed common name in an unknown language from an unknown page."
+        user_removed_name_in_language_from_an_unknown_taxon: "<strong>%{user}</strong> removed common name in %{language} from an unknown page."
+        user_removed_name_in_an_unknown_language_from_taxon: "<strong>%{user}</strong> removed common name in an unknown language from \"%{taxon}\"."
+        user_removed_name_in_language_from_taxon: "<strong>%{user}</strong> removed common name in %{language} from \"%{taxon}\"."
+        an_unknown_user_removed_name_in_an_unknown_language_from_it: "An unknown user removed common name in an unknown language."
+        an_unknown_user_removed_name_in_language_from_it: "An unknown user removed common name in %{language}."
+        user_removed_name_in_an_unknown_language_from_it: "<strong>%{user}</strong> removed common name in an unknown language."
+        user_removed_name_in_language_from_it: "<strong>%{user}</strong> removed common name in %{language}."
       trust_common_name:
-        an_unknown_user_trusted_an_unknown_name_on_an_unknown_taxon: "An unknown user marked an unknown common name from an unknown page as trusted."
-        an_unknown_user_trusted_an_unknown_name_on_taxon: "An unknown user marked an unknown common name from \"%{taxon}\" as trusted."
-        an_unknown_user_trusted_name_on_an_unknown_taxon: "An unknown user marked the common name \"%{name}\" from an unknown page as trusted."
-        an_unknown_user_trusted_name_on_taxon: "An unknown user marked the common name \"%{name}\" from \"%{taxon}\" as trusted."
-        user_trusted_an_unknown_name_on_an_unknown_taxon: "<strong>%{user}</strong> marked an unknown common name from an unknown page as trusted."
-        user_trusted_an_unknown_name_on_taxon: "<strong>%{user}</strong> marked an unknown common name from \"%{taxon}\" as trusted."
-        user_trusted_name_on_an_unknown_taxon: "<strong>%{user}</strong> marked the common name \"%{name}\" from an unknown page as trusted."
-        user_trusted_name_on_taxon: "<strong>%{user}</strong> marked the common name \"%{name}\" from \"%{taxon}\" as trusted."
-        an_unknown_user_trusted_an_unknown_name_on_it: "An unknown user marked an unknown common name as trusted."
-        an_unknown_user_trusted_name_on_it: "An unknown user marked the common name \"%{name}\" as trusted."
-        user_trusted_an_unknown_name_on_it: "<strong>%{user}</strong> marked an unknown common name as trusted."
-        user_trusted_name_on_it: "<strong>%{user}</strong> marked the common name \"%{name}\" as trusted."
+        an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: "An unknown user marked an unknown common name in an unknown language from an unknown page as trusted."
+        an_unknown_user_trusted_an_unknown_name_in_language_on_an_unknown_taxon: "An unknown user marked an unknown common name in %{language} from an unknown page as trusted."
+        an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_taxon: "An unknown user marked an unknown common name in an unknown language from \"%{taxon}\" as trusted."
+        an_unknown_user_trusted_an_unknown_name_in_language_on_taxon: "An unknown user marked an unknown common name in %{language} from \"%{taxon}\" as trusted."
+        an_unknown_user_trusted_name_in_an_unknown_language_on_an_unknown_taxon: "An unknown user marked the common name \"%{name}\" in an unknown language from an unknown page as trusted."
+        an_unknown_user_trusted_name_in_language_on_an_unknown_taxon: "An unknown user marked the %{language} common name \"%{name}\" from an unknown page as trusted."
+        an_unknown_user_trusted_name_in_an_unknown_language_on_taxon: "An unknown user marked the common name \"%{name}\" in an unknown language from \"%{taxon}\" as trusted."
+        an_unknown_user_trusted_name_in_language_on_taxon: "An unknown user marked the %{language} common name \"%{name}\" from \"%{taxon}\" as trusted."
+        user_trusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: "<strong>%{user}</strong> marked an unknown common name in an unknown language from an unknown page as trusted."
+        user_trusted_an_unknown_name_in_language_on_an_unknown_taxon: "<strong>%{user}</strong> marked an unknown common name in %{language} from an unknown page as trusted."
+        user_trusted_an_unknown_name_in_an_unknown_language_on_taxon: "<strong>%{user}</strong> marked an unknown common name in an unknown language from \"%{taxon}\" as trusted."
+        user_trusted_an_unknown_name_in_language_on_taxon: "<strong>%{user}</strong> marked an unknown common name in %{language} from \"%{taxon}\" as trusted."
+        user_trusted_name_in_an_unknown_language_on_an_unknown_taxon: "<strong>%{user}</strong> marked the common name \"%{name}\" in an unknown language from an unknown page as trusted."
+        user_trusted_name_in_language_on_an_unknown_taxon: "<strong>%{user}</strong> marked the %{language} common name \"%{name}\" from an unknown page as trusted."
+        user_trusted_name_in_an_unknown_language_on_taxon: "<strong>%{user}</strong> marked the common name \"%{name}\" in an unknown language from \"%{taxon}\" as trusted."
+        user_trusted_name_in_language_on_taxon: "<strong>%{user}</strong> marked the %{language} common name \"%{name}\" from \"%{taxon}\" as trusted."
+        an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_it: "An unknown user marked an unknown common name in an unknown language as trusted."
+        an_unknown_user_trusted_an_unknown_name_in_language_on_it: "An unknown user marked an unknown common name in %{language} as trusted."
+        an_unknown_user_trusted_name_in_an_unknown_language_on_it: "An unknown user marked the common name \"%{name}\" in an unknown language as trusted."
+        an_unknown_user_trusted_name_in_language_on_it: "An unknown user marked the %{language} common name \"%{name}\" as trusted."
+        user_trusted_an_unknown_name_in_an_unknown_language_on_it: "<strong>%{user}</strong> marked an unknown common name in an unknown language as trusted."
+        user_trusted_an_unknown_name_in_language_on_it: "<strong>%{user}</strong> marked an unknown common name in %{language} as trusted."
+        user_trusted_name_in_an_unknown_language_on_it: "<strong>%{user}</strong> marked the common name \"%{name}\" in an unknown language as trusted."
+        user_trusted_name_in_language_on_it: "<strong>%{user}</strong> marked the %{language} common name \"%{name}\" as trusted."
       untrust_common_name:
-        an_unknown_user_untrusted_an_unknown_name_on_an_unknown_taxon: "An unknown user marked an unknown common name from an unknown page as untrusted."
-        an_unknown_user_untrusted_an_unknown_name_on_taxon: "An unknown user marked an unknown common name from \"%{taxon}\" as untrusted."
-        an_unknown_user_untrusted_name_on_an_unknown_taxon: "An unknown user marked the common name \"%{name}\" from an unknown page as untrusted."
-        an_unknown_user_untrusted_name_on_taxon: "An unknown user marked the common name \"%{name}\" from \"%{taxon}\" as untrusted."
-        user_untrusted_an_unknown_name_on_an_unknown_taxon: "<strong>%{user}</strong> marked an unknown common name from an unknown page as untrusted."
-        user_untrusted_an_unknown_name_on_taxon: "<strong>%{user}</strong> marked an unknown common name from \"%{taxon}\" as untrusted."
-        user_untrusted_name_on_an_unknown_taxon: "<strong>%{user}</strong> marked the common name \"%{name}\" from an unknown page as untrusted."
-        user_untrusted_name_on_taxon: "<strong>%{user}</strong> marked the common name \"%{name}\" from \"%{taxon}\" as untrusted."
-        an_unknown_user_untrusted_an_unknown_name_on_it: "An unknown user marked an unknown common name as untrusted."
-        an_unknown_user_untrusted_name_on_it: "An unknown user marked the common name \"%{name}\" as untrusted."
-        user_untrusted_an_unknown_name_on_it: "<strong>%{user}</strong> marked an unknown common name as untrusted."
-        user_untrusted_name_on_it: "<strong>%{user}</strong> marked the common name \"%{name}\" as untrusted."
+        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: "An unknown user marked an unknown common name in an unknown language from an unknown page as untrusted."
+        an_unknown_user_untrusted_an_unknown_name_in_language_on_an_unknown_taxon: "An unknown user marked an unknown common name in %{language} from an unknown page as untrusted."
+        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_taxon: "An unknown user marked an unknown common name from \"%{taxon}\" in an unknown language as untrusted."
+        an_unknown_user_untrusted_an_unknown_name_in_language_on_taxon: "An unknown user marked an unknown common name in %{language} from \"%{taxon}\" as untrusted."
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_an_unknown_taxon: "An unknown user marked the common name \"%{name}\" in an unknown language from an unknown page as untrusted."
+        an_unknown_user_untrusted_name_in_language_on_an_unknown_taxon: "An unknown user marked the %{language} common name \"%{name}\" from an unknown page as untrusted."
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_taxon: "An unknown user marked the common name \"%{name}\" in an unknown language from \"%{taxon}\" as untrusted."
+        an_unknown_user_untrusted_name_in_language_on_taxon: "An unknown user marked the %{language} common name \"%{name}\" from \"%{taxon}\" as untrusted."
+        user_untrusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: "<strong>%{user}</strong> marked an unknown common name in an unknown language from an unknown page as untrusted."
+        user_untrusted_an_unknown_name_in_language_on_an_unknown_taxon: "<strong>%{user}</strong> marked an unknown common name in %{language} from an unknown page as untrusted."
+        user_untrusted_an_unknown_name_in_an_unknown_language_on_taxon: "<strong>%{user}</strong> marked an unknown common name in an unknown language from \"%{taxon}\" as untrusted."
+        user_untrusted_an_unknown_name_in_language_on_taxon: "<strong>%{user}</strong> marked an unknown common name in %{language} from \"%{taxon}\" as untrusted."
+        user_untrusted_name_in_an_unknown_language_on_an_unknown_taxon: "<strong>%{user}</strong> marked the common name \"%{name}\" in an unknown language from an unknown page as untrusted."
+        user_untrusted_name_in_language_on_an_unknown_taxon: "<strong>%{user}</strong> marked the %{language} common name \"%{name}\" from an unknown page as untrusted."
+        user_untrusted_name_in_an_unknown_language_on_taxon: "<strong>%{user}</strong> marked the common name \"%{name}\" in an unknown language from \"%{taxon}\" as untrusted."
+        user_untrusted_name_in_language_on_taxon: "<strong>%{user}</strong> marked the %{language} common name \"%{name}\" from \"%{taxon}\" as untrusted."
+        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_it: "An unknown user marked an unknown common name in an unknown language as untrusted."
+        an_unknown_user_untrusted_an_unknown_name_in_language_on_it: "An unknown user marked an unknown common name in %{language} as untrusted."
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_it: "An unknown user marked the common name \"%{name}\" in an unknown language as untrusted."
+        an_unknown_user_untrusted_name_in_language_on_it: "An unknown user marked the %{language} common name \"%{name}\" as untrusted."
+        user_untrusted_an_unknown_name_in_an_unknown_language_on_it: "<strong>%{user}</strong> marked an unknown common name in an unknown language as untrusted."
+        user_untrusted_an_unknown_name_in_language_on_it: "<strong>%{user}</strong> marked an unknown common name in %{language} as untrusted."
+        user_untrusted_name_in_an_unknown_language_on_it: "<strong>%{user}</strong> marked the common name \"%{name}\" in an unknown language as untrusted."
+        user_untrusted_name_in_language_on_it: "<strong>%{user}</strong> marked the %{language} common name \"%{name}\" as untrusted."
       unreview_common_name:
-        an_unknown_user_unreviewed_an_unknown_name_on_an_unknown_taxon: "An unknown user marked an unknown common name from an unknown page as unreviewed."
-        an_unknown_user_unreviewed_an_unknown_name_on_taxon: "An unknown user marked an unknown common name from \"%{taxon}\" as unreviewed."
-        an_unknown_user_unreviewed_name_on_an_unknown_taxon: "An unknown user marked the common name \"%{name}\" from an unknown page as unreviewed."
-        an_unknown_user_unreviewed_name_on_taxon: "An unknown user marked the common name \"%{name}\" from \"%{taxon}\" as unreviewed."
-        user_unreviewed_an_unknown_name_on_an_unknown_taxon: "<strong>%{user}</strong> marked an unknown common name from an unknown page as unreviewed."
-        user_unreviewed_an_unknown_name_on_taxon: "<strong>%{user}</strong> marked an unknown common name from \"%{taxon}\" as unreviewed."
-        user_unreviewed_name_on_an_unknown_taxon: "<strong>%{user}</strong> marked the common name \"%{name}\" from an unknown page as unreviewed."
-        user_unreviewed_name_on_taxon: "<strong>%{user}</strong> marked the common name \"%{name}\" from \"%{taxon}\" as unreviewed."
-
-        an_unknown_user_unreviewed_an_unknown_name_on_it: "An unknown user marked an unknown common name as unreviewed."
-        an_unknown_user_unreviewed_name_on_it: "An unknown user marked the common name \"%{name}\" as unreviewed."
-        user_unreviewed_an_unknown_name_on_it: "<strong>%{user}</strong> marked an unknown common name as unreviewed."
-        user_unreviewed_name_on_it: "<strong>%{user}</strong> marked the common name \"%{name}\" as unreviewed."
+        an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: "An unknown user marked an unknown common name in an unknown language from an unknown page as unreviewed."
+        an_unknown_user_unreviewed_an_unknown_name_in_language_on_an_unknown_taxon: "An unknown user marked an unknown common name in %{language} from an unknown page as unreviewed."
+        an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_taxon: "An unknown user marked an unknown common name in an unknown language from \"%{taxon}\" as unreviewed."
+        an_unknown_user_unreviewed_an_unknown_name_in_language_on_taxon: "An unknown user marked an unknown common name in %{language} from \"%{taxon}\" as unreviewed."
+        an_unknown_user_unreviewed_name_in_an_unknown_language_on_an_unknown_taxon: "An unknown user marked the common name \"%{name}\" in an unknown language from an unknown page as unreviewed."
+        an_unknown_user_unreviewed_name_in_language_on_an_unknown_taxon: "An unknown user marked the %{language} common name \"%{name}\" from an unknown page as unreviewed."
+        an_unknown_user_unreviewed_name_in_an_unknown_language_on_taxon: "An unknown user marked the common name \"%{name}\" in an unknown language from \"%{taxon}\" as unreviewed."
+        an_unknown_user_unreviewed_name_in_language_on_taxon: "An unknown user marked the %{language} common name \"%{name}\" from \"%{taxon}\" as unreviewed."
+        user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: "<strong>%{user}</strong> marked an unknown common name in an unknown language from an unknown page as unreviewed."
+        user_unreviewed_an_unknown_name_in_language_on_an_unknown_taxon: "<strong>%{user}</strong> marked an unknown common name in %{language} from an unknown page as unreviewed."
+        user_unreviewed_an_unknown_name_in_an_unknown_language_on_taxon: "<strong>%{user}</strong> marked an unknown common name in an unknown language from \"%{taxon}\" as unreviewed."
+        user_unreviewed_an_unknown_name_in_language_on_taxon: "<strong>%{user}</strong> marked an unknown common name in %{language} from \"%{taxon}\" as unreviewed."
+        user_unreviewed_name_in_an_unknown_language_on_an_unknown_taxon: "<strong>%{user}</strong> marked the common name \"%{name}\" in an unknown language from an unknown page as unreviewed."
+        user_unreviewed_name_in_language_on_an_unknown_taxon: "<strong>%{user}</strong> marked the %{language} common name \"%{name}\" from an unknown page as unreviewed."
+        user_unreviewed_name_in_an_unknown_language_on_taxon: "<strong>%{user}</strong> marked the common name \"%{name}\" in an unknown language from \"%{taxon}\" as unreviewed."
+        user_unreviewed_name_in_language_on_taxon: "<strong>%{user}</strong> marked the %{language} common name \"%{name}\" from \"%{taxon}\" as unreviewed."
+        an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: "An unknown user marked an unknown common name in an unknown language as unreviewed."
+        an_unknown_user_unreviewed_an_unknown_name_in_language_on_it: "An unknown user marked an unknown common name in %{language} as unreviewed."
+        an_unknown_user_unreviewed_name_in_an_unknown_language_on_it: "An unknown user marked the common name \"%{name}\" in an unknown language as unreviewed."
+        an_unknown_user_unreviewed_name_in_language_on_it: "An unknown user marked the %{language} common name \"%{name}\" as unreviewed."
+        user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: "<strong>%{user}</strong> marked an unknown common name in an unknown language as unreviewed."
+        user_unreviewed_an_unknown_name_in_language_on_it: "<strong>%{user}</strong> marked an unknown common name in %{language} as unreviewed."
+        user_unreviewed_name_in_an_unknown_language_on_it: "<strong>%{user}</strong> marked the common name \"%{name}\" in an unknown language as unreviewed."
+        user_unreviewed_name_in_language_on_it: "<strong>%{user}</strong> marked the %{language} common name \"%{name}\" as unreviewed."
       preferred_classification:
         an_unknown_user_preferred_unknown_classification_on_an_unknown_taxon: "An unknown user marked an unknown classification as preferred for an unknown taxon."
         an_unknown_user_preferred_unknown_classification_on_it: "An unknown user marked an unknown classification as preferred."
@@ -1836,6 +1994,10 @@ en:
         an_unknown_taxon_unlocked: "An unknown page has finished background curation processing."
         it_unlocked: "Background curation processing finished."
         taxon_unlocked: "\"%{taxon}\" finished background curation processing."
+      unlock_with_error:
+        an_unknown_taxon_unlocked: "An unknown page has <strong>failed</strong> background curation processing: %{error}."
+        it_unlocked: "Background curation processing<strong>failed</strong> : %{error}."
+        taxon_unlocked: "\"%{taxon}\" <strong>failed</strong> background curation processing: %{error}."
       other_actions:
         an_unknown_user_curated_an_older_data_object: "An unknown user curated an older version of \"%{data_object}\"."
         an_unknown_user_curated_an_unknown_data_object: "An unknown user curated an unknown data object."
@@ -1973,8 +2135,8 @@ en:
   jsonp_by_adding_a_callback_parameter: "... and JSONP by adding a callback parameter"
   any_integer: "any integer"
   api_docs_collections_description: "Given the identifier for a collection this API will return all metadata about the collection and the items it contains. The item list can be filtered by item type, and sorted on the above listed attributes."
-  a_pipe_delimited_list_of_licenses: "a pipe | delimited list of licenses or 'all' to get objects under any license. Licenses abbreviated cc- are all %{creative_commons_link} licenses. Visit their site for more information on the various licenses they offer"
-  a_pipe_delimited_list_of_spm_info_item_subject_names: "an 'overview' to return the overview text(if exists), a pipe | delimited list of SPM Info Item subject names to get text in respective SPM Info Item subject names, 'all' to get text in any subject. Always returns an overview text as a first result(if exists in the given context)."
+  a_pipe_delimited_list_of_licenses: "a pipe | delimited list of licenses or 'all' to get objects under any license. Licenses abbreviated cc- are all %{creative_commons_link} licenses. Visit their site for more information on the various licenses they offer."
+  a_pipe_delimited_list_of_spm_info_item_subject_names: "'overview' to return the overview text (if exists), a pipe | delimited list of SPM Info Item subject names to get text in respective SPM Info Item subject names, 'all' to get text in any subject. Always returns an overview text as a first result (if exists in the given context)."
   application_version_advisory_information: "Application version"
   are_you_sure: "Are you sure?"
   are_you_sure_this_action_cannot_be_undone: "Are you sure? This action cannot be undone."
@@ -2028,7 +2190,6 @@ en:
   audio_current_time_assistive: "With JavaScript enabled this will indicate the current playback position of the audio file in minutes and seconds."
   audio_duration_assistive: "With JavaScript enabled this will indicate the length of the audio file in minutes and seconds. Depending on the size of the file it may take a little while for the JavaScript to calculate the length of the file and display a value here."
   audio_play: "play"
-  audio_play_assistive: "With JavaScript enabled this link will begin playing the audio file whilst keeping you in the same window. If JavaScript is disabled this link is to an audio file and if selected will behave in accordance with your device."
   audio_pause: "pause"
   audio_pause_assistive: "With JavaScript enabled this link will enable you to pause an adjacent audio file that is playing, otherwise please ignore this link."
   audio_stop: "stop"
@@ -2965,6 +3126,7 @@ en:
   literature_header: "References"
   literature_references: "Literature references"
   location_colon: "Location:"
+  location_created_colon: "Location Created:"
   login_required_button: "Login required"
   logging_database_colon: "Logging:"
   login: "login"
@@ -3035,7 +3197,7 @@ en:
   most_active_members: "Most active members"
   move: "Move"
   move_down: "Move down"
-  added_classifications_ready: "Data from the selected classifications are ready to move to another page. To complete the process, either select \"split into new page\" or navigate to the names tab of the page where you would like the data, then select \"merge classifications\" to complete the process."
+  added_classifications_ready: "Data from the selected classifications are ready to move to another page. To complete the process, either select \"split into new page\" or navigate to the names tab of the page where you would like the data, then select \"merge classifications\"."
   move_items_to_a_new_collection_with_count:
     one: "Move %{count} item to a new collection"
     other: "Move %{count} items to a new collection"
@@ -3046,8 +3208,8 @@ en:
     one: "Move %{count} item to a new collection"
     other: "Move %{count} items to a new collection"
   moved_all_items_from_collection_with_count:
-    one: "Moved #{count} item from %{from} to this collection."
-    other: "Moved all #{count} items from %{from} to this collection."
+    one: "Moved %{count} item from %{from} to this collection."
+    other: "Moved all %{count} items from %{from} to this collection."
   moved_all_items_to_collections:
     one: "Moved all items from %{name} to %{count} collection."
     other: "Moved all items from %{name} to %{count} collections."
@@ -3157,6 +3319,7 @@ en:
   nucleotide_sequences_proteins_link: "View protein and nucleotide sequences in NCBI"
   object_curation: "Object Curation"
   object: "Object"
+  object_curated: "Object curated."
   objects_curated: "Objects Curated"
   object_status: "Object status"
   object_status_all_option: "All"
@@ -3245,6 +3408,7 @@ en:
   partnering_steps: "PARTNERING STEPS"
   partner_page: "partner page"
   partner: "Partner"
+  partner_web_site_colon: "Partner Web Site:"
   password_must_be_4to16_characters: "Password length must be between 4 and 16 characters."
   password_colon: "Password:"
   pause: "pause"
@@ -3507,7 +3671,7 @@ en:
   spm_category_partner_count: "SPM category - partner count"
   spm_category: "SPM Category"
   started: "Started"
-  statistics: "Statistics"
+  stats: "Statistics"
   stat: "Stat"
   stored_classifications: "Please note that you have <a href='%{anchor}'>stored classifications, below</a>."
   sub_heading: "Sub heading"

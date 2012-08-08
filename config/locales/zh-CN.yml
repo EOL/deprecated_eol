@@ -411,19 +411,6 @@ zh-CN:
         user_associated_data_object_to_association: <strong>%{user}</strong> 在 “%{data_object}” 和 “%{association}”之间添加了关联。
         user_associated_it_to_an_unknown_association: <strong>%{user}</strong> 为未知的页面添加了关联。
         user_associated_it_to_association: <strong>%{user}</strong> 为“%{association}”添加了关联。
-      add_common_name: 
-        an_unknown_user_added_an_unknown_name_to_an_unknown_taxon: 一个未知用户为一个未知页面添加了一个未知俗名。
-        an_unknown_user_added_an_unknown_name_to_it: 一个未知用户添加了一个未知俗名。
-        an_unknown_user_added_an_unknown_name_to_taxon: 一个未知用户为“%{taxon}”添加了一个未知俗名。
-        an_unknown_user_added_name_to_an_unknown_taxon: 一个未知用户为未知页面添加了俗名“%{name}”。
-        an_unknown_user_added_name_to_it: 一个未知用户添加了俗名“%{name}”。
-        an_unknown_user_added_name_to_taxon: 一个未知用户为“%{taxon}”添加了俗名“%{name}”。
-        user_added_an_unknown_name_to_an_unknown_taxon: <strong>%{user}</strong> 为一个未知的页面添加了未知的俗名。
-        user_added_an_unknown_name_to_it: <strong>%{user}</strong> 添加了一个未知的俗名。
-        user_added_an_unknown_name_to_taxon: <strong>%{user}</strong> 为 “%{taxon}”添加了一个未知的俗名。
-        user_added_name_to_an_unknown_taxon: <strong>%{user}</strong> 添加了俗名 “%{name}” 到一个未知的页面。
-        user_added_name_to_it: <strong>%{user}</strong> 添加了俗名 “%{name}”。
-        user_added_name_to_taxon: <strong>%{user}</strong> 为“%{taxon}”添加了俗名 “%{name}” 。
       choose_exemplar_image: 
         an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: 一个未知用户将一个旧版本的“%{data_object}”设为一个未知页面的范例。
         an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: 一个未知用户将“%{data_object}”设为“%{taxon}”的范例。
@@ -476,13 +463,6 @@ zh-CN:
         user_preferred_classification_on_taxon: <strong>%{user}</strong> 将 “%{provider}”提供的分类系统标为 “%{taxon}”的首选系统。
       reasons_to_hide: 隐藏的原因： %{reasons}
       reasons_to_untrust: 不信任的原因： %{reasons}
-      remove_common_name: 
-        an_unknown_user_removed_name_from_an_unknown_taxon: 一个未知用户删除了未知页面的一个俗名。
-        an_unknown_user_removed_name_from_it: 一个未知用户删除了一个俗名。
-        an_unknown_user_removed_name_from_taxon: 一个未知用户删除了 “%{taxon}”的一个俗名。
-        user_removed_name_from_an_unknown_taxon: <strong>%{user}</strong> 删除了未知页面中的一个俗名。
-        user_removed_name_from_it: <strong>%{user}</strong> 删除了一个俗名。
-        user_removed_name_from_taxon: <strong>%{user}</strong> 删除了“%{taxon}”下的一个俗名。
       show: 
         an_unknown_user_showed_an_older_data_object_on_an_unknown_association: 一个未知用户在一个未知段落将旧版本的数据项 “%{data_object}” 标为可见状态。
         an_unknown_user_showed_an_older_data_object_on_association: 一个未知用户在 “%{association}” 页面将旧版本的数据项 “%{data_object}” 标为可见状态。
@@ -500,19 +480,6 @@ zh-CN:
         user_showed_data_object_on_association: <strong>%{user}</strong> 在 “%{association}” 页面将 “%{data_object}” 标为可见状态。
         user_showed_it_on_an_unknown_association: <strong>%{user}</strong> 在未知段落中将其标为可见状态。
         user_showed_it_on_association: <strong>%{user}</strong>在 “%{association}”页面将其标为可见状态。
-      trust_common_name: 
-        an_unknown_user_trusted_an_unknown_name_on_an_unknown_taxon: 一个未知用户在未知页面将一个未知俗名标为可信状态。
-        an_unknown_user_trusted_an_unknown_name_on_it: 一个未知用户将一个未知俗名标为可信状态。
-        an_unknown_user_trusted_an_unknown_name_on_taxon: 一个未知用户将 “%{taxon}” 的一个未知俗名标为可信状态。
-        an_unknown_user_trusted_name_on_an_unknown_taxon: 一个未知用户在未知页面将俗名 “%{name}” 标为可信状态。
-        an_unknown_user_trusted_name_on_it: 一个未知用户将俗名 “%{name}” 标为可信状态。
-        an_unknown_user_trusted_name_on_taxon: 一个未知用户将 “%{taxon}” 的俗名 “%{name}” 标为可信状态。
-        user_trusted_an_unknown_name_on_an_unknown_taxon: <strong>%{user}</strong>将未知页面下的一个未知俗名标为可信状态。
-        user_trusted_an_unknown_name_on_it: <strong>%{user}</strong> 将一个未知俗名标为可信状态。
-        user_trusted_an_unknown_name_on_taxon: <strong>%{user}</strong>将“%{taxon}”下的一个未知俗名标为可信状态。
-        user_trusted_name_on_an_unknown_taxon: <strong>%{user}</strong> 将未知页面上的俗名 “%{name}” 标为可信状态。
-        user_trusted_name_on_it: <strong>%{user}</strong> 将俗名 “%{name}” 标为可信状态。
-        user_trusted_name_on_taxon: <strong>%{user}</strong>将 “%{taxon}”下的俗名 “%{name}” 标为可信状态。
       trusted: 
         an_unknown_user_trusted_an_older_data_object_on_an_unknown_association: 一个未知用户在一个未知段落将旧版本的数据项 “%{data_object}” 标为可信状态。
         an_unknown_user_trusted_an_older_data_object_on_association: 一个未知用户在 “%{association}” 页面将旧版本的数据项 “%{data_object}” 标为可信状态。
@@ -530,19 +497,6 @@ zh-CN:
         user_trusted_data_object_on_association: <strong>%{user}</strong> 在 “%{association}” 页面将 “%{data_object}” 标为可信状态。
         user_trusted_it_on_an_unknown_association: <strong>%{user}</strong>在未知段落中将其标为可信状态。
         user_trusted_it_on_association: <strong>%{user}</strong> 在 “%{association}”页面将其标为可信状态。
-      unreview_common_name: 
-        an_unknown_user_unreviewed_an_unknown_name_on_an_unknown_taxon: 一个未知用户在未知页面将一个未知俗名标为未审核状态。
-        an_unknown_user_unreviewed_an_unknown_name_on_it: 一个未知用户将一个未知俗名标为未审核状态。
-        an_unknown_user_unreviewed_an_unknown_name_on_taxon: 一个未知用户将 “%{taxon}” 的一个未知俗名标为未审核状态。
-        an_unknown_user_unreviewed_name_on_an_unknown_taxon: 一个未知用户在未知页面将俗名“%{name}” 标为未审核状态。
-        an_unknown_user_unreviewed_name_on_it: 一个未知用户将俗名 “%{name}” 标为未审核状态。
-        an_unknown_user_unreviewed_name_on_taxon: 一个未知用户将 “%{taxon}” 的俗名 “%{name}” 标为未审核状态。
-        user_unreviewed_an_unknown_name_on_an_unknown_taxon: <strong>%{user}</strong>将未知页面下的一个未知俗名标为未审核状态。
-        user_unreviewed_an_unknown_name_on_it: <strong>%{user}</strong> 将一个未知俗名标为未审核状态。
-        user_unreviewed_an_unknown_name_on_taxon: <strong>%{user}</strong>将“%{taxon}”下的一个未知俗名标为未审核状态。
-        user_unreviewed_name_on_an_unknown_taxon: <strong>%{user}</strong> 将未知页面上的俗名 “%{name}” 标为未审核状态。
-        user_unreviewed_name_on_it: <strong>%{user}</strong> 将俗名 “%{name}” 标为未审核状态。
-        user_unreviewed_name_on_taxon: <strong>%{user}</strong>将 “%{taxon}”下的俗名 “%{name}” 标为未审核状态。
       unreviewed: 
         an_unknown_user_unreviewed_an_older_data_object_on_an_unknown_association: 一个未知用户在一个未知段落将旧版本的数据项 “%{data_object}” 标为未审核状态。
         an_unknown_user_unreviewed_an_older_data_object_on_association: 一个未知用户在 “%{association}” 页面将旧版本的数据项 “%{data_object}” 标为未审核状态。
@@ -560,19 +514,6 @@ zh-CN:
         user_unreviewed_data_object_on_association: <strong>%{user}</strong> 在 “%{association}” 页面将 “%{data_object}” 标为未审核状态。
         user_unreviewed_it_on_an_unknown_association: <strong>%{user}</strong> 在未知段落中将其标为未审核状态。
         user_unreviewed_it_on_association: <strong>%{user}</strong> 在 “%{association}” 页面将其标识为未审核状态。
-      untrust_common_name: 
-        an_unknown_user_untrusted_an_unknown_name_on_an_unknown_taxon: 一个未知用户在未知页面将一个未知俗名标为不可信状态。
-        an_unknown_user_untrusted_an_unknown_name_on_it: 一个未知用户将一个未知俗名标为不可信状态。
-        an_unknown_user_untrusted_an_unknown_name_on_taxon: 一个未知用户将 “%{taxon}” 的一个未知俗名标为不可信状态。
-        an_unknown_user_untrusted_name_on_an_unknown_taxon: 一个未知用户在未知页面将俗名 “%{name}”  标为不可信状态。
-        an_unknown_user_untrusted_name_on_it: 一个未知用户将俗名 “%{name}” 标为不可信状态。
-        an_unknown_user_untrusted_name_on_taxon: 一个未知用户将 “%{taxon}” 的俗名 “%{name}” 标为不可信状态。
-        user_untrusted_an_unknown_name_on_an_unknown_taxon: <strong>%{user}</strong>将未知页面下的一个未知俗名标为不可信状态。
-        user_untrusted_an_unknown_name_on_it: <strong>%{user}</strong> 将一个未知俗名标为不可信状态。
-        user_untrusted_an_unknown_name_on_taxon: <strong>%{user}</strong>将“%{taxon}”下的一个未知俗名标为不可信状态。
-        user_untrusted_name_on_an_unknown_taxon: <strong>%{user}</strong> 将未知页面上的俗名 “%{name}” 标为不可信状态。
-        user_untrusted_name_on_it: <strong>%{user}</strong>将俗名 “%{name}” 标为不可信状态。
-        user_untrusted_name_on_taxon: <strong>%{user}</strong> 将 “%{taxon}”下的俗名 “%{name}” 标为不可信状态。
       untrusted: 
         an_unknown_user_untrusted_an_older_data_object_on_an_unknown_association: 一个未知用户在一个未知段落将旧版本的数据 “%{data_object}” 标为不可信状态。
         an_unknown_user_untrusted_an_older_data_object_on_association: 一个未知用户在 “%{association}” 页面将旧版本的数据项 “%{data_object}” 标为不可信状态。
@@ -683,41 +624,6 @@ zh-CN:
   admin_user_delete_successful_notice: 用户已删除
   admin_user_hide_successful_notice: 用户已隐藏
   admin_user_unhide_successful_notice: 用户已显示
-  admins: 
-    statistics: 
-      content_partner: 
-        page_header: 内容合作伙伴统计
-        page_title: 管理：内容合作伙伴统计
-      content_partner_link: 内容合作伙伴
-      curator: 
-        page_header: 管理员统计
-        page_title: 管理：管理员统计
-      curator_link: 管理员统计
-      data_object: 
-        page_header: 数据项统计
-        page_title: 管理：物种信息统计
-      data_object_link: 数据项
-      index: 
-        page_header: 全面统计
-        page_title: 管理：全面统计(概述统计，统计概述)
-        table_caption: "%{created_at_time}创建的全站统计"
-      index_link: 全面统计
-      lifedesk: 
-        page_header: LifeDesks统计
-        page_title: 管理：LifeDesks统计
-      lifedesk_link: LifeDesks
-      marine: 
-        page_header: 海洋物种在EOL中的比例
-        page_title: 管理：海洋物种统计
-      marine_link: 海洋统计
-      page_richness: 
-        page_header: 信息丰富的页面统计
-        page_title: 管理：信息丰富的页面统计
-      page_richness_link: 信息丰富的页面
-      user_added_data: 
-        page_header: 用户提交文本的统计
-        page_title: 管理：用户提交的文字统计
-      user_added_data_link: 用户提交文本
   agent: 代理
   all: 所有
   all_apis_return_by_default_an_xml_response: 所有API默认返回XML的响应。调用API方法时，有无扩展名都可获得一致的响应：
@@ -801,7 +707,6 @@ zh-CN:
   audio_pause: 暂停
   audio_pause_assistive: 当JavaScript启用时，此链接将使您暂停正在播放的音频文件，否则请忽略此链接。
   audio_play: 播放
-  audio_play_assistive: 当JavaScript启用时，此链接将在同一窗口中开始播放音频文件。如果JavaScript被禁用，此链接是一个音频文件，在被选择时，其表现效果取决于您的设备。
   audio_stop: 停止
   audio_stop_assistive: 当JavaScript启用时，此链接将使您停止正在播放的音频文件，否则请忽略此链接。
   audio_unmute: 取消静音
@@ -958,7 +863,6 @@ zh-CN:
   comment_not_updated_error: 抱歉，发生了一个错误，评论未能更新。
   comment_or_rate_on_this_article: 请评论或者为该文章评级
   comment_show_posters_image_alt: 进行该操作会员%{posters_name}的个人照片
-  commented_on_your_image: " 对您在<a href='%{data_object_link}'>网络生命大百科网站</a>图片的评论:\n%{comment_body}"
   comments: 评论
   comments_and_tags: 评论和标签
   comments_filter: 评论
@@ -1451,7 +1355,6 @@ zh-CN:
   details_title: 详细信息
   development_version_name: EOL V2 Beta
   did_you_mean: 您的意思是：%{suggestions} ？
-  disable_email_notifications_colon: 禁用的邮箱：
   disabled_for_now: 现在禁用
   discover_link: 探索
   displaying_numerical_range: 显示%{total}中的%{start_number} &mdash; %{end_number}
@@ -2436,7 +2339,6 @@ zh-CN:
   monthly: 每月
   more_children_with_count: 
     other: 还有%{count}...
-  more_information_on_the_various_licenses: 授权协议。访问他们的网站以获取更多授权信息
   more_siblings_with_count: 
     other: 还有%{count}个同级的...
   most_active_members: 最活跃的会员
@@ -3040,7 +2942,6 @@ zh-CN:
   spm_category_partner_count: 物种介绍模块目录 - 合作伙伴的数量
   started: 开始
   stat: 状态
-  statistics: 统计
   sub_heading: 副标题
   subject: 主题
   submit: 提交

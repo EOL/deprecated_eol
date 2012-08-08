@@ -557,6 +557,8 @@ private
       changeable_object_type = ChangeableObjectType.send(object.class.name.underscore.to_sym)
     end
 
+    flash[:notice] ||= ''
+    flash[:notice]  += ' ' + I18n.t(:object_curated)
     auto_collect(@data_object) # SPG asks for all curation to add the item to their watchlist.
     create_options = {
       :user => current_user,

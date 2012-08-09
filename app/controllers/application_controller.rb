@@ -556,7 +556,7 @@ protected
       'og:type' => 'website', # TODO: we may want to extend to other types depending on the page see http://ogp.me/#types
       'og:title' => meta_data[:title],
       'og:description' => meta_data[:description],
-      'og:image' => (!meta_open_graph_image_url.blank? && meta_open_graph_image_url != '#') ? meta_open_graph_image_url : view_helper_methods.image_url('v2/logo_open_graph_default.png')
+      'og:image' => (!meta_open_graph_image_url.blank? && meta_open_graph_image_url != '#') ? meta_open_graph_image_url : view_context.image_tag('v2/logo_open_graph_default.png')
     }.delete_if{ |k, v| v.blank? }
   end
   helper_method :meta_open_graph_data

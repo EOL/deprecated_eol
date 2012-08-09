@@ -31,12 +31,12 @@ EolUpgrade::Application.routes.draw do
   resources :wikipedia_imports, :only => [:new, :create] # Curator tool to request import of wikipedia pages
 
   # Taxa nested resources with pages as alias... this is quite large, sorry.
-  resources :taxa, :only => [:show], :as => 'pages' do
+  resources :pages, :only => [:show], :controller => 'taxa', :as => 'taxa' do
     resources :tree, :only => [:show]
-    resources :overview, :only => [:show]
-    resources :details, :except => [:show]
-    resources :maps, :only => [:show]
-    resources :worklist, :only => [:show]
+    resources :overview, :only => [:show], :controller => 'taxa/overviews'
+    resources :details, :except => [:show], :controller => 'taxa/details'
+    resources :maps, :only => [:show], :controller => 'taxa/maps'
+    resources :worklist, :only => [:show], :controller => 'taxa/worklist'
     resources :data_objects, :only => [:create, :new]
     resources :hierarchy_entries, :as => 'entries', :only => [:show] do
       member do
@@ -44,7 +44,7 @@ EolUpgrade::Application.routes.draw do
       end
       resources :tree, :only => [:show]
       resources :overview, :only => [:show]
-      resources :media, :only => [:index]
+      resources :media, :only => [:index], :controller => 'taxa/media'
       resources :details, :only => [:index]
       resources :communities, :as => :community, :only => [:index] do
         collection do
@@ -83,7 +83,7 @@ EolUpgrade::Application.routes.draw do
         end
       end
     end
-    resources :media, :only => [:index] do
+    resources :media, :only => [:index], :controller => 'taxa/media' do
       collection do
         get 'set_as_exemplar'
         post 'set_as_exemplar'

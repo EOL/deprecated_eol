@@ -134,12 +134,12 @@ module EOL
 
         if options[:vetted_types] && !options[:vetted_types].include?('all')
           url << CGI.escape(" AND (")
-          url << CGI.escape(options[:vetted_types].collect{ |t| "#{t}_#{field_suffix}:#{search_id}" }.join(' OR '))
+          url << CGI.escape(Array(options[:vetted_types]).collect{ |t| "#{t}_#{field_suffix}:#{search_id}" }.join(' OR '))
           url << CGI.escape(")")
         end
         if options[:visibility_types] && !options[:visibility_types].include?('all')
           url << CGI.escape(" AND (")
-          url << CGI.escape(options[:visibility_types].collect{ |t| "#{t}_#{field_suffix}:#{search_id}" }.join(' OR '))
+          url << CGI.escape(Array(options[:visibility_types]).collect{ |t| "#{t}_#{field_suffix}:#{search_id}" }.join(' OR '))
           url << CGI.escape(")")
         end
 
@@ -250,7 +250,7 @@ module EOL
         options[:vetted_types] = ['trusted', 'unreviewed']
         options[:vetted_types] << 'untrusted' if options[:user] && options[:user].is_curator?
         url << CGI.escape(" AND (")
-        url << CGI.escape(options[:vetted_types].collect{ |t| "#{t}_#{field_suffix}:#{search_id}" }.join(' OR '))
+        url << CGI.escape(Array(options[:vetted_types]).collect{ |t| "#{t}_#{field_suffix}:#{search_id}" }.join(' OR '))
         url << CGI.escape(")")
         
         options[:data_type_ids] = DataType.image_type_ids + DataType.video_type_ids + DataType.sound_type_ids

@@ -9,14 +9,14 @@ namespace :solr do
     end
     port = $SOLR_SERVER.gsub(/^.*:(\d+).*$/, '\\1')
     FileUtils.cd(File.join($SOLR_DIR)) do
-      command = [Rails.root.join('bin', 'solr'), 'start', '--', '-p', port.to_s]
+      command = [Rails.root.join('bin', 'solr'), 'start', '--', '-p', port]
       if $SOLR_SERVER_RAM
         command << '-r'
       end
       if $SOLR_DIR
         command << '-s' << $SOLR_DIR
       end
-      system(Escape.shell_command(command))
+      system(Escape.shell_command(command.map {|p| p.to_s}))
     end
   end
 

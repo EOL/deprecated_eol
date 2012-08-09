@@ -9,17 +9,17 @@ ContentPage # This fails to auto-load.  Could be a memcached thing, but easy eno
 
 class ApplicationController < ActionController::Base
 
+  protect_from_forgery
+
   include ImageManipulation
 
   # Map custom exceptions to default response codes
-  ActionController::Base.rescue_responses.update(
-    'EOL::Exceptions::MustBeLoggedIn'     => :unauthorized,
-    'EOL::Exceptions::Pending'            => :not_implemented,
-    'EOL::Exceptions::SecurityViolation'  => :forbidden,
-    'OpenURI::HTTPError'                  => :bad_request
+  ActionDispatch::ShowExceptions.rescue_responses.update(
+    'EOL::Exceptions::MustBeLoggedIn'    => :unauthorized,
+    'EOL::Exceptions::Pending'           => :not_implemented,
+    'EOL::Exceptions::SecurityViolation' => :forbidden,
+    'OpenURI::HTTPError'                 => :bad_request
   )
-
-  filter_parameter_logging :password
 
   around_filter :profile
 
@@ -46,10 +46,7 @@ class ApplicationController < ActionController::Base
 
   def profile
     return yield if params[:profile].nil?
-    unless defined?(@env_can_profile)
-      @env_can_profile = Rails.env.development? || Rails.env.staging? || Rails.env.profile?
-    end
-    return yield unless @env_can_profile
+    return yield if ![ 'v2staging', 'v2staging_dev', 'v2staging_dev_cache', 'development', 'test'].include?(ENV['RAILS_ENV'])
     result = RubyProf.profile { yield }
     printer = RubyProf::GraphHtmlPrinter.new(result)
     out = StringIO.new
@@ -225,9 +222,15 @@ class ApplicationController < ActionController::Base
 
   # just clear all fragment caches quickly
   def clear_all_caches
+    Rails.cache.clear
     remove_cached_feeds
     remove_cached_list_of_taxon_concepts
-    Rails.cache.clear
+    if ActionController::Base.cache_store.class == ActiveSupport::Cache::MemCacheStore
+      ActionController::Base.cache_store.clear
+      return true
+    else
+      return false
+    end
   end
 
   def expire_non_species_caches
@@ -434,7 +437,7 @@ class ApplicationController < ActionController::Base
 
   # clear the cached activity logs on homepage
   def clear_cached_homepage_activity_logs
-    Rails.cache.delete('homepage/activity_logs_expiration') if $CACHE
+    Rails.cache.delete('homepage/activity_logs_expiration') if Rails.cache
   end
 
 protected
@@ -700,11 +703,11 @@ private
   end
 
   def remove_cached_feeds
-    FileUtils.rm_rf(Dir.glob(Rails.root.join(Rails.public_path, 'feeds', '*')))
+    FileUtils.rm_rf(Dir.glob("#{RAILS_ROOT}/public/feeds/*"))
   end
 
   def remove_cached_list_of_taxon_concepts
-    FileUtils.rm_rf(Rails.root.join(Rails.public_path, 'content', 'tc_api', 'page'))
+    FileUtils.rm_rf("#{RAILS_ROOT}/public/content/tc_api/page")
     expire_page( :controller => 'content', :action => 'tc_api' )
   end
 

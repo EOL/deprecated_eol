@@ -62,7 +62,7 @@
         - if allow_more_splits
           - unless @other_hierarchy_entries.empty?
             #split_warning
-              = I18n.t(:split_only_possible_with_all_classifications, :link => @selected_hierarchy_entry ? taxon_hierarchy_entry_names_path(@taxon_concept, @selected_hierarchy_entry, :all => '1') : taxon_names_path(@taxon_concept, :all => '1'))
+              = I18n.t(:split_only_possible_with_all_classifications, :link => @selected_hierarchy_entry ? taxon_entry_names_path(@taxon_concept, @selected_hierarchy_entry, :all => '1') : taxon_names_path(@taxon_concept, :all => '1'))
           #split_instructions
             = I18n.t(:split_classification_instructions)
         %table.standard.classifications
@@ -105,7 +105,7 @@
                       = hierarchy_entry_display_attribution(hierarchy_entry, :show_rank => false, :show_link => true)
                     - if hierarchy_entry.hierarchy.browsable.to_i == 1
                       %br
-                      = link_to(I18n.t(:view_in_classification), taxon_hierarchy_entry_overview_path(@taxon_concept, hierarchy_entry))
+                      = link_to(I18n.t(:view_in_classification), taxon_entry_overview_path(@taxon_concept, hierarchy_entry))
                   %td.rank
                     - if hierarchy_entry.rank
                       = hierarchy_entry.rank_label
@@ -146,7 +146,7 @@
               - unless @confirm_split_or_merge
                 %li= submit_tag(I18n.t(:split_into_new_concept).downcase, :name => 'split')
         - else 
-          - link = @selected_hierarchy_entry ? taxon_hierarchy_entry_names_path(@taxon_concept, @selected_hierarchy_entry, :all => '1') : taxon_names_path(@taxon_concept, :all => '1')
+          - link = @selected_hierarchy_entry ? taxon_entry_names_path(@taxon_concept, @selected_hierarchy_entry, :all => '1') : taxon_names_path(@taxon_concept, :all => '1')
           .classification_actions
             %p= link_to(I18n.t(:show_all_other_classifications_with_count, :count => @other_hierarchy_entries.count), link, :id => 'show_other_classifications')
 

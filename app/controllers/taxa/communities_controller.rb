@@ -8,8 +8,8 @@ class Taxa::CommunitiesController < TaxaController
     @assistive_section_header = I18n.t(:assistive_taxon_community_header)
     current_user.log_activity(:viewed_taxon_concept_community_communities, :taxon_concept_id => @taxon_concept.id)
     @rel_canonical_href = @selected_hierarchy_entry ?
-      taxon_hierarchy_entry_communities_url(@taxon_concept, @selected_hierarchy_entry) :
-      taxon_communities_url(@taxon_concept)
+      taxon_entry_communities_url(@taxon_concept, @selected_hierarchy_entry) :
+      taxon_community_url(@taxon_concept)
   end
 
   def collections
@@ -17,8 +17,8 @@ class Taxa::CommunitiesController < TaxaController
     @assistive_section_header = I18n.t(:assistive_taxon_community_header)
     current_user.log_activity(:viewed_taxon_concept_community_collections, :taxon_concept_id => @taxon_concept.id)
     @rel_canonical_href = @selected_hierarchy_entry ?
-      collections_taxon_hierarchy_entry_communities_url(@taxon_concept, @selected_hierarchy_entry) :
-      collections_taxon_communities_url(@taxon_concept)
+      collections_taxon_entry_communities_url(@taxon_concept, @selected_hierarchy_entry) :
+      collections_taxon_community_url(@taxon_concept)
   end
 
   def curators
@@ -26,8 +26,8 @@ class Taxa::CommunitiesController < TaxaController
     @assistive_section_header = I18n.t(:assistive_taxon_community_header)
     current_user.log_activity(:viewed_taxon_concept_community_curators, :taxon_concept_id => @taxon_concept.id)
     @rel_canonical_href = @selected_hierarchy_entry ?
-      curators_taxon_hierarchy_entry_communities_url(@taxon_concept, @selected_hierarchy_entry) :
-      curators_taxon_communities_url(@taxon_concept)
+      curators_taxon_entry_communities_url(@taxon_concept, @selected_hierarchy_entry) :
+      curators_taxon_community_url(@taxon_concept)
   end
 
 end

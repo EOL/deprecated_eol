@@ -329,7 +329,8 @@ EolUpgrade::Application.routes.draw do
   match '/terms_of_use' => 'content#show', :defaults => {:id => 'terms_of_use'}, :as => 'terms_of_use'
   match '/citing' => 'content#show', :defaults => {:id => 'citing'}, :as => 'citing'
   match '/privacy' => 'content#show', :defaults => {:id => 'privacy'}, :as => 'privacy'
-  match '/curators/*ignore' => 'content#show', :defaults => {:id => 'curators'}, :as => 'curators'
+  match '/curators' => 'content#show', :defaults => {:id => 'curators'}, :as => 'curators'
+  match '/curators/*ignore' => 'content#show', :defaults => {:id => 'curators'}
   match '/info/:id' => 'content#show', :as => 'cms_page'
   match '/info/*crumbs' => 'content#show', :as => 'cms_crumbs'
 

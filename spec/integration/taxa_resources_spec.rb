@@ -17,7 +17,7 @@ describe 'Taxa page' do
     body.should_not include('Citizen Science Links')
     
     # resources should have a placeholder, but not content
-    visit citizen_science_taxon_resources_path(@taxon_concept)
+    visit citizen_science_taxon_resource_path(@taxon_concept)
     body.should include('Citizen Science Links')
     body.should include('No one has contributed any citizen science links to this page yet')
     body.should include('Add a citizen science link to this page')
@@ -34,7 +34,7 @@ describe 'Taxa page' do
     body.should_not include(citizen_science_article.description)
     
     # and it should show up on the resources tab
-    visit citizen_science_taxon_resources_path(@taxon_concept)
+    visit citizen_science_taxon_resource_path(@taxon_concept)
     body.should include('Citizen Science Links')
     body.should include(citizen_science_article.description)
     

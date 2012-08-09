@@ -2,13 +2,12 @@
 module ActiveRecord
   module QueryMethods
     def build_select(arel, selects)
-
       new_selects = selects.dup
       if selects && selects.first.class == Hash
         if selects.first[table.name.to_sym]
           new_selects = selects.first[table.name.to_sym]
         else
-          new_selects = "*"
+          new_selects = {}
         end
       end
       

@@ -5,7 +5,11 @@ module ActiveRecord
       def preload_hash(association)
         association.each do |parent, child|
           Preloader.new(records, parent, options).run
-          Preloader.new(records.map { |record| record.send(parent) }.flatten, child, options).run
+          new_options = {}
+          if options && options[:select]
+            new_options[:select] = options[:select].dup
+          end
+          Preloader.new(records.map { |record| record.send(parent) }.flatten, child, new_options).run
         end
       end
       

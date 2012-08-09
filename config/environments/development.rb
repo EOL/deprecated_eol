@@ -37,46 +37,9 @@ config.action_mailer.raise_delivery_errors = false
 
 $PARENT_CLASS_MUST_USE_MASTER = ActiveRecord::Base
 
-$LOG_USER_ACTIVITY = true
-
-$EXCEPTION_NOTIFY = false # set to false to not be notified of exceptions via email
-$ERROR_LOGGING = false # set to true to record uncaught application errors in sql database file
-
-$ENABLE_ANALYTICS=false
-$ENABLE_RECAPTCHA=false # set to true to enable recaptcha on registration and contact us form
-#$WEB_SERVICE_TIMEOUT_SECONDS=20 # how many seconds to wait when calling a webservice before timing out and returning nil
-$LOG_WEB_SERVICE_EXECUTION_TIME=true # if set to false, then execution times for web service calls will not be recorded
-$USE_SSL_FOR_LOGIN=false
-
-# THIS IS WHERE ALL THE IMAGES/VIDEOS LIVE:
-$CONTENT_SERVERS = ['http://content.eol.org/'] if !$CONTENT_SERVERS
-
-$AGENT_ID_OF_DEFAULT_COMMON_NAME_SOURCE = Agent.first.id rescue nil # Because it doesn't much matter, here in development.
-
-$SKIP_URL_VALIDATIONS = true
-
-$IP_ADDRESS_OF_SERVER = '0.0.0.0:3000'
-
-$UNSUBSCRIBE_NOTIFICATIONS_KEY = 'f0de2a0651aa88a090e5679e5e3a7d28'
-
-$HOMEPAGE_MARCH_RICHNESS_THRESHOLD = nil
-
-# # If you decide you want to view the site using the V1 layout then comment out the next line
-# $USE_OLD_MAIN_LAYOUT = true
-
-#set up the master database connection for writes using masochism plugin
-#NOTE: for this to work, you *must* also use config.cache_classes = true (default for production)
-# config.after_initialize do
-#   ActiveReload::ConnectionProxy.setup_for ActiveReload::MasterDatabase, ActiveRecord::Base
-# end
-
-# uncomment the line below if you want to use the minified/combined JS files from the asset packager for testing purposes
-# note that to create new combined asset files, use this rake task first: rake asset:packager:build_all
-#Synthesis::AssetPackage.merge_environments = ["development", "production"]
-
-#This part of the code should stay at the bottom to ensure that www.eol.org - related settings override everything
-begin
-  require File.join(File.dirname(__FILE__), 'development_eol_org')
-rescue LoadError
-  puts '*************WARNING: COULD NOT LOAD development_eol_org FILE***********************'
+  # Expands the lines which load the assets
+  config.assets.debug = true
+  
+  ActiveRecord::Base.logger = Logger.new(STDOUT) if defined? Rails::Console
+  
 end

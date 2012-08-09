@@ -44,7 +44,7 @@ namespace :solr do
   task :stop => :environment do
     puts "** Stopping Background Solr instance for EOL..."
     FileUtils.cd($SOLR_DIR) do
-      system(Escape.shell_command([Rails.root.join('bin', 'solr'), 'stop']))
+      exec([Rails.root.join('bin', 'solr'), 'stop'].join(" "))
     end
   end
 

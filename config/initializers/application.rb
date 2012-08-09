@@ -1,3 +1,5 @@
+require 'select_with_preload_include'
+
 APPLICATION_DEFAULT_LANGUAGE_ISO = 'en'
 $SOLR_SERVER = 'http://localhost:8983/solr/'
 $SOLR_TAXON_CONCEPTS_CORE = 'taxon_concepts'

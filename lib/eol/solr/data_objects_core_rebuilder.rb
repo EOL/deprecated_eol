@@ -112,7 +112,7 @@ module EOL
           hash['curated_by_user_id'] << cal.user_id
         end
         # add concepts and ancestors
-        (data_object.curated_hierarchy_entries + [data_object.users_data_object]).compact.each do |he|
+        (data_object.curated_hierarchy_entries + [data_object.latest_published_users_data_object]).compact.each do |he|
           field_prefixes = []
           if he.vetted
             vetted_label = he.vetted.label('en').downcase rescue nil

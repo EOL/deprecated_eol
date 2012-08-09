@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Rank < ActiveRecord::Base
   uses_translations
   has_many :hierarchy_entries

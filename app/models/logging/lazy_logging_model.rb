@@ -17,16 +17,12 @@ class LazyLoggingModel < LoggingModel
       instance.id = self.connection.next_sequence_value(self.sequence_name)
     end
 
-    # Important that we have quoted attributes and column names:
-    instance.instance_eval { def attribs ; attributes_with_quotes ; end ; def cols ; quoted_column_names ; end }
-    quoted_attributes = instance.attribs
-
-    statement = if quoted_attributes.empty?
+    statement = if instance.attributes.empty?
       self.connection.empty_insert_statement(self.table_name)
     else
       "INSERT DELAYED INTO #{self.quoted_table_name} " +
-      "(#{instance.cols.join(', ')}) " +
-      "VALUES(#{quoted_attributes.values.join(', ')})"
+      "(#{instance.attributes.keys.map { |k| "`#{k}`"}.join(',')}) " +
+      "VALUES(#{instance.attributes.values.map { |v| sanitize(v) }.join(',')})"
     end
 
     instance.id = self.connection.insert(statement, "#{self.name} Create",

@@ -21,12 +21,12 @@ describe RedirectsController do
     end
     it 'should permanently redirect to taxon community curators when taxon id and sub tab are provided' do
       get :show, :taxon_id => '1', :sub_tab => 'curators'
-      response.redirected_to.should == curators_taxon_communities_path(1)
+      response.redirected_to.should == curators_taxon_community_path(1)
       response.status.should == '301 Moved Permanently'
     end
     it 'should permanently redirect to taxon maps when taxon id and sub tab are provided' do
       get :show, :taxon_id => '1', :sub_tab => 'maps'
-      response.redirected_to.should == taxon_maps_path(1)
+      response.redirected_to.should == taxon_map_path(1)
       response.status.should == '301 Moved Permanently'
     end
     it 'should permanently redirect to taxon media when taxon id and sub tab are provided' do

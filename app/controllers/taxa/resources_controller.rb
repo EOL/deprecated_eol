@@ -6,8 +6,8 @@ class Taxa::ResourcesController < TaxaController
     @assistive_section_header = I18n.t(:resources)
     @links = @taxon_concept.content_partners_links
     @rel_canonical_href = @selected_hierarchy_entry ?
-      taxon_hierarchy_entry_resources_url(@taxon_concept, @selected_hierarchy_entry) :
-      taxon_resources_url(@taxon_concept)
+      taxon_entry_resources_url(@taxon_concept, @selected_hierarchy_entry) :
+      taxon_resource_url(@taxon_concept)
     current_user.log_activity(:viewed_taxon_concept_resources_content_partners, :taxon_concept_id => @taxon_concept.id)
   end
 
@@ -15,8 +15,8 @@ class Taxa::ResourcesController < TaxaController
     @assistive_section_header = I18n.t(:resources)
     @add_article_toc_id = TocItem.identification_resources ? TocItem.identification_resources.id : nil
     @rel_canonical_href = @selected_hierarchy_entry ?
-      identification_resources_taxon_hierarchy_entry_resources_url(@taxon_concept, @selected_hierarchy_entry) :
-      identification_resources_taxon_resources_url(@taxon_concept)
+      identification_resources_taxon_entry_resources_url(@taxon_concept, @selected_hierarchy_entry) :
+      identification_resources_taxon_resource_url(@taxon_concept)
 
     @contents = @taxon_concept.text_for_user(current_user, {
       :language_ids => [ current_language.id ],
@@ -28,8 +28,8 @@ class Taxa::ResourcesController < TaxaController
     @assistive_section_header = I18n.t(:citizen_science)
     @add_article_toc_id = TocItem.citizen_science_links ? TocItem.citizen_science_links.id : nil
     @rel_canonical_href = @selected_hierarchy_entry ?
-      citizen_science_taxon_hierarchy_entry_resources_url(@taxon_concept, @selected_hierarchy_entry) :
-      citizen_science_taxon_resources_url(@taxon_concept)
+      citizen_science_taxon_entry_resources_url(@taxon_concept, @selected_hierarchy_entry) :
+      citizen_science_taxon_resource_url(@taxon_concept)
 
     citizen_science = TocItem.cached_find_translated(:label, 'Citizen Science', 'en')
     citizen_science_links = TocItem.cached_find_translated(:label, 'Citizen Science links', 'en')
@@ -43,8 +43,8 @@ class Taxa::ResourcesController < TaxaController
     @assistive_section_header = I18n.t(:resources)
     @add_article_toc_id = TocItem.education_resources ? TocItem.education_resources.id : nil
     @rel_canonical_href = @selected_hierarchy_entry ?
-      education_taxon_hierarchy_entry_resources_url(@taxon_concept, @selected_hierarchy_entry) :
-      education_taxon_resources_url(@taxon_concept)
+      education_taxon_entry_resources_url(@taxon_concept, @selected_hierarchy_entry) :
+      education_taxon_resource_url(@taxon_concept)
     
     # there are two education chapters - one is the parent of the other
     education_root = TocItem.cached_find_translated(:label, 'Education', 'en', :find_all => true).detect{ |toc_item| toc_item.is_parent? }
@@ -63,8 +63,8 @@ class Taxa::ResourcesController < TaxaController
       @biomedical_exists = false
     end
     @rel_canonical_href = @selected_hierarchy_entry ?
-      biomedical_terms_taxon_hierarchy_entry_resources_url(@taxon_concept, @selected_hierarchy_entry) :
-      biomedical_terms_taxon_resources_url(@taxon_concept)
+      biomedical_terms_taxon_entry_resources_url(@taxon_concept, @selected_hierarchy_entry) :
+      biomedical_terms_taxon_resource_url(@taxon_concept)
     current_user.log_activity(:viewed_taxon_concept_resources_biomedical_terms, :taxon_concept_id => @taxon_concept.id)
   end
 
@@ -76,8 +76,8 @@ class Taxa::ResourcesController < TaxaController
       @identifier = @taxon_concept.nucleotide_sequences_hierarchy_entry_for_taxon.identifier
     end
     @rel_canonical_href = @selected_hierarchy_entry ?
-      nucleotide_sequences_taxon_hierarchy_entry_resources_url(@taxon_concept, @selected_hierarchy_entry) :
-      nucleotide_sequences_taxon_resources_url(@taxon_concept)
+      nucleotide_sequences_taxon_entry_resources_url(@taxon_concept, @selected_hierarchy_entry) :
+      nucleotide_sequences_taxon_resource_url(@taxon_concept)
     current_user.log_activity(:viewed_taxon_concept_resources_nucleotide_sequences, :taxon_concept_id => @taxon_concept.id)
   end
 

@@ -69,9 +69,9 @@ class Taxa::MediaController < TaxaController
     @watch_collection = logged_in? ? current_user.watch_collection : nil
     @assistive_section_header = I18n.t(:assistive_media_header)
     if @selected_hierarchy_entry
-      @rel_canonical_href = taxon_hierarchy_entry_media_url(@taxon_concept, @selected_hierarchy_entry, :page => rel_canonical_href_page_number(@media))
-      @rel_prev_href = rel_prev_href_params(@media) ? taxon_hierarchy_entry_media_url(@rel_prev_href_params) : nil
-      @rel_next_href = rel_next_href_params(@media) ? taxon_hierarchy_entry_media_url(@rel_next_href_params) : nil
+      @rel_canonical_href = taxon_entry_media_url(@taxon_concept, @selected_hierarchy_entry, :page => rel_canonical_href_page_number(@media))
+      @rel_prev_href = rel_prev_href_params(@media) ? taxon_entry_media_url(@rel_prev_href_params) : nil
+      @rel_next_href = rel_next_href_params(@media) ? taxon_entry_media_url(@rel_next_href_params) : nil
     else
       @rel_canonical_href = taxon_media_url(@taxon_concept, :page => rel_canonical_href_page_number(@media))
       @rel_prev_href = rel_prev_href_params(@media) ? taxon_media_url(@rel_prev_href_params) : nil

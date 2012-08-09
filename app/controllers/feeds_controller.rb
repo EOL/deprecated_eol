@@ -17,7 +17,7 @@ class FeedsController < ApplicationController
       page = find_index(parent, 'Comment', params[:id], comment.parent_type == 'TaxonConcept' ? 10 : 20)
       case comment.parent_type
       when 'TaxonConcept'
-        redirect_to add_hash_to_path(taxon_updates_path(parent, :page => page), 'Comment', params[:id])
+        redirect_to add_hash_to_path(taxon_update_path(parent, :page => page), 'Comment', params[:id])
       when 'DataObject'
         redirect_to add_hash_to_path(data_object_path(DataObject.latest_published_version_of(parent.id), :page => page), 'Comment', params[:id])
       when 'Community'
@@ -34,7 +34,7 @@ class FeedsController < ApplicationController
       # There are only two kinds: taxon and dato...
       if source = cal.taxon_concept
         page = find_index(source, 'CuratorActivityLog', params[:id], 10)
-        redirect_to add_hash_to_path(taxon_updates_path(cal.taxon_concept, :page => page), 'CuratorActivityLog', params[:id])
+        redirect_to add_hash_to_path(taxon_update_path(cal.taxon_concept, :page => page), 'CuratorActivityLog', params[:id])
       else # Dato:
         source = cal.data_object
         page = find_index(source, 'CuratorActivityLog', params[:id], 20)

@@ -432,22 +432,22 @@ describe 'Taxa page' do
   # community tab
   context 'community tab' do
     before(:all) do
-      visit(taxon_communities_path(@testy[:id]))
+      visit(taxon_community_index_path(@testy[:id]))
       @section = 'community'
     end
     subject { body }
     it_should_behave_like 'taxon name - taxon_concept page'
     it_should_behave_like 'taxon community tab'
     it "should render communities - curators page" do
-      visit(taxon_communities_path(@taxon_concept))
+      visit(taxon_community_index_path(@taxon_concept))
       body.should have_tag("h3", :text => "Communities")
     end
     it "should render communities - collections page" do
-      visit(collections_taxon_communities_path(@taxon_concept))
+      visit(collections_taxon_community_path(@taxon_concept))
       body.should have_tag("h3", :text => "Collections")
     end
     it "should render communities - curators page" do
-      visit(curators_taxon_communities_path(@taxon_concept))
+      visit(curators_taxon_community_path(@taxon_concept))
       body.should have_tag("h3", :text => "Curators")
     end
   end
@@ -521,7 +521,7 @@ describe 'Taxa page' do
 
   context 'updates tab - taxon_concept' do
     before(:all) do
-      visit(taxon_updates_path(@taxon_concept))
+      visit(taxon_update_path(@taxon_concept))
       @section = 'updates'
     end
     subject { body }
@@ -529,13 +529,13 @@ describe 'Taxa page' do
     it 'should allow logged in users to post comment' do
       visit logout_url
       login_as @user
-      visit taxon_updates_path(@taxon_concept)
+      visit taxon_update_path(@taxon_concept)
       comment = "Test comment by a logged in user."
       body.should have_tag("#main .comment #comment_body")
       fill_in 'comment_body', :with => comment
       body.should have_tag("#main .comment .actions input", :val => "Post Comment")
       click_button "Post Comment"
-      current_url.should match /#{taxon_updates_path(@taxon_concept)}/
+      current_url.should match /#{taxon_update_path(@taxon_concept)}/
       body.should include('Comment successfully added')
     end
   end

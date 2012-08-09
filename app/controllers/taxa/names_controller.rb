@@ -39,7 +39,7 @@ class Taxa::NamesController < TaxaController
   def related_names
     if @selected_hierarchy_entry
       @related_names = TaxonConcept.related_names(:hierarchy_entry_id => @selected_hierarchy_entry_id)
-      @rel_canonical_href = taxon_hierarchy_entry_names_url(@taxon_concept, @selected_hierarchy_entry)
+      @rel_canonical_href = taxon_entry_names_url(@taxon_concept, @selected_hierarchy_entry)
     else
       @related_names = TaxonConcept.related_names(:taxon_concept_id => @taxon_concept.id)
       @rel_canonical_href = taxon_names_url(@taxon_concept)
@@ -80,7 +80,7 @@ class Taxa::NamesController < TaxaController
       current_user.log_activity(:updated_common_names, :taxon_concept_id => @taxon_concept.id)
     end
     if !params[:hierarchy_entry_id].blank?
-      redirect_to common_names_taxon_hierarchy_entry_names_path(@taxon_concept, params[:hierarchy_entry_id]), :status => :moved_permanently
+      redirect_to common_names_taxon_entry_names_path(@taxon_concept, params[:hierarchy_entry_id]), :status => :moved_permanently
     else
       redirect_to common_names_taxon_names_path(@taxon_concept), :status => :moved_permanently
     end
@@ -98,7 +98,7 @@ class Taxa::NamesController < TaxaController
     end
 
     if !params[:hierarchy_entry_id].blank?
-      redirect_to common_names_taxon_hierarchy_entry_names_path(@taxon_concept, params[:hierarchy_entry_id]), :status => :moved_permanently
+      redirect_to common_names_taxon_entry_names_path(@taxon_concept, params[:hierarchy_entry_id]), :status => :moved_permanently
     else
       redirect_to common_names_taxon_names_path(@taxon_concept), :status => :moved_permanently
     end
@@ -113,7 +113,7 @@ class Taxa::NamesController < TaxaController
     TaxonConcept.preload_associations(@taxon_concept, associations, options )
     @assistive_section_header = I18n.t(:assistive_names_synonyms_header)
     @rel_canonical_href = @selected_hierarchy_entry ?
-      synonyms_taxon_hierarchy_entry_names_url(@taxon_concept, @selected_hierarchy_entry) :
+      synonyms_taxon_entry_names_url(@taxon_concept, @selected_hierarchy_entry) :
       synonyms_taxon_names_url(@taxon_concept)
     current_user.log_activity(:viewed_taxon_concept_names_synonyms, :taxon_concept_id => @taxon_concept.id)
     common_names_count
@@ -127,7 +127,7 @@ class Taxa::NamesController < TaxaController
     @common_names_count = @common_names.collect{|cn| [cn.name.id,cn.language.id]}.uniq.count
     @assistive_section_header = I18n.t(:assistive_names_common_header)
     @rel_canonical_href = @selected_hierarchy_entry ?
-      common_names_taxon_hierarchy_entry_names_url(@taxon_concept, @selected_hierarchy_entry) :
+      common_names_taxon_entry_names_url(@taxon_concept, @selected_hierarchy_entry) :
       common_names_taxon_names_url(@taxon_concept)
     current_user.log_activity(:viewed_taxon_concept_names_common_names, :taxon_concept_id => @taxon_concept.id)
   end
@@ -158,7 +158,7 @@ class Taxa::NamesController < TaxaController
     respond_to do |format|
       format.html do
         if !params[:hierarchy_entry_id].blank?
-          redirect_to common_names_taxon_hierarchy_entry_names_path(@taxon_concept, params[:hierarchy_entry_id]), :status => :moved_permanently
+          redirect_to common_names_taxon_entry_names_path(@taxon_concept, params[:hierarchy_entry_id]), :status => :moved_permanently
         else
           redirect_to common_names_taxon_names_path(@taxon_concept), :status => :moved_permanently
         end

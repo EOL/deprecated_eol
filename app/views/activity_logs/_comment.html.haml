@@ -8,7 +8,7 @@
 - display_curator ||= false
 - parent_newsfeed = case item.parent_type
   - when 'TaxonConcept'
-    - parent_newsfeed = taxon_updates_url(item.parent_id)
+    - parent_newsfeed = taxon_update_url(item.parent_id)
   - when 'DataObject'
     - parent_newsfeed = data_object_url(item.parent_id)
   - when 'Community'
@@ -75,7 +75,7 @@
           - parent_newsfeed = nil
           - case item.parent_type
           - when 'TaxonConcept'
-            - parent_newsfeed = taxon_updates_url(item.parent_id)
+            - parent_newsfeed = taxon_update_url(item.parent_id)
           - when 'DataObject'
             - parent_newsfeed = data_object_url(item.parent_id)
           - when 'Community'

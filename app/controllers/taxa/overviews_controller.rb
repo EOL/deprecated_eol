@@ -34,7 +34,7 @@ class Taxa::OverviewsController < TaxaController
     @watch_collection = logged_in? ? current_user.watch_collection : nil
     @assistive_section_header = I18n.t(:assistive_overview_header)
     @rel_canonical_href = @selected_hierarchy_entry ?
-      taxon_hierarchy_entry_overview_url(@taxon_concept, @selected_hierarchy_entry) :
+      taxon_entry_overview_url(@taxon_concept, @selected_hierarchy_entry) :
       taxon_overview_url(@taxon_concept)
     current_user.log_activity(:viewed_taxon_concept_overview, :taxon_concept_id => @taxon_concept.id)
   end

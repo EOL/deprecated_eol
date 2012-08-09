@@ -7,7 +7,7 @@ class Taxa::LiteratureController < TaxaController
     @references = Ref.sort_by_full_reference(@references)
     @assistive_section_header = I18n.t(:assistive_literature_header)
     @rel_canonical_href = @selected_hierarchy_entry ?
-      taxon_hierarchy_entry_literature_url(@taxon_concept, @selected_hierarchy_entry) :
+      taxon_entry_literature_url(@taxon_concept, @selected_hierarchy_entry) :
       taxon_literature_url(@taxon_concept)
     current_user.log_activity(:viewed_taxon_concept_literature, :taxon_concept_id => @taxon_concept.id)
   end
@@ -20,10 +20,10 @@ class Taxa::LiteratureController < TaxaController
     @bhl_results = EOL::Solr::BHL.search(@taxon_concept, :sort => @sort, :page => @page)
 
     if @selected_hierarchy_entry
-      @rel_canonical_href = bhl_taxon_hierarchy_entry_literature_url(@taxon_concept, @selected_hierarchy_entry,
+      @rel_canonical_href = bhl_taxon_entry_literature_url(@taxon_concept, @selected_hierarchy_entry,
         :page => rel_canonical_href_page_number(@bhl_results[:results]))
-      @rel_prev_href = rel_prev_href_params(@bhl_results[:results]) ? bhl_taxon_hierarchy_entry_literature_url(@rel_prev_href_params) : nil
-      @rel_next_href = rel_next_href_params(@bhl_results[:results]) ? bhl_taxon_hierarchy_entry_literature_url(@rel_next_href_params) : nil
+      @rel_prev_href = rel_prev_href_params(@bhl_results[:results]) ? bhl_taxon_entry_literature_url(@rel_prev_href_params) : nil
+      @rel_next_href = rel_next_href_params(@bhl_results[:results]) ? bhl_taxon_entry_literature_url(@rel_next_href_params) : nil
     else
       @rel_canonical_href = bhl_taxon_literature_url(@taxon_concept, :page => rel_canonical_href_page_number(@bhl_results[:results]))
       @rel_prev_href = rel_prev_href_params(@bhl_results[:results]) ? bhl_taxon_literature_url(@rel_prev_href_params) : nil

@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: George Animal
+# Author: Katja
 # Author: Kghbln
 de: 
   translated_activities-name-activity_id-19: Profil
@@ -19,7 +20,7 @@ de:
   translated_activities-name-activity_id-64: Entfernen
   translated_agent_roles-label-agent_role_id-1: Animator
   translated_agent_roles-label-agent_role_id-10: Projekt
-  translated_agent_roles-label-agent_role_id-11: Veröffentlicher
+  translated_agent_roles-label-agent_role_id-11: Herausgeber
   translated_agent_roles-label-agent_role_id-12: Aufzeichner
   translated_agent_roles-label-agent_role_id-13: Quelle
   translated_agent_roles-label-agent_role_id-14: Quelldatenbank
@@ -28,9 +29,9 @@ de:
   translated_agent_roles-label-agent_role_id-2: Autor
   translated_agent_roles-label-agent_role_id-21: Anbieter
   translated_agent_roles-label-agent_role_id-22: Übersetzer
-  translated_agent_roles-label-agent_role_id-23: Wissenschaftlicher Prüfer
-  translated_agent_roles-label-agent_role_id-24: Linguistischer Prüfer
-  translated_agent_roles-label-agent_role_id-3: Kompilierer
+  translated_agent_roles-label-agent_role_id-23: Wissenschaftlicher Gutachter
+  translated_agent_roles-label-agent_role_id-24: Linguistischer Gutachter
+  translated_agent_roles-label-agent_role_id-3: Zusammensteller
   translated_agent_roles-label-agent_role_id-4: Komponist
   translated_agent_roles-label-agent_role_id-5: Urheber
   translated_agent_roles-label-agent_role_id-6: Direktor
@@ -41,7 +42,7 @@ de:
   translated_audiences-label-audience_id-2: Allgemeinheit
   translated_audiences-label-audience_id-3: Kinder
   translated_collection_types-label-collection_type_id-1: Taxonomie
-  translated_collection_types-label-collection_type_id-10: Geräusche
+  translated_collection_types-label-collection_type_id-10: Töne
   translated_collection_types-label-collection_type_id-11: Links
   translated_collection_types-label-collection_type_id-12: Literatur
   translated_collection_types-label-collection_type_id-13: Taxonomie
@@ -54,7 +55,7 @@ de:
   translated_collection_types-label-collection_type_id-2: Molekulare Barcodes
   translated_collection_types-label-collection_type_id-20: Molekulare Daten
   translated_collection_types-label-collection_type_id-21: Nomenklatur
-  translated_collection_types-label-collection_type_id-22: Geräusche
+  translated_collection_types-label-collection_type_id-22: Töne
   translated_collection_types-label-collection_type_id-23: Links
   translated_collection_types-label-collection_type_id-24: Literatur
   translated_collection_types-label-collection_type_id-3: Beschreibung
@@ -86,7 +87,7 @@ de:
   translated_content_tables-label-content_table_id-1: Einzelheiten
   translated_data_types-label-data_type_id-1: Bild
   translated_data_types-label-data_type_id-10: Karte
-  translated_data_types-label-data_type_id-2: Geräusch
+  translated_data_types-label-data_type_id-2: Töne
   translated_data_types-label-data_type_id-3: Text
   translated_data_types-label-data_type_id-4: Video
   translated_data_types-label-data_type_id-5: GBIF-Bild

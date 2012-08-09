@@ -1051,6 +1051,13 @@ it:
   data_usage_reports: Report di utilizzo dei dati
   date_caps: Data
   date_uploaded: Data di caricamento
+  datepicker: 
+    day_names: 
+      - Domenica
+      - Lunedì
+      - Martedì
+      - Mercoledì
+      - Giovedì
   dato_create_cancel: Annulla
   dato_create_user_text_error: Spiacenti, si è verificato un errore, l'articolo non è stato aggiunto.
   dato_edit_cancel: Annulla

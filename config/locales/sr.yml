@@ -1513,7 +1513,7 @@ sr:
   language_selector_advisory_information: Ово је списак расположивих језика на сајту. Изаберите језик који желите да бисте изменили текући.
   language_with_count: "%{language} (%{count})"
   languages: Језици
-  last_updated: Последња измена
+  last_updated: Последње ажурирање
   last_updated_time_ago: Ажурирано пре %{time_passed}
   learn_about_collections: Како да направим збирку?
   learn_about_communities: Како да учествујем?

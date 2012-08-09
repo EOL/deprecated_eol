@@ -286,7 +286,7 @@ fr:
               wrong_type: n’a pas le format requis, devrait être un fichier GZIP, TAR ou XML.
             dwc_archive_url: 
               inaccessible: est inaccessible, l’URL doit être accessible au public
-              invalid: est invalide, devrait pointer vers un fichier TAR.GZIP, TAR.GZ ou TGZ.
+              invalid: est invalide, devrait pointer vers un fichier TAR.GZIP, TAR.GZ, TGZ ou fichier ZIP.
       template: 
         body: "Les champs suivants n’ont pas été validés :"
     models: 
@@ -976,6 +976,36 @@ fr:
   data_usage_reports: Rapports d’utilisation des données
   date_caps: Date
   date_uploaded: Date de téléversement
+  datepicker: 
+    close: Fermer
+    current: Aujourd’hui
+    day_names: 
+      - Dimanche
+      - Lundi
+      - Mardi
+      - Mercredi
+      - Jeudi
+      - Vendredi
+      - Samedi
+    day_names_min: 
+      - Di
+      - Lu
+      - Ma
+      - Me
+      - Je
+      - Ve
+      - Sa
+    day_names_short: 
+      - dim
+      - lun
+      - mar
+      - mer
+      - jeu
+      - ven
+      - sam
+    month_names: 
+      - Janvier
+      - Février
   dato_create_cancel: Annuler
   dato_create_user_text_error: Désolé, une erreur est survenue, l’article n’a pas pu être ajoutée.
   dato_create_user_text_missing_taxon_id_exception: Impossible de construire un objet de données textuelles ou utilisateur si l’identifiant de taxon est nul.
@@ -1091,6 +1121,17 @@ fr:
   eol_glossary: Glossaire de l’EdlV
   eol_news: Actualités EdlV
   eol_pages: Pages
+  eol_statistics: 
+    content_partners: 
+      page_title: Statistiques
+    curators: 
+      page_title: Statistiques
+    data_objects: 
+      page_title: Statistiques
+    index: 
+      page_title: Statistiques
+    lifedesks: 
+      page_title: Statistiques
   error_401_description: Désolé, vous n’êtes pas autorisé à accéder à cette URL.
   error_401_page_title: Non autorisé
   error_403_description: Désolé, vous n’êtes pas autorisé à accéder à cette URL.
@@ -1280,6 +1321,8 @@ fr:
         source_url: URL vers l’objet de données d’origine
         toc_item: Sous-chapitre
       eol_statistic: 
+        date_one: Date
+        date_two: Date
         download_all: Toutes <small>(inclure les enregistrements de toutes les pages)</small>
       google_analytics_partner_summaries: 
         page_views: Pages vues <small>(nombre de visites des pages)</small>
@@ -1405,6 +1448,7 @@ fr:
         create_text: Ajouter l’article
         update: Enregistrer l’article
       eol_statistic: 
+        change_date: Obtenir des statistiques pour les dates
         download_csv: Télécharger comme fichier CSV
       filter_sort: Filtrer et trier
       harvest_event: 

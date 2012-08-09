@@ -1,6 +1,7 @@
 # Messages for Swedish (svenska)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
+# Author: Liftarn
 # Author: Lokal Profil
 # Author: Per
 # Author: WikiPhoenix
@@ -139,6 +140,7 @@ sv:
         reply_to_comment: Ett svar på en kommentar som du gjort
       open_authentication: 
         created_at: Skapades
+        guid: GUID
         provider: Tredjepartsleverantör
         secret: Hemlighet
         updated_at: Senaste uppdaterad

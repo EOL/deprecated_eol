@@ -12,8 +12,8 @@
 nl: 
   0_1_or_2: 0, 1 of 2
   0_or_1: 0 of 1
-  a_pipe_delimited_list_of_licenses: Een door het pipe-teken ("|") gescheiden lijst met licenties, of "all" om objecten op te vragen die aan de opgegeven licenties voldoen. Licenties die afgekort beginnen met "cc-" zijn allemaal
-  a_pipe_delimited_list_of_spm_info_item_subject_names: Een door het pipe-teken ("|") gescheiden lijst met SPM Info Item onderwerpnamen of "all" om tekst over ieder onderwerp te krijgen
+  a_pipe_delimited_list_of_licenses: Een door het pipe-teken ("|") gescheiden lijst met licenties, of "all" om objecten op te vragen die aan de opgegeven licenties voldoen. Licenties die afgekort beginnen met "cc-" zijn allemaal %{creative_commons_link}-licenties. Kijk op hun site voor meer informatie over de verschillende licenties die ze aanbieden.
+  a_pipe_delimited_list_of_spm_info_item_subject_names: "\"overview\" om terug te gaan naar de overzichtstekst, een door het pipe-teken (\"|\") gescheiden lijst met SPM Info Item onderwerpnamen om tekst in de respectievelijke SPM Info Item onderwerpnamen te krijgen, \"all\" om de tekst in ieder onderwerp weer te geven. \"always\" geeft een overzichtstekst weer als eerste resultaat (als deze bestaat in een gegeven context)."
   a_taxon: een taxon
   a_total_of_comment_were_found_matching_your_criteria: 
     one: Er is één reactie gevonden die aan uw zoekopdracht voldoet.
@@ -135,7 +135,7 @@ nl:
         pages_with_image: Pagina's met afbeelding
         pages_with_image_no_text: Pagina's met beeld maar geen tekst
         pages_with_map: Pagina's met kaart
-        pages_with_score_10_to_39: Pagina's met een score tussen 10 en 39
+        pages_with_score_10_to_39: Pagina's met een score tussen 10 en 40
         pages_with_score_less_than_10: Pagina's met een score lager dan 10
         pages_with_sound: Pagina's met audio
         pages_with_text: Pagina's met tekst
@@ -148,7 +148,7 @@ nl:
         published_unreviewed_resources: Gepubliceerde ongecontroleerde bronnen
         redhotlist_pages: Rode populaire pagina's
         rich_hotlist_pages: Rijke populaire pagina's
-        rich_pages: Rijke pagina 's
+        rich_pages: Rijke pagina's
         rich_redhotlist_pages: Rijke, rode, populaire pagina's
         udo_published: Door gebruikers toegevoegde tekst
         udo_published_by_curators: Door conservator toegevoegde tekst
@@ -289,13 +289,13 @@ nl:
             accesspoint_url: 
               blank: mag niet leeg blijven, tenzij u in plaats daarvan een bronbestand uploadt
               inaccessible: ontoegankelijk is; de URL voor het publiek toegankelijk zijn
-              invalid: ongeldig is; dit veld moet wijzen naar een XML-, XML.GZIP- of XML.GZ-bestand.
+              invalid: is ongeldig; dit veld moet wijzen naar een XML-, XML.GZIP- XML.GZ- of ZIP-bestand
             dataset: 
               blank: mag niet leeg blijven, tenzij u een URL naar een dataset opgeeft
-              wrong_type: is van het verkeerde type; dit moet een GZIP-, TAR- of XML-bestand zijn
+              wrong_type: is van het verkeerde type; dit moet een GZIP-, ZIP- of XML-bestand zijn
             dwc_archive_url: 
               inaccessible: is ontoegankelijk; de URL moet publiek toegankelijk zijn
-              invalid: is ongeldig; dit moet naar een TAR.GZIP-, tar.gz- of tgz-bestand wijzen.
+              invalid: is ongeldig; dit moet naar een TAR.GZIP-, TAR.GZ, TGZ- of ZIP-bestand wijzen
       template: 
         body: "Voor de volgende velden is de validatie mislukt:"
         header: 
@@ -432,6 +432,29 @@ nl:
         user_associated_data_object_to_association: <strong>%{user}</strong> heeft een koppeling gemaakt tussen "%{data_object}" en "%{association}".
         user_associated_it_to_an_unknown_association: <strong>%{user}</strong> heeft een koppeling toegevoegd aan een onbekend object.
         user_associated_it_to_association: <strong>%{user}</strong> heeft een koppeling toegevoegd aan "%{association}".
+      add_common_name: 
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_it: Een onbekende gebruiker heeft een onbekende gewone naam toegevoegd in een onbekende taal.
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_taxon: Een onbekende gebruiker heeft een onbekende gewone naam toegevoegd aan "%{taxon}" in een onbekende taal.
+        an_unknown_user_added_an_unknown_name_in_language_to_it: Een onbekende gebruiker heeft een onbekende gewone naam toegevoegd in de taal %{language}.
+        an_unknown_user_added_name_in_an_unknown_language_to_it: Een onbekende gebruiker heeft de gewone naam "%{name}" toegevoegd in een onbekende taal.
+        an_unknown_user_added_name_in_an_unknown_language_to_taxon: Een onbekende gebruiker heeft de gewone naam "%{name}" toegevoegd aan "%{taxon}" in een onbekende taal.
+        an_unknown_user_added_name_in_language_to_an_unknown_taxon: Een onbekende gebruiker heeft de gewone naam "%{name}" in de taal %{language} toegevoegd aan een onbekende pagina.
+        an_unknown_user_added_name_in_language_to_taxon: Een onbekende gebruiker heeft de gewone naam "%{name}" in de taal %{language} toegevoegd aan "%{taxon}".
+        user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: <strong>%{user}</strong> heeft een onbekende gewone naam  toegevoegd in een onbekende taal aan een onbekende pagina.
+        user_added_an_unknown_name_in_an_unknown_language_to_it: <strong>%{user}</strong> heeft een onbekende gewone naam toegevoegd  in een onbekende taal.
+        user_added_an_unknown_name_in_an_unknown_language_to_taxon: <strong>%{user}</strong> heeft een onbekende gewone naam in een onbekende taal toegevoegd aan "%{taxon}".
+        user_added_an_unknown_name_in_language_to_an_unknown_taxon: <strong>%{user}</strong> heeft een onbekende gewone naam in de taal %{language} toegevoegd aan een onbekende pagina.
+        user_added_an_unknown_name_in_language_to_it: <strong>%{user}</strong> heeft een onbekende gewone naam toegevoegd in de taal %{language}
+        user_added_an_unknown_name_in_language_to_taxon: <strong>%{user}</strong> heeft een onbekende gewone naam in de taal %{language} toegevoegd aan "%{taxon}".
+        user_added_name_in_an_unknown_language_to_it: <strong>%{user}</strong> heeft de gewone naam "%{name}" toegevoegd  in een onbekende taal.
+        user_added_name_in_an_unknown_language_to_taxon: <strong>%{user}</strong> heeft de gewone naam "%{name}" toegevoegd aan "%{taxon}" in een onbekende taal.
+        user_added_name_in_language_to_an_unknown_taxon: <strong>%{user}</strong> heeft de gewone naam "%{name}" toegevoegd aan een onbekende pagina in de taal %{language}.
+        user_added_name_in_language_to_it: <strong>%{user}</strong> heeft de gewone naam "%{name}" toegevoegd in de taal %{language}.
+        user_added_name_in_language_to_taxon: <strong>%{user}</strong> heeft de gewone naam "%{name}" toegevoegd aan "%{taxon}" in de taal %{language}.
+      choose_exemplar_article: 
+        an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: Een onbekende gebruiker heeft een oudere versie van "%{data_object}" als weer te geven in overzicht geselecteerd in een onbekende context.
+        user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: <strong>%{user}</strong> heeft een oudere versie van "%{data_object}" als weer te geven in overzicht geselecteerd op een onbekende pagina.
+        user_chose_exemplar_an_older_data_object_on_taxon: <strong>%{user}</strong> heeft een oudere versie van "%{data_object}" als weer te geven in overzicht geselecteerd voor "%{taxon}".
       choose_exemplar_image: 
         an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: Een onbekende gebruiker heeft een oudere versie van "%{data_object}" als exemplarisch gemarkeerd in een onbekende context.
         an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: Een onbekende gebruiker heeft "%{data_object}" als exemplarisch gemarkeerd voor "%{taxon}".
@@ -466,6 +489,10 @@ nl:
         user_hid_data_object_on_association: <strong>%{user}</strong> heeft "%{data_object}" als verborgen gemarkeerd op de pagina "%{association}".
         user_hid_it_on_an_unknown_association: <strong>%{user}</strong> heeft het als verborgen gemarkeerd in een onbekende context.
         user_hid_it_on_association: <strong>%{user}</strong> heeft het als verborgen gemarkeerd op de pagina "%{association}".
+      merge: 
+        an_unknown_user_merged_unknown_entry_to_it: Een onbekende gebruiker heeft een onbekende classificatie toegevoegd.
+        user_merged_unknown_entry_to_it: <strong>%{user}</strong> heeft een onbekende classificatie toegevoegd.
+        user_merged_unknown_entry_to_taxon: <strong>%{user}</strong> heeft een onbekende classificatie toegevoegd aan "%{taxon}".
       other_actions: 
         an_unknown_user_curated_an_older_data_object: Een onbekende gebruiker heeft een oudere versie van "%{data_object}" beheerd.
         an_unknown_user_curated_an_unknown_data_object: Een onbekende gebruiker heeft een onbekend object beheerd.
@@ -507,6 +534,10 @@ nl:
         user_disassociated_data_object_from_association: <strong>%{user}</strong> heeft een koppeling verwijderd tussen "%{data_object}" en "%{association}".
         user_disassociated_it_from_an_unknown_association: <strong>%{user}</strong> heeft een koppeling verwijderd met een onbekend object.
         user_disassociated_it_from_association: <strong>%{user}</strong> heeft een koppeling verwijderd met "%{association}".
+      remove_common_name: 
+        an_unknown_user_removed_name_in_an_unknown_language_from_it: Een onbekende gebruiker heeft een gewone naam verwijderd in een onbekende taal.
+        user_removed_name_in_an_unknown_language_from_it: <strong>%{user}</strong> heeft een gewone naam verwijderd in een onbekende taal.
+        user_removed_name_in_language_from_it: <strong>%{user}</strong> heeft een gewone naam verwijderd in de taal %{language}.
       show: 
         an_unknown_user_showed_an_older_data_object_on_an_unknown_association: Een onbekende gebruiker heeft een oudere versie van "%{data_object}" als zichtbaar gemarkeerd in een onbekende context.
         an_unknown_user_showed_an_older_data_object_on_association: Een onbekende gebruiker heeft een oudere versie van "%{data_object}" als zichtbaar gemarkeerd op de pagina "%{association}".
@@ -644,7 +675,7 @@ nl:
   admin_content_partners_statistics_first_published_empty: Er zijn geen bronnen van contentpartners gepubliceerd tussen %{date_from} en %{date_to}.
   admin_content_partners_statistics_first_published_header: Eerste publicatie van bronnen
   admin_content_partners_statistics_link: Statistieken
-  admin_content_partners_statistics_page_title: "Beheer: statistieken voor contentpartners"
+  admin_content_partners_statistics_page_title: "Beheer: Contentpartnerstatistieken"
   admin_home: startpagina beheer
   admin_information: Dit is het beheermenu voor EOL V2. Op dit moment zijn we bezig met het omzetten van de functionaliteit uit V1. Als de beheerfunctie die u zoekt niet in dit menu staat, ga dan naar het <a href="/administrator">beheermenu van V1</a>.
   admin_link: Beheerconsole
@@ -668,6 +699,41 @@ nl:
   admin_user_delete_successful_notice: De gebruiker is verwijderd.
   admin_user_hide_successful_notice: Gebruiker is verborgen
   admin_user_unhide_successful_notice: Gebruiker is weer zichtbaar gemaakt
+  admins: 
+    eol_statistics: 
+      content_partners: 
+        menu_link: Contentpartners
+        page_header: Contentpartnerstatistieken
+        page_title: "Beheer: Contentpartnerstatistieken"
+      curators: 
+        menu_link: Conservatorstatistieken
+        page_header: Conservatorstatistieken
+        page_title: "Beheer: Conservatorstatistieken"
+      data_objects: 
+        menu_link: Gegevensobjecten
+        page_header: Gegevensobjectstatistieken
+        page_title: "Beheer: Gegevensobjectstatistieken"
+      index: 
+        menu_link: Algemene statistieken
+        page_header: Algemene statistieken
+        page_title: "Beheer: Algemene statistieken"
+        table_caption: Algemene sitestatistieken aangemaakt op %{created_at_time}
+      lifedesks: 
+        menu_link: LifeDesks
+        page_header: LifeDesksstatistieken
+        page_title: "Beheer: LifeDesksstatistieken"
+      marine: 
+        menu_link: Statistieken zeeleven
+        page_header: Zeelevendekking in EOL
+        page_title: "Beheer: Statistieken zeeleven"
+      page_richness: 
+        menu_link: Rijke pagina's
+        page_header: Rijke paginastatistieken
+        page_title: "Beheer: Rijke paginastatistieken"
+      users_data_objects: 
+        menu_link: Door gebruikers toegevoegde tekst
+        page_header: Statistieken voor door gebruikers toegevoegde tekst
+        page_title: "Beheer: Statistieken voor door gebruikers toegevoegde tekst"
   agent: Agent
   all: alle
   all_apis_return_by_default_an_xml_response: "Alle API's antwoorden standaard in XML. De API-methoden kunnen aangeroepen worden met een opmaakextensie om het XML-antwoord te krijgen en door een XML-uitbreiding toe te voegen, geeft het een identiek antwoord:"
@@ -1221,8 +1287,8 @@ nl:
   content_upload_url: http://%{domain}%{upload_attachment}
   contribute: Bijdragen
   copied_all_items_from_collection_with_count: 
-    one: Er is één item gekopieerd van deze verzameling.
-    other: Er zijn %{count} items gekopieerd van deze verzameling.
+    one: Er is één item gekopieerd naar deze verzameling.
+    other: Er zijn %{count} items gekopieerd naar deze verzameling.
   copied_all_items_to_collections: 
     one: Alle items van %{name} zijn gekopieerd naar één verzameling.
     other: Alle items van %{name} zijn gekopieerd naar %{count} verzamelingen.
@@ -1337,6 +1403,61 @@ nl:
   data_usage_reports: Gegevensgebruikrapportages
   date_caps: Datum
   date_uploaded: Uploaddatum
+  datepicker: 
+    close: Sluiten
+    current: vandaag
+    day_names: 
+      - zondag
+      - maandag
+      - dinsdag
+      - woensdag
+      - donderdag
+      - vrijdag
+      - zaterdag
+    day_names_min: 
+      - zo
+      - ma
+      - di
+      - wo
+      - do
+      - vr
+      - za
+    day_names_short: 
+      - zo
+      - ma
+      - di
+      - wo
+      - do
+      - vr
+      - za
+    month_names: 
+      - januari
+      - februari
+      - maart
+      - april
+      - mei
+      - juni
+      - juli
+      - augustus
+      - september
+      - oktober
+      - november
+      - december
+    month_names_short: 
+      - jan
+      - feb
+      - mrt
+      - apr
+      - mei
+      - jun
+      - jul
+      - aug
+      - sep
+      - okt
+      - nov
+      - dec
+    next: Volgende
+    previous: Vorige
   dato_create_cancel: Annuleren
   dato_create_user_text_error: Er is een fout opgetreden. De pagina is niet toegevoegd.
   dato_create_user_text_missing_taxon_id_exception: Het was niet mogelijk een tekst-DataObject of -DataObject op te bouwen als taxon_id "nil" is.
@@ -1445,6 +1566,39 @@ nl:
   eol_glossary: EOL-woordenlijst
   eol_news: EOL-nieuws
   eol_pages: Pagina's
+  eol_statistics: 
+    content_partners: 
+      menu_link: Contentpartners
+      page_header: Contentpartnerstatistieken
+      page_title: Statistieken
+    curators: 
+      menu_link: Conservatorstatistieken
+      page_header: Conservatorstatistieken
+      page_title: Statistieken
+    data_objects: 
+      menu_link: Gegevensobjecten
+      page_header: Gegevensobjectstatistieken
+      page_title: Statistieken
+    index: 
+      menu_link: Algemene statistieken
+      page_header: Algemene statistieken
+      page_title: Statistieken
+    lifedesks: 
+      menu_link: LifeDesks
+      page_header: LifeDesksstatistieken
+      page_title: Statistieken
+    marine: 
+      menu_link: Statistieken zeeleven
+      page_header: Zeelevendekking in EOL
+      page_title: Statistieken
+    page_richness: 
+      menu_link: Rijke pagina's
+      page_header: Rijke paginastatistieken
+      page_title: Statistieken
+    users_data_objects: 
+      menu_link: Door gebruikers toegevoegde tekst
+      page_header: Statistieken voor door gebruikers toegevoegde tekst
+      page_title: Statistieken
   error_401_description: U heeft geen toegang tot deze URL.
   error_401_page_title: Niet bevoegd
   error_403_description: U heeft geen toegang tot deze URL.
@@ -1480,7 +1634,7 @@ nl:
   facebook: Facebook
   faculty_staff_or_grad_student_credential_option: faculteitsmedewerker-, staf- or promovendusstatus in een relevante universiteit of HBO-opleiding.
   failed_login_attempts_with_count: 
-    one: ((één mislukt aanmeldpoging) - moet aangevinkt zijn voordat de gebruiker kan aanmelden
+    one: (één mislukt aanmeldpoging) - moet aangevinkt zijn voordat de gebruiker kan aanmelden
     other: (%{count} mislukte aanmeldpogingen) - moet aangevinkt zijn voordat de gebruiker kan aanmelden
   family_name_colon: "Familienaam:"
   feedback: Terugkoppeling
@@ -1655,6 +1809,8 @@ nl:
         source_url: URL naar het oorspronkelijke gegevensobject
         toc_item: Subhoofdstuk
       eol_statistic: 
+        date_one: Datum
+        date_two: Datum
         download_all: Alle <small>(records van alle pagina's opnemen)</small>
       google_analytics_partner_summaries: 
         page_views: Bekeken pagina's <small>(aantal bezoeken aan pagina's)</small>
@@ -1781,6 +1937,7 @@ nl:
         create_text: Artikel toevoegen
         update: Artikel opslaan
       eol_statistic: 
+        change_date: Statistieken voor datums weergeven
         download_csv: Downloaden als CSV
       filter_sort: Filteren en sorteren
       harvest_event: 
@@ -2386,7 +2543,7 @@ nl:
     reply_to_comment_body_brief: "%{reply_to_author} %{body} - %{author}"
     see_all_activity: U kunt al uw activiteiten bekijken op de <a href='%{activity_url}' style='color:#195184'>pagina met uw nieuwsoverzicht</a>.
     someone_commented_on_something: <b>%{who}</b> heeft gereageerd op <b>%{what}</b>.
-    unsubscribe: Wijzig uw e-mailinstellingen of schrijf u uit via de <a href='%{email_prefs_url}' style='color:#195184'>pagina met uw voorkeuren voor berichten</a>.
+    unsubscribe: Meld u aan en wijzig uw e-mailinstellingen bij op de <a href='%{email_prefs_url}' style='color:#195184'>pagina met uw voorkeuren voor berichten</a> of <a href='%{unsubscribe_url}' style='color:#195184'>schrijf u uit van ALLE automatische meldingen van EOL zonder aan te melden</a>.
   recent_updates: Recente updates
   recently_visited: Onlangs bezocht
   recipients: Ontvangers
@@ -2474,6 +2631,7 @@ nl:
   show: Weergeven
   show_data_from_all_content_partners: Classificatiefilter verwijderen
   show_full_tree: volledige boomstructuur weergeven...
+  show_in_overview: weergeven in overzicht
   show_status_message: Statusbericht weergeven
   show_tasks: taken weergeven
   show_warning_message: Waarschuwing weergeven
@@ -2906,6 +3064,7 @@ nl:
   total_searches: "Totaal aantal zoekopdrachten:"
   translation_deleted: De vertaling is verwijderd
   translation_information_header: Vertalingsinformatie
+  translation_log: Frequentiehistogram voor i18n-sleutels
   translation_saved: De vertaling is opgeslagen
   translations_submit: Vertaling bekijken
   true_label: Waar
@@ -2967,6 +3126,8 @@ nl:
   user_no_longer_active_message: Deze gebruiker is niet langer actief
   user_response: Antwoord van de gebruiker
   user_says_colon: "%{users_name} schrijft:"
+  user_submitted_text: Door gebruikers toegevoegde tekst
+  user_submitted_text_found: "Door gebruikers toegevoegde tekst gevonden:"
   user_system_down: Onze excuses, maar het gebruikersregistratiesysteem is momenteel niet beschikbaar. Probeer het later opnieuw.
   username: Gebruikersnaam
   username_colon: "Gebruikersnaam:"
@@ -3108,7 +3269,7 @@ nl:
       form_tip: Voer een e-mailadres in dat gekoppeld is aan een gebruiker om weer toegang te krijgen tot uw EOL-gebruiker. Kijk ook in uw spammap als u binnen een uur geen e-mail van ons ontvangt.
       meta_title: Wachtwoord vergeten
       notices: 
-        recovery_email_sent: Er is een e-mail aan uw verzonden met instructies over hoe u weer toegang kunt krijgen tot uw gebruiker. Kijk ook in uw spammap als u binnen een uur geen bericht van ons hebt ontvangen.
+        recovery_email_sent: Er is een e-mail aan uw verzonden met instructies over hoe u weer toegang kunt krijgen tot uw gebruiker. Voeg %{from_address} alstublieft toe aan uw lijst met veilige e-mailadressen en kijk ook in uw spammap als u binnen een uur geen bericht van ons hebt ontvangen.
         temporarily_logged_in_update_authentication_details: U bent nu tijdelijk aangemeld om weer toegang te krijgen tot uw gebruiker. Wijzig alstublieft uw wachtwoord of werk uw gekoppelde gebruikers bij om ervoor te zorgen dat u vanaf nu weer kunt aanmelden.
     recover_account_choose_account: 
       errors: 

@@ -129,7 +129,7 @@ gl:
         pages_with_image: Páxinas con imaxe
         pages_with_image_no_text: Páxinas con imaxe, pero sen texto
         pages_with_map: Páxinas con mapa
-        pages_with_score_10_to_39: Páxinas cunha puntuación de 10 a 39
+        pages_with_score_10_to_39: Páxinas cunha puntuación de 10 a 40
         pages_with_score_less_than_10: Páxinas cunha puntuación inferior a 10
         pages_with_sound: Páxinas con son
         pages_with_text: Páxinas con texto
@@ -283,13 +283,13 @@ gl:
             accesspoint_url: 
               blank: non pode quedar en branco, a menos que cargues un ficheiro de recursos
               inaccessible: é inaccesible, o enderezo URL debe ser accesible publicamente
-              invalid: é inválido, debe apuntar cara a un ficheiro XML, XML.GZIP ou XML.GZ.
+              invalid: é inválido, debe apuntar cara a un ficheiro XML, XML.GZIP, XML.GZ ou ZIP
             dataset: 
               blank: non pode quedar en branco, a menos que dea o enderezo URL dun conxunto de datos
-              wrong_type: é de tipo incorrecto, debería ser un ficheiro GZIP, TAR ou XML
+              wrong_type: é de tipo incorrecto, debería ser un ficheiro GZIP, TAR, ZIP ou XML
             dwc_archive_url: 
               inaccessible: é inaccesible, o enderezo URL debe ser accesible publicamente
-              invalid: é inválido, debe apuntar cara a un ficheiro TAR.GZIP, TAR.GZ ou TGZ.
+              invalid: é inválido, debe apuntar cara a un ficheiro TAR.GZIP, TAR.GZ, TGZ ou ZIP
       template: 
         body: "Os seguintes campos non foron validados:"
         header: 
@@ -477,6 +477,19 @@ gl:
         user_hid_data_object_on_association: <strong>%{user}</strong> marcou "%{data_object}" como agochado na páxina "%{association}".
         user_hid_it_on_an_unknown_association: <strong>%{user}</strong> marcouno como agochado nun contexto descoñecido.
         user_hid_it_on_association: <strong>%{user}</strong> marcouno como agochado na páxina "%{association}".
+      merge: 
+        an_unknown_user_merged_entry_to_an_unknown_taxon: Un usuario descoñecido moveu a clasificación de "%{provider}" a un taxon descoñecido.
+        an_unknown_user_merged_entry_to_it: Un usuario descoñecido engadiu a clasificación de "%{provider}".
+        an_unknown_user_merged_entry_to_taxon: Un usuario descoñecido moveu a clasificación de "%{provider}" a "%{taxon}".
+        an_unknown_user_merged_unknown_entry_to_an_unknown_taxon: Un usuario descoñecido moveu unha clasificación descoñecida a un taxon descoñecido.
+        an_unknown_user_merged_unknown_entry_to_it: Un usuario descoñecido engadiu unha clasificación descoñecida.
+        an_unknown_user_merged_unknown_entry_to_taxon: Un usuario descoñecido moveu unha clasificación descoñecida a "%{taxon}".
+        user_merged_entry_to_an_unknown_taxon: <strong>%{user}</strong> moveu a clasificación de "%{provider}" a un taxon descoñecido.
+        user_merged_entry_to_it: <strong>%{user}</strong> engadiu a clasificación de "%{provider}".
+        user_merged_entry_to_taxon: <strong>%{user}</strong> moveu a clasificación de "%{provider}" a "%{taxon}".
+        user_merged_unknown_entry_to_an_unknown_taxon: <strong>%{user}</strong> moveu unha clasificación descoñecida a un taxon descoñecido.
+        user_merged_unknown_entry_to_it: <strong>%{user}</strong> engadiu unha clasificación descoñecida.
+        user_merged_unknown_entry_to_taxon: <strong>%{user}</strong> moveu unha clasificación descoñecida a "%{taxon}".
       other_actions: 
         an_unknown_user_curated_an_older_data_object: Un usuario descoñecido conservou unha versión vella de "%{data_object}".
         an_unknown_user_curated_an_unknown_data_object: Un usuario descoñecido conservou un obxecto de datos descoñecido.
@@ -694,6 +707,41 @@ gl:
   admin_user_delete_successful_notice: Borrouse o usuario
   admin_user_hide_successful_notice: Agochouse o usuario
   admin_user_unhide_successful_notice: Descubriuse o usuario
+  admins: 
+    eol_statistics: 
+      content_partners: 
+        menu_link: Socios de contidos
+        page_header: Estatísticas do socio de contidos
+        page_title: "Administración: Estatísticas dos socios de contidos"
+      curators: 
+        menu_link: Estatísticas de conservación
+        page_header: Estatísticas de conservación
+        page_title: "Administración: Estatísticas de conservación"
+      data_objects: 
+        menu_link: Obxectos de datos
+        page_header: Estatísticas dos obxectos de datos
+        page_title: "Administración: Estatísticas dos obxectos de datos"
+      index: 
+        menu_link: Estatísticas globais
+        page_header: Estatísticas globais
+        page_title: "Administración: Estatísticas globais"
+        table_caption: Estatísticas globais do sitio creadas o %{created_at_time}
+      lifedesks: 
+        menu_link: LifeDesks
+        page_header: Estatísticas de LifeDesks
+        page_title: "Administración: Estatísticas de LifeDesks"
+      marine: 
+        menu_link: Estatísticas mariñas
+        page_header: Cobertura mariña na EOL
+        page_title: "Administración: Estatísticas mariñas"
+      page_richness: 
+        menu_link: Páxinas ricas
+        page_header: Estatísticas das páxinas ricas
+        page_title: "Administración: Estatísticas das páxinas ricas"
+      users_data_objects: 
+        menu_link: Texto enviado polo usuario
+        page_header: Estatísticas do texto enviado polo usuario
+        page_title: "Administración: Estatísticas do texto enviado polo usuario"
   agent: Axente
   all: todos
   all_apis_return_by_default_an_xml_response: "Todas as API devoven por defecto unha resposta XML. Os métodos da API poden chamarse sen necesidade dunha extensión de formato para conseguir a resposta XML. A adición dunha extensión XML producirá unha respota idéntica:"
@@ -1376,6 +1424,61 @@ gl:
   data_usage_reports: Informes de uso dos datos
   date_caps: Data
   date_uploaded: Data da carga
+  datepicker: 
+    close: Pechar
+    current: Hoxe
+    day_names: 
+      - domingo
+      - luns
+      - martes
+      - mércores
+      - xoves
+      - venres
+      - sábado
+    day_names_min: 
+      - D
+      - L
+      - M
+      - Mé
+      - X
+      - V
+      - S
+    day_names_short: 
+      - dom
+      - lun
+      - mar
+      - mér
+      - xov
+      - ven
+      - sáb
+    month_names: 
+      - xaneiro
+      - febreiro
+      - marzo
+      - abril
+      - maio
+      - xuño
+      - xullo
+      - agosto
+      - setembro
+      - outubro
+      - novembro
+      - decembro
+    month_names_short: 
+      - xan
+      - feb
+      - mar
+      - abr
+      - maio
+      - xuñ
+      - xul
+      - ago
+      - set
+      - out
+      - nov
+      - dec
+    next: Seguinte
+    previous: Anterior
   dato_create_cancel: Cancelar
   dato_create_user_text_error: Sentímolo, houbo un erro. Non se engadiu o artigo.
   dato_create_user_text_missing_taxon_id_exception: Non se pode construír un obxecto de datos textual ou de usuario se o identificador do taxon é nulo.
@@ -1496,6 +1599,39 @@ gl:
   eol_glossary: Glosario da EOL
   eol_news: Novas da EOL
   eol_pages: Páxinas
+  eol_statistics: 
+    content_partners: 
+      menu_link: Socios de contidos
+      page_header: Estatísticas dos socios de contidos
+      page_title: Estatísticas
+    curators: 
+      menu_link: Estatísticas de conservación
+      page_header: Estatísticas de conservación
+      page_title: Estatísticas
+    data_objects: 
+      menu_link: Obxectos de datos
+      page_header: Estatísticas dos obxectos de datos
+      page_title: Estatísticas
+    index: 
+      menu_link: Estatísticas globais
+      page_header: Estatísticas globais
+      page_title: Estatísticas
+    lifedesks: 
+      menu_link: LifeDesks
+      page_header: Estatísticas de LifeDesks
+      page_title: Estatísticas
+    marine: 
+      menu_link: Estatísticas mariñas
+      page_header: Cobertura mariña na EOL
+      page_title: Estatísticas
+    page_richness: 
+      menu_link: Páxinas ricas
+      page_header: Estatísticas das páxinas ricas
+      page_title: Estatísticas
+    users_data_objects: 
+      menu_link: Texto enviado polo usuario
+      page_header: Estatísticas do texto enviado polo usuario
+      page_title: Estatísticas
   error_401_description: Sentímolo, non ten autorización para acceder a este enderezo URL.
   error_401_page_title: Non autorizado
   error_403_description: Sentímolo, non ten autorización para acceder a este enderezo URL.
@@ -1715,6 +1851,8 @@ gl:
         source_url: URL do obxecto de datos orixinal
         toc_item: Subcapítulo
       eol_statistic: 
+        date_one: Data
+        date_two: Data
         download_all: Todos <small>(inclúe rexistros de todas as páxinas)</small>
       google_analytics_partner_summaries: 
         page_views: Visitas de páxina <small>(número de visitas ás páxinas)</small>
@@ -2362,6 +2500,7 @@ gl:
   number_of_unreviewed_images_at_this_entry: Número de imaxes sen revisar nesta entrada
   number_of_unreviewed_text_objects_at_this_entry: Número de obxectos de texto sen revisar nesta entrada
   object: Obxecto
+  object_curated: Obxecto conservado.
   object_curation: Conservación do obxecto
   object_status: Estado do obxecto
   object_status_all_option: Todos
@@ -2444,6 +2583,7 @@ gl:
   partner: Socio
   partner_information: Información do socio
   partner_page: páxina do socio
+  partner_web_site_colon: "Sitio web do socio:"
   partnering_steps: PASOS PARA SER SOCIO
   password_colon: "Contrasinal:"
   password_must_be_4to16_characters: O contrasinal debe ser de entre 4 e 16 caracteres.
@@ -2788,6 +2928,7 @@ gl:
   spm_category_partner_count: Categoría SPM - número de socios
   started: Iniciado
   stat: Estatísticas
+  stats: Estatísticas
   stored_classifications: Lembra que tes <a href='%{anchor}'>clasificacións almacenadas, a continuación</a>.
   sub_heading: Subcabeceira
   subject: asunto

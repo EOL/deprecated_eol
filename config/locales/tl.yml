@@ -5,7 +5,7 @@
 tl: 
   0_1_or_2: 0, 1 o 2
   0_or_1: 0 o 1
-  a_pipe_delimited_list_of_licenses: isang tubo | tinakdaang listahan ng mga lisensiya o ang 'all' upang makakuha ng mga bagay na nakapailalim sa anumang lisensiya. Ang lahat ng mga lisensiyang cc- na nakadaglat ay
+  a_pipe_delimited_list_of_licenses: isang tubo | tinakdaang listahan ng mga lisensiya o ang 'all' upang makakuha ng mga bagay na nakapailalim sa anumang lisensiya. Ang mga lisensiyang dinaglatan ng cc- ay lahatang mga lisensiya ng %{creative_commons_link}. Dalawin ang kanilang pook para sa mas marami pang kabatiran hinggil sa sari-saring mga lisensiyang inaalok nila.
   a_pipe_delimited_list_of_spm_info_item_subject_names: isang 'overview' upang magbalik ng teksto ng malawakang pagtalakay(kung umiiral), isang tubo | tinakdaan ng hangganan na lista ng mga pangalan ng paksa ng Huwaran ng Balangkas ng Katangian ng Espesye upang makakuha ng teksto sa loob ng kaalinsunod na mga pangalan ng paksa ng Bagay na Pangkabatiran ng Huwaran ng Balangkas ng Katangian ng Espesya, ang 'all' upang makakuha ng teksto sa loob ng anumang paksa. Palaging nagbabalik ng isang teksto ng malawakang pagtalakay bilang isang unang resulta(kung umiiral sa ibinigay na diwa).
   a_taxon: isang takson
   a_total_of_comment_were_found_matching_your_criteria: 
@@ -128,7 +128,7 @@ tl:
         pages_with_image: Mga pahinang may larawan
         pages_with_image_no_text: Mga pahinang may larawan ngunit walang teksto
         pages_with_map: Mga pahinang may mapa
-        pages_with_score_10_to_39: Mga pahinang may puntos na 10-39
+        pages_with_score_10_to_39: Mga pahinang may puntos na 10-40
         pages_with_score_less_than_10: Mga pahinang may puntos na mababa kaysa sa 10
         pages_with_sound: Mga pahinang may tunog
         pages_with_text: Mga pahinang may teksto
@@ -282,13 +282,13 @@ tl:
             accesspoint_url: 
               blank: hindi maaaring walang laman, maliban na lang sa halip kapag nagkarga kang paitaas ng isang talaksan ng pinagkunan
               inaccessible: ay hindi mapupuntahan, ang URL ay dapat na mapupuntahan ng madla
-              invalid: ay hindi katanggap-tanggap, dapat itong tumuro sa isang talaksang XML, XML.GZIP o XML.GZ
+              invalid: ay hindi katanggap-tanggap, dapat itong tumuro sa isang talaksang XML, XML.GZIP, XML.GZ o ZIP
             dataset: 
               blank: hindi maaaring walang laman maliban na lamang kapag nagbigay ka sa halip ng isang URL ng pangkat ng dato
-              wrong_type: ay ang maling uri, dapat itong isang talaksang GZIP, TAR o XML
+              wrong_type: ay ang maling uri, dapat na ito ay maging isang talaksang GZIP, TAR, ZIP o XML
             dwc_archive_url: 
               inaccessible: ay hindi mapupuntahan, ang URL ay dapat na mapupuntahan ng madla
-              invalid: ay hindi katanggap-tanggap, dapat itong tumuro papunta sa isang talaksang TAR.GZIP, TAR.GZ o TGZ
+              invalid: ay hindi katanggap-tanggap, dapat itong tumuro papunta sa isang talaksang TAR.GZIP, TAR.GZ, TGZ o ZIP
       template: 
         body: "Nabigo sa pagpapatunay ang sumusunod na mga kahanayan:"
         header: 
@@ -425,6 +425,31 @@ tl:
         user_associated_data_object_to_association: Nagdagdag si <strong>%{user}</strong> ng isang kaugnayan sa pagitan ng isang "%{data_object}" at ng "%{association}".
         user_associated_it_to_an_unknown_association: Nagdagdag si <strong>%{user}</strong> ng isang kaugnayan sa isang hindi nakikilalang pahina.
         user_associated_it_to_association: Nagdagdag si <strong>%{user}</strong> ng isang kaugnayan sa "%{association}".
+      add_common_name: 
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: Isang hindi nakikilalang tagagamit ang nagdagdag ng isang hindi nakikilalang karaniwang pangalan na nasa isang hindi nakikilalang wika papunta sa isang hindi nakikilalang pahina.
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_it: Isang hindi nakikilalang tagagamit ang nagdagdag ng isang hindi nakikilalang karaniwang pangalan na nasa isang hindi nakikilalang wika.
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_taxon: Isang hindi nakikilalang tagagamit ang nagdagdag ng isang hindi nakikilalang karaniwang pangalan na nasa isang hindi nakikilalang wika papunta sa "%{taxon}".
+        an_unknown_user_added_an_unknown_name_in_language_to_an_unknown_taxon: Isang hindi nakikilalang tagagamit ang nagdagdag ng isang hindi nakikilalang karaniwang pangalan na nasa %{language} papunta sa isang hindi nakikilalang pahina.
+        an_unknown_user_added_an_unknown_name_in_language_to_it: Isang hindi nakikilalang tagagamit ang nagdagdag ng isang hindi nakikilalang karaniwang pangalan na nasa %{language}.
+        an_unknown_user_added_an_unknown_name_in_language_to_taxon: Isang hindi nakikilalang tagagamit ang nagdagdag ng isang hindi nakikilalang karaniwang pangalan na nasa %{language} papunta sa "%{taxon}".
+        an_unknown_user_added_name_in_an_unknown_language_to_an_unknown_taxon: Isang hindi nakikilalang tagagamit ang nagdagdag ng karaniwang pangalan na "%{name}" na nasa isang hindi nakikilalang wika papunta sa isang hindi nakikilalang pahina.
+        an_unknown_user_added_name_in_an_unknown_language_to_it: Isang hindi nakikilalang tagagamit ang nagdagdag ng karaniwang pangalan na "%{name}" na nasa isang hindi nakikilalang wika.
+        an_unknown_user_added_name_in_an_unknown_language_to_taxon: Isang hindi nakikilalang tagagamit ang nagdagdag ng karaniwang pangalan na "%{name}" na nasa isang hindi nakikilalang wika papunta sa "%{taxon}".
+        an_unknown_user_added_name_in_language_to_an_unknown_taxon: Isang hindi nakikilalang tagagamit ang nagdagdag ng karaniwang pangalan na "%{name}" na nasa %{language} papunta sa isang hindi nakikilalang pahina.
+        an_unknown_user_added_name_in_language_to_it: Isang hindi nakikilalang tagagamit ang nagdagdag ng karaniwang pangalan na "%{name}" na nasa %{language}.
+        an_unknown_user_added_name_in_language_to_taxon: Isang hindi nakikilalang tagagamit ang nagdagdag ng karaniwang pangalan na "%{name}" na nasa %{language} papunta sa "%{taxon}".
+        user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: Idinagdag ni <strong>%{user}</strong> ang isang hindi nakikilalang karaniwang pangalan na nasa isang hindi nakikilalang wika papunta sa isang hindi nakikilalang pahina.
+        user_added_an_unknown_name_in_an_unknown_language_to_it: Nagdagdag si <strong>%{user}</strong> ng isang hindi nakikilalang karaniwang pangalan na nasa isang hindi nakikilalang wika.
+        user_added_an_unknown_name_in_an_unknown_language_to_taxon: Nagdagdag si <strong>%{user}</strong> ng isang hindi nakikilalang karaniwang pangalan na nasa isang hindi nakikilalang wika papunta sa "%{taxon}".
+        user_added_an_unknown_name_in_language_to_an_unknown_taxon: Idinagdag ni <strong>%{user}</strong> ang isang hindi nakikilalang karaniwang pangalan na nasa %{language} papunta sa isang hindi nakikilalang pahina.
+        user_added_an_unknown_name_in_language_to_it: Nagdagdag si <strong>%{user}</strong> ng isang hindi nakikilalang karaniwang pangalan na nasa %{language}.
+        user_added_an_unknown_name_in_language_to_taxon: Nagdagdag si <strong>%{user}</strong> ng isang hindi nakikilalang karaniwang pangalan na nasa %{language} papunta sa "%{taxon}".
+        user_added_name_in_an_unknown_language_to_an_unknown_taxon: Idinagdag ni <strong>%{user}</strong> ang karaniwang pangalan na "%{name}" na nasa isang hindi nakikilalang wika papunta sa isang hindi nakikilalang pahina.
+        user_added_name_in_an_unknown_language_to_it: Idinagdag ni <strong>%{user}</strong> ang karaniwang pangalan na "%{name}" sa isang hindi nakikilalang wika.
+        user_added_name_in_an_unknown_language_to_taxon: Idinagdag ni <strong>%{user}</strong> ang karaniwang pangalan na "%{name}" na nasa isang hindi nakikilalang wika papunta sa "%{taxon}".
+        user_added_name_in_language_to_an_unknown_taxon: Idinagdag ni <strong>%{user}</strong> ang karaniwang pangalan na "%{name}" na nasa %{language} papunta sa isang hindi nakikilalang pahina.
+        user_added_name_in_language_to_it: Idinagdag ni <strong>%{user}</strong> ang karaniwang pangalang "%{name}" na nasa %{language}.
+        user_added_name_in_language_to_taxon: Idinagdag ni <strong>%{user}</strong> ang karaniwang pangalan na "%{name}" na nasa %{language} papunta sa "%{taxon}".
       choose_exemplar_article: 
         an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: Isang hindi nakikilalang tagagamit ang pumili sa isang mas lumang bersiyon ng "%{data_object}" na ipakita sa loob ng Malawakang Pagtalakay sa ibabaw ng isang hindi nakikilalang pahina.
         an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: Isang hindi nakikilalang tagagamit ang pumili sa "%{data_object}" upang ipakita sa loob ng Malawakang Pagtalakay hinggil sa "%{taxon}".
@@ -476,6 +501,19 @@ tl:
         user_hid_data_object_on_association: Minarkahan ni <strong>%{user}</strong> ang "%{data_object}" bilang nakatago sa ibabaw ng pahina ng "%{association}".
         user_hid_it_on_an_unknown_association: Minarkahan ito ni <strong>%{user}</strong> bilang nakatago sa loob ng isang diwang hindi nakikilala.
         user_hid_it_on_association: Minarkahan ito ni <strong>%{user}</strong> bilang nakatago sa ibabaw ng pahina ng "%{association}".
+      merge: 
+        an_unknown_user_merged_entry_to_an_unknown_taxon: Isang hindi nakikilalang tagagamit ang naglipat ng klasipikasyon ayon sa "%{provider}" papunta sa isang hindi nakikilalang takson.
+        an_unknown_user_merged_entry_to_it: Isang hindi nakikilalang tagagamit ang nagdagdag ng klasipikasyon na naaayon sa "%{provider}".
+        an_unknown_user_merged_entry_to_taxon: Isang hindi nakikilalang tagagamit ang naglipat sa klasipikasyon ayon sa "%{provider}" papunta sa "%{taxon}".
+        an_unknown_user_merged_unknown_entry_to_an_unknown_taxon: Isang hindi nakikilalang tagagamit ang naglipat sa isang hindi nakikilalang klasipikasyon papunta sa isang hindi nakikilalang takson.
+        an_unknown_user_merged_unknown_entry_to_it: Isang hindi nakikilalang tagagamit ang nagdagdag ng isang hindi nakikilalang klasipikasyon.
+        an_unknown_user_merged_unknown_entry_to_taxon: Isang hindi nakikilalang tagagamit ang naglipat ng isang hindi nakikilalang klasipikasyon papunta sa "%{taxon}".
+        user_merged_entry_to_an_unknown_taxon: Inilipat ni <strong>%{user}</strong> ang klasipikasyon ayon sa "%{provider}" papunta sa isang hindi nakikilalang takson.
+        user_merged_entry_to_it: Idinagdag ni <strong>%{user}</strong> ang klasipikasyon ayon sa "%{provider}".
+        user_merged_entry_to_taxon: Inilipat ni <strong>%{user}</strong> ang klasipikasyon ayon sa "%{provider}" papunta sa "%{taxon}".
+        user_merged_unknown_entry_to_an_unknown_taxon: Inilipat ni <strong>%{user}</strong> ang isang hindi nakikilalang klasipikasyon papunta sa isang hindi nakikilalang takson.
+        user_merged_unknown_entry_to_it: Nagdagdag si <strong>%{user}</strong> ng isang hindi nakikilalang klasipikasyon.
+        user_merged_unknown_entry_to_taxon: Inilipat ni <strong>%{user}</strong> ang isang hindi nakikilalang klasipikasyon papunta sa "%{taxon}".
       other_actions: 
         an_unknown_user_curated_an_older_data_object: Pinangasiwaan ng isang hindi nakikilalang tagagamit ang isang lumang bersiyon ng "%{data_object}".
         an_unknown_user_curated_an_unknown_data_object: Pinangasiwaan ng isang hindi nakikilalang tagagamit ang isang hindi nakikilalang bagay na pangdato.
@@ -517,6 +555,19 @@ tl:
         user_disassociated_data_object_from_association: Nagtanggal si <strong>%{user}</strong> ng isang kaugnayan sa pagitan ng isang "%{data_object}" at ng "%{association}".
         user_disassociated_it_from_an_unknown_association: Nagtanggal si <strong>%{user}</strong> ng isang kaugnayan sa isang hindi nakikilalang pahina.
         user_disassociated_it_from_association: Nagtanggal si <strong>%{user}</strong> ng isang kaugnayan sa "%{association}".
+      remove_common_name: 
+        an_unknown_user_removed_name_in_an_unknown_language_from_an_unknown_taxon: Isang hindi nakikilalang tagagamit ang nagtanggal ng karaniwang pangalan na nasa isang hindi nakikilalang wika magmula sa isang hindi nakikilalang pahina.
+        an_unknown_user_removed_name_in_an_unknown_language_from_it: Isang hindi nakikilalang tagagamit ang nagtanggal ng karaniwang pangalan na nasa isang hindi nakikilalang wika.
+        an_unknown_user_removed_name_in_an_unknown_language_from_taxon: Isang hindi nakikilalang tagagamit ang nagtanggal ng isang karaniwang pangalan na nasa isang hindi nakikilalang wika magmula sa "%{taxon}".
+        an_unknown_user_removed_name_in_language_from_an_unknown_taxon: Isang hindi nakikilalang tagagamit ang nagtanggal ng karaniwang pangalan na nasa %{language} magmula sa isang hindi nakikilalang pahina.
+        an_unknown_user_removed_name_in_language_from_it: Isang hindi nakikilalang tagagamit ang nagtanggal ng karaniwang pangalan na nasa %{language}.
+        an_unknown_user_removed_name_in_language_from_taxon: Isang hindi nakikilalang tagagamit ang nagtanggal ng karaniwang pangalan na nasa %{language} magmula sa "%{taxon}".
+        user_removed_name_in_an_unknown_language_from_an_unknown_taxon: Tinanggal ni <strong>%{user}</strong> ang karaniwang pangalan na nasa isang hindi nakikilalang wika magmula sa isang hindi nakikilalang pahina.
+        user_removed_name_in_an_unknown_language_from_it: Nagtanggal si <strong>%{user}</strong> ng isang karaniwang pangalan na nasa isang hindi nakikilalang wika.
+        user_removed_name_in_an_unknown_language_from_taxon: Tinanggal ni <strong>%{user}</strong> ang karaniwang pangalan na nasa isang hindi nakikilalang wika magmula sa "%{taxon}".
+        user_removed_name_in_language_from_an_unknown_taxon: Tinanggal ni <strong>%{user}</strong> ang karaniwang pangalan na nasa %{language} magmula sa isang hindi nakikilalang pahina.
+        user_removed_name_in_language_from_it: Tinanggal ni <strong>%{user}</strong>ang karaniwang pangalan na nasa %{language}.
+        user_removed_name_in_language_from_taxon: Tinanggal ni <strong>%{user}</strong> ang karaniwang pangalan na nasa %{language} magmula sa "%{taxon}".
       show: 
         an_unknown_user_showed_an_older_data_object_on_an_unknown_association: Minarkahan ng isang hindi nakikilalang tagagamit ang isang mas lumang bersiyon ng "%{data_object}" bilang nakikita sa loob ng isang diwang hindi nakikilala.
         an_unknown_user_showed_an_older_data_object_on_association: Minarkahan ng isang hindi nakikilalang tagagamit ang isang mas lumang bersiyon ng "%{data_object}" bilang nakikita sa ibabaw ng pahina ng "%{association}".
@@ -547,6 +598,31 @@ tl:
         user_split_unknown_entry_from_an_unknown_taxon: Hinati ni <strong>%{user}</strong> ang isang hindi nakikilalang klasipikasyon mula sa isang hindi nakikilalang takson.
         user_split_unknown_entry_from_it: Inihiwalay ni <strong>%{user}</strong> ang isang hindi nakikilalang klasipikasyon.
         user_split_unknown_entry_from_taxon: Hinati ni <strong>%{user}</strong> ang isang hindi nakikilalang klasipikasyon mula sa "%{taxon}".
+      trust_common_name: 
+        an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Minarkahan ng isang hindi nakikilalang tagagamit bilang pinagkakatiwalaan ang isang hindi nakikilalang karaniwang pangalan na nasa isang hindi nakikilalang wika magmula sa isang hindi nakikilalang pahina.
+        an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_it: Isang hindi nakikilalang tagagamit ang nagmarka sa isang hindi nakikilalang karaniwang pangalan na nasa isang hindi nakikilalang wika bilang pinagkakatiwalaan.
+        an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_taxon: Minarkahan bilang pinagkakatiwalaan ng isang hindi nakikilalang tagagamit ang isang hindi nakikilalang karaniwang pangalan na nasa isang hindi nakikilalang wika magmula sa "%{taxon}".
+        an_unknown_user_trusted_an_unknown_name_in_language_on_an_unknown_taxon: Isang hindi nakikilalang tagagamit ang nagmarka sa isang hindi nakikilalang pangalan na nasa %{language} magmula sa isang hindi nakikilalang pahina bilang pinagkakatiwalaan.
+        an_unknown_user_trusted_an_unknown_name_in_language_on_it: Isang hindi nakikilalang tagagamit ang nagmarka sa isang hindi nakikilalang karaniwang pangalan na nasa %{language} bilang pinagkakatiwalaan.
+        an_unknown_user_trusted_an_unknown_name_in_language_on_taxon: Minarkahan bilang pinagkakatiwalaan ng isang hindi nakikilalang tagagamit ang isang hindi nakikilalang karaniwang pangalan na nasa %{language} na nagmula sa "%{taxon}".
+        an_unknown_user_trusted_name_in_an_unknown_language_on_an_unknown_taxon: Minarkahan ng isang hindi nakikilalang tagagamit bilang pinagkakatiwalaan ang karaniwang pangalan na "%{name}" na nasa isang hindi nakikilalang wika magmula sa isang hindi nakikilalang pahina.
+        an_unknown_user_trusted_name_in_an_unknown_language_on_it: Isang hindi nakikilalang tagagamit ang nagmarka sa karaniwang pangalan na "%{name}" na nasa isang hindi nakikilalang wika bilang pinagkakatiwalaan.
+        an_unknown_user_trusted_name_in_an_unknown_language_on_taxon: Minarkahan ng isang hindi nakikilalang tagagamit bilang pinagkakatiwalaan ang karaniwang pangalan na "%{name}" na nasa isang hindi nakikilalang wika magmula sa "%{taxon}".
+        an_unknown_user_trusted_name_in_language_on_an_unknown_taxon: Isang hindi nakikilalang tagagamit ang nagmarka sa isang hindi nakikilalang pangalan na "%{name}" na nasa %{language} magmula sa isang hindi nakikilalang pahina bilang pinagkakatiwalaan.
+        an_unknown_user_trusted_name_in_language_on_it: Isang hindi nakikilalang tagagamit ang nagmarka sa karaniwang pangalan na "%{name}" na nasa %{language} bilang pinagkakatiwalaan.
+        an_unknown_user_trusted_name_in_language_on_taxon: Isang hindi nakikilalang tagagamit ang nagmarka sa isang hindi nakikilalang pangalan na "%{name}" na nasa %{language} magmula sa "%{taxon}" bilang pinagkakatiwalaan.
+        user_trusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Minarkahan ni <strong>%{user}</strong> bilang pinagkakatiwalaan ang isang hindi nakikilalang karaniwang pangalan na nasa isang hindi nakikilalang wika magmula sa isang hindi nakikilalang pahina.
+        user_trusted_an_unknown_name_in_an_unknown_language_on_it: Minarkahan ni <strong>%{user}</strong> ang isang hindi nakikilalang karaniwang pangalan na nasa isang hindi nakikilalang wika bilang pinagkakatiwalaan.
+        user_trusted_an_unknown_name_in_an_unknown_language_on_taxon: Minarkahan ni <strong>%{user}</strong> bilang pinagkakatiwalaan ang isang hindi nakikilalang karaniwang pangalan na nasa isang hindi nakikilalang wika magmula sa "%{taxon}".
+        user_trusted_an_unknown_name_in_language_on_an_unknown_taxon: Minarkahan ni <strong>%{user}</strong> bilang pinagkakatiwalaan ang isang hindi nakikilalang karaniwang pangalan na nasa %{language} magmula sa isang hindi nakikilalang pahina.
+        user_trusted_an_unknown_name_in_language_on_it: Minarkahan ni <strong>%{user}</strong> ang isang hindi nakikilalang karaniwang pangalan na nasa %{language} bilang pinagkakatiwalaan.
+        user_trusted_an_unknown_name_in_language_on_taxon: Minarkahan ni <strong>%{user}</strong> bilang pinagkakatiwalaan ang isang hindi nakikilalang karaniwang pangalan na nasa %{language} na nagmula sa "%{taxon}".
+        user_trusted_name_in_an_unknown_language_on_an_unknown_taxon: Minarkahan ni <strong>%{user}</strong> bilang pinagkakatiwalaan ang karaniwang pangalan na "%{name}" na nasa isang hindi nakikilalang wika magmula sa isang hindi nakikilalang pahina.
+        user_trusted_name_in_an_unknown_language_on_it: Minarkahan ni <strong>%{user}</strong> ang karaniwang pangalang "%{name}" na nasa isang hindi nakikilalang wika bilang pinagkakatiwalaan.
+        user_trusted_name_in_an_unknown_language_on_taxon: Minarkahan ni <strong>%{user}</strong> bilang pinagkakatiwalaan ang karaniwang pangalan na "%{name}" na nasa isang hindi nakikilalang wika magmula sa "%{taxon}".
+        user_trusted_name_in_language_on_an_unknown_taxon: Minarkahan ni <strong>%{user}</strong> ang karaniwang pangalang "%{name}" na nasa %{language} magmula sa isang hindi nakikilalang pahina bilang pinagkakatiwalaan.
+        user_trusted_name_in_language_on_it: Minarkahan ni <strong>%{user}</strong> ang karaniwang pangalan na "%{name}" na nasa %{language} bilang pinagkakatiwalaan.
+        user_trusted_name_in_language_on_taxon: Minarkahan ni <strong>%{user}</strong> ang karaniwang pangalang "%{name}" na nasa %{language} magmula sa "%{taxon}" bilang pinagkakatiwalaan.
       trusted: 
         an_unknown_user_trusted_an_older_data_object_on_an_unknown_association: Minarkahan ng isang hindi nakikilalang tagagamit ang isang mas lumang bersiyon ng "%{data_object}" bilang pinagkakatiwalaan sa loob ng isang diwang hindi nakikilala.
         an_unknown_user_trusted_an_older_data_object_on_association: Minarkahan ng isang hindi nakikilalang tagagamit ang isang mas lumang bersiyon ng "%{data_object}" bilang pinagkakatiwalaan sa loob ng pahina ng "%{association}".
@@ -564,6 +640,39 @@ tl:
         user_trusted_data_object_on_association: Minarkahan ni <strong>%{user}</strong> ang "%{data_object}" bilang pinagkakatiwalaan sa ibabaw ng pahina ng "%{association}".
         user_trusted_it_on_an_unknown_association: Minarkahan ito ni <strong>%{user}</strong> bilang pinagkakatiwalaan sa loob ng isang diwang hindi nakikilala.
         user_trusted_it_on_association: Minarkahan ito ni <strong>%{user}</strong> bilang pinagkakatiwalaan sa ibabaw ng pahina ng "%{association}".
+      unlock: 
+        an_unknown_taxon_unlocked: Isang hindi nakikilalang pahina ang nakatapos na ng pagsasagawa ng pangangasiwang panlikuran.
+        it_unlocked: Natapos na ang pagsasagawa ng pangangasiwang panlikuran.
+        taxon_unlocked: Natapos na ang "%{taxon}" sa pagsasagawa ng panlikurang pangangasiwa.
+      unlock_with_error: 
+        an_unknown_taxon_unlocked: "Isang hindi nakikilalang pahina ang <strong>nabigo</strong> sa pagsasagawa ng panlikurang pangangasiwa: %{error}."
+        it_unlocked: "<strong>Nabigo</strong> ang pagsasagawa ng panlikurang pangangasiwa : %{error}."
+        taxon_unlocked: "<strong>Nabigo</strong> ang \"%{taxon}\" sa pagsasagawa ng panlikurang pangangasiwa: %{error}."
+      unreview_common_name: 
+        an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Minarkahan ng isang hindi nakikilalang tagagamit bilang hindi pa nasusuring muli ang isang hindi nakikilalang karaniwang pangalan na nasa isang hindi nakikilalang wika magmula sa isang hindi nakikilalang pahina.
+        an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: Isang hindi nakikilalang tagagamit ang nagmarka sa isang hindi nakikilalang karaniwang pangalan na nasa isang hindi nakikilalang wika bilang hindi pa nasusuring muli.
+        an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_taxon: Minarkahan bilang hindi pa nasusuring muli ng isang hindi nakikilalang tagagamit ang isang hindi nakikilalang karaniwang pangalan na nasa isang hindi nakikilalang wika magmula sa "%{taxon}".
+        an_unknown_user_unreviewed_an_unknown_name_in_language_on_an_unknown_taxon: Isang hindi nakikilalang tagagamit ang nagmarka sa isang hindi nakikilalang pangalan na nasa %{language} magmula sa isang hindi nakikilalang pahina bilang hindi pa nasusuring muli.
+        an_unknown_user_unreviewed_an_unknown_name_in_language_on_it: Isang hindi nakikilalang tagagamit ang nagmarka sa isang hindi nakikilalang karaniwang pangalan na nasa %{language} bilang hindi pa muling nasusuri.
+        an_unknown_user_unreviewed_an_unknown_name_in_language_on_taxon: Minarkahan bilang hindi pa nasusuring muli ng isang hindi nakikilalang tagagamit ang isang hindi nakikilalang karaniwang pangalan na nasa %{language} na nagmula sa "%{taxon}".
+        an_unknown_user_unreviewed_name_in_an_unknown_language_on_an_unknown_taxon: Minarkahan ng isang hindi nakikilalang tagagamit bilang hindi pa nasusuring muli ang karaniwang pangalan na "%{name}" na nasa isang hindi nakikilalang wika magmula sa isang hindi nakikilalang pahina.
+        an_unknown_user_unreviewed_name_in_an_unknown_language_on_it: Isang hindi nakikilalang tagagamit ang nagmarka sa karaniwang pangalan na "%{name}" na nasa isang hindi nakikilalang wika bilang hindi pa nasusuring muli.
+        an_unknown_user_unreviewed_name_in_an_unknown_language_on_taxon: Minarkahan ng isang hindi nakikilalang tagagamit bilang hindi pa nasusuring muli ang karaniwang pangalan na "%{name}" na nasa isang hindi nakikilalang wika magmula sa "%{taxon}".
+        an_unknown_user_unreviewed_name_in_language_on_an_unknown_taxon: Isang hindi nakikilalang tagagamit ang nagmarka sa isang hindi nakikilalang pangalan na "%{name}" na nasa %{language} magmula sa isang hindi nakikilalang pahina bilang hindi pa nasusuring muli.
+        an_unknown_user_unreviewed_name_in_language_on_it: Isang hindi nakikilalang tagagamit ang nagmarka sa karaniwang pangalan na "%{name}" na nasa %{language} bilang hindi pa nasusuring muli.
+        an_unknown_user_unreviewed_name_in_language_on_taxon: Isang hindi nakikilalang tagagamit ang nagmarka sa isang hindi nakikilalang pangalan na "%{name}" na nasa %{language} magmula sa "%{taxon}" bilang hindi pa nasusuring muli.
+        user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Minarkahan ni <strong>%{user}</strong> bilang hindi pa nasusuring muli ang isang hindi nakikilalang karaniwang pangalan na nasa isang hindi nakikilalang wika magmula sa isang hindi nakikilalang pahina.
+        user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: Minarkahan ni <strong>%{user}</strong> ang isang hindi nakikilalang karaniwang pangalan na nasa isang hindi nakikilalang wika bilang hindi pa nasusuring muli.
+        user_unreviewed_an_unknown_name_in_an_unknown_language_on_taxon: Minarkahan ni <strong>%{user}</strong> bilang hindi pa nasusuring muli ang isang hindi nakikilalang karaniwang pangalan na nasa isang hindi nakikilalang wika magmula sa "%{taxon}".
+        user_unreviewed_an_unknown_name_in_language_on_an_unknown_taxon: Minarkahan ni <strong>%{user}</strong> bilanghindi pa nasusuring muli ang isang hindi nakikilalang karaniwang pangalan na nasa %{language} magmula sa isang hindi nakikilalang pahina.
+        user_unreviewed_an_unknown_name_in_language_on_it: Minarkahan ni <strong>%{user}</strong> ang isang hindi nakikilalang karaniwang pangalan na nasa %{language} bilang hindi pa nasusuring muli.
+        user_unreviewed_an_unknown_name_in_language_on_taxon: Minarkahan ni <strong>%{user}</strong> bilang hindi pa nasusuring muli ang isang hindi nakikilalang karaniwang pangalan na nasa %{language} na nagmula sa "%{taxon}".
+        user_unreviewed_name_in_an_unknown_language_on_an_unknown_taxon: Minarkahan ni <strong>%{user}</strong> bilang hindi pa nasusuring muli ang karaniwang pangalan na "%{name}" na nasa isang hindi nakikilalang wika magmula sa isang hindi nakikilalang pahina.
+        user_unreviewed_name_in_an_unknown_language_on_it: Minarkahan ni <strong>%{user}</strong> ang karaniwang pangalang "%{name}" na nasa isang hindi nakikilalang wika bilang hindi pa nasusuring muli.
+        user_unreviewed_name_in_an_unknown_language_on_taxon: Minarkahan ni <strong>%{user}</strong> bilang hindi pa nasusuring muli ang karaniwang pangalan na "%{name}" na nasa isang hindi nakikilalang wika magmula sa "%{taxon}".
+        user_unreviewed_name_in_language_on_an_unknown_taxon: Minarkahan ni <strong>%{user}</strong> ang karaniwang pangalang "%{name}" na nasa %{language} magmula sa isang hindi nakikilalang pahina bilanghindi pa nasusuring muli.
+        user_unreviewed_name_in_language_on_it: Minarkahan ni <strong>%{user}</strong> ang karaniwang pangalan na "%{name}" na nasa %{language} bilang hindi pa nasusuring muli.
+        user_unreviewed_name_in_language_on_taxon: Minarkahan ni <strong>%{user}</strong> ang karaniwang pangalang "%{name}" na nasa %{language} magmula sa "%{taxon}" bilang hindi pa nasusuring muli.
       unreviewed: 
         an_unknown_user_unreviewed_an_older_data_object_on_an_unknown_association: Minarkahan ng isang hindi nakikilalang tagagamit ang isang mas lumang bersiyon ng "%{data_object}" bilang hindi pa nasusuring muli sa loob ng isang diwang hindi nakikilala.
         an_unknown_user_unreviewed_an_older_data_object_on_association: Minarkahan ng isang hindi nakikilalang tagagamit ang isang mas lumang bersiyon ng "%{data_object}" bilang hindi pa nasusuring muli sa ibabaw ng pahina ng "%{association}".
@@ -581,6 +690,31 @@ tl:
         user_unreviewed_data_object_on_association: Minarkahan ni <strong>%{user}</strong> ang "%{data_object}" bilang hindi pa muling nasusuri sa ibabaw ng pahina ng "%{association}".
         user_unreviewed_it_on_an_unknown_association: Minarkahan ito ni <strong>%{user}</strong> bilang hindi pa muling nasusuri na nasa loob ng isang diwang hindi nakikilala.
         user_unreviewed_it_on_association: Minarkahan ito ni <strong>%{user}</strong> bilang hindi pa muling nasusuri sa ibabaw ng pahina ng "%{association}".
+      untrust_common_name: 
+        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Minarkahan ng isang hindi nakikilalang tagagamit bilang hindi pinagkakatiwalaan ang isang hindi nakikilalang karaniwang pangalan na nasa isang hindi nakikilalang wika magmula sa isang hindi nakikilalang pahina.
+        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_it: Isang hindi nakikilalang tagagamit ang nagmarka sa isang hindi nakikilalang karaniwang pangalan na nasa isang hindi nakikilalang wika bilang hindi pinagkakatiwalaan.
+        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_taxon: Isang hindi nakikilalang tagagamit ang nagmarka sa isang hindi nakikilalang karaniwang pangalan magmula sa "%{taxon}" na nasa isang hindi nakikilalang wika bilang hindi pinagkakatiwalaan.
+        an_unknown_user_untrusted_an_unknown_name_in_language_on_an_unknown_taxon: Isang hindi nakikilalang tagagamit ang nagmarka sa isang hindi nakikilalang pangalan na nasa %{language} magmula sa isang hindi nakikilalang pahina bilang hindi pinagkakatiwalaan.
+        an_unknown_user_untrusted_an_unknown_name_in_language_on_it: Isang hindi nakikilalang tagagamit ang nagmarka sa isang hindi nakikilalang karaniwang pangalan na nasa %{language} bilang hindi pinagkakatiwalaan.
+        an_unknown_user_untrusted_an_unknown_name_in_language_on_taxon: Minarkahan bilang hindi pinagkakatiwalaan ng isang hindi nakikilalang tagagamit ang isang hindi nakikilalang karaniwang pangalan na nasa %{language} na nagmula sa "%{taxon}".
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_an_unknown_taxon: Minarkahan ng isang hindi nakikilalang tagagamit bilang hindi pinagkakatiwalaan ang karaniwang pangalan na "%{name}" na nasa isang hindi nakikilalang wika magmula sa isang hindi nakikilalang pahina.
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_it: Isang hindi nakikilalang tagagamit ang nagmarka sa karaniwang pangalan na "%{name}" na nasa isang hindi nakikilalang wika bilang hindi pinagkakatiwalaan.
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_taxon: Minarkahan ng isang hindi nakikilalang tagagamit bilang hindi pinagkakatiwalaan ang karaniwang pangalan na "%{name}" na nasa isang hindi nakikilalang wika magmula sa "%{taxon}".
+        an_unknown_user_untrusted_name_in_language_on_an_unknown_taxon: Isang hindi nakikilalang tagagamit ang nagmarka sa isang hindi nakikilalang pangalan na "%{name}" na nasa %{language} magmula sa isang hindi nakikilalang pahina bilang hindi pinagkakatiwalaan.
+        an_unknown_user_untrusted_name_in_language_on_it: Isang hindi nakikilalang tagagamit ang nagmarka sa karaniwang pangalan na "%{name}" na nasa %{language} bilang hindi pinagkakatiwalaan.
+        an_unknown_user_untrusted_name_in_language_on_taxon: Isang hindi nakikilalang tagagamit ang nagmarka sa isang hindi nakikilalang pangalan na "%{name}" na nasa %{language} magmula sa "%{taxon}" bilang hindi pinagkakatiwalaan.
+        user_untrusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Minarkahan ni <strong>%{user}</strong> bilang hindi pinagkakatiwalaan ang isang hindi nakikilalang karaniwang pangalan na nasa isang hindi nakikilalang wika magmula sa isang hindi nakikilalang pahina.
+        user_untrusted_an_unknown_name_in_an_unknown_language_on_it: Minarkahan ni <strong>%{user}</strong> ang isang hindi nakikilalang karaniwang pangalan na nasa isang hindi nakikilalang wika bilang hindi pinagkakatiwalaan.
+        user_untrusted_an_unknown_name_in_an_unknown_language_on_taxon: Minarkahan ni <strong>%{user}</strong> bilang hindi pinagkakatiwalaan ang isang hindi nakikilalang karaniwang pangalan na nasa isang hindi nakikilalang wika magmula sa "%{taxon}".
+        user_untrusted_an_unknown_name_in_language_on_an_unknown_taxon: Minarkahan ni <strong>%{user}</strong> bilang hindi pinagkakatiwalaan ang isang hindi nakikilalang karaniwang pangalan na nasa %{language} magmula sa isang hindi nakikilalang pahina.
+        user_untrusted_an_unknown_name_in_language_on_it: Minarkahan ni <strong>%{user}</strong> ang isang hindi nakikilalang karaniwang pangalan na nasa %{language} bilang hindi pinagkakatiwalaan.
+        user_untrusted_an_unknown_name_in_language_on_taxon: Minarkahan ni <strong>%{user}</strong> bilang hindi pinagkakatiwalaan ang isang hindi nakikilalang karaniwang pangalan na nasa %{language} na nagmula sa "%{taxon}".
+        user_untrusted_name_in_an_unknown_language_on_an_unknown_taxon: Minarkahan ni <strong>%{user}</strong> bilang hindi pinagkakatiwalaan ang karaniwang pangalan na "%{name}" na nasa isang hindi nakikilalang wika magmula sa isang hindi nakikilalang pahina.
+        user_untrusted_name_in_an_unknown_language_on_it: Minarkahan ni <strong>%{user}</strong> ang karaniwang pangalang "%{name}" na nasa isang hindi nakikilalang wika bilang hindi pinagkakatiwalaan.
+        user_untrusted_name_in_an_unknown_language_on_taxon: Minarkahan ni <strong>%{user}</strong> bilang hindi pinagkakatiwalaan ang karaniwang pangalan na "%{name}" na nasa isang hindi nakikilalang wika magmula sa "%{taxon}".
+        user_untrusted_name_in_language_on_an_unknown_taxon: Minarkahan ni <strong>%{user}</strong> ang karaniwang pangalang "%{name}" na nasa %{language} magmula sa isang hindi nakikilalang pahina bilang hindi pinagkakatiwalaan.
+        user_untrusted_name_in_language_on_it: Minarkahan ni <strong>%{user}</strong> ang karaniwang pangalan na "%{name}" na nasa %{language} bilang hindi pinagkakatiwalaan.
+        user_untrusted_name_in_language_on_taxon: Minarkahan ni <strong>%{user}</strong> ang karaniwang pangalang "%{name}" na nasa %{language} magmula sa "%{taxon}" bilang hindi pinagkakatiwalaan.
       untrusted: 
         an_unknown_user_untrusted_an_older_data_object_on_an_unknown_association: Minarkahan ng isang hindi nakikilalang tagagamit ang isang mas lumang bersiyon ng "%{data_object}" bilang pinagkakatiwalaan sa loob ng isang diwang hindi nakikilala.
         an_unknown_user_untrusted_an_older_data_object_on_association: Minarkahan ng isang hindi nakikilalang tagagamit ang isang mas lumang bersiyon ng "%{data_object}" bilang hindi pinagkakatiwalaan sa loob ng pahina ng "%{association}".
@@ -630,7 +764,7 @@ tl:
   add_sub_chapter: Idagdag ang kabahaging kabanata
   add_to_a_community: Idagdag sa isang pamayanan
   add_to_my_collection_button: Idagdag sa aking kalipunan
-  added_classifications_ready: Ang dato mula sa napiling mga klasipikasyon ay handa nang mailipat sa ibang pahina. Upang makumpleto ang proseso, maaaring piliin ang "hatiin sa dalawang bagong pahina" o lumibot papunta sa laylayan ng mga pangalan ng pahina kung saan mo naisin ang dato, pagkaraan ay piliin ang "pagsanibin ang mga klasipikasyon" upang makumpleto ang proseso.
+  added_classifications_ready: Ang dato mula sa napiling mga klasipikasyon ay handa nang mailipat sa ibang pahina. Upang makumpleto ang proseso, maaaring piliin ang "hatiin sa dalawang bagong pahina" o lumibot papunta sa laylayan ng mga pangalan ng pahina kung saan mo naisin ang dato, pagkaraan ay piliin ang "pagsanibin ang mga klasipikasyon".
   admin_content_page_active: Nailathala na
   admin_content_page_child_new_link: Lumikha ng supling na pahina
   admin_content_page_create_successful_notice: Matagumpay na nalikha ang pahinang <a href="#%{anchor}"><em>%{page_name}</em></a>.
@@ -693,6 +827,41 @@ tl:
   admin_user_delete_successful_notice: Nabura na ang tagagamit
   admin_user_hide_successful_notice: Naitago na ang tagagamit
   admin_user_unhide_successful_notice: Hindi na ikinubli ang tagagamit
+  admins: 
+    eol_statistics: 
+      content_partners: 
+        menu_link: Mga kawaksi sa nilalaman
+        page_header: Estadistika ng Kawaksi sa Nilalaman
+        page_title: "Pangangasiwa: Estadistika ng Kawaksi sa Nilalaman"
+      curators: 
+        menu_link: Estadistika sa katiwala
+        page_header: Estadistika sa Katiwala
+        page_title: "Pangangasiwa: Estadistika sa Kurador"
+      data_objects: 
+        menu_link: Mga bagay na dato
+        page_header: Estadistika ng Bagay na Pangdato
+        page_title: "Pangangasiwa: Estadistika ng Bagay na Pangdato"
+      index: 
+        menu_link: Pangkabuoang estadistika
+        page_header: Estadistikang Pangkabuoan
+        page_title: "Pangangasiwa: Estadistikang Pangkabuoan"
+        table_caption: Nilikha ang pangkalahatang estadistika ng pook noong %{created_at_time}
+      lifedesks: 
+        menu_link: LifeDesks
+        page_header: Estadistika ng LifeDesks
+        page_title: "Pangangasiwa: Estadistika ng LifeDesks"
+      marine: 
+        menu_link: Estadistikang pangdagat
+        page_header: Kasaklawang Pandagat sa EOL
+        page_title: "Pangangasiwa: Estadistikang Pandagat"
+      page_richness: 
+        menu_link: Mayayamang mga pahina
+        page_header: Mayayamang Pahina ng Estadistika
+        page_title: "Pangangasiwa: Estadistika ng Mayayamang mga Pahina"
+      users_data_objects: 
+        menu_link: Tekstong ipinasa ng tagagamit
+        page_header: Estadistika sa Tekstong Ipinasa ng Tagagamit
+        page_title: "Pangangasiwa: Estadistika sa Tekstong Ipinasa ng Tagagamit"
   agent: Ahente
   all: lahat
   all_apis_return_by_default_an_xml_response: "Ayon sa likas na katakdaan, ang lahat ng mga API ay nagbabalik ng isang tugon ng XML. Ang mga pamamaraang API ay maaaring tawagin na wala ang isang dugtong ng kaanyuan upang makuha ang tugon ng XML, at ang pagdaragdag ng isang dugtong na XML ay magbibigay ng isang kahawig na tugon:"
@@ -1376,6 +1545,61 @@ tl:
   data_usage_reports: Mga Ulat sa Paggamit ng Dato
   date_caps: Petsa
   date_uploaded: Petsa noong ikarga nang paitaas
+  datepicker: 
+    close: Isara
+    current: Ngayong araw na ito
+    day_names: 
+      - Linggo
+      - Lunes
+      - Martes
+      - Miyerkules
+      - Huwebes
+      - Biyernes
+      - Sabado
+    day_names_min: 
+      - Li
+      - Lu
+      - Ma
+      - Mi
+      - Hu
+      - Bi
+      - Sa
+    day_names_short: 
+      - Lin
+      - Lun
+      - Mar
+      - Miy
+      - Huw
+      - Biy
+      - Sab
+    month_names: 
+      - Enero
+      - Pebrero
+      - Marso
+      - Abril
+      - Mayo
+      - Hunyo
+      - Hulyo
+      - Agosto
+      - Setyembre
+      - Oktubre
+      - Nobyembre
+      - Disyembre
+    month_names_short: 
+      - Ene
+      - Peb
+      - Mar
+      - Abr
+      - May
+      - Hun
+      - Hul
+      - Ago
+      - Set
+      - Okt
+      - Nob
+      - Dis
+    next: Susunod
+    previous: Nakaraan
   dato_create_cancel: Huwag ituloy
   dato_create_user_text_error: Paumanhin, naganap ang isang kamalian, hindi maidagdag ang artikulo.
   dato_create_user_text_missing_taxon_id_exception: Hindi magagawang makayari ng isang tekstong DataObject o UsersDataObject kung ang ID ng takson ay wala.
@@ -1496,6 +1720,42 @@ tl:
   eol_glossary: Glosaryo ng EOL
   eol_news: Balitang EOL
   eol_pages: Mga pahina
+  eol_statistics: 
+    comparing_dates: <span class="assistive">Pinaghahambing</span>ang<span class="date_one">%{date_one}</span> <span class="assistive">at ang</span> <span class="date_two">%{date_two}</span>
+    content_partners: 
+      menu_link: Mga kawaksi sa nilalaman
+      page_header: Estadistika ng mga Kawaksi sa Nilalaman
+      page_title: Estadistika
+    curators: 
+      menu_link: Estadistika sa kurador
+      page_header: Estadistika sa Katiwala
+      page_title: Estadistika
+    data_objects: 
+      menu_link: Mga bagay na dato
+      page_header: Estadistika ng Bagay na Pangdato
+      page_title: Estadistika
+    index: 
+      menu_link: Pangkabuoang estadistika
+      page_header: Estadistikang Pangkabuoan
+      page_title: Estadistika
+    lifedesks: 
+      menu_link: LifeDesks
+      page_header: Estadistika ng LifeDesks
+      page_title: Estadistika
+    marine: 
+      menu_link: Estadistikang pangdagat
+      page_header: Kasaklawang Pandagat sa EOL
+      page_title: Estadistika
+    page_richness: 
+      menu_link: Mayayamang mga pahina
+      page_header: Mayayamang Pahina ng Estadistika
+      page_title: Estadistika
+    users_data_objects: 
+      menu_link: Tekstong ipinasa ng tagagamit
+      page_header: Estadistika sa Tekstong Ipinasa ng Tagagamit
+      page_title: Estadistika
+    warnings: 
+      stats_unavailable_for_date: Paumanhin, hindi makukuha ang estadistika para sa %{date}. Paki pumili ng ibang petsa.
   error_401_description: Paumanhin, wala kang karapatang puntahan ang URL na iyan.
   error_401_page_title: Walang karapatan
   error_403_description: Paumanhin, wala kang karapatang puntahan ang URL na iyan.
@@ -1715,6 +1975,8 @@ tl:
         source_url: URL papunta sa orihinal na bagay na pangdato
         toc_item: Kabahaging kabanata
       eol_statistic: 
+        date_one: Petsa
+        date_two: Petsa
         download_all: Lahat <small>(isama ang mga rekord mula sa lahat ng mga pahina)</small>
       google_analytics_partner_summaries: 
         page_views: Mga pagtingin sa pahina <small>(bilang ng mga pagdalaw sa mga pahina)</small>
@@ -1841,6 +2103,7 @@ tl:
         create_text: Idagdag ang artikulo
         update: Sagipin ang artikulo
       eol_statistic: 
+        change_date: Kuhanin ang estadistika para sa mga petsa
         download_csv: Ikargang-pakuha bilang CSV
       filter_sort: Salain at pagsama-samahin
       harvest_event: 
@@ -1888,6 +2151,7 @@ tl:
   here: dito
   hidden: Nakatago
   hidden_comment: nakatagong puna
+  hidden_for_colon: "Itinago para sa:"
   hide: itago
   hierarchies_description: Ang Ensiklopedya ng Buhay ay walang isang nag-iisang hirarkiyang pangtaksonomiya na pinaglilikhaan nito ng mga pahina nito. Sa halip, tinataluntunan ng EOL ang maraming mga hirarkiya at inihahambing sila laban sa bawat isa. Ang API na ito ay naglilista ng metadato tungkol sa isang hirarkiyang katulad ng pangalan ng tagapagbigay at URL ng pinagmulan, pati na mga listahan ng lahat ng taksa na pinag-ugatang taksa ng punong pangtaksonomiya
   hierarchies_entries_description: Ang Ensiklopedya ng Buhay ay walang isang nag-iisang hirarkiya na pangtaksonomiya na pinaglilikhaan nito ng mga pahina nito. Sa halip, tinatalunton ng EOL ang maraming mga hirarkiya at pinaghahambing ang mga ito laban sa isa't isa. Bilang isang resulta, ang alin mang pahina ng EOL ay maaaring maugnay sa ilang mga buko magmula sa sari-saring mga hirarkiya. Ang API na ito ay nagbibigay ng pagkanakakapunta sa isang nag-iisang hirarkiya at mga panloob na mga ugnayan nito. Sumangguni sa dokumentasyon ng mga pahina ng API para sa kabatiran sa pagpunta sa iba pang mga hirarkiya na nakaugma sa isang partikular na pahina ng EOL. Ang kahanayan ng ID ng Diwa ng takson ay naglalaman ng pangkilala ng pahina ng EOL na maaaring gamitin sa loob ng mga pahina ng API.
@@ -2062,6 +2326,7 @@ tl:
   literature_references: Mga sanggunian ng panitikan
   location: Kinalalagyan
   location_colon: "Kinalalagyan:"
+  location_created_colon: "Nilikha na ang Lokasyon:"
   logging_database_colon: "Pagtatala:"
   login: lumagda
   login_header: Lumagda sa akawnt mo ng <abbr title="Encyclopedia of Life">EOL</abbr>
@@ -2362,6 +2627,7 @@ tl:
   number_of_unreviewed_images_at_this_entry: "# ng hindi pa nasusuring mga larawan sa lahok na ito"
   number_of_unreviewed_text_objects_at_this_entry: "# ng hindi pa nasusuring mga bagay ng teksto sa lahok na ito"
   object: Bagay
+  object_curated: Napangasiwaan ang bagay.
   object_curation: Pangangasiwa ng Bagay
   object_status: Katayuan ng bagay
   object_status_all_option: Lahat
@@ -2444,6 +2710,7 @@ tl:
   partner: Kawaksi
   partner_information: Kabatiran sa kawaksi
   partner_page: pahina ng kawaksi
+  partner_web_site_colon: "Pook sa Sangkasaputan ng Kawaksi:"
   partnering_steps: MGA HAKBANG SA PAGIGING KAWAKSI
   password_colon: "Hudyat:"
   password_must_be_4to16_characters: Ang haba ng hudya ay dapat na nasa pagitan ng 4 at 16 mga panitik.
@@ -2564,7 +2831,7 @@ tl:
     reply_to_comment_body_brief: "%{reply_to_author} %{body} - %{author}"
     see_all_activity: Tingnan ang lahat ng nakaraang mga gawain doon sa <a href='%{activity_url}' style='color:#195184'>pahina mo ng pakaing balita ng tagagamit</a>.
     someone_commented_on_something: Nagbigay ng puna si <b>%{who}</b> hinggil sa <b>%{what}</b>.
-    unsubscribe: Baguhin ang mga katakdaan ng e-liham mo o huwag nang magpasipi roon sa <a href='%{email_prefs_url}' style='color:#195184'>ang pahina mo ng kanaisan sa pagpapabatid</a>.
+    unsubscribe: Lumagdang papasok at baguhin ang mga katakdaan ng e-liham mo o huwag nang magpasipi roon sa <a href='%{email_prefs_url}' style='color:#195184'>ang pahina mo ng kanaisan sa pagpapabatid</a>. Kapag nakaranas ka ng anumang suliranin, paki <a href='http://eol.org/contact_us'>makipag-ugnayan sa amin</a>.
   recent_updates: Kamakailang mga pagsasapanahon
   recently_visited: Kamakailang nadalaw
   recipients: Mga tumatanggap
@@ -2788,6 +3055,7 @@ tl:
   spm_category_partner_count: Kategorya ng Huwaran ng Balangkas ng Katangian ng Espesye - bilang ng kawaksi
   started: Sinimulan
   stat: Estadistika
+  stats: Estadistika
   stored_classifications: Paki tandaan na mayroong kang <a href='%{anchor}'>nakaimbak na mga klasipikasyon, na nasa ibaba</a>.
   sub_heading: Kabahaging pamuhatan
   subject: paksa
@@ -3218,6 +3486,7 @@ tl:
   truncated_comment_omission: ... <a href='%{link}'>marami pa</a>
   truncated_comment_omission_linkless: ...
   trusted: Pinagkakatiwalaan
+  trusted_for_colon: "Pinagkatiwalaan para sa:"
   trusted_images: Pinagkakatiwalaang mga larawan
   trusted_maps: Pinagkakatiwalaang mga mapa
   trusted_text_objects: Pinagkakatiwalaang mga artikulo
@@ -3232,10 +3501,12 @@ tl:
   unknown_type_not_associated_with_any_published_entries: Ang datong ito ay walang kaugnayan sa anumang nakalathalang taksa.
   unpublished: Hindi pa nailalathala
   unreviewed: Hindi pa nasusuri
+  unreviewed_for_colon: "Hindi na sinuring muli para sa:"
   unreviewed_images: Hindi pa nasusuring mga larawan
   unreviewed_maps: Hindi pa nasusuring mga mapa
   unreviewed_text_objects: Hindi pa nasusuring mga artikulo
   untrusted: Hindi pinagkakatiwalaan
+  untrusted_for_colon: "Hindi na pinagkatiwalaan para sa:"
   update: Isapanahon
   update_collection_submit_button: Isapanahon ang mga detalye ng kalipunan
   update_language: Isapanahon ang wika
@@ -3319,6 +3590,7 @@ tl:
   user_commented_on_older_data_object_colon: "Si <strong>%{user}</strong> ay nagbigay ng puna hinggil sa %{what}:"
   user_commented_on_something_colon: "Si <strong>%{user}</strong> ay nagbigay ng puna hinggil sa \"%{what}\":"
   user_commented_on_themself: "Pinuna ni <strong>%{user_with_link}</strong> ang <a href='%{link}'>pakaing balita ni %{username}</a>:"
+  user_commented_on_your_image: "Nagbigay ng puna si <strong>%{user}</strong> sa iyong imahe na nasa <a href='%{data_object_link}'>pook ng Ensiklopedya ng Buhay</a>:\n%{comment_body}"
   user_comments: Mga Puna ng Tagagamit
   user_full_name_with_curator: "%{user} (%{curator_level})"
   user_id: ID ng tagagamit
@@ -3482,7 +3754,7 @@ tl:
       form_tip: Upang mapanumbalik ang iyong akawnt ng EOL, ipasok ang tirahan ng e-liham na may kaugnayan sa akawnt na iyan. Paki suriin ang iyong lupiang taguan ng basurang liham kapag hindi ka nakatanggap ng isang e-liham ng pagpapanumbalik ng akawnt sa loob ng isang oras.
       meta_title: Panumbalikin ang akawnt
       notices: 
-        recovery_email_sent: Ang e-liham ng pagpapanumbalik ng akawnt ay naipadala na mayroong karagdagang mga tagubilin. Paki suriin ang iyong pansala ng mga basurang liham kapag hindi mo natanggap ang e-liham sa loob ng isang oras.
+        recovery_email_sent: Ang e-liham ng pagpapanumbalik ng akawnt ay naipadala na mayroong karagdagang mga tagubilin. Paki idagdag ang %{from_address} sa iyong tala ng ligtas na mga tagapagpadala at suriin ang iyong pansala ng mga basurang liham kapag hindi mo natanggap ang e-liham sa loob ng isang oras.
         temporarily_logged_in_update_authentication_details: Pansamantala kang nakalagdang papasok upang magpahintulot ng pagpapanumbalik ng akawnt, paki baguhin ang hudyat mo o isapanahon ang iyong nakakabit ng mga akwant upang matiyak na matagumpay kang makakalagdang papasok.
     recover_account_choose_account: 
       errors: 

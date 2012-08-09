@@ -6,7 +6,7 @@
 mk: 
   0_1_or_2: 0, 1 или 2
   0_or_1: 0 или 1
-  a_pipe_delimited_list_of_licenses: Список на лиценци одделени со вертикална црта | или „сите“ за да ги добиете објектите под сите лиценци. Сите лиценци со кратенката cc- се
+  a_pipe_delimited_list_of_licenses: Список на лиценци одделени со вертикална црта | или „сите“ за да ги добиете објектите под сите лиценци. Сите лиценци со кратенката cc- се од %{creative_commons_link}. За да дознаете какви сè лиценци се нудат, посетете го нивното мрежно место.
   a_pipe_delimited_list_of_spm_info_item_subject_names: „предлед“ што се прикажува кога има текст во прегледот. Список на SPM-инфо експонати одделени со вертикална црта | во секоја предметна определница од SPM-инфоставките. „сите“ за да добиете текст за било која определница. Секогаш го дава текстот на прегледот како прв резултат (ако го има во дадениот контекст).
   a_taxon: таксон
   a_total_of_comment_were_found_matching_your_criteria: 
@@ -129,7 +129,7 @@ mk:
         pages_with_image: Страници со слика
         pages_with_image_no_text: Страници со слика, но без текст
         pages_with_map: Страници со карта
-        pages_with_score_10_to_39: Страници со оценка 10-39
+        pages_with_score_10_to_39: Страници со оценка 10-40
         pages_with_score_less_than_10: Страници со оценка помала од 10
         pages_with_sound: Страници со аудио
         pages_with_text: Страници со текст
@@ -283,13 +283,13 @@ mk:
             accesspoint_url: 
               blank: не може да стои празно, освен ако наместо ова не подигнете ресурсна податотека
               inaccessible: е непристапно - URL-адресата мора да е јавно достапна
-              invalid: е неважечко - треба да води кон податотека од типот XML, XML.GZIP или XML.GZ.
+              invalid: е неважечко - треба да води кон податотека од типот XML, XML.GZIP, XML.GZ или ZIP
             dataset: 
               blank: не може да стои празно, освен ако наместо ова не наведете URL за податочниот збир
-              wrong_type: е од погрешен тип - треба да биде податотека од типот GZIP, TAR или XML
+              wrong_type: е од погрешен тип - треба да биде податотека од типот GZIP, TAR, ZIP или XML
             dwc_archive_url: 
               inaccessible: е непристапно - URL-адресата мора да е јавно достапна
-              invalid: е неважечко - треба да води кон податотека од типот TAR.GZIP, TAR.GZ или TGZ
+              invalid: е неважечко - треба да води кон податотека од типот TAR.GZIP, TAR.GZ, TGZ или ZIP
       template: 
         body: "Заверката не успеа во следниве полиња:"
         header: 
@@ -426,6 +426,31 @@ mk:
         user_associated_data_object_to_association: <strong>%{user}</strong> додаде поврзаност помеѓу „%{data_object}“ и „%{association}“.
         user_associated_it_to_an_unknown_association: <strong>%{user}</strong> додаде поврзаност со непозната страница.
         user_associated_it_to_association: <strong>%{user}</strong> додаде поврзаност со „%{association}“.
+      add_common_name: 
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: Непознат корисник додаде непознато тривијално име на непознат јазик во непозната страница.
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_it: Непознат корисник додаде непознато тривијално име на непознат јазик.
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_taxon: Непознат корисник додаде непознато тривијално име на непознаат јазик во „%{taxon}“.
+        an_unknown_user_added_an_unknown_name_in_language_to_an_unknown_taxon: Непознат корисник додаде непознато тривијално име на %{language} во непозната страница.
+        an_unknown_user_added_an_unknown_name_in_language_to_it: Непознат корисник додаде непознато тривијално име на %{language}.
+        an_unknown_user_added_an_unknown_name_in_language_to_taxon: Непознат корисник додаде непознато тривијално име на %{language} во „%{taxon}“.
+        an_unknown_user_added_name_in_an_unknown_language_to_an_unknown_taxon: Непознат корисник го додаде тривијалното име „%{name}“ на непознат јазик во непозната страница.
+        an_unknown_user_added_name_in_an_unknown_language_to_it: Непознат корисник го додаде тривијалното име „%{name}“ на непознат јазик.
+        an_unknown_user_added_name_in_an_unknown_language_to_taxon: Непознат корисник го додаде тривијалното име „%{name}“ на непознат јазик во „%{taxon}“.
+        an_unknown_user_added_name_in_language_to_an_unknown_taxon: Непознат корисник го додаде тривијалното име „%{name}“ на %{language} во непозната страница.
+        an_unknown_user_added_name_in_language_to_it: Непознат корисник го додаде тривијалното име „%{name}“ на %{language}.
+        an_unknown_user_added_name_in_language_to_taxon: Непознат корисник го додаде тривијалното име „%{name}“ на %{language} во „%{taxon}“.
+        user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: <strong>%{user}</strong> додаде непознато тривијално име на непознат јазик во непозната страница.
+        user_added_an_unknown_name_in_an_unknown_language_to_it: <strong>%{user}</strong> додаде непознато тривијално име на непознат јазик.
+        user_added_an_unknown_name_in_an_unknown_language_to_taxon: <strong>%{user}</strong> додаде непознато тривијално име на непознат јазик во „%{taxon}“.
+        user_added_an_unknown_name_in_language_to_an_unknown_taxon: <strong>%{user}</strong> додаде непознато тривијално име на  %{language} во непозната страница.
+        user_added_an_unknown_name_in_language_to_it: <strong>%{user}</strong> додаде непознато тривијално име на %{language}.
+        user_added_an_unknown_name_in_language_to_taxon: <strong>%{user}</strong> додаде непознато тривијално име на %{language} во „%{taxon}“.
+        user_added_name_in_an_unknown_language_to_an_unknown_taxon: <strong>%{user}</strong> го додаде тривијалното име „%{name}“ на непознат јазик во непозната страница.
+        user_added_name_in_an_unknown_language_to_it: <strong>%{user}</strong> го додаде тривијалното име на „%{name}“ на непознат јазик.
+        user_added_name_in_an_unknown_language_to_taxon: <strong>%{user}</strong> го додаде тривијалното име „%{name}“ на непознат јазик во „%{taxon}“.
+        user_added_name_in_language_to_an_unknown_taxon: <strong>%{user}</strong> го додаде тривијалното име „%{name}“ на %{language} во непозната страница.
+        user_added_name_in_language_to_it: <strong>%{user}</strong> го додаде тривијалното име на „%{name}“ на %{language}.
+        user_added_name_in_language_to_taxon: <strong>%{user}</strong> го додаде тривијалното име „%{name}“ на %{language} во „%{taxon}“.
       choose_exemplar_article: 
         an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: Непознат корисник укажа постара верзија на „%{data_object}“ како пример во Прегледот за непозната страница.
         an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: Непознат корисник го укажа „%{data_object}“ како пример во Прегледот на „%{taxon}“.
@@ -477,6 +502,19 @@ mk:
         user_hid_data_object_on_association: <strong>%{user}</strong> го означи „%{data_object}“ како скриен на страницата „%{association}“.
         user_hid_it_on_an_unknown_association: <strong>%{user}</strong> го означи како скриен во непознат контекст.
         user_hid_it_on_association: <strong>%{user}</strong> го означи како скриен на страницата „%{association}“.
+      merge: 
+        an_unknown_user_merged_entry_to_an_unknown_taxon: Непознат корисник ја премести класификацијата на „%{provider}“ во непознат таксон.
+        an_unknown_user_merged_entry_to_it: Непознат корисник ја додаде класификацијата на „%{provider}“.
+        an_unknown_user_merged_entry_to_taxon: Непознат корисник ја премести класификацијата на „%{provider}“ во „%{taxon}“.
+        an_unknown_user_merged_unknown_entry_to_an_unknown_taxon: Непознат корисник премести непозната класификација во непознат таксон.
+        an_unknown_user_merged_unknown_entry_to_it: Непознат корисник додаде непозната класификација.
+        an_unknown_user_merged_unknown_entry_to_taxon: Непознат корисни премести непозната класификација во „%{taxon}“.
+        user_merged_entry_to_an_unknown_taxon: <strong>%{user}</strong> ја премести класификацијата на „%{provider}“ во непознат таксон.
+        user_merged_entry_to_it: <strong>%{user}</strong> ја додаде класификацијата на „%{provider}“.
+        user_merged_entry_to_taxon: <strong>%{user}</strong> ја премести класификацијата на „%{provider}“ во „%{taxon}“.
+        user_merged_unknown_entry_to_an_unknown_taxon: <strong>%{user}</strong> премести непозната класификација во непознат таксон.
+        user_merged_unknown_entry_to_it: <strong>%{user}</strong> додаде непозната класификација.
+        user_merged_unknown_entry_to_taxon: <strong>%{user}</strong> премести непозната класификација во „%{taxon}“.
       other_actions: 
         an_unknown_user_curated_an_older_data_object: Непознат корисник згрижи постара верзија на „%{data_object}“.
         an_unknown_user_curated_an_unknown_data_object: Непознат корисник згрижи непознат податочен објект.
@@ -518,6 +556,19 @@ mk:
         user_disassociated_data_object_from_association: <strong>%{user}</strong> отстрани поврзаност помеѓу „%{data_object}“ и „%{association}“.
         user_disassociated_it_from_an_unknown_association: <strong>%{user}</strong> отстрани поврзаност од непозната страница.
         user_disassociated_it_from_association: <strong>%{user}</strong> отстрани поврзаност со „%{association}“.
+      remove_common_name: 
+        an_unknown_user_removed_name_in_an_unknown_language_from_an_unknown_taxon: Непознат корисник отстрани тривијално име на непознат јазик од непозната страница.
+        an_unknown_user_removed_name_in_an_unknown_language_from_it: Непознат корисник отстрани тривијално име на непознат јазик.
+        an_unknown_user_removed_name_in_an_unknown_language_from_taxon: Непознат корисник отстрани тривијално име на непознат јазик од „%{taxon}“.
+        an_unknown_user_removed_name_in_language_from_an_unknown_taxon: Непознат корисник отстрани тривијално име на %{language} од непозната страница.
+        an_unknown_user_removed_name_in_language_from_it: Непознат корисник отстрани тривијално име на %{language}.
+        an_unknown_user_removed_name_in_language_from_taxon: Непознат корисник отстрани тривијално име на %{language} од „%{taxon}“.
+        user_removed_name_in_an_unknown_language_from_an_unknown_taxon: <strong>%{user}</strong> отстрани тривијално име на непознат јазик во непозната страница.
+        user_removed_name_in_an_unknown_language_from_it: <strong>%{user}</strong> отстрани тривијално име на непознат јазик.
+        user_removed_name_in_an_unknown_language_from_taxon: <strong>%{user}</strong> отстрани тривијално име на непознат јазик од „%{taxon}“.
+        user_removed_name_in_language_from_an_unknown_taxon: <strong>%{user}</strong> отстрани тривијално име на %{language} од непозната страница.
+        user_removed_name_in_language_from_it: <strong>%{user}</strong> отстрани тривијално име на %{language}.
+        user_removed_name_in_language_from_taxon: <strong>%{user}</strong> отстрани тривијално име на %{language} од „%{taxon}“.
       show: 
         an_unknown_user_showed_an_older_data_object_on_an_unknown_association: Непознат корисник означи постара верзија на „%{data_object}“ како видлива во непознат контекст.
         an_unknown_user_showed_an_older_data_object_on_association: Непознат корисник означи постара верзија на „%{data_object}“ како видлива на страницата „%{association}“.
@@ -548,6 +599,31 @@ mk:
         user_split_unknown_entry_from_an_unknown_taxon: <strong>%{user}</strong> одвои непозната класификација од непознат таксон.
         user_split_unknown_entry_from_it: <strong>%{user}</strong> одвои непозната класификација.
         user_split_unknown_entry_from_taxon: <strong>%{user}</strong> одвои непозната класификација од „%{taxon}“.
+      trust_common_name: 
+        an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Непознат корисник означи непознато тривијално име на непознат јазик од непозната страница како доверливо.
+        an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_it: Непознат корисник означи непознато тривијално име на непознат јазик како доверливо.
+        an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_taxon: Непознат корисник означи непознато тривијално име на непознат јазик од „%{taxon}“ како доверливо.
+        an_unknown_user_trusted_an_unknown_name_in_language_on_an_unknown_taxon: Непознат корисник означи непознато тривијално име на %{language} од непозната страница како доверливо.
+        an_unknown_user_trusted_an_unknown_name_in_language_on_it: Непознат корисник означи непознато тривијално име на %{language} како доверливо.
+        an_unknown_user_trusted_an_unknown_name_in_language_on_taxon: Непознат корисник означи непознато тривијално име на %{language} од „%{taxon}“ како доверливо.
+        an_unknown_user_trusted_name_in_an_unknown_language_on_an_unknown_taxon: Непознат корисник го означи тривијалното име на „%{name}“ на непознат јазик од непозната страница како доверливо.
+        an_unknown_user_trusted_name_in_an_unknown_language_on_it: Непознат корисник го означи тривијалното име „%{name}“ на непознат јазик како доверливо.
+        an_unknown_user_trusted_name_in_an_unknown_language_on_taxon: Непознат корисник го означи тривијалното име „%{name}“ на непознат јазик од „%{taxon}“ како доверливо.
+        an_unknown_user_trusted_name_in_language_on_an_unknown_taxon: Непознат корисник го означи тривијалното име „%{name}“ на %{language} од непозната страница како доверливо.
+        an_unknown_user_trusted_name_in_language_on_it: Непознат корисник го означи тривијалното име „%{name}“ на %{language} како доверливо.
+        an_unknown_user_trusted_name_in_language_on_taxon: Непознат корисник го означи тривијалното име „%{name}“ на %{language} од „%{taxon}“ како доверливо.
+        user_trusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> означи непознато тривијално име на непознат јазик од непозната страница како доверливо.
+        user_trusted_an_unknown_name_in_an_unknown_language_on_it: <strong>%{user}</strong> означи непознато тривијално име на непознат јазик како доверливо.
+        user_trusted_an_unknown_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> означи непознато тривијално име на непознат јазик од „%{taxon}“ како доверливо.
+        user_trusted_an_unknown_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> означи непознато тривијално име на %{language} од непозната страница како доверливо.
+        user_trusted_an_unknown_name_in_language_on_it: <strong>%{user}</strong> означи непознато тривијално име на %{language} како доверливо.
+        user_trusted_an_unknown_name_in_language_on_taxon: <strong>%{user}</strong> означи непознато тривијално име на %{language} од „%{taxon}“ како доверливо.
+        user_trusted_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> го означи тривијалното име „%{name}“ на непознат јазик од непозната страница како доверливо.
+        user_trusted_name_in_an_unknown_language_on_it: <strong>%{user}</strong> го означи тривијалното име „%{name}“ на непознат јазик како доверливо.
+        user_trusted_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> го означи тривијалното име „%{name}“ на непознат јазик од „%{taxon}“ како доверливо.
+        user_trusted_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> го означи тривијалното име „%{name}“ на %{language} од непозната страница како доверливо.
+        user_trusted_name_in_language_on_it: <strong>%{user}</strong> го означи тривијалното име „%{name}“ на %{language} како доверливо.
+        user_trusted_name_in_language_on_taxon: <strong>%{user}</strong> го означи тривијалното име „%{name}“ на %{language} од „%{taxon}“ како доверливо.
       trusted: 
         an_unknown_user_trusted_an_older_data_object_on_an_unknown_association: Непознат корисник означи постара верзија на „%{data_object}“ како доверлива во непознат контекст.
         an_unknown_user_trusted_an_older_data_object_on_association: Непознат корисник означи постара верзија на „%{data_object}“ како доверлива на страницата „%{association}“.
@@ -565,6 +641,39 @@ mk:
         user_trusted_data_object_on_association: <strong>%{user}</strong> го означи „%{data_object}“ како доверлив на страницата „%{association}“.
         user_trusted_it_on_an_unknown_association: <strong>%{user}</strong> го означи како доверлив во непознат контекст.
         user_trusted_it_on_association: <strong>%{user}</strong> го означи како доверлив на страницата „%{association}“.
+      unlock: 
+        an_unknown_taxon_unlocked: Непозната страница заврши со позадинската кустоска обработка.
+        it_unlocked: Позадинската кустоска обработка заврши.
+        taxon_unlocked: „%{taxon}“ заврши со позадинската кустоска обработка.
+      unlock_with_error: 
+        an_unknown_taxon_unlocked: "Непозната страница <strong>не успеа</strong> да ја спроведе позадинската кустоска обработка: %{error}."
+        it_unlocked: "Позадинската кустоска обработка<strong>не успеа</strong> : %{error}."
+        taxon_unlocked: "„%{taxon}“ <strong>не успеа</strong> да ја спроведе позадинската кустоска обработка: %{error}."
+      unreview_common_name: 
+        an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Непознат корисник означи непознато тривијално име на непознат јазик од непозната страница како непроверено.
+        an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: Непознат корисник означи непознато тривијално име на непознат јазик како непроверено.
+        an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_taxon: Непознат корисник означи непознато тривијално име на непознат јазик од „%{taxon}“ како непроверено.
+        an_unknown_user_unreviewed_an_unknown_name_in_language_on_an_unknown_taxon: Непознат корисник означи непознато тривијално име на %{language} од непозната страница како непроверено.
+        an_unknown_user_unreviewed_an_unknown_name_in_language_on_it: Непознат корисник означи непознато тривијално име на %{language} како непроверено.
+        an_unknown_user_unreviewed_an_unknown_name_in_language_on_taxon: Непознат корисник означи непознато тривијално име на %{language} од „%{taxon}“ како непроверено.
+        an_unknown_user_unreviewed_name_in_an_unknown_language_on_an_unknown_taxon: Непознат корисник го означи тривијалното име на „%{name}“ на непознат јазик од непозната страница како непроверено.
+        an_unknown_user_unreviewed_name_in_an_unknown_language_on_it: Непознат корисник го означи тривијалното име „%{name}“ на непознат јазик како непроверено.
+        an_unknown_user_unreviewed_name_in_an_unknown_language_on_taxon: Непознат корисник го означи тривијалното име „%{name}“ на непознат јазик од „%{taxon}“ како непроверено.
+        an_unknown_user_unreviewed_name_in_language_on_an_unknown_taxon: Непознат корисник го означи тривијалното име „%{name}“ на %{language} од непозната страница како непроверено.
+        an_unknown_user_unreviewed_name_in_language_on_it: Непознат корисник го означи тривијалното име „%{name}“ на %{language} како непроверено.
+        an_unknown_user_unreviewed_name_in_language_on_taxon: Непознат корисник го означи тривијалното име „%{name}“ на %{language} од „%{taxon}“ како непроверено.
+        user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> означи непознато тривијално име на непознат јазик од непозната страница како непроверено.
+        user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: <strong>%{user}</strong> означи непознато тривијално име на непознат јазик како непроверено.
+        user_unreviewed_an_unknown_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> означи непознато тривијално име на непознат јазик од „%{taxon}“ како непроверено.
+        user_unreviewed_an_unknown_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> означи непознато тривијално име на %{language} од непозната страница како непроверено.
+        user_unreviewed_an_unknown_name_in_language_on_it: <strong>%{user}</strong> означи непознато тривијално име на %{language} како непроверено.
+        user_unreviewed_an_unknown_name_in_language_on_taxon: <strong>%{user}</strong> означи непознато тривијално име на %{language} од „%{taxon}“ како непроверено.
+        user_unreviewed_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> го означи тривијалното име „%{name}“ на непознат јазик од непозната страница како непроверено.
+        user_unreviewed_name_in_an_unknown_language_on_it: <strong>%{user}</strong> го означи тривијалното име „%{name}“ на непознат јазик како непроверено.
+        user_unreviewed_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> го означи тривијалното име „%{name}“ на непознат јазик од „%{taxon}“ како непроверено.
+        user_unreviewed_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> го означи тривијалното име „%{name}“ на %{language} од непозната страница како непроверено.
+        user_unreviewed_name_in_language_on_it: <strong>%{user}</strong> го означи тривијалното име „%{name}“ на %{language} како непроверено.
+        user_unreviewed_name_in_language_on_taxon: <strong>%{user}</strong> го означи тривијалното име „%{name}“ на %{language} од „%{taxon}“ како непроверено.
       unreviewed: 
         an_unknown_user_unreviewed_an_older_data_object_on_an_unknown_association: Непознат корисник означи постара верзија на „%{data_object}“ како непроверена во непознат контекст.
         an_unknown_user_unreviewed_an_older_data_object_on_association: Непознат корисник означи постара верзија на „%{data_object}“ како непроверена на страницата „%{association}“.
@@ -582,6 +691,31 @@ mk:
         user_unreviewed_data_object_on_association: <strong>%{user}</strong> го означи „%{data_object}“ како непроверен на страницата „%{association}“.
         user_unreviewed_it_on_an_unknown_association: <strong>%{user}</strong> го означи како непроверен во непознат контекст.
         user_unreviewed_it_on_association: <strong>%{user}</strong> го означи како непроверен на страницата „%{association}“.
+      untrust_common_name: 
+        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Непознат корисник означи непознато тривијално име на непознат јазик од непозната страница како недоверливо.
+        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_it: Непознат корисник означи непознато тривијално име на непознат јазик како недоверливо.
+        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_taxon: Непознат корисник означи непознато тривијално име на непознат јазик од „%{taxon}“ како недоверливо.
+        an_unknown_user_untrusted_an_unknown_name_in_language_on_an_unknown_taxon: Непознат корисник означи непознато тривијално име на %{language} од непозната страница како недоверливо.
+        an_unknown_user_untrusted_an_unknown_name_in_language_on_it: Непознат корисник означи непознато тривијално име на %{language} како недоверливо.
+        an_unknown_user_untrusted_an_unknown_name_in_language_on_taxon: Непознат корисник означи непознато тривијално име на %{language} од „%{taxon}“ како недоверливо.
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_an_unknown_taxon: Непознат корисник го означи тривијалното име на „%{name}“ на непознат јазик од непозната страница како недоверливо.
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_it: Непознат корисник го означи тривијалното име „%{name}“ на непознат јазик како недоверливо.
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_taxon: Непознат корисник го означи тривијалното име „%{name}“ на непознат јазик од „%{taxon}“ како недоверливо.
+        an_unknown_user_untrusted_name_in_language_on_an_unknown_taxon: Непознат корисник го означи тривијалното име „%{name}“ на %{language} од непозната страница како недоверливо.
+        an_unknown_user_untrusted_name_in_language_on_it: Непознат корисник го означи тривијалното име „%{name}“ на %{language} како недоверливо.
+        an_unknown_user_untrusted_name_in_language_on_taxon: Непознат корисник го означи тривијалното име „%{name}“ на %{language} од „%{taxon}“ како недоверливо.
+        user_untrusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> означи непознато тривијално име на непознат јазик од непозната страница како недоверливо.
+        user_untrusted_an_unknown_name_in_an_unknown_language_on_it: <strong>%{user}</strong> означи непознато тривијално име на непознат јазик како недоверливо.
+        user_untrusted_an_unknown_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> означи непознато тривијално име на непознат јазик од „%{taxon}“ како недоверливо.
+        user_untrusted_an_unknown_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> означи непознато тривијално име на %{language} од непозната страница како недоверливо.
+        user_untrusted_an_unknown_name_in_language_on_it: <strong>%{user}</strong> означи непознато тривијално име на %{language} како недоверливо.
+        user_untrusted_an_unknown_name_in_language_on_taxon: <strong>%{user}</strong> означи непознато тривијално име на %{language} од „%{taxon}“ како недоверливо.
+        user_untrusted_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> го означи тривијалното име „%{name}“ на непознат јазик од непозната страница како недоверливо.
+        user_untrusted_name_in_an_unknown_language_on_it: <strong>%{user}</strong> го означи тривијалното име „%{name}“ на непознат јазик како недоверливо.
+        user_untrusted_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> го означи тривијалното име „%{name}“ на непознат јазик од „%{taxon}“ како недоверливо.
+        user_untrusted_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> го означи тривијалното име „%{name}“ на %{language} од непозната страница како недоверливо.
+        user_untrusted_name_in_language_on_it: <strong>%{user}</strong> го означи тривијалното име „%{name}“ на %{language} како недоверливо.
+        user_untrusted_name_in_language_on_taxon: <strong>%{user}</strong> го означи тривијалното име „%{name}“ на %{language} од „%{taxon}“ како недоверливо.
       untrusted: 
         an_unknown_user_untrusted_an_older_data_object_on_an_unknown_association: Непознат корисник означи постара верзија на „%{data_object}“ како недоверлива во непознат контекст.
         an_unknown_user_untrusted_an_older_data_object_on_association: Непознат корисник означи постара верзија на „%{data_object}“ како недоверлива на страницата „%{association}“.
@@ -631,7 +765,7 @@ mk:
   add_sub_chapter: Додај подглава
   add_to_a_community: Додај во заедница
   add_to_my_collection_button: Додај во збирка
-  added_classifications_ready: Податоците од избраните класификации се спремни за преместување на друга страница. За да ја довршите постапката, стиснете на „одвој во нова страница“ или одете на јазичето за имиња  на страницата кајшто сакате да ги префрлите податоците, а потоа стиснете на „спој класификации“.
+  added_classifications_ready: Податоците од избраните класификации се спремни за преместување на друга страница. За да ја довршите постапката, стиснете на „одвој во нова страница“ или одете на јазичето за имиња на страницата кајшто сакате да ги префрлите податоците, а потоа стиснете на „спој класификации“.
   admin_content_page_active: Објавено
   admin_content_page_child_new_link: Создај потстраница
   admin_content_page_create_successful_notice: Страницата <a href="#%{anchor}"><em>%{page_name}</em></a> е успешно создадена.
@@ -694,6 +828,41 @@ mk:
   admin_user_delete_successful_notice: Корисникот е избришан
   admin_user_hide_successful_notice: Корисникот е скриен
   admin_user_unhide_successful_notice: Корисникот е откриен
+  admins: 
+    eol_statistics: 
+      content_partners: 
+        menu_link: Соучесници во содржините
+        page_header: Статистики за соучесници во содржините
+        page_title: "Администрација: Статистики за соучесниците во содржините"
+      curators: 
+        menu_link: Кустоски статистики
+        page_header: Кустоски статистики
+        page_title: "Администрација: Кустоски статистики"
+      data_objects: 
+        menu_link: Податочни објекти
+        page_header: Статистики за податочни објекти
+        page_title: "Администрација: Статистики за податочни објекти"
+      index: 
+        menu_link: Севкупни статистики
+        page_header: Севкупни статистики
+        page_title: "Администрација: Севкупни статистики"
+        table_caption: Севкупните статистики се создадени на %{created_at_time}
+      lifedesks: 
+        menu_link: LifeDesks
+        page_header: Статистики за LifeDesks
+        page_title: "Администрација: Статистики за LifeDesks"
+      marine: 
+        menu_link: Морски статистики
+        page_header: Морска покриеност на EOL
+        page_title: "Администрација: Морски статистики"
+      page_richness: 
+        menu_link: Содржајни страници
+        page_header: Статистики за содржајни страници
+        page_title: "Администрација: Статистики за содржајни страници"
+      users_data_objects: 
+        menu_link: Текст поднесен од корисници
+        page_header: Статистики за текстови поднесени од корисниците
+        page_title: "Администрација: Статистики за текстови поднесени од корисниците"
   agent: Агент
   all: сите
   all_apis_return_by_default_an_xml_response: "Сите API-прилози по основно даваат XML-одговор. Методите на API може да се повикаат без наставка за формат за да се добие XML-одговорот, а ако додадете XML-наставка ќе добиете ист одговор:"
@@ -1382,6 +1551,61 @@ mk:
   data_usage_reports: Извештаи за користење на податоци
   date_caps: Датум
   date_uploaded: Датум на подигање
+  datepicker: 
+    close: Затвори
+    current: Денес
+    day_names: 
+      - недела
+      - понеделник
+      - вторник
+      - среда
+      - четврток
+      - петок
+      - сабота
+    day_names_min: 
+      - Н
+      - П
+      - В
+      - С
+      - Ч
+      - П
+      - С
+    day_names_short: 
+      - нед
+      - пон
+      - вто
+      - сре
+      - чет
+      - пет
+      - саб
+    month_names: 
+      - јануари
+      - февруари
+      - март
+      - април
+      - мај
+      - јуни
+      - јули
+      - август
+      - септември
+      - октомври
+      - ноември
+      - декември
+    month_names_short: 
+      - јан
+      - фев
+      - мар
+      - апр
+      - мај
+      - јун
+      - јул
+      - авг
+      - сеп
+      - окт
+      - ное
+      - дек
+    next: Следно
+    previous: Претходно
   dato_create_cancel: Откажи
   dato_create_user_text_error: Нажалост, се појави грешка. Не можев да ја додадам статијата.
   dato_create_user_text_missing_taxon_id_exception: Не можам да составам текстуален DataObject или UsersDataObject ако нема назнака за таксонот.
@@ -1502,6 +1726,42 @@ mk:
   eol_glossary: Поимник
   eol_news: Новости
   eol_pages: Страници
+  eol_statistics: 
+    comparing_dates: <span class="assistive">Споредба</span> на <span class="date_one">%{date_one}</span> <span class="assistive">со</span> <span class="date_two">%{date_two}</span>
+    content_partners: 
+      menu_link: Соучесници во содржините
+      page_header: Статистики за соучесници во содржините
+      page_title: Статистики
+    curators: 
+      menu_link: Кустоски статистики
+      page_header: Кустоски статистики
+      page_title: Статистики
+    data_objects: 
+      menu_link: Податочни објекти
+      page_header: Статистики за податочни објекти
+      page_title: Статистики
+    index: 
+      menu_link: Севкупни статистики
+      page_header: Севкупни статистики
+      page_title: Статистики
+    lifedesks: 
+      menu_link: LifeDesks
+      page_header: Статистики за LifeDesks
+      page_title: Статистики
+    marine: 
+      menu_link: Морски статистики
+      page_header: Морска покриеност на EOL
+      page_title: Статистики
+    page_richness: 
+      menu_link: Содржајни страници
+      page_header: Статистики за содржајни страници
+      page_title: Статистики
+    users_data_objects: 
+      menu_link: Текст поднесен од корисници
+      page_header: Статистики за текстови поднесени од корисниците
+      page_title: Статистики
+    warnings: 
+      stats_unavailable_for_date: Нажалост, немаме статистики за %{date}. Изберете друг датум.
   error_401_description: Нажалост, не сте овластени за да ја отворите таа URL-адреса.
   error_401_page_title: Нема овластување
   error_403_description: Нажалост, не сте овластени за да ја отворите таа URL-адреса.
@@ -1721,6 +1981,8 @@ mk:
         source_url: URL до изворниот податочен објект
         toc_item: Подглава
       eol_statistic: 
+        date_one: Датум
+        date_two: Датум
         download_all: Сите <small>(вклучи записи од сите страници)</small>
       google_analytics_partner_summaries: 
         page_views: Посети <small>(број на посети на страниците)</small>
@@ -1847,6 +2109,7 @@ mk:
         create_text: Додај статија
         update: Зачувај статија
       eol_statistic: 
+        change_date: Приказ на статистики по датуми
         download_csv: Преземи како CSV
       filter_sort: Филтрирај и подреди
       harvest_event: 
@@ -1894,6 +2157,7 @@ mk:
   here: тука
   hidden: Скриен
   hidden_comment: скриен коментар
+  hidden_for_colon: "Скриено за:"
   hide: скриј
   hierarchies_description: Енциклопедијата на живиот свет нема единствена таксономска хиерархија според која ги создава страниците, туку индексира повеќе разни хиерархии и ги споредува. Овој API ги наведува метаподатоците за хиерархијата како име на добавувачот и изворната URL-адреса, и ги наведува сите таксони што се основа на таксономското дрво
   hierarchies_entries_description: Енциклопедијата на живиот свет нема една таксономска хиерархија по која се води во создавањето на страниците, туку индексира повеќе разни хиерархии и меѓусебно ги споредува. Како резултат на ова, една страница на EOL може да се однесува на неколку јазли од разни хиерархии. Овој API-прилог овозможува пристап до една единствена хиерархија и нејзините внатрешни поврзаности. Погледајте ја документацијата на API на страниците, каде ќе најдете информации како да дојдете до други хиерархии што соодветствуваат на дадена страница на EOL. Полето taxonConceptID ја содржи назнаката на страницата на EOL што може да се употреби во API на страниците.
@@ -2068,6 +2332,7 @@ mk:
   literature_references: Наводи од литература
   location: Место
   location_colon: "Место:"
+  location_created_colon: "Создадено место:"
   logging_database_colon: "Дневничка:"
   login: најава
   login_header: Најавете се со вашата сметка на <abbr title="Енциклопедија на живиот свет">EOL</abbr>
@@ -2368,6 +2633,7 @@ mk:
   number_of_unreviewed_images_at_this_entry: Бр. на непроверени слики во овој запис
   number_of_unreviewed_text_objects_at_this_entry: Бр. на непроверени текстуални објекти во овој запис
   object: Објект
+  object_curated: Објектот е згрижен.
   object_curation: Згрижување на објект
   object_status: Статус на објектот
   object_status_all_option: Сè
@@ -2450,6 +2716,7 @@ mk:
   partner: Соучесник
   partner_information: Информации за соучесникот
   partner_page: соучесничка страница
+  partner_web_site_colon: "Мреж. место на соработникот:"
   partnering_steps: ЧЕКОРИ ЗА СОУЧЕСНИШТВО
   password_colon: "Лозинка:"
   password_must_be_4to16_characters: Лозинката мора да има од 4 до 16 знаци.
@@ -2570,7 +2837,7 @@ mk:
     reply_to_comment_body_brief: "%{reply_to_author} %{body} - %{author}"
     see_all_activity: Сите претходни активности ќе ги најдете на <a href='%{activity_url}' style='color:#195184'>вашата страница за актуелности</a>.
     someone_commented_on_something: <b>%{who}</b> коментираше на <b>%{what}</b>.
-    unsubscribe: Сменете си ги нагодувањата за е-пошта или откажете ја претплатата на <a href='%{email_prefs_url}' style='color:#195184'>вашата страница за нагодување на известувањата</a>.
+    unsubscribe: Најавете се и сменете си ги нагодувањата за е-пошта или откажете ја претплатата на <a href='%{email_prefs_url}' style='color:#195184'>вашата страница за нагодување на известувањата</a>. Доколку наидете на проблем, би ве замолиле да <a href='http://eol.org/contact_us'>нè известите</a>.
   recent_updates: Најнови актуелности
   recently_visited: Неодамна посетени
   recipients: Примачи
@@ -2794,6 +3061,7 @@ mk:
   spm_category_partner_count: SPM категорија - број на партнери
   started: Отпочнато
   stat: Статистика
+  stats: Статистики
   stored_classifications: Имајте предвид дека имате <a href='%{anchor}'>складирани класификации, подолу</a>.
   sub_heading: Поднаслов
   subject: предмет
@@ -3225,6 +3493,7 @@ mk:
   truncated_comment_omission: ... <a href='%{link}'>повеќе</a>
   truncated_comment_omission_linkless: ...
   trusted: Доверливи
+  trusted_for_colon: "Доверливо за:"
   trusted_images: Доверливи слики
   trusted_maps: Доверливи карти
   trusted_text_objects: Доверливи статии
@@ -3239,10 +3508,12 @@ mk:
   unknown_type_not_associated_with_any_published_entries: Овие податоци не се поврзани со ниеден објавен таксон.
   unpublished: Необјавено
   unreviewed: Непроверено
+  unreviewed_for_colon: "Непроверено за:"
   unreviewed_images: Непроверени слики
   unreviewed_maps: Непроверени карти
   unreviewed_text_objects: Непроверени текстуални објекти
   untrusted: Недоверливи
+  untrusted_for_colon: "Недоверливо за:"
   update: Поднови
   update_collection_submit_button: Измени подробности за збирката
   update_language: Измени јазик
@@ -3326,6 +3597,7 @@ mk:
   user_commented_on_older_data_object_colon: "<strong>%{user}</strong> коментираше на %{what}:"
   user_commented_on_something_colon: "<strong>%{user}</strong> коментираше на %{what}:"
   user_commented_on_themself: "<strong>%{user_with_link}</strong> коментираше на <a href='%{link}'>каналот за новости на %{username}</a>:"
+  user_commented_on_your_image: "<strong>%{user}</strong> коментираше на вашата слика на <a href='%{data_object_link}'>Енциклопедијата на живиот свет</a>:\n%{comment_body}"
   user_comments: Кориснички коментари
   user_full_name_with_curator: "%{user} (%{curator_level})"
   user_id: Корисничка назнака
@@ -3345,7 +3617,7 @@ mk:
     other: "%{count}<span class=\"assistive\"> известувања</span>"
   user_response: Кориснички одговор
   user_says_colon: "%{users_name} вели:"
-  user_submitted_text: Текст поднесен од корисник
+  user_submitted_text: Текст поднесен од корисници
   user_submitted_text_found: "Пронајден кориснички-поднесен текст:"
   user_system_down: Се извинуваме, но системот за регистрација е моментално недостапен. Обидете се подоцна.
   user_was_added_as_editor_of_collection: Овој корисник е назначен за раководител на „%{collection}“.
@@ -3489,7 +3761,7 @@ mk:
       form_tip: За да си ја повратите сметката на EOL, внесете ја е-поштата што сте ја навеле при нејзиното создавање. Доколку не добиете порака за повраток вои рок од еден час, проверете го сандачето за спам.
       meta_title: Повраток на сметка
       notices: 
-        recovery_email_sent: Испратена е порака за повраток на сметката со понатамошни напатствија. Доколку не ја добиете во рок од еден час, проверете во сандачето за спам.
+        recovery_email_sent: Испратена е порака за повраток на сметката со понатамошни напатствија. Додајте ја %{from_address} во списокот на безбедни испаќачи. Доколку не ја добиете во рок од еден час, проверете во сандачето за спам.
         temporarily_logged_in_update_authentication_details: Сега сте привремено најавени, колку да можете да си ја повратите сметката. Сменете ја лозинката или поврзаните сметки за да можете да се најавувате успешно.
     recover_account_choose_account: 
       errors: 

@@ -10,9 +10,9 @@ ko:
   about_eol: EOL 정보
   account_information: 계정 정보
   account_information_menu: 계정 정보
-  action: 행동
+  action: 행위
   action_not_available_error: 죄송합니다, 해당 행위은 사용할 수 없습니다.
-  actions: 행동
+  actions: 행위
   active: 활성
   active_colon: "활성:"
   activerecord: 
@@ -1177,10 +1177,10 @@ ko:
         generate_api_key: 키 만들기
         notification_settings: 알림 설정
         recover_account: 이메일 보내기
-        sign_up_with_facebook: 페이스북으로 로그인
-        sign_up_with_google: 구글로 로그인
-        sign_up_with_twitter: 트위터로 로그인
-        sign_up_with_yahoo: 야후로 로그인
+        sign_up_with_facebook: 페이스북으로 가입하기
+        sign_up_with_google: 구글로 가입하기
+        sign_up_with_twitter: 트위터로 가입하기
+        sign_up_with_yahoo: 야후로 가입하기
         update: 프로필 정보 저장
       wikipedia_queue: 
         create: 요청 제출
@@ -1286,7 +1286,7 @@ ko:
   location: 위치
   location_colon: "위치:"
   login: 로그인
-  login_header: <abbr title="Encyclopedia of Life, 생명의 백과사전">EOL</abbr> 계정 만들기
+  login_header: <abbr title="Encyclopedia of Life, 생명의 백과사전">EOL</abbr> 계정에 로그인
   login_hidden_user_message: "%{given_name} 계정은 더 이상 활동하지 않습니다"
   login_or_create_account: 로그인 또는 계정 만들기
   login_required_button: 로그인 필요
@@ -1474,6 +1474,7 @@ ko:
       page_title: EOL 공동체 활동
   recent_activity: 
     collection_activity_log_title: "%{who} 사용자가 모음집을 수정했습니다"
+    collection_activity_user_watching_recipient: <b>%{user_name}</b> 사용자는 당신을 주시하고 있습니다.
     comment_link: EOL에 대한 덧글 보기
     community_activity_log_title: "%{who} 사용자가 공동체를 수정했습니다"
     curator_activity_log_title: "%{who} 사용자가 누군가하게 큐레이트했습니다"
@@ -1833,10 +1834,10 @@ ko:
       create_user_header: 새 <abbr title="Encyclopedia of Life">EOL</abbr> 계정 만들기
       create_user_with_eol_authentication_header: "또는 새 자격 증명 제공:"
       meta_title: EOL에 가입
-      sign_up_with_facebook_assistive: 페이스북 자격 증명을 사용하여 EOL에 로그인합니다.
-      sign_up_with_google_assistive: 구글 자격 증명을 사용하여 EOL에 로그인합니다.
-      sign_up_with_twitter_assistive: 트위터 자격 증명을 사용하여 EOL에 로그인합니다.
-      sign_up_with_yahoo_assistive: 야후 자격 증명을 사용하여 EOL에 로그인합니다.
+      sign_up_with_facebook_assistive: 페이스북 자격 증명을 사용하여 EOL에 가입합니다.
+      sign_up_with_google_assistive: 구글 자격 증명을 사용하여 EOL에 가입합니다.
+      sign_up_with_twitter_assistive: 트위터 자격 증명을 사용하여 EOL에 가입합니다.
+      sign_up_with_yahoo_assistive: 야후 자격 증명을 사용하여 EOL에 가입합니다.
     newsfeeds: 
       activity: 
         meta_title: "%{user_full_name} 활동 피드"

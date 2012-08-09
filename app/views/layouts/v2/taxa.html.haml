@@ -1,5 +1,5 @@
 - content_for :head do
-  = javascript_include('taxa-navigation')
+  = include_javascripts('taxa-navigation')
 - content_for :main do
   = render :partial => 'taxa/classification_selector' unless @selected_hierarchy_entry.blank?
   #page_heading.with_nav

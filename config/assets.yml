@@ -1,1 +1,90 @@
-package_assets: off
+template_function: off
+
+javascripts:
+  application:
+    - public/javascripts/jquery-1.6.1.min.js
+    - public/javascripts/rails.js
+    - public/javascripts/application.js
+    - public/javascripts/jquery.cycle.all.min.js
+    - public/javascripts/jquery.modal.js
+    - public/javascripts/comments.js
+  errors:
+    - public/javascripts/jquery-1.6.1.min.js
+    - public/javascripts/rails.js
+    - public/javascripts/application.js
+  data-object-curation:
+    - public/javascripts/curation.js
+  data-object-show:
+    - public/javascripts/jplayer/js/jquery.jplayer.min.js
+    - public/javascripts/permalink.js
+  concept-manager:
+    - public/javascripts/jquery.js
+    - public/javascripts/jquery_ui.js
+    - public/javascripts/concept_manager.js
+  communities:
+    - public/javascripts/jquery.spotlite.js
+    - public/javascripts/communities.js
+  mobile:
+    - public/javascripts/jquery-1.6.1.min.js
+    - public/javascripts/jquery.mobile-1.0b1.min.js
+    - public/javascripts/mobile.js
+    - public/javascripts/touch-gallery/activity-indicator.js
+    - public/javascripts/touch-gallery/transform.js
+    - public/javascripts/touch-gallery/touch-gallery.js
+  new-community:
+    - public/javascripts/communities.js
+    - public/javascripts/jquery.spotlite.js
+  statistics:
+    - public/javascripts/jquery-ui-1.8.22.datepicker/jquery-ui-1.8.22.datepicker.min.js
+  taxa-navigation:
+    - public/javascripts/navigation.js
+  maps:
+    - public/javascripts/swfobject.js
+  taxa-media:
+    - public/javascripts/exemplar_image.js
+  taxa-media-footer:
+    - public/javascripts/jplayer/js/jquery.jplayer.min.js
+    - public/javascripts/media_list.js
+  common-names:
+    - public/javascripts/common-names.js
+  worklist:
+    - public/javascripts/permalink.js
+    - public/javascripts/worklist.js
+    - public/javascripts/jplayer/js/jquery.jplayer.min .js
+
+stylesheets:
+  application:
+    - public/stylesheets/application.css
+    - public/stylesheets/accessibility.css
+  admin:
+    - public/stylesheets/application.css
+    - public/stylesheets/accessibility.css
+    - public/stylesheets/admin.css
+  home:
+    - public/stylesheets/home.css
+    - public/stylesheets/accessibility.css
+  ie7:
+    - public/stylesheets/ie7.css
+  fonts:
+    - public/stylesheets/fonts.css
+  errors:
+    - public/stylesheets/errors.css
+    - public/stylesheets/accessibility.css
+  v1:
+    - public/stylesheets/reset-min.css
+    - public/stylesheets/main.css
+    - public/stylesheets/popup.css
+    - public/stylesheets/taxa_comments.css
+    - public/stylesheets/tags.css
+    - public/stylesheets/star_rating.css
+    - public/stylesheets/wikipedia.css
+  buttons:
+    - public/stylesheets/buttons.css
+  api:
+    - public/stylesheets/api.css
+  content-preview:
+    - public/stylesheets/home.css
+    - public/stylesheets/accessibility.css
+  mobile:
+    - public/stylesheets/jquery.mobile-1.0b1.min.css
+    - public/stylesheets/mobile.css

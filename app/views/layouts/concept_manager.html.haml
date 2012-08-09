@@ -4,6 +4,6 @@
     %link{ :href => "/favicon.ico", :rel => "shortcut icon", :type => "image/x-icon" }
     = stylesheet_include_i18n 'jquery_ui_south_street'
     = stylesheet_include_i18n 'concept_manager'
-    = javascript_include 'concept-manager'
+    = include_javascripts 'concept-manager'
   %body
     = yield(:content) or yield

@@ -43,7 +43,7 @@
       = stylesheet_include_i18n 'fonts', :media => "all"
     /[if IE 7]
       = stylesheet_include_i18n 'ie7', :media => "all"
-    = javascript_include :application
+    = include_javascripts :application
 
     = csrf_meta_tag # Recommended by https://github.com/rails/jquery-ujs
 
@@ -146,7 +146,7 @@
         %div{ :style => "display: none;" }
           %img{ :src => "http://pixel.quantserve.com/pixel/#{$QUANTCAST_ID}.gif", :height => "1", :width => "1", :alt => "" }
     - if $ENABLE_WEBTRENDS
-      = javascript_include :webtrends
+      = include_javascripts :webtrends
       :javascript
         (function() {
           var _tag=new WebTrends();

@@ -253,7 +253,7 @@ module ApplicationHelper
   # every language.
   def stylesheet_include_i18n(stylesheet, options = {})
     if I18n.locale.to_s != 'ar' # Annoying that I have to check this, but c'est la vie. (See what I did there?)
-      return stylesheet_link_tag(*[stylesheet, options])
+      return include_stylesheets(*[stylesheet, options])
     else
       read_stylesheet_packages unless @stylesheet_packages
       raise "** UNKNOWN STYLESHEET LOADED: #{stylesheet}" unless @stylesheet_packages.has_key?(stylesheet.to_s)

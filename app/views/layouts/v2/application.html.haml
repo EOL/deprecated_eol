@@ -45,7 +45,7 @@
       = stylesheet_include_i18n 'ie7', :media => "all"
     = include_javascripts :application
 
-    = csrf_meta_tag # Recommended by https://github.com/rails/jquery-ujs
+    = csrf_meta_tags
 
     = yield :head
   %body{:class => @home_page ? 'home' : nil}

@@ -34,4 +34,7 @@ EolUpgrade::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+  
+  ActiveRecord::Base.logger = Logger.new(STDOUT) if defined? Rails::Console
+  
 end

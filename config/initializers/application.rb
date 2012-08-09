@@ -10,3 +10,5 @@ $SOLR_ACTIVITY_LOGS_CORE = 'activity_logs'
 $SOLR_BHL_CORE = 'bhl'
 $SOLR_DIR    = File.join(Rails.root, 'solr', 'solr')
 $INDEX_RECORDS_IN_SOLR_ON_SAVE = true
+
+$CONTENT_SERVERS = ['http://localhost/']

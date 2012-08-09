@@ -16,7 +16,7 @@ class ContentServer
   # to improve caching
   def self.host_for(cache_url)
     # get ascii value of last character
-    last_ascii_value = cache_url.to_s[-1]
+    last_ascii_value = cache_url.to_s.getbyte(-1)
     # get the remainder of ASCII %(mod) LENGTH and use it as the array index
     $CONTENT_SERVERS[ (last_ascii_value % $CONTENT_SERVERS.length)]
   end

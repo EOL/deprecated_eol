@@ -24,7 +24,7 @@ module CompositePrimaryKeys
         end
         "(#{predicate_sql})"
       end
-      if table_and_fields_the_same && !table_ids.empty?
+      if table_and_fields_the_same && table_ids.length > 1
         predicates = "(`#{table_name}`.`#{table_field}` IN (#{table_ids.join(',')}))"
       else
         predicates = "(#{predicates.join(" OR ")})"

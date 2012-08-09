@@ -20,7 +20,11 @@ module ActiveRecord
         preload = @preload_values
         preload +=  @includes_values unless eager_loading?
         preload.each do |associations|
-          ActiveRecord::Associations::Preloader.new(@records, associations, :select => select_values).run
+          new_options = {}
+          if @preload_options && @preload_options[:select]
+            new_options[:select] = @preload_options[:select].dup
+          end
+          ActiveRecord::Associations::Preloader.new(@records, associations, new_options).run
         end
 
         # @readonly_value is true only if set explicitly. @implicit_readonly is true if there

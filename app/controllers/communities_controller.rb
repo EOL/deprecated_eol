@@ -237,7 +237,7 @@ protected
 
   def meta_open_graph_image_url
     @meta_open_graph_image_url ||= @community ?
-      view_helper_methods.image_url(@community.logo_url('large', $SINGLE_DOMAIN_CONTENT_SERVER)) : nil
+      view_context.image_tag(@community.logo_url('large', $SINGLE_DOMAIN_CONTENT_SERVER)) : nil
   end
 
 private

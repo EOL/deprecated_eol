@@ -372,7 +372,7 @@ protected
 
   def meta_open_graph_image_url
     @meta_open_graph_image_url ||= @user ?
-      view_helper_methods.image_url(@user.logo_url('large', $SINGLE_DOMAIN_CONTENT_SERVER)) : nil
+      view_context.image_tag(@user.logo_url('large', $SINGLE_DOMAIN_CONTENT_SERVER)) : nil
   end
 
 # NOTE - there are a few "protected" methods above, be careful.

@@ -31,9 +31,9 @@ config.action_controller.perform_caching             = false # Of course, you wa
 # Don't care if the mailer can't send
 config.action_mailer.raise_delivery_errors = false
 
-config.log_level = :debug # :error
-ActiveRecord::Base.logger = Logger.new(STDOUT)
-ActionController::Base.logger = Logger.new(STDOUT)
+  # Log the query plan for queries taking more than this (works
+  # with SQLite, MySQL, and PostgreSQL)
+  # config.active_record.auto_explain_threshold_in_seconds = 1
 
 $PARENT_CLASS_MUST_USE_MASTER = ActiveRecord::Base
 

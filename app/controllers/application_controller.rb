@@ -652,6 +652,7 @@ protected
       raise EOL::Exceptions::ObjectNotFound
     end
   end
+
 private
 
   # Currently only used by collections and content controllers to log in users coming from iNaturalist

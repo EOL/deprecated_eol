@@ -62,7 +62,7 @@ EolUpgrade::Application.routes.draw do
   match '/help' => 'content#show', :defaults => {:id => 'help'}, :as => 'help'
   match '/about' => 'content#show', :defaults => {:id => 'about'}, :as => 'about'
   match '/news' => 'content#show', :defaults => {:id => 'news'}, :as => 'news'
-  match '/discover' => 'content#show', :defaults => {:id => 'discover'}, :as => 'explore_biodiversity'
+  match '/discover' => 'content#show', :defaults => {:id => 'discover'}, :as => 'discover'
   match '/contact' => 'content#show', :defaults => {:id => 'contact'}, :as => 'contact'
   match '/terms_of_use' => 'content#show', :defaults => {:id => 'terms_of_use'}, :as => 'terms_of_use'
   match '/citing' => 'content#show', :defaults => {:id => 'citing'}, :as => 'citing'

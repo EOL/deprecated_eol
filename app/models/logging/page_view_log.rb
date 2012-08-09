@@ -5,4 +5,6 @@ class PageViewLog < LazyLoggingModel
   belongs_to :agent
   belongs_to :taxon_concept
 
+  attr_accessible :user, :agent, :taxon_concept
+
 end

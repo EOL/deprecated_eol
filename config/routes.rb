@@ -36,10 +36,9 @@ EolUpgrade::Application.routes.draw do
       get 'overview'
       get 'maps', :controller => 'taxa/maps'
     end
-    resource :tree, :only => [:show], :controller => 'taxa/trees'
+    resources :tree, :only => [:show], :controller => 'taxa/trees'
     resources :media, :only => [:show], :controller => 'taxa/media'
     resources :details, :except => [:show], :controller => 'taxa/details'
-    resources :maps, :only => [:show], :controller => 'taxa/maps'
     resources :worklist, :only => [:show], :controller => 'taxa/worklist'
     resources :data_objects, :only => [:create, :new]
     resources :hierarchy_entries, :as => 'entries', :only => [:show] do

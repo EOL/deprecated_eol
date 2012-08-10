@@ -85,12 +85,12 @@ class Resource < ActiveRecord::Base
 
   def self.ligercat
     cached('ligercat') do
-      unless Agent.boa.user.blank?
-        Agent.boa.user.content_partners.first.resources[0]
+      if Agent.boa.user
+        Agent.boa.user.content_partners.first.resources.first rescue nil
       else
         content_partner = ContentPartner.boa
         return nil unless content_partner && content_partner.resources && content_partner.resources.first
-        content_partner.resources.first
+        content_partner.resources.first rescue nil
       end
     end
   end

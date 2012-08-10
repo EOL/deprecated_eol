@@ -2,7 +2,7 @@ class Taxa::ResourcesController < TaxaController
   before_filter :instantiate_taxon_concept, :redirect_if_superceded, :instantiate_preferred_names
   before_filter :add_page_view_log_entry
 
-  def show
+  def index
     @assistive_section_header = I18n.t(:resources)
     @links = @taxon_concept.content_partners_links
     @rel_canonical_href = @selected_hierarchy_entry ?

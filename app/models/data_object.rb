@@ -209,7 +209,8 @@ class DataObject < ActiveRecord::Base
       AND do.created_at IS NOT NULL
       AND do.created_at != '0000-00-00 00:00:00'").uniq
     data_objects.sort_by{ |d| d.created_at }
-    data_objects = DataObject.core_relationships.find_all_by_id(data_objects.collect{ |d| d.id })
+    # TODO: core_relationships
+    data_objects = DataObject.find_all_by_id(data_objects.collect{ |d| d.id })
     DataObject.preload_associations(data_objects, [ { :data_objects_hierarchy_entries =>
       { :hierarchy_entry => :name } }, :curated_data_objects_hierarchy_entries ],
       :select => {

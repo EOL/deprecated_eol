@@ -1,7 +1,7 @@
 class TaxonConceptExemplarImage < ActiveRecord::Base
   belongs_to :data_object
   belongs_to :taxon_concept
-  set_primary_key :taxon_concept_id
+  self.primary_key = :taxon_concept_id
 
   def self.set_exemplar(taxon_concept, data_object_id)
     return if taxon_concept.nil?

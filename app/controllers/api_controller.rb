@@ -83,7 +83,8 @@ class ApiController < ApplicationController
         data_object = d.latest_version_in_same_language(:check_only_published => false)
       end
       raise if data_object.blank?
-      data_object = DataObject.core_relationships.find_by_id(data_object.id)
+      # TODO: core_relationships
+      data_object = DataObject.find_by_id(data_object.id)
       raise if data_object.blank?
       taxon_concept = data_object.all_associations.first.taxon_concept
     rescue
@@ -175,7 +176,8 @@ class ApiController < ApplicationController
         add_include << { :scientific_synonyms => [:name, :synonym_relation] }
       end
 
-      @hierarchy_entry = HierarchyEntry.core_relationships(:add_include => add_include, :add_select => add_select).find(id)
+      # TODO: core_relationships(:add_include => add_include, :add_select => add_select)
+      @hierarchy_entry = HierarchyEntry.find(id)
       @ancestors = @hierarchy_entry.ancestors
       @ancestors.pop # remove the last element which is the node itself
       @children = @hierarchy_entry.children

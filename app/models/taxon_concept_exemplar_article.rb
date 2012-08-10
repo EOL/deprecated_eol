@@ -1,7 +1,7 @@
 class TaxonConceptExemplarArticle < ActiveRecord::Base
   belongs_to :data_object
   belongs_to :taxon_concept
-  set_primary_key :taxon_concept_id
+  self.primary_key = :taxon_concept_id
 
   def self.set_exemplar(taxon_concept_id, data_object_id)
     exemplar = self.find_or_create_by_taxon_concept_id(taxon_concept_id)

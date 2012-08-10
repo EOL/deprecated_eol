@@ -101,7 +101,8 @@ module EOL
           includes << { :preferred_common_names => [ :name, :language ] }
         end
         ids = docs.map{ |d| d['object_id'] }
-        instances = TaxonConcept.core_relationships(:include => includes, :select => selects).find_all_by_id(ids)
+        # TODO: core_relationships(:include => includes, :select => selects)
+        instances = TaxonConcept.find_all_by_id(ids)
         unless options[:view_style] == ViewStyle.list
           EOL::Solr::DataObjects.lookup_best_images_for_concepts(instances)
         end
@@ -115,7 +116,8 @@ module EOL
       def self.add_data_object!(docs, options = {})
         return if docs.empty?
         ids = docs.map{ |d| d['object_id'] }
-        instances = DataObject.core_relationships(:include => [ :language, :all_published_versions ]).find_all_by_id(ids)
+        # TODO: core_relationships(:include => [ :language, :all_published_versions ])
+        instances = DataObject.find_all_by_id(ids)
         instances_that_are_used = []
         docs.each do |d|
           if i = instances.detect{ |i| i.id == d['object_id'].to_i }

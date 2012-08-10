@@ -1,14 +1,14 @@
 -# This partial's hierarchy_entry is *always* the current_node.  Don't call this partial if it's not.
 %li
-  = link_to(hierarchy_entry.italicized_name.firstcap, taxon_entry_overview_path(hierarchy_entry.taxon_concept_id, hierarchy_entry), :class => 'open')
+  = link_to(hierarchy_entry.italicized_name.firstcap, overview_taxon_entry_path(hierarchy_entry.taxon_concept_id, hierarchy_entry), :class => 'open')
   - he_children = hierarchy_entry.children
   %ul.branch
     - if he_children && ! he_children.empty?
       - he_children[0..2].each do |child|
-        %li= link_to(child.italicized_name.firstcap, taxon_entry_overview_path(child.taxon_concept_id, child))
+        %li= link_to(child.italicized_name.firstcap, overview_taxon_entry_path(child.taxon_concept_id, child))
       - if he_children.length == 4
-        %li= link_to(he_children[3].italicized_name.firstcap, taxon_entry_overview_path(he_children[3].taxon_concept_id, he_children[3]))
+        %li= link_to(he_children[3].italicized_name.firstcap, overview_taxon_entry_path(he_children[3].taxon_concept_id, he_children[3]))
       - if he_children.length > 4
         %li.show_tree_count
           = I18n.t(:more_children_with_count, :count => he_children.length - 3)
-    %li= link_to(I18n.t(:show_full_tree), taxon_entry_overview_path(@taxon_concept, hierarchy_entry), :class => 'show_tree', :data_url => taxon_entry_tree_path(@taxon_concept, hierarchy_entry))
+    %li= link_to(I18n.t(:show_full_tree), overview_taxon_entry_path(@taxon_concept, hierarchy_entry), :class => 'show_tree', :data_url => taxon_entry_tree_path(@taxon_concept, hierarchy_entry))

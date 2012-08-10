@@ -105,7 +105,7 @@
                       = hierarchy_entry_display_attribution(hierarchy_entry, :show_rank => false, :show_link => true)
                     - if hierarchy_entry.hierarchy.browsable.to_i == 1
                       %br
-                      = link_to(I18n.t(:view_in_classification), taxon_entry_overview_path(@taxon_concept, hierarchy_entry))
+                      = link_to(I18n.t(:view_in_classification), overview_taxon_entry_path(@taxon_concept, hierarchy_entry))
                   %td.rank
                     - if hierarchy_entry.rank
                       = hierarchy_entry.rank_label

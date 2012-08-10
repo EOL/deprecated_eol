@@ -17,7 +17,7 @@
             %tbody
               - @related_names[type].each do |key, related_name|
                 %tr
-                  %td= link_to related_name['name_string'], taxon_entry_overview_path(related_name['taxon_concept_id'], related_name['hierarchy_entry_id'])
+                  %td= link_to related_name['name_string'], overview_taxon_entry_path(related_name['taxon_concept_id'], related_name['hierarchy_entry_id'])
                   %td
                     - for source in related_name['sources']
                       = source['hierarchy_label']

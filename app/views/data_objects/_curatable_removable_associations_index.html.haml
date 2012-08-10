@@ -16,10 +16,10 @@
         %fieldset
           - if entry.visibility_id == Visibility.preview.id
             %legend= I18n.t(:cannot_curate_association_in_preview_mode,
-              :name => link_to(entry.italicized_name, taxon_overview_path(entry.taxon_concept_id)))
+              :name => link_to(entry.italicized_name, overview_taxon_path(entry.taxon_concept_id)))
           - else
             - show_curation_submit = true
-            %legend= link_to entry.italicized_name, taxon_overview_path(entry.taxon_concept_id)
+            %legend= link_to entry.italicized_name, overview_taxon_path(entry.taxon_concept_id)
             - if entry.can_be_deleted_by?(current_user)
               .remove_association
                 = link_to I18n.t(:remove_data_object_association),

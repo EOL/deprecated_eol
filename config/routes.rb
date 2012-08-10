@@ -32,19 +32,22 @@ EolUpgrade::Application.routes.draw do
 
   # Taxa nested resources with pages as alias... this is quite large, sorry.
   resources :pages, :only => [:show], :controller => 'taxa', :as => 'taxa' do
+    member do
+      get 'overview'
+      get 'maps', :controller => 'taxa/maps'
+    end
     resources :tree, :only => [:show], :controller => 'taxa/trees'
-    resources :overview, :only => [:show], :controller => 'taxa/overviews'
     resources :media, :only => [:show], :controller => 'taxa/media'
     resources :details, :except => [:show], :controller => 'taxa/details'
-    resources :maps, :only => [:show], :controller => 'taxa/maps'
     resources :worklist, :only => [:show], :controller => 'taxa/worklist'
     resources :data_objects, :only => [:create, :new]
     resources :hierarchy_entries, :as => 'entries', :only => [:show] do
       member do
         put 'switch'
+        get 'overview'
+        get 'maps', :controller => 'taxa/maps'
       end
       resources :tree, :only => [:show], :controller => 'taxa/trees'
-      resources :overview, :only => [:show], :controller => 'taxa/overviews'
       resources :media, :only => [:index], :controller => 'taxa/media'
       resources :details, :only => [:index], :controller => 'taxa/details'
       resources :communities, :as => :community, :controller => 'taxa/communities', :only => [:index] do
@@ -63,13 +66,13 @@ EolUpgrade::Application.routes.draw do
           get 'vet_common_name'
         end
       end
-      resources :literature, :only => [:show], :controller => 'taxa/literature' do
-        member do
+      resources :literature, :only => [:index], :controller => 'taxa/literature' do
+        collection do
           get 'bhl'
         end
       end
       resources :resources, :only => [:show], :controller => 'taxa/resources' do
-        member do
+        collection do
           get 'identification_resources'
           get 'education'
           get 'nucleotide_sequences'
@@ -77,8 +80,7 @@ EolUpgrade::Application.routes.draw do
           get 'citizen_science'
         end
       end
-      resources :maps, :only => [:show]
-      resources :updates, :only => [:show], :controller => 'taxa/updates' do
+      resources :updates, :only => [:index], :controller => 'taxa/updates' do
         member do
           get 'statistics'
         end
@@ -101,8 +103,8 @@ EolUpgrade::Application.routes.draw do
         get 'vet_common_name'
       end
     end
-    resources :literature, :only => [:show], :controller => 'taxa/literature' do
-      member do
+    resources :literature, :only => [:index], :controller => 'taxa/literature' do
+      collection do
         get 'bhl'
       end
     end
@@ -121,7 +123,7 @@ EolUpgrade::Application.routes.draw do
         get 'curators'
       end
     end
-    resources :updates, :only => [:show], :controller => 'taxa/updates' do
+    resources :updates, :only => [:index], :controller => 'taxa/updates' do
       member do
         get 'statistics'
       end

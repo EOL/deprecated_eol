@@ -36,9 +36,10 @@ EolUpgrade::Application.routes.draw do
       get 'overview'
       get 'maps', :controller => 'taxa/maps'
     end
-    resources :tree, :only => [:show], :controller => 'taxa/trees'
+    resource :tree, :only => [:show], :controller => 'taxa/trees'
     resources :media, :only => [:show], :controller => 'taxa/media'
     resources :details, :except => [:show], :controller => 'taxa/details'
+    resources :maps, :only => [:show], :controller => 'taxa/maps'
     resources :worklist, :only => [:show], :controller => 'taxa/worklist'
     resources :data_objects, :only => [:create, :new]
     resources :hierarchy_entries, :as => 'entries', :only => [:show] do
@@ -360,12 +361,12 @@ EolUpgrade::Application.routes.draw do
   # not sure why this didn't work in some places - but this is for documentation
   match 'api/docs/:action' => 'api/docs'
   # ping is a bit of an exception - it doesn't get versioned and takes no ID
-  match 'api/:action' => 'api'
-  match 'api/:action/:version' => 'api', :version => /[0-1]\.[0-9]/
+  match 'api/:action' => 'api', :format => 'xml'
+  match 'api/:action/:version' => 'api', :version => /[0-1]\.[0-9]/, :format => 'xml'
   # if version is left out we'll set the default to the latest version in the controller
-  match 'api/:action/:id' => 'api'
+  match 'api/:action/:id' => 'api', :format => 'xml'
   # looks for version, ID
-  match 'api/:action/:version/:id' => 'api', :version => /[0-1]\.[0-9]/
+  match 'api/:action/:version/:id' => 'api', :version => /[0-1]\.[0-9]/, :format => 'xml'
 
   # These are expensive and broad and should be kept at the bottom of the file:
   match '/:id' => 'pages#show', :id => /\d+/

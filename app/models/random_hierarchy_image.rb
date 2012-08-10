@@ -43,7 +43,6 @@ class RandomHierarchyImage < ActiveRecord::Base
       starting_id = rand(self.max_id() - limit).floor
       # This next line only applies when there are very few RandomTaxa.
       starting_id = 0 if starting_id > (self.max_id() - limit)
-      starting_id = starting_id + self.min_id()
     end
 
     # this query now grabs all the metadata we'll need including:

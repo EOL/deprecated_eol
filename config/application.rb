@@ -66,5 +66,13 @@ module EolUpgrade
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
+    # Map custom exceptions to default response codes
+    config.action_dispatch.rescue_responses.update(
+      'EOL::Exceptions::MustBeLoggedIn'    => :unauthorized,
+      'EOL::Exceptions::Pending'           => :not_implemented,
+      'EOL::Exceptions::SecurityViolation' => :forbidden,
+      'OpenURI::HTTPError'                 => :bad_request
+    )
+
   end
 end

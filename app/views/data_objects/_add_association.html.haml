@@ -1,10 +1,10 @@
 - search_result = nil unless defined?(search_result)
 - if image = item.exemplar_or_best_image_from_solr && image && image.thumb_or_object('88_88')
-  = link_to image_tag(image.thumb_or_object('88_88')), taxon_overview_path(item)
+  = link_to image_tag(image.thumb_or_object('88_88')), overview_taxon_path(item)
 - else
-  = link_to image_tag("/images/v2/icon_taxon.png"), taxon_overview_path(item)
+  = link_to image_tag("/images/v2/icon_taxon.png"), overview_taxon_path(item)
 .details
-  %h4= link_to item.title_canonical, taxon_overview_path(item)
+  %h4= link_to item.title_canonical, overview_taxon_path(item)
   - subtitle = item.preferred_common_name_in_language(current_language)
   - unless subtitle.blank?
     %p= subtitle.firstcap

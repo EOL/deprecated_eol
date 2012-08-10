@@ -32,7 +32,7 @@
     - parent_link = nil
     - case item.parent_type
     - when 'TaxonConcept'
-      - parent_link = taxon_overview_url(item.parent_id)
+      - parent_link = overview_taxon_url(item.parent_id)
     - when 'DataObject'
       - parent_link = data_object_url(item.parent_id)
     - when 'Community'

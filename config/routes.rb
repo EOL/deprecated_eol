@@ -34,6 +34,7 @@ EolUpgrade::Application.routes.draw do
   resources :pages, :only => [:show], :controller => 'taxa', :as => 'taxa' do
     resources :tree, :only => [:show], :controller => 'taxa/trees'
     resources :overview, :only => [:show], :controller => 'taxa/overviews'
+    resources :media, :only => [:show], :controller => 'taxa/media'
     resources :details, :except => [:show], :controller => 'taxa/details'
     resources :maps, :only => [:show], :controller => 'taxa/maps'
     resources :worklist, :only => [:show], :controller => 'taxa/worklist'

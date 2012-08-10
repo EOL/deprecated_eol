@@ -115,7 +115,8 @@ class Hierarchy < ActiveRecord::Base
       end
 
       vis = [Visibility.visible.id, Visibility.preview.id]
-      k = HierarchyEntry.core_relationships(:add_include => add_include, :add_select => add_select).find_all_by_hierarchy_id_and_parent_id_and_visibility_id(id, 0, vis)
+      # TODO: core_relationships(:add_include => add_include, :add_select => add_select)
+      k = HierarchyEntry.find_all_by_hierarchy_id_and_parent_id_and_visibility_id(id, 0, vis)
       HierarchyEntry.sort_by_name(k)
     end
   end

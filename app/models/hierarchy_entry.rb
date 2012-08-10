@@ -164,7 +164,7 @@ class HierarchyEntry < ActiveRecord::Base
     end
     ancestor_ids = flattened_ancestors.collect{ |f| f.ancestor_id }
     ancestor_ids << self.id
-    # TODO - ancestors = HierarchyEntry.core_relationships(:add_include => add_include, :add_select => add_select).find_all_by_id(ancestor_ids)
+    # TODO: core_relationships(:add_include => add_include, :add_select => add_select)
     ancestors = HierarchyEntry.find_all_by_id(ancestor_ids)
     @ancestors = HierarchyEntry.sort_by_lft(ancestors)
   end
@@ -181,7 +181,7 @@ class HierarchyEntry < ActiveRecord::Base
       add_select[:hierarchy_entry_stats] = '*'
     end
     vis = [Visibility.visible.id, Visibility.preview.id]
-    # TODO - c = HierarchyEntry.core_relationships(:add_include => add_include, :add_select => add_select).find_all_by_hierarchy_id_and_parent_id_and_visibility_id(hierarchy_id, id, vis)
+    # TODO: core_relationships(:add_include => add_include, :add_select => add_select)
     c = HierarchyEntry.find_all_by_hierarchy_id_and_parent_id_and_visibility_id(hierarchy_id, id, vis)
     return HierarchyEntry.sort_by_name(c)
   end

@@ -114,7 +114,8 @@ module EOL
         }
         ids = docs.map{ |d| d['resource_id'] }
         return if ids.blank?
-        instances = TaxonConcept.core_relationships(:include => includes, :select => selects).find_all_by_id(ids)
+        # TODO: core_relationships(:include => includes, :select => selects)
+        instances = TaxonConcept.find_all_by_id(ids)
         EOL::Solr::DataObjects.lookup_best_images_for_concepts(instances)
         docs.each do |d|
           d['instance'] = instances.detect{ |i| i.id == d['resource_id'].to_i }
@@ -138,7 +139,8 @@ module EOL
         }
         ids = docs.map{ |d| d['resource_id'] }
         return if ids.blank?
-        instances = DataObject.core_relationships(:include => includes, :select => selects).find_all_by_id(ids)
+        # TODO: core_relationships(:include => includes, :select => selects)
+        instances = DataObject.find_all_by_id(ids)
         docs.each do |d|
           d['instance'] = instances.detect{ |i| i.id == d['resource_id'].to_i }
         end

@@ -42,11 +42,10 @@ class ApiController < ApplicationController
                   :user_id => @user_id)
 
     data_objects = taxon_concept.data_objects_for_api(params)
-
     if params[:version] == "1.0"
       respond_to do |format|
         format.xml do
-          render(:partial => 'pages_1_0.xml.builder',
+          render(:partial => 'pages_1_0',
                  :layout => false,
                  :locals => { :taxon_concept => taxon_concept, :data_objects => data_objects, :params => params } )
         end
@@ -190,10 +189,10 @@ class ApiController < ApplicationController
     ApiLog.create(:request_ip => request.remote_ip, :request_uri => request.env["REQUEST_URI"], :method => 'hierarchy_entries', :version => params[:version], :format => format, :request_id => id, :key => @key, :user_id => @user_id)
 
     if params[:format] == 'tcs'
-      render :action =>'hierarchy_entries.xml.builder', :layout => false
+      render :action =>'hierarchy_entries', :layout => false
     else
       respond_to do |format|
-        format.xml { render :action =>'hierarchy_entries_dwc.xml.builder', :layout => false }
+        format.xml { render :action =>'hierarchy_entries_dwc', :layout => false }
         format.json {
           @return_hash = hierarchy_entries_json
           render :json => @return_hash, :callback => params[:callback]
@@ -351,7 +350,7 @@ class ApiController < ApplicationController
   
   def render_error(error_message)
     respond_to do |format|
-      format.xml { render(:partial => 'error.xml.builder', :locals => { :error => error_message }) }
+      format.xml { render(:partial => 'error', :locals => { :error => error_message }) }
       format.json { render(:json => [ :error => error_message ], :callback => params[:callback] ) }
     end
   end

@@ -70,9 +70,9 @@ xml.response "xmlns" => "http://www.eol.org/transfer/content/0.3",
       
       for data_object in data_objects
         if params[:details]
-          xml << render(:partial => 'data_object.xml.builder', :layout => false, :locals => { :data_object => data_object, :minimal => false } )
+          xml << render(:partial => 'data_object', :layout => false, :locals => { :data_object => data_object, :minimal => false } )
         else
-          xml << render(:partial => 'data_object.xml.builder', :layout => false, :locals => { :data_object => data_object, :minimal => true } )
+          xml << render(:partial => 'data_object', :layout => false, :locals => { :data_object => data_object, :minimal => true } )
         end
       end
     end

@@ -4,14 +4,6 @@ class ApplicationController < ActionController::Base
 
   include ImageManipulation
 
-  # Map custom exceptions to default response codes
-  ActionDispatch::ShowExceptions.rescue_responses.update(
-    'EOL::Exceptions::MustBeLoggedIn'    => :unauthorized,
-    'EOL::Exceptions::Pending'           => :not_implemented,
-    'EOL::Exceptions::SecurityViolation' => :forbidden,
-    'OpenURI::HTTPError'                 => :bad_request
-  )
-
   around_filter :profile
 
   before_filter :original_request_params # store unmodified copy of request params

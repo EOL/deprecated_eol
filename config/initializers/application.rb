@@ -11,4 +11,4 @@ $SOLR_BHL_CORE = 'bhl'
 $SOLR_DIR    = File.join(Rails.root, 'solr', 'solr')
 $INDEX_RECORDS_IN_SOLR_ON_SAVE = true
 
-$CONTENT_SERVERS = ['http://localhost/']
+$CONTENT_SERVERS = ['http://content61.eol.org/']

@@ -48,9 +48,9 @@ xml.response "xmlns" => "http://www.eol.org/transfer/content/1.0",
     
     for data_object in data_objects
       if params[:details]
-        xml << render(:partial => 'data_object_1_0.xml.builder', :layout => false, :locals => { :data_object => data_object, :taxon_concept_id => taxon_concept.id, :minimal => false } )
+        xml << render(:partial => 'data_object_1_0', :layout => false, :locals => { :data_object => data_object, :taxon_concept_id => taxon_concept.id, :minimal => false } )
       else
-        xml << render(:partial => 'data_object_1_0.xml.builder', :layout => false, :locals => { :data_object => data_object, :taxon_concept_id => taxon_concept.id, :minimal => true } )
+        xml << render(:partial => 'data_object_1_0', :layout => false, :locals => { :data_object => data_object, :taxon_concept_id => taxon_concept.id, :minimal => true } )
       end
     end
   end

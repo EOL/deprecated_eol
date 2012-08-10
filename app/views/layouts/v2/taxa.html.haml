@@ -6,10 +6,7 @@
     .site_column
       .hgroup
         %h1.scientific_name
-          - if @selected_hierarchy_entry
-            = hh(@scientific_name)
-          - else
-            = hh(@scientific_name)
+          = raw @scientific_name
           - unless @assistive_section_header.blank?
             %span.assistive= " &mdash; #{@assistive_section_header}"
         - unless @preferred_common_name.blank?

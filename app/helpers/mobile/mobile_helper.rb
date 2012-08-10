@@ -1,2 +1,0 @@
-module Mobile::MobileHelper
-end

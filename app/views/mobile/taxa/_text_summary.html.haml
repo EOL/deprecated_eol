@@ -1,9 +1,0 @@
-#taxa_overview_summary
-  - unless @summary_text.nil?
-    - @summary_text.each do |item|
-      - item_status_class, item_status_label = item.status_class_and_label_by_taxon_concept(@taxon_concept)
-      - unless item.description.empty? || item.description.nil?
-        %div{:class => item_status_class, :data => { :text_id =>  item.id } }
-          .header
-            %h3= h item.toc_items[0].label
-          = sanitize item.description.balance_tags

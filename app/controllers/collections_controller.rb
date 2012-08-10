@@ -159,25 +159,7 @@ class CollectionsController < ApplicationController
     @page_title = I18n.t(:collect_item) + " - " + @item.summary_name
     respond_to do |format|
       format.html do
-        # We want to show a "summary" of the object, using it's appropriate layout:
-        use_layout = case params[:item_type]
-                     when 'DataObject'
-                       @data_object = @item
-                       'v2/data'
-                     when 'User'
-                       @user = @item
-                       'v2/users'
-                     when 'Community'
-                       @community = @item
-                       'v2/collections'
-                     when 'TaxonConcept'
-                       @taxon_concept = @item
-                       'v2/taxa'
-                     when 'Collection'
-                       @collection = @item
-                       'v2/collections'
-                     end
-        render :partial => 'choose_collect_target', :layout => use_layout
+        render :partial => 'choose_collect_target', :layout => 'v2/choose_collect_target'
       end
       format.js { render :partial => 'choose_collect_target' }
     end

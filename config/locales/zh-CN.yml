@@ -3,6 +3,7 @@
 # Export driver: syck-pecl
 # Author: Chenxiaoqino
 # Author: Hydra
+# Author: Liangent
 # Author: Linforest
 # Author: Shandongfx
 # Author: Shizhao
@@ -1101,7 +1102,7 @@ zh-CN:
   content_partner_statistics_summary_caption: 相对于EOL网站使用总量，由%{partner_name}提供内容的阶元页面使用统计的概述。
   content_partner_statistics_taxa_page_caption: 包含%{partner_name}提供的信息的类群页面的使用统计详情。
   content_partner_statistics_year_label: 年
-  content_partner_status_empty: 未知的状态
+  content_partner_status_empty: 未知状态
   content_partner_update_successful_notice: 合作伙伴信息更新成功。
   content_partner_update_unsuccessful_error: 抱歉，发生了一个错误，合作伙伴信息未能更新。
   content_partner_vetted_false: 未审核

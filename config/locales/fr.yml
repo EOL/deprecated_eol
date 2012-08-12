@@ -137,7 +137,7 @@ fr:
         pages_with_image: Pages avec image
         pages_with_image_no_text: Pages avec image, mais sans texte
         pages_with_map: Pages avec carte
-        pages_with_score_10_to_39: Pages avec une cote de 10 à 39
+        pages_with_score_10_to_39: Pages avec une cote de 10 à 40
         pages_with_score_less_than_10: Pages avec une cote inférieure à 10
         pages_with_sound: Pages avec son
         pages_with_text: Pages avec texte
@@ -280,10 +280,10 @@ fr:
             accesspoint_url: 
               blank: ne peut être laissé vide, sauf si vous téléversez un fichier ressource à la place
               inaccessible: est inaccessible, l’URL doit être accessible au public
-              invalid: est invalide, devrait pointer vers un fichier XML, XML.GZIP ou XML.GZ.
+              invalid: est invalide, devrait pointer vers un fichier XML, XML.GZIP, XML.GZ ou ZIP.
             dataset: 
               blank: ne peut pas être vide, sauf si vous fournissez à la place l’URL d’un jeu de données
-              wrong_type: n’a pas le format requis, devrait être un fichier GZIP, TAR ou XML.
+              wrong_type: n’a pas le format requis, devrait être un fichier GZIP, TAR, ZIP ou XML.
             dwc_archive_url: 
               inaccessible: est inaccessible, l’URL doit être accessible au public
               invalid: est invalide, devrait pointer vers un fichier TAR.GZIP, TAR.GZ, TGZ ou fichier ZIP.
@@ -386,6 +386,25 @@ fr:
   admin_user_delete_successful_notice: Utilisateur a été supprimé
   admin_user_hide_successful_notice: Utilisateur a été masqué
   admin_user_unhide_successful_notice: L’utilisateur n’est plus masqué
+  admins: 
+    eol_statistics: 
+      index: 
+        menu_link: Statistiques globales
+        page_header: Statistiques globales
+        page_title: "Administration: Statistiques globales"
+        table_caption: Statistiques globales du site créées à %{created_at_time}
+      marine: 
+        menu_link: Statistiques marines
+        page_header: Couverture marine dans l’EdlV
+        page_title: "Administration: Statistiques marines"
+      page_richness: 
+        menu_link: Pages riches
+        page_header: Statistiques de pages riches
+        page_title: "Administration: Statistiques de pages riches"
+      users_data_objects: 
+        menu_link: Texte soumis par l'utilisateur
+        page_header: Statistiques de texte soumises par l'utilisateur
+        page_title: "Administration: Statistiques de texte soumises par l’utilisateur"
   agent: Agent
   all: tout
   all_apis_return_by_default_an_xml_response: "Toutes les IPA de l’EdlV retournent par défaut une réponse XML. Les méthodes de l’IPA peuvent être appelées sans préciser une extension de format pour obtenir la réponse XML et l’ajout d’une extension XML produira une réponse identique :"
@@ -1006,6 +1025,31 @@ fr:
     month_names: 
       - Janvier
       - Février
+      - Mars
+      - Avril
+      - mai
+      - Juin
+      - Juillet
+      - Août
+      - Septembre
+      - Octobre
+      - Novembre
+      - Décembre
+    month_names_short: 
+      - janv
+      - fév
+      - mars
+      - avr
+      - mai
+      - juin
+      - juil
+      - août
+      - sept
+      - oct
+      - nov
+      - déc
+    next: Suivant
+    previous: Précédent
   dato_create_cancel: Annuler
   dato_create_user_text_error: Désolé, une erreur est survenue, l’article n’a pas pu être ajoutée.
   dato_create_user_text_missing_taxon_id_exception: Impossible de construire un objet de données textuelles ou utilisateur si l’identifiant de taxon est nul.
@@ -1132,6 +1176,8 @@ fr:
       page_title: Statistiques
     lifedesks: 
       page_title: Statistiques
+    warnings: 
+      stats_unavailable_for_date: Désolé, les statistiques ne sont pas disponibles pour le %{date}. Veuillez sélectionner une autre date.
   error_401_description: Désolé, vous n’êtes pas autorisé à accéder à cette URL.
   error_401_page_title: Non autorisé
   error_403_description: Désolé, vous n’êtes pas autorisé à accéder à cette URL.
@@ -1915,6 +1961,8 @@ fr:
     signature_basic: L’équipe de l’Encyclopédie de la Vie
     signature_with_contact_us_link: "Si vous rencontrez des problèmes, veuillez nous contacter à %{url}. \n\nL'équipe de l’Encyclopédie de la vie"
     signature_with_species_pages_group_contact: "Si vous avez des questions, vous pouvez nous contacter à l’adresse %{species_pages_group_email}.\n\nL’équipe de l’Encyclopédie de la Vie"
+    unsubscribed_to_notifications: 
+      subject: Désolé de vous voir partir...
     user_activated: 
       message: "Bienvenue sur l’Encyclopédie de la Vie (EdlV) et merci pour votre inscription ! Votre nom d’utilisateur est %{username} et l’adresse de votre profil est %{profile_url}. Vous pouvez vous connecter à votre compte à l’adresse http://www.eol.org/login.\n\nPour en savoir plus sur l’utilisation de l’EdlV, notamment comment créer des collections, participer aux communautés et contribuer au contenu, vous pouvez lire les pages d’aide à l’adresse http://www.eol.org/help."
       subject: Votre compte de l’Encyclopédie de la Vie (EdlV) a été activé
@@ -2248,6 +2296,7 @@ fr:
   see_all_featured_collections_with_count: 
     one: Voir la %{count} collection représentée.
     other: Voir toutes les %{count} collections représentées.
+  see_all_maps_link: Voir toutes les cartes
   see_all_media_link: Voir tous les médias
   see_all_of_your_collections: Voir toutes vos collections
   see_all_of_your_communities: Voir toutes vos communautés
@@ -2468,7 +2517,7 @@ fr:
         meta_keywords_with_common_name: articles de %{preferred_common_name}, livres de %{preferred_common_name}, littérature de %{preferred_common_name}, articles de %{scientific_name}, livres de %{scientific_name}, bibliographies de %{scientific_name}, littérature de %{scientific_name}
         meta_title: Articles & livres concernant %{scientific_name}
         meta_title_with_common_name: Articles & livres concernant %{preferred_common_name} (%{scientific_name})
-        tweet_text: Littérature concernant %{scientific_name}
+        tweet_text: Articles et livres concernant %{scientific_name}
     maps: 
       show: 
         hierarchy_entry: 
@@ -2476,10 +2525,10 @@ fr:
           meta_description_with_common_name: Où trouve-t-on des %{preferred_common_name} et d’où proviennent-ils? Information géographique concernant %{scientific_name} tel que classé par %{hierarchy_provider}, les régions du monde où ils vivent et où ils sont indigènes.
           meta_title: Cartes de %{scientific_name} tel que classé par %{hierarchy_provider}
           meta_title_with_common_name: Cartes de %{preferred_common_name} (%{scientific_name} tel que classé par %{hierarchy_provider})
-          tweet_text: Cartes de %{scientific_name} tel que classé par %{hierarchy_provider}
+          tweet_text: Cartes pour %{scientific_name} tel que classé par %{hierarchy_provider}
         meta_description: Informations géographiques sur %{scientific_name}, les endroits du monde où ils vivent et d’où ils proviennent.
         meta_description_with_common_name: Où trouve-t-on des %{preferred_common_name} et d’où proviennent-ils ? Informations géographiques sur %{scientific_name}, les endroits du monde où ils vivent et d’où ils sont originaires.
-        meta_keywords: habitat de %{scientific_name}, origine, où vit %{scientific_name}
+        meta_keywords: habitat de %{scientific_name}, où vit %{scientific_name}
         meta_keywords_with_common_name: habitat de %{preferred_common_name}, origine, où vit %{preferred_common_name}
         meta_title: Cartes de %{scientific_name}
         meta_title_with_common_name: Cartes pour %{preferred_common_name} (%{scientific_name})
@@ -2555,9 +2604,9 @@ fr:
           meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} Classé par %{hierarchy_provider})"
           tweet_text: Vue d’ensemble de %{scientific_name}, tel que classé par %{hierarchy_provider}
         meta_description: Vue d’ensemble de %{scientific_name} dans l’Encyclopédie de la Vie.
-        meta_description_with_common_name: Vue d’ensemble de %{preferred_common_name}, scientifiquement appelé %{scientific_name}, dans l’Encyclopédie de la Vie.
+        meta_description_with_common_name: Information sur %{preferred_common_name}, scientifiquement appelé(e) %{scientific_name} dans l’Encyclopédie de la Vie.
         meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})"
-        tweet_text: Vue d’ensemble de %{scientific_name}
+        tweet_text: Information sur %{scientific_name}
     resources: 
       biomedical_terms: 
         meta_title: Termes biomédicaux pour %{scientific_name}

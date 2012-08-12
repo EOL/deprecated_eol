@@ -2597,6 +2597,9 @@ tl:
     signature_basic: Ang Pangkat ng Ensiklopedya ng Buhay
     signature_with_contact_us_link: "Kapag nakaranas ka ng anumang mga suliranin, mangyaring makipag-ugnayan sa amin doon sa %{url}.\n\nAng Pangkat ng Ensiklopedya ng Buhay"
     signature_with_species_pages_group_contact: "Kung mayroong kang anumang mga katanungan, mangyaring makipag-ugnayan sa amin doon sa %{species_pages_group_email}.\n\nAng Pangkat ng Ensiklopedya ng Buhay"
+    unsubscribed_to_notifications: 
+      message: "Matagumpay kang hindi na nagpapasipi sa mga pagpapabatid na nagmumula sa Ensiklopedya ng Buhay. Maaari mong baguhin ang mga katakdaan ng iyong e-liham o sumipi sa mga pagpapabatid na naroon sa <a href='%{email_prefs_url}'>pahina mo ng mga kanaisan sa pagpapabatid</a>.\n\nUpang makaalam ng mas marami pa sa kung paano gamitin ang EOL, kasama na ang kung paano lumika ng mga kalipunan ng EOL, makilahok sa Mga Pamayanan ng EOL at mag-ambag ng nilalaman, paki dalawin ang aming mga pahina ng tulong na naroon sa http://eol.org/help."
+      subject: Ikinalulungkot ang paglisan mo...
     user_activated: 
       message: "Maligayang pagdating sa Ensiklopedya ng Buhay (Encyclopedia of Life o EOL) at salamat sa pagpaparehistro mo! Paki tandaan na ang pangalan ng tagagamit mo ay %{username} at ang iyong URL ng balangkas ng katangian ay %{profile_url}. Makakalagda kang papasok sa akawnt mo roon sa http://eol.org/login.\n\nUpang makaalam ng marami pa patungkol sa kung paano gamitin ang EOL, kasama na ang kung paano lumikha ng mga Kalipunan ng EOL, makilahok sa mga Pamayanan ng EOL at mag-ambag ng nilalaman, paki dalawin ang aming mga pahina ng tulong doon sa http://eol.org/help."
       subject: Binuhay na ang iyong akawnt ng Ensiklopedya ng Buhay
@@ -2819,6 +2822,7 @@ tl:
     community_activity_user_joined: Ang tagagamit na si <b>%{user_name}</b> ay sumali sa pamayanang <b>%{community_name}</b>.
     community_activity_user_left: Ang tagagamit na si <b>%{user_name}</b> ay umalis mula sa pamayanang <b>%{community_name}</b>.
     community_activity_user_made_member_a_manager: Ang tagagamit na si <b>%{user_name}</b> ang nagsagawa upang si <b>%{member_name}</b> ay maging tagapamahala ng pamayanang <b>%{community_name}</b>.
+    contact_us_link: Kapag nakaranas ka ng anumang mga suliranin, paki <a href='http://eol.org/contact_us' style='color:#195184'>makipag-ugnayan sa amin</a>.
     curator_activity_log_title: May isang bagay na pinangasiwaan si %{who}
     curator_activity_on_data_object_by_user: "Nagsagawa si <b>%{user_name}</b> ng isang kilos na %{activity_name} sa <b>%{dato_title}</b> (%{dato_type} #%{dato_id})."
     curator_activity_on_taxon_concept_by_user: Nagsagawa si <b>%{user_name}</b> ng isang kilos na %{activity_name} sa <b>%{taxon_concept}</b> (%{taxon_overview_url}).
@@ -2831,7 +2835,7 @@ tl:
     reply_to_comment_body_brief: "%{reply_to_author} %{body} - %{author}"
     see_all_activity: Tingnan ang lahat ng nakaraang mga gawain doon sa <a href='%{activity_url}' style='color:#195184'>pahina mo ng pakaing balita ng tagagamit</a>.
     someone_commented_on_something: Nagbigay ng puna si <b>%{who}</b> hinggil sa <b>%{what}</b>.
-    unsubscribe: Lumagdang papasok at baguhin ang mga katakdaan ng e-liham mo o huwag nang magpasipi roon sa <a href='%{email_prefs_url}' style='color:#195184'>ang pahina mo ng kanaisan sa pagpapabatid</a>. Kapag nakaranas ka ng anumang suliranin, paki <a href='http://eol.org/contact_us'>makipag-ugnayan sa amin</a>.
+    unsubscribe: Lumagdang papasok at baguhin ang mga katakdaan ng e-liham mo roon sa <a href='%{email_prefs_url}' style='color:#195184'>ang pahina mo ng kanaisan sa pagpapabatid</a> o <a href='%{unsubscribe_url}' style='color:#195184'>o huwag nang magpasipi magmula sa LAHAT ng kusang mga pagbabatid ng EOL na hindi lumalagdang papasok</a>.
   recent_updates: Kamakailang mga pagsasapanahon
   recently_visited: Kamakailang nadalaw
   recipients: Mga tumatanggap
@@ -3672,6 +3676,9 @@ tl:
       edit: 
         page_description: Ang lahat ng mga pagsasapanahong nakalista sa ibabaw (maliban na lamang sa balitang liham ng EOL) ay makukuha mo sa loob ng iyong <a href="%{user_newsfeed_link}">pakaing balita ng EOL</a>, subalit marami ring mga tao ang nagnanais na makaalam sa pamamagitan ng e-liham hinggil sa partikular na mga uri ng mga gawain na makita nilang partikular na kawili-wili. Magagamit mo ang mga pindutang nasa ibaba upang maitakda ang kadalasan ng mga e-liham ng EOL upang umakma sa mga kanaisan mo
         page_title: Mga katakdaan sa pagpapabatid
+      update: 
+        notification_settings_successfully_updated: Matagumpay na naisapanahon ang mga katakdaan sa pagpapabatid.
+        sorry_notification_settings_could_not_be_updated: Paumanhin, hindi maisapanahon ang mga katakdaan sa pagpapabatid.
     open_authentications: 
       errors: 
         facebook: 
@@ -3765,6 +3772,10 @@ tl:
     show: 
       meta_description: Balangkas ng katangian ng kasapi para sa %{user_full_name} sa Ensiklopedya ng Buhay.
       meta_description_curator: Balangkas ng katangian para sa %{curator_level} %{user_full_name} na nasa Ensiklopedya ng Buhay.
+    unsubscribe_notifications: 
+      already_unsubscribed: Hindi ka na nagpapasipi sa mga pagpapabatid.
+      unsubscribe_notifications_failed: Paumanhin, naganap ang isang kamalian, hindi magawang huwag nang sipian ang tagagamit sa mga pagpapabatid.
+      unsubscribed_notifications_successfully: Matagumpay ka nang hindi nagpapasipi sa mga pagpapabatid.
   users_about_me_header: Patungkol sa akin
   users_content_partners_header: Mga kawaksi sa nilalaman
   users_content_partners_information: Ang mga kawaksi sa nilalaman ng mga indibiduwal o mga organisasyon na nagbabahagi ng kanilang dato ng biyodiversidad sa mundo sa pamamagitan ng EOL. Umalam ng marami pang iba hinggil sa <a href="%{more_url}">Mga Kawaksi sa Nilalaman ng EOL</a>.

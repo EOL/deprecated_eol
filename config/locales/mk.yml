@@ -2603,6 +2603,9 @@ mk:
     signature_basic: Екипата на Енциклопедијата на живиот свет
     signature_with_contact_us_link: "Доколку наидете на проблеми, обратете се на %{url}.\n\nЕкипата на Енциклопедијата на живиот свет"
     signature_with_species_pages_group_contact: "Доколку имате прашања, обратете се на %{species_pages_group_email}.\n\nЕкипата на Енциклопедијата на живиот свет"
+    unsubscribed_to_notifications: 
+      message: "Успешно се откажавте од претплатата на известувања од Енциклопедијата на живиот свет. Ако сакате да ги измените нагодувањата за е-пошта или да се претплатите на известувања, појдете на страницата за <a href='%{email_prefs_url}'>нагодувања за известувања</a>.\n\nЗа да дознаете како да ја користите EOL, како да правите збирки, да учествувате во заедниците и да придонесувате со содржини, посетете ги страниците за помош на http://eol.org/help."
+      subject: Жал ни е што си одите...
     user_activated: 
       message: "Добредојдовте на Енциклопедијата на живиот свет (EOL) и ви благодариме што се регистриравте! Вашето корисничко име е %{username}, а профилот ќе си го најдете на адресата %{profile_url}. Можете да се најавите на http://www.eol.org/login.\n\nЗа да дознаете како да ја користите EOL, како да правите збирки, како да учествувате во заедниците и како да придонесувате со содржини, посетете ги страниците за помош на http://www.eol.org/help."
       subject: Вашата сметка на Енциклопедијата на живиот свет е активирана
@@ -2825,6 +2828,7 @@ mk:
     community_activity_user_joined: Корисникот <b>%{user_name}</b> се зачлени во заедницата <b>%{community_name}</b>.
     community_activity_user_left: Корисникот <b>%{user_name}</b> ја напушти заедницата <b>%{community_name}</b>.
     community_activity_user_made_member_a_manager: Корисникот <b>%{user_name}</b> го назначи <b>%{member_name}</b> за раководител на заедницата <b>%{community_name}</b>.
+    contact_us_link: Доколку наидете на проблем, би ве замолиле да <a href='http://eol.org/contact_us' style='color:#195184'>нè контактирате</a>.
     curator_activity_log_title: "%{who} згрижи нешто"
     curator_activity_on_data_object_by_user: "<b>%{user_name}</b> изврши постапка од типот %{activity_name} врз <b>%{dato_title}</b> (%{dato_type} #%{dato_id})."
     curator_activity_on_taxon_concept_by_user: <b>%{user_name}</b> изврши постапка од типот %{activity_name} врз <b>%{taxon_concept}</b> (%{taxon_overview_url}).
@@ -2837,7 +2841,7 @@ mk:
     reply_to_comment_body_brief: "%{reply_to_author} %{body} - %{author}"
     see_all_activity: Сите претходни активности ќе ги најдете на <a href='%{activity_url}' style='color:#195184'>вашата страница за актуелности</a>.
     someone_commented_on_something: <b>%{who}</b> коментираше на <b>%{what}</b>.
-    unsubscribe: Најавете се и сменете си ги нагодувањата за е-пошта или откажете ја претплатата на <a href='%{email_prefs_url}' style='color:#195184'>вашата страница за нагодување на известувањата</a>. Доколку наидете на проблем, би ве замолиле да <a href='http://eol.org/contact_us'>нè известите</a>.
+    unsubscribe: Најавете се и сменете си ги нагодувањата за е-пошта ина <a href='%{email_prefs_url}' style='color:#195184'>вашата страница за нагодување на известувањата</a> или <a href='%{unsubscribe_url}' style='color:#195184'>откажете ги СИТЕ автоматизирани известувања од EOL без да се најавувате</a>.
   recent_updates: Најнови актуелности
   recently_visited: Неодамна посетени
   recipients: Примачи
@@ -3679,6 +3683,9 @@ mk:
       edit: 
         page_description: Сите долунаведени актуелности (освен билтенот на EOL) ви се на располагање во вашиот канал <a href="%{user_newsfeed_link}"> Актуелности на EOL</a>, но многумина сакаат да добиваат известија за определени активности што ги интересираат по е-пошта. На копчињата подолу можете да ја зададете саканата честота на пораките по е-пошта
         page_title: Нагодувања за известувањата
+      update: 
+        notification_settings_successfully_updated: Нагодувањата за известување се успешно изменети.
+        sorry_notification_settings_could_not_be_updated: Нажалост, не можев да ги изменам нагходувањата за известување.
     open_authentications: 
       errors: 
         facebook: 
@@ -3774,6 +3781,10 @@ mk:
       meta_description_curator: Членски профил на %{curator_level} %{user_full_name} во Енциклопедијата на живиот свет.
       meta_title: "%{user_full_name}"
       tweet_text: "%{user_full_name}"
+    unsubscribe_notifications: 
+      already_unsubscribed: Веќе ја имате откажано претплатата на известувања.
+      unsubscribe_notifications_failed: Нажалост, се појави грешка. На корисникот не можев да му ја откажам претплатата на известувања.
+      unsubscribed_notifications_successfully: Успешно ја откажавте претплатата на известувањата.
   users_about_me_header: За мене
   users_content_partners_header: Соучесници во содржините
   users_content_partners_information: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt hendrerit tortor, commodo faucibus turpis imperdiet non. Nullam tincidunt, est vel euismod volutpat, libero turpis suscipit neque, nec viverra magna augue non nisl. Praesent et risus sit amet quam sagittis pulvinar eu at odio. Etiam mattis enim turpis, cursus rutrum massa. Ut blandit varius tellus, vitae interdum nulla pulvinar nec.

@@ -159,25 +159,7 @@ class CollectionsController < ApplicationController
     @page_title = I18n.t(:collect_item) + " - " + @item.summary_name
     respond_to do |format|
       format.html do
-        # We want to show a "summary" of the object, using it's appropriate layout:
-        use_layout = case params[:item_type]
-                     when 'DataObject'
-                       @data_object = @item
-                       'v2/data'
-                     when 'User'
-                       @user = @item
-                       'v2/users'
-                     when 'Community'
-                       @community = @item
-                       'v2/collections'
-                     when 'TaxonConcept'
-                       @taxon_concept = @item
-                       'v2/taxa'
-                     when 'Collection'
-                       @collection = @item
-                       'v2/collections'
-                     end
-        render :partial => 'choose_collect_target', :layout => use_layout
+        render :partial => 'choose_collect_target', :layout => 'v2/choose_collect_target'
       end
       format.js { render :partial => 'choose_collect_target' }
     end
@@ -671,7 +653,9 @@ private
   def reindex_items_if_necessary(collection_results)
     collection_item_ids_to_reindex = []
     collection_results.each do |r|
-      if r['object_type'] == 'TaxonConcept'
+      if r['sort_field'] != r['instance'].sort_field
+        collection_item_ids_to_reindex << r['instance'].id
+      elsif r['object_type'] == 'TaxonConcept'
         title = r['instance'].object.entry.name.canonical_form.string rescue nil
         if title && r['title'] != title
           collection_item_ids_to_reindex << r['instance'].id
@@ -684,7 +668,7 @@ private
         end
       end
     end
-    EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection_items_by_ids(collection_item_ids_to_reindex)
+    EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection_items_by_ids(collection_item_ids_to_reindex.uniq)
   end
 
 end

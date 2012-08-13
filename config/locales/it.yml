@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Beta16
+# Author: Darth Kule
 # Author: EdoDodo
 # Author: F. Cosoleto
 # Author: Inskatolata
@@ -128,7 +129,7 @@ it:
         pages_with_image: Pagine con immagini
         pages_with_image_no_text: Pagine con un immagine ma senza testo
         pages_with_map: Pagine con mappa
-        pages_with_score_10_to_39: Pagine con punteggio 10-39
+        pages_with_score_10_to_39: Pagine con punteggio 10-40
         pages_with_score_less_than_10: Pagine con punteggio inferiore a 10
         pages_with_sound: Pagine con audio
         pages_with_text: Pagine con testo
@@ -146,7 +147,7 @@ it:
       harvest_event: 
         resource: Fonte
       hierarchy: 
-        browsable: Sfogliabile
+        browsable: Navigabile
         complete: Completa
         description: Descrizione
         descriptive_label: Etichetta descrittiva
@@ -267,12 +268,12 @@ it:
             accesspoint_url: 
               blank: non può essere vuoto, a meno che al suo posto non si carica un file di risorse
               inaccessible: è inaccessibile, l'URL deve essere accessibile al pubblico
-              invalid: non è valido, deve puntare ad un file XML, XML.GZIP o XML.GZ
+              invalid: non è valido, deve puntare ad un file XML, XML.GZIP, XML.GZ o ZIP
             dataset: 
-              wrong_type: è di tipo errato, deve essere un file GZIP, TAR o XML
+              wrong_type: è di tipo errato, deve essere un file GZIP, TAR, ZIP o XML
             dwc_archive_url: 
               inaccessible: è inaccessibile, l'URL deve essere accessibile al pubblico
-              invalid: non è valido, deve puntare ad un file TAR.GZIP, TAR.GZ o TGZ
+              invalid: non è valido, deve puntare ad un file TAR.GZIP, TAR.GZ , TGZ o ZIP
       template: 
         body: "Convalida non riuscita per i seguenti campi:"
         header: 
@@ -409,19 +410,6 @@ it:
         user_associated_data_object_to_association: <strong>%{user}</strong> ha aggiunto un'associazione tra "%{data_object}" e "%{association}".
         user_associated_it_to_an_unknown_association: <strong>%{user}</strong> ha aggiunto un'associazione ad una pagina sconosciuta.
         user_associated_it_to_association: <strong>%{user}</strong> ha aggiunto un'associazione a "%{association}".
-      add_common_name: 
-        an_unknown_user_added_an_unknown_name_to_an_unknown_taxon: Un utente sconosciuto ha aggiunto un nome comune sconosciuto ad una pagina sconosciuta.
-        an_unknown_user_added_an_unknown_name_to_it: Un utente sconosciuto ha aggiunto un nome comune sconosciuto.
-        an_unknown_user_added_an_unknown_name_to_taxon: Un utente sconosciuto ha aggiunto un nome comune sconosciuto a "%{taxon}".
-        an_unknown_user_added_name_to_an_unknown_taxon: Un utente sconosciuto ha aggiunto il nome comune "%{name}" ad una pagina sconosciuta.
-        an_unknown_user_added_name_to_it: Un utente sconosciuto ha aggiunto il nome comune "%{name}".
-        an_unknown_user_added_name_to_taxon: Un utente sconosciuto ha aggiunto il nome comune "%{name}" a "%{taxon}".
-        user_added_an_unknown_name_to_an_unknown_taxon: <strong>%{user}</strong> ha aggiunto un nome comune sconosciuto ad una pagina sconosciuta.
-        user_added_an_unknown_name_to_it: <strong>%{user}</strong> ha aggiunto un nome comune sconosciuto.
-        user_added_an_unknown_name_to_taxon: <strong>%{user}</strong> ha aggiunto un nome comune sconosciuto a "%{taxon}".
-        user_added_name_to_an_unknown_taxon: <strong>%{user}</strong> ha aggiunto il nome comune "%{name}" ad una pagina sconosciuta.
-        user_added_name_to_it: <strong>%{user}</strong> ha aggiunto il nome comune "%{name}".
-        user_added_name_to_taxon: <strong>%{user}</strong> ha aggiunto il nome comune "%{name}" a "%{taxon}".
       choose_exemplar_image: 
         an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: Un utente sconosciuto ha impostato una vecchia versione di "%{data_object}" come un esemplare di una pagina sconosciuta.
         an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: Un utente sconosciuto ha impostato "%{data_object}" come un esemplare di "%{taxon}".
@@ -497,13 +485,6 @@ it:
         user_disassociated_data_object_from_association: <strong>%{user}</strong> ha rimosso un'associazione tra "%{data_object}" e "%{association}".
         user_disassociated_it_from_an_unknown_association: <strong>%{user}</strong> ha rimosso un'associazione da una pagina sconosciuta.
         user_disassociated_it_from_association: <strong>%{user}</strong> ha rimosso un'associazione da "%{association}".
-      remove_common_name: 
-        an_unknown_user_removed_name_from_an_unknown_taxon: Un utente sconosciuto ha rimosso un nome comune da una pagina sconosciuta.
-        an_unknown_user_removed_name_from_it: Un utente sconosciuto ha rimosso un nome comune.
-        an_unknown_user_removed_name_from_taxon: Un utente sconosciuto ha rimosso un nome comune da "%{taxon}".
-        user_removed_name_from_an_unknown_taxon: <strong>%{user}</strong> ha rimosso un nome comune da una pagina sconosciuta.
-        user_removed_name_from_it: <strong>%{user}</strong> ha rimosso un nome comune.
-        user_removed_name_from_taxon: <strong>%{user}</strong> ha rimosso un nome comune da "%{taxon}".
       show: 
         an_unknown_user_showed_an_older_data_object_on_an_unknown_association: Un utente sconosciuto ha contrassegnato una vecchia versione di "%{data_object}" come visibile in un contesto sconosciuto.
         an_unknown_user_showed_an_older_data_object_on_association: Un utente sconosciuto ha contrassegnato una vecchia versione di "%{data_object}" come visibile nella pagina "%{association}".
@@ -521,19 +502,6 @@ it:
         user_showed_data_object_on_association: <strong>%{user}</strong> ha contrassegnato "%{data_object}" come visibile nella pagina "%{association}".
         user_showed_it_on_an_unknown_association: <strong>%{user}</strong> l'ha contrassegnato come visibile in un contesto sconosciuto.
         user_showed_it_on_association: <strong>%{user}</strong> l'ha contrassegnato come visibile nella pagina "%{association}".
-      trust_common_name: 
-        an_unknown_user_trusted_an_unknown_name_on_an_unknown_taxon: Un utente sconosciuto ha contrassegnato un nome comune sconosciuto da una pagina sconosciuta come attendibile.
-        an_unknown_user_trusted_an_unknown_name_on_it: Un utente sconosciuto ha contrassegnato un nome comune sconosciuto come attendibile.
-        an_unknown_user_trusted_an_unknown_name_on_taxon: Un utente sconosciuto ha contrassegnato un nome comune sconosciuto da "%{taxon}" come attendibile.
-        an_unknown_user_trusted_name_on_an_unknown_taxon: Un utente sconosciuto ha contrassegnato il nome comune "%{name}" da una pagina sconosciuta come attendibile.
-        an_unknown_user_trusted_name_on_it: Un utente sconosciuto ha contrassegnato il nome comune "%{name}" come attendibile.
-        an_unknown_user_trusted_name_on_taxon: Un utente sconosciuto ha contrassegnato il nome comune "%{name}" da "%{taxon}" come attendibile.
-        user_trusted_an_unknown_name_on_an_unknown_taxon: <strong>%{user}</strong> ha contrassegnato un nome comune sconosciuto da una pagina sconosciuta come attendibile.
-        user_trusted_an_unknown_name_on_it: <strong>%{user}</strong> ha contrassegnato un nome comune sconosciuto come attendibile.
-        user_trusted_an_unknown_name_on_taxon: <strong>%{user}</strong> ha contrassegnato un nome comune sconosciuto da "%{taxon}" come attendibile.
-        user_trusted_name_on_an_unknown_taxon: <strong>%{user}</strong> ha contrassegnato il nome comune "%{name}" da una pagina sconosciuta come attendibile.
-        user_trusted_name_on_it: <strong>%{user}</strong> ha contrassegnato il nome comune "%{name}" come attendibile.
-        user_trusted_name_on_taxon: <strong>%{user}</strong> ha contrassegnato il nome comune "%{name}" da "%{taxon}" come attendibile.
       trusted: 
         an_unknown_user_trusted_an_older_data_object_on_an_unknown_association: Un utente sconosciuto ha contrassegnato una vecchia versione di "%{data_object}" come attendibile in un contesto sconosciuto.
         an_unknown_user_trusted_an_older_data_object_on_association: Un utente sconosciuto ha contrassegnato una vecchia versione di "%{data_object}" come attendibile nella pagina "%{association}".
@@ -551,19 +519,6 @@ it:
         user_trusted_data_object_on_association: <strong>%{user}</strong> ha contrassegnato "%{data_object}" come attendibile nella pagina "%{association}".
         user_trusted_it_on_an_unknown_association: <strong>%{user}</strong> l'ha contrassegnato come attendibile in un contesto sconosciuto.
         user_trusted_it_on_association: <strong>%{user}</strong> l'ha contrassegnato come attendibile nella pagina "%{association}".
-      unreview_common_name: 
-        an_unknown_user_unreviewed_an_unknown_name_on_an_unknown_taxon: Un utente sconosciuto ha contrassegnato un nome comune sconosciuto da una pagina sconosciuta come non revisionato.
-        an_unknown_user_unreviewed_an_unknown_name_on_it: Un utente sconosciuto ha contrassegnato un nome comune sconosciuto come non revisionato.
-        an_unknown_user_unreviewed_an_unknown_name_on_taxon: Un utente sconosciuto ha contrassegnato un nome comune sconosciuto da "%{taxon}" come non revisionato.
-        an_unknown_user_unreviewed_name_on_an_unknown_taxon: Un utente sconosciuto ha contrassegnato il nome comune "%{name}" da una pagina sconosciuta come non revisionato.
-        an_unknown_user_unreviewed_name_on_it: Un utente sconosciuto ha contrassegnato il nome comune "%{name}" come non revisionato.
-        an_unknown_user_unreviewed_name_on_taxon: Un utente sconosciuto ha contrassegnato il nome comune "%{name}" da "%{taxon}" come non revisionato.
-        user_unreviewed_an_unknown_name_on_an_unknown_taxon: <strong>%{user}</strong> ha contrassegnato un nome comune sconosciuto da una pagina sconosciuta come non revisionato.
-        user_unreviewed_an_unknown_name_on_it: <strong>%{user}</strong> ha contrassegnato un nome comune sconosciuto come non revisionato.
-        user_unreviewed_an_unknown_name_on_taxon: <strong>%{user}</strong> ha contrassegnato un nome comune sconosciuto da "%{taxon}" come non revisionato.
-        user_unreviewed_name_on_an_unknown_taxon: <strong>%{user}</strong> ha contrassegnato il nome comune "%{name}" da una pagina sconosciuta come non revisionato.
-        user_unreviewed_name_on_it: <strong>%{user}</strong> ha contrassegnato il nome comune "%{name}" come non revisionato.
-        user_unreviewed_name_on_taxon: <strong>%{user}</strong> ha contrassegnato il nome comune "%{name}" da "%{taxon}" come non revisionato.
       unreviewed: 
         an_unknown_user_unreviewed_an_older_data_object_on_an_unknown_association: Un utente sconosciuto ha contrassegnato una vecchia versione di "%{data_object}" come non revisionata in un contesto sconosciuto.
         an_unknown_user_unreviewed_an_older_data_object_on_association: Un utente sconosciuto ha contrassegnato una vecchia versione di "%{data_object}" come non revisionata nella pagina "%{association}".
@@ -581,19 +536,6 @@ it:
         user_unreviewed_data_object_on_association: <strong>%{user}</strong> ha contrassegnato "%{data_object}" come non revisionato nella pagina "%{association}".
         user_unreviewed_it_on_an_unknown_association: <strong>%{user}</strong> l'ha contrassegnato come non revisionato in un contesto sconosciuto.
         user_unreviewed_it_on_association: <strong>%{user}</strong> l'ha contrassegnato come non revisionato nella pagina "%{association}".
-      untrust_common_name: 
-        an_unknown_user_untrusted_an_unknown_name_on_an_unknown_taxon: Un utente sconosciuto ha contrassegnato un nome comune sconosciuto da una pagina sconosciuta come non attendibile.
-        an_unknown_user_untrusted_an_unknown_name_on_it: Un utente sconosciuto ha contrassegnato un nome comune sconosciuto come non attendibile.
-        an_unknown_user_untrusted_an_unknown_name_on_taxon: Un utente sconosciuto ha contrassegnato un nome comune sconosciuto da "%{taxon}" come non attendibile.
-        an_unknown_user_untrusted_name_on_an_unknown_taxon: Un utente sconosciuto ha contrassegnato il nome comune "%{name}" da una pagina sconosciuta come non attendibile.
-        an_unknown_user_untrusted_name_on_it: Un utente sconosciuto ha contrassegnato il nome comune "%{name}" come non attendibile.
-        an_unknown_user_untrusted_name_on_taxon: Un utente sconosciuto ha contrassegnato il nome comune "%{name}" da "%{taxon}" come non attendibile.
-        user_untrusted_an_unknown_name_on_an_unknown_taxon: <strong>%{user}</strong> ha contrassegnato un nome comune sconosciuto da una pagina sconosciuta come non attendibile.
-        user_untrusted_an_unknown_name_on_it: <strong>%{user}</strong> ha contrassegnato un nome comune sconosciuto come non attendibile.
-        user_untrusted_an_unknown_name_on_taxon: <strong>%{user}</strong> ha contrassegnato un nome comune sconosciuto da "%{taxon}" come non attendibile.
-        user_untrusted_name_on_an_unknown_taxon: <strong>%{user}</strong> ha contrassegnato il nome comune "%{name}" da una pagina sconosciuta come non attendibile.
-        user_untrusted_name_on_it: <strong>%{user}</strong> ha contrassegnato il nome comune "%{name}" come non attendibile.
-        user_untrusted_name_on_taxon: <strong>%{user}</strong> ha contrassegnato il nome comune "%{name}" da "%{taxon}" come non attendibile.
       untrusted: 
         an_unknown_user_untrusted_an_older_data_object_on_an_unknown_association: Un utente sconosciuto ha contrassegnato una vecchia versione di "%{data_object}" come non attendibile in un contesto sconosciuto.
         an_unknown_user_untrusted_an_older_data_object_on_association: Un utente sconosciuto ha contrassegnato una vecchia versione di "%{data_object}" come non attendibile nella pagina "%{association}".
@@ -702,30 +644,6 @@ it:
   admin_translated_content_page_update_unsuccessful_error: Spiacenti, si è verificato un errore, la traduzione non è stata aggiornata.
   admin_user_delete_successful_notice: L'utente è stato cancellato
   admin_user_hide_successful_notice: L'utente è stato nascosto
-  admins: 
-    statistics: 
-      content_partner_link: Fornitori di contenuti
-      curator: 
-        page_header: Statistiche curatore
-        page_title: "Amministrazione: statistiche curatore"
-      curator_link: Statistiche curatore
-      data_object: 
-        page_header: Statistiche oggetti dati
-        page_title: "Amministrazione: statistiche oggetti dati"
-      data_object_link: Oggetti dati
-      index: 
-        page_header: Statistiche globali
-        page_title: "Amministrazione: statistiche globali"
-        table_caption: Statistiche globali del sito create alle %{created_at_time}
-      index_link: Statistiche globali
-      page_richness: 
-        page_header: Statistiche pagine ricche di contenuti
-        page_title: "Amministrazione: statistiche pagine ricche di contenuti"
-      page_richness_link: Pagine ricche di contenuti
-      user_added_data: 
-        page_header: Statistiche testi inviati da utenti
-        page_title: "Amministrazione: statistiche testi inviati da utenti"
-      user_added_data_link: Testo inviato da utenti
   agent: Agente
   all: tutto
   all_apis_return_by_default_an_xml_response: "Tutte le API restituiscono per default una risposta XML. I metodi delle API possono essere chiamati senza un'estensione di formato per ottenere la risposta XML e aggiungendo un'estensione XML darà una risposta identica:"
@@ -811,7 +729,6 @@ it:
   audio_pause: pausa
   audio_pause_assistive: Con JavaScript abilitato questo collegamento vi permetterà di mettere in pausa il file audio adiacente in riproduzione, in caso contrario si prega di ignorare questo link.
   audio_play: riproduci
-  audio_play_assistive: Con JavaScript abilitato questo collegamento inizierà la riproduzione del file audio nella stessa finestra. Se JavaScript è disattivato questo link punta ad un file audio e se selezionato si comporterà in base al dispositivo che stai utilizzando.
   audio_stop: ferma
   audio_stop_assistive: Con JavaScript abilitato questo collegamento vi permetterà di fermare il file audio adiacente in riproduzione, in caso contrario si prega di ignorare questo link.
   audio_unmute: riattivare
@@ -825,7 +742,7 @@ it:
   biomedical_terms: Termini biomedici
   biomedical_terms_provided_by: Termini forniti da <a rel="nofollow" href="%{supplier_url}">PubMed</a>.
   body: "Corpo:"
-  browsable: Sfogliabile
+  browsable: Navigabile
   browsable_hierarchies: Gerarchie navigabili
   browse_hierarchy: naviga nella gerarchia
   build_communities: Costruisci comunità
@@ -833,6 +750,7 @@ it:
   by_scientific_name_table_header: per nome scientifico
   calculate_averages_slow: Calcola le medie (lento)
   cancel: Annulla
+  cancel_split: Annulla
   cannot_be_associated_with_both_a_user_and_a_community: Non può essere associato sia con un utente e con una comunità
   cannot_be_empty: non può essere vuoto.
   change: Cambia
@@ -847,6 +765,7 @@ it:
   classification_summary_section_header: Classificazione
   classification_tree_header: Classificazione
   classifications_hierarchy_column_header: Classificazione
+  classifications_preferred_column_header: Preferiti
   classifications_with_count: 
     one: "%{count} Classificazione"
     other: "%{count} Classificazioni"
@@ -904,7 +823,6 @@ it:
   comment_not_added_error: Spiacenti, si è verificato un errore, il commento non è stato aggiunto.
   comment_not_deleted_error: Spiacenti, si è verificato un errore, il commento non è stato cancellato.
   comment_not_updated_error: Spiacenti, si è verificato un errore, il commento non è stato aggiornato.
-  commented_on_your_image: "commentato una tua immagine sul sito <a href='%{data_object_link}'>Encyclopedia of Life</a>:\n%{comment_body}"
   comments: Commenti
   comments_filter: Commenti
   comments_moderated: Commenti moderati
@@ -913,6 +831,7 @@ it:
     one: "%{count} commento"
     other: "%{count} commenti"
   common_name: Nome comune
+  common_name_exists: Esiste già il nome comune <em>% {name_string}</em>
   common_names_with_count: 
     one: "%{count} nome comune"
     other: "%{count} nomi comuni"
@@ -943,6 +862,9 @@ it:
     other: "%{count} comunità"
   community: Comunità
   community_activity: Attività della comunità
+  community_contributions_with_count: 
+    one: "%{count} Contributo"
+    other: "%{count} Contributi"
   community_description_default: Una comunità Encyclopedia of Life.
   community_empty_notice: Questa comunità non ha membri.
   community_focus: Gestisci collezioni
@@ -1002,17 +924,26 @@ it:
   content_partner_current_agreement_view_link: Visualizza
   content_partner_data_description_empty: Nessuno ha aggiunto una descrizione dei dati forniti.
   content_partner_data_description_header: Descrizione dei dati
+  content_partner_filter_option_published_never_published: Mai pubblicato
   content_partner_filter_option_vetted_no: 'No'
   content_partner_filter_option_vetted_yes: Sì
+  content_partner_filter_published: Pubblicato
   content_partner_public_false: Privato
   content_partner_public_true: Pubblico
   content_partner_resource_auto_publish_false: 'No'
   content_partner_resource_auto_publish_true: Sì
   content_partner_resource_collections_header: Collezioni
+  content_partner_resource_description_empty: Non è stata fornita alcuna descrizione per questa risorsa.
   content_partner_resource_edit_link: Modifica
   content_partner_resource_edit_subheader: Modifica risorsa
   content_partner_resource_edit_with_type_link: Modifica risorsa
+  content_partner_resource_harvest_event_current_published: Attualmente pubblicato
+  content_partner_resource_harvest_event_not_published: Non pubblicato
+  content_partner_resource_harvest_event_previously_published: Pubblicato precedentemente
+  content_partner_resource_harvest_event_publish_pending: Pubblicazione in sospeso
+  content_partner_resource_hierarchy_browsable: Navigabile
   content_partner_resource_hierarchy_edit_link: Modifica
+  content_partner_resource_hierarchy_not_browsable: Non navigabile
   content_partner_resource_hierarchy_unknown: Sconosciuta
   content_partner_resource_new_link: Aggiungi una nuova risorsa
   content_partner_resource_new_subheader: Aggiungi una nuova risorsa
@@ -1023,11 +954,20 @@ it:
   content_partner_resource_vetted_true: Sì
   content_partner_resource_view_link: Visualizza
   content_partner_resources_header: Risorse
+  content_partner_statistics_column_header_taxa_page_page_views: Visite
+  content_partner_statistics_column_header_taxa_page_time_on_page_seconds: Tempo sulla pagina (secondi)
+  content_partner_statistics_column_header_taxa_page_unique_page_views: Visitatori unici
   content_partner_statistics_column_header_total_count: Tutte le pagine
   content_partner_statistics_empty: Nessuna statistica trovata per %{month_name} %{year}.
+  content_partner_statistics_link: Statistiche utilizzo
   content_partner_statistics_month_label: Mese
+  content_partner_statistics_taxa_page_caption: Statistiche di utilizzo dettagliate per le pagine di taxon contenenti contenuti forniti da %{partner_name}.
   content_partner_statistics_year_label: Anno
   content_partner_status_empty: Stato sconosciuto
+  content_partner_update_successful_notice: Dettagli fornitore aggiornati correttamente.
+  content_partner_update_unsuccessful_error: Spiacenti, si è verificato un errore, i dettagli del fornitore è non sono stati aggiornati.
+  content_partner_vetted_false: Non revisionato
+  content_partner_vetted_true: Controllati
   content_partners: 
     edit: 
       meta_title: Modifica %{partner_name}
@@ -1044,10 +984,15 @@ it:
         meta_keywords: Statistiche %{partner_name}, utilizzo web %{partner_name}
         meta_title: Statistiche %{partner_name}
         tweet_text: Statistiche di utilizzo %{partner_name}
+  content_partners_empty: Nessun fornitore di contenuti trovato.
+  content_partners_link: Fornitori di contenuti
+  content_partners_page_title: Fornitori di contenuti
   content_summary_table_count_column_header: Conteggio
   content_summary_table_type_descendants_row: Numero di discendenti
   content_summary_table_type_trusted_images_row: Numero di immagini approvate
   content_summary_table_type_unreviewed_images_row: Numero di immagini non controllate
+  content_type: Tipo di contenuto
+  contribute: Contribuisci
   copy: Copia
   copy_of_name: Copia di %{name}
   copyright: "COPYRIGHT:"
@@ -1059,6 +1004,7 @@ it:
   create_collection_button: Crea collezione
   create_community: Crea comunità
   create_community_button: Crea comunità
+  create_user_unsuccessful_error: Siamo spiacenti, si è verificato un errore, il tuo profilo non è stato creato. Assicurati che tutti i campi sono stati completati correttamente.
   created: Creata
   created_at: Creato il
   created_by: Creato da
@@ -1068,7 +1014,21 @@ it:
   credentials: Credenziali
   curated: A cura
   curated_association_update_button: Salva le modifiche
+  curation_privileges_page_title: Diventa un curatore
+  curation_reason_placeholder: dettagli aggiuntivi (opzionale)
+  curation_scope: Ambito curatore
+  curator: curatore
   curator_level: Livello curatore
+  curator_level_assistant_approved_notice: Complimenti! Ora sei un <em>assistente curatore</em>. <a href="%{more_url}">Ulteriori informazioni sul ruolo di assistente curatore</a>.
+  curator_level_assistant_curator: Assistente curatore
+  curator_level_full_curator: Curatore completo
+  curator_profile: profilo curatore
+  curator_profile_menu: Profilo curatore
+  curator_profile_of: Profilo curatore di %{name}
+  curator_question: Curatore?
+  curator_scope_colon: "Ambito curatore:"
+  curator_status_changed_by: Stato curatore modificato da %{user} il %{date}
+  curators: Curatori
   curators_summary_header_with_count: 
     one: Revisionato da %{count} curatore
     other: Revisionato da %{count} curatori
@@ -1077,7 +1037,10 @@ it:
     other: "%{count} curatori"
   current_language: "Lingua: %{iso_code}"
   currently_in_eol: Attualmente nell'Enciclopedia della vita
+  currently_published: attualmente pubblicato
   dashboard: Cruscotto
+  data_database_colon: "Dati:"
+  data_object_ignore: ignora questo elemento
   data_objects: 
     show: 
       meta_description_article: Articolo - %{dato_description}
@@ -1096,11 +1059,73 @@ it:
       meta_supplier_default: un contributore
       meta_title: "%{dato_title} da %{supplier}"
       tweet_text: "%{dato_title} da %{supplier}"
+  data_usage_reports: Report di utilizzo dei dati
+  date_caps: Data
+  date_uploaded: Data di caricamento
+  datepicker: 
+    close: Chiudi
+    current: Oggi
+    day_names: 
+      - Domenica
+      - Lunedì
+      - Martedì
+      - Mercoledì
+      - Giovedì
+      - Venerdì
+      - Sabato
+    day_names_min: 
+      - dom
+      - lun
+      - ma
+      - mer
+      - gio
+      - ven
+      - sab
+    day_names_short: 
+      - dom
+      - lun
+      - mar
+      - mer
+      - gio
+      - ven
+      - sab
+    month_names: 
+      - gennaio
+      - febbraio
+      - marzo
+      - aprile
+      - maggio
+      - giugno
+      - luglio
+      - agosto
+      - settembre
+      - ottobre
+      - novembre
+      - dicembre
+    month_names_short: 
+      - gen
+      - feb
+      - mar
+      - apr
+      - mag
+      - giu
+      - lug
+      - ago
+      - set
+      - ott
+      - nov
+      - dic
+    next: Avanti
+    previous: Precedente
   dato_create_cancel: Annulla
+  dato_create_user_text_error: Spiacenti, si è verificato un errore, l'articolo non è stato aggiunto.
   dato_edit_cancel: Annulla
   dato_edit_text_link_button: Modifica questo articolo
   dato_edit_text_title: Modifica articolo
+  dato_new_edit_user_text_fieldset_content_header: Contenuto articolo
+  dato_new_edit_user_text_fieldset_information_header: Informazioni articolo
   dato_new_text_for_taxon_page_title: Aggiungi un articolo a <i>%{taxon}</i>
+  dato_update_user_text_error: Spiacenti, si è verificato un errore, l'articolo non è stato aggiornato.
   default: Predefinito
   definition: Definizione
   delete: cancella
@@ -1115,6 +1140,7 @@ it:
   details: Dettagli
   details_title: Dettagli
   development_version_name: EOL V2 Beta
+  did_you_mean: "Forse intendevi: %{suggestions} ?"
   donate: Fai una donazione
   donation_amount_legend: Scegli l'importo che vuoi donare
   donation_amount_other_label: Altro
@@ -1125,7 +1151,9 @@ it:
   edit_comment: Modifica commento
   edit_comment_lowercase: modifica commento
   edit_community: Modifica la comunità
+  edit_hierarchy: modifica gerarchia
   edit_my_profile: Modifica il mio profilo
+  edit_news_items: modifica i nuovi elementi
   edited_colon: "modificato:"
   email: Email
   email_colon: "Email:"
@@ -1139,10 +1167,29 @@ it:
   eol_api_pages: "EOL API: pagine"
   eol_api_search: "EOL API: ricerca"
   eol_colon: "EOL:"
+  eol_flickr_group: Gruppo EOL su Flickr
   eol_glossary: Glossario EOL
   eol_news: EOL Notizie
   eol_pages: Pagine
+  eol_statistics: 
+    content_partners: 
+      page_title: Statistiche
+    curators: 
+      page_title: Statistiche
+    index: 
+      menu_link: Statistiche complessive
+      page_header: Statistiche complessive
+      page_title: Statistiche
+    lifedesks: 
+      page_title: Statistiche
+    marine: 
+      page_title: Statistiche
+    page_richness: 
+      page_title: Statistiche
+    users_data_objects: 
+      page_title: Statistiche
   error_401_page_title: Non autorizzato
+  error_403_page_title: Proibito
   error_404_page_title: Non trovato
   error_500_page_title: Oops.
   error_default_page_title: Oops.
@@ -1200,11 +1247,25 @@ it:
   flickr: Flickr
   forgot_password: Password dimenticata
   forgot_password_form_cancel: Annulla
+  forgot_password_form_choose_username_blank_error: Scegli il profilo di cui vuoi resettare la password
+  forgot_password_form_choose_username_instructions: Ci sono diversi profili registrati con l'indirizzo email <em>%{email}</em>, si prega di selezionare il profilo di cui si desidera recuperare l'accesso.
+  forgot_password_form_choose_username_legend: Scegli un profilo
+  forgot_password_form_header: Reimposta la tua password
+  forgot_password_form_username_or_email_blank_error: Inserisci il tuo nome utente o il tuo indirizzo email per resettare la tua password
+  frequency: Frequenza
+  frequency_daily: Giornaliera
+  frequency_monthly: Mensile
+  frequency_never: Mai
+  frequency_weekly: Settimanale
+  given_name_colon: "Nome:"
   global_access_tagline: Accesso globale alla conoscenza della vita sulla terra.
   global_navigation: Navigazione globale
   go: Vai
   google: Google
   has_already_been_taken: è già stata presa.
+  has_hidden_your_image: ha nascosto la tua immagine
+  has_trusted_your_image: ha verificato la tua immagine
+  has_untrusted_your_image: non ha verificato la tua immagine
   hello_user: Ciao %{user}
   help: Aiuto
   helpers: 
@@ -1253,6 +1314,8 @@ it:
         source_url: URL all'oggetto dati originale
         toc_item: Sottocapitolo
       eol_statistic: 
+        date_one: Data
+        date_two: Data
         download_all: Tutti <small>(include record da tutte le pagine)</small>
       google_analytics_partner_summaries: 
         page_views: Visualizzazioni pagin <small>(numero di visite alle pagine)</small>
@@ -1282,8 +1345,8 @@ it:
         resource_status: Stato
         resource_status_id: Stato
         resource_url_or_file: Risorse dati <small>(scegli se inserire un URL o caricare un file)</small>
-        resource_url_or_file_upload: Carica il file della risorsa
-        resource_url_or_file_url: Carica la risorsa dall'URL
+        resource_url_or_file_upload: Carica il documento
+        resource_url_or_file_url: Carica il documento dall' indirizzo
         title: Nome della risorsa
       session: 
         password: Password
@@ -1329,7 +1392,7 @@ it:
       collection_item: 
         update: Salva
       contact: 
-        new: Invia feedback
+        new: Invia commento
       content_page: 
         create: Crea pagina
         edit: Modifica
@@ -1348,6 +1411,7 @@ it:
         create_text: Aggiungi articolo
         update: Salva l'articolo
       eol_statistic: 
+        change_date: Ordina le statistiche per data
         download_csv: Scarica in formato CSV
       filter_sort: Filtra ed ordina
       harvest_event: 
@@ -1391,10 +1455,18 @@ it:
         update: Salva il profilo
       wikipedia_queue: 
         create: Invia la richiesta
+  here: qui
+  hidden: Nascosto
+  hidden_comment: commento nascosto
+  hidden_for_colon: "Nascosto per:"
+  hide: nascondi
+  hierarchy: Gerarchia
   home: Pagina principale
   home_page_link_advisory_information: Questo link vi porterà alla pagina principale del sito Web della Encyclopedia Of Life
+  image: Immagine
   image_alt_text: Questa %{vetted_status} immagine è di %{taxon_name}
   image_from_supplier: Immagine da %{whom}
+  image_is_no_longer_available: Immagine non più disponibile
   image_map_alt_text: Questa %{vetted_status} mappa è di %{taxon_name}
   image_map_from_supplier: Mappa da %{whom}
   image_map_not_associated_with_any_published_entries: Questa mappa non è associata ad alcun dei taxa pubblicati.
@@ -1559,7 +1631,7 @@ it:
   notifier: 
     activity_log_empty: Nessuna azione recente dei curatori.
     activity_on_content_partner_content: 
-      message: "Questa è una email automatica da Encyclopedia of Life (EOL) che sintetizza i commenti recenti e le attività dei curatori sui contenuti forniti ad EOL dal suo partner %{partner_full_name} (%{partner_profile_url}). Hai ricevuto questa sintesi perché sei nell'elenco dei contatti per %{partner_full_name}.\n\nSe hai qualsiasi domanda o hai bisogno d'aiuto per l'accesso al tuo account EOL, vi preghiamo di contattarci a %{species_pages_group_email}.\n\n\nAzioni dei curatori:\n%{curator_activity_log}\n\nCommenti sugli oggetti dati:\n%{data_object_comments}\n\nCommenti alle pagine a cui i dati sono associati:\n%{page_comments}"
+      message: "Questa è una email automatica da Encyclopedia of Life (EOL) che sintetizza i commenti recenti e le attività dei curatori sui contenuti forniti ad EOL dal suo partner %{partner_full_name} (%{partner_profile_url}). Hai ricevuto questa sintesi perché sei nell'elenco dei contatti per %{partner_full_name}.\n\nSe hai qualsiasi domanda o hai bisogno d'aiuto per l'accesso al tuo account EOL, ti preghiamo di contattarci a %{species_pages_group_email}.\n\n\nAzioni dei curatori:\n%{curator_activity_log}\n\nCommenti sugli oggetti dati:\n%{data_object_comments}\n\nCommenti alle pagine a cui i dati sono associati:\n%{page_comments}"
       subject: Sintesi delle attività recenti sui contenuti forniti a Encyclopedia of Life dal suo partner %{partner_full_name}
     activity_on_user_content: 
       message: "Questa è una email automatica da Encyclopedia of Life (EOL) che sintetizza i commenti recenti e le attività dei curatori sui contenuti che hai aggiunto ad EOL con il nome utente %{members_username}.\n\nSe hai qualsiasi domanda o hai bisogno d'aiuto per l'accesso al tuo account EOL, vi preghiamo di contattarci a %{species_pages_group_email}.\n\n\nAzioni dei curatori:\n%{curator_activity_log}\n\nCommenti sugli oggetti dati:\n%{data_object_comments}\n\nCommenti alle pagine a cui i dati sono associati:\n%{page_comments}"
@@ -1599,7 +1671,7 @@ it:
     signature_with_contact_us_link: "Se si verificano problemi, vi preghiamo di contattarci a %{url}.\n\nLo staff di Encyclopedia of Life"
     signature_with_species_pages_group_contact: "Se avete qualsiasi domanda, vi preghiamo di contattarci a %{species_pages_group_email}.\n\nLo staff di Encyclopedia of Life"
     user_activated: 
-      message: "Benvenuto in Encyclopedia of Life (EOL) e grazie per esserti registrato! Il tuo nome utente è %{username} e l'URL del tuo profilo è %{profile_url}. Puoi accedere al tuo account da http://eol.org/login.\n\nPer avere ulteriori informazioni su come usare EOL, incluso come creare collezioni, partecipare alle comunità e contribuire al contenuto, visita le nostre pagine di aiuto su http://eol.org/help."
+      message: "Benvenuto in Encyclopedia of Life (EOL) e grazie per esserti registrato! Il tuo nome utente è %{username} e l'URL del tuo profilo è %{profile_url}. Puoi accedere al tuo profilo da http://eol.org/login.\n\nPer avere ulteriori informazioni su come usare EOL, incluso come creare collezioni, partecipare alle comunità e contribuire al contenuto, visita le nostre pagine di aiuto su http://eol.org/help."
       subject: Il tuo account Encyclopedia of Life è stato attivato
     user_activated_with_open_authentication: 
       message: "Benvenuto in Encyclopedia of Life (EOL) e grazie per esserti registrato! Ti sei registrato attraverso %{oauth_provider} fornendo ad EOL il permesso di accedere alle tue informazioni di base per ottenere l'autenticazione. L'URL del tuo profilo è %{profile_url}. Puoi accedere al tuo account con %{oauth_provider} da http://eol.org/login.\n\nPer avere ulteriori informazioni su come usare EOL, incluso come creare collezioni, partecipare alle comunità e contribuire al contenuto, visita le nostre pagine di aiuto su http://eol.org/help."
@@ -1614,7 +1686,7 @@ it:
       message: "Questa è una notifica automatica da EOL. L'utente %{user_full_name} (%{user_profile_url}) ha aggiornato il suo indirizzo di posta elettronica o le preferenze per la lista di distribuzione.\n\nPreferenze precedenti:\nEmail: %{previous_email}\nPreferenze mailing list: %{previous_mailing_list_preference}\n\nAggiornate a:\nEmail: %{updated_email}\nPreferenze mailing list: %{updated_mailing_list_preference}\nAggiornate il: %{updated_at}"
       subject: L'utente EOL %{user_full_name} ha cambiato il suo indirizzo di posta elettronica o le preferenze per la lista di distribuzione
     user_verification: 
-      message: "Grazie per esserti registrato a Encyclopedia of Life. Il collegamento di seguito verificherà che vuoi completare la tua registrazione ed attivare l'account:\n\n%{verification_url}\n\nUna volta che il tuo account è stato attivato riceverai una email di conferma."
+      message: "Grazie per esserti registrato a Encyclopedia of Life. Il collegamento di seguito verificherà che vuoi completare la tua registrazione ed attivare il profilo:\n\n%{verification_url}\n\nUna volta che il tuo profilo è stato attivato riceverai una email di conferma."
       subject: Verifica la tua richiesta per un account Encyclopedia of Life
   nucleotide_sequences: Sequenze nucleotidiche
   nucleotide_sequences_proteins_link: Vedi le proteine e le sequenze nucleotidiche in NCBI
@@ -1730,11 +1802,20 @@ it:
   rights: Diritti
   rights_holder: Detentore dei diritti
   rights_statement: Dichiarazione dei diritti
+  save_comment_lowercase: salva commento
+  save_email_settings: salva le impostazioni e-mail
+  scientific_name: Nome scientifico
+  search: Ricerca
   search_by_term_page_title: "Cerca: %{term}"
+  search_field_common_name: Nome comune
   search_field_label: Ricerca su EOL
+  search_field_preferred_common_name: Nome comune preferito
+  search_field_preferred_scientific: Nome scientifico preferito
+  search_field_synonym: Sinonimo
   search_input_advisory_information: Inserisci un nome comune o uno scientifico di un organismo vivente di cui vorresti sapere di più su. Puoi anche cercare membri di EOL, collezioni e comunità.
   search_placeholder: Ricerca EOL...
   search_the_site: Cerca nel sito
+  see_all_maps_link: Vedi tutte le mappe
   see_all_media_link: Vedi tutti i tipi di media
   select_topic: Seleziona un argomento
   selected_items: Elementi selezionati
@@ -1749,7 +1830,7 @@ it:
       login_with_twitter_assistive: Accedi ad EOL utilizzando le tue credenziali di Twitter.
       login_with_yahoo_assistive: Accedi ad EOL utilizzando le tue credenziali di Yahoo.
       meta_title: Entra
-      problems_signing_in_with_connected_accounts: Problemi durante l'accesso con gli account collegati?
+      problems_signing_in_with_connected_accounts: Problemi durante l'accesso con i profili collegati?
       problems_signing_in_with_eol_authentication: Password dimenticata?
       tip: Utente esistente? Collega il tuo account EOL con Facebook, Google ed altri nelle impostazioni del tuo profilo. Dopo aver collegato il tuo account è possibile utilizzarlo per accedere ad EOL.
   set_as_exemplar: Imposta come esemplare
@@ -1778,7 +1859,6 @@ it:
     other: "%{count} suoni"
   source_url: URL di origine
   species: Specie
-  statistics: Statistiche
   subject: oggetto
   submit: Invia
   supplier: Fornitore
@@ -2040,8 +2120,10 @@ it:
   terms_agreement_form_header: Condizioni d'uso
   terms_agreement_form_submit: Accetto
   terms_of_use_link: Condizioni d'uso &amp; privacy
+  test: Prova
   text: testo
   text_capital: Testo
+  text_summary_empty_header: Breve riassunto
   text_summary_more_link: Leggi tutto
   text_with_count: 
     one: "%{count} articolo"
@@ -2049,6 +2131,7 @@ it:
   thank_you: Grazie
   thank_you_for_your_generous_support: Grazie per il generoso sostegno
   thanks_for_your_time: Grazie per il vostro tempo,
+  the_message_was_sent: Il messaggio è stato inviato.
   there_are_currently_no_members_in_this_community: Attualmente non sono presenti membri in questa comunità.
   this_article_cannot_be_curated_because_unpublished: Questo articolo non può essere curato perché non è stato pubblicato.
   this_article_is_unpublished: Questo articolo non è stato pubblicato.
@@ -2063,6 +2146,7 @@ it:
   this_video_cannot_be_curated_because_unpublished: Questo video non può essere curato perché non è stato pubblicato.
   this_video_is_unpublished: Questo video non è stato pubblicato.
   time_ago: "%{time_passed} fa"
+  title: Titolo
   total_items_with_count: 
     one: "%{count} elemento"
     other: "%{count} elementi"
@@ -2150,6 +2234,9 @@ it:
       edit: 
         page_description: Tutti gli aggiornamenti elencati di seguito (fatta eccezione per la newsletter EOL) sono a disposizione nel tuo <a href="%{user_newsfeed_link}">feed delle notizie EOL</a>, ma molte persone piace essere avvisati anche tramite email su determinati tipi di attività che trova particolarmente interessante. È possibile utilizzare i pulsanti qui sotto per impostare la frequenza di email EOL per soddisfare le tue preferenze
         page_title: Impostazioni notifiche
+      update: 
+        notification_settings_successfully_updated: Impostazioni di notifica correttamente aggiornate.
+        sorry_notification_settings_could_not_be_updated: Siamo spiacenti, le impostazioni di notifica potrebbero non essere aggiornate.
     open_authentications: 
       errors: 
         facebook: 
@@ -2232,7 +2319,7 @@ it:
       form_tip: Per recuperare il tuo account EOL, inserisci l'indirizzo email associato a quell'account. Controlla la tua cartella spam se non ricevi l'email per il recupero dell'account entro un'ora.
       meta_title: Recupera account
       notices: 
-        recovery_email_sent: L'email per il recupero dell'account è stata inviata con ulteriori istruzioni. Controlla la tua cartella di spam se non ricevi l'email entro un'ora.
+        recovery_email_sent: L'email per il recupero dell'account è stata inviata con ulteriori istruzioni. Aggiungi %{from_address} fra i mittenti fidati e controlla la tua cartella di spam se non ricevi l'email entro un'ora.
         temporarily_logged_in_update_authentication_details: Hai effettuato l'accesso temporaneo per il recupero dell'account, cambia la tua password o aggiorna gli account collegati per essere sicuro di poter accedere nuovamente.
     recover_account_choose_account: 
       errors: 
@@ -2245,6 +2332,7 @@ it:
       meta_description_curator: Profilo per l'utente %{curator_level} %{user_full_name} su Encyclopedia of Life.
   users_about_me_header: Informazioni su di me
   users_content_partners_header: Fornitori di contenuti
+  users_form_account_header: Il tuo profilo
   value: Valore
   value_default: (predefinito)
   value_empty: (vuoto)

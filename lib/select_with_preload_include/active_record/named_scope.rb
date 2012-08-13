@@ -16,6 +16,9 @@ module ActiveRecord
                 proxy_scope.send(method, *args, &block)
               end
             else
+              # FIXME: Will paginate doesn't like appending proxy_options to args as it
+              # expects to be able to pop page args off the end of the args array.
+              # e.g. EolStatistic.overall.paginate will not work. Reported in WEB-3879
               proxy_scope.send(method, *args << proxy_options, &block)
             end
           end

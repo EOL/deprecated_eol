@@ -43,6 +43,11 @@ ia:
         description: Description del communitate
         logo: Incargar un logo
         name: Nomine del communitate
+      contact: 
+        comments: Message
+        contact_subject_id: Subjecto de contacto
+        email: E-mail
+        name: Nomine
       content_page: 
         active: Publicate
         page_name: Nomine unic
@@ -154,7 +159,7 @@ ia:
         changes_to_my_watched_collection: Cambiamentos in collectiones in tu observatorio
         changes_to_my_watched_community: Cambiamentos in communitates in tu observatorio
         comment_on_my_collection: Un commento sur un collection que tu gere
-        comment_on_my_community: Un commento in un de tu communitates
+        comment_on_my_community: Un commento in un del communitates del quales tu es membro
         comment_on_my_contribution: Un commento e/o action conservatori sur un contribution que tu faceva
         comment_on_my_profile: Un commento in tu profilo
         comment_on_my_watched_item: Commentos sur objectos, taxones, collectiones o communitates in tu observatorio
@@ -169,6 +174,15 @@ ia:
         new_data_on_my_watched_item: Nove contributiones sur taxones in tu observatorio
         new_manager_in_my_community: Un altere membro ha devenite gerente de un communitate que tu gere
         reply_to_comment: Un responsa a un commento que tu faceva
+      open_authentication: 
+        created_at: Create
+        guid: GUID
+        provider: Fornitor externe
+        secret: Secreto
+        token: Indicio
+        updated_at: Ultime actualisation
+        user_id: ID de usator
+        verified_at: Ultime verification
       resource: 
         accesspoint_url: URL del insimul de datos
         auto_publish: Auto-publicar
@@ -202,6 +216,7 @@ ia:
         curator_scope: Sphera de curation
         disable_email_notifications: NON inviar me actualitates per e-mail
         email: Adresse de e-mail
+        email_confirmation: Repete adresse de e-mail <small>(pro confirmation)</small>
         entered_password: Contrasigno
         entered_password_confirmation: Repete contrasigno <small>(pro confirmation)</small>
         family_name: Nomine de familia
@@ -248,10 +263,18 @@ ia:
         wrong_length: ha un longitude incorrecte (debe esser %{count} characteres)
         wrong_type: es del typo incorrecte
       models: 
+        data_object: 
+          attributes: 
+            rights_holder: 
+              blank: non pote esser vacue pro un licentia CC-BY
+              inclusion: debe esser vacue pro un licentia Dominio Public
         harvest_event: 
           attributes: 
             publish: 
               inclusion: es solmente permittite pro le ultime evento de recolta e solmente si iste evento non es jam publicate
+        open_authentications: 
+          guid_provider_must_be_unique: le conto externe es jam connectite con un conto EOL
+          provider_user_id_must_be_unique: solmente un conto de cata fornitor externe pote esser connectite a un conto EOL
         resource: 
           attributes: 
             accesspoint_url: 
@@ -425,41 +448,6 @@ ia:
   admin_translated_content_page_new_tip: Lingua, titulo e texto es %{required_icon} obligatori.
   admin_translated_content_page_update_successful_notice: Le traduction in %{language} de <a href="#%{anchor}"><em>%{page_name}</em></a> ha essite actualisate.
   admin_translated_content_page_update_unsuccessful_error: Un error ha occurrite, e le traduction non poteva esser actualisate.
-  admins: 
-    statistics: 
-      content_partner: 
-        page_header: Statisticas del partner de contento
-        page_title: "Administration: statisticas del partner de contento"
-      content_partner_link: Partners de contento
-      curator: 
-        page_header: Statisticas del conservator
-        page_title: "Administration: Statisticas del conservator"
-      curator_link: Statisticas del conservator
-      data_object: 
-        page_header: Statisticas del objecto de datos
-        page_title: "Administration: Statisticas del objecto de datos"
-      data_object_link: Objectos de datos
-      index: 
-        page_header: Statisticas general
-        page_title: "Administration: Statisticas general"
-        table_caption: Statisticas global del sito create a %{created_at_time}
-      index_link: Statisticas general
-      lifedesk: 
-        page_header: Statisticas de LifeDesks
-        page_title: "Administration: Statisticas de LifeDesks"
-      lifedesk_link: LifeDesks
-      marine: 
-        page_header: Copertura marin in EOL
-        page_title: "Administration: Statisticas marin"
-      marine_link: Statisticas marin
-      page_richness: 
-        page_header: Statisticas de pagina ric
-        page_title: "Administration: Statisticas de pagina ric"
-      page_richness_link: Paginas ric
-      user_added_data: 
-        page_header: Statisticas sur texto submittite per usator
-        page_title: "Administration: Statisticas sur texto submittite per usator"
-      user_added_data_link: Texto submittite per usator
   agent: Agente
   all: totes
   all_apis_return_by_default_an_xml_response: "Tote le APIs retorna normalmente un responsa in XML. Le methodos de un API pote esser appellate sin extension de formato pro obtener le responsa in XML, e le addition de un extension XML resulta in un responsa identic:"
@@ -540,7 +528,6 @@ ia:
   audio_pause: pausa
   audio_pause_assistive: Si JavaScript es activate, iste ligamine permitte pausar un file audio adjacente que es in curso de lectura. Si non, per favor ignora iste ligamine.
   audio_play: facer sonar
-  audio_play_assistive: Si JavaScript es activate, iste ligamine comenciara a facer sonar le file audio, sin quitar le fenestra active. Si JavaScript non es activate, iste es un ligamine verso un file audio que, si seligite, se comportara secundo le configuration de tu dispositivo.
   audio_stop: stop
   audio_stop_assistive: Si JavaScript es activate, iste ligamine permitte stoppar le lectura de un file audio adjacente. Si non, per favor ignora iste ligamine.
   audio_unmute: audibile
@@ -660,7 +647,6 @@ ia:
   comment_not_deleted_error: Un error ha occurrite, e le commento non poteva esser delite.
   comment_not_updated_error: Un error ha occurrite, e le commento non poteva esser actualisate.
   comment_show_posters_image_alt: Imagine del profilo de %{posters_name} qui addeva iste commento.
-  commented_on_your_image: " commentava tu imagine in le <a href='%{data_object_link}'>sito Encyclopedia del Vita</a>:\n%{comment_body}"
   comments: Commentos
   comments_and_tags: Commentos e etiquettas
   comments_moderated: Commentos moderate
@@ -909,7 +895,7 @@ ia:
   filtered_information: Information filtrate
   global_access_tagline: Accesso global al cognoscentia del vita super le terra.
   global_navigation: Navigation global
-  go: Ir
+  go: Va
   has_already_been_taken: ha jam essite prendite.
   hello_user: Salute %{user}
   help: Adjuta
@@ -924,6 +910,11 @@ ia:
         sort_field_show: "Valor de ordination:"
       comment: 
         body_edit: Modificar commento
+      contact: 
+        comments: Tu message
+        contact_subject_id: Subjecto
+        email: Tu adresse de e-mail
+        name: Tu nomine
       content_page: 
         active: Publicate
         active_more: Le paginas publicate essera visibile al publico. Dismarca <em>publicate</em> si tu non vole que le usatores in general pote vider versiones de iste pagina in omne lingua.
@@ -953,13 +944,16 @@ ia:
         email_reports_frequency_hours_more: Le reportos per e-mail es inviate solmente si il habeva commentos o actiones de curator super tu datos o super paginas de taxon relevante a tu insimul de datos.
       data_object: 
         bibliographic_citation: Citation bibliographic
+        bibliographic_citation_more: Un citation recommendate pro iste datos in le forma de un referentia bibliographic. Include detalios sufficiente pro identificar le datos con le minor ambiguitate possibile.
         description: Texto <small>(alcun marcation HTML es permittite)</small>
         license_id: Licentia
         license_id_more: Leger le <a href="%{policy_url}">politica de licentia de EOL</a>
         object_title: Titulo
         refs: Referentias <small>(pone cata referentia in un nove linea)</small>
         rights_holder: Detentor del derectos
+        rights_holder_more: Specifica un persona o un organisation que possede o gere le derectos sur iste datos. Si tu lassa iste campo vacue, nos assume que tu possede le derectos pro tote le licentias excepte Dominio Public. Le licentias Dominio Public non require un possessor de derectos.
         rights_statement: Declaration del derectos
+        rights_statement_more: Declaration de derectos de uso secundo le requisitos del licentias Creative Commons Attribution (CC-BY). Per favor declara le attribution <q cite="http://creativecommons.org/licenses/by/3.0">del maniera specificate per le autor o licentiator</q>.
         source_url: URL verso le objecto de datos original
         toc_item: Subcapitulo
       eol_statistic: 
@@ -984,6 +978,9 @@ ia:
         complete_more: "Un hierarchia curate assume que cata elemento es intendite pro esser unic, i.e. nomines correspondente essera tractate como homonymos. <strong>ATTENTION: Non cambia iste attributo a minus que tu es certe del stato de homonymos in le hierarchia. Facer isto poterea mitter in periculo le integritate del datos.</strong>"
         request_publish: Publication requestate
         request_publish_more: Indica si il ha un requesta pendente a promover iste hierarchia pro devenir un del primari hierarchias navigabile in EOL.
+      open_authentication: 
+        connect: Adder
+        connected: Connectite
       resource: 
         accesspoint_url: URL del collection de datos
         accesspoint_url_existing_remove: Iste ressource es actualmente in curso de cargamento ab le URL terminante in <em>%{accesspoint_url}</em>. Incarga un file si tu vole remover le URL existente e cargar le ressource ex un file in su loco (non recommendate).
@@ -1011,8 +1008,8 @@ ia:
         active_translation: Publicate
         active_translation_more: Le traductiones publicate essera visibile al publico, a minus que le pagina mesme non es publicate. Dismarca <em>publicate</em> si tu vole que le usatores in general non vide iste version del pagina.
         language_id: Lingua
-        left_content_more: Es possibile adder un lista non ordinate de ligamines pro includer un columna de navigation in le pagina. Ligamines verso ancoras debe esser addite manualmente per seliger <em>Fonte</em> e modificar le attributo HTML <em>href</em> del ligamines. Per exemplo, pro ligar a un ancora appellate <em>politica_de_licentias</em> in le area de contento <em>Body</em>, le attributo <em>href</em> del ligamine del elemento de tu lista debe haber le valor "#politica_de_licentias".
-        main_content_more: "Entra le contento principal del pagina in le area de corpore. Usa le menu disrolante <em>Formato</em> pro seliger le appropriate elementos de texto semantic, per exemplo, selige <em>Titulo 2</em> pro un titulo del secunde nivello. Nota ben: le titulo del pagina es le titulo del prime nivello, dunque, comencia le titulos in le area de corpore con <em>Titulo 2</em>."
+        left_content_more: "(Optional) Adder un lista non ordinate de ligamines de navigation. Usa le nomine de classe <code>active</code> pro accentuar le ligamine de pagina actual, p.ex. <code>&lt;li class=\"active\"&gt;&lt;a href=\"/info/:id\"&gt;:title&lt;/a&gt;&lt;/li&gt;</code> ubi <code>:id</code> es le ID o nomine unic del pagina actual e <code>:title</code> es le titulo descriptive del pagina (<strong>Nota: omne ligamines a paginas EOL CMS debe comenciar con un barra oblique: <code>/info/:id</code></strong>). Pro facer iste cambiamentos, tu debe modificar directemente le codice fonte HTML. Pro facer isto, selige <em>Fonte</em> in le instrumentario del editor."
+        main_content_more: "Entra le contento principal del pagina in le area de corpore. Usa le menu disrolante <em>Formato</em> pro seliger le appropriate elementos de texto semantic, per exemplo, selige <em>Titulo 2</em> pro un titulo del secunde nivello. Nota ben: <em>Titulo 1</em> es reservate pro le titulo del pagina, dunque, le titulos in le area de corpore comencia con <em>Titulo 2</em>. Selige <em>Fonte</em> pro cambiar al vista de codice fonte HTML le qual permitte inserer e modificar HTML manualmente."
         meta_description_more: Forni un curte description que summarisa le conceptos clave del contento del pagina. Iste description es usate a vices per le motores de recerca Web pro verificar le relevantia e pro esser includite in le resultatos del recercas.
         meta_keywords_more: Entra un lista, separate per commas, de parolas e curte phrases que reflecte le plus ben le contento del pagina. Iste parolas e phrases clave es usate a vices per le motores de recerca Web pro evalutar le relevantia del un pagina contra le criterios del recerca.
         title_more: Le titulo de iste contento apparera in le area de titulo del pagina. Le titulo debe includer le parolas-clave le plus relevante al contento.

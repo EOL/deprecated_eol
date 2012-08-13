@@ -1,0 +1,18 @@
+#content.cms_page
+  .site_column
+    .nav
+      = render :partial => 'menu'
+    #statistics.main_container
+      %h2= t(:page_header, :scope => controller_action_scope)
+      = render :partial => 'dates_form'
+      %dl
+        - report_attributes.each_with_index do |attributes, index|
+          - attributes.each do |stat|
+            %dt{:class => emphasize_indexes.include?(index) ? 'emphasize' : nil}
+              %span= t(stat, :scope => [:activerecord, :attributes, :eol_statistic])
+              - [@stats_one, @stats_two].each do |stats|
+                %dd{:class => greater(stats.greatest[stat])}
+                  %span.assistive= stats.created_at.strftime('%b %d, %Y')
+                  %span= number_with_delimiter(stats.send(stat))
+
+

@@ -7,7 +7,7 @@ gl:
   0_1_or_2: 0, 1 ou 2
   0_or_1: 0 ou 1
   a_pipe_delimited_list_of_licenses: unha lista de licenzas separadas por unha barra vertical "|" ou ben "all" para obter os obxectos baixo calquera licenza. As licenzas abreviadas con "cc-" son todas
-  a_pipe_delimited_list_of_spm_info_item_subject_names: unha lista de nomes de elementos informativos SPM separados por unha barra vertical "|" ou ben "all" para obter o texto en calquera asunto
+  a_pipe_delimited_list_of_spm_info_item_subject_names: "\"overview\" para devolver o texto da vista xeral (se existe); unha lista de nomes de elementos informativos SPM separados por unha barra vertical \"|\" para obter o texto nos respectivos nomes de elementos informativos SPM; \"all\" para obter o texto en calquera asunto. Sempre se devolve un texto da vista xeral como o primeiro resultado (se existe no contexto especificado)."
   a_taxon: un taxon
   a_total_of_comment_were_found_matching_your_criteria: 
     one: Atopouse %{count} comentario que coincidise cos teus criterios de procura.
@@ -129,7 +129,7 @@ gl:
         pages_with_image: Páxinas con imaxe
         pages_with_image_no_text: Páxinas con imaxe, pero sen texto
         pages_with_map: Páxinas con mapa
-        pages_with_score_10_to_39: Páxinas cunha puntuación de 10 a 39
+        pages_with_score_10_to_39: Páxinas cunha puntuación de 10 a 40
         pages_with_score_less_than_10: Páxinas cunha puntuación inferior a 10
         pages_with_sound: Páxinas con son
         pages_with_text: Páxinas con texto
@@ -283,13 +283,13 @@ gl:
             accesspoint_url: 
               blank: non pode quedar en branco, a menos que cargues un ficheiro de recursos
               inaccessible: é inaccesible, o enderezo URL debe ser accesible publicamente
-              invalid: é inválido, debe apuntar cara a un ficheiro XML, XML.GZIP ou XML.GZ.
+              invalid: é inválido, debe apuntar cara a un ficheiro XML, XML.GZIP, XML.GZ ou ZIP
             dataset: 
               blank: non pode quedar en branco, a menos que dea o enderezo URL dun conxunto de datos
-              wrong_type: é de tipo incorrecto, debería ser un ficheiro GZIP, TAR ou XML
+              wrong_type: é de tipo incorrecto, debería ser un ficheiro GZIP, TAR, ZIP ou XML
             dwc_archive_url: 
               inaccessible: é inaccesible, o enderezo URL debe ser accesible publicamente
-              invalid: é inválido, debe apuntar cara a un ficheiro TAR.GZIP, TAR.GZ ou TGZ.
+              invalid: é inválido, debe apuntar cara a un ficheiro TAR.GZIP, TAR.GZ, TGZ ou ZIP
       template: 
         body: "Os seguintes campos non foron validados:"
         header: 
@@ -309,6 +309,13 @@ gl:
         user_of_an_unknown_collection: <strong>%{user}</strong> foi engadido como administrador dunha colección descoñecida.
         user_of_collection: <strong>%{user}</strong> foi engadido como administrador da colección "%{collection}".
         user_of_it: <strong>%{user}</strong> foi engadido como administrador.
+      bulk_add: 
+        an_unknown_user_added_bulk_items_to_an_unknown_collection: Un usuario descoñecido engadiu elementos en masa a unha colección descoñecida.
+        an_unknown_user_added_bulk_items_to_collection: Un usuario descoñecido engadiu elementos en masa á colección "%{collection}".
+        an_unknown_user_added_bulk_items_to_it: Un usuario descoñecido engadiu elementos en masa.
+        user_added_bulk_items_to_an_unknown_collection: <strong>%{user}</strong> engadiu elementos en masa a unha colección descoñecida.
+        user_added_bulk_items_to_collection: <strong>%{user}</strong> engadiu elementos en masa á colección "%{collection}".
+        user_of_it: <strong>%{user}</strong> engadiu elementos en masa.
       collect: 
         an_unknown_user_added_an_unknown_item_to_an_unknown_collection: Un usuario descoñecido engadiu un elemento descoñecido a unha colección descoñecida.
         an_unknown_user_added_an_unknown_item_to_collection: Un usuario descoñecido engadiu un elemento descoñecido á colección "%{collection}".
@@ -402,14 +409,209 @@ gl:
         user_modified_an_unknown_community: <strong>%{user}</strong> modificou unha comunidade descoñecida.
         user_modified_community: <strong>%{user}</strong> modificou a comunidade "%{community}".
     curator_activity_log: 
+      add_association: 
+        an_unknown_user_associated_an_older_data_object_to_an_unknown_association: Un usuario descoñecido engadiu unha asociación entre unha versión vella de "%{data_object}" e unha páxina descoñecida.
+        an_unknown_user_associated_an_older_data_object_to_association: Un usuario descoñecido engadiu unha asociación entre unha versión vella de "%{data_object}" e "%{association}".
+        an_unknown_user_associated_an_unknown_data_object_to_an_unknown_association: Un usuario descoñecido engadiu unha asociación descoñecida.
+        an_unknown_user_associated_an_unknown_data_object_to_association: Un usuario descoñecido engadiu unha asociación entre un obxecto de datos descoñecido e "%{association}".
+        an_unknown_user_associated_data_object_to_an_unknown_association: Un usuario descoñecido engadiu unha asociación entre "%{data_object}" e unha páxina descoñecida.
+        an_unknown_user_associated_data_object_to_association: Un usuario descoñecido engadiu unha asociación entre "%{data_object}" e "%{association}".
+        an_unknown_user_associated_it_to_an_unknown_association: Un usuario descoñecido engadiu unha asociación a unha páxina descoñecida.
+        an_unknown_user_associated_it_to_association: Un usuario descoñecido engadiu unha asociación a "%{association}".
+        user_associated_an_older_data_object_to_an_unknown_association: <strong>%{user}</strong> engadiu unha asociación entre unha versión vella de "%{data_object}" e unha páxina descoñecida.
+        user_associated_an_older_data_object_to_association: <strong>%{user}</strong> engadiu unha asociación entre unha versión vella de "%{data_object}" e "%{association}".
+        user_associated_an_unknown_data_object_to_an_unknown_association: <strong>%{user}</strong> engadiu unha asociación descoñecida.
+        user_associated_an_unknown_data_object_to_association: <strong>%{user}</strong> engadiu unha asociación entre un obxecto de datos descoñecido e "%{association}".
+        user_associated_data_object_to_an_unknown_association: <strong>%{user}</strong> engadiu unha asociación entre "%{data_object}" e unha páxina descoñecida.
+        user_associated_data_object_to_association: <strong>%{user}</strong> engadiu unha asociación entre "%{data_object}" e "%{association}".
+        user_associated_it_to_an_unknown_association: <strong>%{user}</strong> engadiu unha asociación a unha páxina descoñecida.
+        user_associated_it_to_association: <strong>%{user}</strong> engadiu unha asociación a "%{association}".
+      choose_exemplar_article: 
+        an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: Un usuario descoñecido seleccionou unha versión vella de "%{data_object}" para mostrala na vista xeral dunha páxina descoñecida.
+        an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: Un usuario descoñecido seleccionou "%{data_object}" para mostralo na vista xeral de "%{taxon}".
+        an_unknown_user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: Un usuario descoñecido seleccionou un artigo descoñecido para mostralo na vista xeral dunha páxina descoñecida.
+        an_unknown_user_chose_exemplar_an_unknown_data_object_on_taxon: Un usuario descoñecido seleccionou un artigo descoñecido para mostralo na vista xeral de "%{taxon}".
+        an_unknown_user_chose_exemplar_data_object_on_an_unknown_taxon: Un usuario descoñecido seleccionou "%{data_object}" para mostralo na vista xeral dunha páxina descoñecida.
+        an_unknown_user_chose_exemplar_data_object_on_taxon: Un usuario descoñecido seleccionou "%{data_object}" para mostralo na vista xeral de "%{taxon}".
+        an_unknown_user_chose_exemplar_it_on_an_unknown_taxon: Un usuario descoñecido seleccionouno para mostralo na vista xeral dunha páxina descoñecida.
+        an_unknown_user_chose_exemplar_it_on_taxon: Un usuario descoñecido seleccionouno para mostralo na vista xeral de "%{taxon}".
+        user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: <strong>%{user}</strong> seleccionou unha versión vella de "%{data_object}" para mostrala na vista xeral dunha páxina descoñecida.
+        user_chose_exemplar_an_older_data_object_on_taxon: <strong>%{user}</strong> seleccionou unha versión vella de "%{data_object}" para mostrala na vista xeral de "%{taxon}".
+        user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: <strong>%{user}</strong> seleccionou un artigo descoñecido para mostralo na vista xeral dunha páxina descoñecida.
+        user_chose_exemplar_an_unknown_data_object_on_taxon: <strong>%{user}</strong> seleccionou un obxecto de datos descoñecido para mostralo na vista xeral de "%{taxon}".
+        user_chose_exemplar_data_object_on_an_unknown_taxon: <strong>%{user}</strong> seleccionou "%{data_object}" para mostralo na vista xeral dunha páxina descoñecida.
+        user_chose_exemplar_data_object_on_taxon: <strong>%{user}</strong> seleccionou "%{data_object}" para mostralo na vista xeral de "%{taxon}".
+        user_chose_exemplar_it_on_an_unknown_taxon: <strong>%{user}</strong> seleccionouno para mostralo na vista xeral dunha páxina descoñecida.
+        user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> seleccionouno para mostralo na vista xeral de "%{taxon}".
+      choose_exemplar_image: 
+        an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: Un usuario descoñecido estableceu unha versión vella de "%{data_object}" como un exemplar nunha páxina descoñecida.
+        an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: Un usuario descoñecido estableceu "%{data_object}" como un exemplar en "%{taxon}".
+        an_unknown_user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: Un usuario descoñecido estableceu unha imaxe exemplar descoñecida.
+        an_unknown_user_chose_exemplar_an_unknown_data_object_on_taxon: Un usuario descoñecido estableceu un obxecto de datos descoñecido como un exemplar en "%{taxon}".
+        an_unknown_user_chose_exemplar_data_object_on_an_unknown_taxon: Un usuario descoñecido estableceu "%{data_object}" como un exemplar nunha páxina descoñecida.
+        an_unknown_user_chose_exemplar_data_object_on_taxon: Un usuario descoñecido estableceu "%{data_object}" como un exemplar en "%{taxon}".
+        an_unknown_user_chose_exemplar_it_on_an_unknown_taxon: Un usuario descoñecido estableceuno como un exemplar nunha páxina descoñecida.
+        an_unknown_user_chose_exemplar_it_on_taxon: Un usuario descoñecido estableceuno como un exemplar en "%{taxon}".
+        user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: <strong>%{user}</strong> estableceu unha versión vella de "%{data_object}" como un exemplar nunha páxina descoñecida.
+        user_chose_exemplar_an_older_data_object_on_taxon: <strong>%{user}</strong> estableceu unha versión vella de "%{data_object}" como un exemplar en "%{taxon}".
+        user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: <strong>%{user}</strong> estableceu unha imaxe exemplar descoñecida.
+        user_chose_exemplar_an_unknown_data_object_on_taxon: <strong>%{user}</strong> estableceu un obxecto de datos descoñecido como un exemplar en "%{taxon}".
+        user_chose_exemplar_data_object_on_an_unknown_taxon: <strong>%{user}</strong> estableceu "%{data_object}" como un exemplar nunha páxina descoñecida.
+        user_chose_exemplar_data_object_on_taxon: <strong>%{user}</strong> estableceu "%{data_object}" como un exemplar en "%{taxon}".
+        user_chose_exemplar_it_on_an_unknown_taxon: <strong>%{user}</strong> estableceuno como un exemplar nunha páxina descoñecida.
+        user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> estableceuno como un exemplar en "%{taxon}".
+      hide: 
+        an_unknown_user_hid_an_older_data_object_on_an_unknown_association: Un usuario descoñecido marcou unha versión vella de "%{data_object}" como agochada nun contexto descoñecido.
+        an_unknown_user_hid_an_older_data_object_on_association: Un usuario descoñecido marcou unha versión vella de "%{data_object}" como agochada na páxina "%{association}".
+        an_unknown_user_hid_an_unknown_data_object_on_an_unknown_association: Un usuario descoñecido marcou un obxecto de datos descoñecido como agochado nun contexto descoñecido.
+        an_unknown_user_hid_an_unknown_data_object_on_association: Un usuario descoñecido marcou un obxecto de datos descoñecido como agochado na páxina "%{association}".
+        an_unknown_user_hid_data_object_on_an_unknown_association: Un usuario descoñecido marcou "%{data_object}" como agochado nun contexto descoñecido.
+        an_unknown_user_hid_data_object_on_association: Un usuario descoñecido marcou "%{data_object}" como agochado na páxina "%{association}".
+        an_unknown_user_hid_it_on_an_unknown_association: Un usuario descoñecido marcouno como agochado nun contexto descoñecido.
+        an_unknown_user_hid_it_on_association: Un usuario descoñecido marcouno como agochado na páxina "%{association}".
+        user_hid_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong> marcou unha versión vella de "%{data_object}" como agochada nun contexto descoñecido.
+        user_hid_an_older_data_object_on_association: <strong>%{user}</strong> marcou unha versión vella de "%{data_object}" como agochada na páxina "%{association}".
+        user_hid_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong> marcou un obxecto de datos descoñecido como agochado nun contexto descoñecido.
+        user_hid_an_unknown_data_object_on_association: <strong>%{user}</strong> marcou un obxecto de datos descoñecido como agochado na páxina "%{association}".
+        user_hid_data_object_on_an_unknown_association: <strong>%{user}</strong> marcou "%{data_object}" como agochado nun contexto descoñecido.
+        user_hid_data_object_on_association: <strong>%{user}</strong> marcou "%{data_object}" como agochado na páxina "%{association}".
+        user_hid_it_on_an_unknown_association: <strong>%{user}</strong> marcouno como agochado nun contexto descoñecido.
+        user_hid_it_on_association: <strong>%{user}</strong> marcouno como agochado na páxina "%{association}".
+      merge: 
+        an_unknown_user_merged_entry_to_an_unknown_taxon: Un usuario descoñecido moveu a clasificación de "%{provider}" a un taxon descoñecido.
+        an_unknown_user_merged_entry_to_it: Un usuario descoñecido engadiu a clasificación de "%{provider}".
+        an_unknown_user_merged_entry_to_taxon: Un usuario descoñecido moveu a clasificación de "%{provider}" a "%{taxon}".
+        an_unknown_user_merged_unknown_entry_to_an_unknown_taxon: Un usuario descoñecido moveu unha clasificación descoñecida a un taxon descoñecido.
+        an_unknown_user_merged_unknown_entry_to_it: Un usuario descoñecido engadiu unha clasificación descoñecida.
+        an_unknown_user_merged_unknown_entry_to_taxon: Un usuario descoñecido moveu unha clasificación descoñecida a "%{taxon}".
+        user_merged_entry_to_an_unknown_taxon: <strong>%{user}</strong> moveu a clasificación de "%{provider}" a un taxon descoñecido.
+        user_merged_entry_to_it: <strong>%{user}</strong> engadiu a clasificación de "%{provider}".
+        user_merged_entry_to_taxon: <strong>%{user}</strong> moveu a clasificación de "%{provider}" a "%{taxon}".
+        user_merged_unknown_entry_to_an_unknown_taxon: <strong>%{user}</strong> moveu unha clasificación descoñecida a un taxon descoñecido.
+        user_merged_unknown_entry_to_it: <strong>%{user}</strong> engadiu unha clasificación descoñecida.
+        user_merged_unknown_entry_to_taxon: <strong>%{user}</strong> moveu unha clasificación descoñecida a "%{taxon}".
       other_actions: 
+        an_unknown_user_curated_an_older_data_object: Un usuario descoñecido conservou unha versión vella de "%{data_object}".
+        an_unknown_user_curated_an_unknown_data_object: Un usuario descoñecido conservou un obxecto de datos descoñecido.
         an_unknown_user_curated_data_object: Un usuario descoñecido conservou "%{data_object}".
         an_unknown_user_curated_it: Un usuario descoñecido conservouno, pero a acción levada a cabo perdeuse.
+        user_curated_an_older_data_object: <strong>%{user}</strong> conservou unha versión vella de "%{data_object}".
         user_curated_an_unknown_data_object: <strong>%{user}</strong> conservou un obxecto de datos descoñecido.
         user_curated_data_object: <strong>%{user}</strong> conservou "%{data_object}".
         user_curated_it: <strong>%{user}</strong> conservouno, pero a acción levada a cabo perdeuse.
+      preferred_classification: 
+        an_unknown_user_preferred_classification_on_an_unknown_taxon: Un usuario descoñecido marcou a clasificación de "%{provider}" como preferida para un taxon descoñecido.
+        an_unknown_user_preferred_classification_on_it: Un usuario descoñecido marcou a clasificación de "%{provider}" como preferida.
+        an_unknown_user_preferred_classification_on_taxon: Un usuario descoñecido marcou a clasificación de "%{provider}" como preferida para "%{taxon}".
+        an_unknown_user_preferred_unknown_classification_on_an_unknown_taxon: Un usuario descoñecido marcou unha clasificación descoñecida como preferida para un taxon descoñecido.
+        an_unknown_user_preferred_unknown_classification_on_it: Un usuario descoñecido marcou unha clasificación descoñecida como preferida.
+        an_unknown_user_preferred_unknown_classification_on_taxon: Un usuario descoñecido marcou unha clasificación descoñecida como preferida para "%{taxon}".
+        user_preferred_classification_on_an_unknown_taxon: <strong>%{user}</strong> marcou a clasificación de "%{provider}" como preferida para un taxon descoñecido.
+        user_preferred_classification_on_it: <strong>%{user}</strong> marcou a clasificación de "%{provider}" como preferida.
+        user_preferred_classification_on_taxon: <strong>%{user}</strong> marcou a clasificación de "%{provider}" como preferida para "%{taxon}".
+        user_preferred_unknown_classification_on_an_unknown_taxon: <strong>%{user}</strong> marcou unha clasificación descoñecida como preferida para un taxon descoñecido.
+        user_preferred_unknown_classification_on_it: <strong>%{user}</strong> marcou unha clasificación descoñecida como preferida.
+        user_preferred_unknown_classification_on_taxon: <strong>%{user}</strong> marcou unha clasificación descoñecida como preferida para "%{taxon}".
       reasons_to_hide: "Motivos para agochar: %{reasons}"
       reasons_to_untrust: "Motivos para deixar de confiar: %{reasons}"
+      remove_association: 
+        an_unknown_user_disassociated_an_older_data_object_from_an_unknown_association: Un usuario descoñecido eliminou unha asociación dunha versión vella de "%{data_object}".
+        an_unknown_user_disassociated_an_older_data_object_from_association: Un usuario descoñecido eliminou unha asociación entre "%{data_object}" e "%{association}".
+        an_unknown_user_disassociated_an_unknown_data_object_from_an_unknown_association: Un usuario descoñecido eliminou unha asociación descoñecida.
+        an_unknown_user_disassociated_an_unknown_data_object_from_association: Un usuario descoñecido eliminou unha asociación entre un obxecto de datos descoñecido e "%{association}".
+        an_unknown_user_disassociated_data_object_from_an_unknown_association: Un usuario descoñecido eliminou unha asociación entre "%{data_object}" e unha páxina descoñecida.
+        an_unknown_user_disassociated_data_object_from_association: Un usuario descoñecido eliminou unha asociación entre "%{data_object}" e "%{association}".
+        an_unknown_user_disassociated_it_from_an_unknown_association: Un usuario descoñecido eliminou unha asociación dunha páxina descoñecida.
+        an_unknown_user_disassociated_it_from_association: Un usuario descoñecido eliminou unha asociación a "%{association}".
+        user_disassociated_an_older_data_object_from_an_unknown_association: <strong>%{user}</strong> eliminou unha asociación entre unha versión vella de "%{data_object}" e unha páxina descoñecida.
+        user_disassociated_an_older_data_object_from_association: <strong>%{user}</strong> eliminou unha asociación entre unha versión vella de "%{data_object}" e "%{association}".
+        user_disassociated_an_unknown_data_object_from_an_unknown_association: <strong>%{user}</strong> eliminou unha asociación descoñecida.
+        user_disassociated_an_unknown_data_object_from_association: <strong>%{user}</strong> eliminou unha asociación entre un obxecto de datos descoñecido e "%{association}".
+        user_disassociated_data_object_from_an_unknown_association: <strong>%{user}</strong> eliminou unha asociación entre "%{data_object}" e unha páxina descoñecida.
+        user_disassociated_data_object_from_association: <strong>%{user}</strong> eliminou unha asociación entre "%{data_object}" e "%{association}".
+        user_disassociated_it_from_an_unknown_association: <strong>%{user}</strong> eliminou unha asociación a unha páxina descoñecida.
+        user_disassociated_it_from_association: <strong>%{user}</strong> eliminou unha asociación a "%{association}".
+      show: 
+        an_unknown_user_showed_an_older_data_object_on_an_unknown_association: Un usuario descoñecido marcou unha versión vella de "%{data_object}" como visible nun contexto descoñecido.
+        an_unknown_user_showed_an_older_data_object_on_association: Un usuario descoñecido marcou unha versión vella de "%{data_object}" como visible na páxina "%{association}".
+        an_unknown_user_showed_an_unknown_data_object_on_an_unknown_association: Un usuario descoñecido marcou un obxecto de datos descoñecido como visible nun contexto descoñecido.
+        an_unknown_user_showed_an_unknown_data_object_on_association: Un usuario descoñecido marcou un obxecto de datos descoñecido como visible na páxina "%{association}".
+        an_unknown_user_showed_data_object_on_an_unknown_association: Un usuario descoñecido marcou "%{data_object}" como visible nun contexto descoñecido.
+        an_unknown_user_showed_data_object_on_association: Un usuario descoñecido marcou "%{data_object}" como visible na páxina "%{association}".
+        an_unknown_user_showed_it_on_an_unknown_association: Un usuario descoñecido marcouno como visible nun contexto descoñecido.
+        an_unknown_user_showed_it_on_association: Un usuario descoñecido marcouno como visible na páxina "%{association}".
+        user_showed_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong> marcou unha versión vella de "%{data_object}" como visible nun contexto descoñecido.
+        user_showed_an_older_data_object_on_association: <strong>%{user}</strong> marcou unha versión vella de "%{data_object}" como visible na páxina "%{association}".
+        user_showed_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong> marcou un obxecto de datos descoñecido como visible nun contexto descoñecido.
+        user_showed_an_unknown_data_object_on_association: <strong>%{user}</strong> marcou un obxecto de datos descoñecido como visible na páxina "%{association}".
+        user_showed_data_object_on_an_unknown_association: <strong>%{user}</strong> marcou "%{data_object}" como visible nun contexto descoñecido.
+        user_showed_data_object_on_association: <strong>%{user}</strong> marcou "%{data_object}" como visible na páxina "%{association}".
+        user_showed_it_on_an_unknown_association: <strong>%{user}</strong> marcouno como visible nun contexto descoñecido.
+        user_showed_it_on_association: <strong>%{user}</strong> marcouno como visible na páxina "%{association}".
+      split: 
+        an_unknown_user_split_entry_from_an_unknown_taxon: Un usuario descoñecido separou a clasificación de "%{provider}" dun taxon descoñecido.
+        an_unknown_user_split_entry_from_it: Un usuario descoñecido separou a clasificación de "%{provider}".
+        an_unknown_user_split_entry_from_taxon: Un usuario descoñecido separou a clasificación de "%{provider}" de "%{taxon}".
+        an_unknown_user_split_unknown_entry_from_an_unknown_taxon: Un usuario descoñecido separou unha clasificación descoñecida dun taxon descoñecido.
+        an_unknown_user_split_unknown_entry_from_it: Un usuario descoñecido separou unha clasificación descoñecida.
+        an_unknown_user_split_unknown_entry_from_taxon: Un usuario descoñecido separou unha clasificación descoñecida de "%{taxon}".
+        user_split_entry_from_an_unknown_taxon: <strong>%{user}</strong> separou a clasificación de "%{provider}" dun taxon descoñecido.
+        user_split_entry_from_it: <strong>%{user}</strong> separou a clasificación de "%{provider}".
+        user_split_entry_from_taxon: <strong>%{user}</strong> separou a clasificación de "%{provider}" de "%{taxon}".
+        user_split_unknown_entry_from_an_unknown_taxon: <strong>%{user}</strong> separou unha clasificación descoñecida dun taxon descoñecido.
+        user_split_unknown_entry_from_it: <strong>%{user}</strong> separou unha clasificación descoñecida.
+        user_split_unknown_entry_from_taxon: <strong>%{user}</strong> separou unha clasificación descoñecida de "%{taxon}".
+      trusted: 
+        an_unknown_user_trusted_an_older_data_object_on_an_unknown_association: Un usuario descoñecido marcou unha versión vella de "%{data_object}" como de confianza nun contexto descoñecido.
+        an_unknown_user_trusted_an_older_data_object_on_association: Un usuario descoñecido marcou unha versión vella de "%{data_object}" como de confianza na páxina "%{association}".
+        an_unknown_user_trusted_an_unknown_data_object_on_an_unknown_association: Un usuario descoñecido marcou un obxecto de datos descoñecido como de confianza nun contexto descoñecido.
+        an_unknown_user_trusted_an_unknown_data_object_on_association: Un usuario descoñecido marcou un obxecto de datos descoñecido como de confianza na páxina "%{association}".
+        an_unknown_user_trusted_data_object_on_an_unknown_association: Un usuario descoñecido marcou "%{data_object}" como de confianza nun contexto descoñecido.
+        an_unknown_user_trusted_data_object_on_association: Un usuario descoñecido marcou "%{data_object}" como de confianza na páxina "%{association}".
+        an_unknown_user_trusted_it_on_an_unknown_association: Un usuario descoñecido marcouno como de confianza nun contexto descoñecido.
+        an_unknown_user_trusted_it_on_association: Un usuario descoñecido marcouno como de confianza na páxina "%{association}".
+        user_trusted_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong> marcou unha versión vella de "%{data_object}" como de confianza nun contexto descoñecido.
+        user_trusted_an_older_data_object_on_association: <strong>%{user}</strong> marcou unha versión vella de "%{data_object}" como de confianza na páxina "%{association}".
+        user_trusted_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong> marcou un obxecto de datos descoñecido como de confianza nun contexto descoñecido.
+        user_trusted_an_unknown_data_object_on_association: <strong>%{user}</strong> marcou un obxecto de datos descoñecido como de confianza na páxina "%{association}".
+        user_trusted_data_object_on_an_unknown_association: <strong>%{user}</strong> marcou "%{data_object}" como de confianza nun contexto descoñecido.
+        user_trusted_data_object_on_association: <strong>%{user}</strong> marcou "%{data_object}" como de confianza na páxina "%{association}".
+        user_trusted_it_on_an_unknown_association: <strong>%{user}</strong> marcouno como de confianza nun contexto descoñecido.
+        user_trusted_it_on_association: <strong>%{user}</strong> marcouno como de confianza na páxina "%{association}".
+      unreviewed: 
+        an_unknown_user_unreviewed_an_older_data_object_on_an_unknown_association: Un usuario descoñecido marcou unha versión vella de "%{data_object}" como non revisada nun contexto descoñecido.
+        an_unknown_user_unreviewed_an_older_data_object_on_association: Un usuario descoñecido marcou unha versión vella de "%{data_object}" como non revisada na páxina "%{association}".
+        an_unknown_user_unreviewed_an_unknown_data_object_on_an_unknown_association: Un usuario descoñecido marcou un obxecto de datos descoñecido como non revisado nun contexto descoñecido.
+        an_unknown_user_unreviewed_an_unknown_data_object_on_association: Un usuario descoñecido marcou un obxecto de datos descoñecido como non revisado na páxina "%{association}".
+        an_unknown_user_unreviewed_data_object_on_an_unknown_association: Un usuario descoñecido marcou "%{data_object}" como non revisado nun contexto descoñecido.
+        an_unknown_user_unreviewed_data_object_on_association: Un usuario descoñecido marcou "%{data_object}" como non revisado na páxina "%{association}".
+        an_unknown_user_unreviewed_it_on_an_unknown_association: Un usuario descoñecido marcouno como non revisado nun contexto descoñecido.
+        an_unknown_user_unreviewed_it_on_association: Un usuario descoñecido marcouno como non revisado na páxina "%{association}".
+        user_unreviewed_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong> marcou unha versión vella de "%{data_object}" como non revisada nun contexto descoñecido.
+        user_unreviewed_an_older_data_object_on_association: <strong>%{user}</strong> marcou unha versión vella de "%{data_object}" como non revisada na páxina "%{association}".
+        user_unreviewed_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong> marcou un obxecto de datos descoñecido como non revisado nun contexto descoñecido.
+        user_unreviewed_an_unknown_data_object_on_association: <strong>%{user}</strong> marcou un obxecto de datos descoñecido como non revisado na páxina "%{association}".
+        user_unreviewed_data_object_on_an_unknown_association: <strong>%{user}</strong> marcou "%{data_object}" como non revisado nun contexto descoñecido.
+        user_unreviewed_data_object_on_association: <strong>%{user}</strong> marcou "%{data_object}" como non revisado na páxina "%{association}".
+        user_unreviewed_it_on_an_unknown_association: <strong>%{user}</strong> marcouno como non revisado nun contexto descoñecido.
+        user_unreviewed_it_on_association: <strong>%{user}</strong> marcouno como non revisado na páxina "%{association}".
+      untrusted: 
+        an_unknown_user_untrusted_an_older_data_object_on_an_unknown_association: Un usuario descoñecido marcou unha versión vella de "%{data_object}" como de non confianza nun contexto descoñecido.
+        an_unknown_user_untrusted_an_older_data_object_on_association: Un usuario descoñecido marcou unha versión vella de "%{data_object}" como de non confianza na páxina "%{association}".
+        an_unknown_user_untrusted_an_unknown_data_object_on_an_unknown_association: Un usuario descoñecido marcou un obxecto de datos descoñecido como de non confianza nun contexto descoñecido.
+        an_unknown_user_untrusted_an_unknown_data_object_on_association: Un usuario descoñecido marcou un obxecto de datos descoñecido como de non confianza na páxina "%{association}".
+        an_unknown_user_untrusted_data_object_on_an_unknown_association: Un usuario descoñecido marcou "%{data_object}" como de non confianza nun contexto descoñecido.
+        an_unknown_user_untrusted_data_object_on_association: Un usuario descoñecido marcou "%{data_object}" como de non confianza na páxina "%{association}".
+        an_unknown_user_untrusted_it_on_an_unknown_association: Un usuario descoñecido marcouno como de non confianza nun contexto descoñecido.
+        an_unknown_user_untrusted_it_on_association: Un usuario descoñecido marcouno como de non confianza na páxina "%{association}".
+        user_untrusted_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong> marcou unha versión vella de "%{data_object}" como de non confianza nun contexto descoñecido.
+        user_untrusted_an_older_data_object_on_association: <strong>%{user}</strong> marcou unha versión vella de "%{data_object}" como de non confianza na páxina "%{association}".
+        user_untrusted_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong> marcou un obxecto de datos descoñecido como de non confianza nun contexto descoñecido.
+        user_untrusted_an_unknown_data_object_on_association: <strong>%{user}</strong> marcou un obxecto de datos descoñecido como de non confianza na páxina "%{association}".
+        user_untrusted_data_object_on_an_unknown_association: <strong>%{user}</strong> marcou "%{data_object}" como de non confianza nun contexto descoñecido.
+        user_untrusted_data_object_on_association: <strong>%{user}</strong> marcou "%{data_object}" como de non confianza na páxina "%{association}".
+        user_untrusted_it_on_an_unknown_association: <strong>%{user}</strong> marcouno como de non confianza nun contexto descoñecido.
+        user_untrusted_it_on_association: <strong>%{user}</strong> marcouno como de non confianza na páxina "%{association}".
   activity_user_created_text: <strong>%{user}</strong> engadiu texto a "%{object_name}" en "%{taxon_concept}".
   activity_user_updated_text: <strong>%{user}</strong> actualizou texto de "%{object_name}" en "%{taxon_concept}".
   add: Engadir
@@ -429,6 +631,7 @@ gl:
   add_association_submit_button: engadir a asociación
   add_brief_summary_to_page_link_button: Engadir un breve resumo a esta páxina
   add_citizen_science_resources_to_page_link_button: Engadir unha ligazón de ciencia cidadá a esta páxina
+  add_classifications: engadir as clasificacións seleccionadas para o seu traslado
   add_collection_to_a_new_community: Engadir "%{collection}" a unha nova comunidade
   add_collection_to_community: Engadir a colección á comunidade
   add_education_resources_to_page_link_button: Engadir recursos educativos a esta páxina
@@ -441,6 +644,7 @@ gl:
   add_sub_chapter: Engadir o subcapítulo
   add_to_a_community: Engadir a unha comunidade
   add_to_my_collection_button: Engadir á miña colección
+  added_classifications_ready: Os datos das clasificacións seleccionadas están listos para o seu traslado a outra páxina. Para completar o proceso, selecciona "pasar a unha nova páxina" ou ben navega ata a lapela da páxina na que queiras os datos e selecciona "fusionar as clasificacións".
   admin_content_page_active: Publicado
   admin_content_page_child_new_link: Crear a páxina secundaria
   admin_content_page_create_successful_notice: A páxina <a href="#%{anchor}"><em>%{page_name}</em></a> creouse correctamente.
@@ -504,40 +708,40 @@ gl:
   admin_user_hide_successful_notice: Agochouse o usuario
   admin_user_unhide_successful_notice: Descubriuse o usuario
   admins: 
-    statistics: 
-      content_partner: 
-        page_header: Estatísticas dos socios de contidos
+    eol_statistics: 
+      content_partners: 
+        menu_link: Socios de contidos
+        page_header: Estatísticas do socio de contidos
         page_title: "Administración: Estatísticas dos socios de contidos"
-      content_partner_link: Socios de contidos
-      curator: 
+      curators: 
+        menu_link: Estatísticas de conservación
         page_header: Estatísticas de conservación
         page_title: "Administración: Estatísticas de conservación"
-      curator_link: Estatísticas de conservación
-      data_object: 
+      data_objects: 
+        menu_link: Obxectos de datos
         page_header: Estatísticas dos obxectos de datos
         page_title: "Administración: Estatísticas dos obxectos de datos"
-      data_object_link: Obxectos de datos
       index: 
+        menu_link: Estatísticas globais
         page_header: Estatísticas globais
         page_title: "Administración: Estatísticas globais"
         table_caption: Estatísticas globais do sitio creadas o %{created_at_time}
-      index_link: Estatísticas globais
-      lifedesk: 
+      lifedesks: 
+        menu_link: LifeDesks
         page_header: Estatísticas de LifeDesks
         page_title: "Administración: Estatísticas de LifeDesks"
-      lifedesk_link: LifeDesks
       marine: 
+        menu_link: Estatísticas mariñas
         page_header: Cobertura mariña na EOL
         page_title: "Administración: Estatísticas mariñas"
-      marine_link: Estatísticas mariñas
       page_richness: 
+        menu_link: Páxinas ricas
         page_header: Estatísticas das páxinas ricas
         page_title: "Administración: Estatísticas das páxinas ricas"
-      page_richness_link: Páxinas ricas
-      user_added_data: 
+      users_data_objects: 
+        menu_link: Texto enviado polo usuario
         page_header: Estatísticas do texto enviado polo usuario
         page_title: "Administración: Estatísticas do texto enviado polo usuario"
-      user_added_data_link: Texto enviado polo usuario
   agent: Axente
   all: todos
   all_apis_return_by_default_an_xml_response: "Todas as API devoven por defecto unha resposta XML. Os métodos da API poden chamarse sen necesidade dunha extensión de formato para conseguir a resposta XML. A adición dunha extensión XML producirá unha respota idéntica:"
@@ -625,7 +829,6 @@ gl:
   audio_pause: pausar
   audio_pause_assistive: Co JavaScript activado, esta ligazón permitirá pausar un ficheiro de son adxacente que se estea reproducindo; en caso contrario, ignora esta ligazón.
   audio_play: reproducir
-  audio_play_assistive: Co JavaScript activado, esta ligazón comezará a reproducir o ficheiro de son mentres estás na mesma ventá. Se o JavaScript está desactivado, esta ligazón é cara a un ficheiro de son que, seleccionado, se comportará de acordo co teu dispositivo.
   audio_stop: deter
   audio_stop_assistive: Co JavaScript activado, esta ligazón permitirá deter un ficheiro de son adxacente que se estea reproducindo; en caso contrario, ignora esta ligazón.
   audio_unmute: restablecer o son
@@ -657,6 +860,7 @@ gl:
   cache_store: Almacenamento da caché
   calculate_averages_slow: Calcular as medias (lento)
   cancel: Cancelar
+  cancel_split: Cancelar
   cannot_be_associated_with_both_a_user_and_a_community: Non pode estar asociado a un usuario e a unha comunidade á vez
   cannot_be_empty: non pode quedar baleiro.
   cannot_create_collection_item_from_class_error: Non podemos crear un elemento de colección a partir de %{klass}
@@ -677,18 +881,30 @@ gl:
   citation_example: Fisher, Brian. "Pogonomyrmex anergismus Cole, 1954." Enciclopedia da vida, dispoñible en <a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>. Consultado o 15 de xaneiro de 2009.
   citing_link: Citando
   classification_already_preferred: "ERRO: Esta clasificación xa está marcada como preferida."
+  classification_button_help: Selecciona a clasificación que mellor representa a páxina existente que hai a continuación e preme no "usar como exemplar" correspondente. Para cancelar a operación, preme en "cancelar".
   classification_from_agent: Clasificación de %{agent}.
   classification_from_agent_chosen_by_curator: Clasificación de %{agent} seleccionada por %{curator}.
   classification_from_agent_chosen_by_curator_see_more: Clasificación de %{agent} seleccionada por %{curator} - <a href="%{more_link}">ollar máis</a>.
+  classification_merge_help: <b>Estás a piques de mover algunhas clasificacións desta páxina.</b> Para continuar, cómpre indicar cal das clasificacións existentes cres que representa <i>mellor</i> a páxina do taxon desde a que estás trasladando as clasificacións. Isto hanos axudar no futuro a manter separadas desta páxina as clasificacións que seleccionaches.
   classification_preferred_for_taxon: Preferido
   classification_preferred_for_taxon_help_tip: "%{icon} sinala a clasificación preferida para este taxon."
+  classification_split_help: <b>Estás a piques de separar algunhas clasificacións desta páxina.</b> Para continuar, cómpre indicar cal das clasificacións existentes cres que representa <i>mellor</i> a páxina. Isto hanos axudar no futuro a manter separadas desta páxina as clasificacións que seleccionaches.
+  classification_split_warning: <b>Asegúrate de que tes seleccionadas <i>todas</i> as clasificacións que coinciden coa páxina de destino.</b> Por exemplo, se estás separando ou trasladando unha clasificación de amanita da páxina dun mapache, cómpre seleccionar todas as clasificacións de amanita para realizar esta operación. Se esqueces algunha, corrixilo despois pode ser difícil.
   classification_summary_section_header: Clasificación
   classification_tree_header: Clasificación
+  classifications_edit_cancelled_busy: Sentímolo, nestes intres non se pode procesar a túa solicitude de edición das clasificacións; unha ou máis páxinas do taxon están bloqueadas. Estase procesando outra solicitude de edición destas clasificacións.
+  classifications_edit_cancelled_merge_to_self: A orixe e mais o destino son a mesma páxina. Non hai nada que mover.
   classifications_empty: Esta páxina non está incluída en ningunha das clasificacións que se poden explorar na EOL.
+  classifications_exemplar_column_header: Exemplar
   classifications_hierarchy_column_header: Clasificación
+  classifications_locked: As clasificacións desta páxina non se poden editar neste momento. Estase procesando outra solicitude de edición destas clasificacións.
+  classifications_merge_additional_confirm_required: Para fusionar estas clasificacións cómpre unha confirmación adicional.
+  classifications_merge_providers_match_confirm: Confirmo que quero anular a afirmación deste socio de contidos de que estes datos deben estar separados.
+  classifications_merge_providers_match_warning: Estás a piques de fusionar dúas páxinas sobre as que %{provider} afirmou que os datos debían estar separados. Por favor, confirma que queres <i>anular</i> esa afirmación e poñer estes datos na mesma páxina.
   classifications_preferred_column_header: Preferido
   classifications_rank_column_header: Clasificación
   classifications_recognized_by_column_header: Recoñecido por
+  classifications_split_column_header: Separar / Mover
   classifications_summary_header_with_count: 
     one: Atopado en %{count} clasificación
     other: Atopado en %{count} clasificacións
@@ -715,6 +931,7 @@ gl:
     other: Creouse a colección <em>%{collection_name}</em> con %{count} elementos.
   collection_delete_link: Borrar permanentemente esta colección
   collection_destroyed: Borrouse a colección.
+  collection_error_no_items_selected: "Erro: Non se seleccionou elemento ningún. Non se levou a cabo ningunha acción."
   collection_image: Imaxe da colección
   collection_is_empty: Esta colección está baleira.
   collection_item_edit_by_javascript_not_authorized_error: Sentímolo, non tes os permisos necesarios para editar este elemento de colección. Se ti es o propietario ou editor da colección, volve cargar a páxina e comproba que accediches ao sistema.
@@ -793,7 +1010,6 @@ gl:
   comment_not_updated_error: Sentímolo, houbo un erro. Non se actualizou o comentario.
   comment_or_rate_on_this_article: Comenta ou valora este artigo
   comment_show_posters_image_alt: Imaxe do perfil de %{posters_name}, que engadiu este comentario.
-  commented_on_your_image: " comentou na túa imaxe no <a href='%{data_object_link}'>sitio da Enciclopedia da vida</a>:\n%{comment_body}"
   comments: Comentarios
   comments_and_tags: Comentarios e etiquetas
   comments_filter: Comentarios
@@ -1208,6 +1424,61 @@ gl:
   data_usage_reports: Informes de uso dos datos
   date_caps: Data
   date_uploaded: Data da carga
+  datepicker: 
+    close: Pechar
+    current: Hoxe
+    day_names: 
+      - domingo
+      - luns
+      - martes
+      - mércores
+      - xoves
+      - venres
+      - sábado
+    day_names_min: 
+      - D
+      - L
+      - M
+      - Mé
+      - X
+      - V
+      - S
+    day_names_short: 
+      - dom
+      - lun
+      - mar
+      - mér
+      - xov
+      - ven
+      - sáb
+    month_names: 
+      - xaneiro
+      - febreiro
+      - marzo
+      - abril
+      - maio
+      - xuño
+      - xullo
+      - agosto
+      - setembro
+      - outubro
+      - novembro
+      - decembro
+    month_names_short: 
+      - xan
+      - feb
+      - mar
+      - abr
+      - maio
+      - xuñ
+      - xul
+      - ago
+      - set
+      - out
+      - nov
+      - dec
+    next: Seguinte
+    previous: Anterior
   dato_create_cancel: Cancelar
   dato_create_user_text_error: Sentímolo, houbo un erro. Non se engadiu o artigo.
   dato_create_user_text_missing_taxon_id_exception: Non se pode construír un obxecto de datos textual ou de usuario se o identificador do taxon é nulo.
@@ -1242,7 +1513,6 @@ gl:
   details_title: Detalles
   development_version_name: EOL V2 Beta
   did_you_mean: "Quizais quixeches dicir: %{suggestions}"
-  disable_email_notifications_colon: "Correos electrónicos desactivados:"
   disabled_for_now: DESACTIVADO POLO DE AGORA
   discover_link: Descubrir
   displaying_numerical_range: Mostrando do %{start_number} ao %{end_number}, dun todal de %{total}
@@ -1329,6 +1599,39 @@ gl:
   eol_glossary: Glosario da EOL
   eol_news: Novas da EOL
   eol_pages: Páxinas
+  eol_statistics: 
+    content_partners: 
+      menu_link: Socios de contidos
+      page_header: Estatísticas dos socios de contidos
+      page_title: Estatísticas
+    curators: 
+      menu_link: Estatísticas de conservación
+      page_header: Estatísticas de conservación
+      page_title: Estatísticas
+    data_objects: 
+      menu_link: Obxectos de datos
+      page_header: Estatísticas dos obxectos de datos
+      page_title: Estatísticas
+    index: 
+      menu_link: Estatísticas globais
+      page_header: Estatísticas globais
+      page_title: Estatísticas
+    lifedesks: 
+      menu_link: LifeDesks
+      page_header: Estatísticas de LifeDesks
+      page_title: Estatísticas
+    marine: 
+      menu_link: Estatísticas mariñas
+      page_header: Cobertura mariña na EOL
+      page_title: Estatísticas
+    page_richness: 
+      menu_link: Páxinas ricas
+      page_header: Estatísticas das páxinas ricas
+      page_title: Estatísticas
+    users_data_objects: 
+      menu_link: Texto enviado polo usuario
+      page_header: Estatísticas do texto enviado polo usuario
+      page_title: Estatísticas
   error_401_description: Sentímolo, non ten autorización para acceder a este enderezo URL.
   error_401_page_title: Non autorizado
   error_403_description: Sentímolo, non ten autorización para acceder a este enderezo URL.
@@ -1548,6 +1851,8 @@ gl:
         source_url: URL do obxecto de datos orixinal
         toc_item: Subcapítulo
       eol_statistic: 
+        date_one: Data
+        date_two: Data
         download_all: Todos <small>(inclúe rexistros de todas as páxinas)</small>
       google_analytics_partner_summaries: 
         page_views: Visitas de páxina <small>(número de visitas ás páxinas)</small>
@@ -1599,8 +1904,8 @@ gl:
         active_translation: Publicado
         active_translation_more: As traducións publicadas serán visibles publicamente, a menos que a páxina non estea publicada. Desmarca <em>publicado</em> se queres impedir aos usuarios xerais que lean esta versión da páxina.
         language_id: Lingua
-        left_content_more: De xeito opcional, engade unha lista desordenada de ligazóns para incluír unha columna de navegación na páxina. Cómpre engadir manualmente as ligazóns de ancho seleccionando <em>Fonte</em> e editando o atributo HTML <em>href</em> das ligazóns. Por exemplo, para ligar cun ancho denominado <em>política_de_licenzas</em> na zona de contido <em>Corpo</em>, o atributo da ligazón <em>href</em> cara á túa lista debe ter o valor "#política_de_licenzas"
-        main_content_more: "Escriba o contido da páxina principal na zona do corpo. Usa o menú despregable <em>Formato</em> para seleccionar os elementos de texto semántico axeitados. Por exemplo, utiliza <em>Cabeceira 2</em> para unha cabeceira de segundo nivel. Nota: O título da páxina é unha cabeceira de primeiro nivel, así que comeza as túas cabeceiras no corpo con <em>Cabeceira 2</em>."
+        left_content_more: "(Opcional) Engade unha lista desordenada de ligazóns de navegación. Utiliza a clase <code>active</code> para marcar a ligazón da páxina actual, é dicir, <code>&lt;li class=\"active\"&gt;&lt;a href=\"/info/:id\"&gt;:title&lt;/a&gt;&lt;/li&gt;</code>, onde <code>:id</code> é o identificador da páxina actual ou o nome único e <code>:title</code> é o título descritivo da páxina (<strong>Nota: Todas as ligazóns cara a páxinas CMS da EOL deben comezar cunha barra inclinada: <code>/info/:id</code></strong>). Para facer estes cambios terás que editar o código fonte HTML directamente seleccionando <em>Fonte</em> na barra de ferramentas do editor."
+        main_content_more: "Escriba o contido da páxina principal na zona do corpo. Usa o menú despregable <em>Formato</em> para seleccionar os elementos de texto semántico axeitados. Por exemplo, utiliza <em>Cabeceira 2</em> para unha cabeceira de segundo nivel. Nota: A <em>Cabeceira 1</em> está reservada para o título da páxina, de modo que as cabeceiras no corpo comezan coa <em>Cabeceira 2</em>. Selecciona <em>Fonte</em> para cambiar á vista de código fonte HTML, que permite inserir e editar manualmente o HTML."
         meta_description_more: Dá unha breve descrición, resumindo os conceptos clave da páxina de contido. A miúdo, as descricións empréganas os motores de procura tanto para comprobar a relevancia como para poñer a páxina na lista de resultados.
         meta_keywords_more: Escribe unha lista de palabras e frases breves que reflicta os contidos da páxina, separados por comas. A miúdo, estas palabras e frases clave empréganas os motores de procura para avaliar a relevancia dunha páxina con respecto aos termos da procura.
         title_more: O título deste contido aparecerá na cabeceira da páxina. O título debe incluír palabras clave relevantes para o contido.
@@ -1617,6 +1922,7 @@ gl:
         credentials_more_successful_assistant_curator: Historial de éxito como conservador axudante.
         curation_application: Converterse nun conservador
         curation_application_more: Se prefires modificar os teus privilexios de conservación envía unha aplicación e nós revisaremos a túa elixibilidade.
+        curation_priveleges_credentials: Credenciais <small>(conservadores completos e mestres conservadores só)</small>
         curator_level: Actualmente ti es %{curator_level_with_indefinite_article}.
         curator_scope: Alcance da conservación
         curator_scope_more: "Indica o alcance da túa experiencia. Por exemplo: \"Roedores de Borneo\", \"Interaccións tritróficas\" ou \"Problemas de conservación do peixe\". Isto non limitará as túas capacidades de conservación, pero informará á comunidade da EOL."
@@ -1828,6 +2134,7 @@ gl:
   json_response: Resposta JSON
   jsonp_by_adding_a_callback_parameter: ... e JSONP, engadindo un parámetro de retorno
   just_pages_with_pictures_and_text: Unicamente aquelas páxinas con imaxes e texto
+  keep_split_entry_from_this_entry: Manter separado desta entrada
   label: Etiqueta
   language: "Lingua:"
   language_selector_advisory_information: A continuación está a lista coas linguas nas que hai dispoñibles contidos do sitio. Para cambiar a lingua actual selecciona unha das que está na lista.
@@ -1908,7 +2215,7 @@ gl:
   main_species_page_link_with_spaces: " &nbsp;&nbsp; páxina da especie>>"
   maintained_by: mantido por
   major_heading: Cabeceira principal
-  make_an_editor: converter en administrador
+  make_an_editor: crear un administrador
   make_user_an_editor_title: Permitir a %{user} que xestione as seguintes coleccións
   manage_your_profile: Xestionar o teu perfil
   managed_by: Xestionado por
@@ -1963,6 +2270,9 @@ gl:
     one: "%{count} membro;"
     other: "%{count} membros;"
   merge_concepts: fusionar os conceptos
+  merge_data: fusionar as clasificacións
+  merge_data_ready: Está todo listo para fusionar os datos das seguintes clasificacións nesta páxina de taxon ou para separalos nas súas páxinas propias. Cómpre ter unha certeza <i>absoluta</i> de que se seleccionaron todas as clasificacións que representan o teu taxon de destino. Por exemplo, se estás eliminando unha avelaíña da páxina dun cogomelo, revisa <i>todas</i> as clasificacións que se mostran enriba para asegurarte de que tes todas as avelaíñas.
+  merge_pending: A operación de fusión necesita algún tempo. Os taxons involucrados están agora bloqueados fronte a máis edicións das súas clasificacións ata que remate a fusión. Recibirás unha mensaxe de correo electrónico cando finalice o proceso. Ademais, esta acción aparecerá reflectida na fonte de novas da páxina.
   message_colon: "Mensaxe:"
   meta_description_colon: "Descrición meta:"
   meta_keywords_colon: "Palabras clave meta:"
@@ -2002,7 +2312,6 @@ gl:
   more_children_with_count: 
     one: "%{count} máis..."
     other: "%{count} máis..."
-  more_information_on_the_various_licenses: licenzas. Visita o seu sitio para obter máis información sobre as licenzas que ofrecen
   more_siblings_with_count: 
     one: "%{count} irmán máis..."
     other: "%{count} irmáns máis..."
@@ -2078,6 +2387,7 @@ gl:
   next: Seguinte
   no_active_members: Aínda non houbo suficiente actividade.
   no_answer: Non
+  no_classificaitons_selected: Non se seleccionou clasificación ningunha. Non hai nada que mover.
   no_collections_apply: Ningunha das coleccións ás que teñes acceso pode engadir administradores.
   no_comments_are_available_for_subject: Non hai ningún comentario dispoñible para %{subject}
   no_comments_have_been_left_yet: Aínda non deixaron ningún comentario.
@@ -2190,6 +2500,7 @@ gl:
   number_of_unreviewed_images_at_this_entry: Número de imaxes sen revisar nesta entrada
   number_of_unreviewed_text_objects_at_this_entry: Número de obxectos de texto sen revisar nesta entrada
   object: Obxecto
+  object_curated: Obxecto conservado.
   object_curation: Conservación do obxecto
   object_status: Estado do obxecto
   object_status_all_option: Todos
@@ -2272,6 +2583,7 @@ gl:
   partner: Socio
   partner_information: Información do socio
   partner_page: páxina do socio
+  partner_web_site_colon: "Sitio web do socio:"
   partnering_steps: PASOS PARA SER SOCIO
   password_colon: "Contrasinal:"
   password_must_be_4to16_characters: O contrasinal debe ser de entre 4 e 16 caracteres.
@@ -2539,6 +2851,7 @@ gl:
   show_data_from_all_content_partners: Eliminar o filtro de clasificación
   show_email_message_area: "[mostrar a zona de mensaxes de correo electrónico]"
   show_full_tree: mostrar a árbore completa...
+  show_in_overview: mostrar na vista xeral
   show_status_message: Mostrar a mensaxe de estado
   show_tasks: mostrar as tarefas
   show_warning_message: Mostrar a mensaxe de advertencia
@@ -2605,13 +2918,18 @@ gl:
   species_profile_model: Modelo de perfil de especies
   species_profile_model_cp_count_title: Modelo de perfil de especies - Número de socios de contido
   species_profile_model_dato_count_title: Modelo de perfil de especies - Número de obxectos de datos
-  split_into_new_concept: pasar a un novo concepto
+  split_cancelled: Cancelouse a operación de separación.
+  split_classification_instructions: Para eliminar a entrada da xerarquía desta páxina da EOL, cómpre seleccionar a entrada da xerarquía que mellor representa o que DEBERÍA estar nesta páxina, de xeito que as colleitas futuras sempre manteñan separadas estas dúas entradas da xerarquía.
+  split_into_new_concept: pasar a unha nova páxina
+  split_only_possible_with_all_classifications: Malia teres o dereito de separar clasificacións, debes <a href='%{link}'>mostrar todas as clasificacións</a> antes de ter permitida a acción.
+  split_pending: A operación de separación necesita algún tempo. A páxina está agora bloqueada fronte a máis edicións das súas clasificacións ata que remate a separación. Recibirás unha mensaxe de correo electrónico cando finalice o proceso. Ademais, esta acción aparecerá reflectida na fonte de novas da páxina.
   spm_category: Categoría SPM
   spm_category_objects_count: Categoría SPM - número de obxectos
   spm_category_partner_count: Categoría SPM - número de socios
   started: Iniciado
   stat: Estatísticas
-  statistics: Estatísticas
+  stats: Estatísticas
+  stored_classifications: Lembra que tes <a href='%{anchor}'>clasificacións almacenadas, a continuación</a>.
   sub_heading: Subcabeceira
   subject: asunto
   submit: Enviar
@@ -3081,6 +3399,8 @@ gl:
   us_dollars_100: 100 dólares estadounidenses
   us_dollars_35: 35 dólares estadounidenses
   us_dollars_50: 50 dólares estadounidenses
+  use_as_examplar_button: usar como exemplar
+  use_as_examplar_note_preferred: "Nota: Prefírese esta clasificación. Probablemente queiras usar esta."
   used_for_friendly_url_note: (utilizado para xerar ligazóns amigables para os usuarios; non pode conter espazos ou caracteres especiais)
   used_for_urls_note: utilizado para os enderezos URL; debe ser único (agás para as páxinas traducidas); en caso contrario, os enderezos URL das páxinas deben usar o ID da páxina
   user: Usuario
@@ -3114,6 +3434,9 @@ gl:
   user_activity_stats_preferred_classifications_selected: 
     one: "%{count} clasificación preferida seleccionada"
     other: "%{count} clasificacións preferidas seleccionadas"
+  user_activity_stats_selected_articles_for_overview: 
+    one: "%{count} artigo seleccionado para a vista xeral"
+    other: "%{count} artigos seleccionados para a vista xeral"
   user_activity_stats_set_exemplar: 
     one: "%{count} imaxe definida como exemplar"
     other: "%{count} imaxes definidas como exemplares"
@@ -3184,6 +3507,12 @@ gl:
         meta_description: Asociacións de socios de contidos de %{user_full_name}.
         meta_title: Socios de contidos de %{user_full_name}
         tweet_text: Socios de contidos de %{user_full_name}
+    edit: 
+      form_tip_account: Para acceder ao sistema da EOL necesitas un nome de usuario e un contrasinal; tamén podes conectarte mediante unha conta de terceiros. O nome de usuario e o contrasinal son obrigatorios se non tes unha conta conectada. Con todo, insire un novo contrasinal aquí se o que queres é cambiar o actual. O enderezo de correo electrónico e a lingua preferida son obrigatorios (%{required_icon}) para todos os usuarios.
+      form_tip_account_oauth: O enderezo de correo electrónico e a lingua preferida son obrigatorios %{required_icon} para todos os usuarios.
+      form_tip_curation: As credenciais e o alcance da conservación son opcionais para os conservadores axudantes, pero obrigatorios %{required_icon} para os conservadores completos e mestres conservadores
+      form_tip_profile: Os elementos marcados como necesarios %{required_icon} son opcionais para os usuarios xerais, pero obrigatorios para os conservadores.
+      form_tip_profile_oauth: O nome é obrigatorio. O resto de elementos marcados como necesarios %{required_icon} son opcionais para os usuarios xerais, pero obrigatorios para os conservadores.
     new: 
       complete_registration_header: Completa o teu rexistro na EOL
       create_user_header: Crea unha nova conta na <abbr title="Enciclopedia da vida">EOL</abbr>
@@ -3210,14 +3539,98 @@ gl:
         tweet_text: Fonte de novas de %{user_full_name}
     notifications: 
       edit: 
+        page_description: Todas as actualizacións enumeradas a continuación (agás o boletín de novas da EOL) están dispoñibles na túa <a href="%{user_newsfeed_link}">fonte de novas da EOL</a>, pero moita xente querería recibir alertas por correo electrónico con respecto a certas actividades que atopan interesantes. Podes utilizar os botóns inferiores para definir aquela frecuencia dos correos da EOL que se adecúe ás túas preferencias
         page_title: Configuración das notificacións
     open_authentications: 
+      errors: 
+        facebook: 
+          add_connection_failed_account_already_connected: Sentímolo, non podemos conectar a túa conta do Facebook coa da EOL. A túa conta do Facebook xa está conectada cunha <a href="%{existing_eol_account_url}">conta da EOL</a>.
+          login_failed_not_connected: Sentímolo, non puidemos atopar a conexión entre as túas contas do Facebook e mais da EOL. Se xa tes unha conta na EOL <a href="%{login_url}">inicia sesión</a> usando outras credenciais. Logo, conecta a túa conta do Facebook desde a configuración do teu perfil da EOL. Se aínda non tes unha conta na EOL <a href="%{register_url}">completa o teu rexistro</a> para creala.
+          missing_attributes: Sentímolo, houbo un problema co acceso aos teus detalles do Facebook.
+          new_authentication_not_added: Sentímolo, houbo un erro. Non puidemos conectar a túa conta do Facebook.
+          not_authorized_to_add_authentication: Sentímolo, non temos autorización para conectar a túa conta do Facebook.
+          not_authorized_to_login: Sentímolo, non estamos autorizados para iniciar sesión na EOL coa túa conta do Facebook.
+          not_authorized_to_signup: Sentímolo, non estamos autorizados para rexistrarte na EOL coa túa conta do Facebook.
+          signup_failed_account_already_connected: Sentímolo, non podemos rexistrarte unha nova conta na EOL coa túa conta do Facebook, dado que xa está conectada a unha <a href="%{existing_eol_account_url}">conta de usuario da EOL</a>. Quizais querías <a href="%{login_url}">acceder ao sistema</a>?
+        google: 
+          add_connection_failed_account_already_connected: Sentímolo, non podemos conectar a túa conta do Google coa da EOL. A túa conta do Google xa está conectada cunha <a href="%{existing_eol_account_url}">conta da EOL</a>.
+          login_failed_not_connected: Sentímolo, non puidemos atopar a conexión entre as túas contas do Google e mais da EOL. Se xa tes unha conta na EOL <a href="%{login_url}">inicia sesión</a> usando outras credenciais. Logo, conecta a túa conta do Google desde a configuración do teu perfil da EOL. Se aínda non tes unha conta na EOL <a href="%{register_url}">completa o teu rexistro</a> para creala.
+          missing_attributes: Sentímolo, houbo un problema co acceso aos teus detalles do Google.
+          new_authentication_not_added: Sentímolo, houbo un erro. Non puidemos conectar a túa conta do Google.
+          not_authorized_to_add_authentication: Sentímolo, non temos autorización para conectar a túa conta do Google.
+          not_authorized_to_login: Sentímolo, non estamos autorizados para iniciar sesión na EOL coa túa conta do Google.
+          not_authorized_to_signup: Sentímolo, non estamos autorizados para rexistrarte na EOL coa túa conta do Google.
+          signup_failed_account_already_connected: Sentímolo, non podemos rexistrarte unha nova conta na EOL coa túa conta do Google, dado que xa está conectada a unha <a href="%{existing_eol_account_url}">conta de usuario da EOL</a>. Quizais querías <a href="%{login_url}">acceder ao sistema</a>?
+        missing_attributes: Sentímolo, houbo un problema co acceso aos detalles da túa conta de terceiros.
+        not_authorized_to_add_authentication: Sentímolo, non temos autorización para conectar esa conta.
+        not_authorized_to_login: Sentímolo, non estamos autorizados para iniciar sesión na EOL con esa conta.
+        remove_connection_failed: Sentímolo, houbo un erro. Non fomos capaces de eliminar a conexión.
+        twitter: 
+          add_connection_failed_account_already_connected: Sentímolo, non podemos conectar a túa conta do Twitter coa da EOL. A túa conta do Twitter xa está conectada cunha <a href="%{existing_eol_account_url}">conta da EOL</a>.
+          login_failed_not_connected: Sentímolo, non puidemos atopar a conexión entre as túas contas do Twitter e mais da EOL. Se xa tes unha conta na EOL <a href="%{login_url}">inicia sesión</a> usando outras credenciais. Logo, conecta a túa conta do Twitter desde a configuración do teu perfil da EOL. Se aínda non tes unha conta na EOL <a href="%{register_url}">completa o teu rexistro</a> para creala.
+          missing_attributes: Sentímolo, houbo un problema co acceso aos teus detalles do Twitter.
+          new_authentication_not_added: Sentímolo, houbo un erro. Non puidemos conectar a túa conta do Twitter.
+          not_authorized_to_add_authentication: Sentímolo, non temos autorización para conectar a túa conta do Twitter.
+          not_authorized_to_login: Sentímolo, non estamos autorizados para iniciar sesión na EOL coa túa conta do Twitter.
+          not_authorized_to_signup: Sentímolo, non estamos autorizados para rexistrarte na EOL coa túa conta do Twitter.
+          signup_failed_account_already_connected: Sentímolo, non podemos rexistrarte unha nova conta na EOL coa túa conta do Twitter, dado que xa está conectada a unha <a href="%{existing_eol_account_url}">conta de usuario da EOL</a>. Quizais querías <a href="%{login_url}">acceder ao sistema</a>?
+        yahoo: 
+          add_connection_failed_account_already_connected: Sentímolo, non podemos conectar a túa conta do Yahoo! coa da EOL. A túa conta do Yahoo! xa está conectada cunha <a href="%{existing_eol_account_url}">conta da EOL</a>.
+          login_failed_not_connected: Sentímolo, non puidemos atopar a conexión entre as túas contas do Yahoo! e mais da EOL. Se xa tes unha conta na EOL <a href="%{login_url}">inicia sesión</a> usando outras credenciais. Logo, conecta a túa conta do Yahoo! desde a configuración do teu perfil da EOL. Se aínda non tes unha conta na EOL <a href="%{register_url}">completa o teu rexistro</a> para creala.
+          missing_attributes: Sentímolo, houbo un problema co acceso aos teus detalles do Yahoo!.
+          new_authentication_not_added: Sentímolo, houbo un erro. Non puidemos conectar a túa conta do Yahoo!.
+          not_authorized_to_add_authentication: Sentímolo, non temos autorización para conectar a túa conta do Yahoo!.
+          not_authorized_to_login: Sentímolo, non estamos autorizados para iniciar sesión na EOL coa túa conta do Yahoo!.
+          not_authorized_to_signup: Sentímolo, non estamos autorizados para rexistrarte na EOL coa túa conta do Yahoo!.
+          signup_failed_account_already_connected: Sentímolo, non podemos rexistrarte unha nova conta na EOL coa túa conta do Yahoo!, dado que xa está conectada a unha <a href="%{existing_eol_account_url}">conta de usuario da EOL</a>. Quizais querías <a href="%{login_url}">acceder ao sistema</a>?
       facebook: Facebook
       google: Google
+      index: 
+        connected_last_verified: Conectado. Última comprobación hai %{time_passed}.
+        connected_unverified: Conectado. Non comprobado.
+        not_connected: Non conectado.
+        page_description: Administrar as conexións coas contas de terceiros que podes empregar para acceder á EOL.
+        page_title: Contas conectadas
+        return_link: Volver á edición do perfil.
+      notices: 
+        facebook: 
+          new_authentication_added: A autenticación do Facebook engadiuse á túa conta.
+          removed_connection: Eliminamos correctamente a conexión da túa conta do Facebook coa EOL. Para desautorizar por completo as futuras interaccións entre a túa conta do Facebook e a EOL debes ir ao Facebook e editar a configuración da túa conta.
+        google: 
+          new_authentication_added: A autenticación do Google engadiuse á túa conta.
+          removed_connection: Eliminamos correctamente a conexión da túa conta do Google coa EOL. Para desautorizar por completo as futuras interaccións entre a túa conta do Google e a EOL debes ir ao Google e editar a configuración da túa conta.
+        twitter: 
+          new_authentication_added: A autenticación do Twitter engadiuse á túa conta.
+          removed_connection: Eliminamos correctamente a conexión da túa conta do Twitter coa EOL. Para desautorizar por completo as futuras interaccións entre a túa conta do Twitter e a EOL debes ir ao Twitter e editar a configuración da túa conta.
+        yahoo: 
+          new_authentication_added: A autenticación do Yahoo! engadiuse á túa conta.
+          removed_connection: Eliminamos correctamente a conexión da túa conta do Yahoo! coa EOL. Para desautorizar por completo as futuras interaccións entre a túa conta do Yahoo! e a EOL debes ir ao Yahoo! e editar a configuración da túa conta.
       twitter: Twitter
+      warnings: 
+        no_way_to_login: Xa non tes ningunha conta conectada. Non poderás acceder ao sistema da EOL a menos que engadas unha conta conectada ou un nome de usuario e contrasinal da EOL.
       yahoo: Yahoo!
     pending: 
       header: Grazas por te rexistrares!
+      verify_email_instructions: <strong>Verifica o teu enderezo de correo electrónico</strong>. Enviamos unha mensaxe de confirmación ao enderezo de correo electrónico que especificaches. Para completares o proceso de rexistro e te converteres nun membro da EOL, preme na ligazón incluída nesa mensaxe. Grazas!
+      verify_email_tip: Ten en conta que os correos electrónicos de activación da conta rematan <em>a miúdo</em> no cartafol de correo lixo. Comproba ese cartafol se non recibes a mensaxe na vindeira hora.
+    recover_account: 
+      errors: 
+        temporary_login_user_not_found: Sentímolo, pero non puidemos atopar a conta da EOL que intentas recuperar. Solicita un novo correo electrónico para recuperar a túa conta.
+        token_expired_or_invalid: Sentímolo, a ligazón de rexistro temporal caducou ou non é válida. Solicita un novo correo electrónico para recuperar a túa conta.
+        unable_to_update_token: Sentímolo, houbo un erro e non se enviou o correo electrónico. Inténtao de novo.
+        user_not_found_by_email_address: Non puidemos atopar ningunha conta da EOL con ese enderezo de correo electrónico.
+      form_header: Recuperar unha conta
+      form_tip: Para recuperar a túa conta da EOL, escribe o enderezo de correo electrónico asociado a ela. Comproba o cartafol de correo lixo se non recibes unha mensaxe de recuperación na vindeira hora.
+      meta_title: Recuperar unha conta
+      notices: 
+        recovery_email_sent: Enviouse a mensaxe de recuperación da conta coas instrucións. Comproba o cartafol de correo lixo se non recibes a mensaxe na vindeira hora.
+        temporarily_logged_in_update_authentication_details: Accediches temporalmente para recuperar a conta. Cambia o teu contrasinal ou actualiza as túas contas conectadas para aseguráreste de poder acceder correctamente.
+    recover_account_choose_account: 
+      errors: 
+        user_not_found_choose_again: Sentímolo, houbo un erro e non se enviou o correo electrónico. Selecciona a conta que queres recuperar e inténtao de novo.
+      form_header: Recuperar unha conta
+      form_tip: Hai varias contas rexistradas co enderezo de correo electrónico <em>%{email}</em>. Selecciona a conta que queres recuperar.
+      legend_choose_account: Escolle unha conta
     show: 
       meta_description: Perfil de %{user_full_name} na Enciclopedia da vida.
       meta_description_curator: Perfil do %{curator_level} %{user_full_name} na Enciclopedia da vida.

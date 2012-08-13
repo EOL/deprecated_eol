@@ -3,10 +3,11 @@
 # Export driver: syck-pecl
 # Author: DRIHEM
 # Author: Ghada.nabeel
+# Author: Meno25
 # Author: OsamaK
 # Author: ترجمان05
 ar: 
-  translated_activities-name-activity_id-19: الملف الشخصي
+  translated_activities-name-activity_id-19: ملف
   translated_activities-name-activity_id-50: غير موثوق فيه
   translated_activities-name-activity_id-51: عرض
   translated_activities-name-activity_id-52: اصنع
@@ -48,7 +49,7 @@ ar:
   translated_collection_types-label-collection_type_id-12: المطبوعات
   translated_collection_types-label-collection_type_id-13: التصنيف
   translated_collection_types-label-collection_type_id-14: الشفرات العمودية الجزيئية
-  translated_collection_types-label-collection_type_id-15: الشرح
+  translated_collection_types-label-collection_type_id-15: الوصف
   translated_collection_types-label-collection_type_id-16: الصور
   translated_collection_types-label-collection_type_id-17: التوزيع
   translated_collection_types-label-collection_type_id-18: حالة الحفظ
@@ -59,7 +60,7 @@ ar:
   translated_collection_types-label-collection_type_id-22: الأصوات
   translated_collection_types-label-collection_type_id-23: الروابط
   translated_collection_types-label-collection_type_id-24: المواد
-  translated_collection_types-label-collection_type_id-3: الشرح
+  translated_collection_types-label-collection_type_id-3: الوصف
   translated_collection_types-label-collection_type_id-4: الصور
   translated_collection_types-label-collection_type_id-5: التوزيع
   translated_collection_types-label-collection_type_id-6: حالة الحفظ
@@ -189,7 +190,7 @@ ar:
   translated_sort_styles-name-sort_style_id-3: أبجديًا
   translated_sort_styles-name-sort_style_id-4: أبجديًا معكوس
   translated_sort_styles-name-sort_style_id-5: ثراء المحتوى
-  translated_sort_styles-name-sort_style_id-6: التقييم
+  translated_sort_styles-name-sort_style_id-6: تقييم
   translated_statuses-label-status_id-1: مُدخل
   translated_statuses-label-status_id-2: مُحدَّث
   translated_statuses-label-status_id-3: غير متغير
@@ -362,4 +363,4 @@ ar:
   translated_view_styles-name-view_style_id-3: مزوَّد بتعليق
   translated_visibilities-label-visibility_id-0: غير مرئي
   translated_visibilities-label-visibility_id-1: مرئي
-  translated_visibilities-label-visibility_id-2: نظرة عامة
+  translated_visibilities-label-visibility_id-2: عرض مسبق

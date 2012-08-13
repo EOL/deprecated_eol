@@ -47,6 +47,11 @@ FCKConfig.ToolbarSets["Simple"] = [
         ['TextColor','BGColor']
 ] ;
 
+FCKConfig.ToolbarSets["Article"] = [
+       ['Cut','Copy','Paste','PasteWord','-','SpellCheck','-','Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
+       ['Bold','Italic','-', 'Link','Unlink','Anchor'], ['Source']
+] ;
+
 FCKConfig.ToolbarSets["CMSNavigation"] = [
        ['Cut','Copy','Paste','PasteWord','-','SpellCheck'],
        ['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],

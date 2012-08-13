@@ -49,6 +49,9 @@ config.log_level = :debug # :error
 
 $PARENT_CLASS_MUST_USE_MASTER = ActiveRecord::Base
 
+# Key to generate an unsubscribe_key for unsubscribing to notifications.
+$UNSUBSCRIBE_NOTIFICATIONS_KEY = '1ed25583250bf547e614c0d315bd2671'
+
 $EXCEPTION_NOTIFY=false # set to false to not be notified of exceptions via email in production mode (set email addresses below)
 $ENABLE_RECAPTCHA=false # set to true to enable recaptcha on registration and contact us form
 $ENABLE_ANALYTICS=false

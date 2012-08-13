@@ -1,6 +1,7 @@
 # Messages for Swedish (svenska)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
+# Author: Liftarn
 # Author: McDutchie
 # Author: Ufred
 # Author: WikiPhoenix
@@ -21,6 +22,7 @@ sv:
   translated_agent_roles-label-agent_role_id-1: Animatör
   translated_agent_roles-label-agent_role_id-10: Projekt
   translated_agent_roles-label-agent_role_id-11: Utgivare
+  translated_agent_roles-label-agent_role_id-12: Rapporterad av
   translated_agent_roles-label-agent_role_id-13: Källa
   translated_agent_roles-label-agent_role_id-14: Källdatabas
   translated_agent_roles-label-agent_role_id-15: Kontaktperson
@@ -29,6 +31,8 @@ sv:
   translated_agent_roles-label-agent_role_id-21: leverantör
   translated_agent_roles-label-agent_role_id-22: Översättare
   translated_agent_roles-label-agent_role_id-23: Vetenskaplig granskare
+  translated_agent_roles-label-agent_role_id-24: Språklig granskning
+  translated_agent_roles-label-agent_role_id-3: Insamlare
   translated_agent_roles-label-agent_role_id-4: Kompositör
   translated_agent_roles-label-agent_role_id-5: Skapare
   translated_agent_roles-label-agent_role_id-6: Direktör
@@ -36,6 +40,7 @@ sv:
   translated_agent_roles-label-agent_role_id-8: Illustratör
   translated_agent_roles-label-agent_role_id-9: Fotograf
   translated_audiences-label-audience_id-1: Expertanvändare
+  translated_audiences-label-audience_id-2: Allmänheten
   translated_audiences-label-audience_id-3: Barn
   translated_collection_types-label-collection_type_id-1: Taxonomi
   translated_collection_types-label-collection_type_id-10: Ljud
@@ -46,15 +51,18 @@ sv:
   translated_collection_types-label-collection_type_id-15: Beskrivning
   translated_collection_types-label-collection_type_id-16: Bilder
   translated_collection_types-label-collection_type_id-17: Fördelning
+  translated_collection_types-label-collection_type_id-18: Bevarandestatus
   translated_collection_types-label-collection_type_id-19: Namninformation
   translated_collection_types-label-collection_type_id-2: Molekylära streckkoder
   translated_collection_types-label-collection_type_id-20: Molekylär data
+  translated_collection_types-label-collection_type_id-21: Nomenklatur
   translated_collection_types-label-collection_type_id-22: Ljud
   translated_collection_types-label-collection_type_id-23: Länkar
   translated_collection_types-label-collection_type_id-24: Litteratur
   translated_collection_types-label-collection_type_id-3: Beskrivning
   translated_collection_types-label-collection_type_id-4: Bilder
   translated_collection_types-label-collection_type_id-5: Erkännande
+  translated_collection_types-label-collection_type_id-6: Bevarandestatus
   translated_collection_types-label-collection_type_id-7: Namninformation
   translated_collection_types-label-collection_type_id-8: Molekylär data
   translated_collection_types-label-collection_type_id-9: Nomenklatur
@@ -109,6 +117,7 @@ sv:
   translated_licenses-description-license_id-7: Vissa rättigheter reserverade
   translated_licenses-description-license_id-8: Vissa rättigheter reserverade
   translated_licenses-description-license_id-9: Vissa rättigheter reserverade
+  translated_ranks-label-rank_id-106: formulär
   translated_ranks-label-rank_id-112: gen
   translated_ranks-label-rank_id-113: gen.
   translated_ranks-label-rank_id-118: genus
@@ -129,8 +138,11 @@ sv:
   translated_ranks-label-rank_id-391: undersl.
   translated_ranks-label-rank_id-394: undersläkte
   translated_ranks-label-rank_id-396: underkungarike
+  translated_ranks-label-rank_id-399: underordning
   translated_ranks-label-rank_id-408: underavsnitt
   translated_ranks-label-rank_id-411: underserier
+  translated_ranks-label-rank_id-414: underart
+  translated_ranks-label-rank_id-415: underart
   translated_ranks-label-rank_id-463: överfamilj
   translated_ranks-label-rank_id-494: stam
   translated_ranks-label-rank_id-503: oklassificerad

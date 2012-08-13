@@ -18,7 +18,7 @@
     %dt.required
       = f.label :description
     %dd
-      = f.text_area :description
+      = fckeditor_textarea(:data_object, :description, :toolbarSet => 'Article', :height => 250, :width => 580)
       -# TODO: uncomment when this is ready %p= f.allowed_html_help_tip(:all)
     %dt
       = f.label :refs

@@ -140,6 +140,12 @@ module TaxaHelper
     results
   end
 
+  def association_belongs_to_taxon_concept?(association, taxon_concept)
+    taxon_concept_ancestors_for_association = association.taxon_concept.flattened_ancestors.collect{|ans| ans.ancestor_id}
+    taxon_concept_ancestors_for_association << association.taxon_concept.id if association.taxon_concept
+    !taxon_concept_ancestors_for_association.blank? && taxon_concept_ancestors_for_association.include?(taxon_concept.id)
+  end
+
 # A *little* weird to have private methods in the helper, but these really help clean up the code for the methods
 # that are public, and, indeed, should never be called outside of this class.
 private

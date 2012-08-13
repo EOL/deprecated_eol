@@ -35,6 +35,9 @@ class Notification < ActiveRecord::Base
     :class_name => 'NotificationFrequency'
   belongs_to :i_am_being_watched, :foreign_key => :i_am_being_watched,
     :class_name => 'NotificationFrequency'
+
+  validates_presence_of :user
+
   # NOTE - there's a relationship here to the PendingNotification class, which actually references the literal name of
   # the field.  THUS (!) if you create a new field on this table, note that you are limited to 64 characters or less.
   # I think that's a reasonable limit.  ;)

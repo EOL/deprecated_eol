@@ -320,7 +320,7 @@ describe 'EOL APIs' do
   it 'pages should be able to toggle synonyms' do
     taxon = TaxonConcept.gen(:published => 1, :supercedure_id => 0)
     hierarchy = Hierarchy.gen(:label => 'my hierarchy', :browsable => 1)
-    hierarchy_entry = HierarchyEntry.gen(:hierarchy => hierarchy, :taxon_concept => taxon)
+    hierarchy_entry = HierarchyEntry.gen(:hierarchy => hierarchy, :taxon_concept => taxon, :rank => @rank)
     name = Name.gen(:string => 'my synonym')
     relation = SynonymRelation.gen_if_not_exists(:label => 'not common name')
     synonym = Synonym.gen(:hierarchy_entry => hierarchy_entry, :name => name, :synonym_relation => relation)

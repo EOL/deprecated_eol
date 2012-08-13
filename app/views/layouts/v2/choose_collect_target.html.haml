@@ -1,0 +1,12 @@
+- content_for :head do
+  = javascript_include_merged('taxa-navigation')
+- content_for :main do
+  = render :partial => 'taxa/classification_selector' unless @selected_hierarchy_entry.blank?
+  #content
+    .site_column
+      = yield
+      .disclaimer.copy
+        %h3.assistive= I18n.t(:taxon_page_content_disclaimer_header)
+        %p= I18n.t(:taxon_page_content_disclaimer)
+        %p= I18n.t(:taxon_page_content_disclaimer_suggest_improvement)
+= render :file => 'layouts/v2/application'

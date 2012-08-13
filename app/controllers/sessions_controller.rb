@@ -18,12 +18,12 @@ class SessionsController < ApplicationController
   # POST /sessions
   def create
     success, user = User.authenticate(params[:session][:username_or_email], params[:session][:password])
+    unless params[:session][:return_to].blank? || params[:session][:return_to] == root_url
+      store_location(params[:session][:return_to])
+    end
     if success && user.is_a?(User)
       # credentials good but user may still be inactive or hidden, we'll check during log_in
       log_in user
-      unless params[:session][:return_to].blank? || params[:session][:return_to] == root_url
-        store_location(params[:session][:return_to])
-      end
       redirect_back_or_default(user_newsfeed_path(current_user))
     else
       # bad credentials or user missing

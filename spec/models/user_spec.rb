@@ -36,6 +36,10 @@ describe User do
     User.hash_password(@pass).should == Digest::MD5.hexdigest(@pass)
   end
 
+  it 'should hash unsubscribe_keys with MD5' do
+    @user.unsubscribe_key.should == Digest::MD5.hexdigest(@user.email + @user.created_at.to_s + $UNSUBSCRIBE_NOTIFICATIONS_KEY)
+  end
+
   it 'should have a log method that creates a UserActivityLog entry (when enabled)' do
     old_log_val = $LOG_USER_ACTIVITY
     begin

@@ -4,7 +4,7 @@
   - if thumbnail
     .player{:id => "player_#{data_object.id}"}
     .player_interface{:id => "player_interface_#{data_object.id}"}
-      %a{:class => 'play', :title => I18n.t(:audio_play_assistive), :data => {:mime_type => en_mime_type}, :href => data_object.sound_url}
+      %a{:class => 'play', :data => {:mime_type => en_mime_type}, :href => data_object.sound_url}
         = image_tag '/images/v2/icon_play_mini.png', :alt => I18n.t(:audio_play)
       - # TODO: I18nize Javascript so we can move the pause and stop links to JS so that users without JS don't have to deal with them
       = link_to image_tag('/images/v2/icon_pause_mini.png', :alt => I18n.t(:audio_pause)), '#', { :class => 'pause', :title => I18n.t(:audio_pause_assistive) }
@@ -20,7 +20,7 @@
           - # TODO: I18nize Javascript so we can move redundant tags to JS so that users without JS don't have to deal with them
           %ul.jp-controls
             %li
-              %a{:class => 'jp-play', :title => I18n.t(:audio_play_assistive), :data => {:mime_type => en_mime_type}, :href => data_object.sound_url}
+              %a{:class => 'jp-play', :alt => I18n.t(:audio_play), :data => {:mime_type => en_mime_type}, :href => data_object.sound_url}
             %li
               = link_to I18n.t(:audio_pause), '#', { :class => "jp-pause", :title => I18n.t(:audio_pause_assistive) }
             %li

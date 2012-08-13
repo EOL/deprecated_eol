@@ -50,7 +50,7 @@ EolUpgrade::Application.routes.draw do
       resources :maps, :only => [:index], :controller => 'taxa/maps'
       resources :media, :only => [:index], :controller => 'taxa/media'
       resources :details, :only => [:index], :controller => 'taxa/details'
-      resources :communities, :as => :community, :controller => 'taxa/communities', :only => [:index] do
+      resource :community, :only => [:index], :controller => 'taxa/communities' do
         collection do
           get 'collections'
           get 'curators'
@@ -117,7 +117,7 @@ EolUpgrade::Application.routes.draw do
         get 'citizen_science'
       end
     end
-    resources :communities, :as => :community, :controller => 'taxa/communities', :only => [:index] do
+    resources :communities, :only => [:index], :controller => 'taxa/communities' do
       collection do
         get 'collections'
         get 'curators'

@@ -183,45 +183,6 @@ class DataObject < ActiveRecord::Base
     end
   end
 
-  # for RSS feeds
-  def self.for_feeds(type = :all, taxon_concept_id = nil, max_results = 100)
-    if type == :text
-      data_type_ids = [DataType.text_type_ids[0]]
-    elsif type == :images
-      data_type_ids = [DataType.image_type_ids[0]]
-    else
-      data_type_ids = [DataType.image_type_ids[0], DataType.text_type_ids[0]]
-    end
-
-    if taxon_concept_id.nil?
-      lookup_ids = HierarchyEntry.find_all_by_hierarchy_id_and_parent_id(Hierarchy.default.id, 0).collect{|he| he.taxon_concept_id}
-    else
-      lookup_ids = [taxon_concept_id]
-    end
-
-    data_objects = DataObject.find_by_sql("
-      SELECT do.id, do.guid, do.created_at
-      FROM feed_data_objects fdo
-      JOIN #{DataObject.full_table_name} do ON (fdo.data_object_id=do.id)
-      WHERE fdo.taxon_concept_id IN (#{lookup_ids.join(',')})
-      AND do.published=1
-      AND do.data_type_id IN (#{data_type_ids.join(',')})
-      AND do.created_at IS NOT NULL
-      AND do.created_at != '0000-00-00 00:00:00'").uniq
-    data_objects.sort_by{ |d| d.created_at }
-    # TODO: core_relationships
-    data_objects = DataObject.find_all_by_id(data_objects.collect{ |d| d.id })
-    DataObject.preload_associations(data_objects, [ { :data_objects_hierarchy_entries =>
-      { :hierarchy_entry => :name } }, :curated_data_objects_hierarchy_entries ],
-      :select => {
-        :hierarchy_entries => '*',
-        :names => '*',
-        :data_objects_hierarchy_entries => '*',
-        :curated_data_objects_hierarchy_entries => '*'
-      } )
-    data_objects
-  end
-
   def self.create_user_text(params, options)
     unless params[:license_id].to_i == License.public_domain.id || ! params[:rights_holder].blank?
       params[:rights_holder] = options[:user].full_name

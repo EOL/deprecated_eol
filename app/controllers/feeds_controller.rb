@@ -62,22 +62,6 @@ class FeedsController < ApplicationController
     end
   end
 
-  def all
-    lookup_content(:type => :all)
-  end
-
-  def images
-    lookup_content(:type => :images, :title => 'Latest Images')
-  end
-
-  def text
-    lookup_content(:type => :text, :title => 'Latest Text')
-  end
-
-  def comments
-    lookup_content(:type => :comments, :title => 'Latest Comments')
-  end
-
   def partner_curation()
     content_partner_id = params[:content_partner_id] || nil
     year = params[:year] || nil
@@ -104,79 +88,6 @@ class FeedsController < ApplicationController
 
 
 private
-
-  def lookup_content(options = {})
-    taxon_concept_id = params[:id] || nil
-    options[:type] ||= :all
-    options[:title] ||= 'Latest Images, Text and Comments'
-    taxon_concept = TaxonConcept.find(taxon_concept_id)
-
-    feed_link = url_for(:controller => :taxa, :action => :show, :id => taxon_concept.id)
-    options[:title] += " for #{taxon_concept.quick_scientific_name(:normal)}"
-
-    feed_items = []
-    if options[:type] != :comments
-      feed_items += DataObject.for_feeds(options[:type], taxon_concept.id, @@maximum_feed_entries)
-    end
-    if options[:type] == :comments
-      feed_items += Comment.for_feeds(:comments, taxon_concept_id, @@maximum_feed_entries)
-    end
-
-    create_feed(feed_items, :type => options[:type], :id => taxon_concept_id, :title => options[:title], :link => feed_link)
-  end
-
-
-  def create_feed(feed_items, options = {})
-    @feed_url = url_for(:controller => 'feeds', :action => options[:type], :id => options[:id])
-    @feed_link = options[:link] || root_url
-    @feed_title = options[:title] || 'Latest Images, Text and Comments'
-
-
-    feed_items.sort! {|x,y| y['created_at'] <=> x['created_at']}
-    feed_items = feed_items[0..@@maximum_feed_entries]
-
-    @feed_entries = []
-    feed_items.each do |hash|
-      @feed_entries << feed_entry(hash)
-    end
-
-    respond_to do |format|
-      format.atom { render :template => '/feeds/feed_template', :layout => false }
-    end
-  end
-
-  def feed_entry(comment_or_data_object)
-    entry = { :id => '', :title => '', :link => '', :content => '', :updated => '' }
-    if comment_or_data_object.class == DataObject
-      data_object = comment_or_data_object
-      entry[:title] = data_object.first_concept_name
-      entry[:link] = url_for(:controller => 'data_objects', :action => data_object.id, :only_path => false)
-      entry[:id] = entry[:link]
-      entry[:updated] = data_object.created_at
-
-      entry[:content] = data_object.description + "<br/><br/>"
-
-      # include image
-      if data_object.is_image?
-        entry[:content] = "<img src='#{data_object.thumb_or_object}'/></a><br/>" + entry[:content]
-      end
-      entry[:content] += "<b>License</b>: #{data_object.license.title}<br/>" unless data_object.license.blank?
-
-      # include attribution
-      data_object.agents_data_objects.each do |ado|
-        entry[:content] += "<b>#{ado.agent_role.label.capitalize}</b>: #{ado.agent.full_name}<br/>"
-      end
-      return entry
-    else
-      comment_hash = comment_or_data_object
-      entry[:title] = comment_hash['scientific_name']
-      entry[:link] = url_for(:controller => :taxa, :action => :show, :id => comment_hash['taxon_concept_id'], :comment_id => comment_hash['id'])
-      entry[:id] = entry[:link]
-      entry[:updated] = comment_hash['created_at']
-      entry[:content] = comment_hash['description']
-      return entry
-    end
-  end
 
   def partner_feed_entry(curator_activity_log)
     entry = { :id => '', :title => '', :link => '', :content => '', :updated => '' }

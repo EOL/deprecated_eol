@@ -15,15 +15,6 @@ describe Comment do
     EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
   end
 
-  # for_feeds
-  it 'should find text data objects for feeds' do
-    res = Comment.for_feeds(:comments, @tc.id)
-    res.class.should == Array
-    res_type = res.map {|i| i.class}.uniq
-    res_type.size.should == 1
-    res_type[0].should == Hash
-  end
-
   # visible?
   it "should return true if visible_at date is in the past" do
     [1.second.ago, 1.day.ago, 1.year.ago].each do |timestamp|

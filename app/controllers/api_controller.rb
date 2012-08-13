@@ -82,7 +82,6 @@ class ApiController < ApplicationController
         data_object = d.latest_version_in_same_language(:check_only_published => false)
       end
       raise if data_object.blank?
-      # TODO: core_relationships
       data_object = DataObject.find_by_id(data_object.id)
       raise if data_object.blank?
       taxon_concept = data_object.all_associations.first.taxon_concept
@@ -165,18 +164,18 @@ class ApiController < ApplicationController
     @include_synonyms = false if params[:synonyms] == '0'
 
     begin
-      add_include = [ { :name => :canonical_form }]
-      add_select = { :hierarchy_entries => '*', :canonical_forms => :string }
+      associations = [ { :name => :canonical_form }]
+      selects = { :hierarchy_entries => '*', :canonical_forms => [ :id, :string ] }
       if @include_common_names
-        add_include << { :common_names => [:name, :language] }
-        add_select[:languages] = :iso_639_1
+        associations << { :common_names => [:name, :language] }
+        selects[:languages] = [ :id, :iso_639_1 ]
       end
       if @include_synonyms
-        add_include << { :scientific_synonyms => [:name, :synonym_relation] }
+        associations << { :scientific_synonyms => [:name, :synonym_relation] }
       end
 
-      # TODO: core_relationships(:add_include => add_include, :add_select => add_select)
       @hierarchy_entry = HierarchyEntry.find(id)
+      @hierarchy_entry.preload_associations(associations, :select => selects)
       @ancestors = @hierarchy_entry.ancestors
       @ancestors.pop # remove the last element which is the node itself
       @children = @hierarchy_entry.children

@@ -71,6 +71,14 @@ qqq:
         harvest_events: "A 'Harvest Event' is the record of when data was imported for a resource (which is a collection of species information), so the term is meant to capture the sense of data being 'harvested' in a single 'event' in time."
     errors:
       models:
+        resource:
+          attributes:
+            dwc_archive_url:
+              invalid: "The user has just attempted to submit a new resource (a file that will be uploaded to EOL, parsed, and turned into pages.) This message is used by Rails to tell the user that they attempted to point their URL to an invalid file type."
+            accesspoint_url:
+              invalid: "The user has just attempted to submit a new resource (a file that will be uploaded to EOL, parsed, and turned into pages.) This message is used by Rails to tell the user that they attempted to point their URL to an invalid file type."
+            dataset:
+              wrong_type: "The user has just attempted to submit a new resource (a file that will be uploaded to EOL, parsed, and turned into pages.) This message is used by Rails to tell the user that they attempted to point their URL to an invalid file type."
         harvest_event:
           attributes:
             publish:

@@ -3,7 +3,7 @@
   .main_container
     .copy
       %h3= I18n.t(:communities_page_title)
-      %p=  I18n.t(:community_tab_communities_description)
+      %p= raw(I18n.t(:community_tab_communities_description))
     .article.list
       .header
         %h4= I18n.t(:belongs_in_count_communities, :count => @communities.count)

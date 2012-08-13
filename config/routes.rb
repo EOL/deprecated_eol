@@ -71,7 +71,7 @@ EolUpgrade::Application.routes.draw do
           get 'bhl'
         end
       end
-      resources :resources, :only => [:show], :controller => 'taxa/resources' do
+      resources :resources, :only => [:index], :controller => 'taxa/resources' do
         collection do
           get 'identification_resources'
           get 'education'

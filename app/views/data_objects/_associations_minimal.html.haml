@@ -2,7 +2,7 @@
   - associations = data_object.filtered_associations(:preview => false, :invisible => current_user.is_admin? || current_user.is_curator?)
   - unless associations.blank?
     %p
-      = collect_names_and_status(associations[0..2]).join(' &bull; ')
+      = raw collect_names_and_status(associations[0..2]).join(' &bull; ')
       - if associations.size > 1
         = '...'
-        = link_to I18n.t(:associations_more_link), data_object
+        = link_to raw(I18n.t(:associations_more_link)), data_object

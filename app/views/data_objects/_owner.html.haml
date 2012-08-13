@@ -6,6 +6,6 @@
   - unless data_object.license && data_object.license.is_public_domain?
     - owner = "&copy; " + owner
 - if owner.blank?
-  = "&nbsp;"
+  = raw "&nbsp;"
 - else
-  = owner
+  = raw owner

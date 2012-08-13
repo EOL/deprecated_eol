@@ -29,4 +29,4 @@
     %p.all
       = link_to I18n.t(:see_all_media_link), taxon_media_path(@taxon_concept.id)
       %br/
-      = link_to I18n.t(:see_all_maps_link), taxon_map_path(@taxon_concept.id) unless @map.blank?
+      = link_to I18n.t(:see_all_maps_link), taxon_maps_path(@taxon_concept.id) unless @map.blank?

@@ -35,7 +35,7 @@ class ContentController < ApplicationController
         { :image_url => random_image.taxon_concept.exemplar_or_best_image_from_solr.thumb_or_object('130_130'),
           :taxon_scientific_name => random_image.taxon_concept.title_canonical,
           :taxon_common_name => random_image.taxon_concept.preferred_common_name_in_language(current_language),
-          :taxon_page_path => taxon_overview_path(random_image.taxon_concept_id) }
+          :taxon_page_path => overview_taxon_path(random_image.taxon_concept_id) }
       end
       render :json => random_images, :callback => params[:callback]
     rescue

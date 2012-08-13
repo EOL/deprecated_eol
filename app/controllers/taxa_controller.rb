@@ -12,7 +12,7 @@ class TaxaController < ApplicationController
       do_the_search
       return
     end
-    return redirect_to taxon_overview_path(params[:id]), :status => :moved_permanently
+    return redirect_to overview_taxon_path(params[:id]), :status => :moved_permanently
   end
 
   def overview
@@ -47,8 +47,8 @@ class TaxaController < ApplicationController
     @watch_collection = logged_in? ? current_user.watch_collection : nil
     @assistive_section_header = I18n.t(:assistive_overview_header)
     @rel_canonical_href = @selected_hierarchy_entry ?
-      taxon_entry_overview_url(@taxon_concept, @selected_hierarchy_entry) :
-      taxon_overview_url(@taxon_concept)
+      overview_taxon_entry_url(@taxon_concept, @selected_hierarchy_entry) :
+      overview_taxon_url(@taxon_concept)
     current_user.log_activity(:viewed_taxon_concept_overview, :taxon_concept_id => @taxon_concept.id)
   end
 

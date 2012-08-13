@@ -32,7 +32,7 @@ class CollectionItemsController < ApplicationController
       format.html do
         redirect_object = @collection_item.object
         if @collection_item.object.is_a?(TaxonConcept)
-          redirect_object = taxon_overview_url(@collection_item.object)
+          redirect_object = overview_taxon_url(@collection_item.object)
         end
         redirect_to redirect_object
       end

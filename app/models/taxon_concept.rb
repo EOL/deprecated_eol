@@ -661,7 +661,7 @@ class TaxonConcept < ActiveRecord::Base
       WHERE #{filter[0]}
       AND he_parent.published = 1
       AND browsable = 1
-    ").all_hashes.uniq
+    ")# .all_hashes.uniq
 
     children = TaxonConcept.connection.execute("
       SELECT n.id name_id, n.string name_string, n.canonical_form_id, he_child.taxon_concept_id, h.label hierarchy_label, he_child.id hierarchy_entry_id
@@ -672,32 +672,31 @@ class TaxonConcept < ActiveRecord::Base
       WHERE #{filter[1]}
       AND he_child.published = 1
       AND browsable = 1
-    ").all_hashes.uniq
+    ")# .all_hashes.uniq
 
-    grouped_parents = {}
-    for parent in parents
-      key = parent['name_string'].downcase+"|"+parent['taxon_concept_id']
-      grouped_parents[key] ||= {'taxon_concept_id' => parent['taxon_concept_id'], 'name_string' => parent['name_string'], 'sources' => [], 'hierarchy_entry_id' => parent['hierarchy_entry_id']}
-      grouped_parents[key]['sources'] << parent
-    end
-    grouped_parents.each do |key, hash|
-      hash['sources'].sort! {|a,b| a['hierarchy_label'] <=> b['hierarchy_label']}
-    end
-    grouped_parents = grouped_parents.sort {|a,b| a[0] <=> b[0]}
+    {'parents' => self.group_he_results(parents), 'children' => self.group_he_results(children)}
+  end
 
-    grouped_children = {}
-    for child in children
-      key = child['name_string'].downcase+"|"+child['taxon_concept_id']
-      grouped_children[key] ||= {'taxon_concept_id' => child['taxon_concept_id'], 'name_string' => child['name_string'], 'sources' => [],
-        'hierarchy_entry_id' => child['hierarchy_entry_id']}
-      grouped_children[key]['sources'] << child
+  def self.group_he_results(results)
+    grouped = {}
+    name_string_i = results.fields.index('name_string')
+    hierarchy_label_i = results.fields.index('hierarchy_label')
+    taxon_concept_id_i = results.fields.index('taxon_concept_id')
+    hierarchy_entry_id_i = results.fields.index('hierarchy_entry_id')
+    results.each do |result|
+      key = "#{result[name_string_i].downcase}|#{result[taxon_concept_id_i]}"
+      grouped[key] ||= {
+        'taxon_concept_id' => result[taxon_concept_id_i],
+        'name_string' => result[name_string_i],
+        'sources' => [],
+        'hierarchy_entry_id' => result[hierarchy_entry_id_i]
+      }
+      grouped[key]['sources'] << result
     end
-    grouped_children.each do |key, hash|
-      hash['sources'].sort! {|a,b| a['hierarchy_label'] <=> b['hierarchy_label']}
+    grouped.each do |key, hash|
+      hash['sources'].sort! {|a,b| a[hierarchy_label_i] <=> b[hierarchy_label_i]}
     end
-    grouped_children = grouped_children.sort {|a,b| a[0] <=> b[0]}
-
-    combined = {'parents' => grouped_parents, 'children' => grouped_children}
+    grouped = grouped.sort {|a,b| a[0] <=> b[0]}
   end
 
   def data_objects_for_api(options = {})

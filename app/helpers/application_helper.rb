@@ -22,8 +22,8 @@ module ApplicationHelper
 
   def navigation_node(hierarchy_entry, opts = {})
     link = opts[:link_to_taxa] ?
-      taxon_overview_path(hierarchy_entry.taxon_concept_id) :
-      taxon_entry_overview_path(hierarchy_entry.taxon_concept_id, hierarchy_entry)
+      overview_taxon_path(hierarchy_entry.taxon_concept_id) :
+      overview_taxon_entry_path(hierarchy_entry.taxon_concept_id, hierarchy_entry)
     node = link_to(hierarchy_entry.italicized_name.firstcap, link)
     node << ' '
     node << navigation_show_descendants_link(hierarchy_entry, opts.reverse_merge(:link => link))
@@ -34,8 +34,8 @@ module ApplicationHelper
              opts.delete(:link)
            else
              opts[:link_to_taxa] ?
-             taxon_overview_path(hierarchy_entry.taxon_concept_id) :
-             taxon_entry_overview_path(hierarchy_entry.taxon_concept_id, hierarchy_entry)
+             overview_taxon_path(hierarchy_entry.taxon_concept_id) :
+             overview_taxon_entry_path(hierarchy_entry.taxon_concept_id, hierarchy_entry)
            end
     if hierarchy_entry.number_of_descendants == 0
       ''

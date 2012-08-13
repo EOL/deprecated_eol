@@ -8,5 +8,10 @@ module ActiveRecord
       end
       ActiveRecord::Associations::Preloader.new(instances, associations, new_options).run
     end
+    
+    # EOL: giving the function to instances too
+    def preload_associations(associations, preload_options = {})
+      self.class.preload_associations(self, associations, preload_options)
+    end
   end
 end

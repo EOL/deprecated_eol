@@ -173,7 +173,7 @@ it:
   translated_resource_statuses-label-resource_status_id-10: Pubblicato
   translated_resource_statuses-label-resource_status_id-11: Pubblicazione in sospeso
   translated_resource_statuses-label-resource_status_id-12: Annullare la pubblicazione in sospeso
-  translated_resource_statuses-label-resource_status_id-13: Force Harvest
+  translated_resource_statuses-label-resource_status_id-13: Forza raccolta
   translated_resource_statuses-label-resource_status_id-2: Caricato
   translated_resource_statuses-label-resource_status_id-3: Caricamento non riuscito
   translated_resource_statuses-label-resource_status_id-4: Trasferito al Server dei Contenuti
@@ -218,8 +218,9 @@ it:
   translated_synonym_relations-label-synonym_relation_id-29: sinonimo minore
   translated_synonym_relations-label-synonym_relation_id-3: acronimo
   translated_synonym_relations-label-synonym_relation_id-30: non disponibile, oggetto del database
-  translated_synonym_relations-label-synonym_relation_id-31: sostituzione innecessaria
+  translated_synonym_relations-label-synonym_relation_id-31: sostituzione non necessaria
   translated_synonym_relations-label-synonym_relation_id-33: non disponibile, errore ortografico in letteratura
+  translated_synonym_relations-label-synonym_relation_id-36: sinonimo minore
   translated_synonym_relations-label-synonym_relation_id-4: anamorfo
   translated_synonym_relations-label-synonym_relation_id-40: non disponibile, altro
   translated_synonym_relations-label-synonym_relation_id-45: basionimo
@@ -325,6 +326,7 @@ it:
   translated_user_identities-label-user_identity_id-1: un appassionato
   translated_user_identities-label-user_identity_id-2: uno studente
   translated_user_identities-label-user_identity_id-3: un insegnante
+  translated_user_identities-label-user_identity_id-4: uno scenziato non professionista
   translated_user_identities-label-user_identity_id-5: uno scienziato professionista
   translated_vetted-label-vetted_id-0: Sconosciuto
   translated_vetted-label-vetted_id-4: Non attendibile

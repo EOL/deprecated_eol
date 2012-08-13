@@ -70,7 +70,7 @@ ar:
         display_name: الاسم الظاهر
         full_name: اسم المشروع
         homepage: العنوان الإلكتروني للمشروع
-        id: الهوية
+        id: رقم
         notes: ملاحظات المشروع
         public: عام
         resources: المراجع
@@ -302,7 +302,7 @@ ar:
           other: "%{count} خطأ في التحقق"
     models: 
       user: حساب
-  activity: نشاط
+  activity: النشاط
   activity_log_empty: لم يتم إضافة تحديثات بعد.
   activity_log_empty_learn_more_link: تعرف على كيفية المشاركة
   activity_logs: 
@@ -611,7 +611,7 @@ ar:
   admin_content_pages_page_title: "الإدارة: إدارة المحتوى"
   admin_content_partners_index_header: شركاء المحتوى
   admin_content_partners_link: شركاء المحتوى
-  admin_content_partners_notifications_link: إشعارات
+  admin_content_partners_notifications_link: إخطارات
   admin_content_partners_notifications_page_title: "الإدارة: إشعارات شركاء المحتوى"
   admin_content_partners_notifications_sent_to_recipients_header: "تم إرسال الإشعارات إلى:"
   admin_content_partners_notifications_statistics_reminder_description: "يرسل رسالة بريد إلكتروني إلى جميع شركاء المحتوى لإخطارهم بإمكانية الاطلاع على احصائيات استخدام الويب الخاصة ببياناتهم بموسوعة الحياة للشهر السابق. ملاحظة: إن ارسال ذلك الإخطار بصورة يدوية هو حل مؤقت ويجب أن يتم إيقافه حالما يتم إضافة حل أتوماتيكي."
@@ -685,7 +685,7 @@ ar:
   annotation_cabs_colon: "حاشية:"
   anonymous_user_full_name: مستخدم مجهول الاسم
   anonymous_user_given_name: مجهول الاسم
-  anonymous_user_tag_line: لم يتم تسجيل الدخول
+  anonymous_user_tag_line: غير مسجل الدخول
   any_integer: أي عدد صحيح
   api_docs_collections_description: عند إدخال معرف مجموعة ما، سوف تعرض واجهة برمجة التطبيقات جميع البيانات الفوقية المتعلقة بالمجموعة والعناصر التي تتضمنها. يمكن تصفية قائمة العناصر وفقًا للنوع، وترتيبها وفقًا للسمات المذكورة أعلاه.
   application_version_advisory_information: نسخة التطبيق
@@ -893,9 +893,9 @@ ar:
   comment_not_updated_error: عذرا، حدث خطأ، لا يمكن تحديث التعليق.
   comment_or_rate_on_this_article: التعليق على هذه المقالة أو تقييمها
   comment_show_posters_image_alt: الصورة الشخصية لـ%{posters_name} الذي أضاف ذلك التعليق.
-  comments: التعليقات
+  comments: تعليقات
   comments_and_tags: التعليقات والعلامات
-  comments_filter: التعليقات
+  comments_filter: تعليقات
   comments_moderated: التعليقات المعدلة
   comments_on: تعليقات حول
   comments_with_count: 
@@ -1313,7 +1313,7 @@ ar:
   dato_edit_cancel: ألغِ
   dato_edit_text_link_button: عدل  هذا المقال
   dato_edit_text_page_description: نشكرك على المساهمة في  موسوعة الحياة. ستضاف مساهمتك فى قائمة المشاهدة الخاصة بك حتى تتمكن من متابعة أي مداخلات متعلقة بها ووضعها من حيث اﻹشراف.
-  dato_edit_text_title: تعديل المقال
+  dato_edit_text_title: تعديل المقالة
   dato_new_edit_user_text_fieldset_content_header: محتوى المقال
   dato_new_edit_user_text_fieldset_information_header: معلومات المقال
   dato_new_edit_user_text_form_tip: سيتم عرض مقالك المكتمل على صفحة الأصنوفات. إن لم تكن مشرفًا، ستوضع عليها علامة "غير مُراجع" حتى يقوم مشرف بمراجعتها. مطلوب الفصل الفرعي والنص واللغة والرخصة (%{required_icon})، أما باقي الخانات فهي اختيارية. إذا قمت باختيار رخصة CC-BY - Attribution رجاء تضمين صاحب حق الملكية أو اترك المكان خاليًا لنستخدم اسمك كاملاً. لا تتطلب رخص الملك العام صاحب حق ملكية. لمزيد من المساعدة اقرأ <a href="%{add_article_help_url}">add article help</a>.
@@ -1490,14 +1490,14 @@ ar:
     one: كل اﻷنواع (%{count})
     other: كل اﻷنواع (%{count})
   filter_by_type_collection_option: المجموعات
-  filter_by_type_comment_option: التعليقات
+  filter_by_type_comment_option: تعليقات
   filter_by_type_community_option: المجتمعات
   filter_by_type_content_page_option: حول موسوعة الحياة
   filter_by_type_image_option: الصور
   filter_by_type_image_option_with_count: 
     one: الصور (%{count})
     other: الصور (%{count})
-  filter_by_type_name_option: الأسماء
+  filter_by_type_name_option: أسماء
   filter_by_type_object_curated_option: كائنات تم الإشراف عليها
   filter_by_type_photosynth_option: تطبيق فوتوسينث
   filter_by_type_sound_option: الأصوات
@@ -1517,7 +1517,7 @@ ar:
   filter_newsfeed_option_collections: المجموعات
   filter_newsfeed_option_community: المجتمع
   filter_newsfeed_option_curation: الإشراف
-  filter_newsfeed_option_messages: التعليقات
+  filter_newsfeed_option_messages: تعليقات
   filter_newsfeed_option_watchlist: قائمة المراقبة
   filtered_information: المعلومات المصفاه
   find_taxa_submit_button: البحث عن أصنوفة
@@ -1544,7 +1544,7 @@ ar:
   fragment_caching_enabled: تفعيل التحكم في الذاكرة لفترة معينة
   frequency: التكرار
   frequency_daily: يوميًّا
-  frequency_monthly: شهريًّا
+  frequency_monthly: شهريا
   frequency_never: أبدًا
   frequency_weekly: أسبوعيًّا
   friendly_url: عنوان URL صديق
@@ -1585,7 +1585,7 @@ ar:
   has_trusted_your_image: حدد أن الصورة الخاصة بك "موثوق بها"
   has_untrusted_your_image: حدد أن الصورة الخاصة بك "غير موثوق بها"
   hello_user: مرحبا  %{user}
-  help: المساعدة
+  help: مساعدة
   helpers: 
     label: 
       collection: 
@@ -1657,7 +1657,7 @@ ar:
         first_published_at: نشر للمرة الأولى
         publish_more: الأعلام تحصي الأحداث استعدادًا للنشر، ولن يُنشر المحتوى على الفور
         published_at: نشر
-        published_status: وضع
+        published_status: الحالة
       hierarchy: 
         browsable_more: ضع علامة على خاصية قابلية التصفح لتعزيز هذا التسلسل الهرمي بحيث يصبح أحد التسلسلات الهرمية الرئيسية القابلة للتصفح بموسوعة الحياة.
         browsable_status_with_colon: "حالة قابلية التصفح:"
@@ -1681,8 +1681,8 @@ ar:
         latest_published_harvest_event: آخر ما نشر
         oldest_published_harvest_event: أول ما نشر
         refresh_period_hours: تردد
-        resource_status: وضع
-        resource_status_id: وضع
+        resource_status: الحالة
+        resource_status_id: الحالة
         resource_url_or_file: بيانات المصدر <small>( أختر إدخال عنوان إلكتروني أو تحميل ملف)</small>.
         resource_url_or_file_upload: حمل ملف المصدر
         resource_url_or_file_url: حمل المصدر من عنوان إلكتروني
@@ -1750,7 +1750,7 @@ ar:
       content_page: 
         create: إنشاء صفحة
         edit: تعديل
-        preview: عرض
+        preview: عرض مسبق
         update: تحديث صفحة
       content_partner: 
         create: إنشاء شريك محتوى
@@ -1765,8 +1765,8 @@ ar:
         update: تحديث جهة اتصال
       create: إنشاء %{model}
       data_object: 
-        create: أضف مقال
-        create_text: أضف مقال
+        create: إضافة المقالة
+        create_text: إضافة المقالة
         update: حفظ المقال
       eol_statistic: 
         download_csv: تحميل بصيغة (CSV)
@@ -1832,7 +1832,7 @@ ar:
   html_format: (صيغة HTML)
   html_format_with_left_col: (صيغة HTML، ادخل فقط إذا رغبت في وجود عمود إلى يسار الصفحة، وإلا فاترك المكان خاليًا)
   icon_near_the_table_of_content: الأيقونة موجودة بالقرب من جدول المحتويات على يسار الصفحة. يمكنك أيضًا تقديم <a href=''>comments</a> حول هذا النوع لموقع موسوعة الحياة مباشرة باستخدام زر "Comments" بالقرب من الصور.
-  id: الهوية
+  id: رقم
   if_checked_and_user_is_saved: إذا تم الاختيار وحفظ المستخدم، فسوف يتم حذف الاعتمادات، والنطاق، والموافقة والفرع الحيوي المختار، ولن يظهر المستخدم كمشرف بعد ذلك. لم يتم إرسال معلومات حول ذلك المستخدم.
   if_the_details_parameter_is_not_set: إذا كان معامل البيانات غير محدد، سوف يتم عرض معرف العنصر، ونوع البيانات، وفي حالة المقالات، الموضوع فحسب. سوف يعادل نوع البيانات قيمة من %{linka} معجم نوع المصادر، كما سوف يعادل موضوع النص قيمة من %{linkb} علم وجود عناصر المعلومات.
   image: صورة
@@ -1886,7 +1886,7 @@ ar:
   item_not_added_to_collection_error: عفوًا، حدث خطأ، لم يتم إضافة العنصر المختار إلى المجموعة.
   item_not_added_to_itself_notice: عفوًا، لا يمكنك إضافة مجموعة <em>%{collection_name}</em> إلى نفسها.
   item_not_updated_in_collection_error: عفوًا، حدث خطأ، تعذر تحديث عنصر المجموعة.
-  item_type_article: مقال
+  item_type_article: المقالة
   item_type_article_assistive: ذلك العنصر مقال
   item_type_collection: مجموعة
   item_type_collection_assistive: ذلك العنصر مجموعة
@@ -1938,7 +1938,7 @@ ar:
   learn_more_about_communities_link: تعرف على المزيد عن المجتمعات
   learn_more_about_names_for_this_taxon: تعرف على المزيد عن أسماء تلك الأصنوفة
   learn_more_link: (%{learn_more})
-  learn_more_lowercase: تعرف على المزيد
+  learn_more_lowercase: معرفة المزيد
   leave_a_comment: أضف تعليق
   leave_community_button: مغادرة المجتمع
   leave_reply: اترك رد
@@ -2090,7 +2090,7 @@ ar:
       taxon_overview: نظرة عامة على الأصنوفة
       videos: مقاطع فيديو
   moderator_colon: "مراقب:"
-  monthly: شهريًّا
+  monthly: شهريا
   more_children_with_count: 
     one: "%{count} فرع إضافي"
     other: "%{count} فرع إضافي"
@@ -2141,7 +2141,7 @@ ar:
   names_preferred_column_header: المفضل
   names_relationship_column_header: العلاقة
   names_sources_column_header: المصادر
-  names_status_column_header: وضع
+  names_status_column_header: الحالة
   names_synonyms_empty: لم يتم ربط أي مرادفات بتلك الإصنوفة إلى الأن.
   never: أبدًا
   new_collection: مجموعة جديدة
@@ -2356,7 +2356,7 @@ ar:
   pagination_previous_with_count: 
     one: عرض %{count} صفحة السابقة
     other: عرض %{count} صفحة السابقة
-  parameters: معاملات
+  parameters: محددات
   partner: شريك
   partner_information: معلومات عن الشريك
   partner_page: صفحة الشريك
@@ -2371,7 +2371,7 @@ ar:
   percentage_of_children_with_text: "% نسبة النسل الذي يضم نص"
   percentage_of_descendants_with_images: نسبة السلالات التي تضم صور
   percentage_of_descendants_with_text: نسبة السلالات التي تضم نص
-  permalink: رابط ثابت
+  permalink: وصلة دائمة
   person_rating: تقييم الشخص
   personal_profile_menu: الصفحة الشخصية
   personal_space: المساحة الشخصية
@@ -2390,13 +2390,13 @@ ar:
   post_comment: إضافة تعليق
   preferred_common_name_advisory_information: الاسم  الشائع المفضل لتلك الأصنوفة
   press_room: المركز الإعلامي
-  preview: معاينة
+  preview: عرض مسبق
   preview_changes: اعرض التغييرات
   preview_version_of_latest_published_data_object_title_link: نسخة تمهيدية لـ %{link}
   previously_published: نُشر من قبل
   proceed_to_checkout_page: استمر لصفحة الخروج
   process_name: اسم العملية
-  profile: الصفحة الشخصية
+  profile: الملف
   profile_colon: "المعلومات الشخصية:"
   profile_image_alt_text_curator: الصورة الشخصية للمشرف %{user_full_name}
   profile_image_alt_text_member: الصورة الشخصية للعضو %{user_full_name}
@@ -2650,11 +2650,11 @@ ar:
   sort_by_label: رتب وفقًا لـ
   sort_by_newest_option: الأحدث
   sort_by_oldest_option: الأقدم
-  sort_by_rating_option: التقييم
+  sort_by_rating_option: تقييم
   sort_by_recently_added_option: أضيف مؤخرا
   sort_by_reverse_alphabetical_option: أبجدي معكوس
   sort_by_richness_option: ثراء المحتوى
-  sort_by_status_option: وضع
+  sort_by_status_option: الحالة
   sort_by_title_ascending: العنوان تصاعديا
   sort_by_title_descending: العنوان تنازليًا
   sort_by_year_ascending: العنوان تنازليا
@@ -2693,7 +2693,7 @@ ar:
   stat: إحصائية
   sub_heading: عنوان فرعي
   subject: الموضوع
-  submit: إدخال
+  submit: إرسال
   submit_term: تقديم مصطلح
   suggested_result_page_id: "مُعرِّف صفحة النتيجة النمقترحة:"
   suggested_results_avg: متوسط النتائج المقترحة
@@ -3165,7 +3165,7 @@ ar:
   user_activity_stats_common_names_added: تمت إضافة  %{count} اسم شائع
   user_activity_stats_common_names_curated: خضع {%{count} اسمًا للإشراف
   user_activity_stats_common_names_removed: تم حذف %{count} اسم شائع.
-  user_activity_stats_header: نشاط
+  user_activity_stats_header: النشاط
   user_activity_stats_objects_curated: خضع %{count} كائن للإشراف
   user_activity_stats_objects_curated_dropdown: الكائنات التي خضعت للإشراف
   user_activity_stats_set_exemplar: تم وضع %{count} صورة كنموذج

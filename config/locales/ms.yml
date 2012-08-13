@@ -1868,7 +1868,7 @@ ms:
   validation_error: Ralat Pengesahan
   validation_following_fields: "Ruangan-ruangan berikut ada masalah:"
   value: Nilai
-  value_default: (asali)
+  value_default: (azali)
   value_empty: (kosong)
   values: Nilai
   version_1_0_uses_fields_from_the_latest_version: versi 1.0 menggunakan medan-medan daripada versi terkini skema %{link}

@@ -8,6 +8,7 @@
 # Author: Erick mata
 # Author: Fitoschido
 # Author: Invadinado
+# Author: Larjona
 # Author: McDutchie
 # Author: Mor
 # Author: Rbcastroc
@@ -705,6 +706,18 @@ es:
   admin_user_delete_successful_notice: El usuario ha sido eliminado
   admin_user_hide_successful_notice: El usuario ha sido ocultado
   admin_user_unhide_successful_notice: El usuario ha dejado de estar oculto
+  admins: 
+    eol_statistics: 
+      data_objects: 
+        menu_link: Objetos de datos
+      index: 
+        menu_link: Estadísticas generales
+        page_header: Estadísticas generales
+        page_title: "Administración: Estadísticas generales"
+      users_data_objects: 
+        menu_link: Texto enviado por el usuario
+        page_header: Estadísticas de texto enviado por el usuario
+        page_title: "Administración: Estadísticas de texto enviado por el usuario"
   agent: Agente
   all: todos
   all_apis_return_by_default_an_xml_response: "Todas las API devuelven, por defecto, una respuesta en XML. Los métodos de un API pueden ser llamados sin una extensión de formao para obtener una respuesta en XML, y agregar una extensión en XML dará una respuesta idéntica:"
@@ -1395,6 +1408,61 @@ es:
   data_usage_reports: Informes de uso de datos
   date_caps: Fecha
   date_uploaded: Fecha de subida
+  datepicker: 
+    close: Cerrar
+    current: Hoy
+    day_names: 
+      - Domingo
+      - Lunes
+      - Martes
+      - Miércoles
+      - Jueves
+      - Viernes
+      - Sábado
+    day_names_min: 
+      - Do
+      - Lu
+      - Ma
+      - Mi
+      - Ju
+      - Vi
+      - Sá
+    day_names_short: 
+      - Dom
+      - Lun
+      - Mar
+      - Mié
+      - Jue
+      - Vie
+      - Sáb
+    month_names: 
+      - Enero
+      - Febrero
+      - Marzo
+      - Abril
+      - Mayo
+      - Junio
+      - Julio
+      - Agosto
+      - Septiembre
+      - Octubre
+      - Noviembre
+      - Diciembre
+    month_names_short: 
+      - Ene
+      - Feb
+      - Mar
+      - Abr
+      - May
+      - Jun
+      - Jul
+      - Ago
+      - Sep
+      - Oct
+      - Nov
+      - Dic
+    next: Siguiente
+    previous: Anterior
   dato_create_cancel: Cancelar
   dato_create_user_text_error: Lo sentimos, ha ocurrido un error, el artículo no se pudo agregar.
   dato_create_user_text_missing_taxon_id_exception: No se puede construir un texto DataObject o UsersDataObject si un identificador de taxón es nulo.
@@ -1515,6 +1583,9 @@ es:
   eol_glossary: Glosario EOL
   eol_news: Noticias EOL
   eol_pages: Páginas
+  eol_statistics: 
+    warnings: 
+      stats_unavailable_for_date: Lo sentimos, las estadísticas no están disponible para %{date}. Por favor, seleccione otra fecha.
   error_401_description: Lo sentimos, no está autorizado a acceder a esa dirección URL.
   error_401_page_title: No autorizado
   error_403_description: Lo sentimos, no está autorizado a acceder a esa dirección URL.
@@ -1734,6 +1805,8 @@ es:
         source_url: URL a el original objeto de datos
         toc_item: Subcapítulo
       eol_statistic: 
+        date_one: Fecha
+        date_two: Fecha
         download_all: Todos <small>(incluye registros de todas las páginas)</small>
       google_analytics_partner_summaries: 
         page_views: Páginas vistas <small>(número de visitas a las páginas)</small>
@@ -1860,6 +1933,7 @@ es:
         create_text: Agregar artículo
         update: Guardar artículo
       eol_statistic: 
+        change_date: Obtener estadísticas de fechas
         download_csv: Descargar como CSV
       filter_sort: Filtrar y ordenar
       harvest_event: 

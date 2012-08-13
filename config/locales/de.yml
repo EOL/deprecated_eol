@@ -523,7 +523,7 @@ de:
         user_merged_entry_to_taxon: <strong>%{user}</strong> verschob die Klassifikation von „%{provider}“ nach „%{taxon}“.
         user_merged_unknown_entry_to_an_unknown_taxon: <strong>%{user}</strong> verschob eine unbekannte Klassifikation zu einem unbekannten Taxon.
         user_merged_unknown_entry_to_it: <strong>%{user}</strong> fügte eine unbekannte Klassifikation hinzu.
-        user_merged_unknown_entry_to_taxon: <strong>%{user}</strong> verschob eine unbekannte Klassifikation nach „%{taxon}“.
+        user_merged_unknown_entry_to_taxon: <strong>%{user}</strong> verschob eine unbekannte Klassifikation zu „%{taxon}“.
       other_actions: 
         an_unknown_user_curated_an_older_data_object: Ein unbekannter Nutzer kuratierte eine ältere Version von „%{data_object}“.
         an_unknown_user_curated_an_unknown_data_object: Ein unbekannter Nutzer kuratierte ein unbekanntes Datenobjekt.
@@ -566,18 +566,18 @@ de:
         user_disassociated_it_from_an_unknown_association: <strong>%{user}</strong> hat eine Zuordnung zu einer unbekannten Seite entfernt.
         user_disassociated_it_from_association: <strong>%{user}</strong> hat eine Zuordnung zu „%{association}“ entfernt.
       remove_common_name: 
-        an_unknown_user_removed_name_in_an_unknown_language_from_an_unknown_taxon: Ein unbekannter Benutzer hat einen Trivialnamen in einer unbekannten Sprache von einer unbekannten Seite entfernt.
-        an_unknown_user_removed_name_in_an_unknown_language_from_it: Ein unbekannter Benutzer hat einen Trivialnamen in einer unbekannten Sprache entfernt.
-        an_unknown_user_removed_name_in_an_unknown_language_from_taxon: Ein unbekannter Benutzer hat einen Trivialnamen in einer unbekannten Sprache von „%{taxon}“ entfernt.
-        an_unknown_user_removed_name_in_language_from_an_unknown_taxon: Ein unbekannter Benutzer hat einen Trivialnamen in %{language} von einer unbekannten Seite entfernt.
+        an_unknown_user_removed_name_in_an_unknown_language_from_an_unknown_taxon: Ein unbekannter Nutzer entfernte einen Trivialnamen in einer unbekannten Sprache von einer unbekannten Seite.
+        an_unknown_user_removed_name_in_an_unknown_language_from_it: Ein unbekannter Nutzer entfernte einen Trivialnamen in einer unbekannten Sprache.
+        an_unknown_user_removed_name_in_an_unknown_language_from_taxon: Ein unbekannter Nutzer entfernte einen Trivialnamen in einer unbekannten Sprache von „%{taxon}“.
+        an_unknown_user_removed_name_in_language_from_an_unknown_taxon: Ein unbekannter Nutzer entfernte einen Trivialnamen in der Sprache %{language} von einer unbekannten Seite.
         an_unknown_user_removed_name_in_language_from_it: Ein unbekannter Nutzer entfernte einen Trivialnamen in der Sprache %{language}.
-        an_unknown_user_removed_name_in_language_from_taxon: Ein unbekannter Benutzer hat einen Trivialnamen in %{language} von „%{taxon}“ entfernt.
-        user_removed_name_in_an_unknown_language_from_an_unknown_taxon: <strong>%{user}</strong> hat einen Trivialnamen in einer unbekannten Sprache von einer unbekannten Seite entfernt.
+        an_unknown_user_removed_name_in_language_from_taxon: Ein unbekannter Nutzer entfernte einen Trivialnamen in der Sprache %{language} von „%{taxon}“.
+        user_removed_name_in_an_unknown_language_from_an_unknown_taxon: <strong>%{user}</strong> entfernte einen Trivialnamen in einer unbekannten Sprache von einer unbekannten Seite.
         user_removed_name_in_an_unknown_language_from_it: <strong>%{user}</strong> entfernte einen Trivialnamen in einer unbekannten Sprache.
-        user_removed_name_in_an_unknown_language_from_taxon: <strong>%{user}</strong> hat einen Trivialnamen in einer unbekannten Sprache von „%{taxon}“ entfernt.
-        user_removed_name_in_language_from_an_unknown_taxon: <strong>%{user}</strong> hat einen Trivialnamen in %{language} von einer unbekannten Seite entfernt.
+        user_removed_name_in_an_unknown_language_from_taxon: <strong>%{user}</strong> entfernte einen Trivialnamen in einer unbekannten Sprache von „%{taxon}“.
+        user_removed_name_in_language_from_an_unknown_taxon: <strong>%{user}</strong> entfernte einen Trivialnamen in der Sprache %{language} von einer unbekannten Seite.
         user_removed_name_in_language_from_it: <strong>%{user}</strong> entfernte einen Trivialnamen in der Sprache %{language}.
-        user_removed_name_in_language_from_taxon: <strong>%{user}</strong> hat einen Trivialnamen in %{language} von „%{taxon}“ entfernt.
+        user_removed_name_in_language_from_taxon: <strong>%{user}</strong> entfernte einen Trivialnamen in der Sprache %{language} von „%{taxon}“.
       show: 
         an_unknown_user_showed_an_older_data_object_on_an_unknown_association: Ein unbekannter Nutzer markierte eine ältere Version von „%{data_object}“ in einem unbekannten Zusammenhang als sichtbar.
         an_unknown_user_showed_an_older_data_object_on_association: Ein unbekannter Nutzer markierte eine ältere Version von „%{data_object}“ auf der Seite „%{association}“ als sichtbar.
@@ -609,16 +609,16 @@ de:
         user_split_unknown_entry_from_it: <strong>%{user}</strong> unterteilte eine unbekannte Klassifikation.
         user_split_unknown_entry_from_taxon: <strong>%{user}</strong> trennte eine unbekannte Klassifikation von „%{taxon}“ ab.
       trust_common_name: 
-        an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Ein unbekannter Benutzer hat einen unbekannten Trivialnamen in einer unbekannten Sprache auf einer unbekannten Seite als vertrauenswürdig markiert.
+        an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Ein unbekannter Nutzer hat einen unbekannten Trivialnamen in einer unbekannten Sprache auf einer unbekannten Seite als vertrauenswürdig markiert.
         an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_it: Ein unbekannter Nutzer markierte einen unbekannten Trivialnamen in einer unbekannten Sprache als vertrauenswürdig.
-        an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_taxon: Ein unbekannter Benutzer hat einen Trivialnamen in einer unbekannten Sprache für „%{taxon}“ als vertrauenswürdig markiert.
-        an_unknown_user_trusted_an_unknown_name_in_language_on_an_unknown_taxon: Ein unbekannter Benutzer hat einen unbekannten Trivialnamen in %{language} auf einer unbekannten Seite als vertrauenswürdig markiert.
+        an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_taxon: Ein unbekannter Nutzer markierte einen Trivialnamen in einer unbekannten Sprache für „%{taxon}“ als vertrauenswürdig.
+        an_unknown_user_trusted_an_unknown_name_in_language_on_an_unknown_taxon: Ein unbekannter Nutzer hat einen unbekannten Trivialnamen in der Sprache %{language} auf einer unbekannten Seite als vertrauenswürdig markiert.
         an_unknown_user_trusted_an_unknown_name_in_language_on_it: Ein unbekannter Nutzer markierte einen unbekannten Trivialnamen in der Sprache %{language} als vertrauenswürdig.
         an_unknown_user_trusted_an_unknown_name_in_language_on_taxon: Ein unbekannter Nutzer hat einen unbekannten Trivialnamen in der Sprache %{language} für „%{taxon}“ als vertrauenswürdig markiert.
-        an_unknown_user_trusted_name_in_an_unknown_language_on_an_unknown_taxon: Ein unbekannter Benutzer hat den Trivialnamen „%{name}“ in einer unbekannten Sprache als vertrauenswürdig für eine unbekannte Seite markiert.
+        an_unknown_user_trusted_name_in_an_unknown_language_on_an_unknown_taxon: Ein unbekannter Nutzer markierte den Trivialnamen „%{name}“ in einer unbekannten Sprache auf einer unbekannten Seite als vertrauenswürdig.
         an_unknown_user_trusted_name_in_an_unknown_language_on_it: Ein unbekannter Nutzer markierte den Trivialnamen „%{name}“ in einer unbekannten Sprache als vertrauenswürdig.
         an_unknown_user_trusted_name_in_an_unknown_language_on_taxon: Ein unbekannter Benutzer hat den Trivialnamen „%{name}“ in einer unbekannten Sprache für „%{taxon}“ als vertrauenswürdig markiert.
-        an_unknown_user_trusted_name_in_language_on_an_unknown_taxon: Ein unbekannter Benutzer hat den %{language} Trivialnamen „%{name}“ für eine unbekannte Seite als vertrauenswürdig markiert.
+        an_unknown_user_trusted_name_in_language_on_an_unknown_taxon: Ein unbekannter Nutzer markierte den Trivialnamen „%{name}“ in der Sprache %{language} auf eine unbekannte Seite als vertrauenswürdig.
         an_unknown_user_trusted_name_in_language_on_it: Ein unbekannter Nutzer markierte den Trivialnamen „%{name}“ in der Sprache %{language} als vertrauenswürdig.
         an_unknown_user_trusted_name_in_language_on_taxon: Ein unbekannter Nutzer markierte den Trivialnamen „%{name}“ in der Sprache %{language} für „%{taxon}“ als vertrauenswürdig.
         user_trusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> markierte einen unbekannten Trivialnamen in einer unbekannten Sprache auf einer unbekannten Seite als vertrauenswürdig.
@@ -651,17 +651,17 @@ de:
         user_trusted_it_on_an_unknown_association: <strong>%{user}</strong> markierte es in einem unbekannten Zusammenhang als vertrauenswürdig.
         user_trusted_it_on_association: <strong>%{user}</strong> markierte es auf der Seite „%{association}“ als vertrauenswürdig.
       unlock: 
-        an_unknown_taxon_unlocked: Der Kuratierprozess für eine unbekannte Seite ist beendet.
-        it_unlocked: Der Kuratierprozess ist beendet.
-        taxon_unlocked: Kuratierprozess für „%{taxon}“ ist beendet.
+        an_unknown_taxon_unlocked: Die Hintergrundverarbeitung der Kuratierung einer unbekannten Seite ist abgeschlossen.
+        it_unlocked: Die Hintergrundverarbeitung der Kuratierung ist abgeschlossen.
+        taxon_unlocked: Die Hintergrundverarbeitung der Kuratierung von „%{taxon}“ ist abgeschlossen.
       unlock_with_error: 
-        an_unknown_taxon_unlocked: "Bei einer unbekannten Seite ist der Kuratierprozess  <strong>fehlgeschlagen</strong>: %{error}."
-        it_unlocked: " Kuratierprozess <strong>fehlgeschlagen</strong> : %{error}."
-        taxon_unlocked: "„%{taxon}“ Kuratierprozess <strong>fehlgeschlagen</strong>: %{error}."
+        an_unknown_taxon_unlocked: "Die Hintergrundverarbeitung der Kuratierung einer unbekannten Seite <strong>fehlgeschlagen</strong>: %{error}."
+        it_unlocked: "Die Hintergrundverarbeitung der Kuratierung ist <strong>fehlgeschlagen</strong>: %{error}."
+        taxon_unlocked: "Die Hintergrundverarbeitung der Kuratierung von „%{taxon}“ ist <strong>fehlgeschlagen</strong>: %{error}."
       unreview_common_name: 
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Ein unbekannter Nutzer markierte einen unbekannten Trivialnamen in einer unbekannten Sprache einer unbekannten Seite als ungeprüft.
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: Ein unbekannter Nutzer markierte einen unbekannten Trivialnamen in einer unbekannten Sprache als ungeprüft.
-        an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_taxon: Ein unbekannter Nutzer markierte einen unbekannten Trivialnamen in einer unbekannten Sprache von „%{taxon}“ als ungeprüft.
+        an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_taxon: Ein unbekannter Nutzer markierte einen unbekannten Trivialnamen in einer unbekannten Sprache für „%{taxon}“ als ungeprüft.
         an_unknown_user_unreviewed_an_unknown_name_in_language_on_an_unknown_taxon: Ein unbekannter Nutzer markierte einen unbekannten Trivialnamen in der Sprache %{language} einer unbekannten Seite als ungeprüft.
         an_unknown_user_unreviewed_an_unknown_name_in_language_on_it: Ein unbekannter Nutzer markierte einen unbekannten Trivialnamen in der Sprache %{language} als ungeprüft.
         an_unknown_user_unreviewed_an_unknown_name_in_language_on_taxon: Ein unbekannter Nutzer markierte einen unbekannten Trivialnamen in der Sprache %{language} von „%{taxon}“ als ungeprüft.
@@ -1738,7 +1738,7 @@ de:
   eol_news: Neuigkeiten von EOL
   eol_pages: Seiten
   eol_statistics: 
-    comparing_dates: <span class="assistive">Vergleich</span> <span class="date_one">%{date_one}</span> <span class="assistive">and</span> <span class="date_two">%{date_two}</span>
+    comparing_dates: <span class="assistive">Vergleich von</span> <span class="date_one">%{date_one}</span> <span class="assistive">mit</span> <span class="date_two">%{date_two}</span>
     content_partners: 
       menu_link: Inhaltspartner
       page_header: Statistiken zu Inhaltspartnern
@@ -1772,7 +1772,7 @@ de:
       page_header: Statistiken zu von Nutzern verfassten Texten
       page_title: Statistiken
     warnings: 
-      stats_unavailable_for_date: Leider haben wir keine Statistiken für %{date}. Bitte wählen Sie ein anderes Datum.
+      stats_unavailable_for_date: Es gibt leider keine Statistiken für den %{date}. Bitte wählen Sie ein anderes Datum.
   error_401_description: Sie sind leider nicht berechtigt auf diese URL zuzugreifen.
   error_401_page_title: Nicht berechtigt
   error_403_description: Sie sind leider nicht berechtigt auf diese URL zuzugreifen.
@@ -2614,6 +2614,9 @@ de:
     signature_basic: Das Team der Enzyklopädie des Lebens (EOL)
     signature_with_contact_us_link: "Sollten Sie irgendwelche Probleme bemerken, kontaktieren Sie uns bitte unter %{url}.\n\nDas Team der Enzyklopädie des Lebens (EOL)"
     signature_with_species_pages_group_contact: "Sofern Sie Fragen haben, kontaktieren Sie uns bitte unter der E-Mail-Adresse %{species_pages_group_email}.\n\nDas Team der Enzyklopädie des Lebens (EOL)"
+    unsubscribed_to_notifications: 
+      message: "Sie haben erfolgreich die Benachrichtigungen von der Enzyklopädie des Lebens (EOL) abbestellt. Sie können Ihre E-Mail-Einstellungen ändern oder Benachrichtigungen in <a href='%{email_prefs_url}'>Ihren Benachrichtigungseinstellungen</a> abonnieren.\n\nUm mehr über die Verwendung von EOL zu erfahren, einschließlich der Erstellung von EOL-Sammlungen, der Teilnahme an EOL-Gemeinschaften und dem Beitragen von Inhalt, besuchen Sie bitte unsere Hilfeseiten unter http://eol.org/help."
+      subject: Schade, dass Sie gehen …
     user_activated: 
       message: "Willkommen bei der Enzyklopädie des Lebens (EOL) und viele Dank für Ihre Anmeldung. Bitte merken Sie sich Ihren Nutzernamen %{username}. Die URL Ihres Profils bei der EOL lautet %{profile_url}. Mit Ihrem Konto können Sie sich unter der URL http://www.eol.org/login anmelden.\n\nWeitere Informationen zur Nutzung der EOL, einschließlich der Anleitung, wie sie eine Sammlung erstellen, wie Sie in Nutzergemeinschaften mitwirken oder zu den Inhalten beitragen können, finden Sie auf unseren Hilfeseiten unter der URL http://www.eol.org/help."
       subject: Ihr Konto bei der Enzyklopädie des Lebens (EOL) wurde aktiviert
@@ -2836,7 +2839,7 @@ de:
     community_activity_user_joined: Der Nutzer <b>%{user_name}</b> trat der Gemeinschaft <b>%{community_name}</b> bei.
     community_activity_user_left: Der Nutzer <b>%{user_name}</b> verließ die Gemeinschaft <b>%{community_name}</b>.
     community_activity_user_made_member_a_manager: Der Nutzer <b>%{user_name}</b> machte <b>%{member_name}</b> zum Verwalter der Gemeinschaft <b>%{community_name}</b>.
-    contact_us_link: Falls Sie Probleme entdeckt haben, bitte <a href='http://eol.org/contact_us' style='color:#195184'>kontaktieren Sie uns</a>.
+    contact_us_link: Sofern Sie Probleme entdeckt haben, <a href='http://eol.org/contact_us' style='color:#195184'>kontaktieren Sie uns</a> bitte.
     curator_activity_log_title: "%{who} hat etwas kuratiert"
     curator_activity_on_data_object_by_user: Die Aktion %{activity_name} wurde von Nutzer <b>%{user_name}</b> an <b>%{dato_title}</b> (%{dato_type} Nr. %{dato_id}) durchgeführt.
     curator_activity_on_taxon_concept_by_user: Die Aktion %{activity_name} wurde von Nutzer <b>%{user_name}</b> an <b>%{taxon_concept}</b> (%{taxon_overview_url}) durchgeführt.
@@ -2849,7 +2852,7 @@ de:
     reply_to_comment_body_brief: "%{reply_to_author} %{body} - %{author}"
     see_all_activity: Alle bisherigen Aktivitäten auf <a href='%{activity_url}' style='color:#195184'>der Seite mit Ihrem Neuigkeitenfeed</a>.
     someone_commented_on_something: <b>%{who}</b> hat <b>%{what}</b> kommentiert.
-    unsubscribe: Melden Sie sich an und ändern Sie Ihre e-mail Einstellungen oder stellen Sie alle email ab auf <a href='%{email_prefs_url}' style='color:#195184'>Ihrer Benachrichtigungsseite</a>. Wenn Sie Probleme haben,  bitte <a href='http://eol.org/contact_us'>schicken Sie uns eine Nachricht</a>.
+    unsubscribe: Melden Sie sich an und ändern Sie Ihre E-Mail-Einstellungen auf <a href='%{email_prefs_url}' style='color:#195184'>Ihrer Benachrichtigungsseite</a> oder <a href='%{unsubscribe_url}' style='color:#195184'>bestellen Sie alle automatischen EOL-Benachrichtigungen ab ohne sich anzumelden</a>.
   recent_updates: Letzte Aktualisierungen
   recently_visited: Kürzlich besucht
   recipients: Empfänger
@@ -3609,7 +3612,7 @@ de:
   user_commented_on_older_data_object_colon: "<strong>%{user}</strong> kommentierte %{what}:"
   user_commented_on_something_colon: "<strong>%{user}</strong> kommentierte %{what}:"
   user_commented_on_themself: "<strong>%{user_with_link}</strong> kommentierte <a href='%{link}'>%{username}s Neuigkeitenfeed</a>:"
-  user_commented_on_your_image: "<strong>%{user}</strong> kommentierte zu deinem Bild auf der <a href='%{data_object_link}'>Website der Enzyklopädie des Lebens</a>:\n%{comment_body}"
+  user_commented_on_your_image: "<strong>%{user}</strong> kommentierte Ihr Bild auf der <a href='%{data_object_link}'>Website der Enzyklopädie des Lebens</a>:\n%{comment_body}"
   user_comments: Nutzerkommentare
   user_full_name_with_curator: "%{user} (%{curator_level})"
   user_id: Nutzerkennung
@@ -3692,8 +3695,8 @@ de:
         page_description: Auf alle unten aufgelisteten Neuigkeiten werden Sie, mit Ausnahme des EOL-Newsletters, über Ihren <a href="%{user_newsfeed_link}">EOL-Neuigkeitenfeed</a> aufmerksam gemacht. Viele Nutzer möchten zusätzlich über bestimmte Aktivitäten, die sie besonders interessieren, per E-Mail benachrichtigt werden. Sie können die Schaltflächen unten dazu nutzen, die Häufigkeit der E-Mails, die Sie von der EOL erhalten möchten, auf Ihre Bedürfnisse abgestimmt, einstellen.
         page_title: Benachrichtigungseinstellungen
       update: 
-        notification_settings_successfully_updated: Benachrichtigungseinstellungen erfolgreich aktualisiert.
-        sorry_notification_settings_could_not_be_updated: Leider konnten die Benachrichtigungseinstellungen nicht aktualisiert werden.
+        notification_settings_successfully_updated: Die Benachrichtigungseinstellungen wurden erfolgreich aktualisiert.
+        sorry_notification_settings_could_not_be_updated: Die Benachrichtigungseinstellungen konnten leider nicht aktualisiert werden.
     open_authentications: 
       errors: 
         facebook: 
@@ -3776,7 +3779,7 @@ de:
       form_tip: Um Ihr Konto bei der EOL bergen zu können, geben Sie bitte die zu Ihrem Konto hinterlegte E-Mail-Adresse an. Bitte überprüfen Sie den Spamordner Ihres E-Mail-Kontos, sofern Sie diese E-Mail nicht innerhalb der nächsten Stunde erhalten.
       meta_title: Konto bergen
       notices: 
-        recovery_email_sent: Konto Wiederherstellung e-Mail wurde gesendet mit weiteren Anweisungen.  Bitte nehmen Sie %{from_address}  in Ihre Liste sicherer Absender auf und überprüfen Sie Ihren Spam-Filter, wenn Sie die e-Mail nicht innerhalb einer Stunde erhalten.
+        recovery_email_sent: Die E-Mail mit der Anleitung zum Wiederherstellen Ihres Kontos wurde versandt. Bitte fügen Sie %{from_address} Ihrer Liste sicherer Absender hinzu und überprüfen Sie Ihren Spamordner, sofern Sie diese E-Mail nicht innerhalb einer Stunde erhalten.
         temporarily_logged_in_update_authentication_details: Sie sind vorübergehend angemeldet, um die Kontobergung zu ermöglichen. Bitte ändern Sie Ihr Passwort oder verknüpfen Sie Drittanbieterkonten, um sicherzustellen, dass Sie sich zukünftig erfolgreich anmelden können.
     recover_account_choose_account: 
       errors: 
@@ -3790,9 +3793,9 @@ de:
       meta_title: "%{user_full_name}"
       tweet_text: "%{user_full_name}"
     unsubscribe_notifications: 
-      already_unsubscribed: Sie haben sich bereits von den Benachrichtigungen abgemeldet.
-      unsubscribe_notifications_failed: Leider ist ein Fehler aufgetreten. Nutzer konnte nicht von den Benachrichtigungen abgemeldet werden.
-      unsubscribed_notifications_successfully: Sie haben sich erfolgreich von den Benachrichtigungen abgemeldet.
+      already_unsubscribed: Sie haben die Benachrichtigungen bereits abbestellt.
+      unsubscribe_notifications_failed: Es ist leider ist ein Fehler aufgetreten. Der Nutzer konnte die Benachrichtigungen nicht abbestellen.
+      unsubscribed_notifications_successfully: Sie haben die Benachrichtigungen erfolgreich abbestellt.
   users_about_me_header: Über mich
   users_content_partners_header: Inhaltspartner
   users_content_partners_information: Inhaltspartner von EOL sind Einzelpersonen oder Organisationen, die ihre Daten zur Biodiversität weltweit mit Hilfe von EOL zugänglich machen. Erfahren Sie mehr zu <a href="%{more_url}">Inhaltspartnern von EOL</a>.

@@ -77,6 +77,7 @@ uk:
   translated_contact_subjects-title-contact_subject_id-31: Зображення, відео або звуки
   translated_contact_subjects-title-contact_subject_id-32: Запит медіа-ресурсів (інтерв'ю, прес-релізи, логотип)
   translated_contact_subjects-title-contact_subject_id-33: Зробити грошову пожертву
+  translated_content_tables-label-content_table_id-1: Деталі
   translated_data_types-label-data_type_id-1: Зображення
   translated_data_types-label-data_type_id-10: Карта
   translated_data_types-label-data_type_id-2: Звук
@@ -106,10 +107,13 @@ uk:
   translated_licenses-description-license_id-7: Деякі права захищені
   translated_licenses-description-license_id-8: Деякі права захищені
   translated_licenses-description-license_id-9: Деякі права захищені
+  translated_ranks-label-rank_id-106: форма
   translated_ranks-label-rank_id-112: рід
   translated_ranks-label-rank_id-113: рід
   translated_ranks-label-rank_id-118: рід
   translated_ranks-label-rank_id-175: надвид
+  translated_ranks-label-rank_id-266: відділ
+  translated_ranks-label-rank_id-280: тип
   translated_ranks-label-rank_id-335: вид
   translated_ranks-label-rank_id-352: підродина
   translated_ranks-label-rank_id-370: підклас
@@ -117,6 +121,8 @@ uk:
   translated_ranks-label-rank_id-390: підрід
   translated_ranks-label-rank_id-391: підрід
   translated_ranks-label-rank_id-394: підрід
+  translated_ranks-label-rank_id-396: підцарство
+  translated_ranks-label-rank_id-401: бідтип
   translated_ranks-label-rank_id-413: підвид
   translated_ranks-label-rank_id-414: підвид
   translated_ranks-label-rank_id-415: підвид
@@ -131,6 +137,7 @@ uk:
   translated_ranks-label-rank_id-92: родина
   translated_ranks-label-rank_id-99: Родина
   translated_resource_statuses-label-resource_status_id-1: Завантаження
+  translated_resource_statuses-label-resource_status_id-13: Зібрати
   translated_resource_statuses-label-resource_status_id-2: Завантажено
   translated_resource_statuses-label-resource_status_id-3: Не вдалося завантажити
   translated_resource_statuses-label-resource_status_id-5: Перевірені
@@ -138,14 +145,25 @@ uk:
   translated_sort_styles-name-sort_style_id-2: Найстаріший
   translated_sort_styles-name-sort_style_id-3: За алфавітом
   translated_sort_styles-name-sort_style_id-4: Від Я до А
+  translated_statuses-label-status_id-2: Оновлено
   translated_synonym_relations-label-synonym_relation_id-1: синонім
   translated_synonym_relations-label-synonym_relation_id-16: неоднозначний синонім
+  translated_synonym_relations-label-synonym_relation_id-19: прийняте ім'я
   translated_synonym_relations-label-synonym_relation_id-21: інше, дивіться коментар
   translated_synonym_relations-label-synonym_relation_id-24: відхилена назва
+  translated_synonym_relations-label-synonym_relation_id-25: омонім (нелогічне)
+  translated_synonym_relations-label-synonym_relation_id-26: неповна відповідність
   translated_synonym_relations-label-synonym_relation_id-3: акронім
+  translated_synonym_relations-label-synonym_relation_id-36: молодший омонім
   translated_synonym_relations-label-synonym_relation_id-39: неоправлене виправлення
+  translated_synonym_relations-label-synonym_relation_id-40: недоступний, інше
+  translated_synonym_relations-label-synonym_relation_id-41: недоступно, nomen nudum
+  translated_synonym_relations-label-synonym_relation_id-51: прийнято
   translated_synonym_relations-label-synonym_relation_id-52: авторство
+  translated_synonym_relations-label-synonym_relation_id-53: неопублікована назва
+  translated_synonym_relations-label-synonym_relation_id-54: суб'єктивний синонім
   translated_synonym_relations-label-synonym_relation_id-56: орфографічні помилки
+  translated_synonym_relations-label-synonym_relation_id-59: синонім (об'єктивний = гомотетичний)
   translated_table_of_contents-label-table_of_contents_id-1: Огляд
   translated_table_of_contents-label-table_of_contents_id-13: Загальні назви
   translated_table_of_contents-label-table_of_contents_id-14: МСОП

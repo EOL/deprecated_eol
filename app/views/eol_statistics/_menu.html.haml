@@ -3,6 +3,6 @@
     :lifedesks, :marine, :page_richness, :users_data_objects].each do |report|
     - path_prefix = (report == :index) ? nil : report
     - path_params = { :date_one_set => @stats_one.created_at.to_date, :date_two_set => @stats_two.created_at.to_date} rescue nil
-    %li{:class => resource_is_active(:eol_statistics, report)}
+    %li{:class => resource_is_active(report)}
       = link_to I18n.t(:menu_link, :scope => [:eol_statistics, report]),
         send([path_prefix, 'eol_statistics_path'].compact.join('_'), path_params)

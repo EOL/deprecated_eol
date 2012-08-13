@@ -1,5 +1,5 @@
 #tabs_sidebar
   %ul.tabs
-    %li{:class => resource_is_active('admins/content_partners', 'index')}= link_to I18n.t(:admin_content_partners_link), admin_content_partners_path
-    %li{:class => resource_is_active('admins/content_partners', 'statistics')}= link_to I18n.t(:admin_content_partners_statistics_link), statistics_admin_content_partners_path
-    %li{:class => resource_is_active('admins/content_partners', 'notifications')}= link_to I18n.t(:admin_content_partners_notifications_link), notifications_admin_content_partners_path
+    %li{:class => resource_is_active('index')}= link_to I18n.t(:admin_content_partners_link), admin_content_partners_path
+    %li{:class => resource_is_active('statistics')}= link_to I18n.t(:admin_content_partners_statistics_link), statistics_admin_content_partners_path
+    %li{:class => resource_is_active('notifications')}= link_to I18n.t(:admin_content_partners_notifications_link), notifications_admin_content_partners_path

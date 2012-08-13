@@ -1,8 +1,8 @@
 #tabs_sidebar
   %ul.tabs
-    %li{:class => resource_is_active('taxa/updates', 'show')}
+    %li{:class => resource_is_active('index')}
       = link_to I18n.t(:taxon_newsfeed),
         @selected_hierarchy_entry ? taxon_entry_updates_path(@taxon_concept, @selected_hierarchy_entry) : taxon_updates_path(@taxon_concept)
-    %li{:class => resource_is_active('taxa/updates', 'statistics')}
+    %li{:class => resource_is_active('statistics')}
       = link_to I18n.t(:page_statistics),
         @selected_hierarchy_entry ? statistics_taxon_entry_updates_path(@taxon_concept, @selected_hierarchy_entry) : statistics_taxon_updates_path(@taxon_concept)

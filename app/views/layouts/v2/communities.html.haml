@@ -45,10 +45,10 @@
       - if @community && @community.published? && @community.id && controller.action_name != 'edit'
         #tabs_sidebar
           %ul.tabs
-            %li.newsfeed{:class => resource_is_active('communities/newsfeeds')}= link_to I18n.t(:community_newsfeed), community_newsfeed_path(@community)
+            %li.newsfeed{:class => resource_is_active('newsfeeds')}= link_to I18n.t(:community_newsfeed), community_newsfeed_path(@community)
             %li{:class => resource_is_active('members')}= link_to I18n.t(:members_with_count, :count => @community.members.count), community_members_path(@community)
             - if (col_count = @community.collections.count) > 0
-              %li{:class => resource_is_active('communities/collections')}= link_to I18n.t(:collections_link), community_collections_path(@community)
+              %li{:class => resource_is_active('collections')}= link_to I18n.t(:collections_link), community_collections_path(@community)
       = yield
 
 = render :file => 'layouts/v2/application'

@@ -33,15 +33,16 @@ xml.response do
           xml.sort_field ci.sort_field
           if @collection.show_references?
             xml.references do 
-          	  ci.refs.each do |ref|
-          	    xml.reference ref.full_reference
-          	  end
+              ci.refs.each do |ref|
+                xml.reference ref.full_reference
+              end
             end
-          end         
-          
+          end
+
           case ci.object_type
           when 'TaxonConcept'
             xml.richness_score r['richness_score']
+            # xml.taxonRank ci.object.entry.rank.label.firstcap unless ci.object.entry.rank.nil?
           when 'DataObject'
             xml.data_rating r['data_rating']
             xml.object_guid ci.object.guid

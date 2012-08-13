@@ -41,6 +41,11 @@ describe String do
       '<p></div></p>'.balance_tags.should == '<div><p></div></p>'
       '</p><p></div></p>'.balance_tags.should == '<p><div></p><p></div></p>'
     end
+
+    it 'should balance em tags' do
+      '<p><em></p>'.balance_tags.should == '<p><em></p></em>'
+    end
+    
   end
 
   describe "cleanup_for_presentation" do
@@ -70,10 +75,54 @@ describe String do
         'Some text <a href="http://www.eol.org">www.eol.org</a>, <a href="http://www.google.com/something_crazy_long/ok.html">www.google.com/something_crazy_long/ok.html</a>.'
     end
   end
+  
+  describe "alphabet detection" do
+    before(:all) do
+      @english_phrases = [
+        "The Quick Brown Fox",
+        "a",
+        "animalia",
+        "This one doesn't contain only 小灰山椒鸟 chinese",
+        "This one doesn't contain only الرسمية arabic"
+      ]
+      @chinese_phrases = [
+        "了王(琼中)",
+        "灰燕鵙 叉尾太阳鸟 宾灰燕儿 小灰山椒鸟 - 褐背鹟",
+        "短嘴山椒鸟 23145",
+        "绿喉太阳鸟",
+        "钝翅(稻田)苇莺",
+        "棕尾褐鶲, 棕尾鹟",
+        "十"
+      ]
+      @arabic_phrases = [
+        "الرسمية",
+        "العربية هي",
+        "قاموس صموئيل جو,نسون، وهو من أوائل من وضع قاموس إنجليزي، ",
+        "الأسماء","الغربية (أي الآرامية والعبرية والكنعانية) هي أقرب",
+        "سنة 1462، والتي كُتبت"
+      ]
+    end
+
+    it "should recognize chinese strings" do
+      @chinese_phrases.each{ |phrase| phrase.contains_chinese?.should == true }
+      @english_phrases.each{ |phrase| phrase.contains_chinese?.should == false }
+      @arabic_phrases.each{ |phrase| phrase.contains_chinese?.should == false }
+    end
+
+    it "should recognize arabic strings" do
+      @arabic_phrases.each{ |phrase| phrase.contains_arabic?.should == true }
+      @english_phrases.each{ |phrase| phrase.contains_arabic?.should == false }
+      @chinese_phrases.each{ |phrase| phrase.contains_arabic?.should == false }
+    end
+  end
 end
 
 
 describe Array do
+  before(:all) do
+    load_foundation_cache
+  end
+  
   it 'should group hashes by an attribute' do
     arr = [{'id' => 2, 'value' => 'first'},
            {'id' => 1, 'value' => 'first'}]
@@ -83,6 +132,8 @@ describe Array do
   end
 
   it 'should group objects by an attribute' do
+    truncate_all_tables
+    load_scenario_with_caching(:foundation)
     obj = User.gen
     obj2 = obj.clone
     obj2.id = 99999

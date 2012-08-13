@@ -151,8 +151,7 @@ class HierarchyEntry < ActiveRecord::Base
   end
 
   def can_be_deleted_by?(requestor)
-    return true if requestor.master_curator?
-    by_curated_association? && associated_by_curator == requestor
+    return true if by_curated_association? && (requestor.master_curator? || associated_by_curator == requestor)
   end
 
   def species_or_below?

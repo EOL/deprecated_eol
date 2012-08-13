@@ -113,7 +113,7 @@ class String
   # tags in the proper order (shouln't open one after closing one for example - that is not balanced)
   def balance_tags
     text = self.clone
-    ['b', 'i', 'div', 'p'].each do |tag|
+    ['a', 'b', 'i', 'div', 'p', 'em'].each do |tag|
       # this will match <T_, <T>, </_T>, </T>
       open_and_close_tags = text.scan(/\<(#{tag}[\> ]|\/ *#{tag}\>)/i)
       number_of_opening_tags_needed = 0
@@ -202,7 +202,7 @@ class String
       w.gsub(/^(https?[^,;]+[^\.,;])/i, '<a href="\1">\1</a>').gsub(/^(www\.[a-z-]+\.[^,;]+[^\.,;])/i, '<a href="http://\1">\1</a>')
     end.join(' ')
   end
-
+  
   def contains_chinese?
     # sort of from http://stackoverflow.com/questions/2727804/how-to-determine-if-a-character-is-a-chinese-character
     list_of_chars = self.prepare_for_alphabet_determination.unpack("U*")

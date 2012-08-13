@@ -96,9 +96,9 @@ module ApplicationHelper
   # Used in V2 to return class for active navigation tabs.
   def resource_is_active(resource, action = nil)
     if action
-      return 'active' if controller.controller_path == resource && controller.action_name == action
+      return 'active' if controller.controller_path == resource.to_s && controller.action_name == action.to_s
     else
-      return 'active' if controller.controller_path == resource
+      return 'active' if controller.controller_path == resource.to_s
     end
     nil
   end

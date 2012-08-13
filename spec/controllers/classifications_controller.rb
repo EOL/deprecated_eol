@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-describe CuratedTaxonConceptPreferredEntriesController do
+describe ClassificationsController do
 
   before(:all) do
     load_scenario_with_caching :foundation

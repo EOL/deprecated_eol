@@ -54,6 +54,7 @@ module ApiHelper
         'nameAccordingTo' => entry.hierarchy.label
       }
       entry_hash['sourceIdentfier'] = entry.identifier unless entry.identifier.blank?
+      entry_hash['taxonRank'] = entry.rank.label.firstcap unless entry.rank.nil?
       return_hash['taxonConcepts'] << entry_hash
     end
     
@@ -292,6 +293,7 @@ module ApiHelper
       case ci.object_type
       when 'TaxonConcept'
         item_hash['richness_score'] = r['richness_score']
+        # item_hash['taxonRank'] = ci.object.entry.rank.label.firstcap unless ci.object.entry.rank.nil?
       when 'DataObject'
         item_hash['data_rating'] = r['data_rating']
         item_hash['object_guid'] = ci.object.guid

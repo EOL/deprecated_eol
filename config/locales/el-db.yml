@@ -3,6 +3,7 @@
 # Export driver: syck-pecl
 # Author: Crazymadlover
 # Author: Glavkos
+# Author: Kiolalis
 # Author: Promi8eas
 el: 
   translated_activities-name-activity_id-19: προφίλ
@@ -17,10 +18,14 @@ el:
   translated_activities-name-activity_id-63: συλλογή
   translated_activities-name-activity_id-64: κατάργηση
   translated_agent_roles-label-agent_role_id-10: Σχέδιο Εργασίας
+  translated_agent_roles-label-agent_role_id-11: Εκδότης
+  translated_agent_roles-label-agent_role_id-12: Μηχανή εγγραφής
   translated_agent_roles-label-agent_role_id-13: Πηγή
+  translated_agent_roles-label-agent_role_id-14: Βάση δεδομένων των πηγών
   translated_agent_roles-label-agent_role_id-15: Υπεύθυνος Επικοινωνίας
   translated_agent_roles-label-agent_role_id-16: Συνεισφέρων
   translated_agent_roles-label-agent_role_id-2: Συγγραφέας
+  translated_agent_roles-label-agent_role_id-21: πάροχος
   translated_agent_roles-label-agent_role_id-22: Μεταφραστής
   translated_agent_roles-label-agent_role_id-3: Μεταγλωττιστής
   translated_agent_roles-label-agent_role_id-4: Συνθέτης

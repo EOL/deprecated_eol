@@ -15,10 +15,10 @@ class Users::NotificationsController < UsersController
     convert_notification_frequencies_ids_to_objects
     return access_denied unless current_user.can_update?(@user)
     if @user.update_attributes(params[:user])
-      flash[:notice] = "Notification settings successfully updated."
+      flash[:notice] = I18n.t(:notification_settings_successfully_updated, :scope => [:users, :notifications, :update])
       redirect_back_or_default edit_user_path(@user)
     else
-      flash[:error] = "Sorry, notification settings could not be updated."
+      flash[:error] = I18n.t(:sorry_notification_settings_could_not_be_updated, :scope => [:users, :notifications, :update])
       instantiate_variables_for_notifications_settings
       render :edit
     end
@@ -34,13 +34,16 @@ class Users::NotificationsController < UsersController
   def convert_notification_frequencies_ids_to_objects
     new_params = {}
     params[:user][:notification_attributes].keys.each do |k|
-      next if k == 'id'
-      fqz = begin
-              NotificationFrequency.find(params[:user][:notification_attributes][k].to_i)
-            rescue ActiveRecord::RecordNotFound => e
-              nil
-            end
-      new_params[k] = fqz if fqz
+      if k == 'id' || k == 'eol_newsletter'
+        new_params[k] = params[:user][:notification_attributes][k].to_i
+      else
+        fqz = begin
+                NotificationFrequency.find(params[:user][:notification_attributes][k].to_i)
+              rescue ActiveRecord::RecordNotFound => e
+                nil
+              end
+        new_params[k] = fqz if fqz
+      end
     end
     params[:user][:notification_attributes] = new_params
   end

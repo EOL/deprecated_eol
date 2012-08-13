@@ -15,6 +15,7 @@ lt:
   translated_activities-name-activity_id-57: vertinti
   translated_activities-name-activity_id-58: patikimas
   translated_activities-name-activity_id-59: neperžiūrėtas
+  translated_activities-name-activity_id-63: rinkti
   translated_activities-name-activity_id-64: pašalinti
   translated_agent_roles-label-agent_role_id-1: Animatorius
   translated_agent_roles-label-agent_role_id-10: Projektas
@@ -23,7 +24,9 @@ lt:
   translated_agent_roles-label-agent_role_id-13: Šaltinis
   translated_agent_roles-label-agent_role_id-14: Šaltinis duomenų bazė
   translated_agent_roles-label-agent_role_id-15: Kontaktinis Asmuo
+  translated_agent_roles-label-agent_role_id-16: Autorius
   translated_agent_roles-label-agent_role_id-2: Autorius
+  translated_agent_roles-label-agent_role_id-22: Vertėjas
   translated_agent_roles-label-agent_role_id-5: Autorius
   translated_agent_roles-label-agent_role_id-6: Direktorius
   translated_agent_roles-label-agent_role_id-7: Redaktorius
@@ -53,6 +56,7 @@ lt:
   translated_content_partner_statuses-label-content_partner_status_id-4: Neaktyvus
   translated_content_tables-label-content_table_id-1: Detalės
   translated_data_types-label-data_type_id-1: Paveikslėlis
+  translated_data_types-label-data_type_id-10: Žemėlapis
   translated_data_types-label-data_type_id-2: Garsas
   translated_data_types-label-data_type_id-3: Tekstas
   translated_data_types-label-data_type_id-4: Vaizdo klipas
@@ -102,12 +106,17 @@ lt:
   translated_resource_statuses-label-resource_status_id-5: Patvirtintas
   translated_resource_statuses-label-resource_status_id-6: Tikrinimas nepavyko
   translated_resource_statuses-label-resource_status_id-7: Tvarkomi
+  translated_service_types-label-service_type_id-2: Kita
   translated_sort_styles-name-sort_style_id-2: Seniausi
   translated_sort_styles-name-sort_style_id-3: Abėcėlės tvarka
+  translated_synonym_relations-label-synonym_relation_id-1: sinonimas
   translated_synonym_relations-label-synonym_relation_id-12: apima
   translated_synonym_relations-label-synonym_relation_id-14: su rašybos klaidomis
   translated_synonym_relations-label-synonym_relation_id-23: klaidingai taikė
+  translated_synonym_relations-label-synonym_relation_id-51: priimtas
   translated_synonym_relations-label-synonym_relation_id-52: institucija
+  translated_synonym_relations-label-synonym_relation_id-53: nepublikuotas pavadinimas
+  translated_synonym_relations-label-synonym_relation_id-57: rašybos alternatyvą
   translated_table_of_contents-label-table_of_contents_id-1: Peržiūra
   translated_table_of_contents-label-table_of_contents_id-14: IUCN
   translated_table_of_contents-label-table_of_contents_id-17: Literatūros šaltiniai
@@ -115,6 +124,8 @@ lt:
   translated_table_of_contents-label-table_of_contents_id-225: Tinkle
   translated_table_of_contents-label-table_of_contents_id-227: Ieškoti žiniatinklyje
   translated_table_of_contents-label-table_of_contents_id-244: Bibliografijos
+  translated_table_of_contents-label-table_of_contents_id-267: Morfologija
+  translated_table_of_contents-label-table_of_contents_id-278: Bibliografija
   translated_table_of_contents-label-table_of_contents_id-289: Evoliucija
   translated_table_of_contents-label-table_of_contents_id-299: Švietimas
   translated_table_of_contents-label-table_of_contents_id-3: Fizinis aprašymas
@@ -145,6 +156,8 @@ lt:
   translated_vetted-label-vetted_id-4: Nepatikimas
   translated_vetted-label-vetted_id-5: Patikimas
   translated_vetted-label-vetted_id-6: Netinkamas
+  translated_view_styles-name-view_style_id-1: Sąrašas
+  translated_view_styles-name-view_style_id-2: Galerija
   translated_visibilities-label-visibility_id-0: Nematomas
   translated_visibilities-label-visibility_id-1: Matomas
   translated_visibilities-label-visibility_id-2: Peržiūra

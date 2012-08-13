@@ -66,7 +66,7 @@ EolUpgrade::Application.routes.draw do
           get 'vet_common_name'
         end
       end
-      resources :literature, :only => [:index], :controller => 'taxa/literature' do
+      resource :literature, :only => [:show], :controller => 'taxa/literature' do
         collection do
           get 'bhl'
         end
@@ -103,7 +103,7 @@ EolUpgrade::Application.routes.draw do
         get 'vet_common_name'
       end
     end
-    resources :literature, :only => [:index], :controller => 'taxa/literature' do
+    resource :literature, :only => [:show], :controller => 'taxa/literature' do
       collection do
         get 'bhl'
       end
@@ -124,7 +124,7 @@ EolUpgrade::Application.routes.draw do
       end
     end
     resources :updates, :only => [:index], :controller => 'taxa/updates' do
-      member do
+      collection do
         get 'statistics'
       end
     end

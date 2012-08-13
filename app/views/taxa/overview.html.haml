@@ -15,6 +15,6 @@
       .header
         %h3= I18n.t(:recent_updates)
         - if log.total_entries > 0
-          = link_to(I18n.t(:see_all_updates_with_count_html, :count => log.total_entries), taxon_update_path(@taxon_concept))
+          = link_to(I18n.t(:see_all_updates_with_count_html, :count => log.total_entries), taxon_updates_path(@taxon_concept))
       = render(:partial => 'activity_logs/index', :locals => {:log => log, :hide_pagination => true, :truncate_comments => true })
       = render(:partial => 'comments/new', :locals => { :parent => @taxon_concept })

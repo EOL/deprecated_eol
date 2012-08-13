@@ -43,7 +43,7 @@
           %li{:class => resource_is_active('taxa/names')}= link_to I18n.t(:names), taxon_entry_names_path(@taxon_concept, @selected_hierarchy_entry)
           %li{:class => resource_is_active('taxa/communities')}= link_to I18n.t(:community), taxon_entry_communities_path(@taxon_concept, @selected_hierarchy_entry)
           %li{:class => resource_is_active('taxa/resources')}= link_to I18n.t(:resources), taxon_entry_resources_path(@taxon_concept, @selected_hierarchy_entry)
-          %li{:class => resource_is_active('taxa/literature')}= link_to I18n.t(:literature), taxon_entry_literature_index_path(@taxon_concept, @selected_hierarchy_entry)
+          %li{:class => resource_is_active('taxa/literature')}= link_to I18n.t(:literature), taxon_entry_literature_path(@taxon_concept, @selected_hierarchy_entry)
           %li{:class => resource_is_active('taxa/updates')}= link_to I18n.t(:updates), taxon_entry_updates_path(@taxon_concept, @selected_hierarchy_entry)
         - else
           -# NOTE the two blocks, above and below, here.  Lots of duplication.  Change both, due to subtle diffs.
@@ -54,7 +54,7 @@
           %li{:class => resource_is_active('taxa/names')}= link_to I18n.t(:names), taxon_names_path(@taxon_concept)
           %li{:class => resource_is_active('taxa/communities')}= link_to I18n.t(:community), taxon_community_index_path(@taxon_concept)
           %li{:class => resource_is_active('taxa/resources')}= link_to I18n.t(:resources), taxon_resources_path(@taxon_concept)
-          %li{:class => resource_is_active('taxa/literature')}= link_to I18n.t(:literature), taxon_literature_index_path(@taxon_concept.id)
+          %li{:class => resource_is_active('taxa/literature')}= link_to I18n.t(:literature), taxon_literature_path(@taxon_concept.id)
           %li{:class => resource_is_active('taxa/updates')}= link_to I18n.t(:updates), taxon_updates_path(@taxon_concept.id)
         -# NOTE that this one is NOT nested under the if/else:
         %li{:class => resource_is_active('taxa/worklist')}= link_to I18n.t(:worklist), taxon_worklist_path(@taxon_concept) if current_user.min_curator_level?(:full)

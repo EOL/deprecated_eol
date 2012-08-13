@@ -7,9 +7,9 @@
     = render :partial => 'comments/new'
     .heading.subnav
       %ul
-        %li{:class => resource_is_active('users/newsfeeds', 'show')}
+        %li{:class => resource_is_active('show')}
           = link_to I18n.t(:newsfeed_link, :scope => [:users, :newsfeeds]), user_newsfeed_path(@user)
-        %li{:class => resource_is_active('users/newsfeeds', 'comments')}
+        %li{:class => resource_is_active('comments')}
           = link_to I18n.t(:comments_link, :scope => [:users, :newsfeeds]), comments_user_newsfeed_path(@user)
       - if @filters
         - form_tag({}, :class => 'filter', :method => :get) do

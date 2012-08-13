@@ -11,9 +11,9 @@ class Taxa::UpdatesController < TaxaController
       @rel_prev_href = rel_prev_href_params(@taxon_activity_log) ? taxon_entry_updates_url(@rel_prev_href_params) : nil
       @rel_next_href = rel_next_href_params(@taxon_activity_log) ? taxon_entry_updates_url(@rel_next_href_params) : nil
     else
-      @rel_canonical_href = taxon_update_url(@taxon_concept, :page => rel_canonical_href_page_number(@taxon_activity_log))
-      @rel_prev_href = rel_prev_href_params(@taxon_activity_log) ? taxon_update_url(@rel_prev_href_params) : nil
-      @rel_next_href = rel_next_href_params(@taxon_activity_log) ? taxon_update_url(@rel_next_href_params) : nil
+      @rel_canonical_href = taxon_updates_url(@taxon_concept, :page => rel_canonical_href_page_number(@taxon_activity_log))
+      @rel_prev_href = rel_prev_href_params(@taxon_activity_log) ? taxon_updates_url(@rel_prev_href_params) : nil
+      @rel_next_href = rel_next_href_params(@taxon_activity_log) ? taxon_updates_url(@rel_next_href_params) : nil
     end
     current_user.log_activity(:viewed_taxon_concept_updates, :taxon_concept_id => @taxon_concept.id)
   end
@@ -25,7 +25,7 @@ class Taxa::UpdatesController < TaxaController
     @media_facets = @taxon_concept.media_facet_counts
     @rel_canonical_href = @selected_hierarchy_entry ?
       statistics_taxon_entry_updates_url(@taxon_concept, @selected_hierarchy_entry) :
-      statistics_taxon_update_url(@taxon_concept)
+      statistics_taxon_updates_url(@taxon_concept)
   end
 
 end

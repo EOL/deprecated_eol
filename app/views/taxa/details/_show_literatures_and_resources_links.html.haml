@@ -24,10 +24,10 @@
           %li= link_to(I18n.t(:taxon_nucleotide_sequences_link),
             @selected_hierarchy_entry ? nucleotide_sequences_taxon_entry_resources_path(@taxon_concept, @selected_hierarchy_entry) : nucleotide_sequences_taxon_resources_path(@taxon_concept))
   %h4= link_to I18n.t(:literature),
-    @selected_hierarchy_entry ? taxon_entry_literature_index_path(@taxon_concept, @selected_hierarchy_entry) : taxon_literature_index_path(@taxon_concept.id)
+    @selected_hierarchy_entry ? taxon_entry_literature_path(@taxon_concept, @selected_hierarchy_entry) : taxon_literature_path(@taxon_concept.id)
   %ul
     - if $show_literature_references_link
       %li= link_to(I18n.t(:literature_references),
-        @selected_hierarchy_entry ? taxon_entry_literature_index_path(@taxon_concept, @selected_hierarchy_entry) : taxon_literature_index_path(@taxon_concept))
+        @selected_hierarchy_entry ? taxon_entry_literature_path(@taxon_concept, @selected_hierarchy_entry) : taxon_literature_path(@taxon_concept))
     %li= link_to I18n.t(:biodiversity_heritage_library),
-      @selected_hierarchy_entry ? bhl_taxon_entry_literature_index_path(@taxon_concept, @selected_hierarchy_entry) : bhl_taxon_literature_index_path(@taxon_concept)
+      @selected_hierarchy_entry ? bhl_taxon_entry_literature_path(@taxon_concept, @selected_hierarchy_entry) : bhl_taxon_literature_path(@taxon_concept)

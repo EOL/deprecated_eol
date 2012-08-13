@@ -18,7 +18,7 @@
         -# We will only need: data_object.description.allow_some_html instead.
         = Sanitize.clean(auto_link(data_object.description).balance_tags, Sanitize::Config::RELAXED).allow_some_html
       - else
-        = data_object.description.balance_tags
+        = raw data_object.description.balance_tags
     - tr_source = data_object.translation_source
     - if tr_source && show_view_source=='true'
       = link_to I18n.t(:view_translation_source_link), set_language_url(:language => tr_source.language.iso_639_1)+"&return_to=/data_objects/#{tr_source.id}"

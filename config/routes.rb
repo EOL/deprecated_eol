@@ -35,7 +35,7 @@ EolUpgrade::Application.routes.draw do
     member do
       get 'overview'
     end
-    resources :tree, :only => [:show], :controller => 'taxa/trees'
+    resource :tree, :only => [:show], :controller => 'taxa/trees'
     resources :maps, :only => [:index], :controller => 'taxa/maps'
     resources :media, :only => [:show], :controller => 'taxa/media'
     resources :details, :except => [:show], :controller => 'taxa/details'
@@ -46,7 +46,7 @@ EolUpgrade::Application.routes.draw do
         put 'switch'
         get 'overview'
       end
-      resources :tree, :only => [:show], :controller => 'taxa/trees'
+      resource :tree, :only => [:show], :controller => 'taxa/trees'
       resources :maps, :only => [:index], :controller => 'taxa/maps'
       resources :media, :only => [:index], :controller => 'taxa/media'
       resources :details, :only => [:index], :controller => 'taxa/details'

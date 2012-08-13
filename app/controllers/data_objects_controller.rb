@@ -64,19 +64,19 @@ class DataObjectsController < ApplicationController
       temp = ["education", "education_resources", "identification_resources", "nucleotide_sequences",
         "biomedical_terms", "citizen_science_links"] # to Resources tab
       if temp.include?(subchapter)
-        return redirect_to education_taxon_resource_path(@taxon_concept,
+        return redirect_to education_taxon_resources_path(@taxon_concept,
                              :anchor => "data_object_#{@data_object.id}"), :status => :moved_permanently if
           ['education', 'education_resources'].include?(subchapter)
-        return redirect_to identification_resources_taxon_resource_path(@taxon_concept,
+        return redirect_to identification_resources_taxon_resources_path(@taxon_concept,
                              :anchor => "data_object_#{@data_object.id}"), :status => :moved_permanently if
           subchapter == 'identification_resources'
-        return redirect_to nucleotide_sequences_taxon_resource_path(@taxon_concept,
+        return redirect_to nucleotide_sequences_taxon_resources_path(@taxon_concept,
                              :anchor => "data_object_#{@data_object.id}"), :status => :moved_permanently if
           subchapter == 'nucleotide_sequences'
-        return redirect_to biomedical_terms_taxon_resource_path(@taxon_concept,
+        return redirect_to biomedical_terms_taxon_resources_path(@taxon_concept,
                              :anchor => "data_object_#{@data_object.id}"), :status => :moved_permanently if
           subchapter == 'biomedical_terms'
-        return redirect_to citizen_science_taxon_resource_path(@taxon_concept,
+        return redirect_to citizen_science_taxon_resources_path(@taxon_concept,
                              :anchor => "data_object_#{@data_object.id}"), :status => :moved_permanently if
           subchapter == 'citizen_science_links'
       elsif ["literature"].include?(subchapter)

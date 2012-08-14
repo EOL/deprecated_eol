@@ -151,14 +151,6 @@ class String
     return text.gsub(/<em\/>/i, '')
   end
 
-  def truncate(length)
-    if self.length >= length
-      self[0..length-1] + "..."
-    else
-      self
-    end
-  end
-
   def remove_diacritics
     self.mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/n,'').to_s
   end

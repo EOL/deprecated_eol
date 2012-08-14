@@ -201,9 +201,9 @@ EolUpgrade::Application.routes.draw do
       end
     end
     resources :notification, :only => [:edit, :update]
-    resource :activity, :only => [:show]
-    resources :collections, :only => [:index]
-    resources :communities, :only => [:index]
+    resource :activity, :only => [:show], :controller => 'users/activities'
+    resources :collections, :only => [:index], :controller => 'users/collections'
+    resources :communities, :only => [:index], :controller => 'users/communities'
     resources :content_partners, :only => [:index]
     resources :open_authentications, :only => [:index, :new, :update, :destroy]
   end

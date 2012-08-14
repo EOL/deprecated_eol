@@ -14,7 +14,7 @@
     - # Prevents generation of links to "smart tags"
     %meta{ :name => "MSSmartTagsPreventParsing", :content => "true" }
     - unless @meta_data[:description].blank?
-      %meta{ :name => "description", :content => h(strip_tags(@meta_data[:description]).truncate(160)) }
+      %meta{ :name => "description", :content => h(truncate(strip_tags(@meta_data[:description]), :length => 160)) }
     - unless @meta_data[:keywords].blank?
       %meta{ :name => "keywords", :content => h(strip_tags(@meta_data[:keywords])) }
     - if $ENABLED_SOCIAL_PLUGINS && $ENABLED_SOCIAL_PLUGINS.include?(:facebook) && $FACEBOOK_APP_ID

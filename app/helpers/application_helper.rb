@@ -77,9 +77,9 @@ module ApplicationHelper
       end
 
       if block_given?
-        @template.concat(@template.content_tag(:label, "#{@template.capture(&block)} #{errors.to_s}", options))
+        @template.concat(@template.content_tag(:label, "#{@template.capture(&block)} #{errors.to_s}".html_safe, options))
       else
-        "#{super(method, content_or_options_with_block, options)} #{errors}"
+        "#{super(method, content_or_options_with_block, options)} #{errors}".html_safe
       end
     end
 

@@ -2,7 +2,7 @@
   - # @user.eol_authentication? true means we are NOT on the confirmation page
   %h1
     - if @user.eol_authentication?
-      = t(".create_user_header")
+      = raw(t(".create_user_header"))
     - else
       = t(".complete_registration_header")
   - if @user.eol_authentication?
@@ -13,7 +13,7 @@
           %fieldset.actions
             = f.submit I18n.t("helpers.submit.user.sign_up_with_#{provider}"),
               :id => "user_submit_#{provider}"
-  - form_for @user, :builder => ApplicationHelper::EolFormBuilder do |f|
+  = form_for @user, :builder => ApplicationHelper::EolFormBuilder do |f|
     - f.fields_for :open_authentications, @user.open_authentications do |oaf|
       = oaf.hidden_field :guid
       = oaf.hidden_field :provider

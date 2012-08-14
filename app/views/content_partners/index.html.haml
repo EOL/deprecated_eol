@@ -22,7 +22,7 @@
         .header
           - start_number = (@partners.current_page - 1) * @partners.per_page + 1
           - end_number = [ (start_number + @partners.per_page - 1), @partners.total_entries ].min
-          %h3= I18n.t(:displaying_numerical_range, :start_number => start_number, :end_number => end_number, :total => @partners.total_entries)
+          %h3= raw(I18n.t(:displaying_numerical_range, :start_number => start_number, :end_number => end_number, :total => @partners.total_entries))
           = will_paginate @partners, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next),
             :inner_window => 2, :outer_window => 2
         %ul.object_list

@@ -36,7 +36,7 @@ class ContentPartnersController < ApplicationController
                   :order => order)
     set_sort_options
     @page_title = I18n.t(:content_partners_page_title)
-    @page_description = I18n.t(:content_partners_page_description, :more_url => cms_page_path('partners'))
+    @page_description = I18n.t(:content_partners_page_description, :more_url => cms_page_path('partners')).html_safe
     @rel_canonical_href = content_partners_url(:page => rel_canonical_href_page_number(@partners))
     @rel_prev_href = rel_prev_href_params(@partners) ? content_partners_url(@rel_prev_href_params) : nil
     @rel_next_href = rel_next_href_params(@partners) ? content_partners_url(@rel_next_href_params) : nil

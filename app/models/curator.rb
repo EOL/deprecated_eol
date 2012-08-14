@@ -58,13 +58,16 @@ class Curator < $PARENT_CLASS_MUST_USE_MASTER
     if return_type == 'count'
       query += " GROUP BY cal.user_id"
     end
-    results = User.connection.execute(query).all_hashes
+    results = User.connection.execute(query)
     if return_type == 'hash'
-      return results
+      return [] if resuts.to_a.empty?
+      return results # TODO - we need to make an array of hashes, here.  Grrr.  (Check that it's needed.)
     end
     return_hash = {}
+    user_id_i = results.fields.index('user_id')
+    count_i = results.fields.index('count')
     results.each do |r|
-      return_hash[r['user_id'].to_i] = r['count'].to_i
+      return_hash[r[user_id_i].to_i] = r[count_i].to_i
     end
     if user_id.class == Fixnum
       return return_hash[user_id] || 0
@@ -84,18 +87,20 @@ class Curator < $PARENT_CLASS_MUST_USE_MASTER
     end
     query += " cal.changeable_object_type_id IN (#{ChangeableObjectType.data_object_scope.join(",")})
       AND acts.id != #{Activity.rate.id} "
-    results = User.connection.execute(query).all_hashes
+    results = User.connection.execute(query)
+    user_id_i = results.fields.index('user_id')
+    taxon_concept_id_i = results.fields.index('taxon_concept_id')
     return_hash = {}
     results.each do |r|
-      return_hash[r['user_id'].to_i] ||= []
-      return_hash[r['user_id'].to_i] << r['taxon_concept_id'].to_i
+      return_hash[r[user_id_i].to_i] ||= []
+      return_hash[r[user_id_i].to_i] << r[taxon_concept_id_i].to_i
     end
     if user_id.class == Fixnum
       taxon_concept_ids = []
       if return_hash[user_id]
         taxon_concept_ids += return_hash[user_id]
       end
-      taxon_concept_ids += EOL::Curator.taxa_synonyms_curated(user_id)
+      taxon_concept_ids += Curator.taxa_synonyms_curated(user_id)
       return taxon_concept_ids.uniq
     end
     return_hash
@@ -113,11 +118,13 @@ class Curator < $PARENT_CLASS_MUST_USE_MASTER
     end
     query += " cal.changeable_object_type_id = #{ChangeableObjectType.comment.id}
       AND acts.id != #{Activity.create.id}"
-    results = User.connection.execute(query).all_hashes
+    results = User.connection.execute(query)
+    user_id_i = results.fields.index('user_id')
+    object_id_i = results.fields.index('object_id')
     return_hash = {}
     results.each do |r|
-      return_hash[r['user_id'].to_i] ||= []
-      return_hash[r['user_id'].to_i] << r['object_id'].to_i
+      return_hash[r[user_id_i].to_i] ||= []
+      return_hash[r[user_id_i].to_i] << r[object_id_i].to_i
     end
     if user_id.class == Fixnum
       return return_hash[user_id] || []
@@ -130,7 +137,7 @@ class Curator < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def total_species_curated
-    EOL::Curator.taxon_concept_ids_curated(self.id).length
+    Curator.taxon_concept_ids_curated(self.id).length
   end
 
   def vet object

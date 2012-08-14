@@ -136,7 +136,7 @@ EolUpgrade::Application.routes.draw do
       put 'make_editor'
       get 'revoke_editor'
     end
-    resources :newsfeed, :only => [:show]
+    resource :newsfeed, :only => [:show]
     resources :collections
     resources :members do
       member do
@@ -156,7 +156,7 @@ EolUpgrade::Application.routes.draw do
       get 'choose_editor_target'
       post 'collect_item'
     end
-    resources :newsfeed, :only => [:show]
+    resource :newsfeed, :only => [:show]
     resources :editors, :only => [:show]
     resources :inaturalist, :only => [:show]
   end
@@ -195,13 +195,13 @@ EolUpgrade::Application.routes.draw do
       get 'recover_account'
       get 'verify_open_authentication'
     end
-    resources :newsfeed, :only => [:show] do
+    resource :newsfeed, :only => [:show], :controller => 'users/newsfeeds' do
       collection do
         get 'comments'
       end
     end
     resources :notification, :only => [:edit, :update]
-    resources :activity, :only => [:show]
+    resource :activity, :only => [:show]
     resources :collections, :only => [:index]
     resources :communities, :only => [:index]
     resources :content_partners, :only => [:index]

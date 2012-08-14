@@ -50,7 +50,7 @@ javascripts:
   worklist:
     - public/javascripts/permalink.js
     - public/javascripts/worklist.js
-    - public/javascripts/jplayer/js/jquery.jplayer.min .js
+    - public/javascripts/jplayer/js/jquery.jplayer.min.js
 
 stylesheets:
   application:

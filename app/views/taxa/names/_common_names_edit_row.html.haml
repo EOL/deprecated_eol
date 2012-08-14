@@ -10,7 +10,7 @@
 %td
   = (defined?(language) && language == 'English') ? name.name_string.capitalize_all_words : name.name_string
 %td
-  = common_name_display_attribution(name)
+  = raw(common_name_display_attribution(name))
 %td{:class => 'vet_common_name'}
   - if synonym_id = name.synonym_id_for_user(current_user)
     = link_to( I18n.t(:delete), delete_taxon_names_path(:taxon_id => @taxon_concept.id, :synonym_id => synonym_id, :hierarchy_entry_id => @selected_hierarchy_entry_id),

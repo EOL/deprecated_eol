@@ -3,13 +3,13 @@
 #taxon_names
   = render :partial => 'menu'
   .main_container
-    - if (@selected_hierarchy_entry && @selected_hierarchy_entry.scientific_synonyms.count <= 0) || @taxon_concept.viewable_synonyms.count <= 0
+    - if (@selected_hierarchy_entry && @selected_hierarchy_entry.scientific_synonyms.length <= 0) || @taxon_concept.viewable_synonyms.length <= 0
       .empty
         %p= I18n.t(:names_synonyms_empty)
     - else
       %p.help_text
-        = I18n.t(:name_preferred_taxonomically_for_source_help_tip,
-          :icon => image_tag("/images/v2/icon_required.png", :alt => I18n.t(:name_preferred_for_language_yes), :class => 'indicator'))
+        = raw(I18n.t(:name_preferred_taxonomically_for_source_help_tip,
+          :icon => image_tag("/images/v2/icon_required.png", :alt => I18n.t(:name_preferred_for_language_yes), :class => 'indicator')))
 
       - hierarchy_entries = @selected_hierarchy_entry.blank? ? @taxon_concept.published_hierarchy_entries : [@selected_hierarchy_entry]
       - HierarchyEntry.preload_associations(hierarchy_entries, :hierarchy)

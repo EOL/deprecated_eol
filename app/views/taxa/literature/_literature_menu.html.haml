@@ -1,8 +1,8 @@
 #tabs_sidebar
   %ul.tabs
-    %li{:class => resource_is_active('literature', 'show')}
+    %li{:class => resource_is_active('show')}
       = link_to I18n.t(:literature_references),
         @selected_hierarchy_entry ? taxon_entry_literature_path(@taxon_concept, @selected_hierarchy_entry) : taxon_literature_path(@taxon_concept)
-    %li{:class => resource_is_active('literature', 'bhl')}
+    %li{:class => resource_is_active('bhl')}
       = link_to I18n.t(:biodiversity_heritage_library),
         @selected_hierarchy_entry ? bhl_taxon_entry_literature_path(@taxon_concept, @selected_hierarchy_entry) : bhl_taxon_literature_path(@taxon_concept)

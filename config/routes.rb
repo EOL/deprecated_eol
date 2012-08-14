@@ -21,16 +21,8 @@ EolUpgrade::Application.routes.draw do
   match '/index' => redirect('/')
   match '/home.html' => redirect('/')
 
-  resources :tasks, :task_states, :task_names, :feed_items, :random_images
-  resources :recent_activities, :only => [:index]
-  resources :classifications, :only => [:create]
-  resources :contacts, :only => [:index, :create, :new]
-  resources :collection_items, :only => [:create, :edit, :update]
-  resources :comments, :only => [:create, :edit, :update, :destroy]
-  resources :sessions, :only => [:new, :create, :destroy]
-  resources :wikipedia_imports, :only => [:new, :create] # Curator tool to request import of wikipedia pages
-
-  # Taxa nested resources with pages as alias... this is quite large, sorry.
+  # Taxa nested resources with pages as alias... this is quite large, sorry. Please keep it high in the routes file,
+  # since it's 90% of the website.  :)
   resources :pages, :only => [:show], :controller => 'taxa', :as => 'taxa' do
     member do
       get 'overview'
@@ -277,6 +269,16 @@ EolUpgrade::Application.routes.draw do
       get 'channel'
     end
   end
+
+  # Putting these after the complex resources because they are less common.
+  resources :tasks, :task_states, :task_names, :feed_items, :random_images
+  resources :recent_activities, :only => [:index]
+  resources :classifications, :only => [:create]
+  resources :contacts, :only => [:index, :create, :new]
+  resources :collection_items, :only => [:create, :edit, :update]
+  resources :comments, :only => [:create, :edit, :update, :destroy]
+  resources :sessions, :only => [:new, :create, :destroy]
+  resources :wikipedia_imports, :only => [:new, :create] # Curator tool to request import of wikipedia pages
 
   # Miscellaneous named routes:
   match '/activity_logs/find/:id' => 'feeds#find', :as => 'find_feed'

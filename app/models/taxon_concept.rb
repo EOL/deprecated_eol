@@ -691,7 +691,7 @@ class TaxonConcept < ActiveRecord::Base
         'sources' => [],
         'hierarchy_entry_id' => result[hierarchy_entry_id_i]
       }
-      grouped[key]['sources'] << result
+      grouped[key]['sources'] << result[hierarchy_label_i]
     end
     grouped.each do |key, hash|
       hash['sources'].sort! {|a,b| a[hierarchy_label_i] <=> b[hierarchy_label_i]}

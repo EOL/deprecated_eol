@@ -2,7 +2,7 @@ class Taxa::LiteratureController < TaxaController
   before_filter :instantiate_taxon_concept, :redirect_if_superceded, :instantiate_preferred_names
   before_filter :add_page_view_log_entry
 
-  def index
+  def show
     @references = Ref.find_refs_for(@taxon_concept.id)
     @references = Ref.sort_by_full_reference(@references)
     @assistive_section_header = I18n.t(:assistive_literature_header)

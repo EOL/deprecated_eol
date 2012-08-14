@@ -11,6 +11,6 @@
             %p= I18n.t(:taxon_education_empty)
             %p= link_to I18n.t(:add_education_resources_to_page_link_button), new_taxon_data_object_path(@taxon_concept, :toc => @add_article_toc_id), :class => 'button'
             - if $EDUCATION_EMAIL
-              %p= I18n.t(:or_email_education, :link => link_to($EDUCATION_EMAIL, "mailto:#{$EDUCATION_EMAIL}")).firstcap
+              %p= raw(I18n.t(:or_email_education, :link => link_to($EDUCATION_EMAIL, "mailto:#{$EDUCATION_EMAIL}")).firstcap)
         - else
           = render :partial => 'taxa/details/category_content', :locals => { :content => @contents }

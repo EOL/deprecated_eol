@@ -7,7 +7,7 @@
       %h3= I18n.t(:page_statistics)
     .copy.help_text
       %h4= I18n.t(:what_do_these_numbers_mean)
-      = I18n.t(:page_statistics_explanation)
+      = raw(I18n.t(:page_statistics_explanation))
     %dl
       %dt= I18n.t(:richness_score)
       %dd= @metrics.blank? ? 0.to_s : @metrics.richness_for_display

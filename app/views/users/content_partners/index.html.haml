@@ -5,7 +5,7 @@
     .header
       %h3= I18n.t(:users_content_partners_header)
     .copy
-      %p= I18n.t(:users_content_partners_information, :more_url => cms_page_path('partners'))
+      %p= raw(I18n.t(:users_content_partners_information, :more_url => cms_page_path('partners')))
       - unless @partners.blank?
         %h3= I18n.t(:users_content_partners_with_count, :count => @partners.size)
     - if !@new_partner.nil?

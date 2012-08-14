@@ -8,7 +8,7 @@
     - # TODO: Define og:locale, and og:locale:alternate. Note format expected includes region e.g. "en_US"
     - if $ENABLED_SOCIAL_PLUGINS && $ENABLED_SOCIAL_PLUGINS.include?(:facebook)
       - meta_open_graph_data.each do |property, content|
-        - content = h(strip_tags(content).truncate(300)) if ['og:title', 'og:description'].include?(property)
+        - content = h(truncate(strip_tags(content), :length => 300)) if ['og:title', 'og:description'].include?(property)
         %meta{ :property => property, :content => content }
 
   #social_sharing

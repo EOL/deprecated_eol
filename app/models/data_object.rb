@@ -816,7 +816,8 @@ class DataObject < ActiveRecord::Base
     # TODO - ideally, we should extract some of the logic from data_objects/show to make this "Image of Procyon Lotor".
     return data_type.label if description.blank?
     st = description.gsub(/\n.*$/, '')
-    st.truncate(32)
+    st = st[0..29] + '...' if st.length > 32
+    st
   end
 
   def description_teaser

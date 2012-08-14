@@ -204,7 +204,7 @@ EolUpgrade::Application.routes.draw do
     resource :activity, :only => [:show], :controller => 'users/activities'
     resources :collections, :only => [:index], :controller => 'users/collections'
     resources :communities, :only => [:index], :controller => 'users/communities'
-    resources :content_partners, :only => [:index]
+    resources :content_partners, :only => [:index], :controller => 'users/content_partners'
     resources :open_authentications, :only => [:index, :new, :update, :destroy]
   end
 

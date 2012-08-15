@@ -37,7 +37,7 @@
     %link{ :href => "/opensearchdescription.xml", :title => "Encyclopedia of Life", :rel => "search", :type => "application/opensearchdescription+xml" }
     = stylesheet_include_i18n 'v1'
     = stylesheet_include_i18n 'buttons', :media => "all"
-    = include_javascripts 'application'
+    = javascript_include_tag 'application'
     /[if lt IE 7]
       %style{:type => "text/css", :media => "screen"}
         body { behavior: url(/javascripts/csshover.htc); }

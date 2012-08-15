@@ -1,7 +1,7 @@
 - taxon_concept = @selected_hierarchy_entry ? @selected_hierarchy_entry.taxon_concept : @taxon_concept
 .article
   - if taxon_concept.has_map
-    = include_javascripts :maps
+    =# include_javascripts :maps
     #map_image
     :javascript
       var so = new SWFObject("/EOLSpeciesMap.swf", "swf", "100%", "100%", "9");

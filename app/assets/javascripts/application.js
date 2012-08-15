@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require_self
 //= require_tree .
 
 // The rest is the old application.js file:

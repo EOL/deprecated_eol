@@ -62,7 +62,7 @@
         .actions
           .language
             %p{ :class => I18n.locale.to_s, :title => I18n.t(:selected_language_advisory_information) }
-              - link_to language_path do
+              = link_to language_path do
                 %span
                   = current_language.source_form
             %ul

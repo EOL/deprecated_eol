@@ -9,10 +9,12 @@ if (!EOL.replace_dato_id || !EOL.click_selected_image || !EOL.toggle_main_img_ic
 
   EOL.click_selected_image = function() {
     // If there is no slected image, just click the first one:
-    if(!selected_image_id) {
-      $("#thumbnails a:nth-child(1)").click();
-    } else {
-      $("#thumbnails a#thumb-"+selected_image_id).click();
+    if(!typeof selected_image_id === "undefined") {
+      if(!selected_image_id) {
+        $("#thumbnails a:nth-child(1)").click();
+      } else {
+        $("#thumbnails a#thumb-"+selected_image_id).click();
+      }
     }
   };
 

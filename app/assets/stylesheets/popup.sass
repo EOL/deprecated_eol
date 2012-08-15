@@ -16,7 +16,7 @@
   cursor: pointer
   height: 12px
   width: 12px
-  background-image: url("/images/close_button.gif")
+  background-image: url(image-path("close_button.gif"))
 
 .popup
   &.vetted
@@ -65,11 +65,11 @@ a.close-button
   float: right
   height: 12px !important
   width: 12px !important
-  background-image: url(/images/close_button.gif)
+  background-image: url(image-path("close_button.gif"))
   background-repeat: no-repeat
   z-index: 1000
   &:hover
-    background-image: url(/images/close_button_active.gif)
+    background-image: url(image-path("close_button_active.gif"))
 
 @mixin image-button($left)
   position: absolute
@@ -85,12 +85,12 @@ div
     @include image-button(120px)
   &#large-image-tagging-button
     @include image-button(150px)
-    background: transparent url(/images/icons/icons.gif) no-repeat -47px 0px
+    background: transparent url(image-path("icons/icons.gif")) no-repeat -47px 0px
     &:hover
-      background: transparent url(/images/icons/icons.gif) no-repeat -47px -32px
+      background: transparent url(image-path("icons/icons.gif")) no-repeat -47px -32px
 
 .attribution-icon
-  background: transparent url(/images/icons/icons.gif) no-repeat 1px 0px
+  background: transparent url(image-path("icons/icons.gif")) no-repeat 1px 0px
   display: inline-block
   width: 25px
   height: 24px
@@ -99,7 +99,7 @@ div
     height: 100%
     width: 100%
   &:hover
-    background: transparent url(/images/icons/icons.gif) no-repeat 1px -32px
+    background: transparent url(image-path("icons/icons.gif")) no-repeat 1px -32px
     display: inline-block
 
 .text-comments-head p

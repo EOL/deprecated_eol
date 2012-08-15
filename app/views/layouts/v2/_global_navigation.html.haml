@@ -1,25 +1,25 @@
 - position ||= :header
 .global_navigation{ :role => "navigation" }
   - if position == :header
-    %h2.assistive= I18n.t(:global_navigation)
+    %h2.assistive= raw(I18n.t(:global_navigation))
   %ul.nav
     - cache(:controller => "/content", :part => "global_navigation_#{position}_#{current_language.iso_639_1}") do
       %li
-        = link_to I18n.t(:discover_link), discover_path
+        = link_to raw(I18n.t(:discover_link)), discover_path
       %li
-        = link_to I18n.t(:help), help_path
+        = link_to raw(I18n.t(:help)), help_path
       %li
-        = link_to I18n.t(:what_is_eol), about_path
+        = link_to raw(I18n.t(:what_is_eol)), about_path
       %li
-        = link_to I18n.t(:eol_news), news_path
+        = link_to raw(I18n.t(:eol_news)), news_path
       %li
-        = link_to I18n.t(:donate), donate_path
+        = link_to raw(I18n.t(:donate)), donate_path
       - if position == :footer
         %li
-          = link_to I18n.t(:terms_of_use_link), terms_of_use_path
+          = link_to raw(I18n.t(:terms_of_use_link)), terms_of_use_path
         %li
-          = link_to I18n.t(:citing_link), cms_page_path('citing')
+          = link_to raw(I18n.t(:citing_link)), cms_page_path('citing')
     -# Keep this OUT of the cache call, please: the referred page needs to be dynamic.
     - if position == :footer
       %li
-        = link_to I18n.t(:contact_us_link), contact_us_path(:referred_page => current_url(false))
+        = link_to raw(I18n.t(:contact_us_link)), contact_us_path(:referred_page => current_url(false))

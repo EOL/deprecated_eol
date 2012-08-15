@@ -1,5 +1,5 @@
 require 'spec/runner/formatter/base_text_formatter'
-class ExpectationFormatter < Spec::Runner::Formatter::BaseTextFormatter
+class ExpectationFormatter < RSpec::Runner::Formatter::BaseTextFormatter
   def print_eol_expectations
     if $EOL_CURRENT_EXPECTATIONS && ! $EOL_CURRENT_EXPECTATIONS.empty?
        output.puts(yellow("  ...#{$EOL_CURRENT_EXPECTATIONS.join(",\n  ...")}."))

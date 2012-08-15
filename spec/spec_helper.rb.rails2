@@ -1,37 +1,47 @@
-# This file is copied to spec/ when you run 'rails generate rspec:install'
-ENV["RAILS_ENV"] ||= 'test'
-require File.expand_path("../../config/environment", __FILE__)
-require 'rspec/rails'
-require 'rspec/autorun'
+ENV["RAILS_ENV"] = "test"
+require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 
-require Rails.root.join('spec', 'eol_spec_helpers')
-require Rails.root.join('spec', 'custom_matchers')
+require 'spec/rails'
+require 'capybara/rails'
+require 'capybara/dsl'
+
+
+load 'composite_primary_keys/fixtures.rb'
+require 'csv'
+
+# just enough infrastructure to get 'assert_select' to work
+require 'action_controller'
+require 'action_controller/assertions/selector_assertions'
+include ActionController::Assertions::SelectorAssertions
+
 
 require "email_spec/helpers"
 require "email_spec/matchers"
+
+# Capybara.default_driver = :selenium
+
+# commented out as these were getting loaded too many times
+# require File.expand_path(File.dirname(__FILE__) + "/factories")
+require File.expand_path(File.dirname(__FILE__) + "/eol_spec_helpers")
+require File.expand_path(File.dirname(__FILE__) + "/custom_matchers")
+
 require 'eol_scenarios'
 EolScenario.load_paths = [ Rails.root.join('scenarios') ]
 
-
-# Requires supporting ruby files with custom matchers and macros, etc,
-# in spec/support/ and its subdirectories.
-Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
-
-# quiet down any migrations that run during tests
-ActiveRecord::Migration.verbose = false
-
-RSpec.configure do |config|
-  include EolScenario::RSpec
+Spec::Runner.configure do |config|
+  include EolScenario::Spec
   include EOL::Data # this gives us access to methods that clean up our data (ie: lft/rgt values)
   include EOL::DB   # this gives us access to methods that handle transactions
-  include EOL::RSpec::Helpers
+  include EOL::Spec::Helpers
 
   config.use_transactional_fixtures = false
 
+  config.include EOL::Spec::Matchers
   config.include(EmailSpec::Helpers)
   config.include(EmailSpec::Matchers)
   config.include(Capybara, :type => :integration)
 
+  # before running any spec, especially when running them individually, we'll want to truncate the database
   truncate_all_tables_once
 
   config.after(:each) do
@@ -40,18 +50,7 @@ RSpec.configure do |config|
     reset_all_model_cached_instances
   end
 
-  # If true, the base class of anonymous controllers will be inferred
-  # automatically. This will be the default behavior in future versions of
-  # rspec-rails.
-  config.infer_base_class_for_anonymous_controllers = false
-
-  # Run specs in random order to surface order dependencies. If you find an
-  # order dependency and want to debug it, you can fix the order by providing
-  # the seed, which is printed after each run.
-  #     --seed 1234
-  config.order = "random"
 end
-
 
 def reset_all_model_cached_instances
   $ALL_MODELS ||= Dir.foreach(Rails.root.join('app', 'models')).map do |model_path|
@@ -66,12 +65,15 @@ def reset_all_model_cached_instances
   end
 end
 
+# quiet down any migrations that run during tests
+ActiveRecord::Migration.verbose = false
+
 def wait_for_insert_delayed(&block)
   countdown = 10
   begin
     yield
     return
-  rescue RSpec::Expectations::ExpectationNotMetError => e
+  rescue Spec::Expectations::ExpectationNotMetError => e
     countdown -= 1
     sleep(0.2)
     retry if countdown > 0
@@ -96,7 +98,7 @@ def read_test_file(filename)
   end
 end
 
-module RSpec
+module Spec
   module Rails
     module Example
       class FunctionalExampleGroup < ActionController::TestCase

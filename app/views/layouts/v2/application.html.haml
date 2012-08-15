@@ -40,7 +40,7 @@
     - else
       = stylesheet_include_i18n 'application', :media => "all"
     - if I18n.locale.to_s == "zh-Hans"
-      =# stylesheet_include_i18n 'fonts', :media => "all"
+      = stylesheet_link_tag 'fonts', :media => "all"
     /[if IE 7]
       = stylesheet_include_i18n 'ie7', :media => "all"
     = javascript_include_tag :application

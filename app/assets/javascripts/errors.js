@@ -11,10 +11,4 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
-//= require jquery_ujs
 //= require common
-//= require jquery.cycle.all.min
-//= require jquery.modal
-//= require comments
-//= require navigation
-//= require ckeditor/init

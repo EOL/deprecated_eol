@@ -7,11 +7,11 @@
 - if log.blank?
   .empty
     -if @filter.blank?
-      %p= I18n.t(:activity_log_empty)
+      %p= raw I18n.t(:activity_log_empty)
       - unless @latest_published_revision.nil?
         %p= link_to I18n.t(:activity_log_empty_learn_more_link), cms_page_url('contribute')
     -else
-      %p= I18n.t(:no_record_found_matching_your_criteria)
+      %p= raw I18n.t(:no_record_found_matching_your_criteria)
 - else
   %ul.feed
     - log.map {|l| l.is_a?(Hash) ? l['instance'] : l }.compact.each do |item|
@@ -21,7 +21,7 @@
             = render :partial => 'activity_logs/comment', :locals => {:item => item, :truncate_comments => truncate_comments, :editable => editable, :actual_date => actual_date, :display_curator => display_curator}
         - else
           - if item.user.nil?
-            = I18n.t(:the_user_who_performed_this_action_was_removed)
+            = raw I18n.t(:the_user_who_performed_this_action_was_removed)
           - else
             = link_to image_tag(item.user.logo_url(:small), :alt => I18n.t(:comment_show_posters_image_alt,
               :posters_name => h(item.user.full_name))), user_url(item.user), :class => 'avatar'
@@ -30,9 +30,9 @@
               = render :partial => "activity_logs/#{item.class.name.underscore}", :locals => {:item => item, :display_curator => display_curator}
             %p.meta
               - if actual_date
-                = I18n.l(item.created_at, :format => :long)
+                = raw I18n.l(item.created_at, :format => :long)
               - else
-                = I18n.t(:time_ago, :time_passed => time_ago_in_words(item.created_at))
+                = raw I18n.t(:time_ago, :time_passed => time_ago_in_words(item.created_at))
             - if item.user && item.link_to
               %ul.actions
                 %li.reply= link_to(I18n.t(:reply), link_to_newsfeed(item.link_to) + "#reply-to-#{item.class.name}-#{item.id}", :'data-reply-to' => item.user.full_name, :'data-reply-to-type' => item.class.name, :'data-reply-to-id' => item.id)

@@ -97,7 +97,7 @@ private
   def load_members
     @managers = @community.members.managers
     @nonmanagers = @community.members.nonmanagers
-    @all_members = @managers + @nonmanagers
+    @all_members = @community.members
     @members = @all_members.paginate(:page => params[:page])
   end
 

@@ -1,5 +1,8 @@
 class Member < ActiveRecord::Base
 
+  attr_accessible :user, :community
+  attr_accessible :user_id, :community_id
+
   belongs_to :community
   belongs_to :user
 

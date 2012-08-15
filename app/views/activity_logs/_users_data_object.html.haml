@@ -11,7 +11,7 @@
   - latest_data_object_url = data_object_url(item.data_object.revisions_by_date.first)
 - if display_curator && item.user.is_curator?
   - user = I18n.t(:user_full_name_with_curator, :user => user, :curator_level => item.user.curator_level.translated_label)
-%p= I18n.t(:activity_user_created_text, :user => user,
+%p= raw I18n.t(:activity_user_created_text, :user => user,
   :object_name => link_to(item.summary_name, latest_data_object_url, :style => link_style),
   :taxon_concept => link_to(item.taxon_concept.summary_name, overview_taxon_url(item.taxon_concept),
   :style => link_style))

@@ -1,4 +1,4 @@
-- if @collection.featuring_communities.count > 0
+- if @collection.featuring_communities.length > 0
   .collection_contributors
     = render :partial => 'collections/endorsed_by', :locals => { :collection => @collection }
 - unless @recently_visited_collections.blank?

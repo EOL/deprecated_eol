@@ -4,6 +4,9 @@ class CommunityActivityLog < LoggingModel
 
   include EOL::ActivityLogItem
 
+  attr_accessible :community, :community_id, :user, :user_id, :activity, :activity_id, :member, :member_id
+  attr_accessible :collection, :collection_id
+
   belongs_to :community
   belongs_to :user       # Who took the action
   belongs_to :activity   # What happened

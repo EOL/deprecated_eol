@@ -20,7 +20,7 @@
   - else
     - nil
 - if item.user.nil?
-  = I18n.t(:the_user_who_performed_this_action_was_removed)
+  = raw I18n.t(:the_user_who_performed_this_action_was_removed)
 - else
   = link_to image_tag(item.user.logo_url(:small), :alt => I18n.t(:comment_show_posters_image_alt,
     :posters_name => h(item.user.full_name))), user_url(item.user), :class => 'avatar'
@@ -46,28 +46,28 @@
     %p
       - if parent_link
         - if item.parent == item.user
-          = I18n.t(:user_commented_on_themself, :user_with_link => name_with_link, :username => item.parent.summary_name, :link => parent_link)
+          = raw I18n.t(:user_commented_on_themself, :user_with_link => name_with_link, :username => item.parent.summary_name, :link => parent_link)
         - elsif item.parent.nil?
-          = I18n.t(:user_commented_on_deleted_user, :user_with_link => name_with_link)
+          = raw I18n.t(:user_commented_on_deleted_user, :user_with_link => name_with_link)
         - else
           - if item.parent_type == "DataObject"
             - if item.parent.is_latest_published_version_in_same_language?
-              = I18n.t(:user_commented_on_something_colon, :user => name_with_link, :what => link_to(item.parent.summary_name, parent_link))
+              = raw I18n.t(:user_commented_on_something_colon, :user => name_with_link, :what => link_to(item.parent.summary_name, parent_link))
             - else
-              = I18n.t(:user_commented_on_older_data_object_colon, :user => name_with_link, :what => I18n.t(:older_version_of_latest_published_data_object_link, :link => link_to(item.parent.summary_name, parent_link)))
+              = raw I18n.t(:user_commented_on_older_data_object_colon, :user => name_with_link, :what => I18n.t(:older_version_of_latest_published_data_object_link, :link => link_to(item.parent.summary_name, parent_link)))
           - else
-            = I18n.t(:user_commented_on_something_colon, :user => name_with_link, :what => link_to(item.parent.summary_name, parent_link))
+            = raw I18n.t(:user_commented_on_something_colon, :user => name_with_link, :what => link_to(item.parent.summary_name, parent_link))
       - else
         - unless item.parent.nil?
           - if item.parent_type == "DataObject"
             - if item.parent.is_latest_published_version_in_same_language?
-              = I18n.t(:user_commented_on_older_data_object_colon, :user => name_with_link, :what => item.parent.summary_name)
+              = raw I18n.t(:user_commented_on_older_data_object_colon, :user => name_with_link, :what => item.parent.summary_name)
             - else
-              = I18n.t(:user_commented_on_something_colon, :user => name_with_link, :what => item.parent.summary_name)
+              = raw I18n.t(:user_commented_on_something_colon, :user => name_with_link, :what => item.parent.summary_name)
           - else
-            = I18n.t(:user_commented_on_something_colon, :user => name_with_link, :what => I18n.t(:record_not_found))
+            = raw I18n.t(:user_commented_on_something_colon, :user => name_with_link, :what => I18n.t(:record_not_found))
     - if item.deleted?
-      %p.deleted_comment= I18n.t(:this_comment_was_deleted)
+      %p.deleted_comment= raw I18n.t(:this_comment_was_deleted)
     - else
       %blockquote{:cite => h(item.user.full_name)}
         - show_body = ''
@@ -95,19 +95,19 @@
         = sanitize show_body.balance_tags.add_missing_hyperlinks
     %p.meta
       - if actual_date
-        = I18n.l(item.created_at, :format => :long)
+        = raw I18n.l(item.created_at, :format => :long)
       - else
-        = I18n.t(:time_ago, :time_passed => time_ago_in_words(item.created_at))
+        = raw I18n.t(:time_ago, :time_passed => time_ago_in_words(item.created_at))
       - unless item.created_at == item.updated_at
         &bull;
         - if item.deleted?
-          = I18n.t(:deleted_colon)
+          = raw I18n.t(:deleted_colon)
         - else
-          = I18n.t(:edited_colon)
+          = raw I18n.t(:edited_colon)
         - if actual_date
-          = I18n.l(item.updated_at, :format => :long)
+          = raw I18n.l(item.updated_at, :format => :long)
         - else
-          = I18n.t(:time_ago, :time_passed => time_ago_in_words(item.updated_at))
+          = raw I18n.t(:time_ago, :time_passed => time_ago_in_words(item.updated_at))
     - unless item.deleted?
       %ul.actions
         - if ! defined?(@latest_published_revision) || @latest_published_revision

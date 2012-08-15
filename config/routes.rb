@@ -136,7 +136,7 @@ EolUpgrade::Application.routes.draw do
       put 'make_editor'
       get 'revoke_editor'
     end
-    resource :newsfeed, :only => [:show]
+    resource :newsfeed, :only => [:show], :controller => 'communities/newsfeeds'
     resources :collections
     resources :members do
       member do

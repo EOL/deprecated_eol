@@ -12,6 +12,8 @@ javascripts:
     - public/javascripts/jquery-1.6.1.min.js
     - public/javascripts/rails.js
     - public/javascripts/application.js
+  curation:
+    - public/javascripts/curation.js
   data-object-curation:
     - public/javascripts/curation.js
   data-object-show:

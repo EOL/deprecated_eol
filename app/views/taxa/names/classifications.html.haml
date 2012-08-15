@@ -39,7 +39,7 @@
           %p= I18n.t("classification_#{@confirm_split_or_merge}_help")
           %p= I18n.t(:classification_split_warning)
           %p= I18n.t(:classification_button_help)
-      - form_tag classifications_path do
+      = form_tag classifications_path do
         = hidden_field_tag 'taxon_concept_id', @move_to || @taxon_concept.id
         - if @confirm_split_or_merge
           = hidden_field_tag 'confirm', @confirm_split_or_merge

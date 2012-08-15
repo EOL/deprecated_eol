@@ -134,12 +134,12 @@ def load_old_foundation_data
   License.gen_if_not_exists(:title => 'gnu-fdl',
                             :description => 'Some rights reserved',
                             :source_url => 'http://www.gnu.org/licenses/fdl.html',
-                            :logo_url => '/images/licenses/gnu_fdl_small.png',
+                            :logo_url => 'licenses/gnu_fdl_small.png',
                             :show_to_content_partners => 0)
   License.gen_if_not_exists(:title => 'gnu-gpl',
                             :description => 'Some rights reserved',
                             :source_url => 'http://www.gnu.org/licenses/gpl.html',
-                            :logo_url => '/images/licenses/gnu_fdl_small.png',
+                            :logo_url => 'licenses/gnu_fdl_small.png',
                             :show_to_content_partners => 0)
   License.gen_if_not_exists(:title => 'no license',
                             :description => 'The material cannot be licensed',

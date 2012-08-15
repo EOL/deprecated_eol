@@ -1,3 +1,6 @@
+//= require permalink
+//= require jplayer/js/jquery.jplayer.min
+
 if(!EOL) { var EOL = {}; }
 
 EOL.init_worklist_behaviors = function() {

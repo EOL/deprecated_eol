@@ -1,3 +1,5 @@
+//= require jplayer/js/jquery.jplayer.min
+
 $(function() {
 
   (function($switch_hierarchy_entry) {

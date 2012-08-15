@@ -1,7 +1,7 @@
 = content_for :head do
-  =# include_javascripts 'taxa-media'
+  = javascript_include_tag 'exemplar_image.js'
 = content_for :footer do
-  =# include_javascripts 'taxa-media-footer'
+  = javascript_include_tag 'media_list'
 - content_for :social_sharing do
   = render :partial => 'shared/social_sharing'
 

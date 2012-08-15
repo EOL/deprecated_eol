@@ -1,5 +1,5 @@
 = content_for :head do
-  =# include_javascripts 'data-object-show'
+  = javascript_include_tag 'data_object_show'
   -# NOTE - this is non-optimal.  We'd like to load this included in our cached/compressed CSS.  :\  I'm leaving it
   -# because I *assume* that loading a stylesheet from any directory other than stylesheets doesn't work.
   %link{:href=>"/javascripts/jplayer/skin/jplayer.blue.monday.css", :rel=>"stylesheet", :type=>"text/css"}

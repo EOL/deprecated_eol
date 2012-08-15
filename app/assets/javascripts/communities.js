@@ -1,3 +1,5 @@
+//= require jquery.spotlite.js
+
 if ($.fn.spotlite != undefined) {
   $(function() {
     $.ajax({

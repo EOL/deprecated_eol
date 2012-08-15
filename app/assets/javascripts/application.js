@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require ckeditor/init
 //= require_self
 //= require_tree .
 
@@ -50,6 +51,32 @@ $("html :not(.thumbnails ul li)").bind("ajaxStart", function(){
 }).bind("ajaxStop", function(){
   $(this).removeClass('busy');
 });
+
+(function($) {
+  $.fn.accessibleClick = function(key_codes, cb) {
+    if ("join" in key_codes) { key_codes.push(13); }
+    else if (typeof key_codes === "function") { cb = key_codes; }
+    else { return this; }
+    return this.each(function() {
+      $(this).click(function(e) {
+        if ((!e.keyCode && e.layerY > 0) || e.layerY === undefined) { return cb.apply(this); }
+        else { return false; }
+      }).keyup(function(e) {
+        if (e.keyCode === 13 || $.inArray(e.keyCode, key_codes) !== -1) {
+          return cb.apply(this);
+        }
+      });
+    });
+  };
+
+  $.fn.accessibleHover = function(over, out) {
+    return this.bind('mouseenter mouseover focusin focus', over).bind('mouseleave mouseout focusout blur', out);
+  };
+
+  $.fn.hasAttr = function(attr) {
+    return this.is("[" + attr + "]");
+  };
+})(jQuery);
 
 $(function() {
 
@@ -133,7 +160,7 @@ $(function() {
   })($("#media_list"));
 
   (function($language) {
-    $language.find("p a").accessibleClick(function() {
+    $language.find("li a").accessibleClick(function() {
       var $e = $(this),
           $ul = $e.closest($language.selector).find("ul");
       if ($ul.is(":visible")) {
@@ -482,33 +509,8 @@ $(function() {
     });
   })($("#statistics"));
 
+
 });
-
-(function($) {
-  $.fn.accessibleClick = function(key_codes, cb) {
-    if ("join" in key_codes) { key_codes.push(13); }
-    else if (typeof key_codes === "function") { cb = key_codes; }
-    else { return this; }
-    return this.each(function() {
-      $(this).click(function(e) {
-        if ((!e.keyCode && e.layerY > 0) || e.layerY === undefined) { return cb.apply(this); }
-        else { return false; }
-      }).keyup(function(e) {
-        if (e.keyCode === 13 || $.inArray(e.keyCode, key_codes) !== -1) {
-          return cb.apply(this);
-        }
-      });
-    });
-  };
-
-  $.fn.accessibleHover = function(over, out) {
-    return this.bind('mouseenter mouseover focusin focus', over).bind('mouseleave mouseout focusout blur', out);
-  };
-
-  $.fn.hasAttr = function(attr) {
-    return this.is("[" + attr + "]");
-  };
-})(jQuery);
 
 // trying to generalize Ajax calls for EOL. Parameters:
 //   el: The element firing the event.  It helps us find stuff, please pass it.

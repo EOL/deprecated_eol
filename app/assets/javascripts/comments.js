@@ -1,3 +1,4 @@
+if(!EOL) { var EOL = {}; }
 EOL.handle_special_anchors_in_location_hash = function() {
   if(location.hash != "") {
     var name  = location.hash.replace(/#/, '').replace(/\?.*$/, '');

@@ -21,6 +21,8 @@ function preview_news_item() {
 } 
 
 $(document).ready(function() {
-  check_title_remaining();
-  check_body_remaining();
+  if ($('#body_remaining_length').length > 0) {
+    check_title_remaining();
+    check_body_remaining();
+  }
 });

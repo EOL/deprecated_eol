@@ -140,7 +140,7 @@ $(function() {
   })($("#media_list"));
 
   (function($language) {
-    $language.find("li a").accessibleClick(function() {
+    $language.find("p a").accessibleClick(function() {
       var $e = $(this),
           $ul = $e.closest($language.selector).find("ul");
       if ($ul.is(":visible")) {
@@ -358,26 +358,28 @@ $(function() {
   
   function initiate_alt_text_for_march_of_life(img) {
     var $e = img.parent().parent();
-    $thumbs = $e.closest(".thumbnails");
-    var term_p = $thumbs.find(".term p");
-    var left_pos = $e.position().left - 100 + 5;
-    var right_pos = term_p.outerWidth(true) - $e.position().left - $e.outerWidth(true) - 100;
-    if($e.is($(".thumbnails li:last"))) {
-      right_pos = right_pos - 15;
+    if ($e.length > 0) {
+      $thumbs = $e.closest(".thumbnails");
+      var term_p = $thumbs.find(".term p");
+      var left_pos = $e.position().left - 100 + 5;
+      var right_pos = term_p.outerWidth(true) - $e.position().left - $e.outerWidth(true) - 100;
+      if($e.is($(".thumbnails li:last"))) {
+        right_pos = right_pos - 15;
+      }
+      var line_height = 'inherit';
+      if(img.attr("data-common_name") == null || img.attr("data-common_name") == '') {
+        line_height = $thumbs.find(".term .site_column").css("height");
+      }
+      var name_html = '<span class="scientific">' + img.attr("data-scientific_name") + '</span>';
+      if(img.attr("data-common_name") != null && img.attr("data-common_name") != '') {
+        name_html += '<span class="common">' + img.attr("data-common_name") + '</span>'
+      }
+      term_p.css({
+        textAlign: 'center'
+      }).css("margin-left", left_pos+"px").css("margin-right", right_pos+"px").css("line-height", line_height).html(name_html);
+      $(".thumbnails li").removeClass("hover");
+      $e.addClass("hover");
     }
-    var line_height = 'inherit';
-    if(img.attr("data-common_name") == null || img.attr("data-common_name") == '') {
-      line_height = $thumbs.find(".term .site_column").css("height");
-    }
-    var name_html = '<span class="scientific">' + img.attr("data-scientific_name") + '</span>';
-    if(img.attr("data-common_name") != null && img.attr("data-common_name") != '') {
-      name_html += '<span class="common">' + img.attr("data-common_name") + '</span>'
-    }
-    term_p.css({
-      textAlign: 'center'
-    }).css("margin-left", left_pos+"px").css("margin-right", right_pos+"px").css("line-height", line_height).html(name_html);
-    $(".thumbnails li").removeClass("hover");
-    $e.addClass("hover");
   }
   enable_mouseover_alt_text_for_march_of_life();
 

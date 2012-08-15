@@ -363,7 +363,7 @@ class ApplicationController < ActionController::Base
     update_current_language(language)
     if logged_in?
       # Don't want to worry about validations on the user; language is simple.  Just update it:
-      current_user.update_attribute(:language_id, language.id)
+      User.update_all({:language_id => language.id}, {:id => current_user.id})
       current_user.clear_cache
     end
     redirect_to(params[:return_to].blank? ? root_url : params[:return_to])

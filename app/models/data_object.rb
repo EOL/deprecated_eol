@@ -14,8 +14,6 @@ class DataObject < ActiveRecord::Base
   include ModelQueryHelper
   include EOL::ActivityLoggable
 
-  attr_accessible :source_url, :description
-
   belongs_to :data_type
   belongs_to :data_subtype, :class_name => DataType.to_s, :foreign_key => :data_subtype_id
   belongs_to :language

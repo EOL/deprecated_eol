@@ -3,9 +3,6 @@ class SearchLog < LazyLoggingModel
   belongs_to :ip_address
   belongs_to :taxon_concept
 
-  attr_accessible :ip_address_raw, :user_agent, :path, :user_id, :search_term, :search_type, :parent_search_log_id,
-    :total_number_of_results
-
   validates_presence_of :search_term
 
   def self.log(params, request, user)

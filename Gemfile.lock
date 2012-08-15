@@ -290,7 +290,6 @@ DEPENDENCIES
   rspec-rails (~> 2.0)
   ruby-prof
   sanitize
-  sass
   sass-rails
   uglifier
   unicorn

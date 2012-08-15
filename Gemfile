@@ -23,6 +23,12 @@ group :worker do
   #gem 'system_timer'
 end
 
+group :assets do
+  gem 'sass-rails'
+  gem 'coffee-rails'
+  gem 'uglifier'
+end
+
 gem 'rails', '3.2.7'
 
 gem 'acts_as_tree_rails3'
@@ -38,7 +44,7 @@ gem 'haml'
 gem 'haml-i18n'
 gem 'indifferent-variable-hash'
 gem 'invert'
-gem 'jammit'
+gem 'jquery-rails'
 gem 'json'
 gem 'macaddr'
 gem 'mime-types'

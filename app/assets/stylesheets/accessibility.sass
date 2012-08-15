@@ -8,7 +8,7 @@
 
 /**
  * Changes required for HR sass files:
- *   - replace /images/<image name> with /images/v2/<image name>
+ *   - replace image-path("<image name> with /images/v2/<image name>")
  *   - replace #profile_edit with form.edit_user
  *
  *
@@ -21,7 +21,7 @@
 /* Use the ~30K JPG form on the homepage image instead of the ~500K transparent PNG */
 body.home
   > #header
-    background: transparent url("/images/v2/bg_home_earth.jpg") 50% 100% no-repeat
+    background: transparent url(image-path("v2/bg_home_earth.jpg")) 50% 100% no-repeat
 
 
 /** Busy indicator for JS submitted forms e.g. exemplar image **/
@@ -94,7 +94,7 @@ form
     &.dataset
       legend.required
         font-weight: bold
-        background: url("/images/v2/icon_required.png") 0 45% no-repeat
+        background: url(image-path("v2/icon_required.png")) 0 45% no-repeat
         padding-left: 10px
         margin-left: -10px
 /** Styles for form required (HR overrides) and form validation errors (custom no equivalent from HR)  **/
@@ -102,7 +102,7 @@ form
   dt
     &.required
       label
-        background: url("/images/v2/icon_required.png") 0 45% no-repeat
+        background: url(image-path("v2/icon_required.png")) 0 45% no-repeat
         padding-left: 10px
         margin-left: -10px
 
@@ -205,7 +205,7 @@ form#switch_hierarchy_entry
           padding: 5px 20px
   a
     &.pdf
-      background: url('/images/v2/icon_pdf.png') right top no-repeat
+      background: url(image-path("v2/icon_pdf.png")) right top no-repeat
       padding: 0 20px 3px 0
   ul
     &.grid
@@ -435,7 +435,7 @@ form
               margin: 0 10px
       &.sound
         .figure
-          background: #394651 url('/images/v2/icon_sound_tabs.png') no-repeat 50% 20%
+          background: #394651 url(image-path("v2/icon_sound_tabs.png")) no-repeat 50% 20%
           color: #e2e9ef
           a
             color: #e2e9ef
@@ -464,7 +464,7 @@ form
 
       &.video
         .figure
-          background: url('/images/v2/icon_videos_tabs.png') no-repeat 50% 20% transparent
+          background: url(image-path("v2/icon_videos_tabs.png")) no-repeat 50% 20% transparent
           border: 1px solid #CAD3DB
           width: 158px
           height: 123px
@@ -475,7 +475,7 @@ form
             width: 158px
             height: 123px
             z-index: 3
-            background: url('/images/v2/video_play.png') no-repeat 50% 50% transparent
+            background: url(image-path("v2/video_play.png")) no-repeat 50% 50% transparent
       form
         display: block
         clear: both
@@ -553,7 +553,7 @@ p.flag, span.flag
         text-indent: -8685px
         overflow: hidden
         width: 0
-        background: transparent url("/images/v2/icon_stars.png") 0 100% repeat-x
+        background: transparent url(image-path("v2/icon_stars.png")) 0 100% repeat-x
 #worklist
   #task
     .rating, .average_rating
@@ -1054,7 +1054,7 @@ a.other_actions
 
 .cms_page
   span.icon
-    background: #f3f7fa url("/images/v2/icon_info_tabs.png") 50% 50% no-repeat
+    background: #f3f7fa url(image-path("v2/icon_info_tabs.png")) 50% 50% no-repeat
 #taxon_maps #media_list
   padding: 0
 // Trying (again) to center and size the sidebar image (this time including markup changes, yuck.):
@@ -1145,7 +1145,7 @@ body#prelaunch #footer ul.social_media
 #taxon_names .main_container
   table.classifications
     td.preferred
-      background: url("/images/v2/icon_required.png") 7px 1em no-repeat
+      background: url(image-path("v2/icon_required.png")) 7px 1em no-repeat
     td.preferred_entry_selector
       width: 8%
     td.rank

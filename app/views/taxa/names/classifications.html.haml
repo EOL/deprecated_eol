@@ -12,7 +12,7 @@
 - allow_more_splits = false if stored_classifications && !@hierarchy_entries.map {|h| h.id.to_s}.include?(stored_classifications.first.to_s)
 - allow_more_splits = false if @taxon_concept.classifications_locked?
 - if can_curate
-  = include_javascripts 'curation'
+  =# include_javascripts 'curation'
 #taxon_names
   .article
     .copy

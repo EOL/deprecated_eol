@@ -63,6 +63,9 @@ module EolUpgrade
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
+    # Compile localized CSS:
+    config.assets.precompile << 'rtl/*.css'
+
     # Map custom exceptions to default response codes
     config.action_dispatch.rescue_responses.update(
       'EOL::Exceptions::MustBeLoggedIn'    => :unauthorized,

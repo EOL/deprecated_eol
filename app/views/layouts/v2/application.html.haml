@@ -40,10 +40,10 @@
     - else
       = stylesheet_include_i18n 'application', :media => "all"
     - if I18n.locale.to_s == "zh-Hans"
-      = stylesheet_include_i18n 'fonts', :media => "all"
+      =# stylesheet_include_i18n 'fonts', :media => "all"
     /[if IE 7]
       = stylesheet_include_i18n 'ie7', :media => "all"
-    = include_javascripts :application
+    = javascript_include_tag :application
 
     = csrf_meta_tags
 
@@ -146,7 +146,7 @@
         %div{ :style => "display: none;" }
           %img{ :src => "http://pixel.quantserve.com/pixel/#{$QUANTCAST_ID}.gif", :height => "1", :width => "1", :alt => "" }
     - if $ENABLE_WEBTRENDS
-      = include_javascripts :webtrends
+      =# include_javascripts :webtrends
       :javascript
         (function() {
           var _tag=new WebTrends();

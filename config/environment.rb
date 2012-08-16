@@ -9,5 +9,3 @@ override_environment_with_values_from(File.join(File.dirname(__FILE__), 'environ
 # 4) config/environment_eol_org.rb
 override_environment_with_values_from(File.join(File.dirname(__FILE__), 'environment_eol_org'))
 
-# Initialize the rails application
-EolUpgrade::Application.initialize!

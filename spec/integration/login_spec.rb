@@ -90,5 +90,30 @@ describe 'Login' do
     body.should have_tag("blockquote", :text => comment)
   end
 
+  it 'should redirect user to return_to url if user successfully log in after a failed attempt' do
+    user = User.gen
+    comment = "Test comment by anonymous user."
+    visit("/data_objects/#{DataObject.last.id}")
+    body.should_not have_tag("blockquote", :text => comment)
+    body.should have_tag(".comment #comment_body")
+    body.should have_tag("#new_comment .actions input", :val => "Post Comment")
+    within(:xpath, '//form[@id="new_comment"]') do
+      fill_in 'comment_body', :with => comment
+      click_button "Post Comment"
+    end
+    current_path.should == '/login'
+    fill_in 'session_username_or_email', :with => 'snoopy'
+    fill_in 'session_password', :with => 'wrongtotallywrong'
+    click_button 'Sign in'
+    body.should include('Login failed')
+    current_path.should == '/login'
+    fill_in 'session_username_or_email', :with => user.username
+    fill_in 'session_password', :with => user.password
+    click_button 'Sign in'
+    current_path.should == data_object_path(DataObject.last.id)
+    body.should include('Comment successfully added.')
+    body.should have_tag("blockquote", :text => comment)
+  end
+
 end
 

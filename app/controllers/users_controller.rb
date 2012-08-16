@@ -436,6 +436,10 @@ private
   def send_unsubscribed_to_notifications_email
     Notifier.deliver_unsubscribed_to_notifications(@user)
   end
+  
+  def send_unsubscribed_to_notifications_email
+    Notifier.deliver_unsubscribed_to_notifications(@user)
+  end
 
   def generate_api_key
     @user.clear_entered_password

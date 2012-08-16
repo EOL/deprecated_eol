@@ -20,39 +20,41 @@
     %dd
       = f.cktext_area(:description, :toolbarSet => 'Article', :height => 250, :width => 580)
       -# TODO: uncomment when this is ready %p= f.allowed_html_help_tip(:all)
-    %dt
-      = f.label :refs
-    %dd
-      = text_area_tag 'references', @references
-%fieldset.information
-  %h3= I18n.t(:dato_new_edit_user_text_fieldset_information_header)
-  %dl
-    %dt.required
-      = f.label :language_id
-    %dd
-      = f.select :language_id, options_from_collection_for_select(@languages, :id, :source_form, @data_object.language_id)
-    %dt.required
-      = f.label :license_id
-    %dd
-      = f.select :license_id, options_from_collection_for_select(@licenses, :id, :title, @data_object.license_id)
-      %p= I18n.t('helpers.label.data_object.license_id_more', :policy_url => cms_page_path('eol_licensing_policy'))
-    %dt
-      = f.label :rights_holder
-    %dd
-      = f.text_field :rights_holder
-      %p= I18n.t('helpers.label.data_object.rights_holder_more')
-    %dt
-      = f.label :rights_statement
-    %dd
-      = f.text_field :rights_statement, { :maxlength => 300 }
-      %p= I18n.t('helpers.label.data_object.rights_statement_more')
-    %dt
-      = f.label :bibliographic_citation
-    %dd
-      = f.text_area :bibliographic_citation
-      %p= I18n.t('helpers.label.data_object.bibliographic_citation_more')
-      -# TODO: add this when its ready f.allowed_html_help_tip
-    %dt
-      = f.label :source_url
-    %dd
-      = f.text_field :source_url
+    - unless add_link
+      %dt
+        = f.label :refs
+      %dd
+        = text_area_tag 'references', @references
+- unless add_link
+  %fieldset.information
+    %h3= I18n.t(:dato_new_edit_user_text_fieldset_information_header)
+    %dl
+      %dt.required
+        = f.label :language_id
+      %dd
+        = f.select :language_id, options_from_collection_for_select(@languages, :id, :source_form, @data_object.language_id)
+      %dt.required
+        = f.label :license_id
+      %dd
+        = f.select :license_id, options_from_collection_for_select(@licenses, :id, :title, @data_object.license_id)
+        %p= I18n.t('helpers.label.data_object.license_id_more', :policy_url => cms_page_path('eol_licensing_policy'))
+      %dt
+        = f.label :rights_holder
+      %dd
+        = f.text_field :rights_holder
+        %p= I18n.t('helpers.label.data_object.rights_holder_more')
+      %dt
+        = f.label :rights_statement
+      %dd
+        = f.text_field :rights_statement, { :maxlength => 300 }
+        %p= I18n.t('helpers.label.data_object.rights_statement_more')
+      %dt
+        = f.label :bibliographic_citation
+      %dd
+        = f.text_area :bibliographic_citation
+        %p= I18n.t('helpers.label.data_object.bibliographic_citation_more')
+        -# TODO: add this when its ready f.allowed_html_help_tip
+      %dt
+        = f.label :source_url
+      %dd
+        = f.text_field :source_url

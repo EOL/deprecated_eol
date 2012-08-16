@@ -39,3 +39,5 @@ EolUpgrade::Application.configure do
     $INDEX_RECORDS_IN_SOLR_ON_SAVE = false
   end
 end
+
+$UNSUBSCRIBE_NOTIFICATIONS_KEY = '1ed25583250bf547e614c0d315bd2671'

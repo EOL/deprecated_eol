@@ -237,5 +237,23 @@ describe Notifier do
     end
 
   end
+  
+  describe '#unsubscribed_to_notifications' do
+    before(:all) do
+      @edit_user_notification_url = "http://eol.org/users/#{@user.id}/notification/edit"
+      @email = Notifier.deliver_unsubscribed_to_notifications(@user)
+    end
+
+    it_should_behave_like 'email_to_user'
+
+    it "should have a relevant subject" do
+      @email.should have_subject(/Sorry to see you go/i)
+    end
+
+    it "should contain a verification url" do
+      @email.should have_text(/#{@edit_user_notification_url}/)
+    end
+
+  end
 
 end

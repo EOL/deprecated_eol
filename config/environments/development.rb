@@ -37,3 +37,6 @@ EolUpgrade::Application.configure do
 
   require "ruby-debug"
 end
+
+# TODO - Where do these go, now?  :S
+$UNSUBSCRIBE_NOTIFICATIONS_KEY = 'f0de2a0651aa88a090e5679e5e3a7d28'

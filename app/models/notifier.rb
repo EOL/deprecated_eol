@@ -168,6 +168,13 @@ class Notifier < ActionMailer::Base
     body        :user => user
   end
 
+  def unsubscribed_to_notifications(user)
+    subject     I18n.t(:subject, :scope => [:notifier, :unsubscribed_to_notifications])
+    recipients  user.email
+    from        $NO_REPLY_EMAIL_ADDRESS
+    body        :user => user
+  end
+
 private
   def set_recipient(email_address)
     # Override recipient if site is configured to send all reports to a single email address

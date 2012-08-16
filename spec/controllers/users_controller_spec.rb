@@ -507,4 +507,30 @@ describe UsersController do
       flash[:error].should == I18n.t('exceptions.security_violations.default')
     end
   end
+  
+  describe 'GET unsubscribe_notifications' do
+    before(:all) do
+      @user1 = User.gen(:email => 'test1@example.com', :disable_email_notifications => false)
+      @user2 = User.gen(:email => 'test1@example.com', :disable_email_notifications => false)
+      @user3 = User.gen(:email => 'test1@example.com', :disable_email_notifications => false)
+      @user4 = User.gen(:email => 'test2@example.com', :disable_email_notifications => false)
+    end
+    it 'should allow users to unsubscribe to notifications' do
+      get :unsubscribe_notifications, :user_id => @user1.id, :key => @user1.unsubscribe_key
+      flash[:notice].should == I18n.t(:unsubscribed_notifications_successfully, :scope => [:users, :unsubscribe_notifications])
+      @user1.reload; @user2.reload; @user3.reload; @user4.reload
+      @user1.disable_email_notifications.should be_true
+      @user2.disable_email_notifications.should be_true
+      @user3.disable_email_notifications.should be_true
+      @user4.disable_email_notifications.should be_false
+    end
+    it 'should show users they are already unsubscribed to notifications if they are already unsubscribed' do
+      get :unsubscribe_notifications, :user_id => @user1.id, :key => @user1.unsubscribe_key
+      flash[:notice].should == I18n.t(:already_unsubscribed, :scope => [:users, :unsubscribe_notifications])
+    end
+    it 'should show access_denied if the key provided while unsubscribing to notifications is not valid' do
+      get :unsubscribe_notifications, :user_id => @user1.id, :key => "thisisafakekeytounsubscribe"
+      flash[:error].should == I18n.t('exceptions.security_violations.default')
+    end
+  end
 end

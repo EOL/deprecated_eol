@@ -152,6 +152,8 @@ qqq:
   a_pipe_delimited_list_of_spm_info_item_subject_names: "This is describing possible values for an input field (called 'overview') in the API. The 'overview' and 'all' values MUST be in English (untranslated), and the pipe must remain a literal pipe: |"
   object_curated: "The curator has just taken a curation action (trusting, untrusting, hiding, showing, and the like), and this message will be displayed on the next page load to indicate that it was successful."
   partner_web_site_colon: "A simple label used for DataObject attribution to identify the homepage of the partners website"
+  add_article_instead: "This is button text to be displayed in the header of a page where the user is adding a link.  Clicking this button will allow them to add an article instead of a link."
+  add_link_instead: "This is button text to be displayed in the header of a page where the user is adding an article.  Clicking this button will allow them to add a link instead of an article."
   datepicker:
     day_names: "A list of full names for the seven days of the week (e.g Sunday, Monday, Tuesday etc) for use in an interactive Gregorian calendar."
     day_names_short: "A list of abbreviated names for the seven days of the week (e.g Sun, Mon, Tue etc) for use in an interactive Gregorian calendar."

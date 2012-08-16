@@ -6,7 +6,7 @@ group :development, :test do
   gem 'daemons'
   gem 'debugger'
   gem 'eol_scenarios'
-  gem 'factory_girl'
+  gem 'factory_girl_rails'
   gem 'faker'
   gem 'optiflag'
   gem 'rspec-rails', '~>2.0'

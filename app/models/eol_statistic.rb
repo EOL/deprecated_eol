@@ -57,9 +57,9 @@ class EolStatistic < ActiveRecord::Base
     { :conditions => [conditions.join(' OR '), conditions_replacements] }
   }
 
-  scope :earliest, lambda { { :order => 'created_at ASC', :limit => 1 } }
+  scope :earliest, lambda {|limit| { :order => 'created_at ASC', :limit => limit } }
 
-  scope :latest, lambda { { :order => 'created_at DESC', :limit => 1 } }
+  scope :latest, lambda {|limit| { :order => 'created_at DESC', :limit => limit } }
 
   attr_accessor :greatest
 

@@ -83,8 +83,11 @@ GEM
     execjs (1.4.0)
       multi_json (~> 1.0)
     ezcrypto (0.7.2)
-    factory_girl (3.6.1)
+    factory_girl (4.0.0)
       activesupport (>= 3.0.0)
+    factory_girl_rails (4.0.0)
+      factory_girl (~> 4.0.0)
+      railties (>= 3.0.0)
     faker (1.0.1)
       i18n (~> 0.4)
     faraday (0.8.1)
@@ -265,7 +268,7 @@ DEPENDENCIES
   eol_scenarios
   escape
   ezcrypto
-  factory_girl
+  factory_girl_rails
   faker
   fastercsv
   graylog2_exceptions

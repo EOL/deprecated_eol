@@ -486,23 +486,6 @@ form
             left: 0
             z-index: 3
 
-#media_list
-  ul.media
-    > li
-      .balloon
-        font-weight: normal
-        overflow: hidden
-        position: absolute
-        z-index: 4
-        margin: 140px 0
-        padding: 3px
-        width: 155px
-        background-color: #394651
-        background: rgba(57, 70, 81, 0.9)
-        color: #fff
-      fieldset
-        margin: 0
-
 /** style for vetted status flags - various locations **/
 p.flag, span.flag
   color: white
@@ -1049,6 +1032,9 @@ a.other_actions
         float: right
         +input(210px)
         margin: 0 0 0 10px
+      .collection_name_error
+        display: none
+        color: #e84226
   input[type="submit"]
     padding-right: 20px
     padding-left: 20px
@@ -1085,13 +1071,28 @@ a.other_actions
   width: 260px
   #toc
     margin: 0px 20px
-#media_list #sidebar
-  padding: 0
-  padding-bottom: 20px
-  width: 220px
-  #filters
-    margin: 0px 20px
-
+#media_list 
+  #sidebar
+    padding: 0
+    padding-bottom: 20px
+    width: 220px
+    #filters
+      margin: 0px 20px
+  ul.media
+    > li
+      .balloon
+        font-weight: normal
+        overflow: hidden
+        position: absolute
+        z-index: 4
+        margin: 15px 0
+        padding: 3px
+        width: 155px
+        background-color: #394651
+        background: rgba(57, 70, 81, 0.9)
+        color: #fff
+      fieldset
+        margin: 0
 
 // New style for HE view:
 #page_heading p#citation
@@ -1179,3 +1180,76 @@ input[type="password"]
 
 .highlight
   background-color: #F3F7FA
+
+#taxon_names .main_container
+  table.classifications
+    td.preferred
+      background: url("/images/v2/icon_required.png") 7px 1em no-repeat
+    td.preferred_entry_selector
+      width: 8%
+    td.rank
+      width: 8%
+    td.classifications
+      > ul
+        line-height: 160%
+        font-size: .9em
+        > li
+          width: 340px
+          white-space: nowrap
+          overflow-x: auto
+          margin: 0 -10px 20px -10px
+          direction: ltr
+          h4
+            font-weight: normal
+            a
+              font-weight: bold
+          ul
+            margin-left: 10px
+.article .meta.curated
+  padding-bottom: 10px
+#classification_browser
+  h4
+    font-weight: normal
+.browsable.classifications
+  span.current
+    font-weight: bold
+#taxon_names table.standard tr td
+  vertical-align: top
+#modal
+  #choose_collections
+    fieldset
+      &.new_collection
+        .collection_name_error
+          display: none
+          color: #e84226
+#please_wait
+  display: none
+table.classifications
+  input.cancel
+    display: none
+  input.keep
+    display: none
+#split_warning
+  border: 1px solid #f2d2cc
+  background: #ffeae6
+  padding: 10px
+#split_instructions
+  border: 1px solid #f2d2cc
+  background: #ffeae6
+  padding: 10px
+  display: none
+.classification_actions p
+  margin-bottom: 1em
+ul#classification_actions > li
+  margin-bottom: 1em
+li table.classifications
+  margin-top: 1em
+.help_text.warning
+  background-color: #ffeae6
+  border-color: #f2d2cc
+.help_text
+  p
+    margin: 0.5em
+  li
+    margin-bottom: 1em
+

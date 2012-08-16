@@ -349,41 +349,6 @@ sr:
   admin_user_delete_successful_notice: Корисник је обрисан
   admin_user_hide_successful_notice: Корисник је сакривен
   admin_user_unhide_successful_notice: Корисник је откривен
-  admins: 
-    statistics: 
-      content_partner: 
-        page_header: Статистика за партнере за садржај
-        page_title: "Администрација: статистика партнера за садржај"
-      content_partner_link: Партнери за садржај
-      curator: 
-        page_header: Кустоска статистика
-        page_title: "Администрација: кустоска статистика"
-      curator_link: Кустоске статистика
-      data_object: 
-        page_header: Статистика објеката података
-        page_title: "Администрација: статистика објеката података"
-      data_object_link: Објекти података
-      index: 
-        page_header: Свеукупна статистика
-        page_title: "Администрација: свеукупна статистика"
-        table_caption: Свеукупна статистика је направљена %{created_at_time}
-      index_link: Свеукупна статистика
-      lifedesk: 
-        page_header: Статистика Лајфдескса
-        page_title: "Администрација: статистика Лајфдескса"
-      lifedesk_link: Лајфдескс
-      marine: 
-        page_header: Морска покривеност на EOL-у
-        page_title: "Администрација: морска статистика"
-      marine_link: Морска статистика
-      page_richness: 
-        page_header: Статистика обогаћених страница
-        page_title: "Администрација: статистика за обогаћене странице"
-      page_richness_link: Обогаћене странице
-      user_added_data: 
-        page_header: Статистика за текстове које су послали корисници
-        page_title: "Администрација: статистика за текстове које су послали корисници"
-      user_added_data_link: Текст који је послао корисник
   agent: Агент
   all: све
   all_apis_return_by_default_an_xml_response: "Сви АПИ-ји по подразумеваном дају XML одговор. Методе АПИ-ја могу се позвати без наставка за формат да би се добио XML одговор, а ако наставак ипак додате, добићете исти одговор:"
@@ -465,7 +430,6 @@ sr:
   audio_pause: паузирај
   audio_pause_assistive: Ако сте омогућили јаваскрипт, ова веза ће вам допустити да паузирате суседни звучни снимак. У супротном, занемарите поменуту везу.
   audio_play: пусти
-  audio_play_assistive: Ако сте омогућили јаваскрипт, ова веза ће пустити звучни снимак без отварања новог прозора. Ако је јаваскрипт онемогућен, онда ће веза водити до снимка и понашаће се у складу с вашим уређајем.
   audio_stop: заустави
   audio_stop_assistive: Ако сте омогућили јаваскрипт, ова веза ће вам допустити да зауставите суседни звучни снимак. У супротном, занемарите поменуту везу.
   audio_unmute: укљ. звук
@@ -597,7 +561,6 @@ sr:
   comment_not_updated_error: Нажалост, дошло је до грешке. Не могу да ажурирам коментар.
   comment_or_rate_on_this_article: Прокоментаришите чланак или га оцените
   comment_show_posters_image_alt: Слика на профилу корисника %{posters_name} који је написао коментар.
-  commented_on_your_image: " прокоментариса вашу слику на <a href='%{data_object_link}'>Енциклопедији живота</a>:\n%{comment_body}"
   comments: Коментари
   comments_and_tags: Коментари и ознаке
   comments_filter: Коментари
@@ -686,7 +649,7 @@ sr:
   contact_us_topics: Теме у „Контактирајте с нама“
   contacts: 
     errors: 
-      message_not_sent: Извините, дошло је до грешке, Ваша порука није послата.
+      message_not_sent: Нажалост, дошло је до грешке. Ваша порука није послата.
   containing_value: садржи %{value}.
   content: 
     index: 
@@ -1423,7 +1386,7 @@ sr:
       session: 
         create: Пријава
         sign_in_with_google: Пријава преко Гугла
-        sign_in_with_yahoo: Пријава преко Yahoo-а
+        sign_in_with_yahoo: Пријава преко Јахуа
       submit: Сачувај %{model}
       translated_content_page: 
         create: Додај превод
@@ -1434,7 +1397,7 @@ sr:
         curation_application: Поднеси захтев
         curation_privileges: Поднеси захтев
         generate_api_key: Створи кључ
-        notification_settings: Подешавања обавештења
+        notification_settings: Поставке обавештавања
         update: Сачувај податке на профилу
       wikipedia_queue: 
         create: Поднеси захтев
@@ -1550,7 +1513,7 @@ sr:
   language_selector_advisory_information: Ово је списак расположивих језика на сајту. Изаберите језик који желите да бисте изменили текући.
   language_with_count: "%{language} (%{count})"
   languages: Језици
-  last_updated: Последња измена
+  last_updated: Последње ажурирање
   last_updated_time_ago: Ажурирано пре %{time_passed}
   learn_about_collections: Како да направим збирку?
   learn_about_communities: Како да учествујем?
@@ -1713,7 +1676,6 @@ sr:
   more_children_with_count: 
     one: "%{count} више…"
     other: "%{count} више…"
-  more_information_on_the_various_licenses: лиценце. Посетите њихов сајт за више информација о разним лиценцама које пружају
   most_active_members: Најактивнији чланови
   move: Премести
   move_down: Помери надоле
@@ -2173,7 +2135,7 @@ sr:
   site_cms: Сајт CMS
   site_information: Подаци о сајту
   site_language: Језик сајта
-  site_settings_menu: Поставке мрежног места
+  site_settings_menu: Подешавања сајта
   skip_to_content: Прескочи на садржај
   skip_to_navigation: Прескочи на навигацију
   skip_to_table_of_contents: Прескочи на табелу садржаја
@@ -2226,7 +2188,6 @@ sr:
   spm_category_partner_count: SPM категорија – број партнера
   started: Започето
   stat: Статистика
-  statistics: Статистике
   sub_heading: Поднаслов
   subject: предмет
   submit: Пошаљи

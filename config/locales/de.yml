@@ -5,15 +5,18 @@
 # Author: Exit91
 # Author: Geitost
 # Author: George Animal
+# Author: Katja
 # Author: Kebap
 # Author: Kghbln
 # Author: McDutchie
+# Author: Metalhead64
 # Author: Purodha
+# Author: Tbleher
 de: 
   0_1_or_2: 0, 1 oder 2
   0_or_1: 0 oder 1
-  a_pipe_delimited_list_of_licenses: eine mit senkrechten Strichen „|“ voneinander getrennte Liste der Lizenzen oder „all“, um die Objekt zu allen Lizenzen zuzuordnen. Mit cc- abgekürzte Listen sind allesamt
-  a_pipe_delimited_list_of_spm_info_item_subject_names: eine mit senkrechten Strichen „|“ voneinander getrennte Liste der SPM-Informationsobjekte zu Themen oder „all“, um Texte zu jedem Thema zu erhalten
+  a_pipe_delimited_list_of_licenses: eine mit senkrechten Strichen „|“ voneinander getrennte Liste der Lizenzen oder „all“, um die Objekt zu allen Lizenzen zuzuordnen. Mit cc- abgekürzte Listen sind allesamt %{creative_commons_link}-Lizenzen. Für mehr Informationen besuchen Sie bitte ihre Website zu den verschiedenen angebotenen Lizenzen.
+  a_pipe_delimited_list_of_spm_info_item_subject_names: „overview“, um den Übersichtstext auszugeben zu lassen (sofern vorhanden); eine mit senkrechten Strichen „|“ voneinander getrennte Liste der SPM-Informationsobjektthemen, um den Text zu den Namen der entsprechenden SPM-Informationsobjektthemen zu erhalten; „all“, um Texte zu jedem Thema zu erhalten. Gibt stets den Übersichtstext als erstes Ergebnis aus (sofern im betreffenden Kontext vorhanden).
   a_taxon: ein Taxon
   a_total_of_comment_were_found_matching_your_criteria: 
     one: Insgesamt wurde ein Kommentar gefunden, der zu Ihren Kriterien passt.
@@ -135,7 +138,7 @@ de:
         pages_with_image: Seiten mit Bildern
         pages_with_image_no_text: Seiten mit Bildern aber ohne Texte
         pages_with_map: Seiten mit Karten
-        pages_with_score_10_to_39: Seiten mit einem Scorewert von 10 bis 39
+        pages_with_score_10_to_39: Seiten mit einem Punktwert von 10 bis 40
         pages_with_score_less_than_10: Seiten mit einem Scorewert von weniger als 10
         pages_with_sound: Seiten mit Audiodateien
         pages_with_text: Seiten mit Texten
@@ -289,17 +292,17 @@ de:
             accesspoint_url: 
               blank: darf nicht leer sein, es sei den Sie laden stattdessen eine Datei hoch
               inaccessible: ist unzugänglich. Die URL muss öffentlich aufrufbar sein.
-              invalid: ist ungültig. Sie sollte auf eine XML-, XML.GZIP- oder XML.GZ-Datei verweisen.
+              invalid: ist ungültig. Sie sollte auf eine XML-, XML.GZIP-, XML.GZ- oder ZIP-Datei verweisen.
             dataset: 
               blank: darf nicht leer sein, es sei denn Sie geben eine URL zu einem Dataset an.
-              wrong_type: hat den falschen Typ. Es sollte eine GZIP-, TAR- oder XML-Datei sein.
+              wrong_type: hat den falschen Typ. Es sollte eine GZIP-, TAR-, ZIP- oder XML-Datei sein.
             dwc_archive_url: 
               inaccessible: ist unzugänglich. Die URL muss öffentlich aufrufbar sein.
-              invalid: ist ungültig. Sie sollte auf eine TAR.GZIP-, TAR.GZ- oder TGZ-Datei verweisen.
+              invalid: ist ungültig. Sie sollte auf eine TAR.GZIP-, TAR.GZ-, TGZ- oder ZIP-Datei verweisen.
       template: 
         body: "Die folgenden Felder konnten nicht geprüft werden:"
         header: 
-          one: Ein Fehler wurden bei der Überprüfung gefunden
+          one: "%{count} Fehler wurden bei der Überprüfung gefunden"
           other: "%{count} Fehler wurden bei der Überprüfung gefunden"
     models: 
       user: Konto
@@ -433,18 +436,47 @@ de:
         user_associated_it_to_an_unknown_association: <strong>%{user}</strong> hat auf einer unbekannten Seite eine Zuordnung vorgenommen.
         user_associated_it_to_association: <strong>%{user}</strong> hat zu „%{association}“ eine Zuordnung vorgenommen.
       add_common_name: 
-        an_unknown_user_added_an_unknown_name_to_an_unknown_taxon: Ein unbekannter Nutzer hat einer unbekannten Seite einen unbekannten gebräuchlichen Name zugeordnet.
-        an_unknown_user_added_an_unknown_name_to_it: Ein unbekannter Nutzer hat einen unbekannten gebräuchlichen Namen zugeordnet.
-        an_unknown_user_added_an_unknown_name_to_taxon: Ein unbekannter Nutzer hat „%{taxon}“ einen unbekannten gebräuchlichen Name zugeordnet.
-        an_unknown_user_added_name_to_an_unknown_taxon: Ein unbekannter Nutzer hat einer unbekannten Seite den gebräuchlichen Namen „%{name}“ zugeordnet.
-        an_unknown_user_added_name_to_it: Ein unbekannter Nutzer hat den gebräuchlichen Namen „%{name}“ zugeordnet.
-        an_unknown_user_added_name_to_taxon: Ein unbekannter Nutzer hat „%{taxon}“ den gebräuchlichen Namen „%{name}“ zugeordnet.
-        user_added_an_unknown_name_to_an_unknown_taxon: <strong>%{user}</strong> hat einer unbekannten Seite einen unbekannten gebräuchlichen Namen zugeordnet.
-        user_added_an_unknown_name_to_it: <strong>%{user}</strong> hat einen unbekannten gebräuchlichen Namen zugeordnet.
-        user_added_an_unknown_name_to_taxon: <strong>%{user}</strong> hat „%{taxon}“ einen unbekannten gebräuchlichen Namen zugeordnet.
-        user_added_name_to_an_unknown_taxon: <strong>%{user}</strong> hat einer unbekannten Seite den gebräuchlichen Namen „%{name}“ zugeordnet.
-        user_added_name_to_it: <strong>%{user}</strong> hat den gebräuchlichen Namen „%{name}“ zugeordnet.
-        user_added_name_to_taxon: <strong>%{user}</strong> hat „%{taxon}“ den gebräuchlichen Namen „%{name}“ zugeordnet.
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: Ein unbekannter Nutzer hat einer unbekannten Seite einen unbekannten Trivialnamen in einer unbekannten Sprache hinzugefügt.
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_it: Ein unbekannter Nutzer hat einen unbekannten Trivialnamen in einer unbekannten Sprache zugeordnet.
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_taxon: Ein unbekannter Nutzer hat „%{taxon}“ einen unbekannten Trivialnamen in einer unbekannten Sprache hinzugefügt.
+        an_unknown_user_added_an_unknown_name_in_language_to_an_unknown_taxon: Ein unbekannter Nutzer hat einer unbekannten Seite einen unbekannten Trivialnamen in der Sprache %{language} hinzugefügt.
+        an_unknown_user_added_an_unknown_name_in_language_to_it: Ein unbekannter Nutzer hat einen unbekannten Trivialnamen in der Sprache %{language} hinzugefügt.
+        an_unknown_user_added_an_unknown_name_in_language_to_taxon: Ein unbekannter Nutzer hat „%{taxon}“ einen unbekannten Trivialnamen in der Sprache %{language} hinzugefügt.
+        an_unknown_user_added_name_in_an_unknown_language_to_an_unknown_taxon: Ein unbekannter Nutzer hat einer unbekannten Seite den Trivialnamen „%{name}“ in einer unbekannten Sprache hinzugefügt.
+        an_unknown_user_added_name_in_an_unknown_language_to_it: Ein unbekannter Nutzer hat den Trivialnamen „%{name}“ in einer unbekannten Sprache hinzugefügt.
+        an_unknown_user_added_name_in_an_unknown_language_to_taxon: Ein unbekannter Nutzer hat „%{taxon}“ den Trivialnamen „%{name}“ in einer unbekannten Sprache hinzugefügt.
+        an_unknown_user_added_name_in_language_to_an_unknown_taxon: Ein unbekannter Nutzer hat einer unbekannten Seite den Trivialnamen „%{name}“ in der Sprache %{language} zugeordnet.
+        an_unknown_user_added_name_in_language_to_it: Ein unbekannter Nutzer hat den Trivialnamen „%{name}“ in der Sprache %{language} hinzugefügt.
+        an_unknown_user_added_name_in_language_to_taxon: Ein unbekannter Nutzer hat „%{taxon}“ den Trivialnamen „%{name}“ in der Sprache %{language} zugeordnet.
+        user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: <strong>%{user}</strong> hat einer unbekannten Seite einen unbekannten Trivialnamen in einer unbekannten Sprache hinzugefügt.
+        user_added_an_unknown_name_in_an_unknown_language_to_it: <strong>%{user}</strong> hat einen unbekannten Trivialnamen in einer unbekannten Sprache zugeordnet.
+        user_added_an_unknown_name_in_an_unknown_language_to_taxon: <strong>%{user}</strong> hat „%{taxon}“ einen unbekannten Trivialnamen in einer unbekannten Sprache hinzugefügt.
+        user_added_an_unknown_name_in_language_to_an_unknown_taxon: <strong>%{user}</strong> hat einer unbekannten Seite einen unbekannten Trivialnamen in der Sprache %{language} hinzugefügt.
+        user_added_an_unknown_name_in_language_to_it: <strong>%{user}</strong> hat einen unbekannten Trivialnamen in der Sprache %{language} hinzugefügt.
+        user_added_an_unknown_name_in_language_to_taxon: <strong>%{user}</strong> hat „%{taxon}“ einen unbekannten Trivialnamen in der Sprache %{language} hinzugefügt.
+        user_added_name_in_an_unknown_language_to_an_unknown_taxon: <strong>%{user}</strong> hat einer unbekannten Seite den Trivialnamen „%{name}“ in einer unbekannten Sprache hinzugefügt.
+        user_added_name_in_an_unknown_language_to_it: <strong>%{user}</strong> hat den Trivialnamen „%{name}“ in einer unbekannten Sprache hinzugefügt.
+        user_added_name_in_an_unknown_language_to_taxon: <strong>%{user}</strong> hat „%{taxon}“ den Trivialnamen „%{name}“ in einer unbekannten Sprache hinzugefügt.
+        user_added_name_in_language_to_an_unknown_taxon: <strong>%{user}</strong> hat einer unbekannten Seite den Trivialnamen „%{name}“ in der Sprache %{language} zugeordnet.
+        user_added_name_in_language_to_it: <strong>%{user}</strong> hat den Trivialnamen „%{name}“ in der Sprache %{language} hinzugefügt.
+        user_added_name_in_language_to_taxon: <strong>%{user}</strong> hat „%{taxon}“ den Trivialnamen „%{name}“ in der Sprache %{language} zugeordnet.
+      choose_exemplar_article: 
+        an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: Ein unbekannter Nutzer wählte eine ältere Version von „%{data_object}“ zur Anzeige in der Übersicht auf einer unbekannten Seite aus.
+        an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: Ein unbekannter Nutzer wählte „%{data_object}“ zur Anzeige in der Übersicht auf „%{taxon}“ aus.
+        an_unknown_user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: Ein unbekannter Nutzer wählte einen unbekannten Artikel zur Anzeige in der Übersicht auf einer unbekannten Seite aus.
+        an_unknown_user_chose_exemplar_an_unknown_data_object_on_taxon: Ein unbekannter Nutzer wählte einen unbekannten Artikel zur Anzeige in der Übersicht auf „%{taxon}“ aus.
+        an_unknown_user_chose_exemplar_data_object_on_an_unknown_taxon: Ein unbekannter Nutzer wählte „%{data_object}“ zur Anzeige in der Übersicht auf einer unbekannten Seite aus.
+        an_unknown_user_chose_exemplar_data_object_on_taxon: Ein unbekannter Nutzer wählte „%{data_object}“ zur Anzeige in der Übersicht auf „%{taxon}“ aus.
+        an_unknown_user_chose_exemplar_it_on_an_unknown_taxon: Ein unbekannter Nutzer wählte es zur Anzeige in der Übersicht auf einer unbekannten Seite aus.
+        an_unknown_user_chose_exemplar_it_on_taxon: Ein unbekannter Nutzer wählte es zur Anzeige in der Übersicht auf „%{taxon}“ aus.
+        user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: <strong>%{user}</strong> wählte eine ältere Version von „%{data_object}“ zur Anzeige in der Übersicht auf einer unbekannten Seite aus.
+        user_chose_exemplar_an_older_data_object_on_taxon: <strong>%{user}</strong> wählte eine ältere Version von „%{data_object}“ zur Anzeige in der Übersicht auf „%{taxon}“ aus.
+        user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: <strong>%{user}</strong> wählte einen unbekannten Artikel zur Anzeige in der Übersicht auf einer unbekannten Seite aus.
+        user_chose_exemplar_an_unknown_data_object_on_taxon: <strong>%{user}</strong> wählte ein unbekanntes Datenobjekt zur Anzeige in der Übersicht auf „%{taxon}“ aus.
+        user_chose_exemplar_data_object_on_an_unknown_taxon: <strong>%{user}</strong> wählte „%{data_object}“ zur Anzeige in der Übersicht auf einer unbekannten Seite aus.
+        user_chose_exemplar_data_object_on_taxon: <strong>%{user}</strong> wählte „%{data_object}“ zur Anzeige in der Übersicht auf auf „%{taxon}“ aus.
+        user_chose_exemplar_it_on_an_unknown_taxon: <strong>%{user}</strong> wählte es zur Anzeige in der Übersicht auf einer unbekannten Seite aus.
+        user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> wählte es zur Anzeige in der Übersicht auf auf „%{taxon}“ aus.
       choose_exemplar_image: 
         an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: Ein unbekannter Nutzer legte eine ältere Version von „%{data_object}“ auf einer unbekannten Seite als beispielhaft fest.
         an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: Ein unbekannter Nutzer legte „%{data_object}“ als beispielhaft für „%{taxon}“ fest.
@@ -479,6 +511,19 @@ de:
         user_hid_data_object_on_association: <strong>%{user}</strong> markierte „%{data_object}“ auf der Seite „%{association}“ als nicht sichtbar.
         user_hid_it_on_an_unknown_association: <strong>%{user}</strong> markierte es in einem unbekannten Zusammenhang als nicht sichtbar.
         user_hid_it_on_association: <strong>%{user}</strong> markierte es auf der Seite „%{association}“ als nicht sichtbar.
+      merge: 
+        an_unknown_user_merged_entry_to_an_unknown_taxon: Ein unbekannter Nutzer verschob die Klassifikation von „%{provider}“ zu einem unbekannten Taxon.
+        an_unknown_user_merged_entry_to_it: Ein unbekannter Nutzer fügte die Klassifikation von „%{provider}“ hinzu.
+        an_unknown_user_merged_entry_to_taxon: Ein unbekannter Nutzer verschob die Klassifikation von „%{provider}“ nach „%{taxon}“.
+        an_unknown_user_merged_unknown_entry_to_an_unknown_taxon: Ein unbekannter Nutzer verschob eine unbekannte Klassifikation zu einem unbekannten Taxon.
+        an_unknown_user_merged_unknown_entry_to_it: Ein unbekannter Nutzer fügte eine unbekannte Klassifikation hinzu.
+        an_unknown_user_merged_unknown_entry_to_taxon: Ein unbekannter Nutzer verschob eine unbekannte Klassifikation nach „%{taxon}“.
+        user_merged_entry_to_an_unknown_taxon: <strong>%{user}</strong> verschob die Klassifikation von „%{provider}“ zu einem unbekannten Taxon.
+        user_merged_entry_to_it: <strong>%{user}</strong> fügte die Klassifikation von „%{provider}“ hinzu.
+        user_merged_entry_to_taxon: <strong>%{user}</strong> verschob die Klassifikation von „%{provider}“ nach „%{taxon}“.
+        user_merged_unknown_entry_to_an_unknown_taxon: <strong>%{user}</strong> verschob eine unbekannte Klassifikation zu einem unbekannten Taxon.
+        user_merged_unknown_entry_to_it: <strong>%{user}</strong> fügte eine unbekannte Klassifikation hinzu.
+        user_merged_unknown_entry_to_taxon: <strong>%{user}</strong> verschob eine unbekannte Klassifikation zu „%{taxon}“.
       other_actions: 
         an_unknown_user_curated_an_older_data_object: Ein unbekannter Nutzer kuratierte eine ältere Version von „%{data_object}“.
         an_unknown_user_curated_an_unknown_data_object: Ein unbekannter Nutzer kuratierte ein unbekanntes Datenobjekt.
@@ -521,12 +566,18 @@ de:
         user_disassociated_it_from_an_unknown_association: <strong>%{user}</strong> hat eine Zuordnung zu einer unbekannten Seite entfernt.
         user_disassociated_it_from_association: <strong>%{user}</strong> hat eine Zuordnung zu „%{association}“ entfernt.
       remove_common_name: 
-        an_unknown_user_removed_name_from_an_unknown_taxon: Ein unbekannter Nutzer hat von einer unbekannten Seite einen gebräuchlichen Namen entfernt.
-        an_unknown_user_removed_name_from_it: Ein unbekannter Nutzer hat einen gebräuchlichen Namen entfernt.
-        an_unknown_user_removed_name_from_taxon: Ein unbekannter Nutzer hat von „%{taxon}“ einen gebräuchlichen Namen entfernt.
-        user_removed_name_from_an_unknown_taxon: <strong>%{user}</strong> hat von einer unbekannten Seite einen gebräuchlichen Namen entfernt.
-        user_removed_name_from_it: <strong>%{user}</strong> hat einen gebräuchlichen Namen entfernt.
-        user_removed_name_from_taxon: <strong>%{user}</strong> hat von „%{taxon}“ einen gebräuchlichen Namen entfernt.
+        an_unknown_user_removed_name_in_an_unknown_language_from_an_unknown_taxon: Ein unbekannter Nutzer entfernte einen Trivialnamen in einer unbekannten Sprache von einer unbekannten Seite.
+        an_unknown_user_removed_name_in_an_unknown_language_from_it: Ein unbekannter Nutzer entfernte einen Trivialnamen in einer unbekannten Sprache.
+        an_unknown_user_removed_name_in_an_unknown_language_from_taxon: Ein unbekannter Nutzer entfernte einen Trivialnamen in einer unbekannten Sprache von „%{taxon}“.
+        an_unknown_user_removed_name_in_language_from_an_unknown_taxon: Ein unbekannter Nutzer entfernte einen Trivialnamen in der Sprache %{language} von einer unbekannten Seite.
+        an_unknown_user_removed_name_in_language_from_it: Ein unbekannter Nutzer entfernte einen Trivialnamen in der Sprache %{language}.
+        an_unknown_user_removed_name_in_language_from_taxon: Ein unbekannter Nutzer entfernte einen Trivialnamen in der Sprache %{language} von „%{taxon}“.
+        user_removed_name_in_an_unknown_language_from_an_unknown_taxon: <strong>%{user}</strong> entfernte einen Trivialnamen in einer unbekannten Sprache von einer unbekannten Seite.
+        user_removed_name_in_an_unknown_language_from_it: <strong>%{user}</strong> entfernte einen Trivialnamen in einer unbekannten Sprache.
+        user_removed_name_in_an_unknown_language_from_taxon: <strong>%{user}</strong> entfernte einen Trivialnamen in einer unbekannten Sprache von „%{taxon}“.
+        user_removed_name_in_language_from_an_unknown_taxon: <strong>%{user}</strong> entfernte einen Trivialnamen in der Sprache %{language} von einer unbekannten Seite.
+        user_removed_name_in_language_from_it: <strong>%{user}</strong> entfernte einen Trivialnamen in der Sprache %{language}.
+        user_removed_name_in_language_from_taxon: <strong>%{user}</strong> entfernte einen Trivialnamen in der Sprache %{language} von „%{taxon}“.
       show: 
         an_unknown_user_showed_an_older_data_object_on_an_unknown_association: Ein unbekannter Nutzer markierte eine ältere Version von „%{data_object}“ in einem unbekannten Zusammenhang als sichtbar.
         an_unknown_user_showed_an_older_data_object_on_association: Ein unbekannter Nutzer markierte eine ältere Version von „%{data_object}“ auf der Seite „%{association}“ als sichtbar.
@@ -544,19 +595,44 @@ de:
         user_showed_data_object_on_association: <strong>%{user}</strong> markierte „%{data_object}“ auf der Seite „%{association}“ als sichtbar.
         user_showed_it_on_an_unknown_association: <strong>%{user}</strong> markierte es in einem unbekannten Zusammenhang als sichtbar.
         user_showed_it_on_association: <strong>%{user}</strong> markierte es auf der Seite „%{association}“ als sichtbar.
+      split: 
+        an_unknown_user_split_entry_from_an_unknown_taxon: Ein unbekannter Nutzer trennte die Klassifikation von „%{provider}“ von einem unbekannten Taxon ab.
+        an_unknown_user_split_entry_from_it: Ein unbekannter Nutzer unterteilte die Klassifikation von „%{provider}“.
+        an_unknown_user_split_entry_from_taxon: Ein unbekannter Nutzer trennte die Klassifikation von „%{provider}“ von „%{taxon}“ ab.
+        an_unknown_user_split_unknown_entry_from_an_unknown_taxon: Ein unbekannter Nutzer trennte eine unbekannte Klassifikation von einem unbekannten Taxon ab.
+        an_unknown_user_split_unknown_entry_from_it: Ein unbekannter Nutzer unterteilte eine unbekannte Klassifikation.
+        an_unknown_user_split_unknown_entry_from_taxon: Ein unbekannter Nutzer trennte eine unbekannte Klassifikation von „%{taxon}“ ab.
+        user_split_entry_from_an_unknown_taxon: <strong>%{user}</strong> trennte die Klassifikation von „%{provider}“ von einem unbekannten Taxon ab.
+        user_split_entry_from_it: <strong>%{user}</strong> unterteilte die Klassifikation von „%{provider}“.
+        user_split_entry_from_taxon: <strong>%{user}</strong> trennte die Klassifikation von „%{provider}“ von „%{taxon}“ ab.
+        user_split_unknown_entry_from_an_unknown_taxon: <strong>%{user}</strong> trennte eine unbekannte Klassifikation von einem unbekannten Taxon ab.
+        user_split_unknown_entry_from_it: <strong>%{user}</strong> unterteilte eine unbekannte Klassifikation.
+        user_split_unknown_entry_from_taxon: <strong>%{user}</strong> trennte eine unbekannte Klassifikation von „%{taxon}“ ab.
       trust_common_name: 
-        an_unknown_user_trusted_an_unknown_name_on_an_unknown_taxon: Ein unbekannter Nutzer markierte einen unbekannten gebräuchlichen Namen auf einer unbekannten Seite als vertrauenswürdig.
-        an_unknown_user_trusted_an_unknown_name_on_it: Ein unbekannter Nutzer markierte einen unbekannten gebräuchlichen Namen als vertrauenswürdig.
-        an_unknown_user_trusted_an_unknown_name_on_taxon: Ein unbekannter Nutzer markierte einen unbekannten gebräuchlichen Namen zu „%{taxon}“ als vertrauenswürdig.
-        an_unknown_user_trusted_name_on_an_unknown_taxon: Ein unbekannter Nutzer markierte den gebräuchlichen Namen „%{name}“ zu einer unbekannten Seite als vertrauenswürdig.
-        an_unknown_user_trusted_name_on_it: Ein unbekannter Nutzer markierte den Namen „%{name}“ als vertrauenswürdig.
-        an_unknown_user_trusted_name_on_taxon: Ein unbekannter Nutzer markierte den gebräuchlichen Namen „%{name}“ zu „%{taxon}“ als vertrauenswürdig.
-        user_trusted_an_unknown_name_on_an_unknown_taxon: <strong>%{user}</strong> markierte einen unbekannten gebräuchlichen Namen auf einer unbekannten Seite als vertrauenswürdig.
-        user_trusted_an_unknown_name_on_it: <strong>%{user}</strong> markierte einen unbekannten gebräuchlichen Namen als vertrauenswürdig.
-        user_trusted_an_unknown_name_on_taxon: <strong>%{user}</strong> markierte einen unbekannten gebräuchlichen Namen zu „%{taxon}“ als vertrauenswürdig.
-        user_trusted_name_on_an_unknown_taxon: <strong>%{user}</strong> markierte den gebräuchlichen Namen „%{name}“ zu einer unbekannten Seite als vertrauenswürdig.
-        user_trusted_name_on_it: <strong>%{user}</strong> markierte den Namen „%{name}“ als vertrauenswürdig.
-        user_trusted_name_on_taxon: <strong>%{user}</strong> markierte den gebräuchlichen Namen „%{name}“ zu „%{taxon}“ als vertrauenswürdig.
+        an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Ein unbekannter Nutzer hat einen unbekannten Trivialnamen in einer unbekannten Sprache auf einer unbekannten Seite als vertrauenswürdig markiert.
+        an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_it: Ein unbekannter Nutzer markierte einen unbekannten Trivialnamen in einer unbekannten Sprache als vertrauenswürdig.
+        an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_taxon: Ein unbekannter Nutzer markierte einen Trivialnamen in einer unbekannten Sprache für „%{taxon}“ als vertrauenswürdig.
+        an_unknown_user_trusted_an_unknown_name_in_language_on_an_unknown_taxon: Ein unbekannter Nutzer hat einen unbekannten Trivialnamen in der Sprache %{language} auf einer unbekannten Seite als vertrauenswürdig markiert.
+        an_unknown_user_trusted_an_unknown_name_in_language_on_it: Ein unbekannter Nutzer markierte einen unbekannten Trivialnamen in der Sprache %{language} als vertrauenswürdig.
+        an_unknown_user_trusted_an_unknown_name_in_language_on_taxon: Ein unbekannter Nutzer hat einen unbekannten Trivialnamen in der Sprache %{language} für „%{taxon}“ als vertrauenswürdig markiert.
+        an_unknown_user_trusted_name_in_an_unknown_language_on_an_unknown_taxon: Ein unbekannter Nutzer markierte den Trivialnamen „%{name}“ in einer unbekannten Sprache auf einer unbekannten Seite als vertrauenswürdig.
+        an_unknown_user_trusted_name_in_an_unknown_language_on_it: Ein unbekannter Nutzer markierte den Trivialnamen „%{name}“ in einer unbekannten Sprache als vertrauenswürdig.
+        an_unknown_user_trusted_name_in_an_unknown_language_on_taxon: Ein unbekannter Benutzer hat den Trivialnamen „%{name}“ in einer unbekannten Sprache für „%{taxon}“ als vertrauenswürdig markiert.
+        an_unknown_user_trusted_name_in_language_on_an_unknown_taxon: Ein unbekannter Nutzer markierte den Trivialnamen „%{name}“ in der Sprache %{language} auf eine unbekannte Seite als vertrauenswürdig.
+        an_unknown_user_trusted_name_in_language_on_it: Ein unbekannter Nutzer markierte den Trivialnamen „%{name}“ in der Sprache %{language} als vertrauenswürdig.
+        an_unknown_user_trusted_name_in_language_on_taxon: Ein unbekannter Nutzer markierte den Trivialnamen „%{name}“ in der Sprache %{language} für „%{taxon}“ als vertrauenswürdig.
+        user_trusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> markierte einen unbekannten Trivialnamen in einer unbekannten Sprache auf einer unbekannten Seite als vertrauenswürdig.
+        user_trusted_an_unknown_name_in_an_unknown_language_on_it: <strong>%{user}</strong> markierte einen unbekannten Trivialnamen in einer unbekannten Sprache als vertrauenswürdig.
+        user_trusted_an_unknown_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> markierte einen unbekannten Trivialnamen in einer unbekannten Sprache auf „%{taxon}“ als vertrauenswürdig.
+        user_trusted_an_unknown_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> markierte einen unbekannten Trivialnamen in der Sprache %{language} auf einer unbekannten Seite als vertrauenswürdig.
+        user_trusted_an_unknown_name_in_language_on_it: <strong>%{user}</strong> markierte einen unbekannten Trivialnamen in der Sprache %{language} als vertrauenswürdig.
+        user_trusted_an_unknown_name_in_language_on_taxon: <strong>%{user}</strong> markierte einen unbekannten Trivialnamen in der Sprache %{language} auf „%{taxon}“ als vertrauenswürdig.
+        user_trusted_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> markierte den Trivialnamen „%{name}“ in einer unbekannten Sprache einer unbekannten Seite als vertrauenswürdig.
+        user_trusted_name_in_an_unknown_language_on_it: <strong>%{user}</strong> markierte den Trivialnamen „%{name}“ in einer unbekannten Sprache als vertrauenswürdig.
+        user_trusted_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> markierte den Trivialnamen „%{name}“ in einer unbekannten Sprache von „%{taxon}“ als vertrauenswürdig.
+        user_trusted_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> markierte den Trivialnamen „%{name}“ in der Sprache %{language} einer unbekannten Seite als vertrauenswürdig.
+        user_trusted_name_in_language_on_it: <strong>%{user}</strong> markierte den Trivialnamen „%{name}“ in der Sprache %{language} als vertrauenswürdig.
+        user_trusted_name_in_language_on_taxon: <strong>%{user}</strong> markierte den Trivialnamen „%{name}“ in der Sprache %{language} von „%{taxon}“ als vertrauenswürdig.
       trusted: 
         an_unknown_user_trusted_an_older_data_object_on_an_unknown_association: Ein unbekannter Nutzer markierte eine ältere Version von „%{data_object}“ in einem unbekannten Zusammenhang als vertrauenswürdig.
         an_unknown_user_trusted_an_older_data_object_on_association: Ein unbekannter Nutzer markierte eine ältere Version von „%{data_object}“ auf der Seite „%{association}“ als vertrauenswürdig.
@@ -574,19 +650,39 @@ de:
         user_trusted_data_object_on_association: <strong>%{user}</strong> markierte „%{data_object}“ auf der Seite „%{association}“ als vertrauenswürdig.
         user_trusted_it_on_an_unknown_association: <strong>%{user}</strong> markierte es in einem unbekannten Zusammenhang als vertrauenswürdig.
         user_trusted_it_on_association: <strong>%{user}</strong> markierte es auf der Seite „%{association}“ als vertrauenswürdig.
+      unlock: 
+        an_unknown_taxon_unlocked: Die Hintergrundverarbeitung der Kuratierung einer unbekannten Seite ist abgeschlossen.
+        it_unlocked: Die Hintergrundverarbeitung der Kuratierung ist abgeschlossen.
+        taxon_unlocked: Die Hintergrundverarbeitung der Kuratierung von „%{taxon}“ ist abgeschlossen.
+      unlock_with_error: 
+        an_unknown_taxon_unlocked: "Die Hintergrundverarbeitung der Kuratierung einer unbekannten Seite <strong>fehlgeschlagen</strong>: %{error}."
+        it_unlocked: "Die Hintergrundverarbeitung der Kuratierung ist <strong>fehlgeschlagen</strong>: %{error}."
+        taxon_unlocked: "Die Hintergrundverarbeitung der Kuratierung von „%{taxon}“ ist <strong>fehlgeschlagen</strong>: %{error}."
       unreview_common_name: 
-        an_unknown_user_unreviewed_an_unknown_name_on_an_unknown_taxon: Ein unbekannter Nutzer markierte einen unbekannten gebräuchlichen Namen auf einer unbekannten Seite als nicht geprüft.
-        an_unknown_user_unreviewed_an_unknown_name_on_it: Ein unbekannter Nutzer markierte einen unbekannten gebräuchlichen Namen als nicht geprüft.
-        an_unknown_user_unreviewed_an_unknown_name_on_taxon: Ein unbekannter Nutzer markierte einen unbekannten gebräuchlichen Namen zu „%{taxon}“ als nicht geprüft.
-        an_unknown_user_unreviewed_name_on_an_unknown_taxon: Ein unbekannter Nutzer markierte den gebräuchlichen Namen „%{name}“ zu einer unbekannten Seite als nicht geprüft.
-        an_unknown_user_unreviewed_name_on_it: Ein unbekannter Nutzer markierte den Namen „%{name}“ als nicht geprüft.
-        an_unknown_user_unreviewed_name_on_taxon: Ein unbekannter Nutzer markierte den gebräuchlichen Namen „%{name}“ zu „%{taxon}“ als nicht geprüft.
-        user_unreviewed_an_unknown_name_on_an_unknown_taxon: <strong>%{user}</strong> markierte einen unbekannten gebräuchlichen Namen auf einer unbekannten Seite als nicht geprüft.
-        user_unreviewed_an_unknown_name_on_it: <strong>%{user}</strong> markierte einen unbekannten gebräuchlichen Namen als nicht geprüft.
-        user_unreviewed_an_unknown_name_on_taxon: <strong>%{user}</strong> markierte einen unbekannten gebräuchlichen Namen zu „%{taxon}“ als nicht geprüft.
-        user_unreviewed_name_on_an_unknown_taxon: <strong>%{user}</strong> markierte den gebräuchlichen Namen „%{name}“ zu einer unbekannten Seite als nicht geprüft.
-        user_unreviewed_name_on_it: <strong>%{user}</strong> markierte den Namen „%{name}“ als nicht geprüft.
-        user_unreviewed_name_on_taxon: <strong>%{user}</strong> markierte den gebräuchlichen Namen „%{name}“ zu „%{taxon}“ als nicht geprüft.
+        an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Ein unbekannter Nutzer markierte einen unbekannten Trivialnamen in einer unbekannten Sprache einer unbekannten Seite als ungeprüft.
+        an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: Ein unbekannter Nutzer markierte einen unbekannten Trivialnamen in einer unbekannten Sprache als ungeprüft.
+        an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_taxon: Ein unbekannter Nutzer markierte einen unbekannten Trivialnamen in einer unbekannten Sprache für „%{taxon}“ als ungeprüft.
+        an_unknown_user_unreviewed_an_unknown_name_in_language_on_an_unknown_taxon: Ein unbekannter Nutzer markierte einen unbekannten Trivialnamen in der Sprache %{language} einer unbekannten Seite als ungeprüft.
+        an_unknown_user_unreviewed_an_unknown_name_in_language_on_it: Ein unbekannter Nutzer markierte einen unbekannten Trivialnamen in der Sprache %{language} als ungeprüft.
+        an_unknown_user_unreviewed_an_unknown_name_in_language_on_taxon: Ein unbekannter Nutzer markierte einen unbekannten Trivialnamen in der Sprache %{language} von „%{taxon}“ als ungeprüft.
+        an_unknown_user_unreviewed_name_in_an_unknown_language_on_an_unknown_taxon: Ein unbekannter Nutzer markierte den Trivialnamen „%{name}“ in einer unbekannten Sprache einer unbekannten Seite als ungeprüft.
+        an_unknown_user_unreviewed_name_in_an_unknown_language_on_it: Ein unbekannter Nutzer markierte den Trivialnamen „%{name}“ in einer unbekannten Sprache als ungeprüft.
+        an_unknown_user_unreviewed_name_in_an_unknown_language_on_taxon: Ein unbekannter Nutzer markierte den Trivialnamen „%{name}“ in einer unbekannten Sprache von „%{taxon}“ als ungeprüft.
+        an_unknown_user_unreviewed_name_in_language_on_an_unknown_taxon: Ein unbekannter Nutzer markierte den Trivialnamen „%{name}“ in der Sprache %{language} einer unbekannten Seite als ungeprüft.
+        an_unknown_user_unreviewed_name_in_language_on_it: Ein unbekannter Nutzer markierte den Trivialnamen „%{name}“ in der Sprache %{language} als ungeprüft.
+        an_unknown_user_unreviewed_name_in_language_on_taxon: Ein unbekannter Nutzer markierte den Trivialnamen „%{name}“ in der Sprache %{language} von „%{taxon}“ als ungeprüft.
+        user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> markierte einen unbekannten Trivialnamen in einer unbekannten Sprache einer unbekannten Seite als ungeprüft.
+        user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: <strong>%{user}</strong> markierte einen unbekannten Trivialnamen in einer unbekannten Sprache als nicht geprüft.
+        user_unreviewed_an_unknown_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> markierte einen unbekannten Trivialnamen in einer unbekannten Sprache von „%{taxon}“ als ungeprüft.
+        user_unreviewed_an_unknown_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> markierte einen unbekannten Trivialnamen in der Sprache %{language} einer unbekannten Seite als ungeprüft.
+        user_unreviewed_an_unknown_name_in_language_on_it: <strong>%{user}</strong> markierte einen unbekannten Trivialnamen in der Sprache %{language} als ungeprüft.
+        user_unreviewed_an_unknown_name_in_language_on_taxon: <strong>%{user}</strong> markierte einen unbekannten Trivialnamen in der Sprache %{language} von „%{taxon}“ als ungeprüft.
+        user_unreviewed_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> markierte den Trivialnamen „%{name}“ in einer unbekannten Sprache einer unbekannten Seite als ungeprüft.
+        user_unreviewed_name_in_an_unknown_language_on_it: <strong>%{user}</strong> markierte den Trivialnamen „%{name}“ in einer unbekannten Sprache als ungeprüft.
+        user_unreviewed_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> markierte den Trivialnamen „%{name}“ in einer unbekannten Sprache von „%{taxon}“ als ungeprüft.
+        user_unreviewed_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> markierte den Trivialnamen „%{name}“ in der Sprache %{language} einer unbekannten Seite als ungeprüft.
+        user_unreviewed_name_in_language_on_it: <strong>%{user}</strong> markierte den Trivialnamen „%{name}“ in der Sprache %{language} als ungeprüft.
+        user_unreviewed_name_in_language_on_taxon: <strong>%{user}</strong> markierte den Trivialnamen „%{name}“ in der Sprache %{language} von „%{taxon}“ als ungeprüft.
       unreviewed: 
         an_unknown_user_unreviewed_an_older_data_object_on_an_unknown_association: Ein unbekannter Nutzer markierte eine ältere Version von „%{data_object}“ in einem unbekannten Zusammenhang als nicht überprüft.
         an_unknown_user_unreviewed_an_older_data_object_on_association: Ein unbekannter Nutzer markierte eine ältere Version von „%{data_object}“ auf der Seite „%{association}“ als nicht überprüft.
@@ -605,18 +701,30 @@ de:
         user_unreviewed_it_on_an_unknown_association: <strong>%{user}</strong> markierte es in einem unbekannten Zusammenhang als nicht überprüft.
         user_unreviewed_it_on_association: <strong>%{user}</strong> markierte es auf der Seite „%{association}“ als nicht überprüft.
       untrust_common_name: 
-        an_unknown_user_untrusted_an_unknown_name_on_an_unknown_taxon: Ein unbekannter Nutzer markierte einen unbekannten gebräuchlichen Namen auf einer unbekannten Seite als nicht vertrauenswürdig.
-        an_unknown_user_untrusted_an_unknown_name_on_it: Ein unbekannter Nutzer markierte einen unbekannten gebräuchlichen Namen als nicht vertrauenswürdig.
-        an_unknown_user_untrusted_an_unknown_name_on_taxon: Ein unbekannter Nutzer markierte einen unbekannten gebräuchlichen Namen zu „%{taxon}“ als nicht vertrauenswürdig.
-        an_unknown_user_untrusted_name_on_an_unknown_taxon: Ein unbekannter Nutzer markierte den gebräuchlichen Namen „%{name}“ zu einer unbekannten Seite als nicht vertrauenswürdig.
-        an_unknown_user_untrusted_name_on_it: Ein unbekannter Nutzer markierte den Namen „%{name}“ als nicht vertrauenswürdig.
-        an_unknown_user_untrusted_name_on_taxon: Ein unbekannter Nutzer markierte den gebräuchlichen Namen „%{name}“ zu „%{taxon}“ als nicht vertrauenswürdig.
-        user_untrusted_an_unknown_name_on_an_unknown_taxon: <strong>%{user}</strong> markierte einen unbekannten gebräuchlichen Namen auf einer unbekannten Seite als nicht vertrauenswürdig.
-        user_untrusted_an_unknown_name_on_it: <strong>%{user}</strong> markierte einen unbekannten gebräuchlichen Namen als nicht vertrauenswürdig.
-        user_untrusted_an_unknown_name_on_taxon: <strong>%{user}</strong> markierte einen unbekannten gebräuchlichen Namen zu „%{taxon}“ als nicht vertrauenswürdig.
-        user_untrusted_name_on_an_unknown_taxon: <strong>%{user}</strong> markierte den gebräuchlichen Namen „%{name}“ zu einer unbekannten Seite als nicht vertrauenswürdig.
-        user_untrusted_name_on_it: <strong>%{user}</strong> markierte den Namen „%{name}“ als nicht vertrauenswürdig.
-        user_untrusted_name_on_taxon: <strong>%{user}</strong> markierte den gebräuchlichen Namen „%{name}“ zu „%{taxon}“ als nicht vertrauenswürdig.
+        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Ein unbekannter Nutzer markierte einen unbekannten Trivialnamen in einer unbekannten Sprache einer unbekannten Seite als nicht vertrauenswürdig.
+        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_it: Ein unbekannter Nutzer markierte einen unbekannten Trivialnamen in einer unbekannten Sprache als nicht vertrauenswürdig.
+        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_taxon: Ein unbekannter Nutzer markierte einen unbekannten Trivialnamen von „%{taxon}“ in einer unbekannten Sprache als nicht vertrauenswürdig.
+        an_unknown_user_untrusted_an_unknown_name_in_language_on_an_unknown_taxon: Ein unbekannter Nutzer markierte einen unbekannten Trivialnamen in der Sprache %{language} einer unbekannten Seite als nicht vertrauenswürdig.
+        an_unknown_user_untrusted_an_unknown_name_in_language_on_it: Ein unbekannter Nutzer markierte einen unbekannten Trivialnamen in der Sprache %{language} als nicht vertrauenswürdig.
+        an_unknown_user_untrusted_an_unknown_name_in_language_on_taxon: Ein unbekannter Nutzer markierte einen unbekannten Trivialnamen in der Sprache %{language} von „%{taxon}“ als nicht vertrauenswürdig.
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_an_unknown_taxon: Ein unbekannter Nutzer markierte den Trivialnamen „%{name}“ in einer unbekannten Sprache einer unbekannten Seite als nicht vertrauenswürdig.
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_it: Ein unbekannter Nutzer markierte den Trivialnamen „%{name}“ in einer unbekannten Sprache als nicht vertrauenswürdig.
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_taxon: Ein unbekannter Nutzer markierte den Trivialnamen „%{name}“ in einer unbekannten Sprache von „%{taxon}“ als nicht vertrauenswürdig.
+        an_unknown_user_untrusted_name_in_language_on_an_unknown_taxon: Ein unbekannter Nutzer markierte den Trivialnamen „%{name}“ in der Sprache %{language} einer unbekannten Seite als nicht vertrauenswürdig.
+        an_unknown_user_untrusted_name_in_language_on_it: Ein unbekannter Nutzer markierte den Trivialnamen „%{name}“ in der Sprache %{language} als nicht vertrauenswürdig.
+        an_unknown_user_untrusted_name_in_language_on_taxon: Ein unbekannter Nutzer markierte den Trivialnamen „%{name}“ in der Sprache %{language} von „%{taxon}“ als nicht vertrauenswürdig.
+        user_untrusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> markierte einen unbekannten Trivialnamen in einer unbekannten Sprache einer unbekannten Seite als nicht vertrauenswürdig.
+        user_untrusted_an_unknown_name_in_an_unknown_language_on_it: <strong>%{user}</strong> markierte einen unbekannten Trivialnamen in einer unbekannten Sprache als nicht vertrauenswürdig.
+        user_untrusted_an_unknown_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> markierte einen unbekannten Trivialnamen in einer unbekannten Sprache von „%{taxon}“ als nicht vertrauenswürdig.
+        user_untrusted_an_unknown_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> markierte einen unbekannten Trivialnamen in der Sprache %{language} einer unbekannten Seite als nicht vertrauenswürdig.
+        user_untrusted_an_unknown_name_in_language_on_it: <strong>%{user}</strong> markierte einen unbekannten Trivialnamen in der Sprache %{language} als nicht vertrauenswürdig.
+        user_untrusted_an_unknown_name_in_language_on_taxon: <strong>%{user}</strong> markierte einen unbekannten Trivialnamen in der Sprache %{language} von „%{taxon}“ als nicht vertrauenswürdig.
+        user_untrusted_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> markierte den Trivialnamen „%{name}“ in einer unbekannten Sprache einer unbekannten Seite als nicht vertrauenswürdig.
+        user_untrusted_name_in_an_unknown_language_on_it: <strong>%{user}</strong> markierte den Trivialnamen „%{name}“ in einer unbekannten Sprache als nicht vertrauenswürdig.
+        user_untrusted_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> markierte den Trivialnamen „%{name}“ in einer unbekannten Sprache von „%{taxon}“ als nicht vertrauenswürdig.
+        user_untrusted_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> markierte den Trivialnamen „%{name}“ in der Sprache %{language} einer unbekannten Seite als nicht vertrauenswürdig.
+        user_untrusted_name_in_language_on_it: <strong>%{user}</strong> markierte den Trivialnamen „%{name}“ in der Sprache %{language} als nicht vertrauenswürdig.
+        user_untrusted_name_in_language_on_taxon: <strong>%{user}</strong> markierte den Trivialnamen „%{name}“ in der Sprache %{language} von „%{taxon}“ als nicht vertrauenswürdig.
       untrusted: 
         an_unknown_user_untrusted_an_older_data_object_on_an_unknown_association: Ein unbekannter Nutzer markierte eine ältere Version von „%{data_object}“ in einem unbekannten Zusammenhang als nicht vertrauenswürdig.
         an_unknown_user_untrusted_an_older_data_object_on_association: Ein unbekannter Nutzer markierte eine ältere Version von „%{data_object}“ auf der Seite „%{association}“ als nicht vertrauenswürdig.
@@ -640,7 +748,7 @@ de:
   add_a_collection_to_a_community: Die Sammlung „%{collection}“ einer Gemeinschaft hinzufügen
   add_a_comment: Einen Kommentar hinzufügen.
   add_a_comment_colon: "Einen Kommentar hinzufügen:"
-  add_a_new_common_name: Fügen Sie einen neuen gebräuchlichen Namen hinzu
+  add_a_new_common_name: Fügen Sie einen neuen Trivialnamen hinzu
   add_a_new_file_brackets: "[eine neue Datei hinzufügen]"
   add_a_new_news_item: Eine neue Nachricht hinzufügen
   add_a_new_role: Eine neue Nutzergruppe hinzufügen
@@ -653,6 +761,7 @@ de:
   add_association_submit_button: Zuordnung hinzufügen
   add_brief_summary_to_page_link_button: Fügen Sie dieser Seite eine kurze Zusammenfassung hinzu
   add_citizen_science_resources_to_page_link_button: Füge auf dieser Seite einen Link zu „Wissenschaft für Bürger“ hinzu
+  add_classifications: die ausgewählten Klassifikationen zum Verschieben hinzufügen
   add_collection_to_a_new_community: Die Sammlung „%{collection}“ einer neuen Gemeinschaft hinzufügen
   add_collection_to_community: Die Sammlung der Gemeinschaft hinzufügen
   add_education_resources_to_page_link_button: Fügen Sie dieser Seite Bildungsmittel hinzu
@@ -665,6 +774,7 @@ de:
   add_sub_chapter: Unterkapitel hinzufügen
   add_to_a_community: Einer Gemeinschaft hinzufügen
   add_to_my_collection_button: Zu meiner Sammlung hinzufügen
+  added_classifications_ready: Die Daten der ausgewählten Klassifikationen sind zum Verschieben auf eine andere Seite bereit. Klicken Sie entweder „auf eine neue Seite aufteilen“ an oder navigieren Sie zum Reiter „Namen“ auf der Seite, auf der die Daten hingehören, und wählen Sie dort „Klassifikationen zusammenführen“ aus.
   admin_content_page_active: Veröffentlicht
   admin_content_page_child_new_link: Untergeordnete Seite erstellen
   admin_content_page_create_successful_notice: Die Seite <a href="#%{anchor}"><em>%{page_name}</em></a> wurde erfolgreich erstellt.
@@ -728,40 +838,40 @@ de:
   admin_user_hide_successful_notice: Nutzer wurde verborgen
   admin_user_unhide_successful_notice: Nutzer wurde sichtbar gemacht
   admins: 
-    statistics: 
-      content_partner: 
+    eol_statistics: 
+      content_partners: 
+        menu_link: Inhaltspartner
         page_header: Statistiken zu Inhaltspartnern
         page_title: "Verwaltung: Statistiken zu Inhaltspartnern"
-      content_partner_link: Inhaltspartner
-      curator: 
+      curators: 
+        menu_link: Statistiken zu Kuratoren
         page_header: Statistiken zu Kuratoren
         page_title: "Verwaltung: Statistiken zu Kuratoren"
-      curator_link: Statistiken zu Kuratoren
-      data_object: 
+      data_objects: 
+        menu_link: Datenobjekte
         page_header: Statistiken zu Datenobjekten
         page_title: "Verwaltung: Statistiken zu Datenobjekten"
-      data_object_link: Datenobjekte
       index: 
+        menu_link: Gesamtstatistiken
         page_header: Gesamtstatistiken
         page_title: "Verwaltung: Gesamtstatistiken"
-        table_caption: Die Gesamtstatistiken der Website wurden am %{created_at_time} erstellt
-      index_link: Gesamtstatistiken
-      lifedesk: 
+        table_caption: Die Gesamtstatistiken der Website wurden am %{created_at_time} erstellt.
+      lifedesks: 
+        menu_link: LifeDesks
         page_header: Statistiken zu LifeDesks
         page_title: "Verwaltung: Statistiken zu LifeDesks"
-      lifedesk_link: LifeDesks
       marine: 
+        menu_link: Statistiken zu marinem Leben
         page_header: Marines Leben in der EOL
         page_title: "Verwaltung: Statistiken zu marinem Leben"
-      marine_link: Statistiken zu marinem Leben
       page_richness: 
+        menu_link: Reichhaltige Seiten
         page_header: Statistiken zu reichhaltigen Seiten
         page_title: "Verwaltung: Statistiken zu reichhaltigen Seiten"
-      page_richness_link: Reichhaltige Seiten
-      user_added_data: 
-        page_header: Statistiken zu von Nutzern erstellten Texten
-        page_title: "Verwaltung: Statistiken zu von Nutzern erstellten Texten"
-      user_added_data_link: Von Nutzern verfasster Text
+      users_data_objects: 
+        menu_link: Von Nutzern verfasste Texte
+        page_header: Statistiken zu von Nutzern verfassten Texten
+        page_title: "Verwaltung: Statistiken zu von Nutzern verfassten Texten"
   agent: Agent
   all: alle
   all_apis_return_by_default_an_xml_response: "Alle API-Aufrufe liefern standardmäßig eine XML-Antwort zurück. Die API-Methoden können auch ohne eine Formatangabe abgerufen werden, um eine XML-Antwort zu erhalten. Das Hinzufügen der Formatangabe XML führt also zu einer identischen Antwort:"
@@ -816,7 +926,7 @@ de:
     one: "Die Artikel auf dieser Seite sind in einer weiteren Sprache vorhanden:"
     other: "Die Artikel auf dieser Seite sind in den %{count} weiteren Sprachen vorhanden:"
   articles_with_count: 
-    one: Ein Artikel
+    one: "%{count} Artikel"
     other: "%{count} Artikel"
   as_of_time_there_were_unique_visitors: 
     one: Bis zum %{time} gab es einen eindeutigen Besucher
@@ -849,7 +959,6 @@ de:
   audio_pause: Pause
   audio_pause_assistive: Mit aktiviertem JavaScript ermöglicht dieser Link das Pausieren der Wiedergabe einer benachbarten Audiodatei. Ansonsten kann dieser Link ignoriert werden.
   audio_play: Abspielen
-  audio_play_assistive: Mit aktiviertem JavaScript ermöglicht dieser Link den Wiedergabestart der Audiodatei im gleichen Fenster. Sofern JavaScript deaktiviert ist, verweist dieser Link auf eine Audiodatei und wird nach dem Klicken die eingestellte Funktion Ihres Wiedergabegerätes ausführen.
   audio_stop: Stoppen
   audio_stop_assistive: Mit aktiviertem JavaScript ermöglicht dieser Link das Anhalten der Wiedergabe einer benachbarten Audiodatei. Ansonsten kann dieser Link ignoriert werden.
   audio_unmute: Ton an
@@ -881,6 +990,7 @@ de:
   cache_store: Cachespeicher
   calculate_averages_slow: Mittelwerte berechnen (langsam)
   cancel: Abbrechen
+  cancel_split: Abbrechen
   cannot_be_associated_with_both_a_user_and_a_community: Konnte weder einem Nutzer noch einer Gemeinschaft zugeordnet werden.
   cannot_be_empty: darf nicht leer sein.
   cannot_create_collection_item_from_class_error: Es kann kein Objekt für eine Sammlung aus einer %{klass} erstellt werden.
@@ -901,18 +1011,30 @@ de:
   citation_example: "Fisher, Brian: „Pogonomyrmex anergismus Cole, 1954.“ Enzyklopädie des Lebens, von <a href=\"http://eol.org/pages/460427\" target=\"_blank\">http://eol.org/pages/460427</a>. Abgerufen am 15. Jan. 2009."
   citing_link: Zitieren
   classification_already_preferred: Diese Klassifikation wurde bereits als bevorzugt markiert.
+  classification_button_help: Bitte wählen Sie die Klassifikation aus, welche die vorhandene Seite unten am besten darstellt. Klicken Sie danach auf die entsprechende Schaltfläche „als beispielhaft verwenden“. Auf „Abbrechen“ klicken, um diese Aktion abzubrechen.
   classification_from_agent: Klassifizierung von %{agent}.
   classification_from_agent_chosen_by_curator: Klassifikation von %{agent} wurde von %{curator} ausgewählt.
   classification_from_agent_chosen_by_curator_see_more: Klassifizierung von %{agent}, ausgewählt durch %{curator} - <a href="%{more_link}">mehr dazu</a>.
+  classification_merge_help: <b>Sie sind gerade dabei eine Klassifikation von dieser Seite zu verschieben.</b> Um fortfahren zu können, müssen Sie uns mitteilen, welche der vorhandenen Klassifikationen, Ihrer Meinung nach, die Seite dieses Taxons am <i>besten</i> darstellt. Dies hilft uns dabei, die von Ihnen ausgewählte Klassifikation zukünftig von dieser Seiten getrennt zu halten.
   classification_preferred_for_taxon: Bevorzugt
   classification_preferred_for_taxon_help_tip: "%{icon} markiert die bevorzugte Klassifikation zu diesem Taxon."
+  classification_split_help: <b>Sie sind gerade dabei eine Klassifikation von dieser Seite zu trennen.</b> Um fortfahren zu können, müssen Sie uns mitteilen, welche der vorhandenen Klassifikationen, Ihrer Meinung nach, diese Seite am <i>besten</i> darstellt. Dies hilft uns dabei, die von Ihnen ausgewählte Klassifikation zukünftig von dieser Seiten getrennt zu halten.
+  classification_split_warning: <b>Nehmen Sie sich einen Moment Zeit, um sicherzustellen, dass <i>alle</i> der ausgewählten Klassifikationen zur Zielseite passen.</b> Sofern Sie bspw. eine Klassifikation zu einem Knollenblätterpilz von der Seiten zu einem Waschbären trennen oder verschieben, müssen Sie alle Klassifikationen zu Knollenblätterpilzen für diese Aktion auswählen. Für den Fall, dass Sie eine Klassifikation auslassen, wird es später schwierig werden, dies zu bereinigen.
   classification_summary_section_header: Klassifikation
   classification_tree_header: Klassifikation
+  classifications_edit_cancelled_busy: Ihre Anforderung zum Bearbeiten der Klassifikationen kann momentan leider nicht verarbeitet werden. Eine oder mehrere Seiten zu Taxa sind gesperrt. Eine vorhandene Anforderung zum Bearbeiten dieser Klassifikationen wird gerade bearbeitet.
+  classifications_edit_cancelled_merge_to_self: Die Ausgangs- und die Zielseite sind identisch. Es ist nichts zum Verschieben vorhanden.
   classifications_empty: Diese Seite ist in keiner der Klassifikationen enthalten, die auf EOL durchsuchbar sind.
+  classifications_exemplar_column_header: Beispielhaft
   classifications_hierarchy_column_header: Klassifikation
+  classifications_locked: Die Klassifikationen auf dieser Seite können aktuell nicht bearbeitet werden. Eine weitere Anforderung, diese Klassifikationen zu bearbeiten, wird verarbeitet.
+  classifications_merge_additional_confirm_required: Um diese Klassifikationen zusammenzuführen, ist die zusätzliche Bestätigung erforderlich.
+  classifications_merge_providers_match_confirm: Ich bestätige, mich über die Aussage des Inhaltspartners hinwegsetzen zu wollen, dass diese Daten getrennt sein sollten.
+  classifications_merge_providers_match_warning: Sie sind gerade dabei zwei Seiten zusammenzuführen, die nach Aussage von %{provider} voneinander getrennt vorhanden sein sollten. Bitte bestätigen Sie, sofern Sie sich über die Aussage des Inhaltspartners hinwegsetzen wollen und die Daten doch auf der selben Seite angezeigt werden sollen.
   classifications_preferred_column_header: Bevorzugt
   classifications_rank_column_header: Rang
   classifications_recognized_by_column_header: Anerkannt von
+  classifications_split_column_header: Aufteilen / Verschieben
   classifications_summary_header_with_count: 
     one: In einer Klassifikation gefunden
     other: In %{count} Klassifikationen gefunden
@@ -976,7 +1098,7 @@ de:
         recent_observations: Aktuelle Beobachtungen
         some_taxon: Etwas
         taxa_observed: 
-          one: Ein beobachtetes Taxon
+          one: "%{count} beobachtetes Taxon"
           other: "%{count} beobachtete Taxa"
         top_contributors: Die aktivsten Mitwirkenden bei iNaturalist
         tweet_text: Beobachtungen von iNaturalist zur Sammlung %{collection_name}
@@ -1005,7 +1127,7 @@ de:
     one: Bestandteil einer Sammlung
     other: Bestandteil von %{count} Sammlungen
   collections_with_count: 
-    one: Eine Sammlung
+    one: "%{count} Sammlung"
     other: "%{count} Sammlungen"
   comment: Kommentar
   comment_added_notice: Der Kommentar wurde erfolgreich hinzugefügt.
@@ -1021,22 +1143,21 @@ de:
   comment_not_updated_error: Es ist leider ein Fehler aufgetreten, so dass der Kommentar nicht aktualisiert werden konnte.
   comment_or_rate_on_this_article: Diesen Artikel kommentierten oder bewerten
   comment_show_posters_image_alt: Das Profilbild von %{posters_name}, der diesen Kommentar hinterlassen hat.
-  commented_on_your_image: " kommentierte Ihr Bild auf der <a href='%{data_object_link}'>Seite in der Enzyklopädie des Lebens (EOL)</a>:\n%{comment_body}"
   comments: Kommentare
   comments_and_tags: Kommentare und Stichwörter
   comments_filter: Kommentare
   comments_moderated: Moderierte Kommentare
   comments_on: Kommentare zu
   comments_with_count: 
-    one: Ein Kommentar
+    one: "%{count} Kommentar"
     other: "%{count} Kommentare"
   common_activities_by_logged_in: Allgemeine Aktivitäten angemeldeter Nutzer.
   common_name: Gebräuchlicher Name
-  common_name_avg: Durchschnittlich vorhandene gebräuchliche Namen
+  common_name_avg: Durchschnittlich vorhandene Trivialnamen
   common_name_exists: Der gebräuchliche Name <em>%{name_string}</em> ist bereits vorhanden.
   common_names_with_count: 
-    one: Ein gebräuchlicher Name
-    other: "%{count} gebräuchliche Namen"
+    one: "%{count} Trivialname"
+    other: "%{count} Trivialnamen"
   common_user_activity_page_title: Allgemeine Nutzeraktivität
   communities: 
     collections: 
@@ -1065,29 +1186,29 @@ de:
     other: Gehört zu %{count} Gemeinschaften
   communities_that_can_edit_this_collection: Gemeinschaften, die diese Sammlung verwalten können
   communities_with_count: 
-    one: Eine Gemeinschaft
+    one: "%{count} Gemeinschaft"
     other: "%{count} Gemeinschaften"
   community: Gemeinschaft
   community_activity: Aktivitäten der Gemeinschaft
   community_can_now_manage_this_collection: Die Gemeinschaft „%{community}“ ist jetzt berechtigt, diese Sammlung zu verwalten.
   community_contributions_with_count: 
-    one: Ein Mitwirkender
+    one: "%{count} Mitwirkender"
     other: "%{count} Mitwirkende"
   community_description_default: Eine Gemeinschaft der Enzyklopädie des Lebens (EOL).
   community_destroyed: Sie haben diese Gemeinschaft gelöscht. Sie wird nun nicht mehr auf den Seiten zu den Taxa oder bei Suchen angezeigt.
   community_empty_notice: Diese Gemeinschaft hat keine Mitglieder.
   community_focus: Verwaltete Sammlungen
   community_focus_items_with_count: 
-    one: Ein Objekt
+    one: "%{count} Objekt"
     other: "%{count} Objekte"
   community_invitation_comment: Ich möchte Sie dazu einladen der Gemeinschaft „%{community}“ beizutreten.
   community_logo_alt_text: Logo der Gemeinschaft %{community_name}
   community_managers_with_count: 
-    one: Ein Gemeinschaftsbetreuer
+    one: "%{count} Gemeinschaftsbetreuer"
     other: "%{count} Gemeinschaftsbetreuer"
   community_members: Mitglieder der Gemeinschaft
   community_members_with_count: 
-    one: Ein Gemeinschaftsmitglied
+    one: "%{count} Gemeinschaftsmitglied"
     other: "%{count} Gemeinschaftsmitglieder"
   community_name_label: Name der Gemeinschaft
   community_newsfeed: Neuigkeitenfeed der Gemeinschaft
@@ -1305,7 +1426,7 @@ de:
   content_partners_page_description: Inhaltspartner der Enzyklopädie des Lebens (EOL) verfügen, auf deren eigenen Websites oder in deren eigenen Datenbanken, über umfangreiche Informationen zur biologischen Vielfalt, die sie zudem über die Seiten von EOL verfügbar machen. Wir schätzen Ihre kritischen Beiträge zur Mission von EOL und ermutigen Sie mehr zu ihr in Erfahrung zu bringen. Informieren Sie sich darüber, wie Sie <a href="%{more_url}">ein Inhaltspartner werden können</a>.
   content_partners_page_title: Inhaltspartner
   content_partners_with_count: 
-    one: Ein Inhaltspartner
+    one: "%{count} Inhaltspartner"
     other: "%{count} Inhaltspartner"
   content_server_full_url: Vollständige URL des Servers mit den Inhalten
   content_servers: Server mit Inhalten
@@ -1331,11 +1452,11 @@ de:
     one: Kopierte alle Objekte aus %{name} in eine Sammlung.
     other: Kopierte alle Objekte aus %{name} in %{count} Sammlungen.
   copied_items_from_collection_with_count_notice: 
-    one: Ein Objekt von %{name} kopiert.
+    one: "%{count} Objekt von %{name} kopiert."
     other: "%{count} Objekte von %{name} kopiert."
   copy: Kopieren
   copy_items_to_a_new_collection_with_count: 
-    one: Ein Objekt in eine neue Sammlung kopieren
+    one: "%{count} Objekt in eine neue Sammlung kopieren"
     other: "%{count} Objekte in eine neue Sammlung kopieren"
   copy_of_name: Kopie von %{name}
   copyright: "Rechtlich geschützt für:"
@@ -1344,7 +1465,7 @@ de:
   could_not_find_user: Sie sind nicht Mitglied dieser Gemeinschaft.
   count: Anzahl
   count_results_for_search_term: 
-    one: Ein Ergebnis zu <em>%{search_term}</em>
+    one: "%{count} Ergebnis zu <em>%{search_term}</em>"
     other: "%{count} Ergebnisse zu <em>%{search_term}</em>"
   create_a_collection: Eine Sammlung erstellen
   create_a_community: Eine Gemeinschaft gründen
@@ -1403,7 +1524,7 @@ de:
     other: Geprüft von %{count} Kuratoren
   curators_summary_learn_more_link: Erfahren Sie, wie man kuratiert
   curators_with_count: 
-    one: Ein Kurator
+    one: "%{count} Kurator"
     other: "%{count} Kuratoren"
   current_language: "Sprache: %{iso_code}"
   currently_in_eol: "Derzeit in der Enzyklopädie des Lebens verzeichnet:"
@@ -1441,6 +1562,61 @@ de:
   data_usage_reports: Datennutzungsbericht
   date_caps: Datum
   date_uploaded: Hochladedatum
+  datepicker: 
+    close: Schließen
+    current: Heute
+    day_names: 
+      - Sonntag
+      - Montag
+      - Dienstag
+      - Mittwoch
+      - Donnerstag
+      - Freitag
+      - Samstag
+    day_names_min: 
+      - So
+      - Mo
+      - Di
+      - Mi
+      - Do
+      - Fr
+      - Sa
+    day_names_short: 
+      - So
+      - Mo
+      - Di
+      - Mi
+      - Do
+      - Fr
+      - Sa
+    month_names: 
+      - Januar
+      - Februar
+      - März
+      - April
+      - Mai
+      - Juni
+      - Juli
+      - August
+      - September
+      - Oktober
+      - November
+      - Dezember
+    month_names_short: 
+      - Jan
+      - Feb
+      - Mär
+      - Apr
+      - Mai
+      - Jun
+      - Jul
+      - Aug
+      - Sep
+      - Okt
+      - Nov
+      - Dez
+    next: Nächster
+    previous: Vorheriger
   dato_create_cancel: Abbrechen
   dato_create_user_text_error: Es ist leider ein Fehler aufgetreten, so dass der Artikel nicht hinzugefügt werden konnte.
   dato_create_user_text_missing_taxon_id_exception: Es ist nicht möglich einen Text für das DataObject oder das UsersDataObject zu erstellen, sofern die taxon_id gleich Null ist.
@@ -1475,7 +1651,6 @@ de:
   details_title: Einzelheiten
   development_version_name: EOL V2 Beta
   did_you_mean: "Meinten Sie: %{suggestions}?"
-  disable_email_notifications_colon: "Deaktivierte E-Mail-Benachrichtigungen:"
   disabled_for_now: MOMENTAN DEAKTIVIERT
   discover_link: Entdecken
   displaying_numerical_range: Von %{start_number} bis %{end_number} von %{total} anzeigen
@@ -1541,7 +1716,7 @@ de:
   endorsed_by: Präsentiert von
   endorsed_collections: Empfohlene Sammlungen
   endorsed_collections_with_count: 
-    one: Eine empfohlene Sammlung
+    one: "%{count} empfohlene Sammlung"
     other: "%{count} empfohlene Sammlungen"
   enter_in_a_search_term_users_a: Geben Sie einen Suchbegriff ein, nach dem die Nutzer suchen, und dann die Seitenkennung des Taxons als Ziel einer entsprechenden Suche. Die Seitenkennung des Taxons ist aus der URL des Taxons ersichtlich, z. B. hat www.eol.org/pages/5 die Seitenkennung 5. Der Seitenname und das erste Bild werden, sofern sie verfügbar sind, automatisch hinzugefügt und mit dem angegebenen Ergebnis gespeichert.
   eol_administration_console: EOL-Verwaltungskonsole
@@ -1562,6 +1737,42 @@ de:
   eol_glossary: EOL-Glossar
   eol_news: Neuigkeiten von EOL
   eol_pages: Seiten
+  eol_statistics: 
+    comparing_dates: <span class="assistive">Vergleich von</span> <span class="date_one">%{date_one}</span> <span class="assistive">mit</span> <span class="date_two">%{date_two}</span>
+    content_partners: 
+      menu_link: Inhaltspartner
+      page_header: Statistiken zu Inhaltspartnern
+      page_title: Statistiken
+    curators: 
+      menu_link: Statistiken zu Kuratoren
+      page_header: Statistiken zu Kuratoren
+      page_title: Statistiken
+    data_objects: 
+      menu_link: Datenobjekte
+      page_header: Statistiken zu Datenobjekten
+      page_title: Statistiken
+    index: 
+      menu_link: Gesamtstatistiken
+      page_header: Gesamtstatistiken
+      page_title: Statistiken
+    lifedesks: 
+      menu_link: LifeDesks
+      page_header: Statistiken zu LifeDesks
+      page_title: Statistiken
+    marine: 
+      menu_link: Statistiken zu marinem Leben
+      page_header: Marines Leben in der EOL
+      page_title: Statistiken
+    page_richness: 
+      menu_link: Reichhaltige Seiten
+      page_header: Statistiken zu reichhaltigen Seiten
+      page_title: Statistiken
+    users_data_objects: 
+      menu_link: Von Nutzern verfasste Texte
+      page_header: Statistiken zu von Nutzern verfassten Texten
+      page_title: Statistiken
+    warnings: 
+      stats_unavailable_for_date: Es gibt leider keine Statistiken für den %{date}. Bitte wählen Sie ein anderes Datum.
   error_401_description: Sie sind leider nicht berechtigt auf diese URL zuzugreifen.
   error_401_page_title: Nicht berechtigt
   error_403_description: Sie sind leider nicht berechtigt auf diese URL zuzugreifen.
@@ -1624,7 +1835,7 @@ de:
   filter_by_type: Nach Typ filtern
   filter_by_type_all_option: Alle Typen
   filter_by_type_all_option_with_count: 
-    one: Ein Typ
+    one: "%{count} Typ"
     other: Alle Typen (%{count})
   filter_by_type_collection_option: Sammlungen
   filter_by_type_comment_option: Kommentare
@@ -1632,14 +1843,14 @@ de:
   filter_by_type_content_page_option: EOL-Informationsseiten
   filter_by_type_image_option: Bilder
   filter_by_type_image_option_with_count: 
-    one: Ein Bild
+    one: "%{count} Bild"
     other: "%{count} Bilder"
   filter_by_type_name_option: Namen
   filter_by_type_object_curated_option: Kuratierte Objekte
   filter_by_type_photosynth_option: Photonsynthetisch aktive
   filter_by_type_sound_option: Geräusche
   filter_by_type_sound_option_with_count: 
-    one: Ein Geräusch
+    one: "%{count} Geräusch"
     other: "%{count} Geräusche"
   filter_by_type_taxa_comment_option: Kommentare zu Taxa
   filter_by_type_taxon_concept_option: Taxa
@@ -1647,7 +1858,7 @@ de:
   filter_by_type_user_option: Menschen
   filter_by_type_video_option: Videos
   filter_by_type_video_option_with_count: 
-    one: Ein Video
+    one: "%{count} Video"
     other: "%{count} Videos"
   filter_media: Medien filtern
   filter_newsfeed_option_all: Alle
@@ -1695,7 +1906,7 @@ de:
   get_help_choosing_a_subchapter: Holen Sie sich Hilfe zur Auswahl eines Unterkapitels
   get_more_tasks: weitere Aufgaben abrufen
   given_name_colon: "Vorname:"
-  given_the_vast_number: Angesichts der Vielzahl an wissenschaftlichen und gebräuchlichen Namen (fast 20 Millionen insgesamt) ist es eine schwierige Aufgabe, einem Nutzer genau die Art anzuzeigen, die er zu finden hofft. Es gibt beispielsweise im Englischen mehrere Vogel- und Fischarten mit Namen ''Robin'' sowie einen Wissenschaftler gleichen Namens, der etlichen Arten beschrieben hat. Es gibt daher der Parameter „exakt“, der nur diejenigen Ergebnisse zurückgibt, die mit dem Suchbegriff identisch sind. Dennoch kann nicht sichergestellt werden, dass die ermittelten Taxa dem Gesuchten entsprechen. Wir sind ständig dabei, die Relevanz der Suchergebnisse zu verbessern. In naher Zukunft sind z. B. Verbesserungen bei der Sortierung der Suchergebnisse zu erwarten.
+  given_the_vast_number: Angesichts der Vielzahl an wissenschaftlichen und Trivialnamen (fast 20 Millionen insgesamt) ist es eine schwierige Aufgabe, einem Nutzer genau die Art anzuzeigen, die er zu finden hofft. Es gibt beispielsweise im Englischen mehrere Vogel- und Fischarten mit Namen ''Robin'' sowie einen Wissenschaftler gleichen Namens, der etlichen Arten beschrieben hat. Es gibt daher der Parameter „exakt“, der nur diejenigen Ergebnisse zurückgibt, die mit dem Suchbegriff identisch sind. Dennoch kann nicht sichergestellt werden, dass die ermittelten Taxa dem Gesuchten entsprechen. Wir sind ständig dabei, die Relevanz der Suchergebnisse zu verbessern. In naher Zukunft sind z. B. Verbesserungen bei der Sortierung der Suchergebnisse zu erwarten.
   gives_access_to_a_single_hierarchy_indexed_by_eol: ermöglicht den Zugriff auf eine einzelne von EOL indizierte Hierarchie und seine internen Beziehungen
   global_access_tagline: Globaler Zugang zum Wissen über das Leben auf der Erde.
   global_navigation: Globale Navigation
@@ -1781,6 +1992,8 @@ de:
         source_url: URL zum ursprünglichen Datenobjekt
         toc_item: Unterkapitel
       eol_statistic: 
+        date_one: Datum
+        date_two: Datum
         download_all: Alle <small>(einschließlich der Aufzeichnungen aller Seiten)</small>
       google_analytics_partner_summaries: 
         page_views: Seitenaufrufe <small>(Anzahl der Besuche auf Seiten)</small>
@@ -1907,6 +2120,7 @@ de:
         create_text: Artikel hinzufügen
         update: Artikel speichern
       eol_statistic: 
+        change_date: Statistiken zu Tagen abrufen
         download_csv: Als CSV-Datei herunterladen
       filter_sort: Filtern und Sortieren
       harvest_event: 
@@ -1954,6 +2168,7 @@ de:
   here: hier
   hidden: Verborgen
   hidden_comment: versteckter Kommentar
+  hidden_for_colon: "Verborgen für:"
   hide: verbergen
   hierarchies_description: Bei der Enzyklopädie des Lebens (EOL) gibt es keine einzelne taxonomische Hierarchie auf deren Basis die Seiten erstellt werden. Tatsächlich indexiert EOL viele Hierarchien und vergleicht sie miteinander. Diese API listet die Metadaten, bspw. den Bereitsteller der Daten und die URL der Quelle, einer Hierarchie auf, wie auch alle Taxa, die die Basistaxa eines Taxonomiebaumes darstellen.
   hierarchies_entries_description: Bei der Enzyklopädie des Lebens (EOL) gibt es keine einzelne taxonomische Hierarchie auf deren Basis die Seiten erstellt werden. Tatsächlich indexiert EOL viele Hierarchien und vergleicht sie miteinander. Daher kann jede Seite der EOL einen Bezug zu mehreren Knotenpunkten unterschiedlicher Hierarchien aufweisen. Diese API ermöglicht die Anzeige einer einzelnen Hierarchie mitsamt ihren internen Verbindungen. Bitte lesen Sie die Dokumentation zur Seiten-API um zu erfahren, wie man auf andere Hierarchien zugreifen kann, die mit einer bestimmten Seite der EOL in Verbindung stehen. Das Feld „taxonConceptID“ enthält die Kennung der EOL-Seite, die in der Seiten-API genutzt werden kann.
@@ -1996,7 +2211,7 @@ de:
     one: Bilder werden absteigend nach deren Importdatum in EOL sortiert. Es befindet sich ein Bild in dieser Arbeitsliste.
     other: Bilder werden absteigend nach deren Importdatum in EOL sortiert. Es befinden sich %{count} Bilder in dieser Arbeitsliste.
   images_with_count: 
-    one: Ein Bild
+    one: "%{count} Bild"
     other: "%{count} Bilder"
   import_once: Einmal importieren
   in_collection: in der Sammlung
@@ -2011,7 +2226,7 @@ de:
   information_for_any_audience: Informationen für alle Nutzer
   information_intended_for_beginners: Informationen für Einsteiger
   information_intended_for_experts: Informationen für Experten
-  insufficient_privileges_to_add_common_names: Sie verfügen leider nicht über ausreichende Berechtigungen, um gebräuchliche Namen hinzufügen zu können.
+  insufficient_privileges_to_add_common_names: Sie verfügen leider nicht über ausreichende Berechtigungen, um Trivialnamen hinzufügen zu können.
   insufficient_privileges_to_curate_names: Sie verfügen leider nicht über ausreichende Berechtigungen Namen kuratieren zu können.
   internal_ip_address: interne IP-Adresse
   inverse_sort: Umgekehrte Sortierung
@@ -2051,7 +2266,7 @@ de:
   items_no_move_none_selected_warning: Da keine Objekte ausgewählt wurden, konnten auch keine verschoben werden. Um Objekte in eine andere Sammlung verschieben zu können, müssen Sie zunächst in der Liste der Objekte das Auswahlfeld neben den Objekten anklicken, die Sie verschieben möchten.
   items_no_remove_none_selected_warning: Da keine Objekte ausgewählt wurden, konnten auch keine entfernt werden. Um Objekte aus einer Sammlung entfernen zu können, müssen Sie zunächst in der Liste der Objekte das Auswahlfeld neben den Objekten anklicken, die Sie entfernen möchten.
   items_with_count_semi_colon: 
-    one: Ein Objekt;
+    one: "%{count} Objekt;"
     other: "%{count} Objekte;"
   iucn_red_list_status_advisory_information: Dieser Link führt zur Website der International Union for Conservation of Nature and Natural Resources (IUCN) auf der Sie weitere Informationen zur Roten Liste bedrohter Arten der IUCN finden können.
   join_community_button: Dieser Gemeinschaft beitreten
@@ -2062,6 +2277,7 @@ de:
   json_response: JSON-Antwort
   jsonp_by_adding_a_callback_parameter: … und JSNOP, indem Sie einen Parameter zum Rückruf hinzufügen
   just_pages_with_pictures_and_text: Nur Seiten mit Bildern und Texten
+  keep_split_entry_from_this_entry: Von diesem Eintrag getrennt vorhalten
   label: Bezeichnung
   language: "Sprache:"
   language_selector_advisory_information: Nachstehend folgt eine Liste der Sprachen, in denen die Inhalte der Website verfügbar sind. Um die aktuell genutzte Sprache zu ändern, wählen Sie bitte eine andere Sprache aus dieser Liste.
@@ -2127,6 +2343,7 @@ de:
   literature_references: Literaturquellen
   location: Standort
   location_colon: "Ort:"
+  location_created_colon: "Ort der Erstellung:"
   logging_database_colon: "Protokollierungsdatenbanken:"
   login: Anmelden
   login_header: Melden Sie sich mit Ihrem Konto bei <abbr title="Enzyklopädie des Lebens">EOL</abbr> an.
@@ -2147,7 +2364,7 @@ de:
   manage_your_profile: Verwalten Sie Ihr Profil
   managed_by: Verwaltet von
   managed_collections_with_count: 
-    one: Eine verwaltete Sammlung
+    one: "%{count} verwaltete Sammlung"
     other: "%{count} verwaltete Sammlungen"
   manager_endorse_collections_suggestion: Um eine Sammlung auf der Seite dieser Gemeinschaft präsentieren zu können, müssen Sie die zu präsentierende Sammlung den von dieser Gemeinschaft verwalteten Sammlungen hinzufügen.
   manager_parens: (Verwalter)
@@ -2191,12 +2408,15 @@ de:
       tweet_text: "%{member_name} Mitglied von %{community_name}"
   members_like_you: Mitglieder wie Sie
   members_with_count: 
-    one: Ein Mitglied
+    one: "%{count} Mitglied"
     other: "%{count} Mitglieder"
   members_with_count_semi_colon: 
-    one: Ein Mitglied;
+    one: "%{count} Mitglied;"
     other: "%{count} Mitglieder;"
   merge_concepts: Konzepte zusammenführen
+  merge_data: Klassifikationen zusammenführen
+  merge_data_ready: Sie sind nun entweder bereit die Daten der folgenden Klassifikationen mit dieser Seite zu einem Taxon zusammenzuführen oder sie zu einer gesonderten Seite abzutrennen. Bitte seien Sie sich <i>absolut</i> sicher, dass Sie alle Klassifikationen ausgewählt haben, die das Zieltaxon betreffen. Sofern Sie beispielsweise eine Motte von einer Seite zu einem Pilz entfernen, prüfen Sie unbedingt <i>alle</i> oben angezeigten Klassifikationen, um sicherzustellen, dass Sie alle zur (gleichen) Motte, ausgewählt haben.
+  merge_pending: Das Zusammenführen der Klassifikationen nimmt Zeit in Anspruch. Die Seiten mit den betroffenen Taxa werden nun für die Bearbeitung von Klassifikationen gesperrt, bis die Zusammenführung fertig durchgeführt wurde. Sie werden eine E-Mail mit der Information zur Fertigstellung der Zusammenführung erhalten. Zudem wird eine entsprechende Information im Neuigkeitenfeed der Seite angezeigt werden.
   message_colon: "Nachricht:"
   meta_description_colon: "Meta-Beschreibung:"
   meta_keywords_colon: "Meta-Keywords:"
@@ -2236,15 +2456,14 @@ de:
   more_children_with_count: 
     one: "%{count} mehr …"
     other: "%{count} mehr …"
-  more_information_on_the_various_licenses: Lizenzen. Besuchen Sie deren Website für weitere Informationen bezüglich der verschiedenen Lizenzen, die sie anbieten.
   more_siblings_with_count: 
-    one: Ein weiteres Geschwister ...
-    other: "%{count} weitere Geschwister ..."
+    one: "%{count} weiteres Geschwister …"
+    other: "%{count} weitere Geschwister …"
   most_active_members: Aktivste Mitglieder
   move: Verschieben
   move_down: Nach unten verschieben
   move_items_to_a_new_collection_with_count: 
-    one: Ein Objekt zu einer neuen Sammlung verschieben
+    one: "%{count} Objekt zu einer neuen Sammlung verschieben"
     other: "%{count} Objekte zu einer neuen Sammlung verschieben"
   move_to_bottom: an das Ende verschieben
   move_to_top: an den Anfang verschieben
@@ -2256,7 +2475,7 @@ de:
     one: Verschob alle Objekte aus %{name} in eine Sammlung.
     other: Verschob alle Objekte aus %{name} in %{count} Sammlungen.
   moved_items_from_collection_with_count_notice: 
-    one: Ein Objekt von %{name} verschoben.
+    one: "%{count} Objekt von %{name} verschoben."
     other: "%{count} Objekte von %{name} verschoben."
   must_be_associated_with_either_a_user_or_a_community: Muss entweder einem Nutzer oder einer Gemeinschaft zugeordnet sein.
   must_be_checked_in_to_show: "- muss selektiert sein, um es Nutzern anzuzeigen"
@@ -2265,7 +2484,7 @@ de:
   must_be_logged_in: Um diese Aktion ausführen zu können, muss man angemeldet sein.
   must_provide_search_term_error: Sie müssen einen Suchbegriff eingeben.
   my_activity: Meine Aktivitäten
-  my_info: Meine Informationen
+  my_info: Informationen zu mir
   name: Name
   name_colon: "Name:"
   name_not_in_select_an_alternate: Der Name befindet sich nicht in der Hierarchie %{hierarchy}. Wählen Sie eine andere Hierarchie aus der obigen Liste.
@@ -2275,11 +2494,11 @@ de:
   name_preferred_taxonomically_for_source_yes: Bevorzugt
   names: Namen
   names_children_column_header: Untergeordnete Namen
-  names_common_empty: Diesem Taxon wurden bislang noch keine gebräuchlichen Namen zugeordnet.
-  names_common_list_by_language_assistive_header: Nach Sprachen aufgelistete gebräuchliche Namen
+  names_common_empty: Diesem Taxon wurden bislang noch keine Trivialnamen zugeordnet.
+  names_common_list_by_language_assistive_header: Nach Sprachen aufgelistete Trivialnamen
   names_curation_column_header: Kuratierung
   names_et_al: "%{names}, et al."
-  names_explanation: Die Wissenschaftler versuchen einen einzigen „Baum des Lebens“ zu beschreiben, der die evolutionären Verbindungen zwischen den Lebewesen aufzeigt. Allerdings unterliegen diese evolutionären Verbindungen andauernd neu gewonnenen Erkenntnissen. Zudem sind unterschiedliche Auffassungen dazu vorhanden, wie Lebewesen gruppiert und benannt werden sollten. Die Enzyklopädie des Lebens (EOL) trägt diesen Unterschieden Rechnung, indem sie unterschiedliche wissenschaftliche Klassifikationen zulässt. Auch wurden einige Arten mehr als einmal benannt. Derartige Namensduplikate werden als Synonyme geführt. EOL unterstützt zudem gebräuchliche Namen, die nicht nur von Sprache zu Sprache, sondern auch von Region zu Region unterschiedlich sein können.
+  names_explanation: Die Wissenschaftler versuchen einen einzigen „Baum des Lebens“ zu beschreiben, der die evolutionären Verbindungen zwischen den Lebewesen aufzeigt. Allerdings unterliegen diese evolutionären Verbindungen andauernd neu gewonnenen Erkenntnissen. Zudem sind unterschiedliche Auffassungen dazu vorhanden, wie Lebewesen gruppiert und benannt werden sollten. Die Enzyklopädie des Lebens (EOL) trägt diesen Unterschieden Rechnung, indem sie unterschiedliche wissenschaftliche Klassifikationen zulässt. Auch wurden einige Arten mehr als einmal benannt. Derartige Namensduplikate werden als Synonyme geführt. EOL unterstützt zudem Trivialnamen, die nicht nur von Sprache zu Sprache, sondern auch von Region zu Region unterschiedlich sein können.
   names_filter: Namen
   names_name_column_header: Name
   names_parents_column_header: Übergeordnete Namen
@@ -2312,6 +2531,7 @@ de:
   next: Nächste
   no_active_members: Bislang gab es noch keine ausreichenden Aktivitäten.
   no_answer: Nein
+  no_classificaitons_selected: Es wurde keine Klassifikation ausgewählt. Es ist nichts zum Verschieben vorhanden.
   no_collections_apply: Zu keiner Sammlung, zu der Sie Zugang haben, können Verwalter hinzugefügt werden.
   no_comments_are_available_for_subject: Zu %{subject} gibt es keine Kommentare
   no_comments_have_been_left_yet: Bislang wurden noch keine Kommentare hinterlassen.
@@ -2394,6 +2614,9 @@ de:
     signature_basic: Das Team der Enzyklopädie des Lebens (EOL)
     signature_with_contact_us_link: "Sollten Sie irgendwelche Probleme bemerken, kontaktieren Sie uns bitte unter %{url}.\n\nDas Team der Enzyklopädie des Lebens (EOL)"
     signature_with_species_pages_group_contact: "Sofern Sie Fragen haben, kontaktieren Sie uns bitte unter der E-Mail-Adresse %{species_pages_group_email}.\n\nDas Team der Enzyklopädie des Lebens (EOL)"
+    unsubscribed_to_notifications: 
+      message: "Sie haben erfolgreich die Benachrichtigungen von der Enzyklopädie des Lebens (EOL) abbestellt. Sie können Ihre E-Mail-Einstellungen ändern oder Benachrichtigungen in <a href='%{email_prefs_url}'>Ihren Benachrichtigungseinstellungen</a> abonnieren.\n\nUm mehr über die Verwendung von EOL zu erfahren, einschließlich der Erstellung von EOL-Sammlungen, der Teilnahme an EOL-Gemeinschaften und dem Beitragen von Inhalt, besuchen Sie bitte unsere Hilfeseiten unter http://eol.org/help."
+      subject: Schade, dass Sie gehen …
     user_activated: 
       message: "Willkommen bei der Enzyklopädie des Lebens (EOL) und viele Dank für Ihre Anmeldung. Bitte merken Sie sich Ihren Nutzernamen %{username}. Die URL Ihres Profils bei der EOL lautet %{profile_url}. Mit Ihrem Konto können Sie sich unter der URL http://www.eol.org/login anmelden.\n\nWeitere Informationen zur Nutzung der EOL, einschließlich der Anleitung, wie sie eine Sammlung erstellen, wie Sie in Nutzergemeinschaften mitwirken oder zu den Inhalten beitragen können, finden Sie auf unseren Hilfeseiten unter der URL http://www.eol.org/help."
       subject: Ihr Konto bei der Enzyklopädie des Lebens (EOL) wurde aktiviert
@@ -2424,6 +2647,7 @@ de:
   number_of_unreviewed_images_at_this_entry: Anzahl der ungeprüften Bilder in diesem Eintrag
   number_of_unreviewed_text_objects_at_this_entry: Anzahl der ungeprüften Textobjekte in diesem Eintrag
   object: Objekt
+  object_curated: Kuratierte Objekte.
   object_curation: Kuratierung des Objekts
   object_status: Objektstatus
   object_status_all_option: Alle
@@ -2460,20 +2684,20 @@ de:
   original: "ORIGINAL:"
   original_object: Originalobjekt
   other_collection_items_with_count: 
-    one: Ein weiteres Objekt
+    one: "%{count} weiteres Objekt"
     other: "%{count} weitere Objekte"
   other_community_items_with_count: 
-    one: Ein weiteres Objekt
+    one: "%{count} weiteres Objekt"
     other: "%{count} weitere Objekte"
   other_taxa_with_count: 
-    one: Ein weiteres Taxon
+    one: "%{count} weiteres Taxon"
     other: "%{count} weitere Taxa"
   other_us_dollars_amount: "Anderer: USD"
   outlink: Externer Link
   overview: Übersicht
   page: Seite
   page_linked_to: Seite verlinkt zu
-  page_method_description: Diese Methode gibt für eine EOL-Seitenkennung den wissenschaftlichen Namen auf der Seite aus. Optional werden die Informationen zu gebräuchlichen Namen, Medien (Texte, Bilder und Videos) sowie die Quellen zu den Hierarchien ausgegeben, die das auf der Seite beschriebenen Taxon enthalten.
+  page_method_description: Diese Methode gibt für eine EOL-Seitenkennung den wissenschaftlichen Namen auf der Seite aus. Optional werden die Informationen zu Trivialnamen, Medien (Texte, Bilder und Videos) sowie die Quellen zu den Hierarchien ausgegeben, die das auf der Seite beschriebenen Taxon enthalten.
   page_name: Seitenname
   page_navigation: Seitennavigation
   page_not_found: Die Seite wurde nicht gefunden.
@@ -2486,7 +2710,7 @@ de:
   page_views_th: Seitenaufrufe
   pages_admin_section_link: Administratoren
   pages_curator_section_link: Kuratoren
-  pages_method_description: nimmt eine EOL-Seitenkennung auf und gibt den wissenschaftlichen Namen auf der Seite aus. Optional werden die Informationen zu gebräuchlichen Namen, Medien (Texte, Bilder und Videos) sowie die Quellen zu den Hierarchien ausgegeben, die das der Seite beschriebenen Taxon enthalten.
+  pages_method_description: nimmt eine EOL-Seitenkennung auf und gibt den wissenschaftlichen Namen auf der Seite aus. Optional werden die Informationen zu Trivialnamen, Medien (Texte, Bilder und Videos) sowie die Quellen zu den Hierarchien ausgegeben, die das der Seite beschriebenen Taxon enthalten.
   pages_title: Quellen
   pages_with_count: 
     one: "%{count}}"
@@ -2506,12 +2730,13 @@ de:
   partner: Partner
   partner_information: Partnerinformationen
   partner_page: Seite zum Inhaltspartner
+  partner_web_site_colon: "Website des Partners:"
   partnering_steps: SCHRITTE ZUR PARTNERSCHAFT
   password_colon: "Passwort:"
   password_must_be_4to16_characters: Das Passwort muss zwischen vier und sechzehn Zeichen lang sein.
   pause: anhalten
   people_with_count: 
-    one: Eine Person
+    one: "%{count} Person"
     other: "%{count} Personen"
   percentage_of_children_with_images: Prozentsatz Untergeordneter mit Bildern
   percentage_of_children_with_text: Prozentsatz Untergeordneter mit Text
@@ -2596,7 +2821,7 @@ de:
       one: Es gab eine Aktualisierung zu %{to}.
       other: Es gab %{count} Aktualisierunen zu %{to}.
     bulk_community_joins_with_count: 
-      one: Ein neues Mitglied trat %{community} bei.
+      one: "%{count} neues Mitglied trat %{community} bei."
       other: "%{count} neue Mitglieder traten %{community} bei."
     bulk_curation_with_count: 
       one: Kuratoren haben eine Verbesserung an %{to} durchgeführt.
@@ -2614,6 +2839,7 @@ de:
     community_activity_user_joined: Der Nutzer <b>%{user_name}</b> trat der Gemeinschaft <b>%{community_name}</b> bei.
     community_activity_user_left: Der Nutzer <b>%{user_name}</b> verließ die Gemeinschaft <b>%{community_name}</b>.
     community_activity_user_made_member_a_manager: Der Nutzer <b>%{user_name}</b> machte <b>%{member_name}</b> zum Verwalter der Gemeinschaft <b>%{community_name}</b>.
+    contact_us_link: Sofern Sie Probleme entdeckt haben, <a href='http://eol.org/contact_us' style='color:#195184'>kontaktieren Sie uns</a> bitte.
     curator_activity_log_title: "%{who} hat etwas kuratiert"
     curator_activity_on_data_object_by_user: Die Aktion %{activity_name} wurde von Nutzer <b>%{user_name}</b> an <b>%{dato_title}</b> (%{dato_type} Nr. %{dato_id}) durchgeführt.
     curator_activity_on_taxon_concept_by_user: Die Aktion %{activity_name} wurde von Nutzer <b>%{user_name}</b> an <b>%{taxon_concept}</b> (%{taxon_overview_url}) durchgeführt.
@@ -2626,7 +2852,7 @@ de:
     reply_to_comment_body_brief: "%{reply_to_author} %{body} - %{author}"
     see_all_activity: Alle bisherigen Aktivitäten auf <a href='%{activity_url}' style='color:#195184'>der Seite mit Ihrem Neuigkeitenfeed</a>.
     someone_commented_on_something: <b>%{who}</b> hat <b>%{what}</b> kommentiert.
-    unsubscribe: Ändern Sie bitte Ihre E-Mail-Einstellungen oder beenden Sie Ihr Abonnement der Benachrichtigungen <a href='%{email_prefs_url}'>auf der Seite mit den Benachrichtigungseinstellungen</a>.
+    unsubscribe: Melden Sie sich an und ändern Sie Ihre E-Mail-Einstellungen auf <a href='%{email_prefs_url}' style='color:#195184'>Ihrer Benachrichtigungsseite</a> oder <a href='%{unsubscribe_url}' style='color:#195184'>bestellen Sie alle automatischen EOL-Benachrichtigungen ab ohne sich anzumelden</a>.
   recent_updates: Letzte Aktualisierungen
   recently_visited: Kürzlich besucht
   recipients: Empfänger
@@ -2636,14 +2862,14 @@ de:
   record_not_found: "[Datensatz wurde nicht gefunden]"
   references_cabs_colon: "Quellennachweise:"
   related_names_with_count: 
-    one: Ein ähnlicher Name
+    one: "%{count} ähnlicher Name"
     other: "%{count} ähnliche Namen"
   remove: Entfernen
   remove_curatorship_colon: "Kuratierung entfernen:"
   remove_data_object_association: Zuordnung entfernen
   remove_membership: Gemeinschaftszugehörigkeit beenden
   removed_count_items_from_collection_notice: 
-    one: Ein Objekt wurde aus dieser Sammlung entfernt.
+    one: "%{count} Objekt wurde aus dieser Sammlung entfernt."
     other: "%{count} Objekte wurden aus dieser Sammlung entfernt."
   reply: Antworten
   request: Anfrage
@@ -2660,9 +2886,9 @@ de:
   results_offset: Ergebnisse von %{from} bis %{to} von insgesamt %{total} für <em>%{for}</em>
   results_per_page: "Ergebnisse pro Seite:"
   return: ausgeben
-  return_all_common_names_for_this_taxon: Alle gebräuchlichen Namen dieses Taxons ausgeben
+  return_all_common_names_for_this_taxon: Alle Trivialnamen dieses Taxons ausgeben
   return_all_synonyms_for_this_taxon: Alle Synonyme dieses Taxons ausgeben
-  return_common_names_for_the_page_taxon: Alle gebräuchlichen Namen für das Taxon auf dieser Seite ausgeben
+  return_common_names_for_the_page_taxon: Alle Trivialnamen für das Taxon auf dieser Seite ausgeben
   return_content_by_vettedness: sofern geprüft = 1 werden nur vertrauenswürdige Inhalte ausgegeben. Sofern geprüft = 2 werden nur vertrauenswürdige und nicht geprüfte Inhalte ausgeben. Nicht vertrauenswürdige Inhalte werden dabei nicht ausgegeben. Die Standardeinstellung gibt alle Inhalte ungeachtet des Status aus.
   returns_all_metadata_about_a_particular_collection: gibt alle Metadaten zu einer bestimmten Sammlung sowie den in ihr enthaltenen und von EOL indexierten Elemente zurück
   returns_all_metadata_about_a_particular_data_object: gibt alle Metadaten eines bestimmten, bei EOL indizierten, Datenobjekts (Text, Bild oder Video) zurück
@@ -2670,7 +2896,7 @@ de:
   revisions: Versionen
   revoke_full_curator_link: Widerrufen
   revoke_manager_link: Verwalterrechte widerrufen
-  richness_score: Reichtumswert
+  richness_score: Reichhaltigkeitswert
   rights: Berechtigungen
   rights_holder: Rechteinhaber
   rights_statement: Urheberrechtserklärung
@@ -2686,7 +2912,7 @@ de:
   search_by_term_page_title: "Suche: %{term}"
   search_field_common_name: Gebräuchlicher Name
   search_field_label: EOL durchsuchen
-  search_field_preferred_common_name: Bevorzugter gebräuchlicher Name
+  search_field_preferred_common_name: Bevorzugter Trivialname
   search_field_preferred_scientific: Bevorzugter wissenschaftlicher Name
   search_field_surrogate: Surrogat
   search_field_synonym: Synonym
@@ -2764,7 +2990,7 @@ de:
       problems_signing_in_with_connected_accounts: Probleme beim Anmelden mit den verbundenen Nutzerkonten?
       problems_signing_in_with_eol_authentication: Passwort vergessen?
       tip: Bereits Nutzer? Verknüpfen Sie Ihr Konto bei der EOL mit Facebook, Google und anderen Diensten in Ihren Profileinstellungen. Sobald Ihre Konten verknüpft sind, können Sie sie dazu nutzen sich bei der EOL anzumelden.
-  set_as_exemplar: Als Beispiel festlegen
+  set_as_exemplar: Als beispielhaft festlegen
   share_a_collection: Eine Sammlung mit anderen teilen
   show: Zeige
   show_all_other_classifications_with_count: 
@@ -2773,6 +2999,7 @@ de:
   show_data_from_all_content_partners: Klassifikationenfilter entfernen
   show_email_message_area: "[Textbereich der E-Mail anzeigen]"
   show_full_tree: Die gesamte Gliederung anzeigen …
+  show_in_overview: in der Übersicht anzeigen
   show_status_message: Statusmeldung anzeigen
   show_tasks: Aufgaben anzeigen
   show_warning_message: Warnmeldung anzeigen
@@ -2826,7 +3053,7 @@ de:
   sound_of_taxon: Audiodatei zu %{taxon_name}
   sound_rating: Geräuschbewertung
   sounds_with_count: 
-    one: Eine Tonaufnahme
+    one: "%{count} Tonaufnahme"
     other: "%{count} Tonaufnahmen"
   source_and_additional_information: Quelle und weitere Informationen
   source_colon: "Quelle:"
@@ -2839,13 +3066,18 @@ de:
   species_profile_model: Artenbeschreibungsmodell (SPM)
   species_profile_model_cp_count_title: Artenprofilmodell - Inhaltspartnerzählung
   species_profile_model_dato_count_title: Artenprofilmodell - Datenobjektzählung
-  split_into_new_concept: in ein neues Konzept aufteilen
+  split_cancelled: Das Aufteilen wurde abgebrochen.
+  split_classification_instructions: Um den Hierarchieeintrag von dieser EOL-Seite zu entfernen, müssen Sie zunächst den Hierarchieeintrag auswählen, der am besten darstellt, was sich auf der Seite befinden SOLLTE. So werden zukünftige Datenabrufe die beiden Hierarchieeinträge voneinander getrennt halten.
+  split_into_new_concept: auf eine neue Seite aufteilen
+  split_only_possible_with_all_classifications: Obwohl Sie die Berechtigung zum Aufteilen von Klassifikationen besitzen, müssen Sie sich zunächst <a href='%{link}'>alle Klassifikationen anzeigen lassen</a>, bevor Sie diese Aktion durchführen können.
+  split_pending: Das Aufteilen der Klassifikationen nimmt Zeit in Anspruch. Diese Seite wird nun für die Bearbeitung von Klassifikationen gesperrt, bis die Aufteilung fertig durchgeführt wurde. Sie werden eine E-Mail mit der Information zur Fertigstellung des Aufteilens erhalten. Zudem wird eine entsprechende Information im Neuigkeitenfeed der Seite angezeigt werden.
   spm_category: SPM-Kategorie
   spm_category_objects_count: SPM-Kategorie - Objektanzahl
   spm_category_partner_count: SPM-Kategorie - Inhaltspartneranzahl
   started: Gestartet
   stat: Statistik
-  statistics: Statistiken
+  stats: Statistiken
+  stored_classifications: Bitte beachten Sie, dass Sie <a href='%{anchor}'>unten Klassifikationen gespeichert haben</a>.
   sub_heading: Untergeordnete Überschrift
   subject: Betreff
   submit: Speichern
@@ -2859,7 +3091,7 @@ de:
   switch_language_advisory_information: Sprache der Website zu %{language_label} umschalten
   synonym: Synonym
   synonyms_with_count: 
-    one: Ein Synonym
+    one: "%{count} Synonym"
     other: "%{count} Synonyme"
   table_column_header_actions: Aktionen
   table_of_contents: Inhaltsverzeichnis
@@ -2872,7 +3104,7 @@ de:
   task_status_curated_option: Kuratiert
   task_status_ignored_option: Ignoriert
   tasks_with_count: 
-    one: Eine Aufgabe gefunden
+    one: "%{count} Aufgabe gefunden"
     other: "%{count} Aufgaben gefunden"
   taxa: 
     communities: 
@@ -3007,9 +3239,9 @@ de:
           meta_title: Umgangssprachlichen Namen zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}
           meta_title_with_common_name: Umgangssprachliche Namen zu %{preferred_common_name} (%{scientific_name}), entsprechend der Klassifizierung durch %{hierarchy_provider}.
           tweet_text: Gebräuchliche Namen zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
-        meta_description: Gebräuchliche Namen für %{scientific_name}.
-        meta_description_with_common_name: Der wissenschaftliche Name für %{preferred_common_name} lautet %{scientific_name}. Finden Sie heraus, welche anderen gebräuchlichen Namen es für %{scientific_name} gibt.
-        meta_keywords: Gebräuchliche Namen für %{scientific_name}
+        meta_description: Trivialnamen zu %{scientific_name}.
+        meta_description_with_common_name: Der wissenschaftliche Name für %{preferred_common_name} lautet %{scientific_name}. Finden Sie heraus, welche anderen Trivialnamen es für %{scientific_name} gibt.
+        meta_keywords: Trivialnamen zu %{scientific_name}
         meta_keywords_with_common_name: Gebräuchliche Namen für %{scientific_name}, Wissenschaftliche Namen für %{preferred_common_name}
         meta_title: Gebräuchliche Namen für %{scientific_name}
         meta_title_with_common_name: Gebräuchliche Namen für %{preferred_common_name} (%{scientific_name})
@@ -3127,7 +3359,7 @@ de:
         tweet_text: Reichhaltigkeitswert für %{scientific_name}
   taxa_column_header: Taxa
   taxa_with_count: 
-    one: Ein Taxon
+    one: "%{count} Taxon"
     other: "%{count} Taxa"
   taxon: Taxon
   taxon_biomedical_terms_link: Biomedizinsiche Begriffe
@@ -3176,7 +3408,7 @@ de:
   text_summary_empty_header: Kurzzusammenfassung
   text_summary_more_link: Den vollständige Eintrag lesen
   text_with_count: 
-    one: Ein Artikel
+    one: "%{count} Artikel"
     other: "%{count} Artikel"
   thank_you: Vielen Dank
   thank_you_for_your_generous_support: Vielen Dank für Ihre großzügige Unterstützung
@@ -3221,7 +3453,7 @@ de:
   this_community_has_no_endorsed_collections: Diese Gemeinschaft hat bislang noch keine Sammlungen präsentiert.
   this_community_has_no_focus_list: Diese Gemeinschaft verfügt über keine Liste an Schwerpunkten.
   this_community_was_deleted: Diese Gemeinschaft wurde von ihrem Besitzer gelöscht.
-  this_does_not_necessarily_mean: "* Dies bedeutet nicht notwendigerweise, dass alle Verbindungen verwendet werden, sondern lediglich, dass sie in der Datei \"database.yml\" definiert werden. Ob die Hauptverbindungen konfiguriert worden sind, steht in der Datei \"config/environments/%{env}.rb\"."
+  this_does_not_necessarily_mean: "* Dies bedeutet nicht notwendigerweise, dass alle Verbindungen verwendet werden, sondern lediglich, dass sie in der Datei „database.yml“ definiert werden. Ob die Hauptverbindungen konfiguriert worden sind, steht in der Datei „config/environments/%{env}.rb“."
   this_image_cannot_be_curated_because_unpublished: Dieses Bild kann nicht kuratiert werden, da er unveröffentlicht ist.
   this_image_is_unpublished: Dieses Bild ist unveröffentlicht.
   this_image_map_cannot_be_curated_because_unpublished: Diese Karte kann nicht kuratiert werden, da er unveröffentlicht ist.
@@ -3259,7 +3491,7 @@ de:
   topics_avilable_to_contact_us_info: Die folgenden Themengebiete sind über die Kontaktseite verfügbar. Sie können Themengebiete, sowie die entsprechenden E-Mail-Adressen, hinzufügen oder bearbeiten. Alle Änderungen werden sofort wirksam.
   total: Insgesamt
   total_comments_have_been_submitted: 
-    one: Ein Kommentar wurde in %{string} abgegeben
+    one: "%{count} Kommentar wurde in %{string} abgegeben"
     other: "%{count} Kommentart wruden in %{string} abgegeben"
   total_distinct_searches: "Gesamtzahl unterschiedlicher Suchen:"
   total_items_with_count: 
@@ -3276,6 +3508,7 @@ de:
   truncated_comment_omission: … <a href='%{link}'>mehr</a>
   truncated_comment_omission_linkless: …
   trusted: Vertrauenswürdig
+  trusted_for_colon: "Vertrauenswürdig für:"
   trusted_images: Vertrauenswürdige Bilder
   trusted_maps: Vertrauenswürdige Karten
   trusted_text_objects: Vertrauenswürdige Artikel
@@ -3290,10 +3523,12 @@ de:
   unknown_type_not_associated_with_any_published_entries: Diese Daten sind keinen veröffentlichten Taxa zugeordnet.
   unpublished: Unveröffentlicht
   unreviewed: Nicht geprüft
+  unreviewed_for_colon: "Ungeprüft für:"
   unreviewed_images: Ungeprüfte Bilder
   unreviewed_maps: Ungeprüfte Karten
   unreviewed_text_objects: Ungeprüfte Artikel
   untrusted: Nicht vertrauenswürdig
+  untrusted_for_colon: "Nicht vertrauenswürdig für:"
   update: Aktualisieren
   update_collection_submit_button: Informationen zur Sammlung aktualisieren
   update_language: Sprache aktualisieren
@@ -3316,6 +3551,8 @@ de:
   us_dollars_100: 100 USD
   us_dollars_35: 35 USD
   us_dollars_50: 50 USD
+  use_as_examplar_button: als beispielhaft verwenden
+  use_as_examplar_note_preferred: "Hinweis: Diese Klassifikation ist eine bevorzugte. Wahrscheinlich möchte Sie sie verwenden."
   used_for_friendly_url_note: (wird verwendet, um nutzerfreundliche Links zu erzeugen; darf weder Leer- noch Sonderzeichen enthalten)
   used_for_urls_note: wird für URLs verwendet - sollte eindeutig sein (übersetzte Seiten ausgenommen); anderenfalls müssen URLs die Seitenkennung enthalten
   user: Nutzer
@@ -3326,44 +3563,47 @@ de:
   user_activity_page_title: Nutzeraktivität
   user_activity_report_intro: Aktivitätenbericht zu Nutzern. Wählen Sie einen einzelnen Nutzer aus, um dessen Aktivitäten einzusehen, die in umgekehrter zeitlicher Reihenfolge sortiert angezeigt werden. Wählen Sie „Alle“, um alle Aktivitäten des Nutzers angezeigt zu bekommen. Klicken Sie danach auf „Suchen“, um fortzufahren. Sie können die Schaltfläche „Zurück“ Ihres Browsers nutzen, um an diese Stellen zurückzukehren.
   user_activity_stats_articles_added: 
-    one: Ein hinzugefügter Artikel
+    one: "%{count} hinzugefügter Artikel"
     other: "%{count} hinzugefügte Artikel"
   user_activity_stats_articles_added_dropdown: Hinzugefügte Artikel
   user_activity_stats_comment_submitted: 
-    one: Ein hinterlassener Kommentar
+    one: "%{count} hinterlassener Kommentar"
     other: "%{count} hinterlassene Kommentare"
   user_activity_stats_common_names_added: 
-    one: Einen gebräuchlichen Namen hinzugefügt
-    other: "%{count} gebräuchliche Namen hinzugefügt"
+    one: "%{count} Trivialnamen hinzugefügt"
+    other: "%{count} Trivialnamen hinzugefügt"
   user_activity_stats_common_names_curated: 
-    one: Einen gebräuchlichen Namen kuratiert
-    other: "%{count} gebräuchliche Namen kuratiert"
+    one: "%{count} Trivialnamen kuratiert"
+    other: "%{count} Trivialnamen kuratiert"
   user_activity_stats_common_names_removed: 
-    one: Einen gebräuchlichen Namen entfernt
-    other: "%{count} gebräuchliche Namen entfernt"
-  user_activity_stats_header: Aktivität
+    one: "%{count} Trivialnamen entfernt"
+    other: "%{count} Trivialnamen entfernt"
+  user_activity_stats_header: Meine Aktivitäten
   user_activity_stats_objects_curated: 
-    one: Ein Objekt kuratiert
+    one: "%{count} Objekt kuratiert"
     other: "%{count} Objekt kuratiert"
   user_activity_stats_objects_curated_dropdown: Kuratierte Objekte
   user_activity_stats_preferred_classifications_selected: 
-    one: Eine bevorzugte Klassifizierung ausgewählt
+    one: "%{count} bevorzugte Klassifizierung ausgewählt"
     other: "%{count} bevorzugte Klassifizierungen ausgewählt"
+  user_activity_stats_selected_articles_for_overview: 
+    one: "%{count} Artikel wurde für die Übersicht ausgewählt"
+    other: "%{count} Artikel wurden für die Übersicht ausgewählt"
   user_activity_stats_set_exemplar: 
-    one: Ein Bild als exemplarisch festgelegt
+    one: "%{count} Bild als exemplarisch festgelegt"
     other: "%{count} Bilder als exemplarisch festgelegt"
   user_activity_stats_taxa_commented: 
-    one: Ein Taxon kommentiert
+    one: "%{count} Taxon kommentiert"
     other: "%{count} Taxa kommentiert"
   user_activity_stats_taxa_comments: 
-    one: Einen Kommentar zu Taxa
+    one: "%{count} Kommentar zu Taxa"
     other: "%{count} Kommentare zu Taxa"
   user_activity_stats_taxa_comments_dropdown: Kommentare zu Taxa
   user_activity_stats_taxa_curated: 
-    one: Ein Taxon kuratiert
+    one: "%{count} Taxon kuratiert"
     other: "%{count} Taxa kuratiert"
   user_activity_stats_wikipedia_nominated: 
-    one: Einen Wikipedia-Artikel nominiert
+    one: "%{count} Wikipedia-Artikel nominiert"
     other: "%{count} Wikipedia-Artikel nominiert"
   user_agent: Browser
   user_already_active_notice: Ihr Konto ist bereits aktiv. Bitte melden Sie sich an.
@@ -3372,6 +3612,7 @@ de:
   user_commented_on_older_data_object_colon: "<strong>%{user}</strong> kommentierte %{what}:"
   user_commented_on_something_colon: "<strong>%{user}</strong> kommentierte %{what}:"
   user_commented_on_themself: "<strong>%{user_with_link}</strong> kommentierte <a href='%{link}'>%{username}s Neuigkeitenfeed</a>:"
+  user_commented_on_your_image: "<strong>%{user}</strong> kommentierte Ihr Bild auf der <a href='%{data_object_link}'>Website der Enzyklopädie des Lebens</a>:\n%{comment_body}"
   user_comments: Nutzerkommentare
   user_full_name_with_curator: "%{user} (%{curator_level})"
   user_id: Nutzerkennung
@@ -3384,14 +3625,14 @@ de:
   user_pending_notifications_assitive: <span class="assistive">Benachrichtigungen</span>
   user_pending_notifications_comments_assistive: <span class="assistive">Kommentare</span>
   user_pending_notifications_comments_with_count_assistive: 
-    one: Ein <span class="assistive">Kommentar</span>
+    one: "%{count} <span class=\"assistive\">Kommentar</span>"
     other: "%{count}<span class=\"assistive\">Kommentare</span>"
   user_pending_notifications_with_count_assitive: 
-    one: Eine <span class="assistive">Benachrichtigung</span>
-    other: "%{count}<span class=\"assistive\">Benachrichtigungen</span>"
+    one: "%{count} <span class=\"assistive\">Benachrichtigung</span>"
+    other: "%{count} <span class=\"assistive\">Benachrichtigungen</span>"
   user_response: Nutzerantwort
   user_says_colon: "%{users_name} sagt:"
-  user_submitted_text: Von Nutzern verfasster Text
+  user_submitted_text: Von Nutzern verfasste Texte
   user_submitted_text_found: "Gefundener, von Nutzern verfasster, Text:"
   user_system_down: Das Nutzerregistrierungssystem ist momentan nicht verfügbar. Bitte versuchen Sie es später erneut.
   user_was_added_as_editor_of_collection: Dieser Nutzer wurde der Sammlung „%{collection}“ als Verwalter zugeordnet.
@@ -3453,6 +3694,9 @@ de:
       edit: 
         page_description: Auf alle unten aufgelisteten Neuigkeiten werden Sie, mit Ausnahme des EOL-Newsletters, über Ihren <a href="%{user_newsfeed_link}">EOL-Neuigkeitenfeed</a> aufmerksam gemacht. Viele Nutzer möchten zusätzlich über bestimmte Aktivitäten, die sie besonders interessieren, per E-Mail benachrichtigt werden. Sie können die Schaltflächen unten dazu nutzen, die Häufigkeit der E-Mails, die Sie von der EOL erhalten möchten, auf Ihre Bedürfnisse abgestimmt, einstellen.
         page_title: Benachrichtigungseinstellungen
+      update: 
+        notification_settings_successfully_updated: Die Benachrichtigungseinstellungen wurden erfolgreich aktualisiert.
+        sorry_notification_settings_could_not_be_updated: Die Benachrichtigungseinstellungen konnten leider nicht aktualisiert werden.
     open_authentications: 
       errors: 
         facebook: 
@@ -3535,7 +3779,7 @@ de:
       form_tip: Um Ihr Konto bei der EOL bergen zu können, geben Sie bitte die zu Ihrem Konto hinterlegte E-Mail-Adresse an. Bitte überprüfen Sie den Spamordner Ihres E-Mail-Kontos, sofern Sie diese E-Mail nicht innerhalb der nächsten Stunde erhalten.
       meta_title: Konto bergen
       notices: 
-        recovery_email_sent: Die E-Mail-Nachricht mit der Anleitung zum Bergen Ihres Kontos bei der EOL wurde versandt. Bitte überprüfen Sie den Spamordner Ihres E-Mail-Kontos, sofern Sie diese E-Mail nicht innerhalb der nächsten Stunde erhalten.
+        recovery_email_sent: Die E-Mail mit der Anleitung zum Wiederherstellen Ihres Kontos wurde versandt. Bitte fügen Sie %{from_address} Ihrer Liste sicherer Absender hinzu und überprüfen Sie Ihren Spamordner, sofern Sie diese E-Mail nicht innerhalb einer Stunde erhalten.
         temporarily_logged_in_update_authentication_details: Sie sind vorübergehend angemeldet, um die Kontobergung zu ermöglichen. Bitte ändern Sie Ihr Passwort oder verknüpfen Sie Drittanbieterkonten, um sicherzustellen, dass Sie sich zukünftig erfolgreich anmelden können.
     recover_account_choose_account: 
       errors: 
@@ -3548,21 +3792,25 @@ de:
       meta_description_curator: Mitgliedsprofil von %{curator_level} %{user_full_name} auf der Enzyklopädie des Lebens (EOL).
       meta_title: "%{user_full_name}"
       tweet_text: "%{user_full_name}"
+    unsubscribe_notifications: 
+      already_unsubscribed: Sie haben die Benachrichtigungen bereits abbestellt.
+      unsubscribe_notifications_failed: Es ist leider ist ein Fehler aufgetreten. Der Nutzer konnte die Benachrichtigungen nicht abbestellen.
+      unsubscribed_notifications_successfully: Sie haben die Benachrichtigungen erfolgreich abbestellt.
   users_about_me_header: Über mich
   users_content_partners_header: Inhaltspartner
   users_content_partners_information: Inhaltspartner von EOL sind Einzelpersonen oder Organisationen, die ihre Daten zur Biodiversität weltweit mit Hilfe von EOL zugänglich machen. Erfahren Sie mehr zu <a href="%{more_url}">Inhaltspartnern von EOL</a>.
   users_content_partners_with_count: 
-    one: Ein aktueller Inhaltspartner
+    one: "%{count} aktueller Inhaltspartner"
     other: "%{count} aktuelle Inhaltspartner"
-  users_curation_header: Qualifikationen von Kuratoren
+  users_curation_header: Meine Qualifikationen als Kurator
   users_form_account_header: Ihr Konto
-  users_form_curation_header: Qualifikationen von Kuratoren
+  users_form_curation_header: Meine Qualifikationen als Kurator
   users_form_profile_info_header: Öffentliche Profilinformationen
   users_form_tip: Ein Nutzername wird von allen Nutzern benötigt. Weitere, als erforderlich %{required_icon} gekennzeichnete Angaben sind optional für Nutzer, aber verpflichtend für Kuratoren.
   users_member_of_count_communities: 
     one: Mitglied einer Gemeinschaft
     other: Mitglied von %{count} Gemeinschaften
-  users_my_info_header: Meine Informationen
+  users_my_info_header: Informationen zu mir
   users_that_can_edit_this_collection: Nutzer, die diese Sammlung verwalten können
   using_the_site: Nutzung der Website
   validation_error: Überprüfungsfehler
@@ -3582,7 +3830,7 @@ de:
   video_rating: Videobewertung
   video_title_not_available_in_language: Der Titel ist nicht auf %{language} vorhanden.
   videos_with_count: 
-    one: Ein Video
+    one: "%{count} Video"
     other: "%{count} Videos"
   view_added_text: hinzugefügten Text anzeigen
   view_article_source: Artikelquelltext anzeigen
@@ -3602,7 +3850,7 @@ de:
   view_map_source: Quelle der Karte anzeigen
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Nur Seiten mit mindestens einem Bild oder Text anzeigen.
   view_sound_source: Quelle der Audiodatei anzeigen
-  view_source: Quelltext anzeigen
+  view_source: Quelle anzeigen
   view_this_hierarchy: diese Hierarchie ansehen
   view_translation_source_link: Übersetzungsquelltext anzeigen
   view_user_activity: Nutzeraktivität anzeigen

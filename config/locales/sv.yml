@@ -1,6 +1,7 @@
 # Messages for Swedish (svenska)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
+# Author: Liftarn
 # Author: Lokal Profil
 # Author: Per
 # Author: WikiPhoenix
@@ -139,6 +140,7 @@ sv:
         reply_to_comment: Ett svar på en kommentar som du gjort
       open_authentication: 
         created_at: Skapades
+        guid: GUID
         provider: Tredjepartsleverantör
         secret: Hemlighet
         updated_at: Senaste uppdaterad
@@ -328,10 +330,6 @@ sv:
   admin_user_delete_successful_notice: Användare har raderats
   admin_user_hide_successful_notice: Användare har dolts
   admin_user_unhide_successful_notice: Användare har tagits fram
-  admins: 
-    statistics: 
-      content_partner_link: Innehållspartners
-      page_richness_link: Innehållsrika sidor
   all: alla
   all_articles: Alla artiklar
   all_changes: Alla ändringar
@@ -1627,7 +1625,6 @@ sv:
   source_information_header: Källinformation
   source_url: Käll-URL
   special_collections_cannot_be_destroyed: Denna samling är speciell och inte kan förstöras.
-  statistics: Statistiker
   subject: ämne
   submit: Skicka
   supplier: Leverantör
@@ -1650,7 +1647,15 @@ sv:
   taxa: 
     communities: 
       collections: 
+        hierarchy_entry: 
+          meta_description: Samlingar som innehåller %{scientific_name} som är klassificerad av %{hierarchy_provider}.
+          meta_description_with_common_name: Samlingar som innehåller %{preferred_common_name} (%{scientific_name} som är klassificerad av %{hierarchy_provider}).
         meta_title: Samlingar av %{scientific_name}
+        tweet_text: Samlingar av %{scientific_name}
+      index: 
+        hierarchy_entry: 
+          meta_description: Dela information och expertis på %{scientific_name} som är klassificerad av %{hierarchy_provider}.
+          meta_description_with_common_name: Dela information och expertis på %{preferred_common_name} (%{scientific_name}) som är klassificerad av %{hierarchy_provider}.
     details: 
       index: 
         meta_description: Information om %{scientific_name} i Encyclopedia of Life
@@ -1667,16 +1672,23 @@ sv:
         tweet_text: Kartor för %{scientific_name}
     media: 
       index: 
+        hierarchy_entry: 
+          tweet_text: Media av %{scientific_name} som är klassificerad av %{hierarchy_provider}
         meta_description: Bilder, videor och ljud om %{scientific_name}. Hitta bilder, foton, filmer och ljud om %{scientific_name} på Encyclopedia of Life.
-        meta_description_with_common_name: Bilder och videoklipp om %{preferred_common_name} även känd som %{scientific_name}.
+        meta_description_with_common_name: Bilder, videoklipp och ljud om %{preferred_common_name} även känd som %{scientific_name}. Hitta bilder, foton, filmer och ljud om %{preferred_common_name} (%{scientific_name}) på the Encyclopedia of Life.
         meta_title: Bilder, videolklipp och ljud om %{scientific_name} - Bilder, foton, filmer och ljud om %{scientific_name}
-        meta_title_with_common_name: Bilder och videoklipp om %{preferred_common_name} (%{scientific_name})
+        meta_title_with_common_name: Bilder, videoklipp och ljud om %{preferred_common_name} (%{scientific_name}) - Bilder, foton, filmer och ljud om %{preferred_common_name} (%{scientific_name})
+        tweet_text: Bilder, videoklipp och ljud om %{scientific_name}
     names: 
       common_names: 
         meta_description: Vanliga namn för %{scientific_name}.
         meta_keywords: Vanliga namn för %{scientific_name}.
         meta_title: Vanliga namn för %{scientific_name}.
         tweet_text: Vanliga namn för %{scientific_name}.
+      index: 
+        hierarchy_entry: 
+          meta_description: Taxonomier och vetenskapliga namn för %{scientific_name} som är klassificerad av %{hierarchy_provider}.
+          tweet_text: Namn med anknytning till %{scientific_name} som är klassificerad av %{hierarchy_provider}
       synonyms: 
         meta_keywords_with_common_name: Synonym för %{preferred_common_name}, Synonymer för %{scientific_name}
         tweet_text: Synonym för %{scientific_name}

@@ -35,6 +35,8 @@ javascripts:
 - new-community:
   - communities
   - jquery.spotlite
+- statistics:
+  - jquery-ui-1.8.22.datepicker/jquery-ui-1.8.22.datepicker.min
 - taxa-navigation:
   - navigation
 - maps:

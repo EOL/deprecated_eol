@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Dim Grits
+# Author: Pig1995z
 # Author: Дар'я Козлова
 uk: 
   translated_activities-name-activity_id-19: профіль
@@ -20,15 +21,26 @@ uk:
   translated_agent_roles-label-agent_role_id-1: Аниматор
   translated_agent_roles-label-agent_role_id-10: Проект
   translated_agent_roles-label-agent_role_id-11: Видавець
+  translated_agent_roles-label-agent_role_id-12: Запис
   translated_agent_roles-label-agent_role_id-13: Джерело
+  translated_agent_roles-label-agent_role_id-14: База даних-джерело
   translated_agent_roles-label-agent_role_id-15: Контактна особа
+  translated_agent_roles-label-agent_role_id-16: Автор
   translated_agent_roles-label-agent_role_id-2: Автор
+  translated_agent_roles-label-agent_role_id-21: постачальник
   translated_agent_roles-label-agent_role_id-22: Перекладач
+  translated_agent_roles-label-agent_role_id-23: Науковий оглядач
+  translated_agent_roles-label-agent_role_id-24: Лінгвістичний оглядач
+  translated_agent_roles-label-agent_role_id-3: Упорядник
   translated_agent_roles-label-agent_role_id-4: Композитор
   translated_agent_roles-label-agent_role_id-5: Автор
+  translated_agent_roles-label-agent_role_id-6: Директор
   translated_agent_roles-label-agent_role_id-7: Редактор
   translated_agent_roles-label-agent_role_id-8: Ілюстратор
   translated_agent_roles-label-agent_role_id-9: Фотограф
+  translated_audiences-label-audience_id-1: Досвідчені користувачі
+  translated_audiences-label-audience_id-2: Звичайні користувачі
+  translated_audiences-label-audience_id-3: Діти
   translated_collection_types-label-collection_type_id-1: Таксономія
   translated_collection_types-label-collection_type_id-10: Звуки
   translated_collection_types-label-collection_type_id-11: Посилання
@@ -37,16 +49,35 @@ uk:
   translated_collection_types-label-collection_type_id-14: Молекулярний штрих-код
   translated_collection_types-label-collection_type_id-15: Опис
   translated_collection_types-label-collection_type_id-16: Зображення
+  translated_collection_types-label-collection_type_id-17: Розповсюдження
   translated_collection_types-label-collection_type_id-18: Охоронний статус
   translated_collection_types-label-collection_type_id-19: Відомості про назву
   translated_collection_types-label-collection_type_id-2: Молекулярний штрих-код
+  translated_collection_types-label-collection_type_id-20: Молекулярні дані
   translated_collection_types-label-collection_type_id-21: Номенклатура
   translated_collection_types-label-collection_type_id-22: Звуки
   translated_collection_types-label-collection_type_id-23: Посилання
   translated_collection_types-label-collection_type_id-24: Література
   translated_collection_types-label-collection_type_id-3: Опис
   translated_collection_types-label-collection_type_id-4: Зображення
+  translated_collection_types-label-collection_type_id-5: Поширення
+  translated_collection_types-label-collection_type_id-6: Природоохоронний статус
+  translated_collection_types-label-collection_type_id-7: Відомості про ім'я
   translated_collection_types-label-collection_type_id-9: Номенклатура
+  translated_contact_roles-label-contact_role_id-1: Основна контактна особа
+  translated_contact_roles-label-contact_role_id-2: Зв'язок із адміністрацією
+  translated_contact_roles-label-contact_role_id-3: Зв'язок із технічною підтримкою
+  translated_contact_subjects-title-contact_subject_id-24: Членство та реєстрація
+  translated_contact_subjects-title-contact_subject_id-25: Умови використання ліцензування
+  translated_contact_subjects-title-contact_subject_id-26: Навчання і освіта
+  translated_contact_subjects-title-contact_subject_id-27: Стати контент-партнером
+  translated_contact_subjects-title-contact_subject_id-28: Підтримка для контент-партнерів
+  translated_contact_subjects-title-contact_subject_id-29: Підтримка для кураторів
+  translated_contact_subjects-title-contact_subject_id-30: Коригування (орфографія і граматика, зображення, інформація)
+  translated_contact_subjects-title-contact_subject_id-31: Зображення, відео або звуки
+  translated_contact_subjects-title-contact_subject_id-32: Запит медіа-ресурсів (інтерв'ю, прес-релізи, логотип)
+  translated_contact_subjects-title-contact_subject_id-33: Зробити грошову пожертву
+  translated_content_tables-label-content_table_id-1: Деталі
   translated_data_types-label-data_type_id-1: Зображення
   translated_data_types-label-data_type_id-10: Карта
   translated_data_types-label-data_type_id-2: Звук
@@ -76,10 +107,13 @@ uk:
   translated_licenses-description-license_id-7: Деякі права захищені
   translated_licenses-description-license_id-8: Деякі права захищені
   translated_licenses-description-license_id-9: Деякі права захищені
+  translated_ranks-label-rank_id-106: форма
   translated_ranks-label-rank_id-112: рід
   translated_ranks-label-rank_id-113: рід
   translated_ranks-label-rank_id-118: рід
   translated_ranks-label-rank_id-175: надвид
+  translated_ranks-label-rank_id-266: відділ
+  translated_ranks-label-rank_id-280: тип
   translated_ranks-label-rank_id-335: вид
   translated_ranks-label-rank_id-352: підродина
   translated_ranks-label-rank_id-370: підклас
@@ -87,16 +121,23 @@ uk:
   translated_ranks-label-rank_id-390: підрід
   translated_ranks-label-rank_id-391: підрід
   translated_ranks-label-rank_id-394: підрід
+  translated_ranks-label-rank_id-396: підцарство
+  translated_ranks-label-rank_id-401: бідтип
   translated_ranks-label-rank_id-413: підвид
   translated_ranks-label-rank_id-414: підвид
   translated_ranks-label-rank_id-415: підвид
   translated_ranks-label-rank_id-51: клас
+  translated_ranks-label-rank_id-513: різн.
+  translated_ranks-label-rank_id-517: різновиди
+  translated_ranks-label-rank_id-518: різновидність
+  translated_ranks-label-rank_id-562: ноторід
   translated_ranks-label-rank_id-85: родина
   translated_ranks-label-rank_id-86: родина
   translated_ranks-label-rank_id-91: родина
   translated_ranks-label-rank_id-92: родина
   translated_ranks-label-rank_id-99: Родина
   translated_resource_statuses-label-resource_status_id-1: Завантаження
+  translated_resource_statuses-label-resource_status_id-13: Зібрати
   translated_resource_statuses-label-resource_status_id-2: Завантажено
   translated_resource_statuses-label-resource_status_id-3: Не вдалося завантажити
   translated_resource_statuses-label-resource_status_id-5: Перевірені
@@ -104,13 +145,25 @@ uk:
   translated_sort_styles-name-sort_style_id-2: Найстаріший
   translated_sort_styles-name-sort_style_id-3: За алфавітом
   translated_sort_styles-name-sort_style_id-4: Від Я до А
+  translated_statuses-label-status_id-2: Оновлено
   translated_synonym_relations-label-synonym_relation_id-1: синонім
   translated_synonym_relations-label-synonym_relation_id-16: неоднозначний синонім
+  translated_synonym_relations-label-synonym_relation_id-19: прийняте ім'я
   translated_synonym_relations-label-synonym_relation_id-21: інше, дивіться коментар
   translated_synonym_relations-label-synonym_relation_id-24: відхилена назва
+  translated_synonym_relations-label-synonym_relation_id-25: омонім (нелогічне)
+  translated_synonym_relations-label-synonym_relation_id-26: неповна відповідність
   translated_synonym_relations-label-synonym_relation_id-3: акронім
+  translated_synonym_relations-label-synonym_relation_id-36: молодший омонім
+  translated_synonym_relations-label-synonym_relation_id-39: неоправлене виправлення
+  translated_synonym_relations-label-synonym_relation_id-40: недоступний, інше
+  translated_synonym_relations-label-synonym_relation_id-41: недоступно, nomen nudum
+  translated_synonym_relations-label-synonym_relation_id-51: прийнято
   translated_synonym_relations-label-synonym_relation_id-52: авторство
+  translated_synonym_relations-label-synonym_relation_id-53: неопублікована назва
+  translated_synonym_relations-label-synonym_relation_id-54: суб'єктивний синонім
   translated_synonym_relations-label-synonym_relation_id-56: орфографічні помилки
+  translated_synonym_relations-label-synonym_relation_id-59: синонім (об'єктивний = гомотетичний)
   translated_table_of_contents-label-table_of_contents_id-1: Огляд
   translated_table_of_contents-label-table_of_contents_id-13: Загальні назви
   translated_table_of_contents-label-table_of_contents_id-14: МСОП

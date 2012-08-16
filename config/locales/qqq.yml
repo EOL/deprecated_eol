@@ -154,3 +154,20 @@ qqq:
   partner_web_site_colon: "A simple label used for DataObject attribution to identify the homepage of the partners website"
   add_article_instead: "This is button text to be displayed in the header of a page where the user is adding a link.  Clicking this button will allow them to add an article instead of a link."
   add_link_instead: "This is button text to be displayed in the header of a page where the user is adding an article.  Clicking this button will allow them to add a link instead of an article."
+  datepicker:
+    day_names: "A list of full names for the seven days of the week (e.g Sunday, Monday, Tuesday etc) for use in an interactive Gregorian calendar."
+    day_names_short: "A list of abbreviated names for the seven days of the week (e.g Sun, Mon, Tue etc) for use in an interactive Gregorian calendar."
+    day_names_min: "A list of very abbreviated names (one or two characters) for the seven days of the week, e.g Su, Mo, Tu etc. for use in an interactive Gregorian calendar."
+    close: "A label for a button or link that users will use to close a datepicker interactive calender overlay."
+    current: "A label for a button or link that users will use to go to the current day (i.e. today) in an interactive calender."
+    month_names: "A list of full names for the months of the year (e.g January, February etc) for use as headers in an interactive Gregorian calendar."
+    month_names_short: "A list of abbreviated names for months of the year (e.g Jan, Feb etc) for use as headers in an interactive Gregorian calendar."
+    next: "A label for a button or link that users will use to select the next panel in an interactive calender."
+    previous: "A label for a button or link that users will use to select the previous panel in an interactive calender."
+  recognized_by_as_a_rank: 'This shows up in a field or table under the heading "recognized by." This value is meant to represent which content provider recognizes this taxon (so this will be the name of an organization), as well as what taxonomic level (rank) they recognize it as (species, subspecies, family, order, etc).'
+  recognized_by_from_source: 'This shows up in a field or table under the heading "recognized by." The vaue is meant to represent which content provider recognizes this taxon. Some providers, however, actually have multiple sources of data, and this value is used to specify which of those sources the information actually came from.'
+  recognized_by_from_source_as_a_rank: 'This shows up in a field or table under the heading "recognized by." The vaue is meant to represent which content provider recognizes this taxon. Some providers, however, actually have multiple sources of data, and this value is used to specify which of those sources the information actually came from, as well as what taxonomic level (rank) they recognize it as (species, subspecies, family, order, etc).'
+  preview_version_of_latest_published_data_object_title_link: 'Content partners are allowed to see data object pages before other users. This is intended to allow them to "preview" the data before others can see it, and make changes if there are problems.  When they view these pages in preview mode, the title of the page needs to indicate what the real title will be (here indicated as "link") and show that the page is in preview mode.'
+  response_formats: "This is the title for a section of documentation for the API, describing the response formats available to API users."
+  classification_split_help: "At this point, the user is being asked to select a SINGLE classification that BEST represents the taxon.  They have previously selected multiple classifications to move."
+  classification_merge_help: "At this point, the user is being asked to select a SINGLE classification that BEST represents the taxon.  They have previously selected multiple classifications to move."

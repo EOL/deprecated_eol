@@ -495,6 +495,8 @@ en:
         source_url: "Link URL"
         toc_item: "Subject"
       eol_statistic:
+        date_one: "Date"
+        date_two: "Date"
         download_all: "All <small>(include records from all pages)</small>"
       google_analytics_partner_summaries:
         taxa_pages: "Pages <small>(number of pages)</small>"
@@ -627,6 +629,7 @@ en:
         create: "Add link"
         update: "Save link"
       eol_statistic:
+        change_date: "Get statistics for dates"
         download_csv: "Download as CSV"
       harvest_event:
         publish: "Publish"
@@ -675,40 +678,95 @@ en:
   faker:
     lorem:
       words: [alias, consequatur, aut, perferendis, sit, voluptatem, accusantium, doloremque, aperiam, eaque, ipsa, quae, ab, illo, inventore, veritatis, et, quasi, architecto, beatae, vitae, dicta, sunt, explicabo, aspernatur, aut, odit, aut, fugit, sed, quia, consequuntur, magni, dolores, eos, qui, ratione, voluptatem, sequi, nesciunt, neque, dolorem, ipsum, quia, dolor, sit, amet, consectetur, adipisci, velit, sed, quia, non, numquam, eius, modi, tempora, incidunt, ut, labore, et, dolore, magnam, aliquam, quaerat, voluptatem, ut, enim, ad, minima, veniam, quis, nostrum, exercitationem, ullam, corporis, nemo, enim, ipsam, voluptatem, quia, voluptas, sit, suscipit, laboriosam, nisi, ut, aliquid, ex, ea, commodi, consequatur, quis, autem, vel, eum, iure, reprehenderit, qui, in, ea, voluptate, velit, esse, quam, nihil, molestiae, et, iusto, odio, dignissimos, ducimus, qui, blanditiis, praesentium, laudantium, totam, rem, voluptatum, deleniti, atque, corrupti, quos, dolores, et, quas, molestias, excepturi, sint, occaecati, cupiditate, non, provident, sed, ut, perspiciatis, unde, omnis, iste, natus, error, similique, sunt, in, culpa, qui, officia, deserunt, mollitia, animi, id, est, laborum, et, dolorum, fuga, et, harum, quidem, rerum, facilis, est, et, expedita, distinctio, nam, libero, tempore, cum, soluta, nobis, est, eligendi, optio, cumque, nihil, impedit, quo, porro, quisquam, est, qui, minus, id, quod, maxime, placeat, facere, possimus, omnis, voluptas, assumenda, est, omnis, dolor, repellendus, temporibus, autem, quibusdam, et, aut, consequatur, vel, illum, qui, dolorem, eum, fugiat, quo, voluptas, nulla, pariatur, at, vero, eos, et, accusamus, officiis, debitis, aut, rerum, necessitatibus, saepe, eveniet, ut, et, voluptates, repudiandae, sint, et, molestiae, non, recusandae, itaque, earum, rerum, hic, tenetur, a, sapiente, delectus, ut, aut, reiciendis, voluptatibus, maiores, doloribus, asperiores, repellat]
+  datepicker:
+    day_names:
+      - Sunday
+      - Monday
+      - Tuesday
+      - Wednesday
+      - Thursday
+      - Friday
+      - Saturday
+    day_names_short:
+      - Sun
+      - Mon
+      - Tue
+      - Wed
+      - Thu
+      - Fri
+      - Sat
+    day_names_min:
+      - Su
+      - Mo
+      - Tu
+      - We
+      - Th
+      - Fr
+      - Sa
+    close: Close
+    current: Today
+    month_names:
+      - January
+      - February
+      - March
+      - April
+      - May
+      - June
+      - July
+      - August
+      - September
+      - October
+      - November
+      - December
+    month_names_short:
+      - Jan
+      - Feb
+      - Mar
+      - Apr
+      - May
+      - Jun
+      - Jul
+      - Aug
+      - Sep
+      - Oct
+      - Nov
+      - Dec
+    next: Next
+    previous: Previous
   # start of views scope
   admins:
-    statistics:
-      content_partner_link: "Content partners"
-      curator_link: "Curator statistics"
-      data_object_link: "Data objects"
-      index_link: "Overall statistics"
-      lifedesk_link: "LifeDesks"
-      marine_link: "Marine statistics"
-      page_richness_link: "Rich pages"
-      user_added_data_link: "User-submitted text"
-      content_partner:
+    eol_statistics:
+      content_partners:
+        menu_link: "Content partners"
         page_header: "Content Partner Statistics"
         page_title: "Administration: Content Partner Statistics"
-      curator:
+      curators:
+        menu_link: "Curator statistics"
         page_header: "Curator Statistics"
         page_title: "Administration: Curator Statistics"
-      data_object:
+      data_objects:
+        menu_link: "Data objects"
         page_header: "Data Object Statistics"
         page_title: "Administration: Data Object Statistics"
       index:
+        menu_link: "Overall statistics"
         page_header: "Overall Statistics"
         page_title: "Administration: Overall Statistics"
         table_caption: "Overall site statistics created at %{created_at_time}"
-      lifedesk:
+      lifedesks:
+        menu_link: "LifeDesks"
         page_header: "LifeDesks Statistics"
         page_title: "Administration: LifeDesks Statistics"
       marine:
+        menu_link: "Marine statistics"
         page_header: "Marine Coverage in EOL"
         page_title: "Administration: Marine Statistics"
       page_richness:
+        menu_link: "Rich pages"
         page_header: "Rich Page Statistics"
         page_title: "Administration: Rich Pages Statistics"
-      user_added_data:
+      users_data_objects:
+        menu_link: "User-submitted text"
         page_header: "User-Submitted Text Statistics"
         page_title: "Administration: User-Submitted Text Statistics"
   contacts:
@@ -817,6 +875,42 @@ en:
       meta_supplier_default: "a contributor"
       meta_title: "%{dato_title} from %{supplier}"
       tweet_text: "%{dato_title} from %{supplier}"
+  eol_statistics:
+    comparing_dates: "<span class=\"assistive\">Comparing</span> <span class=\"date_one\">%{date_one}</span> <span class=\"assistive\">and</span> <span class=\"date_two\">%{date_two}</span>"
+    warnings:
+      stats_unavailable_for_date: "Sorry, statistics are not avaliable for %{date}. Please select another date."
+    content_partners:
+      menu_link: "Content partners"
+      page_header: "Content Partners Statistics"
+      page_title: "Statistics"
+    curators:
+      menu_link: "Curator statistics"
+      page_header: "Curator Statistics"
+      page_title: "Statistics"
+    data_objects:
+      menu_link: "Data objects"
+      page_header: "Data Object Statistics"
+      page_title: "Statistics"
+    index:
+      menu_link: "Overall statistics"
+      page_header: "Overall Statistics"
+      page_title: "Statistics"
+    lifedesks:
+      menu_link: "LifeDesks"
+      page_header: "LifeDesks Statistics"
+      page_title: "Statistics"
+    marine:
+      menu_link: "Marine statistics"
+      page_header: "Marine Coverage in EOL"
+      page_title: "Statistics"
+    page_richness:
+      menu_link: "Rich pages"
+      page_header: "Rich Page Statistics"
+      page_title: "Statistics"
+    users_data_objects:
+      menu_link: "User-submitted text"
+      page_header: "User-Submitted Text Statistics"
+      page_title: "Statistics"
   members:
     index:
       meta_description: "Members of %{community_name}, an Encyclopedia of Life community."
@@ -874,6 +968,9 @@ en:
     curator_approved:
       subject: "Your request for Encyclopedia of Life curator privilege %{curator_level} has been approved"
       message: "Thank you for requesting curator privilege %{curator_level}. Your request has been approved.\n\nFor more information on curation and what functions are available to you, visit http://eol.org/curators."
+    unsubscribed_to_notifications:
+      subject: "Sorry to see you go..."
+      message: "You have successully unsubscribed to notifications from Encyclopedia of Life. You can change your email settings or subscribe to notifications at <a href='%{email_prefs_url}'>your notification preferences page</a>.\n\nTo learn more about how to use EOL, including how to create EOL Collections, participate in EOL Communities and contribute content, please visit our help pages at http://eol.org/help."
     user_activated:
       subject: "Your Encyclopedia of Life account has been activated"
       message: "Welcome to the Encyclopedia of Life (EOL) and thank you for registering! Please note your username is %{username} and your profile URL is %{profile_url}. You can log in to your account at http://eol.org/login.\n\nTo learn more about how to use EOL, including how to create EOL Collections, participate in EOL Communities and contribute content, please visit our help pages at http://eol.org/help."
@@ -895,7 +992,8 @@ en:
     intro: "Here is your EOL activity digest for %{time}"
     intro_immediately: "Hello, %{name} —"
     intro_weekly: "Here is your EOL activity digest for the week ending %{ending}"
-    unsubscribe: "Log in and change your email settings or unsubscribe at <a href='%{email_prefs_url}' style='color:#195184'>your notification preferences page</a>. If you experience any problems, please <a href='http://eol.org/contact_us'>contact us</a>."
+    unsubscribe: "Log in and change your email settings on <a href='%{email_prefs_url}' style='color:#195184'>your notification preferences page</a> or <a href='%{unsubscribe_url}' style='color:#195184'>unsubscribe from ALL automated EOL notifications without logging in</a>."
+    contact_us_link: "If you experience any problems, please <a href='http://eol.org/contact_us' style='color:#195184'>contact us</a>."
     see_all_activity: "See all previous activity at <a href='%{activity_url}' style='color:#195184'>your user newsfeed page</a>."
     bulk_comments_with_count:
       one: "There is a new comment on %{on}"
@@ -1321,6 +1419,9 @@ en:
       edit:
         page_description: "All of the updates listed below (except for the EOL newsletter) are available to you in your <a href=\"%{user_newsfeed_link}\">EOL newsfeed</a>, but many people would also like to be alerted by email about certain kinds of activities they find particularly interesting. You can use the buttons below to set the frequency of EOL emails to suit your preferences"
         page_title: Notification settings
+      update:
+        notification_settings_successfully_updated: "Notification settings successfully updated."
+        sorry_notification_settings_could_not_be_updated: "Sorry, notification settings could not be updated."
     open_authentications:
       errors:
         missing_attributes: "Sorry, there was a problem accessing your third-party account details."
@@ -1417,6 +1518,10 @@ en:
       meta_keywords: ""
       meta_title: "%{user_full_name}"
       tweet_text: "%{user_full_name}"
+    unsubscribe_notifications:
+      already_unsubscribed: "You are already unsubscribed to notifications."
+      unsubscribed_notifications_successfully: "You have successfully unsubscribed to notifications."
+      unsubscribe_notifications_failed: "Sorry, an error occurred, user could not be unsubscribed to notifications."
   # end of views scope
   this_article_cannot_be_curated_because_unpublished: "This article cannot be curated because it is unpublished."
   this_article_is_unpublished: "This article is unpublished."
@@ -1766,18 +1871,18 @@ en:
         user_added_name_in_an_unknown_language_to_it: "<strong>%{user}</strong> added the common name \"%{name}\" in an unknown language."
         user_added_name_in_language_to_it: "<strong>%{user}</strong> added the %{language} common name \"%{name}\"."
       remove_common_name:
-        an_unknown_user_removed_name_in_an_unknown_language_from_an_unknown_taxon: "An unknown user removed common name in an unknown language from an unknown page."
-        an_unknown_user_removed_name_in_language_from_an_unknown_taxon: "An unknown user removed common name in %{language} from an unknown page."
-        an_unknown_user_removed_name_in_an_unknown_language_from_taxon: "An unknown user removed common name in an unknown language from \"%{taxon}\"."
-        an_unknown_user_removed_name_in_language_from_taxon: "An unknown user removed common name in %{language} from \"%{taxon}\"."
-        user_removed_name_in_an_unknown_language_from_an_unknown_taxon: "<strong>%{user}</strong> removed common name in an unknown language from an unknown page."
-        user_removed_name_in_language_from_an_unknown_taxon: "<strong>%{user}</strong> removed common name in %{language} from an unknown page."
-        user_removed_name_in_an_unknown_language_from_taxon: "<strong>%{user}</strong> removed common name in an unknown language from \"%{taxon}\"."
-        user_removed_name_in_language_from_taxon: "<strong>%{user}</strong> removed common name in %{language} from \"%{taxon}\"."
-        an_unknown_user_removed_name_in_an_unknown_language_from_it: "An unknown user removed common name in an unknown language."
-        an_unknown_user_removed_name_in_language_from_it: "An unknown user removed common name in %{language}."
-        user_removed_name_in_an_unknown_language_from_it: "<strong>%{user}</strong> removed common name in an unknown language."
-        user_removed_name_in_language_from_it: "<strong>%{user}</strong> removed common name in %{language}."
+        an_unknown_user_removed_name_in_an_unknown_language_from_an_unknown_taxon: "An unknown user removed a common name in an unknown language from an unknown page."
+        an_unknown_user_removed_name_in_language_from_an_unknown_taxon: "An unknown user removed a common name in %{language} from an unknown page."
+        an_unknown_user_removed_name_in_an_unknown_language_from_taxon: "An unknown user removed a common name in an unknown language from \"%{taxon}\"."
+        an_unknown_user_removed_name_in_language_from_taxon: "An unknown user removed a common name in %{language} from \"%{taxon}\"."
+        user_removed_name_in_an_unknown_language_from_an_unknown_taxon: "<strong>%{user}</strong> removed a common name in an unknown language from an unknown page."
+        user_removed_name_in_language_from_an_unknown_taxon: "<strong>%{user}</strong> removed a common name in %{language} from an unknown page."
+        user_removed_name_in_an_unknown_language_from_taxon: "<strong>%{user}</strong> removed a common name in an unknown language from \"%{taxon}\"."
+        user_removed_name_in_language_from_taxon: "<strong>%{user}</strong> removed a common name in %{language} from \"%{taxon}\"."
+        an_unknown_user_removed_name_in_an_unknown_language_from_it: "An unknown user removed a common name in an unknown language."
+        an_unknown_user_removed_name_in_language_from_it: "An unknown user removed a common name in %{language}."
+        user_removed_name_in_an_unknown_language_from_it: "<strong>%{user}</strong> removed a common name in an unknown language."
+        user_removed_name_in_language_from_it: "<strong>%{user}</strong> removed a common name in %{language}."
       trust_common_name:
         an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: "An unknown user marked an unknown common name in an unknown language from an unknown page as trusted."
         an_unknown_user_trusted_an_unknown_name_in_language_on_an_unknown_taxon: "An unknown user marked an unknown common name in %{language} from an unknown page as trusted."
@@ -1898,7 +2003,7 @@ en:
         taxon_unlocked: "\"%{taxon}\" finished background curation processing."
       unlock_with_error:
         an_unknown_taxon_unlocked: "An unknown page has <strong>failed</strong> background curation processing: %{error}."
-        it_unlocked: "Background curation processing<strong>failed</strong> : %{error}."
+        it_unlocked: "Background curation processing <strong>failed</strong> : %{error}."
         taxon_unlocked: "\"%{taxon}\" <strong>failed</strong> background curation processing: %{error}."
       other_actions:
         an_unknown_user_curated_an_older_data_object: "An unknown user curated an older version of \"%{data_object}\"."
@@ -2679,7 +2784,6 @@ en:
   edit_username: "Edit %{username}"
   edit_web_users: "edit web users"
   editors_tab_label: "Managers"
-  e_g_search_for_the_eol_page: "(e.g. search for the EOL page ID for the ITIS TSN 180542:"
   email: "Email"
   email_colon: "Email:"
   email_error_notification_activ: "Email Error Notification Active"
@@ -3034,6 +3138,7 @@ en:
   literature_header: "References"
   literature_references: "Literature references"
   location_colon: "Location:"
+  location_created_colon: "Location Created:"
   login_required_button: "Login required"
   logging_database_colon: "Logging:"
   login: "login"
@@ -3115,8 +3220,8 @@ en:
     one: "Move %{count} item to a new collection"
     other: "Move %{count} items to a new collection"
   moved_all_items_from_collection_with_count:
-    one: "Moved #{count} item from %{from} to this collection."
-    other: "Moved all #{count} items from %{from} to this collection."
+    one: "Moved %{count} item from %{from} to this collection."
+    other: "Moved all %{count} items from %{from} to this collection."
   moved_all_items_to_collections:
     one: "Moved all items from %{name} to %{count} collection."
     other: "Moved all items from %{name} to %{count} collections."
@@ -3430,7 +3535,7 @@ en:
   sci_name_avg_table_head: "Sci. Name avg"
   search: "Search"
   search_by_term_page_title: "Search: %{term}"
-  search_by_provider_method_description: "get the EOL page IDs given a provider's hierarchy_id and the provider's own unique identifier"
+  search_by_provider_method_description_with_link: "get the EOL page IDs given a provider's hierarchy_id and the provider's own unique identifier<br />(e.g. search for the EOL page ID for the ITIS TSN 180542: %{link})"
   search_for_comments_containing_the_text: "Search for comments containing the text:"
   search_for_curators_containing: "Search for curators containing:"
   search_for_items_containing: "Search for items containing:"
@@ -3578,7 +3683,7 @@ en:
   spm_category_partner_count: "SPM category - partner count"
   spm_category: "SPM Category"
   started: "Started"
-  statistics: "Statistics"
+  stats: "Statistics"
   stat: "Stat"
   stored_classifications: "Please note that you have <a href='%{anchor}'>stored classifications, below</a>."
   sub_heading: "Sub heading"

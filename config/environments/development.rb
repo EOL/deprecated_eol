@@ -46,7 +46,7 @@ $EXCEPTION_NOTIFY = false # set to false to not be notified of exceptions via em
 $ERROR_LOGGING = false # set to true to record uncaught application errors in sql database file
 
 $ENABLE_ANALYTICS=false
-$ENABLE_RECAPTCHA=true # set to true to enable recaptcha on registration and contact us form
+$ENABLE_RECAPTCHA=false # set to true to enable recaptcha on registration and contact us form
 #$WEB_SERVICE_TIMEOUT_SECONDS=20 # how many seconds to wait when calling a webservice before timing out and returning nil
 $LOG_WEB_SERVICE_EXECUTION_TIME=true # if set to false, then execution times for web service calls will not be recorded
 $USE_SSL_FOR_LOGIN=false
@@ -59,6 +59,8 @@ $AGENT_ID_OF_DEFAULT_COMMON_NAME_SOURCE = Agent.first.id rescue nil # Because it
 $SKIP_URL_VALIDATIONS = true
 
 $IP_ADDRESS_OF_SERVER = '0.0.0.0:3000'
+
+$UNSUBSCRIBE_NOTIFICATIONS_KEY = 'f0de2a0651aa88a090e5679e5e3a7d28'
 
 $HOMEPAGE_MARCH_RICHNESS_THRESHOLD = nil
 

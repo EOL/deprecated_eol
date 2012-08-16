@@ -34,7 +34,7 @@
       %dt
         = f.label :refs
       %dd
-        = fckeditor_textarea(:data_object, :references, :toolbarSet => 'References', :height => 250, :width => 580)
+        = text_area_tag 'references', @references
 - unless add_link
   %fieldset.information
     %h3= I18n.t(:dato_new_edit_user_text_fieldset_information_header)

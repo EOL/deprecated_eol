@@ -59,12 +59,8 @@
             %td
               = link_to 'search_by_provider', :controller => 'api/docs', :action => 'search_by_provider'
             %td
-              =I18n.t(:search_by_provider_method_description)
-              %br
-              =I18n.t(:e_g_search_for_the_eol_page)
               - url = url_for(:controller => '/api', :action => 'search_by_provider', :version => '1.0', :id => '180542', :hierarchy_id => Hierarchy.itis.id, :only_path => false)
-              = link_to url, url
-              )
+              =I18n.t(:search_by_provider_method_description_with_link, :link => link_to(url, url))
       %h3
         =I18n.t(:response_formats)
       %p

@@ -1008,7 +1008,6 @@ sr:
   download_wav_file: Преузми WAV датотеку
   dublin_core: Даблинско језгро
   duplicate_items_were_ignored: Дуплиране ставке су занемарене.
-  e_g_search_for_the_eol_page: "(нпр. претражите страницу EOL-а с назнаком ITIS TSN 180542:"
   each_method_documentation_page_has_formatted_responses: Страница документације за сваки метод садржи два примера за одговоре у формату XML и JSON.
   edit: Уреди
   edit_collection_details: Уреди детаље о збирци
@@ -2045,7 +2044,6 @@ sr:
   sci_name_avg_table_head: Научни назив (просечно)
   scientific_name: Научни назив
   search: Претражи
-  search_by_provider_method_description: добијање назнаке за страницу на EOL-у ако је наведен hierarchy_id и јединствена назнака добављача
   search_by_term_page_title: "Претрага: %{term}"
   search_field_label: Тражење на EOL-у
   search_for_comments_containing_the_text: "Тражи коментаре који садрже текст:"

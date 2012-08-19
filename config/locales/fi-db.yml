@@ -128,14 +128,100 @@ fi:
   translated_resource_statuses-label-resource_status_id-10: Julkaistu
   translated_resource_statuses-label-resource_status_id-2: Lähetetty
   translated_resource_statuses-label-resource_status_id-3: Tallennus epäonnistui
+  translated_resource_statuses-label-resource_status_id-4: Siirretty sisältöpalvelimelle
+  translated_resource_statuses-label-resource_status_id-7: Käsitellään
+  translated_resource_statuses-label-resource_status_id-8: Käsitelty
+  translated_resource_statuses-label-resource_status_id-9: Käsittely epäonnistui
   translated_service_types-label-service_type_id-2: Muu
+  translated_sort_styles-name-sort_style_id-2: Vanhin
   translated_sort_styles-name-sort_style_id-3: Aakkosjärjestyksessä
   translated_sort_styles-name-sort_style_id-4: Käänteisessä aakkosjärjestyksessä
   translated_statuses-label-status_id-2: Päivitetty
   translated_statuses-label-status_id-3: Muuttamaton
   translated_synonym_relations-label-synonym_relation_id-1: synonyymi
+  translated_synonym_relations-label-synonym_relation_id-10: geenipankkisynonyymi
+  translated_synonym_relations-label-synonym_relation_id-13: harhaanjohtava
+  translated_synonym_relations-label-synonym_relation_id-14: kirjoitusvirhe
+  translated_synonym_relations-label-synonym_relation_id-16: moniselitteinen synonyymi
   translated_synonym_relations-label-synonym_relation_id-19: hyväksytty nimi
   translated_synonym_relations-label-synonym_relation_id-2: yleisnimi
   translated_synonym_relations-label-synonym_relation_id-24: hylätty nimi
+  translated_synonym_relations-label-synonym_relation_id-29: juniorisynonyymi
+  translated_synonym_relations-label-synonym_relation_id-3: lyhenne
+  translated_synonym_relations-label-synonym_relation_id-45: basionyymi
+  translated_synonym_relations-label-synonym_relation_id-46: heteronyymityyppinen synonyymi
+  translated_synonym_relations-label-synonym_relation_id-47: homonyymityyppinen synonyymi
+  translated_synonym_relations-label-synonym_relation_id-48: nimi ei ole käytettävissä
+  translated_synonym_relations-label-synonym_relation_id-49: kelvollinen nimi
+  translated_synonym_relations-label-synonym_relation_id-50: voimassa
+  translated_synonym_relations-label-synonym_relation_id-51: hyväksytty
+  translated_synonym_relations-label-synonym_relation_id-52: viranomainen
+  translated_synonym_relations-label-synonym_relation_id-53: julkaisematon nimi
+  translated_synonym_relations-label-synonym_relation_id-55: virheelliset viranomaistiedot
+  translated_synonym_relations-label-synonym_relation_id-56: kirjoitusvirhe
+  translated_synonym_relations-label-synonym_relation_id-57: vaihtoehtoinen tavaus
+  translated_synonym_relations-label-synonym_relation_id-58: sanastollinen variantti
+  translated_synonym_relations-label-synonym_relation_id-6: vastaava nimi
+  translated_synonym_relations-label-synonym_relation_id-63: ei hyväksytty
+  translated_table_of_contents-label-table_of_contents_id-1: Yleiskatsaus
+  translated_table_of_contents-label-table_of_contents_id-17: Kirjallisuusviitteet
+  translated_table_of_contents-label-table_of_contents_id-194: Koko
+  translated_table_of_contents-label-table_of_contents_id-221: Riskit
+  translated_table_of_contents-label-table_of_contents_id-225: Webissä
+  translated_table_of_contents-label-table_of_contents_id-226: Sisällön kumppanit
+  translated_table_of_contents-label-table_of_contents_id-227: Etsiminen Webistä
+  translated_table_of_contents-label-table_of_contents_id-24: Kommentit
+  translated_table_of_contents-label-table_of_contents_id-242: Yleinen ekologia
+  translated_table_of_contents-label-table_of_contents_id-244: Lähdeluettelot
+  translated_table_of_contents-label-table_of_contents_id-251: Edut
+  translated_table_of_contents-label-table_of_contents_id-267: Morfologia
+  translated_table_of_contents-label-table_of_contents_id-278: Bibliografia
+  translated_table_of_contents-label-table_of_contents_id-285: Yhdistykset
+  translated_table_of_contents-label-table_of_contents_id-286: Suojelutaso
+  translated_table_of_contents-label-table_of_contents_id-289: Kehitys
+  translated_table_of_contents-label-table_of_contents_id-293: Diagnostiikan kuvaus
+  translated_table_of_contents-label-table_of_contents_id-296: Hallinta
+  translated_table_of_contents-label-table_of_contents_id-299: Koulutus
   translated_table_of_contents-label-table_of_contents_id-300: Wikipedia
+  translated_table_of_contents-label-table_of_contents_id-303: Nimet ja taksonomia
+  translated_table_of_contents-label-table_of_contents_id-304: Liittyvät nimet
+  translated_table_of_contents-label-table_of_contents_id-305: Synonyymit
+  translated_table_of_contents-label-table_of_contents_id-306: Sivun tilastotiedot
+  translated_table_of_contents-label-table_of_contents_id-307: Sisällön yhteenveto
+  translated_table_of_contents-label-table_of_contents_id-308: Kattava kuvaus
+  translated_table_of_contents-label-table_of_contents_id-309: Jakelu
+  translated_table_of_contents-label-table_of_contents_id-310: Kehittäminen
+  translated_table_of_contents-label-table_of_contents_id-311: Tunnistusresurssit
+  translated_table_of_contents-label-table_of_contents_id-312: Maahanmuutto
+  translated_table_of_contents-label-table_of_contents_id-313: Tauteja ja tuholaisia
+  translated_table_of_contents-label-table_of_contents_id-314: Populaatiobiologia
+  translated_table_of_contents-label-table_of_contents_id-318: Elinkaari
+  translated_table_of_contents-label-table_of_contents_id-320: Kopiointi
+  translated_table_of_contents-label-table_of_contents_id-321: Kasvu
+  translated_table_of_contents-label-table_of_contents_id-322: Fossiilisten polttoaineiden historia
+  translated_table_of_contents-label-table_of_contents_id-328: Solubiologia
+  translated_table_of_contents-label-table_of_contents_id-329: Genetiikka
+  translated_table_of_contents-label-table_of_contents_id-33: Trendit
+  translated_table_of_contents-label-table_of_contents_id-331: Viivakoodi
+  translated_table_of_contents-label-table_of_contents_id-333: Molekyylibiologia
+  translated_table_of_contents-label-table_of_contents_id-334: Uhat
+  translated_table_of_contents-label-table_of_contents_id-335: Lainsäädäntö
+  translated_table_of_contents-label-table_of_contents_id-336: Muistiinpanot
+  translated_table_of_contents-label-table_of_contents_id-337: Koulutus
+  translated_table_of_contents-label-table_of_contents_id-338: Koulutuksen linkit
+  translated_table_of_contents-label-table_of_contents_id-339: Opetusresurssit
+  translated_table_of_contents-label-table_of_contents_id-347: Taksonomia
+  translated_table_of_contents-label-table_of_contents_id-4: Ekologia
+  translated_untrust_reasons-label-untrust_reason_id-3: alhainen laatu
+  translated_untrust_reasons-label-untrust_reason_id-4: kaksoiskappale
+  translated_user_identities-label-user_identity_id-1: harrastaja
+  translated_user_identities-label-user_identity_id-2: opiskelija
+  translated_user_identities-label-user_identity_id-3: kouluttaja
+  translated_user_identities-label-user_identity_id-4: siviilitiedemies
+  translated_user_identities-label-user_identity_id-5: ammattitiedemies
   translated_vetted-label-vetted_id-0: Tuntematon
+  translated_view_styles-name-view_style_id-1: Luettelo
+  translated_view_styles-name-view_style_id-2: Galleria
+  translated_visibilities-label-visibility_id-0: Näkymätön
+  translated_visibilities-label-visibility_id-1: Näkyvä
+  translated_visibilities-label-visibility_id-2: Esikatselu

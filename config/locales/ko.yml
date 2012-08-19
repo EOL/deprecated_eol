@@ -582,7 +582,7 @@ ko:
       meta_description: 생명의 백과사전은 사진, 정보, 사실과 더 많은 우리의 식물계과 동물계에 살고 있는 모든 것에 대해 얻을 수 있는 모든 동물과 식물에 대한 과학적 지식을 수집하기 위해 전례없는 노력을 진행하고 있습니다.
       meta_keywords: 동물, 동물 사진, 동물 정보, 식물, 식물 생명, 식물 사진, 식물 정보, 식물상, 동물상
       meta_title: 동물 - 식물 - 사진과 정보
-      see_all_recent_activites: <span class="assistive">지난 주 활동</span>에 대해 더 보기
+      see_all_recent_activites: <span class="assistive">지난 주 활동에 대해</span> 더 보기
   content_has_been_updated: 콘텐트를 업데이트했습니다.
   content_notes_not_shown_to_us: "콘텐츠 참고 (사용자에게 보여지지 않음):"
   content_partner: 콘텐츠 파트너
@@ -713,7 +713,7 @@ ko:
   create_community_button: 공동체 만들기
   created: Created
   created_at: 만든 곳
-  created_by: 만든 이
+  created_by: 작성자
   created_colon: "만들어짐:"
   created_community: 공동체를 성공적으로 만들었습니다.
   creative_commons: 크리에이티브 커먼즈
@@ -933,7 +933,7 @@ ko:
   export_curator_csv_link: "[모든 큐레이터를 CSV로 내보내기]"
   export_this_list_as_csv: 이 목록을 CSV로 내보내기
   external_link_header: 바깥 링크
-  external_link_icon_alt_text: 바깥 링크.
+  external_link_icon_alt_text: 바깥 링크입니다.
   external_report_click_url_to_proceed: 바깥 보고. 진행하려면 URL를 클릭하세요.
   facebook: 페이스북
   family_name_colon: "성:"
@@ -1388,6 +1388,8 @@ ko:
     contact_us_message: 
       message: "다음 메시지는 문의하기 양식을 통해 EOL에 보냈습니다:\n받는 사람: %{from_name}\n이메일: %{from_email}\n제목: %{subject}\n\n%{message}"
       subject: "EOL로의 메시지: %{title}"
+    content_partner_resource_created: 
+      subject: "%{user_full_name} EOL 사용자가 %{partner_full_name} 콘텐츠 파트너에 새 %{resource_title} 자료를 추가했습니다"
     greeting_dear_name_with_comma: "%{name}에게,"
     signature_basic: 생명의 백과사전 팀
     signature_with_contact_us_link: "문제가 발생하면 %{url} (으)로 문의하시기 바랍니다.\n\n생명의 백과사전 팀"
@@ -1397,6 +1399,8 @@ ko:
       subject: 생명의 백과사전에서의 메시지
     user_recover_account: 
       subject: 생명의 백과사전 계정 복구
+    user_verification: 
+      subject: 생명의 백과사전 계정에 대한 요청 확인
   object_status_all_option: 모두
   object_status_trusted_option: 신뢰함
   object_status_unreviewed_option: 검토하지 않음
@@ -1410,9 +1414,28 @@ ko:
   object_type_text_option: 텍스트
   object_type_user_option: 사용자
   object_type_video_option: 동영상
+  option_please_select: 선택하거나
+  or_add_it_to_an_existing_collection: 기존 모음집에 추가하세요
+  or_add_it_to_an_existing_community: 기존 공동체에 추가하세요
+  or_copy_them_to_existing_collection: 기존 모음집에 복사하세요
+  or_email_education: "%{link}에 이메일 제안을 하세요."
+  or_move_them_to_existing_collection: 기존 모음집에 이동하세요
+  original: "원본:"
+  original_object: 원본 개체
+  other_collection_items_with_count: 
+    one: 다른 항목 %{count}개
+    other: 다른 항목 %{count}개
+  other_community_items_with_count: 
+    one: 다른 항목 %{count}개
+    other: 다른 항목 %{count}개
+  other_taxa_with_count: 
+    one: 다른 분류군 %{count}개
+    other: 다른 분류군 %{count}개
+  other_us_dollars_amount: "기타: 미화$"
   outlink: 바깥 링크
   overview: 둘러보기
   page: 문서
+  page_linked_to: 다음에 문서가 연결됨
   page_name: 문서 이름
   page_navigation: 문서 둘러보기
   page_not_found: 문서를 찾을 수 없습니다
@@ -1429,14 +1452,23 @@ ko:
     other: "%{count}개"
   pages_with_pictures_and_text: 사진과 텍스트로 된 문서
   pages_with_pictures_or_text: 사진과 텍스트로 된 문서
+  pagination_next: 다음
+  pagination_next_with_count: 
+    one: 다음 %{count}개 보기
+    other: 다음 %{count}개 보기
   pagination_page_number: 문서 %{number}개
   pagination_previous: 이전
+  pagination_previous_with_count: 
+    one: 이전 %{count}개 보기
+    other: 이전 %{count}개 보기
   parameters: 변수
   partner: 파트너
   partner_information: 파트너 정보
   partner_page: 파트너 문서
+  partner_web_site_colon: "파트너 웹 사이트:"
   password_colon: "비밀번호:"
   password_must_be_4to16_characters: 비밀번호는 글자 4개에서 16개 사이여야 합니다.
+  pause: 일시정지
   people_with_count: 
     one: 사람 %{count}명
     other: 사람 %{count}명
@@ -1444,9 +1476,21 @@ ko:
   person_rating: 사람 평가
   personal_profile_menu: 개인 프로필
   personal_space: 개인 공간
+  please: 제발
+  please_confirm_your_donation_details: 기부 자세한 정보를 확인하세요
+  please_publish_this_resource_notice: "*** <strong>알림:</strong> 여기 이 리소스에 <strong>%{publish_link}</strong>하세요 ***"
   please_return_to_eol_homepage: EOL 대문 문서로 돌아가세요
   please_wait: 기다려 주세요...
+  post_comment: 덧글 게시
+  preferred_common_name_advisory_information: 이 분류군에 대한 선호하는 공통 이름입니다.
+  press_room: 프레스 룸
   preview: 미리 보기
+  preview_changes: 바뀜 미리 보기
+  preview_version_of_latest_published_data_object_title_link: "%{link} 버전 미리 보기"
+  previously_published: 이전에 게시함
+  profile: 프로필
+  profile_colon: "프로필:"
+  profile_image_alt_text_curator: "%{user_full_name} 큐레이터의 프로필 사진"
   profile_newsfeed: 내 뉴스 피드
   profile_picture: 프로필 사진
   project: 프로젝트
@@ -1476,11 +1520,14 @@ ko:
     collection_activity_log_title: "%{who} 사용자가 모음집을 수정했습니다"
     collection_activity_user_watching_recipient: <b>%{user_name}</b> 사용자는 당신을 주시하고 있습니다.
     comment_link: EOL에 대한 덧글 보기
+    comment_title: "%{who} 사용자가 %{what}에 덧글을 남겼습니다"
+    comment_title_your_newsfeed: "%{who} 사용자가 뉴스 피드에 덧글을 남겼습니다"
     community_activity_log_title: "%{who} 사용자가 공동체를 수정했습니다"
     curator_activity_log_title: "%{who} 사용자가 누군가하게 큐레이트했습니다"
     data_object_title: "%{who} 사용자가 EOL에 새 콘텐츠를 추가했습니다"
     default_subject: EOL에 대한 최근 활동
     intro_immediately: "%{name} 안녕하세요 —"
+    someone_commented_on_something: <b>%{who}</b> 사용자가 <b>%{what}</b>에 덧글을 남겼습니다.
   recent_updates: 최근 업데이트
   recently_visited: 최근 방문
   references_cabs_colon: "참고:"

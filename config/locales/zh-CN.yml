@@ -1379,7 +1379,6 @@ zh-CN:
   download_wav_file: 下载WAV文件
   dublin_core: 都柏林核心
   duplicate_items_were_ignored: 重复的条目被忽略。
-  e_g_search_for_the_eol_page: （例如：从EOL物种页编号中查找ITIS TSN 180542：
   each_method_documentation_page_has_formatted_responses: 每个方法的文档页都有XML格式和JSON格式的响应例子。
   edit: 编辑
   edit_collection_details: 编辑收藏信息
@@ -2218,7 +2217,7 @@ zh-CN:
   license_gnu_gpl: GNU通用公共许可证(GNU GPL)
   license_not_applicable: 不适用的授权协议
   license_public_domain: 公共领域
-  licensing: 授权中
+  licensing: 授权协议
   limits_the_number_of_returned_image_objects: 限定返回的图像数量
   limits_the_number_of_returned_iucn_objects: 含IUCN红色物种名录状态
   limits_the_number_of_returned_map_objects: 限定返回的地图数量
@@ -2792,7 +2791,6 @@ zh-CN:
   sci_name_avg_table_head: 学名平均
   scientific_name: 学名
   search: 搜索
-  search_by_provider_method_description: 根据给定的提供者的hierarchy_id和提供者自己的唯一标识获取EOL页面的IDs
   search_by_term_page_title: 搜索： %{term}
   search_field_common_name: 俗名
   search_field_label: 搜索 EOL

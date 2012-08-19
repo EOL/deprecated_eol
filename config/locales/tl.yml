@@ -1230,7 +1230,7 @@ tl:
       meta_description: Ang Ensiklopedya ng Buhay ay isang ulirang pagpupunyagi upang makatipon ng makaagham na kaalaman tungkulo sa lahat ng mga buhay na hayop at halaman kung saan makakakuha ng mga larawan, kabatiran, mga katunayan, at marami pa para sa lahat ng mga bagay na nabubuhay sa ating mga kaharian ng halaman at hayop.
       meta_keywords: Mga Hayop, Mga Larawan ng Hayop, Kabatiran sa Hayop, Mga Halaman, Buhay ng Halaman, Mga Larawan ng Halaman, Kabatiran sa Halaman, Sangkahalamanan, Sangkahayupan
       meta_title: Mga Hayop - Mga Halamanan - Mga Larawan at Kabatiran
-      see_all_recent_activites: tumingin ng masa marami pang <span class="assistive">mga gawain sa loob ng huling linggo</span>
+      see_all_recent_activites: tumingin ng mas marami pang <span class="assistive">mga gawain sa loob ng huling linggo</span>
   content_has_been_updated: Naisapanahon na ang nilalaman.
   content_notes_not_shown_to_us: "Mga Tala sa Nilalaman (hindi ipinapakita sa tagagamit):"
   content_partner: Kawaksi sa Nilalaman
@@ -1659,7 +1659,6 @@ tl:
   download_wav_file: Ikargang paibaba ang talaksang WAV
   dublin_core: Kaibuturan ng Dublin
   duplicate_items_were_ignored: Binalewala ang mga bagay na kapareho.
-  e_g_search_for_the_eol_page: "(halimbawa, hanapin ang ID ng pahina ng EOL para sa ITIS TSN 180542:"
   each_method_documentation_page_has_formatted_responses: Ang pahina ng kasulatan ng bawat isang pamamaraan ay mayroong isang halimbawa ng kapwa mga isinaanyong mga tugon ng XML at JSON.
   edit: Baguhin
   edit_collection_details: Baguhin ang mga detalye ng kalipunan
@@ -2891,7 +2890,6 @@ tl:
   sci_name_avg_table_head: Pamantungan ng Pangalang Pang-agham
   scientific_name: Pangalang Pang-agham
   search: Maghanap
-  search_by_provider_method_description: kuhanin ang mga ID ng pahina ng EOL na binigyan ng isang ID_ng_hirarkiya ng tagapagbigay at ng pansariling natatanging pampakilala ng tagapagbigay
   search_by_term_page_title: "Paghahanap: %{term}"
   search_field_common_name: Karaniwang Pangalan
   search_field_label: Hanapin sa EOL

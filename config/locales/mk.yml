@@ -1665,7 +1665,6 @@ mk:
   download_wav_file: Преземи WAV податотека
   dublin_core: Dublin Core
   duplicate_items_were_ignored: Дуплираните експонати беа занемарени.
-  e_g_search_for_the_eol_page: "(на пр. пребарајте ја страницата на EOL со назнака (ID) за ITIS TSN 180542:"
   each_method_documentation_page_has_formatted_responses: Страницата за документација на секој метод содржи по два примера за одговори во форматот XML и форматот JSON.
   edit: Уреди
   edit_collection_details: Уреди подробности за збирката
@@ -2897,7 +2896,6 @@ mk:
   sci_name_avg_table_head: Научно име (прос.)
   scientific_name: Научно име
   search: Пребарај
-  search_by_provider_method_description: добивање на назнаки на страници на EOL ако е зададен hierarchy_id and и единствената назнака на добавувачот
   search_by_term_page_title: "Пребарување: %{term}"
   search_field_common_name: Тривијално име
   search_field_label: Пребарување по EOL

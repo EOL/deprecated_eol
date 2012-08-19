@@ -879,7 +879,6 @@ sr-Latn:
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Ne prikazuj nepoznate upisane korisnike (korisnike prvog izdanja, pre 5. januara 2009.)
   dublin_core: Dablinsko jezgro
   duplicate_items_were_ignored: Duplirane stavke su zanemarene.
-  e_g_search_for_the_eol_page: "(npr. pretražite stranicu EOL-a s naznakom ITIS TSN 180542:"
   each_method_documentation_page_has_formatted_responses: Stranica dokumentacije za svaki metod sadrži dva primera za odgovore u formatu XML i JSON.
   edit: Uredi
   edit_collection_details: Uredi detalje o zbirci
@@ -1881,7 +1880,6 @@ sr-Latn:
   sci_name_avg_table_head: Naučni naziv (prosečno)
   scientific_name: Naučni naziv
   search: Pretraži
-  search_by_provider_method_description: dobijanje naznake za stranicu na EOL-u ako je naveden hierarchy_id i jedinstvena naznaka dobavljača
   search_by_term_page_title: "Pretraga: %{term}"
   search_field_label: Traženje na EOL-u
   search_for_comments_containing_the_text: "Traži komentare koji sadrže tekst:"

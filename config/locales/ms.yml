@@ -818,7 +818,6 @@ ms:
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Jangan tunjukkan tarikh berdaftar yang tidak dikenali (pengguna V1, semuanya sebelum 5 Jan 2009)
   dublin_core: Dublin Core
   duplicate_items_were_ignored: Perkara bertindih diabaikan.
-  e_g_search_for_the_eol_page: "(cth. carian untuk ID halaman EOL untuk ITIS TSN 180542:"
   each_method_documentation_page_has_formatted_responses: Halaman pendokumenan setiap kaedah mempunyai contoh kedua-dua balasan berformat XML dan JSON.
   edit: Sunting
   edit_collection_details: Sunting butiran himpunan
@@ -1605,7 +1604,6 @@ ms:
   save_curated_association_submit_button: Simpan perkaitan
   scientific_name: Nama Saintifik
   search: Cari
-  search_by_provider_method_description: dapatkan ID halaman EOL dengan satu hierarchy_id pembekal dan pengenal pasti unik pembekal itu
   search_by_term_page_title: "Mencari: %{term}"
   search_field_label: Cari dalam EOL
   search_for_comments_containing_the_text: "Cari komen yang mengandungi teks:"

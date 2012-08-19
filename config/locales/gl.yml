@@ -6,7 +6,7 @@
 gl: 
   0_1_or_2: 0, 1 ou 2
   0_or_1: 0 ou 1
-  a_pipe_delimited_list_of_licenses: unha lista de licenzas separadas por unha barra vertical "|" ou ben "all" para obter os obxectos baixo calquera licenza. As licenzas abreviadas con "cc-" son todas
+  a_pipe_delimited_list_of_licenses: unha lista de licenzas separadas por unha barra vertical "|" ou ben "all" para obter os obxectos baixo calquera licenza. As licenzas abreviadas con "cc-" son todas as licenzas %{creative_commons_link}. Visita o seu sitio para atopar máis información sobre as diversas licenzas que ofrecen.
   a_pipe_delimited_list_of_spm_info_item_subject_names: "\"overview\" para devolver o texto da vista xeral (se existe); unha lista de nomes de elementos informativos SPM separados por unha barra vertical \"|\" para obter o texto nos respectivos nomes de elementos informativos SPM; \"all\" para obter o texto en calquera asunto. Sempre se devolve un texto da vista xeral como o primeiro resultado (se existe no contexto especificado)."
   a_taxon: un taxon
   a_total_of_comment_were_found_matching_your_criteria: 
@@ -426,6 +426,31 @@ gl:
         user_associated_data_object_to_association: <strong>%{user}</strong> engadiu unha asociación entre "%{data_object}" e "%{association}".
         user_associated_it_to_an_unknown_association: <strong>%{user}</strong> engadiu unha asociación a unha páxina descoñecida.
         user_associated_it_to_association: <strong>%{user}</strong> engadiu unha asociación a "%{association}".
+      add_common_name: 
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: Un usuario descoñecido engadiu un nome común descoñecido nunha lingua descoñecida a unha páxina descoñecida.
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_it: Un usuario descoñecido engadiu un nome común descoñecido nunha lingua descoñecida.
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_taxon: Un usuario descoñecido engadiu un nome común descoñecido nunha lingua descoñecida a "%{taxon}".
+        an_unknown_user_added_an_unknown_name_in_language_to_an_unknown_taxon: Un usuario descoñecido engadiu un nome común descoñecido en %{language} a unha páxina descoñecida.
+        an_unknown_user_added_an_unknown_name_in_language_to_it: Un usuario descoñecido engadiu un nome común descoñecido en %{language}.
+        an_unknown_user_added_an_unknown_name_in_language_to_taxon: Un usuario descoñecido engadiu un nome común descoñecido en %{language} a "%{taxon}".
+        an_unknown_user_added_name_in_an_unknown_language_to_an_unknown_taxon: Un usuario descoñecido engadiu o nome común "%{name}" nunha lingua descoñecida a unha páxina descoñecida.
+        an_unknown_user_added_name_in_an_unknown_language_to_it: Un usuario descoñecido engadiu o nome común "%{name}" nunha lingua descoñecida.
+        an_unknown_user_added_name_in_an_unknown_language_to_taxon: Un usuario descoñecido engadiu o nome común "%{name}" nunha lingua descoñecida a "%{taxon}".
+        an_unknown_user_added_name_in_language_to_an_unknown_taxon: Un usuario descoñecido engadiu o nome común "%{name}" en %{language} a unha páxina descoñecida.
+        an_unknown_user_added_name_in_language_to_it: Un usuario descoñecido engadiu o nome común "%{name}" en %{language}.
+        an_unknown_user_added_name_in_language_to_taxon: Un usuario descoñecido engadiu o nome común "%{name}" en %{language} a "%{taxon}".
+        user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: <strong>%{user}</strong> engadiu un nome común descoñecido nunha lingua descoñecida a unha páxina descoñecida.
+        user_added_an_unknown_name_in_an_unknown_language_to_it: <strong>%{user}</strong> engadiu un nome común descoñecido nunha lingua descoñecida.
+        user_added_an_unknown_name_in_an_unknown_language_to_taxon: <strong>%{user}</strong> engadiu un nome común descoñecido nunha lingua descoñecida a "%{taxon}".
+        user_added_an_unknown_name_in_language_to_an_unknown_taxon: <strong>%{user}</strong> engadiu un nome común descoñecido en %{language} a unha páxina descoñecida.
+        user_added_an_unknown_name_in_language_to_it: <strong>%{user}</strong> engadiu un nome común descoñecido en %{language}.
+        user_added_an_unknown_name_in_language_to_taxon: <strong>%{user}</strong> engadiu un nome común descoñecido en %{language} a "%{taxon}".
+        user_added_name_in_an_unknown_language_to_an_unknown_taxon: <strong>%{user}</strong> engadiu o nome común "%{name}" nunha lingua descoñecida a unha páxina descoñecida.
+        user_added_name_in_an_unknown_language_to_it: <strong>%{user}</strong> engadiu o nome común "%{name}" nunha lingua descoñecida.
+        user_added_name_in_an_unknown_language_to_taxon: <strong>%{user}</strong> engadiu o nome común "%{name}" nunha lingua descoñecida a "%{taxon}".
+        user_added_name_in_language_to_an_unknown_taxon: <strong>%{user}</strong> engadiu o nome común "%{name}" en %{language} a unha páxina descoñecida.
+        user_added_name_in_language_to_it: <strong>%{user}</strong> engadiu o nome común "%{name}" en %{language}.
+        user_added_name_in_language_to_taxon: <strong>%{user}</strong> engadiu o nome común "%{name}" en %{language} a "%{taxon}".
       choose_exemplar_article: 
         an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: Un usuario descoñecido seleccionou unha versión vella de "%{data_object}" para mostrala na vista xeral dunha páxina descoñecida.
         an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: Un usuario descoñecido seleccionou "%{data_object}" para mostralo na vista xeral de "%{taxon}".
@@ -531,6 +556,19 @@ gl:
         user_disassociated_data_object_from_association: <strong>%{user}</strong> eliminou unha asociación entre "%{data_object}" e "%{association}".
         user_disassociated_it_from_an_unknown_association: <strong>%{user}</strong> eliminou unha asociación a unha páxina descoñecida.
         user_disassociated_it_from_association: <strong>%{user}</strong> eliminou unha asociación a "%{association}".
+      remove_common_name: 
+        an_unknown_user_removed_name_in_an_unknown_language_from_an_unknown_taxon: Un usuario descoñecido eliminou un nome común nunha lingua descoñecida dunha páxina descoñecida.
+        an_unknown_user_removed_name_in_an_unknown_language_from_it: Un usuario descoñecido eliminou un nome común nunha lingua descoñecida.
+        an_unknown_user_removed_name_in_an_unknown_language_from_taxon: Un usuario descoñecido eliminou un nome común nunha lingua descoñecida de "%{taxon}".
+        an_unknown_user_removed_name_in_language_from_an_unknown_taxon: Un usuario descoñecido eliminou un nome común en %{language} dunha páxina descoñecida.
+        an_unknown_user_removed_name_in_language_from_it: Un usuario descoñecido eliminou un nome común en %{language}.
+        an_unknown_user_removed_name_in_language_from_taxon: Un usuario descoñecido eliminou un nome común en %{language} de "%{taxon}".
+        user_removed_name_in_an_unknown_language_from_an_unknown_taxon: <strong>%{user}</strong> eliminou un nome común nunha lingua descoñecida dunha páxina descoñecida.
+        user_removed_name_in_an_unknown_language_from_it: <strong>%{user}</strong> eliminou un nome común nunha lingua descoñecida.
+        user_removed_name_in_an_unknown_language_from_taxon: <strong>%{user}</strong> eliminou un nome común nunha lingua descoñecida de "%{taxon}".
+        user_removed_name_in_language_from_an_unknown_taxon: <strong>%{user}</strong> eliminou un nome común en %{language} dunha páxina descoñecida.
+        user_removed_name_in_language_from_it: <strong>%{user}</strong> eliminou un nome común en %{language}.
+        user_removed_name_in_language_from_taxon: <strong>%{user}</strong> eliminou un nome común en %{language} de "%{taxon}".
       show: 
         an_unknown_user_showed_an_older_data_object_on_an_unknown_association: Un usuario descoñecido marcou unha versión vella de "%{data_object}" como visible nun contexto descoñecido.
         an_unknown_user_showed_an_older_data_object_on_association: Un usuario descoñecido marcou unha versión vella de "%{data_object}" como visible na páxina "%{association}".
@@ -578,6 +616,14 @@ gl:
         user_trusted_data_object_on_association: <strong>%{user}</strong> marcou "%{data_object}" como de confianza na páxina "%{association}".
         user_trusted_it_on_an_unknown_association: <strong>%{user}</strong> marcouno como de confianza nun contexto descoñecido.
         user_trusted_it_on_association: <strong>%{user}</strong> marcouno como de confianza na páxina "%{association}".
+      unlock: 
+        an_unknown_taxon_unlocked: Unha páxina descoñecida rematou o proceso de conservación en segundo plano.
+        it_unlocked: Rematou o proceso de conservación en segundo plano.
+        taxon_unlocked: "\"%{taxon}\" rematou o proceso de conservación en segundo plano."
+      unlock_with_error: 
+        an_unknown_taxon_unlocked: "Houbo un <strong>erro</strong> no proceso de conservación en segundo plano dunha páxina descoñecida: %{error}."
+        it_unlocked: "Houbo un <strong>erro</strong> no proceso de conservación en segundo plano: %{error}."
+        taxon_unlocked: "Houbo un <strong>erro</strong> no proceso de conservación en segundo plano de \"%{taxon}\": %{error}."
       unreviewed: 
         an_unknown_user_unreviewed_an_older_data_object_on_an_unknown_association: Un usuario descoñecido marcou unha versión vella de "%{data_object}" como non revisada nun contexto descoñecido.
         an_unknown_user_unreviewed_an_older_data_object_on_association: Un usuario descoñecido marcou unha versión vella de "%{data_object}" como non revisada na páxina "%{association}".
@@ -1538,7 +1584,6 @@ gl:
   download_wav_file: Descargar o ficheiro WAV
   dublin_core: Dublin Core
   duplicate_items_were_ignored: Ignoráronse os elementos duplicados.
-  e_g_search_for_the_eol_page: "(por exemplo, procura o identificador da páxina da EOL de ITIS TSN 180542:"
   each_method_documentation_page_has_formatted_responses: A páxina de documentación de cada método contén un exemplo de resposta tanto en formato XML coma JSON.
   edit: Editar
   edit_collection_details: Editar os detalles da colección
@@ -1600,6 +1645,7 @@ gl:
   eol_news: Novas da EOL
   eol_pages: Páxinas
   eol_statistics: 
+    comparing_dates: <span class="assistive">Comparando</span> <span class="date_one">%{date_one}</span> <span class="assistive">e</span> <span class="date_two">%{date_two}</span>
     content_partners: 
       menu_link: Socios de contidos
       page_header: Estatísticas dos socios de contidos
@@ -1632,6 +1678,8 @@ gl:
       menu_link: Texto enviado polo usuario
       page_header: Estatísticas do texto enviado polo usuario
       page_title: Estatísticas
+    warnings: 
+      stats_unavailable_for_date: Sentímolo, non hai estatísticas dispoñibles para o %{date}. Selecciona outra data.
   error_401_description: Sentímolo, non ten autorización para acceder a este enderezo URL.
   error_401_page_title: Non autorizado
   error_403_description: Sentímolo, non ten autorización para acceder a este enderezo URL.
@@ -1979,6 +2027,7 @@ gl:
         create_text: Engadir o artigo
         update: Gardar o artigo
       eol_statistic: 
+        change_date: Obter as estatísticas para as datas
         download_csv: Descargar como CSV
       filter_sort: Filtrar e ordenar
       harvest_event: 
@@ -2026,6 +2075,7 @@ gl:
   here: aquí
   hidden: Agochado
   hidden_comment: comentario agochado
+  hidden_for_colon: "Agochado por:"
   hide: agochar
   hierarchies_description: A Enciclopedia da vida non ten unha única xerarquía taxonómica ao crear as páxinas. Máis ben, a EOL indexa moitas xerarquías e compáraas entre elas. Esta API lista os metadatos acerca dunha xerarquía, como o nome do provedor e o enderezo URL de orixe, así como tamén inclúe todos os taxons que se atopan na raíz da árbore taxonómica
   hierarchies_entries_description: A Enciclopedia da vida non ten unha única xerarquía taxonómica ao crear as páxinas. Máis ben, a EOL indexa moitas xerarquías e compáraas entre elas. Como resultado, calquera páxina da EOL pode estar relacionada con múltiples nodos de varias xerarquías. Esta API dá acceso a unha única xerarquía e ás súas relacións internas. Consulta a documentación nas páxinas da API para obter información sobre o acceso a outras xerarquías que corresponden a unha páxina concreta da EOL. O campo taxonConceptID contén o identificador de páxina da EOL que se pode empregar na API das páxinas.
@@ -2200,6 +2250,7 @@ gl:
   literature_references: Referencias literarias
   location: Localización
   location_colon: "Localización:"
+  location_created_colon: "Localización creada:"
   logging_database_colon: "Rexistro:"
   login: acceder ao sistema
   login_header: Inicia sesión coa túa conta da <abbr title="Enciclopedia da vida">EOL</abbr>
@@ -2470,6 +2521,9 @@ gl:
     signature_basic: O equipo da Enciclopedia da vida
     signature_with_contact_us_link: "Se tes algún problema, ponte en contacto con nós no enderezo %{url}.\n\nO equipo da Enciclopedia da vida"
     signature_with_species_pages_group_contact: "Se tes algunha pregunta, ponte en contacto con nós no enderezo %{species_pages_group_email}.\n\nO equipo da Enciclopedia da vida"
+    unsubscribed_to_notifications: 
+      message: "Cancelaches correctamente a túa subscrición ás notificacións da Enciclopedia da vida. Pode cambiar a configuración do teu correo electrónico ou subscribirte ás notificacións na <a href='%{email_prefs_url}'>páxina das túas preferencias de notificación</a>.\n\nPara obter máis información sobre como usar a EOL (como crear coleccións, participar nas comunidades ou achegar contidos) visita a nosa páxina de axuda no enderezo http://eol.org/help."
+      subject: Sentimos verte marchar...
     user_activated: 
       message: "Benvido á Enciclopedia da vida (EOL) e grazas por te rexistrares! Ten en conta que o teu nome de usuario é %{username} e o enderezo URL do teu perfil é %{profile_url}. Podes acceder á túa conta en http://eol.org/login.\n\nPara obter máis información sobre como usar a EOL (como crear coleccións, participar nas comunidades ou achegar contidos) visita a nosa páxina de axuda no enderezo http://eol.org/help."
       subject: Activouse a túa conta na Enciclopedia da vida
@@ -2692,6 +2746,7 @@ gl:
     community_activity_user_joined: O usuario <b>%{user_name}</b> uniuse á comunidade <b>%{community_name}</b>.
     community_activity_user_left: O usuario <b>%{user_name}</b> deixou a comunidade <b>%{community_name}</b>.
     community_activity_user_made_member_a_manager: O usuario <b>%{user_name}</b> converteu a <b>%{member_name}</b> en administrador da comunidade <b>%{community_name}</b>.
+    contact_us_link: Se experimentas algún problema, <a href='http://eol.org/contact_us' style='color:#195184'>ponte en contacto con nós</a>.
     curator_activity_log_title: "%{who} conservou algo"
     curator_activity_on_data_object_by_user: "<b>%{user_name}</b> realizou unha acción de %{activity_name} en <b>%{dato_title}</b> (%{dato_type} #%{dato_id})."
     curator_activity_on_taxon_concept_by_user: <b>%{user_name}</b> realizou unha acción de %{activity_name} en <b>%{taxon_concept}</b> (%{taxon_overview_url}).
@@ -2704,7 +2759,7 @@ gl:
     reply_to_comment_body_brief: "%{reply_to_author} %{body} - %{author}"
     see_all_activity: Bota un ollo a toda a actividade previa na túa <a href='%{activity_url}' style='color:#195184'>páxina de fonte de novas de usuario</a>.
     someone_commented_on_something: <b>%{who}</b> deixou un comentario en "<b>%{what}</b>".
-    unsubscribe: Cambia a túa configuración do correo electrónico ou cancela a subscrición na <a href='%{email_prefs_url}' style='color:#195184'>páxina das túas preferencias de notificación</a>.
+    unsubscribe: Accede e cambia a túa configuración do correo electrónico na <a href='%{email_prefs_url}' style='color:#195184'>páxina das túas preferencias de notificación</a> ou <a href='%{unsubscribe_url}' style='color:#195184'>cancela a subscrición a TODAS as notificacións automáticas da EOL sen acceder ao sistema</a>.
   recent_updates: Actualizacións recentes
   recently_visited: Visitados recentemente
   recipients: Destinatarios
@@ -2760,7 +2815,6 @@ gl:
   sci_name_avg_table_head: Media do nome científico
   scientific_name: Nome científico
   search: Procurar
-  search_by_provider_method_description: obter os identificadores das páxinas da EOL a partir dun hierarchy_id e o identificador único do provedor
   search_by_term_page_title: "Procurar: %{term}"
   search_field_common_name: Nome común
   search_field_label: Procurar na EOL
@@ -3359,6 +3413,7 @@ gl:
   truncated_comment_omission: ...<a href='%{link}'>máis</a>
   truncated_comment_omission_linkless: ...
   trusted: De confianza
+  trusted_for_colon: "De confianza por:"
   trusted_images: Imaxes de confianza
   trusted_maps: Mapas de confianza
   trusted_text_objects: Artigos de confianza
@@ -3373,10 +3428,12 @@ gl:
   unknown_type_not_associated_with_any_published_entries: Estes datos non están asociados a ningún taxon publicado.
   unpublished: Sen publicar
   unreviewed: Sen revisar
+  unreviewed_for_colon: "Sen revisar por:"
   unreviewed_images: Imaxes sen revisar
   unreviewed_maps: Mapas sen revisar
   unreviewed_text_objects: Artigos sen revisar
   untrusted: Non é de confianza
+  untrusted_for_colon: "De non confianza por:"
   update: Actualizar
   update_collection_submit_button: Actualizar os detalles da colección
   update_language: Actualizar a lingua
@@ -3460,6 +3517,7 @@ gl:
   user_commented_on_older_data_object_colon: "<strong>%{user}</strong> comentou en \"%{what}\":"
   user_commented_on_something_colon: "<strong>%{user}</strong> comentou en \"%{what}\":"
   user_commented_on_themself: "<strong>%{user_with_link}</strong> comentou na <a href='%{link}'>fonte de novas de %{username}</a>:"
+  user_commented_on_your_image: "<strong>%{user}</strong> comentou na túa imaxe no <a href='%{data_object_link}'>sitio da Enciclopedia da vida</a>:\n%{comment_body}"
   user_comments: Comentarios do usuario
   user_full_name_with_curator: "%{user} (%{curator_level})"
   user_id: ID do usuario
@@ -3541,6 +3599,9 @@ gl:
       edit: 
         page_description: Todas as actualizacións enumeradas a continuación (agás o boletín de novas da EOL) están dispoñibles na túa <a href="%{user_newsfeed_link}">fonte de novas da EOL</a>, pero moita xente querería recibir alertas por correo electrónico con respecto a certas actividades que atopan interesantes. Podes utilizar os botóns inferiores para definir aquela frecuencia dos correos da EOL que se adecúe ás túas preferencias
         page_title: Configuración das notificacións
+      update: 
+        notification_settings_successfully_updated: A configuración das notificacións actualizouse correctamente.
+        sorry_notification_settings_could_not_be_updated: Sentímolo, non se puido actualizar a configuración das notificacións.
     open_authentications: 
       errors: 
         facebook: 
@@ -3623,7 +3684,7 @@ gl:
       form_tip: Para recuperar a túa conta da EOL, escribe o enderezo de correo electrónico asociado a ela. Comproba o cartafol de correo lixo se non recibes unha mensaxe de recuperación na vindeira hora.
       meta_title: Recuperar unha conta
       notices: 
-        recovery_email_sent: Enviouse a mensaxe de recuperación da conta coas instrucións. Comproba o cartafol de correo lixo se non recibes a mensaxe na vindeira hora.
+        recovery_email_sent: Enviouse a mensaxe de recuperación da conta coas instrucións. Engade %{from_address} aos teus remitentes de confianza e comproba o cartafol de correo lixo se non recibes a mensaxe na vindeira hora.
         temporarily_logged_in_update_authentication_details: Accediches temporalmente para recuperar a conta. Cambia o teu contrasinal ou actualiza as túas contas conectadas para aseguráreste de poder acceder correctamente.
     recover_account_choose_account: 
       errors: 
@@ -3634,6 +3695,10 @@ gl:
     show: 
       meta_description: Perfil de %{user_full_name} na Enciclopedia da vida.
       meta_description_curator: Perfil do %{curator_level} %{user_full_name} na Enciclopedia da vida.
+    unsubscribe_notifications: 
+      already_unsubscribed: Xa cancelaches a subscrición ás notificación.
+      unsubscribe_notifications_failed: Sentímolo, houbo un erro. Non se puido cancelar a subscrición ás notificacións do usuario.
+      unsubscribed_notifications_successfully: Cancelaches correctamente a subscrición ás notificacións.
   users_about_me_header: Acerca de min
   users_content_partners_header: Socios de contidos
   users_content_partners_information: Os socios de contidos da EOL son individuos ou organizacións que comparten os seus datos sobre a biodiversidade co mundo a través da EOL. Máis información sobre os <a href="%{more_url}">socios de contidos da EOL</a>.

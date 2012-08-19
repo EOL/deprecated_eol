@@ -29,8 +29,8 @@ ja:
   translated_agent_roles-label-agent_role_id-2: 著者
   translated_agent_roles-label-agent_role_id-21: プロバイダー
   translated_agent_roles-label-agent_role_id-22: 翻訳者
-  translated_agent_roles-label-agent_role_id-23: 科学レビューアー
-  translated_agent_roles-label-agent_role_id-24: 言語レビューアー
+  translated_agent_roles-label-agent_role_id-23: 科学レビュアー
+  translated_agent_roles-label-agent_role_id-24: 言語レビュアー
   translated_agent_roles-label-agent_role_id-3: コンパイラ
   translated_agent_roles-label-agent_role_id-4: 構成者
   translated_agent_roles-label-agent_role_id-5: 作成者
@@ -91,7 +91,7 @@ ja:
   translated_data_types-label-data_type_id-7: Flash
   translated_data_types-label-data_type_id-8: YouTube
   translated_licenses-description-license_id-1: 何の権利も保有しない
-  translated_licenses-description-license_id-2: © All rights reserved
+  translated_licenses-description-license_id-2: "&#169; All rights reserved"
   translated_licenses-description-license_id-29: いくつかの権利を保有
   translated_licenses-description-license_id-3: いくつかの権利を保有
   translated_licenses-description-license_id-30: いくつかの権利を保有
@@ -118,7 +118,7 @@ ja:
   translated_ranks-label-rank_id-324: シリーズ
   translated_ranks-label-rank_id-335: 種
   translated_ranks-label-rank_id-352: 亜科
-  translated_ranks-label-rank_id-370: サブクラス
+  translated_ranks-label-rank_id-370: 亜綱
   translated_ranks-label-rank_id-375: 下位区分
   translated_ranks-label-rank_id-383: 亜科
   translated_ranks-label-rank_id-390: 亜属
@@ -130,13 +130,13 @@ ja:
   translated_ranks-label-rank_id-408: サブセクション
   translated_ranks-label-rank_id-411: サブシリーズ
   translated_ranks-label-rank_id-413: 亜種
-  translated_ranks-label-rank_id-414: 亜種。
+  translated_ranks-label-rank_id-414: 亜種
   translated_ranks-label-rank_id-415: 亜種
   translated_ranks-label-rank_id-422: 亜族
   translated_ranks-label-rank_id-463: 上科
   translated_ranks-label-rank_id-472: 上門
-  translated_ranks-label-rank_id-494: 部族
-  translated_ranks-label-rank_id-51: クラス
+  translated_ranks-label-rank_id-494: 族
+  translated_ranks-label-rank_id-51: 綱
   translated_ranks-label-rank_id-517: 多様性
   translated_ranks-label-rank_id-518: 多様性
   translated_ranks-label-rank_id-74: 部門
@@ -192,7 +192,7 @@ ja:
   translated_synonym_relations-label-synonym_relation_id-8: ジェンバンクのアナモルフ
   translated_synonym_relations-label-synonym_relation_id-9: ジェンバンクの一般名
   translated_table_of_contents-label-table_of_contents_id-1: 概観
-  translated_table_of_contents-label-table_of_contents_id-13: 一般的な名称
+  translated_table_of_contents-label-table_of_contents_id-13: 一般名
   translated_table_of_contents-label-table_of_contents_id-14: IUCN
   translated_table_of_contents-label-table_of_contents_id-17: 参考文献
   translated_table_of_contents-label-table_of_contents_id-194: サイズ

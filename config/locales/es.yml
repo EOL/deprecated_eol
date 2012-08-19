@@ -18,7 +18,7 @@
 es: 
   0_1_or_2: 0, 1 o 2
   0_or_1: 0 o 1
-  a_pipe_delimited_list_of_licenses: una lista de licencias delimitada por barras verticales | o bien, 'todo' para obtener objetos bajo cualquier licencia. Licencias abreviadas cc- son todas
+  a_pipe_delimited_list_of_licenses: una lista de licencias delimitada por barras verticales | o bien, 'todo' para obtener objetos bajo cualquier licencia. Las licencias abreviadas cc- son todas licencias de %{creative_commons_link}. Visita su sitio para obtener más información sobre las licencias diferentes que ofrecen.
   a_pipe_delimited_list_of_spm_info_item_subject_names: un "overview" para volver al texto de introducción (si existe), una lista de nombres de elementos informativos SPM separados por barras verticales "|" o bien "all" para obtener el texto sobre cualquier tema. Siempre devuelve un texto de introducción como primer resultado (si existe en el contexto determinado).
   a_taxon: un taxón
   a_total_of_comment_were_found_matching_your_criteria: 
@@ -141,7 +141,7 @@ es:
         pages_with_image: Páginas con imagen
         pages_with_image_no_text: Páginas con imagen pero sin texto
         pages_with_map: Páginas con mapa
-        pages_with_score_10_to_39: Páginas con puntuación de 10 a 39
+        pages_with_score_10_to_39: Páginas con puntuación de 10 a 40
         pages_with_score_less_than_10: Páginas con puntuación inferior a 10
         pages_with_sound: Páginas con audio
         pages_with_text: Páginas con texto
@@ -295,13 +295,13 @@ es:
             accesspoint_url: 
               blank: no puede estar vacío, a menos levantaste un archivo de recursos en vez
               inaccessible: es inaccesible, la URL necesita ser accesible al público
-              invalid: no es válida, debe apuntar a un archivo XML, XML.GZIP o XML.GZ.
+              invalid: no es válida, debe apuntar a un archivo XML, XML.GZIP, XML.GZ o ZIP.
             dataset: 
               blank: no puede estar blanco, a menos proporcionaste una dirección URL conjunto de datos en ves
-              wrong_type: es el tipo incorrecto, debe ser un archivo GZIP, TAR o XML
+              wrong_type: es de tipo incorrecto, debe ser un archivo GZIP, TAR, ZIP o XML
             dwc_archive_url: 
               inaccessible: es inaccesible, la URL necesita ser accesible al público
-              invalid: no es válida, se debe apuntar a un archivo TAR.GZIP, TAR.GZ o TGZ.
+              invalid: no es válido, debe apuntar a un archivo TAR.GZIP, TAR.GZ, TGZ o ZIP.
       template: 
         body: "Se encontraron problemas con los siguientes campos:"
         header: 
@@ -438,6 +438,31 @@ es:
         user_associated_data_object_to_association: <strong>%{user}</strong> agregó una asociación entre "%{data_object}" y "%{association}".
         user_associated_it_to_an_unknown_association: <strong>%{user}</strong> agregó una asociación a una página desconocida.
         user_associated_it_to_association: <strong>%{user}</strong> agregó una asociación a "%{association}".
+      add_common_name: 
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: Un usuario desconocido ha agregado un nombre común desconocido en un idioma desconocido a una página desconocida.
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_it: Un usuario desconocido ha agregado un nombre común desconocido en un idioma desconocido.
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_taxon: Un usuario desconocido ha agregado un nombre común desconocido en un idioma desconocido a "%{taxon}".
+        an_unknown_user_added_an_unknown_name_in_language_to_an_unknown_taxon: Un usuario desconocido ha agregado un nombre común desconocido en %{language} a una página desconocida.
+        an_unknown_user_added_an_unknown_name_in_language_to_it: Un usuario desconocido ha agregado un nombre común desconocido en %{language}.
+        an_unknown_user_added_an_unknown_name_in_language_to_taxon: Un usuario desconocido ha agregado un nombre común desconocido en %{language} a "%{taxon}".
+        an_unknown_user_added_name_in_an_unknown_language_to_an_unknown_taxon: Un usuario desconocido ha agregado el nombre común "%{name}" en un idioma desconocido a una página desconocida.
+        an_unknown_user_added_name_in_an_unknown_language_to_it: Un usuario desconocido añadió el nombre común "%{name}" en un idioma desconocido.
+        an_unknown_user_added_name_in_an_unknown_language_to_taxon: Un usuario desconocido ha agregado el nombre común "%{name}" en un idioma desconocido a "%{taxon}".
+        an_unknown_user_added_name_in_language_to_an_unknown_taxon: Un usuario desconocido añadió en %{language} el nombre común "%{name}" a una página desconocida.
+        an_unknown_user_added_name_in_language_to_it: Un usuario desconocido añadió en %{language} el nombre común "%{name}".
+        an_unknown_user_added_name_in_language_to_taxon: Un usuario desconocido añadió en %{language} el nombre común "%{name}" a "%{taxon}".
+        user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: <strong>%{user}</strong> ha agregado un nombre común desconocido en un idioma desconocido a una página desconocida.
+        user_added_an_unknown_name_in_an_unknown_language_to_it: <strong>%{user}</strong> ha agregado un nombre común desconocido en un idioma desconocido.
+        user_added_an_unknown_name_in_an_unknown_language_to_taxon: <strong>%{user}</strong> ha agregado un nombre común desconocido en un idioma desconocido a "%{taxon}".
+        user_added_an_unknown_name_in_language_to_an_unknown_taxon: <strong>%{user}</strong> agregó un nombre común desconocido en %{language} a una página desconocida.
+        user_added_an_unknown_name_in_language_to_it: <strong>%{user}</strong> agregó un nombre común desconocido en %{language}.
+        user_added_an_unknown_name_in_language_to_taxon: <strong>%{user}</strong> agregó un nombre común desconocido en %{language} a "%{taxon}".
+        user_added_name_in_an_unknown_language_to_an_unknown_taxon: <strong>%{user}</strong> ha agregado el nombre común "%{name}" en un idioma desconocido a una página desconocida.
+        user_added_name_in_an_unknown_language_to_it: <strong>%{user}</strong> ha agregado el nombre común "%{name}" en un idioma desconocido.
+        user_added_name_in_an_unknown_language_to_taxon: <strong>%{user}</strong> ha agregado el nombre común "%{name}" en un idioma desconocido a "%{taxon}".
+        user_added_name_in_language_to_an_unknown_taxon: <strong>%{user}</strong> agregó en %{language} el nombre común "%{name}" a una página desconocida.
+        user_added_name_in_language_to_it: <strong>%{user}</strong> agregó en %{language} el nombre común "%{name}".
+        user_added_name_in_language_to_taxon: <strong>%{user}</strong> agregó en %{language} el nombre común "%{name}" a "%{taxon}".
       choose_exemplar_article: 
         an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: Un usuario desconocido ha seleccionado una versión anterior de "%{data_object}" para mostrar en el Resumen de una página desconocida.
         an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: Un usuario desconocido ha seleccionado '%{data_object}' para mostrar en el Resumen de '%{taxon}'.
@@ -489,6 +514,19 @@ es:
         user_hid_data_object_on_association: <strong>%{user}</strong> ha marcado "%{data_object}" como oculto en la página "%{association}".
         user_hid_it_on_an_unknown_association: <strong>%{user}</strong> lo ha marcado como oculto en un contexto desconocido.
         user_hid_it_on_association: <strong>%{user}</strong> lo ha marcado como oculto en la página "%{association}".
+      merge: 
+        an_unknown_user_merged_entry_to_an_unknown_taxon: Un usuario desconocido ha trasladado la clasificación por "%{provider}" a un taxón desconocido.
+        an_unknown_user_merged_entry_to_it: Un usuario desconocido ha agregado la clasificación por "%{provider}".
+        an_unknown_user_merged_entry_to_taxon: Un usuario desconocido ha trasladado la clasificación por "%{provider}" a "%{taxon}".
+        an_unknown_user_merged_unknown_entry_to_an_unknown_taxon: Un usuario desconocido ha trasladado una clasificación desconocida a un taxón desconocido.
+        an_unknown_user_merged_unknown_entry_to_it: Un usuario desconocido ha añadido una clasificación desconocida.
+        an_unknown_user_merged_unknown_entry_to_taxon: Un usuario desconocido ha trasladado una clasificación desconocida a "%{taxon}".
+        user_merged_entry_to_an_unknown_taxon: <strong>%{user}</strong> ha trasladado la clasificación por "%{provider}" a un taxón desconocido.
+        user_merged_entry_to_it: <strong>%{user}</strong> ha agregado la clasificación por "%{provider}".
+        user_merged_entry_to_taxon: <strong>%{user}</strong> ha trasladado la clasificación por "%{provider}" a "%{taxon}".
+        user_merged_unknown_entry_to_an_unknown_taxon: <strong>%{user}</strong> ha trasladado una clasificación desconocida a un taxón desconocido.
+        user_merged_unknown_entry_to_it: <strong>%{user}</strong> ha agregado una clasificación desconocida.
+        user_merged_unknown_entry_to_taxon: <strong>%{user}</strong> ha trasladado una clasificación desconocida a "%{taxon}".
       other_actions: 
         an_unknown_user_curated_an_older_data_object: Un usuario desconocido ha supervisado una versión anterior de "%{data_object}".
         an_unknown_user_curated_an_unknown_data_object: Un usuario desconocido ha supervisado un objeto de datos desconocidos.
@@ -530,6 +568,19 @@ es:
         user_disassociated_data_object_from_association: <strong>%{user}</strong> eliminó una asociación entre "%{data_object}" y "%{association}".
         user_disassociated_it_from_an_unknown_association: <strong>%{user}</strong> elimino una asociación a una página desconocida.
         user_disassociated_it_from_association: <strong>%{user}</strong> eliminó una asociación a "%{association}".
+      remove_common_name: 
+        an_unknown_user_removed_name_in_an_unknown_language_from_an_unknown_taxon: Un usuario desconocido ha eliminado un nombre común en un idioma desconocido de una página desconocida.
+        an_unknown_user_removed_name_in_an_unknown_language_from_it: Un usuario desconocido ha eliminado un nombre común en un idioma desconocido.
+        an_unknown_user_removed_name_in_an_unknown_language_from_taxon: Un usuario desconocido ha eliminado un nombre común en un idioma desconocido de "%{taxon}".
+        an_unknown_user_removed_name_in_language_from_an_unknown_taxon: Un usuario desconocido ha eliminado un nombre común en %{language} de una página desconocida.
+        an_unknown_user_removed_name_in_language_from_it: Un usuario desconocido ha eliminado un nombre común en %{language}.
+        an_unknown_user_removed_name_in_language_from_taxon: Un usuario desconocido ha eliminado un nombre común en %{language} de "%{taxon}".
+        user_removed_name_in_an_unknown_language_from_an_unknown_taxon: <strong>%{user}</strong> ha eliminado un nombre común en un idioma desconocido de una página desconocida.
+        user_removed_name_in_an_unknown_language_from_it: <strong>%{user}</strong> ha eliminado un nombre común en un idioma desconocido.
+        user_removed_name_in_an_unknown_language_from_taxon: <strong>%{user}</strong> ha eliminado un nombre común en un idioma desconocido de "%{taxon}".
+        user_removed_name_in_language_from_an_unknown_taxon: <strong>%{user}</strong> ha eliminado un nombre común en %{language} de una página desconocida.
+        user_removed_name_in_language_from_it: <strong>%{user}</strong> ha eliminado un nombre común en %{language}.
+        user_removed_name_in_language_from_taxon: <strong>%{user}</strong> ha eliminado un nombre común en %{language} de "%{taxon}".
       show: 
         an_unknown_user_showed_an_older_data_object_on_an_unknown_association: Un usuario desconocido marcó una versión anterior de "%{data_object}" como visible en un contexto desconocido.
         an_unknown_user_showed_an_older_data_object_on_association: Un usuario desconocido marcó una versión anterior de "%{data_object}" como visible en la página "%{association}".
@@ -560,6 +611,31 @@ es:
         user_split_unknown_entry_from_an_unknown_taxon: <strong>%{user}</strong> ha dividido una clasificación desconocida de un taxón desconocido.
         user_split_unknown_entry_from_it: <strong>%{user}</strong> ha separado una clasificación desconocida.
         user_split_unknown_entry_from_taxon: <strong>%{user}</strong> ha dividido una clasificación desconocida de "%{taxon}".
+      trust_common_name: 
+        an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Un usuario desconocido ha marcado un nombre común desconocido en un idioma desconocido de una página desconocida como de confianza.
+        an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_it: Un usuario desconocido marcó un nombre común desconocido en un idioma desconocido como fiable.
+        an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_taxon: Un usuario desconocido ha marcado un nombre común desconocido en un idioma desconocido de "%{taxon}" como fiable.
+        an_unknown_user_trusted_an_unknown_name_in_language_on_an_unknown_taxon: Un usuario desconocido ha marcado un nombre común en %{language} de una página desconocida como fiable.
+        an_unknown_user_trusted_an_unknown_name_in_language_on_it: Un usuario desconocido ha marcado un nombre común desconocido en %{language} como fiable.
+        an_unknown_user_trusted_an_unknown_name_in_language_on_taxon: Un usuario desconocido ha marcado un nombre común en %{language} de "%{taxon}" como fiable.
+        an_unknown_user_trusted_name_in_an_unknown_language_on_an_unknown_taxon: Un usuario desconocido ha marcado el nombre común "%{name}" en un idioma desconocido de una página desconocida como fiable.
+        an_unknown_user_trusted_name_in_an_unknown_language_on_it: Un usuario desconocido marcó el nombre común "%{name}" en un idioma desconocido como fiable.
+        an_unknown_user_trusted_name_in_an_unknown_language_on_taxon: Un usuario desconocido ha marcado el nombre común "%{name}" en un idioma desconocido de "%{taxon}" como fiable.
+        an_unknown_user_trusted_name_in_language_on_an_unknown_taxon: Un usuario desconocido ha marcado el nombre común en %{language} "%{name}" de una página desconocida como fiable.
+        an_unknown_user_trusted_name_in_language_on_it: Un usuario desconocido marcó el nombre común "%{name}" en %{language} como fiable.
+        an_unknown_user_trusted_name_in_language_on_taxon: Un usuario desconocido ha marcado el nombre común en %{language} "%{name}" de "%{taxon}" como fiable.
+        user_trusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> ha marcado un nombre común desconocido en un idioma desconocido de una página desconocida como fiable.
+        user_trusted_an_unknown_name_in_an_unknown_language_on_it: <strong>%{user}</strong> ha agregado un nombre común desconocido en un idioma desconocido como fiable.
+        user_trusted_an_unknown_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> ha eliminado un nombre común desconocido en un idioma desconocido de %{taxon} como fiable.
+        user_trusted_an_unknown_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> marcó un nombre común desconocido en %{language} de una página desconocida como fiable.
+        user_trusted_an_unknown_name_in_language_on_it: <strong>%{user}</strong> agregó un nombre común desconocido en %{language} como fiable.
+        user_trusted_an_unknown_name_in_language_on_taxon: <strong>%{user}</strong> ha marcado un nombre común desconocido en %{language} de "%{taxon}" como fiable.
+        user_trusted_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> ha marcado el nombre común "%{name}" en un idioma desconocido de una página desconocida.
+        user_trusted_name_in_an_unknown_language_on_it: <strong>%{user}</strong> ha agregado el nombre común "%{name}" en un idioma desconocido como fiable.
+        user_trusted_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> ha marcado el nombre común "%{name}" en un idioma desconocido de "%{taxon}" como fiable.
+        user_trusted_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> marcó el nombre común "%{name}" en %{language} de una página desconocida como fiable.
+        user_trusted_name_in_language_on_it: <strong>%{user}</strong> marcó el nombre común "%{name}" en %{language} como fiable.
+        user_trusted_name_in_language_on_taxon: <strong>%{user}</strong> marcó el nombre común "%{name}" en %{language} de "%{taxon}" como fiable.
       trusted: 
         an_unknown_user_trusted_an_older_data_object_on_an_unknown_association: Un usuario desconocido marcó una versión anterior de "%{data_object}" como fiable en un contexto desconocido.
         an_unknown_user_trusted_an_older_data_object_on_association: Un usuario desconocido marcó una versión anterior de "%{data_object}" como fiable en la página "%{association}".
@@ -577,6 +653,39 @@ es:
         user_trusted_data_object_on_association: <strong>%{user}</strong> ha marcado "%{data_object}" como fiable en la página "%{association}".
         user_trusted_it_on_an_unknown_association: <strong>%{user}</strong> lo ha marcado como fiable en un contexto desconocido.
         user_trusted_it_on_association: <strong>%{user}</strong> lo ha marcado como fiable en la página "%{association}".
+      unlock: 
+        an_unknown_taxon_unlocked: Una página desconocida ha finalizado el procesamiento de conservación  en segundo plano.
+        it_unlocked: Ha terminado el proceso de conservación en segundo plano.
+        taxon_unlocked: "\"%{taxon}\" ha terminado el proceso de conservación en segundo plano."
+      unlock_with_error: 
+        an_unknown_taxon_unlocked: "Una página desconocida tiene <strong>Errores</strong> en el proceso de conservación en segundo plano: %{error}."
+        it_unlocked: "El proceso de conservación en segundo plano <strong>ha fallado</strong> : %{error}."
+        taxon_unlocked: "\"%{taxon}\" ha sufrido <strong>Errores</strong> en el proceso de conservación en segundo plano: %{error}."
+      unreview_common_name: 
+        an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Un usuario desconocido ha marcado un nombre común desconocido en un idioma desconocido de una página desconocida como no revisado.
+        an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: Un usuario desconocido marcó un nombre común desconocido en un idioma desconocido como no revisado.
+        an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_taxon: Un usuario desconocido ha marcado un nombre común desconocido en un idioma desconocido de "%{taxon}" como no revisado.
+        an_unknown_user_unreviewed_an_unknown_name_in_language_on_an_unknown_taxon: Un usuario desconocido ha marcado un nombre común desconocido en %{language} de una página desconocida como no revisado.
+        an_unknown_user_unreviewed_an_unknown_name_in_language_on_it: Un usuario desconocido ha marcado un nombre común desconocido en %{language} como no revisado.
+        an_unknown_user_unreviewed_an_unknown_name_in_language_on_taxon: Un usuario desconocido ha marcado un nombre común en %{language} de "%{taxon}" como no revisado.
+        an_unknown_user_unreviewed_name_in_an_unknown_language_on_an_unknown_taxon: Un usuario desconocido ha marcado el nombre común "%{name}" en un idioma desconocido de una página desconocida como no revisado.
+        an_unknown_user_unreviewed_name_in_an_unknown_language_on_it: Un usuario desconocido marcó el nombre común "%{name}" en un idioma desconocido como no revisado.
+        an_unknown_user_unreviewed_name_in_an_unknown_language_on_taxon: Un usuario desconocido ha marcado el nombre común "%{name}" en un idioma desconocido de "%{taxon}" como no revisado.
+        an_unknown_user_unreviewed_name_in_language_on_an_unknown_taxon: Un usuario desconocido ha marcado el nombre común en %{language} "%{name}" de una página desconocida como no revisado.
+        an_unknown_user_unreviewed_name_in_language_on_it: Un usuario desconocido marcó el nombre común "%{name}" en %{language} como no revisado.
+        an_unknown_user_unreviewed_name_in_language_on_taxon: Un usuario desconocido ha marcado el nombre común en %{language} "%{name}" de "%{taxon}" como no revisado.
+        user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> ha marcado un nombre común desconocido en un idioma desconocido de una página desconocida como no revisado.
+        user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: <strong>%{user}</strong> ha marcado un nombre común desconocido en un idioma desconocido como no revisado.
+        user_unreviewed_an_unknown_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> ha marcado un nombre común desconocido en un idioma desconocido de %{taxon} como no revisado.
+        user_unreviewed_an_unknown_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> marcó un nombre común desconocido en %{language} de una página desconocida como no revisado.
+        user_unreviewed_an_unknown_name_in_language_on_it: <strong>%{user}</strong> ha marcado un nombre común desconocido en %{language} como no revisado.
+        user_unreviewed_an_unknown_name_in_language_on_taxon: <strong>%{user}</strong> ha marcado un nombre común desconocido en %{language} de "%{taxon}" como no revisado.
+        user_unreviewed_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> ha marcado el nombre común "%{name}" en un idioma desconocido de una página desconocida como no revisado.
+        user_unreviewed_name_in_an_unknown_language_on_it: <strong>%{user}</strong> ha marcado el nombre común "%{name}" en un idioma desconocido como no revisado.
+        user_unreviewed_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> ha marcado el nombre común "%{name}" en un idioma desconocido de "%{taxon}" como no revisado.
+        user_unreviewed_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> marcó el nombre común "%{name}" en %{language} de una página desconocida como no revisado.
+        user_unreviewed_name_in_language_on_it: <strong>%{user}</strong> marcó el nombre común "%{name}" en %{language} como no revisado.
+        user_unreviewed_name_in_language_on_taxon: <strong>%{user}</strong> marcó el nombre común "%{name}" en %{language} de "%{taxon}" como no revisado.
       unreviewed: 
         an_unknown_user_unreviewed_an_older_data_object_on_an_unknown_association: Un usuario desconocido ha marcado una versión anterior de "%{data_object}" como no revisada en un contexto desconocido.
         an_unknown_user_unreviewed_an_older_data_object_on_association: Un usuario desconocido marcó una versión anterior de "%{data_object}" como no revisada en la página "%{association}".
@@ -594,6 +703,31 @@ es:
         user_unreviewed_data_object_on_association: <strong>%{user}</strong> ha marcado "%{data_object}" como no revisado en la página "%{association}".
         user_unreviewed_it_on_an_unknown_association: <strong>%{user}</strong> lo ha marcado como no revisado en un contexto desconocido.
         user_unreviewed_it_on_association: <strong>%{user}</strong> lo ha marcado como no revisado en la página "%{association}".
+      untrust_common_name: 
+        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Un usuario desconocido ha marcado un nombre común desconocido en un idioma desconocido de una página desconocida como no fiable.
+        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_it: Un usuario desconocido marcó un nombre común desconocido en un idioma desconocido como no fiable.
+        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_taxon: Un usuario desconocido marcó un nombre común desconocido de "%{taxon}" en un idioma desconocido como no fiable.
+        an_unknown_user_untrusted_an_unknown_name_in_language_on_an_unknown_taxon: Un usuario desconocido ha marcado un nombre común desconocido en %{language} de una página desconocida como no fiable.
+        an_unknown_user_untrusted_an_unknown_name_in_language_on_it: Un usuario desconocido ha marcado un nombre común desconocido en %{language} como no fiable.
+        an_unknown_user_untrusted_an_unknown_name_in_language_on_taxon: Un usuario desconocido ha marcado un nombre común en %{language} de "%{taxon}" como no fiable.
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_an_unknown_taxon: Un usuario desconocido ha marcado el nombre común "%{name}" en un idioma desconocido de una página desconocida como no fiable.
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_it: Un usuario desconocido marcó el nombre común "%{name}" en un idioma desconocido como no fiable.
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_taxon: Un usuario desconocido ha marcado el nombre común "%{name}" en un idioma desconocido de "%{taxon}" como no fiable.
+        an_unknown_user_untrusted_name_in_language_on_an_unknown_taxon: Un usuario desconocido ha marcado el nombre común en %{language} "%{name}" de una página desconocida como no fiable.
+        an_unknown_user_untrusted_name_in_language_on_it: Un usuario desconocido marcó el nombre común "%{name}" en %{language} como no fiable.
+        an_unknown_user_untrusted_name_in_language_on_taxon: Un usuario desconocido ha marcado el nombre común en %{language} "%{name}" de "%{taxon}" como no fiable.
+        user_untrusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> ha marcado un nombre común desconocido en un idioma desconocido de una página desconocida como no fiable.
+        user_untrusted_an_unknown_name_in_an_unknown_language_on_it: <strong>%{user}</strong> ha marcado un nombre común desconocido en un idioma desconocido como no fiable.
+        user_untrusted_an_unknown_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> ha eliminado un nombre común desconocido en un idioma desconocido de %{taxon} como no fiable.
+        user_untrusted_an_unknown_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> marcó un nombre común desconocido en %{language} de una página desconocida como no fiable.
+        user_untrusted_an_unknown_name_in_language_on_it: <strong>%{user}</strong> ha marcado un nombre común desconocido en %{language} como no fiable.
+        user_untrusted_an_unknown_name_in_language_on_taxon: <strong>%{user}</strong> ha marcado un nombre común desconocido en %{language} de "%{taxon}" como no fiable.
+        user_untrusted_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> ha marcado el nombre común "%{name}" en un idioma desconocido de una página desconocida como no fiable.
+        user_untrusted_name_in_an_unknown_language_on_it: <strong>%{user}</strong> ha marcado el nombre común "%{name}" en un idioma desconocido como no fiable.
+        user_untrusted_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> ha marcado el nombre común "%{name}" en un idioma desconocido de "%{taxon}" como no fiable.
+        user_untrusted_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> marcó el nombre común "%{name}" en %{language} de una página desconocida como no fiable.
+        user_untrusted_name_in_language_on_it: <strong>%{user}</strong> marcó el nombre común "%{name}" en %{language} como no fiable.
+        user_untrusted_name_in_language_on_taxon: <strong>%{user}</strong> marcó el nombre común "%{name}" en %{language} de "%{taxon}" como no fiable.
       untrusted: 
         an_unknown_user_untrusted_an_older_data_object_on_an_unknown_association: Un usuario desconocido ha marcado una versión anterior de "%{data_object}" como no fiable en un contexto desconocido.
         an_unknown_user_untrusted_an_older_data_object_on_association: Un usuario desconocido marcó una versión anterior de "%{data_object}" como no fiable en la página "%{association}".
@@ -643,7 +777,7 @@ es:
   add_sub_chapter: Añadir subcapítulo
   add_to_a_community: Añadir a una comunidad
   add_to_my_collection_button: Añadir a colección
-  added_classifications_ready: Los datos de las clasificaciones seleccionadas están listos para desplazarse a otra página. Para completar el proceso, selecciona "separar en una nueva página" o ve a la pestaña de nombres de la página donde pondrías los datos, y luego selecciona "combinar clasificaciones" para completar el proceso.
+  added_classifications_ready: Los datos de las clasificaciones seleccionadas están listos para desplazarse a otra página. Para completar el proceso, selecciona "dividir en una nueva página" o ve a la pestaña de nombres de la página donde pondrías los datos, y luego selecciona "combinar clasificaciones".
   admin_content_page_active: Publicado
   admin_content_page_child_new_link: Crear página secundaria
   admin_content_page_create_successful_notice: Página <a href="#%{anchor}"><em>%{page_name}</em></a> creada correctamente.
@@ -681,7 +815,7 @@ es:
   admin_content_partners_statistics_first_published_download_csv_submit: Descargar como CSV
   admin_content_partners_statistics_first_published_empty: Ningún recurso de los socios de contenido fue publicado entre %{date_from} y %{date_to}.
   admin_content_partners_statistics_first_published_header: Recursos publicados por primera vez
-  admin_content_partners_statistics_link: Estatísticas
+  admin_content_partners_statistics_link: Estadísticas
   admin_content_partners_statistics_page_title: "Administración: Estadísticas del socio contenido"
   admin_home: Inicio Administración
   admin_information: Esta es la neueva consola de administración para EOL V2. Estamos en el proceso de transferencia los funciones de administración de V1. Si no aparece la sección de administración que buscas, visite la <a href="/administrator">V1 Administration Console</a>.
@@ -708,12 +842,35 @@ es:
   admin_user_unhide_successful_notice: El usuario ha dejado de estar oculto
   admins: 
     eol_statistics: 
+      content_partners: 
+        menu_link: Socios de contenido
+        page_header: Estadísticas del socio de contenido
+        page_title: "Administración: Estadísticas del socio de contenidos"
+      curators: 
+        menu_link: Estadísticas de conservador
+        page_header: Estadísticas de conservador
+        page_title: "Administración: Estadísticas del conservador"
       data_objects: 
         menu_link: Objetos de datos
+        page_header: Estadísticas del objeto de datos
+        page_title: "Administración: Estadísticas de los objetos de datos"
       index: 
         menu_link: Estadísticas generales
         page_header: Estadísticas generales
         page_title: "Administración: Estadísticas generales"
+        table_caption: Estadísticas globales del sitio creado el %{created_at_time}
+      lifedesks: 
+        menu_link: LifeDesks
+        page_header: Estadísticas de LifeDesks
+        page_title: "Administración: Estadísticas de LifeDesks"
+      marine: 
+        menu_link: Estadísticas marinas
+        page_header: Cobertura marina en EOL
+        page_title: "Administración: Estadísticas marinas"
+      page_richness: 
+        menu_link: Páginas ricas
+        page_header: Estadísticas de páginas ricas
+        page_title: "Administración: Estadísticas de las páginas ricas"
       users_data_objects: 
         menu_link: Texto enviado por el usuario
         page_header: Estadísticas de texto enviado por el usuario
@@ -1522,7 +1679,6 @@ es:
   download_wav_file: Descargar archivo WAV
   dublin_core: Dublin Core
   duplicate_items_were_ignored: Elementos duplicados fueron ignoradas.
-  e_g_search_for_the_eol_page: "(e.g. buscar la ID de página de EOL para el ITIS TSN 180542:"
   each_method_documentation_page_has_formatted_responses: Cada página de documentación de un método tiene un ejemplo de respuesta forrajeada en XML y en JSON.
   edit: Editar
   edit_collection_details: Editar detalles de colección
@@ -1584,6 +1740,39 @@ es:
   eol_news: Noticias EOL
   eol_pages: Páginas
   eol_statistics: 
+    comparing_dates: <span class="assistive">Comparando</span> <span class="date_one">%{date_one}</span> <span class="assistive">y</span> <span class="date_two">%{date_two}</span>
+    content_partners: 
+      menu_link: Socios de contenido
+      page_header: Estadísticas de socios de contenido
+      page_title: Estadísticas
+    curators: 
+      menu_link: Estadísticas de conservador
+      page_header: Estadísticas de conservador
+      page_title: Estadísticas
+    data_objects: 
+      menu_link: Objetos de datos
+      page_header: Estadísticas de los objetos de datos
+      page_title: Estadísticas
+    index: 
+      menu_link: Estadísticas generales
+      page_header: Estadísticas generales
+      page_title: Estadísticas
+    lifedesks: 
+      menu_link: LifeDesks
+      page_header: Estadísticas de LifeDesks
+      page_title: Estadísticas
+    marine: 
+      menu_link: Estadísticas marinas
+      page_header: Cobertura marina en EOL
+      page_title: Estadísticas
+    page_richness: 
+      menu_link: Páginas ricas
+      page_header: Estadísticas de páginas ricas
+      page_title: Estadísticas
+    users_data_objects: 
+      menu_link: Texto enviado por el usuario
+      page_header: Estadísticas de texto enviado por el usuario
+      page_title: Estadísticas
     warnings: 
       stats_unavailable_for_date: Lo sentimos, las estadísticas no están disponible para %{date}. Por favor, seleccione otra fecha.
   error_401_description: Lo sentimos, no está autorizado a acceder a esa dirección URL.
@@ -1981,6 +2170,7 @@ es:
   here: aquí
   hidden: Oculto
   hidden_comment: comentario oculto
+  hidden_for_colon: "Ocultado por:"
   hide: ocultar
   hierarchies_description: La Enciclopedia de la Vida no crea sus páginas usando una sola jerarquía taxonómica. Más bien, EOL indexa muchas jerarquías y las compara entre sí. Este API lista de metadatos sobre una jerarquía, tales como el nombre del proveedor y el URL de la fuente, así como todos los taxones que están en la raíz del árbol taxonómico
   hierarchies_entries_description: La Enciclopedia de la Vida no crea sus páginas usando una sola jerarquía taxonómica. Más bien, EOL indexa muchas jerarquías y las compara entre sí. Como resultado, una página de EOL puede estar relacionada con varios nodos de varias jerarquías. Este API da acceso a una jerarquía individual y a sus relaciones internas. Vea la documentación el API páginas para ver cómo acceder a otras jerarquías que corresponden a una página de EOL. El campo taxonConceptID contiene el identificador de página de EOL que puede ser usado en el API páginas.
@@ -2155,6 +2345,7 @@ es:
   literature_references: Referencias de la literatura
   location: Ubicación
   location_colon: "Ubicación:"
+  location_created_colon: "Ubicación creada:"
   logging_database_colon: "Registro:"
   login: iniciar sesión
   login_header: Inicie sesión en su cuenta <abbr title="Encyclopedia of Life">EOL</abbr>
@@ -2425,6 +2616,9 @@ es:
     signature_basic: El Equipo de The Encyclopedia of Life
     signature_with_contact_us_link: "Si experimentas algún problema, pónte en contacto con nosotros en %{url}.\n\nEl Equipo de Encyclopedia of Life"
     signature_with_species_pages_group_contact: "Si tienes alguna pregunta, póngase en contacto con nosotros en %{species_pages_group_email}.\nEl Equipo de The Encyclopedia of Life"
+    unsubscribed_to_notifications: 
+      message: "Has cancelado con éxito tu suscripción a las notificaciones de Encyclopedia of Life. Puedes cambiar la configuración de tu correo electrónico o suscribirte a las notificaciones en <a href='%{email_prefs_url}'>tu página de preferencias de notificaciones</a>.\n\nPara obtener más información sobre cómo utilizar EOL, incluyendo cómo crear colecciones de EOL, participar en comunidades de EOL y aportar contenido, por favor visita nuestras páginas de ayuda en http://eol.org/help."
+      subject: Siento verte marchar...
     user_activated: 
       message: "¡Bienvenido a Encyclopedia of Life (EOL) y gracias por registrarse! Recuerde que su nombre de usuario es %{username} y la dirección URL de su perfil que es %{profile_url}. Puede iniciar sesión en su cuenta en http://www.eol.org/login.\n\nPara obtener más información acerca de cómo utilizar EOL, incluyendo cómo crear colecciones de EOL, participar en las comunidades de EOL y contribuir con contenido, visite nuestras páginas de ayuda en http://www.eol.org/help."
       subject: Tu cuenta de la Enciclopedia de la vida se ha sido activada
@@ -2455,6 +2649,7 @@ es:
   number_of_unreviewed_images_at_this_entry: número de imágenes no revisadas en esta entrada
   number_of_unreviewed_text_objects_at_this_entry: número de objetos de texto sin revisar en esta entrada
   object: Objeto
+  object_curated: Objeto conservado.
   object_curation: Curación de Objeto
   object_status: Estado del objeto
   object_status_all_option: Todos
@@ -2537,6 +2732,7 @@ es:
   partner: Socio
   partner_information: Información del socio
   partner_page: página de socio
+  partner_web_site_colon: "Sitio web del socio:"
   partnering_steps: PASOS PARA SER SOCIO
   password_colon: "Contraseña:"
   password_must_be_4to16_characters: La longitud de la contraseña debe estar entre 4 y 16 caracteres.
@@ -2645,6 +2841,7 @@ es:
     community_activity_user_joined: El usuario <b>%{user_name}</b> se ha unido a la comunidad <b>%{community_name}</b>.
     community_activity_user_left: El usuario <b>%{user_name}</b> ha dejado la comunidad <b>%{community_name}</b>.
     community_activity_user_made_member_a_manager: El usuario <b>%{user_name}</b> ha convertido a <b>%{member_name}</b> en administrador de la comunidad <b>%{community_name}</b>.
+    contact_us_link: Si experimentas algún problema, por favor <a href='http://eol.org/contact_us' style='color:#195184'>pónte en contacto con nosotros</a>.
     curator_activity_log_title: "%{who} ha supervisado algo"
     curator_activity_on_data_object_by_user: "<b>%{user_name}</b> ha realizado una acción de %{activity_name} en <b>%{dato_title}</b> (%{dato_type} #%{dato_id})."
     curator_activity_on_taxon_concept_by_user: <b>%{user_name}</b> ha realizado una acción de %{activity_name} en <b>%{taxon_concept}</b> (%{taxon_overview_url}).
@@ -2657,7 +2854,7 @@ es:
     reply_to_comment_body_brief: "%{reply_to_author} %{body} - %{author}"
     see_all_activity: Ver toda la actividad anterior en <a href='%{activity_url}' style='color:#195184'>su página de noticias de usuario</a>.
     someone_commented_on_something: <b>%{who}</b> ha comentado sobre <b>%{what}</b>.
-    unsubscribe: Cambie su configuración de correo electrónico o cancele la suscripción en <a href='%{email_prefs_url}' style='color:#195184'>su página de preferencias de notificación</a>.
+    unsubscribe: Inicia sesión y cambia tu configuración de correo electrónico en <a href='%{email_prefs_url}' style='color:#195184'>tu página de preferencias de notificaciones</a>. o <a href='%{unsubscribe_url}' style='color:#195184'>cancela la suscripción de todas las notificaciones automatizadas de EOL sin iniciar sesión</a>.
   recent_updates: Actualizaciones recientes
   recently_visited: Visitados recientemente
   recipients: Destinatarios
@@ -2713,7 +2910,6 @@ es:
   sci_name_avg_table_head: Media del nombre científico
   scientific_name: Nombre científico
   search: Buscar
-  search_by_provider_method_description: obtener los ID de página de EOL a partir de la hierarchy_id del proveedor y su identificador único
   search_by_term_page_title: "Buscar: %{term}"
   search_field_common_name: Nombre común
   search_field_label: Buscar en EOL
@@ -2881,6 +3077,7 @@ es:
   spm_category_partner_count: Categoría SPM - conteo de socios
   started: Iniciado
   stat: Estadísticas
+  stats: Estadísticas
   stored_classifications: Ten en cuenta que tienes <a href='%{anchor}'>las clasificaciones almacenadas, a continuación</a>.
   sub_heading: Subcabecera
   subject: subject
@@ -3311,6 +3508,7 @@ es:
   truncated_comment_omission: ... <a href='%{link}'>más</a>
   truncated_comment_omission_linkless: ...
   trusted: De confianza
+  trusted_for_colon: "Fiable para:"
   trusted_images: Imágenes de confianza
   trusted_maps: Mapas de confianza
   trusted_text_objects: Artículos de confianza
@@ -3325,10 +3523,12 @@ es:
   unknown_type_not_associated_with_any_published_entries: Estos datos no están asociados con ninguno de los taxones publicados.
   unpublished: Sin publicar
   unreviewed: Sin revisar
+  unreviewed_for_colon: "No revisado para:"
   unreviewed_images: Imágenes sin revisar
   unreviewed_maps: Mapas sin revisar
   unreviewed_text_objects: Artículos sin revisar
   untrusted: Sin confianza
+  untrusted_for_colon: "No fiable para:"
   update: Actualizar
   update_collection_submit_button: Actualizar los detalles del colección
   update_language: Actualizar idioma
@@ -3412,6 +3612,7 @@ es:
   user_commented_on_older_data_object_colon: "<strong>%{user}</strong> comentó sobre %{what}:"
   user_commented_on_something_colon: "<strong>%{user}</strong> comentó sobre %{what}:"
   user_commented_on_themself: "<strong>%{user_with_link}</strong> ha comentado sobre la <a href='%{link}'>fuente web de %{username}</a>:"
+  user_commented_on_your_image: "<strong>%{user}</strong> ha comentado su imagen en el sitio de la <a href='%{data_object_link}'>Encyclopedia of Life</a>:\n%{comment_body}"
   user_comments: Comentarios del usuario
   user_full_name_with_curator: "%{user} (%{curator_level})"
   user_id: Identificador de usuario
@@ -3493,6 +3694,9 @@ es:
       edit: 
         page_description: Todas las actualizaciones que se enumeran a continuación (excepto para el boletín de EOL) están disponibles para usted en su <a href="%{user_newsfeed_link}">página de noticias de EOL</a>, pero a mucha gente también le gustaría recibir alertas por correo electrónico sobre ciertos tipos de actividades que ellos encuentran particularmente interesantes. Puede utilizar los botones siguientes para definir la frecuencia de los correos electrónicos de EOL que satisfagan sus preferencias
         page_title: Configuración de notificaciones
+      update: 
+        notification_settings_successfully_updated: La configuración de las notificaciones se ha actualizado correctamente.
+        sorry_notification_settings_could_not_be_updated: Lo sentimos, no se pudo actualizar la configuración de las notificaciones.
     open_authentications: 
       errors: 
         facebook: 
@@ -3575,7 +3779,7 @@ es:
       form_tip: Para recuperar tu cuenta de EOL, escribe la dirección de correo electrónico asociada a esa cuenta. Comprueba tu carpeta de spam si no recibes un correo electrónico de recuperación de cuenta dentro de una hora.
       meta_title: Recuperar cuenta
       notices: 
-        recovery_email_sent: Se ha enviado un correo electrónico de recuperación de cuenta con instrucciones adicionales. Comprueba tu filtro de spam si no recibes el correo electrónico en una hora.
+        recovery_email_sent: Se ha enviado un correo electrónico de recuperación de cuenta con instrucciones adicionales. Añade %{from_address}  a tu lista de remitentes de correo seguros y comprueba tu filtro de spam si no recibes el correo electrónico en una hora.
         temporarily_logged_in_update_authentication_details: Estás conectado temporalmente  para permitir la recuperación de tu cuenta, cambiar tu contraseña o actualizar tus cuentas conectadas para asegurar que puedes iniciar sesión correctamente.
     recover_account_choose_account: 
       errors: 
@@ -3586,6 +3790,10 @@ es:
     show: 
       meta_description: Perfil de miembro de %{user_full_name} en la Encyclopedia of Life.
       meta_description_curator: Perfil de miembro del %{curator_level} %{user_full_name} en la Encyclopedia of Life.
+    unsubscribe_notifications: 
+      already_unsubscribed: Ya no estás suscrito a las notificaciones.
+      unsubscribe_notifications_failed: Lo sentimos, ha ocurrido un error, no se pudo dar de baja al usuario  a las notificaciones.
+      unsubscribed_notifications_successfully: Has cancelado correctamente la suscripción a las notificaciones.
   users_about_me_header: Acerca de mí
   users_content_partners_header: Socios de Contenidos
   users_content_partners_information: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt hendrerit tortor, commodo faucibus turpis imperdiet non. Nullam tincidunt, est vel euismod volutpat, libero turpis suscipit neque, nec viverra magna augue non nisl. Praesent et risus sit amet quam sagittis pulvinar eu at odio. Etiam mattis enim turpis, cursus rutrum massa. Ut blandit varius tellus, vitae interdum nulla pulvinar nec.

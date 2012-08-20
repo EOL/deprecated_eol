@@ -10,6 +10,7 @@
 # Author: Gomoko
 # Author: Hashar
 # Author: Jean-Frédéric
+# Author: Johann Grimm
 # Author: Joshuajohnlee
 # Author: Ljubinka
 # Author: McDutchie
@@ -294,6 +295,10 @@ fr:
   activity: Activité
   activity_log_empty: Personne n’a encore fourni de mises à jour.
   activity_log_empty_learn_more_link: Apprenez comment contribuer
+  activity_logs: 
+    curator_activity_log: 
+      add_association: 
+        user_associated_data_object_to_association: <strong>%{user}</strong> a ajouté une association entre "%{data_object}" et "%{association}".
   activity_user_created_text: <strong>%{user}</strong> a ajouté du texte à « %{object_name} » portant sur « %{taxon_concept} ».
   activity_user_updated_text: <strong>%{user}</strong> a mis à jour le texte « %{object_name} » portant sur « %{taxon_concept} ».
   add: Ajouter
@@ -438,7 +443,9 @@ fr:
   and: et
   and_between_form_items: et
   annotation_cabs_colon: "Annotation :"
+  anonymous_user_full_name: Utilisateur anonyme
   anonymous_user_given_name: Anonyme
+  anonymous_user_tag_line: Non Connecté
   any_integer: un entier quelconque
   api_docs_collections_description: Étant donné l’identifiant d’une collection, cette IPA retournera toutes les métadonnées à propos de la collection et des éléments qu’elle contient. La liste des éléments peut être filtrée par type d’élément et triée selon les attributs listés ci-dessus.
   application_version_advisory_information: Version de l’application
@@ -504,6 +511,7 @@ fr:
   cache_store: Stockage du cache
   calculate_averages_slow: Calculer des moyennes (lent)
   cancel: Annuler
+  cancel_split: Annuler
   cannot_be_associated_with_both_a_user_and_a_community: Ne peux être associé à la fois à un utilisateur et une communauté
   cannot_be_empty: ne peut pas être vide.
   cannot_create_collection_item_from_class_error: On ne peut créer aucun élément de collection à partir d’une %{klass}
@@ -522,6 +530,7 @@ fr:
   citation: Citation
   citation_example: Fisher, Brian. « Pogonomyrmex anergismus Cole, 1954. » Encyclopédie de la vie, disponible sur <a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>. Accédé le 15 janvier 2009.
   citing_link: Citation
+  classification_preferred_for_taxon_help_tip: "%{icon} marque la classification préférée pour ce taxon."
   classification_tree_header: Classification
   classifications_empty: Cette page ne fait partie d’aucune des classifications qui peuvent être parcourues sur l’EdlV.
   clear_all_non_species_pages: Effacer toutes les pages non relatives aux espèces
@@ -1109,7 +1118,6 @@ fr:
   download_wav_file: Télécharger le fichier WAV
   dublin_core: Dublin Core
   duplicate_items_were_ignored: Les éléments en double ont été ignorés.
-  e_g_search_for_the_eol_page: "(par exemple rechercher l’identifiant de page EdlV pour le TSN 180542 d’ITIS  :"
   each_method_documentation_page_has_formatted_responses: Chaque page de documentation de méthode comprend un exemple des deux réponses formatées en XML et JSON.
   edit: Modifier
   edit_collection_details: modifier les détails de la collection
@@ -1173,8 +1181,17 @@ fr:
     data_objects: 
       page_title: Statistiques
     index: 
+      menu_link: Statistiques globales
+      page_header: Statistiques Globales
       page_title: Statistiques
     lifedesks: 
+      page_title: Statistiques
+    marine: 
+      page_title: Statistiques
+    page_richness: 
+      page_title: Statistiques
+    users_data_objects: 
+      menu_link: Texte soumis par l'utilisateur
       page_title: Statistiques
     warnings: 
       stats_unavailable_for_date: Désolé, les statistiques ne sont pas disponibles pour le %{date}. Veuillez sélectionner une autre date.
@@ -1199,6 +1216,10 @@ fr:
   every_method_can_also_return_json_response: Chaque méthode peut également retourner une réponse JSON en ajoutant une extension .json
   example_colon: "Exemple :"
   exception: Exception
+  exceptions: 
+    security_violations: 
+      administrators_only: Désolé, l'accès est limité aux administrateurs de EdlV.
+      default: Accès refusé.
   expand_all_children: Développer tous les enfants
   explore: à découvrir
   explore_what_we_know_about_taxon: Découvrez ce que l’EdlV sait de %{taxon}.
@@ -1222,7 +1243,7 @@ fr:
   filter_button: Filtre
   filter_by_day: Filtrer par jour
   filter_by_status: Filtrer par statut
-  filter_by_status_all_option: tous les statuts
+  filter_by_status_all_option: Tous les statuts
   filter_by_status_inappropriate_option: Inapproprié
   filter_by_status_trusted_option: Fiable
   filter_by_status_unreviewed_option: Non supervisé
@@ -1638,7 +1659,7 @@ fr:
     other: "%{count} éléments;"
   iucn_red_list_status_advisory_information: Ce lien vous mènera sur le site web de l'Union internationale pour la Conservation de la Nature (UICN) où vous pourrez trouver plus d'informations sur la liste rouge des espèces menacées de l'UICN.
   join_community_button: Rejoindre cette communauté
-  join_eol_button_html: Rejoignez <abbr title="Encyclopedia of Life">EOL</abbr> maintenant
+  join_eol_button_html: Rejoignez <abbr title="Encyclopédie de la Vie">EdlV</abbr> maintenant
   join_eol_community_html: Faire partie de la communauté <abbr title="Encyclopédie de la Vie">EdlV</abbr> !
   joined_mailing_list: Uniquement ceux qui ont rejoint la liste de diffusion.
   joined_time_ago: Rejoint il y a %{time_passed}
@@ -1710,6 +1731,7 @@ fr:
   literature_references: Références bibliographiques
   location: Lieu
   location_colon: "Emplacement :"
+  location_created_colon: "Lieu de création :"
   logging_database_colon: "Journalisation :"
   login: connexion
   login_header: Connectez-vous à votre compte <abbr title="Encyclopédie de la Vie">EdlV</abbr>
@@ -1916,6 +1938,9 @@ fr:
   note_that_you_can_reference_im: Notez que vous pouvez faire référence auxs images avec la balise HTML &lt;img&gt;, mais elles doivent exister à une URL, comme depuis le site web d'origine ou un site tel que Flickr. Il n'y a aucune possibilité de télécharger les images pour les utiliser directement dans l'article de presse.
   notes: Notes
   notes_not_shown_to_user: "Notes (invisibles à l’utilisateur):"
+  notification_frequency_never: Jamais
+  notification_frequency_send_immediately: Envoyer immédiatement
+  notification_frequency_weekly: Hebdomadaire
   notifier: 
     activity_log_empty: Aucune action récente par les conservateurs.
     activity_on_content_partner_content: 
@@ -2035,7 +2060,7 @@ fr:
   other_taxa_with_count: 
     one: "%{count} autre taxon"
     other: "%{count} autres taxons"
-  other_us_dollars_amount: "Other : $US"
+  other_us_dollars_amount: "Autre : $US"
   outlink: Lien externe
   overview: Vue d’ensemble
   page: Page
@@ -2248,7 +2273,6 @@ fr:
   sci_name_avg_table_head: Nom scientifique moyen
   scientific_name: Nom scientifique
   search: Rechercher
-  search_by_provider_method_description: obtenir les identifiants de pages EdlV à partir d’un hierarchy_id du fournisseur et de l’identifiant unique du fournisseur
   search_by_term_page_title: "Rechercher : %{term}"
   search_field_common_name: Nom vulgaire
   search_field_label: Recherche sur l’EdlV
@@ -2407,6 +2431,7 @@ fr:
   spm_category_partner_count: Catégorie SPM - nombre de partenaires
   started: Démarré
   stat: Stat
+  stats: Statistiques
   sub_heading: Sous-titrage
   subject: sujet
   submit: Valider
@@ -2526,8 +2551,8 @@ fr:
           meta_title: Cartes de %{scientific_name} tel que classé par %{hierarchy_provider}
           meta_title_with_common_name: Cartes de %{preferred_common_name} (%{scientific_name} tel que classé par %{hierarchy_provider})
           tweet_text: Cartes pour %{scientific_name} tel que classé par %{hierarchy_provider}
-        meta_description: Informations géographiques sur %{scientific_name}, les endroits du monde où ils vivent et d’où ils proviennent.
-        meta_description_with_common_name: Où trouve-t-on des %{preferred_common_name} et d’où proviennent-ils ? Informations géographiques sur %{scientific_name}, les endroits du monde où ils vivent et d’où ils sont originaires.
+        meta_description: Informations géographiques sur %{scientific_name}. Endroits où ils vivent dans le monde.
+        meta_description_with_common_name: Où trouve-t-on des %{preferred_common_name} et d’où proviennent-ils ? Informations géographiques sur %{scientific_name}. Endroits où ils vivent dans le monde.
         meta_keywords: habitat de %{scientific_name}, où vit %{scientific_name}
         meta_keywords_with_common_name: habitat de %{preferred_common_name}, origine, où vit %{preferred_common_name}
         meta_title: Cartes de %{scientific_name}
@@ -2603,9 +2628,9 @@ fr:
           meta_title: "%{scientific_name} Classé par %{hierarchy_provider}"
           meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} Classé par %{hierarchy_provider})"
           tweet_text: Vue d’ensemble de %{scientific_name}, tel que classé par %{hierarchy_provider}
-        meta_description: Vue d’ensemble de %{scientific_name} dans l’Encyclopédie de la Vie.
+        meta_description: Information sur %{scientific_name} dans l’Encyclopédie de la Vie.
         meta_description_with_common_name: Information sur %{preferred_common_name}, scientifiquement appelé(e) %{scientific_name} dans l’Encyclopédie de la Vie.
-        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})"
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Information sur %{preferred_common_name}"
         tweet_text: Information sur %{scientific_name}
     resources: 
       biomedical_terms: 
@@ -2630,14 +2655,21 @@ fr:
           meta_title_with_common_name: Mises à jour de %{preferred_common_name} (%{scientific_name} classé par %{hierarchy_provider})
           tweet_text: Mises à jour de %{scientific_name} classé par %{hierarchy_provider}
         meta_keywords: Nouvelles de %{scientific_name}, mises à jour de %{scientific_name}
+        meta_title: Commentaires sur %{scientific_name}
         meta_title_with_common_name: Commentaires sur %{preferred_common_name} (%{scientific_name})
+        tweet_text: Commentaires sur %{scientific_name}
       statistics: 
         hierarchy_entry: 
           meta_title: Statistiques pour %{scientific_name} classé par %{hierarchy_provider}
           meta_title_with_common_name: Statistiques de %{preferred_common_name} (%{scientific_name} classé par %{hierarchy_provider})
+        meta_title: Richesse de %{scientific_name}
+        meta_title_with_common_name: Richesse de %{preferred_common_name} (%{scientific_name})
   taxa_column_header: Taxons
   taxon: taxon
   taxon_biomedical_terms_link: Termes biomédicaux
+  taxon_citizen_science_header: Liens Scientifiques Personnels
+  taxon_citizen_science_link: Liens scientifiques personnels
+  taxon_citizen_science_resources_empty: Personne n'a encore contribué avec un lien scientifique personnel pour cette page.
   taxon_concept_stats: Statistiques du concept de taxon
   taxon_details_empty: Personne n'a encore contribué à un détail sur cette page.
   taxon_education_empty: Personne n'a encore contribué à une ressource d'éducation sur cette page.
@@ -2881,6 +2913,10 @@ fr:
   user_left_comment_on_date: "%{username} a laissé un commentaire le %{date}."
   user_no_longer_active_message: Cet utilisateur n'est plus actif
   user_no_longer_has_manager_access_to_collection: "%{user} n'a plus d'accès gestionnaire à \"%{collection}\"."
+  user_pending_notifications_comments_assistive: <span class="assistive">commentaires</span>
+  user_pending_notifications_comments_with_count_assistive: 
+    one: "%{count}<span class=\"assistive\"> commentaire</span>"
+    other: "%{count}<span class=\"assistive\"> commentaires</span>"
   user_response: Réponse de l'utilisateur
   user_says_colon: "%{users_name} dit :"
   user_submitted_text: Texte soumis par l'utilisateur
@@ -2915,6 +2951,11 @@ fr:
         tweet_text: Activités de %{user_full_name}
       comments: 
         tweet_text: Commentaires de %{user_full_name}
+    open_authentications: 
+      facebook: Facebook
+      google: Google
+      twitter: Twitter
+      yahoo: Yahoo!
   users_about_me_header: À mon sujet
   users_content_partners_header: Partenaires de contenu
   users_content_partners_information: Les partenaires de contenu EdlV sont des individus ou des organisations qui partagent leurs données sur la biodiversité avec tout le monde via l’EdlV. Pour en savoir plus sur les <a href="%{more_url}">Partenaires de contenu EdlV</a>.

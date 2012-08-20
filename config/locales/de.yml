@@ -1676,7 +1676,6 @@ de:
   download_wav_file: WAV-Datei herunterladen
   dublin_core: Dublin Core
   duplicate_items_were_ignored: Dubletten wurden ignoriert.
-  e_g_search_for_the_eol_page: "(bspw. Suche nach der EOL-Seitenkennung für die ITIS TSN-180542:"
   each_method_documentation_page_has_formatted_responses: Jede Dokumentationsseite zu einer Methode enthält ein Beispiel für, sowohl in XML, wie auch in JSON formatierte Antworten.
   edit: Bearbeiten
   edit_collection_details: Informationen zur Sammlung bearbeiten
@@ -2908,7 +2907,6 @@ de:
   sci_name_avg_table_head: Durchschnittlich vorhandene wissenschaftliche Namen
   scientific_name: Wissenschaftlicher Name
   search: Suche
-  search_by_provider_method_description: die Seitenkennungen bei EOL zu einer Hierarchiekennung und einer eindeutigen Kennung des Anbieters abrufen
   search_by_term_page_title: "Suche: %{term}"
   search_field_common_name: Gebräuchlicher Name
   search_field_label: EOL durchsuchen

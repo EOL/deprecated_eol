@@ -26,4 +26,9 @@
       %br
     - if (data_object.source_url.blank? && data_object.content_partner.homepage.blank?) || !minimal
       = I18n.t(:supplier_colon)
-      = link_to data_object.content_partner.name, data_object.content_partner rescue nil
+      - partner = data_object.content_partner
+      - if current_user.can_read?(partner)
+        = link_to partner.name, partner rescue nil
+      - else
+        = partner.name rescue nil
+        = "(profile not public)"

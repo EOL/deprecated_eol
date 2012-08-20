@@ -9,10 +9,10 @@
 #---
 #dependencies: [ :foundation ]
 
-require 'spec/eol_spec_helpers'
-require 'spec/scenario_helpers'
+require Rails.root.join('spec', 'eol_spec_helpers')
+require Rails.root.join('spec', 'scenario_helpers')
 # This gives us the ability to build taxon concepts:
-include EOL::Spec::Helpers
+include EOL::RSpec::Helpers
 
 # NOTE - Because this can be pre-loaded, Factory strings will NOT be unique by themselves, so we add a little to them
 # (if they need to be unique)
@@ -33,22 +33,22 @@ testy[:education_text]  = 'This is a test education.'
 testy[:toc_item_2]      = TocItem.gen_if_not_exists(:view_order => 2, :label => "test toc item 2")
 testy[:toc_item_3]      = TocItem.gen_if_not_exists(:view_order => 3, :label => "test toc item 3")
 testy[:toc_item_4]      = TocItem.gen_if_not_exists(:view_order => 4, :label => "test toc item 4")
-testy[:canonical_form]  = Factory.next(:species) + 'tsty'
-testy[:ranked_canonical_form] = Factory.next(:species) + ' var. tsty'
+testy[:canonical_form]  = FactoryGirl.generate(:species) + 'tsty'
+testy[:ranked_canonical_form] = FactoryGirl.generate(:species) + ' var. tsty'
 testy[:attribution]     = Faker::Eol.attribution
 testy[:common_name]     = Faker::Eol.common_name.firstcap + 'tsty'
 testy[:unreviewed_name] = Faker::Eol.common_name.firstcap + 'tsty'
 testy[:untrusted_name]  = Faker::Eol.common_name.firstcap + 'tsty'
 testy[:scientific_name] = "#{testy[:canonical_form]} #{testy[:attribution]}"
 testy[:italicized]      = "<i>#{testy[:canonical_form]}</i> #{testy[:attribution]}"
-testy[:iucn_status]     = Factory.next(:iucn)
+testy[:iucn_status]     = FactoryGirl.generate(:iucn)
 testy[:gbif_map_id]     = '424242'
 testy[:map_text]        = 'Test Map'
-testy[:image_1]         = Factory.next(:image)
-testy[:image_2]         = Factory.next(:image)
-testy[:image_3]         = Factory.next(:image)
-testy[:image_unknown_trust] = Factory.next(:image)
-testy[:image_untrusted] = Factory.next(:image)
+testy[:image_1]         = FactoryGirl.generate(:image)
+testy[:image_2]         = FactoryGirl.generate(:image)
+testy[:image_3]         = FactoryGirl.generate(:image)
+testy[:image_unknown_trust] = FactoryGirl.generate(:image)
+testy[:image_untrusted] = FactoryGirl.generate(:image)
 testy[:video_1_text]    = 'First Test Video'
 testy[:video_2_text]    = 'Second Test Video'
 testy[:video_3_text]    = 'YouTube Test Video'

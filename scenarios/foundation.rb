@@ -1,3 +1,4 @@
+# encoding: utf-8
 # sets up a basic foundation - enough data to run the application, but no content
 truncate_all_tables(:skip_empty_tables => false) rescue nil # We do this to make sure the IDs on all of the tables start at 1.
 
@@ -188,7 +189,7 @@ ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'taxon_concept')
 RefIdentifierType.gen_if_not_exists(:label => 'url')
 
 iucn_hierarchy = Hierarchy.gen_if_not_exists(:label => 'IUCN')
-iucn_resource = Resource.gen_if_not_exists(:title => 'Initial IUCN Import', :hierarchy => iucn_hierarchy, :content_partner => iucn_content_parter)
+iucn_resource = Resource.gen_if_not_exists(:title => 'Initial IUCN Import', :hierarchy => iucn_hierarchy, :content_partner => iucn_content_parter, :acesspoint_url => "http://eol.org/api/ping.xml")
 iucn_agent = Agent.iucn
 raise "IUCN is nil" if iucn_agent.nil?
 raise "IUCN Resource is nil" if iucn_resource.nil?

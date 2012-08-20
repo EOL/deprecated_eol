@@ -1,7 +1,8 @@
 module EOL
   class Sitemap
     require 'builder' # for creating XML
-    include ActionController::UrlWriter # for using user_url(id) type methods
+    include Rails.application.routes.url_helpers # for using user_url(id) type methods
+    Rails.application.routes.default_url_options[:host] = 'eol.org'
     @@default_url_options = { :host => 'eol.org' } # need to explicitly set the host for the above
     @@working_directory = Rails.root.join('public', 'sitemap')
     @@lines_per_sitemap_file = 50000.0
@@ -245,7 +246,7 @@ module EOL
           # metadata = { :loc => taxon_overview_url(tc_id), :changefreq => 'weekly' }
           # @all_link_tmp_file.puts metadata.to_json
           
-          url_prefix = '{"changefreq":"weekly","loc":"http://' + @@default_url_options[:host] + '/pages/' + tc_id + '/'
+          url_prefix = '{"changefreq":"weekly","loc":"http://' + @@default_url_options[:host] + "/pages/#{tc_id}/"
           @all_link_tmp_file.puts url_prefix + 'overview","priority":1}'
           # { 'overview' => 1,
           #   'details' => 0.5,

@@ -58,15 +58,9 @@ module ActiveRecord
       # to at least have it passed in when we needed it, so the code can change later if needed.
       def cached_find(field, value, options = {})
         key = "#{field}/#{value}"
-        #look locally first then in Memcached
-        if $USE_LOCAL_CACHE_CLASSES && r = check_local_cache(key)
-          return r.dup
-        end
-
         r = cached(key, options) do
           r = send("find_by_#{field}", value, :include => options[:include])
         end
-        set_local_cache(key, r)
         r
       end
 
@@ -89,27 +83,16 @@ module ActiveRecord
         Rails.cache.read(name)
       end
 
-      def delete_cached(field, value)
-        self.reset_cached_instances # TODO - we really DON'T want to do this (I don't think)... we would rather replace the single instance required...
-        # TODO - I just don't understand where these variables are even being written to memcached... but whatever is
-        # handling that should also handle this...  Sooooo... move this to where it belongs.
-        Rails.cache.delete(self.cached_name_for("instance_#{field}_#{value}"))
-      end
-
-      def cached_with_local_cache(key, options = {}, &block)
-        if $USE_LOCAL_CACHE_CLASSES && r = check_local_cache(key)
-          return r.dup
-        end
-        r = cached(key, options, &block)
-        set_local_cache(key, r)
-        r
-      end
-
       def cached(key, options = {}, &block)
         name = cached_name_for(key)
         if Rails.cache # Sometimes during tests, cache has not yet been initialized.
-          Rails.cache.fetch(name) do
-            yield
+          if v = Rails.cache.read(name)
+            return v
+          else
+            Rails.cache.delete(name) if Rails.cache.exist?(name)
+            Rails.cache.fetch(name) do
+              yield
+            end
           end
         else
           yield
@@ -118,32 +101,6 @@ module ActiveRecord
 
       def cached_name_for(key)
         "#{Rails.env}/#{self.table_name}/#{key.underscore_non_word_chars}"[0..249]
-      end
-
-      def check_local_cache(key)
-        initialize_cached_instances
-        if local_cache = class_variable_get(:@@cached_instances)
-          return local_cache[key]
-        end
-      end
-      def set_local_cache(key, value)
-        initialize_cached_instances
-        if local_cache = class_variable_get(:@@cached_instances)
-          local_cache[key] = value
-        end
-      end
-      def initialize_cached_instances
-        unless class_variable_defined?(:@@cached_instances)
-          class_variable_set(:@@cached_instances, {})
-        end
-      end
-      def reset_cached_instances
-        if class_variable_defined?(:@@cached_instances)
-          class_variable_set(:@@cached_instances, {})
-        end
-        if class_variable_defined?(:@@cached_all_instances)
-          class_variable_set(:@@cached_all_instances, false)
-        end
       end
     end
   end

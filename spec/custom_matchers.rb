@@ -2,7 +2,13 @@
 
 RSpec::Matchers.define :only_include do |fields|
   match do |array|
-    @array.sort == fields.sort
+    if array.nil?
+      return true if fields.nil?
+      return false
+    end
+    fields = [fields] unless fields.class == Array
+    array = [array] unless array.class == Array
+    array.sort == fields.sort
   end
 
   failure_message_for_should do |array|

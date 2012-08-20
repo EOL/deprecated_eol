@@ -5,7 +5,6 @@ group :development, :test do
   gem 'capybara'
   gem 'daemons'
   gem 'debugger'
-  gem 'eol_scenarios'
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'optiflag'
@@ -14,7 +13,7 @@ group :development, :test do
 end
 
 group :test do
-  gem 'webmock'
+  # gem 'webmock'
 end
 
 group :worker do

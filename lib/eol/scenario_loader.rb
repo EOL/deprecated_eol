@@ -62,7 +62,7 @@ module EOL
 
     def load_cache_for_connection(conn)
       mysqldump_path = mysqldump_path_for_connection(conn)
-      IO.readlines(mysqldump_path).to_s.split(/;\s*[\r\n]+/).each do |cmd|
+      IO.read(mysqldump_path).to_s.split(/;\s*[\r\n]+/).each do |cmd|
         if cmd =~ /\w/m # Only run commands with text in them.  :)  A few were "\n\n".
           conn.execute cmd.strip
         end
@@ -91,12 +91,24 @@ module EOL
     def create_cache
       @all_connections.each do |conn|
         tables = tables_to_export_from_connection(conn)
-        mysql_config = conn.config
-        mysql_params = conn.command_line_parameters
-        mysqldump_cmd = $MYSQLDUMP_COMPLETE_PATH + " #{mysql_params} --compact --no-create-info #{conn.config[:database]} #{tables.join(' ')}"
+        db_config_hash = conn.raw_connection.query_options
+        mysql_params = []
+        if v = db_config_hash[:host]
+          mysql_params << "--host='#{v}'"
+        end
+        if v = db_config_hash[:user]
+          mysql_params << "--user='#{v}'"
+        end
+        if v = db_config_hash[:password]
+          mysql_params << "--password='#{v}'"
+        end
+        if v = db_config_hash[:encoding]
+          mysql_params << "--default-character-set='#{v}'"
+        end
+        mysqldump_cmd = $MYSQLDUMP_COMPLETE_PATH + " #{mysql_params.join(' ')} --compact --no-create-info #{db_config_hash[:database]} #{tables.join(' ')}"
         result = `#{mysqldump_cmd}`
         # the next two lines will vastly speed up the import
-        result = "SET AUTOCOMMIT = 0;\nSET FOREIGN_KEY_CHECKS=0;\nUSE `#{conn.config[:database]}`;\n" +
+        result = "SET AUTOCOMMIT = 0;\nSET FOREIGN_KEY_CHECKS=0;\nUSE `#{db_config_hash[:database]}`;\n" +
                   result +
                  "SET FOREIGN_KEY_CHECKS = 1;\nCOMMIT;\nSET AUTOCOMMIT = 1;\n"
         result.gsub!(/INSERT/, 'INSERT IGNORE')
@@ -111,14 +123,14 @@ module EOL
       tables = []
       conn.tables.each do |table|
         next if table == 'schema_migrations'
-        count_rows = conn.execute("SELECT 1 FROM #{table} LIMIT 1").num_rows
+        count_rows = conn.execute("SELECT 1 FROM #{table} LIMIT 1").count
         tables << table if count_rows > 0
       end
       tables
     end
 
     def mysqldump_path_for_connection(conn)
-      mysqldump_path = Rails.root.join('tmp', "#{conn.config[:database]}_for_#{@name}_scenario.sql")
+      mysqldump_path = Rails.root.join('tmp', "#{conn.raw_connection.query_options[:database]}_for_#{@name}_scenario.sql")
     end
 
   end

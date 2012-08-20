@@ -453,8 +453,6 @@ describe "Collections and collecting:" do
     collection.add DataObject.gen
 
     # setting the collection's view style to one that allows 2 items per page
-    TranslatedViewStyle.reset_cached_instances
-    ViewStyle.reset_cached_instances
     v = ViewStyle.first
     v.max_items_per_page = 2
     v.save
@@ -481,8 +479,6 @@ describe "Collections and collecting:" do
     body.should_not have_tag('link[rel=next]')
     body.should have_tag('title', / - page 4/i)
 
-    TranslatedViewStyle.reset_cached_instances
-    ViewStyle.reset_cached_instances
     v = ViewStyle.first
     v.max_items_per_page = 4
     v.save

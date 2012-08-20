@@ -39,6 +39,7 @@ config/systems/
 config/newrelic.yml
 db/*_structure.sql
 db/schema.rb
+db/structure.sql
 doc/app
 lang/tmp.yml
 log/*.txt

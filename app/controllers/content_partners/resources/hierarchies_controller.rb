@@ -23,7 +23,6 @@ class ContentPartners::Resources::HierarchiesController < ContentPartners::Resou
                          @partner.id == params[:content_partner_id].to_i
     if @hierarchy.update_attributes(params[:hierarchy])
       Rails.cache.delete('hierarchies/browsable_by_label')
-      Hierarchy.delete_cached('id', @hierarchy.id)
       flash[:notice] = I18n.t(:content_partner_resource_hierarchy_update_successful_notice)
       store_location params[:return_to]
       redirect_back_or_default content_partner_resource_path(@partner, @resource)
@@ -43,7 +42,6 @@ class ContentPartners::Resources::HierarchiesController < ContentPartners::Resou
     access_denied unless @resource.id == params[:resource_id].to_i && current_user.can_update?(@resource) &&
                          @partner.id == params[:content_partner_id].to_i && request.post?
     if @hierarchy.request_to_publish_can_be_made? && @hierarchy.update_attributes(:request_publish => true)
-      Hierarchy.delete_cached('id', @hierarchy.id)
       flash[:notice] = I18n.t(:content_partner_resource_hierarchy_update_successful_notice)
       Notifier.deliver_content_partner_resource_hierarchy_publish_request(@partner, @resource, @hierarchy, current_user)
     else

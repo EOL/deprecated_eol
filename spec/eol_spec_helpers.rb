@@ -6,8 +6,8 @@ require 'nokogiri'
 # but WebMock is not loaded for development environment!? Presumably scenarios use this file which is why
 # WebMock was getting loaded. So may we should move the require and stub request to a separate helper file?
 # for now this config allows localhost requests.
-require 'webmock/rspec'
-WebMock.disable_net_connect!(:allow_localhost => true)
+# require 'webmock/rspec'
+# WebMock.disable_net_connect!(:allow_localhost => true)
 
 module EOL
   module RSpec
@@ -130,7 +130,7 @@ module EOL
       def build_curator(entry, options = {})
         curator_level = options[:level].nil? ? :full : options[:level]
         options.delete :level
-        entry ||= Factory(:hierarchy_entry)
+        entry ||= FactoryGirl.create(:hierarchy_entry)
         tc = nil # scope
         if entry.class == TaxonConcept
           tc    = entry
@@ -145,7 +145,7 @@ module EOL
 
         # These two do "extra work", so I didn't want to use the merge on these (because they would be calculated even
         # if not used:
-        options[:curator_verdict_by] ||= Factory(:user)
+        options[:curator_verdict_by] ||= FactoryGirl.create(:user)
         options[:curator_verdict_at] ||= 48.hours.ago
 
         curator = User.gen(options)
@@ -206,7 +206,6 @@ module EOL
       end
 
       def load_foundation_cache
-        reset_all_model_cached_instances
         load_scenario_with_caching(:foundation)
       end
 

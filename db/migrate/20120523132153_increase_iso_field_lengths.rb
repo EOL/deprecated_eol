@@ -4,7 +4,7 @@ class IncreaseIsoFieldLengths < ActiveRecord::Migration
       "MODIFY `iso_639_2` varchar(12) NOT NULL, " +
       "MODIFY `iso_639_3` varchar(12) NOT NULL"
     next_sort_order =
-      Language.connection.execute("SELECT MAX(sort_order) so FROM languages").all_hashes.first["so"].to_i
+      Language.connection.execute("SELECT MAX(sort_order) so FROM languages").first.first.to_i
     unless Language.exists?(:iso_639_1 => 'zh-CN')
       hans = Language.create(:iso_639_1 => 'zh-CN', :iso_639_2 => 'zh-CN', :iso_639_3 => 'zh-CN',
                              :source_form => 'Chinese simplified, China', :sort_order => next_sort_order)

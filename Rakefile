@@ -5,3 +5,8 @@
 require File.expand_path('../config/application', __FILE__)
 
 EolUpgrade::Application.load_tasks
+
+begin
+  require 'eol_scenarios/tasks'
+  EolScenario.load_paths = [ Rails.root.join('scenarios') ]
+end

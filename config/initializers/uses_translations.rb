@@ -107,7 +107,7 @@ module ActiveRecord
             language_iso = options_language_iso || APPLICATION_DEFAULT_LANGUAGE_ISO || nil
             cache_key = "#{field}/#{value}/#{language_iso}"
             cache_key += "/all" if find_all === true
-            cached_with_local_cache(cache_key) do
+            cached(cache_key) do
               find_by_translated(field, value, language_iso, options_hash)
             end
           end

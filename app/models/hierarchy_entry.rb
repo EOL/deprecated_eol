@@ -12,8 +12,6 @@ class HierarchyEntry < ActiveRecord::Base
   belongs_to :visibility
 
   has_many :agents_hierarchy_entries
-  has_many :agents, :finder_sql => Proc.new { "SELECT * FROM agents JOIN agents_hierarchy_entries ahe ON (agents.id = ahe.agent_id)
-                                      WHERE ahe.hierarchy_entry_id = #{id} ORDER BY ahe.view_order" }
   has_many :top_images
   has_many :top_unpublished_images
   has_many :synonyms
@@ -211,6 +209,10 @@ class HierarchyEntry < ActiveRecord::Base
   # These are all of the agents, NOT including the hierarchy agent:
   def source_agents
     agents_hierarchy_entries.select {|ar| ar.agent_role_id == AgentRole.source.id }.map(&:agent)
+  end
+  
+  def agents
+    agents_hierarchy_entries.map(&:agent)
   end
 
   # This gives you the correct array of source agents that recognize the taxon.  Keep in mind that if there is a

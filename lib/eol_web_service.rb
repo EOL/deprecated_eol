@@ -111,7 +111,7 @@ class EOLWebService
       return uri
     end
     return uri unless uri_parsed.respond_to?(:query) and uri_parsed.query
-    escaped = uri_parsed.query.grep(/&amp;/).size > 0
+    escaped = uri_parsed.query =~ /&amp;/
     new_params = uri_parsed.query.gsub(/&amp;/, '&').split('&').reject { |q| params.include?(q.split('=').first) }
     uri = uri.split('?').first
     amp = escaped ? '&amp;' : '&'

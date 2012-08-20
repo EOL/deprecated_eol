@@ -4,8 +4,6 @@ class ViewStyle < ActiveRecord::Base
 
   # Creates the default view names with some logic around translations.
   def self.create_defaults
-    TranslatedViewStyle.reset_cached_instances
-    ViewStyle.reset_cached_instances
     ['List', 'Gallery', 'Annotated'].each do |name|
       vstyle = ViewStyle.create
       begin

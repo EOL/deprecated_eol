@@ -1,5 +1,7 @@
 class NotificationFrequency < ActiveRecord::Base
 
+  attr_accessible :frequency
+
   def self.create_defaults
     NotificationFrequency.create(:frequency => 'never')
     NotificationFrequency.create(:frequency => 'newsfeed only')

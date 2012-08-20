@@ -29,17 +29,17 @@
 #     @overview_text   = 'This is a test Overview, in all its glory'
 #     @toc_item_2      = TocItem.gen(:view_order => 2)
 #     @toc_item_3      = TocItem.gen(:view_order => 3)
-#     @canonical_form  = Factory.next(:species)
+#     @canonical_form  = FactoryGirl.generate(:species)
 #     @search_term     = @canonical_form.split[0]
 #     @attribution     = Faker::Eol.attribution
 #     @common_name     = Faker::Eol.common_name.firstcap
 #     @scientific_name = "#{@canonical_form} #{@attribution}"
 #     @italicized      = "<i>#{@canonical_form}</i> #{@attribution}"
-#     @iucn_status     = Factory.next(:iucn)
+#     @iucn_status     = FactoryGirl.generate(:iucn)
 #     @map_text        = 'Test Map'
-#     @image_1         = Factory.next(:image)
-#     @image_2         = Factory.next(:image)
-#     @image_3         = Factory.next(:image)
+#     @image_1         = FactoryGirl.generate(:image)
+#     @image_2         = FactoryGirl.generate(:image)
+#     @image_3         = FactoryGirl.generate(:image)
 #     @video_1_text    = 'First Test Video'
 #     @video_2_text    = 'Second Test Video'
 #     @video_3_text    = 'YouTube Test Video'

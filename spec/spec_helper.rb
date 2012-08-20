@@ -21,7 +21,6 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 ActiveRecord::Migration.verbose = false
 
 RSpec.configure do |config|
-  include EolScenario::RSpec
   include EOL::Data # this gives us access to methods that clean up our data (ie: lft/rgt values)
   include EOL::DB   # this gives us access to methods that handle transactions
   include EOL::RSpec::Helpers
@@ -36,8 +35,6 @@ RSpec.configure do |config|
 
   config.after(:each) do
     Rails.cache.clear if $CACHE
-    # reset the class variables that cache certain instances
-    reset_all_model_cached_instances
   end
 
   # If true, the base class of anonymous controllers will be inferred
@@ -50,20 +47,6 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = "random"
-end
-
-
-def reset_all_model_cached_instances
-  $ALL_MODELS ||= Dir.foreach(Rails.root.join('app', 'models')).map do |model_path|
-    if m = model_path.match(/^(([a-z]+_)*[a-z]+)\.rb$/)
-      m[1].camelcase.constantize
-    else
-      nil
-    end
-  end.compact
-  $ALL_MODELS.each do |model|
-    model.reset_cached_instances rescue nil
-  end
 end
 
 def wait_for_insert_delayed(&block)

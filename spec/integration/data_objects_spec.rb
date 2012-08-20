@@ -7,7 +7,7 @@ describe 'Data Object Page' do
     load_foundation_cache
     Capybara.reset_sessions!
     # Somewhat empty, to speed things up:
-    @tc = build_taxon_concept(:images => [:object_cache_url => Factory.next(:image)], :toc => [])
+    @tc = build_taxon_concept(:images => [:object_cache_url => FactoryGirl.generate(:image)], :toc => [])
     @another_name = 'Whatever'
     @another_tc = build_taxon_concept(:images => [], :toc => [], :scientific_name => @another_name)
     @single_name = 'Singularus namicus'
@@ -24,22 +24,22 @@ describe 'Data Object Page' do
     # Build data_object without comments
     @dato_no_comments = build_data_object('Image', 'No comments',
     :num_comments => 0,
-    :object_cache_url => Factory.next(:image),
+    :object_cache_url => FactoryGirl.generate(:image),
     :vetted => Vetted.trusted,
     :visibility => Visibility.visible)
     @dato_comments_no_pagination = build_data_object('Image', 'Some comments',
     :num_comments => 4,
-    :object_cache_url => Factory.next(:image),
+    :object_cache_url => FactoryGirl.generate(:image),
     :vetted => Vetted.trusted,
     :visibility => Visibility.visible)
     @dato_comments_with_pagination = build_data_object('Image', 'Lots of comments',
     :num_comments => 15,
-    :object_cache_url => Factory.next(:image),
+    :object_cache_url => FactoryGirl.generate(:image),
     :vetted => Vetted.trusted,
     :visibility => Visibility.visible)
     @dato_untrusted = build_data_object('Image', 'removed',
     :num_comments => 0,
-    :object_cache_url => Factory.next(:image),
+    :object_cache_url => FactoryGirl.generate(:image),
     :vetted => Vetted.untrusted,
     :visibility => Visibility.invisible)
     @user_submitted_text = @tc.add_user_submitted_text(:user => @full_curator)
@@ -84,13 +84,13 @@ describe 'Data Object Page' do
   # end
 
   it "should not show a link for data_object if its taxon page is not in database anymore" do
-    tc = build_taxon_concept(:images => [:object_cache_url => Factory.next(:image)], :toc => [], :published => false)
+    tc = build_taxon_concept(:images => [:object_cache_url => FactoryGirl.generate(:image)], :toc => [], :published => false)
     image = tc.data_objects.select { |d| d.data_type.label == "Image" }[0]
     tc.published = false
     tc.save!
     dato_no_tc = build_data_object('Image', 'unlinked',
     :num_comments => 0,
-    :object_cache_url => Factory.next(:image),
+    :object_cache_url => FactoryGirl.generate(:image),
     :vetted => Vetted.trusted,
     :visibility => Visibility.visible)
     dato_no_tc.get_taxon_concepts[0].published?.should be_false

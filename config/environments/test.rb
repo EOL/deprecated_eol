@@ -5,7 +5,7 @@ EolUpgrade::Application.configure do
   # test suite. You never need to work with it otherwise. Remember that
   # your test database is "scratch space" for the test suite and is wiped
   # and recreated between test runs. Don't rely on the data there!
-  config.cache_classes = true
+  config.cache_classes = false
 
   # Configure static asset server for tests with Cache-Control for performance
   config.serve_static_assets = true
@@ -34,4 +34,8 @@ EolUpgrade::Application.configure do
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
+  
+  config.after_initialize do
+    $INDEX_RECORDS_IN_SOLR_ON_SAVE = false
+  end
 end

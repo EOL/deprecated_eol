@@ -89,16 +89,6 @@ $WEB_SERVICE_TIMEOUT_SECONDS = 60 # how many seconds to wait when calling a webs
 $LOG_WEB_SERVICE_EXECUTION_TIME = false # if set to false, then execution times for web service calls will not be recorded
 $WEB_SERVICE_BASE_URL = '' # web service is used for importing content partners' data
 
-$SOLR_SERVER = 'http://localhost:8983/solr/'
-$SOLR_TAXON_CONCEPTS_CORE = 'taxon_concepts'
-$SOLR_DATA_OBJECTS_CORE = 'data_objects'
-$SOLR_SITE_SEARCH_CORE = 'site_search'
-$SOLR_COLLECTION_ITEMS_CORE = 'collection_items'
-$SOLR_ACTIVITY_LOGS_CORE = 'activity_logs'
-$SOLR_BHL_CORE = 'bhl'
-$SOLR_DIR    = Rails.root.join('solr', 'solr')
-$INDEX_RECORDS_IN_SOLR_ON_SAVE = true
-
 ### These next few values are declared in the eol:site_configurations table. They are also declared here
 ### beacuse when we switch to SI we will not be able to edit the database and need to be able to tweak the
 ### environment file to possibly override the values in the DB
@@ -137,11 +127,6 @@ $HOMEPAGE_ACTIVITY_LOG_CACHE_TIME = 10  # minutes
 $HOMEPAGE_MARCH_RICHNESS_THRESHOLD = 0.5
 
 APPROVED_LANGUAGES = ['en', 'es', 'ar', 'fr', 'gl', 'sr', 'sr-Latn', 'de', 'mk', 'zh-Hans']
-
-# for those class that are using CACHE_ALL_ROWS, when the row is looked up in memcached, retain that value
-# in an array in a class variable. That way future lookups will read from local memory and will not require
-# back and forth from Memcached
-$USE_LOCAL_CACHE_CLASSES = true
 
 $ENABLE_TRANSLATION_LOGS = false # This is expensive; DON'T do it by default!
 

@@ -1,16 +1,18 @@
+# encoding: utf-8
 class CreateEolLogging < EOL::LoggingMigration
 
   def self.up
     ActiveRecord::Migration.raise_error_if_in_production
     # Basically, I want to throw an error if we're not using MySQL, while at the same time providing the framework
     # for adding other DB support in the future...
-    if ActiveRecord::Base.connection.class == ActiveRecord::ConnectionAdapters::MysqlAdapter ||
+    if ActiveRecord::Base.connection.class == ActiveRecord::ConnectionAdapters::Mysql2Adapter ||
         ActiveRecord::Base.connection.class == ActiveReload::ConnectionProxy  # could be using ActiveReload (Masochism) as we are now in testing
       # I was having trouble running the whole thing at once, so I'll break it up by command:
       # Note that this assumes that the file has been DOS-ified.
-      IO.readlines(Rails.root.join('db', "eol_logging.sql")).to_s.split(/;\s*[\r\n]+/).each do |cmd|
+      IO.read(Rails.root.join('db', "eol_logging.sql")).to_s.split(/;\s*[\r\n]+/).each do |cmd|
+        next if cmd =~ /^\/\*!40101 SET/
         if cmd =~ /\w/m # Only run commands with text in them.  :)  A few were "\n\n".
-          execute cmd.strip
+          connection.execute cmd.strip
         end
       end
     else
@@ -21,16 +23,16 @@ class CreateEolLogging < EOL::LoggingMigration
 
   def self.down
     ActiveRecord::Migration.raise_error_if_in_production
-    drop_table "activities"
-    drop_table "api_logs"
-    drop_table "collection_activity_logs"
-    drop_table "community_activity_logs"
-    drop_table "curator_activity_logs"
-    drop_table "external_link_logs"
-    drop_table "ip_addresses"
-    drop_table "page_view_logs"
-    drop_table "search_logs"
-    drop_table "translated_activities"
-    drop_table "user_activity_logs"
+    connection.drop_table "activities"
+    connection.drop_table "api_logs"
+    connection.drop_table "collection_activity_logs"
+    connection.drop_table "community_activity_logs"
+    connection.drop_table "curator_activity_logs"
+    connection.drop_table "external_link_logs"
+    connection.drop_table "ip_addresses"
+    connection.drop_table "page_view_logs"
+    connection.drop_table "search_logs"
+    connection.drop_table "translated_activities"
+    connection.drop_table "user_activity_logs"
   end
 end

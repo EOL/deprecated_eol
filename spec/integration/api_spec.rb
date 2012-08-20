@@ -30,9 +30,9 @@ describe 'EOL APIs' do
     @description_text  = 'This is a test Description, in all its glory'
     @toc_item_2      = TocItem.gen(:view_order => 2)
     @toc_item_3      = TocItem.gen(:view_order => 3)
-    @image_1         = Factory.next(:image)
-    @image_2         = Factory.next(:image)
-    @image_3         = Factory.next(:image)
+    @image_1         = FactoryGirl.generate(:image)
+    @image_2         = FactoryGirl.generate(:image)
+    @image_3         = FactoryGirl.generate(:image)
     @video_1_text    = 'First Test Video'
     @video_2_text    = 'Second Test Video'
     @video_3_text    = 'YouTube Test Video'

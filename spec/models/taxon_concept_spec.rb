@@ -122,8 +122,8 @@ describe TaxonConcept do
 
   it 'should have only one IUCN conservation status when there could have been many (doesnt matter which)' do
     @taxon_concept = TaxonConcept.find(@taxon_concept.id)
-    he1 = build_iucn_entry(@taxon_concept, Factory.next(:iucn))
-    he2 = build_iucn_entry(@taxon_concept, Factory.next(:iucn))
+    he1 = build_iucn_entry(@taxon_concept, FactoryGirl.generate(:iucn))
+    he2 = build_iucn_entry(@taxon_concept, FactoryGirl.generate(:iucn))
     result = @taxon_concept.iucn
     result.should be_an_instance_of DataObject # (not an Array, mind you.)
     he1.delete

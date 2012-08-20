@@ -239,7 +239,7 @@ describe 'Taxa page' do
       login_as @testy[:curator]
       visit common_names_taxon_names_path(@taxon_concept)
       body.should have_tag('form#new_name')
-      new_name = Factory.next(:string)
+      new_name = FactoryGirl.generate(:string)
       fill_in 'Name', :with => new_name
       select('English', :from => "Language")
       click_button 'Add name'

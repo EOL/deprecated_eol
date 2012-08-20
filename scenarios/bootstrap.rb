@@ -271,7 +271,7 @@ kingdom.add_common_name_synonym('Animals', :agent => agent_col, :language => Lan
   tc = build_taxon_concept(:parent_hierarchy_entry_id => Hierarchy.default.hierarchy_entries.last.id,
                            :depth => Hierarchy.default.hierarchy_entries.length,
                            :event => event)
-  tc.add_common_name_synonym(Factory.next(:common_name), :agent => agent_col, :language => Language.english)
+  tc.add_common_name_synonym(FactoryGirl.generate(:common_name), :agent => agent_col, :language => Language.english)
 end
 
 fifth_entry_id = Hierarchy.default.hierarchy_entries.last.id
@@ -349,13 +349,13 @@ tc30 = build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id,
                     :bhl      => [],
                     :event    => event)
 
-tc30.add_common_name_synonym(Factory.next(:common_name), :agent => agent_col, :language => Language.english)
+tc30.add_common_name_synonym(FactoryGirl.generate(:common_name), :agent => agent_col, :language => Language.english)
 curator = build_curator(tc30, :username => 'test_curator', :password => 'password', :given_name => 'test', :family_name => 'curator')
 
 #31 has unvetted and vetted videos, please don't change this one, needed for selenum test:
 overv = TocItem.find_by_translated(:label, 'Overview')
 desc = TocItem.find_by_translated(:label, 'Description')
-tc31 = build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names => [Factory.next(:common_name)],
+tc31 = build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names => [FactoryGirl.generate(:common_name)],
                   :depth => depth_now,
                   :flash => [{}, {:vetted => Vetted.unknown}],
                   :youtube => [{:vetted => Vetted.unknown},
@@ -423,8 +423,8 @@ ac = ContentPartnerContact.gen(:content_partner => cp, :contact_role => ContactR
 
 # Now that we're done with CoL, we add another content partner who overlaps with them:
        # Give it a new name:
-name   = Name.gen(:canonical_form => tc.canonical_form_object)#, :string => n = Factory.next(:scientific_name),
-                  # :italicized     => "<i>#{n}</i> #{Factory.next(:attribution)}")
+name   = Name.gen(:canonical_form => tc.canonical_form_object)#, :string => n = FactoryGirl.generate(:scientific_name),
+                  # :italicized     => "<i>#{n}</i> #{FactoryGirl.generate(:attribution)}")
 agent2 = Agent.gen
 agent2.user ||= User.gen(:agent => agent2, :username => 'test_cp')
 cp     = ContentPartner.gen :user => agent2.user, :full_name => 'Test ContenPartner'
@@ -435,7 +435,7 @@ hier   = Hierarchy.gen :agent => agent2
 he     = build_hierarchy_entry 0, tc, name, :hierarchy => hier
 img    = build_data_object('Image', "This should only be seen by ContentPartner #{cp.description}",
                            :hierarchy_entry => he,
-                           :object_cache_url => Factory.next(:image),
+                           :object_cache_url => FactoryGirl.generate(:image),
                            :vetted => Vetted.unknown,
                            :visibility => Visibility.preview)
 
@@ -527,8 +527,8 @@ TaxonConceptName.gen(:preferred => true, :vern => false, :source_hierarchy_entry
   depth = Hierarchy.ncbi.hierarchy_entries.last.depth + 1
 
   2.times do
-    sci_name = Factory.next(:scientific_name)
-    c_name = Factory.next(:common_name)
+    sci_name = FactoryGirl.generate(:scientific_name)
+    c_name = FactoryGirl.generate(:common_name)
     build_taxon_concept(:rank => '',
                         :canonical_form => sci_name,
                         :common_names => [c_name],
@@ -568,8 +568,8 @@ bacteria.add_scientific_name_synonym('microbia')
   parent_id = Hierarchy.ncbi.hierarchy_entries.last.id
   depth = Hierarchy.ncbi.hierarchy_entries.last.depth + 1
 
-  sci_name = Factory.next(:scientific_name)
-  c_name = Factory.next(:common_name)
+  sci_name = FactoryGirl.generate(:scientific_name)
+  c_name = FactoryGirl.generate(:common_name)
   build_taxon_concept(:rank => '',
                       :canonical_form => sci_name,
                       :common_names => [c_name],

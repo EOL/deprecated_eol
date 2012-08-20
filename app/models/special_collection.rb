@@ -3,7 +3,6 @@ class SpecialCollection < ActiveRecord::Base
   has_many :lists
 
   def self.create_all
-    SpecialCollection.reset_cached_instances
     self.create(:name => 'Focus')
     self.create(:name => 'Watch')
   end

@@ -5,8 +5,6 @@ class SortStyle < ActiveRecord::Base
 
   # Creates the default sort names with some logic around translations.
   def self.create_defaults
-    TranslatedSortStyle.reset_cached_instances
-    SortStyle.reset_cached_instances
     ['Recently Added', 'Oldest', 'Alphabetical', 'Reverse Alphabetical', 'Richness', 'Rating', 'Sort Field', 'Reverse Sort Field'].each do |name|
       sstyle = SortStyle.create
       begin

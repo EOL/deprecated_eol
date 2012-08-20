@@ -3,10 +3,11 @@ class Notifier < ActionMailer::Base
   helper :application
 
   def curator_approved(user)
-    subject     I18n.t(:subject, :curator_level => user.curator_level.translated_label, :scope => [:notifier, :curator_approved])
-    recipients  user.email
-    from        $SPECIES_PAGES_GROUP_EMAIL_ADDRESS
-    body        :user => user
+    @user = user
+    mail(
+      :subject => I18n.t(:subject, :curator_level => user.curator_level.translated_label, :scope => [:notifier, :curator_approved]),
+      :to => user.email,
+      :from => $SPECIES_PAGES_GROUP_EMAIL_ADDRESS )
   end
 
   def contact_us_auto_response(contact)

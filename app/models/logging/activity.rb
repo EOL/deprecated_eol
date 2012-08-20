@@ -15,8 +15,6 @@ class Activity < LazyLoggingModel
   # each of these and include those activities that don't show up on the site's activity logs.
   # TODO - many of these are not used yet.  Add them to the code in the appropriate place
   def self.create_defaults
-    TranslatedActivity.reset_cached_instances
-    Activity.reset_cached_instances
     # User Data Objects (user-submitted text):
     Activity.find_or_create('create')
     Activity.find_or_create('update')

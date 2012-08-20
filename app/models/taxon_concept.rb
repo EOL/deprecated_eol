@@ -26,22 +26,6 @@ class TaxonConcept < ActiveRecord::Base
   has_many :hierarchy_entries
   has_many :published_hierarchy_entries, :class_name => HierarchyEntry.to_s,
     :conditions => Proc.new { "hierarchy_entries.published=1 AND hierarchy_entries.visibility_id=#{Visibility.visible.id}" }
-
-  has_many :published_browsable_hierarchy_entries, :class_name => HierarchyEntry.to_s, :foreign_key => 'id',
-    :finder_sql => Proc.new { "SELECT he.id, he.rank_id, h.id hierarchy_id, h.label hierarchy_label
-      FROM hierarchies h
-      JOIN hierarchy_entries he ON h.id = he.hierarchy_id
-      WHERE he.taxon_concept_id = '#{id}' AND he.published = 1 AND h.browsable = 1
-      ORDER BY h.label" }
-
-  has_many :deep_published_hierarchy_entries, :class_name => HierarchyEntry.to_s, :foreign_key => 'id',
-    :finder_sql => Proc.new { "SELECT he.id, he.rank_id, he.parent_id parent_id, he.name_id, he.taxon_concept_id,
-      h.id hierarchy_id, h.label hierarchy_label, h.browsable hierarchy_browsable
-      FROM hierarchies h
-      JOIN hierarchy_entries he ON h.id = he.hierarchy_id
-      WHERE he.taxon_concept_id = '#{id}' AND he.published = 1
-      ORDER BY h.label" }
-
   has_many :top_concept_images
   has_many :top_unpublished_concept_images
   has_many :curator_activity_logs
@@ -57,29 +41,8 @@ class TaxonConcept < ActiveRecord::Base
   has_many :preferred_names, :class_name => TaxonConceptName.to_s, :conditions => 'taxon_concept_names.vern=0 AND taxon_concept_names.preferred=1'
   has_many :preferred_common_names, :class_name => TaxonConceptName.to_s, :conditions => 'taxon_concept_names.vern=1 AND taxon_concept_names.preferred=1'
   has_many :denormalized_common_names, :class_name => TaxonConceptName.to_s, :conditions => 'taxon_concept_names.vern=1'
-  has_many :synonyms, :class_name => Synonym.to_s, :foreign_key => 'hierarchy_entry_id',
-    :finder_sql => Proc.new { "SELECT s.* FROM #{Synonym.full_table_name} s JOIN #{HierarchyEntry.full_table_name} he ON (he.id = s.hierarchy_entry_id) WHERE he.taxon_concept_id='#{id}' AND s.synonym_relation_id NOT IN (#{SynonymRelation.common_name_ids.join(',')})" }
-  has_many :viewable_synonyms, :class_name => Synonym.to_s, :foreign_key => 'hierarchy_entry_id',
-    :finder_sql => Proc.new { "SELECT s.* FROM #{Synonym.full_table_name} s JOIN #{HierarchyEntry.full_table_name} he ON (he.id = s.hierarchy_entry_id) JOIN #{Hierarchy.full_table_name} h ON (he.hierarchy_id=h.id) WHERE he.taxon_concept_id='#{id}' AND he.published=1 AND he.visibility_id=#{Visibility.visible.id} AND h.browsable=1 AND s.synonym_relation_id NOT IN (#{SynonymRelation.common_name_ids.join(',')})" }
   has_many :users_data_objects
   has_many :flattened_ancestors, :class_name => TaxonConceptsFlattened.to_s
-  has_many :all_data_objects, :class_name => DataObject.to_s, :finder_sql => Proc.new {
-      "(SELECT do.id, do.data_type_id, do.published, do.guid, do.data_rating, do.language_id
-        FROM data_objects_taxon_concepts dotc
-        JOIN data_objects do ON (dotc.data_object_id=do.id)
-          WHERE dotc.taxon_concept_id=#{id}
-          AND do.data_type_id=#{DataType.image.id})
-      UNION
-      (SELECT do.id, do.data_type_id, do.published, do.guid, do.data_rating, do.language_id
-        FROM top_concept_images tci
-        JOIN data_objects do ON (tci.data_object_id=do.id)
-          WHERE tci.taxon_concept_id=#{id})
-      UNION
-      (SELECT do.id, do.data_type_id, do.published, do.guid, do.data_rating, do.language_id
-        FROM #{UsersDataObject.full_table_name} udo
-        JOIN data_objects do ON (udo.data_object_id=do.id)
-          WHERE udo.taxon_concept_id=#{id})" }
-
   has_many :superceded_taxon_concepts, :class_name => TaxonConcept.to_s, :foreign_key => "supercedure_id"
 
   has_one :taxon_classifications_lock
@@ -495,14 +458,14 @@ class TaxonConcept < ActiveRecord::Base
           JOIN names n ON (tcn.name_id = n.id)
           LEFT JOIN hierarchy_entries he ON (tcn.source_hierarchy_entry_id = he.id)
         WHERE tcn.taxon_concept_id=#{id} AND language_id=#{language.id} AND preferred=1"
-    ).all_hashes
+    )
 
     final_name = ''
 
     # This loop is to check to make sure the default hierarchy's preferred name takes precedence over other hierarchy's preferred names
     common_name_results.each do |result|
-      if final_name == '' || result['source_hierarchy_id'].to_i == hierarchy.id
-        final_name = result['name'].firstcap
+      if final_name == '' || result[1].to_i == hierarchy.id
+        final_name = result[0].firstcap
       end
     end
     return final_name
@@ -523,9 +486,9 @@ class TaxonConcept < ActiveRecord::Base
     scientific_name_results = connection.execute(
       "SELECT #{search_type[:name_field]} name, he.hierarchy_id source_hierarchy_id
        FROM hierarchy_entries he JOIN names n ON (he.name_id = n.id) #{search_type[:also_join]}
-       WHERE he.id=#{hierarchy_entry.id}").all_hashes
+       WHERE he.id=#{hierarchy_entry.id}")
 
-    final_name = scientific_name_results[0]['name'].firstcap
+    final_name = scientific_name_results.first.first.firstcap
     return final_name
   end
 
@@ -964,7 +927,7 @@ class TaxonConcept < ActiveRecord::Base
 
   def scientific_names_for_solr
     preferred_names = []
-    synonyms = []
+    syns = []
     surrogates = []
     return [] if published_hierarchy_entries.blank?
     published_hierarchy_entries.each do |he|
@@ -979,8 +942,8 @@ class TaxonConcept < ActiveRecord::Base
         if s.name.is_surrogate_or_hybrid?
           surrogates << s.name.string
         else
-          synonyms << s.name.string
-          synonyms << s.name.canonical_form.string if s.name.canonical_form
+          syns << s.name.string
+          syns << s.name.canonical_form.string if s.name.canonical_form
         end
       end
     end
@@ -991,9 +954,9 @@ class TaxonConcept < ActiveRecord::Base
       return_keywords << { :keyword_type => 'PreferredScientific', :keywords => preferred_names, :ancestor_taxon_concept_id => flattened_ancestor_ids }
     end
 
-    synonyms = synonyms.compact.uniq
-    unless synonyms.empty?
-      return_keywords << { :keyword_type => 'Synonym', :keywords => synonyms, :ancestor_taxon_concept_id => flattened_ancestor_ids }
+    syns = syns.compact.uniq
+    unless syns.empty?
+      return_keywords << { :keyword_type => 'Synonym', :keywords => syns, :ancestor_taxon_concept_id => flattened_ancestor_ids }
     end
 
     surrogates = surrogates.compact.uniq
@@ -1320,7 +1283,7 @@ class TaxonConcept < ActiveRecord::Base
 
   # Avoid re-loading the deep_published_hierarchy_entries from the DB:
   def cached_deep_published_hierarchy_entries
-    @cached_deep_published_hierarchy_entries ||= deep_published_hierarchy_entries
+    @cached_deep_published_hierarchy_entries ||= hierarchy_entries.where('published=1').sort_by{ |he| he.hierarchy.label }
   end
 
   # Since the normal deep_published_hierarchy_entries association won't be sorted or pre-loaded:
@@ -1419,6 +1382,40 @@ class TaxonConcept < ActiveRecord::Base
       end
     end
     return false
+  end
+  
+  def published_browsable_hierarchy_entries
+    hierarchy_entries.joins(:hierarchy).where('hierarchy_entries.published=1 AND hierarchies.browsable=1')
+  end
+  
+  def published_browsable_visible_hierarchy_entries
+    hierarchy_entries.joins(:hierarchy).
+      where("hierarchy_entries.published=1 AND hierarchy_entries.visibility_id=#{Visibility.visible.id} AND hierarchies.browsable=1")
+  end
+  
+  def count_of_viewable_synonyms
+    published_browsable_visible_hierarchy_entries.collect do |he|
+      he.synonyms.where("synonyms.synonym_relation_id NOT IN (#{SynonymRelation.common_name_ids.join(',')})").count
+    end.inject(:+)
+  end
+  
+  def all_data_objects
+    DataObject.find_by_sql(
+        "(SELECT do.id, do.data_type_id, do.published, do.guid, do.data_rating, do.language_id
+          FROM data_objects_taxon_concepts dotc
+          JOIN data_objects do ON (dotc.data_object_id=do.id)
+            WHERE dotc.taxon_concept_id=#{id}
+            AND do.data_type_id=#{DataType.image.id})
+        UNION
+        (SELECT do.id, do.data_type_id, do.published, do.guid, do.data_rating, do.language_id
+          FROM top_concept_images tci
+          JOIN data_objects do ON (tci.data_object_id=do.id)
+            WHERE tci.taxon_concept_id=#{id})
+        UNION
+        (SELECT do.id, do.data_type_id, do.published, do.guid, do.data_rating, do.language_id
+          FROM #{UsersDataObject.full_table_name} udo
+          JOIN data_objects do ON (udo.data_object_id=do.id)
+            WHERE udo.taxon_concept_id=#{id})")
   end
 
 private

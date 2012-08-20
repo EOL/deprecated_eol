@@ -3,7 +3,7 @@
 #taxon_names
   = render :partial => 'menu'
   .main_container
-    - if (@selected_hierarchy_entry && @selected_hierarchy_entry.scientific_synonyms.length <= 0) || @taxon_concept.viewable_synonyms.length <= 0
+    - if (@selected_hierarchy_entry && @selected_hierarchy_entry.scientific_synonyms.length <= 0) || @taxon_concept.count_of_viewable_synonyms <= 0
       .empty
         %p= I18n.t(:names_synonyms_empty)
     - else

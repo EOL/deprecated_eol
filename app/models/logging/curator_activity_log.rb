@@ -101,6 +101,8 @@ class CuratorActivityLog < LoggingModel
         end
       when ChangeableObjectType.users_data_object.id
         udo_taxon_concept.id
+      when ChangeableObjectType.taxon_concept.id
+        taxon_concept.id
       else
         raise "Don't know how to get the taxon id from a changeable object type of id #{changeable_object_type_id}"
     end

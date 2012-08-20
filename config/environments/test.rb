@@ -7,11 +7,11 @@
 #---------------------------------------------------------------------------------
 require 'ruby-debug'
 
-# The test environment is used exclusively to run your application's
-# test suite.  Otherwise, you never need to work with it.  Remember that
-# your test database is "scratch space" for the test suite and is wiped
-# and recreated between test runs.  Don't rely on the data there!
-config.cache_classes = true
+  # The test environment is used exclusively to run your application's
+  # test suite. You never need to work with it otherwise. Remember that
+  # your test database is "scratch space" for the test suite and is wiped
+  # and recreated between test runs. Don't rely on the data there!
+  config.cache_classes = false
 
 # Set up the master database connection for writes using masochism plugin
 # NOTE: for this to work, you *must* also use config.cache_classes = true
@@ -42,30 +42,10 @@ config.action_mailer.delivery_method = :test
 config.cache_store = :memory_store
 
 
-config.log_level = :debug # :error
-# ActiveRecord::Base.logger = Logger.new(STDOUT)
-# ActionController::Base.logger = Logger.new(STDOUT)
-# ActiveSupport::Cache::MemCacheStore.logger = Logger.new(STDOUT)
-
-$PARENT_CLASS_MUST_USE_MASTER = ActiveRecord::Base
-
-# Key to generate an unsubscribe_key for unsubscribing to notifications.
-$UNSUBSCRIBE_NOTIFICATIONS_KEY = '1ed25583250bf547e614c0d315bd2671'
-
-$EXCEPTION_NOTIFY=false # set to false to not be notified of exceptions via email in production mode (set email addresses below)
-$ENABLE_RECAPTCHA=false # set to true to enable recaptcha on registration and contact us form
-$ENABLE_ANALYTICS=false
-$ENABLED_SOCIAL_PLUGINS = [:facebook, :twitter] # Enable social sharing on the site e.g. Facebook Like button
-
-$IP_ADDRESS_OF_SERVER='127.0.0.1'
-
-$SOLR_SERVER = 'http://localhost:8983/solr/'
-$SOLR_TAXON_CONCEPTS_CORE = 'taxon_concepts'
-$SOLR_DATA_OBJECTS_CORE = 'data_objects'
-$SOLR_SITE_SEARCH_CORE = 'site_search'
-$SOLR_DIR    = Rails.root.join('solr', 'solr')
-$INDEX_RECORDS_IN_SOLR_ON_SAVE = false
-
-$SKIP_URL_VALIDATIONS = true
-
-$HOMEPAGE_MARCH_RICHNESS_THRESHOLD = nil
+  # Print deprecation notices to the stderr
+  config.active_support.deprecation = :stderr
+  
+  config.after_initialize do
+    $INDEX_RECORDS_IN_SOLR_ON_SAVE = false
+  end
+end

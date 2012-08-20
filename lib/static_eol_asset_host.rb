@@ -17,7 +17,7 @@ class StaticEolAssetHost
       elsif file_path.ends_with?(".js")
         asset = 2
       else
-        asset = [3, 4, 5, 6, 7, 8, 9, 10].random_element
+        asset = [3, 4, 5, 6, 7, 8, 9, 10].sample
       end
       "http://static#{asset}.eol.org" 
     }

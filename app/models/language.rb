@@ -4,6 +4,8 @@ class Language < ActiveRecord::Base
   has_many :users
   has_many :taxon_concept_names
 
+  attr_accessible :iso_639_1, :iso_639_2, :iso_639_3, :source_form, :sort_order, :activated_on
+
   def to_s
     iso_639_1
   end

@@ -1,49 +1,41 @@
-#---------------------------------------------------------------------------------
-# Settings specified here will take precedence over those in config/environment.rb
-# 1) config/environment.rb
-# 2) config/environments/[Rails.env].rb
-# 3) config/environments/[Rails.env]_eol_org.rb
-# 4) config/environment_eol_org.rb
-#---------------------------------------------------------------------------------
-require 'ruby-debug'
+EolUpgrade::Application.configure do
+  # Settings specified here will take precedence over those in config/application.rb
 
-# The test environment is used exclusively to run your application's
-# test suite.  Otherwise, you never need to work with it.  Remember that
-# your test database is "scratch space" for the test suite and is wiped
-# and recreated between test runs.  Don't rely on the data there!
-config.cache_classes = true
+  # The test environment is used exclusively to run your application's
+  # test suite. You never need to work with it otherwise. Remember that
+  # your test database is "scratch space" for the test suite and is wiped
+  # and recreated between test runs. Don't rely on the data there!
+  config.cache_classes = false
 
-# Most directly emulate both development and production environments:
-# NOT WORKING: config.cache_store = :dalli_store
+  # Configure static asset server for tests with Cache-Control for performance
+  config.serve_static_assets = true
+  config.static_cache_control = "public, max-age=3600"
 
-# Log error messages when you accidentally call methods on nil.
-config.whiny_nils = true
+  # Log error messages when you accidentally call methods on nil
+  config.whiny_nils = true
 
-# Show full error reports and disable caching
-config.action_controller.consider_all_requests_local = true
-config.action_controller.perform_caching             = false
+  # Show full error reports and disable caching
+  config.consider_all_requests_local       = true
+  config.action_controller.perform_caching = false
 
-# Tell ActionMailer not to deliver emails to the real world.
-# The :test delivery method accumulates sent emails in the
-# ActionMailer::Base.deliveries array.
-config.action_mailer.delivery_method = :test
-config.cache_store = :memory_store
+  # Raise exceptions instead of rendering exception templates
+  config.action_dispatch.show_exceptions = false
 
+  # Disable request forgery protection in test environment
+  config.action_controller.allow_forgery_protection    = false
 
-config.log_level = :debug # :error
+  # Tell Action Mailer not to deliver emails to the real world.
+  # The :test delivery method accumulates sent emails in the
+  # ActionMailer::Base.deliveries array.
+  config.action_mailer.delivery_method = :test
 
-$PARENT_CLASS_MUST_USE_MASTER = ActiveRecord::Base
+  # Raise exception on mass assignment protection for Active Record models
+  config.active_record.mass_assignment_sanitizer = :strict
 
-$EXCEPTION_NOTIFY=false # set to false to not be notified of exceptions via email in production mode (set email addresses below)
-$ENABLE_RECAPTCHA=false # set to true to enable recaptcha on registration and contact us form
-$ENABLE_ANALYTICS=false
-$ENABLED_SOCIAL_PLUGINS = [:facebook, :twitter] # Enable social sharing on the site e.g. Facebook Like button
-
-$IP_ADDRESS_OF_SERVER='127.0.0.1'
-
-$SOLR_SERVER = 'http://localhost:8983/solr/'
-$SOLR_TAXON_CONCEPTS_CORE = 'taxon_concepts'
-$SOLR_DATA_OBJECTS_CORE = 'data_objects'
-$SOLR_SITE_SEARCH_CORE = 'site_search'
-
-$SOLR_DIR    = Rails.root.join('solr', 'solr')
+  # Print deprecation notices to the stderr
+  config.active_support.deprecation = :stderr
+  
+  config.after_initialize do
+    $INDEX_RECORDS_IN_SOLR_ON_SAVE = false
+  end
+end

@@ -14,13 +14,6 @@ class Collection < ActiveRecord::Base
   has_many :containing_collections, :through => :others_collection_items, :source => :collection
 
   has_many :comments, :as => :parent
-  # NOTE - You MUST use single-quotes here, lest the #{id} be interpolated at compile time. USE SINGLE QUOTES.
-  has_many :featuring_communities, :class_name => Community.to_s,
-    :finder_sql => Proc.new { "SELECT cm.* FROM communities cm
-      JOIN collections_communities cc ON (cm.id = cc.community_id)
-      JOIN collections c ON (cc.collection_id = c.id)
-      JOIN collection_items ci ON (ci.collection_id = c.id)
-      WHERE ci.object_type = 'Collection' AND ci.object_id = #{id} AND cm.published = 1" }
 
   has_one :resource
   has_one :resource_preview, :class_name => Resource.to_s, :foreign_key => :preview_collection_id
@@ -254,6 +247,12 @@ class Collection < ActiveRecord::Base
     rescue => e
       nil
     end
+  end
+  
+  def featuring_communities
+    others_collection_items.collect do |ci|
+      ci.collection.communities.where('published = 1')
+    end.flatten.compact.uniq
   end
 
 private

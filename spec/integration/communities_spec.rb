@@ -68,8 +68,8 @@ describe "Communities" do
         body.should have_tag("textarea#community_description")
       end
       it 'should create a community, add the user, and redirect to community default view' do
-        new_name = Factory.next(:string)
-        new_col_name = Factory.next(:string)
+        new_name = FactoryGirl.generate(:string)
+        new_col_name = FactoryGirl.generate(:string)
         fill_in('community_name', :with => new_name)
         fill_in('community_description', :with => 'This is a long description.')
         click_button('Create community')

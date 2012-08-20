@@ -24,7 +24,7 @@ module Faker
            "Least Concern (LC)",
            "Conservation Dependent (LR/cd)",
            "Extinct in the Wild (EW)"]
-        @rand_iucn.random_element
+        @rand_iucn.sample
       end
 
       def flash
@@ -37,14 +37,14 @@ module Faker
             200811131355461, 200811131374742, 200811131356635, 200811131314704, 200811131368751, 200811131374919,
             200811131316328, 200811131309151, 200811131331207, 200811131310763]
 
-        @rand_flash.random_element
+        @rand_flash.sample
       end
 
       # These are object_url values, not object_cache_url:
       def youtube
         @rand_youtube ||=
           ["http://www.youtube.com/v/tawTDADXvuM", "http://www.youtube.com/v/Sk1FhlPeQH8", "http://www.youtube.com/v/ymTMrg7G4Ac"]
-        @rand_youtube.random_element
+        @rand_youtube.sample
       end
 
       def map
@@ -62,7 +62,7 @@ module Faker
            200810061295992, 200810061271122, 200810061218963, 200810061248056, 200810061275954, 200810061214325, 200810061244427,
            200810061230338, 200810061219522, 200810061271459, 200810061228261, 200810061265370]
 
-        @rand_maps.random_element
+        @rand_maps.sample
       end
 
       def image
@@ -90,13 +90,13 @@ module Faker
            200810070128558, 200810070186149, 200810070127621, 200810070147911, 200810070143782, 200810070182880, 200810070174026,
            200810070155541, 200810070182689, 200810070173016, 200810070189683, 200810070149351]
 
-        @rand_images.random_element
+        @rand_images.sample
       end
 
       def name_part
         part = Faker::Lorem.words(1)[0]
         part += Faker::Lorem.words(1)[0] if part.length < 4
-        part += %w{i a ii us is iae erox eron eri alia eli esi alia elia ens ica ator atus erus ensis alis alius osyne eles es ata}.random_element
+        part += %w{i a ii us is iae erox eron eri alia eli esi alia elia ens ica ator atus erus ensis alis alius osyne eles es ata}.sample
       end
 
       def scientific_name
@@ -107,11 +107,11 @@ module Faker
         ['common', "#{generate(:first_name)}'s", 'blue', 'red', 'pink', 'green', 'purple',
          'painted', 'spiny', 'agitated', 'horny', 'blessed', 'sacred', 'sacrimonious', 'naughty',
          'litte', 'tiny', 'giant', 'great', 'lesser', 'least', 'river', 'plains', 'city', 'sky', 'stream',
-         'thirsty', 'ravenous', 'bloody', 'cursed', 'cromulent'].random_element + ' ' + Faker::Eol.name_part
+         'thirsty', 'ravenous', 'bloody', 'cursed', 'cromulent'].sample + ' ' + Faker::Eol.name_part
       end
 
       def attribution
-        "#{generate(:first_name)[0..0]}. #{Factory.next(:last_name)}"
+        "#{generate(:first_name)[0..0]}. #{FactoryGirl.generate(:last_name)}"
       end
 
     end
@@ -291,9 +291,9 @@ FactoryGirl.define do
 
   # Faker names are frequently unique, but let's just make absolutely sure:
   sequence :species do |n|
-    s = generate(:scientific_name)
+    s = FactoryGirl.generate(:scientific_name)
     while (Name.find_by_string(s)) do
-      s = generate(:scientific_name)
+      s = FactoryGirl.generate(:scientific_name)
     end
     s
   end
@@ -311,7 +311,7 @@ FactoryGirl.define do
   factory :agent do
     created_at      { 5.days.ago }
     homepage        ''
-    full_name       { generate(:first_name) << ' ' << Factory.next(:last_name) }
+    full_name       { generate(:first_name) << ' ' << FactoryGirl.generate(:last_name) }
   end
   factory :content_partner_contact do
     association :content_partner
@@ -411,7 +411,7 @@ FactoryGirl.define do
     name        { (Faker::Lorem.words << generate(:string)).join(' ').titleize }
     description { Faker::Lorem.paragraph }
     published   true
-    after_create { collections << Factory(:collection) }
+    after(:create) { |c| c.collections << FactoryGirl.create(:collection) }
   end
 
   factory :community_activity_log do
@@ -471,7 +471,7 @@ FactoryGirl.define do
     created_at                          { 5.days.ago }
     public                              true
     content_partner_status              { ContentPartnerStatus.find_by_translated(:label, 'Active') ||
-                                             gen_if_not_exists(:label => 'Active') }
+                                             ContentPartnerStatus.gen_if_not_exists(:label => 'Active') }
   end
 
   factory :content_partner_agreement do
@@ -558,7 +558,7 @@ FactoryGirl.define do
   factory :data_objects_harvest_event do
     association :harvest_event
     association :data_object
-    guid        { s = ''; 32.times { s += ((0..9).to_a.map{|n| n.to_s} + %w{a b c d e f}).random_element }; s } # ICK!
+    guid        { s = ''; 32.times { s += ((0..9).to_a.map{|n| n.to_s} + %w{a b c d e f}).sample }; s } # ICK!
     status      { Status.inserted || Status.gen_if_not_exists(:label => 'inserted') }
   end
 
@@ -820,7 +820,7 @@ FactoryGirl.define do
     title           'Testing Resource'
     subject         'Test Resource Subject'
     license         { License.find_by_title('cc-by 3.0') ||
-                        gen_if_not_exists(:title => 'cc-by 3.0',
+                        License.gen_if_not_exists(:title => 'cc-by 3.0',
                                           :description => 'Some rights reserved',
                                           :source_url => 'http://creativecommons.org/licenses/by/3.0/',
                                           :logo_url => '/images/licenses/cc_by_small.png') }
@@ -868,7 +868,7 @@ FactoryGirl.define do
   factory :synonym do
     association      :name
     synonym_relation { SynonymRelation.find_by_translated(:label, 'Synonym') ||
-                           gen_if_not_exists(:label => 'Synonym') }
+                           SynonymRelation.gen_if_not_exists(:label => 'Synonym') }
     language         { Language.english }
     association      :hierarchy_entry
     hierarchy_id     { hierarchy_entry ? hierarchy_entry.hierarchy.id : Hierarchy.default.id }
@@ -893,7 +893,7 @@ FactoryGirl.define do
   factory :taxon_concept_name do
     preferred              true
     vern                   false
-    source_hierarchy_entry_id { Factory(:hierarchy_entry).id } # Does this work?
+    source_hierarchy_entry_id { FactoryGirl.create(:hierarchy_entry).id } # Does this work?
     language               { Language.english }
     association            :name
     association            :taxon_concept
@@ -1100,7 +1100,7 @@ FactoryGirl.define do
     email                     { generate(:email) }
     given_name                { generate(:first_name) }
     family_name               { generate(:last_name) }
-    agent_id                  { Factory(:agent, :full_name => "#{given_name} #{family_name}").id }
+    agent_id                  { FactoryGirl.create(:agent, :full_name => "#{given_name} #{family_name}").id }
     language                  { Language.english }
     username                  do
       attempt = "#{given_name[0..0]}_#{family_name[0..9]}".gsub(/\s/, '_').downcase

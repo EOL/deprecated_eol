@@ -34,7 +34,7 @@ module EOL
       raise "This action is ONLY available in the development, test, and test_master environments." unless
         Rails.env.development? || Rails.env.test? || Rails.env.test_master?
       EOL::DB.all_connections.each do |connection|
-        connection.drop_database connection.config[:database]
+        connection.drop_database connection.current_database
       end
     end
 

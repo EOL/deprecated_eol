@@ -140,8 +140,8 @@ class Comment < ActiveRecord::Base
 
   def taxon_concept_id
     return_t_c = case self.parent_type
-     when 'TaxonConcept' then parent.id
-     when 'DataObject'   then parent.get_taxon_concepts(:published => :preferred)[0].id
+     when 'TaxonConcept' then parent_id
+     when 'DataObject'   then parent.get_taxon_concepts(:published => :preferred).first.id
      else nil
     end
     raise "Don't know how to handle a parent type of #{self.parent_type} (or t_c was nil)" if return_t_c.nil?

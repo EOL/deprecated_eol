@@ -401,7 +401,7 @@ FactoryGirl.define do
   # database, so don't expect this factory to work in all situations.
   factory :comment do
     association  :parent, :factory => :data_object
-    parent_type  'data_object'
+    parent_type  'DataObject'
     body         { Faker::Lorem.paragraph }
     association  :user
     from_curator false

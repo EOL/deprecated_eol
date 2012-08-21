@@ -173,12 +173,8 @@ class User < Curator
   end
 
   def self.cached(id)
-    Agent
-    begin
-      (Rails.cache.fetch("users/#{id}") { User.find(id, :include => :agent) }).dup # #dup avoids frozen hashes!
-    rescue
-      nil
-    end
+    # TODO: removing the cache for Rails 3 because it was causing problems
+    User.find(id, :include => :agent)
   end
 
   # Please use consistent format for naming Users across the site.  At the moment, this means using #full_name unless

@@ -158,20 +158,6 @@ describe Collection do
     Collection.which_contain(user).should == [collection]
   end
 
-  it 'should get counts for multiple collections' do
-    collection_1 = Collection.gen
-    collection_1.add(User.gen)
-    collection_2 = Collection.gen
-    2.times { collection_2.add(User.gen) }
-    collection_3 = Collection.gen
-    3.times { collection_3.add(User.gen) }
-    collections = [collection_1, collection_2, collection_3]
-    Collection.add_counts(collections)
-    collections[0]['collection_items_count'].should == 1
-    collections[1]['collection_items_count'].should == 2
-    collections[2]['collection_items_count'].should == 3
-  end
-
   it 'should get taxon counts for multiple collections' do
     collection_1 = CollectionBuilder.gen(:taxa => 1, :users => 1)
     collection_2 = CollectionBuilder.gen(:taxa => 2, :users => 1)

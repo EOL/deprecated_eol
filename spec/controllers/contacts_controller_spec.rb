@@ -21,7 +21,7 @@ describe ContactsController do
       assigns[:contact].should be_a(Contact)
       assigns[:contact].ip_address.should == request.remote_ip
       assigns[:contact_subjects].first.should be_a(ContactSubject)
-      response.header['Location'].should == 'contacts/new'
+      response.should render_template('contacts/new')
     end
     it 'should preload current user details if logged in' do
       get :new
@@ -55,7 +55,7 @@ describe ContactsController do
       Notifier.should_not_receive(:contact_us_message)
       post :create
       flash.now[:error].should_not be_blank
-      response.header['Location'].should == 'contacts/new'
+      response.should render_template('contacts/new')
     end
 
     it 'should create contact' do

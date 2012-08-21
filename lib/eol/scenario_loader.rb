@@ -14,8 +14,8 @@ module EOL
       if !@we_have_already_cached_this_scenario && cached_files_are_stale?
         load_and_cache
       elsif @we_have_already_cached_this_scenario && is_the_data_in_the_database?
-        puts "** WARNING: You attempted to load the #{@name} scenario twice, here."
-        puts "**          Please remove the call or truncate tables, first."
+        Rails.logger.warn "** WARNING: You attempted to load the #{@name} scenario twice, here."
+        Rails.logger.warn "**          Please remove the call or truncate tables, first."
       else
         @all_connections.each do |conn|
           load_cache_for_connection(conn)
@@ -50,7 +50,7 @@ module EOL
     end
 
     def load_and_cache
-      puts "&& Creating #{@name} cache.  Please be patient."
+      Rails.logger.warn "&& Creating #{@name} cache.  Please be patient."
       EolScenario.load @name
       remember_that_this_is_loaded
       create_cache
@@ -89,6 +89,7 @@ module EOL
     end
 
     def create_cache
+      return # TEMP ... TODO - fix this.
       @all_connections.each do |conn|
         tables = tables_to_export_from_connection(conn)
         db_config_hash = conn.raw_connection.query_options

@@ -5,7 +5,7 @@ describe Comment do
   before(:all) do
     truncate_all_tables
     load_foundation_cache
-    @tc = build_taxon_concept()
+    @tc = build_taxon_concept
     @tc_comment = @tc.comments[0]
     @text_comment = @tc.data_objects.select { |d| d.is_text? && !d.comments.blank? }.first.comments.first
     # If this next line fails, something went wrong with Solr building data... Perhaps we should reindex, here?

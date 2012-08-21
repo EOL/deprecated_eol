@@ -177,7 +177,7 @@ module EOL
         comment[:body]  ||= "This is a witty comment on the #{@canon} taxon concept. Any resemblance to comments real " +
                             'or imagined is coincidental.'
         comment[:user] ||= User.count == 0 ? User.gen : User.all.sample
-        Comment.gen(:parent => @tc, :parent_type => 'taxon_concept', :body => comment[:body], :user => comment[:user])
+        Comment.gen(:parent => @tc, :parent_type => 'TaxonConcept', :body => comment[:body], :user => comment[:user])
       end
     end
 

@@ -18,12 +18,12 @@ describe ContentPartners::ResourcesController do
   describe 'GET index' do
     it 'should render root if user not logged in' do
       get :index, { :content_partner_id => @content_partner.id }
-      response.redirected_to.should == login_url
+      expect(response).to redirect_to(login_url)
     end
     it 'should ask for agreement if user can update content partner and agreement is NOT accepted' do
       session[:user_id] = @user.id
       get :index, { :content_partner_id => @content_partner.id }
-      response.redirected_to.should == new_content_partner_content_partner_agreement_path(@content_partner)
+      expect(response).to redirect_to(new_content_partner_agreement_path(@content_partner))
     end
     it 'should render index if user can update content partner and agreement is accepted' do
       @content_partner_agreement = ContentPartnerAgreement.gen(:content_partner => @content_partner, :signed_on_date => Time.now)
@@ -34,19 +34,19 @@ describe ContentPartners::ResourcesController do
       assigns[:resources].first.should == @resource
       assigns[:partner_contacts].should be_a(Array)
       assigns[:partner_contacts].first.should == @content_partner_contact
-      response.redirected_to.should be_blank
-      response.rendered[:template].should == 'content_partners/resources/index.html.haml'
+      response.status.should == 200
+      response.should render_template('content_partners/resources/index')
     end
   end
 
   describe 'GET new' do
     it 'should render new only if user can create content partner resources' do
       get :new, { :content_partner_id => @content_partner.id }
-      response.rendered[:template].should_not == 'content_partners/resources/new.html.haml'
-      response.redirected_to.should == login_url
+      response.should_not render_template('content_partners/resources/new')
+      expect(response).to redirect_to(login_url)
       get :new, { :content_partner_id => @content_partner.id }, { :user => @user, :user_id => @user.id }
-      response.rendered[:template].should == 'content_partners/resources/new.html.haml'
-      response.redirected_to.should be_blank
+      response.should render_template('content_partners/resources/new')
+      response.status.should == 200
     end
   end
 
@@ -60,11 +60,11 @@ describe ContentPartners::ResourcesController do
   describe 'GET edit' do
     it 'should render edit only if user can update this content partner resource' do
       get :edit, { :content_partner_id => @content_partner.id, :id => @resource.id }
-      response.redirected_to.should == login_url
+      expect(response).to redirect_to(login_url)
       get :edit, { :content_partner_id => @content_partner.id, :id => @resource.id }, { :user => @user, :user_id => @user.id }
       assigns[:partner].should == @content_partner
       assigns[:resource].should == @resource
-      response.rendered[:template].should == 'content_partners/resources/edit.html.haml'
+      response.should render_template('content_partners/resources/edit')
     end
   end
 
@@ -77,14 +77,14 @@ describe ContentPartners::ResourcesController do
   describe 'GET show' do
     it 'should render root if user not logged in' do
       get :show, { :content_partner_id => @content_partner.id, :id => @resource.id }
-      response.redirected_to.should == login_url
+      expect(response).to redirect_to(login_url)
     end
     it 'should render resource show page if user can read content partner resources' do
       session[:user_id] = @user.id
       get :show, { :content_partner_id => @content_partner.id, :id => @resource.id }, { :user => @user, :user_id => @user.id }
       assigns[:partner].should == @content_partner
       assigns[:resource].should == @resource
-      response.rendered[:template].should == 'content_partners/resources/show.html.haml'
+      response.should render_template('content_partners/resources/show')
     end
   end
 

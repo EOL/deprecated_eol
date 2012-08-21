@@ -26,7 +26,7 @@ describe CollectionsController do
       it 'should do nothing unless oauth_provider param is present' do
         get :show, :id => @collection.id
         response.status.should == 200
-        response.header['Location'].should == 'collections/show'
+        response.should render_template('collections/show')
       end
       it 'should redirect to login unless user already logged in' do
         provider = 'aprovider'

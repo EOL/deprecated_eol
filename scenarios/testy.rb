@@ -17,6 +17,8 @@ include EOL::RSpec::Helpers
 # NOTE - Because this can be pre-loaded, Factory strings will NOT be unique by themselves, so we add a little to them
 # (if they need to be unique)
 
+load_scenario_with_caching :foundation
+
 testy = {}
 
 testy[:exemplar] = build_taxon_concept(:id => 910093) # That ID is one of the (hard-coded) exemplars.

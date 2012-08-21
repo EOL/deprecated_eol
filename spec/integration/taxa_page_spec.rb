@@ -131,7 +131,7 @@ describe 'Taxa page' do
     it 'should have taxon links for the images in the gallery' do
       (0..3).each do |i|
         taxon = @taxon_concept.images_from_solr[i].association_with_best_vetted_status.hierarchy_entry.taxon_concept.canonical_form_object.string
-        should have_tag('a', :attributes => { :href => taxon_overview_path(@taxon_concept) }, :text => taxon)
+        should have_tag('a', :attributes => { :href => overview_taxon_path(@taxon_concept) }, :text => taxon)
       end
     end
     it 'should have sanitized descriptive text alternatives for images in gallery'
@@ -306,7 +306,7 @@ describe 'Taxa page' do
     it 'should allow logged in users to post comment in "Latest Updates" section' do
       visit logout_url
       login_as @user
-      visit taxon_overview_path(@taxon_concept)
+      visit overview_taxon_path(@taxon_concept)
       comment = "Test comment by a logged in user."
       body.should have_tag(".updates .comment #comment_body")
       should have_tag(".updates .comment .actions input", :val => "Post Comment")
@@ -314,7 +314,7 @@ describe 'Taxa page' do
         fill_in 'comment_body', :with => comment
         click_button "Post Comment"
       end
-      current_url.should match /#{taxon_overview_path(@taxon_concept)}/
+      current_url.should match /#{overview_taxon_path(@taxon_concept)}/
       body.should include('Comment successfully added')
     end
   end
@@ -454,7 +454,7 @@ describe 'Taxa page' do
 
 
   context 'when taxon does not have any common names' do
-    before(:all) { visit taxon_overview_path @testy[:taxon_concept_with_no_common_names] }
+    before(:all) { visit overview_taxon_path @testy[:taxon_concept_with_no_common_names] }
     subject { body }
     it 'should not show a common name' do
       should_not have_tag('#page_heading h2')
@@ -480,8 +480,8 @@ describe 'Taxa page' do
 
   context 'when taxon supercedes another concept' do
     it 'should use supercedure to find taxon if user visits the other concept' do
-      visit taxon_overview_path @testy[:superceded_taxon_concept]
-      current_path.should match taxon_overview_path @testy[:id]
+      visit overview_taxon_path @testy[:superceded_taxon_concept]
+      current_path.should match overview_taxon_path @testy[:id]
       visit taxon_details_path @testy[:superceded_taxon_concept]
       current_path.should match taxon_details_path @testy[:id]
     end
@@ -489,7 +489,7 @@ describe 'Taxa page' do
       comment = Comment.gen(:parent_type => "TaxonConcept", :parent_id => @testy[:superceded_taxon_concept].id,
                             :body => "Comment on superceded taxon.",
                             :user => User.first)
-      visit taxon_overview_path @testy[:id]
+      visit overview_taxon_path @testy[:id]
       body.should include("Comment on superceded taxon.")
     end
   end

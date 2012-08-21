@@ -245,7 +245,7 @@ describe Taxa::MediaController do
       put :set_as_exemplar, :taxon_id => @taxon_concept.id, :taxon_concept_exemplar_image => { :data_object_id => exemplar_image.id }
       @taxon_concept.reload
       @taxon_concept.taxon_concept_exemplar_image.data_object_id.should == exemplar_image.id
-      response.redirected_to.should == taxon_media_url(@taxon_concept)
+      expect(response).to redirect_to(taxon_media_url(@taxon_concept))
     end
   end
 end

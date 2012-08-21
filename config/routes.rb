@@ -164,7 +164,7 @@ EolUpgrade::Application.routes.draw do
   resources :content_partners do
     resources :content_partner_contacts, :as => 'contacts', :except => [:index, :show]
     resources :content_partner_agreements, :as => 'agreements', :except => [:index, :destroy]
-    resources :statistics, :only => [:show]
+    resource :statistics, :only => [:show]
     resources :resources do
       member do
         get 'force_harvest'

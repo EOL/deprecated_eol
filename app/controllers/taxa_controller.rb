@@ -244,11 +244,11 @@ private
     auto_collect(tc) # SPG asks for all curation (including names) to add the item to their watchlist.
     # NOTE - Don't pass :data_object into this; it will overwrite the value of :object_id.
     CuratorActivityLog.create(
-      :user => current_user,
+      :user_id => current_user.id,
       :changeable_object_type => ChangeableObjectType.send(object.class.name.underscore.to_sym),
       :object_id => object.id,
       :activity => Activity.send(method),
-      :taxon_concept => tc,
+      :taxon_concept_id => tc.id,
       :created_at => 0.seconds.from_now
     )
   end

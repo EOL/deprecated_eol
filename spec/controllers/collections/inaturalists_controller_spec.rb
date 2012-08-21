@@ -3,7 +3,6 @@ require File.dirname(__FILE__) + '/../../spec_helper'
 describe Collections::InaturalistsController do
 
   before(:all) do
-    WebMock.allow_net_connect!
     truncate_all_tables
     load_foundation_cache
     # Create a collection with a EOL collection id which already has a project on iNaturalist.
@@ -12,10 +11,6 @@ describe Collections::InaturalistsController do
     @inat_collection.add(DataObject.gen)
     @inaturalist_project_info = @inat_collection.inaturalist_project_info
     EOL::Solr::CollectionItemsCoreRebuilder.begin_rebuild
-  end
-
-  after(:all) do
-    WebMock.disable_net_connect!(:allow_localhost => true)
   end
 
   describe 'GET show' do

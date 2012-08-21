@@ -54,7 +54,8 @@ describe Taxa::DetailsController do
 
     it 'should instantiate the taxon concept and the data object' do
       session[:user_id] = @testy[:curator].id
-      get :set_article_as_exemplar, :taxon_id => @testy[:taxon_concept].id.to_i, :data_object_id => @testy[:overview].id.to_i
+      text_id = @testy[:taxon_concept].data_objects.select{ |d| d.is_text? }.first.id
+      get :set_article_as_exemplar, :taxon_id => @testy[:taxon_concept].id.to_i, :data_object_id => text_id
       assigns[:taxon_concept].should be_a(TaxonConcept)
       assigns[:data_object].should be_a(DataObject)
     end

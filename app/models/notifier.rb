@@ -96,10 +96,11 @@ class Notifier < ActionMailer::Base
   end
 
   def user_activated(user)
-    subject     I18n.t(:subject, :scope => [:notifier, :user_activated])
-    recipients  user.email
-    from        $NO_REPLY_EMAIL_ADDRESS
-    body        :user => user
+    @user = user
+    mail(
+      :subject => I18n.t(:subject, :scope => [:notifier, :user_activated]),
+      :to => user.email,
+      :from => $NO_REPLY_EMAIL_ADDRESS )
   end
 
   def user_activated_with_open_authentication(user, translated_oauth_provider)

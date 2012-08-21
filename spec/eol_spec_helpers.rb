@@ -6,7 +6,7 @@ require 'nokogiri'
 # but WebMock is not loaded for development environment!? Presumably scenarios use this file which is why
 # WebMock was getting loaded. So may we should move the require and stub request to a separate helper file?
 # for now this config allows localhost requests.
-# require 'webmock/rspec'
+require 'webmock/rspec'
 # WebMock.disable_net_connect!(:allow_localhost => true)
 
 module EOL

@@ -228,8 +228,7 @@ class User < Curator
 
   def activate
     # Using update_attribute instead of updates_attributes to by pass validation errors.
-    self.update_attribute(:active, true)
-    self.update_attribute(:validation_code, nil)
+    self.update_attributes(:active => true, :validation_code => nil)
     build_watch_collection
   end
 

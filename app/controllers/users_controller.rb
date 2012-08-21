@@ -307,7 +307,7 @@ class UsersController < ApplicationController
       user.update_column(:recover_account_token_expires_at, 24.hours.from_now)
       user.reload # Just to ensure everything is dandy in the database (TODO: will slave cause problems?)
       if user.recover_account_token =~ /^[a-f0-9]{40}$/ && !user.recover_account_token_expired?
-        Notifier.deliver_user_recover_account(user, temporary_login_user_url(user, user.recover_account_token))
+        Notifier.user_recover_account(user, temporary_login_user_url(user, user.recover_account_token)).deliver
         flash[:notice] = I18n.t('users.recover_account.notices.recovery_email_sent', :from_address => $NO_REPLY_EMAIL_ADDRESS)
         redirect_to login_path and return
       else
@@ -333,7 +333,7 @@ class UsersController < ApplicationController
         unless user.active?
           # Treat this as email verification for inactive users
           user.activate
-          Notifier.deliver_user_activated(user)
+          Notifier.user_activated(user).deliver
         end
         log_in(user)
         flash[:notice] = I18n.t('users.recover_account.notices.temporarily_logged_in_update_authentication_details')
@@ -430,7 +430,7 @@ private
   end
 
   def send_verification_email
-    Notifier.deliver_user_verification(@user, verify_user_url(@user.id, @user.validation_code))
+    Notifier.user_verification(@user, verify_user_url(@user.id, @user.validation_code)).deliver
   end
   
   def send_unsubscribed_to_notifications_email
@@ -489,7 +489,7 @@ private
     else
       recipient = media_inquiry_subject.recipients
     end
-    Notifier.deliver_user_updated_email_preferences(user_before_update, user_after_update, recipient)
+    Notifier.user_updated_email_preferences(user_before_update, user_after_update, recipient).deliver
   end
 
   def preload_user_associations

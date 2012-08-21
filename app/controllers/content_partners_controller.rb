@@ -57,7 +57,7 @@ class ContentPartnersController < ApplicationController
     access_denied unless current_user.can_create?(@partner)
     if @partner.save
       upload_logo(@partner) unless params[:content_partner][:logo].blank?
-      Notifier.deliver_content_partner_created(@partner, current_user)
+      Notifier.content_partner_created(@partner, current_user).deliver
       flash[:notice] = I18n.t(:content_partner_create_successful_notice)
       redirect_to content_partner_resources_path(@partner), :status => :moved_permanently
     else

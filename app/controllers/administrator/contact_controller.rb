@@ -35,7 +35,7 @@ class Administrator::ContactController < AdminController
    @message=params[:message]
 
   if request.post? && !@message.blank? && !@email.blank?
-    Notifier.deliver_user_message(@name,@email,@message)
+    Notifier.user_message(@name, @email, @message).deliver
     flash[:notice]= I18n.t("the_message_was_sent")
     redirect_to :controller=>'/administrator/contact',:action=>'index', :status => :moved_permanently
   elsif request.post?

@@ -53,7 +53,7 @@ class DataObjectsController < ApplicationController
         :object => @data_object,
         :collection => current_user.watch_collection
       )
-      CollectionActivityLog.create(:collection => current_user.watch_collection, :user => current_user,
+      CollectionActivityLog.create(:collection => current_user.watch_collection, :user_id => current_user.id,
                                    :activity => Activity.collect, :collection_item => collection_item)
       @data_object.log_activity_in_solr(:keyword => 'create', :user => current_user, :taxon_concept => @taxon_concept)
 
@@ -647,8 +647,11 @@ private
   end
 
   def toc_id
-    @ti ||= params[:data_object].delete(:toc_items)[:id].to_a
-    @ti.empty? ? nil : @ti.first.to_i
+    id_in_params = nil
+    if arr = params[:data_object].delete(:toc_items)
+      id_in_params = arr[:id].to_i
+    end
+    @ti ||= id_in_params ? id_in_params : nil
   end
 
 end

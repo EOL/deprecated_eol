@@ -105,7 +105,7 @@ class Administrator::UserController  < AdminController
     @user = User.new(params[:user])
     @message = params[:message]
 
-    Notifier.deliver_user_message(@user.full_name, @user.email, @message) unless @message.blank?
+    Notifier.user_message(@user.full_name, @user.email, @message).deliver unless @message.blank?
 
     @user.password = @user.entered_password
 
@@ -128,7 +128,7 @@ class Administrator::UserController  < AdminController
     
     @message = params[:message]
 
-    Notifier.deliver_user_message(@user.full_name, @user.email, @message) unless @message.blank?
+    Notifier.user_message(@user.full_name, @user.email, @message).deliver unless @message.blank?
 
     user_params = params[:user]
 

@@ -69,8 +69,8 @@ class ContentCronTasksController < ApplicationController
                                             { :year => last_month.year, :month => last_month.month } ] )
     @content_partners.each do |content_partner|
       content_partner.content_partner_contacts.each do |contact|
-        Notifier.deliver_content_partner_statistics_reminder(content_partner, contact,
-          Date::MONTHNAMES[last_month.month], last_month.year)
+        Notifier.content_partner_statistics_reminder(content_partner, contact,
+          Date::MONTHNAMES[last_month.month], last_month.year).deliver
       end
     end
     render :text => "Monthly partner stats notification sent"

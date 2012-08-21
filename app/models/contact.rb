@@ -10,7 +10,7 @@ class Contact < ActiveRecord::Base
   private
 
   def send_contact_email
-    Notifier::deliver_contact_us_message(self)
+    Notifier.contact_us_message(self).deliver
   end
 
 end

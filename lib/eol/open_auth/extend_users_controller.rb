@@ -52,8 +52,8 @@ module EOL
                                                      :active => true,
                                                      :remote_ip => request.remote_ip))
         if @user.save # note no recaptcha for oauth signups
-          Notifier.deliver_user_activated_with_open_authentication(@user,
-            I18n.t(provider.to_sym, :scope => [:users, :open_authentications]))
+          Notifier.user_activated_with_open_authentication(@user,
+            I18n.t(provider.to_sym, :scope => [:users, :open_authentications])).deliver
           EOL::GlobalStatistics.increment('users')
           session.delete("oauth_token_#{provider}_#{guid}")
           session.delete("oauth_secret_#{provider}_#{guid}")

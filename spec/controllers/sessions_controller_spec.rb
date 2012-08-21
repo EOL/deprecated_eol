@@ -30,7 +30,7 @@ describe SessionsController do
     end
     it 'should redirect to user show if user is logged in' do
       get :new, nil, {:user_id => @user.id}
-      response.redirected_to.should == @user
+      expect(response).to redirect_to(@user)
     end
 
     context 'extended for open authentication' do
@@ -41,21 +41,21 @@ describe SessionsController do
       end
       it 'should redirect to authorize uri before log in with Facebook' do
         get :new, { :oauth_provider => 'facebook' }
-        response.redirected_to.should =~ /^https:\/\/graph.facebook.com\/oauth\/authorize/
+        response.header['Location'].should =~ /^https:\/\/graph.facebook.com\/oauth\/authorize/
       end
       it 'should redirect to authorize uri before log in with Google' do
         post :new, { :oauth_provider => 'google' }
-        response.redirected_to.should =~ /^https:\/\/accounts.google.com\/o\/oauth2\/auth/
+        response.header['Location'].should =~ /^https:\/\/accounts.google.com\/o\/oauth2\/auth/
       end
       it 'should redirect to authorize uri before log in with Twitter' do
         stub_oauth_requests
         post :new, { :oauth_provider => 'twitter' }
-        response.redirected_to.should =~ /http:\/\/api.twitter.com\/oauth\/authenticate/
+        response.header['Location'].should =~ /http:\/\/api.twitter.com\/oauth\/authenticate/
       end
       it 'should redirect to authorize uri before log with Yahoo' do
         stub_oauth_requests
         post :new, { :oauth_provider => 'yahoo' }
-        response.redirected_to.should =~ /https:\/\/api.login.yahoo.com\/oauth\/v2\/request_auth/
+        response.header['Location'].should =~ /https:\/\/api.login.yahoo.com\/oauth\/v2\/request_auth/
       end
       it 'should redirect and flash error if user denies access when logging in with Twitter' do
         oauth1_consumer = OAuth::Consumer.new("key", "secret", {
@@ -70,19 +70,19 @@ describe SessionsController do
                     "twitter_request_token_secret" => 'secret',
                     "return_to" => collection_url(1) }
         assigns[:open_auth].should be_a(EOL::OpenAuth::Twitter)
-        response.redirected_to.should == collection_url(1)
+        expect(response).to redirect_to(collection_url(1))
         flash[:error].should match /Sorry, we are not authorized.+?Twitter/
       end
       it 'should redirect and flash error if user denies access when logging in with Facebook' do
         get :new, { :error => "access_denied", :oauth_provider => 'facebook' }, { :return_to => collection_url(1) }
         assigns[:open_auth].should be_a(EOL::OpenAuth::Facebook)
-        response.redirected_to.should == collection_url(1)
+        expect(response).to redirect_to(collection_url(1))
         flash[:error].should match /Sorry, we are not authorized.+?Facebook/
       end
       it 'should redirect and flash error if user denies access when logging in with Google' do
         get :new, { :error => "access_denied", :oauth_provider => 'google' }, { :return_to => collection_url(1) }
         assigns[:open_auth].should be_a(EOL::OpenAuth::Google)
-        response.redirected_to.should == collection_url(1)
+        expect(response).to redirect_to(collection_url(1))
         flash[:error].should match /Sorry, we are not authorized.+?Google/
       end
       it 'should prevent log in, render new and flash error if oauth account is not connected to an EOL user' do
@@ -94,7 +94,7 @@ describe SessionsController do
         assigns[:open_auth].should be_a(EOL::OpenAuth::Facebook)
         session[:user_id].should_not == @connected_user.id
         session[:language_id].should_not == @connected_user.language_id
-        response.redirected_to.should == login_url
+        expect(response).to redirect_to(login_url)
         flash[:error].should =~ /couldn't find a connection between your Facebook account and EOL/
         open_authentication.update_attributes(:provider => 'facebook')
      end
@@ -105,7 +105,7 @@ describe SessionsController do
         assigns[:open_auth].should be_a(EOL::OpenAuth::Facebook)
         session[:user_id].should == @connected_user.id
         session[:language_id].should == @connected_user.language_id
-        response.redirected_to.should == user_newsfeed_url(@connected_user)
+        expect(response).to redirect_to(user_newsfeed_url(@connected_user))
       end
       it 'should log in user with Google' do
         stub_oauth_requests
@@ -114,7 +114,7 @@ describe SessionsController do
         assigns[:open_auth].should be_a(EOL::OpenAuth::Google)
         session[:user_id].should == @connected_user.id
         session[:language_id].should == @connected_user.language_id
-        response.redirected_to.should == user_newsfeed_url(@connected_user)
+        expect(response).to redirect_to(user_newsfeed_url(@connected_user))
       end
       it 'should log in user with Twitter' do
         stub_oauth_requests
@@ -123,7 +123,7 @@ describe SessionsController do
         assigns[:open_auth].should be_a(EOL::OpenAuth::Twitter)
         session[:user_id].should == @connected_user.id
         session[:language_id].should == @connected_user.language_id
-        response.redirected_to.should == user_newsfeed_url(@connected_user)
+        expect(response).to redirect_to(user_newsfeed_url(@connected_user))
       end
       it 'should log in user with Yahoo' do
         stub_oauth_requests
@@ -132,7 +132,7 @@ describe SessionsController do
         assigns[:open_auth].should be_a(EOL::OpenAuth::Yahoo)
         session[:user_id].should == @connected_user.id
         session[:language_id].should == @connected_user.language_id
-        response.redirected_to.should == user_newsfeed_url(@connected_user)
+        expect(response).to redirect_to(user_newsfeed_url(@connected_user))
       end
 
       it 'should redirect user to return to url after log in' do
@@ -142,7 +142,7 @@ describe SessionsController do
         assigns[:open_auth].should be_a(EOL::OpenAuth::Yahoo)
         session[:user_id].should == @connected_user.id
         session[:language_id].should == @connected_user.language_id
-        response.redirected_to.should == taxon_url(1)
+        expect(response).to redirect_to(taxon_url(1))
         flash[:notice].should =~ /login successful/i
       end
 
@@ -152,21 +152,21 @@ describe SessionsController do
   describe "POST create" do
     it "should render new with flash error if EOL credentials are invalid" do
       post :create, :session => { :username_or_email => "email@example.com", :password => "invalid" }
-      response.redirected_to.should == login_path
+      expect(response).to redirect_to(login_path)
       flash[:error].should =~ /login failed/i
     end
 
     it 'should log in and redirect to user newsfeed if EOL credentials are valid' do
       post :create, :session => { :username_or_email => @user.email, :password => 'password' }
       flash[:notice].should =~ /login successful/i
-      response.redirected_to.should == user_newsfeed_url(@user)
+      expect(response).to redirect_to(user_newsfeed_url(@user))
     end
 
     it 'should redirect user to return_to url after log in' do
       post :create, :session => { :username_or_email => @user.email, 
                                   :password => 'password',
                                   :return_to => taxon_url(1) }
-      response.redirected_to.should == taxon_url(1)
+      expect(response).to redirect_to(taxon_url(1))
       flash[:notice].should =~ /login successful/i
     end
 

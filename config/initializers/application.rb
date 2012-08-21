@@ -1,5 +1,6 @@
 require 'select_with_preload_include'
 require 'eol_scenarios'
+require 'will_paginate/array'
 
 APPLICATION_DEFAULT_LANGUAGE_ISO = 'en'
 $SOLR_SERVER = 'http://localhost:8983/solr/'

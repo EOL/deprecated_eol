@@ -96,10 +96,10 @@ describe ContactsController do
 
     it 'should not return inactive contact subjects' do
       contact_subject = ContactSubject.find_by_active(true)
-      contact_subject.update_attribute(:active, false)
+      contact_subject.update_column(:active, false)
       controller.instance_eval{ contact_subjects }
       controller.instance_eval{ @contact_subjects }.select{ |cs| !cs.active? }.should be_blank
-      contact_subject.update_attribute(:active, true)
+      contact_subject.update_column(:active, true)
     end
 
   end

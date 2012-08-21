@@ -2,7 +2,6 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe "Preview Collections" do
   before(:all) do
-    WebMock.allow_net_connect!
     module Paperclip
       class Attachment
         def save
@@ -27,10 +26,6 @@ describe "Preview Collections" do
     @taxon = @test_data[:taxon_concept_1]
     @collection.add(@taxon)
     EOL::Solr::CollectionItemsCoreRebuilder.begin_rebuild
-  end
-
-  after(:all) do
-    WebMock.disable_net_connect!(:allow_localhost => true)
   end
 
   it 'should show collections on the taxon page' do
@@ -170,7 +165,6 @@ end
 describe "Collections and collecting:" do
 
   before(:all) do
-    WebMock.allow_net_connect!
     # so this part of the before :all runs only once
     unless User.find_by_username('collections_scenario')
       truncate_all_tables
@@ -186,10 +180,6 @@ describe "Collections and collecting:" do
     @anon_user = User.gen(:password => 'password')
     @taxon = @test_data[:taxon_concept_1]
     EOL::Solr::CollectionItemsCoreRebuilder.begin_rebuild
-  end
-
-  after(:all) do
-    WebMock.disable_net_connect!(:allow_localhost => true)
   end
 
   shared_examples_for 'collections all users' do

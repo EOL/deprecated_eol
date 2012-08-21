@@ -125,14 +125,14 @@ private
                                                      :user_id => current_user.id)
     tcpe = TaxonConceptPreferredEntry.find_by_taxon_concept_id(@taxon_concept.id)
     if tcpe
-      tcpe.update_attribute(:hierarchy_entry_id, @hierarchy_entry.id)
+      tcpe.update_column(:hierarchy_entry_id, @hierarchy_entry.id)
     else 
       TaxonConceptPreferredEntry.create(:taxon_concept_id   => @taxon_concept.id,
                                         :hierarchy_entry_id => @hierarchy_entry.id)
     end
     auto_collect(@taxon_concept) # SPG asks for all curation to add the item to their watchlist.
     CuratorActivityLog.create(
-      :user => current_user,
+      :user_id => current_user.id,
       :changeable_object_type => ChangeableObjectType.curated_taxon_concept_preferred_entry,
       :object_id => ctcpe.id,
       :hierarchy_entry_id => @hierarchy_entry.id,

@@ -17,12 +17,12 @@ describe CollectionItemsController do
   describe "GET edit" do
     it "should NOT render edit if user is not logged in" do
       get :edit, :id => @collection_item.id
-      response.redirected_to.should == login_url
+      expect(response).to redirect_to(login_url)
     end
     it "should render edit if user has permission to update" do
       session[:user_id] = @collection_editor.id
       get :edit, { :id => @collection_item.id }
-      response.rendered[:template].should =~ /collection_items\/edit/ # TODO test JS format response
+      response.should render_template('collection_items/edit') # TODO test JS format response
     end
   end
 
@@ -30,7 +30,7 @@ describe CollectionItemsController do
   describe "POST update" do
     it "should NOT update the item if user not logged in" do
       post :update, :id => @collection_item.id, :collection_item => {:annotation => "New Annotation"}
-      response.redirected_to.should == login_url
+      expect(response).to redirect_to(login_url)
     end
     it "should update the item if user has permission to update" do
       getter = lambda{

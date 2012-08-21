@@ -169,12 +169,8 @@ class User < Curator
   end
 
   def self.cached(id)
-    Agent
-    begin
-      (Rails.cache.fetch("users/#{id}") { User.find(id, :include => :agent) }).dup # #dup avoids frozen hashes!
-    rescue
-      nil
-    end
+    # TODO: removing the cache for Rails 3 because it was causing problems
+    User.find(id, :include => :agent)
   end
 
   # Please use consistent format for naming Users across the site.  At the moment, this means using #full_name unless
@@ -228,8 +224,8 @@ class User < Curator
 
   def activate
     # Using update_attribute instead of updates_attributes to by pass validation errors.
-    self.update_attribute(:active, true)
-    self.update_attribute(:validation_code, nil)
+    self.update_column(:active, true)
+    self.update_column(:validation_code, nil)
     build_watch_collection
   end
 

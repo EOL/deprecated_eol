@@ -4,8 +4,6 @@ class ApplicationController < ActionController::Base
 
   include ImageManipulation
 
-  around_filter :profile
-
   before_filter :original_request_params # store unmodified copy of request params
   before_filter :global_warning
   before_filter :check_if_mobile if $ENABLE_MOBILE
@@ -26,17 +24,6 @@ class ApplicationController < ActionController::Base
       true
     end
   end
-
-  def profile
-    return yield if params[:profile].nil?
-    return yield if ![ 'v2staging', 'v2staging_dev', 'v2staging_dev_cache', 'development', 'test'].include?(ENV['RAILS_ENV'])
-    result = RubyProf.profile { yield }
-    printer = RubyProf::GraphHtmlPrinter.new(result)
-    out = StringIO.new
-    printer.print(out, :min_percent=>0)
-    response.body.replace out.string
-  end
-
 
   # Continuously display a warning message.  This is used for things like "System Shutting down at 15 past" and the
   # like.  And, yes, if there's a "real" error, they miss this message.  So what?
@@ -402,7 +389,7 @@ class ApplicationController < ActionController::Base
                                  :collection_name => self.class.helpers.link_to(watchlist.name,
                                                                                 collection_path(watchlist)),
                                  :item_name => what.summary_name)
-        CollectionActivityLog.create(:collection => watchlist, :user => current_user,
+        CollectionActivityLog.create(:collection => watchlist, :user_id => current_user.id,
                              :activity => Activity.collect, :collection_item => collection_item)
       end
     end

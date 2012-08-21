@@ -43,7 +43,7 @@ class ContentPartners::Resources::HierarchiesController < ContentPartners::Resou
                          @partner.id == params[:content_partner_id].to_i && request.post?
     if @hierarchy.request_to_publish_can_be_made? && @hierarchy.update_attributes(:request_publish => true)
       flash[:notice] = I18n.t(:content_partner_resource_hierarchy_update_successful_notice)
-      Notifier.deliver_content_partner_resource_hierarchy_publish_request(@partner, @resource, @hierarchy, current_user)
+      Notifier.content_partner_resource_hierarchy_publish_request(@partner, @resource, @hierarchy, current_user).deliver
     else
       flash[:error] = I18n.t(:content_partner_resource_hierarchy_update_unsuccessful_error)
     end

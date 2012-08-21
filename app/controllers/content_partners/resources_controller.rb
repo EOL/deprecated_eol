@@ -39,7 +39,7 @@ class ContentPartners::ResourcesController < ContentPartnersController
           flash[:error] = I18n.t(:content_partner_resource_upload_unsuccessful_error, :resource_status => @resource.status_label)
         end
       end
-      Notifier.deliver_content_partner_resource_created(@partner, @resource, current_user)
+      Notifier.content_partner_resource_created(@partner, @resource, current_user).deliver
       flash[:notice] = I18n.t(:content_partner_resource_create_successful_notice,
                               :resource_status => @resource.status_label) unless flash[:error]
       redirect_to content_partner_resources_path(@partner), :status => :moved_permanently

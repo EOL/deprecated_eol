@@ -194,7 +194,7 @@ class Curator < $PARENT_CLASS_MUST_USE_MASTER
       Notifier.curator_approved(self).deliver unless $LOADING_BOOTSTRAP
       join_curator_community_if_curator unless was_curator
     end
-    self.update_attribute(:requested_curator_level_id, nil) # Not using validations; don't care if user is valid
+    self.update_attributes(:requested_curator_level_id => nil) # Not using validations; don't care if user is valid
     self
   end
 

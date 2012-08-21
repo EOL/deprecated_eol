@@ -33,11 +33,11 @@ class OpenAuthentication < ActiveRecord::Base
     raise EOL::Exceptions::OpenAuthMissingConnectedUser,
       "User is nil for OpenAuthentication (id=#{id})."\
       " User should never be nil for OpenAuthentication." if user.nil?
-    self.update_attribute(:verified_at, Time.now)
+    self.update_column(:verified_at, Time.now)
   end
 
   def connection_not_established
-    self.update_attribute(:verified_at, nil)
+    self.update_column(:verified_at, nil)
   end
 
 end

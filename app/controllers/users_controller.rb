@@ -173,7 +173,7 @@ class UsersController < ApplicationController
       redirect_to login_path, :status => :moved_permanently
     elsif @user && @user.validation_code == params[:validation_code] && !params[:validation_code].blank?
       @user.activate
-      Notifier.deliver_user_activated(@user)
+      Notifier.user_activated(@user).deliver
       flash[:notice] = I18n.t(:user_activation_successful_notice, :username => @user.username)
       session[:conversion_code] = User.generate_key
       redirect_to activated_user_path(@user, :success => session[:conversion_code]), :status => :moved_permanently
@@ -209,8 +209,7 @@ class UsersController < ApplicationController
       "User with ID=#{current_user.id} does not have permission to access terms agreement"\
       " for User with ID=#{@user.id}" unless current_user.can_update?(@user)
     if request.post? && params[:commit_agreed]
-      @user.agreed_with_terms = true
-      @user.save(false) # saving without validation to avoid issues with invalid legacy users
+      @user.update_column(:agreed_with_terms, true) # saving without validation to avoid issues with invalid legacy users
       # validation will more appropriately happen when user attempts to edit profile
       redirect_back_or_default(user_path(current_user))
     else
@@ -273,12 +272,11 @@ class UsersController < ApplicationController
       end
 
       # Bypass validation errors on user model
-      user.recover_account_token = User.generate_key
-      user.recover_account_token_expires_at = 24.hours.from_now
-      user.save(false)
+      user.update_column(:recover_account_token, User.generate_key)
+      user.update_column(:recover_account_token_expires_at, 24.hours.from_now)
       user.reload # Just to ensure everything is dandy in the database (TODO: will slave cause problems?)
       if user.recover_account_token =~ /^[a-f0-9]{40}$/ && !user.recover_account_token_expired?
-        Notifier.deliver_user_recover_account(user, temporary_login_user_url(user, user.recover_account_token))
+        Notifier.user_recover_account(user, temporary_login_user_url(user, user.recover_account_token)).deliver
         flash[:notice] = I18n.t('users.recover_account.notices.recovery_email_sent', :from_address => $NO_REPLY_EMAIL_ADDRESS)
         redirect_to login_path and return
       else
@@ -299,22 +297,20 @@ class UsersController < ApplicationController
           :hidden_user_temporary_login)
       end
       if user.recover_account_token_matches?(params[:recover_account_token]) && !user.recover_account_token_expired?
-        user.recover_account_token = nil
-        user.recover_account_token_expires_at = nil
-        user.save(false)
+        user.update_column(:recover_account_token, nil)
+        user.update_column(:recover_account_token_expires_at, nil)
         unless user.active?
           # Treat this as email verification for inactive users
           user.activate
-          Notifier.deliver_user_activated(user)
+          Notifier.user_activated(user).deliver
         end
         log_in(user)
         flash[:notice] = I18n.t('users.recover_account.notices.temporarily_logged_in_update_authentication_details')
         redirect_to edit_user_path(user), :status => :moved_permanently and return
       else
         if user.recover_account_token_expired?
-          user.recover_account_token = nil
-          user.recover_account_token_expires_at = nil
-          user.save(false)
+          user.update_column(:recover_account_token, nil)
+          user.update_column(:recover_account_token_expires_at, nil)
         end
         flash[:error] =  I18n.t('users.recover_account.errors.token_expired_or_invalid')
       end
@@ -403,7 +399,7 @@ private
   end
 
   def send_verification_email
-    Notifier.deliver_user_verification(@user, verify_user_url(@user.id, @user.validation_code))
+    Notifier.user_verification(@user, verify_user_url(@user.id, @user.validation_code)).deliver
   end
 
   def generate_api_key
@@ -458,7 +454,7 @@ private
     else
       recipient = media_inquiry_subject.recipients
     end
-    Notifier.deliver_user_updated_email_preferences(user_before_update, user_after_update, recipient)
+    Notifier.user_updated_email_preferences(user_before_update, user_after_update, recipient).deliver
   end
 
   def preload_user_associations

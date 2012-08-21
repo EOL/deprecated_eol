@@ -27,7 +27,7 @@ class ContactsController < ApplicationController
     @contact.comments << "\n\n#{user_url(current_user)}" if logged_in?
     if @contact.save
       # Note: Contact message is emailed to recipients on after_create, see Contact model
-      Notifier.deliver_contact_us_auto_response(@contact)
+      Notifier.contact_us_auto_response(@contact).deliver
       flash[:notice] = I18n.t('contacts.notices.message_sent')
       redirect_to contact_us_path
     else

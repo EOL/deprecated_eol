@@ -402,7 +402,7 @@ class ApplicationController < ActionController::Base
                                  :collection_name => self.class.helpers.link_to(watchlist.name,
                                                                                 collection_path(watchlist)),
                                  :item_name => what.summary_name)
-        CollectionActivityLog.create(:collection => watchlist, :user => current_user,
+        CollectionActivityLog.create(:collection => watchlist, :user_id => current_user.id,
                              :activity => Activity.collect, :collection_item => collection_item)
       end
     end

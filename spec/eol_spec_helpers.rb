@@ -7,7 +7,7 @@ require 'nokogiri'
 # WebMock was getting loaded. So may we should move the require and stub request to a separate helper file?
 # for now this config allows localhost requests.
 require 'webmock/rspec'
-# WebMock.disable_net_connect!(:allow_localhost => true)
+WebMock.allow_net_connect!
 
 module EOL
   module RSpec

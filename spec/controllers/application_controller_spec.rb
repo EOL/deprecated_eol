@@ -73,34 +73,34 @@ describe ApplicationController do
       controller.stub!(:check_user_agreed_with_terms).and_return(nil)
       [login_url, new_user_url, logout_url].each do |url|
         get :redirect_back_or_default, nil, {:user_id => 1, :return_to => url}
-        response.redirected_to.should_not == url
-        response.redirected_to.should == root_url
+        response.header['Location'].should_not == url
+        expect(response).to redirect_to(root_url)
       end
     end
     it 'should remove query string from URI if query string includes oauth_provider parameter' do
       url = login_url(:oauth_provider => 'test', :another_param => 'something')
       get :redirect_back_or_default, nil, {:return_to => url}
-      response.redirected_to.should == login_url
-      response.redirected_to.should_not =~ /oauth_provider|another_param/
+      expect(response).to redirect_to(login_url)
+      response.header['Location'].should_not =~ /oauth_provider|another_param/
     end
     it 'should not redirect to bad URIs' do
       get :redirect_back_or_default, nil, {:return_to => {:this_is_not_a_valid => 'uri'}}
-      response.redirected_to.should == root_url
+      expect(response).to redirect_to(root_url)
       session[:return_to].should be_nil
     end
     it 'should choose session return to first' do
       valid_uri = taxon_path(1)
       get :redirect_back_or_default, nil, { :return_to => valid_uri }
-      response.redirected_to.should == taxon_url(1)
+      expect(response).to redirect_to(taxon_url(1))
       session[:return_to].should be_nil
     end
     it 'should redirect to root url when no other url is available' do
       get :redirect_back_or_default, nil, nil
-      response.redirected_to.should == root_url
+      expect(response).to redirect_to(root_url)
     end
     it 'should only redirect back to http protocols' do
       get :redirect_back_or_default, nil, {:return_to => 'https://some.url'}
-      response.redirected_to.should == root_url
+      expect(response).to redirect_to(root_url)
       session[:return_to].should be_nil
     end
   end
@@ -111,7 +111,7 @@ describe ApplicationController do
     it 'should redirect to referrer' do
       request.env['HTTP_REFERER'] = login_url
       get :access_denied
-      response.redirected_to.should == login_url
+      expect(response).to redirect_to(login_url)
     end
   end
 

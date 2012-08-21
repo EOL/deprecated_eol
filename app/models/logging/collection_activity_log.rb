@@ -11,6 +11,8 @@ class CollectionActivityLog < LoggingModel
 
   after_create :log_activity_in_solr
   after_create :queue_notifications
+  
+  attr_accessible :user_id, :collection, :activity, :collection_item
 
   alias :link_to :collection # Needed for rendering links; we need to know which association to make the link to
 

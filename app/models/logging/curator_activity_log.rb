@@ -24,6 +24,8 @@ class CuratorActivityLog < LoggingModel
 
   after_create :log_activity_in_solr
   after_create :queue_notifications
+  
+  attr_accessible :user_id, :changeable_object_type, :object_id, :hierarchy_entry_id, :taxon_concept_id, :activity, :created_at
 
   def self.find_all_by_data_objects_on_taxon_concept(tc)
     dato_ids = tc.all_data_objects.map {|dato| dato.id}
@@ -102,6 +104,8 @@ class CuratorActivityLog < LoggingModel
       when ChangeableObjectType.users_data_object.id
         udo_taxon_concept.id
       when ChangeableObjectType.taxon_concept.id
+        taxon_concept.id
+      when ChangeableObjectType.curated_taxon_concept_preferred_entry.id
         taxon_concept.id
       else
         raise "Don't know how to get the taxon id from a changeable object type of id #{changeable_object_type_id}"

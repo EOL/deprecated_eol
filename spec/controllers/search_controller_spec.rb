@@ -10,7 +10,7 @@ describe SearchController do
 
   it "should find no results on an empty search" do
     Language.create_english
-    get :index
+    get :index, :q => ''
     assigns[:all_results].should == []
   end
 end

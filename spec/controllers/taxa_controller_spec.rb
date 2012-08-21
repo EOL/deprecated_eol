@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 def overviews_do_show
-  get :show, :taxon_id => @testy[:taxon_concept].id.to_i
+  get :overview, :id => @testy[:taxon_concept].id.to_i
 end
 
 describe TaxaController do
@@ -18,27 +18,27 @@ describe TaxaController do
       taxon_concept = stub_model(TaxonConcept)
       taxon_concept.stub!(:published?).and_return(true)
       get :show, :id => taxon_concept.id
-      response.redirected_to.should == taxon_overview_path(taxon_concept.id)
+      expect(response).to redirect_to(overview_taxon_path(taxon_concept.id))
     end
 
     it "should redirect to search if taxon id is not an integer" do
       get :show, :id => 'tiger'
-      response.redirected_to.should == search_path(:id => 'tiger')
+      expect(response).to redirect_to(search_path(:q => 'tiger'))
     end
   end
 
   describe 'GET overview' do
     it "should NOT be accessible if taxon concept id is not found" do
-      expect{ get :overview, :id => TaxonConcept.last.id + 1 }.should raise_error(ActiveRecord::RecordNotFound)
+      expect{ get :overview, :id => TaxonConcept.last.id + 1 }.to raise_error(ActiveRecord::RecordNotFound)
     end
     it "should NOT be accessible if taxon concept is unpublished" do
-      expect{ get :overview, :id => @testy[:unpublished_taxon_concept].id }.should raise_error(EOL::Exceptions::MustBeLoggedIn)
+      expect{ get :overview, :id => @testy[:unpublished_taxon_concept].id }.to raise_error(EOL::Exceptions::MustBeLoggedIn)
       expect{ get :overview, { :id => @testy[:unpublished_taxon_concept].id },
-                         { :user_id => @testy[:user].id } }.should raise_error(EOL::Exceptions::SecurityViolation)
+                         { :user_id => @testy[:user].id } }.to raise_error(EOL::Exceptions::SecurityViolation)
     end
     it 'should be accessible if taxon concept is published' do
       overviews_do_show
-      response.redirected_to.should be_nil
+      response.status.should == 200
     end
     it 'should instantiate the taxon concept' do
       overviews_do_show

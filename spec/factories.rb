@@ -104,14 +104,14 @@ module Faker
       end
 
       def common_name
-        ['common', "#{generate(:first_name)}'s", 'blue', 'red', 'pink', 'green', 'purple',
+        ['common', "#{FactoryGirl.generate(:first_name)}'s", 'blue', 'red', 'pink', 'green', 'purple',
          'painted', 'spiny', 'agitated', 'horny', 'blessed', 'sacred', 'sacrimonious', 'naughty',
          'litte', 'tiny', 'giant', 'great', 'lesser', 'least', 'river', 'plains', 'city', 'sky', 'stream',
          'thirsty', 'ravenous', 'bloody', 'cursed', 'cromulent'].sample + ' ' + Faker::Eol.name_part
       end
 
       def attribution
-        "#{generate(:first_name)[0..0]}. #{FactoryGirl.generate(:last_name)}"
+        "#{FactoryGirl.generate(:first_name)[0..0]}. #{FactoryGirl.generate(:last_name)}"
       end
 
     end

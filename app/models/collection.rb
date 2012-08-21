@@ -51,23 +51,8 @@ class Collection < ActiveRecord::Base
   alias_attribute :summary_name, :name
 
   def self.which_contain(what)
-    Collection.find(:all, :joins => :collection_items, :conditions => "collection_items.object_type='#{what.class.name}' and collection_items.object_id=#{what.id}").uniq
-  end
-
-  # this method will quickly get the counts for multiple collections at the same time
-  def self.add_counts(collections)
-    collection_ids = collections.map(&:id).join(',')
-    return if collection_ids.empty?
-    collections_with_counts = Collection.find_by_sql("
-      SELECT c.id, count(*) as count
-      FROM collections c JOIN collection_items ci ON (c.id = ci.collection_id)
-      WHERE c.id IN (#{collection_ids})
-      GROUP BY c.id")
-    collections_with_counts.each do |cwc|
-      if c = collections.detect{ |c| c.id == cwc.id }
-        c['collection_items_count'] = cwc['count'].to_i
-      end
-    end
+    Collection.joins(:collection_items).where(:collection_items => { :object_type => what.class.name, :object_id =>
+                                              what.id}).uniq
   end
 
   def self.add_taxa_counts(collections)
@@ -113,19 +98,19 @@ class Collection < ActiveRecord::Base
     name = "something"
     case what.class.name
     when "TaxonConcept"
-      collection_items << CollectionItem.create(:object_type => "TaxonConcept", :object => what, :name => what.scientific_name, :collection => self, :added_by_user => opts[:user])
+      collection_items << CollectionItem.create(:object_type => "TaxonConcept", :object_id => what.id, :name => what.scientific_name, :collection => self, :added_by_user => opts[:user])
       name = what.scientific_name
     when "User"
-      collection_items << CollectionItem.create(:object_type => "User", :object => what, :name => what.full_name, :collection => self, :added_by_user => opts[:user])
+      collection_items << CollectionItem.create(:object_type => "User", :object_id => what.id, :name => what.full_name, :collection => self, :added_by_user => opts[:user])
       name = what.username
     when "DataObject"
-      collection_items << CollectionItem.create(:object_type => "DataObject", :object => what, :name => what.short_title, :collection => self, :added_by_user => opts[:user])
+      collection_items << CollectionItem.create(:object_type => "DataObject", :object_id => what.id, :name => what.short_title, :collection => self, :added_by_user => opts[:user])
       name = what.data_type.simple_type('en')
     when "Community"
-      collection_items << CollectionItem.create(:object_type => "Community", :object => what, :name => what.name, :collection => self, :added_by_user => opts[:user])
+      collection_items << CollectionItem.create(:object_type => "Community", :object_id => what.id, :name => what.name, :collection => self, :added_by_user => opts[:user])
       name = what.name
     when "Collection"
-      collection_items << CollectionItem.create(:object_type => "Collection", :object => what, :name => what.name, :collection => self, :added_by_user => opts[:user])
+      collection_items << CollectionItem.create(:object_type => "Collection", :object_id => what.id, :name => what.name, :collection => self, :added_by_user => opts[:user])
       name = what.name
     else
       raise EOL::Exceptions::InvalidCollectionItemType.new(I18n.t(:cannot_create_collection_item_from_class_error,

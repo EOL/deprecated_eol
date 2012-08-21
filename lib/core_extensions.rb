@@ -88,7 +88,10 @@ class String
       tag_regex = /&lt;(\/)?#{tag}(#{@allowed_attributes_in_allow_some_html})?\s*&gt;/i
       text.gsub!(tag_regex, "<\\1#{tag.gsub(/strong/, 'b')}\\2>")
     end
-    return text.gsub(line_breaks, '<br/>')
+    unless text.match(/<(br|p)\s*[\/]?\s*>/)
+      text.gsub!(line_breaks, '<br/>')
+    end
+    return text
   end
 
   def firstcap

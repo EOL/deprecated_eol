@@ -1,4 +1,5 @@
 require File.dirname(__FILE__) + '/../spec_helper'
+require File.dirname(__FILE__) + '/../eol_spec_helpers'
 
 describe UsersController do
 
@@ -18,32 +19,32 @@ describe UsersController do
   describe 'GET new' do
     it 'should render new unless logged in' do
       get :new
-      response.rendered[:template].should == 'users/new.html.haml'
-      response.redirected_to.should be_blank
+      response.header['Location'].should == 'users/new'
+      response.status.should == 200
       assigns[:user].open_authentications.should be_blank
       get :new, nil, { :user => @user, :user_id => @user.id }
-      response.rendered[:template].should_not == 'users/new.html.haml'
-      response.redirected_to.should == @user
+      response.should_not render_template('users/new')
+      expect(response).to redirect_to(@user)
     end
 
     context 'extended for open authentication' do
       it 'should redirect to authorize uri when log in is with Facebook' do
         get :new, { :oauth_provider => 'facebook' }
-        response.redirected_to.should =~ /^https:\/\/graph.facebook.com\/oauth\/authorize/
+        response.header['Location'].should =~ /^https:\/\/graph.facebook.com\/oauth\/authorize/
       end
       it 'should redirect to authorize uri when log in is with Google' do
         get :new, { :oauth_provider => 'google' }
-        response.redirected_to.should =~ /^https:\/\/accounts.google.com\/o\/oauth2\/auth/
+        response.header['Location'].should =~ /^https:\/\/accounts.google.com\/o\/oauth2\/auth/
       end
       it 'should redirect to authorize uri when log in is with Twitter' do
         stub_oauth_requests
         get :new, { :oauth_provider => 'twitter' }
-        response.redirected_to.should =~ /http:\/\/api.twitter.com\/oauth\/authenticate/
+        response.header['Location'].should =~ /http:\/\/api.twitter.com\/oauth\/authenticate/
       end
       it 'should redirect to authorize uri when log in is with Yahoo' do
         stub_oauth_requests
         get :new, { :oauth_provider => 'yahoo' }
-        response.redirected_to.should =~ /https:\/\/api.login.yahoo.com\/oauth\/v2\/request_auth/
+        response.header['Location'].should =~ /https:\/\/api.login.yahoo.com\/oauth\/v2\/request_auth/
       end
 
       it 'should clear session data when user cancels sign up at confirmation page' do
@@ -77,21 +78,21 @@ describe UsersController do
                   { "twitter_request_token_token" => 'key',
                     "twitter_request_token_secret" => 'secret' }
         assigns[:open_auth].should be_a(EOL::OpenAuth::Twitter)
-        response.redirected_to.should == new_user_url
+        expect(response).to redirect_to(new_user_url)
         flash[:error].should match /Sorry, we are not authorized.+?Twitter/
       end
 
       it 'should redirect to new user URL and flash error if user denies access during Facebook sign up' do
         get :new, {:error => "access_denied", :oauth_provider => "facebook"}
         assigns[:open_auth].should be_a(EOL::OpenAuth::Facebook)
-        response.redirected_to.should == new_user_url
+        expect(response).to redirect_to(new_user_url)
         flash[:error].should match /Sorry, we are not authorized.+?Facebook/
       end
 
       it 'should redirect to new user URL and flash error if user denies access during Google sign up' do
         get :new, {:error => "access_denied", :oauth_provider => "google"}
         assigns[:open_auth].should be_a(EOL::OpenAuth::Google)
-        response.redirected_to.should == new_user_url
+        expect(response).to redirect_to(new_user_url)
         flash[:error].should match /Sorry, we are not authorized.+?Google/
       end
 
@@ -115,24 +116,24 @@ describe UsersController do
     it 'should render show' do
       get :show, { :id => @user.id }
       assigns[:user].should == @user
-      response.rendered[:template].should == 'users/show.html.haml'
+      response.should render_template('users/show')
     end
   end
 
   describe 'GET edit' do
     it 'should raise error if edit before log in' do
-      lambda { get :edit, { :id => @user.id } }.should raise_error(EOL::Exceptions::SecurityViolation)
+      expect { get :edit, { :id => @user.id } }.to raise_error(EOL::Exceptions::SecurityViolation)
     end
     it 'should raise security violation if edit wrong user' do
       user = User.gen
       session[:user_id] = @user.id
-      lambda { get :edit, { :id => user.id } }.should raise_error(EOL::Exceptions::SecurityViolation)
+      expect { get :edit, { :id => user.id } }.to raise_error(EOL::Exceptions::SecurityViolation)
     end
     it 'should render edit properly if editing self' do
       get :edit, { :id => @user.id }, { :user => @user, :user_id => @user.id }
       assigns[:user].should == @user
-      response.rendered[:template].should == 'users/edit.html.haml'
-      response.redirected_to.should be_blank
+      response.should render_template('users/edit')
+      response.status.should == 200
     end
   end
 
@@ -141,7 +142,7 @@ describe UsersController do
     it 'should raise error if not logged in' do
       hashed_password = User.find(@user).hashed_password
       expect{ put :update, { :id => @user.id, :user => { :id => @user.id, :entered_password => 'newpassword', 
-        :entered_password_confirmation => 'newpassword' } } }.should raise_error(EOL::Exceptions::SecurityViolation)
+        :entered_password_confirmation => 'newpassword' } } }.to raise_error(EOL::Exceptions::SecurityViolation)
     end
     it 'should update and render show if updating self' do
       hashed_password = User.find(@user).hashed_password
@@ -152,7 +153,7 @@ describe UsersController do
       user = User.find(@user)
       user.hashed_password.should_not == hashed_password
       user.hashed_password.should == User.hash_password('newpassword')
-      response.redirected_to.should == @user
+      expect(response).to redirect_to(@user)
     end
 
     it 'should render edit on validation errors' do
@@ -161,7 +162,7 @@ describe UsersController do
       put :update, { :id => @user.id, :user => { :id => @user.id, :entered_password => 'abc',
                                                  :entered_password_confirmation => 'abc' } }
       User.find(@user).hashed_password.should == hashed_password
-      response.rendered[:template].should == 'users/edit.html.haml'
+      response.should render_template('users/edit')
     end
 
     it 'should ignore entered passwords when password confirmation is blank and entered password is same as existing password' do # i.e. passwords auto filled by browser
@@ -187,7 +188,7 @@ describe UsersController do
                      :user => { :id => user.id, :username => user.username, :credentials => '',
                                 :requested_curator_level_id => CuratorLevel.master_curator.id } },
                    { :user => user, :user_id => user.id }
-      response.rendered[:template].should == 'users/curation_privileges.html.haml'
+      response.should render_template('users/curation_privileges')
       assigns[:user].errors.any?.should be_true
     end
 
@@ -206,20 +207,20 @@ describe UsersController do
 
   describe 'GET curation_privileges' do
     it 'should raise error when not logged in' do
-      expect{ get :curation_privileges, { :id => @user.id } }.should raise_error(EOL::Exceptions::SecurityViolation)
+      expect{ get :curation_privileges, { :id => @user.id } }.to raise_error(EOL::Exceptions::SecurityViolation)
     end
     it 'should render curation privileges only if applying for self' do
       user = User.gen
       session[:user_id] = @user.id
-      lambda { get :curation_privileges, { :id => user.id } }.should raise_error(EOL::Exceptions::SecurityViolation)
+      expect { get :curation_privileges, { :id => user.id } }.to raise_error(EOL::Exceptions::SecurityViolation)
     end
     it 'should render curation privileges properly' do
       user = User.gen
       session[:user_id] = @user.id
       get :curation_privileges, { :id => @user.id }
       assigns[:user].should == @user
-      response.rendered[:template].should == 'users/curation_privileges.html.haml'
-      response.redirected_to.should be_blank
+      response.should render_template('users/curation_privileges')
+      response.status.should == 200
     end
   end
 
@@ -229,33 +230,33 @@ describe UsersController do
       Notifier.should_not_receive(:deliver_user_activated)
       Notifier.should_not_receive(:deliver_user_verification)
       get :verify, { :user_id => active_user.id, :validation_code => active_user.validation_code }
-      response.redirected_to.should == login_path
+      expect(response).to redirect_to(login_path)
     end
     it 'should activate inactive user with valid verification code' do
       user = User.gen(:active => false, :validation_code => User.generate_key)
-      Notifier.should_receive(:deliver_user_activated).once.with(user)
+      Notifier.should_receive(:user_activated).once.with(user)
       get :verify, { :user_id => user.id, :validation_code => user.validation_code }
       user.reload
       user.active.should be_true
       session[:conversion_code].should =~ /^[0-9a-f]{40}$/
-      response.redirected_to.should == activated_user_path(user, :success => session[:conversion_code])
+      expect(response).to redirect_to(activated_user_path(user, :success => session[:conversion_code]))
     end
     it 'should not activate user with invalid verification code' do
       inactive_user = User.gen(:active => false, :validation_code => User.generate_key)
       Notifier.should_not_receive(:deliver_user_activated)
       Notifier.should_receive(:deliver_user_verification).once.with(inactive_user, verify_user_url(inactive_user.id, inactive_user.validation_code))
       get :verify, { :user_id => inactive_user.id, :validation_code => 'invalidverificationcode123' }
-      response.redirected_to.should == pending_user_path(inactive_user)
+      expect(response).to redirect_to(pending_user_path(inactive_user))
     end
     it 'should ignore validation errors on user model' do
       user = User.gen(:active => false, :validation_code => User.generate_key)
-      user.update_attribute(:agreed_with_terms, false)
-      user.errors.on(:agreed_with_terms).should == 'must be accepted'
+      user.update_attributes(:agreed_with_terms => false)
+      user.errors[:agreed_with_terms].should == ['must be accepted']
       user.active?.should be_false
       get :verify, { :user_id => user.id, :validation_code => user.validation_code }
       user.reload
       user.active.should be_true
-      response.redirected_to.should == activated_user_path(user, :success => session[:conversion_code])
+      expect(response).to redirect_to(activated_user_path(user, :success => session[:conversion_code]))
     end
   end
 
@@ -263,7 +264,7 @@ describe UsersController do
     it 'should render pending' do
       get :pending, { :id => @user.id }
       assigns[:user].should == @user
-      response.rendered[:template].should == 'users/pending.html.haml'
+      response.should render_template('users/pending')
     end
   end
 
@@ -271,7 +272,7 @@ describe UsersController do
     it 'should render activated' do
       get :activated, { :id => @user.id }
       assigns[:user].should == @user
-      response.rendered[:template].should == 'users/activated.html.haml'
+      response.should render_template('users/activated')
     end
     it 'should know whether its a valid conversion for tracking' do
       get :activated, { :id => @user.id }
@@ -291,8 +292,7 @@ describe UsersController do
 
     before(:each) do
       @disagreeable_user = User.gen
-      @disagreeable_user.agreed_with_terms = 0
-      @disagreeable_user.save(false)
+      @disagreeable_user.update_column(:agreed_with_terms, 0)
     end
 
     it 'should render terms agreement' do
@@ -304,46 +304,45 @@ describe UsersController do
                             { :user => @disagreeable_user, :user_id => @disagreeable_user.id }
       assigns[:user].should == @disagreeable_user
       assigns[:terms].should be_a(TranslatedContentPage)
-      response.rendered[:template].should == 'users/terms_agreement.html.haml'
+      response.should render_template('users/terms_agreement')
     end
 
     it 'should force users to agree to terms before viewing other pages' do
       User.find(@disagreeable_user).agreed_with_terms.should be_false
       get :show, { :id => @disagreeable_user.id }, 
                  { :user => @disagreeable_user, :user_id => @disagreeable_user.id }
-      response.redirected_to.should == terms_agreement_user_path(@disagreeable_user)
+      expect(response).to redirect_to(terms_agreement_user_path(@disagreeable_user))
       get :edit, { :id => @disagreeable_user.id },
                  { :user => @disagreeable_user, :user_id => @disagreeable_user.id }
-      response.redirected_to.should == terms_agreement_user_path(@disagreeable_user)
+      expect(response).to redirect_to(terms_agreement_user_path(@disagreeable_user))
     end
 
     it 'should not allow users to render terms for another user' do
       User.find(@disagreeable_user).agreed_with_terms.should be_false
-      expect{ get :terms_agreement, { :id => @disagreeable_user.id } }.should 
-        raise_error(EOL::Exceptions::SecurityViolation) # anonymous user trying to access user terms
+      expect{ get :terms_agreement, { :id => @disagreeable_user.id } }.
+        to raise_error(EOL::Exceptions::SecurityViolation) # anonymous user trying to access user terms
       expect{ get :terms_agreement, { :id => @disagreeable_user.id },
-              { :user => @user, :user_id => @user.id } }.should raise_error(EOL::Exceptions::SecurityViolation)
+              { :user => @user, :user_id => @user.id } }.to raise_error(EOL::Exceptions::SecurityViolation)
     end
   end
 
   describe 'POST terms_agreement' do
     before(:each) do
       @disagreeable_user = User.gen
-      @disagreeable_user.agreed_with_terms = 0
-      @disagreeable_user.save(false)
+      @disagreeable_user.update_column(:agreed_with_terms, 0)
     end
     it 'should allow the current user to agree to terms' do
       User.find(@disagreeable_user).agreed_with_terms.should be_false
       post :terms_agreement, { :id => @disagreeable_user.id, :commit_agreed => 'I Agree' }, { :user => @disagreeable_user, :user_id => @disagreeable_user.id }
       User.find(@disagreeable_user).agreed_with_terms.should be_true
-      response.redirected_to.should == user_url(@disagreeable_user)
+      expect(response).to redirect_to(user_url(@disagreeable_user))
     end
 
     it 'should not allow users to agree to terms for another user' do
       User.find(@disagreeable_user).agreed_with_terms.should be_false
-      expect{ post :terms_agreement, { :id => @disagreeable_user.id } }.should raise_error(EOL::Exceptions::SecurityViolation)
+      expect{ post :terms_agreement, { :id => @disagreeable_user.id } }.to raise_error(EOL::Exceptions::SecurityViolation)
       User.find(@disagreeable_user).agreed_with_terms.should be_false
-      expect{ post :terms_agreement, { :id => @disagreeable_user.id }, { :user => @user, :user_id => @user.id } }.should raise_error(EOL::Exceptions::SecurityViolation)
+      expect{ post :terms_agreement, { :id => @disagreeable_user.id }, { :user => @user, :user_id => @user.id } }.to raise_error(EOL::Exceptions::SecurityViolation)
       User.find(@disagreeable_user).agreed_with_terms.should be_false
     end
   end
@@ -351,11 +350,11 @@ describe UsersController do
   describe 'GET recover account' do
     it 'should render recover account unless logged in' do
       get :recover_account
-      response.rendered[:template].should == 'users/recover_account.html.haml'
-      response.redirected_to.should be_blank
+      response.header['Location'].should == 'users/recover_account'
+      response.status.should == 200
       get :recover_account, nil, { :user => @user, :user_id => @user.id }
-      response.rendered[:template].should_not == 'users/recover_account.html.haml'
-      response.redirected_to.should == @user
+      response.should_not render_template('users/recover_account')
+      expect(response).to redirect_to(@user)
     end
   end
 
@@ -368,22 +367,22 @@ describe UsersController do
 
     it "should find user by email or flash error if it can't find user by email" do
       post :recover_account, { :user => { :email => '' } }
-      response.flash[:error].should_not be_blank
+      flash[:error].should_not be_blank
       assigns[:users].should be_blank
-      response.rendered[:template].should == 'users/recover_account.html.haml'
-      response.redirected_to.should be_blank
+      response.should render_template('users/recover_account')
+      response.status.should == 200
       post :recover_account, { :user => { :email => 'userdoesnotexist' } }
       assigns[:users].should be_blank
-      response.rendered[:template].should == 'users/recover_account.html.haml'
-      response.flash[:error].should_not be_blank
-      response.redirected_to.should be_blank
+      response.should render_template('users/recover_account')
+      flash[:error].should_not be_blank
+      response.status.should == 200
     end
     it 'should raise exception if user is hidden' do
-      @recover_user.update_attribute(:hidden, true)
+      @recover_user.update_attributes(:hidden => true)
       @recover_user.hidden.should be_true
       expect{ post :recover_account, :user => { :email => @recover_user.email } }.
-        should raise_error(EOL::Exceptions::SecurityViolation)
-      @recover_user.update_attribute(:hidden, false)
+        to raise_error(EOL::Exceptions::SecurityViolation)
+      @recover_user.update_attributes(:hidden => false)
     end
     it 'should give user a new recover account token and send recover account email' do
       Notifier.should_receive(:deliver_user_recover_account).
@@ -391,7 +390,7 @@ describe UsersController do
       post :recover_account, :user => { :email => @recover_user.email }
       @recover_user.reload
       @recover_user.recover_account_token.should =~ /^[0-9a-f]{40}$/i
-      response.redirected_to.should == login_path
+      expect(response).to redirect_to(login_path)
       flash[:notice].should =~ /further instructions/i
     end
     it 'should render choose account first if multiple accounts found' do
@@ -402,27 +401,27 @@ describe UsersController do
       post :recover_account, :user => {:email => shared_email_address}
       assigns[:users].size.should == 3
       assigns[:users].all?{|u| u.recover_account_token.blank? }.should be_true
-      response.rendered[:template].should == 'users/recover_account_choose_account.html.haml'
+      response.should render_template('users/recover_account_choose_account')
       Notifier.should_receive(:deliver_user_recover_account).
         with(user1, /users\/#{user1.id}\/temporary_login\/[a-f0-9]{40}$/)
       post :recover_account, { :commit_choose_account => 'Send email',
                                :user => { :email => shared_email_address, :id => user1.id } }
       user1.reload
       user1.recover_account_token.should =~ /^[0-9a-f]{40}$/
-      response.redirected_to.should == login_path
+      expect(response).to redirect_to(login_path)
       flash[:notice].should =~ /further instructions/i
     end
     it 'should ignore validation errors on user model' do
-      @recover_user.update_attribute(:agreed_with_terms, false)
-      @recover_user.errors.on(:agreed_with_terms).should == 'must be accepted'
+      @recover_user.update_attributes(:agreed_with_terms => false)
+      @recover_user.errors[:agreed_with_terms].should == ['must be accepted']
       Notifier.should_receive(:deliver_user_recover_account).
         with(@recover_user, /users\/#{@recover_user.id}\/temporary_login\/[a-f0-9]{40}$/i)
       post :recover_account, :user => { :email => @recover_user.email }
       @recover_user.reload
       @recover_user.recover_account_token.should =~ /^[0-9a-f]{40}$/i
-      response.redirected_to.should == login_path
+      expect(response).to redirect_to(login_path)
       flash[:notice].should =~ /further instructions/i
-      @recover_user.update_attribute(:agreed_with_terms, true)
+      @recover_user.update_attributes(:agreed_with_terms => true)
     end
 
   end
@@ -432,7 +431,7 @@ describe UsersController do
       user = User.gen(:recover_account_token => User.generate_key,
                       :recover_account_token_expires_at => 24.hours.from_now)
       get :temporary_login, :user_id => user.id, :recover_account_token => user.recover_account_token
-      response.redirected_to.should == edit_user_path(user)
+      expect(response).to redirect_to(edit_user_path(user))
       user.reload
       user.recover_account_token.should be_nil
       user.recover_account_token_expires_at.should be_nil
@@ -443,21 +442,20 @@ describe UsersController do
                       :recover_account_token_expires_at => 24.hours.from_now)
       get :temporary_login, :user_id => user.id, :recover_account_token => 'invalidtoken'
       session[:user_id].should_not == user.id
-      response.redirected_to.should == recover_account_users_path
+      expect(response).to redirect_to(recover_account_users_path)
     end
     it 'should not log in users with expired token' do
       user = User.gen(:recover_account_token => User.generate_key,
                       :recover_account_token_expires_at => 24.hours.ago)
       get :temporary_login, :user_id => user.id, :recover_account_token => user.recover_account_token
       session[:user_id].should_not == user.id
-      response.redirected_to.should == recover_account_users_path
+      expect(response).to redirect_to(recover_account_users_path)
     end
     it 'should not log in hidden users' do
        user = User.gen(:recover_account_token => User.generate_key,
                        :recover_account_token_expires_at => 24.hours.from_now,
                        :hidden => true)
-      expect { get :temporary_login, :user_id => user.id, :recover_account_token => user.recover_account_token}.to
-             raise_error(EOL::Exceptions::SecurityViolation)
+      expect { get :temporary_login, :user_id => user.id, :recover_account_token => user.recover_account_token}.to raise_error(EOL::Exceptions::SecurityViolation)
     end
   end
 
@@ -466,7 +464,7 @@ describe UsersController do
       expect { get :verify_open_authentication }.to raise_error(EOL::Exceptions::SecurityViolation)
       params_to_redirect = { :some_param => 'some param' }
       get :verify_open_authentication, params_to_redirect, {:user_id => 1}
-      response.redirected_to.should == new_user_open_authentication_url(params_to_redirect.merge({:user_id => 1}))
+      expect(response).to redirect_to(new_user_open_authentication_url(params_to_redirect.merge({:user_id => 1})))
     end
   end
   

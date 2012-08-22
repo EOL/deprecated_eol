@@ -21,12 +21,14 @@ $INDEX_RECORDS_IN_SOLR_ON_SAVE = false
 # this scenario
 $SKIP_CREATING_ACTIVITY_LOGS_FOR_COMMENTS = true
 
-require 'spec/eol_spec_helpers'
-require 'spec/scenario_helpers'
+require Rails.root.join('spec', 'eol_spec_helpers.rb')
+require Rails.root.join('spec', 'scenario_helpers.rb')
 # This gives us the ability to recalculate some DB values:
 include EOL::Data
 # This gives us the ability to build taxon concepts:
-include EOL::Spec::Helpers
+include EOL::RSpec::Helpers
+
+load_foundation_cache
 
 # A singleton that creates some users:
 def bootstrap_users
@@ -60,6 +62,7 @@ def bootstrap_toc
       'Characteristics',
       'General Description'
   ]
+  relevance = TocItem.gen_if_not_exists(:label => 'Relevance', :parent_id => 0, :view_order => current_order += 1)
   make_toc_children(TocItem.find_by_translated(:label, 'Description').id, description_labels, current_order)
   current_order += description_labels.length+1
   TocItem.gen_if_not_exists(:label => 'Reproductive Behavior', :parent_id => 0, :view_order => current_order += 1)

@@ -11,7 +11,7 @@ require 'spec/scenario_helpers'
 # This gives us the ability to recalculate some DB values:
 include EOL::Data
 # This gives us the ability to build taxon concepts:
-include EOL::Spec::Helpers
+include EOL::RSpec::Helpers
 
 
 def next_user_logo_cache_url

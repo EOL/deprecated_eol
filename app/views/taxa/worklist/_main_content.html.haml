@@ -7,7 +7,7 @@
           %label{:for => 'object_type'}= I18n.t(:object_type)
         %dd
           - object_type_options = {}
-          - [:all, :image, :video, :sound, :text].each{|opt| object_type_options[I18n.t("object_type_#{opt}_option")] = opt }
+          - [:all, :image, :video, :sound, :text, :link].each{|opt| object_type_options[I18n.t("object_type_#{opt}_option")] = opt }
           = select_tag :object_type, options_for_select(object_type_options, @object_type.to_sym)
       %dl
         %dt

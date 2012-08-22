@@ -72,6 +72,7 @@ class DataObject < ActiveRecord::Base
   scope :preview, lambda { { :conditions => { :visibility_id => Visibility.preview.id } }}
 
   validates_presence_of :description, :if => :is_text?
+  validates_presence_of :source_url, :if => :is_link?
   validates_presence_of :rights_holder, :if => :rights_required?
   validates_inclusion_of :rights_holder, :in => '', :unless => :rights_required?
   validates_length_of :rights_statement, :maximum => 300
@@ -183,7 +184,11 @@ class DataObject < ActiveRecord::Base
 
   def self.create_user_text(params, options)
     unless params[:license_id].to_i == License.public_domain.id || ! params[:rights_holder].blank?
-      params[:rights_holder] = options[:user].full_name
+      if options[:link_object]
+        params[:data_subtype_id] = DataType.link.id
+      else
+        params[:rights_holder] = options[:user].full_name
+      end
     end
     dato = DataObject.new(params.reverse_merge!({:published => true}))
     if dato.save
@@ -227,7 +232,11 @@ class DataObject < ActiveRecord::Base
   # NOTE - you probably want to check that the user performing this has rights to do so, before calling this.
   def replicate(params, options)
     unless params[:license_id].to_i == License.public_domain.id || ! params[:rights_holder].blank?
-      params[:rights_holder] = options[:user].full_name
+      if options[:link_object]
+        params[:data_subtype_id] = DataType.link.id
+      else
+        params[:rights_holder] = options[:user].full_name
+      end
     end
     new_dato = DataObject.new(params.reverse_merge!(:guid => self.guid, :published => 1))
     if new_dato.save

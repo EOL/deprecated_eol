@@ -133,6 +133,7 @@ module ApplicationHelper
       return 'image' if object.is_image?
       return 'video' if object.is_video?
       return 'sound' if object.is_sound?
+      return 'link' if object.is_link?
       return 'article' if object.is_text?
     elsif object.class == Community
       'community'

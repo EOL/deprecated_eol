@@ -15,18 +15,24 @@ class Taxa::WorklistController < TaxaController
     @resource_id = params[:resource_id] ||= 'all'
     # checking approved values
     @sort_by = 'newest' unless ['newest', 'oldest', 'rating'].include?(@sort_by)
-    @object_type = 'all' unless ['all', 'text', 'image', 'video', 'sound'].include?(@object_type)
+    @object_type = 'all' unless ['all', 'text', 'image', 'video', 'sound', 'link'].include?(@object_type)
     @object_status = 'all' unless ['all', 'trusted', 'unreviewed', 'untrusted'].include?(@object_status)
     @object_visibility = 'all' unless ['all', 'visible', 'invisible'].include?(@object_visibility)
     @task_status = 'active' unless ['active', 'curated', 'ignored'].include?(@task_status)
     # TODO: active means NOT curated and NOT ignored
     @resource_id = 'all' unless @resource_id == 'all' || @resource_id.is_numeric?
     @resource_id = nil if @resource_id == 'all'
+    filter_by_subtype = false
     data_type_ids = nil
     if params[:object_type] == 'video'
       data_type_ids = DataType.video_type_ids
+    elsif params[:object_type] == 'link'
+      filter_by_subtype = true
+      data_type_ids = DataType.text_type_ids
+      data_subtype_ids = DataType.link_type_ids
     elsif data_type = DataType.cached_find_translated(:label, params[:object_type], 'en')
       data_type_ids = [data_type.id]
+      filter_by_subtype = true if DataType.text_type_ids.include?(data_type.id)
     end
 
     search_vetted_types = [ @object_status ]
@@ -38,7 +44,8 @@ class Taxa::WorklistController < TaxaController
       :per_page => 16,
       :sort_by => @sort_by,
       :data_type_ids => data_type_ids,
-      :filter_by_subtype => false,
+      :filter_by_subtype => filter_by_subtype,
+      :data_subtype_ids => data_subtype_ids ||= nil,
       :vetted_types => search_vetted_types,
       :visibility_types => [ @object_visibility ],
       :return_hierarchically_aggregated_objects => true,

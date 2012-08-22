@@ -3,6 +3,7 @@
   but rather than calling one partial from the other (which would be slower), we allow the duplication. The
   difference is that UDOs use #taxon_concept and item#data_object, and DATOs use #taxon_concepts.first and item.
 - link_style ||= nil
+- link_object = true if item.data_object.data_subtype_id == DataType.link.id
 - display_curator ||= false
 - user = link_to(h(item.user.full_name), user_url(item.user), :style => link_style)
 - if latest_data_object = item.data_object.latest_published_revision
@@ -11,7 +12,7 @@
   - latest_data_object_url = data_object_url(item.data_object.revisions_by_date.first)
 - if display_curator && item.user.is_curator?
   - user = I18n.t(:user_full_name_with_curator, :user => user, :curator_level => item.user.curator_level.translated_label)
-%p= raw I18n.t(:activity_user_created_text, :user => user,
+%p= raw I18n.t("activity_user_created_#{link_object ? 'link' : 'text'}", :user => user,
   :object_name => link_to(item.summary_name, latest_data_object_url, :style => link_style),
   :taxon_concept => link_to(raw(item.taxon_concept.summary_name), overview_taxon_url(item.taxon_concept),
   :style => link_style))

@@ -89,8 +89,8 @@ describe 'Taxa page' do
       should have_selector("div.actions p a", :content => I18n.t(:show_in_overview))
     end
 
-    it 'should show "Add an article to this page" button to the logged in users' do
-      should have_selector("#page_heading .page_actions li a", :content => "Add an article to this page")
+    it 'should show "Add an article or link to this page" button to the logged in users' do
+      should have_selector("#page_heading .page_actions li a", :content => "Add an article or link to this page")
     end
   end
 

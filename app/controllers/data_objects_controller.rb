@@ -23,7 +23,7 @@ class DataObjectsController < ApplicationController
                         @toc_items.select{|ti| ti == TocItem.brief_summary}.first ||
                         @toc_items[0]
     @selected_toc_item_id = selected_toc_item.id
-    if params[:link] 
+    if params[:link]
       @add_link = true
       @page_title = I18n.t(:dato_new_text_link_for_taxon_page_title, :taxon => Sanitize.clean(@taxon_concept.title_canonical))
     else

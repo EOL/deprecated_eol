@@ -1194,7 +1194,7 @@ class TaxonConcept < ActiveRecord::Base
         { :data_objects_hierarchy_entries => [ { :hierarchy_entry => { :hierarchy => { :resource => :content_partner } } },
           :vetted, :visibility ] },
         { :curated_data_objects_hierarchy_entries => :hierarchy_entry }, :users_data_object,
-        { :toc_items => [ :translations, [ :parent => :translations ] ] } ],
+        { :toc_items => [ :translations ] } ],
         :select => selects)
     end
     text_objects

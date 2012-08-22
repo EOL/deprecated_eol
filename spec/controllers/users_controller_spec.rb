@@ -19,7 +19,7 @@ describe UsersController do
   describe 'GET new' do
     it 'should render new unless logged in' do
       get :new
-      response.header['Location'].should == 'users/new'
+      response.should render_template('users/new')
       response.status.should == 200
       assigns[:user].open_authentications.should be_blank
       get :new, nil, { :user => @user, :user_id => @user.id }
@@ -236,7 +236,7 @@ describe UsersController do
       user = User.gen(:active => false, :validation_code => User.generate_key)
       mailer = mock
       mailer.should_receive(:deliver)
-      Notifier.should_receive(:contact_us_auto_response).once.with(user).and_return(mailer)
+      Notifier.should_receive(:user_activated).once.with(user).and_return(mailer)
       get :verify, { :user_id => user.id, :validation_code => user.validation_code }
       user.reload
       user.active.should be_true
@@ -355,7 +355,7 @@ describe UsersController do
   describe 'GET recover account' do
     it 'should render recover account unless logged in' do
       get :recover_account
-      response.header['Location'].should == 'users/recover_account'
+      response.should render_template('users/recover_account')
       response.status.should == 200
       get :recover_account, nil, { :user => @user, :user_id => @user.id }
       response.should_not render_template('users/recover_account')

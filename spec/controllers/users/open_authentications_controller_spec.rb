@@ -14,49 +14,49 @@ describe Users::OpenAuthenticationsController do
       admin = User.gen(:admin => true)
       get :index, {:user_id => @user.id}, {:user_id => @user.id}
       assigns[:user].should == @user
-      response.rendered[:template].should == 'users/open_authentications/index.html.haml'
-      expect { get :index, {:user_id => @user.id}, {:user_id => User.id * 99} }.to
-        raise_error(EOL::Exceptions::SecurityViolation)
-      expect { get :index, {:user_id => @user.id}, {:user_id => admin.id}  }.to
-        raise_error(EOL::Exceptions::SecurityViolation)
-      expect { get :index, {:user_id => @user.id} }.to
-        raise_error(EOL::Exceptions::SecurityViolation)
+      response.should render_template('users/open_authentications/index')
+      expect { get :index, {:user_id => @user.id}, {:user_id => @user.id * 99} }.
+        to raise_error(EOL::Exceptions::SecurityViolation)
+      expect { get :index, {:user_id => @user.id}, {:user_id => admin.id}  }.
+        to raise_error(EOL::Exceptions::SecurityViolation)
+      expect { get :index, {:user_id => @user.id} }.
+        to raise_error(EOL::Exceptions::SecurityViolation)
     end
   end
 
   describe 'GET new' do
     it 'should redirect to index unless we have an oauth provider param' do
       get :new, {:user_id => @user.id}, {:user_id => @user.id}
-      response.redirected_to.should == user_open_authentications_url(@user.id)
+      expect(response).to redirect_to(user_open_authentications_url(@user.id))
     end
     it 'should only be accessible by self or admin' do
       admin = User.gen(:admin => true)
-      expect { get :new, { :user_id => @user.id, :oauth_prover => 'provider'}, { :user_id => @user.id } }.to_not
-        raise_error(EOL::Exceptions::SecurityViolation)
-      expect { get :new, { :user_id => @user.id, :oauth_prover => 'provider'}, { :user_id => admin } }.to_not
-        raise_error(EOL::Exceptions::SecurityViolation)
-      expect { get :new, { :user_id => @user.id, :oauth_prover => 'provider' } }.to
-        raise_error(EOL::Exceptions::SecurityViolation)
-      expect { get :new, { :user_id => @user.id, :oauth_prover => 'provider'}, { :user_id => @user.id * 99 } }.to
-        raise_error(EOL::Exceptions::SecurityViolation)
+      expect { get :new, { :user_id => @user.id, :oauth_prover => 'provider'}, { :user_id => @user.id } }.
+        to_not raise_error(EOL::Exceptions::SecurityViolation)
+      expect { get :new, { :user_id => @user.id, :oauth_prover => 'provider'}, { :user_id => admin } }.
+        to_not raise_error(EOL::Exceptions::SecurityViolation)
+      expect { get :new, { :user_id => @user.id, :oauth_prover => 'provider' } }.
+        to raise_error(EOL::Exceptions::SecurityViolation)
+      expect { get :new, { :user_id => @user.id, :oauth_prover => 'provider'}, { :user_id => @user.id * 99 } }.
+        to raise_error(EOL::Exceptions::SecurityViolation)
     end
     it 'should redirect to authorize uri when adding connection to Facebook' do
       get :new, { :user_id => @user.id, :oauth_provider => 'facebook' }, {:user_id => @user.id}
-      response.redirected_to.should =~ /^https:\/\/graph.facebook.com\/oauth\/authorize/
+      response.header['Location'].should =~ /^https:\/\/graph.facebook.com\/oauth\/authorize/
     end
     it 'should redirect to authorize uri when adding connection to Google' do
       get :new, { :user_id => @user.id, :oauth_provider => 'google' }, {:user_id => @user.id}
-      response.redirected_to.should =~ /^https:\/\/accounts.google.com\/o\/oauth2\/auth/
+      response.header['Location'].should =~ /^https:\/\/accounts.google.com\/o\/oauth2\/auth/
     end
     it 'should redirect to authorize uri when adding connection to Twitter' do
       stub_oauth_requests
       get :new, { :user_id => @user.id, :oauth_provider => 'twitter' }, {:user_id => @user.id}
-      response.redirected_to.should =~ /http:\/\/api.twitter.com\/oauth\/authenticate/
+      response.header['Location'].should =~ /http:\/\/api.twitter.com\/oauth\/authenticate/
     end
     it 'should redirect to authorize uri when adding connection to Yahoo' do
       stub_oauth_requests
       get :new, { :user_id => @user.id, :oauth_provider => 'yahoo' }, {:user_id => @user.id}
-      response.redirected_to.should =~ /https:\/\/api.login.yahoo.com\/oauth\/v2\/request_auth/
+      response.header['Location'].should =~ /https:\/\/api.login.yahoo.com\/oauth\/v2\/request_auth/
     end
 
   end

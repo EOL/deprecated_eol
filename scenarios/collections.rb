@@ -15,7 +15,6 @@ require Rails.root.join('spec', 'scenario_helpers')
 # This gives us the ability to build taxon concepts:
 include EOL::RSpec::Helpers
 
-
 load_foundation_cache
 
 collections = {}

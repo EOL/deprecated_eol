@@ -137,9 +137,9 @@ private
   def redirect_if_terms_not_accepted
     @current_agreement = @partner.agreement
     if @current_agreement.blank?
-      redirect_to new_content_partner_content_partner_agreement_path(@partner), :status => :moved_permanently
+      redirect_to new_content_partner_agreement_path(@partner), :status => :moved_permanently
     elsif !@current_agreement.is_accepted?
-      redirect_to edit_content_partner_content_partner_agreement_path(@partner, @current_agreement), :status => :moved_permanently
+      redirect_to edit_content_partner_agreement_path(@partner, @current_agreement), :status => :moved_permanently
     end
   end
 

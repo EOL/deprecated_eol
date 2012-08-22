@@ -17,6 +17,7 @@ class SolrAPI
   
   def self.text_filter(t)
     return t if t.nil?
+    return t if t.class == Fixnum
     return '' unless t.is_utf8?
     text = t.clone
     text.gsub!(/;/, ' ')

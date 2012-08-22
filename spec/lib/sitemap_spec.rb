@@ -127,15 +127,7 @@ def urls_for_object(object)
   elsif object.class == ContentPartner
     urls << EOL::URLHelper.get_url('content_partner_url', object.id, :host => 'eol.org')
   elsif object.class == TaxonConcept
-    urls << EOL::URLHelper.get_url('taxon_overview_url', object.id, :host => 'eol.org')
-    # urls << EOL::URLHelper.get_url('taxon_details_url', object.id, :host => 'eol.org')
-    # urls << EOL::URLHelper.get_url('taxon_media_url', object.id, :host => 'eol.org')
-    # urls << EOL::URLHelper.get_url('taxon_map_url', object.id, :host => 'eol.org')
-    # urls << EOL::URLHelper.get_url('taxon_names_url', object.id, :host => 'eol.org')
-    # urls << EOL::URLHelper.get_url('taxon_community_index_url', object.id, :host => 'eol.org')
-    # urls << EOL::URLHelper.get_url('taxon_resource_url', object.id, :host => 'eol.org')
-    # urls << EOL::URLHelper.get_url('taxon_literature_url', object.id, :host => 'eol.org')
-    # urls << EOL::URLHelper.get_url('taxon_update_url', object.id, :host => 'eol.org')
+    urls << EOL::URLHelper.get_url('overview_taxon_url', object.id, :host => 'eol.org')
   elsif object.class == User
     urls << EOL::URLHelper.get_url('user_url', object.id, :host => 'eol.org')
     urls << EOL::URLHelper.get_url('user_newsfeed_url', object.id, :host => 'eol.org')

@@ -121,8 +121,8 @@ module ActiveRecord
         # these methods may not exist yet and that's OK; thus the rescue nil stuff.
         remove_method :add_to_index rescue nil
         remove_method :remove_from_index rescue nil
-        skip_callback :after_save, :add_to_index rescue nil
-        skip_callback :before_destroy, :remove_from_index rescue nil
+        skip_callback :save, :after, :add_to_index rescue nil
+        skip_callback :destroy, :before, :remove_from_index rescue nil
       end
       
       def assign_weight!(keyword)

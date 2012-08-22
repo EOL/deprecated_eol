@@ -1,10 +1,14 @@
 module EOL
   class ImageSitemap < EOL::Sitemap
-    @@working_directory = Rails.root.join('public', 'sitemap', 'images')
     
     def initialize
       super
+      @working_directory = Rails.root.join('public', 'sitemap', 'images')
       @final_file_prefix = 'http://' + @@default_url_options[:host] + '/sitemap/images/sitemap_'
+    end
+    
+    def self.working_directory
+      Rails.root.join('public', 'sitemap', 'images')
     end
     
     def build(options={})
@@ -31,10 +35,8 @@ module EOL
       start = min_id
       
       until start > max_id
-        data_objects = DataObject.all(:select => {
-            :data_objects => [ :id, :object_cache_url, :data_type_id, :object_title, :location, :description ],
-            :licenses => '*' },
-          :conditions => base_conditions + " AND id BETWEEN #{start} AND #{start + iteration_size - 1}", :include => :license)
+        data_objects = DataObject.all(:select => 'id, object_cache_url, data_type_id, object_title, location, description, license_id',
+          :conditions => base_conditions + " AND id BETWEEN #{start} AND #{start + iteration_size - 1}")
         data_objects.each do |data_object|
           image_metadata = { :loc => DataObject.image_cache_path(data_object.object_cache_url, '580_360', $SINGLE_DOMAIN_CONTENT_SERVER) }
           image_metadata[:title] = data_object.object_title unless data_object.object_title.blank?

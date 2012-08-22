@@ -26,7 +26,7 @@ module EOL
       end
 
       def self.reindex_model(klass, solr_api)
-        solr_api.delete_by_query('resource_type:' + klass.class_name)
+        solr_api.delete_by_query('resource_type:' + klass.name)
         start = klass.minimum('id') || 0
         max_id = klass.maximum('id') || 0
         return if max_id == 0
@@ -35,7 +35,7 @@ module EOL
         objects_to_send = []
         while i <= max_id
           objects_to_send = []
-          case klass.class_name
+          case klass.name
           when 'Community'
             objects_to_send += self.lookup_communities(i, limit);
           when 'Collection'

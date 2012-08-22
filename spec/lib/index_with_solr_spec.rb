@@ -127,6 +127,11 @@ describe 'Index With Solr' do
     new_method_result['keyword'].should == [term + " :: " + definition]
     new_method_result['resource_id'].should == gt.id
     new_method_result['language'].should == Language.english.iso_code
+    
+    gt.destroy
+    class GlossaryTerm < ActiveRecord::Base
+      index_with_solr :keywords => [:term, :definition]
+    end
   end
 
   it 'should throw an error if the field to index on doesnt exist' do
@@ -136,11 +141,14 @@ describe 'Index With Solr' do
     end
 
     begin
-      GlossaryTerm.create(:term => 'green', :definition => 'color')
+      gt = GlossaryTerm.create(:term => 'green', :definition => 'color')
     rescue Exception => e
       exception = e
     end
     exception.should_not == false
     exception.message.should == "NoMethodError: undefined method `some_nonsense' for GlossaryTerm"
+    class GlossaryTerm < ActiveRecord::Base
+      index_with_solr :keywords => [:term, :definition]
+    end
   end
 end

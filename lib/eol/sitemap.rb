@@ -4,21 +4,24 @@ module EOL
     include Rails.application.routes.url_helpers # for using user_url(id) type methods
     Rails.application.routes.default_url_options[:host] = 'eol.org'
     @@default_url_options = { :host => 'eol.org' } # need to explicitly set the host for the above
-    @@working_directory = Rails.root.join('public', 'sitemap')
     @@lines_per_sitemap_file = 50000.0
     @@default_compression = true
     
     def initialize
-      Dir.glob(File.join(@@working_directory, 'tmp_*')).each { |f| File.delete(f) }
-      @all_links_tmp_path = File.join(@@working_directory, 'tmp_all_links.txt')
-      @index_path = File.join(@@working_directory, "index.xml")
-      @batch_file_prefix = File.join(@@working_directory, "tmp_sitemap_")
+      Dir.glob(File.join(self.class.working_directory, 'tmp_*')).each { |f| File.delete(f) }
+      @all_links_tmp_path = File.join(self.class.working_directory, 'tmp_all_links.txt')
+      @index_path = File.join(self.class.working_directory, "index.xml")
+      @batch_file_prefix = File.join(self.class.working_directory, "tmp_sitemap_")
       @final_file_prefix = 'http://' + @@default_url_options[:host] + '/sitemap/sitemap_'
+    end
+    
+    def self.working_directory
+      Rails.root.join('public', 'sitemap')
     end
     
     def self.destroy_all_sitemap_files
       # we only care about files with extensions - so ignore all directories
-      Dir.glob(File.join(@@working_directory, '*.*')).each { |f| File.delete(f) }
+      Dir.glob(File.join(working_directory, '*.*')).each { |f| File.delete(f) }
     end
     
     def build(options={})
@@ -56,11 +59,11 @@ module EOL
       # # delete the tmp file with all links
       File.delete(@all_links_tmp_path)
       # delete all published sitemaps
-      Dir.glob(File.join(@@working_directory, 'sitemap_*')).each { |f| File.delete(f) }
+      Dir.glob(File.join(self.class.working_directory, 'sitemap_*')).each { |f| File.delete(f) }
       # rename tmp sitemaps to make them published
-      Dir.glob(File.join(@@working_directory, 'tmp_sitemap_*')).each do |f|
+      Dir.glob(File.join(self.class.working_directory, 'tmp_sitemap_*')).each do |f|
         if m = f.match(/tmp_(sitemap.*$)/)
-          File.rename(f, File.join(@@working_directory, m[1]))
+          File.rename(f, File.join(self.class.working_directory, m[1]))
         end
       end
       

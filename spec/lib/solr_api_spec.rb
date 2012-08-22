@@ -6,17 +6,11 @@ def test_xml(xml, node, data)
 end
 
 describe 'Solr API' do
-  before(:all) do
-    truncate_all_tables
-    load_foundation_cache
-  end
-  
-  after(:all) do
-    truncate_all_tables
-  end
-  
+
   describe ': TaxonConcepts' do
     before(:all) do
+      truncate_all_tables
+      load_foundation_cache
       Vetted.gen(:label => 'Trusted') unless Vetted.trusted
       trusted = Vetted.trusted
       @solr = SolrAPI.new($SOLR_SERVER, $SOLR_TAXON_CONCEPTS_CORE)
@@ -89,6 +83,8 @@ describe 'Solr API' do
   
   describe ': DataObjects' do
     before(:all) do
+      truncate_all_tables
+      load_foundation_cache
       @solr = SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE)
       @solr.delete_all_documents
     end
@@ -103,6 +99,8 @@ describe 'Solr API' do
   
   describe ': SiteSearch' do
     before(:all) do
+      truncate_all_tables
+      load_foundation_cache
       TaxonConcept.delete_all
       HierarchyEntry.delete_all
       Synonym.delete_all
@@ -134,6 +132,7 @@ describe 'Solr API' do
     end
     
     it 'should reindex given model' do
+      EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild
       EOL::Solr::SiteSearchCoreRebuilder.reindex_model(TaxonConcept, @solr)
       @solr.get_results("*:*")['numFound'].should == 29
       @solr.get_results("resource_id:#{@test_taxon_concept.id}")['numFound'].should == 4
@@ -147,6 +146,8 @@ describe 'Solr API' do
   
   describe ': BHL' do
     before(:all) do
+      truncate_all_tables
+      load_foundation_cache
       PublicationTitle.delete_all
       TitleItem.delete_all
       ItemPage.delete_all

@@ -1105,7 +1105,7 @@ FactoryGirl.define do
     username                  do
       attempt = "#{given_name[0..0]}_#{family_name[0..9]}".gsub(/\s/, '_').downcase
       while(User.find_by_username(attempt)) do
-        succ!
+        attempt.succ!
       end
       attempt
     end

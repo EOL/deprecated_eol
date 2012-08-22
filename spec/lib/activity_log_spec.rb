@@ -37,7 +37,7 @@ describe EOL::ActivityLog do
 
   it 'should work with Community comments, focus list activity, and community activity' do
     community = Community.gen
-    Comment.gen(:parent => community, :created_at => 4.seconds.ago)
+    Comment.gen(:parent => community, :created_at => 4.seconds.ago, :parent_type => 'Community')
     # This proves that any activity logged on the focus list of the community is something that shows up in the
     # community feed itself (rather than having to look at the focus list directly).  For example, if someone adds
     # something to the community's focus list, we expect to see that in the activity log of the community itself.
@@ -60,7 +60,7 @@ describe EOL::ActivityLog do
   # handling taxon concepts is tricky, I would rather break up the tests without worrying about it:
   it 'should work with TaxonConcept' do
     xpect 'Taxon Concept Comments show up'
-    Comment.gen(:parent => @testy[:taxon_concept])
+    Comment.gen(:parent => @testy[:taxon_concept], :parent_type => 'TaxonConcept')
     @testy[:taxon_concept].activity_log.first['instance'].class.should == Comment
     @testy[:taxon_concept].activity_log.first['instance'].parent_id.should == @testy[:id]
     xpect 'Image comments show up'

@@ -133,7 +133,7 @@ describe Array do
 
   it 'should group objects by an attribute' do
     truncate_all_tables
-    load_scenario_with_caching(:foundation)
+    load_foundation_cache
     obj = User.gen
     obj2 = obj.clone
     obj2.id = 99999
@@ -208,12 +208,12 @@ describe 'Uses Translations' do
   end
 
   it 'should create methods for getting translated attributes' do
-    @language.public_methods.include?('label').should == true
-    @language.public_methods.include?('phonetic_label').should == true
-    @rank.public_methods.include?('label').should == true
-    @rank.public_methods.include?('phonetic_label').should == true
-    @hierarchy_entry.public_methods.include?('label').should == false
-    @hierarchy_entry.public_methods.include?('phonetic_label').should == false
+    @language.public_methods.include?(:label).should == true
+    @language.public_methods.include?(:phonetic_label).should == true
+    @rank.public_methods.include?(:label).should == true
+    @rank.public_methods.include?(:phonetic_label).should == true
+    @hierarchy_entry.public_methods.include?(:label).should == false
+    @hierarchy_entry.public_methods.include?(:phonetic_label).should == false
   end
 
   it 'should not have labels without translations' do

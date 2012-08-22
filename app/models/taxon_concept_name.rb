@@ -10,7 +10,7 @@ class TaxonConceptName < ActiveRecord::Base
   belongs_to :vetted
 
   def self.sort_by_language_and_name(taxon_concept_names)
-    taxon_concept_names.sort_by do |tcn|
+    taxon_concept_names.compact.sort_by do |tcn|
       language_iso = tcn.language.blank? ? '' : tcn.language.iso_639_1
       [language_iso,
        tcn.preferred * -1,

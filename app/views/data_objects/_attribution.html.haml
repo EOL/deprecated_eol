@@ -15,5 +15,5 @@
   = render :partial => 'data_objects/location', :locals => { :data_object => data_object }
   - unless data_object.spatial_location.blank?
     %p= "#{I18n.t(:location_colon)} #{data_object.spatial_location}"
-  - if data_object.added_by_user? && !data_object.users_data_object.blank? && !data_object.source_url.blank?
+  - if data_object.added_by_user? && !data_object.users_data_object.blank? && !data_object.source_url.blank? && !data_object.is_link?
     %p= link_to I18n.t("view_#{en_type}_source"), data_object.source_url

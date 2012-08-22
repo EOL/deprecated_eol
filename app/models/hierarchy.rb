@@ -88,9 +88,8 @@ class Hierarchy < ActiveRecord::Base
   end
 
   def self.browsable_for_concept(taxon_concept)
-    Hierarchy.find_all_by_browsable(1, :select => { :hierarchies => [ :id, :label, :descriptive_label ] },
-      :joins => "JOIN hierarchy_entries ON hierarchies.id=hierarchy_entries.hierarchy_id",
-      :conditions => "hierarchy_entries.taxon_concept_id=#{taxon_concept.id}")
+    Hierarchy.joins(:hierarchy_entries).select('hierarchies.id, hierarchies.label, hierarchies.descriptive_label').
+      where(['hierarchies.browsable = 1 AND hierarchy_entries.taxon_concept_id = ?', taxon_concept.id])
   end
 
   def form_label

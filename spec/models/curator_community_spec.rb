@@ -15,7 +15,7 @@ describe CuratorCommunity do
   end
 
   it 'should be able to build the community' do
-    CuratorCommunity.get.destroy
+    CuratorCommunity.get.try(:destroy)
     clear_curator_community_cache
     curator = User.gen
     curator.curator_level_id = 1

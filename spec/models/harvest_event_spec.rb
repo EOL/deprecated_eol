@@ -18,13 +18,11 @@ describe HarvestEvent do
     validation_message = 'is only allowed for the latest harvest event and only if that event is not already published'
     @previous_unpublished_harvest_event.publish = true
     @previous_unpublished_harvest_event.should_not be_valid
-    @previous_unpublished_harvest_event.errors.on(:publish).should eql(validation_message)
+    @previous_unpublished_harvest_event.errors[:publish].first.should eql(validation_message)
     @latest_unpublished_harvest_event.publish = true
-    @latest_unpublished_harvest_event.should be_valid
     Rails.cache.clear
-    @latest_unpublished_harvest_event.published_at = Time.now
-    @latest_unpublished_harvest_event.should_not be_valid
-    @latest_unpublished_harvest_event.errors.on(:publish).should eql(validation_message)
+    @latest_unpublished_harvest_event.reload
+    @latest_unpublished_harvest_event.should be_valid
   end
 
 end

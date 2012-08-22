@@ -44,7 +44,7 @@ ar:
       collection_item: 
         annotation: تعليق توضيحي
         refs: المراجع
-        sort_field: افرز حسب
+        sort_field: الترتيب حسب
       comment: 
         body: تعليق
       community: 
@@ -765,7 +765,7 @@ ar:
   by_scientific_name_table_header: بالاسم العلمي
   cache_store: مخزن الذاكرة المخبأة
   calculate_averages_slow: احسب المتوسطات (بطيء)
-  cancel: ألغِ
+  cancel: إلغاء
   cannot_be_associated_with_both_a_user_and_a_community: لا يمكن أن يكون مرتبطًا بمستخدم ومجتمع
   cannot_be_empty: لا يمكن أن يكون خاليًا
   cannot_create_collection_item_from_class_error: لا يمكن إنشاء عنصر من %{klass}
@@ -1002,9 +1002,9 @@ ar:
   content_partner_administration_notes_header: ملاحظات الإدارة
   content_partner_administration_settings_header: إعدادات الإدارة
   content_partner_administration_settings_introduction: تظهر الخانات الإدارية التالية إلى مشرفي موسوعة ويمكن تعديلها من قبلهم فقط.
-  content_partner_agreement_cancel_edit_agreement_link: ألغِ
-  content_partner_agreement_cancel_new_agreement_link: ألغِ
-  content_partner_agreement_cancel_sign_agreement_link: ألغِ
+  content_partner_agreement_cancel_edit_agreement_link: إلغاء
+  content_partner_agreement_cancel_new_agreement_link: إلغاء
+  content_partner_agreement_cancel_sign_agreement_link: إلغاء
   content_partner_agreement_create_successful_notice: تم إنشاء اتفاقية الشروط الخاصة بشريك المحتوى بنجاح.
   content_partner_agreement_create_unsuccessful_error: عفوًا، حدث خطأ، وتعذر إنشاء اتفاقية الشروط الخاصة بشريك المحتوى .
   content_partner_agreement_signed_successful_notice: لقد وافقت على شروط شريك المحتوى، يمكنك الأن إضافة مصادر البيانات.
@@ -1305,12 +1305,12 @@ ar:
   data_usage_reports: تقارير استخدام البيانات
   date_caps: التاريخ
   date_uploaded: تحميل التاريخ
-  dato_create_cancel: ألغِ
+  dato_create_cancel: إلغاء
   dato_create_user_text_error: عفوًا، حدث خطأ، تعذر إضافة المقال.
   dato_create_user_text_missing_taxon_id_exception: يتعذر تكوين عنصر بيانات نصي أو عنصر بيانات خاص بالمستخدمين إذا كانت الأصنوفة تساوي لا شيء.
   dato_create_user_text_missing_user_exception: يتعذر تكوين عنصر بيانات نصي أو عنصر بيانات خاص بالمستخدمين إذا كانت الأصنوفة تساوي لا شيء.
   dato_create_user_text_validation_error: نرجو التأكد من ملؤكم النموذج بصورة صحيحة.
-  dato_edit_cancel: ألغِ
+  dato_edit_cancel: إلغاء
   dato_edit_text_link_button: عدل  هذا المقال
   dato_edit_text_page_description: نشكرك على المساهمة في  موسوعة الحياة. ستضاف مساهمتك فى قائمة المشاهدة الخاصة بك حتى تتمكن من متابعة أي مداخلات متعلقة بها ووضعها من حيث اﻹشراف.
   dato_edit_text_title: تعديل المقالة
@@ -1364,7 +1364,6 @@ ar:
   download_wav_file: قم بتحميل ملف بصيغة (WAV)
   dublin_core: دبلن كور
   duplicate_items_were_ignored: تم تجاهل العناصر المكررة.
-  e_g_search_for_the_eol_page: (على سبيل المثال، ابحث عن تعريف صفحة موسوعة الحياة ذات الرقم التسلسلي 180542 بنظام المعلومات التصنيفية المتكامل)
   each_method_documentation_page_has_formatted_responses: تضم  صفحة توثيق كل طريقة مثال على الاستجابات  من صيغتي لغة الترميز القابلة للامتداد (إكس إم إل) وجسون.
   edit: تعديل
   edit_collection_details: تعديل شرح المجموعة
@@ -1533,7 +1532,7 @@ ar:
   for_terms_or_definitions_conta: "للمصطلحات أو التعريفات المحتوية على:"
   forgot_password: هل نسيت كلمة السر؟
   forgot_password_cannot_find_user_from_username_or_email_error: عفوًا، لا يوجد حسابات للمستخدمين بأسم المستخدم أو البريد الإلكتروني المدخلين <em>%{username_or_email}</em>.
-  forgot_password_form_cancel: ألغِ
+  forgot_password_form_cancel: إلغاء
   forgot_password_form_choose_username_blank_error: يرجى إختيار الحساب الذي ترغب في إعادة ضبط كلمة السر الخاصة به.
   forgot_password_form_choose_username_instructions: هنالك عدة حسابات مسجلة بالعنوان الإلكتروني <em>%{email}</em>، يرجى اختيار حساب واحد لإعادة ضبط كلمة السر.
   forgot_password_form_choose_username_legend: يرجى اختيار حساب
@@ -1742,7 +1741,7 @@ ar:
     select: 
       prompt: يرجى الاختيار
     submit: 
-      cancel: ألغِ
+      cancel: إلغاء
       collection_item: 
         update: احفظ
       contact: 
@@ -1923,11 +1922,11 @@ ar:
   jsonp_by_adding_a_callback_parameter: ... و صيغة JSONP  عن طريق إضافة معامل استرجاع
   just_pages_with_pictures_and_text: الصفحات التي تضم صور ونصوص فقط
   label: صنف
-  language: اللغة
+  language: "اللغة:"
   language_selector_advisory_information: فيما يلي قائمة باللغات المتاح من خلالها محتوى الموقع، لتغيير اللغة الحالية، يرجى اختيار لغة بديلة من القائمة.
   language_with_count: "%{language} (%{count})"
   languages: اللغات
-  last_updated: تم آخر تحديث
+  last_updated: آخر تحديث
   last_updated_time_ago: أخر تحديث منذ %{time_passed}
   learn_about_collections: كيف أنشئ مجموعة؟
   learn_about_communities: كيف أشترك؟
@@ -1986,7 +1985,7 @@ ar:
   literature_header: المراجع
   literature_references: مراجع المطبوعات
   location: الموقع
-  location_colon: "المكان:"
+  location_colon: "الموقع:"
   logging_database_colon: "تسجيل الدخول:"
   login: تسجيل الدخول
   login_header: سجل دخولك لحسابك <abbr title="Encyclopedia of Life">بموسوعة الحياة</abbr>
@@ -2533,7 +2532,6 @@ ar:
   sci_name_avg_table_head: متوسط الأسماء العلمية
   scientific_name: اسم علمي
   search: بحث
-  search_by_provider_method_description: أحصل على معرفات صفحة موسوعة الحياة عند إدخال معرف_تسلسل هرمي خاص بأحد مقدمي المحتوى والمعرف المميز الخاص بمقدم المحتوى.
   search_by_term_page_title: "البحث: %{term}"
   search_field_common_name: الاسم الشائع
   search_field_label: البحث في موسوعة الحياة
@@ -2640,14 +2638,14 @@ ar:
   skip_to_navigation: تخطي إلى التنقل
   skip_to_table_of_contents: تخطي إلى قائمة المحتويات
   social_sharing_twitter_follow_eol_button: اتبعنا على @eol
-  social_sharing_twitter_tweet_button: رسالة على تويتر
+  social_sharing_twitter_tweet_button: توت
   some_required_fields_were_not_entered: هناك خانات إلزامية لم تُملأ (يجب أن تضيف عنوانًا، ومحتوى أو عنوانًا إلكترونيًّا).
   sorry_no_collections_are_available_to_share: للأسف لا توجد مجموعات متوفرة لمشاركتها مع هذا المجتمع.
   sorry_no_communities_are_available_to_share: للأسف، لا توجد مجتمعات متوفرة لنشاركها هذه المجموعة.
-  sort_by: رتب وفقًا لـ
+  sort_by: الترتيب حسب
   sort_by_alphabetical_option: أبجديًّا
   sort_by_button: ترتيب
-  sort_by_label: رتب وفقًا لـ
+  sort_by_label: الترتيب حسب
   sort_by_newest_option: الأحدث
   sort_by_oldest_option: الأقدم
   sort_by_rating_option: تقييم
@@ -3139,7 +3137,7 @@ ar:
   updated_community: تم تحديث المجتمع بنجاح.
   updated_member: تم تحديث العضو
   updates: تحديثات
-  upload: تحميل
+  upload: رفع
   upload_content: رفع المحتوى
   upload_logo_help_text: سوف تكون تلك الصورة هي الصورة الرئيسية التي تمثل مجتمعك . يمكن أن تكون أي صورة تفضلها.
   uploaded_by: قام بالتحميل

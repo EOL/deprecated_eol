@@ -7,8 +7,7 @@ require 'rspec/autorun'
 require Rails.root.join('spec', 'eol_spec_helpers')
 require Rails.root.join('spec', 'custom_matchers')
 
-require "email_spec/helpers"
-require "email_spec/matchers"
+require 'email_spec'
 require 'eol_scenarios'
 EolScenario.load_paths = [ Rails.root.join('scenarios') ]
 
@@ -63,7 +62,7 @@ def wait_for_insert_delayed(&block)
 end
 
 def read_test_file(filename)
-  csv_obj = CSV.open(Rails.root.join("spec", "csv_files", filename), "r", "\t")
+  csv_obj = CSV.read(Rails.root.join("spec", "csv_files", filename))
   field_names = []
   field_name = ''
   csv_obj.each_with_index do |fields, i|

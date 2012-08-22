@@ -147,23 +147,6 @@ class Resource < ActiveRecord::Base
     @latest_harvest
   end
 
-#  # vet or unvet entire resource (0 = unknown, 1 = vet)
-#  def set_vetted_status(vetted)
-#    set_to_state = EOLConvert.to_boolean(vetted) ? Vetted.trusted.id : Vetted.unknown.id
-#
-#    # update the vetted_id of all data_objects associated with the latest
-#    connection.execute("update harvest_events he straight_join data_objects_harvest_events dohe on (he.id=dohe.harvest_event_id) straight_join data_objects do on (dohe.data_object_id=do.id) set do.vetted_id = #{set_to_state} where do.vetted_id = 0 and he.resource_id = #{self.id}")
-#
-#    if set_to_state == Vetted.trusted.id && !hierarchy.nil?
-#      # update the vetted_id of all concepts associated with this resource - only vet them never unvet them
-#      connection.execute("UPDATE hierarchy_entries he JOIN taxon_concepts tc ON (he.taxon_concept_id=tc.id) SET tc.vetted_id=#{Vetted.trusted.id} WHERE hierarchy_id=#{hierarchy.id}")
-#    end
-#
-#    self.vetted=vetted
-#
-#    true
-#  end
-
   def upload_resource_to_content_master!(port = nil)
     if self.accesspoint_url.blank?
       self.resource_status = ResourceStatus.uploaded
@@ -199,7 +182,7 @@ private
 
   def url_or_dataset_not_both
     if dataset_file_provided? && accesspoint_url_provided?
-      errors.add_to_base I18n.t('content_partner_resource_url_or_dataset_not_both_error')
+      errors[:base] << I18n.t('content_partner_resource_url_or_dataset_not_both_error')
     end
   end
   
@@ -210,7 +193,7 @@ private
     if first_type = mime_types.first
       return true if VALID_RESOURCE_CONTENT_TYPES.include? first_type.to_s
     end
-    errors.add_to_base I18n.t('activerecord.errors.models.resource.attributes.dataset.wrong_type')
+    errors[:base] << I18n.t('activerecord.errors.models.resource.attributes.dataset.wrong_type')
   end
   
   def accesspoint_url_provided?

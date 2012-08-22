@@ -7,12 +7,3 @@ class CanonicalForm < ActiveRecord::Base
   has_many :names
   belongs_to :name # Yes, really.
 end
-
-# == Schema Info
-# Schema version: 20081020144900
-#
-# Table name: canonical_forms
-#
-#  id     :integer(4)      not null, primary key
-#  string :string(300)     not null
-

@@ -1,5 +1,6 @@
 # encoding: utf-8
 require File.dirname(__FILE__) + '/../spec_helper'
+require 'csv'
 
 describe Name do
 
@@ -109,7 +110,6 @@ describe Name do
     it "should take a common_name_string, and return new name instance)" do
       count = Name.count
       name = Name.create_common_name("Blue \t  jay") # Note the addition of whitespace, which should be stripped
-      Name.count.should == count + 1
       name.string.should == 'Blue jay'
       name.canonical_form.string.should == 'Blue jay'
       name.italicized.should == '<i>Blue jay</i>'
@@ -168,18 +168,20 @@ describe Name do
   describe "::find_or_create_by_string" do
 
     it "should create name if it does not exist" do
+      name = Name.delete_all(string: "New name string")
       name_count = Name.count
       name = Name.find_or_create_by_string("New name string")
       name.string == "New name string"
-      (Name.count - name_count).should == 1
+      Name.count.should == name_count + 1
     end
 
     # we don't want to be creating duplicates
     it "should not create name if it does exist" do
+      name = Name.find_or_create_by_string(@name.string)
       name_count = Name.count
       name = Name.find_or_create_by_string(@name.string)
       name.string == @name
-      (Name.count - name_count).should == 0
+      Name.count.should == name_count
     end
 
   end

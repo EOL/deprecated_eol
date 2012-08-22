@@ -6,7 +6,7 @@
     #text_object_new_edit.site_column.copy
       - form_for @data_object, { :url => taxon_data_objects_path(@taxon_concept),
         :builder => ApplicationHelper::EolFormBuilder } do |f|
-        = render :partial => 'text_fieldset', :locals => { :f => f, :add_link => @add_link }
+        = render :partial => 'text_fieldset', :locals => { :f => f, :link_object => @add_link }
         %fieldset.actions
-          = f.submit I18n.t("helpers.submit.data_object#{'_link' if @add_link}.create")
+          = f.submit I18n.t("helpers.submit.data_object#{'_link' if @add_link}.create"), :name => "commit#{'_link' if @add_link}"
           = link_to I18n.t(:dato_create_cancel), taxon_details_path(@taxon_concept)

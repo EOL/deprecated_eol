@@ -21,7 +21,7 @@ class DataObjectsController < ApplicationController
                         @toc_items.select{|ti| ti == TocItem.brief_summary}.first ||
                         @toc_items[0]
     @selected_toc_item_id = selected_toc_item.id
-    if params[:link] 
+    if params[:link]
       @add_link = true
       @page_title = I18n.t(:dato_new_text_link_for_taxon_page_title, :taxon => Sanitize.clean(@taxon_concept.title_canonical))
     else
@@ -45,7 +45,8 @@ class DataObjectsController < ApplicationController
     raise I18n.t(:dato_create_user_text_missing_user_exception) if current_user.nil?
     raise I18n.t(:dato_create_user_text_missing_taxon_id_exception) if @taxon_concept.blank?
     @data_object = DataObject.create_user_text(params[:data_object], :user => current_user,
-                                               :taxon_concept => @taxon_concept, :toc_id => toc_id)
+                                               :taxon_concept => @taxon_concept, :toc_id => toc_id,
+                                               :link_object => params[:commit_link])
 
     if @data_object.nil? || @data_object.errors.any?
       @selected_toc_item_id = toc_id
@@ -100,9 +101,16 @@ class DataObjectsController < ApplicationController
     # @data_object is loaded in before_filter :load_data_object
     set_text_data_object_options
     @selected_toc_item_id = @data_object.toc_items.first.id rescue nil
-    @references = @data_object.visible_references.map {|r| r.full_reference}.join("\n\n")
-    @page_title = I18n.t(:dato_edit_text_title)
-    @page_description = I18n.t(:dato_edit_text_page_description)
+    if params[:link]
+      @edit_link = true
+      @page_title = I18n.t(:dato_edit_link_title)
+      @page_description = I18n.t(:dato_edit_link_description)
+    else
+      @edit_article = true
+      @page_title = I18n.t(:dato_edit_text_title)
+      @page_description = I18n.t(:dato_edit_text_page_description)
+      @references = @data_object.visible_references.map {|r| r.full_reference}.join("\n\n")
+    end
   end
 
   # PUT /data_objects/:id
@@ -115,7 +123,8 @@ class DataObjectsController < ApplicationController
     end
     old_cdohe_associations = @data_object.all_curated_data_objects_hierarchy_entries.dup
     # Note: replicate doesn't actually update, it creates a new data_object
-    new_data_object = @data_object.replicate(params[:data_object], :user => current_user, :toc_id => toc_id)
+    new_data_object = @data_object.replicate(params[:data_object], :user => current_user, :toc_id => toc_id,
+                                             :link_object => params[:commit_link])
     new_cdohe_associations = new_data_object.all_curated_data_objects_hierarchy_entries
     
     if new_data_object.nil?

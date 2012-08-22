@@ -1,4 +1,5 @@
 - data_object ||= @data_object
+- link_object ||= false
 -# NOTE on cache ... These never need to expire.  If ANYTHING changes in a data object, we create a new version of it
 -# and link it to the previous version with a GUID... so the "raw" ID will always always be the same.  This is also
 -# true of user-submitted text.  memcached should handle deleting the keys that don't get used, as part of its own GC
@@ -12,6 +13,7 @@
   - unless data_object.nil? || data_object.description.empty? || data_object.description.blank?
     - show_references = true if show_references.nil?
     .copy
+      = auto_link(data_object.source_url) if link_object
       - if data_object.added_by_user?
         -# Submitted text is now being sanitized before being saved. 
         -# And once the migration to sanitize/balance_tags existing UDO is done then we don't need to run Sanitize/balance_tags here anymore

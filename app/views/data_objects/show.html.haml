@@ -10,5 +10,5 @@
   - unless for_worklist
     = render :partial => 'shared/social_sharing'
 - # TODO: Looks like HR have moved from using article to text css class - need to check across the site and adjust en_type
-#permalink{:class => en_type == 'article' ? 'text' : en_type}
+#permalink{:class => (en_type == 'article' || en_type == 'link') ? 'text' : en_type}
   = render :partial => "show", :locals => { :for_worklist => for_worklist }

@@ -7,7 +7,7 @@
 require 'spec/eol_spec_helpers'
 require 'spec/scenario_helpers'
 # This gives us the ability to build taxon concepts:
-include EOL::Spec::Helpers
+include EOL::RSpec::Helpers
 
 data = {}
 

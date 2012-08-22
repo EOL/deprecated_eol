@@ -896,6 +896,7 @@ class TaxonConcept < ActiveRecord::Base
     community_ids = communities.map{|c| c.id}.compact
     return [] if community_ids.blank?
     temp = connection.execute("SELECT c.id, COUNT(m.user_id) total FROM members m JOIN communities c ON c.id = m.community_id WHERE c.id in (#{community_ids.join(',')})   GROUP BY c.id ORDER BY total desc").all_hashes
+    # Member.joins(:communities).select('communities.id')
     if temp.blank?
       return communities
     else

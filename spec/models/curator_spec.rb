@@ -16,14 +16,14 @@ describe 'Curator' do
       user2 = User.new(:curator_level_id => curator_level_id)
       [user1, user2].each do |user|
         user.valid?.should be_false
-        user.errors.on(:credentials).should =~ /can't be blank/
-        user.errors.on(:curator_scope).should =~ /can't be blank/
+        user.errors[:credentials].to_s.should =~ /can't be blank/
+        user.errors[:curator_scope].to_s.should =~ /can't be blank/
       end
     end
     user = User.new(:curator_level_id => CuratorLevel.assistant.id)
     user.valid?
-    user.errors.on(:credentials).should be_nil
-    user.errors.on(:curator_scope).should be_nil
+    user.errors[:credentials].should be_blank
+    user.errors[:curator_scope].should be_blank
   end
 
   it 'should save some variables temporarily (by responding to some methods)' do
@@ -34,7 +34,7 @@ describe 'Curator' do
   it 'should not allow you to add a user that already exists' do
     user = User.new(:username => @user.username)
     user.save.should be_false
-    user.errors.on(:username).should =~ /taken/
+    user.errors[:username].to_s.should =~ /taken/
   end
 
   it '(curator user) should allow curator rights to be revoked' do

@@ -74,12 +74,12 @@ module ApplicationHelper
     private
 
     def errors_on?(method)
-      @object.respond_to?(:errors) && @object.errors.respond_to?(:on) && @object.errors.on(method.to_sym)
+      @object.respond_to?(:errors) && @object.errors.respond_to?(:on) && ! @object.errors[method.to_sym].blank?
     end
 
     def errors_for_method(object, method)
       return unless errors_on?(method)
-      errors = object.errors.on(method)
+      errors = object.errors[method.to_sym]
       if errors.any?
         errors = [errors] if errors.is_a? String
         @template.content_tag(:span, { :class => 'errors' }){ errors.join(", ") }

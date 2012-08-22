@@ -93,6 +93,9 @@ class Collection < ActiveRecord::Base
 
   # NOTE - DO NOT (!) use this method in bulk... take advantage of the accepts_nested_attributes_for if you want to
   # add more than two things... because this runs an expensive calculation at the end.
+  # 
+  # Also NOTE that we don't just use { :object => what }, because Users are sometimes Curators... there may be other
+  # reasons, but that was at least true, so I kept the other creates consistent.
   def add(what, opts = {})
     return if what.nil?
     name = "something"

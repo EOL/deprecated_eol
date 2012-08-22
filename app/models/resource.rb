@@ -140,7 +140,7 @@ class Resource < ActiveRecord::Base
     HarvestEvent
     cache_key = "latest_harvest_event_for_resource_#{self.id}"
     @latest_harvest = Rails.cache.fetch(Resource.cached_name_for(cache_key), :expires_in => 6.hours) do
-      he = HarvestEvent.find(:first, :limit => 1, :order => 'id DESC', :conditions => ["resource_id = ?", id])
+      he = HarvestEvent.where(resource_id: id).order('id DESC').limit(1).first
       he.nil? ? 0 : he # use 0 instead of nil when setting for cache because cache treats nil as a miss
     end
     @latest_harvest = nil if @latest_harvest == 0 # return nil or HarvestEvent, i.e. not the 0 cache hit

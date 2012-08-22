@@ -120,16 +120,16 @@ describe User do
   it 'should require given name for open authenticated user' do
     user = User.new(:open_authentications_attributes => [ { :guid => 1234, :provider => 'facebook' }])
     user.valid?.should be_false
-    user.errors.on(:given_name).should =~ /can't be blank/
+    user.errors[:given_name].to_s.should =~ /can't be blank/
     user.given_name = "Oauth"
     user.valid? # run validations again - will still fail due to other errors but we're just checking given name
-    user.errors.on(:given_name).should be_nil
+    user.errors[:given_name].to_s.should be_nil
   end
 
   it 'should fail validation if the email is in the wrong format' do
     user = User.new(:email => 'wrong(at)format(dot)com')
     user.valid?.should be_false
-    user.errors.on(:email).should =~ /is invalid/
+    user.errors[:email].to_s.should =~ /is invalid/
   end
 
   it '#full_name should resort to username if a given name is all they provided' do
@@ -156,7 +156,7 @@ describe User do
   it 'should not allow you to add a user that already exists' do
     user = User.new(:username => @user.username)
     user.save.should be_false
-    user.errors.on(:username).should =~ /taken/
+    user.errors[:username].to_s.should =~ /taken/
   end
 
   it 'convenience methods should return all of the data objects for the user' do

@@ -1196,7 +1196,7 @@ FactoryGirl.define do
   end
 
   factory :eol_statistic do
-    members_count rand(1000)
+    members_count { rand(1000) }
   end
 
 end

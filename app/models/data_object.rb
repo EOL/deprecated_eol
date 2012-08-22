@@ -191,7 +191,7 @@ class DataObject < ActiveRecord::Base
         dato.toc_items = Array(TocItem.find(options[:toc_id]))
         dato.build_relationship_to_taxon_concept_by_user(options[:taxon_concept], options[:user])
       rescue => e
-        dato.update_attribute(:published, false)
+        dato.update_column(:published, false)
         raise e
       ensure
         dato.update_solr_index
@@ -242,7 +242,7 @@ class DataObject < ActiveRecord::Base
         end
         DataObjectsTaxonConcept.find_or_create_by_taxon_concept_id_and_data_object_id(users_data_object.taxon_concept_id, new_dato.id)
       rescue => e
-        new_dato.update_attribute(:published, false)
+        new_dato.update_column(:published, false)
         raise e
       ensure
         new_dato.update_solr_index
@@ -281,16 +281,16 @@ class DataObject < ActiveRecord::Base
       new_udor = UsersDataObjectsRating.create(:data_object_guid => guid, :user_id => user.id,
                                                :rating => new_rating, :weight => weight)
     elsif (new_udor = users_current_ratings.first).rating != new_rating
-      new_udor.update_attribute(:rating, new_rating)
-      new_udor.update_attribute(:weight, weight)
+      new_udor.update_column(:rating, new_rating)
+      new_udor.update_column(:weight, weight)
     end
 
-    self.update_attribute(:data_rating, ratings_calculator(other_ratings + [new_udor]))
+    self.update_column(:data_rating, ratings_calculator(other_ratings + [new_udor]))
   end
 
   def recalculate_rating(debug = false)
     ratings = UsersDataObjectsRating.find_all_by_data_object_guid(guid)
-    self.update_attribute(:data_rating, ratings_calculator(ratings, debug))
+    self.update_column(:data_rating, ratings_calculator(ratings, debug))
     self.data_rating
   end
 
@@ -559,7 +559,7 @@ class DataObject < ActiveRecord::Base
     dato_association.visibility_id = Visibility.visible.id
     dato_association.vetted_id = Vetted.trusted.id
     dato_association.save!
-    self.update_attribute(:published, 1)
+    self.update_column(:published, 1)
   end
 
   def visible_references
@@ -990,7 +990,7 @@ class DataObject < ActiveRecord::Base
 
   def unpublish_previous_revisions
     DataObject.find(:all, :conditions => "id != #{self.id} AND guid = '#{self.guid}'").each do |dato|
-      dato.update_attribute(:published, 0)
+      dato.update_column(:published, 0)
       dato.update_solr_index
     end
   end

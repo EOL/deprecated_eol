@@ -18,35 +18,39 @@ describe 'Index With Solr' do
   end
 
   it 'should define new methods and set callback functions' do
+    class GlossaryTerm < ActiveRecord::Base
+      remove_index_with_solr
+    end
     gt = GlossaryTerm.create(:term => 'trust', :definition => 'Firm reliance on the integrity, ability, or character of a person or thing')
     gt.respond_to?('add_to_index').should == false
     gt.respond_to?('remove_from_index').should == false
-    gt.class.after_save.detect{ |callback| callback.method == :add_to_index}.should == nil
-    gt.class.before_destroy.detect{ |callback| callback.method == :remove_from_index}.should == nil
+    gt.should_not_receive(:add_to_index)
+    gt.save
+    gt.should_not_receive(:remove_from_index)
     gt.destroy
 
     # add callbacks and make sure they exist
     class GlossaryTerm < ActiveRecord::Base
       index_with_solr :keywords => [:term, :definition]
     end
-
     gt = GlossaryTerm.create(:term => 'honor', :definition => 'integrity')
     gt.respond_to?('add_to_index').should == true
     gt.respond_to?('remove_from_index').should == true
-    gt.class.after_save.detect{ |callback| callback.method == :add_to_index}.should_not == nil
-    gt.class.before_destroy.detect{ |callback| callback.method == :remove_from_index}.should_not == nil
+    gt.should_receive(:add_to_index)
+    gt.save
+    gt.should_receive(:remove_from_index)
     gt.destroy
 
     # remove callbacks and make sure they are gone again
     class GlossaryTerm < ActiveRecord::Base
       remove_index_with_solr
     end
-
     gt = GlossaryTerm.create(:term => 'bubble', :definition => 'sphere')
     gt.respond_to?('add_to_index').should == false
     gt.respond_to?('remove_from_index').should == false
-    gt.class.after_save.detect{ |callback| callback.method == :add_to_index}.should == nil
-    gt.class.before_destroy.detect{ |callback| callback.method == :remove_from_index}.should == nil
+    gt.should_not_receive(:add_to_index)
+    gt.save
+    gt.should_not_receive(:remove_from_index)
     gt.destroy
   end
 
@@ -78,6 +82,10 @@ describe 'Index With Solr' do
   end
 
   it 'should update the index records on update' do
+    class GlossaryTerm < ActiveRecord::Base
+      index_with_solr :keywords => [:term, :definition]
+    end
+    
     @solr_connection.delete_all_documents
     term = 'trusted'
     definition = 'my mom'
@@ -95,6 +103,11 @@ describe 'Index With Solr' do
   end
 
   it 'should remove index records on destroy' do
+    # add callbacks - they will exist for the remainder of the tests
+    class GlossaryTerm < ActiveRecord::Base
+      index_with_solr :keywords => [:term, :definition]
+    end
+    
     @solr_connection.delete_all_documents
     term = 'gravity'
     definition = 'downward pull'
@@ -129,9 +142,6 @@ describe 'Index With Solr' do
     new_method_result['language'].should == Language.english.iso_code
     
     gt.destroy
-    class GlossaryTerm < ActiveRecord::Base
-      index_with_solr :keywords => [:term, :definition]
-    end
   end
 
   it 'should throw an error if the field to index on doesnt exist' do
@@ -147,8 +157,5 @@ describe 'Index With Solr' do
     end
     exception.should_not == false
     exception.message.should == "NoMethodError: undefined method `some_nonsense' for GlossaryTerm"
-    class GlossaryTerm < ActiveRecord::Base
-      index_with_solr :keywords => [:term, :definition]
-    end
   end
 end

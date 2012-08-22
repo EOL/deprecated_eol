@@ -22,6 +22,8 @@ module ActiveRecord
             if options[:select] && options[:select].class == Hash && options[:select][klass.table_name.to_sym]
               new_options[:select] = select_statement_to_string(options[:select][klass.table_name.to_sym])
             end
+            # new_reflection = reflection.dup
+            # new_reflection.source_reflection.options[:select] = options[:select].dup if new_reflection.source_reflection && options[:select]
             preloader_for(reflection).new(klass, records, reflection, new_options).run
           end
         end

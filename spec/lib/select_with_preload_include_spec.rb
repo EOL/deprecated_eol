@@ -92,6 +92,8 @@ describe 'Select with Preload Include' do
   it 'should be able to select from a composite key belongs_to association' do
     # DataObjectsHarvestEvent has a dual column primary key using the composite_primary_keys gem
     # That gem overrides some methods that do preloading, and this test will make sure they have been properly overloaded
+    @dohe = DataObjectsHarvestEvent.last
+    @dohe.preload_associations(:harvest_event, :select => { :harvest_events => '*' } )
     dohe = DataObjectsHarvestEvent.find(:last)
     dohe.preload_associations(:harvest_event, :select => { :harvest_events => [ :id, :began_at ] })
     dohe.class.should == DataObjectsHarvestEvent
@@ -314,18 +316,15 @@ describe 'Select with Preload Include' do
     HierarchyEntriesRef.gen(:hierarchy_entry => he, :ref => ref)
 
     last_he = HierarchyEntry.last
-    HierarchyEntry.last.delete
-    Agent.last.delete
-    # TODO - I relize deleting the last entry causes the specs below to fail, but they were failing anyway
-    # if I were to move the delete under the specs, it wouldnt get reached and the extra HE would cause more tests above to fail
-    
     he = HierarchyEntry.find(:last, :select => "id, created_at, vetted_id")
     he.preload_associations({ :vetted => { :taxon_concepts => { :hierarchy_entries => { :refs => :ref_identifiers } } } }, :select => {
-      :ref_identifiers => [ :id, :identifier ] } )
+      :ref_identifiers => [ :ref_id, :identifier ] } )
     he.vetted.taxon_concepts.last.hierarchy_entries.last.refs.last.ref_identifiers[0].identifier.should ==
       last_he.vetted.taxon_concepts.last.hierarchy_entries.last.refs.last.ref_identifiers[0].identifier
 
     he.vetted.taxon_concepts.last.hierarchy_entries.last.refs.last.ref_identifiers[0].ref_identifier_type_id?.should == false
     last_he.vetted.taxon_concepts.last.hierarchy_entries.last.refs.last.ref_identifiers[0].ref_identifier_type_id?.should == true
+    HierarchyEntry.last.delete
+    Agent.last.delete
   end
 end

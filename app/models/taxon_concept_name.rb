@@ -14,7 +14,7 @@ class TaxonConceptName < ActiveRecord::Base
       language_iso = tcn.language.blank? ? '' : tcn.language.iso_639_1
       [language_iso,
        tcn.preferred * -1,
-       tcn.name.string]
+       tcn.name.try(:string)]
     end
   end
 

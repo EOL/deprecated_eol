@@ -26,9 +26,9 @@ describe TaxonConcept do
     truncate_all_tables
     load_scenario_with_caching(:testy)
     @testy = EOL::TestInfo.load('testy')
+    @taxon_concept       = @testy[:taxon_concept]
     @overview            = @testy[:overview]
     @overview_text       = @testy[:overview_text]
-    @brief_summary_text  = @testy[:brief_summary_text]
     @toc_item_2          = @testy[:toc_item_2]
     @toc_item_3          = @testy[:toc_item_3]
     @canonical_form      = @testy[:canonical_form]
@@ -47,7 +47,6 @@ describe TaxonConcept do
     @comment_bad         = @testy[:comment_bad]
     @comment_2           = @testy[:comment_2]
     @id                  = @testy[:id]
-    @taxon_concept       = @testy[:taxon_concept]
     @curator             = @testy[:curator]
     @user                = @testy[:user]
     @tcn_count           = @testy[:tcn_count]
@@ -55,7 +54,6 @@ describe TaxonConcept do
     @name_count          = @testy[:name_count]
     @name_string         = @testy[:name_string]
     @agent               = @testy[:agent]
-    @synonym             = @testy[:synonym]
     @name                = @testy[:name]
     @tcn                 = @testy[:tcn]
     @syn1                = @testy[:syn1]
@@ -66,17 +64,35 @@ describe TaxonConcept do
     @good_title          = @testy[:good_title]
     @tc_bad_title        = @testy[:taxon_concept_with_bad_title]
     @tc_with_no_common_names = @testy[:taxon_concept_with_no_common_names]
+    @tc_with_no_starting_common_names = @testy[:taxon_concept_with_no_starting_common_names]
     @empty_taxon_concept = @testy[:empty_taxon_concept]
     @bad_iucn_tc         = @testy[:taxon_concept_with_unpublished_iucn]
     @child1              = @testy[:child1]
     @child2              = @testy[:child2]
     @sub_child           = @testy[:sub_child]
     
+    @taxon_concept_common_name_at_start = @taxon_concept.common_name # allows changes later if needed
     @taxon_media_parameters = {}
     @taxon_media_parameters[:per_page] = 100
     @taxon_media_parameters[:data_type_ids] = DataType.image_type_ids + DataType.video_type_ids + DataType.sound_type_ids
     @taxon_media_parameters[:return_hierarchically_aggregated_objects] = true
     
+    if @user_for_overview_text = User.find_by_username('overview_text_for_user')
+      @overview_text_for_user = @taxon_concept.overview_text_for_user(@user_for_overview_text)
+    else
+      flatten_hierarchies
+      @user_for_overview_text = User.gen(:username => 'overview_text_for_user')
+      @overview_text_for_user = @taxon_concept.overview_text_for_user(@user_for_overview_text)
+      parent_he = @taxon_concept.published_hierarchy_entries.first.parent
+      CuratedDataObjectsHierarchyEntry.new(:data_object_id => @overview_text_for_user.id,
+                                           :data_object_guid => @overview_text_for_user.guid,
+                                           :hierarchy_entry => parent_he,
+                                           :visibility => Visibility.invisible,
+                                           :vetted => Vetted.untrusted,
+                                           :user_id => 1).save
+      @overview_text_for_user.update_solr_index
+    end
+
     EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
   end
 
@@ -93,7 +109,7 @@ describe TaxonConcept do
   end
 
   it 'should have a common name' do
-    @taxon_concept.common_name.should == @common_name
+    @taxon_concept_common_name_at_start.should == @common_name
   end
 
   it 'should show the common name from the current users language' do
@@ -135,20 +151,11 @@ describe TaxonConcept do
   end
 
   it 'should be able to list its ancestors (by convention, ending with itself)' do
-    he = @taxon_concept.entry
-    kingdom = HierarchyEntry.gen(:hierarchy => he.hierarchy, :parent_id => 0)
-    phylum = HierarchyEntry.gen(:hierarchy => he.hierarchy, :parent_id => kingdom.id)
-    order = HierarchyEntry.gen(:hierarchy => he.hierarchy, :parent_id => phylum.id)
-    he.parent_id = order.id
-    he.save
-    make_all_nested_sets
-    flatten_hierarchies
-    @taxon_concept.reload
-    @taxon_concept.ancestors.map(&:id).should == [kingdom.taxon_concept_id, phylum.taxon_concept_id, order.taxon_concept_id, @taxon_concept.id]
+    @testy[:species].ancestors.map(&:id).should == [@testy[:kingdom].taxon_concept_id, @testy[:phylum].taxon_concept_id, @testy[:order].taxon_concept_id, @testy[:species].id]
   end
 
   it 'should be able to list its children (NOT descendants, JUST children--animalia would be a disaster!)' do
-    @taxon_concept.children.map(&:id).should only_include @child1.id, @child2.id
+    @taxon_concept.children.map(&:id).should only_include [@child1.id, @child2.id]
     @taxon_concept.children.map(&:id).should_not include(@sub_child.id)
   end
 
@@ -158,7 +165,7 @@ describe TaxonConcept do
 
   it 'should be able to show videos' do
     @taxon_concept.data_objects.select{ |d| d.is_video? }.should_not be_nil
-    @taxon_concept.data_objects.select{ |d| d.is_video? }.map(&:description).should only_include @video_1_text, @video_2_text, @video_3_text
+    @taxon_concept.data_objects.select{ |d| d.is_video? }.map(&:description).should only_include [@video_1_text, @video_2_text, @video_3_text]
   end
 
   it 'should have visible comments that don\'t show invisible comments' do
@@ -188,59 +195,25 @@ describe TaxonConcept do
   end
 
   describe '#overview_text_for_user' do
-    before :all do
-      if @user_for_overview_text = User.find_by_username('overview_text_for_user')
-        @overview_text_for_user = @taxon_concept.overview_text_for_user(@user_for_overview_text)
-      else
-        flatten_hierarchies
-        @user_for_overview_text = User.gen(:username => 'overview_text_for_user')
-        @overview_text_for_user = @taxon_concept.overview_text_for_user(@user_for_overview_text)
-        parent_he = @taxon_concept.published_hierarchy_entries.first.parent
-        CuratedDataObjectsHierarchyEntry.new(:data_object_id => @overview_text_for_user.id,
-                                             :data_object_guid => @overview_text_for_user.guid,
-                                             :hierarchy_entry => parent_he,
-                                             :visibility => Visibility.invisible,
-                                             :vetted => Vetted.untrusted,
-                                             :user_id => 1).save
-        @overview_text_for_user.update_solr_index
-      end
-    end
     it 'should return single text object' do
       @overview_text_for_user.should be_a(DataObject)
       @overview_text_for_user.is_text?.should be_true
     end
     it 'should only return data object with TocItem.brief_summary, TocItem.comprehensive_description, or TocItem.distribution' do
-      @overview_text_for_user.toc_items.first.should == TocItem.brief_summary
-      @overview_text_for_user.description.should == @brief_summary_text
+      overview_text_for_user = @testy[:only_brief_summary].overview_text_for_user(@user_for_overview_text)
+      overview_text_for_user.toc_items.first.should == TocItem.brief_summary
+      overview_text_for_user.description.should == @testy[:brief_summary_text]
 
-      dato_id = @overview_text_for_user.id
-      @overview_text_for_user.toc_items = [TocItem.comprehensive_description]
-      @overview_text_for_user.save
-      @overview_text_for_user.update_solr_index
-      @overview_text_for_user = @taxon_concept.overview_text_for_user(@user_for_overview_text)
-      @overview_text_for_user.id.should == dato_id
-      @overview_text_for_user.toc_items.first.should == TocItem.comprehensive_description
+      overview_text_for_user = @testy[:only_comp_desc].overview_text_for_user(@user_for_overview_text)
+      overview_text_for_user.toc_items.first.should == TocItem.comprehensive_description
+      overview_text_for_user.description.should == @testy[:comprehensive_description_text]
 
-      @overview_text_for_user.toc_items = [TocItem.distribution]
-      @overview_text_for_user.save
-      @overview_text_for_user.update_solr_index
-      @overview_text_for_user = @taxon_concept.overview_text_for_user(@user_for_overview_text)
-      @overview_text_for_user.id.should == dato_id
-      @overview_text_for_user.toc_items.first.should == TocItem.distribution
+      overview_text_for_user = @testy[:only_distribution].overview_text_for_user(@user_for_overview_text)
+      overview_text_for_user.toc_items.first.should == TocItem.distribution
+      overview_text_for_user.description.should == @testy[:distribution_text]
 
-      @overview_text_for_user.toc_items = [TocItem.overview]
-      @overview_text_for_user.save
-      @overview_text_for_user.update_solr_index
-      @overview_text_for_user = @taxon_concept.overview_text_for_user(@user_for_overview_text)
-      @overview_text_for_user.should be_nil
-
-      @overview_text_for_user = DataObject.find(dato_id, :include => :toc_items)
-      @overview_text_for_user.toc_items = [TocItem.brief_summary]
-      @overview_text_for_user.save
-      @overview_text_for_user.update_solr_index
-      @overview_text_for_user = @taxon_concept.overview_text_for_user(@user_for_overview_text)
-      @overview_text_for_user.id.should == dato_id
-      @overview_text_for_user.toc_items.first.should == TocItem.brief_summary
+      overview_text_for_user = @testy[:only_overview].overview_text_for_user(@user_for_overview_text)
+      overview_text_for_user.should be_nil
     end
     it 'should not return data objects of descendants' do
       parent_tc = @taxon_concept.published_hierarchy_entries.first.parent.taxon_concept
@@ -351,7 +324,7 @@ describe TaxonConcept do
   end
 
   it 'should create a common name as a preferred common name, if there are no other common names for the taxon' do
-    tc = @tc_with_no_common_names # TODO - this depends on the order of tests.
+    tc = @tc_with_no_starting_common_names
     agent = Agent.last
     tc.add_common_name_synonym('A name', :agent => agent, :language => Language.english)
     tc.quick_common_name.should == "A name"
@@ -412,8 +385,8 @@ describe TaxonConcept do
     concept.entry.name.string.should == vetted_name.string
 
     # now remove the vetted hierarchy entry and make sure the first entry is the chosen one
-    he_vetted.destroy
-    concept = TaxonConcept.find(concept.id) # cheating so I can flush all the instance variables
+    HierarchyEntry.delete(he_vetted) rescue nil # #destroy does not work with acts_as_tree, it seems.
+    concept.reload
     concept.entry.id.should == he_unvetted.id
     concept.entry.name.string.should == unvetted_name.string
   end
@@ -456,9 +429,8 @@ describe TaxonConcept do
   end
 
   it "add common name should create synonym" do
-    @synonym.class.should == Synonym
-    @synonym.name.should == @name
-    @synonym.agents.uniq.should == [@curator.agent]
+    @testy[:synonym].class.should == Synonym
+    @testy[:synonym].name.should == @name
   end
 
   it "add common name should create taxon_concept_name" do
@@ -585,80 +557,37 @@ describe TaxonConcept do
   end
 
   it 'should return an exemplar' do
-    if exemplar_exists = @taxon_concept.taxon_concept_exemplar_image
-      exemplar_exists.destroy
-    end
-    image = DataObject.gen(:data_type_id => DataType.image.id, :data_rating => 0.1, :published => 1)
-    dohe = DataObjectsHierarchyEntry.gen(:data_object => image, :hierarchy_entry => @taxon_concept.published_hierarchy_entries.first)
-    TaxonConceptExemplarImage.gen(:taxon_concept => @taxon_concept, :data_object => image)
-    @taxon_concept.reload
-    @taxon_concept.exemplar_or_best_image_from_solr.id.should == image.id
+    @testy[:has_one_image].exemplar_or_best_image_from_solr.id.should == @testy[:the_one_image].id
   end
   
   it 'should not return unpublished exemplar image' do
-    if exemplar_exists = @taxon_concept.taxon_concept_exemplar_image
-      exemplar_exists.destroy
-    end
-    image = DataObject.gen(:data_type_id => DataType.image.id, :data_rating => 0.1, :published => 0)
-    dohe = DataObjectsHierarchyEntry.gen(:data_object => image, :hierarchy_entry => @taxon_concept.published_hierarchy_entries.first)
-    TaxonConceptExemplarImage.gen(:taxon_concept => @taxon_concept, :data_object => image)
-    @taxon_concept.reload
-    @taxon_concept.exemplar_or_best_image_from_solr.id.should_not == image.id
+    @testy[:has_one_unpublished_image].exemplar_or_best_image_from_solr.should be_nil
   end
 
   it 'should not return hidden exemplar image' do
-    if exemplar_exists = @taxon_concept.taxon_concept_exemplar_image
-      exemplar_exists.destroy
-    end
-    image = DataObject.gen(:data_type_id => DataType.image.id, :data_rating => 0.1, :published => 0)
-    dohe = DataObjectsHierarchyEntry.gen(:data_object => image, :hierarchy_entry => @taxon_concept.published_hierarchy_entries.first, :visibility => Visibility.invisible)
-    TaxonConceptExemplarImage.gen(:taxon_concept => @taxon_concept, :data_object => image)
-    @taxon_concept.reload
-    @taxon_concept.exemplar_or_best_image_from_solr.id.should_not == image.id
+    @testy[:has_one_hidden_image].exemplar_or_best_image_from_solr.should be_nil
   end
 
   it 'should show details text with no language only to users in the default language' do
     user = User.gen(:language => Language.default)
-    best_text = @taxon_concept.details_text_for_user(user).first
-    best_text.language_id.should == Language.default.id
-    best_text.language_id = 0
-    best_text.data_rating = 5
-    best_text.save
-    best_text.update_solr_index
-    new_best_text = @taxon_concept.details_text_for_user(user).first
-    new_best_text.language_id.should == 0
-    new_best_text.id.should == best_text.id
+    @taxon_concept.details_text_for_user(user).first.language_id.should == Language.default.id
+    best_text = @testy[:no_language_in_toc].details_text_for_user(user).first
+    best_text.language_id.should == 0
     
     user = User.gen(:language => Language.find_by_iso_639_1('fr'))
-    new_best_text = @taxon_concept.overview_text_for_user(user)
-    new_best_text.should == nil
-    
-    # cleaning up
-    best_text.language_id = Language.default.id
-    best_text.save
-    best_text.update_solr_index
+    new_best_text = @testy[:no_language_in_toc].overview_text_for_user(user)
+    new_best_text.should be_nil
   end
 
   it 'should show overview text with no language only to users in the default language' do
     user = User.gen(:language => Language.default)
-    best_text = @taxon_concept.overview_text_for_user(user)
-    best_text.language_id.should == Language.default.id
-    best_text.language_id = 0
-    best_text.data_rating = 5
-    best_text.save
-    best_text.update_solr_index
-    new_best_text = @taxon_concept.overview_text_for_user(user)
+    @taxon_concept.overview_text_for_user(user).language_id.should == Language.default.id
+    new_best_text = @testy[:no_language_in_toc].overview_text_for_user(user)
     new_best_text.language_id.should == 0
-    new_best_text.id.should == best_text.id
     
     user = User.gen(:language => Language.find_by_iso_639_1('fr'))
-    new_best_text = @taxon_concept.overview_text_for_user(user)
-    new_best_text.should == nil
-    
-    # cleaning up
-    best_text.language_id = Language.default.id
-    best_text.save
-    best_text.update_solr_index
+    new_best_text = @testy[:no_language_in_toc].overview_text_for_user(user)
+    new_best_text.should be_nil
   end
 
   it 'should use the name from the specified hierarchy' do

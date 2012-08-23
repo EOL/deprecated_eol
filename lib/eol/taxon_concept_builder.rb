@@ -251,10 +251,12 @@ module EOL
         toc_item[:rights_holder] ||= 'Someone'
         toc_item[:data_rating] ||= 2.5
         toc_item[:language] ||= Language.english
+        toc_item[:language] = nil if toc_item.has_key?(:language_id)
+        toc_item[:language_id] ||= toc_item[:language].id
         build_object_in_event('Text', toc_item[:description], :hierarchy_entry => @he,
                               :toc_item => toc_item[:toc_item], :vetted => toc_item[:vetted],
                               :license => toc_item[:license], :rights_holder => toc_item[:rights_holder],
-                              :data_rating => toc_item[:data_rating], :language => toc_item[:language])
+                              :data_rating => toc_item[:data_rating], :language_id => toc_item[:language_id])
       end
       # We're missing the info items.  Technically, the toc_item would be referenced by looking at the info items (creating any we're
       # missing).  TODO - we should build the info item first and let the toc_item resolve from that.

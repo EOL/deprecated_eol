@@ -432,15 +432,13 @@ class User < Curator
   end
 
   def remember_me_until(time)
-    self.remember_token_expires_at = time
-    self.remember_token = User.hash_password("#{email}--#{remember_token_expires_at}")
-    self.save(false)
+    self.update_column(:remember_token_expires_at, time)
+    self.update_column(:remember_token, User.hash_password("#{email}--#{remember_token_expires_at}"))
   end
 
   def forget_me
-    self.remember_token_expires_at = nil
-    self.remember_token            = nil
-    self.save(false)
+    self.update_column(:remember_token_expires_at, nil)
+    self.update_column(:remember_token, nil)
   end
 
   def content_page_cache_str

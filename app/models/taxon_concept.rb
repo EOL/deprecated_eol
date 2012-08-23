@@ -72,6 +72,8 @@ class TaxonConcept < ActiveRecord::Base
     License
     Visibility
     Resource
+    Vetted
+    Hierarchy
   end
 
   def self.load_for_title_only(load_these)
@@ -121,14 +123,16 @@ class TaxonConcept < ActiveRecord::Base
     sorted_names.each_with_index do |tcn, index|
       lang = tcn.language.blank? ? '' : tcn.language.iso_639_1
       duplicate_check[lang] ||= []
-      sorted_names[index] = nil if duplicate_check[lang].include?(tcn.name.string)
-      duplicate_check[lang] << tcn.name.string
-      name_languages[tcn.name.string] = lang
+      if tcn.name
+        sorted_names[index] = nil if duplicate_check[lang].include?(tcn.name.string)
+        duplicate_check[lang] << tcn.name.string
+        name_languages[tcn.name.string] = lang
+      end
     end
 
     # now removing anything without a language if it exists with a language
     sorted_names.each_with_index do |tcn, index|
-      next if tcn.nil?
+      next if tcn.nil? || tcn.name.nil?
       lang = tcn.language.blank? ? '' : tcn.language.iso_639_1
       sorted_names[index] = nil if lang.blank? && !name_languages[tcn.name.string].blank?
     end
@@ -296,6 +300,16 @@ class TaxonConcept < ActiveRecord::Base
         return he.identifier
       end
     end
+  end
+
+  # Cleans up instance variables in addition to the usual lot.
+  def reload
+    @cached_entry = nil
+    @best_image = nil
+    @best_article = nil
+    @gbif_map_id = nil
+    Rails.cache.delete(TaxonConcept.cached_name_for("best_article_#{self.id}"))
+    super
   end
 
   # Singleton method to fetch the "best available" Hierarchy Entry and store that value.
@@ -895,7 +909,8 @@ class TaxonConcept < ActiveRecord::Base
     # communities are sorted by the most number of members - descending order
     community_ids = communities.map{|c| c.id}.compact
     return [] if community_ids.blank?
-    temp = Member.joins(:community).select("communities.id").group("communities.id").where(["communities.id IN (?)", community_ids.join(',')]).count
+    temp = Member.select("community_id").group("community_id").where(["community_id IN (?)", community_ids]).
+      order('count_community_id DESC').count
     if temp.blank?
       return communities
     else
@@ -1063,10 +1078,9 @@ class TaxonConcept < ActiveRecord::Base
 
   def exemplar_or_best_image_from_solr(selected_hierarchy_entry = nil)
     cache_key = "best_image_#{self.id}"
-    cache_key += "_#{selected_hierarchy_entry.id}" if selected_hierarchy_entry && selected_hierarchy_entry.class == HierarchyEntry
+    cache_key += "_#{selected_hierarchy_entry.id}" if
+      selected_hierarchy_entry && selected_hierarchy_entry.class == HierarchyEntry
     TaxonConcept.prepare_cache_classes
-    Vetted
-    Hierarchy
     @best_image ||= Rails.cache.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 1.days) do
       if published_exemplar = self.published_exemplar_image
         published_exemplar
@@ -1085,7 +1099,7 @@ class TaxonConcept < ActiveRecord::Base
         (best_images.empty?) ? 'none' : best_images.first
       end
     end
-    @best_image = nil if @best_image && (@best_image == 'none' || @best_image.published == 0)
+    @best_image = nil if @best_image && (@best_image == 'none' || ! @best_image.published)
     @best_image
   end
 
@@ -1111,8 +1125,6 @@ class TaxonConcept < ActiveRecord::Base
     overview_toc_item_ids = [TocItem.brief_summary, TocItem.comprehensive_description, TocItem.distribution].collect{ |toc_item| toc_item.id }
     
     TaxonConcept.prepare_cache_classes
-    Vetted
-    Hierarchy
     
     @best_article ||= Rails.cache.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 1.days) do
       return @best_article if @best_article && DataObject.find(@best_article.id).published? 

@@ -7,12 +7,41 @@
 #     $ rake scenarios:show NAME=bootstrap
 #
 #---
-#dependencies: [ :foundation ]
 
 require Rails.root.join('spec', 'eol_spec_helpers')
 require Rails.root.join('spec', 'scenario_helpers')
 # This gives us the ability to build taxon concepts:
 include EOL::RSpec::Helpers
+
+def build_big_tc(testy)
+  build_taxon_concept(
+    :parent_hierarchy_entry_id => testy[:empty_taxon_concept].hierarchy_entries.first.id,
+    :rank            => 'species',
+    :canonical_form  => testy[:canonical_form],
+    :ranked_canonical_form => testy[:ranked_canonical_form],
+    :attribution     => testy[:attribution],
+    :scientific_name => testy[:scientific_name],
+    :italicized      => testy[:italicized],
+    :iucn_status     => testy[:iucn_status],
+    :gbif_map_id     => testy[:gbif_map_id],
+    :map             => {:description => testy[:map_text]},
+    :flash           => [{:description => testy[:video_1_text]}, {:description => testy[:video_2_text]}],
+    :youtube         => [{:description => testy[:video_3_text]}],
+    :comments        => [{:user => testy[:user], :body => testy[:comment_1]},
+                         {:user => testy[:user], :body => testy[:comment_bad]},
+                         {:user => testy[:user], :body => testy[:comment_2]}],
+    :images          => [{:object_cache_url => testy[:image_1], :data_rating => 2},
+                         {:object_cache_url => testy[:image_2], :data_rating => 3},
+                         {:object_cache_url => testy[:image_untrusted], :vetted => Vetted.untrusted},
+                         {:object_cache_url => testy[:image_3], :data_rating => 4},
+                         {:object_cache_url => testy[:image_unknown_trust], :vetted => Vetted.unknown},
+                         {}, {}, {}, {}, {}, {}], # We want more than 10 images, to test pagination, but the details don't mattr
+    :toc             => [{:toc_item => testy[:overview], :description => testy[:overview_text]},
+                         {:toc_item => testy[:brief_summary], :description => testy[:brief_summary_text]},
+                         {:toc_item => testy[:education], :description => testy[:education_text]},
+                         {:toc_item => testy[:toc_item_2]}, {:toc_item => testy[:toc_item_3]}, {:toc_item => testy[:toc_item_3]}]
+  )
+end
 
 # NOTE - Because this can be pre-loaded, Factory strings will NOT be unique by themselves, so we add a little to them
 # (if they need to be unique)
@@ -30,6 +59,10 @@ testy[:overview]        = TocItem.overview
 testy[:overview_text]   = 'This is a test Overview, in all its glory'
 testy[:brief_summary]   = TocItem.brief_summary
 testy[:brief_summary_text] = 'This is a test brief summary.'
+testy[:comprehensive_description] = TocItem.comprehensive_description
+testy[:comprehensive_description_text] = 'This is a test comprehensive description.'
+testy[:distribution]    = TocItem.distribution
+testy[:distribution_text] = 'This is a test distribution text.'
 testy[:education]       = TocItem.education
 testy[:education_text]  = 'This is a test education.'
 testy[:toc_item_2]      = TocItem.gen_if_not_exists(:view_order => 2, :label => "test toc item 2")
@@ -58,33 +91,8 @@ testy[:comment_1]       = 'This is totally awesome'
 testy[:comment_bad]     = 'This is totally inappropriate'
 testy[:comment_2]       = 'And I can comment multiple times'
 
-tc = build_taxon_concept(
-  :parent_hierarchy_entry_id => testy[:empty_taxon_concept].hierarchy_entries.first.id,
-  :rank            => 'species',
-  :canonical_form  => testy[:canonical_form],
-  :ranked_canonical_form => testy[:ranked_canonical_form],
-  :attribution     => testy[:attribution],
-  :scientific_name => testy[:scientific_name],
-  :italicized      => testy[:italicized],
-  :iucn_status     => testy[:iucn_status],
-  :gbif_map_id     => testy[:gbif_map_id],
-  :map             => {:description => testy[:map_text]},
-  :flash           => [{:description => testy[:video_1_text]}, {:description => testy[:video_2_text]}],
-  :youtube         => [{:description => testy[:video_3_text]}],
-  :comments        => [{:user => testy[:user], :body => testy[:comment_1]},
-                       {:user => testy[:user], :body => testy[:comment_bad]},
-                       {:user => testy[:user], :body => testy[:comment_2]}],
-  :images          => [{:object_cache_url => testy[:image_1], :data_rating => 2},
-                       {:object_cache_url => testy[:image_2], :data_rating => 3},
-                       {:object_cache_url => testy[:image_untrusted], :vetted => Vetted.untrusted},
-                       {:object_cache_url => testy[:image_3], :data_rating => 4},
-                       {:object_cache_url => testy[:image_unknown_trust], :vetted => Vetted.unknown},
-                       {}, {}, {}, {}, {}, {}], # We want more than 10 images, to test pagination, but the details don't mattr
-  :toc             => [{:toc_item => testy[:overview], :description => testy[:overview_text]},
-                       {:toc_item => testy[:brief_summary], :description => testy[:brief_summary_text]},
-                       {:toc_item => testy[:education], :description => testy[:education_text]},
-                       {:toc_item => testy[:toc_item_2]}, {:toc_item => testy[:toc_item_3]}, {:toc_item => testy[:toc_item_3]}]
-)
+tc = build_big_tc(testy)
+
 testy[:id]            = tc.id
 # The curator factory cleverly hides a lot of stuff that User.gen can't handle:
 testy[:curator]       = build_curator(tc)
@@ -133,6 +141,17 @@ testy[:taxon_concept_with_no_common_names] = build_taxon_concept(
   :common_names => [],
   :toc => [ {:toc_item => TocItem.common_names} ])
 
+# Common names to be added to this one, but starts with none:
+testy[:taxon_concept_with_no_starting_common_names] = build_taxon_concept(
+  :common_names => [],
+  :toc => [ {:toc_item => TocItem.common_names} ])
+
+hierarchy = Hierarchy.default
+testy[:kingdom] = HierarchyEntry.gen(:hierarchy => hierarchy, :parent_id => 0)
+testy[:phylum ]= HierarchyEntry.gen(:hierarchy => hierarchy, :parent_id => testy[:kingdom].id)
+testy[:order] = HierarchyEntry.gen(:hierarchy => hierarchy, :parent_id => testy[:phylum].id)
+testy[:species] = build_taxon_concept(:parent_hierarchy_entry_id => testy[:order].id)
+
 testy[:tcn_count] = TaxonConceptName.count
 testy[:syn_count] = Synonym.count
 testy[:name_count] = Name.count
@@ -157,5 +176,40 @@ testy[:unpublished_taxon_concept] = TaxonConcept.gen(:published => 0, :supercedu
 testy[:before_all_check] = User.gen(:username => 'testy_scenario')
 
 testy[:taxon_concept] = TaxonConcept.find(testy[:id]) # This just makes *sure* everything is loaded...
+
+testy[:no_language_in_toc] = build_taxon_concept(
+  :toc => [{:toc_item => testy[:overview], :description => 'no language', :language_id => 0, :data_rating => 5},
+           {:toc_item => testy[:brief_summary], :description => 'no language', :language_id => 0, :data_rating => 5}])
+
+testy[:only_overview] = build_taxon_concept(
+  :toc => [{:toc_item => testy[:overview], :description => testy[:overview_text], :data_rating => 5}])
+testy[:only_brief_summary] = build_taxon_concept(
+  :toc => [{:toc_item => testy[:brief_summary], :description => testy[:brief_summary_text], :data_rating => 5}])
+testy[:only_comp_desc] = build_taxon_concept(
+  :toc => [{:toc_item => testy[:comprehensive_description], :description => testy[:comprehensive_description_text],
+  :data_rating => 5}])
+testy[:only_distribution] = build_taxon_concept(
+  :toc => [{:toc_item => testy[:distribution], :description => testy[:distribution_text], :data_rating => 5}])
+
+testy[:has_one_image] = build_taxon_concept(:images => {})
+testy[:the_one_image] = DataObject.gen(:data_type_id => DataType.image.id, :data_rating => 0.1, :published => 1)
+dohe = DataObjectsHierarchyEntry.gen(:data_object => testy[:the_one_image],
+                                     :hierarchy_entry => testy[:has_one_image].published_hierarchy_entries.first)
+TaxonConceptExemplarImage.gen(:taxon_concept => testy[:has_one_image], :data_object => testy[:the_one_image])
+
+testy[:has_one_unpublished_image] = build_taxon_concept(:images => {})
+testy[:the_one_unpublished_image] = DataObject.gen(:data_type_id => DataType.image.id, :data_rating => 0.1, :published => 0)
+dohe = DataObjectsHierarchyEntry.gen(:data_object => testy[:the_one_unpublished_image], :hierarchy_entry =>
+                                     testy[:has_one_unpublished_image].published_hierarchy_entries.first)
+TaxonConceptExemplarImage.gen(:taxon_concept => testy[:has_one_unpublished_image],
+                              :data_object => testy[:the_one_unpublished_image])
+
+testy[:has_one_hidden_image] = build_taxon_concept(:images => {})
+testy[:the_one_hidden_image] = DataObject.gen(:data_type_id => DataType.image.id, :data_rating => 0.1, :published => 1)
+dohe = DataObjectsHierarchyEntry.gen(:data_object => testy[:the_one_hidden_image],
+                                     :hierarchy_entry => testy[:has_one_hidden_image].published_hierarchy_entries.first,
+                                     :visibility => Visibility.invisible)
+TaxonConceptExemplarImage.gen(:taxon_concept => testy[:has_one_hidden_image],
+                              :data_object => testy[:the_one_hidden_image])
 
 EOL::TestInfo.save('testy', testy)

@@ -123,7 +123,7 @@ describe User do
     user.errors[:given_name].to_s.should =~ /can't be blank/
     user.given_name = "Oauth"
     user.valid? # run validations again - will still fail due to other errors but we're just checking given name
-    user.errors[:given_name].to_s.should be_nil
+    user.errors.include?(:given_name).should_not be_true
   end
 
   it 'should fail validation if the email is in the wrong format' do
@@ -198,11 +198,10 @@ describe User do
   it 'should update the "watch" collection if member updates the full name' do
     full_name = @user.full_name
     @user.watch_collection.name.should == "#{@user.full_name.titleize}'s Watch List"
-    @user.given_name = 'lazy'
-    @user.family_name = 'smurf'
+    @user.given_name += 'lazy'
+    @user.family_name += 'smurf'
     @user.save
     @user.reload
-    @user.run_callbacks(:after_save)
     @user.full_name.should_not == full_name
     @user.watch_collection.name.should == "#{@user.full_name.titleize}'s Watch List"
   end

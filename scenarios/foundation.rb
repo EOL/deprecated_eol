@@ -2,11 +2,7 @@
 # sets up a basic foundation - enough data to run the application, but no content
 truncate_all_tables(:skip_empty_tables => false) rescue nil # We do this to make sure the IDs on all of the tables start at 1.
 
-old_cache_value = nil
-if $CACHE
-  Rails.cache.clear # because we are resetting everything!  Sometimes, say, iucn is set.
-  old_cache_value = Rails.cache.clone
-end
+Rails.cache.clear # because we are resetting everything!  Sometimes, say, iucn is set.
 
 original_index_records_on_save_value = $INDEX_RECORDS_IN_SOLR_ON_SAVE
 $INDEX_RECORDS_IN_SOLR_ON_SAVE = false
@@ -287,7 +283,6 @@ he = HierarchyEntry.gen(:hierarchy => default_hierarchy)
 DataObjectsHierarchyEntry.gen(:data_object => d, :hierarchy_entry => he, :vetted => Vetted.trusted, :visibility => Visibility.visible)
 5.times { RandomHierarchyImage.gen(:hierarchy => default_hierarchy, :hierarchy_entry => he, :data_object => d) }
 
-Rails.cache = old_cache_value.clone if old_cache_value
-Rails.cache.clear
+Rails.cache.clear # TODO - attempt removal; if tests still pass, leave it out. I think this is redundant.
 
 $INDEX_RECORDS_IN_SOLR_ON_SAVE = original_index_records_on_save_value

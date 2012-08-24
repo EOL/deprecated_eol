@@ -137,15 +137,7 @@ describe 'Admin Pages' do
     body.should include @toc_item.label
   end
 
-  it "should get data from a form and display user activity" do
-    # TODO: failing at the moment but the actual page is working fine
-    # login_as(@user)
-    # visit("/administrator/user/view_user_activity", :method => :post, :user_id => @user_with_activity.id)
-    # body.should have_tag("form[action=/administrator/user/view_user_activity]")
-    # body.should include "User Activity"
-    # body.should include @user_with_activity.family_name
-    # body.should include @activity.name
-  end
+  it "should get data from a form and display user activity"
 
   it "should list activity combinations in a 5-min. duration" do
     login_as(@user)
@@ -159,4 +151,5 @@ describe 'Admin Pages' do
     visit("/administrator/user/view_common_combinations", :activity_id => @activity.id)
     body.should include "List of activity combinations in a 5-min. duration\nfor activity \n<b>\n#{@activity.name}\n</b>\n"
   end
+
 end

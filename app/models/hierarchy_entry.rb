@@ -154,12 +154,12 @@ class HierarchyEntry < ActiveRecord::Base
   def ancestors(opts = {}, cross_reference_hierarchy = nil)
     return @ancestors unless @ancestors.nil?
     # TODO: reimplement completing a partial hierarchy with another curated hierarchy
-    add_include = [ :taxon_concept ]
-    add_select = { :taxon_concepts => '*' }
-    unless opts[:include_stats].blank?
-      add_include << :hierarchy_entry_stat
-      add_select[:hierarchy_entry_stats] = '*'
-    end
+    # add_include = [ :taxon_concept ]
+    # add_select = { :taxon_concepts => '*' }
+    # unless opts[:include_stats].blank?
+    #   add_include << :hierarchy_entry_stat
+    #   add_select[:hierarchy_entry_stats] = '*'
+    # end
     ancestor_ids = flattened_ancestors.collect{ |f| f.ancestor_id }
     ancestor_ids << self.id
     # TODO: core_relationships(:add_include => add_include, :add_select => add_select)

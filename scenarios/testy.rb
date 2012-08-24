@@ -43,10 +43,32 @@ def build_big_tc(testy)
   )
 end
 
-# NOTE - Because this can be pre-loaded, Factory strings will NOT be unique by themselves, so we add a little to them
-# (if they need to be unique)
+def build_tc_with_only_one_toc_item(type, testy)
+  testy["only_#{type}".to_sym] = build_taxon_concept(:parent_hierarchy_entry_id => testy[:exemplar].id,
+    :toc => [{:toc_item => testy[type.to_sym], :description => testy["#{type}_text".to_sym], :data_rating => 5}])
+  last_toc_dato = DataObjectsTableOfContent.last.data_object
+  CuratedDataObjectsHierarchyEntry.new(:data_object_id => last_toc_dato.id,
+                                       :data_object_guid => last_toc_dato.guid,
+                                       :hierarchy_entry_id => testy[:exemplar].entry.id,
+                                       :visibility => Visibility.invisible,
+                                       :vetted => Vetted.untrusted,
+                                       :user_id => 1).save
+end
+
+def build_tc_with_one_image(testy, tc_name, img_name, options = {})
+  options[:published] ||= 1
+  options[:visibility] ||= Visibility.visible
+  testy[tc_name] = build_taxon_concept(:images => {})
+  testy[img_name] = DataObject.gen(:data_type_id => DataType.image.id, :data_rating => 0.1,
+                                   :published => options[:published])
+  dohe = DataObjectsHierarchyEntry.gen(:data_object => testy[img_name], :visibility => options[:visibility],
+                                       :hierarchy_entry => testy[tc_name].published_hierarchy_entries.first)
+  TaxonConceptExemplarImage.gen(:taxon_concept => testy[tc_name], :data_object => testy[img_name])
+  testy[tc_name].reindex_in_solr
+end
 
 load_foundation_cache
+raise "** ERROR: testy scenario didn't load the foundation cache" unless Vetted.trusted && Agent.iucn && Rank.order
 
 testy = {}
 
@@ -150,7 +172,7 @@ hierarchy = Hierarchy.default
 testy[:kingdom] = HierarchyEntry.gen(:hierarchy => hierarchy, :parent_id => 0)
 testy[:phylum ]= HierarchyEntry.gen(:hierarchy => hierarchy, :parent_id => testy[:kingdom].id)
 testy[:order] = HierarchyEntry.gen(:hierarchy => hierarchy, :parent_id => testy[:phylum].id)
-testy[:species] = build_taxon_concept(:parent_hierarchy_entry_id => testy[:order].id)
+testy[:species] = build_taxon_concept(:parent_hierarchy_entry_id => testy[:order].id, :rank => 'species')
 
 testy[:tcn_count] = TaxonConceptName.count
 testy[:syn_count] = Synonym.count
@@ -181,35 +203,15 @@ testy[:no_language_in_toc] = build_taxon_concept(
   :toc => [{:toc_item => testy[:overview], :description => 'no language', :language_id => 0, :data_rating => 5},
            {:toc_item => testy[:brief_summary], :description => 'no language', :language_id => 0, :data_rating => 5}])
 
-testy[:only_overview] = build_taxon_concept(
-  :toc => [{:toc_item => testy[:overview], :description => testy[:overview_text], :data_rating => 5}])
-testy[:only_brief_summary] = build_taxon_concept(
-  :toc => [{:toc_item => testy[:brief_summary], :description => testy[:brief_summary_text], :data_rating => 5}])
-testy[:only_comp_desc] = build_taxon_concept(
-  :toc => [{:toc_item => testy[:comprehensive_description], :description => testy[:comprehensive_description_text],
-  :data_rating => 5}])
-testy[:only_distribution] = build_taxon_concept(
-  :toc => [{:toc_item => testy[:distribution], :description => testy[:distribution_text], :data_rating => 5}])
+build_tc_with_only_one_toc_item('overview', testy)
+build_tc_with_only_one_toc_item('brief_summary', testy)
+build_tc_with_only_one_toc_item('comprehensive_description', testy)
+build_tc_with_only_one_toc_item('distribution', testy)
 
-testy[:has_one_image] = build_taxon_concept(:images => {})
-testy[:the_one_image] = DataObject.gen(:data_type_id => DataType.image.id, :data_rating => 0.1, :published => 1)
-dohe = DataObjectsHierarchyEntry.gen(:data_object => testy[:the_one_image],
-                                     :hierarchy_entry => testy[:has_one_image].published_hierarchy_entries.first)
-TaxonConceptExemplarImage.gen(:taxon_concept => testy[:has_one_image], :data_object => testy[:the_one_image])
+build_tc_with_one_image(testy, :has_one_image, :the_one_image)
+build_tc_with_one_image(testy, :has_one_unpublished_image, :the_one_unpublished_image, :published => 0)
+build_tc_with_one_image(testy, :has_one_unpublished_image, :the_one_unpublished_image, :visibility => Visibility.invisible)
 
-testy[:has_one_unpublished_image] = build_taxon_concept(:images => {})
-testy[:the_one_unpublished_image] = DataObject.gen(:data_type_id => DataType.image.id, :data_rating => 0.1, :published => 0)
-dohe = DataObjectsHierarchyEntry.gen(:data_object => testy[:the_one_unpublished_image], :hierarchy_entry =>
-                                     testy[:has_one_unpublished_image].published_hierarchy_entries.first)
-TaxonConceptExemplarImage.gen(:taxon_concept => testy[:has_one_unpublished_image],
-                              :data_object => testy[:the_one_unpublished_image])
-
-testy[:has_one_hidden_image] = build_taxon_concept(:images => {})
-testy[:the_one_hidden_image] = DataObject.gen(:data_type_id => DataType.image.id, :data_rating => 0.1, :published => 1)
-dohe = DataObjectsHierarchyEntry.gen(:data_object => testy[:the_one_hidden_image],
-                                     :hierarchy_entry => testy[:has_one_hidden_image].published_hierarchy_entries.first,
-                                     :visibility => Visibility.invisible)
-TaxonConceptExemplarImage.gen(:taxon_concept => testy[:has_one_hidden_image],
-                              :data_object => testy[:the_one_hidden_image])
+flatten_hierarchies
 
 EOL::TestInfo.save('testy', testy)

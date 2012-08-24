@@ -174,9 +174,9 @@ class Resource < ActiveRecord::Base
       file_url = accesspoint_url
     end
     status, response_message = ContentServer.upload_resource(file_url, self.id)
-    if status == 'success'
-      self.notes = nil  # reset the notes which may contain previous validation failures
-      self.resource_status = response_message
+    if status == ResourceStatus.validated
+      self.notes = response_message  # reset the notes which may contain previous validation failures
+      self.resource_status = ResourceStatus.validated
     else
       if response_message
         self.notes = response_message
@@ -187,7 +187,7 @@ class Resource < ActiveRecord::Base
       end
     end
     self.save!
-    return resource_status
+    return self.resource_status
   end
 
   def from_DiscoverLife?

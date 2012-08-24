@@ -77,22 +77,6 @@ describe TaxonConcept do
     @taxon_media_parameters[:data_type_ids] = DataType.image_type_ids + DataType.video_type_ids + DataType.sound_type_ids
     @taxon_media_parameters[:return_hierarchically_aggregated_objects] = true
     
-    if @user_for_overview_text = User.find_by_username('overview_text_for_user')
-      @overview_text_for_user = @taxon_concept.overview_text_for_user(@user_for_overview_text)
-    else
-      flatten_hierarchies
-      @user_for_overview_text = User.gen(:username => 'overview_text_for_user')
-      @overview_text_for_user = @taxon_concept.overview_text_for_user(@user_for_overview_text)
-      parent_he = @taxon_concept.published_hierarchy_entries.first.parent
-      CuratedDataObjectsHierarchyEntry.new(:data_object_id => @overview_text_for_user.id,
-                                           :data_object_guid => @overview_text_for_user.guid,
-                                           :hierarchy_entry => parent_he,
-                                           :visibility => Visibility.invisible,
-                                           :vetted => Vetted.untrusted,
-                                           :user_id => 1).save
-      @overview_text_for_user.update_solr_index
-    end
-
     EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
   end
 
@@ -196,37 +180,32 @@ describe TaxonConcept do
 
   describe '#overview_text_for_user' do
     it 'should return single text object' do
-      @overview_text_for_user.should be_a(DataObject)
-      @overview_text_for_user.is_text?.should be_true
+      overview_text_for_user = @testy[:only_brief_summary].overview_text_for_user(@testy[:user])
+      overview_text_for_user.should be_a(DataObject)
+      overview_text_for_user.is_text?.should be_true
     end
     it 'should only return data object with TocItem.brief_summary, TocItem.comprehensive_description, or TocItem.distribution' do
-      overview_text_for_user = @testy[:only_brief_summary].overview_text_for_user(@user_for_overview_text)
+      overview_text_for_user = @testy[:only_brief_summary].overview_text_for_user(@testy[:user])
       overview_text_for_user.toc_items.first.should == TocItem.brief_summary
       overview_text_for_user.description.should == @testy[:brief_summary_text]
 
-      overview_text_for_user = @testy[:only_comp_desc].overview_text_for_user(@user_for_overview_text)
+      overview_text_for_user = @testy[:only_comprehensive_description].overview_text_for_user(@testy[:user])
       overview_text_for_user.toc_items.first.should == TocItem.comprehensive_description
       overview_text_for_user.description.should == @testy[:comprehensive_description_text]
 
-      overview_text_for_user = @testy[:only_distribution].overview_text_for_user(@user_for_overview_text)
+      overview_text_for_user = @testy[:only_distribution].overview_text_for_user(@testy[:user])
       overview_text_for_user.toc_items.first.should == TocItem.distribution
       overview_text_for_user.description.should == @testy[:distribution_text]
 
-      overview_text_for_user = @testy[:only_overview].overview_text_for_user(@user_for_overview_text)
+      overview_text_for_user = @testy[:only_overview].overview_text_for_user(@testy[:user])
       overview_text_for_user.should be_nil
     end
     it 'should not return data objects of descendants' do
       parent_tc = @taxon_concept.published_hierarchy_entries.first.parent.taxon_concept
-      overview = parent_tc.overview_text_for_user(@user_for_overview_text)
+      overview = parent_tc.overview_text_for_user(@testy[:user])
       overview.should be_nil
     end
-    it 'should not return data objects with hidden associations to taxon concept unless user is a curator' do
-      tc = @taxon_concept.published_hierarchy_entries.first.parent.taxon_concept
-      overview = tc.overview_text_for_user(@user_for_overview_text)
-      overview.should be_nil
-      overview = tc.overview_text_for_user(@curator)
-      overview.should == @overview_text_for_user
-    end
+    it 'should not return data objects with hidden associations to taxon concept unless user is a curator'
   end
 
   it 'should return available text objects for given toc items in order of preference and rating' do

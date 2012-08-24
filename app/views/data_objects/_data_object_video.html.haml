@@ -16,8 +16,9 @@
 
   -# for video/mp4
   - if data_object.mime_type == MimeType.mp4
-    %embed{:src => "/flvplayer.swf", :pluginspage => "http://www.macromedia.com/go/getflashplayer", :type => "application/x-shockwave-flash",
-           :height => "355", :flashvars => "file=#{data_object.video_url}&displayheight=355&usefullscreen=false&autostart=true&usecaptions=false", :width => "450"}
+    %video{ :src => "http://content62.eol.org/content/2012/04/10/06/69420.mp4", :controls => true, :autoplay => true, :width => "540" }
+      %embed{:src => "/flvplayer.swf", :pluginspage => "http://www.macromedia.com/go/getflashplayer", :type => "application/x-shockwave-flash",
+        :height => "355", :flashvars => "file=http://content62.eol.org/content/2012/04/10/06/69420.mp4&displayheight=355&usefullscreen=false&autostart=true&usecaptions=false", :width => "450"}
 
   -# for video/x-ms-wmv and video/mpeg
   - if data_object.mime_type == MimeType.wmv || data_object.mime_type == MimeType.mpeg

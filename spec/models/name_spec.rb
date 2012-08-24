@@ -109,10 +109,10 @@ describe Name do
 
     it "should take a common_name_string, and return new name instance)" do
       count = Name.count
-      name = Name.create_common_name("Blue \t  jay") # Note the addition of whitespace, which should be stripped
-      name.string.should == 'Blue jay'
-      name.canonical_form.string.should == 'Blue jay'
-      name.italicized.should == '<i>Blue jay</i>'
+      name = Name.create_common_name("Grey \t  jay") # Note the addition of whitespace, which should be stripped
+      name.string.should == 'Grey jay'
+      name.canonical_form.string.should == 'Grey jay'
+      name.italicized.should == '<i>Grey jay</i>'
     end
 
     it "should be able to modify existing common name if clean name matches" do
@@ -189,7 +189,7 @@ describe Name do
   describe  "::find_by_string" do
     it "should return a name" do
       name = Name.find_by_string(" Some           Name Auth,     1923  ")
-      name.should == @name
+      name.string.should == @name.string
     end
   end
 

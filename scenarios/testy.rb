@@ -62,7 +62,7 @@ def build_tc_with_one_image(testy, tc_name, img_name, options = {})
   testy[img_name] = DataObject.gen(:data_type_id => DataType.image.id, :data_rating => 0.1,
                                    :published => options[:published])
   dohe = DataObjectsHierarchyEntry.gen(:data_object => testy[img_name], :visibility => options[:visibility],
-                                       :hierarchy_entry => testy[tc_name].published_hierarchy_entries.first)
+                                       :hierarchy_entry_id => testy[tc_name].entry.id)
   TaxonConceptExemplarImage.gen(:taxon_concept => testy[tc_name], :data_object => testy[img_name])
   testy[tc_name].reindex_in_solr
 end
@@ -210,7 +210,7 @@ build_tc_with_only_one_toc_item('distribution', testy)
 
 build_tc_with_one_image(testy, :has_one_image, :the_one_image)
 build_tc_with_one_image(testy, :has_one_unpublished_image, :the_one_unpublished_image, :published => 0)
-build_tc_with_one_image(testy, :has_one_unpublished_image, :the_one_unpublished_image, :visibility => Visibility.invisible)
+build_tc_with_one_image(testy, :has_one_hidden_image, :the_one_hidden_image, :visibility => Visibility.invisible)
 
 flatten_hierarchies
 

@@ -2890,6 +2890,7 @@ tl:
   sci_name_avg_table_head: Pamantungan ng Pangalang Pang-agham
   scientific_name: Pangalang Pang-agham
   search: Maghanap
+  search_by_provider_method_description_with_link: "kuhanin ang mga ID ng pahina ng EOL na nabigyan ng isang ID_ng_hirarkiya ng tagapagbigay at ang pansariling natatangigng pangkilala ng tagapagbigay<br />(halimbawa, hanapin ang ID ng pahina ng EOL na para sa sa ITIS TSN 180542: %{link})"
   search_by_term_page_title: "Paghahanap: %{term}"
   search_field_common_name: Karaniwang Pangalan
   search_field_label: Hanapin sa EOL

@@ -2896,6 +2896,7 @@ mk:
   sci_name_avg_table_head: Научно име (прос.)
   scientific_name: Научно име
   search: Пребарај
+  search_by_provider_method_description_with_link: "добијте ја назнаката на страница на EOL кога е познат hierarchy_id и единствената назнака на самиот добавувач<br />(на пр. пребарување на назнаката на страница на EOL за ITIS TSN 180542: %{link})"
   search_by_term_page_title: "Пребарување: %{term}"
   search_field_common_name: Тривијално име
   search_field_label: Пребарување по EOL

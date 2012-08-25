@@ -134,7 +134,7 @@ ar:
         pages_with_image: صفحات تضم صور
         pages_with_image_no_text: صفحات تضم صور ولكن بدون نص
         pages_with_map: صفحات تضم خرائط
-        pages_with_score_10_to_39: صفحات ذات تقييم 10-39
+        pages_with_score_10_to_39: صفحات ذات تقييم 10-40
         pages_with_score_less_than_10: صفحات ذات تقييم أقل من 10
         pages_with_sound: صفحات تضم مقاطع صوتية
         pages_with_text: صفحات تضم نص
@@ -288,13 +288,13 @@ ar:
             accesspoint_url: 
               blank: لا يمكن تركه خاليًا، إلا إذا قمت بتحميل ملف لمصدر عوضًا عن ذلك
               inaccessible: يتعذر الوصول إليه، يجب أن يتمكن العامة من الوصول إلى العنوان الإلكتروني
-              invalid: غير صالح،  يجب أن يشير إلى ملف بصيغة GZIP، أو TAR، أو XML.GZ.
+              invalid: غير صالح،  يجب أن يشير إلى ملف بصيغة XML، XML.GZIP، XML.GZ أو ZIP
             dataset: 
               blank: لا يمكن تركه خاليًا، إلا إذا قمت بإضافة عنوان إلكتروني خاص بمجموعة بيانات عوضًا عن ذلك
-              wrong_type: صيغة خاطئة، يجب أن يكون بصيغة GZIP، أو TAR، أو XML.
+              wrong_type: صيغة خاطئة، يجب أن يكون بصيغة GZIP، TAR، ZIP أو ملف XML
             dwc_archive_url: 
               inaccessible: يتعذر الوصول إليه، يجب أن يتمكن العامة من الوصول إلى العنوان الإلكتروني
-              invalid: غير صالح،  يجب أن يشير إلى ملف بصيغة GZIP، أو TAR، أو XML.GZ.
+              invalid: غير صالح،  يجب أن يشير إلى ملف بصيغة TAR.GZIP، TAR.GZ، TGZ أو ZIP
       template: 
         body: "تعذر التحقق من الخانات التالية:"
         header: 
@@ -650,6 +650,25 @@ ar:
   admin_user_delete_successful_notice: تم حذف المستخدم
   admin_user_hide_successful_notice: تم إخفاء المستخدم
   admin_user_unhide_successful_notice: تم إظهار المستخدم
+  admins: 
+    eol_statistics: 
+      content_partners: 
+        menu_link: شركاء المحتوى
+        page_header: إحصائيات شريك المحتوى
+        page_title: "الإدارة: إحصائيات شركاء المحتوى"
+      curators: 
+        menu_link: إحصائيات المشرف
+        page_header: إحصاءات المشرف
+        page_title: "الإدارة: إحصاءات المشرف"
+      data_objects: 
+        menu_link: عناصر البيانات
+        page_header: إحصائيات عناصر البيانات
+        page_title: "الإدارة: إحصائيات عناصر البيانات"
+      index: 
+        menu_link: الإحصائيات الإجمالية
+        page_header: الإحصائيات الإجمالية
+        page_title: "الإدارة: الإحصائيات الإجمالية"
+        table_caption: تم إنشاء الإحصائيات الإجمالية للموقع في %{created_at_time}
   agent: وكيل
   all: الكل
   all_apis_return_by_default_an_xml_response: "تقدم جميع واجهات برمجة التطبيقات استجابة بصيغة لغة الترميز القابلة للامتداد (إكس إم إل)، يمكن تنفيذ طرق واجهة برمجة التطبيقات بدون إضافة امتداد يحدد الصيغة لعرض استجابة بصيغة لغة الترميز القابلة للامتداد (إكس إم إل)، وسوف يؤدي إضافة امتداد لغة الترميز القابلة للامتداد (.XML) إلى استجابة مماثلة:"
@@ -1305,6 +1324,61 @@ ar:
   data_usage_reports: تقارير استخدام البيانات
   date_caps: التاريخ
   date_uploaded: تحميل التاريخ
+  datepicker: 
+    close: أغلق
+    current: اليوم
+    day_names: 
+      - الأحد
+      - الاثنين
+      - الثلاثاء
+      - الأربعاء
+      - الخميس
+      - الجمعة
+      - السبت
+    day_names_min: 
+      - الأحد
+      - الإثنين
+      - الثلاثاء
+      - الأربعاء
+      - الخميس
+      - الجمعة
+      - السبت
+    day_names_short: 
+      - الأحد
+      - الإثنين
+      - الثلاثاء
+      - الأربعاء
+      - الخميس
+      - الجمعة
+      - السبت
+    month_names: 
+      - كانون الثاني/يناير
+      - شباط/فبراير
+      - آذار/مارس
+      - نيسان/أبريل
+      - أيار/مايو
+      - حزيران/يونيه
+      - تموز/يوليه
+      - آب/أغسطس
+      - أيلول/سبتمبر
+      - تشرين الأول/أكتوبر
+      - تشرين الثاني/نوفمبر
+      - كانون الأول/ديسمبر
+    month_names_short: 
+      - يناير
+      - فبراير
+      - مارس
+      - أبريل
+      - مايو
+      - يونيو
+      - يوليو
+      - أغسطس
+      - سبتمبر
+      - أكتوبر
+      - نوفمبر
+      - ديسمبر
+    next: التالي
+    previous: السابق
   dato_create_cancel: إلغاء
   dato_create_user_text_error: عفوًا، حدث خطأ، تعذر إضافة المقال.
   dato_create_user_text_missing_taxon_id_exception: يتعذر تكوين عنصر بيانات نصي أو عنصر بيانات خاص بالمستخدمين إذا كانت الأصنوفة تساوي لا شيء.
@@ -1643,6 +1717,8 @@ ar:
         source_url: العنوان الإلكتروني الخاص بعنصر البيانات الأصلي
         toc_item: فصل فرعي
       eol_statistic: 
+        date_one: التاريخ
+        date_two: التاريخ
         download_all: الجميع <small>(تضم السجلات من كافة الصفحات)</small>
       google_analytics_partner_summaries: 
         page_views: عدد مشاهدات الصفحة <small>(عدد مرات زيارة الصفحة)</small>
@@ -2781,7 +2857,7 @@ ar:
       bhl: 
         hierarchy_entry: 
           meta_description: نصوص BHL  ومعلومات عن %{scientific_name} حسب تصنيف %{hierarchy_provider} في موسوعة الحياة. اقرأ مقالات من مكتبة تنوع الثرات البيلوجي (BHL) عن %{scientific_name} في موسوعة الحياة.
-          meta_description_with_common_name: نصوص ومعلومات عن %{preferred_common_name} المعروف أيضًا باسم %{scientific_name} حسب تصنيف %{hierarchy_provider} في موسوعة الحياة. اقرأ مقالات عن %{preferred_common_name} في موسوعة الحياة.
+          meta_description_with_common_name: نصوص ومعلومات تراث التنوع البيولوجي عن %{preferred_common_name} المعروف أيضًا باسم %{scientific_name} حسب تصنيف %{hierarchy_provider} في موسوعة الحياة. اقرأ المقالات من مكتبة التنوع البيولوجي (BHL) عن %{preferred_common_name} في موسوعة الحياة.
           meta_title: نصوص مكتبة تراث التنوع الحيوي عن%{scientific_name} حسب تصنيف%{hierarchy_provider}
           meta_title_with_common_name: نصوص مكتبة تراث التنوع الحيوي عن%{preferred_common_name} (%{scientific_name} حسب تصنيف%{hierarchy_provider}
           tweet_text: نصوص من مكتبة تراث التنوع الحيوي عن%{scientific_name} حسب تصنيف%{hierarchy_provider}
@@ -2793,13 +2869,13 @@ ar:
           meta_title: نصوص عن%{scientific_name} حسب تصنيف%{hierarchy_provider}
           meta_title_with_common_name: كتب عن%{preferred_common_name} (%{scientific_name} حسب تصنيف%{hierarchy_provider})
           tweet_text: نصوص عن%{scientific_name} حسب تصنيف%{hierarchy_provider}
-        meta_description: نصوص ومعلومات عن %{scientific_name} في موسوعة الحياة. اقرأ مقالات عن %{scientific_name} في موسوعة الحياة.
-        meta_description_with_common_name: نصوص ومعلومات عن %{preferred_common_name} المعروف أيضا باسم %{scientific_name}  في موسوعة الحياة. اقرأ مقالات عن %{preferred_common_name} في موسوعة الحياة.
-        meta_keywords: معلومات عن %{scientific_name}، نصوص عن %{scientific_name}، مقالات عن %{scientific_name}
-        meta_keywords_with_common_name: معلومات عن %{preferred_common_name}، نصوص عن %{preferred_common_name}، مقالات عن %{scientific_name}
-        meta_title: نصوص عن%{scientific_name}
-        meta_title_with_common_name: مقالات وكتب عن %{preferred_common_name} (%{scientific_name})
-        tweet_text: نصوص عن%{scientific_name}
+        meta_description: كتب، نصوص ومعلومات ومراجع عن %{scientific_name} في موسوعة الحياة. اقرأ الأعمال الأدبية عن %{scientific_name} في موسوعة الحياة.
+        meta_description_with_common_name: كتب، مقالات و مراجع عن %{preferred_common_name} المعروف أيضا باسم %{scientific_name}  في موسوعة الحياة. اقرأ الأعمال الأدبية عن %{preferred_common_name} في موسوعة الحياة.
+        meta_keywords: "%{scientific_name} المقالات،%{scientific_name} الكتب،%{scientific_name} المراجع الأدبية،%{scientific_name} literature"
+        meta_keywords_with_common_name: "%{preferred_common_name} المقالات،%{preferred_common_name} الكتب،%{preferred_common_name} الأدبيات،%{scientific_name} المقالات،%{scientific_name} الكتب،%{scientific_name} المراجع الأدبية،%{scientific_name} الأدبيات"
+        meta_title: المقالات والكتب حول %{scientific_name}
+        meta_title_with_common_name: المقالات والكتب حول %{preferred_common_name} (%{scientific_name})
+        tweet_text: المقالات والكتب عن %{scientific_name}
     maps: 
       show: 
         hierarchy_entry: 
@@ -2807,8 +2883,8 @@ ar:
           meta_description_with_common_name: أين يوجد %{preferred_common_name}، وأين يعيش؟ معلومات جغرافية عن %{scientific_name} حسب تصنيف %{hierarchy_provider}، تضم المكان الذي يعيش فيه وموطنه الأصلي.
           meta_title: خرائط لـ%{scientific_name} حسب تصنيف%{hierarchy_provider}
           meta_title_with_common_name: خرائط لـ%{preferred_common_name} (%{scientific_name} حسب تصنيف%{hierarchy_provider})
-          tweet_text: خرائط لـ%{scientific_name} حسب تصنيف%{hierarchy_provider}
-        meta_description: معلومات جغرافية حول %{scientific_name}، تضم المكان الذي يعيش فيه وموطنه الأصلي في العالم.
+          tweet_text: خرائط من أجل %{scientific_name} حسب تصنيف %{hierarchy_provider}
+        meta_description: معلومات جغرافية حول %{scientific_name}.الأماكن التي تعيش فيه في العالم.
         meta_description_with_common_name: إين يتواجد %{preferred_common_name}، وأين يعيش؟ معلومات جغرافية حول %{scientific_name}، تضم المكان الذي يعيش فيه وموطنه الأصلي.
         meta_keywords: بيئة %{scientific_name}، وموطنه الأصلي، والمكان الذي يعيش%{scientific_name} فيه.
         meta_keywords_with_common_name: بيئة %{preferred_common_name}، وموطنه الأصلي، والمكان الذي يعيش%{preferred_common_name} فيه.

@@ -15,7 +15,7 @@
 de: 
   0_1_or_2: 0, 1 oder 2
   0_or_1: 0 oder 1
-  a_pipe_delimited_list_of_licenses: eine mit senkrechten Strichen „|“ voneinander getrennte Liste der Lizenzen oder „all“, um die Objekt zu allen Lizenzen zuzuordnen. Mit cc- abgekürzte Listen sind allesamt %{creative_commons_link}-Lizenzen. Für mehr Informationen besuchen Sie bitte ihre Website zu den verschiedenen angebotenen Lizenzen.
+  a_pipe_delimited_list_of_licenses: eine mit senkrechten Strichen „|“ voneinander getrennte Liste der Lizenzen oder „all“, um alle einer vorhandenen Lizenz zugeordneten Objekte zu erhalten. Mit cc- abgekürzte Listen sind allesamt %{creative_commons_link}-Lizenzen. Für mehr Informationen besuchen Sie bitte die jeweilige Website der verschiedenen angebotenen Lizenzen.
   a_pipe_delimited_list_of_spm_info_item_subject_names: „overview“, um den Übersichtstext auszugeben zu lassen (sofern vorhanden); eine mit senkrechten Strichen „|“ voneinander getrennte Liste der SPM-Informationsobjektthemen, um den Text zu den Namen der entsprechenden SPM-Informationsobjektthemen zu erhalten; „all“, um Texte zu jedem Thema zu erhalten. Gibt stets den Übersichtstext als erstes Ergebnis aus (sofern im betreffenden Kontext vorhanden).
   a_taxon: ein Taxon
   a_total_of_comment_were_found_matching_your_criteria: 
@@ -774,7 +774,7 @@ de:
   add_sub_chapter: Unterkapitel hinzufügen
   add_to_a_community: Einer Gemeinschaft hinzufügen
   add_to_my_collection_button: Zu meiner Sammlung hinzufügen
-  added_classifications_ready: Die Daten der ausgewählten Klassifikationen sind zum Verschieben auf eine andere Seite bereit. Klicken Sie entweder „auf eine neue Seite aufteilen“ an oder navigieren Sie zum Reiter „Namen“ auf der Seite, auf der die Daten hingehören, und wählen Sie dort „Klassifikationen zusammenführen“ aus.
+  added_classifications_ready: Die Daten der ausgewählten Klassifikationen sind zum Verschieben auf eine andere Seite bereit. Um den Vorgang abzuschließen, klicken Sie entweder „auf eine neue Seite aufteilen“ an oder navigieren Sie zum Reiter „Namen“ auf der Seite, auf der die Daten hingehören, und wählen Sie dort „Klassifikationen zusammenführen“ aus.
   admin_content_page_active: Veröffentlicht
   admin_content_page_child_new_link: Untergeordnete Seite erstellen
   admin_content_page_create_successful_notice: Die Seite <a href="#%{anchor}"><em>%{page_name}</em></a> wurde erfolgreich erstellt.
@@ -2907,6 +2907,7 @@ de:
   sci_name_avg_table_head: Durchschnittlich vorhandene wissenschaftliche Namen
   scientific_name: Wissenschaftlicher Name
   search: Suche
+  search_by_provider_method_description_with_link: "Die EOL-Seitenkennungen auf Basis einer Hierarchiekennung eines Anbieters und dessen eindeutiger Kennung ermitteln.<br />(Suchen Sie bspw. nach der EOL-Seitenkennung für die ITIS TSN 180542: %{link})"
   search_by_term_page_title: "Suche: %{term}"
   search_field_common_name: Gebräuchlicher Name
   search_field_label: EOL durchsuchen

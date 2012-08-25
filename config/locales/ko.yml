@@ -479,6 +479,7 @@ ko:
   cancel: 취소
   cancel_split: 취소
   cannot_be_empty: 비워둘 수 없습니다.
+  cannot_index_collection_item_type_error: "%{type}에서 모음집 항목을 색인할 수 없습니다."
   change: 바꾸기
   change_rating_to_1_of_5: 5점 중 1점으로 평가 바꾸기
   change_rating_to_2_of_5: 5점 중 2점으로 평가 바꾸기
@@ -487,14 +488,22 @@ ko:
   change_rating_to_5_of_5: 5점 중 5점으로 평가 바꾸기
   choose_collection_header: 모음집 바꾸기
   citation: 인용
+  citing_link: 인용하기
   classifications_hierarchy_column_header: 분류
   classifications_rank_column_header: 순위
+  clear_species_page: 종 문서 지우기
   click: 클릭
   clicked_time: 클릭 시간
   cms_available_in_languages: "이 문서는 다음에 존재합니다:"
   cms_missing_content_title: 잘못된 번역
+  collect_item: 항목 모음
+  collect_items: 항목 모음
+  collection_delete_link: 이 모음집 영구 삭제
   collection_destroyed: 모음집을 삭제했습니다.
+  collection_error_no_items_selected: "오류: 항목을 선택하지 않아 어떠한 행동도 하지 않았습니다."
   collection_image: 모음집 그림
+  collection_is_empty: 이 모음집은 현재 비어있습니다.
+  collection_name_cannot_be_blank: 모음집 이름은 비워둘 수 없습니다
   collection_name_label: 모음집 이름
   collection_newsfeed: 모음집 뉴스 피드
   collection_rating: 모음집 평가
@@ -527,6 +536,7 @@ ko:
   comment: 덧글
   comment_added_notice: 덧글을 성공적으로 추가했습니다.
   comment_body_label: 내 덧글
+  comment_created_at: 만든 때
   comment_new_title: 새 덧글 추가
   comment_or_rate_on_this_article: 이 문서에 덧글을 남기거나 평가하기
   comments: 덧글
@@ -1143,6 +1153,7 @@ ko:
         create_text: 문서 추가
         update: 문서 저장
       eol_statistic: 
+        change_date: 날짜에 대한 통계 얻기
         download_csv: CSV로 다운로드
       filter_sort: 필터와 정렬
       harvest_event: 
@@ -1394,11 +1405,17 @@ ko:
     signature_basic: 생명의 백과사전 팀
     signature_with_contact_us_link: "문제가 발생하면 %{url} (으)로 문의하시기 바랍니다.\n\n생명의 백과사전 팀"
     signature_with_species_pages_group_contact: "궁금한 사항이 있으면 %{species_pages_group_email} (으)로 문의하시기 바랍니다.\n\n생명의 백과사전 팀"
+    user_activated: 
+      subject: 당신의 생명의 백과사전 계정을 활성화했습니다
+    user_activated_with_open_authentication: 
+      subject: 당신의 생명의 백과사전 계정을 활성화했습니다
     user_commented_on_something_date_body: "%{curator_level} %{users_name} (%{users_url}) 다음에 덧글을 남겼습니다:\n%{commented_on_name} (%{commented_on_url})\n%{comment_date}:\n%{comment_body}"
     user_message: 
       subject: 생명의 백과사전에서의 메시지
     user_recover_account: 
       subject: 생명의 백과사전 계정 복구
+    user_updated_email_preferences: 
+      subject: "%{user_full_name} EOL 사용자가 이메일 주소나 메일링 리스트 환경 설정을 바꾸었습니다"
     user_verification: 
       subject: 생명의 백과사전 계정에 대한 요청 확인
   object_status_all_option: 모두
@@ -1517,17 +1534,28 @@ ko:
       meta_title: EOL 공동체 활동
       page_title: EOL 공동체 활동
   recent_activity: 
+    bulk_comments_on_you_with_count: 
+      one: <a href='%{url}' style='color:#195184'>내 프로필</a>에 새 덧글이 있습니다
+      other: <a href='%{url}' style='color:#195184'>내 프로필</a>에 새 덧글 %{count}개가 있습니다
+    bulk_comments_with_count: 
+      one: "%{on}에 새 덧글이 있습니다"
+      other: "%{on}에 새 덧글 %{count}개가 있습니다"
     collection_activity_log_title: "%{who} 사용자가 모음집을 수정했습니다"
     collection_activity_user_watching_recipient: <b>%{user_name}</b> 사용자는 당신을 주시하고 있습니다.
     comment_link: EOL에 대한 덧글 보기
     comment_title: "%{who} 사용자가 %{what}에 덧글을 남겼습니다"
     comment_title_your_newsfeed: "%{who} 사용자가 뉴스 피드에 덧글을 남겼습니다"
     community_activity_log_title: "%{who} 사용자가 공동체를 수정했습니다"
+    contact_us_link: 문제가 발생하면 <a href='http://eol.org/contact_us' style='color:#195184'>문의하세요</a>.
     curator_activity_log_title: "%{who} 사용자가 누군가하게 큐레이트했습니다"
     data_object_title: "%{who} 사용자가 EOL에 새 콘텐츠를 추가했습니다"
     default_subject: EOL에 대한 최근 활동
+    intro: 여기에 %{time}에 당신의 EOL 활동 알림이 있습니다
     intro_immediately: "%{name} 안녕하세요 —"
+    intro_weekly: 여기에 %{ending} 마감일에 대한 EOL 활동 알림이 있습니다
+    see_all_activity: <a href='%{activity_url}' style='color:#195184'>내 사용자 뉴스 피드 문서</a>에서 이전의 모든 활동을 보세요.
     someone_commented_on_something: <b>%{who}</b> 사용자가 <b>%{what}</b>에 덧글을 남겼습니다.
+    unsubscribe: 로그인하고 <a href='%{email_prefs_url}' style='color:#195184'>내 알림 환경 설정 문서</a>에서 당신의 이메일 설정을 바꾸거나 <a href='%{unsubscribe_url}' style='color:#195184'>로그인하지 않고 EOL 알림을 자동으로 모두 구독 취소하세요</a>.
   recent_updates: 최근 업데이트
   recently_visited: 최근 방문
   references_cabs_colon: "참고:"
@@ -1591,6 +1619,7 @@ ko:
       meta_title: 로그인
       problems_signing_in_with_connected_accounts: 연결한 계정으로 로그인을 하는 데 문제가 있나요?
       problems_signing_in_with_eol_authentication: 비밀번호를 잊으셨나요?
+      tip: 기존 사용자입니까? 당신의 프로필 설정에서 페이스북, 구글, 그 외로 EOL 계정을 연결하세요. 계정에 연결하면 EOL에 로그인하도록 할 수 있습니다.
   share_a_collection: 모음집 공유
   show: 보기
   show_email_message_area: "[이메일 메시지 영역 보기]"
@@ -1671,6 +1700,10 @@ ko:
     other: 작업 %{count}개 찾음
   taxa: 
     communities: 
+      collections: 
+        meta_title: "%{scientific_name}의 모음집"
+        meta_title_with_common_name: "%{preferred_common_name}의 모음집 (%{scientific_name})"
+        tweet_text: "%{scientific_name}의 모음집"
       curators: 
         hierarchy_entry: 
           meta_title: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}의 큐레이터"
@@ -1678,6 +1711,8 @@ ko:
         meta_title: "%{scientific_name}의 큐레이터"
         tweet_text: "%{scientific_name}의 큐레이터"
       index: 
+        hierarchy_entry: 
+          meta_keywords: "%{scientific_name} 공동체, %{hierarchy_provider}"
         meta_keywords: "%{scientific_name} 공동체"
     details: 
       index: 
@@ -1685,11 +1720,23 @@ ko:
         meta_title: "%{scientific_name}에 대한 사실"
         meta_title_with_common_name: "%{preferred_common_name}에 대한 사실 (%{scientific_name})"
         tweet_text: "%{scientific_name}에 대한 사실"
+    literature: 
+      show: 
+        meta_title: "%{scientific_name}에 대한 문서와 책"
+        meta_title_with_common_name: "%{preferred_common_name}에 대한 문서와 책 (%{scientific_name})"
+        tweet_text: "%{scientific_name}에 대한 문서와 책"
     maps: 
       show: 
         meta_title: "%{scientific_name}에 대한 지도"
         meta_title_with_common_name: "%{preferred_common_name}에 대한 지도 (%{scientific_name})"
         tweet_text: "%{scientific_name}에 대한 지도"
+    names: 
+      common_names: 
+        meta_description: "%{scientific_name}에 대한 공통 이름입니다."
+        meta_keywords: "%{scientific_name}에 대한 공통 이름"
+        meta_title: "%{scientific_name}에 대한 공통 이름"
+        meta_title_with_common_name: "%{preferred_common_name}에 대한 공통 이름 (%{scientific_name})"
+        tweet_text: "%{scientific_name}에 대한 공통 이름"
     updates: 
       show: 
         meta_title: "%{scientific_name}에 대한 덧글"

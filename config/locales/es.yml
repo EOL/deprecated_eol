@@ -2910,6 +2910,7 @@ es:
   sci_name_avg_table_head: Media del nombre científico
   scientific_name: Nombre científico
   search: Buscar
+  search_by_provider_method_description_with_link: "obtener el identificador ID de la página de EOL a partir del identificador hierarchy_id de un proveedor y el identificador único del proveedor<br />(por ejemplo, buscar el identificador ID de la página de  EOL para ITIS TSN 180542: %{link}) {link})"
   search_by_term_page_title: "Buscar: %{term}"
   search_field_common_name: Nombre común
   search_field_label: Buscar en EOL

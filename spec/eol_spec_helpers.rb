@@ -19,8 +19,12 @@ module EOL
         elsif user.is_a? Hash
           options = options.merge(user)
         end
-        get '/logout'
-        post_via_redirect '/sessions', :session => { :username_or_email => options[:username], :password => options[:password] }, :remember_me => options[:remember_me]
+        visit logout_url
+        visit login_url
+        fill_in 'session_username_or_email', :with => user.username
+        fill_in 'session_password', :with => user.entered_password || 'test password'
+        check 'remember_me' if options[:remember_me]
+        click_button 'Sign in'
       end
 
       # returns a connection for each of our databases, eg: 1 for Data, 1 for Logging ...

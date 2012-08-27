@@ -154,17 +154,11 @@ class HierarchyEntry < ActiveRecord::Base
   def ancestors(opts = {}, cross_reference_hierarchy = nil)
     return @ancestors unless @ancestors.nil?
     # TODO: reimplement completing a partial hierarchy with another curated hierarchy
-    # add_include = [ :taxon_concept ]
-    # add_select = { :taxon_concepts => '*' }
-    # unless opts[:include_stats].blank?
-    #   add_include << :hierarchy_entry_stat
-    #   add_select[:hierarchy_entry_stats] = '*'
-    # end
     ancestor_ids = flattened_ancestors.collect{ |f| f.ancestor_id }
     ancestor_ids << self.id
-    # TODO: core_relationships(:add_include => add_include, :add_select => add_select)
-    ancestors = HierarchyEntry.find_all_by_id(ancestor_ids)
-    @ancestors = HierarchyEntry.sort_by_lft(ancestors)
+    a = HierarchyEntry.find_all_by_id(ancestor_ids)
+    HierarchyEntry.preload_associations(a, :name)
+    @ancestors = HierarchyEntry.sort_by_lft(a)
   end
 
   def ancestors_as_string(delimiter = "|")
@@ -172,15 +166,9 @@ class HierarchyEntry < ActiveRecord::Base
   end
 
   def children(opts = {})
-    add_include = [ :taxon_concept ]
-    add_select = { :taxon_concepts => '*' }
-    unless opts[:include_stats].blank?
-      add_include << :hierarchy_entry_stat
-      add_select[:hierarchy_entry_stats] = '*'
-    end
     vis = [Visibility.visible.id, Visibility.preview.id]
-    # TODO: core_relationships(:add_include => add_include, :add_select => add_select)
     c = HierarchyEntry.find_all_by_hierarchy_id_and_parent_id_and_visibility_id(hierarchy_id, id, vis)
+    HierarchyEntry.preload_associations(c, :name)
     return HierarchyEntry.sort_by_name(c)
   end
 

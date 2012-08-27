@@ -42,7 +42,7 @@
                   :locals => { :data_object => item, :thumbnail => true, :size => '260_190' }
               - if item.data_type_id == DataType.image.id && current_user.min_curator_level?(:assistant)
                 .overlay
-                - form_for :taxon_concept_exemplar_image, :url => set_as_exemplar_taxon_media_path(@taxon_concept),
+                = form_for :taxon_concept_exemplar_image, :url => set_as_exemplar_taxon_media_path(@taxon_concept),
                   :html => {:class => 'taxon_concept_exemplar_image'} do |f|
                   %label
                     = f.radio_button :data_object_id, item.id, { :checked => (!@exemplar_image.blank? && @exemplar_image.id == item.id) }

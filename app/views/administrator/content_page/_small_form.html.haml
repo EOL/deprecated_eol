@@ -1,4 +1,4 @@
-- form_for :page,@page,:url=>{:action=>'save_updated_page',:id=>@page.id},:html=>{:id=>'page_form', 'data-page_id' => @page.id} do |f|
+= form_for :page,@page,:url=>{:action=>'save_updated_page',:id=>@page.id},:html=>{:id=>'page_form', 'data-page_id' => @page.id} do |f|
   = f.hidden_field :parent_content_page_id
   %table
     = render(:partial => 'main_page_form', :locals => { :f => f })

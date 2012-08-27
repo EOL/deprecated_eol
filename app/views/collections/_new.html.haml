@@ -1,4 +1,4 @@
-- form_for Collection.new, :builder => ApplicationHelper::EolFormBuilder do |collection_form|
+= form_for Collection.new, :builder => ApplicationHelper::EolFormBuilder do |collection_form|
   = collection_form.hidden_field :user_id, :value => current_user.id
   - if @for
     = hidden_field_tag :for, @for

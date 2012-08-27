@@ -1,6 +1,6 @@
 = javascript_include_tag 'admin-content-page'
 = javascript_include_tag 'ckeditor/init'
-- form_for :page,@page,:url=>{:action=>'save_translation',:id=>@page.id},:html=>{:id=>'page_form', 'data-page_id' => @page.id} do |f|
+= form_for :page,@page,:url=>{:action=>'save_translation',:id=>@page.id},:html=>{:id=>'page_form', 'data-page_id' => @page.id} do |f|
   = f.hidden_field :page_name, :value => @page.page_name
   %table
     %tr

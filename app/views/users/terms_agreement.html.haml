@@ -1,6 +1,6 @@
 #sign_up
   %h1= I18n.t(:terms_agreement_form_header)
-  - form_for @user, :url => terms_agreement_user_path(@user), :html => {:method => :post, :class => 'terms_agreement'}  do |f|
+  = form_for @user, :url => terms_agreement_user_path(@user), :html => {:method => :post, :class => 'terms_agreement'}  do |f|
     %fieldset.copy
       - if @terms.blank?
         %p= I18n.t(:terms_agreement_form_fallback, :terms_url => terms_of_use_path)

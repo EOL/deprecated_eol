@@ -2,7 +2,7 @@
   = @hierarchy.label
 = "("+ link_to(I18n.t("browse_hierarchy"), {:action => 'browse', :id => @hierarchy.id }) +")"
 
-- form_for @hierarchy, :url => { :action => 'edit' }, :html => { :method => :post } do |f|
+= form_for @hierarchy, :url => { :action => 'edit' }, :html => { :method => :post } do |f|
   %table.results_table{:width => "100%", :cellspacing => "0"}
     - column_class=cycle('odd','even')
     %tr

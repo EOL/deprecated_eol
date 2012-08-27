@@ -3,7 +3,7 @@
 
 #content_page_new
   .article.copy
-    - form_for @content_page, :url => admin_content_pages_path, :builder => ApplicationHelper::EolFormBuilder do |content_page_form|
+    = form_for @content_page, :url => admin_content_pages_path, :builder => ApplicationHelper::EolFormBuilder do |content_page_form|
       = validation_errors_for(@content_page)
 
       %p.tip

@@ -3,7 +3,7 @@
 #content
   - if @data_object.is_text?
     #text_object_new_edit.site_column.copy
-      - form_for @data_object, :url => data_object_path(params[:id]), :html => { :method => :put },
+      = form_for @data_object, :url => data_object_path(params[:id]), :html => { :method => :put },
         :builder => ApplicationHelper::EolFormBuilder do |f|
         = render :partial => 'text_fieldset', :locals => { :f => f }
         %fieldset.actions

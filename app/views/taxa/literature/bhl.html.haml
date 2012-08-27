@@ -7,7 +7,7 @@
       = render :partial => 'bhl_header'
       .heading
         - if @bhl_results && @bhl_results[:total] > 0
-          - form_for(:taxon_concept, @taxon_concept, :url => bhl_taxon_literature_path(@taxon_concept), :html => { :method => "get", :class => "select_submit" }) do |f|
+          = form_for(:taxon_concept, @taxon_concept, :url => bhl_taxon_literature_path(@taxon_concept), :html => { :method => "get", :class => "select_submit" }) do |f|
             %fieldset
               = label_tag :sort_by, I18n.t(:sort_by_label)
               = select_tag :sort_by, options_for_select([ [ I18n.t(:sort_by_title_ascending), 'title' ], [ I18n.t(:sort_by_title_descending), 'title_desc' ],

@@ -1,5 +1,5 @@
 - unless comment.nil?
-  - form_for comment, :builder => ApplicationHelper::EolFormBuilder do |f|
+  = form_for comment, :builder => ApplicationHelper::EolFormBuilder do |f|
     = hidden_field_tag :actual_date, params[:actual_date]
     %fieldset
       = f.label :body, I18n.t('helpers.label.comment.body_edit')

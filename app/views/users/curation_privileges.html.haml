@@ -1,7 +1,7 @@
 #content
   #profile_curator_info.site_column
     .article.copy
-      - form_for @user, :builder => ApplicationHelper::EolFormBuilder do |f|
+      = form_for @user, :builder => ApplicationHelper::EolFormBuilder do |f|
         = hidden_field_tag :return_to, edit_user_path(@user)
         = validation_errors_for(@user)
         %fieldset

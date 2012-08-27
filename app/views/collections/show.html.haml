@@ -15,7 +15,7 @@
         = button_to I18n.t(:collection_delete_link), { :action => "delete", :collection_id => @collection.id }, :confirm => I18n.t(:collection_delete_link), :method => :delete
 - else
   - form_options = { :html => {:method => :put} }
-  - form_for @collection, form_options, :builder => ApplicationHelper::EolFormBuilder do |f|
+  = form_for @collection, form_options, :builder => ApplicationHelper::EolFormBuilder do |f|
     = hidden_field_tag(:filter, @filter) if @filter
     #tabs_sidebar
       = render :partial => 'collections/filter_by_item_type'

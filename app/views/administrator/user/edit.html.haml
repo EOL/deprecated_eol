@@ -3,5 +3,5 @@
 - if @user != current_user
   = link_to I18n.t(:login_to_the_website_as, :username => @user.username),{:action=>'login_as_user', :id=>params[:id]}, :confirm => I18n.t(:admin_login_confirmation, :name => @user.username)
 = eol_lang_error_messages_for :user if request.post?
-- form_for :user,@user,:url => {:action=>'update',:id=>params[:id]},:html=>{:id=>'page_form'} do |f|
+= form_for :user,@user,:url => {:action=>'update',:id=>params[:id]},:html=>{:id=>'page_form'} do |f|
   = render :partial => 'form', :locals => {:f=>f}

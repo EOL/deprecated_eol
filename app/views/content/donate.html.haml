@@ -4,7 +4,7 @@
       - if @donation_amount.nil? || @donation_amount == 0
         %p=  I18n.t(:donation_introduction_paragraph_one)
         %p=  I18n.t(:donation_introduction_paragraph_two)
-        - form_for :donation, @donation, :builder => ApplicationHelper::EolFormBuilder do |f|
+        = form_for :donation, @donation, :builder => ApplicationHelper::EolFormBuilder do |f|
           %fieldset.radio
             %legend= I18n.t(:donation_amount_legend)
             - f.label :preset_amount_35 do

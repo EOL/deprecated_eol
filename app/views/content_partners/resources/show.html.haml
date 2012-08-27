@@ -145,7 +145,7 @@
                 = link_to I18n.t(:content_partner_resource_preview_collection_show_link), @resource.preview_collection
               - if current_user.is_admin?
                 - if !@resource.latest_harvest_event.publish? && @resource.latest_harvest_event.publish_is_allowed?
-                  - form_for [@partner, @resource, @resource.latest_harvest_event] do |f|
+                  = form_for [@partner, @resource, @resource.latest_harvest_event] do |f|
                     = hidden_field_tag 'return_to', current_url
                     = f.hidden_field :publish, :value => :true
                     %fieldset.actions

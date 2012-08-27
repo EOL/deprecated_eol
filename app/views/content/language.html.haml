@@ -1,7 +1,7 @@
 #content.cms_page
   .site_column
     .article.copy.donate
-      - form_for :site_language do |f|
+      = form_for :site_language do |f|
         %fieldset.radio
           %legend= I18n.t(:language_selector_advisory_information)
           - Language.approved_languages.each do |l|

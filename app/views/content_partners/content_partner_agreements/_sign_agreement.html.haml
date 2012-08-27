@@ -1,4 +1,4 @@
-- form_for [@partner, @agreement] do |form|
+= form_for [@partner, @agreement] do |form|
   %fieldset
     = @agreement.body
     = form.hidden_field :body, :value => @agreement.body

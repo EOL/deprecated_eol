@@ -1,7 +1,7 @@
 %h1
   =I18n.t("edit_glossary_term")
 %br
-- form_for :glossary_term, @glossary_term, :url => {:action => 'update', :id => params[:id]} do |f|
+= form_for :glossary_term, @glossary_term, :url => {:action => 'update', :id => params[:id]} do |f|
   = f.label :label, I18n.t(:glossary_term)
   = f.text_field :term, :size=>20
   %br

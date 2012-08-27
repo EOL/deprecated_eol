@@ -1,7 +1,7 @@
 - # Full page used for editing collection items when JS is disabled.
 #content
   #collection_items_edit.site_column
-    - form_for @collection_item, :builder => ApplicationHelper::EolFormBuilder do |item_form|
+    = form_for @collection_item, :builder => ApplicationHelper::EolFormBuilder do |item_form|
       = hidden_field_tag :return_to, params[:return_to]
       %fieldset
         %dl

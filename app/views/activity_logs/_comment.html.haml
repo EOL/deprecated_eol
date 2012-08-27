@@ -117,7 +117,7 @@
               = link_to I18n.t(:edit), edit_comment_url(item.id, :return_to => "#{current_url}##{item.class.name}-#{item.id}", :actual_date => actual_date), :class => 'edit_comment'
         - if editable && current_user.can_delete?(item)
           %li
-            - form_for item, :html => { :method => :delete, :class => 'delete_comment' } do |f|
+            = form_for item, :html => { :method => :delete, :class => 'delete_comment' } do |f|
               = hidden_field_tag :return_to, "#{current_url}##{item.class.name}-#{item.id}"
               = hidden_field_tag :actual_date, actual_date
               = f.submit I18n.t(:delete), { 'data-confirmation' => I18n.t(:comment_delete_confirm) }

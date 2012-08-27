@@ -1,11 +1,11 @@
 #content_partner.contact.site_column
   .article.copy
-    - form_for [@partner, @contact], :builder => ApplicationHelper::EolFormBuilder do |contact_form|
+    = form_for [@partner, @contact], :builder => ApplicationHelper::EolFormBuilder do |contact_form|
       = validation_errors_for(@contact)
       = render :partial => 'contact_fieldset', :locals => { :contact_form => contact_form }
       %fieldset.actions
         = contact_form.submit I18n.t('helpers.submit.content_partner_contact.update')
         = link_to I18n.t(:cancel), content_partner_resources_path(@partner)
-    - form_for [@partner, @contact], :html => { :method => :delete, :class => 'button_to', :id => "delete_content_partner_contact_#{@contact.id}" } do |delete_form|
+    = form_for [@partner, @contact], :html => { :method => :delete, :class => 'button_to', :id => "delete_content_partner_contact_#{@contact.id}" } do |delete_form|
       %div
         = delete_form.submit I18n.t('helpers.submit.content_partner_contact.destroy'), :class => 'delete'

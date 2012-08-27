@@ -137,7 +137,7 @@
                             = resource.latest_harvest_event.published_at.strftime('%Y-%m-%d')
                           %br/
                           - if !resource.latest_harvest_event.publish? && resource.latest_harvest_event.publish_is_allowed?
-                            - form_for [partner, resource, resource.latest_harvest_event] do |f|
+                            = form_for [partner, resource, resource.latest_harvest_event] do |f|
                               = hidden_field_tag 'return_to', current_url
                               = f.hidden_field :publish, :value => :true
                               %fieldset.actions
@@ -165,7 +165,7 @@
                           = button_to I18n.t('helpers.submit.resource.force_harvest'), force_harvest_content_partner_resource_path(partner, resource),
                             :confirm => I18n.t(:content_partner_resource_confirm_force_harvest, :resource_title => h(resource.title))
                   .settings
-                    - form_for [partner, resource], :builder => ApplicationHelper::EolFormBuilder do |f|
+                    = form_for [partner, resource], :builder => ApplicationHelper::EolFormBuilder do |f|
                       = hidden_field_tag :return_to, current_url
                       - f.label :refresh_period_hours, :class => 'select' do
                         = I18n.t('helpers.label.resource.refresh_period_hours')

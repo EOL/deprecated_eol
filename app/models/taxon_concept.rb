@@ -253,14 +253,6 @@ class TaxonConcept < ActiveRecord::Base
     all_outlinks = []
     used_hierarchies = []
     entries_for_this_concept = HierarchyEntry.find_all_by_taxon_concept_id(id,
-      :select => {
-        :hierarchy_entries => [ :published, :visibility_id, :identifier, :source_url ],
-        :hierarchies => [ :label, :outlink_uri, :url, :id ],
-        :resources => [ :title, :id, :content_partner_id ],
-        :content_partners => '*',
-        :agents => [ :logo_cache_url, :full_name ],
-        :collection_types => '*',
-        :translated_collection_types => '*' },
       :include => { :hierarchy => [ { :resource => :content_partner }, :agent, { :collection_types => :translations }] })
     entries_for_this_concept.each do |he|
       next if used_hierarchies.include?(he.hierarchy)
@@ -1139,11 +1131,7 @@ class TaxonConcept < ActiveRecord::Base
         :allow_nil_languages => (the_user.language.id == Language.default.id),
         :toc_ids => overview_toc_item_ids })
       DataObject.preload_associations(overview_text_objects, { :data_objects_hierarchy_entries => [ :hierarchy_entry,
-        :vetted, :visibility ] },
-        :select => {
-          :data_objects_hierarchy_entries => '*',
-          :hierarchy_entries => '*'
-        })
+        :vetted, :visibility ] })
       overview_text_objects = DataObject.sort_by_rating(overview_text_objects, self)
       @best_article = (overview_text_objects.empty?) ? nil : overview_text_objects.first
     end
@@ -1206,8 +1194,7 @@ class TaxonConcept < ActiveRecord::Base
         { :data_objects_hierarchy_entries => [ { :hierarchy_entry => { :hierarchy => { :resource => :content_partner } } },
           :vetted, :visibility ] },
         { :curated_data_objects_hierarchy_entries => :hierarchy_entry }, :users_data_object,
-        { :toc_items => [ :translations ] } ],
-        :select => selects)
+        { :toc_items => [ :translations ] } ])
     end
     text_objects
   end

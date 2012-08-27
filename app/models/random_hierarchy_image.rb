@@ -55,34 +55,27 @@ class RandomHierarchyImage < ActiveRecord::Base
     hierarchy_condition = hierarchy ? "AND hierarchy_id=#{hierarchy.id}" : ""
     random_image_result = if $HOMEPAGE_MARCH_RICHNESS_THRESHOLD
       RandomHierarchyImage.joins(:taxon_concept_metrics, :taxon_concept).
-        where(["random_hierarchy_images > ? AND richness_score > ? AND published = 1 #{hierarchy_condition}",
-              starting_id, $HOMEPAGE_MARCH_RICHNESS_THRESHOLD, hierarchy_condition])
+        where(["random_hierarchy_images.id > ? AND richness_score > ? AND published = 1 #{hierarchy_condition}",
+              starting_id, $HOMEPAGE_MARCH_RICHNESS_THRESHOLD]).limit(limit * 2)
                           else
       RandomHierarchyImage.joins(:taxon_concept).
-        where(["random_hierarchy_images.id > ? AND published=1 #{hierarchy_condition}", starting_id])
+        where(["random_hierarchy_images.id > ? AND published=1 #{hierarchy_condition}", starting_id]).limit(limit * 2)
                           end
 
     used_concepts = {}
     random_images = []
-    random_image_result.limit(limit * 2).each do |ri|
+    random_image_result.each do |ri|
       next if !used_concepts[ri.taxon_concept_id].nil?
       random_images << ri
       used_concepts[ri.taxon_concept_id] = true
       break if random_images.length >= limit
     end
 
-    RandomHierarchyImage.preload_associations(random_image_result,
+    RandomHierarchyImage.preload_associations(random_images,
       [ { :taxon_concept => [
           { :preferred_entry => { :hierarchy_entry => [ :hierarchy, { :name => [ :canonical_form, :ranked_canonical_form ] } ] } },
           { :taxon_concept_exemplar_image => :data_object },
-          { :preferred_common_names => :name } ] } ],
-      :select => {
-        :data_objects => [ :id, :object_cache_url, :data_type_id, :guid ],
-        :names => [ :id, :italicized, :string, :canonical_form_id, :ranked_canonical_form_id ],
-        :canonical_forms => [ :id, :string ],
-        :taxon_concepts => [ :id ],
-        :hierarchies => '*',
-        :taxon_concept_names => '*' })
+          { :preferred_common_names => :name } ] } ])
 
     random_images = self.random_set(limit, nil, :size => options[:size]) if random_images.blank? && hierarchy
     logger.warn "Found no Random Taxa in the database (#{starting_id}, #{limit})" if random_images.blank?

@@ -7,6 +7,8 @@ class License < ActiveRecord::Base
   TRANSLATIONS_ARE_UNIQUE = false
   has_many :data_objects
   has_many :resources
+  
+  attr_accessible :logo_url
 
   def small_logo_url
     return logo_url if logo_url =~ /_small/ # already there!

@@ -15,7 +15,7 @@
   - if hierarchy_entry
     - if is_current_node
       %span.current
-        = hierarchy_entry.italicized_name.firstcap
+        = raw(hierarchy_entry.italicized_name.firstcap)
       - if show_children
         - children = hierarchy_entry.children
         - unless children.blank?

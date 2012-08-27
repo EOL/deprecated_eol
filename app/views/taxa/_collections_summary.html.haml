@@ -7,9 +7,9 @@
       %h3= I18n.t(:collections_summary_header_with_count, :count => @taxon_concept.collections.select{ |c| c.published && !c.watch_collection? }.count)
       - if count > 1
         - if @selected_hierarchy_entry
-          = link_to I18n.t(:see_all_collections_with_count_html, :count => count), collections_taxon_entry_communities_path(@taxon_concept, @selected_hierarchy_entry)
+          = link_to raw(I18n.t(:see_all_collections_with_count_html, :count => count)), collections_taxon_entry_communities_path(@taxon_concept, @selected_hierarchy_entry)
         - else
-          = link_to I18n.t(:see_all_collections_with_count_html, :count => count), collections_taxon_communities_path(@taxon_concept)
+          = link_to raw(I18n.t(:see_all_collections_with_count_html, :count => count)), collections_taxon_communities_path(@taxon_concept)
     %ul
       - @taxon_concept.top_collections.each do |collection|
         %li

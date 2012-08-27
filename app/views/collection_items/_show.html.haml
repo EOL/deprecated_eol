@@ -6,9 +6,9 @@
     .checkbox
       = check_box_tag "collection_items[]", collection_item.id, @selected_collection_items.include?(collection_item.id.to_s), :id => "collection_item_#{collection_item.id}"
 - if ['image_map', 'image', 'video', 'sound'].include?(item_type)
-  = render :partial => "shared/item_summary_media.html.haml", :locals => {:item => collection_item.object, :en_type => item_type, :view_style => view_style}
+  = render :partial => "shared/item_summary_media", :locals => {:item => collection_item.object, :en_type => item_type, :view_style => view_style}
 - elsif ! item_type.blank?
-  = render :partial => "shared/item_summary_#{item_type}.html.haml", :locals => {:item => collection_item.object, :view_style => view_style}
+  = render :partial => "shared/item_summary_#{item_type}", :locals => {:item => collection_item.object, :view_style => view_style}
 - else
   = I18n.t(:item_details_missing)
 - unless ['gallery','list'].include?(view_style)

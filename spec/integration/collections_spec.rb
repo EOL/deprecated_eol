@@ -36,12 +36,12 @@ describe "Preview Collections" do
   end
 
   it 'should not show preview collections on the taxon page' do
-    @collection.update_attribute(:published, false)
+    @collection.update_column(:published, false)
     visit taxon_path(@taxon)
     body.should have_tag('#collections_summary') do
       with_tag('h3', :text => "Present in 0 collections")
     end
-    @collection.update_attribute(:published, true)
+    @collection.update_column(:published, true)
   end
 
   it 'should not show preview collections on the user profile page to normal users' do
@@ -50,7 +50,7 @@ describe "Preview Collections" do
       with_tag('a', :text => "3 collections")
     end
     body.should have_tag('h3', :text => "2 collections")
-    @collection.update_attribute(:published, false)
+    @collection.update_column(:published, false)
     visit user_collections_path(@collection.users.first)
     body.should have_tag('li.active') do
       with_tag('a', :text => "2 collections")
@@ -58,12 +58,12 @@ describe "Preview Collections" do
     body.should have_tag('div.heading') do
       with_tag('h3', :text => "1 collection")
     end
-    @collection.update_attribute(:published, true)
+    @collection.update_column(:published, true)
   end
 
   it 'should show resource preview collections on the user profile page to the owner' do
-    @collection.update_attribute(:published, false)
-    @collection.update_attribute(:view_style_id, nil)
+    @collection.update_column(:published, false)
+    @collection.update_column(:view_style_id, nil)
     @resource = Resource.gen
     @resource.preview_collection = @collection
     @resource.save
@@ -76,12 +76,12 @@ describe "Preview Collections" do
       with_tag('h3', :text => "2 collections")
     end
     visit('/logout')
-    @collection.update_attribute(:published, true)
+    @collection.update_column(:published, true)
   end
 
   it 'should allow EOL administrators and owners to view unpublished collections' do
-    @collection.update_attribute(:published, false)
-    @collection.update_attribute(:view_style_id, ViewStyle.annotated.id)
+    @collection.update_column(:published, false)
+    @collection.update_column(:view_style_id, ViewStyle.annotated.id)
     if @collection.resource_preview.blank?
       @resource = Resource.gen
       @resource.preview_collection = @collection
@@ -111,7 +111,7 @@ describe "Preview Collections" do
     visit collection_path(@collection)
     body.should have_tag('h1', /#{@collection.name}/)
     body.should have_tag('ul.object_list li', /#{@collection.collection_items.first.object.best_title}/)
-    @collection.update_attribute(:published, true)
+    @collection.update_column(:published, true)
   end
 end
 
@@ -386,7 +386,7 @@ describe "Collections and collecting:" do
     body.should have_tag('ul.object_list li', /#{collectable_data_object.object_title}/)
 
     # the image will unpublished, but there are no newer versions, so it will still show up
-    collectable_data_object.update_attribute(:published, 0)
+    collectable_data_object.update_column(:published, 0)
     visit collection_path(@anon_user.watch_collection)
     body.should have_tag('ul.object_list li', /#{collectable_data_object.object_title}/)
 
@@ -400,7 +400,7 @@ describe "Collections and collecting:" do
     # the original image is published again, but this time we still see the newest version as we
     # always show the latest version of an object. This is a rare case where there are two published versions
     # of the same object, which technically shouldn't happen in production
-    collectable_data_object.update_attribute(:published, 1)
+    collectable_data_object.update_column(:published, 1)
     visit collection_path(@anon_user.watch_collection)
     body.should have_tag('ul.object_list li', /#{newer_version_collected_data_object.object_title}/)
     body.should_not have_tag('ul.object_list li', /#{collectable_data_object.object_title}/)

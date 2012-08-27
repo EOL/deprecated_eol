@@ -56,7 +56,7 @@ private
       response = Hash.from_xml(response)
       if response["response"].key? "file_path"
         file_path = response["response"]["file_path"]
-        content_upload.update_attribute(:attachment_cache_url, file_path) # store new url to file on content server
+        content_upload.update_column(:attachment_cache_url, file_path) # store new url to file on content server
       end
       if response["response"].key? "error"
         error = response["response"]["error"]

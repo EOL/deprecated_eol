@@ -17,9 +17,9 @@ class Administrator::ContentPageController < AdminController
    new_sort_order = sort_order - 1
    #find page with the same parent with sort order = current sort order -1
    if swap_page = ContentPage.find_by_parent_content_page_id_and_sort_order(current_page.parent_content_page_id, new_sort_order)
-     swap_page.update_attribute(:sort_order, sort_order)
+     swap_page.update_column(:sort_order, sort_order)
    end
-   current_page.update_attribute(:sort_order, new_sort_order)
+   current_page.update_column(:sort_order, new_sort_order)
    flash[:notice] = I18n.t("content_has_been_updated")
    redirect_to :action => 'index', :status => :moved_permanently
  end
@@ -31,9 +31,9 @@ class Administrator::ContentPageController < AdminController
    #find page with the same parent with sort order = current sort order +1
    #swap the two orders
    if swap_page = ContentPage.find_by_parent_content_page_id_and_sort_order(current_page.parent_content_page_id, new_sort_order)
-     swap_page.update_attribute(:sort_order, sort_order)
+     swap_page.update_column(:sort_order, sort_order)
    end
-   current_page.update_attribute(:sort_order, new_sort_order)
+   current_page.update_column(:sort_order, new_sort_order)
    flash[:notice] = I18n.t("content_has_been_updated")
    redirect_to :action => 'index', :status => :moved_permanently
  end

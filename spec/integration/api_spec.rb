@@ -154,11 +154,11 @@ describe 'EOL APIs' do
   end
   
   it 'pages should return only published concepts' do
-    @taxon_concept.update_attribute(:published, 0)
+    @taxon_concept.update_column(:published, 0)
     visit("/api/pages/0.4/#{@taxon_concept.id}")
     body.should include('<error>')
     body.should include('</response>')
-    @taxon_concept.update_attribute(:published, 1)
+    @taxon_concept.update_column(:published, 1)
   end
   
   it 'pages should show one data object per category' do
@@ -389,12 +389,12 @@ describe 'EOL APIs' do
   # DataObjects
   
   it "data objects should show unpublished objects" do
-    @object.update_attribute(:published, 0)
+    @object.update_column(:published, 0)
     visit("/api/data_objects/#{@object.guid}")
     xml_response = Nokogiri.XML(body)
     xml_response.xpath('/').inner_html.should_not == ""
     xml_response.xpath('//xmlns:dataObject/dc:identifier').inner_text.should == @object.guid
-    @object.update_attribute(:published, 1)
+    @object.update_column(:published, 1)
   end
   
   it "data objects should show a taxon element for the data object request" do
@@ -517,11 +517,11 @@ describe 'EOL APIs' do
   end
   
   it 'hierarchy_entries should return only published hierarchy_entries' do
-    @hierarchy_entry.update_attribute(:published, 0)
+    @hierarchy_entry.update_column(:published, 0)
     visit("/api/hierarchy_entries/#{@hierarchy_entry.id}")
     body.should include('<error>')
     body.should include('</response>')
-    @hierarchy_entry.update_attribute(:published, 1)
+    @hierarchy_entry.update_column(:published, 1)
   end
   
   it 'hierarchy_entries should show all information for hierarchy entries in DWC format' do

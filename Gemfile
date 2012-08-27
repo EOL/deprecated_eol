@@ -14,6 +14,7 @@ end
 
 group :test do
   gem 'webmock'
+  gem 'rspec-html-matchers'
 end
 
 group :worker do

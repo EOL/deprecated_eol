@@ -40,7 +40,7 @@ class Users::NewsfeedsController < UsersController
         @parent = user # for new comment form
         @user_activity_log = user.activity_log(:news => true, :filter => 'messages', :page => params[:page] || 1)
         # reset last-seen dates:
-        user.update_attribute(:last_message_at, Time.now) if user.id == current_user.id
+        user.update_column(:last_message_at, Time.now) if user.id == current_user.id
         @rel_canonical_href = user_newsfeed_url(user)
         @rel_prev_href = rel_prev_href_params(@user_activity_log) ? comments_user_newsfeed_url(@rel_prev_href_params) : nil
         @rel_next_href = rel_next_href_params(@user_activity_log) ? comments_user_newsfeed_url(@rel_next_href_params) : nil

@@ -184,7 +184,7 @@ describe Notifier do
 
   describe '#user_recover_account' do
     before(:all) do
-      @user.update_attribute(:recover_account_token, User.generate_key)
+      @user.update_column(:recover_account_token, User.generate_key)
       @temporary_login_url = "http://www.eol.org/users/#{@user.id}/temporary_login/#{@user.recover_account_token}"
       @email = Notifier.user_recover_account(@user, @temporary_login_url)
     end
@@ -203,7 +203,7 @@ describe Notifier do
 
   describe '#user_verification' do
     before(:all) do
-      @user.update_attribute(:validation_code, User.generate_key)
+      @user.update_column(:validation_code, User.generate_key)
       @verify_user_url = "http://www.eol.org/users/#{@user.id}/verify/#{@user.validation_code}"
       @email = Notifier.user_verification(@user, @verify_user_url)
     end

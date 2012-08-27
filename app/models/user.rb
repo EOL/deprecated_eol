@@ -543,7 +543,7 @@ class User < Curator
   def hide_data_objects
     data_objects = UsersDataObject.find_all_by_user_id(self.id, :include => :data_object).collect{|udo| udo.data_object}.uniq
     data_objects.each do |data_object|
-      data_object.update_attribute(:published, 0)
+      data_object.update_column(:published, 0)
       data_object.update_solr_index
     end
   end
@@ -551,7 +551,7 @@ class User < Curator
   def unhide_data_objects
     data_objects = UsersDataObject.find_all_by_user_id(self.id, :include => :data_object).collect{|udo| udo.data_object}.uniq
     data_objects.each do |data_object|
-      data_object.update_attribute(:published, 1)
+      data_object.update_column(:published, 1)
       data_object.update_solr_index
     end
   end
@@ -699,7 +699,7 @@ private
     return unless agent_id.blank?
     begin
       # TODO: User may not have a full_name on creation so passing it here is possibly redundant.
-      self.update_attribute(:agent_id, Agent.create_agent_from_user(full_name).id)
+      self.update_column(:agent_id, Agent.create_agent_from_user(full_name).id)
     rescue ActiveRecord::StatementInvalid
       # Interestingly, we are getting users who already have agents attached to them.  I'm not sure why, but it's causing registration to fail (or seem to; the user is created), and this is bad.
     end

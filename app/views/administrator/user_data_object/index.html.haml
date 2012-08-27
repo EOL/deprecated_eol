@@ -1,7 +1,7 @@
 =I18n.t("all_user_submitted_texts_on_the_website")
 =I18n.t("click_on_a_user_to_view_the_users_detailed_profile")
 #comments
-  - form_tag({:action=>'index'},:method=>'get') do
+  = form_tag({:action=>'index'},:method=>'get') do
     =I18n.t("select_colon")
     %select{ :name => "user_id" }
       %option

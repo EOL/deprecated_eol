@@ -6,7 +6,7 @@
     - path = nil
     - path = make_editor_user_path(@user) if @user
     - path = make_editor_community_path(@community) if @community
-    - form_tag(path, :method => :put) do |f|
+    = form_tag(path, :method => :put) do |f|
       - one_available = false
       %fieldset
         %ul

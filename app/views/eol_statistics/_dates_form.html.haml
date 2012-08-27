@@ -4,7 +4,7 @@
 %p
   = t(:comparing_dates, :date_one => @stats_one.created_at.strftime('%b %d, %Y'),
     :date_two => @stats_two.created_at.strftime('%b %d, %Y'), :scope => [:eol_statistics])
-- form_tag({}, :method => :get, :'data-datepicker_opts' => jquery_ui_datepicker_opts) do
+= form_tag({}, :method => :get, :'data-datepicker_opts' => jquery_ui_datepicker_opts) do
   %fieldset
     %label
       %span.assistive= t('helpers.label.eol_statistic.date_one')

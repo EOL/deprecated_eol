@@ -3,7 +3,7 @@
 #content_partner_statistics.site_column
   .main_container
     .heading
-      - form_tag({}, :method => :get) do
+      = form_tag({}, :method => :get) do
         %fieldset
           %label
             = I18n.t(:content_partner_statistics_month_label)

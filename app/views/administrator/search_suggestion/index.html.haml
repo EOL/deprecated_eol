@@ -1,6 +1,6 @@
 =I18n.t(:search_suggestion_admin_intro)
 #search_suggestions
-  - form_tag({:action=>'index'}, :method=>'get') do
+  = form_tag({:action=>'index'}, :method=>'get') do
     =I18n.t("search_for_terms_containing")
     = text_field_tag(:term_search_string, @term_search_string)
     = submit_tag I18n.t("search")

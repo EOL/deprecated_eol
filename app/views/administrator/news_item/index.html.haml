@@ -2,7 +2,7 @@
 =I18n.t("you_must_be_comfortable")
 =I18n.t("note_that_you_can_reference_im")
 #news
-  - form_tag({:action=>'index'},:method=>'get') do
+  = form_tag({:action=>'index'},:method=>'get') do
     =I18n.t(:search_for_items_containing)
     = text_field_tag(:term_search_string,@term_search_string)
     = submit_tag I18n.t("search")

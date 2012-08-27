@@ -117,7 +117,7 @@
       EOL is scheduled for maintenance on Thursday, December 22 between 8:00 and 10:00 AM EST.  During this time you may find changes in EOL's performance and availability.
       %br
       Enter New Maintenance message:
-      - form_tag({ :action=>'index' }, :method=>'get') do
+      = form_tag({ :action=>'index' }, :method=>'get') do
         - global_site_warning = SiteConfigurationOption.find_by_parameter('global_site_warning')
         - global_site_warning_message = (global_site_warning && global_site_warning.value) ? global_site_warning.value : ""
         = text_area_tag :taxon_id, global_site_warning_message, { :rows => 80, :cols => 3 }

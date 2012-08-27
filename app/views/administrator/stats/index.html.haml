@@ -1,5 +1,5 @@
 = link_to I18n.t("admin_home"),:controller=>'/admin',:action=>'index'
-- form_tag({:action=>'index'}, :method=>'get') do
+= form_tag({:action=>'index'}, :method=>'get') do
   =I18n.t("please_note_that_some_of_these")
   %br
   =I18n.t(:select_tool_and_go)

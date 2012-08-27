@@ -2,7 +2,7 @@
 
 #sidebar
   .filters.small
-    - form_tag({}, :method => :get) do
+    = form_tag({}, :method => :get) do
       %fieldset
         - option_please_select = "<option value=\"\">#{I18n.t(:option_please_select)}</option>"
         %dl

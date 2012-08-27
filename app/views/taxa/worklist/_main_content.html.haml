@@ -1,6 +1,6 @@
 - # TODO = we need to reload the JS here to get events on the AJAX loaded content ... just using a JS include WILL NOT WORK, don't do it.  You need to trigger an event.
 .filters
-  - form_tag({:action => 'show'}, :method => 'get') do
+  = form_tag({:action => 'show'}, :method => 'get') do
     %fieldset
       %dl
         %dt

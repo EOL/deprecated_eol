@@ -1,6 +1,6 @@
 - # TODO = we need to reload the JS here to get events on the AJAX loaded content ... just using a JS include WILL NOT WORK, don't do it.  You need to trigger an event.
 .filters
-  - form_tag({:action => 'show'}, :method => 'get') do
+  = form_tag({:action => 'show'}, :method => 'get') do
     %fieldset
       %dl
         %dt
@@ -59,6 +59,6 @@
   - unless @data_objects.blank?
     = will_paginate @data_objects, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next),
       :inner_window => 2, :outer_window => 2
-    = render :partial => "tasks.html.haml"
+    = render :partial => "tasks"
     .article#task
-      = render :partial => "curation_content.html.haml"
+      = render :partial => "curation_content"

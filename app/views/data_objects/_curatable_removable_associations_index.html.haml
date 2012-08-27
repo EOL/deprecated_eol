@@ -5,7 +5,7 @@
   - if entries.blank?
     %p= I18n.t(:data_object_not_associated_with_any_hierarchies)
   - else
-    - form_tag({:controller => '/data_objects', :action => 'curate_associations'}, {:class => 'review_status'}) do
+    = form_tag({:controller => '/data_objects', :action => 'curate_associations'}, {:class => 'review_status'}) do
       = hidden_field_tag 'id', data_object.id
       - if params[:worklist_return_to]
         = hidden_field_tag :worklist_return_to, params[:force_return_to] || current_url

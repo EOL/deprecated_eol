@@ -1,4 +1,4 @@
--# NOTE - this is AMOST an EXACT duplicate of app/views/activity_logs/_data_object.html.haml ... please keep it that
+-# NOTE - this is AMOST an EXACT duplicate of app/views/activity_logs/_data_object ... please keep it that
   way.  The thing is, we call these partials based on the class of the log item, and these two behave exactly the same,
   but rather than calling one partial from the other (which would be slower), we allow the duplication. The
   difference is that UDOs use #taxon_concept and item#data_object, and DATOs use #taxon_concepts.first and item.

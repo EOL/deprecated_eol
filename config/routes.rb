@@ -301,7 +301,7 @@ EolUpgrade::Application.routes.draw do
   match '/language' => 'content#language', :as => 'language'
 
   # Search (note there is more search at the end of the file; it is expensive):
-  match '/search/:q' => 'search#index', :as => 'search'
+  match '/search' => 'search#index', :as => 'search'
   match '/found/:id' => 'taxa#show', :as => 'found'
 
   # Named session routes (see also resources):
@@ -368,6 +368,9 @@ EolUpgrade::Application.routes.draw do
   match 'api/:action/:id' => 'api', :format => 'xml'
   # looks for version, ID
   match 'api/:action/:version/:id' => 'api', :version => /[0-1]\.[0-9]/, :format => 'xml'
+  
+  match 'content/random_homepage_images' => 'content#random_homepage_images'
+  
 
   # These are expensive and broad and should be kept at the bottom of the file:
   match '/:id' => 'pages#show', :id => /\d+/

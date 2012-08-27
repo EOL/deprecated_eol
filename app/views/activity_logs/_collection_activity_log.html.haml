@@ -24,7 +24,7 @@
 - if item.collection_item.nil? || item.collection_item.object.nil?
   - item_type = 'an_unknown_item'
 - else
-  - translation_vars[:item] = link_to(item.collection_item.object.summary_name,
+  - translation_vars[:item] = link_to(raw(item.collection_item.object.summary_name),
     link_to_item(item.collection_item.object), :style => link_style)
 - case item.activity_id
 - when Activity.add_editor.id

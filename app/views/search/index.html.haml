@@ -18,10 +18,10 @@
         - en_type = en_type(result_instance)
         %li{:class => en_type}
           - if ['image_map', 'image', 'video', 'sound'].include?(en_type)
-            = render :partial => "shared/item_summary_media.html.haml", :locals => { :item => result_instance,
+            = render :partial => "shared/item_summary_media", :locals => { :item => result_instance,
               :en_type => en_type, :search_result => result }
           - elsif ! en_type.blank?
-            = render :partial => "shared/item_summary_#{en_type}.html.haml", :locals => { :item => result_instance, :search_result => result }
+            = render :partial => "shared/item_summary_#{en_type}", :locals => { :item => result_instance, :search_result => result }
   .footer
     = will_paginate @all_results, |
     :previous_label => previous_label, |

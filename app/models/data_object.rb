@@ -787,7 +787,7 @@ class DataObject < ActiveRecord::Base
   end
 
   def latest_published_users_data_object
-    latest_published_revision.users_data_object if users_data_object
+    latest_published_revision.users_data_object if users_data_object && latest_published_revision
   end
 
   def first_concept_name

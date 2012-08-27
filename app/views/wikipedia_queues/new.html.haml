@@ -11,7 +11,7 @@
         %li= I18n.t(:wikipedia_queue_new_instructions_step_two)
         %li= I18n.t(:wikipedia_queue_new_instructions_step_three)
         %li= I18n.t(:wikipedia_queue_new_instructions_step_four)
-      - form_for @new_wikipedia_queue do |form|
+      = form_for @new_wikipedia_queue do |form|
         %fieldset
           %dl
             %dt.required

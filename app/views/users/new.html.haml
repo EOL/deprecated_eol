@@ -8,7 +8,7 @@
   - if @user.eol_authentication?
     .open_authentications
       - $ENABLED_SOCIAL_PLUGINS.each do |provider|
-        - form_for User.new, :url => new_user_url, :html => { :id => "new_user_#{provider}", :method => :get } do |f|
+        = form_for User.new, :url => new_user_url, :html => { :id => "new_user_#{provider}", :method => :get } do |f|
           = hidden_field_tag :oauth_provider, provider
           %fieldset.actions
             = f.submit I18n.t("helpers.submit.user.sign_up_with_#{provider}"),

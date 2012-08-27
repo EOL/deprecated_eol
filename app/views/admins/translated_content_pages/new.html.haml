@@ -3,7 +3,7 @@
 
 #content_page_new
   .article.copy
-    - form_for [@content_page, @translated_content_page], :url => admin_content_page_translated_content_pages_path(@content_page),
+    = form_for [@content_page, @translated_content_page], :url => admin_content_page_translated_content_pages_path(@content_page),
       :builder => ApplicationHelper::EolFormBuilder do |content_page_form|
       = validation_errors_for(@content_page)
       %fieldset

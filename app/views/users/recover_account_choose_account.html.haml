@@ -1,6 +1,6 @@
 #recover_account
   %h1= t(".form_header")
-  - form_for :user, :action => :recover_account_connections, :method => :post do |f|
+  = form_for :user, :action => :recover_account_connections, :method => :post do |f|
     = f.hidden_field :email, :value => @users[0].email
     %fieldset
       %p= t(".form_tip", :email => @users[0].email)

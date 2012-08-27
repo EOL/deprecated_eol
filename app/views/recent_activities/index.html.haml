@@ -6,7 +6,7 @@
       .article.list.updates
         .heading
           %h3= t(".list_header")
-          - form_tag({}, :class => 'filter', :method => :get) do
+          = form_tag({}, :class => 'filter', :method => :get) do
             %fieldset
               %dl
                 %dt

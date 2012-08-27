@@ -12,7 +12,7 @@
         %li{:class => resource_is_active('comments')}
           = link_to I18n.t(:comments_link, :scope => [:users, :newsfeeds]), comments_user_newsfeed_path(@user)
       - if @filters
-        - form_tag({}, :class => 'filter', :method => :get) do
+        = form_tag({}, :class => 'filter', :method => :get) do
           %fieldset
             %dl
               %dt

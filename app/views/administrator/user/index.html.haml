@@ -1,7 +1,7 @@
 =# stylesheet_include_i18n 'calendar'
 =  I18n.t(:user_index_intro)
 #users
-  - form_tag({:action=>'index'},:method=>'get') do
+  = form_tag({:action=>'index'},:method=>'get') do
     %table{:width => "100%"}
       %tr{:valign => 'top'}
         %td{:width => "30%"}

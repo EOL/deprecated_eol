@@ -3,7 +3,7 @@
 - #  %li
 - #   = link_to I18n.t(:go_back), collection_path(@collection)
 %h2= I18n.t(:edit_collection_details_header)
-- form_for @collection, :builder => ApplicationHelper::EolFormBuilder, :html => { :class => 'standard', :multipart => true } do |f|
+= form_for @collection, :builder => ApplicationHelper::EolFormBuilder, :html => { :class => 'standard', :multipart => true } do |f|
   = validation_errors_for(@collection)
   %fieldset
     %dl

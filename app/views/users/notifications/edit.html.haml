@@ -1,7 +1,7 @@
 #content
   #profile_notifications.site_column
     .article.copy
-      - form_for @user, :url => user_notification_path(@user), :builder => ApplicationHelper::EolFormBuilder do |user_form|
+      = form_for @user, :url => user_notification_path(@user), :builder => ApplicationHelper::EolFormBuilder do |user_form|
         %fieldset
           - user_form.label :disable_email_notifications, :class => 'checkbox' do
             = user_form.check_box :disable_email_notifications

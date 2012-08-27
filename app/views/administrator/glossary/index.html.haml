@@ -3,7 +3,7 @@
 %br
 %a{:href => '#add_a_term'}
   =I18n.t("add_a_new_term")
-- form_tag({:action=>'index'},:method=>'post') do
+= form_tag({:action=>'index'},:method=>'post') do
   %strong
     =I18n.t("search")
   =I18n.t("for_terms_or_definitions_conta")
@@ -55,7 +55,7 @@
 %a{:name => 'add_a_term'}
 %h1
   =I18n.t("add_a_new_term")
-- form_for :glossary_term, :url => {:action=>'create'} do |f|
+= form_for :glossary_term, :url => {:action=>'create'} do |f|
   = f.label :label, I18n.t(:glossary_term)
   = f.text_field :term, :size=>20
   %br

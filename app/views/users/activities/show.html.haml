@@ -4,7 +4,7 @@
   .article.list.updates
     .heading
       %h3= I18n.t(:my_activity)
-      - form_tag({}, :class => 'filter', :method => :get) do
+      = form_tag({}, :class => 'filter', :method => :get) do
         %fieldset
           %dl
             %dt

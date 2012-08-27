@@ -13,7 +13,7 @@
             = link_to image_tag(thumb , :alt => alternative_text(@data_object, en_type)), data_object_path(@data_object)
           %span.icon{:title => en_type.blank? ? nil : I18n.t("item_type_#{en_type}_assistive")}
           %h4= link_to @data_object.best_title, data_object_path(@data_object)
-      - form_tag({:controller => 'data_objects', :action => 'add_association'}, :method => 'get') do
+      = form_tag({:controller => 'data_objects', :action => 'add_association'}, :method => 'get') do
         %fieldset
           = label_tag 'add_association', I18n.t(:add_a_taxon_association_label)
           = text_field_tag :name

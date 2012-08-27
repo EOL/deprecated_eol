@@ -1,5 +1,5 @@
 #content_partner_resources.site_column
-  - form_for [@partner, @resource, @hierarchy],
+  = form_for [@partner, @resource, @hierarchy],
     :builder => ApplicationHelper::EolFormBuilder do |hierarchy_form|
     = validation_errors_for(@hierarchy)
 

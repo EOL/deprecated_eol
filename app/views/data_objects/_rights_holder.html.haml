@@ -1,7 +1,7 @@
 - unless data_object.license && data_object.license.is_public_domain?
   - unless data_object.rights_holder.blank?
-    %p{:title => I18n.t(:rights_holder)}= "&copy; #{data_object.rights_holder}"
+    %p{:title => I18n.t(:rights_holder)}= raw("&copy; #{data_object.rights_holder}")
   - else
     - if data_object.added_by_user?
-      %p{:title => I18n.t(:rights_holder)}= "&copy; #{data_object.users_data_object.user.full_name}"
+      %p{:title => I18n.t(:rights_holder)}= raw("&copy; #{data_object.users_data_object.user.full_name}")
   

@@ -6,8 +6,8 @@
       %p
         = role_label
         - if ado.agent.homepage.blank?
-          = ado.agent.full_name
+          = raw(ado.agent.full_name)
         - else
           - unless ado.agent.homepage.start_with?('http://')
             - ado.agent.homepage = "http://" + ado.agent.homepage
-          = link_to ado.agent.full_name, ado.agent.homepage, :rel => :nofollow
+          = raw(link_to ado.agent.full_name, ado.agent.homepage, :rel => :nofollow)

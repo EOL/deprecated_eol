@@ -21,7 +21,7 @@ class Users::NewsfeedsController < UsersController
         # reset last-seen dates:
         # QUESTION: if they see this all newsfeed, doesn't that mean they also see their new messages i.e. last_message_at should be updated too?
         # QUESTION: what if they only see page 1 of their latest notifications?
-        user.update_attribute(:last_notification_at, Time.now) if user.id == current_user.id
+        user.update_column(:last_notification_at, Time.now) if user.id == current_user.id
         # Uses log results to calculate page numbering for rel link tags
         @rel_canonical_href = user_newsfeed_url(@user, :page => rel_canonical_href_page_number(@user_activity_log))
         @rel_prev_href = rel_prev_href_params(@user_activity_log) ? user_newsfeed_url(@rel_prev_href_params) : nil

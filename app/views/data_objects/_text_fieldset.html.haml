@@ -21,6 +21,7 @@
         = label_tag 'data_object[source_url]', I18n.t("helpers.label.data_object_link.source_url")
       %dd.link_object
         = f.text_field :source_url
+        .fetch_error
     %dt
       = f.label :object_title
     %dd

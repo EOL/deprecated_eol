@@ -163,17 +163,24 @@ $(function() {
 
   (function($dato_source_url) {
     $dato_source_url.focusout(function() {
-      var data = "url=" + $dato_source_url.val();
-      $.ajax({
-        url: "/users/fetch_external_page_title",
-        dataType: 'json',
-        data: data,
-        success: function(response) {
-          if ($("#data_object_object_title").val() == "") {
-            $("#data_object_object_title").val(response);
+      if ($("#data_object_object_title").val() == "") {
+        var data = "url=" + $dato_source_url.val();
+        $.ajax({
+          url: "/users/fetch_external_page_title",
+          data: data,
+          dataType: 'json',
+          success: function(data) {
+            if(data.exception == true) {
+              $(".fetch_error").text("An error occurred while retrieving the title for given url. Error: " + data.message);
+            } else {
+              $(".fetch_error").text("");
+              if ($("#data_object_object_title").val() == "") {
+                $("#data_object_object_title").val(data.message);
+              }
+            }
           }
-        }
-      });
+        });
+      }
     });
   })($(".link_object #data_object_source_url"));
 

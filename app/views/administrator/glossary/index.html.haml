@@ -36,8 +36,8 @@
         = h format_date_time(glossary_term.updated_at,:format=>'short_no_time')
       %td{:class => column_class, :width => '70px'}
         = link_to I18n.t(:edit), :action => I18n.t(:edit), :id => glossary_term.id
-        |
-        = link_to I18n.t(:delete), {:action => 'destroy',:id => glossary_term.id}, :confirm => I18n.t(:are_you_sure), :method => :delete
+        &#124;
+        = link_to I18n.t(:delete), {:action => 'destroy',:id => glossary_term.id}, :data => { :confirm => I18n.t(:are_you_sure) }, :method => :delete
   - if @glossary_terms.empty?
     %tr
       %td{:colspan => 5, :align => 'center', :class => 'odd'}

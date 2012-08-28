@@ -142,7 +142,7 @@
                               = f.hidden_field :publish, :value => :true
                               %fieldset.actions
                                 = f.submit I18n.t('helpers.submit.harvest_event.publish'), :name => :commit_publish_harvest_event,
-                                  :confirm => I18n.t(:content_partner_resource_harvest_event_confirm_publish, :completed_at => format_date_time(resource.latest_harvest_event.completed_at), :resource_title => h(resource.title))
+                                  :data => { :confirm => I18n.t(:content_partner_resource_harvest_event_confirm_publish, :completed_at => format_date_time(resource.latest_harvest_event.completed_at), :resource_title => h(resource.title)) }
                       %dt
                         = I18n.t('helpers.label.content_partner.latest_published_harvest_event')
                       %dd
@@ -163,7 +163,7 @@
                         = resource.status_label
                         - if resource.status_can_be_changed_to?(ResourceStatus.force_harvest)
                           = button_to I18n.t('helpers.submit.resource.force_harvest'), force_harvest_content_partner_resource_path(partner, resource),
-                            :confirm => I18n.t(:content_partner_resource_confirm_force_harvest, :resource_title => h(resource.title))
+                            :data => { :confirm => I18n.t(:content_partner_resource_confirm_force_harvest, :resource_title => h(resource.title)) }
                   .settings
                     = form_for [partner, resource], :builder => ApplicationHelper::EolFormBuilder do |f|
                       = hidden_field_tag :return_to, current_url

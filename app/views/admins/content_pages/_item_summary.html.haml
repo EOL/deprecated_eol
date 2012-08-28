@@ -16,7 +16,7 @@
     = link_to I18n.t(:admin_content_page_child_new_link),
       new_admin_content_page_child_path(content_page), :class => 'button'
     = button_to I18n.t(:delete), { :action => 'destroy', :id => content_page.id },
-      { :confirm => I18n.t(:admin_content_page_delete_confirmation, :page_name => content_page.page_name), :method => 'delete', :class => 'delete' }
+      { :data => { :confirm => I18n.t(:admin_content_page_delete_confirmation, :page_name => content_page.page_name) }, :method => 'delete', :class => 'delete' }
   .translations
     %ul
       - content_page.translations.each do |translated_content_page|

@@ -76,12 +76,17 @@ class UserActivityLog < LazyLoggingModel
   end
 
   # TODO - This is only going to work for English.  :\
-  def self.start_user_monitoring(user_id,monitored_activity)
-    sql="SELECT ta.name, al.created_at FROM user_activity_logs al JOIN activities a ON al.activity_id = a.id JOIN translated_activities ta ON (a.id = ta.activity_id AND ta.language_id = #{Language.english.id}) WHERE al.user_id = #{user_id} "
-    sql += " ORDER BY al.created_at ASC"
-    arr = LoggingModel.connection.execute(sql).all_hashes
+  def self.start_user_monitoring(user_id, monitored_activity)
+    sql = "
+      SELECT ta.name, al.created_at
+      FROM user_activity_logs al
+      JOIN activities a ON al.activity_id = a.id
+      JOIN translated_activities ta ON (a.id = ta.activity_id AND ta.language_id = #{Language.english.id})
+      WHERE al.user_id = #{user_id}
+      ORDER BY al.created_at ASC"
+    arr = LoggingModel.connection.execute(sql)
     arr.each do |record|
-      next_activities = get_subsequent_activities_for_a_duration(record['name'],record['created_at'],arr,user_id)
+      next_activities = get_subsequent_activities_for_a_duration(record[0], record[1], arr, user_id)
       monitored_activity << next_activities
     end
     return monitored_activity
@@ -89,18 +94,18 @@ class UserActivityLog < LazyLoggingModel
 
 private
 
-  def self.get_subsequent_activities_for_a_duration(name,created_at,arr,user_id)
+  def self.get_subsequent_activities_for_a_duration(name, created_at, arr, user_id)
     activities = Array.new
-    start_saving=false
+    start_saving = false
     arr.each do |record|
-      if(name == record['name'] and created_at == record['created_at'])
-        start_saving=true
+      if(name == record[0] and created_at == record[1])
+        start_saving = true
       end
       if(start_saving) then
-        end_time = get_time_after_some_minutes(created_at,5)
-        if(record['created_at'] <= end_time) then
-          if(!activities.include?(record['name']))
-            activities << record['name']
+        end_time = get_time_after_some_minutes(created_at.to_s, 5)
+        if(record[1] <= end_time) then
+          if(!activities.include?(record[0]))
+            activities << record[0]
           end
         else break
         end
@@ -109,7 +114,7 @@ private
     return activities
   end
 
-  def self.get_time_after_some_minutes(time,minutes)
+  def self.get_time_after_some_minutes(time, minutes)
     time = Time.parse(time)
     time = time + minutes*60
     #"2010-10-08 11:11:56"

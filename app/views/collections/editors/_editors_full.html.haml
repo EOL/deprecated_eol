@@ -16,7 +16,7 @@
         = I18n.t(:collections_with_count, :count => community.collections.count)
         - if current_user.can_edit_collection?(@collection) && @collection.maintained_by.count > 1
           %br
-          = link_to(I18n.t(:remove), revoke_editor_community_path(community, :collection_id => @collection.id), :confirm => I18n.t(:are_you_sure))
+          = link_to(I18n.t(:remove), revoke_editor_community_path(community, :collection_id => @collection.id), :data => { :confirm => I18n.t(:are_you_sure) })
 - if users.count > 0
   .heading
     %h3= I18n.t(:users_that_can_edit_this_collection)
@@ -29,4 +29,4 @@
         = link_to [ h(user.username), sanitize(user.tag_line).balance_tags ].compact.join('<br/>'), user_path(user)
         - if current_user.can_edit_collection?(@collection)
           %br
-          = link_to(I18n.t(:remove), revoke_editor_user_path(user, :collection_id => @collection.id), :confirm => I18n.t(:are_you_sure))
+          = link_to(I18n.t(:remove), revoke_editor_user_path(user, :collection_id => @collection.id), :data => { :confirm => I18n.t(:are_you_sure) })

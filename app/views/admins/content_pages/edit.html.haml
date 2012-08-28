@@ -10,4 +10,4 @@
         = content_page_form.submit I18n.t('helpers.submit.content_page.update')
         = link_to I18n.t(:cancel), admin_content_pages_path
     = button_to I18n.t(:delete), { :action => 'destroy', :id => @content_page.id },
-      { :confirm => I18n.t(:admin_content_page_delete_confirmation, :page_name => @content_page.page_name), :method => 'delete', :class => 'delete' }
+      { :data => { :confirm => I18n.t(:admin_content_page_delete_confirmation, :page_name => @content_page.page_name) }, :method => 'delete', :class => 'delete' }

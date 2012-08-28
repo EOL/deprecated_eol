@@ -231,7 +231,21 @@ class UsersController < ApplicationController
   end
 
   def fetch_external_page_title
-    render :text => (open(params[:url]).read.match(/<title>(.*?)<\/title>/)[1]).to_json
+    data = {}
+    begin
+      response = Net::HTTP.get_response(URI.parse(params[:url]))
+      if response.code == "200"
+        data['exception'] = false
+        data['message'] = response.body.match(/<title>(.*?)<\/title>/)[1]
+      else
+        data['exception'] = true
+        data['message'] = response.message
+      end
+    rescue Exception => e
+      data['exception'] = true
+      data['message'] = e.message
+    end
+    render :text => data.to_json
   end
 
   def pending_notifications

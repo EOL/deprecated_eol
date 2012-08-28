@@ -21,7 +21,7 @@
               = label_tag('community_name', h(truncate(community.name, :length => 64)))
               - if has_rights
                 %span
-                  •
+                  \&bull;
                   = link_to(I18n.t(:in_community), community_url(community), :class => 'close_and_go')
               - else
                 - one_available = true

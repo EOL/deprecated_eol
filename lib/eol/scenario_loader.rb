@@ -89,6 +89,7 @@ module EOL
     end
 
     def create_cache
+      return
       @all_connections.each do |conn|
         tables = tables_to_export_from_connection(conn)
         db_config_hash = conn.raw_connection.query_options

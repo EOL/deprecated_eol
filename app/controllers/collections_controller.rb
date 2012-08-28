@@ -177,7 +177,7 @@ class CollectionsController < ApplicationController
                        @collection = @item
                        'v2/collections'
                      end
-        render :partial => 'choose_collect_target', :layout => use_layout
+        render 'choose_collect_target', :layout => use_layout
       end
       format.js { render :partial => 'choose_collect_target' }
     end

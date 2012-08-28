@@ -5,7 +5,7 @@ EolUpgrade::Application.routes.draw do
   root :to => 'content#index'
 
   # Permanent redirects should be second in routes file (according to whom? -- I can't corroborate this).
-  match "/podcast" => redirect('http://education.eol.org/podcast')
+  match '/podcast' => redirect('http://education.eol.org/podcast')
   match '/pages/:taxon_id/curators' => redirect("/pages/%{taxon_id}/community/curators")
   match '/pages/:taxon_id/images' => redirect("/pages/%{taxon_id}/media")
   match '/pages/:taxon_id/classification_attribution' => redirect("/pages/%{taxon_id}/names")
@@ -352,10 +352,26 @@ EolUpgrade::Application.routes.draw do
 
   # Old V1 /admin and /administrator namespaces (controllers)
   match 'administrator' => 'admin#index', :as => 'administrator'
-  match 'administrator/reports' => 'administrator/reports#index'
-  match 'administrator/reports/:action' => 'administrator/reports'
-  match 'administrator/curator' => 'administrator/curator#index'
-  match 'administrator/translation_log' => 'administrator/translation_log#index'
+  resource :administrator, :only => [:index], :controller => 'admin' do
+    resources :glossary, :only => [:index, :create, :edit, :update, :destroy], :controller => 'administrator/glossary'
+    resources :harvesting_log, :only => [:index], :controller => 'administrator/harvesting_log'
+    resources :hierarchy, :only => [:index, :browse, :edit], :controller => 'administrator/hierarchy'
+    resources :stats, :only => [:index], :controller => 'administrator/stats' do
+      collection do
+        get 'SPM_objects_count'
+        get 'SPM_partners_count'
+        get 'toc_breakdown'
+        get 'content_taxonomic'
+      end
+    end
+    resources :user, :only => [:index], :controller => 'administrator/user' do
+      collection do
+        get 'view_common_combinations'
+      end
+    end
+    resources :table_of_contents, :only => [:index, :create, :edit, :update, :destroy], :controller => 'administrator/table_of_contents'
+    resources :search_suggestion, :only => [:index, :create, :new, :edit, :update, :destroy], :controller => 'administrator/search_suggestion'
+  end
 
   # Named API Routes:
   match 'api' => 'api/docs#index' # Default is actually the documenation

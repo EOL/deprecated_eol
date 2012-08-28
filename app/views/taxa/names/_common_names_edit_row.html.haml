@@ -14,7 +14,7 @@
 %td{:class => 'vet_common_name'}
   - if synonym_id = name.synonym_id_for_user(current_user)
     = link_to( I18n.t(:delete), delete_taxon_names_path(:taxon_id => @taxon_concept.id, :synonym_id => synonym_id, :hierarchy_entry_id => @selected_hierarchy_entry_id),
-      :confirm => I18n.t(:are_you_sure))
+      :data => { :confirm => I18n.t(:are_you_sure) })
   - else
     - name.vetted = Vetted.untrusted if name.vetted == Vetted.inappropriate
     = select_tag("#{name.unique_id}", options_for_select(@common_name_vet_options, name.vetted.id.to_s),

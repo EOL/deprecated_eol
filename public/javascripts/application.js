@@ -423,7 +423,17 @@ $(function() {
       $('#collection_items :checkbox').parent().show();
     }
   });
-
+  
+  
+  $('#main .media video embed').each(function() {
+    var test_video = document.createElement('video');
+    cant_play_video = (!test_video.canPlayType || !test_video.canPlayType('video/mp4'));
+    if (cant_play_video) {
+      var video = $(this).parent();
+      video.parent().html(video.html());
+    }
+  });
+  
   
   (function($inat_link) {
     $inat_link.attr('href', function() { 

@@ -660,6 +660,8 @@ private
   def reindex_items_if_necessary(collection_results)
     collection_item_ids_to_reindex = []
     collection_results.each do |r|
+      # the instance should never be nil, but sometimes it is when the DB and Solr are out of sync
+      next if r['instance'].nil?
       if r['sort_field'] != r['instance'].sort_field
         collection_item_ids_to_reindex << r['instance'].id
       elsif r['object_type'] == 'TaxonConcept'

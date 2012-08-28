@@ -7,6 +7,7 @@
 # Author: Crochet.david
 # Author: DavidL
 # Author: Davidtsm
+# Author: Euloiix
 # Author: Gomoko
 # Author: Hashar
 # Author: Jean-Frédéric
@@ -2206,6 +2207,7 @@ fr:
     community_activity_user_joined: L’utilisateur <b>%{user_name}</b> s’est joint à la communauté <b>%{community_name}</b>.
     community_activity_user_left: L’utilisateur <b>%{user_name}</b> a quitté la communauté <b>%{community_name}</b>.
     community_activity_user_made_member_a_manager: L’utilisateur <b>%{user_name}</b> a désigné <b>%{member_name}</b> comme gestionnaire de la communauté <b>%{community_name}</b>.
+    contact_us_link: En cas de problème, merci de <a href='http://eol.org/contact_us' style='color:#195184'>nous contacter</a>.
     curator_activity_log_title: "%{who} a organisé quelque chose"
     curator_activity_on_data_object_by_user: "<b>%{user_name}</b> a effectué %{activity_name} sur <b>%{dato_title}</b> (%{dato_type} #%{dato_id})."
     curator_activity_on_taxon_concept_by_user: <b>%{user_name}</b> a effectué %{activity_name} sur <b>%{taxon_concept}</b> (%{taxon_overview_url}).
@@ -2939,12 +2941,15 @@ fr:
     communities: 
       index: 
         meta_description: Communautés dont %{user_full_name} est un membre.
+        meta_title: Communautés de %{user_full_name}
+        tweet_text: communautés de %{user_full_name}
     edit: 
       form_tip_curation: La Certification et l’Étendue de conservation sont optionnelles pour les Conservateurs adjoints mais exigés %{required_icon} pour les Conservateurs et Maîtres conservateurs
       form_tip_profile: Les éléments marqués « requis » %{required_icon} sont optionnels pour les utilisateurs ordinaires mais exigés des conservateurs.
       form_tip_profile_oauth: Un prénom est requis ; les autres éléments marqués « requis » %{required_icon} sont optionnels pour les utilisateurs ordinaires mais exigés des conservateurs.
     new: 
       create_user_header: Créer un nouveau compte <abbr title="Encyclopédie de la vie">EdlV</abbr>
+      meta_title: Rejoindre EOL
     newsfeeds: 
       activity: 
         meta_title: Contributions de %{user_full_name}

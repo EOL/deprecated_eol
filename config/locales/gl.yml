@@ -599,6 +599,31 @@ gl:
         user_split_unknown_entry_from_an_unknown_taxon: <strong>%{user}</strong> separou unha clasificación descoñecida dun taxon descoñecido.
         user_split_unknown_entry_from_it: <strong>%{user}</strong> separou unha clasificación descoñecida.
         user_split_unknown_entry_from_taxon: <strong>%{user}</strong> separou unha clasificación descoñecida de "%{taxon}".
+      trust_common_name: 
+        an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Un usuario descoñecido marcou un nome común descoñecido nunha lingua descoñecida dunha páxina descoñecida como de confianza.
+        an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_it: Un usuario descoñecido marcou un nome común descoñecido nunha lingua descoñecida como de confianza.
+        an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_taxon: Un usuario descoñecido marcou un nome común descoñecido nunha lingua descoñecida de "%{taxon}" como de confianza.
+        an_unknown_user_trusted_an_unknown_name_in_language_on_an_unknown_taxon: Un usuario descoñecido marcou un nome común descoñecido en %{language} dunha páxina descoñecida como de confianza.
+        an_unknown_user_trusted_an_unknown_name_in_language_on_it: Un usuario descoñecido marcou un nome común descoñecido en %{language} como de confianza.
+        an_unknown_user_trusted_an_unknown_name_in_language_on_taxon: Un usuario descoñecido marcou un nome común descoñecido en %{language} de "%{taxon}" como de confianza.
+        an_unknown_user_trusted_name_in_an_unknown_language_on_an_unknown_taxon: Un usuario descoñecido marcou o nome común "%{name}" nunha lingua descoñecida dunha páxina descoñecida como de confianza.
+        an_unknown_user_trusted_name_in_an_unknown_language_on_it: Un usuario descoñecido marcou o nome común "%{name}" nunha lingua descoñecida como de confianza.
+        an_unknown_user_trusted_name_in_an_unknown_language_on_taxon: Un usuario descoñecido marcou o nome común "%{name}" nunha lingua descoñecida de "%{taxon}" como de confianza.
+        an_unknown_user_trusted_name_in_language_on_an_unknown_taxon: Un usuario descoñecido marcou o nome común "%{name}" en %{language} dunha páxina descoñecida como de confianza.
+        an_unknown_user_trusted_name_in_language_on_it: Un usuario descoñecido marcou o nome común "%{name}" en %{language} como de confianza.
+        an_unknown_user_trusted_name_in_language_on_taxon: Un usuario descoñecido marcou o nome común "%{name}" en %{language} de "%{taxon}" como de confianza.
+        user_trusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> marcou un nome común descoñecido nunha lingua descoñecida dunha páxina descoñecida como de confianza.
+        user_trusted_an_unknown_name_in_an_unknown_language_on_it: <strong>%{user}</strong> marcou un nome común descoñecido nunha lingua descoñecida como de confianza.
+        user_trusted_an_unknown_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> marcou un nome común descoñecido nunha lingua descoñecida de "%{taxon}" como de confianza.
+        user_trusted_an_unknown_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> marcou un nome común descoñecido en %{language} dunha páxina descoñecida como de confianza.
+        user_trusted_an_unknown_name_in_language_on_it: <strong>%{user}</strong> marcou un nome común descoñecido en %{language} como de confianza.
+        user_trusted_an_unknown_name_in_language_on_taxon: <strong>%{user}</strong> marcou un nome común descoñecido en %{language} de "%{taxon}" como de confianza.
+        user_trusted_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> marcou o nome común "%{name}" nunha lingua descoñecida dunha páxina descoñecida como de confianza.
+        user_trusted_name_in_an_unknown_language_on_it: <strong>%{user}</strong> marcou o nome común "%{name}" nunha lingua descoñecida como de confianza.
+        user_trusted_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> marcou o nome común "%{name}" nunha lingua descoñecida de "%{taxon}" como de confianza.
+        user_trusted_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> marcou o nome común "%{name}" en %{language} dunha páxina descoñecida como de confianza.
+        user_trusted_name_in_language_on_it: <strong>%{user}</strong> marcou o nome común "%{name}" en %{language} como de confianza.
+        user_trusted_name_in_language_on_taxon: <strong>%{user}</strong> marcou o nome común "%{name}" en %{language} de "%{taxon}" como de confianza.
       trusted: 
         an_unknown_user_trusted_an_older_data_object_on_an_unknown_association: Un usuario descoñecido marcou unha versión vella de "%{data_object}" como de confianza nun contexto descoñecido.
         an_unknown_user_trusted_an_older_data_object_on_association: Un usuario descoñecido marcou unha versión vella de "%{data_object}" como de confianza na páxina "%{association}".
@@ -624,6 +649,31 @@ gl:
         an_unknown_taxon_unlocked: "Houbo un <strong>erro</strong> no proceso de conservación en segundo plano dunha páxina descoñecida: %{error}."
         it_unlocked: "Houbo un <strong>erro</strong> no proceso de conservación en segundo plano: %{error}."
         taxon_unlocked: "Houbo un <strong>erro</strong> no proceso de conservación en segundo plano de \"%{taxon}\": %{error}."
+      unreview_common_name: 
+        an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Un usuario descoñecido marcou un nome común descoñecido nunha lingua descoñecida dunha páxina descoñecida como non revisado.
+        an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: Un usuario descoñecido marcou un nome común descoñecido nunha lingua descoñecida como non revisado.
+        an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_taxon: Un usuario descoñecido marcou un nome común descoñecido nunha lingua descoñecida de "%{taxon}" como non revisado.
+        an_unknown_user_unreviewed_an_unknown_name_in_language_on_an_unknown_taxon: Un usuario descoñecido marcou un nome común descoñecido en %{language} dunha páxina descoñecida como non revisado.
+        an_unknown_user_unreviewed_an_unknown_name_in_language_on_it: Un usuario descoñecido marcou un nome común descoñecido en %{language} como non revisado.
+        an_unknown_user_unreviewed_an_unknown_name_in_language_on_taxon: Un usuario descoñecido marcou un nome común descoñecido en %{language} de "%{taxon}" como non revisado.
+        an_unknown_user_unreviewed_name_in_an_unknown_language_on_an_unknown_taxon: Un usuario descoñecido marcou o nome común "%{name}" nunha lingua descoñecida dunha páxina descoñecida como non revisado.
+        an_unknown_user_unreviewed_name_in_an_unknown_language_on_it: Un usuario descoñecido marcou o nome común "%{name}" nunha lingua descoñecida como non revisado.
+        an_unknown_user_unreviewed_name_in_an_unknown_language_on_taxon: Un usuario descoñecido marcou o nome común "%{name}" nunha lingua descoñecida de "%{taxon}" como non revisado.
+        an_unknown_user_unreviewed_name_in_language_on_an_unknown_taxon: Un usuario descoñecido marcou o nome común "%{name}" en %{language} dunha páxina descoñecida como non revisado.
+        an_unknown_user_unreviewed_name_in_language_on_it: Un usuario descoñecido marcou o nome común "%{name}" en %{language} como non revisado.
+        an_unknown_user_unreviewed_name_in_language_on_taxon: Un usuario descoñecido marcou o nome común "%{name}" en %{language} de "%{taxon}" como non revisado.
+        user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> marcou un nome común descoñecido nunha lingua descoñecida dunha páxina descoñecida como non revisado.
+        user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: <strong>%{user}</strong> marcou un nome común descoñecido nunha lingua descoñecida como non revisado.
+        user_unreviewed_an_unknown_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> marcou un nome común descoñecido nunha lingua descoñecida de "%{taxon}" como non revisado.
+        user_unreviewed_an_unknown_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> marcou un nome común descoñecido en %{language} dunha páxina descoñecida como non revisado.
+        user_unreviewed_an_unknown_name_in_language_on_it: <strong>%{user}</strong> marcou un nome común descoñecido en %{language} como non revisado.
+        user_unreviewed_an_unknown_name_in_language_on_taxon: <strong>%{user}</strong> marcou un nome común descoñecido en %{language} de "%{taxon}" como non revisado.
+        user_unreviewed_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> marcou o nome común "%{name}" nunha lingua descoñecida dunha páxina descoñecida como non revisado.
+        user_unreviewed_name_in_an_unknown_language_on_it: <strong>%{user}</strong> marcou o nome común "%{name}" nunha lingua descoñecida como non revisado.
+        user_unreviewed_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> marcou o nome común "%{name}" nunha lingua descoñecida de "%{taxon}" como non revisado.
+        user_unreviewed_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> marcou o nome común "%{name}" en %{language} dunha páxina descoñecida como non revisado.
+        user_unreviewed_name_in_language_on_it: <strong>%{user}</strong> marcou o nome común "%{name}" en %{language} como non revisado.
+        user_unreviewed_name_in_language_on_taxon: <strong>%{user}</strong> marcou o nome común "%{name}" en %{language} de "%{taxon}" como non revisado.
       unreviewed: 
         an_unknown_user_unreviewed_an_older_data_object_on_an_unknown_association: Un usuario descoñecido marcou unha versión vella de "%{data_object}" como non revisada nun contexto descoñecido.
         an_unknown_user_unreviewed_an_older_data_object_on_association: Un usuario descoñecido marcou unha versión vella de "%{data_object}" como non revisada na páxina "%{association}".
@@ -641,6 +691,31 @@ gl:
         user_unreviewed_data_object_on_association: <strong>%{user}</strong> marcou "%{data_object}" como non revisado na páxina "%{association}".
         user_unreviewed_it_on_an_unknown_association: <strong>%{user}</strong> marcouno como non revisado nun contexto descoñecido.
         user_unreviewed_it_on_association: <strong>%{user}</strong> marcouno como non revisado na páxina "%{association}".
+      untrust_common_name: 
+        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Un usuario descoñecido marcou un nome común descoñecido nunha lingua descoñecida dunha páxina descoñecida como de non confianza.
+        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_it: Un usuario descoñecido marcou un nome común descoñecido nunha lingua descoñecida como de non confianza.
+        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_taxon: Un usuario descoñecido marcou un nome común descoñecido de "%{taxon}" nunha lingua descoñecida como de non confianza.
+        an_unknown_user_untrusted_an_unknown_name_in_language_on_an_unknown_taxon: Un usuario descoñecido marcou un nome común descoñecido en %{language} dunha páxina descoñecida como de non confianza.
+        an_unknown_user_untrusted_an_unknown_name_in_language_on_it: Un usuario descoñecido marcou un nome común descoñecido en %{language} como de non confianza.
+        an_unknown_user_untrusted_an_unknown_name_in_language_on_taxon: Un usuario descoñecido marcou un nome común descoñecido en %{language} de "%{taxon}" como de non confianza.
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_an_unknown_taxon: Un usuario descoñecido marcou o nome común "%{name}" nunha lingua descoñecida dunha páxina descoñecida como de non confianza.
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_it: Un usuario descoñecido marcou o nome común "%{name}" nunha lingua descoñecida como de non confianza.
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_taxon: Un usuario descoñecido marcou o nome común "%{name}" nunha lingua descoñecida de "%{taxon}" como de non confianza.
+        an_unknown_user_untrusted_name_in_language_on_an_unknown_taxon: Un usuario descoñecido marcou o nome común "%{name}" en %{language} dunha páxina descoñecida como de non confianza.
+        an_unknown_user_untrusted_name_in_language_on_it: Un usuario descoñecido marcou o nome común "%{name}" en %{language} como de non confianza.
+        an_unknown_user_untrusted_name_in_language_on_taxon: Un usuario descoñecido marcou o nome común "%{name}" en %{language} de "%{taxon}" como de non confianza.
+        user_untrusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> marcou un nome común descoñecido nunha lingua descoñecida dunha páxina descoñecida como de non confianza.
+        user_untrusted_an_unknown_name_in_an_unknown_language_on_it: <strong>%{user}</strong> marcou un nome común descoñecido nunha lingua descoñecida como de non confianza.
+        user_untrusted_an_unknown_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> marcou un nome común descoñecido nunha lingua descoñecida de "%{taxon}" como de non confianza.
+        user_untrusted_an_unknown_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> marcou un nome común descoñecido en %{language} dunha páxina descoñecida como de non confianza.
+        user_untrusted_an_unknown_name_in_language_on_it: <strong>%{user}</strong> marcou un nome común descoñecido en %{language} como de non confianza.
+        user_untrusted_an_unknown_name_in_language_on_taxon: <strong>%{user}</strong> marcou un nome común descoñecido en %{language} de "%{taxon}" como de non confianza.
+        user_untrusted_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> marcou o nome común "%{name}" nunha lingua descoñecida dunha páxina descoñecida como de non confianza.
+        user_untrusted_name_in_an_unknown_language_on_it: <strong>%{user}</strong> marcou o nome común "%{name}" nunha lingua descoñecida como de non confianza.
+        user_untrusted_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong> marcou o nome común "%{name}" nunha lingua descoñecida de "%{taxon}" como de non confianza.
+        user_untrusted_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> marcou o nome común "%{name}" en %{language} dunha páxina descoñecida como de non confianza.
+        user_untrusted_name_in_language_on_it: <strong>%{user}</strong> marcou o nome común "%{name}" en %{language} como de non confianza.
+        user_untrusted_name_in_language_on_taxon: <strong>%{user}</strong> marcou o nome común "%{name}" en %{language} de "%{taxon}" como de non confianza.
       untrusted: 
         an_unknown_user_untrusted_an_older_data_object_on_an_unknown_association: Un usuario descoñecido marcou unha versión vella de "%{data_object}" como de non confianza nun contexto descoñecido.
         an_unknown_user_untrusted_an_older_data_object_on_association: Un usuario descoñecido marcou unha versión vella de "%{data_object}" como de non confianza na páxina "%{association}".
@@ -2815,6 +2890,7 @@ gl:
   sci_name_avg_table_head: Media do nome científico
   scientific_name: Nome científico
   search: Procurar
+  search_by_provider_method_description_with_link: "obter os identificadores de páxinas da EOL a partir do identificador hierarchy_id dun provedor e o identificador único do provedor<br />(por exemplo, procura o identificador da páxina da EOL de ITIS TSN 180542: %{link})"
   search_by_term_page_title: "Procurar: %{term}"
   search_field_common_name: Nome común
   search_field_label: Procurar na EOL

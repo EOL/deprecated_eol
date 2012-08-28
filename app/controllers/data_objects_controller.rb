@@ -101,6 +101,7 @@ class DataObjectsController < ApplicationController
     # @data_object is loaded in before_filter :load_data_object
     set_text_data_object_options
     @selected_toc_item_id = @data_object.toc_items.first.id rescue nil
+    @selected_link_type_id = @data_object.link_type_id rescue nil
     if params[:link]
       @edit_link = true
       @page_title = I18n.t(:dato_edit_link_title)
@@ -418,6 +419,7 @@ private
 
   def set_text_data_object_options
     @toc_items = TocItem.selectable_toc
+    @link_types = LinkType.all
     @languages = Language.find_by_sql("SELECT * FROM languages WHERE iso_639_1 != '' && source_form != ''")
     @licenses = License.find_all_by_show_to_content_partners(1)
   end

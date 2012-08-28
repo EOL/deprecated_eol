@@ -36,7 +36,8 @@ class CollectionItem < ActiveRecord::Base
                 :videos =>      {:facet => 'Video',        :i18n_key => "videos"},
                 :communities => {:facet => 'Community',    :i18n_key => "communities"},
                 :people =>      {:facet => 'User',         :i18n_key => "people"},
-                :collections => {:facet => 'Collection',   :i18n_key => "collections"}}
+                :collections => {:facet => 'Collection',   :i18n_key => "collections"},
+                :links =>       {:facet => 'Link',         :i18n_key => "links"}}
   end
 
   def can_be_updated_by?(user_wanting_access)
@@ -66,9 +67,21 @@ class CollectionItem < ActiveRecord::Base
   end
 
   def solr_index_hash
+    item_object_type = nil
+    if self.object_type == 'DataObject'
+      if self.object.data_type.simple_type('en') == 'Text' && self.object.link_type_id
+        item_object_type = 'Link'
+        link_type_id = self.object.link_type_id
+      else
+        item_object_type = self.object.data_type.simple_type('en')
+      end
+    else
+      item_object_type = self.object_type
+    end
+
     params = {}
     params['collection_item_id'] = self.id
-    params['object_type'] = (self.object_type == 'DataObject') ? self.object.data_type.simple_type('en') : self.object_type
+    params['object_type'] = item_object_type
     params['object_id'] = self.object_id
     params['collection_id'] = self.collection_id || 0
     params['annotation'] = self.annotation || ''
@@ -79,6 +92,7 @@ class CollectionItem < ActiveRecord::Base
     if params['sort_field'].blank?
       params.delete('sort_field')
     end
+    params['link_type_id'] = link_type_id if link_type_id
 
     case self.object.class.name
     when "TaxonConcept"

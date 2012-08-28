@@ -65,7 +65,7 @@ protected
 private
   def literatures_and_resources_links
     $show_resources_links = []
-    $show_literature_references_link = false
+    $show_literature_references_links = []
     
     $show_resources_links << 'partner_links' unless @taxon_concept.content_partners_links.blank?
     
@@ -94,7 +94,27 @@ private
     end
 
     $show_resources_links << 'nucleotide_sequences' unless @taxon_concept.nucleotide_sequences_hierarchy_entry_for_taxon.nil?
-  
-    $show_literature_references_link = true if Ref.literature_references_for?(@taxon_concept.id)
+
+    @news_and_event_links_contents ||= @taxon_concept.text_for_user(current_user, {
+      :language_ids => [ current_language.id ],
+      :link_type_ids => [ LinkType.news.id, LinkType.blog.id ] })
+    $show_resources_links << 'news_and_event_links' unless @news_and_event_links_contents.blank?
+
+    @related_organizations_contents ||= @taxon_concept.text_for_user(current_user, {
+      :language_ids => [ current_language.id ],
+      :link_type_ids => [ LinkType.organization.id ] })
+    $show_resources_links << 'related_organizations' unless @related_organizations_contents.blank?
+
+    @multimedia_links_contents ||= @taxon_concept.text_for_user(current_user, {
+      :language_ids => [ current_language.id ],
+      :link_type_ids => [ LinkType.multimedia.id ] })
+    $show_resources_links << 'multimedia_links' unless @multimedia_links_contents.blank?
+
+    $show_literature_references_links << 'literature_references' if Ref.literature_references_for?(@taxon_concept.id)
+    
+    @literature_links_contents ||= @taxon_concept.text_for_user(current_user, {
+      :language_ids => [ current_language.id ],
+      :link_type_ids => [ LinkType.paper.id ] })
+    $show_literature_references_links << 'literature_links' unless @literature_links_contents.blank?
   end
 end

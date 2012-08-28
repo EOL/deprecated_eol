@@ -1,12 +1,12 @@
 - content.each do |dato|
-  - link_object = true if dato.data_subtype_id == DataType.link.id
+  - link_object = true if dato.data_subtype_id == DataType.link.id && dato.link_type_id
   - item_status_class, item_status_label = dato.status_class_and_label_by_taxon_concept(@taxon_concept)
   %div{:id => "data_object_#{dato.id}", :class => 'article'}
     - unless dato.object_title.blank?
       %h4= dato.object_title
     .meta.learn_more
       %p= link_to I18n.t("#{link_object ? 'link' : 'article'}_more_about"), data_object_path(dato)
-    = render :partial => 'data_objects/data_object_article', :locals => { :data_object => dato , :show_view_source => 'false'}
+    = render :partial => 'data_objects/data_object_article', :locals => { :data_object => dato , :show_view_source => 'false', :link_object => true }
     .meta.attribution
       = render :partial => 'data_objects/attribution_minimal', :locals => { :data_object => dato }
     %p.flag{:class => item_status_class }= item_status_label

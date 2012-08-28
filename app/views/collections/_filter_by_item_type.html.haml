@@ -13,7 +13,7 @@
   - types = CollectionItem.types
   - # Defining the tab_order here is required as ruby 1.8 doesn't preserve the insert order of hashes
   - # and we need our tabs on the collection show in the following order.
-  - tab_order = [:taxa, :text, :images, :sounds, :videos, :communities, :people, :collections]
+  - tab_order = [:taxa, :text, :images, :sounds, :videos, :communities, :people, :collections, :links]
   - tab_order.each do |type|
     - if types.keys.include?(type)
       - count = @facet_counts[types[type][:facet]] || 0

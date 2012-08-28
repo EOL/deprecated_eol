@@ -112,7 +112,7 @@ ActionController::Routing::Routes.draw do |map|
                 :member => { :terms_agreement => [ :get, :post ], :pending => :get, :activated => :get,
                              :curation_privileges => :get, :make_editor => :put, :revoke_editor => :get,
                              :pending_notifications => :get },
-                :collection => { :usernames => :get, :recover_account => :get,
+                :collection => { :usernames => :get, :recover_account => :get, :fetch_external_page_title => :get,
                                  :verify_open_authentication => :get } do |user|
     user.resource :newsfeed, :only => [:show], :collection => { :comments => [:get] },
                              :controller => "users/newsfeeds"
@@ -147,10 +147,10 @@ ActionController::Routing::Routes.draw do |map|
                                 :collection => { :common_names => :get, :related_names => :get, :synonyms => :get },
                                 :member => { :vet_common_name => :get }
       entries.resource :literature, :only => [:show], :controller => "taxa/literature",
-        :member => { :bhl => :get }
+        :member => { :bhl => :get, :literature_links => :get }
       entries.resource :resources, :only => [:show], :controller => "taxa/resources",
         :member => { :identification_resources => :get, :education => :get , :nucleotide_sequences => :get, :biomedical_terms => :get,
-          :citizen_science => :get }
+          :citizen_science => :get, :news_and_event_links => :get, :related_organizations => :get, :multimedia_links => :get }
       entries.resource :maps, :only => [:show], :controller => "taxa/maps"
       entries.resource :updates, :only => [:show], :controller => "taxa/updates",
         :member => { :statistics => :get }
@@ -165,10 +165,10 @@ ActionController::Routing::Routes.draw do |map|
                                            :synonyms => :get, :delete => :get },
                           :member => { :vet_common_name => :get }
     taxa.resource :literature, :only => [:show], :controller => "taxa/literature",
-      :member => { :bhl => :get }
+      :member => { :bhl => :get, :literature_links => :get }
     taxa.resource :resources, :only => [:show], :controller => "taxa/resources",
       :member => { :identification_resources => :get, :education => :get , :nucleotide_sequences => :get , :biomedical_terms => :get,
-        :citizen_science => :get }
+        :citizen_science => :get, :news_and_event_links => :get, :related_organizations => :get, :multimedia_links => :get }
     taxa.resources :communities, :as => :community, :only => [:index], :controller => "taxa/communities",
        :collection => { :collections => :get, :curators => :get }
     taxa.resource :maps, :only => [:show], :controller => "taxa/maps"

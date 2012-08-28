@@ -110,6 +110,12 @@ DataType.gen_if_not_exists(:label => 'YouTube',   :schema_value => 'YouTube')
 DataType.gen_if_not_exists(:label => 'Map',       :schema_value => 'Map')
 DataType.gen_if_not_exists(:label => 'Link',      :schema_value => 'Link')
 
+LinkType.gen_if_not_exists(:label => 'Blog')
+LinkType.gen_if_not_exists(:label => 'News')
+LinkType.gen_if_not_exists(:label => 'Organization')
+LinkType.gen_if_not_exists(:label => 'Paper')
+LinkType.gen_if_not_exists(:label => 'Multimedia')
+
 default_hierarchy = Hierarchy.gen_if_not_exists(:agent => Agent.catalogue_of_life, :label => $DEFAULT_HIERARCHY_NAME, :browsable => 1)
 Hierarchy.gen_if_not_exists(:agent => Agent.catalogue_of_life, :label =>  "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2007", :browsable => 0)
 Hierarchy.gen_if_not_exists(:label => "Encyclopedia of Life Contributors")

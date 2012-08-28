@@ -80,9 +80,7 @@
                 = I18n.t(:home)
             %li
               %a.dropdown{ :title => "#{ I18n.t(:language) }: #{I18n.locale}" }
-                = I18n.t(:language)
-                \:
-                = I18n.locale
+                = I18n.t(:language) + I18n.locale.to_s
               %ul.uppercase
                 - Language.find_active.each do |language|
                   %li
@@ -113,7 +111,7 @@
           - if @home_page
             %span.quote
               "Imagine an electronic page for each species of organism on Earth..."
-            \- Edward O. Wilson
+            = "- Edward O. Wilson"
           - if logged_in? && $ALLOW_USER_LOGINS
             .desc-personal
               %p
@@ -127,14 +125,14 @@
                 = link_to( I18n.t(:pages_admin_section_link) ,{:controller => '/admin',:action => 'index'}) + " | " if current_user.is_admin?
                 - if current_user.is_curator?
                   = link_to("curators", {:controller => '/content', :action => 'page', :id => 'curator_central'})
-                  |
+                  &#124;
                 = link_to( I18n.t(:your_preferences) , {:controller => '/account', :action => 'profile'}, {:class => 'return_to'})
-                |
+                &#124;
                 = link_to( I18n.t(:logout) , logout_url, {:class => 'return_to'})
           - elsif $ALLOW_USER_LOGINS
             %p
               = link_to( I18n.t(:login) , {:controller => '/account', :action => 'login'}, {:class => 'return_to'})
-              |
+              &#124;
               = link_to( I18n.t(:create_account) , {:controller => '/account', :action => 'signup'}, {:class => 'return_to'})
           - elsif $ALLOW_USER_LOGINS == false && @home_page.nil?
             %p

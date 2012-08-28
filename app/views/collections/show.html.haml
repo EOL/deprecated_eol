@@ -12,7 +12,7 @@
     .empty
       %p= I18n.t(:collection_is_empty)
       - if editable && ! @collection.special?
-        = button_to I18n.t(:collection_delete_link), { :action => "delete", :collection_id => @collection.id }, :confirm => I18n.t(:collection_delete_link), :method => :delete
+        = button_to I18n.t(:collection_delete_link), { :action => "delete", :collection_id => @collection.id }, :data => { :confirm => I18n.t(:collection_delete_link) }, :method => :delete
 - else
   = form_for @collection, :method => :put, :builder => ApplicationHelper::EolFormBuilder do |f|
     = hidden_field_tag(:filter, @filter) if @filter

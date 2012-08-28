@@ -4,8 +4,6 @@
   %h3
     =I18n.t("site_cms")
   %li
-    = link_to I18n.t("edit_page_contents"),{:controller=>'administrator/content_page',:action=>'index'}, {:class=>'toc_item active'}
-  %li
     = link_to I18n.t("upload_content"),{:controller=>'administrator/content_upload', :action=>'index'}, {:class=>'toc_item active'}
   %li
     = link_to I18n.t("edit_search_suggestions"),{:controller=>'administrator/search_suggestion', :action=>'index'}, {:class=>'toc_item active'}

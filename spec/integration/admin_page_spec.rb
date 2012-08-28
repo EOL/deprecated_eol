@@ -45,96 +45,73 @@ describe 'Admin Pages' do
   it 'should load the admin homepage' do
     login_as(@user)
     visit('/administrator')
-    body.should include('Welcome to the EOL Administration Console')
-    body.should include('Site CMS')
-    body.should include('News Items')
-    body.should include('Comments and Tags')
-    body.should include('Web Users')
+    page.should have_content('Welcome to the EOL Administration Console')
+    page.should have_content('Site CMS')
+    page.should have_content('News Items')
+    page.should have_content('Comments and Tags')
+    page.should have_content('Web Users')
 
     # commented in V2, until further notice
     #body.should include('Contact Us Functions')
 
-    body.should include('Technical Functions')
-    body.should include('Content Partners')
-    body.should include('Statistics')
-    body.should include('Data Usage Reports')
-  end
-
-  it 'should be able to load cms pages' do
-    login_as(@user)
-    visit('/administrator/content_page')
-    body.downcase.should include('add page')
-    body.should include('Create child page')
-    body.should include('Add language')
-    body.should include('Delete')
-  end
-
-  it 'should be able to load cms add page form' do
-    login_as(@user)
-    visit('/administrator/content_page/new')
-    body.should include('Page Name')
-    body.should include('Title')
-    body.should include('Main content area')
+    page.should have_content('Technical Functions')
+    page.should have_content('Content Partners')
+    page.should have_content('Statistics')
+    page.should have_content('Data Usage Reports')
   end
 
   it 'should show the list of hierarchies' do
     login_as(@user)
     visit('/administrator/hierarchy')
-    body.should include(@agent.full_name)
-    body.should include(@hierarchy.label)
-    body.should include(@hierarchy.description)
-  end
-
-  it 'should be able to edit a hierarchy' do
-    login_as(@user)
-    visit("/administrator/hierarchy/edit/#{@hierarchy.id}")
-    body.should include('<input id="hierarchy_label"')
-    body.should include(@hierarchy.label)
-    body.should include(@hierarchy.description)
+    page.should have_content(@agent.full_name)
+    page.should have_content(@hierarchy.label)
+    page.should have_content(@hierarchy.description)
   end
 
   it 'should load an empty glossary page' do
     login_as(@user)
     visit('/administrator/glossary')
-    body.should include("glossary is empty")
+    page.should have_content("glossary is empty")
   end
 
   it 'should show glossary terms' do
     glossary_term = GlossaryTerm.gen(:term => 'Some new term', :definition => 'and its definition')
     login_as(@user)
     visit("/administrator/glossary")
-    body.should include(glossary_term.term)
-    body.should include(glossary_term.definition)
+    page.should have_content(glossary_term.term)
+    page.should have_content(glossary_term.definition)
+    glossary_term.destroy
   end
 
   it 'should load an empty harvesting logs page' do
     login_as(@user)
     visit('/administrator/harvesting_log')
-    body.should include("No harvesting logs")
+    page.should have_content("No harvesting logs")
   end
 
   it 'should show harvesting_logs' do
     harvest_process_log = HarvestProcessLog.gen(:process_name => 'Some test term that wont normally show up', :began_at => 1.day.ago)
     login_as(@user)
     visit('/administrator/harvesting_log')
-    body.should include(harvest_process_log.process_name)
-    body.should include(harvest_process_log.began_at.mysql_timestamp)
+    page.should have_content(harvest_process_log.process_name)
+    page.should have_content(harvest_process_log.began_at.mysql_timestamp)
 
     # visit('/administrator/harvesting_log?date=')
-    # body.should include(harvest_process_log.process_name)
-    # body.should include(harvest_process_log.began_at.mysql_timestamp)
+    # page.should have_content(harvest_process_log.process_name)
+    # page.should have_content(harvest_process_log.began_at.mysql_timestamp)
 
     previous_day = 2.days.ago.strftime("%d-%b-%Y")
     visit('/administrator/harvesting_log?date=' + previous_day)
-    body.should_not include(harvest_process_log.process_name)
-    body.should include("No harvesting logs")
+    page.should_not have_content(harvest_process_log.process_name)
+    page.should have_content("No harvesting logs")
+    harvest_process_log.destroy
   end
 
   it "should show table of contents breakdown page" do
     login_as(@user)
     visit("/administrator/stats/toc_breakdown")
-    body.should include "Table of Contents Breakdown"
-    body.should include @toc_item.label
+    page.should have_content("Table of Contents Breakdown")
+    page.should have_content(@toc_item.label)
   end
 
   it "should get data from a form and display user activity"
@@ -142,14 +119,14 @@ describe 'Admin Pages' do
   it "should list activity combinations in a 5-min. duration" do
     login_as(@user)
     visit("/administrator/user/view_common_combinations")
-    body.should include "List of activity combinations in a 5-min. duration"
-    body.should include @activity.name
+    page.should have_content("List of activity combinations in a 5-min. duration")
+    page.should have_content(@activity.name)
   end
 
   it "should list activity combinations in a 5-min. duration for a given activity" do
     login_as(@user)
-    visit("/administrator/user/view_common_combinations", :activity_id => @activity.id)
-    body.should include "List of activity combinations in a 5-min. duration\nfor activity \n<b>\n#{@activity.name}\n</b>\n"
+    visit("/administrator/user/view_common_combinations?activity_id=#{@activity.id}")
+    page.should have_content("List of activity combinations in a 5-min. duration for activity #{@activity.name}")
   end
 
 end

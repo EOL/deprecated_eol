@@ -13,7 +13,7 @@
           = I18n.t(:comments_with_count, :count => member.comment_count)
         %p
           - if defined?(revoke) && revoke
-            = link_to I18n.t(:revoke_manager_link), revoke_manager_community_member_path(@community, member), :confirm => I18n.t(:are_you_sure)
+            = link_to I18n.t(:revoke_manager_link), revoke_manager_community_member_path(@community, member), :data => { :confirm => I18n.t(:are_you_sure) }
           - if defined?(grant) && grant
             = link_to I18n.t(:grant_manager_link), grant_manager_community_member_path(@community, member)
-            = link_to I18n.t(:remove_membership), [@community, member], :method => :delete, :confirm => I18n.t(:are_you_sure)
+            = link_to I18n.t(:remove_membership), [@community, member], :method => :delete, :data => { :confirm => I18n.t(:are_you_sure) }

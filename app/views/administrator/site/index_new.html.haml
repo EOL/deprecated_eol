@@ -87,7 +87,7 @@
         %span#cache_clear_time
           =I18n.t("home_page_cache_last_cleared_on", :date => format_date_time($CACHE_CLEARED_LAST))
         %br
-        = link_to I18n.t(:clear_entire_cache_store), :url=>{:controller=>'/administrator/site', :action=>'clear_all'}, :confirm=>I18n.t(:are_you_sure), :update=>'cache_clear_time', :remote => true
+        = link_to I18n.t(:clear_entire_cache_store), :url=>{:controller=>'/administrator/site', :action=>'clear_all'}, :data => { :confirm=>I18n.t(:are_you_sure) }, :update=>'cache_clear_time', :remote => true
         %br
         = link_to I18n.t(:clear_all_non_species_pages), :url=>{:controller=>'/administrator/site', :action=>'expire_all'}, :update=>'cache_clear_time', :remote => true
         %br

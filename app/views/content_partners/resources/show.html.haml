@@ -54,7 +54,7 @@
               - if hierarchy.request_to_publish_can_be_made?
                 = button_to I18n.t('helpers.submit.hierarchy.request_publish'),
                   request_publish_content_partner_resource_hierarchy_path(@partner, @resource, hierarchy),
-                  :confirm => I18n.t(:content_partner_resource_hierarchy_confirm_request_publish, :hierarchy_label => h(hierarchy.label))
+                  :data => { :confirm => I18n.t(:content_partner_resource_hierarchy_confirm_request_publish, :hierarchy_label => h(hierarchy.label)) }
 
           %dt= I18n.t('activerecord.attributes.resource.language_id')
           %dd
@@ -90,7 +90,7 @@
             = @resource.status_label
             - if @resource.status_can_be_changed_to?(ResourceStatus.force_harvest)
               = button_to I18n.t('helpers.submit.resource.force_harvest'), force_harvest_content_partner_resource_path(@partner, @resource),
-                :confirm => I18n.t(:content_partner_resource_confirm_force_harvest, :resource_title => h(@resource.title))
+                :data => { :confirm => I18n.t(:content_partner_resource_confirm_force_harvest, :resource_title => h(@resource.title)) }
           %dt
             = I18n.t('activerecord.attributes.resource.notes')
           %dd
@@ -150,7 +150,7 @@
                     = f.hidden_field :publish, :value => :true
                     %fieldset.actions
                       = f.submit I18n.t('helpers.submit.harvest_event.publish'), :name => :commit_publish_harvest_event,
-                        :confirm => I18n.t(:content_partner_resource_harvest_event_confirm_publish, :completed_at => format_date_time(@resource.latest_harvest_event.completed_at), :resource_title => h(@resource.title))
+                        :data => { :confirm => I18n.t(:content_partner_resource_harvest_event_confirm_publish, :completed_at => format_date_time(@resource.latest_harvest_event.completed_at), :resource_title => h(@resource.title)) }
                 - elsif @resource.latest_harvest_event.publish_pending?
                   %br/
                   %em= I18n.t(:content_partner_resource_harvest_event_publish_pending)

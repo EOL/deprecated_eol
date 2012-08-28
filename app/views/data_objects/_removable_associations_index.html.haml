@@ -16,4 +16,4 @@
             - if entry.can_be_deleted_by?(current_user)
               = link_to I18n.t(:remove_data_object_association),
                 remove_association_path(:id => data_object.id, :hierarchy_entry_id => entry.id),
-                :id => "remove_association_#{entry.id}", :confirm => I18n.t(:are_you_sure)
+                :id => "remove_association_#{entry.id}", :data => { :confirm => I18n.t(:are_you_sure) }

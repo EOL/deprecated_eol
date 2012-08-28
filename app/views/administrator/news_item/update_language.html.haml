@@ -14,7 +14,7 @@
   %br
   %br
   = cancel_button_goes_back(return_to_url)
-  |
+  &#124;
   = f.submit  
-  |
-  = link_to I18n.t("delete_firstcap"), {:action=>'delete_translation',:id=>@news_item.id, :language_id=>@news_item.current_translation_language.id}, :confirm => I18n.t("are_you_sure_this_action_cannot_be_undone"), :method => :delete_language
+  &#124;
+  = link_to I18n.t("delete_firstcap"), {:action=>'delete_translation',:id=>@news_item.id, :language_id=>@news_item.current_translation_language.id}, :data => { :confirm => I18n.t("are_you_sure_this_action_cannot_be_undone") }, :method => :delete_language

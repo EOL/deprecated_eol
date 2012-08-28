@@ -736,6 +736,14 @@ FactoryGirl.define do
     association :community
   end
 
+  factory :link_type do
+  end
+
+  factory :member do
+    association :user
+    association :community
+  end
+
   factory :member do
     association :user
     association :community
@@ -1003,6 +1011,18 @@ FactoryGirl.define do
     association     :info_item
     language        { Language.english }
     label           { generate(:string) }
+  end
+
+  factory :translated_link_type do
+    association     :link_type
+    language        { Language.english }
+    label           { Factory.next(:string) }
+  end
+
+  factory :translated_mime_type do
+    association     :mime_type
+    language        { Language.english }
+    label           { Factory.next(:string) }
   end
 
   factory :translated_language do

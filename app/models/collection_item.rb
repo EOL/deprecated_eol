@@ -93,6 +93,7 @@ class CollectionItem < ActiveRecord::Base
     if params['sort_field'].blank?
       params.delete('sort_field')
     end
+    params['link_type_id'] = link_type_id if link_type_id
 
     case self.object.class.name
     when "TaxonConcept"

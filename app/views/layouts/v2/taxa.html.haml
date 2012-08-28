@@ -21,9 +21,9 @@
         %ul
           %li
             = render :partial => 'shared/add_to_my_collection', :locals => { :item => @taxon_concept, :my_collection => @watch_collection }
-          - if current_page?(:controller => 'taxa/details', :action => 'index') || @add_article_toc_id
-            - add_article_toc_id = @add_article_toc_id || nil
-            %li= link_to I18n.t(:add_article_to_page_link_button), new_taxon_data_object_path(@taxon_concept, :toc => add_article_toc_id), :class => 'button'
+          - if current_page?(:controller => 'taxa/details', :action => 'index') || @add_article_toc_id || @add_link_type_id
+            - show_link = @add_link_type_id ? true : nil
+            %li= link_to I18n.t(:add_article_to_page_link_button), new_taxon_data_object_path(@taxon_concept, :toc => @add_article_toc_id, :link => show_link), :class => 'button'
 
       = render :partial => 'shared/flash_messages'
 

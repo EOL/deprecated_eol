@@ -62,6 +62,7 @@ EolUpgrade::Application.routes.draw do
       resource :literature, :only => [:show], :controller => 'taxa/literature' do
         collection do
           get 'bhl'
+          get 'literature_links'
         end
       end
       resources :resources, :only => [:index], :controller => 'taxa/resources' do
@@ -71,6 +72,9 @@ EolUpgrade::Application.routes.draw do
           get 'nucleotide_sequences'
           get 'biomedical_terms'
           get 'citizen_science'
+          get 'news_and_event_links'
+          get 'related_organizations'
+          get 'multimedia_links'
         end
       end
       resources :updates, :only => [:index], :controller => 'taxa/updates' do
@@ -99,6 +103,7 @@ EolUpgrade::Application.routes.draw do
     resource :literature, :only => [:show], :controller => 'taxa/literature' do
       collection do
         get 'bhl'
+        get 'literature_links'
       end
     end
     resources :resources, :controller => 'taxa/resources', :only => [:index] do
@@ -108,6 +113,9 @@ EolUpgrade::Application.routes.draw do
         get 'nucleotide_sequences'
         get 'biomedical_terms'
         get 'citizen_science'
+        get 'news_and_event_links'
+        get 'related_organizations'
+        get 'multimedia_links'
       end
     end
     resources :communities, :only => [:index], :controller => 'taxa/communities' do
@@ -197,6 +205,7 @@ EolUpgrade::Application.routes.draw do
       get 'usernames'
       get 'recover_account'
       get 'verify_open_authentication'
+      get 'fetch_external_page_title'
     end
     resource :newsfeed, :only => [:show], :controller => 'users/newsfeeds' do
       collection do

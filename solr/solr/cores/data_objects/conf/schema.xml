@@ -33,6 +33,7 @@
         <field name="data_subtype_id" type="int" indexed="true" stored="true" required="false"/>
         <field name="language_id" type="int" indexed="true" stored="true" required="false"/>
         <field name="license_id" type="int" indexed="true" stored="true" required="false"/>
+        <field name="link_type_id" type="int" indexed="true" stored="true" required="false"/>
         <field name="published" type="int" indexed="true" stored="true" required="true"/>
         <field name="data_rating" type="float" indexed="true" stored="true" required="true"/>
         <field name="description" type="text" indexed="true" stored="true" required="false"/>

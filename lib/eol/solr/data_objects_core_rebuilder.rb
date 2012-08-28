@@ -92,6 +92,10 @@ module EOL
           hash['toc_id'] ||= []
           hash['toc_id'] << dotoc.toc_id
         end
+        # add link type IDs
+        if link_type_id = data_object.link_type_id
+          hash['link_type_id'] = link_type_id
+        end
         # add translation_flag
         if data_object.translated_from
           hash['is_translation'] = true

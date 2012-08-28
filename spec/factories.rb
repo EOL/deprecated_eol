@@ -728,6 +728,14 @@ FactoryGirl.define do
     show_to_content_partners true
   end
 
+  factory :link_type do
+  end
+
+  factory :member do
+    association :user
+    association :community
+  end
+
   factory :member do
     association :user
     association :community
@@ -1007,6 +1015,18 @@ FactoryGirl.define do
     association     :license
     language        { Language.english }
     description     { generate(:string) }
+  end
+
+  factory :translated_link_type do
+    association     :link_type
+    language        { Language.english }
+    label           { Factory.next(:string) }
+  end
+
+  factory :translated_mime_type do
+    association     :mime_type
+    language        { Language.english }
+    label           { Factory.next(:string) }
   end
 
   factory :translated_mime_type do

@@ -229,6 +229,10 @@ class UsersController < ApplicationController
     render :text => usernames.to_json
   end
 
+  def fetch_external_page_title
+    render :text => (open(params[:url]).read.match(/<title>(.*?)<\/title>/)[1]).to_json
+  end
+
   def pending_notifications
     Periodically::Immediately.prepare_notifications
     Periodically::Immediately.send_notifications

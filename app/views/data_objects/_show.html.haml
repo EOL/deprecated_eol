@@ -6,7 +6,7 @@
       %h2= @data_object.object_title
     - if en_type == 'image_map' # dato is an image map and so uses image partial
       = render :partial => "/data_objects/data_object_image", :locals => { :size => '580_360' }
-    - elsif en_type == 'link' # dato is an image map and so uses image partial
+    - elsif en_type == 'link' # dato is a link and so uses article partial
       = render :partial => "/data_objects/data_object_article", :locals => { :link_object => true }
     - else
       = render :partial => "/data_objects/data_object_#{en_type}", :locals => { :size => '580_360' }

@@ -78,7 +78,7 @@ module EOL
         self.preload_object!(collection_items.select{ |d| d.object_type == 'Collection' })
         self.preload_object!(collection_items.select{ |d| d.object_type == 'User' })
         self.preload_taxon_concepts!(collection_items.select{ |d| d.object_type == 'TaxonConcept' })
-        self.preload_data_objects!(collection_items.select{ |d| ['Image', 'Video', 'Sound', 'Text', 'DataObject'].include?(d.object_type) })
+        self.preload_data_objects!(collection_items.select{ |d| ['Image', 'Video', 'Sound', 'Text', 'Link', 'DataObject'].include?(d.object_type) })
       end
 
       def self.preload_object!(collection_items)
@@ -105,9 +105,9 @@ module EOL
 
       def self.preload_data_objects!(collection_items)
         return if collection_items.blank?
-        includes = { :object => [ :data_type, { :toc_items => :translations } ] }
+        includes = { :object => [ :data_type, :link_type, { :toc_items => :translations } ] }
         selects = {
-          :data_objects => [ :id, :object_title, :data_rating, :data_type_id ],
+          :data_objects => [ :id, :object_title, :data_rating, :data_type_id, :link_type_id ],
           :table_of_contents => 'id',
           :translated_table_of_contents => '*'
         }

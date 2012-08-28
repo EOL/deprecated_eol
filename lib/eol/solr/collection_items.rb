@@ -159,6 +159,11 @@ module EOL
         url =  $SOLR_SERVER + $SOLR_COLLECTION_ITEMS_CORE + '/select/?wt=json&q=' + CGI.escape(%Q[{!lucene}])
         url << CGI.escape(%Q[(collection_id:#{collection_id})])
 
+        # add links filtering
+        if options[:link_type_id] && options[:link_type_id] != 0
+          url << CGI.escape(" AND (link_type_id:#{options[:link_type_id]})")
+        end
+
         # add facet filtering
         if options[:facet_type]
           object_type = nil
@@ -173,6 +178,8 @@ module EOL
             object_type = 'Image'
           when 'sounds', 'sound'
             object_type = 'Sound'
+          when 'links', 'link'
+            object_type = 'Link'
           when 'communities', 'community'
             object_type = 'Community'
           when 'people', 'user'

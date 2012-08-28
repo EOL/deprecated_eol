@@ -161,6 +161,22 @@ $(function() {
     });
   })($("ul.feed"));
 
+  (function($dato_source_url) {
+    $dato_source_url.focusout(function() {
+      var data = "url=" + $dato_source_url.val();
+      $.ajax({
+        url: "/users/fetch_external_page_title",
+        dataType: 'json',
+        data: data,
+        success: function(response) {
+          if ($("#data_object_object_title").val() == "") {
+            $("#data_object_object_title").val(response);
+          }
+        }
+      });
+    });
+  })($(".link_object #data_object_source_url"));
+
   (function($collection) {
     var zi = 1000;
     $collection.find("ul.collection_gallery").children().each(function() {
@@ -217,6 +233,10 @@ $(function() {
       $(this).closest('form').find('input[name="commit_view_as"]').click();
     });
     $collection.find('input[name="commit_view_as"]').hide();
+    $collection.find('#filter_links_by_type').change(function() {
+      $(this).closest('form').find('input[name="commit_filter"]').click();
+    });
+    $collection.find('input[name="commit_filter"]').hide();
   })($("#collection"));
 
   $("input[placeholder]").each(function() {

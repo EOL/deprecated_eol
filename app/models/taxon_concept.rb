@@ -1213,6 +1213,7 @@ class TaxonConcept < ActiveRecord::Base
   def details_text_for_user(the_user, options = {})
     text_objects = self.text_for_user(the_user, {
       :language_ids => [ the_user.language.id ],
+      :filter_by_subtype => true,
       :allow_nil_languages => (the_user.language.id == Language.default.id),
       :toc_ids_to_ignore => TocItem.exclude_from_details.collect{ |toc_item| toc_item.id },
       :per_page => (options[:limit] || 600) })
@@ -1259,7 +1260,7 @@ class TaxonConcept < ActiveRecord::Base
     options[:data_type_ids] = DataType.text_type_ids
     options[:vetted_types] = vetted_types
     options[:visibility_types] = visibility_types
-    options[:filter_by_subtype] = false
+    options[:filter_by_subtype] ||= false
     self.data_objects_from_solr(options)
   end
   

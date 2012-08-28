@@ -116,6 +116,10 @@ module EOL
           url << CGI.escape(" NOT (toc_id:#{options[:toc_ids_to_ignore].join(' OR toc_id:')})")
         end
         
+        if options[:link_type_ids]
+          url << CGI.escape(" AND (link_type_id:#{options[:link_type_ids].join(' OR link_type_id:')})")
+        end
+        
         if options[:filter_hierarchy_entry] && options[:filter_hierarchy_entry].class == HierarchyEntry
           field_suffix = "ancestor_he_id"
           search_id = options[:filter_hierarchy_entry].id

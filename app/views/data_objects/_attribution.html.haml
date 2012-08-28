@@ -1,7 +1,7 @@
 - data_object ||= @data_object
 - unless data_object.blank?
   - en_type ||= en_type(data_object)
-  = render :partial => 'data_objects/license', :locals => { :data_object => data_object }
+  = render :partial => 'data_objects/license', :locals => { :data_object => data_object } unless en_type == 'link'
   = render :partial => 'data_objects/rights_statement', :locals => { :data_object => data_object }
   = render :partial => 'data_objects/rights_holder', :locals => { :data_object => data_object }
   - if original_object = data_object.translated_from

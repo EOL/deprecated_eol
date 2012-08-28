@@ -13,7 +13,8 @@
   - unless data_object.nil? || data_object.description.empty? || data_object.description.blank?
     - show_references = true if show_references.nil?
     .copy
-      = auto_link(data_object.source_url) if link_object
+      - if link_object
+        %p= auto_link(data_object.source_url)
       - if data_object.added_by_user?
         -# Submitted text is now being sanitized before being saved. 
         -# And once the migration to sanitize/balance_tags existing UDO is done then we don't need to run Sanitize/balance_tags here anymore

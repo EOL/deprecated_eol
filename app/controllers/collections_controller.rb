@@ -63,6 +63,7 @@ class CollectionsController < ApplicationController
   def update
     return redirect_to params.merge!(:action => 'show').except(*unnecessary_keys_for_redirect) if params[:commit_sort]
     return redirect_to params.merge!(:action => 'show').except(*unnecessary_keys_for_redirect) if params[:commit_view_as]
+    return redirect_to params.merge!(:action => 'show').except(*unnecessary_keys_for_redirect) if params[:commit_filter]
     return redirect_to_choose(:copy) if params[:commit_copy]
     return chosen if params[:scope] && params[:for] == 'copy'
     return remove_and_redirect if params[:commit_remove]
@@ -224,10 +225,12 @@ private
     set_view_as_options
     @view_as = ViewStyle.find(params[:view_as].blank? ? @collection.default_view_style : params[:view_as])
     set_sort_options
+    set_filter_links_options
     @sort_by = SortStyle.find(params[:sort_by].blank? ? @collection.default_sort_style : params[:sort_by])
     @filter = params[:filter]
     @page = params[:page]
     @selected_collection_items = params[:collection_items] || []
+    @filter_links_by_type = params[:filter_links_by_type].to_i || 0
 
     # NOTE - you still need these counts on the Update page:
     @facet_counts = EOL::Solr::CollectionItems.get_facet_counts(@collection.id)
@@ -237,7 +240,7 @@ private
   def build_collection_items
     @per_page = @view_as.max_items_per_page || 50
     @collection_results = @filter == 'editors' ?  [] :
-      @collection.items_from_solr(:facet_type => @filter, :page => @page, :sort_by => @sort_by, :per_page => @per_page, :view_style => @view_as)
+      @collection.items_from_solr(:facet_type => @filter, :page => @page, :sort_by => @sort_by, :per_page => @per_page, :view_style => @view_as, :link_type_id => @filter_links_by_type)
     @collection_items = @collection_results.map { |i| i['instance'] }
     if params[:commit_select_all]
       @selected_collection_items = @collection_items.map {|ci| ci.id.to_s }
@@ -247,8 +250,8 @@ private
   # When we bounce around, not all params are required; this is the list to remove:
   # NOTE - to use this as an parameter, you need to de-reference the array with a splat (*).
   def unnecessary_keys_for_redirect
-    [:_method, :commit_sort, :commit_view_as, :commit_select_all, :commit_copy, :commit, :collection,
-     :commit_move, :commit_remove, :commit_edit_collection, :commit_collect]
+    [:_method, :commit_sort, :commit_view_as, :commit_filter, :commit_select_all, :commit_copy, :commit, 
+     :collection, :commit_move, :commit_remove, :commit_edit_collection, :commit_collect]
   end
 
   def no_items_selected_error(which)
@@ -552,6 +555,10 @@ private
     @view_as_options = [ViewStyle.list, ViewStyle.gallery, ViewStyle.annotated]
   end
 
+  def set_filter_links_options
+    @filter_links_options = LinkType.all
+  end
+
   def user_able_to_view_collection
     unless @collection && current_user.can_read?(@collection)
       if logged_in?
@@ -662,7 +669,7 @@ private
         elsif r['instance'].object.taxon_concept_metric && r['richness_score'] != r['instance'].object.taxon_concept_metric.richness_score
           collection_item_ids_to_reindex << r['instance'].id
         end
-      elsif ['Text', 'Image', 'DataObject', 'Video', 'Sound'].include?(r['object_type'])
+      elsif ['Text', 'Image', 'DataObject', 'Video', 'Sound', 'Link'].include?(r['object_type'])
         if r['data_rating'] != r['instance'].object.data_rating
           collection_item_ids_to_reindex << r['instance'].id
         end

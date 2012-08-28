@@ -1,0 +1,13 @@
+- view_style ||= 'default'
+- cache "link/summary/#{view_style}/#{I18n.locale}/#{item.id}" do
+  - unless view_style == 'list'
+    = link_to image_tag("/images/v2/#{item.link_type.label.downcase}.png", :size => "88x88"), data_object_path(item)
+    = link_to content_tag(:span, '', {:class => 'icon', :title => I18n.t(:item_type_link_assistive)}), data_object_path(item)
+  %h4
+    = link_to h(truncate(item.best_title, :length => 64)), data_object_path(item)
+    - if view_style == 'list' && @filter.nil?
+      %small= I18n.t(:item_type_link)
+  - unless ['gallery','list'].include?(view_style)
+    = link_to truncate(item.source_url, :length => 35), item.source_url
+    %br/
+    = item.description_teaser

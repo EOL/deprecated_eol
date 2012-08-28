@@ -68,6 +68,7 @@
         <field name="date_created" type="date" indexed="true" stored="true" required="true"/>
         <field name="date_modified" type="date" indexed="true" stored="true" required="true"/>
         <field name="sort_field" type="textExact" sortMissingLast="true" indexed="true" stored="true" required="false"/>
+        <field name="link_type_id" type="int" indexed="true" stored="true" required="false"/>
     </fields>
     
     <!-- no unique key -->

@@ -726,6 +726,9 @@ Factory.define :license do |l|
   l.show_to_content_partners true
 end
 
+Factory.define :link_type do |dt|
+end
+
 Factory.define :member do |m|
   m.association :user
   m.association :community
@@ -1005,6 +1008,12 @@ Factory.define :translated_license do |r|
   r.association     :license
   r.language        { Language.english }
   r.description     { Factory.next(:string) }
+end
+
+Factory.define :translated_link_type do |r|
+  r.association     :link_type
+  r.language        { Language.english }
+  r.label           { Factory.next(:string) }
 end
 
 Factory.define :translated_mime_type do |r|

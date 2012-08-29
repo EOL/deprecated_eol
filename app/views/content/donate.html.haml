@@ -4,7 +4,7 @@
       - if @donation_amount.nil? || @donation_amount == 0
         %p=  I18n.t(:donation_introduction_paragraph_one)
         %p=  I18n.t(:donation_introduction_paragraph_two)
-        = form_for :donation, @donation, :builder => ApplicationHelper::EolFormBuilder do |f|
+        = form_for :donation, :builder => ApplicationHelper::EolFormBuilder do |f|
           %fieldset.radio
             %legend= I18n.t(:donation_amount_legend)
             - f.label :preset_amount_35 do
@@ -47,20 +47,20 @@
         %p= I18n.t(:donation_privacy_notice)
       - else
         = I18n.t(:please_confirm_your_donation_details)
-        \:
+        = ":"
         %br
         %br
         = I18n.t(:the_amount_entered_was, :number => number_to_currency(@donation_amount))
         %br
         %br
         = I18n.t(:to_process_your_donation_please_proceed)
-        \:
+        = ":"
         %form{ :action => "https://orderpage.ic3.com/hop/orderform.jsp", :method => "post" }
           = @form_elements
           = submit_tag I18n.t(:proceed_to_checkout_page)
         %br
         %br
         = I18n.t(:correct_donation_message, :go_back_link=>link_to( I18n.t(:go_back) ,:action => 'donate'))
-        \.
+        = "."
         = I18n.t(:thank_you_for_your_generous_support)
-        !
+        = "!"

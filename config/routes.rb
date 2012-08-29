@@ -386,6 +386,7 @@ EolUpgrade::Application.routes.draw do
   match 'api/:action/:version/:id' => 'api', :version => /[0-1]\.[0-9]/, :defaults => { :format => 'xml' }
   
   match 'content/random_homepage_images' => 'content#random_homepage_images'
+  match 'content/donate_complete' => 'content#donate_complete'
   
 
   # These are expensive and broad and should be kept at the bottom of the file:

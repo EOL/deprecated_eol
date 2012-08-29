@@ -1,5 +1,5 @@
 %li
-  %h3{:id => news_item.page_name.gsub(' ', '_').downcase}
+  %h3{:id => (news_item.page_name ? news_item.page_name.gsub(' ', '_').downcase : '')}
     = news_item.page_name
     %small
       &nbsp;

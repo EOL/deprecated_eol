@@ -378,12 +378,12 @@ EolUpgrade::Application.routes.draw do
   # not sure why this didn't work in some places - but this is for documentation
   match 'api/docs/:action' => 'api/docs'
   # ping is a bit of an exception - it doesn't get versioned and takes no ID
-  match 'api/:action' => 'api', :format => 'xml'
-  match 'api/:action/:version' => 'api', :version => /[0-1]\.[0-9]/, :format => 'xml'
+  match 'api/:action' => 'api', :defaults => { :format => 'xml' }
+  match 'api/:action/:version' => 'api', :version => /[0-1]\.[0-9]/, :defaults => { :format => 'xml' }
   # if version is left out we'll set the default to the latest version in the controller
-  match 'api/:action/:id' => 'api', :format => 'xml'
+  match 'api/:action/:id' => 'api', :defaults => { :format => 'xml' }
   # looks for version, ID
-  match 'api/:action/:version/:id' => 'api', :version => /[0-1]\.[0-9]/, :format => 'xml'
+  match 'api/:action/:version/:id' => 'api', :version => /[0-1]\.[0-9]/, :defaults => { :format => 'xml' }
   
   match 'content/random_homepage_images' => 'content#random_homepage_images'
   

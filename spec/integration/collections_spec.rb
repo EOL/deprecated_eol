@@ -510,12 +510,11 @@ describe "Collections and collecting:" do
 
   it 'should not index activity log in SOLR if the collection is watch collection' do
     user = User.gen
-    data_object = DataObject.gen
+    data_object = @test_data[:data_object]
     new_collection = Collection.gen
     new_collection.users = [user]
     login_as user
-    
-    visit data_object_path(data_object)
+    visit data_object_path(data_object.latest_published_revision)
     click_link 'Add to a collection'
     find(:css, "#collection_id_[value='#{user.watch_collection.id}']").set(true)
     click_button 'Collect item'

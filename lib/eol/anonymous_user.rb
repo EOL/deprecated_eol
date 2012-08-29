@@ -69,7 +69,8 @@ module EOL
           :tag_line => I18n.t(:anonymous_user_tag_line),
           :username => I18n.t(:anonymous_user_given_name),
           :vetted => false,
-          :watch_collection => nil}
+          :watch_collection => nil,
+          :news_in_preferred_language => false}
         end
     end
 

@@ -47,7 +47,6 @@ describe 'Admin Pages' do
     visit('/administrator')
     body.should include('Welcome to the EOL Administration Console')
     body.should include('Site CMS')
-    body.should include('News Items')
     body.should include('Comments and Tags')
     body.should include('Web Users')
 

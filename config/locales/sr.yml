@@ -1727,7 +1727,7 @@ sr:
   news_archive_page: архив новости
   news_date: Датум новости
   news_item: новост
-  news_item_date_as_shown_to_use: "Датум новости као што је приказано кориснику (у доводу RSS се приказује само време):"
+  news_item_date_as_shown_to_user: "Датум новости као што је приказано кориснику (у доводу RSS се приказује само време):"
   news_item_is_visible_on_websit: "Новост је видљива на мрежном месту након:"
   news_item_title: Новост
   news_items: Новости

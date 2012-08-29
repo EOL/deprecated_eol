@@ -1570,7 +1570,7 @@ sr-Latn:
   news_archive_page: arhiv novosti
   news_date: Datum novosti
   news_item: novost
-  news_item_date_as_shown_to_use: "Datum novosti kao što je prikazano korisniku (u dovodu RSS se prikazuje samo vreme):"
+  news_item_date_as_shown_to_user: "Datum novosti kao što je prikazano korisniku (u dovodu RSS se prikazuje samo vreme):"
   news_item_is_visible_on_websit: "Novost je vidljiva na mrežnom mestu nakon:"
   news_item_title: Novost
   news_items: Novosti

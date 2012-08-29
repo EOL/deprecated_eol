@@ -156,9 +156,9 @@ EolUpgrade::Application.routes.draw do
       get 'choose_editor_target'
       post 'collect_item'
     end
-    resource :newsfeed, :only => [:show]
-    resources :editors, :only => [:show]
-    resources :inaturalist, :only => [:show]
+    resource :newsfeed, :only => [:show], :controller => 'collections/newsfeeds'
+    resources :editors, :only => [:show], :controller => 'collections/editors'
+    resources :inaturalist, :only => [:show], :controller => 'collections/inaturalists'
   end
 
   resources :content_partners do

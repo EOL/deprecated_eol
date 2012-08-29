@@ -122,7 +122,7 @@ describe 'EOL APIs' do
     @wolf_sci_name = 'Canis lupus'
     @wolf = build_taxon_concept(:scientific_name => @wolf_sci_name, :common_names => [@wolf_name])
     @dog  = build_taxon_concept(:scientific_name => @dog_sci_name, :common_names => [@domestic_name], :parent_hierarchy_entry_id => @wolf.hierarchy_entries.first.id)
-    @dog2  = build_taxon_concept(:scientific_name => "Canis dog", :common_names => "doggy")
+    @dog2  = build_taxon_concept(:scientific_name => "Canis dog", :common_names => ["doggy"])
 
     SearchSuggestion.gen(:taxon_id => @dog.id, :term => @dog_name)
     SearchSuggestion.gen(:taxon_id => @wolf.id, :term => @dog_name)
@@ -140,12 +140,12 @@ describe 'EOL APIs' do
     EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
     
     visit("/api/pages/0.4/#{@taxon_concept.id}")
-    @default_pages_body = body
+    @default_pages_body = source
   end
 
   it 'ping should show success message' do
     visit("/api/ping")
-    xml_response = Nokogiri.XML(body)
+    xml_response = Nokogiri.XML(source)
     xml_response.xpath('//response/message').inner_text.should == 'Success'
   end
   
@@ -156,8 +156,8 @@ describe 'EOL APIs' do
   it 'pages should return only published concepts' do
     @taxon_concept.update_column(:published, 0)
     visit("/api/pages/0.4/#{@taxon_concept.id}")
-    body.should include('<error>')
-    body.should include('</response>')
+    source.should include('<error>')
+    source.should include('</response>')
     @taxon_concept.update_column(:published, 1)
   end
   
@@ -174,13 +174,13 @@ describe 'EOL APIs' do
   
   it 'pages should be able to limit number of media returned' do
     visit("/api/pages/0.4/#{@taxon_concept.id}?images=2")
-    xml_response = Nokogiri.XML(body)
+    xml_response = Nokogiri.XML(source)
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/StillImage"]').length.should == 2
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 1
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/MovingImage"]').length.should == 1
   
     visit("/api/pages/0.4/#{@taxon_concept.id}?videos=2")
-    xml_response = Nokogiri.XML(body)
+    xml_response = Nokogiri.XML(source)
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/StillImage"]').length.should == 1
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 1
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/MovingImage"]').length.should == 2
@@ -188,7 +188,7 @@ describe 'EOL APIs' do
   
   it 'pages should be able to limit number of text returned' do
     visit("/api/pages/0.4/#{@taxon_concept.id}?text=2")
-    xml_response = Nokogiri.XML(body)
+    xml_response = Nokogiri.XML(source)
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/StillImage"]').length.should == 1
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 2
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/MovingImage"]').length.should == 1
@@ -196,49 +196,49 @@ describe 'EOL APIs' do
   
   it 'pages should be able to take a | delimited list of subjects' do
     visit("/api/pages/0.4/#{@taxon_concept.id}?images=0&text=1&subjects=GeneralDescription&details=1")
-    xml_response = Nokogiri.XML(body)
+    xml_response = Nokogiri.XML(source)
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 1
   
     visit("/api/pages/0.4/#{@taxon_concept.id}?images=0&text=3&subjects=Distribution&details=1")
-    xml_response = Nokogiri.XML(body)
+    xml_response = Nokogiri.XML(source)
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 2
   
     # %7C == |
     visit("/api/pages/0.4/#{@taxon_concept.id}?images=0&text=3&subjects=GeneralDescription%7CDistribution&details=1")
-    xml_response = Nokogiri.XML(body)
+    xml_response = Nokogiri.XML(source)
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 3
   end
   
   it 'pages should be able to return ALL subjects' do
     visit("/api/pages/0.4/#{@taxon_concept.id}?text=5&subjects=all&vetted=1")
-    xml_response = Nokogiri.XML(body)
+    xml_response = Nokogiri.XML(source)
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 4
   end
   
   it 'pages should be able to take a | delimited list of licenses' do
     visit("/api/pages/0.4/#{@taxon_concept.id}?images=0&text=2&licenses=cc-by-nc&details=1")
-    xml_response = Nokogiri.XML(body)
+    xml_response = Nokogiri.XML(source)
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 2
   
     visit("/api/pages/0.4/#{@taxon_concept.id}?images=0&text=3&licenses=pd&details=1")
-    xml_response = Nokogiri.XML(body)
+    xml_response = Nokogiri.XML(source)
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 1
   
     # %7C == |
     visit("/api/pages/0.4/#{@taxon_concept.id}?images=0&text=3&licenses=cc-by-nc%7Cpd&details=1")
-    xml_response = Nokogiri.XML(body)
+    xml_response = Nokogiri.XML(source)
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 3
   end
   
   it 'pages should be able to return ALL licenses' do
     visit("/api/pages/0.4/#{@taxon_concept.id}?text=5&licenses=all&subjects=all&vetted=1")
-    xml_response = Nokogiri.XML(body)
+    xml_response = Nokogiri.XML(source)
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 4
   end
   
   it 'pages should be able to get more details on data objects' do
     visit("/api/pages/0.4/#{@taxon_concept.id}?image=1&text=0&details=1")
-    xml_response = Nokogiri.XML(body)
+    xml_response = Nokogiri.XML(source)
     # should get 1 image, 1 video and their metadata
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/StillImage"]').length.should == 1
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/MovingImage"]').length.should == 1
@@ -256,7 +256,7 @@ describe 'EOL APIs' do
   it 'pages should not filter vetted objects by default' do
     vetted_stasuses = []
     visit("/api/pages/0.4/#{@taxon_concept.id}.json?images=0&text=10&videos=0&details=1")
-    response_object = JSON.parse(body)
+    response_object = JSON.parse(source)
     response_object['dataObjects'].each do |data_object|
       data_object = DataObject.find_by_guid(data_object['identifier'], :order => 'id desc')
       vetted_stasuses << data_object.vetted_by_taxon_concept(@taxon_concept, :find_best => true).id
@@ -270,7 +270,7 @@ describe 'EOL APIs' do
   it 'pages should filter out all non-trusted objects' do
     vetted_stasuses = []
     visit("/api/pages/0.4/#{@taxon_concept.id}.json?images=0&text=10&videos=0&details=1&vetted=1")
-    response_object = JSON.parse(body)
+    response_object = JSON.parse(source)
     response_object['dataObjects'].each do |data_object|
       data_object = DataObject.find_by_guid(data_object['identifier'], :order => 'id desc')
       vetted_stasuses << data_object.vetted_by_taxon_concept(@taxon_concept, :find_best => true).id
@@ -284,7 +284,7 @@ describe 'EOL APIs' do
   it 'pages should filter out untrusted objects' do
     vetted_stasuses = []
     visit("/api/pages/0.4/#{@taxon_concept.id}.json?images=0&text=10&videos=0&details=1&vetted=2")
-    response_object = JSON.parse(body)
+    response_object = JSON.parse(source)
     response_object['dataObjects'].each do |data_object|
       data_object = DataObject.find_by_guid(data_object['identifier'], :order => 'id desc')
       vetted_stasuses << data_object.vetted_by_taxon_concept(@taxon_concept, :find_best => true).id
@@ -299,12 +299,12 @@ describe 'EOL APIs' do
     @default_pages_body.should_not include '<commonName'
   
     visit("/api/pages/0.4/#{@taxon_concept.id}?common_names=1")
-    body.should include '<commonName'
+    source.should include '<commonName'
   end
   
   it 'pages should show which common names are preferred' do
     visit("/api/pages/0.4/#{@taxon_concept.id}?common_names=1")
-    xml_response = Nokogiri.XML(body)
+    xml_response = Nokogiri.XML(source)
     xml_response.xpath('//xmlns:taxon/xmlns:commonName[1]/@eol_preferred').inner_text.should == 'true'
     xml_response.xpath('//xmlns:taxon/xmlns:commonName[2]/@eol_preferred').inner_text.should == ''
   end
@@ -327,15 +327,15 @@ describe 'EOL APIs' do
     synonym = Synonym.gen(:hierarchy_entry => hierarchy_entry, :name => name, :synonym_relation => relation)
   
     visit("/api/pages/1.0/#{taxon.id}")
-    body.should_not include '<synonym'
+    source.should_not include '<synonym'
   
     visit("/api/pages/1.0/#{taxon.id}?synonyms=1")
-    body.should include '<synonym'
+    source.should include '<synonym'
   end
   
   it 'pages should be able to render a JSON response' do
     visit("/api/pages/0.4/#{@taxon_concept.id}.json?subjects=all&common_names=1&details=1&text=1&images=1")
-    response_object = JSON.parse(body)
+    response_object = JSON.parse(source)
     response_object.class.should == Hash
     response_object['identifier'].should == @taxon_concept.id
     response_object['scientificName'].should == @taxon_concept.entry.name.string
@@ -350,7 +350,7 @@ describe 'EOL APIs' do
     @taxon_concept.taxon_concept_exemplar_image.should be_nil
     first_image = @taxon_concept.images_from_solr.first
     visit("/api/pages/1.0/#{@taxon_concept.id}.json?details=1&text=0&images=2&videos=0")
-    response_object = JSON.parse(body)
+    response_object = JSON.parse(source)
     response_object['dataObjects'].first['identifier'].should == first_image.guid
     
     all_images = @taxon_concept.images_from_solr
@@ -361,7 +361,7 @@ describe 'EOL APIs' do
     @taxon_concept = TaxonConcept.find(@taxon_concept.id)
     @taxon_concept.taxon_concept_exemplar_image.data_object.guid.should == next_exemplar.guid
     visit("/api/pages/1.0/#{@taxon_concept.id}.json?details=1&text=0&images=2&videos=0")
-    response_object = JSON.parse(body)
+    response_object = JSON.parse(source)
     response_object['dataObjects'].first['identifier'].should == next_exemplar.guid
     response_object['dataObjects'][1]['identifier'].should == first_image.guid
   end
@@ -371,7 +371,7 @@ describe 'EOL APIs' do
     all_texts = @taxon_concept.text_for_user
     first_text = all_texts.first
     visit("/api/pages/1.0/#{@taxon_concept.id}.json?subjects=all&details=1&text=5&images=0&videos=0")
-    response_object = JSON.parse(body)
+    response_object = JSON.parse(source)
     response_object['dataObjects'].first['identifier'].should == first_text.guid
     
     next_exemplar = all_texts.last
@@ -381,7 +381,7 @@ describe 'EOL APIs' do
     @taxon_concept = TaxonConcept.find(@taxon_concept.id)
     @taxon_concept.taxon_concept_exemplar_article.data_object.guid.should == next_exemplar.guid
     visit("/api/pages/1.0/#{@taxon_concept.id}.json?subjects=all&details=1&text=5&images=0&videos=0")
-    response_object = JSON.parse(body)
+    response_object = JSON.parse(source)
     response_object['dataObjects'].first['identifier'].should == next_exemplar.guid
     response_object['dataObjects'][1]['identifier'].should == first_text.guid
   end
@@ -391,7 +391,7 @@ describe 'EOL APIs' do
   it "data objects should show unpublished objects" do
     @object.update_column(:published, 0)
     visit("/api/data_objects/#{@object.guid}")
-    xml_response = Nokogiri.XML(body)
+    xml_response = Nokogiri.XML(source)
     xml_response.xpath('/').inner_html.should_not == ""
     xml_response.xpath('//xmlns:dataObject/dc:identifier').inner_text.should == @object.guid
     @object.update_column(:published, 1)
@@ -399,23 +399,15 @@ describe 'EOL APIs' do
   
   it "data objects should show a taxon element for the data object request" do
     visit("/api/data_objects/#{@object.guid}")
-    xml_response = Nokogiri.XML(body)
+    xml_response = Nokogiri.XML(source)
     xml_response.xpath('/').inner_html.should_not == ""
   
     xml_response.xpath('//xmlns:taxon/dc:identifier').inner_text.should == @object.get_taxon_concepts(:published => :strict)[0].id.to_s
   end
   
   it "data objects should show all information for text objects" do
-    # this should be defined in the foundation and linked to its TOC
-    DataObjectsTableOfContent.delete_all(:data_object_id => @object.id)
-    DataObjectsInfoItem.delete_all(:data_object_id => @object.id)
-    @info_item = InfoItem.find_or_create_by_schema_value('http://rs.tdwg.org/ontology/voc/SPMInfoItems#GeneralDescription');
-    DataObjectsTableOfContent.create(:data_object_id => @object.id, :toc_id => @info_item.toc_id)
-    DataObjectsInfoItem.create(:data_object_id => @object.id, :info_item => @info_item)
-    @object.reload
-  
     visit("/api/data_objects/#{@object.guid}")
-    xml_response = Nokogiri.XML(body)
+    xml_response = Nokogiri.XML(source)
     xml_response.xpath('/').inner_html.should_not == ""
     xml_response.xpath('//xmlns:dataObject/dc:identifier').inner_text.should == @object.guid
     xml_response.xpath('//xmlns:dataObject/xmlns:dataType').inner_text.should == @object.data_type.schema_value
@@ -449,16 +441,8 @@ describe 'EOL APIs' do
   end
   
   it 'data objects should be able to render a JSON response' do
-    # this should be defined in the foundation and linked to its TOC
-    DataObjectsTableOfContent.delete_all(:data_object_id => @object.id)
-    DataObjectsInfoItem.delete_all(:data_object_id => @object.id)
-    @info_item = InfoItem.find_or_create_by_schema_value('http://rs.tdwg.org/ontology/voc/SPMInfoItems#GeneralDescription');
-    DataObjectsTableOfContent.create(:data_object_id => @object.id, :toc_id => @info_item.toc_id)
-    DataObjectsInfoItem.create(:data_object_id => @object.id, :info_item => @info_item)
-    @object.reload
-  
     visit("/api/data_objects/#{@object.guid}.json")
-    response_object = JSON.parse(body)
+    response_object = JSON.parse(source)
     response_object.class.should == Hash
     response_object['dataObjects'][0]['identifier'].should == @object.guid
     response_object['dataObjects'][0]['dataType'].should == @object.data_type.schema_value
@@ -485,31 +469,34 @@ describe 'EOL APIs' do
   end
   
   it "data objects should show all information for image objects" do
-    @object.data_type = DataType.image
-    @object.mime_type = MimeType.gen_if_not_exists(:label => 'image/jpeg')
-    @object.object_url = 'http://images.marinespecies.org/resized/23745_electra-crustulenta-pallas-1766.jpg'
-    @object.object_cache_url = 200911302039366
-    @object.save!
+    tc = build_taxon_concept
+    images = tc.data_objects.delete_if{|d| d.data_type_id != DataType.image.id}
+    image = images.last
+    image.data_type = DataType.image
+    image.mime_type = MimeType.gen_if_not_exists(:label => 'image/jpeg')
+    image.object_url = 'http://images.marinespecies.org/resized/23745_electra-crustulenta-pallas-1766.jpg'
+    image.object_cache_url = 200911302039366
+    image.save!
   
-    visit("/api/data_objects/#{@object.guid}")
-    xml_response = Nokogiri.XML(body)
+    visit("/api/data_objects/#{image.guid}")
+    xml_response = Nokogiri.XML(source)
     xml_response.xpath('/').inner_html.should_not == ""
-    xml_response.xpath('//xmlns:dataObject/dc:identifier').inner_text.should == @object.guid
-    xml_response.xpath('//xmlns:dataObject/xmlns:dataType').inner_text.should == @object.data_type.schema_value
-    xml_response.xpath('//xmlns:dataObject/xmlns:mimeType').inner_text.should == @object.mime_type.label
+    xml_response.xpath('//xmlns:dataObject/dc:identifier').inner_text.should == image.guid
+    xml_response.xpath('//xmlns:dataObject/xmlns:dataType').inner_text.should == image.data_type.schema_value
+    xml_response.xpath('//xmlns:dataObject/xmlns:mimeType').inner_text.should == image.mime_type.label
   
     #testing images
     xml_response.xpath('//xmlns:dataObject/xmlns:mediaURL').length.should == 2
-    xml_response.xpath('//xmlns:dataObject/xmlns:mediaURL[1]').inner_text.should == @object.object_url
-    xml_response.xpath('//xmlns:dataObject/xmlns:mediaURL[2]').inner_text.gsub(/\//, '').should include(@object.object_cache_url.to_s)
+    xml_response.xpath('//xmlns:dataObject/xmlns:mediaURL[1]').inner_text.should == image.object_url
+    xml_response.xpath('//xmlns:dataObject/xmlns:mediaURL[2]').inner_text.gsub(/\//, '').should include(image.object_cache_url.to_s)
   end
   
   it 'data objects should be able to toggle common names' do
     visit("/api/data_objects/#{@object.guid}")
-    body.should_not include '<commonName'
+    source.should_not include '<commonName'
   
     visit("/api/data_objects/#{@object.guid}?common_names=1")
-    body.should include '<commonName'
+    source.should include '<commonName'
   end
   
   it 'data objects should take api key and save it to the log' do
@@ -519,14 +506,14 @@ describe 'EOL APIs' do
   it 'hierarchy_entries should return only published hierarchy_entries' do
     @hierarchy_entry.update_column(:published, 0)
     visit("/api/hierarchy_entries/#{@hierarchy_entry.id}")
-    body.should include('<error>')
-    body.should include('</response>')
+    source.should include('<error>')
+    source.should include('</response>')
     @hierarchy_entry.update_column(:published, 1)
   end
   
   it 'hierarchy_entries should show all information for hierarchy entries in DWC format' do
     visit("/api/hierarchy_entries/#{@hierarchy_entry.id}")
-    xml_response = Nokogiri.XML(body)
+    xml_response = Nokogiri.XML(source)
     xml_response.xpath("//dwc:Taxon[dwc:taxonID=#{@hierarchy_entry.id}]/dc:identifier").inner_text.should == @hierarchy_entry.identifier
     xml_response.xpath("//dwc:Taxon[dwc:taxonID=#{@hierarchy_entry.id}]/dwc:taxonID").inner_text.should == @hierarchy_entry.id.to_s
     xml_response.xpath("//dwc:Taxon[dwc:taxonID=#{@hierarchy_entry.id}]/dwc:parentNameUsageID").inner_text.should == @hierarchy_entry.parent_id.to_s
@@ -542,21 +529,21 @@ describe 'EOL APIs' do
   
   it 'hierarchy_entries should be able to filter out common names' do
     visit("/api/hierarchy_entries/#{@hierarchy_entry.id}?common_names=0")
-    xml_response = Nokogiri.XML(body)
+    xml_response = Nokogiri.XML(source)
     xml_response.xpath("//dwc:vernacularName").length.should == 0
     xml_response.xpath("//dwc:Taxon[dwc:taxonomicStatus='not common name']").length.should == 1
   end
   
   it 'hierarchy_entries should be able to filter out synonyms' do
     visit("/api/hierarchy_entries/#{@hierarchy_entry.id}?synonyms=0")
-    xml_response = Nokogiri.XML(body)
+    xml_response = Nokogiri.XML(source)
     xml_response.xpath("//dwc:vernacularName").length.should == 2
     xml_response.xpath("//dwc:Taxon[dwc:taxonomicStatus='not common name']").length.should == 0
   end
   
   it 'hierarchy_entries should show all information for hierarchy entries in TCS format' do
-    visit("/api/hierarchy_entries/#{@hierarchy_entry.id}?format=tcs")
-    xml_response = Nokogiri.XML(body)
+    visit("/api/hierarchy_entries/#{@hierarchy_entry.id}?render=tcs")
+    xml_response = Nokogiri.XML(source)
     xml_response.xpath('//xmlns:TaxonNames/xmlns:TaxonName/@id').inner_text.should == "n#{@name.id}"
     xml_response.xpath('//xmlns:TaxonNames/xmlns:TaxonName/xmlns:Simple').inner_text.should == @name.string
     xml_response.xpath('//xmlns:TaxonNames/xmlns:TaxonName/xmlns:CanonicalName/xmlns:Simple').inner_text.should == @canonical_form.string
@@ -576,12 +563,12 @@ describe 'EOL APIs' do
   end
   
   it 'hierarchy_entries should take api key and save it to the log' do
-    check_api_key("/api/hierarchy_entries/#{@hierarchy_entry.id}?format=tcs&key=#{@user.api_key}", @user)
+    check_api_key("/api/hierarchy_entries/#{@hierarchy_entry.id}?render=tcs&key=#{@user.api_key}", @user)
   end
   
   it 'synonyms should show all information for synonyms in TCS format' do
     visit("/api/synonyms/#{@synonym.id}")
-    xml_response = Nokogiri.XML(body)
+    xml_response = Nokogiri.XML(source)
     xml_response.xpath('//xmlns:TaxonNames/xmlns:TaxonName/@id').inner_text.should == "n#{@synonym.name.id}"
     xml_response.xpath('//xmlns:TaxonNames/xmlns:TaxonName/xmlns:Simple').inner_text.should == @synonym.name.string
     xml_response.xpath('//xmlns:TaxonNames/xmlns:TaxonName/xmlns:CanonicalName/xmlns:Simple').inner_text.should == @synonym.name.canonical_form.string
@@ -592,7 +579,7 @@ describe 'EOL APIs' do
   
   it 'synonyms should show all information for common names in TCS format' do
     visit("/api/synonyms/#{@common_name1.id}")
-    xml_response = Nokogiri.XML(body)
+    xml_response = Nokogiri.XML(source)
     xml_response.xpath('//xmlns:TaxonNames/xmlns:TaxonName/@id').inner_text.should == "n#{@common_name1.name.id}"
     xml_response.xpath('//xmlns:TaxonNames/xmlns:TaxonName/xmlns:Simple').inner_text.should == @common_name1.name.string
     # canonical form not included for common names
@@ -609,24 +596,24 @@ describe 'EOL APIs' do
 
   it 'search should do a contains search by default' do
     visit("/api/search/Canis%20lupus.json")
-    response_object = JSON.parse(body)
+    response_object = JSON.parse(source)
     response_object['results'].length.should == 2
   end
 
   it 'search should do an exact search' do
     visit("/api/search/Canis%20lupus.json?exact=1")
-    response_object = JSON.parse(body)
+    response_object = JSON.parse(source)
     response_object['results'].length.should == 1
     response_object['results'][0]['title'].should == @wolf_sci_name
   
     visit("/api/search/Canis.json?exact=1")
-    response_object = JSON.parse(body)
+    response_object = JSON.parse(source)
     response_object['results'].length.should == 0
   end
 
   it 'search should search without a filter and get multiple results' do
     visit("/api/search/Dog.json")
-    response_object = JSON.parse(body)
+    response_object = JSON.parse(source)
     response_object['results'][0]['title'].should match(/(#{@dog_sci_name}|Canis dog|Canis lupus)/)
     response_object['results'][1]['title'].should match(/(#{@dog_sci_name}|Canis dog|Canis lupus)/)
     response_object['results'][2]['title'].should match(/(#{@dog_sci_name}|Canis dog|Canis lupus)/)
@@ -635,21 +622,21 @@ describe 'EOL APIs' do
   
   it 'search should be able to filter by string' do
     visit("/api/search/Dog.json?filter_by_string=Canis%20lupus")
-    response_object = JSON.parse(body)
+    response_object = JSON.parse(source)
     response_object['results'][0]['title'].should == @dog_sci_name
     response_object['results'].length.should == 1
   end
   
   it 'search should be able to filter by taxon_concept_id' do
     visit("/api/search/Dog.json?filter_by_taxon_concept_id=#{@wolf.id}")
-    response_object = JSON.parse(body)
+    response_object = JSON.parse(source)
     response_object['results'][0]['title'].should == @dog_sci_name
     response_object['results'].length.should == 1
   end
   
   it 'search should be able to filter by hierarchy_entry_id' do
     visit("/api/search/Dog.json?filter_by_hierarchy_entry_id=#{@wolf.hierarchy_entries.first.id}")
-    response_object = JSON.parse(body)
+    response_object = JSON.parse(source)
     response_object['results'][0]['title'].should == @dog_sci_name
     response_object['results'].length.should == 1
   end
@@ -660,36 +647,36 @@ describe 'EOL APIs' do
 
   it 'provider_hierarchies should return a list of all providers' do
     visit("/api/provider_hierarchies")
-    xml_response = Nokogiri.XML(body)
+    xml_response = Nokogiri.XML(source)
     our_result = xml_response.xpath("//hierarchy[@id='#{@test_hierarchy.id}']")
     our_result.length.should == 1
     our_result.inner_text.should == @test_hierarchy.label
 
     visit("/api/provider_hierarchies.json")
-    response_object = JSON.parse(body)
+    response_object = JSON.parse(source)
     response_object.length.should > 0
     response_object.collect{ |r| r['id'].to_i == @test_hierarchy.id && r['label'] == @test_hierarchy.label }.length == 2
   end
 
   it 'search_by_provider should return the EOL page ID for a provider identifer' do
     visit("/api/search_by_provider/#{@test_hierarchy_entry_published.identifier}?hierarchy_id=#{@test_hierarchy_entry_published.hierarchy_id}")
-    xml_response = Nokogiri.XML(body)
+    xml_response = Nokogiri.XML(source)
     our_result = xml_response.xpath("//eol_page_id")
     our_result.length.should == 1
     our_result.inner_text.to_i.should == @test_hierarchy_entry_published.taxon_concept_id
     visit("/api/search_by_provider/#{@test_hierarchy_entry_published.identifier}.json?hierarchy_id=#{@test_hierarchy_entry_published.hierarchy_id}")
-    response_object = JSON.parse(body)
+    response_object = JSON.parse(source)
     response_object.length.should > 0
     response_object.collect{ |r| r['eol_page_id'].to_i == @test_hierarchy_entry_published.taxon_concept_id}.length == 1
   end
 
   it 'search_by_provider should not return the EOL page ID for a provider identifer' do
     visit("/api/search_by_provider/#{@test_hierarchy_entry_unpublished.identifier}?hierarchy_id=#{@test_hierarchy_entry_unpublished.hierarchy_id}")
-    xml_response = Nokogiri.XML(body)
+    xml_response = Nokogiri.XML(source)
     our_result = xml_response.xpath("//eol_page_id")
     our_result.length.should == 0
     visit("/api/search_by_provider/#{@test_hierarchy_entry_unpublished.identifier}.json?hierarchy_id=#{@test_hierarchy_entry_unpublished.hierarchy_id}")
-    response_object = JSON.parse(body)
+    response_object = JSON.parse(source)
     response_object.length.should == 0
   end
 
@@ -699,7 +686,7 @@ describe 'EOL APIs' do
 
   it 'hierarchies should list the hierarchy roots' do
     visit("/api/hierarchies/#{@test_hierarchy.id}")
-    xml_response = Nokogiri.XML(body)
+    xml_response = Nokogiri.XML(source)
     our_result = xml_response.xpath("//dc:title").inner_text.should == @test_hierarchy.label
     our_result = xml_response.xpath("//dc:contributor").inner_text.should == @test_hierarchy.agent.full_name
     our_result = xml_response.xpath("//dc:dateSubmitted").inner_text.should == @test_hierarchy.indexed_on.mysql_timestamp
@@ -712,7 +699,7 @@ describe 'EOL APIs' do
     our_result = xml_response.xpath("//dwc:Taxon/dwc:taxonRank").inner_text.should == @test_hierarchy_entry_published.rank.label
 
     visit("/api/hierarchies/#{@test_hierarchy.id}.json")
-    response_object = JSON.parse(body)
+    response_object = JSON.parse(source)
     response_object['title'].should == @test_hierarchy.label
     response_object['contributor'].should == @test_hierarchy.agent.full_name
     response_object['dateSubmitted'].should == @test_hierarchy.indexed_on.mysql_timestamp
@@ -732,7 +719,7 @@ describe 'EOL APIs' do
   it 'collections should return XML' do
     c = Collection.gen(:name => "TESTING COLLECTIONS API", :description => "SOME DESCRIPTION")
     visit("/api/collections/#{c.id}")
-    xml_response = Nokogiri.XML(body)
+    xml_response = Nokogiri.XML(source)
     xml_response.xpath("//name").inner_text.should == c.name
     xml_response.xpath("//description").inner_text.should == c.description
   end
@@ -740,7 +727,7 @@ describe 'EOL APIs' do
   it 'collections should return JSON' do
     c = Collection.gen(:name => "TESTING COLLECTIONS API", :description => "SOME DESCRIPTION")
     visit("/api/collections/#{c.id}.json")
-    response_object = JSON.parse(body)
+    response_object = JSON.parse(source)
     response_object.class.should == Hash
     response_object['name'].should == c.name
     response_object['description'].should == c.description

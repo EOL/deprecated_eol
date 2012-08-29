@@ -31,9 +31,8 @@ class ApiController < ApplicationController
       render_error("Unknown identifier #{taxon_concept_id}")
       return
     end
-
     ApiLog.create(:request_ip => request.remote_ip,
-                  :request_uri => request.env["REQUEST_URI"],
+                  :request_uri => request.fullpath,
                   :method => 'pages',
                   :version => params[:version],
                   :format => params[:format],
@@ -91,7 +90,7 @@ class ApiController < ApplicationController
     end
 
     ApiLog.create(:request_ip => request.remote_ip,
-                  :request_uri => request.env["REQUEST_URI"],
+                  :request_uri => request.fullpath,
                   :method => 'data_objects',
                   :version => params[:version],
                   :format => params[:format],
@@ -144,7 +143,7 @@ class ApiController < ApplicationController
     @results = search_response[:results]
     @last_page = (@results.total_entries/@per_page.to_f).ceil
 
-    ApiLog.create(:request_ip => request.remote_ip, :request_uri => request.env["REQUEST_URI"], :method => 'search', :version => params[:version], :format => params[:format], :request_id => @search_term, :key => @key, :user_id => @user_id)
+    ApiLog.create(:request_ip => request.remote_ip, :request_uri => request.fullpath, :method => 'search', :version => params[:version], :format => params[:format], :request_id => @search_term, :key => @key, :user_id => @user_id)
 
     respond_to do |format|
       format.xml { render :layout => false }
@@ -185,9 +184,9 @@ class ApiController < ApplicationController
       return
     end
 
-    ApiLog.create(:request_ip => request.remote_ip, :request_uri => request.env["REQUEST_URI"], :method => 'hierarchy_entries', :version => params[:version], :format => format, :request_id => id, :key => @key, :user_id => @user_id)
-
-    if params[:format] == 'tcs'
+    ApiLog.create(:request_ip => request.remote_ip, :request_uri => request.fullpath, :method => 'hierarchy_entries', :version => params[:version], :format => format, :request_id => id, :key => @key, :user_id => @user_id)
+    
+    if params[:render] == 'tcs'
       render :action =>'hierarchy_entries', :layout => false
     else
       respond_to do |format|
@@ -211,7 +210,7 @@ class ApiController < ApplicationController
       return
     end
 
-    ApiLog.create(:request_ip => request.remote_ip, :request_uri => request.env["REQUEST_URI"], :method => 'synonyms', :version => params[:version], :format => params[:format], :request_id => id, :key => @key, :user_id => @user_id)
+    ApiLog.create(:request_ip => request.remote_ip, :request_uri => request.fullpath, :method => 'synonyms', :version => params[:version], :format => params[:format], :request_id => id, :key => @key, :user_id => @user_id)
 
     respond_to do |format|
        format.xml { render :layout => false }
@@ -231,7 +230,7 @@ class ApiController < ApplicationController
       return
     end
 
-    ApiLog.create(:request_ip => request.remote_ip, :request_uri => request.env["REQUEST_URI"], :method => 'hierarchies', :version => params[:version], :format => params[:format], :request_id => id, :key => @key, :user_id => @user_id)
+    ApiLog.create(:request_ip => request.remote_ip, :request_uri => request.fullpath, :method => 'hierarchies', :version => params[:version], :format => params[:format], :request_id => id, :key => @key, :user_id => @user_id)
 
     respond_to do |format|
       format.xml { render :layout => false }
@@ -247,7 +246,7 @@ class ApiController < ApplicationController
 
     @hierarchies = Hierarchy.browsable
 
-    ApiLog.create(:request_ip => request.remote_ip, :request_uri => request.env["REQUEST_URI"], :method => 'provider_hierarchies', :version => params[:version], :format => params[:format], :key => @key, :user_id => @user_id)
+    ApiLog.create(:request_ip => request.remote_ip, :request_uri => request.fullpath, :method => 'provider_hierarchies', :version => params[:version], :format => params[:format], :key => @key, :user_id => @user_id)
 
     respond_to do |format|
       format.xml { render :layout => false }
@@ -268,7 +267,7 @@ class ApiController < ApplicationController
     end
     @results = HierarchyEntry.find_all_by_hierarchy_id_and_identifier(params[:hierarchy_id], params[:id], :conditions => "published = 1 and visibility_id = #{Visibility.visible.id}")
 
-    ApiLog.create(:request_ip => request.remote_ip, :request_uri => request.env["REQUEST_URI"], :method => 'search_by_provider', :version => params[:version], :format => params[:format], :request_id => params[:id], :key => @key, :user_id => @user_id)
+    ApiLog.create(:request_ip => request.remote_ip, :request_uri => request.fullpath, :method => 'search_by_provider', :version => params[:version], :format => params[:format], :request_id => params[:id], :key => @key, :user_id => @user_id)
 
     respond_to do |format|
       format.xml { render :layout => false }
@@ -282,7 +281,7 @@ class ApiController < ApplicationController
   def ping
     params[:format] ||= 'xml'
 
-    ApiLog.create(:request_ip => request.remote_ip, :request_uri => request.env["REQUEST_URI"], :method => 'ping', :version => params[:version], :format => params[:format], :key => @key, :user_id => @user_id)
+    ApiLog.create(:request_ip => request.remote_ip, :request_uri => request.fullpath, :method => 'ping', :version => params[:version], :format => params[:format], :key => @key, :user_id => @user_id)
 
     respond_to do |format|
       format.xml { render :layout => false }
@@ -323,7 +322,7 @@ class ApiController < ApplicationController
       return
     end
 
-    ApiLog.create(:request_ip => request.remote_ip, :request_uri => request.env["REQUEST_URI"],
+    ApiLog.create(:request_ip => request.remote_ip, :request_uri => request.fullpath,
                   :method => 'collections', :version => params[:version], :format => params[:format],
                   :request_id => id, :key => @key, :user_id => @user_id)
 

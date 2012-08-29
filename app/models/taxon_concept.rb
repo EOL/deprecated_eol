@@ -24,6 +24,7 @@ class TaxonConcept < ActiveRecord::Base
 
   has_many :feed_data_objects
   has_many :hierarchy_entries
+  has_many :scientific_synonyms, :through => :hierarchy_entries
   has_many :published_hierarchy_entries, :class_name => HierarchyEntry.to_s,
     :conditions => Proc.new { "hierarchy_entries.published=1 AND hierarchy_entries.visibility_id=#{Visibility.visible.id}" }
   has_many :top_concept_images
@@ -77,7 +78,7 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def self.load_for_title_only(load_these)
-    TaxonConcept.find(load_these, :select => 'id, supercedure_id', :include => [:hierarchy_entries])
+    TaxonConcept.find(load_these, :include => [:hierarchy_entries])
   end
 
   def all_superceded_taxon_concept_ids
@@ -109,11 +110,9 @@ class TaxonConcept < ActiveRecord::Base
   # TODO - this will now be called on ALL taxon pages.  Eep!  Make this more efficient:
   def common_names(options = {})
     if options[:hierarchy_entry_id]
-      tcn = TaxonConceptName.find_all_by_source_hierarchy_entry_id_and_vern(options[:hierarchy_entry_id], 1, :include => [ :name, :language ],
-        :select => {:taxon_concept_names => [ :preferred, :vetted_id ], :names => :string, :languages => '*'})
+      tcn = TaxonConceptName.find_all_by_source_hierarchy_entry_id_and_vern(options[:hierarchy_entry_id], 1, :include => [ :name, :language ])
     else
-      tcn = TaxonConceptName.find_all_by_taxon_concept_id_and_vern(self.id, 1, :include => [ :name, :language ],
-        :select => {:taxon_concept_names => [ :preferred, :vetted_id ], :names => :string, :languages => '*'})
+      tcn = TaxonConceptName.find_all_by_taxon_concept_id_and_vern(self.id, 1, :include => [ :name, :language ])
     end
 
     sorted_names = TaxonConceptName.sort_by_language_and_name(tcn)
@@ -335,7 +334,7 @@ class TaxonConcept < ActiveRecord::Base
 
     # get all hierarchy entries
     select = {:hierarchy_entries => '*', :vetted => :view_order}
-    all_entries = HierarchyEntry.find_all_by_taxon_concept_id(taxon_concept_ids, :select => select, :include => :vetted)
+    all_entries = HierarchyEntry.find_all_by_taxon_concept_id(taxon_concept_ids, :include => :vetted)
     # ..and order them by published DESC, vetted view_order ASC, id ASC - earliest entry first
     all_entries = HierarchyEntry.sort_by_vetted(all_entries)
 
@@ -423,10 +422,8 @@ class TaxonConcept < ActiveRecord::Base
 
   def all_ancestor_taxon_concept_ids
     return @complete_ancestor_concept_ids if @complete_ancestor_concept_ids
-    ancestor_concept_ids = TaxonConceptsFlattened.find_all_by_taxon_concept_id(id,
-      :select => 'ancestor_id').collect{ |tcf| tcf.ancestor_id } + [id]
-    @complete_ancestor_concept_ids = TaxonConceptsFlattened.find_all_by_taxon_concept_id(ancestor_concept_ids,
-      :select => 'ancestor_id').collect{ |tcf| tcf.ancestor_id } + [id]
+    ancestor_concept_ids = TaxonConceptsFlattened.find_all_by_taxon_concept_id(id).collect{ |tcf| tcf.ancestor_id } + [id]
+    @complete_ancestor_concept_ids = TaxonConceptsFlattened.find_all_by_taxon_concept_id(ancestor_concept_ids).collect{ |tcf| tcf.ancestor_id } + [id]
   end
 
   # general versions of the above methods for any hierarchy
@@ -729,13 +726,18 @@ class TaxonConcept < ActiveRecord::Base
           end
         end
         if include_exemplar
-          original_length = text_objects.length
-          # remove the exemplar if it is already in the list
-          text_objects.delete_if{ |d| d.guid == exemplar.guid }
-          # prepend the exemplar if it exists
-          text_objects.unshift(exemplar)
-          # if the exemplar increased the size of our image array, remove the last one
-          text_objects.pop if text_objects.length > original_length
+          best_association = exemplar.association_with_best_vetted_status
+          best_association_vetted_label = best_association.vetted ? best_association.vetted.label('en').downcase : nil
+          best_association_vetted_label = 'unreviewed' if best_association_vetted_label == 'unknown'
+          if best_association && best_association.vetted && solr_search_params[:vetted_types].include?(best_association_vetted_label)
+            original_length = text_objects.length
+            # remove the exemplar if it is already in the list
+            text_objects.delete_if{ |d| d.guid == exemplar.guid }
+            # prepend the exemplar if it exists
+            text_objects.unshift(exemplar)
+            # if the exemplar increased the size of our image array, remove the last one
+            text_objects.pop if text_objects.length > original_length
+          end
         end
       end
     end

@@ -15,7 +15,7 @@ xml.response "xmlns" => "http://www.eol.org/transfer/content/0.3",
       xml.dwc :ScientificName, taxon_concept.entry.name.string
       
       if params[:synonyms]
-        for syn in taxon_concept.synonyms
+        for syn in taxon_concept.scientific_synonyms
           relation = syn.synonym_relation ? syn.synonym_relation.label : ''
           xml.synonym syn.name.string, 'relationship'.to_sym => relation
         end

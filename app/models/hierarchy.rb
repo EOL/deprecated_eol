@@ -98,26 +98,16 @@ class Hierarchy < ActiveRecord::Base
   end
 
   def kingdoms(opts = {})
-    # this is very hacky - another case where reading from the cache in development mode throws an error
-    # becuase several classes have not been loaded yet. The only fix is to somehow load them before reading
-    # from the cache
-    HierarchyEntry
-    Rank
-    Name
-    CanonicalForm
-    Hierarchy.cached("kingdoms_for_#{id}") do
-      add_include = [ :taxon_concept ]
-      add_select = { :taxon_concepts => '*' }
-      unless opts[:include_stats].blank?
-        add_include << :hierarchy_entry_stat
-        add_select[:hierarchy_entry_stats] = '*'
-      end
-
-      vis = [Visibility.visible.id, Visibility.preview.id]
-      # TODO: core_relationships(:add_include => add_include, :add_select => add_select)
-      k = HierarchyEntry.find_all_by_hierarchy_id_and_parent_id_and_visibility_id(id, 0, vis)
-      HierarchyEntry.sort_by_name(k)
+    add_include = [ :taxon_concept ]
+    add_select = { :taxon_concepts => '*' }
+    unless opts[:include_stats].blank?
+      add_include << :hierarchy_entry_stat
+      add_select[:hierarchy_entry_stats] = '*'
     end
+
+    vis = [Visibility.visible.id, Visibility.preview.id]
+    # TODO: core_relationships(:add_include => add_include, :add_select => add_select)
+    k = HierarchyEntry.find_all_by_hierarchy_id_and_parent_id_and_visibility_id(id, 0, vis)
   end
   
   def content_partner

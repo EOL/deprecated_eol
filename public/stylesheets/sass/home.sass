@@ -169,10 +169,52 @@ body
     @extend .site_column
     padding: 30px 10px
     h3
-      padding: 0 0 15px 20px
+      padding: 0 0 15px 40px
       font-size: 1.33em
-    .news,
+    .stats
+      float: left
+      width: 520px
+      padding: 0 40px 0 0
+      li
+        clear: both
+        overflow: hidden
+        padding: 10px 20px 10px 20px
+        border-top: 1px solid #e5e8eb
+        > a
+          float: left
+          margin: 20px 0 0 0
+        dl
+          float: left
+          width: 175px
+          padding: 3px 10px 3px 100px
+          background: 0 50% no-repeat transparent
+        dd
+          font-size: 2.5em
+        dt
+          font-size: 1.1em
+          font-weight: bold
+          color: #394651
+        &.taxon
+          dl
+            background-image: url("/images/v2/icon_taxon.png")
+        &.users
+          dl
+            background-image: url("/images/v2/icon_user.png")
+        &.collections
+          dl
+            background-image: url("/images/v2/icon_collections.png")
+        &.images
+          dl
+            background-image: url("/images/v2/icon_images.png")
+        &.partners
+          dl
+            background-image: url("/images/v2/icon_partners.png")
+        &.communities
+          dl
+            background-image: url("/images/v2/icon_community.png")
     .community
+      float: right
+      width: 380px
       margin: 0 0 20px 0
       h3
         position: relative
@@ -182,74 +224,11 @@ body
           right: 10px
           top: 1px
       > ul
-        padding: 20px 20px 10px 20px
-        > li
-          margin: 0 0 15px 0
-          p
-            line-height: 140%
-            &.meta
-              font-size: .83em
-              font-weight: bold
-              text-transform: uppercase
-              color: #82919e
-    .news
-      float: left
-      width: 520px
-      ul
-        li
-          a
-            color: inherit
-            text-decoration: none
-            &:hover
-              color: #195184
-              text-decoration: underline
-    .stats
-      clear: both
-      ul
-        border-top: 1px solid #e5e8eb
+        padding: 20px 0 10px 40px
         border-bottom: 1px solid #e5e8eb
-        overflow: hidden
-        li
-          float: left
-          width: 155px
-          padding: 10px 0
-          margin: 5px 0
-          text-align: center
-          + li
-            border-left: 1px solid #e5e8eb
-          dl
-            padding-top: 65px
-            background-repeat: no-repeat
-            background-position: top center
-            dt
-              font-size: .92em
-            dd
-              font-size: 1.16em
-          &.taxon
-            dl
-              background-image: url("/images/v2/icon_taxon.png")
-          &.users
-            dl
-              background-image: url("/images/v2/icon_user.png")
-          &.collections
-            dl
-              background-image: url("/images/v2/icon_collections.png")
-          &.images
-            dl
-              background-image: url("/images/v2/icon_images.png")
-          &.partners
-            dl
-              background-image: url("/images/v2/icon_partners.png")
-          &.communities
-            dl
-              background-image: url("/images/v2/icon_community.png")
-    .community
-      float: right
-      width: 380px
-      > ul
         > li
           overflow: hidden
-          margin: 0 0 10px 0
+          padding: 0 0 10px 0
           img
             float: left
             margin: 0 10px 0 0
@@ -257,6 +236,13 @@ body
           .details
             overflow: hidden
             padding: 3px 0 0 0
+          p
+            line-height: 140%
+            &.meta
+              font-size: .83em
+              font-weight: bold
+              text-transform: uppercase
+              color: #82919e
           ul.actions
             li
               display: inline-block
@@ -290,46 +276,6 @@ body
                 +button
                 font-size: .9em
                 margin-right: 10px
-    .stats
-      clear: both
-      > ul
-        border-top: 1px solid #e5e8eb
-        border-bottom: 1px solid #e5e8eb
-        overflow: hidden
-        > li
-          float: left
-          width: 155px
-          padding: 10px 0
-          margin: 5px 0
-          text-align: center
-          + li
-            border-left: 1px solid #e5e8eb
-          dl
-            padding-top: 65px
-            background-repeat: no-repeat
-            background-position: top center
-            dt
-              font-size: 11px
-            dd
-              font-size: 14px
-          &.taxon
-            dl
-              background-image: url("/images/v2/icon_taxon.png")
-          &.users
-            dl
-              background-image: url("/images/v2/icon_user.png")
-          &.collections
-            dl
-              background-image: url("/images/v2/icon_collections.png")
-          &.images
-            dl
-              background-image: url("/images/v2/icon_images.png")
-          &.partners
-            dl
-              background-image: url("/images/v2/icon_partners.png")
-          &.communities
-            dl
-              background-image: url("/images/v2/icon_community.png")
     .session
       float: right
       clear: right

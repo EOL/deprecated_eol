@@ -1302,11 +1302,11 @@ body > #header {
   overflow: hidden;
   padding: 20px 0;
   background: white; }
-  #content.cms_page .nav {
+  #content.cms_page .nav, #content.news_page .nav {
     float: left;
     margin: 0 20px 0 0;
     width: 240px; }
-    #content.cms_page .nav ul li a {
+    #content.cms_page .nav ul li a, #content.news_page .nav ul li a {
       border: 1px solid #cad3db;
       margin: 0 0 1px 0;
       display: block;
@@ -1314,17 +1314,17 @@ body > #header {
       padding: 7px 10px 6px 10px;
       text-decoration: none;
       color: #616e7a; }
-      #content.cms_page .nav ul li a:hover {
+      #content.cms_page .nav ul li a:hover, #content.news_page .nav ul li a:hover {
         border-color: #93a4b0; }
-    #content.cms_page .nav ul li.active a {
+    #content.cms_page .nav ul li.active a, #content.news_page .nav ul li.active a {
       border-color: #93a4b0;
       background: #e2e9ef;
       color: #394651; }
-  #content.cms_page .copy {
+  #content.cms_page .copy, #content.news_page .copy {
     overflow: hidden;
     padding: 40px 40px 25px 40px;
     border: 1px solid #cad3db; }
-    #content.cms_page .copy img {
+    #content.cms_page .copy img, #content.news_page .copy img {
       float: right;
       padding: 10px;
       border: 1px solid #cad3db;

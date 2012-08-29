@@ -4,6 +4,7 @@ describe TaxonConceptExemplarArticle do
 
   before :all do
     truncate_all_tables
+    EolScenario.load :bootstrap
   end
 
   it '#set_exemplar should add/update exemplar article record for taxon concept' do

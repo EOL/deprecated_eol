@@ -302,6 +302,7 @@ EolUpgrade::Application.routes.draw do
 
   # Search (note there is more search at the end of the file; it is expensive):
   match '/search' => 'search#index', :as => 'search'
+  match '/search/:q' => 'search#index', :q => /[A-Za-z% ][A-Za-z0-9% ]*/
   match '/found/:id' => 'taxa#show', :as => 'found'
 
   # Named session routes (see also resources):

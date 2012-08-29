@@ -9,11 +9,10 @@ def assert_results(options)
   search_string = options[:search_string] || 'tiger'
   per_page = options[:per_page] || 10
   visit("/search?q=#{search_string}&per_page=#{per_page}#{options[:page] ? "&page=#{options[:page]}" : ''}")
-  body.should have_tag('#main ul') do
-    result_index = options[:num_results_on_this_page]
-    with_tag("li:nth-child(#{result_index})")
-    without_tag("li:nth-child(#{result_index + 1})")
-  end
+  body.should have_selector('#main ul')
+  result_index = options[:num_results_on_this_page]
+  body.should have_selector("li:nth-child(#{result_index})")
+  body.should_not have_selector("li:nth-child(#{result_index + 1})")
 end
 
 describe 'Search' do
@@ -65,17 +64,15 @@ describe 'Search' do
 
   it 'should show a list of possible results (linking to /found) if more than 1 match is found  (also for pages/searchterm)' do
     visit("/search?q=#{@tiger_name}")
-    body.should have_tag('li', /#{@tiger_name}/) do
-      with_tag('a[href*=?]', %r{/pages/#{@tiger.id}})
-    end
-    body.should have_tag('li', /#{@tiger_lilly_name.capitalize_all_words}/) do
-      with_tag('a[href*=?]', %r{/pages/#{@tiger_lilly.id}})
-    end
+    page.should have_selector('li', :text => @tiger_name)
+    page.should have_selector("a[href*='/pages/#{@tiger.id}']")
+    page.should have_selector('li', :text => @tiger_lilly_name.capitalize_all_words)
+    page.should have_selector("a[href*='/pages/#{@tiger_lilly.id}']")
   end
 
   it 'should be able to return suggested results for "bacteria"' do
     visit("/search?q=#{@tricky_search_suggestion}&search_type=text")
-    body.should have_tag("#main li", /#{@suggested_taxon_name.capitalize_all_words}/)
+    page.should have_selector("#main li", :text => @suggested_taxon_name.capitalize_all_words)
   end
 
   it 'should treat empty string search gracefully when javascript is switched off' do
@@ -94,12 +91,12 @@ describe 'Search' do
   it 'should return a helpful message if no results' do
     # TaxonConcept.should_receive(:search_with_pagination).at_least(1).times.and_return([])
     visit("/search?q=bozo")
-    body.should have_tag('h2', /0 results for.*?bozo/)
+    page.should have_selector('h2', :text => "0 results for bozo")
   end
 
   it 'should place suggested search results at the top of the list' do
     visit("/search?q=#{@tricky_search_suggestion}&search_type=text")
-    body.should have_tag("#search_results li", /#{@suggested_taxon_name.capitalize_all_words}/)
+    page.should have_selector("#search_results li", :text => @suggested_taxon_name.capitalize_all_words)
   end
 
   it 'should sort by score by default' do
@@ -181,50 +178,50 @@ describe 'Search' do
   it 'should return all results when not filtering' do
     visit("/search?q=#{@name_for_all_types}")
     current_path.should match /^\/search/
-    body.should have_tag('h2', /8 results for.*?#{@name_for_all_types}/)
+    body.should have_selector('h2', :text => "8 results for #{@name_for_all_types}")
 
-    visit("/search?q=#{@name_for_all_types}&" + CGI::escape("type[]=all"))
+    visit search_path(:q => @name_for_all_types, :type => ['all'])
     current_path.should match /^\/search/
-    body.should have_tag('h2', /8 results for.*?#{@name_for_all_types}/)
+    body.should have_selector('h2', :text => "8 results for #{@name_for_all_types}")
   end
 
   it 'should filter by collection' do
-    visit("/search?q=#{@name_for_all_types}&" + CGI::escape("type[]=collection"))
+    visit search_path(:q => @name_for_all_types, :type => ['collection'])
     current_path.should match /^\/collections\/#{@collection.id}/
   end
 
   it 'should filter by community' do
-    visit("/search?q=#{@name_for_all_types}&" + CGI::escape("type[]=community"))
+    visit search_path(:q => @name_for_all_types, :type => ['community'])
     current_path.should match /^\/communities\/#{@community.id}/
   end
 
   it 'should filter by image' do
-    visit("/search?q=#{@name_for_all_types}&" + CGI::escape("type[]=image"))
+    visit search_path(:q => @name_for_all_types, :type => ['image'])
     current_path.should match /^\/data_objects\//
   end
 
   it 'should filter by sound' do
-    visit("/search?q=#{@name_for_all_types}&" + CGI::escape("type[]=sound"))
+    visit search_path(:q => @name_for_all_types, :type => ['sound'])
     current_path.should match /^\/data_objects\//
   end
 
   it 'should filter by video' do
-    visit("/search?q=#{@name_for_all_types}&" + CGI::escape("type[]=video"))
+    visit search_path(:q => @name_for_all_types, :type => ['video'])
     current_path.should match /^\/data_objects\//
   end
 
   it 'should filter by text' do
-    visit("/search?q=#{@name_for_all_types}&" + CGI::escape("type[]=text"))
+    visit search_path(:q => @name_for_all_types, :type => ['text'])
     current_path.should match /^\/data_objects\//
   end
 
   it 'should filter by taxon concept' do
-    visit("/search?q=#{@name_for_all_types}&" + CGI::escape("type[]=taxon_concept"))
+    visit search_path(:q => @name_for_all_types, :type => ['taxon_concept'])
     current_path.should match /^\/pages\/#{@panda.id}/
   end
 
   it 'should filter by user' do
-    visit("/search?q=#{@name_for_all_types}&" + CGI::escape("type[]=user"))
+    visit search_path(:q => @name_for_all_types, :type => ['user'])
     current_path.should match /^\/users\/#{@user2.id}/
   end
   

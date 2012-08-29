@@ -70,7 +70,7 @@ module EOL
           end
           puts "-- Truncated #{count} tables in #{conn.instance_eval { @config[:database] }}." if options[:verbose]
         end
-        Rails.cache.clear if Rails.cache # ...These values are all now void, so...
+        Rails.cache.clear if Rails.cache
       end
 
       def truncate_table(conn, table, skip_if_empty)
@@ -205,6 +205,7 @@ module EOL
       end
 
       def load_foundation_cache
+        truncate_all_tables
         load_scenario_with_caching(:foundation)
       end
 

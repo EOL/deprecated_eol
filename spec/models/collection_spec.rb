@@ -8,7 +8,7 @@ class CollectionBuilder
     col = Collection.gen
     if opts[:taxa] && ( ! defined?(@@taxa_for_collections) || @@taxa_for_collections.size <= opts[:taxa])
       while @@taxa_for_collections.size < opts[:taxa] do
-        @@taxa_for_collections << TaxonConcept.gen # Does not need to be a "real" TC...
+        @@taxa_for_collections << build_taxon_concept
       end
     end
     if opts[:taxa]

@@ -1,9 +1,5 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-# TODO - this was done wrong. The counts are not guarnteed to work independently of order.  I'm doing my best to sort
-# out the data beforehand, but really, we should create a bunch of scenarios in the collections scenario to account
-# for each of the required specs, and not muck with the data on the same taxon/collection each time.
-
 describe "Preview Collections" do
   before(:all) do
     module Paperclip
@@ -24,6 +20,7 @@ describe "Preview Collections" do
     @collectable_collection = Collection.gen
     @collection = @test_data[:collection]
     @collection_owner = @test_data[:user]
+    @collection_name = @collection.name
     @user = nil
     @under_privileged_user = User.gen
     @anon_user = User.gen(:password => 'password')
@@ -32,15 +29,17 @@ describe "Preview Collections" do
     EOL::Solr::CollectionItemsCoreRebuilder.begin_rebuild
   end
 
+  # TODO - this was done wrong. The counts are not guarnteed to work independently of order.  I'm doing my best to sort
+  # out the data beforehand, but really, we should create a bunch of scenarios in the collections scenario to account
+  # for each of the required specs, and not muck with the data on the same taxon/collection each time.
   before(:each) do
     @collection.update_column(:published, true)
+    @collection.update_column(:name, @collection_name)
   end
 
   it 'should show collections on the taxon page' do
     visit taxon_path(@taxon)
-    body.should have_tag('#collections_summary') do
-      with_tag('h3', :text => "Present in 1 collection")
-    end
+    body.should have_tag("a[href=#{collection_url(@collection)}]")
   end
 
   it 'should not show preview collections on the taxon page' do
@@ -103,13 +102,13 @@ describe "Preview Collections" do
     admin = User.gen(:admin => true)
     login_as admin
     visit collection_path(@collection)
-    body.should have_tag('h1', /#{@collection.name}/)
-    body.should have_tag('ul.object_list li', /#{@collection.collection_items.first.object.best_title}/)
+    body.should have_tag('h1', :text => /#{@collection.name}/)
+    body.should have_tag('ul.object_list li', :text => /#{@collection.collection_items.first.object.best_title}/)
 
     login_as @collection.users.first
     visit collection_path(@collection)
-    body.should have_tag('h1', /#{@collection.name}/)
-    body.should have_tag('ul.object_list li', /#{@collection.collection_items.first.object.best_title}/)
+    body.should have_tag('h1', :text => /#{@collection.name}/)
+    body.should have_tag('ul.object_list li', :text => /#{@collection.collection_items.first.object.best_title}/)
   end
 end
 
@@ -187,6 +186,7 @@ describe "Collections and collecting:" do
   shared_examples_for 'collections all users' do
     before(:each) do
       @collection.update_column(:published, true)
+      @collection.update_column(:name, @collection_name)
     end
     it 'should be able to view a collection and its items' do
       visit collection_path(@collection)
@@ -320,6 +320,8 @@ describe "Collections and collecting:" do
 
   describe 'user without privileges' do
     before(:each) do
+      @collection.update_column(:published, true)
+      @collection.update_column(:name, @collection_name)
       @user = @under_privileged_user
       login_as @user
     end
@@ -342,6 +344,8 @@ describe "Collections and collecting:" do
   describe 'user with privileges' do
     before(:each) do
       @user = @collection_owner
+      @collection.update_column(:published, true)
+      @collection.update_column(:name, @collection_name)
       login_as @user
     end
     after(:all) { @user = nil }

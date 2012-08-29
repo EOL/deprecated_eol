@@ -527,7 +527,7 @@ describe TaxonConcept do
     member3 = Member.gen(:community => community1, :user => user3)
     collection1 = community1.collections.first
     collection2 = community2.collections.first
-    tc = TaxonConcept.gen
+    tc = build_taxon_concept
     coll_item1 = CollectionItem.gen(:object_type => "TaxonConcept", :object_id => tc.id, :collection => collection1)
     coll_item2 = CollectionItem.gen(:object_type => "TaxonConcept", :object_id => tc.id, :collection => collection2)
     tc.collection_items[1].collection.communities.include?(community2).should be_true

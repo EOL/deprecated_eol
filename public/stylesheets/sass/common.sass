@@ -157,124 +157,86 @@ body
           +gradient-bg(#fefeff, #ccd2d7)
   > #footer
     overflow: hidden
-    padding: 30px 0
-    background: #28333c
+    padding: 0 0 30px 0
+    background: #394651
     .section
-      background: #394651
-      border-top: 1px solid #3e4b56
-      border-bottom: 1px solid #3e4b56
-      width: 100%
+      @extend .site_column
+      padding: 0
+    .copyright
       float: left
-      .wrapper
-        @extend .site_column
-        padding: 0
-        margin-top: -30px
-        > div
-          float: left
-          margin: 0 0 20px 0
-          > h6
-            color: #fff
-            text-transform: uppercase
-            margin: 0 0 0 20px
-            line-height: 30px
-          > ul
-            border: 1px solid #414c55
-            background: #323f49
-            padding: 10px 20px
-            border-top: none
-            margin-right: 10px
-            > li
-              a
-                font-weight: bold
-                text-decoration: none
-                color: #b2c1cf
-                display: block
-                line-height: 20px
-                &:hover
-                  color: #fff
-                  text-decoration: underline
-          &.learn_more
-            margin-right: 10px
-            > ul
-              overflow: hidden
-              margin: 0 0 10px 0
-              > li
-                float: left
-                a
-                  color: #e79689
-                + li
-                  margin-left: 30px
-                  a
-                    color: #e79689
-                  + li
-                    ul
-                      a
-                        color: #b1e19c
-                      + ul
-                        a
-                          color: #e9e86f
-                    + li
-                      ul
-                        a
-                          color: #7bb6e9
-                        + ul
-                          a
-                            color: #e2c7e7
-                          + ul
-                            a
-                              color: #e9cbac
-                            + ul
-                              a
-                                color: #b2c1cf
-            .version
-              clear: both
-              border: 1px solid #414c55
-              background: #323f49
-              padding: 10px 20px
-              font-weight: bold
-              font-size: 10px
-              color: #6f7e8b
-              line-height: 18px
-              a
-                display: block
-                float: left
-                width: 41px
-                height: 18px
-                text-indent: 8685px
-                overflow: hidden
-                background: transparent url("/images/v2/logo_footer.png") 0 0 no-repeat
-                margin: 0 30px 0 0
-          &.questions
-            float: none
-            overflow: hidden
-            ul
-              overflow: hidden
-            ul.social_media
-              float: right
-              margin: 0
-              padding: 10px 0 0 10px
-              background: none
-              border: none
-              li
-                a
-                  display: block
-                  width: 25px
-                  height: 25px
-                  margin: 0 0 10px 0
-                  text-indent: -8685px
-                  overflow: hidden
-                  background: transparent url("/images/v2/icon_social-media.png") 0 0 no-repeat
-                  border: 1px solid #28323a
-                  &.rss
-                    background-position: 0 -25px
-                  &.facebook
-                    background-position: 0 -50px
-                  &.tumblr
-                    background-position: 0 -75px
-                  &.flickr
-                    background-position: 0 -100px
-                  &.youtube
-                    background-position: 0 -125px
+      padding: 20px 0 0 0
+      text-align: center
+      h6
+        padding: 0 0 5px 0
+        a
+          display: block
+          width: 41px
+          height: 18px
+          text-indent: -8685px
+          overflow: hidden
+          background: transparent url("/images/v2/logo_footer.png") 0 0 no-repeat
+      p
+        font-size: .83em
+        font-weight: bold
+        color: #6f7e8b
+    .disclaimer
+      color: #fff
+      background: #566572
+      padding: 10px 20px
+      font-size: .92em
+      color: #f0f4f7
+      line-height: 140%
+      text-align: center
+    .global_navigation
+      margin-left: 50px
+      clear: none
+      padding: 20px 0
+      ul.nav
+        line-height: 160%
+        float: right
+        li
+          display: inline
+          padding: 0 0 0 7px
+          text-transform: uppercase
+          &:before
+            padding: 0 7px 0 0
+            font-size: 1.33em
+            vertical-align: -2px
+            content: "•"
+            list-style: disc
+            color: #6f7e8b
+          &:first-of-type
+            padding-left: 0
+            &:before
+              display: none
+          a
+            color: #ffffff
+            text-decoration: none
+    ul.social_media
+      clear: both
+      float: right
+      li
+        float: left
+        padding: 0 0 0 10px
+        a
+          display: block
+          width: 25px
+          height: 25px
+          text-indent: -8685px
+          overflow: hidden
+          background: transparent url("/images/v2/icon_social-media.png") 0 0 no-repeat
+          border: 1px solid #28323a
+          &.rss
+            background-position: 0 -25px
+          &.facebook
+            background-position: 0 -50px
+          &.tumblr
+            background-position: 0 -75px
+          &.flickr
+            background-position: 0 -100px
+          &.youtube
+            background-position: 0 -125px
+
 
 .thumbnails
   padding: 10px 0 0 0

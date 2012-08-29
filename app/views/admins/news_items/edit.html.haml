@@ -1,0 +1,13 @@
+#content_page_edit
+  .article.copy
+    - form_for @news_item, :url => admin_news_item_path(@news_item), :builder => ApplicationHelper::EolFormBuilder do |news_item_form|
+      = validation_errors_for(@news_item)
+      %p.tip
+        = I18n.t(:admin_news_item_edit_tip, :required_icon => image_tag('/images/v2/icon_required.png', :alt => ''))
+      = render :partial => 'news_item_fieldset', :locals => {:news_item_form => news_item_form}
+
+      %fieldset.actions
+        = news_item_form.submit I18n.t('helpers.submit.news_item.update')
+        = link_to I18n.t(:cancel), admin_news_items_path
+    = button_to I18n.t(:delete), { :action => 'destroy', :id => @news_item.id },
+      { :confirm => I18n.t(:admin_news_item_delete_confirmation, :page_name => @news_item.page_name), :method => 'delete', :class => 'delete' }

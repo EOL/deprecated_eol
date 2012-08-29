@@ -1,0 +1,36 @@
+- fields_for @translated_news_item do |translated_news_item_fields|
+  %dl
+    - # Note: @languages is blank on edit because we don't want it to be modified.
+    - unless @languages.blank?
+      %dt.required
+        = translated_news_item_fields.label :language_id
+      %dd
+        = translated_news_item_fields.select :language_id,
+          options_from_collection_for_select(@languages, :id, :label, @translated_news_item.language_id)
+    %dt.required
+      = translated_news_item_fields.label :title
+      %p= I18n.t('helpers.label.translated_news_item.title_more')
+    %dd
+      = translated_news_item_fields.text_field :title, { :maxlength => 255 }
+    %dt.required
+      %label{:for => 'translated_news_item_body_editor'}
+        = I18n.t('activerecord.attributes.translated_news_item.body')
+      %p= I18n.t('helpers.label.translated_news_item.body_more')
+    %dd
+      = fckeditor_textarea(:translated_news_item, :body, :toolbarSet => 'CMSBody', :height => 500, :width => 600)
+    / %dt
+    /   = translated_news_item_fields.label :meta_keywords
+    /   %p= I18n.t('helpers.label.translated_news_item.meta_keywords_more')
+    / %dd.metadata
+    /   = translated_news_item_fields.text_field :meta_keywords, { :maxlength => 255 }
+    / %dt
+    /   = translated_news_item_fields.label :meta_description
+    /   %p= I18n.t('helpers.label.translated_news_item.meta_description_more')
+    / %dd.metadata
+    /   = translated_news_item_fields.text_field :meta_description, { :maxlength => 255 }
+
+  %fieldset
+    %label{:for => :active_translation, :class => 'checkbox'}
+      = translated_news_item_fields.check_box :active_translation
+      = I18n.t('activerecord.attributes.translated_news_item.active_translation')
+      %p= I18n.t('helpers.label.translated_news_item.active_translation_more')

@@ -2519,7 +2519,7 @@ es:
   news_archive_page: página de archivo de noticias
   news_date: Fecha de la noticia
   news_item: noticia
-  news_item_date_as_shown_to_use: "La fecha de la noticia tal como se muestra al usuario (la hora sólo se muestra en la fuente RSS):"
+  news_item_date_as_shown_to_user: "La fecha de la noticia tal como se muestra al usuario (la hora sólo se muestra en la fuente RSS):"
   news_item_is_visible_on_websit: "La noticia es visible en el sitio Web después de este tiempo:"
   news_item_title: Noticia
   news_items: Noticias

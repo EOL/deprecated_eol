@@ -220,6 +220,9 @@ class ContentController < ApplicationController
     @form_elements = EOLWebService.call(:parameters => parameters)
 
   end
+  
+  def donate_complete
+  end
 
   # conveninece page to expire everything immediately (call with http://www.eol.org/clear_caches)
   def clear_caches

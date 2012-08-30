@@ -132,7 +132,12 @@
         :javascript
           head.ready("ga.js", function() {
             head.js('/javascripts/ga_social_tracking.js');
-            head.ready("ga_social_tracking.js", EOL.load_social_plugins());
+            head.ready("ga_social_tracking.js", function() {
+              var facebook = "#{$ENABLED_SOCIAL_PLUGINS.include?(:facebook) ? true : nil};"
+              var twitter = "#{$ENABLED_SOCIAL_PLUGINS.include?(:twitter) ? true : nil};"
+              if (facebook) { EOL.loadFacebook("#{$FACEBOOK_APP_ID}","#{channel_facebook_url}"); }
+              if (twitter) { EOL.loadTwitter(); }
+            });
           });
     - elsif $ENABLED_SOCIAL_PLUGINS
       :javascript

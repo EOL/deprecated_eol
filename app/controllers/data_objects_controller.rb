@@ -94,7 +94,25 @@ class DataObjectsController < ApplicationController
           subchapter == 'literature'
       end
 
-      redirect_to taxon_details_path(@taxon_concept, :anchor => "data_object_#{@data_object.id}"), :status => :moved_permanently
+      # redirect to appropriate tab/sub-tab after creating the users_data_object/link_object
+      if @data_object.is_link?
+        case @data_object.link_type_id
+        when LinkType.blog.id
+        when LinkType.news.id
+          redirect_path = news_and_event_links_taxon_resources_url(@taxon_concept, :anchor => "data_object_#{@data_object.id}")
+        when LinkType.organization.id
+          redirect_path = related_organizations_taxon_resources_url(@taxon_concept, :anchor => "data_object_#{@data_object.id}")
+        when LinkType.paper.id
+          redirect_path = literature_links_taxon_literature_url(@taxon_concept, :anchor => "data_object_#{@data_object.id}")
+        when LinkType.multimedia.id
+          redirect_path = multimedia_links_taxon_resources_url(@taxon_concept, :anchor => "data_object_#{@data_object.id}")
+        else
+          redirect_path = taxon_details_path(@taxon_concept, :anchor => "data_object_#{@data_object.id}")
+        end
+        redirect_to redirect_path, :status => :moved_permanently
+      else
+        redirect_to taxon_details_path(@taxon_concept, :anchor => "data_object_#{@data_object.id}"), :status => :moved_permanently
+      end
     end
   end
 

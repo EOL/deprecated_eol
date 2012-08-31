@@ -2888,6 +2888,7 @@ en:
   filter_by_type_image_option_with_count:
     one: "Images (%{count})"
     other: "Images (%{count})"
+  filter_by_type_link_option: "Links"
   filter_by_type_text_option: "Articles"
   filter_by_type_user_option: "People"
   filter_by_type_photosynth_option: "Photosynths"

@@ -54,7 +54,7 @@ private
   
   # DataObject#create_user_text and #replicate count on this working, so if you change this, check those!
   def auto_vet
-    if self.data_object.data_subtype_id == DataType.link.id && !user.is_curator?
+    if self.data_object.data_subtype_id == DataType.link.id && !user.is_curator? && !user.is_admin?
       self.vetted_id = Vetted.untrusted.id
       self.visibility_id = Visibility.invisible.id
       return

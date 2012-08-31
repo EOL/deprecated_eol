@@ -13,4 +13,4 @@
     .learn_more
       = link_to I18n.t("link_more_about"), data_object_path(dato)
       &bull;
-      = I18n.l(dato.created_at, :format => :long)
+      = dato.created_at.strftime('%b %d, %Y')

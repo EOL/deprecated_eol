@@ -112,9 +112,9 @@ describe 'Taxa page' do
 #      body.should include('Rating was added ')
 #    end
 
-    it 'should show "Add a link or article to this page" button to the logged in users' do
+    it 'should show "Add an article or link to this page" button to the logged in users' do
       page.body.should have_tag("#page_heading .page_actions") do
-        with_tag("li a", :text => "Add a link or article to this page")
+        with_tag("li a", :text => "Add an article or link to this page")
       end
     end
   end

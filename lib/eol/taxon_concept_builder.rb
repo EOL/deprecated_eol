@@ -238,6 +238,7 @@ module EOL
         gbif_he = build_entry_in_hierarchy(:hierarchy => Hierarchy.gbif, :map => true,
                                            :identifier => @gbif_map_id)
         HarvestEventsHierarchyEntry.gen(:hierarchy_entry => gbif_he, :harvest_event => gbif_harvest_event)
+        GbifIdentifiersWithMap.create(:gbif_taxon_id => @gbif_map_id)
       end
     end
 

@@ -174,6 +174,16 @@ describe DataObject do
     dato.image?.should_not be_true
   end
 
+  it 'should return true if this is a link' do
+    dato = DataObject.gen(:data_type_id => DataType.text_type_ids.first, :data_subtype_id => DataType.link_type_ids.first, :source_url => "http://eol.org")
+    dato.link?.should be_true
+  end
+
+  it 'should return false if this is NOT a link' do
+    dato = DataObject.gen(:data_type_id => DataType.text_type_ids.first, :data_subtype_id => DataType.link_type_ids.sort.last + 1, :source_url => "http://eol.org")
+    dato.link?.should_not be_true
+  end
+
   describe '#has_thumbnail?' do
     it 'should return true when an image, video or sound object has a thumbnail image' do
       dato = @dato.dup
@@ -483,7 +493,7 @@ describe DataObject do
     dato.access_image_from_remote_server?(:orig).should == true
   end
 
-  it '#create_user_text should add rights holder only if rights holder not provided and license is not public domain' do
+  it '#create_user_text should add rights holder only if rights holder not provided, license is not public domain and if it is not a link object' do
     params = { :data_type_id => DataType.text.id.to_s,
                :license_id => License.public_domain.id.to_s,
                :object_title => "",
@@ -495,7 +505,8 @@ describe DataObject do
                :rights_holder => ""}
     options = { :taxon_concept => TaxonConcept.first,
                 :user => User.first,
-                :toc_id => [TocItem.first.id.to_s] }
+                :toc_id => [TocItem.first.id.to_s],
+                :link_object => false }
     dato = DataObject.create_user_text(params, options)
     dato.rights_holder.should be_blank
     dato.errors.count.should == 1
@@ -523,7 +534,56 @@ describe DataObject do
     dato.should have(1).error_on(:description)
     dato.should have(1).error_on(:rights_holder)
 
+    options[:link_object] = true
+    params[:license_id] = nil
+    params[:rights_holder] = ''
+    dato = DataObject.create_user_text(params, options)
+    dato.link?.should == true
+    dato.rights_holder.should == ''
   end
 
+  it '#create_user_text should add proper vetted and visibility statuses to the created link object' do
+    assistant_curator = build_curator(@taxon_concept, :level=>:assistant)
+    full_curator = build_curator(@taxon_concept, :level=>:full)
+    master_curator = build_curator(@taxon_concept, :level=>:master)
+    admin = User.gen(:admin=>1)
+    params = { :data_type_id => DataType.text.id.to_s,
+               :license_id => nil,
+               :object_title => "",
+               :bibliographic_citation => "",
+               :source_url => "http://eol.org",
+               :rights_statement => "",
+               :description => "This is link description",
+               :language_id => Language.english.id.to_s,
+               :rights_holder => ""}
+    options = { :taxon_concept => TaxonConcept.first,
+                :toc_id => [TocItem.first.id.to_s],
+                :link_object => true }
+    options[:user] = @user
+    dato = DataObject.create_user_text(params, options)
+    dato.link?.should == true
+    dato.users_data_object.vetted_id.should == Vetted.untrusted.id
+    dato.users_data_object.visibility_id.should == Visibility.invisible.id
+    options[:user] = assistant_curator
+    dato = DataObject.create_user_text(params, options)
+    dato.link?.should == true
+    dato.users_data_object.vetted_id.should == Vetted.unknown.id
+    dato.users_data_object.visibility_id.should == Visibility.visible.id
+    options[:user] = full_curator
+    dato = DataObject.create_user_text(params, options)
+    dato.link?.should == true
+    dato.users_data_object.vetted_id.should == Vetted.trusted.id
+    dato.users_data_object.visibility_id.should == Visibility.visible.id
+    options[:user] = master_curator
+    dato = DataObject.create_user_text(params, options)
+    dato.link?.should == true
+    dato.users_data_object.vetted_id.should == Vetted.trusted.id
+    dato.users_data_object.visibility_id.should == Visibility.visible.id
+    options[:user] = admin
+    dato = DataObject.create_user_text(params, options)
+    dato.link?.should == true
+    dato.users_data_object.vetted_id.should == Vetted.trusted.id
+    dato.users_data_object.visibility_id.should == Visibility.visible.id
+  end
 end
 

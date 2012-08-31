@@ -88,7 +88,7 @@ module EOL
         max = start + limit
         objects_to_send = []
         # TODO - Modify this to return only visible data objects
-        data_objects = DataObject.find(:all, :conditions => "id BETWEEN #{start} AND #{max} AND published=1", :select => 'id, object_title, description, data_type_id, created_at, updated_at')
+        data_objects = DataObject.find(:all, :conditions => "id BETWEEN #{start} AND #{max} AND published=1", :select => 'id, object_title, description, data_type_id, data_subtype_id, created_at, updated_at')
         data_objects.each do |d|
           objects_to_send += d.keywords_to_send_to_solr_index
         end

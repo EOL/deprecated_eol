@@ -57,6 +57,7 @@ module ActiveRecord
 
           if self.class == DataObject && !self.data_type_id.blank?
             data_type_label = self.is_video? ? 'Video' : self.data_type.label('en')
+            data_type_label = (data_type_label == 'Text' && self.is_link?) ? 'Link' : data_type_label
             params[:resource_type] = [self.class.to_s, data_type_label]
           end
 

@@ -13,7 +13,7 @@
 it: 
   0_1_or_2: 0, 1 o 2
   0_or_1: 0 o 1
-  a_pipe_delimited_list_of_licenses: una barra verticale | è usata come separatore nell'elenco delle licenze, o 'all' per ottenere gli oggetti con qualsiasi licenza. Licenze abbreviate in cc- sono tutte
+  a_pipe_delimited_list_of_licenses: una barra verticale | è usata come separatore nell'elenco delle licenze, o 'all' per ottenere gli oggetti con qualsiasi licenza. Licenze abbreviate in cc- sono tutte licenze %{creative_commons_link}. Visita il loro sito per ulteriori informazioni sulle varie licenze che offrono.
   a_pipe_delimited_list_of_spm_info_item_subject_names: una barra verticale | è usata come separatore nell'elenco degli argomenti per elementi di informazione SPM, o 'all' per ottenere il testo su qualsiasi argomento
   a_taxon: un taxon
   a_total_of_comment_were_found_matching_your_criteria: 
@@ -561,7 +561,6 @@ it:
   add_a_comment_colon: "Aggiungi un commento:"
   add_a_new_common_name: Aggiungi un nuovo nome comune
   add_a_new_file_brackets: "[aggiungi un nuovo file]"
-  add_a_new_news_item: Aggiungi una nuova notizia
   add_a_new_role: Aggiungi un nuovo ruolo
   add_a_new_search_suggestion: Aggiungi un nuovo suggerimento di ricerca
   add_a_new_term: Aggiungi un nuovo termine
@@ -644,6 +643,19 @@ it:
   admin_translated_content_page_update_unsuccessful_error: Spiacenti, si è verificato un errore, la traduzione non è stata aggiornata.
   admin_user_delete_successful_notice: L'utente è stato cancellato
   admin_user_hide_successful_notice: L'utente è stato nascosto
+  admins: 
+    eol_statistics: 
+      curators: 
+        menu_link: Statistiche curatore
+        page_header: Statistiche curatore
+      data_objects: 
+        menu_link: Oggetti dati
+        page_header: Statistiche oggetti dati
+        page_title: "Amministrazione: statistiche oggetti dati"
+      index: 
+        menu_link: Statistiche globali
+        page_header: Statistiche globali
+        page_title: "Amministrazione: statistiche globali"
   agent: Agente
   all: tutto
   all_apis_return_by_default_an_xml_response: "Tutte le API restituiscono per default una risposta XML. I metodi delle API possono essere chiamati senza un'estensione di formato per ottenere la risposta XML e aggiungendo un'estensione XML darà una risposta identica:"
@@ -831,7 +843,7 @@ it:
     one: "%{count} commento"
     other: "%{count} commenti"
   common_name: Nome comune
-  common_name_exists: Esiste già il nome comune <em>% {name_string}</em>
+  common_name_exists: Esiste già il nome comune <em>%{name_string}</em>
   common_names_with_count: 
     one: "%{count} nome comune"
     other: "%{count} nomi comuni"
@@ -882,6 +894,7 @@ it:
     other: "%{count} membri della comunità"
   community_name_label: Nome della comunità
   community_rating: Valutazione comunità
+  community_tab_collections_header: Collezioni
   completed: Completato
   confirm_leave: Sei sicuro di voler lasciare questa comunità?
   confirm_password_colon: "Conferma Password:"
@@ -1175,6 +1188,12 @@ it:
     content_partners: 
       page_title: Statistiche
     curators: 
+      menu_link: Statistiche curatore
+      page_header: Statistiche curatore
+      page_title: Statistiche
+    data_objects: 
+      menu_link: Oggetti dati
+      page_header: Statistiche oggetti dati
       page_title: Statistiche
     index: 
       menu_link: Statistiche complessive
@@ -1187,6 +1206,8 @@ it:
     page_richness: 
       page_title: Statistiche
     users_data_objects: 
+      menu_link: Testo inviato da utenti
+      page_header: Statistiche testi inviati da utenti
       page_title: Statistiche
   error_401_page_title: Non autorizzato
   error_403_page_title: Proibito
@@ -1422,6 +1443,9 @@ it:
       name: 
         create: Aggiungi nome
         update: Aggiorna nome
+      news_item: 
+        edit: Modifica
+        preview: Anteprima
       open_authentication: 
         create: Connetti
         destroy: Disconnetti
@@ -1438,6 +1462,9 @@ it:
         sign_in_with_yahoo: Accedi con Yahoo
       submit: Salva %{model}
       translated_content_page: 
+        create: Aggiungi traduzione
+        update: Salvare le modifiche alla traduzione
+      translated_news_item: 
         create: Aggiungi traduzione
         update: Salvare le modifiche alla traduzione
       update: Aggiorna %{model}
@@ -1458,7 +1485,6 @@ it:
   here: qui
   hidden: Nascosto
   hidden_comment: commento nascosto
-  hidden_for_colon: "Nascosto per:"
   hide: nascondi
   hierarchy: Gerarchia
   home: Pagina principale
@@ -1523,6 +1549,41 @@ it:
   languages: Lingue
   last_updated: Ultimo aggiornamento
   last_updated_time_ago: Ultimo aggiornamento %{time_passed} fa
+  layouts: 
+    v2: 
+      application: 
+        about_link_citing: Cita EOL
+        about_link_contact_us: Contattaci
+        about_link_discover: Scopri
+        about_link_donate: Dona ad EOL
+        about_link_help: Aiuto
+        about_link_statistics: Statistiche
+        about_link_terms_of_use: Condizioni d'uso
+        about_link_what_is_eol: Che cosa è EOL?
+        header_about: Informazioni su EOL
+        learn_more_link_amphibians: Anfibi
+        learn_more_link_animals: Animali
+        learn_more_link_archaea: Archaea
+        learn_more_link_bacteria: Batteri
+        learn_more_link_birds: Uccelli
+        learn_more_link_crustaceans: Crostacei
+        learn_more_link_fish: Pesce
+        learn_more_link_flowering_plants: Piante da fiore
+        learn_more_link_fungi: Funghi
+        learn_more_link_insects: Insetti
+        learn_more_link_invertebrates: Invertebrati
+        learn_more_link_mammals: Mammiferi
+        learn_more_link_mollusks: Molluschi
+        learn_more_link_mushrooms: Funghi
+        learn_more_link_plants: Piante
+        learn_more_link_protists: Protisti
+        learn_more_link_reptiles: Rettili
+        learn_more_link_spiders: Ragni
+        learn_more_link_trees: Alberi
+        learn_more_link_viruses: Virus
+        questions_link_biodiversity: Che cos'è la biodiversità?
+        questions_link_discovering_species: Quante sono le specie scoperte?
+        questions_link_species: Che cos'è una specie?
   learn_about_collections: Come posso crearne uno?
   learn_about_communities: Come posso partecipare?
   learn_about_content_partners: Come si fa a diventarlo?
@@ -1589,7 +1650,6 @@ it:
   meta_title_site_name: Encyclopedia of Life
   method: Metodo
   methods: Metodi
-  minimal_page: Visualizzazione minima
   mobile: 
     contents: 
       explore_eol: Esplora EOL
@@ -1711,7 +1771,6 @@ it:
   object_visibility_invisible_option: Nascosto
   object_visibility_visible_option: Visibile
   objects_curated: Oggetti curati
-  older_version_of_latest_published_data_object_link: una vecchia versione di "%{link}"
   older_version_of_latest_published_data_object_title_link: Vecchia versione di %{link}
   other_collection_items_with_count: 
     one: "%{count} altro elemento"
@@ -1779,6 +1838,7 @@ it:
     community_activity_user_joined: L'utente <b>%{user_name}</b> è entrato a far parte della comuntià <b>%{community_name}</b>.
     community_activity_user_left: L'utente <b>%{user_name}</b> ha lasciato la comunità <b>%{community_name}</b>.
     community_activity_user_made_member_a_manager: L'utente <b>%{user_name}</b> ha reso <b>%{member_name}</b> gestore della comunità <b>%{community_name}</b>.
+    contact_us_link: Se incontri dei problemi, <a href='http://eol.org/contact_us' style='color:#195184'>contattaci</a>.
     curator_activity_log_title: "%{who} ha curato qualcosa"
     curator_activity_on_data_object_by_user: "<b>%{user_name}</b> ha eseguito l'azione %{activity_name} su <b>%{dato_title}</b> (%{dato_type} #%{dato_id})."
     curator_activity_on_taxon_concept_by_user: <b>%{user_name}</b> ha eseguito l'azione %{activity_name} su <b>%{taxon_concept}</b> (%{taxon_overview_url}).
@@ -1791,7 +1851,7 @@ it:
     reply_to_comment_body_brief: "%{reply_to_author} %{body} - %{author}"
     see_all_activity: Vedi tutte le attività precedenti nel <a href='%{activity_url}' style='color:#195184'>tuo feed delle notizie</a>.
     someone_commented_on_something: <b>%{who}</b> ha commentato su <b>%{what}</b>.
-    unsubscribe: Cambia le impostazioni per la posta elettronica o cancella la tua iscrizione nelle <a href='%{email_prefs_url}' style='color:#195184'>tue preferenze per le notifiche</a>.
+    unsubscribe: Accedi e cambia le impostazioni per la posta elettronica nelle <a href='%{email_prefs_url}' style='color:#195184'>tue preferenze per le notifiche</a> o <a href='%{unsubscribe_url}' style='color:#195184'>cancella la tua iscrizione per TUTTE le notifiche automatiche di EOL senza effettuare l'accesso</a>.
   recent_updates: Aggiornamenti recenti
   references_cabs_colon: "Riferimenti:"
   remove: Rimuovi
@@ -1802,6 +1862,7 @@ it:
   rights: Diritti
   rights_holder: Detentore dei diritti
   rights_statement: Dichiarazione dei diritti
+  save: Salva
   save_comment_lowercase: salva commento
   save_email_settings: salva le impostazioni e-mail
   scientific_name: Nome scientifico
@@ -1813,7 +1874,9 @@ it:
   search_field_preferred_scientific: Nome scientifico preferito
   search_field_synonym: Sinonimo
   search_input_advisory_information: Inserisci un nome comune o uno scientifico di un organismo vivente di cui vorresti sapere di più su. Puoi anche cercare membri di EOL, collezioni e comunità.
+  search_next_label: Successivo
   search_placeholder: Ricerca EOL...
+  search_previous_label: Precedente
   search_the_site: Cerca nel sito
   see_all_maps_link: Vedi tutte le mappe
   see_all_media_link: Vedi tutti i tipi di media
@@ -1822,6 +1885,7 @@ it:
   selected_language_advisory_information: Questa è la lingua attualmente selezionata.
   send: Invia
   send_email_colon: "Invia email:"
+  server_ip_address: Indirizzo IP server
   sessions: 
     new: 
       login_with_eol_authentication_header: "Oppure accedi con le tue credenziali EOL:"
@@ -1834,6 +1898,7 @@ it:
       problems_signing_in_with_eol_authentication: Password dimenticata?
       tip: Utente esistente? Collega il tuo account EOL con Facebook, Google ed altri nelle impostazioni del tuo profilo. Dopo aver collegato il tuo account è possibile utilizzarlo per accedere ad EOL.
   set_as_exemplar: Imposta come esemplare
+  share_a_collection: Condividi una collezione
   show_status_message: Mostra lo stato dei messaggi
   show_warning_message: Mostra messaggio di avviso
   sign_in: Entra
@@ -1859,6 +1924,7 @@ it:
     other: "%{count} suoni"
   source_url: URL di origine
   species: Specie
+  stats: Statistiche
   subject: oggetto
   submit: Invia
   supplier: Fornitore

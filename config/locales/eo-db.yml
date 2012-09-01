@@ -69,6 +69,7 @@ eo:
   translated_data_types-label-data_type_id-4: Vidaĵo
   translated_data_types-label-data_type_id-5: Bildo GBIF
   translated_data_types-label-data_type_id-6: IUCN
+  translated_data_types-label-data_type_id-7: Flash
   translated_data_types-label-data_type_id-8: YouTube
   translated_licenses-description-license_id-1: Neniuj rajtoj rezervitaj
   translated_licenses-description-license_id-2: "&#169; Ĉiuj rajtoj rezervitaj"
@@ -196,17 +197,22 @@ eo:
   translated_synonym_relations-label-synonym_relation_id-65: genra sinonimo
   translated_synonym_relations-label-synonym_relation_id-67: specio prienketenda
   translated_synonym_relations-label-synonym_relation_id-68: hortikultura
+  translated_table_of_contents-label-table_of_contents_id-1: Superrigardo
   translated_table_of_contents-label-table_of_contents_id-14: IUCN
   translated_table_of_contents-label-table_of_contents_id-194: Grandeco
   translated_table_of_contents-label-table_of_contents_id-221: Riskoj
+  translated_table_of_contents-label-table_of_contents_id-24: Komentaro
+  translated_table_of_contents-label-table_of_contents_id-267: Morfologio
   translated_table_of_contents-label-table_of_contents_id-278: Bibliografio
   translated_table_of_contents-label-table_of_contents_id-285: Asociiĝoj
   translated_table_of_contents-label-table_of_contents_id-289: Evoluo
+  translated_table_of_contents-label-table_of_contents_id-292: Similŝajnaĵoj
   translated_table_of_contents-label-table_of_contents_id-299: Edukado
   translated_table_of_contents-label-table_of_contents_id-3: Fizika priskribo
   translated_table_of_contents-label-table_of_contents_id-300: Vikipedio
   translated_table_of_contents-label-table_of_contents_id-303: Nomoj kaj taksonomio
   translated_table_of_contents-label-table_of_contents_id-305: Sinonimoj
+  translated_table_of_contents-label-table_of_contents_id-306: Paĝa statistiko
   translated_table_of_contents-label-table_of_contents_id-308: Ampleksa priskribo
   translated_table_of_contents-label-table_of_contents_id-309: Distribuo
   translated_table_of_contents-label-table_of_contents_id-310: Disvolviĝo
@@ -218,28 +224,49 @@ eo:
   translated_table_of_contents-label-table_of_contents_id-320: Reprodukto
   translated_table_of_contents-label-table_of_contents_id-321: Kreskado
   translated_table_of_contents-label-table_of_contents_id-322: Fosilia historio
+  translated_table_of_contents-label-table_of_contents_id-324: Funkciaj adaptaĵoj
   translated_table_of_contents-label-table_of_contents_id-325: Fiziologio kaj ĉelbiologio
+  translated_table_of_contents-label-table_of_contents_id-326: Molekula biologio kaj genetiko
   translated_table_of_contents-label-table_of_contents_id-327: Fiziologio
   translated_table_of_contents-label-table_of_contents_id-328: Ĉelbiologio
   translated_table_of_contents-label-table_of_contents_id-329: Genetiko
+  translated_table_of_contents-label-table_of_contents_id-33: Tendencoj
+  translated_table_of_contents-label-table_of_contents_id-330: Nukleotidaj sekvencoj
   translated_table_of_contents-label-table_of_contents_id-331: Strikodo
   translated_table_of_contents-label-table_of_contents_id-332: Genomo
+  translated_table_of_contents-label-table_of_contents_id-333: Molekula biologio
+  translated_table_of_contents-label-table_of_contents_id-334: Minacoj
+  translated_table_of_contents-label-table_of_contents_id-335: Leĝdonaĵo
   translated_table_of_contents-label-table_of_contents_id-336: Notoj
+  translated_table_of_contents-label-table_of_contents_id-337: Edukado
+  translated_table_of_contents-label-table_of_contents_id-338: Ligiloj pri edukado
+  translated_table_of_contents-label-table_of_contents_id-339: Rimedoj pri edukado
   translated_table_of_contents-label-table_of_contents_id-34: Komentoj
+  translated_table_of_contents-label-table_of_contents_id-341: Scienco far civitanoj
+  translated_table_of_contents-label-table_of_contents_id-342: Ligiloj pri scienco far civitanoj
   translated_table_of_contents-label-table_of_contents_id-344: Dateno
   translated_table_of_contents-label-table_of_contents_id-345: Datenofontoj
   translated_table_of_contents-label-table_of_contents_id-346: Biomedicinaj terminoj
   translated_table_of_contents-label-table_of_contents_id-347: Taksonomio
+  translated_table_of_contents-label-table_of_contents_id-348: Informo pri tipo
   translated_table_of_contents-label-table_of_contents_id-4: Ekologio
   translated_table_of_contents-label-table_of_contents_id-41: Habitatloko
   translated_table_of_contents-label-table_of_contents_id-8: Konservado
+  translated_untrust_reasons-label-untrust_reason_id-1: misidentiga
+  translated_untrust_reasons-label-untrust_reason_id-2: malĝusta/miskonduka
+  translated_untrust_reasons-label-untrust_reason_id-3: malalta kvalito
   translated_untrust_reasons-label-untrust_reason_id-4: duoblaĵo
   translated_untrust_reasons-label-untrust_reason_id-5: Alia
+  translated_user_identities-label-user_identity_id-1: entuziasmulo
   translated_user_identities-label-user_identity_id-2: studento
+  translated_user_identities-label-user_identity_id-3: edukisto
+  translated_user_identities-label-user_identity_id-4: civitana sciencisto
+  translated_user_identities-label-user_identity_id-5: profesia sciencisto
   translated_vetted-label-vetted_id-0: Nekonata
   translated_vetted-label-vetted_id-4: Nefidata
   translated_vetted-label-vetted_id-5: Fidata
   translated_vetted-label-vetted_id-6: Netaŭga
   translated_view_styles-name-view_style_id-1: Listo
+  translated_view_styles-name-view_style_id-2: Galerio
   translated_visibilities-label-visibility_id-0: Nevidebla
   translated_visibilities-label-visibility_id-1: Videbla

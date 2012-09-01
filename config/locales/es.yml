@@ -170,6 +170,10 @@ es:
         request_publish: Solicitar la publicación
       name: 
         string: Nombre
+      news_item: 
+        active: Publicado
+        page_name: Nombre único
+        sort_order: Orden de clasificación
       notification: 
         changes_to_my_watched_collection: Cambios a colecciones de su lista de seguimiento
         changes_to_my_watched_community: Cambios en comunidades de su lista de seguimiento
@@ -221,6 +225,12 @@ es:
         main_content: Cuerpo
         meta_description: Descripción de metadatos
         meta_keywords: Palabras clave de metadatos
+        title: Título
+      translated_news_item: 
+        active_translation: Publicado
+        body: Cuerpo
+        meta_description: Descripción de los metadatos
+        meta_keywords: Palabras clave de los metadatos
         title: Título
       user: 
         agreed_with_terms: Términos de uso
@@ -753,7 +763,6 @@ es:
   add_a_comment_colon: "Añadir un comentario:"
   add_a_new_common_name: Añadir un nuevo nombre común
   add_a_new_file_brackets: "[agregar un nuevo archivo]"
-  add_a_new_news_item: Agregar un nuevo elemento de noticias
   add_a_new_role: Añadir un nuevo rol
   add_a_new_search_suggestion: Agregar una nueva sugerencia de búsqueda
   add_a_new_term: Agregar un nuevo término
@@ -821,6 +830,23 @@ es:
   admin_information: Esta es la neueva consola de administración para EOL V2. Estamos en el proceso de transferencia los funciones de administración de V1. Si no aparece la sección de administración que buscas, visite la <a href="/administrator">V1 Administration Console</a>.
   admin_link: Consola de Administración
   admin_login_confirmation: ¿Está seguro que desea identificarse en el registro de socios de contenido como %{name}?  Si hace esto, cerrará la sesión en el sitio Web como administrador.
+  admin_news_item_active: Publicado
+  admin_news_item_create_successful_notice: La noticia <a href="#%{anchor}"><em>%{page_name}</em></a> se ha creado correctamente.
+  admin_news_item_create_unsuccessful_error: Lo sentimos, ha ocurrido un error, la noticia no se ha creado.
+  admin_news_item_delete_confirmation: ¿Está seguro de que desea eliminar "%{page_name}" y todas las traducciones? Las acciones de eliminación no se pueden deshacer.
+  admin_news_item_delete_successful_notice: La noticia %{page_name} y sus traducciones asociadas se han eliminado.
+  admin_news_item_edit_header: Actualizar la información básica de la noticia <em>%{page_name}</em>
+  admin_news_item_edit_tip: Se recomienda que no modifiques el nombre único de esta noticia, a menos que seas plenamente consciente de las consecuencias, incluido el impacto sobre los vínculos de esta página, o las rutas llamadas. El nombre único es %{required_icon} necesario.
+  admin_news_item_new_header: Crear una noticia nueva
+  admin_news_item_new_link: Crear noticia
+  admin_news_item_new_tip: Introducir la información básica sobre esta página. El nombre único es %{required_icon}  necesario.
+  admin_news_item_not_active: Sin publicar
+  admin_news_item_update_successful_notice: La noticia <a href="#%{anchor}"><em>%{page_name}</em></a> se ha actualizado correctamente.
+  admin_news_item_update_unsuccessful_error: Lo sentimos, ha ocurrido un error, la noticia no se pudo actualizar.
+  admin_news_items_empty: No se han encontrado noticias.
+  admin_news_items_index_information: La siguiente lista incluye todas las noticias actualmente disponibles en el sitio web de EOL así como futuras noticias. Cada página tiene una o más traducciones. Cuando se crea una nueva noticia se te pedirá que añadas una traducción. Las  traducciones publicadas son de acceso público.
+  admin_news_items_page_title: "Administración: Noticias"
+  admin_news_link: Noticias
   admin_notes_not_visible_to_user: "Notas de Admin (no visibles para el usuario):"
   admin_page_title: Consola de Administración
   admin_spam_delete: Eliminar Spam
@@ -837,6 +863,20 @@ es:
   admin_translated_content_page_new_tip: Idioma, el título y el cuerpo son %{required_icon} requeridos.
   admin_translated_content_page_update_successful_notice: La traducción en %{language} de la página <a href="#%{anchor}"><em>%{page_name}</em></a> se ha actualizado.
   admin_translated_content_page_update_unsuccessful_error: Lo sentimos, ha ocurrido un error, la traducción no se pudo actualizar.
+  admin_translated_news_item_active: Publicado
+  admin_translated_news_item_create_successful_notice: Se ha agregado la traducción a <a href="#%{anchor}"><em>%{page_name}</em></a>
+  admin_translated_news_item_create_unsuccessful_error: Lo sentimos, ha ocurrido un error, la traducción no se pudo agregar.
+  admin_translated_news_item_delete_confirmation: ¿Estás seguro de que deseas eliminar la versión en %{language} de "%{page_name}". No se puede deshacer la acción de eliminación.
+  admin_translated_news_item_delete_successful_notice: La traducción de la noticia <em>%{page_name}</em> en %{language} se ha borrado.
+  admin_translated_news_item_edit_subheader: Editar la traducción en %{language} de la página <em>%{page_name}</em>
+  admin_translated_news_item_edit_tip: El título y el cuerpo son %{required_icon} requeridos.
+  admin_translated_news_item_new_header: Elegir el idioma y agregar contenido
+  admin_translated_news_item_new_link: Agregar traducción
+  admin_translated_news_item_new_subheader: Añadir traducción de la página <em>%{page_name}</em>
+  admin_translated_news_item_new_tip: El idioma, el título y el cuerpo son %{required_icon} requeridos.
+  admin_translated_news_item_not_active: Sin publicar
+  admin_translated_news_item_update_successful_notice: Se ha actualizado la traducción en %{language} de la página <a href="#%{anchor}"><em>%{page_name}</em></a>.
+  admin_translated_news_item_update_unsuccessful_error: Lo sentimos, ha ocurrido un error, la traducción no se pudo actualizar.
   admin_user_delete_successful_notice: El usuario ha sido eliminado
   admin_user_hide_successful_notice: El usuario ha sido ocultado
   admin_user_unhide_successful_notice: El usuario ha dejado de estar oculto
@@ -1008,7 +1048,7 @@ es:
   change_rating_to_3_of_5: Cambiar a clasificación a 3 de 5
   change_rating_to_4_of_5: Cambia la calificación a 4 de 5
   change_rating_to_5_of_5: Cambia la calificación a 2 de 5
-  check_this_to_browse_eol_by_the_hierarchy: Si esta casilla está marcada, la jerarquía será una opción para que los usuarios naveguen en EOL
+  check_this_to_browse_eol_by_the_hierarchy: (Si esta casilla está activada la clasificación se mostrará en la pestaña de nombres sin necesidad de "Mostrar todas las clasificaciones".)
   choose_collection_header: Elija colección
   citation: Citación
   citation_example: Fisher, Brian. "Pogonomyrmex anergismus Cole, 1954." Encyclopedia of Life, disponible en <a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>. Consultado 15 Jan 2009.
@@ -1245,9 +1285,11 @@ es:
   containing_value: que contenga %{value}.
   content: 
     index: 
+      header_news: Noticias de EOL
       meta_description: La Encyclopedia of Life es un esfuerzo sin precedentes para recopilar conocimientos científicos acerca de toda la vida animal y vegetal donde están disponibles fotos, información, datos y más datos sobre todos los seres vivos de nuestros reinos vegetal y animal.
       meta_keywords: Animales, Fotos de animales, Información de animales, Plantas, Vida vegetal, Fotografías de plantas, Información de plantas, Flora, Fauna
       meta_title: Animales - Plantes - Imágenes e Información
+      see_all_eol_news: Ver más <span class="assistive">noticias de EOL</span>
       see_all_recent_activites: Ver más <span class="assistive">actividades de la última semana</span>
   content_has_been_updated: Se ha actualizado el contenido.
   content_notes_not_shown_to_us: "Notas de contenido (no se muestran al usuario):"
@@ -1629,6 +1671,7 @@ es:
   dato_edit_text_link_button: Editar este artículo
   dato_edit_text_page_description: ¡Gracias por contribuir con su experiencia de EOL. El artículo revisado será añadido a su Lista de Vigilancia para que pueda seguir las conversaciones relacionadas con él y comprobar su estado de curación.
   dato_edit_text_title: Editar artículo
+  dato_location_created: "Ubicación creada: # {loc}"
   dato_new_edit_user_text_fieldset_content_header: Contenido del artículo
   dato_new_edit_user_text_fieldset_information_header: Información de artículo
   dato_new_edit_user_text_form_tip: Tu artículo terminado será publicado en la página del taxón. Si no eres supervisor, será marcado como "no revisado" hasta que un supervisor lo revise. Los campos subcapítulo, texto, idioma y licencia son obligatorios (%{required_icon}), todos los demás campos son opcionales. Si seleccionas una licencia CC-BY (Atribución) por favor incluye un titular de los derechos o déjalo en blanco para utilizar tu nombre completo. Las licencias de dominio público no requieren un titular de derechos. Para obtener más ayuda consulta <a href="%{add_article_help_url}">Agregar artículo de ayuda</a>.
@@ -1692,8 +1735,6 @@ es:
   edit_glossary_term: Editar término del glosario
   edit_hierarchy: editar la jerarquía
   edit_my_profile: Editar mi perfil
-  edit_news_item: Editar una noticia
-  edit_news_item_instructions_with_link: Editar la noticia a continuación. Está permitido el código HTML en ambos campos, y es necesario el título *o bien* el cuerpo.  Para obtener mejores resultados, simplemente use el título e introduzca una noticia corta.  Al crear hipervínculos a otros sitios, puede utilizar %{link} para crear direcciones URL más cortas y así ahorrar caracteres.
   edit_news_items: editar artículos de noticias
   edit_page_contents: editar el contenido de la página
   edit_search_suggestion: Editar las sugerencias de búsqueda
@@ -1710,7 +1751,6 @@ es:
   editors_tab_label: Administradores
   email: Dirección de correo electrónico
   email_colon: "Correo electrónico:"
-  email_error_notification_activ: Notificación activa de errores por correo electrónico
   email_recipients: Destinatarios del correo electrónico
   email_updates_for_eol_addicts: Actualizaciones para los adictos a EOL.
   email_updates_for_eol_members: Actualizaciones que querrán tener la mayoría de los miembros de EOL.
@@ -2017,6 +2057,11 @@ es:
         complete_more: "Una jerarquía de supervisión asume que cada entrada está destinada a ser única, es decir, las cadenas que coinciden en el nombre serán tratadas como homónimas. <strong>Advertencia: no cambie este atributo a menos que esté seguro de la condición de homónimos en la jerarquía, haciéndolo así que podría poner en peligro la integridad de los datos.</strong>"
         request_publish: Publicar lo solicitado
         request_publish_more: Indica si existe una solicitud pendiente para promover esta jerarquía hasta convertirla en una de las principales jerarquías navegables en EOL.
+      news_item: 
+        active: Publicado
+        active_more: Las noticias publicadas serán visibles públicamente en la fecha y hora seleccionadas. Desmarca <em>publicado</em> si deseas impedir que los usuarios generales vean versiones de esta noticia en cualquier idioma.
+        page_name: Nombre único <small>(caracteres alfanuméricos del alfabeto ISO Latino básico, en minúsculas y subrayados)</small>
+        page_name_more: Escribe un identificador único, autodescriptivo, significativo y persistente para la noticia. El nombre que especifiques aquí se usará para generar la dirección URL de la noticia. Por ejemplo, el nombre único <em>nueva_versión_de_eol</em> se convierte en la dirección URL <em>http://eol.org/news/nueva_versión_de_eol</em>.
       open_authentication: 
         connect: Añadir
         connected: Conectado
@@ -2052,6 +2097,14 @@ es:
         meta_description_more: Proporcione una descripción breve, resuma los conceptos clave del contenido de la página. Esta descripción se utiliza a veces por los motores de búsqueda Web para comprobar la relevancia y de anuncio en los resultados del motor de búsqueda.
         meta_keywords_more: Escriba una lista separada por comas de palabras y frases cortas que mejor reflejen el contenido de la página. Estas palabras y frases clave son a veces utilizados por los motores de búsqueda Web para evaluar la relevancia de la página contra los términos de búsqueda.
         title_more: El título de este contenido va aparece en el encabezado de la página. El título debe incluir las palabras clave más relevantes para el contenido.
+      translated_news_item: 
+        active_translation: Publicado
+        active_translation_more: Las traducciones publicadas serán visibles para el público, a menos que la página no se haya publicado. Desmarca <em>publicado</em> si deseas evitar que los usuarios en general puedan ver esta versión de la noticia.
+        body_more: "Introduce el contenido de la noticia en el área del cuerpo. Utiliza la lista desplegable <em>Formato</em> para seleccionar los elementos de texto semántico apropiado, por ejemplo elige <em>Encabezado 2</em> para un título de segundo nivel. Nota: el <em>Encabezado 1</em> está reservado para el título de la noticia, por lo que los encabezados en el área del cuerpo comienzan con está reservada para el título de la página, por lo que las partidas en el área del cuerpo comienzan con <em>Encabezado 2</em>. Selecciona <em>Fuente</em> para cambiar a la vista de código fuente HTML que permite insertar y editar manualmente el código HTML."
+        language_id: Idioma
+        meta_description_more: Proporciona una descripción breve, resume los conceptos clave del contenido de la noticia. Esta descripción se utiliza a veces por los motores de búsqueda Web para comprobar la relevancia y para los listados en los resultados del motor de búsqueda.
+        meta_keywords_more: Escribe una lista separada por comas de palabras y frases cortas que mejor reflejen el contenido de la noticia. Estas palabras y frases clave son a veces utilizadas por los motores de búsqueda Web para evaluar la relevancia de la noticia frente a los términos de búsqueda.
+        title_more: El título de esta noticia aparecerá en el área de encabezado de la página. El título debe incluir las palabras clave más relevantes para el contenido.
       user: 
         agreed_with_terms: Estoy de acuerdo con los <a href="%{terms_url}">términos de uso</a>
         api_key_more: Lea más acerca de <a href="%{api_docs_url}"> adición de una clave a las llamadas de API</a> .
@@ -2078,6 +2131,7 @@ es:
         logo: Sube una foto nueva
         new_password: Nueva contraseña <small>(4-16 caracteres)</small>
         new_password_confirmation: Nueva contraseña <small>(por confirmar)</small>
+        news_in_preferred_language: mostrar las noticias en el idioma preferido
         notification_settings: Configuración de notificaciones
         notification_settings_more: Configure las opciones de notificación.
         open_authentications: Cuentas conectadas
@@ -2133,6 +2187,11 @@ es:
       name: 
         create: Agregar nombre
         update: Actualizar el nombre
+      news_item: 
+        create: Crear noticia
+        edit: Editar
+        preview: Vista preliminar
+        update: Actualizar noticia
       open_authentication: 
         create: Conectar
         destroy: Desconectar
@@ -2152,6 +2211,9 @@ es:
       translated_content_page: 
         create: Agregar traducción
         update: Guardar los cambios a la traducción
+      translated_news_item: 
+        create: Agregar traducción
+        update: Guardar los cambios en la traducción
       update: Actualizar %{model}
       user: 
         create: Crear cuenta
@@ -2170,7 +2232,6 @@ es:
   here: aquí
   hidden: Oculto
   hidden_comment: comentario oculto
-  hidden_for_colon: "Ocultado por:"
   hide: ocultar
   hierarchies_description: La Enciclopedia de la Vida no crea sus páginas usando una sola jerarquía taxonómica. Más bien, EOL indexa muchas jerarquías y las compara entre sí. Este API lista de metadatos sobre una jerarquía, tales como el nombre del proveedor y el URL de la fuente, así como todos los taxones que están en la raíz del árbol taxonómico
   hierarchies_entries_description: La Enciclopedia de la Vida no crea sus páginas usando una sola jerarquía taxonómica. Más bien, EOL indexa muchas jerarquías y las compara entre sí. Como resultado, una página de EOL puede estar relacionada con varios nodos de varias jerarquías. Este API da acceso a una jerarquía individual y a sus relaciones internas. Vea la documentación el API páginas para ver cómo acceder a otras jerarquías que corresponden a una página de EOL. El campo taxonConceptID contiene el identificador de página de EOL que puede ser usado en el API páginas.
@@ -2203,7 +2264,7 @@ es:
   image_not_associated_with_any_published_entries: Esta imagen no está asociada con ninguno de los taxones publicados.
   image_not_found: Imagen no encontrada
   image_object: Objeto de imagen
-  image_objects_will_contain_two_mediaurl_elements: Los objetos de Imagen tendrán dos elementos tipo mediaURL - el primero es el URL de la imagen en el sitio web del proveedor, y el segundo, el URL de la versión en cache del medio en hospedado en un servidor de EOL. La versión EOL de la imagen estará proporcionalmente escalada si la imagen original tiene un tamaño superior a 460 pixels de ancho por 345 pixeles de alto.
+  image_objects_will_contain_two_mediaurl_elements: Los objetos de imagen tendrán dos elementos tipo 'mediaURL' - el primero es la dirección URL de la imagen en el sitio web del proveedor, y el segundo, la dirección URL de la versión guardada en caché del fichero alojado en un servidor de EOL. La versión de la imagen guardada en EOL estará escalada proporcionalmente si la imagen original tiene un tamaño superior a 460 pixeles de ancho por 345 pixeles de alto.
   image_of_taxon: Imagen de %{taxon_name}
   image_rating: Evaluación de la imagen
   images: Imágenes
@@ -2287,6 +2348,52 @@ es:
   languages: Idiomas
   last_updated: Última actualización
   last_updated_time_ago: Última actualización hace %{time_passed}
+  layouts: 
+    v2: 
+      application: 
+        about_link_citing: Citar a EOL
+        about_link_contact_us: Contáctanos
+        about_link_discover: Descubrir
+        about_link_donate: Donar a EOL
+        about_link_eol_blog: El Blog de EOL
+        about_link_help: Ayuda
+        about_link_statistics: Estadísticas
+        about_link_terms_of_use: Condiciones de Uso
+        about_link_what_is_eol: ¿Qué es EOL?
+        header_about: Acerca de EOL
+        header_learn_more: Más información sobre
+        header_questions: Más información
+        learn_more_link_amphibians: Anfibios
+        learn_more_link_animals: Animales
+        learn_more_link_archaea: Arqueas
+        learn_more_link_bacteria: Bacterias
+        learn_more_link_birds: Aves
+        learn_more_link_crustaceans: Crustáceos
+        learn_more_link_fish: Peces
+        learn_more_link_flowering_plants: Angiospermas
+        learn_more_link_fungi: Hongos
+        learn_more_link_insects: Insectos
+        learn_more_link_invertebrates: Invertebrados
+        learn_more_link_mammals: Mamíferos
+        learn_more_link_molds: Levaduras
+        learn_more_link_mollusks: Moluscos
+        learn_more_link_mushrooms: Setas
+        learn_more_link_plants: Plantas
+        learn_more_link_protists: Protistas
+        learn_more_link_reptiles: Reptiles
+        learn_more_link_spiders: Arácnidos
+        learn_more_link_trees: Árboles
+        learn_more_link_viruses: Virus
+        questions_link_binomial_nomenclature: ¿Qué es la nomenclatura binomial?
+        questions_link_biodiversity: ¿Qué es la biodiversidad?
+        questions_link_biological_classification: ¿Qué es una clasificación biológica?
+        questions_link_contributing_to_research: ¿Cómo puedo contribuir a la investigación?
+        questions_link_discovering_species: ¿Cómo se descubren las especies?
+        questions_link_indicator_species: ¿Qué es una especie indicadora?
+        questions_link_invasive_species: ¿Qué es una especie invasora?
+        questions_link_model_organism: ¿Qué es un organismo modelo?
+        questions_link_naming_species: ¿Cómo se denominan las especies?
+        questions_link_species: ¿Qué es una especie?
   learn_about_collections: ¿Cómo puedo crear una?
   learn_about_communities: ¿Cómo puedo participar?
   learn_about_content_partners: ¿Cómo puedo convertirme en uno?
@@ -2345,7 +2452,6 @@ es:
   literature_references: Referencias de la literatura
   location: Ubicación
   location_colon: "Ubicación:"
-  location_created_colon: "Ubicación creada:"
   logging_database_colon: "Registro:"
   login: iniciar sesión
   login_header: Inicie sesión en su cuenta <abbr title="Encyclopedia of Life">EOL</abbr>
@@ -2426,7 +2532,6 @@ es:
   method: Método
   method_to_get_metadata_about_the_hierarchy: dado un identificador de jerarquía, este método devuelve los metadatos sobre la jerarquía y lista los taxones en la raíz
   methods: Métodos
-  minimal_page: Página minima
   mobile: 
     contents: 
       explore_eol: Explorar EOL
@@ -2512,17 +2617,22 @@ es:
   never: Nunca
   new_collection: Nueva colección
   new_contact_us_topic: Nuevo tema de contacto
-  new_news_item: Nuevo elemento de noticias
   new_search_suggestion: Nueva sugerencia de búsqueda
   new_upload: Nueva carga
   new_user: Nuevo usuario
   news_archive_page: página de archivo de noticias
-  news_date: Fecha de la noticia
+  news_available_in_languages: "Esta página está disponible en:"
   news_item: noticia
-  news_item_date_as_shown_to_use: "La fecha de la noticia tal como se muestra al usuario (la hora sólo se muestra en la fuente RSS):"
-  news_item_is_visible_on_websit: "La noticia es visible en el sitio Web después de este tiempo:"
+  news_item_date_as_shown_to_user: "La fecha de la noticia tal como se muestra al usuario (la hora sólo se muestra en la fuente RSS):"
+  news_item_is_visible_on_website_after_this_time: "La noticia estará visible en el sitio web después de esta hora:"
   news_item_title: Noticia
-  news_items: Noticias
+  news_items: 
+    index: 
+      meta_keywords: Noticias de EOL, noticias de Encyclopedia of Life
+      meta_title: Noticias de EOL
+      page_title: Noticias de EOL
+  news_missing_content_message: Lo sentimos, esta página no está disponible para el idioma seleccionado %{selected_language}.
+  news_missing_content_title: Falta la traducción
   newsfeed: Suministro de noticias
   newsfeed_help_for_collection: El suministro de noticias para esta colección reúne EOL cambios asociados con los elementos que pertenecen a la misma, incluidas las actividades de su propietario y los comentarios de otros usuarios de EOL.
   newsfeed_help_for_community: El suministro de noticias para esta Comunidad de EOL reúne actualizaciones asociadas con los elementos que pertenecen a las Colecciones Administradas, incluyendo las actividades de sus miembros y los comentarios de otros usuarios de EOL.
@@ -2540,7 +2650,6 @@ es:
   no_errors_are_available: No hay ningún error disponible.
   no_harvesting_logs_for_this_da: No hay registros de recogida para esta fecha
   no_items_were_copied_to_collections_error: Nimgún elemento fue copiado a las colecciones:%{names}.
-  no_news_items_are_available_ma: No hay ninguna noticia disponible que coincida con sus criterios de búsqueda.
   no_record_found_matching_your_criteria: Ningún registro encontrado coincide con sus criterios.
   no_related_names: Ninguno de los nombres se ha relacionado con este taxón todavía.
   no_results_for: no hay resultados para
@@ -2671,7 +2780,6 @@ es:
   object_visibility_invisible_option: Oculto
   object_visibility_visible_option: Visible
   objects_curated: Objetos Curados
-  older_version_of_latest_published_data_object_link: una versión anterior de "%{link}"
   older_version_of_latest_published_data_object_title_link: Versión antigua de %{link}
   on_time_col_header: activado
   only_multi_search_suggestions: (sólo si hay varias sugerencias de búsqueda para el mismo término, la ordenación es creciente)
@@ -2784,7 +2892,6 @@ es:
   publish: publicar
   publish_after_utc: Publicar después de las (UTC)
   publish_changes: Publicar cambios
-  publish_item_based_on_time_set: Publicar el elemento según la hora establecida anteriormente (desactive Ocultar siempre)
   publish_requested: Publicar solicitado
   published: Publicado
   published_parens: (Publicado)
@@ -2875,7 +2982,7 @@ es:
     other: "%{count} elementos han sido borrados de esta colección."
   reply: Responder
   request: Request
-  request_mailing_list_colon: "Solicitar lista de correo:"
+  request_mailing_list_colon: "El usuario no desea recibir correos electrónicos:"
   required_form_element: Obligatorio
   reset_password_enter_new_password_notice: Este es un inicio de sesión que debe hacer una sola vez, por favor, introduzca una nueva contraseña para continuar.
   reset_password_instructions_sent_to_user_notice: Las instrucciones para restablecer la contraseña de su cuenta <em>%{username}</em> se han enviado a su dirección de correo electrónico.
@@ -2891,7 +2998,7 @@ es:
   return_all_common_names_for_this_taxon: devolver todos los nombres comunes para este taxón
   return_all_synonyms_for_this_taxon: devolver todos los sinónimos para este taxón
   return_common_names_for_the_page_taxon: devolver todos los nombres comunes para taxón de la página
-  return_content_by_vettedness: si vetted = 1 entonces solo contenido de confianza será retornado. Si vetted = 2 entonces solo contenido de confianza y no revisado será retornado (contenido no de confianza no será retornado). Por defecto, se retornará todo el contenido
+  return_content_by_vettedness: Si 'vetted' tiene el valor 1 entonces solo se devolverá contenido de confianza. Si 'vetted' es 2 entonces solo se devolverá contenido de confianza y no revisado (no se mostrarán contenidos no fiables). Por defecto, se retornará todo el contenido.
   returns_all_metadata_about_a_particular_collection: Devuelve todos los metadatos sobre una colección particular y los elementos que contiene indexados por EOL
   returns_all_metadata_about_a_particular_data_object: retorna todos los metadatos sobre un objeto de datos particuar (texto, imagen o vídeo) indexado por EOL
   returns_either_a_positive_or_negative_response: retorna una respuesta positiva (indicando que los API están funcionales), o una respuesta negativa, o del todo nada (indicando que en ese momento los APIs no están funcionales).
@@ -2902,7 +3009,6 @@ es:
   rights: Derechos
   rights_holder: Titular de los derechos
   rights_statement: Declaración de los derechos
-  rss_feed: Fuente web RSS
   save: Guardar
   save_comment_lowercase: guardar el comentario
   save_curated_association_submit_button: Guardar asociación
@@ -2920,7 +3026,6 @@ es:
   search_field_synonym: Sinónimo
   search_for_comments_containing_the_text: "Buscar comentarios que tienen el texto:"
   search_for_curators_containing: "Búsqueda de supervisores que contengan:"
-  search_for_items_containing: "Búsqueda de elementos que contengan:"
   search_for_messages_containing: "Búsqueda de mensajes que contengan:"
   search_for_terms_containing: "Búsqueda de términos que contengan:"
   search_for_users_containing_this_in_their_username_name_or_email_address: Buscar los usuarios que tienen esto en su nombre de usuario, nombre, o dirección electrónica.
@@ -3436,8 +3541,6 @@ es:
   the_message_was_sent: El mensaje fue enviado.
   the_new_topic_was_created: Fue creado el nuevo tema.
   the_new_user_was_created: Fue creado el nuevo usuario.
-  the_news_item_created: La noticia se ha creado correctamente.
-  the_news_item_updated: La noticia se actualizó correctamente.
   the_suggested_page_to_direct_users_to_link: la página sugerida para dirigir a los usuarios
   the_topic_was_updated: Se actualizó el tema.
   the_user_was_updated: Se actualizó el usuario.
@@ -3476,7 +3579,6 @@ es:
   threat_status_header_colon: "Estado de amenaza de la <abbr title=\"International Union for Conservation of Nature\">IUCN</abbr>:"
   thumbnail_page_colon: "página de la miniatura:"
   time_ago: hace %{time_passed}
-  tinyurl: TinyURL
   title: Título
   to_process_your_donation_please_proceed: Para procesar su donación, por favor siga
   to_remedy_this: Para solucionar esto, cerraremos estas cuentas inactivas y le pediremos que visite eol.org para crear una nueva cuenta. Cuando reciba el mensaje de confirmación, haga clic en el enlace para validar su cuenta.
@@ -3508,6 +3610,7 @@ es:
   true_label: Verdadero
   truncated_comment_omission: ... <a href='%{link}'>más</a>
   truncated_comment_omission_linkless: ...
+  truncated_news_item_omission: ... <a href='%{link}'>más</a>
   trusted: De confianza
   trusted_for_colon: "Fiable para:"
   trusted_images: Imágenes de confianza
@@ -3610,7 +3713,7 @@ es:
   user_already_active_notice: Su cuenta ya está activa, por favor, inicie sesión.
   user_comment: Comentarios de usuario
   user_commented_on_deleted_user: "<strong>%{user_with_link}</strong>, ha hecho comentarios en la página de un usuario que ha sido eliminado:"
-  user_commented_on_older_data_object_colon: "<strong>%{user}</strong> comentó sobre %{what}:"
+  user_commented_on_older_data_object_colon: "<strong>%{user}</strong> ha comentado sobre una versión antigua de \"%{what}\":"
   user_commented_on_something_colon: "<strong>%{user}</strong> comentó sobre %{what}:"
   user_commented_on_themself: "<strong>%{user_with_link}</strong> ha comentado sobre la <a href='%{link}'>fuente web de %{username}</a>:"
   user_commented_on_your_image: "<strong>%{user}</strong> ha comentado su imagen en el sitio de la <a href='%{data_object_link}'>Encyclopedia of Life</a>:\n%{comment_body}"
@@ -3908,6 +4011,7 @@ es:
   you_may_upload_static_files_fo: Puede cargar archivos estáticos para su uso en el CMS aquí (por ejemplo, archivos PDF, documentos de Word, imágenes, etc..). No debe utilizar esto para cargar contenido para páginas de especies - es para uso exclusivo en las páginas distintas a las de especies (tales como anuncios de empleo, boletines, MOUs, etc.). Tanto para archivos PDF como archivos de boletín y MOUs, puede enlazar a la "dirección URL amigable" si lo desea (que lo redirigirá automáticamente a la "dirección URL completa de contenidos"). Para las imágenes que están incrustadas en una página y a las que se hace referencia con la etiqueta &lt;img&gt;, debe utilizar la "URL completa de contenidos". "La URL completa de contenidos" puede mostrar un número de servidor de contenido diferente cada vez que se actualiza la página (por ejemplo, "content2.eol.org", "content3.eol.org", etc.), esto es normal y cualquiera puede utilizarse para crear los vínculos pues son todos equivalentes.
   you_must_be_comfortable: Debe tener conocimientos de HTML si desea crear hipervínculos o utilizar el formato.
   you_removed_the_member_from_the_community: Usted ha eliminado este miembro de la comunidad.
+  your_browser_does_not_support: Tu navegador no soporta vídeo HTML5.
   your_current_rating_0_of_5: "Tu calificación actual: 0 de 5"
   your_current_rating_1_of_5: "Su puntuación actual: 1 de 5"
   your_current_rating_2_of_5: "Su calificación actual: 2 de 5"

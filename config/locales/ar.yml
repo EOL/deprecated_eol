@@ -8,6 +8,7 @@
 # Author: Ghada.nabeel
 # Author: Malhargan
 # Author: Meno25
+# Author: Mutarjem horr
 # Author: OsamaK
 # Author: Rana El Deeb
 # Author: Sara.elshobaky
@@ -15,7 +16,7 @@
 ar: 
   0_1_or_2: 0، 1 أو 2
   0_or_1: 0، أو 1
-  a_pipe_delimited_list_of_licenses: أنبوب تجزئة تنفيذ المعلومات | قائمة محددة من الرخص أو "الكل" لضم العناصر تحت أية رخصة. تعادل الرخص التي يتم اختصارها "cc-" الكل.
+  a_pipe_delimited_list_of_licenses: أنبوب | القائمة المجزءة للتراخيص أو 'all' لجلب العناصر تحت أية رخصة. الرخص المختصرة بـ cc- كلها %{creative_commons_link} رخص. قم بزيارة موقعهم لمزيد من المعلومات عن مختلف التراخيص التي يقدمونها.
   a_pipe_delimited_list_of_spm_info_item_subject_names: أنبوب تجزئة تنفيذ المعلومات | قائمة محددة من اسماء موضوعات عناصر البيانات أو "الكل" لإيجاد نص في أي موضوع.
   a_taxon: أصنوفة
   a_total_of_comment_were_found_matching_your_criteria: 
@@ -471,7 +472,7 @@ ar:
         an_unknown_user_curated_data_object: قام مستخدم غير معروف بالإشراف على "%{data_object}".
         an_unknown_user_curated_it: قام مستخدم غير معروف بالإشراف عليها، إلا أن الإجراء الذي تم بالتفصيل قد فٌقِد.
         user_curated_an_older_data_object: قام <strong>%{user}</strong> بالإشراف على نسخة أقدم من "%{data_object}".
-        user_curated_an_unknown_data_object: قام <strong>%{user}</strong> بالإشراف على كائن بيانات غير معروف.
+        user_curated_an_unknown_data_object: قام <strong>%{user}</strong> بالإشراف على موضوع بيانات غير معروف.
         user_curated_data_object: قام <strong>%{user}</strong> بالإشراف على "%{data_object}".
         user_curated_it: قام <strong>%{user}</strong> بالإشراف عليها، إلا أن الإجراء الذي تم بالتفصيل قد فُقِد.
       preferred_classification: 
@@ -506,6 +507,12 @@ ar:
         user_showed_data_object_on_association: قام <strong>%{user}</strong> بوضع علامة "مرئي" على "%{data_object}"  في صفحة "%{association}".
         user_showed_it_on_an_unknown_association: قام <strong>%{user}</strong> بوضع علامة "مرئي" عليها في سياق غير معروف.
         user_showed_it_on_association: قام <strong>%{user}</strong> بوضع علامة "مرئي" عليها في صفحة "%{association}".
+      split: 
+        an_unknown_user_split_unknown_entry_from_an_unknown_taxon: قام مستخدم مجهول بتقسيم تصنيف غير معلوم لصنف غير معروف.
+        an_unknown_user_split_unknown_entry_from_it: قام مستخدم غير معروف بفصل تنصيف غير معروف.
+        an_unknown_user_split_unknown_entry_from_taxon: قام مستخدم مجهول بتقسيم تصنيف غير معلوم من "%{taxon}".
+        user_split_unknown_entry_from_an_unknown_taxon: قام <strong>%{user}</strong> بتقسيم تنصيف غير معلوم من صنف مجهول.
+        user_split_unknown_entry_from_it: قام <strong>%{user}</strong> بفصل تصنيف غير معروف.
       trusted: 
         an_unknown_user_trusted_an_older_data_object_on_an_unknown_association: قام مستخدم غير معروف باعتبار النسخة الأقدم من "%{data_object}" موثوقًا بها في سياق غير معروف.
         an_unknown_user_trusted_an_older_data_object_on_association: قام مستخدم غير معروف باعتبار نسخة أقدم من "%{data_object}" موثوقًا بها على صفحة "%{association}" .
@@ -523,6 +530,20 @@ ar:
         user_trusted_data_object_on_association: قام <strong>%{user}</strong> بوضع علامة "موثوق به" على "%{data_object}" في صفحة "%{association}".
         user_trusted_it_on_an_unknown_association: قام <strong>%{user}</strong> بوضع علامة "موثوق به" عليها في سياق غير معروف.
         user_trusted_it_on_association: قام <strong>%{user}</strong> بوضع علامة "موثوق به" عليها في صفحة "%{association}".
+      unreview_common_name: 
+        an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: قام مستخدم غير معروف بوضع علامة "غير مُراجع" على اسم شائع غير معروف من لغة غير معروفة.
+        an_unknown_user_unreviewed_an_unknown_name_in_language_on_it: قام مستخدم غير معروف بوضع علامة "غير مُراجع" على اسم شائع غير معروف في %{language}.
+        an_unknown_user_unreviewed_name_in_an_unknown_language_on_it: قام مستخدم غير معروف بوضع علامة "غير مُراجع" على الاسم الشائع "%{name}" في لغة غير معروفة.
+        an_unknown_user_unreviewed_name_in_language_on_it: قام مستخدم غير معروف بوضع علامة "غير مُراجع" لـ%{language} الاسم الشائع "%{name}".
+        user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: قام <strong>%{user}</strong> بوضع علامة "غير مُراجع" على اسم شائع غير معروف في لغة غير معروفة.
+        user_unreviewed_an_unknown_name_in_language_on_it: قام <strong>%{user}</strong> بوضع علامة "غير مُراجع" على اسم شائع غير معروف في %{language}.
+        user_unreviewed_an_unknown_name_in_language_on_taxon: قام <strong>%{user}</strong> بوضع علامة "غير مُراجع" على اسم شائع غير معروف في %{language} من "%{taxon}".
+        user_unreviewed_name_in_an_unknown_language_on_an_unknown_taxon: قام <strong>%{user}</strong> بوضع علامة "غير مُراجع" على الاسم الشائع "%{name}"  في لغة غير معروفة من صفحة غير معروفة.
+        user_unreviewed_name_in_an_unknown_language_on_it: قام <strong>%{user}</strong> بوضع علامة "غير مُراجع" على الاسم الشائع "%{name}"  في لغة غير معروفة.
+        user_unreviewed_name_in_an_unknown_language_on_taxon: قام <strong>%{user}</strong> بوضع علامة "غير مُراجع" على الاسم الشائع "%{name}"  في لغة غير معروفة من "%{taxon}".
+        user_unreviewed_name_in_language_on_an_unknown_taxon: قام <strong>%{user}</strong> بوضع علامة "غير مُراجع" لـ%{language} الاسم الشائع "%{name}" من صفحة غير معروفة.
+        user_unreviewed_name_in_language_on_it: قام <strong>%{user}</strong> بوضع علامة "غير مُراجع" لـ%{language} الاسم الشائع "%{name}".
+        user_unreviewed_name_in_language_on_taxon: قام <strong>%{user}</strong> بوضع علامة "غير مُراجع" لـ%{language} الاسم الشائع "%{name}" من "%{taxon}".
       unreviewed: 
         an_unknown_user_unreviewed_an_older_data_object_on_an_unknown_association: قام مستخدم غير معروف بوضع علامة "لم تُراجع" على نسخة أقدم من "%{data_object}" في سياق غير معروف.
         an_unknown_user_unreviewed_an_older_data_object_on_association: قام مستخدم غير معروف بوضع علامة "لم تُراجع" على نسخة أقدم من "%{data_object}" في صفحة "%{association}".
@@ -565,7 +586,6 @@ ar:
   add_a_comment_colon: "أضف تعليقًا:"
   add_a_new_common_name: أضف اسمًا شائعًا جديدًا
   add_a_new_file_brackets: "[أضف ملف جديد]"
-  add_a_new_news_item: أضف خبر جديد
   add_a_new_role: أضف دور جديد
   add_a_new_search_suggestion: أضف اقتراح بحث جديد
   add_a_new_term: أضف مصطلح جديد
@@ -631,6 +651,23 @@ ar:
   admin_information: هذه هي واجهة التحكم الجديدة في النسخة الثانية من موقع موسوعة الحياة.  نمر حاليًا بمرحلة نقل الإدارة من النسخة الأولى. إذا كان قسم الإدارة الذي تبحث عنه غير مدرج بالقائمة التالية، يرجى زيارة  <a href="/administrator">واجهة التحكم للنسخة اﻷولى لموقع موسوعة الحياة</a>.
   admin_link: نظرة عامة
   admin_login_confirmation: هل أنت متأكد من رغبتك في الدخول في سجل شريك المحتوى كـ %{name} ؟ في هذه الحالة، سيتم تسجيل خروجك من الموقع كإداري.
+  admin_news_item_active: تم نشره
+  admin_news_item_create_successful_notice: تم إنشاء عنصر أخبار <a href="#%{anchor}"><em>%{page_name}</em></a> بنجاح.
+  admin_news_item_create_unsuccessful_error: عفوًا، حدث خطأ، تعذر إنشاء عنصر الأخبار.
+  admin_news_item_delete_confirmation: هل أنت متأكد من رغبتك في حذف "%{page_name}" وجميع ترجماتها. لا يمكن إلغاء عمليات الحذف.
+  admin_news_item_delete_successful_notice: عنصر الأخبار %{page_name} وجميع الترجمات التابعة لها تم حذفها.
+  admin_news_item_edit_header: حدث معلومات عناصر الأخبار الأساسية للصفحة <em>%{page_name}</em>
+  admin_news_item_edit_tip: "يوصى بعدم تعديل الأسم المميز الخاص لعنصر الأخبار هذا ما لم تكن ملمًا بالعواقب بشكل كامل، بما في ذلك أثر ذلك على الراوبط في تلك الصفحة، أو المسارات المذكورة.\nيجب إدخال %{required_icon} الأسم المميز."
+  admin_news_item_new_header: أنشئ عنصر أخبار جديد
+  admin_news_item_new_link: أنشئ عنصر الأخبار
+  admin_news_item_new_tip: أدخل المعلومات الأساسية لهذه الصفحة. يجب إدخال %{required_icon} الأسم المميز.
+  admin_news_item_not_active: لم يتم نشره
+  admin_news_item_update_successful_notice: تم تحديث عنصر الأخبار <a href="#%{anchor}"><em>%{page_name}</em></a> بنجاح.
+  admin_news_item_update_unsuccessful_error: عفوًا، حدث خطأ، تعذر تحديث عنصر الأخبار.
+  admin_news_items_empty: لم يتم العثور على أي عنصر أخبار.
+  admin_news_items_index_information: تضم القائمة التالية جميع عناصر الأخبار المتاحة حاليًا بالموقع الإلكتروني لموسوعة الحياة وكذا عناصر الأخبار المستقبلية. هنالك ترجمة أو أكثر لكل صفحة. عندما تقوم بإنشاء عنصر أخبار، سوف يطلب منك إضافة ترجمة. جميع الترجمات المنشورة متاحة للعامة.
+  admin_news_items_page_title: "الإدارة: أخبار"
+  admin_news_link: الأخبار
   admin_notes_not_visible_to_user: "ملاحظات المشرف (غير ظاهرة للمستخدم):"
   admin_page_title: "الإدارة: نبذة عامة."
   admin_spam_delete: حذف الرسائل المزعجة
@@ -647,6 +684,20 @@ ar:
   admin_translated_content_page_new_tip: يجب إضافة %{required_icon} اللغة، والعنوان، والنص.
   admin_translated_content_page_update_successful_notice: تم تحديث الترجمة %{language} الخاصة بـ <a href="#%{anchor}"><em>%{page_name}</em></a>
   admin_translated_content_page_update_unsuccessful_error: عفوًا، حدث خطأ، تعذر تحديث الترجمة.
+  admin_translated_news_item_active: تم نشره
+  admin_translated_news_item_create_successful_notice: تمت إضافة الترجمة إلى <a href="#%{anchor}"><em>%{page_name}</em></a>
+  admin_translated_news_item_create_unsuccessful_error: عفوًا، حدث خطأ، تعذر إضافة الترجمة.
+  admin_translated_news_item_delete_confirmation: هل أنت متأكد من رغبتك في حذف النسخة %{language} لصفحة "%{page_name}". لا يمكن إلغاء الحذف.
+  admin_translated_news_item_delete_successful_notice: تم حذف ترجمة عنصر الأخبار %{language} للصفحة  <em>%{page_name}</em>.
+  admin_translated_news_item_edit_subheader: تعديل الترجمة %{language} لصفحة  <em>%{page_name}</em>
+  admin_translated_news_item_edit_tip: يجب إضافة %{required_icon} العنوان والنص.
+  admin_translated_news_item_new_header: أختر اللغة وأضف المحتوى.
+  admin_translated_news_item_new_link: أضف ترجمة
+  admin_translated_news_item_new_subheader: أضف ترجمة للصفحة <em>%{page_name}</em>
+  admin_translated_news_item_new_tip: يجب إضافة %{required_icon} اللغة، والعنوان، والنص.
+  admin_translated_news_item_not_active: لم يتم نشره
+  admin_translated_news_item_update_successful_notice: تم تحديث الترجمة %{language} الخاصة بـ <a href="#%{anchor}"><em>%{page_name}</em></a>.
+  admin_translated_news_item_update_unsuccessful_error: عفوًا، حدث خطأ، تعذر تحديث الترجمة.
   admin_user_delete_successful_notice: تم حذف المستخدم
   admin_user_hide_successful_notice: تم إخفاء المستخدم
   admin_user_unhide_successful_notice: تم إظهار المستخدم
@@ -669,6 +720,22 @@ ar:
         page_header: الإحصائيات الإجمالية
         page_title: "الإدارة: الإحصائيات الإجمالية"
         table_caption: تم إنشاء الإحصائيات الإجمالية للموقع في %{created_at_time}
+      lifedesks: 
+        menu_link: مجموعات لايف ديسك
+        page_header: إحصائيات مجموعات لايف ديسك
+        page_title: "الإدارة: إحصائيات مجموعات لايف ديسك"
+      marine: 
+        menu_link: إحصائيات الصفحات البحرية
+        page_header: تغطية الكائنات البحرية في موسوعة الحياة
+        page_title: "الإدارة: إحصائيات الصفحات البحرية"
+      page_richness: 
+        menu_link: الصفحات الغنية
+        page_header: إحصائيات الصفحات الغنية
+        page_title: "الإدارة: إحصائيات الصفحات الغنية"
+      users_data_objects: 
+        menu_link: نص قدمه المستخدم
+        page_header: إحصائيات النص المقدم من المستخدم
+        page_title: "الإدارة: إحصائيات النص المقدم من المستخدم"
   agent: وكيل
   all: الكل
   all_apis_return_by_default_an_xml_response: "تقدم جميع واجهات برمجة التطبيقات استجابة بصيغة لغة الترميز القابلة للامتداد (إكس إم إل)، يمكن تنفيذ طرق واجهة برمجة التطبيقات بدون إضافة امتداد يحدد الصيغة لعرض استجابة بصيغة لغة الترميز القابلة للامتداد (إكس إم إل)، وسوف يؤدي إضافة امتداد لغة الترميز القابلة للامتداد (.XML) إلى استجابة مماثلة:"
@@ -739,13 +806,13 @@ ar:
   assistive_updates_header: تحديثات
   assistive_updates_statistics_header: إحصاءات الصفحة
   associated_submit_button: مرتبط
-  associated_with_article_header: مرتبط بـ
+  associated_with_article_header: في المقالة الأخيرة
   associated_with_header: مرتبط بـ
-  associated_with_image_header: في تلك الصورة
-  associated_with_image_map_header: في هذه الخريطة
-  associated_with_map_header: في هذه الخريطة
-  associated_with_sound_header: مرتبط بـ
-  associated_with_video_header: في ذلك الفيديو
+  associated_with_image_header: في الصورة الأخيرة
+  associated_with_image_map_header: على الخريطة الأخيرة
+  associated_with_map_header: على الخريطة الأخيرة
+  associated_with_sound_header: في  الصوت الأخير
+  associated_with_video_header: في الفيديو الأخير
   associations_more_link: المزيد من  <span class="assistive">ارتباطات الأصنوفة</span>
   attribute: نسب
   audio_current_time_assistive: عند تفعيل لغة جافا سكريبت سوف يظهر ذلك موقع التشغيل الحالي للملف الصوتي بالدقائق والثواني.
@@ -785,6 +852,7 @@ ar:
   cache_store: مخزن الذاكرة المخبأة
   calculate_averages_slow: احسب المتوسطات (بطيء)
   cancel: إلغاء
+  cancel_split: إلغاء
   cannot_be_associated_with_both_a_user_and_a_community: لا يمكن أن يكون مرتبطًا بمستخدم ومجتمع
   cannot_be_empty: لا يمكن أن يكون خاليًا
   cannot_create_collection_item_from_class_error: لا يمكن إنشاء عنصر من %{klass}
@@ -875,6 +943,10 @@ ar:
         observation_place: المكان %{place}
         observer_with_link: "المراقب: %{observer_link}"
         recent_observations: الملاحظات الأخيرة
+        some_taxon: شيء ما
+        taxa_observed: 
+          one: "%{count} تمت مراقبة أصنوفة"
+          other: "%{count} تمت مراقبة أصناف"
         top_contributors: كبار المساهمين في iNaturalist
         tweet_text: "%{collection_name} ملاحظات iNaturalist"
         view_all_observations_on_inaturalist: طالع كل الملاحظات من خلال %{project_title} على iNaturalist
@@ -887,6 +959,9 @@ ar:
         meta_title: أخبار %{collection_name}
         tweet_text: أخبار %{collection_name}
     show: 
+      meta_description_default: مجموعة موسوعة الحياة تحت عنوان %{collection_name}.
+      meta_description_default_focus_collection: مجموعة تركيز موسوعة الحياة تحت عنوان %{collection_name}.
+      meta_description_default_watch_collection: "قائمة مشاهدة موسوعة الحياة: %{collection_name}."
       meta_keywords: "%{collection_name}، أحدى مجموعات موسوعة الحياة"
   collections_filter: المجموعات
   collections_link: المجموعات
@@ -1451,8 +1526,6 @@ ar:
   edit_glossary_term: حرر مصطلح معجمي
   edit_hierarchy: تعديل التسلسل الهرمي
   edit_my_profile: تعديل الصفحة الشخصية
-  edit_news_item: حرر خبر
-  edit_news_item_instructions_with_link: حرر الخبر أدناه. يمكنك إضافة HTML في الحقلين ويجب أن يوجد *إما* العنوان أو النص. لأفضل النتائج، فقط استخدم العنوان وأضف خبر قصير. وعند إنشاء وصلات فوقية  hyperlinks لمواقع أخرى، يمكنك استخدام %{link} لإنشاء عناوين URL أقصر لحفظ الأحرف.
   edit_news_items: تعديل المواضيع الجديدة
   edit_page_contents: تعديل محتويات الصفحة
   edit_search_suggestion: حرر اقتراح بحث
@@ -1469,7 +1542,6 @@ ar:
   editors_tab_label: المديرين
   email: البريد الإلكتروني
   email_colon: "البريد الإلكتروني:"
-  email_error_notification_activ: إن إشعار الخطأ بالبريد الإلكتروني نشط
   email_recipients: المرسل إليهم البريد الإلكتروني
   email_updates_for_eol_addicts: تحديثات لعشاق موسوعة الحياة.
   email_updates_for_eol_members: تحديثات سيرغب أغلب أعضاء موسوعة الحياة في الحصول عليها.
@@ -1498,6 +1570,41 @@ ar:
   eol_glossary: قائمة مصطلحات موسوعة الحياة
   eol_news: أخبار موسوعة الحياة
   eol_pages: صفحات
+  eol_statistics: 
+    content_partners: 
+      menu_link: شركاء المحتوى
+      page_header: إحصائيات شركاء المحتوى
+      page_title: الإحصائيات
+    curators: 
+      menu_link: إحصائيات المشرف
+      page_header: إحصاءات المشرف
+      page_title: الإحصائيات
+    data_objects: 
+      menu_link: عناصر البيانات
+      page_header: إحصائيات عناصر البيانات
+      page_title: الإحصاءات
+    index: 
+      menu_link: الإحصائيات الإجمالية
+      page_header: الإحصائيات الإجمالية
+      page_title: الإحصائيات
+    lifedesks: 
+      menu_link: مجموعات لايف ديسك
+      page_header: إحصائيات مجموعات لايف ديسك
+      page_title: الإحصائيات
+    marine: 
+      menu_link: إحصائيات الصفحات البحرية
+      page_header: تغطية الكائنات البحرية في موسوعة الحياة
+      page_title: الإحصائيات
+    page_richness: 
+      menu_link: الصفحات الغنية
+      page_header: إحصائيات الصفحات الغنية
+      page_title: الإحصائيات
+    users_data_objects: 
+      menu_link: نص قدمه المستخدم
+      page_header: إحصائيات النص المقدم من المستخدم
+      page_title: الإحصائيات
+    warnings: 
+      stats_unavailable_for_date: عذراً، لا نملك إحصاءات لتاريخ %{date}. رجاءاً قم بأختيار تاريخ جديد.
   error_401_description: للأسف، غير مصرح لك بالدخول على هذا العنوان
   error_401_page_title: غير مصرح له
   error_403_description: للأسف، غير مصرح لك بالدخول على هذا العنوان.
@@ -1770,8 +1877,8 @@ ar:
         active_translation: نشر
         active_translation_more: سوف تكون الترجمات المنشورة ظاهرة للعامة إلا إذا كانت الصفحة غير منشورة. أزل العلامة أمام <em>published</em> إذا كنت ترغب في منع العامة من مشاهدة تلك النسخة من الصفحة.
         language_id: اللغة
-        left_content_more: أضف قائمة غير مرتبة من الروابط بصورة اختيارية لإضافة عمود للتنقل في الصفحة. يجب أن يتم إضافة الروابط الثابتة يدويًا عن طريق اختيار  <em>Source</em> وتعديل نسب لغة رقم النص الفائق  <em>href</em> الخاص بالروابط. على سبيل المثال، للربط إلى النص الظاهر من الرابط المسمى <em>licensing_policy</em> في قسم المحتوى <em>Body</em>، يجب أن يضم الرابط المدرج في القائمة <em>href</em> قيمة "#licensing_polic"
-        main_content_more: "أدخل محتوى الصفحة الرئيسية في قسم النص. استخدم قائمة التنسيق <em>Format</em>  المنسدلة لاختيار عناصر النص الدلالية الملائمة، على سبيل المثال، اختار <em>Heading 2</em> لعنوان من المستوى الثاني. ملاحظة: عنوان الصفحة هو عنوان من المستوى الأول، لذلك إبداء العناوين في قسم النص بالمستوى الثاني <em>Heading 2</em>."
+        left_content_more: "(اختياري) أضف قائمة غير مرتبة لروابط التصفح. استخدم إسم الفئة <code>active</code> لتسليط الضوء على رابط الصفحة الحالي، أي <code>&lt;li class=\"active\"&gt;&lt;a href=\"/info/:id\"&gt;:title&lt;/a&gt;&lt;/li&gt;</code> أين <code>:id</code> هو المعرف الحالي للصفحة او الإسم الفريد و <code>:title</code> هو العنوان الوصفي للصفحة (<strong>ملاحظة: كل روابط الصفحات إلى موسوعة الحياة CMS يجب أن تبدأ بـslash: <code>/info/:id</code></strong>)"
+        main_content_more: "أدخل محتوى الصفحة الرئيسية في قسم النص. استخدم قائمة التنسيق <em>Format</em>  المنسدلة لاختيار عناصر النص الدلالية الملائمة، على سبيل المثال، اختر <em>Heading 2</em> لعنوان من المستوى الثاني. ملاحظة: <em>Heading 1</em> محجوز لعنوان الصفحة، لذلك فإن العناوين في منطقة النص تبدأ بـ <em>Heading 2</em>. أختر <em>المصدر</em> للتغيير إلى عرض رمز مصدر الـ HTML والذي يمكنك من إدارج وتعديل الـ HTML يدويا."
         meta_description_more: أضف وصف مقتضب، يلخص المفاهيم الرئيسية لمحتوى الصفحة. يتم استخدام ذلك الوصف بواسطة محركات البحث للتحقق من الصلة وللعرض في نتائج البحث.
         meta_keywords_more: أضف سلسلة من الكلمات والعبارات القصيرة مفرقة باستخدام فواصل والتي تعكس محتوى الصفحة بأفضل صورة. يتم استخدام تلك الكلمات والعبارات الرئيسية بواسطة محركات البحث لتقييم مدى صلة الصفحة بمصطلحات البحث.
         title_more: سوف يظهر عنوان المحتوى في قسم العنونة من الصفحة. يجب أن يضم العنوان الكلمات الرئيسية المرتبطة بالمحتوى.
@@ -1788,6 +1895,7 @@ ar:
         credentials_more_successful_assistant_curator: تاريخ النجاح كمشرف مساعد
         curation_application: كن مشرفًا
         curation_application_more: إذا كنت ترغب في تعديل امتيازات الإشراف الخاصة بك، قم بتقديم طلب وسوف نقيم أهليتك.
+        curation_priveleges_credentials: أوراق اعتماد <small>(مراقبين كاملين و رئيسيين فقط)</small>
         curator_level: أنت الأن %{curator_level_with_indefinite_article}.
         curator_scope: نطاق الإشراف
         curator_scope_more: يرجى توضيح مجال خبراتك. على سبيل المثال؛ ''قوارض بورنيو''، أو ''تفاعلات المستويات الغذائية الثلاثية''، أو ''قضايا حفظ الأسماك''. لن يحد ذلك من قدرتك على الأشراف، ولكن سوف يخطر موسوعة الحياة.
@@ -1844,6 +1952,7 @@ ar:
         create_text: إضافة المقالة
         update: حفظ المقال
       eol_statistic: 
+        change_date: الحصول على إحصاءات التواريخ
         download_csv: تحميل بصيغة (CSV)
       filter_sort: تنقية وترتيب
       harvest_event: 
@@ -2137,7 +2246,6 @@ ar:
   method: طريقة
   method_to_get_metadata_about_the_hierarchy: عند تقديم معرف تسلسل هرمي، تعرض تلك الطريقة بيانات فوقية عن التسلسل الهرمي وتعدد الأصناف الأساسية
   methods: طرق
-  minimal_page: صفحة صغرى
   mobile: 
     contents: 
       explore_eol: استكشف موسوعة الحياة
@@ -2221,17 +2329,13 @@ ar:
   never: أبدًا
   new_collection: مجموعة جديدة
   new_contact_us_topic: موضوع "اتصل بنا" جديد
-  new_news_item: خبر جدبد
   new_search_suggestion: اقتراح بحث جديد
   new_upload: تحميل جديد
   new_user: مستخدم جديد
   news_archive_page: صفحة أرشيف الأخبار
-  news_date: تاريخ الخبر
   news_item: خبر
-  news_item_date_as_shown_to_use: "تاريخ خبر جديد كما يظهر للمستخدم (يظهر الوقت فقط في الخبر المباشر RSS) :"
-  news_item_is_visible_on_websit: يظهر الخبر على الموقع بعد
+  news_item_date_as_shown_to_user: "تاريخ خبر جديد كما يظهر للمستخدم (يظهر الوقت فقط في الخبر المباشر RSS) :"
   news_item_title: خبر
-  news_items: مواضيع جديدة
   newsfeed: تحديثات
   newsfeed_help_for_collection: تجمع تحديثات أخبار مجموعة موسوعة الحياة تلك تحديثات مرتبطة بالعناصر التي تنتمي إليها، بما في ذلك نشاطات مالكها وتعليقات مستخدمو موسوعة الحياة الأخرون.
   newsfeed_help_for_community: تجمع تحديثات أخبار مجموعة موسوعة الحياة تلك تحديثات مرتبطة بالعناصر التي تنتمي إلى المجموعة التي تمثل مجال الاهتمام، بما في ذلك نشاطات أعضائها وتعليقات مستخدمو موسوعة الحياة الأخرون.
@@ -2248,7 +2352,6 @@ ar:
   no_errors_are_available: لا توجد أخطاء متاحة
   no_harvesting_logs_for_this_da: لا يوجد جمع سجلات لهذا التاريخ
   no_items_were_copied_to_collections_error: "لم يتم نسخ أي عناصر إلى المجموعات: %{names}."
-  no_news_items_are_available_ma: لا توجد أخبار متوافقة مع معايير البحث الخاصة بك.
   no_record_found_matching_your_criteria: لا يوجد سجل مطابق لمعيار البحث
   no_related_names: لا يوجد أسماء موصولة بهذه اﻷصنوفة حتى اﻵن.
   no_results_for: لا توجد نتائج لـ
@@ -2322,7 +2425,11 @@ ar:
       subject: تم الموافقة على طلبك للحصول على امتيازات الإشراف %{curator_level}
     greeting_dear_name_with_comma: عزيزي  %{name}،
     signature_basic: فريق عمل موسوعة الحياة
+    signature_with_contact_us_link: "إن واجهتك أي مشاكل، الرجاء الإتصال بنا على %{url}.\n\nفريق عمل موسوعة الحياة"
     signature_with_species_pages_group_contact: "في حال وجود أي أسئلة، يرجى الاتصال بنا عن طريق البريد الإلكتروني: \n%{species_pages_group_email}.\n\nفريق عمل موسوعة الحياة"
+    unsubscribed_to_notifications: 
+      message: "لقد ألغيت بنجاح أشتراكك في التنبيهات الواردة من موسوعة الحياة. يمكنك تعديل إعدادات البريد الإلكتروني أو الإشتراك في الإخطارات على <a href='%{email_prefs_url}'>صفحة التنبيهات الخاصة بك</a>.\n\nلمعرفة المزيد حول كيفية استخدام موسوعة الحياة، بما في ذلك كيفية إنشاء مجموعات موسوعة الحياة، والمشاركة في مجتمعات موسوعة الحياة و المساهمة في المحتوى، يرجى منك زيارة صفحات المساعدة على الرابط التالي http://eol.org/help."
+      subject: يؤسفنا رؤيتك ترحل عنا...
     user_activated: 
       message: "مرحبًا بك في موسوعة الحياة وشكرًا للتسجيل بالموقع! يرجى الانتباه إلى أن اسم المستخدم الخاص بك هو %{username}، وعنوان صفحتك الشخصية هو %{profile_url}. يمكنك تسجيل الدخول بحسابك في http://www.eol.org/login.\n\nلمعرفة المزيد عن كيفية استخدام موسوعة الحياة بما في ذلك كيفية إنشاء المجموعات بموسوعة الحياة، والمشاركة في مجتمعات موسوعة الحياة، وإضافة محتوى، يرجى زيارة صفحات المساعدة http://www.eol.org/help."
       subject: تم تفعيل حسابك بموسوعة الحياة
@@ -2374,7 +2481,6 @@ ar:
   object_visibility_invisible_option: مخفي
   object_visibility_visible_option: مرئي
   objects_curated: المواضيع التي تم الإشراف عليها
-  older_version_of_latest_published_data_object_link: نسخة أقدم من %{link}
   older_version_of_latest_published_data_object_title_link: نسخة أقدم من %{link}
   on_time_col_header: يعمل
   only_multi_search_suggestions: في حالة وجود اقتراحات متعددة لنفس مصطلح البحث، يكون الترتيب من الأدنى --> الأعلى)
@@ -2486,7 +2592,6 @@ ar:
   publish: انشر
   publish_after_utc: النشر بعد (التوقيت العالمي المنسق)
   publish_changes: نشر التعديلات
-  publish_item_based_on_time_set: انشر العنصر بناء على الزمن المحدد أعلاه (احذف العلامة للإخفاء الدائم)
   publish_requested: تم طلب النشر
   published: نشر
   published_parens: نُشر
@@ -2516,8 +2621,8 @@ ar:
       one: وقع تحديث لـ %{to}
       other: حصلت %{count} تحديثات لـ %{to}
     bulk_comments_on_you_with_count: 
-      one: لديك تعليق جديد على صفحتك الشخصية
-      other: لديك %{count} تعليقات جديدة على صفحتك الشخصية
+      one: لديك تعليق جديد على <a href='%{url}' style='color:#195184'>صفحتك الشخصية</a>
+      other: يوجد لديك %{count} تعليقات جديدة على <a href='%{url}' style='color:#195184'>صفحتك الشخصية</a>
     bulk_comments_with_count: 
       one: هناك تعليق جديد على%{on}
       other: هناك%{count} تعليقات جديدة على%{on}
@@ -2541,6 +2646,7 @@ ar:
     community_activity_user_joined: انضم المستخدم <b>%{user_name}</b> إلى المجتمع <b>%{community_name}</b>.
     community_activity_user_left: ترك المستخدم <b>%{user_name}</b> مجتمع <b>%{community_name}</b>.
     community_activity_user_made_member_a_manager: قام المستخدم <b>%{user_name}</b> بجعل العضو <b>%{member_name}</b> مديرًا لمجتمع <b>%{community_name}</b>.
+    contact_us_link: إن واجهتك أي مشاكل، الرجاء <a href='http://eol.org/contact_us' style='color:#195184'>الإتصال بنا</a>.
     curator_activity_log_title: قام %{who} بالإشراف على شيئ
     curator_activity_on_data_object_by_user: "قام <b>%{user_name}</b> بـ %{activity_name} على <b>%{dato_title}</b> (%{dato_type} #%{dato_id})."
     curator_activity_on_taxon_concept_by_user: قام <b>%{user_name}</b>  بـ %{activity_name} على <b>%{taxon_concept}</b> (%{taxon_overview_url}).
@@ -2550,9 +2656,10 @@ ar:
     intro: إليك خلاصة نشاط موسوعة الحياة المتعلق بك لـ %{time}
     intro_immediately: أهلاً %{name} -
     intro_weekly: هذا موجز أنشطتك على موسوعة الحياة للأسبوع المنتهي في %{ending}.
+    reply_to_comment_body_brief: "%{reply_to_author} %{body} - %{author}"
     see_all_activity: طالع جميع أنشطتك السابقة على<a href='%{activity_url}' style='color:#195184'>صفحة أخبار المستخدم الخاصة بك</a>.
     someone_commented_on_something: قام <b>%{who}</b> بالتعليق على <b>%{what}</b>.
-    unsubscribe: قم بتغيير إعدادات بريدك الإلكتروني أو ألغي اشتراكك في<a href='%{email_prefs_url}' style='color:#195184'>صفحة تفضيلات الإخطار الخاصة بك</a>.
+    unsubscribe: قم بتسجيل دخولك وتغيير إعدادات بريدك الإلكتروني على <a href='%{email_prefs_url}' style='color:#195184'>صفحة التنبيهات الخاصة بك</a> أو <a href='%{unsubscribe_url}' style='color:#195184'>قم بإلغاء أشتراكك من جميع تنبيهات موسوعة الحياة التلقائية بدون تسجيل الدخول</a>.
   recent_updates: آخر التحديثات
   recently_visited: Recently visited
   recipients: المرسل إليهم
@@ -2600,7 +2707,6 @@ ar:
   rights: الحقوق
   rights_holder: صاحب حقوق الملكية
   rights_statement: إقرار الحقوق
-  rss_feed: خبر سريع RSS
   save: حفظ
   save_comment_lowercase: احفظ التعليق
   save_curated_association_submit_button: حفظ الارتباط
@@ -2617,7 +2723,6 @@ ar:
   search_field_synonym: المرادف
   search_for_comments_containing_the_text: "البحث عن تعليقات تحتوى على النص:"
   search_for_curators_containing: "ابحث عن مشرفين ذوي:"
-  search_for_items_containing: "ابحث عن عناصر بها:"
   search_for_messages_containing: "ابحث عن رسائل بها:"
   search_for_terms_containing: "ابحث عن مصطلحات بها:"
   search_for_users_containing_this_in_their_username_name_or_email_address: "بحث عن المستخدمين الذين تحتوى اسماء المستخدمين، أو الاسماء، أو البريد الإلكتروني الخاص بهم على:"
@@ -2693,6 +2798,7 @@ ar:
   show_data_from_all_content_partners: إزالة منقي التصنيف
   show_email_message_area: "[عرض رسالة البريد الإلكتروني هنا]"
   show_full_tree: عرض الشجرة بأكملها ...
+  show_in_overview: أظهر اللمحة العامة
   show_status_message: عرض رسالة الحالة
   show_tasks: عرض المهمات
   show_warning_message: عرض رسالة التحذير
@@ -3113,8 +3219,6 @@ ar:
   the_message_was_sent: تم إرسال الرسالة.
   the_new_topic_was_created: تم إنشاء الموضوع الجديد.
   the_new_user_was_created: تم إنشاء المستخدم الجديد.
-  the_news_item_created: تم إنشاء الخبر بنجاح
-  the_news_item_updated: تم تحديث الخبر.
   the_suggested_page_to_direct_users_to_link: الصفحة التي  يُقترح توجيه المستخدمين إليها
   the_topic_was_updated: تم تحديث الموضوع
   the_user_was_updated: تم تحديث المستخدم.
@@ -3153,7 +3257,6 @@ ar:
   threat_status_header_colon: "حالة التهديد وفقا للاتحاد العالمى للحفاظ على الطبيعة  <abbr title=\"International Union for Conservation of Nature\">(IUCN)</abbr>:"
   thumbnail_page_colon: "صفحة مصغرة:"
   time_ago: منذ %{time_passed}
-  tinyurl: عنوان قصير
   title: عنوان
   to_process_your_donation_please_proceed: رجاء الاستمرار لتنفيذ التبرع
   to_remedy_this: لتصحيح هذا، نحن سيتم إغلاق هذه الحسابات غير النشطة ونطلب يمكنك زيارة eol.org لإنشاء حساب جديد. عندما تتلقى تأكيد بالبريد الإلكتروني، يرجى النقر على الرابط للتحقق من صحة الحساب الخاص بك.

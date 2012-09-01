@@ -1,2 +1,2 @@
 zh-CN:
-  hello_world: "Sorry, I moved this file's contents to the root dir because Psych couldn't parse the YAML, claiming it had control characters in it."
+  nothing_here: "I moved this to the root directory until we can figure out why it's failing to load."

@@ -288,7 +288,7 @@ fr:
               wrong_type: n’a pas le format requis, devrait être un fichier GZIP, TAR, ZIP ou XML.
             dwc_archive_url: 
               inaccessible: est inaccessible, l’URL doit être accessible au public
-              invalid: est invalide, devrait pointer vers un fichier TAR.GZIP, TAR.GZ, TGZ ou fichier ZIP.
+              invalid: est invalide, devrait pointer vers un fichier TAR.GZIP, TAR.GZ, TGZ ou ZIP.
       template: 
         body: "Les champs suivants n’ont pas été validés :"
     models: 
@@ -297,6 +297,16 @@ fr:
   activity_log_empty: Personne n’a encore fourni de mises à jour.
   activity_log_empty_learn_more_link: Apprenez comment contribuer
   activity_logs: 
+    collection_activity_log: 
+      collect: 
+        an_unknown_user_added_item_to_an_unknown_collection: Un utilisateur inconnu a ajouté "%{item}" à une collection inconnue.
+        an_unknown_user_added_item_to_collection: Un utilisateur inconnu a ajouté "%{item}" à la collection "%{collection}".
+        an_unknown_user_added_item_to_it: Un utilisateur inconnu a ajouté "%{item}".
+        user_added_item_to_an_unknown_collection: <strong>%{user}</strong> a ajouté "%{item}" à une collection inconnue.
+        user_added_item_to_collection: <strong>%{user}</strong> a ajouté "%{item}" à la collection "%{collection}".
+      remove: 
+        an_unknown_user_removed_item_from_it: Un utilisateur inconnu a supprimer "%{item}".
+        user_removed_item_from_it: <strong>%{user}</strong> a supprimé "%{item}".
     curator_activity_log: 
       add_association: 
         user_associated_data_object_to_association: <strong>%{user}</strong> a ajouté une association entre "%{data_object}" et "%{association}".
@@ -308,7 +318,6 @@ fr:
   add_a_comment_colon: "Ajouter un commentaire :"
   add_a_new_common_name: Ajouter un nouveau nom usuel
   add_a_new_file_brackets: "[ajouter un nouveau fichier]"
-  add_a_new_news_item: Ajouter une actualité
   add_a_new_role: Ajouter un nouveau rôle
   add_a_new_search_suggestion: Ajouter une nouvelle suggestion de recherche
   add_a_new_term: Ajouter un nouveau terme
@@ -394,23 +403,37 @@ fr:
   admin_user_unhide_successful_notice: L’utilisateur n’est plus masqué
   admins: 
     eol_statistics: 
+      content_partners: 
+        menu_link: Partenaires de contenu
+        page_header: Statistiques des partenaires de contenu
+        page_title: "Administration : Statistiques des partenaires de contenu"
+      curators: 
+        menu_link: Statistiques des conservateurs
+        page_header: Statistiques des conservateurs
+        page_title: "Administration : Statistiques des conservateurs"
+      data_objects: 
+        menu_link: Objets de données
+        page_header: Statistiques des objets de données
       index: 
         menu_link: Statistiques globales
         page_header: Statistiques globales
-        page_title: "Administration: Statistiques globales"
+        page_title: "Administration : Statistiques globales"
         table_caption: Statistiques globales du site créées à %{created_at_time}
+      lifedesks: 
+        page_header: Statistiques de LifeDesks
+        page_title: "Administration : Statistiques de LifeDesks"
       marine: 
         menu_link: Statistiques marines
         page_header: Couverture marine dans l’EdlV
-        page_title: "Administration: Statistiques marines"
+        page_title: "Administration : Statistiques marines"
       page_richness: 
         menu_link: Pages riches
         page_header: Statistiques de pages riches
         page_title: "Administration: Statistiques de pages riches"
       users_data_objects: 
-        menu_link: Texte soumis par l'utilisateur
-        page_header: Statistiques de texte soumises par l'utilisateur
-        page_title: "Administration: Statistiques de texte soumises par l’utilisateur"
+        menu_link: Textes soumis par les utilisateurs
+        page_header: Statistiques de textes soumis par les utilisateurs
+        page_title: "Administration : Statistiques des textes soumis par les utilisateurs"
   agent: Agent
   all: tout
   all_apis_return_by_default_an_xml_response: "Toutes les IPA de l’EdlV retournent par défaut une réponse XML. Les méthodes de l’IPA peuvent être appelées sans préciser une extension de format pour obtenir la réponse XML et l’ajout d’une extension XML produira une réponse identique :"
@@ -534,6 +557,8 @@ fr:
   classification_preferred_for_taxon_help_tip: "%{icon} marque la classification préférée pour ce taxon."
   classification_tree_header: Classification
   classifications_empty: Cette page ne fait partie d’aucune des classifications qui peuvent être parcourues sur l’EdlV.
+  classifications_rank_column_header: Rang
+  classifications_recognized_by_column_header: Reconnu Par
   clear_all_non_species_pages: Effacer toutes les pages non relatives aux espèces
   clear_entire_cache_store: Effacer le stockage entier du cache
   clear_species_page: Effacer la page des espèces
@@ -1132,8 +1157,6 @@ fr:
   edit_glossary_term: Modifier un terme du glossaire
   edit_hierarchy: modifier la hiérarchie
   edit_my_profile: Modifier mon profil
-  edit_news_item: Modifier l’actualité
-  edit_news_item_instructions_with_link: Modifiez la nouvelle ci-dessous. HTML est autorisé dans les deux champs, et *soit* le titre soit le corps est obligatoire. Pour de meilleurs résultats, utilisez simplement le titre et entrez une courte nouvelle. Lors de la création de liens hypertexte vers d'autres sites, vous pouvez utiliser %{link} pour créer des URLs plus courtes pour économiser des caractères.
   edit_news_items: modifier l’actualité
   edit_page_contents: modifier le contenu de la page
   edit_search_suggestion: Modifier la suggestion de recherche
@@ -1150,7 +1173,6 @@ fr:
   editors_tab_label: Gestionnaires
   email: Courriel
   email_colon: "Courriel :"
-  email_error_notification_activ: Notification d’erreur par courriel active
   email_recipients: Destinataires du courriel
   encyclopedia_of_life: Encyclopédie de la Vie
   endorsed_by: Présenté par
@@ -1175,24 +1197,37 @@ fr:
   eol_news: Actualités EdlV
   eol_pages: Pages
   eol_statistics: 
+    comparing_dates: <span class="assistive">Comparaison de</span> <span class="date_one">%{date_one}</span> <span class="assistive">avec</span> <span class="date_two">%{date_two}</span>
     content_partners: 
+      menu_link: Partenaires de contenu
+      page_header: Statistiques des partenaires de contenu
       page_title: Statistiques
     curators: 
+      menu_link: Statistiques des conservateurs
+      page_header: Statistiques des conservateurs
       page_title: Statistiques
     data_objects: 
+      menu_link: Objets de données
+      page_header: Statistiques des objets de données
       page_title: Statistiques
     index: 
       menu_link: Statistiques globales
-      page_header: Statistiques Globales
+      page_header: Statistiques globales
       page_title: Statistiques
     lifedesks: 
+      page_header: Statistiques de LifeDesks
       page_title: Statistiques
     marine: 
+      menu_link: Statistiques marines
+      page_header: Couverture marine dans l’EdlV
       page_title: Statistiques
     page_richness: 
+      menu_link: Pages riches
+      page_header: Statistiques de pages riches
       page_title: Statistiques
     users_data_objects: 
-      menu_link: Texte soumis par l'utilisateur
+      menu_link: Textes soumis par les utilisateurs
+      page_header: Statistiques des textes soumis par les utilisateurs
       page_title: Statistiques
     warnings: 
       stats_unavailable_for_date: Désolé, les statistiques ne sont pas disponibles pour le %{date}. Veuillez sélectionner une autre date.
@@ -1442,7 +1477,7 @@ fr:
         active_translation: Publié
         active_translation_more: Les traductions publiées seront visibles par le public, sauf si la page elle-même n’est pas publiée. Décochez <em>publié</em> si vous voulez éviter qu’un utilisateur quelconque puisse visualiser cette version de la page.
         language_id: Langue
-        left_content_more: "Ajoutez une éventuelle liste non ordonnée de liens afin d’inclure une colonne de navigation dans la page. Les liens vers une ancre doivent être ajoutés manuellement en sélectionnant <em>Source</em> et en modifiant l’attribut HTML <em>href</em> des liens. Par exemple, pour créer un lien vers une ancre appelée <em>politique_de_licences</em> dans la zone de contenu <em>Corps</em>, l’attribut <em>href</em> de l’élément de lien de votre liste devra avoir la valeur  « #politique_de_licences »"
+        left_content_more: "(Facultatif) Ajoutez une liste non ordonnée des liens de navigation. Utilisez le nom de classe <code>active</code> pour mettre en évidence le lien de la page actuelle, c'est-à-dire <code>&lt;li class=\"active\"&gt;&lt;a href=\"/info/:id\"&gt;:title&lt;/a&gt;&lt;/li&gt;</code> où <code>:id</code> est un ID de page actuelle ou un nom unique et <code>:title</code> est le titre descriptif de la page (<strong>Remarque : tous les liens vers les pages CMS EOL doivent commencer par une barre oblique : <code>/info/:id</code> </strong>). Pour effectuer ces modifications, vous devrez modifier le code source HTML directement, cela en sélectionnant la <em>Source</em> dans la barre d'outils de l'éditeur."
         main_content_more: "Saisissez le contenu de la page principale dans la zone Corps. Utilisez la liste déroulante <em>Format</em> pour choisir les éléments de texte sémantique appropriés ; par exemple choisissez <em>Heading 2</em> pour un titre de second niveau. Note : le titre de la page est le titre de premier niveau, veuillez démarrez vos titres au second niveau dans la zone Corps avec le format <em>Heading 2</em>."
         meta_description_more: Fournissez une courte description résumant les concepts clés du contenu de la page. Cette description est quelquefois utilisée par les moteurs de recherche du Web à la fois pour vérifier la pertinence et pour compléter les listes de résultats du moteur de recherche.
         meta_keywords_more: Entrez une liste de mots et de courtes expressions séparés par des virgules qui reflètent le mieux le contenu de la page. Ces expressions et mots-clés sont parfois utilisés par les moteurs de recherche de la toile Internet afin d’améliorer la pertinence de la page au regard des critères de recherche.
@@ -1460,6 +1495,7 @@ fr:
         credentials_more_successful_assistant_curator: Historique de réussite en tant que conservateur adjoint.
         curation_application: Devenez conservateur
         curation_application_more: Si vous désirez modifier vos privilèges de conservateur, soumettez simplement une demande d’adhésion et nous déterminerons votre éligibilité.
+        curation_priveleges_credentials: Certifications <small>(Conservateurs maîtres ou à part entière seulement)</small>
         curator_level: Vous êtes actuellement %{curator_level_with_indefinite_article}.
         curator_scope: Étendue de conservation
         curator_scope_more: "Veuillez indiquer l’étendue de votre expertise. Par exemple : « Rongeurs de Bornéo », « Interactions tri-trophiques », ou « Problèmes de préservation des ressources halieutiques ». Cela ne limitera pas votre capacité de supervision en tant que conservateur, mais informera la communauté EdlV."
@@ -1732,7 +1768,6 @@ fr:
   literature_references: Références bibliographiques
   location: Lieu
   location_colon: "Emplacement :"
-  location_created_colon: "Lieu de création :"
   logging_database_colon: "Journalisation :"
   login: connexion
   login_header: Connectez-vous à votre compte <abbr title="Encyclopédie de la Vie">EdlV</abbr>
@@ -1810,7 +1845,6 @@ fr:
   method: Méthode
   method_to_get_metadata_about_the_hierarchy: avec un identifiant de hiérarchie donné, cette méthode retourne des métadonnées à propos de la hiérarchie et liste les taxons racines
   methods: Méthodes
-  minimal_page: Page minimale
   mobile: 
     contents: 
       explore_eol: Explorez l’EdlV
@@ -1888,17 +1922,13 @@ fr:
   never: Jamais
   new_collection: Nouvelle collection
   new_contact_us_topic: Nouveau sujet Contactez-nous
-  new_news_item: Nouvel élément Nouvelles
   new_search_suggestion: Nouvelle Suggestion de recherche
   new_upload: Nouveau téléversement
   new_user: Nouvel utilisateur
   news_archive_page: page d'archive des nouvelles
-  news_date: Date de la nouvelle
   news_item: élément nouvelles
-  news_item_date_as_shown_to_use: "Date d’élément de nouvelle telle que montrée à l’utilisateur (heure affichée uniquement dans le fil RSS) :"
-  news_item_is_visible_on_websit: "L’élément Nouvelles est visible sur le site web après cette heure :"
+  news_item_date_as_shown_to_user: "Date d’élément de nouvelle telle que montrée à l’utilisateur (heure affichée uniquement dans le fil RSS) :"
   news_item_title: Élément Nouvelles
-  news_items: Éléments Nouvelles
   newsfeed: Fil de nouvelles
   newsfeed_help_for_collection: Le fil de nouvelles pour cette collection EdlV regroupe les mises à jour associées aux éléments lui appartenant, y compris les activités de son propriétaire et les commentaires des autres utilisateurs de l’EdlV.
   newsfeed_help_for_community: Le fil de nouvelles pour cette communauté EdlV regroupe les mises à jour associées aux éléments appartenant aux collections qu’elle gère, y compris les activités de ses membres et les commentaires des autres utilisateurs de l’EdlV.
@@ -1915,7 +1945,6 @@ fr:
   no_errors_are_available: Aucune erreur n'est disponible.
   no_harvesting_logs_for_this_da: Aucun journal de collecte pour cette date.
   no_items_were_copied_to_collections_error: "Aucun élément n’a été copié dans les collections : %{names}."
-  no_news_items_are_available_ma: Aucun nouvel élément disponible ne correspond à vos critères de recherche.
   no_record_found_matching_your_criteria: Aucun enregistrement trouvé correspondant à vos critères.
   no_related_names: Aucun nom n'est pour le moment lié à ce taxon.
   no_results_for: aucun résultat pour
@@ -1988,6 +2017,7 @@ fr:
     signature_with_contact_us_link: "Si vous rencontrez des problèmes, veuillez nous contacter à %{url}. \n\nL'équipe de l’Encyclopédie de la vie"
     signature_with_species_pages_group_contact: "Si vous avez des questions, vous pouvez nous contacter à l’adresse %{species_pages_group_email}.\n\nL’équipe de l’Encyclopédie de la Vie"
     unsubscribed_to_notifications: 
+      message: "Vous vous êtes désabonné aux notifications de l’Encyclopédie de la Vie. Vous pouvez changer vos préférences de courriel ou vous abonner aux notifications sur <a href='%{email_prefs_url}'>votre page de préférences de notifications</a>.\n\nPour en savoir plus su l’EdlV, y compris comment créer des Collections EdlV, participer aux Commautés EdlV et contribuer du contenu, veuillez visiter nos pages d’aide à http://eol.org/help."
       subject: Désolé de vous voir partir...
     user_activated: 
       message: "Bienvenue sur l’Encyclopédie de la Vie (EdlV) et merci pour votre inscription ! Votre nom d’utilisateur est %{username} et l’adresse de votre profil est %{profile_url}. Vous pouvez vous connecter à votre compte à l’adresse http://www.eol.org/login.\n\nPour en savoir plus sur l’utilisation de l’EdlV, notamment comment créer des collections, participer aux communautés et contribuer au contenu, vous pouvez lire les pages d’aide à l’adresse http://www.eol.org/help."
@@ -2150,7 +2180,6 @@ fr:
   publish: publier
   publish_after_utc: Publier après (UTC)
   publish_changes: Publier les modifications
-  publish_item_based_on_time_set: Publier l'élément d'après l'heure définie ci-dessus (décochez la case toujours masquer)
   publish_requested: Publication demandée
   published: Publié
   published_parens: (Publié)
@@ -2267,7 +2296,6 @@ fr:
   rights: Droits
   rights_holder: Détenteur des droits
   rights_statement: Déclaration des droits
-  rss_feed: flux RSS
   save: Publier
   save_comment_lowercase: enregistrer le commentaire
   save_curated_association_submit_button: Publier l'association
@@ -2284,7 +2312,6 @@ fr:
   search_field_synonym: Synonyme
   search_for_comments_containing_the_text: "Rechercher les commentaires contenant le texte :"
   search_for_curators_containing: "Recherche les conservateurs contenant :"
-  search_for_items_containing: "Recherche les éléments contenant :"
   search_for_messages_containing: "Recherche les messages contenant :"
   search_for_terms_containing: "Recherche les termes contenant :"
   search_for_users_containing_this_in_their_username_name_or_email_address: Rechercher les utilisateurs contenant ceci dans leur nom d'utilisateur, leur nom ou leur adresse de courriel.
@@ -2509,6 +2536,7 @@ fr:
       index: 
         hierarchy_entry: 
           meta_description: Information sur %{scientific_name} tel que classé par %{hierarchy_provider} dans l’Encyclopédie de la Vie
+          meta_description_no_data: Aucun fait n'est disponible pour %{scientific_name} classé par %{hierarchy_provider} dans l'Encyclopédie de la Vie. EdlV vous invite à contribuer à propos de %{scientific_name} comme la Conservation, la Répartition, l'Ecologie, l'Habitat, la Morphologie et davantage.
           meta_description_with_chapter_list: Information sur %{scientific_name} tel que classé par %{hierarchy_provider} dans l’Encyclopédie de la Vie. Inclut les informations %{chapter_list} pour %{scientific_name}.
           meta_description_with_common_name: Information sur le %{preferred_common_name}, scientifiquement appelé %{scientific_name} tel que classé par %{hierarchy_provider} dans l’Encyclopédie de la Vie.
           meta_description_with_common_name_with_chapter_list: Information sur le(la) %{preferred_common_name}, scientifiquement appelé(e) %{scientific_name} tel que classé par %{hierarchy_provider} dans l’Encyclopédie de la Vie. Comprend des informations sur %{chapter_list}.
@@ -2574,7 +2602,7 @@ fr:
         meta_description_with_common_name: Images et vidéos de %{preferred_common_name} appelé aussi %{scientific_name}.
         meta_keywords: images de %{scientific_name}, vidéos de %{scientific_name}, images de %{scientific_name}, vids de %{scientific_name}, pics de %{scientific_name}, médias
         meta_keywords_with_common_name: images de %{preferred_common_name}, vidéos sur %{preferred_common_name}, images de %{preferred_common_name}, vids de %{preferred_common_name}, pics de %{preferred_common_name}, médias
-        meta_title: Images et vidéos de %{scientific_name}
+        meta_title: Photos, Vidéo & Audio de %{scientific_name} - Images, Photos, Films & sons de %{scientific_name}
         meta_title_with_common_name: Images & vidéos de %{preferred_common_name} (%{scientific_name})
         tweet_text: Médias de %{scientific_name}
     names: 
@@ -2741,8 +2769,6 @@ fr:
   the_message_was_sent: Le message a été envoyé.
   the_new_topic_was_created: La nouvelle rubrique a été créée.
   the_new_user_was_created: Le nouvel utilisateur a été créé.
-  the_news_item_created: L'élément d'information a été créé avec succès.
-  the_news_item_updated: L'élément d'information a été mis à jour avec succès.
   the_suggested_page_to_direct_users_to_link: la page suggérée vers laquelle diriger les utilisateurs
   the_topic_was_updated: Le sujet a été mis à jour.
   the_user_was_updated: L'utilisateur a été mis à jour.
@@ -2781,7 +2807,6 @@ fr:
   threat_status_header_colon: "État de menace <abbr title=\"Union internationale pour la conservation de la nature\">UICN</abbr> :"
   thumbnail_page_colon: "page de vignette :"
   time_ago: il y a %{time_passed}
-  tinyurl: TinyURL
   title: Titre
   to_process_your_donation_please_proceed: Pour traiter votre don veuillez procéder
   to_remedy_this: Pour y remédier, nous clôturerons ces comptes inactifs et nous demandons que vous visitez eol.org pour créer un nouveau compte. Lorsque vous recevez l’e-mail de confirmation, veuillez cliquer sur le lien pour valider votre compte.

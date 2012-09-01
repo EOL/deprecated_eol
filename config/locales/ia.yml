@@ -369,7 +369,6 @@ ia:
   add_a_comment_colon: "Adder un commento:"
   add_a_new_common_name: Adder un nove nomine commun
   add_a_new_file_brackets: "[adder un nove file]"
-  add_a_new_news_item: Adder un actualitate
   add_a_new_role: Adder un nove rolo
   add_a_new_search_suggestion: Adder un nove suggestion de recerca
   add_a_new_term: Adder un nove termino
@@ -1188,7 +1187,6 @@ ia:
   members_with_count: 
     one: "%{count} membro"
     other: "%{count} membros"
-  minimal_page: Pagina minimal
   most_active_members: Le membros le plus active
   must_be_associated_with_either_a_user_or_a_community: Debe esser associate con un usator o communitate
   must_be_less_than_128_characters_long: debe haber minus de 128 characteres.

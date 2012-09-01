@@ -540,7 +540,6 @@ zh-CN:
   add_a_comment_colon: 添加一条评论：
   add_a_new_common_name: 添加一个新的俗名
   add_a_new_file_brackets: "[添加一个新的文件]"
-  add_a_new_news_item: 添加一个新的新闻条目
   add_a_new_role: 添加一个新的角色
   add_a_new_search_suggestion: 添加一个新的搜索建议
   add_a_new_term: 添加一条新的术语
@@ -1392,8 +1391,6 @@ zh-CN:
   edit_glossary_term: 编辑术语表项目
   edit_hierarchy: 编辑分类系统
   edit_my_profile: 编辑个人信息
-  edit_news_item: 编辑新闻项
-  edit_news_item_instructions_with_link: 编辑下面的新闻项。标题和正文都是必填项，都可以使用HTML。为了得到最好的结果，请输入标题和一个简短的新闻项。在建立到其他站点的超链接时，您可以使用%{link}为保留字符建立短的URL。
   edit_news_items: 编辑新闻项
   edit_page_contents: 编辑页面内容
   edit_search_suggestion: 编辑搜索建议
@@ -1410,7 +1407,6 @@ zh-CN:
   editors_tab_label: 管理员
   email: 邮箱
   email_colon: 邮件：
-  email_error_notification_activ: 邮件错误提醒激活
   email_recipients: 邮件收件人
   email_updates_for_eol_addicts: 对EOL粉丝的补充更新。
   email_updates_for_eol_members: 对大多数EOL会员想获取的补充更新。
@@ -2308,7 +2304,6 @@ zh-CN:
   method: 方法
   method_to_get_metadata_about_the_hierarchy: 如果给出分类系统的标识符，本方法可以获取所有关于本分类系统和所列根阶元的元数据
   methods: 方法
-  minimal_page: 最小的页面
   mobile: 
     contents: 
       explore_eol: 搜索EOL
@@ -2384,17 +2379,13 @@ zh-CN:
   never: 从不
   new_collection: 新的收藏
   new_contact_us_topic: 新建“联系我们”项
-  new_news_item: 新建新闻项
   new_search_suggestion: 新检索建议
   new_upload: 新的上传
   new_user: 新用户
   news_archive_page: 新闻存档页面
-  news_date: 新闻时间
   news_item: 新闻项
   news_item_date_as_shown_to_user: 对用户显示的新闻项时间(仅在Rss订阅中显示时间)：
-  news_item_is_visible_on_websit: 在这个时间之后，新闻项将在网站可见：
   news_item_title: 新闻项
-  news_items: 新闻项
   newsfeed: 新闻订阅
   newsfeed_help_for_collection: "\"这个EOL收藏的动态收集了与属于它的与它有关的条目的更新,包括它的所有者的活动和来自EOL用户的评论。\""
   newsfeed_help_for_community: "\"这个EOL社区的动态收集了与属于它管理的收藏的条目有关的更新,包括它的成员活动和来自EOL用户的评论。\""
@@ -2411,7 +2402,6 @@ zh-CN:
   no_errors_are_available: 未找到错误。
   no_harvesting_logs_for_this_da: 这个日期没有采集日志
   no_items_were_copied_to_collections_error: "没有项被复制到此收藏: %{names}。"
-  no_news_items_are_available_ma: 没有检索到符合您检索条件的新闻项。
   no_record_found_matching_your_criteria: 没有搜到符合您检索条件的记录
   no_related_names: 没有与此分类阶元相关的名字。
   no_results_for: 无结果有关
@@ -2571,7 +2561,6 @@ zh-CN:
   object_visibility_invisible_option: 隐藏的
   object_visibility_visible_option: 可见的
   objects_curated: 已管理的数据项
-  older_version_of_latest_published_data_object_link: 一个旧版本的“%{link}”
   older_version_of_latest_published_data_object_title_link: 旧版本的%{link}
   on_time_col_header: 在
   only_multi_search_suggestions: "\"(仅当同一搜索项有多个建议时, 从低到高排序)\""
@@ -2676,7 +2665,6 @@ zh-CN:
   publish: 发布
   publish_after_utc: 发布时间不早于（UTC）
   publish_changes: 发布改动
-  publish_item_based_on_time_set: 基于上面时间设置的发行项（不选则总是隐藏）
   publish_requested: 已请求发布
   published: 已发布
   published_parens: （已发布）
@@ -2783,7 +2771,6 @@ zh-CN:
   rights: 权利
   rights_holder: 权利持有人
   rights_statement: 版权声明
-  rss_feed: RSS订阅
   save: 保存
   save_comment_lowercase: 保存评论
   save_curated_association_submit_button: 保存关联
@@ -2800,7 +2787,6 @@ zh-CN:
   search_field_synonym: 异名
   search_for_comments_containing_the_text: 搜索包含这些文本的评论：
   search_for_curators_containing: 搜索包含这些内容的管理员：
-  search_for_items_containing: 搜索包含这些内容的数据项：
   search_for_messages_containing: 搜索包含这些内容的消息：
   search_for_terms_containing: 搜索包含这些内容的术语：
   search_for_users_containing_this_in_their_username_name_or_email_address: "\"搜索在用户名,名字或邮件地址中包含该内容的用户。\""
@@ -3294,8 +3280,6 @@ zh-CN:
   the_message_was_sent: 消息已发出。
   the_new_topic_was_created: 新主题已创建。
   the_new_user_was_created: 新用户已创建。
-  the_news_item_created: 新条目建立成功。
-  the_news_item_updated: 新条目更新成功。
   the_suggested_page_to_direct_users_to_link: 引导用户到链接的推荐页面
   the_topic_was_updated: 主题已更新。
   the_user_was_updated: 用户已更新。
@@ -3341,7 +3325,6 @@ zh-CN:
       short: "%d %b %H:%M"
     pm: 下午
   time_ago: "%{time_passed}之前"
-  tinyurl: TinyURL
   title: 标题
   to_process_your_donation_please_proceed: 要处理您的捐赠，请继续
   to_remedy_this: 为了补救，我们将关闭这些不活动的账户并邀请您访问eol.org来创建一个新的帐户。当您收到确认邮件时请点击以激活您的帐户。

@@ -164,6 +164,10 @@ nl:
         request_publish: Verzoek publicatie
       name: 
         string: Naam
+      news_item: 
+        active: Gepubliceerd
+        page_name: Unieke naam
+        sort_order: Sorteervolgorde
       notification: 
         changes_to_my_watched_collection: Wijzigingen in verzamelingen op uw volglijst
         changes_to_my_watched_community: Wijzigingen in gemeenschappen op uw volglijst
@@ -216,6 +220,12 @@ nl:
         meta_description: Metadatabeschrijving
         meta_keywords: Metagegevenstrefwoorden
         title: Naam
+      translated_news_item: 
+        active_translation: Gepubliceerd
+        body: Bericht
+        meta_description: Metadatabeschrijving
+        meta_keywords: Metagegevenstrefwoorden
+        title: Titel
       user: 
         agreed_with_terms: Gebruiksovereenkomst
         api_key: API-sleutel
@@ -747,7 +757,6 @@ nl:
   add_a_comment_colon: "Opmerking toevoegen:"
   add_a_new_common_name: Nieuwe gemeenschappelijke naam toevoegen
   add_a_new_file_brackets: "[nieuw bestand toevoegen]"
-  add_a_new_news_item: Nieuw nieuwsbericht toevoegen
   add_a_new_role: Nieuwe rol toevoegen
   add_a_new_search_suggestion: Nieuwe zoeksuggestie toevoegen
   add_a_new_term: Nieuwe term toevoegen
@@ -814,6 +823,23 @@ nl:
   admin_information: Dit is het beheermenu voor EOL V2. Op dit moment zijn we bezig met het omzetten van de functionaliteit uit V1. Als de beheerfunctie die u zoekt niet in dit menu staat, ga dan naar het <a href="/administrator">beheermenu van V1</a>.
   admin_link: Beheerconsole
   admin_login_confirmation: Weet u zeker dat u wilt aanmelden in het contentpartnerregister als %{name}? Als u dit doet, wordt u afgemeld als beheerder.
+  admin_news_item_active: Gepubliceerd
+  admin_news_item_create_successful_notice: Het nieuwsitem <a href="#%{anchor}"><em>%{page_name}</em></a> is aangemaakt.
+  admin_news_item_create_unsuccessful_error: Er is een fout opgetreden. Het nieuwsitem is niet aangemaakt.
+  admin_news_item_delete_confirmation: Weet u zeker dat u "%{page_name}" en alle vertalingen wilt verwijderen. Het verwijderen van pagina's kan niet ongedaan worden gemaakt.
+  admin_news_item_delete_successful_notice: Het nieuwsitem %{page_name} en bijbehorende vertalingen zijn verwijderd.
+  admin_news_item_edit_header: Basispaginagegevens voor het nieuwsitem <em>%{page_name}</em> bijwerken
+  admin_news_item_edit_tip: We raden u aan de unieke naam van dit nieuwsitem niet te wijzigen, tenzij u zich volledig bewust bent van de gevolgen, inclusief de invloed op verwijzingen naar deze pagina of naar benoemde routes. De unieke naam is %{required_icon} verplicht.
+  admin_news_item_new_header: Nieuw nieuwsitem maken
+  admin_news_item_new_link: Nieuwsitem aanmaken
+  admin_news_item_new_tip: Voer basisgegevens in over deze pagina. De unieke naam is %{required_icon} verplicht.
+  admin_news_item_not_active: Ongepubliceerd
+  admin_news_item_update_successful_notice: Het nieuwsitem <a href="#%{anchor}"><em>%{page_name}</em></a> is bijgewerkt.
+  admin_news_item_update_unsuccessful_error: Er is een fout opgetreden. Het nieuwsitem kon niet worden bijgewerkt.
+  admin_news_items_empty: Geen nieuwsitems gevonden.
+  admin_news_items_index_information: De volgende lijst bevat alle nieuwitems in de EOL-website,inclusief uitgelichte nieuwsitems. Iedere pagina heeft één of meer vertalingen. Als u een nieuw nieuwsitem maakt, vraagt de website u een vertaling toe te voegen. Gepubliceerde vertalingen zijn voor iedereen toegankelijk.
+  admin_news_items_page_title: "Beheer: Nieuws"
+  admin_news_link: Nieuws
   admin_notes_not_visible_to_user: "Opmerkingen voor beheerders (niet zichtbaar voor gebruikers):"
   admin_page_title: "Beheer: Overzicht"
   admin_spam_delete: Spam verwijderen
@@ -830,6 +856,20 @@ nl:
   admin_translated_content_page_new_tip: Taal, paginanaam en inhoud zijn %{required_icon} verplicht.
   admin_translated_content_page_update_successful_notice: De vertaling in %{language} voor <a href="#%{anchor}"><em>%{page_name}</em></a> is bijgewerkt.
   admin_translated_content_page_update_unsuccessful_error: Er is een fout opgetreden. De vertaling kon niet worden bijgewerkt.
+  admin_translated_news_item_active: Gepubliceerd
+  admin_translated_news_item_create_successful_notice: De vertaling is toegevoegd aan <a href="#%{anchor}"><em>%{page_name}</em></a>
+  admin_translated_news_item_create_unsuccessful_error: Er is een fout opgetreden. De vertaling kon niet worden toegevoegd.
+  admin_translated_news_item_delete_confirmation: Weet u zeker dat u de versie in %{language} van "%{page_name}" wilt verwijderen? Deze handeling kan niet ongedaan gemaakt worden.
+  admin_translated_news_item_delete_successful_notice: De vertaling in %{language} van het nieuwsitem <em>%{page_name}</em> is verwijderd.
+  admin_translated_news_item_edit_subheader: Vertaling in %{language} voor <em>%{page_name}</em> bewerken
+  admin_translated_news_item_edit_tip: Paginanam en inhoud zijn %{required_icon} verplicht.
+  admin_translated_news_item_new_header: Kies een taal en voeg inhoud toe
+  admin_translated_news_item_new_link: Vertaling toevoegen
+  admin_translated_news_item_new_subheader: Vertaling toevoegen voor <em>%{page_name}</em>
+  admin_translated_news_item_new_tip: Taal, paginanaam en inhoud zijn %{required_icon} verplicht.
+  admin_translated_news_item_not_active: Ongepubliceerd
+  admin_translated_news_item_update_successful_notice: De vertaling in %{language} voor <a href="#%{anchor}"><em>%{page_name}</em></a> is bijgewerkt.
+  admin_translated_news_item_update_unsuccessful_error: Er is een fout opgetreden. De vertaling kon niet worden bijgewerkt.
   admin_user_delete_successful_notice: De gebruiker is verwijderd.
   admin_user_hide_successful_notice: Gebruiker is verborgen
   admin_user_unhide_successful_notice: Gebruiker is weer zichtbaar gemaakt
@@ -1232,6 +1272,7 @@ nl:
   containing_value: met %{value}.
   content: 
     index: 
+      header_news: EOL-nieuws
       meta_description: De Encyclopedia of Life is een ongeëvenaarde inspaning om wetenschappelijke kennis te vergaren over al het dieren- en plantenleven, in beeld, gegevens, feiten en meer.
       meta_keywords: Dieren, direnafbeeldingen, dierengegevens, planten, plantenleven, plantenafbeeldingen, plantengegevens, flora, fauna
       meta_title: Dieren - Planten - Afbeeldingen en gegevens
@@ -1614,6 +1655,7 @@ nl:
   dato_edit_text_link_button: Pagina bewerken
   dato_edit_text_page_description: Dank u wel dat u uw expertise beschikbaar wilt stellen aan EOL. De aangepaste pagina wordt toegevoegd aan uw volglijst zodat u overleg over deze pagina kunt volgen en de conserveringsstatus kunt bijhouden.
   dato_edit_text_title: Artikel bewerken
+  dato_location_created: "Locatie gemaakt: #{loc}"
   dato_new_edit_user_text_fieldset_content_header: Artikelinhoud
   dato_new_edit_user_text_fieldset_information_header: Artikelgegevens
   dato_new_edit_user_text_form_tip: Uw afgeronde artikel wordt geplaatst op de taxonpagina. Als u geen conservator bent, wordt het gemarkeerd als "niet-beoordeeld" totdat het wordt beoordeeld door een conservator. Hoofdstuk, tekst, taal en licentie zijn vereist (%{required_icon}), alle andere velden zijn optioneel. Als u een CC BY-licentie (Naamsvermelding) selecteert, neem dan een rechthebbende op of laat het veld leeft om uw eigen volledige naam te gebruiken. Voor Publiek domeinlicenties is geen rechthebbende nodig. Lees voor meer informatie de <a href="%{add_article_help_url}">hulppagina voor artikel toevoegen</a>.
@@ -1677,8 +1719,6 @@ nl:
   edit_glossary_term: Woordenlijstterm bewerken
   edit_hierarchy: hiërarchie bewerken
   edit_my_profile: Mijn profiel bewerken
-  edit_news_item: Nieuwsbericht bewerken
-  edit_news_item_instructions_with_link: Bewerk het nieuwsitem hieronder. HTML is toegestaan in beide velden en tenminste één van de velden titel en inhoud moet gevuld worden. Voor het beste resultaat, kiest u een korte titel en voert u een kort nieuwsbericht in. Als u hyperlinks naar andere sites toevoegt, kunt u %{link} gebruiken om kortere URL's te maken om tekens te besparen.
   edit_news_items: nieuwsberichten bewerken
   edit_page_contents: pagina-inhoud bewerken
   edit_search_suggestion: Zoeksuggestie bewerken
@@ -1998,6 +2038,10 @@ nl:
         complete_more: "Een geconserveerde hiërarchie neemt aan dat elke invoer uniek is, ofwel overeenkomende namen worden beschouwd als homoniem. <strong>Waarschuwing: wijzig deze eigenschap niet, tenzij u zekerheid hebt over de status van homoniemen in de hiërarchie; een verandering kan de integriteit van de gegevens in gevaar brengen.</strong>"
         request_publish: Publicatie aangevraagd.
         request_publish_more: Geeft aan of er een aanvraag opstaat om deze hiërarchie te bevorderen tot één van de primaire bladerbare hiërarchieën op EOL.
+      news_item: 
+        active: Gepubliceerd
+        page_name: Unieke naam <small>(alleen kleine letters ISO fundamentele Latijnse alfanumerieke tekens en onderstrepingstekens)</small>
+        page_name_more: Voer een unieke, zelfbeschrijvende, zinvolle en blijvende identificatie voor dit nieuwsitem toe. De naam die u hier invult wordt gebruikt om de URL voor dit nieuwsitem te maken. De unieke naam <em>gebruikersvoorwaarden_eol</em> wordt omgezet in de URL <em>http://eol.org/news/new_version_of_eol</em>.
       open_authentication: 
         connect: Toevoegen
         connected: Gekoppeld
@@ -2026,13 +2070,21 @@ nl:
         username_or_email: Gebruikersnaam of e-mailadres
       translated_content_page: 
         active_translation: Gepubliceerd
-        active_translation_more: Gepubliceerde vertalingen zijn openbaar te zien tenzij de pagina zelf niet openbaar is. Vink <em>gepubliceerd</em> uit als u wilt voorkomen dat iedereen deze versie van de pagina te zien krijgt.
+        active_translation_more: Gepubliceerde vertalingen zijn openbaar, tenzij de pagina zelf niet openbaar is. Vink <em>gepubliceerd</em> uit als u wilt voorkomen dat iedereen deze versie van de pagina te zien krijgt.
         language_id: Taal
         left_content_more: "(optioneel) Voeg een ongesorteerde lijst toe met navigatieerwijzingen. Gebruik de klassenaam <code>active</code> om de verwijzing voor de huidige pagina uit te lichten, bijvoorbeeld <code>&lt;li class=\"active\"&gt;&lt;a href=\"/info/:id\"&gt;:title&lt;/a&gt;&lt;/li&gt;</code> waar <code>:id</code> is het ID of de unieke naam van de huidige pagina en <code>:title</code> is de beschrijvende titel van de pagina. Let op: alle verwijzingen naar pagina's uit het EOL CMS moeten beginnen met een slash (/): <code>/info/:id</code>.</strong> U moet de HTML-broncode direct bewerken om deze wijzigingen te maken. Doe dit door <em>Broncode</em> te selecteren in de werkbalk van de tekstverwerker."
-        main_content_more: "Voer de hoofdinhoud voor de pagina in in het tekstvak. Gebruik de dropdown <em>Vormgeving</em> om de toepasselijke semantische tekstelementen te selecteren; kies bijvoorbeeld <em>Koptekst 2</em> voor een tweede niveau koptekst. Let op: <em>Koptekst 1</em> is gereserveerd voor de paginanaam, dus kopteksten in de body beginnen met <em>Koptekst 2</em>. Selecteer <em>Broncode</em> om om te schakelen naar bewerken in broncodemodus, zodat u handmatig HTML kunt toevoegen en aanpassen."
-        meta_description_more: Geef een korte beschrijving, waarin de belangrijkste concepten van depagina verkort worden weergegeven. Deze beschrijving wordt soms gebruikt door zoekmachines, zowel voor het controleren van relevantie als voor opname in zoekmachineresultaten.
-        meta_keywords_more: Voer een kommagescheiden lijst van woorden en korte zinnen in die het best de inhoud van de pagina weergeven. Deze trefwoorden en -lzinnen worden soms gebruikt door zoekmachines om de relevantie van de pagina te beoordelen ten opzichte van zoektermen.
+        main_content_more: "Voer de hoofdinhoud voor de pagina in in het tekstvak. Gebruik de dropdown <em>Vormgeving</em> om de toepasselijke semantische tekstelementen te selecteren; kies bijvoorbeeld <em>Koptekst 2</em> voor een tweede niveau koptekst. Let op: <em>Koptekst 1</em> is gereserveerd voor de paginanaam, dus kopteksten in de inhoud beginnen met <em>Koptekst 2</em>. Selecteer <em>Broncode</em> om om te schakelen naar bewerken in broncodemodus, zodat u handmatig HTML kunt toevoegen en aanpassen."
+        meta_description_more: Geef een korte beschrijving, waarin de belangrijkste concepten van de pagina verkort worden weergegeven. Deze beschrijving wordt soms gebruikt door zoekmachines, zowel voor het controleren van relevantie als voor opname in zoekmachineresultaten.
+        meta_keywords_more: Voer een kommagescheiden lijst van woorden en korte zinnen in die het best de inhoud van de pagina weergeven. Deze trefwoorden en zinnen worden soms gebruikt door zoekmachines om de relevantie van de pagina te beoordelen ten opzichte van zoektermen.
         title_more: De paginanaam wordt opgenomen in de kopregel van de pagina. De paginanaam hoort trefwoorden te bevatten die het meest relevant zijn voor de inhoud.
+      translated_news_item: 
+        active_translation: Gepubliceerd
+        active_translation_more: Gepubliceerde vertalingen zijn openbaar, tenzij het nieuwsitem zelf niet openbaar is. Vink <em>gepubliceerd</em> uit als u wilt voorkomen dat iedereen deze versie van het nieuwsitem te zien krijgt.
+        body_more: "Voer de hoofdinhoud voor het nieuwsitem in in het tekstvak. Gebruik de dropdown <em>Vormgeving</em> om de toepasselijke semantische tekstelementen te selecteren; kies bijvoorbeeld <em>Koptekst 2</em> voor een tweede niveau koptekst. Let op: <em>Koptekst 1</em> is gereserveerd voor de kop van het nieuwsitem, dus kopteksten in de inhoud beginnen met <em>Koptekst 2</em>. Selecteer <em>Broncode</em> om om te schakelen naar bewerken in broncodemodus, zodat u handmatig HTML kunt toevoegen en aanpassen."
+        language_id: Taal
+        meta_description_more: Geef een korte beschrijving, waarin de belangrijkste concepten van het nieuwsitem verkort worden weergegeven. Deze beschrijving wordt soms gebruikt door zoekmachines, zowel voor het controleren van relevantie als voor opname in zoekmachineresultaten.
+        meta_keywords_more: Voer een kommagescheiden lijst van woorden en korte zinnen in die het best de inhoud van het nieuwsitem weergeven. Deze trefwoorden en zinnen worden soms gebruikt door zoekmachines om de relevantie van de pagina te beoordelen ten opzichte van zoektermen.
+        title_more: De naam wordt opgenomen in de kopregel van de pagina. De paginanaam hoort trefwoorden te bevatten die het meest relevant zijn voor de inhoud.
       user: 
         agreed_with_terms: Ik ga akkoord met de <a href="%{terms_url}">gebruiksvoorwaarden</a>
         api_key_more: Lees meer over <a href="%{api_docs_url}">een sleutel toevoegen aan uw API-verzoeken</a>.
@@ -2114,6 +2166,11 @@ nl:
       name: 
         create: Naam toevoegen
         update: Naam bijwerken
+      news_item: 
+        create: Nieuwsitem aanmaken
+        edit: Bewerken
+        preview: Voorvertoning
+        update: Nieuwsitem bijwerken
       open_authentication: 
         create: Koppelen
         destroy: Loskoppelen
@@ -2131,6 +2188,9 @@ nl:
         sign_in_with_yahoo: Aanmelden met Yahoo!
       submit: "%{model} opslaan"
       translated_content_page: 
+        create: Vertaling toevoegen
+        update: Vertaling bijwerken
+      translated_news_item: 
         create: Vertaling toevoegen
         update: Vertaling bijwerken
       update: "%{model} bijwerken"
@@ -2151,7 +2211,6 @@ nl:
   here: hier
   hidden: Verborgen
   hidden_comment: verborgen opmerking
-  hidden_for_colon: "Verborgen voor:"
   hide: verbergen
   hierarchies_title: Hiërarchieën
   hierarchy: Hiërarchie
@@ -2252,6 +2311,7 @@ nl:
   json_response: JSON-antwoord
   jsonp_by_adding_a_callback_parameter: ... en JSONP door het toevoegen van een callbackparameter
   just_pages_with_pictures_and_text: Alleen de pagina's met afbeeldingen en tekst
+  keep_split_entry_from_this_entry: Gescheiden houden van deze term
   label: Label
   language: "Taal:"
   language_selector_advisory_information: Hieronder staat een lijst met talen waarvan de inhoud van de website beschikbaar is. Selecteer een taal uit de lijst om de inhoud in die taal te bekijken.
@@ -2259,6 +2319,51 @@ nl:
   languages: Talen
   last_updated: Laatst bijgewerkt
   last_updated_time_ago: "%{time_passed} geleden voor het laatst bijgewerkt"
+  layouts: 
+    v2: 
+      application: 
+        about_link_citing: EOL citeren
+        about_link_contact_us: Contact opnemen
+        about_link_discover: Ontdekken
+        about_link_donate: Doneren aan EOL
+        about_link_eol_blog: De EOL-blog
+        about_link_help: Hulp
+        about_link_statistics: Statistieken
+        about_link_terms_of_use: Gebruiksvoorwaarden
+        about_link_what_is_eol: Wat is EOL?
+        header_about: Over EOL
+        header_learn_more: Meer te weten komen
+        header_questions: Vertel me meer
+        learn_more_link_amphibians: Amfibieën
+        learn_more_link_animals: Dieren
+        learn_more_link_archaea: Archaea
+        learn_more_link_bacteria: Bacteriën
+        learn_more_link_birds: Vogels
+        learn_more_link_crustaceans: Schaaldieren
+        learn_more_link_fish: Vissen
+        learn_more_link_flowering_plants: Bedektzadigen
+        learn_more_link_fungi: Schimmels
+        learn_more_link_insects: Insecten
+        learn_more_link_invertebrates: Ongewervelden
+        learn_more_link_mammals: Zoogdieren
+        learn_more_link_molds: Schimmels
+        learn_more_link_mollusks: Weekdieren
+        learn_more_link_mushrooms: Paddestoelen
+        learn_more_link_plants: Planten
+        learn_more_link_protists: Protisten
+        learn_more_link_reptiles: Reptielen
+        learn_more_link_spiders: Spinnen
+        learn_more_link_trees: Bomen
+        learn_more_link_viruses: Virussen
+        questions_link_binomial_nomenclature: Wat is de binomiale nomenclatuur?
+        questions_link_biodiversity: Wat is biodiversiteit?
+        questions_link_biological_classification: Wat is een biologische classificatie?
+        questions_link_contributing_to_research: Hoe kan ik bijdragen aan onderzoek?
+        questions_link_discovering_species: Hoe zijn soorten ontdekt?
+        questions_link_invasive_species: Wat is een invasieve soort?
+        questions_link_model_organism: Wat is een modelorganisme?
+        questions_link_naming_species: Hoe heten soorten?
+        questions_link_species: Wat is een soort?
   learn_about_collections: Hoe kan ik er een aanmaken?
   learn_about_communities: Hoe kan ik deelnemen?
   learn_about_content_partners: Hoe kan ik er een worden?
@@ -2394,7 +2499,6 @@ nl:
   method: Methode
   method_to_get_metadata_about_the_hierarchy: als er een hiërarchieaanduiding wordt opgegeven, heeft deze methode metadata terug over de hiërarchie en de roottaxa
   methods: Methoden
-  minimal_page: Minimale pagina
   mobile: 
     contents: 
       explore_eol: EOL verkennen
@@ -2442,10 +2546,13 @@ nl:
   my_info: Mijn gegevens
   name: Naam
   name_colon: "Naam:"
+  name_preferred_for_language_help_tip: "%{icon} geeft de voorkeursnaam aan voor elke taal."
   name_preferred_for_language_yes: Voorkeur
+  name_preferred_taxonomically_for_source_help_tip: "%{icon} geeft de voorkeursnaam aan voor iedere bron."
   name_preferred_taxonomically_for_source_yes: Voorkeur
   names: Namen
   names_children_column_header: Kinderen
+  names_common_empty: Er zijn nog geen gewone namen gekoppeld aan dit taxon
   names_common_list_by_language_assistive_header: Gemeenschappelijke namen per taal
   names_curation_column_header: Conservering
   names_et_al: "%{names}, et al."
@@ -2456,19 +2563,21 @@ nl:
   names_relationship_column_header: Relatie
   names_sources_column_header: Bronnen
   names_status_column_header: Status
+  names_synonyms_empty: Er zijn nog geen gewone synoniemen gekoppeld aan dit taxon
   never: Nooit
   new_collection: Nieuwe verzameling
   new_contact_us_topic: Nieuw onderwerp voor "Neem contact met ons op"
-  new_news_item: Nieuw nieuwsbericht
   new_search_suggestion: Nieuwe zoeksuggestie
   new_upload: Nieuwe upload
   new_user: Nieuwe gebruiker
   news_archive_page: nieuwsarchiefpagina
-  news_date: Nieuwsdatum
   news_item: nieuwsbericht
-  news_item_is_visible_on_websit: "Het nieuwsbericht is zichtbaar op de website na deze tijd:"
   news_item_title: Nieuwsbericht
-  news_items: Nieuwsberichten
+  news_items: 
+    index: 
+      meta_keywords: eol-nieuws, encyclopedie van nieuws over leven
+      meta_title: EOL-nieuws
+      page_title: EOL-nieuws
   newsfeed: Nieuwsoverzicht
   next: Volgende
   no_active_members: Er is nog niet genoeg activiteit geweest.
@@ -2590,7 +2699,6 @@ nl:
   object_visibility_invisible_option: Verborgen
   object_visibility_visible_option: Zichtbaar
   objects_curated: Geconserveerde objecten
-  older_version_of_latest_published_data_object_link: een oudere versie van "%{link}"
   older_version_of_latest_published_data_object_title_link: Oudere versie van %{link}
   on_time_col_header: op
   only_show_authoritative_conten: "Alleen geautoriseerde inhoud weergeven:"
@@ -2606,6 +2714,7 @@ nl:
   other_community_items_with_count: 
     one: "%{count} ander item"
     other: "%{count} andere items"
+  other_us_dollars_amount: "Anders: US$"
   overview: Overzicht
   page: Pagina
   page_linked_to: Pagina gekoppeld aan
@@ -2613,6 +2722,7 @@ nl:
   page_navigation: Paginanavigatie
   page_not_found: Pagina niet gevonden
   page_statistics: Paginastatistieken
+  page_statistics_and_tools: paginastatistieken en hulpmiddelen
   page_urls: "Pagina-URL's:"
   page_views_th: Bekeken pagina's
   pages_admin_section_link: Beheerders
@@ -2636,6 +2746,8 @@ nl:
     other: "%{count} personen"
   percentage_of_children_with_images: "% kinderen met afbeeldingen"
   percentage_of_children_with_text: "% kinderen met tekst"
+  percentage_of_descendants_with_images: percentage nakomelingen met afbeeldingen
+  percentage_of_descendants_with_text: percentage nakomelingen met tekst
   permalink: Permalink
   person_rating: Persoonswaardering
   personal_profile_menu: Persoonlijk profiel
@@ -2670,7 +2782,6 @@ nl:
   publish: publiceren
   publish_after_utc: Publiceren na (UTC)
   publish_changes: Wijzigingen publiceren
-  publish_item_based_on_time_set: Item publiceren op basis van de hierboven ingestelde tijd (uitvinken om altijd te verbergen)
   publish_requested: Gevraagde publiceren
   published: Gepubliceerd
   published_parens: (Gepubliceerd)
@@ -2782,7 +2893,6 @@ nl:
   rights: Rechten
   rights_holder: Rechthebbende
   rights_statement: Rechtenverklaring
-  rss_feed: RSS-feed
   save: Opslaan
   save_comment_lowercase: opmerking opslaan
   save_curated_association_submit_button: Koppeling opslaan
@@ -3248,8 +3358,6 @@ nl:
   the_message_was_sent: Het bericht is verzonden.
   the_new_topic_was_created: Het onderwerp is aangemaakt.
   the_new_user_was_created: De gebruiker is aangemaakt.
-  the_news_item_created: Het nieuwsbericht is aangemaakt.
-  the_news_item_updated: Het nieuwsbericht is bijgewerkt.
   the_topic_was_updated: Het onderwerp is bijgewerkt.
   the_user_was_updated: De gebruiker is bijgewerkt.
   there_are_currently_no_members_in_this_community: Er zijn momenteel geen leden in deze gemeenschap.
@@ -3272,7 +3380,6 @@ nl:
   this_video_is_unpublished: Deze video is niet gepubliceerd.
   threat_status_header_colon: "<abbr title=\"International Union for Conservation of Nature\">UCN</abbr> bedreigingsstatus:"
   time_ago: "%{time_passed} geleden"
-  tinyurl: TinyURL
   title: Titel
   to_process_your_donation_please_proceed: Om uw donatie te verwerken ga u door
   toc: Inhoudsopgave

@@ -4,11 +4,12 @@
 # Author: DRIHEM
 # Author: Ghada.nabeel
 # Author: Meno25
+# Author: Mutarjem horr
 # Author: OsamaK
 # Author: ترجمان05
 ar: 
   translated_activities-name-activity_id-19: ملف
-  translated_activities-name-activity_id-50: غير موثوق فيه
+  translated_activities-name-activity_id-50: غير موثوق به
   translated_activities-name-activity_id-51: عرض
   translated_activities-name-activity_id-52: اصنع
   translated_activities-name-activity_id-53: إخفاء
@@ -16,7 +17,7 @@ ar:
   translated_activities-name-activity_id-55: غير لائق
   translated_activities-name-activity_id-56: مسح
   translated_activities-name-activity_id-57: المعدل
-  translated_activities-name-activity_id-58: موثوق فيه
+  translated_activities-name-activity_id-58: موثوق به
   translated_activities-name-activity_id-59: غير مُراجَع
   translated_activities-name-activity_id-63: جمع
   translated_activities-name-activity_id-64: حذف
@@ -87,11 +88,11 @@ ar:
   translated_content_partner_statuses-label-content_partner_status_id-3: في الأرشيف
   translated_content_partner_statuses-label-content_partner_status_id-4: غير نشط
   translated_content_tables-label-content_table_id-1: التفاصيل
-  translated_data_types-label-data_type_id-1: صورة
+  translated_data_types-label-data_type_id-1: الصورة
   translated_data_types-label-data_type_id-10: خريطة
-  translated_data_types-label-data_type_id-2: صوت
-  translated_data_types-label-data_type_id-3: نص
-  translated_data_types-label-data_type_id-4: فيديو
+  translated_data_types-label-data_type_id-2: الصوت
+  translated_data_types-label-data_type_id-3: النص
+  translated_data_types-label-data_type_id-4: الفيديو
   translated_data_types-label-data_type_id-5: صورة GBIF
   translated_data_types-label-data_type_id-6: الاتحاد الدولي لحماية الطبيعة (IUCN)
   translated_data_types-label-data_type_id-7: فلاش

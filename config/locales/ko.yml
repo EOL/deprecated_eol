@@ -7,7 +7,7 @@ ko:
   0_1_or_2: 0, 1 또는 2
   0_or_1: 0 또는 1
   a_taxon: 분류군
-  about_eol: EOL 정보
+  about_eol: EOL 소개
   account_information: 계정 정보
   account_information_menu: 계정 정보
   action: 행위
@@ -69,8 +69,8 @@ ko:
         bibliographic_citation: 참고 문헌 인용
         description: 설명
         object_title: 제목
-        rights_holder: 권리 소유자
-        rights_statement: 권리 정책
+        rights_holder: 권한 소유자
+        rights_statement: 권한 정책
         source_url: 출처 URL
       eol_statistic: 
         active_curators: 활발한 큐레이터
@@ -146,6 +146,10 @@ ko:
         request_publish: 게시 요청
       name: 
         string: 이름
+      news_item: 
+        active: 게시함
+        page_name: 고유 이름
+        sort_order: 정렬 순서
       notification: 
         changes_to_my_watched_collection: 주시문서 목록에 있는 모음집에 대한 바뀜
         changes_to_my_watched_community: 주시문서 목록에 있는 공동체에 대한 바뀜
@@ -195,6 +199,12 @@ ko:
         active_translation: 게시함
         left_content: 둘러보기
         main_content: 본문
+        meta_description: 메타데이터 설명
+        meta_keywords: 메타데이터 키워드
+        title: 제목
+      translated_news_item: 
+        active_translation: 게시함
+        body: 본문
         meta_description: 메타데이터 설명
         meta_keywords: 메타데이터 키워드
         title: 제목
@@ -289,10 +299,25 @@ ko:
   activity_log_empty_learn_more_link: 기여하는 방법 알아보기
   activity_logs: 
     collection_activity_log: 
+      add_editor: 
+        an_unknown_user_of_it: 알 수 없는 사용자를 운영자로서 추가했습니다.
+      bulk_add: 
+        an_unknown_user_added_bulk_items_to_it: 알 수 없는 사용자가 대량으로 항목을 추가했습니다.
+        user_of_it: <strong>%{user}</strong> 사용자가 대량으로 항목을 추가했습니다.
+      collect: 
+        an_unknown_user_added_an_unknown_item_to_it: 알 수 없는 사용자가 알 수 없는 항목을 추가했습니다.
+        an_unknown_user_added_item_to_it: 알 수 없는 사용자가 "%{item}" 항목을 추가했습니다.
+        user_added_an_unknown_item_to_it: <strong>%{user}</strong> 사용자가 알 수 없는 항목을 추가했습니다.
       create: 
         an_unknown_user_created_it: 알 수 없는 사용자가 만들었습니다.
+        user_created_it: <strong>%{user}</strong> 사용자가 만들었습니다.
       remove: 
         an_unknown_user_removed_an_unknown_item_from_an_unknown_collection: 알 수 없는 사용자가 알 수 없는 모음집에서 알 수 없는 항목을 제거했습니다.
+        an_unknown_user_removed_an_unknown_item_from_it: 알 수 없는 사용자가 알 수 없는 항목을 제거했습니다.
+        an_unknown_user_removed_item_from_it: 알 수 없는 사용자가 "%{item}" 항목을 제거했습니다.
+      remove_all: 
+        an_unknown_user_cleared_it: 알 수 없는 사용자가 모든 항목을 제거했습니다.
+        user_cleared_it: <strong>%{user}</strong> 사용자가 모든 항목을 제거했습니다.
     curator_activity_log: 
       other_actions: 
         an_unknown_user_curated_an_older_data_object: 알 수 없는 사용자가 "%{data_object}"의 이전 버전을 큐레이트했습니다.
@@ -311,7 +336,6 @@ ko:
   add_a_comment_colon: "덧글 추가:"
   add_a_new_common_name: 새 공통 이름 추가
   add_a_new_file_brackets: "[새 파일 추가]"
-  add_a_new_news_item: 새 뉴스 항목 추가
   add_a_new_role: 새 규칙 추가
   add_a_new_search_suggestion: 새 검색 제안 추가
   add_a_new_term: 새 항목 추가
@@ -467,7 +491,7 @@ ko:
   associated_with_sound_header: 최근 소리에서
   associated_with_video_header: 최근 동영상에서
   associations_more_link: 더 많은 <span class="assistive">분류군 연관</span>
-  attribute: 속성
+  attribute: 특성
   audio_mute: 음소거
   audio_pause: 일시정지
   audio_play: 재생
@@ -589,9 +613,11 @@ ko:
       message_sent: 의견을 보내드려서 감사합니다. 메시지는 해당 그룹에 보내졌습니다.
   content: 
     index: 
+      header_news: EOL 뉴스
       meta_description: 생명의 백과사전은 사진, 정보, 사실과 더 많은 우리의 식물계과 동물계에 살고 있는 모든 것에 대해 얻을 수 있는 모든 동물과 식물에 대한 과학적 지식을 수집하기 위해 전례없는 노력을 진행하고 있습니다.
       meta_keywords: 동물, 동물 사진, 동물 정보, 식물, 식물 생명, 식물 사진, 식물 정보, 식물상, 동물상
       meta_title: 동물 - 식물 - 사진과 정보
+      see_all_eol_news: <span class="assistive">eol 뉴스</span> 더 보기
       see_all_recent_activites: <span class="assistive">지난 주 활동에 대해</span> 더 보기
   content_has_been_updated: 콘텐트를 업데이트했습니다.
   content_notes_not_shown_to_us: "콘텐츠 참고 (사용자에게 보여지지 않음):"
@@ -756,7 +782,7 @@ ko:
     one: 큐레이터 %{count}명
     other: 큐레이터 %{count}명
   current_language: "언어: %{iso_code}"
-  currently_in_eol: 현재 생명의 백과사전에 있음
+  currently_in_eol: 현재 생명의 백과사전에서
   currently_published: 현재 게시함
   dashboard: 데시보드
   data_database_colon: "날짜:"
@@ -874,7 +900,6 @@ ko:
   edit_contact_us_topic: 주제 문의하기 편집
   edit_contact_us_topics: 주제 문의하기 편집
   edit_my_profile: 내 프로필 편집
-  edit_news_item: 뉴스 항목 편집
   edit_news_items: 뉴스 항목 편집
   edit_page_contents: 문서 내용 편집
   edit_search_suggestion: 검색 제안 편집
@@ -952,23 +977,40 @@ ko:
   file_id: 파일 ID
   file_size: 파일 크기
   filter_button: 필터
+  filter_by_day: 날짜별 필터
+  filter_by_status: 상태별 필터
+  filter_by_status_all_option: 모든 상태
   filter_by_status_inappropriate_option: 부적절
   filter_by_status_trusted_option: 신뢰함
   filter_by_status_unreviewed_option: 검토하지 않음
   filter_by_status_untrusted_option: 신뢰하지 않음
+  filter_by_type: 종류별 필터
+  filter_by_type_all_option: 모든 종류
+  filter_by_type_all_option_with_count: 
+    one: 모든 종류 (%{count}개)
+    other: 모든 종류 (%{count}개)
   filter_by_type_collection_option: 모음집
   filter_by_type_comment_option: 덧글
   filter_by_type_community_option: 공동체
-  filter_by_type_content_page_option: EOL 정보
+  filter_by_type_content_page_option: EOL 소개
   filter_by_type_image_option: 그림
+  filter_by_type_image_option_with_count: 
+    one: 그림 (%{count}개)
+    other: 그림 (%{count}개)
   filter_by_type_name_option: 이름
   filter_by_type_object_curated_option: 개체 큐레이트함
   filter_by_type_sound_option: 소리
+  filter_by_type_sound_option_with_count: 
+    one: 소리 (%{count}개)
+    other: 소리 (%{count}개)
   filter_by_type_taxa_comment_option: 분류 덧글
   filter_by_type_taxon_concept_option: 분류
   filter_by_type_text_option: 문서
   filter_by_type_user_option: 사람
   filter_by_type_video_option: 동영상
+  filter_by_type_video_option_with_count: 
+    one: 동영상 (%{count}개)
+    other: 동영상 (%{count}개)
   filter_media: 필터 미디어
   filter_newsfeed_option_all: 모두
   filter_newsfeed_option_collections: 모음집
@@ -979,16 +1021,48 @@ ko:
   filtered_information: 필터한 정보
   find_taxa_submit_button: 분류 찾기
   flash_video: 플래시 비디오
+  flickr: Flickr
+  focus_list_newsfeed: 뉴스 피드 집중 목록
+  for_images_to_reference_parens: (그림 참고용)
+  for_pdfs_and_docs_parens: (PDF 및 문서용)
   forgot_password: 비밀번호 잊음
   forgot_password_form_cancel: 취소
   forgot_password_form_choose_username_legend: 계정 선택
   forgot_password_form_header: 비밀번호 초기화
+  frequency: 주기
+  frequency_daily: 매일
+  frequency_monthly: 매월
+  frequency_never: 없음
+  frequency_weekly: 매주
+  friendly_url: 친절한 URL
+  from_communities: "공동체: %{communities}"
+  from_community: "%{community} 공동체"
+  full_content_url: 전체 내용 URL
+  gbif_map: GBIF 지도
+  general_site_admin: 일반 사이트 관리자
+  get_more_tasks: 더 많은 작업 갖기
+  given_name_colon: "주어진 이름:"
   global_access_tagline: 지구상의 생명에 관한 지식에 대한 전세계적 접근
+  global_navigation: 세계 항해
+  glossary_is_empty: (용어가 비어 있음)
   glossary_term: 이용 약관
+  glossary_terms: 용어 약관
   go: 가기
+  go_back: 돌아가기
   google: Google
+  google_analytic_results: Google 웹로그 분석 결과
+  google_analytics_active: Google 웹로그 분석 활동
+  google_analytics_google_account_and_access_required: Google 웹로그 분석 (Google 계정 및 접속 필요)
+  google_images: Google 이미지
+  google_scholar: Google 학술 검색
   harvest_id: 수확 ID
+  harvesting_processes_log: 수확 과정 기록
+  harvests_for: "%{resource}에 대한 수확"
+  has_colon: "했습니다:"
   has_curated_your_image: 그림을 큐레이트했습니다
+  has_hidden_your_image: 그림을 숨겼습니다
+  has_trusted_your_image: 그림을 신뢰했습니다
+  has_untrusted_your_image: 그림을 신뢰할 수 없습니다
   hello_user: "%{user} 안녕하세요"
   help: 도움말
   helpers: 
@@ -1038,8 +1112,8 @@ ko:
         license_id_more: <a href="%{policy_url}">EOL 라이선스 정책</a>을 읽으세요
         object_title: 제목
         refs: 참고 <small>(새 행에 각 참조를 넣으세요)</small>
-        rights_holder: 권리 소유자
-        rights_statement: 권리 정책
+        rights_holder: 권한 소유자
+        rights_statement: 권한 정책
         rights_statement_more: 크리에이티브 커먼즈 저작자표시 (CC-BY) 라이선스에 따라 필요한 경우 사용 권리 정책은 <q cite="http://creativecommons.org/licenses/by/3.0">저자 또는 라이선스 제공자에 의해</q> 지정된 방식으로 상태 속성을하시기 바랍니다.
         source_url: 원래 데이터 개체에 대한 URL
         toc_item: 절
@@ -1064,6 +1138,8 @@ ko:
         browsable_status_with_colon: "본문 상태:"
         complete: 큐레이트됨
         request_publish: 요청한 게시
+      news_item: 
+        active: 게시함
       open_authentication: 
         connect: 추가
         connected: 연결함
@@ -1088,6 +1164,9 @@ ko:
         remember_me: 2주동안 로그인 유지
         username_or_email: 사용자 이름이나 이메일 주소
       translated_content_page: 
+        active_translation: 게시함
+        language_id: 언어
+      translated_news_item: 
         active_translation: 게시함
         language_id: 언어
       user: 
@@ -1161,6 +1240,11 @@ ko:
       name: 
         create: 이름 추가
         update: 이름 업데이트
+      news_item: 
+        create: 뉴스 항목 만들기
+        edit: 편집
+        preview: 미리 보기
+        update: 뉴스 항목 업데이트
       open_authentication: 
         create: 연결
         destroy: 연결 안함
@@ -1179,7 +1263,10 @@ ko:
       submit: "%{model} 저장"
       translated_content_page: 
         create: 번역 추가
-        update: 번역에 대한 바뀜 저장
+        update: 번역 바뀜 저장
+      translated_news_item: 
+        create: 번역 추가
+        update: 번역 바뀜 저장
       update: "%{model} 업데이트"
       user: 
         create: 계정 만들기
@@ -1199,12 +1286,14 @@ ko:
   hidden: 숨겨짐
   hidden_comment: 숨겨진 덧글
   hide: 숨기기
+  hierarchy_node_missing: 죄송합니다, 이 노드에 대한 데이터가 없습니다.
   home: 대문
   html_format: (HTML 형식)
   id: ID
   image: 그림
   image_alt_text: "%{taxon_name}의 이 %{vetted_status} 그림입니다."
   image_from_supplier: "%{whom}에서 그림"
+  image_is_no_longer_available: 그림을 더 이상 사용할 수 없습니다
   image_map_alt_text: "%{taxon_name}의 이 %{vetted_status} 지도입니다."
   image_map_from_supplier: "%{whom}에서 지도"
   image_map_not_associated_with_any_published_entries: 이 지도는 모든 게시한 분류와 관련되지 않습니다.
@@ -1215,14 +1304,23 @@ ko:
   image_object: 그램 개체
   image_of_taxon: "%{taxon_name}의 그림"
   image_rating: 그림 평가
+  images: 그림
   images_in_red_are_not_trusted: 빨간 그림은 신뢰하지 않았습니다.
   images_in_yellow_are_not_reviewed: 노란 그림은 검토하지 않았습니다.
   import_once: 한번에 가져오기
+  in_collection: 모음집
+  inappropriate: 부적절
+  include_all_metadata: 데이터 개체에 대한 모든 메타 데이터 포함
   indexed: 색인함
   info_item: 정보 항목
   info_items_col_header: 정보 항목
+  internal_ip_address: 내부 IP 주소
+  inverse_sort: 역순 정렬
+  invite_members_help_text: 여기에 EOL 사용자를 추가하고 새 공동체에 초대를 받을 것입니다!
+  invite_members_label: 구성원 초대
   ip: IP
   ip_address: IP 주소
+  item_added_to_watch_collection_notice: "\"%{item_name}\"(을)를 %{collection_name} 모음집에 추가했습니다."
   item_type_article: 문서
   item_type_article_assistive: 이 항목은 문서입니다
   item_type_collection: 모음집
@@ -1251,6 +1349,27 @@ ko:
   language_with_count: "%{language} (%{count})"
   languages: 언어
   last_updated: 최근 업데이트
+  layouts: 
+    v2: 
+      application: 
+        about_link_citing: EOL 인용하기
+        about_link_contact_us: 문의하기
+        about_link_discover: 발견
+        about_link_donate: EOL 기부
+        about_link_eol_blog: EOL 블로그
+        about_link_help: 도움말
+        about_link_statistics: 통계
+        about_link_terms_of_use: 이용 약관
+        about_link_what_is_eol: EOL은 무엇입니까?
+        header_about: EOL 소개
+        header_learn_more: 더 알아보기
+        header_questions: 더 말하기
+        learn_more_link_amphibians: 양서류
+        learn_more_link_animals: 동물
+        learn_more_link_birds: 조류
+        learn_more_link_fish: 어류
+        learn_more_link_mammals: 포유류
+        learn_more_link_reptiles: 파충류
   learn_about_collections: 어떻게 만들 수 있나요?
   learn_about_communities: 어떻게 참여할 수 있나요?
   learn_about_content_partners: 어떻게 될 수 있나요?
@@ -1371,19 +1490,25 @@ ko:
   names_parents_column_header: 상위
   names_preferred_column_header: 우선 사용
   names_relationship_column_header: 관계
-  new_news_item: 새 뉴스 항목
   new_upload: 새로 올리기
   new_user: 새 사용자
   news_archive_page: 뉴스 아카이브 문서
   news_item: 뉴스 항목
   news_item_title: 뉴스 항목
-  news_items: 뉴스 항목
+  news_items: 
+    index: 
+      meta_keywords: eol 뉴스, 생명의 백과사전 뉴스
+      meta_title: EOL 뉴스
+      page_title: EOL 뉴스
   newsfeed: 뉴스 피드
   next: 다음
   no_answer: 아니오
   note: "참고:"
   notes: 참고
   notes_not_shown_to_user: "참고 (사용자에게 보여지지 않음):"
+  notification_frequency_never: 없음
+  notification_frequency_newsfeed_only: 뉴스 피드만
+  notification_frequency_weekly: 매주
   notifier: 
     activity_log_empty: 큐레이터의 최근 행위가 없습니다.
     activity_on_user_content: 
@@ -1418,6 +1543,9 @@ ko:
       subject: "%{user_full_name} EOL 사용자가 이메일 주소나 메일링 리스트 환경 설정을 바꾸었습니다"
     user_verification: 
       subject: 생명의 백과사전 계정에 대한 요청 확인
+  object: 개체
+  object_curated: 개체를 큐레이트했습니다.
+  object_status: 개체 상태
   object_status_all_option: 모두
   object_status_trusted_option: 신뢰함
   object_status_unreviewed_option: 검토하지 않음
@@ -1428,9 +1556,15 @@ ko:
   object_type_community_option: 공동체
   object_type_image_option: 그림
   object_type_sound_option: 소리
+  object_type_taxon_concept_option: 분류군 개념
   object_type_text_option: 텍스트
   object_type_user_option: 사용자
   object_type_video_option: 동영상
+  object_visibility: 개체 보이기
+  object_visibility_all_option: 모두
+  object_visibility_invisible_option: 숨겨짐
+  object_visibility_visible_option: 보임
+  objects_curated: 개체 큐레이트함
   option_please_select: 선택하거나
   or_add_it_to_an_existing_collection: 기존 모음집에 추가하세요
   or_add_it_to_an_existing_community: 기존 공동체에 추가하세요
@@ -1563,7 +1697,7 @@ ko:
   remove_membership: 구성원 제거
   reply: 답글
   request: 요청
-  request_mailing_list_colon: "메일링 리스트 요청:"
+  request_mailing_list_colon: "사용자가 이메일을 받고 싶지 않습니다:"
   required_form_element: 필수
   resource: 자료
   resources: 자료
@@ -1573,7 +1707,9 @@ ko:
   results_offset: <em>%{for}</em>에 대한 결과 %{total}개 중 %{from} - %{to}
   results_per_page: "문서당 결과:"
   revisions: 판
-  rss_feed: RSS 피드
+  rights: 권한
+  rights_holder: 권한 소유자
+  rights_statement: 권한 정책
   save: 저장
   save_comment_lowercase: 덧글 저장
   save_email_settings: 이메일 설정 저장
@@ -1590,6 +1726,10 @@ ko:
   search_suggestion_created: 찾기 제안을 성공적으로 만들었습니다
   search_suggestion_updated: 찾기 제안을 성공적으로 업데이트했습니다.
   search_suggestions: 찾기 제안
+  search_term: 용어 찾기
+  search_term_detail_report: 용어 자세한 정보 보고서 찾기
+  search_term_reports: 용어 보고서 찾기
+  search_term_reports_title: 용어 보고서 찾기
   search_the_site: 사이트 찾기
   see_all_featured_collections_with_count: 
     one: 알찬 모음집 %{count}개를 봅니다.
@@ -1737,8 +1877,17 @@ ko:
         meta_title: "%{scientific_name}에 대한 공통 이름"
         meta_title_with_common_name: "%{preferred_common_name}에 대한 공통 이름 (%{scientific_name})"
         tweet_text: "%{scientific_name}에 대한 공통 이름"
+    overviews: 
+      show: 
+        tweet_text: "%{scientific_name}에 대한 정보"
+    resources: 
+      education: 
+        meta_title: "%{scientific_name}에 대한 교육 자료"
+        meta_title_with_common_name: "%{preferred_common_name}에 대한 교육 자료 (%{scientific_name})"
+        tweet_text: "%{scientific_name}에 대한 교육 자료"
     updates: 
       show: 
+        meta_description: "%{scientific_name}에 대한 뉴스와 업데이트"
         meta_title: "%{scientific_name}에 대한 덧글"
         meta_title_with_common_name: "%{preferred_common_name}에 대한 덧글 (%{scientific_name})"
         tweet_text: "%{scientific_name}에 대한 덧글"
@@ -1746,10 +1895,21 @@ ko:
         meta_title: "%{scientific_name}의 풍요로움"
         meta_title_with_common_name: "%{preferred_common_name}의 풍요로움 (%{scientific_name})"
         tweet_text: "%{scientific_name}에 대한 풍요로움 점수"
+  taxa_column_header: 분류
+  taxa_with_count: 
+    one: 분류군 %{count}개
+    other: 분류군 %{count}개
+  taxon: 분류군
   taxon_citizen_science_header: 시민 과학 링크
   taxon_citizen_science_link: 시민 과학 링크
+  taxon_concept_stats: 분류군 개념 통계
   taxon_education_header: 교육 자료
   taxon_education_link: 교육 자료
+  taxon_group: 분류군 그룹
+  taxon_id: 분류군 ID
+  taxon_identification_resources_header: 식별 리소스
+  taxon_identification_resources_link: 식별 리소스
+  taxon_newsfeed: 분류군 뉴스 피드
   taxon_not_found_error: "\"%{taxon}\"(을)를 찾을 수 없습니다"
   taxon_partner_links_header: 파트너 링크
   taxon_partner_links_link: 파트너 링크
@@ -1759,6 +1919,7 @@ ko:
   taxon_suggested: 제안한 분류군
   technical_functions: 기술적인 기능
   term_for_search_admin_ui: 약관
+  term_is_already_def_error: "'%{term}'(은)는 이미 정의했습니다"
   terms_agreement_form_fallback: 계정에 접근하기 전에 <a href="%{terms_url}">이용 약관</a>을 검토하고 동의하세요.
   terms_agreement_form_header: 이용 약관
   terms_agreement_form_submit: 동의합니다
@@ -1782,8 +1943,6 @@ ko:
   the_message_was_sent: 메시지를 보냈습니다.
   the_new_topic_was_created: 새 주제를 만들었습니다.
   the_new_user_was_created: 새 사용자를 만들었습니다.
-  the_news_item_created: 뉴스 항목을 성공적으로 만들었습니다.
-  the_news_item_updated: 뉴스 항목을 성공적으로 업데이트했습니다.
   the_topic_was_updated: 주제를 업데이트했습니다.
   the_user_was_updated: 사용자를 업데이트했습니다.
   there_are_currently_no_members_in_this_community: 현재 이 공동체에 구성원이 없습니다.
@@ -1806,7 +1965,6 @@ ko:
   this_video_is_unpublished: 이 동영상은 게시하지 않았습니다.
   thumbnail_page_colon: "섬네일 문서:"
   time_ago: "%{time_passed} 전"
-  tinyurl: 단축URL
   title: 제목
   toc: 목차
   toc_entry_col_header: 목차 항목
@@ -1878,6 +2036,7 @@ ko:
     one: 공통 이름 %{count}개 제거함
     other: 공통 이름 %{count}개 제거함
   user_activity_stats_header: 활동
+  user_activity_stats_objects_curated_dropdown: 개체 큐레이트함
   user_activity_stats_selected_articles_for_overview: 
     one: 둘러보기에 대해 문서 %{count}개 선택함
     other: 둘러보기에 대해 문서 %{count}개 선택함
@@ -1891,6 +2050,7 @@ ko:
   user_activity_stats_taxa_curated: 
     one: 분류 %{count}개에 큐레이트함
     other: 분류 %{count}개에 큐레이트함
+  user_agent: 유저 에이전트
   user_already_active_notice: 계정이 이미 활성화되어 있습니다, 로그인하세요.
   user_comment: 사용자 덧글
   user_comments: 사용자 덧글
@@ -1923,6 +2083,10 @@ ko:
         meta_description: "%{user_full_name}는 공동체의 구성원입니다."
         meta_title: "%{user_full_name} 공동체"
         tweet_text: "%{user_full_name} 공동체"
+    content_partners: 
+      index: 
+        meta_title: "%{user_full_name} 콘텐츠 파트너"
+        tweet_text: "%{user_full_name} 콘텐츠 파트너"
     new: 
       complete_registration_header: EOL 등록을 완료했습니다
       create_user_header: 새 <abbr title="Encyclopedia of Life">EOL</abbr> 계정 만들기
@@ -1950,7 +2114,12 @@ ko:
     notifications: 
       edit: 
         page_title: 알림 설정
+      update: 
+        notification_settings_successfully_updated: 알림 설정을 성공적으로 업데이트했습니다.
+        sorry_notification_settings_could_not_be_updated: 죄송합니다, 알림 설정을 업데이트할 수 없습니다.
     open_authentications: 
+      errors: 
+        not_authorized_to_add_authentication: 죄송합니다, 해당 계정에 연결하는 데 인증할 수 없습니다.
       facebook: 페이스북
       google: 구글
       index: 

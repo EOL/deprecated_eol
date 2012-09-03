@@ -285,7 +285,6 @@ sv:
   add_a_comment_colon: "Lägg till en kommentar:"
   add_a_new_common_name: Lägg till ett nytt vanligt namn
   add_a_new_file_brackets: "[lägg till en ny fil]"
-  add_a_new_news_item: Lägg till ett nytt nyhetsobjekt
   add_a_new_role: Lägg till en ny roll
   add_a_new_search_suggestion: Lägg till ett nytt sökförslag
   add_a_new_term: Lägg till en ny term
@@ -1214,7 +1213,6 @@ sv:
   meta_title_site_name: Encyclopedia of Life
   method: Metod
   methods: Metoder
-  minimal_page: Minimal sida
   mobile: 
     contents: 
       explore_eol: Utforska EOL
@@ -1276,7 +1274,6 @@ sv:
   new_user: Ny användare
   news_item: nyhetsobjekt
   news_item_title: Nyhetsobjekt
-  news_items: Nyhetsobjekt
   newsfeed: Nyhetsflöde
   newsfeed_help_for_taxon: Nyhetsflödet för denna EOL Taxon-sida samlar uppdateringar som är associerade med objekt som visas på den, inklusive kuratoråtgärder och kommentarer från EOL-användare.
   next: Nästa
@@ -1334,7 +1331,6 @@ sv:
   object_visibility_all_option: Alla
   object_visibility_invisible_option: Dolda
   object_visibility_visible_option: Synlig
-  older_version_of_latest_published_data_object_link: en äldre version av "%{link}"
   older_version_of_latest_published_data_object_title_link: Äldre version av %{link}
   on_time_col_header: kl
   option_please_select: Var god välj
@@ -1500,7 +1496,6 @@ sv:
   revoke_manager_link: Återkalla ledarroll
   rights: Rättigheter
   rights_holder: Rättighetsinnehavare
-  rss_feed: RSS-flöde
   save: Spara
   save_comment_lowercase: spara kommentar
   save_email_settings: spara e-postinställningar
@@ -1512,7 +1507,6 @@ sv:
   search_field_preferred_common_name: Föredraget vanligt namn
   search_field_surrogate: Surrogat
   search_field_synonym: Synonym
-  search_for_items_containing: "Sök efter objekt som innehåller:"
   search_for_messages_containing: "Sök efter meddelanden som innehåller:"
   search_for_terms_containing: "Sök efter ord som innehåller:"
   search_input_advisory_information: Skriv in vanliga eller vetenskapliga namn på levande organismer som du skulle vilja veta mer om. Du kan även sök efter EOL-medlemmar, samlingar och gemenskaper.
@@ -1736,8 +1730,6 @@ sv:
   the_message_was_sent: Meddelandet skickades.
   the_new_topic_was_created: Det nya ämnet har skapats.
   the_new_user_was_created: Den nya användaren har skapats.
-  the_news_item_created: Nyhetsobjektet har skapats.
-  the_news_item_updated: Nyhetsobjektet har uppdaterats.
   the_suggested_page_to_direct_users_to_link: den föreslagna sidan att omdirigera användare till
   the_topic_was_updated: Ämnet har uppdaterats.
   the_user_was_updated: Användaren har uppdaterats.
@@ -1758,7 +1750,6 @@ sv:
   threat_status_header_colon: "<abbr title=\"International Union for Conservation of Nature\">IUCN</abbr>-hotstatus:"
   thumbnail_page_colon: "miniatyrsida:"
   time_ago: "%{time_passed} sedan"
-  tinyurl: TinyURL
   title: Titel
   to_process_your_donation_please_proceed: För att behandla din donation går du vidare
   topic: Ämne

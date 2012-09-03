@@ -242,7 +242,6 @@ ms:
   add_a_comment_colon: "Komen:"
   add_a_new_common_name: Tuliskan nama am yang baru
   add_a_new_file_brackets: "[tambahkan fail baru]"
-  add_a_new_news_item: Tambahkan bahan berita baru
   add_a_new_role: Tambahkan peranan baru
   add_a_new_search_suggestion: Tambahan cadangan carian baru
   add_a_new_term: Tambahkan istilah baru
@@ -1329,7 +1328,6 @@ ms:
   method: Kaedah
   method_to_get_metadata_about_the_hierarchy: dengan pengenal pasti hierarki, kaedah ini memulangkan metadata mengenai hierarki dan menyenaraikan takson-takson akar
   methods: Kaedah
-  minimal_page: Halaman Minimal
   mobile: 
     contents: 
       explore_eol: Jelajahi EOL
@@ -1378,7 +1376,6 @@ ms:
   never: Jangan
   new_collection: Himpunan baru
   new_user: Pengguna Baru
-  news_items: Bahan Berita
   newsfeed: Suapan berita
   newsfeed_help_for_collection: Suapan Berita untuk Himpunan EOL ini menghimpunkan kemas kini yang dikaitkan dengan butir-butiran yang tergolong dalamnya, termasuk kegiatan-kegiatan pemiliknya dan komen-komen dari pengguna EOL yang lain.
   newsfeed_help_for_community: Suapan Berita untuk Himpunan EOL ini menghimpunkan kemas kini yang dikaitkan dengan butir-butiran yang tergolong dalam Himpunan Terurusnya, termasuk kegiatan-kegiatan para ahlinya dan komen-komen dari pengguna EOL yang lain.
@@ -1599,7 +1596,6 @@ ms:
   rights: Hak
   rights_holder: Pemegang hak
   rights_statement: Pernyataan hak-hak
-  rss_feed: Suapan RSS
   save: Simpan
   save_curated_association_submit_button: Simpan perkaitan
   scientific_name: Nama Saintifik

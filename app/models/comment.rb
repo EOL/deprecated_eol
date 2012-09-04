@@ -189,6 +189,14 @@ class Comment < ActiveRecord::Base
     reply_to_id
   end
 
+  def same_as_last?
+    last_comment = Comment.last
+    return body == last_comment.body &&
+      user_id == last_comment.user_id &&
+      parent_id == last_comment.parent_id &&
+      parent_type == last_comment.parent_type
+  end
+
 private
 
   def add_recipient_user_making_comment(recipients)

@@ -21,7 +21,9 @@ class CommentsController < ApplicationController
 
     store_location(return_to)
 
-    if @comment.save
+    if @comment.body == last_comment.body && @comment.user_id == last_comment.user_id && 
+      flash[:notice] = I18n.t(:duplicate_comment_warning)
+    elsif @comment.save
       flash[:notice] = I18n.t(:comment_added_notice)
       auto_collect(@comment.parent)
     else

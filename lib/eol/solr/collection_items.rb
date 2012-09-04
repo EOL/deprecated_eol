@@ -194,21 +194,21 @@ module EOL
 
         # add sorting
         if options[:sort_by] == SortStyle.newest
-          url << '&sort=date_modified+desc'
+          url << '&sort=date_modified+desc,collection_item_id+desc'
         elsif options[:sort_by] == SortStyle.oldest
-          url << '&sort=date_modified+asc'
+          url << '&sort=date_modified+asc,collection_item_id+asc'
         elsif options[:sort_by] == SortStyle.alphabetical
-          url << '&sort=title_exact+asc'
+          url << '&sort=title_exact+asc,collection_item_id+asc'
         elsif options[:sort_by] == SortStyle.reverse_alphabetical
-          url << '&sort=title_exact+desc'
+          url << '&sort=title_exact+desc,collection_item_id+desc'
         elsif options[:sort_by] == SortStyle.richness
-          url << '&sort=richness_score+desc'
+          url << '&sort=richness_score+desc,collection_item_id+desc'
         elsif options[:sort_by] == SortStyle.rating
-          url << '&sort=data_rating+desc'
+          url << '&sort=data_rating+desc,collection_item_id+desc'
         elsif options[:sort_by] == SortStyle.sort_field
-          url << '&sort=sort_field+asc'
+          url << '&sort=sort_field+asc,collection_item_id+asc'
         elsif options[:sort_by] == SortStyle.reverse_sort_field
-          url << '&sort=sort_field+desc'
+          url << '&sort=sort_field+desc,collection_item_id+desc'
         end
 
         # add paging

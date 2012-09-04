@@ -326,6 +326,7 @@ module ApplicationHelper
     if back_url.blank?
       root_url
     else
+      require 'uri'
       URI.decode(back_url)
     end
   end

@@ -1,36 +1,41 @@
-EolUpgrade::Application.configure do
-  # Settings specified here will take precedence over those in config/application.rb
+# Settings specified here will take precedence over those in config/environment.rb
+# 1) config/environment.rb
+# 2) config/environments/[Rails.env].rb
+# 3) config/environments/[Rails.env]_eol_org.rb
+# 4) config/environment_eol_org.rb
 
-  # In the development environment your application's code is reloaded on
-  # every request. This slows down response time but is perfect for development
-  # since you don't have to restart the web server when you make code changes.
-  config.cache_classes = false
+# Allow breakpoints in mongrel:
+require "ruby-debug"
 
-  # Log error messages when you accidentally call methods on nil.
-  config.whiny_nils = true
+# Log error messages when you accidentally call methods on nil.
+config.whiny_nils = true
 
-  # Show full error reports and disable caching
-  config.consider_all_requests_local       = true
-  config.action_controller.perform_caching = false
+# Set which IP addresses generate local requests (versus public). Local requests get the default Rails error messages.
+# Modify $LOCAL_REQUEST_ADDRESSES values to toggle between public and local error views when using a local IP.
+$LOCAL_REQUEST_ADDRESSES = [] # ['127.0.0.1', '::1'].freeze
+config.action_controller.consider_all_requests_local = false # overrides $LOCAL_REQUEST_ADDRESSES when set to true.
 
-  # Don't care if the mailer can't send
-  config.action_mailer.raise_delivery_errors = false
+# Disable caching
+config.cache_classes                                 = false
+config.action_view.debug_rjs                         = false
 
-  # Print deprecation notices to the Rails logger
-  config.active_support.deprecation = :log
+# We have code that RELIES on memcached running, so you MUST use this (or find a brilliant way to fix the code):
+config.cache_store = :dalli_store
+#config.cache_store = :memory_store
+#(you might be able to use memory_store if you don't have memcached installed when in development, but it might behave funny)
 
-  # Only use best-standards-support built into browsers
-  config.action_dispatch.best_standards_support = :builtin
+### TO ENABLE CACHING ... ( make sure the config.cache_store is setup and it exists!  note: file_store uses an absolute path )
+config.action_controller.perform_caching             = false # Of course, you want to make this true if you're testing it.
+### ^ to enable fragment caching for testing set to true...
 
-  # Raise exception on mass assignment protection for Active Record models
-  config.active_record.mass_assignment_sanitizer = :strict
+# Don't care if the mailer can't send
+config.action_mailer.raise_delivery_errors = false
 
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 1
 
-  # Do not compress assets
-  config.assets.compress = false
+$PARENT_CLASS_MUST_USE_MASTER = ActiveRecord::Base
 
   # Expands the lines which load the assets
   config.assets.debug = true

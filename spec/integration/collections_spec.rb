@@ -336,7 +336,6 @@ describe "Collections" do
       it 'should be able to delete ordinary collections'
       it 'should not be able to delete special collections'
       it 'should not be able to edit watch collection name' do
-        lambda { visit edit_collection_path(@collection) }.should raise_error(EOL::Exceptions::MustBeLoggedIn)
         visit edit_collection_path(@user.watch_collection)
         body.should have_tag('#collections_edit') do
           without_tag('#collection_name', :val => "#{@collection.name}")

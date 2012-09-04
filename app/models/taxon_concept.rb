@@ -493,7 +493,7 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def has_map
-    return true if gbif_map_id
+    return true if (gbif_map_id && GbifIdentifiersWithMap.find_by_gbif_taxon_id(gbif_map_id))
   end
 
   def quick_common_name(language = nil, hierarchy = nil)

@@ -3103,8 +3103,7 @@ en:
   content_upload_restrictions_note: "(must be less than 10 MB in size, file will be stored as uploaded, i.e. no resizing of images will be performed)"
   id: "ID"
   if_checked_and_user_is_saved: "If checked and user is saved, then credentials, scope, approval and selected clade are all removed and user no longer shows up as a curator. You should add a note below to indicate the reason. No information is sent to the user."
-  check_this_to_browse_eol_by_the_hierarchy: "(If this box is checked the classification will be shown on the names
-  tab without having to \"Show All Classifications\".)"
+  check_this_to_browse_eol_by_the_hierarchy: "(If this box is checked the classification will be shown on the names tab without having to \"Show All Classifications\".)"
   return_content_by_vettedness: "If 'vetted' is given a value of '1', then only trusted content will be returned. If 'vetted' is '2', then only trusted and unreviewed content will be returned (untrusted content will not be returned). The default is to return all content."
   image: "Image"
   image_is_no_longer_available: "Image is no longer available"

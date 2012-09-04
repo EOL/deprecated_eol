@@ -616,12 +616,6 @@ EOL.initFacebook = function(app_id, channel_url) {
   }
 };
 
-EOL.load_social_plugins = function() {
-  var facebook = "#{($ENABLED_SOCIAL_PLUGINS && $ENABLED_SOCIAL_PLUGINS.include?(:facebook)) ? true : nil}";
-  var twitter = "#{($ENABLED_SOCIAL_PLUGINS && $ENABLED_SOCIAL_PLUGINS.include?(:twitter)) ? true : nil}";
-  if (facebook) { EOL.loadFacebook("#{$FACEBOOK_APP_ID}","#{channel_facebook_url}"); }
-  if (twitter) { EOL.loadTwitter(); }
-};
 // Use this function to load the javascript after the page is rendered.
 EOL.after_onload_JS = function(jsFile) {
   (function(w, d, s) {

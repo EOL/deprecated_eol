@@ -1,5 +1,7 @@
 class DataObjectsController < ApplicationController
 
+  # TODO - remove hard-coded strings!
+
   layout :data_objects_layout
   @@results_per_page = 20
   before_filter :check_authentication, :only => [:new, :create, :edit, :update, :ignore] # checks login only

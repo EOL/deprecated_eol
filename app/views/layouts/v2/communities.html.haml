@@ -21,7 +21,7 @@
                   = link_to I18n.t(:leave_community_button), leave_community_path(@community.id, :return_to => communities_path), :class => "button confirm", :data_confirm => I18n.t(:confirm_leave)
             - else
               %li
-                = link_to I18n.t(:join_community_button), join_community_path(@community, :return_to => community_path(@community)), :class => "button"
+                = link_to I18n.t(:join_community_button), join_community_path(@community), :class => "button"
             - if @current_member && @current_member.manager? && controller.action_name != 'edit'
               %li= link_to I18n.t(:edit_community), edit_community_path(@community.id), :class => "button"
               %li= link_to I18n.t(:share_a_collection), choose_editor_target_collections_path(:community_id => @community.id), :class => "button"

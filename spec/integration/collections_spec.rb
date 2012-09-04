@@ -55,7 +55,6 @@ end
 
 describe "Collections" do
   before(:all) do
-    print "(Load scenario, set vars)"
     #Paperclip::Attachment.stub!(:save).and_return(true)
 
     unless User.find_by_username('collections_scenario')
@@ -80,7 +79,6 @@ describe "Collections" do
   # out the data beforehand, but really, we should create a bunch of scenarios in the collections scenario to account
   # for each of the required specs, and not muck with the data on the same taxon/collection each time.
   before(:each) do
-    print "(reset vals)"
     @collection.update_column(:published, true)
     @collection.update_column(:name, @collection_name)
   end
@@ -265,7 +263,6 @@ describe "Collections" do
 
     describe 'anonymous users' do
       before(:all) do
-        print "(logout)"
         visit logout_url
       end
       subject { body }
@@ -294,7 +291,6 @@ describe "Collections" do
 
     describe 'user without privileges' do
       before(:each) do
-        print "(login as under-priv user)"
         @user = @under_privileged_user
         login_as @user
       end
@@ -316,7 +312,6 @@ describe "Collections" do
 
     describe 'user with privileges' do
       before(:each) do
-        print "(login as collection owner)"
         @user = @collection_owner
         login_as @user
       end

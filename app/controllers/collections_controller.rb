@@ -159,7 +159,7 @@ class CollectionsController < ApplicationController
     @page_title = I18n.t(:collect_item) + " - " + @item.summary_name
     respond_to do |format|
       format.html do
-        render 'choose_collect_target', :layout => use_layout
+        render 'choose_collect_target', :layout => 'v2/choose_collect_target'
       end
       format.js { render :partial => 'choose_collect_target' }
     end

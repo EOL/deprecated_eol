@@ -1,8 +1,3 @@
-# Methods added to this helper will be available to all templates in the application.
-require 'uri'
-
-# TODO - look these over.  I'm not sure all of them are used, and those that are... perhaps not efficiently.
-
 module ApplicationHelper
 
   def navigation_node(hierarchy_entry, opts = {})

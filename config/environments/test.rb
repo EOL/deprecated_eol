@@ -1,11 +1,5 @@
-#---------------------------------------------------------------------------------
-# Settings specified here will take precedence over those in config/environment.rb
-# 1) config/environment.rb
-# 2) config/environments/[Rails.env].rb
-# 3) config/environments/[Rails.env]_eol_org.rb
-# 4) config/environment_eol_org.rb
-#---------------------------------------------------------------------------------
-require 'ruby-debug'
+EolUpgrade::Application.configure do
+  # Settings specified here will take precedence over those in config/application.rb
 
   # The test environment is used exclusively to run your application's
   # test suite. You never need to work with it otherwise. Remember that
@@ -13,34 +7,30 @@ require 'ruby-debug'
   # and recreated between test runs. Don't rely on the data there!
   config.cache_classes = false
 
-# Set up the master database connection for writes using masochism plugin
-# NOTE: for this to work, you *must* also use config.cache_classes = true
-# (default for production)
-config.after_initialize do
-  ActiveReload::ConnectionProxy.setup_for ActiveRecord::Base, ActiveRecord::Base
-  ActiveReload::ConnectionProxy.setup_for LoggingModel, LoggingModel
-end
+  # Configure static asset server for tests with Cache-Control for performance
+  config.serve_static_assets = true
+  config.static_cache_control = "public, max-age=3600"
 
-# Most directly emulate both development and production environments:
-# NOT WORKING: config.cache_store = :dalli_store
+  # Log error messages when you accidentally call methods on nil
+  config.whiny_nils = true
 
-# Log error messages when you accidentally call methods on nil.
-config.whiny_nils = true
+  # Show full error reports and disable caching
+  config.consider_all_requests_local       = true
+  config.action_controller.perform_caching = false
 
-# Set which IP addresses generate local requests (versus public). Local requests get the default Rails error messages.
-# Modify $LOCAL_REQUEST_ADDRESSES values to toggle between public and local error views when using a local IP.
-$LOCAL_REQUEST_ADDRESSES = [] # ['127.0.0.1', '::1'].freeze
-config.action_controller.consider_all_requests_local = false # overrides $LOCAL_REQUEST_ADDRESSES when set to true.
+  # Raise exceptions instead of rendering exception templates
+  config.action_dispatch.show_exceptions = false
 
-# Disable caching
-config.action_controller.perform_caching             = false
+  # Disable request forgery protection in test environment
+  config.action_controller.allow_forgery_protection    = false
 
-# Tell ActionMailer not to deliver emails to the real world.
-# The :test delivery method accumulates sent emails in the
-# ActionMailer::Base.deliveries array.
-config.action_mailer.delivery_method = :test
-config.cache_store = :memory_store
+  # Tell Action Mailer not to deliver emails to the real world.
+  # The :test delivery method accumulates sent emails in the
+  # ActionMailer::Base.deliveries array.
+  config.action_mailer.delivery_method = :test
 
+  # Raise exception on mass assignment protection for Active Record models
+  config.active_record.mass_assignment_sanitizer = :strict
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr

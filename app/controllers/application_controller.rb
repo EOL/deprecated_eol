@@ -1,12 +1,3 @@
-require 'uri'
-begin
-  require 'ruby-prof'
-  puts "** Ruby Profiler loaded.  You can profile requests, now."
-rescue MissingSourceFile
-  # Do nothing, we don't care and we don't want anyone to freak out from a warning.
-end
-ContentPage # This fails to auto-load.  Could be a memcached thing, but easy enough to fix here.
-
 class ApplicationController < ActionController::Base
 
   protect_from_forgery

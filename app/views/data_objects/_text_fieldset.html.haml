@@ -18,7 +18,7 @@
     %dt.required
       = f.label :description
     %dd
-      = cktext_area_tag('data_object[description]', '', :toolbarSet => 'Article', :height => 250, :width => 580)
+      = f.cktext_area(:description, :toolbarSet => 'Article', :height => 250, :width => 580)
       -# TODO: uncomment when this is ready %p= f.allowed_html_help_tip(:all)
     %dt
       = f.label :refs

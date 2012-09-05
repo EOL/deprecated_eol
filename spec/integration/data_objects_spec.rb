@@ -267,16 +267,11 @@ describe 'Data Object Page' do
     page.body.should have_tag('form.review_status a', :text => 'Remove association')
     page.body.should have_tag('form.review_status a', :text => @another_name)
     click_link "remove_association_#{@extra_he.id}"
-    debugger if body =~ @another_name # Trying to find an intermittent problem...
-    page.body.should_not have_tag('form.review_status a', :text => @another_name)
+    page.body.should_not include("remove_association_#{@extra_he.id}")
     visit('/logout')
   end
 
   it 'should allow a master curators to remove curated associations' do
-    login_as @master_curator
-    visit("/data_objects/#{@image.id}")
-    page.body.should_not have_tag('form.review_status a', :text => 'Remove association')
-    visit('/logout')
     @image.add_curated_association(@full_curator, @extra_he)
     login_as @master_curator
     visit("/data_objects/#{@image.id}")

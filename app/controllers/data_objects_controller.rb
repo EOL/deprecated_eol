@@ -303,6 +303,7 @@ class DataObjectsController < ApplicationController
     else
       access_denied
     end
+    puts "++ redirection... #{data_object_path(@data_object.latest_published_revision)}"
     redirect_back_or_default data_object_path(@data_object.latest_published_revision)
   end
 

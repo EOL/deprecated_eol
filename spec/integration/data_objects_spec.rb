@@ -41,9 +41,7 @@ end
 describe 'Data Object Page' do
 
   before(:all) do
-    truncate_all_tables
     load_foundation_cache
-    Capybara.reset_sessions!
     # Somewhat empty, to speed things up:
     @tc = build_taxon_concept(:images => [:object_cache_url => FactoryGirl.generate(:image)], :toc => [])
     @another_name = 'Whatever'
@@ -59,7 +57,6 @@ describe 'Data Object Page' do
     @extra_he = @another_tc.entry
     @image.add_curated_association(@full_curator, @extra_he)
 
-    # Build data_object without comments
     @dato_no_comments = build_data_object('Image', 'No comments',
     :num_comments => 0,
     :object_cache_url => FactoryGirl.generate(:image),
@@ -83,6 +80,17 @@ describe 'Data Object Page' do
     @user_submitted_text = @tc.add_user_submitted_text(:user => @full_curator)
     @user = User.gen
     EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild
+  end
+
+  before(:each) do
+    @image.data_objects_hierarchy_entries.first.trust(@full_curator)
+    @image.data_objects_hierarchy_entries.first.show(@full_curator)
+    @image.curated_data_objects_hierarchy_entries.each do |assoc|
+      next if assoc.hierarchy_entry_id == @extra_he.id # Keep this one.
+      @image.remove_curated_association(assoc.user, assoc.hierarchy_entry) if # ...only if it's real:
+        CuratedDataObjectsHierarchyEntry.find_by_data_object_guid_and_hierarchy_entry_id(assoc.data_object_guid,
+                                                                                         assoc.hierarchy_entry_id)
+    end
   end
 
   it "should render" do
@@ -247,7 +255,6 @@ describe 'Data Object Page' do
   end
 
   it 'should not allow assistant curators to remove curated associations' do
-    # Note there is a curated association added by @full_curator for @image. See before(:all) section.
     login_as @assistant_curator
     visit("/data_objects/#{@image.id}")
     page.body.should_not have_tag('form.review_status a', :text => 'Remove association')
@@ -255,12 +262,12 @@ describe 'Data Object Page' do
   end
 
   it 'should allow a full curators to remove self added associations' do
-    # Note there is a curated association added by @full_curator for @image. See before(:all) section.
     login_as @full_curator
     visit("/data_objects/#{@image.id}")
     page.body.should have_tag('form.review_status a', :text => 'Remove association')
     page.body.should have_tag('form.review_status a', :text => @another_name)
     click_link "remove_association_#{@extra_he.id}"
+    debugger if body =~ @another_name # Trying to find an intermittent problem...
     page.body.should_not have_tag('form.review_status a', :text => @another_name)
     visit('/logout')
   end
@@ -332,6 +339,7 @@ describe 'Data Object Page' do
     body.should_not have_tag(".article.list ul li a[href='/data_objects/#{user_submitted_text.id}']")
     click_link "Edit this article"
     fill_in 'data_object_rights_holder', :with => ""
+    $FOO = true
     click_button "Save article"
     body.should have_tag(".article.list ul li a[href='/data_objects/#{user_submitted_text.id}']")
   end

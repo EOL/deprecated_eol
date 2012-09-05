@@ -22,14 +22,18 @@ describe 'Curation' do
     @agents_cname    = Faker::Eol.common_name.firstcap
     agent = Agent.find(@taxon_concept.acting_curators.first.agent_id)
     @cn_curator = create_curator_for_taxon_concept(@taxon_concept)
-    @common_syn = @taxon_concept.add_common_name_synonym(@common_name, :agent => agent, :language => Language.english,
-                                           :vetted => Vetted.unknown, :preferred => false)
-    @unreviewed_syn = @taxon_concept.add_common_name_synonym(@unreviewed_name, :agent => agent, :language => Language.english,
-                                           :vetted => Vetted.unknown, :preferred => false)
-    @untrusted_syn = @taxon_concept.add_common_name_synonym(@untrusted_name, :agent => agent, :language => Language.english,
-                                           :vetted => Vetted.untrusted, :preferred => false)
-    @agents_syn = @taxon_concept.add_common_name_synonym(@agents_cname, :agent => @cn_curator, :language => Language.english,
-                                           :vetted => Vetted.trusted, :preferred => false)
+    @common_syn = @taxon_concept.add_common_name_synonym(@common_name, :agent => agent,
+                                                         :language => Language.english,
+                                                         :vetted => Vetted.unknown, :preferred => false)
+    @unreviewed_syn = @taxon_concept.add_common_name_synonym(@unreviewed_name, :agent => agent,
+                                                             :language => Language.english,
+                                                             :vetted => Vetted.unknown, :preferred => false)
+    @untrusted_syn = @taxon_concept.add_common_name_synonym(@untrusted_name, :agent => agent,
+                                                            :language => Language.english,
+                                                            :vetted => Vetted.untrusted, :preferred => false)
+    @agents_syn = @taxon_concept.add_common_name_synonym(@agents_cname, :agent => @cn_curator,
+                                                         :language => Language.english,
+                                                         :vetted => Vetted.trusted, :preferred => false)
     @first_curator = create_curator_for_taxon_concept(@taxon_concept)
     @default_num_curators = @taxon_concept.acting_curators.length
     make_all_nested_sets
@@ -40,7 +44,8 @@ describe 'Curation' do
     visit("/pages/#{@taxon_concept.id}/names/common_names")
     @non_curator_cname_page = source
     @new_name   = 'habrish lammer'
-    @taxon_concept.add_common_name_synonym @new_name, :agent => Agent.find(@cn_curator.agent_id), :preferred => false, :language => Language.english
+    @taxon_concept.add_common_name_synonym @new_name, :agent => Agent.find(@cn_curator.agent_id),
+      :preferred => false, :language => Language.english
   end
 
   after(:all) do
@@ -48,61 +53,8 @@ describe 'Curation' do
   end
 
   after(:each) do
-    visit('/logout')
+    visit logout_url
   end
-
-  # TODO: commented out this entire block as none of the specs were enabled and it was eating up 25 seconds of spec time
-  # context "on taxon overview" do
-  #
-  #   it 'should show a list of acting curators with a photo, and curator name
-  #
-  #   it 'should change the curator count if another curator curates an image'
-  #     #num_curators = @taxon_concept.acting_curators.length
-  #     #curator = create_curator_for_taxon_concept(@taxon_concept)
-  #     #@taxon_concept.reload
-  #     #@taxon_concept.acting_curators.length.should == num_curators + 1
-  #     #visit("/pages/#{@taxon_concept.id}")
-  #     #body.should have_tag('h2', :text => /#{num_curators + 1} curators/i)
-  #
-  #   it 'should change the number of curators if another curator curates a text object'
-  #     #@taxon_concept.reload
-  #     #num_curators = @taxon_concept.acting_curators.length
-  #     #curator = create_curator_for_taxon_concept(@taxon_concept)
-  #     #@taxon_concept.reload
-  #     #@taxon_concept.acting_curators.length.should == num_curators + 1
-  #     #visit("/pages/#{@taxon_concept.id}")
-  #     #body.should have_tag('h2', :text => /#{num_curators + 1} curators/i)
-  #
-  #   it 'should have a link from name of curator to account page'
-  #     #@default_page.should have_tag('div#curators_container') do
-  #       #with_tag('a[href*=?]', /\/account\/show\/#{@taxon_concept.acting_curators.first.id}/)
-  #     #end
-  #
-  #   it 'should not show curation button when not logged in (obsolete?)'
-  #
-  #   it 'should show curation (contribute?) button on taxon overview when logged in as curator'
-  #
-  #   it 'should not have a curation panel when not logged in as a curator (obsolete?)'
-  #
-  #   it 'should show the curator list link (obsolete?)'
-  #
-  #   it 'should show the curator list link when there has been no activity (obsolete?)'
-  #
-  #   it 'should say the page has citation (obsolete?)'
-  #
-  #   it 'should have a link from N curators to the citation (obsolete?)'
-  #
-  #   it 'should still have a curator name in citation after changing clade (obsolete?)'
-  #     #@default_page.should have_tag('div#page-citation', /#{@first_curator.family_name}/)
-  #     #uu = User.find(@first_curator.id)
-  #     #uu.curator_hierarchy_entry_id = uu.curator_hierarchy_entry_id + 1
-  #     #uu.save!
-  #     #@first_curator = uu
-  #     #visit("/pages/#{@taxon_concept.id}")
-  #     #body.should have_tag('div#page-citation', /#{@first_curator.family_name}/)
-  #
-  #   it 'should display a "view/edit" link next to the common name in the header (obsolete?)'
-  # end
 
   it 'should show a curator the ability to add a new common name' do
     login_as(@cn_curator)

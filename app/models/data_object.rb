@@ -833,6 +833,8 @@ class DataObject < ActiveRecord::Base
   def add_curated_association(user, hierarchy_entry)
     taxon_concept_id = hierarchy_entry.taxon_concept.id
     vetted_id = user.min_curator_level?(:full) ? Vetted.trusted.id : Vetted.unknown.id
+    # SILENTLY returns... this is not an error, but nothing needs to be done:
+    return if existing_association(hierarchy_entry)
     cdohe = CuratedDataObjectsHierarchyEntry.create(:hierarchy_entry_id => hierarchy_entry.id,
                                                     :data_object_id => self.id, :user_id => user.id,
                                                     :data_object_guid => self.guid,
@@ -851,11 +853,16 @@ class DataObject < ActiveRecord::Base
     end
   end
 
+  def existing_association(hierarchy_entry)
+    CuratedDataObjectsHierarchyEntry.find_by_data_object_guid_and_hierarchy_entry_id(guid, hierarchy_entry.id)
+  end
+
   def remove_curated_association(user, hierarchy_entry)
-    taxon_concept_id = hierarchy_entry.taxon_concept.id
-    cdohe = CuratedDataObjectsHierarchyEntry.find_by_data_object_guid_and_hierarchy_entry_id(guid, hierarchy_entry.id)
+    cdohe = existing_association(hierarchy_entry)
     raise EOL::Exceptions::ObjectNotFound if cdohe.nil?
-    raise EOL::Exceptions::WrongCurator.new("user did not create this association") unless cdohe.user_id == user.id
+    raise EOL::Exceptions::WrongCurator.new("user did not create this association") unless
+      cdohe.user_id == user.id || user.min_curator_level?(:master)
+    taxon_concept_id = hierarchy_entry.taxon_concept.id
     cdohe.destroy
     if self.data_type == DataType.image
       tci_exists = TopConceptImage.find_by_taxon_concept_id_and_data_object_id(taxon_concept_id, self.id)

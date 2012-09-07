@@ -17,6 +17,7 @@ EolUpgrade::Application.routes.draw do
   match '/users/forgot_password' => redirect("/users/recover_account")
   match '/users/:user_id/reset_password/:recover_account_token' => redirect("/users/recover_account")
   match '/info/xrayvision' => redirect("/collections/14770")
+  match '/info/brian-skerry' => redirect("/collections/29285")
   match '/info/naturesbest2011' =>  redirect("/collections/19338")
   match '/index' => redirect('/')
   match '/home.html' => redirect('/')
@@ -210,7 +211,7 @@ EolUpgrade::Application.routes.draw do
 
   resources :data_objects, :only => [:show, :edit, :update] do
     member do
-      put 'curate'
+      put 'curate_associations'
       get 'curation'
       get 'attribution'
       get 'rate'

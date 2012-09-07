@@ -22,6 +22,8 @@ class TaxonConcept < ActiveRecord::Base
 
   belongs_to :vetted
 
+  attr_accessor :entries # TODO - this is used by DataObjectsController#add_association (and its partial) and probably shouldn't be.
+
   has_many :feed_data_objects
   has_many :hierarchy_entries
   has_many :scientific_synonyms, :through => :hierarchy_entries

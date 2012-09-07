@@ -210,7 +210,7 @@ class DataObjectsController < ApplicationController
   # GET /data_objects/1/curation
   # GET /data_objects/1/curation.js
   #
-  # UI for curating a data object
+  # UI for curating a data object (ie: via the worklist)
   #
   # This is a GET, so there's no real reason to check to see whether or not the current_user can curate the object -
   # we leave that to the #curate method
@@ -252,7 +252,7 @@ class DataObjectsController < ApplicationController
           hierarchy_entries.each do |hierarchy_entry|
             hierarchy_entry.hierarchy.browsable? ? browsable_entries << hierarchy_entry : unbrowsable_entries << hierarchy_entry
           end
-          result_instance['entries'] = browsable_entries.blank? ? unbrowsable_entries : browsable_entries
+          result_instance.entries = browsable_entries.blank? ? unbrowsable_entries : browsable_entries
         end
       end
       params.delete(:commit) unless params[:commit].blank?
@@ -303,7 +303,6 @@ class DataObjectsController < ApplicationController
     else
       access_denied
     end
-    puts "++ redirection... #{data_object_path(@data_object.latest_published_revision)}"
     redirect_back_or_default data_object_path(@data_object.latest_published_revision)
   end
 
@@ -374,7 +373,7 @@ private
 
   def curators_and_owners_only
     unless current_user.min_curator_level?(:assistant) || current_user == @data_object.user
-      access_denied
+      access_denied unless current_user.min_curator_level?(:master)
     end
   end
 

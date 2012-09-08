@@ -163,18 +163,20 @@ EolUpgrade::Application.routes.draw do
   end
 
   resources :content_partners do
-    resources :content_partner_contacts, :as => 'contacts', :except => [:index, :show]
-    resources :content_partner_agreements, :as => 'agreements', :except => [:index, :destroy]
-    resource :statistics, :only => [:show]
+    resources :content_partner_contacts, :as => 'contacts', :except => [:index, :show],
+      :controller => 'content_partners/content_partner_contacts'
+    resources :content_partner_agreements, :as => 'agreements', :except => [:index, :destroy],
+      :controller => 'content_partners/content_partner_agreements'
+    resource :statistics, :only => [:show], :controller => 'content_partners/statistics'
     resources :resources do
       member do
-        get 'force_harvest'
-        post 'force_harvest'
+        get 'force_harvest', :controller => 'content_partners/resources'
+        post 'force_harvest', :controller => 'content_partners/resources'
       end
-      resources :harvest_events, :only => [:index, :update]
+      resources :harvest_events, :only => [:index, :update], :controller => 'content_partners/harvest_events'
       resources :hierarchies, :only => [:edit, :update] do
         member do
-          post 'request_publish'
+          post 'request_publish', :controller => 'content_partners/hierarchies'
         end
       end
     end
@@ -242,10 +244,8 @@ EolUpgrade::Application.routes.draw do
     end
     resources :content_partners, :only => [:index] do
       collection do
-        get 'notifications'
-        post 'notifications'
-        get 'statistics'
-        post 'statistics'
+        get 'statistics', :controller => 'content_partners/statistics'
+        post 'statistics', :controller => 'content_partners/statistics'
       end
     end
     resources :eol_statistics, :as => 'statistics', :only => [:index] do

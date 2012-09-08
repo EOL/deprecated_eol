@@ -2677,6 +2677,9 @@ fr:
           tweet_text: Séquences de nucléotides pour %{scientific_name} classés par %{hierarchy_provider}
         meta_title_with_common_name: Séquences de nucléotides pour %{preferred_common_name} (%{scientific_name})
       show: 
+        hierarchy_entry: 
+          meta_description: Liste des fournisseurs et des données source pour %{scientific_name} comme classés par %{hierarchy_provider}.
+          meta_description_with_common_name: Liste des fournisseurs et des données source pour %{preferred_common_name} (%{scientific_name} comme classés par %{hierarchy_provider}).
         meta_title_with_common_name: Ressources de contenu pour %{preferred_common_name} (%{scientific_name})
     updates: 
       show: 

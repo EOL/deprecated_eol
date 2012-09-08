@@ -3610,7 +3610,6 @@ de:
   truncated_comment_omission_linkless: …
   truncated_news_item_omission: … <a href='%{link}'>mehr</a>
   trusted: Vertrauenswürdig
-  trusted_for_colon: "Vertrauenswürdig für:"
   trusted_images: Vertrauenswürdige Bilder
   trusted_maps: Vertrauenswürdige Karten
   trusted_text_objects: Vertrauenswürdige Artikel
@@ -3625,12 +3624,10 @@ de:
   unknown_type_not_associated_with_any_published_entries: Diese Daten sind keinen veröffentlichten Taxa zugeordnet.
   unpublished: Unveröffentlicht
   unreviewed: Nicht geprüft
-  unreviewed_for_colon: "Ungeprüft für:"
   unreviewed_images: Ungeprüfte Bilder
   unreviewed_maps: Ungeprüfte Karten
   unreviewed_text_objects: Ungeprüfte Artikel
   untrusted: Nicht vertrauenswürdig
-  untrusted_for_colon: "Nicht vertrauenswürdig für:"
   update: Aktualisieren
   update_collection_submit_button: Informationen zur Sammlung aktualisieren
   update_language: Sprache aktualisieren

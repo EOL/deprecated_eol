@@ -3592,7 +3592,6 @@ gl:
   truncated_comment_omission_linkless: ...
   truncated_news_item_omission: ...<a href='%{link}'>máis</a>
   trusted: De confianza
-  trusted_for_colon: "De confianza por:"
   trusted_images: Imaxes de confianza
   trusted_maps: Mapas de confianza
   trusted_text_objects: Artigos de confianza
@@ -3607,12 +3606,10 @@ gl:
   unknown_type_not_associated_with_any_published_entries: Estes datos non están asociados a ningún taxon publicado.
   unpublished: Sen publicar
   unreviewed: Sen revisar
-  unreviewed_for_colon: "Sen revisar por:"
   unreviewed_images: Imaxes sen revisar
   unreviewed_maps: Mapas sen revisar
   unreviewed_text_objects: Artigos sen revisar
   untrusted: Non é de confianza
-  untrusted_for_colon: "De non confianza por:"
   update: Actualizar
   update_collection_submit_button: Actualizar os detalles da colección
   update_language: Actualizar a lingua

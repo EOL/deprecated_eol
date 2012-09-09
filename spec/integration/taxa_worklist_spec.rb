@@ -11,7 +11,7 @@ describe 'Taxa worklist' do
     @curator = build_curator(@taxon_concept) # build_curator generates a full curator by default.
     @user = User.gen()
     EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
-    @taxon_concept.images_from_solr(100).last.data_objects_hierarchy_entries.first.update_column(:visibility_id, Visibility.invisible.id)
+    @taxon_concept.images_from_solr(100).last.data_objects_hierarchy_entries.first.update_attributes(:visibility_id => Visibility.invisible.id)
     @test_partner = ContentPartner.gen(:display_name => 'Media Light Partner')
     @test_resource = Resource.gen(:content_partner => @test_partner, :title => 'Media Light Resource')
     hevt = HarvestEvent.gen(:resource => @test_resource)

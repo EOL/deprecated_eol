@@ -1294,6 +1294,8 @@ class TaxonConcept < ActiveRecord::Base
     sort_and_preload_deeply_browsable_entries(cached_deep_published_hierarchy_entries)
   end
 
+  # TODO - the next two methods call he.hierarchy.browsable ...is this loaded efficiently?
+
   # By default, we generally only want to expose *browsable* classifications.  This method finds those... unless a
   # curator has marked a non-browsable classification as the default (or there are no browsable classifications), in
   # which case we kind of have to show them all:
@@ -1301,10 +1303,10 @@ class TaxonConcept < ActiveRecord::Base
     return @deep_browsables if @deep_browsables
     current_entry_id = entry.id # Don't want to call #entry so many times...
     @deep_browsables = cached_deep_published_hierarchy_entries.dup
-    @deep_browsables.delete_if {|he| current_entry_id != he.id && he.hierarchy_browsable.to_i == 0 }
+    @deep_browsables.delete_if {|he| current_entry_id != he.id && he.hierarchy.browsable.to_i == 0 }
     @deep_browsables += deep_published_browsable_hierarchy_entries if
       @deep_browsables.count == 1 && @deep_browsables.first.id == current_entry_id &&
-        @deep_browsables.first.hierarchy_browsable.to_i == 0
+        @deep_browsables.first.hierarchy.browsable.to_i == 0
     @deep_browsables.uniq!
     sort_and_preload_deeply_browsable_entries(@deep_browsables)
   end
@@ -1316,7 +1318,7 @@ class TaxonConcept < ActiveRecord::Base
     return @deep_nonbrowsables if @deep_nonbrowsables
     current_entry_id = entry.id # Don't want to call #entry so many times...
     @deep_nonbrowsables = cached_deep_published_hierarchy_entries.dup
-    @deep_nonbrowsables.delete_if {|he| he.hierarchy_browsable.to_i == 1 || current_entry_id == he.id }
+    @deep_nonbrowsables.delete_if {|he| he.hierarchy.browsable.to_i == 1 || current_entry_id == he.id }
     HierarchyEntry.preload_deeply_browsable(@deep_nonbrowsables)
   end
 

@@ -32,10 +32,12 @@ describe 'Taxa page' do
 
   shared_examples_for 'taxon pages with all expected data' do
     it 'should show the section name' do
-      body.should have_tag('#page_heading h1', /\n.*#{@section}/i)
+      body.should have_tag('#page_heading h1')
+      body.should include(@section)
     end
     it 'should show the preferred common name titlized properly when site language is English' do
-      body.should have_tag('#page_heading h2', /^#{@testy[:common_name].capitalize_all_words}/)
+      body.should have_tag('#page_heading h2')
+      body.should include(@testy[:common_name].capitalize_all_words)
     end
   end
 
@@ -44,28 +46,23 @@ describe 'Taxa page' do
     it 'should only show the most recent revision of a user data object'
 
     it 'should show text references' do
-      should have_tag('.references', /A published visible reference for testing./)
+      should include('A published visible reference for testing.')
     end
     it 'should show doi identifiers for references' do
-      body.should have_tag('.references', /A published visible reference with a DOI identifier for testing./) do
-        with_tag('a', /dx\.doi\.org/)
-      end
+      body.should include('A published visible reference with a DOI identifier for testing.')
     end
     it 'should show url identifiers for references' do
-      body.should have_tag('.references', /A published visible reference with a URL identifier for testing./) do
-        with_tag('a', /url\.html/)
-      end
+      body.should include('A published visible reference with a URL identifier for testing.')
     end
     it 'should not show invalid identifiers for references' do
-      body.should have_tag('.references', /A published visible reference with an invalid identifier for testing./) do
-        without_tag('a', /invalid identifier/)
-      end
+      body.should include('A published visible reference with an invalid identifier for testing.')
+      body.should_not have_selector('.references a', :content => /invalid identifier/)
     end
     it 'should not show invisible references' do
-      should_not have_tag('.references', /A published invisible reference for testing./)
+      body.should_not have_selector('.references', :content => 'A published invisible reference for testing.')
     end
     it 'should not show unpublished references' do
-      should_not have_tag('.references', /An unpublished visible reference for testing./)
+      body.should_not have_selector('.references', :content => 'An unpublished visible reference for testing.')
     end
     it 'should show links to literature tab' do
       body.should have_tag("#toc .section") do
@@ -80,84 +77,58 @@ describe 'Taxa page' do
       end
     end
     it 'should not show references container if references do not exist' do
-      body.should have_tag('.section .article:nth-child(3)', /brief summary/) do
-        without_tag('.references')
-      end
+      body.should_not have_selector('.section .article:nth-child(3) .references')
     end
 
     it 'should show actions for text objects' do
-      body.should have_tag('div.actions') do
-        with_tag('p')
-      end
+      body.should have_selector('div.actions p')
     end
 
     it 'should show action to set article as an exemplar' do
-      body.should have_tag('div.actions p') do
-        with_tag("a", :href => "set this article as an exemplar")
-      end
+      body.should have_selector("div.actions p a", :content => I18n.t(:show_in_overview))
     end
 
-    it 'should allow user to rate a text object first then login to complete the action' # do
-#      visit logout_url
-#      visit taxon_details_path(@taxon_concept)
-#      click_link('Change rating to 3 of 5')
-#      user = User.gen(:password => 'password')
-#      page.fill_in 'session_username_or_email', :with => user.username
-#      page.fill_in 'session_password', :with => 'password'
-#      click_button 'Sign in'
-#      current_url.should match /#{taxon_details_path(@taxon_concept)}/
-#      body.should include('Rating was added')
-#      visit taxon_details_path(@taxon_concept)
-#      click_link('Change rating to 4 of 5')
-#      body.should include('Rating was added ')
-#    end
-
     it 'should show "Add an article to this page" button to the logged in users' do
-      page.body.should have_tag("#page_heading .page_actions") do
-        with_tag("li a", :text => "Add an article to this page")
-      end
+      page.body.should have_selector("#page_heading .page_actions li a", :content => "Add an article to this page")
     end
   end
 
   shared_examples_for 'taxon overview tab' do
     it 'should show a gallery of four images' do
       body.should have_tag("div#media_summary") do
-        with_tag("img[src$=#{@taxon_concept.images_from_solr[0].thumb_or_object('580_360')[25..-1]}]")
-        with_tag("img[src$=#{@taxon_concept.images_from_solr[1].thumb_or_object('580_360')[25..-1]}]")
-        with_tag("img[src$=#{@taxon_concept.images_from_solr[2].thumb_or_object('580_360')[25..-1]}]")
-        with_tag("img[src$=#{@taxon_concept.images_from_solr[3].thumb_or_object('580_360')[25..-1]}]")
+        with_tag("img[src$='#{@taxon_concept.images_from_solr[0].thumb_or_object('580_360')[25..-1]}']")
+        with_tag("img[src$='#{@taxon_concept.images_from_solr[1].thumb_or_object('580_360')[25..-1]}']")
+        with_tag("img[src$='#{@taxon_concept.images_from_solr[2].thumb_or_object('580_360')[25..-1]}']")
+        with_tag("img[src$='#{@taxon_concept.images_from_solr[3].thumb_or_object('580_360')[25..-1]}']")
       end
     end
     it 'should have taxon links for the images in the gallery' do
       (0..3).each do |i|
         taxon = @taxon_concept.images_from_solr[i].association_with_best_vetted_status.hierarchy_entry.taxon_concept.canonical_form_object.string
-        should have_tag('a', :attributes => { :href => overview_taxon_path(@taxon_concept) }, :text => taxon)
+        should have_selector("a[href='#{overview_taxon_path(@taxon_concept)}']", :content => taxon)
       end
     end
+
     it 'should have sanitized descriptive text alternatives for images in gallery'
-      # TODO: add html to testy image description so can test sanitization of alt tags
-      # should have_tag('div#media_summary_gallery img[alt^=?]', /(\w+\s){5}/, { :count => 4 })
+
     it 'should show IUCN Red List status' do
-      should have_tag('div#iucn_status a', /.+/)
+      should have_tag('div#iucn_status a')
     end
+
     it 'should show summary text' do
       # TODO: Test the summary text selection logic - as model spec rather than here (?)
-      should have_tag('div#text_summary', /#{@testy[:brief_summary_text]}/)
+      should have_selector('div#text_summary', :content => @testy[:brief_summary_text])
     end
+
     it 'should show table of contents label when text object title does not exist' do
-      should have_tag('h3', @testy[:brief_summary].label)
+      should have_selector('h3', :content => @testy[:brief_summary].label)
     end
 
     it 'should show classifications'
     it 'should show collections'
     it 'should show communities'
 
-    it 'should show curators' do
-      # TODO:
-      # body.should have_tag('div#curators_summary') do
-      #   with_tag('.details h4', @testy[:curator].full_name)
-      # end
-    end
+    it 'should show curators'
   end
 
   shared_examples_for 'taxon resources tab' do
@@ -191,59 +162,46 @@ describe 'Taxa page' do
     it 'should list the classifications that recognise the taxon' do
       visit logout_url
       visit taxon_names_path(@taxon_concept)
-      body.should have_tag('table.standard.classifications') do
-        with_tag('a', :href => taxon_hierarchy_entry_overview_path(@taxon_concept, @taxon_concept.entry))
-        with_tag('td', /catalogue of life/i)
+      body.should have_selector('table.standard.classifications') do |tags|
+        tags.should have_selector("a[href='#{overview_taxon_entry_path(@taxon_concept, @taxon_concept.entry)}']")
+        tags.should have_selector('td', :content => 'Catalogue of Life')
       end
     end
 
     it 'should show related names and their sources' do
       visit related_names_taxon_names_path(@taxon_concept)
       # parents
-      body.should have_tag('table:first-of-type') do
-        with_tag('th:first-of-type', /parent/i)
-        with_tag('th:nth-of-type(2)', /source/i)
-        with_tag('td:first-of-type', @taxon_concept.hierarchy_entries.first.parent.name.string)
-        with_tag('td:nth-of-type(2)', @taxon_concept.hierarchy_entries.first.hierarchy.label)
-      end
+      body.should include(@taxon_concept.hierarchy_entries.first.parent.name.string)
+      body.should include(@taxon_concept.hierarchy_entries.first.hierarchy.label)
       # children
-      body.should have_tag('table:nth-of-type(2)') do
-        with_tag('th:first-of-type', /children/i)
-        with_tag('th:nth-of-type(2)', /source/i)
-        with_tag('td:first-of-type', @testy[:child1].hierarchy_entries.first.name.string)
-        with_tag('td:nth-of-type(2)', @testy[:child1].hierarchy_entries.first.hierarchy.label)
-      end
+      body.should include(@testy[:child1].hierarchy_entries.first.name.string)
+      body.should include(@testy[:child1].hierarchy_entries.first.hierarchy.label)
     end
 
     it 'should show common names grouped by language with preferred flagged and status indicator' do
       visit common_names_taxon_names_path(@taxon_concept)
       @common_names = EOL::CommonNameDisplay.find_by_taxon_concept_id(@taxon_concept.id)
-      # TODO: Test that common names from other languages are present and that current language names appear first after language is switched.
+      # TODO: Test that common names from other languages are present and that current language names appear
+      # first after language is switched.
       # English by default
-      body.should have_tag('h4:first-of-type', "English")
-      body.should have_tag('table:first-of-type') do
-        with_tag('thead tr th:first-of-type', /name/i)
-        with_tag('thead tr th:nth-of-type(2)', /source/i)
-        with_tag('thead tr th:nth-of-type(3)', /status/i)
-        with_tag('tbody tr:first-of-type td:first-of-type', :attribute => {:class => 'preferred'})
-        with_tag('tbody tr:first-of-type td:first-of-type', /#{@common_names.first.name_string}/i)
-        with_tag('tbody tr:first-of-type td:nth-of-type(2)', /#{@common_names.first.agents.first.full_name}/i)
-        with_tag('tbody tr:first-of-type td:nth-of-type(3)', /#{Vetted.find_by_id(@common_names.first.vetted.id).label}/i)
-      end
+      body.should have_selector('h4', :content => "English")
+      body.should include(@common_names.first.name_string)
+      body.should include(@common_names.first.agents.first.full_name)
+      body.should include(Vetted.find_by_id(@common_names.first.vetted.id).label)
     end
 
     it 'should allow curators to add common names' do
       visit logout_url
       visit common_names_taxon_names_path(@taxon_concept)
-      body.should_not have_tag('form#new_name')
+      body.should_not have_selector('form#new_name')
       login_as @testy[:curator]
       visit common_names_taxon_names_path(@taxon_concept)
-      body.should have_tag('form#new_name')
+      body.should have_selector('form#new_name')
       new_name = FactoryGirl.generate(:string)
       fill_in 'Name', :with => new_name
       select('English', :from => "Language")
       click_button 'Add name'
-      body.should have_tag('td', new_name.capitalize_all_words)
+      body.should have_selector('td', :content => new_name.capitalize_all_words)
     end
 
     it 'should allow curators to choose a preferred common name for each language'
@@ -253,33 +211,28 @@ describe 'Taxa page' do
       visit logout_url
       visit synonyms_taxon_names_path(@taxon_concept)
       @synonyms = @taxon_concept.published_hierarchy_entries.first.scientific_synonyms
-      body.should have_tag('h4', /#{@taxon_concept.published_hierarchy_entries.first.hierarchy.display_title}/)
-      body.should have_tag('table') do
-        with_tag('thead th:first-of-type', /name/i)
-        with_tag('thead th:nth-of-type(2)', /relationship/i)
-        with_tag('td', /#{@synonyms.first.name.string}/)
-      end
+      body.should include(@taxon_concept.published_hierarchy_entries.first.hierarchy.display_title)
+      body.should include(@synonyms.first.name.string)
     end
   end
 
   shared_examples_for 'taxon literature tab' do
     it 'should show some references' do
       refs = @taxon_concept.data_objects.collect{|dato| dato.refs.collect{|ref| ref.full_reference}.compact}.flatten.compact
-      body.should have_tag('.ref_list') do
-        refs.each { |ref| with_tag('li', /ref/) }
-      end
+      body.should have_selector('.ref_list li')
+      refs.each { |ref| body.should include(ref) }
     end
   end
 
   shared_examples_for 'taxon name - taxon_concept page' do
     it 'should show the concepts preferred name style and ' do
-      body.should have_tag('#page_heading h1', /#{@taxon_concept.entry.name.ranked_canonical_form.string}/i)
+      body.should include(@taxon_concept.entry.name.ranked_canonical_form.string)
     end
   end
 
   shared_examples_for 'taxon name - hierarchy_entry page' do
     it 'should show the concepts preferred name in the heading' do
-      body.should have_tag('#page_heading h1', /#{@taxon_concept.quick_scientific_name(:normal)}/i)
+      body.should include(@taxon_concept.quick_scientific_name(:normal))
     end
   end
 
@@ -308,12 +261,10 @@ describe 'Taxa page' do
       login_as @user
       visit overview_taxon_path(@taxon_concept)
       comment = "Test comment by a logged in user."
-      body.should have_tag(".updates .comment #comment_body")
-      should have_tag(".updates .comment .actions input", :val => "Post Comment")
-      within(:xpath, '//form[@id="new_comment"]') do
-        fill_in 'comment_body', :with => comment
-        click_button "Post Comment"
-      end
+      body.should have_selector(".updates .comment #comment_body")
+      should have_selector(".updates .comment .actions input[value='Post Comment']")
+      fill_in 'comment_body', :with => comment
+      click_button "Post Comment"
       current_url.should match /#{overview_taxon_path(@taxon_concept)}/
       body.should include('Comment successfully added')
     end
@@ -323,7 +274,7 @@ describe 'Taxa page' do
   context 'overview when taxon has all expected data - hierarchy_entry' do
     before(:all) do
       EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
-      visit taxon_hierarchy_entry_overview_path(@taxon_concept, @hierarchy_entry)
+      visit overview_taxon_entry_path(@taxon_concept, @hierarchy_entry)
       @section = 'overview'
     end
     subject { body }
@@ -347,7 +298,7 @@ describe 'Taxa page' do
   # resources tab - hierarchy_entry
   context 'resources when taxon has all expected data - hierarchy_entry' do
     before(:all) do
-      visit taxon_hierarchy_entry_resources_path(@taxon_concept, @hierarchy_entry)
+      visit taxon_entry_resources_path(@taxon_concept, @hierarchy_entry)
       @section = 'resources'
     end
     subject { body }
@@ -371,7 +322,7 @@ describe 'Taxa page' do
   # details tab - hierarchy_entry
   context 'details when taxon has all expected data - hierarchy_entry' do
     before(:all) do
-      visit taxon_hierarchy_entry_details_path(@taxon_concept, @hierarchy_entry)
+      visit taxon_entry_details_path(@taxon_concept, @hierarchy_entry)
       @section = 'details'
     end
     subject { body }
@@ -395,7 +346,7 @@ describe 'Taxa page' do
   # names tab - hierarchy_entry
   context 'names when taxon has all expected data - hierarchy_entry' do
     before(:all) do
-      visit taxon_hierarchy_entry_names_path(@taxon_concept, @hierarchy_entry)
+      visit taxon_entry_names_path(@taxon_concept, @hierarchy_entry)
       @section = 'names'
     end
     subject { body }
@@ -419,7 +370,7 @@ describe 'Taxa page' do
   # literature tab - hierarchy_entry
   context 'literature when taxon has all expected data - hierarchy_entry' do
     before(:all) do
-      visit taxon_hierarchy_entry_literature_path(@taxon_concept, @hierarchy_entry)
+      visit taxon_entry_literature_path(@taxon_concept, @hierarchy_entry)
       @section = 'literature'
     end
     subject { body }
@@ -440,15 +391,15 @@ describe 'Taxa page' do
     it_should_behave_like 'taxon community tab'
     it "should render communities - curators page" do
       visit(taxon_community_index_path(@taxon_concept))
-      body.should have_tag("h3", :text => "Communities")
+      body.should have_selector("h3", :content => "Communities")
     end
     it "should render communities - collections page" do
       visit(collections_taxon_community_path(@taxon_concept))
-      body.should have_tag("h3", :text => "Collections")
+      body.should have_selector("h3", :content => "Collections")
     end
     it "should render communities - curators page" do
       visit(curators_taxon_community_path(@taxon_concept))
-      body.should have_tag("h3", :text => "Curators")
+      body.should have_selector("h3", :content => "Curators")
     end
   end
 
@@ -457,7 +408,7 @@ describe 'Taxa page' do
     before(:all) { visit overview_taxon_path @testy[:taxon_concept_with_no_common_names] }
     subject { body }
     it 'should not show a common name' do
-      should_not have_tag('#page_heading h2')
+      should_not have_selector('#page_heading h2')
     end
   end
 
@@ -470,10 +421,11 @@ describe 'Taxa page' do
     it 'details should show empty text' do
       t = TaxonConcept.gen(:published => 1)
       visit taxon_details_path t
-      body.should have_tag('#taxon_detail #main .empty', /No one has contributed any details to this page yet/)
-      body.should have_tag("#toc .section") do
-        with_tag("h4 a[href=#{taxon_literature_path t}]")
-        with_tag("ul li a[href=#{bhl_taxon_literature_path t}]")
+      body.should have_selector('#taxon_detail #main .empty')
+      body.should match(/No one has contributed any details to this page yet/)
+      body.should have_selector("#toc .section") do |tags|
+        tags.should have_selector("h4 a[href='#{taxon_literature_path t}']")
+        tags.should have_selector("ul li a[href='#{bhl_taxon_literature_path t}']")
       end
     end
   end
@@ -513,9 +465,9 @@ describe 'Taxa page' do
   context 'when taxon does not exist' do
     it 'should show a missing content error message' do
       visit("/pages/#{TaxonConcept.missing_id}")
-      body.should have_tag('h1', /Not found/)
+      body.should have_selector('h1', :content => 'Not found')
       visit("/pages/#{TaxonConcept.missing_id}/details")
-      body.should have_tag('h1', /Not found/)
+      body.should have_selector('h1', :content => 'Not found')
     end
   end
 
@@ -531,9 +483,9 @@ describe 'Taxa page' do
       login_as @user
       visit taxon_update_path(@taxon_concept)
       comment = "Test comment by a logged in user."
-      body.should have_tag("#main .comment #comment_body")
+      body.should have_selector("#main .comment #comment_body")
       fill_in 'comment_body', :with => comment
-      body.should have_tag("#main .comment .actions input", :val => "Post Comment")
+      body.should have_selector("#main .comment .actions input[value='Post Comment']")
       click_button "Post Comment"
       current_url.should match /#{taxon_update_path(@taxon_concept)}/
       body.should include('Comment successfully added')
@@ -542,7 +494,7 @@ describe 'Taxa page' do
 
   context 'updates tab - hierarchy_entry' do
     before(:all) do
-      visit taxon_hierarchy_entry_updates_path(@taxon_concept, @hierarchy_entry)
+      visit taxon_entry_updates_path(@taxon_concept, @hierarchy_entry)
       @section = 'updates'
     end
     subject { body }
@@ -550,13 +502,13 @@ describe 'Taxa page' do
     it 'should allow logged in users to post comment' do
       visit logout_url
       login_as @user
-      visit taxon_hierarchy_entry_updates_path(@taxon_concept, @hierarchy_entry)
+      visit taxon_entry_updates_path(@taxon_concept, @hierarchy_entry)
       comment = "Test comment by a logged in user."
-      body.should have_tag("#main .comment #comment_body")
+      body.should have_selector("#main .comment #comment_body")
       fill_in 'comment_body', :with => comment
-      body.should have_tag("#main .comment .actions input", :val => "Post Comment")
+      body.should have_selector("#main .comment .actions input[value='Post Comment']")
       click_button "Post Comment"
-      current_url.should match /#{taxon_hierarchy_entry_updates_path(@taxon_concept, @hierarchy_entry)}/
+      current_url.should match /#{taxon_entry_updates_path(@taxon_concept, @hierarchy_entry)}/
       body.should include('Comment successfully added')
     end
   end

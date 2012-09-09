@@ -15,16 +15,16 @@ describe 'Taxa media' do
 
   it 'should show the taxon header' do
     visit taxon_media_path(@taxon_concept)
-    body.should have_tag('#page_heading') do
+    body.should have_selector('#page_heading') do
       with_tag('h1', /(#{@taxon_concept.title_canonical})(\n|.)*?media/i)
     end
   end
 
   it 'should show a gallery of mixed media' do
     visit taxon_media_path(@taxon_concept)
-    body.should have_tag("li.sound")
-    body.should have_tag("li.video")
-    body.should have_tag("li.image")
+    body.should have_selector("li.sound")
+    body.should have_selector("li.video")
+    body.should have_selector("li.image")
   end
 
 end

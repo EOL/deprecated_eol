@@ -66,7 +66,7 @@ module EOL
             hash = i.solr_index_hash
             objects_to_send << hash
           rescue EOL::Exceptions::InvalidCollectionItemType => e
-            logger.error "** EOL::Solr::CollectionItemsCoreRebuilder: #{e.message}"
+            Rails.logger.error "** EOL::Solr::CollectionItemsCoreRebuilder: #{e.message}"
             puts "** #{e.message}"
           end
         end

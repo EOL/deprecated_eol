@@ -300,11 +300,11 @@ class DataObject < ActiveRecord::Base
       if r.respond_to?(:weight)
         sum += (r.rating * r.weight)
         count += r.weight
-        logger.warn ".. Giving score of #{r.rating} weight of #{r.weight}." if debug
+        Rails.logger.warn ".. Giving score of #{r.rating} weight of #{r.weight}." if debug
       else
         sum += r.rating
         count += 1
-        logger.warn ".. Giving score of #{r.rating} weight of 1 (it had no weight specified)." if debug
+        Rails.logger.warn ".. Giving score of #{r.rating} weight of 1 (it had no weight specified)." if debug
       end
       sum
     }.to_f / count
@@ -317,13 +317,13 @@ class DataObject < ActiveRecord::Base
 
   def safe_rating
     return self.data_rating if self.data_rating >= @@minimum_rating && self.data_rating <= @@maximum_rating
-    logger.warn "!! WARNING: data object #{self.id} had a data_rating of #{self.data_rating}. Attempted fix:"
+    Rails.logger.warn "!! WARNING: data object #{self.id} had a data_rating of #{self.data_rating}. Attempted fix:"
     rating = recalculate_rating(true)
     if rating <= @@minimum_rating
-      logger.error "** ERROR: data object #{self.id} had a *calculated* rating of #{rating}."
+      Rails.logger.error "** ERROR: data object #{self.id} had a *calculated* rating of #{rating}."
       return @@minimum_rating
     elsif rating > @@maximum_rating
-      logger.error "** ERROR: data object #{self.id} had a *calculated* rating of #{rating}."
+      Rails.logger.error "** ERROR: data object #{self.id} had a *calculated* rating of #{rating}."
       return @@maximum_rating
     else
       return rating

@@ -35,7 +35,7 @@ class Name < ActiveRecord::Base
 
   # TODO - deprecated.
   def canonical
-    logger.warn "** DEPRECATED: Name#canonical.  Use HierarchyEntry#title_canonical where possible."
+    Rails.logger.warn "** DEPRECATED: Name#canonical.  Use HierarchyEntry#title_canonical where possible."
     return canonical_form.nil? ? string : canonical_form.string
   end
 

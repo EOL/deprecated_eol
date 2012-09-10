@@ -109,7 +109,7 @@
               %p
                 = I18n.t('helpers.label.user.notification_settings_more')
             %dd
-              - content_tag :button, :name => :commit_notification_settings_get, :type => :submit do
+              = content_tag :button, :name => :commit_notification_settings_get, :type => :submit do
                 = I18n.t('helpers.submit.user.notification_settings')
         %dl
           %dt
@@ -121,7 +121,7 @@
                 = I18n.t('helpers.label.user.requested_curator_level', :curator_level_with_indefinite_article => I18n.t("curator_level_with_indefinite_article_#{@user.requested_curator_level.translated_label.gsub(' ', '_').downcase}"))
               = I18n.t('helpers.label.user.curation_application_more')
           %dd
-            - content_tag :button , :name => :commit_curation_privileges_get, :type => :submit do
+            = content_tag :button , :name => :commit_curation_privileges_get, :type => :submit do
               = I18n.t('helpers.submit.user.curation_application')
         %dl
           - if @user.api_key
@@ -135,7 +135,7 @@
               = I18n.t('helpers.label.user.generate_api_key')
               %p= I18n.t('helpers.label.user.generate_api_key_more', :api_docs_url => '/api/docs#api_key_section')
             %dd
-              - content_tag :button , :name => :commit_generate_api_key, :type => :submit do
+              = content_tag :button , :name => :commit_generate_api_key, :type => :submit do
                 = I18n.t('helpers.submit.user.generate_api_key')
 
     %fieldset.actions

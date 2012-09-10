@@ -166,11 +166,11 @@ class ContentController < ApplicationController
 
   def loggertest
     time = Time.now.strftime('%Y-%m-%d %H:%M:%S')
-    logger.fatal "~~ FATAL #{time}"
-    logger.error "** ERROR #{time}"
-    logger.warn  "!! WARN #{time}"
-    logger.info  "++ INFO #{time}"
-    logger.debug ".. DEBUG #{time}"
+    Rails.logger.fatal "~~ FATAL #{time}"
+    Rails.logger.error "** ERROR #{time}"
+    Rails.logger.warn  "!! WARN #{time}"
+    Rails.logger.info  "++ INFO #{time}"
+    Rails.logger.debug ".. DEBUG #{time}"
     render :text => "Logs written at #{time}."
   end
 

@@ -23,7 +23,7 @@ class SearchLog < LazyLoggingModel
   end
 
   def self.create_log(opts)
-    logger.warn('Bogus invocation of SearchLog creation function!') and return if opts.nil?
+    Rails.logger.warn('Bogus invocation of SearchLog creation function!') and return if opts.nil?
     l = SearchLog.create opts
     return l
   end

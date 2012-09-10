@@ -29,9 +29,9 @@ describe 'Users' do
    visit edit_user_path(@user)
    click_button 'Generate a key'
    body.should_not include("Generate a key")
-   body.should have_tag('.requests dl') do
-     with_tag('dt', 'API key')
-     with_tag('dd textarea')
+   body.should have_selector('.requests dl') do |tags|
+     tags.should have_selector('dt', :content => 'API key')
+     tags.should have_selector('dd textarea')
    end
  end
 
@@ -40,7 +40,7 @@ describe 'Users' do
       visit(user_collections_path(@user))
     end
     it 'should show their watch collection' do
-      page.body.should have_tag('#profile_collections', /#{@watch_collection.name}/)
+      page.body.should match /#{@watch_collection.name}/
     end
   end
 
@@ -49,29 +49,27 @@ describe 'Users' do
       visit(user_path(@user))
     end
     it "should have a 'My info' section"  do
-      body.should have_tag("h3", :text => "My info")
-      body.should have_tag(".info") do
-        with_tag('dt', 'Full name')
-        with_tag('dd', @user.full_name)
-        with_tag('dt', 'Username')
-        with_tag('dd', @user.username)
+      body.should have_selector("h3", :content => "My info")
+      body.should have_selector(".info") do |tags|
+        tags.should have_selector('dd', :content => @user.full_name)
+        tags.should have_selector('dd', :content => @user.username)
       end
       #TODO - add more tests for 'My info' section
     end
     it "should not see Curator qualifications section if user is not curator" do
       if !@user.is_curator?
-        body.should_not have_tag("h3", :text => "Curator qualifications")
+        body.should_not include("Curator qualifications")
       end
     end
     it "should not see curation activities in the Activity section if user is not curator" do
       user = User.gen(:curator_level_id => nil)
       visit(user_path(user))
-      body.should_not have_tag("a[href=" + user_activity_path(user, :filter => "data_object_curation") + "]")
+      body.should_not have_selector("a[href='" + user_activity_path(user, :filter => "data_object_curation") + "']")
       body.should_not include("preferred classification")
-      body.should_not have_tag("a[href=" + user_activity_path(user, :filter => "names") + "]")
-      body.should have_tag("a[href=" + user_activity_path(user, :filter => "taxa_comments") + "]")
-      body.should have_tag("a[href=" + user_activity_path(user, :filter => "comments") + "]")
-      body.should have_tag("a[href=" + user_activity_path(user, :filter => "added_data_objects") + "]")
+      body.should_not have_selector("a[href='" + user_activity_path(user, :filter => "names") + "']")
+      body.should have_selector("a[href='" + user_activity_path(user, :filter => "taxa_comments") + "']")
+      body.should have_selector("a[href='" + user_activity_path(user, :filter => "comments") + "']")
+      body.should have_selector("a[href='" + user_activity_path(user, :filter => "added_data_objects") + "']")
     end
     it "should see curation activities in the Activity section only if user is curator" do
       tc = TaxonConcept.gen(:hierarchy_entries => [HierarchyEntry.last])
@@ -80,7 +78,7 @@ describe 'Users' do
       udo = UsersDataObject.gen(:user_id => curator.id, :taxon_concept => tc, :visibility_id => Visibility.visible.id)
       user_submitted_text_count = UsersDataObject.count(:conditions => ['user_id = ?', curator.id])
       # Curator activity log
-      object = DataObject.gen
+      object = DataObject.gen(:taxon_concept_id => tc.id)
       cal = CuratorActivityLog.gen(:user_id => curator.id, :taxon_concept => tc, :object_id => object.id, :activity_id => Activity.trusted.id, :changeable_object_type_id => ChangeableObjectType.find_by_ch_object_type('data_object').id)
       dotc = DataObjectsTaxonConcept.gen(:data_object => object, :taxon_concept => tc)
       
@@ -90,17 +88,20 @@ describe 'Users' do
         :object_id => ctcpe.id, :hierarchy_entry_id => tc.entry.id, :taxon_concept_id => tc.id,
         :activity => Activity.preferred_classification, :created_at => 0.seconds.from_now)
       visit(user_path(curator))
-      body.should have_tag("h3", :text => "Activity")
-      body.should have_tag("h3", :text => "Curator qualifications")
-      body.should have_tag("a[href=" + user_activity_path(curator, :filter => "data_object_curation") + "]", :text => I18n.t(:user_activity_stats_objects_curated, :count => Curator.total_objects_curated_by_action_and_user(nil, curator.id)))
+      body.should have_selector("h3", :content => "Activity")
+      body.should have_selector("h3", :content => "Curator qualifications")
+      body.should have_selector("a[href='" + user_activity_path(curator, :filter => "data_object_curation") + "']",
+                                :content => I18n.t(:user_activity_stats_objects_curated,
+                                                   :count => Curator.total_objects_curated_by_action_and_user(nil,
+                                                                                                        curator.id)))
       body.should include(I18n.t(:user_activity_stats_preferred_classifications_selected, 
-        :count => Curator.total_objects_curated_by_action_and_user(Activity.preferred_classification.id, 
+        :count => Curator.total_objects_curated_by_action_and_user(Activity.preferred_classification.id,
         curator.id, [ChangeableObjectType.curated_taxon_concept_preferred_entry.id])))
       body.should include I18n.t(:user_activity_stats_taxa_curated, :count => curator.total_species_curated)
-      body.should have_tag("a[href=" + user_activity_path(curator, :filter => "names") + "]")
-      body.should have_tag("a[href=" + user_activity_path(curator, :filter => "taxa_comments") + "]")
-      body.should have_tag("a[href=" + user_activity_path(curator, :filter => "comments") + "]")
-      body.should have_tag("a[href=" + user_activity_path(curator, :filter => "added_data_objects") + "]", :text => I18n.t(:user_activity_stats_articles_added, :count => user_submitted_text_count))
+      body.should have_selector("a[href='" + user_activity_path(curator, :filter => "names") + "']")
+      body.should have_selector("a[href='" + user_activity_path(curator, :filter => "taxa_comments") + "']")
+      body.should have_selector("a[href='" + user_activity_path(curator, :filter => "comments") + "']")
+      body.should have_selector("a[href='" + user_activity_path(curator, :filter => "added_data_objects") + "']", :content => I18n.t(:user_activity_stats_articles_added, :count => user_submitted_text_count))
     end
   end
 
@@ -108,27 +109,27 @@ describe 'Users' do
     it "should have a form with dropdown filter element" do
       visit(user_activity_path(@user))
       body.should include "My activity"
-      body.should have_tag "form.filter" do
-        with_tag "select[name=filter]"
+      body.should have_selector "form.filter" do |tags|
+        tags.should have_selector("select[name=filter]")
       end
-      body.should have_tag("option:nth-child(1)", :text => "All")
-      body.should have_tag("option:nth-child(2)", :text => "Comments")
-      body.should have_tag("option:nth-child(3)", :text => "Objects curated")
-      body.should have_tag("option:nth-child(4)", :text => "Articles added")
-      body.should have_tag("option:nth-child(5)", :text => "Collections")
-      body.should have_tag("option:nth-child(6)", :text => "Communities")
+      body.should have_selector("option:nth-child(1)", :content => "All")
+      body.should have_selector("option:nth-child(2)", :content => "Comments")
+      body.should have_selector("option:nth-child(3)", :content => "Objects curated")
+      body.should have_selector("option:nth-child(4)", :content => "Articles added")
+      body.should have_selector("option:nth-child(5)", :content => "Collections")
+      body.should have_selector("option:nth-child(6)", :content => "Communities")
     end
     it "should get data from a form and display accordingly" do
       visit(user_activity_path(@user, :filter => "comments"))
-      body.should have_tag("option[value=comments][selected=selected]")
+      body.should have_selector("option[value=comments][selected=selected]")
       visit(user_activity_path(@user, :filter => "data_object_curation"))
-      body.should have_tag("option[value=data_object_curation][selected=selected]")
+      body.should have_selector("option[value=data_object_curation][selected=selected]")
       visit(user_activity_path(@user, :filter => "added_data_objects"))
-      body.should have_tag("option[value=added_data_objects][selected=selected]")
+      body.should have_selector("option[value=added_data_objects][selected=selected]")
       visit(user_activity_path(@user, :filter => "collections"))
-      body.should have_tag("option[value=collections][selected=selected]")
+      body.should have_selector("option[value=collections][selected=selected]")
       visit(user_activity_path(@user, :filter => "communities"))
-      body.should have_tag("option[value=communities][selected=selected]")
+      body.should have_selector("option[value=communities][selected=selected]")
     end
   end
 
@@ -137,7 +138,7 @@ describe 'Users' do
     it 'should allow comments to be added' do
       visit logout_url
       visit user_newsfeed_path(@user)
-      page.fill_in 'comment_body', :with => "#{@anon_user.username} woz 'ere"
+      page.fill_in 'comment_body', :with => "#{@anon_user.username} woz 'ere #{generate(:string)}"
       click_button 'Post Comment'
       if current_url.match /#{login_url}/
         page.fill_in 'session_username_or_email', :with => @anon_user.username
@@ -149,7 +150,7 @@ describe 'Users' do
       Comment.last.body.should match /#{@anon_user.username}/
 
       visit user_newsfeed_path(@user)
-      page.fill_in 'comment_body', :with => "#{@user.username} woz 'ere"
+      page.fill_in 'comment_body', :with => "#{@user.username} woz 'ere #{generate(:string)}"
       click_button 'Post Comment'
       body.should include('Comment successfully added')
       Comment.last.body.should match /#{@user.username}/

@@ -24,6 +24,8 @@ RSpec.configure do |config|
   include EOL::DB   # this gives us access to methods that handle transactions
   include EOL::RSpec::Helpers
 
+  config.include FactoryGirl::Syntax::Methods
+
   config.use_transactional_fixtures = false
 
   config.include(EmailSpec::Helpers)

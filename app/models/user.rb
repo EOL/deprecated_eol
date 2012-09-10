@@ -309,7 +309,7 @@ class User < Curator
 
   def invalid_login_attempt
     self.failed_login_attempts += 1
-    logger.error "Possible dictionary attack on user #{self.id} - #{self.failed_login_attempts} failed login attempts" if
+    Rails.logger.error "Possible dictionary attack on user #{self.id} - #{self.failed_login_attempts} failed login attempts" if
       self.failed_login_attempts > 10 # Smells like a dictionary attack!
   end
 

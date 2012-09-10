@@ -78,7 +78,7 @@ class RandomHierarchyImage < ActiveRecord::Base
           { :preferred_common_names => :name } ] } ])
 
     random_images = self.random_set(limit, nil, :size => options[:size]) if random_images.blank? && hierarchy
-    logger.warn "Found no Random Taxa in the database (#{starting_id}, #{limit})" if random_images.blank?
+    Rails.logger.warn "Found no Random Taxa in the database (#{starting_id}, #{limit})" if random_images.blank?
 
     # by calling this here, the cached values will contain the pre-cached name. This saves a bunch of load time on the homepage
     random_images.each{ |r| r.taxon_concept.title_canonical }

@@ -371,6 +371,7 @@ class ApplicationController < ActionController::Base
 
   # Ensure that the user has this in their watch_colleciton, so they will get replies in their newsfeed:
   def auto_collect(what, options = {})
+    return if what === current_user
     watchlist = current_user.watch_collection
     collection_item = CollectionItem.find_by_collection_id_and_object_id_and_object_type(watchlist.id, what.id,
                                                                                          what.class.name)
@@ -378,7 +379,7 @@ class ApplicationController < ActionController::Base
       collection_item = begin # No care if this fails.
         CollectionItem.create(:annotation => options[:annotation], :object => what, :collection_id => watchlist.id)
       rescue => e
-        logger.error "** ERROR COLLECTING: #{e.message} FROM #{e.backtrace.first}"
+        Rails.logger.error "** ERROR COLLECTING: #{e.message} FROM #{e.backtrace.first}"
         nil
       end
       if collection_item && collection_item.save
@@ -763,7 +764,7 @@ private
     rescue ActionController::SessionRestoreError => e
       reset_session
       cookies.delete(:user_auth_token)
-      logger.warn "!! Rescued a corrupt cookie."
+      Rails.logger.warn "!! Rescued a corrupt cookie."
       nil
     end
   end

@@ -3612,7 +3612,6 @@ es:
   truncated_comment_omission_linkless: ...
   truncated_news_item_omission: ... <a href='%{link}'>más</a>
   trusted: De confianza
-  trusted_for_colon: "Fiable para:"
   trusted_images: Imágenes de confianza
   trusted_maps: Mapas de confianza
   trusted_text_objects: Artículos de confianza
@@ -3627,12 +3626,10 @@ es:
   unknown_type_not_associated_with_any_published_entries: Estos datos no están asociados con ninguno de los taxones publicados.
   unpublished: Sin publicar
   unreviewed: Sin revisar
-  unreviewed_for_colon: "No revisado para:"
   unreviewed_images: Imágenes sin revisar
   unreviewed_maps: Mapas sin revisar
   unreviewed_text_objects: Artículos sin revisar
   untrusted: Sin confianza
-  untrusted_for_colon: "No fiable para:"
   update: Actualizar
   update_collection_submit_button: Actualizar los detalles del colección
   update_language: Actualizar idioma

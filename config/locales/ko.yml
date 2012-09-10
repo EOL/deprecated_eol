@@ -540,9 +540,24 @@ ko:
         tweet_text: "%{collection_name} 관리자"
     inaturalists: 
       show: 
+        add_observations: 관찰 추가
+        meta_description: 생명의 백과사전 %{collection_name} 모음집에 대한 iNaturalist 관찰
+        meta_keywords: "%{collection_name} iNaturalist 관찰"
+        meta_title: "%{collection_name} iNaturalist 관찰"
+        no_observations_added_to_this_project_yet: 아직 이 프로젝트에 관찰을 추가하지 않았습니다.
         observation_date: "날짜: %{observed_on}"
         observation_place: "장소: %{place}"
+        observer_with_link: "관찰자: %{observer_link}"
+        recent_observations: 최근 관찰
         some_taxon: 무언가
+        taxa_observed: 
+          one: 분류 %{count} 개 관찰함
+          other: 분류 %{count} 개 관찰함
+        top_contributors: 상위 iNaturalist 기여자
+        tweet_text: "%{collection_name} iNaturalist 관찰"
+        view_all_observations_on_inaturalist: iNaturalist에 %{project_title}에서 모든 관찰 보기
+        view_more_observations_on_inaturalist: iNaturalist에 %{project_title}에서 더 많은 관찰 보기
+        view_project_on_inaturalist: iNaturalist에 %{project_title} 보기
     newsfeeds: 
       show: 
         meta_description: "%{collection_name} 생명이 백과사전 모음집에 대한 뉴스, 덧글과 구성원 활동입니다."
@@ -1140,6 +1155,7 @@ ko:
         request_publish: 요청한 게시
       news_item: 
         active: 게시함
+        page_name: 고유 이름 <small>(ISO 기본 라틴 알파벳 문자를 소문자만을 밑줄)</small>
       open_authentication: 
         connect: 추가
         connected: 연결함
@@ -1190,6 +1206,7 @@ ko:
         logo: 새 사진 올리기
         new_password: 새 비밀번호 <small>(4 - 16 문자)</small>
         new_password_confirmation: 새 비밀번호 <small>(확인 차원)</small>
+        news_in_preferred_language: 선호하는 언어로 뉴스 보기
         notification_settings: 알림 설정
         notification_settings_more: 알림 설정을 구성합니다.
         open_authentications: 계정에 연결함
@@ -1668,12 +1685,24 @@ ko:
       meta_title: EOL 공동체 활동
       page_title: EOL 공동체 활동
   recent_activity: 
+    bulk_collection_activity_with_count: 
+      one: "%{to}에 대한 업데이트가 있습니다"
+      other: "%{to}에 대한 업데이트 %{count}개가 있습니다"
     bulk_comments_on_you_with_count: 
       one: <a href='%{url}' style='color:#195184'>내 프로필</a>에 새 덧글이 있습니다
       other: <a href='%{url}' style='color:#195184'>내 프로필</a>에 새 덧글 %{count}개가 있습니다
     bulk_comments_with_count: 
       one: "%{on}에 새 덧글이 있습니다"
       other: "%{on}에 새 덧글 %{count}개가 있습니다"
+    bulk_community_activity_with_count: 
+      one: "%{to}에 대한 업데이트가 있습니다"
+      other: "%{to}에 대한 업데이트 %{count}개가 있습니다"
+    bulk_community_joins_with_count: 
+      one: 새 구성원이 %{community}에 가입했습니다
+      other: 새 구성원 %{count}명이 %{community}에 가입했습니다
+    bulk_curation_with_count: 
+      one: 큐레이터가 %{to}에 대한 개선을 만들었습니다
+      other: 큐레이터가 %{to}에 대한 개선 %{count}개를 만들었습니다
     collection_activity_log_title: "%{who} 사용자가 모음집을 수정했습니다"
     collection_activity_user_watching_recipient: <b>%{user_name}</b> 사용자는 당신을 주시하고 있습니다.
     comment_link: EOL에 대한 덧글 보기

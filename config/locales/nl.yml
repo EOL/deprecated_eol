@@ -780,6 +780,7 @@ nl:
   add_sub_chapter: Onderdeel toevoegen
   add_to_a_community: Aan gemeenschap toevoegen
   add_to_my_collection_button: Aan een verzameling toevoegen
+  added_classifications_ready: Gegevens van de geselecteerde classificaties kunnen naar een andere pagina worden verplaatst. Om het proces af te ronden, moet u "afsplitsen naar een andere pagina" selecteren of navigeren naar het tabblad "namen" van de pagina waar u de gegevens heeft wilt verplaatsen en daar "classificaties samenvoegen" selecteren.
   admin_content_page_active: Gepubliceerd
   admin_content_page_child_new_link: Onderliggende pagina aanmaken
   admin_content_page_create_successful_notice: De pagina <a href="#%{anchor}"><em>%{page_name}</em></a> is aangemaakt.
@@ -1041,7 +1042,7 @@ nl:
   change_rating_to_3_of_5: Waardering naar 3 van 5 wijzigen
   change_rating_to_4_of_5: Waardering naar 4 van 5 wijzigen
   change_rating_to_5_of_5: Waardering naar 5 van 5 wijzigen
-  check_this_to_browse_eol_by_the_hierarchy: als dit vakje is aangevinkt, dan is de hiërarchie voor gebruikers te doorbladeren
+  check_this_to_browse_eol_by_the_hierarchy: Als dit vakje is aangevinkt, dan wordt de classificatie weergegeven in het tabblad "namen" zonder dat "Alle classificaties weergeven" hoeft te worden gekozen.
   choose_collection_header: Kies een verzameling
   citation: Referentie
   citation_example: Fisher, Brian. "Pogonomyrmex anergismus Cole, 1954." Encyclopedia of Life, available from <a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>. Accessed 15 Jan 2009.
@@ -1276,6 +1277,7 @@ nl:
       meta_description: De Encyclopedia of Life is een ongeëvenaarde inspaning om wetenschappelijke kennis te vergaren over al het dieren- en plantenleven, in beeld, gegevens, feiten en meer.
       meta_keywords: Dieren, direnafbeeldingen, dierengegevens, planten, plantenleven, plantenafbeeldingen, plantengegevens, flora, fauna
       meta_title: Dieren - Planten - Afbeeldingen en gegevens
+      see_all_eol_news: meer <span class="assistive">EOL-nieuws</span> bekijken
       see_all_recent_activites: meer <span class="assistive">activiteiten in de afgelopen week</span> bekijken
   content_has_been_updated: De inhoud is bijgewerkt
   content_notes_not_shown_to_us: "Opmerkingen over inhoud (niet zichtbaar voor gebruiker):"
@@ -1742,6 +1744,7 @@ nl:
   endorsed_collections_with_count: 
     one: één uitgelichte verzameling
     other: "%{count} uitgelichte verzamelingen"
+  enter_in_a_search_term_users_a: Voer een zoekterm in waar gebruikers op zoeken en daarna het resulterende taxon- of pagina-ID waar deze naar moet doorverwijzen als suggestie voor die zoekopdracht. Het taxon- of pagina-ID is te vinden in de URL van de pagina waar u naar wilt doorverwijzen (bijvoorbeeld www.eol.org/pages/5 heeft een taxon- of pagina-ID van 5). De paginanaam en de eerste afbeelding, als beschikbaar, worden opgeslagen met het resultaat.
   eol_administration_console: EOL-beheerconsole
   eol_api: EOL API
   eol_api_collections: "EOL API: verzamelingen"
@@ -2040,6 +2043,7 @@ nl:
         request_publish_more: Geeft aan of er een aanvraag opstaat om deze hiërarchie te bevorderen tot één van de primaire bladerbare hiërarchieën op EOL.
       news_item: 
         active: Gepubliceerd
+        active_more: Gepubliceerde nieuwsberichten zijn openbaar vanaf de geselecteerde datum en tijd. Vink <em>gepubliceerd</em> uit als u wilt voorkomen dat alle gebruikers de versies van dit nieuwsbericht in elke taal kunnen bekijken.
         page_name: Unieke naam <small>(alleen kleine letters ISO fundamentele Latijnse alfanumerieke tekens en onderstrepingstekens)</small>
         page_name_more: Voer een unieke, zelfbeschrijvende, zinvolle en blijvende identificatie voor dit nieuwsitem toe. De naam die u hier invult wordt gebruikt om de URL voor dit nieuwsitem te maken. De unieke naam <em>gebruikersvoorwaarden_eol</em> wordt omgezet in de URL <em>http://eol.org/news/new_version_of_eol</em>.
       open_authentication: 
@@ -2111,6 +2115,7 @@ nl:
         logo: Nieuwe afbeelding uploaden
         new_password: Nieuw wachtwoord <small>(4 - 16 tekens)</small>
         new_password_confirmation: Nieuw wachtwoord <small>(te bevestigen)</small>
+        news_in_preferred_language: nieuws in voorkeurstaal weergeven
         notification_settings: Instellingen voor berichten
         notification_settings_more: Uw instellingen voor berichten maken.
         open_authentications: Gekoppelde gebruikers
@@ -2238,12 +2243,15 @@ nl:
   image_not_associated_with_any_published_entries: Deze afbeelding is niet gekoppeld met gepubliceerde taxa.
   image_not_found: Afbeelding niet gevonden
   image_object: Afbeeldingsobject
-  image_objects_will_contain_two_mediaurl_elements: Afbeeldingsobjecten bevatten twee "mediaURL"-elementen. Het eerste is de URL van de afbeelding op de website van de provide, en de tweede is de URL van de versie in de cache op een EOL-server. De EOL-versie van de afbeelding heeft andere afmetingen (maar wel dezelfde verhoudingen), als de afbeelding groter is dan 460 pixels breed of 345 pixels hoog.
+  image_objects_will_contain_two_mediaurl_elements: Afbeeldingsobjecten bevatten twee "mediaURL"-elementen. Het eerste is de URL van de afbeelding op de website van de provider, en de tweede is de URL van de versie in de cache op een EOL-server. De EOL-versie van de afbeelding heeft andere afmetingen (maar wel dezelfde verhoudingen), als de afbeelding groter is dan 460 pixels breed of 345 pixels hoog.
   image_of_taxon: Afbeelding van %{taxon_name}
   image_rating: Afbeeldingswaardering
   images: Afbeeldingen
   images_in_red_are_not_trusted: Afbeeldingen in het rood worden niet vertrouwd.
   images_in_yellow_are_not_reviewed: Afbeeldingen in het geel zijn niet gecontroleerd.
+  images_sort_worklist_note: 
+    one: Afbeeldingen zijn gesorteerd op importdatum in EOL. De meest recente afbeelding wordt als eerste weergegeven. Er staat één afbeelding in deze werklijst.
+    other: Afbeeldingen zijn gesorteerd op importdatum in EOL. De meest recente afbeelding wordt als eerste weergegeven. Er staan %{count} afbeeldingen in deze werklijst.
   images_with_count: 
     one: "%{count} afbeelding"
     other: "%{count} afbeeldingen"
@@ -2360,6 +2368,7 @@ nl:
         questions_link_biological_classification: Wat is een biologische classificatie?
         questions_link_contributing_to_research: Hoe kan ik bijdragen aan onderzoek?
         questions_link_discovering_species: Hoe zijn soorten ontdekt?
+        questions_link_indicator_species: Wat is een indicatorsoort?
         questions_link_invasive_species: Wat is een invasieve soort?
         questions_link_model_organism: Wat is een modelorganisme?
         questions_link_naming_species: Hoe heten soorten?
@@ -2492,6 +2501,9 @@ nl:
     one: "%{count} lid;"
     other: "%{count} leden;"
   merge_concepts: concepten samenvoegen
+  merge_data: classificaties samenvoegen
+  merge_data_ready: U kunt de gegevens nu samenvoegen vanuit de volgende classificaties naar deze taxonpagina, of deze afsplitsen naar een eigen pagina. Zorg ervoor dat u <i>absoluut</i> zeker weer dat u alle classificaties hebt geselecteerd die uw doeltaxon representeren. Als u bijvoorbeeld een mot verwijderd van de pagina over paddenstoelen, controleer dan <i>alle</i> bovenstaande classificaties om er zeker van te zijn dat u ze allemaal hebt geselecteerd (voor dezelfde mot).
+  merge_pending: Het samenvoegen kost enige tijd. De betrokken taxa kunnen niet bewerkt worden totdat het samenvoegen is voltooid. U krijgt een e-mail als het proces is afgerond en de handeling wordt opgenomen in het nieuwsoverzicht van de pagina.
   message_colon: "Bericht:"
   meta_description_colon: "Metabeschrijving:"
   meta_keywords_colon: "Metatrefwoorden:"
@@ -2530,12 +2542,27 @@ nl:
   more_children_with_count: 
     one: nog één...
     other: "%{count} meer..."
+  more_siblings_with_count: 
+    one: één andere sibling...
+    other: "%{count} andere siblings..."
   most_active_members: Meest actieve leden
   move: Verplaatsen
   move_down: Naar onderen verplaatsen
+  move_items_to_a_new_collection_with_count: 
+    one: Eén item verplaatsen naar een nieuwe verzameling
+    other: "%{count} items verplaatsen naar een nieuwe verzameling"
   move_to_bottom: naar beneden
   move_to_top: naar boven
   move_up: Naar boven verplaatsen
+  moved_all_items_from_collection_with_count: 
+    one: Er is één item verplaatst van %{from} naar deze verzameling.
+    other: Er zijn %{count} items verplaatst van %{from} naar deze verzameling.
+  moved_all_items_to_collections: 
+    one: Alle items van %{name} zijn verplaatst naar één verzameling.
+    other: Alle items van %{name} zijn verplaatst naar %{count} verzamelingen.
+  moved_items_from_collection_with_count_notice: 
+    one: Eén item vanuit %{name} verplaatst.
+    other: "%{count} items vanuit %{name} verplaatst."
   must_be_associated_with_either_a_user_or_a_community: Moet gekoppeld zijn met een gebruiker of een gemeenschap
   must_be_checked_in_to_show: "- moet aangevinkt zijn om aan een gebruiker weer te geven"
   must_be_checked_in_to_view: "- moet aangevinkt zijn om te kunnen bekijken"
@@ -2546,6 +2573,7 @@ nl:
   my_info: Mijn gegevens
   name: Naam
   name_colon: "Naam:"
+  name_not_in_select_an_alternate: Naam is niet opgenomen in %{hierarchy}. Selecteer een alternatieve hiërarchie uit de lijst hierboven.
   name_preferred_for_language_help_tip: "%{icon} geeft de voorkeursnaam aan voor elke taal."
   name_preferred_for_language_yes: Voorkeur
   name_preferred_taxonomically_for_source_help_tip: "%{icon} geeft de voorkeursnaam aan voor iedere bron."
@@ -2556,6 +2584,7 @@ nl:
   names_common_list_by_language_assistive_header: Gemeenschappelijke namen per taal
   names_curation_column_header: Conservering
   names_et_al: "%{names}, et al."
+  names_explanation: Wetenschappers proberen één enkele "levensboom" te beschrijven die de evolutionaire relatie van levende dingen reflecteert. Desalniettemin blijven evolutionaire relaties ontdekt worden en er zijn verschillende meningen over hoe levende dingen gegroepeerd en benoemd moeten worden. EOL biedt ruimte voor deze verschillen door verschillende wetenschappelijke classificaties te ondersteunen. Sommige soorten hebben meerdere namen. Dergelijke duplicaten worden weergegeven als synoniemen. EOL biedt ook de mogelijkheid om gewone namen toe te voegen die aanzienlijk kunnen verschillen tussen regio's en talen.
   names_filter: Namen
   names_name_column_header: Naam
   names_parents_column_header: Bovenliggende
@@ -2571,13 +2600,18 @@ nl:
   new_upload: Nieuwe upload
   new_user: Nieuwe gebruiker
   news_archive_page: nieuwsarchiefpagina
+  news_available_in_languages: "Deze pagina is beschikbaar in:"
   news_item: nieuwsbericht
+  news_item_date_as_shown_to_user: "Datum voor nieuwsbericht zoals weergegeven aan gebruikers (tijd wordt alleen weergegeven in RSS-feed):"
+  news_item_is_visible_on_website_after_this_time: "Het nieuwsbericht is zichtbaar op de website na deze tijd:"
   news_item_title: Nieuwsbericht
   news_items: 
     index: 
       meta_keywords: eol-nieuws, encyclopedie van nieuws over leven
       meta_title: EOL-nieuws
       page_title: EOL-nieuws
+  news_missing_content_message: Deze pagina is niet beschikbaar in de geselecteerde taal %{selected_language}.
+  news_missing_content_title: Ontbrekende vertaling
   newsfeed: Nieuwsoverzicht
   next: Volgende
   no_active_members: Er is nog niet genoeg activiteit geweest.
@@ -2589,6 +2623,7 @@ nl:
   no_results_for: geen resultaten voor
   no_tasks_found: Geen taken gevonden
   no_uploaded_content_is_available: Er is geen geüploade inhoud beschikbaar.
+  no_users_matched_search: Er zijn geen gebruikers die voldoen aan uw zoekopdracht.
   none: geen
   not_applicable: niet van toepassing
   not_evaluated: Niet beoordeeld
@@ -2704,6 +2739,7 @@ nl:
   only_show_authoritative_conten: "Alleen geautoriseerde inhoud weergeven:"
   only_show_unapproved_curators: Alleen nog niet goedgekeurde conservatoren weergeven
   option_please_select: Maak een keuze
+  or_add_it_to_an_existing_collection: of voeg deze toe aan een bestaande verzameling
   or_copy_them_to_existing_collection: of kopieer ze naar een bestaande verzameling
   or_move_them_to_existing_collection: of verplaats ze naar een bestaande verzameling
   original: "Origineel:"
@@ -2714,7 +2750,11 @@ nl:
   other_community_items_with_count: 
     one: "%{count} ander item"
     other: "%{count} andere items"
+  other_taxa_with_count: 
+    one: "%{count} ander taxon"
+    other: "%{count} andere taxa"
   other_us_dollars_amount: "Anders: US$"
+  outlink: Uitgaande verwijzing
   overview: Overzicht
   page: Pagina
   page_linked_to: Pagina gekoppeld aan
@@ -2728,11 +2768,20 @@ nl:
   pages_admin_section_link: Beheerders
   pages_curator_section_link: Conservatoren
   pages_title: Referenties
+  pages_with_count: 
+    one: "%{count}"
+    other: "%{count}"
   pages_with_pictures_and_text: Pagina's met afbeeldingen en tekst
   pages_with_pictures_or_text: Pagina's met afbeeldingen of tekst
   pagination_next: Volgende
+  pagination_next_with_count: 
+    one: zie volgende
+    other: zie volgende %{count}
   pagination_page_number: Pagina %{number}
   pagination_previous: Vorige
+  pagination_previous_with_count: 
+    one: zie vorige
+    other: zie vorige %{count}
   parameters: Parameters
   partner: Partner
   partner_information: Partnergegevens
@@ -2885,7 +2934,7 @@ nl:
   return_all_common_names_for_this_taxon: alle gewone namen voor dit taxon weergeven
   return_all_synonyms_for_this_taxon: alle synoniemen voor dit taxon weergeven
   return_common_names_for_the_page_taxon: alle gewone namen voor het taxon van de pagina weergeven
-  return_content_by_vettedness: als gecontroleerd "1" is, dan wordt alleen vertrouwde inhoud teruggegeven. Als controleerd "2" is, dan wordt alleen vertrouwde en ongecontroleerde inhoud teruggegeven (niet-vertrouwde inhoud is daar dus geen onderdeel van). Standaard wordt alle inhoud teruggegeven
+  return_content_by_vettedness: Als "gecontroleerd" de waarde "1" heeft, dan wordt alleen vertrouwde inhoud teruggegeven. Als "gecontroleerd" de waarde "2" heeft, dan wordt alleen vertrouwde en ongecontroleerde inhoud teruggegeven (niet-vertrouwde inhoud is daar dus geen onderdeel van). Standaard wordt alle inhoud teruggegeven.
   revisions: Versies
   revoke_full_curator_link: Intrekken
   revoke_manager_link: Managersrol intrekken
@@ -2906,6 +2955,7 @@ nl:
   search_field_preferred_scientific: Voorkeur wetenschappelijke naam
   search_field_surrogate: Surrogaat
   search_field_synonym: Synoniem
+  search_for_curators_containing: "Zoeken naar conservatoren die bevatten:"
   search_for_messages_containing: "Zoeken naar berichten die de volgende tekst bevatten:"
   search_for_terms_containing: "Zoeken naar termen die bevatten:"
   search_input_advisory_information: Voer de triviale of of wetenschappelijke namen van levende organismen in waar u meer over wilt weten. U kunt ook zoeken naar EOL-leden, verzamelingen en gemeenschappen.
@@ -2913,6 +2963,7 @@ nl:
   search_placeholder: EOL doorzoeken ...
   search_previous_label: Vorige
   search_results: Zoekresultaten
+  search_suggestion_created: De zoeksuggestie is aangemaakt.
   search_suggestion_updated: De zoeksuggestie is bijgewerkt.
   search_suggestions: Zoeksuggesties
   search_term: Trefwoord
@@ -2929,10 +2980,16 @@ nl:
   see_all_communities_with_count_html: 
     one: De <span class="assistive">gemeenschap met focus op dit taxon</span> bekijken.
     other: Alle <span class="assistive">%{count} gemeenschappen met focus op dit taxon</span> bekijken.
+  see_all_featured_collections_with_count: 
+    one: De uitgelichte verzameling bekijken.
+    other: De %{count} uitgelichte verzamelingen bekijken.
   see_all_maps_link: Alle kaarten bekijken
   see_all_media_link: Alle media bekijken
   see_all_of_your_collections: Al uw verzamelingen bekijken
   see_all_of_your_communities: Al uw gemeenschappen bekijken
+  see_all_updates_with_count_html: 
+    one: De <span class="assistive">update voor deze pagina</span> bekijken.
+    other: Alle <span class="assistive">%{count} updates voor deze pagina</span> bekijken.
   see_notes: zie notities
   select_colon: "Selecteer:"
   select_tool_and_go: "Selecteer een gereedschap en klik op \"Verder\":"
@@ -2981,6 +3038,8 @@ nl:
   skip_to_table_of_contents: Naar inhoudsopgave gaan
   social_sharing_twitter_follow_eol_button: "@eol volgen"
   social_sharing_twitter_tweet_button: Tweet
+  sorry_no_collections_are_available_to_share: Er zijn helaas geen collecties beschikbaar om te delen met deze gemeenschap.
+  sorry_no_communities_are_available_to_share: Er zijn helaas geen gemeenschappen beschikbaar om deze collectie mee te delen.
   sort_by: Sorteren op
   sort_by_alphabetical_option: Alfabetisch
   sort_by_button: Sorteren
@@ -3401,7 +3460,6 @@ nl:
   truncated_comment_omission: ... <a href='%{link}'>meer</a>
   truncated_comment_omission_linkless: ...
   trusted: Vertrouwd
-  trusted_for_colon: "Vertrouwd voor:"
   trusted_images: Vertrouwde afbeeldingen
   trusted_maps: Vertrouwde kaarten
   trusted_text_objects: Vertrouwde artikelen
@@ -3414,12 +3472,10 @@ nl:
   unknown_type_not_associated_with_any_published_entries: Deze gegevens zijn niet gekoppeld met gepubliceerde taxa.
   unpublished: Ongepubliceerd
   unreviewed: Niet-beoordeeld
-  unreviewed_for_colon: "Ongecontroleerd voor:"
   unreviewed_images: Ongecontroleerde afbeeldingen
   unreviewed_maps: Ongecontroleerde kaarten
   unreviewed_text_objects: Ongecontroleerde artikelen
   untrusted: Niet-vertrouwd
-  untrusted_for_colon: "Niet-vertrouwd voor:"
   update: Bijwerken
   update_collection_submit_button: Collectiegegevens bijwerken
   update_language: Taal bijwerken

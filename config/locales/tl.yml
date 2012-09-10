@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: AnakngAraw
+# Author: TheSleepyhollow02
 tl: 
   0_1_or_2: 0, 1 o 2
   0_or_1: 0 o 1
@@ -2332,7 +2333,7 @@ tl:
     v2: 
       application: 
         about_link_citing: Pagbanggit sa EOL
-        about_link_contact_us: Makipag-ugnayan sa Amin
+        about_link_contact_us: Makipag-ugnayan sa amin
         about_link_discover: Tuklasin
         about_link_donate: Mag-abuloy sa EOL
         about_link_eol_blog: Ang Blog ng EOL
@@ -3592,7 +3593,6 @@ tl:
   truncated_comment_omission_linkless: ...
   truncated_news_item_omission: ... <a href='%{link}'>mas marami pa</a>
   trusted: Pinagkakatiwalaan
-  trusted_for_colon: "Pinagkatiwalaan para sa:"
   trusted_images: Pinagkakatiwalaang mga larawan
   trusted_maps: Pinagkakatiwalaang mga mapa
   trusted_text_objects: Pinagkakatiwalaang mga artikulo
@@ -3607,12 +3607,10 @@ tl:
   unknown_type_not_associated_with_any_published_entries: Ang datong ito ay walang kaugnayan sa anumang nakalathalang taksa.
   unpublished: Hindi pa nailalathala
   unreviewed: Hindi pa nasusuri
-  unreviewed_for_colon: "Hindi na sinuring muli para sa:"
   unreviewed_images: Hindi pa nasusuring mga larawan
   unreviewed_maps: Hindi pa nasusuring mga mapa
   unreviewed_text_objects: Hindi pa nasusuring mga artikulo
   untrusted: Hindi pinagkakatiwalaan
-  untrusted_for_colon: "Hindi na pinagkatiwalaan para sa:"
   update: Isapanahon
   update_collection_submit_button: Isapanahon ang mga detalye ng kalipunan
   update_language: Isapanahon ang wika

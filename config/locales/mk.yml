@@ -3599,7 +3599,6 @@ mk:
   truncated_comment_omission_linkless: ...
   truncated_news_item_omission: ... <a href='%{link}'>повеќе</a>
   trusted: Доверливи
-  trusted_for_colon: "Доверливо за:"
   trusted_images: Доверливи слики
   trusted_maps: Доверливи карти
   trusted_text_objects: Доверливи статии
@@ -3614,12 +3613,10 @@ mk:
   unknown_type_not_associated_with_any_published_entries: Овие податоци не се поврзани со ниеден објавен таксон.
   unpublished: Необјавено
   unreviewed: Непроверено
-  unreviewed_for_colon: "Непроверено за:"
   unreviewed_images: Непроверени слики
   unreviewed_maps: Непроверени карти
   unreviewed_text_objects: Непроверени текстуални објекти
   untrusted: Недоверливи
-  untrusted_for_colon: "Недоверливо за:"
   update: Поднови
   update_collection_submit_button: Измени подробности за збирката
   update_language: Измени јазик

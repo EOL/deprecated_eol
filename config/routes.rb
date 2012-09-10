@@ -22,6 +22,7 @@ ActionController::Routing::Routes.draw do |map|
     redirect.connect '/users/:user_id/reset_password/:recover_account_token'
     redirect.connect '/info/xrayvision', :collection_id => 14770
     redirect.connect '/info/naturesbest2011', :collection_id => 19338
+    redirect.connect '/info/brian-skerry', :collection_id => 29285
     redirect.connect '/index'
     redirect.connect '/home.html'
   end

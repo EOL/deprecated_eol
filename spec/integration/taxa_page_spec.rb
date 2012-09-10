@@ -133,28 +133,28 @@ describe 'Taxa page' do
 
   shared_examples_for 'taxon resources tab' do
     it 'should include Identification Resources' do
-      body.should include('Identification resources')
+      should include('Identification resources')
     end
     it 'should include Education' do
-      body.should include('Education')
+      should include('Education')
     end
     it 'should include Partner Links' do
-      body.should include('Partner links')
+      should include('Partner links')
     end
     it 'should include Citizen science links' do
-      body.should include('Citizen science links')
+      should include('Citizen science links')
     end
   end
 
   shared_examples_for 'taxon community tab' do
     it 'should include Curators' do
-      body.should include('Curators')
+      should include('Curators')
     end
     it 'should include Collections' do
-      body.should include('Collections')
+      should include('Collections')
     end
     it 'should include Communities' do
-      body.should include('Communities')
+      should include('Communities')
     end
   end
 
@@ -219,29 +219,29 @@ describe 'Taxa page' do
   shared_examples_for 'taxon literature tab' do
     it 'should show some references' do
       refs = @taxon_concept.data_objects.collect{|dato| dato.refs.collect{|ref| ref.full_reference}.compact}.flatten.compact
-      body.should have_selector('.ref_list li')
+      should have_selector('.ref_list li')
       refs.each { |ref| body.should include(ref) }
     end
   end
 
   shared_examples_for 'taxon name - taxon_concept page' do
     it 'should show the concepts preferred name style and ' do
-      body.should include(@taxon_concept.entry.name.ranked_canonical_form.string)
+      should include(@taxon_concept.entry.name.ranked_canonical_form.string)
     end
   end
 
   shared_examples_for 'taxon name - hierarchy_entry page' do
     it 'should show the concepts preferred name in the heading' do
-      body.should include(@taxon_concept.quick_scientific_name(:normal))
+      should include(@taxon_concept.quick_scientific_name(:normal))
     end
   end
 
   shared_examples_for 'taxon updates tab' do
     it 'should include Taxon newsfeed' do
-      body.should include('Taxon newsfeed')
+      should include('Taxon newsfeed')
     end
     it 'should include Page statistics' do
-      body.should include('Page statistics')
+      should include('Page statistics')
     end
   end
 
@@ -249,10 +249,11 @@ describe 'Taxa page' do
   context 'overview when taxon has all expected data - taxon_concept' do
     before(:all) do
       EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
-      visit("pages/#{@testy[:id]}")
+      visit overview_taxon_path(@testy[:id])
       @section = 'overview'
+      @body = body
     end
-    subject { body }
+    subject { @body }
     it_should_behave_like 'taxon name - taxon_concept page'
     it_should_behave_like 'taxon pages with all expected data'
     it_should_behave_like 'taxon overview tab'
@@ -276,8 +277,9 @@ describe 'Taxa page' do
       EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
       visit overview_taxon_entry_path(@taxon_concept, @hierarchy_entry)
       @section = 'overview'
+      @body = body
     end
-    subject { body }
+    subject { @body }
     it_should_behave_like 'taxon name - hierarchy_entry page'
     it_should_behave_like 'taxon pages with all expected data'
     it_should_behave_like 'taxon overview tab'
@@ -288,8 +290,9 @@ describe 'Taxa page' do
     before(:all) do
       visit("pages/#{@testy[:id]}/resources")
       @section = 'resources'
+      @body = body
     end
-    subject { body }
+    subject { @body }
     it_should_behave_like 'taxon name - taxon_concept page'
     it_should_behave_like 'taxon pages with all expected data'
     it_should_behave_like 'taxon resources tab'
@@ -300,8 +303,9 @@ describe 'Taxa page' do
     before(:all) do
       visit taxon_entry_resources_path(@taxon_concept, @hierarchy_entry)
       @section = 'resources'
+      @body = body
     end
-    subject { body }
+    subject { @body }
     it_should_behave_like 'taxon name - hierarchy_entry page'
     it_should_behave_like 'taxon pages with all expected data'
     it_should_behave_like 'taxon resources tab'
@@ -312,8 +316,9 @@ describe 'Taxa page' do
     before(:all) do
       visit taxon_details_path(@taxon_concept)
       @section = 'details'
+      @body = body
     end
-    subject { body }
+    subject { @body }
     it_should_behave_like 'taxon name - taxon_concept page'
     it_should_behave_like 'taxon pages with all expected data'
     it_should_behave_like 'taxon details tab'
@@ -324,8 +329,9 @@ describe 'Taxa page' do
     before(:all) do
       visit taxon_entry_details_path(@taxon_concept, @hierarchy_entry)
       @section = 'details'
+      @body = body
     end
-    subject { body }
+    subject { @body }
     it_should_behave_like 'taxon name - hierarchy_entry page'
     it_should_behave_like 'taxon pages with all expected data'
     it_should_behave_like 'taxon details tab'
@@ -336,8 +342,9 @@ describe 'Taxa page' do
     before(:all) do
       visit taxon_names_path(@taxon_concept)
       @section = 'names'
+      @body = body
     end
-    subject { body }
+    subject { @body }
     it_should_behave_like 'taxon name - taxon_concept page'
     it_should_behave_like 'taxon pages with all expected data'
     it_should_behave_like 'taxon names tab'
@@ -348,8 +355,9 @@ describe 'Taxa page' do
     before(:all) do
       visit taxon_entry_names_path(@taxon_concept, @hierarchy_entry)
       @section = 'names'
+      @body = body
     end
-    subject { body }
+    subject { @body }
     it_should_behave_like 'taxon name - hierarchy_entry page'
     it_should_behave_like 'taxon pages with all expected data'
     it_should_behave_like 'taxon names tab'
@@ -360,8 +368,9 @@ describe 'Taxa page' do
     before(:all) do
       visit taxon_literature_path(@taxon_concept)
       @section = 'literature'
+      @body = body
     end
-    subject { body }
+    subject { @body }
     it_should_behave_like 'taxon name - taxon_concept page'
     it_should_behave_like 'taxon pages with all expected data'
     it_should_behave_like 'taxon literature tab'
@@ -372,8 +381,9 @@ describe 'Taxa page' do
     before(:all) do
       visit taxon_entry_literature_path(@taxon_concept, @hierarchy_entry)
       @section = 'literature'
+      @body = body
     end
-    subject { body }
+    subject { @body }
     it_should_behave_like 'taxon name - hierarchy_entry page'
     it_should_behave_like 'taxon pages with all expected data'
     it_should_behave_like 'taxon literature tab'
@@ -385,8 +395,9 @@ describe 'Taxa page' do
     before(:all) do
       visit(taxon_community_index_path(@testy[:id]))
       @section = 'community'
+      @body = body
     end
-    subject { body }
+    subject { @body }
     it_should_behave_like 'taxon name - taxon_concept page'
     it_should_behave_like 'taxon community tab'
     it "should render communities - curators page" do
@@ -405,8 +416,11 @@ describe 'Taxa page' do
 
 
   context 'when taxon does not have any common names' do
-    before(:all) { visit overview_taxon_path @testy[:taxon_concept_with_no_common_names] }
-    subject { body }
+    before(:all) do
+      visit overview_taxon_path @testy[:taxon_concept_with_no_common_names]
+      @body = body
+    end
+    subject { @body }
     it 'should not show a common name' do
       should_not have_selector('#page_heading h2')
     end
@@ -438,11 +452,8 @@ describe 'Taxa page' do
       current_path.should match taxon_details_path @testy[:id]
     end
     it 'should show comments from superceded taxa' do
-      comment = Comment.gen(:parent_type => "TaxonConcept", :parent_id => @testy[:superceded_taxon_concept].id,
-                            :body => "Comment on superceded taxon.",
-                            :user => User.first)
       visit overview_taxon_path @testy[:id]
-      body.should include("Comment on superceded taxon.")
+      body.should include(@testy[:superceded_comment].body)
     end
   end
 
@@ -473,21 +484,22 @@ describe 'Taxa page' do
 
   context 'updates tab - taxon_concept' do
     before(:all) do
-      visit(taxon_update_path(@taxon_concept))
+      visit(taxon_updates_path(@taxon_concept))
       @section = 'updates'
+      @body = body
     end
-    subject { body }
+    subject { @body }
     it_should_behave_like 'taxon updates tab'
     it 'should allow logged in users to post comment' do
       visit logout_url
       login_as @user
-      visit taxon_update_path(@taxon_concept)
+      visit taxon_updates_path(@taxon_concept)
       comment = "Test comment by a logged in user."
       body.should have_selector("#main .comment #comment_body")
       fill_in 'comment_body', :with => comment
       body.should have_selector("#main .comment .actions input[value='Post Comment']")
       click_button "Post Comment"
-      current_url.should match /#{taxon_update_path(@taxon_concept)}/
+      current_url.should match /#{taxon_updates_path(@taxon_concept)}/
       body.should include('Comment successfully added')
     end
   end
@@ -496,8 +508,9 @@ describe 'Taxa page' do
     before(:all) do
       visit taxon_entry_updates_path(@taxon_concept, @hierarchy_entry)
       @section = 'updates'
+      @body = body
     end
-    subject { body }
+    subject { @body }
     it_should_behave_like 'taxon updates tab'
     it 'should allow logged in users to post comment' do
       visit logout_url

@@ -193,6 +193,10 @@ testy[:syn2] = Synonym.generate_from_name(testy[:name_obj], :entry => he2, :lang
 testy[:tcn2] = TaxonConceptName.find_by_synonym_id(testy[:syn2].id)
 
 testy[:superceded_taxon_concept] = TaxonConcept.gen(:supercedure_id => testy[:id])
+testy[:superceded_comment] = Comment.gen(:parent_type => "TaxonConcept",
+                                         :parent_id => testy[:superceded_taxon_concept].id,
+                                         :body => "Comment on superceded taxon.",
+                                         :user => User.first)
 testy[:unpublished_taxon_concept] = TaxonConcept.gen(:published => 0, :supercedure_id => 0)
 
 testy[:before_all_check] = User.gen(:username => 'testy_scenario')

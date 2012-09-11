@@ -34,15 +34,4 @@ EolUpgrade::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
-  
-  ActiveRecord::Base.logger = Logger.new(STDOUT)
-  ActionController::Base.logger = Logger.new(STDOUT)
-  Dalli.logger = Logger.new(STDOUT)
-  
-  config.after_initialize do
-    $INDEX_RECORDS_IN_SOLR_ON_SAVE = false
-    $SOLR_SERVER = 'http://128.128.164.109:8080/solr/'
-    $CONTENT_SERVERS = ['http://content70.eol.org/','http://content71.eol.org/','http://content72.eol.org/','http://content73.eol.org/','http://content74.eol.org/','http://content75.eol.org/']
-  end
-  
 end

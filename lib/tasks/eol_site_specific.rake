@@ -1,5 +1,5 @@
 desc 'Add simlinks to eol site-specific files which are not needed for open source release'
-site_dir = Rails.root.join('vendor', 'eol_org')
+site_dir = Rails.root.join('vendor', 'eol_org').to_s
 namespace :eol do
   desc 'checks out site-specific repository under vendor directory'
   task :checkout_repository do
@@ -11,9 +11,9 @@ namespace :eol do
         if status =~ /working directory clean/
           puts ".. Working directory clean."
           puts ".. Removing existing links (before update, so deleted files won't have links):"
-          Dir.glob(site_dir + "/config/**/*").each do |file|
+          Dir.glob(site_dir + "/rails3_config/**/*").each do |file|
             if FileTest::file? file
-              file_name = file.gsub("#{site_dir}/", '')
+              file_name = file.gsub("#{site_dir}/rails3_config/", 'config/')
               file_link = Rails.root.join(file_name)
               if FileTest.exists?(file_link)
                 puts "   #{file_name}"
@@ -42,9 +42,9 @@ namespace :eol do
   desc 'creates soft links to site-specific files'
   task :site_specific => :checkout_repository do
     puts "++ Adding links to site-specific files..."
-    Dir.glob(site_dir + "/config/**/*").each do |file|
+    Dir.glob(site_dir + "/rails3_config/**/*").each do |file|
       if FileTest::file? file
-        file_name = file.gsub("#{site_dir}/", '')
+        file_name = file.gsub("#{site_dir}/rails3_config/", 'config/')
         file_link = Rails.root.join(file_name)
         dir =  File.dirname file_link
         FileUtils::mkdir_p(dir) unless FileTest.exists?(dir)
@@ -64,9 +64,9 @@ namespace :eol do
   task :clean_site_specific do
     puts "++ Cleaning up site-specific files..."
     if FileTest.exists? site_dir
-      Dir.glob(site_dir + "/config/**/*").each do |file|
+      Dir.glob(site_dir + "/rails3_config/**/*").each do |file|
         if FileTest::file? file
-          file_link = Rails.root.join(file.gsub("#{site_dir}/", ''))
+          file_link = Rails.root.join(file.gsub("#{site_dir}/rails3_config/", 'config/'))
           begin
             FileUtils::rm file_link
           rescue SystemCallError

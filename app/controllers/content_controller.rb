@@ -4,7 +4,7 @@ class ContentController < ApplicationController
 
   caches_page :tc_api
 
-  layout 'v2/basic'
+  layout 'v2/info'
 
   prepend_before_filter :redirect_back_to_http if $USE_SSL_FOR_LOGIN
 

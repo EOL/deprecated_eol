@@ -37,7 +37,7 @@ EolUpgrade::Application.routes.draw do
     resources :hierarchy_entries, :as => 'entries', :only => [:show] do
       member do
         put 'switch'
-        get 'overview', :controller => 'taxa/overviews'
+        get 'overview', :controller => 'taxa'
       end
       resource :tree, :only => [:show], :controller => 'taxa/trees'
       resources :maps, :only => [:index], :controller => 'taxa/maps'

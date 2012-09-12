@@ -2170,7 +2170,7 @@ en:
   assistive_media_header: "Media"
   assistive_details_header: "Details"
   assistive_literature_header: "Literature"
-  assistive_names_classifictions_header: "Classifications"
+  assistive_names_classifications_header: "Classifications"
   assistive_names_common_header: "Common names"
   assistive_names_related_header: "Related names"
   assistive_names_synonyms_header: "Synonyms"

@@ -24,10 +24,10 @@ class RecentActivityMailer < ActionMailer::Base
     subject "Notifications not sent due to error"
     user_id = SiteConfigurationOption.find_by_parameter('notification_error_user_id')
     user = user_id ? User.find(user_id) : User.first
-    to    user.email
-    from  $NO_REPLY_EMAIL_ADDRESS
-    body  :user => options[:user] || 'unknown', :note_ids => options[:note_ids] || ['unknown'],
-      :error => options[:error] || 'unknown', :frequency => options[:fqz].to_s || 'unknown'
+    recipients user.email
+    from       $NO_REPLY_EMAIL_ADDRESS
+    body       :user => options[:user] || 'unknown', :note_ids => options[:note_ids] || ['unknown'],
+               :error => options[:error] || 'unknown', :frequency => options[:fqz].to_s || 'unknown'
   end
 
   def set_locale(user)

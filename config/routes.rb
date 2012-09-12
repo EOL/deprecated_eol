@@ -292,6 +292,7 @@ ActionController::Routing::Routes.draw do |map|
   end
   map.donate '/donate', :controller => 'content', :action => 'donate'
   map.language '/language', :controller => 'content', :action => 'language'
+  map.maintenance '/maintenance', :controller => 'content', :action => 'maintenance'
 
   ## News items
   map.news '/news/:id', :controller => 'news_items', :action => 'show'

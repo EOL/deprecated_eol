@@ -221,6 +221,10 @@ class ContentController < ApplicationController
 
   end
 
+  def maintenance
+    render :layout => false
+  end
+
   # conveninece page to expire everything immediately (call with http://www.eol.org/clear_caches)
   def clear_caches
     if allowed_request

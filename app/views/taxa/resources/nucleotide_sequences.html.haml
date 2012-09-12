@@ -6,7 +6,7 @@
     .copy
       %h3= I18n.t(:nucleotide_sequences)
       - unless @identifier.blank?
-        = link_to image_tag('/images/v2/ncbi.gif'), "http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=#{@identifier}&lvl=0", :rel => :nofollow
+        = link_to image_tag('v2/ncbi.gif'), "http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=#{@identifier}&lvl=0", :rel => :nofollow
         %p= raw(I18n.t(:nucleotide_sequences_ncbi_mission, :ncbi_link => 'http://www.ncbi.nlm.nih.gov/'))
         %p= raw(I18n.t(:nucleotide_sequences_ncbi_database, :ncbi_taxonomy_link => 'http://www.ncbi.nlm.nih.gov/sites/entrez?db=taxonomy'))
         %p

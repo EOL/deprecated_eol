@@ -12,7 +12,7 @@ class ContentUpload < ActiveRecord::Base
   has_attached_file :attachment,
     :path => $CONTENT_UPLOAD_DIRECTORY,
     :url => $CONTENT_UPLOAD_PATH,
-    :default_url => "/images/blank.gif"
+    :default_url => "/assets/blank.gif"
 
   validates_attachment_presence :attachment  
   validates_attachment_size :attachment, :in => 0..10.0.megabyte

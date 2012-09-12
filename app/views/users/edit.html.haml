@@ -1,4 +1,4 @@
-- translation_vars = {:required_icon => image_tag('/images/v2/icon_required.png', :alt => '')}
+- translation_vars = {:required_icon => image_tag('v2/icon_required.png', :alt => '')}
 #profile_edit.article
   = form_for @user, :builder => ApplicationHelper::EolFormBuilder, :html => { :multipart => true } do |user_form|
     = validation_errors_for(@user)

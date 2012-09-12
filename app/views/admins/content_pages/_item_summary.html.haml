@@ -3,11 +3,11 @@
     = content_page.page_name
     %small
       &nbsp;
-      [
+      = "["
       = content_page.active? ? I18n.t(:admin_content_page_active) : I18n.t(:admin_content_page_not_active)
       &bull;
       = link_to I18n.t(:edit), edit_admin_content_page_path(content_page)
-      ]
+      = "]"
   .actions
     = button_to I18n.t(:move_up), { :action => 'move_up', :id => content_page.id },
       { :disabled => block_of_pages.first == content_page, :class => 'move_up' }
@@ -23,7 +23,7 @@
         = render :partial => 'admins/translated_content_pages/item_summary',
           :locals => { :translated_content_page => translated_content_page, :content_page => content_page }
     = link_to I18n.t(:admin_translated_content_page_new_link),
-      new_admin_content_page_translated_content_page_path(content_page)
+      new_admin_content_page_translation_path(content_page)
 
   - unless content_page.children.empty?
     %ul

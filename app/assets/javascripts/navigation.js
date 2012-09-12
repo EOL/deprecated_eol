@@ -3,7 +3,7 @@ if (!EOL) EOL = {};
 // Set up some stupid defaults, just in case.  (All of these should be supplied before now, though.)
 if (!EOL.clade_selector_input_name) { EOL.clade_selector_input_name = 'selected-clade-id'; }
 if (!EOL.clade_selector_id) { EOL.clade_selector_id = 'selected-clade-id'; }
-if (!EOL.clade_selector_id) { EOL.clade_selector_id = '<img src="/images/indicator_arrows_black.gif"/>'; }
+if (!EOL.clade_selector_id) { EOL.clade_selector_id = '<img src="/assets/indicator_arrows_black.gif"/>'; }
 if (!EOL.clade_behavior_needs_load) { EOL.clade_behavior_needs_load = 'yes'; } // Avoid boolean, makes defined test easier
 if (!EOL.expand_clade_behavior) {
   EOL.expand_clade_behavior = function() {

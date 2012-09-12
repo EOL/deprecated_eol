@@ -77,6 +77,7 @@ class TaxonConcept < ActiveRecord::Base
     Resource
     Vetted
     Hierarchy
+    DataObject
   end
 
   def self.load_for_title_only(load_these)

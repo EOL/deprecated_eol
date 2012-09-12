@@ -233,14 +233,14 @@ EolUpgrade::Application.routes.draw do
     end
   end
 
-  resources :admin, :only => [:show] do
-    resources :content_pages do
+  resource :admin, :only => [:show] do
+    resources :content_pages, :controller => 'admins/content_pages' do
       member do
         post 'move_up'
         post 'move_down'
       end
       resources :children, :only => [:new, :create]
-      resources :translated_content_pages, :as => :translations, :except => [:show, :index]
+      resources :translated_content_pages, :as => :translations, :except => [:show, :index], :controller => 'translated_content_pages'
     end
     resources :content_partners, :only => [:index] do
       collection do

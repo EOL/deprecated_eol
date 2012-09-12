@@ -70,7 +70,7 @@ function lookup_id(input_id, url_prefix) {
   var input = $(input_id);
   $.ajax({
     url: url_prefix + input.val(),
-    beforeSend: function(xtr) { input.siblings(".entries").html('<p style="text-align: center;"><img src="/images/green_loader.gif"/></p>'); },
+    beforeSend: function(xtr) { input.siblings(".entries").html('<p style="text-align: center;"><img src="/assets/green_loader.gif"/></p>'); },
     success: function(response) {
       input.siblings(".entries").html(response);
       input.siblings(".entries").attr('taxon_concept_id', $(this).attr('id'));
@@ -84,7 +84,7 @@ function supercede_concepts(id1, id2) {
   $.ajax({
     url: '/concept_manager/supercede_concepts?id1=' + id1 + '&id2=' + id2,
     beforeSend: function(xtr) {
-      $("#left_panel .entries, #right_panel .entries").html('<p style="text-align: center;"><img src="/images/green_loader.gif"/></p>');
+      $("#left_panel .entries, #right_panel .entries").html('<p style="text-align: center;"><img src="/assets/green_loader.gif"/></p>');
     },
     success: function(response) {
       $("#right_panel .entries").html('');
@@ -105,7 +105,7 @@ function split_entry(id) {
   $.ajax({
     url: '/concept_manager/split_entry_from_concept/' + id,
     beforeSend: function(xtr) {
-      $("#left_panel .entries, #right_panel .entries").html('<p style="text-align: center;"><img src="/images/green_loader.gif"/></p>');
+      $("#left_panel .entries, #right_panel .entries").html('<p style="text-align: center;"><img src="/assets/green_loader.gif"/></p>');
     },
     success: function(response) {
       $("#right_panel .entries").html('');

@@ -30,7 +30,7 @@ function toc_add_chapter(input_id) {
 }
 function toc_edit_label(toc_id, toc_label) {
   new_html = '<input id="toc_edit_label_'+toc_id+'" type="text" size="40" value="'+ toc_label +'">';
-  new_html+= '<a href="" onclick="submit_new_label('+toc_id+', \'toc_edit_label_'+toc_id+'\'); return false;"><img title="edit" style="float: right;" src="/images/checked.png" alt="edit"></a>';
+  new_html+= '<a href="" onclick="submit_new_label('+toc_id+', \'toc_edit_label_'+toc_id+'\'); return false;"><img title="edit" style="float: right;" src="/assets/checked.png" alt="edit"></a>';
   $("#toc_label_"+toc_id).html(new_html);
 }
 function submit_new_label(toc_id, input_id) {

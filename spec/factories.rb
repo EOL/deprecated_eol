@@ -522,7 +522,7 @@ FactoryGirl.define do
     license                { License.gen_if_not_exists(:title => 'cc-by 3.0',
                                           :description => 'Some rights reserved',
                                           :source_url => 'http://creativecommons.org/licenses/by/3.0/',
-                                          :logo_url => '/images/licenses/cc_by_small.png') }
+                                          :logo_url => '/assets/licenses/cc_by_small.png') }
     rights_statement       'Test rights statement'
     rights_holder          'Test rights holder'
     bibliographic_citation ''
@@ -724,7 +724,7 @@ FactoryGirl.define do
     title                    'cc-by 3.0'
     source_url               'http://creativecommons.org/licenses/by/3.0/'
     version                  0
-    logo_url                 '/images/licenses/cc_by_small.png'
+    logo_url                 '/assets/licenses/cc_by_small.png'
     show_to_content_partners true
   end
 
@@ -823,7 +823,7 @@ FactoryGirl.define do
                         License.gen_if_not_exists(:title => 'cc-by 3.0',
                                           :description => 'Some rights reserved',
                                           :source_url => 'http://creativecommons.org/licenses/by/3.0/',
-                                          :logo_url => '/images/licenses/cc_by_small.png') }
+                                          :logo_url => '/assets/licenses/cc_by_small.png') }
     resource_status { ResourceStatus.processed || ResourceStatus.gen_if_not_exists(:label => 'Processed') }
     accesspoint_url 'http://services.eol.org/eol_php_code/tests/fixtures/files/test_resource.xml' # Won't work without a real, live URL for an XML file
     refresh_period_hours 0

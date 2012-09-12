@@ -9,7 +9,7 @@
     - else
       %p.help_text
         = raw(I18n.t(:name_preferred_taxonomically_for_source_help_tip,
-          :icon => image_tag("/images/v2/icon_required.png", :alt => I18n.t(:name_preferred_for_language_yes), :class => 'indicator')))
+          :icon => image_tag("v2/icon_required.png", :alt => I18n.t(:name_preferred_for_language_yes), :class => 'indicator')))
 
       - hierarchy_entries = @selected_hierarchy_entry.blank? ? @taxon_concept.published_hierarchy_entries : [@selected_hierarchy_entry]
       - HierarchyEntry.preload_associations(hierarchy_entries, :hierarchy)

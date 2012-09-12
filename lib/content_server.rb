@@ -46,7 +46,7 @@ class ContentServer
   end
 
   def self.blank
-    "/images/blank.gif"
+    "/assets/blank.gif"
   end
 
   def self.uploaded_content_url(url, ext)

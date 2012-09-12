@@ -75,7 +75,7 @@ class User < Curator
   # has_attached_file :logo,
   #   :path => $LOGO_UPLOAD_DIRECTORY,
   #   :url => $LOGO_UPLOAD_PATH,
-  #   :default_url => "/images/blank.gif",
+  #   :default_url => "/assets/blank.gif",
   #   :if => self.column_names.include?('logo_file_name')
   # 
   # validates_attachment_content_type :logo,
@@ -501,7 +501,7 @@ class User < Curator
   def logo_url(size = 'large', specified_content_host = nil, options = {})
     if logo_cache_url.blank?
       if options[:mail]
-        return "http://#{Rails.configuration.action_mailer.default_url_options[:host]}/images/v2/logos/user_default.png"
+        return "http://#{Rails.configuration.action_mailer.default_url_options[:host]}/assets/v2/logos/user_default.png"
       else
         return "v2/logos/user_default.png"
       end

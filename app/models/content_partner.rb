@@ -32,7 +32,7 @@ class ContentPartner < ActiveRecord::Base
   has_attached_file :logo,
     :path => $LOGO_UPLOAD_DIRECTORY,
     :url => $LOGO_UPLOAD_PATH,
-    :default_url => "/images/blank.gif",
+    :default_url => "/assets/blank.gif",
     :if => self.column_names.include?('logo_file_name')
 
   # validates_attachment_content_type :logo,

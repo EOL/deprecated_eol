@@ -466,7 +466,7 @@ $(function() {
       $date_form.data('datepicker_opts'),
       { isRTL: ($('body').css('direction') == 'rtl') ? true : false,
         showOn: "button",
-        buttonImage: "/images/v2/icon_calendar.png",
+        buttonImage: "/assets/v2/icon_calendar.png",
         buttonImageOnly: true,
         minDate: new Date(2012, 2 - 1, 17),
         maxDate: new Date() }

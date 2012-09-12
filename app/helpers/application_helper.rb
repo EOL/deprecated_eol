@@ -417,13 +417,13 @@ module ApplicationHelper
 
   def unpublished_icon(options={})
     style = options[:style] ? "style=\"#{options[:style]}\"" : ''
-    "<img src=\"/images/icons/unpublished.png\" alt=\"Unpublished\" title=\"Unpublished\" #{style} />"
+    "<img src=\"/assets/icons/unpublished.png\" alt=\"Unpublished\" title=\"Unpublished\" #{style} />"
   end
 
   def published_icon(options={})
     style = options[:style] ? "style=\"#{options[:style]}\"" : ''
     description = options[:agent_name] ? "From #{options[:agent_name]}" : ''
-    "<img src=\"/images/icons/published.png\" alt=\"#{description}\" title=\"#{description}\" #{style} />"
+    "<img src=\"/assets/icons/published.png\" alt=\"#{description}\" title=\"#{description}\" #{style} />"
   end
 
   @@TOOLTIP_GLOBAL_COUNT = 0

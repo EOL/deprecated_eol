@@ -15,7 +15,7 @@
         option_root + options_from_collection_for_select(@parent_content_pages, :id, :page_name, @content_page.parent_content_page_id)
     %dt.required
       = content_page_form.label :page_name
-      %p= I18n.t('helpers.label.content_page.page_name_more')
+      %p= raw(I18n.t('helpers.label.content_page.page_name_more'))
     %dd
       = content_page_form.text_field :page_name, { :maxlength => 255 }
       %p
@@ -27,4 +27,4 @@
     - content_page_form.label :active, :class => 'checkbox' do
       = content_page_form.check_box :active
       = I18n.t('activerecord.attributes.content_page.active')
-      %p= I18n.t('helpers.label.content_page.active_more')
+      %p= raw(I18n.t('helpers.label.content_page.active_more'))

@@ -3,7 +3,7 @@
     = form_for @content_page, :url => admin_content_page_path(@content_page), :builder => ApplicationHelper::EolFormBuilder do |content_page_form|
       = validation_errors_for(@content_page)
       %p.tip
-        = I18n.t(:admin_content_page_edit_tip, :required_icon => image_tag('/images/v2/icon_required.png', :alt => ''))
+        = raw(I18n.t(:admin_content_page_edit_tip, :required_icon => image_tag('v2/icon_required.png', :alt => '')))
       = render :partial => 'content_page_fieldset', :locals => {:content_page_form => content_page_form}
 
       %fieldset.actions

@@ -27,7 +27,7 @@
     - else
       - unless can_curate
         %p.help_text
-          = raw(I18n.t(:classification_preferred_for_taxon_help_tip, :icon => image_tag("/images/v2/icon_required.png", :alt => I18n.t(:name_preferred_for_language_yes), :class => 'indicator')))
+          = raw(I18n.t(:classification_preferred_for_taxon_help_tip, :icon => image_tag("v2/icon_required.png", :alt => I18n.t(:name_preferred_for_language_yes), :class => 'indicator')))
       - if stored_classifications
         %div.help_text.warning
           %p= I18n.t(:stored_classifications, :anchor => '#classification_actions')
@@ -62,7 +62,7 @@
         - if allow_more_splits
           - unless @other_hierarchy_entries.empty?
             #split_warning
-              = I18n.t(:split_only_possible_with_all_classifications, :link => @selected_hierarchy_entry ? taxon_entry_names_path(@taxon_concept, @selected_hierarchy_entry, :all => '1') : taxon_names_path(@taxon_concept, :all => '1'))
+              = raw(I18n.t(:split_only_possible_with_all_classifications, :link => @selected_hierarchy_entry ? taxon_entry_names_path(@taxon_concept, @selected_hierarchy_entry, :all => '1') : taxon_names_path(@taxon_concept, :all => '1')))
           #split_instructions
             = I18n.t(:split_classification_instructions)
         %table.standard.classifications

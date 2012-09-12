@@ -2,7 +2,7 @@
 = validation_errors_for(@data_object)
 %fieldset.content
   %h3= I18n.t(:dato_new_edit_user_text_fieldset_content_header)
-  %p.tip= I18n.t(:dato_new_edit_user_text_form_tip, :required_icon => image_tag('/images/v2/icon_required.png', :alt => ''),
+  %p.tip= I18n.t(:dato_new_edit_user_text_form_tip, :required_icon => image_tag('v2/icon_required.png', :alt => ''),
     :add_article_help_url => cms_page_path('add_article_help'))
   %dl
     - # Note: tried to use fields_for nested attributes :toc_items but got duplicate select box, unclear why

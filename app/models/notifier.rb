@@ -1,6 +1,6 @@
 class Notifier < ActionMailer::Base
 
-  helper :application
+  helper :application, :taxa
 
   def curator_approved(user)
     subject     I18n.t(:subject, :curator_level => user.curator_level.translated_label, :scope => [:notifier, :curator_approved])

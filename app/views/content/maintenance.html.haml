@@ -1,0 +1,25 @@
+- # This page is not intended to be served from the application.
+- # English version of this page is copied to Varnish and displayed during site maintenance.
+- # This page is currently only served in English so I18n is not used (2012-09-12).
+!!! 5
+%html(lang="en-US")
+  %head
+    %title
+      = "EOL"
+    %meta(charset="UTF-8")
+    %meta{:name => "robots", :content => "noindex, nofollow"}
+    = stylesheet_link_tag "maintenance"
+    = yield :head
+
+  %body#not_found
+    - 5.times do
+      .books
+    .octopus
+    #content
+      %h1= "Tidying up ..."
+      %p
+        = "We’re performing some planned maintenance."
+        %br/
+        = "Rest assured, EOL will be back soon. Thanks for your patience!"
+      %p
+        %img(src="/images/v2/logo.png")

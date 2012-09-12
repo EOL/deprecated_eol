@@ -55,7 +55,7 @@ class Collection < ActiveRecord::Base
                                               what.id}).uniq
   end
 
-  def self.add_taxa_counts(collections)
+  def self.get_taxa_counts(collections)
     collection_ids = collections.map(&:id).join(',')
     return if collection_ids.empty?
     collections_with_counts = Collection.find_by_sql("
@@ -63,11 +63,13 @@ class Collection < ActiveRecord::Base
       FROM collections c JOIN collection_items ci ON (c.id = ci.collection_id AND ci.object_type = 'TaxonConcept')
       WHERE c.id IN (#{collection_ids})
       GROUP BY c.id")
+    taxa_counts = {}
     collections_with_counts.each do |cwc|
       if c = collections.detect{ |c| c.id == cwc.id }
-        c['taxa_count'] = cwc['count'].to_i
+        taxa_counts[c.id] = cwc['count'].to_i
       end
     end
+    return taxa_counts
   end
 
   def special?

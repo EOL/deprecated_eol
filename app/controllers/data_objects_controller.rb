@@ -563,13 +563,13 @@ private
     flash[:notice]  += ' ' + I18n.t(:object_curated)
     auto_collect(@data_object) # SPG asks for all curation to add the item to their watchlist.
     create_options = {
-      :user => current_user,
+      :user_id => current_user.id,
       :changeable_object_type => changeable_object_type,
       :object_id => object_id,
       :activity => Activity.send(method),
       :data_object => @data_object,
       :data_object_guid => @data_object.guid,
-      :hierarchy_entry => he,
+      :hierarchy_entry_id => he,
       :created_at => 0.seconds.from_now
     }
     if object.class.name == "UsersDataObject"

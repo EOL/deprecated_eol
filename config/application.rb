@@ -76,6 +76,15 @@ module EolUpgrade
       'EOL::Exceptions::SecurityViolation' => :forbidden,
       'OpenURI::HTTPError'                 => :bad_request
     )
+  end
+end
 
+def override_environment_with_values_from(override_path)
+  # Override environment values and add new ones with private information included
+  begin
+    require override_path
+    puts "** LOADED: #{override_path} **"
+  rescue LoadError
+    puts "** WARNING: COULD NOT LOAD #{override_path} **"
   end
 end

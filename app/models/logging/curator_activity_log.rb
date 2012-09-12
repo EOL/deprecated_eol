@@ -24,7 +24,9 @@ class CuratorActivityLog < LoggingModel
 
   after_create :log_activity_in_solr
   after_create :queue_notifications
-  
+
+  attr_accessible :user_id, :changeable_object_type, :object_id, :hierarchy_entry_id, :taxon_concept_id, :activity, :created_at, :data_object, :data_object_guid
+
   def self.find_all_by_data_objects_on_taxon_concept(tc)
     dato_ids = tc.all_data_objects.map {|dato| dato.id}
     return [] if dato_ids.empty?

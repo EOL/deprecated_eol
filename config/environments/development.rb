@@ -34,9 +34,4 @@ EolUpgrade::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
-  
-  # ActiveRecord::Base.logger = Logger.new(STDOUT)
-  # ActionController::Base.logger = Logger.new(STDOUT)
-  # Dalli.logger = Logger.new(STDOUT)
-  
 end

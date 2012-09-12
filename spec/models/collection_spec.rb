@@ -163,10 +163,10 @@ describe Collection do
     collection_2 = CollectionBuilder.gen(:taxa => 2, :users => 1)
     collection_3 = CollectionBuilder.gen(:taxa => 3, :users => 1)
     collections = [collection_1, collection_2, collection_3]
-    Collection.add_taxa_counts(collections)
-    collections[0]['taxa_count'].should == 1
-    collections[1]['taxa_count'].should == 2
-    collections[2]['taxa_count'].should == 3
+    taxa_counts = Collection.get_taxa_counts(collections)
+    taxa_counts[collections[0].id].should == 1
+    taxa_counts[collections[1].id].should == 2
+    taxa_counts[collections[2].id].should == 3
   end
 
   it 'should be able to set relevance by calculation' do

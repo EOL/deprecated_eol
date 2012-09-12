@@ -21,7 +21,7 @@ class PendingNotification < ActiveRecord::Base
       begin
         RecentActivityMailer.deliver_recent_activity(user, notes.map(&:target).uniq, fqz)
       rescue => e
-        if !@@delivered_error_notification || @@delivered_error_notification > 1.hour.ago
+        unless defined?(@@delivered_error_notification) && @@delivered_error_notification < 1.hour.ago
           RecentActivityMailer.deliver_notification_error(:user => user, :note_ids => notes.map(&:id),
                                                           :error => e.message, :frequency => fqz)
           @@delivered_error_notification = Time.now

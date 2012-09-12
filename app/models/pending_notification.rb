@@ -18,16 +18,29 @@ class PendingNotification < ActiveRecord::Base
       next unless user && user.email
       notes = notes_by_user_id[u_id]
       next unless notes
-      RecentActivityMailer.deliver_recent_activity(user, notes.map(&:target).uniq, fqz)
-      sent_note_ids += notes.map(&:id)
+      begin
+        RecentActivityMailer.deliver_recent_activity(user, notes.map(&:target).uniq, fqz)
+      rescue => e
+        if !@@delivered_error_notification || @@delivered_error_notification > 1.hour.ago
+          RecentActivityMailer.deliver_notification_error(:user => user, :note_ids => notes.map(&:id),
+                                                          :error => e.message, :frequency => fqz)
+          @@delivered_error_notification = Time.now
+        end
+      ensure # Make SURE we don't re-send messages that have been sent:
+        sent_note_ids += PendingNotification.mark_as_sent(notes.map(&:id))
+      end
     end
+    sent_note_ids.flatten.count # A semi-helpul return value.
+  end
+
+  # Bulk update cuts down on queries (and thus time):
+  def self.mark_as_sent(sent_note_ids)
     unless sent_note_ids.empty?
-      # Bulk update cuts down on queries (and thus time):
       PendingNotification.connection.execute("UPDATE #{PendingNotification.table_name}
         SET sent_at=UTC_TIMESTAMP()
         WHERE id IN (#{sent_note_ids.flatten.join(', ')})")
     end
-    sent_note_ids.flatten.count # A semi-helpul return value.
+    return sent_note_ids # allows chaining and the like
   end
 
 end

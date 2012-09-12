@@ -1,6 +1,6 @@
 class Notifier < ActionMailer::Base
 
-  helper :application
+  helper :application, :taxa
 
   def curator_approved(user)
     @user = user

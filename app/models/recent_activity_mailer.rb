@@ -28,6 +28,7 @@ class RecentActivityMailer < ActionMailer::Base
     from       $NO_REPLY_EMAIL_ADDRESS
     body       :user => options[:user] || 'unknown', :note_ids => options[:note_ids] || ['unknown'],
                :error => options[:error] || 'unknown', :frequency => options[:fqz].to_s || 'unknown'
+    content_type 'text/html'
   end
 
   def set_locale(user)

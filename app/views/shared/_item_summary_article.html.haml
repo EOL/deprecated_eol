@@ -22,4 +22,4 @@
     - unless secondary_title.blank?
       = link_to secondary_title, data_object_path(item)
       %br
-    = item.description_teaser
+    = raw(item.description_teaser)

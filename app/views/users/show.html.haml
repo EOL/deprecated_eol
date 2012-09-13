@@ -6,7 +6,7 @@
       .header
         %h3= I18n.t(:users_about_me_header)
       .copy
-        %p= allow_some_html @user.bio
+        %p= raw(allow_some_html @user.bio)
   .section.half
     .article
       .header

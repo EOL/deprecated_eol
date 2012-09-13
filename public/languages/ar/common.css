@@ -335,9 +335,9 @@ body > #footer {
     color: #394651; }
     .pagination span.gap, .pagination a.gap {
       border: none; }
-    .pagination span.prev_page, .pagination a.prev_page {
+    .pagination span.previous_page, .pagination a.previous_page {
       float: right; }
-    .pagination span.prev_page, .pagination span.next_page, .pagination a.prev_page, .pagination a.next_page {
+    .pagination span.previous_page, .pagination span.next_page, .pagination a.previous_page, .pagination a.next_page {
       border: none;
       background: none;
       margin: 0; }
@@ -350,9 +350,9 @@ body > #footer {
     background: #f3f7fa; }
     .pagination a:hover {
       border-color: #394651; }
-    .pagination a.prev_page:hover, .pagination a.next_page:hover {
+    .pagination a.previous_page:hover, .pagination a.next_page:hover {
       text-decoration: underline; }
-  .pagination span.prev_page, .pagination span.next_page {
+  .pagination span.previous_page, .pagination span.next_page {
     color: #616e7a; }
   .pagination span.disabled {
     font-weight: normal;

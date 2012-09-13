@@ -13,4 +13,4 @@
         - status = entry.vetted.curation_label
         %li
           %p{:class => en_status}= status
-          = link_to entry.italicized_name, overview_taxon_path(entry.taxon_concept_id)
+          = link_to raw(entry.italicized_name), overview_taxon_path(entry.taxon_concept_id)

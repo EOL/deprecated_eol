@@ -100,12 +100,12 @@
       = raw I18n.t("split.#{user_type}_split_unknown_entry_from_#{taxon_type}", translation_vars)
   - when Activity.merge_classifications.id
     - if item.hierarchy_entry
-      = I18n.t("merge.#{user_type}_merged_entry_to_#{taxon_type}", translation_vars)
+      = raw I18n.t("merge.#{user_type}_merged_entry_to_#{taxon_type}", translation_vars)
     - else
       = raw I18n.t("merge.#{user_type}_merged_unknown_entry_to_#{taxon_type}", translation_vars)
   - when Activity.preferred_classification.id
     - if item.hierarchy_entry
-      = I18n.t("preferred_classification.#{user_type}_preferred_classification_on_#{taxon_type}", translation_vars)
+      = raw I18n.t("preferred_classification.#{user_type}_preferred_classification_on_#{taxon_type}", translation_vars)
     - else
       = raw I18n.t("preferred_classification.#{user_type}_preferred_unknown_classification_on_#{taxon_type}", translation_vars)
   - when Activity.unlock.id

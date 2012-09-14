@@ -162,6 +162,35 @@ class String
     end
   end
 
+  def truncate_html(*args)
+    options = args.extract_options!
+    unless args.empty?
+      ActiveSupport::Deprecation.warn('truncate takes an option hash instead of separate ' +
+        'length and omission arguments', caller)
+
+      options[:length] = args[0] || 30
+      options[:omission] = args[1] || "..."
+    end
+    options.reverse_merge!(:length => 30, :omission => "...")
+
+    if self
+      l = options[:length] - options[:omission].mb_chars.length
+      chars = self.mb_chars
+      if chars.length <= options[:length]
+        return self
+      else
+        trimmed_string = chars[0...l].to_s
+        if matches = trimmed_string.match(/^(.*)<a (.*)/)
+          if matches[2] !~ /<\/a>/
+            trimmed_string = matches[1]
+          end
+        end
+        return (trimmed_string.strip + options[:omission]).balance_tags
+      end
+    end
+  end
+  
+
   def remove_diacritics
     self.mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/n,'').to_s
   end

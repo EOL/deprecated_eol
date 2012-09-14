@@ -10,7 +10,7 @@ class ContactsController < ApplicationController
   def new
     @contact = Contact.new
     @contact.ip_address = request.remote_ip
-    @contact.referred_page = params[:referred_page]
+    @contact.referred_page = params[:referred_page] || request.referer
     if logged_in?
       @contact.user_id = current_user.id
       @contact.name = current_user.full_name

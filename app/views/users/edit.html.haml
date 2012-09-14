@@ -95,6 +95,9 @@
             %small.assistive= I18n.t(:required_form_element)
           %dd
             = user_form.select :language_abbr, Language.approved_languages.collect {|l| [l.source_form, l.iso_639_1]}
+            - user_form.label :news_in_preferred_language, :class => 'checkbox' do
+              = user_form.check_box :news_in_preferred_language
+              = I18n.t('helpers.label.user.news_in_preferred_language')
           %dt.required
             = user_form.label :email
             %small.assistive= I18n.t(:required_form_element)

@@ -25,15 +25,48 @@ describe 'Users' do
   end
 
   it 'should generate api key' do
-   login_as @user
-   visit edit_user_path(@user)
-   click_button 'Generate a key'
-   body.should_not include("Generate a key")
-   body.should have_selector('.requests dl') do |tags|
-     tags.should have_selector('dt', :content => 'API key')
-     tags.should have_selector('dd textarea')
-   end
- end
+    login_as @user
+    visit edit_user_path(@user)
+    click_button 'Generate a key'
+    body.should_not include("Generate a key")
+    body.should have_selector('.requests dl') do |tags|
+      tags.should have_selector('dt', :content => 'API key')
+      tags.should have_selector('dd textarea')
+    end
+  end
+
+  it 'should change preferred language' do
+    login_as @user
+    body.should have_selector(".language p.en", :content => "English")
+    visit edit_user_path(@user)
+    select "Français", :from => "user_language_abbr"
+    click_button "Save profile information"
+    body.should have_selector(".language p.fr", :content => "Français")
+    visit edit_user_path(@user)
+    select "English", :from => "user_language_abbr"
+    click_button "Enregistrer les informations de profil"
+    body.should have_selector(".language p.en", :content => "English")
+  end
+
+  it 'should toggle the checkbox to show news in preferred language' do
+    login_as @user
+    visit edit_user_path(@user)
+    body.should have_selector(".account .checkbox") do |tags|
+      tags.should_not have_selector("input[id=user_news_in_preferred_language][checked]")
+    end
+    check "user_news_in_preferred_language"
+    click_button "Save profile information"
+    visit edit_user_path(@user)
+    body.should have_selector(".account .checkbox") do |tags|
+      tags.should have_selector("input[id=user_news_in_preferred_language][checked]")
+    end
+    uncheck "user_news_in_preferred_language"
+    click_button "Save profile information"
+    visit edit_user_path(@user)
+    body.should have_selector(".account .checkbox") do |tags|
+      tags.should_not have_selector("input[id=user_news_in_preferred_language][checked]")
+    end
+  end
 
   describe 'collections' do
     before(:each) do

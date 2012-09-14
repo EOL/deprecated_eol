@@ -1,5 +1,17 @@
 #content
   .section
+    .article.news
+      %h3
+        = I18n.t(:eol_news)
+        %small= link_to raw(t('.see_all_eol_news')), news_items_path
+      - cache(:action => 'index', :action_suffix => "news_#{current_language.iso_639_1}") do
+        = render :partial => 'news_items/index', :locals => { :translated_news_items => @translated_news_items, :for_homepage => true }
+    .article.community
+      %h3
+        = I18n.t(:community_activity)
+        %small= link_to raw(t('.see_all_recent_activites')), recent_activities_path
+      - cache(:action => 'index', :action_suffix => "activity_#{current_language.iso_639_1}") do
+        = render :partial => 'activity_logs/index', :locals => { :log => EOL::ActivityLog.global($ACTIVITIES_ON_HOME_PAGE), :hide_pagination => true, :truncate_comments => true, :editable => false }
     .article.stats
       %h3= I18n.t(:currently_in_eol)
       %ul
@@ -7,38 +19,23 @@
           %dl
             %dd= number_with_delimiter(EOL::GlobalStatistics.find("taxon_concepts"), :delimiter => ",")
             %dt= link_to I18n.t(:eol_pages), @rich_pages_path
-          = link_to I18n.t(:learn_about_eol), help_path
         %li.users
           %dl
             %dd= number_with_delimiter(EOL::GlobalStatistics.find("users"), :delimiter => ",")
             %dt= link_to I18n.t(:members_like_you), search_path('*', :type => ['user'])
-          = link_to I18n.t(:learn_about_joining), cms_page_path('profile')
         %li.collections
           %dl
             %dd= number_with_delimiter(EOL::GlobalStatistics.find("collections"), :delimiter => ",")
             %dt= link_to I18n.t(:collections_link), search_path('*', :type => ['collection'])
-          = link_to I18n.t(:learn_about_collections), cms_page_path('collections')
         %li.communities
           %dl
             %dd= number_with_delimiter(EOL::GlobalStatistics.find("communities"), :delimiter => ",")
             %dt= link_to I18n.t(:communities_link), search_path('*', :type => ['community'])
-          = link_to I18n.t(:learn_about_communities), cms_page_path('communities')
         %li.images
           %dl
             %dd= number_with_delimiter(EOL::GlobalStatistics.find("images"), :delimiter => ",")
             %dt= link_to I18n.t(:images), search_path('*', :type => ['image'])
-          = link_to I18n.t(:learn_about_contributing), cms_page_path('contribute')
         %li.partners
           %dl
             %dd= number_with_delimiter(EOL::GlobalStatistics.find("content_partners"), :delimiter => ",")
             %dt= link_to I18n.t(:content_partners_link), content_partners_path
-          = link_to I18n.t(:learn_about_content_partners), cms_page_path('partners')
-
-    .article.community
-      %h3
-        = I18n.t(:community_activity)
-        %small= link_to raw(t('.see_all_recent_activites')), recent_activities_path
-      - cache(:action => 'index', :action_suffix => "activity_#{current_language.iso_639_1}") do
-        = render :partial => 'activity_logs/index', :locals => { :log => EOL::ActivityLog.global($ACTIVITIES_ON_HOME_PAGE), :hide_pagination => true, :truncate_comments => true, :editable => false}
-    - unless logged_in?
-      = render :partial => 'shared/join_eol', :locals => {:join_style => 'button'}

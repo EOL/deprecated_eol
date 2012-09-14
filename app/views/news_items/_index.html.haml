@@ -1,0 +1,13 @@
+- for_homepage ||= false
+- if translated_news_items.nil? == false && translated_news_items.size > 0  
+  = will_paginate translated_news_items unless for_homepage
+  %ul
+    - for translated_news_item in translated_news_items
+      %li
+        .details
+          %p
+            %b= link_to translated_news_item.title, news_item_path(translated_news_item.news_item_id)
+          - news_item_length = for_homepage ? 225 : 390
+          %p= translated_news_item.body.truncate_html(:length => news_item_length, :omission => I18n.t(:truncated_news_item_omission, 
+            :link => news_item_path(translated_news_item.news_item_id)))
+          %p.meta= I18n.l(translated_news_item.news_item.display_date, :format => :long)

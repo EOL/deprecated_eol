@@ -572,6 +572,12 @@ body {
           text-decoration: underline; }
     #content .section .stats {
       clear: both; }
+      #content .section .stats h3 {
+        position: relative; }
+        #content .section .stats h3 > small {
+          position: absolute;
+          right: 10px;
+          top: 1px; }
       #content .section .stats ul {
         border-top: 1px solid #e5e8eb;
         border-bottom: 1px solid #e5e8eb;

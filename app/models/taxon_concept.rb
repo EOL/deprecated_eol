@@ -1375,7 +1375,7 @@ class TaxonConcept < ActiveRecord::Base
   def classifications_locked?
     if taxon_classifications_lock
       if taxon_classifications_lock.created_at <= 1.day.ago
-        taxon_classifications_lock.destroy
+        unlock_classifications
         return false
       end
       return true
@@ -1384,14 +1384,16 @@ class TaxonConcept < ActiveRecord::Base
     end
   end
 
+  def unlock_classifications
+    taxon_classifications_lock.destroy
+  end
+
   def split_classifications(hierarchy_entry_ids, options = {})
     raise EOL::Exceptions::ClassificationsLocked if
       classifications_locked?
     lock_classifications
-    hierarchy_entry_ids.each do |he_id|
-      CodeBridge.split_entry(:hierarchy_entry_id => he_id, :exemplar_id => options[:exemplar_id],
-                             :reindex => he_id == hierarchy_entry_ids.last, :notify => options[:notify])
-    end
+    ClassificationCuration.create(:user => options[:user], :hierarchy_entry_ids => hierarchy_entry_ids,
+                                  :source => self, :exemplar_id => options[:exemplar_id])
   end
 
   def merge_classifications(hierarchy_entry_ids, options = {})
@@ -1404,15 +1406,9 @@ class TaxonConcept < ActiveRecord::Base
     raise EOL::Exceptions::CannotMergeClassificationsToSelf if self.id == source_concept.id
     lock_classifications
     source_concept.lock_classifications
-    if source_concept.all_published_entries?(hierarchy_entry_ids)
-      CodeBridge.merge_taxa(source_concept.id, id, :notify => options[:notify])
-    else
-      hierarchy_entry_ids.each do |he_id|
-        CodeBridge.move_entry(:from_taxon_concept_id => source_concept.id, :to_taxon_concept_id => id,
-                              :hierarchy_entry_id => he_id, :exemplar_id => options[:exemplar_id],
-                              :reindex => he_id == hierarchy_entry_ids.last, :notify => options[:notify])
-      end
-    end
+    ClassificationCuration.create(:user => options[:user], :hierarchy_entry_ids => hierarchy_entry_ids,
+                                  :source => source_concept, :target => self, :exemplar_id => options[:exemplar_id],
+                                  :forced => options[:forced])
   end
 
   def all_published_entries?(hierarchy_entry_ids)

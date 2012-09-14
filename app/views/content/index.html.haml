@@ -5,7 +5,7 @@
         = I18n.t(:eol_news)
         %small= link_to raw(t('.see_all_eol_news')), news_items_path
       - cache(:action => 'index', :action_suffix => "news_#{current_language.iso_639_1}") do
-        = render :partial => 'news_items/index', :locals => { :translated_news_items => @translated_news_items, :for_homepage => true }
+        = render :partial => 'news_items/index', :locals => { :translated_news_items => NewsItem.homepage_news_for_user(current_user, current_language), :for_homepage => true }
     .article.community
       %h3
         = I18n.t(:community_activity)
@@ -13,7 +13,9 @@
       - cache(:action => 'index', :action_suffix => "activity_#{current_language.iso_639_1}") do
         = render :partial => 'activity_logs/index', :locals => { :log => EOL::ActivityLog.global($ACTIVITIES_ON_HOME_PAGE), :hide_pagination => true, :truncate_comments => true, :editable => false }
     .article.stats
-      %h3= I18n.t(:currently_in_eol)
+      %h3
+        = I18n.t(:currently_in_eol)
+        %small= link_to t('.see_all_statistics'), eol_statistics_path
       %ul
         %li.taxon
           %dl

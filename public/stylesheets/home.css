@@ -564,12 +564,6 @@ body {
     #content .section .news {
       float: left;
       width: 520px; }
-      #content .section .news ul li a {
-        color: inherit;
-        text-decoration: none; }
-        #content .section .news ul li a:hover {
-          color: #195184;
-          text-decoration: underline; }
     #content .section .stats {
       clear: both; }
       #content .section .stats h3 {

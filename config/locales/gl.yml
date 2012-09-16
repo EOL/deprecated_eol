@@ -982,6 +982,15 @@ gl:
   associated_with_map_header: No último mapa
   associated_with_sound_header: No último son
   associated_with_video_header: No último vídeo
+  association_trusted_for_taxa: 
+    one: "De confianza para:"
+    other: "De confianza para:"
+  association_unreviewed_for_taxa: 
+    one: "Non revisado para:"
+    other: "Non revisados para:"
+  association_untrusted_for_taxa: 
+    one: "De non confianza para:"
+    other: "De non confianza para:"
   associations_more_link: máis <span class="assistive">asociacións de taxon</span>
   attribute: Atributo
   audio_current_time_assistive: Co JavaScript activado, isto indicará a posición actual de reprodución do ficheiro de son en minutos e segundos.
@@ -1586,7 +1595,7 @@ gl:
       tweet_text: "%{dato_title} de %{supplier}"
   data_usage_reports: Informes de uso dos datos
   date_caps: Data
-  date_uploaded: Data da carga
+  date_uploaded: Data de carga
   datepicker: 
     close: Pechar
     current: Hoxe
@@ -1701,6 +1710,7 @@ gl:
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Non mostrar as datas descoñecidas rexistradas (usuarios da versión 1, todos os anteriores ao 5 de xaneiro de 2009)
   download_wav_file: Descargar o ficheiro WAV
   dublin_core: Dublin Core
+  duplicate_comment_warning: Non se gardou o comentario. Semella que xa publicaches este comentario. Premiches no botón "Publicar o comentario" dúas veces?
   duplicate_items_were_ignored: Ignoráronse os elementos duplicados.
   each_method_documentation_page_has_formatted_responses: A páxina de documentación de cada método contén un exemplo de resposta tanto en formato XML coma JSON.
   edit: Editar

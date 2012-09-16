@@ -982,6 +982,15 @@ mk:
   associated_with_map_header: На најновата карта
   associated_with_sound_header: На најновата аудиоснимка
   associated_with_video_header: На најновата видеоснимка
+  association_trusted_for_taxa: 
+    one: "Доверлива за:"
+    other: "Доверливи за:"
+  association_unreviewed_for_taxa: 
+    one: "Непроверена за:"
+    other: "Непроверени за:"
+  association_untrusted_for_taxa: 
+    one: "Недоверлива за:"
+    other: "Недоверливи за:"
   associations_more_link: уште <span class="assistive">таксонски поврзаности</span>
   attribute: Заслуга
   audio_current_time_assistive: Ако имате овозможено Javascript, ова ќе ви ја покажува тековната положба на снимката во минути и секунди.
@@ -1707,6 +1716,7 @@ mk:
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Не прикажувај непознати регистрирани корисници (корисници на првата верзија, пред 5 јануари 2009)
   download_wav_file: Преземи WAV податотека
   dublin_core: Dublin Core
+  duplicate_comment_warning: "Коментарот не е зачуван: веќе го имате објавено. ...Можеби двапати стиснавте на копчето „Објави коментар“?"
   duplicate_items_were_ignored: Дуплираните експонати беа занемарени.
   each_method_documentation_page_has_formatted_responses: Страницата за документација на секој метод содржи по два примера за одговори во форматот XML и форматот JSON.
   edit: Уреди

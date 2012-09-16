@@ -4,6 +4,7 @@
 # Author: George Animal
 # Author: Katja
 # Author: Kghbln
+# Author: Nipsky
 de: 
   translated_activities-name-activity_id-19: Profil
   translated_activities-name-activity_id-50: nicht vertrauenswürdig
@@ -65,7 +66,7 @@ de:
   translated_collection_types-label-collection_type_id-7: Informationen zum Namen
   translated_collection_types-label-collection_type_id-8: Molekulare Daten
   translated_collection_types-label-collection_type_id-9: Nomenklatur
-  translated_contact_roles-label-contact_role_id-1: Hauptkonakt
+  translated_contact_roles-label-contact_role_id-1: Hauptkontakt
   translated_contact_roles-label-contact_role_id-2: Administrativer Kontakt
   translated_contact_roles-label-contact_role_id-3: Technischer Kontakt
   translated_contact_subjects-title-contact_subject_id-24: Mitgliedschaft und Registrierung

@@ -1,6 +1,7 @@
 # Messages for Spanish (español)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
+# Author: AndreyWiki
 # Author: Armando-Martin
 # Author: Bernardom
 # Author: Crazymadlover
@@ -994,6 +995,15 @@ es:
   associated_with_map_header: En el mapa más reciente
   associated_with_sound_header: En el último audio
   associated_with_video_header: En el último vídeo
+  association_trusted_for_taxa: 
+    one: "De confianza para:"
+    other: "De confianza para:"
+  association_unreviewed_for_taxa: 
+    one: "No revisado para:"
+    other: "No revisados para:"
+  association_untrusted_for_taxa: 
+    one: "No fiable para:"
+    other: "No fiable para:"
   associations_more_link: más <span class="assistive">asociaciones de taxón</span>
   attribute: Atributo
   audio_current_time_assistive: Con Javascript activado, esto indicará la posición actual de reproducción del archivo de audio en minutos y segundos.
@@ -1721,6 +1731,7 @@ es:
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: No mostrar fechas registradas desconocidas (usuario de v1, todo anterior al 5 de enero, 2009)
   download_wav_file: Descargar archivo WAV
   dublin_core: Dublin Core
+  duplicate_comment_warning: "El comentario no ha sido guardado: parece que ya has publicado este comentario. ... ¿Has hecho clic en el botón \"publicar comentario\" dos veces?"
   duplicate_items_were_ignored: Elementos duplicados fueron ignoradas.
   each_method_documentation_page_has_formatted_responses: Cada página de documentación de un método tiene un ejemplo de respuesta forrajeada en XML y en JSON.
   edit: Editar

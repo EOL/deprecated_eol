@@ -4,6 +4,7 @@
 # Author: Bluemamelati
 # Author: Danielsouzat
 # Author: Giro720
+# Author: Luckas Blade
 # Author: Luigipiccoli
 # Author: Pedroca cerebral
 pt-BR: 
@@ -16,24 +17,33 @@ pt-BR:
   translated_activities-name-activity_id-55: inadequado
   translated_activities-name-activity_id-56: apagar
   translated_activities-name-activity_id-58: confiável
+  translated_activities-name-activity_id-63: coletar
   translated_activities-name-activity_id-64: remover
   translated_agent_roles-label-agent_role_id-1: Animador
   translated_agent_roles-label-agent_role_id-10: Projeto
+  translated_agent_roles-label-agent_role_id-13: Fonte
   translated_agent_roles-label-agent_role_id-16: Colaborador
   translated_agent_roles-label-agent_role_id-2: Autor
   translated_agent_roles-label-agent_role_id-3: Compilador
   translated_agent_roles-label-agent_role_id-4: Compositor
+  translated_agent_roles-label-agent_role_id-7: Editor
+  translated_agent_roles-label-agent_role_id-8: Ilustrador
+  translated_agent_roles-label-agent_role_id-9: Fotógrafo
   translated_audiences-label-audience_id-1: Usuários experientes
   translated_audiences-label-audience_id-2: Público em geral
   translated_audiences-label-audience_id-3: Crianças
   translated_collection_types-label-collection_type_id-1: Taxonomia
   translated_collection_types-label-collection_type_id-10: Sons
   translated_collection_types-label-collection_type_id-11: Links
+  translated_collection_types-label-collection_type_id-12: Literatura
+  translated_collection_types-label-collection_type_id-13: Taxonomia
+  translated_collection_types-label-collection_type_id-14: Códigos de barras moleculares
   translated_collection_types-label-collection_type_id-15: Descrição
   translated_collection_types-label-collection_type_id-16: Imagens
   translated_collection_types-label-collection_type_id-17: Distribuição
   translated_collection_types-label-collection_type_id-18: Estado de conservação
   translated_collection_types-label-collection_type_id-19: Informações do nome
+  translated_collection_types-label-collection_type_id-2: Códigos de barras moleculares
   translated_collection_types-label-collection_type_id-20: Dados moleculares
   translated_collection_types-label-collection_type_id-21: Nomenclatura
   translated_collection_types-label-collection_type_id-22: Sons
@@ -42,11 +52,27 @@ pt-BR:
   translated_collection_types-label-collection_type_id-3: Descrição
   translated_collection_types-label-collection_type_id-4: Imagens
   translated_collection_types-label-collection_type_id-5: Distribuição
+  translated_collection_types-label-collection_type_id-6: Estado de conservação
+  translated_collection_types-label-collection_type_id-7: Informação do nome
+  translated_collection_types-label-collection_type_id-8: Dados moleculares
+  translated_collection_types-label-collection_type_id-9: Nomenclatura
+  translated_contact_roles-label-contact_role_id-2: Contato administrativo
+  translated_contact_roles-label-contact_role_id-3: Contato técnico
   translated_content_partner_statuses-label-content_partner_status_id-1: Pendente
   translated_content_partner_statuses-label-content_partner_status_id-2: Ativo
   translated_content_partner_statuses-label-content_partner_status_id-3: Arquivado
   translated_content_partner_statuses-label-content_partner_status_id-4: Inativo
   translated_content_tables-label-content_table_id-1: Detalhes
+  translated_data_types-label-data_type_id-1: Imagem
+  translated_data_types-label-data_type_id-10: Mapa
+  translated_data_types-label-data_type_id-2: Som
+  translated_data_types-label-data_type_id-3: Texto
+  translated_data_types-label-data_type_id-4: Vídeo
+  translated_data_types-label-data_type_id-5: Imagem GBIF
+  translated_data_types-label-data_type_id-7: Flash
+  translated_data_types-label-data_type_id-8: YouTube
+  translated_licenses-description-license_id-1: Sem direitos reservados
+  translated_licenses-description-license_id-2: "&#169; Todos os direitos reservados"
   translated_licenses-description-license_id-29: Alguns direitos reservados
   translated_licenses-description-license_id-3: Alguns direitos reservados
   translated_licenses-description-license_id-30: Alguns direitos reservados

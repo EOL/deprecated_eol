@@ -991,6 +991,15 @@ de:
   associated_with_map_header: Auf der aktuellsten Karte
   associated_with_sound_header: In der aktuellsten Audiodatei
   associated_with_video_header: Im aktuellsten Video
+  association_trusted_for_taxa: 
+    one: "Vertrauenswürdig für:"
+    other: "Vertrauenswürdig für:"
+  association_unreviewed_for_taxa: 
+    one: "Ungeprüft für:"
+    other: "Ungeprüft für:"
+  association_untrusted_for_taxa: 
+    one: "Nicht vertrauenswürdig für:"
+    other: "Nicht vertrauenswürdig für:"
   associations_more_link: mehr <span class="assistive">Taxonverbünde</span>
   attribute: Eigenschaft
   audio_current_time_assistive: Mit aktiviertem JavaScript ermöglicht dies die Ausgabe der aktuellen Wiedergabeposition der Audiodatei in Minuten und Sekunden.
@@ -1718,6 +1727,7 @@ de:
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Unbekannte Registrierungsdaten nicht anzeigen (v1.0-Nutzer, alle vor dem 5. Januar 2009)
   download_wav_file: WAV-Datei herunterladen
   dublin_core: Dublin Core
+  duplicate_comment_warning: Der Kommentar wurde nicht gespeichert. Es scheint, als ob Sie bereits diesen Kommentar veröffentlicht haben. … Haben Sie die Schaltfläche „Kommentieren“ zweimal angeklickt?
   duplicate_items_were_ignored: Dubletten wurden ignoriert.
   each_method_documentation_page_has_formatted_responses: Jede Dokumentationsseite zu einer Methode enthält ein Beispiel für, sowohl in XML, wie auch in JSON formatierte Antworten.
   edit: Bearbeiten

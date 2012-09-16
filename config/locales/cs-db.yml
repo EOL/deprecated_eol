@@ -1,6 +1,7 @@
 # Messages for Czech (česky)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
+# Author: Chmee2
 # Author: Jachym
 # Author: Jezevec
 # Author: Mr. Richard Bolla
@@ -199,6 +200,7 @@ cs:
   translated_synonym_relations-label-synonym_relation_id-57: pravopisná alternativa
   translated_synonym_relations-label-synonym_relation_id-6: ekvivalentní název
   translated_synonym_relations-label-synonym_relation_id-63: nepřijato
+  translated_synonym_relations-label-synonym_relation_id-64: neplatný
   translated_synonym_relations-label-synonym_relation_id-7: GenBank akronym
   translated_table_of_contents-label-table_of_contents_id-1: Přehled
   translated_table_of_contents-label-table_of_contents_id-13: Běžné názvy

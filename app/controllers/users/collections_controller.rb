@@ -7,7 +7,7 @@ class Users::CollectionsController < UsersController
     @user = User.find(params[:user_id])
     redirect_if_user_is_inactive
     preload_user_associations
-    @featured_collections = @user.all_collections(@user)
+    @featured_collections = @user.all_collections(current_user)
     if params[:sort_by] && params[:sort_by].to_sym == :oldest
       @featured_collections = @featured_collections.sort_by(&:created_at)
     else

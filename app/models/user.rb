@@ -519,17 +519,17 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   # user has access to through communities
   #
   # NOTE - this will ALWAYS put the watch collection first.
-  def all_collections(logged_in_as_user = false)
+  def all_collections(logged_in_as_user = nil)
     editable_collections = collections_including_unpublished.reject {|c| c.watch_collection? }
-    if logged_in_as_user
-      editable_collections.delete_if{ |c| !c.published? && !c.is_resource_collection? }
-    else
-      editable_collections.delete_if{ |c| !c.published? }
-    end
     # I changed this to m.manager? instead of using the named scope as I couldn't see
     # how to preload named scopes, but members could be preloaded
     editable_collections += members.select{ |m| m.manager? }.map {|m| m.community && m.community.collections }.flatten.compact
     editable_collections = [watch_collection] + editable_collections.sort_by{ |c| c.name.downcase }.uniq
+    if logged_in_as_user && logged_in_as_user.class == User
+      editable_collections.delete_if{ |c| !logged_in_as_user.can_read?(c) }
+    else
+      editable_collections.delete_if{ |c| !c.published? }
+    end
     editable_collections.compact
   end
 

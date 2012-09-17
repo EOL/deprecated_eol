@@ -255,6 +255,7 @@ class Comment < ActiveRecord::Base
 
   def same_as_last?
     last_comment = Comment.last
+    return false unless last_comment
     return body == last_comment.body &&
       user_id == last_comment.user_id &&
       parent_id == last_comment.parent_id &&

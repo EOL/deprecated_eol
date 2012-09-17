@@ -13,11 +13,12 @@ class String
     return name.downcase.gsub(@@normalization_regex, '').gsub(@@spaces_regex, ' ')
   end
 
-  # Not all languages can "safely" downcase.  For example, in German, it's quite awkward to downcase nouns.  So:
-  def safe_downcase
+  # Few languages can "safely" downcase. For example, in German, it's quite awkward to downcase nouns. So:
+  def downcase_with_language_exceptions
     return self unless I18n && I18n.locale && [:en, :es, :fr].include?(I18n.locale)
-    return self.downcase
+    return self.downcase_without_language_exceptions
   end
+  alias_method_chain :downcase, :language_exceptions
 
   def strip_italics
     self.gsub(/<\/?i>/i, "")

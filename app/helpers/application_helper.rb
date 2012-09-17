@@ -225,9 +225,11 @@ module ApplicationHelper
   end
 
   # Link to a single stylesheet asset (which may be comprised of several individual files).
+<<<<<<< HEAD
   # NOTE - Styles will only be cached for English. Sorry; impractical to maintain copies of all cached files for
   # every language.
   def stylesheet_include_i18n(stylesheet, options = {})
+    raise "** UNKNOWN STYLESHEET LOADED: #{stylesheet}" unless @stylesheet_packages.has_key?(stylesheet.to_s)
     if I18n.locale.to_s != 'ar' # Annoying that I have to check this, but c'est la vie. (See what I did there?)
       return stylesheet_link_tag(*[stylesheet, options])
     else
@@ -235,13 +237,21 @@ module ApplicationHelper
       raise "** UNKNOWN STYLESHEET LOADED: #{stylesheet}" unless @stylesheet_packages.has_key?(stylesheet.to_s)
       code = ''
       @stylesheet_packages[stylesheet.to_s].each do |file|
-        language_stylesheet = "/languages/#{I18n.locale}/#{file}.css"
+        language_stylesheet = "/languages/#{I18n.locale}/#{file}.css" # These are *replacements*
         if File.exists?(File.join(RAILS_ROOT, "public", language_stylesheet))
           code += stylesheet_link_tag(language_stylesheet, options)
         end
       end
-      return code
+    else
+      code += stylesheet_link_merged(*[stylesheet, options])
+      @stylesheet_packages[stylesheet.to_s].each do |file| # These are *additions*
+        language_stylesheet = "/stylesheets/#{file}-#{I18n.locale}.css"
+        if File.exists?(File.join(RAILS_ROOT, "public", language_stylesheet))
+          code += stylesheet_link_tag(language_stylesheet, options)
+        end
+      end
     end
+    return code
   end
 
   def read_stylesheet_packages

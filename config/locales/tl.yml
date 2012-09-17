@@ -2468,7 +2468,7 @@ tl:
   maps_image_maps_header: Midyang tinatakan bilang 'mapa'
   maps_with_count: 
     one: "%{count} Mapa"
-    other: "%{count} Mga mapa"
+    other: "%{count} Mga<br/>mapa"
   matching_users_found_with_count: 
     one: Isang kabuoang %{count} ng tagagamit ang natagpuang tumutugma sa mga saligan mo.
     other: Isang kabuoang %{count} ng mga tagagamit ang natagpuang tumutugma sa mga saligan mo.
@@ -2481,7 +2481,7 @@ tl:
   media_summary_empty_contribute_instructions: Matuto kung paano makapag-aambag ng mga imahe sa EOL.
   media_with_count: 
     one: "%{count} Midya"
-    other: "%{count} Mga midya"
+    other: "%{count} Mga<br/>midya"
   member_of: kasapi sa
   member_of_professional_society_credential_option: kasapi sa isang samahang pamprupesyon
   members: 
@@ -2580,7 +2580,7 @@ tl:
   name_preferred_for_language_yes: Mas nais
   name_preferred_taxonomically_for_source_help_tip: Minamarkahan ng %{icon} ang mas ninanais na pangalan na mula sa bawat isang pinagmulan.
   name_preferred_taxonomically_for_source_yes: Mas nais
-  names: Mga pangalan
+  names: "Mga<br/>pangalan"
   names_children_column_header: Mga supling
   names_common_empty: Wala pang mga pangalang karaniwan na naiuugnay sa takson na ito
   names_common_list_by_language_assistive_header: Mga pangalang karaniwan na nakalista ayon sa wika
@@ -2785,7 +2785,7 @@ tl:
     other: "%{count} iba pang mga takson"
   other_us_dollars_amount: "Iba pa: US$"
   outlink: Panlabas na kawing
-  overview: Malawakang pananaw
+  overview: "Malawakang<br/>pananaw"
   page: Pahina
   page_linked_to: Pahinang nakakawing sa
   page_method_description: Kumukuha ang pamamaraang ito ng isang pangkilala ng pahina ng EOL at nagbabalik ng pangalang pang-agham para sa pahinang iyan, at maaaring magbalik o hindi magbalik ng kabatiran tungkol sa mga karaniwang pangalan, midya (teksto, mga imahe at mga bidyo), at mga sanggunian sa mga hirarkiyang nakakakilala sa takson na inilarawan sa ibabaw ng pahina.
@@ -2969,7 +2969,7 @@ tl:
   reset_password_instructions_sent_to_user_notice: Naipadala na sa tirahan mo ng e-liham ang mga tagubilin para sa muling pagtatakda ng hudyat sa iyong akawnt na <em>%{username}</em>.
   reset_password_token_expired_error: Paumanhin, hindi muling naitakda ang hudyat mo. Napaso na ang kawing na ibinigay, paki punuin at ipasang muli ang pormularyo ng nakalimutang hudyat upang makatanggap ng isang bagong kawing.
   resource: Pinagkunan
-  resources: Mga mapagkukunan
+  resources: "Mga<br/>mapagkukunan"
   response: Tugon
   response_formats: Mga Anyo ng Tugon
   results: Mga resulta
@@ -3621,7 +3621,7 @@ tl:
   updated_colon: "Naisapanahon na:"
   updated_community: Matagumpay ang pagsasapanahon ng pamayanan.
   updated_member: Matagumpay na naisapanahon ang kasapi.
-  updates: Mga pagsasapanahon
+  updates: "Mga<br />pagsasapanahon"
   upload: Ikargang paitaas
   upload_content: nilalaman ng pagkakargang paitaas
   upload_logo_help_text: Ito ang magiging pangunahing larawan na kumakatawan sa pamayanan mo - maaari itong maging kung anuman ang gustuhin mo.
@@ -3970,7 +3970,7 @@ tl:
     next_label: Kasunod &#8594;
     page_gap: "&hellip;"
     previous_label: "&#8592; Dati"
-  worklist: Tala ng gawain
+  worklist: "Tala ng<br/>gawain"
   would_you_like_to_become_a_curator_notice: Nais mo bang maging isang kurador? Makakahiling ka ng pagkanakakapunta roon sa <a href='%{url}'>pahina mo ng balangkas ng katangian</a>.
   xml_response: Tugon ng XML
   yahoo: Yahoo

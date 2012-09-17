@@ -551,7 +551,7 @@ describe 'Taxa page' do
       visit logout_url
       login_as @user
       visit taxon_hierarchy_entry_updates_path(@taxon_concept, @hierarchy_entry)
-      comment = "Test comment by a logged in user."
+      comment = "Test comment by a logged in user at #{Time.now}."
       body.should have_tag("#main .comment #comment_body")
       fill_in 'comment_body', :with => comment
       body.should have_tag("#main .comment .actions input", :val => "Post Comment")

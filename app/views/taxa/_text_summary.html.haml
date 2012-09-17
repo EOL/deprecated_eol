@@ -23,7 +23,7 @@
         .meta.learn_more
           %p= link_to I18n.t(:article_more_about), data_object_path(@summary_text)
           = render :partial => 'data_objects/view_translation', :locals => { :data_object => @summary_text, :taxon => @taxon_concept}
-        - if @summary_text.content_partner == ContentPartner.wikipedia
+        - if @summary_text.content_partner && @summary_text.content_partner == ContentPartner.wikipedia
           = stylesheet_link_tag("wikipedia")
           = javascript_include_tag("wiki_ogg_player")
         .copy

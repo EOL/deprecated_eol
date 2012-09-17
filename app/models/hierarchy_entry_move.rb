@@ -1,4 +1,4 @@
-class HierarchyEntryMove
+class HierarchyEntryMove < ActiveRecord::Base
 
   named_scope :with_errors, :conditions => ["error IS NOT NULL AND error != ''"]
 

@@ -159,12 +159,12 @@
       #flash-good{ :style => "display: block" }
         = flash[:notice]
         .note
-          = I18n.t(:esc_key_hides_this_message)
+          = I18n.t(:message_will_disappear)
     - elsif flash[:warning] || flash[:error]
       #flash-bad{ :style => "display: block" }
         = (flash[:warning] || '') + (flash[:error] || '')
         .note
-          = I18n.t(:esc_key_hides_this_message)
+          = I18n.t(:message_will_disappear)
     - if flash[:notice] || flash[:warning] || flash[:error]
       - flash[:notice] = flash[:warning] = flash[:error] = nil
       :javascript

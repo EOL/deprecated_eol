@@ -124,10 +124,14 @@ class Administrator::UserController  < AdminController
   def update
 
     @user = User.find(params[:id])
-    past_curator_level_id = @user.curator_level_id
-    
     @message = params[:message]
+    if @user.blank?
+      flash[:error] = I18n.t(:error_updating_user)
+      render :action => 'edit'
+      return
+    end
 
+    past_curator_level_id = @user.curator_level_id
     Notifier.deliver_user_message(@user.full_name, @user.email, @message) unless @message.blank?
 
     user_params = params[:user]

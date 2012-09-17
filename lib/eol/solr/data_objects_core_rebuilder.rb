@@ -146,6 +146,7 @@ module EOL
             ancestor_he_ids = []
             ancestor_tc_ids += he.taxon_concept.flattened_ancestors.collect(&:ancestor_id)
             ancestor_he_ids += he.taxon_concept.published_hierarchy_entries.collect(&:id)
+            HierarchyEntry.preload_associations(he.taxon_concept.published_hierarchy_entries, :flattened_ancestors)
             ancestor_he_ids += he.taxon_concept.published_hierarchy_entries.collect{ |he| he.flattened_ancestors.collect(&:ancestor_id) }.flatten
             
             ancestor_tc_ids.uniq.each do |tc_id|

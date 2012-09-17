@@ -6,7 +6,7 @@ describe Collections::InaturalistsController do
     truncate_all_tables
     load_foundation_cache
     # Create a collection with a EOL collection id which already has a project on iNaturalist.
-    @inat_collection = Collection.gen(:id => 5709, :name => 'Cape Cod')
+    @inat_collection = Collection.gen(:id => 28064, :name => "Exploring Odiorne Point's Tidepools")
     @inat_collection.users = [User.gen]
     @inat_collection.add(DataObject.gen)
     @inaturalist_project_info = @inat_collection.inaturalist_project_info

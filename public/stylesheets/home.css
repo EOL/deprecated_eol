@@ -126,6 +126,7 @@ body > #header .section {
         left: 0;
         top: 100%;
         z-index: 5;
+        width: 100%;
         background: #0a0f13;
         border-top: 1px solid #444749; }
         body > #header .section .actions .language ul li {
@@ -531,138 +532,155 @@ body {
   #content .section {
     padding: 30px 10px; }
     #content .section h3 {
-      padding: 0 0 15px 40px;
+      padding: 0 0 15px 20px;
       font-size: 1.33em; }
-    #content .section .stats {
-      float: left;
-      width: 520px;
-      padding: 0 40px 0 0; }
-      #content .section .stats li {
-        clear: both;
-        overflow: hidden;
-        padding: 10px 20px 10px 20px;
-        border-top: 1px solid #e5e8eb; }
-        #content .section .stats li > a {
-          float: left;
-          margin: 20px 0 0 0; }
-        #content .section .stats li dl {
-          float: left;
-          width: 175px;
-          padding: 3px 10px 3px 100px;
-          background: 0 50% no-repeat transparent; }
-        #content .section .stats li dd {
-          font-size: 2.5em; }
-        #content .section .stats li dt {
-          font-size: 1.1em;
-          font-weight: bold;
-          color: #394651; }
-        #content .section .stats li.taxon dl {
-          background-image: url("/images/v2/icon_taxon.png"); }
-        #content .section .stats li.users dl {
-          background-image: url("/images/v2/icon_user.png"); }
-        #content .section .stats li.collections dl {
-          background-image: url("/images/v2/icon_collections.png"); }
-        #content .section .stats li.images dl {
-          background-image: url("/images/v2/icon_images.png"); }
-        #content .section .stats li.partners dl {
-          background-image: url("/images/v2/icon_partners.png"); }
-        #content .section .stats li.communities dl {
-          background-image: url("/images/v2/icon_community.png"); }
+    #content .section .news,
     #content .section .community {
-      float: right;
-      width: 380px;
       margin: 0 0 20px 0; }
+      #content .section .news h3,
       #content .section .community h3 {
         position: relative;
         border-bottom: 1px solid #e5e8eb; }
+        #content .section .news h3 > small,
         #content .section .community h3 > small {
           position: absolute;
           right: 10px;
           top: 1px; }
+      #content .section .news > ul,
       #content .section .community > ul {
-        padding: 20px 0 10px 40px;
-        border-bottom: 1px solid #e5e8eb; }
+        padding: 20px 20px 10px 20px; }
+        #content .section .news > ul > li,
         #content .section .community > ul > li {
-          overflow: hidden;
-          padding: 0 0 10px 0; }
-          #content .section .community > ul > li img {
-            float: left;
-            margin: 0 10px 0 0;
-            max-width: 48px;
-            max-height: 48px;
-            width: expression(this.width > 48 ? "48px" : true);
-            height: expression(this.height > 48 ? "48px" : true); }
-          #content .section .community > ul > li .details {
-            overflow: hidden;
-            padding: 3px 0 0 0; }
+          margin: 0 0 15px 0; }
+          #content .section .news > ul > li p,
           #content .section .community > ul > li p {
             line-height: 140%; }
+            #content .section .news > ul > li p.meta,
             #content .section .community > ul > li p.meta {
               font-size: 0.83em;
               font-weight: bold;
               text-transform: uppercase;
               color: #82919e; }
-          #content .section .community > ul > li ul.actions li {
-            display: inline-block;
-            font-size: 0.9em;
+    #content .section .news {
+      float: left;
+      width: 520px; }
+    #content .section .stats {
+      clear: both; }
+      #content .section .stats h3 {
+        position: relative; }
+        #content .section .stats h3 > small {
+          position: absolute;
+          right: 10px;
+          top: 1px; }
+      #content .section .stats ul {
+        border-top: 1px solid #e5e8eb;
+        border-bottom: 1px solid #e5e8eb;
+        overflow: hidden; }
+        #content .section .stats ul li {
+          float: left;
+          width: 155px;
+          padding: 10px 0;
+          margin: 5px 0;
+          text-align: center; }
+          #content .section .stats ul li + li {
+            border-left: 1px solid #e5e8eb; }
+          #content .section .stats ul li dl {
+            padding-top: 65px;
+            background-repeat: no-repeat;
+            background-position: top center; }
+            #content .section .stats ul li dl dt {
+              font-size: 0.92em; }
+            #content .section .stats ul li dl dd {
+              font-size: 1.16em; }
+          #content .section .stats ul li.taxon dl {
+            background-image: url("/images/v2/icon_taxon.png"); }
+          #content .section .stats ul li.users dl {
+            background-image: url("/images/v2/icon_user.png"); }
+          #content .section .stats ul li.collections dl {
+            background-image: url("/images/v2/icon_collections.png"); }
+          #content .section .stats ul li.images dl {
+            background-image: url("/images/v2/icon_images.png"); }
+          #content .section .stats ul li.partners dl {
+            background-image: url("/images/v2/icon_partners.png"); }
+          #content .section .stats ul li.communities dl {
+            background-image: url("/images/v2/icon_community.png"); }
+    #content .section .community {
+      float: right;
+      width: 380px; }
+      #content .section .community > ul > li {
+        overflow: hidden;
+        margin: 0 0 10px 0; }
+        #content .section .community > ul > li img {
+          float: left;
+          margin: 0 10px 0 0;
+          max-width: 48px;
+          max-height: 48px;
+          width: expression(this.width > 48 ? "48px" : true);
+          height: expression(this.height > 48 ? "48px" : true); }
+        #content .section .community > ul > li .details {
+          overflow: hidden;
+          padding: 3px 0 0 0; }
+        #content .section .community > ul > li ul.actions li {
+          display: inline-block;
+          font-size: 0.9em;
+          font-weight: bold;
+          text-transform: lowercase; }
+          #content .section .community > ul > li ul.actions li a {
+            padding: 3px 5px 3px 0;
+            margin: 0 5px 0 0; }
+          #content .section .community > ul > li ul.actions li input[type="submit"] {
+            background: none;
+            border: none;
             font-weight: bold;
-            text-transform: lowercase; }
-            #content .section .community > ul > li ul.actions li a {
-              padding: 3px 5px 3px 0;
-              margin: 0 5px 0 0; }
-            #content .section .community > ul > li ul.actions li input[type="submit"] {
-              background: none;
-              border: none;
-              font-weight: bold;
-              color: #195184;
-              text-decoration: underline;
-              cursor: pointer;
-              padding: 3px 5px 3px 0;
-              margin: 0 5px 0 0; }
-          #content .section .community > ul > li form.edit_comment {
-            margin: 10px 0; }
-            #content .section .community > ul > li form.edit_comment label {
-              display: block;
-              font-weight: bold; }
-            #content .section .community > ul > li form.edit_comment textarea {
-              width: 300px;
-              height: 60px;
-              padding: 8px;
-              font: normal 1em Helvetica, Arial, sans-serif;
-              color: #394651;
-              border: 1px solid #cad3db;
-              background-color: white;
-              filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
-              background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
-              background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white));
-              margin: 3px 0 5px 0; }
-            #content .section .community > ul > li form.edit_comment input[type="submit"] {
-              padding: 5px 10px 6px 10px;
-              overflow: visible;
-              font: bold 1.08em Helvetica, Arial, sans-serif;
-              color: #394651;
-              text-transform: lowercase;
-              text-decoration: none;
-              border: 1px solid #c6ccd0;
-              -moz-border-radius: 3px;
-              border-radius: 3px;
+            color: #195184;
+            text-decoration: underline;
+            cursor: pointer;
+            padding: 3px 5px 3px 0;
+            margin: 0 5px 0 0; }
+        #content .section .community > ul > li form.edit_comment {
+          margin: 10px 0; }
+          #content .section .community > ul > li form.edit_comment label {
+            display: block;
+            font-weight: bold; }
+          #content .section .community > ul > li form.edit_comment textarea {
+            width: 300px;
+            height: 60px;
+            padding: 8px;
+            font: normal 1em Helvetica, Arial, sans-serif;
+            color: #394651;
+            border: 1px solid #cad3db;
+            background-color: white;
+            filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
+            background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
+            background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white));
+            margin: 3px 0 5px 0; }
+          #content .section .community > ul > li form.edit_comment input[type="submit"] {
+            padding: 5px 10px 6px 10px;
+            overflow: visible;
+            font: bold 1.08em Helvetica, Arial, sans-serif;
+            color: #394651;
+            text-transform: lowercase;
+            text-decoration: none;
+            border: 1px solid #c6ccd0;
+            -moz-border-radius: 3px;
+            border-radius: 3px;
+            background-color: #d7dde1;
+            filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=white, endColorstr=#d7dde1);
+            background-image: -moz-linear-gradient(100% 100% 90deg, #d7dde1, white);
+            background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#d7dde1));
+            cursor: pointer;
+            font-size: 0.9em;
+            margin-right: 10px; }
+            #content .section .community > ul > li form.edit_comment input[type="submit"]:hover {
+              background-color: #e6eef4;
+              filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=white, endColorstr=#e6eef4);
+              background-image: -moz-linear-gradient(100% 100% 90deg, #e6eef4, white);
+              background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#e6eef4)); }
+            #content .section .community > ul > li form.edit_comment input[type="submit"]:active {
               background-color: #d7dde1;
               filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=white, endColorstr=#d7dde1);
               background-image: -moz-linear-gradient(100% 100% 90deg, #d7dde1, white);
-              background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#d7dde1));
-              cursor: pointer;
-              font-size: 0.9em;
-              margin-right: 10px; }
-              #content .section .community > ul > li form.edit_comment input[type="submit"]:hover {
-                background-color: #e6eef4;
-                filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=white, endColorstr=#e6eef4);
-                background-image: -moz-linear-gradient(100% 100% 90deg, #e6eef4, white);
-                background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#e6eef4)); }
-              #content .section .community > ul > li form.edit_comment input[type="submit"]:active {
-                background-color: #d7dde1;
-                filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=white, endColorstr=#d7dde1);
-                background-image: -moz-linear-gradient(100% 100% 90deg, #d7dde1, white);
-                background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#d7dde1)); }
+              background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#d7dde1)); }
     #content .section .session {
       float: right;
       clear: right;

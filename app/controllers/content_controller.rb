@@ -4,7 +4,7 @@ class ContentController < ApplicationController
 
   caches_page :tc_api
 
-  layout 'v2/info'
+  layout :which_layout
 
   prepend_before_filter :redirect_back_to_http if $USE_SSL_FOR_LOGIN
 
@@ -293,6 +293,10 @@ private
     $CACHE.fetch('homepage/march_of_life_expiration/' + current_language.iso_639_1, :expires_in => 120.seconds) do
       expire_fragment(:action => 'index', :action_suffix => "march_of_life_#{current_language.iso_639_1}")
     end
+    NewsItem
+    $CACHE.fetch('homepage/news_expiration/' + current_language.iso_639_1, :expires_in => $HOMEPAGE_ACTIVITY_LOG_CACHE_TIME.minutes) do
+      expire_fragment(:action => 'index', :action_suffix => "news_#{current_language.iso_639_1}")
+    end
   end
 
   def safely_shuffle(what)
@@ -309,5 +313,9 @@ private
     else
       collection_path($RICH_PAGES_COLLECTION_ID)
     end
+  end
+  
+  def which_layout
+    action_name == 'index' ? 'v2/basic' : 'v2/info'
   end
 end

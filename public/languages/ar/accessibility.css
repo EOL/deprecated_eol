@@ -333,8 +333,6 @@ p.status.error {
   background: #ffeae6; }
 
 /*move to home.css once HR involvement ceases */
-.home #content {
-  padding-bottom: 20px; }
 .home p.status.notice, .home p.status.error, .home p.status.warning {
   clear: both;
   padding: 7px 10px;

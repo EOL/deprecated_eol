@@ -9,30 +9,10 @@ div#globalWrapper table {
   background-color: white; }
 div#globalWrapper fieldset table {
   background: none; }
-div#globalWrapper a {
-  text-decoration: none;
-  color: #149ACC;
-  background: none; }
-div#globalWrapper table#toc a {
-  color: #149ACC; }
-div#globalWrapper a:visited, div#globalWrapper a:active {
-  color: #149ACC; }
-div#globalWrapper a:hover {
-  text-decoration: underline; }
-div#globalWrapper a.stub, div#globalWrapper a.new {
-  color: #149ACC; }
-
-#p-personal a.new, div#globalWrapper a.new:visited, #p-personal a.new:visited {
-  color: #149ACC; }
 
 div#globalWrapper img {
   border: none;
   vertical-align: middle; }
-div#globalWrapper p {
-  margin: .4em 0 .5em 0;
-  line-height: 1.5em; }
-  div#globalWrapper p img {
-    margin: 0; }
 div#globalWrapper hr {
   height: 1px;
   color: #aaa;
@@ -139,7 +119,6 @@ div#globalWrapper abbr, div#globalWrapper acronym, div#globalWrapper .explain {
   background: none;
   cursor: help; }
 div#globalWrapper q {
-  font-family: Times, "Times New Roman", serif;
   font-style: italic; }
 div#globalWrapper code {
   background-color: #f9f9f9; }
@@ -215,7 +194,6 @@ div#globalWrapper #toc, div#globalWrapper .toc, div#globalWrapper .mw-warning {
   border: 1px solid #aaa;
   background-color: #f9f9f9;
   padding: 5px;
-  font-size: 95%;
   border-collapse: separate;
  }
 div#globalWrapper #toc h2, div#globalWrapper .toc h2 {
@@ -354,12 +332,6 @@ div#globalWrapper .rtl a.feedlink {
   padding-left: 0; }
 div#globalWrapper .ltr #bodyContent a.external {
   padding-left: 0; }
-div#globalWrapper #bodyContent a.extiw {
-  color: #149ACC; }
-  div#globalWrapper #bodyContent a.extiw:active {
-    color: #149ACC; }
-div#globalWrapper #bodyContent a.external {
-  color: #149ACC; }
 div#globalWrapper .portlet {
   border: none;
   margin: 0 0 .5em;
@@ -542,7 +514,6 @@ div#globalWrapper #p-cactions {
       font-weight: bold; }
     div#globalWrapper #p-cactions li a {
       background-color: #fbfbfb;
-      color: #149ACC;
       border: none;
       padding: 0 .8em .3em;
       position: relative;
@@ -553,8 +524,6 @@ div#globalWrapper #p-cactions {
       z-index: 3;
       padding: 0 1em .2em!important;
       background-color: white; }
-  div#globalWrapper #p-cactions .new a {
-    color: #149ACC; }
   div#globalWrapper #p-cactions li a:hover {
     z-index: 3;
     text-decoration: none;
@@ -757,8 +726,6 @@ div#globalWrapper #p-cactions li {
   div#globalWrapper #p-cactions li a {
     border: 1px solid #aaa;
     border-bottom: none; }
-  div#globalWrapper #p-cactions li.selected a {
-    border-color: #149ACC; }
 div#globalWrapper #f-poweredbyico, div#globalWrapper #f-copyrightico {
   width: 88px; }
 div#globalWrapper #bodyContent {

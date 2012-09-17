@@ -85,7 +85,25 @@ describe Name do
       name.string = str
       name.is_surrogate_or_hybrid?.should == false
     end
+  end
+
+  it 'should identify subgenus' do
+    name = Name.create( :string => 'something', :ranked_canonical_form_id => 1)
+    [ 'Papilio (Heraclides) Hübner, 1819',
+      'Papilio (Papilio) Linnaeus 1758',
+      'Papilio (Papilio)'].each do |str|
+      name.string = str
+      name.is_subgenus?.should == true
+    end
     
+    [ 'Papilio',
+      'Papilio Heraclides Hübner, 1819',
+      'Papilio Hübner, 1819',
+      'Papilio papilio',
+      'Papilio (Papilio) papilio'].each do |str|
+      name.string = str
+      name.is_subgenus?.should == false
+    end
   end
 
   describe "::prepare_clean_name" do

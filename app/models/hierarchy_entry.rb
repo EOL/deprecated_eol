@@ -75,7 +75,7 @@ class HierarchyEntry < ActiveRecord::Base
   # this method will return either the original name string, or if the rank of the taxon
   # is one to be italicized, the italicized form of the original name string
   def italicized_name
-    if name.is_surrogate_or_hybrid?
+    if name.is_surrogate_or_hybrid? || name.is_subgenus?
       name.string
     else
       species_or_below? ? name.italicized : name.string
@@ -91,7 +91,7 @@ class HierarchyEntry < ActiveRecord::Base
   def title_canonical
     return @title_canonical unless @title_canonical.nil?
     # used the ranked version first
-    if name.is_surrogate_or_hybrid?
+    if name.is_surrogate_or_hybrid? || name.is_subgenus?
       @title_canonical = name.string.firstcap
     elsif name.ranked_canonical_form && !name.ranked_canonical_form.string.blank?
       @title_canonical = name.ranked_canonical_form.string.firstcap
@@ -111,7 +111,7 @@ class HierarchyEntry < ActiveRecord::Base
     return @title_canonical_italicized unless @title_canonical_italicized.nil?
     @title_canonical_italicized = title_canonical
     # used the ranked version first
-    if name.is_surrogate_or_hybrid?
+    if name.is_surrogate_or_hybrid? || name.is_subgenus?
       # do nothing
     elsif name.ranked_canonical_form && !name.ranked_canonical_form.string.blank?
       @title_canonical_italicized = "<i>#{@title_canonical_italicized}</i>" if (species_or_below? || @title_canonical_italicized.match(/ /))

@@ -134,6 +134,11 @@ class Name < ActiveRecord::Base
     return true if string.match(/virus([^\w]|$)/i)
     return false
   end
+  
+  def is_subgenus?
+    return true if string.match(/^[A-Z][^ ]+ \([A-Z][^ ]+\)($| [A-Z])/)
+    return false
+  end
 
 private
 

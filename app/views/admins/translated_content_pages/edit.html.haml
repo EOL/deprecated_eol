@@ -16,4 +16,4 @@
         = content_page_form.submit I18n.t('helpers.submit.translated_content_page.update')
         = link_to I18n.t(:cancel), admin_content_pages_path
     = button_to I18n.t(:delete), { :action => 'destroy', :content_page_id => @content_page.id, :id => @translated_content_page.id },
-      { :confirm => I18n.t(:admin_translated_content_page_delete_confirmation, :page_name => @content_page.page_name, :language => @translated_content_page.language.label.safe_downcase), :method => 'delete', :class => 'delete' }
+      { :confirm => I18n.t(:admin_translated_content_page_delete_confirmation, :page_name => @content_page.page_name, :language => @translated_content_page.language.label.downcase), :method => 'delete', :class => 'delete' }

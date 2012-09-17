@@ -3,7 +3,7 @@
 - preview ||= false
 - entries = data_object.published_entries.collect{|e| e if e.taxon_concept_id != @taxon_concept.id && ( (visible && Visibility.visible == e.visibility) || (invisible && Visibility.invisible == e.visibility) || (preview && Visibility.preview == e.visibility) ) }.compact
 - if !entries.blank? 
-  = I18n.t(:in_this_data_type, :data_type => data_object.data_type.to_s.safe_downcase)
+  = I18n.t(:in_this_data_type, :data_type => data_object.data_type.to_s.downcase)
   - i = 0
   - # list maximum of 2
   - entries[0..1].each do |entry| 

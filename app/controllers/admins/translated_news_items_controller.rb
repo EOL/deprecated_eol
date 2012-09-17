@@ -81,7 +81,7 @@ private
     set_translated_news_item_options
     @page_subheader = I18n.t(:admin_translated_news_item_edit_subheader,
                              :page_name => @news_item.page_name,
-                             :language => @translated_news_item.language.label.safe_downcase)
+                             :language => @translated_news_item.language.label.downcase)
   end
 
 end

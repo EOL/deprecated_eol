@@ -194,3 +194,10 @@ qqq:
   association_trusted_for_taxa: "This is the heading for a list of taxa to which an image is associated and known to be trusted (meaning the association has been reviewed by a curator). The list apears in a small 'mouseover' box."
   association_unreviewed_for_taxa: "This is the heading for a list of taxa to which an image is associated, but the associations have not yet been reviewed by a curator. The list apears in a small 'mouseover' box."
   association_untrusted_for_taxa: "This is the heading for a list of taxa to which an image is associated and known to be mistaken (meaning the association has been reviewed by a curator and a problem was found). The list apears in a small 'mouseover' box."
+  add_a_new_term: "'term' here refers to a word, which is to be defined by admins for an EOL glossary."
+  activity: "This is only used in the admin interface and refers to user activity (ie: actions that users take)."
+  users:
+    newsfeeds:
+      activity_link: "This is the title of a tab."
+      comments_link: "This is the title of a tab. It does not need pluralization (meaning: it should always be plural)."
+      newsfeed_link: "This is the title of a tab."

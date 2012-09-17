@@ -8,6 +8,9 @@
 -# if the dato gets more associations, it will not show them.  TODO - attempt to set up an observer to handle those.
 -# To manually expire an article run: ActionController::Base.new.expire_fragment('article/#{I18n.locale}/#{data_object.id}')
 - cache "article/#{I18n.locale}/#{data_object.id}" do
+  - if data_object.content_partner == ContentPartner.wikipedia
+    = stylesheet_link_tag("wikipedia")
+    = javascript_include_tag("wiki_ogg_player")
   - data_object.description = data_object.description_linked unless data_object.description_linked.blank? rescue nil
   - show_view_source ||= 'true'
   - unless data_object.nil? || data_object.description.empty? || data_object.description.blank?

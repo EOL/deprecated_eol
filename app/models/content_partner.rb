@@ -75,6 +75,10 @@ class ContentPartner < ActiveRecord::Base
     cached_find(:full_name, 'Biology of Aging')
   end
 
+  def self.wikipedia
+    cached_find(:full_name, 'Wikipedia')
+  end
+
   def all_harvest_events
     all_harvest_events = []
     resources.each do |r|

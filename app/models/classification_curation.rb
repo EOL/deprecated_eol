@@ -43,8 +43,8 @@ class ClassificationCuration < ActiveRecord::Base
 
   def bridge_split
     hierarchy_entries.each do |he|
-      logger.warning "+" * 100
-      logger.warning "++ split_entry #{he.id} by user #{user_id} classification_curation_id #{id}"
+      logger.warn "+" * 100
+      logger.warn "++ split_entry #{he.id} by user #{user_id} classification_curation_id #{id}"
       CodeBridge.split_entry(:hierarchy_entry_id => he.id, :exemplar_id => exemplar_id, :notify => user_id,
                              :classification_curation_id => id)
     end

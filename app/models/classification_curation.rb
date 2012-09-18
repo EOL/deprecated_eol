@@ -29,11 +29,11 @@ class ClassificationCuration < ActiveRecord::Base
   end
 
   def split?
-    target.null?
+    target.nil?
   end
 
   def merge?
-    exemplar.null?
+    exemplar.nil?
   end
 
   # This is not used anywhere (in practice, use split? / merge? / else), but is here for principle of least surprise:
@@ -43,7 +43,7 @@ class ClassificationCuration < ActiveRecord::Base
 
   def bridge_split
     hierarchy_entries.each do |he|
-      CodeBridge.split_entry(:hierarchy_entry_id => he.id, :exemplar_id => exemplar.id, :notify => user_id,
+      CodeBridge.split_entry(:hierarchy_entry_id => he.id, :exemplar_id => exemplar_id, :notify => user_id,
                              :classification_curation => self)
     end
   end
@@ -55,7 +55,7 @@ class ClassificationCuration < ActiveRecord::Base
   def bridge_move
     hierarchy_entries.each do |he|
       CodeBridge.move_entry(:from_taxon_concept_id => source_id, :to_taxon_concept_id => target_id,
-                            :hierarchy_entry_id => he.id, :exemplar_id => exemplar.id, :notify => user_id,
+                            :hierarchy_entry_id => he.id, :exemplar_id => exemplar_id, :notify => user_id,
                             :classification_curation => self)
     end
   end

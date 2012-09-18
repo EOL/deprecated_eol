@@ -28,7 +28,7 @@ class CodeBridge
                                 'taxon_concept_id_to'          => options[:to_taxon_concept_id],
                                 'bad_match_hierarchy_entry_id' => options[:exemplar_id],
                                 'confirmed'                    => 'force', # UI enforces restrictions.
-                                'classification_curation_id'   => options[:classification_curation].id)
+                                'classification_curation_id'   => options[:classification_curation].id})
   end
 
   def self.split_entry(options = {})
@@ -36,7 +36,7 @@ class CodeBridge
                                 'hierarchy_entry_id'           => options[:hierarchy_entry_id],
                                 'bad_match_hierarchy_entry_id' => options[:exemplar_id],
                                 'confirmed'                    => 'confirmed', # note, no need for 'force' on split
-                                'classification_curation_id'   => options[:classification_curation].id)
+                                'classification_curation_id'   => options[:classification_curation].id})
   end
 
   def self.merge_taxa(id1, id2, options = {})

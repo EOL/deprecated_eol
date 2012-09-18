@@ -1409,7 +1409,7 @@ class TaxonConcept < ActiveRecord::Base
                                   :hierarchy_entries => HierarchyEntry.find(hierarchy_entry_ids),
                                   :source_id => source_concept.id,
                                   :target_id => id, :exemplar_id => options[:exemplar_id],
-                                  :forced => options[:forced])
+                                  :forced => options[:additional_confirm] || options[:forced])
   end
 
   def all_published_entries?(hierarchy_entry_ids)

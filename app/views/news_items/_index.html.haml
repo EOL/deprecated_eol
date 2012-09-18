@@ -4,7 +4,7 @@
   %ul
     - for translated_news_item in translated_news_items
       %li
-        .details
+        .details.news_details
           %p
             %b= link_to translated_news_item.title, news_item_path(translated_news_item.news_item_id)
           - news_item_length = for_homepage ? 300 : 800

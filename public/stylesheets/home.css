@@ -564,6 +564,12 @@ body {
     #content .section .news {
       float: left;
       width: 520px; }
+      #content .section .news .details li, #content .section .news .details blockquote {
+        margin: 0 0 0 40px; }
+      #content .section .news .details ol li {
+        list-style: decimal; }
+      #content .section .news .details ul li {
+        list-style: disc; }
     #content .section .stats {
       clear: both; }
       #content .section .stats h3 {

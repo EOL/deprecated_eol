@@ -14,5 +14,6 @@
     - else
       #recent_activities.main_container
         .article.list.updates
-          %p.meta= I18n.l(@translated_news_item.news_item.display_date, :format => :long)
-          %p= @translated_news_item.body
+          .details.news_details
+            %p.meta= I18n.l(@translated_news_item.news_item.display_date, :format => :long)
+            %p= @translated_news_item.body

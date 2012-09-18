@@ -2846,7 +2846,7 @@ en:
   dato_create_cancel: "Cancel"
   dato_edit_cancel: "Cancel"
   dato_create_user_text_error: "Sorry, an error occurred, the article could not be added."
-  dato_location_created: "Location Created: #{loc}"
+  dato_location_created: "Location Created: %{loc}"
   dato_new_edit_user_text_fieldset_content_header: "Article content"
   dato_new_edit_user_text_fieldset_information_header: "Article information"
   dato_new_edit_user_text_form_tip: 'Your completed article will be posted to the taxon page. If you are not a curator, it will be marked as "unreviewed" until a curator reviews it. Subchapter, text, language and license are required (%{required_icon}), all other fields are optional. If you select a CC-BY (Attribution) license please include a rights holder or leave blank to use your full name. Public Domain licenses do not require a rights holder. For further assistance read <a href="%{add_article_help_url}">add article help</a>.'

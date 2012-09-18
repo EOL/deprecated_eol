@@ -473,6 +473,10 @@ $(function() {
       }));
     });
   })($("#statistics"));
+  
+  (function($flash_div) {
+    $flash_div.delay('5000').fadeOut('slow');
+  })($("#flash-bad, #flash-good"));
 
 });
 

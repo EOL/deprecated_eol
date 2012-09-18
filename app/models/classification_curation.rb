@@ -6,7 +6,7 @@ class ClassificationCuration < ActiveRecord::Base
   # :forced       => boolean. ...Whether the move was (had to be) forced due to conflicts in CP assertions.
   # :error        => merges don't have hierarchy_entry_moves, so the errors cannot be stored there. Here it is!
 
-  has_many :hierarchy_entries, :through => 'hiearchy_entry_moves'
+  has_many :hierarchy_entries, :through => 'hierarchy_entry_moves'
   has_many :hierarchy_entry_moves
 
   belongs_to :exemplar, :class_name => 'HierarchyEntry' # If this is null, it was a merge.

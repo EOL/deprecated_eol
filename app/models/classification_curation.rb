@@ -6,8 +6,8 @@ class ClassificationCuration < ActiveRecord::Base
   # :forced       => boolean. ...Whether the move was (had to be) forced due to conflicts in CP assertions.
   # :error        => merges don't have hierarchy_entry_moves, so the errors cannot be stored there. Here it is!
 
-  has_many :hierarchy_entries, :through => 'hierarchy_entry_moves'
   has_many :hierarchy_entry_moves
+  has_many :hierarchy_entries, :through => :hierarchy_entry_moves
 
   belongs_to :exemplar, :class_name => 'HierarchyEntry' # If this is null, it was a merge.
   belongs_to :source, :class_name => 'TaxonConcept' # If this has a superceded_id after the operation, it was a merge.
@@ -36,7 +36,7 @@ class ClassificationCuration < ActiveRecord::Base
     exemplar.null?
   end
 
-  # This is not used anywhere, but is here for principle of least surprise:
+  # This is not used anywhere (in practice, use split? / merge? / else), but is here for principle of least surprise:
   def move?
     !split? && !merge?
   end

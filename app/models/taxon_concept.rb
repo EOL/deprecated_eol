@@ -1392,7 +1392,7 @@ class TaxonConcept < ActiveRecord::Base
     lock_classifications
     ClassificationCuration.create(:user => options[:user],
                                   :hierarchy_entries => HierarchyEntry.find(hierarchy_entry_ids),
-                                  :source => self, :exemplar_id => options[:exemplar_id])
+                                  :source_id => id, :exemplar_id => options[:exemplar_id])
   end
 
   def merge_classifications(hierarchy_entry_ids, options = {})
@@ -1407,7 +1407,8 @@ class TaxonConcept < ActiveRecord::Base
     source_concept.lock_classifications
     ClassificationCuration.create(:user => options[:user],
                                   :hierarchy_entries => HierarchyEntry.find(hierarchy_entry_ids),
-                                  :source => source_concept, :target => self, :exemplar_id => options[:exemplar_id],
+                                  :source_id => source_concept.id,
+                                  :target_id => id, :exemplar_id => options[:exemplar_id],
                                   :forced => options[:forced])
   end
 

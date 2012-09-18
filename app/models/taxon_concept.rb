@@ -1367,8 +1367,6 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def lock_classifications
-    puts "*" * 80 
-    puts "** Classificaiton Locked on #{id}"
     TaxonClassificationsLock.create(:taxon_concept_id => self.id)
   end
 
@@ -1393,7 +1391,8 @@ class TaxonConcept < ActiveRecord::Base
     raise EOL::Exceptions::ClassificationsLocked if
       classifications_locked?
     lock_classifications
-    ClassificationCuration.create(:user => options[:user], :hierarchy_entry_ids => hierarchy_entry_ids,
+    ClassificationCuration.create(:user => options[:user],
+                                  :hierarchy_entries => HierarchyEntry.find(hierarchy_entry_ids),
                                   :source => self, :exemplar_id => options[:exemplar_id])
   end
 
@@ -1407,7 +1406,8 @@ class TaxonConcept < ActiveRecord::Base
     raise EOL::Exceptions::CannotMergeClassificationsToSelf if self.id == source_concept.id
     lock_classifications
     source_concept.lock_classifications
-    ClassificationCuration.create(:user => options[:user], :hierarchy_entry_ids => hierarchy_entry_ids,
+    ClassificationCuration.create(:user => options[:user],
+                                  :hierarchy_entries => HierarchyEntry.find(hierarchy_entry_ids),
                                   :source => source_concept, :target => self, :exemplar_id => options[:exemplar_id],
                                   :forced => options[:forced])
   end

@@ -218,7 +218,7 @@ class HierarchyEntry < ActiveRecord::Base
   end
 
   # This gives you the correct array of source agents that recognize the taxon.  Keep in mind that if there is a
-  # source database, you MUST cite the hiearchy agent SEPARATELY, so it is not included; otherwise, it is:
+  # source database, you MUST cite the hierarchy agent SEPARATELY, so it is not included; otherwise, it is:
   def recognized_by_agents
     if has_source_database?
       (source_database_agents + source_agents).compact

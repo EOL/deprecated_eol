@@ -119,7 +119,7 @@ class ClassificationCuration < ActiveRecord::Base
                                        :changeable_object_type_id => comment ?
                                           ChangeableObjectType.comment.id :
                                           ChangeableObjectType.classification_curation.id,
-                                       :object_id => options[:comment] ? id,
+                                       :object_id => options[:comment] ? comment.id : id,
                                        :activity_id => activity.id,
                                        :created_at => 0.seconds.from_now,
                                        :taxon_concept_id => parent.id)

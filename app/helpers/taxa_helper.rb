@@ -91,6 +91,15 @@ module TaxaHelper
     end
   end
 
+  def hierarchy_display_title(hierarchy, options={})
+    options[:show_link] = true if !options.has_key?(:show_link)
+    hierarchy_label = hierarchy.display_title
+    if options[:show_link] && cp = hierarchy.content_partner
+      hierarchy_label = link_to(hierarchy_label, cp)
+    end
+    return hierarchy_label
+  end
+  
   def common_name_display_attribution(common_name_display)
     agent_names = common_name_display.agents.map do |a|
       if a.user

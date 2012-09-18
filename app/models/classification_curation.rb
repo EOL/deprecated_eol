@@ -62,7 +62,8 @@ class ClassificationCuration < ActiveRecord::Base
 
   def check_status_and_notify
     if complete?
-      update_column(:completed_at, Time.now) if complete?
+      # TODO - update_column, after upgrade merge
+      update_attribute(:completed_at, Time.now) if complete?
       if failed?
         compile_errors_into_log
       else

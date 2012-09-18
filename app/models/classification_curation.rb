@@ -24,6 +24,8 @@ class ClassificationCuration < ActiveRecord::Base
     else
       bridge_move
     end
+    log_activity_on(source) if source
+    log_activity_on(target) if target
   end
 
   def split?
@@ -66,8 +68,8 @@ class ClassificationCuration < ActiveRecord::Base
       else
         leave_logs_and_notify(Activity.unlock)
       end
-      CodeBridge.reindex(source_id) if source_id
-      CodeBridge.reindex(target_id) if target_id
+      CodeBridge.reindex_taxon_concept(source_id) if source_id
+      CodeBridge.reindex_taxon_concept(target_id) if target_id
     end
   end
 
@@ -87,7 +89,7 @@ class ClassificationCuration < ActiveRecord::Base
                 hierarchy_entry_moves.with_errors.map do |m|
                   "\"#{m.error}\" on <a href='#{taxon_hierarchy_entry_overview_url(source, m.hierarchy_entry)}'>#{m.hierarchy_entry.italicized_name}</a>."
                 end
-               ).join(", ")
+               ).to_sentence
     leave_logs_and_notify(Activity.unlock_with_error, :comment => comment)
   end
 
@@ -107,23 +109,47 @@ class ClassificationCuration < ActiveRecord::Base
   end
 
   def leave_log_on_taxon(parent, activity, options = {})
-    if options[:comment]
-      Comment.create!(:user_id => $BACKGROUND_TASK_USER_ID, :body => options[:comment], :parent => parent)
+    comment = nil
+    log = nil
+    begin
+      if options[:comment]
+        comment = Comment.create!(:user_id => $BACKGROUND_TASK_USER_ID, :body => options[:comment], :parent => parent)
+      end
+      log = CuratorActivityLog.create!(:user_id => user_id,
+                                       :changeable_object_type_id => comment ?
+                                          ChangeableObjectType.comment.id :
+                                          ChangeableObjectType.classification_curation.id,
+                                       :object_id => options[:comment] ? id,
+                                       :activity_id => activity.id,
+                                       :created_at => 0.seconds.from_now,
+                                       :taxon_concept_id => parent.id)
+    rescue => e
+      # do nothing, for now...  :\
     end
-    CuratorActivityLog.create!(:user_id => user_id,
-                               :changeable_object_type_id => ChangeableObjectType.classification_curation.id,
-                               :object_id => id,
-                               :activity_id => activity.id,
-                               :created_at => 0.seconds.from_now,
-                               :taxon_concept_id => parent.id)
+    log
   end
 
   def force_immediate_notification_of(target)
-    PendingNotification.create!(:user_id => user_id,
-                                :notification_frequency_id => NotificationFrequency.immediately.id,
-                                :target => target,
-                                :reason => 'auto_email_after_curation')
-    Resque.enqueue(PrepareAndSendNotifications)
+    begin
+      PendingNotification.create!(:user_id => user_id,
+                                  :notification_frequency_id => NotificationFrequency.immediately.id,
+                                  :target => target,
+                                  :reason => 'auto_email_after_curation')
+      Resque.enqueue(PrepareAndSendNotifications)
+    rescue => e
+      # Do nothing (for now)...
+    end
+  end
+
+  def log_activity_on(taxon_concept)
+    CuratorActivityLog.create(
+      :user => user,
+      :taxon_concept => taxon_concept,
+      :changeable_object_type => ChangeableObjectType.classification_curation,
+      :object => self,
+      :activity => Activity.curate_classifications.id,
+      :created_at => 0.seconds.from_now
+    )
   end
 
 end

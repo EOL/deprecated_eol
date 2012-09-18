@@ -93,6 +93,20 @@
     = I18n.t("untrust_common_name.#{user_type}_untrusted_#{name_type}_in_#{language_type}_on_#{taxon_type}", translation_vars)
   - when Activity.unreview_common_name.id
     = I18n.t("unreview_common_name.#{user_type}_unreviewed_#{name_type}_in_#{language_type}_on_#{taxon_type}", translation_vars)
+  - when Activity.curate_classifications.id
+    - if item.classification_curation
+      - translation_vars[:classifications] = item.classification_curation.hierarchy_entries.map {|he| he.hierarchy.display_title }.to_sentence
+      - target_type = item.classification_curation.target ? 'taxon' : 'an_unknown_taxon'
+      - translation_vars[:target] = item.classification_curation.target ? link_to(item.classification_curation.target.quick_scientific_name, taxon_url(item.classification_curation.target), :style => link_style) : nil
+      - if item.classification_curation.split?
+        = I18n.t("classification_curation.split.#{user_type}_split_classifications_from_#{taxon_type}", translation_vars)
+      - elsif item.classification_curation.merge?
+        = I18n.t("classification_curation.merge.#{user_type}_merged_#{taxon_type}_and_#{target_type}", translation_vars)
+      - else # move
+        = I18n.t("classification_curation.move.#{user_type}_moved_classifications_from_#{taxon_type}_to_#{target_type}", translation_vars)
+    - else
+      = I18n.t("classification_curation.#{user_type}_curated_unkown_classification_from_#{taxon_type}", translation_vars)
+  -# The next two (split, merge) are legacy, but we keep them because they ARE in the logs (in production):
   - when Activity.split_classifications.id
     - if item.hierarchy_entry
       = I18n.t("split.#{user_type}_split_entry_from_#{taxon_type}", translation_vars)

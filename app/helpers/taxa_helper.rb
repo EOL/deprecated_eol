@@ -66,24 +66,13 @@ module TaxaHelper
     links.empty? ? partner_label : links.join(', ')
   end
   
-  def hierarchy_display_title(hierarchy, options={})
-    options[:show_link] = true if !options.has_key?(:show_link)
-    hierarchy_label = hierarchy.display_title
-    if options[:show_link] && cp = hierarchy.content_partner
-      hierarchy_label = link_to(hierarchy_label, cp)
-    end
-    return hierarchy_label
-  end
-  
   def hierarchy_entry_display_attribution(hierarchy_entry, options={})
     # on the overview page we show he rank first (Species recognized by ...)
     # otherwise we show the rank last (... as a Species)
     options[:show_rank_first] ||= false
     hierarchy_title = hierarchy_display_title(hierarchy_entry.hierarchy, options)
-    
     if hierarchy_entry.has_source_database?
       recognized_by = hierarchy_entry.recognized_by_agents.map(&:full_name).to_sentence
-      # recognized_by = hierarchy_entry.recognized_by_agents.map {|a| (a.respond_to?(:user) && a.user && a.user.respond_to?(:content_partners) && !a.user.content_partners.blank?) ? link_to(a.full_name, content_partner_path(a.user.content_partners.first)) : a.full_name }.to_sentence
       if options[:show_rank_first]
         return I18n.t(:rank_recognized_by_from_source, :agent => recognized_by, :source => hierarchy_title, :rank => hierarchy_entry.rank_label)
       elsif options[:show_rank] == false
@@ -101,7 +90,7 @@ module TaxaHelper
       end
     end
   end
-  
+
   def common_name_display_attribution(common_name_display)
     agent_names = common_name_display.agents.map do |a|
       if a.user

@@ -106,7 +106,7 @@
         = raw I18n.t("classification_curation.move.#{user_type}_moved_classifications_from_#{taxon_type}_to_#{target_type}", translation_vars)
     - else
       = raw I18n.t("classification_curation.#{user_type}_curated_unkown_classification_from_#{taxon_type}", translation_vars)
-  -# The next two (split, merge) are legacy, but we keep them because they ARE in the logs (in production):
+    -# The next two (split, merge) are legacy, but we keep them because they ARE in the logs (in production):
   - when Activity.split_classifications.id
     - if item.hierarchy_entry
       = I18n.t("split.#{user_type}_split_entry_from_#{taxon_type}", translation_vars)

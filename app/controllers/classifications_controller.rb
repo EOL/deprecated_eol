@@ -108,8 +108,6 @@ private
       add_entries_to_session.each do |entry|
         auto_collect(@taxon_concept)
         auto_collect(target_taxon_concept) if target_taxon_concept
-        log_activity(:target_taxon_concept_id => target_taxon_concept ? target_taxon_concept.id : nil,
-                     :entry => entry, :type => "#{type}_classifications")
       end
       session[:split_hierarchy_entry_id] = nil
       @target_params[:pending] = 1
@@ -168,18 +166,6 @@ private
   def taxon_concept_from_session
     hierarchy_entries = add_entries_to_session
     return hierarchy_entries.first.taxon_concept # This will redirect them to the right names tab.
-  end
-
-  def log_activity(options)
-    CuratorActivityLog.create(
-      :user => current_user,
-      :hierarchy_entry_id => options[:entry].id,
-      :taxon_concept_id => @taxon_concept.id,
-      :changeable_object_type => ChangeableObjectType.taxon_concept,
-      :object_id => options[:target_taxon_concept_id] || @taxon_concept.id,
-      :activity => Activity.send(options[:type].to_sym),
-      :created_at => 0.seconds.from_now
-    )
   end
 
 end

@@ -10,7 +10,7 @@
 #        "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2008"
 #      ]
 #
-require 'invert' # TEMP - Ant and JRice are attempting a fix
+require 'invert'
 
 class Hierarchy < ActiveRecord::Base
   belongs_to :agent           # This is the attribution.

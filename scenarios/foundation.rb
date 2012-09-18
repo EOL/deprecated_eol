@@ -187,6 +187,7 @@ ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'data_objects_hierarch
 ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'users_submitted_text')
 ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'curated_taxon_concept_preferred_entry')
 ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'taxon_concept')
+ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'classification_curation')
 
 RefIdentifierType.gen_if_not_exists(:label => 'url')
 

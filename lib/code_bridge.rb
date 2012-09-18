@@ -47,8 +47,8 @@ class CodeBridge
                                 'confirmed' => 'confirmed'}) # No need for "force" on merge.
   end
 
-  def self.reindex(taxon_concept_id)
-    Resque.enqueue(CodeBridge, {'cmd' => 'reindex', 'taxon_concept_id' => taxon_concept_id})
+  def self.reindex_taxon_concept(taxon_concept_id)
+    Resque.enqueue(CodeBridge, {'cmd' => 'reindex_taxon_concept', 'taxon_concept_id' => taxon_concept_id})
   end
 
 end

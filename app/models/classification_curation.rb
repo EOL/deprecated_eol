@@ -44,19 +44,19 @@ class ClassificationCuration < ActiveRecord::Base
   def bridge_split
     hierarchy_entries.each do |he|
       CodeBridge.split_entry(:hierarchy_entry_id => he.id, :exemplar_id => exemplar_id, :notify => user_id,
-                             :classification_curation => self)
+                             :classification_curation_id => id)
     end
   end
 
   def bridge_merge
-    CodeBridge.merge_taxa(source_id, target_id, :notify => user_id, :classification_curation => self)
+    CodeBridge.merge_taxa(source_id, target_id, :notify => user_id, :classification_curation_id => id)
   end
 
   def bridge_move
     hierarchy_entries.each do |he|
       CodeBridge.move_entry(:from_taxon_concept_id => source_id, :to_taxon_concept_id => target_id,
                             :hierarchy_entry_id => he.id, :exemplar_id => exemplar_id, :notify => user_id,
-                            :classification_curation => self)
+                            :classification_curation_id => id)
     end
   end
 
@@ -147,7 +147,7 @@ class ClassificationCuration < ActiveRecord::Base
       :user => user,
       :taxon_concept => taxon_concept,
       :changeable_object_type => ChangeableObjectType.classification_curation,
-      :object => self,
+      :object_id => id,
       :activity => Activity.curate_classifications.id,
       :created_at => 0.seconds.from_now
     )

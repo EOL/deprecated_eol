@@ -580,6 +580,7 @@ private
 
   def log_action(object, method, opts = {})
     object_id = object.data_object_id if object.class.name == "DataObjectsHierarchyEntry" || object.class.name == "CuratedDataObjectsHierarchyEntry" || object.class.name == "UsersDataObject"
+    return if object.blank?
     object_id = object.id if object_id.blank?
 
     if object.class.name == "DataObjectsHierarchyEntry" || object.class.name == "CuratedDataObjectsHierarchyEntry"

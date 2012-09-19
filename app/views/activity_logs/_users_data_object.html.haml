@@ -1,4 +1,4 @@
--# NOTE - this is AMOST an EXACT duplicate of app/views/activity_logs/_data_object ... please keep it that
+-# NOTE - this is ALMOST an EXACT duplicate of app/views/activity_logs/_data_object ... please keep it that
   way.  The thing is, we call these partials based on the class of the log item, and these two behave exactly the same,
   but rather than calling one partial from the other (which would be slower), we allow the duplication. The
   difference is that UDOs use #taxon_concept and item#data_object, and DATOs use #taxon_concepts.first and item.
@@ -13,7 +13,7 @@
   - user = I18n.t(:user_full_name_with_curator, :user => user, :curator_level => item.user.curator_level.translated_label)
 %p= raw I18n.t(:activity_user_created_text, :user => user,
   :object_name => link_to(item.summary_name, latest_data_object_url, :style => link_style),
-  :taxon_concept => link_to(item.taxon_concept.summary_name, overview_taxon_url(item.taxon_concept),
+  :taxon_concept => link_to(raw(item.taxon_concept.summary_name), overview_taxon_url(item.taxon_concept),
   :style => link_style))
 %blockquote{:cite => h(item.user.full_name)}
-  %p= item.description_teaser
+  %p= raw item.description_teaser

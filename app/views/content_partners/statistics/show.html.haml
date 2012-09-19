@@ -28,27 +28,27 @@
           %th= I18n.t(:content_partner_statistics_column_header_provider_proportion)
         %tbody
           %tr
-            %td= I18n.t('helpers.label.google_analytics_partner_summaries.taxa_pages')
+            %td= raw(I18n.t('helpers.label.google_analytics_partner_summaries.taxa_pages'))
             %td= @partner_summary.taxa_pages
             %td= @site_summary.taxa_pages
             %td= "#{@partner_summary.percent_overall_taxa_pages(@site_summary).round(2)}%"
           %tr
-            %td= I18n.t('helpers.label.google_analytics_partner_summaries.taxa_pages_viewed')
+            %td= raw(I18n.t('helpers.label.google_analytics_partner_summaries.taxa_pages_viewed'))
             %td= @partner_summary.taxa_pages_viewed
             %td= @site_summary.taxa_pages_viewed
             %td= "#{@partner_summary.percent_overall_taxa_pages_viewed(@site_summary).round(2)}%"
           %tr
-            %td= I18n.t('helpers.label.google_analytics_partner_summaries.unique_page_views')
+            %td= raw(I18n.t('helpers.label.google_analytics_partner_summaries.unique_page_views'))
             %td= @partner_summary.unique_page_views
             %td= @site_summary.unique_pageviews
             %td= "#{@partner_summary.percent_overall_unique_page_views(@site_summary).round(2)}%"
           %tr
-            %td= I18n.t('helpers.label.google_analytics_partner_summaries.page_views')
+            %td= raw(I18n.t('helpers.label.google_analytics_partner_summaries.page_views'))
             %td= @partner_summary.page_views
             %td= @site_summary.pageviews
             %td= "#{@partner_summary.percent_overall_page_views(@site_summary).round(2)}%"
           %tr
-            %td= I18n.t('helpers.label.google_analytics_partner_summaries.time_on_page')
+            %td= raw(I18n.t('helpers.label.google_analytics_partner_summaries.time_on_page'))
             %td= @partner_summary.time_on_page_in_hours.round(2)
             %td= @site_summary.time_on_pages_in_hours.round(2)
             %td= "#{@partner_summary.percent_overall_time_on_page_in_hours(@site_summary).round(2)}%"
@@ -70,7 +70,7 @@
           - @pages.each do |page|
             %tr
               %td= page.taxon_concept_id
-              %td= page.taxon_concept.title
+              %td= raw(page.taxon_concept.title)
               %td= page.page_views
               %td= page.unique_page_views
               %td= page.timeonpage

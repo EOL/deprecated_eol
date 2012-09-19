@@ -1,6 +1,6 @@
 - node_class ||= ''
 %a.name{:href => '', :class => node_class, :onclick => "javascript:update_browser(#{hierarchy_entry.id}, 0); return false;"}
-  = hierarchy_entry.italicized_name.firstcap
+  = raw(hierarchy_entry.italicized_name.firstcap)
 
 - unless hierarchy_entry.rank_id == 0 || hierarchy_entry.rank.blank?
   %span.rank

@@ -176,7 +176,7 @@ describe 'Taxa page' do
       body.should include(CGI.escapeHTML(@taxon_concept.hierarchy_entries.first.hierarchy.label))
       # children
       body.should include(@testy[:child1].hierarchy_entries.first.name.string)
-      body.should include(@testy[:child1].hierarchy_entries.first.hierarchy.label)
+      body.should include(CGI.escapeHTML(@testy[:child1].hierarchy_entries.first.hierarchy.label))
     end
 
     it 'should show common names grouped by language with preferred flagged and status indicator' do
@@ -460,6 +460,7 @@ describe 'Taxa page' do
     end
     it 'should show comments from superceded taxa' do
       visit overview_taxon_path @testy[:id]
+      # TODO - seems to be a legitimate failure: the activity log does NOT include the superceded comment:
       body.should include(@testy[:superceded_comment].body)
     end
   end

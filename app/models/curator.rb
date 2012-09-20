@@ -11,6 +11,7 @@ class Curator < $PARENT_CLASS_MUST_USE_MASTER
   has_many :curator_activity_logs_on_data_objects, :class_name => CuratorActivityLog.to_s,
            :conditions =>
              Proc.new { "curator_activity_logs.changeable_object_type_id = #{ChangeableObjectType.raw_data_object_id}" }
+  has_many :classification_curations
 
   before_save :instantly_approve_curator_level_if_possible
   after_create :join_curator_community_if_curator

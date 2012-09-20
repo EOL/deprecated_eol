@@ -1118,6 +1118,9 @@ table.standard {
 .article span.icon {
   background: #f3f7fa url("/images/v2/icon_articles_tabs.png") 50% 50% no-repeat; }
 
+.link span.icon {
+  background: #f3f7fa url("/images/v2/icon_links_tabs.jpg") 50% 50% no-repeat; }
+
 .sound span.icon {
   background: #f3f7fa url("/images/v2/icon_sound_tabs.png") 50% 50% no-repeat; }
 
@@ -3605,3 +3608,10 @@ ul.spotlite-matches {
     position: absolute; }
     #social_sharing > div.facebook {
       margin-left: 90px; }
+
+.news_details li, .news_details blockquote {
+  margin: 0 0 0 40px; }
+.news_details ol li {
+  list-style: decimal; }
+.news_details ul li {
+  list-style: disc; }

@@ -4,21 +4,34 @@ var discover = {
 	ondomready: function(){
 		// page functions go here
 		
-		discover.buildGridHover();
-		discover.buildOverlay();
-		discover.buildColorbox();
-		discover.buildPrint();
-		discover.buildCalloutLasts();
-		discover.buildSlideshow();
+		if (discover.isDiscoverPage()) {
+			discover.buildGridHover();
+			discover.buildOverlay();
+			discover.buildColorbox();
+			discover.buildPrint();
+			discover.buildCalloutLasts();
+			discover.buildSlideshow();
+		}
 		
 	},
 	
+	isDiscoverPage: function() {
+		if ($(".discover_content_section").length > 0) {
+			// toggle parent class
+			$(".article").toggleClass("discover_copy", true);
+			return true;
+		}
+		return false;
+	},
 
 	handleSlideshowPaginator: function(e) {
 		e.preventDefault();
-		var page = $(this).html();
+		var page = $(this).attr("id");
+		page = parseInt(page.replace("page-", ""));
 		
-		var par = $(this).parent().parent();
+		console.log(page);		
+		
+		var par = $(this).parent().parent().parent();;
 		var meta = par.find(".discover_meta");
 		var slideshow = par.find(".discover_slideshow_container");
 		
@@ -39,12 +52,14 @@ var discover = {
 		e.preventDefault();
 
 		
-		var par = $(this).parent();
+		var par = $(this).parent().parent();
 		var meta = par.find(".discover_meta");
 		var slideshow = par.find(".discover_slideshow_container");
 		var nav = par.find(".discover_slideshow_paginator");
 		
-		var page = par.find("a.current").html();
+		var page = parseInt(par.find("a.current").attr("id").replace("page-", ""));
+		
+		console.log(page);
 		
 		if (page > 1) {
 		
@@ -60,19 +75,19 @@ var discover = {
 			
 			
 			nav.find("a").toggleClass("current", false);
-			nav.find('a:eq('+(page-1)+')').toggleClass("current", true);
+			nav.find('a:eq('+(page)+')').toggleClass("current", true);
 		}
 	},
 	
 	handleSlideshowNext: function(e) {
 		e.preventDefault();
 
-		var par = $(this).parent();
+		var par = $(this).parent().parent();
 		var meta = par.find(".discover_meta");
 		var slideshow = par.find(".discover_slideshow_container");
 		var nav = par.find(".discover_slideshow_paginator");
 		
-		var page = parseInt(par.find("a.current").html());
+		var page = parseInt(par.find("a.current").attr("id").replace("page-", ""));
 		var pages = parseInt(meta.find(".discover_pages").html());
 		
 		if (page < pages) {
@@ -89,7 +104,7 @@ var discover = {
 			
 			
 			nav.find("a").toggleClass("current", false);
-			nav.find('a:eq('+(page-1)+')').toggleClass("current", true);
+			nav.find('a:eq('+(page)+')').toggleClass("current", true);
 		}		
 	},
 	
@@ -97,7 +112,7 @@ var discover = {
 		$(".discover_slideshow").each(function() {
 			var obj = $(this);
 			var meta = obj.find(".discover_meta");
-			var paginator = obj.find(".discover_slideshow_paginator");
+			var paginator = obj.find(".discover_slideshow_paginator .pages");
 			
 			obj.find(".discover_slideshow_prev").click(discover.handleSlideshowPrevious);
 			obj.find(".discover_slideshow_next").click(discover.handleSlideshowNext);
@@ -129,7 +144,7 @@ var discover = {
 			
 			var insert = "current";
 			for(i=1;i<=pages;i++) {
-				paginator.append("<a class='"+insert+"' href='#'>"+i+"</a>");
+				paginator.append("<a class='"+insert+"' id='page-"+i+"' href='#'> &bull; </a>");
 				insert = "";
 			}
 			

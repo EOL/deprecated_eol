@@ -4,22 +4,22 @@ ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, body, html, p, blockquote, fields
 a img, :link img, :visited img, fieldset {border: none}
 address {font-style: normal}
 header, section, article, nav, footer, hgroup {display: block}
-body {font-family: Helvetica, Arial, sans-serif; font-size: 75%; color: #394651; border-top: 32px solid #28323a; min-width: 940px}
+body {font-family: Helvetica, Arial, sans-serif; font-size: 75%; color: #394651; border-top: 2.7em solid #28323a; min-width: 940px}
 body, html {background: #394651}
 a {color: #195184}
 .site_column, body > #header .section, body > #footer .section, .thumbnails ul {width: 940px; margin: 0 auto}
 body > #header a {color: white}
 body > #header p.status {clear: both; padding: 7px 10px; margin: 10px 0; font-weight: bold; text-align: center; color: #394651; border: 1px solid #c7d471; background: #edf6b2}
 body > #header p.status.error {border-color: #f2d2cc; background: #ffeae6}
-body > #header h1 {position: absolute; left: 0; top: 20px; z-index: 2}
+body > #header h1 {position: absolute; left: 0; top: 1.7em; z-index: 2}
 body > #header h1 a {display: block; width: 125px; height: 78px; text-indent: -8685px; overflow: hidden; background: transparent url("/images/v2/logo.png") 0 0 no-repeat}
 body > #header .section {position: relative}
-body > #header .section ul.nav {position: absolute; right: 0; top: -25px; z-index: 1}
-body > #header .section ul.nav li {display: inline; padding: 0 0 0 7px; text-transform: uppercase}
-body > #header .section ul.nav li:before {padding: 0 7px 0 0; font-size: 1.33em; vertical-align: -2px; content: "•"; list-style: disc; color: #4c5155}
-body > #header .section ul.nav li:first-of-type:before {display: none}
-body > #header .section ul.nav li a {text-decoration: none}
-body > #header .section .actions {position: absolute; left: 0; top: -27px; z-index: 3; font-size: 0.92em; text-transform: uppercase}
+body > #header .section .global_navigation {position: absolute; right: 0; top: -2.1em; z-index: 1; margin-left: 9.6em}
+body > #header .section .global_navigation ul.nav li {display: inline; padding: 0 0 0 7px; text-transform: uppercase}
+body > #header .section .global_navigation ul.nav li:before {padding: 0 7px 0 0; font-size: 1.33em; vertical-align: -2px; content: "•"; list-style: disc; color: #4c5155}
+body > #header .section .global_navigation ul.nav li:first-of-type:before {display: none}
+body > #header .section .global_navigation ul.nav li a {text-decoration: none}
+body > #header .section .actions {position: absolute; left: 0; top: -2.4em; z-index: 3; font-size: 0.92em; text-transform: uppercase}
 body > #header .section .actions a {display: block; text-decoration: none}
 body > #header .section .actions p {padding: 1px; border: 1px solid #444749}
 body > #header .section .actions p a {padding: 1px 5px 1px 18px}
@@ -31,11 +31,11 @@ body > #header .section .actions .language a {background: transparent url("/imag
 body > #header .section .actions .language ul {display: none; position: absolute; left: 0; top: 100%; z-index: 5; width: 100%; background: #0a0f13}
 body > #header .section .actions .language ul li {padding: 2px 5px; border: 1px solid #444749; border-top: none}
 body > #header .section .actions .language ul a {background: transparent}
-body > #header form {position: relative; z-index: 2; width: 268px; margin: 0 auto; padding: 43px 0 0 0}
+body > #header form {position: relative; z-index: 2; width: 280px; margin: 0 auto; padding: 43px 0 0 0}
 body > #header form label {position: absolute; left: -9999px}
 body > #header form .text {float: left; margin: 0 10px 0 0; -moz-border-radius: 180px; border-radius: 180px; background-color: #fefeff; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#ccd2d7, endColorstr=#fefeff); background-image: -moz-linear-gradient(100% 100% 90deg, #fefeff, #ccd2d7); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ccd2d7), to(#fefeff))}
-body > #header form input[type="text"] {width: 175px; height: 18px; padding: 6px 5px 6px 38px; font-size: 1.16em; line-height: 140%; color: #394651; outline: none; border: none; background: transparent url("/images/v2/icon_search.png") 9px 50% no-repeat}
-body > #header form input[type="submit"] {float: left; min-width: 30px; min-height: 30px; overflow: visible; font-size: 0.83em; line-height: 28px; font-weight: bold; text-transform: uppercase; border: none; -moz-border-radius: 180px; border-radius: 180px; background-color: #ccd2d7; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#fefeff, endColorstr=#ccd2d7); background-image: -moz-linear-gradient(100% 100% 90deg, #ccd2d7, #fefeff); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fefeff), to(#ccd2d7))}
+body > #header form input[type="text"] {width: 175px; height: 1.5em; padding: 6px 5px 6px 38px; font-size: 1.16em; line-height: 140%; color: #394651; outline: none; border: none; background: transparent url("/images/v2/icon_search.png") 9px 50% no-repeat}
+body > #header form input[type="submit"] {float: left; min-width: 30px; min-height: 30px; padding: 0 4px; overflow: visible; font-size: 0.83em; line-height: 28px; font-weight: bold; text-transform: uppercase; border: none; -moz-border-radius: 180px; border-radius: 180px; background-color: #ccd2d7; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#fefeff, endColorstr=#ccd2d7); background-image: -moz-linear-gradient(100% 100% 90deg, #ccd2d7, #fefeff); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fefeff), to(#ccd2d7))}
 body > #header form input[type="submit"]:hover {background-color: #dae3eb; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=white, endColorstr=#dae3eb); background-image: -moz-linear-gradient(100% 100% 90deg, #dae3eb, white); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#dae3eb))}
 body > #header form input[type="submit"]:active {background-color: #ccd2d7; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#fefeff, endColorstr=#ccd2d7); background-image: -moz-linear-gradient(100% 100% 90deg, #ccd2d7, #fefeff); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fefeff), to(#ccd2d7))}
 body > #footer {overflow: hidden; padding: 0 0 30px 0; background: #394651}
@@ -65,8 +65,8 @@ body > #footer ul.social_media li a.youtube {background-position: 0 -125px}
 .thumbnails ul li {position: relative; float: left; padding: 0 0 10px 0; margin: 0 20px 0 0}
 .thumbnails ul li img {display: block; padding: 5px; background: transparent url("/images/v2/bg_home_thumbnails.png") repeat; background: rgba(255, 255, 255, 0.4); width: 130px; height: 130px}
 .thumbnails ul li.last {margin: 0}
-.thumbnails ul li:hover {background: transparent url("/images/v2/icon_home-thumb_active.png") 50% 100% no-repeat}
-.thumbnails ul li:hover img {background: rgba(255, 255, 255, 0.6)}
+.thumbnails ul li.hover {background: transparent url("/images/v2/icon_home-thumb_active.png") 50% 100% no-repeat}
+.thumbnails ul li.hover img {background: rgba(255, 255, 255, 0.6)}
 .thumbnails .term {clear: both; position: relative; z-index: 1; padding: 2px 0; border-top: 1px solid white; border-bottom: 1px solid #93a4b0; background: #e5e8eb}
 .thumbnails .term .site_column, .thumbnails .term body > #header .section, body > #header .thumbnails .term .section, .thumbnails .term body > #footer .section, body > #footer .thumbnails .term .section, .thumbnails .term ul {width: 960px; padding: 0}
 .thumbnails .term p {font-weight: bold; color: #28323a}
@@ -98,6 +98,7 @@ form dl dt small {color: #616e7a}
 form dl dt p {font-weight: normal}
 form dl dd {padding: 0 0 10px 0}
 form dl dd input[type="text"], form dl dd input[type="password"], form dl dd textarea, form dl dd select {margin: 0 0 5px 0}
+form dl dd input[type="text"], form dl dd input[type="password"] {width: 308px; height: 22px; padding: 2px 5px; font: normal 1em Helvetica, Arial, sans-serif; border: 1px solid #cad3db; background-color: white; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white); background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white))}
 form dl dd input[type="file"] {margin: 0 0 10px 0}
 form dl dd textarea {padding: 8px; font: normal 1em Helvetica, Arial, sans-serif; color: #394651; border: 1px solid #cad3db; background-color: white; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white); background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white))}
 form dl input[type="radio"] {margin: 0 5px 0 0}
@@ -280,33 +281,39 @@ form.select_content_partner input[type="submit"]:hover {background-color: #e6eef
 form.select_content_partner input[type="submit"]:active {background-color: #d7dde1; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=white, endColorstr=#d7dde1); background-image: -moz-linear-gradient(100% 100% 90deg, #d7dde1, white); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#d7dde1))}
 .disclaimer {clear: both; border-top: 1px solid #cad3db; padding-top: 10px; margin-top: 40px}
 .disclaimer p {text-align: center; font-size: 0.9em; color: #394651; margin: 0}
-body > #header {background: #394651}
-body > #header .section {height: 113px}
-body > #header .section ul.nav li:before {color: #6f7e8b}
-body > #header .section .actions {top: -25px}
+body > #central {margin-top: 9.4em}
+body > #header {position: absolute; top: 2.7em; left: 0; width: 100%; background: #394651}
+body > #header .section {height: 9.4em}
+body > #header .section .global_navigation {top: -2em}
+body > #header .section .global_navigation ul.nav li:before {color: #6f7e8b}
+body > #header .section .actions {z-index: 5; top: -2.3em}
 body > #header .section .actions p {border-color: #616b74}
 body > #header .section .actions p a span {border-color: #616b74}
 body > #header .section .actions .language, body > #header .section .actions p.print {background: #394651}
 body > #header .section .actions .language ul, body > #header .section .actions p.print ul {background: #394651}
 body > #header .section .actions .language ul li, body > #header .section .actions p.print ul li {border-color: #616b74}
-body > #header .section .session {position: absolute; width: 100%; right: 0; top: 32px; z-index: 1}
-body > #header .section .session ul {float: right; overflow: hidden; margin-left: 1px; font-weight: bold; font-size: 0.9em}
-body > #header .section .session ul li a {display: block; height: 25px; line-height: 25px; text-decoration: none; background: url("/images/v2/icon_header_messages.png") 6px 45% no-repeat #566572; padding: 0 5px 0 24px}
-body > #header .section .session ul li a:hover {background-color: #667d91}
-body > #header .section .session ul li + li {margin-top: 1px}
-body > #header .section .session ul li + li a {background-image: url("/images/v2/icon_header_notifications.png"); background-position: 9px 50%}
-body > #header .section .session img {float: right; margin: 0 0 0 10px; border: 1px solid #cad3db}
-body > #header .section .session .details, body > #header .section .session .sign_in {overflow: hidden; padding: 5px 0 0 0; font-size: 0.92em; line-height: 130%; text-align: right; color: white}
-body > #header .section .session .details strong, body > #header .section .session .sign_in strong {font-size: 1.09em}
-body > #header .section .session .details p.user_links, body > #header .section .session .sign_in p.user_links {font-size: 9px; text-transform: uppercase; color: #62707d}
-body > #header .section .session .details p.user_links a, body > #header .section .session .sign_in p.user_links a {color: #acd7ff; text-decoration: none}
-body > #header .section .session .sign_in p {font-weight: bold; line-height: 150%}
-body > #header .section .session .sign_in a {color: #acd7ff}
+body > #header .section .session {position: absolute; width: 320px; right: 0; top: 32px; z-index: 1}
+body > #header .section .session.join {float: right; text-align: right; color: white}
+body > #header .section .session.join p {line-height: 150%}
+body > #header .section .session.join a {color: #90bce4}
+body > #header .section .session.signed_in ul.notifications {float: right; overflow: hidden; margin-left: 1px; font-weight: bold; font-size: 0.9em}
+body > #header .section .session.signed_in ul.notifications li a {display: block; height: 25px; line-height: 25px; text-decoration: none; background: url("/images/v2/icon_header_messages.png") 6px 45% no-repeat #566572; padding: 0 5px 0 24px}
+body > #header .section .session.signed_in ul.notifications li a:hover {background-color: #667d91}
+body > #header .section .session.signed_in ul.notifications li + li {margin-top: 1px}
+body > #header .section .session.signed_in ul.notifications li + li a {background-image: url("/images/v2/icon_header_notifications.png"); background-position: 9px 50%}
+body > #header .section .session.signed_in img {float: right; margin: 0 0 0 10px; border: 1px solid #cad3db}
+body > #header .section .session.signed_in .details {overflow: hidden; padding: 5px 0 0 0; font-size: 0.92em; line-height: 130%; text-align: right; color: white}
+body > #header .section .session.signed_in .details strong {font-size: 1.09em}
+body > #header .section .session.signed_in .details ul.user_links {font-size: 0.83em; text-transform: uppercase; text-align: right; color: #62707d}
+body > #header .section .session.signed_in .details ul.user_links li {display: inline-block}
+body > #header .section .session.signed_in .details ul.user_links li:before {content: "\2022\0000a0"}
+body > #header .section .session.signed_in .details ul.user_links li:first-child:before {content: ""}
+body > #header .section .session.signed_in .details ul.user_links li a {text-decoration: none; color: #acd7ff}
 #content {overflow: hidden; padding: 20px 0; background: white}
 #content.cms_page .nav {float: left; margin: 0 20px 0 0; width: 240px}
-#content.cms_page .nav ul li a {border: 1px solid #cad3db; margin: 0 0 1px 0}
-#content.cms_page .nav ul li a {display: block; font-weight: bold; padding: 7px 10px 6px 10px; text-decoration: none}
+#content.cms_page .nav ul li a {border: 1px solid #cad3db; margin: 0 0 1px 0; display: block; font-weight: bold; padding: 7px 10px 6px 10px; text-decoration: none; color: #616e7a}
 #content.cms_page .nav ul li a:hover {border-color: #93a4b0}
+#content.cms_page .nav ul li.active a {border-color: #93a4b0; background: #e2e9ef; color: #394651}
 #content.cms_page .copy {overflow: hidden; padding: 40px 40px 25px 40px; border: 1px solid #cad3db}
 #content.cms_page .copy img {float: right; padding: 10px; border: 1px solid #cad3db; margin: 0 0 20px 20px}
 #page_heading {padding: 10px 0 0 0; border-bottom: 1px solid #93a4b0; background: #e2e9ef}
@@ -397,7 +404,7 @@ body > #header .section .session .sign_in a {color: #acd7ff}
 #collection ul.object_list li .references + p.sort_value {padding-top: 10px}
 #collection ul.object_list li p.sort_value {clear: both; font-size: 0.9em}
 #collection ul.object_list li p.edit {clear: both; font-size: 0.9em}
-#collection ul.object_list li .collection_item_form {margin: 10px 0 0 0}
+#collection ul.object_list li .collection_item_form {margin: 1.5em 0 0 0}
 #collection ul.object_list li .collection_item_form textarea {display: block; clear: both; padding: 8px; font: normal 1em Helvetica, Arial, sans-serif; color: #394651; border: 1px solid #cad3db; background-color: white; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white); background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white)); width: 460px; height: 50px}
 #collection ul.object_list li .collection_item_form label {font-weight: bold; margin: 10px 0 0 0; display: block}
 #collection ul.object_list li .collection_item_form label small {display: inline}
@@ -535,8 +542,7 @@ ul.content_partner_contacts li {margin: 0 0 20px 0}
 #taxon_names .article.recognized ul a.view {font-size: 0.9em}
 #taxon_names .main_container h4 {font-size: 1.2em; margin: 0 0 10px 20px}
 #taxon_names table.standard tr td {position: relative; width: 33%}
-#taxon_names table.standard tr td a {font-weight: bold}
-#taxon_names table.standard tr td.preferred {background: url("/images/v2/icon_required.png") 7px 50% no-repeat}
+#taxon_names table.standard tr td.preferred {background: url("/images/v2/icon_required.png") 7px 1em no-repeat}
 #taxon_literature .main_container .bhl_description {overflow: hidden; margin: 0 0 20px 0}
 #taxon_literature .main_container .bhl_description p {margin: 5px 20px 10px 220px}
 #taxon_literature .main_container .bhl_description a {font-weight: bold; text-decoration: none}
@@ -568,6 +574,7 @@ ul.content_partner_contacts li {margin: 0 0 20px 0}
 #taxon .gallery p.all {float: right; padding: 5px 0 0 0; font-weight: bold; text-transform: lowercase}
 #taxon p.languages {padding: 2px 20px; border-top: 1px solid #cad3db; border-bottom: 1px solid #cad3db; background: #f3f7fa; margin: 10px 0; line-height: 160%; font-weight: bold; font-size: 0.9em; text-align: center}
 #taxon .article.overview {margin: 35px 0 0 0}
+#taxon .article.overview .copy {margin: 0 0 15px 0; line-height: 170%}
 #taxon .article.overview .meta.learn_more {padding: 0 0 10px 0}
 #taxon .article.overview .meta.learn_more p, #taxon .article.overview .meta.learn_more form {float: none; display: inline; margin: 0 10px 0 0}
 #taxon .article.overview .meta.learn_more p:after, #taxon .article.overview .meta.learn_more form:after {content: "•"; margin: 0 0 0 10px}
@@ -576,12 +583,12 @@ ul.content_partner_contacts li {margin: 0 0 20px 0}
 #taxon .article.half.clear {clear: both; margin: 0 20px 0 0}
 #taxon + #sidebar {width: 340px; padding: 0; margin-bottom: 20px}
 #taxon + #sidebar h3 {padding: 0 10px 3px 10px; font-size: 1.16em}
-#taxon + #sidebar .classifications a.current {font-weight: bold}
-#taxon + #sidebar .classifications > ul {line-height: 160%; font-size: 0.9em}
-#taxon + #sidebar .classifications > ul > li {white-space: nowrap; overflow-x: auto; border: 1px solid #d7dadc; padding: 10px 15px; margin: 0 -10px 20px -10px}
-#taxon + #sidebar .classifications > ul > li h4 {font-weight: normal}
-#taxon + #sidebar .classifications > ul > li h4 a {font-weight: bold}
-#taxon + #sidebar .classifications > ul > li ul {margin-left: 10px}
+#taxon + #sidebar #classifications_summary a.current {font-weight: bold}
+#taxon + #sidebar #classifications_summary > ul {line-height: 160%; font-size: 0.9em}
+#taxon + #sidebar #classifications_summary > ul > li {white-space: nowrap; overflow-x: auto; border: 1px solid #d7dadc; padding: 10px 15px; margin: 0 -10px 20px -10px}
+#taxon + #sidebar #classifications_summary > ul > li h4 {font-weight: normal}
+#taxon + #sidebar #classifications_summary > ul > li h4 a {font-weight: bold}
+#taxon + #sidebar #classifications_summary > ul > li ul {margin-left: 10px}
 #taxon + #sidebar .article.list > ul > li + li {border: none}
 #taxon + #sidebar .article.list > ul > li > a > img {margin: 10px 10px 0 0}
 #taxon + #sidebar .article.list > ul > li .details {margin: 10px 0 0 0}
@@ -608,7 +615,10 @@ ul.content_partner_contacts li {margin: 0 0 20px 0}
 #taxon_detail #main > .section > h3 {padding: 0 20px 20px 20px; font-size: 2em}
 #taxon_detail #main > .section > .article {padding: 20px; border: 1px solid #cad3db; margin: 0 0 20px 0}
 #taxon_detail #main > .section > .article > h4 {font-size: 1.5em}
-#taxon_detail #main > .section > .article > .copy {border-top: 1px solid #cad3db; border-bottom: 1px solid #cad3db; padding: 20px 10px 0 10px; margin: 0 -10px 20px -10px}
+#taxon_detail #main > .section > .article > .copy {border-top: 1px solid #cad3db; border-bottom: 1px solid #cad3db; padding: 20px 10px 15px 10px; margin: 0 -10px 20px -10px; line-height: 170%}
+#taxon_detail #main > .section > .article > .references {border-bottom: 1px solid #cad3db; padding: 0 10px; margin: 0 -10px 20px -10px; line-height: 170%}
+#taxon_detail #main > .section > .article > .references ul {margin: 0 40px 15px 40px}
+#taxon_detail #main > .section > .article > .references ul li {list-style-type: disc; margin: 0 0 10px 0}
 #taxon_detail #main > .section > .article > .meta {padding: 0 0 10px 0}
 #taxon_detail #main > .section > .article > .meta.learn_more {padding: 0 0 20px 0}
 #taxon_detail #main > .section > .article > .meta.learn_more p, #taxon_detail #main > .section > .article > .meta.learn_more form {float: none; display: inline; margin: 0 10px 0 0}
@@ -763,10 +773,11 @@ ul.content_partner_contacts li {margin: 0 0 20px 0}
 #media_list #main .header h3 {font-size: 1.33em}
 #media_list #main .header .pagination {margin: 0}
 #media_list ul.media > li {float: left; width: 160px; padding: 0 0 30px 20px}
-#media_list ul.media > li:hover .figure label {display: block}
 #media_list ul.media > li .figure {position: relative; background: white; cursor: pointer}
 #media_list ul.media > li .figure .overlay {position: absolute; left: 0; top: 0; z-index: 1; width: 100%; height: 100%}
 #media_list ul.media > li .figure label {display: none; position: absolute; right: 0; bottom: 0; left: 0; z-index: 2; padding: 10px; font-weight: bold; background: transparent url("/images/v2/bg_exemplar.png") repeat}
+#media_list ul.media > li .figure:hover label {display: block}
+#media_list ul.media > li.no_thumbnail .figure {cursor: default}
 #media_list ul.media > li.inappropriate .figure .overlay {background: transparent url("/images/v2/bg_media-inappropriate.png") 50% 0 no-repeat}
 #media_list ul.media > li.inappropriate .figure img {opacity: 0.5; filter: alpha(opacity=50)}
 #media_list ul.media > li.untrusted .figure img {opacity: 0.5; filter: alpha(opacity=50)}
@@ -819,29 +830,52 @@ ul.content_partner_contacts li {margin: 0 0 20px 0}
 #taxon_updates .update_feed .article.updates > ul > li form.edit_comment textarea {width: 650px}
 #comment_edit textarea {width: 600px; padding: 8px; font: normal 1em Helvetica, Arial, sans-serif; color: #394651; border: 1px solid #cad3db; background-color: white; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white); background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white))}
 #content.session {background: #e2e9ef}
-#content.session form {width: 320px; min-height: 295px; padding: 75px 159px 20px 159px; margin: 0 auto; border: 1px solid #cad3db; background: #f0f4f7 url("/images/v2/bg_sign-in.gif") 0 0 no-repeat}
-#content.session form h1 {padding: 0 0 25px 0; font-size: 2em; font-weight: normal}
-#content.session form label {font-size: 1.08em}
-#content.session form input[type="text"], #content.session form input[type="password"] {width: 308px; height: 22px; padding: 2px 5px; font: normal 1em Helvetica, Arial, sans-serif; border: 1px solid #cad3db; background-color: white; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white); background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white))}
-#content.session form input[type="submit"] {padding: 7px 10px; margin: 0 10px 0 0; font-size: 1em}
-#content.session form dl.captcha {margin: 20px 0 20px -65px}
-#content.session form a {font-weight: bold}
-#content.session form label.checkbox {padding: 0 0 15px 0}
+#content.session #sign_up, #content.session #sign_in, #content.session #recover_account {overflow: hidden; width: 640px; min-height: 295px; margin: 0 auto; border: 1px solid #cad3db; background: #f0f4f7 url("/images/v2/bg_sign-in.gif") 0 0 no-repeat; padding-bottom: 40px}
+#content.session #sign_up h1, #content.session #sign_in h1, #content.session #recover_account h1 {font-size: 2em; font-weight: normal; text-align: center; padding: 75px 40px 0}
+#content.session #sign_up > form, #content.session #sign_in > form, #content.session #recover_account > form {padding: 25px 159px 20px 159px; width: 320px}
+#content.session #sign_up > form h2, #content.session #sign_in > form h2, #content.session #recover_account > form h2 {text-align: center; padding: 0 0 25px 0; font-size: 1.2em; font-weight: normal}
+#content.session #sign_up > form label, #content.session #sign_in > form label, #content.session #recover_account > form label {font-size: 1.08em}
+#content.session #sign_up > form input[type="text"], #content.session #sign_up > form input[type="password"], #content.session #sign_in > form input[type="text"], #content.session #sign_in > form input[type="password"], #content.session #recover_account > form input[type="text"], #content.session #recover_account > form input[type="password"] {width: 308px; height: 22px; padding: 2px 5px; font: normal 1em Helvetica, Arial, sans-serif; border: 1px solid #cad3db; background-color: white; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white); background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white))}
+#content.session #sign_up > form input[type="submit"], #content.session #sign_in > form input[type="submit"], #content.session #recover_account > form input[type="submit"] {padding: 7px 10px; margin: 0 10px 0 0; font-size: 1em}
+#content.session #sign_up > form dl.captcha, #content.session #sign_in > form dl.captcha, #content.session #recover_account > form dl.captcha {margin: 20px 0 20px -65px}
+#content.session #sign_up > form a, #content.session #sign_in > form a, #content.session #recover_account > form a {font-weight: bold}
+#content.session #sign_up > form label.checkbox, #content.session #sign_in > form label.checkbox, #content.session #recover_account > form label.checkbox {padding: 0 0 15px 0}
+#content.session #sign_up > form.terms_agreement, #content.session #sign_in > form.terms_agreement, #content.session #recover_account > form.terms_agreement {padding: 25px 100px; width: 440px}
+#content.session #sign_up > form.terms_agreement h2, #content.session #sign_in > form.terms_agreement h2, #content.session #recover_account > form.terms_agreement h2 {text-align: left; padding-bottom: 0}
+#content.session #sign_up .open_authentications, #content.session #sign_up .pending, #content.session #sign_in .open_authentications, #content.session #sign_in .pending, #content.session #recover_account .open_authentications, #content.session #recover_account .pending {overflow: hidden; width: 400px; padding: 25px 100px 20px 140px}
+#content.session #sign_up .open_authentications form, #content.session #sign_up .pending form, #content.session #sign_in .open_authentications form, #content.session #sign_in .pending form, #content.session #recover_account .open_authentications form, #content.session #recover_account .pending form {float: left; margin-bottom: 20px}
+#content.session #sign_up .open_authentications form fieldset.actions, #content.session #sign_up .pending form fieldset.actions, #content.session #sign_in .open_authentications form fieldset.actions, #content.session #sign_in .pending form fieldset.actions, #content.session #recover_account .open_authentications form fieldset.actions, #content.session #recover_account .pending form fieldset.actions {padding-left: 32px; height: 31px; margin: 0}
+#content.session #sign_up .open_authentications form fieldset.actions input[type="submit"], #content.session #sign_up .pending form fieldset.actions input[type="submit"], #content.session #sign_in .open_authentications form fieldset.actions input[type="submit"], #content.session #sign_in .pending form fieldset.actions input[type="submit"], #content.session #recover_account .open_authentications form fieldset.actions input[type="submit"], #content.session #recover_account .pending form fieldset.actions input[type="submit"] {padding: 7px 10px 8px; margin: 0 10px 0 0; font-size: 1em; min-width: 155px}
+#content.session #sign_up .open_authentications form#new_user_facebook fieldset.actions, #content.session #sign_up .open_authentications form#new_session_facebook fieldset.actions, #content.session #sign_up .pending form#new_user_facebook fieldset.actions, #content.session #sign_up .pending form#new_session_facebook fieldset.actions, #content.session #sign_in .open_authentications form#new_user_facebook fieldset.actions, #content.session #sign_in .open_authentications form#new_session_facebook fieldset.actions, #content.session #sign_in .pending form#new_user_facebook fieldset.actions, #content.session #sign_in .pending form#new_session_facebook fieldset.actions, #content.session #recover_account .open_authentications form#new_user_facebook fieldset.actions, #content.session #recover_account .open_authentications form#new_session_facebook fieldset.actions, #content.session #recover_account .pending form#new_user_facebook fieldset.actions, #content.session #recover_account .pending form#new_session_facebook fieldset.actions {background: transparent url("/images/v2/icon_social_plugins.png") 0 0 no-repeat}
+#content.session #sign_up .open_authentications form#new_user_twitter fieldset.actions, #content.session #sign_up .open_authentications form#new_session_twitter fieldset.actions, #content.session #sign_up .pending form#new_user_twitter fieldset.actions, #content.session #sign_up .pending form#new_session_twitter fieldset.actions, #content.session #sign_in .open_authentications form#new_user_twitter fieldset.actions, #content.session #sign_in .open_authentications form#new_session_twitter fieldset.actions, #content.session #sign_in .pending form#new_user_twitter fieldset.actions, #content.session #sign_in .pending form#new_session_twitter fieldset.actions, #content.session #recover_account .open_authentications form#new_user_twitter fieldset.actions, #content.session #recover_account .open_authentications form#new_session_twitter fieldset.actions, #content.session #recover_account .pending form#new_user_twitter fieldset.actions, #content.session #recover_account .pending form#new_session_twitter fieldset.actions {background: transparent url("/images/v2/icon_social_plugins.png") 0 -34px no-repeat}
+#content.session #sign_up .open_authentications form#new_user_yahoo fieldset.actions, #content.session #sign_up .open_authentications form#new_session_yahoo fieldset.actions, #content.session #sign_up .pending form#new_user_yahoo fieldset.actions, #content.session #sign_up .pending form#new_session_yahoo fieldset.actions, #content.session #sign_in .open_authentications form#new_user_yahoo fieldset.actions, #content.session #sign_in .open_authentications form#new_session_yahoo fieldset.actions, #content.session #sign_in .pending form#new_user_yahoo fieldset.actions, #content.session #sign_in .pending form#new_session_yahoo fieldset.actions, #content.session #recover_account .open_authentications form#new_user_yahoo fieldset.actions, #content.session #recover_account .open_authentications form#new_session_yahoo fieldset.actions, #content.session #recover_account .pending form#new_user_yahoo fieldset.actions, #content.session #recover_account .pending form#new_session_yahoo fieldset.actions {background: transparent url("/images/v2/icon_social_plugins.png") 0 -68px no-repeat}
+#content.session #sign_up .open_authentications form#new_user_google fieldset.actions, #content.session #sign_up .open_authentications form#new_session_google fieldset.actions, #content.session #sign_up .pending form#new_user_google fieldset.actions, #content.session #sign_up .pending form#new_session_google fieldset.actions, #content.session #sign_in .open_authentications form#new_user_google fieldset.actions, #content.session #sign_in .open_authentications form#new_session_google fieldset.actions, #content.session #sign_in .pending form#new_user_google fieldset.actions, #content.session #sign_in .pending form#new_session_google fieldset.actions, #content.session #recover_account .open_authentications form#new_user_google fieldset.actions, #content.session #recover_account .open_authentications form#new_session_google fieldset.actions, #content.session #recover_account .pending form#new_user_google fieldset.actions, #content.session #recover_account .pending form#new_session_google fieldset.actions {background: transparent url("/images/v2/icon_social_plugins.png") 0 -102px no-repeat}
+#content.session #sign_up .open_authentications + p, #content.session #sign_up .pending + p, #content.session #sign_in .open_authentications + p, #content.session #sign_in .pending + p, #content.session #recover_account .open_authentications + p, #content.session #recover_account .pending + p {clear: both}
+#profile_edit p.tip {margin: 0 10px 20px 10px}
 #profile_edit input[type="text"], #profile_edit input[type="password"] {width: 248px; height: 22px; padding: 2px 5px; font: normal 1em Helvetica, Arial, sans-serif; border: 1px solid #cad3db; background-color: white; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white); background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white))}
 #profile_edit .header {margin: 0 0 20px 0}
-#profile_edit fieldset {float: left; padding: 0 40px 20px 0}
+#profile_edit .fieldsets {float: left; overflow: hidden; margin: 0; padding: 0}
+#profile_edit .fieldsets button {display: block}
+#profile_edit fieldset {padding: 0 40px 20px 0}
 #profile_edit fieldset dl {padding: 0 10px}
 #profile_edit fieldset dt {font-size: 1.08em; font-weight: bold}
 #profile_edit fieldset button {padding: 5px 10px 6px 10px; overflow: visible; font: bold 1.08em Helvetica, Arial, sans-serif; color: #394651; text-transform: lowercase; text-decoration: none; border: 1px solid #c6ccd0; -moz-border-radius: 3px; border-radius: 3px; background-color: #d7dde1; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=white, endColorstr=#d7dde1); background-image: -moz-linear-gradient(100% 100% 90deg, #d7dde1, white); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#d7dde1)); cursor: pointer}
 #profile_edit fieldset button:hover {background-color: #e6eef4; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=white, endColorstr=#e6eef4); background-image: -moz-linear-gradient(100% 100% 90deg, #e6eef4, white); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#e6eef4))}
 #profile_edit fieldset button:active {background-color: #d7dde1; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=white, endColorstr=#d7dde1); background-image: -moz-linear-gradient(100% 100% 90deg, #d7dde1, white); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#d7dde1))}
-#profile_edit fieldset ul {overflow: hidden}
-#profile_edit fieldset ul li {float: left; padding: 0 10px 5px 0; font-weight: bold}
 #profile_edit fieldset.profile, #profile_edit fieldset.account {width: 320px}
 #profile_edit fieldset.profile input[type="text"], #profile_edit fieldset.profile input[type="file"], #profile_edit fieldset.profile input[type="password"], #profile_edit fieldset.account input[type="text"], #profile_edit fieldset.account input[type="file"], #profile_edit fieldset.account input[type="password"] {width: 288px}
 #profile_edit fieldset.profile dd img {display: block; margin: 0 0 15px 0; border: 1px solid #394651}
 #profile_edit fieldset.profile textarea {width: 282px; height: 120px}
+#profile_edit fieldset.profile ul {overflow: hidden}
+#profile_edit fieldset.profile ul li {float: left; padding: 0 10px 5px 0; font-weight: bold}
 #profile_edit fieldset.account input[type="checkbox"], #profile_edit fieldset.account select {margin-left: 10px}
+#profile_edit fieldset.account ul {margin: 0 20px 0}
+#profile_edit fieldset.account ul li {list-style: none; margin: 0 0 5px 0; padding: 0 20px 0; background: transparent url("/images/v2/icon_social_plugins.png") no-repeat 0 0; background: none\9; background-size: 16px; line-height: 140%}
+#profile_edit fieldset.account ul li small {float: right}
+#profile_edit fieldset.account ul li.facebook {background-position: 0 0}
+#profile_edit fieldset.account ul li.google {background-position: 0 -53px}
+#profile_edit fieldset.account ul li.twitter {background-position: 0 -17px}
+#profile_edit fieldset.account ul li.yahoo {background-position: 0 -35px}
 #profile_edit fieldset.requests {float: right; width: 218px; margin: 0; padding: 0}
 #profile_edit fieldset.requests dl {padding: 20px 20px 10px 20px; margin-top: 20px; background: #f3f7fa; border: 1px solid #cad3db}
 #profile_edit fieldset.requests p {font-size: 0.9em; padding-top: 5px; font-weight: normal; line-height: 150%}
@@ -849,6 +883,22 @@ ul.content_partner_contacts li {margin: 0 0 20px 0}
 #profile_edit fieldset.actions {clear: both; float: none; padding: 20px; border-top: 1px solid #cad3db}
 #profile_edit fieldset.actions input[type="submit"] {padding: 7px 10px; margin: 0 10px 0 0; font-size: 1em}
 #profile_edit fieldset.actions a {font-weight: bold}
+#profile_open_authentications .article.list ul {margin: 0 100px}
+#profile_open_authentications .article.list ul li {position: relative; padding-top: 20px}
+#profile_open_authentications .article.list ul li h3 {font-size: 1.67em; line-height: 150%; background: transparent url("/images/v2/icon_social_plugins.png") no-repeat 0 0; min-height: 31px}
+#profile_open_authentications .article.list ul li p, #profile_open_authentications .article.list ul li h3 {padding-left: 40px}
+#profile_open_authentications .article.list ul li .buttons {position: absolute; top: 25px; right: 0}
+#profile_open_authentications .article.list ul li .buttons form, #profile_open_authentications .article.list ul li .buttons fieldset, #profile_open_authentications .article.list ul li .buttons div, #profile_open_authentications .article.list ul li .buttons input {display: inline; margin: 0}
+#profile_open_authentications .article.list ul li .buttons form + form {margin-left: 5px}
+#profile_open_authentications .article.list ul li.facebook h3 {background-position: 0 0}
+#profile_open_authentications .article.list ul li.google h3 {background-position: 0 -102px}
+#profile_open_authentications .article.list ul li.twitter h3 {background-position: 0 -34px}
+#profile_open_authentications .article.list ul li.yahoo h3 {background-position: 0 -68px}
+#profile_open_authentications > a {display: block; padding-top: 20px; border-top: 1px solid #cad3db}
+#contact_us {width: 640px}
+#contact_us dd input[type="text"], #contact_us dd textarea {width: 500px}
+#contact_us dd select {max-width: 500px}
+#contact_us input[type="submit"] {font-size: 1.2em}
 ul.spotlite-matches {background: white; border: 1px solid #d4dce2}
 ul.spotlite-matches li {padding: 4px 5px}
 ul.spotlite-matches li.spotlite-selected {background: #f1f4dc}
@@ -906,9 +956,6 @@ form#switch_hierarchy_entry fieldset {display: inline}
 .meta.learn_more p:after, .meta.learn_more form:after {content: "" !important; margin: 0 !important}
 .meta.learn_more p {text-transform: lowercase}
 .meta.learn_more p:first-child:before {content: ""; margin: 0 !important}
-#content.session form.terms_agreement {padding: 75px 69px; width: 500px}
-#content.session p {padding-bottom: 2em}
-#content.session .pending {width: 320px; min-height: 225px; padding: 75px 159px; margin: 0 auto; border: 1px solid #cad3db; background: #f0f4f7 url("/images/v2/bg_sign-in.gif") 0 0 no-repeat}
 #new_user iframe {width: 320px; overflow: auto}
 #content.cms_page .header {border-bottom: 1px solid #394651; text-align: center}
 #content.cms_page table {border-collapse: collapse; width: 100%; margin: 0 0 15px 0; line-height: 170%}
@@ -952,8 +999,11 @@ p.status.error {border: 1px solid #f2d2cc; background: #ffeae6}
 .home p.status.error {border: 1px solid #f2d2cc; background: #ffeae6}
 #permalink {}
 #permalink.article {padding: 0}
+#permalink #sidebar .remove_association a {font-size: 0.92em}
 #permalink #sidebar ul.review_status p.unknown {border: 1px solid #677682; background: #8695a1}
 #permalink #sidebar ul.review_status p.untrusted {border: 1px solid #f2d2cc; background: #ffeae6; color: #677682}
+#permalink #sidebar ul.review_status legend {font-weight: bold}
+#permalink #sidebar ul.review_status legend a {font-size: 1.16em}
 #permalink .media {float: none}
 #permalink .media .jp-audio {width: 100%; margin: 0 auto}
 #permalink .media .jp-audio .jp-interface {background-color: #eeeeee; border: 1px solid #cad3db}
@@ -997,14 +1047,6 @@ p.flag.untrusted, span.flag.untrusted {border: 1px solid #f2d2cc; background: #f
 #worklist #task .rating h5, #worklist #task .average_rating h5 {font-size: 1em}
 #worklist #task .average_rating {*width: 250px}
 #worklist #task .average_rating h5 {*width: 135px}
-.join abbr {border: none}
-body.home > #header .session.signed_in {width: 400px}
-body.home > #header .session.join {text-align: center !important}
-body.home > #header .session.join a {color: white !important}
-body > #header .section .actions {z-index: 5}
-body > #header .section .session.join {float: right; text-align: right; color: white}
-body > #header .section .session.join p {line-height: 1.4em}
-body > #header .section .session.join a {color: #90bce4}
 #iucn_status {border: 1px solid #cad3db; background: #f1f4f7; text-align: center; padding: 7px 10px; font-size: 1.16em; margin: 20px 0; color: #394651}
 #iucn_status h3, #iucn_status p, #iucn_status abbr {display: inline-block}
 #iucn_status abbr {border: none}
@@ -1036,9 +1078,6 @@ body > #header .section .session.join a {color: #90bce4}
 #taxon_detail form#new_collection_item fieldset {display: inline-block}
 #taxon #collections_summary form {margin-top: 0}
 #taxon #collections_summary form fieldset.actions {margin-top: 0}
-#taxon_detail #main .article .copy, #taxon_detail #main .article .references {margin: 0 40px 15px 40px; line-height: 170%}
-#taxon_detail #main .article .copy li, #taxon_detail #main .article .references li {margin: 0 0 10px 0; list-style-type: disc}
-#text_summary.article .copy {margin: 0 0 15px 0; line-height: 170%}
 #taxon_community .main_container .article .header h4 {float: left; padding: 0 10px 3px 10px; font-size: 1.16em; border-bottom: 3px solid #394651}
 #taxon_community .main_container .list img {max-width: 68px; max-height: 68px; width: expression(this.width > 68 ? "68px" : true); height: expression(this.height > 68 ? "68px" : true)}
 #taxon_literature h3, #taxon_community h3, #taxon_resources h3 {font-size: 2em}
@@ -1066,8 +1105,18 @@ body > #header .section .session.join a {color: #90bce4}
 #collections_summary ul li > a > img, #communities_summary ul li > a > img, #curators_summary ul li > a > img {max-width: 48px; max-height: 48px; width: expression(this.width > 48 ? "48px" : true); height: expression(this.height > 48 ? "48px" : true)}
 #collection.main_container .taxon > img {max-width: 88px; max-height: 88px; width: expression(this.width > 88 ? "88px" : true); height: expression(this.height > 88 ? "88px" : true)}
 #collection .collections .article > .header > a > img {max-width: 48px; max-height: 48px; width: expression(this.width > 48 ? "48px" : true); height: expression(this.height > 48 ? "48px" : true)}
+#inat_observations.main_container .inat_observations_header {padding: 10px 0 10px 0}
+#inat_observations.main_container .inat_observations_header span {margin-left: 80px}
+#inat_observations.main_container .inat_observations_header img {float: right; vertical-align: middle}
+#inat_observations.main_container .inat_observations_map {padding: 10px 0 10px 0}
+#inat_observations.main_container .object_list h4 {margin-top: 0}
 #page_heading.with_image img, #page_heading.profile img {max-width: 88px; max-height: 88px; width: expression(this.width > 88 ? "88px" : true); height: expression(this.height > 88 ? "88px" : true)}
 #sidebar .collection_list img, #sidebar .collection_contributors img, #sidebar .content_partner_managers img {max-width: 35px; max-height: 35px; width: expression(this.width > 35 ? "35px" : true); height: expression(this.height > 35 ? "35px" : true)}
+#sidebar .inat_top_contributors {margin: 0 0 20px 0}
+#sidebar .inat_top_contributors table tbody tr td {line-height: 150%; padding-bottom: 8px}
+#sidebar .inat_top_contributors table tbody tr td img {margin: 0 10px 0 0; border: 1px solid #394651; max-width: 35px; max-height: 35px; width: expression(this.width > 35 ? "35px" : true); height: expression(this.height > 35 ? "35px" : true)}
+#sidebar .inat_top_contributors table tbody tr td a {float: left; font-weight: bold}
+#sidebar .inat_top_contributors table tbody tr td span b {margin-left: -10px}
 #text_summary p.flag {float: left}
 #text_summary .attribution {clear: none}
 #text_summary .attribution .copy {padding-left: 120px}
@@ -1119,6 +1168,7 @@ a.other_actions {float: right; margin-top: 1em}
 .site_column > #choose_collections fieldset.new_community input[type="text"], .site_column > #choose_communities fieldset.new_community input[type="text"] {width: 210px; height: 22px; padding: 2px 5px; font: normal 1em Helvetica, Arial, sans-serif; border: 1px solid #cad3db; background-color: white; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white); background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white))}
 .site_column > #choose_collections fieldset.new_collection, .site_column > #choose_communities fieldset.new_collection {overflow: hidden; margin: 0 0 20px 0}
 .site_column > #choose_collections fieldset.new_collection input[type="text"], .site_column > #choose_communities fieldset.new_collection input[type="text"] {float: left; width: 210px; height: 22px; padding: 2px 5px; font: normal 1em Helvetica, Arial, sans-serif; border: 1px solid #cad3db; background-color: white; filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white); background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white)); margin: 0 10px 0 0}
+.site_column > #choose_collections fieldset.new_collection .collection_name_error, .site_column > #choose_communities fieldset.new_collection .collection_name_error {display: none; color: #e84226}
 .site_column > #choose_collections input[type="submit"], .site_column > #choose_communities input[type="submit"] {padding-left: 20px; padding-right: 20px; font-size: 1.08em; padding: 5px 10px 6px 10px}
 .site_column > #choose_collections ul, .site_column > #choose_communities ul {border: 1px solid #cad3db; height: 230px; overflow-y: scroll; margin: 0 0 20px 0}
 .site_column > #choose_collections ul li, .site_column > #choose_communities ul li {font-weight: bold; padding: 5px 10px}
@@ -1127,20 +1177,46 @@ a.other_actions {float: right; margin-top: 1em}
 .site_column > #choose_collections ul li a, .site_column > #choose_communities ul li a {font-size: 0.95em}
 .site_column > #choose_collections ul li span, .site_column > #choose_communities ul li span {font-size: 0.95em}
 .site_column > #choose_collections ul li + li, .site_column > #choose_communities ul li + li {border-top: 1px solid #cad3db}
-#search_results ul.object_list li {white-space: nowrap}
 .cms_page span.icon {background: #f3f7fa url("/images/v2/icon_info_tabs.png") 50% 50% no-repeat}
 #taxon_maps #media_list {padding: 0}
 #taxon_detail #sidebar {padding: 0; padding-bottom: 20px; width: 260px}
 #taxon_detail #sidebar #toc {margin: 0px 20px}
 #media_list #sidebar {padding: 0; padding-bottom: 20px; width: 220px}
 #media_list #sidebar #filters {margin: 0px 20px}
+#media_list ul.media > li .balloon {font-weight: normal; overflow: hidden; position: absolute; z-index: 4; margin: 15px 0; padding: 3px; width: 155px; background-color: #394651; background: rgba(57, 70, 81, 0.9); color: white}
+#media_list ul.media > li fieldset {margin: 0}
 #page_heading p#citation {background-color: white; border: 1px solid #d4dce2; color: #5f6c76; font-size: 0.95em; line-height: 100%; font-weight: normal}
 ul li.newsfeed a {padding: 7px 10px 6px !important; font-size: 12px !important}
 ul li.total {margin-top: 20px}
 ul li.editors a {padding: 7px 10px 6px !important; font-size: 12px !important}
+ul li.inaturalist a {padding: 7px 10px 6px !important; font-size: 12px !important}
 ul.media li .overlay {height: auto !important}
 body#prelaunch p.status {clear: both; padding: 7px 10px; font-size: 1.16em; font-weight: bold; text-align: center; color: #394651; border: 2px solid #c7d471; background: #edf6b2}
 body#prelaunch #footer ul.social_media {margin-top: 20px}
 .feed .deleted_comment {font-style: italic; color: #62707d}
 #new_comment p.reply-to {float: left; color: #195184; font-weight: bold}
 .highlight {background-color: #f3f7fa}
+#taxon_names .main_container table.classifications td.preferred {background: url("/images/v2/icon_required.png") 7px 1em no-repeat}
+#taxon_names .main_container table.classifications td.preferred_entry_selector {width: 8%}
+#taxon_names .main_container table.classifications td.rank {width: 8%}
+#taxon_names .main_container table.classifications td.classifications > ul {line-height: 160%; font-size: 0.9em}
+#taxon_names .main_container table.classifications td.classifications > ul > li {width: 340px; white-space: nowrap; overflow-x: auto; margin: 0 -10px 20px -10px}
+#taxon_names .main_container table.classifications td.classifications > ul > li h4 {font-weight: normal}
+#taxon_names .main_container table.classifications td.classifications > ul > li h4 a {font-weight: bold}
+#taxon_names .main_container table.classifications td.classifications > ul > li ul {margin-left: 10px}
+.article .meta.curated {padding-bottom: 10px}
+#classification_browser h4 {font-weight: normal}
+.browsable.classifications span.current {font-weight: bold}
+#taxon_names table.standard tr td {vertical-align: top}
+#modal #choose_collections fieldset.new_collection .collection_name_error {display: none; color: #e84226}
+#please_wait {display: none}
+table.classifications input.cancel {display: none}
+table.classifications input.keep {display: none}
+#split_warning {border: 1px solid #f2d2cc; background: #ffeae6; padding: 10px}
+#split_instructions {border: 1px solid #f2d2cc; background: #ffeae6; padding: 10px; display: none}
+.classification_actions p {margin-bottom: 1em}
+ul#classification_actions > li {margin-bottom: 1em}
+li table.classifications {margin-top: 1em}
+.help_text.warning {background-color: #ffeae6; border-color: #f2d2cc}
+.help_text p {margin: 0.5em}
+.help_text li {margin-bottom: 1em}

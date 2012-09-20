@@ -57,7 +57,7 @@
 }
 
 .discover_copy .grid {
-	padding-bottom: 100px;
+	padding-bottom: 20px;
 }
 
 .discover_copy .grid .item {
@@ -65,6 +65,7 @@
 	position: relative;
 	text-align: left;
 	margin-right: 22px;
+
 	z-index: 1;
 }
 
@@ -80,8 +81,17 @@
 	border: none;
 }
 
+#content.cms_page .copy .grid_noborder img {
+	border: none;
+	margin-bottom: 0px;
+	padding: 10px;
+}
+
+
+
 .discover_copy .grid .item .item_image img {
-	display: none;
+	/*display: none;*/
+	border: none; 
 }
 
 .discover_copy .grid .item .item_image {
@@ -147,14 +157,31 @@
 
 .discover_copy .grid4 .item {
 	width: 145px;
-	margin-bottom: 17px;
-	height: 170px;
+	margin-bottom: 7px;
+	height: 250px;
 	
+}
+
+.discover_copy .grid_tightgrid .item {
+	height: 170px;
+}
+
+.discover_copy .grid_flexheight .item {
+	min-height: 170px;
+	height: auto;
+}
+
+.discover_copy .grid_flexheight {
+	padding-bottom: 10px;
+}
+
+.discover_copy .grid_noimage .item {
+	height: 140px;
 }
 
 .discover_copy .grid2 .item {
 	width: 290px;
-	margin-bottom: 30px;
+	margin-bottom: 10px;
 }
 
  .hover_item {
@@ -167,6 +194,10 @@
 	padding: 20px 30px 30px 30px;
 	width: 200px;
 	left: 0px;
+}
+
+.hover_item .item_image .discover_meta {
+	display: block;
 }
 
  .hover_item .item_content {
@@ -216,8 +247,10 @@
 
 .discover_copy .show_content .item .item_content {
 	display: block !important;
-	font-size: 1.0em;
+	font-size: 11px;
+	line-height: 16px;
 }
+
 
 .show_content .item_link {
 	margin: 5px 0 0 0;
@@ -229,6 +262,10 @@
 
 .discover_copy .overlay .meta {
 	display: none;
+}
+
+.discover_meta {
+	
 }
 
 .discover_copy .overlay .info {
@@ -473,18 +510,19 @@ h3.discover_highlight {
 }
 
 .discover_slideshow {
+	padding-top: 0px !important;
 	display: block;
 	position: relative;
 	overflow: hidden;
 }
 
 #discover_features {
-	height: 345px;
+	height: 355px;
 }
 
 #discover_features .discover_slideshow_container {
 	position: absolute;
-	top: 80px;
+	top: 50px;
 	left: 15px;
 	width: 9999px;
 
@@ -529,40 +567,45 @@ h3.discover_highlight {
 }
 
 .discover_slideshow_next, .discover_slideshow_prev {
-	display: block;
-	position: absolute;
-	top: 30px;
+	display: inline-block;
 	text-decoration: none;
-	font-size: 2.2em;
+	font-weight: bold;
+	color: #fff;
+	font-size: 34px;
 }
 
 .discover_slideshow_next {
-	right: 15px;
 }
 
 .discover_slideshow_prev {
-	right: 150px;
 }
 
 .discover_slideshow_paginator {
 	position: absolute;
-	top: 34px;
-	right: 32px;
-	width: 100px;
+	bottom: 0px;
+	left: 0px;
+	width: 640px;
 	font-size: 24px;
-	text-align: left;
+	text-align: center;
+}
+
+.discover_slideshow_paginator .pages {
+	display: inline-block;
+	margin-top: -5px;
 }
 
 .discover_slideshow_paginator a {
-	display: block;
+	display: inline-block;
 	text-decoration: none;
-	line-height: 24px;
-	float: left;
+	font-weight: bold;
+	line-height: 10px;
+
 	margin: 0 10px 0 0;
+	color: #fff;
 }
 
 .discover_slideshow_paginator a.current {
-	font-weight: bold;
+	color: #394651;
 }
 
 
@@ -591,4 +634,115 @@ h3.discover_highlight {
 	letter-spacing: 1px;
 	line-height: 1.7em;
 	*/
+}
+
+.discover_glossary_nav {
+	margin: 0 0 20px 0;
+}
+
+.discover_glossary_nav a {
+	display: inline-block;
+	border-left: 1px solid #394651;
+	margin-left: 4px;
+	font-size: 14px;
+	line-height: 14px;
+	text-decoration: none;
+	padding-left: 4px;
+}
+
+.discover_glossary_nav a.first {
+	border-left: none;
+	margin-left: 0px;
+	padding-left: 0px;
+}
+
+.discover_home {
+	margin-top: 0px;
+}
+
+.discover_home hr {
+	border-top: 1px solid #fff;
+	border-left: none;
+	border-right: none;
+	border-bottom: none;
+	margin: 20px 0 0px 0;
+}
+
+.discover_home_introduction p {
+	font-size: 22px;
+	line-height: 28px;
+}
+
+.discover_home_paragraph {
+	width: 80%;
+}
+
+.discover_home_subhead {
+	font-weight: bold;
+	font-size: 26px;
+}
+
+.discover_home_subhead a {
+	text-decoration: none;
+	color: #1079d1;
+}
+
+.discover_home_section {
+	padding: 30px;
+}
+
+.discover_content_section .grid2 .item {
+	width: 250px;
+}	
+
+.discover_content_section .grid2 .item .item_image {
+	width: 100px;
+}	
+
+.discover_content_section .grid2 .item .item_title {
+	margin-top: 20px;
+}	
+
+.discover_content_section .grid {
+	padding-bottom: 0px;
+}
+
+.discover_content_section h3 a {
+	text-decoration: none;
+}
+
+.discover_boxEolBlue {
+	background: #98d0e2 url(../images/discover/eol-discover-home.jpg) no-repeat top right;
+	min-height: 256px;
+}
+.discover_boxBlue {
+	background: #98d0e2;
+}
+
+.discover_boxGreen {
+	background: #d2dd87;
+}
+
+.discover_boxNavy {
+	background: #cdd8e2;
+}
+.discover_home_blueGreen {
+	background: #d2dd87 url(../images/discover/discover-home-divider-blue-green.jpg) no-repeat top left;
+}
+
+.discover_home_greenNavy {
+	background: #cdd8e2 url(../images/discover/discover-home-divider-green-navy.jpg) no-repeat top left;
+}
+
+.discover_home_divider {
+	width: 100%;
+	height: 25px;
+}
+
+.discover_home_section h2 {
+	font-size: 32px;
+}
+
+.discover_home_indented {
+	padding-left: 45px;
 }

@@ -122,8 +122,10 @@ $SPECIAL_COMMUNITY_NAME = 'EOL Curators and Admins'
 $RICH_PAGES_COLLECTION_ID = 34 # Please keep this variable around as a "reasonable default" for when lang keys are missing... though you should update the value as needed (probably with the value of :en in RICH_LANG_PAGES_COLLECTION_IDS)
 $RICH_LANG_PAGES_COLLECTION_IDS = {:en => 34, :es => 6496, :ar => 7745}
 
+$NEWS_ON_HOME_PAGE = 6
 $ACTIVITIES_ON_HOME_PAGE = 6
 $HOMEPAGE_ACTIVITY_LOG_CACHE_TIME = 10  # minutes
+$HOMEPAGE_NEWS_CACHE_TIME = 10  # minutes
 $HOMEPAGE_MARCH_RICHNESS_THRESHOLD = 0.5
 
 APPROVED_LANGUAGES = ['en', 'es', 'ar', 'fr', 'gl', 'sr', 'sr-Latn', 'de', 'mk', 'zh-Hans']

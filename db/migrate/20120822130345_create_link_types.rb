@@ -10,7 +10,7 @@ class CreateLinkTypes < ActiveRecord::Migration
       t.string :phonetic_label
     end
     add_index :translated_link_types, [:link_type_id, :language_id], :name => 'link_type_id', :unique => true
-    add_column :data_objects, :link_type_id, :integer, :after => :data_subtype_id
+    # add_column :data_objects, :link_type_id, :integer, :after => :data_subtype_id
     ['Blog', 'News', 'Organization', 'Paper', 'Multimedia'].each do |link_label|
       lt = LinkType.create!
       TranslatedLinkType.create!(:link_type_id => lt.id, :language_id => Language.default.id, :label => link_label)
@@ -18,7 +18,7 @@ class CreateLinkTypes < ActiveRecord::Migration
   end
 
   def self.down
-    remove_column :data_objects, :link_type_id
+    # remove_column :data_objects, :link_type_id
     drop_table :link_types
     drop_table :translated_link_types
   end

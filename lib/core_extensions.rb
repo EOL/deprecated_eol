@@ -180,7 +180,7 @@ class String
         return self
       else
         trimmed_string = chars[0...l].to_s
-        if matches = trimmed_string.match(/^(.*)<a (.*)/)
+        if matches = trimmed_string.match(/^(.*)<a (.*)/ims)
           if matches[2] !~ /<\/a>/
             trimmed_string = matches[1]
           end

@@ -24,7 +24,7 @@ module EOL
         fill_in "session_username_or_email", :with => options[:username]
         fill_in "session_password", :with => options[:password] || 'test password'
         check("remember_me") if options[:remember_me] && options[:remember_me].to_i != 0
-        click_button "Sign in"
+        click_button I18n.t("helpers.submit.session.create")
         page
       end
 

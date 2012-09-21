@@ -19,12 +19,13 @@ module EOL
         elsif user.is_a? Hash
           options = options.merge(user)
         end
-        visit logout_url
-        visit login_url
-        fill_in 'session_username_or_email', :with => user.username
-        fill_in 'session_password', :with => user.entered_password || 'test password'
-        check 'remember_me' if options[:remember_me]
-        click_button 'Sign in'
+        visit logout_path
+        visit login_path
+        fill_in "session_username_or_email", :with => options[:username]
+        fill_in "session_password", :with => options[:password] || 'test password'
+        check("remember_me") if options[:remember_me] && options[:remember_me].to_i != 0
+        click_button I18n.t("helpers.submit.session.create")
+        page
       end
 
       # returns a connection for each of our databases, eg: 1 for Data, 1 for Logging ...

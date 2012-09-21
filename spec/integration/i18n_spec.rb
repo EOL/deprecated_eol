@@ -3,17 +3,11 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe 'Switching Languages' do
   before :all do
     load_foundation_cache
-    Capybara.reset_sessions!
+    @user_fr = User.gen(:language_id => Language.find_by_iso_639_1('fr').id)
   end
   
-  after(:each) do
-    visit('/logout')
-    Capybara.reset_sessions!
-  end
-
   it 'should use the default language' do
-    visit('/')
-    I18n.locale.to_s.should == Language.english.iso_code
+    I18n.locale.to_s.should == Language.default.iso_code
   end
   
   it 'should set the default language' do
@@ -22,19 +16,16 @@ describe 'Switching Languages' do
   end
 
   it 'should use the users language' do
-    user = User.gen(:language => Language.gen_if_not_exists(:iso_639_1 => 'sp'))
-    login_as user
-    visit('/')
-    I18n.locale.to_s.should == 'sp'
+    login_as @user_fr
+    I18n.locale.to_s.should == 'fr'
   end
   
   it 'should set the users language' do
-    user = User.gen(:language => Language.gen_if_not_exists(:iso_639_1 => 'fr'))
-    login_as user
-    visit('/')
+    login_as @user_fr
     I18n.locale.to_s.should == 'fr'
-    visit('/set_language?language=sp')
-    I18n.locale.to_s.should == 'sp'
-    user.reload.language.iso_code.should == 'sp'
+    visit('/set_language?language=en')
+    I18n.locale.to_s.should == Language.default.iso_code
+    visit('/')
+    @user_fr.reload.language.iso_code.should == Language.default.iso_code
   end
 end

@@ -1,6 +1,8 @@
 # Load the rails application
 require File.expand_path('../application', __FILE__)
 
+EolUpgrade::Application.initialize!
+
 # The order of environment loading is:
 # 1) config/environment.rb
 # 2) config/environments/#{Rails.env}.rb

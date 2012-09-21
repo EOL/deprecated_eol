@@ -736,19 +736,6 @@ FactoryGirl.define do
     association :community
   end
 
-  factory :link_type do
-  end
-
-  factory :member do
-    association :user
-    association :community
-  end
-
-  factory :member do
-    association :user
-    association :community
-  end
-
   factory :mime_type do
   end
 

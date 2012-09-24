@@ -248,7 +248,6 @@ ms:
   add_a_new_topic_area: Tambahkan bidang topik baru
   add_a_new_user: Tambahkan pengguna baru
   add_a_taxon_association_label: Nyatakan perkaitan takson
-  add_article_to_page_link_button: Tuliskan rencana dalam halaman ini
   add_association_submit_button: tambahkan perkaitan
   add_brief_summary_to_page_link_button: Tuliskan ringkasan pada halaman ini
   add_collection_to_a_new_community: Tambahkan "%{collection}" kepada komuniti baru
@@ -771,7 +770,6 @@ ms:
   dato_create_user_text_missing_taxon_id_exception: Teks DataObject atau UsersDataObject tidak dapat dihasilkan jika id taksonnya adalah nil.
   dato_create_user_text_missing_user_exception: Teks DataObject atau UsersDataObject tidak dapat dihasilkan jika id taksonnya adalah nil.
   dato_edit_cancel: Batalkan
-  dato_edit_text_link_button: Sunting rencana ini
   dato_edit_text_page_description: Terima kasih kerana menyumbangkan kepakaran anda kepada EOL. Rencana anda akan ditambahkan ke dalam Senarai Pantau anda supaya anda boleh mengikuti sebarang perbualan yang berkaitan dengannya serta menyemak status kurasinya.
   dato_edit_text_title: Sunting rencana
   dato_new_edit_user_text_fieldset_content_header: Kandungan rencana
@@ -860,7 +858,6 @@ ms:
   error_500_page_title: Ralat pelayan dalaman
   error_default_page_title: Alamak.
   error_homepage_or_search_option: "Anda boleh kembali ke<a href=\"/\">halaman utama</a> atau menggunakan alat carian kami:"
-  esc_key_hides_this_message: (kekunci esc menyorokkan pesanan ini)
   every_method_can_also_return_json_response: Setiap kaedah juga boleh memulangkan respons JSON dengan penambahan sambungan .json
   example_colon: "Contoh:"
   expand_all_children: kembangkan semua anak

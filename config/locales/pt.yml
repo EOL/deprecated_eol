@@ -217,7 +217,6 @@ pt:
   add_a_new_common_name: Adicionar um novo nome comum
   add_a_new_user: Adicionar um novo utilizador
   add_a_taxon_association_label: Adicionar uma associação de táxon
-  add_article_to_page_link_button: Adicionar um artigo a esta página.
   add_association_submit_button: adicionar associação
   add_brief_summary_to_page_link_button: Adicionar um breve resumo a esta página.
   add_education_resources_to_page_link_button: Adicionar recursos educativos a esta página.
@@ -712,7 +711,6 @@ pt:
   dato_create_user_text_missing_taxon_id_exception: Não é possível contruir um texto DataObject ou UsersDataObject se o identificador do taxon for nulo.
   dato_create_user_text_missing_user_exception: Não é possível contruir um texto DataObject ou UsersDataObject se o identificador do taxon for nulo.
   dato_edit_cancel: Cancelar
-  dato_edit_text_link_button: Editar este artigo
   dato_edit_text_page_description: Obrigado por contribuir seus conhecimentos para a EOL. O artigo revisto será adicionado à sua Lista de Vigilância para que possa acompanhar qualquer conversa relacionada a ele e verificar o seu estado de curadoria.
   dato_edit_text_title: Editar artigo
   dato_new_edit_user_text_fieldset_content_header: Conteúdo do artigo
@@ -793,7 +791,6 @@ pt:
   error_404_page_title: Não encontrado
   error_500_page_title: Erro interno do servidor
   error_homepage_or_search_option: "Pode voltar à <a href=\"/\">homepage</a> ou usar a nossa ferramenta de procura:"
-  esc_key_hides_this_message: (a tecla esc esconde esta mensagem)
   every_method_can_also_return_json_response: Todos os métodos podem devolver uma resposta JSON adicionando a extensão .json
   example_colon: "Exemplo:"
   expand_all_children: expandir todos os descendentes

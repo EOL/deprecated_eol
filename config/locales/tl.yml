@@ -757,7 +757,6 @@ tl:
   add_a_new_topic_area: Magdagdag ng isang bagong pook ng paksa
   add_a_new_user: Magdagdag ng isang bagong tagagamit
   add_a_taxon_association_label: Magdagdag ng isang kaugnayan ng takson
-  add_article_to_page_link_button: Magdagdag ng isang artikulo sa pahinang ito
   add_association_submit_button: idagdag ang kaugnayan
   add_brief_summary_to_page_link_button: Magdagdag ng isang maiksing buod sa pahinang ito
   add_citizen_science_resources_to_page_link_button: Magdagdag ng isang kawing sa agham ng mamamayan sa pahinang ito
@@ -1649,7 +1648,6 @@ tl:
   dato_create_user_text_missing_user_exception: Hindi magagawang makayari ng isang tekstong DataObject o UsersDataObject kung ang ID ng takson ay wala.
   dato_create_user_text_validation_error: Pakitiyak na nabuo mo nang tama ang pormularyo.
   dato_edit_cancel: Huwag ituloy
-  dato_edit_text_link_button: Baguhin ang artikulong ito
   dato_edit_text_page_description: Salamat sa pag-aambag mo ng iyong kadalubhasaan sa EOL. Ang binagong artikulo ay idaragdag sa Bantayan mo upang masundan mo ang anumang mga usapan na may kaugnayan diyan at suriin ang katayuan ng pangangasiwa niyan.
   dato_edit_text_title: Baguhin ang artikulo
   dato_location_created: "Nalikha ang Lokasyon: #{loc}"
@@ -1813,7 +1811,6 @@ tl:
   error_log_detail: Detalye ng Talaan ng Kamalian
   error_logging_active: Masigla ang Pagtatala ng Kamalian
   error_watch_collections_cannot_be_shared: Hindi maibabahagi ang mga kalipunang binabantayan
-  esc_key_hides_this_message: (ikinukubli ng susing esc ang mensaheng ito)
   every_method_can_also_return_json_response: Bawat kaparaanan ay makapagpapabalik din ng isang katugunan ng JSON sa pamamagitan ng pagdaragdag ng isang dugtong na .json
   example_colon: "Halimbawa:"
   exception: Hindi kasali
@@ -2580,7 +2577,7 @@ tl:
   name_preferred_for_language_yes: Mas nais
   name_preferred_taxonomically_for_source_help_tip: Minamarkahan ng %{icon} ang mas ninanais na pangalan na mula sa bawat isang pinagmulan.
   name_preferred_taxonomically_for_source_yes: Mas nais
-  names: "Mga<br/>pangalan"
+  names: Mga<br/>pangalan
   names_children_column_header: Mga supling
   names_common_empty: Wala pang mga pangalang karaniwan na naiuugnay sa takson na ito
   names_common_list_by_language_assistive_header: Mga pangalang karaniwan na nakalista ayon sa wika
@@ -2598,11 +2595,13 @@ tl:
   never: Huwag kailan man
   new_collection: Bagong kalipunan
   new_contact_us_topic: Bagong Paksa ng Makipag-ugnayan sa Amin
+  new_news_item: Bagong Bagay na Pambalita
   new_search_suggestion: Bagong Mungkahi sa Paghahanap
   new_upload: Bagong Pagkakargang Paitaas
   new_user: Bagong Tagagamit
   news_archive_page: pahinang sinupan ng balita
   news_available_in_languages: "Makukuha ang pahinang ito roon sa:"
+  news_date: Petsa ng Balita
   news_item: bagay na pambalita
   news_item_date_as_shown_to_user: "Ang Petsa ng Bagay na Pambalita na ipinapakita sa tagagamit (ang oras ay ipinapakitang nasa pakain ng RSS lamang):"
   news_item_is_visible_on_website_after_this_time: "Ang Bagay na Pambalita ay makikita sa pook ng sangkasaputan pagkalipas ng oras na ito:"
@@ -2785,7 +2784,7 @@ tl:
     other: "%{count} iba pang mga takson"
   other_us_dollars_amount: "Iba pa: US$"
   outlink: Panlabas na kawing
-  overview: "Malawakang<br/>pananaw"
+  overview: Malawakang<br/>pananaw
   page: Pahina
   page_linked_to: Pahinang nakakawing sa
   page_method_description: Kumukuha ang pamamaraang ito ng isang pangkilala ng pahina ng EOL at nagbabalik ng pangalang pang-agham para sa pahinang iyan, at maaaring magbalik o hindi magbalik ng kabatiran tungkol sa mga karaniwang pangalan, midya (teksto, mga imahe at mga bidyo), at mga sanggunian sa mga hirarkiyang nakakakilala sa takson na inilarawan sa ibabaw ng pahina.
@@ -2969,7 +2968,7 @@ tl:
   reset_password_instructions_sent_to_user_notice: Naipadala na sa tirahan mo ng e-liham ang mga tagubilin para sa muling pagtatakda ng hudyat sa iyong akawnt na <em>%{username}</em>.
   reset_password_token_expired_error: Paumanhin, hindi muling naitakda ang hudyat mo. Napaso na ang kawing na ibinigay, paki punuin at ipasang muli ang pormularyo ng nakalimutang hudyat upang makatanggap ng isang bagong kawing.
   resource: Pinagkunan
-  resources: "Mga<br/>mapagkukunan"
+  resources: Mga<br/>mapagkukunan
   response: Tugon
   response_formats: Mga Anyo ng Tugon
   results: Mga resulta
@@ -3621,7 +3620,7 @@ tl:
   updated_colon: "Naisapanahon na:"
   updated_community: Matagumpay ang pagsasapanahon ng pamayanan.
   updated_member: Matagumpay na naisapanahon ang kasapi.
-  updates: "Mga<br />pagsasapanahon"
+  updates: Mga<br />pagsasapanahon
   upload: Ikargang paitaas
   upload_content: nilalaman ng pagkakargang paitaas
   upload_logo_help_text: Ito ang magiging pangunahing larawan na kumakatawan sa pamayanan mo - maaari itong maging kung anuman ang gustuhin mo.
@@ -3970,7 +3969,7 @@ tl:
     next_label: Kasunod &#8594;
     page_gap: "&hellip;"
     previous_label: "&#8592; Dati"
-  worklist: "Tala ng<br/>gawain"
+  worklist: Tala ng<br/>gawain
   would_you_like_to_become_a_curator_notice: Nais mo bang maging isang kurador? Makakahiling ka ng pagkanakakapunta roon sa <a href='%{url}'>pahina mo ng balangkas ng katangian</a>.
   xml_response: Tugon ng XML
   yahoo: Yahoo

@@ -25,7 +25,9 @@
           = I18n.t(:learn_more_link, :learn_more => link_to(I18n.t(:learn_more_lowercase), cms_page_path('language_support')))
       .empty
         %p= I18n.t(:taxon_details_empty)
-        %p= link_to I18n.t(:add_article_to_page_link_button), new_taxon_data_object_path(@taxon_concept), :class => 'button'
+        %p
+          = link_to I18n.t(:add_article_to_page_button), new_taxon_data_object_path(@taxon_concept), :class => 'button'
+          = link_to I18n.t(:add_link_to_page_button), new_taxon_data_object_path(@taxon_concept, :link => true), :class => 'button link_button'
   - else
     #main
       - unless @details_count_by_language.blank?

@@ -295,6 +295,10 @@ class ApplicationController < ActionController::Base
     end
     @current_user
   end
+  
+  def set_current_user=(user)
+    @current_user = user
+  end
 
   def recently_visited_collections(collection_id = nil)
     session[:recently_visited_collections] ||= []

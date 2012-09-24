@@ -80,7 +80,7 @@ describe Admins::TranslatedNewsItemsController do
       get :edit, @edit_translated_news_item_params, { :user => @admin, :user_id => @admin.id }
       assigns[:page_title].should == I18n.t(:admin_news_items_page_title)
       assigns[:page_subheader].should == I18n.t(:admin_translated_news_item_edit_subheader, :page_name => @news_item.page_name,
-                                                :language => @translated_news_item_to_edit.language.label.safe_downcase)
+                                                :language => @translated_news_item_to_edit.language.label.downcase)
     end
     it 'should edit a translated news item' do
       get :edit, @edit_translated_news_item_params, { :user => @admin, :user_id => @admin.id }

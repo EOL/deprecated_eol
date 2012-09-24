@@ -17,12 +17,12 @@ class DataObject < ActiveRecord::Base
   belongs_to :language
   belongs_to :license
   belongs_to :mime_type
-  belongs_to :link_type
 
   # this is the DataObjectTranslation record which links this translated object
   # to the original data object
   has_one :data_object_translation
   has_one :users_data_object
+  has_one :data_objects_link_type
 
   has_many :top_images
   has_many :feed_data_objects
@@ -250,6 +250,9 @@ class DataObject < ActiveRecord::Base
       begin
         dato.toc_items = Array(TocItem.find(options[:toc_id]))
         dato.build_relationship_to_taxon_concept_by_user(options[:taxon_concept], options[:user])
+        unless options[:link_type_id].blank?
+          dato.data_objects_link_type = DataObjectsLinkType.create(:data_object => dato, :link_type_id => options[:link_type_id])
+        end
       rescue => e
         dato.update_attribute(:published, false)
         raise e
@@ -298,6 +301,10 @@ class DataObject < ActiveRecord::Base
       begin
         new_dato.toc_items = Array(TocItem.find(options[:toc_id]))
         new_dato.unpublish_previous_revisions
+        unless options[:link_type_id].blank?
+          new_dato.data_objects_link_type = DataObjectsLinkType.create(:data_object => new_dato, :link_type_id => options[:link_type_id])
+        end
+        
 
         new_dato.users_data_object = users_data_object.replicate(new_dato)
         new_vetted_id_for_cdohes = (user.min_curator_level?(:full) || user.is_admin?) ? Vetted.trusted.id : Vetted.unknown.id
@@ -954,11 +961,11 @@ class DataObject < ActiveRecord::Base
   end
 
   def description_teaser
-    full_teaser = Sanitize.clean(description[0..300], :elements => %w[b i], :remove_contents => %w[table script]).strip
+    full_teaser = Sanitize.clean(description.truncate_html(:length => 300), :elements => %w[b i], :remove_contents => %w[table script]).strip
     return nil if full_teaser.blank?
     truncated_teaser = full_teaser.split[0..10].join(' ').balance_tags
     truncated_teaser << '...' if full_teaser.length > truncated_teaser.length
-    truncated_teaser
+    truncated_teaser.strip
   end
 
   def added_by_user?
@@ -1137,6 +1144,12 @@ class DataObject < ActiveRecord::Base
 
   def can_be_deleted_by?(requestor)
     return false
+  end
+  
+  def link_type
+    if data_objects_link_type && data_objects_link_type.link_type
+      data_objects_link_type.link_type
+    end
   end
 
 private

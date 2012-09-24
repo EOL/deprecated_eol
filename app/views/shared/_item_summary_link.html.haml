@@ -8,5 +8,5 @@
       %small= I18n.t(:item_type_link)
   - unless ['gallery','list'].include?(view_style)
     = link_to truncate(item.source_url, :length => 35), item.source_url
-    %br/
+    %br
     = item.description_teaser

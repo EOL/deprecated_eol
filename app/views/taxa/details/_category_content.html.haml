@@ -1,5 +1,5 @@
 - content.each do |dato|
-  - link_object = true if dato.data_subtype_id == DataType.link.id && dato.link_type_id
+  - link_object = dato.is_link?
   - item_status_class, item_status_label = dato.status_class_and_label_by_taxon_concept(@taxon_concept)
   %div{:id => "data_object_#{dato.id}", :class => 'article'}
     - unless dato.object_title.blank?

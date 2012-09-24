@@ -91,7 +91,7 @@ class Taxa::ResourcesController < TaxaController
     @rel_canonical_href = @selected_hierarchy_entry ?
       news_and_event_links_taxon_hierarchy_entry_resources_url(@taxon_concept, @selected_hierarchy_entry) :
       news_and_event_links_taxon_resources_url(@taxon_concept)
-    # current_user.log_activity(:viewed_taxon_concept_resources_news_and_event_links, :taxon_concept_id => @taxon_concept.id)
+    current_user.log_activity(:viewed_taxon_concept_resources_news_and_event_links, :taxon_concept_id => @taxon_concept.id)
   end
 
   def related_organizations
@@ -101,7 +101,7 @@ class Taxa::ResourcesController < TaxaController
     @rel_canonical_href = @selected_hierarchy_entry ?
       related_organizations_taxon_hierarchy_entry_resources_url(@taxon_concept, @selected_hierarchy_entry) :
       related_organizations_taxon_resources_url(@taxon_concept)
-    # current_user.log_activity(:viewed_taxon_concept_resources_related_organizations, :taxon_concept_id => @taxon_concept.id)
+    current_user.log_activity(:viewed_taxon_concept_resources_related_organizations, :taxon_concept_id => @taxon_concept.id)
   end
 
   def multimedia_links
@@ -111,7 +111,7 @@ class Taxa::ResourcesController < TaxaController
     @rel_canonical_href = @selected_hierarchy_entry ?
       multimedia_links_taxon_hierarchy_entry_resources_url(@taxon_concept, @selected_hierarchy_entry) :
       multimedia_links_taxon_resources_url(@taxon_concept)
-    # current_user.log_activity(:viewed_taxon_concept_resources_multimedia_links, :taxon_concept_id => @taxon_concept.id)
+    current_user.log_activity(:viewed_taxon_concept_resources_multimedia_links, :taxon_concept_id => @taxon_concept.id)
   end
 
 private

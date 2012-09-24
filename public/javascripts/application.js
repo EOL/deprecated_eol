@@ -169,11 +169,14 @@ $(function() {
           url: "/users/fetch_external_page_title",
           data: data,
           dataType: 'json',
+          beforeSend: function(xhr) {
+            $(".link_object span.errors").text($(".link_object span.errors").attr('data-pending_message'));
+          },
           success: function(data) {
             if(data.exception == true) {
-              $(".fetch_error").text("An error occurred while retrieving the title for given url. Error: " + data.message);
+              $(".link_object span.errors").text(data.message);
             } else {
-              $(".fetch_error").text("");
+              $(".link_object span.errors").text("");
               if ($("#data_object_object_title").val() == "") {
                 $("#data_object_object_title").val(data.message);
               }
@@ -240,9 +243,6 @@ $(function() {
       $(this).closest('form').find('input[name="commit_view_as"]').click();
     });
     $collection.find('input[name="commit_view_as"]').hide();
-    $collection.find('#filter_links_by_type').change(function() {
-      $(this).closest('form').find('input[name="commit_filter"]').click();
-    });
     $collection.find('input[name="commit_filter"]').hide();
   })($("#collection"));
 

@@ -114,7 +114,9 @@ describe 'Taxa page' do
 
     it 'should show "Add an article or link to this page" button to the logged in users' do
       page.body.should have_tag("#page_heading .page_actions") do
-        with_tag("li a", :text => "Add an article or link to this page")
+        with_tag("li a", :text => "Add an article")
+        with_tag("li a", :text => "Add a link")
+        with_tag("li a", :text => "Add to a collection")
       end
     end
   end

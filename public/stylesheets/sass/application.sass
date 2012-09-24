@@ -228,6 +228,9 @@ ul.tabs
     &.articles
       a
         background: transparent url("/images/v2/icon_articles_tabs.png") 9px 9px no-repeat
+    &.links
+      a
+        background: transparent url("/images/v2/icon_links_tabs.png") 6px 9px no-repeat
   &.with_icons
     li
       font-size: 1.16em
@@ -562,7 +565,7 @@ table.standard
     background: #f3f7fa url("/images/v2/icon_articles_tabs.png") 50% 50% no-repeat
 .link
   span.icon
-    background: #f3f7fa url("/images/v2/icon_links_tabs.jpg") 50% 50% no-repeat
+    background: #f3f7fa url("/images/v2/icon_links_tabs.png") 50% 50% no-repeat
 .sound
   span.icon
     background: #f3f7fa url("/images/v2/icon_sound_tabs.png") 50% 50% no-repeat
@@ -835,6 +838,8 @@ body
       margin: 0 0 10px 0
       & + li
         margin: 0
+      .link_button
+        margin-left: 10px
     a
       float: right
     form.button_to
@@ -1802,6 +1807,9 @@ ul.content_partner_contacts
           &.unreviewed
             border: 1px solid #677682
             background: #8695a1
+        > p.filing
+          float: left
+          margin-right: 30px
         > .average_rating
           float: left
           padding: 2px 40px 0 0
@@ -2947,3 +2955,7 @@ ul.spotlite-matches
     li
       list-style: disc
 
+#taxon_detail
+  .empty
+    .link_button
+      margin-left: 7px

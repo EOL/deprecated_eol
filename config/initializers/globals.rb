@@ -148,6 +148,10 @@ $PARENT_CLASS_MUST_USE_MASTER = ActiveRecord::Base # This is a default but shoul
 ENV['RECAPTCHA_PUBLIC_KEY'] = ''
 ENV['RECAPTCHA_PRIVATE_KEY'] = ''
 
+EOL_CODEBASE_MASTER_VERSION = "2.2"
+
+# NOTE - don't put a value in this, and don't change this paragraph of code, so that capistrano can automate it:
+
 # Assign it during deployment with capistrano
 ENV['APP_VERSION'] = ''
 

@@ -24,14 +24,14 @@
       %p= link_to I18n.t("get_help_choosing_a_#{link_object ? 'subject' : 'subchapter'}"), cms_page_path('writing_eol_chapters')
     - if link_object
       %dt.required
-        = label_tag :link_type_id, I18n.t("helpers.label.data_object_link.link_type")
+        = label_tag 'data_object[link_types][id]', I18n.t("helpers.label.data_object_link.link_type")
       %dd
-        = f.select :link_type_id, options_from_collection_for_select(@link_types, :id, :label, @selected_link_type_id)
+        = select_tag 'data_object[link_types][id]', options_from_collection_for_select(@link_types, :id, :label, @selected_link_type_id)
       %dt.required
         = label_tag 'data_object[source_url]', I18n.t("helpers.label.data_object_link.source_url")
       %dd.link_object
         = f.text_field :source_url
-        .fetch_error
+        %span.errors{ "data-pending_message" => I18n.t(:looking_up_url) }
     %dt
       = f.label :object_title
     %dd

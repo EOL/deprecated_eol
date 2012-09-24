@@ -48,7 +48,7 @@ class DataObjectsController < ApplicationController
     raise I18n.t(:dato_create_user_text_missing_taxon_id_exception) if @taxon_concept.blank?
     @data_object = DataObject.create_user_text(params[:data_object], :user => current_user,
                                                :taxon_concept => @taxon_concept, :toc_id => toc_id,
-                                               :link_object => params[:commit_link])
+                                               :link_type_id => link_type_id, :link_object => params[:commit_link])
 
     if @data_object.nil? || @data_object.errors.any?
       @selected_toc_item_id = toc_id
@@ -96,8 +96,9 @@ class DataObjectsController < ApplicationController
 
       # redirect to appropriate tab/sub-tab after creating the users_data_object/link_object
       if @data_object.is_link?
-        case @data_object.link_type_id
+        case @data_object.link_type.id
         when LinkType.blog.id
+          redirect_path = news_and_event_links_taxon_resources_url(@taxon_concept, :anchor => "data_object_#{@data_object.id}")
         when LinkType.news.id
           redirect_path = news_and_event_links_taxon_resources_url(@taxon_concept, :anchor => "data_object_#{@data_object.id}")
         when LinkType.organization.id
@@ -121,7 +122,7 @@ class DataObjectsController < ApplicationController
     # @data_object is loaded in before_filter :load_data_object
     set_text_data_object_options
     @selected_toc_item_id = @data_object.toc_items.first.id rescue nil
-    @selected_link_type_id = @data_object.link_type_id rescue nil
+    @selected_link_type_id = @data_object.link_type.id rescue nil
     if params[:link]
       @edit_link = true
       @page_title = I18n.t(:dato_edit_link_title)
@@ -145,7 +146,7 @@ class DataObjectsController < ApplicationController
     old_cdohe_associations = @data_object.all_curated_data_objects_hierarchy_entries.dup
     # Note: replicate doesn't actually update, it creates a new data_object
     new_data_object = @data_object.replicate(params[:data_object], :user => current_user, :toc_id => toc_id,
-                                             :link_object => params[:commit_link])
+                                             :link_type_id => link_type_id, :link_object => params[:commit_link])
     new_cdohe_associations = new_data_object.all_curated_data_objects_hierarchy_entries
     
     if new_data_object.nil?
@@ -691,5 +692,11 @@ private
     end
     @ti ||= id_in_params ? id_in_params : nil
   end
+  
+  def link_type_id
+    @li ||= params[:data_object].delete(:link_types)[:id].to_a
+    @li.empty? ? nil : @li.first.to_i
+  end
+  
 
 end

@@ -105,11 +105,13 @@ module EOL
 
       def self.preload_data_objects!(collection_items)
         return if collection_items.blank?
-        includes = { :object => [ :data_type, :link_type, { :toc_items => :translations } ] }
+        includes = { :object => [ :data_type, { :toc_items => :translations }, { :data_objects_link_type => :link_type } ] }
         selects = {
-          :data_objects => [ :id, :object_title, :data_rating, :data_type_id, :link_type_id ],
+          :data_objects => [ :id, :object_title, :data_rating, :data_type_id, :data_subtype_id ],
           :table_of_contents => 'id',
-          :translated_table_of_contents => '*'
+          :translated_table_of_contents => '*',
+          :data_objects_link_types => '*',
+          :link_types => '*'
         }
         CollectionItem.preload_associations(collection_items, includes, :select => selects)
       end

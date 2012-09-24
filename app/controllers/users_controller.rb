@@ -231,18 +231,36 @@ class UsersController < ApplicationController
 
   def fetch_external_page_title
     data = {}
+    success = nil
+    response_title = nil
     begin
       response = Net::HTTP.get_response(URI.parse(params[:url]))
+      if (response.code == "301" || response.code == "302") && response.kind_of?(Net::HTTPRedirection)
+        response = Net::HTTP.get_response(URI.parse(response['location']))
+      end
       if response.code == "200"
-        data['exception'] = false
-        data['message'] = response.body.match(/<title>(.*?)<\/title>/)[1]
-      else
-        data['exception'] = true
-        data['message'] = response.message
+        response_body = response.body
+        if response['Content-Encoding'] == "gzip"
+          response_body = ActiveSupport::Gzip.decompress(response.body)
+        end
+        success = true
+        if matches = response_body.match(/<title>(.*?)<\/title>/ims)
+          response_title = matches[1].strip
+        end
       end
     rescue Exception => e
+    end
+    if success
+      if response_title
+        data['exception'] = false
+        data['message'] = response_title
+      else
+        data['exception'] = true
+        data['message'] = I18n.t(:unable_to_determine_title)
+      end
+    else
       data['exception'] = true
-      data['message'] = e.message
+      data['message'] = I18n.t(:url_not_accessible)
     end
     render :text => data.to_json
   end

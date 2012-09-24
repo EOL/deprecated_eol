@@ -69,9 +69,9 @@ class CollectionItem < ActiveRecord::Base
   def solr_index_hash
     item_object_type = nil
     if self.object_type == 'DataObject'
-      if self.object.data_type.simple_type('en') == 'Text' && self.object.link_type_id
+      if self.object.is_link?
         item_object_type = 'Link'
-        link_type_id = self.object.link_type_id
+        link_type_id = self.object.link_type.id
       else
         item_object_type = self.object.data_type.simple_type('en')
       end

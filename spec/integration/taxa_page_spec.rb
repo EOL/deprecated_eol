@@ -90,7 +90,9 @@ describe 'Taxa page' do
     end
 
     it 'should show "Add an article or link to this page" button to the logged in users' do
-      should have_selector("#page_heading .page_actions li a", :content => "Add an article or link to this page")
+      should have_selector("#page_heading .page_actions li a", :content => "Add an article")
+      should have_selector("#page_heading .page_actions li a", :content => "Add a link")
+      should have_selector("#page_heading .page_actions li a", :content => "Add to a collection")
     end
   end
 

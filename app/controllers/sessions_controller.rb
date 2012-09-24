@@ -24,7 +24,7 @@ class SessionsController < ApplicationController
     if success && user.is_a?(User)
       # credentials good but user may still be inactive or hidden, we'll check during log_in
       log_in user
-      redirect_back_or_default(user_newsfeed_path(current_user))
+      redirect_back_or_default(user_newsfeed_path(user))
     else
       # bad credentials or user missing
       # on failure user is actually an Array

@@ -93,7 +93,7 @@ module EOL
           hash['toc_id'] << dotoc.toc_id
         end
         # add link type IDs
-        if link_type_id = data_object.link_type_id
+        if data_object.is_link? && link_type_id = data_object.link_type.id
           hash['link_type_id'] = link_type_id
         end
         # add translation_flag

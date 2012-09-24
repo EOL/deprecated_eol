@@ -248,6 +248,7 @@ Rails::Initializer.run do |config|
   $CURATOR_COMMUNITY_NAME = 'EOL Curators'
   $CURATOR_COMMUNITY_DESC = 'This is a special community intended for EOL curators to discuss matters related to curation on the Encylopedia of Life.'
 
+  EOL_CODEBASE_MASTER_VERSION = "2.2"
 
   begin
     require 'config/environments/local.rb'

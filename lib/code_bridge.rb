@@ -13,6 +13,9 @@ class CodeBridge
         ClassificationCuration.find(args['classification_curation_id']).check_status_and_notify
       rescue => e
         puts "** ERROR: #{e.message}"
+        args.keys.each do |key|
+          puts "   #{key}: #{args[key]}"
+        end
       end
     else
       puts "** ERROR: NO command responds to #{args['cmd']}"
@@ -28,7 +31,7 @@ class CodeBridge
                                 'taxon_concept_id_to'          => options[:to_taxon_concept_id],
                                 'bad_match_hierarchy_entry_id' => options[:exemplar_id],
                                 'confirmed'                    => 'force', # UI enforces restrictions.
-                                'classification_curation_id'   => options[:classification_curation].id)
+                                'classification_curation_id'   => options[:classification_curation_id]})
   end
 
   def self.split_entry(options = {})
@@ -36,14 +39,14 @@ class CodeBridge
                                 'hierarchy_entry_id'           => options[:hierarchy_entry_id],
                                 'bad_match_hierarchy_entry_id' => options[:exemplar_id],
                                 'confirmed'                    => 'confirmed', # note, no need for 'force' on split
-                                'classification_curation_id'   => options[:classification_curation].id)
+                                'classification_curation_id'   => options[:classification_curation_id]})
   end
 
   def self.merge_taxa(id1, id2, options = {})
     Resque.enqueue(CodeBridge, {'cmd'       => 'merge',
                                 'id1'       => id1,
                                 'id2'       => id2,
-                                'classification_curation_id'   => options[:classification_curation].id,
+                                'classification_curation_id'   => options[:classification_curation_id],
                                 'confirmed' => 'confirmed'}) # No need for "force" on merge.
   end
 

@@ -8,4 +8,8 @@ class HierarchyEntryMove < ActiveRecord::Base
   # The only other values on this model are :completed_at and :error ...otherwise this is a standard join model.
   # Note that completed_at is set EVEN WHEN THERE WAS AN ERROR.
 
+  def complete?
+    completed_at?
+  end
+
 end

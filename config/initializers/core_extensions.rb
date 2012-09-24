@@ -14,11 +14,11 @@ class String
   end
 
   # Few languages can "safely" downcase. For example, in German, it's quite awkward to downcase nouns. So:
-  def downcase_with_language_exceptions
-    return self unless I18n && I18n.locale && [:en, :es, :fr].include?(I18n.locale)
-    return self.downcase_without_language_exceptions
+  def i18n_downcase
+    @@safe_downcasing_locales = [:en, :es, :mk, :sr, :fr]
+    return self unless defined?(I18n) && I18n.locale && @@safe_downcasing_locales.include?(I18n.locale.to_sym)
+    return self.downcase
   end
-  alias_method_chain :downcase, :language_exceptions
 
   def strip_italics
     self.gsub(/<\/?i>/i, "")

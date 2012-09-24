@@ -47,12 +47,12 @@
             %td{ :class => column_class }
               = h format_date_time(comment.created_at,:format=>'short_no_tz')
             %td{ :class => column_class }
-              = link_to I18n.t("edit").downcase,:action=>'edit',:id=>comment.id
+              = link_to I18n.t("edit").i18n_downcase,:action=>'edit',:id=>comment.id
               %br
               - if comment.visible_at
-                = link_to I18n.t("hide").downcase, {:action=>'hide',:id=>comment.id}
+                = link_to I18n.t("hide").i18n_downcase, {:action=>'hide',:id=>comment.id}
               - else
-                = link_to I18n.t("show").downcase, {:action=>'show',:id=>comment.id}
+                = link_to I18n.t("show").i18n_downcase, {:action=>'show',:id=>comment.id}
               
       %br
       = will_paginate @comments

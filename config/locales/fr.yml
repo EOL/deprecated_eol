@@ -220,6 +220,8 @@ fr:
         meta_description: Description des métadonnées
         meta_keywords: Mots-clefs des métadonnées
         title: Titre
+      translated_news_item: 
+        active_translation: Publié
       user: 
         agreed_with_terms: Conditions de l’accord d’utilisation
         api_key: Clé de l’IPA
@@ -324,7 +326,6 @@ fr:
   add_a_new_topic_area: Ajouter une nouvelle thématique
   add_a_new_user: Ajouter un nouvel utilisateur
   add_a_taxon_association_label: Ajouter une association de taxon
-  add_article_to_page_link_button: Ajouter un article à cette page
   add_association_submit_button: ajouter l’association
   add_brief_summary_to_page_link_button: Ajouter un bref résumé à cette page
   add_collection_to_a_new_community: Ajouter « %{collection} » à une nouvelle communauté
@@ -1091,7 +1092,6 @@ fr:
   dato_create_user_text_missing_user_exception: Impossible de construire un objet de données textuelles ou utilisateur si l’identifiant de taxon est nul.
   dato_create_user_text_validation_error: Veuillez vous assurer d’avoir renseigné le formulaire correctement.
   dato_edit_cancel: Annuler
-  dato_edit_text_link_button: Modifier cet article
   dato_edit_text_page_description: Merci pour votre contribution à l’expertise de l’EdlV. L’article révisé s’ajoutera à votre liste de suivi, donc vous pourrez suivre des conversations s’y rapportant et vérifier son statut de supervision.
   dato_edit_text_title: Modifier l’article
   dato_new_edit_user_text_fieldset_content_header: Contenu de l’article
@@ -1248,7 +1248,6 @@ fr:
   error_log_detail: Détails du journal d’erreurs
   error_logging_active: Journalisation des erreurs active
   error_watch_collections_cannot_be_shared: Les collections de suivi ne peuvent pas être partagées.
-  esc_key_hides_this_message: (la touche ÉCHAP masque ce message)
   every_method_can_also_return_json_response: Chaque méthode peut également retourner une réponse JSON en ajoutant une extension .json
   example_colon: "Exemple :"
   exception: Exception
@@ -1922,10 +1921,12 @@ fr:
   never: Jamais
   new_collection: Nouvelle collection
   new_contact_us_topic: Nouveau sujet Contactez-nous
+  new_news_item: Nouvel élément Nouvelles
   new_search_suggestion: Nouvelle Suggestion de recherche
   new_upload: Nouveau téléversement
   new_user: Nouvel utilisateur
   news_archive_page: page d'archive des nouvelles
+  news_date: Date de la nouvelle
   news_item: élément nouvelles
   news_item_date_as_shown_to_user: "Date d’élément de nouvelle telle que montrée à l’utilisateur (heure affichée uniquement dans le fil RSS) :"
   news_item_title: Élément Nouvelles

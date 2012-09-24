@@ -570,7 +570,6 @@ it:
   add_a_new_topic_area: Aggiungi una nuova area di argomento
   add_a_new_user: Aggiungi un nuovo utente
   add_a_taxon_association_label: Aggiungi un'associazione al taxon
-  add_article_to_page_link_button: Aggiungi un articolo in questa pagina
   add_association_submit_button: aggiungi associazione
   add_brief_summary_to_page_link_button: Aggiungi un breve riassunto in questa pagina
   add_collection_to_a_new_community: Aggiungi "%{collection}" ad una nuova comunità
@@ -1139,7 +1138,6 @@ it:
   dato_create_cancel: Annulla
   dato_create_user_text_error: Spiacenti, si è verificato un errore, l'articolo non è stato aggiunto.
   dato_edit_cancel: Annulla
-  dato_edit_text_link_button: Modifica questo articolo
   dato_edit_text_title: Modifica articolo
   dato_new_edit_user_text_fieldset_content_header: Contenuto articolo
   dato_new_edit_user_text_fieldset_information_header: Informazioni articolo
@@ -1223,7 +1221,6 @@ it:
   error_log: Registro degli errori
   error_log_detail: Dettagli registro degli errori
   error_logging_active: Attiva registrazione degli errori
-  esc_key_hides_this_message: (il tasto ESC nasconde questo messaggio)
   example_colon: "Esempio:"
   exception: Eccezione
   exceptions: 

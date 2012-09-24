@@ -271,7 +271,6 @@ sr:
   add_a_new_topic_area: Додај нову тематску област
   add_a_new_user: Додај новог корисника
   add_a_taxon_association_label: Додај везу на таксону
-  add_article_to_page_link_button: Додај чланак на страницу
   add_association_submit_button: додај везу
   add_brief_summary_to_page_link_button: Додај кратак преглед на страницу
   add_collection_to_a_new_community: Додај збирку „%{collection}“ у нову заједницу
@@ -954,7 +953,6 @@ sr:
   dato_create_user_text_missing_user_exception: Не могу да срочим DataObject или UsersDataObject за текст ако недостаје назнака за таксон.
   dato_create_user_text_validation_error: Проверите да ли сте исправно попунили образац.
   dato_edit_cancel: Откажи
-  dato_edit_text_link_button: Уреди овај чланак
   dato_edit_text_page_description: Хвала вам што доприносите EOL-у. Чланак ће бити додат на ваш списак надгледања тако да можете пратити сваки разговор који је у вези с њим, као и да проверите његов статус.
   dato_edit_text_title: Уређивање чланка
   dato_new_edit_user_text_fieldset_content_header: Садржај чланка
@@ -1079,7 +1077,6 @@ sr:
   error_log_detail: Детаљи о дневнику грешке
   error_logging_active: Записивање грешака је активно
   error_watch_collections_cannot_be_shared: Збирке за надгледање не могу да се деле
-  esc_key_hides_this_message: (порука се сакрива кликом на тастер ''искејп'')
   every_method_can_also_return_json_response: Свака метода може да врати и JSON одговор ако се дода наставак .json
   example_colon: "Пример:"
   exception: Изузетак
@@ -1715,10 +1712,12 @@ sr:
   never: Никад
   new_collection: Нова збирка
   new_contact_us_topic: Нова тема у „Контактирајте с нама“
+  new_news_item: Нова новост
   new_search_suggestion: Нови предлог за претрагу
   new_upload: Ново отпремање
   new_user: Нови корисник
   news_archive_page: архив новости
+  news_date: Датум новости
   news_item: новост
   news_item_date_as_shown_to_user: "Датум новости као што је приказано кориснику (у доводу RSS се приказује само време):"
   news_item_title: Новост

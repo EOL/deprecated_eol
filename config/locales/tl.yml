@@ -1214,7 +1214,7 @@ tl:
     one: "%{count} Community"
     other: "%{count} Mga pamayanan"
   community: Pamayanan
-  community_activity: Galaw ng Pamayanan
+  community_activity: "Galaw ng<br />Pamayanan"
   community_can_now_manage_this_collection: Ang "%{community}" ay mayroon na ngayong kapahintulutan upang mamahala ng kalipunang ito.
   community_contributions_with_count: 
     one: "%{count} Ambag"

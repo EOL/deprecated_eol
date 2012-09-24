@@ -957,6 +957,8 @@ en:
         about_link_eol_blog: The EOL Blog
         about_link_discover: Discover
         about_link_statistics: Statistics
+        about_link_glossary: Glossary
+        about_link_podcasts: Podcasts
         about_link_donate: Donate to EOL
         about_link_citing: Citing EOL
         about_link_help: Help
@@ -968,6 +970,7 @@ en:
         learn_more_link_amphibians: Amphibians
         learn_more_link_reptiles: Reptiles
         learn_more_link_fish: Fish
+        learn_more_link_worms: Worms
         learn_more_link_invertebrates: Invertebrates
         learn_more_link_crustaceans: Crustaceans
         learn_more_link_mollusks: Mollusks

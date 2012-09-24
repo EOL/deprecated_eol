@@ -289,7 +289,6 @@ sv:
   add_a_new_search_suggestion: Lägg till ett nytt sökförslag
   add_a_new_term: Lägg till en ny term
   add_a_new_user: Lägg till ett nytt användare
-  add_article_to_page_link_button: Lägg till en artikel på denna sida
   add_brief_summary_to_page_link_button: Lägg till en kort sammanfattning till denna sida
   add_item_to_new_collection: Lägg till "%{item}" till en ny samling
   add_language: Lägg till språk
@@ -725,7 +724,6 @@ sv:
   dato_create_cancel: Avbryt
   dato_create_user_text_error: Tyvärr, ett fel uppstod. Artikeln inte kunde läggas till.
   dato_edit_cancel: Avbryt
-  dato_edit_text_link_button: Redigera denna artikel
   dato_edit_text_title: Redigera artikel
   dato_new_edit_user_text_fieldset_content_header: Artikelinnehåll
   dato_new_edit_user_text_fieldset_information_header: Artikelinformation
@@ -800,7 +798,6 @@ sv:
   error_default_description: Vi beklagar, vi har stött på ett problem. Om problemet uppstår, var god skicka ett e-postmeddelande till <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>
   error_default_page_title: Hoppsan.
   error_homepage_or_search_option: "Du kan antingen gå tillbaka till <a href=\"/\">hemsidan</a> eller använda vårt sökverktyg:"
-  esc_key_hides_this_message: (Tryck på ESC för att dölja detta meddelande)
   example_colon: "Exempel:"
   explore: Utforska
   explore_what_we_know_about_taxon: Utforska vad EOL vet om %{taxon}.

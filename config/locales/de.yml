@@ -766,7 +766,8 @@ de:
   add_a_new_topic_area: Einen neuen Themenbereich hinzufügen
   add_a_new_user: Fügen Sie einen neuen Nutzer hinzu
   add_a_taxon_association_label: Fügen Sie eine neue Zuordnung zu einem Taxon hinzu
-  add_article_to_page_link_button: Fügen Sie dieser Seite einen Artikel hinzu
+  add_article_instead: stattdessen einen Artikel hinzufügen
+  add_article_to_page_button: Einen Artikel hinzufügen
   add_association_submit_button: Zuordnung hinzufügen
   add_brief_summary_to_page_link_button: Fügen Sie dieser Seite eine kurze Zusammenfassung hinzu
   add_citizen_science_resources_to_page_link_button: Füge auf dieser Seite einen Link zu „Wissenschaft für Bürger“ hinzu
@@ -777,6 +778,8 @@ de:
   add_identification_resources_to_page_link_button: Fügen Sie dieser Seite Identifizierungsquellen hinzu
   add_item_to_new_collection: „%{item}“ zu einer neuen Sammlung hinzufügen
   add_language: Sprache hinzufügen
+  add_link_instead: stattdessen einen Link hinzufügen
+  add_link_to_page_button: Link hinzufügen
   add_new_association_link: Fügen Sie eine neue Zuordnung hinzu
   add_new_tag_suggestion: Neuen Stichwortvorschlag hinzufügen
   add_page: Seite hinzufügen
@@ -1297,6 +1300,7 @@ de:
       meta_title: Tiere - Pflanzen - Bilder und Informationen
       see_all_eol_news: weitere <span class="assistive">Nachrichten der EOL</span>
       see_all_recent_activites: weitere <span class="assistive">Aktivitäten während der letzten Woche</span> ansehen
+      see_all_statistics: mehr <span class="assistive">EOL-Statistiken</span> ansehen
   content_has_been_updated: Der Inhalt wurde aktualisiert.
   content_notes_not_shown_to_us: "Anmerkungen zum Inhalt (werden Nutzern nicht angezeigt):"
   content_partner: Inhaltspartner
@@ -1674,13 +1678,16 @@ de:
   dato_create_user_text_missing_user_exception: Es ist nicht möglich einen Text für das DataObject oder das UsersDataObject zu erstellen, sofern die taxon_id gleich Null ist.
   dato_create_user_text_validation_error: Bitte stellen Sie sicher, dass Sie das Formular richtig ausgefüllt haben.
   dato_edit_cancel: Abbrechen
-  dato_edit_text_link_button: Diesen Artikel bearbeiten
+  dato_edit_link_button: Diesen Link bearbeiten
+  dato_edit_link_title: Link bearbeiten
+  dato_edit_text_button: Diesen Artikel bearbeiten
   dato_edit_text_page_description: Vielen Dank, dass Sie Ihr Fachwissen bei EOL einbringen. Der überarbeitete Artikel wird Ihrer Beobachtungsliste hinzugefügt, so dass Sie zukünftig alle weiteren Beiträge nachverfolgen und seinen Kuratierungsstatus prüfen können.
   dato_edit_text_title: Artikel bearbeiten
-  dato_location_created: "Ort erstellt: #{loc}"
+  dato_location_created: "Ort erstellt: %{loc}"
   dato_new_edit_user_text_fieldset_content_header: Artikelinhalt
   dato_new_edit_user_text_fieldset_information_header: Artikelinformationen
   dato_new_edit_user_text_form_tip: Ihr fertiggeschriebener Artikel wird auf der Seite des Taxon veröffentlicht. Sofern Sie kein Kurator sind, wird er als „ungeprüft“ markiert sein, bis er von einem Kurator geprüft wurde. Die Felder Unterkapitel, Text, Sprache und Lizenz sind erforderlich (%{required_icon}), alle anderen Felder sind optional. Sofern Sie eine Creative-Commons-Lizenz „Namensnennung“ (CC BY) auswählen, geben Sie bitte auch den Rechteinhaber an, bzw. lassen Sie das Feld leer, um Ihren vollen Namen zu setzen. Gemeinfreiheit bedarf keines Rechteinhabers. Für weitere Anleitung lesen Sie bitte die <a href="%{add_article_help_url}">Hilfeseite zum Hinzufügen von Artikeln</a>.
+  dato_new_edit_user_text_link_fieldset_content_header: Daten verknüpfen
   dato_new_text_for_taxon_page_title: Einen Artikel zu <i>%{taxon}</i> hinzufügen
   dato_new_text_page_description: Vielen Dank, dass bei EOL mitarbeiten. Der überarbeitete Artikel wird Ihrer Beobachtungsliste hinzugefügt, so dass Sie zukünftig alle weiteren Beiträge nachverfolgen und seinen Kuratierungsstatus prüfen können.
   dato_update_user_text_error: Es ist leider ein Fehler aufgetreten, so dass der Artikel nicht aktualisiert werden konnte.
@@ -1839,7 +1846,6 @@ de:
   error_log_detail: Fehlerprotokolldetail
   error_logging_active: Fehlerprotokollierung aktive
   error_watch_collections_cannot_be_shared: Beobachtungslisten zu Sammlungen können leider nicht mit anderen geteilt werden
-  esc_key_hides_this_message: (Die Esc-Taste blendet diese Meldung aus)
   every_method_can_also_return_json_response: Jede Methode kann auch eine Antwort in JSON zurückgeben, indem man die Dateiendung .json anhängt.
   example_colon: "Beispiel:"
   exception: Ausnahme
@@ -1872,6 +1878,7 @@ de:
   file: Datei
   file_id: Dateikennung
   file_size: Dateigröße
+  filed_under_label: Gespeichert als %{label}
   fill_in_a_message_below_to_send_email_to_user: "Verfassen Sie hier eine Nachricht, die an diesen Nutzer der Website geschickt werden soll. Die Nachricht wird nach dem Speichern dieses Formulars versandt:"
   filter_button: Filtern
   filter_by_day: Nach Tag filtern
@@ -1894,6 +1901,7 @@ de:
   filter_by_type_image_option_with_count: 
     one: "%{count} Bild"
     other: "%{count} Bilder"
+  filter_by_type_link_option: Links
   filter_by_type_name_option: Namen
   filter_by_type_object_curated_option: Kuratierte Objekte
   filter_by_type_photosynth_option: Photonsynthetisch aktive
@@ -2040,6 +2048,11 @@ de:
         rights_statement_more: Angabe der Nutzungsrechte entsprechend dem Erfordernis der Creativ-Commons-Lizenzen „Namensnennung“ (CC BY). Bitte geben Sie den Hinweis auf die Nutzungsrechte <q cite="http://creativecommons.org/licenses/by/3.0">in der vom Autor oder Lizenzgeber vorgegebenen Art und Weise</q> an.
         source_url: URL zum ursprünglichen Datenobjekt
         toc_item: Unterkapitel
+      data_object_link: 
+        description: Beschreibung <small>(HTML-Code ist zulässig)</small>
+        link_type: Kategorie
+        source_url: URL des Links
+        toc_item: Betreff
       eol_statistic: 
         date_one: Datum
         date_two: Datum
@@ -2182,6 +2195,9 @@ de:
         create: Artikel hinzufügen
         create_text: Artikel hinzufügen
         update: Artikel speichern
+      data_object_link: 
+        create: Link hinzufügen
+        update: Link speichern
       eol_statistic: 
         change_date: Statistiken zu Tagen abrufen
         download_csv: Als CSV-Datei herunterladen
@@ -2321,6 +2337,8 @@ de:
   item_type_image_assistive: Dieses Objekt ist ein Bild
   item_type_image_map: Karte
   item_type_image_map_assistive: Dieses Objekt ist das Bild einer Karte
+  item_type_link: Link
+  item_type_link_assistive: Dieses Objekt ist ein Link
   item_type_map: Karte
   item_type_map_assistive: Dieses Objekt ist eine Karte
   item_type_person: Person
@@ -2447,6 +2465,10 @@ de:
   limits_the_number_of_returned_text_objects: begrenzt die Anzahl der zurückgegebenen Textobjekte
   limits_the_number_of_returned_video_objects: begrenzt die Anzahl der zurückgegebenen Videoobjekte
   link_name: Name des Links
+  link_rating: Bewertung des Links
+  links_with_count: 
+    one: "%{count} Link"
+    other: "%{count} Links"
   list_newsletter_emails: E-Mails der Rundschreiben auflisten
   list_of_activity_combinations: Liste der Aktivitätskombinationen während der Dauer von 5 Minuten
   listing_collections: Sammlungen auflisten
@@ -2456,6 +2478,8 @@ de:
   literature_bhl_link: Die in der BHL entdeckte Bibliographie ansehen
   literature_empty: Keine Verweise gefunden.
   literature_header: Quellen
+  literature_links: Literaturverweise
+  literature_links_link: Literaturverweise
   literature_references: Literaturquellen
   location: Standort
   location_colon: "Ort:"
@@ -2468,6 +2492,7 @@ de:
   login_to_the_website_as: Anmeldung auf der Website als %{username}
   logo_header: Logo
   logout: Abmelden
+  looking_up_url: URL wird aufgerufen …
   main_content_area: "Hauptinhaltsbereich:"
   main_database_colon: "Hauptdatenbanken:"
   main_master_database_colon: "Führende Hauptdatenbanken:"
@@ -2533,6 +2558,7 @@ de:
   merge_data_ready: Sie sind nun entweder bereit die Daten der folgenden Klassifikationen mit dieser Seite zu einem Taxon zusammenzuführen oder sie zu einer gesonderten Seite abzutrennen. Bitte seien Sie sich <i>absolut</i> sicher, dass Sie alle Klassifikationen ausgewählt haben, die das Zieltaxon betreffen. Sofern Sie beispielsweise eine Motte von einer Seite zu einem Pilz entfernen, prüfen Sie unbedingt <i>alle</i> oben angezeigten Klassifikationen, um sicherzustellen, dass Sie alle zur (gleichen) Motte, ausgewählt haben.
   merge_pending: Das Zusammenführen der Klassifikationen nimmt Zeit in Anspruch. Die Seiten mit den betroffenen Taxa werden nun für die Bearbeitung von Klassifikationen gesperrt, bis die Zusammenführung fertig durchgeführt wurde. Sie werden eine E-Mail mit der Information zur Fertigstellung der Zusammenführung erhalten. Zudem wird eine entsprechende Information im Nachrichtenfeed der Seite angezeigt werden.
   message_colon: "Nachricht:"
+  message_will_disappear: (diese Nachricht wird kurzzeitig nicht angezeigt)
   meta_description_colon: "Meta-Beschreibung:"
   meta_keywords_colon: "Meta-Keywords:"
   meta_title_site_name: Enzyklopädie des Lebens
@@ -2591,6 +2617,7 @@ de:
   moved_items_from_collection_with_count_notice: 
     one: "%{count} Objekt von %{name} verschoben."
     other: "%{count} Objekte von %{name} verschoben."
+  multimedia_links: Multimedialinks
   must_be_associated_with_either_a_user_or_a_community: Muss entweder einem Nutzer oder einer Gemeinschaft zugeordnet sein.
   must_be_checked_in_to_show: "- muss selektiert sein, um es Nutzern anzuzeigen"
   must_be_checked_in_to_view: "- muss selektiert sein, um es sehen zu können"
@@ -2624,11 +2651,13 @@ de:
   never: Nie
   new_collection: Neue Sammlung
   new_contact_us_topic: Neues Thema für die Kontaktaufnahme
+  new_news_item: Neue Nachricht
   new_search_suggestion: Neuer Suchvorschlag
   new_upload: Neu Hochgeladenes
   new_user: Neuer Nutzer
   news_archive_page: Seite des Neuigkeitenarchivs
   news_available_in_languages: "Diese Seite ist verfügbar auf:"
+  news_date: Datum der Nachricht
   news_item: Nachricht
   news_item_date_as_shown_to_user: "Das Datum der Nachricht, wie es dem Nutzer angezeigt wird (nur im RSS-Feed mit Zeitangabe):"
   news_item_is_visible_on_website_after_this_time: "Die Nachricht wird nach diesem Zeitpunkt auf der Website angezeigt:"
@@ -2777,6 +2806,7 @@ de:
   object_type_collection_option: Sammlung
   object_type_community_option: Gemeinschaft
   object_type_image_option: Bild
+  object_type_link_option: Link
   object_type_sound_option: Geräusche
   object_type_taxon_concept_option: Taxonkonzept
   object_type_text_option: Text
@@ -2980,6 +3010,7 @@ de:
   related_names_with_count: 
     one: "%{count} ähnlicher Name"
     other: "%{count} ähnliche Namen"
+  related_organizations: Ähnliche Organisationen
   remove: Entfernen
   remove_curatorship_colon: "Kuratierung entfernen:"
   remove_data_object_association: Zuordnung entfernen
@@ -3490,6 +3521,8 @@ de:
   taxon_identification_resources_empty: Bislang hat noch niemand für diese Seite Identifizierungsquellen zur Verfügung gestellt.
   taxon_identification_resources_header: Identifizierungsquellen
   taxon_identification_resources_link: Identifizierungsquellen
+  taxon_multimedia_links_link: Multimedialinks
+  taxon_news_and_event_links_link: Links zu Nachrichten und Ereignissen
   taxon_newsfeed: Nachrichtenfeed zu Taxa
   taxon_not_found_error: „%{taxon}“ wurde nicht gefunden
   taxon_nucleotide_sequences_link: Nukleotidsequenzen
@@ -3574,6 +3607,8 @@ de:
   this_is_a_focus_collection_for_community: Dies ist der Schwerpunkt von %{community}.
   this_is_the_breakdown_of_chapt: Dies ist eine Aufschlüsselung der Kapitel und Unterkapitel sowie der entsprechenden Kategorie im SPM.
   this_is_the_label_that_will_be_used_for_attribution: Dies ist die Bezeichnung, die für die Herkunftsnachweise verwendet werden wird
+  this_link_cannot_be_curated_because_unpublished: Dieser Link kann nicht kuratiert werden, da er unveröffentlicht ist.
+  this_link_is_unpublished: Dieser Link ist unveröffentlicht.
   this_map_cannot_be_curated_because_unpublished: Diese Karte kann nicht kuratiert werden, da er unveröffentlicht ist.
   this_map_is_unpublished: Diese Karte ist unveröffentlicht.
   this_method_takes_an_integer_or_string: Diese Methode gibt zu einer Ganzzahl oder einer Zeichenkette, die der eindeutigen Bezeichner eines Taxons in der Datenbank eines Anbieters ist, in Verbindung mit der Hierarchiekennung des Datenanbieters, die Seitenkennung von EOL zum entsprechenden Taxons aus. Sofern man bspw. die %{link_provider}-API nutzt, kann man die Hierarchiekennung bei EOL zur Kennung %{itis_id} des „Integrated Taxonomic Information System“ (ITIS) ermitteln. Danach kann man in der EOL nach der „ITIS Taxonomic Serial Number“ (TSN) 180542,<i>Ursus maritimus</i> suchen, indem man %{link_url} aufruft.
@@ -3656,6 +3691,7 @@ de:
   uploaded_content: Hochgeladener Inhalt
   uploaded_on: Hochgeladen am
   url: URL
+  url_not_accessible: Auf diese URL kann nicht zugegriffen werden.
   us_dolars_75: 75 USD
   us_dollars_100: 100 USD
   us_dollars_35: 35 USD

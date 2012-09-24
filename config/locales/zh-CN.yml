@@ -546,7 +546,6 @@ zh-CN:
   add_a_new_topic_area: 添加一个新的主题领域
   add_a_new_user: 添加一个新用户
   add_a_taxon_association_label: 添加一条分类关联
-  add_article_to_page_link_button: 向此页添加一篇文章
   add_association_submit_button: 添加关联
   add_brief_summary_to_page_link_button: 为此页添加简要说明
   add_citizen_science_resources_to_page_link_button: 将一条公民科学链接添加到此页
@@ -1329,7 +1328,6 @@ zh-CN:
   dato_create_user_text_missing_user_exception: 如果物种ID为空，则不能创建文字数据项或用户数据项。
   dato_create_user_text_validation_error: 请确认您是否正确填完了表格。
   dato_edit_cancel: 取消
-  dato_edit_text_link_button: 编辑这篇文章
   dato_edit_text_title: 编辑文章
   dato_new_edit_user_text_fieldset_content_header: 文章内容
   dato_new_edit_user_text_fieldset_information_header: 文章信息
@@ -1451,7 +1449,6 @@ zh-CN:
   error_log_detail: 错误日志详细信息
   error_logging_active: 错误日志激活
   error_watch_collections_cannot_be_shared: 关注的收藏不能被分享
-  esc_key_hides_this_message: (按下esc键隐藏这条消息)
   example_colon: 例子：
   exception: 例外
   exceptions: 
@@ -2379,10 +2376,12 @@ zh-CN:
   never: 从不
   new_collection: 新的收藏
   new_contact_us_topic: 新建“联系我们”项
+  new_news_item: 新建新闻项
   new_search_suggestion: 新检索建议
   new_upload: 新的上传
   new_user: 新用户
   news_archive_page: 新闻存档页面
+  news_date: 新闻时间
   news_item: 新闻项
   news_item_date_as_shown_to_user: 对用户显示的新闻项时间(仅在Rss订阅中显示时间)：
   news_item_title: 新闻项

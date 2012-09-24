@@ -770,7 +770,6 @@ es:
   add_a_new_topic_area: Agregar un nuevo tema
   add_a_new_user: Agregar un nuevo usuario
   add_a_taxon_association_label: Añadir una asociación de taxón
-  add_article_to_page_link_button: Añadir un artículo a esta página
   add_association_submit_button: añadir asociación
   add_brief_summary_to_page_link_button: Añadir un breve resumen a esta página
   add_citizen_science_resources_to_page_link_button: Agregar un vínculo de ciencia ciudadana a esta página
@@ -1301,6 +1300,7 @@ es:
       meta_title: Animales - Plantes - Imágenes e Información
       see_all_eol_news: Ver más <span class="assistive">noticias de EOL</span>
       see_all_recent_activites: Ver más <span class="assistive">actividades de la última semana</span>
+      see_all_statistics: Ver más <span class="assistive">estadísticas de EOL</span>
   content_has_been_updated: Se ha actualizado el contenido.
   content_notes_not_shown_to_us: "Notas de contenido (no se muestran al usuario):"
   content_partner: Socio de Contenido
@@ -1678,7 +1678,6 @@ es:
   dato_create_user_text_missing_user_exception: No se puede construir un texto DataObject o UsersDataObject si el identificador del taxón es nulo.
   dato_create_user_text_validation_error: Asegúrese de haber completado el formulario correctamente.
   dato_edit_cancel: Cancelar
-  dato_edit_text_link_button: Editar este artículo
   dato_edit_text_page_description: ¡Gracias por contribuir con su experiencia de EOL. El artículo revisado será añadido a su Lista de Vigilancia para que pueda seguir las conversaciones relacionadas con él y comprobar su estado de curación.
   dato_edit_text_title: Editar artículo
   dato_location_created: "Ubicación creada: # {loc}"
@@ -1843,7 +1842,6 @@ es:
   error_log_detail: Detalle del registro de error
   error_logging_active: Registro activo de errores
   error_watch_collections_cannot_be_shared: Ver las colecciones que no pueden ser compartidas
-  esc_key_hides_this_message: (la tecla ESC oculta este mensaje)
   every_method_can_also_return_json_response: Todo método puede devolver una respuesta JSON agregando la Exporte esta lista como CSV
   example_colon: Ejemplo
   exception: Excepción
@@ -2628,11 +2626,13 @@ es:
   never: Nunca
   new_collection: Nueva colección
   new_contact_us_topic: Nuevo tema de contacto
+  new_news_item: Nuevo elemento de noticias
   new_search_suggestion: Nueva sugerencia de búsqueda
   new_upload: Nueva carga
   new_user: Nuevo usuario
   news_archive_page: página de archivo de noticias
   news_available_in_languages: "Esta página está disponible en:"
+  news_date: Fecha de la noticia
   news_item: noticia
   news_item_date_as_shown_to_user: "La fecha de la noticia tal como se muestra al usuario (la hora sólo se muestra en la fuente RSS):"
   news_item_is_visible_on_website_after_this_time: "La noticia estará visible en el sitio web después de esta hora:"

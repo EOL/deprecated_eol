@@ -614,7 +614,6 @@ ar:
   add_a_new_topic_area: أضف موضوع جديد
   add_a_new_user: اضف مستخدم جديد
   add_a_taxon_association_label: أضف رابط لأصنوفة
-  add_article_to_page_link_button: أضف مقال إلى تلك الصفحة
   add_association_submit_button: اضافة رابط
   add_brief_summary_to_page_link_button: أضف نبذة مختصرة إلى تلك الصفحة
   add_citizen_science_resources_to_page_link_button: أضف رابط مواطن العلم لهذه الصفحة
@@ -1484,7 +1483,6 @@ ar:
   dato_create_user_text_missing_user_exception: يتعذر تكوين عنصر بيانات نصي أو عنصر بيانات خاص بالمستخدمين إذا كانت الأصنوفة تساوي لا شيء.
   dato_create_user_text_validation_error: نرجو التأكد من ملؤكم النموذج بصورة صحيحة.
   dato_edit_cancel: إلغاء
-  dato_edit_text_link_button: عدل  هذا المقال
   dato_edit_text_page_description: نشكرك على المساهمة في  موسوعة الحياة. ستضاف مساهمتك فى قائمة المشاهدة الخاصة بك حتى تتمكن من متابعة أي مداخلات متعلقة بها ووضعها من حيث اﻹشراف.
   dato_edit_text_title: تعديل المقالة
   dato_new_edit_user_text_fieldset_content_header: محتوى المقال
@@ -1647,7 +1645,6 @@ ar:
   error_log_detail: تفاصيل سجل الأخطاء
   error_logging_active: إن تسجيل الأخطاء نشط
   error_watch_collections_cannot_be_shared: لا يمكن مشاركة مجموعات المراقبة
-  esc_key_hides_this_message: (مفتاح "esc" يخفي تلك الرسالة)
   every_method_can_also_return_json_response: يمكن لكل طريقة أن تقدم استجابة بصيغة جسون عن طريق إضافة امتداد (.json)
   example_colon: "مثال:"
   exception: استثناء
@@ -2422,10 +2419,12 @@ ar:
   never: أبدًا
   new_collection: مجموعة جديدة
   new_contact_us_topic: موضوع "اتصل بنا" جديد
+  new_news_item: خبر جدبد
   new_search_suggestion: اقتراح بحث جديد
   new_upload: تحميل جديد
   new_user: مستخدم جديد
   news_archive_page: صفحة أرشيف الأخبار
+  news_date: تاريخ الخبر
   news_item: خبر
   news_item_date_as_shown_to_user: "تاريخ خبر جديد كما يظهر للمستخدم (يظهر الوقت فقط في الخبر المباشر RSS) :"
   news_item_title: خبر

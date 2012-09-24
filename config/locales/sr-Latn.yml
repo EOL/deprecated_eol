@@ -207,7 +207,6 @@ sr-Latn:
   add_a_new_topic_area: Dodaj novu tematsku oblast
   add_a_new_user: Dodaj novog korisnika
   add_a_taxon_association_label: Dodaj vezu na taksonu
-  add_article_to_page_link_button: Dodaj članak na stranicu
   add_association_submit_button: dodaj vezu
   add_brief_summary_to_page_link_button: Dodaj kratak pregled na stranicu
   add_collection_to_a_new_community: Dodaj zbirku „%{collection}“ u novu zajednicu
@@ -826,7 +825,6 @@ sr-Latn:
   dato_create_user_text_missing_user_exception: Ne mogu da sročim DataObject ili UsersDataObject za tekst ako nedostaje naznaka za takson.
   dato_create_user_text_validation_error: Proverite da li ste ispravno popunili obrazac.
   dato_edit_cancel: Otkaži
-  dato_edit_text_link_button: Uredi ovaj članak
   dato_edit_text_page_description: Hvala vam što doprinosite EOL-u. Članak će biti dodat na vaš spisak nadgledanja tako da možete pratiti svaki razgovor koji je u vezi s njim, kao i da proverite njegov status.
   dato_edit_text_title: Uređivanje članka
   dato_new_edit_user_text_fieldset_content_header: Sadržaj članka
@@ -950,7 +948,6 @@ sr-Latn:
   error_log_detail: Detalji o dnevniku greške
   error_logging_active: Zapisivanje grešaka je aktivno
   error_watch_collections_cannot_be_shared: Zbirke za nadgledanje ne mogu da se dele
-  esc_key_hides_this_message: (poruka se sakriva klikom na taster ''iskejp'')
   every_method_can_also_return_json_response: Svaka metoda može da vrati i JSON odgovor ako se doda nastavak .json
   example_colon: "Primer:"
   exception: Izuzetak
@@ -1558,10 +1555,12 @@ sr-Latn:
   never: Nikad
   new_collection: Nova zbirka
   new_contact_us_topic: Nova tema u „Kontaktirajte s nama“
+  new_news_item: Nova novost
   new_search_suggestion: Novi predlog za pretragu
   new_upload: Novo otpremanje
   new_user: Novi korisnik
   news_archive_page: arhiv novosti
+  news_date: Datum novosti
   news_item: novost
   news_item_date_as_shown_to_user: "Datum novosti kao što je prikazano korisniku (u dovodu RSS se prikazuje samo vreme):"
   news_item_title: Novost

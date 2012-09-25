@@ -228,37 +228,28 @@ module ApplicationHelper
   # NOTE - Styles will only be cached for English. Sorry; impractical to maintain copies of all cached files for
   # every language.
   def stylesheet_include_i18n(stylesheet, options = {})
-    read_stylesheet_packages unless @stylesheet_packages
+    # TODO - read_stylesheet_packages unless @stylesheet_packages
+    @stylesheet_packages = {stylesheet => [stylesheet]} # This is a hack to get around failures.
     raise "** UNKNOWN STYLESHEET LOADED: #{stylesheet}" unless @stylesheet_packages.has_key?(stylesheet.to_s)
     code = ''
     if I18n.locale.to_s == 'ar' # Annoying that I have to check this, but c'est la vie. (See what I did there?)
       @stylesheet_packages[stylesheet.to_s].each do |file|
         language_stylesheet = "/languages/#{I18n.locale}/#{file}.css" # These are *replacements*
-        if File.exists?(File.join(RAILS_ROOT, "public", language_stylesheet))
+        if File.exists?(Rails.root.join("public", language_stylesheet))
           code += stylesheet_link_tag(language_stylesheet, options)
         end
       end
     else
-      code += stylesheet_link_merged(*[stylesheet, options])
+      #TODO - code += stylesheet_link_merged(*[stylesheet, options])
+      code += stylesheet_link_tag(*[stylesheet, options])
       @stylesheet_packages[stylesheet.to_s].each do |file| # These are *additions*
         language_stylesheet = "/stylesheets/#{file}-#{I18n.locale}.css"
-        if File.exists?(File.join(RAILS_ROOT, "public", language_stylesheet))
+        if File.exists?(Rails.root.join("public", language_stylesheet))
           code += stylesheet_link_tag(language_stylesheet, options)
         end
       end
     end
     return code
-  end
-
-  def read_stylesheet_packages
-    array_of_hashes = YAML::load(File.open(File.join(RAILS_ROOT, 'config', 'asset_packages.yml')))['stylesheets']
-    # Oddly, this gem requires the packages to be in array of hashes with a single key.  [shrug]  Clean up:
-    @stylesheet_packages = {}
-    array_of_hashes.each do |hsh|
-      hsh.keys.each do |k|
-        @stylesheet_packages[k] = hsh[k]
-      end
-    end
   end
 
   # Version of error_messages_for that displays translated error messages

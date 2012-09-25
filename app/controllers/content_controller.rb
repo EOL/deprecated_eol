@@ -301,7 +301,7 @@ private
       expire_fragment(:action => 'index', :action_suffix => "march_of_life_#{current_language.iso_639_1}")
     end
     NewsItem
-    $CACHE.fetch('homepage/news_expiration/' + current_language.iso_639_1, :expires_in => $HOMEPAGE_ACTIVITY_LOG_CACHE_TIME.minutes) do
+    Rails.cache.fetch('homepage/news_expiration/' + current_language.iso_639_1, :expires_in => $HOMEPAGE_ACTIVITY_LOG_CACHE_TIME.minutes) do
       expire_fragment(:action => 'index', :action_suffix => "news_#{current_language.iso_639_1}")
     end
   end

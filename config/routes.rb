@@ -398,7 +398,7 @@ EolUpgrade::Application.routes.draw do
   
   match 'content/random_homepage_images' => 'content#random_homepage_images'
   match 'content/donate_complete' => 'content#donate_complete'
-  match '/maintenance' => 'content/maintenance', :as => 'maintenance'
+  match '/maintenance' => 'content#maintenance', :as => 'maintenance'
   
 
   # These are expensive and broad and should be kept at the bottom of the file:

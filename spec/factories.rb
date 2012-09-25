@@ -1024,24 +1024,6 @@ FactoryGirl.define do
     description     { generate(:string) }
   end
 
-  factory :translated_link_type do
-    association     :link_type
-    language        { Language.english }
-    label           { Factory.next(:string) }
-  end
-
-  factory :translated_mime_type do
-    association     :mime_type
-    language        { Language.english }
-    label           { Factory.next(:string) }
-  end
-
-  factory :translated_mime_type do
-    association     :mime_type
-    language        { Language.english }
-    label           { generate(:string) }
-  end
-
   factory :translated_news_item do
     association     :news_item
     language        { Language.english }

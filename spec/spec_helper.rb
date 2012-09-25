@@ -9,6 +9,7 @@ require Rails.root.join('spec', 'custom_matchers')
 
 require 'email_spec'
 require 'eol_scenarios'
+require Rails.root.join('lib', 'eol_data')
 EolScenario.load_paths = [ Rails.root.join('scenarios') ]
 
 

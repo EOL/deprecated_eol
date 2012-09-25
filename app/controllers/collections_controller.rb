@@ -664,7 +664,7 @@ private
         elsif r['instance'].object.taxon_concept_metric && r['richness_score'] != r['instance'].object.taxon_concept_metric.richness_score
           collection_item_ids_to_reindex << r['instance'].id
         end
-      elsif ['Text', 'Image', 'DataObject', 'Video', 'Sound', 'Link'].include?(r['object_type'])
+      elsif ['Text', 'Image', 'DataObject', 'Video', 'Sound', 'Link', 'Map'].include?(r['object_type'])
         if r['data_rating'] != r['instance'].object.data_rating
           collection_item_ids_to_reindex << r['instance'].id
         end

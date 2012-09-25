@@ -18,6 +18,34 @@ module EOL
         results
       end
 
+      def self.unique_link_type_ids(taxon_concept_id, options = {})
+        options[:get_unique_link_type_ids] = 1
+        facets = get_special_facet_counts(taxon_concept_id, options, 'link_type_id')
+        return facets.keys
+      end
+
+      def self.unique_toc_ids(taxon_concept_id, options = {})
+        options[:get_unique_toc_ids] = 1
+        facets = get_special_facet_counts(taxon_concept_id, options, 'toc_id')
+        return facets.keys
+      end
+      
+      def self.get_special_facet_counts(taxon_concept_id, options, facet_field)
+        options[:page] = 1
+        options[:per_page] = 0
+        url = prepare_search_url(taxon_concept_id, options)
+        url << '&rows=0'
+        res = open(url).read
+        response = JSON.load res
+        facets = {}
+        f = response['facet_counts']['facet_fields'][facet_field]
+        f.each_with_index do |rt, index|
+          next if index % 2 == 1 # if its odd, skip this. Solr has a strange way of returning the facets in JSON
+          facets[rt.to_i] = f[index+1]
+        end
+        return facets
+      end
+
       def self.add_resource_instances!(docs, options)
         includes = []
         selects = options[:preload_select] || { :data_objects => '*' }
@@ -222,6 +250,13 @@ module EOL
         if options[:facet_by_resource]
           url << '&facet.field=resource_id&facet.mincount=1&facet.limit=300&facet=on'
         end
+        if options[:get_unique_link_type_ids]
+          url << '&facet.field=link_type_id&facet.mincount=1&facet.limit=300&facet=on'
+        end
+        if options[:get_unique_toc_ids]
+          url << '&facet.field=toc_id&facet.mincount=1&facet.limit=300&facet=on'
+        end
+        
         url
       end
       

@@ -1016,12 +1016,9 @@ class TaxonConcept < ActiveRecord::Base
   def media_count(user, selected_hierarchy_entry = nil)
     cache_key = "media_count_#{self.id}"
     cache_key += "_#{selected_hierarchy_entry.id}" if selected_hierarchy_entry && selected_hierarchy_entry.class == HierarchyEntry
-    vetted_types = ['trusted', 'unreviewed']
-    visibility_types = ['visible']
+    vetted_types, visibility_types = TaxonConcept.vetted_and_visibility_types_for_user(user)
     if user && user.is_curator?
       cache_key += "_curator"
-      vetted_types << 'untrusted'
-      visibility_types << 'invisible'
     end
     @media_count ||= Rails.cache.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 1.days) do
       best_images = self.data_objects_from_solr({
@@ -1134,7 +1131,8 @@ class TaxonConcept < ActiveRecord::Base
         :per_page => 30,
         :language_ids => [ the_user.language.id ],
         :allow_nil_languages => (the_user.language.id == Language.default.id),
-        :toc_ids => overview_toc_item_ids })
+        :toc_ids => overview_toc_item_ids,
+        :filter_by_subtype => true })
       DataObject.preload_associations(overview_text_objects, { :data_objects_hierarchy_entries => [ :hierarchy_entry,
         :vetted, :visibility ] })
       overview_text_objects = DataObject.sort_by_rating(overview_text_objects, self)
@@ -1206,12 +1204,7 @@ class TaxonConcept < ActiveRecord::Base
   end
   
   def text_for_user(the_user = nil, options = {})
-    vetted_types = ['trusted', 'unreviewed']
-    visibility_types = ['visible']
-    if the_user.class == User && the_user.is_curator?
-      vetted_types << 'untrusted'
-      visibility_types << 'invisible'
-    end
+    vetted_types, visibility_types = TaxonConcept.vetted_and_visibility_types_for_user(the_user)
     options[:per_page] ||= 500
     options[:data_type_ids] = DataType.text_type_ids
     options[:vetted_types] = vetted_types
@@ -1221,6 +1214,10 @@ class TaxonConcept < ActiveRecord::Base
   end
   
   def data_objects_from_solr(solr_query_parameters = {})
+    EOL::Solr::DataObjects.search_with_pagination(self.id, self.class.default_solr_query_parameters(solr_query_parameters))
+  end
+  
+  def self.default_solr_query_parameters(solr_query_parameters)
     solr_query_parameters[:page] ||= 1  # return FIRST page by default
     solr_query_parameters[:per_page] ||= 30  # return 30 objects by default
     solr_query_parameters[:sort_by] ||= 'status'  # enumerated list defined in EOL::Solr::DataObjects
@@ -1253,7 +1250,37 @@ class TaxonConcept < ActiveRecord::Base
     end
     solr_query_parameters[:user] ||= nil
     solr_query_parameters[:facet_by_resource] ||= false  # this will add a facet parameter to the solr query
-    EOL::Solr::DataObjects.search_with_pagination(self.id, solr_query_parameters)
+    return solr_query_parameters
+  end
+  
+  def get_unique_link_type_ids_for_user(the_user, options)
+    return @get_unique_link_type_ids_for_user if @get_unique_link_type_ids_for_user
+    vetted_types, visibility_types = TaxonConcept.vetted_and_visibility_types_for_user(the_user)
+    options[:data_type_ids] = DataType.text_type_ids
+    options[:vetted_types] = vetted_types
+    options[:visibility_types] = visibility_types
+    options[:filter_by_subtype] = false
+    @get_unique_link_type_ids_for_user = EOL::Solr::DataObjects.unique_link_type_ids(self.id, self.class.default_solr_query_parameters(options))
+  end
+  
+  def get_unique_toc_ids_for_user(the_user, options)
+    return @get_unique_toc_ids_for_user if @get_unique_toc_ids_for_user
+    vetted_types, visibility_types = TaxonConcept.vetted_and_visibility_types_for_user(the_user)
+    options[:data_type_ids] = DataType.text_type_ids
+    options[:vetted_types] = vetted_types
+    options[:visibility_types] = visibility_types
+    options[:filter_by_subtype] = true
+    @get_unique_toc_ids_for_user = EOL::Solr::DataObjects.unique_toc_ids(self.id, self.class.default_solr_query_parameters(options))
+  end
+  
+  def self.vetted_and_visibility_types_for_user(the_user)
+    vetted_types = ['trusted', 'unreviewed']
+    visibility_types = ['visible']
+    if the_user.class == User && the_user.is_curator?
+      vetted_types << 'untrusted'
+      visibility_types << 'invisible'
+    end
+    return vetted_types, visibility_types
   end
 
   def media_facet_counts

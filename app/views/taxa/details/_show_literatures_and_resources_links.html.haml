@@ -1,9 +1,9 @@
 .section
-  - unless $show_resources_links.blank?
+  - unless @show_resources_links.blank?
     %h4= link_to I18n.t(:resources),
       @selected_hierarchy_entry ? taxon_entry_resources_path(@taxon_concept, @selected_hierarchy_entry) : taxon_resources_path(@taxon_concept)
     %ul
-      - $show_resources_links.each do |link|
+      - @show_resources_links.each do |link|
         - case link
         - when 'partner_links'
           %li= link_to(I18n.t(:taxon_partner_links_link),
@@ -35,7 +35,7 @@
   %h4= link_to I18n.t(:literature),
     @selected_hierarchy_entry ? taxon_entry_literature_path(@taxon_concept, @selected_hierarchy_entry) : taxon_literature_path(@taxon_concept.id)
   %ul
-    - $show_literature_references_links.each do |link|
+    - @show_literature_references_links.each do |link|
       - case link
       - when 'literature_references'
         %li= link_to(I18n.t(:literature_references),

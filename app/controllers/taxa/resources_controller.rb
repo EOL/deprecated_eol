@@ -21,7 +21,8 @@ class Taxa::ResourcesController < TaxaController
 
     @contents = @taxon_concept.text_for_user(current_user, {
       :language_ids => [ current_language.id ],
-      :toc_ids => [ TocItem.identification_resources.id ] })
+      :toc_ids => [ TocItem.identification_resources.id ],
+      :filter_by_subtype => true })
     current_user.log_activity(:viewed_taxon_concept_resources, :taxon_concept_id => @taxon_concept.id)
   end
 
@@ -37,7 +38,8 @@ class Taxa::ResourcesController < TaxaController
     citizen_science_links = TocItem.cached_find_translated(:label, 'Citizen Science links', 'en')
     @contents = @taxon_concept.text_for_user(current_user, {
       :language_ids => [ current_language.id ],
-      :toc_ids => [ citizen_science.id, citizen_science_links.id ] })
+      :toc_ids => [ citizen_science.id, citizen_science_links.id ],
+      :filter_by_subtype => true })
     current_user.log_activity(:viewed_taxon_concept_resources_citizen_science, :taxon_concept_id => @taxon_concept.id)
   end
 
@@ -54,7 +56,8 @@ class Taxa::ResourcesController < TaxaController
     education_chapters = [ education_root ] + education_root.children
     @contents = @taxon_concept.text_for_user(current_user, {
       :language_ids => [ current_language.id ],
-      :toc_ids => education_chapters.collect{ |toc_item| toc_item.id } })
+      :toc_ids => education_chapters.collect{ |toc_item| toc_item.id },
+      :filter_by_subtype => true })
     current_user.log_activity(:viewed_taxon_concept_resources_education, :taxon_concept_id => @taxon_concept.id)
   end
 

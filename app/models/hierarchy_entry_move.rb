@@ -1,6 +1,6 @@
 class HierarchyEntryMove < ActiveRecord::Base
 
-  named_scope :with_errors, :conditions => ["error IS NOT NULL AND error != ''"]
+  scope :with_errors, :conditions => ["error IS NOT NULL AND error != ''"]
 
   belongs_to :classification_curation
   belongs_to :hierarchy_entry

@@ -154,13 +154,14 @@ class String
     return text.gsub(/<em\/>/i, '')
   end
 
-  def truncate(length)
-    if self.length >= length
-      self[0..length-1] + "..."
-    else
-      self
-    end
-  end
+  # TODO - this was failing in app/views/activity_logs/_comment.html.haml ...Which s/n h/b calling this, but was.
+  #def truncate(length)
+  #  if self.length >= length
+  #    self[0..length-1] + "..."
+  #  else
+  #    self
+  #  end
+  #end
 
   def truncate_html(*args)
     options = args.extract_options!

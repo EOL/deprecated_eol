@@ -23,38 +23,38 @@
         %ul
           %li
             %ul
-              %li= link_to t('learn_more_link_animals', :scope => t_scope), cms_page_path('animals')
-              %li= link_to t('learn_more_link_mammals', :scope => t_scope), cms_page_path('mammals')
-              %li= link_to t('learn_more_link_birds', :scope => t_scope), cms_page_path('birds')
-              %li= link_to t('learn_more_link_amphibians', :scope => t_scope), cms_page_path('amphibians')
-              %li= link_to t('learn_more_link_reptiles', :scope => t_scope), cms_page_path('reptiles')
-              %li= link_to t('learn_more_link_fish', :scope => t_scope), cms_page_path('fish')
+              %li= link_to t('learn_more_link_animals', :scope => t_scope), cms_page_path('animals', :language => 'en')
+              %li= link_to t('learn_more_link_mammals', :scope => t_scope), cms_page_path('mammals', :language => 'en')
+              %li= link_to t('learn_more_link_birds', :scope => t_scope), cms_page_path('birds', :language => 'en')
+              %li= link_to t('learn_more_link_amphibians', :scope => t_scope), cms_page_path('amphibians', :language => 'en')
+              %li= link_to t('learn_more_link_reptiles', :scope => t_scope), cms_page_path('reptiles', :language => 'en')
+              %li= link_to t('learn_more_link_fish', :scope => t_scope), cms_page_path('fish', :language => 'en')
           %li
             %ul
-              %li= link_to t('learn_more_link_invertebrates', :scope => t_scope), cms_page_path('invertebrates')
-              %li= link_to t('learn_more_link_crustaceans', :scope => t_scope), cms_page_path('crustaceans')
-              %li= link_to t('learn_more_link_mollusks', :scope => t_scope), cms_page_path('mollusks')
-              %li= link_to t('learn_more_link_insects', :scope => t_scope), cms_page_path('insects')
-              %li= link_to t('learn_more_link_spiders', :scope => t_scope), cms_page_path('spiders')
-              %li= link_to t('learn_more_link_worms', :scope => t_scope), cms_page_path('worms')
+              %li= link_to t('learn_more_link_invertebrates', :scope => t_scope), cms_page_path('invertebrates', :language => 'en')
+              %li= link_to t('learn_more_link_crustaceans', :scope => t_scope), cms_page_path('crustaceans', :language => 'en')
+              %li= link_to t('learn_more_link_mollusks', :scope => t_scope), cms_page_path('mollusks', :language => 'en')
+              %li= link_to t('learn_more_link_insects', :scope => t_scope), cms_page_path('insects', :language => 'en')
+              %li= link_to t('learn_more_link_spiders', :scope => t_scope), cms_page_path('spiders', :language => 'en')
+              %li= link_to t('learn_more_link_worms', :scope => t_scope), cms_page_path('worms', :language => 'en')
           %li
             %ul
-              %li= link_to t('learn_more_link_plants', :scope => t_scope), cms_page_path('plants')
-              %li= link_to t('learn_more_link_flowering_plants', :scope => t_scope), cms_page_path('flowering_plants')
-              %li= link_to t('learn_more_link_trees', :scope => t_scope), cms_page_path('trees')
+              %li= link_to t('learn_more_link_plants', :scope => t_scope), cms_page_path('plants', :language => 'en')
+              %li= link_to t('learn_more_link_flowering_plants', :scope => t_scope), cms_page_path('flowering_plants', :language => 'en')
+              %li= link_to t('learn_more_link_trees', :scope => t_scope), cms_page_path('trees', :language => 'en')
             %ul
-              %li= link_to t('learn_more_link_fungi', :scope => t_scope), cms_page_path('fungi')
-              %li= link_to t('learn_more_link_mushrooms', :scope => t_scope), cms_page_path('mushrooms')
-              %li= link_to t('learn_more_link_molds', :scope => t_scope), cms_page_path('molds')
+              %li= link_to t('learn_more_link_fungi', :scope => t_scope), cms_page_path('fungi', :language => 'en')
+              %li= link_to t('learn_more_link_mushrooms', :scope => t_scope), cms_page_path('mushrooms', :language => 'en')
+              %li= link_to t('learn_more_link_molds', :scope => t_scope), cms_page_path('molds', :language => 'en')
           %li
             %ul
-              %li= link_to t('learn_more_link_bacteria', :scope => t_scope), cms_page_path('bacteria')
+              %li= link_to t('learn_more_link_bacteria', :scope => t_scope), cms_page_path('bacteria', :language => 'en')
             %ul
-              %li= link_to t('learn_more_link_protists', :scope => t_scope), cms_page_path('protists')
+              %li= link_to t('learn_more_link_protists', :scope => t_scope), cms_page_path('protists', :language => 'en')
             %ul
-              %li= link_to t('learn_more_link_archaea', :scope => t_scope), cms_page_path('archaea')
+              %li= link_to t('learn_more_link_archaea', :scope => t_scope), cms_page_path('archaea', :language => 'en')
             %ul
-              %li= link_to t('learn_more_link_viruses', :scope => t_scope), cms_page_path('viruses')
+              %li= link_to t('learn_more_link_viruses', :scope => t_scope), cms_page_path('viruses', :language => 'en')
         .version
           %h6= link_to I18n.t(:encyclopedia_of_life), root_url
           - full_version = ENV["APP_VERSION"].blank? ? I18n.t(:development_version_name) : ENV["APP_VERSION"]
@@ -69,12 +69,12 @@
           %li= link_to I18n.t(:flickr), $EOL_FLICKR_ACCOUNT, :class => "flickr", :rel => :nofollow
           %li= link_to I18n.t(:youtube), $EOL_YOUTUBE_ACCOUNT, :class => "youtube", :rel => :nofollow
         %ul
-          %li= link_to t('questions_link_biodiversity', :scope => t_scope), cms_page_path('about_biodiversity')
-          %li= link_to t('questions_link_species', :scope => t_scope),  cms_page_path('species_concepts')
-          %li= link_to t('questions_link_discovering_species', :scope => t_scope), cms_page_path('discovering_diversity')
-          %li= link_to t('questions_link_naming_species', :scope => t_scope), cms_page_path('naming_species')
-          %li= link_to t('questions_link_biological_classification', :scope => t_scope), cms_page_path('taxonomy_phylogenetics')
-          %li= link_to t('questions_link_invasive_species', :scope => t_scope), cms_page_path('invasive_species')
-          %li= link_to t('questions_link_indicator_species', :scope => t_scope), cms_page_path('indicator_species')
-          %li= link_to t('questions_link_model_organism', :scope => t_scope), cms_page_path('model_organism')
-          %li= link_to t('questions_link_contributing_to_research', :scope => t_scope), cms_page_path('contribute_research')
+          %li= link_to t('questions_link_biodiversity', :scope => t_scope), cms_page_path('about_biodiversity', :language => 'en')
+          %li= link_to t('questions_link_species', :scope => t_scope),  cms_page_path('species_concepts', :language => 'en')
+          %li= link_to t('questions_link_discovering_species', :scope => t_scope), cms_page_path('discovering_diversity', :language => 'en')
+          %li= link_to t('questions_link_naming_species', :scope => t_scope), cms_page_path('naming_species', :language => 'en')
+          %li= link_to t('questions_link_biological_classification', :scope => t_scope), cms_page_path('taxonomy_phylogenetics', :language => 'en')
+          %li= link_to t('questions_link_invasive_species', :scope => t_scope), cms_page_path('invasive_species', :language => 'en')
+          %li= link_to t('questions_link_indicator_species', :scope => t_scope), cms_page_path('indicator_species', :language => 'en')
+          %li= link_to t('questions_link_model_organism', :scope => t_scope), cms_page_path('model_organism', :language => 'en')
+          %li= link_to t('questions_link_contributing_to_research', :scope => t_scope), cms_page_path('contribute_research', :language => 'en')

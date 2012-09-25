@@ -28,6 +28,7 @@ class RandomHierarchyImage < ActiveRecord::Base
     Name
     TaxonConceptExemplarImage
     Hierarchy
+    Vetted
   end
 
   def self.random_set(limit = 10, hierarchy = nil, options = {})

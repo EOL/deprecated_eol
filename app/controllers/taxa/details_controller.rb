@@ -64,57 +64,38 @@ protected
   
 private
   def literatures_and_resources_links
-    $show_resources_links = []
-    $show_literature_references_links = []
-    
-    $show_resources_links << 'partner_links' unless @taxon_concept.content_partners_links.blank?
-    
-    @identification_resources_count = @taxon_concept.text_for_user(current_user, {
-      :language_ids => [ current_language.id ],
-      :toc_ids => [ TocItem.identification_resources.id ] })
-    $show_resources_links << 'identification_resources' unless @identification_resources_count.blank?
-    
+    concept_link_type_ids = @taxon_concept.get_unique_link_type_ids_for_user(current_user, {
+      :language_ids => [ current_language.id ] })
+    concept_toc_ids = @taxon_concept.get_unique_toc_ids_for_user(current_user, {
+      :language_ids => [ current_language.id ] })
+
+    @show_resources_links = []
+    @show_literature_references_links = []
+
+    @show_resources_links << 'partner_links' unless @taxon_concept.content_partners_links.blank?
+    @show_resources_links << 'identification_resources' if concept_toc_ids.include?(TocItem.identification_resources.id)
+
     citizen_science = TocItem.cached_find_translated(:label, 'Citizen Science', 'en')
     citizen_science_links = TocItem.cached_find_translated(:label, 'Citizen Science links', 'en')
-    @citizen_science_contents_count = @taxon_concept.text_for_user(current_user, {
-      :language_ids => [ current_language.id ],
-      :toc_ids => [ citizen_science.id, citizen_science_links.id ] })
-    $show_resources_links << 'citizen_science' unless @citizen_science_contents_count.blank?
-    
+    # & is array intersection
+    @show_resources_links << 'citizen_science' unless (concept_toc_ids & [citizen_science.id, citizen_science_links.id]).empty?
+
     # there are two education chapters - one is the parent of the other
     education_root = TocItem.cached_find_translated(:label, 'Education', 'en', :find_all => true).detect{ |toc_item| toc_item.is_parent? }
     education_chapters = [ education_root ] + education_root.children
-    @education_contents_count = @taxon_concept.text_for_user(current_user, {
-      :language_ids => [ current_language.id ],
-      :toc_ids => education_chapters.collect{ |toc_item| toc_item.id } })
-    $show_resources_links << 'education' unless @education_contents_count.blank?
-    
+    education_toc_ids = education_chapters.collect{ |toc_item| toc_item.id }
+    # & is array intersection
+    @show_resources_links << 'education' unless (concept_toc_ids & education_toc_ids).empty?
+
     if !Resource.ligercat.nil? && HierarchyEntry.find_by_hierarchy_id_and_taxon_concept_id(Resource.ligercat.hierarchy.id, @taxon_concept.id)
-      $show_resources_links << 'biomedical_terms'
+      @show_resources_links << 'biomedical_terms'
     end
+    @show_resources_links << 'nucleotide_sequences' unless @taxon_concept.nucleotide_sequences_hierarchy_entry_for_taxon.nil?
+    @show_resources_links << 'news_and_event_links' unless (concept_link_type_ids & [LinkType.news.id, LinkType.blog.id]).empty?
+    @show_resources_links << 'related_organizations' if concept_link_type_ids.include?(LinkType.organization.id)
+    @show_resources_links << 'multimedia_links' if concept_link_type_ids.include?(LinkType.multimedia.id)
 
-    $show_resources_links << 'nucleotide_sequences' unless @taxon_concept.nucleotide_sequences_hierarchy_entry_for_taxon.nil?
-
-    @news_and_event_links_contents ||= @taxon_concept.text_for_user(current_user, {
-      :language_ids => [ current_language.id ],
-      :link_type_ids => [ LinkType.news.id, LinkType.blog.id ] })
-    $show_resources_links << 'news_and_event_links' unless @news_and_event_links_contents.blank?
-
-    @related_organizations_contents ||= @taxon_concept.text_for_user(current_user, {
-      :language_ids => [ current_language.id ],
-      :link_type_ids => [ LinkType.organization.id ] })
-    $show_resources_links << 'related_organizations' unless @related_organizations_contents.blank?
-
-    @multimedia_links_contents ||= @taxon_concept.text_for_user(current_user, {
-      :language_ids => [ current_language.id ],
-      :link_type_ids => [ LinkType.multimedia.id ] })
-    $show_resources_links << 'multimedia_links' unless @multimedia_links_contents.blank?
-
-    $show_literature_references_links << 'literature_references' if Ref.literature_references_for?(@taxon_concept.id)
-    
-    @literature_links_contents ||= @taxon_concept.text_for_user(current_user, {
-      :language_ids => [ current_language.id ],
-      :link_type_ids => [ LinkType.paper.id ] })
-    $show_literature_references_links << 'literature_links' unless @literature_links_contents.blank?
+    @show_literature_references_links << 'literature_references' if Ref.literature_references_for?(@taxon_concept.id)
+    @show_literature_references_links << 'literature_links' if concept_link_type_ids.include?(LinkType.paper.id)
   end
 end

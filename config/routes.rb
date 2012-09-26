@@ -280,8 +280,11 @@ EolUpgrade::Application.routes.draw do
     end
   end
 
+  resources :news_items, :only => [:index, :show] do
+    resources :translated_news_items, :as => :translations, :except => [:show, :index]
+  end
+
   # Putting these after the complex resources because they are less common.
-  resources :news_items, :only => [:index, :show]
   resources :tasks, :task_states, :task_names, :feed_items, :random_images
   resources :recent_activities, :only => [:index]
   resources :classifications, :only => [:create]

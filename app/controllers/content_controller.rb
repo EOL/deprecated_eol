@@ -178,6 +178,11 @@ class ContentController < ApplicationController
     raise "This is an exception." # I18n not req'd
   end
 
+  def check_connection
+    require 'lib/check_connection'
+    render :text => CheckConnection.all_instantiable_models.join("<br/>")
+  end
+
   def language
     @page_title = I18n.t(:site_language)
     if request.post? == false

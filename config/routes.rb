@@ -106,6 +106,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.connect 'loggertest', :controller => 'content', :action => 'loggertest' # This is used for configuring logs and log levels.
   map.connect 'boom', :controller => 'content', :action => 'boom'
+  map.connect 'check_connection', :controller => 'content', :action => 'check_connection'
 
   # users
   map.resources :users, :path_names => { :new => :register },

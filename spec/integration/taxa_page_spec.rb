@@ -202,7 +202,7 @@ describe 'Taxa page' do
       body.should have_selector('form#new_name')
       new_name = FactoryGirl.generate(:string)
       fill_in 'Name', :with => new_name
-      click_button 'add name'
+      click_button 'Add name'
       body.should have_selector('td', :content => new_name.capitalize_all_words)
     end
 
@@ -222,7 +222,7 @@ describe 'Taxa page' do
     it 'should show some references' do
       should have_selector('.ref_list li')
       @taxon_concept.data_objects.collect(&:refs).flatten.each do |ref|
-        if ref.visibility_id == Visibility.invisible.id
+        if ref.visibility_id == Visibility.invisible.id || ref.published != 1
           should_not include(ref.full_reference)
         else
           should include(ref.full_reference)
@@ -462,8 +462,7 @@ describe 'Taxa page' do
     end
     it 'should show comments from superceded taxa' do
       visit overview_taxon_path @testy[:id]
-      # TODO - seems to be a legitimate failure: the activity log does NOT include the superceded comment:
-      body.should include(@testy[:superceded_comment].body)
+      page.body.should include(@testy[:superceded_comment].body)
     end
   end
 

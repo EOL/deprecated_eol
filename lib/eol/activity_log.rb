@@ -139,7 +139,12 @@ module EOL
     end
 
     def self.taxon_concept_activities(source, options = {})
-      results = EOL::Solr::ActivityLog.search_with_pagination("(feed_type_affected:TaxonConcept OR feed_type_affected:AncestorTaxonConcept) AND feed_type_primary_key:#{source.id}", options)
+      id_clause = "feed_type_primary_key:#{source.id}"
+      TaxonConcept.find_all_by_supercedure_id(source.id).each do |tc|
+        id_clause += " OR feed_type_primary_key:#{tc.id}"
+      end
+      query = "(feed_type_affected:TaxonConcept OR feed_type_affected:AncestorTaxonConcept) AND (#{id_clause})"
+      results = EOL::Solr::ActivityLog.search_with_pagination(query, options)
     end
 
     def self.other_activities(source, options = {})

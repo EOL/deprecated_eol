@@ -122,9 +122,12 @@ describe Admins::TranslatedNewsItemsController do
 
   describe 'DELETE destroy' do
     before :all do
-      @translated_news_item_to_delete = TranslatedNewsItem.gen(:news_item_id => @news_item.id, :title => "Test Translated News",
-                                        :language => Language.english, :body => "Test Translated News Item Body", :active_translation => true)
-      @delete_translated_news_item_params = { :news_item_id => @news_item.id, :id => @translated_news_item_to_delete.id }
+      @translated_news_item_to_delete ||=
+        TranslatedNewsItem.gen(:news_item_id => @news_item.id, :title => "Test Translated News",
+                               :language => Language.english, :body => "Test Translated News Item Body",
+                               :active_translation => true)
+      @delete_translated_news_item_params =
+        { :news_item_id => @news_item.id, :id => @translated_news_item_to_delete.id }
     end
     it 'should only allow access to EOL administrators' do
       delete :destroy

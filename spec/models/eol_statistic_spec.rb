@@ -38,11 +38,11 @@ describe EolStatistic do
       EolStatistic.sorted_report_attributes(:data_objects).map{|attribute| stats[0].has_attribute?(attribute).should be_true}
     end
     it 'should select earliest' do
-      stats = EolStatistic.overall.earliest
+      stats = EolStatistic.overall.earliest(1)
       EolStatistic.sorted_report_attributes(:overall).map{|attribute| stats[0].has_attribute?(attribute).should be_true}
     end
     it 'should select latest' do
-      stats = EolStatistic.overall.latest
+      stats = EolStatistic.overall.latest(1)
       EolStatistic.sorted_report_attributes(:overall).map{|attribute| stats[0].has_attribute?(attribute).should be_true}
     end
   end

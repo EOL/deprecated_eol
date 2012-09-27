@@ -20,7 +20,7 @@ class CreateClassificationCurations < ActiveRecord::Migration
       t.datetime :completed_at
     end
 
-    add_index :hiearchy_entry_moves, [:hierarchy_entry_id, :classification_curation_id], :unique => true
+    execute 'CREATE UNIQUE INDEX hierarchy_entry_curation ON hiearchy_entry_moves(hierarchy_entry_id, classification_curation_id)'
 
     ChangeableObjectType.create(:ch_object_type => 'classification_curation')
 

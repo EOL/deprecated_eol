@@ -162,17 +162,11 @@ class Notifier < ActionMailer::Base
   end
 
   def unsubscribed_to_notifications(user)
-    subject     I18n.t(:subject, :scope => [:notifier, :unsubscribed_to_notifications])
-    recipients  user.email
-    from        $NO_REPLY_EMAIL_ADDRESS
-    body        :user => user
-  end
-
-  def unsubscribed_to_notifications(user)
-    subject     I18n.t(:subject, :scope => [:notifier, :unsubscribed_to_notifications])
-    recipients  user.email
-    from        $NO_REPLY_EMAIL_ADDRESS
-    body        :user => user
+    @user = user
+    mail(
+      :subject => I18n.t(:subject, :scope => [:notifier, :unsubscribed_to_notifications]),
+      :to => user.email,
+      :from => $NO_REPLY_EMAIL_ADDRESS )
   end
 
 private

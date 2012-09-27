@@ -400,7 +400,7 @@ describe 'Taxa page' do
   # community tab
   context 'community tab' do
     before(:all) do
-      visit(taxon_community_index_path(@testy[:id]))
+      visit(taxon_communities_path(@testy[:id]))
       @section = 'community'
       @body = body
     end
@@ -408,15 +408,15 @@ describe 'Taxa page' do
     it_should_behave_like 'taxon name - taxon_concept page'
     it_should_behave_like 'taxon community tab'
     it "should render communities - curators page" do
-      visit(taxon_community_index_path(@taxon_concept))
+      visit(taxon_communities_path(@taxon_concept))
       body.should have_selector("h3", :content => "Communities")
     end
     it "should render communities - collections page" do
-      visit(collections_taxon_community_path(@taxon_concept))
+      visit(collections_taxon_communities_path(@taxon_concept))
       body.should have_selector("h3", :content => "Collections")
     end
     it "should render communities - curators page" do
-      visit(curators_taxon_community_path(@taxon_concept))
+      visit(curators_taxon_communities_path(@taxon_concept))
       body.should have_selector("h3", :content => "Curators")
     end
   end

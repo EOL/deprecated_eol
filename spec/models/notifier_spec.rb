@@ -222,8 +222,8 @@ describe Notifier do
   
   describe '#unsubscribed_to_notifications' do
     before(:all) do
-      @edit_user_notification_url = "http://eol.org/users/#{@user.id}/notification/edit"
-      @email = Notifier.deliver_unsubscribed_to_notifications(@user)
+      @edit_user_notification_url = "/users/#{@user.id}/notification/edit"
+      @email = Notifier.unsubscribed_to_notifications(@user).deliver
     end
 
     it_should_behave_like 'email_to_user'
@@ -233,15 +233,15 @@ describe Notifier do
     end
 
     it "should contain a verification url" do
-      @email.should have_text(/#{@edit_user_notification_url}/)
+      @email.should have_body_text(/#{@edit_user_notification_url}/)
     end
 
   end
   
   describe '#unsubscribed_to_notifications' do
     before(:all) do
-      @edit_user_notification_url = "http://eol.org/users/#{@user.id}/notification/edit"
-      @email = Notifier.deliver_unsubscribed_to_notifications(@user)
+      @edit_user_notification_url = "/users/#{@user.id}/notification/edit"
+      @email = Notifier.unsubscribed_to_notifications(@user).deliver
     end
 
     it_should_behave_like 'email_to_user'
@@ -251,7 +251,7 @@ describe Notifier do
     end
 
     it "should contain a verification url" do
-      @email.should have_text(/#{@edit_user_notification_url}/)
+      @email.should have_body_text(/#{@edit_user_notification_url}/)
     end
 
   end

@@ -89,7 +89,6 @@ class CollectionItem < ActiveRecord::Base
     params['date_created'] = self.created_at.solr_timestamp rescue nil
     params['date_modified'] = self.updated_at.solr_timestamp rescue nil
     params['sort_field'] = self.sort_field
-    params['link_type_id'] = link_type_id if link_type_id
     if params['sort_field'].blank?
       params.delete('sort_field')
     end

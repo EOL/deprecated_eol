@@ -693,8 +693,11 @@ private
   end
   
   def link_type_id
-    @li ||= params[:data_object].delete(:link_types)[:id].to_a
-    @li.empty? ? nil : @li.first.to_i
+    id_in_params = nil
+    if arr = params[:data_object].delete(:link_types)
+      id_in_params = arr[:id].to_i
+    end
+    @li ||= id_in_params ? id_in_params : nil
   end
   
 

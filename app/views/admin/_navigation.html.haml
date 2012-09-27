@@ -12,10 +12,6 @@
   %li
     = link_to I18n.t("edit_table_of_contents"),{:controller=>'administrator/table_of_contents', :action=>'index'}, {:class=>'toc_item active'}
   %h3
-    =I18n.t("news_items")
-  %li
-    = link_to I18n.t("edit_news_items"),{:controller=>'administrator/news_item',:action=>'index'}, {:class=>'toc_item active'}
-  %h3
     =I18n.t("comments_and_tags")
   %li
     = link_to I18n.t("view_user_comments"), {:controller => 'administrator/comment', :action => 'index'}, {:class=>'toc_item active'}

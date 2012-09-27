@@ -222,7 +222,7 @@ describe Notifier do
   
   describe '#unsubscribed_to_notifications' do
     before(:all) do
-      @edit_user_notification_url = "#{$SITE_DOMAIN_OR_IP}/users/#{@user.id}"
+      @edit_user_notification_url = "/users/#{@user.id}/notification/edit"
       @email = Notifier.unsubscribed_to_notifications(@user).deliver
     end
 
@@ -240,7 +240,6 @@ describe Notifier do
   
   describe '#unsubscribed_to_notifications' do
     before(:all) do
-      @edit_user_notification_url = "#{$SITE_DOMAIN_OR_IP}/users/#{@user.id}"
       @email = Notifier.unsubscribed_to_notifications(@user).deliver
     end
 

@@ -1,11 +1,11 @@
 class NotificationFrequency < ActiveRecord::Base
 
   def self.create_defaults
-    NotificationFrequency.create(:frequency => 'never')
-    NotificationFrequency.create(:frequency => 'newsfeed only')
-    NotificationFrequency.create(:frequency => 'weekly')
-    NotificationFrequency.create(:frequency => 'daily digest')
-    NotificationFrequency.create(:frequency => 'send immediately')
+    NotificationFrequency.create(:frequency => 'never') unless self.never
+    NotificationFrequency.create(:frequency => 'newsfeed only') unless self.newsfeed_only
+    NotificationFrequency.create(:frequency => 'weekly') unless self.weekly
+    NotificationFrequency.create(:frequency => 'daily digest') unless self.daily
+    NotificationFrequency.create(:frequency => 'send immediately') unless self.immediately
   end
 
   def self.never

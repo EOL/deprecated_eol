@@ -15,7 +15,7 @@
     .article.stats
       %h3
         = I18n.t(:currently_in_eol)
-        %small= link_to t('.see_all_statistics'), statistics_path
+        %small= link_to raw(t('.see_all_statistics')), statistics_path
       %ul
         %li.taxon
           %dl
@@ -24,19 +24,19 @@
         %li.users
           %dl
             %dd= number_with_delimiter(EOL::GlobalStatistics.find("users"), :delimiter => ",")
-            %dt= link_to I18n.t(:members_like_you), search_path('*', :type => ['user'])
+            %dt= link_to I18n.t(:members_like_you), search_path(:q => '*', :type => ['user'])
         %li.collections
           %dl
             %dd= number_with_delimiter(EOL::GlobalStatistics.find("collections"), :delimiter => ",")
-            %dt= link_to I18n.t(:collections_link), search_path('*', :type => ['collection'])
+            %dt= link_to I18n.t(:collections_link), search_path(:q => '*', :type => ['collection'])
         %li.communities
           %dl
             %dd= number_with_delimiter(EOL::GlobalStatistics.find("communities"), :delimiter => ",")
-            %dt= link_to I18n.t(:communities_link), search_path('*', :type => ['community'])
+            %dt= link_to I18n.t(:communities_link), search_path(:q => '*', :type => ['community'])
         %li.images
           %dl
             %dd= number_with_delimiter(EOL::GlobalStatistics.find("images"), :delimiter => ",")
-            %dt= link_to I18n.t(:images), search_path('*', :type => ['image'])
+            %dt= link_to I18n.t(:images), search_path(:q => '*', :type => ['image'])
         %li.partners
           %dl
             %dd= number_with_delimiter(EOL::GlobalStatistics.find("content_partners"), :delimiter => ",")

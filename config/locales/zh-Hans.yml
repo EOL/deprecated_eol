@@ -2136,7 +2136,7 @@ zh-Hans:
   assistive_media_header: "媒体"
   assistive_details_header: "详细信息"
   assistive_literature_header: "文献"
-  assistive_names_classifictions_header: "分类系统"
+  assistive_names_classifications_header: "分类系统"
   assistive_names_common_header: "俗名"
   assistive_names_related_header: "相关名称"
   assistive_names_synonyms_header: "异名"

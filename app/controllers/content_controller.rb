@@ -165,6 +165,7 @@ class ContentController < ApplicationController
   end
 
   def loggertest
+    restrict_to_admins
     time = Time.now.strftime('%Y-%m-%d %H:%M:%S')
     logger.fatal "~~ FATAL #{time}"
     logger.error "** ERROR #{time}"
@@ -172,6 +173,19 @@ class ContentController < ApplicationController
     logger.info  "++ INFO #{time}"
     logger.debug ".. DEBUG #{time}"
     render :text => "Logs written at #{time}."
+  end
+
+  def test_timeout
+    restrict_to_admins
+    sco = SiteConfigurationOption.find_by_parameter('test_timeout')
+    if sco
+      render :text => "Already testing a timeout elsewhere. Please be patient."
+    else
+      SiteConfigurationOption.create(:parameter => 'test_timeout', :value => params[:time])
+      sleep(params[:time].to_i)
+      SiteConfigurationOption.delete_all(:parameter => 'test_timeout')
+      render :text => "Done."
+    end
   end
 
   def boom

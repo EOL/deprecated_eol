@@ -250,7 +250,7 @@ class DataObject < ActiveRecord::Base
       begin
         dato.toc_items = Array(TocItem.find(options[:toc_id]))
         dato.build_relationship_to_taxon_concept_by_user(options[:taxon_concept], options[:user])
-        unless options[:link_type_id].blank?
+        unless options[:link_type_id].blank? && options[:link_type_id] != 0
           dato.data_objects_link_type = DataObjectsLinkType.create(:data_object => dato, :link_type_id => options[:link_type_id])
         end
       rescue => e
@@ -275,6 +275,10 @@ class DataObject < ActiveRecord::Base
     obj = DataObject.find_by_sql("SELECT #{select} FROM data_objects WHERE guid='#{guid}' AND published=1 ORDER BY id desc LIMIT 1")
     return nil if obj.blank?
     return obj[0]
+  end
+  
+  def previous_revision
+    DataObject.find_by_guid_and_language_id(self.guid, self.language_id, :conditions => "id < #{self.id}", :order=> 'id desc', :limit => 1)
   end
 
   def self.image_cache_path(cache_url, size = '580_360', specified_content_host = nil)
@@ -301,7 +305,7 @@ class DataObject < ActiveRecord::Base
       begin
         new_dato.toc_items = Array(TocItem.find(options[:toc_id]))
         new_dato.unpublish_previous_revisions
-        unless options[:link_type_id].blank?
+        unless options[:link_type_id].blank? && options[:link_type_id] != 0
           new_dato.data_objects_link_type = DataObjectsLinkType.create(:data_object => new_dato, :link_type_id => options[:link_type_id])
         end
         
@@ -670,7 +674,9 @@ class DataObject < ActiveRecord::Base
         self.class.uncached do
           # creating another instance to remove any change of this instance not
           # matching the database and indexing stale or changed information
-          revisions_by_date.each do |object_to_index|
+          object_to_index = DataObject.find(self.id)
+          EOL::Solr::DataObjectsCoreRebuilder.reindex_single_object(object_to_index)
+          if d = previous_revision
             EOL::Solr::DataObjectsCoreRebuilder.reindex_single_object(object_to_index)
           end
         end
@@ -1132,8 +1138,10 @@ class DataObject < ActiveRecord::Base
 
   def unpublish_previous_revisions
     DataObject.find(:all, :conditions => "id != #{self.id} AND guid = '#{self.guid}'").each do |dato|
-      dato.update_attribute(:published, 0)
-      dato.update_solr_index
+      if dato.published?
+        dato.update_attribute(:published, 0)
+        dato.update_solr_index
+      end
     end
   end
 

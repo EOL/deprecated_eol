@@ -230,7 +230,7 @@ EolUpgrade::Application.routes.draw do
     resources :comments
   end
 
-  resources :eol_statistics, :as => 'statistics', :only => [:index] do
+  resources :statistics, :controller => 'eol_statistics', :only => [:index] do
     collection do
       get 'content_partners'
       get 'curators'
@@ -316,7 +316,7 @@ EolUpgrade::Application.routes.draw do
 
   # Search (note there is more search at the end of the file; it is expensive):
   match '/search' => 'search#index', :as => 'search'
-  match '/search/:q' => 'search#index', :q => /[A-Za-z% ][A-Za-z0-9% ]*/
+  match '/search/:q' => 'search#index'
   match '/found/:id' => 'taxa#show', :as => 'found'
 
   # Named session routes (see also resources):

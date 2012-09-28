@@ -16,4 +16,4 @@
         .article.list.updates
           .details.news_details
             %p.meta= I18n.l(@translated_news_item.news_item.display_date, :format => :long)
-            %p= @translated_news_item.body
+            %p= raw(@translated_news_item.body)

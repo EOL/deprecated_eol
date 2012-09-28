@@ -8,4 +8,4 @@
   - if view_style == 'list' && @filter.nil?
     %small= I18n.t(:item_type_person)
 - unless ['gallery','list'].include?(view_style)
-  = link_to [ h(item.username), sanitize(item.tag_line).balance_tags ].compact.join('<br/>'), user_path(item)
+  = link_to raw([ h(item.username), sanitize(item.tag_line).balance_tags ].compact.join('<br/>')), user_path(item)

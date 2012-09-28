@@ -32,32 +32,6 @@ $("html :not(.thumbnails ul li)").bind("ajaxStart", function(){
   $(this).removeClass('busy');
 });
 
-(function($) {
-  $.fn.accessibleClick = function(key_codes, cb) {
-    if ("join" in key_codes) { key_codes.push(13); }
-    else if (typeof key_codes === "function") { cb = key_codes; }
-    else { return this; }
-    return this.each(function() {
-      $(this).click(function(e) {
-        if ((!e.keyCode && e.layerY > 0) || e.layerY === undefined) { return cb.apply(this); }
-        else { return false; }
-      }).keyup(function(e) {
-        if (e.keyCode === 13 || $.inArray(e.keyCode, key_codes) !== -1) {
-          return cb.apply(this);
-        }
-      });
-    });
-  };
-
-  $.fn.accessibleHover = function(over, out) {
-    return this.bind('mouseenter mouseover focusin focus', over).bind('mouseleave mouseout focusout blur', out);
-  };
-
-  $.fn.hasAttr = function(attr) {
-    return this.is("[" + attr + "]");
-  };
-})(jQuery);
-
 $(function() {
 
   $(".heading form.filter, form.select_submit").find(".actions").hide().find(":submit").end().end().find("select")
@@ -354,9 +328,9 @@ $(function() {
               scientific_name = image_data['taxon_scientific_name'];
               common_name = image_data['taxon_common_name'];
               if(common_name == null) {
-                common_name = ''
+                common_name = '';
               }
-              alt_text = scientific_name
+              alt_text = scientific_name;
               opts.addSlide('<a href="'+ image_data['taxon_page_path'] + '"><img src="' +
                 image_data['image_url'] +
                 '" alt="' + alt_text + 
@@ -399,7 +373,7 @@ $(function() {
       }
       var name_html = '<span class="scientific">' + img.attr("data-scientific_name") + '</span>';
       if(img.attr("data-common_name") != null && img.attr("data-common_name") != '') {
-        name_html += '<span class="common">' + img.attr("data-common_name") + '</span>'
+        name_html += '<span class="common">' + img.attr("data-common_name") + '</span>';
       }
       term_p.css({
         textAlign: 'center'
@@ -547,12 +521,18 @@ $(function() {
         if (e.keyCode === 13 || $.inArray(e.keyCode, key_codes) !== -1) {
           return cb.apply(this);
         }
-      }));
+      });
     });
-  })($("#statistics"));
+  };
 
+  $.fn.accessibleHover = function(over, out) {
+    return this.bind('mouseenter mouseover focusin focus', over).bind('mouseleave mouseout focusout blur', out);
+  };
 
-});
+  $.fn.hasAttr = function(attr) {
+    return this.is("[" + attr + "]");
+  };
+})(jQuery);
 
 // trying to generalize Ajax calls for EOL. Parameters:
 //   el: The element firing the event.  It helps us find stuff, please pass it.

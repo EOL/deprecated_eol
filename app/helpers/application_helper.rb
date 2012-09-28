@@ -1,30 +1,5 @@
 module ApplicationHelper
 
-  def navigation_node(hierarchy_entry, opts = {})
-    link = opts[:link_to_taxa] ?
-      overview_taxon_path(hierarchy_entry.taxon_concept_id) :
-      overview_taxon_entry_path(hierarchy_entry.taxon_concept_id, hierarchy_entry)
-    node = link_to(raw(hierarchy_entry.italicized_name.firstcap), link)
-    node << ' '
-    node << navigation_show_descendants_link(hierarchy_entry, opts.reverse_merge(:link => link))
-  end
-
-  def navigation_show_descendants_link(hierarchy_entry, opts = {})
-    link = if opts[:link]
-             opts.delete(:link)
-           else
-             opts[:link_to_taxa] ?
-             overview_taxon_path(hierarchy_entry.taxon_concept_id) :
-             overview_taxon_entry_path(hierarchy_entry.taxon_concept_id, hierarchy_entry)
-           end
-    if hierarchy_entry.number_of_descendants == 0
-      ''
-    else
-      open_tree_path = taxon_entry_tree_path(hierarchy_entry.taxon_concept_id, hierarchy_entry, opts)
-      link_to('+', link, :class => 'show_tree', :data_url => open_tree_path)
-    end
-  end
-
   # Used in V2 to allow block elements in forms
   # adds error class and title attributes to form elements
   # adds error messages after label
@@ -480,7 +455,7 @@ module ApplicationHelper
     link = opts[:link_to_taxa] ?
       overview_taxon_path(hierarchy_entry.taxon_concept_id) :
       overview_taxon_entry_path(hierarchy_entry.taxon_concept_id, hierarchy_entry)
-    node = link_to(hierarchy_entry.italicized_name.firstcap, link)
+    node = link_to(raw(hierarchy_entry.italicized_name.firstcap), link)
     node << ' '
     node << navigation_show_descendants_link(hierarchy_entry, opts.reverse_merge(:link => link))
   end
@@ -490,7 +465,7 @@ module ApplicationHelper
              opts.delete(:link)
            else
              opts[:link_to_taxa] ?
-             taxon_overview_path(hierarchy_entry.taxon_concept_id) :
+             overview_taxon_path(hierarchy_entry.taxon_concept_id) :
              overview_taxon_entry_path(hierarchy_entry.taxon_concept_id, hierarchy_entry)
            end
     if hierarchy_entry.number_of_descendants == 0

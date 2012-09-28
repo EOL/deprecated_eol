@@ -108,21 +108,22 @@ module EOL
           add_resource_instances!(best_solr_docs, :skip_preload => true)
           best_solr_docs.each{ |tc_id,d| all_best_images_for_concepts[tc_id] = d['instance'] }
           
-          # set the cache value for all the best images that were just found
-          all_best_images_for_concepts.each do |tc_id, d|
-            Rails.cache.fetch(TaxonConcept.cached_name_for("best_image_#{tc_id}"), :expires_in => 1.days) do
-              d || 'none'
-            end
-          end
-          # if we got back fewer images than we asked for - meaning if we didn't find an image
-          # for a concept we searched for, then that concept has no best images, so record that fact
-          if response['response']['docs'].length < number_of_images_to_return
-            subset_of_taxon_concept_ids_to_lookup.each do |tc_id|
-              Rails.cache.fetch(TaxonConcept.cached_name_for("best_image_#{tc_id}"), :expires_in => 1.days) do 
-                'none'
-              end
-            end
-          end
+          # # TODO: RAILS3 -> singleton can't be dumped. This caching is very useful and we should figure out this Singleton problem
+          # # set the cache value for all the best images that were just found
+          # all_best_images_for_concepts.each do |tc_id, d|
+          #   Rails.cache.fetch(TaxonConcept.cached_name_for("best_image_#{tc_id}"), :expires_in => 1.days) do
+          #     d || 'none'
+          #   end
+          # end
+          # # if we got back fewer images than we asked for - meaning if we didn't find an image
+          # # for a concept we searched for, then that concept has no best images, so record that fact
+          # if response['response']['docs'].length < number_of_images_to_return
+          #   subset_of_taxon_concept_ids_to_lookup.each do |tc_id|
+          #     Rails.cache.fetch(TaxonConcept.cached_name_for("best_image_#{tc_id}"), :expires_in => 1.days) do 
+          #       'none'
+          #     end
+          #   end
+          # end
         end
       end
       

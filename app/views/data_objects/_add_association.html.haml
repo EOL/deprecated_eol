@@ -16,8 +16,8 @@
             %form{ :action => data_object_path(data_object) }
               %input.button.associated(type="submit" value="#{I18n.t(:associated_submit_button)}")
           - else
-            %form{ :action => "/data_objects/#{data_object.id}/save_association/#{he.id}",  :method => "post" }
-              %input.button(type="submit" value="#{I18n.t(:add_association_submit_button)}")
+            = form_tag("/data_objects/#{data_object.id}/save_association/#{he.id}",  :method => "post") do
+              = submit_tag I18n.t(:add_association_submit_button), :class => "button"
           - if he.hierarchy.agent.homepage.blank?
             = he.hierarchy.agent.full_name
           - else

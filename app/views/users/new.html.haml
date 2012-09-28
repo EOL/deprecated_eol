@@ -14,7 +14,7 @@
             = f.submit I18n.t("helpers.submit.user.sign_up_with_#{provider}"),
               :id => "user_submit_#{provider}"
   = form_for @user, :builder => ApplicationHelper::EolFormBuilder do |f|
-    - f.fields_for :open_authentications, @user.open_authentications do |oaf|
+    = f.fields_for :open_authentications, @user.open_authentications do |oaf|
       = oaf.hidden_field :guid
       = oaf.hidden_field :provider
     %fieldset
@@ -53,7 +53,7 @@
             = f.label :entered_password_confirmation
           %dd
             = f.password_field :entered_password_confirmation, { :maxlength => 16 }
-      - f.label :agreed_with_terms, :class => 'checkbox' do
+      = f.label :agreed_with_terms, :class => 'checkbox' do
         = f.check_box :agreed_with_terms
         = I18n.t('helpers.label.user.agreed_with_terms', :terms_url => terms_of_use_path)
     - if @user.eol_authentication? && $ENABLE_RECAPTCHA

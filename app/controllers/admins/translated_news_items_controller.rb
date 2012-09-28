@@ -16,7 +16,7 @@ class Admins::TranslatedNewsItemsController < AdminsController
       flash[:notice] = I18n.t(:admin_translated_news_item_create_successful_notice,
                               :page_name => @news_item.page_name,
                               :anchor => @news_item.page_name.gsub(' ', '_').downcase)
-      redirect_to admin_news_items_path(:anchor => @news_item.page_name.gsub(' ', '_').downcase)
+      redirect_to news_items_path(:anchor => @news_item.page_name.gsub(' ', '_').downcase)
     else
       flash.now[:error] = I18n.t(:admin_translated_news_item_create_unsuccessful_error)
       set_translated_news_item_new_options
@@ -42,7 +42,7 @@ class Admins::TranslatedNewsItemsController < AdminsController
                               :page_name => @news_item.page_name,
                               :language => @translated_news_item.language.label,
                               :anchor => @news_item.page_name.gsub(' ', '_').downcase)
-      redirect_to admin_news_items_path(:anchor => @news_item.page_name.gsub(' ', '_').downcase)
+      redirect_to news_items_path(:anchor => @news_item.page_name.gsub(' ', '_').downcase)
     else
       @news_item = NewsItem.find(params[:news_item_id], :include => :translations)
       flash.now[:error] = I18n.t(:admin_translated_news_item_update_unsuccessful_error)
@@ -53,7 +53,7 @@ class Admins::TranslatedNewsItemsController < AdminsController
 
   # DELETE /admin/news_items/:news_item_id/translations/:id
   def destroy
-    return redirect_to :action => 'index', :status => :moved_permanently unless request.method == :delete
+    return redirect_to :action => 'index', :status => :moved_permanently unless request_is_a_delete?
     news_item = NewsItem.find(params[:news_item_id])
     page_name = news_item.page_name
     translated_news_item = TranslatedNewsItem.find(params[:id], :include => :language)
@@ -61,10 +61,14 @@ class Admins::TranslatedNewsItemsController < AdminsController
     translated_news_item.destroy
     flash[:notice] = I18n.t(:admin_translated_news_item_delete_successful_notice,
                             :page_name => page_name, :language => language.label)
-    redirect_to admin_news_items_path, :status => :moved_permanently
+    redirect_to news_items_path, :status => :moved_permanently
   end
 
 private
+
+  def request_is_a_delete?
+    request.method == 'DELETE' || request.method == :delete
+  end
 
   def set_translated_news_item_options
     @page_title = I18n.t(:admin_news_items_page_title)

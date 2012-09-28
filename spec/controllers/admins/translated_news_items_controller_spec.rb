@@ -18,8 +18,8 @@ describe Admins::TranslatedNewsItemsController do
     end
     it 'should only allow access to EOL administrators' do
       get :new
-      response.redirected_to.should == login_url
-      expect{ get :index, nil, { :user => @non_admin, :user_id => @non_admin.id } }.should raise_error(EOL::Exceptions::SecurityViolation)
+      response.should redirect_to(login_url)
+      expect{ get :new, { :id => @news_item.id }, { :user => @non_admin, :user_id => @non_admin.id } }.to raise_error(EOL::Exceptions::SecurityViolation)
     end
     it 'should instantiate page_title, page_subheader and languages' do
       get :new, @new_translated_news_item_params, { :user => @admin, :user_id => @admin.id }
@@ -34,8 +34,7 @@ describe Admins::TranslatedNewsItemsController do
       assigns[:translated_news_item].class.should == TranslatedNewsItem
       assigns[:translated_news_item].language_id.should == languages.first.id
       assigns[:translated_news_item].active_translation.should be_true
-      response.redirected_to.should be_nil
-      response.rendered[:template].should == "admins/translated_news_items/new.html.haml"
+      response.code.should eq('200')
     end
   end
 
@@ -45,10 +44,13 @@ describe Admins::TranslatedNewsItemsController do
         :translated_news_item => { :title => "Test Translated News", :body => "Test Translated News Item Body",
                                    :language_id => Language.english.id, :active_translation => true } }
     end
+    before(:each) do
+      TranslatedNewsItem.delete_all(:news_item_id => @news_item.id)
+    end
     it 'should only allow access to EOL administrators' do
       post :create
-      response.redirected_to.should == login_url
-      expect{ get :index, nil, { :user => @non_admin, :user_id => @non_admin.id } }.should raise_error(EOL::Exceptions::SecurityViolation)
+      response.should redirect_to(login_url)
+      expect{ get :new, { :id => @news_item.id }, { :user => @non_admin, :user_id => @non_admin.id } }.to raise_error(EOL::Exceptions::SecurityViolation)
     end
     it 'should create a translated news item' do
       post :create, @new_translated_news_item_params, { :user => @admin, :user_id => @admin.id }
@@ -61,20 +63,24 @@ describe Admins::TranslatedNewsItemsController do
       flash[:notice].should == I18n.t(:admin_translated_news_item_create_successful_notice,
                               :page_name => @news_item.page_name,
                               :anchor => @news_item.page_name.gsub(' ', '_').downcase)
-      response.redirected_to.should == admin_news_items_path(:anchor => @news_item.page_name.gsub(' ', '_').downcase)
+      response.should redirect_to(news_items_path(:anchor => @news_item.page_name.gsub(' ', '_').downcase))
     end
   end
 
   describe 'GET edit' do
     before :all do
-      @translated_news_item_to_edit = TranslatedNewsItem.gen(:news_item_id => @news_item.id, :title => "Test Translated News",
-                                        :language => Language.english, :body => "Test Translated News Item Body", :active_translation => true)
+      TranslatedNewsItem.delete_all(:news_item_id => @news_item.id)
+      @translated_news_item_to_edit = TranslatedNewsItem.gen(:news_item_id => @news_item.id,
+                                                             :title => "Test Translated News",
+                                                             :language => Language.english,
+                                                             :body => "Test Translated News Item Body",
+                                                             :active_translation => true)
       @edit_translated_news_item_params = { :news_item_id => @news_item.id, :id => @translated_news_item_to_edit.id }
     end
     it 'should only allow access to EOL administrators' do
       get :edit
-      response.redirected_to.should == login_url
-      expect{ get :index, nil, { :user => @non_admin, :user_id => @non_admin.id } }.should raise_error(EOL::Exceptions::SecurityViolation)
+      response.should redirect_to(login_url)
+      expect{ get :edit, { :id => @news_item.id }, { :user => @non_admin, :user_id => @non_admin.id } }.to raise_error(EOL::Exceptions::SecurityViolation)
     end
     it 'should instantiate page_title, page_subheader and page_name' do
       get :edit, @edit_translated_news_item_params, { :user => @admin, :user_id => @admin.id }
@@ -97,6 +103,7 @@ describe Admins::TranslatedNewsItemsController do
 
   describe 'PUT update' do
     before :all do
+      TranslatedNewsItem.delete_all(:news_item_id => @news_item.id)
       @translated_news_item_to_update = TranslatedNewsItem.gen(:news_item_id => @news_item.id, :title => "Test Translated News",
                                         :language => Language.english, :body => "Test Translated News Item Body", :active_translation => true)
       @update_translated_news_item_params = { :news_item_id => @news_item.id, :id => @translated_news_item_to_update.id,
@@ -105,8 +112,8 @@ describe Admins::TranslatedNewsItemsController do
     end
     it 'should only allow access to EOL administrators' do
       put :update
-      response.redirected_to.should == login_url
-      expect{ get :index, nil, { :user => @non_admin, :user_id => @non_admin.id } }.should raise_error(EOL::Exceptions::SecurityViolation)
+      response.should redirect_to(login_url)
+      expect{ get :new, { :id => @news_item.id }, { :user => @non_admin, :user_id => @non_admin.id } }.to raise_error(EOL::Exceptions::SecurityViolation)
     end
     it 'should update a translated news item' do
       put :update, @update_translated_news_item_params, { :user => @admin, :user_id => @admin.id }
@@ -116,28 +123,29 @@ describe Admins::TranslatedNewsItemsController do
       assigns[:translated_news_item].body.should == "Update Test Translated News Item Body"
       flash[:notice].should == I18n.t(:admin_translated_news_item_update_successful_notice, :page_name => @news_item.page_name,
                               :language => Language.english.label, :anchor => @news_item.page_name.gsub(' ', '_').downcase)
-      response.redirected_to.should == admin_news_items_path(:anchor => @news_item.page_name.gsub(' ', '_').downcase)
+      response.should redirect_to(news_items_path(:anchor => @news_item.page_name.gsub(' ', '_').downcase))
     end
   end
 
   describe 'DELETE destroy' do
     before :all do
+      TranslatedNewsItem.delete_all(:news_item_id => @news_item.id)
+    end
+    it 'should only allow access to EOL administrators' do
+      delete :destroy
+      response.should redirect_to(login_url)
+      expect{ get :new, { :id => @news_item.id }, { :user => @non_admin, :user_id => @non_admin.id } }.to raise_error(EOL::Exceptions::SecurityViolation)
+    end
+    it 'should delete a translated news item' do
       @translated_news_item_to_delete ||=
         TranslatedNewsItem.gen(:news_item_id => @news_item.id, :title => "Test Translated News",
                                :language => Language.english, :body => "Test Translated News Item Body",
                                :active_translation => true)
       @delete_translated_news_item_params =
         { :news_item_id => @news_item.id, :id => @translated_news_item_to_delete.id }
-    end
-    it 'should only allow access to EOL administrators' do
-      delete :destroy
-      response.redirected_to.should == login_url
-      expect{ get :index, nil, { :user => @non_admin, :user_id => @non_admin.id } }.should raise_error(EOL::Exceptions::SecurityViolation)
-    end
-    it 'should delete a translated news item' do
       delete :destroy, @delete_translated_news_item_params, { :user => @admin, :user_id => @admin.id }
       flash[:notice].should == I18n.t(:admin_translated_news_item_delete_successful_notice, :page_name => @news_item.page_name, :language => Language.english.label)
-      response.redirected_to.should == admin_news_items_path
+      response.should redirect_to(news_items_path)
     end
   end
 

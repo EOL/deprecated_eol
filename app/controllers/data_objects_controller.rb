@@ -608,7 +608,6 @@ private
       :hierarchy_entry_id => he.id,
       :created_at => 0.seconds.from_now
     }
-    debugger
     if object.class.name == "UsersDataObject"
       create_options.merge!(:taxon_concept_id => object.taxon_concept_id)
     end

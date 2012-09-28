@@ -544,6 +544,9 @@ describe TaxonConcept do
   end
 
   it 'should not return hidden exemplar image' do
+    # TODO - this legitimately fails; we don't edit it elsewhere in this file, the image really is invisible and it
+    # really does show up from the method used. ...and "visible" is the only type allowed by the call from
+    # TC#exemplar_or_best_image_from_solr ... so this is either a problem with Solr or its interface.
     @testy[:has_one_hidden_image].exemplar_or_best_image_from_solr.should be_nil
   end
 
@@ -552,7 +555,7 @@ describe TaxonConcept do
     @taxon_concept.details_text_for_user(user).first.language_id.should == Language.default.id
     best_text = @testy[:no_language_in_toc].details_text_for_user(user).first
     best_text.language_id.should == 0
-    
+
     user = User.gen(:language => Language.find_by_iso_639_1('fr'))
     new_best_text = @testy[:no_language_in_toc].overview_text_for_user(user)
     new_best_text.should be_nil
@@ -563,7 +566,7 @@ describe TaxonConcept do
     @taxon_concept.overview_text_for_user(user).language_id.should == Language.default.id
     new_best_text = @testy[:no_language_in_toc].overview_text_for_user(user)
     new_best_text.language_id.should == 0
-    
+
     user = User.gen(:language => Language.find_by_iso_639_1('fr'))
     new_best_text = @testy[:no_language_in_toc].overview_text_for_user(user)
     new_best_text.should be_nil
@@ -575,19 +578,19 @@ describe TaxonConcept do
     he1 = HierarchyEntry.gen(:taxon_concept => tc, :name => name1, :hierarchy => Hierarchy.gen)
     name2 = Name.gen(:string => "Name2")
     he2 = HierarchyEntry.gen(:taxon_concept => tc, :name => name2, :hierarchy => Hierarchy.gen)
-    
+
     tc.entry.should == he1
     tc.title.should == he1.name.string
     tc = TaxonConcept.find(tc.id)
-    
+
     tc.entry(he1.hierarchy).should == he1
     tc.title(he1.hierarchy).should == he1.name.string
     tc = TaxonConcept.find(tc.id)
-    
+
     tc.entry(he2.hierarchy).should == he2
     tc.title(he2.hierarchy).should == he2.name.string
     tc = TaxonConcept.find(tc.id)
-    
+
     # now checking the default again to make sure we get the original value
     tc.entry.should == he1
     tc.title.should == he1.name.string

@@ -3,8 +3,8 @@
 = validation_errors_for(@data_object)
 %fieldset.content
   %h3= I18n.t("dato_new_edit_user_text#{'_link' if link_object}_fieldset_content_header")
-  %p.tip= I18n.t("dato_new_edit_user_text#{'_link' if link_object}_form_tip", :required_icon => image_tag('/images/v2/icon_required.png', :alt => ''),
-    :add_article_help_url => cms_page_path('add_article_help'))
+  %p.tip= raw(I18n.t("dato_new_edit_user_text#{'_link' if link_object}_form_tip", :required_icon => image_tag('v2/icon_required.png', :alt => ''),
+    :add_article_help_url => cms_page_path('add_article_help')))
   %dl
     - # Note: tried to use fields_for nested attributes :toc_items but got duplicate select box, unclear why
     %dt.required
@@ -32,13 +32,13 @@
       %dd
         = f.select :language_id, options_from_collection_for_select(@languages, :id, :source_form, @data_object.language_id)
     %dt{:class => "#{link_object ? '' : 'required'}"}
-      = label_tag 'data_object[description]', I18n.t("helpers.label.data_object#{'_link' if link_object}.description")
+      = label_tag 'data_object[description]', raw(I18n.t("helpers.label.data_object#{'_link' if link_object}.description"))
     %dd
       = f.cktext_area(:description, :toolbarSet => 'Article', :height => 250, :width => 580)
       -# TODO: uncomment when this is ready %p= f.allowed_html_help_tip(:all)
     - unless link_object
       %dt
-        = f.label :refs
+        = f.label :refs, raw(t('helpers.label.data_object.refs'))
       %dd
         = text_area_tag 'references', @references
 - unless link_object
@@ -53,7 +53,7 @@
         = f.label :license_id
       %dd
         = f.select :license_id, options_from_collection_for_select(@licenses, :id, :title, @data_object.license_id)
-        %p= I18n.t('helpers.label.data_object.license_id_more', :policy_url => cms_page_path('eol_licensing_policy'))
+        %p= raw(I18n.t('helpers.label.data_object.license_id_more', :policy_url => cms_page_path('eol_licensing_policy')))
       %dt
         = f.label :rights_holder
       %dd
@@ -63,7 +63,7 @@
         = f.label :rights_statement
       %dd
         = f.text_field :rights_statement, { :maxlength => 300 }
-        %p= I18n.t('helpers.label.data_object.rights_statement_more')
+        %p= raw(I18n.t('helpers.label.data_object.rights_statement_more'))
       %dt
         = f.label :bibliographic_citation
       %dd

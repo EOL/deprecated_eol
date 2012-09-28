@@ -30,7 +30,7 @@
           = f.label :password
         %dd
           = f.password_field :password, :maxlength => 16
-      - f.label :remember_me, { :class => 'checkbox' } do
+      = f.label :remember_me, { :class => 'checkbox' } do
         = check_box_tag :remember_me
         = I18n.t("helpers.label.session.remember_me")
     %fieldset.actions

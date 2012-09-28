@@ -167,13 +167,13 @@
                   .settings
                     = form_for [partner, resource], :builder => ApplicationHelper::EolFormBuilder do |f|
                       = hidden_field_tag :return_to, current_url
-                      - f.label :refresh_period_hours, :class => 'select' do
+                      = f.label :refresh_period_hours, :class => 'select' do
                         = I18n.t('helpers.label.resource.refresh_period_hours')
                         = f.select :refresh_period_hours, options_for_select(@import_frequencies, resource.refresh_period_hours)
-                      - f.label :vetted, :class => 'checkbox' do
+                      = f.label :vetted, :class => 'checkbox' do
                         = f.check_box :vetted, { :disabled => resource.vetted? }
                         = I18n.t('activerecord.attributes.resource.vetted')
-                      - f.label :auto_publish, :class => 'checkbox' do
+                      = f.label :auto_publish, :class => 'checkbox' do
                         = f.check_box :auto_publish
                         = I18n.t('activerecord.attributes.resource.auto_publish')
                       %fieldset.actions

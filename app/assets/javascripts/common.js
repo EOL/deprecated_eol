@@ -464,7 +464,7 @@ $(function() {
   })($("#content_partner_resources"));
 
   // This may warrant its own JS, but it's tiny, so it was easy enough to stick here:
-  $('td.preferred_entry_selector input[type="radio"]').click(function() {
+  $('td.preferred_entry_selector input[type="radio"]:not(:checked)').click(function() {
     var form = $(this).closest('form');
     form.submit();
   });

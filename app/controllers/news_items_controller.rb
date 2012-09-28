@@ -37,7 +37,6 @@ class NewsItemsController < ApplicationController
       news_item = NewsItem.find(page_id, :include => :translations)
     else # assume it's a page name
       news_item = NewsItem.find_by_page_name(page_id, :include => :translations)
-      debugger
       news_item ||= NewsItem.find_by_page_name(page_id.gsub(' ', '_'), :include => :translations) # will become obsolete once validation on page_name is in place
       raise ActiveRecord::RecordNotFound, "Couldn't find NewsItem with page_name=#{page_id}" if news_item.nil?
     end

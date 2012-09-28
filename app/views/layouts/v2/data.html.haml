@@ -8,16 +8,16 @@
           - if @latest_published_revision && @latest_published_revision.id != @data_object.id
             - link =  link_to @latest_published_revision.best_title, data_object_path(@latest_published_revision)
             - if @latest_published_revision.id > @data_object.id
-              = I18n.t(:older_version_of_latest_published_data_object_title_link, :link => link)
+              = raw(I18n.t(:older_version_of_latest_published_data_object_title_link, :link => link))
             - else
-              = I18n.t(:preview_version_of_latest_published_data_object_title_link, :link => link)
+              = raw(I18n.t(:preview_version_of_latest_published_data_object_title_link, :link => link))
           - else
-            = @page_title
+            = raw(@page_title)
         - if @page_description.blank?
           %h2<
             = render :partial => 'data_objects/owner', :locals => { :data_object => @data_object }
         - else
-          %p= @page_description
+          %p= raw(@page_description)
         = yield :social_sharing
       .page_actions
         %ul

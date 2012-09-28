@@ -12,6 +12,10 @@ group :development, :test do
   gem 'ruby-prof'
 end
 
+group :development, :staging_dev, :staging_dev_cache do
+  gem 'webrick'
+end
+
 group :test do
   gem 'webmock'
   gem 'rspec-html-matchers'

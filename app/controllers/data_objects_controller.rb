@@ -605,7 +605,7 @@ private
       :activity => Activity.send(method),
       :data_object => @data_object,
       :data_object_guid => @data_object.guid,
-      :hierarchy_entry_id => he,
+      :hierarchy_entry_id => he.id,
       :created_at => 0.seconds.from_now
     }
     if object.class.name == "UsersDataObject"

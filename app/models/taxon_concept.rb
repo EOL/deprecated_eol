@@ -1075,9 +1075,10 @@ class TaxonConcept < ActiveRecord::Base
     cache_key += "_#{selected_hierarchy_entry.id}" if
       selected_hierarchy_entry && selected_hierarchy_entry.class == HierarchyEntry
     TaxonConcept.prepare_cache_classes
-    @best_image ||= Rails.cache.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 1.days) do
+    # # TODO: RAILS3 -> singleton can't be dumped. This caching is very useful and we should figure out this Singleton problem
+    # @best_image ||= Rails.cache.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 1.days) do
       if published_exemplar = self.published_exemplar_image
-        published_exemplar
+        @best_image = published_exemplar
       else
         best_images = self.data_objects_from_solr({
           :per_page => 1,
@@ -1090,9 +1091,9 @@ class TaxonConcept < ActiveRecord::Base
           :return_hierarchically_aggregated_objects => true,
           :filter_hierarchy_entry => selected_hierarchy_entry
         })
-        (best_images.empty?) ? 'none' : best_images.first
+        @best_image = (best_images.empty?) ? 'none' : best_images.first
       end
-    end
+    # end
     @best_image = nil if @best_image && (@best_image == 'none' || ! @best_image.published)
     @best_image
   end

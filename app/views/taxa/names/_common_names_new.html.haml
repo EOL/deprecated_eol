@@ -3,12 +3,12 @@
     %h3=I18n.t(:add_a_new_common_name)
   %fieldset
     %dl
-      - f.fields_for :synonym do |synonym|
+      = f.fields_for :synonym do |s|
         %dt
-          = synonym.label :language_id
+          = s.label :language_id
         %dd
-          = synonym.select(:language_id, @languages, :selected => current_language.id)
-          = synonym.hidden_field :hierarchy_entry_id, :value => @selected_hierarchy_entry_id
+          = s.select(:language_id, @languages, :selected => current_language.id)
+          = s.hidden_field :hierarchy_entry_id, :value => @selected_hierarchy_entry_id
       %dt
         = f.label :string
       %dd

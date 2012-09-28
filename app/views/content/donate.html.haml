@@ -7,22 +7,22 @@
         = form_for :donation, :builder => ApplicationHelper::EolFormBuilder do |f|
           %fieldset.radio
             %legend= I18n.t(:donation_amount_legend)
-            - f.label :preset_amount_35 do
+            = f.label :preset_amount_35 do
               = f.radio_button :preset_amount, "35"
               = I18n.t(:us_dollars_35)
-            - f.label :preset_amount_50 do
+            = f.label :preset_amount_50 do
               = f.radio_button :preset_amount, "50"
               = I18n.t(:us_dollars_50)
-            - f.label :preset_amount_75 do
+            = f.label :preset_amount_75 do
               = f.radio_button :preset_amount, "75"
               = I18n.t(:us_dolars_75)
-            - f.label :preset_amount_100 do
+            = f.label :preset_amount_100 do
               = f.radio_button :preset_amount, "100"
               = I18n.t(:us_dollars_100)
-            - f.label :preset_amount_other do
+            = f.label :preset_amount_other do
               = f.radio_button :preset_amount, "other"
               %span.assistive= I18n.t(:donation_amount_other_label)
-            - f.label :amount, :class => 'other' do
+            = f.label :amount, :class => 'other' do
               = I18n.t(:other_us_dollars_amount)
               = f.text_field :amount, {:size => 6, :maxlength => 6, :onfocus => "$('#donation_preset_amount_other').attr('checked', 'checked');"}
 

@@ -1141,6 +1141,7 @@ class DataObject < ActiveRecord::Base
       if dato.published?
         dato.update_attribute(:published, 0)
         dato.update_solr_index
+        dato.remove_from_index
       end
     end
   end

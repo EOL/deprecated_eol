@@ -241,7 +241,7 @@ class Collection < ActiveRecord::Base
   
   def featuring_communities
     others_collection_items.collect do |ci|
-      ci.collection.communities.where('published = 1')
+      ci.collection ? ci.collection.communities.where('published = 1') : nil
     end.flatten.compact.uniq
   end
 

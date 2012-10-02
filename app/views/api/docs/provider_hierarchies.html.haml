@@ -2,7 +2,7 @@
 #content.cms_page
   #api_doc.site_column
     .nav
-      = @navigation_menu
+      = raw(@navigation_menu)
     .article.copy
       %h3
         =I18n.t("request")

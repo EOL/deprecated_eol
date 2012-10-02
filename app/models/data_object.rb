@@ -67,7 +67,7 @@ class DataObject < ActiveRecord::Base
   has_and_belongs_to_many :toc_items, :join_table => 'data_objects_table_of_contents', :association_foreign_key => 'toc_id'
   has_and_belongs_to_many :taxon_concepts
 
-  attr_accessor :vetted_by # who changed the state of this object? (not persisted on DataObject but required by observer)
+  attr_accessor :vetted_by, :is_the_latest_published_revision # who changed the state of this object? (not persisted on DataObject but required by observer)
 
   scope :visible, lambda { { :conditions => { :visibility_id => Visibility.visible.id } }}
   scope :preview, lambda { { :conditions => { :visibility_id => Visibility.preview.id } }}
@@ -752,7 +752,11 @@ class DataObject < ActiveRecord::Base
 
   def curated_hierarchy_entries
     dohes = []
-    latest_revision = latest_published_revision.nil? ? revisions_by_date.first : latest_published_revision
+    if is_the_latest_published_revision
+      latest_revision = self
+    else
+      latest_revision = latest_published_revision.nil? ? revisions_by_date.first : latest_published_revision
+    end
     if latest_revision
       dohes = latest_revision.data_objects_hierarchy_entries.compact.map { |dohe|
         if dohe.hierarchy_entry && he = dohe.hierarchy_entry.dup
@@ -774,11 +778,11 @@ class DataObject < ActiveRecord::Base
   end
 
   def published_entries
-    curated_hierarchy_entries.select{ |he| he.published == 1 }
+    @published_entries ||= curated_hierarchy_entries.select{ |he| he.published == 1 }
   end
 
   def unpublished_entries
-    curated_hierarchy_entries.select{ |he| he.published != 1 }
+    @unpublished_entries ||= curated_hierarchy_entries.select{ |he| he.published != 1 }
   end
 
   # Preview visibility CAN apply here, so be careful. By default, preview is included; otherwise, pages would show up

@@ -393,6 +393,7 @@ EolUpgrade::Application.routes.draw do
 
   # Named API Routes:
   match 'api' => 'api/docs#index' # Default is actually the documenation
+  match 'api/docs' => 'api/docs#index' # Default is actually the documenation
   # not sure why this didn't work in some places - but this is for documentation
   match 'api/docs/:action' => 'api/docs'
   # ping is a bit of an exception - it doesn't get versioned and takes no ID

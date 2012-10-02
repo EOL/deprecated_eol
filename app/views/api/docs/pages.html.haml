@@ -2,7 +2,7 @@
 #content.cms_page
   #api_doc.site_column
     .nav
-      = @navigation_menu
+      = raw(@navigation_menu)
     .article.copy
       %h3
         =I18n.t("request")
@@ -99,7 +99,7 @@
             %td
               all
             %td
-              =I18n.t("a_pipe_delimited_list_of_licenses", :creative_commons_link => link_to(I18n.t("creative_commons"), "http://creativecommons.org/licenses/", :rel => :nofollow))
+              = raw(I18n.t("a_pipe_delimited_list_of_licenses", :creative_commons_link => link_to(I18n.t("creative_commons"), "http://creativecommons.org/licenses/", :rel => :nofollow)))
           %tr
             %td
               details
@@ -135,18 +135,18 @@
             %td
               0.4
             %td
-              =I18n.t("version_1_0_uses_fields_from_the_latest_version", :link => link_to(I18n.t("darwin_core"), 'http://rs.tdwg.org/dwc/terms/index.htm'))
+              = raw(I18n.t("version_1_0_uses_fields_from_the_latest_version", :link => link_to(I18n.t("darwin_core"), 'http://rs.tdwg.org/dwc/terms/index.htm')))
 
       %h3
-        =I18n.t("description")
+        = I18n.t("description")
       %p
         =I18n.t("page_method_description")
       %p
-        =I18n.t("the_darwin_core_taxon_elements")
-        =I18n.t("for_example_for_the_taxon_element_for_a_node", :link => link_to("hierarchy_entries", :action => "hierarchy_entries"))
-        =I18n.t("there_is_no_singular_eol", :link =>link_to("hierarchy_entries", :action => "hierarchy_entries"))
+        = raw(I18n.t("the_darwin_core_taxon_elements"))
+        = raw(I18n.t("for_example_for_the_taxon_element_for_a_node", :link => link_to("hierarchy_entries", :action => "hierarchy_entries")))
+        = raw(I18n.t("there_is_no_singular_eol", :link =>link_to("hierarchy_entries", :action => "hierarchy_entries")))
       %p
-        =I18n.t("if_the_details_parameter_is_not_set", :linka => link_to(I18n.t("dublin_core"), 'http://dublincore.org/documents/dcmi-type-vocabulary/'), :linkb=> link_to(I18n.t("species_profile_model"), 'http://rs.tdwg.org/ontology/voc/SPMInfoItems'))
+        = raw(I18n.t("if_the_details_parameter_is_not_set", :linka => link_to(I18n.t("dublin_core"), 'http://dublincore.org/documents/dcmi-type-vocabulary/'), :linkb=> link_to(I18n.t("species_profile_model"), 'http://rs.tdwg.org/ontology/voc/SPMInfoItems')))
       %h3
         =I18n.t("xml_response")
       %code<

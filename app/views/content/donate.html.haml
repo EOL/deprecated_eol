@@ -29,7 +29,7 @@
           %span#donation_amount_warn.error
           %fieldset.actions
             = submit_tag I18n.t(:submit)
-        %p= I18n.t(:donation_sponsorship_preamble, :email_address => 'secretariat@eol.org')
+        %p= raw(I18n.t(:donation_sponsorship_preamble, :email_address => 'secretariat@eol.org'))
         %dl
           %dt
             = I18n.t(:donation_sponsorship_content_title)
@@ -44,7 +44,7 @@
           %dd
             = I18n.t(:donation_sponsorship_infrastructure_description)
 
-        %p= I18n.t(:donation_privacy_notice)
+        %p= raw(I18n.t(:donation_privacy_notice))
       - else
         = I18n.t(:please_confirm_your_donation_details)
         = ":"

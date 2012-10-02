@@ -11,7 +11,7 @@
             %h2= @page_subtitle
           = yield :social_sharing
           - unless page_description.blank?
-            %p= page_description
+            %p= raw(page_description)
         = render :partial => 'shared/flash_messages'
   = yield
 = render :file => 'layouts/v2/application'

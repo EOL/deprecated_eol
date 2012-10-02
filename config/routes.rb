@@ -212,12 +212,12 @@ EolUpgrade::Application.routes.draw do
         get 'comments'
       end
     end
-    resource :notification, :only => [:edit, :update]
+    resource :notification, :only => [:edit, :update], :controller => "users/notifications"
     resource :activity, :only => [:show], :controller => 'users/activities'
     resources :collections, :only => [:index], :controller => 'users/collections'
     resources :communities, :only => [:index], :controller => 'users/communities'
     resources :content_partners, :only => [:index], :controller => 'users/content_partners'
-    resources :open_authentications, :only => [:index, :new, :update, :destroy]
+    resources :open_authentications, :only => [:index, :new, :update, :destroy], :controller => 'users/open_authentications'
   end
 
   resources :data_objects, :only => [:show, :edit, :update] do

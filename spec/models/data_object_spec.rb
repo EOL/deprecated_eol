@@ -391,6 +391,7 @@ describe DataObject do
 
   it '#untrust_reasons should return the same untrust reasons for all versions of the data object' do
     CuratedDataObjectsHierarchyEntry.delete_all
+    @image_dato = DataObject.find(@image_dato)
     @image_dato.add_curated_association(@curator, @hierarchy_entry)
     cdohe = CuratedDataObjectsHierarchyEntry.find_by_hierarchy_entry_id_and_data_object_id(@hierarchy_entry.id,
                                                                                            @image_dato.id)
@@ -404,7 +405,7 @@ describe DataObject do
                               :user_id => @curator.id,
                               :created_at => 0.seconds.from_now)
     CuratorActivityLogsUntrustReason.create(:curator_activity_log_id => cal.id, :untrust_reason_id => UntrustReason.misidentified.id)
-    @image_dato.reload
+    @image_dato = DataObject.find(@image_dato)
     @image_dato.untrust_reasons(@image_dato.all_associations.last).should == [UntrustReason.misidentified.id]
     new_image_dato = DataObject.gen(:guid => @image_dato.guid, :created_at => Time.now)
     new_image_dato.untrust_reasons(new_image_dato.all_associations.last).should == [UntrustReason.misidentified.id]
@@ -412,6 +413,7 @@ describe DataObject do
   
   it '#hide_reasons should return the same hide reasons for all versions of the data object' do
     CuratedDataObjectsHierarchyEntry.delete_all
+    @image_dato = DataObject.find(@image_dato)
     @image_dato.add_curated_association(@curator, @hierarchy_entry)
     cdohe = CuratedDataObjectsHierarchyEntry.find_by_hierarchy_entry_id_and_data_object_id(@hierarchy_entry.id,
                                                                                            @image_dato.id)
@@ -425,7 +427,7 @@ describe DataObject do
                               :user_id => @curator.id,
                               :created_at => 0.seconds.from_now)
     CuratorActivityLogsUntrustReason.create(:curator_activity_log_id => cal.id, :untrust_reason_id => UntrustReason.poor.id)
-    @image_dato.reload
+    @image_dato = DataObject.find(@image_dato)
     @image_dato.hide_reasons(@image_dato.all_associations.last).should == [UntrustReason.poor.id]
     new_image_dato = DataObject.gen(:guid => @image_dato.guid, :created_at => Time.now)
     new_image_dato.hide_reasons(new_image_dato.all_associations.last).should == [UntrustReason.poor.id]
@@ -445,7 +447,7 @@ describe DataObject do
     all_associations_count_for_udo = @user_submitted_text.all_associations.count
     CuratedDataObjectsHierarchyEntry.find_or_create_by_hierarchy_entry_id_and_data_object_id( @hierarchy_entry.id,
         @user_submitted_text.id, :data_object_guid => @user_submitted_text.guid, :vetted => Vetted.trusted, :visibility => Visibility.visible, :user => @curator)
-    @user_submitted_text.reload
+    @user_submitted_text = DataObject.find(@user_submitted_text)
     @user_submitted_text.all_associations.count.should == all_associations_count_for_udo + 1
   end
 

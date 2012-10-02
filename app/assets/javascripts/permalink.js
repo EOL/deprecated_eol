@@ -56,7 +56,7 @@ $(function() {
           var media = {};
       }
       $("#player").jPlayer({
-        swfPath: "/javascripts/jplayer/js",
+        swfPath: "/assets/jplayer/js",
         supplied: supplied,
         cssSelectorAncestor: "#player_interface",
         ready: function () {

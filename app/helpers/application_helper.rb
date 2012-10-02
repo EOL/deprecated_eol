@@ -335,7 +335,7 @@ module ApplicationHelper
     if html_options[:show_link_icon].nil? || html_options.delete(:show_link_icon) == true
       args[0] += " #{external_link_icon}"
     end
-    link_to(args[0],args[1],html_options, &block)
+    link_to(raw(args[0]),args[1],html_options, &block)
   end
 
   def allow_some_html(text)

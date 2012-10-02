@@ -14,7 +14,7 @@ class HierarchyEntriesController < ApplicationController
       hierarchy_entry_id ||= params[:id]
     end
     if params[:return_to]
-      return_to_params = ActionController::Routing::Routes.recognize_path(params[:return_to], :method => :get)
+      return_to_params = EolUpgrade::Application.routes.recognize_path(params[:return_to], :method => :get)
       return_to_params[:hierarchy_entry_id] = hierarchy_entry_id
       store_location url_for(return_to_params)
     end

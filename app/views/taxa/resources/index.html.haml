@@ -10,7 +10,7 @@
           %p= I18n.t(:taxon_partner_links_empty)
           %p= link_to I18n.t(:taxon_partner_links_empty_learn_more_link), cms_page_path('partners')
       - else
-        %p= I18n.t(:taxon_partner_links_intro, :eol_api_link => url_for(:controller => 'api/docs', :action => 'index', :only_path => false))
+        %p= raw(I18n.t(:taxon_partner_links_intro, :eol_api_link => url_for(:controller => 'api/docs', :action => 'index', :only_path => false)))
         %table.standard
           %thead
             %tr

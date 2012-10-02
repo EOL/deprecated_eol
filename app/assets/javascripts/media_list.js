@@ -22,7 +22,7 @@ $(function() {
           var media = {};
       }
       $(this).parent('div').prev("div").jPlayer({
-        swfPath: "/javascripts/jplayer/js",
+        swfPath: "/assets/jplayer/js",
         supplied: supplied,
         cssSelectorAncestor: "#" + $(this).parent('div').attr("id"),
         cssSelector: {

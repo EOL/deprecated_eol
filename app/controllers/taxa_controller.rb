@@ -165,7 +165,10 @@ private
     end
 
     @taxon_concept.current_user = current_user
-    @selected_hierarchy_entry_id = params[:hierarchy_entry_id]
+    @selected_hierarchy_entry_id = params[:hierarchy_entry_id] || params[:entry_id]
+    if @selected_hierarchy_entry_id.nil? && params[:taxon_id] && params[:id]
+      @selected_hierarchy_entry_id = params[:id]
+    end
     if @selected_hierarchy_entry_id
       @selected_hierarchy_entry = HierarchyEntry.find_by_id(@selected_hierarchy_entry_id) rescue nil
       if @selected_hierarchy_entry.hierarchy.browsable?

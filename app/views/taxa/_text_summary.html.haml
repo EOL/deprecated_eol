@@ -11,7 +11,7 @@
       - else
         - taxon = "<i>#{@taxon_concept.title_canonical()}</i>"
       - if @taxon_concept.has_details_text_for_user?(current_user)
-        %p= I18n.t(:explore_what_we_know_about_taxon, :taxon => link_to(taxon, link))
+        %p= raw(I18n.t(:explore_what_we_know_about_taxon, :taxon => link_to(raw(taxon), link)))
       = link_to I18n.t(:add_brief_summary_to_page_link_button), new_taxon_data_object_path(@taxon_concept), :class => 'button'
   - else
     - item_status_class, item_status_label = @summary_text.status_class_and_label_by_taxon_concept(@taxon_concept)

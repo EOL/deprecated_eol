@@ -43,7 +43,7 @@ EolUpgrade::Application.routes.draw do
       resources :maps, :only => [:index], :controller => 'taxa/maps'
       resources :media, :only => [:index], :controller => 'taxa/media'
       resources :details, :only => [:index], :controller => 'taxa/details'
-      resource :community, :only => [:index], :controller => 'taxa/communities' do
+      resources :communities, :only => [:index], :controller => 'taxa/communities' do
         collection do
           get 'collections'
           get 'curators'
@@ -78,7 +78,7 @@ EolUpgrade::Application.routes.draw do
         end
       end
       resources :updates, :only => [:index], :controller => 'taxa/updates' do
-        member do
+        collection do
           get 'statistics'
         end
       end

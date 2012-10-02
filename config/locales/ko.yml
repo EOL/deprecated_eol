@@ -750,6 +750,8 @@ ko:
   add_a_new_topic_area: 새 주제 영역 추가
   add_a_new_user: 새 사용자 추가
   add_a_taxon_association_label: 분류 연관 추가
+  add_article_instead: 대신 문서 추가
+  add_article_to_page_button: 문서 추가
   add_association_submit_button: 연관 추가
   add_brief_summary_to_page_link_button: 이 문서에 대한 간단한 요약 추가
   add_citizen_science_resources_to_page_link_button: 이 문서에 시민 과학 링크 추가
@@ -760,9 +762,12 @@ ko:
   add_identification_resources_to_page_link_button: 이 문서에 식별 자료 추가
   add_item_to_new_collection: 새 모음집에 "%{item}" 추가
   add_language: 언어 추가
+  add_link_instead: 대신 링크 추가
+  add_link_to_page_button: 링크 추가
   add_new_association_link: 새 연관 추가
   add_new_tag_suggestion: 새 태그 제안 추가
   add_page: 문서 추가
+  add_sub_chapter: 절 추가
   add_to_a_community: 공동체에 추가
   add_to_my_collection_button: 모음집에 추가
   admin_content_page_active: 게시함
@@ -803,6 +808,11 @@ ko:
   admin_news_item_create_successful_notice: <a href="#%{anchor}"><em>%{page_name}</em></a> 뉴스 항목을 성공적으로 만들었습니다.
   admin_news_item_create_unsuccessful_error: 죄송합니다, 오류가 발생해 뉴스 항목을 만들지 못했습니다.
   admin_news_item_delete_successful_notice: "%{page_name} 뉴스 항목과 관련된 번역을 삭제했습니다."
+  admin_news_item_new_header: 새 뉴스 항목 만들기
+  admin_news_item_new_link: 뉴스 항목 만들기
+  admin_news_item_not_active: 게시하지 않음
+  admin_news_item_update_successful_notice: <a href="#%{anchor}"><em>%{page_name}</em></a> 뉴스 항목을 성공적으로 업데이트했습니다.
+  admin_news_item_update_unsuccessful_error: 죄송합니다, 오류가 발생해 뉴스 항목을 업데이트하지 못했습니다.
   admin_news_items_empty: 뉴스 항목을 찾을 수 없습니다.
   admin_news_items_page_title: "관리: 뉴스"
   admin_news_link: 뉴스
@@ -811,18 +821,23 @@ ko:
   admin_spam_delete: 스팸 삭제
   admin_statistics_link: 통계
   admin_translated_content_page_create_successful_notice: <a href="#%{anchor}"><em>%{page_name}</em></a> 문서에 번역을 추가했습니다.
+  admin_translated_content_page_create_unsuccessful_error: 죄송합니다, 오류가 발생해 번역을 추가하지 못했습니다.
   admin_translated_content_page_edit_subheader: <em>%{page_name}</em>에 대한 %{language} 번역 편집
   admin_translated_content_page_edit_tip: 제목과 본문은 %{required_icon}(이)가 필요합니다.
-  admin_translated_content_page_new_header: 언어 선택과 콘텐츠 추가
+  admin_translated_content_page_new_header: 언어 선택하고 내용 추가
   admin_translated_content_page_new_link: 번역 추가
   admin_translated_content_page_new_subheader: <em>%{page_name}</em>에 대한 번역 추가
   admin_translated_content_page_new_tip: 언어, 제목과 본문은 %{required_icon}(이)가 필요합니다.
   admin_translated_content_page_update_unsuccessful_error: 죄송합니다, 오류가 발생해 번역을 업데이트하지 못했습니다.
   admin_translated_news_item_active: 게시함
+  admin_translated_news_item_create_unsuccessful_error: 죄송합니다, 오류가 발생해 번역을 추가하지 못했습니다.
+  admin_translated_news_item_new_header: 언어 선택하고 내용 추가
   admin_translated_news_item_new_link: 번역 추가
   admin_translated_news_item_new_subheader: <em>%{page_name}</em>에 대한 번역 추가
   admin_translated_news_item_new_tip: 언어, 제목과 본문은 %{required_icon}(이)가 필요합니다.
-  admin_translated_news_item_not_active: 게지하지 않음
+  admin_translated_news_item_not_active: 게시하지 않음
+  admin_translated_news_item_update_successful_notice: <a href="#%{anchor}"><em>%{page_name}</em></a>에 대한 %{language} 번역을 업데이트했습니다.
+  admin_translated_news_item_update_unsuccessful_error: 죄송합니다, 오류가 발생해 번역을 업데이트하지 못했습니다.
   admin_user_delete_successful_notice: 사용자가 삭제됨
   admin_user_hide_successful_notice: 사용자가 숨겨짐
   admin_user_unhide_successful_notice: 사용자가 숨겨지지 않음
@@ -931,6 +946,7 @@ ko:
   associated_with_header: 다음과 연관
   associated_with_image_header: 최근 그림에서
   associated_with_image_map_header: 최근 지도에서
+  associated_with_link_header: 최근 링크에서
   associated_with_map_header: 최근 지도에서
   associated_with_sound_header: 최근 소리에서
   associated_with_video_header: 최근 동영상에서
@@ -950,8 +966,11 @@ ko:
   audio_play: 재생
   audio_stop: 정지
   audio_unmute: 음소거 해제
+  available: 사용 가능
+  average_rating_value_of_total: "평균 평점: %{total} 중 %{rating}"
   back: 뒤로
   back_to_profile: 프로필로 돌아가기
+  began: 개시
   belongs_in_count_communities: 
     one: 공동체 %{count}개에 속함
     other: 공동체 %{count}개에 속함
@@ -961,9 +980,15 @@ ko:
   biomedical_terms: 생명 공학 용어
   biomedical_terms_provided_by: <a rel="nofollow" href="%{supplier_url}">PubMed</a>가 제공한 용어입니다.
   body: "본문:"
+  browsable: 찾아보기
+  browsable_hierarchies: 찾아볼 수 있는 계층
   browse_hierarchy: 계층 찾아보기
+  browsing_branch_colon: "지점 탐색:"
+  build_communities: 공동체 구축
   by_caps: 사용자
   by_scientific_name_table_header: 과확적인 이름
+  cache_store: 캐시 저장소
+  calculate_averages_slow: 평균 계산 (느림)
   cancel: 취소
   cancel_split: 취소
   cannot_be_empty: 비워둘 수 없습니다.
@@ -977,6 +1002,8 @@ ko:
   choose_collection_header: 모음집 바꾸기
   citation: 인용
   citing_link: 인용하기
+  classification_preferred_for_taxon: 선호
+  classifications_exemplar_column_header: 표본
   classifications_hierarchy_column_header: 분류
   classifications_preferred_column_header: 선호
   classifications_rank_column_header: 순위
@@ -989,6 +1016,8 @@ ko:
   classifications_with_count: 
     one: 분류 %{count}개
     other: 분류 %{count}개
+  clear_all_non_species_pages: 종이 아닌 문서 모두 지우기
+  clear_entire_cache_store: 캐시 저장소 모두 지우기
   clear_species_page: 종 문서 지우기
   click: 클릭
   clicked_time: 클릭 시간
@@ -1006,9 +1035,12 @@ ko:
   collection_error_no_items_selected: "오류: 항목을 선택하지 않아 어떠한 행동도 하지 않았습니다."
   collection_image: 모음집 그림
   collection_is_empty: 이 모음집은 현재 비어있습니다.
+  collection_item_edit_page_title: <em>%{collection_name}</em> 모음집에 항목 편집
   collection_name_cannot_be_blank: 모음집 이름은 비워둘 수 없습니다
   collection_name_label: 모음집 이름
   collection_newsfeed: 모음집 뉴스 피드
+  collection_not_created_error: 죄송합니다, 오류가 발생해 <em>%{collection_name}</em> 모음집을 만들지 못했습니다.
+  collection_not_destroyed_error: 죄송합니다, 모음집을 삭제할 수 없습니다.
   collection_rating: 모음집 평가
   collection_was_added_to_community: "\"%{collection}\" 모음집을 이 공동체에 추가했습니다."
   collections: 
@@ -1722,6 +1754,7 @@ ko:
         user_id: 콘텐츠 파트너 자세한 사항 관리자
       content_partner_agreement: 
         mou_url: 계약 파일 URL <small>(대체 선택 사항)</small>
+        mou_url_more: 선택적으로 이 파트너의 계약을 포함하는 파일에 대한 URL을 입력하세요. 이 파일은 다른 계약 텍스트보다 우선 적용됩니다. EOL 콘텐츠 서버에 파일(예를 들어 PDF 파일)을 저장하고 싶은 경우 처음에 URL을 얻으려면 <a href="%{upload_content_url}">파일을 올릴</a> 수 있습니다.
       data_object: 
         bibliographic_citation: 참고 문헌 인용
         description: 텍스트 <small>(일부 HTML 마크업은 허용함)</small>
@@ -1731,9 +1764,14 @@ ko:
         refs: 참고 <small>(새 행에 각 참조를 넣으세요)</small>
         rights_holder: 권한 소유자
         rights_statement: 권한 정책
-        rights_statement_more: 크리에이티브 커먼즈 저작자표시 (CC-BY) 라이선스에 따라 필요한 경우 사용 권리 정책은 <q cite="http://creativecommons.org/licenses/by/3.0">저자 또는 라이선스 제공자에 의해</q> 지정된 방식으로 상태 속성을하시기 바랍니다.
+        rights_statement_more: 크리에이티브 커먼즈 저작자표시 (CC-BY) 라이선스에 따라 필요한 경우 사용 권리 정책은 <q cite="http://creativecommons.org/licenses/by/3.0">저자 또는 라이선스 제공자에 의해 지정된 방식에 따라</q> 저자 표기에 주의하시기 바랍니다.
         source_url: 원래 데이터 개체에 대한 URL
         toc_item: 절
+      data_object_link: 
+        description: 설명 <small>(일부 HTML 마크업은 허용함)</small>
+        link_type: 분류
+        source_url: 링크 URL
+        toc_item: 제목
       eol_statistic: 
         date_one: 날짜
         date_two: 날짜
@@ -1850,6 +1888,9 @@ ko:
         create: 문서 추가
         create_text: 문서 추가
         update: 문서 저장
+      data_object_link: 
+        create: 링크 추가
+        update: 링크 저장
       eol_statistic: 
         change_date: 날짜에 대한 통계 얻기
         download_csv: CSV로 다운로드
@@ -2069,6 +2110,7 @@ ko:
   license_public_domain: 퍼블릭 도메인
   licensing: 라이선스
   link_name: 링크 이름
+  link_rating: 링크 평가
   list_newsletter_emails: 목록 뉴스 레터 이메일
   listing_collections: 목록 모음집
   literature: 문헌
@@ -2189,8 +2231,8 @@ ko:
   my_info: 내 정보
   name: 이름
   name_colon: "이름:"
-  name_preferred_for_language_yes: 우선 사용
-  name_preferred_taxonomically_for_source_yes: 우선 사용
+  name_preferred_for_language_yes: 선호
+  name_preferred_taxonomically_for_source_yes: 선호
   names: 이름
   names_children_column_header: 어린이
   names_common_list_by_language_assistive_header: 언어별 공통 이름
@@ -2198,7 +2240,7 @@ ko:
   names_filter: 이름
   names_name_column_header: 이름
   names_parents_column_header: 상위
-  names_preferred_column_header: 우선 사용
+  names_preferred_column_header: 선호
   names_relationship_column_header: 관계
   names_sources_column_header: 출처
   names_status_column_header: 상태
@@ -2988,6 +3030,8 @@ ko:
   this_image_is_unpublished: 이 그림은 게시하지 않았습니다.
   this_image_map_cannot_be_curated_because_unpublished: 이 지도는 게시하지 않았기 때문에 큐레이트할 수 없습니다.
   this_image_map_is_unpublished: 이 지도는 게시하지 않았습니다.
+  this_link_cannot_be_curated_because_unpublished: 이 링크는 게시하지 않았기 때문에 큐레이트할 수 없습니다.
+  this_link_is_unpublished: 이 링크는 게시하지 않았습니다.
   this_map_cannot_be_curated_because_unpublished: 이 지도는 게시하지 않았기 때문에 큐레이트할 수 없습니다.
   this_map_is_unpublished: 이 지도는 게시하지 않았습니다.
   this_section_is_used_to_create: 이 문단은 뉴스 항목을 만드는 데 사용합니다. 뉴스 항목은 대문 문서의 오른쪽 부분에 보여지며, %{rss_link}와 %{news_archive}에도 보여집니다.

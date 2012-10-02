@@ -73,6 +73,7 @@ sv:
         rights_statement: Rättighetsuttalande
         source_url: Käll-URL
       eol_statistic: 
+        active_curators: Aktiva kuratorer
         base_pages: Grundläggande sidor
         collections_count: Samlingar
         communities_count: Gemenskaper
@@ -81,6 +82,8 @@ sv:
         content_partners_with_published_trusted_resources: Med publicerade betrodda resurser
         created_at: Skapades den
         curators: Kuratorer
+        curators_assistant: Assistentkuratorer
+        curators_full: Fullständiga kuratorer
         data_objects: Dataobjekt
         data_objects_images: Bildobjekt
         data_objects_maps: Kartobjekt
@@ -105,7 +108,7 @@ sv:
         pages_with_image: Sidor med bild
         pages_with_image_no_text: Sidor med bild, men ingen text
         pages_with_map: Sidor med karta
-        pages_with_score_10_to_39: Sidor med poäng 10-39
+        pages_with_score_10_to_39: Sidor med poäng 10-40
         pages_with_score_less_than_10: Sidor med poäng mindre än 10
         pages_with_sound: Sidor med ljud
         pages_with_text: Sidor med text
@@ -127,7 +130,12 @@ sv:
         request_publish: Begär publicering
       name: 
         string: Namn
+      news_item: 
+        active: Publicerad
+        page_name: Unikt namn
+        sort_order: Sorteringsordning
       notification: 
+        changes_to_my_watched_collection: Ändringar till samlingar i din bevakningslista
         comment_on_my_collection: En kommentar på en samling som du hanterar
         comment_on_my_community: En kommentar i en av gemenskaperna som du är medlem i
         comment_on_my_profile: En kommentar på din profil
@@ -163,6 +171,9 @@ sv:
         main_content: Innehåll
         meta_description: Metadata-beskrivning
         meta_keywords: Metadata-nyckelord
+        title: Titel
+      translated_news_item: 
+        active_translation: Publicerad
         title: Titel
       user: 
         api_key: API-nyckel
@@ -217,13 +228,17 @@ sv:
         wrong_length: har fel längd (ska vara %{count} tecken)
         wrong_type: är fel typ
       models: 
+        data_object: 
+          attributes: 
+            rights_holder: 
+              blank: kan inte vara tom för att CC-BY-licens
         resource: 
           attributes: 
             accesspoint_url: 
               blank: kan inte vara tomt, om du laddar upp en resursfil i stället
               inaccessible: är otillgänglig, webbadressen måste vara tillgänglig för allmänheten
             dataset: 
-              wrong_type: är fel typ, det bör vara en GZIP, TAR eller XML-fil
+              wrong_type: är fel typ, det bör vara en GZIP, TAR, ZIP eller XML-fil
             dwc_archive_url: 
               inaccessible: är otillgänglig, webbadressen måste vara tillgänglig för allmänheten
       template: 
@@ -241,22 +256,42 @@ sv:
       add_editor: 
         an_unknown_user_of_an_unknown_collection: En okänd användare lades till som en hanterare av en okänd gemenskap.
         an_unknown_user_of_collection: En okänd användare lades till som en hanterare av samlingen "%{collection}".
+        an_unknown_user_of_it: En okänd användare lades till som hanterare.
         user_of_an_unknown_collection: <strong>%{user}</strong> lades till som en hanterare av en okänd samling.
+        user_of_collection: <strong>%{user}</strong> lades till som en hanterare av samlingen "%{collection}".
+        user_of_it: <strong>%{user}</strong> lade till som användare.
       collect: 
+        an_unknown_user_added_an_unknown_item_to_an_unknown_collection: En okänd användare lade till ett okänt objekt till en okänd samling.
+        an_unknown_user_added_an_unknown_item_to_collection: En okänd användare lade till ett okänt objekt till samlingen "%{collection}".
+        an_unknown_user_added_an_unknown_item_to_it: En okänd användare lade till ett okänt objekt.
         an_unknown_user_added_item_to_it: En okänd användare lade till "%{item}".
         user_added_an_unknown_item_to_it: <strong>%{user}</strong> lade till ett okänt objekt.
+        user_added_item_to_an_unknown_collection: <strong>%{user}</strong> lade till "%{item}" till en okänd samling.
+        user_added_item_to_collection: <strong>%{user}</strong> lade till "%{item}" till samlingen "%{collection}".
+        user_added_item_to_it: <strong>%{user}</strong> lade till "%{item}".
       create: 
+        an_unknown_user_created_an_unknown_collection: En okänd användare skapade en okänd samling.
         an_unknown_user_created_collection: En okänd användare skapade samlingen "%{collection}".
         an_unknown_user_created_it: En okänd användare skapade den.
+        user_created_an_unknown_collection: <strong>%{user}</strong> skapade en okänd samling.
+        user_created_collection: <strong>%{user}</strong> skapade samlingen "%{collection}".
         user_created_it: <strong>%{user}</strong> skapade den.
       remove: 
+        an_unknown_user_removed_an_unknown_item_from_an_unknown_collection: En okänd användare tog bort ett okänt objekt från en okänd samling.
+        an_unknown_user_removed_an_unknown_item_from_collection: En okänd användare tog bort ett okänt objekt från samlingen "%{collection}".
         an_unknown_user_removed_an_unknown_item_from_it: En okänd användare tog bort ett okänt objekt.
+        an_unknown_user_removed_item_from_an_unknown_collection: En okänd användare tog bort "%{item}" från en okänd samling.
+        an_unknown_user_removed_item_from_collection: En okänd användare tog bort "%{item}" från samlingen "%{collection}".
         an_unknown_user_removed_item_from_it: En okänd användare tog bort "%{item}".
+        user_removed_an_unknown_item_from_an_unknown_collection: <strong>%{user}</strong> tog bort ett okänt objekt från en okänd samling.
+        user_removed_an_unknown_item_from_it: <strong>%{user}</strong> tog bort ett okänt objekt.
         user_removed_item_from_it: <strong>%{user}</strong> tog bort "%{item}".
       remove_all: 
         an_unknown_user_cleared_an_unknown_collection: En okänd användare tog bort alla objekt från en okänd samling.
+        an_unknown_user_cleared_collection: En okänd användare tog bort alla objekt från samlingen "%{collection}".
         an_unknown_user_cleared_it: En okänd användare tog bort alla objekt.
         user_cleared_an_unknown_collection: <strong>%{user}</strong> tog bort alla objekt från en okänd samling.
+        user_cleared_collection: <strong>%{user}</strong> tog bort alla objekt från samlingen "%{collection}".
         user_cleared_it: <strong>%{user}</strong> tog bort alla objekt.
     community_activity_log: 
       change_icon: 
@@ -266,8 +301,11 @@ sv:
         an_unknown_user_created_community: En okänd användare skapade gemenskapen "%{community}".
       join: 
         an_unknown_user_joined_an_unknown_community: En okänd användare blev medlem i en okänd gemenskap.
+        an_unknown_user_joined_community: En okänd användare gick med i gemenskapen "%{community}".
+        user_joined_an_unknown_community: <strong>%{user}</strong> gick med i en okänd gemenskap.
         user_joined_community: <strong>%{user}</strong> blev medlem i gemenskapen "%{community}".
       leave: 
+        an_unknown_user_left_an_unknown_community: En okänd användare lämnade en okänd gemenskap.
         user_left_an_unknown_community: <strong>%{user}</strong> lämnade en okänd gemenskap.
         user_left_community: <strong>%{user}</strong> lämnade gemenskapen "%{community}".
       other_actions: 
@@ -449,10 +487,12 @@ sv:
         tweet_text: "%{collection_name}-hanterare"
     inaturalists: 
       show: 
+        add_observations: Lägg till observationer
         observation_date: "Datum: %{observed_on}"
         observation_place: "Plats: %{place}"
         observer_with_link: "Observatör: %{observer_link}"
         some_taxon: Någonting
+        view_project_on_inaturalist: Visa %{project_title} på iNaturalist
     newsfeeds: 
       show: 
         meta_keywords: "%{collection_name}-nyheter"
@@ -500,6 +540,8 @@ sv:
         meta_keywords: "%{community_name}-samlingar"
         meta_title: "%{community_name}-samlingar"
         tweet_text: "%{community_name}-samlingar"
+    show: 
+      meta_title: "%{community_name} Togs bort av ägare"
   communities_filter: Gemenskaper
   communities_index_empty: Det finns inga aktiva gemenskaper.
   communities_index_header: Aktiva gemenskaper
@@ -548,10 +590,17 @@ sv:
   contact_updated: Kontakt uppdaterad
   contact_us: kontakta oss
   contact_us_link: Kontakta oss
+  contacts: 
+    errors: 
+      message_not_sent: Tyvärr, ett fel uppstod, ditt meddelande har inte skickats.
+    new: 
+      page_title: Var god lämna din feedback
   containing_value: innehåller %{value}.
   content: 
     index: 
+      header_news: EOL-nyheter
       meta_title: Djur - Växter - Bilder och Information
+      see_all_eol_news: se mer <span class="assistive">EOL-nyheter</span>
       see_all_recent_activites: se mer <span class="assistive">aktivitet från den senaste veckan</span>
   content_has_been_updated: Innehåll har uppdaterats.
   content_partner: Innehållspartner
@@ -629,6 +678,13 @@ sv:
       meta_title: Redigera %{partner_name}
     index: 
       meta_title: Innehållspartners
+    show: 
+      meta_description: "%{partner_name}. %{partner_description}"
+    statistics: 
+      show: 
+        meta_description: Användningsstatistik för %{partner_name}data.
+        meta_title: "%{partner_name} Statistik"
+        tweet_text: "%{partner_name} användningsstatistik"
   content_partners_empty: Inget innehållspartner hittades.
   content_partners_link: Innehållspartners
   content_partners_page_title: Innehållspartners
@@ -721,6 +777,61 @@ sv:
       tweet_text: "%{dato_title} från %{supplier}"
   date_caps: Datum
   date_uploaded: Uppladdningsdatum
+  datepicker: 
+    close: Stäng
+    current: Idag
+    day_names: 
+      - Söndag
+      - Måndag
+      - Tisdag
+      - Onsdag
+      - Torsdag
+      - Fredag
+      - Lördag
+    day_names_min: 
+      - Sö
+      - Må
+      - Ti
+      - 'On'
+      - To
+      - Fr
+      - Lö
+    day_names_short: 
+      - Sön
+      - Mån
+      - Tis
+      - Ons
+      - Tor
+      - Fre
+      - Lör
+    month_names: 
+      - januari
+      - februari
+      - mars
+      - april
+      - maj
+      - juni
+      - juli
+      - augusti
+      - september
+      - oktober
+      - november
+      - december
+    month_names_short: 
+      - jan
+      - feb
+      - mar
+      - apr
+      - maj
+      - jun
+      - jul
+      - aug
+      - sep
+      - okt
+      - nov
+      - dec
+    next: Nästa
+    previous: Föregående
   dato_create_cancel: Avbryt
   dato_create_user_text_error: Tyvärr, ett fel uppstod. Artikeln inte kunde läggas till.
   dato_edit_cancel: Avbryt
@@ -791,6 +902,22 @@ sv:
   eol_glossary: EOL-ordlista
   eol_news: EOL-nyheter
   eol_pages: Sidor
+  eol_statistics: 
+    comparing_dates: <span class="assistive">Jämför</span> <span class="date_one">%{date_one}</span> <span class="assistive">och</span> <span class="date_two">%{date_two}</span>
+    content_partners: 
+      menu_link: Innehållspartners
+      page_header: Statistik för innehållspartners
+      page_title: Statistiker
+    curators: 
+      page_title: Statistiker
+    data_objects: 
+      page_title: Statistik
+    index: 
+      page_title: Statistiker
+    lifedesks: 
+      page_title: Statistiker
+    page_richness: 
+      page_title: Statistiker
   error_403_page_title: Förbjudet
   error_404_page_title: Hittades inte
   error_500_description: Vi beklagar, vi har stött på ett problem. Om problemet uppstår, var god skicka ett e-postmeddelande till <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>
@@ -901,6 +1028,7 @@ sv:
         name: Ditt namn
       content_page: 
         active: Publicerad
+        parent_content_page_id: Överordnad
       content_partner: 
         created_at: Registrerad
         description_of_data: Beskrivning av data <small>(privat)</small>
@@ -921,6 +1049,14 @@ sv:
         rights_holder: Rättighetsinnehavare
         source_url: URL till det ursprungliga dataobjektet
         toc_item: Underkapitel
+      data_object_link: 
+        link_type: Kategori
+        source_url: Länk-URL
+        toc_item: Ämne
+      eol_statistic: 
+        date_one: Datum
+        date_two: Datum
+        download_all: Allting <small>(inkluderar poster från alla sidor)</small>
       google_analytics_partner_summaries: 
         page_views: Sidvisningar <small>(antalet sidbesök)</small>
         taxa_pages: Sidor <small>(antal sidor)</small>
@@ -930,11 +1066,14 @@ sv:
       harvest_event: 
         began_at: Påbörjad
         completed_at: Färdig
+        first_published_at: Först publicerad
         published_at: Publicerad
         published_status: Status
       hierarchy: 
         browsable_status_with_colon: "Bläddringsbar status:"
         complete: Kurerad
+      news_item: 
+        active: Publicerad
       open_authentication: 
         connect: Lägg till
         connected: Ansluten
@@ -956,10 +1095,14 @@ sv:
       translated_content_page: 
         active_translation: Publicerad
         language_id: Språk
+      translated_news_item: 
+        active_translation: Publicerad
+        language_id: Språk
       user: 
         agreed_with_terms: Jag godkänner <a href="%{terms_url}">användarvillkoren</a>
         bio: Om mig
         credentials: Autentiseringsuppgifter
+        credentials_more_professional: Medlem av ett professionellt sällskap.
         credentials_more_referral: Återknytning från aktuell kurator.
         curation_application: Bli en kurator
         curator_level: Du är för närvarande %{curator_level_with_indefinite_article}.
@@ -970,6 +1113,8 @@ sv:
         logo: Ladda upp ett nytt foto
         new_password: Nytt lösenord <small>(4 - 16 tecken)</small>
         new_password_confirmation: Nytt lösenord <small>(bekräftelse)</small>
+        notification_settings: Meddelandeinställningar
+        notification_settings_more: Konfigurera dina meddelandeinställningarna.
         open_authentications: Anslutna konton
         open_authentications_connected_accounts: Dina anslutna konton
         requested_curator_level: Din begäran att bli %{curator_level_with_indefinite_article} pågår.
@@ -1006,6 +1151,9 @@ sv:
         create: Lägg till artikel
         create_text: Lägg till artikel
         update: Spara artikel
+      data_object_link: 
+        create: Lägg till länk
+        update: Spara länk
       eol_statistic: 
         download_csv: Ladda ned som CSV.
       filter_sort: Filtrera och sortera
@@ -1016,9 +1164,14 @@ sv:
       name: 
         create: Lägg till namn
         update: Uppdatera namn
+      news_item: 
+        edit: Redigera
+        preview: Förhandsgranska
+        update: Uppdatera nyhetsobjekt
       open_authentication: 
         create: Anslut
         destroy: Koppla från
+        update: Kontrollera anslutning
       resource: 
         create: Lägg till resurs
         update: Uppdatera resurs
@@ -1033,6 +1186,8 @@ sv:
       translated_content_page: 
         create: Lägg till översättning
         update: Spara ändringar i översättning
+      translated_news_item: 
+        create: Lägg till översättning
       update: Uppdatera %{model}
       user: 
         create: Skapa konto
@@ -1113,6 +1268,40 @@ sv:
   languages: Språk
   last_updated: Senaste uppdaterad
   last_updated_time_ago: Senast uppdaterad för %{time_passed} sedan
+  layouts: 
+    v2: 
+      application: 
+        learn_more_link_amphibians: Groddjur
+        learn_more_link_animals: Djur
+        learn_more_link_archaea: Arkéer
+        learn_more_link_bacteria: Bakterier
+        learn_more_link_birds: Fåglar
+        learn_more_link_crustaceans: Skaldjur
+        learn_more_link_fish: Fisk
+        learn_more_link_flowering_plants: Fröväxter
+        learn_more_link_fungi: Hussvampar
+        learn_more_link_insects: Insekter
+        learn_more_link_invertebrates: Ryggradslösa djur
+        learn_more_link_mammals: Däggdjur
+        learn_more_link_molds: Mögel
+        learn_more_link_mollusks: Blötdjur
+        learn_more_link_mushrooms: Svampar
+        learn_more_link_plants: Plantor
+        learn_more_link_protists: Protister
+        learn_more_link_reptiles: Reptiler
+        learn_more_link_spiders: Spindlar
+        learn_more_link_trees: Träd
+        learn_more_link_viruses: Virus
+        questions_link_binomial_nomenclature: Vad är binomial nomenklatur?
+        questions_link_biodiversity: Vad är biodiversitet?
+        questions_link_biological_classification: Vad är en biologisk klassifikation?
+        questions_link_contributing_to_research: Hur kan jag bidra till forskning?
+        questions_link_discovering_species: Hur upptäcks arter?
+        questions_link_indicator_species: Vad är en indikatorart?
+        questions_link_invasive_species: Vad är en invasiv art?
+        questions_link_model_organism: Vad är en modellorganism?
+        questions_link_naming_species: Hur namnges arter?
+        questions_link_species: Vad är en art?
   learn_about_collections: Hur kan jag skapa en?
   learn_about_communities: Hur kan jag delta?
   learn_about_content_partners: Hur blir jag en?
@@ -1271,6 +1460,10 @@ sv:
   new_user: Ny användare
   news_item: nyhetsobjekt
   news_item_title: Nyhetsobjekt
+  news_items: 
+    index: 
+      meta_title: EOL-nyheter
+      page_title: EOL-nyheter
   newsfeed: Nyhetsflöde
   newsfeed_help_for_taxon: Nyhetsflödet för denna EOL Taxon-sida samlar uppdateringar som är associerade med objekt som visas på den, inklusive kuratoråtgärder och kommentarer från EOL-användare.
   next: Nästa
@@ -1307,6 +1500,7 @@ sv:
       subject: Återställ ditt Encyclopedia of Life-konto
     user_updated_email_preferences: 
       message: "Detta är en automatiskt systemmeddelande från EOL. Användaren %{user_full_name} (%{user_profile_url}) uppdaterade sin e-postadress eller inställningarna för e-postlistan.\n\nFöregående inställningar:\nE-post: %{previous_email}\nE-postlistans inställningar: %{previous_mailing_list_preference}\n\nUppdaterades till:\nE-post: %{updated_email}\nE-postlistans inställningar: %{updated_mailing_list_preference}\nUppdaterades: %{updated_at}"
+      subject: EOL-användaren %{user_full_name} ändrade sina inställningar för e-postadress eller e-postlista
     user_verification: 
       subject: Var god kontrollera din begäran för ett Encyclopedia of Life-konto
   object: Objekt
@@ -1414,6 +1608,9 @@ sv:
   published_parens: (Publicerad)
   punctuation_comma: ","
   punctuation_semi_colon: ;
+  rank_recognized_by_agent: "%{rank} som känns igen av %{agent}"
+  rank_recognized_by_agent_colon: "<b>%{rank}</b> som känns igen av %{agent}:"
+  rank_recognized_by_from_source: "%{rank} som känns igen av %{agent} i %{source}"
   rated_by_count_people: 
     one: från %{count} person
     other: från %{count} personer
@@ -1431,8 +1628,8 @@ sv:
       one: Det fanns en uppdatering på %{to}
       other: Det fanns %{count} uppdateringar på %{to}
     bulk_comments_on_you_with_count: 
-      one: Det finns en ny kommentar på din profil
-      other: Det finns %{count} nya kommentarer på din profil
+      one: Det finns en ny kommentar på <a href='%{url}' style='color:#195184'>din profil</a>
+      other: Det finns %{count} nya kommentarer på <a href='%{url}' style='color:#195184'>din profil</a>
     bulk_comments_with_count: 
       one: Det finns en ny kommentar på %{on}
       other: Det finns %{count} nya kommentarer på %{on}
@@ -1458,6 +1655,7 @@ sv:
     community_activity_user_joined: Användaren <b>%{user_name}</b> blev medlem i gemenskapen <b>%{community_name}</b>.
     community_activity_user_left: Användaren <b>%{user_name}</b> lämnade gemenskapen <b>%{community_name}</b>.
     community_activity_user_made_member_a_manager: Användaren <b>%{user_name}</b> gjorde <b>%{member_name}</b> till en hanterare i gemenskapen <b>%{community_name}</b>.
+    contact_us_link: Om du stöter på några problem, var god <a href='http://eol.org/contact_us' style='color:#195184'>kontakta oss</a>.
     curator_activity_log_title: "%{who} har kurerat någonting"
     curator_activity_on_data_object_by_user: "<b>%{user_name}</b> utförde handlingen %{activity_name} på <b>%{dato_title}</b> (%{dato_type} #%{dato_id})."
     curator_activity_on_taxon_concept_by_user: <b>%{user_name}</b> utförde handlingen %{activity_name} på <b>%{taxon_concept}</b> (%{taxon_overview_url}).
@@ -1466,10 +1664,12 @@ sv:
     default_subject: Senaste aktivitet på EOL
     intro: Här är din sammanfattning av EOL-aktiviteten för %{time}
     intro_immediately: Hej, %{name} —
+    intro_weekly: Här är din sammanfattning av aktiviteter på EOL för veckoslutet %{ending}
     reply_to_comment_body_brief: "%{reply_to_author} %{body} - %{author}"
     someone_commented_on_something: <b>%{who}</b> har kommenterat på <b>%{what}</b>.
   recent_updates: Senaste uppdateringar
   recently_visited: Nyligen besökta
+  recognized_by_from_source: "%{recognized_by} i %{source}"
   record_not_found: "[post hittades inte]"
   references_cabs_colon: "Referenser:"
   related_names_with_count: 
@@ -1558,6 +1758,7 @@ sv:
       meta_title: Logga in
       problems_signing_in_with_connected_accounts: Problem med att logga in med dina anslutna konton?
       problems_signing_in_with_eol_authentication: Glömt lösenordet?
+      tip: Är du som en användare? Anslut ditt EOL-konto med Facebook, Google och fler i dina profilinställningar. När dina konton är anslutna kan du använda dem att logga in på EOL.
   set_as_exemplar: Ange som förebild
   share_a_collection: Dela en samling
   show: Visa
@@ -1641,12 +1842,32 @@ sv:
         hierarchy_entry: 
           meta_description: Samlingar som innehåller %{scientific_name} som är klassificerad av %{hierarchy_provider}.
           meta_description_with_common_name: Samlingar som innehåller %{preferred_common_name} (%{scientific_name} som är klassificerad av %{hierarchy_provider}).
+          meta_title: Samlingar av %{scientific_name} som är klassificerad av %{hierarchy_provider}
+          meta_title_with_common_name: Samlingar av %{preferred_common_name} (%{scientific_name} som är klassificerad av %{hierarchy_provider})
+          tweet_text: Samlingar av %{scientific_name} som är klassificerad av %{hierarchy_provider}
+        meta_description: Samlingar som innehåller %{scientific_name}.
+        meta_description_with_common_name: Samlingar som innehåller %{preferred_common_name} (%{scientific_name}).
+        meta_keywords: Samlingar av %{scientific_name}, observationer av %{scientific_name}
         meta_title: Samlingar av %{scientific_name}
         tweet_text: Samlingar av %{scientific_name}
+      curators: 
+        hierarchy_entry: 
+          meta_title: Kuratorer för %{scientific_name} som är klassificerad av %{hierarchy_provider}
+          meta_title_with_common_name: Experter på %{preferred_common_name} (%{scientific_name} som är klassificerad av %{hierarchy_provider})
+          tweet_text: Kuratorer för %{scientific_name} som är klassificerad av %{hierarchy_provider}
       index: 
         hierarchy_entry: 
           meta_description: Dela information och expertis på %{scientific_name} som är klassificerad av %{hierarchy_provider}.
           meta_description_with_common_name: Dela information och expertis på %{preferred_common_name} (%{scientific_name}) som är klassificerad av %{hierarchy_provider}.
+          meta_keywords: gemenskapen %{scientific_name}, %{hierarchy_provider}
+          meta_title: Personer intresserade i %{scientific_name} som är klassificerad av %{hierarchy_provider}
+          meta_title_with_common_name: Personer intresserade i %{preferred_common_name} (%{scientific_name} som är klassificerad av %{hierarchy_provider})
+          tweet_text: Personer intresserade i %{scientific_name} som är klassificerad av %{hierarchy_provider}
+        meta_description: Intresserad i %{scientific_name}? Gå med experterna för %{scientific_name} och dela dina egna observationer av %{scientific_name} på Encyclopdia of Life.
+        meta_keywords: gemenskap för %{scientific_name}
+        meta_title: Personer intresserade i %{scientific_name}
+        meta_title_with_common_name: Personer intresserade i %{preferred_common_name} (%{scientific_name})
+        tweet_text: Personer intresserade i %{scientific_name}
     details: 
       index: 
         meta_description: Information om %{scientific_name} i Encyclopedia of Life
@@ -1741,6 +1962,7 @@ sv:
   this_image_is_unpublished: Denna bild är opublicerad.
   this_image_map_is_unpublished: Denna karta är opublicerad.
   this_is_a_focus_collection_for_community: Denna samling är i fokus för "%{community}".
+  this_link_is_unpublished: Denna länk är opublicerad.
   this_map_is_unpublished: Denna karta är opublicerad.
   this_sound_is_unpublished: Detta ljud är opublicerat.
   this_video_is_unpublished: Detta videoklipp är opublicerat.

@@ -504,6 +504,39 @@ de:
         user_chose_exemplar_data_object_on_taxon: <strong>%{user}</strong> legte „%{data_object}“ als beispielhaft für „%{taxon}“ fest.
         user_chose_exemplar_it_on_an_unknown_taxon: <strong>%{user}</strong> legte es auf einer unbekannten Seite als beispielhaft fest.
         user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> legte es als beispielhaft für „%{taxon}“ fest.
+      classification_curation: 
+        merge: 
+          an_unknown_user_merged_an_unknown_taxon_and_an_unknown_taxon: Ein unbekannter Nutzer führte zwei unbekannte Seiten zusammen.
+          an_unknown_user_merged_an_unknown_taxon_and_taxon: Ein unbekannter Nutzer führte eine unbekannte Seite mit Seite %{target} zusammen.
+          an_unknown_user_merged_it_and_an_unknown_taxon: Ein unbekannter Nutzer führte sie mit einer unbekannten Seiten zusammen.
+          an_unknown_user_merged_it_and_taxon: Ein unbekannter Nutzer führte sie mit der Seite %{target} zusammen.
+          an_unknown_user_merged_taxon_and_an_unknown_taxon: Ein unbekannter Nutzer führte die Seite zu %{taxon} mit einer unbekannten Seite zusammen.
+          an_unknown_user_merged_taxon_and_taxon: Ein unbekannter Nutzer führte die Seite zu %{taxon} mit der Seite %{target} zusammen.
+          user_merged_an_unknown_taxon_and_an_unknown_taxon: <strong>%{user}</strong> führte eine unbekannte Seite mit einer anderen unbekannten Seite zusammen.
+          user_merged_an_unknown_taxon_and_taxon: <strong>%{user}</strong> führte eine unbekannte Seite mit der Seite %{target} zusammen.
+          user_merged_it_and_an_unknown_taxon: <strong>%{user}</strong> führte sie mit einer unbekannten Seite zusammen.
+          user_merged_it_and_taxon: <strong>%{user}</strong> führte sie mit der Seite %{target} zusammen.
+          user_merged_taxon_and_an_unknown_taxon: <strong>%{user}</strong> führte die Seite zu %{taxon} mit einer unbekannten Seite zusammen.
+          user_merged_taxon_and_taxon: <strong>%{user}</strong> führte die Seite zu %{taxon} mit der Seite %{target} zusammen.
+        move: 
+          an_unknown_user_moved_classifications_from_an_unknown_taxon_to_an_unknown_taxon: Ein unbekannter Nutzer verschob die Klassifikationen von %{classifications} von einer unbekannten Seite zu einer anderen unbekannten Seite.
+          an_unknown_user_moved_classifications_from_an_unknown_taxon_to_taxon: Ein unbekannter Nutzer verschob die Klassifikationen von %{classifications} von einer unbekannten Seite zur Seite %{target}.
+          an_unknown_user_moved_classifications_from_it_to_an_unknown_taxon: Ein unbekannter Nutzer verschob die Klassifikationen von %{classifications} zu einer unbekannten Seite.
+          an_unknown_user_moved_classifications_from_it_to_taxon: Ein unbekannter Nutzer verschob die Klassifikationen von %{classifications} zur Seite %{target}.
+          an_unknown_user_moved_classifications_from_taxon_to_an_unknown_taxon: Ein unbekannter Nutzer verschob die Klassifikationen von %{classifications} von der Seite zu %{taxon} zu einer unbekannten Seite.
+          an_unknown_user_moved_classifications_from_taxon_to_taxon: Ein unbekannter Nutzer verschob die Klassifikationen von %{classifications} von der Seite zu %{taxon} zur Seite %{target}.
+          user_moved_classifications_from_an_unknown_taxon_to_an_unknown_taxon: <strong>%{user}</strong> verschob die Klassifikationen von %{classifications} von einer unbekannten Seite zu einer anderen unbekannten Seite.
+          user_moved_classifications_from_an_unknown_taxon_to_taxon: <strong>%{user}</strong> verschob die Klassifikationen von %{classifications} von einer unbekannten Seite zur Seite %{target}.
+          user_moved_classifications_from_it_to_an_unknown_taxon: <strong>%{user}</strong> verschob die Klassifikationen von %{classifications} zu einer unbekannten Seite.
+          user_moved_classifications_from_it_to_taxon: <strong>%{user}</strong> verschob die Klassifikationen von %{classifications} zur Seite %{target}.
+          user_moved_classifications_from_taxon_to_an_unknown_taxon: <strong>%{user}</strong> verschob die Klassifikationen von %{classifications} von der Seite zu %{taxon} zu einer unbekannten Seite.
+          user_moved_classifications_from_taxon_to_taxon: <strong>%{user}</strong> verschob die Klassifikationen von %{classifications} von der Seite zu %{taxon} zur Seite %{target}.
+        split: 
+          an_unknown_user_split_classifications_from_an_unknown_taxon: Ein unbekannter Nutzer entfernte die Klassifikationen von %{classifications} von einer unbekannten Seite und hinterlegte sie auf einer eigenständigen Seite.
+          an_unknown_user_split_classifications_from_it: Ein unbekannter Nutzer entfernte die Klassifikationen von %{classifications} und hinterlegte sie auf einer eigenständigen Seite.
+          an_unknown_user_split_classifications_from_taxon: Ein unbekannter Nutzer entfernte die Klassifikationen von %{classifications} von der Seite zu %{taxon} und hinterlegte sie auf einer eigenständigen Seite.
+          user_split_classifications_from_an_unknown_taxon: <strong>%{user}</strong> entfernte die Klassifikationen von %{classifications} von einer unbekannten Seite und hinterlegte sie auf einer eigenständigen Seite.
+          user_split_classifications_from_taxon: <strong>%{user}</strong> entfernte die Klassifikationen von %{classifications} und hinterlegte sie auf einer eigenständigen Seite.
       hide: 
         an_unknown_user_hid_an_older_data_object_on_an_unknown_association: Ein unbekannter Nutzer markierte eine ältere Version von „%{data_object}“ in einem unbekannten Zusammenhang als nicht sichtbar.
         an_unknown_user_hid_an_older_data_object_on_association: Ein unbekannter Nutzer markierte eine ältere Version von „%{data_object}“ auf der Seite „%{association}“ als nicht sichtbar.
@@ -752,7 +785,9 @@ de:
         user_untrusted_data_object_on_association: <strong>%{user}</strong> markierte „%{data_object}“ auf der Seite „%{association}“ als nicht vertrauenswürdig.
         user_untrusted_it_on_an_unknown_association: <strong>%{user}</strong> markierte es in einem unbekannten Zusammenhang als nicht vertrauenswürdig.
         user_untrusted_it_on_association: <strong>%{user}</strong> markierte es auf der Seite „%{association}“ als nicht vertrauenswürdig.
+  activity_user_created_link: <strong>%{user}</strong> fügte dem Objekt „%{object_name}“ bei „%{taxon_concept}“ einen Link hinzu.
   activity_user_created_text: <strong>%{user}</strong> fügte dem Objekt „%{object_name}“ bei „%{taxon_concept}“ Text hinzu.
+  activity_user_updated_link: <strong>%{user}</strong> aktualisierte am Objekt „%{object_name}“ bei „%{taxon_concept}“ den Link.
   activity_user_updated_text: <strong>%{user}</strong> änderte am Objekt „%{object_name}“ bei „%{taxon_concept}“ den Text.
   add: Hinzufügen
   add_a_collection_to_a_community: Die Sammlung „%{collection}“ einer Gemeinschaft hinzufügen
@@ -958,7 +993,7 @@ de:
   are_you_sure_this_action_cannot_be_undone: Sind Sie sicher? Diese Aktion kann nicht rückgängig gemacht werden.
   article_from: Artikel aus
   article_from_supplier: Artikel von %{whom}
-  article_more_about: Erfahren Sie mehr zu diesem Artikel
+  article_more_about: Erfahren Sie mehr über diesen Artikel
   article_not_associated_with_any_published_entries: Dieser Artikel ist keinen veröffentlichten Taxa zugeordnet.
   article_of_taxon: Artikel zu %{taxon_name}
   article_rating: Artikelbewertung
@@ -991,6 +1026,7 @@ de:
   associated_with_header: Verbunden mit
   associated_with_image_header: Auf dem aktuellsten Bild
   associated_with_image_map_header: Auf der aktuellsten Karte
+  associated_with_link_header: Unter dem aktuellsten Link
   associated_with_map_header: Auf der aktuellsten Karte
   associated_with_sound_header: In der aktuellsten Audiodatei
   associated_with_video_header: Im aktuellsten Video
@@ -1194,6 +1230,7 @@ de:
   comment_not_deleted_error: Es ist leider ein Fehler aufgetreten, so dass der Kommentar nicht gelöscht werden konnte.
   comment_not_updated_error: Es ist leider ein Fehler aufgetreten, so dass der Kommentar nicht aktualisiert werden konnte.
   comment_or_rate_on_this_article: Diesen Artikel kommentierten oder bewerten
+  comment_or_rate_on_this_link: Diesen Link kommentierten oder bewerten
   comment_show_posters_image_alt: Das Profilbild von %{posters_name}, der diesen Kommentar hinterlassen hat.
   comments: Kommentare
   comments_and_tags: Kommentare und Stichwörter
@@ -1679,6 +1716,7 @@ de:
   dato_create_user_text_validation_error: Bitte stellen Sie sicher, dass Sie das Formular richtig ausgefüllt haben.
   dato_edit_cancel: Abbrechen
   dato_edit_link_button: Diesen Link bearbeiten
+  dato_edit_link_description: Vielen Dank, dass Sie Ihr Fachwissen bei EOL einbringen. Der überarbeitete Link wird Ihrer Beobachtungsliste hinzugefügt, so dass Sie zukünftig alle weiteren Beiträge nachverfolgen und seinen Kuratierungsstatus prüfen können.
   dato_edit_link_title: Link bearbeiten
   dato_edit_text_button: Diesen Artikel bearbeiten
   dato_edit_text_page_description: Vielen Dank, dass Sie Ihr Fachwissen bei EOL einbringen. Der überarbeitete Artikel wird Ihrer Beobachtungsliste hinzugefügt, so dass Sie zukünftig alle weiteren Beiträge nachverfolgen und seinen Kuratierungsstatus prüfen können.
@@ -1688,7 +1726,9 @@ de:
   dato_new_edit_user_text_fieldset_information_header: Artikelinformationen
   dato_new_edit_user_text_form_tip: Ihr fertiggeschriebener Artikel wird auf der Seite des Taxon veröffentlicht. Sofern Sie kein Kurator sind, wird er als „ungeprüft“ markiert sein, bis er von einem Kurator geprüft wurde. Die Felder Unterkapitel, Text, Sprache und Lizenz sind erforderlich (%{required_icon}), alle anderen Felder sind optional. Sofern Sie eine Creative-Commons-Lizenz „Namensnennung“ (CC BY) auswählen, geben Sie bitte auch den Rechteinhaber an, bzw. lassen Sie das Feld leer, um Ihren vollen Namen zu setzen. Gemeinfreiheit bedarf keines Rechteinhabers. Für weitere Anleitung lesen Sie bitte die <a href="%{add_article_help_url}">Hilfeseite zum Hinzufügen von Artikeln</a>.
   dato_new_edit_user_text_link_fieldset_content_header: Daten verknüpfen
+  dato_new_edit_user_text_link_form_tip: Ihr Link wird auf der Seite des Taxon angezeigt werden. Sofern Sie kein Kurator sind, wird er als „ungeprüft“ markiert, bis ihn ein Kurator überprüft. Kategorie, Beschreibung und URL sind erforderliche Angaben (%{required_icon}), alle anderen Felder sind optional. Weitere Unterstützung ist auf der Hilfeseite zum <a href="%{add_article_help_url}">Hinzufügen von Artikeln und Links</a> verfügbar.
   dato_new_text_for_taxon_page_title: Einen Artikel zu <i>%{taxon}</i> hinzufügen
+  dato_new_text_link_for_taxon_page_title: Einen Link zu <i>%{taxon}</i> hinzufügen
   dato_new_text_page_description: Vielen Dank, dass bei EOL mitarbeiten. Der überarbeitete Artikel wird Ihrer Beobachtungsliste hinzugefügt, so dass Sie zukünftig alle weiteren Beiträge nachverfolgen und seinen Kuratierungsstatus prüfen können.
   dato_update_user_text_error: Es ist leider ein Fehler aufgetreten, so dass der Artikel nicht aktualisiert werden konnte.
   dato_update_users_text_not_owner_exception: Nur der ursprüngliche Autor dieses Textobjektes kann es bearbeiten.
@@ -1845,6 +1885,7 @@ de:
   error_log: Fehlerprotokoll
   error_log_detail: Fehlerprotokolldetail
   error_logging_active: Fehlerprotokollierung aktive
+  error_updating_user: Beim Aktualisieren des Datensatzes zu diesem Nutzer ist ein Fehler aufgetreten.
   error_watch_collections_cannot_be_shared: Beobachtungslisten zu Sammlungen können leider nicht mit anderen geteilt werden
   every_method_can_also_return_json_response: Jede Methode kann auch eine Antwort in JSON zurückgeben, indem man die Dateiendung .json anhängt.
   example_colon: "Beispiel:"
@@ -1961,6 +2002,7 @@ de:
   gbif_occurrence_learn_more_link: Greifen Sie über das GBIF-Portal auf diese Daten zu.
   general_site_admin: allgemeine Websiteadministration
   get_help_choosing_a_subchapter: Holen Sie sich Hilfe zur Auswahl eines Unterkapitels
+  get_help_choosing_a_subject: Holen Sie sich Hilfe zur Auswahl eines Themas
   get_more_tasks: weitere Aufgaben abrufen
   given_name_colon: "Vorname:"
   given_the_vast_number: Angesichts der Vielzahl an wissenschaftlichen und Trivialnamen (fast 20 Millionen insgesamt) ist es eine schwierige Aufgabe, einem Nutzer genau die Art anzuzeigen, die er zu finden hofft. Es gibt beispielsweise im Englischen mehrere Vogel- und Fischarten mit Namen ''Robin'' sowie einen Wissenschaftler gleichen Namens, der etlichen Arten beschrieben hat. Es gibt daher der Parameter „exakt“, der nur diejenigen Ergebnisse zurückgibt, die mit dem Suchbegriff identisch sind. Dennoch kann nicht sichergestellt werden, dass die ermittelten Taxa dem Gesuchten entsprechen. Wir sind ständig dabei, die Relevanz der Suchergebnisse zu verbessern. In naher Zukunft sind z. B. Verbesserungen bei der Sortierung der Suchergebnisse zu erwarten.
@@ -2464,6 +2506,7 @@ de:
   limits_the_number_of_returned_sound_objects: begrenzt die Anzahl der zurückgegebenen Geräuschobjekte
   limits_the_number_of_returned_text_objects: begrenzt die Anzahl der zurückgegebenen Textobjekte
   limits_the_number_of_returned_video_objects: begrenzt die Anzahl der zurückgegebenen Videoobjekte
+  link_more_about: Erfahren Sie mehr über diesen Link
   link_name: Name des Links
   link_rating: Bewertung des Links
   links_with_count: 
@@ -2655,6 +2698,7 @@ de:
   new_search_suggestion: Neuer Suchvorschlag
   new_upload: Neu Hochgeladenes
   new_user: Neuer Nutzer
+  news_and_event_links: Links zu Nachrichten und Ereignissen
   news_archive_page: Seite des Neuigkeitenarchivs
   news_available_in_languages: "Diese Seite ist verfügbar auf:"
   news_date: Datum der Nachricht
@@ -3089,6 +3133,9 @@ de:
   see_all_collections_with_count_html: 
     one: <span class="assistive">Die Sammlung ansehen, in der dieses Taxon vorkommt.</span>
     other: <span class="assistive">Alle %{count} Sammlungen ansehen, in denen dieses Taxon vorkommt.</span>
+  see_all_comments_with_count_for_link_or_rate: 
+    one: Den Kommentar zu diesem Link ansehen oder ihn bewerten
+    other: Alle %{count} Kommentare zu diesem Link ansehen oder ihn bewerten
   see_all_comments_with_count_for_text_or_rate: 
     one: Den Kommentar zu diesem Artikel ansehen oder ihn bewerten
     other: Alle %{count} Kommentare zu diesem Artikel ansehen oder ihn bewerten
@@ -3536,6 +3583,7 @@ de:
   taxon_partner_links_link: Links von Inhaltspartnern
   taxon_rating: Taxonbewertung
   taxon_recognized_by: Taxon wurde von %{whom} anerkannt
+  taxon_related_organizations_link: Ähnliche Organisationen
   taxon_selected_from_search_res: Aus Suchergebnissen ausgewähltes Taxon
   taxon_suggested: Vorgeschlagenes Taxon
   taxonomic_summary_of_content: taxonomische Zusammenfassung des Inhalts
@@ -3662,6 +3710,7 @@ de:
   twitter: Twitter
   type: Art
   unable_to_copy_items_to_collection_error: Es war leider nicht möglich die Sammlung zu %{name} zu kopieren.
+  unable_to_determine_title: Der Titel dieser Webseite konnte nicht ermittelt werden.
   unable_to_invite_users_to_community_error: Die Einladungen konnten nicht zu %{users} gesendet werden.
   unique_page_views_th: Eindeutige Seitenzugriffe
   unknown: Unbekannt

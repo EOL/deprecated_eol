@@ -495,6 +495,20 @@ gl:
         user_chose_exemplar_data_object_on_taxon: <strong>%{user}</strong> estableceu "%{data_object}" como un exemplar en "%{taxon}".
         user_chose_exemplar_it_on_an_unknown_taxon: <strong>%{user}</strong> estableceuno como un exemplar nunha páxina descoñecida.
         user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> estableceuno como un exemplar en "%{taxon}".
+      classification_curation: 
+        merge: 
+          an_unknown_user_merged_an_unknown_taxon_and_an_unknown_taxon: Un usuario descoñecido fusionou dúas páxinas descoñecidas.
+          an_unknown_user_merged_an_unknown_taxon_and_taxon: Un usuario descoñecido fusionou unha páxina descoñecida con "%{target}".
+          an_unknown_user_merged_it_and_an_unknown_taxon: Un usuario descoñecido fusionouno cunha páxina descoñecida.
+          an_unknown_user_merged_it_and_taxon: Un usuario descoñecido fusionouno con "%{target}".
+          an_unknown_user_merged_taxon_and_an_unknown_taxon: Un usuario descoñecido fusionou "%{taxon}" cunha páxina descoñecida.
+          an_unknown_user_merged_taxon_and_taxon: Un usuario descoñecido fusionou "%{taxon}" con "%{target}".
+          user_merged_an_unknown_taxon_and_an_unknown_taxon: <strong>%{user}</strong> fusionou unha páxina descoñecida cunha páxina descoñecida.
+          user_merged_an_unknown_taxon_and_taxon: <strong>%{user}</strong> fusionou unha páxina descoñecida con "%{target}".
+          user_merged_it_and_an_unknown_taxon: <strong>%{user}</strong> fusionouno cunha páxina descoñecida.
+          user_merged_it_and_taxon: <strong>%{user}</strong> fusionouno con "%{target}".
+          user_merged_taxon_and_an_unknown_taxon: <strong>%{user}</strong> fusionou "%{taxon}" cunha páxina descoñecida.
+          user_merged_taxon_and_taxon: <strong>%{user}</strong> fusionou "%{taxon}" con "%{target}".
       hide: 
         an_unknown_user_hid_an_older_data_object_on_an_unknown_association: Un usuario descoñecido marcou unha versión vella de "%{data_object}" como agochada nun contexto descoñecido.
         an_unknown_user_hid_an_older_data_object_on_association: Un usuario descoñecido marcou unha versión vella de "%{data_object}" como agochada na páxina "%{association}".
@@ -743,7 +757,9 @@ gl:
         user_untrusted_data_object_on_association: <strong>%{user}</strong> marcou "%{data_object}" como de non confianza na páxina "%{association}".
         user_untrusted_it_on_an_unknown_association: <strong>%{user}</strong> marcouno como de non confianza nun contexto descoñecido.
         user_untrusted_it_on_association: <strong>%{user}</strong> marcouno como de non confianza na páxina "%{association}".
+  activity_user_created_link: <strong>%{user}</strong> engadiu unha ligazón a "%{object_name}" en "%{taxon_concept}".
   activity_user_created_text: <strong>%{user}</strong> engadiu texto a "%{object_name}" en "%{taxon_concept}".
+  activity_user_updated_link: <strong>%{user}</strong> actualizou a ligazón cara a "%{object_name}" en "%{taxon_concept}".
   activity_user_updated_text: <strong>%{user}</strong> actualizou texto de "%{object_name}" en "%{taxon_concept}".
   add: Engadir
   add_a_collection_to_a_community: Engadir "%{collection}" a unha comunidade
@@ -757,6 +773,8 @@ gl:
   add_a_new_topic_area: Engadir un novo tema
   add_a_new_user: Engadir un novo usuario
   add_a_taxon_association_label: Engadir unha asociación de taxon
+  add_article_instead: engadir un artigo no seu lugar
+  add_article_to_page_button: Engadir un artigo
   add_association_submit_button: engadir a asociación
   add_brief_summary_to_page_link_button: Engadir un breve resumo a esta páxina
   add_citizen_science_resources_to_page_link_button: Engadir unha ligazón de ciencia cidadá a esta páxina
@@ -767,6 +785,8 @@ gl:
   add_identification_resources_to_page_link_button: Engadir recursos de identificación a esta páxina
   add_item_to_new_collection: Engadir "%{item}" a unha nova colección
   add_language: Engadir unha lingua
+  add_link_instead: engadir unha ligazón no seu lugar
+  add_link_to_page_button: Engadir unha ligazón
   add_new_association_link: Engadir unha nova asociación
   add_new_tag_suggestion: Engadir unha nova suxestión de etiqueta
   add_page: Engadir unha páxina
@@ -978,6 +998,7 @@ gl:
   associated_with_header: Asociado con
   associated_with_image_header: Na última imaxe
   associated_with_image_map_header: No último mapa
+  associated_with_link_header: Na última ligazón
   associated_with_map_header: No último mapa
   associated_with_sound_header: No último son
   associated_with_video_header: No último vídeo
@@ -1177,7 +1198,8 @@ gl:
   comment_not_added_error: Sentímolo, houbo un erro. Non se engadiu o comentario.
   comment_not_deleted_error: Sentímolo, houbo un erro. Non se borrou o comentario.
   comment_not_updated_error: Sentímolo, houbo un erro. Non se actualizou o comentario.
-  comment_or_rate_on_this_article: Comenta ou valora este artigo
+  comment_or_rate_on_this_article: comenta ou valora este artigo
+  comment_or_rate_on_this_link: comenta ou valora esta ligazón
   comment_show_posters_image_alt: Imaxe do perfil de %{posters_name}, que engadiu este comentario.
   comments: Comentarios
   comments_and_tags: Comentarios e etiquetas
@@ -1657,13 +1679,20 @@ gl:
   dato_create_user_text_missing_user_exception: Non se pode construír un obxecto de datos textual ou de usuario se o identificador do taxon é nulo.
   dato_create_user_text_validation_error: Asegúrate de que completaches o formulario correctamente.
   dato_edit_cancel: Cancelar
+  dato_edit_link_button: Editar esta ligazón
+  dato_edit_link_description: Grazas por contribuíres coa túa experiencia na EOL. A ligazón revisada engadirase á túa lista de vixilancia para que poidas seguir calquera conversa relacionada con ela e comprobar o seu estado de conservación.
+  dato_edit_link_title: Editar unha ligazón
+  dato_edit_text_button: Editar este artigo
   dato_edit_text_page_description: Grazas por contribuíres coa túa experiencia na EOL. O artigo revisado engadirase á túa lista de vixilancia para que poidas seguir calquera conversa relacionada con el e comprobar o seu estado de conservación.
   dato_edit_text_title: Editar un artigo
-  dato_location_created: "Lugar de creación: #{loc}"
+  dato_location_created: "Lugar de creación: %{loc}"
   dato_new_edit_user_text_fieldset_content_header: Contidos do artigo
   dato_new_edit_user_text_fieldset_information_header: Información do artigo
   dato_new_edit_user_text_form_tip: O teu artigo terminado hase publicar na páxina do taxon. Se non es un conservador, será marcado como "sen revisar" ata que un conservador lle bote unha ollada. O subcapítulo, o texto, a lingua e a licenza son obrigatorios (%{required_icon}), o resto de campos son opcionais. Se seleccionas unha licenza CC-BY (recoñecemento), inclúe o titular dos dereitos ou déixao en branco para usar o teu nome completo. As licenzas de dominio público non necesitan un titular dos dereitos. Se necesitas máis axuda podes consultar o <a href="%{add_article_help_url}">artigo de axuda</a>.
+  dato_new_edit_user_text_link_fieldset_content_header: Datos da ligazón
+  dato_new_edit_user_text_link_form_tip: A túa ligazón hase publicar na páxina do taxon. Se non es un conservador, será marcada como "sen revisar" ata que un conservador lle bote unha ollada. A categoría, a descrición e o enderezo URL son obrigatorios (%{required_icon}), o resto de campos son opcionais. Se necesitas máis axuda podes consultar o <a href="%{add_article_help_url}">artigo de axuda</a>.
   dato_new_text_for_taxon_page_title: Engadir un artigo a <i>%{taxon}</i>
+  dato_new_text_link_for_taxon_page_title: Engadir unha ligazón a <i>%{taxon}</i>
   dato_new_text_page_description: Grazas por contribuíres na EOL. O artigo engadirase á túa lista de vixilancia para que poidas seguir calquera conversa relacionada con el e comprobar o seu estado de conservación.
   dato_update_user_text_error: Sentímolo, houbo un erro. Non se actualizou o artigo.
   dato_update_users_text_not_owner_exception: Unicamente o autor orixinal deste obxecto de texto pode editalo.
@@ -1820,6 +1849,7 @@ gl:
   error_log: Rexistro de erros
   error_log_detail: Detalles no rexistro de erros
   error_logging_active: Rexistro activo dos erros
+  error_updating_user: Houbo un erro ao actualizar o rexistro deste usuario
   error_watch_collections_cannot_be_shared: As coleccións de seguimento non se poden compartir
   every_method_can_also_return_json_response: Cada método pode devolver tamén unha resposta JSON engadindo a extensión .json
   example_colon: "Exemplo:"
@@ -1853,6 +1883,7 @@ gl:
   file: Ficheiro
   file_id: ID do ficheiro
   file_size: Tamaño do ficheiro
+  filed_under_label: Arquivado baixo %{label}
   fill_in_a_message_below_to_send_email_to_user: "Escribe unha mensaxe a continuación para enviar un correo electrónico a este usuario desde o sitio. A mensaxe enviarase cando envíe o formulario:"
   filter_button: Filtrar
   filter_by_day: Filtrar por día
@@ -1875,6 +1906,7 @@ gl:
   filter_by_type_image_option_with_count: 
     one: Imaxes (%{count})
     other: Imaxes (%{count})
+  filter_by_type_link_option: Ligazóns
   filter_by_type_name_option: Nomes
   filter_by_type_object_curated_option: Obxectos conservados
   filter_by_type_photosynth_option: Fotosíntese
@@ -1934,6 +1966,7 @@ gl:
   gbif_occurrence_learn_more_link: Accede aos datos a través do portal do GBIF.
   general_site_admin: administración xeral do sitio
   get_help_choosing_a_subchapter: Obtén axuda elixindo un subcapítulo
+  get_help_choosing_a_subject: Obtén axuda elixindo un asunto
   get_more_tasks: obter máis tarefas
   given_name_colon: "Nome propio:"
   given_the_vast_number: Debido ao enorme número de nomes comúns e científicos (preto dun total de 20 millóns) é unha tarefa moi difícil dar ao usuario exactamente a especie que quere atopar. Por exemplo, hai varias especies de aves chamadas Robin en inglés (American Robin, Alpine Robin, Smoky Robin), varias especies de peixes denominadas Robin e un taxonomista chamado Robin que deu nome a ducias de especies. Pola nosa banda, incluímos un parámetro "exacto" para devolver unicamente os resultados cuxos nomes coincidan co termo de procura na súa totalidade, pero non podemos garantir que os resultados obtidos sexan os desexados. Continuamente tratamos de mellorar a relevancia dos nosos resultados nas procuras, así que agardamos ir mellorando co tempo.
@@ -2021,6 +2054,11 @@ gl:
         rights_statement_more: Declaración dos dereitos de uso segundo o requiren as licenzas Creative Commons recoñecemento (CC-BY). Por favor, declara o recoñecemento <q cite="http://creativecommons.org/licenses/by/3.0">do xeito especificado polo autor ou posuidor dos dereitos</q>.
         source_url: URL do obxecto de datos orixinal
         toc_item: Subcapítulo
+      data_object_link: 
+        description: Descrición <small>(está permitido algo de formato HTML)</small>
+        link_type: Categoría
+        source_url: URL da ligazón
+        toc_item: Asunto
       eol_statistic: 
         date_one: Data
         date_two: Data
@@ -2163,6 +2201,9 @@ gl:
         create: Engadir o artigo
         create_text: Engadir o artigo
         update: Gardar o artigo
+      data_object_link: 
+        create: Engadir a ligazón
+        update: Gardar a ligazón
       eol_statistic: 
         change_date: Obter as estatísticas para as datas
         download_csv: Descargar como CSV
@@ -2302,6 +2343,8 @@ gl:
   item_type_image_assistive: Este elemento é unha imaxe
   item_type_image_map: Mapa
   item_type_image_map_assistive: Este elemento é a imaxe dun mapa
+  item_type_link: Ligazón
+  item_type_link_assistive: Este elemento é unha ligazón
   item_type_map: Mapa
   item_type_map_assistive: Este elemento é un mapa
   item_type_person: Persoa
@@ -2427,7 +2470,12 @@ gl:
   limits_the_number_of_returned_sound_objects: limita o número de obxectos de son devoltos
   limits_the_number_of_returned_text_objects: limita o número de obxectos de texto devoltos
   limits_the_number_of_returned_video_objects: limita o número de obxectos de vídeo devoltos
+  link_more_about: Máis información sobre esta ligazón
   link_name: Nome da ligazón
+  link_rating: Avaliación da ligazón
+  links_with_count: 
+    one: "%{count} ligazón"
+    other: "%{count} ligazóns"
   list_newsletter_emails: listar os correos electrónicos con boletíns
   list_of_activity_combinations: Lista de combinacións de actividade nunha duración de 5 minutos
   listing_collections: Lista de coleccións
@@ -2437,6 +2485,8 @@ gl:
   literature_bhl_link: Consultar a bibliografía descuberta en BHL
   literature_empty: Non se atopou referencia ningunha.
   literature_header: Referencias
+  literature_links: Ligazóns literarias
+  literature_links_link: Ligazóns literarias
   literature_references: Referencias literarias
   location: Localización
   location_colon: "Localización:"
@@ -2449,6 +2499,7 @@ gl:
   login_to_the_website_as: Iniciar sesión como %{username}
   logo_header: Logotipo
   logout: Saír
+  looking_up_url: Buscando o enderezo URL...
   main_content_area: "Zona de contidos principal:"
   main_database_colon: "Principal:"
   main_master_database_colon: "Mestre principal:"
@@ -2514,6 +2565,7 @@ gl:
   merge_data_ready: Está todo listo para fusionar os datos das seguintes clasificacións nesta páxina de taxon ou para separalos nas súas páxinas propias. Cómpre ter unha certeza <i>absoluta</i> de que se seleccionaron todas as clasificacións que representan o teu taxon de destino. Por exemplo, se estás eliminando unha avelaíña da páxina dun cogomelo, revisa <i>todas</i> as clasificacións que se mostran enriba para asegurarte de que tes todas as avelaíñas.
   merge_pending: A operación de fusión necesita algún tempo. Os taxons involucrados están agora bloqueados fronte a máis edicións das súas clasificacións ata que remate a fusión. Recibirás unha mensaxe de correo electrónico cando finalice o proceso. Ademais, esta acción aparecerá reflectida na fonte de novas da páxina.
   message_colon: "Mensaxe:"
+  message_will_disappear: (esta mensaxe ha desaparecer axiña)
   meta_description_colon: "Descrición meta:"
   meta_keywords_colon: "Palabras clave meta:"
   meta_title_site_name: Enciclopedia da vida
@@ -2572,6 +2624,7 @@ gl:
   moved_items_from_collection_with_count_notice: 
     one: Moveu %{count} elemento de "%{name}".
     other: Moveu %{count} elementos de "%{name}".
+  multimedia_links: Ligazóns multimedia
   must_be_associated_with_either_a_user_or_a_community: Debe estar asociado a un usuario ou a unha comunidade
   must_be_checked_in_to_show: "- debe estar comprobado para mostrarllo ao usuario"
   must_be_checked_in_to_view: "- debe estar comprobado co fin de velo"
@@ -2609,6 +2662,7 @@ gl:
   new_search_suggestion: Nova suxestión de procura
   new_upload: Nova carga
   new_user: Novo usuario
+  news_and_event_links: Ligazóns a novas e acontecementos
   news_archive_page: páxina de arquivo de novas
   news_available_in_languages: "Esta páxina está dispoñible en:"
   news_date: Data da nova
@@ -2760,6 +2814,7 @@ gl:
   object_type_collection_option: Colección
   object_type_community_option: Comunidade
   object_type_image_option: Imaxe
+  object_type_link_option: Ligazón
   object_type_sound_option: Son
   object_type_taxon_concept_option: Concepto de taxon
   object_type_text_option: Texto
@@ -2963,6 +3018,7 @@ gl:
   related_names_with_count: 
     one: "%{count} nome relacionado"
     other: "%{count} nomes relacionados"
+  related_organizations: Organizacións relacionadas
   remove: Eliminar
   remove_curatorship_colon: "Eliminar a conservación:"
   remove_data_object_association: Eliminar a asociación
@@ -3041,6 +3097,9 @@ gl:
   see_all_collections_with_count_html: 
     one: Ollar <span class="assistive">%{count} colección na que aparece esta páxina.</span>
     other: Ollar as <span class="assistive">%{count} coleccións nas que aparece esta páxina.</span>
+  see_all_comments_with_count_for_link_or_rate: 
+    one: ollar %{count} comentario sobre esta ligazón ou valóraa
+    other: ollar os %{count} comentarios sobre esta ligazón ou valóraa
   see_all_comments_with_count_for_text_or_rate: 
     one: ollar %{count} comentario sobre este artigo ou valórao
     other: ollar os %{count} comentarios sobre este artigo ou valórao
@@ -3472,6 +3531,8 @@ gl:
   taxon_identification_resources_empty: Polo de agora, ninguén achegou recursos de identificación a esta páxina.
   taxon_identification_resources_header: Recursos de identificación
   taxon_identification_resources_link: Recursos de identificación
+  taxon_multimedia_links_link: Ligazóns multimedia
+  taxon_news_and_event_links_link: Ligazóns a novas e acontecementos
   taxon_newsfeed: Fonte de novas do taxon
   taxon_not_found_error: "\"%{taxon}\" non atopado"
   taxon_nucleotide_sequences_link: Secuencias de nucleótidos
@@ -3485,6 +3546,7 @@ gl:
   taxon_partner_links_link: Ligazóns asociadas
   taxon_rating: Avaliación do taxon
   taxon_recognized_by: Taxon recoñecido por %{whom}
+  taxon_related_organizations_link: Organizacións relacionadas
   taxon_selected_from_search_res: Taxon seleccionado dos resultados da procura
   taxon_suggested: Taxon suxerido
   taxonomic_summary_of_content: resumo taxonómico dos contidos
@@ -3556,6 +3618,8 @@ gl:
   this_is_a_focus_collection_for_community: Este é o centro de atención de %{community}.
   this_is_the_breakdown_of_chapt: Este é o desglose dos capítulos, subcapítulos e a categoría Modelo de perfil de especies correspondente.
   this_is_the_label_that_will_be_used_for_attribution: Esta é a etiqueta que se empregará para o recoñecemento
+  this_link_cannot_be_curated_because_unpublished: Esta ligazón non se pode conservar porque non está publicada.
+  this_link_is_unpublished: Esta ligazón non está publicada.
   this_map_cannot_be_curated_because_unpublished: Este mapa non se pode conservar porque non está publicado.
   this_map_is_unpublished: Este mapa non está publicado.
   this_method_takes_an_integer_or_string: Este método recolle un número enteiro ou unha cadea que é o identificador único dun taxon na base de datos dun provedor, ademais dun hierarchy_id que representa o provedor, e devolve o ID da páxina da EOL dese taxon. Por exemplo, mediante a API %{link_provider}, pódese descubrir que o hierarchy_id do sistema integrado de información taxonómica (ITIS) da EOL é %{itis_id}. Logo, pódese procurar na EOL o número de serie taxonómico (TSN) ITIS de 180542, <i>Ursus maritimus</i>, chamando a %{link_url}
@@ -3609,6 +3673,7 @@ gl:
   twitter: Twitter
   type: Tipo
   unable_to_copy_items_to_collection_error: Sentímolo, non se puideron copiar os elementos da colección a %{name}.
+  unable_to_determine_title: Non se puido determinar o título desta páxina web
   unable_to_invite_users_to_community_error: Non se puideron enviar os convites a %{users}.
   unique_page_views_th: Visitas por páxina únicas
   unknown: Descoñecido
@@ -3638,6 +3703,7 @@ gl:
   uploaded_content: Contidos cargados
   uploaded_on: Cargado o
   url: URL
+  url_not_accessible: Non se pode acceder ao enderezo URL
   us_dolars_75: 75 dólares estadounidenses
   us_dollars_100: 100 dólares estadounidenses
   us_dollars_35: 35 dólares estadounidenses

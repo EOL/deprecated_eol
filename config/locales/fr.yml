@@ -1709,6 +1709,19 @@ fr:
   languages: Langues
   last_updated: Dernière mise à jour
   last_updated_time_ago: Dernière mise à jour il y a %{time_passed}
+  layouts: 
+    v2: 
+      application: 
+        about_link_citing: Citer EdlV
+        about_link_contact_us: Nous contacter
+        about_link_discover: Découvrir
+        about_link_donate: Donner à l'EdlV
+        about_link_eol_blog: Le blog de EdlV
+        about_link_help: Aide
+        about_link_statistics: Statistiques
+        about_link_terms_of_use: Conditions d'utilisation
+        about_link_what_is_eol: Qu’est-ce que l’EdlV ?
+        header_about: À propos de l’EdlV
   learn_about_collections: Comment puis-je en créer une ?
   learn_about_communities: Comment puis-je participer ?
   learn_about_content_partners: Comment puis-je devenir l’un d’eux ?
@@ -2585,7 +2598,7 @@ fr:
         meta_description: Informations géographiques sur %{scientific_name}. Endroits où ils vivent dans le monde.
         meta_description_with_common_name: Où trouve-t-on des %{preferred_common_name} et d’où proviennent-ils ? Informations géographiques sur %{scientific_name}. Endroits où ils vivent dans le monde.
         meta_keywords: habitat de %{scientific_name}, où vit %{scientific_name}
-        meta_keywords_with_common_name: habitat de %{preferred_common_name}, origine, où vit %{preferred_common_name}
+        meta_keywords_with_common_name: habitat de %{preferred_common_name}, où vit %{preferred_common_name}
         meta_title: Cartes de %{scientific_name}
         meta_title_with_common_name: Cartes pour %{preferred_common_name} (%{scientific_name})
         tweet_text: Cartes pour %{scientific_name}

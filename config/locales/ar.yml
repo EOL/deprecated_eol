@@ -11,6 +11,7 @@
 # Author: Mutarjem horr
 # Author: OsamaK
 # Author: Rana El Deeb
+# Author: Rana el deeb
 # Author: Sara.elshobaky
 # Author: ترجمان05
 ar: 
@@ -1987,6 +1988,9 @@ ar:
         create: إضافة المقالة
         create_text: إضافة المقالة
         update: حفظ المقال
+      data_object_link: 
+        create: إضافة رابط
+        update: حفظ الرابط
       eol_statistic: 
         change_date: الحصول على إحصاءات التواريخ
         download_csv: تحميل بصيغة (CSV)

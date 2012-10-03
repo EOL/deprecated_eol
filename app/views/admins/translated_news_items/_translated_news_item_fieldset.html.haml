@@ -1,4 +1,4 @@
-- fields_for @translated_news_item do |translated_news_item_fields|
+= fields_for @translated_news_item do |translated_news_item_fields|
   %dl
     - # Note: @languages is blank on edit because we don't want it to be modified.
     - unless @languages.blank?
@@ -17,7 +17,7 @@
         = I18n.t('activerecord.attributes.translated_news_item.body')
       %p= I18n.t('helpers.label.translated_news_item.body_more')
     %dd
-      = fckeditor_textarea(:translated_news_item, :body, :toolbarSet => 'CMSBody', :height => 500, :width => 600)
+      = translated_news_item_fields.cktext_area(:body, :toolbarSet => 'CMSBody', :height => 500, :width => 600)
     / %dt
     /   = translated_news_item_fields.label :meta_keywords
     /   %p= I18n.t('helpers.label.translated_news_item.meta_keywords_more')

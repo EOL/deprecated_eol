@@ -4,7 +4,7 @@
 
 #content_page_edit
   .article.copy
-    - form_for @news_item, :url => admin_news_item_translated_news_item_path(@news_item, @translated_news_item),
+    = form_for @news_item, :url => admin_news_item_translation_path(@news_item, @translated_news_item),
       :builder => ApplicationHelper::EolFormBuilder do |news_item_form|
       = validation_errors_for(@translated_news_item)
       = news_item_form.hidden_field :last_update_user_id, :value => current_user.id

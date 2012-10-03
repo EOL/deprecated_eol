@@ -202,29 +202,24 @@ module ApplicationHelper
   # Link to a single stylesheet asset (which may be comprised of several individual files).
   # NOTE - Styles will only be cached for English. Sorry; impractical to maintain copies of all cached files for
   # every language.
-  def stylesheet_include_i18n(stylesheet, options = {})
-    # TODO - read_stylesheet_packages unless @stylesheet_packages
-    @stylesheet_packages = {stylesheet => [stylesheet]} # This is a hack to get around failures.
-    raise "** UNKNOWN STYLESHEET LOADED: #{stylesheet}" unless @stylesheet_packages.has_key?(stylesheet.to_s)
+  def stylesheet_include_i18n_merged(stylesheet, options = {})
     code = ''
-    if I18n.locale.to_s == 'ar' # Annoying that I have to check this, but c'est la vie. (See what I did there?)
-      @stylesheet_packages[stylesheet.to_s].each do |file|
-        language_stylesheet = "/languages/#{I18n.locale}/#{file}.css" # These are *replacements*
-        if File.exists?(Rails.root.join("public", language_stylesheet))
-          code += stylesheet_link_tag(language_stylesheet, options)
-        end
-      end
+    # get the replacements
+    language_css_path = Rails.root.join("app", "assets", "stylesheets", "languages", I18n.locale.to_s, "#{stylesheet}.css")
+    language_sass_path = Rails.root.join("app", "assets", "stylesheets", "languages", I18n.locale.to_s, "#{stylesheet}.sass")
+    if File.exists?(language_css_path) || File.exists?(language_sass_path)
+      code += stylesheet_link_tag("languages/#{I18n.locale}/#{stylesheet}", options)
     else
-      #TODO - code += stylesheet_link_merged(*[stylesheet, options])
-      code += stylesheet_link_tag(*[stylesheet, options])
-      @stylesheet_packages[stylesheet.to_s].each do |file| # These are *additions*
-        language_stylesheet = "/stylesheets/#{file}-#{I18n.locale}.css"
-        if File.exists?(Rails.root.join("public", language_stylesheet))
-          code += stylesheet_link_tag(language_stylesheet, options)
-        end
-      end
+      code += stylesheet_link_tag(stylesheet, options)
     end
-    return code
+    
+    # get the additions
+    language_css_path = Rails.root.join("app", "assets", "stylesheets", "languages", I18n.locale.to_s, "#{stylesheet}_include.css")
+    language_sass_path = Rails.root.join("app", "assets", "stylesheets", "languages", I18n.locale.to_s, "#{stylesheet}_include.sass")
+    if File.exists?(language_css_path) || File.exists?(language_sass_path)
+      code += stylesheet_link_tag("languages/#{I18n.locale}/#{stylesheet}_include", options)
+    end
+    return raw(code)
   end
 
   # Version of error_messages_for that displays translated error messages

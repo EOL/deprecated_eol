@@ -35,28 +35,28 @@
       %ul.nav
         -# NOTE the "if" and, below, the "else". If you're having trouble, you may have edited one and not the other!
         - if @selected_hierarchy_entry
-          %li{:class => resource_is_active('overview')}= link_to I18n.t(:overview), overview_taxon_entry_path(@taxon_concept, @selected_hierarchy_entry)
-          %li{:class => resource_is_active('details')}= link_to I18n.t(:detail), taxon_entry_details_path(@taxon_concept, @selected_hierarchy_entry)
-          %li{:class => resource_is_active('media')}= link_to I18n.t(:media_with_count, :count => @taxon_concept.media_count(current_user, @selected_hierarchy_entry)), taxon_entry_media_path(@taxon_concept, @selected_hierarchy_entry)
-          %li{:class => resource_is_active('maps')}= link_to I18n.t(:maps_with_count, :count => @taxon_concept.maps_count), taxon_entry_maps_path(@taxon_concept, @selected_hierarchy_entry)
-          %li{:class => resource_is_active('names')}= link_to I18n.t(:names), taxon_entry_names_path(@taxon_concept, @selected_hierarchy_entry)
-          %li{:class => resource_is_active('communities')}= link_to I18n.t(:community), taxon_entry_communities_path(@taxon_concept, @selected_hierarchy_entry)
-          %li{:class => resource_is_active('resources')}= link_to I18n.t(:resources), taxon_entry_resources_path(@taxon_concept, @selected_hierarchy_entry)
-          %li{:class => resource_is_active('literature')}= link_to I18n.t(:literature), taxon_entry_literature_path(@taxon_concept, @selected_hierarchy_entry)
-          %li{:class => resource_is_active('updates')}= link_to I18n.t(:updates), taxon_entry_updates_path(@taxon_concept, @selected_hierarchy_entry)
+          %li{:class => resource_is_active('overview')}= link_to raw(I18n.t(:overview)), overview_taxon_entry_path(@taxon_concept, @selected_hierarchy_entry)
+          %li{:class => resource_is_active('details')}= link_to raw(I18n.t(:detail)), taxon_entry_details_path(@taxon_concept, @selected_hierarchy_entry)
+          %li{:class => resource_is_active('media')}= link_to raw(I18n.t(:media_with_count, :count => @taxon_concept.media_count(current_user, @selected_hierarchy_entry))), taxon_entry_media_path(@taxon_concept, @selected_hierarchy_entry)
+          %li{:class => resource_is_active('maps')}= link_to raw(I18n.t(:maps_with_count, :count => @taxon_concept.maps_count)), taxon_entry_maps_path(@taxon_concept, @selected_hierarchy_entry)
+          %li{:class => resource_is_active('names')}= link_to raw(I18n.t(:names)), taxon_entry_names_path(@taxon_concept, @selected_hierarchy_entry)
+          %li{:class => resource_is_active('communities')}= link_to raw(I18n.t(:community)), taxon_entry_communities_path(@taxon_concept, @selected_hierarchy_entry)
+          %li{:class => resource_is_active('resources')}= link_to raw(I18n.t(:resources)), taxon_entry_resources_path(@taxon_concept, @selected_hierarchy_entry)
+          %li{:class => resource_is_active('literature')}= link_to raw(I18n.t(:literature)), taxon_entry_literature_path(@taxon_concept, @selected_hierarchy_entry)
+          %li{:class => resource_is_active('updates')}= link_to raw(I18n.t(:updates)), taxon_entry_updates_path(@taxon_concept, @selected_hierarchy_entry)
         - else
           -# NOTE the two blocks, above and below, here.  Lots of duplication.  Change both, due to subtle diffs.
-          %li{:class => resource_is_active('overview')}= link_to I18n.t(:overview), overview_taxon_path(@taxon_concept)
-          %li{:class => resource_is_active('details')}= link_to I18n.t(:detail), taxon_details_path(@taxon_concept)
-          %li{:class => resource_is_active('media')}= link_to I18n.t(:media_with_count, :count => @taxon_concept.media_count(current_user)), taxon_media_path(@taxon_concept)
-          %li{:class => resource_is_active('maps')}= link_to I18n.t(:maps_with_count, :count => @taxon_concept.maps_count), taxon_maps_path(@taxon_concept)
-          %li{:class => resource_is_active('names')}= link_to I18n.t(:names), taxon_names_path(@taxon_concept)
-          %li{:class => resource_is_active('communities')}= link_to I18n.t(:community), taxon_communities_path(@taxon_concept)
-          %li{:class => resource_is_active('resources')}= link_to I18n.t(:resources), taxon_resources_path(@taxon_concept)
-          %li{:class => resource_is_active('literature')}= link_to I18n.t(:literature), taxon_literature_path(@taxon_concept.id)
-          %li{:class => resource_is_active('updates')}= link_to I18n.t(:updates), taxon_updates_path(@taxon_concept.id)
+          %li{:class => resource_is_active('overview')}= link_to raw(I18n.t(:overview)), overview_taxon_path(@taxon_concept)
+          %li{:class => resource_is_active('details')}= link_to raw(I18n.t(:detail)), taxon_details_path(@taxon_concept)
+          %li{:class => resource_is_active('media')}= link_to raw(I18n.t(:media_with_count, :count => @taxon_concept.media_count(current_user))), taxon_media_path(@taxon_concept)
+          %li{:class => resource_is_active('maps')}= link_to raw(I18n.t(:maps_with_count, :count => @taxon_concept.maps_count)), taxon_maps_path(@taxon_concept)
+          %li{:class => resource_is_active('names')}= link_to raw(I18n.t(:names)), taxon_names_path(@taxon_concept)
+          %li{:class => resource_is_active('communities')}= link_to raw(I18n.t(:community)), taxon_communities_path(@taxon_concept)
+          %li{:class => resource_is_active('resources')}= link_to raw(I18n.t(:resources)), taxon_resources_path(@taxon_concept)
+          %li{:class => resource_is_active('literature')}= link_to raw(I18n.t(:literature)), taxon_literature_path(@taxon_concept.id)
+          %li{:class => resource_is_active('updates')}= link_to raw(I18n.t(:updates)), taxon_updates_path(@taxon_concept.id)
         -# NOTE that this one is NOT nested under the if/else:
-        %li{:class => resource_is_active('worklist')}= link_to I18n.t(:worklist), taxon_worklist_path(@taxon_concept) if current_user.min_curator_level?(:full)
+        %li{:class => resource_is_active('worklist')}= link_to raw(I18n.t(:worklist)), taxon_worklist_path(@taxon_concept) if current_user.min_curator_level?(:full)
 
   #content
     .site_column

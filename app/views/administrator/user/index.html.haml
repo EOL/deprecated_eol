@@ -51,7 +51,7 @@
     - if @users.nil? == false && @users.size > 0
       =I18n.t("a_total_of_items_were_found_matching_your_criteria", :count => @user_count)
       %br
-      = will_paginate @users
+      = will_paginate @users, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next)
       %table.results_table{ :cellspacing => "0" }
         %tr
           %th
@@ -98,6 +98,6 @@
                 = link_to(I18n.t("hide"), {:action=>'hide', :id=>user.id}, :method => :hide) unless user.is_hidden?
                 = link_to(I18n.t("show"), {:action=>'unhide', :id=>user.id}, :method => :unhide) if user.is_hidden?
       %br
-      = will_paginate @users
+      = will_paginate @users, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next)
     - else
       =I18n.t("no_users_matched_search")

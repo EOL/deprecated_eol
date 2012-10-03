@@ -268,6 +268,10 @@ EolUpgrade::Application.routes.draw do
         get 'lifedesks'
       end
     end
+    resources :news_items, :controller => 'admins/news_items' do
+      resources :translated_news_items, :as => :translations, :except => [:show, :index], :controller => 'admins/translated_news_items'
+    end
+    
   end
 
   # Old V1 admin search logs:

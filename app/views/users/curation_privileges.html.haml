@@ -20,7 +20,7 @@
 
             %dt.curation_level
               = f.label :requested_curator_level_id
-              %p= I18n.t('helpers.label.user.requested_curator_level_id_more')
+              %p= raw(I18n.t('helpers.label.user.requested_curator_level_id_more'))
             %dd
               = f.select :requested_curator_level_id, options_from_collection_for_select(@curator_levels, :id, :translated_label, @user.requested_curator_level_id || @user.curator_level_id)
               %p
@@ -35,7 +35,7 @@
             %dd
               = f.text_area :curator_scope
             %dt
-              = f.label :credentials, I18n.t('helpers.label.user.curation_priveleges_credentials')
+              = f.label :credentials, raw(I18n.t('helpers.label.user.curation_priveleges_credentials'))
               %p= I18n.t('helpers.label.user.credentials_more')
               %ol
                 %li= I18n.t('helpers.label.user.credentials_more_academic')

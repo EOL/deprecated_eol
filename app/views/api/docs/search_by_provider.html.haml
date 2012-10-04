@@ -2,7 +2,7 @@
 #content.cms_page
   #api_doc.site_column
     .nav
-      = @navigation_menu
+      = raw(@navigation_menu)
     .article.copy
       %h3
         =I18n.t("request")
@@ -37,15 +37,15 @@
               %i
                 =I18n.t("none")
             %td
-              =I18n.t("the_id_of_provider_hierarchy_you_are_searching", :link => link_to('provider_hierarchies', :controller => 'api/docs', :action => 'provider_hierarchies'))
+              = raw(I18n.t("the_id_of_provider_hierarchy_you_are_searching", :link => link_to('provider_hierarchies', :controller => 'api/docs', :action => 'provider_hierarchies')))
 
       %h3
         =I18n.t("description")
       %p
-        = I18n.t("this_method_takes_an_integer_or_string",
+        = raw(I18n.t("this_method_takes_an_integer_or_string",
           :link_provider => link_to("provider_hierarchies", :action => "provider_hierarchies"),
           :link_url => link_to(url, url),
-          :itis_id => Hierarchy.itis.id)
+          :itis_id => Hierarchy.itis.id))
       %h3
         =I18n.t("xml_response")
       %code<

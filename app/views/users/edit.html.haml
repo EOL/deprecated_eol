@@ -7,7 +7,7 @@
         .header
           %h3= I18n.t(:users_form_profile_info_header)
         %p.tip
-          = @user.eol_authentication? ? t(".form_tip_profile", translation_vars.dup) : t(".form_tip_profile_oauth", translation_vars.dup)
+          = @user.eol_authentication? ? raw(t(".form_tip_profile", translation_vars.dup)) : raw(t(".form_tip_profile_oauth", translation_vars.dup))
         %dl
           %dt
             = user_form.label :bio
@@ -25,7 +25,7 @@
           %dd
             = user_form.text_field :family_name
           %dt
-            = user_form.label :tag_line
+            = user_form.label :tag_line, raw(t('helpers.label.user.tag_line'))
           %dd
             = user_form.text_field :tag_line
           %dt
@@ -47,7 +47,7 @@
         %fieldset.curation
           .header
             %h3= I18n.t(:users_form_curation_header)
-          %p.tip= t(".form_tip_curation", translation_vars.dup)
+          %p.tip= raw(t(".form_tip_curation", translation_vars.dup))
           %dl
             %dt
               = user_form.label :credentials
@@ -64,12 +64,12 @@
         .header
           %h3= I18n.t(:users_form_account_header)
         %p.tip
-          = @user.eol_authentication? ? t(".form_tip_account", translation_vars.dup) : t(".form_tip_account_oauth", translation_vars.dup)
+          = @user.eol_authentication? ? raw(t(".form_tip_account", translation_vars.dup)) : raw(t(".form_tip_account_oauth", translation_vars.dup))
         %dl
           %dt
             = I18n.t('helpers.label.user.open_authentications')
           %dd.copy
-            %p= I18n.t('helpers.label.user.open_authentications_more', :open_authentications_url => user_open_authentications_url(@user))
+            %p= raw(I18n.t('helpers.label.user.open_authentications_more', :open_authentications_url => user_open_authentications_url(@user)))
             %ul
               - @user.open_authentications.each do |open_authentication|
                 %li{:class => open_authentication.provider}
@@ -119,9 +119,9 @@
             = I18n.t('helpers.label.user.curation_application')
             %p
               - unless @user.curator_level.blank?
-                = I18n.t('helpers.label.user.curator_level', :curator_level_with_indefinite_article => I18n.t("curator_level_with_indefinite_article_#{@user.curator_level.translated_label.gsub(' ', '_').downcase}"))
+                = raw(I18n.t('helpers.label.user.curator_level', :curator_level_with_indefinite_article => I18n.t("curator_level_with_indefinite_article_#{@user.curator_level.translated_label.gsub(' ', '_').downcase}")))
               - unless @user.requested_curator_level.blank?
-                = I18n.t('helpers.label.user.requested_curator_level', :curator_level_with_indefinite_article => I18n.t("curator_level_with_indefinite_article_#{@user.requested_curator_level.translated_label.gsub(' ', '_').downcase}"))
+                = raw(I18n.t('helpers.label.user.requested_curator_level', :curator_level_with_indefinite_article => I18n.t("curator_level_with_indefinite_article_#{@user.requested_curator_level.translated_label.gsub(' ', '_').downcase}")))
               = I18n.t('helpers.label.user.curation_application_more')
           %dd
             = content_tag :button , :name => :commit_curation_privileges_get, :type => :submit do
@@ -132,11 +132,11 @@
               = I18n.t('activerecord.attributes.user.api_key')
             %dd
               %textarea= @user.api_key
-              %p= I18n.t('helpers.label.user.api_key_more')
+              %p= raw(I18n.t('helpers.label.user.api_key_more'))
           - else
             %dt
               = I18n.t('helpers.label.user.generate_api_key')
-              %p= I18n.t('helpers.label.user.generate_api_key_more', :api_docs_url => '/api/docs#api_key_section')
+              %p= raw(I18n.t('helpers.label.user.generate_api_key_more', :api_docs_url => '/api/docs#api_key_section'))
             %dd
               = content_tag :button , :name => :commit_generate_api_key, :type => :submit do
                 = I18n.t('helpers.submit.user.generate_api_key')

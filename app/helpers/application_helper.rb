@@ -30,11 +30,11 @@ module ApplicationHelper
         (options[:title] = "#{options[:title].to_s} #{I18n.t(:form_validation_errors_for_attribute_assistive)}").strip!
         errors = errors_for_method(@object, method)
       end
-
+    
       if block_given?
-        @template.concat(@template.content_tag(:label, "#{@template.capture(&block)} #{errors.to_s}".html_safe, options))
+        @template.content_tag(:label, "#{@template.capture(&block)} #{errors.to_s}".html_safe, options)
       else
-        "#{super(method, content_or_options_with_block, options)} #{errors}".html_safe
+        super(method, content_or_options_with_block, options) + (errors ? @template.content_tag(:span, errors.to_s) : nil)
       end
     end
 
@@ -49,15 +49,15 @@ module ApplicationHelper
     private
 
     def errors_on?(method)
-      @object.respond_to?(:errors) && @object.errors.respond_to?(:on) && ! @object.errors[method.to_sym].blank?
+      @object.respond_to?(:errors) && @object.errors.respond_to?(:messages) && ! @object.errors.messages[method.to_sym].blank?
     end
 
     def errors_for_method(object, method)
       return unless errors_on?(method)
-      errors = object.errors[method.to_sym]
+      errors = object.errors.messages[method.to_sym]
       if errors.any?
         errors = [errors] if errors.is_a? String
-        @template.content_tag(:span, { :class => 'errors' }){ errors.join(", ") }
+        @template.content_tag(:span, { :class => 'errors' }){ " " + errors.join(", ") }
       end
     end
   end

@@ -212,12 +212,12 @@ EolUpgrade::Application.routes.draw do
         get 'comments'
       end
     end
-    resource :notification, :only => [:edit, :update]
+    resource :notification, :only => [:edit, :update], :controller => "users/notifications"
     resource :activity, :only => [:show], :controller => 'users/activities'
     resources :collections, :only => [:index], :controller => 'users/collections'
     resources :communities, :only => [:index], :controller => 'users/communities'
     resources :content_partners, :only => [:index], :controller => 'users/content_partners'
-    resources :open_authentications, :only => [:index, :new, :update, :destroy]
+    resources :open_authentications, :only => [:index, :new, :update, :destroy], :controller => 'users/open_authentications'
   end
 
   resources :data_objects, :only => [:show, :edit, :update] do
@@ -393,6 +393,7 @@ EolUpgrade::Application.routes.draw do
 
   # Named API Routes:
   match 'api' => 'api/docs#index' # Default is actually the documenation
+  match 'api/docs' => 'api/docs#index' # Default is actually the documenation
   # not sure why this didn't work in some places - but this is for documentation
   match 'api/docs/:action' => 'api/docs'
   # ping is a bit of an exception - it doesn't get versioned and takes no ID

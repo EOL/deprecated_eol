@@ -1340,22 +1340,33 @@ sv:
   license_not_applicable: Licens är inte tillämplig
   license_public_domain: Allmän egendom
   licensing: Licensiering
+  link_more_about: Läs mer om denna länk
   link_name: Länknamn
+  links_with_count: 
+    one: "%{count} länk"
+    other: "%{count} länkar"
   listing_collections: Listar samlingar
   literature: Litteratur
   literature_empty: Inga referenser hittades.
   literature_header: Referenser
+  literature_links: Litteraturlänkar
+  literature_links_link: Litteraturlänkar
   literature_references: Litteraturreferenser
   location: Plats
   location_colon: "Plats:"
+  logging_database_colon: "Loggning:"
   login: logga in
   login_header: Logga in på ditt <abbr title="Encyclopedia of Life">EOL</abbr>-konto
   login_hidden_user_message: Kontot %{given_name} är inte längre aktivt
   login_or_create_account: Logga in eller skapa konto
   login_required_button: Inloggning krävs
+  login_to_the_website_as: Logga in på webbplatsen som %{username}
   logo_header: Logotyp
   logout: Logga ut
   maintained_by: underhålls av
+  managed_collections_with_count: 
+    one: "%{count} hanterad samling"
+    other: "%{count} hanterade samlingar"
   manager_parens: (ledare)
   map_from: karta från
   map_from_supplier: Karta från %{whom}
@@ -1394,6 +1405,7 @@ sv:
     one: "%{count} medlem;"
     other: "%{count} medlemmar;"
   message_colon: "Meddelande:"
+  message_will_disappear: (detta meddelande kommer att försvinna inom kort)
   meta_description_colon: "Meta-beskrivning:"
   meta_keywords_colon: "Meta-nyckelord:"
   meta_title_site_name: Encyclopedia of Life
@@ -1426,6 +1438,7 @@ sv:
       taxon_overview: Taxonöversikt
       videos: Videoklipp
   moderator_colon: "Moderator:"
+  monthly: Månatligen
   more_children_with_count: 
     one: "%{count} mer..."
     other: "%{count} mer..."
@@ -1435,6 +1448,8 @@ sv:
   most_active_members: Mest aktiva medlemmar
   move: Flytta
   move_down: Flytta ned
+  move_to_bottom: flytta till botten
+  move_to_top: flytta till toppen
   move_up: Flytta upp
   moved_items_from_collection_with_count_notice: 
     one: Flyttade %{count} objekt från %{name}.
@@ -1448,9 +1463,14 @@ sv:
   name: Namn
   name_colon: "Namn:"
   name_preferred_for_language_yes: Föredragen
+  name_preferred_taxonomically_for_source_yes: Föredragen
   names: Namn
+  names_children_column_header: Underliggande
+  names_common_list_by_language_assistive_header: Vanliga namn listade efter språk
+  names_curation_column_header: Kuration
   names_filter: Namn
   names_name_column_header: Namn
+  names_parents_column_header: Överordnade
   names_relationship_column_header: Förhållande
   names_sources_column_header: Källor
   names_status_column_header: Status
@@ -1458,19 +1478,26 @@ sv:
   new_collection: Ny samling
   new_upload: Ny uppladdning
   new_user: Ny användare
+  news_available_in_languages: "Denna sida finns tillgänglig på:"
+  news_date: Nyhetsdatum
   news_item: nyhetsobjekt
   news_item_title: Nyhetsobjekt
   news_items: 
     index: 
       meta_title: EOL-nyheter
       page_title: EOL-nyheter
+  news_missing_content_message: Tyvärr, denna sida är inte är tillgänglig för det valda språket %{selected_language}.
+  news_missing_content_title: Översättning saknas
   newsfeed: Nyhetsflöde
   newsfeed_help_for_taxon: Nyhetsflödet för denna EOL Taxon-sida samlar uppdateringar som är associerade med objekt som visas på den, inklusive kuratoråtgärder och kommentarer från EOL-användare.
   next: Nästa
+  no_active_members: Det har inte varit tillräckligt mycket aktivitet ännu.
   no_answer: Nej
   no_comments_are_available_for_subject: Inga kommentarer är tillgängliga för %{subject}
   no_related_names: Inga namn har blivit relaterade till detta taxon ännu.
   no_results_for: inga resultat för
+  no_tasks_found: Inga uppgifter hittades
+  no_uploaded_content_is_available: Inget uppladdade innehåll finns tillgängligt.
   none: ingen
   not_evaluated: Inte utvärderad
   not_published_yet: inte publicerad ännu
@@ -1514,6 +1541,7 @@ sv:
   object_type_collection_option: Samling
   object_type_community_option: Gemenskap
   object_type_image_option: Bild
+  object_type_link_option: Länk
   object_type_sound_option: Ljud
   object_type_text_option: Text
   object_type_user_option: Användare
@@ -1527,6 +1555,7 @@ sv:
   option_please_select: Var god välj
   or_add_it_to_an_existing_collection: eller lägg till det till en befintlig samling
   original: "ORIGINAL:"
+  original_object: Originalobjekt
   other_collection_items_with_count: 
     one: "%{count} andra objekt"
     other: "%{count} andra objekt"
@@ -1585,6 +1614,7 @@ sv:
   please_confirm_your_donation_details: Var god bekräfta din donationsdetaljer
   please_indicate_curation_reason: "Var god välj en anledning och/eller alternativ lämna en kuratorkommentar:"
   please_publish_this_resource_notice: "*** <strong>OBSERVERA:</strong> Var god <strong>%{publish_link}</strong> denna resurs här ***"
+  please_refresh: Var god uppdatera din webbläsare om du vill se den senaste versionen av EOLs webbplats
   please_return_to_eol_homepage: Var god gå tillbaka till EOL:s hemsida
   please_wait: Var god vänta …
   post_comment: Skicka kommentar
@@ -1603,6 +1633,7 @@ sv:
   public: Offentlig
   public_domain: allmän egendom
   publish: publicera
+  publish_changes: Publiceringsändringar
   publish_requested: Publicering begärd
   published: Publicerad
   published_parens: (Publicerad)
@@ -1681,6 +1712,9 @@ sv:
     one: "%{count} objekt har tagits bort från denna samling."
     other: "%{count} objekt har tagits bort från denna samling."
   reply: Svara
+  request: Begäran
+  request_mailing_list_colon: "Användare vill inte ta emot e-post:"
+  required_form_element: Krävs
   reset_password_instructions_sent_to_user_notice: Instruktioner för att återställa lösenordet för ditt konto <em>%{username}</em> har skickats till din e-postadress.
   reset_password_token_expired_error: Tyvärr, ditt lösenord har inte blivit återställt. Den bifogade länken har upphört att gälla. Var god fyll i och skicka formuläret för glömt lösenord igen för att få en ny länk.
   resource: Resurs
@@ -1720,6 +1754,9 @@ sv:
   see_all_collections_with_count_html: 
     one: Se den <span class="assistive">%{count} samling i vilken denna taxon ingår.</span>
     other: Se alla de <span class="assistive">%{count} samlingar i vilka denna taxon ingår.</span>
+  see_all_comments_with_count_for_link_or_rate: 
+    one: se %{count} kommentar för denna länk eller betygsätt den
+    other: se alla %{count} kommentarer för denna länk eller betygsätt dem
   see_all_comments_with_count_for_text_or_rate: 
     one: se %{count} kommentar för denna artikel eller betygsätt den
     other: se alla %{count} kommentarer för denna artikel eller betygsätt den
@@ -1729,6 +1766,9 @@ sv:
   see_all_editors_with_count: 
     one: Se %{count} hanteraren
     other: Se alla %{count} hanterare
+  see_all_featured_collections_with_count: 
+    one: Se %{count} utvald samling.
+    other: Se alla %{count} utvalda samlingar.
   see_all_maps_link: Se alla kartor
   see_all_media_link: Se all media
   see_all_of_your_collections: Se alla dina samlingar

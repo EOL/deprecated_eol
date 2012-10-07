@@ -1919,7 +1919,7 @@ de:
   file: Datei
   file_id: Dateikennung
   file_size: Dateigröße
-  filed_under_label: Gespeichert als %{label}
+  filed_under_label: Gespeichert als %{label} auf
   fill_in_a_message_below_to_send_email_to_user: "Verfassen Sie hier eine Nachricht, die an diesen Nutzer der Website geschickt werden soll. Die Nachricht wird nach dem Speichern dieses Formulars versandt:"
   filter_button: Filtern
   filter_by_day: Nach Tag filtern
@@ -2423,7 +2423,9 @@ de:
         about_link_discover: Entdecken
         about_link_donate: An EOL spenden
         about_link_eol_blog: Blog der EOL
+        about_link_glossary: Glossar
         about_link_help: Hilfe
+        about_link_podcasts: Podcasts
         about_link_statistics: Statistiken
         about_link_terms_of_use: Nutzungsbedingungen
         about_link_what_is_eol: Was ist EOL?
@@ -2451,6 +2453,7 @@ de:
         learn_more_link_spiders: Spinnen
         learn_more_link_trees: Bäume
         learn_more_link_viruses: Viren
+        learn_more_link_worms: Würmer
         questions_link_binomial_nomenclature: Was ist eine binominale Nomenklatur?
         questions_link_biodiversity: Was ist Biodiversität?
         questions_link_biological_classification: Was ist eine biologische Klassifizierung?
@@ -2508,6 +2511,7 @@ de:
   limits_the_number_of_returned_video_objects: begrenzt die Anzahl der zurückgegebenen Videoobjekte
   link_more_about: Erfahren Sie mehr über diesen Link
   link_name: Name des Links
+  link_not_associated_with_any_published_entries: Dieser Link ist mit keinem veröffentlichten Taxon verknüpft.
   link_rating: Bewertung des Links
   links_with_count: 
     one: "%{count} Link"

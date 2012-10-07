@@ -528,8 +528,8 @@ br:
   associated_with_sound_header: En enrolladenn nevesañ
   associated_with_video_header: Er video nevesañ
   association_untrusted_for_taxa: 
-    one: "\nUntrusted for:"
-    other: "\nUntrusted for:"
+    one: "Untrusted for:"
+    other: "Untrusted for:"
   audio_mute: hep son
   audio_pause: ehan
   audio_play: lenn

@@ -1883,7 +1883,7 @@ gl:
   file: Ficheiro
   file_id: ID do ficheiro
   file_size: Tamaño do ficheiro
-  filed_under_label: Arquivado baixo %{label}
+  filed_under_label: Arquivado baixo %{label} o
   fill_in_a_message_below_to_send_email_to_user: "Escribe unha mensaxe a continuación para enviar un correo electrónico a este usuario desde o sitio. A mensaxe enviarase cando envíe o formulario:"
   filter_button: Filtrar
   filter_by_day: Filtrar por día
@@ -2387,7 +2387,9 @@ gl:
         about_link_discover: Descubrir
         about_link_donate: Doar á EOL
         about_link_eol_blog: O blogue da EOL
+        about_link_glossary: Glosario
         about_link_help: Axuda
+        about_link_podcasts: Podcasts
         about_link_statistics: Estatísticas
         about_link_terms_of_use: Termos de uso
         about_link_what_is_eol: Que é a EOL?
@@ -2415,6 +2417,7 @@ gl:
         learn_more_link_spiders: Arañas
         learn_more_link_trees: Árbores
         learn_more_link_viruses: Virus
+        learn_more_link_worms: Vermes
         questions_link_binomial_nomenclature: Que é a nomenclatura binomial?
         questions_link_biodiversity: Que é a biodiversidade?
         questions_link_biological_classification: Que é unha clasificación biolóxica?
@@ -2472,6 +2475,7 @@ gl:
   limits_the_number_of_returned_video_objects: limita o número de obxectos de vídeo devoltos
   link_more_about: Máis información sobre esta ligazón
   link_name: Nome da ligazón
+  link_not_associated_with_any_published_entries: Esta ligazón non está asociada a ningún taxon publicado.
   link_rating: Avaliación da ligazón
   links_with_count: 
     one: "%{count} ligazón"

@@ -40,12 +40,14 @@ describe DataObject do
     published_do.toc_items << TocItem.wikipedia
     published_do_association = published_do.association_with_exact_or_best_vetted_status(@taxon_concept)
 
-    preview_do = build_data_object('Text', 'This is a test wikipedia article content', :guid => published_do.guid, :published => 1, :vetted => Vetted.unknown, :visibility => Visibility.preview)
+    preview_do = build_data_object('Text', 'This is a test wikipedia article content', :guid => published_do.guid,
+                                   :published => 1, :vetted => Vetted.unknown, :visibility => Visibility.preview)
     DataObjectsTaxonConcept.gen(:taxon_concept_id => @taxon_concept.id, :data_object_id => preview_do.id)
     preview_do.toc_items << TocItem.wikipedia
     preview_do_association = preview_do.association_with_exact_or_best_vetted_status(@taxon_concept)
 
-    published_do.published.should == true
+    published_do.published.should be_true
+    # ...This one is failing, but it's quite complicated, so I'm coming back to it:
     preview_do_association.visibility.should == Visibility.preview
     preview_do_association.vetted.should == Vetted.unknown
 
@@ -53,8 +55,8 @@ describe DataObject do
     published_do.reload
     preview_do.reload
 
-    published_do.published.should == false
-    preview_do.published.should == true
+    published_do.published.should_not be_true
+    preview_do.published.should be_true
 
     published_do_association.vetted.should == Vetted.trusted
     published_do_association.visibility.should == Visibility.visible
@@ -401,9 +403,9 @@ describe DataObject do
   it '#all_associations should return all associations for the data object' do
     all_associations_count_for_udo = @user_submitted_text.all_associations.count
     CuratedDataObjectsHierarchyEntry.find_or_create_by_hierarchy_entry_id_and_data_object_id( @hierarchy_entry.id,
-        @user_submitted_text.id, :data_object_guid => @user_submitted_text.guid, :vetted => Vetted.trusted, :visibility => Visibility.visible, :user => @curator)
-    @user_submitted_text = DataObject.find(@user_submitted_text)
-    @user_submitted_text.all_associations.count.should == all_associations_count_for_udo + 1
+        @user_submitted_text.id, :data_object_guid => @user_submitted_text.guid, :vetted => Vetted.trusted,
+        :visibility => Visibility.visible, :user => @curator)
+    DataObject.find(@user_submitted_text).all_associations.count.should == all_associations_count_for_udo + 1
   end
 
   it '#safe_rating should NOT re-calculate ratings that are in the normal range.' do

@@ -35,8 +35,8 @@
 
     %link{ :href => "/favicon.ico", :rel => "shortcut icon", :type => "image/x-icon" }
     %link{ :href => "/opensearchdescription.xml", :title => "Encyclopedia of Life", :rel => "search", :type => "application/opensearchdescription+xml" }
-    = stylesheet_include_i18n 'v1'
-    = stylesheet_include_i18n 'buttons', :media => "all"
+    = stylesheet_include_i18n_merged 'v1'
+    = stylesheet_include_i18n_merged 'buttons', :media => "all"
     = javascript_include_tag 'application'
     /[if lt IE 7]
       %style{:type => "text/css", :media => "screen"}
@@ -121,7 +121,7 @@
                   - else
                     =  I18n.t(:hello_user , :user => current_user.given_name)
 
-                = @home_page.nil? ? "</p><p>" : " | "
+                = @home_page.nil? ? raw("</p><p>") : " | "
                 = link_to( I18n.t(:pages_admin_section_link) ,{:controller => '/admin',:action => 'index'}) + " | " if current_user.is_admin?
                 - if current_user.is_curator?
                   = link_to("curators", {:controller => '/content', :action => 'page', :id => 'curator_central'})

@@ -4,7 +4,7 @@
 
 #content_page_new
   .article.copy
-    - form_for @news_item, :url => admin_news_items_path, :builder => ApplicationHelper::EolFormBuilder do |news_item_form|
+    = form_for @news_item, :url => admin_news_items_path, :builder => ApplicationHelper::EolFormBuilder do |news_item_form|
       = validation_errors_for(@news_item)
 
       %p.tip

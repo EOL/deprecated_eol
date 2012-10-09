@@ -36,14 +36,11 @@
 
 
     - if @home_page
-      = stylesheet_link_tag 'home', :media => "all"
+      = stylesheet_include_i18n_merged 'home_pack', :media => "all"
     - else
-      = stylesheet_link_tag 'application', :media => "all"
-      = stylesheet_link_tag 'accessibility', :media => "all"
-    - if I18n.locale.to_s == "zh-Hans"
-      = stylesheet_link_tag 'fonts', :media => "all"
+      = stylesheet_include_i18n_merged 'application_pack', :media => "all"
     /[if IE 7]
-      = stylesheet_include_i18n 'ie7', :media => "all"
+      = stylesheet_include_i18n_merged 'ie7', :media => "all"
     = javascript_include_tag :application
 
     = csrf_meta_tags

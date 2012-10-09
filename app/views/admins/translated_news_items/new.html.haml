@@ -4,7 +4,7 @@
 
 #content_page_new
   .article.copy
-    - form_for [@news_item, @translated_news_item], :url => admin_news_item_translated_news_items_path(@news_item),
+    = form_for [@news_item, @translated_news_item], :url => admin_news_item_translated_news_items_path(@news_item),
       :builder => ApplicationHelper::EolFormBuilder do |news_item_form|
       = validation_errors_for(@news_item)
       %fieldset

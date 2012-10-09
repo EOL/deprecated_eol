@@ -4,7 +4,7 @@
     = I18n.t(:admin_content_page_root)
   - else
     = @navigation_tree
-- fields_for @translated_content_page do |translated_content_page_fields|
+= fields_for @translated_content_page do |translated_content_page_fields|
   %dl
     - # Note: @languages is blank on edit because we don't want it to be modified.
     - unless @languages.blank?

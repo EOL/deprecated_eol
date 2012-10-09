@@ -108,7 +108,7 @@ class Comment < ActiveRecord::Base
 
   def show(by)
     self.vetted_by = by if by
-    self.update_attributes(:visible_at => Time.now) unless visible_at
+    self.update_attributes(:visible_at => Time.now)
 
     # re-index comment in solr
     log_activity_in_solr

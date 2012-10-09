@@ -376,7 +376,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
                              %Q{SELECT user_id, COUNT(DISTINCT data_objects.guid) AS count
                                 FROM users_data_objects
                                 JOIN data_objects ON (users_data_objects.data_object_id = data_objects.id)
-                                WHERE user_id #{user_id.is_a?(Array) ? "IN (#{user_id.join(',')})" : "= #{user_id}"}
+                                #{user_id ? "WHERE user_id = #{user_id}" : ""}
                                 GROUP BY user_id}, user_id)
   end
 

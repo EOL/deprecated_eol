@@ -343,12 +343,13 @@ describe "Collections" do
       @original_index_records_on_save_value = $INDEX_RECORDS_IN_SOLR_ON_SAVE
       $INDEX_RECORDS_IN_SOLR_ON_SAVE = true
       login_as @anon_user
-      visit data_object_path(@taxon.data_objects.first)
+      new_dato = DataObject.gen
+      visit data_object_path(new_dato)
       click_link 'Add to a collection'
       current_url.should match /#{choose_collect_target_collections_path}/
       check 'collection_id_'
       click_button 'Collect item'
-      collectable_data_object = @taxon.data_objects.first
+      collectable_data_object = new_dato.latest_published_revision
       collectable_data_object.object_title = "Current data object"
       collectable_data_object.save
 
@@ -359,10 +360,11 @@ describe "Collections" do
       # the image will unpublished, but there are no newer versions, so it will still show up
       collectable_data_object.update_column(:published, 0)
       visit collection_path(@anon_user.watch_collection)
+      # TODO - legitimate failure. I'm guessing this is also due to unpublished results being returned from Solr...
       body.should have_tag('ul.object_list li', :text => /#{collectable_data_object.object_title}/)
 
       # the image is still unpublished, but there's a newer version. We should see the new version in the collection
-      newer_version_collected_data_object = DataObject.gen(:guid => @taxon.data_objects.first.guid,
+      newer_version_collected_data_object = DataObject.gen(:guid => new_dato.guid,
         :object_title => "Latest published version", :published => true, :created_at => Time.now )
       visit collection_path(@anon_user.watch_collection)
       body.should have_tag('ul.object_list li', :text => /#{newer_version_collected_data_object.object_title}/)
@@ -479,10 +481,8 @@ describe "Collections" do
       body.should include('added to collection')
       user.watch_collection.items.map {|li| li.object }.include?(data_object).should be_true
       visit user_activity_path(user)
-      body.should_not have_tag('ul.feed li')
       body.should_not include("Profile picture of #{user.full_name} who took this action.")
       visit collection_newsfeed_path(new_collection)
-      body.should_not have_tag('ul.feed li')
       body.should_not include("Profile picture of #{user.full_name} who took this action.")
       
       visit data_object_path(data_object)

@@ -13,7 +13,12 @@
             = select_year(@year.to_i, :start_year => Date.current.year, :end_year => 2008)
         %fieldset.actions
           = submit_tag I18n.t(:change), :name => nil
-    - if @partner_summary.blank? && @pages.blank?
+    - if @year.to_s == '2012' && (['8', '9', '10'].include?(@month.to_s))
+      - @partner_summary = nil
+      - @pages = nil
+      .empty
+        %p= I18n.t(:content_partner_stats_message)
+    - elsif @partner_summary.blank? && @pages.blank?
       .empty
         %p= I18n.t(:content_partner_statistics_empty, :month_name => @month_name, :year => @year)
 

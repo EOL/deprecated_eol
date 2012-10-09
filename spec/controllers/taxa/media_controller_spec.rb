@@ -233,7 +233,7 @@ describe Taxa::MediaController do
 
   describe 'PUT set_as_exemplar' do
     it 'should not allow non-curators to set exemplar images' do
-      @taxon_concept.taxon_concept_exemplar_image.should be_nil
+      TopConceptImage.delete_all(:taxon_concept_id => @taxon_concept.id)
       exemplar_image = @taxon_concept.images_from_solr.first
       expect{ put :set_as_exemplar, :taxon_id => @taxon_concept.id, :taxon_concept_exemplar_image => { :data_object_id => exemplar_image.id } }.to raise_error(EOL::Exceptions::SecurityViolation)
     end

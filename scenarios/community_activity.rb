@@ -4,8 +4,8 @@
 #---
 #dependencies: [ :foundation, :bootstrap ]
 
-require 'spec/eol_spec_helpers'
-require 'spec/scenario_helpers'
+require Rails.root.join('spec', 'eol_spec_helpers')
+require Rails.root.join('spec', 'scenario_helpers')
 # This gives us the ability to build taxon concepts:
 include EOL::RSpec::Helpers
 
@@ -117,6 +117,8 @@ end
   Comment.gen(:parent => taxon, :body => body, :user => user)
   data[:comments] << {:user_id => user.id, :target_class => 'TaxonConcept', :target_id => taxon.id, :body => body}
 end
+
+CuratorLevel.create_defaults
 
 # TODO - make a curator.  Have him comment on his taxa and on NOT his taxa.
 # TODO - have the curator curate some stuff: hide/show, hide, trust, untrust, unreview.

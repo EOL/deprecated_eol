@@ -2,23 +2,32 @@ require File.dirname(__FILE__) + '/../../spec_helper'
 
 describe Users::OpenAuthenticationsController do
 
+  before(:each) do
+    controller.set_current_user = nil
+  end
+
   before(:all) do
     truncate_all_tables
     Language.create_english
     CuratorLevel.create_defaults
     @user = User.gen
+    @other_user = User.gen
+    @admin = User.gen(:admin => true)
   end
 
   describe 'GET index' do
     it 'should only be accessible by self and administrators' do
-      admin = User.gen(:admin => true)
-      get :index, {:user_id => @user.id}, {:user_id => @user.id}
+      controller.set_current_user = @user
+      get :index, {:user_id => @user.id}
       assigns[:user].should == @user
       response.should render_template('users/open_authentications/index')
-      expect { get :index, {:user_id => @user.id}, {:user_id => @user.id * 99} }.
+      controller.set_current_user = @other_user
+      expect { get :index, {:user_id => @user.id} }.
         to raise_error(EOL::Exceptions::SecurityViolation)
-      expect { get :index, {:user_id => @user.id}, {:user_id => admin.id}  }.
-        to raise_error(EOL::Exceptions::SecurityViolation)
+      controller.set_current_user = @admin
+      get :index, {:user_id => @user.id}
+      response.code.should == '200'
+      controller.set_current_user = nil
       expect { get :index, {:user_id => @user.id} }.
         to raise_error(EOL::Exceptions::SecurityViolation)
     end
@@ -30,14 +39,14 @@ describe Users::OpenAuthenticationsController do
       expect(response).to redirect_to(user_open_authentications_url(@user.id))
     end
     it 'should only be accessible by self or admin' do
-      admin = User.gen(:admin => true)
-      expect { get :new, { :user_id => @user.id, :oauth_prover => 'provider'}, { :user_id => @user.id } }.
+      controller.set_current_user = @user
+      expect { get :new, { :user_id => @user.id, :oauth_provider => 'provider'} }.
         to_not raise_error(EOL::Exceptions::SecurityViolation)
-      expect { get :new, { :user_id => @user.id, :oauth_prover => 'provider'}, { :user_id => admin } }.
+      controller.set_current_user = @admin
+      expect { get :new, { :user_id => @user.id, :oauth_provider => 'provider'} }.
         to_not raise_error(EOL::Exceptions::SecurityViolation)
-      expect { get :new, { :user_id => @user.id, :oauth_prover => 'provider' } }.
-        to raise_error(EOL::Exceptions::SecurityViolation)
-      expect { get :new, { :user_id => @user.id, :oauth_prover => 'provider'}, { :user_id => @user.id * 99 } }.
+      controller.set_current_user = nil
+      expect { get :new, { :user_id => @user.id, :oauth_provider => 'provider'} }.
         to raise_error(EOL::Exceptions::SecurityViolation)
     end
     it 'should redirect to authorize uri when adding connection to Facebook' do
@@ -61,13 +70,4 @@ describe Users::OpenAuthenticationsController do
 
   end
 
-  describe 'POST create' do
-    it 'should do some stuff'
-
-  end
-
-  describe 'POST destroy' do
-    it 'should do some stuff'
-
-  end
 end

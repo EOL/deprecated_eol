@@ -31,7 +31,7 @@ class Administrator::CuratorController < AdminController
   def export
     user_curated_objects_counts = Curator.total_objects_curated_by_action_and_user(Activity.raw_curator_action_ids)
     user_curated_taxa_counts = Curator.taxon_concept_ids_curated
-    user_comment_curations = User.comment_curation_actions
+    user_comment_curations = Curator.comment_curation_actions
     user_show_counts = Curator.total_objects_curated_by_action_and_user(Activity.show.id)
     user_hide_counts = Curator.total_objects_curated_by_action_and_user(Activity.hide.id)
     user_inappropriate_counts = Curator.total_objects_curated_by_action_and_user(Activity.inappropriate.id)

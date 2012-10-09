@@ -380,6 +380,22 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
                                 GROUP BY user_id}, user_id)
   end
 
+  def self.count_objects_rated(user_id = nil)
+    self.count_complex_query(UsersDataObject,
+                             %Q{SELECT user_id, COUNT(DISTINCT data_object_guid) AS count
+                                FROM users_data_objects_ratings
+                                #{user_id ? "WHERE user_id = #{user_id}" : ""}
+                                GROUP BY user_id}, user_id)
+  end
+
+  def self.count_comments_added(user_id = nil)
+    self.count_complex_query(Comment,
+                             %Q{SELECT user_id, COUNT(*) AS count
+                                FROM comments
+                                #{user_id ? "WHERE user_id = #{user_id}" : ""}
+                                GROUP BY user_id}, user_id)
+  end
+
   def self.count_user_rows(klass, user_id = nil)
     query = "SELECT user_id, COUNT(*) as count FROM #{klass.full_table_name} "
     if user_id.class == Fixnum

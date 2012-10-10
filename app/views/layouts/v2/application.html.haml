@@ -51,7 +51,9 @@
       - # For accessibility and SEO on pages other than home page we want content to appear first in the markup.
       #central
         .section{ :role => "main" }
+          /================================================
           = yield :main
+          /================================================
 
     #header
       .section

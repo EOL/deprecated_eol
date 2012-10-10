@@ -97,25 +97,12 @@ module EOL
       def self.add_taxon_concept!(docs)
         includes = [
           { :preferred_entry => 
-            { :hierarchy_entry => [ { :flattened_ancestors => { :ancestor => :name } },
-              { :name => :canonical_form } , :hierarchy, :vetted ] } },
-          { :preferred_common_names => [ :name, :language ] },
-          { :taxon_concept_exemplar_image => :data_object } ]
-        selects = {
-          :taxon_concepts => '*',
-          :taxon_concept_preferred_entries => '*',
-          :hierarchy_entries => [ :id, :rank_id, :identifier, :hierarchy_id, :parent_id, :published, :visibility_id, :lft, :rgt, :taxon_concept_id, :source_url ],
-          :names => [ :string, :italicized, :canonical_form_id ],
-          :canonical_forms => [ :string ],
-          :hierarchies => [ :agent_id, :browsable, :outlink_uri, :label ],
-          :vetted => :view_order,
-          :hierarchy_entries_flattened => '*',
-          :data_objects => '*',
-        }
+            { :hierarchy_entry => { :name => :ranked_canonical_form } } }, 
+          :preferred_common_names ]
         ids = docs.map{ |d| d['resource_id'] }
         return if ids.blank?
-        # TODO: core_relationships(:include => includes, :select => selects)
         instances = TaxonConcept.find_all_by_id(ids)
+        TaxonConcept.preload_associations(instances, includes)
         EOL::Solr::DataObjects.lookup_best_images_for_concepts(instances)
         docs.each do |d|
           d['instance'] = instances.detect{ |i| i.id == d['resource_id'].to_i }
@@ -123,23 +110,9 @@ module EOL
       end
 
       def self.add_data_object!(docs)
-        includes = [ { :data_objects_hierarchy_entries => [ { :hierarchy_entry => [ { :name => :canonical_form }, :hierarchy ] },
-            :vetted, :visibility ] },
-          :curated_data_objects_hierarchy_entries, { :toc_items => :translations } ]
-        selects = {
-          :data_objects => '*',
-          :translated_table_of_contents => '*',
-          :data_objects_hierarchy_entries => [ :vetted_id, :visibility_id ],
-          :hierarchy_entries => [ :published, :visibility_id, :taxon_concept_id ],
-          :hierarchies => :browsable,
-          :names => :string,
-          :canonical_forms => :string,
-          :vetted => '*',
-          :visibilities => '*'
-        }
+        # TODO: do some preloading
         ids = docs.map{ |d| d['resource_id'] }
         return if ids.blank?
-        # TODO: core_relationships(:include => includes, :select => selects)
         instances = DataObject.find_all_by_id(ids)
         docs.each do |d|
           d['instance'] = instances.detect{ |i| i.id == d['resource_id'].to_i }

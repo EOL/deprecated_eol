@@ -48,13 +48,11 @@ class Comment < ActiveRecord::Base
 
   # the description or name of the parent item (i.e. the name of the species or description of the object)
   def parent_name
-    return case self.parent_type
-      when 'TaxonConcept' then parent.nil? ? self.parent_type : parent.entry.name.string
-      when 'DataObject'   then parent.nil? ? self.parent_type : parent.description
-      when 'Community'    then parent.nil? ? self.parent_type : parent.name
-      when 'Collection'   then parent.nil? ? self.parent_type : parent.name
-      else self.parent_type
-      end
+    return self.parent_type if self.parent.nil?
+    return parent.entry.name.string if parent.respond_to?(:entry)
+    return parent.description if parent.respond_to?(:description)
+    return parent.name if parent.respond_to?(:name)
+    return self.parent_type
   end
 
   def taxa_comment?
@@ -218,10 +216,10 @@ private
       recipients << self.parent
     end
     
-    if self.parent_type == 'TaxonConcept'
+    if self.parent.respond_to?(:flattened_ancestor_ids)
       # page's ancestors
       recipients << { :ancestor_ids => self.parent.flattened_ancestor_ids }
-    elsif self.parent_type == 'DataObject'
+    elsif self.parent.respond_to?(:curated_hierarchy_entries)
       # object's pages and pages' ancestors
       self.parent.curated_hierarchy_entries.each do |he|
         recipients << he.taxon_concept
@@ -272,7 +270,7 @@ private
   end
 
   def add_recipient_author_of_commented_on_text(recipients)
-    if self.parent_type == 'DataObject'
+    if self.parent.respond_to?(:contributing_user)
       if user = self.parent.contributing_user
         user.add_as_recipient_if_listening_to(:comment_on_my_contribution, recipients)
       end

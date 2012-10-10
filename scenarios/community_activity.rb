@@ -1,13 +1,12 @@
-# This is a scenario to simulate a bunch of activity with comunities and users, to demonstrate searching capabilities within
-# those concepts. It builds on the bootstrap scenario, to re-use a few of its concepts.
-#
-#---
-#dependencies: [ :foundation, :bootstrap ]
+# This is a scenario to simulate a bunch of activity with comunities and users, to demonstrate searching capabilities
+# within those concepts. It builds on the bootstrap scenario, to re-use a few of its concepts.
 
 require Rails.root.join('spec', 'eol_spec_helpers')
 require Rails.root.join('spec', 'scenario_helpers')
 # This gives us the ability to build taxon concepts:
 include EOL::RSpec::Helpers
+
+load_foundation_cache
 
 data = {}
 
@@ -74,7 +73,7 @@ data[:community_names].keys.each do |name|
   data[:owners] << owner
   # And each community has a few taxa associated with it:
   data[:community_names][name][:taxa_ids].each do |id|
-    data[:communities].last.focus.add TaxonConcept.find(id)
+    data[:communities].last.collections.first.add TaxonConcept.find(id)
   end
 end
 
@@ -101,8 +100,8 @@ end
 # have a few of the users comment on communities.
 data[:comments] = []
 10.times do
-  user = data[:users].rand
-  community = data[:communities].rand
+  user = data[:users].sample(1).first
+  community = data[:communities].sample(1).first
   body = "This is a comment from #{user.username} on #{community.name}"
   Comment.gen(:parent => community, :body => body, :user => user)
   data[:comments] << {:user_id => user.id, :target_class => 'Community', :target_id => community.id, :body => body}
@@ -110,9 +109,9 @@ end
 
 # Have a few users comment on taxa:
 10.times do
-  user = data[:users].rand
-  community = data[:communities].rand
-  taxon = community.focus.collection_items.rand.object
+  user = data[:users].sample(1).first
+  community = data[:communities].sample(1).first
+  taxon = community.collections.first.collection_items.sample(1).first.object
   body = "This is a comment from #{user.username} on #{taxon.common_name}"
   Comment.gen(:parent => taxon, :body => body, :user => user)
   data[:comments] << {:user_id => user.id, :target_class => 'TaxonConcept', :target_id => taxon.id, :body => body}

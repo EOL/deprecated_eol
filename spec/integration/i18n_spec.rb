@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe 'Switching Languages' do
-  before :all do
+  before(:each) do
     load_foundation_cache
     @user_fr = User.gen(:language_id => Language.find_by_iso_639_1('fr').id)
   end

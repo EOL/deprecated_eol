@@ -1,5 +1,10 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
 
+def log_in_for_controller(controller, user)
+  session[:user_id] = user.id
+  controller.set_current_user = user
+end
+
 describe ContentPartners::ResourcesController do
 
   before(:all) do
@@ -21,14 +26,16 @@ describe ContentPartners::ResourcesController do
       expect(response).to redirect_to(login_url)
     end
     it 'should ask for agreement if user can update content partner and agreement is NOT accepted' do
-      session[:user_id] = @user.id
+      ContentPartnerAgreement.delete_all
+      log_in_for_controller(controller, @user)
       get :index, { :content_partner_id => @content_partner.id }
-      expect(response).to redirect_to(new_content_partner_agreement_path(@content_partner))
+      response.should redirect_to(new_content_partner_agreement_path(@content_partner))
     end
     it 'should render index if user can update content partner and agreement is accepted' do
       @content_partner_agreement = ContentPartnerAgreement.gen(:content_partner => @content_partner, :signed_on_date => Time.now)
-      session[:user_id] = @user.id
+      log_in_for_controller(controller, @user)
       get :index, { :content_partner_id => @content_partner.id }
+      # not working, we're redirected and not following it...
       assigns[:partner].should == @content_partner
       assigns[:resources].should be_a(Array)
       assigns[:resources].first.should == @resource
@@ -80,7 +87,7 @@ describe ContentPartners::ResourcesController do
       expect(response).to redirect_to(login_url)
     end
     it 'should render resource show page if user can read content partner resources' do
-      session[:user_id] = @user.id
+      log_in_for_controller(controller, @user)
       get :show, { :content_partner_id => @content_partner.id, :id => @resource.id }, { :user => @user, :user_id => @user.id }
       assigns[:partner].should == @content_partner
       assigns[:resource].should == @resource

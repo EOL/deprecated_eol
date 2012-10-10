@@ -66,9 +66,9 @@ describe 'Login' do
 
   it 'should redirect user to return_to url if user successfully log in after a failed attempt' do
     user = User.gen
-    comment = "Test comment by anonymous user."
+    comment = "Test comment one by anonymous user."
     visit("/data_objects/#{DataObject.last.id}")
-    body.should_not have_tag("blockquote", :text => comment)
+    body.should_not include(comment)
     body.should have_tag(".comment #comment_body")
     body.should have_tag("#new_comment .actions input", :val => "Post Comment")
     within(:xpath, '//form[@id="new_comment"]') do
@@ -92,9 +92,9 @@ describe 'Login' do
 
   it 'should redirect user to return_to url if user successfully log in after a failed attempt' do
     user = User.gen
-    comment = "Test comment by anonymous user."
+    comment = "Test comment two by anonymous user."
     visit("/data_objects/#{DataObject.last.id}")
-    body.should_not have_tag("blockquote", :text => comment)
+    body.should_not include(comment)
     body.should have_tag(".comment #comment_body")
     body.should have_tag("#new_comment .actions input", :val => "Post Comment")
     within(:xpath, '//form[@id="new_comment"]') do

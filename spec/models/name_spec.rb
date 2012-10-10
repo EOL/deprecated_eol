@@ -4,12 +4,12 @@ require 'csv'
 
 describe Name do
 
-  before(:all) do
+  before(:each) do
     @canonical_form = CanonicalForm.gen(:string => "Some name")
     @name = Name.gen(:string => "Some name Auth, 1923", :canonical_form => @canonical_form)
   end
 
-  after(:all) do
+  after(:each) do
     Name.delete_all
     CanonicalForm.delete_all
   end
@@ -134,7 +134,6 @@ describe Name do
     end
 
     it "should be able to modify existing common name if clean name matches" do
-      count = Name.delete_all
       name1 = Name.create_common_name("Blue \t  jay.") # Note the addition of whitespace, which should be stripped
       clean_string1 = Name.prepare_clean_name("Blue \t  jay.")
       name1.string.should == 'Blue jay.'
@@ -142,21 +141,19 @@ describe Name do
       clean_string2 = Name.prepare_clean_name("Blue \t  jay")
       name2.string.should == 'Blue jay'
       clean_string1.should == clean_string2
-      Name.count.should == 1  # Note we added 2 names(i.e. name1 & name2) but still count should increase by 1
+      name1.id.should == name2.id
     end
 
     it 'should create a canonical form when one does not already exist' do
-      Name.delete_all(:clean_name => 'smurf')
-      CanonicalForm.delete_all(:string => 'smurf')
       count = CanonicalForm.count
       name = Name.create_common_name('smurf') # Note the addition of whitespace, which should be stripped
       CanonicalForm.count.should == count + 1
     end
 
-    #it 'should run prepare_clean_name on its input' do
-    #  Name.should_receive(:prepare_clean_name).with('Care bear').exactly(1).times.and_return('care bear')
-    #  Name.create_common_name('Care bear')
-    #end
+    it 'should run prepare_clean_name on its input' do
+      Name.should_receive(:prepare_clean_name).with('Care bear').at_least(1).times.and_return('care bear')
+      Name.create_common_name('Care bear')
+    end
 
     it 'should not create a CanonicalForm, and should return an existing clean name, if passed a string that, when cleaned, already exists.' do
       CanonicalForm.should_not_receive(:create)
@@ -186,7 +183,6 @@ describe Name do
   describe "::find_or_create_by_string" do
 
     it "should create name if it does not exist" do
-      name = Name.delete_all(string: "New name string")
       name_count = Name.count
       name = Name.find_or_create_by_string("New name string")
       name.string == "New name string"
@@ -207,6 +203,8 @@ describe Name do
   describe  "::find_by_string" do
     it "should return a name" do
       name = Name.find_by_string(" Some           Name Auth,     1923  ")
+      debugger if name.nil?
+      debugger if @name.nil?
       name.string.should == @name.string
     end
   end

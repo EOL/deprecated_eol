@@ -183,7 +183,6 @@ private
 
   def instantiate_preferred_names
     @preferred_common_name = @selected_hierarchy_entry ? @selected_hierarchy_entry.taxon_concept.preferred_common_name_in_language(current_language) : @taxon_concept.preferred_common_name_in_language(current_language)
-    debugger if $FOO
     @scientific_name = @selected_hierarchy_entry ? @selected_hierarchy_entry.italicized_name : @taxon_concept.title_canonical_italicized
   end
 

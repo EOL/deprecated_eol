@@ -13,6 +13,8 @@
     %meta{ :name => "verify-v1", :content => "mJIytYT6a+K1y+bCmD1wr1ge+4Q63O0YfTHCYWwkzaY=" }
     - # Prevents generation of links to "smart tags"
     %meta{ :name => "MSSmartTagsPreventParsing", :content => "true" }
+    - full_version = ENV["APP_VERSION"].blank? ? I18n.t(:development_version_name) : ENV["APP_VERSION"]
+    %meta{ :name => "app_version", :content => full_version }
     - unless @meta_data[:description].blank?
       %meta{ :name => "description", :content => h(truncate(strip_tags(@meta_data[:description]), :length => 160)) }
     - unless @meta_data[:keywords].blank?

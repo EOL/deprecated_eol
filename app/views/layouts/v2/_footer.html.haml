@@ -57,8 +57,7 @@
               %li= link_to t('learn_more_link_viruses', :scope => t_scope), cms_page_path('viruses', :language => 'en')
         .version
           %h6= link_to I18n.t(:encyclopedia_of_life), root_url
-          - full_version = ENV["APP_VERSION"].blank? ? I18n.t(:development_version_name) : ENV["APP_VERSION"]
-          %p{ :title => I18n.t(:application_version_advisory_information), :data_data => full_version }
+          %p{ :title => I18n.t(:application_version_advisory_information) }
             = "v. #{EOL_CODEBASE_MASTER_VERSION}"
       .questions
         %h6= t('header_questions', :scope => t_scope)

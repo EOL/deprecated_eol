@@ -174,6 +174,11 @@ class ContentController < ApplicationController
     render :text => "Logs written at #{time}."
   end
 
+  def version
+    full_version = ENV["APP_VERSION"].blank? ? I18n.t(:development_version_name) : ENV["APP_VERSION"]
+    render :text => full_version
+  end
+
   def boom
     raise "This is an exception." # I18n not req'd
   end

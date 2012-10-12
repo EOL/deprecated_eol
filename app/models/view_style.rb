@@ -2,15 +2,11 @@ class ViewStyle < ActiveRecord::Base
   uses_translations
   has_many :collections
 
-  # Creates the default view names with some logic around translations.
   def self.create_defaults
     ['List', 'Gallery', 'Annotated'].each do |name|
-      vstyle = ViewStyle.create
-      begin
+      unless TranslatedViewStyle.exists?(:language_id => Language.english.id, :name => name)
+        vstyle = ViewStyle.create
         TranslatedViewStyle.create(:name => name, :view_style_id => vstyle.id, :language_id => Language.english.id)
-      rescue ActiveRecord::StatementInvalid => e
-        vstyle.name = name
-        vstyle.save!
       end
     end
   end

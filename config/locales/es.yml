@@ -14,6 +14,7 @@
 # Author: Mor
 # Author: Rbcastroc
 # Author: Sampalahnuk
+# Author: Shirayuki
 # Author: Toliño
 # Author: Vivaelcelta
 es: 
@@ -508,6 +509,39 @@ es:
         user_chose_exemplar_data_object_on_taxon: <strong>%{user}</strong> ha establecido "%{data_object}" como un ejemplar de "%{taxon}".
         user_chose_exemplar_it_on_an_unknown_taxon: <strong>%{user}</strong> lo ha establecido como un ejemplar en una página desconocida.
         user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> lo ha establecido como un ejemplar de "%{taxon}".
+      classification_curation: 
+        merge: 
+          an_unknown_user_merged_an_unknown_taxon_and_an_unknown_taxon: Un usuario desconocido ha fusionado dos páginas desconocidas.
+          an_unknown_user_merged_an_unknown_taxon_and_taxon: Un usuario desconocido ha fusionado una página desconocida con %{target}.
+          an_unknown_user_merged_it_and_an_unknown_taxon: Un usuario desconocido lo ha fusionado con una página desconocida.
+          an_unknown_user_merged_it_and_taxon: Un usuario desconocido lo ha combinado con %{target}.
+          an_unknown_user_merged_taxon_and_an_unknown_taxon: Un usuario desconocido ha fusionado %{taxon} con una página desconocida.
+          an_unknown_user_merged_taxon_and_taxon: Un usuario desconocido ha combinado %{taxon} con %{target}.
+          user_merged_an_unknown_taxon_and_an_unknown_taxon: <strong>%{user}</strong> ha fusionado una página desconocida con una página desconocida.
+          user_merged_an_unknown_taxon_and_taxon: <strong>%{user}</strong> ha fusionado una página desconocida con %{target}.
+          user_merged_it_and_an_unknown_taxon: <strong>%{user}</strong> lo ha fusionado con una página desconocida.
+          user_merged_it_and_taxon: <strong>%{user}</strong> lo ha fusionado con %{target}.
+          user_merged_taxon_and_an_unknown_taxon: <strong>%{user}</strong> ha fusionado %{taxon} con una página desconocida.
+          user_merged_taxon_and_taxon: <strong>%{user}</strong> ha fusionado %{taxon} con %{target}.
+        move: 
+          an_unknown_user_moved_classifications_from_an_unknown_taxon_to_an_unknown_taxon: Un usuario desconocido ha trasladado las clasificaciones por %{classifications} desde una página desconocida a una página desconocida.
+          an_unknown_user_moved_classifications_from_an_unknown_taxon_to_taxon: Un usuario desconocido ha trasladado las clasificaciones por %{classifications} desde una página desconocida a %{target}.
+          an_unknown_user_moved_classifications_from_it_to_an_unknown_taxon: Un usuario desconocido ha trasladado las clasificaciones por %{classifications} hasta una página desconocida.
+          an_unknown_user_moved_classifications_from_it_to_taxon: Un usuario desconocido ha trasladado las clasificaciones por %{classifications} a %{target}.
+          an_unknown_user_moved_classifications_from_taxon_to_an_unknown_taxon: Un usuario desconocido ha trasladado las clasificaciones por %{classifications} desde %{taxon} hasta su propia página.
+          an_unknown_user_moved_classifications_from_taxon_to_taxon: Un usuario desconocido ha trasladado las clasificaciones por %{classifications} desde %{taxon} a %{target}.
+          user_moved_classifications_from_an_unknown_taxon_to_an_unknown_taxon: <strong>%{user}</strong> ha trasladado las clasificaciones por %{classifications} desde una página desconocida a una página desconocida.
+          user_moved_classifications_from_an_unknown_taxon_to_taxon: <strong>%{user}</strong> ha trasladado las clasificaciones por %{classifications} desde una página desconocida a %{target}.
+          user_moved_classifications_from_it_to_an_unknown_taxon: <strong>%{user}</strong> ha trasladado las clasificaciones por %{classifications} a una página desconocida.
+          user_moved_classifications_from_it_to_taxon: <strong>%{user}</strong> ha trasladado las clasificaciones por %{classifications} a %{target}.
+          user_moved_classifications_from_taxon_to_an_unknown_taxon: <strong>%{user}</strong> ha trasladado las clasificaciones por %{classifications} desde %{taxon} a una página desconocida.
+          user_moved_classifications_from_taxon_to_taxon: <strong>%{user}</strong> ha trasladado las clasificaciones por %{classifications} desde %{taxon} a %{target}.
+        split: 
+          an_unknown_user_split_classifications_from_an_unknown_taxon: Un usuario desconocido ha dividido las clasificaciones por %{classifications} desde una página desconocida a su propia página.
+          an_unknown_user_split_classifications_from_it: Un usuario desconocido ha dividido las clasificaciones por %{classifications} hasta su propia página.
+          an_unknown_user_split_classifications_from_taxon: Un usuario desconocido ha dividido las clasificaciones por %{classifications} desde el %{taxon} hasta su propia página.
+          user_split_classifications_from_an_unknown_taxon: <strong>%{user}</strong> ha dividido las clasificaciones por %{classifications} desde una página desconocida a su propia página.
+          user_split_classifications_from_taxon: <strong>%{user}</strong> ha dividido las clasificaciones por %{classifications} hasta su propia página.
       hide: 
         an_unknown_user_hid_an_older_data_object_on_an_unknown_association: Un usuario desconocido ha marcado una versión anterior de "%{data_object}" como oculto en un contexto desconocido.
         an_unknown_user_hid_an_older_data_object_on_association: Un usuario desconocido marcó una versión anterior de "%{data_object}" como oculto en la página "%{association}".
@@ -756,7 +790,9 @@ es:
         user_untrusted_data_object_on_association: <strong>%{user}</strong> ha marcado "%{data_object}" como no fiable en la página "%{association}".
         user_untrusted_it_on_an_unknown_association: <strong>%{user}</strong> lo ha marcado como no fiable en un contexto desconocido.
         user_untrusted_it_on_association: <strong>%{user}</strong> lo ha marcado como no fiable en la página "%{association}".
+  activity_user_created_link: <strong>%{user}</strong> ha añadido un enlace a "%{object_name}" en "%{taxon_concept}".
   activity_user_created_text: <strong>%{user}</strong> añado el texto a "%{object_name}" on "%{taxon_concept}".
+  activity_user_updated_link: <strong>%{user}</strong> ha actualizado el enlace "%{object_name}" en "%{taxon_concept}".
   activity_user_updated_text: <strong>%{user}</strong> actualizado "%{object_name}" texto en "%{taxon_concept}".
   add: Añadir
   add_a_collection_to_a_community: Añadir "%{collection}" a una comunidad
@@ -770,6 +806,8 @@ es:
   add_a_new_topic_area: Agregar un nuevo tema
   add_a_new_user: Agregar un nuevo usuario
   add_a_taxon_association_label: Añadir una asociación de taxón
+  add_article_instead: Añadir un artículo en su lugar
+  add_article_to_page_button: "Añadir un artículo:"
   add_association_submit_button: añadir asociación
   add_brief_summary_to_page_link_button: Añadir un breve resumen a esta página
   add_citizen_science_resources_to_page_link_button: Agregar un vínculo de ciencia ciudadana a esta página
@@ -780,6 +818,8 @@ es:
   add_identification_resources_to_page_link_button: Agregar recursos de identificación a esta página
   add_item_to_new_collection: Añadir "%{item}" a una colección nueva
   add_language: Añadir idioma
+  add_link_instead: Añadir un enlace en su lugar
+  add_link_to_page_button: Añadir enlace
   add_new_association_link: Añadir nueva asociación
   add_new_tag_suggestion: Agregar nueva sugerencia de etiqueta
   add_page: Añadir página
@@ -991,6 +1031,7 @@ es:
   associated_with_header: Asociado con
   associated_with_image_header: En la última imagen
   associated_with_image_map_header: En el mapa más reciente
+  associated_with_link_header: En el último enlace
   associated_with_map_header: En el mapa más reciente
   associated_with_sound_header: En el último audio
   associated_with_video_header: En el último vídeo
@@ -1194,6 +1235,7 @@ es:
   comment_not_deleted_error: Lo sentimos, ha ocurrido un error, el comentario no se pudo borrar.
   comment_not_updated_error: Lo sentimos, ha ocurrido un error, el comentario no se pudo actualizar.
   comment_or_rate_on_this_article: Comentar o valorar este artículo
+  comment_or_rate_on_this_link: Comentar o valorar este enlace
   comment_show_posters_image_alt: Imagen de perfil de %{posters_name} quien agregó este comentario.
   comments: Comentarios
   comments_and_tags: Comentarios y etiquetas
@@ -1678,13 +1720,20 @@ es:
   dato_create_user_text_missing_user_exception: No se puede construir un texto DataObject o UsersDataObject si el identificador del taxón es nulo.
   dato_create_user_text_validation_error: Asegúrese de haber completado el formulario correctamente.
   dato_edit_cancel: Cancelar
+  dato_edit_link_button: Editar este enlace
+  dato_edit_link_description: Gracias por contribuir con tu experiencia a EOL. El enlace revisado será añadido a tu Lista de Vigilancia para que pueda seguir las conversaciones relacionadas con él y comprobar su estado de supervisión.
+  dato_edit_link_title: Editar enlace
+  dato_edit_text_button: Editar este artículo
   dato_edit_text_page_description: ¡Gracias por contribuir con su experiencia de EOL. El artículo revisado será añadido a su Lista de Vigilancia para que pueda seguir las conversaciones relacionadas con él y comprobar su estado de curación.
   dato_edit_text_title: Editar artículo
-  dato_location_created: "Ubicación creada: # {loc}"
+  dato_location_created: "Ubicación creada: %{loc}"
   dato_new_edit_user_text_fieldset_content_header: Contenido del artículo
   dato_new_edit_user_text_fieldset_information_header: Información de artículo
   dato_new_edit_user_text_form_tip: Tu artículo terminado será publicado en la página del taxón. Si no eres supervisor, será marcado como "no revisado" hasta que un supervisor lo revise. Los campos subcapítulo, texto, idioma y licencia son obligatorios (%{required_icon}), todos los demás campos son opcionales. Si seleccionas una licencia CC-BY (Atribución) por favor incluye un titular de los derechos o déjalo en blanco para utilizar tu nombre completo. Las licencias de dominio público no requieren un titular de derechos. Para obtener más ayuda consulta <a href="%{add_article_help_url}">Agregar artículo de ayuda</a>.
+  dato_new_edit_user_text_link_fieldset_content_header: Datos del enlace
+  dato_new_edit_user_text_link_form_tip: Tu enlace se publicará en la página del taxón. Si no eres supervisor, será marcado como "no revisado" hasta que un supervisor lo revise. La categoría, la descripción y la dirección URL son obligatorios (%{required_icon}), todos los demás campos son opcionales. Para obtener más información lee <a href="%{add_article_help_url}">Ayuda sobre agregar artículo/enlace</a>.
   dato_new_text_for_taxon_page_title: Agregar un artículo a <i>%{taxon}</i>
+  dato_new_text_link_for_taxon_page_title: Añadir un enlace a <i>%{taxon}</i>
   dato_new_text_page_description: ¡Gracias por contribuir a la EOL! Su artículo será añadido a su lista de vigilancia para que pueda seguir las conversaciones relacionadas con él y comprobar su estado de preservación.
   dato_update_user_text_error: Lo sentimos, ha ocurrido un error, el artículo no se pudo actualizar.
   dato_update_users_text_not_owner_exception: Sólo el autor original de este objeto de texto puede editarlo.
@@ -1841,6 +1890,7 @@ es:
   error_log: Registro de errores
   error_log_detail: Detalle del registro de error
   error_logging_active: Registro activo de errores
+  error_updating_user: Hubo un error al actualizar el registro de este usuario
   error_watch_collections_cannot_be_shared: Ver las colecciones que no pueden ser compartidas
   every_method_can_also_return_json_response: Todo método puede devolver una respuesta JSON agregando la Exporte esta lista como CSV
   example_colon: Ejemplo
@@ -1874,6 +1924,7 @@ es:
   file: Archivo
   file_id: Identificador de archivo
   file_size: Tamaño de archivo
+  filed_under_label: Archivado bajo %{label} en
   fill_in_a_message_below_to_send_email_to_user: "Llenar un mensaje a continuación para enviar un correo electrónico a este usuario.  El mensaje se enviará cuando usted envíe el formulario:"
   filter_button: Filtrar
   filter_by_day: Filtrar por día
@@ -1896,6 +1947,7 @@ es:
   filter_by_type_image_option_with_count: 
     one: Imágenes (%{count})
     other: Imágenes (%{count})
+  filter_by_type_link_option: Enlaces
   filter_by_type_name_option: Nombres
   filter_by_type_object_curated_option: Objetos supervisados
   filter_by_type_photosynth_option: Fotosíntesis
@@ -1955,6 +2007,7 @@ es:
   gbif_occurrence_learn_more_link: Tener acceso a estos datos a través del Portal de GBIF.
   general_site_admin: administrador general del sitio
   get_help_choosing_a_subchapter: obtenga ayuda escogiendo un subcapítulo
+  get_help_choosing_a_subject: Obtener ayuda escogiendo un asunto
   get_more_tasks: obtener más tareas
   given_name_colon: "Nombre dado:"
   given_the_vast_number: Dado el vasto nñumero de nombres científicos y vernaculares (neacasi 20 millones en total) darle al usuario de exactamente las especies que esá buscando es una tarea difícil. Por ejemplo, hay varias especies de pájaros llamadas Robin (American Robin, Alpine Robin, Smoky Robin), y varias especies de pez llamadas Robin, y un taxónomo llamado Robin, que ha nombrado docenas de especies. Hemos incluido un parámetro 'exacto' para devolver solo resultados cuyo nombre coincida con el término buscado en un 100%, pero no podemos garantizar que el taxón retornado sea el que anda buscando. Estamos continuamente tratando de mejorar la relevancia de los resultados de las búsquedas, así que espere mejorías muy pronto.
@@ -2042,6 +2095,11 @@ es:
         rights_statement_more: Declaración de los derechos de uso según es requerido por las licencias  Creative Commons Attribution (CC-BY), por favor declare la atribución <q cite="http://creativecommons.org/licenses/by/3.0"> del modo especificado por el autor o licenciatario</q>.
         source_url: URL a el original objeto de datos
         toc_item: Subcapítulo
+      data_object_link: 
+        description: Descripción <small>(se permite algo de formato HTML)</small>
+        link_type: Categoría
+        source_url: Dirección URL del enlace
+        toc_item: Asunto
       eol_statistic: 
         date_one: Fecha
         date_two: Fecha
@@ -2184,6 +2242,9 @@ es:
         create: Agregar artículo
         create_text: Agregar artículo
         update: Guardar artículo
+      data_object_link: 
+        create: Añadir enlace
+        update: Guardar enlace
       eol_statistic: 
         change_date: Obtener estadísticas de fechas
         download_csv: Descargar como CSV
@@ -2323,6 +2384,8 @@ es:
   item_type_image_assistive: Este elemento es una imagen
   item_type_image_map: Mapa
   item_type_image_map_assistive: Este elemento es una imagen de un mapa
+  item_type_link: Enlace
+  item_type_link_assistive: Este artículo es un enlace
   item_type_map: Mapa
   item_type_map_assistive: Este elemento es un mapa
   item_type_person: Persona
@@ -2365,7 +2428,9 @@ es:
         about_link_discover: Descubrir
         about_link_donate: Donar a EOL
         about_link_eol_blog: El Blog de EOL
+        about_link_glossary: Glosario
         about_link_help: Ayuda
+        about_link_podcasts: Podcasts
         about_link_statistics: Estadísticas
         about_link_terms_of_use: Condiciones de Uso
         about_link_what_is_eol: ¿Qué es EOL?
@@ -2393,6 +2458,7 @@ es:
         learn_more_link_spiders: Arácnidos
         learn_more_link_trees: Árboles
         learn_more_link_viruses: Virus
+        learn_more_link_worms: Gusanos
         questions_link_binomial_nomenclature: ¿Qué es la nomenclatura binomial?
         questions_link_biodiversity: ¿Qué es la biodiversidad?
         questions_link_biological_classification: ¿Qué es una clasificación biológica?
@@ -2448,7 +2514,13 @@ es:
   limits_the_number_of_returned_sound_objects: limita el número de objetos de sonido retornados
   limits_the_number_of_returned_text_objects: limita el número de objetos de texto retornados
   limits_the_number_of_returned_video_objects: limita el número de objetos de vídeo retornados
+  link_more_about: Aprende más sobre este enlace
   link_name: Nombre del enlace
+  link_not_associated_with_any_published_entries: Este enlace no está asociado con ninguno de los taxones publicados.
+  link_rating: Clasificación de enlace
+  links_with_count: 
+    one: "%{count} enlace"
+    other: "%{count} enlaces"
   list_newsletter_emails: enumerar los correos electrónicos de lalista
   list_of_activity_combinations: Lista de combinaciones de actividad en un intervalo de 5 min.
   listing_collections: Listado de las colecciones
@@ -2458,6 +2530,8 @@ es:
   literature_bhl_link: Ver bibliografía descubierta en BHL
   literature_empty: No se encontraron referencias.
   literature_header: Referencias
+  literature_links: Enlaces de Literatura
+  literature_links_link: Enlaces de Literatura
   literature_references: Referencias de la literatura
   location: Ubicación
   location_colon: "Ubicación:"
@@ -2470,6 +2544,7 @@ es:
   login_to_the_website_as: Inicie sesión en el sitio Web como %{username}
   logo_header: Logo
   logout: Cerrar sesión
+  looking_up_url: Buscando dirección URL...
   main_content_area: "Área de contenido principal:"
   main_database_colon: "Principal:"
   main_master_database_colon: "Maestro principal:"
@@ -2535,6 +2610,7 @@ es:
   merge_data_ready: Estás listo para combinar los datos de las siguientes clasificaciones en la página de este taxón, o separarlos en su propia página. Por favor debes estar <i>absolutamente</i> seguro de que has seleccionado todas las clasificaciones que representan el taxón de tu destino. Por ejemplo, si estás eliminando una polilla de una página de champiñones, por favor revisa <i>todas</i> las clasificaciones que se muestran a continuación para asegurarte que has seleccionado todas las (mismas) polillas.
   merge_pending: Esta operación de fusión requerirá algún tiempo. Los taxones involucrados quedan ahora bloqueados de posteriores ediciones de clasificación hasta que se complete la combinación. Recibirás un correo electrónico cuando haya terminado el proceso, y aparecerá en el canal de noticias de la página.
   message_colon: "Mensaje:"
+  message_will_disappear: (este mensaje desaparecerá en breve)
   meta_description_colon: "Descrición meta:"
   meta_keywords_colon: "Palabras clave meta:"
   meta_title_site_name: Encyclopedia of Life
@@ -2585,14 +2661,15 @@ es:
   move_to_top: Mover al principio
   move_up: Mover hacia arriba
   moved_all_items_from_collection_with_count: 
-    one: "Mueve #{count} elemento de %{from} a esta colección."
-    other: "Mueve todos los #{count} elementos de %{from} a esta colección."
+    one: Mueve %{count} elemento de %{from} a esta colección.
+    other: Mueve todos los %{count} elementos de %{from} a esta colección.
   moved_all_items_to_collections: 
     one: Mueve todos los elementos de %{name} a %{count} colección.
     other: Mueve todos los elementos de %{name} a %{count} colecciones.
   moved_items_from_collection_with_count_notice: 
     one: Trasladó %{count} elemento de %{name}.
     other: Trasladó %{count} elementos de %{name}.
+  multimedia_links: Enlaces multimedia
   must_be_associated_with_either_a_user_or_a_community: Debe estar asociado a un usuario o una comunidad
   must_be_checked_in_to_show: "- debe estar comprobado para mostrarlo al usuario"
   must_be_checked_in_to_view: "- debe comprobarse para poder verlo"
@@ -2630,6 +2707,7 @@ es:
   new_search_suggestion: Nueva sugerencia de búsqueda
   new_upload: Nueva carga
   new_user: Nuevo usuario
+  news_and_event_links: Enlaces a Noticias & Eventos
   news_archive_page: página de archivo de noticias
   news_available_in_languages: "Esta página está disponible en:"
   news_date: Fecha de la noticia
@@ -2781,6 +2859,7 @@ es:
   object_type_collection_option: Colección
   object_type_community_option: Comunidad
   object_type_image_option: Imagen
+  object_type_link_option: Enlace
   object_type_sound_option: Sonido
   object_type_taxon_concept_option: Concepto de Taxón
   object_type_text_option: Texto
@@ -2984,6 +3063,7 @@ es:
   related_names_with_count: 
     one: "%{count} nombre relacionado"
     other: "%{count} nombres relacionados"
+  related_organizations: Organizaciones afines
   remove: Borrar
   remove_curatorship_colon: "Eliminar la curaduría:"
   remove_data_object_association: Eliminar asociación
@@ -3062,6 +3142,9 @@ es:
   see_all_collections_with_count_html: 
     one: Ver <span class="assistive">%{count} colección en la que aparece este taxón.</span>
     other: Ver todas <span class="assistive">las %{count} colecciones en las que aparece este taxón.</span>
+  see_all_comments_with_count_for_link_or_rate: 
+    one: ver %{count} comentario para este enlace o valorarlo
+    other: ver todos los %{count} comentarios para este artículo o valorarlos
   see_all_comments_with_count_for_text_or_rate: 
     one: véase %{count} comentario para este artículo o valórelo
     other: véanse todos los %{count} comentarios para este artículo o valórelo
@@ -3493,6 +3576,8 @@ es:
   taxon_identification_resources_empty: Nadie ha contribuido aún con recursos de identificación para esta página.
   taxon_identification_resources_header: Recursos de identificación
   taxon_identification_resources_link: Recursos de identificación
+  taxon_multimedia_links_link: Enlaces multimedia
+  taxon_news_and_event_links_link: Enlaces a Noticias & Eventos
   taxon_newsfeed: Newsfeed de Taxón
   taxon_not_found_error: "\"%{taxon}\" no encontrado"
   taxon_nucleotide_sequences_link: Secuencias de nucleótidos
@@ -3506,6 +3591,7 @@ es:
   taxon_partner_links_link: Vínculos de socio
   taxon_rating: Evaluación del taxón
   taxon_recognized_by: Taxón reconocido por %{whom}
+  taxon_related_organizations_link: Organizaciones afines
   taxon_selected_from_search_res: Taxón seleccionado a partir de los resultados de búsqueda
   taxon_suggested: Taxón sugerido
   taxonomic_summary_of_content: Resumen taxonómico de contenido
@@ -3577,6 +3663,8 @@ es:
   this_is_a_focus_collection_for_community: Esta colección es el enfoque de "%{community}".
   this_is_the_breakdown_of_chapt: Este es el desglose de los capítulos, subcapítulos y de la correspondiente categoría de Modelo de perfil de la especie.
   this_is_the_label_that_will_be_used_for_attribution: Esta es la etiqueta que se utilizará para la atribución
+  this_link_cannot_be_curated_because_unpublished: Este enlace no puede ser supervisado porque no ha sido publicado.
+  this_link_is_unpublished: Este enlace no ha sido publicado.
   this_map_cannot_be_curated_because_unpublished: Este mapa no puede ser supervisado porque no ha sido publicado.
   this_map_is_unpublished: Este mapa no ha sido publicado.
   this_method_takes_an_integer_or_string: Este método toma un entero o hilera que es el identificador único para un taxón de una base de datos de un proveedor y y un identificador hierarchy_id que corresponde al proveedor y retorna el ID de página de EOL para ese taxón. Por ejemplo, si usa el API %{link_provider}, puede encontrar que el identificador de EOL, hierarchy_id, para el Integrated Taxonomic Information System (ITIS) es %{itis_id}. Entonces, después puede buscar en EOL el ITIS Taxonomic Serial Number (TSN) de 180542,<i>Ursus maritimus</i>, llamando a %{link_url}
@@ -3630,6 +3718,7 @@ es:
   twitter: Twitter
   type: Tipo
   unable_to_copy_items_to_collection_error: Lo siento, no se pudo copiar los elementos de la colección a %{name}.
+  unable_to_determine_title: No se ha podido determinar el título de esta página web
   unable_to_invite_users_to_community_error: No se pudo enviar invitaciones a %{users}.
   unique_page_views_th: Visitas únicas de página
   unknown: Desconocido
@@ -3659,6 +3748,7 @@ es:
   uploaded_content: Contenidos cargados
   uploaded_on: Cargado el
   url: URL
+  url_not_accessible: Esta dirección URL no es accesible
   us_dolars_75: US $75
   us_dollars_100: US $100
   us_dollars_35: US $35

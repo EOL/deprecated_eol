@@ -3,14 +3,11 @@ class SortStyle < ActiveRecord::Base
   uses_translations
   has_many :collections
 
-  # Creates the default sort names with some logic around translations.
   def self.create_defaults
     ['Recently Added', 'Oldest', 'Alphabetical', 'Reverse Alphabetical', 'Richness', 'Rating', 'Sort Field', 'Reverse Sort Field'].each do |name|
-      sstyle = SortStyle.create
-      begin
+      unless TranslatedSortStyle.exists?(:language_id => Language.english.id, :name => name)
+        sstyle = SortStyle.create
         TranslatedSortStyle.create(:name => name, :sort_style_id => sstyle.id, :language_id => Language.english.id)
-      rescue ActiveRecord::StatementInvalid => e
-        sstyle.name = name
         sstyle.save!
       end
     end

@@ -307,6 +307,8 @@ EolUpgrade::Application.routes.draw do
   match '/loggertest' => 'content#loggertest' # This is used for configuring logs and log levels.
   match '/version' => 'content#version'
   match '/boom' => 'content#boom'
+  match '/check_connection', 'content#check_connection'
+  match '/test_timeout/:time', 'content#test_timeout'
 
   # Named application routes:
   match '/set_language' => 'application#set_language', :as => 'set_language'

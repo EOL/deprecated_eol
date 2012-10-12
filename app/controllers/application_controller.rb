@@ -378,10 +378,14 @@ class ApplicationController < ActionController::Base
   def auto_collect(what, options = {})
     return if what === current_user
     watchlist = current_user.watch_collection
-    collection_item = CollectionItem.find_by_collection_id_and_object_id_and_object_type(watchlist.id, what.id,
-                                                                                         what.class.name)
+    if what.class == DataObject
+      all_revision_ids = DataObject.find_all_by_guid_and_language_id(what.guid, what.language_id, :select => 'id').collect{ |d| d.id }
+      collection_item = CollectionItem.find_by_collection_id_and_object_id_and_object_type(watchlist.id, all_revision_ids, what.class.name)
+    else
+      collection_item = CollectionItem.find_by_collection_id_and_object_id_and_object_type(watchlist.id, what.id, what.class.name)
+    end
     if collection_item.nil?
-      collection_item = begin # No care if this fails.
+      collection_item = begin # We do not care if this fails.
         CollectionItem.create(:annotation => options[:annotation], :object => what, :collection_id => watchlist.id)
       rescue => e
         Rails.logger.error "** ERROR COLLECTING: #{e.message} FROM #{e.backtrace.first}"

@@ -11,6 +11,7 @@
 # Author: Mutarjem horr
 # Author: OsamaK
 # Author: Rana El Deeb
+# Author: Rana el deeb
 # Author: Sara.elshobaky
 # Author: ترجمان05
 ar: 
@@ -1110,6 +1111,7 @@ ar:
       meta_title: الحيوانات - النباتات - صور ومعلومات
       see_all_eol_news: أطلع على المزيد من <span class="assistive">اخبار موسوعة الحياة</span>
       see_all_recent_activites: طالع المزيد من <span class="assistive">الأنشطة للأسبوع الماضي</span>
+      see_all_statistics: أطلع على المزيد من <span class="assistive">احصائيات موسوعة الحياة</span>
   content_has_been_updated: تم تحديث المحتوى.
   content_notes_not_shown_to_us: "ملاحظات خاصة بالمحتوى (لا تظهر للمستخدم):"
   content_partner: شريك في المحتوى
@@ -1845,6 +1847,11 @@ ar:
         rights_statement_more: يرجى ذكر بيان حق الاستخدام حسب رخص المشاع الإبداعي(Attribution (CC-BY ، وذكر النسبة <q cite="http://creativecommons.org/licenses/by/3.0"> بالطريقة التي حددها صاحب العمل أو مُقدم الرخصة </q>.
         source_url: العنوان الإلكتروني الخاص بعنصر البيانات الأصلي
         toc_item: فصل فرعي
+      data_object_link: 
+        description: الوصف <small>(يسمح ببعض توصيفات لغة توصيف النصوص المترابطة)</small>
+        link_type: الفئة
+        source_url: إضافة رابط المسار
+        toc_item: الموضوع
       eol_statistic: 
         date_one: التاريخ
         date_two: التاريخ
@@ -1987,6 +1994,9 @@ ar:
         create: إضافة المقالة
         create_text: إضافة المقالة
         update: حفظ المقال
+      data_object_link: 
+        create: إضافة رابط
+        update: حفظ الرابط
       eol_statistic: 
         change_date: الحصول على إحصاءات التواريخ
         download_csv: تحميل بصيغة (CSV)
@@ -2165,7 +2175,9 @@ ar:
         about_link_discover: أكتشف
         about_link_donate: تبرع لصالح موسوعة الحياة
         about_link_eol_blog: مدونة موسوعة الحياة
+        about_link_glossary: قائمة المصطلحات
         about_link_help: المساعدة
+        about_link_podcasts: حلقات البودكاست
         about_link_statistics: الإحصائيات
         about_link_terms_of_use: شروط الاستخدام
         about_link_what_is_eol: ما هي موسوعة الحياة؟
@@ -2193,6 +2205,7 @@ ar:
         learn_more_link_spiders: العناكب
         learn_more_link_trees: الأشجار
         learn_more_link_viruses: الفيروسات
+        learn_more_link_worms: الديدان
         questions_link_binomial_nomenclature: ما هي التسميات ذات الحدين؟
         questions_link_biodiversity: ما هو التنوع البيولوجي؟
         questions_link_biological_classification: ما هو التصنيف البيولوجي؟
@@ -3117,7 +3130,7 @@ ar:
         meta_keywords: صور لـ %{scientific_name}، مقاطع فيديوعن%{scientific_name}، صور لـ %{scientific_name}، مقاطع فيديوعن%{scientific_name}، صور لـ %{scientific_name}، وسائط
         meta_keywords_with_common_name: صور لـ%{preferred_common_name}، مقاطع فيديو عن  %{preferred_common_name}، صور لـ %{preferred_common_name}، مقاطع فيديو عن %{preferred_common_name}، صور لـ %{preferred_common_name}، وسائط
         meta_title: صور ومقاطع فيديو و صوت عن %{scientific_name} - صور، أفلام، ومقاطع صوتية لـ%{scientific_name}
-        meta_title_with_common_name: صور ومقاطع فيديو عن%{preferred_common_name} (%{scientific_name})
+        meta_title_with_common_name: صور ومقاطع فيديو عن%{preferred_common_name} (%{scientific_name}) - صور ومقاطع فيديو ومقاطع صوتية عن %{preferred_common_name} (%{scientific_name})
         tweet_text: الوسائط الخاصة بـ %{scientific_name}
     names: 
       common_names: 
@@ -3514,7 +3527,9 @@ ar:
     edit: 
       form_tip_account: "لكي تتمكن من تسجيل الدخول إلى موسوعة الحياة، أنت في حاجة إما إلى أسم مستخدم وكلمة مرور موسوعة الحياة أو يمكنك تسجيل الدخول عن طريق حساب لطرف ثالث. كلمة المرور وإسم المستخدم مطلوبان إن لم يكن لديك حساب متصل، ومع ذلك، فقط قم بإدخال كلمة مرور جديدة هنا، إن كنت تود في تغيير الكلمة الحالية.\nالبريد الإلكتروني و اللغة المفضلة مطلوبان (%{required_icon}) لكل المستخدمين."
       form_tip_account_oauth: عنوان البريد الإلكتروني و اللغة المفضلة مطلوبان (%{required_icon}) لكل المستخدمين.
+      form_tip_curation: تعد الإعتمادات ومجال الإشراف خانات اختيارية بالنسبة للمشرفين المساعدين ولكن إلزامية %{required_icon} بالنسبة للمشرفين والمشرفين الأوائل.
       form_tip_profile: العناصر المعلّمة كمطلوبة %{required_icon} إختيارية لعامة المستخدمين، لكنها إلزامية للمشرفين.
+      form_tip_profile_oauth: يلزم إضافة الأسم الأول بينما تعد الخانات الأخرى الواجب إضافتها %{required_icon} اختيارية بالنسبة لعامة المستخدمين ولكن إجبارية بالنسبة إلى المشرفين.
     new: 
       complete_registration_header: أكمل تسجيلك على موسوعة الحياة
       create_user_header: إنشاء حساب جديد  <abbr title="Encyclopedia of Life">بموسوعة الحياة</abbr>
@@ -3543,31 +3558,42 @@ ar:
       edit: 
         page_description: كافة التحديثات المدرجة أدناه (عدا نشرة موسوعة الحياة الإخبارية) متوفرة لك في <a href="%{user_newsfeed_link}">EOL newsfeed</a>. حيث أن العديد من الناس يرغب أيضًا في أن يتم تنبيههم بالبريد الإلكتروني حول بعض الأنشطة محط اهتمامهم، يمكنك استخدام الأزرار الموجودة أدناه لتحديد مدى تكرار رسائل موسوعة الحياة الإلكترونية كما يناسبك.
         page_title: إعدادات الإخطارات
+      update: 
+        notification_settings_successfully_updated: تم تحديث إعدادات الإخطارات بنجاح.
+        sorry_notification_settings_could_not_be_updated: عذراً، لم بتم تحديث إعدادات الإخطارات.
     open_authentications: 
       errors: 
         facebook: 
           add_connection_failed_account_already_connected: عذراََ، لا يمكننا ربط حساب الـ Facebook الخاص بك بحساب موسوعة الحياة، لأنه مرتبط بالفعل مع <a href="%{existing_eol_account_url}">حساب آخر من موسوعة الحياة</a>.
+          login_failed_not_connected: عذرًا، لم نتمكنم من إيجاد رابط ما بين حسابك بموقع فايسبوك وموسوعة الحياة. إذا كان لديك حساب بموسوعة الحياة <a href="%{login_url}"> يرجى تسجيل الدخول بالموسوعة </a> باستخدام اعتمادات أخرى، ثم قم بربط حسابك بموقع فايسبوك بإعدادات صفحتك الشخصية بموقع الموسوعة. إذا لم يكن لديك حساب بموسوعة الحياة، يرجى <a href="%{register_url}">الانتهاء من التسجيل بالموسوعة</a> لإنشائه.
           missing_attributes: عذراََ، حصل خطأ عند محاولة الوصول إلى تفاصيل حساب الفايسبوك الخاص بك.
           new_authentication_not_added: عذراََ، وقع خطأ، لم نستطع الإتصال بحساب الفايسبوك الخاص بك.
           not_authorized_to_add_authentication: عذراََ، نحن لا نملك إذناََ يسمح لنا بالإتصال بحساب الفايسبوك الخاص بك.
           not_authorized_to_login: عذراََ، نحن غير مخولين بتسجيل الدخول إلى حساب موسوعة الحياة بإستخدام حساب الفايسبوك الخاص بك.
           not_authorized_to_signup: عذراََ، نحن غير مخولين بفتح حساب على موسوعة الحياة بإستخدام حساب الفايسبوك الخاص بك.
+          signup_failed_account_already_connected: عذرًا، لا يمكن إنشاء حساب جديد باستخدام حسابك بموقع فايسبوك حيث أنه مرتبط بالفعل <a href="%{existing_eol_account_url}"> بحد حسابات موسوعة الحياة. هل كنت تقصد <a href="%{login_url}">log in</a> تسجيل الدخول؟
         google: 
+          add_connection_failed_account_already_connected: عذرًا، لا يمكن ربط حسابك بموقع جوجبل بحسابك بموقع موسوعة الحياة لأنه مرتبط بالفعل بأحد <a href="%{existing_eol_account_url}"> حسابات موسوعة الحياة</a>.
+          login_failed_not_connected: عذرًا، لم نتمكن من إيجاد رابط ما بين حسابك بموقع فايسبوك وموسوعة الحياة. إذا كان لديك حساب بموسوعة الحياة <a href="%{login_url}">، يرجى تسجيل الدخول بالموسوعة </a> باستخدام اعتمادات أخرى، ثم قم بربط حسابك بموقع جوجل عبر إعدادات صفحتك الشخصية بموقع الموسوعة. إذا لم يكن لديك حساب بموسوعة الحياة، يرجى <a href="%{register_url}">الانتهاء من التسجيل بالموسوعة</a> لإنشائه.
           missing_attributes: عذراََ، حصل خطأ عند محاولة الوصول إلى تفاصيل حساب غوغل الخاص بك.
           new_authentication_not_added: عذراََ، وقع خطأ، لم نستطع الإتصال بحساب غوغل الخاص بك.
           not_authorized_to_add_authentication: عذراَ، نحن لا نملك إذناَ يسمح لنا بالإتصال بحساب غوغل الخاص بك.
           not_authorized_to_login: عذراَ، نحن غير مخولين بتسجيل الدخول إلى موسوعة الحياة بإستخدام حساب غوغل الخاص بك.
           not_authorized_to_signup: عذراَ، نحن غير مخولين بفتح حساب على موسوعة الحياة بإستخدام حساب غوغل الخاص بك.
+          signup_failed_account_already_connected: عذرًا، لا يمكن إنشاء حساب جديد بموسوعة الحياة باستخدام حسابك بموقع جوجل، حيث أنه مرتبط بالفعل a href="%{existing_eol_account_url}"> بأحد حسابات موسوعة الحياة</a>.  هل كنت تقصد a href="%{login_url}">log in</a> تسجيل الدخول؟
         missing_attributes: عذراََ، وقع خطأ في محاولة الحصول على تفاصيل حساب الطرف الثالث الخاص بك.
         not_authorized_to_add_authentication: عذراََ، نحن لا نملك إذناََ يسمح لنا بالإتصال بهذا الحساب.
         not_authorized_to_login: عذراََ، نحن غير مخولين بتسجيل الدخول إلى حساب موسوعة الحياة مع هذا الحساب.
         remove_connection_failed: عذراََ، وقع خطأ، لم نتمكن من فصل الإتصال.
         twitter: 
+          add_connection_failed_account_already_connected: عذرًا، لا يمكن ربط حسابك بموقع تويتر بحسابك بموقع موسوعة الحياة لأنه مرتبط بالفعل بأحد <a href="%{existing_eol_account_url}"> حسابات موسوعة الحياة</a>.
+          login_failed_not_connected: عذرًا، لم نتمكن من إيجاد رابط ما بين حسابك بموقع تويتر وموسوعة الحياة. إذا كان لديك حساب بموسوعة الحياة <a href="%{login_url}"> يرجى تسجيل الدخول بالموسوعة </a> باستخدام اعتمادات أخرى، ثم قم بربط حسابك بموقع تويتر بإعدادات صفحتك الشخصية بموقع الموسوعة. إذا لم يكن لديك حساب بموسوعة الحياة، يرجى <a href="%{register_url}">الانتهاء من التسجيل بالموسوعة</a> لإنشائه.
           missing_attributes: عذراَ، حصل خطأ عند محاولة الوصول إلى تفاصيل حساب تويتر الخاص بك.
           new_authentication_not_added: عذراََ، وقع خطأ، لم نستطع الإتصال بحساب تويتر الخاص بك.
           not_authorized_to_add_authentication: عذراََ، نحن لا نملك إذناََ يسمح لنا بالإتصال بحساب تويتر الخاص بك.
           not_authorized_to_login: عذراََ، نحن غير مخولين بتسجيل الدخول إلى موسوعة الحياة بإستخدام حساب تويتر الخاص بك.
           not_authorized_to_signup: عذراََ، نحن غير مخولين بفتح حساب على موسوعة الحياة بإستخدام حساب تويتر الخاص بك.
+          signup_failed_account_already_connected: عذرًا، لا يمكن إنشاء حساب جديد بموسوعة الحياة باستخدام حسابك بموقع تويتر، حيث أنه مرتبط بالفعل a href="%{existing_eol_account_url}"> بأحد حسابات موسوعة الحياة</a>.  هل كنت تقصد a href="%{login_url}">log in</a> تسجيل الدخول؟
         yahoo: 
           missing_attributes: عذراََ، حصل خطأ عند محاولة الوصول إلى تفاصيل حساب الياهو! الخاص بك.
           new_authentication_not_added: عذراََ، وقع خطأ، لم نستطع الإتصال بحساب الياهو! الخاص بك.

@@ -9,7 +9,7 @@
       %li{:class => resource_is_active('education')}
         = link_to I18n.t(:taxon_education_link), education_taxon_entry_resources_path(@taxon_concept, @selected_hierarchy_entry)
         - if Resource.ligercat.nil?
-          Hello
+          Ligercat resource missing.
       %li{:class => resource_is_active('citizen_science')}
         = link_to I18n.t(:taxon_citizen_science_link), citizen_science_taxon_entry_resources_path(@taxon_concept, @selected_hierarchy_entry)
       - if !Resource.ligercat.nil? && HierarchyEntry.find_by_hierarchy_id_and_taxon_concept_id(Resource.ligercat.hierarchy.id, @taxon_concept.id)

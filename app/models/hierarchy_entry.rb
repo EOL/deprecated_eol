@@ -21,6 +21,7 @@ class HierarchyEntry < ActiveRecord::Base
       :conditions => Proc.new { "synonyms.synonym_relation_id IN (#{SynonymRelation.common_name_ids.join(',')})" }
   has_many :flattened_ancestors, :class_name => HierarchyEntriesFlattened.to_s
   has_many :curator_activity_logs
+  has_many :hierarchy_entry_moves
 
   has_and_belongs_to_many :data_objects
   has_and_belongs_to_many :refs
@@ -204,7 +205,7 @@ class HierarchyEntry < ActiveRecord::Base
   end
 
   # This gives you the correct array of source agents that recognize the taxon.  Keep in mind that if there is a
-  # source database, you MUST cite the hiearchy agent SEPARATELY, so it is not included; otherwise, it is:
+  # source database, you MUST cite the hierarchy agent SEPARATELY, so it is not included; otherwise, it is:
   def recognized_by_agents
     if has_source_database?
       (source_database_agents + source_agents).compact

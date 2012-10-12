@@ -13,21 +13,22 @@ class CreateClassificationCurations < ActiveRecord::Migration
       t.timestamps
     end
     
-    create_table :hiearchy_entry_moves do |t|
+    create_table :hierarchy_entry_moves do |t|
       t.integer :hierarchy_entry_id, :null => false
       t.integer :classification_curation_id, :null => false
       t.string  :error, :limit => 256
       t.datetime :completed_at
     end
 
-    execute 'CREATE UNIQUE INDEX hierarchy_entry_curation ON hiearchy_entry_moves(hierarchy_entry_id, classification_curation_id)'
+    add_index :hierarchy_entry_moves, [:hierarchy_entry_id, :classification_curation_id], :unique => true
 
     ChangeableObjectType.create(:ch_object_type => 'classification_curation')
+    Activity.create_defaults
 
   end
 
   def self.down
-    drop_table :hiearchy_entry_moves
+    drop_table :hierarchy_entry_moves
     drop_table :classification_curations
   end
 

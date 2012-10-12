@@ -6,8 +6,8 @@ class ClassificationCuration < ActiveRecord::Base
   # :forced       => boolean. ...Whether the move was (had to be) forced due to conflicts in CP assertions.
   # :error        => merges don't have hierarchy_entry_moves, so the errors cannot be stored there. Here it is!
 
-  has_many :hierarchy_entries, :through => 'hiearchy_entry_moves'
   has_many :hierarchy_entry_moves
+  has_many :hierarchy_entries, :through => :hierarchy_entry_moves
 
   belongs_to :exemplar, :class_name => 'HierarchyEntry' # If this is null, it was a merge.
   belongs_to :source, :class_name => 'TaxonConcept' # If this has a superceded_id after the operation, it was a merge.
@@ -29,40 +29,43 @@ class ClassificationCuration < ActiveRecord::Base
   end
 
   def split?
-    target.null?
+    target.nil?
   end
 
   def merge?
-    exemplar.null?
+    exemplar.nil?
   end
 
-  # This is not used anywhere, but is here for principle of least surprise:
+  # This is not used anywhere (in practice, use split? / merge? / else), but is here for principle of least surprise:
   def move?
     !split? && !merge?
   end
 
   def bridge_split
     hierarchy_entries.each do |he|
-      CodeBridge.split_entry(:hierarchy_entry_id => he.id, :exemplar_id => exemplar.id, :notify => user_id,
-                             :classification_curation => self)
+      logger.warn "+" * 100
+      logger.warn "++ split_entry #{he.id} by user #{user_id} classification_curation_id #{id}"
+      CodeBridge.split_entry(:hierarchy_entry_id => he.id, :exemplar_id => exemplar_id, :notify => user_id,
+                             :classification_curation_id => id)
     end
   end
 
   def bridge_merge
-    CodeBridge.merge_taxa(source_id, target_id, :notify => user_id, :classification_curation => self)
+    CodeBridge.merge_taxa(source_id, target_id, :notify => user_id, :classification_curation_id => id)
   end
 
   def bridge_move
     hierarchy_entries.each do |he|
       CodeBridge.move_entry(:from_taxon_concept_id => source_id, :to_taxon_concept_id => target_id,
-                            :hierarchy_entry_id => he.id, :exemplar_id => exemplar.id, :notify => user_id,
-                            :classification_curation => self)
+                            :hierarchy_entry_id => he.id, :exemplar_id => exemplar_id, :notify => user_id,
+                            :classification_curation_id => id)
     end
   end
 
   def check_status_and_notify
     if complete?
-      update_column(:completed_at, Time.now) if complete?
+      # TODO - update_column, after upgrade merge
+      update_attribute(:completed_at, Time.now) if complete?
       if failed?
         compile_errors_into_log
       else
@@ -146,7 +149,7 @@ class ClassificationCuration < ActiveRecord::Base
       :user => user,
       :taxon_concept => taxon_concept,
       :changeable_object_type => ChangeableObjectType.classification_curation,
-      :object => self,
+      :object_id => id,
       :activity => Activity.curate_classifications.id,
       :created_at => 0.seconds.from_now
     )

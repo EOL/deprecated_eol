@@ -108,7 +108,7 @@ class ClassificationCuration < ActiveRecord::Base
       t_activity_log = leave_log_on_taxon(target, activity, options)
       activity_log ||= t_activity_log
     end
-    force_immediate_notification_of(activity_log)
+    force_immediate_notification_of(activity_log) if activity_log
   end
 
   def leave_log_on_taxon(parent, activity, options = {})
@@ -133,15 +133,15 @@ class ClassificationCuration < ActiveRecord::Base
   end
 
   def force_immediate_notification_of(target)
-    begin
+    # begin #TODO - I'm turning this off because I suspect something's going wrong here and I need to know what...
       PendingNotification.create!(:user_id => user_id,
                                   :notification_frequency_id => NotificationFrequency.immediately.id,
                                   :target => target,
                                   :reason => 'auto_email_after_curation')
       Resque.enqueue(PrepareAndSendNotifications)
-    rescue => e
+    # rescue => e
       # Do nothing (for now)...
-    end
+    # end
   end
 
   def log_activity_on(taxon_concept)

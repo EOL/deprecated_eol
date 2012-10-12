@@ -1,6 +1,6 @@
 class RecentActivityMailer < ActionMailer::Base
 
-  helper :application
+  helper :application, :taxa
 
   layout "v2/email"
 

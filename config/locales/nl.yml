@@ -2014,6 +2014,9 @@ nl:
         rights_statement_more: Verklaring van gebruiksrechten zoals vereist door de licentie Creative Commons Naamsvermelding (CC-BY). Pas naamsvermelding alstublieft toe <q cite="http://creativecommons.org/licenses/by/3.0">op de wijze die is aangegeven door de auteur of de licentiegever</q>.
         source_url: URL naar het oorspronkelijke gegevensobject
         toc_item: Subhoofdstuk
+      data_object_link: 
+        link_type: Categorie
+        toc_item: Onderwerp
       eol_statistic: 
         date_one: Datum
         date_two: Datum
@@ -2156,6 +2159,9 @@ nl:
         create: Artikel toevoegen
         create_text: Artikel toevoegen
         update: Artikel opslaan
+      data_object_link: 
+        create: Verwijzing toevoegen
+        update: Verwijzing opslaan
       eol_statistic: 
         change_date: Statistieken voor datums weergeven
         download_csv: Downloaden als CSV

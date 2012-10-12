@@ -46,7 +46,9 @@
         - siblings = ancestor.children
         %ul.branch
           = render(:partial => 'navigation/node', :locals => { :link_to_taxa => link_to_taxa, :expand => expand, :ancestors => ancestors, :hierarchy_entry => hierarchy_entry, :max_children => max_children, :show_siblings => false, :show_children => true })
-          - siblings[0..max_children-2].each do |sister|
+          - last_child_to_show = max_children.to_i - 2
+          - last_child_to_show = 0 if max_children < 0
+          - siblings[0..last_child_to_show].each do |sister|
             - unless sister == hierarchy_entry
               %li= navigation_node(sister, :link_to_taxa => link_to_taxa, :show_siblings => show_siblings)
           - if siblings.length == max_children

@@ -383,14 +383,15 @@ private
 
   def copy_items(options)
     collection_items = collection_items_with_scope(options)
-    already_have = options[:to].collection_items.map {|i| [i.object_id, i.object_type]}
+    copy_to_collection = options[:to]
     new_collection_items = []
     old_collection_items = []
     count = 0
     @duplicates = false
+    collection_items = CollectionItem.find_all_by_id(collection_items)
+    CollectionItem.preload_associations(collection_items, [ :object, :collection ])
     collection_items.each do |collection_item|
-      collection_item = CollectionItem.find(collection_item) # sometimes this is just an id.
-      if already_have.include?([collection_item.object.id, collection_item.object_type])
+      if copy_to_collection.has_item?(collection_item.object)
         @duplicates = true
       else
         old_collection_items << collection_item
@@ -664,7 +665,7 @@ private
         elsif r['instance'].object.taxon_concept_metric && r['richness_score'] != r['instance'].object.taxon_concept_metric.richness_score
           collection_item_ids_to_reindex << r['instance'].id
         end
-      elsif ['Text', 'Image', 'DataObject', 'Video', 'Sound', 'Link'].include?(r['object_type'])
+      elsif ['Text', 'Image', 'DataObject', 'Video', 'Sound', 'Link', 'Map'].include?(r['object_type'])
         if r['data_rating'] != r['instance'].object.data_rating
           collection_item_ids_to_reindex << r['instance'].id
         end

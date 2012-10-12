@@ -531,7 +531,7 @@ h3.discover_highlight {
 #discover_features .discover_slideshow_item {
 	position: relative;
 	float: left;
-	margin-right: 15px;
+	margin-right: 24px;
 	background: #fff;
 	-webkit-box-shadow: 2px 2px 8px rgba(50, 50, 50, 0.25);
 	-moz-box-shadow:    2px 2px 8px rgba(50, 50, 50, 0.25);
@@ -745,4 +745,22 @@ h3.discover_highlight {
 
 .discover_home_indented {
 	padding-left: 45px;
+}
+
+#cboxTitle{position:absolute; bottom:5px; left: auto; right:10%; text-align:left; width:55%; color:#333333; font-size: .9em; }
+
+/** Add space to popup slideshow **/
+
+#colorbox {
+	padding-bottom: 102px !important;
+}
+
+#cboxMiddleLeft,
+#cboxMiddleRight,
+#cboxContent {
+	padding-bottom: 60px;
+}
+
+#cboxWrapper {
+	padding-bottom: 60px;
 }

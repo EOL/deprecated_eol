@@ -305,6 +305,7 @@ EolUpgrade::Application.routes.draw do
   match '/activity_logs/find/:id' => 'feeds#find', :as => 'find_feed'
   match '/contact_us' => 'contacts#new', :as => 'contact_us'
   match '/loggertest' => 'content#loggertest' # This is used for configuring logs and log levels.
+  match '/version' => 'content#version'
   match '/boom' => 'content#boom'
 
   # Named application routes:

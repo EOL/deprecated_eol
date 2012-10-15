@@ -255,7 +255,15 @@ class TaxonConcept < ActiveRecord::Base
     all_outlinks = []
     used_hierarchies = []
     entries_for_this_concept = HierarchyEntry.find_all_by_taxon_concept_id(id,
-      :include => { :hierarchy => [ { :resource => :content_partner }, :agent, { :collection_types => :translations }] },
+      :select => {
+        :hierarchy_entries => [ :published, :visibility_id, :identifier, :source_url ],
+        :hierarchies => [ :label, :outlink_uri, :url, :id ],
+        :resources => [ :title, :id, :content_partner_id ],
+        :content_partners => '*',
+        :agents => [ :logo_cache_url, :full_name ],
+        :collection_types => '*',
+        :translated_collection_types => '*' },
+      :include => { :hierarchy => [ { :resource => :content_partner }, :agent, { :collection_types => :translations }]},
       :conditions => "published = 1 and visibility_id = #{Visibility.visible.id}",
       :group => :hierarchy_id
     )

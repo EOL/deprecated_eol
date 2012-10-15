@@ -304,7 +304,10 @@ class TaxonConcept < ActiveRecord::Base
         :agents => [ :logo_cache_url, :full_name ],
         :collection_types => '*',
         :translated_collection_types => '*' },
-      :include => { :hierarchy => [ { :resource => :content_partner }, :agent, { :collection_types => :translations }] })
+      :include => { :hierarchy => [ { :resource => :content_partner }, :agent, { :collection_types => :translations }]},
+      :conditions => "published = 1 and visibility_id = #{Visibility.visible.id}",
+      :group => :hierarchy_id
+    )
     entries_for_this_concept.each do |he|
       next if used_hierarchies.include?(he.hierarchy)
       next if he.published != 1 && he.visibility_id != Visibility.visible.id

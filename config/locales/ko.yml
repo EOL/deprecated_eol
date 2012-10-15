@@ -848,8 +848,10 @@ ko:
   admin_news_item_create_successful_notice: <a href="#%{anchor}"><em>%{page_name}</em></a> 뉴스 항목을 성공적으로 만들었습니다.
   admin_news_item_create_unsuccessful_error: 죄송합니다, 오류가 발생해 뉴스 항목을 만들지 못했습니다.
   admin_news_item_delete_successful_notice: "%{page_name} 뉴스 항목과 관련된 번역을 삭제했습니다."
+  admin_news_item_edit_header: <em>%{page_name}</em> 문서에 대한 기본 뉴스 항목 정보 업데이트
   admin_news_item_new_header: 새 뉴스 항목 만들기
   admin_news_item_new_link: 뉴스 항목 만들기
+  admin_news_item_new_tip: 이 문서에 대한 기본 정보를 입력하세요. 고유 이름은 %{required_icon}(을)를 필요합니다.
   admin_news_item_not_active: 게시하지 않음
   admin_news_item_update_successful_notice: <a href="#%{anchor}"><em>%{page_name}</em></a> 뉴스 항목을 성공적으로 업데이트했습니다.
   admin_news_item_update_unsuccessful_error: 죄송합니다, 오류가 발생해 뉴스 항목을 업데이트하지 못했습니다.
@@ -862,15 +864,21 @@ ko:
   admin_statistics_link: 통계
   admin_translated_content_page_create_successful_notice: <a href="#%{anchor}"><em>%{page_name}</em></a> 문서에 번역을 추가했습니다.
   admin_translated_content_page_create_unsuccessful_error: 죄송합니다, 오류가 발생해 번역을 추가하지 못했습니다.
+  admin_translated_content_page_delete_successful_notice: <em>%{page_name}</em> 문서에 대한 %{language} 번역을 삭제했습니다.
   admin_translated_content_page_edit_subheader: <em>%{page_name}</em>에 대한 %{language} 번역 편집
   admin_translated_content_page_edit_tip: 제목과 본문은 %{required_icon}(이)가 필요합니다.
   admin_translated_content_page_new_header: 언어 선택하고 내용 추가
   admin_translated_content_page_new_link: 번역 추가
   admin_translated_content_page_new_subheader: <em>%{page_name}</em>에 대한 번역 추가
   admin_translated_content_page_new_tip: 언어, 제목과 본문은 %{required_icon}(이)가 필요합니다.
+  admin_translated_content_page_update_successful_notice: <a href="#%{anchor}"><em>%{page_name}</em></a>에 대한 %{language} 번역을 업데이트했습니다.
   admin_translated_content_page_update_unsuccessful_error: 죄송합니다, 오류가 발생해 번역을 업데이트하지 못했습니다.
   admin_translated_news_item_active: 게시함
+  admin_translated_news_item_create_successful_notice: <a href="#%{anchor}"><em>%{page_name}</em></a> 문서에 번역을 추가했습니다.
   admin_translated_news_item_create_unsuccessful_error: 죄송합니다, 오류가 발생해 번역을 추가하지 못했습니다.
+  admin_translated_news_item_delete_successful_notice: <em>%{page_name}</em> 뉴스 항목에 대한 %{language} 번역을 삭제했습니다.
+  admin_translated_news_item_edit_subheader: <em>%{page_name}</em>에 대한 %{language} 번역 편집
+  admin_translated_news_item_edit_tip: 제목과 본문은 %{required_icon}(이)가 필요합니다.
   admin_translated_news_item_new_header: 언어 선택하고 내용 추가
   admin_translated_news_item_new_link: 번역 추가
   admin_translated_news_item_new_subheader: <em>%{page_name}</em>에 대한 번역 추가
@@ -953,6 +961,7 @@ ko:
   application_version_advisory_information: 어플리케이션 버전
   are_you_sure: 확실합니까?
   are_you_sure_this_action_cannot_be_undone: 확실합니까? 이 행동은 되돌릴 수 없습니다.
+  article_from: 문서
   article_from_supplier: "%{whom}에서 문서"
   article_more_about: 이 문서에 대해 더 알아보기
   article_not_associated_with_any_published_entries: 이 문서는 모든 게시한 분류와 관련되지 않습니다.
@@ -1007,6 +1016,7 @@ ko:
   audio_play: 재생
   audio_stop: 정지
   audio_unmute: 음소거 해제
+  authoritative_information: 신뢰할 수 없는 정보
   available: 사용 가능
   average_rating_value_of_total: "평균 평점: %{total} 중 %{rating}"
   back: 뒤로
@@ -1032,7 +1042,12 @@ ko:
   calculate_averages_slow: 평균 계산 (느림)
   cancel: 취소
   cancel_split: 취소
+  cannot_be_associated_with_both_a_user_and_a_community: 사용자와 공동체 모두 연결할 수 없습니다
   cannot_be_empty: 비워둘 수 없습니다.
+  cannot_create_collection_item_from_class_error: "%{klass}에서 모음집 항목을 만들 수 없습니다."
+  cannot_create_community_from_watch_collection_error: 주시문서 목록에서 공동체를 만들 수 없습니다.
+  cannot_expand_children: 어린이 확장을 할 수 없습니다
+  cannot_find_member: 이 id로 된 구성원을 찾을 수 없습니다.
   cannot_index_collection_item_type_error: "%{type}에서 모음집 항목을 색인할 수 없습니다."
   change: 바꾸기
   change_rating_to_1_of_5: 5점 중 1점으로 평가 바꾸기
@@ -1043,9 +1058,15 @@ ko:
   choose_collection_header: 모음집 바꾸기
   citation: 인용
   citing_link: 인용하기
+  classification_already_preferred: "오류: 이 분류는 이미 선호함으로 표시했습니다."
+  classification_from_agent: "%{agent}에서의 분류입니다."
+  classification_from_agent_chosen_by_curator: "%{curator}에 의해 선택한 %{agent}에서의 분류입니다."
+  classification_from_agent_chosen_by_curator_see_more: "%{curator}에 의해 선택한 %{agent}에서의 분류입니다. - <a href=\"%{more_link}\">더 보기</a>"
   classification_preferred_for_taxon: 선호
+  classification_preferred_for_taxon_help_tip: "%{icon}(을)를 이 분류에 대한 선호 분류로 표시합니다."
   classification_summary_section_header: 분류
   classification_tree_header: 분류
+  classifications_edit_cancelled_merge_to_self: 원본과 대상이 같은 문서입니다. 이동하지 않습니다.
   classifications_exemplar_column_header: 표본
   classifications_hierarchy_column_header: 분류
   classifications_preferred_column_header: 선호
@@ -1160,6 +1181,7 @@ ko:
     other: 덧글 %{count}개
   common_name: 공통 이름
   common_name_avg: 공통 이름 평균
+  common_name_exists: <em>%{name_string}</em> 공통 이름이 이미 존재합니다
   common_names_with_count: 
     one: 공통 이름 %{count}개
     other: 공통 이름 %{count}개
@@ -1186,6 +1208,7 @@ ko:
   communities_summary_header_with_count: 
     one: 공동체 %{count}개에 속함
     other: 공동체 %{count}개에 속함
+  communities_that_can_edit_this_collection: 이 모음집을 관리할 수 있는 공동체
   communities_with_count: 
     one: 공동체 %{count}개
     other: 공동체 %{count}개
@@ -1211,6 +1234,7 @@ ko:
     other: 공동체 구성원 %{count}명
   community_name_label: 공동체 이름
   community_newsfeed: 공동체 뉴스 피드
+  community_no_longer_has_manager_access_to_collection: "\"%{community}\" 공동체는 더 이상 \"%{collection}\" 모음집으로 관리자 접근할 수 없습니다."
   community_rating: 공동체 평가
   community_removed_by_owner: 이 공동체는 소유자에 의해 제거됐습니다.
   community_tab_collections_header: 모음집
@@ -1253,6 +1277,13 @@ ko:
   content_partner_agreement_cancel_edit_agreement_link: 취소
   content_partner_agreement_cancel_new_agreement_link: 취소
   content_partner_agreement_cancel_sign_agreement_link: 취소
+  content_partner_agreement_create_successful_notice: 콘텐츠 파트너 약관 계약을 성공적으로 만들었습니다.
+  content_partner_agreement_create_unsuccessful_error: 죄송합니다, 오류가 발생해 콘텐츠 파트너 약관 계약을 만들지 못했습니다.
+  content_partner_agreement_signed_successful_notice: 성공적으로 콘텐츠 파트너 약관에 동의했고, 지금 데이터 자료를 추가할 수 있습니다.
+  content_partner_agreement_signed_unsuccessful_error: 죄송합니다, 오류가 발생해 콘텐츠 파트너 계약에 기술적인 문제가 발생했습니다. 다시 시도하시고 문제가 계속 발생하면 EOL에 알려주세요.
+  content_partner_agreement_subheader: 콘텐츠 파트너 계약
+  content_partner_agreement_update_successful_notice: 콘텐츠 파트너 약관 계약을 성공적으로 업데이트했습니다.
+  content_partner_agreement_update_unsuccessful_error: 죄송합니다, 오류가 발생해 콘텐츠 파트너 약관 계약을 업데이트하지 못했습니다.
   content_partner_column_header_partner: 파트너
   content_partner_contact_create_successful_notice: 연락처가 삭제됐습니다.
   content_partner_contact_create_unsuccessful_error: 죄송합니다, 오류가 발생해 내용을 추가하지 못했습니다.
@@ -1275,6 +1306,7 @@ ko:
   content_partner_current_agreement_not_accepted: 아직 동의하지 않았습니다
   content_partner_current_agreement_signed_on_with_date: "%{date}에 가입함"
   content_partner_current_agreement_view_link: 보기
+  content_partner_data_description_header: 데이터 설명
   content_partner_default_description: 생명의 백과사전 콘텐츠 파트너입니다.
   content_partner_edit_link: 콘텐츠 파트너 편집
   content_partner_filter_option_published_latest_harvest_not_published: 최근 게시하지 않음
@@ -1386,8 +1418,8 @@ ko:
   content_partners_link: 콘텐츠 파트너
   content_partners_page_title: 콘텐츠 파트너
   content_partners_with_count: 
-    one: 콘텐츠 파트너 %{count}명
-    other: 콘텐츠 파트너 %{count}명
+    one: 콘텐츠 파트너 %{count}개
+    other: 콘텐츠 파트너 %{count}개
   content_server_full_url: 콘텐츠 서버 전체 URL
   content_servers: 콘텐츠 서버
   content_setting_colon: "콘텐츠 설정:"
@@ -2123,6 +2155,7 @@ ko:
   join_eol_community_html: <abbr title="Encyclopedia of Life, 생명의 백과사전">EOL</abbr> 공동체의 일원이 되세요!
   joined_time_ago: "%{time_passed} 전에 가입함"
   json_response: JSON 응답
+  jsonp_by_adding_a_callback_parameter: ... 그리고 콜백 변수를 추가하여 JSONP
   label: 레이블
   language: "언어:"
   language_selector_advisory_information: 다음은 사이트의 내용으로 사용할 수 언어의 목록이며, 현재 언어를 바꾸려면 이 목록에서 다른 언어를 선택하세요.
@@ -3308,7 +3341,7 @@ ko:
   user_joined_when: "\"%{user}\" 사용자는 %{when}에 가입했습니다"
   user_left_comment_on_date: "%{username} 사용자가 %{date}에 덧글을 남겼습니다."
   user_no_longer_active_message: 이 사용자는 더 이상 활동하지 않습니다
-  user_no_longer_has_manager_access_to_collection: "%{user} 사용자가 더 이상 \"%{collection}\"로 관리자 접근할 수 없습니다."
+  user_no_longer_has_manager_access_to_collection: "%{user} 사용자는 더 이상 \"%{collection}\" 모음집으로 관리자 접근할 수 없습니다."
   user_pending_notifications_assitive: <span class="assistive">알림</span>
   user_pending_notifications_comments_assistive: <span class="assistive">덧글</span>
   user_pending_notifications_comments_with_count_assistive: 
@@ -3346,6 +3379,9 @@ ko:
         meta_description: "%{user_full_name} 콘텐츠 파트너 협회입니다."
         meta_title: "%{user_full_name} 콘텐츠 파트너"
         tweet_text: "%{user_full_name} 콘텐츠 파트너"
+    edit: 
+      form_tip_account_oauth: 이메일 주소와 선호 언어는 모든 사용자에 대해 %{required_icon}(이)가 필요합니다.
+      form_tip_profile: "%{required_icon}(이)가 필요한 것으로 표시한 항목은 일반 사용자한테는 선택 사항이지만 큐레이터한테는 필요합니다."
     new: 
       complete_registration_header: EOL 등록을 완료했습니다
       create_user_header: 새 <abbr title="Encyclopedia of Life">EOL</abbr> 계정 만들기
@@ -3443,8 +3479,8 @@ ko:
   users_about_me_header: 내 소개
   users_content_partners_header: 콘텐츠 파트너
   users_content_partners_with_count: 
-    one: 현재 콘텐츠 파트너 %{count}명
-    other: 현재 콘텐츠 파트너 %{count}명
+    one: 현재 콘텐츠 파트너 %{count}개
+    other: 현재 콘텐츠 파트너 %{count}개
   users_form_account_header: 내 계정
   users_form_profile_info_header: 공개 프로필 정보
   users_member_of_count_communities: 

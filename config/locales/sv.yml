@@ -81,9 +81,11 @@ sv:
         content_partners_with_published_resources: Med publicerade resurser
         content_partners_with_published_trusted_resources: Med publicerade betrodda resurser
         created_at: Skapades den
+        curator_actions_in_the_last_30_days: Kuratorshandlingar inom de senaste 30 dagarna
         curators: Kuratorer
         curators_assistant: Assistentkuratorer
         curators_full: Fullständiga kuratorer
+        curators_master: Mästerkuratorer
         data_objects: Dataobjekt
         data_objects_images: Bildobjekt
         data_objects_maps: Kartobjekt
@@ -99,6 +101,7 @@ sv:
         marine_pages_in_col: Marinsidor som hittas i CoL
         members_count: Medlemmar
         newly_published_resources_in_the_last_30_days: Nyligen publicerade under den senaste månaden
+        objects_curated_in_the_last_30_days: Kurerade objekt inom de senaste 30 dagarna
         pages_count: Totalt antal sidor
         pages_with_BHL_links: Sidor med BHL-länkar
         pages_with_BHL_links_no_text: Sidor med BHL-länkar men ingen text
@@ -1072,6 +1075,7 @@ sv:
       hierarchy: 
         browsable_status_with_colon: "Bläddringsbar status:"
         complete: Kurerad
+        request_publish: Publicering begärd
       news_item: 
         active: Publicerad
       open_authentication: 

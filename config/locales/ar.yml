@@ -443,6 +443,32 @@ ar:
         user_associated_data_object_to_association: قام <strong>%{user}</strong> بإضافة ارتباط بين "%{data_object}" و "%{association}".
         user_associated_it_to_an_unknown_association: قام <strong>%{user}</strong> بإضافة ارتباط بصفحة غير معروفة.
         user_associated_it_to_association: قام <strong>%{user}</strong> بإضافة ارتباط إلى "%{association}".
+      add_common_name: 
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: قام مستخدم غير معروف بإضافة اسم شائع غير معروف بلغة غير معروفة إلى صفحة غير معروفة.
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_taxon: قام مستخدم غير معروف بإضافة اسم شائع غير معروف بلغة غير معروفةإلى %{taxon}.
+        an_unknown_user_added_an_unknown_name_in_language_to_an_unknown_taxon: قام مستخدم غير معروف بإضافة اسم شائع غير معروف باللغة%{language}إلى صفحة غير معروفة.
+        an_unknown_user_added_an_unknown_name_in_language_to_taxon: قام مستخدم غير معروف بإضافة اسم شائع غير معروف باللغة %{language} إلى "%{taxon}".
+        an_unknown_user_added_name_in_an_unknown_language_to_an_unknown_taxon: قام مستخدم غير معروف بإضافة الاسم الشائع %{name} بلغة غير معروفة إلى صفحة غير معروفة.
+        an_unknown_user_added_name_in_an_unknown_language_to_taxon: قام مستخدم غير معروف بإضافة الاسم الشائع "%{name}" بلغة غير معروفة إلى "%{taxon}".
+        an_unknown_user_added_name_in_language_to_an_unknown_taxon: قام مستخدم غير معروف بإضافة الأسم الشائع الخاص بـ"%{name}"  باللغة %{language} إلى صفحة غير معروفة.
+        user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: قام <strong>%{user}</strong> بإضافة اسم شائع غير معروف بلغة غير معروفة إلى صفحة غير معروفة.
+      choose_exemplar_article: 
+        an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: قام مستخدم غير معروف باختيار نسخة أقدم من "%{data_object}" لعرضها كنظرة عامة لصفحة غير معروفة.
+        an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: قام مستخدم غير معروف باختيار "%{data_object}"  لعرضها ضمن النظرة العامة عن "%{taxon}".
+        an_unknown_user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: قام مستخدم غير معروف باختيار مقال غير معروف لعرضه ضمن النظرة العامة في صفحة غير معروفة.
+        an_unknown_user_chose_exemplar_an_unknown_data_object_on_taxon: قام مستخدم غير معروف باختيار مقال غير معروف لعرضه ضمن النظرة العامة عن "%{taxon}".
+        an_unknown_user_chose_exemplar_data_object_on_an_unknown_taxon: قام مستخدم غير معروف باختيار "%{data_object}"  لعرضها ضمن النظرة العامة عن صفحة غير معروفة.
+        an_unknown_user_chose_exemplar_data_object_on_taxon: قام مستخدم غير معروف باختيار "%{data_object}"  لعرضها ضمن النظرة العامة عن "%{taxon}".
+        an_unknown_user_chose_exemplar_it_on_an_unknown_taxon: قام مستخدم غير معروف باختيارها للعرض ضمن النظرة العامة عن صفحة غير معروفة.
+        an_unknown_user_chose_exemplar_it_on_taxon: قام مستخدم غير معروف باختيارها لعرضها ضمن النظرة العامة عن "%{taxon}".
+        user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: قام <strong>%{user}</strong> باختيار نسخة أقدم من "%{data_object}" لعرضها ضمن النظرة العامة عن صفحة غير معروفة.
+        user_chose_exemplar_an_older_data_object_on_taxon: قام <strong>%{user}</strong> باختيار نسخة أقدم من "%{data_object}" لعرضها ضمن النظرة العامة عن "%{taxon}".
+        user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: قام <strong>%{user}</strong> باختيار مقال غير معروف لعرضه ضمن النظرة العامة عن صفحة غير معروفة.
+        user_chose_exemplar_an_unknown_data_object_on_taxon: قام <strong>%{user}</strong> باختيار عنصر بيانات غير معروف لعرضها ضمن النظرة العامة عن"%{taxon}".
+        user_chose_exemplar_data_object_on_an_unknown_taxon: قام <strong>%{user}</strong> باختيار "%{data_object}" لعرضه ضمن النظرة العامة عن صفحة غير معروفة.
+        user_chose_exemplar_data_object_on_taxon: قام <strong>%{user}</strong> باختيار "%{data_object}"  لعرضها ضمن النظرة العامة عن "%{taxon}".
+        user_chose_exemplar_it_on_an_unknown_taxon: قام <strong>%{user}</strong> باختيارها للعرض ضمن النظرة العامة عن صفحة غير معروفة.
+        user_chose_exemplar_it_on_taxon: قام <strong>%{user}</strong> باختيارها  للعرض ضمن النظرة العامة عن "%{taxon}".
       choose_exemplar_image: 
         an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: قام مستخدم غير معروف بوضع نسخة أقدم من "%{data_object}" كنموذج على صفحة غير معروفة.
         an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: قام مستخدم غير معروف بوضع "%{data_object}"  كنموذج على "%{taxon}".
@@ -501,6 +527,23 @@ ar:
         user_preferred_unknown_classification_on_taxon: <strong>%{user}</strong> قام بتعليم تنصيف مجهول   كمفضل من أجل "%{taxon}".
       reasons_to_hide: "أسباب الإخفاء: %{reasons}"
       reasons_to_untrust: "أسباب عدم الوثوق: %{reasons}"
+      remove_association: 
+        an_unknown_user_disassociated_an_older_data_object_from_an_unknown_association: لقد قام مستخدم غير معروف بحذف ارتباط من نسخة أقدم من %{data_object}
+        an_unknown_user_disassociated_an_older_data_object_from_association: قام مستخدم غير معروف بحذف ارتباط بين "%{data_object}" و"%{association}".
+        an_unknown_user_disassociated_an_unknown_data_object_from_an_unknown_association: قام مستخدم غير معروف بحذف ارتباط غير معروف.
+        an_unknown_user_disassociated_an_unknown_data_object_from_association: قام مستخدم غير معروف بحذف ارتباط بين عنصر بيانات غير معروف و"%{association}".
+        an_unknown_user_disassociated_data_object_from_an_unknown_association: قام كائن غير معروف بحذف ارتباط بين "%{data_object}" وصفحة غير معروفة.
+        an_unknown_user_disassociated_data_object_from_association: قام مستخدم غير معروف بحذف ارتباط بين "%{data_object}" و"%{association}".
+        an_unknown_user_disassociated_it_from_an_unknown_association: قام مستخدم غير معروف بحذف ارتباط إلى صفحة غير معروفة.
+        an_unknown_user_disassociated_it_from_association: قام مستخدم غير معروف بحذف ارتباط إلى "%{association}".
+        user_disassociated_an_older_data_object_from_an_unknown_association: قام <strong>%{user}</strong> بحذف ارتباط بين نسخة أقدم من "%{data_object}" وصفحة غير معروفة.
+        user_disassociated_an_older_data_object_from_association: قام <strong>%{user}</strong> بحذف ارتباط بين نسخة أقدم من "%{data_object}" و"%{association}".
+        user_disassociated_an_unknown_data_object_from_an_unknown_association: قام <strong>%{user}</strong> بحذف ارتباط غير معروف.
+        user_disassociated_an_unknown_data_object_from_association: قام <strong>%{user}</strong> بحذف ارتباط بين عنصر بيانات غير معروف و"%{association}".
+        user_disassociated_data_object_from_an_unknown_association: قام <strong>%{user}</strong> بحذف ارتباط بين "%{data_object}" وصفحة غير معروفة.
+        user_disassociated_data_object_from_association: قام <strong>%{user}</strong> بحذف ارتباط بين "%{data_object}" و"%{association}".
+        user_disassociated_it_from_an_unknown_association: قام <strong>%{user}</strong> بحذف ارتباط إلى صفحة غير معروفة.
+        user_disassociated_it_from_association: قام <strong>%{user}</strong> بحذف ارتباط إلى "%{association}".
       show: 
         an_unknown_user_showed_an_older_data_object_on_an_unknown_association: قام مستخدم غير معروف بوضع علامة "مرئي" على نسخة أقدم من "%{data_object}" في سياق غير معروف.
         an_unknown_user_showed_an_older_data_object_on_association: قام مستخدم غير معروف بوضع علامة "مرئي" على نسخة أقدم من "%{data_object}" على صفحة "%{association}".
@@ -2262,6 +2305,8 @@ ar:
   limits_the_number_of_returned_text_objects: يحد من عدد العناصر النصية المعروضة
   limits_the_number_of_returned_video_objects: يحد من عدد عناصر مقاطع الفيديو المعروضة
   link_name: اسم الرابط
+  link_not_associated_with_any_published_entries: لا يرتبط ذلك الرابط بأي من الأصناف المنشورة.
+  link_rating: تقييم الرابط
   list_newsletter_emails: ادرج رسائل النشرات الإخبارية الإلكترونية.
   list_of_activity_combinations: قائمة بتركيبات النشاط خلال خمس دقائق
   listing_collections: عرض المجموعات
@@ -3131,7 +3176,7 @@ ar:
         meta_keywords_with_common_name: صور لـ%{preferred_common_name}، مقاطع فيديو عن  %{preferred_common_name}، صور لـ %{preferred_common_name}، مقاطع فيديو عن %{preferred_common_name}، صور لـ %{preferred_common_name}، وسائط
         meta_title: صور ومقاطع فيديو و صوت عن %{scientific_name} - صور، أفلام، ومقاطع صوتية لـ%{scientific_name}
         meta_title_with_common_name: صور ومقاطع فيديو عن%{preferred_common_name} (%{scientific_name}) - صور ومقاطع فيديو ومقاطع صوتية عن %{preferred_common_name} (%{scientific_name})
-        tweet_text: الوسائط الخاصة بـ %{scientific_name}
+        tweet_text: الصور، ومقاطع الفيديو والمقاطع الصوتية الخاصة بـ %{scientific_name}
     names: 
       common_names: 
         hierarchy_entry: 
@@ -3151,14 +3196,14 @@ ar:
         tweet_text: الأسماء الشائعة لـ%{scientific_name}.
       index: 
         hierarchy_entry: 
-          meta_description: التصنيف والتسلسلات الهرمية التصنيفية والأسماء العلمية لـ %{scientific_name} حسب تصنيف %{hierarchy_provider}.
-          meta_description_with_common_name: التصنيف والتسلسلات الهرمية التصنيفية والأسماء العلمية لـ %{preferred_common_name}، والمعروف أيضًا بـ %{scientific_name}  حسب تصنيف %{hierarchy_provider}.
+          meta_description: التصنيفات والأسماء العلمية لـ %{scientific_name} حسب تصنيف %{hierarchy_provider}.
+          meta_description_with_common_name: التصنيفات والأسماء العلمية لـ %{preferred_common_name}، والمعروف أيضًا بـ %{scientific_name}  حسب تصنيف %{hierarchy_provider}.
           tweet_text: أسماء مرتبطة بـ%{scientific_name} حسب تصنيف%{hierarchy_provider}
-        meta_description: التصنيف والأسماء العلمية لـ %{scientific_name}.
-        meta_description_with_common_name: التصنيف والأسماء العلمية لـ %{preferred_common_name}، المعروف أيضًا بـ %{scientific_name}.
-        meta_title: أسماء مرتبطة بـ%{scientific_name}
-        meta_title_with_common_name: أسماء مرتبطة بـ %{preferred_common_name} (%{scientific_name})
-        tweet_text: أسماء مرتبطة بـ%{scientific_name}
+        meta_description: التصنيفات والأسماء العلمية لـ %{scientific_name}. التصنيفات البيولوجية والأسماء المرتبطة بـ %{scientific_name}.
+        meta_description_with_common_name: التصنيفات، والتصنيفات البيولوجية والأسماء العلمية لـ %{preferred_common_name}، المعروف أيضًا بـ %{scientific_name}. الأسماء والتصنيفات البيولوجية المرتبطة بـ %{preferred_common_name}.
+        meta_title: المعلومات التصنيفية عن %{scientific_name} - الأسماء والتصنيفات البيولوجية
+        meta_title_with_common_name: معلومات تصنيفية عن %{preferred_common_name} (%{scientific_name}) - الأسماء والتصنيفات البيولوجية
+        tweet_text: معلومات تصنيفية عن %{scientific_name}
       synonyms: 
         hierarchy_entry: 
           meta_description: المرادفات المقترنة بـ%{scientific_name} حسب تصنيف %{hierarchy_provider}.
@@ -3185,12 +3230,12 @@ ar:
           meta_title: "%{scientific_name} حسب تصنيف %{hierarchy_provider}"
           meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} كما أقره %{hierarchy_provider}، و%{scientific_name} حسب تصنيف %{hierarchy_provider}"
           tweet_text: نظرة عامة على%{scientific_name} حسب تصنيف%{hierarchy_provider}
-        meta_description: نظرة عامة عن%{scientific_name} في موسوعة الحياة.
-        meta_description_with_common_name: نظرة عامة عن%{preferred_common_name}، المعروف علمياً باسم %{scientific_name} في موسوعة الحياة.
+        meta_description: معلومات عن %{scientific_name} في موسوعة الحياة.
+        meta_description_with_common_name: معلومات عن%{preferred_common_name}، المعروف علمياً باسم %{scientific_name} في موسوعة الحياة.
         meta_keywords: "%{scientific_name} كما أقره %{hierarchy_provider}"
         meta_keywords_with_common_name: "%{scientific_name} كما أقره %{hierarchy_provider}"
-        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})"
-        tweet_text: نظرة عامة عن %{scientific_name}
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - معلومات عن %{preferred_common_name}"
+        tweet_text: معلومات عن %{scientific_name}
     resources: 
       biomedical_terms: 
         hierarchy_entry: 
@@ -3362,6 +3407,8 @@ ar:
   this_is_a_focus_collection_for_community: ذلك هو محور اهتمام %{community}.
   this_is_the_breakdown_of_chapt: هذا تقسيم الفصول، والفصول الفرعية وتصنيف نموذج الصفحات الخاصة بالأنواع المقابلة لها.
   this_is_the_label_that_will_be_used_for_attribution: ذلك هو التصنيف الذي سوف يتم استخدامه لذلك النسب
+  this_link_cannot_be_curated_because_unpublished: لا يمكن مراجعة ذلك الرابط لأنه لم يتم نشره.
+  this_link_is_unpublished: لم يتم نشر ذك الرابط.
   this_map_cannot_be_curated_because_unpublished: لا يمكن معالجة هذه الخريطة لأنها غير منشورة.
   this_map_is_unpublished: هذه الخريطة غير منشورة.
   this_method_takes_an_integer_or_string: This method takes an integer or string which is the unique identifier for a taxon from some provider's database, and a hierarchy_id which represents the provider and returns the EOL page ID for that taxon. For example using the %{link_provider} API, I can find out that the EOL hierarchy_id for the Integrated Taxonomic Information System (ITIS) is %{itis_id}. I can then search EOL for the ITIS Taxonomic Serial Number (TSN) of 180542,<i>Ursus maritimus</i>, by calling %{link_url}
@@ -3595,16 +3642,56 @@ ar:
           not_authorized_to_signup: عذراََ، نحن غير مخولين بفتح حساب على موسوعة الحياة بإستخدام حساب تويتر الخاص بك.
           signup_failed_account_already_connected: عذرًا، لا يمكن إنشاء حساب جديد بموسوعة الحياة باستخدام حسابك بموقع تويتر، حيث أنه مرتبط بالفعل a href="%{existing_eol_account_url}"> بأحد حسابات موسوعة الحياة</a>.  هل كنت تقصد a href="%{login_url}">log in</a> تسجيل الدخول؟
         yahoo: 
+          add_connection_failed_account_already_connected: عذرًا، لا يمكن ربط حسابك بموقع ياهو بحسابك بموقع موسوعة الحياة لأنه مرتبط بالفعل بأحد <a href="%{existing_eol_account_url}"> حسابات موسوعة الحياة</a>.
+          login_failed_not_connected: عذرًا، لم نتمكنم من إيجاد رابط ما بين حسابك بموقع ياهو وموسوعة الحياة. إذا كان لديك حساب بموسوعة الحياة <a href="%{login_url}"> يرجى تسجيل الدخول بالموسوعة </a> باستخدام اعتمادات أخرى، ثم قم بربط حسابك بموقع ياهو بإعدادات صفحتك الشخصية بموقع الموسوعة. إذا لم يكن لديك حساب بموسوعة الحياة، يرجى <a href="%{register_url}">الانتهاء من التسجيل بالموسوعة</a> لإنشائه.
           missing_attributes: عذراََ، حصل خطأ عند محاولة الوصول إلى تفاصيل حساب الياهو! الخاص بك.
           new_authentication_not_added: عذراََ، وقع خطأ، لم نستطع الإتصال بحساب الياهو! الخاص بك.
           not_authorized_to_add_authentication: عذراََ، نحن لا نملك إذناََ يسمح لنا بالإتصال بحساب الياهو! الخاص بك.
           not_authorized_to_login: عذراََ، نحن غير مخولين بتسجيل الدخول إلى موسوعة الحياة بإستخدام حساب الياهو! الخاص بك.
           not_authorized_to_signup: عذراََ، نحن غير مخولين بفتح حساب على موسوعة الحياة بإستخدام حساب الياهو! الخاص بك.
+          signup_failed_account_already_connected: عذرًا، لا يمكن إنشاء حساب جديد بموسوعة الحياة باستخدام حسابك بموقع ياهو، حيث أنه مرتبط بالفعل a href="%{existing_eol_account_url}"> بأحد حسابات موسوعة الحياة</a>.  هل كنت تقصد a href="%{login_url}">log in</a> تسجيل الدخول؟
       facebook: فيس بوك
       google: جوجل
+      index: 
+        connected_last_verified: متصل؛ تم التحقق منذ %{time_passed}؛
+        connected_unverified: متصل؛ لم يتم التحقق من ذلك؛
+        not_connected: غير متصل؛
+        page_description: إدارة الارتباطات بحسابات الطرف الثالث التي يمكن استخدامها لتسجيل الدخول بموسوعة الحياة.
+        page_title: الحسابات المتصلة
+        return_link: الرجوع إلى تعديل الصفحة الشخصية.
+      notices: 
+        facebook: 
+          new_authentication_added: تم إضافة توثيق موقع فايسبوك إلى حسابك.
+          removed_connection: للقد تم حذف الرابط ما بين حسابك بموقع فايسبوك وموسوعة الحياة بنجاح. لإلغاء السماح بالتداخلات المستقبلية ما بين حسابك بموقع فايسبوك وموسوعة الحياة تمامًا، يجب تعديل إعدادات حسابك بموقع فايسبوك.
+        google: 
+          new_authentication_added: تم إضافة توثيق موقع جوجل إلى حسابك.
+          removed_connection: للقد تم حذف الرابط ما بين حسابك بموقع جوجل وموسوعة الحياة بنجاح. لإلغاء السماح بالتداخلات المستقبلية ما بين حسابك بموقع جوجل وموسوعة الحياة تمامًا، يجب تعديل إعدادات حسابك بموقع جوجل.
+        twitter: 
+          new_authentication_added: تم إضافة توثيق موقع جوجل إلى حسابك.
+          removed_connection: للقد تم حذف الرابط ما بين حسابك بموقع تويتر وموسوعة الحياة بنجاح. لإلغاء السماح بالتداخلات المستقبلية ما بين حسابك بموقع تويتر وموسوعة الحياة تمامًا، يجب تعديل إعدادات حسابك بموقع تويتر.
+        yahoo: 
+          new_authentication_added: تم إضافة توثيق موقع ياهو إلى حسابك.
+          removed_connection: للقد تم حذف الرابط ما بين حسابك بموقع ياهو وموسوعة الحياة بنجاح. لإلغاء السماح بالتداخلات المستقبلية ما بين حسابك بموقع ياهو وموسوعة الحياة تمامًا، يجب تعديل إعدادات حسابك بموقع ياهو.
+      twitter: موقع تويتر
+      warnings: 
+        no_way_to_login: لم يعد لديك أي حسابات متصلة، ولن تتمكن من تسجيل الدخول بموسوعة الحياة مرة أخرى ما لم تقوم بإضافة حساب متصل أو اسم مستخدم وكلمة سر خاصين بالموسوعة.
+      yahoo: موقع ياهو
+    pending: 
+      header: شكرا للتسجيل بموسوعة الحياة.
+      verify_email_instructions: <strong>يرجى تأكيد عنوان الريد الإلكتروني الخاص بك</strong>. تم إرسال رسالة تأكيد إلى عنوان البريد الإلكتروني المقدم من قبلك. لإكمال عملية التسجيل لتصبح عضوًا بموسوعة الحياة، يرجى النقر على الرابط المدرج بتلك الرسالة. شكرًا.
+      verify_email_tip: يرجى الانتباه إلى أن رسائل البريد الإلكتروني الخاصة بتأكيد الحسابات <em>كثيرًا</em> ما يتم تصنيفها ضمن "الرسائل غير المرغوب فيها"  بواسطة مرشحات البريد. يرجى التحقق من مجلد البريد غير المرغوب فيه إذا لم تصلك الرسالة خلال ساعة.
     recover_account: 
+      errors: 
+        temporary_login_user_not_found: عذرًا، لم يتم العثور على الحساب الذي تحاول استعادته، يرجى طلب رسالة بريد إلكتروني جديدة لاستعادة حسابك.
+        token_expired_or_invalid: عذرًا، رابط تسجيل الدخول المؤقت انتهت صلاحية أو غير صالح، يرجى طلب رسالة بريد إلكتروني لاستعادة حسابك.
+        unable_to_update_token: عذراً، حدث خطأ ولم يتم إرسال رسالة البريد الإلكتروني، يرجى المحاولة مرة أخرى.
+        user_not_found_by_email_address: لا يوجد حساب مرتبط بعنوان البريد الإلكتروني ذلك بموسوعة الحياة.
       form_header: إسترجاع الحساب
+      form_tip: لاستعادة حسابك بموسوعة الحياة، يرجى إدخال عنوان البريد الإلكتروني المرتبط بذلك الحساب. يرجى التحقق من مجلد البريد غير المرغوب فيه إذا لمم تتلقى رسالة استعادة الحساب خلال ساعة.
       meta_title: إسترجاع الحساب
+      notices: 
+        recovery_email_sent: لقد تم إرسال رسالة استعادة الحساب والتي تضم المزيد من الإرشادات عبر البريد الإلكتروني. يرجى إضافة %{from_address} إلى قائمة المرسلين الموثوق بهم والتحقق من من مرشحات البريد غير المرغوب به إذا لم تتلقى الرسالة خلال ساعة.
+        temporarily_logged_in_update_authentication_details: تم تسجيل الدخول بصورة مؤقتة للسماح باستعادة الحساب، يرجى تغيير كلمة السر أو تحديث الحسابات المرتبطة بالموسوعة لتتمكن من تسجيل الدخول بنجاح.
     recover_account_choose_account: 
       errors: 
         user_not_found_choose_again: عذراََ، وقع خطأ ما ولم يرسل البريد الإلكتروني، رجاءاََ حدد الحساب الذي تود في أسترجاع بيانات دخوله و أعد المحاولة من جديد.
@@ -3614,6 +3701,10 @@ ar:
     show: 
       meta_description: الصفحة الشخصية للعضو %{user_full_name} بموسوعة الحياة.
       meta_description_curator: الصفحة الشخصية للعضو %{curator_level} %{user_full_name} بموسوعة الحياة.
+    unsubscribe_notifications: 
+      already_unsubscribed: لقد تم انهاء اشتراكك لتلقي الإخطارات بالفعل.
+      unsubscribe_notifications_failed: عذراً، حدث خطأ، لم يتم انهاء اشتراك المستخدم بالإخطارات.
+      unsubscribed_notifications_successfully: لقد تم انهاء اشتراكك بالإخطارات بنجاح.
   users_about_me_header: التعريف بي
   users_content_partners_header: شركاء المحتوى
   users_content_partners_information: يتمثل شركاء محتوى موسوعة الحياة في أفراد ومنظمات تشارك ما تملكه من بيانات التنوع الحيوي مع العالم عبر موسوعة الحياة. تعرف على المزيد عن  <a href="%{more_url}">شركاء محتوى موسوعة الحياة</a> .

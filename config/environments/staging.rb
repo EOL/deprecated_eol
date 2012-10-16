@@ -31,7 +31,7 @@ EolUpgrade::Application.configure do
   # config.force_ssl = true
 
   # See everything in the log (default is :info)
-  # config.log_level = :debug
+  config.log_level = :debug
 
   # Prepend all log lines with the following tags
   # config.log_tags = [ :subdomain, :uuid ]
@@ -65,3 +65,18 @@ EolUpgrade::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 end
+
+# TODO - move this!  Grrr.  I'm not sure where things like this go, now. (Though I would argue we s/b putting these
+# in the DB, dammit.)
+$UNSUBSCRIBE_NOTIFICATIONS_KEY = 'f0de2a0651aa88a090e5679e5e3a7d28'
+$LOGGING_READ_FROM_MASTER = true
+# set to true to force users to use SSL for the login and signup pages 
+$USE_SSL_FOR_LOGIN = false
+
+#This part of the code should stay at the bottom to ensure that www.eol.org - related settings override everything
+begin
+  require File.join(File.dirname(__FILE__), 'staging_eol_org')
+rescue LoadError
+  puts '*************WARNING: COULD NOT LOAD STAGING_EOL_ORG FILE***********************'
+end
+

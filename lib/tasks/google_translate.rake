@@ -1,4 +1,3 @@
-require 'ruby-debug'
 require 'haml'
 require 'i18n'
 require 'net/http'

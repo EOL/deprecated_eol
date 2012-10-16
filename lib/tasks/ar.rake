@@ -1,4 +1,3 @@
-require 'ruby-debug'
 require 'haml'
 
 

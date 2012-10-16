@@ -44,6 +44,7 @@ namespace :eol do
   desc 'creates soft links to site-specific files'
   task :site_specific => :checkout_repository do
     puts "++ Adding links to site-specific files..."
+    config_dir = ENV["CONFIG_DIR"] || 'rails3_config'
     puts ".. Using #{config_dir} config directory."
     Dir.glob(site_dir + "/#{config_dir}/**/*").each do |file|
       if FileTest::file? file
@@ -66,6 +67,7 @@ namespace :eol do
   desc 'removes links to site-speific files and deletes their repository from vendor'
   task :clean_site_specific do
     puts "++ Cleaning up site-specific files..."
+    config_dir = ENV["CONFIG_DIR"] || 'rails3_config'
     if FileTest.exists? site_dir
       puts ".. Using #{config_dir} config directory."
       Dir.glob(site_dir + "/#{config_dir}/**/*").each do |file|

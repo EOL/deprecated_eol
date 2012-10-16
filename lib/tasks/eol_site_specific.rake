@@ -1,8 +1,9 @@
 desc 'Add simlinks to eol site-specific files which are not needed for open source release'
 site_dir = Rails.root.join('vendor', 'eol_org').to_s
 namespace :eol do
-  desc 'checks out site-specific repository under vendor directory'
+  desc 'checks out site-specific repository under vendor directory, change config dir with CONFIG_DIR environment var'
   task :checkout_repository do
+    config_dir = ENV["CONFIG_DIR"] || 'rails3_config'
     puts "Checking out files from repository..."
     if FileTest.exists? site_dir
       if FileTest.exists? "#{site_dir}/.git"
@@ -11,9 +12,10 @@ namespace :eol do
         if status =~ /working directory clean/
           puts ".. Working directory clean."
           puts ".. Removing existing links (before update, so deleted files won't have links):"
-          Dir.glob(site_dir + "/rails3_config/**/*").each do |file|
+          puts ".. Using #{config_dir} config directory."
+          Dir.glob(site_dir + "/#{config_dir}/**/*").each do |file|
             if FileTest::file? file
-              file_name = file.gsub("#{site_dir}/rails3_config/", 'config/')
+              file_name = file.gsub("#{site_dir}/#{config_dir}/", 'config/')
               file_link = Rails.root.join(file_name)
               if FileTest.exists?(file_link)
                 puts "   #{file_name}"
@@ -42,9 +44,10 @@ namespace :eol do
   desc 'creates soft links to site-specific files'
   task :site_specific => :checkout_repository do
     puts "++ Adding links to site-specific files..."
-    Dir.glob(site_dir + "/rails3_config/**/*").each do |file|
+    puts ".. Using #{config_dir} config directory."
+    Dir.glob(site_dir + "/#{config_dir}/**/*").each do |file|
       if FileTest::file? file
-        file_name = file.gsub("#{site_dir}/rails3_config/", 'config/')
+        file_name = file.gsub("#{site_dir}/#{config_dir}/", 'config/')
         file_link = Rails.root.join(file_name)
         dir =  File.dirname file_link
         FileUtils::mkdir_p(dir) unless FileTest.exists?(dir)
@@ -64,9 +67,10 @@ namespace :eol do
   task :clean_site_specific do
     puts "++ Cleaning up site-specific files..."
     if FileTest.exists? site_dir
-      Dir.glob(site_dir + "/rails3_config/**/*").each do |file|
+      puts ".. Using #{config_dir} config directory."
+      Dir.glob(site_dir + "/#{config_dir}/**/*").each do |file|
         if FileTest::file? file
-          file_link = Rails.root.join(file.gsub("#{site_dir}/rails3_config/", 'config/'))
+          file_link = Rails.root.join(file.gsub("#{site_dir}/#{config_dir}/", 'config/'))
           begin
             FileUtils::rm file_link
           rescue SystemCallError

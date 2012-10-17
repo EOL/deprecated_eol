@@ -209,6 +209,8 @@ GEM
       rspec (~> 2.11.0)
     ruby-prof (0.11.2)
     rubyzip (0.9.9)
+    rvm-capistrano (1.2.7)
+      capistrano (>= 2.0.0)
     sanitize (2.0.3)
       nokogiri (>= 1.4.4, < 1.6)
     sass (3.2.1)
@@ -297,6 +299,7 @@ DEPENDENCIES
   rspec-html-matchers
   rspec-rails (~> 2.0)
   ruby-prof
+  rvm-capistrano
   sanitize
   sass-rails
   uglifier

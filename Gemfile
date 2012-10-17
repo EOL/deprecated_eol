@@ -3,6 +3,7 @@ source 'http://rubygems.org'
 group :development, :test do
   gem 'capistrano'
   gem 'capistrano-unicorn'
+  gem 'rvm-capistrano'
   gem 'capybara'
   gem 'daemons'
   gem 'debugger'

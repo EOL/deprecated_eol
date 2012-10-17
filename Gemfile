@@ -36,14 +36,13 @@ end
 
 group :assets do
   gem 'sass-rails'
-  gem 'coffee-rails'
-  gem 'uglifier'
 end
 
 gem 'rails', '3.2.7'
 
 gem 'acts_as_tree_rails3'
 gem 'ckeditor'
+gem 'coffee-rails'
 gem 'composite_primary_keys'
 gem 'dalli'
 gem 'email_spec'
@@ -69,6 +68,7 @@ gem 'resque', :require => 'resque/server'
 gem 'rdoc'
 gem 'sanitize'
 gem 'sass-rails'
+gem 'uglifier'
 gem 'unicorn'
 gem 'uuid'
 gem 'will_paginate'

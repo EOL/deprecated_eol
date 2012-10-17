@@ -40,11 +40,3 @@ namespace :exemplar_images do
     end
   end
 end
-
-namespace :cache do
-   desc 'Clear memcache'
-   task :clear => :environment do
-     Rails.cache.clear
-     ActionController::Base.cache_store.clear
-   end
-end

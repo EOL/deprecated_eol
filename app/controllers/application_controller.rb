@@ -195,6 +195,7 @@ class ApplicationController < ActionController::Base
     Rails.cache.clear
     remove_cached_feeds
     remove_cached_list_of_taxon_concepts
+    # The docs warn about doing this, TODO - should we remove it?
     if ActionController::Base.cache_store.class == ActiveSupport::Cache::MemCacheStore
       ActionController::Base.cache_store.clear
       return true

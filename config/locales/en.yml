@@ -4352,3 +4352,6 @@ en:
   references_cabs_colon: "References:"
   annotation_cabs_colon: "Annotation:"
   translation_log: "I18n key frequency histogram"
+  will_paginate:
+    previous_label: "Previous"
+    next_label: "Next"

@@ -154,6 +154,3 @@ EOL_CODEBASE_MASTER_VERSION = "2.2"
 
 # Assign it during deployment with capistrano
 ENV['APP_VERSION'] = ''
-
-WillPaginate::ViewHelpers.pagination_options[:previous_label] = I18n.t(:search_previous_label)
-WillPaginate::ViewHelpers.pagination_options[:next_label] = I18n.t(:search_next_label)

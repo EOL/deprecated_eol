@@ -9,7 +9,7 @@ require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
 if defined?(Bundler)
-  Bundler.require(*Rails.groups(:assets => %w(development test)))
+  Bundler.require(*Rails.groups(:assets => %w(development test))) unless Rails.env.production? || Rails.env.staging?
 end
 
 module EolUpgrade

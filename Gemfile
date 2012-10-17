@@ -18,6 +18,11 @@ group :development, :staging_dev, :staging_dev_cache do
   gem 'webrick'
 end
 
+group :production do
+  gem 'therubyracer'
+  gem 'execjs'
+end
+
 group :test do
   gem 'webmock'
   gem 'rspec-html-matchers'

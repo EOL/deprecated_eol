@@ -104,11 +104,14 @@ class ClassificationCuration < ActiveRecord::Base
     if source_id
       activity_log = leave_log_on_taxon(source, activity, options)
     end
-    if target_id
-      t_activity_log = leave_log_on_taxon(target, activity, options)
-      activity_log ||= t_activity_log
+    if target_id && activity_log.nil?
+      activity_log = leave_log_on_taxon(target, activity, options)
     end
-    force_immediate_notification_of(activity_log) if activity_log
+    if activity_log
+      force_immediate_notification_of(activity_log)
+    else
+      logger.error "** ERROR: #{self} not reported; no activity log was created."
+    end
   end
 
   def leave_log_on_taxon(parent, activity, options = {})
@@ -127,7 +130,7 @@ class ClassificationCuration < ActiveRecord::Base
                                        :created_at => 0.seconds.from_now,
                                        :taxon_concept_id => parent.id)
     rescue => e
-      # do nothing, for now...  :\
+      logger.error "** ERROR: Could not create CuratorActivityLog for #{self}: #{e.message}"
     end
     log
   end
@@ -153,6 +156,10 @@ class ClassificationCuration < ActiveRecord::Base
       :activity => Activity.curate_classifications.id,
       :created_at => 0.seconds.from_now
     )
+  end
+
+  def to_s
+    "ClassificationCuration ##{self.id} (source #{source_id}, target #{target_id})"
   end
 
 end

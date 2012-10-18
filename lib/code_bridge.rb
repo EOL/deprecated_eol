@@ -13,9 +13,11 @@ class CodeBridge
         ClassificationCuration.find(args['classification_curation_id']).check_status_and_notify
       rescue => e
         puts "** ERROR: #{e.message}"
+        puts "   -- KEYS:"
         args.keys.each do |key|
           puts "   #{key}: #{args[key]}"
         end
+        puts "   --"
       end
     else
       puts "** ERROR: NO command responds to #{args['cmd']}"

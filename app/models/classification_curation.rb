@@ -82,7 +82,7 @@ class ClassificationCuration < ActiveRecord::Base
   end
 
   def failed?
-    error || hierarchy_entry_moves.any? {|move| move.error}
+    error || hierarchy_entry_moves.any? {|move| ! move.error.blank? }
   end
 
   def compile_errors_into_log

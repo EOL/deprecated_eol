@@ -18,6 +18,7 @@ class Admins::NewsItemsController < AdminsController
     @news_item = NewsItem.new(params[:news_item])
     @translated_news_item = @news_item.translations.build(params[:translated_news_item])
     @news_item.last_update_user_id = current_user.id unless @news_item.blank?
+    expire_fragment(:action => 'index', :action_suffix => "news_#{@translated_news_item.language.iso_639_1}")
     if @news_item.save
       flash[:notice] = I18n.t(:admin_news_item_create_successful_notice,
                               :page_name => @news_item.page_name,
@@ -43,6 +44,9 @@ class Admins::NewsItemsController < AdminsController
       flash[:notice] = I18n.t(:admin_news_item_update_successful_notice,
                               :page_name => @news_item.page_name,
                               :anchor => @news_item.page_name.gsub(' ', '_').downcase)
+      @news_item.translations.each do |translated_news_item|
+        expire_fragment(:action => 'index', :action_suffix => "news_#{translated_news_item.language.iso_639_1}")
+      end
       redirect_to admin_news_items_path(:anchor => @news_item.page_name.gsub(' ', '_').downcase)
     else
       flash.now[:error] = I18n.t(:admin_news_item_update_unsuccessful_error)

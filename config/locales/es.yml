@@ -1495,6 +1495,7 @@ es:
   content_partner_statistics_summary_caption: Resumen de las estadísticas de uso para páginas de taxón con contenido proporcionado por %{partner_name} relativa al uso total del sitio web de EOL.
   content_partner_statistics_taxa_page_caption: Estadísticas detalladas de uso de las páginas de tacones con contenido proporcionado por %{partner_name}.
   content_partner_statistics_year_label: Año
+  content_partner_stats_message: Debido a cambios en el servicio que utilizamos para generar las estadísticas de uso, los datos de este mes no están disponibles actualmente. Nuestro equipo de desarrollo está trabajando en una solución. Le enviaremos un correo electrónico a nuestros socios una vez se resuelva el problema.
   content_partner_status_empty: Estado desconocido
   content_partner_update_successful_notice: Detalles del socio actualizados correctamente.
   content_partner_update_unsuccessful_error: Lo sentimos, ha ocurrido un error, los detalles del socio no se han actualizado.

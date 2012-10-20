@@ -1479,6 +1479,7 @@ mk:
   content_partner_statistics_summary_caption: Краток преглед на статистиките за користење на таксонските страници со содржини доставени од %{partner_name} во однос на вкупната употреба на мрежното место на EOL.
   content_partner_statistics_taxa_page_caption: Подробни статистики за употребата на таксонските страници со содржини доставени од %{partner_name}.
   content_partner_statistics_year_label: Година
+  content_partner_stats_message: Поради промени во службата со која ги пресметуваме статистиките за употреба, податоците за овој месец се моментално недостапни. Нашата екипа работи на решение. Штом ќе го решиме проблемот, нашите соработници ќе бидат известени по е-пошта.
   content_partner_status_empty: Непознат статус
   content_partner_update_successful_notice: Подробностите за соучесникот се успешно подновени.
   content_partner_update_unsuccessful_error: Нажалост, се појави грешка. Подробностите за соучесникот не се подновени.

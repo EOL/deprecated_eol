@@ -113,11 +113,16 @@ diq:
   translated_service_types-label-service_type_id-1: Transfer şemaya EOL'i
   translated_service_types-label-service_type_id-2: Zewmi
   translated_sort_styles-name-sort_style_id-2: Tewr kehan
+  translated_sort_styles-name-sort_style_id-5: Dewlemendiye
   translated_sort_styles-name-sort_style_id-6: Nısbetkerden
+  translated_statuses-label-status_id-1: Pırakerde
   translated_statuses-label-status_id-2: Noroc resneya
   translated_statuses-label-status_id-3: Mevurne
+  translated_statuses-label-status_id-4: Fına
   translated_synonym_relations-label-synonym_relation_id-12: Tede esto
   translated_synonym_relations-label-synonym_relation_id-2: nameyê heray
+  translated_synonym_relations-label-synonym_relation_id-3: kılmkerdış
+  translated_synonym_relations-label-synonym_relation_id-45: bıngeh
   translated_synonym_relations-label-synonym_relation_id-51: qebuliya
   translated_synonym_relations-label-synonym_relation_id-68: Hêgayiney
   translated_table_of_contents-label-table_of_contents_id-1: Hera weynayis
@@ -138,6 +143,7 @@ diq:
   translated_table_of_contents-label-table_of_contents_id-3: Arezekerdışo Fiziki
   translated_table_of_contents-label-table_of_contents_id-300: Wikipedia
   translated_table_of_contents-label-table_of_contents_id-303: Namey u Taksonomiye
+  translated_table_of_contents-label-table_of_contents_id-305: Hemmeney
   translated_table_of_contents-label-table_of_contents_id-306: İstatistikê pele
   translated_table_of_contents-label-table_of_contents_id-309: Vılakerdış
   translated_table_of_contents-label-table_of_contents_id-310: Gırdinayış
@@ -150,7 +156,10 @@ diq:
   translated_table_of_contents-label-table_of_contents_id-329: Genetiki
   translated_table_of_contents-label-table_of_contents_id-33: Meyıli
   translated_table_of_contents-label-table_of_contents_id-331: Barkod
+  translated_table_of_contents-label-table_of_contents_id-332: Genom
   translated_table_of_contents-label-table_of_contents_id-333: Biyolociya molekulare
+  translated_table_of_contents-label-table_of_contents_id-334: Tehdidi
+  translated_table_of_contents-label-table_of_contents_id-335: Mewzuat
   translated_table_of_contents-label-table_of_contents_id-336: Noti
   translated_table_of_contents-label-table_of_contents_id-337: Terbiyet
   translated_table_of_contents-label-table_of_contents_id-34: Xulasey
@@ -169,5 +178,7 @@ diq:
   translated_vetted-label-vetted_id-6: hol niyo
   translated_view_styles-name-view_style_id-1: Liste
   translated_view_styles-name-view_style_id-2: Galeri
+  translated_view_styles-name-view_style_id-3: Arezekerde
+  translated_visibilities-label-visibility_id-0: Nêasaye
   translated_visibilities-label-visibility_id-1: Mocnerey
   translated_visibilities-label-visibility_id-2: Verqayt

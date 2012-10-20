@@ -3418,10 +3418,12 @@ ko:
           missing_attributes: 죄송합니다, 페이스북 자세한 정보에 접근하는 데 문제가 있습니다.
           new_authentication_not_added: 죄송합니다, 오류가 발생해 페이스북 계정에 연결할 수 없습니다.
           not_authorized_to_login: 죄송합니다, 페이스북 계정을 사용해 EOL에 로그인할 권한이 없습니다.
+          not_authorized_to_signup: 죄송합니다, 페이스북 계정을 사용하여 EOL에 가입할 수 있는 권한이 없습니다.
         google: 
           missing_attributes: 죄송합니다, 구글 자세한 정보에 접근하는 데 문제가 있습니다.
           new_authentication_not_added: 죄송합니다, 오류가 발생해 구글 계정에 연결할 수 없습니다.
           not_authorized_to_login: 죄송합니다, 구글 계정을 사용해 EOL에 로그인할 권한이 없습니다.
+          not_authorized_to_signup: 죄송합니다, 구글 계정을 사용하여 EOL에 가입할 수 있는 권한이 없습니다.
         missing_attributes: 죄송합니다, 서드 파티 계정 자세한 정보에 접근하는 데 문제가 있습니다.
         not_authorized_to_add_authentication: 죄송합니다, 해당 계정에 연결하는 데 인증할 수 없습니다.
         not_authorized_to_login: 죄송합니다, 해당 계정으로 EOL에 로그인할 권한이 없습니다.
@@ -3430,10 +3432,12 @@ ko:
           missing_attributes: 죄송합니다, 트위터 자세한 정보에 접근하는 데 문제가 있습니다.
           new_authentication_not_added: 죄송합니다, 오류가 발생해 트위터 계정에 연결할 수 없습니다.
           not_authorized_to_login: 죄송합니다, 트위터 계정을 사용해 EOL에 로그인할 권한이 없습니다.
+          not_authorized_to_signup: 죄송합니다, 트위터 계정을 사용하여 EOL에 가입할 수 있는 권한이 없습니다.
         yahoo: 
           missing_attributes: 죄송합니다, 야후! 자세한 정보에 접근하는 데 문제가 있습니다.
           new_authentication_not_added: 죄송합니다, 오류가 발생해 야후! 계정에 연결할 수 없습니다.
           not_authorized_to_login: 죄송합니다, 야후! 계정을 사용해 EOL에 로그인할 권한이 없습니다.
+          not_authorized_to_signup: 죄송합니다, 야후! 계정을 사용하여 EOL에 가입할 수 있는 권한이 없습니다.
       facebook: 페이스북
       google: 구글
       index: 

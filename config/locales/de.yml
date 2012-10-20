@@ -1490,6 +1490,7 @@ de:
   content_partner_statistics_summary_caption: Zusammenfassung von Nutzungsstatistiken für Seiten zu Taxa, die von %{partner_name} bereitgestellt wurden, im relativen Verhältnis zur Gesamtnutzung der EOL-Website.
   content_partner_statistics_taxa_page_caption: Ausführliche Nutzungsstatistiken für Seiten zu Taxa, die von %{partner_name} bereitgestellt wurden.
   content_partner_statistics_year_label: Jahr
+  content_partner_stats_message: Aufgrund Änderungen unseres Services zum Erzeugen von Verwendungsstatistiken sind Daten für diesen Monat derzeit nicht verfügbar. Unser Entwicklungsteam arbeitet an einer Lösung. Wir senden eine E-Mail an unsere Partner, sobald das Problem gelöst ist.
   content_partner_status_empty: Unbekannter Status
   content_partner_update_successful_notice: Die Partnerinformationen wurden erfolgreich aktualisiert.
   content_partner_update_unsuccessful_error: Es ist leider ein Fehler aufgetreten, so dass die Partnerinformationen nicht aktualisiert wurden.

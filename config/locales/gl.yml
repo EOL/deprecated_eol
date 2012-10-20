@@ -919,9 +919,9 @@ gl:
         page_header: Estatísticas das páxinas ricas
         page_title: "Administración: Estatísticas das páxinas ricas"
       users_data_objects: 
-        menu_link: Texto enviado polo usuario
-        page_header: Estatísticas do texto enviado polo usuario
-        page_title: "Administración: Estatísticas do texto enviado polo usuario"
+        menu_link: Texto enviado polos usuarios
+        page_header: Estatísticas do texto enviado polos usuarios
+        page_title: "Administración: Estatísticas do texto enviado polos usuarios"
   agent: Axente
   all: todos
   all_apis_return_by_default_an_xml_response: "Todas as API devoven por defecto unha resposta XML. Os métodos da API poden chamarse sen necesidade dunha extensión de formato para conseguir a resposta XML. A adición dunha extensión XML producirá unha respota idéntica:"
@@ -1456,6 +1456,7 @@ gl:
   content_partner_statistics_summary_caption: Resumo das estatísticas de uso para as páxinas do taxon que conteñan contidos proporcionados por %{partner_name}, relativo ao total de uso do sitio web da EOL.
   content_partner_statistics_taxa_page_caption: Estatísticas de uso detalladas para as páxinas do taxon que conteñan contidos proporcionados por %{partner_name}.
   content_partner_statistics_year_label: Ano
+  content_partner_stats_message: Debido aos cambios feitos no servizo que usamos para xerar as estatísticas de uso, os datos deste mes non están dispoñibles nestes intres. O noso equipo de desenvolvemento está traballando nunha solución. Enviaremos unha mensaxe de correo electrónico aos nosos socios de contidos unha vez que o problema estea resolto.
   content_partner_status_empty: Estado descoñecido
   content_partner_update_successful_notice: Os detalles do socio actualizáronse correctamente.
   content_partner_update_unsuccessful_error: Sentímolo, houbo un erro. Non se actualizaron os detalles do socio.
@@ -1828,8 +1829,8 @@ gl:
       page_header: Estatísticas das páxinas ricas
       page_title: Estatísticas
     users_data_objects: 
-      menu_link: Texto enviado polo usuario
-      page_header: Estatísticas do texto enviado polo usuario
+      menu_link: Texto enviado polos usuarios
+      page_header: Estatísticas do texto enviado polos usuarios
       page_title: Estatísticas
     warnings: 
       stats_unavailable_for_date: Sentímolo, non hai estatísticas dispoñibles para o %{date}. Selecciona outra data.

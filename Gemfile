@@ -14,6 +14,10 @@ group :development, :test do
   gem 'ruby-prof'
 end
 
+group :staging do
+  gem 'debugger'
+end
+
 group :development, :staging_dev, :staging_dev_cache do
   gem 'webrick'
 end

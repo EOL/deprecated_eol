@@ -11,10 +11,16 @@ class ClassificationCuration < ActiveRecord::Base
 
   belongs_to :exemplar, :class_name => 'HierarchyEntry' # If this is null, it was a merge.
   belongs_to :moved_from, :class_name => 'TaxonConcept', :foreign_key => 'source_id' # If this has a superceded_id after the operation, it was a merge.
-  belongs_to :moved_to, :class_name => 'TaxonConcept', :foreign_key => 'target_id' # If this is null, it's a split.
+  # DOES NOT WORK: (Apparantly this is a Rails bug, but 'moved_to' ends up being the same as 'moved_from' ... I assume
+  # because the class_name is the same... which is lame and totally unexpected... but I HAVE to get past this...
+  # belongs_to :moved_to, :class_name => 'TaxonConcept', :foreign_key => 'target_id' # If this is null, it's a split.
   belongs_to :user # This is the curator that requested the move/merge/split.
 
   after_create :bridge
+
+  def moved_to
+    TaxonConcept.find(self[:target_id])
+  end
 
   def bridge
     if split?
@@ -43,8 +49,6 @@ class ClassificationCuration < ActiveRecord::Base
 
   def bridge_split
     hierarchy_entries.each do |he|
-      logger.warn "+" * 100
-      logger.warn "++ split_entry #{he.id} by user #{user_id} classification_curation_id #{id}"
       CodeBridge.split_entry(:hierarchy_entry_id => he.id, :exemplar_id => exemplar_id, :notify => user_id,
                              :classification_curation_id => id)
     end

@@ -48,6 +48,7 @@
   - translation_vars[:taxon] = link_to(item.taxon_concept.quick_scientific_name, taxon_url(item.taxon_concept),
     :style => link_style)
 -# NOTE the weird exception: merge_classifications uses the *object* taxon concept, not the source TC (for now):
+-# THE MERGE/SPLIT ACTIVITIES ARE LEGACY...
 - if item.activity_id == Activity.merge_classifications.id && item.changeable_object_type_id == ChangeableObjectType.taxon_concept.id
   - tc = TaxonConcept.find(item.object_id) rescue nil
   - taxon_type = tc ? 'taxon' : 'an_unknown_taxon'
@@ -107,12 +108,12 @@
     - else
       = I18n.t("classification_curation.#{user_type}_curated_unkown_classification_from_#{taxon_type}", translation_vars)
     -# The next two (split, merge) are legacy, but we keep them because they ARE in the logs (in production):
-  - when Activity.split_classifications.id
+  - when Activity.split_classifications.id # LEGACY
     - if item.hierarchy_entry
       = I18n.t("split.#{user_type}_split_entry_from_#{taxon_type}", translation_vars)
     - else
       = I18n.t("split.#{user_type}_split_unknown_entry_from_#{taxon_type}", translation_vars)
-  - when Activity.merge_classifications.id
+  - when Activity.merge_classifications.id # LEGACY
     - if item.hierarchy_entry
       = I18n.t("merge.#{user_type}_merged_entry_to_#{taxon_type}", translation_vars)
     - else

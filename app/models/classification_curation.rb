@@ -10,8 +10,8 @@ class ClassificationCuration < ActiveRecord::Base
   has_many :hierarchy_entries, :through => :hierarchy_entry_moves
 
   belongs_to :exemplar, :class_name => 'HierarchyEntry' # If this is null, it was a merge.
-  belongs_to :source, :class_name => 'TaxonConcept', :foreign_key => 'source_id' # If this has a superceded_id after the operation, it was a merge.
-  belongs_to :target, :class_name => 'TaxonConcept', :foreign_key => 'target_id' # If this is null, it's a split.
+  belongs_to :moved_from, :class_name => 'TaxonConcept', :foreign_key => 'source_id' # If this has a superceded_id after the operation, it was a merge.
+  belongs_to :moved_to, :class_name => 'TaxonConcept', :foreign_key => 'target_id' # If this is null, it's a split.
   belongs_to :user # This is the curator that requested the move/merge/split.
 
   after_create :bridge
@@ -24,12 +24,12 @@ class ClassificationCuration < ActiveRecord::Base
     else
       bridge_move
     end
-    log_activity_on(source) if source
-    log_activity_on(target) if target
+    log_activity_on(moved_from) if moved_from
+    log_activity_on(moved_to) if moved_to
   end
 
   def split?
-    target.nil?
+    moved_to.nil?
   end
 
   def merge?
@@ -90,7 +90,7 @@ class ClassificationCuration < ActiveRecord::Base
     comment = "The following error(s) occured during the curation of classifications: "
     comment += ([error] +
                 hierarchy_entry_moves.with_errors.map do |m|
-                  "\"#{m.error}\" on <a href='#{taxon_hierarchy_entry_overview_url(source, m.hierarchy_entry)}'>#{m.hierarchy_entry.italicized_name}</a>."
+                  "\"#{m.error}\" on <a href='#{taxon_hierarchy_entry_overview_url(moved_from, m.hierarchy_entry)}'>#{m.hierarchy_entry.italicized_name}</a>."
                 end
                ).to_sentence
     leave_logs_and_notify(Activity.unlock_with_error, :comment => comment)
@@ -101,11 +101,11 @@ class ClassificationCuration < ActiveRecord::Base
   # logs if required).
   def leave_logs_and_notify(activity, options = {})
     activity_log = nil
-    if source
-      activity_log = leave_log_on_taxon(source, activity, options)
+    if moved_from
+      activity_log = leave_log_on_taxon(moved_from, activity, options)
     end
-    if target && activity_log.nil?
-      activity_log = leave_log_on_taxon(target, activity, options)
+    if moved_to && activity_log.nil?
+      activity_log = leave_log_on_taxon(moved_to, activity, options)
     end
     if activity_log
       force_immediate_notification_of(activity_log)
@@ -135,11 +135,11 @@ class ClassificationCuration < ActiveRecord::Base
     log
   end
 
-  def force_immediate_notification_of(target)
+  def force_immediate_notification_of(moved_to)
     begin
       PendingNotification.create!(:user_id => user_id,
                                   :notification_frequency_id => NotificationFrequency.immediately.id,
-                                  :target => target,
+                                  :target => moved_to,
                                   :reason => 'auto_email_after_curation')
       Resque.enqueue(PrepareAndSendNotifications)
     rescue => e
@@ -159,7 +159,7 @@ class ClassificationCuration < ActiveRecord::Base
   end
 
   def to_s
-    "ClassificationCuration ##{self.id} (source #{source_id}, target #{target_id})"
+    "ClassificationCuration ##{self.id} (moved_from #{source_id}, moved_to #{target_id})"
   end
 
 end

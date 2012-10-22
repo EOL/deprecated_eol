@@ -96,8 +96,8 @@
   - when Activity.curate_classifications.id
     - if item.classification_curation
       - translation_vars[:classifications] = item.classification_curation.hierarchy_entries.map {|he| he.hierarchy.display_title }.to_sentence
-      - target_type = item.classification_curation.target ? 'taxon' : 'an_unknown_taxon'
-      - translation_vars[:target] = item.classification_curation.target ? link_to(item.classification_curation.target.quick_scientific_name, taxon_url(item.classification_curation.target), :style => link_style) : nil
+      - target_type = item.classification_curation.moved_to ? 'taxon' : 'an_unknown_taxon'
+      - translation_vars[:target] = item.classification_curation.moved_to ? link_to(item.classification_curation.moved_to.quick_scientific_name, taxon_url(item.classification_curation.moved_to), :style => link_style) : nil
       - if item.classification_curation.split?
         = raw I18n.t("classification_curation.split.#{user_type}_split_classifications_from_#{taxon_type}", translation_vars)
       - elsif item.classification_curation.merge?

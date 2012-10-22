@@ -18,6 +18,7 @@ class CuratorActivityLog < LoggingModel
   # when you should have grabbed an object and it won't fail.
   belongs_to :data_object, :foreign_key => :object_id
   belongs_to :synonym, :foreign_key => :object_id
+  belongs_to :classification_curation, :foreign_key => :object_id
   belongs_to :affected_comment, :foreign_key => :object_id, :class_name => Comment.to_s
 
   validates_presence_of :user_id, :changeable_object_type_id, :activity_id, :created_at

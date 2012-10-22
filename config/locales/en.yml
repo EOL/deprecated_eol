@@ -2130,9 +2130,9 @@ en:
         it_unlocked: "Background curation processing finished."
         taxon_unlocked: "\"%{taxon}\" finished background curation processing."
       unlock_with_error:
-        an_unknown_taxon_unlocked: "An unknown page has <strong>failed</strong> background curation processing: %{error}."
-        it_unlocked: "Background curation processing <strong>failed</strong> : %{error}."
-        taxon_unlocked: "\"%{taxon}\" <strong>failed</strong> background curation processing: %{error}."
+        an_unknown_taxon_unlocked_with_error: "An unknown page has <strong>failed</strong> background curation processing: %{error}."
+        it_unlocked_with_error: "Background curation processing <strong>failed</strong> : %{error}."
+        taxon_unlocked_with_error: "\"%{taxon}\" <strong>failed</strong> background curation processing: %{error}."
       other_actions:
         an_unknown_user_curated_an_older_data_object: "An unknown user curated an older version of \"%{data_object}\"."
         an_unknown_user_curated_an_unknown_data_object: "An unknown user curated an unknown data object."

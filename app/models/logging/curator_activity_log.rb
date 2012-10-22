@@ -79,7 +79,9 @@ class CuratorActivityLog < LoggingModel
         end
       when ChangeableObjectType.users_data_object.id
         udo_taxon_concept.entry.italicized_name
-      when ChangeableObjectType.synonym.id
+      when ChangeableObjectType.classification_curation.id
+        taxon_concept.entry.italicized_name
+      when ChangeableObjectType.synonym.id:
         synonym.hierarchy_entry.taxon_concept.entry.italicized_name
       else
         raise "Don't know how to get taxon name from a changeable object type of id #{changeable_object_type_id}"
@@ -111,6 +113,8 @@ class CuratorActivityLog < LoggingModel
       when ChangeableObjectType.taxon_concept.id
         taxon_concept.id
       when ChangeableObjectType.curated_taxon_concept_preferred_entry.id
+        taxon_concept.id
+      when ChangeableObjectType.classification_curation.id
         taxon_concept.id
       else
         raise "Don't know how to get the taxon id from a changeable object type of id #{changeable_object_type_id}"
@@ -164,6 +168,9 @@ class CuratorActivityLog < LoggingModel
         [ Activity.add_association.id, Activity.remove_association.id ],
       ChangeableObjectType.users_data_object.id => curation_activities,
       ChangeableObjectType.curated_taxon_concept_preferred_entry.id => [Activity.preferred_classification.id],
+      ChangeableObjectType.classification_curation.id => [Activity.unlock.id,
+                                                          Activity.unlock_with_error.id,
+                                                          Activity.curate_classifications.id],
       ChangeableObjectType.taxon_concept.id => [Activity.split_classifications.id, Activity.merge_classifications.id]
     }
     return unless self.activity
@@ -213,6 +220,7 @@ private
   def add_recipient_taxon_concepts(recipients)
     if self.changeable_object_type_id == ChangeableObjectType.synonym.id ||
        self.changeable_object_type_id == ChangeableObjectType.curated_taxon_concept_preferred_entry.id ||
+       self.changeable_object_type_id == ChangeableObjectType.classification_curation.id ||
        self.changeable_object_type_id == ChangeableObjectType.taxon_concept.id
       add_taxon_concept_recipients(self.taxon_concept, recipients)
       add_taxon_concept_recipients(TaxonConcept.find(self.object_id), recipients) if

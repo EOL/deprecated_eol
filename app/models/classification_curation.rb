@@ -9,12 +9,14 @@ class ClassificationCuration < ActiveRecord::Base
   has_many :hierarchy_entry_moves
   has_many :hierarchy_entries, :through => :hierarchy_entry_moves
 
-  belongs_to :exemplar, :class_name => 'HierarchyEntry' # If this is null, it was a merge.
-  belongs_to :moved_from, :class_name => 'TaxonConcept', :foreign_key => 'source_id' # If this has a superceded_id after the operation, it was a merge.
-  # DOES NOT WORK: (Apparantly this is a Rails bug, but 'moved_to' ends up being the same as 'moved_from' ... I assume
-  # because the class_name is the same... which is lame and totally unexpected... but I HAVE to get past this...
-  # belongs_to :moved_to, :class_name => 'TaxonConcept', :foreign_key => 'target_id' # If this is null, it's a split.
-  belongs_to :user # This is the curator that requested the move/merge/split.
+  # If this is null, it was a merge:
+  belongs_to :exemplar, :class_name => 'HierarchyEntry', :foreign_key => 'exemplar_id'
+  # If this has a superceded_id after the operation, it was a merge:
+  belongs_to :moved_from, :class_name => 'TaxonConcept', :foreign_key => 'source_id'
+  # If this is null, it's a split:
+  belongs_to :moved_to, :class_name => 'TaxonConcept', :foreign_key => 'target_id'
+  # This is the curator that requested the move/merge/split:
+  belongs_to :user
 
   after_create :bridge
 
@@ -39,6 +41,7 @@ class ClassificationCuration < ActiveRecord::Base
   end
 
   def merge?
+    logger.error "++ Classification Curation exemplar: #{exemplar} and id is: #{exemplar_id}"
     exemplar.nil?
   end
 

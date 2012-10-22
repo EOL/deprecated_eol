@@ -80,6 +80,8 @@ private
   def exemplar(type, which)
     done = false
     target_taxon_concept = nil
+    logger.error "+" * 100
+    logger.error "++ Which: #{which}"
     begin
       if type == 'split'
         @taxon_concept.split_classifications(session[:split_hierarchy_entry_id], :exemplar_id => which, :user => current_user)

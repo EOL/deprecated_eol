@@ -39,8 +39,8 @@ private
 
   # They have a list of classifications they want to merge into this taxon concept.
   def merge
-    if (!params[:additional_confirm]) &&
-      he_id = @taxon_concept.providers_match_on_merge(Array(HierarchyEntry.find(session[:split_hierarchy_entry_id])))
+    if ( ( ! params[:additional_confirm]) &&
+        he_id = @taxon_concept.providers_match_on_merge(Array(HierarchyEntry.find(session[:split_hierarchy_entry_id]))))
       flash[:warn] = I18n.t(:classifications_merge_additional_confirm_required)
       @target_params[:providers_match] = he_id
     else

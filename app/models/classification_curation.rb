@@ -10,8 +10,8 @@ class ClassificationCuration < ActiveRecord::Base
   has_many :hierarchy_entries, :through => :hierarchy_entry_moves
 
   belongs_to :exemplar, :class_name => 'HierarchyEntry' # If this is null, it was a merge.
-  belongs_to :source, :class_name => 'TaxonConcept' # If this has a superceded_id after the operation, it was a merge.
-  belongs_to :target, :class_name => 'TaxonConcept' # If this is null, it's a split.
+  belongs_to :source, :class_name => 'TaxonConcept', :foreign_key => 'source_id' # If this has a superceded_id after the operation, it was a merge.
+  belongs_to :target, :class_name => 'TaxonConcept', :foreign_key => 'target_id' # If this is null, it's a split.
   belongs_to :user # This is the curator that requested the move/merge/split.
 
   after_create :bridge

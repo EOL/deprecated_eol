@@ -49,6 +49,8 @@ class CuratorActivityLog < LoggingModel
         end
       when ChangeableObjectType.taxon_concept.id:
         taxon_concept
+      when ChangeableObjectType.classification_curation.id
+        taxon_concept
       else
         data_object
     end

@@ -101,10 +101,10 @@ class ClassificationCuration < ActiveRecord::Base
   # logs if required).
   def leave_logs_and_notify(activity, options = {})
     activity_log = nil
-    if source_id
+    if source
       activity_log = leave_log_on_taxon(source, activity, options)
     end
-    if target_id && activity_log.nil?
+    if target && activity_log.nil?
       activity_log = leave_log_on_taxon(target, activity, options)
     end
     if activity_log

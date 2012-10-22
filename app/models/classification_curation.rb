@@ -153,7 +153,7 @@ class ClassificationCuration < ActiveRecord::Base
       :taxon_concept => taxon_concept,
       :changeable_object_type => ChangeableObjectType.classification_curation,
       :object_id => id,
-      :activity => Activity.curate_classifications.id,
+      :activity_id => Activity.curate_classifications.id,
       :created_at => 0.seconds.from_now
     )
   end

@@ -1184,3 +1184,6 @@ li table.classifications {
   margin: 0.5em; }
 .help_text li {
   margin-bottom: 1em; }
+
+table.classifications tr.pending {
+  background-color: #ffeeee; }

@@ -2127,8 +2127,8 @@ en:
         move_of_it_unlocked: "The classification move you recently requested on this page has completed."
         move_of_taxon_unlocked: "The classification move you recently requested for \"%{taxon}\" has completed."
         split_of_an_unknown_taxon_unlocked: "The classification split you recently requested has completed, but the page cannot be found."
-        split_of_it_unlocked: "The classification split you recently requested on this page has completed."
-        split_of_taxon_unlocked: "The classification split you recently requested for \"%{taxon}\" has completed."
+        split_of_it_unlocked: "The classification split you recently requested on this page has completed and the classifications have moved to <a href='%{to}'>their own page</a>."
+        split_of_taxon_unlocked: "The classification split you recently requested for \"%{taxon}\" has completed and the classifications have moved to <a href='%{to}'>their own page</a>.."
       unlock_with_error:
         merge_of_an_unknown_taxon_unlocked_with_error: "The page merge you recently requested has <strong>failed</strong>: %{error}. Additionally, the affected page cannot be found."
         merge_of_it_unlocked_with_error: "The merge you recently requested on this page <strong>failed</strong>: %{error}."

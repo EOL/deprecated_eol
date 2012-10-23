@@ -226,9 +226,12 @@ private
       add_taxon_concept_recipients(self.taxon_concept, recipients)
       add_taxon_concept_recipients(TaxonConcept.find(self.object_id), recipients) if
         self.changeable_object_type_id == ChangeableObjectType.taxon_concept.id
-      add_taxon_concept_recipients(self.taxon_concept, recipients) if
-        self.changeable_object_type_id == ChangeableObjectType.classification_curation.id and
-        self.activity_id == Activity.classification_curation.id
+    end
+    if self.changeable_object_type_id == ChangeableObjectType.classification_curation.id &&
+       self.activity_id == Activity.curate_classifications.id &&
+       cc = self.classification_curation
+      add_taxon_concept_recipients(cc.moved_from, recipients) if cc.moved_from
+      add_taxon_concept_recipients(cc.moved_to, recipients) if cc.moved_to
     end
   end
 

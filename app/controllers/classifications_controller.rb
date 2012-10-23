@@ -41,7 +41,7 @@ private
   def merge
     if ( ( ! params[:additional_confirm]) &&
         he_id = @taxon_concept.providers_match_on_merge(Array(HierarchyEntry.find(session[:split_hierarchy_entry_id]))))
-      flash[:warn] = I18n.t(:classifications_merge_additional_confirm_required)
+      flash[:warning] = I18n.t(:classifications_merge_additional_confirm_required)
       @target_params[:providers_match] = he_id
     else
       # If they have already confirmed this, don't confirm it again:
@@ -102,7 +102,7 @@ private
     rescue EOL::Exceptions::ClassificationsLocked
       flash[:error] = I18n.t(:classifications_edit_cancelled_busy)
     rescue EOL::Exceptions::ProvidersMatchOnMerge => e
-      flash[:warn] = I18n.t(:classifications_merge_additional_confirm_required)
+      flash[:warning] = I18n.t(:classifications_merge_additional_confirm_required)
       @target_params[:providers_match] = e.message # NOTE - a little wonky to pass the ID in the message.  :|
       @target_params[:exemplar] = which
     end

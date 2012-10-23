@@ -1428,7 +1428,7 @@ class TaxonConcept < ActiveRecord::Base
     source_concept = options[:with]
     raise EOL::Exceptions::ClassificationsLocked if
       classifications_locked? || source_concept.classifications_locked?
-    if (!options[:additional_confirm]) && he_id = providers_match_on_merge(hierarchy_entry_ids)
+    if (!options[:forced]) && he_id = providers_match_on_merge(hierarchy_entry_ids)
       raise EOL::Exceptions::ProvidersMatchOnMerge.new(he_id)
     end
     raise EOL::Exceptions::CannotMergeClassificationsToSelf if self.id == source_concept.id
@@ -1439,7 +1439,7 @@ class TaxonConcept < ActiveRecord::Base
                                   :hierarchy_entries => HierarchyEntry.find(hierarchy_entry_ids),
                                   :source_id => source_concept.id,
                                   :target_id => id, :exemplar_id => options[:exemplar_id],
-                                  :forced => options[:additional_confirm] || options[:forced])
+                                  :forced => options[:forced] || options[:forced])
   end
 
   def all_published_entries?(hierarchy_entry_ids)

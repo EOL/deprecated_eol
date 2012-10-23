@@ -233,11 +233,13 @@ private
   def add_recipient_taxon_concepts(recipients)
     if self.changeable_object_type_id == ChangeableObjectType.synonym.id ||
        self.changeable_object_type_id == ChangeableObjectType.curated_taxon_concept_preferred_entry.id ||
-       self.changeable_object_type_id == ChangeableObjectType.classification_curation.id ||
        self.changeable_object_type_id == ChangeableObjectType.taxon_concept.id
       add_taxon_concept_recipients(self.taxon_concept, recipients)
       add_taxon_concept_recipients(TaxonConcept.find(self.object_id), recipients) if
         self.changeable_object_type_id == ChangeableObjectType.taxon_concept.id
+      add_taxon_concept_recipients(self.taxon_concept, recipients) if
+        self.changeable_object_type_id == ChangeableObjectType.classification_curation.id and
+        self.activity_id == Activity.classification_curation.id
     end
   end
 
@@ -274,6 +276,12 @@ private
     end
   end
   
+  def add_recipient_curator_of_classification(recipients)
+    if unlock?
+      user.add_as_recipient_if_listening_to(:curation_on_my_watched_item, recipients)
+    end
+  end
+
   def add_recipient_author_of_curated_text(recipients)
     if object_is_data_object?
       if u = self.data_object.contributing_user
@@ -290,4 +298,8 @@ private
     ].include?(self.changeable_object_type_id)
   end
 
+  def unlock?
+    self.changeable_object_type_id == ChangeableObjectType.classification_curation.id &&
+      [Activity.unlock.id, Activity.unlock_with_error.id].include?(self.activity_id)
+  end
 end

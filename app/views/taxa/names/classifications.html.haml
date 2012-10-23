@@ -27,11 +27,11 @@
     - else
       - unless can_curate
         %p.help_text
-          = raw(I18n.t(:classification_preferred_for_taxon_help_tip, :icon => image_tag("v2/icon_required.png", :alt => I18n.t(:name_preferred_for_language_yes), :class => 'indicator')))
-      - if stored_classifications
+          = raw I18n.t(:classification_preferred_for_taxon_help_tip, :icon => image_tag("/images/v2/icon_required.png", :alt => I18n.t(:name_preferred_for_language_yes), :class => 'indicator'))
+      - if stored_classifications && ! @confirm_split_or_merge
         %div.help_text.warning
           %p= I18n.t(:stored_classifications, :anchor => '#classification_actions')
-      - if master_curator && @taxon_concept.classifications_locked? && ! @pending
+      - if master_curator && @taxon_concept.classifications_locked? && @pending_moves.empty?
         %div.help_text.warning
           %p= I18n.t(:classifications_locked)
       - if @confirm_split_or_merge
@@ -79,13 +79,14 @@
               %th= I18n.t(:classifications_hierarchy_column_header)
           %tbody
             - @hierarchy_entries.each do |hierarchy_entry|
+              - pending = @pending_moves.any? {|move| move.hierarchy_entry_id == hierarchy_entry.id}
               - splitting = false
               - if allow_more_splits
                 - if stored_classifications && session[:split_hierarchy_entry_id].include?(hierarchy_entry.id.to_s)
                   - splitting = true
                   - stored_entries_on_this_page = true
               - unless splitting
-                %tr
+                %tr{:class => pending ? 'pending' : nil}
                   - preferred = @taxon_concept.uses_preferred_entry?(hierarchy_entry)
                   - preferred_label = preferred ? I18n.t(:classification_preferred_for_taxon) : nil
                   - if can_curate && ! @confirm_split_or_merge
@@ -106,6 +107,9 @@
                     - if hierarchy_entry.hierarchy.browsable.to_i == 1
                       %br
                       = link_to(I18n.t(:view_in_classification), overview_taxon_entry_path(@taxon_concept, hierarchy_entry))
+                    - if pending
+                      %br
+                      = raw I18n.t(:classification_curation_pending)
                   %td.rank
                     - if hierarchy_entry.rank
                       = hierarchy_entry.rank_label

@@ -155,7 +155,7 @@ private
 
   def return_to_source_taxon
     debug '#return_to_source_taxon'
-    @taxon_concept = source_tc if source_tc
+    @taxon_concept = taxon_concept_from_session if taxon_concept_from_session
   end
 
   def additional_confirm_required_on
@@ -204,7 +204,6 @@ private
     flash[:warning] = I18n.t("#{type}_pending") # type is either 'merge' or 'split'
     collect_all_entries_and(options[:taxon_concept])
     clear_entries_from_session
-    @target_params[:pending] = 1
   end
 
 end

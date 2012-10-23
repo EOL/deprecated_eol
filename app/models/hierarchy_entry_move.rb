@@ -1,6 +1,7 @@
 class HierarchyEntryMove < ActiveRecord::Base
 
   scope :with_errors, :conditions => ["error IS NOT NULL AND error != ''"]
+  scope :pending, :conditions => ["completed_at IS NULL"]
 
   belongs_to :classification_curation
   belongs_to :hierarchy_entry

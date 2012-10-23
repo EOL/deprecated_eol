@@ -207,3 +207,4 @@ qqq:
   add_article_instead: "This is button text to be displayed in the header of a page where the user is adding a link.  Clicking this button will allow them to add an article instead of a link."
   add_link_instead: "This is button text to be displayed in the header of a page where the user is adding an article.  Clicking this button will allow them to add a link instead of an article."
   error_exemplar_chosen_with_invalid_action: "This is an extremely rare case where an action was submitted (choosing a classification to either split or merge) but the actual action intended was lost: we don't know if they wanted to split the classification from the page or merge it onto the page. Thus, we're asking them to try again."
+  classification_curation_pending: "This is a warning, displayed on the 'names' tab, when showing classifications that are presently undergoing curation (a process that can take some time and occurs in the background)."

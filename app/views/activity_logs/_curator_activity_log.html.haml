@@ -13,8 +13,8 @@
   - translation_vars[:user] = link_to(h(item.user.full_name), user_url(item.user),
     :style => link_style)
   - if display_curator && item.user.is_curator?
-    - translation_vars[:user] = I18n.t(:user_full_name_with_curator, :user => translation_vars[:user],
-      :curator_level => item.user.curator_level.translated_label)
+    - translation_vars[:user] = raw(I18n.t(:user_full_name_with_curator, :user => translation_vars[:user],
+      :curator_level => item.user.curator_level.translated_label))
 - data_object_type = data_object ? 'it' : 'data_object'
 - if item.data_object.nil?
   - data_object_type = 'an_unknown_data_object'
@@ -56,7 +56,7 @@
 - if item.activity_id == Activity.split_classifications.id || item.activity_id == Activity.merge_classifications.id || item.activity_id == Activity.preferred_classification.id
   - provider = hierarchy_entry_display_attribution(HierarchyEntry.find(item.hierarchy_entry), :show_rank => false, :show_link => true)
   - if item.hierarchy_entry.has_source_database?
-    - provider = I18n.t(:recognized_by_from_source, :recognized_by => provider, :source => item.hierarchy_entry.hierarchy.agent.full_name)
+    - provider = raw(I18n.t(:recognized_by_from_source, :recognized_by => provider, :source => item.hierarchy_entry.hierarchy.agent.full_name))
   - translation_vars.reverse_merge!(:provider => provider)
 %p
   - case item.activity_id
@@ -102,7 +102,7 @@
       - if item.classification_curation.split?
         = raw I18n.t("classification_curation.split.#{user_type}_split_classifications_from_#{taxon_type}", translation_vars)
       - elsif item.classification_curation.merge?
-        = raw I18n.t("classification_curation.merge.#{user_type}_merged_#{taxon_type}_and_#{target_type}", translation_vars)
+        = raw I18n.t("classification_curation.merge.#{user_type}_merged_to_#{target_type}", translation_vars)
       - else # move
         = raw I18n.t("classification_curation.move.#{user_type}_moved_classifications_from_#{taxon_type}_to_#{target_type}", translation_vars)
     - else
@@ -124,8 +124,25 @@
     - else
       = raw I18n.t("preferred_classification.#{user_type}_preferred_unknown_classification_on_#{taxon_type}", translation_vars)
   - when Activity.unlock.id
-    = raw I18n.t("unlock.#{taxon_type}_unlocked", translation_vars)
+    - if item.respond_to?(:classification_curation) && item.classification_curation
+      - if item.classification_curation.split?
+        = raw I18n.t("unlock.split_of_#{taxon_type}_unlocked", translation_vars)
+      - if item.classification_curation.merge?
+        = raw I18n.t("unlock.merge_of_#{taxon_type}_unlocked", translation_vars)
+      - else
+        = raw I18n.t("unlock.move_of_#{taxon_type}_unlocked", translation_vars)
+    - else
+      = raw I18n.t("unlock.move_of_#{taxon_type}_unlocked", translation_vars)
   - when Activity.unlock_with_error.id
-    = raw I18n.t("unlock_with_error.#{taxon_type}_unlocked_with_error", translation_vars, :error => item.affected_comment.body)
+    - translation_vars[:error] = item.affected_comment.body
+    - if item.respond_to?(:classification_curation) && item.classification_curation
+      - if item.classification_curation.split?
+        = raw I18n.t("unlock_with_error.split_of_#{taxon_type}_unlocked_with_error", translation_vars)
+      - if item.classification_curation.merge?
+        = raw I18n.t("unlock_with_error.merge_of_#{taxon_type}_unlocked_with_error", translation_vars)
+      - else
+        = raw I18n.t("unlock_with_error.move_of_#{taxon_type}_unlocked_with_error", translation_vars)
+    - else
+      = raw I18n.t("unlock_with_error.move_of_#{taxon_type}_unlocked_with_error", translation_vars)
   - else
     = raw I18n.t("other_actions.#{user_type}_curated_#{data_object_type}", translation_vars)

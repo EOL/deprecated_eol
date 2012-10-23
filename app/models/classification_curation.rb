@@ -101,7 +101,7 @@ class ClassificationCuration < ActiveRecord::Base
     comment = "The following error(s) occured during the curation of classifications: "
     comment += ([error] +
                 hierarchy_entry_moves.with_errors.map do |m|
-                  "\"#{m.error}\" on #{m.hierarchy_entry.italicized_name}."
+                  "\"#{m.error}\" on the classification from #{m.hierarchy_entry.hierarchy.display_title}."
                 end
                ).to_sentence
     leave_logs_and_notify(Activity.unlock_with_error, :comment => comment)

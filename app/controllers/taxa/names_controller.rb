@@ -6,16 +6,9 @@ class Taxa::NamesController < TaxaController
   before_filter :authentication_for_names, :only => [ :create, :update ]
   before_filter :preload_core_relationships_for_names, :only => [ :related_names, :common_names, :synonyms ]
   before_filter :count_browsable_hierarchies, :only => [:index, :related_names, :common_names, :synonyms]
+  before_filter :parse_classification_controller_params, :only => :index
 
   def index
-
-    # NOTE - the following are all params passed from the ClassificationsController. Yeesh.
-    @confirm_split_or_merge = params[:confirm]
-    @pending = true if params[:pending]
-    @providers_match = params[:providers_match]
-    @exemplar = params[:exemplar]
-    @additional_confirm = params[:additional_confirm]
-    @move_to = params[:move_to]
 
     session[:split_hierarchy_entry_id] = params[:split_hierarchy_entry_id] if params[:split_hierarchy_entry_id]
     params[:all] = 1 if session[:split_hierarchy_entry_id] && !session[:split_hierarchy_entry_id].blank?
@@ -28,6 +21,8 @@ class Taxa::NamesController < TaxaController
     end
     HierarchyEntry.preload_associations(@hierarchy_entries, [ { :hierarchy => [ { :resource => :content_partner }, :dwc_resource ] }, :flattened_ancestors, :rank ])
     
+    @pending_moves = HierarchyEntryMove.pending.find_all_by_hierarchy_entry_id(@hierarchy_entries)
+
     @assistive_section_header = I18n.t(:assistive_names_classifications_header)
     common_names_count
     render :action => 'classifications'
@@ -212,4 +207,13 @@ private
     @browsable_hierarchy_entries ||= @taxon_concept.published_hierarchy_entries.select{ |he| he.hierarchy.browsable? }
     @browsable_hierarchy_entries = [@selected_hierarchy_entry] if @browsable_hierarchy_entries.blank? # TODO: Check this - we are getting here with a hierarchy entry that has a hierarchy that is not browsable.
   end
+
+  def parse_classification_controller_params
+    @confirm_split_or_merge = params[:confirm]
+    @providers_match = params[:providers_match]
+    @exemplar = params[:exemplar]
+    @additional_confirm = params[:additional_confirm]
+    @move_to = params[:move_to]
+  end
+
 end

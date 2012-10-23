@@ -102,7 +102,7 @@
       - if item.classification_curation.split?
         = I18n.t("classification_curation.split.#{user_type}_split_classifications_from_#{taxon_type}", translation_vars)
       - elsif item.classification_curation.merge?
-        = I18n.t("classification_curation.merge.#{user_type}_merged_#{taxon_type}_and_#{target_type}", translation_vars)
+        = I18n.t("classification_curation.merge.#{user_type}_merged_to_#{target_type}", translation_vars)
       - else # move
         = I18n.t("classification_curation.move.#{user_type}_moved_classifications_from_#{taxon_type}_to_#{target_type}", translation_vars)
     - else
@@ -124,9 +124,25 @@
     - else
       = I18n.t("preferred_classification.#{user_type}_preferred_unknown_classification_on_#{taxon_type}", translation_vars)
   - when Activity.unlock.id
-    = I18n.t("unlock.#{taxon_type}_unlocked", translation_vars)
+    - if item.respond_to?(:classification_curation) && item.classification_curation
+      - if item.classification_curation.split?
+        = I18n.t("unlock.split_of_#{taxon_type}_unlocked", translation_vars)
+      - if item.classification_curation.merge?
+        = I18n.t("unlock.merge_of_#{taxon_type}_unlocked", translation_vars)
+      - else
+        = I18n.t("unlock.move_of_#{taxon_type}_unlocked", translation_vars)
+    - else
+      = I18n.t("unlock.move_of_#{taxon_type}_unlocked", translation_vars)
   - when Activity.unlock_with_error.id
     - translation_vars[:error] = item.affected_comment.body
-    = I18n.t("unlock_with_error.#{taxon_type}_unlocked_with_error", translation_vars)
+    - if item.respond_to?(:classification_curation) && item.classification_curation
+      - if item.classification_curation.split?
+        = I18n.t("unlock_with_error.split_of_#{taxon_type}_unlocked_with_error", translation_vars)
+      - if item.classification_curation.merge?
+        = I18n.t("unlock_with_error.merge_of_#{taxon_type}_unlocked_with_error", translation_vars)
+      - else
+        = I18n.t("unlock_with_error.move_of_#{taxon_type}_unlocked_with_error", translation_vars)
+    - else
+      = I18n.t("unlock_with_error.move_of_#{taxon_type}_unlocked_with_error", translation_vars)
   - else
     = I18n.t("other_actions.#{user_type}_curated_#{data_object_type}", translation_vars)

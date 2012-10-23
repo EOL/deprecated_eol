@@ -2,7 +2,7 @@ class ClassificationsController < ApplicationController
 
   # Sorry, another beast of a method that handles many different things... because there's necessarily only one form.
   def create
-    @debug = true
+    @debug = false
     debug '#create'
     @taxon_concept = TaxonConcept.find(params[:taxon_concept_id])
     @target_params = {:all => 1} # Show all classifications after any operation that comes here.

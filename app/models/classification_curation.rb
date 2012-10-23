@@ -21,7 +21,7 @@ class ClassificationCuration < ActiveRecord::Base
   after_create :bridge
 
   def moved_to
-    TaxonConcept.find(self[:target_id])
+    self[:target_id].nil? ? nil : TaxonConcept.find(self[:target_id])
   end
 
   def bridge

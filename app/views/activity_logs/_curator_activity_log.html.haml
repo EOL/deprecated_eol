@@ -127,7 +127,7 @@
     - if item.respond_to?(:classification_curation) && item.classification_curation
       - if item.classification_curation.split?
         = raw I18n.t("unlock.split_of_#{taxon_type}_unlocked", translation_vars)
-      - if item.classification_curation.merge?
+      - elsif item.classification_curation.merge?
         = raw I18n.t("unlock.merge_of_#{taxon_type}_unlocked", translation_vars)
       - else
         = raw I18n.t("unlock.move_of_#{taxon_type}_unlocked", translation_vars)
@@ -138,7 +138,7 @@
     - if item.respond_to?(:classification_curation) && item.classification_curation
       - if item.classification_curation.split?
         = raw I18n.t("unlock_with_error.split_of_#{taxon_type}_unlocked_with_error", translation_vars)
-      - if item.classification_curation.merge?
+      - elsif item.classification_curation.merge?
         = raw I18n.t("unlock_with_error.merge_of_#{taxon_type}_unlocked_with_error", translation_vars)
       - else
         = raw I18n.t("unlock_with_error.move_of_#{taxon_type}_unlocked_with_error", translation_vars)

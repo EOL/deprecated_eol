@@ -100,6 +100,8 @@
       - target_type = item.classification_curation.moved_to ? 'taxon' : 'an_unknown_taxon'
       - translation_vars[:target] = item.classification_curation.moved_to ? link_to(item.classification_curation.moved_to.quick_scientific_name, taxon_url(item.classification_curation.moved_to), :style => link_style) : nil
       - if item.classification_curation.split?
+        - to = TaxonConcept.find(item.classification_curation.split_to_id)
+        - translation_vars[:to] = taxon_url(to)
         = I18n.t("classification_curation.split.#{user_type}_split_classifications_from_#{taxon_type}", translation_vars)
       - elsif item.classification_curation.merge?
         = I18n.t("classification_curation.merge.#{user_type}_merged_to_#{target_type}", translation_vars)

@@ -2430,6 +2430,10 @@ en:
   choose_collection_header: "Choose collection"
   citing_link: "Citing"
   classification_already_preferred: "Error: This classification has already been marked as preferred."
+  classification_curation_pending: "Curation pending. This classification may move to another page in the near future."
+  classification_curation_split_comment_with_count:
+    one: "%{count} classification from this page has been <a href='%{url}'>split onto its own page</a>."
+    other: "%{count} classifications from this page have been <a href='%{url}'>split onto their own page</a>."
   classification_from_agent: "Classification from %{agent}."
   classification_from_agent_chosen_by_curator: "Classification from %{agent} selected by %{curator}."
   classification_from_agent_chosen_by_curator_see_more: "Classification from %{agent} selected by %{curator} - <a href=\"%{more_link}\">see more</a>."

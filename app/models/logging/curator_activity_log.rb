@@ -44,6 +44,18 @@ class CuratorActivityLog < LoggingModel
     ")
   end
 
+  def self.log_preferred_classification(classification, options = {})
+    CuratorActivityLog.create(
+      :user => options[:user],
+      :changeable_object_type => ChangeableObjectType.curated_taxon_concept_preferred_entry,
+      :object_id => classification.id,
+      :hierarchy_entry_id => classification.hierarchy_entry_id,
+      :taxon_concept_id => classification.taxon_concept_id,
+      :activity => Activity.preferred_classification,
+      :created_at => 0.seconds.from_now
+    )
+  end
+
   # Needed for rendering links; we need to know which association to make the link to
   def link_to
     case changeable_object_type_id

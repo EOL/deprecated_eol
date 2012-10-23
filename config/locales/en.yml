@@ -3002,6 +3002,7 @@ en:
   error_default_page_title: "Oops."
   error_couldnt_find_collection_by_id: "Couldn't find a collection that you can manage with id %{id}."
   error_couldnt_find_community_by_id: "Couldn't find a community that you can manage with id %{id}."
+  error_exemplar_chosen_with_invalid_action: "We're sorry, but the classification you have chosen was unchanged: part of the request was lost. You will need to try again."
   error_homepage_or_search_option: "You can either return to the <a href=\"/\">homepage</a> or use our search tool:"
   error_watch_collections_cannot_be_shared: "Watch collections cannot be shared"
   error_updating_user: "There was an error updating this user's record"

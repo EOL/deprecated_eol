@@ -123,9 +123,12 @@ class ClassificationCuration < ActiveRecord::Base
     if split?
       # ...What I want to do here is to comment on the source taxon about the target (new) taxon... but the problem
       # is that we don't have linking ability in models (which, IMO, is lame)... so, in the meantime, I'm leaving a
-      # LAME comment (I really don't want to do URL generation like this) (also note the lack of translation, since
-      # this is a comment in the DB, not a feature on the site):
-      Comment.create!(:user_id => user_id, :body => "#{hierarchy_entry_moves.count} classification#{hierarchy_entry_moves.count > 1 ? 's' : ''} that were on this page have been <a href='http://#{$SITE_DOMAIN_OR_IP}/pages/#{split_to_id}'>split onto their own page</a>.", :parent => moved_from)
+      # LAME comment (I really don't want to do URL generation like this) :
+      Comment.create!(:user_id => user_id,
+                      :parent => moved_from,
+                      :body => I18n.t(:classification_curation_split_comment_with_count,
+                                      :count => hierarchy_entry_moves.count,
+                                      :url => "http://#{$SITE_DOMAIN_OR_IP}/pages/#{split_to_id}"))
     end
     if activity_log
       force_immediate_notification_of(activity_log)

@@ -41,7 +41,6 @@ class ClassificationCuration < ActiveRecord::Base
   end
 
   def merge?
-    logger.error "++ Classification Curation exemplar: #{exemplar} and id is: #{exemplar_id}"
     exemplar.nil?
   end
 
@@ -88,7 +87,11 @@ class ClassificationCuration < ActiveRecord::Base
   end
 
   def ready_to_complete?
-    hierarchy_entry_moves.all? {|move| move.complete?}
+    if merge?
+      moved_from == moved_to # This is slightly expensive... but not THAT bad... and running in the background.
+    else
+      hierarchy_entry_moves.all? {|move| move.complete?}
+    end
   end
   alias :complete? :ready_to_complete? # Try not to use this one, though... it's confusing.
 
@@ -101,7 +104,7 @@ class ClassificationCuration < ActiveRecord::Base
     comment = "The following error(s) occured during the curation of classifications: "
     comment += ([error] +
                 hierarchy_entry_moves.with_errors.map do |m|
-                  "\"#{m.error}\" on the classification from #{m.hierarchy_entry.hierarchy.display_title}."
+                  "\"#{m.error}\" on the classification from #{m.hierarchy_entry.hierarchy.display_title}"
                 end
                ).to_sentence
     leave_logs_and_notify(Activity.unlock_with_error, :comment => comment)

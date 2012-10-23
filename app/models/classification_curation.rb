@@ -77,8 +77,7 @@ class ClassificationCuration < ActiveRecord::Base
       end
       CodeBridge.reindex_taxon_concept(source_id) if source_id
       CodeBridge.reindex_taxon_concept(target_id) if target_id
-      # TODO - update_column, after upgrade merge
-      update_attribute(:completed_at, Time.now) # This makes it "already complete", so on the next pass nothing happens.
+      mark_as_complete
     end
   end
 
@@ -182,6 +181,16 @@ class ClassificationCuration < ActiveRecord::Base
 
   def to_s
     "ClassificationCuration ##{self.id} (moved_from #{source_id}, moved_to #{target_id})"
+  end
+
+  # TODO - update_column, after upgrade merge
+  # This method makes sure we don't process a ClassificationCuration twice, and makes sure that classifications don't
+  # show up as "pending curation" on the names tab anymore.
+  def mark_as_complete
+    hierarchy_entry_moves.each do |move|
+      move.update_attribute(:completed_at, Time.now)
+    end
+    update_attribute(:completed_at, Time.now)
   end
 
 end

@@ -78,7 +78,6 @@ private
 
   def exemplar(type, which)
     debug "#remove(#{type}, #{which})"
-    target_taxon_concept = nil
     catch_classification_errors do
       if type == 'split'
         @taxon_concept.split_classifications(session[:split_hierarchy_entry_id], :exemplar_id => which,
@@ -89,7 +88,7 @@ private
         @taxon_concept.merge_classifications(session[:split_hierarchy_entry_id], :with => target_taxon_concept,
                                              :forced => !params[:additional_confirm].nil?, :exemplar_id => which,
                                              :user => current_user)
-        complete_exemplar_request('merge')
+        complete_exemplar_request('merge', :taxon_concept => target_taxon_concept)
       else
         flash[:warning] = I18n.t(:error_exemplar_chosen_with_invalid_action)
       end
@@ -162,7 +161,7 @@ private
   def additional_confirm_required_on
     debug '#additional_confirm_required_on'
     return false if params[:additional_confirm] # They already did the confirmation.
-    @taxon_concept.providers_match_on_merge(Array(HierarchyEntry.find(session[:split_hierarchy_entry_id]))))
+    @taxon_concept.providers_match_on_merge(Array(HierarchyEntry.find(session[:split_hierarchy_entry_id])))
   end
 
   def debug(what)
@@ -187,11 +186,11 @@ private
     end
   end
 
-  def collect_all_entries
+  def collect_all_entries_and(taxon_concept = nil)
     debug '#collect_all_entries'
     add_entries_to_session.each do |entry|
       auto_collect(@taxon_concept)
-      auto_collect(target_taxon_concept) if target_taxon_concept
+      auto_collect(taxon_concept) if taxon_concept
     end
   end
 
@@ -200,10 +199,10 @@ private
     session[:split_hierarchy_entry_id] = nil
   end
 
-  def complete_exemplar_request(type)
-    debug "#complete_exemplar_request(#{type})"
+  def complete_exemplar_request(type, options = {})
+    debug "#complete_exemplar_request(#{type}#{options[:target_taxon_concept] ? ' (taxon_concept given)' : ''})"
     flash[:warning] = I18n.t("#{type}_pending") # type is either 'merge' or 'split'
-    collect_all_entries
+    collect_all_entries_and(options[:taxon_concept])
     clear_entries_from_session
     @target_params[:pending] = 1
   end

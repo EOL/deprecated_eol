@@ -70,9 +70,7 @@ class ClassificationCuration < ActiveRecord::Base
   end
 
   def check_status_and_notify
-    if complete?
-      # TODO - update_column, after upgrade merge
-      update_attribute(:completed_at, Time.now) if complete?
+    if ready_to_complete? && ! already_complete?
       if failed?
         compile_errors_into_log
       else
@@ -80,13 +78,19 @@ class ClassificationCuration < ActiveRecord::Base
       end
       CodeBridge.reindex_taxon_concept(source_id) if source_id
       CodeBridge.reindex_taxon_concept(target_id) if target_id
+      # TODO - update_column, after upgrade merge
+      update_attribute(:completed_at, Time.now) # This makes it "already complete", so on the next pass nothing happens.
     end
   end
 
-  def complete?
-    return completed_at if completed_at
+  def already_complete?
+    return completed_at
+  end
+
+  def ready_to_complete?
     hierarchy_entry_moves.all? {|move| move.complete?}
   end
+  alias :complete? :ready_to_complete? # Try not to use this one, though... it's confusing.
 
   def failed?
     !(error.blank? && hierarchy_entry_moves.all? {|move| move.error.blank? })

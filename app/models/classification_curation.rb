@@ -71,8 +71,7 @@ class ClassificationCuration < ActiveRecord::Base
       if failed?
         compile_errors_into_log
       else
-        log_activity_on(moved_from) if moved_from
-        log_activity_on(moved_to) if moved_to
+        log_activity_on(moved_from || moved_to)
         log_unlock_and_notify(Activity.unlock)
       end
       CodeBridge.reindex_taxon_concept(source_id) if source_id

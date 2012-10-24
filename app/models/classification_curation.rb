@@ -119,16 +119,6 @@ class ClassificationCuration < ActiveRecord::Base
     if moved_to && activity_log.nil?
       activity_log = leave_log_on_taxon(moved_to, activity, options)
     end
-    if split?
-      # ...What I want to do here is to comment on the source taxon about the target (new) taxon... but the problem
-      # is that we don't have linking ability in models (which, IMO, is lame)... so, in the meantime, I'm leaving a
-      # LAME comment (I really don't want to do URL generation like this) :
-      Comment.create!(:user_id => user_id,
-                      :parent => moved_from,
-                      :body => I18n.t(:classification_curation_split_comment_with_count,
-                                      :count => hierarchy_entry_moves.count,
-                                      :url => "http://#{$SITE_DOMAIN_OR_IP}/pages/#{split_to_id}"))
-    end
     if activity_log
       force_immediate_notification_of(activity_log)
     else

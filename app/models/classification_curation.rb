@@ -155,6 +155,7 @@ class ClassificationCuration < ActiveRecord::Base
     rescue => e
       logger.error "** ERROR: Could not create CuratorActivityLog for #{self}: #{e.message}"
     end
+    ensure_log_is_in_solr(log, parent) if parent
     log
   end
 
@@ -198,4 +199,14 @@ class ClassificationCuration < ActiveRecord::Base
   def split_to_id
     hierarchy_entry_moves.first.hierarchy_entry.taxon_concept_id
   end
+
+  # Well, this sucks. For some reason (and I can't figure out why -- TODO ) creating the CAL the way we do doesn't
+  # seem to trigger the log_activity_in_solr callback. I wish I knew why. ...but until I figure that out, this call
+  # makes it happen manually if it's not found in the activity log of the parent yet:
+  def ensure_log_is_in_solr(log, parent)
+    unless parent.activity_log.any? {|l| l['instance'].id == log.id}
+      log.log_activity_in_solr
+    end
+  end
+
 end

@@ -106,13 +106,20 @@
       - elsif item.classification_curation.merge?
         = raw I18n.t("classification_curation.merge.#{user_type}_merged_to_#{target_type}", translation_vars)
       - else # move
+        -# Sad but true: the taxon_type is already the target, so we need to change it:
+        - source_tc = item.classification_curation.moved_from
+        - taxon_type = 'taxon'
+        - if source_tc.nil? || ! source_tc.is_a?(TaxonConcept)
+          - taxon_type = 'an_unknown_taxon'
+        - else
+          - translation_vars[:taxon] = link_to(source_tc.quick_scientific_name, taxon_url(source_tc), :style => link_style)
         = raw I18n.t("classification_curation.move.#{user_type}_moved_classifications_from_#{taxon_type}_to_#{target_type}", translation_vars)
     - else
       = raw I18n.t("classification_curation.#{user_type}_curated_unkown_classification_from_#{taxon_type}", translation_vars)
     -# The next two (split, merge) are legacy, but we keep them because they ARE in the logs (in production):
   - when Activity.split_classifications.id # LEGACY
     - if item.hierarchy_entry
-      = I18n.t("split.#{user_type}_split_entry_from_#{taxon_type}", translation_vars)
+      = raw I18n.t("split.#{user_type}_split_entry_from_#{taxon_type}", translation_vars)
     - else
       = raw I18n.t("split.#{user_type}_split_unknown_entry_from_#{taxon_type}", translation_vars)
   - when Activity.merge_classifications.id # LEGACY

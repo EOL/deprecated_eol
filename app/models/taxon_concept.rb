@@ -1388,7 +1388,6 @@ class TaxonConcept < ActiveRecord::Base
     raise EOL::Exceptions::ClassificationsLocked if
       classifications_locked?
     lock_classifications
-    logger.error "++ Exemplar: #{options[:exemplar_id]}"
     ClassificationCuration.create(:user => options[:user],
                                   :hierarchy_entries => HierarchyEntry.find(hierarchy_entry_ids),
                                   :source_id => id, :exemplar_id => options[:exemplar_id])
@@ -1404,7 +1403,6 @@ class TaxonConcept < ActiveRecord::Base
     raise EOL::Exceptions::CannotMergeClassificationsToSelf if self.id == source_concept.id
     lock_classifications
     source_concept.lock_classifications
-    logger.error "++ Exemplar: #{options[:exemplar_id]}"
     ClassificationCuration.create(:user => options[:user],
                                   :hierarchy_entries => HierarchyEntry.find(hierarchy_entry_ids),
                                   :source_id => source_concept.id,

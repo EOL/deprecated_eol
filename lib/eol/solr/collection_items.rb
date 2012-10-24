@@ -80,9 +80,8 @@ module EOL
       def self.add_taxon_concept!(docs, options = {})
         return if docs.empty?
         includes = [ { :preferred_entry => 
-          { :hierarchy_entry => [ { :flattened_ancestors => { :ancestor => :name } },
-            { :name => [ :canonical_form, :ranked_canonical_form ] } , :hierarchy, :vetted ] } },
-          { :taxon_concept_exemplar_image => :data_object }, :taxon_concept_metric ]
+          { :hierarchy_entry => [ { :name => [ :canonical_form, :ranked_canonical_form ] } , :hierarchy, :vetted ] } },
+          :taxon_concept_metric ]
         selects = {
           :taxon_concepts => '*',
           :taxon_concept_preferred_entries => '*',
@@ -99,6 +98,10 @@ module EOL
         }
         if options[:view_style] == ViewStyle.annotated
           includes << { :preferred_common_names => [ :name, :language ] }
+          includes << { :preferred_entry => 
+            { :hierarchy_entry => [ { :flattened_ancestors => { :ancestor => :name } },
+              { :name => [ :canonical_form, :ranked_canonical_form ] } , :hierarchy, :vetted ] } }
+          includes << { :taxon_concept_exemplar_image => :data_object }
         end
         ids = docs.map{ |d| d['object_id'] }
         instances = TaxonConcept.find_all_by_id(ids)

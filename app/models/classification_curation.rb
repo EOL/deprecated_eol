@@ -6,15 +6,23 @@ class ClassificationCuration < ActiveRecord::Base
   # :forced       => boolean. ...Whether the move was (had to be) forced due to conflicts in CP assertions.
   # :error        => merges don't have hierarchy_entry_moves, so the errors cannot be stored there. Here it is!
 
-  has_many :hierarchy_entries, :through => 'hiearchy_entry_moves'
   has_many :hierarchy_entry_moves
+  has_many :hierarchy_entries, :through => :hierarchy_entry_moves
 
-  belongs_to :exemplar, :class_name => 'HierarchyEntry' # If this is null, it was a merge.
-  belongs_to :source, :class_name => 'TaxonConcept' # If this has a superceded_id after the operation, it was a merge.
-  belongs_to :target, :class_name => 'TaxonConcept' # If this is null, it's a split.
-  belongs_to :user # This is the curator that requested the move/merge/split.
+  # If this is null, it was a merge:
+  belongs_to :exemplar, :class_name => 'HierarchyEntry', :foreign_key => 'exemplar_id'
+  # If this has a superceded_id after the operation, it was a merge:
+  belongs_to :moved_from, :class_name => 'TaxonConcept', :foreign_key => 'source_id'
+  # If this is null, it's a split:
+  belongs_to :moved_to, :class_name => 'TaxonConcept', :foreign_key => 'target_id'
+  # This is the curator that requested the move/merge/split:
+  belongs_to :user
 
   after_create :bridge
+
+  def moved_to
+    self[:target_id].nil? ? nil : TaxonConcept.find(self[:target_id])
+  end
 
   def bridge
     if split?
@@ -24,62 +32,69 @@ class ClassificationCuration < ActiveRecord::Base
     else
       bridge_move
     end
-    log_activity_on(source) if source
-    log_activity_on(target) if target
   end
 
   def split?
-    target.null?
+    moved_to.nil?
   end
 
   def merge?
-    exemplar.null?
+    exemplar.nil?
   end
 
-  # This is not used anywhere, but is here for principle of least surprise:
+  # This is not used anywhere (in practice, use split? / merge? / else), but is here for principle of least surprise:
   def move?
     !split? && !merge?
   end
 
   def bridge_split
     hierarchy_entries.each do |he|
-      CodeBridge.split_entry(:hierarchy_entry_id => he.id, :exemplar_id => exemplar.id, :notify => user_id,
-                             :classification_curation => self)
+      CodeBridge.split_entry(:hierarchy_entry_id => he.id, :exemplar_id => exemplar_id, :notify => user_id,
+                             :classification_curation_id => id)
     end
   end
 
   def bridge_merge
-    CodeBridge.merge_taxa(source_id, target_id, :notify => user_id, :classification_curation => self)
+    CodeBridge.merge_taxa(source_id, target_id, :notify => user_id, :classification_curation_id => id)
   end
 
   def bridge_move
     hierarchy_entries.each do |he|
       CodeBridge.move_entry(:from_taxon_concept_id => source_id, :to_taxon_concept_id => target_id,
-                            :hierarchy_entry_id => he.id, :exemplar_id => exemplar.id, :notify => user_id,
-                            :classification_curation => self)
+                            :hierarchy_entry_id => he.id, :exemplar_id => exemplar_id, :notify => user_id,
+                            :classification_curation_id => id)
     end
   end
 
   def check_status_and_notify
-    if complete?
-      update_column(:completed_at, Time.now) if complete?
+    if ready_to_complete? && ! already_complete?
       if failed?
         compile_errors_into_log
       else
-        leave_logs_and_notify(Activity.unlock)
+        log_activity_on(moved_from || moved_to)
+        log_unlock_and_notify(Activity.unlock)
       end
       CodeBridge.reindex_taxon_concept(source_id) if source_id
       CodeBridge.reindex_taxon_concept(target_id) if target_id
+      mark_as_complete
     end
   end
 
-  def complete?
-    return completed_at if completed_at
-    hierarchy_entry_moves.all? {|move| move.complete?}
+  def already_complete?
+    completed_at && hierarchy_entry_moves.all? {|move| move.complete?}
   end
 
+  def ready_to_complete?
+    if merge?
+      moved_from == moved_to # This is slightly expensive... but not THAT bad... and running in the background.
+    else
+      hierarchy_entry_moves.all? {|move| move.complete?}
+    end
+  end
+  alias :complete? :ready_to_complete? # Try not to use this one, though... it's confusing.
+
   def failed?
-    error || hierarchy_entry_moves.any? {|move| move.error}
+    !(error.blank? && hierarchy_entry_moves.all? {|move| move.error.blank? })
   end
 
   def compile_errors_into_log
@@ -87,25 +102,28 @@ class ClassificationCuration < ActiveRecord::Base
     comment = "The following error(s) occured during the curation of classifications: "
     comment += ([error] +
                 hierarchy_entry_moves.with_errors.map do |m|
-                  "\"#{m.error}\" on <a href='#{taxon_hierarchy_entry_overview_url(source, m.hierarchy_entry)}'>#{m.hierarchy_entry.italicized_name}</a>."
+                  "\"#{m.error}\" on the classification from #{m.hierarchy_entry.hierarchy.display_title}"
                 end
                ).to_sentence
-    leave_logs_and_notify(Activity.unlock_with_error, :comment => comment)
+    log_unlock_and_notify(Activity.unlock_with_error, :comment => comment)
   end
 
 
   # The ugliness of this method is born of the need (or desire) to create only ONE notification (but to leave two
   # logs if required).
-  def leave_logs_and_notify(activity, options = {})
+  def log_unlock_and_notify(activity, options = {})
     activity_log = nil
-    if source_id
-      activity_log = leave_log_on_taxon(source, activity, options)
+    if moved_from
+      activity_log = leave_log_on_taxon(moved_from, activity, options)
     end
-    if target_id
-      t_activity_log = leave_log_on_taxon(target, activity, options)
-      activity_log ||= t_activity_log
+    if moved_to && activity_log.nil?
+      activity_log = leave_log_on_taxon(moved_to, activity, options)
     end
-    force_immediate_notification_of(activity_log)
+    if activity_log
+      force_immediate_notification_of(activity_log)
+    else
+      logger.error "** ERROR: #{self} not reported; no activity log was created."
+    end
   end
 
   def leave_log_on_taxon(parent, activity, options = {})
@@ -124,16 +142,16 @@ class ClassificationCuration < ActiveRecord::Base
                                        :created_at => 0.seconds.from_now,
                                        :taxon_concept_id => parent.id)
     rescue => e
-      # do nothing, for now...  :\
+      logger.error "** ERROR: Could not create CuratorActivityLog for #{self}: #{e.message}"
     end
     log
   end
 
-  def force_immediate_notification_of(target)
+  def force_immediate_notification_of(moved_to)
     begin
       PendingNotification.create!(:user_id => user_id,
                                   :notification_frequency_id => NotificationFrequency.immediately.id,
-                                  :target => target,
+                                  :target => moved_to,
                                   :reason => 'auto_email_after_curation')
       Resque.enqueue(PrepareAndSendNotifications)
     rescue => e
@@ -146,10 +164,28 @@ class ClassificationCuration < ActiveRecord::Base
       :user => user,
       :taxon_concept => taxon_concept,
       :changeable_object_type => ChangeableObjectType.classification_curation,
-      :object => self,
-      :activity => Activity.curate_classifications.id,
+      :object_id => id,
+      :activity_id => Activity.curate_classifications.id,
       :created_at => 0.seconds.from_now
     )
+  end
+
+  def to_s
+    "ClassificationCuration ##{self.id} (moved_from #{source_id}, moved_to #{target_id})"
+  end
+
+  # TODO - update_column, after upgrade merge
+  # This method makes sure we don't process a ClassificationCuration twice, and makes sure that classifications don't
+  # show up as "pending curation" on the names tab anymore.
+  def mark_as_complete
+    hierarchy_entry_moves.each do |move|
+      move.update_attribute(:completed_at, Time.now)
+    end
+    update_attribute(:completed_at, Time.now)
+  end
+
+  def split_to_id
+    hierarchy_entry_moves.first.hierarchy_entry.taxon_concept_id
   end
 
 end

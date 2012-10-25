@@ -48,6 +48,7 @@
   - translation_vars[:taxon] = link_to(item.taxon_concept.quick_scientific_name, taxon_url(item.taxon_concept),
     :style => link_style)
 -# NOTE the weird exception: merge_classifications uses the *object* taxon concept, not the source TC (for now):
+-# THE MERGE/SPLIT ACTIVITIES ARE LEGACY...
 - if item.activity_id == Activity.merge_classifications.id && item.changeable_object_type_id == ChangeableObjectType.taxon_concept.id
   - tc = TaxonConcept.find(item.object_id) rescue nil
   - taxon_type = tc ? 'taxon' : 'an_unknown_taxon'
@@ -96,23 +97,32 @@
   - when Activity.curate_classifications.id
     - if item.classification_curation
       - translation_vars[:classifications] = item.classification_curation.hierarchy_entries.map {|he| he.hierarchy.display_title }.to_sentence
-      - target_type = item.classification_curation.target ? 'taxon' : 'an_unknown_taxon'
-      - translation_vars[:target] = item.classification_curation.target ? link_to(item.classification_curation.target.quick_scientific_name, taxon_url(item.classification_curation.target), :style => link_style) : nil
+      - target_type = item.classification_curation.moved_to ? 'taxon' : 'an_unknown_taxon'
+      - translation_vars[:target] = item.classification_curation.moved_to ? link_to(item.classification_curation.moved_to.quick_scientific_name, taxon_url(item.classification_curation.moved_to), :style => link_style) : nil
       - if item.classification_curation.split?
+        - to = TaxonConcept.find(item.classification_curation.split_to_id)
+        - translation_vars[:to] = taxon_url(to)
         = I18n.t("classification_curation.split.#{user_type}_split_classifications_from_#{taxon_type}", translation_vars)
       - elsif item.classification_curation.merge?
-        = I18n.t("classification_curation.merge.#{user_type}_merged_#{taxon_type}_and_#{target_type}", translation_vars)
+        = I18n.t("classification_curation.merge.#{user_type}_merged_to_#{target_type}", translation_vars)
       - else # move
+        -# Sad but true: the taxon_type is already the target, so we need to change it:
+        - source_tc = item.classification_curation.moved_from
+        - taxon_type = 'taxon'
+        - if source_tc.nil? || ! source_tc.is_a?(TaxonConcept)
+          - taxon_type = 'an_unknown_taxon'
+        - else
+          - translation_vars[:taxon] = link_to(source_tc.quick_scientific_name, taxon_url(source_tc), :style => link_style)
         = I18n.t("classification_curation.move.#{user_type}_moved_classifications_from_#{taxon_type}_to_#{target_type}", translation_vars)
     - else
       = I18n.t("classification_curation.#{user_type}_curated_unkown_classification_from_#{taxon_type}", translation_vars)
     -# The next two (split, merge) are legacy, but we keep them because they ARE in the logs (in production):
-  - when Activity.split_classifications.id
+  - when Activity.split_classifications.id # LEGACY
     - if item.hierarchy_entry
       = I18n.t("split.#{user_type}_split_entry_from_#{taxon_type}", translation_vars)
     - else
       = I18n.t("split.#{user_type}_split_unknown_entry_from_#{taxon_type}", translation_vars)
-  - when Activity.merge_classifications.id
+  - when Activity.merge_classifications.id # LEGACY
     - if item.hierarchy_entry
       = I18n.t("merge.#{user_type}_merged_entry_to_#{taxon_type}", translation_vars)
     - else
@@ -123,8 +133,26 @@
     - else
       = I18n.t("preferred_classification.#{user_type}_preferred_unknown_classification_on_#{taxon_type}", translation_vars)
   - when Activity.unlock.id
-    = I18n.t("unlock.#{taxon_type}_unlocked", translation_vars)
+    - if item.respond_to?(:classification_curation) && item.classification_curation
+      - if item.classification_curation.split?
+        - translation_vars[:to] = taxon_url(TaxonConcept.find(item.classification_curation.split_to_id))
+        = I18n.t("unlock.split_of_#{taxon_type}_unlocked", translation_vars)
+      - elsif item.classification_curation.merge?
+        = I18n.t("unlock.merge_of_#{taxon_type}_unlocked", translation_vars)
+      - else
+        = I18n.t("unlock.move_of_#{taxon_type}_unlocked", translation_vars)
+    - else
+      = I18n.t("unlock.move_of_#{taxon_type}_unlocked", translation_vars)
   - when Activity.unlock_with_error.id
-    = I18n.t("unlock_with_error.#{taxon_type}_unlocked_with_error", translation_vars, :error => item.affected_comment.body)
+    - translation_vars[:error] = item.affected_comment.body
+    - if item.respond_to?(:classification_curation) && item.classification_curation
+      - if item.classification_curation.split?
+        = I18n.t("unlock_with_error.split_of_#{taxon_type}_unlocked_with_error", translation_vars)
+      - elsif item.classification_curation.merge?
+        = I18n.t("unlock_with_error.merge_of_#{taxon_type}_unlocked_with_error", translation_vars)
+      - else
+        = I18n.t("unlock_with_error.move_of_#{taxon_type}_unlocked_with_error", translation_vars)
+    - else
+      = I18n.t("unlock_with_error.move_of_#{taxon_type}_unlocked_with_error", translation_vars)
   - else
     = I18n.t("other_actions.#{user_type}_curated_#{data_object_type}", translation_vars)

@@ -81,7 +81,7 @@ class ClassificationCuration < ActiveRecord::Base
   end
 
   def already_complete?
-    return completed_at
+    completed_at && hierarchy_entry_moves.all? {|move| move.complete?}
   end
 
   def ready_to_complete?

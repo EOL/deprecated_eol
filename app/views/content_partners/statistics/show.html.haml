@@ -13,7 +13,7 @@
             = select_year(@year.to_i, :start_year => Date.current.year, :end_year => 2008)
         %fieldset.actions
           = submit_tag I18n.t(:change), :name => nil
-    - if @year.to_s == '2012' && (['8', '9', '10'].include?(@month.to_s))
+    - if @partner_summary.blank? && @pages.blank? && @year.to_s == '2012' && (['8', '9', '10'].include?(@month.to_s))
       - @partner_summary = nil
       - @pages = nil
       .empty

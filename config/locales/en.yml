@@ -2820,6 +2820,7 @@ en:
   created: "Created"
   creative_commons: "Creative Commons"
   credentials: "Credentials"
+  credentials_colon: "Credentials:"
   curated: "Curated"
   curated_association_update_button: "Save changes"
   curated_objects_of: "curated objects of %{name}"

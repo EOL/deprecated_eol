@@ -13,6 +13,18 @@ EolUpgrade::Application.configure do
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
 
+  # Disable Rails's static asset server (Apache or nginx will already do this)
+  config.serve_static_assets = true
+
+  # Compress JavaScripts and CSS
+  config.assets.compress = true
+
+  # Don't fallback to assets pipeline if a precompiled asset is missed
+  config.assets.compile = false
+
+  # Generate digests for assets URLs
+  config.assets.digest = true
+
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = false
 
@@ -28,12 +40,6 @@ EolUpgrade::Application.configure do
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 1
-
-  # Do not compress assets
-  config.assets.compress = true
-
-  # Expands the lines which load the assets
-  config.assets.debug = true
 
   require "ruby-debug"
 end

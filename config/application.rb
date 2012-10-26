@@ -64,7 +64,7 @@ module EolUpgrade
     config.assets.version = '1.0'
 
     # Compile localized CSS:
-    config.assets.precompile << 'rtl/*.css'
+    config.assets.precompile += ['*.css', '*.js']
     
     if defined?(Sass)
       config.sass.line_comments = false

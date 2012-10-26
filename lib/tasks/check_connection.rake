@@ -16,14 +16,14 @@ task :rebuild_connection_test => :environment do
   s += "  def self.all_instantiable_models\n"
   s += "    a = []\n"
   a.each do |k|
-    s += "    i = #{k.class_name}.first\n"
+    s += "    i = #{k.model_name}.first\n"
     k.column_names.each do |cn|
       s += "    i.#{cn} if i\n"
     end
-    s += "    a << '#{k.class_name}' if i\n"
+    s += "    a << '#{k.model_name}' if i\n"
   end
   s += "    return a\n"
   s += "  end\n"
   s += "end\n"
-  File.open("#{RAILS_ROOT}/lib/check_connection.rb", 'w') {|f| f.write(s) }
+  File.open(Rails.root.join('lib', 'check_connection.rb'), 'w') {|f| f.write(s) }
 end

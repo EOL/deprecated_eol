@@ -94,7 +94,7 @@ class CuratorActivityLog < LoggingModel
         udo_taxon_concept.entry.italicized_name
       when ChangeableObjectType.classification_curation.id
         taxon_concept.entry.italicized_name
-      when ChangeableObjectType.synonym.id:
+      when ChangeableObjectType.synonym.id
         synonym.hierarchy_entry.taxon_concept.entry.italicized_name
       else
         raise "Don't know how to get taxon name from a changeable object type of id #{changeable_object_type_id}"

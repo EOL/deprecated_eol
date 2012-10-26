@@ -4,7 +4,7 @@ describe EolStatistic do
     EolStatistic.gen
   end
 
-  describe "#named_scope" do
+  describe "#scopes" do
     it 'should select overall stats' do
       stats = EolStatistic.overall
       EolStatistic.sorted_report_attributes(:overall).map{|attribute| stats[0].has_attribute?(attribute).should be_true}

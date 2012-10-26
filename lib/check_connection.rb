@@ -65,18 +65,6 @@ class CheckConnection
     i.created_at if i
     i.updated_at if i
     a << 'ClassificationCuration' if i
-    i = CollectionItem.first
-    i.id if i
-    i.name if i
-    i.object_type if i
-    i.object_id if i
-    i.collection_id if i
-    i.created_at if i
-    i.updated_at if i
-    i.annotation if i
-    i.added_by_user_id if i
-    i.sort_field if i
-    a << 'CollectionItem' if i
     i = CollectionType.first
     i.id if i
     i.parent_id if i
@@ -119,18 +107,6 @@ class CheckConnection
     i.reply_to_id if i
     i.deleted if i
     a << 'Comment' if i
-    i = Community.first
-    i.id if i
-    i.name if i
-    i.description if i
-    i.created_at if i
-    i.updated_at if i
-    i.logo_cache_url if i
-    i.logo_file_name if i
-    i.logo_content_type if i
-    i.logo_file_size if i
-    i.published if i
-    a << 'Community' if i
     i = ContactRole.first
     i.id if i
     a << 'ContactRole' if i
@@ -242,19 +218,6 @@ class CheckConnection
     i.created_at if i
     i.updated_at if i
     a << 'ContentTable' if i
-    i = ContentUpload.first
-    i.id if i
-    i.description if i
-    i.link_name if i
-    i.attachment_cache_url if i
-    i.attachment_extension if i
-    i.attachment_content_type if i
-    i.attachment_file_name if i
-    i.attachment_file_size if i
-    i.user_id if i
-    i.created_at if i
-    i.updated_at if i
-    a << 'ContentUpload' if i
     i = CuratedDataObjectsHierarchyEntry.first
     i.id if i
     i.data_object_id if i
@@ -343,6 +306,10 @@ class CheckConnection
     i.data_object_id if i
     i.info_item_id if i
     a << 'DataObjectsInfoItem' if i
+    i = DataObjectsLinkType.first
+    i.data_object_id if i
+    i.link_type_id if i
+    a << 'DataObjectsLinkType' if i
     i = DataObjectsRef.first
     i.data_object_id if i
     i.ref_id if i
@@ -678,17 +645,6 @@ class CheckConnection
     i.created_at if i
     i.updated_at if i
     a << 'Notification' if i
-    i = OpenAuthentication.first
-    i.id if i
-    i.user_id if i
-    i.provider if i
-    i.guid if i
-    i.token if i
-    i.secret if i
-    i.verified_at if i
-    i.created_at if i
-    i.updated_at if i
-    a << 'OpenAuthentication' if i
     i = PageName.first
     i.item_page_id if i
     i.name_id if i

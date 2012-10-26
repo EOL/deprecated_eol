@@ -38,10 +38,6 @@ group :worker do
   #gem 'system_timer'
 end
 
-group :assets do
-  gem 'sass-rails'
-end
-
 gem 'rails', '3.2.7'
 
 gem 'acts_as_tree_rails3'

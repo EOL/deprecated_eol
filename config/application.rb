@@ -66,8 +66,10 @@ module EolUpgrade
     # Compile localized CSS:
     config.assets.precompile << 'rtl/*.css'
     
-    config.sass.line_comments = false
-    config.sass.style = :nested
+    if defined?(Sass)
+      config.sass.line_comments = false
+      config.sass.style = :nested
+    end
 
     # Map custom exceptions to default response codes
     config.action_dispatch.rescue_responses.update(

@@ -174,14 +174,13 @@ class ClassificationCuration < ActiveRecord::Base
     "ClassificationCuration ##{self.id} (moved_from #{source_id}, moved_to #{target_id})"
   end
 
-  # TODO - update_column, after upgrade merge
   # This method makes sure we don't process a ClassificationCuration twice, and makes sure that classifications don't
   # show up as "pending curation" on the names tab anymore.
   def mark_as_complete
     hierarchy_entry_moves.each do |move|
-      move.update_attribute(:completed_at, Time.now)
+      move.update_column(:completed_at, Time.now)
     end
-    update_attribute(:completed_at, Time.now)
+    update_column(:completed_at, Time.now)
   end
 
   def split_to_id

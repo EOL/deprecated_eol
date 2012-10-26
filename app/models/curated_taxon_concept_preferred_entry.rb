@@ -10,7 +10,7 @@ class CuratedTaxonConceptPreferredEntry < ActiveRecord::Base
                                                      :user_id => options[:user_id])
     tcpe = TaxonConceptPreferredEntry.find_by_taxon_concept_id(options[:taxon_concept_id])
     if tcpe
-      tcpe.update_attribute(:hierarchy_entry_id, options[:hierarchy_entry_id])
+      tcpe.update_column(:hierarchy_entry_id, options[:hierarchy_entry_id])
     else 
       TaxonConceptPreferredEntry.create(:taxon_concept_id   => options[:taxon_concept_id],
                                         :hierarchy_entry_id => options[:hierarchy_entry_id])

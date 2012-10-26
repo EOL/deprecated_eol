@@ -1030,7 +1030,7 @@ class DataObject < ActiveRecord::Base
   def unpublish_previous_revisions
     DataObject.find(:all, :conditions => "id != #{self.id} AND guid = '#{self.guid}'").each do |dato|
       if dato.published?
-        dato.update_attribute(:published, 0)
+        dato.update_column(:published, 0)
         dato.update_solr_index
         dato.remove_from_index
       end

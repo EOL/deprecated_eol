@@ -1,4 +1,4 @@
-require 'lib/check_connection.rb'
+require Rails.root.join('lib', 'check_connection')
 
 desc 'Check that all of the expected attributes are valid on all the expected models'
 task :check_connection => :environment do

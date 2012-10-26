@@ -389,7 +389,19 @@ EolUpgrade::Application.routes.draw do
         get 'content_taxonomic'
       end
     end
-    resources :user, :only => [:index], :controller => 'administrator/user' do
+    resources :user, :controller => 'administrator/user' do
+      member do
+        get 'hide'
+        get 'unhide'
+        get 'grant_curator'
+        get 'revoke_curator'
+        get 'clear_curatorship'
+        get 'login_as_user'
+        get 'view_user_activity'
+        get 'view_common_activities'
+        get 'view_common_combinations'
+        get 'list_newsletter_emails'
+      end
       collection do
         get 'view_common_combinations'
       end

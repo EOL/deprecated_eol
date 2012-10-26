@@ -58,14 +58,12 @@
         = raw(I18n.t('helpers.label.user.agreed_with_terms', :terms_url => terms_of_use_path))
     - if @user.eol_authentication? && $ENABLE_RECAPTCHA
       %fieldset
-        :javascript
-          var RecaptchaOptions = { theme : 'clean'};
         %dl
           %dt
             %label{ :for => "recaptcha" }
               = I18n.t(:recaptcha)
           %dd
-            = recaptcha_tags
+            = recaptcha_tags(display: {theme: 'clean'})
     %fieldset.actions
       = f.submit I18n.t('helpers.submit.user.create')
       - if @user.eol_authentication?

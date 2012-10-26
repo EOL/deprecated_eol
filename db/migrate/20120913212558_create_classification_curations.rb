@@ -21,7 +21,7 @@ class CreateClassificationCurations < ActiveRecord::Migration
     end
 
     add_index :hierarchy_entry_moves, [:hierarchy_entry_id, :classification_curation_id], :unique => true,
-      :name => :entry_and_curation_index
+      :name => 'entry_and_curation_index'
     add_index :hierarchy_entry_moves, :hierarchy_entry_id
 
     ChangeableObjectType.create(:ch_object_type => 'classification_curation')

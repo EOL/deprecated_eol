@@ -494,19 +494,6 @@ ko:
         user_chose_exemplar_it_on_an_unknown_taxon: <strong>%{user}</strong> 사용자가 알 수 없는 문서에 표본으로 설정했습니다.
         user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> 사용자가 "%{taxon}" 문서에 표본으로 설정했습니다.
       classification_curation: 
-        merge: 
-          an_unknown_user_merged_an_unknown_taxon_and_an_unknown_taxon: 알 수 없는 사용자가 알 수 없는 문서 둘을 병합했습니다.
-          an_unknown_user_merged_an_unknown_taxon_and_taxon: 알 수 없는 사용자가 %{target} 문서와 알 수 없는 문서를 병합했습니다.
-          an_unknown_user_merged_it_and_an_unknown_taxon: 알 수 없는 사용자가 알 수 없는 문서와 병합했습니다.
-          an_unknown_user_merged_it_and_taxon: 알 수 없는 사용자가 %{target} 문서와 병합했습니다.
-          an_unknown_user_merged_taxon_and_an_unknown_taxon: 알 수 없는 사용자가 알 수 없는 문서와 %{taxon} 문서를 병합했습니다.
-          an_unknown_user_merged_taxon_and_taxon: 알 수 없는 사용자가 %{target} 문서와 %{taxon} 문서를 병합했습니다.
-          user_merged_an_unknown_taxon_and_an_unknown_taxon: <strong>%{user}</strong> 사용자가 알 수 없는 문서와 알 수 없는 문서를 병합했습니다.
-          user_merged_an_unknown_taxon_and_taxon: <strong>%{user}</strong> 사용자가 %{target} 문서와 알 수 없는 문서를 병합했습니다.
-          user_merged_it_and_an_unknown_taxon: <strong>%{user}</strong> 사용자가 알 수 없는 문서와 병합했습니다.
-          user_merged_it_and_taxon: <strong>%{user}</strong> 사용자가 %{target} 문서와 병합했습니다.
-          user_merged_taxon_and_an_unknown_taxon: <strong>%{user}</strong> 사용자가 알 수 없는 문서와 %{taxon} 문서를 병합했습니다.
-          user_merged_taxon_and_taxon: <strong>%{user}</strong> 사용자가 %{target} 문서와 %{taxon} 문서를 병합했습니다.
         move: 
           an_unknown_user_moved_classifications_from_an_unknown_taxon_to_an_unknown_taxon: 알 수 없는 사용자가 알 수 없는 문서에서 알 수 없는 문서로 %{classifications} 분류를 옮겼습니다.
           an_unknown_user_moved_classifications_from_an_unknown_taxon_to_taxon: 알 수 없는 사용자가 알 수 없는 문서에서 %{target} 문서로 %{classifications} 분류를 옮겼습니다.
@@ -682,14 +669,6 @@ ko:
         user_trusted_data_object_on_association: <strong>%{user}</strong> 사용자가 "%{association}" 문서에 "%{data_object}" 개체를 신뢰한 것으로 표시했습니다.
         user_trusted_it_on_an_unknown_association: <strong>%{user}</strong> 사용자가 알 수 없는 문서에 신뢰함으로 표시했습니다.
         user_trusted_it_on_association: <strong>%{user}</strong> 사용자가 "%{association}" 문서에 신뢰함으로 표시했습니다.
-      unlock: 
-        an_unknown_taxon_unlocked: 알 수 없는 문서는 큐레이트 처리를 완료했습니다.
-        it_unlocked: 백그라운드 큐레이트 처리를 마쳤습니다.
-        taxon_unlocked: "\"%{taxon}\" 문서가 백그라운드 큐레이트 처리를 마쳤습니다."
-      unlock_with_error: 
-        an_unknown_taxon_unlocked: "알 수 없는 문서가 백그라운드 큐레이트 처리하는 데 <strong>실패했습니다</strong>: %{error}."
-        it_unlocked: "백그라운드 큐레이트 처리하는 데 <strong>실패했습니다</strong>: %{error}."
-        taxon_unlocked: "\"%{taxon}\" 문서가 백그라운드 큐레이트 처리하는 데 <strong>실패했습니다</strong>: %{error}."
       unreview_common_name: 
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: 알 수 없는 사용자가 알 수 없는 문서에 알 수 없는 언어로 알 수 없는 공통 이름을 검토하지 않음으로 표시했습니다.
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: 알 수 없는 사용자가 알 수 없는 언어로 알 수 없는 공통 이름을 검토하지 않음으로 표시했습니다.
@@ -1321,7 +1300,7 @@ ko:
   content_partner_has_unpublished_content_false: 게시하지 않은 콘텐츠 없음
   content_partner_has_unpublished_content_true: 게시하지 않은 콘텐츠
   content_partner_homepage_link: 파트너 웹사이트에 방문하기
-  content_partner_latest_published_harvest_event_time_ago: 최근 %{time_passed}에 업데이트함;
+  content_partner_latest_published_harvest_event_time_ago: 최근 %{time_passed} 전에 업데이트함;
   content_partner_logo_alt_text: "%{partner_name} 콘텐츠 파트너에 대한 로고"
   content_partner_managed_by_header: 관리자
   content_partner_new_edit_form_profile_header: 콘텐츠 파트너 프로필 정보
@@ -2162,6 +2141,7 @@ ko:
   language_with_count: "%{language} (%{count})"
   languages: 언어
   last_updated: 최근 업데이트
+  last_updated_time_ago: 최근 %{time_passed} 전에 업데이트함
   layouts: 
     v2: 
       application: 
@@ -2793,6 +2773,7 @@ ko:
   show_all_other_classifications_with_count: 
     one: 다른 찾아볼 수 없는 분류 %{count}개 보기
     other: 다른 찾아볼 수 없는 분류 %{count}개 보기
+  show_data_from_all_content_partners: 분류 필터 제거
   show_email_message_area: "[이메일 메시지 영역 보기]"
   show_full_tree: 전체 트리 보기...
   show_in_overview: 둘러보기 보기

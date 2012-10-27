@@ -657,14 +657,6 @@ nl:
         user_trusted_data_object_on_association: <strong>%{user}</strong> heeft "%{data_object}" als vertrouwd gemarkeerd op de pagina "%{association}".
         user_trusted_it_on_an_unknown_association: <strong>%{user}</strong> heeft het als vertrouwd gemarkeerd in een onbekende context.
         user_trusted_it_on_association: <strong>%{user}</strong> heeft het als vertrouwd gemarkeerd op de pagina "%{association}".
-      unlock: 
-        an_unknown_taxon_unlocked: De conservatieverwerking via een achtergrondtaak voor een onbekende pagina is afgerond.
-        it_unlocked: De conservatieverwerking via een achtergrondtaak is afgerond.
-        taxon_unlocked: De conservatieverwerking via een achtergrondtaak voor "%{taxon}" is afgerond.
-      unlock_with_error: 
-        an_unknown_taxon_unlocked: "De conservatieverwerking voor een onbekende pagina via een achtergrondtaak is <strong>mislukt</strong>: %{error}."
-        it_unlocked: "De conservatieverwerking via een achtergrondtaak is <strong>mislukt</strong>: %{error}."
-        taxon_unlocked: "De conservatieverwerking voor \"%{taxon}\" via een achtergrondtaak is <strong>mislukt</strong>: %{error}."
       unreview_common_name: 
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Een onbekende gebruiker heeft een onbekende gewone naam in een onbekende taal op een onbekende pagina als ongecontroleerd gemarkeerd.
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: Een onbekende gebruiker heeft een onbekende gewone naam in een onbekende taal als ongecontroleerd gemarkeerd.
@@ -972,7 +964,7 @@ nl:
   assistive_maps_header: Kaarten
   assistive_media_header: Media
   assistive_names_classifictions_header: Classificaties
-  assistive_names_common_header: Gewone namen
+  assistive_names_common_header: Algemene namen
   assistive_names_related_header: Gerelateerde namen
   assistive_names_synonyms_header: Synoniemen
   assistive_overview_header: Overzicht
@@ -2954,7 +2946,7 @@ nl:
   scientific_name: Wetenschappelijke naam
   search: Zoeken
   search_by_term_page_title: "Zoeken: %{term}"
-  search_field_common_name: Gewone naam
+  search_field_common_name: Algemene naam
   search_field_label: EOL doorzoeken
   search_field_preferred_common_name: Voorkeur gewone naam
   search_field_preferred_scientific: Voorkeur wetenschappelijke naam

@@ -495,20 +495,6 @@ gl:
         user_chose_exemplar_data_object_on_taxon: <strong>%{user}</strong> estableceu "%{data_object}" como un exemplar en "%{taxon}".
         user_chose_exemplar_it_on_an_unknown_taxon: <strong>%{user}</strong> estableceuno como un exemplar nunha páxina descoñecida.
         user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> estableceuno como un exemplar en "%{taxon}".
-      classification_curation: 
-        merge: 
-          an_unknown_user_merged_an_unknown_taxon_and_an_unknown_taxon: Un usuario descoñecido fusionou dúas páxinas descoñecidas.
-          an_unknown_user_merged_an_unknown_taxon_and_taxon: Un usuario descoñecido fusionou unha páxina descoñecida con "%{target}".
-          an_unknown_user_merged_it_and_an_unknown_taxon: Un usuario descoñecido fusionouno cunha páxina descoñecida.
-          an_unknown_user_merged_it_and_taxon: Un usuario descoñecido fusionouno con "%{target}".
-          an_unknown_user_merged_taxon_and_an_unknown_taxon: Un usuario descoñecido fusionou "%{taxon}" cunha páxina descoñecida.
-          an_unknown_user_merged_taxon_and_taxon: Un usuario descoñecido fusionou "%{taxon}" con "%{target}".
-          user_merged_an_unknown_taxon_and_an_unknown_taxon: <strong>%{user}</strong> fusionou unha páxina descoñecida cunha páxina descoñecida.
-          user_merged_an_unknown_taxon_and_taxon: <strong>%{user}</strong> fusionou unha páxina descoñecida con "%{target}".
-          user_merged_it_and_an_unknown_taxon: <strong>%{user}</strong> fusionouno cunha páxina descoñecida.
-          user_merged_it_and_taxon: <strong>%{user}</strong> fusionouno con "%{target}".
-          user_merged_taxon_and_an_unknown_taxon: <strong>%{user}</strong> fusionou "%{taxon}" cunha páxina descoñecida.
-          user_merged_taxon_and_taxon: <strong>%{user}</strong> fusionou "%{taxon}" con "%{target}".
       hide: 
         an_unknown_user_hid_an_older_data_object_on_an_unknown_association: Un usuario descoñecido marcou unha versión vella de "%{data_object}" como agochada nun contexto descoñecido.
         an_unknown_user_hid_an_older_data_object_on_association: Un usuario descoñecido marcou unha versión vella de "%{data_object}" como agochada na páxina "%{association}".
@@ -665,14 +651,6 @@ gl:
         user_trusted_data_object_on_association: <strong>%{user}</strong> marcou "%{data_object}" como de confianza na páxina "%{association}".
         user_trusted_it_on_an_unknown_association: <strong>%{user}</strong> marcouno como de confianza nun contexto descoñecido.
         user_trusted_it_on_association: <strong>%{user}</strong> marcouno como de confianza na páxina "%{association}".
-      unlock: 
-        an_unknown_taxon_unlocked: Unha páxina descoñecida rematou o proceso de conservación en segundo plano.
-        it_unlocked: Rematou o proceso de conservación en segundo plano.
-        taxon_unlocked: "\"%{taxon}\" rematou o proceso de conservación en segundo plano."
-      unlock_with_error: 
-        an_unknown_taxon_unlocked: "Houbo un <strong>erro</strong> no proceso de conservación en segundo plano dunha páxina descoñecida: %{error}."
-        it_unlocked: "Houbo un <strong>erro</strong> no proceso de conservación en segundo plano: %{error}."
-        taxon_unlocked: "Houbo un <strong>erro</strong> no proceso de conservación en segundo plano de \"%{taxon}\": %{error}."
       unreview_common_name: 
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Un usuario descoñecido marcou un nome común descoñecido nunha lingua descoñecida dunha páxina descoñecida como non revisado.
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: Un usuario descoñecido marcou un nome común descoñecido nunha lingua descoñecida como non revisado.

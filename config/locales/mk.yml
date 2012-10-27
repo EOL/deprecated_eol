@@ -496,19 +496,6 @@ mk:
         user_chose_exemplar_it_on_an_unknown_taxon: <strong>%{user}</strong> го укажа како урнек на непозната страница.
         user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> го укажа како урнек на „%{taxon}“.
       classification_curation: 
-        merge: 
-          an_unknown_user_merged_an_unknown_taxon_and_an_unknown_taxon: Непознат корисник спои две непознати страници.
-          an_unknown_user_merged_an_unknown_taxon_and_taxon: Непознат корисник спои непозната страница со %{target}.
-          an_unknown_user_merged_it_and_an_unknown_taxon: Непознат корисник го спои со непозната страница.
-          an_unknown_user_merged_it_and_taxon: Непознат корисник го спои со %{target}.
-          an_unknown_user_merged_taxon_and_an_unknown_taxon: Непознат корисник го спои %{taxon} со непозната страница.
-          an_unknown_user_merged_taxon_and_taxon: Непознат корисник го спои %{taxon} со %{target}.
-          user_merged_an_unknown_taxon_and_an_unknown_taxon: <strong>%{user}</strong> спои непозната страница со непозната страница.
-          user_merged_an_unknown_taxon_and_taxon: <strong>%{user}</strong> спои непозната страница со %{target}.
-          user_merged_it_and_an_unknown_taxon: <strong>%{user}</strong> го спои со непозната страница.
-          user_merged_it_and_taxon: <strong>%{user}</strong> го спои со %{target}.
-          user_merged_taxon_and_an_unknown_taxon: <strong>%{user}</strong> го спои %{taxon} со непозната страница.
-          user_merged_taxon_and_taxon: <strong>%{user}</strong> го спои %{taxon} со %{target}.
         move: 
           an_unknown_user_moved_classifications_from_an_unknown_taxon_to_an_unknown_taxon: Непознат корисник ги премести класификациите од %{classifications} од непозната страница во непозната страница.
           an_unknown_user_moved_classifications_from_an_unknown_taxon_to_taxon: Непознат корисник ги премести класификациите од %{classifications} од непозната страница во %{target}.
@@ -684,14 +671,6 @@ mk:
         user_trusted_data_object_on_association: <strong>%{user}</strong> го означи „%{data_object}“ како доверлив на страницата „%{association}“.
         user_trusted_it_on_an_unknown_association: <strong>%{user}</strong> го означи како доверлив во непознат контекст.
         user_trusted_it_on_association: <strong>%{user}</strong> го означи како доверлив на страницата „%{association}“.
-      unlock: 
-        an_unknown_taxon_unlocked: Непозната страница заврши со позадинската кустоска обработка.
-        it_unlocked: Позадинската кустоска обработка заврши.
-        taxon_unlocked: „%{taxon}“ заврши со позадинската кустоска обработка.
-      unlock_with_error: 
-        an_unknown_taxon_unlocked: "Непозната страница <strong>не успеа</strong> да ја спроведе позадинската кустоска обработка: %{error}."
-        it_unlocked: "Позадинската кустоска обработка<strong>не успеа</strong> : %{error}."
-        taxon_unlocked: "„%{taxon}“ <strong>не успеа</strong> да ја спроведе позадинската кустоска обработка: %{error}."
       unreview_common_name: 
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Непознат корисник означи непознато тривијално име на непознат јазик од непозната страница како непроверено.
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: Непознат корисник означи непознато тривијално име на непознат јазик како непроверено.
@@ -1191,13 +1170,10 @@ mk:
         meta_title: Новости за %{collection_name}
         tweet_text: Новости за %{collection_name}
     show: 
-      meta_description: "%{collection_description}"
       meta_description_default: Збирка на Енциклопедијата на живиот свет насловена како %{collection_name}.
       meta_description_default_focus_collection: Тематска збирка на Енциклопедијата на живиот свет насловена како %{collection_name}.
       meta_description_default_watch_collection: "Список на набљудувања на Енциклопедијата на живиот свет: %{collection_name}."
       meta_keywords: "%{collection_name}, Збирка од Енциклопедијата на живиот свет"
-      meta_title: "%{collection_name}"
-      tweet_text: "%{collection_name}"
   collections_filter: Збирки
   collections_link: Збирки
   collections_page_title: Збирки
@@ -1248,10 +1224,7 @@ mk:
         tweet_text: Збирки на %{community_name}
     newsfeeds: 
       show: 
-        meta_description: "%{community_description}"
         meta_keywords: "%{community_name}, Заедница на Енциклопедијата на живиот свет, новости на %{community_name}, коментари на %{community_name}, активности на %{community_name}"
-        meta_title: "%{community_name}"
-        tweet_text: "%{community_name}"
     show: 
       meta_description: Заедницата %{community_name} е отстранета од нејзиниот сопственик
       meta_title: "%{community_name} е отстранета од сопственикот"
@@ -1495,8 +1468,6 @@ mk:
     show: 
       meta_description: "%{partner_name}. %{partner_description}"
       meta_keywords: "%{partner_name}, Соучесник во содржините на Енциклопедијата на живиот свет"
-      meta_title: "%{partner_name}"
-      tweet_text: "%{partner_name}"
     statistics: 
       show: 
         meta_description: Статистики за употреба на податоците на %{partner_name}.
@@ -3472,7 +3443,6 @@ mk:
         meta_description_with_common_name: "Информации за %{preferred_common_name}, научно: %{scientific_name} во Енциклопедијата на живиот свет."
         meta_keywords: "%{scientific_name} признаено од %{hierarchy_provider}"
         meta_keywords_with_common_name: "%{scientific_name} признаено од %{hierarchy_provider}"
-        meta_title: "%{scientific_name}"
         meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Информации за %{preferred_common_name}"
         tweet_text: Информации за %{scientific_name}
     resources: 
@@ -3978,8 +3948,6 @@ mk:
     show: 
       meta_description: Членски профил на %{user_full_name} во Енциклопедијата на живиот свет.
       meta_description_curator: Членски профил на %{curator_level} %{user_full_name} во Енциклопедијата на живиот свет.
-      meta_title: "%{user_full_name}"
-      tweet_text: "%{user_full_name}"
     unsubscribe_notifications: 
       already_unsubscribed: Веќе ја имате откажано претплатата на известувања.
       unsubscribe_notifications_failed: Нажалост, се појави грешка. На корисникот не можев да му ја откажам претплатата на известувања.

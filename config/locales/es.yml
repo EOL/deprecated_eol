@@ -510,19 +510,6 @@ es:
         user_chose_exemplar_it_on_an_unknown_taxon: <strong>%{user}</strong> lo ha establecido como un ejemplar en una página desconocida.
         user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> lo ha establecido como un ejemplar de "%{taxon}".
       classification_curation: 
-        merge: 
-          an_unknown_user_merged_an_unknown_taxon_and_an_unknown_taxon: Un usuario desconocido ha fusionado dos páginas desconocidas.
-          an_unknown_user_merged_an_unknown_taxon_and_taxon: Un usuario desconocido ha fusionado una página desconocida con %{target}.
-          an_unknown_user_merged_it_and_an_unknown_taxon: Un usuario desconocido lo ha fusionado con una página desconocida.
-          an_unknown_user_merged_it_and_taxon: Un usuario desconocido lo ha combinado con %{target}.
-          an_unknown_user_merged_taxon_and_an_unknown_taxon: Un usuario desconocido ha fusionado %{taxon} con una página desconocida.
-          an_unknown_user_merged_taxon_and_taxon: Un usuario desconocido ha combinado %{taxon} con %{target}.
-          user_merged_an_unknown_taxon_and_an_unknown_taxon: <strong>%{user}</strong> ha fusionado una página desconocida con una página desconocida.
-          user_merged_an_unknown_taxon_and_taxon: <strong>%{user}</strong> ha fusionado una página desconocida con %{target}.
-          user_merged_it_and_an_unknown_taxon: <strong>%{user}</strong> lo ha fusionado con una página desconocida.
-          user_merged_it_and_taxon: <strong>%{user}</strong> lo ha fusionado con %{target}.
-          user_merged_taxon_and_an_unknown_taxon: <strong>%{user}</strong> ha fusionado %{taxon} con una página desconocida.
-          user_merged_taxon_and_taxon: <strong>%{user}</strong> ha fusionado %{taxon} con %{target}.
         move: 
           an_unknown_user_moved_classifications_from_an_unknown_taxon_to_an_unknown_taxon: Un usuario desconocido ha trasladado las clasificaciones por %{classifications} desde una página desconocida a una página desconocida.
           an_unknown_user_moved_classifications_from_an_unknown_taxon_to_taxon: Un usuario desconocido ha trasladado las clasificaciones por %{classifications} desde una página desconocida a %{target}.
@@ -698,14 +685,6 @@ es:
         user_trusted_data_object_on_association: <strong>%{user}</strong> ha marcado "%{data_object}" como fiable en la página "%{association}".
         user_trusted_it_on_an_unknown_association: <strong>%{user}</strong> lo ha marcado como fiable en un contexto desconocido.
         user_trusted_it_on_association: <strong>%{user}</strong> lo ha marcado como fiable en la página "%{association}".
-      unlock: 
-        an_unknown_taxon_unlocked: Una página desconocida ha finalizado el procesamiento de conservación  en segundo plano.
-        it_unlocked: Ha terminado el proceso de conservación en segundo plano.
-        taxon_unlocked: "\"%{taxon}\" ha terminado el proceso de conservación en segundo plano."
-      unlock_with_error: 
-        an_unknown_taxon_unlocked: "Una página desconocida tiene <strong>Errores</strong> en el proceso de conservación en segundo plano: %{error}."
-        it_unlocked: "El proceso de conservación en segundo plano <strong>ha fallado</strong> : %{error}."
-        taxon_unlocked: "\"%{taxon}\" ha sufrido <strong>Errores</strong> en el proceso de conservación en segundo plano: %{error}."
       unreview_common_name: 
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Un usuario desconocido ha marcado un nombre común desconocido en un idioma desconocido de una página desconocida como no revisado.
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: Un usuario desconocido marcó un nombre común desconocido en un idioma desconocido como no revisado.
@@ -1205,13 +1184,10 @@ es:
         meta_title: Noticias de %{collection_name}
         tweet_text: Noticias de %{collection_name}
     show: 
-      meta_description: "%{collection_description}"
       meta_description_default: Una colección de Encyclopedia of Life titulada %{collection_name}.
       meta_description_default_focus_collection: Una colección de enfoque de Encyclopedia of Life titulada %{collection_name}.
       meta_description_default_watch_collection: "Una lista de vigilancia de Encyclopedia of Life: %{collection_name}."
       meta_keywords: "%{collection_name}, Colección Enciclopedia de la Vida"
-      meta_title: "%{collection_name}"
-      tweet_text: "%{collection_name}"
   collections_filter: Colecciones
   collections_link: Colecciones
   collections_page_title: Colecciones
@@ -1262,10 +1238,7 @@ es:
         tweet_text: Colecciones de %{community_name}
     newsfeeds: 
       show: 
-        meta_description: "%{community_description}"
         meta_keywords: "%{community_name}, Comunidad de Encyclopedia of Life, canal de noticias de %{community_name}, comentarios de %{community_name}, actividad de %{community_name}"
-        meta_title: "%{community_name}"
-        tweet_text: "%{community_name}"
     show: 
       meta_description: La comunidad de Encyclopedia of Life %{community_name} fue eliminada por su propietario
       meta_title: "%{community_name} Eliminada por el propietario"
@@ -1511,8 +1484,6 @@ es:
     show: 
       meta_description: "%{partner_name}. %{partner_description}"
       meta_keywords: "%{partner_name}, Socio de contenido de Encyclopedia of Life"
-      meta_title: "%{partner_name}"
-      tweet_text: "%{partner_name}"
     statistics: 
       show: 
         meta_description: Estadísticas de uso de datos de %{partner_name}.

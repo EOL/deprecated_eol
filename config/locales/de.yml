@@ -506,18 +506,12 @@ de:
         user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> legte es als beispielhaft für „%{taxon}“ fest.
       classification_curation: 
         merge: 
-          an_unknown_user_merged_an_unknown_taxon_and_an_unknown_taxon: Ein unbekannter Nutzer führte zwei unbekannte Seiten zusammen.
-          an_unknown_user_merged_an_unknown_taxon_and_taxon: Ein unbekannter Nutzer führte eine unbekannte Seite mit Seite %{target} zusammen.
-          an_unknown_user_merged_it_and_an_unknown_taxon: Ein unbekannter Nutzer führte sie mit einer unbekannten Seiten zusammen.
-          an_unknown_user_merged_it_and_taxon: Ein unbekannter Nutzer führte sie mit der Seite %{target} zusammen.
-          an_unknown_user_merged_taxon_and_an_unknown_taxon: Ein unbekannter Nutzer führte die Seite zu %{taxon} mit einer unbekannten Seite zusammen.
-          an_unknown_user_merged_taxon_and_taxon: Ein unbekannter Nutzer führte die Seite zu %{taxon} mit der Seite %{target} zusammen.
-          user_merged_an_unknown_taxon_and_an_unknown_taxon: <strong>%{user}</strong> führte eine unbekannte Seite mit einer anderen unbekannten Seite zusammen.
-          user_merged_an_unknown_taxon_and_taxon: <strong>%{user}</strong> führte eine unbekannte Seite mit der Seite %{target} zusammen.
-          user_merged_it_and_an_unknown_taxon: <strong>%{user}</strong> führte sie mit einer unbekannten Seite zusammen.
-          user_merged_it_and_taxon: <strong>%{user}</strong> führte sie mit der Seite %{target} zusammen.
-          user_merged_taxon_and_an_unknown_taxon: <strong>%{user}</strong> führte die Seite zu %{taxon} mit einer unbekannten Seite zusammen.
-          user_merged_taxon_and_taxon: <strong>%{user}</strong> führte die Seite zu %{taxon} mit der Seite %{target} zusammen.
+          an_unknown_user_merged_to_an_unknown_taxon: Ein unbekannter Nutzer führte zwei unbekannte Seiten zusammen.
+          an_unknown_user_merged_to_it: Ein unbekannter Nutzer führte eine andere Seite mit dieser zusammen.
+          an_unknown_user_merged_to_taxon: Ein unbekannter Nutzer führte eine andere Seite zu %{target} zusammen.
+          user_merged_to_an_unknown_taxon: <strong>%{user}</strong> führte zwei unbekannte Seiten zusammen.
+          user_merged_to_it: <strong>%{user}</strong> führte eine andere Seite mit dieser zusammen.
+          user_merged_to_taxon: <strong>%{user}</strong> führte eine andere Seite mit %{target} zusammen.
         move: 
           an_unknown_user_moved_classifications_from_an_unknown_taxon_to_an_unknown_taxon: Ein unbekannter Nutzer verschob die Klassifikationen von %{classifications} von einer unbekannten Seite zu einer anderen unbekannten Seite.
           an_unknown_user_moved_classifications_from_an_unknown_taxon_to_taxon: Ein unbekannter Nutzer verschob die Klassifikationen von %{classifications} von einer unbekannten Seite zur Seite %{target}.
@@ -532,11 +526,11 @@ de:
           user_moved_classifications_from_taxon_to_an_unknown_taxon: <strong>%{user}</strong> verschob die Klassifikationen von %{classifications} von der Seite zu %{taxon} zu einer unbekannten Seite.
           user_moved_classifications_from_taxon_to_taxon: <strong>%{user}</strong> verschob die Klassifikationen von %{classifications} von der Seite zu %{taxon} zur Seite %{target}.
         split: 
-          an_unknown_user_split_classifications_from_an_unknown_taxon: Ein unbekannter Nutzer entfernte die Klassifikationen von %{classifications} von einer unbekannten Seite und hinterlegte sie auf einer eigenständigen Seite.
-          an_unknown_user_split_classifications_from_it: Ein unbekannter Nutzer entfernte die Klassifikationen von %{classifications} und hinterlegte sie auf einer eigenständigen Seite.
-          an_unknown_user_split_classifications_from_taxon: Ein unbekannter Nutzer entfernte die Klassifikationen von %{classifications} von der Seite zu %{taxon} und hinterlegte sie auf einer eigenständigen Seite.
-          user_split_classifications_from_an_unknown_taxon: <strong>%{user}</strong> entfernte die Klassifikationen von %{classifications} von einer unbekannten Seite und hinterlegte sie auf einer eigenständigen Seite.
-          user_split_classifications_from_taxon: <strong>%{user}</strong> entfernte die Klassifikationen von %{classifications} und hinterlegte sie auf einer eigenständigen Seite.
+          an_unknown_user_split_classifications_from_an_unknown_taxon: Ein unbekannter Nutzer entfernte die Klassifikationen von %{classifications} von einer unbekannten Seite und hinterlegte sie auf einer  <a href='%{to}'>eigenständigen Seite</a>.
+          an_unknown_user_split_classifications_from_it: Ein unbekannter Nutzer entfernte die Klassifikationen von %{classifications} und hinterlegte sie auf einer <a href='%{to}'>eigenständigen Seite</a>.
+          an_unknown_user_split_classifications_from_taxon: Ein unbekannter Nutzer entfernte die Klassifikationen von %{classifications} von der Seite zu %{taxon} und hinterlegte sie auf einer <a href='%{to}'>eigenständigen Seite</a>.
+          user_split_classifications_from_an_unknown_taxon: <strong>%{user}</strong> entfernte die Klassifikationen von %{classifications} von einer unbekannten Seite und hinterlegte sie auf einer <a href='%{to}'>eigenständigen Seite</a>.
+          user_split_classifications_from_taxon: <strong>%{user}</strong> entfernte die Klassifikationen von %{classifications} und hinterlegte sie auf einer <a href='%{to}'>eigenständigen Seite</a>.
       hide: 
         an_unknown_user_hid_an_older_data_object_on_an_unknown_association: Ein unbekannter Nutzer markierte eine ältere Version von „%{data_object}“ in einem unbekannten Zusammenhang als nicht sichtbar.
         an_unknown_user_hid_an_older_data_object_on_association: Ein unbekannter Nutzer markierte eine ältere Version von „%{data_object}“ auf der Seite „%{association}“ als nicht sichtbar.
@@ -694,13 +688,12 @@ de:
         user_trusted_it_on_an_unknown_association: <strong>%{user}</strong> markierte es in einem unbekannten Zusammenhang als vertrauenswürdig.
         user_trusted_it_on_association: <strong>%{user}</strong> markierte es auf der Seite „%{association}“ als vertrauenswürdig.
       unlock: 
-        an_unknown_taxon_unlocked: Die Hintergrundverarbeitung der Kuratierung einer unbekannten Seite ist abgeschlossen.
-        it_unlocked: Die Hintergrundverarbeitung der Kuratierung ist abgeschlossen.
-        taxon_unlocked: Die Hintergrundverarbeitung der Kuratierung von „%{taxon}“ ist abgeschlossen.
-      unlock_with_error: 
-        an_unknown_taxon_unlocked: "Die Hintergrundverarbeitung der Kuratierung einer unbekannten Seite <strong>fehlgeschlagen</strong>: %{error}."
-        it_unlocked: "Die Hintergrundverarbeitung der Kuratierung ist <strong>fehlgeschlagen</strong>: %{error}."
-        taxon_unlocked: "Die Hintergrundverarbeitung der Kuratierung von „%{taxon}“ ist <strong>fehlgeschlagen</strong>: %{error}."
+        merge_of_an_unknown_taxon_unlocked: Die kürzlich angefragte Seitenzusammenführung wurde fertig gestellt, aber die Seite konnte nicht gefunden werden.
+        merge_of_it_unlocked: Die kürzlich angefragte Zusammenführung auf dieser Seite wurde fertig gestellt.
+        merge_of_taxon_unlocked: Die kürzlich angefragte Seitenzusammenführung für „%{taxon}“ wurde fertig gestellt.
+        move_of_an_unknown_taxon_unlocked: Die kürzlich angefragte Klassifikationsverschiebung wurde fertig gestellt, aber die Seite konnte nicht gefunden werden.
+        move_of_it_unlocked: Die kürzlich angefragte Klassifikationsverschiebung auf dieser Seite wurde fertig gestellt.
+        move_of_taxon_unlocked: Die kürzlich angefragte Klassifikationsverschiebung für „%{taxon}“ wurde fertig gestellt.
       unreview_common_name: 
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Ein unbekannter Nutzer markierte einen unbekannten Trivialnamen in einer unbekannten Sprache einer unbekannten Seite als ungeprüft.
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: Ein unbekannter Nutzer markierte einen unbekannten Trivialnamen in einer unbekannten Sprache als ungeprüft.
@@ -1200,13 +1193,10 @@ de:
         meta_title: Nachrichten zu %{collection_name}
         tweet_text: Nachrichten zu %{collection_name}
     show: 
-      meta_description: "%{collection_description}"
       meta_description_default: Eine Sammlung der Enzyklopädie des Lebens (EOL) namens %{collection_name}.
       meta_description_default_focus_collection: Eine Schwerpunktsammlung der Enzyklopädie des Lebens (EOL) namens %{collection_name}.
       meta_description_default_watch_collection: "Eine Beobachtungsliste der Enzyklopädie des Lebens (EOL): %{collection_name}."
       meta_keywords: "%{collection_name}, Sammlung der Enzyklopädie des Lebens (EOL)"
-      meta_title: "%{collection_name}"
-      tweet_text: "%{collection_name}"
   collections_filter: Sammlungen
   collections_link: Sammlungen
   collections_page_title: Sammlungen
@@ -1257,10 +1247,7 @@ de:
         tweet_text: Sammlungen von %{community_name}
     newsfeeds: 
       show: 
-        meta_description: "%{community_description}"
         meta_keywords: "%{community_name}, Gemeinschaft der Enzyklopädie des Lebens (EOL), Nachrichtenfeed der %{community_name}, Kommentare der %{community_name}, Aktivitäten der %{community_name}"
-        meta_title: "%{community_name}"
-        tweet_text: "%{community_name}"
     show: 
       meta_description: Die Gemeinschaft %{community_name} in der Enzyklopädie des Lebens (EOL) wurde von ihrem Gründer entfernt.
       meta_title: "%{community_name} Vom Gründer entfernt"
@@ -1506,8 +1493,6 @@ de:
     show: 
       meta_description: "%{partner_name}. %{partner_description}"
       meta_keywords: "%{partner_name}, Inhaltspartner der Enzyklopädie des Lebens"
-      meta_title: "%{partner_name}"
-      tweet_text: "%{partner_name}"
     statistics: 
       show: 
         meta_description: Nutzungsstatistiken zu den Daten von %{partner_name}.
@@ -1882,6 +1867,7 @@ de:
   error_couldnt_find_community_by_id: Es konnte leider keine Gemeinschaft mit der Kennung %{id} ermittelt werden, die sie verwalten können.
   error_default_description: Wir haben leider ein Problem. Sofern es weiterhin bestehen bleibt, bitten wir Sie eine E-Mail an <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a> zu senden.
   error_default_page_title: Hoppla.
+  error_exemplar_chosen_with_invalid_action: "Entschuldigung, aber die ausgewählte Klassifikation wurde nicht geändert: Ein Teil der Anfrage ist verloren gegangen. Bitte versuchen Sie es erneut."
   error_homepage_or_search_option: "Sie können entweder zur <a href=\"/\">Startseite</a> zurückkehren oder unser Suchwerkzeug nutzen:"
   error_log: Fehlerprotokoll
   error_log_detail: Fehlerprotokolldetail
@@ -3483,7 +3469,6 @@ de:
         meta_description_with_common_name: Informationen zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}, in der Enzyklopädie des Lebens (EOL).
         meta_keywords: "%{scientific_name} anerkannt durch %{hierarchy_provider}"
         meta_keywords_with_common_name: "%{scientific_name} anerkannt durch %{hierarchy_provider}"
-        meta_title: "%{scientific_name}"
         meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Informationen zu %{preferred_common_name}"
         tweet_text: Informationen zu %{scientific_name}
     resources: 
@@ -3989,8 +3974,6 @@ de:
     show: 
       meta_description: Mitgliedsprofil von %{user_full_name} auf der Enzyklopädie des Lebens (EOL).
       meta_description_curator: Mitgliedsprofil von %{curator_level} %{user_full_name} auf der Enzyklopädie des Lebens (EOL).
-      meta_title: "%{user_full_name}"
-      tweet_text: "%{user_full_name}"
     unsubscribe_notifications: 
       already_unsubscribed: Sie haben die Benachrichtigungen bereits abbestellt.
       unsubscribe_notifications_failed: Es ist leider ist ein Fehler aufgetreten. Der Nutzer konnte die Benachrichtigungen nicht abbestellen.

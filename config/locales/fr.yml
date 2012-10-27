@@ -627,13 +627,10 @@ fr:
         meta_title: Nouvelles de %{collection_name}
         tweet_text: Nouvelles de %{collection_name}
     show: 
-      meta_description: "%{collection_description}"
       meta_description_default: Une collection de l’Encyclopédie de la Vie intitulée %{collection_name}.
       meta_description_default_focus_collection: Une collection ciblée de l’Encyclopédie de la Vie intitulée %{collection_name}.
       meta_description_default_watch_collection: Une liste de suivi de la collection %{collection_name} de l’Encyclopédie de la Vie
       meta_keywords: "%{collection_name}, Collection de l’Encyclopédie de la Vie"
-      meta_title: "%{collection_name}"
-      tweet_text: "%{collection_name}"
   collections_filter: Collections
   collections_link: Collections
   collections_page_title: Collections
@@ -677,10 +674,7 @@ fr:
         tweet_text: Collections de %{community_name}
     newsfeeds: 
       show: 
-        meta_description: "%{community_description}"
         meta_keywords: "%{community_name}, communauté de l’Encyclopédie de la Vie, fil de nouvelles de %{community_name}, commentaires de %{community_name}, activités de %{community_name}"
-        meta_title: "%{community_name}"
-        tweet_text: "%{community_name}"
     show: 
       meta_description: La communauté %{community_name} de l’Encyclopédie de la Vie a été supprimée par son propriétaire
       meta_title: "%{community_name} supprimée par son propriétaire"

@@ -836,10 +836,7 @@ zh-CN:
         meta_title: "%{collection_name} 新闻"
         tweet_text: "%{collection_name} 新闻"
     show: 
-      meta_description: "%{collection_description}"
       meta_keywords: 生命百科收藏%{collection_name}
-      meta_title: "%{collection_name}"
-      tweet_text: "%{collection_name}"
   collections_filter: 收藏
   collections_link: 收藏
   collections_page_title: 收藏
@@ -885,10 +882,7 @@ zh-CN:
         tweet_text: "%{community_name} 收藏"
     newsfeeds: 
       show: 
-        meta_description: "%{community_description} \\"
         meta_keywords: "\"%{community_name}，生命百科社区，%{community_name}动态，%{community_name}评论，%{community_name}活动"
-        meta_title: "%{community_name}"
-        tweet_text: "%{community_name}"
     show: 
       meta_description: 生命百科小组 %{community_name}被它的建立者删除
       meta_title: "%{community_name}被管理者删除"
@@ -1115,8 +1109,6 @@ zh-CN:
     show: 
       meta_description: "%{partner_name}. %{partner_description}"
       meta_keywords: "\"%{partner_name}, 网络生命大百科内容合作伙伴\""
-      meta_title: "%{partner_name}"
-      tweet_text: "%{partner_name}"
     statistics: 
       show: 
         meta_description: 对%{partner_name}数据的使用统计 。
@@ -1236,92 +1228,8 @@ zh-CN:
       meta_title: 来自 %{supplier}的%{dato_title} \
       tweet_text: 来自 %{supplier}的%{dato_title} \
   data_usage_reports: 数据使用报告
-  date: 
-    abbr_day_names: 
-      - 日
-      - 一
-      - 二
-      - 三
-      - 四
-      - 五
-      - 六
-    abbr_month_names: 
-      1: 1月
-      10: 10月
-      11: 11月
-      12: 12月
-      2: 2月
-      3: 3月
-      4: 4月
-      5: 5月
-      6: 6月
-      7: 7月
-      8: 8月
-      9: 9月
-    day_names: 
-      - 星期日
-      - 星期一
-      - 星期二
-      - 星期三
-      - 星期四
-      - 星期五
-      - 星期六
-    formats: 
-      default: "%Y-%m-%d"
-      long: "\"%B %d, %Y\""
-      short: "%b %d"
-    month_names: 
-      1: 一月
-      10: 十月
-      11: 十一月
-      12: 十二月
-      2: 二月
-      3: 三月
-      4: 四月
-      5: 五月
-      6: 六月
-      7: 七月
-      8: 八月
-      9: 九月
-    order: 
-      - ：年
-      - ：月
-      - ：日
   date_caps: 日期
   date_uploaded: 上传日期
-  datetime: 
-    distance_in_words: 
-      about_x_hours: 
-        other: 大约%{count} 小时
-      about_x_months: 
-        other: 大约%{count} 个月
-      about_x_years: 
-        other: 大约%{count} 年
-      almost_x_years: 
-        other: 将近%{count}年
-      half_a_minute: 半分钟
-      less_than_x_minutes: 
-        one: 少于1分
-        other: 少于%{count}分
-      less_than_x_seconds: 
-        other: 不到 %{count}秒
-      over_x_years: 
-        other: 超过%{count} 年
-      x_days: 
-        other: "%{count} 天"
-      x_minutes: 
-        other: "%{count} 分"
-      x_months: 
-        other: "%{count} 月"
-      x_seconds: 
-        other: "%{count} 秒"
-    prompts: 
-      day: 天
-      hour: 小时
-      minute: 分
-      month: 月
-      second: 秒
-      year: 年
   dato_create_cancel: 取消
   dato_create_user_text_error: 抱歉，发生了一个错误，此文章不能被添加。
   dato_create_user_text_missing_taxon_id_exception: 如果物种ID为空，则不能创建文字数据项或用户数据项。
@@ -1474,258 +1382,6 @@ zh-CN:
   faculty_staff_or_grad_student_credential_option: 在相关学院或大学教研室的教师、 工作人员或研究生身份
   failed_login_attempts_with_count: 
     other: (%{count} 次登录失败)- 请检查用户登录信息
-  faker: 
-    lorem: 
-      words: 
-        - alias
-        - consequatur
-        - aut
-        - perferendis
-        - sit
-        - voluptatem
-        - accusantium
-        - doloremque
-        - aperiam
-        - eaque
-        - ipsa
-        - quae
-        - ab
-        - illo
-        - inventore
-        - veritatis
-        - et
-        - quasi
-        - architecto
-        - beatae
-        - vitae
-        - dicta
-        - sunt
-        - explicabo
-        - aspernatur
-        - aut
-        - odit
-        - aut
-        - fugit
-        - sed
-        - quia
-        - consequuntur
-        - magni
-        - dolores
-        - eos
-        - qui
-        - ratione
-        - voluptatem
-        - sequi
-        - nesciunt
-        - neque
-        - dolorem
-        - ipsum
-        - quia
-        - dolor
-        - sit
-        - amet
-        - consectetur
-        - adipisci
-        - velit
-        - sed
-        - quia
-        - non
-        - numquam
-        - eius
-        - modi
-        - tempora
-        - incidunt
-        - ut
-        - labore
-        - et
-        - dolore
-        - magnam
-        - aliquam
-        - quaerat
-        - voluptatem
-        - ut
-        - enim
-        - ad
-        - minima
-        - veniam
-        - quis
-        - nostrum
-        - exercitationem
-        - ullam
-        - corporis
-        - nemo
-        - enim
-        - ipsam
-        - voluptatem
-        - quia
-        - voluptas
-        - sit
-        - suscipit
-        - laboriosam
-        - nisi
-        - ut
-        - aliquid
-        - ex
-        - ea
-        - commodi
-        - consequatur
-        - quis
-        - autem
-        - vel
-        - eum
-        - iure
-        - reprehenderit
-        - qui
-        - in
-        - ea
-        - voluptate
-        - velit
-        - esse
-        - quam
-        - nihil
-        - molestiae
-        - et
-        - iusto
-        - odio
-        - dignissimos
-        - ducimus
-        - qui
-        - blanditiis
-        - praesentium
-        - laudantium
-        - totam
-        - rem
-        - voluptatum
-        - deleniti
-        - atque
-        - corrupti
-        - quos
-        - dolores
-        - et
-        - quas
-        - molestias
-        - excepturi
-        - sint
-        - occaecati
-        - cupiditate
-        - non
-        - provident
-        - sed
-        - ut
-        - perspiciatis
-        - unde
-        - omnis
-        - iste
-        - natus
-        - error
-        - similique
-        - sunt
-        - in
-        - culpa
-        - qui
-        - officia
-        - deserunt
-        - mollitia
-        - animi
-        - id
-        - est
-        - laborum
-        - et
-        - dolorum
-        - fuga
-        - et
-        - harum
-        - quidem
-        - rerum
-        - facilis
-        - est
-        - et
-        - expedita
-        - distinctio
-        - nam
-        - libero
-        - tempore
-        - cum
-        - soluta
-        - nobis
-        - est
-        - eligendi
-        - optio
-        - cumque
-        - nihil
-        - impedit
-        - quo
-        - porro
-        - quisquam
-        - est
-        - qui
-        - minus
-        - id
-        - quod
-        - maxime
-        - placeat
-        - facere
-        - possimus
-        - omnis
-        - voluptas
-        - assumenda
-        - est
-        - omnis
-        - dolor
-        - repellendus
-        - temporibus
-        - autem
-        - quibusdam
-        - et
-        - aut
-        - consequatur
-        - vel
-        - illum
-        - qui
-        - dolorem
-        - eum
-        - fugiat
-        - quo
-        - voluptas
-        - nulla
-        - pariatur
-        - at
-        - vero
-        - eos
-        - et
-        - accusamus
-        - officiis
-        - debitis
-        - aut
-        - rerum
-        - necessitatibus
-        - saepe
-        - eveniet
-        - ut
-        - et
-        - voluptates
-        - repudiandae
-        - sint
-        - et
-        - molestiae
-        - non
-        - recusandae
-        - itaque
-        - earum
-        - rerum
-        - hic
-        - tenetur
-        - a
-        - sapiente
-        - delectus
-        - ut
-        - aut
-        - reiciendis
-        - voluptatibus
-        - maiores
-        - doloribus
-        - asperiores
-        - repellat
   family_name_colon: 科名：
   feedback: 反馈
   file: 文件
@@ -2499,40 +2155,6 @@ zh-CN:
   nucleotide_sequences_proteins_link: 查看NCBI中的蛋白质和核酸序列
   num_content_partners: 内容合作伙伴编号
   num_data_objects: 数据项编号
-  number: 
-    currency: 
-      format: 
-        delimiter: "\",\""
-        format: "%u%n"
-        precision: 2
-        separator: .
-        unit: $
-    format: 
-      delimiter: "\",\""
-      precision: 3
-      separator: .
-    human: 
-      decimal_units: 
-        format: "%n %u"
-        units: 
-          billion: 十亿
-          million: 百万
-          quadrillion: 千万亿
-          thousand: 千
-          trillion: 万亿
-      format: 
-        precision: 3
-        significant: 1
-        strip_insignificant_zeros: 1
-      storage_units: 
-        format: "%n %u"
-        units: 
-          byte: 
-            other: 字节
-          gb: GB
-          kb: KB
-          mb: MB
-          tb: TB
   number_of_taxa_at_this_entry: 该条目类群的数量
   number_of_trusted_images_at_this_entry: 该条目可信的图像数量
   number_of_trusted_text_objects_at_this_entry: 该条目可信的文本对象数量
@@ -2935,13 +2557,6 @@ zh-CN:
   supplier: 提供者
   supplier_allcaps: 提供者：
   supplier_colon: 提供者：
-  support: 
-    array: 
-      last_word_connector: ，和
-      two_words_connector: 和
-      words_connector: "\",\""
-    select: 
-      prompt: 请选择
   survey_link: 参与我们的调查
   switch_language_advisory_information: 切换网站语言到 %{language_label}
   synonym: 异名
@@ -2981,7 +2596,6 @@ zh-CN:
           meta_title: "%{scientific_name}的管理员，分类由 %{hierarchy_provider}提供"
           meta_title_with_common_name: "%{preferred_common_name}的专家 (%{scientific_name} 的分类由%{hierarchy_provider})提供）"
           tweet_text: " %{scientific_name} 的管理员，分类由 %{hierarchy_provider}提供"
-        meta_description: "%{scientific_name} 的专家管理它在网络生命大百科中的信息。"
         meta_description_with_common_name: "%{preferred_common_name} 专家 (同时也是 %{scientific_name} 的专家) 管理它在网络生命大百科中的信息。"
         meta_keywords: "\"%{scientific_name} 专家, %{scientific_name} 管理员\""
         meta_keywords_with_common_name: "\"%{preferred_common_name} 专家, %{preferred_common_name} 管理员, %{scientific_name} 专家, %{scientific_name} 管理员\""
@@ -3132,7 +2746,6 @@ zh-CN:
         meta_description_with_common_name: "%{preferred_common_name}概要，学名在网络生命大百科里是 %{scientific_name}。"
         meta_keywords: "%{scientific_name} 由 %{hierarchy_provider}确定"
         meta_keywords_with_common_name: "%{scientific_name} 由 %{hierarchy_provider}确定"
-        meta_title: "%{scientific_name}"
         meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})"
         tweet_text: "%{scientific_name}的概述"
     resources: 
@@ -3316,13 +2929,6 @@ zh-CN:
   this_video_is_unpublished: 该视频尚未发表。
   threat_status_header_colon: <abbr title=International Union for Conservation of Nature>IUCN</abbr>濒危状态：
   thumbnail_page_colon: 缩略图页：
-  time: 
-    am: 上午
-    formats: 
-      default: "\"%a, %d %b %Y %H:%M:%S %z\""
-      long: "\"%B %d, %Y %H:%M\""
-      short: "%d %b %H:%M"
-    pm: 下午
   time_ago: "%{time_passed}之前"
   title: 标题
   to_process_your_donation_please_proceed: 要处理您的捐赠，请继续
@@ -3595,8 +3201,6 @@ zh-CN:
     show: 
       meta_description: 网络生命大百科中%{user_full_name}的会员信息。
       meta_description_curator: 网络生命大百科中%{curator_level} %{user_full_name}的会员信息
-      meta_title: "%{user_full_name}"
-      tweet_text: "%{user_full_name}"
   users_about_me_header: 关于我
   users_content_partners_header: 内容合作伙伴
   users_content_partners_information: "\"EOL内容合作伙伴为个人或者组织，它们通过EOL与全世界分享它们的生物多样性数据。了解更多关于<a href=\"\"%{more_url}\"\">EOL内容合作伙伴</a>。\""

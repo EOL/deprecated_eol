@@ -651,14 +651,6 @@ tl:
         user_trusted_data_object_on_association: Minarkahan ni <strong>%{user}</strong> ang "%{data_object}" bilang pinagkakatiwalaan sa ibabaw ng pahina ng "%{association}".
         user_trusted_it_on_an_unknown_association: Minarkahan ito ni <strong>%{user}</strong> bilang pinagkakatiwalaan sa loob ng isang diwang hindi nakikilala.
         user_trusted_it_on_association: Minarkahan ito ni <strong>%{user}</strong> bilang pinagkakatiwalaan sa ibabaw ng pahina ng "%{association}".
-      unlock: 
-        an_unknown_taxon_unlocked: Isang hindi nakikilalang pahina ang nakatapos na ng pagsasagawa ng pangangasiwang panlikuran.
-        it_unlocked: Natapos na ang pagsasagawa ng pangangasiwang panlikuran.
-        taxon_unlocked: Natapos na ang "%{taxon}" sa pagsasagawa ng panlikurang pangangasiwa.
-      unlock_with_error: 
-        an_unknown_taxon_unlocked: "Isang hindi nakikilalang pahina ang <strong>nabigo</strong> sa pagsasagawa ng panlikurang pangangasiwa: %{error}."
-        it_unlocked: "<strong>Nabigo</strong> ang pagsasagawa ng panlikurang pangangasiwa : %{error}."
-        taxon_unlocked: "<strong>Nabigo</strong> ang \"%{taxon}\" sa pagsasagawa ng panlikurang pangangasiwa: %{error}."
       unreview_common_name: 
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Minarkahan ng isang hindi nakikilalang tagagamit bilang hindi pa nasusuring muli ang isang hindi nakikilalang karaniwang pangalan na nasa isang hindi nakikilalang wika magmula sa isang hindi nakikilalang pahina.
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: Isang hindi nakikilalang tagagamit ang nagmarka sa isang hindi nakikilalang karaniwang pangalan na nasa isang hindi nakikilalang wika bilang hindi pa nasusuring muli.

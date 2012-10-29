@@ -83,9 +83,14 @@ module ApplicationHelper
     end
   end
 
-  # Used in V2 to return class for active navigation tabs.
+  # Used in V2 to return class for active navigation tabs. 
   def resource_is_active(action)
-    (controller.action_name == action.to_s || controller.class.to_s.downcase =~ /#{action}/) ? 'active' : nil
+    return "active" if
+        action == "#{controller.controller_name}/#{controller.action_name}" ||
+        action == controller.controller_name ||
+        action == controller.action_name ||
+        action.downcase == controller.class.to_s.downcase
+    return nil
   end
 
   # Recommended by https://github.com/rails/jquery-ujs

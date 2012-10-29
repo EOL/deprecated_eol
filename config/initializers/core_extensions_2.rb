@@ -116,7 +116,8 @@ class String
   # tags in the proper order (shouln't open one after closing one for example - that is not balanced)
   def balance_tags
     text = self.clone
-    ['a', 'b', 'i', 'div', 'p', 'em', 'blockquote', 'strong', 'ul', 'li'].each do |tag|
+    # The order here matters. Tags that are typically containers should come LAST:
+    ['a', 'b', 'i', 'em', 'strong', 'span', 'blockquote', 'li', 'ul', 'p', 'div'].each do |tag|
       # this will match <T_, <T>, </_T>, </T>
       open_and_close_tags = text.scan(/\<(#{tag}[\> ]|\/ *#{tag}\>)/i)
       number_of_opening_tags_needed = 0
@@ -154,15 +155,6 @@ class String
     return text.gsub(/<em\/>/i, '')
   end
 
-  # TODO - this was failing in app/views/activity_logs/_comment.html.haml ...Which s/n h/b calling this, but was.
-  #def truncate(length)
-  #  if self.length >= length
-  #    self[0..length-1] + "..."
-  #  else
-  #    self
-  #  end
-  #end
-
   def truncate_html(*args)
     options = args.extract_options!
     unless args.empty?
@@ -187,10 +179,12 @@ class String
           end
         end
         # remove broken tags
-        # debugger
         if matches = trimmed_string.match(/^(.*)<\/[a-z]+$/m)
           trimmed_string = matches[1]
         end
+
+        # Clear off truncated tags:
+        trimmed_string.sub!(/<[^>]+$/, '')
         
         return (trimmed_string.strip + options[:omission]).balance_tags
       end

@@ -249,7 +249,8 @@ EolUpgrade::Application.routes.draw do
         post 'move_down'
       end
       resources :children, :only => [:new, :create]
-      resources :translated_content_pages, :as => :translations, :except => [:show, :index], :controller => 'translated_content_pages'
+      resources :translated_content_pages, :as => :translations, :except => [:show, :index],
+        :controller => 'admins/translated_content_pages'
     end
     resources :content_partners, :only => [:index] do
       collection do
@@ -269,7 +270,8 @@ EolUpgrade::Application.routes.draw do
       end
     end
     resources :news_items, :controller => 'admins/news_items' do
-      resources :translated_news_items, :as => :translations, :except => [:show, :index], :controller => 'admins/translated_news_items'
+      resources :translated_news_items, :as => :translations, :except => [:show, :index],
+        :controller => 'admins/translated_news_items'
     end
     
   end

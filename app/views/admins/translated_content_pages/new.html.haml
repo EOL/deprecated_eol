@@ -3,11 +3,11 @@
 
 #content_page_new
   .article.copy
-    = form_for [@content_page, @translated_content_page], :url => admin_content_page_translated_content_pages_path(@content_page),
+    = form_for [@content_page, @translated_content_page], :url => admin_content_page_translations_path(@content_page),
       :builder => ApplicationHelper::EolFormBuilder do |content_page_form|
       = validation_errors_for(@content_page)
       %fieldset
-        %p.tip= I18n.t(:admin_translated_content_page_new_tip, :required_icon => image_tag('v2/icon_required.png', :alt => ''))
+        %p.tip= raw I18n.t(:admin_translated_content_page_new_tip, :required_icon => image_tag('v2/icon_required.png', :alt => ''))
         = render :partial => 'translated_content_page_fieldset', :locals => {:content_page_form => content_page_form}
 
       %fieldset.actions

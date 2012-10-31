@@ -166,10 +166,10 @@ private
 
     @taxon_concept.current_user = current_user
     @selected_hierarchy_entry_id = params[:hierarchy_entry_id] || params[:entry_id]
-    if @selected_hierarchy_entry_id.nil? && params[:taxon_id] && params[:id]
+    if @selected_hierarchy_entry_id.nil? && params[:taxon_id] && params[:id] && params[:worklist_return_to].blank?
       @selected_hierarchy_entry_id = params[:id]
     end
-    if @selected_hierarchy_entry_id
+    unless @selected_hierarchy_entry_id.blank?
       @selected_hierarchy_entry = HierarchyEntry.find_by_id(@selected_hierarchy_entry_id) rescue nil
       if @selected_hierarchy_entry.hierarchy.browsable?
         # TODO: Eager load hierarchy entry agents?

@@ -166,7 +166,8 @@ private
 
     @taxon_concept.current_user = current_user
     @selected_hierarchy_entry_id = params[:hierarchy_entry_id] || params[:entry_id]
-    if @selected_hierarchy_entry_id.nil? && params[:taxon_id] && params[:id] && params[:worklist_return_to].blank?
+    # making sure we know the HE_ID when browsing in entry mode
+    if @selected_hierarchy_entry_id.nil? && params[:taxon_id] && params[:id] && request.env['PATH_INFO'] =~ /^\/pages\/[0-9]+\/hierarchy_entries\/[0-9]+\//
       @selected_hierarchy_entry_id = params[:id]
     end
     unless @selected_hierarchy_entry_id.blank?

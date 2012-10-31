@@ -59,7 +59,7 @@ class ContentPartners::ContentPartnerContactsController < ContentPartnersControl
       redirect_to content_partner_resources_path(@partner), :status => :moved_permanently
     else
       flash[:notice] = I18n.t(:content_partner_contact_delete_unsuccessful_error)
-      redirect_to edit_content_partner_content_partner_contact_path(@partner, @contact), :status => :moved_permanently
+      redirect_to edit_content_partner_contact_path(@partner, @contact), :status => :moved_permanently
     end
   end
 

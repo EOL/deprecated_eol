@@ -44,7 +44,7 @@
     - unless @partner.agreement.blank? || !current_user.can_read?(@partner.agreement)
       %h3= I18n.t(:content_partner_overview_agreement_header)
       %p= link_to I18n.t(:content_partner_overview_agreement_link),
-        @partner.agreement.mou_url? ? @partner.agreement.mou_url : content_partner_content_partner_agreement_path(@partner, @partner.agreement)
+        @partner.agreement.mou_url? ? @partner.agreement.mou_url : content_partner_agreement_path(@partner, @partner.agreement)
       %dl.agreement
         %dt
           = I18n.t('activerecord.attributes.content_partner_agreement.signed_by')

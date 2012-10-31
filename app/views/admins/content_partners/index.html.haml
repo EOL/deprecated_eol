@@ -79,13 +79,13 @@
                     = I18n.t(:content_partner_current_agreement_signed_on_with_date, :date => partner.agreement.signed_on_date.strftime("%Y-%m-%d"))
                     &bull;
                     = link_to I18n.t(:content_partner_current_agreement_view_link),
-                      content_partner_content_partner_agreement_path(partner, partner.agreement)
+                      content_partner_agreement_path(partner, partner.agreement)
                   - else
                     = I18n.t(:content_partner_current_agreement_not_accepted)
                     &bull;
-                    = link_to I18n.t(:content_partner_current_agreement_edit_link), edit_content_partner_content_partner_agreement_path(partner, partner.agreement)
+                    = link_to I18n.t(:content_partner_current_agreement_edit_link), edit_content_partner_agreement_path(partner, partner.agreement)
                 &bull;
-                = link_to I18n.t(:content_partner_current_agreement_create_link), new_content_partner_content_partner_agreement_path(partner)
+                = link_to I18n.t(:content_partner_current_agreement_create_link), new_content_partner_agreement_path(partner)
               %dt
                 = I18n.t('activerecord.attributes.content_partner.admin_notes')
               %dd

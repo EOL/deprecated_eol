@@ -11,7 +11,7 @@
     = render :partial => 'data_objects/supplier', :locals => { :data_object => data_object }
     = render :partial => 'data_objects/agents', :locals => { :data_object => data_object }
   - unless data_object.bibliographic_citation.blank?
-    %p= data_object.bibliographic_citation
+    %p= raw(data_object.bibliographic_citation)
   = render :partial => 'data_objects/location', :locals => { :data_object => data_object }
   - unless data_object.spatial_location.blank?
     %p= "#{I18n.t(:location_colon)} #{data_object.spatial_location}"

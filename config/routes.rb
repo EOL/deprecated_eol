@@ -167,7 +167,7 @@ EolUpgrade::Application.routes.draw do
     end
     resource :newsfeed, :only => [:show], :controller => 'collections/newsfeeds'
     resources :editors, :only => [:show], :controller => 'collections/editors'
-    resources :inaturalist, :only => [:show], :controller => 'collections/inaturalists'
+    resource :inaturalist, :only => [:show], :controller => 'collections/inaturalists'
   end
 
   resources :content_partners do

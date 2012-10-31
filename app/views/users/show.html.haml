@@ -51,6 +51,6 @@
           %h3= I18n.t(:users_curation_header)
         %dl
           %dt= I18n.t('activerecord.attributes.user.credentials')
-          %dd= @user.credentials
+          %dd= raw(@user.credentials)
           %dt= I18n.t('activerecord.attributes.user.curator_scope')
           %dd= h @user.curator_scope

@@ -42,7 +42,7 @@
         %h4= link_to(species, "#{inat_observations_url}/#{observation['id']}#{auth_provider_question}")
         - observer_link = link_to(observation['user_login'], 
                                   "#{inat_observations_url}/#{observation['user_login']}#{auth_provider_question}")
-        %p= t('.observer_with_link', :observer_link => "#{observer_link}")
+        %p= raw(t('.observer_with_link', :observer_link => observer_link))
         %p= t('.observation_date', :observed_on => observation['observed_on_string'])
         %p= t('.observation_place', :place => observation['place_guess'])
   - if @inaturalist_project_observations.blank?

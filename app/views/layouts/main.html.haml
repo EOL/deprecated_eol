@@ -40,7 +40,7 @@
     = javascript_include_tag 'application'
     /[if lt IE 7]
       %style{:type => "text/css", :media => "screen"}
-        body { behavior: url(/javascripts/csshover.htc); }
+        body { behavior: url(/assets/csshover.htc); }
     = yield :head
 
     - if $GOOGLE_ANALYTICS_ID && $ENABLE_ANALYTICS != false # Weird, but in this case nil is okay: only false is bad.

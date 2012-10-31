@@ -1,6 +1,6 @@
 - content_for :head do
   = javascript_include_tag 'jquery-ui-1.8.22.datepicker/jquery-ui-1.8.22.datepicker.min.js'
-  %link{:href => "/javascripts/jquery-ui-1.8.22.datepicker/jquery-ui-1.8.22.datepicker.css", :media => "all", :rel => "stylesheet", :type => "text/css"}
+  %link{:href => "/assets/jquery-ui-1.8.22.datepicker/jquery-ui-1.8.22.datepicker.css", :media => "all", :rel => "stylesheet", :type => "text/css"}
 %p
   = raw(t(:comparing_dates, :date_one => @stats_one.created_at.strftime('%b %d, %Y'),
     :date_two => @stats_two.created_at.strftime('%b %d, %Y'), :scope => [:eol_statistics]))

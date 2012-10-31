@@ -118,7 +118,7 @@
       - if $ENABLED_SOCIAL_PLUGINS
         :javascript
           head.ready("ga.js", function() {
-            head.js('/javascripts/ga_social_tracking.js');
+            head.js('/assets/ga_social_tracking.js');
             head.ready("ga_social_tracking.js", function() {
               var facebook = "#{$ENABLED_SOCIAL_PLUGINS.include?(:facebook) ? true : nil};"
               var twitter = "#{$ENABLED_SOCIAL_PLUGINS.include?(:twitter) ? true : nil};"
@@ -131,7 +131,7 @@
       -# anywhere that I can find, so I'm removing it for now.
       :javascript
         head.ready("ga.js", function() {
-          head.js('/javascripts/ga_social_tracking.js');
+          head.js('/assets/ga_social_tracking.js');
           head.ready("ga_social_tracking.js", function() {
             var facebook = "#{$ENABLED_SOCIAL_PLUGINS.include?(:facebook) ? true : nil};"
             var twitter = "#{$ENABLED_SOCIAL_PLUGINS.include?(:twitter) ? true : nil};"

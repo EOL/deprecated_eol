@@ -256,7 +256,7 @@ class TaxonConcept < ActiveRecord::Base
     used_hierarchies = []
     entries_for_this_concept = HierarchyEntry.find_all_by_taxon_concept_id(id,
       :select => {
-        :hierarchy_entries => [ :published, :visibility_id, :identifier, :source_url ],
+        :hierarchy_entries => [ :published, :visibility_id, :identifier, :source_url, :hierarchy_id ],
         :hierarchies => [ :label, :outlink_uri, :url, :id ],
         :resources => [ :title, :id, :content_partner_id ],
         :content_partners => '*',

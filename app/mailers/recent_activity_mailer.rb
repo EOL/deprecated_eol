@@ -31,12 +31,15 @@ class RecentActivityMailer < ActionMailer::Base
     @note_ids = options[:note_ids] || ['unknown']
     @error = options[:error] || 'unknown'
     @frequency = options[:fqz].to_s || 'unknown'
+    set_locale(to)
     mail(
       :to => to.email
     )
   end
 
   def set_locale(user)
+    ActionMailer::Base.default_url_options[:host] ||= 'eol.org' # Sorry, this is a fallback. You should really be
+                                                                # specifying this elsewhere.
     user_id = (user.class == User) ? user.id : user
     locale_iso_code = User.find(user,
                             :select => "users.id, users.email, languages.id, languages.iso_639_1",

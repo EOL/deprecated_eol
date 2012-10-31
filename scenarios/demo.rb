@@ -251,7 +251,7 @@ end
 
 # Special: we want to ensure that TC 1 is really called "Animalia".  A little harsh, but:
 animalia = TaxonConcept.find(1)
-obj = animalia.canonical_form_object
+obj = animalia.entry.canonical_form
 obj.string = "Animalia"
 obj.save!
 obj = Name.find(animalia.entry.name_id)

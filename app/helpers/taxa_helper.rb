@@ -15,9 +15,9 @@ module TaxaHelper
   def collect_names_and_status(entries)
     return entries.collect do |entry|
       unless entry.class == UsersDataObject
-        taxon_link = link_to entry.name.canonical, overview_taxon_path(entry.taxon_concept)
+        taxon_link = link_to raw(entry.title_canonical_italicized), overview_taxon_path(entry.taxon_concept)
       else
-        taxon_link = link_to entry.taxon_concept.canonical_form_object.string, overview_taxon_path(entry.taxon_concept)
+        taxon_link = link_to raw(entry.taxon_concept.entry.title_canonical_italicized), overview_taxon_path(entry.taxon_concept)
       end
       "#{taxon_link} <span class='flag #{vetted_id_class(entry.vetted_id)}'>#{entry.vetted.curation_label}</span>"
     end

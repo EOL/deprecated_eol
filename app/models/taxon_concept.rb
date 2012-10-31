@@ -227,11 +227,6 @@ class TaxonConcept < ActiveRecord::Base
     @current_user = who
   end
 
-  def canonical_form_object
-    return nil unless entry
-    return entry.canonical_form
-  end
-
   # If *any* of the associated HEs are species or below, we consider this to be a species:
   def species_or_below?
     published_hierarchy_entries.detect {|he| he.species_or_below? }

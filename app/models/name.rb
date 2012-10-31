@@ -33,12 +33,6 @@ class Name < ActiveRecord::Base
     return taxon_concept_names.collect {|tc_name| tc_name.taxon_concept}.flatten
   end
 
-  # TODO - deprecated.
-  def canonical
-    Rails.logger.warn "** DEPRECATED: Name#canonical.  Use HierarchyEntry#title_canonical where possible."
-    return canonical_form.nil? ? string : canonical_form.string
-  end
-
   def italicized_canonical
     # hoping these short-circuit messages help with debugging ... likely due to bad/incomplete fixture data?
     # return "(no canonical form, tc: #{ taxon_concepts.map(&:id).join(',') })" unless canonical_form

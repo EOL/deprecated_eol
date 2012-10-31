@@ -115,7 +115,7 @@ describe 'Taxa page' do
     end
     it 'should have taxon links for the images in the gallery' do
       (0..3).each do |i|
-        taxon = @taxon_concept.images_from_solr[i].association_with_best_vetted_status.hierarchy_entry.taxon_concept.canonical_form_object.string
+        taxon = @taxon_concept.images_from_solr[i].association_with_best_vetted_status.hierarchy_entry.taxon_concept.entry.canonical_form.string
         should have_selector("a[href='#{overview_taxon_path(@taxon_concept)}']", :content => taxon)
       end
     end

@@ -78,16 +78,16 @@
                     = I18n.t('helpers.label.open_authentication.connected')
           - if @user.eol_authentication? || !@user.username.blank?
             %dt
-              = user_form.label :username
+              = user_form.label :username, raw(I18n.t('helpers.label.user.username'))
               %small.assistive= I18n.t(:required_form_element)
             %dd
               = user_form.text_field :username
             %dt
-              = user_form.label :entered_password, I18n.t('helpers.label.user.new_password')
+              = user_form.label :entered_password, raw(I18n.t('helpers.label.user.new_password'))
             %dd
               = user_form.password_field :entered_password, { :maxlength => 16 }
             %dt
-              = user_form.label :entered_password_confirmation, I18n.t('helpers.label.user.new_password_confirmation')
+              = user_form.label :entered_password_confirmation, raw(I18n.t('helpers.label.user.new_password_confirmation'))
             %dd
               = user_form.password_field :entered_password_confirmation, { :maxlength => 16 }
           %dt.required

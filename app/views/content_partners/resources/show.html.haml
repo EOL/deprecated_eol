@@ -1,7 +1,7 @@
 = content_for :page_actions do
   - if current_user.can_update?(@resource)
     %li= link_to I18n.t(:content_partner_resource_edit_with_type_link), edit_content_partner_resource_path(@partner, @resource), :class => 'button'
-  %li= link_to I18n.t(:content_partner_resources_link_back_to), content_partner_resources_path(@partner)
+  %li= link_to raw(I18n.t(:content_partner_resources_link_back_to)), content_partner_resources_path(@partner)
 
 #content_partner_show.site_column
   #sidebar
@@ -47,10 +47,10 @@
             - else
               = I18n.t("content_partner_resource_hierarchy_#{en_browsable_status}")
               - if current_user.is_admin?
-                [
+                = "["
                 = link_to I18n.t(:content_partner_resource_hierarchy_edit_link),
                   edit_content_partner_resource_hierarchy_path(@partner, @resource, hierarchy, :return_to => current_url)
-                ]
+                = "]"
               - if hierarchy.request_to_publish_can_be_made?
                 = button_to I18n.t('helpers.submit.hierarchy.request_publish'),
                   request_publish_content_partner_resource_hierarchy_path(@partner, @resource, hierarchy),
@@ -124,7 +124,7 @@
         .header
           %h3= I18n.t('activerecord.attributes.resource.harvest_events')
           - if @resource.harvest_events.count > 0
-            = link_to I18n.t(:content_partner_resource_harvest_events_see_all_link), content_partner_resource_harvest_events_path(@partner, @resource)
+            = link_to raw(I18n.t(:content_partner_resource_harvest_events_see_all_link)), content_partner_resource_harvest_events_path(@partner, @resource)
         %dl
           %dt
             = I18n.t('helpers.label.resource.latest_harvest_event')

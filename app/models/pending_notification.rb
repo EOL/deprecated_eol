@@ -19,11 +19,11 @@ class PendingNotification < ActiveRecord::Base
       notes = notes_by_user_id[u_id]
       next unless notes
       begin
-        RecentActivityMailer.deliver_recent_activity(user, notes.map(&:target).uniq, fqz).deliver
+        RecentActivityMailer.recent_activity(user, notes.map(&:target).uniq, fqz).deliver
       rescue => e
         unless defined?(@@delivered_error_notification) && @@delivered_error_notification < 1.hour.ago
-          RecentActivityMailer.deliver_notification_error(:user => user, :note_ids => notes.map(&:id),
-                                                          :error => e.message, :frequency => fqz)
+          RecentActivityMailer.notification_error(:user => user, :note_ids => notes.map(&:id),
+                                                  :error => e.message, :frequency => fqz).deliver
           @@delivered_error_notification = Time.now
         end
       ensure # Make SURE we don't re-send messages that have been sent:

@@ -835,9 +835,12 @@ class DataObject < ActiveRecord::Base
   end
 
   def best_title
-    return object_title unless object_title.blank?
-    return toc_items.first.label unless toc_items.blank?
-    return data_type.simple_type
+    first_try = best_title_or_nil
+    return first_try if first_try
+    reload unless data_type # Let's try again. ...It may not have been loaded (in, say, notifications)
+    second_try = best_title_or_nil
+    return second_try if second_try
+    return I18n.t(:unknown_data_object_title)
   end
   alias :summary_name :best_title
 
@@ -1053,6 +1056,13 @@ class DataObject < ActiveRecord::Base
   end
 
 private
+
+  def best_title_or_nil
+    return object_title unless object_title.blank?
+    return toc_items.first.label unless toc_items.blank?
+    return data_type.simple_type if data_type
+    nil
+  end
 
   def add_recipient_user_making_object_modification(recipients, options = {})
     if options[:user]

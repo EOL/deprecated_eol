@@ -200,6 +200,8 @@ EolUpgrade::Application.routes.draw do
       put 'make_editor'
       get 'revoke_editor'
       get 'pending_notifications'
+      get 'unsubscribe_notifications/:key', :action => 'unsubscribe_notifications',
+        :as => 'unsubscribe_notifications'
     end
     collection do
       get 'usernames'

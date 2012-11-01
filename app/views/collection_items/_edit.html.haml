@@ -1,5 +1,5 @@
 - # Partial rendered within collections page by 'collections/edit_collection_item' partial when JS enabled.
-- parent_form.fields_for :collection_items, collection_item do |item_form|
+= parent_form.fields_for :collection_items, collection_item do |item_form|
   - # TODO: figure out why I18n is not getting the helpers label scope value automatically for item_form
   %fieldset
     = item_form.label :annotation

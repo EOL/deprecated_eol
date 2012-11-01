@@ -3204,6 +3204,7 @@ en:
   inaturalist_tab_label: "iNaturalist Observations"
   include_all_metadata: "include all metadata for data objects"
   in_collection: "in collection"
+  in_community: "in community"
   info_item: "Info item"
   info_items_col_header: "Info Items"
   information_for_any_audience: "Information for any audience"

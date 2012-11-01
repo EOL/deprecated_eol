@@ -144,7 +144,7 @@ class CommunitiesController < ApplicationController
     @communities = current_user.members.managers.map {|m| m.community }.compact
     @page_title = I18n.t(:add_a_collection_to_a_community, :collection => @collection.name)
     respond_to do |format|
-      format.html { render :partial => 'choose', :layout => 'v2/collections' }
+      format.html { render '_choose', :layout => 'v2/collections' }
       format.js   { render :partial => 'choose' }
     end
   end
@@ -267,7 +267,8 @@ private
   end
 
   def log_action(act, opts = {})
-    community = @community || opts.delete(community)
+    community = @community || opts.delete(:community)
+    debugger
     CommunityActivityLog.create(
       {:community_id => community.id, :user_id => current_user.id, :activity_id => Activity.send(act).id}.merge(opts)
     )

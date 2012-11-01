@@ -162,7 +162,7 @@ module ActiveRecord
           resource_weight = 10
         elsif keyword[:resource_type].include? 'Collection'
           resource_weight = 20
-		elsif keyword[:resource_type].include? 'ContentPage'
+        elsif keyword[:resource_type].include? 'ContentPage'
           resource_weight = 25
         elsif keyword[:resource_type].include? 'User'
           resource_weight = 30

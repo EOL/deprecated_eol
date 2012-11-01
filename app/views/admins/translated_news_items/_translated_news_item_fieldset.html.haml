@@ -15,7 +15,7 @@
     %dt.required
       %label{:for => 'translated_news_item_body_editor'}
         = I18n.t('activerecord.attributes.translated_news_item.body')
-      %p= I18n.t('helpers.label.translated_news_item.body_more')
+      %p= raw(I18n.t('helpers.label.translated_news_item.body_more'))
     %dd
       = translated_news_item_fields.cktext_area(:body, :toolbarSet => 'CMSBody', :height => 500, :width => 600)
     / %dt
@@ -33,4 +33,4 @@
     %label{:for => :active_translation, :class => 'checkbox'}
       = translated_news_item_fields.check_box :active_translation
       = I18n.t('activerecord.attributes.translated_news_item.active_translation')
-      %p= I18n.t('helpers.label.translated_news_item.active_translation_more')
+      %p= raw(I18n.t('helpers.label.translated_news_item.active_translation_more'))

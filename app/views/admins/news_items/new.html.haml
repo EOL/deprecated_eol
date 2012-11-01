@@ -1,14 +1,10 @@
-= content_for :head do
-  = javascript_include_tag "fckeditor/fckeditor"
-  = javascript_include_tag "fckcustom"
-
 #content_page_new
   .article.copy
     = form_for @news_item, :url => admin_news_items_path, :builder => ApplicationHelper::EolFormBuilder do |news_item_form|
       = validation_errors_for(@news_item)
 
       %p.tip
-        = I18n.t(:admin_news_item_new_tip, :required_icon => image_tag('v2/icon_required.png', :alt => ''))
+        = raw(I18n.t(:admin_news_item_new_tip, :required_icon => image_tag('v2/icon_required.png', :alt => '')))
       = render :partial => 'news_item_fieldset', :locals => {:news_item_form => news_item_form}
 
       %fieldset

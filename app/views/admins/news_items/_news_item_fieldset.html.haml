@@ -1,8 +1,8 @@
 %fieldset
   %dl
     %dt.required
-      = news_item_form.label :page_name
-      %p= I18n.t('helpers.label.news_item.page_name_more')
+      = news_item_form.label :page_name, raw(I18n.t('helpers.label.news_item.page_name'))
+      %p= raw(I18n.t('helpers.label.news_item.page_name_more'))
     %dd
       = news_item_form.text_field :page_name, { :maxlength => 255 }
       / %p
@@ -20,7 +20,7 @@
       = news_item_form.datetime_select(:activated_on, :order => [:day,:month,:year], :start_year => (Time.now.year - 10), :end_year => (Time.now.year + 1), :use_month_numbers => true)
   %p=I18n.t(:note_all_times_utc)
   %fieldset
-    - news_item_form.label :active, :class => 'checkbox' do
+    = news_item_form.label :active, :class => 'checkbox' do
       = news_item_form.check_box :active
       = I18n.t('activerecord.attributes.news_item.active')
       %p= I18n.t('helpers.label.news_item.active_more')

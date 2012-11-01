@@ -50,7 +50,7 @@ class ContentPartners::ContentPartnerContactsController < ContentPartnersControl
   end
 
   # DELETE /content_partners/:content_partner_id/contacts/:id
-  def destroy
+  def delete
     @partner = ContentPartner.find(params[:content_partner_id])
     @contact = @partner.content_partner_contacts.find(params[:id])
     access_denied unless current_user.can_delete?(@contact)

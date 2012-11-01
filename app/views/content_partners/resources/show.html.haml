@@ -67,7 +67,7 @@
     .section.half
       .article
         .header
-          %h3= I18n.t(:content_partner_resource_licensing_details_header)
+          %h3= raw(I18n.t(:content_partner_resource_licensing_details_header))
         %dl
           %dt= I18n.t('activerecord.attributes.resource.license_id')
           %dd= @resource.license.blank? ? I18n.t(:value_empty) : I18n.t("license_#{@resource.license.title.gsub(/[- .]/, '_').strip}")

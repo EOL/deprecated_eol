@@ -1,6 +1,6 @@
 %fieldset
   %h3= I18n.t(:content_partner_contact_new_edit_form_header)
-  %p.tip= I18n.t(:content_partner_contact_new_edit_form_tip, :required_icon => image_tag('v2/icon_required.png', :alt => ''))
+  %p.tip= raw(I18n.t(:content_partner_contact_new_edit_form_tip, :required_icon => image_tag('v2/icon_required.png', :alt => '')))
   %dl
     %dt.required
       = contact_form.label :given_name

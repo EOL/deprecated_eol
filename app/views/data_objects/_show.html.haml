@@ -52,7 +52,7 @@
         %h3= I18n.t(:recent_updates)
       - @revisions ||= @data_object.revisions_by_date
       - @latest_published_revision ||= @data_object.latest_published_revision
-      - if @latest_published_revision.id == @data_object.id
+      - if @latest_published_revision && @latest_published_revision.id == @data_object.id
         = render :partial => '/activity_logs/index', :locals => { :log => @activity_log }
         = render :partial => '/comments/new', :locals => { :parent => @data_object }
   - unless @revisions.blank?

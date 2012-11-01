@@ -171,17 +171,20 @@ EolUpgrade::Application.routes.draw do
   end
 
   resources :content_partners do
-    resources :content_partner_contacts, :as => 'contacts', :except => [:index, :show],
-      :controller => 'content_partners/content_partner_contacts'
+    resources :content_partner_contacts, :as => 'contacts', :except => [:index, :show], :controller => 'content_partners/content_partner_contacts' do
+      member do
+        delete 'delete'
+      end
+    end
     resources :content_partner_agreements, :as => 'agreements', :except => [:index, :destroy],
       :controller => 'content_partners/content_partner_agreements'
     resource :statistics, :only => [:show], :controller => 'content_partners/statistics'
-    resources :resources, :only => [:index, :show, :edit], :controller => 'content_partners/resources'do
+    resources :resources, :only => [:index, :show, :edit, :new, :update, :create], :controller => 'content_partners/resources'do
       member do
         get 'force_harvest', :controller => 'content_partners/resources'
         post 'force_harvest', :controller => 'content_partners/resources'
       end
-      resources :harvest_events, :only => [:index, :update], :controller => 'content_partners/harvest_events'
+      resources :harvest_events, :only => [:index, :update], :controller => 'content_partners/resources/harvest_events'
       resources :hierarchies, :only => [:edit, :update] do
         member do
           post 'request_publish', :controller => 'content_partners/hierarchies'
@@ -250,7 +253,7 @@ EolUpgrade::Application.routes.draw do
         post 'move_up'
         post 'move_down'
       end
-      resources :children, :only => [:new, :create]
+      resources :children, :only => [:new, :create], :controller => 'admins/content_pages'
       resources :translated_content_pages, :as => :translations, :except => [:show, :index],
         :controller => 'admins/translated_content_pages'
     end

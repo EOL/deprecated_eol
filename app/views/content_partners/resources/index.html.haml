@@ -25,7 +25,7 @@
   .main_container
     .copy
       %h3= I18n.t(:content_partner_resources_header)
-      %p= I18n.t(:content_partner_resources_information, :eol_transfer_schema_url => cms_page_path('cp_plan_export'))
+      %p= raw(I18n.t(:content_partner_resources_information, :eol_transfer_schema_url => cms_page_path('cp_plan_export')))
       %p= link_to I18n.t(:content_partner_resource_new_link), new_content_partner_resource_path(@partner), :class => 'button'
     - unless @resources.blank?
       %table.standard

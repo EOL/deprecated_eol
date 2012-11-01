@@ -105,7 +105,7 @@ private
     set_content_pages_options
     set_translated_content_page_new_options
     @page_subheader = I18n.t(:admin_content_page_new_header)
-    @parent_content_pages = ContentPage.all.delete_if{|p| p == @content_page}.compact
+    @parent_content_pages = ContentPage.unscoped.all( :select => 'id, page_name' ).delete_if{|p| p == @content_page}.compact
   end
 
   def set_translated_content_page_new_options
@@ -115,7 +115,7 @@ private
   def set_content_page_edit_options
     set_content_pages_options
     @page_subheader = I18n.t(:admin_content_page_edit_header, :page_name => @content_page.page_name)
-    @parent_content_pages = ContentPage.all.delete_if{|p| p == @content_page}.compact
+    @parent_content_pages = ContentPage.unscoped.all( :select => 'id, page_name' ).delete_if{|p| p == @content_page}.compact
     @navigation_tree = ContentPage.get_navigation_tree(@content_page.parent_content_page_id)
   end
 end

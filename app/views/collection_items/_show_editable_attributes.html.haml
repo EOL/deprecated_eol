@@ -1,13 +1,13 @@
 - if collection_item.annotation && ! collection_item.annotation.blank?
   .annotation
-    %p= collection_item.annotation.add_missing_hyperlinks
+    %p= collection_item.annotation.add_missing_hyperlinks.html_safe
 - if @collection.show_references
   %p.references
   - unless collection_item.refs.blank?
     %strong= I18n.t :references_cabs_colon
     - collection_item.refs.each do |ref|
       %br
-      = ref.full_reference.add_missing_hyperlinks
+      = ref.full_reference.add_missing_hyperlinks.html_safe
 - unless collection_item.sort_field.blank?
   %p.sort_value
     %strong= I18n.t('helpers.label.collection_item.sort_field_show')

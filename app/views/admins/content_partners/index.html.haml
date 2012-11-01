@@ -22,12 +22,12 @@
             = label_tag :resource_status_id, I18n.t('activerecord.attributes.resource.resource_status_id')
           %dd
             = select_tag :resource_status_id,
-              option_please_select + options_from_collection_for_select(@resource_statuses, :id, :label, @resource_status_id.to_i)
+              options_from_collection_for_select(@resource_statuses, :id, :label, @resource_status_id.to_i), :prompt => I18n.t(:option_please_select)
           %dt
             = label_tag :content_partner_status_id, I18n.t('activerecord.attributes.content_partner.content_partner_status')
           %dd
             = select_tag :content_partner_status_id,
-              option_please_select + options_from_collection_for_select(@partner_statuses, :id, :label, @partner_status_id.to_i)
+              options_from_collection_for_select(@partner_statuses, :id, :label, @partner_status_id.to_i), :prompt => I18n.t(:option_please_select)
           %dt
             = label_tag :vetted, I18n.t('activerecord.attributes.resource.vetted')
           %dd
@@ -100,11 +100,11 @@
                   %h5
                     = resource.title
                     %small
-                      [
+                      = "["
                       = link_to I18n.t(:content_partner_resource_view_link), content_partner_resource_path(partner, resource)
                       &bull;
                       = link_to I18n.t(:content_partner_resource_edit_link), edit_content_partner_resource_path(partner, resource)
-                      ]
+                      = "]"
                   .resource_status
                     %dl
                       %dt
@@ -114,10 +114,10 @@
                           = I18n.t(:value_empty)
                         - else
                           = I18n.t("content_partner_resource_hierarchy_#{en_browsable_status}")
-                          [
+                          = "["
                           = link_to I18n.t(:content_partner_resource_hierarchy_edit_link),
                             edit_content_partner_resource_hierarchy_path(partner, resource, hierarchy, :return_to => current_url)
-                          ]
+                          = "]"
                       %dt
                         = I18n.t('helpers.label.resource.latest_harvest_event')
                       %dd

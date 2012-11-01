@@ -257,10 +257,12 @@ EolUpgrade::Application.routes.draw do
       resources :translated_content_pages, :as => :translations, :except => [:show, :index],
         :controller => 'admins/translated_content_pages'
     end
-    resources :content_partners, :only => [:index] do
+    resources :content_partners, :controller => 'admins/content_partners', :only => [:index] do
       collection do
-        get 'statistics', :controller => 'content_partners/statistics'
-        post 'statistics', :controller => 'content_partners/statistics'
+        get 'statistics'
+        post 'statistics'
+        get 'notifications'
+        post 'notifications'
       end
     end
     resources :eol_statistics, :as => 'statistics', :only => [:index] do

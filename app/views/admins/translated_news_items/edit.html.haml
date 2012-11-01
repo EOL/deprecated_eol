@@ -12,4 +12,4 @@
         = news_item_form.submit I18n.t('helpers.submit.translated_news_item.update')
         = link_to I18n.t(:cancel), admin_news_items_path
     = button_to I18n.t(:delete), { :action => 'destroy', :news_item_id => @news_item.id, :id => @translated_news_item.id },
-      { :confirm => I18n.t(:admin_translated_news_item_delete_confirmation, :page_name => @news_item.page_name, :language => @translated_news_item.language.label.downcase), :method => 'delete', :class => 'delete' }
+      { :data => { :confirm => I18n.t(:admin_translated_news_item_delete_confirmation, :page_name => @news_item.page_name, :language => @translated_news_item.language.label.downcase) }, :method => 'delete', :class => 'delete' }

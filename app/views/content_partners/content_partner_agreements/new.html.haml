@@ -1,7 +1,7 @@
 #content_partner_show.site_column
   .main_content
     - if current_user.is_admin?
-      = form_for [@partner, @agreement] do |form|
+      = form_for [@partner, @agreement], :url => content_partner_agreements_path do |form|
         %fieldset
           = render :partial => 'modify_agreement', :locals => { :form => form }
         %fieldset.actions

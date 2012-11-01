@@ -31,6 +31,7 @@ class RecentActivityMailer < ActionMailer::Base
     @note_ids = options[:note_ids] || ['unknown']
     @error = options[:error] || 'unknown'
     @frequency = options[:fqz].to_s || 'unknown'
+    @backtrace = options[:backtrace].to_s || 'unknown'
     set_locale(to)
     mail(
       :to => to.email

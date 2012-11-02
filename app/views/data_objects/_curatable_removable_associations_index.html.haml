@@ -15,8 +15,8 @@
       - entries.each do |entry|
         %fieldset
           - if entry.visibility_id == Visibility.preview.id
-            %legend= I18n.t(:cannot_curate_association_in_preview_mode,
-              :name => link_to(raw(entry.italicized_name), overview_taxon_path(entry.taxon_concept_id)))
+            %legend= raw(I18n.t(:cannot_curate_association_in_preview_mode,
+              :name => link_to(raw(entry.italicized_name), overview_taxon_path(entry.taxon_concept_id))))
           - else
             - show_curation_submit = true
             %legend= link_to raw(entry.italicized_name), overview_taxon_path(entry.taxon_concept_id)

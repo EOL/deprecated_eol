@@ -1,0 +1,10 @@
+- (@first_news_item.created_at.year..Time.now.year).to_a.reverse.each do |year|
+  %h3= I18n.t(:posts_from_year, :year => year)
+  %ul
+    - (1..12).to_a.reverse.each do |month|
+      - next if year == Time.now.year && month > Time.now.month
+      - next if year == @first_news_item.created_at.year && month < @first_news_item.created_at.month
+      - active_class = (year == @year && month == @month) ? 'active' : ''
+      %li{ :class => active_class }= link_to I18n.localize(Time.new(0, month), :format => :month_name), news_items_path(:year => year, :month => month)
+  %br
+  %br

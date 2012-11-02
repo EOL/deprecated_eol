@@ -6,13 +6,26 @@ class NewsItemsController < ApplicationController
   def index
     @rel_canonical_href = root_url.sub!(/\/+$/,'')
     @page_title = I18n.t(:page_title, :scope => [:news_items, :index])
+    @first_news_item = NewsItem.first
+    @year = (params[:year] || Time.now.year).to_i
+    @month = (params[:month] || Time.now.month).to_i
+    if @year < @first_news_item.created_at.year || (@year == @first_news_item.created_at.year && @month < @first_news_item.created_at.month)
+      @year = @first_news_item.created_at.year
+      @month = @first_news_item.created_at.month
+    end
+    if @year > Time.now.year || (@year == Time.now.year && @month > Time.now.month)
+      @year = Time.now.year
+      @month = Time.now.month
+    end
     if current_user.news_in_preferred_language
-      @translated_news_items = TranslatedNewsItem.paginate(
-        :conditions=>['translated_news_items.language_id = ? and translated_news_items.active_translation=1 and news_items.active=1 and news_items.activated_on<=?', Language.from_iso(current_language.iso_639_1), DateTime.now.utc],
+      @translated_news_items = TranslatedNewsItem.find(
+        :conditions= >[ 'translated_news_items.language_id = ? and translated_news_items.active_translation=1 and news_items.active=1 and news_items.activated_on<=?
+          and MONTH(news_items.display_date) = ? and YEAR(news_items.display_date) = ?', Language.from_iso(current_language.iso_639_1), DateTime.now.utc, @month, @year],
         :joins => "inner join news_items on news_items.id = translated_news_items.news_item_id",
-        :order=>'news_items.display_date desc', :page => params[:page], :per_page => 25)
+        :order=>'news_items.display_date desc')
     else
-      news_items = NewsItem.find(:all, :conditions=>['news_items.active=1 and news_items.activated_on<=?', DateTime.now.utc],
+      news_items = NewsItem.find(:all, :conditions=>['news_items.active=1 and news_items.activated_on<=?
+        and MONTH(news_items.display_date) = ? and YEAR(news_items.display_date) = ?', DateTime.now.utc, @month, @year],
         :order=>'news_items.display_date desc', :include => :translations)
       translated_news_items = []
       news_items.each do |news_item|
@@ -24,7 +37,7 @@ class NewsItemsController < ApplicationController
           translated_news_items << active_translations.sort_by{|t| t.created_at || 0}.first unless active_translations.blank?
         end
       end
-      @translated_news_items = translated_news_items.paginate(:page => params[:page], :per_page => 25)
+      @translated_news_items = translated_news_items
     end
   end
   

@@ -737,11 +737,14 @@ body
   padding: 20px 0
   background: #ffffff
   &.cms_page,
-  &.news_page
+  &.newsfeed
     .nav
       float: left
       margin: 0 20px 0 0
       width: 240px
+      h3
+        margin: 10px
+        font-size: 14px
       ul
         li
           a
@@ -768,6 +771,23 @@ body
         padding: 10px
         border: 1px solid #cad3db
         margin: 0 0 20px 20px
+  &.newsfeed
+    .article
+      margin: 0 0 20px 260px
+      padding: 20px
+      h2
+        border-bottom: 1px solid #cad3db
+        padding: 0 10px 15px 10px
+        margin: 0 -10px 15px -10px
+      .meta
+        font-weight: bold
+        padding: 0
+        border-top: 1px solid #cad3db
+        padding: 15px 10px 0 10px
+        margin: 15px -10px 0 -10px
+    div
+      .empty
+        margin: 0 0 20px 260px
 
 #page_heading
   padding: 10px 0 0 0

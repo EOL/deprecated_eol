@@ -23,4 +23,4 @@
     = news_item_form.label :active, :class => 'checkbox' do
       = news_item_form.check_box :active
       = I18n.t('activerecord.attributes.news_item.active')
-      %p= I18n.t('helpers.label.news_item.active_more')
+      %p= raw(I18n.t('helpers.label.news_item.active_more'))

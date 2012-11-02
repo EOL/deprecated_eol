@@ -37,6 +37,10 @@ class TranslatedContentPage < ActiveRecord::Base
     return self.page_name.gsub(' ', '_').downcase
   end
 
+  def is_discover_page?
+    main_content =~ /discover_content_section/
+  end
+
 private
 
   def archive_self

@@ -544,9 +544,6 @@ describe TaxonConcept do
   end
 
   it 'should not return hidden exemplar image' do
-    # TODO - this legitimately fails; we don't edit it elsewhere in this file, the image really is invisible and it
-    # really does show up from the method used. ...and "visible" is the only type allowed by the call from
-    # TC#exemplar_or_best_image_from_solr ... so this is either a problem with Solr or its interface.
     @testy[:has_one_hidden_image].exemplar_or_best_image_from_solr.should be_nil
   end
 

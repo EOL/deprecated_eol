@@ -1,12 +1,16 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe 'Switching Languages' do
-  before(:each) do
+  before(:all) do
     load_foundation_cache
+  end
+  
+  before(:each) do
     @user_fr = User.gen(:language_id => Language.find_by_iso_639_1('fr').id)
   end
   
   it 'should use the default language' do
+    visit('/logout')
     I18n.locale.to_s.should == Language.default.iso_code
   end
   

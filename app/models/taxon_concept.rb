@@ -1058,13 +1058,15 @@ class TaxonConcept < ActiveRecord::Base
   def published_exemplar_image
     if concept_exemplar_image = taxon_concept_exemplar_image
       if the_best_image = concept_exemplar_image.data_object
-        unless the_best_image.published?
-          # best_image may end up being NIL, which means there is no published version
-          # of it anymore - the example is no longer available. We don't want to show
-          # unpublished exemplar images
-          the_best_image = the_best_image.latest_published_version_in_same_language
+        if the_best_image.visibility_by_taxon_concept(self).id == Visibility.visible.id
+          unless the_best_image.published?
+            # best_image may end up being NIL, which means there is no published version
+            # of it anymore - the example is no longer available. We don't want to show
+            # unpublished exemplar images
+            the_best_image = the_best_image.latest_published_version_in_same_language
+          end
+          return the_best_image
         end
-        return the_best_image
       end
     end
   end

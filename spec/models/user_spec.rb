@@ -106,9 +106,10 @@ describe User do
   end
 
   it 'should alias password to entered_password' do
+    user = User.new
     pass = 'something new'
-    @user.entered_password = pass
-    @user.password.should == pass
+    user.entered_password = pass
+    user.password.should == pass
   end
 
   it 'should require password for a user with eol authentication'

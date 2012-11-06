@@ -49,11 +49,11 @@ describe Admins::ContentPartnersController do
       assigns[:partners].should == [@cp_latest_unpublished, @cp_all_unpublished].sort_by{|cp| cp.full_name}
     end
     it 'should filter by latest harvest events that are pending publish' do
-      he = @cp_latest_unpublished.resources.first.latest_harvest_event
-      # he.update_column(:publish, true)
+      he = @cp_latest_unpublished.resources.first.harvest_events.last
+      he.update_column(:publish, true)
       get :index, {:published => '3'}, { :user => @admin, :user_id => @admin.id }
       assigns[:partners].should == [@cp_latest_unpublished]
-      # he.update_column(:publish, false)
+      he.update_column(:publish, false)
     end
     it 'should filter by latest harvest events that are published' do
       get :index, {:published => '4'}, { :user => @admin, :user_id => @admin.id }

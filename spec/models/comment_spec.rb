@@ -56,9 +56,9 @@ describe Comment do
 
   it "should return parent type if comment is for object that is not TaxonConcept or DataObject" do
     comment = Comment.gen(:parent => @tc.images_from_solr.first)
-    comment.parent_type = 'UnkownType'
+    comment.parent_type = 'Language'
     comment.save
-    comment.reload.parent_name.should == 'UnkownType'
+    comment.reload.parent_name.should == 'Language'
   end
 
   # taxa_comment

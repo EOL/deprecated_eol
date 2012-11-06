@@ -171,6 +171,9 @@ EolUpgrade::Application.routes.draw do
   end
 
   resources :content_partners do
+    member do
+      post 'new'
+    end
     resources :content_partner_contacts, :as => 'contacts', :except => [:index, :show], :controller => 'content_partners/content_partner_contacts' do
       member do
         delete 'delete'

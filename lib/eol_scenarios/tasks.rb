@@ -20,7 +20,7 @@ end
 namespace :scenarios do
 
   desc 'scenarios:load NAME=foo OR NAME=a,b,c'
-  task :load do
+  task :load => :environment do
     puts "called scenarios:load" if EolScenario.verbose
     if ENV['NAME']
       names = ENV['NAME'].split(',')

@@ -5,7 +5,8 @@
   = stylesheet_link_tag 'colorbox.css'
   = stylesheet_link_tag '_discover.css'
 - content_for :main do
-  #page_heading
+  - heading_class = @translated_content.is_discover_page? ? 'discover_heading' : ''
+  #page_heading{ :class => heading_class }
     .site_column
       .hgroup
         = render :partial => 'content/breadcrumbs'

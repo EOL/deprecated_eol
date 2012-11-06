@@ -1432,9 +1432,11 @@ class TaxonConcept < ActiveRecord::Base
   end
   
   def count_of_viewable_synonyms
-    published_browsable_visible_hierarchy_entries.collect do |he|
+    count = published_browsable_visible_hierarchy_entries.collect do |he|
       he.synonyms.where("synonyms.synonym_relation_id NOT IN (#{SynonymRelation.common_name_ids.join(',')})").count
     end.inject(:+)
+    count ||= 0
+    count
   end
   
   def all_data_objects

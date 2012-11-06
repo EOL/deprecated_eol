@@ -11,6 +11,7 @@ var discover = {
 			discover.buildPrint();
 			discover.buildCalloutLasts();
 			discover.buildSlideshow();
+			discover.enable();
 		}
 		
 	},
@@ -267,6 +268,15 @@ var discover = {
 				
 			});
 		}
+	},
+	
+	enable: function() {
+		$("#content").delegate("ul.gallery_thumbnails a", "click.gallery_thumbnails", function(e) {
+			e.preventDefault();
+			var $e = $(e.target).closest("li"),
+				$slides = $("#" + $e.closest("ul").attr("id") + "_content");
+				$slides.find("a").eq($e.index()).click();
+		});
 	}
 }
 

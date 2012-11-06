@@ -268,7 +268,6 @@ private
 
   def log_action(act, opts = {})
     community = @community || opts.delete(:community)
-    debugger
     CommunityActivityLog.create(
       {:community_id => community.id, :user_id => current_user.id, :activity_id => Activity.send(act).id}.merge(opts)
     )

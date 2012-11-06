@@ -764,3 +764,25 @@ h3.discover_highlight {
 #cboxWrapper {
 	padding-bottom: 60px;
 }
+
+ul.gallery_thumbnails {
+  overflow: hidden;
+  padding: 10px 0 5px 0;
+  margin: 0 0 20px 0;
+  border: 1px solid #cccccc;
+  border-width: 1px 0;
+}
+ul.gallery_thumbnails li {
+  float: left;
+  margin: 0 0 5px 0;
+  list-style: none;
+}
+ul.gallery_thumbnails li + li {
+  margin-left: 5px;
+}
+html > body:first-of-type #content ul.gallery_thumbnails img {
+  display: block;
+  max-width: 94px;
+  padding: 0;
+  margin: 0;
+}

@@ -37,9 +37,9 @@
             - # we only want to show one message here lest we confuse the user - URL takes precedence.
             - if @resource.accesspoint_url.blank?
               - unless @resource.dataset_file_name.blank?
-                %p= I18n.t('helpers.label.resource.dataset_existing_replace', :file_name => @resource.dataset_file_name)
+                %p= raw(I18n.t('helpers.label.resource.dataset_existing_replace', :file_name => @resource.dataset_file_name))
             - else
-              %p= I18n.t('helpers.label.resource.accesspoint_url_existing_remove', :accesspoint_url => @resource.accesspoint_url.sub(/^.*\//, ''))
+              %p= raw(I18n.t('helpers.label.resource.accesspoint_url_existing_remove', :accesspoint_url => @resource.accesspoint_url.sub(/^.*\//, '')))
             = resource_form.file_field :dataset
   %dl
     %dt.required

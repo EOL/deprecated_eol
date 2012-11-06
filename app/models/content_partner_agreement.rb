@@ -29,7 +29,10 @@ class ContentPartnerAgreement < ActiveRecord::Base
   # override default accessor for body if nil and partner does not have an mou_url
   def body
     if read_attribute(:body).blank? && self.mou_url.blank?
-      return ActionView::Base.new(Rails::Configuration.new.view_path).render(
+      av = ActionView::Base.new()
+      av.view_paths = ActionController::Base.view_paths
+      av.extend ApplicationHelper
+      return av.render(
         :partial => "content_partners/content_partner_agreements/template",
         :locals => { :partner => self.content_partner, :agreement => self })
     end

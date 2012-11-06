@@ -72,13 +72,13 @@ $CACHE_STATS_COUNT_IN_MINUTES = 24 * 60 # refresh total counts of all data at th
 
 # CONTENT PARTNER REGISTRY CONFIGURATION
 $LOGO_UPLOAD_PATH = "/uploads/images/collection_icons/"  # directory to place uploaded content partner logos from CP registry, content server needs SFTP access to this folder (logos are not served out of this area)
-$LOGO_UPLOAD_DIRECTORY = "#{Rails.root}/#{Rails.public_path}/uploads/images/collection_icons/:class_:id.:extension"  # directory to place uploaded content partner logos from CP registry, content server needs SFTP access to this folder (logos are not server out of this area)
+$LOGO_UPLOAD_DIRECTORY = "#{Rails.public_path}/uploads/images/collection_icons/:class_:id.:extension"  # directory to place uploaded content partner logos from CP registry, content server needs SFTP access to this folder (logos are not server out of this area)
 $LOGO_UPLOAD_MAX_SIZE = 5242880 # 5 megabytes
 $DATASET_UPLOAD_PATH = "/uploads/datasets/"  # directory to place uploaded content partner datasets, content server needs SFTP access to this folder
-$DATASET_UPLOAD_DIRECTORY = "#{Rails.root}/#{Rails.public_path}/uploads/datasets/:id.:extension"  # directory to place uploaded content partner datasets, content server needs SFTP access to this folder
+$DATASET_UPLOAD_DIRECTORY = "#{Rails.public_path}/uploads/datasets/:id.:extension"  # directory to place uploaded content partner datasets, content server needs SFTP access to this folder
 
 $CONTENT_UPLOAD_PATH = "/uploads/"  # directory to place uploaded content files, content server needs SFTP access to this folder
-$CONTENT_UPLOAD_DIRECTORY = "#{Rails.root}/#{Rails.public_path}/uploads/:id.:extension"  # directory to place uploaded content
+$CONTENT_UPLOAD_DIRECTORY = "#{Rails.public_path}/uploads/:id.:extension"  # directory to place uploaded content
 
 # NEWS ITEMS ON HOME PAGE CONFIGURATION
 $NEWS_ITEMS_HOMEPAGE_MAX_DISPLAY = 5 # the maximum number of news items to show on the home page at any time

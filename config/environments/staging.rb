@@ -39,6 +39,15 @@ EolUpgrade::Application.configure do
   # Raise exception on mass assignment protection for Active Record models
   config.active_record.mass_assignment_sanitizer = :strict
 
+  # Set up the master database connection for writes using masochism plugin
+  # NOTE: for this to work, you *must* also use config.cache_classes = true (default for production)
+  config.after_initialize do
+    ActiveReload::ConnectionProxy.setup_for ActiveReload::MasterDatabase, ActiveRecord::Base
+    ActiveReload::ConnectionProxy.setup_for LoggingWriter, LoggingModel
+    $PARENT_CLASS_MUST_USE_MASTER = ActiveReload::MasterDatabase
+  end
+  $LOGGING_READ_FROM_MASTER = true
+
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 1

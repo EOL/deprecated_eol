@@ -26,6 +26,9 @@ EolUpgrade::Application.configure do
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
 
+  # Fix for running rake tasks, which don't seem to load gems otherwise:
+  config.dependency_loading = true if $rails_rake_task
+
   # Set up the master database connection for writes using masochism plugin
   # NOTE: for this to work, you *must* also use config.cache_classes = true (default for production)
   config.after_initialize do

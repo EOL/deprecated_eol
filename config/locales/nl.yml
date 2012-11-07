@@ -9,6 +9,7 @@
 # Author: SPQRobin
 # Author: Saruman
 # Author: Siebrand
+# Author: Wouterkoch
 nl: 
   0_1_or_2: 0, 1 of 2
   0_or_1: 0 of 1
@@ -2331,6 +2332,7 @@ nl:
         about_link_donate: Doneren aan EOL
         about_link_eol_blog: De EOL-blog
         about_link_help: Hulp
+        about_link_podcasts: Podcasts
         about_link_statistics: Statistieken
         about_link_terms_of_use: Gebruiksvoorwaarden
         about_link_what_is_eol: Wat is EOL?

@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Adata80
+# Author: CoderSI
 # Author: DCamer
 # Author: Eleferen
 # Author: Express2000
@@ -145,6 +146,9 @@ ru:
         request_publish: Запрос публикации
       name: 
         string: Имя
+      news_item: 
+        page_name: Уникальное имя
+        sort_order: Порядок сортировки
       notification: 
         changes_to_my_watched_collection: Изменения в коллекциях из вашего списка наблюдений
         changes_to_my_watched_community: Изменения в сообществах из вашего списка наблюдений
@@ -286,14 +290,12 @@ ru:
   add_a_comment_colon: "Добавить комментарий:"
   add_a_new_common_name: Добавить новое общее имя
   add_a_new_file_brackets: "[добавить новый файл]"
-  add_a_new_news_item: Добавьте новую новость
   add_a_new_role: Добавить новую роль
   add_a_new_search_suggestion: Добавить новое предложение поиска
   add_a_new_term: Добавить новый термин
   add_a_new_topic_area: Добавить новую тему
   add_a_new_user: Добавить нового пользователя
   add_a_taxon_association_label: Добавить сопоставление таксона
-  add_article_to_page_link_button: Добавить статью на эту страницу
   add_association_submit_button: добавить ассоциацию
   add_brief_summary_to_page_link_button: Добавить краткое описание на эту страницу
   add_citizen_science_resources_to_page_link_button: Добавить научную ссылку на эту страницу
@@ -367,6 +369,7 @@ ru:
   admin_translated_content_page_new_tip: Язык, заголовок и текст %{required_icon} обязательны.
   admin_translated_content_page_update_successful_notice: "%{language} перевод для <a href=\"#%{anchor}\"><em>%{page_name}</em></a> был обновлен."
   admin_translated_content_page_update_unsuccessful_error: Извините, произошла ошибка, перевод не был обновлен.
+  admin_translated_news_item_new_link: Добавить перевод
   admin_user_delete_successful_notice: Пользователь был удален
   admin_user_hide_successful_notice: Пользователь был скрыт
   admin_user_unhide_successful_notice: Пользователь был показан
@@ -859,6 +862,8 @@ ru:
         rights_statement_more: Заявление прав использования в соответствии с лицензиями Creative Commons Attribution (CC-BY), укажите атрибуцию <q cite="http://creativecommons.org/licenses/by/3.0">в порядке, установленном автором или лицензиаром</q>.
         source_url: URL-адрес исходного объекта данных
         toc_item: Подраздел
+      data_object_link: 
+        link_type: Категория
       eol_statistic: 
         date_one: Дата
         date_two: Дата
@@ -918,6 +923,8 @@ ru:
         meta_description_more: Введите краткое описание, кратко описывающее основные понятия содержимого страницы. Это описание используется иногда поисковыми системами для проверки релевантности и для включения в результаты поиска.
         meta_keywords_more: Введите разделенный запятыми список слов и коротких фраз, которые лучше всего отражают содержание страницы. Эти ключевые слова и ключевые фразы иногда используются поисковыми системами для оценки релевантности страницы условиям поиска.
         title_more: Название это содержание будет отображаться в области верхнего колонтитула страницы. Название должно включать ключевые слова, наиболее релевантные содержанию.
+      translated_news_item: 
+        language_id: Язык
       user: 
         agreed_with_terms: Я согласен с <a href="%{terms_url}">условиями использования</a>
         api_key_more: Подробнее о <a href="%{api_docs_url}">добавлении ключа к API-запросам</a>.
@@ -987,6 +994,8 @@ ru:
         create: Добавить статью
         create_text: Добавить статью
         update: Сохранить статью
+      data_object_link: 
+        create: Добавить ссылку
       eol_statistic: 
         change_date: Получить статистику для дат
         download_csv: Скачать как CSV
@@ -1018,6 +1027,8 @@ ru:
       translated_content_page: 
         create: Добавить перевод
         update: Сохранить изменения в переводе
+      translated_news_item: 
+        create: Добавить перевод
       update: Обновить %{model}
       user: 
         create: Регистрация
@@ -1039,6 +1050,41 @@ ru:
   just_pages_with_pictures_and_text: Только страницы с иллюстрациями и текстом
   language: "Язык:"
   languages: Языки
+  layouts: 
+    v2: 
+      application: 
+        about_link_contact_us: Как с нами связаться
+        about_link_eol_blog: Блог EOL
+        about_link_glossary: Глоссарий
+        about_link_help: Помощь
+        about_link_podcasts: Подкасты
+        about_link_statistics: Статистика
+        about_link_terms_of_use: Условия использования
+        about_link_what_is_eol: Что такое EOL?
+        header_about: О EOL
+        header_learn_more: Узнайте больше о
+        learn_more_link_amphibians: Амфибиях
+        learn_more_link_animals: Животные
+        learn_more_link_archaea: Археях
+        learn_more_link_bacteria: Бактериях
+        learn_more_link_birds: Птицы
+        learn_more_link_crustaceans: Ракообразных
+        learn_more_link_fish: Рыбах
+        learn_more_link_flowering_plants: Цветах
+        learn_more_link_fungi: Грибах
+        learn_more_link_insects: Насекомых
+        learn_more_link_invertebrates: Беспозвоночных
+        learn_more_link_mammals: Млекопитающих
+        learn_more_link_molds: Плесени
+        learn_more_link_mollusks: Моллюсках
+        learn_more_link_mushrooms: Грибы
+        learn_more_link_plants: Растениях
+        learn_more_link_protists: Простейших
+        learn_more_link_reptiles: Рептилиях
+        learn_more_link_spiders: Пауки
+        learn_more_link_trees: Деревья
+        learn_more_link_viruses: Вирусах
+        learn_more_link_worms: Червях
   license: Лицензия
   license_all_rights_reserved: Все права защищены
   license_cc_by: Creative Commons Attribution (CC BY)
@@ -1082,7 +1128,6 @@ ru:
   meta_title_site_name: Энциклопедия жизни
   method: Метод
   methods: Методы
-  minimal_page: Минимальная страница
   mobile: 
     contents: 
       explore_eol: Изучить
@@ -1117,6 +1162,10 @@ ru:
   names_children_column_header: Дети
   never: Никогда
   news_archive_page: архив новостей
+  news_items: 
+    index: 
+      meta_title: Новости EOL
+      page_title: Новости EOL
   no_answer: Нет
   notifier: 
     activity_log_empty: Нет недавние действий кураторов.
@@ -1149,6 +1198,8 @@ ru:
     signature_with_species_pages_group_contact: "Если у вас есть какие-либо вопросы, пожалуйста, свяжитесь с нами по адресу %{species_pages_group_email}.\n\nКоманда энциклопедии жизни"
     user_activated: 
       subject: Ваш аккаунт в Энциклопедии Жизни (EOL) был активирован
+    user_activated_with_open_authentication: 
+      subject: Ваш аккаунт в Энциклопедии Жизни (EOL) был активирован
     user_commented_on_something_date_body: "%{curator_level} %{users_name} (%{users_url}) прокомментировал:\n%{commented_on_name} (%{commented_on_url})\n%{comment_date}:\n%{comment_body}"
   nucleotide_sequences: Нуклеотидные последовательности
   object_type_text_option: Текст
@@ -1164,6 +1215,7 @@ ru:
   recent_activity: 
     comment_link: Просмотр комментариев на EOL
     default_subject: Последние данные по активности на EOL
+    intro_immediately: Привет, %{name} —
   references_cabs_colon: "Примечания:"
   rights: Права
   rights_holder: Правообладатель
@@ -1199,7 +1251,6 @@ ru:
   this_image_is_unpublished: Это изображение не опубликовано.
   this_image_map_cannot_be_curated_because_unpublished: У этой карты нет куратора, потому что она не опубликована.
   this_image_map_is_unpublished: Эта карта не опубликована.
-  tinyurl: TinyURL
   title: Заголовок
   to_process_your_donation_please_proceed: Чтобы обработать пожертвование, пожалуйста, перейдите
   to_remedy_this: Чтобы исправить это, мы закроем эти неактивные учетные записи и предложим посетить eol.org для создания новой учетной записи. Когда вы получите подтверждение по электронной почте, пожалуйста, нажмите на ссылку, чтобы активировать свою учетную запись.
@@ -1302,6 +1353,19 @@ ru:
       activity_link: активность
       comments_link: комментарии
       newsfeed_link: канал новостей
+    notifications: 
+      edit: 
+        page_title: Настройки уведомлений
+      update: 
+        notification_settings_successfully_updated: Настройки уведомлений успешно обновлены.
+        sorry_notification_settings_could_not_be_updated: Извините, не удалось обновить настройки уведомлений.
+    open_authentications: 
+      facebook: Facebook
+      google: Google
+      twitter: Twitter
+      yahoo: Yahoo!
+    pending: 
+      header: Спасибо за регистрацию!
   users_about_me_header: Обо мне
   users_content_partners_header: Контент-партнеры
   users_curation_header: Квалификации куратора

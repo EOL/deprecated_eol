@@ -496,6 +496,13 @@ mk:
         user_chose_exemplar_it_on_an_unknown_taxon: <strong>%{user}</strong> го укажа како урнек на непозната страница.
         user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> го укажа како урнек на „%{taxon}“.
       classification_curation: 
+        merge: 
+          an_unknown_user_merged_to_an_unknown_taxon: Непознат корисник спои две непознати страници.
+          an_unknown_user_merged_to_it: Непознат корисник спои друга страница со оваа.
+          an_unknown_user_merged_to_taxon: Непознат корисник спои друга страница со %{target}.
+          user_merged_to_an_unknown_taxon: <strong>%{user}</strong> спои две непознати страници.
+          user_merged_to_it: <strong>%{user}</strong> спои друга страница со оваа.
+          user_merged_to_taxon: <strong>%{user}</strong> спои друга страница со %{target}.
         move: 
           an_unknown_user_moved_classifications_from_an_unknown_taxon_to_an_unknown_taxon: Непознат корисник ги премести класификациите од %{classifications} од непозната страница во непозната страница.
           an_unknown_user_moved_classifications_from_an_unknown_taxon_to_taxon: Непознат корисник ги премести класификациите од %{classifications} од непозната страница во %{target}.
@@ -510,11 +517,11 @@ mk:
           user_moved_classifications_from_taxon_to_an_unknown_taxon: <strong>%{user}</strong> ги премести класификациите на %{classifications} од %{taxon} во  непозната страница.
           user_moved_classifications_from_taxon_to_taxon: <strong>%{user}</strong> ги премести класификациите на %{classifications} од %{taxon} во  %{target}.
         split: 
-          an_unknown_user_split_classifications_from_an_unknown_taxon: Непознат корисник ги одвои класификациите од %{classifications} од непозната страница во неговата лична страница.
-          an_unknown_user_split_classifications_from_it: Непознат корисник ги одвои класификациите на %{classifications} во својата лична страница.
-          an_unknown_user_split_classifications_from_taxon: Непознат корисник ги одвои класификациите од %{classifications} од %{taxon} во неговата лична страница.
-          user_split_classifications_from_an_unknown_taxon: <strong>%{user}</strong> ги одвои класификациите од %{classifications} од непозната страница во неговата лична страница.
-          user_split_classifications_from_taxon: <strong>%{user}</strong> ги одвои класификациите од %{classifications} во неговата лична страница.
+          an_unknown_user_split_classifications_from_an_unknown_taxon: Непознат корисник ги одвои класификациите од %{classifications} од непозната страница во <a href='%{to}'>неговата лична страница</a>.
+          an_unknown_user_split_classifications_from_it: Непознат корисник ги одвои класификациите на %{classifications} во <a href='%{to}'>неговата лична страница</a>.
+          an_unknown_user_split_classifications_from_taxon: Непознат корисник ги одвои класификациите од %{classifications} од %{taxon} во <a href='%{to}'>неговата лична страница</a>.
+          user_split_classifications_from_an_unknown_taxon: <strong>%{user}</strong> ги одвои класификациите од %{classifications} од непозната страница во <a href='%{to}'>неговата лична страница</a>.
+          user_split_classifications_from_taxon: <strong>%{user}</strong> ги одвои класификациите од %{classifications} во <a href='%{to}'>неговата лична страница</a>.
       hide: 
         an_unknown_user_hid_an_older_data_object_on_an_unknown_association: Непознат корисник означи постара верзија на „%{data_object}“ како скриена во непознат контекст.
         an_unknown_user_hid_an_older_data_object_on_association: Непознат корисник означи постара верзија на „%{data_object}“ како скриена на страницата „%{association}“.
@@ -671,6 +678,26 @@ mk:
         user_trusted_data_object_on_association: <strong>%{user}</strong> го означи „%{data_object}“ како доверлив на страницата „%{association}“.
         user_trusted_it_on_an_unknown_association: <strong>%{user}</strong> го означи како доверлив во непознат контекст.
         user_trusted_it_on_association: <strong>%{user}</strong> го означи како доверлив на страницата „%{association}“.
+      unlock: 
+        merge_of_an_unknown_taxon_unlocked: Спојувањето што неодамна го побаравте е готово, но не можам да ја најдам страницата.
+        merge_of_it_unlocked: Спојувањето што неодамна го побаравте е готово.
+        merge_of_taxon_unlocked: Спојувањето што неодамна го побаравте за „%{taxon}“ е готово.
+        move_of_an_unknown_taxon_unlocked: Преместувањето на класификацијата што неодамна го побаравте е готово, но не можам да ја најдам страницата.
+        move_of_it_unlocked: Преместувањето на класификацијата што неодамна го побаравте на оваа страница е готово.
+        move_of_taxon_unlocked: Преместувањето на класификацијата што неодамна го побаравте за „%{taxon}“ е готово.
+        split_of_an_unknown_taxon_unlocked: Одвојувањето на класификацијата што неодамна го побаравте е готово, но не можам да ја најдам страницата.
+        split_of_it_unlocked: Одвојувањето на класификацијата што неодамна го побаравте на оваа страница е готово, и класификациите се преместени на <a href='%{to}'>своја страница</a>.
+        split_of_taxon_unlocked: Одвојувањето на класификацијата што неодамна го побаравте за „%{taxon}“ е готово, и класификациите се преместени на <a href='%{to}'>своја страница</a>.
+      unlock_with_error: 
+        merge_of_an_unknown_taxon_unlocked_with_error: "Спојувањето на страниците што неодамна го побаравте <strong>не успеа</strong>: %{error}. Покрај тоа, не можам да ја најдам засегнатата страница."
+        merge_of_it_unlocked_with_error: "Спојувањето што неодамна го побаравте на оваа страница <strong>не успеа</strong>: %{error}."
+        merge_of_taxon_unlocked_with_error: "Спојувањето што неодамна го побаравте за „%{taxon}“ <strong>не успеа</strong>: %{error}."
+        move_of_an_unknown_taxon_unlocked_with_error: "Преместувањето на класификацијата што неодамна го побаравте <strong>не успеа</strong>: %{error}. Покрај тоа, не можам да ја најдам засегнатата страница."
+        move_of_it_unlocked_with_error: "Преместувањето на класификацијата што неодамна го побаравте на оваа страница <strong>не успеа</strong>: %{error}."
+        move_of_taxon_unlocked_with_error: "Преместувањето на класификацијата што неодамна го побаравте за „%{taxon}“ <strong>не успеа</strong>: %{error}."
+        split_of_an_unknown_taxon_unlocked_with_error: "Одвојувањето на класификацијата што неодамна го побаравте <strong>не успеа</strong>: %{error}. Покрај тоа, не можам да ја најдам засегнатата страница."
+        split_of_it_unlocked_with_error: "Одвојувањето на класификацијата што неодамна го побаравте на оваа страница <strong>не успеа</strong>: %{error}."
+        split_of_taxon_unlocked_with_error: "Одвојувањето на класификацијата што неодамна го побаравте за „%{taxon}“ <strong>не успеа</strong>: %{error}."
       unreview_common_name: 
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Непознат корисник означи непознато тривијално име на непознат јазик од непозната страница како непроверено.
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: Непознат корисник означи непознато тривијално име на непознат јазик како непроверено.
@@ -1070,6 +1097,10 @@ mk:
   citing_link: Наведување
   classification_already_preferred: "ГРЕШКА: Оваа класификација е веќе означена како претпочитана."
   classification_button_help: Подолу изберете класификација што најдобро ја претставува постоечката страница, па стиснете на соодветното копче „користи како пример“. Ако сакате целосно да ја откажете постапката, стиснете на „откажи“.
+  classification_curation_pending: Згрижувањето е во исчекување. Класификацијата во блиска иднина може да се премести на друга страница.
+  classification_curation_split_comment_with_count: 
+    one: "%{count} класификација од оваа страница е <a href='%{url}'>одвоена во своја страница</a>."
+    other: "%{count} класификации од оваа страница се  <a href='%{url}'>одвоени во своја страница</a>."
   classification_from_agent: Класификација од %{agent}.
   classification_from_agent_chosen_by_curator: Класификација од %{agent} по избор на %{curator}.
   classification_from_agent_chosen_by_curator_see_more: Класификацијата од %{agent} ја избра %{curator} - <a href="%{more_link}">повеќе</a>.
@@ -1842,6 +1873,7 @@ mk:
   error_couldnt_find_community_by_id: Не можев да пронајдам заедница што можете да ја раководите со назнаката %{id}.
   error_default_description: Нажалост, наидовме на проблем. Ако проблемот и понатаму продолжи, обратете се на <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>
   error_default_page_title: Упс.
+  error_exemplar_chosen_with_invalid_action: "Нажалост, класификацијата што ја избравте е непроменета: се изгуби дел од барањето. Ќе треба да пробате пак."
   error_homepage_or_search_option: "Можете да се вратите на <a href=\"/\">почетната страница</a> или да се послужите со нашата алатка за пребарување:"
   error_log: Дневник на грешки
   error_log_detail: Подробност од днев. на грешки

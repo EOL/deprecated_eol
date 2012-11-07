@@ -71,7 +71,7 @@ ko:
         vetted: 심사함
       content_partner_agreement: 
         created_at: 만든 곳
-        signed_by: 다음 사용자가 로그인
+        signed_by: 다음 사용자로 로그인
         signed_on_date: 날짜에 로그인
       content_partner_contact: 
         email_reports_frequency_hours: 이메일 보고서의 빈도
@@ -494,6 +494,13 @@ ko:
         user_chose_exemplar_it_on_an_unknown_taxon: <strong>%{user}</strong> 사용자가 알 수 없는 문서에 표본으로 설정했습니다.
         user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> 사용자가 "%{taxon}" 문서에 표본으로 설정했습니다.
       classification_curation: 
+        merge: 
+          an_unknown_user_merged_to_an_unknown_taxon: 알 수 없는 사용자가 알 수 없는 문서 둘을 병합했습니다.
+          an_unknown_user_merged_to_it: 알 수 없는 사용자가 이 문서에 다른 문서를 병합했습니다.
+          an_unknown_user_merged_to_taxon: 알 수 없는 사용자가 %{target} 문서에 다른 문서를 병합했습니다.
+          user_merged_to_an_unknown_taxon: <strong>%{user}</strong> 사용자가 알 수 없는 문서 둘을 병합했습니다.
+          user_merged_to_it: <strong>%{user}</strong> 사용자가 이 문서에 다른 문서를 병합했습니다.
+          user_merged_to_taxon: <strong>%{user}</strong> 사용자가 %{target} 문서에 다른 문서를 병합했습니다.
         move: 
           an_unknown_user_moved_classifications_from_an_unknown_taxon_to_an_unknown_taxon: 알 수 없는 사용자가 알 수 없는 문서에서 알 수 없는 문서로 %{classifications} 분류를 옮겼습니다.
           an_unknown_user_moved_classifications_from_an_unknown_taxon_to_taxon: 알 수 없는 사용자가 알 수 없는 문서에서 %{target} 문서로 %{classifications} 분류를 옮겼습니다.
@@ -508,11 +515,11 @@ ko:
           user_moved_classifications_from_taxon_to_an_unknown_taxon: <strong>%{user}</strong> 사용자가 %{taxon} 문서에서 알 수 없는 문서로 %{classifications} 분류를 옮겼습니다.
           user_moved_classifications_from_taxon_to_taxon: <strong>%{user}</strong> 사용자가 %{taxon} 문서에서 %{target} 문서로 %{classifications} 분류를 옮겼습니다.
         split: 
-          an_unknown_user_split_classifications_from_an_unknown_taxon: 알 수 없는 사용자가 자신의 문서에 알 수 없는 문서에서 %{classifications} 분류를 나누었습니다.
-          an_unknown_user_split_classifications_from_it: 알 수 없는 사용자가 자신의 문서에 %{classifications} 분류를 나누었습니다.
-          an_unknown_user_split_classifications_from_taxon: 알 수 없는 사용자가 자신의 문서에 %{taxon} 문서에서 %{classifications} 분류를 나누었습니다.
-          user_split_classifications_from_an_unknown_taxon: <strong>%{user}</strong> 사용자가 자신의 문서에 알 수 없는 문서에서 %{classifications} 분류를 나누었습니다.
-          user_split_classifications_from_taxon: <strong>%{user}</strong> 사용자가 자신의 문서에 %{classifications} 분류를 나누었습니다.
+          an_unknown_user_split_classifications_from_an_unknown_taxon: 알 수 없는 사용자가 <a href='%{to}'>자신의 문서</a>에 알 수 없는 문서에서 %{classifications} 분류를 나누었습니다.
+          an_unknown_user_split_classifications_from_it: 알 수 없는 사용자가 <a href='%{to}'>자신의 문서</a>에 %{classifications} 분류를 나누었습니다.
+          an_unknown_user_split_classifications_from_taxon: 알 수 없는 사용자가 <a href='%{to}'>자신의 문서</a>에 %{taxon} 문서에서 %{classifications} 분류를 나누었습니다.
+          user_split_classifications_from_an_unknown_taxon: <strong>%{user}</strong> 사용자가 <a href='%{to}'>자신의 문서</a>에 알 수 없는 문서에서 %{classifications} 분류를 나누었습니다.
+          user_split_classifications_from_taxon: <strong>%{user}</strong> 사용자가 <a href='%{to}'>자신의 문서</a>에 %{classifications} 분류를 나누었습니다.
       hide: 
         an_unknown_user_hid_an_older_data_object_on_an_unknown_association: 알 수 없는 사용자가 알 수 없는 문서에 "%{data_object}" 개체의 이전 버전을 숨김으로 표시했습니다.
         an_unknown_user_hid_an_older_data_object_on_association: 알 수 없는 사용자가 "%{association}" 문서에 "%{data_object}" 개체의 이전 버전을 숨김으로 표시했습니다.
@@ -991,7 +998,7 @@ ko:
   associations_more_link: <span class="assistive">분류 협회</span> 더 보기
   attribute: 특성
   audio_mute: 음소거
-  audio_pause: 일시정지
+  audio_pause: 일시 정지
   audio_play: 재생
   audio_stop: 정지
   audio_unmute: 음소거 해제
@@ -1042,7 +1049,7 @@ ko:
   classification_from_agent_chosen_by_curator: "%{curator}에 의해 선택한 %{agent}에서의 분류입니다."
   classification_from_agent_chosen_by_curator_see_more: "%{curator}에 의해 선택한 %{agent}에서의 분류입니다. - <a href=\"%{more_link}\">더 보기</a>"
   classification_preferred_for_taxon: 선호
-  classification_preferred_for_taxon_help_tip: "%{icon}(을)를 이 분류에 대한 선호 분류로 표시합니다."
+  classification_preferred_for_taxon_help_tip: "%{icon} 이 분류에 대한 선호 분류를 표시합니다."
   classification_summary_section_header: 분류
   classification_tree_header: 분류
   classifications_edit_cancelled_merge_to_self: 원본과 대상이 같은 문서입니다. 이동하지 않습니다.
@@ -1050,12 +1057,12 @@ ko:
   classifications_hierarchy_column_header: 분류
   classifications_preferred_column_header: 선호
   classifications_rank_column_header: 순위
-  classifications_recognized_by_column_header: 인정한 사람
+  classifications_recognized_by_column_header: 인정한 콘텐츠 파트너
   classifications_split_column_header: 나누기 / 이동
   classifications_summary_header_with_count: 
-    one: 분류 %{count}개를 찾았습니다
-    other: 분류 %{count}개를 찾았습니다
-    zero: 분류가 EOL에 정상적으로 보이지 않습니다
+    one: 분류 %{count}개 찾음
+    other: 분류 %{count}개 찾음
+    zero: 분류가 EOL에 정상적으로 보이지 않음
   classifications_with_count: 
     one: 분류 %{count}개
     other: 분류 %{count}개
@@ -1470,6 +1477,7 @@ ko:
   curator_scope_colon: "큐레이터 범위:"
   curator_status_changed_by: "%{date}에 %{user} 사용자에 의해 큐레이터 상태를 바꿈"
   curators: 큐레이터
+  curators_empty: 우리 큐레이터는 아직 이 문서에 어떠한 작업도 하지 않았습니다.
   curators_summary_header_with_count: 
     one: 큐레이터 %{count}명이 검토함
     other: 큐레이터 %{count}명이 검토함
@@ -1652,6 +1660,7 @@ ko:
   eol_api_search: "EOL API: 찾기"
   eol_api_search_by_provider: "EOL API: 제공자에 의한 검색"
   eol_colon: "EOL:"
+  eol_curator_activity_email_message: 생명의 백과사전 큐레이터 <a href='%{profile_url}'>%{curator_full_name}</a> 사용자가 <a href='%{data_object_url}'>EOL 사이트</a>%{comment}에 %{action}
   eol_flickr_group: EOL 플리커 그룹
   eol_glossary: EOL 용어집
   eol_news: EOL 뉴스
@@ -1772,7 +1781,9 @@ ko:
   filter_newsfeed_option_watchlist: 주시문서 목록
   filtered_information: 필터한 정보
   find_taxa_submit_button: 분류 찾기
-  flash_video: 플래시 비디오
+  flash_notice_redirected_from_search_html: <em>%{search_string}</em>에 대해 검색하여 여기에 왔습니다. <a href="%{more_results_url}">찾기 페이지로 돌아가려면 여기를 클릭하세요.</a>
+  flash_notice_redirected_from_search_html_more_results: <em>%{search_string}</em>에 대해 검색하여 여기에 왔습니다. <a href="%{more_results_url}">다른 찾기 결과를 보려면 여기를 클릭하세요.</a>
+  flash_video: 플래시 동영상
   flickr: Flickr
   focus_list_newsfeed: 뉴스 피드 집중 목록
   for_images_to_reference_parens: (그림 참고용)
@@ -2363,7 +2374,9 @@ ko:
   my_info: 내 정보
   name: 이름
   name_colon: "이름:"
+  name_preferred_for_language_help_tip: "%{icon} 각 언어에 대해 선호하는 이름을 표시합니다."
   name_preferred_for_language_yes: 선호
+  name_preferred_taxonomically_for_source_help_tip: "%{icon} 각 출처에서 선호하는 이름을 표시합니다."
   name_preferred_taxonomically_for_source_yes: 선호
   names: 이름
   names_children_column_header: 어린이
@@ -2408,6 +2421,7 @@ ko:
   none: 없음
   not_applicable: 적용할 수 없습니다
   not_published_yet: 아직 게시하지 않았습니다.
+  not_recognized_by_available_hierarchies: 어떠한 사용할 수 있는 분류를 인정하지 않았습니다
   note: "참고:"
   notes: 참고
   notes_not_shown_to_user: "참고 (사용자에게 보여지지 않음):"
@@ -2534,6 +2548,7 @@ ko:
   page_name: 문서 이름
   page_navigation: 문서 둘러보기
   page_not_found: 문서를 찾을 수 없습니다
+  page_reference: "\"%{title}\". 생명의 백과사전에 \"<a href=\"http://%{domain_or_ip}%{this_url}\" target=\"_blank\">http://%{domain_or_ip}%{this_url}</a>\"에 존재합니다. %{date}에 접근했습니다"
   page_results_avg: 문서 결과 평균
   page_statistics: 문서 통계
   page_statistics_and_tools: 문서 통계와 도구
@@ -2563,7 +2578,7 @@ ko:
   partner_web_site_colon: "파트너 웹 사이트:"
   password_colon: "비밀번호:"
   password_must_be_4to16_characters: 비밀번호는 글자 4개에서 16개 사이여야 합니다.
-  pause: 일시정지
+  pause: 일시 정지
   people_with_count: 
     one: 사람 %{count}명
     other: 사람 %{count}명
@@ -2601,10 +2616,14 @@ ko:
   published_parens: (게시함)
   punctuation_comma: ","
   punctuation_semi_colon: ;
+  rank_recognized_by_agent: "%{agent}에 의해 인정한 %{rank}"
+  rank_recognized_by_agent_colon: "%{agent}에 의해 인정한 <b>%{rank}</b>:"
+  rank_recognized_by_from_source: "%{source}에 %{agent}에 의해 인정한 %{rank}"
   rated_by_count_people: 
     one: 사람 %{count}명
     other: 사람 %{count}명
   rating_added_notice: 등급을 성공적으로 추가했습니다.
+  rating_not_added_error: 죄송합니다, 오류가 발생해 평가를 추가할 수 없습니다.
   recaptcha: 아래에 보이는 단어 2개를 입력하세요
   recaptcha_incorrect_error_with_anchor: <a href="#%{recaptcha_anchor}">reCaptcha 글자</a>가 일치하지 않습니다, 다시 시도하세요.
   recent_activities: 
@@ -2661,6 +2680,9 @@ ko:
     unsubscribe: 로그인하고 <a href='%{email_prefs_url}' style='color:#195184'>내 알림 환경 설정 문서</a>에서 당신의 이메일 설정을 바꾸거나 <a href='%{unsubscribe_url}' style='color:#195184'>로그인하지 않고 EOL 알림을 자동으로 모두 구독 취소하세요</a>.
   recent_updates: 최근 업데이트
   recently_visited: 최근 방문
+  recognized_by_as_a_rank: "%{taxon_rank}로 %{recognized_by}"
+  recognized_by_from_source: "%{source}에서 %{recognized_by}"
+  recognized_by_from_source_as_a_rank: "%{taxon_rank}로 %{source}에서 %{recognized_by}"
   record_not_found: "[기록을 찾을 수 없습니다]"
   references_cabs_colon: "참고:"
   related_names_with_count: 
@@ -3124,11 +3146,15 @@ ko:
   taxon_biomedical_terms_link: 생명 공학 용어
   taxon_citizen_science_header: 시민 과학 링크
   taxon_citizen_science_link: 시민 과학 링크
+  taxon_citizen_science_resources_empty: 아직 이 문서에 어떠한 시민 과학 링크을 기여하지 않았습니다.
   taxon_concept_stats: 분류 개념 통계
+  taxon_details_empty: 아직 이 문서에 어떠한 자세한 사항을 기여하지 않았습니다.
+  taxon_education_empty: 아직 이 문서에 어떠한 교육 자료를 기여하지 않았습니다.
   taxon_education_header: 교육 자료
   taxon_education_link: 교육 자료
   taxon_group: 분류 그룹
   taxon_id: 분류 ID
+  taxon_identification_resources_empty: 아직 이 문서에 어떠한 식별 자료를 기여하지 않았습니다.
   taxon_identification_resources_header: 식별 리소스
   taxon_identification_resources_link: 식별 리소스
   taxon_multimedia_links_link: 멀티미디어 링크
@@ -3136,6 +3162,8 @@ ko:
   taxon_newsfeed: 분류 뉴스 피드
   taxon_not_found_error: "\"%{taxon}\"(을)를 찾을 수 없습니다"
   taxon_nucleotide_sequences_link: 염기 서열
+  taxon_page_content_disclaimer: EOL 내용은 자동으로 다양한 콘텐츠 제공자에서 조립합니다. 결과적으로 때때로 EOL에 찾는 문서는 혼란할 수 있습니다.
+  taxon_page_content_disclaimer_suggest_improvement: 개선하도록 요청하려면 문서에 덧글을 남겨주세요. 감사합니다!
   taxon_partner_links_header: 파트너 링크
   taxon_partner_links_link: 파트너 링크
   taxon_rating: 분류 평가
@@ -3154,6 +3182,7 @@ ko:
   text: 텍스트
   text_capital: 텍스트
   text_object: 텍스트 개체
+  text_summary_empty: 아직 이 문서에 간단한 요약을 기여하지 않았습니다.
   text_summary_empty_header: 간단한 요약
   text_summary_more_link: 전체 항목 읽기
   text_with_count: 
@@ -3257,12 +3286,14 @@ ko:
   uploaded_content: 올린 콘텐츠
   uploaded_on: 올린 곳
   url: URL
+  url_not_accessible: 이 URL은 접근할 수 없습니다
   us_dolars_75: 미화 $75
   us_dollars_100: 미화 $100
   us_dollars_35: 미화 $35
   us_dollars_50: 미화 $50
   use_as_examplar_button: 표본으로 사용
   user: 사용자
+  user_activation_successful_notice: 환영합니다, 그리고 생명의 백과사전 팀에 가입해주셔서 감사합니다. <em>%{username}</em> 사용자 이름으로 된 계정을 활성화했습니다, 로그인하세요.
   user_activity_page_title: 사용자 활동
   user_activity_stats_articles_added: 
     one: 문서 %{count}개 추가함

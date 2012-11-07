@@ -26,14 +26,14 @@ EolUpgrade::Application.configure do
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
 
-  # Set up the master database connection for writes using masochism plugin
-  # NOTE: for this to work, you *must* also use config.cache_classes = true (default for production)
-  config.after_initialize do
-    ActiveReload::ConnectionProxy.setup_for ActiveReload::MasterDatabase, ActiveRecord::Base
-    ActiveReload::ConnectionProxy.setup_for LoggingWriter, LoggingModel
-    $PARENT_CLASS_MUST_USE_MASTER = ActiveReload::MasterDatabase
-  end
-  $LOGGING_READ_FROM_MASTER = true
+  # # Set up the master database connection for writes using masochism plugin
+  # # NOTE: for this to work, you *must* also use config.cache_classes = true (default for production)
+  # config.after_initialize do
+  #   ActiveReload::ConnectionProxy.setup_for ActiveReload::MasterDatabase, ActiveRecord::Base
+  #   ActiveReload::ConnectionProxy.setup_for LoggingWriter, LoggingModel
+  #   $PARENT_CLASS_MUST_USE_MASTER = ActiveReload::MasterDatabase
+  # end
+  # $LOGGING_READ_FROM_MASTER = true
 
   # # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # # the I18n.default_locale when a translation can not be found)

@@ -13,15 +13,15 @@ class ActiveRecord::Base
       master_database_name = "test_master_" + database_name.to_s
       raise "There is no entry for `#{master_database_name}` in /config/database.yml" if configurations[master_database_name].blank?
       self.establish_connection configurations[master_database_name]
-    elsif Rails.env.development? || Rails.env.staging_dev_cache? || Rails.env.staging?
+    else
       # the development environment always uses the same databases for master and slave
       master_database_name = "#{Rails.env}_#{database_name}"
       self.establish_connection configurations[master_database_name]
-    else
-      # in all other cases raise an error if the master_*_database isn't configured
-      master_database_name = "master_#{database_name.to_s}_database"
-      raise "There is no entry for `#{master_database_name}` in /config/database.yml" if configurations[master_database_name].blank?
-      self.establish_connection configurations[master_database_name]
+    # else
+    #   # in all other cases raise an error if the master_*_database isn't configured
+    #   master_database_name = "master_#{database_name.to_s}_database"
+    #   raise "There is no entry for `#{master_database_name}` in /config/database.yml" if configurations[master_database_name].blank?
+    #   self.establish_connection configurations[master_database_name]
     end
   end
 end

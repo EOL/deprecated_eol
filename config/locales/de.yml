@@ -694,6 +694,19 @@ de:
         move_of_an_unknown_taxon_unlocked: Die kürzlich angefragte Klassifikationsverschiebung wurde fertig gestellt, aber die Seite konnte nicht gefunden werden.
         move_of_it_unlocked: Die kürzlich angefragte Klassifikationsverschiebung auf dieser Seite wurde fertig gestellt.
         move_of_taxon_unlocked: Die kürzlich angefragte Klassifikationsverschiebung für „%{taxon}“ wurde fertig gestellt.
+        split_of_an_unknown_taxon_unlocked: Die kürzlich angefragte Klassifikationsaufteilung wurde fertig gestellt, aber die Seite konnte nicht gefunden werden.
+        split_of_it_unlocked: Die kürzlich angefragte Klassifikationsaufteilung auf dieser Seite wurde fertig gestellt und die Klassifikationen wurden auf ihre <a href='%{to}'>eigenständige Seite</a> verschoben.
+        split_of_taxon_unlocked: Die kürzlich angefragte Klassifikationsaufteilung für „%{taxon}“ wurde fertig gestellt und die Klassifikationen wurden auf ihre <a href='%{to}'>eigenständige Seite</a> verschoben.
+      unlock_with_error: 
+        merge_of_an_unknown_taxon_unlocked_with_error: "Die kürzlich angefragte Seitenzusammenführung ist <strong>fehlgeschlagen</strong>: %{error}. Zudem konnte die betreffende Seite nicht gefunden werden."
+        merge_of_it_unlocked_with_error: "Die kürzlich angefragte Zusammenführung auf dieser Seite ist <strong>fehlgeschlagen</strong>: %{error}."
+        merge_of_taxon_unlocked_with_error: "Die kürzlich angefragte Seitenzusammenführung für „%{taxon}“ ist <strong>fehlgeschlagen</strong>: %{error}."
+        move_of_an_unknown_taxon_unlocked_with_error: "Die kürzlich angefragte Klassifikationsverschiebung ist <strong>fehlgeschlagen</strong>: %{error}. Zudem konnte die betreffende Seite nicht gefunden werden."
+        move_of_it_unlocked_with_error: "Die kürzlich angefragte Klassifikationsverschiebung auf dieser Seite ist <strong>fehlgeschlagen</strong>: %{error}."
+        move_of_taxon_unlocked_with_error: "Die kürzlich angefragte Klassifikationsverschiebung für „%{taxon}“ ist <strong>fehlgeschlagen</strong>: %{error}."
+        split_of_an_unknown_taxon_unlocked_with_error: "Die kürzlich angefragte Klassifikationsaufteilung ist <strong>fehlgeschlagen</strong>: %{error}. Zudem konnte die betreffende Seite nicht gefunden werden."
+        split_of_it_unlocked_with_error: "Die kürzlich angefragte Klassifikationsaufteilung auf dieser Seite ist <strong>fehlgeschlagen</strong>: %{error}."
+        split_of_taxon_unlocked_with_error: "Die kürzlich angefragte Klassifikationsaufteilung für „%{taxon}“ ist <strong>fehlgeschlagen</strong>: %{error}."
       unreview_common_name: 
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Ein unbekannter Nutzer markierte einen unbekannten Trivialnamen in einer unbekannten Sprache einer unbekannten Seite als ungeprüft.
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: Ein unbekannter Nutzer markierte einen unbekannten Trivialnamen in einer unbekannten Sprache als ungeprüft.
@@ -1093,6 +1106,10 @@ de:
   citing_link: Zitieren
   classification_already_preferred: Diese Klassifikation wurde bereits als bevorzugt markiert.
   classification_button_help: Bitte wählen Sie die Klassifikation aus, welche die vorhandene Seite unten am besten darstellt. Klicken Sie danach auf die entsprechende Schaltfläche „als beispielhaft verwenden“. Auf „Abbrechen“ klicken, um diese Aktion abzubrechen.
+  classification_curation_pending: Kuratierung ausstehend. Diese Klassifikation kann nur zu einer anderen Seite in naher Zukunft verschoben werden.
+  classification_curation_split_comment_with_count: 
+    one: "%{count} Klassifikation dieser Seite wurde auf ihre <a href='%{url}'>eigenständige Seite</a> aufgeteilt."
+    other: "%{count} Klassifikationen dieser Seite wurden auf ihre <a href='%{url}'>eigenständige Seite</a> aufgeteilt."
   classification_from_agent: Klassifizierung von %{agent}.
   classification_from_agent_chosen_by_curator: Klassifikation von %{agent} wurde von %{curator} ausgewählt.
   classification_from_agent_chosen_by_curator_see_more: Klassifizierung von %{agent}, ausgewählt durch %{curator} - <a href="%{more_link}">mehr dazu</a>.

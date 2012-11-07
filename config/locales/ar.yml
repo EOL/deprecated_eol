@@ -445,13 +445,29 @@ ar:
         user_associated_it_to_association: قام <strong>%{user}</strong> بإضافة ارتباط إلى "%{association}".
       add_common_name: 
         an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: قام مستخدم غير معروف بإضافة اسم شائع غير معروف بلغة غير معروفة إلى صفحة غير معروفة.
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_it: قام مستخدم غير معروف بإضافة اسم شائع غير معروف بلغة غير معروفة.
         an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_taxon: قام مستخدم غير معروف بإضافة اسم شائع غير معروف بلغة غير معروفةإلى %{taxon}.
         an_unknown_user_added_an_unknown_name_in_language_to_an_unknown_taxon: قام مستخدم غير معروف بإضافة اسم شائع غير معروف باللغة%{language}إلى صفحة غير معروفة.
+        an_unknown_user_added_an_unknown_name_in_language_to_it: قام مستخدم غير معروف بإضافة اسم شائع غير معروف باللغة %{language}.
         an_unknown_user_added_an_unknown_name_in_language_to_taxon: قام مستخدم غير معروف بإضافة اسم شائع غير معروف باللغة %{language} إلى "%{taxon}".
         an_unknown_user_added_name_in_an_unknown_language_to_an_unknown_taxon: قام مستخدم غير معروف بإضافة الاسم الشائع %{name} بلغة غير معروفة إلى صفحة غير معروفة.
+        an_unknown_user_added_name_in_an_unknown_language_to_it: قام مستخدم غير معروف بإضافة الاسم الشائع "%{name}" بلغة غير معروفة.
         an_unknown_user_added_name_in_an_unknown_language_to_taxon: قام مستخدم غير معروف بإضافة الاسم الشائع "%{name}" بلغة غير معروفة إلى "%{taxon}".
         an_unknown_user_added_name_in_language_to_an_unknown_taxon: قام مستخدم غير معروف بإضافة الأسم الشائع الخاص بـ"%{name}"  باللغة %{language} إلى صفحة غير معروفة.
+        an_unknown_user_added_name_in_language_to_it: قام مستخدم غير معروف بإضافة الاسم الشائع "%{name}" باللغة %{language}.
+        an_unknown_user_added_name_in_language_to_taxon: قام مستخدم غير معروف بإضافة الاسم الشائع "%{name}" باللغة %{language}إلى الإصنوفة "%{taxon}".
         user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: قام <strong>%{user}</strong> بإضافة اسم شائع غير معروف بلغة غير معروفة إلى صفحة غير معروفة.
+        user_added_an_unknown_name_in_an_unknown_language_to_it: قام <strong>%{user}</strong> بإضافة اسم شائع غير معروف بلغة غير معروفة.
+        user_added_an_unknown_name_in_an_unknown_language_to_taxon: قام <strong>%{user}</strong> بإضافة اسم شائع غير معروف بلغة غير معروفة إلى الإصنوفة "%{taxon}".
+        user_added_an_unknown_name_in_language_to_an_unknown_taxon: قام <strong>%{user}</strong> بإضافة اسم شائع غير معروف باللغة %{language}إلى صفحة غير معروفة.
+        user_added_an_unknown_name_in_language_to_it: قام <strong>%{user}</strong> بإضافة اسم شائع غير معروف باللغة %{language}.
+        user_added_an_unknown_name_in_language_to_taxon: قام <strong>%{user}</strong> بإضافة اسم شائع غير معروف باللغة %{language}إلى الإصنوفة "%{taxon}".
+        user_added_name_in_an_unknown_language_to_an_unknown_taxon: قام <strong>%{user}</strong> بإضافة الاسم الشائع "%{name}" بلغة غير معروفة إلى صفحة غير معروفة.
+        user_added_name_in_an_unknown_language_to_it: قام <strong>%{user}</strong> بإضافة الاسم الشائع "%{name}" بلغة غير معروفة.
+        user_added_name_in_an_unknown_language_to_taxon: قام <strong>%{user}</strong> بإضافة الاسم الشائع "%{name}" بلغة غير معروفة إلى الإصنوفة "%{taxon}".
+        user_added_name_in_language_to_an_unknown_taxon: قام <strong>%{user}</strong> بإضافة الاسم الشائع "%{name}" باللغة %{language}إلى صفحة غير معروفة.
+        user_added_name_in_language_to_it: قام <strong>%{user}</strong> بإضافة الاسم الشائع "%{name}" باللغة %{language}.
+        user_added_name_in_language_to_taxon: قام <strong>%{user}</strong> بإضافة الاسم الشائع "%{name}" باللغة %{language}إلى الإصنوفة "%{taxon}".
       choose_exemplar_article: 
         an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: قام مستخدم غير معروف باختيار نسخة أقدم من "%{data_object}" لعرضها كنظرة عامة لصفحة غير معروفة.
         an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: قام مستخدم غير معروف باختيار "%{data_object}"  لعرضها ضمن النظرة العامة عن "%{taxon}".
@@ -544,6 +560,19 @@ ar:
         user_disassociated_data_object_from_association: قام <strong>%{user}</strong> بحذف ارتباط بين "%{data_object}" و"%{association}".
         user_disassociated_it_from_an_unknown_association: قام <strong>%{user}</strong> بحذف ارتباط إلى صفحة غير معروفة.
         user_disassociated_it_from_association: قام <strong>%{user}</strong> بحذف ارتباط إلى "%{association}".
+      remove_common_name: 
+        an_unknown_user_removed_name_in_an_unknown_language_from_an_unknown_taxon: قام مستخدم غير معروف بحذف اسم شائع بلغة غير معروفة من صفحة غير معروفة.
+        an_unknown_user_removed_name_in_an_unknown_language_from_it: قام مستخدم غير معروف بحذف اسم شائع بلغة غير معروفة.
+        an_unknown_user_removed_name_in_an_unknown_language_from_taxon: قام مستخدم غير معروف بحذف اسم شائع غير معروف بلغة غير معروفة من %{taxon}.
+        an_unknown_user_removed_name_in_language_from_an_unknown_taxon: قام مستخدم غير معروف بحذف اسم شائع باللغة%{language} من صفحة غير معروفة.
+        an_unknown_user_removed_name_in_language_from_it: قام مستخدم غير معروف بحذف اسم شائع باللغة %{language}.
+        an_unknown_user_removed_name_in_language_from_taxon: قام مستخدم غير معروف بحذف اسم شائع باللغة %{language} من "%{taxon}".
+        user_removed_name_in_an_unknown_language_from_an_unknown_taxon: قام <strong>%{user}</strong> بحذف اسم شائع بلغة غير معروفة من صفحة غير معروفة.
+        user_removed_name_in_an_unknown_language_from_it: قام <strong>%{user}</strong> بحذف اسم شائع بلغة غير معروفة.
+        user_removed_name_in_an_unknown_language_from_taxon: قام <strong>%{user}</strong> بحذف اسم شائع بلغة غير معروفة من الإصنوفة "%{taxon}".
+        user_removed_name_in_language_from_an_unknown_taxon: قام <strong>%{user}</strong> بحذف اسم شائع باللغة %{language}من صفحة غير معروفة.
+        user_removed_name_in_language_from_it: قام <strong>%{user}</strong> بحذف اسم شائع باللغة %{language}.
+        user_removed_name_in_language_from_taxon: قام <strong>%{user}</strong> بحذف اسم شائع باللغة %{language} من الإصنوفة "%{taxon}".
       show: 
         an_unknown_user_showed_an_older_data_object_on_an_unknown_association: قام مستخدم غير معروف بوضع علامة "مرئي" على نسخة أقدم من "%{data_object}" في سياق غير معروف.
         an_unknown_user_showed_an_older_data_object_on_association: قام مستخدم غير معروف بوضع علامة "مرئي" على نسخة أقدم من "%{data_object}" على صفحة "%{association}".
@@ -568,6 +597,28 @@ ar:
         user_split_unknown_entry_from_an_unknown_taxon: قام <strong>%{user}</strong> بتقسيم تنصيف غير معلوم من صنف مجهول.
         user_split_unknown_entry_from_it: قام <strong>%{user}</strong> بفصل تصنيف غير معروف.
         user_split_unknown_entry_from_taxon: قام <strong>%{user}</strong> بتقسيم تصنيف غير معلوم من "%{taxon}".
+      trust_common_name: 
+        an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: قام مستخدم غير معروف بتصنيف اسم شائع غير معروف بلغة غير معروفة بصفحة غير معروفة "كموثوق به".
+        an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_it: قام مستخدم غير معروف بتصنيف اسم شائع غير معروف بلغة غير معروفة "كموثوق به".
+        an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_taxon: قام مستخدم غير معروف بتصنيف اسم شائع غير معروف بلغة غير معروفة للإصنوفة "%{taxon}" "كموثوق به".
+        an_unknown_user_trusted_an_unknown_name_in_language_on_an_unknown_taxon: قام مستخدم غير معروف بتصنيف اسم شائع غير معروف باللغة %{language} بصفحة غير معروفة "كموثوق به".
+        an_unknown_user_trusted_an_unknown_name_in_language_on_it: قام مستخدم غير معروف بتصنيف اسم شائع غير معروف باللغة %{language} "كموثوق به".
+        an_unknown_user_trusted_an_unknown_name_in_language_on_taxon: قام مستخدم غير معروف بتصنيف اسم شائع غير معروف باللغة %{language} للإصنوفة "%{taxon}" "كموثوق به".
+        an_unknown_user_trusted_name_in_an_unknown_language_on_an_unknown_taxon: قام مستخدم غير معروف بتصنيف الاسم الشائع "%{name}" بلغة غير معروفة وبصفحة غير معروفة "كموثوق به".
+        an_unknown_user_trusted_name_in_an_unknown_language_on_it: قام مستخدم غير معروف بتصنيف الاسم الشائع "%{name}" بلغة غير معروفة "كموثوق به".
+        an_unknown_user_trusted_name_in_an_unknown_language_on_taxon: قام مستخدم غير معروف بتصنيف الاسم الشائع "%{name}" بلغة غير معروفة للإصنوفة "%{taxon}" "كموثوق به".
+        an_unknown_user_trusted_name_in_language_on_an_unknown_taxon: قام مستخدم غير معروف بتصنيف الاسم الشائع "%{name}" باللغة %{language} بصفحة غير معروفة "كموثوق به".
+        an_unknown_user_trusted_name_in_language_on_it: قام مستخدم غير معروف بتصنيف الاسم الشائع "%{name}" باللغة %{language} "كموثوق به".
+        an_unknown_user_trusted_name_in_language_on_taxon: قام مستخدم غير معروف بتصنيف الاسم الشائع "%{name}" باللغة %{language} للإصنوفة "%{taxon}" "كموثوق به".
+        user_trusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: قام <strong>%{user}</strong> بتصنيف اسم شائع غير معروف بلغة غير معروفة في صفحة غير معروفة "كموثوق به".
+        user_trusted_an_unknown_name_in_an_unknown_language_on_it: قام <strong>%{user}</strong> بتصنيف اسم شائع غير معروف بلغة غير معروفة "كموثوق به".
+        user_trusted_an_unknown_name_in_an_unknown_language_on_taxon: قام <strong>%{user}</strong> بتصنيف اسم شائع غير معروف بلغة غير معروفة للإصنوفة "%{taxon}" "كموثوق به".
+        user_trusted_an_unknown_name_in_language_on_an_unknown_taxon: قام <strong>%{user}</strong> بتصنيف اسم شائع غير معروف باللغة %{language} في صفحة غير معروفة "كموثوق به".
+        user_trusted_an_unknown_name_in_language_on_taxon: قام <strong>%{user}</strong> بتصنيف اسم شائع غير معروف باللغة %{language} للإصنوفة "%{taxon}" "كموثوق به".
+        user_trusted_name_in_an_unknown_language_on_an_unknown_taxon: قام <strong>%{user}</strong> بإضافة الاسم الشائع "%{name}" بلغة غير معروفة من صفحة غير معروفة "كموثوق به".
+        user_trusted_name_in_an_unknown_language_on_taxon: قام <strong>%{user}</strong> بإضافة الاسم الشائع "%{name}" بلغة غير معروفة للإصنوفة "%{taxon}" "كموثوق به".
+        user_trusted_name_in_language_on_an_unknown_taxon: قام <strong>%{user}</strong> بتصنيف الاسم الشائع" %{name}" باللغة %{language} في صفحة غير معروفة "كموثوق به".
+        user_trusted_name_in_language_on_taxon: قام <strong>%{user}</strong> بتصنيف الاسم الشائع" %{name}" باللغة %{language} للإصنوفة "%{taxon}" "كموثوق به".
       trusted: 
         an_unknown_user_trusted_an_older_data_object_on_an_unknown_association: قام مستخدم غير معروف باعتبار النسخة الأقدم من "%{data_object}" موثوقًا بها في سياق غير معروف.
         an_unknown_user_trusted_an_older_data_object_on_association: قام مستخدم غير معروف باعتبار نسخة أقدم من "%{data_object}" موثوقًا بها على صفحة "%{association}" .

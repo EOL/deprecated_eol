@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Event
+# Author: Wouterkoch
 nb: 
   translated_activities-name-activity_id-19: profil
   translated_activities-name-activity_id-50: upålitelig
@@ -13,6 +14,7 @@ nb:
   translated_activities-name-activity_id-56: slett
   translated_activities-name-activity_id-57: vurder
   translated_activities-name-activity_id-58: pålitelig
+  translated_activities-name-activity_id-59: uvurdert
   translated_activities-name-activity_id-63: samle inn
   translated_activities-name-activity_id-64: fjern
   translated_agent_roles-label-agent_role_id-1: Animator
@@ -62,6 +64,15 @@ nb:
   translated_contact_roles-label-contact_role_id-1: Primærkontakt
   translated_contact_roles-label-contact_role_id-2: Administrativ kontakt
   translated_contact_roles-label-contact_role_id-3: Teknisk kontakt
+  translated_contact_subjects-title-contact_subject_id-24: Medlemskap og registrering
+  translated_contact_subjects-title-contact_subject_id-25: Vilkår for bruk og lisensiering
+  translated_contact_subjects-title-contact_subject_id-26: Læring og utdannelse
+  translated_contact_subjects-title-contact_subject_id-27: Bli en innholdspartner
+  translated_contact_subjects-title-contact_subject_id-28: Innholdspartnerstøtte
+  translated_contact_subjects-title-contact_subject_id-29: Kuratorstøtte
+  translated_contact_subjects-title-contact_subject_id-33: Gi et finansielt bidrag
+  translated_contact_subjects-title-contact_subject_id-34: Tekniske spørsmål (problemer med søk, nettstedsfunksjonalitet)
+  translated_contact_subjects-title-contact_subject_id-35: Generell tilbakemelding
   translated_content_partner_statuses-label-content_partner_status_id-1: Ventende
   translated_content_partner_statuses-label-content_partner_status_id-2: Aktiv
   translated_content_partner_statuses-label-content_partner_status_id-3: Arkivert
@@ -169,10 +180,12 @@ nb:
   translated_statuses-label-status_id-3: Uforandret
   translated_statuses-label-status_id-4: Gjenbrukt
   translated_synonym_relations-label-synonym_relation_id-1: synonym
+  translated_synonym_relations-label-synonym_relation_id-10: genbank synonym
   translated_synonym_relations-label-synonym_relation_id-11: delvis
   translated_synonym_relations-label-synonym_relation_id-12: inkluderer
   translated_synonym_relations-label-synonym_relation_id-13: misvisende betegnelse
   translated_synonym_relations-label-synonym_relation_id-14: feilstaving
+  translated_synonym_relations-label-synonym_relation_id-15: teleomorf
   translated_synonym_relations-label-synonym_relation_id-16: flertydig synonym
   translated_synonym_relations-label-synonym_relation_id-18: provisjonelt akseptert navn
   translated_synonym_relations-label-synonym_relation_id-19: akseptert navn
@@ -191,9 +204,13 @@ nb:
   translated_synonym_relations-label-synonym_relation_id-34: opprinnelig navn/kombinasjon
   translated_synonym_relations-label-synonym_relation_id-35: utilgjengelig, feilaktig opprinnelig stavemåte
   translated_synonym_relations-label-synonym_relation_id-36: juniorhomonym
+  translated_synonym_relations-label-synonym_relation_id-4: anamorf
   translated_synonym_relations-label-synonym_relation_id-40: utilgjengelig, annet
   translated_synonym_relations-label-synonym_relation_id-41: utilgjengelig, nomen nudum
   translated_synonym_relations-label-synonym_relation_id-42: nomen dubium
+  translated_synonym_relations-label-synonym_relation_id-45: basionym
+  translated_synonym_relations-label-synonym_relation_id-46: heterotypisk synonym
+  translated_synonym_relations-label-synonym_relation_id-47: homotypisk synonym
   translated_synonym_relations-label-synonym_relation_id-48: utilgjengelig navn
   translated_synonym_relations-label-synonym_relation_id-49: gyldig navn
   translated_synonym_relations-label-synonym_relation_id-50: gyldig
@@ -209,6 +226,13 @@ nb:
   translated_synonym_relations-label-synonym_relation_id-61: objektivt synonym
   translated_synonym_relations-label-synonym_relation_id-62: seniorsynonym
   translated_synonym_relations-label-synonym_relation_id-63: ikke akseptert
+  translated_synonym_relations-label-synonym_relation_id-64: ugyldig
+  translated_synonym_relations-label-synonym_relation_id-65: genus-synonym
+  translated_synonym_relations-label-synonym_relation_id-66: alternativ visning
+  translated_synonym_relations-label-synonym_relation_id-68: hortikulturell
+  translated_synonym_relations-label-synonym_relation_id-7: genbank akronym
+  translated_synonym_relations-label-synonym_relation_id-8: genbank anamorf
+  translated_synonym_relations-label-synonym_relation_id-9: genbank populærnavn
   translated_table_of_contents-label-table_of_contents_id-1: Oversikt
   translated_table_of_contents-label-table_of_contents_id-13: Alminnelige navn
   translated_table_of_contents-label-table_of_contents_id-14: IUCN
@@ -226,11 +250,13 @@ nb:
   translated_table_of_contents-label-table_of_contents_id-251: Fordeler
   translated_table_of_contents-label-table_of_contents_id-267: Morfologi
   translated_table_of_contents-label-table_of_contents_id-278: Bibliografi
+  translated_table_of_contents-label-table_of_contents_id-285: Foreninger
   translated_table_of_contents-label-table_of_contents_id-286: Konserveringsstatus
   translated_table_of_contents-label-table_of_contents_id-289: Evolusjon
   translated_table_of_contents-label-table_of_contents_id-292: Dobbeltgjengere
   translated_table_of_contents-label-table_of_contents_id-293: Diagnostisk beskrivelse
   translated_table_of_contents-label-table_of_contents_id-296: Håndtering
+  translated_table_of_contents-label-table_of_contents_id-297: Trofisk strategi
   translated_table_of_contents-label-table_of_contents_id-299: Utdannelse
   translated_table_of_contents-label-table_of_contents_id-3: Fysisk beskrivelse
   translated_table_of_contents-label-table_of_contents_id-300: Wikipedia
@@ -274,6 +300,8 @@ nb:
   translated_table_of_contents-label-table_of_contents_id-339: Utdanningsressurser
   translated_table_of_contents-label-table_of_contents_id-34: Kommentarer
   translated_table_of_contents-label-table_of_contents_id-340: High School Lab Series
+  translated_table_of_contents-label-table_of_contents_id-341: Borgerforskning
+  translated_table_of_contents-label-table_of_contents_id-342: Borgerforskningslenker
   translated_table_of_contents-label-table_of_contents_id-343: Biodiversity Heritage Library
   translated_table_of_contents-label-table_of_contents_id-344: Data
   translated_table_of_contents-label-table_of_contents_id-345: Datakilder
@@ -294,11 +322,15 @@ nb:
   translated_user_identities-label-user_identity_id-1: en entusiast
   translated_user_identities-label-user_identity_id-2: en student
   translated_user_identities-label-user_identity_id-3: en underviser
+  translated_user_identities-label-user_identity_id-4: en borgerforsker
   translated_user_identities-label-user_identity_id-5: en profesjonell vitenskapsmann
   translated_vetted-label-vetted_id-0: Ukjent
   translated_vetted-label-vetted_id-4: Upålitelig
   translated_vetted-label-vetted_id-5: Pålitelig
   translated_vetted-label-vetted_id-6: Upassende
+  translated_view_styles-name-view_style_id-1: Liste
+  translated_view_styles-name-view_style_id-2: Galleri
+  translated_view_styles-name-view_style_id-3: Annotert
   translated_visibilities-label-visibility_id-0: Usynlig
   translated_visibilities-label-visibility_id-1: Synlig
   translated_visibilities-label-visibility_id-2: Forhåndsvisning

@@ -510,6 +510,13 @@ es:
         user_chose_exemplar_it_on_an_unknown_taxon: <strong>%{user}</strong> lo ha establecido como un ejemplar en una página desconocida.
         user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> lo ha establecido como un ejemplar de "%{taxon}".
       classification_curation: 
+        merge: 
+          an_unknown_user_merged_to_an_unknown_taxon: Un usuario desconocido ha fusionado dos páginas desconocidas.
+          an_unknown_user_merged_to_it: Un usuario desconocido ha combinado otra página con esta.
+          an_unknown_user_merged_to_taxon: Un usuario desconocido ha combinado otra página con %{target}.
+          user_merged_to_an_unknown_taxon: <strong>%{user}</strong> ha fusionado dos páginas desconocidas.
+          user_merged_to_it: <strong>%{user}</strong> ha combinado otra página con esta.
+          user_merged_to_taxon: <strong>%{user}</strong> ha fusionado otra página con %{target}.
         move: 
           an_unknown_user_moved_classifications_from_an_unknown_taxon_to_an_unknown_taxon: Un usuario desconocido ha trasladado las clasificaciones por %{classifications} desde una página desconocida a una página desconocida.
           an_unknown_user_moved_classifications_from_an_unknown_taxon_to_taxon: Un usuario desconocido ha trasladado las clasificaciones por %{classifications} desde una página desconocida a %{target}.
@@ -524,11 +531,11 @@ es:
           user_moved_classifications_from_taxon_to_an_unknown_taxon: <strong>%{user}</strong> ha trasladado las clasificaciones por %{classifications} desde %{taxon} a una página desconocida.
           user_moved_classifications_from_taxon_to_taxon: <strong>%{user}</strong> ha trasladado las clasificaciones por %{classifications} desde %{taxon} a %{target}.
         split: 
-          an_unknown_user_split_classifications_from_an_unknown_taxon: Un usuario desconocido ha dividido las clasificaciones por %{classifications} desde una página desconocida a su propia página.
-          an_unknown_user_split_classifications_from_it: Un usuario desconocido ha dividido las clasificaciones por %{classifications} hasta su propia página.
-          an_unknown_user_split_classifications_from_taxon: Un usuario desconocido ha dividido las clasificaciones por %{classifications} desde el %{taxon} hasta su propia página.
-          user_split_classifications_from_an_unknown_taxon: <strong>%{user}</strong> ha dividido las clasificaciones por %{classifications} desde una página desconocida a su propia página.
-          user_split_classifications_from_taxon: <strong>%{user}</strong> ha dividido las clasificaciones por %{classifications} hasta su propia página.
+          an_unknown_user_split_classifications_from_an_unknown_taxon: Un usuario desconocido ha dividido las clasificaciones por %{classifications} desde una página desconocida a <a href='%{to}'>su propia página</a>.
+          an_unknown_user_split_classifications_from_it: Un usuario desconocido ha dividido las clasificaciones por %{classifications} hasta <a href='%{to}'>su propia página</a>.
+          an_unknown_user_split_classifications_from_taxon: Un usuario desconocido ha dividido las clasificaciones por %{classifications} desde el %{taxon} hasta <a href='%{to}'>su propia página</a>.
+          user_split_classifications_from_an_unknown_taxon: <strong>%{user}</strong> ha dividido las clasificaciones por %{classifications} desde una página desconocida a <a href='%{to}'>su propia página</a>.
+          user_split_classifications_from_taxon: <strong>%{user}</strong> ha dividido las clasificaciones por %{classifications} hasta <a href='%{to}'>su propia página</a>.
       hide: 
         an_unknown_user_hid_an_older_data_object_on_an_unknown_association: Un usuario desconocido ha marcado una versión anterior de "%{data_object}" como oculto en un contexto desconocido.
         an_unknown_user_hid_an_older_data_object_on_association: Un usuario desconocido marcó una versión anterior de "%{data_object}" como oculto en la página "%{association}".
@@ -685,6 +692,26 @@ es:
         user_trusted_data_object_on_association: <strong>%{user}</strong> ha marcado "%{data_object}" como fiable en la página "%{association}".
         user_trusted_it_on_an_unknown_association: <strong>%{user}</strong> lo ha marcado como fiable en un contexto desconocido.
         user_trusted_it_on_association: <strong>%{user}</strong> lo ha marcado como fiable en la página "%{association}".
+      unlock: 
+        merge_of_an_unknown_taxon_unlocked: La fusión de página que has solicitado recientemente se ha completado, pero no se puede encontrar la página.
+        merge_of_it_unlocked: La fusión que has solicitado recientemente sobre esta página se ha completado.
+        merge_of_taxon_unlocked: La fusión de página que has solicitado recientemente para "%{taxon}" se ha completado.
+        move_of_an_unknown_taxon_unlocked: El movimiento de clasificación que has solicitado recientemente se ha completado, pero no se puede encontrar la página.
+        move_of_it_unlocked: El movimiento de clasificación que has solicitado recientemente sobre esta página se ha completado.
+        move_of_taxon_unlocked: El movimiento de clasificación que has solicitado recientemente para "%{taxon}" se ha completado.
+        split_of_an_unknown_taxon_unlocked: La división de clasificación que has solicitado recientemente se ha completado, pero no se puede encontrar la página.
+        split_of_it_unlocked: La división de clasificación que has solicitado recientemente se ha completado y las clasificaciones se han trasladado a <a href='%{to}'>su propia página</a>.
+        split_of_taxon_unlocked: La división de clasificación que has solicitado recientemente para "%{taxon}" se ha completado y las clasificaciones se han trasladado a <a href='%{to}'>su propia página</a>.
+      unlock_with_error: 
+        merge_of_an_unknown_taxon_unlocked_with_error: "La fusión de páginas que has solicitado recientemente ha <strong>fallado</strong>: %{error}. Además, no se puede encontrar la página afectada."
+        merge_of_it_unlocked_with_error: "La fusión que has solicitado recientemente sobre esta página <strong>ha fallado</strong>: %{error}."
+        merge_of_taxon_unlocked_with_error: "La fusión que has solicitado recientemente para \"%{taxon}\" <strong>ha fallado</strong>: %{error}."
+        move_of_an_unknown_taxon_unlocked_with_error: "El movimiento de clasificación que has solicitado recientemente ha <strong>fallado</strong>: %{error}. Además, no se puede encontrar la página afectada."
+        move_of_it_unlocked_with_error: "El movimiento de clasificación que has solicitado recientemente ha <strong>fallado</strong>: %{error}."
+        move_of_taxon_unlocked_with_error: "El movimiento de clasificación que has solicitado recientemente para \"%{taxon}\" <strong>ha fallado</strong>: %{error}."
+        split_of_an_unknown_taxon_unlocked_with_error: "La división de clasificación que has solicitado recientemente ha <strong>fallado</strong>: %{error}. Además, no se puede encontrar la página afectada."
+        split_of_it_unlocked_with_error: "La división de clasificación que has solicitado recientemente ha <strong>fallado</strong>: %{error}."
+        split_of_taxon_unlocked_with_error: "La división de clasificación que has solicitado recientemente para \"%{taxon}\" <strong>ha fallado</strong>: %{error}."
       unreview_common_name: 
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Un usuario desconocido ha marcado un nombre común desconocido en un idioma desconocido de una página desconocida como no revisado.
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: Un usuario desconocido marcó un nombre común desconocido en un idioma desconocido como no revisado.
@@ -1084,6 +1111,10 @@ es:
   citing_link: Citando
   classification_already_preferred: "ERROR: Esta clasificación ya se ha marcado como preferida."
   classification_button_help: Por favor selecciona la clasificación que mejor representa la página existente a continuación y haz clic en el correspondiente "usar como ejemplar". Para cancelar totalmente la operación, haz clic en "Cancelar".
+  classification_curation_pending: Pendiente de conservación. Esta clasificación puede moverse a otra página en un futuro próximo.
+  classification_curation_split_comment_with_count: 
+    one: "%{count} clasificación de esta página ha sido <a href='%{url}'>dividida en su propia página</a>."
+    other: "%{count} clasificaciones de esta página han sido <a href='%{url}'>divididas en su propia página</a>."
   classification_from_agent: Clasificación de %{agent}.
   classification_from_agent_chosen_by_curator: Clasificación de %{agent} seleccionado por %{curator}.
   classification_from_agent_chosen_by_curator_see_more: Clasificación de %{agent} seleccionada por %{curator} - <a href="%{more_link}">Ver más</a>.
@@ -1858,6 +1889,7 @@ es:
   error_couldnt_find_community_by_id: No se pudo encontrar una comunidad que pueda administrar con el identificador %{id}.
   error_default_description: Lo sentimos, hemos encontrado un problema. Si el problema persiste, por favor envíe un correo electrónico a <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>
   error_default_page_title: ¡Vaya!
+  error_exemplar_chosen_with_invalid_action: "Lo sentimos, pero la clasificación que has seleccionada no fue cambiada: se ha perdido una parte de la solicitud. Necesitas reintentarlo."
   error_homepage_or_search_option: "Usted puede volver a <a href=\"/\">homepage</a> o usar nuestra herramienta de búsqueda:"
   error_log: Registro de errores
   error_log_detail: Detalle del registro de error

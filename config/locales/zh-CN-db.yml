@@ -7,6 +7,7 @@
 # Author: Liqiang.ji
 # Author: Shandongfx
 # Author: Shizhao
+# Author: Yfdyh000
 zh-CN: 
   translated_activities-name-activity_id-19: 个人信息
   translated_activities-name-activity_id-50: 不可信的
@@ -183,7 +184,7 @@ zh-CN:
   translated_resource_statuses-label-resource_status_id-8: 已处理
   translated_resource_statuses-label-resource_status_id-9: 处理失败
   translated_service_types-label-service_type_id-1: EOL数据传输模式结构
-  translated_service_types-label-service_type_id-2: 其它
+  translated_service_types-label-service_type_id-2: 其他
   translated_sort_styles-name-sort_style_id-1: 近期添加的
   translated_sort_styles-name-sort_style_id-2: 最早的
   translated_sort_styles-name-sort_style_id-3: 按字母顺序的
@@ -207,7 +208,7 @@ zh-CN:
   translated_synonym_relations-label-synonym_relation_id-19: 被接受的名称
   translated_synonym_relations-label-synonym_relation_id-2: 俗名
   translated_synonym_relations-label-synonym_relation_id-20: 数据库产物
-  translated_synonym_relations-label-synonym_relation_id-21: "\"其它, 见评论\""
+  translated_synonym_relations-label-synonym_relation_id-21: "\"其他, 见评论\""
   translated_synonym_relations-label-synonym_relation_id-22: 正字的变体(拼写错误)
   translated_synonym_relations-label-synonym_relation_id-23: 误用的
   translated_synonym_relations-label-synonym_relation_id-24: 被拒绝的名称
@@ -228,10 +229,10 @@ zh-CN:
   translated_synonym_relations-label-synonym_relation_id-38: "\"不可用的,按规则被禁用\""
   translated_synonym_relations-label-synonym_relation_id-39: 不合理的修订
   translated_synonym_relations-label-synonym_relation_id-4: 无性型
-  translated_synonym_relations-label-synonym_relation_id-40: "\"不可用的, 其它\""
+  translated_synonym_relations-label-synonym_relation_id-40: "\"不可用的, 其他\""
   translated_synonym_relations-label-synonym_relation_id-41: "\"不可用的, 无记述名\""
   translated_synonym_relations-label-synonym_relation_id-42: 可疑名
-  translated_synonym_relations-label-synonym_relation_id-43: "\"无效发表, 其它\""
+  translated_synonym_relations-label-synonym_relation_id-43: "\"无效发表, 其他\""
   translated_synonym_relations-label-synonym_relation_id-44: "\"无效发表, 无记述名\""
   translated_synonym_relations-label-synonym_relation_id-45: 基本异名
   translated_synonym_relations-label-synonym_relation_id-46: 异型同物异名
@@ -347,7 +348,7 @@ zh-CN:
   translated_untrust_reasons-label-untrust_reason_id-2: 错误的/误导性的
   translated_untrust_reasons-label-untrust_reason_id-3: 低质量
   translated_untrust_reasons-label-untrust_reason_id-4: 重复的
-  translated_untrust_reasons-label-untrust_reason_id-5: 其它
+  translated_untrust_reasons-label-untrust_reason_id-5: 其他
   translated_user_identities-label-user_identity_id-1: 一名爱好者
   translated_user_identities-label-user_identity_id-2: 一名学生
   translated_user_identities-label-user_identity_id-3: 一名教育工作者

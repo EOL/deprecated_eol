@@ -4,13 +4,13 @@
 - if @collection.show_references
   %p.references
   - unless collection_item.refs.blank?
-    %strong= I18n.t :references_cabs_colon
+    %strong= raw I18n.t :references_cabs_colon
     - collection_item.refs.each do |ref|
       %br
       = ref.full_reference.add_missing_hyperlinks.html_safe
 - unless collection_item.sort_field.blank?
   %p.sort_value
-    %strong= I18n.t('helpers.label.collection_item.sort_field_show')
+    %strong= raw I18n.t('helpers.label.collection_item.sort_field_show')
     = collection_item.sort_field
 - if item_editable
   %p.edit

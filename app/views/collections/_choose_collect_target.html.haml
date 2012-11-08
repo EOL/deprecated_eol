@@ -3,7 +3,7 @@
     -# NOTE - @for can either be 'copy' or 'move'.
     %h2= I18n.t("#{@for}_items_to_a_new_collection_with_count", :count => @items.count)
   - else
-    %h2= I18n.t(:add_item_to_new_collection, :item => sanitize(@item.summary_name))
+    %h2= raw(I18n.t(:add_item_to_new_collection, :item => sanitize(@item.summary_name)))
   = form_for Collection.new do |collection_form|
     - if @selected_collection_items
       -# - @selected_collection_items.each do |collection_item_id|

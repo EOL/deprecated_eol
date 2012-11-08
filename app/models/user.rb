@@ -36,6 +36,9 @@ class User < Curator
   has_one :user_info
   has_one :notification
 
+  scope :admins, :conditions => ['admin IS NOT NULL']
+  scope :curators, :conditions => ['curator_level_id IS NOT NULL']
+
   before_save :check_credentials
   before_save :encrypt_password
   before_save :remove_blank_username, :unless => :eol_authentication?

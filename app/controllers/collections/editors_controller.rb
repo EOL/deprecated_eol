@@ -5,7 +5,7 @@ class Collections::EditorsController < CollectionsController
 
   layout 'v2/collections'
 
-  def show
+  def index
     @rel_canonical_href = collection_editors_url(@collection)
     # This aids in the views and in the methods from the parent controller:
     @filter = params[:filter] = 'editors'

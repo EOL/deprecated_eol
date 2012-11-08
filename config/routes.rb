@@ -166,7 +166,7 @@ EolUpgrade::Application.routes.draw do
       post 'collect_item'
     end
     resource :newsfeed, :only => [:show], :controller => 'collections/newsfeeds'
-    resources :editors, :only => [:show], :controller => 'collections/editors'
+    resources :editors, :only => [:index], :controller => 'collections/editors'
     resource :inaturalist, :only => [:show], :controller => 'collections/inaturalists'
   end
 

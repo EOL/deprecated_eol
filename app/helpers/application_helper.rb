@@ -121,6 +121,8 @@ module ApplicationHelper
       'collection'
     elsif object.class == TaxonConcept
       'taxon'
+    elsif object.class == Curator
+      'person'
     elsif object.class == User
       'person'
     elsif object.class == ContentPage

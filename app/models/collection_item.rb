@@ -101,6 +101,8 @@ class CollectionItem < ActiveRecord::Base
                                                                     :type => 'Missing Hierarchy Entry'))
       end
       params['title'] = self.object.entry.name.canonical_form.string
+    when "Curator"
+      params['title'] = self.object.username
     when "User"
       params['title'] = self.object.username
     when "DataObject"

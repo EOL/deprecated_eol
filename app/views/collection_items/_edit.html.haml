@@ -6,9 +6,9 @@
     = item_form.text_area :annotation
     %p= item_form.allowed_html_help_tip
     - if @collection.show_references
-      = item_form.label :refs, I18n.t('helpers.label.collection_item.refs')
+      = item_form.label :refs, raw(I18n.t('helpers.label.collection_item.refs'))
       = text_area_tag 'references', @references
-    = item_form.label :sort_field, I18n.t('helpers.label.collection_item.sort_field')
+    = item_form.label :sort_field, raw(I18n.t('helpers.label.collection_item.sort_field'))
     = item_form.text_field :sort_field
   %fieldset.actions
     = submit_tag I18n.t(:save), :name => :commit_annotation

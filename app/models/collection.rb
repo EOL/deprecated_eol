@@ -110,6 +110,9 @@ class Collection < ActiveRecord::Base
     when "TaxonConcept"
       collection_items << CollectionItem.create(:object_type => "TaxonConcept", :object_id => what.id, :name => what.scientific_name, :collection => self, :added_by_user => opts[:user])
       name = what.scientific_name
+    when "Curator"
+      collection_items << CollectionItem.create(:object_type => "User", :object_id => what.id, :name => what.full_name, :collection => self, :added_by_user => opts[:user])
+      name = what.username
     when "User"
       collection_items << CollectionItem.create(:object_type => "User", :object_id => what.id, :name => what.full_name, :collection => self, :added_by_user => opts[:user])
       name = what.username

@@ -135,6 +135,8 @@ private
   end
 
   def create_collection_item(data)
+    # Lame exception:
+    data["object_type"] = "User" if data["object_type"] == "Curator" # TODO - fix this later.  Grrr.
     @collection_item = CollectionItem.new(data)
     @collection_item.collection ||= current_user.watch_collection unless current_user.blank?
     if @collection_item.object_type == 'Collection' && @collection_item.object_id == @collection_item.collection.id

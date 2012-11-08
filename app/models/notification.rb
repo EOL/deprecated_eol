@@ -54,8 +54,8 @@ class Notification < ActiveRecord::Base
     end
     begin
       Resque.enqueue(PrepareAndSendNotifications) unless notification_queue.empty?
-    rescue
-      # Nothing really needed, here, I suppose.  The message will eventually get queued when the connection's back.
+    rescue => e
+      logger.error("** #queue_notifications ERROR: '#{e.message}'; ignoring...")
     end
     notification_queue
   end

@@ -80,6 +80,8 @@ module EolUpgrade
       'EOL::Exceptions::SecurityViolation' => :forbidden,
       'OpenURI::HTTPError'                 => :bad_request
     )
+    
+    config.exceptions_app = ->(env) { ApplicationController.action(:rescue_from_exception).call(env) }
   end
 end
 

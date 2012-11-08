@@ -55,6 +55,7 @@ $EXCEPTION_NOTIFY = false # set to false to not be notified of exceptions via em
 $ERROR_LOGGING = true # set to true to record uncaught application errors in sql database file
 $EXCEPTION_EMAIL_ADDRESS = %("EOL Application Error" <no-reply@example.comma>)
 $IGNORED_EXCEPTIONS = ["CGI::Session::CookieStore::TamperedWithCookie","taxa id not supplied"] # array of exceptions to ignore when logging or notifying
+$IGNORED_EXCEPTION_CLASSES = [ ActionController::RoutingError, EOL::Exceptions::MustBeLoggedIn ] # array of exceptions to ignore when logging or notifying
 
 # EMAIL NOTIFIER CONFIGURATION
 $SPECIES_PAGES_GROUP_EMAIL_ADDRESS = "from@example.com"

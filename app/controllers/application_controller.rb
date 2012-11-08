@@ -420,6 +420,10 @@ class ApplicationController < ActionController::Base
     Rails.cache.delete('homepage/activity_logs_expiration') if Rails.cache
   end
 
+  def rescue_from_exception
+    rescue_action_in_public(env['action_dispatch.exception'])
+  end
+
 protected
 
   # Overrides ActionController::Rescue local_request? to allow custom configuration of which IP addresses
@@ -434,25 +438,18 @@ protected
   # public/404.html and public/500.html. Static pages are still used if exception prevents reaching controller
   # e.g. see ActionController::Failsafe which catches e.g. MySQL exceptions such as database unknown
   def rescue_action_in_public(exception)
-
-    # exceptions in views are wrapped by ActionView::TemplateError and will return 500 response
-    # if we use the original_exception we may get a more meaningful response code e.g. 404 for ActiveRecord::RecordNotFound
-    if exception.is_a?(ActionView::TemplateError) && defined?(exception.original_exception)
-      response_code = response_code_for_rescue(exception.original_exception)
-    else
-      response_code = response_code_for_rescue(exception)
-    end
-    render_exception_response(exception, response_code)
-
+    status_code     = ActionDispatch::ExceptionWrapper.new(env, exception).status_code
+    response_code   = ActionDispatch::ExceptionWrapper.rescue_responses[exception.class.name]
+    render_exception_response(exception, response_code, status_code)
     # Log to database
-    if $ERROR_LOGGING && !$IGNORED_EXCEPTIONS.include?(exception.to_s)
+    if $ERROR_LOGGING && !$IGNORED_EXCEPTIONS.include?(exception.to_s) && !$IGNORED_EXCEPTION_CLASSES.include?(exception.class)
       ErrorLog.create(
-        :url => request.url,
+        :url => env['REQUEST_URI'],
         :ip_address => request.remote_ip,
         :user_agent => request.user_agent,
         :user_id => logged_in? ? current_user.id : 0,
         :exception_name => exception.to_s,
-        :backtrace => "Application Server: " + $IP_ADDRESS_OF_SERVER + "\r\n" + exception.backtrace.to_s
+        :backtrace => "Application Server: " + $IP_ADDRESS_OF_SERVER + "\r\n" + exception.backtrace.join("\r\n")
       )
     end
     # Notify New Relic about exception
@@ -460,7 +457,7 @@ protected
   end
 
   # custom method to render an appropriate response to an exception
-  def render_exception_response(exception, response_code)
+  def render_exception_response(exception, response_code, status_code)
     case response_code
     when :unauthorized
       logged_in? ? access_denied : must_be_logged_in
@@ -469,8 +466,6 @@ protected
     when :not_implemented
       not_yet_implemented
     else
-      status = interpret_status(response_code) # defaults to "500 Unknown Status" if response_code is not recognized
-      status_code = status[0,3]
       respond_to do |format|
         format.html do
           @error_page_title = I18n.t("error_#{status_code}_page_title", :default => [:error_default_page_title, "Error."])

@@ -11,7 +11,7 @@ code has been under development since approximately September 2007, but has unde
 updates from June 2008-December 2008.  There is much work to be done, both in adding new features, and in the
 ongoing process of code refactoring and performance improvements.  If you see something you like, share it with
 your colleagues and friends and reuse it in your own projects.  If you see something you don't like, help us
-fix it or join the discussion on GitHub or Google Code.
+fix it or join the discussion on GitHub.
 
 == LICENSE
 
@@ -20,19 +20,18 @@ the root of the code folder.
 
 == GETTING STARTED
 
-This is a big Rails project.  Clearly, some of the installation steps below are big and require multiple steps,
-but if you are currently a Rails developer, some are already done (like installing Ruby).  If you are not a
-Rails developer, we suggest you first visit www.rubyonrails.org for more information on getting started with
-Rails and then return to us when you have your feet wet.  The www.eol.org codebase probably shouldn't be the
-first Rails project you've ever seen.
+This is a big Rails project.  Some aspects of the installation below are extensive and require multiple steps.  If
+you are not a Rails developer, we suggest you first visit www.rubyonrails.org for more information on getting started
+with Rails and then return to EOL when you are more familiar with the framework.  The www.eol.org codebase probably
+shouldn't be the first Rails project you've ever seen.
 
-For seasoned Rails developers, you'll also notice the codebase does some mix and matching--both restful
-controllers and regular controllers, for example.  We like the restful way of doing things and plan to
-move in that direction. Some methods are monolithic, others are quite small.  ...and so on.  This codebase has been
-developed by quite a mix of developers and skill levels and we apologize for the lack of homogeneity. Please bear
-with us as we improve the code, slowly, over time.
+For seasoned Rails developers, you'll also notice the codebase does some mix and matching--both restful controllers
+and regular controllers, for example.  We like the restful way of doing things and plan to move in that direction.
+Some methods are monolithic, others are quite small.  ...and so on.  This codebase has been developed by quite a mix
+of developers at various skill levels and we apologize for the lack of homogeneity. Please bear with us as we improve
+the code, slowly, over time.
 
-Hint: start with the TaxonConcept model.  Everything stems from there.
+Hint: start with the TaxonConcept model.  Most of the site's functionality stems from there.
 
 === INSTALLATION
 
@@ -43,33 +42,49 @@ Note that many of these steps require root access on your machine.  You have bee
 them as "sudo" on a Mac/Linux or as an administrator on Windows (there, I acknowledged the existence of
 Windows).
 
-=== CHEATING ON UBUNTU
+=== CHEATING ON OS X
 
-The following set of commands is *pretty* much all I needed to do to get up and running on Ubuntu 10.10.
-Your mileage may, of course, vary:
+The following set of commands is *pretty* much all I needed to do to get up and running on OS X (10.7.5).  Your
+mileage may, of course, vary:
 
-  1. sudo apt-get install ruby1.8-dev ruby1.8 ri1.8 rdoc1.8 irb1.8 rubygems
-  2. sudo apt-get install libreadline-ruby1.8 libruby1.8 libopenssl-ruby
-  3. sudo apt-get install libxml2 libxslt-dev libxml2-dev
-  4. sudo apt-get install git
-  5. ssh-keygen -t rsa -c "jrice@eol.org"
-  6. cat .ssh/id_rsa.pub                   # ...and put that in your github account.
-  7. git clone git@github.com:EncyclopediaOfLife/eol.git eol
-  8. sudo gem install rails -v 2.3.8
-  9. sudo gem install rspec rspec-rails ruby-debug
-  10. sudo apt-get install rake
-  11. sudo apt-get install mysql-server libmysqlclient-dev   # It asked for the pw three times, here...
-  12. sudo gem install will_paginate sanitize mysql daemons optiflag  # Last two are required by Solr
-  13. sudo gem install capybara -v=0.3.9
-  14. rake gems:refresh_specs
-  15. rake db:migrate ; rake db:migrate RAILS_ENV=test ; rake db:migrate RAILS_ENV=test_master
-  16. sudo apt-get install memcached
-  17. sudo vim /etc/apt/sources.list   # ... and uncomment the lines for the canonical source.
-  18. sudo apt-get update
-  19. sudo apt-get install sun-java6-jre sun-java6-plugin
-  20. ...set up your configuration.  This is, of course, a long story.  Read on.
+  1. Most of the following was taken from:
+     http://www.frederico-araujo.com/2011/07/30/installing-rails-on-os-x-lion-with-homebrew-rvm-and-mysql/
+  2. /usr/bin/ruby -e "$(curl -fsSL https://raw.github.com/gist/323731)"
+  3. Install XCode. ...this is never a simple (or fast) process. Sorry.
+  4. Add /Applications/Xcode.app/Contents/Developer/usr/bin to your path.
+  5. mkdir -p /usr/local/Cellar
+  6. bash -s stable < <(curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer)
+  7. Add this to your bash profile:
+  
+     echo '[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
 
-TODO - Could we specific all of those gems (at least) in the test.rb environment and use gems:install RAILS_ENV=test ?
+  8. brew install git wget curl redis memcached libmemcached libxml2 libxslt readline
+  9. cp /usr/local/Cellar/memcached/1.4.13/homebrew.mxcl.memcached.plist ~/Library/LaunchAgents/
+  10. launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.memcached.plist
+  11. brew install mysql
+  12. unset TMPDIR
+  13. mysql_install_db --verbose --user=`whoami` --basedir="$(brew --prefix mysql)" --datadir=/usr/local/var/mysql
+      --tmpdir=/tmp
+  14. cp /usr/local/Cellar/mysql/5.5.19/homebrew.mxcl.mysql.plist ~/Library/LaunchAgents/
+  15. launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
+  16. rvm install ruby-1.9.3-p194
+  17. gem install bundler
+  18. git clone git://github.com/EOL/eol.git ; Restart your console, bundler may not work properly until you do.
+  19. cd to your new copy of the eol git repository, then: bundle install
+  20. vim config/database.yml ; You will need to edit this yourself, with appropriate settings. You may choose to use
+      config/database.sample.yml as a starting point.
+  21. rake solr:start ; This should work, now.  :)
+  22. rake eol:db:rebuild ; rake eol:db:recreate RAILS_ENV=test ; rake eol:db:recreate RAILS_ENV=test_master
+  23. rake truncate; rake scenarios:load NAME=bootstrap
+  24. sudo apt-get install redis-server
+  25. in its own console: rake resque:work QUEUE='*'
+  26. to debug: resque-web -F
+  27. launchctl stop homebrew.mxcl.redis
+  28. launchctl start homebrew.mxcl.redis
+  29. vim config/deploy/v2staging.rb    # if it's not me.
+  30. cap v2staging deploy -S tag=notify.02
+  31. chmod -R /var/www to your user if you have perms errors
+  32. erb -x -T '-' app/views/notifier/recent_activity.erb | ruby -c
 
 === FIRST THINGS FIRST
 

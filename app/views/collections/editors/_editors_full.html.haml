@@ -26,7 +26,7 @@
         = link_to image_tag(user.logo_url(:small)), user_path(user)
         = link_to content_tag(:span, '', {:class => 'icon', :title => I18n.t(:item_type_person_assistive)}), user_path(user)
         %h4= link_to h(truncate(user.full_name, :length => 64)), user_path(user)
-        = link_to [ h(user.username), sanitize(user.tag_line).balance_tags ].compact.join('<br/>'), user_path(user)
+        = link_to raw([ h(user.username), sanitize(user.tag_line).balance_tags ].compact.join('<br/>')), user_path(user)
         - if current_user.can_edit_collection?(@collection)
           %br
           = link_to(I18n.t(:remove), revoke_editor_user_path(user, :collection_id => @collection.id), :data => { :confirm => I18n.t(:are_you_sure) })

@@ -3,7 +3,7 @@
 #main
   %div{:class => (en_type == 'article' || en_type == 'link') ? 'article copy' : 'media'}
     - if @data_object.is_text? && ! @data_object.object_title.blank?
-      %h2= @data_object.object_title
+      %h2= raw @data_object.object_title
     - if en_type == 'image_map' # dato is an image map and so uses image partial
       = render :partial => "/data_objects/data_object_image", :locals => { :size => '580_360' }
     - elsif en_type == 'link' # dato is a link and so uses article partial

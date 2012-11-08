@@ -418,6 +418,7 @@ EolUpgrade::Application.routes.draw do
         get 'view_common_combinations'
       end
     end
+    resources :error_log, :only => [:index, :show], :controller => 'administrator/error_log'
     resources :table_of_contents, :only => [:index, :create, :edit, :update, :destroy], :controller => 'administrator/table_of_contents'
     resources :search_suggestion, :only => [:index, :create, :new, :edit, :update, :destroy], :controller => 'administrator/search_suggestion'
   end

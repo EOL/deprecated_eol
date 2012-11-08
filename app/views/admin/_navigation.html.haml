@@ -40,7 +40,7 @@
   %li
     = link_to I18n.t("general_site_admin"), {:controller => 'administrator/site', :action => 'index'}, {:class=>'toc_item active'}
   %li
-    = link_to I18n.t("view_error_log"), {:controller => 'administrator/error_log', :action => 'index'}, {:class=>'toc_item active'}
+    = link_to I18n.t("view_error_log"), administrator_error_log_index_path, {:class=>'toc_item active'}
   %h3
     =I18n.t("content_partners_page_title")
 

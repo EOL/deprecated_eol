@@ -34,7 +34,7 @@
     - translation_vars[:association] = link_to(item.hierarchy_entry.name.string,
       taxon_url(item.hierarchy_entry.taxon_concept), :style => link_style)
   - else
-    - translation_vars[:association] = link_to(item.taxon_concept.title,
+    - translation_vars[:association] = link_to(raw(item.taxon_concept.title),
       taxon_url(item.taxon_concept), :style => link_style)
 - name_type = 'name'
 - if item.synonym.nil? || ! item.synonym.respond_to?(:name)
@@ -45,7 +45,7 @@
 - if item.taxon_concept.nil? || ! item.taxon_concept.is_a?(TaxonConcept)
   - taxon_type = 'an_unknown_taxon'
 - else
-  - translation_vars[:taxon] = link_to(item.taxon_concept.quick_scientific_name, taxon_url(item.taxon_concept),
+  - translation_vars[:taxon] = link_to(raw(item.taxon_concept.quick_scientific_name), taxon_url(item.taxon_concept),
     :style => link_style)
 -# NOTE the weird exception: merge_classifications uses the *object* taxon concept, not the source TC (for now):
 -# THE MERGE/SPLIT ACTIVITIES ARE LEGACY...

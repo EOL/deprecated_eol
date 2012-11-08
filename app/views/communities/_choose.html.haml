@@ -1,5 +1,5 @@
 #choose_communities
-  %h2= I18n.t(:add_collection_to_a_new_community, :collection => h(@collection.summary_name))
+  %h2= raw(I18n.t(:add_collection_to_a_new_community, :collection => h(@collection.summary_name)))
   = form_for(Community.new) do |community_form|
     = hidden_field_tag :collection_id, @collection.id
     %fieldset.new_community

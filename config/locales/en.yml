@@ -2195,7 +2195,7 @@ en:
   admin_content_page_child_new_link: "Create child page"
   admin_content_page_create_successful_notice: "Page <a href=\"#%{anchor}\"><em>%{page_name}</em></a> created successfully."
   admin_content_page_create_unsuccessful_error: "Sorry, an error occurred, the page was not created."
-  admin_content_page_delete_confirmation: 'Are you sure you want to delete "%{page_name}" and all translations. Delete actions cannot be undone.'
+  admin_content_page_delete_confirmation: 'Are you sure you want to delete "%{page_name}" and all translations? Delete actions cannot be undone.'
   admin_content_page_delete_successful_notice: "Page %{page_name} and associated translations have been deleted."
   admin_content_page_edit_header: "Update basic page information for <em>%{page_name}</em>"
   admin_content_page_edit_tip: "It is recommended that you do not edit the unique name of this page unless you are fully aware of the consequences, including the impact on links to this page, or to named routes. Unique name is %{required_icon} required."

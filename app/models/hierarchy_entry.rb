@@ -159,6 +159,7 @@ class HierarchyEntry < ActiveRecord::Base
     ancestor_ids << self.id
     a = HierarchyEntry.find_all_by_id(ancestor_ids)
     HierarchyEntry.preload_associations(a, :name)
+    HierarchyEntry.preload_associations(a, :hierarchy_entry_stat) if opts[:include_stats]
     @ancestors = HierarchyEntry.sort_by_lft(a)
   end
 
@@ -170,6 +171,7 @@ class HierarchyEntry < ActiveRecord::Base
     vis = [Visibility.visible.id, Visibility.preview.id]
     c = HierarchyEntry.find_all_by_hierarchy_id_and_parent_id_and_visibility_id(hierarchy_id, id, vis)
     HierarchyEntry.preload_associations(c, :name)
+    HierarchyEntry.preload_associations(c, :hierarchy_entry_stat) if opts[:include_stats]
     return HierarchyEntry.sort_by_name(c)
   end
 

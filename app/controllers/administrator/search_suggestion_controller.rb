@@ -17,6 +17,7 @@ class Administrator::SearchSuggestionController < AdminController
     @search_suggestions = SearchSuggestion.paginate(
       :conditions => ['term like ?', search_string_parameter],
       :order => 'term asc', :page => page)
+    SearchSuggestion.preload_associations(@search_suggestions, { :taxon_concept => { :preferred_entry => { :hierarchy_entry => { :name => :ranked_canonical_form } } } })
     @search_suggestions_count = SearchSuggestion.count(:conditions => ['term like ?', search_string_parameter])
   end
 

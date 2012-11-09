@@ -10,9 +10,9 @@
 - unless hierarchy_entry.hierarchy_entry_stat.blank?
   %small
     = hierarchy_entry.hierarchy_entry_stat.pecent_with_images
-    \%
+    = "%"
     = image_tag('image.png', :alt => I18n.t("percentage_of_descendants_with_images"), :title => I18n.t("percentage_of_descendants_with_images"))
     &nbsp;&nbsp;
     = hierarchy_entry.hierarchy_entry_stat.pecent_with_text
-    \%
+    = "%"
     = image_tag('text.png', :alt => I18n.t("percentage_of_descendants_with_text"), :title => I18n.t("percentage_of_descendants_with_text"))

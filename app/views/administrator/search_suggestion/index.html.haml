@@ -26,10 +26,9 @@
             %td{ :class => column_class }
               = link_to search_suggestion.term, :action=>'edit', :id=>search_suggestion.id
             %td{ :class => column_class }
-              - tc = TaxonConcept.find(search_suggestion.taxon_id)
-              = link_to tc.quick_scientific_name(:canonical), taxon_url(:id=>tc.id), :target=>'_blank'
+              = link_to search_suggestion.taxon_concept.title_canonical, taxon_url(search_suggestion.taxon_concept), :target=>'_blank'
             %td{ :class => column_class }
-              = link_to I18n.t("_delete_"), {:action=>'destroy', :id=>search_suggestion.id}, :data => { :confirm => I18n.t("this_cannot_be_undone_are_you_sure") }, :method => :delete
+              = link_to I18n.t("delete"), {:action=>'destroy', :id=>search_suggestion.id}, :data => { :confirm => I18n.t("this_cannot_be_undone_are_you_sure") }, :method => :delete
       %br
       = will_paginate @search_suggestions
     - else

@@ -410,10 +410,10 @@ class User < Curator
 
 
   def self.count_complex_query(klass, query, user_id = nil)
-    results = klass.send(:connection).execute(query).all_hashes rescue {}
+    results = klass.send(:connection).execute(query) rescue {}
     return_hash = {}
     results.each do |r|
-      return_hash[r['user_id'].to_i] = r['count'].to_i
+      return_hash[r[0].to_i] = r[1].to_i
     end
     if user_id.class == Fixnum
       return return_hash[user_id] || 0

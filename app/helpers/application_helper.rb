@@ -416,7 +416,7 @@ module ApplicationHelper
     url = back_or_home(url)
     capture_haml do
       haml_tag :input, {:id => "cancel", :type => 'button', :name => c, :value => c,
-                        :onclick => "javascript:window.location='#{url}';"}
+                        :onclick => "javascript:window.location='#{url.force_encoding('UTF-8')}';"}
     end
   end
 

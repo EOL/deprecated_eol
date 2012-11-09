@@ -3268,6 +3268,7 @@ en:
   json_response: "JSON Response"
   just_pages_with_pictures_and_text: "Just those pages with pictures and text"
   keep_split_entry_from_this_entry: "Keep separate from this entry"
+  key: "Key"
   label: "Label"
   language: "Language:"
   languages: "Languages"

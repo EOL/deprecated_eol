@@ -409,18 +409,37 @@ EolUpgrade::Application.routes.draw do
         get 'revoke_curator'
         get 'clear_curatorship'
         get 'login_as_user'
-        get 'view_user_activity'
-        get 'view_common_activities'
         get 'view_common_combinations'
-        get 'list_newsletter_emails'
       end
       collection do
         get 'view_common_combinations'
+        get 'view_user_activity'
+        get 'view_common_activities'
+        get 'list_newsletter_emails'
       end
     end
+    resources :site, :controller => 'administrator/site'
+    resources :curator, :controller => 'administrator/curator' do
+      collection do
+        get 'export'
+      end
+    end
+    resources :comment, :controller => 'administrator/comment' do
+      member do
+        get 'hide'
+      end
+    end
+    resources :translation_log, :controller => 'administrator/translation_log'
+    resources :user_data_object, :controller => 'administrator/user_data_object'
     resources :error_log, :only => [:index, :show], :controller => 'administrator/error_log'
     resources :table_of_contents, :only => [:index, :create, :edit, :update, :destroy], :controller => 'administrator/table_of_contents'
     resources :search_suggestion, :only => [:index, :create, :new, :edit, :update, :destroy], :controller => 'administrator/search_suggestion'
+  end
+  
+  resource :navigation, :controller => 'navigation' do
+    member do
+      get 'browse_stats'
+    end
   end
 
   # Named API Routes:

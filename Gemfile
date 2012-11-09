@@ -32,6 +32,10 @@ group :test do
   gem 'rspec-html-matchers'
 end
 
+group :assets do
+  gem 'turbo-sprockets-rails3'
+end
+
 group :worker do
   # TODO - try adding this again later; it doesn't appear to work with Ruby 1.9 ...we might not need it there,
   # though.

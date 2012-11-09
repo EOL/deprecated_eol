@@ -146,7 +146,7 @@ EolUpgrade::Application.routes.draw do
       get 'revoke_editor'
     end
     resource :newsfeed, :only => [:show], :controller => 'communities/newsfeeds'
-    resources :collections
+    resources :collections, :controller => 'communities/collections'
     resources :members do
       member do
         # TODO - these shouldn't be GETs, but I really want them to be links, not forms, sooooo...

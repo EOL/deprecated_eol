@@ -143,8 +143,6 @@ $EOL_YOUTUBE_ACCOUNT  = "http://www.youtube.com/user/EncyclopediaOfLife/"
 $CURATOR_COMMUNITY_NAME = 'EOL Curators'
 $CURATOR_COMMUNITY_DESC = 'This is a special community intended for EOL curators to discuss matters related to curation on the Encylopedia of Life.'
 
-$PARENT_CLASS_MUST_USE_MASTER = ActiveRecord::Base # This is a default but should be overridden in prod environments.
-
 # Recaptcha Keys
 ENV['RECAPTCHA_PUBLIC_KEY'] = ''
 ENV['RECAPTCHA_PRIVATE_KEY'] = ''

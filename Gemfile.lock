@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/tchandy/octopus.git
+  revision: 2b8a8d0c7dd2434cf8bb41c5e5099af1180bc935
+  specs:
+    ar-octopus (0.4.0)
+      activerecord (>= 2.3.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -270,6 +277,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts_as_tree_rails3
+  ar-octopus!
   capistrano
   capistrano-unicorn
   capybara

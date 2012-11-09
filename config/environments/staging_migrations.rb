@@ -69,7 +69,6 @@ end
 # TODO - move this!  Grrr.  I'm not sure where things like this go, now. (Though I would argue we s/b putting these
 # in the DB, dammit.)
 $UNSUBSCRIBE_NOTIFICATIONS_KEY = 'f0de2a0651aa88a090e5679e5e3a7d28'
-$LOGGING_READ_FROM_MASTER = true
 # set to true to force users to use SSL for the login and signup pages 
 $USE_SSL_FOR_LOGIN = false
 

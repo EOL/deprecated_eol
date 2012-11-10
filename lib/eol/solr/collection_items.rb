@@ -35,7 +35,7 @@ module EOL
 
         add_community!(docs.select{ |d| d['object_type'] == 'Community' }, options)
         add_collection!(docs.select{ |d| d['object_type'] == 'Collection' }, options)
-        add_user!(docs.select{ |d| d['object_type'] == 'User' }, options)
+        add_user!(docs.select{ |d| d['object_type'] == 'User' || d['object_type'] == 'Curator' }, options)
         add_taxon_concept!(docs.select{ |d| d['object_type'] == 'TaxonConcept' }, options)
         add_data_object!(docs.select{ |d| ['Image', 'Video', 'Sound', 'Text', 'DataObject', 'Link', 'Map'].include? d['object_type'] }, options)
       end

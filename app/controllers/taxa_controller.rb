@@ -31,19 +31,20 @@ class TaxaController < ApplicationController
       :data_subtype_ids => DataType.map_type_ids,
       :vetted_types => ['trusted', 'unreviewed'],
       :visibility_types => ['visible'],
-      :ignore_translations => true
+      :ignore_translations => true,
     })
     limit = @map.blank? ? 4 : 3
     media = promote_exemplar_image(@taxon_concept.images_from_solr(limit, @selected_hierarchy_entry, true))
     @media = @map.blank? ? media : media[0..2] + @map
-    
+    @media = DataObject.replace_with_latest_versions(@media)
+    includes = [ { :data_objects_hierarchy_entries => [ { :hierarchy_entry => [ :name, :hierarchy, { :taxon_concept => :flattened_ancestors } ] }, :vetted, :visibility ] } ]
+    includes << { :all_curated_data_objects_hierarchy_entries => [ { :hierarchy_entry => [ :name, :hierarchy, { :taxon_concept => :flattened_ancestors } ] }, :vetted, :visibility, :user ] }
+    includes << :users_data_object
+    includes << :license
+    includes << { :agents_data_objects => [ { :agent => :user }, :agent_role ] }
+    DataObject.preload_associations(@media, includes)
     DataObject.preload_associations(@media, :translations , :conditions => "data_object_translations.language_id=#{current_language.id}")
-    DataObject.preload_associations(@media, 
-      [ :users_data_object, :license,
-        { :agents_data_objects => [ { :agent => :user }, :agent_role ] },
-        { :data_objects_hierarchy_entries => [ { :hierarchy_entry => [ { :name => :canonical_form }, :taxon_concept, :vetted, :visibility,
-          { :hierarchy => { :resource => :content_partner } } ] }, :vetted, :visibility ] },
-        { :curated_data_objects_hierarchy_entries => { :hierarchy_entry => [ :name, :taxon_concept, :vetted, :visibility ] } } ] )
+    
     @watch_collection = logged_in? ? current_user.watch_collection : nil
     @assistive_section_header = I18n.t(:assistive_overview_header)
     @rel_canonical_href = @selected_hierarchy_entry ?

@@ -2374,6 +2374,9 @@ en:
   association_untrusted_for_taxa:
     one: "Untrusted for:"
     other: "Untrusted for:"
+  association_hidden_for_taxa:
+    one: "Hidden for:"
+    other: "Hidden for:"
   associations_more_link: "more <span class=\"assistive\">taxon associations</span>"
   a_taxon: "a taxon"
   attribute: "Attribute"

@@ -1119,7 +1119,9 @@ class TaxonConcept < ActiveRecord::Base
       :visibility_types => 'visible',
       :filter_hierarchy_entry => selected_hierarchy_entry,
       :ignore_translations => ignore_translations,
-      :return_hierarchically_aggregated_objects => true
+      :return_hierarchically_aggregated_objects => true,
+      :skip_preload => true,
+      :preload_select => [ :id, :guid, :language_id ]
     })
   end
   

@@ -451,9 +451,9 @@ protected
         :exception_name => exception.to_s,
         :backtrace => "Application Server: " + $IP_ADDRESS_OF_SERVER + "\r\n" + exception.backtrace.join("\r\n")
       )
+      # Notify New Relic about exception
+      NewRelic::Agent.notice_error(exception) if $PRODUCTION_MODE
     end
-    # Notify New Relic about exception
-    NewRelic::Agent.notice_error(exception) if $PRODUCTION_MODE
   end
 
   # custom method to render an appropriate response to an exception

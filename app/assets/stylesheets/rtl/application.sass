@@ -817,7 +817,12 @@ body
         span
           margin: 0 10px
   &.discover_heading
-    background: #dbebd2 url(image-path("v2/bg_discover-header.png")) left center no-repeat
+    background: #dbebd2
+    padding: 0
+    .hgroup
+      padding: 20px 10px 20px 0
+    .site_column
+      background: transparent url(image-path("v2/bg_discover-header.png")) -13% 50% no-repeat
   .site_column
     overflow: hidden
   h1

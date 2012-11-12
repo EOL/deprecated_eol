@@ -441,6 +441,12 @@ EolUpgrade::Application.routes.draw do
       get 'browse_stats'
     end
   end
+  
+  resource :wysiwyg, :controller => 'wysiwyg' do
+    collection do
+      post 'upload_image'
+    end
+  end
 
   # Named API Routes:
   match 'api' => 'api/docs#index' # Default is actually the documenation

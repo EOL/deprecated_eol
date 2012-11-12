@@ -17,7 +17,7 @@
         = I18n.t('activerecord.attributes.translated_news_item.body')
       %p= raw(I18n.t('helpers.label.translated_news_item.body_more'))
     %dd
-      = translated_news_item_fields.cktext_area(:body, :toolbarSet => 'CMSBody', :height => 500, :width => 600)
+      = translated_news_item_fields.cktext_area(:body, :toolbar => 'CMSBody', :height => 500, :width => 600)
     / %dt
     /   = translated_news_item_fields.label :meta_keywords
     /   %p= I18n.t('helpers.label.translated_news_item.meta_keywords_more')

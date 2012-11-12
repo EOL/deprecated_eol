@@ -440,7 +440,7 @@ private
   def set_text_data_object_options
     @toc_items = TocItem.selectable_toc
     @link_types = LinkType.all
-    @languages = Language.find_by_sql("SELECT * FROM languages WHERE iso_639_1 != '' && source_form != ''")
+    @languages = Language.all(:conditions => "iso_639_1 != '' && source_form != ''", :order => "source_form asc")
     @licenses = License.find_all_by_show_to_content_partners(1)
   end
 

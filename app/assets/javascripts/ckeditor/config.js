@@ -123,7 +123,7 @@ CKEDITOR.editorConfig = function( config )
     var dialogDefinition = ev.data.definition;
     var content, upload;
 
-    if (CKEDITOR.tools.indexOf(['link', 'image', 'attachment', 'flash'], dialogName) > -1) {
+    if (CKEDITOR.tools.indexOf(['image', 'attachment', 'flash'], dialogName) > -1) {
       content = (dialogDefinition.getContents('Upload') || dialogDefinition.getContents('upload'));
       upload = (content == null ? null : content.get('upload'));
 

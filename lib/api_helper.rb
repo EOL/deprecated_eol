@@ -68,6 +68,7 @@ module ApiHelper
   def data_objects_json(data_object, all_details = true)
     return_hash = {}
     return_hash['identifier']             = data_object.guid
+    return_hash['dataObjectVersionID']    = data_object.id
     return_hash['dataType']               = data_object.data_type.schema_value
     return return_hash unless all_details == true
     
@@ -149,7 +150,6 @@ module ApiHelper
     return_hash['dataSubtype'] = data_object.data_subtype.label rescue ''
     return_hash['vettedStatus'] = data_object.association_with_best_vetted_status.vetted.label unless data_object.association_with_best_vetted_status.vetted.blank?
     return_hash['dataRating'] =  data_object.data_rating
-    return_hash['dataObjectVersionID'] =  data_object.id
     
     return return_hash
   end

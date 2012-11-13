@@ -35,5 +35,7 @@ EolUpgrade::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
+  config.action_mailer.asset_host = "http://staging.eol.org"
+
   require "ruby-debug"
 end

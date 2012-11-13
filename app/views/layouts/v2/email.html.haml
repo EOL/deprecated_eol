@@ -14,9 +14,9 @@
             %tr
               %td{:align => "left", :style => "color: #3f4b56; background: #fff;"}
                 = yield
-                %p= I18n.t(:see_all_activity, :scope => :recent_activity, :activity_url => user_newsfeed_url(@user))
-                %p= I18n.t(:unsubscribe, :scope => :recent_activity, :email_prefs_url => edit_user_notification_url(@user), :unsubscribe_url => unsubscribe_notifications_user_url(@user.id, @user.unsubscribe_key))
-                %p= I18n.t(:contact_us_link, :scope => :recent_activity)
+                %p= raw(I18n.t(:see_all_activity, :scope => :recent_activity, :activity_url => user_newsfeed_url(@user)))
+                %p= raw(I18n.t(:unsubscribe, :scope => :recent_activity, :email_prefs_url => edit_user_notification_url(@user), :unsubscribe_url => unsubscribe_notifications_user_url(@user.id, @user.unsubscribe_key)))
+                %p= raw(I18n.t(:contact_us_link, :scope => :recent_activity))
             %tr
               %td{ :valign => 'baseline', :style => 'border-top: 1px solid #e2e9ef; padding: 20px 30px; background: #f8fcff;'}
                 = link_to image_tag("v2/logo_footer.png", :alt => "", :style => "border: none; float: right;"), root_url, :style => 'text-decoration: none;'

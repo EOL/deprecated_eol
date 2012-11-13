@@ -48,7 +48,7 @@
           %table{:cellpadding => 5, :style => 'border: 1px solid #e2e9ef; margin: 0 10px 10px 0; float: left;'}
             %tbody
               %tr
-                %td{:rowspan => 2}= link_to image_tag(user.logo_url(:small, nil, :mail => true),
+                %td{:rowspan => 2}= link_to image_tag(user.logo_url(:small),
                     :size => "48x48", :style => 'height: 48px; width: 48px; border: 1px solid #394651;',
                     :alt => raw(I18n.t(:comment_show_posters_image_alt,
                     :posters_name => sanitize(user.full_name)))), user_url(user)
@@ -88,8 +88,8 @@
         - else
           = render(:partial => 'recent_activity_mailer/iconed_activity', :locals => { :user => comment.user,
             :action => raw(I18n.t("recent_activity.comment_body_brief", :body => comment.body,
-            :author => raw(link_to(sanitize(comment.user.full_name), user_url(comment.user), :style => 'color: #195184'))),
-            :created_at => comment.created_at }))
+              :author => raw(link_to(sanitize(comment.user.full_name), user_url(comment.user), :style => 'color: #195184')))),
+            :created_at => comment.created_at })
   - when 'CuratorActivityLog'
     - grouped_notes[klass].group_by(&:link_to).each do |association, items_raw|
       - items = items_raw.compact

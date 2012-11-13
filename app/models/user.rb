@@ -518,11 +518,7 @@ class User < Curator
   # override the logo_url column in the database to contruct the path on the content server
   def logo_url(size = 'large', specified_content_host = nil, options = {})
     if logo_cache_url.blank?
-      if options[:mail]
-        return "http://#{Rails.configuration.action_mailer.default_url_options[:host]}/assets/v2/logos/user_default.png"
-      else
-        return "v2/logos/user_default.png"
-      end
+      return "v2/logos/user_default.png"
     elsif size.to_s == 'small'
       DataObject.image_cache_path(logo_cache_url, '88_88', specified_content_host)
     else

@@ -2,16 +2,13 @@ Notification emails produced an error and some probably weren't sent. Please che
 
 Failure occurred while working on user: 
 = @user.short_name
-(
+= "("
 = @user.id
-), processing notes (
+= "), processing notes ("
 = @note_ids.join(',')
-) for notification frequency of 
+= ") for notification frequency of "
 = @frequency
-". The error was:
-
+= ". The error was:"
 = @error
-
 And the backtrace:
-
 = @backtrace

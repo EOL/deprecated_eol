@@ -467,7 +467,7 @@ EolUpgrade::Application.routes.draw do
   
 
   # These are expensive and broad and should be kept at the bottom of the file:
-  match '/:id' => 'pages#show', :id => /\d+/
+  match '/:id' => redirect("/pages/%{id}/overview"), :id => /\d+/
   match '/:q' => 'search#index', :q => /[A-Za-z% ][A-Za-z0-9% ]*/
 
   # NOTE - I *removed* the default routes.  We shouldn't need them anymore.

@@ -1041,7 +1041,7 @@ class DataObject < ActiveRecord::Base
       :select => {
         :languages => '*',
         :data_objects => [ :id, :published, :language_id, :guid, :data_type_id, :data_subtype_id, :object_cache_url, :data_rating, :object_title,
-          :rights_holder, :source_url, :license_id ] } )
+          :rights_holder, :source_url, :license_id, :mime_type_id, :object_url ] } )
     data_objects.collect! do |d|
       if latest_version = d.latest_published_version_in_same_language
         d = latest_version

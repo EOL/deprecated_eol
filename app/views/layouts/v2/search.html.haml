@@ -19,14 +19,14 @@
                     - [:all, :taxon_concept, :image, :video, :sound, :text, :link, :user, :community, :collection, :content_page].each do |opt|
                       - count = (opt == :all) ? @all_results.total_entries : @facets[opt.to_s.camelize]
                       - count ||= 0
-                      - item_class = ((opt == :all && !@wildcard_search) || count > 0) ? nil : 'no_results'
+                      - item_class = (@wildcard_search || count == 0) ? 'no_results' : nil
                       %li{ :class => item_class }
                         %label
                           = check_box_tag "type[]", opt, @params_type.include?(opt.to_s.camelize),
                             { :name => "type[]", :id => "type_#{opt.to_s}"}
                           = I18n.t("filter_by_type_#{opt}_option")
             %fieldset.actions
-              = submit_tag I18n.t(:filter_button)
+              = submit_tag I18n.t(:filter_button) unless @wildcard_search
         #main
           = yield
 

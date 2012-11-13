@@ -37,7 +37,7 @@ CKEDITOR.editorConfig = function( config )
   config.toolbar_Article =
     [
         [ 'Cut' ,'Copy' ,'Paste' ,'PasteFromWord' ,'-' ,'SpellChecker' ,'-' ,'Undo' ,'Redo' ,'-' ,'Find' ,'Replace' ,'-' ,'SelectAll' ,'RemoveFormat' ],
-        [ 'Bold' ,'Italic' ,'-', 'Link' ,'Unlink' ,'Anchor' ], [ 'Source' ,'-' ,'ShowBlocks' ,'-' ,'Preview' ]
+        [ 'Bold' ,'Italic', 'Subscript', 'Superscript' ,'-', 'Link' ,'Unlink' ,'Anchor' ], [ 'Source' ,'-' ,'ShowBlocks' ,'-' ,'Preview' ]
     ] ;
 
   config.toolbar_CMSNavigation =

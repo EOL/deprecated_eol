@@ -1,7 +1,8 @@
 # The top nav bar of the site is geared to handle ContentSection (q.v.) sections, each of which has one or more ContentPage
 # objects associated with it.  These pages are static content *or* links to external resources, and can be edited by
 # administrators.
-class ContentPage < $PARENT_CLASS_MUST_USE_MASTER
+class ContentPage < ActiveRecord::Base
+  octopus_establish_connection(Rails.env)
   uses_translations
 
   belongs_to :parent, :class_name => ContentPage.to_s, :foreign_key => 'parent_content_page_id'

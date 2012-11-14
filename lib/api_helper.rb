@@ -68,6 +68,7 @@ module ApiHelper
   def data_objects_json(data_object, all_details = true)
     return_hash = {}
     return_hash['identifier']             = data_object.guid
+    return_hash['dataObjectVersionID']    = data_object.id
     return_hash['dataType']               = data_object.data_type.schema_value
     return return_hash unless all_details == true
     

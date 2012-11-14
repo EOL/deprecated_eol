@@ -410,10 +410,10 @@ class User < Curator
 
 
   def self.count_complex_query(klass, query, user_id = nil)
-    results = klass.send(:connection).execute(query).all_hashes rescue {}
+    results = klass.send(:connection).execute(query) rescue {}
     return_hash = {}
     results.each do |r|
-      return_hash[r['user_id'].to_i] = r['count'].to_i
+      return_hash[r[0].to_i] = r[1].to_i
     end
     if user_id.class == Fixnum
       return return_hash[user_id] || 0
@@ -518,11 +518,7 @@ class User < Curator
   # override the logo_url column in the database to contruct the path on the content server
   def logo_url(size = 'large', specified_content_host = nil, options = {})
     if logo_cache_url.blank?
-      if options[:mail]
-        return "http://#{Rails.configuration.action_mailer.default_url_options[:host]}/assets/v2/logos/user_default.png"
-      else
-        return "v2/logos/user_default.png"
-      end
+      return "v2/logos/user_default.png"
     elsif size.to_s == 'small'
       DataObject.image_cache_path(logo_cache_url, '88_88', specified_content_host)
     else

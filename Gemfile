@@ -32,6 +32,10 @@ group :test do
   gem 'rspec-html-matchers'
 end
 
+group :assets do
+  gem 'turbo-sprockets-rails3'
+end
+
 group :worker do
   # TODO - try adding this again later; it doesn't appear to work with Ruby 1.9 ...we might not need it there,
   # though.
@@ -45,6 +49,7 @@ gem 'ckeditor'
 gem 'coffee-rails'
 gem 'composite_primary_keys'
 gem 'dalli'
+gem 'ar-octopus', :git => "git://github.com/tchandy/octopus.git", :require => "octopus"
 gem 'email_spec'
 gem 'escape'
 gem 'ezcrypto'

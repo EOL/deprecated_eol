@@ -56,7 +56,7 @@
               - if(user)
                 = user.given_name + " " + user.family_name
             %td{ :class => column_class }
-              = link_to name,{:controller=>'/taxa', :action=>:show, :id => activity.taxon_concept_id}
+              = link_to raw(name),{:controller=>'/taxa', :action=>:show, :id => activity.taxon_concept_id}
             %td{ :class => column_class }
               = h obj.name
             %td{ :class => column_class }

@@ -26,6 +26,8 @@ EolUpgrade::Application.configure do
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
 
+  config.action_mailer.asset_host = "http://eol.org"
+
   # # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # # the I18n.default_locale when a translation can not be found)
   # config.i18n.fallbacks = true

@@ -24,7 +24,7 @@ class RecentActivityMailer < ActionMailer::Base
   #:error => e.message, :frequency => fqz)
   def notification_error(options = {})
     puts "!! NOTIFICATIONS FAILED."
-    subject "Notifications not sent due to error"
+    subject = "Notifications not sent due to error"
     user_id = SiteConfigurationOption.find_by_parameter('notification_error_user_id').value
     to = user_id ? User.find(user_id) : User.first
     @user = options[:user] || 'unknown'

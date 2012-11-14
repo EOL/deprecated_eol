@@ -34,4 +34,5 @@
   %strong
     =I18n.t(:details)
   %br
-  = @error.backtrace.gsub(/\n/,"<br />")
+    .v1_error_stacktrace
+      = raw @error.display_backtrace

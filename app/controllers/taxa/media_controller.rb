@@ -50,7 +50,9 @@ class Taxa::MediaController < TaxaController
       :visibility_types => visibility_statuses,
       :ignore_translations => true,
       :filter_hierarchy_entry => @selected_hierarchy_entry,
-      :return_hierarchically_aggregated_objects => true
+      :return_hierarchically_aggregated_objects => true,
+      :skip_preload => true,
+      :preload_select => [ :id, :guid, :language_id ]
     })
 
     # There should not be an older revision of exemplar image on the media tab. But recently there were few cases found.
@@ -58,10 +60,14 @@ class Taxa::MediaController < TaxaController
     unless @media.blank?
       @media.map!{ |m| (m.guid == @exemplar_image.guid && m.id != @exemplar_image.id) ? @exemplar_image : m } unless @exemplar_image.nil?
     end
-
-    DataObject.preload_associations(@media, [:users_data_object, :data_type, { :data_objects_hierarchy_entries => [ :vetted, :hierarchy_entry ] },
-      :curated_data_objects_hierarchy_entries, :language])
-
+    
+    @media = DataObject.replace_with_latest_versions(@media)
+    includes = [ { :data_objects_hierarchy_entries => [ { :hierarchy_entry => [ :name, :hierarchy, { :taxon_concept => :flattened_ancestors } ] }, :vetted, :visibility ] } ]
+    includes << { :all_curated_data_objects_hierarchy_entries => [ { :hierarchy_entry => [ :name, :hierarchy, { :taxon_concept => :flattened_ancestors } ] }, :vetted, :visibility, :user ] }
+    DataObject.preload_associations(@media, includes)
+    DataObject.preload_associations(@media, :users_data_object)
+    DataObject.preload_associations(@media, :language)
+    DataObject.preload_associations(@media, :mime_type)
     DataObject.preload_associations(@media, :translations , :conditions => "data_object_translations.language_id=#{current_language.id}")
     @facets = EOL::Solr::DataObjects.get_aggregated_media_facet_counts(@taxon_concept.id,
       :filter_hierarchy_entry => @selected_hierarchy_entry, :user => current_user)

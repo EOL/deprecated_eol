@@ -1,5 +1,5 @@
 #logs
-  %form#page-form{ :method => "post" }
+  %form#page-form
     =I18n.t(:filter_by_day)
     - default_select = (@date == 'all') ? 'all' : @date.strftime("%d-%b-%Y")
     = select_tag :date, options_for_select([['--all--', 'all']] + @distinct_dates, default_select), {:onchange=>"javascript:$('#page-form').submit();"}

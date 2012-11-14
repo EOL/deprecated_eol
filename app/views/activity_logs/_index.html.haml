@@ -30,7 +30,7 @@
               = render :partial => "activity_logs/#{item.class.name.underscore}", :locals => {:item => item, :display_curator => display_curator}
             %p.meta
               - if actual_date
-                = raw I18n.l(item.created_at, :format => :long)
+                = raw I18n.l(item.created_at, :format => :long_utc)
               - else
                 = raw I18n.t(:time_ago, :time_passed => time_ago_in_words(item.created_at))
             - if item.user && item.link_to

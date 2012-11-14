@@ -768,6 +768,9 @@ class DataObject < ActiveRecord::Base
         if dohe.hierarchy_entry && he = dohe.hierarchy_entry.dup
           he.vetted = dohe.vetted
           he.visibility = dohe.visibility
+          # TODO: I really wanted preloaded assocations to have been included in .dup, but it appears they are not
+          he.name = dohe.hierarchy_entry.name
+          he.taxon_concept = dohe.hierarchy_entry.taxon_concept
         end
         he
       }.compact
@@ -777,6 +780,9 @@ class DataObject < ActiveRecord::Base
         he.associated_by_curator = cdohe.user
         he.vetted = cdohe.vetted
         he.visibility = cdohe.visibility
+        # TODO: I really wanted preloaded assocations to have been included in .dup, but it appears they are not
+        he.name = cdohe.hierarchy_entry.name
+        he.taxon_concept = cdohe.hierarchy_entry.taxon_concept
       end
       he
     }.compact
@@ -1028,6 +1034,21 @@ class DataObject < ActiveRecord::Base
 
   def latest_published_revision
     revisions_by_date.select {|r| r.published? }.first
+  end
+  
+  def self.replace_with_latest_versions(data_objects)
+    DataObject.preload_associations(data_objects, [ :language, :all_published_versions ],
+      :select => {
+        :languages => '*',
+        :data_objects => [ :id, :published, :language_id, :guid, :data_type_id, :data_subtype_id, :object_cache_url, :data_rating, :object_title,
+          :rights_holder, :source_url, :license_id, :mime_type_id, :object_url ] } )
+    data_objects.collect! do |d|
+      if latest_version = d.latest_published_version_in_same_language
+        d = latest_version
+      end
+      d.is_the_latest_published_revision = true
+      d
+    end
   end
 
   def unpublish_previous_revisions

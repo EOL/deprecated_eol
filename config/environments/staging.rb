@@ -46,5 +46,7 @@ EolUpgrade::Application.configure do
   # TODO - consider this. If we want it, put it in. If we don't, remove this paragraph:
   # config.i18n.fallbacks = true
 
+  config.action_mailer.asset_host = "http://staging.eol.org"
+
   require "ruby-debug"
 end

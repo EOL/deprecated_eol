@@ -68,6 +68,8 @@ module EolUpgrade
     # Compile localized CSS:
     config.assets.precompile += ['*.css', '*.js']
     
+    config.assets.initialize_on_precompile = false
+    
     if defined?(Sass)
       config.sass.line_comments = false
       config.sass.style = :nested

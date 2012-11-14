@@ -48,8 +48,8 @@ class Administrator::CuratorController < AdminController
     
     @users = User.find(:all, :include => :curator_level, :conditions => ['curator_level_id > 0'])
     report = StringIO.new
-    CSV::Writer.generate(report, '	') do |title|
-        title << ['Id', 'Username', 'Name', 'Email', 'Credentials', 'Scope', 'Approved', 'Curator Level', 'Registered Date', 'Objects Curated',
+    csv = CSV.generate(:col_sep => "\t") do |line|
+        line << ['Id', 'Username', 'Name', 'Email', 'Credentials', 'Scope', 'Approved', 'Curator Level', 'Registered Date', 'Objects Curated',
                   'Comments Moderated', 'Species Curated', 'Objects Shown', 'Objects Hidden',
                   'Text Data Objects Submitted', 'Associations Added', 'Wikipedia Articles Nominated', 'Objects Rated', 'Exemplar Images Set',
                   'Overview Articles Set', 'Classifications Preferred', 'Common Names Added', 'Common Names Curated', 'Comments Added']
@@ -58,7 +58,7 @@ class Administrator::CuratorController < AdminController
           taxa_curated = user_curated_taxa_counts[u.id].length rescue 0
           user_credentials = u.credentials.gsub(/[\r\n\t]/,'; ')[0...5000]
           user_scope = u.curator_scope.gsub(/[\r\n\t]/,'; ')[0...5000]
-          title << [u.id, u.username, u.full_name, u.email, user_credentials, user_scope, u.curator_approved, u.curator_level.translated_label,
+          line << [u.id, u.username, u.full_name, u.email, user_credentials, user_scope, u.curator_approved, u.curator_level.translated_label,
                     u.created_at, user_curated_objects_counts[u.id] || 0, comments_curated, taxa_curated, user_show_counts[u.id] || 0,
                     user_hide_counts[u.id] || 0, user_submitted_counts[u.id] || 0,
                     user_association_counts[u.id] || 0, user_wikipedia_counts[u.id] || 0, user_object_ratings[u.id] || 0,
@@ -66,10 +66,12 @@ class Administrator::CuratorController < AdminController
                     user_common_names_added[u.id] || 0, user_common_names_curated[u.id] || 0, user_comments_added[u.id] || 0]
         end
      end
-     report.rewind
-     send_data(report.read, :type=>'text/tab-separated-values; charset=utf-8; header=present',
+     
+     send_data csv,
+       :type => 'text/tab-separated-values; charset=utf-8; header=present',
        :filename => 'EOL_curators_report_' + Time.now.strftime("%m_%d_%Y-%I%M%p") + '.txt',
-       :disposition =>'attachment', :encoding => 'utf8')
+       :encoding => 'utf8',
+       :disposition => "attachment"
   end
 
 private

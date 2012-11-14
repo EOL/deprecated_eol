@@ -32,6 +32,7 @@ class NavigationController < ApplicationController
     if @hierarchy_entry.blank?
       return
     end
+    HierarchyEntry.preload_associations(@hierarchy_entry, :hierarchy_entry_stat)
     @hierarchy = @hierarchy_entry.hierarchy
     render :partial => 'browse_stats', :layout => false, :locals => { :expand => expand }
   end

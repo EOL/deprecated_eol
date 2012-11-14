@@ -98,16 +98,11 @@ class Hierarchy < ActiveRecord::Base
   end
 
   def kingdoms(opts = {})
-    add_include = [ :taxon_concept ]
-    add_select = { :taxon_concepts => '*' }
-    unless opts[:include_stats].blank?
-      add_include << :hierarchy_entry_stat
-      add_select[:hierarchy_entry_stats] = '*'
-    end
-
     vis = [Visibility.visible.id, Visibility.preview.id]
-    # TODO: core_relationships(:add_include => add_include, :add_select => add_select)
     k = HierarchyEntry.find_all_by_hierarchy_id_and_parent_id_and_visibility_id(id, 0, vis)
+    HierarchyEntry.preload_associations(k, :name)
+    HierarchyEntry.preload_associations(k, :hierarchy_entry_stat) if opts[:include_stats]
+    k
   end
   
   def content_partner

@@ -13,9 +13,9 @@
       =I18n.t("your_ip_address")
     %td.odd
       = request.remote_ip
-      (
+      = "("
       =I18n.t("internal_ip_address") if @allowed_ip
-      )
+      = ")"
   %tr
     %td.even
       =I18n.t("server_ip_address")
@@ -32,9 +32,6 @@
     %td.even
       =I18n.t(:main_database_colon)
       = @config.database_configuration[Rails.env.to_s]["database"] + ' @ ' + @config.database_configuration[Rails.env.to_s]["host"]
-      %br
-      =I18n.t(:data_database_colon)
-      = @config.database_configuration["#{Rails.env}_data"]["database"] + ' @ ' + @config.database_configuration["#{Rails.env}_data"]["host"]
       %br
       =I18n.t(:logging_database_colon)
       = @config.database_configuration["#{Rails.env}_logging"]["database"] + ' @ ' + @config.database_configuration["#{Rails.env}_logging"]["host"]
@@ -68,7 +65,7 @@
     %td.odd
       =I18n.t("content_servers")
     %td.odd
-      = $CONTENT_SERVERS.join(',')
+      = $CONTENT_SERVERS.join(', ')
   %tr
     %td.even
       =I18n.t("allow_user_logins")

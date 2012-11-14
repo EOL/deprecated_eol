@@ -16,6 +16,9 @@ class ContactsController < ApplicationController
       @contact.name = current_user.full_name
       @contact.email = current_user.email
     end
+    @subject = params[:subject] ? ContactSubject.find(:first,
+      :joins => "JOIN translated_contact_subjects tcs ON (contact_subjects.id=tcs.contact_subject_id)",
+      :conditions => "tcs.title like '#{params[:subject]}%'") : nil
   end
 
   # POST /contacts

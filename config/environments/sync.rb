@@ -30,15 +30,6 @@ config.action_mailer.raise_delivery_errors = false
 # Code is not reloaded between requests
 config.cache_classes = true
 
-# Set up the master database connection for writes using masochism plugin
-# NOTE: for this to work, you *must* also use config.cache_classes = true (default for sync)
-config.after_initialize do
-  ActiveReload::ConnectionProxy.setup_for ActiveReload::MasterDatabase, ActiveRecord::Base
-  ActiveReload::ConnectionProxy.setup_for LoggingWriter, LoggingModel
-  $PARENT_CLASS_MUST_USE_MASTER = ActiveReload::MasterDatabase
-end
-$LOGGING_READ_FROM_MASTER = true
-
 # set to true to force users to use SSL for the login and signup pages 
 $USE_SSL_FOR_LOGIN = false
 

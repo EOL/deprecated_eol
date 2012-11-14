@@ -1119,7 +1119,9 @@ class TaxonConcept < ActiveRecord::Base
       :visibility_types => 'visible',
       :filter_hierarchy_entry => selected_hierarchy_entry,
       :ignore_translations => ignore_translations,
-      :return_hierarchically_aggregated_objects => true
+      :return_hierarchically_aggregated_objects => true,
+      :skip_preload => true,
+      :preload_select => [ :id, :guid, :language_id ]
     })
   end
   
@@ -1136,7 +1138,9 @@ class TaxonConcept < ActiveRecord::Base
     if published_exemplar = self.published_visible_exemplar_article
       @best_article = published_exemplar
     else
-      overview_text_objects = self.text_for_user(the_user, {
+      # Sending User.new here since overview text should be the same for all users - curators
+      # and admins should not see hidden text in the overview tab
+      overview_text_objects = self.text_for_user(User.new, {
         :per_page => 30,
         :language_ids => [ the_user.language.id ],
         :allow_nil_languages => (the_user.language.id == Language.default.id),

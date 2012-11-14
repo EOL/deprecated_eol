@@ -13,7 +13,7 @@
           %br
           %b
             =I18n.t("hierarchy_roots_colon")
-          - for kingdom in @hierarchy_entry.hierarchy.kingdoms
+          - for kingdom in @hierarchy.kingdoms(:include_stats => true)
             %li.node.bold
               = render(:partial => 'navigation/node_name_stats', :locals => { :hierarchy_entry => kingdom })
           - unless @hierarchy_entry.nil?
@@ -28,39 +28,39 @@
                   %td.odd
                     =I18n.t("number_of_taxa_at_this_entry")
                   %td.odd.stats
-                    = hierarchy_entry.hierarchy_entry_stat.total_children
+                    = hierarchy_entry.hierarchy_entry_stat.total_children rescue '?'
                 %tr
                   %td.even
                     =I18n.t("number_of_trusted_images_at_this_entry")
                   %td.even.stats
-                    = hierarchy_entry.hierarchy_entry_stat.all_image_trusted
+                    = hierarchy_entry.hierarchy_entry_stat.all_image_trusted rescue '?'
                 %tr
                   %td.odd
                     =I18n.t("number_of_unreviewed_images_at_this_entry")
                   %td.odd.stats
-                    = hierarchy_entry.hierarchy_entry_stat.all_image_untrusted
+                    = hierarchy_entry.hierarchy_entry_stat.all_image_untrusted rescue '?'
                 %tr
                   %td.even
                     =I18n.t("percentage_of_children_with_images")
                   %td.even.stats
-                    = hierarchy_entry.hierarchy_entry_stat.pecent_with_images
-                    \%
+                    = hierarchy_entry.hierarchy_entry_stat.pecent_with_images rescue '?'
+                    = "%"
                 %tr
                   %td.odd
                     =I18n.t("number_of_trusted_text_objects_at_this_entry")
                   %td.odd.stats
-                    = hierarchy_entry.hierarchy_entry_stat.all_text_trusted
+                    = hierarchy_entry.hierarchy_entry_stat.all_text_trusted rescue '?'
                 %tr
                   %td.even
                     =I18n.t("number_of_unreviewed_text_objects_at_this_entry")
                   %td.even.stats
-                    = hierarchy_entry.hierarchy_entry_stat.all_text_untrusted
+                    = hierarchy_entry.hierarchy_entry_stat.all_text_untrusted rescue '?'
                 %tr
                   %td.odd
                     =I18n.t("percentage_of_children_with_text")
                   %td.odd.stats
-                    = hierarchy_entry.hierarchy_entry_stat.pecent_with_text
-                    \%
+                    = hierarchy_entry.hierarchy_entry_stat.pecent_with_text rescue '?'
+                    = "%"
               %br
               - if metric = @hierarchy_entry.taxon_concept.taxon_concept_metric
                 = render(:partial => '/administrator/stats/taxon_metrics', :locals => { :metric => metric })

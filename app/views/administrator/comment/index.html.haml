@@ -29,19 +29,18 @@
           %tr
             %td{ :class => column_class }
               - if comment.user
-                = link_to (comment.user.full_name,:controller=>'/administrator/user',:action=>'edit',:id=>comment.user_id)
+                = link_to comment.user.full_name, :controller => '/administrator/user', :action => 'edit', :id => comment.user_id
             %td{ :class => column_class }
-              = h truncate(comment.body, :length => 100)
+              = raw(truncate(comment.body, :length => 100))
               - if !comment.visible_at
                 %br
                 %i
                   = "--" + I18n.t("hidden_comment")  + "--"
             %td{ :class => column_class }
-              = truncate(comment.parent_name.gsub!(/(<[^>]*>)|\n|\t/s) {" "}, :length => 50)
               %br
-              (
-              = link_to (comment.parent_type_name,comment.parent_url)
-              )
+              = "("
+              = link_to comment.parent_type_name, comment.parent_url
+              = ")"
               %br
               = image_tag(comment.parent_image_url) if comment.image_comment?
             %td{ :class => column_class }

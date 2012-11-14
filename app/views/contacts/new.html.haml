@@ -19,7 +19,7 @@
             %dt.required
               = f.label :contact_subject_id
             %dd
-              = f.select :contact_subject_id, options_from_collection_for_select(contact_subjects, :id, :title, @contact.contact_subject_id)
+              = f.select :contact_subject_id, options_from_collection_for_select(contact_subjects, :id, :title, @subject ? @subject.id : @contact.contact_subject_id)
             %dt.required
               = f.label :comments
             %dd

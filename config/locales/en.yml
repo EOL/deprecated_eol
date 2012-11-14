@@ -59,6 +59,7 @@ en:
       default: "%a, %d %b %Y %H:%M:%S %z"
       short: "%d %b %H:%M"
       long: "%B %d, %Y %H:%M"
+      long_utc: "%B %d, %Y %H:%M UTC"
       month_name: "%B"
       month_and_year: "%B %Y"
     am: "am"
@@ -2374,6 +2375,9 @@ en:
   association_untrusted_for_taxa:
     one: "Untrusted for:"
     other: "Untrusted for:"
+  association_hidden_for_taxa:
+    one: "Hidden for:"
+    other: "Hidden for:"
   associations_more_link: "more <span class=\"assistive\">taxon associations</span>"
   a_taxon: "a taxon"
   attribute: "Attribute"
@@ -3268,6 +3272,7 @@ en:
   json_response: "JSON Response"
   just_pages_with_pictures_and_text: "Just those pages with pictures and text"
   keep_split_entry_from_this_entry: "Keep separate from this entry"
+  key: "Key"
   label: "Label"
   language: "Language:"
   languages: "Languages"

@@ -17,7 +17,6 @@ class Administrator::StatsController < AdminController
 
   def SPM_objects_count
     @page_title = I18n.t("species_profile_model_dato_count_title")
-    @arr_SPM = InfoItem.get_schema_value
     @rec = PageStatsTaxon.latest
     if(@rec["data_objects_count_per_category"] != "[DATA MISSING]" and @rec["data_objects_count_per_category"] != nil) then
       @arr_count = JSON.parse(@rec["data_objects_count_per_category"])
@@ -28,7 +27,6 @@ class Administrator::StatsController < AdminController
 
   def SPM_partners_count
     @page_title = I18n.t("species_profile_model_cp_count_title")
-    @arr_SPM = InfoItem.get_schema_value
     @rec = PageStatsTaxon.latest
     if(@rec["content_partners_count_per_category"] != "[DATA MISSING]" and @rec["content_partners_count_per_category"] != nil) then
       @arr_count = JSON.parse(@rec["content_partners_count_per_category"])

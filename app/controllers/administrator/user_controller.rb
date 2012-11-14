@@ -45,19 +45,20 @@ class Administrator::UserController  < AdminController
          search_string_parameter,
          search_string_parameter],
         :order => 'created_at desc')
-      report = StringIO.new
-      CSV::Writer.generate(report, ',') do |title|
-          title << ['Id', 'Username', 'Name', 'Email', 'Registered Date', 'Disable Email?', 'Receive Newsletter?']
-          @users.each do |u|
-            created_at = ''
-            created_at = u.created_at.strftime("%m/%d/%y - %I:%M %p %Z") unless u.created_at.blank?
-            title << [u.id, u.username, u.full_name, u.email, created_at, u.disable_email_notifications,
-              u.notification.eol_newsletter]
-          end
+      csv = CSV.generate do |line|
+        line << ['Id', 'Username', 'Name', 'Email', 'Registered Date', 'Disable Email?', 'Receive Newsletter?']
+        @users.each do |u|
+          created_at = ''
+          created_at = u.created_at.strftime("%m/%d/%y - %I:%M %p %Z") unless u.created_at.blank?
+          line << [u.id, u.username, u.full_name, u.email, created_at, u.disable_email_notifications, u.notification.eol_newsletter]
+        end
        end
-       report.rewind
-       send_data(report.read, :type => 'text/csv; charset=iso-8859-1; header=present', :filename => 'EOL_users_report_' + Time.now.strftime("%m_%d_%Y-%I%M%p") + '.csv', :disposition => 'attachment', :encoding => 'utf8')
-       return false
+       
+       send_data csv,
+         :type => 'text/csv; charset=iso-8859-1; header=present',
+         :filename => 'EOL_users_report_' + Time.now.strftime("%m_%d_%Y-%I%M%p") + '.csv',
+         :encoding => 'utf8',
+         :disposition => "attachment"
     end
 
     @users = User.paginate(
@@ -85,7 +86,8 @@ class Administrator::UserController  < AdminController
       search_string_parameter,
       search_string_parameter,
       search_string_parameter])
-
+    
+    User.preload_associations(@users, :content_partners)
   end
 
   def edit

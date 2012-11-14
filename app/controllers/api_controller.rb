@@ -69,13 +69,17 @@ class ApiController < ApplicationController
   end
 
   def data_objects
-    data_object_guid = params[:id] || 0
+    data_object_guid_or_id = params[:id] || 0
     params[:format] ||= 'xml'
     params[:common_names] ||= false
     params[:details] = true
 
     begin
-      d = DataObject.find_by_guid(data_object_guid)
+      if data_object_guid_or_id.is_numeric?
+        d = DataObject.find(data_object_guid_or_id)
+      else
+        d = DataObject.find_by_guid(data_object_guid_or_id)
+      end
       data_object = d.latest_version_in_same_language(:check_only_published => true)
       if data_object.blank?
         data_object = d.latest_version_in_same_language(:check_only_published => false)
@@ -85,7 +89,7 @@ class ApiController < ApplicationController
       raise if data_object.blank?
       taxon_concept = data_object.all_associations.first.taxon_concept
     rescue
-      render_error("Unknown identifier #{data_object_guid}")
+      render_error("Unknown identifier #{data_object_guid_or_id}")
       return
     end
 
@@ -94,7 +98,7 @@ class ApiController < ApplicationController
                   :method => 'data_objects',
                   :version => params[:version],
                   :format => params[:format],
-                  :request_id => data_object_guid,
+                  :request_id => data_object_guid_or_id,
                   :key => @key,
                   :user_id => @user_id)
 

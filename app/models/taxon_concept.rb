@@ -1297,7 +1297,7 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def number_of_descendants
-    connection.select_values("SELECT count(*) as count FROM taxon_concepts_flattened WHERE ancestor_id=#{self.id}")[0].to_i rescue 0
+    TaxonConceptsFlattened.descendants_of(id).count
   end
 
   # These methods are defined in config/initializers, FWIW:
@@ -1384,6 +1384,7 @@ class TaxonConcept < ActiveRecord::Base
   def split_classifications(hierarchy_entry_ids, options = {})
     raise EOL::Exceptions::ClassificationsLocked if
       classifications_locked?
+    disallow_large_curations
     lock_classifications
     ClassificationCuration.create(:user => options[:user],
                                   :hierarchy_entries => HierarchyEntry.find(hierarchy_entry_ids),
@@ -1398,6 +1399,7 @@ class TaxonConcept < ActiveRecord::Base
       raise EOL::Exceptions::ProvidersMatchOnMerge.new(he_id)
     end
     raise EOL::Exceptions::CannotMergeClassificationsToSelf if self.id == source_concept.id
+    disallow_large_curations
     lock_classifications
     source_concept.lock_classifications
     ClassificationCuration.create(:user => options[:user],
@@ -1405,6 +1407,12 @@ class TaxonConcept < ActiveRecord::Base
                                   :source_id => source_concept.id,
                                   :target_id => id, :exemplar_id => options[:exemplar_id],
                                   :forced => options[:forced] || options[:forced])
+  end
+
+  def disallow_large_curations
+    max_curatable_descendants = SiteConfigurationOption.max_curatable_descendants || 10000
+    raise EOL::Exceptions::TooManyDescendantsToCurate.new(max_curatable_descendants) if
+      number_of_descendants > max_curatable_descendants
   end
 
   def all_published_entries?(hierarchy_entry_ids)

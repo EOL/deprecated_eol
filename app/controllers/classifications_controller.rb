@@ -183,6 +183,8 @@ private
       flash[:warning] = I18n.t(:classifications_merge_additional_confirm_required)
       @target_params[:providers_match] = e.message # NOTE - a little wonky to pass the ID in the message.  :|
       @target_params[:exemplar] = which
+    rescue EOL::Exceptions::TooManyDescendantsToCurate => e
+      flash[:error] = I18n.t(:too_many_descendants_to_curate_with_count, :count => e.message) # Also wonky
     end
   end
 

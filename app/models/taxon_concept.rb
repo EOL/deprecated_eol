@@ -1382,7 +1382,7 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def unlock_classifications
-    taxon_classifications_lock.destroy
+    taxon_classifications_lock.destroy if taxon_classifications_lock
   end
 
   def split_classifications(hierarchy_entry_ids, options = {})
@@ -1404,6 +1404,7 @@ class TaxonConcept < ActiveRecord::Base
     end
     raise EOL::Exceptions::CannotMergeClassificationsToSelf if self.id == source_concept.id
     disallow_large_curations
+    source_concept.disallow_large_curations
     lock_classifications
     source_concept.lock_classifications
     ClassificationCuration.create(:user => options[:user],
@@ -1411,12 +1412,6 @@ class TaxonConcept < ActiveRecord::Base
                                   :source_id => source_concept.id,
                                   :target_id => id, :exemplar_id => options[:exemplar_id],
                                   :forced => options[:forced] || options[:forced])
-  end
-
-  def disallow_large_curations
-    max_curatable_descendants = SiteConfigurationOption.max_curatable_descendants || 10000
-    raise EOL::Exceptions::TooManyDescendantsToCurate.new(max_curatable_descendants) if
-      number_of_descendants > max_curatable_descendants
   end
 
   def all_published_entries?(hierarchy_entry_ids)
@@ -1470,6 +1465,12 @@ class TaxonConcept < ActiveRecord::Base
           FROM #{UsersDataObject.full_table_name} udo
           JOIN data_objects do ON (udo.data_object_id=do.id)
             WHERE udo.taxon_concept_id=#{id})")
+  end
+
+  def disallow_large_curations
+    max_curatable_descendants = SiteConfigurationOption.max_curatable_descendants rescue 10000
+    raise EOL::Exceptions::TooManyDescendantsToCurate.new(max_curatable_descendants) if
+      number_of_descendants > max_curatable_descendants
   end
 
 private

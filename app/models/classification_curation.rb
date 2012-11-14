@@ -68,15 +68,15 @@ class ClassificationCuration < ActiveRecord::Base
 
   def check_status_and_notify
     if ready_to_complete? && ! already_complete?
+      mark_as_complete # Nothing else should pick this up for work, now...
       if failed?
         compile_errors_into_log
       else
+        CodeBridge.reindex_taxon_concept(source_id, :split => split?) if source_id
+        CodeBridge.reindex_taxon_concept(target_id, :split => split?) if target_id
         log_activity_on(moved_from || moved_to)
         log_unlock_and_notify(Activity.unlock)
       end
-      CodeBridge.reindex_taxon_concept(source_id) if source_id
-      CodeBridge.reindex_taxon_concept(target_id) if target_id
-      mark_as_complete
     end
   end
 

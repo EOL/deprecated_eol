@@ -34,6 +34,8 @@ EolUpgrade::Application.routes.draw do
     resources :details, :except => [:show], :controller => 'taxa/details'
     resource :worklist, :only => [:show], :controller => 'taxa/worklist'
     resources :data_objects, :only => [:create, :new]
+    resource :taxon_concept_reindexing, :as => 'reindexing', :only => [:create],
+      :controller => 'taxa/taxon_concept_reindexing'
     resources :hierarchy_entries, :as => 'entries', :only => [:show] do
       member do
         put 'switch'

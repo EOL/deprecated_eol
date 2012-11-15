@@ -160,6 +160,7 @@ class User < Curator
   end
   
   def unsubscribe_key
+    reload_all_values_if_missing([:created_at, :email])
     Digest::MD5.hexdigest(email + created_at.to_s + $UNSUBSCRIBE_NOTIFICATIONS_KEY)
   end
 

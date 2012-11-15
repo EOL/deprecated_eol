@@ -73,8 +73,8 @@ class ClassificationCuration < ActiveRecord::Base
         compile_errors_into_log
       else
         # Allowing large trees, here, since you shouldn't have gotten here unless it was okay.
-        moved_from.reindex(:flatten => split?, :allow_large_tree => true) if source_id
-        moved_to.reindex(:flatten => split?, :allow_large_tree => true) if target_id
+        TaxonConceptReindexing.new(moved_from, :flatten => split?, :allow_large_tree => true).reindex if source_id
+        TaxonConceptReindexing.new(moved_to,   :flatten => split?, :allow_large_tree => true).reindex if target_id
         log_activity_on(moved_from || moved_to)
         log_unlock_and_notify(Activity.unlock)
       end

@@ -1306,13 +1306,6 @@ class TaxonConcept < ActiveRecord::Base
     TaxonConceptsFlattened.descendants_of(id).count
   end
 
-  # This is the "long" method, using PHP, to reindex a taxon page, and is not allowed if there are too many
-  # descendants.
-  def reindex(options = {})
-    disallow_large_curations unless options[:allow_large_tree]
-    CodeBridge.reindex_taxon_concept(id, :flatten => options[:flatten])
-  end
-
   # These methods are defined in config/initializers, FWIW:
   def reindex_in_solr
     remove_from_index
@@ -1371,10 +1364,6 @@ class TaxonConcept < ActiveRecord::Base
     @deep_nonbrowsables = cached_deep_published_hierarchy_entries.dup
     @deep_nonbrowsables.delete_if {|he| he.hierarchy.browsable.to_i == 1 || current_entry_id == he.id }
     HierarchyEntry.preload_deeply_browsable(@deep_nonbrowsables)
-  end
-
-  def lock_classifications
-    TaxonClassificationsLock.create(:taxon_concept_id => self.id)
   end
 
   # Self-healing... nothing can be locked for more than 24 hours.
@@ -1480,6 +1469,10 @@ class TaxonConcept < ActiveRecord::Base
     max_curatable_descendants = SiteConfigurationOption.max_curatable_descendants rescue 10000
     raise EOL::Exceptions::TooManyDescendantsToCurate.new(max_curatable_descendants) if
       number_of_descendants > max_curatable_descendants
+  end
+
+  def lock_classifications
+    TaxonClassificationsLock.create(:taxon_concept_id => self.id)
   end
 
 private

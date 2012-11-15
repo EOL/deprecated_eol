@@ -39,6 +39,7 @@ module EOL
                                 :default => I18n.t('exceptions.security_violations.default'))
       end
     end
+    class TooManyDescendantsToCurate < StandardError; end
     class UnknownFeedType < StandardError; end
     class WrongCurator < StandardError; end
   end

@@ -175,7 +175,7 @@ describe TaxonConcept do
 
   it 'should show its untrusted images, by default' do
     @taxon_concept.current_user = nil
-    @taxon_concept.images_from_solr(100).map(&:object_cache_url).should include(@image_unknown_trust)
+    @taxon_concept.images_from_solr(100).map {|d| DataObject.find(d).object_cache_url }.should include(@image_unknown_trust)
   end
 
   describe '#overview_text_for_user' do
@@ -298,7 +298,7 @@ describe TaxonConcept do
       item_vetted = item.vetted_by_taxon_concept(@taxon_concept, :find_best => true)
       item_vetted_id = item_vetted.id unless item_vetted.nil?
       item_vetted_id == Vetted.trusted.id
-    }.map(&:data_rating)
+    }.map! {|d| DataObject.find(d).data_rating }
     ratings.should == ratings.sort.reverse
   end
 
@@ -636,22 +636,130 @@ describe TaxonConcept do
     published_visible_exemplar_article.id.should == data_object.id
   end
 
-  #
-  # I'm all for pending tests, but in this case, they run SLOWLY, so it's best to comment them out:
-  #
+  it 'should count descendants using TaxonConceptsFlattened' do
+    TaxonConceptsFlattened.should_receive(:descendants_of).with(@taxon_concept.id).and_return((0..13).to_a)
+    @taxon_concept.number_of_descendants.should == 14
+  end
 
-  # Medium Priority:
-  #
-  # it 'should be able to list whom the species is recognized by' do
-  # it 'should be able to add a comment' do
-  # it 'should be able to list exemplars' do
-  #
-  # Lower priority (at least for me!)
-  #
-  # it 'should know which hosts to ping' do
-  # it 'should be able to set a current agent' # This is only worthwhile if we know what it should change... do
-  # it 'should follow supercedure' do
-  # it 'should be able to show a thumbnail' do
-  # it 'should be able to show a single image' do
+  describe '#split_classifications' do
+
+    before(:all) do
+      @exemplar = @taxon_concept.hierarchy_entries.first.id
+      @entries = [@taxon_concept.hierarchy_entries.second.id]
+      @max_descendants = 10
+      @too_many_descendants = (0..@max_descendants).to_a
+      SiteConfigurationOption.stub!(:max_curatable_descendants).and_return(@max_descendants)
+    end
+
+    before(:each) do
+      TaxonClassificationsLock.delete_all
+    end
+
+    it 'should not run if locked' do
+      @taxon_concept.lock_classifications
+      lambda { @taxon_concept.split_classifications(@entries, :user => @user, :exemplar_id => @exemplar) }.should
+        raise_error(EOL::Exceptions::ClassificationsLocked)
+    end
+
+    it 'should not run if too large' do
+      lambda {
+        TaxonConceptsFlattened.should_receive(:descendants_of).with(@taxon_concept.id).and_return(@too_many_descendants)
+        @taxon_concept.split_classifications(@entries, :user => @user, :exemplar_id => @exemplar)
+      }.should
+        raise_error(EOL::Exceptions::TooManyDescendantsToCurate)
+    end
+
+    it 'should lock classifications and create a ClassificationCuration' do
+      @taxon_concept.classifications_locked?.should_not be_true
+      ClassificationCuration.should_receive(:create).and_return(nil)
+      @taxon_concept.split_classifications(@entries, :user => @user, :exemplar_id => @exemplar) 
+      @taxon_concept.reload
+      @taxon_concept.classifications_locked?.should be_true
+    end
+
+  end
+
+
+  describe '#merge_classifications' do
+
+    before(:all) do
+      @with = @tc_bad_title
+      @exemplar = @taxon_concept.hierarchy_entries.first.id
+      @entries = [@taxon_concept.hierarchy_entries.second.id]
+      @max_descendants = 10
+      @too_many_descendants = (0..@max_descendants).to_a
+      SiteConfigurationOption.stub!(:max_curatable_descendants).and_return(@too_many_descendants)
+    end
+
+    before(:each) do
+      TaxonClassificationsLock.delete_all
+      @taxon_concept.reload
+      @with.reload
+    end
+
+    it 'should not run if locked' do
+      @taxon_concept.lock_classifications
+      lambda { @taxon_concept.merge_classifications(@entries, :with => @with, :user => @user,
+                                                    :exemplar_id => @exemplar) }.should
+        raise_error(EOL::Exceptions::ClassificationsLocked)
+    end
+
+    it 'should not run if the other concept is locked' do
+      @with.lock_classifications
+      lambda { @taxon_concept.merge_classifications(@entries, :with => @with, :user => @user,
+                                                    :exemplar_id => @exemplar) }.should
+        raise_error(EOL::Exceptions::ClassificationsLocked)
+    end
+
+    it 'should not run if providers_match_on_merge' do
+      lambda {
+        @taxon_concept.should_receive(:providers_match_on_merge).and_return(1)
+        @taxon_concept.merge_classifications(@entries, :with => @with, :user => @user,
+                                             :exemplar_id => @exemplar) }.should
+        raise_error(EOL::Exceptions::ProvidersMatchOnMerge)
+    end
+
+    it 'SHOULD run if providers_match_on_merge but forced' do
+      ClassificationCuration.should_receive(:create).and_return(nil)
+      @taxon_concept.merge_classifications(@entries, :with => @with, :user => @user, :forced => true,
+                                           :exemplar_id => @exemplar)
+    end
+
+    it 'should not run if merged to self' do
+      lambda { @taxon_concept.merge_classifications(@entries, :with => @taxon_concept, :user => @user, :forced => true,
+                                                    :exemplar_id => @exemplar) }.should
+        raise_error(EOL::Exceptions::CannotMergeClassificationsToSelf)
+    end
+
+    it 'should not run if too large' do
+      lambda {
+        TaxonConceptsFlattened.should_receive(:descendants_of).with(@taxon_concept.id).and_return(@too_many_descendants)
+        TaxonConceptsFlattened.should_receive(:descendants_of).with(@with.id).and_return(1)
+        @taxon_concept.merge_classifications(@entries, :with => @with, :user => @user, :forced => true,
+                                             :exemplar_id => @exemplar)
+      }.should
+        raise_error(EOL::Exceptions::TooManyDescendantsToCurate)
+    end
+
+    it 'should not run if target descendants too large' do
+      lambda {
+        TaxonConceptsFlattened.should_receive(:descendants_of).with(@with.id).and_return(@too_many_descendants)
+        TaxonConceptsFlattened.should_receive(:descendants_of).with(@taxon_concept.id).and_return(1)
+        @taxon_concept.merge_classifications(@entries, :with => @with, :user => @user, :forced => true,
+                                             :exemplar_id => @exemplar)
+      }.should
+        raise_error(EOL::Exceptions::TooManyDescendantsToCurate)
+    end
+
+    it 'should lock classifications on both concepts and create a ClassificationCuration' do
+      TaxonConceptsFlattened.should_receive(:descendants_of).with(@taxon_concept.id).and_return([1])
+      TaxonConceptsFlattened.should_receive(:descendants_of).with(@with.id).and_return([1])
+      ClassificationCuration.should_receive(:create).and_return(nil)
+      @taxon_concept.merge_classifications(@entries, :with => @with, :user => @user, :forced => true,
+                                           :exemplar_id => @exemplar)
+    end
+
+  end
+
 
 end

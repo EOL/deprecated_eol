@@ -93,7 +93,7 @@ class ContentController < ApplicationController
   # GET /info/:crumbs where crumbs is an array of path segments
   def show
     # get the id parameter, which can be either a page ID # or a page name
-    @page_id = params[:id] || params[:crumbs].last
+    @page_id = params[:id] || params[:crumbs].split('/').last
 
     # temporarily forcing all new RSS requests to return HTML to address on of our most common bugs
     if @page_id == 'news' && params[:format] == 'rss'
@@ -129,6 +129,8 @@ class ContentController < ApplicationController
             Language.from_iso(current_language.iso_639_1)
           @translated_pages = translations_available_to_user
           @translated_content = translations_available_to_user.select{|t| t.language_id == @selected_language.id}.compact.first
+          @translated_content.left_content.gsub!(/href=\"info/, "href=\"/info")
+          @translated_content.main_content.gsub!(/href=\"info/, "href=\"/info")
           @page_title = @translated_content.nil? ? I18n.t(:cms_missing_content_title) : @translated_content.title
           @navigation_tree_breadcrumbs = ContentPage.get_navigation_tree_with_links(@content.id)
           current_user.log_activity(:viewed_content_page_id, :value => @page_id)

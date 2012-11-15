@@ -250,25 +250,29 @@ class User < Curator
   end
 
   def taxa_commented
+    return @taxa_commented unless @taxa_commented.nil?
     # list of taxa where user entered a comment
-    taxa = []
-    Comment.preload_associations(comments, :parent)
+    @taxa_commented = []
     Comment.preload_associations(comments.select{ |c| c.parent_type == 'DataObject' },
-      { :parent => [ { :data_objects_hierarchy_entries => :hierarchy_entry }, :curated_data_objects_hierarchy_entries, :users_data_object ] })
+      { :parent => [ { :data_objects_hierarchy_entries => [ :hierarchy_entry, :vetted ] }, :all_curated_data_objects_hierarchy_entries, { :users_data_object => :vetted } ] },
+      :select => [ { :data_objects => :id } ])
     comments.each do |comment|
-      taxa << comment.parent_id.to_i if comment.parent_type == 'TaxonConcept'
+      @taxa_commented << comment.parent_id.to_i if comment.parent_type == 'TaxonConcept'
       if comment.parent_type == 'DataObject'
         object = comment.parent
         if !object.blank?
-          if object.association_with_best_vetted_status.class.name == 'DataObjectsHierarchyEntry' || object.association_with_best_vetted_status.class.name == 'CuratedDataObjectsHierarchyEntry'
-            taxa << object.association_with_best_vetted_status.hierarchy_entry.taxon_concept_id rescue nil
-          elsif object.association_with_best_vetted_status.class.name == 'UsersDataObject'
-            taxa << object.association_with_best_vetted_status.taxon_concept_id
+          best_association = object.association_with_best_vetted_status
+          if best_association.class.name == 'DataObjectsHierarchyEntry' || best_association.class.name == 'CuratedDataObjectsHierarchyEntry'
+            @taxa_commented << best_association.hierarchy_entry.taxon_concept_id rescue nil
+          elsif best_association.class.name == 'UsersDataObject'
+            @taxa_commented << best_association.taxon_concept_id
           end
         end
       end
     end
-    taxa.compact.uniq
+    @taxa_commented.compact!
+    @taxa_commented.uniq!
+    @taxa_commented
   end
 
   def total_comment_submitted
@@ -627,13 +631,13 @@ class User < Curator
   # the results to count each type, rcognize (!) that they each use their own :after clause.  So be careful.
   def notification_count
     self.activity_log(:news => true, :filter => 'all',
-      :after => User.find(self, :select => 'last_notification_at').last_notification_at,
+      :after => self.last_notification_at,
       :skip_loading_instances => true).count
   end
 
   def message_count
     self.activity_log(:news => true, :filter => 'messages',
-      :after => User.find(self, :select => 'last_message_at').last_message_at,
+      :after => self.last_message_at,
       :skip_loading_instances => true).count
   end
 

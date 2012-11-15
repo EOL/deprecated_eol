@@ -61,7 +61,7 @@ class Taxa::MediaController < TaxaController
       @media.map!{ |m| (m.guid == @exemplar_image.guid && m.id != @exemplar_image.id) ? @exemplar_image : m } unless @exemplar_image.nil?
     end
     
-    @media = DataObject.replace_with_latest_versions(@media)
+    DataObject.replace_with_latest_versions!(@media)
     includes = [ { :data_objects_hierarchy_entries => [ { :hierarchy_entry => [ :name, :hierarchy, { :taxon_concept => :flattened_ancestors } ] }, :vetted, :visibility ] } ]
     includes << { :all_curated_data_objects_hierarchy_entries => [ { :hierarchy_entry => [ :name, :hierarchy, { :taxon_concept => :flattened_ancestors } ] }, :vetted, :visibility, :user ] }
     DataObject.preload_associations(@media, includes)

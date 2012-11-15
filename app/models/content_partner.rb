@@ -50,7 +50,7 @@ class ContentPartner < ActiveRecord::Base
   end
   def can_be_created_by?(user_wanting_access)
     # NOTE: association with user object must exist for permissions to be checked as user can only have one content partner at the moment
-    user && user.content_partners.blank? && (user_wanting_access.id == user.id || user_wanting_access.is_admin?)
+    user && (user_wanting_access.id == user.id || user_wanting_access.is_admin?)
   end
 
   # has this partner submitted data_objects which are currently published

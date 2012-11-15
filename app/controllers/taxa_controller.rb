@@ -24,7 +24,7 @@ class TaxaController < ApplicationController
     
     @summary_text = @taxon_concept.overview_text_for_user(current_user)
     
-    @map = @taxon_concept.data_objects_from_solr({
+    map_results = @taxon_concept.data_objects_from_solr({
       :page => 1,
       :per_page => 1,
       :data_type_ids => DataType.image_type_ids,
@@ -32,18 +32,23 @@ class TaxaController < ApplicationController
       :vetted_types => ['trusted', 'unreviewed'],
       :visibility_types => ['visible'],
       :ignore_translations => true,
+      :skip_preload => true
     })
+    @map = map_results.blank? ? nil : map_results.first
     limit = @map.blank? ? 4 : 3
     media = promote_exemplar_image(@taxon_concept.images_from_solr(limit, @selected_hierarchy_entry, true))
-    @media = @map.blank? ? media : media[0..2] + @map
-    @media = DataObject.replace_with_latest_versions(@media)
-    includes = [ { :data_objects_hierarchy_entries => [ { :hierarchy_entry => [ :name, :hierarchy, { :taxon_concept => :flattened_ancestors } ] }, :vetted, :visibility ] } ]
-    includes << { :all_curated_data_objects_hierarchy_entries => [ { :hierarchy_entry => [ :name, :hierarchy, { :taxon_concept => :flattened_ancestors } ] }, :vetted, :visibility, :user ] }
+    @media = @map.blank? ? media : media[0..2] + [ @map ]
+    
+    @media << @summary_text if @summary_text
+    DataObject.replace_with_latest_versions!(@media, :select => [ :description ])
+    includes = [ { :data_objects_hierarchy_entries => [ { :hierarchy_entry => [ :name, { :hierarchy => { :resource => :content_partner } }, :taxon_concept ] }, :vetted, :visibility ] } ]
+    includes << { :all_curated_data_objects_hierarchy_entries => [ { :hierarchy_entry => [ :name, :hierarchy, :taxon_concept ] }, :vetted, :visibility, :user ] }
     includes << :users_data_object
     includes << :license
     includes << { :agents_data_objects => [ { :agent => :user }, :agent_role ] }
     DataObject.preload_associations(@media, includes)
     DataObject.preload_associations(@media, :translations , :conditions => "data_object_translations.language_id=#{current_language.id}")
+    @summary_text = @media.pop if @summary_text
     
     @watch_collection = logged_in? ? current_user.watch_collection : nil
     @assistive_section_header = I18n.t(:assistive_overview_header)

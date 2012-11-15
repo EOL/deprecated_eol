@@ -912,14 +912,16 @@ class TaxonConcept < ActiveRecord::Base
     # communities are sorted by the most number of members - descending order
     community_ids = communities.map{|c| c.id}.compact
     return [] if community_ids.blank?
-    temp = Member.select("community_id").group("community_id").where(["community_id IN (?)", community_ids]).
+    member_counts = Member.select("community_id").group("community_id").where(["community_id IN (?)", community_ids]).
       order('count_community_id DESC').count
-    if temp.blank?
+    if member_counts.blank?
       return communities
     else
-      communities_sorted_by_member_count = temp.keys.map {|c| Community.find(c) }
+      communities_sorted_by_member_count = member_counts.keys.map { |collection_id| communities.detect{ |c| c.id == collection_id } }
     end
-    return communities_sorted_by_member_count[0..2]
+    best_three = communities_sorted_by_member_count[0..2]
+    Community.preload_associations(best_three, :collections, :select => { :collections => :id })
+    return best_three
   end
 
   def communities

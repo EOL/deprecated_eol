@@ -62,7 +62,7 @@ class SearchController < ApplicationController
     modified_params = options[:params].dup
     modified_params.delete(:type) if modified_params[:type] == ['all']
     modified_params.delete(:sort_by) if modified_params[:sort_by] == 'score'
-    modified_params.delete_if{ |k, v| ![ :sort_by, :type ].include?(k) }
+    modified_params.delete_if{ |k, v| ![ 'sort_by', 'type' ].include?(k) }
     modified_params[:q] = @querystring
     if options[:total_results] > 1
       flash[:notice] = I18n.t(:flash_notice_redirected_from_search_html_more_results, :search_string => @querystring, :more_results_url => search_path(modified_params.merge({ :show_all => true })))

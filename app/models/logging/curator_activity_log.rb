@@ -56,6 +56,10 @@ class CuratorActivityLog < LoggingModel
     )
   end
 
+  def is_for_synonym?
+    changeable_object_type_id == ChangeableObjectType.synonym.id
+  end
+
   # Needed for rendering links; we need to know which association to make the link to
   def link_to
     case changeable_object_type_id

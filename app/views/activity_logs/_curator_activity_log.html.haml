@@ -22,10 +22,11 @@
   - translation_vars[:data_object] = link_to(item.data_object.summary_name, data_object_url(item.data_object),
     :style => link_style)
 - language_type = 'language'
-- if item.synonym.nil? || item.synonym.language.nil?
-  - language_type = 'an_unknown_language'
-- else
-  - translation_vars[:language] = item.synonym.language.label
+- if item.is_for_synonym?
+  - if item.synonym.nil? || item.synonym.language.nil?
+    - language_type = 'an_unknown_language'
+  - else
+    - translation_vars[:language] = item.synonym.language.label
 - association_type = 'association'
 - if item.unknown_association?
   - association_type = 'an_unknown_association'
@@ -37,10 +38,11 @@
     - translation_vars[:association] = link_to(raw(item.taxon_concept.title),
       taxon_url(item.taxon_concept), :style => link_style)
 - name_type = 'name'
-- if item.synonym.nil? || ! item.synonym.respond_to?(:name)
-  - name_type = 'an_unknown_name'
-- else
-  - translation_vars[:name] = item.synonym.name.string
+- if item.is_for_synonym?
+  - if item.synonym.nil? || ! item.synonym.respond_to?(:name)
+    - name_type = 'an_unknown_name'
+  - else
+    - translation_vars[:name] = item.synonym.name.string
 - taxon_type = taxon_concept ? 'it' : 'taxon'
 - if item.taxon_concept.nil? || ! item.taxon_concept.is_a?(TaxonConcept)
   - taxon_type = 'an_unknown_taxon'

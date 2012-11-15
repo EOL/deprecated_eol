@@ -1,7 +1,7 @@
 class ApiController < ApplicationController
 
   include ApiHelper
-
+  skip_before_filter :original_request_params, :global_warning, :clear_any_logged_in_sessions, :set_locale, :check_user_agreed_with_terms
   before_filter :check_version, :handle_key
   layout 'main' , :only => [ :index, :ping, :search, :pages, :data_objects, :hierarchy_entries, :hierarchies,
     :provider_hierarchies, :search_by_provider, :collections ]
@@ -285,7 +285,8 @@ class ApiController < ApplicationController
   def ping
     params[:format] ||= 'xml'
 
-    ApiLog.create(:request_ip => request.remote_ip, :request_uri => request.fullpath, :method => 'ping', :version => params[:version], :format => params[:format], :key => @key, :user_id => @user_id)
+    # Decided not to log pings because - do we really care? we use it a bunch so its creating extra load, and to make it faster
+    # ApiLog.create(:request_ip => request.remote_ip, :request_uri => request.fullpath, :method => 'ping', :version => params[:version], :format => params[:format], :key => @key, :user_id => @user_id)
 
     respond_to do |format|
       format.xml { render :layout => false }

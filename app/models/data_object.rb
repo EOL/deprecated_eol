@@ -237,6 +237,10 @@ class DataObject < ActiveRecord::Base
     DataObject.find(find_these, :select => 'id, object_title', :include => [:toc_items, :data_type])
   end
 
+  def self.still_published?(dato)
+    DataObject.find(:first, dato, :select => 'published').published? 
+  end
+
   # NOTE - you probably want to check that the user performing this has rights to do so, before calling this.
   def replicate(params, options)
     unless params[:license_id].to_i == License.public_domain.id || ! params[:rights_holder].blank?

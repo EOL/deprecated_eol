@@ -17,4 +17,8 @@ class TaxonConceptReindexing
     CodeBridge.reindex_taxon_concept(@taxon_concept.id, :flatten => @flatten)
   end
 
+  def clear_caches
+    TaxonConceptCacheClearing.new(@taxon_concept).clear
+  end
+
 end

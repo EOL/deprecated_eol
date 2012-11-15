@@ -78,6 +78,9 @@ class TocItem < ActiveRecord::Base
     InfoItem
     cached_find_translated(:label, 'Overview', :include => [ :info_items, { :parent => :info_items } ])
   end
+  def self.possible_overview_ids
+    [TocItem.brief_summary, TocItem.comprehensive_description, TocItem.distribution].map(&:id)
+  end
   def self.education
     InfoItem
     cached_find_translated(:label, 'Education', :include => [ :info_items, { :parent => :info_items } ])

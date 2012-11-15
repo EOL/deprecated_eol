@@ -308,7 +308,7 @@ class TaxonConcept < ActiveRecord::Base
     @best_image = nil
     @best_article = nil
     @gbif_map_id = nil
-    Rails.cache.delete(TaxonConcept.cached_name_for("best_article_#{self.id}"))
+    TaxonConceptCacheClearing.new(self).clear
     super
   end
 
@@ -1128,34 +1128,14 @@ class TaxonConcept < ActiveRecord::Base
   end
   
   def overview_text_for_user(the_user)
-    cache_key = "best_article_#{self.id}"
-    overview_toc_item_ids = [TocItem.brief_summary, TocItem.comprehensive_description, TocItem.distribution].collect{ |toc_item| toc_item.id }
-    
     TaxonConcept.prepare_cache_classes
-    
-    @best_article ||= Rails.cache.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 1.days) do
-      return @best_article if @best_article && DataObject.find(@best_article.id).published? 
-    end
-    
-    if published_exemplar = self.published_visible_exemplar_article
-      @best_article = published_exemplar
-    else
-      # Sending User.new here since overview text should be the same for all users - curators
-      # and admins should not see hidden text in the overview tab
-      overview_text_objects = self.text_for_user(User.new, {
-        :per_page => 30,
-        :language_ids => [ the_user.language.id ],
-        :allow_nil_languages => (the_user.language.id == Language.default.id),
-        :toc_ids => overview_toc_item_ids,
-        :filter_by_subtype => true })
-      DataObject.preload_associations(overview_text_objects, { :data_objects_hierarchy_entries => [ :hierarchy_entry,
-        :vetted, :visibility ] })
-      overview_text_objects = DataObject.sort_by_rating(overview_text_objects, self)
-      @best_article = (overview_text_objects.empty?) ? nil : overview_text_objects.first
-    end
-    
-    @best_article = nil if @best_article && @best_article.published == 0
-    @best_article
+    cached_key = TaxonConcept.cached_name_for("best_article_id_#{id}_#{the_user.language_id}")
+    best_article_id ||= Rails.cache.read(cached_key)
+    return nil if best_article_id == 0 # Nothing's available, quickly move on...
+    return DataObject.find(best_article_id) if best_article_id && DataObject.still_published?(best_article_id)
+    article = best_article_for_user(the_user)
+    Rails.cache.fetch(cached_key, :expires_in => 1.week) { article.nil? ? 0 : article.id }
+    article
   end
   
   # this just gets the TOCitems and their parents for the text given, sorted by view_order
@@ -1476,6 +1456,28 @@ class TaxonConcept < ActiveRecord::Base
   end
 
 private
+
+  # Assume this method is expensive.
+  def best_article_for_user(the_user)
+    if published_exemplar = published_visible_exemplar_article
+      published_exemplar
+    else
+      # Sending User.new here since overview text should be the same for all users - curators
+      # and admins should not see hidden text in the overview tab
+      overview_text_objects = text_for_user(User.new, {
+        :per_page => 30,
+        :language_ids => [ the_user.language.id ],
+        :allow_nil_languages => (the_user.language.id == Language.default.id),
+        :toc_ids => TocItem.possible_overview_ids,
+        :filter_by_subtype => true })
+      # TODO - really? #text_for_user returns unpublished articles?
+      overview_text_objects.delete_if {|article| ! article.published? }
+      DataObject.preload_associations(overview_text_objects, { :data_objects_hierarchy_entries => [ :hierarchy_entry,
+        :vetted, :visibility ] })
+      return nil if overview_text_objects.empty?
+      DataObject.sort_by_rating(overview_text_objects, self).first
+    end
+  end
 
   # Put the currently-preferred entry at the top of the list and load associations:
   def sort_and_preload_deeply_browsable_entries(set) 

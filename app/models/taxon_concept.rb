@@ -1304,6 +1304,13 @@ class TaxonConcept < ActiveRecord::Base
     TaxonConceptsFlattened.descendants_of(id).count
   end
 
+  # This is the "long" method, using PHP, to reindex a taxon page, and is not allowed if there are too many
+  # descendants.
+  def reindex(options = {})
+    disallow_large_curations unless options[:allow_large_tree]
+    CodeBridge.reindex_taxon_concept(id, :flatten => options[:flatten])
+  end
+
   # These methods are defined in config/initializers, FWIW:
   def reindex_in_solr
     remove_from_index

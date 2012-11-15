@@ -72,8 +72,9 @@ class ClassificationCuration < ActiveRecord::Base
       if failed?
         compile_errors_into_log
       else
-        CodeBridge.reindex_taxon_concept(source_id, :split => split?) if source_id
-        CodeBridge.reindex_taxon_concept(target_id, :split => split?) if target_id
+        # Allowing large trees, here, since you shouldn't have gotten here unless it was okay.
+        moved_from.reindex(:flatten => split?, :allow_large_tree => true) if source_id
+        moved_to.reindex(:flatten => split?, :allow_large_tree => true) if target_id
         log_activity_on(moved_from || moved_to)
         log_unlock_and_notify(Activity.unlock)
       end

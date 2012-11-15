@@ -54,8 +54,8 @@ class CodeBridge
 
   def self.reindex_taxon_concept(taxon_concept_id, options = {})
     args = {'cmd' => 'reindex_taxon_concept', 'taxon_concept_id' => taxon_concept_id}
-    if options[:split]
-      args['was_split'] = true
+    if options[:flatten]
+      args['flatten'] = true
     end
     Resque.enqueue(CodeBridge, args)
   end

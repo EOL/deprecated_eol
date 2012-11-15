@@ -688,7 +688,7 @@ describe TaxonConcept do
       @entries = [@taxon_concept.hierarchy_entries.second.id]
       @max_descendants = 10
       @too_many_descendants = (0..@max_descendants).to_a
-      SiteConfigurationOption.stub!(:max_curatable_descendants).and_return(@too_many_descendants)
+      SiteConfigurationOption.stub!(:max_curatable_descendants).and_return(@max_descendants)
     end
 
     before(:each) do
@@ -761,5 +761,30 @@ describe TaxonConcept do
 
   end
 
+  describe '#reindex' do
+
+    before(:all) do
+      @max_descendants = 10
+    end
+
+    before(:each) do
+      SiteConfigurationOption.stub!(:max_curatable_descendants).and_return(@max_descendants)
+    end
+
+    it 'should raise an error if too large' do
+      lambda {
+        @too_many_descendants = (0..@max_descendants).to_a
+        TaxonConceptsFlattened.should_receive(:descendants_of).with(@taxon_concept.id).and_return(@too_many_descendants)
+        @taxon_concpt.reindex
+      }.should
+        raise_error(EOL::Exceptions::TooManyDescendantsToCurate)
+    end
+
+    it 'should call CodeBridge for the reindexing (also checking flatten option)' do
+      CodeBridge.should_receive(:reindex_taxon_concept).with(@taxon_concept.id, :flatten => true).and_return(nil)
+      @taxon_concept.reindex(:flatten => true)
+    end
+
+  end
 
 end

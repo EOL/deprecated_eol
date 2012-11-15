@@ -2,7 +2,7 @@ class Admins::NewsItemsController < AdminsController
 
   # GET /admin/news_items
   def index
-    @news_items = NewsItem.paginate(:order=>'updated_at desc', :page => params[:page], :per_page => 25)
+    @news_items = NewsItem.paginate(:order=>'updated_at desc', :page => params[:page], :per_page => 25, :include => { :translations => :language })
     set_news_items_options
   end
 

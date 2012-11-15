@@ -7,6 +7,7 @@ class Taxa::DetailsController < TaxaController
   def index
     
     @text_objects = @taxon_concept.details_text_for_user(current_user)
+    DataObject.preload_associations(@text_objects, { :toc_items => :parent })
     @toc_items_to_show = @taxon_concept.table_of_contents_for_text(@text_objects)
     
     @data_objects_in_other_languages = @taxon_concept.text_for_user(current_user, {

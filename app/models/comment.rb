@@ -158,6 +158,7 @@ class Comment < ActiveRecord::Base
       'user_id' => self.user_id,
       'date_created' => self.created_at.solr_timestamp }
     EOL::Solr::ActivityLog.index_notifications(base_index_hash, notification_recipient_objects)
+    LoggingModel.clear_taxon_activity_log_fragment_caches(notification_recipient_objects)
   end
 
   def queue_notifications

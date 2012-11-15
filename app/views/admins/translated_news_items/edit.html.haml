@@ -1,3 +1,6 @@
+= content_for :head do
+  = javascript_include_tag "ckeditor/init"
+
 #content_page_edit
   .article.copy
     = form_for @news_item, :url => admin_news_item_translation_path(@news_item, @translated_news_item),

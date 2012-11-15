@@ -287,8 +287,18 @@ $(function() {
     duration: 200
   });
 
+  $('a.reindex').click(function() {
+    var $reindex = $('a.reindex')
+    $reindex.fadeTo(225, 0.3);
+    if($('#flashes')[0] == undefined) {
+      $('#page_heading div.page_actions').after('<div id="flashes" style="clear: both; width: 100%;"></div>');
+    }
+    EOL.ajax_submit($(this), { url: $reindex.attr('href'), data: {}, update: $('#flashes') });
+    return(false);
+  });
+
   EOL.enableRatings();
-  
+
   // initiates march of life on homepage
   $('.thumbnails ul li').each(function() {
     var number_of_slides = $('.thumbnails ul li').length;

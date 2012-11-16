@@ -1,4 +1,4 @@
-class CollectedTaxon
+class CollectedTaxa
 
   class << self
     attr_accessor :includes, :selects
@@ -30,30 +30,34 @@ class CollectedTaxon
     :data_objects => [ :id, :object_cache_url, :data_type_id, :guid, :published ]
   }
 
-  attr_reader :taxon_concept
-  attr_reader :taxon_concept_id
+  attr_reader :taxon_concepts
+  attr_reader :taxon_concept_ids
 
-  def self.fetch(taxon_concept_id)
-    CollectedTaxon.new(taxon_concept_id).fetch
+  def self.fetch(taxon_concept_ids)
+    CollectedTaxa.new(taxon_concept_ids).fetch
   end
 
-  def initialize(taxon_concept_id)
-    @taxon_concept_id = taxon_concept_id
+  def initialize(taxon_concept_ids)
+    @taxon_concept_ids = taxon_concept_ids
+  end
+
+  def cache_key
+    TaxonConcept.cached_name_for("collected_taxa_#{taxon_concept_ids.hash}")
   end
 
   def fetch
-    @taxon_concept = Rails.cache.fetch(TaxonConcept.cached_name_for("collected_taxon_#{taxon_concept_id}"),
+    @taxon_concept = Rails.cache.fetch(cache_key,
                                        :expires_in => 1.week) do
-      instance = TaxonConcept.find(taxon_concept_id)
-      TaxonConcept.preload_associations(instance, CollectedTaxon.includes, :select => CollectedTaxon.selects)
+      instances = TaxonConcept.find(:all, taxon_concept_ids)
+      TaxonConcept.preload_associations(instances, CollectedTaxa.includes, :select => CollectedTaxa.selects)
       # TODO - this seems out of place:
-      EOL::Solr::DataObjects.lookup_best_images_for_concepts([instance])
-      instance.dup
+      EOL::Solr::DataObjects.lookup_best_images_for_concepts(instances)
+      instances.map(&:dup)
     end
   end
 
   def delete
-    Rails.cache.delete(TaxonConcept.cached_name_for("collected_taxon_#{taxon_concept_id}"))
+    Rails.cache.delete(cache_key)
   end
 
 end

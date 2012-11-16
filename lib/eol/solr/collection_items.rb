@@ -78,8 +78,9 @@ module EOL
       end
 
       def self.add_taxon_concept!(docs, options = {})
+        instances = CollectedTaxa.fetch(docs.map{|d| d['object_id']})
         docs.select {|d| d['instance']}.each do |doc|
-          doc['instance'].object = CollectedTaxon.fetch(doc['object_id'])
+          doc['instance'].object = instances.find {|i| i.id == doc['object_id'] }
         end
       end
 

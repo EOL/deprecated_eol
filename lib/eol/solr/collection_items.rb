@@ -78,41 +78,8 @@ module EOL
       end
 
       def self.add_taxon_concept!(docs, options = {})
-        return if docs.empty?
-        includes = [ { :preferred_entry => 
-          { :hierarchy_entry => [ { :name => [ :canonical_form, :ranked_canonical_form ] } , :hierarchy, :vetted ] } },
-          :taxon_concept_metric ]
-        selects = {
-          :taxon_concepts => '*',
-          :taxon_concept_preferred_entries => '*',
-          :taxon_concept_exemplar_images => '*',
-          :taxon_concept_metrics => [ :taxon_concept_id, :richness_score ],
-          :hierarchy_entries => [ :id, :rank_id, :name_id, :identifier, :hierarchy_id, :parent_id, :published, :vetted_id, :visibility_id, :lft, :rgt, :taxon_concept_id, :source_url ],
-          :names => [ :id, :string, :italicized, :canonical_form_id, :ranked_canonical_form_id ],
-          :canonical_forms => [ :id, :string ],
-          :hierarchies => [ :id, :agent_id, :browsable, :outlink_uri, :label ],
-          :vetted => [ :id, :view_order ],
-          :hierarchy_entries_flattened => '*',
-          :ranks => '*',
-          :data_objects => [ :id, :object_cache_url, :data_type_id, :guid, :published ]
-        }
-        if options[:view_style] == ViewStyle.annotated
-          includes << { :preferred_common_names => [ :name, :language ] }
-          includes << { :preferred_entry => 
-            { :hierarchy_entry => [ { :flattened_ancestors => { :ancestor => :name } },
-              { :name => [ :canonical_form, :ranked_canonical_form ] } , :hierarchy, :vetted ] } }
-          includes << { :taxon_concept_exemplar_image => :data_object }
-        end
-        ids = docs.map{ |d| d['object_id'] }
-        instances = TaxonConcept.find_all_by_id(ids)
-        TaxonConcept.preload_associations(instances, includes, :select => selects)
-        unless options[:view_style] == ViewStyle.list
-          EOL::Solr::DataObjects.lookup_best_images_for_concepts(instances)
-        end
-        docs.each do |d|
-          if d['instance']
-            d['instance'].object = instances.detect{ |i| i.id == d['object_id'].to_i }
-          end
+        docs.select {|d| d['instance']}.each do |doc|
+          doc['instance'].object = CollectedTaxon.fetch(doc['object_id'])
         end
       end
 

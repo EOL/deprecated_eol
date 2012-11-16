@@ -6,7 +6,9 @@ describe EOL::Solr::CollectionItems do
     load_scenario_with_caching(:testy)
     @testy = EOL::TestInfo.load('testy')
     @collection = Collection.gen
-    @collection.add @testy[:taxon_concept]
+    TaxonConcept.all.each do |tc| # Collect ALL the taxa!
+      @collection.add tc
+    end
     EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection_items_by_ids(@collection.collection_items.map {|i| i.id})
   end
 

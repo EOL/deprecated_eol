@@ -16,7 +16,7 @@ module EOL
     end
     
     def self.working_directory
-      Rails.root.join('public', 'sitemap')
+      Rails.root.join(Rails.public_path, 'sitemap')
     end
     
     def self.destroy_all_sitemap_files

@@ -59,18 +59,18 @@ describe EOL::ActivityLog do
   # Okay, based on the above examples, I'm going to henceforth assume that sorting by date works.  ...because
   # handling taxon concepts is tricky, I would rather break up the tests without worrying about it:
   it 'should work with TaxonConcept' do
-    xpect 'Taxon Concept Comments show up'
+    # 'Taxon Concept Comments show up'
     Comment.gen(:parent => @testy[:taxon_concept], :parent_type => 'TaxonConcept')
     @testy[:taxon_concept].activity_log.first['instance'].class.should == Comment
     @testy[:taxon_concept].activity_log.first['instance'].parent_id.should == @testy[:id]
-    xpect 'Image comments show up'
+    # 'Image comments show up'
     Comment.gen(:parent => @testy[:taxon_concept].images_from_solr.first)
     @testy[:taxon_concept].reload
     # TODO ... this isn't working, yet:
     if false
       @testy[:taxon_concept].activity_log.first['instance'].class.should == Comment
       @testy[:taxon_concept].activity_log.first['instance'].parent_id.should == @testy[:taxon_concept].images_from_solr.first.id
-      xpect 'Comments on the children of this TC show up'
+      # 'Comments on the children of this TC show up'
       Comment.gen(:parent => @testy[:child1])
       @testy[:taxon_concept].reload
       @testy[:taxon_concept].activity_log.first['instance'].class.should == Comment

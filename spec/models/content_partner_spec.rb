@@ -68,7 +68,6 @@ describe ContentPartner do
     Resource.gen(:content_partner => cp)
     cp.reload
     cp.has_unpublished_content?.should be_true
-    Rails.cache.clear
   end
 
   it "should know the date of the last action taken" do

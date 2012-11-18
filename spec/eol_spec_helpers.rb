@@ -217,13 +217,6 @@ module EOL
         loader.load_with_caching
       end
 
-      def xpect(what)
-        $EOL_EXPECTATION_COUNT ||= 0
-        $EOL_EXPECTATION_COUNT += 1
-        $EOL_CURRENT_EXPECTATIONS ||= []
-        $EOL_CURRENT_EXPECTATIONS << what
-      end
-
       def oauth_request_data(provider, oauth_protocol = 1)
         case oauth_protocol
         when 1

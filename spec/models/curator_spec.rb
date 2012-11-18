@@ -110,7 +110,7 @@ describe 'Curator' do
     user.is_member_of?(CuratorCommunity.get).should_not be_true
     user.grant_curator(:assistant)
     user.is_member_of?(CuratorCommunity.get).should be_true
-    xpect 'It should also work when instantly self-approved'
+    # 'It should also work when instantly self-approved'
     user = User.gen(:curator_level_id => nil)
     user.is_member_of?(CuratorCommunity.get).should_not be_true
     user.update_attributes(:requested_curator_level_id => CuratorLevel.assistant.id)

@@ -36,7 +36,7 @@ RSpec.configure do |config|
   truncate_all_tables_once
 
   config.after(:each) do
-    Rails.cache.clear if $CACHE
+    Rails.cache.clear if Rails.cache
   end
 
   # If true, the base class of anonymous controllers will be inferred

@@ -18,14 +18,14 @@ describe ClassificationsController do
   it 'should work, dammit' do
     session[:user_id] = @curator.id
     post :create, :taxon_concept_id => @taxon_concept.id, :hierarchy_entry_id => @hierarchy_entry.id
-    xpect 'and only have one CTCPE'
+    # 'and only have one CTCPE'
     CuratedTaxonConceptPreferredEntry.count("taxon_concept_id = #{@taxon_concept.id}").should == 1
     ctcpe = CuratedTaxonConceptPreferredEntry.last
-    xpect 'and the CTCPE should point to the right things'
+    # 'and the CTCPE should point to the right things'
     ctcpe.taxon_concept_id.should == @taxon_concept.id
     ctcpe.hierarchy_entry_id.should == @hierarchy_entry.id
     ctcpe.user_id.should == @curator.id
-    xpect 'and should log the right thing'
+    # 'and should log the right thing'
     cal = CuratorActivityLog.last
     cal.user.should == @curator
     cal.changeable_object_type.should == ChangeableObjectType.curated_taxon_concept_preferred_entry

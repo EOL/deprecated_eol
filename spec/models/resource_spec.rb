@@ -24,7 +24,6 @@ describe Resource do
     @resource.latest_published_harvest_event.should == @latest_published_harvest_event
   end
   it "should return the resource's latest harvest event" do
-    Rails.cache.clear
     @resource.latest_harvest_event.should == @latest_published_harvest_event
   end
 

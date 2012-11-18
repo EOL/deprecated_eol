@@ -3,12 +3,12 @@ module EOL
     
     def initialize
       super
-      @working_directory = Rails.root.join('public', 'sitemap', 'images')
+      @working_directory = Rails.root.join(Rails.public_path, 'sitemap', 'images')
       @final_file_prefix = 'http://' + @@default_url_options[:host] + '/sitemap/images/sitemap_'
     end
     
     def self.working_directory
-      Rails.root.join('public', 'sitemap', 'images')
+      Rails.root.join(Rails.public_path, 'sitemap', 'images')
     end
     
     def build(options={})

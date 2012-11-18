@@ -1,5 +1,3 @@
-Rails.cache ||= Rails.cache
-
 class String
 
   # Normalize a string for better matching, e.g. for searches

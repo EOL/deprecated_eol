@@ -5,7 +5,7 @@ class Taxa::TaxonConceptReindexingController < TaxaController
 
   def create
     begin
-      TaxonConceptReindexing.new(@taxon_concept, :flatten => true).reindex
+      TaxonConceptReindexing.reindex(@taxon_concept, :flatten => true)
       flash[:notice] = I18n.t(:this_page_will_be_reindexed)
     rescue EOL::Exceptions::ClassificationsLocked
       flash.now[:error] = I18n.t(:error_classifications_locked_cannot_reindex)

@@ -4,6 +4,10 @@ class TaxonConceptReindexing
 
   attr_reader :taxon_concept
 
+  def self.reindex(taxon_concept, options)
+    TaxonConceptReindexing.new(taxon_concept, options).reindex
+  end
+
   def initialize(taxon_concept, options)
     @taxon_concept = taxon_concept
     @allow_large_tree = options[:allow_large_tree]
@@ -18,7 +22,7 @@ class TaxonConceptReindexing
   end
 
   def clear_caches
-    TaxonConceptCacheClearing.new(@taxon_concept).clear
+    TaxonConceptCacheClearing.clear(@taxon_concept)
   end
 
 end

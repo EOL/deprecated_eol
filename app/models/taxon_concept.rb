@@ -308,7 +308,7 @@ class TaxonConcept < ActiveRecord::Base
     @best_image = nil
     @best_article = nil
     @gbif_map_id = nil
-    TaxonConceptCacheClearing.new(self).clear
+    TaxonConceptCacheClearing.clear(self)
     super
   end
 

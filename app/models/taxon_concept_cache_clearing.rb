@@ -17,7 +17,6 @@ class TaxonConceptCacheClearing
   def clear
     clear_exemplars
     clear_media_counts
-    clear_partials
   end
 
 private
@@ -39,12 +38,6 @@ private
       Rails.cache.delete(TaxonConcept.cached_name_for("media_count_#{taxon_concept.id}_#{entry}"))
       Rails.cache.delete(TaxonConcept.cached_name_for("media_count_#{taxon_concept.id}_#{entry}_curator"))
     end
-  end
-
-  def clear_partials
-    Rails.cache.delete "production/taxon_concepts/media_count_#{taxon_concept.id}_curator"
-    Rails.cache.delete "production/taxon_concepts/media_count_#{taxon_concept.id}"
-    Rails.cache.delete "production/taxon_concepts/best_image_#{taxon_concept.id}"
   end
 
 end

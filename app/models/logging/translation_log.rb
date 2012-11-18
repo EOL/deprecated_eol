@@ -7,7 +7,3 @@ class Logging::TranslationLog < LoggingModel
     end
   end
 end
-
-# TEMP!  I'm testing things. Delete this.
-class TranslationLog
-end

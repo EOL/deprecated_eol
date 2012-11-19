@@ -1,4 +1,4 @@
-class Logging::TranslationLog < LoggingModel
+class TranslationLog < LoggingModel
   def self.inc(which)
     if $ENABLE_TRANSLATION_LOGS
       self.connection.execute(

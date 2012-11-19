@@ -234,11 +234,18 @@ class Collection < ActiveRecord::Base
     "Collection ##{id}: #{name}"
   end
 
-  # TODO - we should only call this when the collection is "known" to be iNat-enabled, even if this is denormalized
-  # information.  As-is, we're pinging iNat every time we load a collection page, which is too often.
+  # This method will return the value from the cache, as long as the cache is populated. The cache is getting populated
+  # when a JQuery call is made to collections/cache_inaturalist_projects. So a common workflow would be:
+  # there is no cache, call the iNat API for one collection on collection page load, but recognize the whole lot
+  # is not cached, make the JQuery call to the caching method. All subsequent requests will read directly from the cache
   def inaturalist_project_info
-    # TODO - move this to an environment variable:
-    url = "http://www.inaturalist.org/projects.json?source=http://eol.org/collections/#{id}"
+    # return the cached info if we have it
+    if cached_projects = Rails.cache.fetch("collections/inaturalist_projects_cached")
+      return cached_projects[id]
+    end
+
+    # otherwise, look it up directly from inaturalist. A background JQuery call will be made to cache the entire list
+    url = "#{INATURALIST_COLLECTION_API_PREFIX}?source=http://eol.org/collections/#{id}"
     begin
       response = Net::HTTP.get(URI.parse(url)) # TODO - add a VERY SHORT timeout, here.
       JSON.parse(response)[0]
@@ -251,6 +258,39 @@ class Collection < ActiveRecord::Base
     others_collection_items.collect do |ci|
       ci.collection ? ci.collection.communities.where('published = 1') : nil
     end.flatten.compact.uniq
+  end
+
+  def self.inaturalist_projects_need_caching?
+    return false if Rails.cache.fetch("collections/inaturalist_projects_cached");
+    # the caching process has already started somewhere else, so don't double up
+    return false if Rails.cache.fetch("collections/inaturalist_projects_caching_in_progress");
+    return true
+  end
+
+  def self.cache_all_inaturalist_projects
+    Rails.cache.fetch("collections/inaturalist_projects_cached", :expires_in => 24.hours) do
+      # set an in progress flag so we don't attempt do cache this information more than once
+      Rails.cache.fetch("collections/inaturalist_projects_caching_in_progress") { true }
+
+      all_inaturalist_projects = {}
+      page = 1
+      response = Net::HTTP.get(URI.parse("#{INATURALIST_COLLECTION_API_PREFIX}?page=#{page}"))
+      json_response = JSON.parse(response)
+      while !json_response.blank?
+        json_response.each do |i|
+          if i['source_url'] && matches = i['source_url'].match(/eol\.org\/collections\/([0-9]+)/)
+            all_inaturalist_projects[matches[1].to_i] = i
+          end
+        end
+        page += 1
+        response = Net::HTTP.get(URI.parse("#{INATURALIST_COLLECTION_API_PREFIX}?page=#{page}"))
+        json_response = JSON.parse(response)
+      end
+
+      # delete the in progress flag, and create the completed flag
+      Rails.cache.delete("collections/inaturalist_projects_caching_in_progress")
+      all_inaturalist_projects
+    end
   end
 
 private

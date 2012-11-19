@@ -108,7 +108,7 @@ end
 if $ENABLE_TRANSLATION_LOGS
   module I18n
     def self.translate_with_logging(*args)
-      Logging::TranslationLog.inc(args[0])
+      TranslationLog.inc(args[0])
       I18n.translate_without_logging(*args)
     end
     class << self

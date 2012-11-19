@@ -55,3 +55,10 @@
       - else
         = render :partial => 'collections/show_annotated_style', :locals => { :editable => editable, :parent_form => f }
       = will_paginate @collection_results, :previous_label => previous_label, :next_label => next_label, :inner_window => 2, :outer_window => 2
+
+- if Collection.inaturalist_projects_need_caching?
+  :javascript
+    $(window).load(function() {
+      $.ajax({ url: "/collections/cache_inaturalist_projects" });
+    });
+    

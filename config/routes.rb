@@ -163,6 +163,7 @@ EolUpgrade::Application.routes.draw do
       get 'choose'
     end
     collection do
+      get 'cache_inaturalist_projects'
       get 'choose_collect_target'
       get 'choose_editor_target'
       post 'collect_item'

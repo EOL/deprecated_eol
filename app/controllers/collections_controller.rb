@@ -3,13 +3,13 @@ class CollectionsController < ApplicationController
 
   before_filter :login_with_open_authentication, :only => :show
   before_filter :modal, :only => [:choose_editor_target, :choose_collect_target]
-  before_filter :find_collection, :except => [:new, :create, :choose_editor_target, :choose_collect_target]
+  before_filter :find_collection, :except => [:new, :create, :choose_editor_target, :choose_collect_target, :cache_inaturalist_projects]
   before_filter :prepare_show, :only => [:show]
   before_filter :user_able_to_edit_collection, :only => [:edit, :destroy] # authentication of update in the method
   before_filter :user_able_to_view_collection, :only => [:show]
   before_filter :find_parent, :only => [:show]
   before_filter :find_parent_for_current_user_only,
-    :except => [:show, :collect, :watch, :choose_editor_target, :choose_collect_target]
+    :except => [:show, :collect, :watch, :choose_editor_target, :choose_collect_target, :cache_inaturalist_projects]
   before_filter :configure_sorting_and_filtering_and_facet_counts, :only => [:show, :update]
   before_filter :build_collection_items, :only => [:show]
   before_filter :load_item, :only => [:choose_editor_target, :choose_collect_target, :create]
@@ -163,6 +163,13 @@ class CollectionsController < ApplicationController
       end
       format.js { render :partial => 'choose_collect_target' }
     end
+  end
+
+  def cache_inaturalist_projects
+    if Collection.inaturalist_projects_need_caching?
+      Collection.cache_all_inaturalist_projects
+    end
+    render :nothing => true
   end
 
 protected

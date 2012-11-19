@@ -165,10 +165,9 @@ class CollectionsController < ApplicationController
     end
   end
 
+  # TODO - this should really be its own resource in its own controller.
   def cache_inaturalist_projects
-    if Collection.inaturalist_projects_need_caching?
-      Collection.cache_all_inaturalist_projects
-    end
+    InaturalistProjectInfo.cache_all if InaturalistProjectInfo.needs_caching?
     render :nothing => true
   end
 

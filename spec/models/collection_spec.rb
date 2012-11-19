@@ -184,6 +184,12 @@ describe Collection do
     collection.default_view_style.should == ViewStyle.gallery
   end
 
+  it '#inaturalist_project_info should call InaturalistProjectInfo' do
+    collection = Collection.gen
+    InaturalistProjectInfo.should_receive(:get).with(collection.id)
+    collection.inaturalist_project_info
+  end
+
   it 'has other unimplemented tests but I will not make them all pending, see the spec file'
   # should know when it is "special" TODO - do we need this anymore?  I don't think so...
   # should know when it is a resource collection.

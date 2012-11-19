@@ -106,9 +106,9 @@ module EOL
         ids = docs.map{ |d| d['object_id'] }
         instances = TaxonConcept.find_all_by_id(ids)
         TaxonConcept.preload_associations(instances, includes, :select => selects)
-        unless options[:view_style] == ViewStyle.list
-          EOL::Solr::DataObjects.lookup_best_images_for_concepts(instances)
-        end
+        # unless options[:view_style] == ViewStyle.list
+        #   EOL::Solr::DataObjects.lookup_best_images_for_concepts(instances)
+        # end
         docs.each do |d|
           if d['instance']
             d['instance'].object = instances.detect{ |i| i.id == d['object_id'].to_i }

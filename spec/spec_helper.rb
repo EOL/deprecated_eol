@@ -12,6 +12,7 @@ require 'eol_scenarios'
 require Rails.root.join('lib', 'eol_data')
 EolScenario.load_paths = [ Rails.root.join('scenarios') ]
 
+require 'eol_data'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.

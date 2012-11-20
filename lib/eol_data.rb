@@ -30,8 +30,8 @@ module EOL
     end
 
     def self.drop
-      raise "This action is ONLY available in the development, test, and test_master environments." unless
-        Rails.env.development? || Rails.env.test? || Rails.env.test_master?
+      raise "This action is ONLY available in the development and test environments." unless
+        Rails.env.development? || Rails.env.test?
       EOL::DB.all_connections.each do |connection|
         connection.drop_database connection.current_database
       end

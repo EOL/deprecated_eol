@@ -60,7 +60,7 @@ private
   # TODO - this should be in the DB.
   def vetted_weight
     @@vetted_weight = {Vetted.trusted.id => 1, Vetted.unknown.id => 2, Vetted.untrusted.id => 3, Vetted.inappropriate.id => 4} if
-      Rails.env.test? || Rails.env.test_master?
+      Rails.env.test?
     @@vetted_weight ||= {Vetted.trusted.id => 1, Vetted.unknown.id => 2, Vetted.untrusted.id => 3, Vetted.inappropriate.id => 4}
   end
 

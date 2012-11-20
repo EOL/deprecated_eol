@@ -76,23 +76,6 @@ test_logging:
   <<: *tst
   database: eol_logging_test
 
-# for testing read/write splitting
-test_master:
-  <<: *common
-  <<: *tst
-  database: eol_test_master
-
-test_master_data:
-  <<: *common
-  <<: *tst
-  database: eol_data_test_master
-
-test_master_logging:
-  <<: *common
-  <<: *tst
-  database: eol_logging_test_master
-
-
 ############################
 integration:
   <<: *common

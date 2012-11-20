@@ -203,8 +203,6 @@ describe Name do
   describe  "::find_by_string" do
     it "should return a name" do
       name = Name.find_by_string(" Some           Name Auth,     1923  ")
-      debugger if name.nil?
-      debugger if @name.nil?
       name.string.should == @name.string
     end
   end

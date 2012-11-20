@@ -484,7 +484,6 @@ describe "Collections" do
       # "test" is picking up is NOT the collection activity. If that's the case, re-write the test to check for
       # something more specific to adding that item to the collection. (Which makes more sense anyway; this is too
       # broad.)
-      debugger if body =~ /Profile picture of #{user.full_name} who took this action/
       body.should_not include("Profile picture of #{user.full_name} who took this action.")
       visit collection_newsfeed_path(new_collection)
       body.should_not include("Profile picture of #{user.full_name} who took this action.")
